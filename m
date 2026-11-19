@@ -1,102 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795120917;
-	b=i6EgHUmoLV57jf3xTckD1pc8sXunqqnhiru/dwflEjHnTyTDVpXnzCVdkOGfmoopmsQs
-	 wive53aEonSqjxXFs4PMq76+giWHtdB6yR1dHNe7Y9amcmLcRwVa680/DDuIHhHYn4PqY
-	 S4UIk6DGFTho3LWsOw3BxgXgLQTWaMEJrm49QqiGbVJy6P3k+urlGqCq8pIEWpMDg2IpP
-	 ajF4+sojs7Mj9FpTjlQgpW2PqqgyWYFC51RgbqN5bWP2mbaYhufYCMCYkDoZL5ampau5P
-	 1Zjbqx+lrGTo/khDEWnjkRZs/GtKwWJyiYqC7oi0H2X083dfx0D0RkHDihzUrGxjqWw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795120917;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IHKj1NH2KrcvksreDL0wVDmiCBC+yCIlOPb+zhfda2k=;
-	b=R+1BF9pYkFSK0DfJIrSRUwn5PvBJCIlDclv2aG74R1rai4jw3mI3Cqwq/Wo3g6T3Ym3b
-	 CPPNXwBei9ahZfTzPg5muscMzfVOWH1ICS+4Fj9KOWYYFFjzAQaTvvsLyzDaluiDnwOdy
-	 AH+3cT+CPW6oPZp7WIWRLbDs6ghn+fnFDOwvEfZro7kWG0B8s626+dNfV+1U6VsAhA//K
-	 e28Gsn2SkQmIJNZKY6sgivc4SUTf0H/6LMgzBjQ+iFz5GIb1z42ulUMcKUJnXz2+1M/8k
-	 wmz7ybabIcCnJSL8Ao5RL2h4WRvnEAgmBQMmjUBsIf1ivGiLG47XLLcyxo4SYRV1GfA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mTX4LBWu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.52
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013052.outbound.protection.outlook.com [40.107.159.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795121063;
+	b=rJRp+jzQrf+HEwGT2XXRVWHs1GQ9k/id9moDIQAaPdQaKukHpUuuxNF+6L1jMu/fr7X5
+	 18anKf4w/J3XIu3jiu5EJd0YmfNSJamjqg2THNMpvM3I3Gm1kLJr3FaiGOdbkhEHCA1VV
+	 QSmFvmM53ol/eXDGdX9BxW+t07svTl9rslNMcJMH4zJhoap3Atd/o+b37ENSaaer6sh/i
+	 VBs5lzx5P7fBUuPQ36zPeb0I+I+DuwcBkMW+bv4t7YTnsWdbqll4QVqff/Ei092IFneDz
+	 PvbiglZfvPVz6lszZtoWsHmQ+dMyn+2pPpBVtRHMrG8mE1qtMnU7luiB5BXHPv5HWSw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795121063;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=us/swDW+0MFA2SvkQqeJj7GMq8SlSvgHW9TCeExgemo=;
+	b=tDnk0qluf1CLxnTcQ0zaBkv8kh2gpuNnYySqQ2lF+7St3JQXeYQcUJ6a9K52tRTCDluj
+	 M8aQNjYfmvG9kfa60LCJ7PCdh0NO+JyvdZToGFTkbbOSUOYNVbItHHW4Edev3zAb2m2LL
+	 O+BsXh1m2sCOBHrCrJjGNAGTQTxQfxd3lzIqRPQu/9Dw9UT/3MwrxIcg/IYv16tZsy+Ys
+	 NHvA77UnlmZezMAfG+YQCrc49nanIJVKonz7T75aictanKosrDQ40iwiGywCV6eZrBVBL
+	 gF5BENm5XzPSWMbvhgFd9+U4gDpLGUOmPdr8iZt8V3+kvxzIk3zBGQtnNpbEttuLboQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=rDkIjsGH;
+	arc=none smtp.remote-ip=209.85.222.172
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CD2606B74C;
-	Thu, 19 Nov 2026 20:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47CD2606B74C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E664A606B76A
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 20:44:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E664A606B76A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mTX4LBWu
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gMXr2bTKf6tOwZVhsmYv+bRD82xHjbq3vMQ0Zk+8kKJesbciu/K+KLSJ0Z0Xyb4vf9Ng9fjQjpXV2XK9341gEyuSa2IRSPJCei9XfHIKPH8c1LfCJzMl19vJzlRUAVh7YgRWBpT0hPODUWilvz42zMa/e1j2wa+YvuYcqWXNpmbGAIdBVrSoGPAy7Tz817nw827TwaEH5c6Bx1Hs6Jyhj9Sy7DM/IopZqYgi5c8VEbXDtK8Bn2aFZwo5Yv6TU1mBfIBJD9dE2k9LtN+gSSXmnw0xcrpskqY4iHM5hxfhn4R9DfgA2Bb8FIyycPnEpNpsEf2lxfjsvKg9FHEQKmQA/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IHKj1NH2KrcvksreDL0wVDmiCBC+yCIlOPb+zhfda2k=;
- b=hTkvluB19boreZ+CHEAyn1pzFs7U2KdNnO9TkpGQa3zN0b7Kjj7pZ7WmipPoq+9LCp64ADAyXXhk4hKsUx2BWsILhPOw+gpfjXII0g2veWGq3fdq4K+fWI3XnAfnM3Lri6I4FLpct54oGi+hlIPvMO4kpFMPWgzEMoRdtBUX9FXkeWPa6fMve/ouAbrBP6nihdv9otlKWVdKCFkCGxCn+ZjAlBhuXoNafbG5ES2GTGUCTg54+SVzvC0ucOFAJqXCOtDUsPc8NtArqrbEtnsHwZxB6AnrFH8E7Dkn+SwQDXsF7AWUFbiP+OETlpM782+tWPolF1njqP1rVdofbku+vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IHKj1NH2KrcvksreDL0wVDmiCBC+yCIlOPb+zhfda2k=;
- b=mTX4LBWuguKj3C3lKCfgUVG6PRB4wz7WqBTXWSKWNv1fawqgd3+p86pwUMxfMY0t306rMcPoSlnVv7hwvrEyWfap/DmcBQC9VkgTQYZAf6RtZ2HACqmmiwsLafrNdCFC8Jar6zoyt+1e/9D7TCKO+Rn7eFU3oNDXao8qs06BjVVhMUyTO3E7+bPcFedg2Tzam920UleUWjEaqmJM16kX2mwWgi2PvjgDF1Efdmnes0FKD8VpQzJ3EQFrgLEGG/p7o20AzK5pThTgmcbDwhtL4QHMY8rXsUpwJss+Y7hzbf+Lpm6VB+d+BvoZbcQZL246rS4yONqAJhn7H77tawZCgw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PAXPR04MB9256.eurprd04.prod.outlook.com (2603:10a6:102:2ba::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Thu, 19 Nov
- 2026 20:41:51 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
- 20:41:51 +0000
-From: Frank.Li@oss.nxp.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	wei.fang@oss.nxp.com
-Cc: Frank Li <Frank.Li@nxp.com>,
-	wei.fang@nxp.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] arm64: dts: imx94: add NETC switch node
-Date: Thu, 19 Nov 2026 15:41:45 -0500
-Message-ID: <179512090110.1802238.769378710113302535.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110031918.89948-1-wei.fang@oss.nxp.com>
-References: <20261110031918.89948-1-wei.fang@oss.nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7PR17CA0011.namprd17.prod.outlook.com
- (2603:10b6:510:324::20) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=rDkIjsGH
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-9496577d4c4so13213385a.1
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 12:44:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795121062; x=1795725862; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=us/swDW+0MFA2SvkQqeJj7GMq8SlSvgHW9TCeExgemo=;
+        b=rDkIjsGHGQOOrh35hLdYB48V6JN0+gzx4bHM7kVvCu/13WU6U9WlX8caRiuSfAscOX
+         PLkDahS3IGH+/8JbvK4rVgIcY8LnnqQgfJIzNde/+1YDeYbkOBqQfl15MA/ulS/zeNdZ
+         eCeLu8HM0UHl2Oejx/k4kxsKtkLLpmJv0cIAwaIkKkNrVPZxiqixwfCPu0UeXV57ljcW
+         zj8QKn0SOtcJuptQJ2cdhnmgYcnjSEWCDSY2MFtpyET1F60Ks49HP0bOdlpkF+E5UbCv
+         9rOI+lvEVnuTZpItGfsjohJxcrwJCm4WcdNZT/k/cxbSvd4cAdhXoeSYJGgkn4bhUMbQ
+         3TiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795121062; x=1795725862;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=us/swDW+0MFA2SvkQqeJj7GMq8SlSvgHW9TCeExgemo=;
+        b=uwGQ7h0ukZfsF8rewJo+34qIM63mUbVUkQgBvVkOO0x8v6opCK0npz/gFawsyLSWpZ
+         CiQ5KTDlTJntF7GcPO0VNZlNvgWpgrYOLKRZLm+fWgHs/1fedgpxGKmqYR33d6A7/mQy
+         EP9/pO8YPvAVDycs0vpTGhTd1Oea/27+T3sKrjeRGlIz7wZADpdv99vBspmP1/fOve4S
+         lNCdK+WaUEZoTbd1hNvi89cCZXvCNYTG/YNuAkRyqRzyLjFvdfIgIObjHLftaU+f5BJ9
+         Bg5sTfvy3tBEbfyE8Zv0/2d9cjacKiF09JPriT1+bjJJrAdaskcfY9dJ3+f+7GTeb2TD
+         dpuw==
+X-Forwarded-Encrypted: i=1; AL+hErFEAWxBdP3Fc8mPtPMHMFXwRGZwyj9WYxnmxiviVf1kCwpbn2o3ox4g+RP3X1tQfA6IergEEUCrdwMo@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Kv/oX4ZUknyxoiWgam8GjYRZdVijgZypHJTF5VGCgf3DDdqLV
+	V0vc+sxaI/UwwKYWJHGfJjyAfLlUwnaL/xgqzuBm+1kHOLFlz7ED2dgk21Z0vtdZXDg=
+X-Gm-Gg: AYBFou1Dx2sjkQrfD2R7DNc0UC9yWxOe4/NTbwVnF6s5BvVEaw5kiLwYbtH6xamg+m9
+	kkYYBQ0hU7uImTGvHy8IaxqczJYaIB8oMS+TzEly/LwerkdxvJ7tno+zjj9utGuhLIBPZLuZYXP
+	bSTJcYx4UqoOGvLP+rvtmWg7v19Uf+X8U4Z0m2gPO8hUljJjy6urBAURmlO0hnwtJVpyMP9pY11
+	fuPorL+TZ7XorsLtlEjXx0VbY+iNJhMAjqP3uaLQrH8q+LUd6OE8zEi9GBs1A2TKCTlpChqSFtg
+	YN3xVFO9e9LTPemdTd9/XfvRFTLDiMFzDL77/NCqrMYSv1OVcNix0hAAJ+3xU4UqMwY6A94TVCq
+	+QQ/TIv7mxwjrG9seyjOQtydN8hGK3ZHHjjucW3gi6G9nNk721/4nnU5oRkGyceBMDbJPaszGBp
+	OVc/cP+dL+l71FKsL26lmF/oXuW6K7qVfKGiAvkDcPgi9yF1oI54GZc6+h0OBOt7COEEmMWphzc
+	ATMZ87KN12EyRVEd6T6yYuT0CVuAStackBNIDz/t0yux9kB/NuzgeHugrI51q3l6kRDkDbCE0F8
+	/UhNImBLPjR0cEPCkC7uHR3I9Ev/bArxJhnrZ28sWjqr1Eys4CcItLc=
+X-Received: by 2002:a05:620a:8802:b0:943:fe60:3748 with SMTP id af79cd13be357-949ba9d164fmr134691485a.25.1795121061732;
+        Thu, 19 Nov 2026 12:44:21 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb38b0fbsm47040385a.20.2026.11.19.12.44.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 12:44:20 -0800 (PST)
+Message-ID: <3415e7b52c3d05214ec125b2b4f8612129c53ae0.camel@ndufresne.ca>
+Subject: Re: [RFC PATCH 07/28] media: mali-vpu: implement TRY_FMT and S_FMT
+ ioctls
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
+ Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
+ <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
+Date: Thu, 19 Nov 2026 15:44:19 -0500
+In-Reply-To: <20261119153758.1426673-8-charvi.mehta@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+	 <20261119153758.1426673-8-charvi.mehta@arm.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-7FuWGsgEm19K23CwFDyg"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,91 +119,429 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB9256:EE_
-X-MS-Office365-Filtering-Correlation-Id: 178451c8-7bc9-4f9a-2e7e-08df467d8a20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|7416014|376014|23010399003|1800799024|22082099003|18002099003|261009223027099003|11063799006|56012099006|10067099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	y+SmNz/M30MbB9rTJ8BNCJBxZRwwAOjTBK6YPfSS+TFD+xFcrF+CUgllUH1xe9dmX8HYgLh1REfk0ds75uCet1E/ZsTiz0lXgLXSd+wputgqdlohv4qsu/99t5rfMgfVeH+Uw42o2IYDphFapz9tSwcfYHWvuF1ON412IGew6Ib5RAZF+rIHfGJaLsAVfwx75V2GxyVPs0goNcMul8pXBlBpDbZZFBzJerGAz08DASQYNbT28ahDUJ9nglQNUdZT6E7Tk4aEkl5ZpeNhvAmv9QivTr70h7iJJWeTJ9fUp5mzhG8Gs/4tibtLoON1u+0cwajWg6yoAbwzWKA7xYbOvaRf7pFobGtWRHrM6PRzqfvBrk22HJV2VtF2u63Mk0X0WqEC0TG5amIfGsFJQ0tsiq5FxDCJ+C115/pLWl7AJJ2OAiai9tHYxWEFm4ycawTHAqoS1b9JxpBowOZ+UJrYG1PwJ6TNWXVs5gM3d90rMWMbDFsWgEwGC0XMg8m7ocZbPpXuZ03y8bokgnzCr+rKKfynSw5regGHf6bDy0vXmQwJsnOvOIWmxEyAIw2y16eMc4qikuPB0ivdcCu7dtdrmCqsqSaLkU2TvvMZP64zcozdQMns3z+5WrYrS/bBYg8ustE+I004hCntGvFk5pWLd07v1VAOrcO++6OYyzlG19w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(7416014)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(261009223027099003)(11063799006)(56012099006)(10067099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MXFkTG5YYjVWYUZEM3Bvb2RPVStJUmxOMTIrMEVOUDF1R3FOOXRHSEdwbElH?=
- =?utf-8?B?a1dXSCt0SjB5UU9rZVdJRkJEbHBGem1IR0J1TndLSzlkWWNtSmNEcmtZUE1z?=
- =?utf-8?B?WUs0cTAxbFRtN2ZkMG56QytDRzk5YmRublhhYzNLTEM0MzVuYjVyNXhUOERp?=
- =?utf-8?B?SXYrNnZXN3dqTlhSUTNlcWROVTZlZlRuMDdaRmlXKzdkYlYzS2J5enNjUUMv?=
- =?utf-8?B?L3B6d1BJL21laE9PbGZSTkI4QUs1VXhXQjYxZnVPNUsya2xNbEJMYmg5aHhT?=
- =?utf-8?B?UWlmdlpUNUxpaXJJUitJZDlRRlliVFZ6NTg5OEwvSFEvNEx2WWlhQW9nSzZB?=
- =?utf-8?B?bW9Jb2RhQWZqdGt6OGZKK0k4S1A1VFMvT0NzT3ZIUGVnWTJpZXhTMkFIK21H?=
- =?utf-8?B?dmdiTEFUeDAzSm83T2NpVWZFSkxZclZ1RFZyYVBtTGk4YTFwcXZ4TFhVYUhk?=
- =?utf-8?B?TDNrS09Va2pVUGZZWDlmdGlvRnNXc3hKN2Z6anNwdkg2ZUF1R3pKTE42MHo1?=
- =?utf-8?B?aXI4M2l3Nm10VkIxUVkxMG9pSmJDTnVjeXpDa3hkVm5NdCtrWmpURnVvSHUv?=
- =?utf-8?B?ZDlGcmZXVWJFZmxuSVRJN0FMaHh0b1NiM05sQ1NYT1F6VnlxSjRnNUxyb1dx?=
- =?utf-8?B?RXZBWUtNMjNjeUVLQnlPUFFONG1tNU5ZdmJrM3JwaHVhbjZQZE5hWTloZDYv?=
- =?utf-8?B?TlFQZzdhMnZiRXI3dGpnYjh5TFJucUh3S3V3WlVXYmRaWFJzSElCY1duQlov?=
- =?utf-8?B?TWEyeDBNT0lGS0pEN05RUlJhVTJqM3FoZ3dibVhZMm5xYjJGUnFYQ2hYZkhv?=
- =?utf-8?B?REFLbzhQR2VRKzBRczU1SzdHNWtHMzlOamJLWWRQZ3NFUzQ0ak9VcGJtelp5?=
- =?utf-8?B?eTNBT0s3MllwU1M2UCtVdThjcHM2ZXVMdWs4OWtSNm10MHpkeXJzTEYwRmxZ?=
- =?utf-8?B?dGhWMXBUdTFWZnhJMmF3dkVmMW5nRFpNMHJHbGtwdms4N0R5RnJrWTNtdGhX?=
- =?utf-8?B?OExFdU1hTjd1aHhqaGRpZWZnQWorN0thTnQ2NkRFMHNqcTMxaGFBV05xZ3pr?=
- =?utf-8?B?SG9hblM1OUNDSU5lQ09UVFdDNVBUbWQxTmtrNi9jSEN4ZlB3UzZaYjNRcTho?=
- =?utf-8?B?QjFhYkR5MEpDa1IrdWFvUkVXc0VRL2M3L01Nd1UwT0Mrd2ZGdElNcEhoZzNx?=
- =?utf-8?B?cXNQOWoyWFozQnpGdWVsaUFrdE1kSTFBWUxGV0I1UmFpQ2xPSGRKREdOUmkx?=
- =?utf-8?B?Qk04UW8yK2lZTTZURVlOMUVjZyt5K0NwOXZxZGNEb3dYUnA4WDluSUorUzNO?=
- =?utf-8?B?OXNFWWFneXFYcEp4VzR0bTdIZ2FiZnJJbHkrS0thSmtrTDVPQkFLU1VzZXI4?=
- =?utf-8?B?UDc5RVg2bHdYUzVGdWdpMWhFT1ltY3cvY0JBYkwrTnBUbHpKKzJVOGEreW5h?=
- =?utf-8?B?NGNqdHVWL0NOV3NuR0hMUzFRaFZtT2NxKy9kcFR3SVNNa0FSMUIvYjlnYUdX?=
- =?utf-8?B?ZmVCaER6L2hWbjhiejhPNlRrR1VlS3pGRVZBSXBQb0JYMmppOUVDeHdZSEkx?=
- =?utf-8?B?TE42Q1ZhcDhsdy9GenhuS2FzRys5WElwZEFKekxtTHA1Q0RTTkpoM0haOTdU?=
- =?utf-8?B?dklXU0t0MkdoaVVWMUxYYTFuc3ZQQ3NKTnhLeFVKME9pM3p3QmRPV2RUYlk3?=
- =?utf-8?B?ZmY5K1NSRXEzU25DWHZzWDh5TDhaYXFMWVV1NXN1YnN6N01FWHVUV2c0SUhu?=
- =?utf-8?B?aTUyUURFZWpiREVXak5FOGJoVHBHaytrck14VFFHazZnSEo5WHdsK0JNRWxw?=
- =?utf-8?B?dTJqNi82blp3NmxIWFoxZGozOEgyQ0xWeWFPNTJjUHFGWGU0RUlWNmROZlky?=
- =?utf-8?B?cnM4WkNiVHZsTWptN3lhVkcxbGI0RkJsci9QWjdaa2pzRlhrT3RxZHE0QVc3?=
- =?utf-8?B?eHFTNUxrNWRCcmc0bWk2ZTR1ZDg5VGxaUENOTmVad1FzWThxekRlTVFlM1Fo?=
- =?utf-8?B?VUNneExKRmROQzlMUTR1T1Y2WGEramhZakZpc09qbkJHUmxCY1BRMERwZzdj?=
- =?utf-8?B?ZG1KY2lreTZyYlV3N1d2QXJNNnZsdEtDSVU3bmpHeXB1SmlvRWxCWUpjckpZ?=
- =?utf-8?B?c0F0cUJNbzBLV1RKeEhKSEVOYVNXQWNsT1pmUXV0MFU0eHFjYTA3ZkJTL0Vx?=
- =?utf-8?B?d01OcnVaQ3VRMmpsTEVyb25LNlFyMlpmblloODRlVXN5SDBRUEpXcXhCMU9z?=
- =?utf-8?B?OE1ZVnpHZmVlU2dTODNDdktiUG43YmYwNmhNR3VKa2RJUlo4TWpwd1MvVnJj?=
- =?utf-8?B?QjRkdHU5WWFJTWY5cmxJSmZyK1R6RlRROXd5cDlTVWh2SmtiRXozOHh1blZn?=
- =?utf-8?Q?ZQh4YMCksHvw2LmKSUnR6lfDFubAjS1DHBpsC?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 178451c8-7bc9-4f9a-2e7e-08df467d8a20
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 20:41:51.3161
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BnO+IePKEXSFXe4EOzI4xf6Rex1XM7MQE/BXhnLGqGvvW32vq1tChrM1tIMIFLkYjeVYvBEIa48EnPfnjfBQfq+WIhuIeg2sNC3d/TG83P5uJXEPF+onbMU/wsfSXFF2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9256
 
-From: Frank Li <Frank.Li@nxp.com>
+--=-7FuWGsgEm19K23CwFDyg
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
-On Tue, 10 Nov 2026 11:19:17 +0800, wei.fang@oss.nxp.com wrote:
-> The NETC switch of i.MX94 has three user ports and one CPU port. The CPU
-> port connects to an internal ENETC (enetc3) through the pseudo link. The
-> "dsa,member" property is used to specify the switch index, which is
-> reflected in the switch tag as an indication of the switch ID where the
-> frame originated.
-> 
-> 
-> [...]
+skipped a bit, while I remember...
 
-Applied, thanks!
+Le jeudi 19 novembre 2026 =C3=A0 15:37 +0000, Charvi Mehta a =C3=A9crit=C2=
+=A0:
+> Implement VIDIOC_TRY_FMT and VIDIOC_S_FMT for the decoder OUTPUT and
+> CAPTURE queues.
+>=20
+> Move format lookup and buffer layout calculation into shared helpers so
+> session initialization and format negotiation use the same sizing rules.
+>=20
+> Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
+> ---
+>  drivers/media/platform/arm/mali-vpu/Makefile  |   3 +-
+>  .../platform/arm/mali-vpu/mali-vpu-formats.c  |  81 +++++++++++
+>  .../platform/arm/mali-vpu/mali-vpu-formats.h  |  10 ++
+>  .../platform/arm/mali-vpu/mali-vpu-session.c  |  24 +---
+>  .../platform/arm/mali-vpu/mali-vpu-vidioc.c   | 132 +++++++++++++++---
+>  5 files changed, 209 insertions(+), 41 deletions(-)
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-formats.=
+c
+>=20
+> diff --git a/drivers/media/platform/arm/mali-vpu/Makefile b/drivers/media=
+/platform/arm/mali-vpu/Makefile
+> index 94ddde02fc528..1dc62621d9dc0 100644
+> --- a/drivers/media/platform/arm/mali-vpu/Makefile
+> +++ b/drivers/media/platform/arm/mali-vpu/Makefile
+> @@ -6,6 +6,7 @@ mali-vpu-objs :=3D mali-vpu-probe.o \
+>  =09=09mali-vpu-session.o \
+>  =09=09mali-vpu-dec.o \
+>  =09=09mali-vpu-buffer.o \
+> -=09=09mali-vpu-vb2.o
+> +=09=09mali-vpu-vb2.o \
+> +=09=09mali-vpu-formats.o
+> =20
+>  obj-$(CONFIG_VIDEO_MALI_VPU) +=3D mali-vpu.o
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c b/dri=
+vers/media/platform/arm/mali-vpu/mali-vpu-formats.c
+> new file mode 100644
+> index 0000000000000..d268435432371
+> --- /dev/null
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c
+> @@ -0,0 +1,81 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 ARM Limited.
+> + */
+> +
+> +#include <linux/errno.h>
+> +#include <linux/minmax.h>
+> +#include <linux/mm.h>
+> +#include <linux/overflow.h>
+> +#include <linux/string.h>
+> +#include <media/v4l2-common.h>
+> +
+> +#include "mali-vpu-formats.h"
+> +#include "mali-vpu-session.h"
+> +
+> +const struct mali_vpu_format_desc *
+> +mali_vpu_find_format(struct mali_vpu_session *sess, u32 pixfmt,
+> +=09=09     enum v4l2_buf_type type)
+> +{
+> +=09const struct mali_vpu_format_list *fmt_list;
+> +=09u32 i;
+> +
+> +=09switch (type) {
+> +=09case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+> +=09=09fmt_list =3D &sess->port_src.supported_fmts;
+> +=09=09break;
+> +=09case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+> +=09=09fmt_list =3D &sess->port_dst.supported_fmts;
+> +=09=09break;
+> +=09default:
+> +=09=09return NULL;
+> +=09}
+> +
+> +=09for (i =3D 0; i < fmt_list->num_fmts; i++) {
+> +=09=09if (fmt_list->fmts[i].fourcc =3D=3D pixfmt)
+> +=09=09=09return &fmt_list->fmts[i];
+> +=09}
+> +
+> +=09return NULL;
+> +}
+> +
+> +int mali_vpu_fill_pixmp_fmt(const struct mali_vpu_format_desc *fmt,
+> +=09=09=09    u32 width, u32 height,
+> +=09=09=09    struct v4l2_pix_format_mplane *pix_mp)
+> +{
+> +=09u32 sizeimage;
+> +=09int ret;
+> +
+> +=09memset(pix_mp->reserved, 0, sizeof(pix_mp->reserved));
+> +=09memset(pix_mp->plane_fmt, 0, sizeof(pix_mp->plane_fmt));
+> +=09pix_mp->flags =3D 0;
+> +
+> +=09if (fmt->flags & V4L2_FMT_FLAG_COMPRESSED) {
+> +=09=09pix_mp->width =3D width;
+> +=09=09pix_mp->height =3D height;
+> +=09=09pix_mp->pixelformat =3D fmt->fourcc;
+> +=09=09pix_mp->num_planes =3D 1;
+> +=09=09pix_mp->plane_fmt[0].bytesperline =3D 0;
+> +
+> +=09=09/*
+> +=09=09 * Use one byte per pixel as the default compressed sizeimage,
+> +=09=09 * with a minimum of one page, aligned to a page boundary.
+> +=09=09 */
+> +=09=09if (check_mul_overflow(width, height, &sizeimage))
+> +=09=09=09return -EOVERFLOW;
+> +
+> +=09=09sizeimage =3D max_t(u32, PAGE_SIZE, sizeimage);
+> +
+> +=09=09if (sizeimage > U32_MAX - (PAGE_SIZE - 1))
+> +=09=09=09return -EOVERFLOW;
 
-[1/2] arm64: dts: imx94: add NETC switch node
-      commit: de50945e3adef9a925146b5eae21d8af6d1003c7
-[2/2] arm64: dts: imx943-evk: enable NETC switch
-      commit: 621ba627f8ffb90d15a03b5793351ce513f6e78e
+The "moved" code is not exactly identical, and this is not said in the comm=
+it
+message. Depending on you max_width/height, this might all be exaggerated.
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+> +
+> +=09=09pix_mp->plane_fmt[0].sizeimage =3D PAGE_ALIGN(sizeimage);
+> +
+> +=09} else {
+> +=09=09ret =3D v4l2_fill_pixfmt_mp(pix_mp, fmt->fourcc, width, height);
+> +=09=09if (ret)
+> +=09=09=09return ret;
+> +=09}
+> +
+> +=09return 0;
+> +}
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h b/dri=
+vers/media/platform/arm/mali-vpu/mali-vpu-formats.h
+> index 13031809fdb4d..5703142b93b46 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h
+> @@ -7,6 +7,9 @@
+>  #define __MALI_VPU_FORMATS_H__
+> =20
+>  #include <linux/types.h>
+> +#include <linux/videodev2.h>
+> +
+> +struct mali_vpu_session;
+> =20
+>  enum mali_vpu_codec_fmt {
+>  =09MALI_VPU_FORMAT_CODEC_H264,
+> @@ -24,4 +27,11 @@ struct mali_vpu_format_list {
+>  =09u32 num_fmts;
+>  };
+> =20
+> +const struct mali_vpu_format_desc *mali_vpu_find_format(struct mali_vpu_=
+session *sess,
+> +=09=09=09=09=09=09=09u32 pixfmt,
+> +=09=09=09=09=09=09=09enum v4l2_buf_type type);
+> +int mali_vpu_fill_pixmp_fmt(const struct mali_vpu_format_desc *fmt,
+> +=09=09=09    u32 width, u32 height,
+> +=09=09=09    struct v4l2_pix_format_mplane *pix_mp);
+> +
+>  #endif /* __MALI_VPU_FORMATS_H__ */
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/dri=
+vers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> index 95050296f9904..6867f51287f48 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> @@ -5,14 +5,12 @@
+> =20
+>  #include <linux/err.h>
+>  #include <linux/errno.h>
+> -#include <linux/minmax.h>
+> -#include <linux/mm.h>
+>  #include <linux/string.h>
+> -#include <media/v4l2-common.h>
+>  #include <media/v4l2-mem2mem.h>
+> =20
+>  #include "mali-vpu-session.h"
+>  #include "mali-vpu-dec.h"
+> +#include "mali-vpu-formats.h"
+>  #include "mali-vpu-variant.h"
+>  #include "mali-vpu-vb2.h"
+> =20
+> @@ -32,23 +30,9 @@ static int mali_vpu_set_port_fmt(struct mali_vpu_port =
+*port,
+>  =09memset(&port->curr_fmt, 0, sizeof(port->curr_fmt));
+>  =09port->curr_fmt.type =3D type;
+> =20
+> -=09if (fmt_default->flags & V4L2_FMT_FLAG_COMPRESSED) {
+> -=09=09pix_mp->pixelformat =3D fmt_default->fourcc;
+> -=09=09pix_mp->num_planes =3D 1;
+> -=09=09pix_mp->width =3D width;
+> -=09=09pix_mp->height =3D height;
+> -=09=09pix_mp->plane_fmt[0].bytesperline =3D 0;
+> -
+> -=09=09/*
+> -=09=09 * Use one byte per pixel as the default compressed sizeimage,
+> -=09=09 * with a minimum of one page, aligned to a page boundary.
+> -=09=09 */
+> -=09=09pix_mp->plane_fmt[0].sizeimage =3D PAGE_ALIGN(max_t(u32, PAGE_SIZE=
+, width * height));
+> -=09} else {
+> -=09=09ret =3D v4l2_fill_pixfmt_mp(pix_mp, fmt_default->fourcc, width, he=
+ight);
+> -=09=09if (ret)
+> -=09=09=09return ret;
+> -=09}
+> +=09ret =3D mali_vpu_fill_pixmp_fmt(fmt_default, width, height, pix_mp);
+> +=09if (ret)
+> +=09=09return ret;
+> =20
+>  =09pix_mp->field =3D V4L2_FIELD_NONE;
+> =20
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c b/driv=
+ers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+> index b993255b8c817..dd142527a1a0c 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+> @@ -7,6 +7,7 @@
+>  #include <linux/module.h>
+>  #include <linux/slab.h>
+>  #include <linux/string.h>
+> +#include <media/v4l2-common.h>
+>  #include <media/v4l2-dev.h>
+>  #include <media/v4l2-fh.h>
+>  #include <media/v4l2-ioctl.h>
+> @@ -168,32 +169,119 @@ static int mali_vpu_g_fmt(struct file *filp, void =
+*fh, struct v4l2_format *fmt)
+>  =09return ret;
+>  }
+> =20
+> -static const struct mali_vpu_format_desc *mali_vpu_find_format(struct ma=
+li_vpu_session *sess,
+> -=09=09=09=09=09=09=09       u32 pixfmt, u32 type)
+> +static int mali_vpu_try_format_common(struct mali_vpu_session *sess, str=
+uct v4l2_format *fmt)
+>  {
+> -=09const struct mali_vpu_format_desc *fmt_list;
+> -=09u32 num_fmts;
+> -=09u32 i;
+> +=09const struct mali_vpu_framesize_caps *fmsz =3D &sess->vpu_dev->varian=
+t->frmsz_caps;
+> +=09struct v4l2_pix_format_mplane *pix_mp =3D &fmt->fmt.pix_mp;
+> +=09const struct mali_vpu_format_desc *vpu_fmt;
+> +=09const struct v4l2_format *port_fmt, *port_fmt_dec;
+> +=09struct vb2_queue *src_q;
+> +=09u32 w, h;
+> +=09int ret =3D 0;
+> =20
+> -=09switch (type) {
+> -=09case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+> -=09=09fmt_list =3D sess->port_src.supported_fmts.fmts;
+> -=09=09num_fmts =3D sess->port_src.supported_fmts.num_fmts;
+> -=09=09break;
+> -=09case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+> -=09=09fmt_list =3D sess->port_dst.supported_fmts.fmts;
+> -=09=09num_fmts =3D sess->port_dst.supported_fmts.num_fmts;
+> -=09=09break;
+> -=09default:
+> -=09=09return NULL;
+> +=09vpu_fmt =3D mali_vpu_find_format(sess, pix_mp->pixelformat, fmt->type=
+);
+> +=09if (!vpu_fmt) {
+> +=09=09port_fmt =3D mali_vpu_get_port_fmt(sess, fmt->type);
+
+Maybe it would be better called get_default_port_fmt() ?
+
+> +=09=09if (!port_fmt)
+> +=09=09=09return -EINVAL;
+> +
+> +=09=09*pix_mp =3D port_fmt->fmt.pix_mp;
+> +=09=09return 0;
+> +=09}
+> +
+> +=09/* Requested format found, validate other fields */
+> +=09w =3D pix_mp->width ? pix_mp->width : fmsz->width_default;
+> +=09h =3D pix_mp->height ? pix_mp->height : fmsz->height_default;
+
+No, width =3D 0 should return min_width, same for height, just drop, and le=
+t the
+below function do that. The default width/height are what you set on a fres=
+h
+session.
+
+> +
+> +=09v4l2_apply_frmsize_constraints(&w, &h, &fmsz->stepwise);
+> +
+> +=09/* Decode CAPTURE queue: lock geometry to input if streaming */
+> +=09if (sess->role =3D=3D MALI_VPU_DECODER && fmt->type =3D=3D V4L2_BUF_T=
+YPE_VIDEO_CAPTURE_MPLANE) {
+> +=09=09src_q =3D v4l2_m2m_get_src_vq(sess->m2m_ctx);
+> +=09=09if (vb2_is_streaming(src_q)) {
+> +=09=09=09port_fmt_dec =3D &sess->port_src.curr_fmt;
+> +=09=09=09w =3D port_fmt_dec->fmt.pix_mp.width;
+> +=09=09=09h =3D port_fmt_dec->fmt.pix_mp.height;
+> +=09=09}
+
+This is try_fmt, it should not care if you are streaming or not.
+
+> +=09}
+> +
+> +=09ret =3D mali_vpu_fill_pixmp_fmt(vpu_fmt, w, h, pix_mp);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09if (pix_mp->field =3D=3D V4L2_FIELD_ANY)
+> +=09=09pix_mp->field =3D V4L2_FIELD_NONE;
+
+Well, only if you support interlaced.
+
+> +
+> +=09return 0;
+> +}
+> +
+> +static int mali_vpu_try_fmt(struct file *filp, void *fh, struct v4l2_for=
+mat *fmt)
+> +{
+> +=09struct mali_vpu_session *sess =3D mali_vpu_get_session(filp);
+> +=09int ret;
+> +
+> +=09mutex_lock(&sess->vq_lock);
+
+This is suspicious, the vb queue already do some locking in most of the vid=
+ioc
+call.
+
+> +
+> +=09ret =3D mali_vpu_try_format_common(sess, fmt);
+> +
+> +=09mutex_unlock(&sess->vq_lock);
+> +=09return ret;
+> +}
+> +
+> +static int mali_vpu_s_fmt(struct file *filp, void *fh, struct v4l2_forma=
+t *fmt)
+> +{
+> +=09struct mali_vpu_session *sess =3D mali_vpu_get_session(filp);
+> +=09struct vb2_queue *vq;
+> +=09struct v4l2_pix_format_mplane *pixmp_src =3D &sess->port_src.curr_fmt=
+.fmt.pix_mp;
+> +=09struct v4l2_pix_format_mplane *pixmp_dst =3D &sess->port_dst.curr_fmt=
+.fmt.pix_mp;
+> +=09int ret =3D 0;
+> +
+> +=09mutex_lock(&sess->vq_lock);
+> +
+> +=09vq =3D v4l2_m2m_get_vq(sess->m2m_ctx, fmt->type);
+> +=09if (vb2_is_busy(vq)) {
+> +=09=09ret =3D -EBUSY;
+> +=09=09goto mutex_unlock_return;
+>  =09}
+> =20
+> -=09for (i =3D 0; i < num_fmts; i++) {
+> -=09=09if (fmt_list[i].fourcc =3D=3D pixfmt)
+> -=09=09=09return &fmt_list[i];
+> +=09ret =3D mali_vpu_try_format_common(sess, fmt);
+> +=09if (ret)
+> +=09=09goto mutex_unlock_return;
+> +
+> +=09/* OUTPUT provides initial CAPTURE geometry */
+> +=09if (V4L2_TYPE_IS_OUTPUT(fmt->type)) {
+> +=09=09const struct mali_vpu_format_desc *cap_fmt;
+> +=09=09struct v4l2_pix_format_mplane *cap;
+> +=09=09struct v4l2_pix_format_mplane *fmt_mp =3D &fmt->fmt.pix_mp;
+> +
+> +=09=09cap =3D &sess->port_dst.curr_fmt.fmt.pix_mp;
+> +=09=09cap_fmt =3D mali_vpu_find_format(sess, cap->pixelformat,
+> +=09=09=09=09=09       V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+> +=09=09if (!cap_fmt) {
+> +=09=09=09ret =3D -EINVAL;
+> +=09=09=09goto mutex_unlock_return;
+> +=09=09}
+> +
+> +=09=09ret =3D mali_vpu_fill_pixmp_fmt(cap_fmt, fmt_mp->width, fmt_mp->he=
+ight, cap);
+> +=09=09if (ret)
+> +=09=09=09goto mutex_unlock_return;
+>  =09}
+> =20
+> -=09return NULL;
+> +=09if (V4L2_TYPE_IS_OUTPUT(fmt->type))
+> +=09=09sess->port_src.curr_fmt =3D *fmt;
+> +=09else
+> +=09=09sess->port_dst.curr_fmt =3D *fmt;
+> +
+> +=09/* Keep peer queue colorimetry aligned with input */
+> +=09if (V4L2_TYPE_IS_OUTPUT(fmt->type)) {
+> +=09=09pixmp_dst->colorspace=09=3D pixmp_src->colorspace;
+> +=09=09pixmp_dst->ycbcr_enc=09=3D pixmp_src->ycbcr_enc;
+> +=09=09pixmp_dst->quantization =3D pixmp_src->quantization;
+> +=09=09pixmp_dst->xfer_func=09=3D pixmp_src->xfer_func;
+> +=09}
+> +mutex_unlock_return:
+> +=09mutex_unlock(&sess->vq_lock);
+> +=09return ret;
+>  }
+> =20
+>  static int mali_vpu_validate_format(struct mali_vpu_session *sess, u32 p=
+ixfmt)
+> @@ -236,6 +324,10 @@ const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec =
+=3D {
+>  =09.vidioc_enum_fmt_vid_cap=09=3D mali_vpu_enum_fmt,
+>  =09.vidioc_g_fmt_vid_out_mplane=09=3D mali_vpu_g_fmt,
+>  =09.vidioc_g_fmt_vid_cap_mplane=09=3D mali_vpu_g_fmt,
+> +=09.vidioc_s_fmt_vid_out_mplane=09=3D mali_vpu_s_fmt,
+> +=09.vidioc_s_fmt_vid_cap_mplane=09=3D mali_vpu_s_fmt,
+> +=09.vidioc_try_fmt_vid_out_mplane=09=3D mali_vpu_try_fmt,
+> +=09.vidioc_try_fmt_vid_cap_mplane=09=3D mali_vpu_try_fmt,
+>  =09.vidioc_reqbufs=09=09=09=3D v4l2_m2m_ioctl_reqbufs,
+>  =09.vidioc_querybuf=09=09=3D v4l2_m2m_ioctl_querybuf,
+>  =09.vidioc_create_bufs=09=09=3D v4l2_m2m_ioctl_create_bufs,
+
+--=-7FuWGsgEm19K23CwFDyg
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9fowAKCRDZQZRRKWBy
+9BLWAPsH2t1xTpcIQXRyMPDRfl1cgAhKt/GsMxIXKOO0KlhsSgEAz2VlIE72+vov
+mW5Bj2INszhMWEg2qKWZ5/2XxLwNAwI=
+=mevG
+-----END PGP SIGNATURE-----
+
+--=-7FuWGsgEm19K23CwFDyg--
