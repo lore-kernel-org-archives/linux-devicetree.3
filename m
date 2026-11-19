@@ -1,90 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795060279;
-	b=1rwWLFlo6FpU65bcvMHftg+bWhbYAWcb2eiWtMGqbi1JtBrIk0ZHMUQcN0ltFeZ6zCXG
-	 YE6gvZRCqv/ICBghVonrbmBviD/zKxkXi7txoQuR7nXGaVsG7Pmx2g3E2XtLZn+XTUzxp
-	 j7UUwbZP2lOsOXB2cIfM+qxY44NfF9v7PnJSQ3sXEgCnm4ezpIiPi/Dh5hb6BuQtwDFiH
-	 GA2TgZowSXG1/Za/UAY/HaAW22mNpKv1wsRGvb9bS7R3TKKp3qpz3s3YC0pBP32wGL/VQ
-	 vFcBQHInigN6Rtg/huVsqfXoB0X+PnohhGhMaoSKnIdrG3GEUHsyff1AReRSQJx+4rQ==
+	t=1795060368;
+	b=R7fiYSyzvtGjhKn7tv5AwRiPyUBea5o42W205i/mul2Onm8TjARafiylde+3T5HXlmv/
+	 c/FYQuoJs3kGkH4KHfMmCrUsZnxg/A9gxdmjg0rUO0ynZ1fzKxJEvQ8z6DqSf+0RvNw/J
+	 Rf2APd9+HoIB8VYEqvmr53mv1POIM7BKYZ6YzVVOtB8j1FCj0tP2K2/kbf8oFFK49fTC3
+	 x+U4MK8qzczb4RE/1Gh2zD5xstFd5yL1+2rZy0Twl5SY0t1vJXddL/sZdZFVlK1uoBVUJ
+	 Nd5KUje2Cf1AHBsFOJFuMrs9i9G8l23SLwBG6taMSSFubcQR2rg1qWveBoS7/3VWMcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795060279;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Y7DHeu4nEWkVzcf2sVY8OIlNAFB3fB9C0wQws70L76k=;
-	b=FMV99baxuKJj6UDH4etYQoKzaB0Slsn1/D1ij2vbOm1ph8D31JEVsJLH2OVGrZrPMu/b
-	 Xv6xn9XMM8ox9gcMkxhbcLRLzPdxCTjpF3b9VC6vK8hjUTbp9rMdG61vTX4eJDnTMl01/
-	 2xNx8YWwfc22EKEAvtkfZONP4sWTrhNNbdLMYf9IjpMnGKcWNr+I38kUYCetj/9h02Cmz
-	 zmQNg0hN3lCUro+ePZ5mZ8o40Ro+4RXUa57Gikb6RT7KlWA5KxzH7JSjNi48m4kTquYeL
-	 n06CJvoJD8bx7T2nWbSJVniwfWVUTyGzDEEYvvpHoP7WK+R+jJ2iR0tTY57N5KSsz8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795060368;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=GItsSVGA+hmlSb3pkjtiaee8VXcySXBDfV85yqW7yYo=;
+	b=XN7in5+vuo+esJL5AHjKrctJJW1R+B+2sGpTEXEog0a1vrNVBlbOFsxciazlQ4UDAyBT
+	 CYSHyS/+/H+z7C++en9Rp7WqSJ0+warWaW/Ff6Jr73lfU4VErEW3HwPpVu2Ub64b5LP6p
+	 yQOAb6/q+170PaeWZzbrFrK5rNluTSff2KHpYY52TVJX6FYZmQEcL1Te2CeyM7WQ3IBUr
+	 Rrslhxh2E4GEWMGtnpdsGRhIWXG75bT166j7+m4oioYIBKs7CHLuSlxmTg8vEspX+WMCJ
+	 2vTrVjNSmVVJqYjnTcsDf113o67eOZhBZjNL/3yPS2xBau6hT7Tlbn21sWpPqzpp6LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=asK1udly;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=scpwGLIa;
+	arc=none smtp.remote-ip=203.254.224.24
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607CB606A320
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 03:51:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 607CB606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C58D606A32A
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 03:52:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C58D606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=asK1udly
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3ada81853so2052277c88.0
-        for <devicetree@vger.kernel.org>; Wed, 18 Nov 2026 19:51:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795060278; x=1795665078; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y7DHeu4nEWkVzcf2sVY8OIlNAFB3fB9C0wQws70L76k=;
-        b=asK1udlyHnjd4Ll6AZ4zKzTW/eiqYP+AfV5bMWEIYTPjfnVvc8kYt655lAOmadsADp
-         rPDaKkf1JrewE2hvwMtOqi08kIGn7VTtFP9IHl5uWt9lSJn4z1OvdxwjhjwXd7HjoHQ/
-         P4Pba4CkFmBRN02Hq/+5KeVSSkM0efROaOO6w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795060278; x=1795665078;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y7DHeu4nEWkVzcf2sVY8OIlNAFB3fB9C0wQws70L76k=;
-        b=juFURWNO52OVXfT31zxtgLZ8uFbiDs8FanIamavtDonff4rs4SSPE7z3jW8xW0pAj+
-         5h6ZWSu4DQrl7G8/VRtH4qkU+SbUZ6JVjj+GvMF2HQ0/KVi40dNvMWz2Fk1sfqLzuo0X
-         5b4vPfAjzupir/hXs/a5sfHZS9+hqYKlT4jcC4rmwzpI4Q8jQMahRLLxc6ccz6eYl0ng
-         YojUb7YdCEjAH+CNg4H8HpWfOcC5eicohvY8H/NFND9JwtI+UHQBmM7GjQSHerzmYgCm
-         VeJ4Ga8m+yOXN+AdVRpOnhDXVQYmF56lansMnznqLlTWGCgkkYkDtZPPAfY9b2AGmoja
-         66XA==
-X-Forwarded-Encrypted: i=1; AL+hErGIaxmAs+/GvC/r2LbxFn5Tf06/7owiciePBDmGbynUu5/uYbgI+7HExS/MKqtYnI09BBQx9Nm5eqAL@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AcTRuo+BVAzlmhKZoXdp+yCl8IDnNe2zYfPlWordMPRi9PYFc
-	kBedbkmvweoN/G834rY2xDumYFV2ZnCSzVVX/MksE5atJlyAEl+eZuFxY8h/Z8YzYg==
-X-Gm-Gg: AYBFou1HEJNM6AU5KChT79JwRCLbS0bj/p9vlOH4zOCuTNUf2ps7IJjqatTAco+o9Lx
-	4d4XDV2lFd1Jwwa8DhbeZHC5bp0ga+xBxUbv/F3Fdba/tJsBJSXCegX96mif5V7VxAckS7ctKvV
-	fI628ZQO5pEOT6qAAuEmVDJ8Q3Y9IoRuGNfDvpmu684oJxwdOuznkIBEYglr86yXLyu8JF94tq3
-	hyN4v9zIwnhy3UOs2JJyI2VZ+q5/pl5kJVokNfcNBTeMp3xvYxT0TdjZKR/x7XaCW/EqSZZ+2mX
-	HxYmAUCnOr+/Qxv0rdye4Dvpec7J1cKk4+bXoXFREjSqzBiRkzqqEpitEUyyOKGSGnRy6mmZCvL
-	TKx6ezTmVxU02E0T2eTMX8NQtDa3w0yf7hbQAV9PernEL9w9Een7IEGkr+IY5+EVBbjmjmz7nFB
-	N0UrTM89ExRKLCvp8flMfC0d6pw0/OqtAdvIqu+vzvqf0EGk6uk/Ei5TnFwN7pm2upUkZiIJ2NA
-	WoY+q4wUk9L4tU6SXBjmiH/pFmCLbBpo/GvF7sFQofmn7ItVOYM3p1n2eHz70dWqg2OAul9ReWU
-	JiRfpDLTtqdl/9f2rqiSKx/FWB4ruxMBsWaDHMUfcEpPa5IPkecz5UxvKwB+3Q==
-X-Received: by 2002:a05:7022:ea8d:b0:1ae:59d6:91cd with SMTP id a92af1059eb24-1b543d0cb92mr4257326c88.38.1795060278321;
-        Wed, 18 Nov 2026 19:51:18 -0800 (PST)
-Received: from localhost ([2a00:79e0:203d:7:5ec1:f878:4926:ab53])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b5447c5b02sm10392500c88.6.2026.11.18.19.51.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 19:51:17 -0800 (PST)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2] arm64: dts: mediatek: mt8173-elm: Clean up unused MT6397 regulators
-Date: Thu, 19 Nov 2026 11:51:12 +0800
-Message-ID: <20261119035113.4046607-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=scpwGLIa
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261119035244epoutp01b881d1ecc50683559a848a44585e4840~pVeQpO3Ki1383913839epoutp01r
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 03:52:44 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261119035244epoutp01b881d1ecc50683559a848a44585e4840~pVeQpO3Ki1383913839epoutp01r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1795060364;
+	bh=GItsSVGA+hmlSb3pkjtiaee8VXcySXBDfV85yqW7yYo=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=scpwGLIakHKeKIKPnnInJj9UZ5fFCTxB7xV3S4LDd+iGvU5eeir3qtAmIA3KOQ26P
+	 Nnp3qaWtLV8V/eREk/tjeQ2SaDxdF+Soyy96FXSL0BxKTTeBVHXnmz2/y7Yy0Vq+UR
+	 6Y4urXxRRxILNrdIb4nPXenq5jJvAjAqxU6K3PFg=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261119035243epcas5p454481e6b84a96f7d913461c10bffc693~pVePvEJsS1381613816epcas5p43;
+	Thu, 19 Nov 2026 03:52:43 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.94]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jVPgb1Y6Xz6B9m5; Thu, 19 Nov
+	2026 03:52:43 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261119035242epcas5p24269dbcd55378604ded876d89bc24ace~pVeOoguQe1332113321epcas5p2V;
+	Thu, 19 Nov 2026 03:52:42 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261119035240epsmtip23b287ee79b550d5d99b705423479e030~pVeMci5IC1577115771epsmtip2A;
+	Thu, 19 Nov 2026 03:52:40 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Peter Griffin'" <peter.griffin@linaro.org>, "'Raghav Sharma'"
+	<raghav.s@samsung.com>
+Cc: <krzk@kernel.org>, <s.nawrocki@samsung.com>, <cw00.choi@samsung.com>,
+	<sboyd@kernel.org>, <bmasney+clk@redhat.com>, <jbrunet+clk@baylibre.com>,
+	<robh@kernel.org>, <conor+dt@kernel.org>,
+	<linux-samsung-soc@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <is.gandhi@samsung.com>,
+	<ts.amit@samsung.com>, <pokala.reddy@samsung.com>
+In-Reply-To: <CADrjBPoR7_LDZmxC_bOFigvqDaagVihmybfX5AdvSPr9-FVb8w@mail.gmail.com>
+Subject: RE: [PATCH v3 06/14 RESEND] clk: samsung: clk-pll: Add support for
+ pll_4313
+Date: Thu, 19 Nov 2026 09:22:38 +0530
+Message-ID: <002901dd77d9$6ddef600$499ce200$@samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,99 +84,110 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJMpPSZ0SyccmPoxB6lh4WTmmzUIwGxlKqAAl95c38DMT8uKrYcTHkw
+Content-Language: en-us
+X-CMS-MailID: 20261119035242epcas5p24269dbcd55378604ded876d89bc24ace
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261113104847epcas5p1d970255218f1ca78b19690bfd097f303
+References: <CGME20261113104847epcas5p1d970255218f1ca78b19690bfd097f303@epcas5p1.samsung.com>
+	<20261113110612.3265841-1-raghav.s@samsung.com>
+	<20261113110612.3265841-7-raghav.s@samsung.com>
+	<CADrjBPoR7_LDZmxC_bOFigvqDaagVihmybfX5AdvSPr9-FVb8w@mail.gmail.com>
 
-Several MT6397 (MT6391) PMIC regulator nodes in mt8173-elm.dtsi are
-not actually used on either Elm or Hana according to the board
-schematics. They may have been copied from the EVB dts.
+Thanks Peter for review
 
-- buck_vgpu: Output pins are unconnected; GPU power is supplied by an
-  external DA9212 buck regulator instead.
-- ldo_va28: Only connected to a decoupling capacitor for the PMIC's
-  internal audio codec and fuel gauge ADC blocks, both of which are
-  unused as both boards use an external ALC5650 codec and EC-managed
-  smart battery.
-- ldo_vgp4: Only routed to a test point on Elm and an unpopulated
-  resistor on Hana.
-- ldo_vibr: Output pins are unconnected.
+> -----Original Message-----
+> From: Peter Griffin <peter.griffin=40linaro.org>
+> Sent: Friday, November 13, 2026 5:58 PM
+> To: Raghav Sharma <raghav.s=40samsung.com>
+> Cc: krzk=40kernel.org; s.nawrocki=40samsung.com; cw00.choi=40samsung.com;
+> alim.akhtar=40samsung.com; sboyd=40kernel.org; bmasney+clk=40redhat.com;
+> jbrunet+clk=40baylibre.com; robh=40kernel.org; conor+dt=40kernel.org; lin=
+ux-
+> samsung-soc=40vger.kernel.org; linux-clk=40vger.kernel.org;
+> devicetree=40vger.kernel.org; linux-arm-kernel=40lists.infradead.org; lin=
+ux-
+> kernel=40vger.kernel.org; is.gandhi=40samsung.com; ts.amit=40samsung.com;
+> pokala.reddy=40samsung.com
+> Subject: Re: =5BPATCH v3 06/14 RESEND=5D clk: samsung: clk-pll: Add suppo=
+rt for
+> pll_4313
+>=20
+> Hi Raghav,
+>=20
+> On Fri, 13 Nov 2026 at 10:53, Raghav Sharma <raghav.s=40samsung.com>
+> wrote:
+> >
+> > From: Alim Akhtar <alim.akhtar=40samsung.com>
+> >
+> > PLLs 4313 are found in the Exynos8855 SoC and it is similar to
+> > pll_531x except for CON8 offset, so re-using code for
+> > pll_4313
+> >
+> > Signed-off-by: Alim Akhtar <alim.akhtar=40samsung.com>
+> > Signed-off-by: Raghav Sharma <raghav.s=40samsung.com>
+> > ---
+> >  drivers/clk/samsung/clk-pll.c =7C 11 ++++++++++-
+> > drivers/clk/samsung/clk-pll.h =7C  1 +
+> >  2 files changed, 11 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/clk/samsung/clk-pll.c
+> > b/drivers/clk/samsung/clk-pll.c index 3d837bd74355..7b0756127306
+> > 100644
+> > --- a/drivers/clk/samsung/clk-pll.c
+> > +++ b/drivers/clk/samsung/clk-pll.c
+> > =40=40 -1306,7 +1306,15 =40=40 static unsigned long
+> samsung_pll531x_recalc_rate(struct clk_hw *hw,
+> >         u64 mdiv, fout =3D parent_rate;
+> >
+> >         pll_con0 =3D readl_relaxed(pll->con_reg);
+> > -       pll_con8 =3D readl_relaxed(pll->con_reg + 20);
+> > +       if (pll->type =3D=3D pll_4313) =7B
+> > +               /* Offset for PLL_CON8 which hold FDIV different for PL=
+L_4313
+> > +                * which is PLL_LOCKTIME_OFFSET - 0x4
+> > +                */
+> > +               pll_con8 =3D readl_relaxed(pll->lock_reg - 4);
+> > +       =7D else =7B
+> > +               pll_con8 =3D readl_relaxed(pll->con_reg + 20);
+> > +       =7D
+> > +
+>=20
+> This starts to feel a bit hacky (pll_con8 register being referenced as an=
+ offset
+> from lock_reg). Is the register really called pll_con8 on 8855? Or is it =
+called
+> something else, but happens to contain fdiv?
+>=20
+Yes, it is named as PLL_CON8_* on 8855, and contain fdiv bit.
 
-Keep these regulator nodes in place so that the regulator core still
-considers them constrained and can disable any unused rails left on at
-power-up (such as ldo_va28), but drop all their properties and unused
-labels. This is meant to preserve prior behavior.
+> I think something like this would look cleaner:
+>=20
+> u32 fdiv_reg;
+Historically SFR name was used to match with databook naming convention.=20
+Few lines below it does indicate indeed pll_con8 contains fdiv.=20
+ fdiv =3D (pll_con8 & PLL531X_FDIV_MASK);
 
-Checking the regulator nodes against the schematics, drafting the change
-and reviewing it were done by an agent. Manually tested on a Hana
-(Telesu) device.
+I am ok with taking this suggestion.
+Only thing is should we change pll_con0 as well together, or in a separate =
+top-up patch?
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Changes since v1:
-- Rebased (so "arm64: dts: mediatek: mt8173-elm-hana: Unmark trackpad
-  supply as always-on" is not applied)
-
- arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi | 26 ++++++--------------
- 1 file changed, 8 insertions(+), 18 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-index 1b8f1b6fd788..ac5e9e387294 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-@@ -988,12 +988,8 @@ mt6397_vcore_reg: buck_vcore {
- 				regulator-always-on;
- 			};
- 
--			mt6397_vgpu_reg: buck_vgpu {
--				regulator-name = "vgpu";
--				regulator-min-microvolt = < 700000>;
--				regulator-max-microvolt = <1350000>;
--				regulator-ramp-delay = <12500>;
--				regulator-enable-ramp-delay = <115>;
-+			buck_vgpu {
-+				/* unused */
- 			};
- 
- 			mt6397_vdrm_reg: buck_vdrm {
-@@ -1017,8 +1013,8 @@ mt6397_vtcxo_reg: ldo_vtcxo {
- 				regulator-always-on;
- 			};
- 
--			mt6397_va28_reg: ldo_va28 {
--				regulator-name = "va28";
-+			ldo_va28 {
-+				/* unused */
- 			};
- 
- 			mt6397_vcama_reg: ldo_vcama {
-@@ -1079,11 +1075,8 @@ mt6397_vgp3_reg: ldo_vgp3 {
- 				regulator-enable-ramp-delay = <218>;
- 			};
- 
--			mt6397_vgp4_reg: ldo_vgp4 {
--				regulator-name = "vgp4";
--				regulator-min-microvolt = <1200000>;
--				regulator-max-microvolt = <3300000>;
--				regulator-enable-ramp-delay = <218>;
-+			ldo_vgp4 {
-+				/* unused */
- 			};
- 
- 			mt6397_vgp5_reg: ldo_vgp5 {
-@@ -1101,11 +1094,8 @@ mt6397_vgp6_reg: ldo_vgp6 {
- 				regulator-always-on;
- 			};
- 
--			mt6397_vibr_reg: ldo_vibr {
--				regulator-name = "vibr";
--				regulator-min-microvolt = <1300000>;
--				regulator-max-microvolt = <3300000>;
--				regulator-enable-ramp-delay = <218>;
-+			ldo_vibr {
-+				/* unused */
- 			};
- 		};
- 
--- 
-2.56.1.708.g77570a6a1d-goog
+>=20
+>        if (pll->type =3D=3D pll_4313) =7B
+>                /* fdiv in <insert name> register
+>                fdiv_reg =3D readl_relaxed(pll->lock_reg - 4);
+>        =7D else =7B
+>                /* fdiv in pll_con8 register */
+>                fdiv_reg =3D readl_relaxed(pll->con_reg + 20);
+>        =7D
+>=20
+> regards,
+>=20
+> Peter
 
