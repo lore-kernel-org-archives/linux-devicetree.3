@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795080770;
-	b=ou2Xg73D6sw2MZWtKqaL6NxPZlM2CY0ZraG5W6O7VuuXZBSooTT0cZS7StW/RlOUKWQz
-	 vZtzDMtBwf6p9IVmNfbwRfAFk/Jm/nhcDDS7ZV0ERWYSCWvl6M4jOOAsaiDPHr2Jm2xrE
-	 CaMFd3UL78SHfThRObQ3l/OjDNunAOjBGQmx+Qj4HR4Q0BkFTQn8HSkut/9mu2bewuinT
-	 nd9aQZsA2u40UXkT3P/vYYf1vWdTXnv52KMwzT2HcRdOG4eXM0m5k9UFXGrDmjN+AMQ5m
-	 f3blMQdxjFv+jchioXgwdz5rHyQ4WYiQopcGKELwBt4cujAJUFxV4SH0bIDip2xuN4Q==
+	t=1795080774;
+	b=Ov+ZAMFjIscX/6o7Jsc3V8rS2V3GwcclQodU/ex7utRjEgc/yQN45XmGr/RpzGxvQF2z
+	 mhZtkDQmJB2JpYHW6IWpAKtkrAw8TkQReQQ1Bduw5YRFqZbR61BE9xZvXmP9rxQhZ64aF
+	 RogRUHx/3umbme/rizuAqvOWQvJwtbL0QFYnZkxxjHWGec4IUhmSNHS13sRQHUk5bVirM
+	 Ii+yc6QfQwF4vWMR/fto1NMUVG/ji510PxLNKCFxPk9PqoQ8e/Ho1NONpxabUOrMEpK/i
+	 Nu73X2RSxFtZhEdrP8Dm6TMIEP6yALz9hqjGPH6sRSWIULjxklHShnpxbkRAglz81uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795080770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795080774;
 	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
 	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=wrP4vz3B+dQ/LVpPXlagkEppDDhP38RY/qTzYw4Y+h0=;
-	b=AQ+/qf0xOfuOAePIUm/4P2KnrFmqzmavLwxObKMCcMllFgbQkPKBk/gJXzL/hEcTubOq
-	 wRRmaALJy3YfZOT2gvv4N+LwO5C6/6cEFzlueTA5ot8+QjTcn6TKd9ShHHo72lIGgN4RK
-	 ayjK3iio///bpEgYWCX+sXLlC4A533WzQ8Obq80xx61TwUE41RW6zqPnWSfzjF1e8R/dO
-	 E5kVUBnEQi+Et+1qU+O1iepusS5VwZwRFB+oPXxVbhml50xRYlerhYEAXvsOL2USMLQgO
-	 qBmPSZHIowJi6HbZgDRj+cxTz2J/WKrAe5YTLbacWpc9kZr7ZArhQ57sTgK6Xrt+qKQ==
+	bh=KyzM4XUQJeBYylQNLUR8mC6wxDEbAaY+m3hGjXjLxcY=;
+	b=jiP6MvWV8EFT6A4+MxEyi9mkdOFNazC+IJQZM/rB+NRyMxZid/yFJlUc0s0xD6YWWW+3
+	 D4uoO77kj8bYxBISV7WCQoqRuRmUa/ODuFfc0sGTLrSuRqpYLGFwrcYSNDJvXbL0LVMXE
+	 WQv1h7rrNTMSO7s8XGBo/5y0WF7VaYJ67e5VkVN2m8VOtqtdanpnq0ves5f/n6T/vFONe
+	 9vuQNQs9v/b9n0J8omUU8+EBikz54vouwjhROY2tu4pSCWflubDiHh5cZ5FlGW53BtYfr
+	 hBrcAjoE0bUT4r5ONW+sHgkDXNjOMut4C73bEulTFR9bH0CMdL0vACJOAAMTVpBj4Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=aspeedtech.com;
 	spf=pass smtp.mailfrom=aspeedtech.com;
@@ -24,22 +24,22 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341A4606A32F;
-	Thu, 19 Nov 2026 09:32:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 341A4606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59DA60A2633;
+	Thu, 19 Nov 2026 09:32:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A59DA60A2633
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Thu, 19 Nov
- 2026 17:32:40 +0800
+ 2026 17:32:41 +0800
 Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
- Transport; Thu, 19 Nov 2026 17:32:40 +0800
+ Transport; Thu, 19 Nov 2026 17:32:41 +0800
 From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Thu, 19 Nov 2026 17:32:34 +0800
-Subject: [PATCH net-next v7 1/7] dt-bindings: net: ftgmac100: Make Aspeed
- compatibles standalone
+Date: Thu, 19 Nov 2026 17:32:39 +0800
+Subject: [PATCH net-next v7 6/7] net: ftgmac100: Add AST2700 upper DMA
+ address support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,7 +51,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261119-support_ast2700-v7-1-33c8ca2d0dd7@aspeedtech.com>
+Message-ID: <20261119-support_ast2700-v7-6-33c8ca2d0dd7@aspeedtech.com>
 References: <20261119-support_ast2700-v7-0-33c8ca2d0dd7@aspeedtech.com>
 In-Reply-To: <20261119-support_ast2700-v7-0-33c8ca2d0dd7@aspeedtech.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
@@ -63,157 +63,217 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
  Dumazet" <edumazet@kernel.org>
 CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>,
-	"Conor Dooley" <conor.dooley@microchip.com>
+	Andrew Lunn <andrew@lunn.ch>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795080760; l=4688;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795080760; l=8087;
  i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=K5W2mQHx5jCP/N+qAmNuca+A8h1CazpOKRjpttK+X+E=;
- b=Xc0RTBD0ZLE1g2yOLQXOS4ANSVh0uC94z7TqoSKtwBXKyYfVL09v/TA6eCAbq0W/goy0vUEBy
- ssdeEATR312CSpvB85DAc7jVTrBS6SjSpKrOY9YC+TH+kZLff4HTakM
+ bh=mWEkbWgALAdm/Z5h80hIIBEDWLiQsEg+634OST3FOWY=;
+ b=5DCdCekXcYejBZPgkPTn4QOgveLtHfDa+EpZV/3x4qT/c7nn0sjcthg5X2dS5vDncXr0gAbs3
+ IYqms6NN9BnCMk1HfnToF3qU1R+dMqT4fH8i82cN5GGSLcx4PkTQRL2
 X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
  pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
-compatibles are currently only valid when paired with the generic
-"faraday,ftgmac100" fallback: if a node ever bound through the
-generic entry alone, ftgmac100_probe() would set
-rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
-BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
+Program the high RX and TX descriptor ring base registers and carry the
+upper DMA address bits in RX and TX descriptors. Rebuild full buffer DMA
+addresses in a 64-bit type before unmapping them so bits 34:32 are not
+lost to 32-bit arithmetic.
 
-Make each of them a standalone compatible instead, so none of the
-Aspeed compatibles require the generic fallback alongside them.
+The descriptor format provides three upper buffer address bits, so
+request a 35-bit DMA mask instead of advertising an address range that
+the hardware cannot encode. Gate all extended address handling with a
+match-data quirk so older register layouts remain untouched and later
+compatible controllers can opt into the same capability.
 
-Now that the Aspeed compatibles no longer need the generic fallback,
-also constrain the clocks and clock-names properties per compatible
-instead of leaving them generically optional: aspeed,ast2400-mac takes
-exactly one clock, aspeed,ast2500-mac and aspeed,ast2600-mac take one
-or two, and the plain faraday,ftgmac100 compatible takes none. Require
-clock-names whenever two clocks are listed.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 ---
-ftgmac100_of_match[] has had dedicated entries for AST2400, AST2500,
-and AST2600 since commit 03a2aba50b2c ("net: ftgmac100: List all
-compatibles"), so there is no known kernel + devicetree combination
-where a node has actually bound through the generic entry and gotten
-the wrong EDORR bit. This part is a binding correctness fix, not a fix
-for an observed failure.
+ drivers/net/ethernet/faraday/ftgmac100.c | 62 +++++++++++++++++++++++++++-----
+ drivers/net/ethernet/faraday/ftgmac100.h |  6 ++++
+ 2 files changed, 59 insertions(+), 9 deletions(-)
 
-Note that arch/arm/boot/dts/aspeed/aspeed-g4.dtsi, aspeed-g5.dtsi, and
-aspeed-g6.dtsi still declare their MAC nodes with the two-string
-"aspeed,astXXXX-mac", "faraday,ftgmac100" compatible, so this will make
-dtbs_check warn against those files until the redundant fallback
-compatible is dropped there as well. That .dtsi change will be sent as
-a separate series through the Aspeed/arm-soc tree, since dt-bindings
-changes don't go through that tree.
----
- .../devicetree/bindings/net/faraday,ftgmac100.yaml | 71 +++++++++++++++++++---
- 1 file changed, 61 insertions(+), 10 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-index d14410018bcf..9d352e3686aa 100644
---- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-+++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-@@ -11,14 +11,11 @@ maintainers:
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index 5a578a62df67..263594de0e07 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -8,6 +8,7 @@
  
- properties:
-   compatible:
--    oneOf:
--      - const: faraday,ftgmac100
--      - items:
--          - enum:
--              - aspeed,ast2400-mac
--              - aspeed,ast2500-mac
--              - aspeed,ast2600-mac
--          - const: faraday,ftgmac100
-+    enum:
-+      - faraday,ftgmac100
-+      - aspeed,ast2400-mac
-+      - aspeed,ast2500-mac
-+      - aspeed,ast2600-mac
+ #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
  
-   reg:
-     maxItems: 1
-@@ -88,22 +85,76 @@ allOf:
-     else:
-       properties:
-         resets: false
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: aspeed,ast2400-mac
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 1
-+        clock-names:
-+          maxItems: 1
-+      required:
-+        - clocks
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - aspeed,ast2500-mac
-+              - aspeed,ast2600-mac
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 1
-+          maxItems: 2
-+        clock-names:
-+          minItems: 1
-+          maxItems: 2
-+      required:
-+        - clocks
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - aspeed,ast2400-mac
-+                - aspeed,ast2500-mac
-+                - aspeed,ast2600-mac
-+    then:
-+      properties:
-+        clocks: false
-+        clock-names: false
-+  - if:
-+      properties:
-+        clocks:
-+          minItems: 2
-+    then:
-+      required:
-+        - clock-names
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/reset.h>
+ #include <linux/dma-mapping.h>
+@@ -42,6 +43,7 @@ enum ftgmac100_mac_id {
+ };
  
- unevaluatedProperties: false
+ #define FTGMAC100_QUIRK_RMII_ENABLE	BIT(0)
++#define FTGMAC100_QUIRK_DMA_35BIT	BIT(1)
  
- examples:
-   - |
-+    #include <dt-bindings/clock/aspeed-clock.h>
+ struct ftgmac100_match_data {
+ 	enum ftgmac100_mac_id mac_id;
+@@ -303,10 +305,16 @@ static void ftgmac100_init_hw(struct ftgmac100 *priv)
+ 	iowrite32(reg, priv->base + FTGMAC100_OFFSET_ISR);
+ 
+ 	/* Setup RX ring buffer base */
+-	iowrite32(priv->rxdes_dma, priv->base + FTGMAC100_OFFSET_RXR_BADR);
++	iowrite32(lower_32_bits(priv->rxdes_dma), priv->base + FTGMAC100_OFFSET_RXR_BADR);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		iowrite32(upper_32_bits(priv->rxdes_dma),
++			  priv->base + FTGMAC100_OFFSET_RXR_BADDR_HIGH);
+ 
+ 	/* Setup TX ring buffer base */
+-	iowrite32(priv->txdes_dma, priv->base + FTGMAC100_OFFSET_NPTXR_BADR);
++	iowrite32(lower_32_bits(priv->txdes_dma), priv->base + FTGMAC100_OFFSET_NPTXR_BADR);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		iowrite32(upper_32_bits(priv->txdes_dma),
++			  priv->base + FTGMAC100_OFFSET_TXR_BADDR_HIGH);
+ 
+ 	/* Configure RX buffer size */
+ 	iowrite32(FTGMAC100_RBSR_SIZE(RX_BUF_SIZE),
+@@ -474,7 +482,10 @@ static int ftgmac100_alloc_rx_buf(struct ftgmac100 *priv, unsigned int entry,
+ 	priv->rx_skbs[entry] = skb;
+ 
+ 	/* Store DMA address into RX desc */
+-	rxdes->rxdes3 = cpu_to_le32(map);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		rxdes->rxdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_RXDES2_RXBUF_BADR_HI,
++						       upper_32_bits(map)));
++	rxdes->rxdes3 = cpu_to_le32(lower_32_bits(map));
+ 
+ 	/* Ensure the above is ordered vs clearing the OWN bit */
+ 	dma_wmb();
+@@ -601,6 +612,9 @@ static bool ftgmac100_rx_packet(struct ftgmac100 *priv, int *processed)
+ 
+ 	/* Tear down DMA mapping, do necessary cache management */
+ 	map = le32_to_cpu(rxdes->rxdes3);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
++				     le32_to_cpu(rxdes->rxdes2)) << 32;
+ 
+ #if defined(CONFIG_ARM) && !defined(CONFIG_ARM_DMA_USE_IOMMU)
+ 	/* When we don't have an iommu, we can save cycles by not
+@@ -677,9 +691,14 @@ static void ftgmac100_free_tx_packet(struct ftgmac100 *priv,
+ 				     struct ftgmac100_txdes *txdes,
+ 				     u32 ctl_stat)
+ {
+-	dma_addr_t map = le32_to_cpu(txdes->txdes3);
++	dma_addr_t map;
+ 	size_t len;
+ 
++	map = le32_to_cpu(txdes->txdes3);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		map |= (u64)FIELD_GET(FTGMAC100_TXDES2_TXBUF_BADR_HI,
++				     le32_to_cpu(txdes->txdes2)) << 32;
 +
-     ethernet@1e660000 {
--        compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
-+        compatible = "aspeed,ast2500-mac";
-         reg = <0x1e660000 0x180>;
-         interrupts = <2>;
-+        clocks = <&syscon ASPEED_CLK_GATE_MAC1CLK>;
-         use-ncsi;
-     };
+ 	if (ctl_stat & FTGMAC100_TXDES0_FTS) {
+ 		len = skb_headlen(skb);
+ 		dma_unmap_single(priv->dev, map, len, DMA_TO_DEVICE);
+@@ -833,7 +852,10 @@ static netdev_tx_t ftgmac100_hard_start_xmit(struct sk_buff *skb,
+ 	f_ctl_stat |= FTGMAC100_TXDES0_FTS;
+ 	if (nfrags == 0)
+ 		f_ctl_stat |= FTGMAC100_TXDES0_LTS;
+-	txdes->txdes3 = cpu_to_le32(map);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		txdes->txdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_TXDES2_TXBUF_BADR_HI,
++						       upper_32_bits(map)));
++	txdes->txdes3 = cpu_to_le32(lower_32_bits(map));
+ 	txdes->txdes1 = cpu_to_le32(csum_vlan);
  
-     ethernet@1e680000 {
--        compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
-+        compatible = "aspeed,ast2500-mac";
-         reg = <0x1e680000 0x180>;
-         interrupts = <2>;
-+        clocks = <&syscon ASPEED_CLK_GATE_MAC2CLK>;
+ 	/* Next descriptor */
+@@ -861,7 +883,10 @@ static netdev_tx_t ftgmac100_hard_start_xmit(struct sk_buff *skb,
+ 			ctl_stat |= FTGMAC100_TXDES0_LTS;
+ 		txdes->txdes0 = cpu_to_le32(ctl_stat);
+ 		txdes->txdes1 = 0;
+-		txdes->txdes3 = cpu_to_le32(map);
++		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++			txdes->txdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_TXDES2_TXBUF_BADR_HI,
++							       upper_32_bits(map)));
++		txdes->txdes3 = cpu_to_le32(lower_32_bits(map));
  
-         phy-handle = <&phy>;
-         phy-mode = "rgmii";
+ 		/* Next one */
+ 		pointer = ftgmac100_next_tx_pointer(priv, pointer);
+@@ -936,7 +961,12 @@ static void ftgmac100_free_buffers(struct ftgmac100 *priv)
+ 	for (i = 0; i < priv->rx_q_entries; i++) {
+ 		struct ftgmac100_rxdes *rxdes = &priv->rxdes[i];
+ 		struct sk_buff *skb = priv->rx_skbs[i];
+-		dma_addr_t map = le32_to_cpu(rxdes->rxdes3);
++		dma_addr_t map;
++
++		map = le32_to_cpu(rxdes->rxdes3);
++		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++			map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
++					     le32_to_cpu(rxdes->rxdes2)) << 32;
+ 
+ 		if (!skb)
+ 			continue;
+@@ -1055,7 +1085,12 @@ static void ftgmac100_init_rings(struct ftgmac100 *priv)
+ 	for (i = 0; i < priv->rx_q_entries; i++) {
+ 		rxdes = &priv->rxdes[i];
+ 		rxdes->rxdes0 = 0;
+-		rxdes->rxdes3 = cpu_to_le32(priv->rx_scratch_dma);
++		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT) {
++			u32 hi = upper_32_bits(priv->rx_scratch_dma);
++
++			rxdes->rxdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_RXDES2_RXBUF_BADR_HI, hi));
++		}
++		rxdes->rxdes3 = cpu_to_le32(lower_32_bits(priv->rx_scratch_dma));
+ 	}
+ 	/* Mark the end of the ring */
+ 	rxdes->rxdes0 |= cpu_to_le32(priv->rxdes0_edorr_mask);
+@@ -2104,6 +2139,14 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 		netdev->hw_features &= ~(NETIF_F_HW_CSUM | NETIF_F_RXCSUM);
+ 	netdev->features |= netdev->hw_features;
+ 
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT) {
++		err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(35));
++		if (err) {
++			dev_err(&pdev->dev, "35-bit DMA enable failed\n");
++			goto err;
++		}
++	}
++
+ 	/* register network device */
+ 	err = register_netdev(netdev);
+ 	if (err) {
+@@ -2156,7 +2199,8 @@ static const struct ftgmac100_match_data ftgmac100_match_data_ast2600 = {
+ 
+ static const struct ftgmac100_match_data ftgmac100_match_data_ast2700 = {
+ 	.mac_id = FTGMAC100_AST2700,
+-	.quirks = FTGMAC100_QUIRK_RMII_ENABLE,
++	.quirks = FTGMAC100_QUIRK_RMII_ENABLE |
++		  FTGMAC100_QUIRK_DMA_35BIT,
+ };
+ 
+ static const struct ftgmac100_match_data ftgmac100_match_data_faraday = {
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
+index 8c35c895b146..0c244b1c0a35 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.h
++++ b/drivers/net/ethernet/faraday/ftgmac100.h
+@@ -57,6 +57,9 @@
+ #define FTGMAC100_OFFSET_RX_RUNT	0xc0
+ #define FTGMAC100_OFFSET_RX_CRCER_FTL	0xc4
+ #define FTGMAC100_OFFSET_RX_COL_LOST	0xc8
++/* reserved 0xcc - 0x178 */
++#define FTGMAC100_OFFSET_TXR_BADDR_HIGH	0x17c
++#define FTGMAC100_OFFSET_RXR_BADDR_HIGH	0x18c
+ 
+ /*
+  * Interrupt status register & interrupt enable register
+@@ -226,6 +229,7 @@ struct ftgmac100_txdes {
+ #define FTGMAC100_TXDES1_TX2FIC		(1 << 30)
+ #define FTGMAC100_TXDES1_TXIC		(1 << 31)
+ 
++#define FTGMAC100_TXDES2_TXBUF_BADR_HI	GENMASK(18, 16)
+ /*
+  * Receive descriptor, aligned to 16 bytes
+  */
+@@ -272,4 +276,6 @@ struct ftgmac100_rxdes {
+ #define FTGMAC100_RXDES1_UDP_CHKSUM_ERR	(1 << 26)
+ #define FTGMAC100_RXDES1_IP_CHKSUM_ERR	(1 << 27)
+ 
++#define FTGMAC100_RXDES2_RXBUF_BADR_HI	GENMASK(18, 16)
++
+ #endif /* __FTGMAC100_H */
 
 -- 
 2.34.1
