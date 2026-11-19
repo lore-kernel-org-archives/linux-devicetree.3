@@ -1,84 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795123839;
-	b=jcPNOq3hJKdDLIV5RXx5Tjzt5Q9P+xv2P/QgUCdB1FV+6iCTrzvqTP9TeqUwvFQO2Hz/
-	 PH7RSyiQY+tRePRT6Lt/C2hzGdlVhYAQmvkzJOZpfE42+GIBBlxTkwyO/QCwiZL73c1b/
-	 txeoCj9L1On0qE2q0FmMBK7BOu7NC+3a97fyuAMFpXavF9zwEcrtxoo/qMgZt5LOZxNRD
-	 3a9V956nTNsZjVsAPmgHBpaHLTrNsu7nC0L5Ty7eqyYssBA1bfF1/IjbcJdLWljwNC+T4
-	 4cpSp3n92vMtuhcZrl8EplTmZ6lBP7iEisuoD/0TQRSunIdJ1lXZrE8VVLWxHlN1Cog==
+	t=1795123875;
+	b=T+kCl4/8LKZNvOtk8D4n55cOBbrJukpSG1T0yPUTJjRaNzahsxweWvgsPM6Et87aXGfz
+	 w9Ztr/EnOCOognzQN5PK7Pua1iGd4MkzINiGYW7JbYAQBi216LNXaEoUSWqmLT2Iwqw3l
+	 ZMK6kELzGMtJKDbQApkHR9yDTeeEgbIcyQ2QzrQ2wiE/ad+dHYeyE/eVfT1qoHKQTz+Lq
+	 ELKPhUUsJjS7TOqQX7Y1ml4Z2HX2dRs7JnDNWJBaB3e95IeEtqstiEfe8aEhpJ5WAaGe+
+	 m4lwAHzaYBA4J392mosTQytFT9/KYAfzqvyDbQO+JjiLh2vUWcN8hV26mS5de+icmDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795123839;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=0oZlDx8Vv+0nCck+Zhk2G9X4wk2IXUKlcAG+gSxafiY=;
-	b=loGR6PTMnlY52KOtPdIH3b3hSAsYhwx5m+DNB6y16kuf/o8avz5atrYdHlKbPxMl5FuA
-	 o6KX77EbTg4lnxPCbaF+35y65SnA2LQhBPghq9yEQfSlhH39kjwYyXE7yhxMrOQWG1BeL
-	 OKeK+suX9Gh4kDQUch7T//kKA+Wx8mzEkSLDIrx21s1U8kESHmgpO79okChvcXotUZpMa
-	 bKC0IXrRgxK73fif/7zEiSJmMH1z72jXIjudizUBQoil95XSgnbC/8iSeybPs5b65jFGJ
-	 h93c6qBDlBQWfs9j258GkSqP4h5bac+SbmptZkNqhA408bR6s/8IT1gNpH+Us3HskVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795123875;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=hruHLRUy8gnh1Vnhks0wNz1gcOtf8ACiLDMpD5iWNyE=;
+	b=BUlFyl8Di6E2Bcu9ujT98a/PXxYXfRkRSoNo738/gVSptyW7YMlTGrvqhFLwgQKe3tST
+	 dSMhtJEclMXL0wUMbUZEZOFnjFrU5+9PqFNLnpaYoy+I1OkU0ktM9MEKj2hK9tv9VBPM0
+	 T/4H+9KFJAlu4LRzhDOEya5Ij8P56iBe0sOUzV+9RPWfNyAc4Me2ziYvQgNhSqIP6VrKW
+	 jfqP/WkT6bJ3U6mkmB+2aj5oabkErvdvtlTAOS1pE4v5tMK/n/UnaBZ8SDyUxX/3J/ddi
+	 Wx/p0lkO0B5tt/hGpmUqueXw/EUR13JfqMuEjzZV5Z/EuVVw2u/ogZPB63zl2QLrbIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GfhE6Xad;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC96606A320;
-	Thu, 19 Nov 2026 21:30:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BC96606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GfhE6Xad
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795123838; x=1826659838;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mogHG+qkA4LZoztNkMUoZeinOmAAZ6RrtIKMGQTKNCI=;
-  b=GfhE6XadhsQAWq0NaOAc0qhCC7CwyGPBB9wBWbNxWRzXyH1C7A3XsFoX
-   MeupyXceQutM45VPYEGSi3pLRxyI5v9v6Pgt15Biyokezi5i9taxnxSN7
-   IaYMBreRlbPHd+rf8yd832lLWNzliio+yKkrXldPncL45ul7VyaI2EFwK
-   EgFgE1OxvC0H8j+Yxe+sm71aW3EQW5y2xIOzWrr8/KcvDj/R4/jWYOsuh
-   X+yEnfOc0o6EpjUb4bcT3RrdicnbzQwgKQN3bFci6vsPda0lK+TVVszyo
-   ILyw2ypwaH9p4C6C7GrgFIKSK88DnQqTZLAa+x7gUy++REc2Di0QX0Z35
-   Q==;
-X-CSE-ConnectionGUID: 7Rf8tOAFSEerTi+ZAbpJmA==
-X-CSE-MsgGUID: t1e4Zl4SQb6IZX7oABRhFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3880870"
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="3880870"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 13:30:37 -0800
-X-CSE-ConnectionGUID: ayvu9HVvTmaAM6/6QPPqcQ==
-X-CSE-MsgGUID: 51LNhAD2TfeB6SnxF/DqhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="10434913"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 19 Nov 2026 13:30:15 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xU9ht-00000001GbD-0pE8;
-	Thu, 19 Nov 2026 21:30:13 +0000
-Date: Fri, 20 Nov 2026 05:29:29 +0800
-From: kernel test robot <lkp@intel.com>
-To: Prakriti Sharma <Prakriti.Sharma@synopsys.com>,
-	Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-kernel@vger.kernel.org,
-	Siddhant Kumar <Siddhant.Kumar@synopsys.com>,
-	Prakriti Sharma <Prakriti.Sharma@synopsys.com>
-Subject: Re: [PATCH 6/6] spi: dw-g2: Add XIP support
-Message-ID: <202611200501.mzDpyxlW-lkp@intel.com>
-References: <20261119100513.433044-7-prakriti@synopsys.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F54606A32C
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 21:31:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0F54606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2f01f296937so1594265ad.3
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 13:31:15 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795123875; x=1795728675;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hruHLRUy8gnh1Vnhks0wNz1gcOtf8ACiLDMpD5iWNyE=;
+        b=yGHtjkY7qBokLHQxYMu+WjQjaJOmvFPSikx2M0L/Bj3+lmqSfHDtWKjXQt+kxZKBQ6
+         a4SXuLQbnr22ZuclpCq9hB35C9xoa9H+Rb7TllNwn00Enn1e7XcwTyMJrMi1gljEyDF+
+         roHwGAVH6AU6e1tLP03618yj0QAuzN7TGPrsaOONgFEhbB2x/l5EXCb7uJEqEchDTTEK
+         77o6itJT82SWzLhw3ISMTxKQYxA6MEyl5SzBeJAsSeyN9whXWzck4EzJ3cs1mGQ/nuH5
+         43zNU1h62Gv7zAdEOjpKZYBk8id6NjpDAdZYIbMgz7faGVh5ga+yKnMuWNu7XWiYDCEQ
+         dlDA==
+X-Forwarded-Encrypted: i=1; AL+hErHxD64ipCdSuSJb4zuy8rg2NO2egIbBtLo7Kg9BODAlbrQAqRVhIF3ipnT4iZo9UF2K3yINddnJ8J3H@vger.kernel.org
+X-Gm-Message-State: APuU4Z9le57tnTjNHxP8NW+n42sI0ot6k40hG/2/xBY1OaFdJrr/RRya
+	qunrxFxSkTdd9z2Ip24JjWVA2odfrYObTQjBT5FWiTwjLvBsQECGymzJK0M+jEuq
+X-Gm-Gg: AZFdTZfOqEteHg8LgpurlY/Z+rVA4fDfWEV/iI2ZM3Z1MHMMipM5BYy7wP4MTr7B3gP
+	2KGYVUqERhoLNBRD74ugF4FmlZgDm9GdIZ4S8+gghfjrWMDBJEXpqaP2pm0bjNPO0y0on2UC++X
+	pW9GjSb3HtNe5F8M7H1YQtUEvrEu2SboxhHvF9wy8TLGxsqzMCylGJkC7BH2nUlEhl9kVn9axOY
+	4cC++d5dokivUUyn5Hhn5lCN/NOHcFa/dkm5SJk48bI8/oYxWJliWhrnuWo8nCzzpxU1H1bTNr8
+	Bw7Ni26evZiyZ9FkKops9ca3lYci7yiyOsuBRrKiqudt485i81yrUTuwXa014FJWRIoBRvM5dfr
+	zQCKDVzoy+ZWkGZj0BJbNEIHFXqJ5QEzCY0HCxyYOCj20wrFWlTohueIIuUzmiVum4aafY6C+US
+	qkIFsm/ewvccCH86p6ZcPut571f8GaALBhEjw9x2zICZoGUIqJuSfBUWorxescxZ9BVQMKqMOqC
+	IrcfqCYt3mIF8tv6DNpzyJhGC6GVjZSJP4N6zP8YoCdToN4IzcbsbZ5I1xtlAHZHmP/ef8dBt5T
+	6VPEVSMTECnnreoUGU9GOWYFQ7fTbcnmcLplac2c8VVai1ksjm2iaIIdeZoMpsnQx7yXLPXCm98
+	I7T6ge9yfzkJ+ODY5dDnvqgQ7Sta2szp1LrskcrLJ
+X-Received: by 2002:a17:903:19e7:b0:2ef:e8f2:ba28 with SMTP id d9443c01a7336-2f03f249c83mr10523205ad.36.1795123874868;
+        Thu, 19 Nov 2026 13:31:14 -0800 (PST)
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com. [74.125.82.41])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0c184bsm4963335ad.14.2026.11.19.13.31.14
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 19 Nov 2026 13:31:14 -0800 (PST)
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3b4944abeso204478c88.1
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 13:31:14 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHwWS3WKAM+JQiWGsMaLOSF41USYM1ViI+SrG6Zyg37YK1CguCn7FalHKCt6PeLm9+h+acbBzJOLJal@vger.kernel.org
+X-Received: by 2002:a05:701b:2514:b0:16a:c6f2:60c2 with SMTP id
+ a92af1059eb24-1b55689fcb2mr692433c88.12.1795123873153; Thu, 19 Nov 2026
+ 13:31:13 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,44 +81,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119100513.433044-7-prakriti@synopsys.com>
+References: <20261116-sf19a2890-sysm-v3-0-b07bc7833a87@telaak.dev>
+ <20261116-sf19a2890-sysm-v3-2-b07bc7833a87@telaak.dev> <179511480695.279474.4521829214953240997.b4-review@b4>
+In-Reply-To: <179511480695.279474.4521829214953240997.b4-review@b4>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Thu, 19 Nov 2026 16:31:01 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6DjoKi9v3Bk0Pt7ePRW_yiNiUzfX1id7efK8i8cUWFaw@mail.gmail.com>
+X-Gm-Features: AclHuK9xGZquR5VLNTlBltqHkPsM6MviyjZztqAp_KfvV7PyzlZVlXCSmeqvUUs
+Message-ID: <CAPY4CJ6DjoKi9v3Bk0Pt7ePRW_yiNiUzfX1id7efK8i8cUWFaw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] clk: siflower: Add SF19A2890 clock manager driver
+To: Brian Masney <masneyb@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Prakriti,
+On Thu, Nov 19, 2026 at 02:00:06PM -0500, Brian Masney wrote:
+> Can this declared as a regular platform driver? We are trying to
+> minimize the use of CLK_OF_DECLARE.
 
-kernel test robot noticed the following build warnings:
+The MIPS GIC timer runs from CLK_MUXDIV_CPU, and it probes from
+TIMER_OF_DECLARE in time_init(), before any platform driver. As a
+platform driver, the clock would not exist yet when the timer calls
+of_clk_get(), and with no clock-frequency to fall back on, the SoC would
+have no clocksource. I'll say that in a comment above CLK_OF_DECLARE in
+v4.
 
-[auto build test WARNING on broonie-spi/for-next]
-[also build test WARNING on robh/for-next linus/master v7.4-rc3 next-20261116]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Prakriti-Sharma/dt-bindings-spi-Add-Synopsys-DWC-SSI-v2-02a-binding/20261119-153508
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-patch link:    https://lore.kernel.org/r/20261119100513.433044-7-prakriti%40synopsys.com
-patch subject: [PATCH 6/6] spi: dw-g2: Add XIP support
-config: sh-randconfig-1000-20261120 (https://download.01.org/0day-ci/archive/20261120/202611200501.mzDpyxlW-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 14.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261120/202611200501.mzDpyxlW-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611200501.mzDpyxlW-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> Warning: drivers/spi/spi-dw-g2-core.c:588 Incorrect use of kernel-doc format:  * dw_spi_g2_cmd_only_setup - Configure controller for command-only operation
->> Warning: drivers/spi/spi-dw-g2-core.c:596 function parameter 'dws' not described in 'dw_spi_g2_cmd_only_setup'
->> Warning: drivers/spi/spi-dw-g2-core.c:596 function parameter 'op' not described in 'dw_spi_g2_cmd_only_setup'
->> Warning: drivers/spi/spi-dw-g2-core.c:596 expecting prototype for Command(). Prototype was for dw_spi_g2_cmd_only_setup() instead
->> Warning: drivers/spi/spi-dw-g2-core.c:895 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
-    * Indirect read operations
-   Warning: drivers/spi/spi-dw-g2-core.c:1082 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
-    * Indirect write operations (Page Program)
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Joseph
