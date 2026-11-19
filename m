@@ -1,47 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795119305;
-	b=L21+8MyU1i0cTDEggOwUr4J6yTTZEA0eJsBvzTwg0jHl9uxe3qZSNpHZFrcftFVNFAJm
-	 6h1NkTMiMlj6QR33XmNLHW3UbWlZSrf8GN3LmeLWfbkRV1L6bqgSld7t2glJvlaW04haM
-	 n+/qsMJ0JZMt48RVU5fbNy9waxi9zL/Rn4ueyvDo2XrCSs+yfTVwy+l+pX3YZdWT86I5Z
-	 7lKQ3CW6DYtuLPKlEQEyN8WnaBRJR2ait41gKUNRytxMCk7hN+Z+TfDw9jXVToQWx/Jgt
-	 6/QoE0hEFdWLepjntGt2lWIpOsQmmrZvduWGkOpI3YqYNhiMdaap8z8c2IKC0ZSL0Kg==
+	t=1795119504;
+	b=KsOTeeJi/lnOb1dNc4+XOtNSHYeawhPXgfYMmlSF9g68H878/sjyvgZ9ME+ftqhGZmsK
+	 ASFIG/tuYz3m6k+wIQGgwvs0TdrV3LH6WrInirZYNodrZDZ6Hl71D8H5oFu9o4+BJvBJy
+	 1AN3miCC7kC1yoBcCxl7jLg2Fz6YLX0fXsKcvn1/7SN2qqex5s5KIdbtP2FU44VItZAEL
+	 0p9x50BMcbqVWM7XnicteV4FtowvHU1/ejDLdPz4qNuMtb3565yX1UB7ayvvPYEzrUAE+
+	 i26K1XAPa0DH8pynyqZ19rwm9N2ObQdYdyYOoDRoKhuzAZ5adoYsT7W3LOwUGM1ELSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795119305;
-	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=ZFP1KdKJOpORb419ON5uvKPl/QdtChge5ZGA23yIqR4=;
-	b=D4iT5qXDBAK+kzOky4UVG2NLNyJSodoxCnCAR6Y9Uld44DiluKflYH8DUc75yegmamyV
-	 zXRWtR4HgLfJJSDpfdT/GciU2pDK9gj3cBTX0caZsPr+MWYtLj8x2tmiAgo/Js4UBhSwu
-	 GsNpLAvCPZVPYJuQVkxS4KdWxIf+r9AfmJuzIhnO42SMVxou0ZTy3QS8sz1r0jI44FI2c
-	 ZdaK19J64O0SgoGtFB/7cgNRLMa9tS7AaF8s83Wwbk2ofeDzWFH4SHPMIGrIe+KT96e+a
-	 RSfHEj/tSez9tARhDH+5hvffT2uMIt9DOuteU0RlDdm16dFKSsVD/9uIi4np+kam+Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795119504;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LfCHc2ZbEycHiXtDTzq0f5FcMJE5iktQ7uX6vShIlIo=;
+	b=mapzkGvZeeyA6WexuZ9xHpfQY4o2UuEaSgNZ9hr47RuOhS9YinVpTxe2E5d9GyC9X3Ar
+	 Kj/to/+ROwtUAIsJWDO3bxrRKLvy0uXmUQrXJjeA4NOaE7ttwwI2dyPSL7QuFhM1PFBGe
+	 Q6xk3TxuNFOqL3fVLxxw48t5z8fwGtKqYoPlGa5C56pdl+4cqUa/ZQ4s16hZPafDx14fY
+	 S/cRqg1HV+iYLrX89JFYN3gKO6Q9QoJC3V0PIA+j5YfnscPK15eXw3ZI0XdP5cZhGwt3X
+	 tgoNsw6YhN/9i6DPhJ3JBs1zYTvor2DGb8+TNnX2KU35wzz93GeX+xDcHMzgflWw+yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1y55w+u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTLd7llr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501C4606A324;
-	Thu, 19 Nov 2026 20:15:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E426C606A332;
+	Thu, 19 Nov 2026 20:18:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N1y55w+u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3961F000C0;
-	Thu, 19 Nov 2026 20:15:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTLd7llr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE8E1F00A36;
+	Thu, 19 Nov 2026 20:18:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795119304;
-	bh=ZFP1KdKJOpORb419ON5uvKPl/QdtChge5ZGA23yIqR4=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=N1y55w+ukoBuAaoIpV9697PFKD+LkkgqSjniDb3jEnYmGlW1Nhh1myVpSZ54jiBzh
-	 Iqwn65mKganneME9L2Sbw3782RiZqNxud+QbippqCanl4TS6j/FYmmmGdyEbiZlZvX
-	 HUJuBBOOoKcpZGVa/5TL5PjoWwprsOONZ86FWUjYNNadAmhaQBU8FRD+dZq4JfIe3w
-	 ySOKFgCnUhU+5ioEIdHpDno1FVBcbYfn7nYUiVHmrEAXZ7VQd+iCytSEAmyMuY7eye
-	 emgkueK5KBrBi/lVNPDMPHfuhS5YHeN1+hFKClfLbO2RaJ0OCNTFwYpErjgDSJCIjy
-	 azvX+rkEu6BhA==
-Date: Thu, 19 Nov 2026 14:14:58 -0600
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1795119503;
+	bh=LfCHc2ZbEycHiXtDTzq0f5FcMJE5iktQ7uX6vShIlIo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KTLd7llreHlhGpU7HaXjheT0KFke8eL5BpCE5GNBIYk8E5WmDkS5R8Sz7W5bg6CuQ
+	 UaWPlEj1a7zW6Y7i9mTHeM12rRP57E51IRgVFTdCb/hZrWrRK14H0BZqom54TnMV71
+	 dFiZDmRkusewWIhfyKu4dDbB0gQwNYZZf87mccpHu5TBc7htSfBuO9v5eFVUYghvw3
+	 41Cu2YktQvQmzq6JUZhOVmwA1ldCMLjDTmBxwHUp48UKjaLCSRoo20AqWr66PjUjUF
+	 JIIl0MCRlIRxSUGht+crUTms1Mrlsi/HsP24eiIAMyqHkEUc8PMr++KRy93nPpjRnL
+	 BiFDk8RNU6yaw==
+Date: Thu, 19 Nov 2026 14:18:17 -0600
+From: Rob Herring <robh@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/6] dt-bindings: PCI: tegra264: Allow the ats-supported
+ property
+Message-ID: <20261119201817.GA119016-robh@kernel.org>
+References: <20261029-b4-t264-igpu-pci-v1-0-4d843dda0b02@nvidia.com>
+ <20261029-b4-t264-igpu-pci-v1-1-4d843dda0b02@nvidia.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,50 +67,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-input@vger.kernel.org, devicetree@vger.kernel.org
-To: Hefei <3066883572@qq.com>
-In-Reply-To: <tencent_C97CF8588D7C3312CE3D51FCDEA1E68DA70A@qq.com>
-References: <tencent_C97CF8588D7C3312CE3D51FCDEA1E68DA70A@qq.com>
-Message-Id: <179509880891.714790.13159454991217439265.robh@kernel.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: add VIEWE JD9365TX panel
- binding
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-b4-t264-igpu-pci-v1-1-4d843dda0b02@nvidia.com>
 
-
-On Thu, 19 Nov 2026 10:48:01 +0800, Hefei wrote:
-> Add the device tree binding for the VIEWE 7KF82 720x1280 Jadard
-> JD9365TX MIPI-DSI panel.
+On Thu, Oct 29, 2026 at 12:32:03PM +0900, Mikko Perttunen wrote:
+> The C0 controller on Tegra264 is connected to the integrated GPU, which
+> issues ATS requests. Add the ats-supported property to allow marking
+> ATS as supported on the controller.
 > 
-> Signed-off-by: Hefei <3066883572@qq.com>
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
 > ---
->  .../display/panel/viewe,jd9365tx.yaml         | 76 +++++++++++++++++++
->  1 file changed, 76 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml
+>  Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
+> diff --git a/Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml b/Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml
+> index f0114defc04e..3b4f31a4a4c2 100644
+> --- a/Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml
+> @@ -34,6 +34,11 @@ properties:
+>  
+>    dma-coherent: true
+>  
+> +  ats-supported:
+> +    description:
+> +      Indicates that the controller supports ATS.
+> +    type: boolean
 
-My bot found errors running 'make dt_binding_check' on your patch:
+2 users of this now. This needs to be moved into pci-host-bridge.yaml.
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.example.dtb: panel@0 (viewe,7kf82): port:endpoint: Unevaluated properties are not allowed ('data-lanes' was unexpected)
-	from schema $id: http://devicetree.org/schemas/display/panel/viewe,jd9365tx.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/tencent_C97CF8588D7C3312CE3D51FCDEA1E68DA70A@qq.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+> +
+>    nvidia,bpmp:
+>      $ref: /schemas/types.yaml#/definitions/phandle-array
+>      description: |
+> 
+> -- 
+> 2.55.0
+> 
