@@ -1,56 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795080512;
-	b=ygNEyZ+y4heJ0EnBeQaa8HxVl2fQhqGdWwo0zGNeenuFSiqgdVkf0JodflyHlobmCMJG
-	 OVqArDFD95Hj5eX929DdKO5hLzbutbqbB252yL99BKwidAj63hJTd53ws4PSpO3+Ez3an
-	 VnTxSI/EMCcSQpfI6wybkhfkoQGTNSRHnVXYQ3MuxXajdVMp7Aic7iXWCc30oS3RoZ/gR
-	 J090xyonONc+/ZLy7fw3nztPQ1/Ml9u9BgjLwnuFIAH2F0DnHrVRAf3QgZpiI3ty+SW7u
-	 y8ZHS+0++Y0a796DV1ua+dmvb5phXyf2kE8yAtct83PrmErzSbGuBNKCbdMEMN7vizQ==
+	t=1795080528;
+	b=KtJi94hF4BRXi/g3mAoTsZ098upL6rx/uHYey9asQMH/011qlhXnEMf86fqoVQmYvync
+	 wSJhyZrRNOS2yQGvAPIc32AI0VYadJ4KDmZdLqfgxxflMBmQCrZ59cZBPnyAbX9hBQ/b3
+	 2lkiE7B2kAWEguEDMqfRnhbz7JBSTj8P5fHWfHhbb1ghZtRYVZppegInEpktza5fd8FRC
+	 boZB8NprI03yVjLTR504Ajtf7Kxg01iJ2/L6x45Bl0CeInRg4rvkCdFefWzl6t2Okm2sX
+	 GgtdPycaYOVr2JalWd8FN4DiqM56vTfLKWHRSLexTWC4Ozpb3nTvvBRZwGGClgS4NcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795080512;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=5j2odsEOe8Kv3U2t6RUZhVnZ7rpMWQTZBTqXzWu8+kE=;
-	b=hnraXXJs6Y7hcJUiLCkEMbRKxIw/o8w3qXCQU9knM0gD7hBfKNH/6OLIfw9CvoulkHP0
-	 ndgIhglQJKy8Vt8jPzk8FVcFt09Pq4eJAeH5fPI+fosMl0mTwdsn91bqOr2QY715osz5B
-	 xydrdMLvWZOjVqDLyDuW3WzjR4EpP9MxMxV2sd4JgumPzOKON0KZa3FWoQtr5CVJsEPLV
-	 kptMzf1fFQr7GMS5rZmkxcHZ/4miCBg2SrjzVLSuRozZ8R4pjuakiflaNmIpvzRWixDDA
-	 DMVA5+dB66whSh2elmBga7D3XoSYvsdTvZmiOt3mVl7XTpGTj7kDBdhZ1kQEVN+HX8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795080528;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=tZkUVvzKQjAQWyILkBtC/Saow2IR3GnYSwljO/gw5AM=;
+	b=ju/oNchnzxdxKf2exx4q7gjFShwar3g6sXeDQlWZi3dmAKizQYtXqsGrIoRDHYnuNZdy
+	 CM5hte8yKRiL7vWjYDQkP7quCM6at7Ku/c/p8A7gfxrCFH4fjaBmJCI4jLnN4qO5g6kWd
+	 9c8I+ul680481OEU7TXpwiJSRRtKRhnP8aC7qjP+/YoFOvelcSyjgDQNMxR0Fwt/c0KhH
+	 AgygzNlBmuiTsA28t329o/QJb0wz9DvvLIyDIQL7om97O8YX/AcgJgU9k3xknZAdui9xa
+	 7EZDcxgrNLwsc25vxInVIfF4CKbgAXb9/cT/+/ZeANG6eYDGCX04qs1MDaZhQlNAIaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BOnw3wkA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UumKtnKq;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F92C606A320
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:28:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB9F60A2604
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 09:28:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BB9F60A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BOnw3wkA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14AF1F000C4;
-	Thu, 19 Nov 2026 09:28:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795080512;
-	bh=5j2odsEOe8Kv3U2t6RUZhVnZ7rpMWQTZBTqXzWu8+kE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BOnw3wkAsi8YMEau9TFmWkq2au+U1puug18pSLrTruM5Nks91i85qUgNfcFANQuIp
-	 KmQHk9N+43xOK0Y25o1gs0HEIZRP2+TSbw40D+0r2UG4auKvTER4xLcatwhjl/Guka
-	 JfgJfH5kYayMVyMqMNoRJcLv/VXAX8GcC4Kh55KOV2sGM/LUR6kQVAD3SAYPNYKrHe
-	 +8RGtIs/sOAJy+McjwMTyjpazKxUKh076luI/cCCzaj4PJrwJ6xfP+KnOVcXUw+nfb
-	 Cf8xGaixNP12L/eu9yoOFmvU34yghxQoJ26mRXXtDUeUUxsXugJGfIcrPtih+DaAFp
-	 lzrMvYDcaQ5aQ==
-Message-ID: <sashiko-outbox-222834@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 4/6] coresight: qcom: add QDCP STM source
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119-introduce-qcom-qecp-feature-v1-4-b1a730d2c57a@oss.qualcomm.com>
-References: <20261119-introduce-qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com>
- <20261119-introduce-qcom-qecp-feature-v1-4-b1a730d2c57a@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 09:28:31 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UumKtnKq
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb69f5b161so12606755e9.0
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 01:28:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795080527; x=1795685327; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tZkUVvzKQjAQWyILkBtC/Saow2IR3GnYSwljO/gw5AM=;
+        b=UumKtnKq1r1pRhIl6yN3F8pjsM0G5KjQIzfv66wmuNMsafvdfYcIvwZLRI7bgvZI3l
+         fY8Xuqe8hmWICS/u3Q2opwfUW0L8HY6EvYDkC2N4oETy4EMyjhdRghzi7X1M5T+tKebS
+         4jEDibCvEWME+m5xzokpHveX4G/HRd2ia6MxTKkzxtWoxLBDp46iAlThBaa2sZkOS3vq
+         k0pyyP1IpKzrTpLWRUoZT8W1TjvTsnvldczRKXb1GniyYK9Qc92sUJGm6W/oIg/czk96
+         ANKJ7WEZ+VMZG2d4K2NK0nFKv54Ngkd4XaCVytJY1Xy4yEEpB6XNZMec87d+uJodilGD
+         Aavg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795080527; x=1795685327;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tZkUVvzKQjAQWyILkBtC/Saow2IR3GnYSwljO/gw5AM=;
+        b=y4xdkOIUhcawYxqjRl73hUdbe5DZ9wOm1pM+sGX2YrA52y6Bhftl/JHQHEX77bAj8z
+         vkWuKrKGGeP9QBP74ASudxPNNR8/tyS4wAPA/C+a5a8lRhWOuML3qtCNLu2k2Rkn0DAB
+         hZgi1KadZf42yx7QKlUOJVxvRbeeb1o1QocT8QwbVUgCAVNus3MANLbML1yB2WeXMsBv
+         cNY6s5avkbkgiwWjVu2SrEb9tmjLEmMKaLY7gE78Z31t1nM+6j3m9zXhvDD72hZH0D0t
+         SRQYsBovZ39+IjB1va1kvDoUL/x0rFsWg71PO79d+FNuA/1htM7J0zNSMbfxWBdbiSAx
+         JXsg==
+X-Forwarded-Encrypted: i=1; AL+hErFDIRmHcoG/wHoaTcBiSMnEv1Tvn0pFcap26NEco7qZvfltyzXIGJfE/R90+LMXcfmrCUYpW4GuiAG2@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PShKBxmdtIGWmTV+1/kUzrf+ssuhE5tnUPeP6sAsTLBNQ4Pv0
+	Tm+Wr4aPQvWj1VE9QBtwu1DddA2LqXwXdVOTGMlHxGJ82x1U+oWOfKWQ
+X-Gm-Gg: AYBFou2EFjx7UKG6bAdbTtQsjg95BSvgXHKB6i1DymLLItvg2lbuMFmDAtAHNJjtR7y
+	wyO45va42RaJpDKftl0IG73Pf+XDoeRoDjgf7ucxvIl9RsZI1sWgA/K00HaKYwrhS2Q2BYSMTNq
+	KIrmBKj0JRqdpj6o2iM4FN412y98n1VYzIEzcKynyzsQt4gZuxFAXxBJHHJXEv/Ao7kA8wYOPLf
+	kzE/vRmyi1pTY9zA7Nl2yA95XqcCBQAGDXTDsWaCM6TEsPTLpEe9HdNp8ukgeIiTQbihNC+r76s
+	6m00OZnrU75nTn00kiwJjlunOdv692FDnf8bysuqL5DFsuWDR5ZaVF3jePyBaCOskfZPNYRJ8cl
+	eaEkRpiLV/my4GsUsftDhW1c9ucKZaa3DhEWykkYXer/K+/yf+aaP8lo+J0D4Xa3yk79lncQq2d
+	GnSnpEWTrgd9GbnjCkeIXt5IsLlDTBZTskOPuLVZ54gJd/2aym9lsljMM9F59Ln7wdbVqsIjiRT
+	4jhOy2vJibL4P1qcOC2XFxW4pCXv6/Atk7LZ/zbqt9vYhgFAGWiJkSLtW6gDm2Z2H+yctDsDVf9
+	Z9W/SL/ejfGnnxJ1e6TzTImZZGYIxDA6+RtMTEWulskGQQq6iTN3nQw2olpFZL0HozJuOq2ub9t
+	LXGbfa07ZlOE9MQ7abbObVAHf3CmmreqdbWbBuoGIjVndS4PGOpA7pV65ywGtww==
+X-Received: by 2002:a05:600c:4f14:b0:4ac:da92:2bd4 with SMTP id 5b1f17b1804b1-4bb7d6cc934mr120234985e9.1.1795080526550;
+        Thu, 19 Nov 2026 01:28:46 -0800 (PST)
+Received: from Lord-Beerus.station ([93.146.104.162])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a654a8c3c6sm8736002f8f.19.2026.11.19.01.28.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 01:28:45 -0800 (PST)
+Date: Thu, 19 Nov 2026 10:28:42 +0100
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Daniel Baluta <daniel.baluta@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 1/1] arm64: dts: freescale: imx93-var: Add Cortex-M33
+ configurations
+Message-ID: <av7BStmo7w4_rPci@Lord-Beerus.station>
+References: <20261119090600.9257-1-stefano.r@variscite.com>
+ <be20af64-e729-4d1e-aba1-c8512ac6e775@oss.nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,231 +105,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <be20af64-e729-4d1e-aba1-c8512ac6e775@oss.nxp.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [Medium] coresight: qcom: path and refcount leak in qdcp_stm_remove()
-- [Medium] coresight: qcom: sysfs enable_source race in
-  qdcp_stm_remove()
-- [Medium] coresight: qcom: premature CS_MODE_SYSFS transition in
-  qdcp_stm_enable()
-- [Medium] coresight: qcom-qdcp-stm: UAF of drvdata and csdev after
-  qdcp_stm_remove()
---
+On Thu, Nov 19, 2026 at 11:18:45AM +0200, Daniel Baluta wrote:
+> 
+> Use "reserved" instead of "disabled" for all the nodes that need not to probe
+> on the Application processor because they are used by the M33 FW.
+> 
+> Also, instead of disable in the commit message I think it is better to say "reserve".
+> 
 
-commit 70d23454ea311ef6b9bc809416627572cf195a8d
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+Hi Daniel,
 
-coresight: qcom: add QDCP STM source
+That makes sense, thank you for your review!
 
-This commit adds a Qualcomm CoreSight STM source driver that maps the
-AP-visible stimulus aperture and delegates STM enable and disable
-operations to QECP firmware via QDCP.
+I'll use "reserved" for the peripherals used directly by the Cortex-M
+firmware, and keep "disabled" for devices that become unavailable as a
+consequence.
+For example, Wi-Fi cannot use its reset GPIO because GPIO4 is reserved
+for the M33.
 
-> diff --git a/drivers/hwtracing/coresight/coresight-qcom-qdcp-stm.c b/driv=
-ers/hwtracing/coresight/coresight-qcom-qdcp-stm.c
-> new file mode 100644
-> index 0000000000000..39c6a2798a0f9
-> --- /dev/null
-> +++ b/drivers/hwtracing/coresight/coresight-qcom-qdcp-stm.c
-> @@ -0,0 +1,550 @@
+Does that match what you had in mind?
 
-[ ... ]
-
-> +static int qdcp_stm_enable(struct coresight_device *csdev,
-> +			   struct perf_event *event, enum cs_mode mode,
-> +			   struct coresight_path *path)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +	int ret;
-> +
-> +	if (mode !=3D CS_MODE_SYSFS)
-> +		return -EINVAL;
-> +
-> +	if (!coresight_take_mode(csdev, mode))
-> +		return -EBUSY;
-> +
-> +	drvdata =3D dev_get_drvdata(csdev->dev.parent);
-> +
-> +	mutex_lock(&drvdata->qdcp.lock);
-> +	ret =3D qdcp_stm_source_enable(drvdata->qdcp.provider, drvdata->qdcp.id,
-> +				     drvdata->traceid, drvdata->port_mask,
-> +				     false);
-> +	if (!ret)
-> +		drvdata->fw_stop_failed =3D false;
-> +	mutex_unlock(&drvdata->qdcp.lock);
-> +	if (ret) {
-> +		coresight_set_mode(csdev, CS_MODE_DISABLED);
-> +		return ret;
-> +	}
-> +
-> +	dev_dbg(&csdev->dev, "QDCP STM tracing enabled\n");
-> +	return 0;
-> +}
-> +
-> +/*
-> + * The CoreSight source disable op returns void and the user has already=
- torn
-> + * the path down, so the source always ends up disabled from Linux's poi=
-nt of
-> + * view. Return the firmware result so the caller can at least report it.
-> + */
-> +static int qdcp_stm_disable_source(struct coresight_device *csdev)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +	struct qdcp_data *qdcp;
-> +	u64 source_id;
-> +	u8 traceid;
-> +	int ret;
-> +
-> +	if (coresight_get_mode(csdev) !=3D CS_MODE_SYSFS)
-> +		return 0;
-> +
-> +	drvdata =3D dev_get_drvdata(csdev->dev.parent);
-> +	qdcp =3D drvdata->qdcp.provider;
-> +	source_id =3D drvdata->qdcp.id;
-> +	traceid =3D drvdata->traceid;
-> +
-> +	mutex_lock(&drvdata->qdcp.lock);
-> +	ret =3D qdcp_stm_source_disable(qdcp, source_id, traceid, false);
-> +	drvdata->fw_stop_failed =3D !!ret;
-> +	mutex_unlock(&drvdata->qdcp.lock);
-> +
-> +	coresight_set_mode(csdev, CS_MODE_DISABLED);
-> +	dev_dbg(&csdev->dev, "QDCP STM tracing disabled\n");
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Can qdcp_stm_packet() write to drvdata->stimulus_base while the STM block
-is still unclocked or disabled by firmware?
-
-qdcp_stm_packet() is lockless and checks only coresight_get_mode(csdev)
-before performing MMIO writes to drvdata->stimulus_base.  Unlike
-coresight-stm, QECP firmware controls the block's clocks and power over
-sleeping QMI calls:
-
-CPU0                              CPU1
-qdcp_stm_enable()
-  coresight_take_mode(...,
-    CS_MODE_SYSFS)
-  qdcp_stm_source_enable()
-    /* sleeping QMI RPC */
-                                  qdcp_stm_packet()
-                                    coresight_get_mode() =3D=3D CS_MODE_SYS=
-FS
-                                    qdcp_stm_send(channel_addr, ...)
-                                      <-- MMIO write before firmware
-                                          enables STM clocks/power
-
-The same window exists in qdcp_stm_disable_source(), where csdev->mode
-remains CS_MODE_SYSFS until after qdcp_stm_source_disable() completes.
-On Qualcomm SoCs, MMIO accesses to an unclocked CoreSight aperture can
-cause a synchronous external abort or bus hang.
-
-[ ... ]
-
-> +static void qdcp_stm_remove(struct platform_device *pdev)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata =3D platform_get_drvdata(pdev);
-> +
-> +	/*
-> +	 * Unregister the STM first: its unlink callback disables the source
-> +	 * through drvdata->csdev, which must still be live.
-> +	 */
-> +	stm_unregister_device(&drvdata->stm);
-
-[Severity: Medium]
-Can closing an open /dev/qdcp_stmN file descriptor after qdcp_stm_remove()
-cause a use-after-free on drvdata and drvdata->csdev?
-
-Unbinding the qcom-qdcp supplier triggers qdcp_stm_remove() via the
-DL_FLAG_AUTOREMOVE_CONSUMER device link created by devm_qdcp_get().
-stm_unregister_device() only unlinks in-kernel stm_source devices on
-stm->link_list; any open userspace struct stm_file still holds stmf->stm
-with stm->data pointing to &drvdata->stm:
-
-drivers/hwtracing/stm/core.c:stm_char_release() {
-	struct stm_file *stmf =3D file->private_data;
-	struct stm_device *stm =3D stmf->stm;
-
-	if (stm->data->unlink)
-		stm->data->unlink(stm->data, stmf->output.master,
-				  stmf->output.channel);
-    ...
-}
-
-After qdcp_stm_remove() unregisters drvdata->csdev and devres frees
-drvdata, closing the open file descriptor calls qdcp_stm_unlink() ->
-coresight_disable_sysfs(drvdata->csdev) on freed memory.
-
-> +
-> +	/*
-> +	 * No-op unless the source is still in CS_MODE_SYSFS. Without it,
-> +	 * removing an enabled source would leave firmware STM enabled.
-> +	 */
-> +	qdcp_stm_disable_source(drvdata->csdev);
-
-[Severity: Medium]
-Does calling qdcp_stm_disable_source() here instead of
-coresight_disable_sysfs() leak csdev->path and leave downstream CoreSight
-components enabled?
-
-When the source is enabled in CS_MODE_SYSFS (for example via the sysfs
-enable_source attribute), coresight_enable_sysfs() builds csdev->path,
-enables the sink and links, and takes device, module, and runtime PM
-references on every component in the path via coresight_grab_device().
-Calling qdcp_stm_disable_source() directly only disables the source in
-firmware and sets csdev->mode to CS_MODE_DISABLED without calling
-coresight_disable_path() or coresight_release_path_locked(), leaking the
-path and the get_device(&csdev->dev) reference on drvdata->csdev itself.
-
-> +
-> +	/*
-> +	 * A stop that failed here or earlier (fw_stop_failed) means firmware
-> +	 * may still be tagging trace with this ID. Keep it allocated rather
-> +	 * than let another source reuse it.
-> +	 */
-> +	if (drvdata->fw_stop_failed)
-> +		dev_warn(&pdev->dev,
-> +			 "QDCP STM not confirmed stopped, leaking trace ID %u\n",
-> +			 drvdata->traceid);
-> +	else
-> +		coresight_trace_id_put_system_id(drvdata->traceid);
-> +
-> +	coresight_unregister(drvdata->csdev);
-> +}
-
-[Severity: Medium]
-What prevents sysfs enable_source_store() from racing with
-qdcp_stm_remove() before coresight_unregister() removes the sysfs
-attribute?
-
-Because coresight_unregister() runs last and qdcp_stm_remove() does not
-hold coresight_mutex, enable_source Remains accessible while
-qdcp_stm_remove() disables the source and releases drvdata->traceid:
-
-CPU0                              CPU1
-qdcp_stm_remove()
-  qdcp_stm_disable_source()
-                                  enable_source_store()
-                                    coresight_enable_sysfs()
-                                      qdcp_stm_enable()
-                                        qdcp_stm_source_enable(...,
-                                          drvdata->traceid, ...)
-                                        drvdata->fw_stop_failed =3D false
-  if (drvdata->fw_stop_failed)
-  else
-    coresight_trace_id_put_system_id(
-      drvdata->traceid)
-      <-- trace ID freed while
-          firmware is enabled
-  coresight_unregister(csdev)
-
-Unregistering drvdata->csdev before releasing drvdata->traceid (or
-tearing down the sysfs session under coresight_mutex during
-unregister) would close this race.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-introduce-=
-qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com?part=3D4
+Best regards,
+Stefano
