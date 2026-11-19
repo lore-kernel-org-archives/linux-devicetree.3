@@ -1,85 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795075877;
-	b=CWNHKGqVSMeZVT9LG9HIz9LmVvmnpMTM9emreKQHP5tNIKzwMmLyT5MqW3wdWl+b9w94
-	 afBM4KhIpQX5Lo7wIKgaW74/BRqLS+Nx5eDi7vB4VzUlAvaCjz1kT/WO2LmEide3K7RPA
-	 /krChblLFOzLKYhHUnCdyF0DiCL4EV0YoVmAR48HBKaHQa1dYJ0aF2tbRhAidH9GomsLU
-	 dPDabZLWeoavQGz+q3LNPUtLt7u10Bqx6qB5dzbQ7fYeU7RN7mEdlhzX2QZ8C3VjjVUQn
-	 vO6OhRhBgsmrmb/pkq6XTAFfbe+SNwi2kYFHuduekW6SXG598pE3MQCwVOyicrBtVoQ==
+	t=1795075974;
+	b=vw7BW0Rxb8x8bLfeECnz/sctLyrkSwgGR2cICpa+iWWEoSVP1ES5oJPM8MeXWcL14Nz1
+	 eQLV2S8TCwm7knyr/eaQi6q971gWm4AynkeWuOqVYYZlMQj63PfwQ4C9HoSWtXeReTIjL
+	 UYG27MDiW2q95n3KcNW/9Q3n7rPN3H0qNjdCXE8TyPidrHqWXRDy4OoNzCg9he+L20dng
+	 CJ2nLtFmp7U0w4yD5vGtVPP8Oi1cITesujYwzaMJmGqaUiEHbnCgqDXVmj8r2rUeLoOva
+	 KKHFlAFF3tgjs2wDMz6pOM2EI9Bdl/zN5Z+2OThZKZ1Ax/QAShyg1zIPlz9qSY0TkGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795075877;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=K0w6PkVxkXL/Xi4LQWFqwmMKxwRSK2toKIJ5FNqLRfQ=;
-	b=TQ+l+9x2xbxUaP84Dm8xeLAenTzAiFH/wlFLAIXXPGpNm70048ll8fQU76cRM2yjlps+
-	 6KFSvS1k6LdkuRwSdah+piHakzHwCECNkEQgb6hmaXPHEBzUNK2ahhJ/jiuNLngxiXXGD
-	 D/U1VLbGaZLX8OQkzxZkOZ5/B8ATX5W6/aSwWZnYrTnRJT67A3LaaFYIfVCDwiFknN6ii
-	 RAqcIrH8OHmHrTwXpvwjq15qmy7M+dHrgI3t77mAquFwgX1Uiq1c2wdel9vruwEgaKslp
-	 UCzshdqox2QtRH/H5KhKRRLzXnkQqjhZdeCAilfhjdXn7y605N4FXPA5KLOY8GautKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795075974;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=yOZS1psKLpnUqBLeX9ZWHNiyksEhXVQkT5Ll7miEtlg=;
+	b=ZRuFTTg0W6w37bMccRbDfLRmblLup5BTar950WpSdMf/Q54JToXNyNFlAespTliFbR5q
+	 Xdsf8o25rvUucXYgtpLiC3lHjK6bQq7Os+DTnm1AZBxANhd/NRUblqyFSwDuegq4FeKHw
+	 TMIp8oUlULvMBkA91AGEvO/+oTY0JquuKdtehQQRX3/ZXiW9MSK7d+mBx2kZy77IS9+Hz
+	 8KAcRq1zNXnT3kt17LkEh5gjp3H8Toj9lbfHks1KFpdZr7hXLuO7Z9jaw0hd4JrnHn4Ze
+	 ItzEoUCNq/tqpGz9wvQu3bnmtGvVXH6DMHeRYoNbauhegR2vkDvuNVYkUFCgCmljJ+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LcEPjWCr;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=b8aDmKpp;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CB5606A32A
-	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 08:11:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02CB5606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3305C606A326
+	for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 08:12:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3305C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LcEPjWCr
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so27185475e9.1
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 00:11:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795075874; x=1795680674; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=K0w6PkVxkXL/Xi4LQWFqwmMKxwRSK2toKIJ5FNqLRfQ=;
-        b=LcEPjWCrO0y4SAy1MDddWs6Qw5Eq/jxNqjXdJnCuw5GugceTyPYuLmPQdYLzxMvd2O
-         oakdhu48o40QMt/QKgQ72HtVKfcd46YN3YhqeAoGIgScnwq6hlP+2cK60xjbB/VB5/AD
-         itqVUUJZNjminTWNE8+S02wFGQkYlvN0EAI9l+f8o58WByEVRSQRK5v+IjqDBZBbaAYK
-         NrJ1/7VEZVbQCXUa2GTbeaAyAvpqrjDMj+K7Pty3Nzw2ukhNuNZU6jgy9HFfal/xTfkp
-         NQ8pJ/hCRCzAJ4zJN0fz1FTIwuGweYwvvJKDQ8dTUbQSnKr5dm2PsjKaqwciIDFXbDo6
-         wqjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795075874; x=1795680674;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K0w6PkVxkXL/Xi4LQWFqwmMKxwRSK2toKIJ5FNqLRfQ=;
-        b=DfVy6NieA1xkaHFgvxuFkm/sm5+CfxK/TNGRH1O6RiRvThBGD+6LXsXLaQfjnXMlQ3
-         9QuhP1qBhm3ny5OkYxIvFQLLdI6XR6cdf9EEjJBZJOSyhsF63UVCgEFvyIj5ePXIKcqk
-         ZRGUOiEyzjY5awoXQQUigmOQS2bL8nYQ9D3f/RXgb7Rn8T2I/PsJWZtyscex4phC6vN5
-         1pGN7fjICpVHAa0JdJUCmJgXJheagyxBx8oF2QtMTd42CaZ0O0yeOOGCuuESEt92cwkk
-         uSSe9UNJ+1MsaG2WcU4RzcmeW/EygyOBsnZCXrrJ/hWyMR9l2fKWmozLQVZ+uysVyAO5
-         RmoQ==
-X-Forwarded-Encrypted: i=1; AL+hErEJKC577uujlAkrEIIiZwTGfUCinbLMCjyESn6Y2WETe/EbkoQH2XR8G4x4o0FbM2RLVI9hS/f1aqqK@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HeKXglsAVoQrIl+MH9y87ucTM9CGi6rRVEB6Lk3zCEY+eCPAK
-	zC/M/o/LjCfuBRtfl+4Nd41qKDOGi46qChPnMvZUdZYFEP7tdzK5HOD3ibMhhsPtfKI=
-X-Gm-Gg: AYBFou0wLvgMYMtMc/bPf8OVTt4WA/y/1O4UrDFZu8QZzJuVHOeoIEN+l/KXnD5q95W
-	zEHBSVJcJDwV6LJvE5fj4CariNNH3pqSpEyp9jdLBw37HjghdFXI8WsUYKp3qGdjNdnxkMDYiaj
-	YC0oeTUJIxhReJAbfJfuQg5douzwncY96AhRAOhdOjRxDp1gYp8p4Su/RxZRyH2v1QNM4ujJL8h
-	TNSN9GEWBAkwIghASGOAGpyh8rEFDB7HLI4CKekUmRLdaVF5bF2D1+bId67bYl+LVXCzfarL0lH
-	/X4xmJJpR9FO2Jn6Qco2uJ4BXJtMLDckvQLxgf/we5zK664nQ6975KZiFauVs7aZ7uuD1V6OLdk
-	6ud2rregniCUus/W1PJL26MJSy0Epd+eHkJvd8ncgozPkIQwE9AtIZDLYAYtsKpASKlRcIcgcOr
-	iOA65DCHtWWSXTryLz14uM0+lwl5WvDp0SIIClKWnHOC/8jAQsj2WmegrHAWofVuK/qTR08zEQB
-	gWaDsjZyJS3P/1U0Y9OYLjswJykCX7zf9mzRLllg+tZJS8/RzJBuzRwyZarG3EB0jLIja8qhvwu
-	BY85ZmurX7B5ANU09iXM0Yt2BfLZHf+Hj9xU2kw5ET5DektNggeSe/Wv52WBJbpu586h2Q==
-X-Received: by 2002:a05:600c:6095:b0:4a2:c2b:a91b with SMTP id 5b1f17b1804b1-4bb7da03b45mr88477785e9.10.1795075874056;
-        Thu, 19 Nov 2026 00:11:14 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb85343607sm21511305e9.6.2026.11.19.00.11.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 00:11:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=b8aDmKpp
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 984B1C4CBEE;
+	Thu, 19 Nov 2026 08:12:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6E23060237;
+	Thu, 19 Nov 2026 08:12:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8787411BC2B18;
+	Thu, 19 Nov 2026 09:12:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795075968; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=yOZS1psKLpnUqBLeX9ZWHNiyksEhXVQkT5Ll7miEtlg=;
+	b=b8aDmKppMAmBTvcONITykmfpurHncAY3a6tQI2COA1TVPVKUlwA/JaaHEpdbKkfFcuRnwx
+	6jHCn7nHfCN35sPT8CSy1uVX0nawLxGA9BAI4M1lYBor+QwhI5JwtEpic0pCqgLgJsBf0+
+	j4m06dxbjYOCaIsWuOumon4g5Wm5RvZLKZMACmAxd/D7cnEAvt+eTivr/liR+6J425wRL9
+	Br+GLhb9xaK/LcHodj8uXW6YOUP8sz7GOAnG2OPQ7B34F1ZcWFO6iZ7/LHXZFu0t+UwUw+
+	BKdW9ba4aUZdETVBG7FWXggIhb7PzJrXffv1DjhMOfhLV3ZJzVRkoNxpyHoYAg==
+Date: Thu, 19 Nov 2026 09:12:45 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: sashiko-bot@kernel.org
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v9 4/4] bus: simple-pm-bus: Populate child nodes at
+ probe
+Message-ID: <20261119091245.2c6c6528@bootlin.com>
+In-Reply-To: <sashiko-outbox-205130@kernel.org>
+References: <20261109140916.90625-1-herve.codina@bootlin.com>
+	<20261109140916.90625-5-herve.codina@bootlin.com>
+	<sashiko-outbox-205130@kernel.org>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,136 +74,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 5/7] clk: amlogic: Add S7 PLL clock controller driver
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Carlo Caione <ccaione@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <av2kitSLJNxlAKiv@macbook.homenet.telecomitalia.it>
-References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
- <20261106-upstream-s7-clk-v1-5-7d501d62621f@baylibre.com>
- <179499607256.413320.18141155995846183804.b4-review@b4>
- <av2kitSLJNxlAKiv@macbook.homenet.telecomitalia.it>
-Date: Thu, 19 Nov 2026 09:11:12 +0100
-Message-Id: <179507587229.639563.16969059581009770947.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3952; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=S/MfAZNg1Wj0rP92aDgSVxBVGdkD8yDNkTKcT4QFMoE=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFn/1iu8i1iwfEKNoRkvi4zy/bIXjwRtU6/s8V0fuO3VT
- TWRBxHXO0pZGMS4GGTFFFlquKvF30lqfZk1Xec2zBxWJpAhDFycAjAR7z8M/2t8bt7abX4m7O3v
- 3dPPaMWWVe2yjevLrM38W560U2uPUTzDP7Pci74zz3e+mZJ1qb+nmYnXff7OG779u5Xu/7N/fv3
- 3eT4A
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 2026-11-18 19:51 +0100, Carlo Caione wrote:
-> On Wed, Nov 18, 2026 at 11:01:12 +0100, Jerome Brunet wrote:
-> > > The S7 PLL controller provides the fixed PLL with its fclk dividers,
-> > > the GP0, HIFI0 and HIFI1 PLLs, and the HDMI PLL.
-> > > 
-> > > Add a driver for it. The GP0 and HIFI PLLs are expected to run with
-> > > their input divided by 2 (div0p5) and the HDMI PLL without it, as the
-> > > firmware and the init sequences set them up.
-> > > 
-> > > Signed-off-by: Carlo Caione <ccaione@baylibre.com>> > +
+Hi,
+
+On Mon, 09 Nov 2026 14:50:21 +0000
+sashiko-bot@kernel.org wrote:
+
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issues to consider:
+> - [High] bus: simple-pm-bus: unpopulated grandchildren in
+>   simple_pm_bus_populate()
+> - [Medium] bus: simple-pm-bus: auxdata lookup table dropped in
+>   simple_pm_bus_probe()
+> - [Low] bus: simple-pm-bus: missing Fixes trailer for commit
+>   98e96cf80045
+> --
 > 
-> [...]
-> > > +/* The datasheet documents FIXPLL_CTRL1[30:26] as a single fclk_en field */
-> > 
-> > Not sure what this imply ?
+> commit 7ba99d9ea04b1e1a29eebc1e1525489b300fe107
+> Author: Herve Codina <herve.codina@bootlin.com>
 > 
-> It means that each of the five bits enables one divider, while the
-> datasheet only documents the five bits as a single field. I'll reword
-> the comment to say that.
+> bus: simple-pm-bus: Populate child nodes at probe
 > 
-> > > +S7_FCLK(fclk_div2, 1, 2, FIXPLL_CTRL1, 30);
-> > > +S7_FCLK(fclk_div3, 1, 3, FIXPLL_CTRL1, 26);
-> > > +S7_FCLK(fclk_div4, 1, 4, FIXPLL_CTRL1, 27);
-> > > +S7_FCLK(fclk_div5, 1, 5, FIXPLL_CTRL1, 28);
-> > > +S7_FCLK(fclk_div7, 1, 7, FIXPLL_CTRL1, 29);
-> > > +S7_FCLK(fclk_div2p5, 2, 5, FIXPLL_CTRL0, 25);
-> > > +
-> > > +static const struct pll_mult_range s7_pll_mult_range = {
-> > > +	.min = 134,
-> > > +	.max = 265,
-> > > +};
-> > > +
-> > > +static const struct reg_sequence s7_gp0_pll_init_regs[] = {
-> > > +	{ .reg = GP0PLL_CTRL0,	.def = 0x02520800 },
-> > > +	{ .reg = GP0PLL_CTRL1,	.def = 0x09900322 },
-> > > +	{ .reg = GP0PLL_CTRL2,	.def = 0x00000000 },
-> > > +	{ .reg = GP0PLL_CTRL3,	.def = 0x00000006 },
-> > > +};
-> > > +
-> > > +static struct clk_fixed_factor s7_gp0_pll_div0p5 = {
-> > > +	.mult = 1,
-> > > +	.div = 2,
-> > > +	.hw.init = &(struct clk_init_data) {
-> > > +		.name = "gp0_pll_div0p5",
-> > > +		.ops = &clk_fixed_factor_ops,
-> > > +		.parent_data = &(const struct clk_parent_data) {
-> > > +			.fw_name = "gp0",
-> > > +		},
-> > > +		.num_parents = 1,
-> > > +	},
-> > 
-> > Is it the good old predivider here ? Shouldn't it be modelled with
-> > a read-only divider rather that a fixed factor ? just in case whatever
-> > came before did not leave things as we first expected ?
-> > 
-> > Applies to the other PLL instances
+> This commit updates simple_pm_bus_probe() to populate child devices for
+> transparent bus matches (such as simple-bus, simple-mfd, isa, and
+> arm,amba-bus) during probe, and skips runtime PM calls in
+> simple_pm_bus_depopulate() when runtime PM is not enabled.
 > 
-> Nope, not the good old provider, this is separate from N: N is in CTRL0
-> and our init sequence sets it to 1. This is CTRL1[27], div0p5_en.
->
+> [Severity: Low]
+> In the commit message, this patch fixes the probe behavior for bus-only
+> devices where returning 0 without populating children caused
+> device_links_driver_bound() to create wrong fw_devlinks. Should the commit
+> message include a Fixes tag for 98e96cf80045 ("drivers: bus: simple-pm-bus:
+> Add support for probing simple bus only devices")?
 
-Humm, still looks very much like it ...
+The commit 98e96cf80045 didn't introduce the issue nor change the behavior.
+The problem is there from the beginning. For fw_devlink child devices should
+be populated by at parent (bus) probe(). bus-only devices such as simple-bus
+can populate devices recursively skipping the parent bus probe() step.
+I don't see an obvious commit to point for a Fixes tag and so I don't plan
+to add a Fixes tag on the next iteration.
 
-> Now, it was indeed a read-only divider in an earlier (messier and
-> unpublished) version. The problem was that with a cold PLL it could
-> cache the power-on setting (/1) at registration, then the VCO init
-> sequence would enable /2 without updating that cached parent rate
-> basically breaking both rate reporting and set_rate. The fixed factor
-> avoids this mismatch when Linux initializes the PLL.
->
+> 
+> [Severity: High]
+> In drivers/bus/simple-pm-bus.c, simple_pm_bus_probe() at line 104 now calls
+> simple_pm_bus_populate(), which at line 64 calls of_platform_populate() with
+> NULL for the matches table instead of calling of_platform_default_populate().
+> Does this leave grandchild devices unpopulated when a child node has a
+> device-specific compatible string followed by a fallback bus or MFD
+> compatible string (such as compatible = "vendor,syscon", "syscon",
+> "simple-mfd")?
+> 
+> When an outer of_platform_default_populate() creates an ONLY_BUS device
+> after simple_pm_bus_driver is registered, of_platform_device_create_pdata()
+> synchronously runs simple_pm_bus_probe() before the outer
+> of_platform_bus_create() reaches its child loop. Inside
+> simple_pm_bus_populate(), of_platform_populate(np, NULL, lookup, dev)
+> creates the child platform_device and sets OF_POPULATED on the child node.
+> During device_add(), simple_pm_bus_probe() rejects that child with -ENODEV
+> at line 100 because the generic bus compatible is not first, and
+> of_platform_bus_create() returns 0 at drivers/of/platform.c line 371 without
+> recursing into the child's subnodes because matches is NULL. When control
+> returns to the outer of_platform_default_populate() loop,
+> of_platform_device_create_pdata() sees OF_POPULATED already set on the child
+> and returns NULL, so the outer loop also returns 0 without populating the
+> grandchildren. Calling of_platform_default_populate(np, lookup, dev) in
+> simple_pm_bus_populate() would pass the default match table and avoid
+> skipping those grandchildren.
 
-If the divider is part of the VCO init (which I'm not a fan of),
-this makes sense but it needs a comment near the fixed factor to
-explain how this works on the HW, that you are setting this up
-with the VCO init() otherwise it looks like there is an actual fixed
-divider in front of the VCO no matter what.
+Indeed, will switch to the of_platform_default_populate() call in the next
+iteration.
 
-> After dropping NOINIT_ENABLED from the HIFI PLLs, the remaining
-> assumption is that an already-running GP0 has div0p5 enabled. That
-> matches the firmware I tested, but the driver does not check it.
->
+> 
+> [Severity: Medium]
+> In drivers/bus/simple-pm-bus.c, simple_pm_bus_probe() reads lookup from
+> dev_get_platdata(dev) at line 74 and passes it to simple_pm_bus_populate()
+> at line 104. Can this drop the caller's of_dev_auxdata lookup table for
+> devices beneath a simple-bus node?
+> 
+> When a caller such as sysc_probe() in drivers/bus/ti-sysc.c (line 3243)
+> calls of_platform_populate() with a match table that includes simple-bus and
+> a non-NULL auxdata lookup table, of_platform_bus_create() only attaches
+> platform_data to the simple-bus device itself if the auxdata table has an
+> explicit entry matching the simple-bus node. Otherwise dev_get_platdata(dev)
+> on the simple-bus device is NULL, and simple_pm_bus_probe() synchronously
+> populates all child devices of the simple-bus with lookup = NULL (setting
+> OF_POPULATED on each child) before the caller's of_platform_bus_create()
+> loop can recurse with the caller's auxdata table. As a result, child devices
+> under that simple-bus lose their auxdata bus_id and platform_data overrides.
+> 
 
-If a PLL is going to use NOINIT_ENABLED, then a RO divider is the
-required approach because you no longer control the init.
+Indeed.
 
-To get the rate right, we could play a little trick but it would need
-a BIG FAT WARNING comment.
+To fix the issue I will add a OF_DEV_AUXDATA() entry for simple-bus in the
+existing omap_auxdata_lookup table.
 
-Register VCO first - basically re-order the IDs. .init() runs if the PLL is
-disabled or if it does not have NOINIT_ENABLED. At this point you know the
-predivider is set and the VCO orphaned. Then register the RO divider with
-NOCACHE, it should pick up its correct rate.
+A new patch for that specific modification will be added in the next
+iteration.
 
-It is a bit fragile but safer and more correct that the fixed_factor
-approach IMO.
-
--- 
-Jerome
-
+Best regards,
+Hervé
