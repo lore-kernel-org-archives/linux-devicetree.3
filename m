@@ -1,102 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795167363;
-	b=32vzHQYc0LI9+jXE9aXVy6CZJez9sTOw+2+8nLxBegl1q9925VUFEm5QnU0G3/SG1jtK
-	 K1aXWttMyl1CA5NzkPq08fyMGdqQxdzqx7h5npR02NS65r0mNJKxEoW0O7+Kwbr2BvFxb
-	 R0pO8e/gtg24vdPsi4MjVk5MP0QLh2KdPwXxTDPuANx7RIm+j+TG7u/xCUl2YRUg1hnnm
-	 4WkP6OQD+LQnuQNY/v4Dq20xCC7Axgbwr/DfaYydy+fQzoiFDzmR+A2RkoSVwO2TyPeQR
-	 WiMDOGdTMfUXBn/i4xr4HRFxQ/doinEOtxuvgUDEsdUE1HMYb5wUUutBFFgIVH0gMYQ==
+	t=1795167420;
+	b=xAmba4gK35YIEl7yTsdYM10Y2ACpBvOXWVE+8cWkIXlSE+ZIqnVBHdxLKou0BtoV4Y8X
+	 /A5a5quVGdgzhxoqRiOz49PLMpJPpYrDDtblcjXvtp5WvXaF9g6RbPC/ScXsucPfTEBJ1
+	 e/Nf1ujZ+NVO3lqpjnX9dGOOI8M8iCzVhk9KxL7zOkU8SOvaJxLF4ZOjt0lTIDpTv36XU
+	 JfYUmlNOFoDyOuceafVRAk8Gjc4EcKqKucYPuWfxx+nTMHPhPlDPQvKvwsLp5uKektXjm
+	 +eDb+n8rw/+5hIljEWXL/R8YWjqLhOESCmCm6+rjqOZwAXXn8JFafDK+Z+rPILNJ+Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167363;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/hW96zxuTk5ld/IlSdO1JUuxAcYc/tMjLiVGZKJqIFk=;
-	b=skg6HwDn7NWLTBybC9a3wWWta4zhLVnDRJEH5sl/Xt2/2Cr4Ou2ShkBhgD6EoVE10iup
-	 dycH7sHl4ISgD66L80H9dDw04yt8Bd6QkdviX6eA6dAFtbCE5AFDg0eek69wreIGAWlZU
-	 /jd2WvIDpZo4M4wqIsnYdthKGeaN1qpVVTmJ6h9dOPPFS9wg8Ufn8HWvo9OS6SLqEM013
-	 GhuOwrixTgc1rUCPoVxE0DhlbBos5napDV8GQujhZqiBr0kT8AGUQsePs2a9UWQoOHTQU
-	 fv9hLHYHUrupOsds5Prad6Spj/q5tjm6G7EmyWkccpC3YqQjHBuYCVubuB0DGfu9B2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167420;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=dzVvc+8XsI4mSrpEcEXWdjpdTd52V0l/DsZKFGKiNHQ=;
+	b=tNmkbLwXchkDosrQlrNIx7ahvh+GFvY9ABE0KbBWadkFaEouv6k+5GPRvbkm+wFOMXfI
+	 jykAGkJPtOofqgQVQBIRbjvAmZYUWzKdrCTPNK7B2SeLCVa6JgtEN05cNXuhD8rZjYN+L
+	 obqENIvqn1YPsFAjGMna8P68L22Ce4YZfPN78AsktDThpVdsmvzBf4IX21t1/ZLppAzWZ
+	 AtyM0TEXqWhDecASuK0JZ2BAd0H86P2rO4s/WmHGrFBgyWs+njlMFIenDf/G4ulxnDwS5
+	 C1XBrBG/PUGJI/mExkrsYc5PEadWCi9Vr2iUeabHWHmSRXcJBa7UQErLP10kXcSrZww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8EoJIZF;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F+2XMwXl;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=K2wS5+pS;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A58B606A320
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:36:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A58B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E810606A33C
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:36:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E810606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8EoJIZF
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4a5024b3c28so1218223f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 01:36:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F+2XMwXl;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=K2wS5+pS
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AK7f1Kc1048917
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:36:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dzVvc+8XsI4mSrpEcEXWdjpdTd52V0l/DsZKFGKiNHQ=; b=F+2XMwXl2VN+r4ce
+	HeaKZ/LNm9kaNf9UWO2fLOQe34kupTxy/VEmHvbVKWX6sxJLC2YIn1JCLxvS2FZ0
+	5++WVRDcJt/nXIkU00dtUNVtjPSjDdIMY5tGRemvuBy8CE33vWs0K4D4hkOWqgMX
+	Tu1VmK7L2+FvEXCq2gKwFhf/b2BuPbbuy5mQJnBsgPRhYE6KPCEmCoNCFK2lIgdK
+	pNLH6oNq4HYDhQlktyAECeJ0MJv8Lyiow6wqCexq5yuyilT2YUL81tgTP0t18PeW
+	UvNqn8VbsZgsnAGCyiw0BdP16NTGefl8PdLicZzyRAQUD2m2dwfq73ThWZXU+q6i
+	UvU02w==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j2guagtfj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:36:58 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ada6ccd402so763606a91.2
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 01:36:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795167361; x=1795772161; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/hW96zxuTk5ld/IlSdO1JUuxAcYc/tMjLiVGZKJqIFk=;
-        b=o8EoJIZFfNxWUcajM9GTvYDdGwpka09HiGu/uPZ9DKws2+OYs5vw3uyqvWMnB4ZcFm
-         5sKFsqdBL9kmgyAuepxJMlAZxmfvSAWPEO6U8Mhz7uopmdX0Le2p3A+8g2eUeT+sXRCi
-         +oxZAti8upFqxl5vBGHzpGfmaQjIEU+PLS5V1/xjnpTEYpT6RwKejj0l5vKCdvte/1kv
-         jyejNnkxifNx9azamuZfvl4WZ4pN7jq3yROWPAAouQmNkGxSH/ANnAWhB2D/aw4aqEQy
-         zMK3rZ/BnzgZuZQg92A2u1RsC9ZFtWQFGw1gxtr5NoN0qVEooQhrrlJ5TRALZa2A50XT
-         mPPQ==
+        d=oss.qualcomm.com; s=google; t=1795167418; x=1795772218; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dzVvc+8XsI4mSrpEcEXWdjpdTd52V0l/DsZKFGKiNHQ=;
+        b=K2wS5+pSxJhnWrJW+FtcR2nRUJIgtfaMwvROnUAPpDqaos5ZbjwezJLDRq9En1Va68
+         AAFFN69Md95asOyzARORtdr0PMIurtScH7uyiqSL5IshHgj02TesmCVP8D++A9ML+gvl
+         ozbpK4VDhQ8j1rb4u9gATfa3c1zj8BQXP17wBLyFHy0wLI8iledTHG49m6XrS9wQujjE
+         4aXf1C77FRy7bvecVV5HjKJ5rrbe9BAoTdRLYooi1GVp12lFYtW/DhmT2bjkt7cYJm1G
+         5BcM1eDZloDr4FeSwZtUHihUYYLNB1CabrubvtjM8Q0nwyPn5HwWyJhx41Npj9+Ba869
+         s2Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795167361; x=1795772161;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795167418; x=1795772218;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/hW96zxuTk5ld/IlSdO1JUuxAcYc/tMjLiVGZKJqIFk=;
-        b=HTTsi09CYzfax2DImT/9MqL7uIwFz4x1S1UUuHpvAw8ajBMNXJmDuYgEDmO7FXEdx/
-         wm3AAhaRB+oBgNoWybnMOk4Gu/yOMd4rYfsd9oKToQXe3BwgDLd3kdEoEi5Zs/5e0lBt
-         Tiiz2XUy52lEe67Fs50Dw7ZRDfm8PlCLBha1ByFr3bpAxmI9lli+hI72W+Aw/7UocJvO
-         xJOX0A7xppZ/qxZMDVV3P++egMarDuzeeiQtyp/U7fKpqU6qeqQgw/7UkoVffsLe7Y1q
-         QNUcrTv91Ws1CS5lTuiYB98jrilt5O6FkKeBk4ccgkk33veH1AfS+f+XnFobPkwTsrvH
-         vGbQ==
-X-Forwarded-Encrypted: i=1; AL+hErGWTATaXF6+oUeN10bunTRuVJg9B34q8XsO35FPgonH/arw77xZrVd/VsA80ndtqO0gi7FnN1G63LRN@vger.kernel.org
-X-Gm-Message-State: APuU4Z9h5RJiftrab8JTmuMbujr57kD3NEe3PAz5wL2tGoNcS49Dui9K
-	650LgFGIwz1Fny6/K/W2qQfVez1bzsu6h0UnXEwg1LyK3TgOzOfCxPqS
-X-Gm-Gg: AZFdTZcJPkSnfppAB0pPrG4aAnyNOeR7UW6uIRcm1PznvSF9YXHy25u4ei3H0510fJv
-	jaMDBfdS3dlKc5IGh/xEijpyL1adfcqARPNC5llqMuvjEgBsJBxm4OWFQglZzxRtQJfsECJVpM2
-	gJ+BBJpNSWLuEX5EkDiGny5TeJwPeYX63lc9b78FHjhnGf1Wo42sNxyncZpK/bV1aex44CLELAQ
-	VGohr4VSODu2Hs951yu1XIp1TSN1dtTkNfabPUL0HaB2PBvq2sPxHsv0TO7l2+CAIHlmfZCO+a/
-	UxT2HHe+Za2xjzNUG+LdcEjDN8k96rg4oSgHED+xxZldc08P21ex1V/G5hCZPm+Dd8kNlrEHGnY
-	OapdLSPKPm+S6RnqJlrN0fvsuT/p8Z47CsZCjaOmrm7iizr/WweU6gHKgIFo0aSyIta1/QoUBie
-	jYo+Dq0OpMkehanmwBUG/FfFdWLAEcDISSnxbfpQpaJN1jO8o0xUWT2eunBb4abgO7cCJNxd3da
-	K4/x4TLQ+Opqe5LgosmcOBGccESLd5MFEI9r3KoOsI2wJK+nAi3/j+eN67OZY6ZVBdsUoJBP3i4
-	txUbG2GXu7TcVww8mPf0VYycGPxs0WQ52ZHGPCWG71te4Ca+G5EsmXoRDTMOAMUE3sh+jtPJ3hS
-	0injQ35SWE+6gI4LrBOTtVMzec2tqN6hZ52oSR9cIBoqBUgw=
-X-Received: by 2002:a05:6000:184b:b0:4a7:9630:7b36 with SMTP id ffacd0b85a97d-4abb3f15ddbmr5085151f8f.21.1795167361168;
-        Fri, 20 Nov 2026 01:36:01 -0800 (PST)
-Received: from GLaDOS.station ([193.207.34.16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c43563esm4664645f8f.57.2026.11.20.01.35.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 01:36:00 -0800 (PST)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH v3 1/1] arm64: dts: imx8mm-var: Add Cortex-M4 support
-Date: Fri, 20 Nov 2026 10:35:57 +0100
-Message-ID: <20261120093557.4513-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+        bh=dzVvc+8XsI4mSrpEcEXWdjpdTd52V0l/DsZKFGKiNHQ=;
+        b=PXamompT8kpLqUOYeo2UvGvtKWDtvzjD9q9rItCZDBjtPvEVaiiHLpSnY1z3zgUzNk
+         ZZUKbw3dGL0iLA54sg5LkhACc2H7BIKdZgMjZTdJ5EnphBChucKttXcn3nGrfjQvc9uX
+         OSLOqIeXHzout3w7cd49/lEFYpPjFVFp9HRcO6I21S9u5OkPdHzjrPTE5krGZ62TuNCZ
+         Wz+dUi0KNFftIHuu1AgoIYIHW/t94HfaJUVm9gy6w7vaRWZCS6kB7zaSHiBnhXsMjklN
+         cWFn0fBs6HZIAN7YXiGDDgv08AVVGuQpEvSS2kJWBDuKFDjlcpquWeMhkAchlbhZi+ym
+         Y0rA==
+X-Forwarded-Encrypted: i=1; AL+hErHeUkiW71TUEtQ4cmwzN4dqIKOKoEqL2uyvF41riBHUv8zeospMmN65jz4L4ISpt3J5s/C0DLpvU7MZ@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mFDrhOSE+QaUQj5i6QMM7hgDW3X2n5h0gkf+TncWuT+uYVCqc
+	oEjlFoh7FH6nMtghg8ecSI73Y3w5XlxWwnsULGkn8c8pZW2BedmC20ochf9y0MQNq0OehdM5Gok
+	JsZdnwbbW/i78YLZ+/q9FvO0f0Z3IOLO2LCyVO6+39eSGkjOZo39FyGjSFIbINz82
+X-Gm-Gg: AZFdTZdsXN0D9Rvr9nAciVvoGrr77vPVifyJkdSXz9iVTwQdd0z2lh5H/An7vOmBP1I
+	Dg5wMkcMBuVX1KFVA1bgDGKxaDyHPSB6WWsBTx8Iv/6i1p23Qq3BvkUk923A4fT3UzF3IJ5o3Bg
+	Gr5huGYpg3SJfEUwXYG0KgMoa5a5YPNaOnTFhXTetlnCkccUEiw2Dbo2wJ1w/1i8jsagfkCfarL
+	NGyPIePe+aK0ao3ceiiN1FtEEU/sreovPl3Q9mMB1er+kbcEQF3wshtu1Cy8P9C6Q76hBPJdWld
+	j9o9IbcOj69lnMo8PDCd6rpfp/BS/YKJB0kjJ9K+JaoAynCd2LXgl/0I0oidazuUYKJH8eHLEjK
+	2sxV1aYh6fDj/UIPLvO206+TxRbqmtbpFcLLaIfLOwCteHeFF5TuzYYuUyqawPow0uZfN5/2YWJ
+	08z0iebg==
+X-Received: by 2002:a17:90b:35c2:b0:3a8:c0cd:57f3 with SMTP id 98e67ed59e1d1-3b41c8e0c7emr1983735a91.18.1795167417643;
+        Fri, 20 Nov 2026 01:36:57 -0800 (PST)
+X-Received: by 2002:a17:90b:35c2:b0:3a8:c0cd:57f3 with SMTP id 98e67ed59e1d1-3b41c8e0c7emr1983709a91.18.1795167417198;
+        Fri, 20 Nov 2026 01:36:57 -0800 (PST)
+Received: from [10.218.31.237] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b40548711esm7000212a91.0.2026.11.20.01.36.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 01:36:56 -0800 (PST)
+Message-ID: <a116e2b0-8857-48c8-85f6-be3a62325515@oss.qualcomm.com>
+Date: Fri, 20 Nov 2026 15:06:50 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,228 +116,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Mark RPM message RAM as
+ no-memory-wc
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Xueyao An <xueyao.an@oss.qualcomm.com>,
+        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Monish Chunara <quic_mchunara@quicinc.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, bibek.patro@oss.qualcomm.com
+References: <20261117-rpm-memory-non-wc-v1-1-e246fc6bc66c@oss.qualcomm.com>
+ <20261117161904.2hecbffviqjz2dub@hu-mojha-hyd.qualcomm.com>
+ <6965d3c1-1823-469f-8777-17fc52e132df@oss.qualcomm.com>
+ <20261118125534.7iyzuefhz4te35st@hu-mojha-hyd.qualcomm.com>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <20261118125534.7iyzuefhz4te35st@hu-mojha-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDAzOCBTYWx0ZWRfXy6/WB7SrDuGg
+ /y2FFSfwip9AAmvb1rA1eIOHqY6Op9B3qjiFph1oKhD1wdl+XYYtKAkpQ4SVzu2yWFgfmpwuERu
+ ZycZFuHD3+omm89wdqrns4VooNll/DitKPOUsQ2V64UznlltWgpXFNu8fK6deOsiivoLWJNzt3r
+ ucHEOhNjNksn7GuxCegGOS9DHAheahGdS2m7RzP9gDGfWDqhXYMNXax4+HDENjKY8XUH1IjY7Gr
+ y25Lb8M+IAhea4TyB7KKSJ0SKjkbzYRD8lyFexEqerm53SuLgAieC1HAw8cVxYAZMJxuzzHbFxZ
+ Mk1ToG0zG50M5o/x7blLGsrEn0XMjwMk/cvdKt1eHy70owTxZEcYNetDurVETCdnfeSYoNWYl7F
+ GpapUfd5080ukxGqNJO3nGD5vqugy3/o47+x9Mgt3cFNTJ8F4wS9TiyLC1WN8YPO47fB5AFqJ/l
+ 50n6vciEmHwnZawA3NQ==
+X-Proofpoint-ORIG-GUID: HcgWNbaOvl56hY5c4MHhNnPucOpMcgAl
+X-Authority-Analysis: v=2.4 cv=BIYmP1QG c=1 sm=1 tr=0 ts=6b0014ba cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=H8OHiH52VRMc-eBXeh4A:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: HcgWNbaOvl56hY5c4MHhNnPucOpMcgAl
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDAzOCBTYWx0ZWRfX0g0oUIo1fOTy
+ KqfwMoAwUhG3ICt7Em0CMSqmfslrzMZEXm1170Ic5sCmoJKwcjpnseRFe2B3g024XcPGwT1GHQr
+ M0E/CHjyG6NJu8iJciXoRh1HLohpljo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-20_03,2026-11-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611200038
 
-From: Stefano Radaelli <stefano.r@variscite.com>
 
-Add Cortex-M4 configurations for DART-MX8M-MINI on Sonata and
-VAR-SOM-MX8M-MINI on Symphony.
+On 18-11-2026 06:25 pm, Mukesh Ojha wrote:
+> On Wed, Nov 18, 2026 at 04:35:55PM +0530, Vishnu Santhosh wrote:
+>> On 17-11-2026 09:49 pm, Mukesh Ojha wrote:
+>>> On Tue, Nov 17, 2026 at 01:35:50PM +0530, Vishnu Santhosh wrote:
+>>>> The RPM message RAM is shared with other subsystems, and parts of it
+>>>> are not accessible to the APSS. It is expected to be mapped as Device
+>>>> memory.
+>>>>
+>>>> The "mmio-sram" compatible makes the SRAM driver map the region as
+>>>> write-combined (Normal Non-cacheable) memory instead, which allows
+>>>> speculative reads into the protected parts and results in XPU
+>>>> violations.
+>>>>
+>>>> Add no-memory-wc so the region is mapped as Device memory.
+>>>>
+>>>> Fixes: 66664b5701da ("arm64: dts: qcom: Introduce Shikra SoC base dtsi")
+>>>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>>> Why only for Shikra ?
+>> This XPU violation was seen only on Shikra, and only with Linux
+>> running at EL2 (KVM). It is not seen on Shikra when Linux runs at
+>> EL1 under Gunyah. So, I kept the change to Shikra.
+> Thats not explained in this commit, why this issue not seen under
+> Gunyah ?
 
-Share the reserved memory and remoteproc configuration through a common
-include, and add overlays and combined -m4 DTBs for remoteproc and RPMsg
-support.
+Under Gunyah, Linux runs at EL1 and Gunyah maps this region as Device
+memory at stage-2. The stricter stage-2 type applies, so the
+write-combined mapping from the SRAM driver has no effect.
 
-Reserve ECSPI1, I2C4, PWM3 and UART3 for the Cortex-M4 firmware. On Sonata,
-also disable the buttons and PCIe, which depend on GPIO expanders on
-I2C4.
+With KVM, Linux runs at EL2 (VHE) and there is no stage-2, so the
+write-combined mapping takes effect and speculative reads reach the
+protected regions.
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
-v2->v3:
- - Change disabled status for peripherals reserved to m4
+The region is expected to be mapped non-write-combined regardless of
+the exception level, so I kept the commit message to that. I can add
+the EL2 detail in v2 if you prefer.
 
-This patch depends on commit ebb21cc5d1c0
-("dt-bindings: remoteproc: imx_rproc: Document memory-region-names to avoid implicit ABI")
-for validation of the new memory-region-names property:
-https://lore.kernel.org/r/20261023-memory-region-name-v9-1-ad597887dfe9@nxp.com
+Vishnu
 
-v1->v2:
- - Add memory-region-names as requested by Frank Li.
- - Convert the Sonata M4 configuration to an overlay, so both boards use
-   the same approach and the overlays can be reused across board variants.
-
- arch/arm64/boot/dts/freescale/Makefile        |  9 +++
- .../dts/freescale/imx8mm-var-common-m4.dtsi   | 62 +++++++++++++++++++
- .../freescale/imx8mm-var-dart-sonata-m4.dtso  | 49 +++++++++++++++
- .../freescale/imx8mm-var-som-symphony-m4.dtso | 31 ++++++++++
- 4 files changed, 151 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-var-common-m4.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata-m4.dtso
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony-m4.dtso
-
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index cfd548284358..c542613ed3ea 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -245,9 +245,18 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-prt8mm.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-tqma8mqml-mba8mx.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-tx8m-1610-moduline-iv-306-d.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-tx8m-1610-moduline-mini-111.dtb
-+
-+imx8mm-var-dart-sonata-m4-dtbs := imx8mm-var-dart-sonata.dtb imx8mm-var-dart-sonata-m4.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-dart-sonata.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-dart-sonata-m4.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-dart-sonata-m4.dtbo
-+
-+imx8mm-var-som-symphony-m4-dtbs := imx8mm-var-som-symphony.dtb imx8mm-var-som-symphony-m4.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-som-symphony.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-som-symphony-legacy.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-som-symphony-m4.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-var-som-symphony-m4.dtbo
-+
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-venice-gw71xx-0x.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-venice-gw72xx-0x.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-venice-gw73xx-0x.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-common-m4.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-var-common-m4.dtsi
-new file mode 100644
-index 000000000000..ba2457d0ec91
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-var-common-m4.dtsi
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Common Cortex-M4 configuration for Variscite i.MX8M Mini modules
-+ *
-+ * Link: https://www.variscite.com/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+#include <dt-bindings/clock/imx8mm-clock.h>
-+
-+&{/} {
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		vdev0vring0: vdev0vring0@40000000 {
-+			reg = <0 0x40000000 0 0x8000>;
-+			no-map;
-+		};
-+
-+		vdev0vring1: vdev0vring1@40008000 {
-+			reg = <0 0x40008000 0 0x8000>;
-+			no-map;
-+		};
-+
-+		rsc_table: rsc-table@400ff000 {
-+			reg = <0 0x400ff000 0 0x1000>;
-+			no-map;
-+		};
-+
-+		vdev0buffer: vdev0buffer@40400000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0 0x40400000 0 0x100000>;
-+			no-map;
-+		};
-+
-+		m4_reserved: m4@7e000000 {
-+			reg = <0 0x7e000000 0 0x1000000>;
-+			no-map;
-+		};
-+	};
-+
-+	imx8mm-cm4 {
-+		compatible = "fsl,imx8mm-cm4";
-+		clocks = <&clk IMX8MM_CLK_M4_CORE>;
-+		mbox-names = "tx", "rx", "rxdb";
-+		mboxes = <&mu 0 1
-+			  &mu 1 1
-+			  &mu 3 1>;
-+		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
-+				<&m4_reserved>, <&rsc_table>;
-+		memory-region-names = "vdev0buffer", "vdev0vring0", "vdev0vring1",
-+				      "m4-reserved-ddr", "rsc-table";
-+		syscon = <&src>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata-m4.dtso b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata-m4.dtso
-new file mode 100644
-index 000000000000..2f290c3ae467
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata-m4.dtso
-@@ -0,0 +1,49 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Cortex-M4 support for Variscite DART-MX8M-MINI on Sonata-Board
-+ *
-+ * Link: https://variscite.com/carrier-boards/sonata-board/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "imx8mm-var-common-m4.dtsi"
-+
-+/* The buttons use a GPIO expander on I2C4. */
-+&{/gpio-keys} {
-+	status = "disabled";
-+};
-+
-+/* Reserve the peripherals used by the Cortex-M4 firmware. */
-+&ecspi1 {
-+	status = "reserved";
-+};
-+
-+/*
-+ * Keep the touchscreen enabled without its optional reset GPIO, since the
-+ * GPIO expander on I2C4 is unavailable to Linux.
-+ */
-+&ft5x06_ts {
-+	reset-gpios = <0>;
-+};
-+
-+&i2c4 {
-+	status = "reserved";
-+};
-+
-+/* The PCIe reset uses a GPIO expander on I2C4. */
-+&pcie0 {
-+	status = "disabled";
-+};
-+
-+&pwm3 {
-+	status = "reserved";
-+};
-+
-+&uart3 {
-+	status = "reserved";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony-m4.dtso b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony-m4.dtso
-new file mode 100644
-index 000000000000..ff5675cfc191
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony-m4.dtso
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Cortex-M4 support for Variscite VAR-SOM-MX8M-MINI on Symphony-Board
-+ *
-+ * Link: https://variscite.com/carrier-boards/symphony-board/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "imx8mm-var-common-m4.dtsi"
-+
-+/* Reserve the peripherals used by the Cortex-M4 firmware. */
-+&ecspi1 {
-+	status = "reserved";
-+};
-+
-+&i2c4 {
-+	status = "reserved";
-+};
-+
-+&pwm3 {
-+	status = "reserved";
-+};
-+
-+&uart3 {
-+	status = "reserved";
-+};
--- 
-2.47.3
-
+>
+>
