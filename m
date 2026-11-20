@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795195483;
-	b=c+hqay9SY1nQbR0zxTCOmknhgrGCopuI1/e8KBtnRD3XXensvAjflEesFFU73X8ClXbw
-	 wMDgTktnHxYTd1BuPGNgCdAe7eUYyzG9Om8AaO+Cw1EsDvh8MeUzykyhu2AiQ6VJ9qAh6
-	 6ygcphSqUv3tj/Z7oj0pYoClJNPMlNSAcTbo4YgX/4ZU9dEMAfNif5GaPd92lxxvj8srK
-	 0XrR38ZLtmXcDORbZirUk0YV32oLZub4j+JKZh+GU4MLjezPnnHfRS8MpBFN3/TvX+GZU
-	 clAtRuVpAQqG7YQI7NRqQFNkhK9nYRxKsmNJ0/pAc9W6+wjU8BewB85Pjjn7V8AGmEg==
+	t=1795195484;
+	b=fE7UDmJNYPWn6QSs8DeyPqfOeo+YCo+tz+1RMMPLvJu9jB6EOBRO3uiyNhclySZIqRHm
+	 YVY4ciyoZXTlVrlVEr6AMGCeVL6jwYRIMZgnMrViWGgkVwP9u8sOSc31X8tt1K8HDTdS8
+	 kxXwYUMRQOI44VhPb5vt/GJVnAANv+HYakNyE0BQz/nbkOSYa5F2hjUX7TouB1m1F9EKQ
+	 M9xmA7hSG0yIiE6hCEP4QBSwqhkyn9SRARlALfDCCSJiE/fwq21Z07zJCfhPnLSYroSEA
+	 y6Ak6tSz5xJMxFYx9gY0EhdapMrYXrMbJRFZM503T/+4LRVOEsLlP6Tzo7/dSjqxrDg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795195483;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FCAXrPxeX14bN1VetxI8E65zIox/7YHgEb5aQilywVk=;
-	b=Ia4ilXceePt2M5kEh1VUNjaxLfK/8ZIjP5gmSFAG4RMKP0+JRt4Ra6K7YykP9trjf6pu
-	 HJIbSfCaajlaDhoIA/iHkr+bGZgzSwrKF+yS6ceEbGaqyeNCLQbU5fdM0TWpe1ofW8hUm
-	 tqgSDETElpLHeacLZvkNUotZnUHlfYOL5zXQOimoLtgkcNrVCzKZrxvVpUxdxvQbvxO3E
-	 MI0exwFPBqjlwQVPCJXbuX1VLt+s1bgYpBvnq80uf5tGDLQPu+W0s+mJFiY6p1E1l40mD
-	 QGCSTVZgZSNAl9WEX0/Sc57N4QPQ+lFM5Mj46UHLayy4d+NyJcE/m8CyOwnk0PfJdUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795195484;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=QXYJdA152pHgZMlRQU/299usnGolOL8AepHjOYJb/+s=;
+	b=QVhW2nXl3JAHsmHULJLZqvjjN/U9SSjTngpeSztL9KLIR5B/pI84QGcOQdJoI14v4nQw
+	 D6VX++Rt04nWOTblB8e4JaI+xnUWTP/bV8way5n4HzjRQcceah/AJoHfWqf78108b00em
+	 vZtFB5IgHOuux4h+JorEHM3JkvabMD+BxEqrksEibL2+LEb86roq+J2+Da4cPgtlac70P
+	 xlUE5X8GG9xkLcW7npvE9r67nDFtxkrtlErMzkU6AIQkbteQEtTiyEPuk2xVA1zjt7VB3
+	 jyTRTSLjp6viH1A5XXzsZtDmzcIHuxFkTcH3G2jecmx8Zvp9n4o7GLXuqojX/Ek+5mg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K4j65Mbj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N6/48EPX";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFBE60A2606;
-	Fri, 20 Nov 2026 17:24:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2BD60A2613;
+	Fri, 20 Nov 2026 17:24:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K4j65Mbj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N6/48EPX
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795195483;
-	b=DSfafZGdot0jjzYDkGYyYvHmldAnILssl1WivvgVd0ETtEyNMW+W8ak7JMhGD7x0JC5w
-	 DJvCrgIhe5lbgw5f9PW5FCHthUz01clMZn+1SDWynbTkxgY8g2nDKha14XzRazWvdRXl+
-	 Ww78CF6BIz1VXikf9TW7Ss5j9seeMj+clOYGnoHLxX7x7KFf4MtIbqqsDrsyeON3YNM9w
-	 Ej0bhB8Vm+62NrFr9OB6iaGp6fWdi4x2he5jHyz9smA/bYZssm5c7I9OeKHaX/Ufy/xub
-	 bvtd7eaevQhgIChoVhQ/+l0F+sUo4+2e+XRcbsxiye1TnqCy0o/GMd9WlS23FWMu0og==
+	b=aqHfR0PjzVa2l1+LpNUZAWRAsLOUYrFjQ9QUpHbBhwUUTOUs4HSsJc/G78xoey7twSoz
+	 aAYT/Wd3bqKK5m+Obp1dmM+4T+krURIhAqVUg2xGNmCXy1f8eWdfDUsoLdOb+dC4LK1z5
+	 myL7npuqyCDDiW+uaiOd1794urK0UsycQ5gmWKsqppn+VQSW2pnHJcdnh3fimSXNYnmDL
+	 SeAEgr1+Bw2z6bJ6tF7d3n5ro3Bfli38D1PyP+0cjBED7Bj02gSm/CzVLpoQHpVl5Zk9a
+	 yhdyn7UHKb/XkWqX4qA2xNPSHXXnlSbVyKC6bVpipvFBsuFCJnfKBJhpuWF34xCADSw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795195483;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FCAXrPxeX14bN1VetxI8E65zIox/7YHgEb5aQilywVk=;
-	b=plVdhSpMZAJHp2EmkmhJ0fP3hVOrKnG6GLRJ5YX85jqmeU6qqprCPZXnWd7bQkFAW6w4
-	 RfAxA1+SaCF0sLJy+iPw3PieJEfkFJPgVhPLVjjR2Bx3PoCaeuv9hmimeR7Av23VuNXiG
-	 b+CWZdZuSQJWfY8wzQOceRRbtT7oRsk5lcLvIHVgwBaKGnfDg+dzvquYbuiMYtyZ5SdPz
-	 vL/G7YEjjwOsoG3tlQIFPSu4HVNlZ/xuvORpoOKt7QO2K/9oCPKdVQH6FT0LtaFGXNLke
-	 /8D/r7F2qqaxUhUvcOTmysSZuKXGQsIJH0sot/IWcpSJnYhQkOEf2nufbbVvqJm1slQ==
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=QXYJdA152pHgZMlRQU/299usnGolOL8AepHjOYJb/+s=;
+	b=TidDBRy0Dr35by3no63ubARaX9Ri/D4pmCRMFoPsNajTnOkGGQ1nhUaTXn22eEEQqbsZ
+	 FwxXq/2gF0qIjSqMy6gtJGn0ADZcln97d66FDD/P51L5nF/PqahJsAwEcSX5BTpKHGeo+
+	 SFT1sUTq04QGZsX0CHrSgR6n1xTnh4cJDpzHYG4QTjGIhdaZ+6TYj6Sx1yFSu7P+ScQ1I
+	 h5hOpgBIpxwaSCmR479Qz0FcP/3E9Kb5eNK4ZqDMPsN6qBf1F6ME7VQjQGZEvlGEI/luR
+	 piMEOPjLxy5yNIJ+FLU8N3NOP2WLgYwvq9Yz1PsKZ0aEzlI1F883oXwXJ+g+YBXQ2Qw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 72BDF1F000EB;
+	by smtp.kernel.org (Postfix) with ESMTPS id 4E3361F000D4;
 	Fri, 20 Nov 2026 17:24:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795195483;
-	bh=FCAXrPxeX14bN1VetxI8E65zIox/7YHgEb5aQilywVk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=K4j65MbjNKVYnnMa2OqYlPNC6eFPwNdT3Xz9Svo5Pn5rRFiGcxZT/QMxIJPk5nuQ2
-	 L/dkXVDFmtqEHw+NTstDd61UWLZJQmEdNF5gB3wT1EFwGAcKPOMMBxldYutKGoGW6e
-	 IFtVe3leUZNo4GciNoMVhMbUk8FSLvtCTC4zmD6NAa3istdalcomvNXvGToyzj4Ar3
-	 LH4oAcgjd8vap2eLWJ+Exj8+A0V9HL2TBDhihTKGTfC+YqgNbHhxlhuJZNT6NKC0CG
-	 VjEhbxkqJvQKe5W7R9yNpHpuCU4lxNRAs6izHskxX93nq94aZbuvKBXc6W63tS7IO8
-	 7BauUsZgZiv6w==
+	bh=QXYJdA152pHgZMlRQU/299usnGolOL8AepHjOYJb/+s=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=N6/48EPXekRudRsrdgM4gtdN//nzT1QP21ltlXEE8OZp04Vbn2KW0lQxFOKttvwBe
+	 Tl3mi2sEBLQxgC5ub8CXLRoGwVZvaWIhoQsQLj8oKqZlTXLcKO4Lcwm3PeKZcDUs2h
+	 s9wHvdrqV/Xc1CgBoOZXJnZDLA/XziHX0uy6yxRFjXVM5z2Trhvtf89gmbc3WqBClV
+	 epf9qevrFywfxrpoKJr0qLDmrB111Z9yGiq0eowQSX9v/FsObJbA9f4So7G+aZb7N1
+	 cYKXiqM6/Ip0STNCuB+KsHCqpx4wWQvt1N2zOxB1GfLHzme3YSO2vAocsMFCtGrwuZ
+	 7y+Ypz1UtILyw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 002FF4B891;
-	Fri, 20 Nov 2026 17:24:32 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id C0B734B889;
+	Fri, 20 Nov 2026 17:24:31 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Fri, 20 Nov 2026 20:24:15 +0300
-Subject: [PATCH v5 2/2] irqchip: Add Cortina Systems CS75xx peripheral
+Subject: [PATCH v5 0/2] irqchip: Add Cortina Systems CS75xx peripheral
  interrupt controller
+Date: Fri, 20 Nov 2026 20:24:13 +0300
+Message-Id: <20261120-cs75xx-intc-v5-0-f2be75c5e97c@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,194 +85,112 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261120-cs75xx-intc-v5-2-f2be75c5e97c@gmail.com>
-References: <20261120-cs75xx-intc-v5-0-f2be75c5e97c@gmail.com>
-In-Reply-To: <20261120-cs75xx-intc-v5-0-f2be75c5e97c@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNwQ6DIBAFf8XsuTSAIKan/kfjAXHVbao2YA2N8
+ d8reupxknnzVgjoCQPcshU8LhRoGnfQlwxcb8cOGTU7g+SyEFxo5oLRMTIaZ8dqJWXJhTNWN7A
+ v3h5bikftUZ0cPvUT3ZwSyegpzJP/HneLSt5ZFsL8lRfFOOO2MGWba9Rtfu8GS6+rmwaotm37A
+ fSrCmC4AAAA
+X-Change-ID: 20261015-cs75xx-intc-b422801c7a5d
 To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, Fil Dunsky <filipp.dunsky@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795195470; l=5353;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795195470; l=3764;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=nlJ1ISew1ezebn+ulwSM+gYqPI61U7Zt8jVwTgz66XQ=;
- b=tcMMCzoGaymUUNfrebj6mGjQ3JnvK9hH/SSj93AzrUDRy8s+8/FXvEvdKgaj6R7YTik409P9f
- ZOr7nlD6gjfCXeBfDHCWH19jSr0A73NxpRNFaaDC6cTXRWCHpivyrcT
+ bh=6s5F6PHiymxzxW+rL7fIwtxuLDz4meWHzapd9aAnc3s=;
+ b=4nwTsAVdteY3xf5e8Jv3WzoYawRZBobIBYn8+NIlklxjg6rZKw7RKqbOStG0FZghqQ6QslMnr
+ t0x08OMg+XMC45c9hthz/PoYrg2027bpnIyEHdVaL0aHiJObC1CzJ3L
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
  auth_id=1085
 X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
 Reply-To: filipp.dunsky@gmail.com
-Content-Transfer-Encoding: 7bit
-
-From: Fil Dunsky <filipp.dunsky@gmail.com>
 
 The timers, GPIO banks, I2C, MDIO, SPI and a few other low speed
-peripherals of the Cortina Systems CS75xx SoCs share a single GIC
-interrupt. A status register shows the level of the 15 sources and an
-enable register masks them; there is nothing to acknowledge, each source
-is cleared in its peripheral.
+peripherals of the Cortina Systems CS75xx ("Goldengate G2") SoCs share
+one GIC interrupt. This series adds the binding and a chained driver for
+the small controller in the peripheral register block that reports the
+level of these 15 sources and masks them; each source is acknowledged in
+its peripheral.
 
-Add a chained driver using a generic chip on a linear domain.
-The driver depends on OF and HAS_IOMEM and can be enabled independently
-of the CS75xx platform support.
+There is a second status/enable pair right behind it whose purpose I do
+not know; it is not described.
 
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+The driver used to be part of a series with the GPIO, I2C and watchdog
+drivers and the device tree changes. That series is now split per
+subsystem. The driver depends on OF and HAS_IOMEM, with no dependency on
+the platform series [1], which is under review separately. The device
+tree nodes will follow with the other CS75xx dts changes once the
+platform is merged.
+
+There is no public documentation; the register layout comes from the GPL
+vendor kernels and was checked on a Securifi Almond+ (CS7542), where the
+GPIO and I2C interrupts of the board are delivered through this
+controller. The v5 IRQ flags and normal initialization path were checked
+in RAM with PROVE_LOCKING; MMIO cleanup on initialization failure was
+reviewed but not fault-injected on the board.
+
+[1] https://lore.kernel.org/all/20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com/
+
 ---
- drivers/irqchip/Kconfig      |  12 +++++
- drivers/irqchip/Makefile     |   1 +
- drivers/irqchip/irq-cs75xx.c | 107 +++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 120 insertions(+)
+Changes in v5:
+- replace the ARCH_CORTINA_ACCESS || COMPILE_TEST dependency and
+  architecture default with OF, retaining HAS_IOMEM, so the driver can
+  be merged without the platform series
+- build built-in on ARM and x86-64 with COMPILE_TEST=n and without the
+  platform series; check that OF and MMIO dependencies gate the option
+- require HAS_IOMEM for COMPILE_TEST builds
+- mark child interrupts as level-triggered and keep them non-probeable
+- release the reserved MMIO region on initialization failure
+- Link to v4: https://patch.msgid.link/20261117-cs75xx-intc-v4-0-0a678f35e5f3@gmail.com
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 136bab41f..12bf87e8e 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -187,6 +187,18 @@ config BRCMSTB_L2_IRQ
- 	select GENERIC_IRQ_CHIP
- 	select IRQ_DOMAIN
- 
-+config CS75XX_INTC
-+	bool "Cortina Systems CS75xx peripheral interrupt controller"
-+	depends on OF
-+	depends on HAS_IOMEM
-+	select GENERIC_IRQ_CHIP
-+	select IRQ_DOMAIN
-+	help
-+	  Support for the interrupt controller of the Cortina Systems
-+	  CS75xx SoCs that combines the interrupts of the low speed
-+	  peripherals (timers, GPIO banks, I2C, MDIO, SPI) into a single
-+	  GIC interrupt. Say Y if you have a board with such an SoC.
-+
- config DAVINCI_CP_INTC
- 	bool
- 	select GENERIC_IRQ_CHIP
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index 16a5fd126..7ed8f8b33 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -136,3 +136,4 @@ obj-$(CONFIG_MCHP_EIC)			+= irq-mchp-eic.o
- obj-$(CONFIG_SOPHGO_SG2042_MSI)		+= irq-sg2042-msi.o
- obj-$(CONFIG_SUNPLUS_SP7021_INTC)	+= irq-sp7021-intc.o
- obj-$(CONFIG_IRQCHIP_XILINX_SMMU_CSR)	+= irq-xilinx-smmu-csr.o
-+obj-$(CONFIG_CS75XX_INTC)		+= irq-cs75xx.o
-diff --git a/drivers/irqchip/irq-cs75xx.c b/drivers/irqchip/irq-cs75xx.c
-new file mode 100644
-index 000000000..18f10eb7e
---- /dev/null
-+++ b/drivers/irqchip/irq-cs75xx.c
-@@ -0,0 +1,107 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Cortina Systems CS75xx peripheral interrupt controller
-+ *
-+ * The low speed peripherals on the register bus (timers, GPIO banks, I2C,
-+ * MDIO, SPI, ...) share a single GIC interrupt. A status register shows
-+ * the level of the 15 sources and an enable register masks them; there is
-+ * nothing to acknowledge, the sources are cleared in the peripherals.
-+ */
-+
-+#include <linux/bitops.h>
-+#include <linux/io.h>
-+#include <linux/ioport.h>
-+#include <linux/irq.h>
-+#include <linux/irqchip.h>
-+#include <linux/irqchip/chained_irq.h>
-+#include <linux/irqdomain.h>
-+#include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
-+
-+#define CS75XX_INTC_STATUS	0x00
-+#define CS75XX_INTC_ENABLE	0x04
-+
-+#define CS75XX_INTC_NR_IRQS	15
-+
-+static void cs75xx_intc_handler(struct irq_desc *desc)
-+{
-+	struct irq_domain *domain = irq_desc_get_handler_data(desc);
-+	struct irq_chip *chip = irq_desc_get_chip(desc);
-+	struct irq_chip_generic *gc;
-+	unsigned long pending;
-+	unsigned int hwirq;
-+
-+	gc = irq_get_domain_generic_chip(domain, 0);
-+	chained_irq_enter(chip, desc);
-+
-+	pending = readl(gc->reg_base + CS75XX_INTC_STATUS) & gc->mask_cache;
-+	for_each_set_bit(hwirq, &pending, CS75XX_INTC_NR_IRQS)
-+		generic_handle_domain_irq(domain, hwirq);
-+
-+	chained_irq_exit(chip, desc);
-+}
-+
-+static int __init cs75xx_intc_init(struct device_node *np, struct device_node *parent)
-+{
-+	struct irq_chip_generic *gc;
-+	struct irq_domain *domain;
-+	struct resource res;
-+	void __iomem *base;
-+	int parent_irq;
-+	int ret;
-+
-+	ret = of_address_to_resource(np, 0, &res);
-+	if (ret)
-+		return ret;
-+
-+	base = of_io_request_and_map(np, 0, of_node_full_name(np));
-+	if (IS_ERR(base)) {
-+		pr_err("%pOF: unable to map registers\n", np);
-+		return PTR_ERR(base);
-+	}
-+
-+	/* Mask everything before the chained handler is installed */
-+	writel(0, base + CS75XX_INTC_ENABLE);
-+
-+	parent_irq = irq_of_parse_and_map(np, 0);
-+	if (!parent_irq) {
-+		pr_err("%pOF: unable to map parent interrupt\n", np);
-+		ret = -EINVAL;
-+		goto err_unmap;
-+	}
-+
-+	domain = irq_domain_create_linear(of_fwnode_handle(np), CS75XX_INTC_NR_IRQS,
-+					  &irq_generic_chip_ops, NULL);
-+	if (!domain) {
-+		ret = -ENOMEM;
-+		goto err_dispose;
-+	}
-+
-+	ret = irq_alloc_domain_generic_chips(domain, CS75XX_INTC_NR_IRQS, 1, "cs75xx-intc",
-+					     handle_level_irq, IRQ_NOREQUEST,
-+					     IRQ_LEVEL | IRQ_NOPROBE, IRQ_GC_INIT_MASK_CACHE);
-+	if (ret)
-+		goto err_domain;
-+
-+	gc = irq_get_domain_generic_chip(domain, 0);
-+	gc->reg_base = base;
-+	gc->chip_types[0].regs.mask = CS75XX_INTC_ENABLE;
-+	gc->chip_types[0].chip.irq_mask = irq_gc_mask_clr_bit;
-+	gc->chip_types[0].chip.irq_unmask = irq_gc_mask_set_bit;
-+
-+	irq_set_chained_handler_and_data(parent_irq, cs75xx_intc_handler, domain);
-+
-+	return 0;
-+
-+err_domain:
-+	irq_domain_remove(domain);
-+err_dispose:
-+	irq_dispose_mapping(parent_irq);
-+err_unmap:
-+	iounmap(base);
-+	release_mem_region(res.start, resource_size(&res));
-+	return ret;
-+}
-+
-+IRQCHIP_DECLARE(cs7542_intc, "cortina,cs7542-intc", cs75xx_intc_init);
+Changes in v4:
+- rebase on v7.4-rc1; update the platform reference to v7
+- split out of "Cortina Systems CS75xx: interrupt controller, GPIO, I2C
+  and TWD watchdog" so that each driver can go through its own tree; no
+  longer based on the platform series
+- declare the variables of the chained handler from the longest to the
+  shortest line
+- do not wrap lines that fit in 100 columns (Thomas)
+- collect Reviewed-by tags
+- Link to v3: https://patch.msgid.link/20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com
 
--- 
-2.53.0
+Changes in v3:
+- rebase on v6 of the platform series
+- Link to v2: https://patch.msgid.link/20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com
+
+Changes in v2:
+- rebase on v5 of the platform series
+- Link to v1: https://patch.msgid.link/20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com
+
+To: Thomas Gleixner <tglx@kernel.org>
+To: Radu Rendec <radu@rendec.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+
+---
+Fil Dunsky (2):
+      dt-bindings: interrupt-controller: Add Cortina Systems CS7542 peripheral interrupt controller
+      irqchip: Add Cortina Systems CS75xx peripheral interrupt controller
+
+ .../interrupt-controller/cortina,cs7542-intc.yaml  |  57 +++++++++++
+ drivers/irqchip/Kconfig                            |  12 +++
+ drivers/irqchip/Makefile                           |   1 +
+ drivers/irqchip/irq-cs75xx.c                       | 107 +++++++++++++++++++++
+ 4 files changed, 177 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261015-cs75xx-intc-b422801c7a5d
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
 
 
