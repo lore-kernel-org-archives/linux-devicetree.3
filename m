@@ -1,62 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795217673;
-	b=BjJRIAOobuG8ADdc+HlKWk0ycVR2l0vwCBENZvBD9PImVpFRbsn9PlnklSqIeOQhn+ro
-	 CivpbQYKAo/sQ3Acuf00IcjIM7qUIKxUNaqKOxqS8Npwcno54sbu7/tjItK8z+Eh/b61t
-	 SjqMRznB1Si5nnSnxWN2hfgczXLTPx/lGlK+ZfX84gtlAhusN2TMBs4jh+63ylvaTqSqi
-	 BbqlB2ZzWO4bjk/yxEe2r8Zj7g034ttjf2YRrjqDCkoFZxhxTiKjR+VXwKTGnmwkvGrgx
-	 6Qr9YH9lPOcB5Yj/Uzu/7Bmv2LQbPy9HhrT3sURDEtzAe+gQUq13qGWyGQXjsFKVqTw==
+	t=1795217751;
+	b=4P2zzLGnHCLroxDyQauzKEDn/20Xq6SkUu/5cfV891BMwaKdFvxSV0dF0q4emhRjJrQ9
+	 tSjAUOKyvTUj/CWGs4EDGjf5VflI8fO3s5wWZZBQjqBUg29/Om+8krsPUqeTsAUkgOj7x
+	 tYJH1oFApkLGdVC6XQE3wmJS9TqgmrUjMrcRTHZyakWV7teBn8Xmkmit3YMwonbk/CEe4
+	 2i6U7XqWMP+JgyurO6xWkmIkDoxMNl91JlheiafJzSfeqers1iNBvWOwFJzyIr+AOSGiC
+	 4CJLNJdOKgkDcgZSV66dNX8rWR4NBUqaPz+eZY5OMTNwwfl83TrYlnSexImqOwabWBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795217673;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jSVkms071gBFhS0ZEXeIERho5bLbtUl4WQoLD2P05l8=;
-	b=2u1PsT6BaCos5OYtpFyvIfnKVt0Gi+PZ1b1kM1AKhl2KCmgNwcnhTfy9qImZ6592y2AX
-	 yheHG6UDZT9Ueun7R6cotdUNrR/ob0IeOWCJmEEXeFh+G3uSAdud2+VnQFXWsH69uQa+U
-	 OgyLoNE07dZCquj8oHuo0K91fMGKUK1nLBNlCc/kplmqVeCGGnf0L79+EpAH2Zy3ZDZTZ
-	 7cBPUzBHklAQXrfPAaX0T5S7FAsd87BpVa3QfNV13OUeB3o+rsZaUTcG4GFg/V/U28G5+
-	 Gj9uhnoR07tgosw/aSyvEMr3R0tNLfxTAisNJMpBt2A6hdkSn76eJUHViq0NxJn8PZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795217751;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=g56+Yp2TKqJ5xV2s8BFdZoIDvKQ0/BGu0qh6iDTvIhE=;
+	b=Kr/+QucNxl9GQ4PLd8/QYqLjpo+anShY2iO0urevBZqcupU6WtBaYvQuiN/jSJBllSUx
+	 iqXnb1DUxy/tOuS/GIa8rcn+0SVyT+9noTLnfTdGBhLQkZI33rJvK0VAJGOiMeHO7b+KA
+	 VO/enSWJohHR2ndifmOxKJF8r3WFuZsH9pMuDoJ/0gggBGGHK5I3i3BB41ZWqC1S0vcYd
+	 UAdqzZ80xbDG+ch5qnSv7QWvB3pac1hyYyYV4e4h7PKdqXJHMOXYJNaQEhRVbab0I30Yx
+	 q+DOXRyXs2plQaZpqPowal8zzeDQr3uGR/BKkkBn4GwkRYtpXQLOb+LoxQhMWWkdbGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VgPZKB/F";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gMJdzpWU;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D96606A33C;
-	Fri, 20 Nov 2026 23:34:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34729606A6A0
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 23:35:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34729606A6A0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgPZKB/F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA221F000D4;
-	Fri, 20 Nov 2026 23:34:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795217672;
-	bh=jSVkms071gBFhS0ZEXeIERho5bLbtUl4WQoLD2P05l8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VgPZKB/FSgIyhPRU6BJYdxGdGWMbuTB1hYp8WeiDLcp7OqO7xtBLeAWRf0yiArqL1
-	 yRmCt4VQ9hNrcQ8cJGcmDLApMT56qKBGzgV3HSE/ALZvkJfpYxQpNtlGG66lU0gHf0
-	 T/DnImfPtOY+vW0qgVOARu43s01XRcGkLKL/pjWFzC9nEaWsFA2KZv0OftdLoMhkOu
-	 kG2HsjJqwxPkE4/6X5hb2juou9TKL67jsUTjTxpPiM5lQhdKtc0ZcrUySuhuQdFk7M
-	 R/mRtk9CmTlXzLmuT/FLb0jDiAPtT1RG+uw1ygFAH1Ph9cXS+fDVECujNZA2jzukGu
-	 0aVQC8o8vSyGg==
-Date: Fri, 20 Nov 2026 15:34:30 -0800
-From: Drew Fustini <fustini@kernel.org>
-To: Thomas Gerner <thomas.gerner@muenchen-mail.de>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gMJdzpWU
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-49d64a88222so1648839f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:35:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795217748; x=1795822548; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g56+Yp2TKqJ5xV2s8BFdZoIDvKQ0/BGu0qh6iDTvIhE=;
+        b=gMJdzpWUCdoMFvsTMfYqoRfTfROXZG+RA1LGemimeWigE7+o/8xg6ie0qG9DmSwvy0
+         HqZj8ThkLGNqmUpXWmvxvWkH4h9ZMhcO4s5l+RTDbm1HG3SLMJWvi0LmdYrCZwjDUkUE
+         B/bhYqKnfxedTfdjvZtDyBCwe3W9Z4rIvvOas7b+SbJYB7Pcy7F2bk/NYZ9rSOH+0l6H
+         954aKZWKo7AuuGOnolCdxD3R5VehevZZKCRbM3Zqs2RXThiGLfXjL4qLCd1ZdNo+XcZB
+         mhZv2Eg1TShS1YsurmB3StyyVvRTmD4Al3JRFx5x+joBMvkb8wkT6bOFdZjKsBpmV+TJ
+         k4aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795217748; x=1795822548;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g56+Yp2TKqJ5xV2s8BFdZoIDvKQ0/BGu0qh6iDTvIhE=;
+        b=2iuq25q9QMhdyPVEhWz0KL2We476cnMRNg3XhCkC4SGUifPaDoA5xzqtKGgr7iwlZb
+         9dx/yGLC2HpV2AeuX3BL5e7Kp2T4SoOKjHAmGgQmh+qGcq+VtzESGChaDkUS35bke6zl
+         MNIGWQK0SQSwGWSBwJZU1/GIQVsNpxa9oPfgH/HEDy/TwTStzW0PmVqIurkO3t2cwuTV
+         2FEact2fC4/1pD0OXr9iU4RG8GPNGo0YgfX5uCcF7xG0S93cx609BO+avav4poxhYCVJ
+         py6szklZlT6XKESjtt/ZDPtKrPrSWzfOY7wGe/MgHfdxKvJNbRTHzo4vxv4q1QLVNdY7
+         eh4Q==
+X-Forwarded-Encrypted: i=1; AL+hErFcOKWdjud1DjtsxktVk7P8uhGU4+XMWr3iBWIe5bIztozqVLp4KeoomqFpyeEtflIA4Nk9xqp7/WQb@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/HYgVHRYHXa17ZSGpPMo4LPKIXj+ugRkMlsywQy+1BQ1Uj1AB
+	EEXQQ72DnSMqtXc3yZt0+y9dhDUn+a/Vag0N+SSh0c4LDu5jkdQ2+80/
+X-Gm-Gg: AYBFou2mxW6gMSUgpK4uotvkSDB2lYly8rQLkWlegMUs1T5M7ZgGqV3YJyPAyfPkUrv
+	qR+3j0ZPkABf9CY5NA/Tyy3JvHnBlSQNXiVOP6wsTFGtAOm1iJXPMLILMNNN2MCVSB7185qBGHr
+	UvpSHiOA6my9r6N5rPMb5KsDbIVAZfq8HPww7wt2zOLAHRZ6SgzxLxTgvJsBbV04h6UJ4QQFeVu
+	kkbjxu0D68MKkv6jyKLC5U0eaUmgsKh4JnfO6Suq4xZS9UVkMHAIInVgHmsj3rohukPRg2Smm01
+	896BzAXcb0pWa9uxYpHiiW93rZ1HG9UqabrMjiRLCYnaI600cwSZEG5j4ah8hEPxNupJ4gFh4bx
+	dKwDuca12Rf2is2yWS6yaxH6bs/ewUQG+Hly6COK9KoKI98dre/nWctFL4/w5GF5u14DVg964Wh
+	+puZb3hJFX4WKrGYovKT+HATNMQBM5jxln1wAlguA6h4kYkBUrRkvpnnpvxUWfrgbgl0+0vn5KR
+	EgJ7898WCxjxt54XJo76qrKLaMBxpK3908hjCyrlWmgYW4xmeo3y8wwQ98k6i8Bv75sKWMC31GN
+	AzGFO1L0H+PXtcjnyWz03oDSQjGN2+umAuzEUCIwmJ0i9ZrfPnvq1y8E+Tqj51SPRcXIMA7M7oN
+	nIQ0gKNDSp3Wk6D3/ntrZfBecn/HqJiYCm0/dsVle6+jmHR/vuPpi
+X-Received: by 2002:a05:600c:2319:b0:4bb:752e:991c with SMTP id 5b1f17b1804b1-4bb86160370mr100394445e9.15.1795217748477;
+        Fri, 20 Nov 2026 15:35:48 -0800 (PST)
+Received: from Ansuel-XPS24.localdomain (host-95-234-253-103.retail.telecomitalia.it. [95.234.253.103])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4ab6bb98b4dsm8672390f8f.53.2026.11.20.15.35.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 15:35:47 -0800 (PST)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] riscv: dts: thead: Enable bluetooth on
- BeagleV-Ahead
-Message-ID: <awDZBiX1VoSkO6F3@x1>
-References: <20261020132604.90708-1-thomas.gerner@muenchen-mail.de>
- <20261020132604.90708-3-thomas.gerner@muenchen-mail.de>
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v14 1/5] dt-bindings: clock: airoha: Document support for AN7583 clock
+Date: Sat, 21 Nov 2026 00:35:29 +0100
+Message-ID: <20261120233535.164885-2-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261120233535.164885-1-ansuelsmth@gmail.com>
+References: <20261120233535.164885-1-ansuelsmth@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,158 +108,173 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020132604.90708-3-thomas.gerner@muenchen-mail.de>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 03:26:04PM +0200, Thomas Gerner wrote:
-> On the BeagleV-Ahead the bluetooth module of the Ampak AP6203BM is
-> identified by the btbcm driver as BCM4362A2. The module is connected by
-> UART4, several gpio pins and an I2S interface. The I2S is currently not
-> used as there is currently no driver.
-> 
-> Signed-off-by: Thomas Gerner <thomas.gerner@muenchen-mail.de>
-> ---
-> Changes in v2:
-> 	- use default pinctrl definition for bluetooth in and out pins
+Document support for Airoha AN7583 clock. This is based on the EN7523
+clock schema with the new requirement of the "airoha,chip-scu".
 
-Thanks for sending v2. Sorry for the delay in review.
+The register for clock and reset for normal system and PCIe are scattered
+between the "SCU" and "chip SCU" registers (they are 2 different register
+block, the name is taken from the programming guide)
 
-> 	
->  .../boot/dts/thead/th1520-beaglev-ahead.dts   | 85 +++++++++++++++++++
->  1 file changed, 85 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-> index e16484a47653..7161a9d4c61f 100644
-> --- a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-> +++ b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-> @@ -76,6 +76,23 @@ led-5 {
->  		};
->  	};
->  
-> +	reg_vbat_1v8: regulator-vbat-1v8 {
-> +		compatible = "regulator-fixed";
-> +		regulator-boot-on;
-> +		regulator-max-microvolt = <1800000>;
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-name = "vbat-1v8";
-> +	};
-> +
-> +	reg_vbat_3v3: regulator-vbat-3v3 {
-> +		compatible = "regulator-fixed";
-> +		enable-active-high;
+- Chip SCU provide register access to some clk gate and clk rate
+- SCU provide register for reset, PCIe clock, other clock gate and PHY
+  SERDES.
 
-enable-active-high has no effect without a gpio.
+Upcoming and current airoha clock driver all follow this pattern of
+declaring one of the 2 register and use a sysconf for the other as the 2
+register block are tighlty coupled.
 
-> +		regulator-boot-on;
-> +		regulator-max-microvolt = <3300000>;
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-name = "vbat-3v3";
-> +	};
+EN7581 internally handle the syscon with a direct reference by the use of
+syscon_regmap_lookup_by_compatible while AN7583 wants to make this
+explicit in DT with the new "airoha,chip-scu" phandle.
 
-Nothing can switch these two rails so regulator-always-on describes them
-better than regulator-boot-on.
+Similar to EN7581, also AN7583 permit the selection of the serdes line.
 
-> +
->  	hdmi-connector {
->  		compatible = "hdmi-connector";
->  		type = "d";
-> @@ -152,6 +169,28 @@ led-pins {
->  };
->  
->  &padctrl0_apsys {
-> +	bluetooth_pins: bluetooth-0 {
-> +		in-pins {
-> +			bias-disable;
-> +			drive-strength = <1>;
-> +			function = "gpio";
-> +			input-enable;
-> +			input-schmitt-enable;
-> +			pins = "GPIO2_30";
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		out-pins {
-> +			bias-disable;
-> +			drive-strength = <3>;
-> +			input-disable;
-> +			input-schmitt-disable;
-> +			pins = "SDIO1_DETN",	/* GPIO2_29 */
-> +			       "SDIO1_WPRTN";	/* GPIO2_28 */
-> +			slew-rate = <0>;
-> +		};
-> +	};
-> +
->  	gmac0_pins: gmac0-0 {
->  		tx-pins {
->  			pins = "GMAC0_TX_CLK",
-> @@ -268,6 +307,30 @@ reg-on-pins {
->  	};
->  };
->  
-> +&padctrl1_apsys {
-> +	uart4_pins: uart4-0 {
-> +		rx-pins {
-> +			bias-disable;
-> +			drive-strength = <1>;
-> +			function = "uart";
-> +			input-enable;
-> +			pins = "UART4_RXD", "UART4_CTSN";
-> +			input-schmitt-enable;
-> +			slew-rate = <0>;
-> +		};
-> +
-> +		tx-pins {
-> +			bias-disable;
-> +			drive-strength = <3>;
-> +			function = "uart";
-> +			input-disable;
-> +			pins = "UART4_TXD", "UART4_RTSN";
-> +			input-schmitt-disable;
-> +			slew-rate = <0>;
-> +		};
-> +	};
-> +};
-> +
->  &sdio0 {
->  	bus-width = <4>;
->  	max-frequency = <198000000>;
-> @@ -314,3 +377,25 @@ &uart0 {
->  	pinctrl-0 = <&uart0_pins>;
->  	status = "okay";
->  };
-> +
-> +&uart4 {
-> +	pinctrl-0 = <&uart4_pins>;
-> +	pinctrl-names = "default";
-> +	uart-has-rtscts;
-> +
-> +	status = "okay";
-> +
-> +	bluetooth {
-> +		compatible = "brcm,bcm4329-bt";
-> +		device-wakeup-gpios = <&gpio2 29 GPIO_ACTIVE_HIGH>;
-> +		interrupt-parent = <&gpio2>;
-> +		interrupts = <30 IRQ_TYPE_EDGE_RISING>;
-> +		interrupt-names = "host-wakeup";
-> +		max-speed = <921600>;
-> +		pinctrl-0 = <&bluetooth_pins>;
-> +		pinctrl-names = "default";
-> +		shutdown-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>; 	/* BT-REG-ON */
+Add additional binding for additional clock and reset lines.
 
-This triggers checkpatch:
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ .../bindings/clock/airoha,en7523-scu.yaml     | 26 ++++++++
+ include/dt-bindings/clock/en7523-clk.h        |  3 +
+ .../dt-bindings/reset/airoha,an7583-reset.h   | 65 +++++++++++++++++++
+ 3 files changed, 94 insertions(+)
+ create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
 
-WARNING: please, no space before tabs
-#230: FILE: arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts:397:
-+^I^Ishutdown-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>; ^I/* BT-REG-ON */$
+diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+index fc37786ac7ed..0d5f89187525 100644
+--- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
++++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+@@ -31,6 +31,7 @@ properties:
+   compatible:
+     items:
+       - enum:
++          - airoha,an7583-scu
+           - airoha,en7523-scu
+           - airoha,en7581-scu
+           - econet,en751221-scu
+@@ -57,12 +58,37 @@ properties:
+       available serdes port.
+     const: 1
+ 
++  airoha,chip-scu:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: phandle to the Chip SCU providing the registers required
++      for configuring and read the base clock sources, dividers  and
++      clock gates.
++
+ required:
+   - compatible
+   - reg
+   - '#clock-cells'
+ 
+ allOf:
++  - if:
++      properties:
++        compatible:
++          const: airoha,an7583-scu
++
++    then:
++      properties:
++        reg:
++          maxItems: 1
++
++      required:
++        - airoha,chip-scu
++        - '#reset-cells'
++        - '#phy-cells'
++
++    else:
++      properties:
++        airoha,chip-scu: false
++
+   - if:
+       properties:
+         compatible:
+diff --git a/include/dt-bindings/clock/en7523-clk.h b/include/dt-bindings/clock/en7523-clk.h
+index edfa64045f52..0fbbcb7b1b25 100644
+--- a/include/dt-bindings/clock/en7523-clk.h
++++ b/include/dt-bindings/clock/en7523-clk.h
+@@ -14,4 +14,7 @@
+ 
+ #define EN7581_CLK_EMMC		8
+ 
++#define AN7583_CLK_MDIO0	9
++#define AN7583_CLK_MDIO1	10
++
+ #endif /* _DT_BINDINGS_CLOCK_AIROHA_EN7523_H_ */
+diff --git a/include/dt-bindings/reset/airoha,an7583-reset.h b/include/dt-bindings/reset/airoha,an7583-reset.h
+new file mode 100644
+index 000000000000..433a5c6180bf
+--- /dev/null
++++ b/include/dt-bindings/reset/airoha,an7583-reset.h
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2024 AIROHA Inc
++ * Author: Christian Marangi <ansuelsmth@gmail.com>
++ */
++
++#ifndef __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_
++#define __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_
++
++/* RST_CTRL2 */
++#define AN7583_XPON_PHY_RST		 0
++#define AN7583_GPON_OLT_RST		 1
++#define AN7583_CPU_TIMER2_RST		 2
++#define AN7583_HSUART_RST		 3
++#define AN7583_UART4_RST		 4
++#define AN7583_UART5_RST		 5
++#define AN7583_I2C2_RST			 6
++#define AN7583_XSI_MAC_RST		 7
++#define AN7583_XSI_PHY_RST		 8
++#define AN7583_NPU_RST			 9
++#define AN7583_TRNG_MSTART_RST		10
++#define AN7583_DUAL_HSI0_RST		11
++#define AN7583_DUAL_HSI1_RST		12
++#define AN7583_DUAL_HSI0_MAC_RST	13
++#define AN7583_DUAL_HSI1_MAC_RST	14
++#define AN7583_XPON_XFI_RST		15
++#define AN7583_WDMA_RST			16
++#define AN7583_WOE0_RST			17
++#define AN7583_HSDMA_RST		18
++#define AN7583_TDMA_RST			19
++#define AN7583_EMMC_RST			20
++#define AN7583_SOE_RST			21
++#define AN7583_XFP_MAC_RST		22
++#define AN7583_MDIO0_RST		23
++#define AN7583_MDIO1_RST		24
++/* RST_CTRL1 */
++#define AN7583_PCM1_ZSI_ISI_RST		25
++#define AN7583_FE_PDMA_RST		26
++#define AN7583_FE_QDMA_RST		27
++#define AN7583_PCM_SPIWP_RST		28
++#define AN7583_CRYPTO_RST		29
++#define AN7583_TIMER_RST		30
++#define AN7583_PCM1_RST			31
++#define AN7583_UART_RST			32
++#define AN7583_GPIO_RST			33
++#define AN7583_GDMA_RST			34
++#define AN7583_I2C_MASTER_RST		35
++#define AN7583_PCM2_ZSI_ISI_RST		36
++#define AN7583_SFC_RST			37
++#define AN7583_UART2_RST		38
++#define AN7583_GDMP_RST			39
++#define AN7583_FE_RST			40
++#define AN7583_USB_HOST_P0_RST		41
++#define AN7583_GSW_RST			42
++#define AN7583_SFC2_PCM_RST		43
++#define AN7583_PCIE0_RST		44
++#define AN7583_PCIE1_RST		45
++#define AN7583_CPU_TIMER_RST		46
++#define AN7583_PCIE_HB_RST		47
++#define AN7583_XPON_MAC_RST		48
++/* RST_PCIC */
++#define AN7583_PCIC_PERSTOUT0_RST	49
++#define AN7583_PCIC_PERSTOUT1_RST	50
++
++#endif /* __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_ */
+-- 
+2.55.0
 
-> +		vbat-supply = <&reg_vbat_3v3>;
-> +		vddio-supply = <&reg_vbat_1v8>;
-> +	};
-> +};
-> -- 
-> 2.53.0
-> 
-
-Thanks,
-Drew
