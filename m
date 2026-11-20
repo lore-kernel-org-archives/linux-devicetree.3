@@ -1,84 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795197930;
-	b=is2TKsiDP3NPEUyW7uiIuriCxZJ9bauZdJsZ+T19IgONzJXol4eT+mkGjyC1CpCXytOz
-	 jA7EzZ769ASwgyo6GKlL50w7Jg0WY6ugjtWtSpHHClO2cUrNAaLDt5MQgl2HAnWagjA+Y
-	 Z0Cg7P9VT2DIfmnHmNzSSgMrJRcLI3mQtQewDoinfATEDvuVvND3DfNCLB4/i/dsr2nK2
-	 Cccq1JVgF8h2xvegsmpJbGlutg7rE2XSWNodef7nUDPtK9mM0qTPHJdkhm3nTKkMNLh8Q
-	 +qTG1nVNmXCRVxLAF+O+dOI8HH6KpGuzUSsgRAHEsLgsYakfu2EQiajVAeqq14fvjSA==
+	t=1795198018;
+	b=wPFofE1ewPiu1NTxbwQq7O2jqNM1l9yO99F3KY74ySDwFF6r1LzzAY1sEsDMkiGQU6Nk
+	 /32jcoN5ylBTWGRX9vnouSuLedkvtqqpbHAbhvSTdYZN2Hs3hs9hM2jNPI5hxCGXUeWb+
+	 9hYrmdG07feuS5xjGEUfyhiP5Vsq4VAlYRwNoWUCpdYU8OrWjPlYSsf1SZcGtittXzH2i
+	 ujkODPN3WUITNwnXVbXDu3idwLJABjt3ss/91cznNRoxXvBdtBpcEmQqqyHTxmHDCUJDL
+	 t+QyXxX1U8PtxKnQkAHPZuqDfmbUkq8CDUpV/iIbBLi1+t0L9W7Vb22iAncTm0j0L5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795197930;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=e+Tfk7p/S1gKWT7EPAhe14t+n9Uf5ZIE2e5ifVFyo6w=;
-	b=iCQbAoadWLfAdQRosSjcW9rqGavjLEnv5aKTQzVWeoLtLpIVBA0fPvCZKzaJNfO/iHaG
-	 K0hMG5HIPYooYtrPSuix+HNXw6IbKAHTHfXx+gDNmfwdCd7eY5FPITL/u6V/Fed3zODGH
-	 UGLTMu2dvogW5P2bCDLavyfAbKurZvIufpj35Nr3xCghF3RS8lmAnw/BozD91TFXnIyxB
-	 pO8FH/w/1W0IMhzxb0Zf7IE4RTP91c4UAqZW3qsbQZVUXkA7olEk1Cgjpu4DjNp1KpcRO
-	 HQWV3BGNAQ9n0wru+UOcgq2zOp3YOy3mZYSZZ44vZostRjAoW33WTlPRywA9ZzcJbXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795198018;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RjQSrv1yD+Tngr9908szhX2afLv1bRiBxHzUtNPcG6E=;
+	b=F0cfZWFuZUPT/ezBu7i/IagG4q+ulxInXbtGW3jD8iASkDtarZWaLRWGmmaw3RCgsClO
+	 zuGBnyBTxNmm44rUuwN5hzbroxFAFZlGNE2KJvX4U8lEV4IULap4Gx72hbNvDLOr+Hf4J
+	 4r+CYfLON+N728lOcR2ossY2fRh67uqCdwm9tMXcbjH4PKgoNcXVlZK0/CWwEhsxHhCqw
+	 c/XoDP6tuZTvoohC+GM9AWL9WTrYmdZ5Db3BAcZsrQcofGoskQZxIY/8sq/8MhSu9oYWe
+	 0D2Lyv4iOVpZVv4y4ArvIUfO8ZS8jv60sMvQID4CNnwf8ofMItukK5MG8MsD6y18r3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=LcDJiWMe;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	arc=none smtp.remote-ip=185.70.43.166
+Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AED606A335;
-	Fri, 20 Nov 2026 18:05:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01AED606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=LcDJiWMe
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1BA0440E0218;
-	Fri, 20 Nov 2026 18:05:21 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id zLcvQwZD99pf; Fri, 20 Nov 2026 18:05:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1795197917; bh=e+Tfk7p/S1gKWT7EPAhe14t+n9Uf5ZIE2e5ifVFyo6w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LcDJiWMezofICs8s3MettE5E0C1jTn6g408qnwnH2NkiC6G2oP7ns80JFM2E5/lj0
-	 sQd1zNQt83MPhk4hhso9JFszwKoqHqo6J4lG20O2BIpDKTz/5GEjpqleNLvHRJmkYL
-	 hjhlI/TUDdbLhRI00kkymqJBquhqbdycNrYzjFjkVkPgCqHR+V54VBXcepu14qjxn4
-	 8DD2HiBDaAa2gW+kRFoz7QMxUXbr2ruWqadpOjVQkGk5yCtCFA+PRz6PIKGKX1UOZU
-	 2gt79zQXKMsyrVcdWqWwbM4aWpAZpZDk6EZ475UEcfOUSQxB6NdHsV+R2tSXSH8tGI
-	 927B+v7WqOEorUIsAhYBpJ1StiXYFT2EcaGDrBBX2gQelZsMZSNTLxZC8XfFpcfknE
-	 VtP6MuVAdCwA5SGL50PQ+3eSoA1sH56n7zVIOCMC+evtkAlM+XtDAWhpUjcql6O4mC
-	 d2tNKwlG4HVp2hzyQlbyQ7os/9mTeZnQQpsZG+BGzpS78EUnVg7PXlY1nFY7g+Rl78
-	 +b+aNhk2lIVBQJRaYx3TLCflGDpg+GYC7udQN0jNk7JMBcyVtvYY5Xa7IU9npb/9L6
-	 PH3KWbxExbzNGCqTpNj5Rk1ZhtRpdMxxyfwHi6kYhE3C6sZ1t+5ebUGClu+ViEeNYl
-	 6Ju9kr0iQCzIb0nsrSEWRyXE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 37D0A40E015F;
-	Fri, 20 Nov 2026 18:05:02 +0000 (UTC)
-Date: Fri, 20 Nov 2026 10:04:58 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Tony Luck <tony.luck@intel.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Subject: Re: [PATCH v9 0/3] Add Renesas RZ/N1x EDAC driver
-Message-ID: <20261120180458.GBawCLylwSxJHsDsUr@fat_crate.local>
-References: <20261120-paul-v7-3-rc1-edac-v9-0-470f2e6928cd@bootlin.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A52F606A8AA;
+	Fri, 20 Nov 2026 18:06:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A52F606A8AA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1795198015; x=1795457215;
+	bh=RjQSrv1yD+Tngr9908szhX2afLv1bRiBxHzUtNPcG6E=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=rOCoNZ799DIhPxpjuvHDzG4WSh4IGY5ImTaGHS29EQMtn3cVEWXlab0mzCZFIS0Mh
+	 cjZIaUOOoXi32qn6WzJm8A+YcgQLtJfZhmr9kczULVRxKKiJ7+0MTYz02FJOIGidVL
+	 AszJ3bEZMXIfO2fG6b1/YiAA4fF9pxN4gG2+gwNpm39JtXilEU3K1+cEPGFFtBLdKQ
+	 sDTi2RFne5bIKvneecFirtrtn2eyQ6TERSI2ZP0tdYXRsSL9HuevPJWdjBoOYUNzP/
+	 pbSfFdWyEmmhPl3FbcCEKFUulpUmdmkPcQxyjddq6eltcQSoOBL80J1hOk3NgajtYz
+	 B6t4rlugzOewA==
+Date: Fri, 20 Nov 2026 18:06:49 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: "armandas.kvietkus" <armandas.kvietkus@proton.me>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+Subject: Re: [PATCH v5 2/2] media: i2c: Add Samsung S5K3T2 image sensor driver
+Message-ID: <qjgDobQW2E9-BIRG3wngPQtbXtCcJGG9P9wsJ8zcsv_mSgsh2L2V1_QFe87ecTw2AqfAmdsZnByIr3ZufwEm3BTsCd9lS4i_sdlpcMiryxk=@proton.me>
+In-Reply-To: <av9vzLSureeB4j41@kekkonen.localdomain>
+References: <20261117-upstream-s5k3t2-v5-0-1f7f5fde9e2a@proton.me> <20261117-upstream-s5k3t2-v5-2-1f7f5fde9e2a@proton.me> <av9vzLSureeB4j41@kekkonen.localdomain>
+Feedback-ID: 164226125:user:proton
+X-Pm-Message-ID: 2f23f7fa03f776ee8220f7e572cc51da66405739
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,36 +62,26 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261120-paul-v7-3-rc1-edac-v9-0-470f2e6928cd@bootlin.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 20, 2026 at 05:08:33PM +0100, Paul Louvel wrote:
-> The Cadence memory controller found on Renesas RZ/N1x SoCs supports ECC
-> with SECDED.
+Hi Sakari,
 
-Please throttle your patchset spamming:
+On Thu, Nov 19, 2026 at 11:53:16PM +0200, Sakari Ailus wrote:
+> A lot of this should go to the cover letter.
 
-From: Documentation/process/submitting-patches.rst
+Moved to the cover letter in v6.
 
-Don't get discouraged - or impatient
-------------------------------------
+> Does the sensor support other number of active lanes than 4? Very probabl=
+y.
+> But this isn't reflected in DT bindings (and it should be).
 
-After you have submitted your change, be patient and wait.  Reviewers are
-busy people and may not get to your patch right away.
+I can not test other lane counts. The phone has only four lanes wired to
+the sensor, and the vendor register tables only set four lanes. So I left
+the binding at four lanes.
 
-Once upon a time, patches used to disappear into the void without comment,
-but the development process works more smoothly than that now.  You should
-receive comments within a week or so; if that does not happen, make sure
-that you have sent your patches to the right place.  Wait for a minimum of
-						     ^^^^^^^^^^^^^^^^^^^^^
+v6: https://lore.kernel.org/all/20261120-upstream-s5k3t2-v6-0-dd345fa4201c@=
+proton.me/
 
-one week before resubmitting or pinging reviewers - possibly longer during
-^^^^^^^^
+Thanks,
+Armandas
 
-busy times like merge windows.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
