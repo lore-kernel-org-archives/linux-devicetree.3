@@ -1,113 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795178839;
-	b=Bk7ZAbzJpdCV6HbWs+eO0A1HOheQoZzbf78PmlQE8Ma7QnI7EZwWTnTFaz6ggtRzokj4
-	 txAeazVr3w+Tee46gSZLL7mZu+S0UummGQXN4t1mAWeVTtJo7e3HiJb3W82UntRGopp3T
-	 AVQgrUA3YLzSTnvzdCP2WvL64Gim+jR2+asXxHJMhPPZUp8rhrclxsFJZnLxCK5QbpyXu
-	 BtaSX2M8sT92WrInu0vpBbybSf5zG+4qFlh44SxJYU7vtRmA6hvJDLXiGsLIWHbuznYGM
-	 UsToz6NVXBzQpOd/U0atJ3oINO0vI0V+A+22plp7Qj/LK6tosqLju5ZYQSQJ21c+Ceg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795178839;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=NS8BjovI5HLBofxvJMHQYZRCR3joIuKOlILvwQZbuIw=;
-	b=YXy/iDdNngQMQ/YBd7A7ZvUpoYZWhEWuUq2t7mVKx03j4EfsX4TVXQ3hewUF4xGMqL0h
-	 CwY0Kp8hgF8W04DxulkE7PvZ0vAr0Ps5s74iu3v2oFNqLgGsQTFlLbTfu6Y+0wEfQ/Jb3
-	 Xpd9HonUIuUjQk5axETbIV5rlN/N5X1QjKJ1h9zeUFhjTzvWo/0XrkEZPj8aZHkzS+v2B
-	 35kKlpDittMCNNG1bbkOMqWMKw8WqC1us8UpD9E920a2DSgFF+z8NbX4B1x+b7V5wKqQf
-	 MKpCqWyD+U0mDjsZmdgEg3bfcQNJIFkA9g4xxtNlXFAprSbNBwoBsutwo9Rn0ZmPEFg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A4HDSQWb;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QNWZH1ah;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795179066;
+	b=oPKynsHX38uviLojHpWOTpxRySSXOjg1LrxvdSKR0+A8PsAUm06xcDIOzzS0pjpD/pOb
+	 FCvKYKUyiK3kEY/7rpsNQzr4BGpHzxRJwZXMb/kgWjJMqtMY+EVx99Or3twtnsVFmTquO
+	 d+97bptKDVMH7TfZ85TsEqE+TOrvnNIOtNbnBpTeJrln2Zb0ZfFF5Ypx+Gd9Ywu6u2IBD
+	 K8Hn6ad00+3KLzz8Kq06icZnK1IWJDKEwakBu9wkbBgD3rSDlh1F8ns9LEA61YVLfnuFQ
+	 nD4iZQ42sZAvYnJFh+34tO4N+BmE4BonQew7pc42Qxh6X2uBnlmutVHR0i1A4phMDaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795179066;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=yUvLzU2ZsDws/CWi5T0I/x9fyfJjfETIr5XKofcq2MU=;
+	b=sik8ZS9kmAouWqNYM9LZvRcuU3A7MhKhqOlnLir7iAdv1c+VhJb2qmc1ZA7ANTzRqU8w
+	 yRAMnbiP3Q2lr/YkiJcv1erhvymQO/CkMxB8oEiUAK+G/O4hOlAEAna9coJK5l685lDWN
+	 Je6YSjigkRHq+bHsZBpueJV64ylge6f2+xlUTwQVzyHWGO5mVP6KFuXv/DRAK02UaBRwE
+	 9Ko3XwekB7yykq04g5YjSm3Kimitly/XlxLplx1RRBHQPQ8CJGxiG3kyy5hS6hx3P+fgE
+	 /dsdRXMQqBS9r/Ba+dIOkWXXPJ218NB7AuHrCwyQvKctIEH5X5XHAyUd+1wG9eCeuAw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ldq84Ajb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.19
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013019.outbound.protection.outlook.com [40.107.162.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539A760A260E
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:47:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 539A760A260E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 162A9606A331;
+	Fri, 20 Nov 2026 12:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 162A9606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A4HDSQWb;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QNWZH1ah
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AKAk1Ue2155269
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:47:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NS8BjovI5HLBofxvJMHQYZRCR3joIuKOlILvwQZbuIw=; b=A4HDSQWbiD6HZnqb
-	rtwVMxR9QACZoxdiDvE2TqezA4MQJBrot46ceTynX6t2Ays7OJNgX8Irc5bjNXFJ
-	rcfd7enmeAxKVcxWkk4twTTQZdQZSa5p/QYlOauPK0rgUK0sjlJqqDs85NfLe7bt
-	nNohHEvvywLaxN7nSbtda/8bqVDd4CMbnJZsHAPBTVpdLnwGAwXThgfrdd3vPQU/
-	myD8NpXKqWHOgP0kbZJyCBdt1dE2VtdPaYX3RznmRpUMbq4PYc2Ti6BJ1h8HuHcQ
-	duongUjmWUmZ7Th/aTtZsPlaFouN+Y3zi45RJR8ILKLIdwbQtS120YCa9yo8Uunl
-	wiaR9A==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j2f4yhyhe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:47:18 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f5844e383so156640985a.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:47:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795178838; x=1795783638; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NS8BjovI5HLBofxvJMHQYZRCR3joIuKOlILvwQZbuIw=;
-        b=QNWZH1ahOxoJ6lzjC+5dJJP321vfIbSUCaUrNaWbTnoWoK55UM4KiKj0byKYi81biT
-         Q7Ewlg3td29GbZ1K7YsoEUYFdm/WCuWvER4l11zeQwdkhVQbVZJAwklFY6M9uHWg3cfm
-         HL1G8UcWBdyMed6V9NA0Ay7jH9nB+nFdc8K/7UWY/LiVHD0eP468ajFyQfBJXqkcMjYx
-         /mwp2j6ChkT7gkRf/WyfS2T/LvCDyPlabYqd4IuaTOgqURq0TYqoIt/4HIxhY6ujiZ+d
-         vfLxs1v6h7HWme2BVDRHwZZAKOMtABWPwIKc52UlD6C4uUJdVcEYvnq0zArZMWHZ+SMD
-         66pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795178838; x=1795783638;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NS8BjovI5HLBofxvJMHQYZRCR3joIuKOlILvwQZbuIw=;
-        b=YyOZSz67vt5qG4M/rm9zbGT6gPON/vFVeFp3R1rpwwW/Tj/dKC0nm5+lnFsNKh2CJK
-         yhvJbz3Hi8vuRWUtEH54OCylw34b7iY2O13xzA37KyzeGIe/LM6Xodc7sky5hnAgqgjR
-         BCRluh4UgsCgaPgJY5mn1/k7DvYiDzSxeVmloULpOz6s0ZCW05oPhYzLrtgR1N92rYD3
-         4g2NuklGS0TkU6s6mUE1kIvfStrYQkjz7p7UIPU4YxuYtvcNkPc3zQhZe8hOR16ntIsG
-         Ts7HvxpwE66ED+Lbdr1IA3rt0PBm/XPNBG8pcyED3tpSygQ45HrYvqMSAKwcHAlSu+Am
-         +BJw==
-X-Forwarded-Encrypted: i=1; AL+hErEXSpNrpst+K95Dy7LX/yivSpkG87AKVkekCyYY48dVtu50mMdfk53pndZIDUhf0wSZ0MoN/lnjANRX@vger.kernel.org
-X-Gm-Message-State: APuU4Z9aNo/0IGQ00B7uAl/7/PNdIKsxlZSOjFwD6PIaT/iMp7Pag1vk
-	2SSjatlwGvgb6MRH4NuDdPBUPruBwl1qhecF/Zl1E46hFNW3BtBy58GpMIX1mF4+H2sP9qwe9zF
-	CPsfiNEx1A+JaZIXqJ3yOTC8B4jDQEBTkTZv85EfZM40zVb/6eE4ro/EhqX+zfXeo
-X-Gm-Gg: AYBFou1QBmKVPi70A3kvuEJm90jKnyM3wK1iT3t1YXtG5GeDznem7VIjSFgBXOt42Js
-	OIjM9YnJQs0If4DeXRD2IJ6qNuS8NiqPH0HGmmaSONPsRsOdo1gQVXOMY1YhBEVZwPiZRDeZcsl
-	R5ULu2MVmrwVtT2QTcUr4RajamvIqb9J9FL8uxd9v+zmtVPigiOSs1fTKcESsPTLowDxHIJj3ho
-	9fmEg7QuRU0rNIK/8mMPt7fYCmlAqJ7giuR2DhGDnDt/JzVsBgyUnpOwIYeYUVL3hGA3mkAbzX8
-	0Wup7aPmoyep2z3MC7xhe1kQaeJcoKHqDX/ZScSV4fuOlp9y74soqxUSl7PQDkZmxGMkLsRNvMW
-	77V2r9kZ+O/uxFGLW26EJrqJpVI82YGeslrpv5nIq6ZyomrnonYdqAo7sAjfzY/WJysqD0RzcWz
-	w=
-X-Received: by 2002:a05:620a:4492:b0:949:7fb4:2712 with SMTP id af79cd13be357-949bab123c2mr454611585a.66.1795178837654;
-        Fri, 20 Nov 2026 04:47:17 -0800 (PST)
-X-Received: by 2002:a05:620a:4492:b0:949:7fb4:2712 with SMTP id af79cd13be357-949bab123c2mr454609285a.66.1795178837182;
-        Fri, 20 Nov 2026 04:47:17 -0800 (PST)
-Received: from brgl-qcom.local ([195.50.164.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884ab091sm119248995e9.11.2026.11.20.04.47.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 04:47:16 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Fri, 20 Nov 2026 13:46:47 +0100
-Subject: [PATCH v3 10/10] gpio: shared: generalize most code to firmware
- nodes
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ldq84Ajb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eFiJf40QUNpmG4LQz+ADaOqaoeIMQrR4/T4MGDw1rviYUrjkLHbYDwceHagn8dS0TvmtvDDkCW6gOhRNr+ZyfMr/GIbdI3E+1GHgyGmRk4AWn4M0mKhaDw3y+DlOATEPF5lDMZyLSCTk0d4er3WvLzQQ2Xl41NIWmORFTU44TI0eLOEdNfbXu2C/VEKWK9HndW5/fQJk/jI08cWJ07F3gkRsdkiYBHq9OV7HwFv2S77+ca82DZmWBIDzrLzaJoZOmhfIzQ0wJgNNfexsJhnixNuf3mSYiDaykHcRisjMBWYNbPVjIESaL2RA/h9HoKo8pSKvComc5lg4fILOUThxQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yUvLzU2ZsDws/CWi5T0I/x9fyfJjfETIr5XKofcq2MU=;
+ b=YNSJySzT5yEg0dInfn/0ZDQuq+wauKrxCReoGcVwu4uHrrVzTXbZcI8i/+fNtwzskIbGFKVHFNrQh+px3QHFdcYCWVjAHnko9m5Nxq2Hpkj8k4WnywSKsAMebc5qwItItqIaiBoocHeBrmpEBqe22Lu+m2OPwEHwdgj6rjLPfRaLptLIHMWqv085yyRBbh3trx+IOtjijQDLV8L8+xBWpmDiwunUW3uVFsR8ls+JZ7ifp7fkwNuyFSlM1RdzhgrfVgB8NgNgA/lmWgsw3PS4ST8Mj9JMekJnGIuqSmA2wzPtBDxA9a1/jNNQ7OH+WT8ZWmEjqqJ688sqzes12rFyEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yUvLzU2ZsDws/CWi5T0I/x9fyfJjfETIr5XKofcq2MU=;
+ b=ldq84AjbD5t6DdYzHHp9DecV0b1D/9kcCbBTDSRER5Ybpy/gjNRY6dz3a1JUv5RuXHoundbBqWnYE9PmSTm1neXqpbyBIZDpPheLdKhCM8uJDHCU7YaY1tHuxXPVdxQsr/z6sC2+jCYW4JbqH/HimN2fmLkjDvq8WQcDTgtqFBcUF1QT9YMPEhB2xbcl4Shkl3l5iPDTbY5Kvb3bZSRBfX55Kh02QmMbXDgatDByxR+s0LJN31hHLL0cS85ChlgCczxX+KHL9TMTRAvvZETLP9CirKQUw7vXYwlT3BJIC/m7Ve8S8DxKhws+4h+EYiAPSwCTQgR/6OgdbjOFh83xcQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by AM0PR04MB12051.eurprd04.prod.outlook.com
+ (2603:10a6:20b:743::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
+ 2026 12:51:02 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0639.010; Fri, 20 Nov 2026
+ 12:51:02 +0000
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+	linux-clk@vger.kernel.org,
+	imx@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v13 1/5] dt-bindings: display: imx: Add i.MX94 DCIF
+Date: Fri, 20 Nov 2026 12:50:36 +0000
+Message-ID: <20261120-dcif-upstreaming-v13-1-966ac248773f@oss.nxp.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261120-dcif-upstreaming-v13-0-966ac248773f@oss.nxp.com>
+References: <20261120-dcif-upstreaming-v13-0-966ac248773f@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS4P251CA0015.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d2::17) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,411 +116,199 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-fwnode-for-each-prop-v3-10-808e304dc73e@oss.qualcomm.com>
-References: <20261120-fwnode-for-each-prop-v3-0-808e304dc73e@oss.qualcomm.com>
-In-Reply-To: <20261120-fwnode-for-each-prop-v3-0-808e304dc73e@oss.qualcomm.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        Daniel Scally <djrscally@gmail.com>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-        Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10642;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=Iv1IM5MIQo5zDnbSeGyHkNB7sywHcbJdjw/Y4b/rMx8=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBrAEE4dhvnqlk3Wr6j2erkEhrd8hVycyEjLcRAS
- b+Pr2rWQVCJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCawBBOAAKCRAFnS7L/zaE
- w0ToEACB14ApfaKZHAECsmUMushTze/aQzofn9c5/yYGY4u0E7D1ZKw3mf65lq7arf4riCHqhY9
- /GGO+EN62WQeAY5PcYlqergHrjsMi517+O2xvf2zKnHBgBDeLyVnkpAYJRpYbWArgrxXcZmJ1Bd
- 13lUVdr0tvWLWIHeuBqj3r5Q8FK6Zvq/X9IDvZbzVOX/LMa+I3V/TBgr0LbV994ZYl1klDz7ekF
- 7t7GxVYp3XbFc++85rWtXIqZvArsQLvSwKIlpTOpF6HxBDjFR3m/60bNG2lch6svfbtOpiIUoDR
- nI2Blq5RILL8f3nOkFmEkvCQI2fAEonvUaLCDLfdKOcop1yN4zerYN23vq1DNJ0WzrTCRMQ0F0X
- Udl7YUI+HZEQL45EnnY/jvQo8TvXBmeyOSz0D49TDFL6aENZywtV8PIy2C/UXv8h72jiDOcc+gV
- FaCfyh693TCvJpu1kzVaSmM7oW1U6oDF7WzrI/mbPYkkjKRMLjIPtj7yiTBonWdkljS9FEV1GWs
- CmAm+sTPFbHFZjOvofsmi/UghzjYVTjKVKzWrzqd37p7A6OBi3cKD8ao9TodsfrVus5mnXXH+OB
- pFi4YHrmDCQ2mgwpYB65GAAsFAvlE2l8MPh0UZz0qjUFVNqsDj2+FEg0iu4Grh+byoz8G++vsBj
- Qge2/Wfdzegj9Dw==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Authority-Analysis: v=2.4 cv=Zs54uN7G c=1 sm=1 tr=0 ts=6b004156 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=ziVQ5hnd3nnfPSIR4FkA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDA1MCBTYWx0ZWRfX5rcFMl6jl0bz
- U8YYv6ImuY5zEnqwRp6UAkYc6lqLKlmFytPNoW/hYxL7GdwM7a3p+UjutUu3XYc9HZsskYMPEKr
- plAaIyV91o2/eD4h5nllbfZWJusKgF6eRig1H6sc9nYuPOHWw6nOMQaETRTEwrkD6zezmKW/2BK
- GqA1P0AZmy1S/QZaWkiP5r9Qk73CITeSx8Su0VIl5g8vfroeJn+zIxckqyfkrjzeNwLR5VbfkwS
- imyQmRjwGbSoQ7RPrLFBduFpBa7PnQCM79PdXNEW0ah8ZEi2oypUJYDha2a58+hLaMllD71azYU
- KLqcsQ5GI5G9LCOnhLdR6nPLP+OYfj6RnYNOFHOVp4XZKt/eRD6YknJbFt6oRKWz0JesYpdlj5O
- wQPiVEhO72FIJTfuVOBG1Jr+f3JskakVkylBvNH77zyWKpMZ1tccYV6NyciAmXFFbiA6N9X+Biw
- NoAuEg+sa1gcSPniDxg==
-X-Proofpoint-GUID: du1vlpuQypJbNozX-jU_-eHryPCCfrvJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDA1MCBTYWx0ZWRfX6nx+1I7PIuK2
- Q9yZcNipUhQn7Rgfy4OMO4luz+h7aKUtXjiae2LnKfRdWMnDvTQHPKd7+MKvuxqQo29hD7q2qWX
- p4UYB+cHgvsyHCtMvfWz9+pQiRwqIyk=
-X-Proofpoint-ORIG-GUID: du1vlpuQypJbNozX-jU_-eHryPCCfrvJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-20_04,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- impostorscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611200050
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|AM0PR04MB12051:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a7ffad7-f52c-43bd-a445-08df4704eebc
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|366016|1800799024|376014|7416014|18002099003|22082099003|6133799003|3023799007|921020|261028144727099003|11063799006|56012099006|261026140227099003|261026121527099003|261102123227099003|261021121427099003|261022075727099003|261022105027099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	qJmIPM8Et5YYuw4vtyRIi9ezKAkpwlhCDS7C2Zga6AHd+lvz+2zl1nb5a7EbRruyX9B/SgFZbqJkrHVa458Jk/HipBH2Lz2W0RgHbkwvBxNNLmMKlbqdZpAQ4BWIoD03BpBBlvY3/F6dyEeBsAwXTvrcLjDrbryoo/sx58WMkbTkbsV9rspxq1FH6rwHPnxAGldbdYS/c4AhXAlKAg/fuRUYsN00wHgRIZMCzJLJgdNnxWzGXz6PTkxEWo3LI7KuJd+/RicZFU597zbqK3EJCKqtd38srTzSluxnq3RULVHRKLeM5EsvPBG3DnsSHBszctU6oQgbqhw5n2SQUhydBKdtwsH2Z780NYpRZ8/78+KfWePp2J0O601kw4F/v5NKX5O0fc0VL4I2zOdMPbBHn2A5xvkMxZyh6rS+cr6DM2GjhohuLxtD8W3zD0sOUuTULTIZPo3x4ytwWWXAGljN9CJOAJ5gKB/23dXDGW6za4R3fYG0YWY+fuHMaAGy/MULU/3K1U5Kjkf550nVGc5mC1xlsSgBaSlcDORYkbTIb+2s1X5lJVQ7dziDx7q3SYMP+7PTEICiEr4obOtve2jbxgzGeKRhk5q66cLYtXAY6uFzgPlZ1RWxeD3H2aON3jZ9DI3dOvB5TUtdVe/i5SMgQSepOO/t+vkVlMoWdaKgBfc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(6133799003)(3023799007)(921020)(261028144727099003)(11063799006)(56012099006)(261026140227099003)(261026121527099003)(261102123227099003)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Z1Q4SkkydUVqZFRLSGhUTWxITU40MC91akF1ZUNod2NTcW1DVk50ekhDazR2?=
+ =?utf-8?B?MnlkaUkrS0RybmVHK0xnKzMyREZuUjdDR2tEdU9mc2MzSVJjNVFaT1paeUF2?=
+ =?utf-8?B?aDUrN2NPZ05XN2oydko0NFBXZ3hWZms1SVpnYUpkTk85SzloZHlmK3ZCK3Vv?=
+ =?utf-8?B?RDZCalhxU0xaT09SSHRYZ0l1WWNXYkRGUXlmVU5YUDRUclJQNlUydmkxVGxN?=
+ =?utf-8?B?MExQYWZNOWI1a1AxR0tkRVZFUU9LTFVNWkVETUc5cGVQek5Oa2tyYW5yRFcv?=
+ =?utf-8?B?M0VDZEdtTG9uNk9IMnF2OW10OGZtUVdEMDh3UHVMdjlzR0J1b1FsWWQwV2lr?=
+ =?utf-8?B?N09kR0VJd2tpVEd2a1ArWDMrZlpYa3VIYktWd0NQUk9nazdnQ2x5cWN2Nmd3?=
+ =?utf-8?B?cnVaaVpWb3dMa2pJcTVaTkxnazN1cCtwa3FqSjh1aTdyemQ1a2JuMThOWEI5?=
+ =?utf-8?B?QWErN0RDT2JiYnFBNUlHSUp5V3I5SUN1Mm9JMkdhVVovODFiTXlqWVJQRWR6?=
+ =?utf-8?B?YUd2bHNnR3UrTHFtY1NCbnNLTVJKOS9jcTZpREROWitiSmxsRGxMcE1JNGw2?=
+ =?utf-8?B?dmRTV0lDdzBhTEFZYzkzOXVCWSs1RW9hSDJ0dldld0Rtd1A3cVA1aHNEK0dp?=
+ =?utf-8?B?bkk1NFRyQXhRSHgzOXEvUnVKN2ZvL1lBR1lvZTBEWFVFWXE3bFAyMndxN0dX?=
+ =?utf-8?B?RDdJd3FPNkxhWUJtN2NhWVduWDhhQ2dzWFd6dFR3ZjZtWjFOTkNONzRXdzJv?=
+ =?utf-8?B?SHo1OFRVVVRFUThNbzc5QlhTSUo4WlVDNWdEN0JmbUVkNncwejR6SXdINFlo?=
+ =?utf-8?B?cnNsdnNnbktLMXpCcVRrcWt5TGh5Y2VZTGxsdzh5YUNpSkVvVkVPaFJYMUxp?=
+ =?utf-8?B?TUpZcWNJcytWeDRHcDVqazlUbW1QbGoyR3pIeDg4TGoyTThhdmdXeWUvbFha?=
+ =?utf-8?B?Q05yVmhubzJaS05iTFJUT1U0NkpGRGZtRWpGNG5jQjhDS1hoN2YzblRkUTdr?=
+ =?utf-8?B?ZzJFNVBna1hjY1FNVHZWcGRCNkFNMnowamJxa1U1STlSd2xxV1VESkI0U01y?=
+ =?utf-8?B?Ymo5SnlvZ2NZM2kyOFpBSWkrWmE2Tzd6WXZxOUErZ3ZDN1M3UFRQTm9Bbnc1?=
+ =?utf-8?B?RmJJdjRHTm5tTkZraGdvNXd0RDIzOTEyT3pBbkk5d2hhVWJrTjRBWlhSbVpO?=
+ =?utf-8?B?OEpVUHA1MmRDekt4bm5scDhmV0plVFhIQno2WHlLYXhVTWQyZW45bWdGMWti?=
+ =?utf-8?B?aFN6bG1pMmtpM2gramN2WnY4ck1FODliMndPM29vYXpRYWxuYytsSTdnUUd5?=
+ =?utf-8?B?SEZXWXA1bnF5U0lFelgyTXVSMzBIaVF1RnJJdmw3SWtXUXFSRjlrVmMzbW9v?=
+ =?utf-8?B?aFZPQXA1UjRDQU9hNzl5b1I1M3hsRGhZeFZETy8rWjZsZU1qaGZybStTSFdJ?=
+ =?utf-8?B?UWpJVFpPV3lyUmt1ZkNNRlo3Ti9xTjV0Q1BFNFNSQld6QmxjanVUV09yT1BT?=
+ =?utf-8?B?MlVMWEhONVlxbTRObFJsSkp1VGVnVzJjeEZiTlNBZi82QWEzYmVBdDlPSzNJ?=
+ =?utf-8?B?ZGRhc1dlYzdOMzNWR1UxRkpsR3Y3QmJrVHhUTE9JWUo5b1hsZldnOEV4bFdF?=
+ =?utf-8?B?L0daTExiSXQvc243VmdVUmZRTzd1dEtkK2lvT3BHcjBxMjNoa3Nnc0NVWGM4?=
+ =?utf-8?B?OUI5OWc0dUlDL1Y5RmdaQWVDQmp1ZURuZ0JodlAwd3hicnY1dW1QUmVVM3l6?=
+ =?utf-8?B?dnVwR2M2WW9za2FYUDhqVWpDM0RyK1JJMEt1L0lNSDd1bUV2blhFOWxmenoz?=
+ =?utf-8?B?ZFhUS3FKZmJSSWZpN3o3UzR0WmovL29ZaHNYUUZjOS9WSzRpdnYxQUY5REdB?=
+ =?utf-8?B?ODUrZ05ENjRVb1hOTXowMUcrR05TKzQwSHZDT1hxN0ZzRUJvaFAzS1REeDFC?=
+ =?utf-8?B?MS96YjBDUTY5Y2hXYVRiTStGbnhMb29GOEw5TXFNYmZLWGR5am1iMnJDNWRK?=
+ =?utf-8?B?blA5TVAvSGZWTmF6Nmw1eXNWOHZDcFF4SWEwTGlNRnNLQjZPNExCSjhlZUh3?=
+ =?utf-8?B?VXVNeXVlNlFRbWg0TGRqeWY0c2Z4b05pMHRXRjRQUjZNYXRENllBdVVaKzM1?=
+ =?utf-8?B?ZjhSWjBPK2xWVE5zWTN4bi9lYmZRRVFkR0piVUhkTEJHVGZoeWtZN1pvTGVR?=
+ =?utf-8?B?YWk4OWhsRG5kejV6a2RteE1MRHdJY0ptMktSL3hlc1FFaGk3cWRKcEpWRUJu?=
+ =?utf-8?B?R3dZdE0wdTJEVFVxSGZsTjJScWVsWWxDclJwalJFbHdWdi9tS2xOR1NPaWhr?=
+ =?utf-8?B?V2V1c3FXK0x6czZSaDZzamNlcFp5eG15QU9wSWYyaEo1OWpqRTNudz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a7ffad7-f52c-43bd-a445-08df4704eebc
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 12:51:02.2682
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1xm2fQ5xxmHf0rUzOBbNW1QkGFqLa4pk/jOAMoj3+e97eNG39dJmHz69OelC3vR8HCULbiMFf6M459jC9XNjrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB12051
 
-Ahead of adding support for sharing of GPIOs for other types of firmware
-nodes, convert as much code in gpiolib-shared.c as possible to using
-fwnode APIs and guard the remaining OF-specific bits with CONFIG_OF
-guards.
+DCIF is the i.MX94 Display Controller Interface which is used to
+drive a TFT LCD panel or connects to a display interface depending
+on the chip configuration.
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 ---
- drivers/gpio/gpiolib-shared.c | 236 ++++++++++++++++++++++--------------------
- 1 file changed, 125 insertions(+), 111 deletions(-)
+ .../bindings/display/imx/nxp,imx94-dcif.yaml       | 90 ++++++++++++++++++++++
+ MAINTAINERS                                        |  8 ++
+ 2 files changed, 98 insertions(+)
 
-diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
-index fbabc1ee489f881084033f7b92b42397455f5811..3b40874fc6a0e6b4591b58b164030ea73a355d2c 100644
---- a/drivers/gpio/gpiolib-shared.c
-+++ b/drivers/gpio/gpiolib-shared.c
-@@ -22,7 +22,7 @@
- #include <linux/printk.h>
- #include <linux/property.h>
- #include <linux/slab.h>
--#include <linux/string.h>
-+#include <linux/string_helpers.h>
- 
- #include "gpiolib.h"
- #include "gpiolib-shared.h"
-@@ -60,7 +60,6 @@ struct gpio_shared_entry {
- static LIST_HEAD(gpio_shared_list);
- static DEFINE_IDA(gpio_shared_ida);
- 
--#if IS_ENABLED(CONFIG_OF)
- static struct gpio_shared_entry *
- gpio_shared_find_entry(struct fwnode_handle *controller_node,
- 		       unsigned int offset)
-@@ -126,157 +125,158 @@ static int gpio_shared_setup_reset_proxy(struct gpio_shared_entry *entry,
- }
- 
- /* Handle all special nodes that we should ignore. */
--static bool gpio_shared_of_node_ignore(struct device_node *node)
-+static bool gpio_shared_fwnode_ignore(struct fwnode_handle *fwnode)
- {
- 	/* Ignore disabled devices. */
--	if (!of_device_is_available(node))
-+	if (!fwnode_device_is_available(fwnode))
- 		return true;
- 
- 	/*
--	 * __symbols__ is a special, internal node and should not be considered
--	 * when scanning for shared GPIOs.
-+	 * On OF-systems __symbols__ is a special, internal node and should not
-+	 * be considered when scanning for shared GPIOs.
- 	 */
--	if (of_node_name_eq(node, "__symbols__"))
-+	if (fwnode_name_eq(fwnode, "__symbols__"))
- 		return true;
- 
- 	/*
- 	 * GPIO hogs have a "gpios" property which is not a phandle and can't
- 	 * possibly refer to a shared GPIO.
- 	 */
--	if (of_property_present(node, "gpio-hog"))
-+	if (fwnode_property_present(fwnode, "gpio-hog"))
- 		return true;
- 
- 	return false;
- }
- 
--static int gpio_shared_of_traverse(struct device_node *curr)
-+static int gpio_shared_fwnode_scan_property(struct fwnode_handle *curr,
-+					    const char *propname)
- {
-+	struct fwnode_reference_args args;
- 	struct gpio_shared_entry *entry;
- 	size_t con_id_len, suffix_len;
--	struct fwnode_handle *fwnode;
--	struct of_phandle_args args;
- 	struct gpio_shared_ref *ref;
--	struct property *prop;
- 	unsigned int offset;
- 	const char *suffix;
--	int ret, count, i;
-+	int ret, i, count;
- 
--	if (gpio_shared_of_node_ignore(curr))
-+	/*
-+	 * The standard name for a GPIO property is "foo-gpios"
-+	 * or "foo-gpio". Some bindings also use "gpios" or "gpio".
-+	 * There are some legacy device-trees which have a different
-+	 * naming convention and for which we have rename quirks in
-+	 * place in gpiolib-of.c. I don't think any of them require
-+	 * support for shared GPIOs so for now let's just ignore
-+	 * them. We can always just export the quirk list and
-+	 * iterate over it here.
-+	 */
-+	if (!strsuffix(propname, "-gpios") && !strsuffix(propname, "-gpio") &&
-+	    strcmp(propname, "gpios") != 0 && strcmp(propname, "gpio") != 0)
- 		return 0;
- 
--	for_each_property_of_node(curr, prop) {
--		/*
--		 * The standard name for a GPIO property is "foo-gpios"
--		 * or "foo-gpio". Some bindings also use "gpios" or "gpio".
--		 * There are some legacy device-trees which have a different
--		 * naming convention and for which we have rename quirks in
--		 * place in gpiolib-of.c. I don't think any of them require
--		 * support for shared GPIOs so for now let's just ignore
--		 * them. We can always just export the quirk list and
--		 * iterate over it here.
--		 */
--		if (!strsuffix(prop->name, "-gpios") &&
--		    !strsuffix(prop->name, "-gpio") &&
--		    strcmp(prop->name, "gpios") != 0 &&
--		    strcmp(prop->name, "gpio") != 0)
--			continue;
--
--		count = of_count_phandle_with_args(curr, prop->name,
--						   "#gpio-cells");
--		if (count <= 0)
--			continue;
-+	count = fwnode_property_count_references(curr, propname, "#gpio-cells");
-+	if (count <= 0)
-+		return 0;
- 
--		for (i = 0; i < count; i++) {
--			struct device_node *np __free(device_node) = NULL;
--			char *con_id __free(kfree) = NULL;
-+	for (i = 0; i < count; i++) {
-+		char *con_id __free(kfree) = NULL;
- 
--			ret = of_parse_phandle_with_args(curr, prop->name,
--							 "#gpio-cells", i,
-+		ret = fwnode_property_get_reference_args(curr, propname,
-+							 "#gpio-cells", 0, i,
- 							 &args);
--			if (ret)
--				continue;
-+		if (ret)
-+			continue;
- 
--			np = args.np;
-+		struct fwnode_handle *fwnode __free(fwnode_handle) = args.fwnode;
- 
--			if (!of_property_present(np, "gpio-controller"))
--				continue;
-+		if (!fwnode_property_present(fwnode, "gpio-controller"))
-+			continue;
- 
--			/*
--			 * We support 1, 2 and 3 cell GPIO bindings in the
--			 * kernel currently. There's only one old MIPS dts that
--			 * has a one-cell binding but there's no associated
--			 * consumer so it may as well be an error. There don't
--			 * seem to be any 3-cell users of non-exclusive GPIOs,
--			 * so we can skip this as well. Let's occupy ourselves
--			 * with the predominant 2-cell binding with the first
--			 * cell indicating the hardware offset of the GPIO and
--			 * the second defining the GPIO flags of the request.
--			 */
--			if (args.args_count != 2)
--				continue;
-+		/*
-+		 * We support 1, 2 and 3 cell GPIO bindings in the
-+		 * kernel currently. There's only one old MIPS dts that
-+		 * has a one-cell binding but there's no associated
-+		 * consumer so it may as well be an error. There don't
-+		 * seem to be any 3-cell users of non-exclusive GPIOs,
-+		 * so we can skip this as well. Let's occupy ourselves
-+		 * with the predominant 2-cell binding with the first
-+		 * cell indicating the hardware offset of the GPIO and
-+		 * the second defining the GPIO flags of the request.
-+		 */
-+		if (args.nargs != 2)
-+			continue;
- 
--			fwnode = of_fwnode_handle(args.np);
--			offset = args.args[0];
-+		offset = args.args[0];
- 
--			entry = gpio_shared_find_entry(fwnode, offset);
--			if (!entry) {
--				entry = kzalloc_obj(*entry);
--				if (!entry)
--					return -ENOMEM;
-+		entry = gpio_shared_find_entry(fwnode, offset);
-+		if (!entry) {
-+			entry = kzalloc_obj(*entry);
-+			if (!entry)
-+				return -ENOMEM;
- 
--				entry->fwnode = fwnode_handle_get(fwnode);
--				entry->offset = offset;
--				INIT_LIST_HEAD(&entry->refs);
--				mutex_init(&entry->lock);
-+			entry->fwnode = fwnode_handle_get(fwnode);
-+			entry->offset = offset;
-+			INIT_LIST_HEAD(&entry->refs);
-+			mutex_init(&entry->lock);
- 
--				list_add_tail(&entry->list, &gpio_shared_list);
--			}
-+			list_add_tail(&entry->list, &gpio_shared_list);
-+		}
- 
--			if (strsuffix(prop->name, "gpios"))
--				suffix = "-gpios";
--			else if (strsuffix(prop->name, "gpio"))
--				suffix = "-gpio";
--			else
--				suffix = NULL;
--			if (!suffix)
--				continue;
-+		if (strsuffix(propname, "gpios"))
-+			suffix = "-gpios";
-+		else if (strsuffix(propname, "gpio"))
-+			suffix = "-gpio";
-+		else
-+			suffix = NULL;
-+		if (!suffix)
-+			continue;
- 
--			/* We only set con_id if there's actually one. */
--			if (strcmp(prop->name, "gpios") && strcmp(prop->name, "gpio")) {
--				con_id = kstrdup(prop->name, GFP_KERNEL);
--				if (!con_id)
--					return -ENOMEM;
-+		/* We only set con_id if there's actually one. */
-+		if (strcmp(propname, "gpios") && strcmp(propname, "gpio")) {
-+			con_id = kstrdup(propname, GFP_KERNEL);
-+			if (!con_id)
-+				return -ENOMEM;
- 
--				con_id_len = strlen(con_id);
--				suffix_len = strlen(suffix);
-+			con_id_len = strlen(con_id);
-+			suffix_len = strlen(suffix);
- 
--				con_id[con_id_len - suffix_len] = '\0';
--			}
-+			con_id[con_id_len - suffix_len] = '\0';
-+		}
- 
--			struct fwnode_handle *curr_fwnode =
--				fwnode_handle_get(of_fwnode_handle(curr));
--			ref = gpio_shared_make_ref(curr_fwnode, con_id, args.args[1]);
--			if (!ref) {
--				fwnode_handle_put(curr_fwnode);
--				return -ENOMEM;
--			}
-+		ref = gpio_shared_make_ref(fwnode_handle_get(curr), con_id, args.args[1]);
-+		if (!ref) {
-+			fwnode_handle_put(curr);
-+			return -ENOMEM;
-+		}
- 
--			if (!list_empty(&entry->refs))
--				pr_debug("GPIO %u at %s is shared by multiple firmware nodes\n",
--					 entry->offset, fwnode_get_name(entry->fwnode));
-+		if (!list_empty(&entry->refs))
-+			pr_debug("GPIO %u at %s is shared by multiple firmware nodes\n",
-+				 entry->offset, fwnode_get_name(entry->fwnode));
- 
--			list_add_tail(&ref->list, &entry->refs);
-+		list_add_tail(&ref->list, &entry->refs);
- 
--			if (strcmp(prop->name, "reset-gpios") == 0) {
--				ret = gpio_shared_setup_reset_proxy(entry, args.args[1]);
--				if (ret)
--					return ret;
--			}
-+		if (strcmp(propname, "reset-gpios") == 0) {
-+			ret = gpio_shared_setup_reset_proxy(entry, args.args[1]);
-+			if (ret)
-+				return ret;
- 		}
- 	}
- 
--	for_each_child_of_node_scoped(curr, child) {
--		ret = gpio_shared_of_traverse(child);
-+	return 0;
-+}
+diff --git a/Documentation/devicetree/bindings/display/imx/nxp,imx94-dcif.yaml b/Documentation/devicetree/bindings/display/imx/nxp,imx94-dcif.yaml
+new file mode 100644
+index 0000000000000..8894e87666972
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/imx/nxp,imx94-dcif.yaml
+@@ -0,0 +1,90 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++# Copyright 2025 NXP
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/imx/nxp,imx94-dcif.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+static int gpio_shared_fwnode_scan_properties(struct fwnode_handle *curr)
-+{
-+	char **props;
-+	int ret, i;
++title: i.MX94 Display Control Interface (DCIF)
 +
-+	ret = fwnode_property_get_names(curr, &props);
-+	if (ret <= 0)
-+		return ret;
++maintainers:
++  - Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 +
-+	CLASS(strarray, names)(props, ret);
++description:
++  The Display Control Interface(DCIF) is a system master that fetches graphics
++  stored in memory and displays them on a TFT LCD panel or connects to a
++  display interface depending on the chip configuration.
 +
-+	for (i = 0; i < names.n; i++) {
-+		ret = gpio_shared_fwnode_scan_property(curr, names.array[i]);
- 		if (ret)
- 			return ret;
- 	}
-@@ -284,19 +284,33 @@ static int gpio_shared_of_traverse(struct device_node *curr)
- 	return 0;
- }
++properties:
++  compatible:
++    const: nxp,imx94-dcif
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    items:
++      - description: CPU domain 0 (controlled by common registers group).
++      - description: CPU domain 1 (controlled by background layer registers group).
++      - description: CPU domain 2 (controlled by foreground layer registers group).
++
++  interrupt-names:
++    items:
++      - const: common
++      - const: bg_layer
++      - const: fg_layer
++
++  clocks:
++    maxItems: 3
++
++  clock-names:
++    items:
++      - const: apb
++      - const: axi
++      - const: pix
++
++  power-domains:
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++    description: Display Pixel Interface(DPI) output port
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - power-domains
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    display-controller@4b120000 {
++        compatible = "nxp,imx94-dcif";
++        reg = <0x4b120000 0x300000>;
++        interrupts = <GIC_SPI 377 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 378 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 379 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "common", "bg_layer", "fg_layer";
++        clocks = <&scmi_clk 69>, <&scmi_clk 70>, <&dispmix_csr 0>;
++        clock-names = "apb", "axi", "pix";
++        assigned-clocks = <&dispmix_csr 0>;
++        assigned-clock-parents = <&ldb_pll_pixel>;
++        power-domains = <&scmi_devpd 11>;
++        port {
++            dcif_out: endpoint {
++                remote-endpoint = <&ldb_in>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9c91f45dfa7c1..b9eb9b4dcb5bf 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20421,6 +20421,14 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/nxp,imx8-jpeg.yaml
+ F:	drivers/media/platform/nxp/imx-jpeg
  
--static int gpio_shared_of_scan(void)
-+static __maybe_unused int gpio_shared_fwnode_traverse(struct fwnode_handle *curr)
- {
--	if (of_root)
--		return gpio_shared_of_traverse(of_root);
-+	int ret;
++NXP i.MX 94 DCIF DRIVER
++M:	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
++L:	dri-devel@lists.freedesktop.org
++L:	imx@lists.linux.dev
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	Documentation/devicetree/bindings/display/imx/nxp,imx94-dcif.yaml
 +
-+	if (gpio_shared_fwnode_ignore(curr))
-+		return 0;
-+
-+	ret = gpio_shared_fwnode_scan_properties(curr);
-+	if (ret)
-+		return ret;
-+
-+	fwnode_for_each_child_node_scoped(curr, child) {
-+		ret = gpio_shared_fwnode_traverse(child);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	return 0;
- }
--#else
-+
- static int gpio_shared_of_scan(void)
- {
-+	if (IS_ENABLED(CONFIG_OF) && of_root)
-+		return gpio_shared_fwnode_traverse(of_fwnode_handle(of_root));
-+
- 	return 0;
- }
--#endif /* CONFIG_OF */
- 
- static void gpio_shared_proxy_dev_release(struct device *dev)
- {
+ NXP i.MX 95 CSI PIXEL FORMATTER V4L2 DRIVER
+ M:	Guoniu Zhou <guoniu.zhou@nxp.com>
+ L:	imx@lists.linux.dev
 
 -- 
-2.47.3
-
+2.53.0
