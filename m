@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795167180;
-	b=uIv5RE2T7JtmtCV67mYkZqWyl3OlC5VIFZHkTwyqU/OnqVOL5cFVZvYL5hodhfjxsYHe
-	 rBVRPBg74DYDzW5rJ03aQE5kbTSlZuFudmSuFomGYa3npReLsXDRzPVEQvnMNPD72BV31
-	 aYQcPPY+4GRniJCM+JkjJUBIdOCD+rrGwzey4Pf5X58SZ2EvUUYsZRXXieQpHjmGALrGs
-	 qS14UJdeFbab7Af3H1mXUfJ1nbydkjNrrO2+iJ8Gnchwk7L2+Y/+2RARpHDZVTyxbKzzM
-	 IC5aAQ3YD5zhTAtB1kWcLHlgzTE42HskY7/NREJF8WsL4EX25/RQfFpa6ps/AUu/iAg==
+	t=1795167181;
+	b=h5at0wuGPnoUzPINytGKUralnPI0cTZ4YkeS9fv4G6POpG6IXTziZ5LTQnsxIYUkcAo+
+	 0T7vLsHy0VXbB7Kv3HpONiZvMKongQtxSJwj+Nau8a4pIULj88r5dbpNVbyHSkzE6rXml
+	 gUekmEGuyMLe27GYYDhFEX6ii27aeApQdZrDE4jD1j8oxFbH4HfYJFZC18FZWN1pZV3WV
+	 0yHldwrzXk0ZzLhckI/0JXULTGENMZ7ktNucqCbOK67pKuXIOmd09jRk7MdwUHyomn81X
+	 u2ns11xRNSl9d8vN/Rz/z42ypLfX2rvLQZq5Rla9HLMI7E3cLNs3RNal07xMfmiLA8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167180;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167181;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=xY1SbqVLyjf++5081IO9YBltccOHmnSNJiigamj+tYA=;
-	b=jRz97vckXPI9E+t6IpDLdTYmRkAtERAgcE296Oq7en/a9JSbJAbsOhBK1is0oxrzS0Kl
-	 YzLtzjk0TyO9Yhmr08XgeA8pVZ+Tj0PRMsIm9Kxog1mZy3aQYNqNtxy8kt91dUbIlr6pb
-	 mwboGeUYWx4C3KJOeNwqLKf5HzOjVr6XDMVK/Ku+pmZDrim1wes4HE1+uDwioxs/+DNbN
-	 E/TM/BmXSxN+aDVoMC4vAqSl1iRVnSyt7N4YWWVfqIWSFeNwCZ8R3CdhyZcJHg7F+RuGJ
-	 jFcHPeRfLKyUzrLAC0JlFDoTR9rFMfKaT9WP8+YaeMTyhquTph/UgEmbwuDsYZy2SSw==
+	bh=iGBX4zPdjrEicp5vNcMxh0PDlqBYs9v7+a6bzr8K3yo=;
+	b=RMSsZ52CRrbAn+NkoWamT0zrftRt3250yvggg+wPvYDaXH0w3pWNJxs0sigOCziX2zla
+	 FbJWD+NJ2h7aj3raOajUyDcMjUA4XgR+zVrXOqOHb12GFneWztsW/DIQsEKmuzBvIE4OS
+	 j4a29dPZc5m8LeotDlaRlx+4SXjxebIP/b2RAsOpRAMunfOzF58OamHpLBcm9hvA31VlN
+	 9KdvmKtwbE2s6rffzUiy76F3iZB6zenQ0/BZMBIOBGjMYI3kb7385KsRiiXy+lO9ND2Ny
+	 fwNcGgEqmv3R2G/C3mY9xZOHkEylpymgl9dMZkWdbb47GTD9JJHS29OzBUBNreWtuMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=faFTpv4l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RpKvmHsM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A831B606A32C
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:33:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A19D606A326
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:33:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=faFTpv4l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45C81F000CA;
-	Fri, 20 Nov 2026 09:32:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RpKvmHsM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27E61F000CF;
+	Fri, 20 Nov 2026 09:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795167180;
-	bh=xY1SbqVLyjf++5081IO9YBltccOHmnSNJiigamj+tYA=;
+	bh=iGBX4zPdjrEicp5vNcMxh0PDlqBYs9v7+a6bzr8K3yo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=faFTpv4lUMMEZhqwR7J1PT16UyWWOpJ0Na+7z9SldQw/2KQyz6TNezvJam65WEueB
-	 XJSQjYn2qc+BJ5yAiUl1FZ9Xc680ltkUiXbQopSm1bi8OzhgikE+QHSlD4KfKdPBjj
-	 HSEaHe6TR08+eZS4eTW+FbgzoXXpL6fjk4rPmaQr1RKUoE7iIgxalc0c1RQngMMAlP
-	 paXNWmJyphACtPNNQZoLCum24Qan08QfKpRv6INEFqWcx+yrjKH2bPuoRxjX/yq5xZ
-	 9gh/NB4jq3H1QoXDnWStn2yyox4BVQgYm+JDbBm7nE7bkgddiFXAl7lPxgouvHi+6B
-	 vQs2WGb3H3sug==
-Message-ID: <sashiko-outbox-224856@kernel.org>
+	b=RpKvmHsMoQofwWM3J1aUHRccwh9hJ6tfZSjfS0fDYvqiQ/1EiZSoEy0cRqkIkGYZT
+	 Wr8Us8wxTk5Nfbxp6/qNbxEToPadlvj+gv/ze0LN2V2I9mY8UgDwnPyKJBS06N3qo4
+	 rCdADBdH37FxrSM+xrjXOqUU92NBgpqMrITAi1F35IcljAKUqWRvGt477kTF6FuWWO
+	 USZSbVVi39JDpc3Pc7ZlnO/vm/pwSFM6o3xYt5jBXsy6X4EKn3sGFsinoVwttc8xtc
+	 so0MRM6eTPHny0VrMb/MTIFHYFV5G1G9xkhL/rOGj/qfbCWcAVeQUjKguY6QN+kGMj
+	 Tyc/LbTNzvPOg==
+Message-ID: <sashiko-outbox-224858@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 3/7] net: ftgmac100: Add AST2700 compatible
- support
+Subject: Re: [PATCH net-next v7 5/7] net: ftgmac100: Require phy-mode for
+ AST2700
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jacky Chou" <jacky_chou@aspeedtech.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119-support_ast2700-v7-3-33c8ca2d0dd7@aspeedtech.com>
+In-Reply-To: <20261119-support_ast2700-v7-5-33c8ca2d0dd7@aspeedtech.com>
 References: <20261119-support_ast2700-v7-0-33c8ca2d0dd7@aspeedtech.com>
- <20261119-support_ast2700-v7-3-33c8ca2d0dd7@aspeedtech.com>
+ <20261119-support_ast2700-v7-5-33c8ca2d0dd7@aspeedtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 09:32:59 +0000
+Date: Fri, 20 Nov 2026 09:33:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,65 +63,62 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] net: ftgmac100: missing MAC reset deassertion for AST2700 in
-  ftgmac100_probe()
+- [Medium] net: ftgmac100: unreachable AST2700 phy-mode check in
+  ftgmac100_mii_probe()
 --
 
-commit bc0b615a5df5edb854a72ea5c88c72e247810b61
+commit b86b29199842bf4516e7a704118276e8a5eb8767
 Author: Jacky Chou <jacky_chou@aspeedtech.com>
 
-net: ftgmac100: Add AST2700 compatible support
+net: ftgmac100: Require phy-mode for AST2700
 
-This commit adds match data and the "aspeed,ast2700-mac" compatible
-string so AST2700 FTGMAC100 device tree nodes can bind to the driver.
+This commit requires the device tree "phy-mode" property to be specified
+on AST2700 in ftgmac100_mii_probe(), returning -EINVAL instead of
+defaulting to RGMII.
 
 > diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
 net/faraday/ftgmac100.c
-> index 6d2fe5c2f3903..67b1fa464a421 100644
+> index 9b7becb017262..5a578a62df673 100644
 > --- a/drivers/net/ethernet/faraday/ftgmac100.c
 > +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-
-[ ... ]
-
-> @@ -2017,7 +2018,8 @@ static int ftgmac100_probe(struct platform_device *=
-pdev)
+> @@ -1526,8 +1526,13 @@ static int ftgmac100_mii_probe(struct net_device *=
+netdev)
 > =20
->  	if (priv->mac_id =3D=3D FTGMAC100_AST2400 ||
->  	    priv->mac_id =3D=3D FTGMAC100_AST2500 ||
-> -	    priv->mac_id =3D=3D FTGMAC100_AST2600) {
-> +	    priv->mac_id =3D=3D FTGMAC100_AST2600 ||
-> +	    priv->mac_id =3D=3D FTGMAC100_AST2700) {
->  		priv->rxdes0_edorr_mask =3D BIT(30);
->  		priv->txdes0_edotr_mask =3D BIT(30);
->  		priv->is_aspeed =3D true;
+>  	/* Default to RGMII. It's a gigabit part after all */
+>  	err =3D of_get_phy_mode(np, &phy_intf);
+> -	if (err)
+> +	if (err) {
+> +		if (priv->mac_id =3D=3D FTGMAC100_AST2700) {
+> +			dev_err(priv->dev, "phy-mode is required for this SoC\n");
+> +			return -EINVAL;
+> +		}
+>  		phy_intf =3D PHY_INTERFACE_MODE_RGMII;
+> +	}
 
-[Severity: High]
-Does ftgmac100_probe() leave the AST2700 MAC held in hardware reset?
+[Severity: Medium]
+Can this FTGMAC100_AST2700 check ever be reached?
 
-On AST2400, AST2500, and AST2600, the MAC clock gates define a coupled
-reset_idx, so enabling the clock in ftgmac100_setup_clk() automatically
-deasserts the MAC reset.  On AST2700, ast2700_clk_enable() only clears
-the clock stop bit in SCU1_CLK_STOP and does not release the separate
-SCU1_RESET_MAC0..2 resets:
+ftgmac100_mii_probe() returns -ENODEV right above this when !priv->mii_bus,
+and priv->mii_bus is only allocated by ftgmac100_setup_mdio(), which
+ftgmac100_probe() only calls for FTGMAC100_FARADAY, FTGMAC100_AST2400, and
+FTGMAC100_AST2500:
 
-drivers/clk/aspeed/clk-ast2700.c:ast2700_clk_enable() {
-	struct clk_gate *gate =3D to_clk_gate(hw);
-	u32 clk =3D BIT(gate->bit_idx);
-
-	if (readl(gate->reg) & clk)
-		writel(clk, gate->reg + 0x04);
-
-	return 0;
+drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_probe() {
+    ...
+	if (priv->mac_id =3D=3D FTGMAC100_FARADAY ||
+	    priv->mac_id =3D=3D FTGMAC100_AST2400 ||
+	    priv->mac_id =3D=3D FTGMAC100_AST2500) {
+		err =3D ftgmac100_setup_mdio(netdev);
+		if (err)
+			return err;
+	}
+    ...
 }
 
-Unless the bootloader has already enabled the clock and released the
-reset, ftgmac100_initial_mac() reads FTGMAC100_OFFSET_MAC_MADR and
-FTGMAC100_OFFSET_MAC_LADR before priv->clk is enabled and before
-priv->rst is acquired.  Moreover, ftgmac100_probe() never calls
-reset_control_deassert(priv->rst), and ftgmac100_reset_and_config_mac()
-only toggles priv->rst for PHY_INTERFACE_MODE_RMII, leaving RGMII
-interfaces in reset so ftgmac100_reset_mac() fails with -EIO.
+For FTGMAC100_AST2700, priv->mii_bus is always NULL, so
+ftgmac100_mii_probe() always exits with "No MDIO bus available" before
+reaching of_get_phy_mode().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-support_as=
-t2700-v7-0-33c8ca2d0dd7@aspeedtech.com?part=3D3
+t2700-v7-0-33c8ca2d0dd7@aspeedtech.com?part=3D5
