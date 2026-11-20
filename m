@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795194887;
-	b=37xbk/ioDQejUP0TIklbc7Qh3Nzv7KtSX2pUVtHsxEy3ggvux2nzENEJZ3ZZkJPXRgXU
-	 yY1AriF5El1T6d/b4ac85Hxuc3UTg+DnxWtkf1zEKdhB7CZ+nEIX6Kw2VIvzYjLJTUg6S
-	 YAabcJvvQo+ptQHhbYsDwoChqIoUy4Owbmgz+QJBL1UmG/R8RisvkhBP5mV84Cs0J2sGp
-	 s5ifeTuTNgfs3UNHOx3F6DkvoweuhmHc8PD8+Cr/vcgKLRTaEHoFX/57GCPhbq6GHL/jl
-	 EMtubASRopLtlBfUdTw9w0OXwQniPZrC9lNEgs09pJbl0g/JBO7kESs5bT4FR5GAVcw==
+	t=1795194888;
+	b=zmcYZPVrxtOhoE5fb0u0V66qJbL+mRfNZC67Lmoi5PW9llxU9Vx4GgaXYj7coGTryx+i
+	 l2mSib53tXL5+RjEdCUZyH6Uj1ELjF4lcMUM//ELrdsHwYXDcQZVI88Haj19Phhi/I8xm
+	 gcF+qjCaUB4FfC/xfhRlDlJJbG6qWDZCAKfK7Pj4nsdOrhxx6m3jjUWIGhhHIfmLKsRTn
+	 saQjjfYk/FGvOhrArXgfp7IaailZ70izm2++WU5+rZ2HeRF/45H8F1N0MdnZMuWD082SF
+	 xuiCnDEnApOziKuojOJHc93GQLgO7bZj4LTzjJ2H4fR8RW+EqpTU6pyTmAiUvKOQr/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795194887;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795194888;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=u5FtYgjzTp80QUirf4vQyBWufqpABcEjYwFVk11FKh0=;
-	b=q8+i3KA1TXgG2KoLIll0kCJDFA4i/TApeDsitXfj4KwSxTVfrx7tEgzilOW8V8G2pXaV
-	 rt9LPfOYOtZ/nzXXPZdiAtykF6qfJIZviGa6RGH85S9milyn3RmXsP8L1Z1lRIs011t04
-	 rBg2fK8ClG5Y+Vk/rvSyDi3Tvv1dQq4/TKgUisTqBy6iPId+6GKB6K4tvy4qRyE4/us3Z
-	 RuScaY4uxV2/k0bWEcg8jjiYsBEK7luTZm0PhFfCpcqh952kAjD9O/kv+nFuQj5+5LPnE
-	 GwE2YzEfpVSgSrG3DWgBzZUA+wLB6guDoKc10REC3TkVpZ4GdSSKNqeRJru5aLSSgVQ==
+	bh=5r1Ij52HuLIX6Cb6AHPmD6axzXsm0u/VJUknky6+iKk=;
+	b=ezOhD57/zfjZbtSy4PM66uSZ39Od9oZrHW7J8ZdmvYt9irGjasrScGxVU3H2Q9pAweY6
+	 zaftAzNbtVAdYDpt0FBlCs/E5Ga2RcnAOGFGyeaJRbyDPcZs7P3v8Bns0dnNfiQjBZnBN
+	 5Lu8Olc5RuIggfy9By/wBkEaPgCNzW7NsX0I/0Katb7fQlPqm0JocPy2iuggW6ts2MlMX
+	 OlA+c/61BLXJ6Lgmduu848UnNWNeqab299ovXEAwMfqdAkdG0VnvUwgWCb1UBMENv52IA
+	 z/HRYBcSunNPCV/PIsTNGXBOs5Vyb2KyM6KO7irpN0eV6CheolpsaP4U+e/HDibOSKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=G0rLgvkx;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0zvYjGKa;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4D860A2615
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 17:14:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C4D860A2615
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38916606A338;
+	Fri, 20 Nov 2026 17:14:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38916606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=G0rLgvkx
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0zvYjGKa
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 49BDC1A1755;
-	Fri, 20 Nov 2026 17:14:42 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 17CDA4E4168E;
+	Fri, 20 Nov 2026 17:14:47 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E973601B9;
-	Fri, 20 Nov 2026 17:14:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0479811BC04DC;
-	Fri, 20 Nov 2026 18:14:37 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E1113601B9;
+	Fri, 20 Nov 2026 17:14:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 61C0011BC0501;
+	Fri, 20 Nov 2026 18:14:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795194879; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795194884; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=u5FtYgjzTp80QUirf4vQyBWufqpABcEjYwFVk11FKh0=;
-	b=G0rLgvkx+BljvmoRCaXaNNJ6K1UgiEOnna0VA62SqapPUk+v3Y2065R2e6HoU2LUtS350G
-	xuHXzGclMvptsJQUiUzguxETDgNJT8grgJxknRSfSQ7J1ep//DeXlO3rUu52XNEyyEeIVM
-	vfJVf/KSeJPFW5uuNom449pLPrb8s9nlcoJOa4CV4RjZtmDfXw/A69yrQWf2hSN+gLPDoF
-	wymT38+uLUTl7QsAPt+PFTahaJsJI4tYm8fkHSvKoMzWQasPB4iL6rhidYCj8uMdQDncS6
-	RepUXRFJU+seWq+006ud5Kc2TyH1W0XKvJQhC0kv7xuj7j68QBXgCnyzwlFdUA==
+	bh=5r1Ij52HuLIX6Cb6AHPmD6axzXsm0u/VJUknky6+iKk=;
+	b=0zvYjGKa5CbmYs1bWtcLeDDgpPTtqwymd8vDuu7goJfvL/KzFupcsywIGICjDQt5ploRnp
+	1dcHj7+ENGnRkxqCAKIzEsq1vg34SkNBG6mpLfArutqThz0NovpmIG3OtCj6GE5paCKQSY
+	f7TNFJfpjAJenNCgK2sgv+JJoWn1mf8cAHeNZNxGXQXPD8AwuWqWGU73FCIS3jeK/70mtD
+	VFi2VjQn6U6AxCrnIaI2T0/64NMq+yrhikq50H8hrz5x+IiZ3vj5tLr6ehVyJpqYNm7BoC
+	1e1nbgbhuFkzYJODu9+B1ytU3hwt7K5rLnnJngTLjWIb0r2yOsi5fjvDCU703g==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 20 Nov 2026 18:14:28 +0100
-Subject: [PATCH v4 02/11] spi: spi-mem: Clarify the conditions upon which
- DQS is usable
+Date: Fri, 20 Nov 2026 18:14:30 +0100
+Subject: [PATCH v4 04/11] spi: spi-mem: Take the DQS wiring into account
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-winbond-nand-next-phy-tuning-v4-2-8c21e1f71f41@bootlin.com>
+Message-Id: <20261120-winbond-nand-next-phy-tuning-v4-4-8c21e1f71f41@bootlin.com>
 References: <20261120-winbond-nand-next-phy-tuning-v4-0-8c21e1f71f41@bootlin.com>
 In-Reply-To: <20261120-winbond-nand-next-phy-tuning-v4-0-8c21e1f71f41@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Richard Weinberger <richard@nod.at>, 
@@ -83,65 +82,72 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, praneeth@ti.com,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-The helper currently only captures the chip capability. Let's rename it
-to capture the fact that it is going to reports whether DQS is usable
-end-to-end through the upcoming changes.
+The DQS line may not be routed between the memory and the controller.
+Parse the spi-dqs-not-wired property when the SPI memory device is
+created and only report DQS as available when the memory supports it and
+the line is wired.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/spi/spi-mem.c       | 12 ++++++------
- include/linux/spi/spi-mem.h |  2 +-
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/spi/spi-mem.c       | 7 +++++--
+ include/linux/spi/spi-mem.h | 2 ++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
-index 1bea52c6f8a3..8c283953b302 100644
+index 8c283953b302..f2e1ecd49fd6 100644
 --- a/drivers/spi/spi-mem.c
 +++ b/drivers/spi/spi-mem.c
-@@ -557,8 +557,7 @@ EXPORT_SYMBOL_GPL(spi_mem_get_name);
-  * Mitigating this limitation is possible with the addition of a data strobe
-  * signal, commonly named DQS.
-  *
-- * Set the DQS boolean if the feature is available and configured at the chip
-- * level. Controllers may query this value.
-+ * Set the DQS pin boolean if the feature is available.
-  */
- void spi_mem_set_dqs_pin_available(struct spi_mem *mem)
- {
-@@ -567,16 +566,17 @@ void spi_mem_set_dqs_pin_available(struct spi_mem *mem)
- EXPORT_SYMBOL_GPL(spi_mem_set_dqs_pin_available);
- 
- /**
-- * spi_mem_has_dqs() - Query whether the DQS is available or not
-+ * spi_mem_dqs_is_usable() - Query whether the DQS is usable or not
+@@ -8,6 +8,7 @@
+ #include <linux/dmaengine.h>
+ #include <linux/iopoll.h>
+ #include <linux/pm_runtime.h>
++#include <linux/property.h>
+ #include <linux/spi/spi.h>
+ #include <linux/spi/spi-mem.h>
+ #include <linux/sched/task_stack.h>
+@@ -570,11 +571,11 @@ EXPORT_SYMBOL_GPL(spi_mem_set_dqs_pin_available);
   * @mem: the SPI memory
   *
-- * Return: a boolean indicating whether the DQS signal is available or not.
-+ * Return: a boolean indicating whether the DQS signal is usable or not. DQS is
-+ * usable when the memory supports it.
+  * Return: a boolean indicating whether the DQS signal is usable or not. DQS is
+- * usable when the memory supports it.
++ * usable when the memory supports it and the line is wired.
   */
--bool spi_mem_has_dqs(struct spi_mem *mem)
-+bool spi_mem_dqs_is_usable(struct spi_mem *mem)
+ bool spi_mem_dqs_is_usable(struct spi_mem *mem)
  {
- 	return mem->dqs_pin;
+-	return mem->dqs_pin;
++	return mem->dqs_pin && mem->dqs_wired;
  }
--EXPORT_SYMBOL_GPL(spi_mem_has_dqs);
-+EXPORT_SYMBOL_GPL(spi_mem_dqs_is_usable);
+ EXPORT_SYMBOL_GPL(spi_mem_dqs_is_usable);
  
- /**
-  * spi_mem_adjust_op_size() - Adjust the data size of a SPI mem operation to
+@@ -1142,6 +1143,8 @@ static int spi_mem_probe(struct spi_device *spi)
+ 		return -ENOMEM;
+ 
+ 	mem->spi = spi;
++	mem->dqs_wired = !device_property_read_bool(&spi->dev,
++						    "spi-dqs-not-wired");
+ 
+ 	if (ctlr->mem_ops && ctlr->mem_ops->get_name)
+ 		mem->name = ctlr->mem_ops->get_name(mem);
 diff --git a/include/linux/spi/spi-mem.h b/include/linux/spi/spi-mem.h
-index e3c0016be768..85a61ac62e2c 100644
+index 85a61ac62e2c..73fab3b004b5 100644
 --- a/include/linux/spi/spi-mem.h
 +++ b/include/linux/spi/spi-mem.h
-@@ -475,7 +475,7 @@ bool spi_mem_default_supports_op(struct spi_mem *mem,
- #endif /* CONFIG_SPI_MEM */
+@@ -276,6 +276,7 @@ struct spi_mem_dirmap_desc {
+  * @drvpriv: spi_mem_driver private data
+  * @name: name of the SPI memory device
+  * @dqs_pin: the memory provides a DQS pin
++ * @dqs_wired: the DQS line is routed to the controller
+  *
+  * Extra information that describe the SPI memory device and may be needed by
+  * the controller to properly handle this device should be placed here.
+@@ -288,6 +289,7 @@ struct spi_mem {
+ 	void *drvpriv;
+ 	const char *name;
+ 	bool dqs_pin;
++	bool dqs_wired;
+ };
  
- void spi_mem_set_dqs_pin_available(struct spi_mem *mem);
--bool spi_mem_has_dqs(struct spi_mem *mem);
-+bool spi_mem_dqs_is_usable(struct spi_mem *mem);
- int spi_mem_adjust_op_size(struct spi_mem *mem, struct spi_mem_op *op);
- void spi_mem_adjust_op_freq(struct spi_mem *mem, struct spi_mem_op *op);
- u64 spi_mem_calc_op_duration(struct spi_mem *mem, struct spi_mem_op *op);
+ /**
 
 -- 
 2.56.0
