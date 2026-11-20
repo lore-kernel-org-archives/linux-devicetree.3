@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795167122;
-	b=MSRfoFT1Cfd59LpRppAtvunTNOzFWOqAHaxt0nvlIEijqJOxbZ5c8Bqu+84n4veLdMXc
-	 piR+FHgK2r0E3Jclt2EvTGEJxVh98biG5k25p0iDdQGHP50/SwoapUQWItWzY6A92p2Hf
-	 h2V/mLn1D7umV4CllNwgJpR97oL2K7kylhDNtAYTQ2s9KFRViKqHMdgXVDORLAZc4B+6Y
-	 sBs0NIjE3Uh4ZPAFZeZ5pYha88N76IKVJnfcht8nr4+docN5uA8OsleA5bu8psDAVYpzf
-	 jccoIuw2fwYflvf+KMDxAteBoEnlipqMet2u7+jzdZuUVOhYaoST0BofOk9pMkh2AcQ==
+	t=1795167133;
+	b=UPhlJImgr0ZDZpc4fSiSwqKy5BvyeCnPsj6VsD0k2OixUoyrNq9pvHUawdMVNU5NmznU
+	 1cp+ubTnMiL5bvERArhV9QapxL/CshwUDgURNhmRaX7DnJkyAD5MZ5UtmmJKvGuOWaVcS
+	 obYDx+GzJHk2oibCqhY6FROOfhYIcmq7ctXm0akPH7UFSZOM8FnbAvsu7d58H0YJb5LN+
+	 wzGVcrSaWRCzeP9fDxKpaNzhWAMMxB9O5xYLCYvOKRFYPmGngWzvnrrZI23cH2WMYPNJp
+	 s4hjopp6kZAVorPMB3UT7xm0QVQ9O1WEaGVYuQZwyYLR8Cnk8ADsW4wUI3s6DpUPwRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167133;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=FhkZGapdsTrthSHbqAP4z2TFf5otai8js7PBr71hQww=;
-	b=hKzWpm8K3IkmXhlrK4wO2JOWwzJ1r3L44HNKC0BqBWic9lnVUyIMkfH+JmkeDK7R6K2W
-	 oNU1hRxWzGZTDwEOeR42BOcibQUHpl9FMXEC2KuN8hbukwQU+8V6aZuqYX4gF0Q/yNPpX
-	 YuRKSC99/facyFV+O6cA4RuTX96gOce138wmi+TIspk7dHMwzaWOVvho737Vir7HT+1WV
-	 prkGEvLIlMvQ2Fi+osO91GEtl0w5Uy9xpx+U5C++sHij0HoxGgkmYhwxgJ9Ek+RGezZWz
-	 iWxpb0emS/lzOK8aBJk385pr/mMXt8P+2Q1UttDq9mfjlGZo6vlaP0OWFfVUHkjGRxg==
+	bh=LBOFLRV4Yo+qz5QZVpgBc2ud9nMOQvGU8zo0zsZxmNM=;
+	b=KZ0W8GagCOoFIrkUULFZ8s3xrTHi8Jt4f+dqqevNDaaryOWB1mRuxDMpaasTYrIx0+CT
+	 iouw1uVsjhGrQ26ZbyFSBqMC7LHlcMqSRMPDNBrgEVHUD5GvaiiQL5cAiBFotmemzl6Mh
+	 tcnox/GqCO/FcIRn23o1Znrh8dn5pSlZR6eZYEmcYTO4mt28CbMixfasY2nXwuGWJNVtC
+	 bXRgWTG0CyIez9qwmeMJVZLyqiXY8MtGo4EslFZTJPoYxjnZjpk3Ycay04OqRBYtKVCDy
+	 gi1nlJDju1HX327bgTQMkAXZr9k//zRxNrsxonSYIIkZ0lHi6VwlrpMkn7shd7BiJTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2hfN+S8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JnTwHjSZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76259606A325
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:32:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A2B606A33B
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:32:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2hfN+S8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D617D1F000C4;
-	Fri, 20 Nov 2026 09:32:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JnTwHjSZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A330D1F000C4;
+	Fri, 20 Nov 2026 09:32:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795167122;
-	bh=FhkZGapdsTrthSHbqAP4z2TFf5otai8js7PBr71hQww=;
+	s=k20260515; t=1795167132;
+	bh=LBOFLRV4Yo+qz5QZVpgBc2ud9nMOQvGU8zo0zsZxmNM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K2hfN+S8UqUnneE5Dr0xSJ4S0ml6Umb1kD9RPQwqC+NJd5hfgfhvy9+V/fHZ1v9uV
-	 0UhZ7A3ewBUv1PEGg+mlVGAHOXCs2DhQA+YaT+pJRUjS9anZSlNwpeAnxKCTNhSVRp
-	 COE7c+31n93XWBuYkCu8ofVD8Ro7pF75sBZ4bLGjHgX3w5VWzkBVV7R0FmSEfguGrm
-	 nGWW3DtfNIzMV3W0sybcIceLJGVLNm9t2SYUztyiPrAxWBvdFGmqVlk7dMKy8Jk5Tq
-	 PoT4EzNhszl2wtFrKB9u1cjtvX1HVLis1A0C3UK+kMyYiHwEJNwFIO5XfSIKX+d33X
-	 f4nHJlWNYwHOw==
-Message-ID: <sashiko-outbox-224851@kernel.org>
+	b=JnTwHjSZI6pQQ+G0jz+nqFY36YMMnf4T5OBb29Lv1YTSPQo0U/E5I3r+/zMHSI7gF
+	 EcsgJ7ZrUR9RRMMKiLKjjfn3MY4H0lIVv6tPpqvIPDHJjDfp/qQ2wM1cYnfzpRgdVv
+	 xor7hoVtAUXC0zGoJZfyCweB9XIPPyr3vkPKPbC2ZQz+GSuqCHmv+VGPG2yhp+Da8s
+	 vI32d7OsdfMkTBmpWS0wm3OTdSH47SZ5I+QaHEvOuJDKJ47DKlwoRXf1xOfbtgTRKR
+	 uyeh58ByRO5unwtz6AU1ccEqV/T8z2D3LrfQePixKpsHB/NEd2DCwfyHUiO6KqToed
+	 cJ2Ytdeg4g27w==
+Message-ID: <sashiko-outbox-224852@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] bus: Add Altera AXI Timeout Bridge driver
+Subject: Re: [PATCH v3 1/2] dt-bindings: bus: Add Altera AXI Timeout Bridge
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vyacheslav Yurkov" <V.Yurkov.EXT@bruker.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261120-feature-timeout-ip-v3-2-affcc644af5e@bruker.com>
+In-Reply-To: <20261120-feature-timeout-ip-v3-1-affcc644af5e@bruker.com>
 References: <20261120-feature-timeout-ip-v3-0-affcc644af5e@bruker.com>
- <20261120-feature-timeout-ip-v3-2-affcc644af5e@bruker.com>
+ <20261120-feature-timeout-ip-v3-1-affcc644af5e@bruker.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 09:32:01 +0000
+Date: Fri, 20 Nov 2026 09:32:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,56 +62,49 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] bus: altera-timeout-bridge: NULL deref in
-  altera_timeout_bridge_probe()
+- [Low] dt-bindings: bus: non-canonical property order in
+  axi-timeout-bridge example
 --
 
-commit 2329d1b64f843a3b75217e8d1da80bb7857bd24f
+commit f9313b89c46a716fd7317e81e51cf84dd43ee870
 Author: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-bus: Add Altera AXI Timeout Bridge driver
+dt-bindings: bus: Add Altera AXI Timeout Bridge
 
-This commit adds a bus driver for the Altera AXI Timeout Bridge that
-populates child peripherals behind the bridge, handles timeout interrupts,
-and exposes timeout count and address attributes via sysfs.
+This commit adds a devicetree binding schema for the Altera AXI Timeout
+Bridge FPGA IP core.
 
-> diff --git a/drivers/bus/altera-timeout-bridge.c b/drivers/bus/altera-tim=
-eout-bridge.c
+> diff --git a/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridg=
+e-1.0.yaml b/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-=
+1.0.yaml
 > new file mode 100644
-> index 0000000000000..dd84096ec694d
+> index 0000000000000..2cf1ab537595b
 > --- /dev/null
-> +++ b/drivers/bus/altera-timeout-bridge.c
-> @@ -0,0 +1,184 @@
+> +++ b/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.y=
+aml
+> @@ -0,0 +1,86 @@
 
 [ ... ]
 
-> +static int altera_timeout_bridge_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D devm_device_add_group(dev, &altera_timeout_bridge_sysfs_group);
-> +	if (ret)
-> +		return ret;
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
 > +
-> +	driver_data->irq_node =3D sysfs_get_dirent(dev->kobj.sd, "last_timeout_=
-address");
-> +	if (!driver_data->irq_node)
-> +		return -ENOENT;
+> +    bus@10000 {
+> +        compatible =3D "altr,axi-timeout-bridge-1.0";
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+> +        reg =3D <0x10000 0x10>;
+> +        interrupts =3D <0 12 IRQ_TYPE_LEVEL_HIGH>;
+> +        ranges =3D <0x0 0x10010 0x1000>;
 
-[Severity: Medium]
-Can sysfs_get_dirent() trigger a NULL pointer dereference or cause probe to
-fail when CONFIG_SYSFS is disabled?
-
-ALTERA_TIMEOUT_BRIDGE does not depend on SYSFS.  When CONFIG_SYSFS=3Dn,
-devm_device_add_group() is a no-op and dev->kobj.sd remains NULL.  If
-CONFIG_KERNFS=3Dy (for example, via CONFIG_CGROUPS), sysfs_get_dirent() pas=
-ses
-parent =3D NULL into kernfs_find_and_get_ns() -> kernfs_root(), which
-dereferences kn->__parent without a NULL check.  If CONFIG_KERNFS=3Dn,
-sysfs_get_dirent() returns NULL and altera_timeout_bridge_probe() fails with
--ENOENT before requesting the IRQ or populating child devices.
+[Severity: Low]
+In the bus@10000 example node, reg and ranges should come immediately
+after compatible, before #address-cells, #size-cells and interrupts, to
+match the DTS coding style and pass scripts/dtc/dt-check-style in strict
+mode without property-order warnings.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-feature-ti=
-meout-ip-v3-0-affcc644af5e@bruker.com?part=3D2
+meout-ip-v3-0-affcc644af5e@bruker.com?part=3D1
