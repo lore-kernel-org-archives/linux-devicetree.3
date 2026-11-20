@@ -1,56 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795197519;
-	b=bKUh9L81MKzjP2AT0SkEL0KRy3cQYLWKEjgRr7z7VVniZCZ1sYjTQKI/Kgj7my16f98p
-	 8KaJ4wUtAr4GYhHbqDb1vbT4ZC+AopZUFnXHA3G8uRT816a0KhTymu9iiY5FWbxJT+c/d
-	 4bAlwenP9vDpfsUhkCPKI752XgIJLxFkuKmbDkDZC0ROX2/fK2MlaWEV/SyuqhmOdSQHC
-	 gj2cUHgEL9oagokBqhlaqG5aMg7kLNGztlvLiSAb+59SY/PGNXWxkYDMvFRODwjvJd8y1
-	 ws3WR1WpanJ8vDiIqCzrw6tyGdRw0B7A243AJa5UvNOkwSRzmkGieJ+zMZ1UZnEyWyg==
+	t=1795197525;
+	b=5CS60uOWZGtTDGjuJD3ooYKX5bbEs/C3Kf51IVFvmSgRtj7pT4rpJZlvY6hp0KeEdtLx
+	 fceydWjaeePMVlpnreTwbGgVwAH6mJ63LT5BTh2pL35s7a63S1vn43FJey3Y0dNXph/xl
+	 r5NcJ6fGF1dtAF2+faU22NKZpoIuZXS0QPzFVLxEd4v4Jc4ezsJbvYmK0KDiKtseLi7mZ
+	 9fhYlht6b5dNRDBgUDrUA2c8TKT7l9WvIS0U/q676PSRqFIDhGUDn622iyfo3FQknvngr
+	 VK/4SuERgW2DaOP34TE+d3xhYN7Jgm+/3Rpcmn10/n3bpx0Fx3Lque0ImKWKEFbvOKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795197519;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Sox7amMXycRbrAsCltoWwm5OLlq3yEZVuhVhsbcinpM=;
-	b=4Ql+u0yXPYTejSxGLDRoM6RsGF1d/n3TOVmGKC0Yv2VUL2UI+AgxfNBkwwTDylmiuytI
-	 z/Rg9hg8T3t6MgxlE7JiHu3ALWGJqiZKYw8czdBIN6PRkhEL5G51vWUt/7H5F24FVzANF
-	 5gtqjCNe8JOyCWrjPV2lSG1Sl4OmRd63o5QxK8DElTwqYyMwdPHaiaTwbIr8FbXD3Y4JW
-	 sxbcFDRc09SWD3av3kCB4GfBCAhDhG/RqMABH8L4UgsCJ34+kxJaUPvM9jSMVq2TJ8CRI
-	 umYnVELBLGx2cH3qv0u88rEv8l+yelVM3AFl4Bx2vsqi9hP0SPVpFS8alQjrBoF7ljQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795197525;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=dczCRr28KD+uTEJAqXrQFrzN9Ta198+TxQkvrodr48s=;
+	b=BcxzKx3oZIjMsInqwTrM0+bMUpp4qWtfWtvNfa0hpM/6fHR86AFYKqosnwfLFLhQpxP2
+	 2I0CZuRaEPXFCkWmYYlHMtRRA+CrZjJxXAv3MDPoVJ5tGck8Xv+ZwoEk75qaELixBTaNJ
+	 Lw8Ise7FtfDwNT6jz4dK6gzDsYFD5CJn4TxXnDwXlp5IhNstjYxGE15juSMUY0719OkBc
+	 J6all5j8xdZz2C8TES6hoxs8/3DM7KWIaO91TWVCWP3syWjffS6VdlTMRlYV8minOVnHA
+	 EixRKE7yoPRTKTUo3ipuTRnYRgKuANtVZg50AlFDzluV53mD6fK9g8eLKTBKHfiL0sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bneqPubr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=L+yhVlj6;
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ECD6606A32C;
-	Fri, 20 Nov 2026 17:58:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6AB606A32C
+	for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 17:58:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB6AB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bneqPubr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4089D1F000C6;
-	Fri, 20 Nov 2026 17:58:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795197518;
-	bh=Sox7amMXycRbrAsCltoWwm5OLlq3yEZVuhVhsbcinpM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bneqPubr97hlowVFBb56KWgJnmeuHwscHWfHvlQUdo8UEB6oE6cxTK0pCREp24coz
-	 4KozW/d2cdc9sbImeZGTSScOXPOv2m/AjN9QqL2BPRM6y7EEGXlAK0FehGH0deqncz
-	 xN6hHDQG3TmP00vJLJW4K5NwLq+RRdIo/K3PZw8L4dg6Sb46Yehi66pNiVc4uNx2HV
-	 DGBT3k3dV+zIPB3hdYZgIP+R0Pli78nw4gsQw0/CHxHotDv/2u5IfkHCJr/hLD3KRU
-	 s4eKTePTVP3gHjsxPJpTeEfWOno6YKOgv7slu93+7z/eGfAGIDj4wmJQUEWjULJtPj
-	 oJ5f5UGG2kwag==
-Message-ID: <sashiko-outbox-225759@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] clk: renesas: r9a06g032: Add reset controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyle Hendry" <khendry@reliablecontrols.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
-References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
- <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 17:58:37 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=L+yhVlj6
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c511c0e2826so153729566b.0
+        for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:58:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795197523; x=1795802323; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dczCRr28KD+uTEJAqXrQFrzN9Ta198+TxQkvrodr48s=;
+        b=L+yhVlj6HvWmSk4Vgc55qk8OMS+4LLvx1Jr4dSaq1GFkWlb1cb6sGKoAa0AQ4uQw8W
+         yoBX/fMp173Q33rHRJTcBYhJWwhljydu0Pho+C7OveBpZ2SC3CSSJhpCd2mQq+qCDKAv
+         FxpVdKrb7SIFdYblSiBtgqfCvDP8vlwDSYjYo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795197523; x=1795802323;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dczCRr28KD+uTEJAqXrQFrzN9Ta198+TxQkvrodr48s=;
+        b=01jP34/JSL1tt5zKXzOAbcvXDe/4EV29iFGtB601vsyDqe05P1zXh5lFI4nweIiucQ
+         hydQbP+fWB8jtMFVnUwYA4MSpemY2zW9O2jYkNTjBHYUeN+Y4xLLUaIAeV2z7lf3nA2f
+         OLQ9T6IQSkP7BFoJMJy6+Ku2N4UMH2rpWHiKI8qcL/im9Yr5bl2lXa3Kg9YuDEhej0yX
+         vssr8sIkEHo7ILTu2MhWltbbx29r+iw6Yq6K6wngqQs1WvPpVmTw+ea59v9xbM7zapih
+         7ATaoxn1ZCN9TeGKZWU8pt6vk6sidhkKI/Wcc98fiHwvJn/cKrBAI0DgvOPmFA5t7+6v
+         N5kA==
+X-Forwarded-Encrypted: i=1; AL+hErGbexDAvSqswijcztaIrdWHwGaWkt/YssHGLqUqmk5uTAL/hPcUpY+BEqc5Kso3z7LJBsZBGQGTJWdx@vger.kernel.org
+X-Gm-Message-State: APuU4Z+21AuyQing6n051y5tk69x1sicwZRaEvjc09UrB0dR3BjDnNGH
+	gZcLqUoUOR9/RD892g0186D8zDtNpeKhEWY8hQ4KcjOtik/Lq2Ui4EvnoqrnRw/aXdEYlX4dL7M
+	C5KMXavM9
+X-Gm-Gg: AZFdTZe5RTyhPoSz4loU667DzxFlLeQTPxonaTwhlQsHTDgDNoEGktOnA2VEZorfPIg
+	waO2xRlRYvIyIFNQd/NGHHUKBj0e0A47suuoKdhX4JnL735msbxUuEhFdDNFjTgsSV0eF2wZzPX
+	ZE2SSY6ja7dilbYtw9yHXM8oud4QW4GhUta+DCvDsjogSaFgFU6T52tPWPSnhgJOI64rb625syZ
+	VSVhPGZYX9hoEeDbLu/YwfzFht7kHTSKfeT2DTS4aKOS1wwM/DMTklFVvWpXy1tj6F6r8mInSeP
+	gXLQuX+dOJhzehBsk/7iXN4kqqC57xAIAkuC9BieVwvRi/82uYFQcA/vuZvcH5+N7NC+HzmDfI1
+	6HB4RgW2g2Z48zZcCzsz4jqbtsbs74h58K4/l3YT9hCjOGTQzM5Oe98W/TgPnPdfniDi+QpYUYp
+	THuZS6WV5EjbKHG+5Ov03pO6qhijOZPalEMSbk1d78YqlLJRjJy6I1VxJ4+asTsxZvi6B4cTsGn
+	B7tobTq2f6WvKV37ovUe1RBpaqhtNOxZZ/mPV6VY6hNOECLsfsL233F4FcSvRGLdIrmNQOnnRle
+	KEBFSe7VzywAdR+73CBO7HYDrb0CXKqCKTfTUWGNFGjsfuGeRhHaz7T1q3dIET3W6CZR
+X-Received: by 2002:a17:906:3e1a:b0:c41:285a:46a9 with SMTP id a640c23a62f3a-c513ac9c0cemr312755866b.46.1795197522887;
+        Fri, 20 Nov 2026 09:58:42 -0800 (PST)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com. [209.85.221.49])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513b00117dsm123390766b.80.2026.11.20.09.58.42
+        for <Devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 09:58:42 -0800 (PST)
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1033857f8f.2
+        for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:58:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHsN25FDKb7OWGboLP5F2JgXoyiiOS5tf3AdyUm78OH1B9R50TgY1MXxyYKFzx1fDl6SPTBNhApXNIe@vger.kernel.org
+X-Received: by 2002:a05:6000:2c13:b0:4aa:874c:a1c7 with SMTP id
+ ffacd0b85a97d-4abb86ed79amr7743142f8f.43.1795197035286; Fri, 20 Nov 2026
+ 09:50:35 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,170 +92,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261116205320.1621386-1-dianders@chromium.org>
+ <20261116205320.1621386-7-dianders@chromium.org> <CAFLszTjhY-mS0yaUtV4ae4m_zTTBA5rDH4NtoU2MbEQm6WunYA@mail.gmail.com>
+In-Reply-To: <CAFLszTjhY-mS0yaUtV4ae4m_zTTBA5rDH4NtoU2MbEQm6WunYA@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 20 Nov 2026 09:50:23 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=UAhKxpYwyEeySOC6X_MCNh=u8eG7f3bS5mhr++Ewkr0A@mail.gmail.com>
+X-Gm-Features: Aa3M54pY3fAgFZhZ3EalnJBZbaFaTtvllnxvHJmj4hAyavZ60vgvrfdEQ0Tz-zA
+Message-ID: <CAD=FV=UAhKxpYwyEeySOC6X_MCNh=u8eG7f3bS5mhr++Ewkr0A@mail.gmail.com>
+Subject: Re: [PATCH v4 06/14] pylibfdt: Speed up FdtRo.properties() with a C helper
+To: Simon Glass <sjg@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Chen-Yu Tsai <wenst@chromium.org>, 
+	Saravana Kannan <saravanak@kernel.org>, David Gibson <david@gibson.dropbear.id.au>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-kernel@vger.kernel.org, Brian Norris <briannorris@chromium.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Julius Werner <jwerner@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issues to consider:
-- [High] clk: renesas: r9a06g032: missing rcdev member in struct
-  r9a06g032_priv
-- [High] clk: renesas: r9a06g032: 0-based r9a06g032_resets[] mismatches
-  1-based DT IDs
-- [High] clk: renesas: r9a06g032: inverted reset polarity in
-  r9a06g032_reset()
-- [Medium] clk: renesas: r9a06g032: inverted return value in
-  r9a06g032_reset_status()
-- [Medium] clk: renesas: r9a06g032: dangling sysctrl_priv on reset
-  registration error
-- [Low] clk: renesas: r9a06g032: unused func parameter in
-  r9a06g032_reset_set()
---
+Hi Simon,
 
-commit c1ea072ef200e955b9711c8cf6fa8c5c06a195de
-Author: Kyle Hendry <khendry@reliablecontrols.com>
+On Fri, Nov 20, 2026 at 7:22 AM Simon Glass <sjg@chromium.org> wrote:
+>
+> > diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
+> > @@ -24,6 +24,61 @@ static int fdt_property_stub(void *fdt, const char *name, const void *val,
+> > +        name_obj = PyUnicode_InternFromString(pname);
+> > +        if (!name_obj) {
+> > +            Py_DECREF(list);
+> > +            return NULL;
+> > +        }
+>
+> Just to check, how much of the 1.8x comes from interning? My
+> understanding is that interned strings are immortal in Python 3.12 (I
+> am not sure about later versions), so every distinct property name
+> seen in any blob stays allocated for the life of the process. If the
+> gain is small, PyUnicode_FromString() would be safer.
 
-clk: renesas: r9a06g032: Add reset controller
+Interning isn't where the 1.8x comes from. Switching to
+`PyUnicode_FromString()` keeps the same ~1.8x speedup in
+`FdtRo.properties()`. Switched to `PyUnicode_FromString()` for v5.
 
-This commit registers a reset controller in the r9a06g032 clock driver to
-control the RSTN_CLK25 and RSTN_ETH active-low reset bits in the
-PWRCTRL_SWITCHCTRL register.
 
-> diff --git a/drivers/clk/renesas/r9a06g032-clocks.c b/drivers/clk/renesas=
-/r9a06g032-clocks.c
-> index 3df3f2b2c6de7..547e8d82f1cf1 100644
-> --- a/drivers/clk/renesas/r9a06g032-clocks.c
-> +++ b/drivers/clk/renesas/r9a06g032-clocks.c
-[ ... ]
-> @@ -675,6 +676,11 @@ static const struct r9a06g032_clkdesc r9a06g032_cloc=
-ks[] =3D {
->  		RB(0xec, 16), RB(0xec, 17), RB(0xec, 18), RB(0xec, 19)),
->  };
-> =20
-> +static const struct regbit r9a06g032_resets[] =3D {
-> +	RB(0x188, 3),
-> +	RB(0x188, 4),
-> +};
+> > diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
+> > @@ -477,10 +532,9 @@ class FdtRo(object):
+> > -        poff = self.first_property_offset(nodeoffset, quiet=QUIET_NOTFOUND)
+> > -        while poff >= 0:
+> > -            yield self.get_property_by_offset(poff)
+> > -            poff = self.next_property_offset(poff, quiet=QUIET_NOTFOUND)
+> > +        return iter(check_err(
+> > +            fdt_node_properties_stub(self._fdt, nodeoffset, Property)
+> > +        ))
+>
+> This changes the behaviour a little, since properties() is no longer a
+> generator. The FdtException is now raised by the call itself rather
+> than on the first next(), and an error part-way through a node (e.g. a
+> truncated blob) now produces no properties at all, where before the
+> caller saw the earlier ones first.
+>
+> I think that is OK, but please can you mention it in the commit
+> message and update the docstring, which still says 'Yields'.
 
-[Severity: High]
-Does the 0-based indexing of r9a06g032_resets[] mismatch the 1-based DT
-binding definitions?
+Done. Updated the docstring (`Yields:` -> `Returns:` plus a note on
+eager evaluation) and noted the behavior change in the commit message.
 
-include/dt-bindings/clock/r9a06g032-sysctrl.h defines R9A06G032_RST_TS as
-1 and R9A06G032_RST_MIIC as 2.  With clocks->rcdev.nr_resets set to
-ARRAY_SIZE(r9a06g032_resets) (2) and the default
-fwnode_reset_simple_xlate(), requesting R9A06G032_RST_MIIC (2) fails with
--EINVAL, and requesting R9A06G032_RST_TS (1) indexes r9a06g032_resets[1]
-(bit 4, RSTN_ETH) instead of bit 3 (RSTN_CLK25).
 
-> +
->  struct r9a06g032_priv {
->  	struct clk_onecell_data data;
->  	spinlock_t lock; /* protects concurrent access to gates */
-> @@ -1307,6 +1313,56 @@ static void __init r9a06g032_init_h2mode(struct r9=
-a06g032_priv *clocks)
->  	writel(usb, clocks->reg + R9A06G032_SYSCTRL_USB);
->  }
-> =20
-> +
-> +#define rcdev_to_priv(x)	container_of(x, struct r9a06g032_priv, rcdev)
+> > diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
+> > @@ -270,6 +270,9 @@ class PyLibfdtBasicTests(unittest.TestCase):
+> > +        with self.assertRaises(FdtException) as e:
+> > +            list(self.fdt.properties(-1))
+> > +        self.assertEqual(e.exception.err, -libfdt.BADOFFSET)
+>
+> There is already an identical check a little further up in this file
+> (just before testGetName()) and, since it wraps the call in list(), it
+> passes with both the old and new code.
+>
+> It would be worth replacing it with a test for the new error path,
+> i.e. a failure after the first property, such as a blob truncated in
+> the middle of a node's properties.
 
-[Severity: High]
-Is struct r9a06g032_priv missing the struct reset_controller_dev rcdev
-member?  Without it, rcdev_to_priv() and clocks->rcdev in
-r9a06g032_clocks_probe() fail to compile when CONFIG_CLK_R9A06G032 is
-enabled.
+Done. Replaced the duplicate check in `testPropertiesIterator` with a
+test that truncates `size_dt_struct` after `/subnode@1`'s first property
+and verifies `fdt_trunc.properties(node)` raises `-libfdt.TRUNCATED`
+directly on the call.
 
-> +
-> +static int r9a06g032_reset_set(struct reset_controller_dev *rcdev,
-> +				  const char *func, bool set, unsigned long id)
-> +{
-> +	struct r9a06g032_priv *priv =3D rcdev_to_priv(rcdev);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +	clk_rdesc_set(priv, r9a06g032_resets[id], set);
-> +	spin_unlock_irqrestore(&priv->lock, flags);
-> +
-> +	return 0;
-> +}
-
-[Severity: Low]
-The func parameter in r9a06g032_reset_set() is unused and triggers a
--Wunused-parameter warning under W=3D1 builds.
-
-> +
-> +static int r9a06g032_reset(struct reset_controller_dev *rcdev,
-> +			  unsigned long id)
-> +{
-> +	r9a06g032_reset_set(rcdev, "reset", true, id);
-> +	udelay(5);
-> +	return r9a06g032_reset_set(rcdev, NULL, false, id);
-> +}
-> +
-> +static int r9a06g032_reset_assert(struct reset_controller_dev *rcdev, un=
-signed long id)
-> +{
-> +	return r9a06g032_reset_set(rcdev, "assert", false, id);
-> +}
-> +
-> +static int r9a06g032_reset_deassert(struct reset_controller_dev *rcdev,
-> +			     unsigned long id)
-> +{
-> +	return r9a06g032_reset_set(rcdev, "deassert", true, id);
-> +}
-
-[Severity: High]
-Is the reset polarity in r9a06g032_reset() inverted?
-
-Because these resets are active-low (false asserts and true deasserts, as
-in r9a06g032_reset_assert() and r9a06g032_reset_deassert()), passing true
-before udelay(5) and false afterward deasserts the line and then leaves
-the hardware held in reset.
-
-> +
-> +static int r9a06g032_reset_status(struct reset_controller_dev *rcdev,
-> +			   unsigned long id)
-> +{
-> +	struct r9a06g032_priv *priv =3D rcdev_to_priv(rcdev);
-> +
-> +	return clk_rdesc_get(priv, r9a06g032_resets[id]);
-> +}
-
-[Severity: Medium]
-Should r9a06g032_reset_status() invert the return value of
-clk_rdesc_get()?
-
-reset_control_ops.status must return a positive value when the reset is
-asserted and 0 when deasserted, whereas clk_rdesc_get() on these
-active-low bits returns 0 when asserted and 1 when deasserted.
-
-[ ... ]
-
-> @@ -1404,6 +1460,14 @@ static int __init r9a06g032_clocks_probe(struct pl=
-atform_device *pdev)
->  	if (error)
->  		dev_err(dev, "Failed to populate children (%d)\n", error);
-> =20
-> +	clocks->rcdev.ops =3D &r9a06g032_reset_ops;
-> +	clocks->rcdev.of_node =3D np;
-> +	clocks->rcdev.of_reset_n_cells =3D 1;
-> +	clocks->rcdev.nr_resets =3D ARRAY_SIZE(r9a06g032_resets);
-> +	error =3D  devm_reset_controller_register(dev, &clocks->rcdev);
-> +	if (error)
-> +		return error;
-
-[Severity: Medium]
-If devm_reset_controller_register() fails here, does returning an error
-leave sysctrl_priv dangling after devres frees clocks?
-
-Earlier in r9a06g032_clocks_probe(), r9a06g032_add_clk_domain(dev)
-registers an unmanaged genpd provider, sysctrl_priv is set to clocks, and
-of_platform_populate() creates child devices.  If
-devm_reset_controller_register() fails afterward, devres frees clocks and
-unmaps clocks->reg while sysctrl_priv remains non-NULL, causing a
-use-after-free in r9a06g032_sysctrl_set_dmamux(), and child devices
-probed during of_platform_populate() cannot look up the reset controller
-yet.  Registering the reset controller before r9a06g032_add_clk_domain(),
-sysctrl_priv =3D clocks, and of_platform_populate() avoids both problems.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-rzn1-miic-=
-resets-v1-0-feee2bb28bb4@reliablecontrols.com?part=3D2
+-Doug
