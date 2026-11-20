@@ -1,87 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795185746;
-	b=OdWiy8gYqjW/OYR47wgxY/v8U0kXbnUVM0svuelFzW0aopHPv2m9jfNhEtU6COlAshh8
-	 YuKpYkp10foswQ5TQKjtHvgvEKa1MarX5V9o7mPcJwajMpv3Q0MuYUXJZb+mItct3Hgcc
-	 /BpTdAsrEvxckGmtfbFkupVzhNDtWVvvssX5tmDNMk7yxF4s0iQmDbdxULFojSaDVor2o
-	 IM2ZHv02abYCLVhD5k4C8XMmvYSholzZum+uZvjRlyTjHVghmqYgaH21S4Wr/7XgharEm
-	 8VEliuNkgZlvJ8oIDXf1Xf4i8wfqDoa/IgkL3s5sUHDrjx0VQmV+CNs9O+CbNYLneNg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795185746;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795185841;
+	b=EFQrc0kl9OQqVdzflQvh22s+TS9mXjJL54UarzsVTm38pTpsYcwBpfH6ltkJ7RT3ytaU
+	 v1ecCb78L2ulRnU5rFI7azLX2ge8K4ran9DRyeoo1a/LFyAg4L5L2LGHsIx9iL/ZJcf1b
+	 /hcxL6yLnDz/Llg3YOWZnMdk6wW9y0g+2q8ic8aO8Ckz5xl3RkGuEzHbGnb6d492mjBf8
+	 Kh/bPGIpjDYkE/bRHIPNtlnHf2fKaGTHFVWuFuD9X9xycf7LvPx64vXNPKP+LlZ/Cj+fx
+	 2uK5L0e7IgBVxmPHPPq/J1kT6VAqVOWE6RYBAd0EjEdQkgeCfuOxA0HQIInbB5ppQwg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795185841;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=vUlQyjO+S1Bvb+8g1Ae/7d4LlLIZcUiABix0J0NIufc=;
-	b=s3eKPay+PaLaXNOBkuUOzaPittqnTy8UFZWuBIj6nKbomLedSenm3a0um2NjlB4VR5vS
-	 cZoMqA307FfYfGAZ0s8a5mZ8A5tGIX8WaCfFfG37qVJVB0Wcyv1nSQ92kRZybiE+4xODy
-	 P1bNhywPhudceXn9H8l8/dC0oyi8I+dGNI8Gz71KyOGhCF7rznCvNRcAUejgkjRagb2rY
-	 286XN0IuwTAnKGDll+CnqUzDkR7D3i8dRPXBJ2DeV0qY9Ga/hvy5dO4BA5OYczZHULXAL
-	 JC0AwfQrOMPFwtRJzPorVzA8vaHz54/MlNUSmQ4WkclKUn454aUTbc/70FfUKAzgGGw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3IX7N1kFKFZuWON6FMO3tvSVP9QWmOoz3uHAxAV0zQc=;
+	b=PAjW6CtkdxmbVcb10gqaFQ8g9NyVha8px0XXykNh9aXR7xmuW45O5LM4N08uioYk+DUF
+	 6AMh/oXWrUv1FRxkq0kpq6vNx3em/LXP8e7guctIxXop7T5K9P/yXRqn/jocjf68gz7sl
+	 D82vbQwAaEbS72qQUl2t3aNEfZprMZyUMCOsxyyoDEFAQ/tN+LX4xiyJ3WqLfaf/oaQpK
+	 kxg3L98LTdOaBu5dAqcEoKhJX27tKXNEZKrewtQ5z1F2mNegaeTkH5fj2PS1nuHTSctET
+	 CqHXwb3mP/uqNTRkrtPGcVNt/MGLMLrIbiDV32qrk/HCsAxBMllgYfGkZtkynmnJ6/A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XN53hXGb;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYQ5tBef;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82ED3606A325
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 14:42:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82ED3606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5F3606A326
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 14:44:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E5F3606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XN53hXGb
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b405d8f1cfso512524a91.3
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 06:42:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYQ5tBef
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so9745045e9.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 06:44:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795185840; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JwANgQK+10Gu714TBdNluLgazHGErsp4clGk9kU9My53gty2gd78Bh1SHFuLaHfSyG
+         Mi4DjRqi5n0eIo8fz6Pvy/lXy3g2DiGQ6amsD74uJthYwtmfl7Qui8K3hdFEAkDoLIZx
+         uNtorPRj0QIGf1SDmLRIBtZSHfkwd4AoCh8fZLsD6yf1GuYST2DVvh+hLO3vX/DJGeLp
+         embxDl4GWOcvr+1LAU470SrqZkN1KtqAzIkKfLaS2+YASCeoNkhwyN7gX25xQb/Wxs5p
+         cyE299/p/zgc0xglsNyzgIqb9e3KsthZ+dDyXrgCtms3sZ0ONN3FcBWBMOIiGVnmvRoA
+         jeYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3IX7N1kFKFZuWON6FMO3tvSVP9QWmOoz3uHAxAV0zQc=;
+        fh=zNicx7NlR6ky+2cZv8lZATrSkzAcruNph0TBNg38pkU=;
+        b=YDyKkQMLS169AGo/u/O9GQDXnUQyh7n1zIY8jy0ieSL3S4PhvZytnHxaltvw3wYCdA
+         NlqskOhb7wJTC0WKA4C4LeN2zFVBYPGyJxtGcTfaqIhPs4qZ1xOsqv4QX9R1+en2jBHK
+         0C3gn5EXKZI79GZaYVjsvhxzfQFdaEZqAXbEvPrKRQZg3zvSxE5fMB0rE8iJFID1S16U
+         jw9a044kv9/jTu5DfofI0D8GS9y8r9Byy+4ezOyLHkc1eFMjwb0M+1ZbxI06+KUTGelD
+         4ArvjuhB1dgmXjCxxYK7B3fgF22Uo8A+SRtoNs0nr47qYrIt1+vnv5d7CtwE1nztByon
+         iWeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795185746; x=1795790546; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vUlQyjO+S1Bvb+8g1Ae/7d4LlLIZcUiABix0J0NIufc=;
-        b=XN53hXGb74WaRLq1kF8RHZti2Bc64/RJ8lMSPet0uZ4CKd0AhsBtFeOUG8R4JKXqmS
-         cM2nnvUvD9lcpDvR4digveTQnii3t8CnO7d35a/Vsx7BuJABaDwrAI3LTcFIToZ6o9Aj
-         mOwDdSXe4wps2aCp80kubl+LEGqMSZNZ+KrXR3LIVxV5JZRr9iQ3tLTzg2VHt3zre+Dg
-         9nAOGZCHGOfuZH17EWv+QVLS9QMryB5/tFmiDCsGQXEPKRRhzy2Sk4lLxLyx9k2vrbC3
-         YYi9LKvue4avVyO0vrcwUDhPBWuwyzUL4BbGZVexDfwm6qrm2isnewcjEoI/zk1j8hhs
-         nj5A==
+        d=gmail.com; s=20260707; t=1795185840; x=1795790640; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3IX7N1kFKFZuWON6FMO3tvSVP9QWmOoz3uHAxAV0zQc=;
+        b=QYQ5tBefbybLAahWX1T5jVNJjZMBPRgTJcbKw9SACiCbwwSstGz9QZ6ob5fsto/bXE
+         +VmKIKxLJ/kCzeAH+ZPIBRboifpiXTNqwlsZ1wHrk/YUtr8sINXI8KJ6H09oUVftbhTn
+         3kCHtT+5pz1P92H0uCuSAWGowRv4dYGficTGkvLioFE7xDeWNMAL1pveel1tNwqpB3hG
+         3PZ83BtYlHO4v3/+OKTiFFPAwQTZt9IqSUQ4gslXE37h2Ua9/EcuyE2thspfPFV05n4v
+         CXKA37NNEfw09vb/vw8SVg3kWl1qpPvnNrZA3m183s6nJWG6iPrIwCbkHM3cH0MtpDs3
+         abLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795185746; x=1795790546;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1795185840; x=1795790640;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vUlQyjO+S1Bvb+8g1Ae/7d4LlLIZcUiABix0J0NIufc=;
-        b=Ckdea4xVxN7bwF2LV4vuPIZTGvpSDuegn4dnZ77U2hG4c8qWiHXBxcmIiKEpuB/A6I
-         vRVI2qLep9hSHvRnJfqQM/rVV7hYNt6o/onVvGhJDpVonORfdM9fJ2UrnMNIq1W5TD3Q
-         l7fVIQ7fvBwCPceTIPbXRf04Z04xuN25W5uXz638zwjyfeLkuIriuFKqPS/6aQKIlghh
-         a2P/9771WCVtN7S6cP3CX9JWogDZa2Tjghdv6XyCsVH6qLdZGItGlK6HQIxIeYX3z9uU
-         LwtZ0NQzHP4Tdx3Lmd7REhMTBU6UfjPi8Q19Kh8YRlsf2zsBAOJLMXuttGtjiU7zkLaF
-         jaFw==
-X-Forwarded-Encrypted: i=1; AL+hErEK/7Fe8VeTfLIa5baS/7qKpc0rQeXvo4iR02ozkmcjZF4Depotr3dbkNje1gkuf8qbxUjzdlfG71PA@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TZ5qOjjsBZ1x725RYWHa794LjPCye3yCADbhbA80rhO7j8CYh
-	tI6DB2vkyRitHuV4RooMm9CNuSdmta8jwwCiNiPZDIBJDEkM78vp7uRh
-X-Gm-Gg: AZFdTZcTM43/9xuOJmzWr1xH163gG4VJSsOa8Mg73q+03evDQPmKE6QgLMMKqyAvqip
-	BA+YFd3+thm0ZXxijoN7ZOetZXQQyPLSIRhSNkdSHEMIzJWuGCjoHlCN3fqqgljY6cpFiffkG4z
-	a1Z8SqKeMwuzvMCve/NucWsHv+e0gEJr5NEqYJ4r9F/+mVo8kUNCbyUE+yDoD5Z4kv+nhaOc6gd
-	Ef3k1Ai/xbdVuNQBpXMSjUvBZ3u4fMmXkTrhbbLL+XCwJva+vuzQ+BRPi8nE01KrFtSKEDRfBwS
-	VC4WBruU7mg5yCugLBQNeKRj8Px3g4wof6c+vHoO9apHEEhZar/pmd1EetJOoIxJJatTK839hnr
-	zl+xuiUHnC8u/Ek4UiHaong0PEhgSgh1veIrAC8GiNJ/Ci6Bt13/KTJiPAusBrBw9RcJV+5/ywC
-	WrZG2oBYx9sGTK/jSXIObAuV5n6Ye3YOvj93RitY1sp9l8RkO1iZ6KLaHVTDtKUnPwyppUF0pIK
-	D71tv/Q4TMNAiyluMMoZIRUAAUPYQaaxq/und0WnfYZG3rnP3bj8i0GyNQ3PipKQ4L9Mgvr/ZAv
-	p6XarTQj5S+ZqlQ3ZEO6YedJA/1Ok+QtyrAFgQ==
-X-Received: by 2002:a17:90b:1802:b0:3b0:c11a:9026 with SMTP id 98e67ed59e1d1-3b41c95fa0cmr3172758a91.55.1795185745681;
-        Fri, 20 Nov 2026 06:42:25 -0800 (PST)
-Received: from [10.98.15.223] ([2a09:bac1:6500::19b:170])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03ee848c1sm15346435ad.10.2026.11.20.06.42.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 06:42:25 -0800 (PST)
-From: Chuanhong Guo <gch981213@gmail.com>
-Date: Fri, 20 Nov 2026 22:41:46 +0800
-Subject: [PATCH v2 3/3] clk: mediatek: mt7629: add RTC clock selection
+        bh=3IX7N1kFKFZuWON6FMO3tvSVP9QWmOoz3uHAxAV0zQc=;
+        b=Qjg7vnkiVpOAZ1el2ZWh3muAraLlDqPXnW5ZlHhM2mkLhXaZ9SnIk0w9MY1wLYZLjn
+         9xAQ4DDflYiEIMveQQSos752u6rtQuB51hD+gZz5pTboINSVyr1ktKTo5+znHH0QDvGh
+         xRzvLy5kLVUb6mGWWgYDOkq5lWhqkxb6jURL/+gcLrJEi35y5fPt5xZGsEdnzW9uxI1e
+         SaIyBj4r29IGsbfNO2QhAl8I/idkNKeAQC5Dvnyb/NtN+6fzVsFyQcOV44F7Axr2OJ+o
+         ctmHrCXbMQfXJRW4jzt98pcnhI+s4CqqrcPR05FuWh5EXJRFBESD4vGfl85j5AcqQoao
+         01Ig==
+X-Forwarded-Encrypted: i=1; AL+hErHuCnM42nbhiw77V3Ck6GPGFyQxJBahnyqn0qfb05ZO0bur3H13oSQcDZ5RVn4h9Z9T2iZDZNkHHrQs@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KQtRUq3V+MOKbosy6vJdugeZCErv4qi/0VyV7m0huvkppGZYj
+	Dpx2Aevhaq7qY7tPu+r45DqiJGLOMW5I6kEmVEDWx4MSDdATym6GqgLggjK7yD76N3JLJ/nEWnc
+	0fjyNTE5oLvD5LhD5xH+kIq8NxD0l3v4=
+X-Gm-Gg: AYBFou0r/5BQwU5Go8jtxW+Omqx1hcVMbjHwaJ16EfIsYbkhczCSFe3eS2tMEHKVGbP
+	zNQWEjqyBjzHNJaiBPhLmcakgd/tq2bpB85rCVTWGyMNsFUzjUNRuh9I5KWztTGrk2LEIp9wuxz
+	F5ribP57lI/qjlmNK0n+zxNxzERMeQKDjrvcdgV/81kDIo3M3/FUXm0j2kRWVJ5FLgoh9VVP5xx
+	qSriYa+zTizH5hzb6/r62JkgAY0KrdSTAeZyw9nvvZTz3BBY1wkv8dV4y0mN/ZysikVIXbhWZlu
+	kLqxzxBMj8PEUFw67osIlzr8erjKwqNrJFkhZjB+afLf8FyYUMX7YpXtsP8FLYV9Lf9Oju2PJFw
+	BPugvJjKeOoyeQOOembN0xpjIM9nj39YxmwbF3/yq9sgnYiz8w5BkbnCV3H8LykIFlGCUfBzNzY
+	XdvOMgCt/ivA9ja+rFBfkQZJAk0h7IApWGylRW5z2b4raNS0alEe58pRPQe2334/FGqgfQDcDDr
+	MlVqSvpYUlYki6dmKNp
+X-Received: by 2002:a05:600c:a088:b0:4bb:6473:cde9 with SMTP id
+ 5b1f17b1804b1-4bb8880f2d8mr64314205e9.6.1795185839556; Fri, 20 Nov 2026
+ 06:43:59 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,83 +106,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-b4-mt7629-rtc-v2-3-cd877cd496ae@gmail.com>
-References: <20261120-b4-mt7629-rtc-v2-0-cd877cd496ae@gmail.com>
-In-Reply-To: <20261120-b4-mt7629-rtc-v2-0-cd877cd496ae@gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>
-Cc: linux-clk@vger.kernel.org, linux-mediatek@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Chuanhong Guo <gch981213@gmail.com>
-X-Mailer: b4 0.14.3
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <179513453453.3291.8493509332739817258@kernel.org>
+In-Reply-To: <179513453453.3291.8493509332739817258@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 20 Nov 2026 14:43:32 +0000
+X-Gm-Features: Aa3M54p4ZaVOj21rOraLFop2-l4thT3tsd33lr6hbx18b-7slzJ7KmqEF1KOtNk
+Message-ID: <CA+V-a8vCCZy6TSDt8aSDA74GxbdFBP11DCmKB7+T_6+TU08mhA@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 00/24] Add ETHSW support for Renesas RZ/T2H
+ and RZ/N2H SoCs
+To: netdev-bot+sinfo@kernel.org
+Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@linux.dev>, 
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Simon Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Florian Fainelli <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>, 
+	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CLK_MODE bits 3:2 select the RTC clock source. Selector 0 uses the
-40 MHz crystal divided by 1024, while selector 3 divides it by 1221
-to provide approximately 32.76 kHz. The integrated Wi-Fi needs this
-/1221 source.
+Hi,
 
-Add the /1221 fixed-factor clock and the RTC mux so device trees can
-select this source through assigned-clock-parents. Keep CLK_TOP_RTC
-for the existing /1024 source.
+On Fri, Nov 20, 2026 at 12:28=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrot=
+e:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by LLM and not proven at runtime). If it was triggered
+>    please include the symptoms, like the stack trace or kernel messages.
+>
+The issues were found while manually comparing the hardware manuals
+for RZ/N1 and RZ/T2H SoCs.
 
-Selector 1 is reserved. Selector 2 is documented as an approximately
-25 kHz PMU bandgap clock, but its source and control are not sufficiently
-described to model it here. Leave these entries unmodelled while
-preserving the hardware selector values.
+Cheers,
+Prabhakar
 
-Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
----
- drivers/clk/mediatek/clk-mt7629.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/clk/mediatek/clk-mt7629.c b/drivers/clk/mediatek/clk-mt7629.c
-index 517c43b19f18..4843bc55dc7c 100644
---- a/drivers/clk/mediatek/clk-mt7629.c
-+++ b/drivers/clk/mediatek/clk-mt7629.c
-@@ -17,7 +17,7 @@
- 
- #include <dt-bindings/clock/mt7629-clk.h>
- 
--#define CLK_TOP_NR_CLK		108
-+#define CLK_TOP_NR_CLK		110
- #define CLK_INFRA_NR_CLK		6
- #define CLK_PERI_NR_CLK		22
- #define CLK_APMIXED_NR_CLK		7
-@@ -290,6 +290,10 @@ static const char * const infra_mux1_parents[] = {
- 	"armpll"
- };
- 
-+static const char * const rtc_parents[] = {
-+	"rtc", "clk_null", "clk_null", "rtc_32k"
-+};
-+
- static const struct mtk_gate_regs apmixed_cg_regs = {
- 	.set_ofs = 0x8,
- 	.clr_ofs = 0x8,
-@@ -372,6 +376,7 @@ static const struct mtk_fixed_factor top_divs[] = {
- 	FACTOR(CLK_TOP_ETH_500M, "eth_500m", "eth1pll", 1, 1),
- 	FACTOR(CLK_TOP_TXCLK_SRC_PRE, "txclk_src_pre", "sgmiipll_d2", 1, 1),
- 	FACTOR(CLK_TOP_RTC, "rtc", "clkxtal", 1, 1024),
-+	FACTOR(CLK_TOP_RTC_32K, "rtc_32k", "clkxtal", 1, 1221),
- 	FACTOR(CLK_TOP_PWM_QTR_26M, "pwm_qtr_26m", "clkxtal", 1, 1),
- 	FACTOR(CLK_TOP_CPUM_TCK_IN, "cpum_tck_in", "cpum_tck", 1, 1),
- 	FACTOR(CLK_TOP_TO_USB3_DA_TOP, "to_usb3_da_top", "clkxtal", 1, 1),
-@@ -463,6 +468,8 @@ static struct mtk_composite infra_muxes[] = {
- };
- 
- static struct mtk_composite top_muxes[] = {
-+	/* CLK_MODE */
-+	MUX(CLK_TOP_RTC_SEL, "rtc_sel", rtc_parents, 0x000, 2, 2),
- 	/* CLK_CFG_0 */
- 	MUX_GATE(CLK_TOP_AXI_SEL, "axi_sel", axi_parents,
- 		 0x040, 0, 3, 7),
-
--- 
-2.56.1
-
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account.
+>
+> *IMPORTANT*: If you do repost (for other reasons) - please include
+> the relevant info in the cover letter or commit messages.
+> --
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
