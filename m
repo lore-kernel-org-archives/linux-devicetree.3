@@ -1,82 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795134116;
-	b=CMXWnHToR4gMyZZwsy0DlU5JhR93PbroiLBYW+nFtJIWeBkNyzL61tdnUDuWSbjYZ6Km
-	 j6QV87DKVkhwr/TpGD8Akz1w04Su2qOEDZlRpOBUjGX34lfDNzGgSHGSi9jO6YTnp4VbQ
-	 oM5iezDzuBJ1f6AwqDuaN1DXC5xJRoFSkYyIy8pAINuYEHcH6LTJR5eP/n+b/ggP1LRry
-	 HSzV81gMbDujDI3C2/38PnhY7zS/V46F7zRVUGMH4KSHcUn7gSmSpA5bRT0YGs2huFwId
-	 rQnyFIe0NA98k5VO4o6Au7R3nklNF2CmDszex0zlUiceLOLD7v+6OtgLyNOlghdk3zA==
+	t=1795134343;
+	b=QLD5D0pipw8EwP4LVXXfFFxiLfmaoPnTTfdiw8CNpGtdHXaWq7cRjHs43Qz45YIopZU3
+	 08lXI7NQdw3LUnTl2/wBPXGQ7U2r/QCRhyZxJe/ovFYtoKrEZ3Qq57F0e7CD4ebM0AoBL
+	 3TEZb2ks2cS7QQK71ql/MiTT0yS5/75MYnzu9NB3FVVshLVpBqgOHQoBJ6eviHWUgrO8J
+	 c6GRBOoVzWnvG4SB3sbQtDmHrWp/Ryoyutz3Aoj2bGQ+KRVTTwEMHgIt3w9tJz7+Ud30l
+	 Wi0hiK6M6ZoNks9hBRTqCgXSZ2dTQz3jd8/5tby3W3XIGXR4IcSaQbCNkBzgLVyoHWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795134116;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SsHavNkogIpI7nSHrLjpOauuyu7Lvjb2c0H5vhNetyI=;
-	b=QTlsr+XrYA1C8GPyNGM73wKIZAjftNR1NpY/oD3ZyqO9Fd1nm/fR0kc5P+6EUBE66B3S
-	 PXPwJqzfWhzaaW96qDTRh7/AO+peCixWbmC9q6Jd7swgbP+F/mJ88TCJBSu6EAy7ZPSRG
-	 qfNLSfc7y66YTLZGVUT1SG64saQ1KIVff2+JJrEzyV55iec+EG3OPiG+5xIw1bhJRPaaG
-	 Am9uiXHC/DePw83dvLRD6WELMjn3LvkyZsRS48gcIJ+pNvkC32yT++QYDKOtMcA5Mdap7
-	 tyw/YIWGQbAAJckZ+UqmLdf+zbDripXcQot6lxS3Dr7SU4ffHkvC1j00/zLgTyQhMHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795134343;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=gI7MBb2ZKcdmNhRoO5ucZlyCJxqXOn884fXACSuIVpE=;
+	b=fdt9qShDAUdXxhnw8r9Ndx4PdAxTHQ4oseQ6qrRiFGaJ19GTJmPk3SDFFfhu0Thbm8yv
+	 nz1OPvzmItk81ZQJ6M/GhhMZv3sW+5iruw4uMcW9KKdPywCYfo8tdbjIH7G6dD621Q/PP
+	 oyZKerTyYeb5WaL/Cb5XZltUzKB1QAr/xS/LDN/VxPr+9QjZM/Z2v6kqF/Ks+Lwv2xnvH
+	 w4vdw2ZzeTjKMkVCB9e1C+AYwzJbF7mNDf2ADDXhGsGwzPbd+WockL49ASuf0FjE7NUz7
+	 I8e6//57Lq4/rCWLJ90pQ03fzDfZYrdS8OK+Al911zimUy0K5+AFFRV61nKdQ9ZpgPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=efNG74z8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TF0R9Jr6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D79606A33C;
-	Fri, 20 Nov 2026 00:21:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CBC606A325;
+	Fri, 20 Nov 2026 00:25:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=efNG74z8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57511F000CF;
-	Fri, 20 Nov 2026 00:21:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TF0R9Jr6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC02E1F000C4;
+	Fri, 20 Nov 2026 00:25:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795134115;
-	bh=SsHavNkogIpI7nSHrLjpOauuyu7Lvjb2c0H5vhNetyI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=efNG74z84LnywXEzj5pgJ+IsmYMxakE8hlwVWwV96UM4dTgGzigXWukNyTOQSor0u
-	 cCok2FZ2ub5Za2ZkRVaQ/ATtFWeTg+I4bztCKx+Jtu7op1cYhuyY9dbHqS2ayDahgO
-	 ScejRlZ7pqrZ9y717xpTdI9eks6feje9+y5tkFnqdNsfcQQImJT3KFVmKDo4KI8oCm
-	 AXAZJx9ZCgl6nuy+WqBcnjd/ralYnfKyvFv903tUk/w0Jirsy8bzacHzqMD3X6jaFX
-	 IROZuIW3H/gdGCZsd38rTYBqNKa/Aqa4jmq0huqsflA15NQBnZ0HdUcwR54BX5XSyw
-	 ESgAqicZPctwQ==
-Date: Thu, 19 Nov 2026 16:21:53 -0800
-From: Drew Fustini <fustini@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	Tony Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zeng Heng <zengheng@picoheart.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v12 1/5] riscv_cbqri: Add capacity controller core
-Message-ID: <av-SoU-qFbVqz6dn@thelio>
-References: <20261114-dfustini-atl-sc-cbqri-dt-v12-0-6ef1f627072d@kernel.org>
- <20261114-dfustini-atl-sc-cbqri-dt-v12-1-6ef1f627072d@kernel.org>
- <20261119000846.776930b3@jic23-hlaptop>
+	s=k20260515; t=1795134343;
+	bh=gI7MBb2ZKcdmNhRoO5ucZlyCJxqXOn884fXACSuIVpE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TF0R9Jr6MSNlW4GfvGJ6BZ6Y3wZhaIh7LDDSJonhLJKuJLdDkXUtTsCqOF7drCPqe
+	 yRj1fw6JLEyJTOFGLP+HgpfBh2LZeL/ctAb0Ltc2V+vCmWZABM7QUKs6PVawGE9SUe
+	 5CUrZsdzC0imf1JPHQcuTGGQ3Zo4IgfQw3Fefty76moX86mixLfKhYv/Jn0B4Y4G+I
+	 OpkYZOwZObot0lE26oUVTy1jJT7LyxbRukgIxcL/wwSPywXRKQnqc6Tkts0aiyxw0Z
+	 V19Eyl63LiLkxv5Gi6f6UIKPlErosMLiUl3s+vgHNtwyHKnDlZVZAAQDBveWQSDm46
+	 I3RJm5Ape90PQ==
+Message-ID: <sashiko-outbox-224266@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 11/11] leds: rgb: ktd202x: Don't let a blinking LED
+ retime another one
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joseph Telaak" <joseph@telaak.dev>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261119-ktd202x-et6326-v3-11-98b836b1cddc@telaak.dev>
+References: <20261119-ktd202x-et6326-v3-0-98b836b1cddc@telaak.dev>
+ <20261119-ktd202x-et6326-v3-11-98b836b1cddc@telaak.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 00:25:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,120 +60,135 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119000846.776930b3@jic23-hlaptop>
 
-On Thu, Nov 19, 2026 at 12:08:46AM +0000, Jonathan Cameron wrote:
-> On Sat, 14 Nov 2026 14:06:21 -0800
-> Drew Fustini <fustini@kernel.org> wrote:
-> 
-> > Add the core for RISC-V CBQRI capacity controllers: the register
-> > layout, the capability probe, and the allocation operations that
-> > program a capacity block mask for an RCID and read it back.
-> > 
-> > A discovery layer maps the register block and describes the controller
-> > in a cbqri_controller_info descriptor. riscv_cbqri_register_cc() probes
-> > the controller from that descriptor and adds it to the controller list,
-> > which stays private to the core. The core owns the controller state
-> > after registration, so nothing in it depends on how the controller was
-> > discovered. The caller keeps the register mapping alive.
-> > 
-> > Tested-by: Zeng Heng <zengheng@picoheart.com>
-> > Reviewed-by: Zeng Heng <zengheng@picoheart.com>
-> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> 
-> A couple more drive by comments.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] leds: rgb: ktd202x: race on cdev.brightness in
+  ktd202x_chip_in_use()
+--
 
-Thanks for your attention!
+commit 53a1322c29ce0429d0f7e6ad7328dce239f5bd4f
+Author: Joseph Telaak <joseph@telaak.dev>
 
-> > diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devices.c
-> > new file mode 100644
-> > index 000000000000..5522872f5cc1
-> > --- /dev/null
-> > +++ b/drivers/resctrl/cbqri_devices.c
-> 
-> 
-> > +
-> > +/* Read the configured CBM for closid on the AT half via READ_LIMIT. */
-> > +int cbqri_read_cache_config(struct cbqri_controller *ctrl, u32 closid,
-> > +			    u32 at, u32 *cbm_out)
-> > +{
-> > +	int err;
-> > +
-> > +	guard(mutex)(&ctrl->lock);
-> > +
-> > +	err = cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT, closid, at, 0);
-> > +	if (err == 0) {
-> > +		/*
-> > +		 * resctrl exposes the CBM as a u32 and cbqri_probe_cc() rejects
-> > +		 * ncblks > 32, so the mask fits the low 32-bit word of the
-> > +		 * cc_block_mask register.
-> > +		 */
-> > +		*cbm_out = readl(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
-> > +	}
-> > +
-> > +	return err;
-> Unless this gets more complex in later patches I'd do
-> 	if (err)
-> 		return err;
-> 
-> 	/*
-> 	 * resctrl exposes the CBM as a u32 and cbqri_probe_cc() rejects
-> 	 * ncblks > 32, so the mask fits the low 32-bit word of the
-> 	 * cc_block_mask register.
-> 	 */
-> 	*cbm_out = readl(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
-> 
-> 	return 0;
-> 
-> Just to keep error handling out of line and that
-> comment block less indented.
+leds: rgb: ktd202x: Don't let a blinking LED retime another one
 
-It doesn't get more complex so I will change it.
+This commit tracks which LEDs on a ktd202x chip are using the shared PWM1
+flash timer, rejects incompatible concurrent timer requests with -EBUSY,
+and holds the chip mutex across setting brightness and programming the
+timer.
 
-[..]
-> > +	/* The resctrl glue keys its domains on cache_id, one controller each. */
-> > +	list_for_each_entry(other, &cbqri_controllers, list) {
-> > +		if (other->cache.cache_level == info->cache_level &&
-> > +		    other->cache.cache_id == info->cache_id) {
-> > +			pr_warn("CC at %pa duplicates the L%u cache id %u controller at %pa, skipping\n",
-> > +				&ctrl->addr, info->cache_level, info->cache_id,
-> > +				&other->addr);
-> > +			return -EEXIST;
-> > +		}
-> > +	}
-> > +
-> > +	list_add_tail(&ctrl->list, &cbqri_controllers);
-> > +	retain_and_null_ptr(ctrl);
-> 
-> Common trick for this is something like:
-> 
-> 	list_add_tail(&no_free_ptr(ctrl)->list, &cbqri_controllers);
-> 
-> because it couples ownership passing with stopping the autofree
-> magic.  I'd personally only use retain_and_null_ptr() in cases where I need
-> to check for success of the ownership being handed off.
+> diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd2=
+02x.c
+> index c9f1a5234d6e2..2e84fed016f9f 100644
+> --- a/drivers/leds/rgb/leds-ktd202x.c
+> +++ b/drivers/leds/rgb/leds-ktd202x.c
+[ ... ]
+> @@ -266,26 +264,46 @@ static int ktd202x_brightness_set(struct ktd202x_le=
+d *led,
+>  	return 0;
+>  }
+> =20
+> -static int ktd202x_brightness_single_set(struct led_classdev *cdev,
+> -					 enum led_brightness value)
+> +/* Called with the chip mutex held */
+> +static int __ktd202x_brightness_single_set(struct ktd202x_led *led,
+> +					   enum led_brightness value)
+>  {
+> -	struct ktd202x_led *led =3D container_of(cdev, struct ktd202x_led, cdev=
+);
+>  	struct mc_subled info;
+> -	int ret;
+> -
+> -	cdev->brightness =3D value;
+> =20
+> -	mutex_lock(&led->chip->mutex);
+> +	led->cdev.brightness =3D value;
+> =20
+>  	info.brightness =3D value;
+>  	info.channel =3D led->index;
+> -	ret =3D ktd202x_brightness_set(led, &info, 1);
+> =20
+> +	return ktd202x_brightness_set(led, value, &info, 1);
+> +}
+[ ... ]
+> @@ -427,7 +519,21 @@ static int ktd202x_blink_single_set(struct led_class=
+dev *cdev,
+>  	if (!*delay_on)
+>  		return ktd202x_brightness_single_set(cdev, LED_OFF);
+> =20
+> -	info.brightness =3D cdev->brightness;
+> +	guard(mutex)(&led->chip->mutex);
+> +
+> +	/*
+> +	 * The LED core may have changed the brightness without the chip mutex
+> +	 * and not applied it yet, so read it once and apply it here. An unlit
+> +	 * LED blinks at the brightness of a software blink, which may be in its
+> +	 * off phase, or else at full brightness.
+> +	 */
+> +	brightness =3D READ_ONCE(cdev->brightness) ?: cdev->blink_brightness ?:=
+ cdev->max_brightness;
+> +
+> +	ret =3D __ktd202x_brightness_single_set(led, brightness);
+> +	if (ret)
+> +		return ret;
+> +
+> +	info.brightness =3D brightness;
+>  	info.channel =3D led->index;
+> =20
+>  	return ktd202x_blink_set(led, delay_on, delay_off, &info, 1);
 
-Thanks, I will use no_free_ptr.
+[Severity: Medium]
+Can a concurrent unlocked write to cdev->brightness in the LED core cause
+ktd202x_brightness_set() to disable the chip right before
+ktd202x_blink_set() or ktd202x_timer_set() programs the timer?
 
-[..]
-> > +/**
-> > + * struct cbqri_controller_info - registration descriptor
-> > + * @addr:        MMIO base address of the controller's register interface
-> > + * @size:        size of the MMIO region
-> > + * @type:        controller type (capacity)
-> > + * @rcid_count:  number of supported RCIDs
-> > + * @cache_id:    cache id used as the resctrl domain id
-> > + * @cache_level: cache level (2 or 3) the controller backs
-> > + * @base:        mapped register block, which the caller keeps mapped for
-> > + *               the life of the system
-> Out of order documentation is unusual.  Why?
+ktd202x_chip_in_use() still determines whether the chip is active by
+reading chip->leds[i].cdev.brightness:
 
-No reason, I'll fix it.
+drivers/leds/rgb/leds-ktd202x.c:ktd202x_chip_in_use() {
+	for (i =3D 0; i < chip->num_leds; i++) {
+		if (chip->leds[i].cdev.brightness)
+			return true;
+	}
+	return false;
+}
 
-Thanks,
-Drew
+Because led_set_brightness_nosleep() updates led_cdev->brightness without
+holding chip->mutex before queuing set_brightness_work, a concurrent
+LED_OFF update can zero cdev.brightness after
+__ktd202x_brightness_single_set() sets it:
+
+CPU0                                  CPU1
+ktd202x_blink_single_set()
+  guard(mutex)(&led->chip->mutex)
+  __ktd202x_brightness_single_set()
+    led->cdev.brightness =3D brightness
+    ktd202x_brightness_set()
+      ktd202x_chip_enable()
+      regmap_write(..., IOUT, ...)
+                                      led_set_brightness(cdev, LED_OFF)
+                                        led_set_brightness_nosleep()
+                                          cdev->brightness =3D 0
+                                          queue_work(set_brightness_work)
+      if (!ktd202x_chip_in_use(chip))
+        ktd202x_chip_disable()
+  ktd202x_blink_set()
+    ktd202x_timer_set()
+      regmap_write(...)               <-- writes to sleeping/unpowered chip
+
+If no other LED on the chip is lit, ktd202x_brightness_set() puts the chip
+to sleep and disables its regulators, and ktd202x_timer_set() (in the
+single/mc blink and pattern callbacks) then writes the timer and channel
+registers over I2C to the unpowered chip.
+
+The same race occurs when two lit LEDs on the chip are turned off together
+(for instance via led_trigger_event(trig, LED_OFF)): both cdev.brightness
+fields are zeroed before the first LED's set_brightness_work finishes, so
+the first LED disables the chip and regulators before the second LED's
+ktd202x_brightness_set() writes KTD202X_REG_CHANNEL_CTRL. Tracking each
+LED's applied hardware brightness under chip->mutex and checking that in
+ktd202x_chip_in_use() would avoid this.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-ktd202x-et=
+6326-v3-0-98b836b1cddc@telaak.dev?part=3D11
