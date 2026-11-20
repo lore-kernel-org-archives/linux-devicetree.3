@@ -1,47 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795177458;
-	b=OdvgRXFvPyuwMx/5WrK6eNqDmyZ5cpKQcTh6tuuJLOVqtdYpBrG7/lgR7BHp6j0dR9lw
-	 mMVM/OW2WdJREvABvdJ6VYMOwmHcsYd+3vtzWFnCH/28aG4r4UJNLHQmH1zBDNd1tsOS0
-	 YY6BvSMe0OFzWg3rGteTtgjSwVDlvR0/4TMkPsbOT+cVChjIn4zBvxzH9zZCUG1MSpKGI
-	 sX0p9wQ9ntEtApee7vgrQVHZNyZ8GI97kMP2ZZ2B3sHbz9kRk6v91GiRv/hP145Y185T6
-	 pn6+r4ItLJiI9bBrI/G1aGQCvf6LLVdN6M4BmS4u0IqXqBouyqDQHpvkJI2Z+DeIWtw==
+	b=Rk/OZXY5afFKhC3Pko7n/JrHnM6UIy9lHtViIZsvh0r+YnEHGXpHJmCPj9w3IefJh3uT
+	 LAX68vnGEhyL6DhUy3KTsPtRJ6N+ZdqQ4PHrNMlG2A+qhn1kHW3Kh8LiDMgPkLf2EEjiX
+	 Gi3+VRhJUiSVR9Qng7n4+0AIYYEFDPmwtOHAcXPMZJeKuQIDylM6V5XKFpzi2icfwF2Y2
+	 hxPRNhU7D0f9A9puoCl/E5czuNBDAYcwtqEzQdlv78m3b5mvcj1OEIORoyC4s/mS39A7w
+	 8XdCqkOLKjbg6g8tCBPMSDJSR+Xz+2CZKvAQBYbwmpC+ohyNmLSTarxG0qL2hllFejQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795177458;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0czxhgq5wFGQ/KjwS9ColrCZlqVXj4X1xIOnzUvKlpA=;
-	b=PFTR8cCZgkng6okWFx0varpZGIhiiNct1QO43PfWLzj3PzI67ZP13iRPRTsuIMcYvWDU
-	 899GvfZ3r7O48S4C6F8ezYxXnIUFGdrzInQPlsGtujvs5UOK63P4Rl40GjZ+TKu5ew6X0
-	 7aMi6TmLU/1wW78LtalpabYMbpNRxEe71nDYzxw+xnGsKlNtX0QxfU9ePhPA6+YaUNmhy
-	 137pVyGiVUXULJUtDL1B3OaFSKGSkz938tcqRoubsLQnN4nSe8QWlCtIE4luYL8sZPuBg
-	 MG6X2tRIbpG+40j7lQlMHylVQNkT79yRgg9tsFMXGNtKnbLOb55NhUDVSLL/z7nju7A==
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=iArxjah8BFnZACzLodgJSchhceFdvxYdpa8zA0U+KLw=;
+	b=UdC7OR0Y+Hicj7khDfNo7ViqdDnaQKWE/QjujPQT+vyopM60P4CV+NzCKTPDvLzZKWV8
+	 OLW/43mHKxq8E/uJZrMPCxDpIPGA/3OTmFp3tl+vILbqcP1giZhZ7zTh4d7LekOx3JYIw
+	 PGO/qVxRRzJ2UGvByscaxcgN44DP6qQ6zhqelQ75bKdamWV6z8/ph5qn9EOaxM2qv0DMr
+	 hrSjTE+N2iSPOP/IkYoQWQuvSM643D3/+aLBx/aLsOg+d751T1lRmYAWn3xzQLMXhRBN6
+	 El0B5XELqzRB4XMqykBk22GlGRL8rKDTZoEniokaREGJZev9PH521AaiA42RRsePJEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPwc5rAh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SnBGl+CD;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB36606A330;
-	Fri, 20 Nov 2026 12:24:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A76606A325;
+	Fri, 20 Nov 2026 12:24:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53A76606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPwc5rAh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B97A11F000C0;
-	Fri, 20 Nov 2026 12:24:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795177457;
-	bh=0czxhgq5wFGQ/KjwS9ColrCZlqVXj4X1xIOnzUvKlpA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LPwc5rAhaBZY4Z7dJ1/dqLemSDA3Bizvp3uN2mSt5H6/XqGmXGhZIixkyGhj3SJtw
-	 bAtz10W5SYZi4gzseSvtU4wPWgV/RnZfQMNuubzvN38Pr+uFa8UP/33xKF5RMxYHQK
-	 6kaHgNYkiX/PjtOcBxm8Gnf5Uq1cxZE5oL6RlBXDDZ0O5lVqDWtSvicKTbU+1vLqfJ
-	 MG1FkCrPJJX7U+0MQkknfy0sZLl4vZivZ1MciY6918DxWH6ndytZYOXKHjbbzLThdI
-	 TfbTKtJBQKu1V6qUPpAFI8uEzFOMNUNGSOW3DnOvCAtTUsqiD3cIW11W6pnYXt18SN
-	 Pmjl+VEjuTb9g==
-Message-ID: <f7d4a1cd-accf-4cb9-8137-0912ad6d7fb8@kernel.org>
-Date: Fri, 20 Nov 2026 13:24:12 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SnBGl+CD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795177457; x=1826713457;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Lo4oVRvFHhJNmM0EEDjnu0jX17cKFv3RNlnMBHfalcI=;
+  b=SnBGl+CDWgKIDv0syLrBM36Z4R22eje+LN64qXCHn6jYqNI4FNBr+B5k
+   71qYcYR6eaZcjJFjKc3Aa2SzwfbrhgReFrzFb5miUybz1hG7tOYKAC0xV
+   KDaTWruJyZ1fqllHLGTXsXF/nWJV4z/JmRXIgv0VxG2i+kqvyog+KYyVa
+   ihmCJB7VjyUIqeNRtudjpEU4OAjt0YH2xKH/Z0Ai92jRrSAFRK1z0vBam
+   HmSOKfBSLugfq78sltmO1fv5w0eTFZVXWOFxmzxFUCiAoK3jETYFdAXsd
+   drferzBigmJ+BxqmtiK5+e+2l48ArGAdMia/+17ezpNmapDGbqsXFvdL/
+   Q==;
+X-CSE-ConnectionGUID: pJZSktksS+uMFudLRS2i9A==
+X-CSE-MsgGUID: ZTAo2lJKRRmK7XXdtGvrJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4085900"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="4085900"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 04:24:17 -0800
+X-CSE-ConnectionGUID: d1BVu9q0SBOQizr0crftUA==
+X-CSE-MsgGUID: PArVB72lR1KRB6yyaxpAgg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="11027029"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.218])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 04:24:14 -0800
+Date: Fri, 20 Nov 2026 14:24:11 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: ilyas.nhasse@skf.com
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: ad_sigma_delta: support devices without
+ RDY interrupt
+Message-ID: <awA769JyWRvSG8PY@ashevche-desk.local>
+References: <20261120-ad7124-no-irq-v1-0-7826c5c3fd25@skf.com>
+ <20261120-ad7124-no-irq-v1-2-7826c5c3fd25@skf.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,92 +88,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: qcom: Add Molokai TLMM
-To: venkat.yadlapati@yahoo.com, Bartosz Golaszewski <brgl@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261116-molokai-tlmm-v2-0-429f8c8d8eb1@yahoo.com>
- <20261116-molokai-tlmm-v2-1-429f8c8d8eb1@yahoo.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261116-molokai-tlmm-v2-1-429f8c8d8eb1@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261120-ad7124-no-irq-v1-2-7826c5c3fd25@skf.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 16/11/2026 08:39, Venkat Yadlapati via B4 Relay wrote:
-> From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+On Fri, Nov 20, 2026 at 12:26:48PM +0100, ILYAS NHASSE via B4 Relay wrote:
 > 
-> Document the Top Level Mode Multiplexer of the Qualcomm Molokai (SM8845)
-> SoC. It is a Kaanapali derivative, but has 205 GPIOs instead of 217, no
-> SDC2 pins and a different set of pin functions.
+> The end of a conversion or of a calibration is detected with the DOUT/RDY
+> interrupt, so a device whose DOUT/RDY pin is only wired to the SPI MISO
+> line can't be used, although its status register reports the same event
+> in its RDY bit.
 > 
-> Assisted-by: LLM
-
-Drop
-
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
-
-> Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-> ---
->  .../bindings/pinctrl/qcom,molokai-tlmm.yaml        | 128 +++++++++++++++++++++
->  1 file changed, 128 insertions(+)
-
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
+> For devices with registers but without interrupt, wait for RDY in
+> ad_sigma_delta_single_conversion() and ad_sd_calibrate() by polling the
+> status register, with the same timeouts as the interrupt-driven waits.
+> As with the interrupt, the bus stays locked and CS asserted during the
+> wait, and ad_sigma_delta_clear_pending_event() has drained any older
+> result beforehand, so the RDY bit seen by the poll belongs to the
+> operation just started. A timeout is reported as -ETIMEDOUT.
 > 
+> The RDY interrupt is the only trigger source of the triggered buffer, so
+> devm_ad_sd_setup_buffer_and_trigger() sets nothing up for these devices
+> and they only support direct mode. Registerless devices still require
+> the interrupt.
+> 
+> Each poll is a SPI transfer, so poll every 20 ms: this delays the
+> detection of the end of a conversion by at most one period, a fifth of
+> a conversion at the AD7124 default output data rate of 10 SPS, while
+> keeping the bus traffic, and the CPU time of PIO SPI transfers, low.
+
+...
+
+> +#define AD_SD_POLL_PERIOD_US	(20 * USEC_PER_MSEC)
+
+The multiplier is defined beneath time.h. Is it included?
+
+...
+
+> +static int ad_sd_poll_rdy(struct ad_sigma_delta *sigma_delta,
+> +			  unsigned int timeout_us)
+> +{
+> +	unsigned int status;
+> +	int ret, ret_read;
+
+ret_read --> err
+It's visible in the code what it's for.
+
+> +	ret = read_poll_timeout(ad_sd_read_reg, ret_read,
+> +				ret_read || !(status & AD_SD_REG_STATUS_RDY),
+> +				AD_SD_POLL_PERIOD_US, timeout_us, false,
+> +				sigma_delta, AD_SD_REG_STATUS, 1, &status);
+
+With that, wrap on a logical boundary.
+
+	ret = read_poll_timeout(ad_sd_read_reg,
+				err, err || !(status & AD_SD_REG_STATUS_RDY),
+				AD_SD_POLL_PERIOD_US, timeout_us, false,
+				sigma_delta, AD_SD_REG_STATUS, 1, &status);
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return ret_read;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Best regards,
-Krzysztof
