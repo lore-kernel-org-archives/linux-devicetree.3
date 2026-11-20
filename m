@@ -1,105 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795168316;
-	b=U3pvm5q+3tUnrUSHhhkUA1bpVKIowxD8U3Kl7eKj9s+JwRxCwTCVVpuwzt8wpP38cdB4
-	 BHk6HsT+jHJQd8nLzSMdMoG+DoWWuwqNNp3VebuqsoPn2yGiJCzuuR3bshyNr+s6sXyhk
-	 Hagk0RNJrIpfWQ94BRbdgSDj4ElPkeLSfhHj7stBwKhkIVBZEOJ3RcMY03VVyf2sSnLva
-	 HOrj8k3pfknaAGG4C+BwNHOP1xg7uuC0bfXGfV8CxgTPpAlBWwEuRlgfe/WKf7f/MEquz
-	 XLblzZKJpzVy2kB1I/LTy85i06KC/JJFOvFIhxz2lyEmfncTE5ug0Yu4r41OAoH2c6g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795168316;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=+RPDxUUE8ecGFLx+xwdtSIuUUrICd//yV1ThZqH/7c0=;
-	b=njYl6xWkPwKZhkQ0aeR2SHvTEkQK88zDpHRiyOJCpT7qPwit/TR8OJwQE58SgUE7WAk3
-	 a0VQUwy2Zf2pV362gzodjKyuqOeW67F0y1/oKd2PydhDbbQpAHuNLcnb7XYfvZY+y/ld2
-	 4Png9+Gl1AuUuZHPQrUtZC0iz1Q+r1JfPllxuY5a2HCn5cTMRo5gaIBZfyZYjLjM+7sp2
-	 Oalw1ZWza2S7TDW6LQ820kUFQjCmMlw3IoaZPppYJtYl537Xwkg25URZYaHm8xQvAVfJN
-	 okkCVyShHNfGsNHCjh3dh6QeK9S0PaUEyTsv1HLM6oqEZuscZP2nfRPZQ0tKJ49Y/Wg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=EOf9plRh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795168419;
+	b=YJz1aZbO4lJHA4giU8AGj55pb2dUUxL4oX4dVEHhBckiXQatZzBkwvoMqcvRZBPhTj1N
+	 CvKVHQ1XYh6peKI3ORWHhHvRfYRlKGVQclR8MuFY2ZwzCUZ2zm+7rqF5utZCTKXwsOgH8
+	 TCE+eY1dMDvtJ+hAuVwqvDRevcRUvxBzWhCimqAyxboEs3FtSWhLMZ3h6a85Jzzit1KJR
+	 foaNVGP/nFeORWd6Joqucq4dQGdZVDcq1JEMpSZosvmFN7ItjuOgvqIR92AKLjakobWKb
+	 E0+JsNOIlQenE7TnOMEBWE7jzN6ZYR8vqZVUL9tDn+WfM3K5P9D6qM0/I6GUYpE4LxA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795168419;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2byWnC76isCs4cT22MWKTLO0lb0D1/ZneG1MUnYIDh4=;
+	b=sSgALl5TvM7BqR5ej55ggnHCbymVqN/l9XiVF7CxRfTXX5fhK+PiFUDGaocuVmJ3Uv1i
+	 TJEwFyP7e6bdupQvlc4a6xYdyKGdlXUfAru0Bc30QshxVufPF6+gKq32RVO77um1eI2Et
+	 nDWhgpvOgL8SZXzelpJqIeuhMchDvtHkDH993Ufl4fgbi6h2gp0+mNHVogiA9UbSAEQXK
+	 R1kAcVabbmcoSgfw4U+5a9GjUVCIYdSk7rPmombiX1SB7UXMyCnIkUwok9oBGV5vBATzK
+	 igeXmR8dIKfLvYLKdfuLVCpyR3ublTxQjWBACaCgW/cnr8NKrYq0MdiITBKwyupmdOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=E+OjnCrP;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD84606A330;
-	Fri, 20 Nov 2026 09:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AD84606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A64260A2600;
+	Fri, 20 Nov 2026 09:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A64260A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=EOf9plRh
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EE0AC202052;
-	Fri, 20 Nov 2026 10:51:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795168313;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+RPDxUUE8ecGFLx+xwdtSIuUUrICd//yV1ThZqH/7c0=;
-	b=EOf9plRhoaIyHuJ8i2XDVFFF6bW0crYfSbxsIDmHooUL365ZJRtqn42hXBmEhEzxE2r3b0
-	Fkh0pSJsyMwevJFrDxYxvqXpEI24IlsZiDr51c7gK3LaVtA6ee5oh10FOPq97fEpk19wtc
-	6nqHMsehe8maP9dO4hOZnGAE2rCcGi4j/iW+kaHdELwqr+nQhR3OU2uY9IamFfvvwvt+5p
-	HS9ggPM19wCygk6z/PixyTmyx5tadOlvdtWpuVSFFQ3gIjwvBebxkdv6w+NKdJzgGbNHmX
-	ruB4LBLHd/t/5LXg0G3yN5mnccyGGvNop/iz3eOk6eZk8hzvD0GF++eiKHQVZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795168313;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+RPDxUUE8ecGFLx+xwdtSIuUUrICd//yV1ThZqH/7c0=;
-	b=d0Uf/iooUfrBgLxg/abHnnQA2O9OiTsRMUpU4dN00YQMzoHwdWFVnpBFMggP1YhRshWw85
-	m0h4ksM3Kb/2muiY+T1XNJQnol72VMOllgsqB08nXJkPD2Fvz6gVAKrRbcNG4EUx7cSkCU
-	J4OwlN3XVAE9OYuvifgEk2DwPD6+Ya/a/nGHtZHkykQXJwkFTqKahcKdFO1tnlwF1j7lyZ
-	FoPj+bOuVlwwZRS/2ORTBvHqx2ynW2ScYd9M5P1a7s/3i13KC4WjM8vzE8ne0z/VLVvhcJ
-	z6eLVVUdQqi4kks1bLNaDnILbEj1MATFSSEIunuclMbVRQMxmKX1LIKWZ0uNuA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795168313; a=rsa-sha256;
-	cv=none;
-	b=bcl0fpD1WpLYMmLuo+02hRfslqOhIKM6UiHIqQWC7sQ4H9iXSUcqAlTTSNtMRTKtZaesUW
-	IdhRfHVgatRPm5yBOa2BM92JqUtdQZGFm5C2A3pKCQhThGINI3Qyzykm7jIEqdp30Cqu7E
-	lWpLAL+L/E4VBxcmGIyxcPF+Uyx3miiSpkJXEQYblyb6UdD/V430V0O5NjhXEn1O5ZD5id
-	BRbatTNhDTeAcKcalAX9GK9Y0F08XABzqoRR+Yn/G6lz5/CRmqyWcE2N2f3O/My0LAOaeu
-	fIl+Ohzg8S0gB6qclaT8M4uAwSgTcplIS9+LMVBqNPeLaWtGcUWGbAlm5WYONw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <5d8530485716d129be2efa0518254e3322cecdb0.camel@pengutronix.de>
-Subject: Re: [PATCH 1/6] dt-bindings: clock: r9a06g032-sysctrl: Document
- reset cells
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	khendry@reliablecontrols.com
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Stephen Boyd	
- <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet	
- <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Magnus
- Damm	 <magnus.damm@gmail.com>, Fabrizio Castro
- <fabrizio.castro.jz@renesas.com>,  =?ISO-8859-1?Q?Cl=E9ment_L=E9ger?=	
- <clement.leger@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, Andrew Lunn	 <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King	
- <linux@armlinux.org.uk>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Date: Fri, 20 Nov 2026 10:51:52 +0100
-In-Reply-To: <awARmkCuelD_fdX6@shikoro>
-References: 
-	<20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
-	 <20261119-rzn1-miic-resets-v1-1-feee2bb28bb4@reliablecontrols.com>
-	 <awARmkCuelD_fdX6@shikoro>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=E+OjnCrP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=2byWnC76isCs4cT22MWKTLO0lb0D1/ZneG1MUnYIDh4=; 
+	b=E+OjnCrPuiP7LU7YdQ9NxWOY8UKFqA6JOACVMMopCa+2wpFYvzGp8sT9K3wby5u+fPSOCQjvE8J
+	Yy4KVME5SM06915STXG0ty/BYC7wSToTNZ1eHHYKCGoiNxb/tOIASeVNCI2ytTaF8YS87iWJVXZ2/
+	yaR0B8S8Rljhr7CggKy7jidW2otfKjgBc+aD+oYJv5pO6tPm9MbMknjazvjulwq+IwzqiicP8lSqW
+	82XWePLdTuYRApr5H6gWWq7fjOvPjxZlD+QC8yxUhHhEHT4a6RiLiE3jSYnSRysBo9nj/Byz7fa9w
+	1XUUpLjCtUJ2JqEvg9OccUJyCSqCOS50ekOQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xULJA-0000000HYfs-3Cwt;
+	Fri, 20 Nov 2026 17:53:29 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 20 Nov 2026 17:53:28 +0800
+Date: Fri, 20 Nov 2026 17:53:28 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: mail@andrewgigena.dev
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
+	Stanley Jhu <stanleyjhu@google.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Andy Gross <agross@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/3] dt-bindings: crypto: ice: document sm8150
+ compatible
+Message-ID: <awAYmFxtWpAaFhhC@gondor.apana.org.au>
+References: <20261111-sm8150-ice-rfc-v4-0-0311eac35609@andrewgigena.dev>
+ <20261111-sm8150-ice-rfc-v4-1-0311eac35609@andrewgigena.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,35 +80,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-sm8150-ice-rfc-v4-1-0311eac35609@andrewgigena.dev>
 
-On Fr, 2026-11-20 at 10:23 +0100, Wolfram Sang wrote:
-> Hi Kyle,
->=20
-> thank you for this series!
->=20
-> > =20
-> > +  '#reset-cells':
-> > +    const: 1
-> > +
->=20
-> Maybe add the new property to the example below, too?
->=20
-> > diff --git a/include/dt-bindings/clock/r9a06g032-sysctrl.h b/include/dt=
--bindings/clock/r9a06g032-sysctrl.h
-> > index d9d7b8b4f426..e3059c50f7c3 100644
-> > --- a/include/dt-bindings/clock/r9a06g032-sysctrl.h
-> > +++ b/include/dt-bindings/clock/r9a06g032-sysctrl.h
-> > @@ -146,4 +146,7 @@
-> >  #define R9A06G032_CLK_UART6		152
-> >  #define R9A06G032_CLK_UART7		153
-> > =20
-> > +#define R9A06G032_RST_TS		1
-> > +#define R9A06G032_RST_MIIC		2
->=20
-> I didn't find any listing of the resets in the RZN1 docs, so coming up
-> with arbitrary numbers as we need them seems okay to me.
+On Wed, Nov 11, 2026 at 05:53:21PM +0000, Andrew Gigena via B4 Relay wrote:
+> From: Andrew Gigena <mail@andrewgigena.dev>
+> 
+> SM8150 uses a standalone ICE node, so its compatible must be listed.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> ---
+>  Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Why aren't we starting at 0?
-
-regards
-Philipp
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
