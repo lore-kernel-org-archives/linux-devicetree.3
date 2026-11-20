@@ -1,67 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795175163;
-	b=3rSDunz0aS/Z1G/zeNajNJLQ0RVHEZu+Z1wsH/RgMixjdiFEGnnAwJuNFT81tLIismaT
-	 ks7NGmN6QWbBUZJqAZM3eX3UC52t7PClsNtrO7ZzOeQbHHPtYKoJXBUWrQnwFoIhvFWuC
-	 pEPg5WNw71Cmd5c4ot5tK0F6Kr6RcmJsq33EhkGXa1ACp1dCHPk/jdc4UkW+Sb4RUKE8+
-	 /yo1UCj51ArLdZFT81CLgy4BfOjRdwVCpDytUfYk79f+Piz7PchcfEnQZktBdrOGXjb5g
-	 BWBlEFHSd8Mk5iCdpa45nhWKG7xbtYhiLAIFgHSLHbOVKUeT0DXXVPgdozShj9FrE7g==
+	t=1795175208;
+	b=JFyYbyFQ6j91+9/UbBSXXkAextTEXJpDWf814VlyxnHHf9khCnJ2EnJ6hdCIjRXBaY5J
+	 1Lw2jqw/B3qah8t3tPFJ8WUi95ZtUaIzLX5Ijnh+mYk7ccsYtJI7EKZS3DbuamGV/iY3x
+	 cx+d/zcmtuoVZUP4eMJ4EMeedwVHutPVce6uixpqHAcs2Bm44zCBpPcH0FBk5lK4B9Wcm
+	 M0fMf0KiGBiYlipooHVaCchyseOd+hsgbekKEh/R5eGcyjQX0AGFnS350F2E7tROuoHSS
+	 IEu1Bs2y/0N9rxZdF7lFRnQQzuGvHNnRPPY2ZV1Gwn/vCADCtSkXNF/Ouli/cIipL0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795175163;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=r3BTEoTWdxpLsSrAwe3pSyp3V8A+NO3HPrbJJYpXFMw=;
-	b=xwVS4My0BRoZ5+31xN/NybYCU5LUwOgpGSwBUJoYlOhwWpk8LkIhOXJMmKUTo7G0bKFw
-	 FE3FJWwZSETqcZWUxK8N5a1Lp6it+ZYtIp/rJuB35exyCUgT8uI/tzbm6KirkZpoeCmyU
-	 wBcjKoHfu4o8DSkAAvlXxHrmSIr0/y6jVB62NRUc8xrX5yBz17qCjj9pkuPYX/b6Fx2Zj
-	 PYvhBADfA5raG4GaUuHJwMSrqco9p2VVOfxCqjkH3V7kxHAxmAYaq7Y0IWe4rkHeGRc1Q
-	 OoO+nPVJsP1JU3j8BgICahvNmUBvWn9O9YjSha+cmwsTyMTO37pnaMYWtaT0XRR+6Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795175208;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=RGVl29uymQl+NYGzhhAdRoCGDhPq1p2bxTDg+kAVmWM=;
+	b=emTQm2yh3UzFqBlEVdR+GKFsXzGJgowkyxWy/qXL9z5l40swj7ceyahDCQiPZ34SUenP
+	 dtUVY8eMM0p53Gp/GC0B33xpnmztinQRbuZEUHDfW8apW/TwBpCsgCb3/089cRr5+WzsZ
+	 CUTODLzJPXWbjlzChKrK/QcMnyudzINgb1hFYHFWlON7xujkJk8TlyJHTskDH+QQ7PhHR
+	 +rDBNeVIYJQpJHZxK1gxidjiozdMyFohjUxLjyDrbOiAwnSXiWOEXHayAxhnjbVxp/Tt9
+	 OVxD4RbfIXiK0k+JsvyzSQ0OAvk2s3D5k57A9UFxuH5q2H389YHatWs/vA9velgc5qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3nRUyJ3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="rHhy/kRK";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cAQGnN0T;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370B460A2639;
-	Fri, 20 Nov 2026 11:46:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A44606A32A;
+	Fri, 20 Nov 2026 11:46:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70A44606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3nRUyJ3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47F41F00A00;
-	Fri, 20 Nov 2026 11:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795175163;
-	bh=r3BTEoTWdxpLsSrAwe3pSyp3V8A+NO3HPrbJJYpXFMw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=J3nRUyJ34H/ZRu8a+NI9fDD/6j/tpohkyinDxyNdTniY/BL/y6w1AzXiqu6nUeBck
-	 4KQzbhE3eWYfjOPen1pZ60/M94RHNijndWO+ciDdukCWDvJoUTBoWVaeo3oQEwMSRK
-	 r/s0Mm7fE9hHIMY+8dHT7SvLHoQnRfiU51+lOttrJJ3WpQp6R/WRtTl5LhDdBR/TL9
-	 Vh3hSv1/ZnHyskTyZEsqHQtcVKuGehh4mKQXf4ZlS6z8rDOqKbf13ALaWG+1ARIgvF
-	 5k5m0hblFfpNEHoVk4IPhhFDWqNnu5PTfZmn9GlQW1z3oikEYoBQObSkaQLNfcj9ru
-	 WXnhJPhIlbsLQ==
-Subject: Re: [PATCH net-next v4 09/10] net: stmmac: qcom-ethqos: add Shikra
- EMAC support
-From: netdev-bot+sashiko@kernel.org
-To: mohd.anwar@oss.qualcomm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, richardcochran@gmail.com, andersson@kernel.org,
- konradybcio@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com,
- joabreu@synopsys.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, lorenzo.bianconi@oss.qualcomm.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Fri, 20 Nov 2026 11:46:01 +0000
-Message-ID: <179517516121.3136.6880108744896327095@kernel.org>
-In-Reply-To: <20261117-shikra_ethernet-v4-9-c41902e5f2fa@oss.qualcomm.com>
-References: <20261117-shikra_ethernet-v4-9-c41902e5f2fa@oss.qualcomm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=rHhy/kRK;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cAQGnN0T
+Date: Fri, 20 Nov 2026 12:46:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1795175205;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RGVl29uymQl+NYGzhhAdRoCGDhPq1p2bxTDg+kAVmWM=;
+	b=rHhy/kRKnxoBZ3C1Vy5q3goQ0Sa9M+bemSoPX9upOJRj6LOKbB5S5lqUKtRlJuckMTEl+B
+	rXQRrvPp00nOlR6J9GoMM3MvV4VW8KeHR0SJMOpDOIwSdcKSug7p4acBgevoe3/D64rlFE
+	apjWVP22W6DHaL1QyJu1leNaCknMy0tmqTOk9kvmWblgYuapxOSTYUsjK3XmnokDG3X5uk
+	pjuEVB/l57RTLbOD696RcHYP7ttuoVeaEPF+e3QwGYYqT+FCh1o7NQsAC1ycHkeVEOP60A
+	0mDji8l9oiJ9am784yJ5nJPNYB9RaJ2I0NTU8F7VDtGiezMJOgJeeMNwHuBUuA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1795175205;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RGVl29uymQl+NYGzhhAdRoCGDhPq1p2bxTDg+kAVmWM=;
+	b=cAQGnN0TqodF+ppjAKq8R2iG0HYEJu6K7ZLFa9loTjpPu89w7sQzBwgYjZCrtscRZJ5w1q
+	PWb+YPfS5gtQmLBA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	=?utf-8?Q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	=?utf-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>,
+	Fu Chao-Ying <chao-ying.fu@globalfoundries.com>,
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-hardening@vger.kernel.org,
+	Paul Burton <paulburton@kernel.org>
+Subject: Re: [PATCH v3 1/7] mips: {cm,cpc}: Make cm_core_lock, cpc_core_lock
+ raw spinlocks
+Message-ID: <20261120114644.VM_HFf9o@linutronix.de>
+References: <20261119-i6500-cm3-pmu-v3-0-c86410934b51@mobileye.com>
+ <20261119-i6500-cm3-pmu-v3-1-c86410934b51@mobileye.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,190 +91,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261119-i6500-cm3-pmu-v3-1-c86410934b51@mobileye.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 2026-11-19 19:51:27 [+0200], Vladimir Kondratiev wrote:
+> From: Paul Burton <paul.burton@mips.com>
+> 
+> cm_core_lock and cpc_core_lock are used to protect access to a CPU's
+> core-other/redirect CM and CPC register blocks. Since each CPU sees
+> its own copy of this block, we need to ensure that critical sections
+> holding a cm_core_lock run on one CPU - ie. we need to disable
+> preemption.
+> 
+> Use raw_spinlock_t to implement cm_core_lock and cpc_core_lock in
+> order to provide the guarantees we need on PREEMPT_RT systems.
+> 
+> Signed-off-by: Paul Burton <paul.burton@mips.com>
+> [added CPC part]
+> Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
 
-Critical: 0 · High: 0 · Medium: 2 (1) · Low: 0
+The perf interrupts should be per-CPU and not threaded so this is the
+right to do. However mips does not have ARCH_SUPPORTS_RT set. Is this a
+longterm goal? Otherwise it doesn't matter since without it set even
+lockdep dose not complain where it would otherwise.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-- [Medium] On Shikra, the DLL-bypass path is only used for phy-mode
-  "rgmii-id", but nothing stops a DT from using another RGMII mode, and…
-- [Medium] Putting "stmmaceth" in shikra_noc_clk_names (dwmac-qcom-
-  ethqos.c:335-340) puts the stmmac-core-owned clock under OPP rate and…
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but by the
-  earlier commit in this series "net: stmmac: qcom-ethqos: add DLL-…
-
---
-
-net: stmmac: qcom-ethqos: add Shikra EMAC support
-
-This adds the qcom,shikra-ethqos compatible and a new shikra_data
-descriptor. The descriptor enables three NOC clocks whose rates are set
-through an OPP table, sets a 36-bit DMA address width, and sets
-phy_managed_delays so rgmii-id uses the DLL-bypass sequence.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 15385750b3e6e..a7fdba73da2ba 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -332,6 +332,24 @@ static const struct ethqos_emac_driver_data emac_v4_0_0_scmi_data = {
->  	.setup = ethqos_scmi_setup,
->  };
->  
-> +static const char * const shikra_noc_clk_names[] = {
-> +	"stmmaceth",
-
-[Severity: Medium]
-Putting "stmmaceth" in this list places a clock that the stmmac core owns
-under OPP rate and VDD_CX control. Is the enable ordering on resume safe?
-
-ethqos_clks_config(false) drops the vote with dev_pm_opp_set_rate(dev, 0).
-In drivers/opp/core.c, _set_opp() with a NULL opp goes to
-_disable_opp_table(). That removes the bandwidth, level and required-opps
-votes, but it never lowers the clock rates. So stmmaceth stays at its OPP
-maximum rate after the CX vote is gone.
-
-On resume, stmmac_bus_clks_config() enables that same clock before the
-glue callback puts the vote back:
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c:stmmac_bus_clks_config() {
-    ...
-		ret = clk_prepare_enable(plat_dat->stmmac_clk);
-    ...
-		ret = clk_prepare_enable(plat_dat->pclk);
-    ...
-		if (plat_dat->clks_config) {
-			ret = plat_dat->clks_config(plat_dat->bsp_priv, enabled);
-    ...
-}
-
-ethqos_clks_config()->qcom_ethqos_set_opp() only runs after that. At
-probe, stmmac_probe_config_dt() also enables stmmaceth before
-ethqos_hlos_setup() votes.
-
-The commit message says this is safe because "VDD_CX only needs to be
-voted while DMA traffic is ongoing". However, the OPP required-opps
-describe the CX corner a given clock frequency needs, whether or not
-traffic is running.
-
-Could stmmaceth be ungated at its OPP fmax while CX is at a lower corner?
-
-For axi-noc and pcie-tile-axi-noc, the glue driver applies the vote
-before enabling the clocks. Would it be better to do one of these
-instead?
-
-  - keep stmmaceth out of the OPP-managed set
-  - lower its rate before dropping the vote
-  - make sure the vote is in place before the core enables stmmac_clk
-
-> +	"axi-noc",
-> +	"pcie-tile-axi-noc",
-> +	NULL,
-> +};
-> +
-> +static const struct ethqos_emac_driver_data shikra_data = {
-> +	.dma_addr_width = 36,
-> +	.has_emac_ge_3 = true,
-> +	.noc_clk_names = shikra_noc_clk_names,
-> +	.num_noc_clks = ARRAY_SIZE(shikra_noc_clk_names) - 1,
-> +	.rgmii_config_loopback_en = false,
-> +	.phy_managed_delays = true,
-
-[Severity: Medium]
-This descriptor has phy_managed_delays but no rgmii_por table. What
-happens if a Shikra DT uses phy-mode "rgmii", "rgmii-rxid" or
-"rgmii-txid"?
-
-ethqos_fix_mac_speed_rgmii() only takes the bypass for RGMII_ID:
-
-	if (ethqos->data->phy_managed_delays &&
-	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
-		ethqos_configure_rgmii_id(ethqos, speed);
-		return;
-	}
-
-Nothing limits Shikra to that mode:
-
-  - qcom_ethqos_probe() accepts all four RGMII variants for every
-    compatible.
-  - ethqos_hlos_setup() installs ethqos_fix_mac_speed_rgmii() for all
-    four.
-  - The qcom,shikra-ethqos block in qcom,ethqos.yaml does not constrain
-    phy-mode.
-
-In those modes the generic DLL/IO-macro sequence runs. Its reset loop
-does nothing, because num_rgmii_por is 0:
-
-	/* Reset to POR values and enable clk */
-	for (i = 0; i < ethqos->data->num_rgmii_por; i++)
-		rgmii_writel(ethqos, ethqos->data->rgmii_por[i].value,
-			     ethqos->data->rgmii_por[i].offset);
-
-Every other HLOS RGMII descriptor has a 6-entry POR table. The
-read-modify-write steps that follow depend on that reset:
-
-  - ethqos_rgmii_macro_init() sets SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY and
-    SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_EN at 10/100M, and
-    SDCC_DDR_CONFIG_PRG_DLY_EN at 1G. Neither path clears the other's
-    bits.
-  - ethqos_dll_configure() sets DLL_EN/CDR_EN/CDR_EXT_EN at 1G, and the
-    10/100 path does not clear them.
-
-After a speed renegotiation, can both RX delay mechanisms end up enabled,
-so the result depends on link-speed history?
-
-The 1G prg_rclk_dly value of 115 also assumes a TCXO_CYCLES_CNT that
-comes from the v3/v4 POR value 0x80040800. Shikra never writes that
-value.
-
-The commit message says "No POR table is needed for this intended bypass
-operation", but neither the binding nor the driver enforces rgmii-id.
-Would one of these be appropriate?
-
-  - constrain phy-mode to rgmii-id for qcom,shikra-ethqos in the binding
-  - reject the non-ID RGMII modes in the driver for descriptors without
-    a POR table
-  - add a Shikra POR table
-
-The later patch in this series, "net: stmmac: qcom-ethqos: add QCS615
-EMAC support", uses the same pattern for qcs615_data.
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. It
-comes from the earlier commit in this series, "net: stmmac: qcom-ethqos:
-add DLL-bypass for PHY-managed RGMII delays".
-
-ethqos_set_clk_tx_rate() picks the link clock rate from phy_mode alone:
-
-	if (ethqos->phy_mode != PHY_INTERFACE_MODE_RGMII_ID ||
-	    speed == SPEED_1000)
-		rate *= 2;
-
-ethqos_fix_mac_speed_rgmii() also requires data->phy_managed_delays
-before it takes the bypass. Take a descriptor without phy_managed_delays
-(emac_v2_1_0, v2_3_0, v3_0_0, v4_0_0) and phy-mode "rgmii-id". At
-100M/10M, doesn't the MAC-delay sequence then run with a 25/2.5 MHz link
-clock instead of the 50/5 MHz it expects?
-
-That would not match "No change intended on existing platforms" in the
-earlier commit. No in-tree qcom DT uses rgmii-id with these compatibles
-today. Shikra sets phy_managed_delays, so this patch is consistent with
-the clock-rate logic. Checking ethqos->data->phy_managed_delays in
-ethqos_set_clk_tx_rate() would probably belong in the earlier commit.
-
-> +	.dwmac4_addrs = &ethqos_dwmac4_addrs,
-> +	.setup = ethqos_hlos_setup,
-> +};
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117-shikra_ethernet-v4-0-c41902e5f2fa%40oss.qualcomm.com
+Sebastian
