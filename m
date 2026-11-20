@@ -1,83 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795134604;
-	b=v2DS0cLQPKbrBG3it/V5Znm508kM1c8ySQDLi/Gcioa4ogvt1ae8bG0AToI7+7Tm4Gbb
-	 F2kv8uWd9g6g4i5p0axAOYuA/0CdtX5eu6NAIORIFxNxSZhS+QAeOwbtciHTOGd6aCo9d
-	 Y6P2RU20g5eRejaEkkwMykgEm61oYloGANt82xMXPcG0Z3kvlHrW+HiafK/ysHT3foMWh
-	 6Xja8OkgBQDetxDR7OXeVpxUSfQK7g+oUP8szzHQtNB6uWYH0ldfCnziRiqzNI2wkKNFL
-	 Yta9RZcXfuL7HpyDczCknsmJqb6W2/mhazlTMiNgvFYzJ4iQjBpG8aDxVB3bw3XI4+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795134604;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=spQYeU6542V64iaRZJYUdLSnSLYK38L77Q167Rmh7/I=;
-	b=rcgMF+fWo+FthC311pDMxnrwEmP2elyyF7rX7G6mRNLBfUL0XlAmsGBXqHa+V4cA98+W
-	 5JdWdZsUVEOXMib6FFO85yxxkZjdLsYnLPfgQ61bFUr7W7D+b+gS2p/n/lM9w+Wu1o+of
-	 Iv26zy6J+6+BfGxaE5wamS/wHt7gCAJLCUlv/nRTjD5dbxHxmInGzGMve7V1jUvX8Bo8i
-	 9w0qHw0s0crltE/e993draFBLFCA0tEd2MI7TGaYCasOsSJybhYUnxqS/VUtBLg5peCcf
-	 FxYWBCFMHTslffPRgrrBfiwEKxgqclOKljajDpJ+GPOsvsXDktxnlqhZq1LO3mR/7Jg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bLm/MCFL";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795135171;
+	b=huDS1zZiEGcyWiMx2vBV1OFJ1Bn5XUrJHC9Ox9+BQ5EkYgSxypKLzFIWc/F6IlrD1B2c
+	 R1h686TO1mgaANERUZQQDidVarI5RJ5K8NBYvBuz3imHALhGd+iQbKGT1UUDjNh786bCT
+	 Orlo7xJP2mc5PeP2rXzJOBMFoFg4Ybp9MqEl9UKAaYsJ5jbn9PL3rDk5VVwrulMLqJiHM
+	 NwqP8FrUNP24kcVZtUW6SOGAONHq0HkFpyYOmAEQwhb0J/Z68JEjT++6cLA+7yx/znXoH
+	 z/KwE8LuVkXuvk9XARvnwoMhBuWR5BbeLmF5/2bAPF80wX3D7QVUl8sIbDNsNbJPk5A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795135171;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=iUhuxoNwq1ObQ8ir3thbZMB4/VIrGIgGYNqDwDmG5po=;
+	b=xJW+YAgkzd5A3BZpYBELVG7o9Vi9xoGdje4eqWOqTTRJKbgOv3dZt6cclvXqNxjBussH
+	 YLmUbv+d+G6Qmo0m7jKzWHK63BT1EkyIonouHuzRGhrBgyl4/3ONdWgJ2HtnvyFlHuJaz
+	 l9+x14e+tXvGTIk0x4jBRCIqRQ8oVmpnlVjYLfyI2gjqUQeSauXzbCxJ/ufue0LW4/uFi
+	 e9qYQYGtRAXu5XlRsSqUDgfFqU6K+qpj4SJal8sBGvM6RF5zzg7MDT2RXNeNTg+wSq91w
+	 DlMS/Yvb6c0Fk/IKHP/0SsvSs/hFMnMfYgTI3LwNgjx6HXSe1Uuj5VqciBkb4ylHx2Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2ABN7wk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977E4606A32C;
-	Fri, 20 Nov 2026 00:30:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B0B606A33E;
+	Fri, 20 Nov 2026 00:39:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bLm/MCFL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12AB1F000C4;
-	Fri, 20 Nov 2026 00:30:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2ABN7wk
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795135170;
+	b=0x/ddWcNMbC+eUKOCeAgy5cmlPYbbx8cjooKlwQpMCtidIme1IZwUKt019sKEvJBH64d
+	 tj2ZyTzS+fXcde8NwJBGkvmV86pDNF4uDEhZvqNpQvuLz+FuDzM9R7wbbGHng8ohQyWPe
+	 SsGH+TqMQ7ESQjDJM7s7RiHUyW0QC0hheGwQQ3Dai8xWLaW9NUHhDiFNczvWIsBee+0Cb
+	 4vE8KEP8nbMpHwuxosiXGXGkhqP9cf3xugopNlIDpEcsFtPUo1gulNNqKGv1dnwe2LeNs
+	 4gPIrHOFUExt8eEh0XcYHIH/ZOOj7nYfyaQkgFTEgkNqGeDqg3RO+TLGdHrBDCHdUPg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795135170;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=iUhuxoNwq1ObQ8ir3thbZMB4/VIrGIgGYNqDwDmG5po=;
+	b=uxhJuStZFFH3KRuwERjlsUfaQ2708d5ZOlR7y0g9wHxS3EmnNdoUC+ZtH/zWuxJS5o2h
+	 XAisgij+vocnzCEnfU2oUMWnZCTCbgTygg5YCZPJrNnydrvnfYQ7mWSgjWBU6hHWk4fJO
+	 cIIXhV32mkaIGSoiicaUVg++QHyc6EYrQ+kfp3nXvHPla0lm9yKYsHhASa1bKd9nT2AK/
+	 2s5PUlytie5VgCNMBrLeKC2CVA9cmrbHLhtYPIfyLW1K9d2AxWDNDidpH6sbeeLAcH4FB
+	 T/fLyZBmhKR1qiC9L+SJnBFKOiuX7INlfNF0wz7HDLBlispW1kKtlvIBdH+i4WTaTAw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0EBFD1F000CA;
+	Fri, 20 Nov 2026 00:39:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795134604;
-	bh=spQYeU6542V64iaRZJYUdLSnSLYK38L77Q167Rmh7/I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bLm/MCFLyl61eg8R9ubKDw53/mPhRc0aUoTOqic5Ongt+RE2EGkPf24KJsGYOBP38
-	 8fKO2+FVv+Y9WbQS/IHYuuf2O7byIf8qrDc4ogud9nb5R5r7gSFXs8gLHNIdP/Uv7Q
-	 zB7escgWn70lmZTG/sxWh9/4MzhZP4fY1JFYJx8KFhqCBsX0xBUjzL9arZSEi31W0D
-	 +zhIOA6R7T+L/5Mrr+9kB74pBA8OOreoKPr3Q3x2IutxfG34ysfsklPrPTbTKs+3/O
-	 k+GX0xOVAf8ANgJd6NnJte7esVlut+jBwVA2PxQPC/KW0rbqASgCYnr5pVSKv+/nvK
-	 u3YLIOiieiHHw==
-Date: Thu, 19 Nov 2026 16:30:02 -0800
-From: Drew Fustini <fustini@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	Tony Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zeng Heng <zengheng@picoheart.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v12 5/5] riscv_cbqri: Add CBQRI capacity allocation
- platform driver
-Message-ID: <av-Uip0Yp4NGYGEM@thelio>
-References: <20261114-dfustini-atl-sc-cbqri-dt-v12-0-6ef1f627072d@kernel.org>
- <20261114-dfustini-atl-sc-cbqri-dt-v12-5-6ef1f627072d@kernel.org>
- <20261119000000.1b43ba35@jic23-hlaptop>
+	s=k20260515; t=1795135170;
+	bh=iUhuxoNwq1ObQ8ir3thbZMB4/VIrGIgGYNqDwDmG5po=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=S2ABN7wkzPKbR94kwk/FvJCsvtImOyG9gRg4rqPEidTUcHUdsZqhYCMdFHuErjjwF
+	 UO48WElkJlheblOsQ1Q+hPIa2sVX8FO+Ws19RzH7aUp7v+wptq9oLwBcNA/G2ZtyBA
+	 936YolD/jZKWG1mfVVfBHBB5Twb8J0gPoKVJlYEdubklyyn1K/uk+YAWHPv0Tru89A
+	 MBtK5YiXrs2bqd2lHmkjxjVSaPRf1ySDe6N1P25JqVZ7vvsQvpY139dnh9AxrnFKqP
+	 xshKlCjgwQQiDILRxrpjvJU67X3xI6N9b84QD9tQDtQEZZhflckXiXxxughdvnzPGj
+	 4HTi0LL5PyBXg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 92238425E3;
+	Fri, 20 Nov 2026 00:39:29 +0000 (UTC)
+From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
+Date: Fri, 20 Nov 2026 01:39:28 +0100
+Subject: [PATCH 2/3] dt-bindings: arm: rockchip: Add Mekotronics R58X-Pro
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,113 +82,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119000000.1b43ba35@jic23-hlaptop>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261120-rk3588-mekotronics-r58x-pro-v1-2-4e70c077c7b4@pardini.net>
+References: <20261120-rk3588-mekotronics-r58x-pro-v1-0-4e70c077c7b4@pardini.net>
+In-Reply-To: <20261120-rk3588-mekotronics-r58x-pro-v1-0-4e70c077c7b4@pardini.net>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Ricardo Pardini <ricardo@pardini.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=907; i=ricardo@pardini.net;
+ h=from:subject:message-id;
+ bh=2G78J0UgfXoTrXCAbZ5jv/J7JIo2b+DqfUU1E8WzZBA=;
+ b=owEBbQGS/pANAwAKATteP+Oex+3pAcsmYgBq/5bAQTWLRYGYREzXDvbPG8mt9JJ3ioqRNk0VE
+ Fipxd+VixaJATMEAAEKAB0WIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCav+WwAAKCRA7Xj/jnsft
+ 6ZJKB/9njf+S8P+q2eGygIUa18wgD85SjCrCbvr1wsJiwBNdxtRLlRVd0ndrpH3qLha3/8YXSoJ
+ 7fHN4FmrrBwBQr9u4rYQHMzfwGIf2XSNuLLV4fEQ78Z1KChohTvOLjlWpYiZtM5iLeJN1cc9ziF
+ dM/XY3i9/xxdumSuKinm0qH2nesOET8QnDrT8SHmkRZ2sTLH7NUWJN0+Cv+U+Dw4+TVwAuedagq
+ FW7il78IV8/LvkWn/mPv9+S2vx1NekP/8SRlrvCuvhvo1GiHIf0BDlAQO2kbDj4M4jOPdfaNFrB
+ X4O29dFdsjn1me1sx1pYoj+VzxZMwWV3nTzZJ5Y2NW7+BOe7
+X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
+ fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
+X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
+ auth_id=588
+X-Original-From: Ricardo Pardini <ricardo@pardini.net>
+Reply-To: ricardo@pardini.net
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 19, 2026 at 12:00:00AM +0000, Jonathan Cameron wrote:
-> On Sat, 14 Nov 2026 14:06:25 -0800
-> Drew Fustini <fustini@kernel.org> wrote:
-> 
-> > Add a platform driver for CBQRI capacity controllers described in
-> > device tree with the riscv,cbqri-capacity-controller compatible.
-> > 
-> > The controller node points at the cache it governs with a
-> > riscv,cbqri-cache phandle. The driver maps the register block, looks
-> > that cache up in cacheinfo and uses its cache id as the resctrl domain
-> > id, so the binding does not need to carry a CPU mask. The controller is
-> > then handed to the CBQRI core, which probes its capabilities and decides
-> > whether to expose it through resctrl. Only an L2 or L3 cache is
-> > accepted, since those are the cache levels resctrl has resources for.
-> > 
-> > Nothing is vendor-specific and reg is the CBQRI register block itself,
-> > so any SoC that describes a CBQRI capacity controller in device tree can
-> > use the driver unchanged.
-> > 
-> > Tested-by: Chen Pei <cp0613@linux.alibaba.com>
-> > Tested-by: Zeng Heng <zengheng@picoheart.com>
-> > Reviewed-by: Zeng Heng <zengheng@picoheart.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> 
-> Sorry, late to the game and pretty much a drive by review.
-> 
-> Still a few things below that will leave you with more readable
-> and probably less fragile code.
-> 
-> Jonathan
+From: Ricardo Pardini <ricardo@pardini.net>
 
-Thanks!
+Add the compatible for the Mekotronics R58X-Pro, an industrial mini PC
+based on the Rockchip RK3588 SoC.
 
-> 
-> > diff --git a/drivers/resctrl/cbqri_capacity.c b/drivers/resctrl/cbqri_capacity.c
-> > new file mode 100644
-> > index 000000000000..6f3d06c4f74b
-> > --- /dev/null
-> > +++ b/drivers/resctrl/cbqri_capacity.c
-> 
-> > +static int cbqri_capacity_probe(struct platform_device *pdev)
-> > +{
-> 
-> Noted in the ACPI patch that you can save some effort there
-> by a few tweaks that probably make sense here anyway.
+Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Yeah, I'll make the changes in this patch so there is less churn in the
-RQSC series.
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index a24949b163cf..e8817cebdba9 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -864,6 +864,11 @@ properties:
+           - const: widora,mangopi-m28k
+           - const: rockchip,rk3528
+ 
++      - description: Mekotronics R58X-Pro
++        items:
++          - const: mekotronics,r58x-pro
++          - const: rockchip,rk3588
++
+       - description: mqmaker MiQi
+         items:
+           - const: mqmaker,miqi
 
-> > +	struct device *dev = &pdev->dev;
-> > +	struct cbqri_controller_info info = {};
-> > +	struct device_node *cache_np;
-> > +	struct resource *res;
-> > +	void __iomem *base;
-> > +	u32 rcid_count, cache_level, cache_id;
-> > +	bool found = false;
-> > +	int cpu, ret;
-> > +
-> > +	base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-> > +	if (IS_ERR(base))
-> > +		return PTR_ERR(base);
-> > +
-> > +	ret = of_property_read_u32(dev->of_node, "riscv,cbqri-rcid", &rcid_count);
-> > +	if (ret) {
-> > +		dev_err(dev, "missing riscv,cbqri-rcid\n");
-> It's a probe, use
-> 		return dev_err_probe(dev, ret, "missing riscv,cbqri-rcid\n);
-> same for all these paths.  Sure we won't defer but it does nice formatting
-> and tends to save a couple of lines every time!
-> 
-> With the __free() magic, you can do this for all the returns in this
-> function.
+-- 
+2.47.3
 
-Sure, will do.
 
-> > +	cache_np = of_parse_phandle(dev->of_node, "riscv,cbqri-cache", 0);
-> Follow on from glancing at the acpi and then finding this elsewhere in my
-> inbox.
-> 	struct device_node *cache_np __free(device_node) =
-> 		of_parse_phandle(dev->of_node, "riscv,cbqri-cache", 0);
-> and drop all the goto iritiations.
-
-Will do.
-
-> > +	info.type = CBQRI_CONTROLLER_TYPE_CAPACITY;
-> > +	info.base = base;
-> > +	info.addr = res->start;
-> > +	info.size = resource_size(res);
-> > +	info.rcid_count = rcid_count;
-> > +	info.cache_id = cache_id;
-> > +	info.cache_level = cache_level;
-> 	info = (struct cbqri_controller_info) {
-> 		.type = CBQRI_CONTROLLER_TYPE_CAPACITY,
-> 		.base = base,
-> 		.addr = res->start,
-> 		.size = resource_size,
-> 	...
-> 
-> Might as well as you nicely set everything here.
-> It's more readable and also makes it clear anything not set
-> is zeroed without anyone having to go check the = { }; above.
-
-Good idea, will do.
-
-Thanks,
-Drew
