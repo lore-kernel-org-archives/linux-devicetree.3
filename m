@@ -1,64 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795183189;
-	b=LxpveBcgsH46MO+zxtkDmDDJNiKwm0suB4fJYPnNtU1HxqeU5Nh6QNFip92IC2Qyq+bR
-	 RKsL+Og3UguCot9Yibyi4PhCZG35OgLLpAfnc3FgQbhMhFca57BFf9lu1QWubsploYOgW
-	 0v5sUPJG9UsDX3KJhHhLf3hFjKYFjIlpzc+9EXs2hbtwlU1y3DLJJRPtCyTF/oaIWK9XA
-	 9D3pc1+mZ8SBCdvyNibkfF6OKYtq60GjvdOGjYUqHOyp5t3qTby6/IDuVbKWOVgL6HXtT
-	 5PHX9+2j8vdF2EK9UlS6J6cB3U/OiuLhBe7vV3m/vv7YQDXJmZb9ZKpe/9fDO5s3iiw==
+	t=1795183363;
+	b=zoyiv9gzASExaYCdUZyxSAqrcWkCaQzTXKJ4XD7RTaYIfceP75XCNBwxMwrz6Op0MZph
+	 9kWYVQEqf3uxo0343+tbeeh9PCKBGoll1qnZaxt+zrvUpF0EQ4Jiyg50YuW93gET9Sd6b
+	 TfZRD82RuRCcEmIzYo77rfM5drrB91Ahb7sQ3HOaiuXR0BpBBz1RBOa0rBQ8R+fRxh7V+
+	 NnmtUHNtW2ROliyhji1lgsCn0RWOx3C6VpQ+rozV9dualIoHRvTk5hwL0alMyTehFo/Be
+	 m6nSAVJxhi9GWQnW6xbrANsLkrSpV86ubOUg0/4bBDGwPBrvopyN6JHsBF5JIg9iC0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795183189;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=LW+kKiNqfY8HPCAqY9IfbH53r5HYTznvk+MUAJydRFs=;
-	b=qw0kMpWMOIts0pxiM2dtX7/woy5VBXQyGbFK9X6IRw3hOdmc307913S954vemNTtb903
-	 gHv7JxQ8YfsjDRxhpLA6PvOFjXnrJZ6Hv9UHuV6V2wvCKCiPqWUsgkqj4Bw/vsXdojYzf
-	 7cZWIJfc9dX6mjV5vtE8pcer9YF9DMS/ODCB2z/S2e+ogCpmbHbQAzGtzFwXspYIYw/r2
-	 gmknYXIkEWCNeyfGPy4Yl4CJJcG74rixHpXs8Twi31T2lwdYTPycNWa9AXu3ldzlWGXtN
-	 WSkO+5LFhvx6KJlpLrG8XmPMaUlS75cMlz6e7xU44Oc1HHPoVFWEEhuyKIUi7/0Oo5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795183363;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=cgkk+3/OIEd1FojM4ndm+pQWolMo+gX3JOUwBXCjH04=;
+	b=WggE/Q6DWpIzLTMOHfTT+GJvXnNeI4R3kR9wYxtWD1qRklpxDkErbXmlDdXLeJn4hTVw
+	 Lc7xbB1A9X8PsdH0iNYYfAXm6GDGR42r7E0579EgfXQat6cMng3Gn3DPAW5Ugfzn7KC8m
+	 vo43IMjuWvDXofF+roZyF/MVo9v5SbA2iXJCd8R6oJywkdhONJBMr6LZvkd76fzueJfx0
+	 dRV8nRepVIKzRQiYG6kpXqtGKek8r6Z8tVJDb4FJs/d5LRfnVpyqNYCajdnreUWYeizqZ
+	 ztF/SaKrTH8LKEwhodeMH7o/rm5WmQvMsWmNvKMG4nYEm/k7778KKTjEIVgD2nLGySw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="S6rtY/v0";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=bY0DxBHk;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25673606ABCE;
-	Fri, 20 Nov 2026 13:59:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B88D606A32C;
+	Fri, 20 Nov 2026 14:02:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B88D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6rtY/v0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A281F000C6;
-	Fri, 20 Nov 2026 13:59:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795183188;
-	bh=LW+kKiNqfY8HPCAqY9IfbH53r5HYTznvk+MUAJydRFs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S6rtY/v0m9v/0YbuaYd2Wkpcnx5stAni5jfPK1GXXGyNK0gFMVJW5ZcFY/0PWZAF1
-	 ya2xfo9tzy2lvUDWcyMfsALvLeKr4ZBYaWwt8ovzyY3cmNeQ32yEmD668RLw3ilG6c
-	 udzZkT8UedJGtwPYe58oJi57YYGcJ+Xg9777F+NuJWlL1XFBUdKQbtnrJcEw77P0jt
-	 Q500ocXoLiNDaOUhf/uiwF6UyGHitWmh15H1nxZ/O5HVq9lkMJERbX/+HP+sHNItH3
-	 Nm1pUn/tGmgIYBNNQtMMjg5u9yuGx+gvgqJU7xzmw0vNa3vHBNiwbecrQV5ukFlhbY
-	 nu5v+zDjgApGA==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-samsung-soc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4] arm64: dts: exynos: gs101: Drop CPU masks from GICv3 PPI interrupts
-Date: Fri, 20 Nov 2026 14:59:30 +0100
-Message-ID: <179518315457.16443.4845385299406425868.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <b1477db70b5a068c7ed3276cac906836031214db.1795096443.git.geert+renesas@glider.be>
-References: <b1477db70b5a068c7ed3276cac906836031214db.1795096443.git.geert+renesas@glider.be>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=bY0DxBHk
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261120140238euoutp01e392ce5deefa824d241933e9ad7d9e64~pxcDHlGj-2487124871euoutp01N;
+	Fri, 20 Nov 2026 14:02:38 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261120140238euoutp01e392ce5deefa824d241933e9ad7d9e64~pxcDHlGj-2487124871euoutp01N
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1795183358;
+	bh=cgkk+3/OIEd1FojM4ndm+pQWolMo+gX3JOUwBXCjH04=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=bY0DxBHkqE1z07hc4s6PT+RHvL9VgrR2LcQPMWQilMCW6CxJGAFGZ34hAQVEKOsQG
+	 KxDGhVH/y6RlKZFdIlhem7cD1LQ35UzHvkLKGtKwgCfIAcgoqhDTQPG+EtmEbW2M0v
+	 EJNbW4GVhZGGAMMoFn8yo7f76GMhERu+WQNw0cLw=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261120140237eucas1p1b2e909b56c87362d319ee686d7dd9bcc~pxcC3feYx1309713097eucas1p1N;
+	Fri, 20 Nov 2026 14:02:37 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261120140236eusmtip10c8e01a99197c51c4b890369f1e0fa0d~pxcBE9NMS0772007720eusmtip1W;
+	Fri, 20 Nov 2026 14:02:36 +0000 (GMT)
+Message-ID: <d21992c9-9e60-4613-b7cd-8e324d214a48@samsung.com>
+Date: Fri, 20 Nov 2026 15:02:35 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,22 +64,430 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=443; i=krzk@kernel.org; h=from:subject:message-id; bh=KM3O/+wumfVF1ZT0/KxaUkzczLZvHyFeeNmoCihvXx8=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBrAFJDxRsdx+/H8YhdwVZ2iRkhHLb1F5vkoaEsQ GKstWtEWlOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCawBSQwAKCRDBN2bmhouD 14KAD/0WJxB6ha5hvZxcn7n60zSvNFl+37Tzii/fjxjGf2Dll0WBL2izQupB9JiSJwFICOpJGzW 2sWN/o0N+t+r9DvEFBEFPnM3n8YwY3ihOpxz5jqygIBh7k5eDrZyKAQxjaQPbNWcn/7hzXoI1QZ NneAlvnILwHgXatkav4R3AGDzNCidEWqehjtZ6Yy9J4gxYQhHWBJCQnLn0l3aCP4N2L80ty0VCe AKDn/re6/HzyrrkE3/KA2UZE8vljzJl0AmZien7YKRKTzTPbYm4iBoj7Ta8rKNs7Pq1tLtftLkQ 4a5bT0umZmSCeXlXtGiNC/FHzQDEAN83S2vf1H8FsGfY5iwPEOUNf6e/+H42Px/Ha+rLpQjrBtw UAe0YYxK/F4jxbGFD6gfPj0p0bwIDiuYD545zTD+gDwjp+yftuSEq/jKsaz2SW4LFLwrzfUBKDz SbUhgh/nFm+2+3kbGHNzQQLdTfFDJSzTL4B+kUR0VfMzy4RMedYotcXDcH1LM8iA1d6oTGK6Qfd Nr7MdYuY2ev7zPV+yQDsDiVOh2E1YhJBsR96C9i+NG7pA4QB6FWZlVMxq3kmi5G5cd9lAxReSRB vypOYlGJzde6qIhMdPGDg2lMobTiRC36vAjoQMqzrzF1cFXhOMNGHDubQmE9eLsq4m8s+KKJybK SPrdizxgh/pGMq
- g==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 00/19] drm: starfive: jh7110: Enable display
+ subsystem
+To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Andrzej Hajda
+	<andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+	<Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
+	Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Yakir Yang
+	<kuankuan.y@gmail.com>, Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
+	William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
+	<xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
+	Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>, Cristian Ciocaltea
+	<cristian.ciocaltea@collabora.com>, Byron Stanoszek <gandalf@winds.org>,
+	OOHehir <oo.hehir@gmail.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261120140237eucas1p1b2e909b56c87362d319ee686d7dd9bcc
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261106135849eucas1p242718d72fa1f38e31477210fd9ee30bc
+X-EPHeader: CA
+X-CMS-RootMailID: 20261106135849eucas1p242718d72fa1f38e31477210fd9ee30bc
+References: <CGME20261106135849eucas1p242718d72fa1f38e31477210fd9ee30bc@eucas1p2.samsung.com>
+	<20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
 
 
-On Thu, 19 Nov 2026 14:54:56 +0100, Geert Uytterhoeven wrote:
-> Unlike older GIC variants, the GICv3 DT bindings do not support
-> specifying a CPU mask in PPI interrupt specifiers.  Drop the masks.
 
-Applied, thanks!
+On 11/6/26 14:58, Michal Wilczynski wrote:
+> This series enables the display subsystem on the StarFive JH7110.
+> 
+> Merging: the series splits by subsystem, there is no build dependency
+> between the blocks, and each block lands in the tree that already owns
+> those files:
+> 
+>   drm-misc                     1-3, 6, 8-14, 17
+>     drivers/gpu/drm/bridge/, include/drm/bridge/ and the display
+>     bindings. Patches 1 and 2 are inno-hdmi fixes with Fixes: tags;
+>     they apply to Rockchip as much as to StarFive and are independent
+>     of the rest, so they can go on their own.
+> 
+>   Conor's tree                 4, 5, 7, 15-16, 18
+>     drivers/soc/starfive/, together with
+>     the bindings for its two drivers (patches 4 and 7, under
+>     bindings/display/starfive/) and the vout-syscon compatible in
+>     bindings/soc/starfive/ (STARFIVE SOC DRIVERS), and
+>     arch/riscv/boot/dts/starfive/ (STARFIVE DEVICETREES).
+> 
+>   -                            19
+>     MAINTAINERS.
+> 
+> The PHY patches are now a separate series for linux-phy, as Vinod
+> suggested: "phy: Add the StarFive JH7110 Innosilicon HDMI PHY" [1]. This
+> series depends on it, and the DT needs the PHY driver at runtime. There
+> is no build dependency.
+> 
+> [1] https://lore.kernel.org/all/20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com/
+> 
+> Ordering: patch 4 references the bindings from patch 3 and the PHY
+> series, the example in patch 7 instantiates nodes from patches 3 and 6
+> and the PHY series, and the DT in patch 18 uses all of them. Patches 4,
+> 7 and 18 therefore need the drm-misc bindings and the PHY series in
+> place to pass dt_binding_check and dtbs_check. Patches 5, 15 and 16 have
+> no such dependency.
+> 
+> There are no out-of-tree dependencies: the dc8200 driver, the th1520
+> reset controller and the inno-hdmi bridge that the RFC listed as
+> prerequisites are all upstream now.
+> 
+> The clk patch that was 14/20 in v4 went in through the clk tree and is
+> in v7.4-rc1 (af384d6e0573). The DT patch needs it at runtime for the
+> pixel MUXes to follow the PHY.
+> 
+> The dom_vout block holds the display controller (dc8200), the clock
+> generator (voutcrg) and the HDMI IP, all inside PD_VOUT. The HDMI IP is
+> a single register block containing both the controller and the PHY,
+> which are described as separate children because they have separate
+> resources:
+> 
+>   - the PHY takes only the 24 MHz reference clock, and provides the
+>     pixel clock that voutcrg routes on to the dc8200 pixel MUXes, and
+>     the phy the controller uses
+>   - the controller takes pclk/mclk/bclk from voutcrg
+> 
+> It is the same Innosilicon PHY that the RK3328 describes as its own
+> hdmiphy node; here it shares a register window with the controller.
+> 
+> The parent maps the register block and owns the regmap its two children
+> share. Everything in the region sits behind one NoC port whose clock and
+> reset gate access to it, inside PD_VOUT, so the vout subsystem node from
+> the RFC is back and owns those for as long as any child exists.
+> 
+> Patch 11 adds a .mode_valid platform op to inno-hdmi.
+> inno_hdmi_bridge_mode_valid() checks the pixel clock against
+> hdmi->refclk, but that clock only exists where a "ref" clock is
+> described. The JH7110 gets its pixel clock from the PHY, so refclk is
+> NULL and the check was skipped: unsupported modes were advertised, the
+> modeset then "succeeded" because the atomic enable path cannot fail, and
+> the display stayed blank.
+> 
+> Patch 12 makes the inno-hdmi PHY configuration table optional. The
+> JH7110 drives its PHY through a separate driver, so the table only ever
+> existed to get past a probe time check, and the register writes it fed
+> belong to the integrated PHY the JH7110 does not have.
+> 
+> Patch 14 makes the HDMI version inno-hdmi advertises selectable. Since
+> v7.4-rc1 it advertises HDMI 1.2 for every integration, which caps the
+> TMDS character rate at 165 MHz. That fits Rockchip, but on the JH7110,
+> which supports HDMI 1.4b, it hid all eight 3840x2160 and 4096x2160
+> modes. Rockchip keeps HDMI 1.2.
+> 
+> Patches 1, 2 and 8-14 change the inno-hdmi bridge, which the Rockchip
+> RK3036 and RK3128 use as well. Patch 9 moves its register access to a
+> regmap, Rockchip included. I have no Rockchip hardware, so on Rockchip
+> they are build tested only (arm and riscv). A Tested-by would help.
+> 
+> Testing
+> =======
+> 
+> Tested on a VisionFive 2 v1.3B using modetest, with the PHY series
+> applied.
+> 
+> All 42 modes the sink advertises work, with nothing in dmesg. Pixel
+> clocks run from 25.175 MHz (640x480@59.94) up to 297 MHz
+> (4096x2160@30), including 3840x2160 and the full 1920x1080 and 1280x720
+> rate families.
+> 
+> The four modes the RFC reported as broken work now too: 2560x1440@59.95,
+> 2048x1080@60.00, 2048x1080@24.00 and 720x400@70.08.
+> 
+> Before patch 11, four of the advertised modes failed: 1680x1050@59.95
+> (146.250 MHz), 1400x1050@59.98 (121.750), 1152x864@59.97 (81.768) and
+> 1280x768@60.35 (80.140). Those pixel clocks are not in the PHY pre-PLL
+> table, so clk_set_rate() returned -EINVAL and the screen stayed black
+> while userspace saw a successful modeset. They are rejected in
+> .mode_valid now; the other refresh rates of those resolutions still work.
+> 
+> The mux the HDMI controller programs in dom_vout_syscon has a DP and a
+> DPI branch, and the DT wires the DPI one, so the DP branch was checked
+> separately by moving the input endpoint to the DC8200's DP output on a
+> throwaway branch. SYSCFG_4 reads 0x4c0b0000 instead of 0x0c0b0000, the
+> output is identical to the DPI path and all 42 modes set. Sweeping
+> VOUT_HDMI_DP_YUV_MODE over its four values with a mode held shows only
+> RGB giving a correct picture, as documented.
+> 
+> Every commit builds for riscv, and the Rockchip inno-hdmi glue also for
+> arm.
+> 
+> Notes
+> =====
+> 
+> The JH7110 has no central MAINTAINERS entry and maintainership is
+> fragmented, so patch 19 adds one for the display subsystem and I am
+> happy to help maintain it. The PHY series adds its own entry for the
+> JH7110 HDMI PHY.
+> 
+> checkpatch warns "does MAINTAINERS need updating?" on the patches adding
+> files, because that entry comes in patch 19.
+> 
+> Thanks to Icenowy Zheng for the dc8200 driver and for explaining how the
+> SoC and the display pipeline fit together.
+> 
+> Thanks also to Dominique Belhachemi, who got rid of the vout-subsystem
+> wrapper and helped with the testing, to Maud Spierings for testing on a
+> Framework 13 panel, to Byron Stanoszek and OOHehir for testing v5, and
+> to Graham Markall for testing the JH7110 display patches independently
+> and writing up the results:
+> https://big-grey.co.uk/2026/01/26/testing-starfive-jh7110-display-controller-patches/
+> 
+> Link to v1: https://lore.kernel.org/all/20251108-jh7110-clean-send-v1-0-06bf43bb76b1@samsung.com/
+> 
+> ---
+> Changes in v7:
+> - Moved the hdmi-subsystem and vout-subsystem bindings from
+>   bindings/soc/starfive/ to bindings/display/starfive/ (Conor)
+> - inno-hdmi: access the registers only through a regmap, the parent's
+>   or an MMIO one over the controller's own resource, instead of keeping
+>   two register paths (Heiko). Patch 9 is renamed to "Use a regmap for
+>   register access" and drops its Reviewed-by and Tested-by tags, since
+>   the Rockchip path changed
+> - Trimmed the comment in the NULL drm_device fix (Heiko)
+> - Collected Heiko's Reviewed-by on patches 1 and 2
+> - Rebased onto v7.4-rc1, which has the clk patch and now creates
+>   drivers/soc/starfive/ itself, so patches 15 and 16 add their Kconfig
+>   entries to its existing menu
+> - New patch 14 makes the advertised HDMI version selectable, and the
+>   JH7110 advertises HDMI 1.4. The HDMI 1.2 that v7.4-rc1 advertises for
+>   every inno-hdmi user hid the 3840x2160 and 4096x2160 modes
+> - Link to v6: https://lore.kernel.org/r/20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com
+> 
+> Changes in v6:
+> - Split the PHY patches into their own series (Vinod)
+> - New patch 2: the hotplug NULL drm_device guard is split out of "Split
+>   probe out of bind" into its own patch (Heiko)
+> - inno_hdmi_bind() takes a platform_device, like dw_hdmi_bind() (Heiko)
+> - Describe the HDMI PHY node by its resources rather than by the probe
+>   cycle, in the commit messages and the Kconfig help (Krzysztof)
+> - Rebased onto v7.3, collected tags
+> - Link to v5: https://lore.kernel.org/r/20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com
+> 
+> Changes in v5:
+> - Rebased onto v7.3-rc5.
+> - Dropped the clk patch, applied as af384d6e0573.
+> - New patch 13 makes the HDMI_SYS_CTRL register clock source selectable
+>   per platform, and the JH7110 selects the TMDS clock. The driver drove
+>   the register interface from the system clock for everyone, and a
+>   Framework 13 panel flickers continuously that way (Maud Spierings).
+>   Rockchip keeps the system clock, so this is a no-op there. This was
+>   listed as a known limitation in v4.
+> - New patch 1 fixes v_HSYNC_POLARITY and v_VSYNC_POLARITY, which have
+>   been swapped in inno-hdmi since the driver was merged. The hardware
+>   puts HSYNC in bit 2 and VSYNC in bit 3, and the driver had them the
+>   other way round. Almost all CEA modes drive both syncs with the same
+>   polarity, so the two writes are indistinguishable and the bug only
+>   shows on a mode whose polarities differ - a band of black rows at the
+>   top of the screen, vsync_end - vsync_start + 1 rows tall. Reported
+>   independently by Dominique Belhachemi, Maud Spierings and Byron
+>   Stanoszek, and confirmed against the RK3128 TRM by Icenowy Zheng, so
+>   this is a Rockchip fix too.
+> - Added a 201 MHz entry to the JH7110 pre-PLL table for a 2560x1440
+>   mode Byron Stanoszek runs on a Dell U2711. It is derived the same way
+>   as the neighbouring entries (fbdiv 134, /16, VCO 3.216 GHz) but I have
+>   no sink that asks for it, so it is untested on my hardware.
+> - Moved the hdmi-subsystem binding from bindings/mfd/ to
+>   bindings/soc/starfive/, next to the vout-subsystem binding and matching
+>   its driver in drivers/soc/starfive/. The mfd/ path was left over from
+>   when the driver was called hdmi-mfd; nothing in the series is an MFD
+>   device, and it meant one isolated binding patch would have had to go
+>   through the MFD tree on its own.
+> - The commit message for "Split probe out of bind" claimed a matching
+>   inno_hdmi_remove(); no such function exists, so the claim is gone.
+> - Dropped Joshua Peisach's Reviewed-by from the PHY driver patch as well,
+>   since that patch changed in v5.
+> - Dropped Joshua Peisach's Reviewed-by from the binding patches; he said
+>   he is not reviewing DT (Krzysztof Kozlowski). It is kept on the driver
+>   patches he did look at.
+> - Removed a probe-time clk_set_rate() from the PHY driver. It programmed
+>   a default rate, and .set_rate writes PHY registers that live in the
+>   window gated by the controller's system clock - a clock the PHY cannot
+>   hold without creating a probe cycle with voutcrg.
+> - Link to v4: https://lore.kernel.org/r/20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com
+> 
+> Changes in v4:
+> - New patch 11 makes the inno-hdmi PHY configuration table optional, so
+>   the JH7110 controller can drop the dummy two entry table it carried
+>   only to satisfy the probe time check, along with the integrated PHY
+>   register writes that table fed (Icenowy Zheng). That table was also
+>   acting as an upper bound: inno_hdmi_find_phy_config() runs before the
+>   platform .mode_valid and returns early, so its 297 MHz sentinel
+>   rejected every mode above that even though the PHY pre-PLL table has a
+>   594 MHz entry. Nothing here advertises such a mode, so it was latent.
+> - Fixed a v3 regression: CLK_SET_RATE_NO_REPARENT stops clk_set_rate()
+>   from reparenting the dc8200 pixel MUXes, so they kept whatever the
+>   bootloader had selected and the display stayed black on boards where
+>   that was not the HDMI PHY. They get assigned-clock-parents now (Maud
+>   Spierings, Dominique Belhachemi).
+> - vout-subsystem binding: describe the children by compatible instead of
+>   $ref, as qcom,sm8750-mdss does, and show the whole subsystem with all
+>   four children in the example (Krzysztof Kozlowski).
+> - Dropped the vout-syscon example from starfive,jh7110-syscon.yaml, it
+>   is part of the vout subsystem example now (Krzysztof Kozlowski).
+> - Renamed the xin24m node to xin24m-clock (Krzysztof Kozlowski).
+> - Fixed the HDMI HPD pinmux: it drove the pin high (GPOUT_HIGH with the
+>   output enabled) while also reading it as the hotplug input, so HPD
+>   could only ever read asserted. It is an input now.
+> - jh7110-inno-hdmi: dropped a regmap lookup whose result was never used;
+>   inno_hdmi_probe() fetches the parent regmap itself. The commit message
+>   claimed otherwise and is corrected.
+> - phy: rockchip: dropped two now unused RK3328 spread spectrum macros
+>   the v3 cleanup missed. The register write itself moved to the shared
+>   helper and is unchanged, so Chaoyi's Reviewed-by is carried over.
+> - inno-hdmi: the hotplug handler dereferenced bridge.dev unconditionally.
+>   Splitting probe out of bind moved the interrupt request to probe, so
+>   an HPD event before the DRM master attaches the bridge would oops.
+>   Guarded.
+> - Dropped the <linux/mod_devicetable.h> includes (Uwe Kleine-König).
+> - jh7110-inno-hdmi: __free(device_node) for the graph lookups, and
+>   dropped the redundant negative check on clk_round_rate() (Chaoyi Chen).
+> - phy: rockchip: dropped the recalc_rate debug print that the shared
+>   helper already emits (Chaoyi Chen).
+> - Rebased onto v7.3-rc3.
+> - Link to v3: https://lore.kernel.org/r/20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com
+> 
+> Changes in v3:
+> - Brought back the vout subsystem node and driver, now owning the NoC
+>   bus clock, its reset and PD_VOUT for the whole region, with dc8200,
+>   the HDMI block, the syscon and voutcrg as its children (Icenowy Zheng).
+> - Fixed a hard hang when the bridge is built as a module: the PHY's
+>   .is_prepared read a register in the window gated by the controller's
+>   system clock, so clk_disable_unused() wedged the CPU before the
+>   controller had bound. The op is gone; the framework uses the software
+>   prepare count instead. (Marek Szyprowski)
+> - The HDMI controller now programs the display mux in dom_vout_syscon
+>   from the port graph rather than inheriting whatever the bootloader
+>   left, with a phandle to the syscon (Icenowy Zheng).
+> - The register access clock is named "pclk" to match the existing
+>   inno-hdmi binding, so the generic driver no longer picks up the pixel
+>   clock. Previously it held the pre-PLL powered from probe and sized the
+>   DDC divider from the wrong rate.
+> - Dropped the clk suffixes and the single-entry -names properties from
+>   the bindings (Conor Dooley). mclk and bclk keep their names: per TRM
+>   5.3 they are the HDMI audio clocks, not module and bus clocks, so the
+>   descriptions say that instead.
+> - Replaced patternProperties with plain properties in the hdmi-subsystem
+>   binding (Conor Dooley).
+> - dc8200 gets an SoC specific compatible, and inherits dma-noncoherent
+>   from the subsystem bus node, so it validates against verisilicon,dc.
+> - Added the pre-PLL entry for the Framework 13 panel and fixed two
+>   devicetree whitespace nits (Maud Spierings).
+> - select REGMAP_MMIO, CLK_SET_RATE_NO_REPARENT on the dc8200 pixel MUXes
+>   so clk_set_rate() cannot reroute them, and inno-hdmi register reads
+>   return 0 instead of stack garbage when regmap_read() fails.
+> - phy: rockchip: dropped the local pre-PLL lookup wrapper and the 28 now
+>   unused RK3328 pre-PLL macros, and restored the VCO debug output, this
+>   time in the shared helper so both drivers get it (Jonas Karlman).
+> - Rebased onto v7.3-rc1.
+> - Link to v2: https://lore.kernel.org/r/20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com
+> 
+> Changes since the RFC:
+> - Dropped the vout-subsystem wrapper driver and its binding, along with
+>   the patch relaxing the voutcrg binding; genpd handles PD_VOUT per
+>   node.
+> - Renamed the compatible to starfive,jh7110-hdmi-subsystem, dropping
+>   "mfd" as a Linux term (Conor Dooley).
+> - Absolute $refs in the bindings, unused example labels dropped, and the
+>   examples deduplicated between parent and children (Conor Dooley).
+> - Added the .mode_valid platform operation (patch 7).
+> - Split the inno-hdmi rework into a mechanical probe/bind split (patch
+>   4)
+>   and the regmap-from-parent change (patch 5). struct inno_hdmi is no
+>   longer exported; no platform glue dereferences it.
+> - Replaced the duplicated PHY driver with a shared Innosilicon library
+>   and moved Rockchip onto it (patches 11-13).
+> - Fixed pre-PLL lock detection, which masked the status read with the
+>   register address instead of the lock bit.
+> - Fixed a pixel clock refcount underflow: enable returns early on
+>   failure while disable tore down unconditionally.
+> - voutcrg patch reduced to adding CLK_SET_RATE_PARENT to the two dc8200
+>   pixel MUXes.
+> - Rebased onto v7.2.
+> 
+> ---
+> Michal Wilczynski (19):
+>       drm/bridge: inno-hdmi: fix swapped HSYNC and VSYNC polarity
+>       drm/bridge: inno-hdmi: Don't dereference a NULL drm_device on hotplug
+>       dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-controller
+>       dt-bindings: display: starfive: Add starfive,jh7110-hdmi-subsystem
+>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
+>       dt-bindings: display: verisilicon: Add starfive,jh7110-dc8200
+>       dt-bindings: display: starfive: Add starfive,jh7110-vout-subsystem
+>       drm/bridge: inno-hdmi: Split probe out of bind
+>       drm/bridge: inno-hdmi: Use a regmap for register access
+>       drm/bridge: inno-hdmi: Add .disable platform operation
+>       drm/bridge: inno-hdmi: Add .mode_valid platform operation
+>       drm/bridge: inno-hdmi: Make the PHY configuration table optional
+>       drm/bridge: inno-hdmi: Make the register clock source selectable
+>       drm/bridge: inno-hdmi: Make the supported HDMI version selectable
+>       soc: starfive: Add jh7110-hdmi-subsystem driver
+>       soc: starfive: Add jh7110-vout-subsystem driver
+>       drm/bridge: starfive: Add JH7110 HDMI controller driver
+>       riscv: dts: starfive: jh7110: Update DT for display subsystem
+>       MAINTAINERS: Add StarFive JH7110 display subsystem entry
+> 
+>  .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++++++
+>  .../starfive/starfive,jh7110-hdmi-subsystem.yaml   |  95 +++++++
+>  .../starfive/starfive,jh7110-vout-subsystem.yaml   | 218 +++++++++++++++
+>  .../bindings/display/verisilicon,dc.yaml           |   1 +
+>  .../soc/starfive/starfive,jh7110-syscon.yaml       |   1 +
+>  MAINTAINERS                                        |  11 +
+>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 121 ++++++++-
+>  arch/riscv/boot/dts/starfive/jh7110.dtsi           | 105 ++++++--
+>  drivers/gpu/drm/bridge/Kconfig                     |  12 +
+>  drivers/gpu/drm/bridge/Makefile                    |   1 +
+>  drivers/gpu/drm/bridge/inno-hdmi.c                 | 125 +++++++--
+>  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 297 +++++++++++++++++++++
+>  drivers/gpu/drm/rockchip/inno_hdmi-rockchip.c      |   2 +-
+>  drivers/soc/starfive/Kconfig                       |  34 +++
+>  drivers/soc/starfive/Makefile                      |   2 +
+>  drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  72 +++++
+>  drivers/soc/starfive/jh7110-vout-subsystem.c       |  82 ++++++
+>  include/drm/bridge/inno_hdmi.h                     |  17 +-
+>  18 files changed, 1266 insertions(+), 51 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20251031-jh7110-clean-send-7d2242118026
+> prerequisite-change-id: 20261028-jh7110-inno-hdmi-phy-83e5cfa643e3:v7
+> prerequisite-patch-id: e78b1dab85d70fa7ec3e551560dfc90891546de9
+> prerequisite-patch-id: 7ffec3af58389aa090d5a9947889060dd5493138
+> prerequisite-patch-id: 4a3488cc151ae0e9ef053ea67e8e520520c7df15
+> prerequisite-patch-id: 37de8eb6867db62f75e39908a136684a1cc14743
+> prerequisite-patch-id: 27aeff98d5c0b0bdb3eb9e9bbc2bf5e982864774
+> 
+> Best regards,
 
-[1/1] arm64: dts: exynos: gs101: Drop CPU masks from GICv3 PPI interrupts
-      https://git.kernel.org/krzk/linux/c/306301ca9340a6c7ceb14d735abb9cc380933a7a
+Gentle ping on this series. It depends on the Innosilicon HDMI PHY
+series [1], but only for dt_binding_check/dtbs_check (the PHY binding
+is referenced from the jh7110-hdmi-subsystem binding) and at runtime.
+Everything else builds and can be reviewed independently.
+
+Any comments on the DRM bridge / inno-hdmi parts would be much
+appreciated.
+
+[1] - https://lore.kernel.org/all/20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com/
 
 Best regards,
 -- 
-Krzysztof Kozlowski <krzk@kernel.org>
+Michal Wilczynski <m.wilczynski@samsung.com>
