@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795172162;
-	b=LyLwoUBcXTKuwlYuRTrFIr0q/TTxbHp0zaJyXHD1yf/mBLD8R0sD9eLWyvbUuRXHJlrb
-	 pTVFxukgB/D8DZdT+y7pVwt3WvT3PuBEre2jgUIVYLIm2B0L2sZJvfcaOkiUGTlJoXgB5
-	 pl2lg0rQjLkvlbI/dvx6j+7ndD0jEcTDSJKSb+HKdhxjIZBBDvGXxTD1It/a+pe428zLW
-	 yFPiJZu9uvlli+ZSjLOT6MGPKsc+jBxc3OsEFTcpKs6yKNWnRUpmbNoJmGniq3HOhRKWY
-	 jHzsBB6XSkkTdTyRdz+7XC9rU6ri0/MuPr8PisLE0RwsrOsm6RjGEptaGH3EVeqjJkw==
+	t=1795172429;
+	b=emwBlJpUY6kZ1CKLXBZV/LW3mfZfen+xNBmN7QNl3mjsNVki2rhBz0VJ0dNsN+HyvuT5
+	 PB3T7/EkcqGcXGawBKQplXyMUwOQjpXOmNOYihH7ndt4bghZle5Pg4hsWwbmofyzANLKl
+	 QORr4ifdf37/XuK8X0LtKymAbGhWW0yfQ32SuIEPRcHKlV8H+0dp4QQ6kmcHOUWc7I1so
+	 B89gplJ5/qKmN6l0RZ6/VYSHLZRjwKx5kASgA92Tbhfnu2PBg6CPE6sOBJjH47+fb6Gcu
+	 /HHll6O1mUYX3Bo3Jz8RsOVkyRVuPbJkuEtIxBCO+hxL4Qec1klxXWdCxVWrkF85RGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795172162;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+7tbN9MuaCmBqXPur4Ml/M1YRKZhdD2ZO+fo0Nusx9o=;
-	b=uGvvGscbnaMrc+2mN5cLH/WrwwteY8xEH6uhW7D1Q4I+5zOcxbt+IVr2xMxIXQtOaAi2
-	 FwKQRuhA5dtYqqqFApe9D84VsuoYJ5o07J+wUum3XHu29FO/G08SeczYl1ReaHp1JIJ8D
-	 XjEAoDGWsH7UXdAEWe9Pr656J6J501CrX0M0OGOpw9EHqlEFKAgIcBNzwEoPMC33xQquc
-	 SjD/EtZw/9gi94WtDn91yrtX3GeHUj4ma42jS+/xgBSgArQZWRShBgSwMYANw+ZeN+8BR
-	 o7dHTpRmgF8OvdFpkYxSKMa5vZuDsoc44NCs1xKKvQ3yCR6mVffGq+YBg08f3fAJL5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795172429;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=LIOr8EpDe3/dYmsJbUDbEQoYb1h/0cU5uZHFxnrpj+U=;
+	b=Co3kNyJNt5GOWznxVVZERMyk7glq5G6pF/ncG0uzgw2k15NhJqSEaA6vBnsK9huAnVTa
+	 sEi+o78Rg/Ozib7eCLe8odL7u4Xi9FNSQoECGeklIojHr2AMGB+tVUDWpT3w/7LLFC7KL
+	 ti6cNLATKyhT+fR7tEiG+Ngynn495/WVBCTnnTA0LVdxk2A0zodk0As4dZYb4CrS6YTIk
+	 /xspmmThhG9t+w4zaoTAQ0xA/rD1p+510BW2IuM23uGyW3KxtxhUMZAU2wAo/Tj64yjCw
+	 2whnNd18I1/wCfp011ns05kSyo2yFJfvcJQw69AGf3zbsoLNBPImdPd8uKsqjozjulQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k4ck+hVE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.43
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3F0606A337
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:56:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k4ck+hVE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F74B1F000C6;
-	Fri, 20 Nov 2026 10:56:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795172161;
-	bh=+7tbN9MuaCmBqXPur4Ml/M1YRKZhdD2ZO+fo0Nusx9o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k4ck+hVEF5tUM8rELbF7T8TDfHHU+pLsiZ1IX+JFXoGQUzDZJVAwY/O7nUX+4o8Oo
-	 M3cXwy/q61z4crYDe5FqH+WbDPId2z5Q2YFjxVtMACgz7PU0eOGjMCJhhYj4P2XVR6
-	 XYBDERK94EWFL4hvoWo3bI459xjx9eJ5KBxk/xl2wif7i0PrZleguN+ZwZ3mw1THJb
-	 czqLM7bdNyoLu0LsX+WhacbtWiNHrV/G11ni3SsMBcJWq3egu5b1UxV6/rqawV4et1
-	 CG9w6RNlur4ZKpf4XdDMkL88OLq9c/rfpFe5mCXEqsBraojubmSQLfpY+a1fmCR1gY
-	 8S9W1NJdrH1CQ==
-Message-ID: <sashiko-outbox-224974@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] arm64: dts: rockchip: Describe Sige5 Ethernet PHYs
- by their ID
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexey Charkov" <alchark@flipper.net>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261120-rk3576-phys-v1-2-6382cd14e3dc@flipper.net>
-References: <20261120-rk3576-phys-v1-0-6382cd14e3dc@flipper.net>
- <20261120-rk3576-phys-v1-2-6382cd14e3dc@flipper.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 10:56:00 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AD7606A326
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:00:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85AD7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-99e1408dc59so369892241.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:00:29 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795172428; x=1795777228;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LIOr8EpDe3/dYmsJbUDbEQoYb1h/0cU5uZHFxnrpj+U=;
+        b=sSSNMdsnpPmpINwkQuN79RN58GjQieu5UnU2AGFY0Q6lf+oNJz4rcpf2+pFZeJulBl
+         PIU036HR9qwXV6LnYNj09J4NeAOVeewdxKrTVt/Cvuw31dHh6l07tNky2pRIrK9sc2Hf
+         pT4xtqcs26rpD3STW+6GPILXzalI8fgC/Mgx20NBiRKCSEJh4TuUm5B76sdx7f5ZNLAf
+         Pits79e4LfeeoG0GZ/k/zV661PKX31l8nxoUDrlEdo3xTm8vDvccY+QOGfQuQTbk1cZ2
+         Ne4CM+v3MTALz1QomckkgqpdPi2AWNKFCe3w11/Rb4XgeuPuqHe+fthMn+z5rQ5afald
+         UXYQ==
+X-Forwarded-Encrypted: i=1; AL+hErHqR1QI9bSmCA7qQtIagLx2knpG91nVW1Ai/Mdi5eWTJm24/p9wurccnc/I0KCqLVszp4PDr6nKAQit@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZUCU8b+tCRiAOX+74pWpMCC8wKwCBXjBu3Jzf6+sVV3BKIfme
+	b8aTN9UZYwDndzLQPpmShBzmjxXkj7nSWqON8nntRbDW1w+kpbpetstRtBKitJcq
+X-Gm-Gg: AZFdTZd066sBqi/XsgEPUEse8TUDDUu3I99fXpu3ixevcicZ6QRm0YmxihO5HA/wo4I
+	wfxLusYbyNx0iG1Y8D5qvXViPbA43GXNpFVf8DR4xepqGopMTKzUuBXXrxsO129Ufg73YrWXGU3
+	0a52kgoxmpVl7aeE1o5+j4MiuBBwQPQmRtrJM95VFdhngHrRxP7kIgdg/ObBGDuW4BT87EvT11N
+	hbaQA/iCQ9TNCOhv+qKTz8cEuOpAxkGcZc3sXNvi/oHk+l3dOosvieYGZzqsN3mBiK1CEnYSySW
+	Vf5oMA2m1aF5i73XxNRK5WBa9BAo6DfSwo0i1Yk8rpOHGRXmQkpebaCswfviJ6vriWA4r3FyJ0n
+	WeUVegnxVZsILCIChsz7AjlTiA37qRKTnPb1o5f/UAeBremLM263tlMyginLovjTQ5VX1H4qd1K
+	TgWSXDpaTisQjrCTTYZBDFe6KxgXjqMCka95TbcYDUcbhfD/d0jue+RvFidXPESzngguNpm2HX3
+	9dkxIts1JW6Rd6xhMTPrUJhf7Su8snBRLGWPiuv0nbDwWI7tU46W3G8Mp1l29w1Sa/mV2imK8ee
+	R/4IPwkmQ+AEqyf0P8daIH0/1FXK24Qu8pLeHA9GDdNEGgrvbYdfRBAYUT4KxosuTqca4U1uhyj
+	nqSl0xYIxJChq
+X-Received: by 2002:a05:6102:3593:b0:7d2:cf82:1a5f with SMTP id ada2fe7eead31-7d7395d2150mr946477137.24.1795172428272;
+        Fri, 20 Nov 2026 03:00:28 -0800 (PST)
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6dd9fe41sm2798650241.0.2026.11.20.03.00.27
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 03:00:28 -0800 (PST)
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7d2eba2b74aso422568137.2
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:00:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGeau68ke8sYwUwnWx1MlrNXZ/13qj9PoAyOybcbJztitqgieQ6Icn4K3QUQnWIDhPMJR1djhnpBC7i@vger.kernel.org
+X-Received: by 2002:a05:6102:6047:b0:7a1:f7d2:e82a with SMTP id
+ ada2fe7eead31-7d7396a6eb9mr826644137.35.1795172426626; Fri, 20 Nov 2026
+ 03:00:26 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,48 +80,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261116-canfd_rzg3l-v2-0-89e06c46f40b@bp.renesas.com> <20261116-canfd_rzg3l-v2-1-89e06c46f40b@bp.renesas.com>
+In-Reply-To: <20261116-canfd_rzg3l-v2-1-89e06c46f40b@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 20 Nov 2026 12:00:15 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWBB=tMDtssy-8r4=v_u=Pid51gFC1LOgzP3vbJQg5HHQ@mail.gmail.com>
+X-Gm-Features: Aa3M54ok0nFqWrmNFE92MZcAAo9DF0uGdtmbDc1Y1AOqliGu_4a_ac6uIR0TZqI
+Message-ID: <CAMuHMdWBB=tMDtssy-8r4=v_u=Pid51gFC1LOgzP3vbJQg5HHQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arm64: dts: renesas: r9a08g046: Add CANFD node
+To: Biju Das <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: rockchip: Fixes tag cites board addition instead of
-  63136c6fecf4
---
-
-commit 5dc14b4c5e3f94d0bf427bf2ff5dad981d4f435e
-Author: Alexey Charkov <alchark@flipper.net>
-
-> arm64: dts: rockchip: Describe Sige5 Ethernet PHYs by their ID
+On Mon, 16 Nov 2026 at 16:33, Biju Das <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >
-> Both Sige5 GMACs connect to an RTL8211F PHY (ID 0x001cc916) with its
-> reset line in the PHY node. With only the generic C22 compatible, an OS
-> has to read the PHY ID registers before it can bind a driver, and only
-> that driver releases the reset line. Unless an earlier boot stage has
-> already released it, the PHY stays in reset, never answers on MDIO, and
-> neither Ethernet port comes up. Booting straight from U-Boot SPL in
-> Falcon mode hits exactly that.
+> Replace the CANFD placeholder with the full node description:
+> interrupts, clocks (fck, ram_clk, can_clk), resets, power-domain,
+> and three disabled channel sub-nodes.
 >
-> Name the PHY by its ID, so it binds without the ID read and comes out of
-> reset as it does. Name the node ethernet-phy@1 as well, as the Realtek
-> PHY binding the ID compatible selects requires.
->
-> Fixes: 40f742b07ab2 ("arm64: dts: rockchip: Add rk3576-armsom-sige5 board=
-")
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v1->v2:
+>  * Dropped fallback compatible based on bindings.
+>  * Retained the tag as the change is trivial.
 
-[Severity: Low]
-In 40f742b07ab2 ("arm64: dts: rockchip: Add rk3576-armsom-sige5 board"),
-the PHY reset lines were described via snps,reset-gpio on the gmac0 and
-gmac1 nodes, which stmmac_mdio_reset() deasserts before probing the MDIO
-bus for PHY IDs.  Commit 63136c6fecf4 ("arm64: dts: rockchip: Use standard
-PHY reset properties for RK3576 ArmSoM Sige5") moved those reset lines into
-reset-gpios on rgmii_phy0 and rgmii_phy1 while keeping the generic C22
-compatible.
+Thanks, will queue in renesas-devel for v7.5.
 
-Should the Fixes tag instead be:
+Gr{oetje,eeting}s,
 
-  Fixes: 63136c6fecf4 ("arm64: dts: rockchip: Use standard PHY reset proper=
-ties for RK3576 ArmSoM Sige5")
+                        Geert
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-rk3576-phy=
-s-v1-0-6382cd14e3dc@flipper.net?part=3D2
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
