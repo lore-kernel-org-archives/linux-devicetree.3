@@ -1,81 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795166637;
-	b=5VRafzUJx+O8X2z40lndqPTUq3P2oA0Cdj7SpUwGzF9qNi/Y2FU7EyQXxNi0Gnz7GxXO
-	 3hmjrsqlmrzhO9H4+wF+rvsF0BtH9fSWAw9JQvZnnLJGCV+XHruiHHE//NZzOisIGncPA
-	 7r/K5WeoMCji7zpFnIzWSDa0EIRn4dotbmjsq8se/ebBoBBE+X0sSLRDlXHpCnNTllss5
-	 x4teDskFYKhhInzES372RnRy0RmKQloG7UB4rhaG4jZ+A0OQilCVLla8fFQ7GD98b+PYz
-	 j68uZ+0Si6wLzIxyoaLOJMudemO6m4B1BjHK18KzDPymCDZt3L0OXcNX7ZD38VF3FJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795166637;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=QNoXpzyD5GfQ4mvGWevbENhC22Gs5cnrlABz42Of+y4=;
-	b=gwGM3Ejs072UqHxNdD4c07HAp/SsBgBq3JW3UhGZsxvTV5N/tkJObaiy7RpH2CXhKmfV
-	 1nqeS0h1S8eBhKWAWXVuGvhrnlRvFlYQFR1G8xoU7XB364BJopgzkrZQSb6d0EahNpY53
-	 w4rIuVrgnTI0BalT8R/yhxZznAvLwPRhr93gcT73NDUNpjtIdnAatWtER1HFKJ1vsgcyX
-	 hdRXF0eR2ywYG68/uXtGbN9LydV03SZdKl32ZnP6GKlgONeTHuMYD2azHL2Z1LHmUVp6P
-	 Zq1xMhn900uTUOTw9FKAna/IWaVtdUNVouJ+9XY2YhJDV6dq/6STZMBm2DtdXwdGJZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QrmqOGTI;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795166653;
+	b=cbJX7Z3kvrj6ve2w8yiGOQjRKanOz6tb/LCUeDQQ9Y3pc6FDJUy0GmXklBUfZaGpgD0V
+	 A5DMTMyGvR9frHxznrF7LreRnqnMvXP5JkHbzRS0Vy269WjrwX6q6l7dUoLItE1Al0JPH
+	 HObuIAqmE01ywidOzTpsEZJOBwGxVT+GZz3V9R1D2NTf3zmk1Ey3XsrMiOZpDgewdLXQA
+	 oc3PI0+IXkVwbldyCeLRGHXl/7ECRQw+x+p71Uuky+NKecK8Tt5ftD1BVHXtfSCcgOr1P
+	 ztfEkUBDJOwBRWAMCUBrD4AgBtwWkA702UYryhXnh7AGtywZO+fECDKB88ACmRD8CmQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795166653;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3DxZX7LHp+eAIgwhnyJoW9tDhuqcgyRIyYJ5BT0tq0s=;
+	b=W7PyHYSb4JI2m3bESYov4TzoW+c2J3xdskSqTwYrThM7bTH7fACuBK9lS2bGbbVFBPZU
+	 fUncSIvK2b5We/30S23KUWbi2SdnfN02Dett9GpYv1LPqLADgkm/PZP+WNeiqewS+Xr5H
+	 lRmEmtLPvAt2sO5iwzPo9TdUeOyq+UJ1xhRKYxhmoOID7m8BvHoKeKPf0uJquwqNGYJNQ
+	 7VezVSKhMicz2+MlLgLpA3IH8Beo9/utWungtvxWkyFpRjzRbdKCKGcaSnG5IX2hb+JSc
+	 K7P9dQhB/HHQuOpUEzdK7NxiQTD67zdioYcoOAdxqgtd7Nbc9oE/XxhDFLGrb22cRUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EwX+E4Wp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850CD606A325;
+	Fri, 20 Nov 2026 09:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EwX+E4Wp
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795166653;
+	b=kjt4HCeBTrzkYqFd3VvGGDSJnRDKkUx2qNAdBIl0GSqWeOq3J6RHQ5li6NhrscBeJse+
+	 AU16avVJzT2HGFBWOIFWQAabUK80qyj35U4yvUoojokoQJIKThaTLsFmR46SGjg6IbGjm
+	 Psh2BdDtuP/w0W0CjfkBKW8fuFQoiEB+IYvM7L3qctyD0HLXghJ06q+i8461M0lccWpJY
+	 xyLJ4Zc8dRvYAaV8IAsjpT/dqE+vzxgx6oTNXjjadGk4j9JxPRAhKfwjfQXSuCWYk3uCg
+	 ykn9CkDTmfYzLCZn824DxtDanVqrnptKTW3EuqpRMZ2XTrWSsRre71SbsqnYYrAQXDg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795166653;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=3DxZX7LHp+eAIgwhnyJoW9tDhuqcgyRIyYJ5BT0tq0s=;
+	b=KfHcoffT28ALat/OqEfr63qWmA63BH8KPtwrNzrMifQUQUF/ymspW2aQp5HHYqiNX9qJ
+	 DtFFmxKFNHBXRXzFXeHAFjECoO/tirRqFNZYL19XbcrkZDN307XKow/QD5aSvhLk2hn5b
+	 cCl60g0wO496XYB5xwUqrAzA3dz5iNRc6dJJK3VkOdxj+GBFl626sMDf2kQzny8FYY0jr
+	 t2N4Tulos/x1rl8u+mQWee9bMiHcgnnw6VR3v8/qEo+heJK+dcOGjzOaJYS1FlcuFcUqD
+	 O+jjXxVpxzCRo4EMxXCl9sOZXhnc3TsCtj6i9Gd5m04t9X/crYRAmKW2lFry1N7B3SQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80890606A326
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:23:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80890606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QrmqOGTI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=QNoX
-	pzyD5GfQ4mvGWevbENhC22Gs5cnrlABz42Of+y4=; b=QrmqOGTIfAqiPELyZZpY
-	H2Kcdwte9CEk12MCDXVWPksWdHLf/lUhVVF+MOfnCKM5dzjYrSPTbIBHK0Mc1/9f
-	8A5jNnP+nqQKhe++5Oy+0HnEthn82sC8e+cwnECwgAIZm2+R67skmzONT+uFTC17
-	p/NamNabOojfzCtGcQGx7e/+w1i71etCj+ZGUHI5CuNsV9QMzbGq//CKc80yd9Sp
-	NpqCt3j4xIim+FT3heguhezihGpUsusYJWWTZ6L8qjtvU9XkrJQ69BZnPQ5XWXJ6
-	GO1G2in/gDnOFN42flT0Fn3QSdMeSmYQI4L95L3tvkPe5PfrwnAk3K4R1QjLOYgK
-	Hg==
-Received: (qmail 1414173 invoked from network); 20 Nov 2026 10:23:44 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 20 Nov 2026 10:23:44 +0100
-X-UD-Smtp-Session: l3s3148p1@gGr5zLFgvs4ujnuU
-Date: Fri, 20 Nov 2026 10:23:42 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: khendry@reliablecontrols.com
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	=?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: clock: r9a06g032-sysctrl: Document
- reset cells
-Message-ID: <awARmkCuelD_fdX6@shikoro>
-References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
- <20261119-rzn1-miic-resets-v1-1-feee2bb28bb4@reliablecontrols.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 6448F1F000CF;
+	Fri, 20 Nov 2026 09:24:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795166653;
+	bh=3DxZX7LHp+eAIgwhnyJoW9tDhuqcgyRIyYJ5BT0tq0s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EwX+E4WpEc+LIIulUaGkagq5vTtdO/HV5hbtSsjS+45IJpW4/D0MSEo/bBvVQLl1s
+	 24kT2coUld+CaFCr3w4eD+CFi0VEb+zWakNU2BUU9uyOa37GYzevtQnhs6nPT+fw3Z
+	 UTzl3FDpjFt9s6Yw1qvcyOgzyz6bNd/0Eijt4GH77x5gsmhansBMdnHNjZLH9xsFNh
+	 XRV//EJDAtzOMiCpqi56j5KcBNkH4rv2SR7yumqkust68smMvJpDIzxxFbp3Rgf/iF
+	 6ObLEh9+PRgeH5Q6OrYvJlz/a/VjpzRhC7uX5y7huVthk2W6i+xoEwE/VtaWQ1jOp1
+	 8BNRYUkyV5+ZA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E6C0B497BF;
+	Fri, 20 Nov 2026 09:24:11 +0000 (UTC)
+From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Date: Fri, 20 Nov 2026 09:24:03 +0000
+Subject: [PATCH v3 1/2] dt-bindings: bus: Add Altera AXI Timeout Bridge
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,65 +82,138 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JO3GButChuWibljo"
-Content-Disposition: inline
-In-Reply-To: <20261119-rzn1-miic-resets-v1-1-feee2bb28bb4@reliablecontrols.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261120-feature-timeout-ip-v3-1-affcc644af5e@bruker.com>
+References: <20261120-feature-timeout-ip-v3-0-affcc644af5e@bruker.com>
+In-Reply-To: <20261120-feature-timeout-ip-v3-0-affcc644af5e@bruker.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vyacheslav Yurkov <uvv.mail@gmail.com>, 
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795166651; l=3208;
+ i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
+ bh=uhd2t8C5h5AY+wMQBzIl+6v3Z7b04RiF63mPUhbJcJo=;
+ b=xJnzDNnk1VTeQ3OJnthe1Cb9wFW6cRPlon1ywnJ9V4kDLaF+7zIPKJmqPG+ufueblAvalFjWO
+ T0iVXHvQPbJBs4LlokKnX1pY4U8o2K/ia+IC38ALwaLgF2njqHnJNVZ
+X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
+ pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
+X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
+ auth_id=686
+X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Reply-To: V.Yurkov.EXT@bruker.com
+Content-Transfer-Encoding: 7bit
 
---JO3GButChuWibljo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-Hi Kyle,
+The Altera AXI Timeout Bridge is an FPGA IP core placed between an AXI
+host, such as the HPS-to-FPGA bridge, and peripherals implemented in
+the FPGA fabric. It forwards transactions unchanged and monitors each
+one for completion. If a peripheral does not respond in time, the
+bridge terminates the transaction with an error response so that the
+host does not hang, raises an interrupt, and reports the address of
+the timed-out transaction in its control and status registers.
 
-thank you for this series!
+Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+---
+ .../bindings/bus/altr,axi-timeout-bridge-1.0.yaml  | 86 ++++++++++++++++++++++
+ 1 file changed, 86 insertions(+)
 
-> =20
-> +  '#reset-cells':
-> +    const: 1
-> +
+diff --git a/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.yaml b/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.yaml
+new file mode 100644
+index 000000000000..2cf1ab537595
+--- /dev/null
++++ b/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.yaml
+@@ -0,0 +1,86 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/bus/altr,axi-timeout-bridge-1.0.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Altera AXI Timeout Bridge
++
++maintainers:
++  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
++
++description: |
++  The Altera AXI Timeout Bridge is an FPGA soft IP placed between an AXI
++  host, such as the HPS-to-FPGA bridge, and the downstream peripherals
++  implemented in the FPGA fabric. It forwards transactions unchanged and
++  monitors each one for completion.
++
++  If a downstream peripheral does not respond within a configured number
++  of clock cycles, the bridge terminates the outstanding transaction with
++  an error response so that the host does not hang,
++  and raises an interrupt.
++
++properties:
++  compatible:
++    const: altr,axi-timeout-bridge-1.0
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  ranges:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++patternProperties:
++  "^[a-zA-Z][a-zA-Z0-9,+._-]*@[0-9a-f]+$":
++    type: object
++    description: |
++      Device connected to the timeout bridge.
++
++    required:
++      - compatible
++      - reg
++
++    additionalProperties: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - ranges
++  - "#address-cells"
++  - "#size-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    bus@10000 {
++        compatible = "altr,axi-timeout-bridge-1.0";
++        #address-cells = <1>;
++        #size-cells = <1>;
++        reg = <0x10000 0x10>;
++        interrupts = <0 12 IRQ_TYPE_LEVEL_HIGH>;
++        ranges = <0x0 0x10010 0x1000>;
++
++        gpio@100 {
++            compatible = "altr,pio-1.0";
++            reg = <0x100 0x10>;
++            interrupts = <GIC_SPI 13 IRQ_TYPE_EDGE_RISING>;
++            interrupt-controller;
++            #interrupt-cells = <2>;
++            gpio-controller;
++            #gpio-cells = <2>;
++        };
++    };
 
-Maybe add the new property to the example below, too?
-
-> diff --git a/include/dt-bindings/clock/r9a06g032-sysctrl.h b/include/dt-b=
-indings/clock/r9a06g032-sysctrl.h
-> index d9d7b8b4f426..e3059c50f7c3 100644
-> --- a/include/dt-bindings/clock/r9a06g032-sysctrl.h
-> +++ b/include/dt-bindings/clock/r9a06g032-sysctrl.h
-> @@ -146,4 +146,7 @@
->  #define R9A06G032_CLK_UART6		152
->  #define R9A06G032_CLK_UART7		153
-> =20
-> +#define R9A06G032_RST_TS		1
-> +#define R9A06G032_RST_MIIC		2
-
-I didn't find any listing of the resets in the RZN1 docs, so coming up
-with arbitrary numbers as we need them seems okay to me.
-
-Happy hacking,
-
-   Wolfram
+-- 
+2.34.1
 
 
---JO3GButChuWibljo
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsAEZoACgkQFA3kzBSg
-KbbT6hAAn7FkeKpyHdjW+ucRCZDLfEffjGdzUx47GhoXUpf8gXGmshhk3zweElwa
-PAT6JfSU/apMDxuEB9pmib8LF7sgVJ+2uSC8blv//wUxSZav8u6HGQ27Kpdn/Cca
-wCYaCufM+YoYhCJhXIFkk+siScNuaq5aSwL2sq03+QjpJzq0YxoyCHYbTKJ+eDZi
-hSz8yfTDsaP5HhzP63LvxWJEaXDm7w8MPE/RlWgSSJg24D0tJad4Iq6yA/nd23cu
-iMnoRZNmfL8xjQFanq9wMqhx2P3JsWOmF9ZymshrAFT46SprmcGvbLPoFKGfuUhc
-4ukJxM4dMFAKtO16mVvCsJu9SA7mSAL6tE9dVbi430XTtUAHWiQ4ZJnwZaQ3gTER
-ZTN6iuNQs5BnAgKncHLjh/YDjuD8gOWjiGQy4quM7IubO3ro5QZ5QJ1FGaeJQpgB
-aMvxQvpG/50YWOPbM4Wy0XT08K/yX/BA0E6dY3jwl4PsblqkftwgsVEGkwYAoUEK
-ay2I+A33iwW5RvJYEFwCJjQhMK26AyNIYl68o68BhWluD5jRXm92WoFV4oMZYi7Z
-olUoeFWC/y/TycDoEH3DQ4TDuy9lCzhFtiPrIICRWF/iCh6VRdr70bxuMYYg+G8I
-9siFEQEcTeKdtcQ8C3WRri4FPbjB9dBFmgpC1/0NhZiDcolZ4jw=
-=Hyt+
------END PGP SIGNATURE-----
-
---JO3GButChuWibljo--
