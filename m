@@ -1,54 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795185476;
-	b=vfDdzkqm+eA/E0v3RaUWj3HIMVRmhPOpLg9SjC7aQSg+R/lJnVn/guJjhKFxb0/0J72w
-	 3Ejqj45KK2efnaiAEGqJekiG5Sc1Fb9DgtKFQYQaxWDvVsFQbdoWtfvBhlMW29Yaazk39
-	 g9bEXaTizQv4cTsSirOar03hYCXNAjCur8QSQwbEUx593/swLm5TYw7glU5LuLxin25sz
-	 ziSj7CF6/e6x9dU9ZSwb1oEQfLCBnBkfPlzMoq/OL/c8uK3XOIHa8Ox/+Bl3cBuYyXFZc
-	 rLk0A9n/Br51N3PWcBa8v9+3SoNNtaqJqinUVloK0AugI85AEpBgU2XTNRruw/BLrwQ==
+	t=1795185532;
+	b=VVFpQXjjCyIic/yf+p47kZBVp3B5xBNyJH6mf1G6Luob9NM/N6ahPk5bOiWOzEs41G2M
+	 OdcikSx3sdBdz9BwkmKp8SFfOv0FHBETckrSEfQABIbNAxuZGFBE91e5J7fRwh9xN5dsJ
+	 O87DiWkXZT9AJhHdpkCBQpSnCFLCQpGa1sKJH/RMwlbTSUyA9UaIOzCr1UNj589ZwKhSG
+	 wc+YcsUQoU8+oFPDul1jM4bE7HvjNczNE6bg/dK7ljG0EUcTw1Xi6u1oRFOzbKJ5VnTJw
+	 FWf0RPTWk1ASTkdRC4fPy08bjDVHICP89itkbJ0LnxkCjcmsueZhqXn0pcRiG5KNA6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795185476;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795185532;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=G3Dx1Rl8sCVhKobWtk/mYO5a3CKsB1ub+4mYD8rlpqA=;
-	b=jHEJErtianIO0r+uC8A0N81W6ELaeJGZTGi2NziGuCfF1HukpnnG+uuJWeWBZ5DwuC8P
-	 ZGG4LbcEIeavuxZFG2L0t49vQaKuPUzFE0Zg275kC3Jkd5ZZWJLRHyjaA/kPzjSAvWKcX
-	 3ep5I+iA40Ovi6nyClRgQBnGi8sud3e9VseA/qR1PTORS3wk+z+quD53kDseE1l0gArNs
-	 DsQlff6Nh2MNDJUqAJ7pknupXoG1/2lpgaL7781DFHWpDjHCuihGwP6Hf5hdYXrdU5FzC
-	 hIn8X9RxczpgXDByxm3pbNsjl1BtRXimOX4XF4Dt/U8pIOUsCGpn+OjrQcp5PUFA5xQ==
+	bh=Mg4tO9uvKi9Gwzh0PfSMjaKb+RogQEZ6WjO+Jsmx8hk=;
+	b=BIUcM3J9WbDgI+xIWB+aiQU8/wcpY6F/uDLOYG4al5TTq1QSIHyiJFZVVhzdHn+6pJgR
+	 UgeznJLUr5H3/bqSVXdQD0eD9hZ24u2HdutfbgLgN6bXlkDlSaNotFv6WdaNIGki+ZcKy
+	 GxGj77a/EMASHs5vzaAZB9q6Y+pCHmCxv7/aTreIUUfMewc10hn4KNTtZVe8hGA/bcKk8
+	 AQC3lH2pzdUIVhryTbywyEzIHRfnMxHyO/TjgYFwnOS51UHdwQog6mBFktcB7kW1gFW7D
+	 NEFsEqhkfgNKfuubrtGHNxFOo7bjw3dFh7t4pVlWM5UpJ0IcCaXjI8IiXrw1d9ewCXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gwalE1n6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FTdQFNtp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C098606A325;
-	Fri, 20 Nov 2026 14:37:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51328606A331;
+	Fri, 20 Nov 2026 14:38:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gwalE1n6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0291F000D1;
-	Fri, 20 Nov 2026 14:37:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795185476;
-	bh=G3Dx1Rl8sCVhKobWtk/mYO5a3CKsB1ub+4mYD8rlpqA=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FTdQFNtp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD1B1F000D3;
+	Fri, 20 Nov 2026 14:38:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795185531;
+	bh=Mg4tO9uvKi9Gwzh0PfSMjaKb+RogQEZ6WjO+Jsmx8hk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gwalE1n6xg8+aCz8tzdSBMFT4OzhyXzaXSdy+DLoS1DsZAikhr7lisJBMxV539KUQ
-	 MqnNESWJyCDJbAv8ljr1HKFYRmGmc2yP3vANzHQ0+LdXeTEwOFxgXjv/xvU9lRBrwQ
-	 t5QM+eIdfkQQNnula0BGl2GryflsnzCOKQe5pE9U=
-Date: Fri, 20 Nov 2026 15:37:53 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: joseph@telaak.dev
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Minas Harutyunyan <hminas@synopsys.com>,
-	Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] usb: dwc2: Add Siflower SF19A2890 support
-Message-ID: <2026112039-library-rise-d0b7@gregkh>
-References: <20261111-sf19a2890-dwc2-v2-0-cba9dd4a4256@telaak.dev>
- <20261111-sf19a2890-dwc2-v2-2-cba9dd4a4256@telaak.dev>
+	b=FTdQFNtpVu6zGOw4c+pl81NSiYbcDLna7/0xJ3TQeCLtJSY7Sfd1AIMDKt1tSVCXH
+	 Y774gVMNcmIJgWek0APsIQqYa82ejrv7ac+ns2VQdN8+8rNvFJOO2uyAWGCKLoy5Fh
+	 AiU+apX/F0EJci0LrF1vI6sQCHh54s6nHnqiTEIoaqMpyNMLAElGT1cHWYS5NOcylr
+	 JcNijs5dg6nsjqCUT5W864+FtUMxprZMA1SoaDVCNWJZ8mEBDMtricr36oZY2kbioJ
+	 pQhyhuTkiFzOegZSmVRZaqSoZrND9fFnHGfIM+AFvGpB2QnRXuOxRQC2bAIhlEo09H
+	 0D41ONaNOO7Cg==
+Date: Fri, 20 Nov 2026 15:38:46 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yannic Moog <y.moog@phytec.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Benjamin Hahn <b.hahn@phytec.de>, 
+	Christian Hemp <C.Hemp@phytec.de>, Jan Remmet <j.remmet@phytec.de>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	upstream@lists.phytec.de
+Subject: Re: [PATCH 1/5] dt-bindings: fsl: add phyFLEX-Libra i.MX 8M Plus FPSC
+Message-ID: <20261120-successful-amiable-porcupine-cef7ae@quoll>
+References: <20261116-imx8mp-phyflex-v1-0-4adcf8b4d373@phytec.de>
+ <20261116-imx8mp-phyflex-v1-1-4adcf8b4d373@phytec.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,24 +63,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261111-sf19a2890-dwc2-v2-2-cba9dd4a4256@telaak.dev>
+In-Reply-To: <20261116-imx8mp-phyflex-v1-1-4adcf8b4d373@phytec.de>
 
-On Wed, Nov 11, 2026 at 03:26:02AM -0500, Joseph Telaak via B4 Relay wrote:
-> From: Chuanhong Guo <gch981213@gmail.com>
+On Mon, Nov 16, 2026 at 11:54:40AM +0100, Yannic Moog wrote:
+> Add bindings for phyFLEX-i.MX 8M Plus System-on-Module [1] along with a
+> carrier board (Libra) that join to an SBC.
 > 
-> The Siflower SF19A2890 has a DWC OTG 3.30a controller. Limit its
-> transfers to 65535 bytes and its AHB bursts to INCR4, the settings the
-> OpenWrt port has run it with.
+> [1] https://www.phytec.eu/en/produkte/system-on-modules/phyflex-imx-8m-plus-fpsc/
 > 
-> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-> [Joseph Telaak:
->   - take it from OpenWrt's siflower target and rebase on v7.4-rc1
->   - commit message and subject]
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> Signed-off-by: Yannic Moog <y.moog@phytec.de>
 > ---
->  drivers/usb/dwc2/params.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+> index 656f2596e1d53..2d21a1949d949 100644
+> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
+> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+> @@ -1225,12 +1225,18 @@ properties:
+>            - const: kontron,imx8mp-osm-s               # Kontron i.MX8MP OSM-S SoM
+>            - const: fsl,imx8mp
+>  
+> -      - description: PHYTEC phyCORE-i.MX8MP FPSC based boards
+> -        items:
+> -          - enum:
+> -              - phytec,imx8mp-libra-rdk-fpsc  # i.MX 8M Plus Libra RDK
+> -          - const: phytec,imx8mp-phycore-fpsc # phyCORE-i.MX 8M Plus FPSC
+> -          - const: fsl,imx8mp
+> +      - description: PHYTEC i.MX8MP FPSC based boards
+> +        oneOf:
+> +          - items:
+> +            - enum:
+> +                - phytec,imx8mp-libra-rdk-fpsc  # i.MX 8M Plus Libra RDK
+> +            - const: phytec,imx8mp-phycore-fpsc # phyCORE-i.MX 8M Plus FPSC
+> +            - const: fsl,imx8mp
 
-When you don't cc: the dwc2 maintainer, you'll not get a review...
+Except lack of testing, don't nest oneOf.
+
+Best regards,
+Krzysztof
+
