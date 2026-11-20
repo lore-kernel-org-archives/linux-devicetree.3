@@ -1,47 +1,157 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795165067;
-	b=x47ePQagKADR5CjbhXdsnKH5h5ADifD+9Dv1xb3s9neGpPzJCZ5hWVQTqIbCS6q4P/p0
-	 dqr7EZtqdQPdkGreObgK7lQ+wpUbd2DT8C3jJDVoqDNM4kKWD7zC6tdsJKytHyhKpCCBc
-	 MSQLqnIynsYxhlka9/d+PHCq8fEwGo94k/cA2cdTIFARcKIT+rrIJxzQ7fey8z1QYQOeR
-	 Wuk0Lro5X+aWYHanZsReqcdDZeIUww/TH7gonkBUibHMdeVuNN5s+4yNSJCuKAY5+6shW
-	 xQQnrWmnagopEGCAfr2GBvXdKb/R+KGbd5p8/09dyvH9Ex6L1YcA45I92kTCjZ24gMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795165067;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ROrkcw6iI7lN1BhbIvQj3p/zywAkYZt/3iMrqg1UUQ4=;
-	b=r7tqsvQh5HX4O14n1mLasWsSH90ULfsTLlnTaka1Xn92bIM+VkgzUHLlDW0aqffLH+yO
-	 oRw751i/aTrosrGiI8U/kqB3X+JEVbuv6E62ccoNnmR4Gpk91yUyIpbxoVsfoCoieVp0h
-	 QmF04XUH7DJP5/MUGP6OSRHmptYDZhPkWjvysXloWmGtYcPtA25Yva11rrlPdIZ0IlvYl
-	 4l4Ghwu4KIyn4GYWpjgb+3VYEsL+BmnltClIjI/9z2DlNdbw6Ij2WptFNnUt0SdaFda4S
-	 1+tMWZZLQgrY0gKvdckgPuKRqpP6n2EpMIJ+m4Gj+qk63NQ/ubRUxwbFxTkhvZ9HLdg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LkJGcO1S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.43.85
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795165090;
+	b=rrOmSwCE+io/KY5XP2epfRuOaJjkmfITP0mqbTUierPUtar24GSxuDGlSlng2FjehcOo
+	 pTI3HA4zPN5Na5VQYAemqQHNXaNQhNjOEj0ViaD37eLKBszFAliirhNt0xqILNEnPBF4w
+	 qrZ1RWdsnCNLPQoIXrZNiLPBdL3zzLrXt7YriYlE4Qmb3nIg/JcavQCMFAaQNUw8qLLaD
+	 xnG/jI4kySGVFLZZZSTITiaBGR8+nXqfuiicxolXwCgGtXbo3/kzKI/ppKzPMEoy3FtpV
+	 sbl44JzuxP5F+/rdsdtmMSqL02cCXWUglh11YTlYGp+2KP//lOGnnbLdBQnhtF/GQtg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795165090;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=54gzJ0f1Iu4WoekbXINpvny2QXOKLI+uMBBubYVfK/s=;
+	b=aHY+bHe8b1NIM3mwVVDR6aZDwDRDrEBNyFV+n9/oRwyIlNgpWivUxyJ/voRm26k6I4Ev
+	 ZICMo9rnt/73DBsD8tOZGoOVwXeN4hFEKJG5JLg9nPlPw/vYQvGz7mblngMSEvA6G7/2G
+	 s+w4sXAq40KuGIT8GBGDAL4wcrchR3/RUm1YO3NUyGGYQDSac280PcVOvmw/WZ2S45fNY
+	 777lVI6SsU/Y83KVvx8QmexIHnsBVyeXkxnOai9M7BP5exPd0R0JQbaq2LJVkxU0S1GVD
+	 BdgH97670wRPhx8niqJKRGO9deRsKyPPU7ayR7LQVHC2ZI3p6RZFzIb1DprTxSu9E6w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chipsnmedia.com;
+	spf=fail smtp.mailfrom=chipsnmedia.com;
+	dkim=pass header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=cPOqurhc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.43.85
+Received: from SEVP216CU002.outbound.protection.outlook.com (mail-koreacentralazon11022085.outbound.protection.outlook.com [40.107.43.85])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C4A606A320;
-	Fri, 20 Nov 2026 08:57:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E10A606A320;
+	Fri, 20 Nov 2026 08:58:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E10A606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LkJGcO1S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C23F1F000CA;
-	Fri, 20 Nov 2026 08:57:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795165066;
-	bh=ROrkcw6iI7lN1BhbIvQj3p/zywAkYZt/3iMrqg1UUQ4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LkJGcO1SS2GRABX/uMwEuScOjYQWaLW2LE4ozIGKw/cVD/AyLho95ori2YXN/zhwU
-	 swUw1DdCzLIxEVg6APSkqPuSlabb4NgTvYF6pNs/NByVXfoRfqyNE/gf/77O2zM1Fa
-	 uBSXwx/4k57FbkPxcxubAiumj1aV0trI5qEb6RIj9qmVW2gTfHm1tRLiwxIKo08Ze5
-	 EFbst+9laQOpXfReoo+GdPcggumUQOl690cOh39tcMHoEI7D14yRY652hMnGlJ08PA
-	 sJ0eV3nJ31gZf6szab9HDyekSzDgOfiKLk45GTkFPGFIBuY7AAwK3nOjMK6y9coRM6
-	 JSEIPl87hI8+g==
-Message-ID: <b4c4f8a4-99f2-42c1-b844-3fa7ae19e16b@kernel.org>
-Date: Fri, 20 Nov 2026 09:57:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=cPOqurhc
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LEcMc8Eth2MHp6r625Q304fbVokCa5n56OJdU1EEGw9AOJNciWzMebwQiG5TPUfNtNErOzeNEjkcpdCQ6SLGnaL6zNKQ3toug+p6CEIC7F2zeB4MutMihtzdPM697Qc+wXpNZGczwRnIh9AgcYeSiAKmtWpMfWUgsvh5RnaXiswGEJp81FH16VekLm+7c4ZbBtxuDGibkpKsGr/xc3aeiS5XlakvWzwxkCjqvPkibPl0gu/i3d+nOB95TdFtuCodT+LErEB7M/iVJhrWafQjCFPe4xbB2yicE3khSvtRSZBkM14/QGjhSeWjapUpgsRLEGluGJm+PNpnxa7XcuwLAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=54gzJ0f1Iu4WoekbXINpvny2QXOKLI+uMBBubYVfK/s=;
+ b=juBic4/Lqt4s3+hddY7dRp/UpFonN2rb+FBGoxwUZdQyobdDw6FAbg16KoMYARCM29MxE0wjSP+drLC+P34FGY5IHuTlqWOMZ42q9M247+QqrxNxMCZCEp2np6O3cI0tyDkCoBpx9Y4HCc/f7EVn8ShV0iwGMXrnppWbswPukSnWqBMu6dK2vXltN4MutXuE3Gn93fpwTu2wdPPxe6dc34BwLgmQ9/ZFkCL3RNeMVZpdwIx231lHJFL529Bh0N3suAsKp87rD/enr52e/lyyng0W6Fu1DbfhPDqE6s0d+ZnCRW+m0Lj17OA1xCDZm7E9kh7314a39Hook3Gj9Ay7+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
+ header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=54gzJ0f1Iu4WoekbXINpvny2QXOKLI+uMBBubYVfK/s=;
+ b=cPOqurhcErhHL4ZbitrGSOjBx7adUtgYsyU1dQT1N9trZdimvWI0Kv9eDI/STsSYloqjLVOXLB5K60HdfNq6p76VYYeILHm8QmCTO/1POXppdBXLFTLkrIyziHKy0lepWDrOe2lOFtPlzyIB53YvGdiorR03ZnT0f2G+f4ZH49ZWqNVVICAoUyJ3uyyL4c8kSqZb/qHA7P/rspf2UHjc4eGguoDcZ6nOzpvsF4m68FnF/DZXqUGz8T9DvehL+dmA75w2hWZjKIwDqLXnNxlzV0xHMkx9yb0FZwMP2z4pBN9r/1w6S4jkaDvYB+l+5WELFGw1pzc7ouBDCsUsYZFDYg==
+Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1b9::8)
+ by PUUP216MB3514.KORP216.PROD.OUTLOOK.COM (2603:1096:301:16b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
+ 2026 08:58:07 +0000
+Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+ ([fe80::f234:3bc6:9197:8232]) by SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+ ([fe80::f234:3bc6:9197:8232%6]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 08:58:07 +0000
+From: Nas Chung <nas.chung@chipsnmedia.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+CC: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@kernel.org"
+	<hverkuil@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "Frank.Li@nxp.com" <Frank.Li@nxp.com>,
+	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "festevam@gmail.com"
+	<festevam@gmail.com>, "kernel@pengutronix.de" <kernel@pengutronix.de>,
+	"nicolas.dufresne@collabora.com" <nicolas.dufresne@collabora.com>,
+	"ming.qian@oss.nxp.com" <ming.qian@oss.nxp.com>, "marek.vasut@mailbox.org"
+	<marek.vasut@mailbox.org>, "jackson.lee" <jackson.lee@chipsnmedia.com>,
+	"lafley.kim" <lafley.kim@chipsnmedia.com>
+Subject: RE: [PATCH v8 02/11] media: chips-media: wave6: Add Wave6 control
+ driver
+Thread-Topic: [PATCH v8 02/11] media: chips-media: wave6: Add Wave6 control
+ driver
+Thread-Index: AQHdeARozyfnwPkovUOydj9BJXEYp7c100uAgADWJ1A=
+Date: Fri, 20 Nov 2026 08:58:07 +0000
+Message-ID:
+ <SL2P216MB2441AAC89D661DE574918603FB782@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
+References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
+ <6b00047b748267a2ff4e18ccbfd573ea92166d34.1795075580.git.nas.chung@chipsnmedia.com>
+ <av9XG97eKQ1gZCFb@SMW015318>
+In-Reply-To: <av9XG97eKQ1gZCFb@SMW015318>
+Accept-Language: en-US, ko-KR
+Content-Language: ko-KR
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SL2P216MB2441:EE_|PUUP216MB3514:EE_
+x-ms-office365-filtering-correlation-id: a97609cf-aa2f-4a82-9457-08df46e4652a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|10067099003|38070700021|5023799004|4143699003|56012099006|261022105027099003|261022075727099003|261021135927099003|261102123227099003|261021123027099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ HMRPoZ83eBHGgLuRcKucja51kxULVkeLfbQYYOnxofiB47vKTiQZ3iYXqsgRVSUcP0PhrxbnjLX6WscpPxbxsBL07LOByN7fE2EQWIs6qHsKbbt+Stoh4U8Okv/aoeXaHDjS0fzGYZKbC8H5sUc2BYrBn8rZTgsBndRpxYTi9ewH0qNZjsVG9JgjG6Oz2CO1Wru/AK1/+xgWmeHro+242hyTPOjxSeTxsXlZeFbemwXeFDIpU3xlMluOEITwLq04x+mae7/f2MsPNW2IMkV5rqCb/xURNH+HBmidIhJ3+sNvn+GvoV9BNFXk7jTusW3+Sd345ee0iI0/f5FOLrvWX4ux2c4qZildiPUPPuauzHg7XHItKPPyuDX5dTrFRXPayrcYvEib6Gv+5fxGYbwaxnJkt8GatQdl6/XrPmmdZ3lxeVd7/qOFJkRnN3FtL0rEKqZ7DJo3RD66MtDgHnY0VNkbwhbx8q3PMpMUp0cvyts7bkQY3qMITqT9JSw+KreP7e/ypGKxFg5m7T8Pqns+2sXw01UoyYV9A+GhEoq3zorGo7Jve/n7VpS4HEH2a4Hjy0W9qS6KfjT2zCws1RiEB9xFj7H7YUrNiDoYP3s48aYiwLtVrgjUYkKKl+hljmJJnfg5lBUyxOu9uLhNbEzp4jkWFCGYJ3yw5jSx3KyPRrYwGxfAxr+ISSCNS/zvcRVR24Ekokumk3gExu6V3ZDdldxXrH9DdMEGS2jSWycA00E=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2441.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(38070700021)(5023799004)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261021135927099003)(261102123227099003)(261021123027099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?fpW7lhhbdCvIkYFE39b7FUFte+YXlfYPwjhkYP/ygYptVYeG99EYxkd02gby?=
+ =?us-ascii?Q?+6eFkj++mTHCluJ9aFsbvSyJjFjo3xyOxsP7ygtQVsbS0ifqiSgvBmlU5Wfz?=
+ =?us-ascii?Q?e8c2VGMwnCVmdYjxY/Z+frn9qS4Oz3DQDuIF8Vq2tspM3KoYr/uZ6gileKSD?=
+ =?us-ascii?Q?+qtqxIms5xiKnR2k4SR5a41xUue6xH/Rskhnas/X6xJ3k/q51bXxGkOTjuXn?=
+ =?us-ascii?Q?v78Etq/hLl9lDZCdOdUTc6bwQf1cHefSSWnNdXLvLNzmGC3WyURaCyS2xpDa?=
+ =?us-ascii?Q?FjHe0OG2KkONGtP3U0LsUn3rlfKC7QL3lY3w/bQDJp1U8QB53eNZmintK6FG?=
+ =?us-ascii?Q?w88o1lrayYsFhCg58+GGhbvZHC1plwIGt3tNfb3yIupgqV34MQv4G0PI5D/C?=
+ =?us-ascii?Q?TQmT+bZQ7l86IOxD2dtCYgmOalCcHEoZWLQspHLknlwno9l3OIg/hRX+tc/w?=
+ =?us-ascii?Q?BMK+OOuVk+yf2aQH2r47UjWy5bT6TG0aJlMBDtRpkXRvF84BgdRhodoFe0s0?=
+ =?us-ascii?Q?YKhRtI+j1qpil/DTQ2UHs/arghQsi1/co5NAH+9BLzQDUXCc28fzX2fJwdWu?=
+ =?us-ascii?Q?39nZlvSQqIKhQSyAhFSQpb0Kqqz4r7Aem1gWSiOuKNg+hqCDrTMf2sYPKiGf?=
+ =?us-ascii?Q?tKsWjrsTkHIo+ST/mWSXpH+OSoHGbRG1XMNEh8QX6Wo8yeK6EGpNdrCmBSpp?=
+ =?us-ascii?Q?IPRNOv9xLVFXVSZjciXgU57tm/Kg1jhHSRibdBSnetYl0jcK33stvPQKW9yk?=
+ =?us-ascii?Q?uoF6hOjSITFap+UxiI4Aa3dfipze56DGbIGtXNTIbgYs7HsK8Q3qZWqX1WU8?=
+ =?us-ascii?Q?YPwliDo8P+oV+02lG6cCpGo6zmmXg9uh07hOHFzLEUNEROiqLRojwhrhUkE7?=
+ =?us-ascii?Q?dTvQ+Vb5RVBjZ4HIcr/e3vzgIx1suZeIJyYcAtGuWtxgWfg+OQMTngYU9a66?=
+ =?us-ascii?Q?xj8q+P5icZjn3k+KDTuvWqSmGhJlcGv0weWE7xfCWFW2eyMgKuFhkRX2r894?=
+ =?us-ascii?Q?x7LK/oDkh+DJhZ/67riT6V8RzeMkJBkOICtBUk68iIyODEGSUKZOV6F7uZBF?=
+ =?us-ascii?Q?0X01/9VgtLJzML/zBUNmWy+8+qQgLhBBkzi2BvNURdQhWTpUB4UvRv8pdlyu?=
+ =?us-ascii?Q?AKGkoQJAW6brJsX589NxU+MOF3O6PthZuONW2VP6nob+g2rou95zv8yr3KWT?=
+ =?us-ascii?Q?1cNW+5pNyh8m/9OocB9Hro5UFuFtHZ15S865JolL0jIRSuXzK6cGL5MFgjby?=
+ =?us-ascii?Q?g9oNUK6WqrVP5cAUGE484QTr+78StksWYonIw+YNwUMpmyLUmWR4ZtzNJZaC?=
+ =?us-ascii?Q?o+qm2hVR0JJf7XejsShE/RiES5U4xAaKOO3SOrJHiyM7pZ5uGTlW+PFzuIOU?=
+ =?us-ascii?Q?hwdZmqtJbnhSdqojpzjfq75XsYAhsT/Eld4zaRO86zZtKtCTrtdSCCBQi/sj?=
+ =?us-ascii?Q?skGhlBQYc8mg9kMDey7kjJ8QXgHSY1xfSCeqiwnjy0kpQbbAG50m3RCyTgdE?=
+ =?us-ascii?Q?quvNlnv/nSTD+zAgw6+NFBbvq1qMvThV56Clupx3KLQYTJ/0DZq7rj2HDDFx?=
+ =?us-ascii?Q?BX1zourBR2hR6FjlC7pZory1hQZTWjnp0kKtLQ1LBjeRZDYH+RVh1rRbq/PK?=
+ =?us-ascii?Q?t7qh6dhDd07DTKbELUOzsf/YMvfXIagSLsxZq6jtye5VTZ3saRdQdaS+rdsv?=
+ =?us-ascii?Q?xyuaJxI2aXN65TMl7x2a+3Uo3ncP8DfpmMYzLRV6oEb95PYlgIocfrokyU8z?=
+ =?us-ascii?Q?XXz3YlK6BQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,86 +161,290 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 1/2] dt-bindings: clock: qcom: Add LPASS VA CSR
- HeartBeat pulse clock
-To: sarath.ganapathiraju@oss.qualcomm.com, andersson@kernel.org,
- abelvesa@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com,
- jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, srinivas.kandagatla@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- prasad.kumpatla@oss.qualcomm.com
-References: <20261120-master-v14-0-112cfd63438d@oss.qualcomm.com>
- <20261120-master-v14-1-112cfd63438d@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261120-master-v14-1-112cfd63438d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: chipsnmedia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: a97609cf-aa2f-4a82-9457-08df46e4652a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Nov 2026 08:58:07.2756
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oi+eaebIgb6nWBUnZsqSVciHbFQdJTK3N6kTRFUq9jbv6qXQRDRIziMzcUX1n2IdfLTGiKm3PMno4AkHuoiZS+s+iGw3ljVAyTN6QdWqf2Y=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUUP216MB3514
 
-On 20/11/2026 09:36, Sarath Ganapathiraju via B4 Relay wrote:
-> From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-> 
-> Add a binding for the Qualcomm LPASS VA CSR rate generator node that
-> exposes the lpass_heartbeat_pulse clock on Hawi.
-> 
-> The HeartBeat Pulse, also known as RateGen Pulse, synchronizes the
-> start of DMAs and Codec Interfaces for the audio usecase and can serve
-> as a periodic wakeup source for the DSP.
-> 
-> Require the LPASS LPR and audio vote clocks to access VA CSR register
-> space safely.
-> 
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Reviewed-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-> Tested-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Hi, Frank.
 
-Drop, did not happen. What is the problem in responding with testing to
-appropriate email, instead of to cover letter?
+>-----Original Message-----
+>From: Frank Li <Frank.li@oss.nxp.com>
+>Sent: Friday, November 20, 2026 5:08 AM
+>To: Nas Chung <nas.chung@chipsnmedia.com>
+>Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
+>krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
+>s.hauer@pengutronix.de; linux-media@vger.kernel.org;
+>devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
+>imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
+>festevam@gmail.com; kernel@pengutronix.de; nicolas.dufresne@collabora.com;
+>ming.qian@oss.nxp.com; marek.vasut@mailbox.org; jackson.lee
+><jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>
+>Subject: Re: [PATCH v8 02/11] media: chips-media: wave6: Add Wave6 control
+>driver
+>
+>On Thu, Nov 19, 2026 at 05:59:56PM +0900, Nas Chung wrote:
+>> Add the control driver for the Chips&Media Wave6 video codec IP.
+>>
+>> The hardware contains one control register region and four interface
+>> register regions for a shared video processing engine.
+>>
+>> This driver handles the control region and manages shared resources such
+>> as firmware loading, firmware memory allocation, and coordination
+>required
+>> by the interface register regions.
+>>
+>> It also instantiates and coordinates with the `wave6-core` child devices
+>> for firmware and power state management.
+>>
+>> Tested-by: Ming Qian <ming.qian@oss.nxp.com>
+>> Tested-by: Marek Vasut <marek.vasut@mailbox.org>
+>> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+>> ---
+>...
+>> +
+>> +static inline int wave6_vdi_alloc_dma(struct device *dev, struct vpu_bu=
+f
+>*vb)
+>> +{
+>> +	void *vaddr;
+>> +	dma_addr_t daddr;
+>
+>Nit try keep revise christmas order, check others
+>
+>dma_addr_t daddr;
+>void *vaddr;
 
-Best regards,
-Krzysztof
+OK, I'll fix it across the driver.
+
+>
+>> +
+>> +	if (!vb || !vb->size)
+>> +		return -EINVAL;
+>> +
+>> +	vaddr =3D dma_alloc_coherent(dev, vb->size, &daddr, GFP_KERNEL);
+>> +	if (!vaddr)
+>> +		return -ENOMEM;
+>> +
+>> +	vb->vaddr =3D vaddr;
+>> +	vb->daddr =3D daddr;
+>> +	vb->dev =3D dev;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>...
+>> +
+>> +#include <linux/kernel.h>
+>> +#include <linux/module.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/clk.h>
+>> +#include <linux/of.h>
+>> +#include <linux/of_address.h>
+>> +#include <linux/property.h>
+>> +#include <linux/of_irq.h>
+>> +#include <linux/firmware.h>
+>> +#include <linux/interrupt.h>
+>> +#include <linux/pm_runtime.h>
+>> +#include <linux/pm_domain.h>
+>> +#include <linux/dma-mapping.h>
+>> +#include <linux/iopoll.h>
+>> +#include <linux/genalloc.h>
+>
+>order by alpabet.
+
+OK.
+
+>
+>> +
+>> +#include "wave6-vpuconfig.h"
+>> +#include "wave6-regdefine.h"
+>> +#include "wave6-vpu.h"
+>> +
+>> +static const struct wave6_vpu_resource wave633c_data =3D {
+>> +	.fw_name =3D "cnm/wave633c_imx9_codec_fw.bin",
+>> +	/* For HEVC, AVC, 4096x4096, 8bit */
+>> +	.sram_size =3D 0x14800,
+>> +};
+>> +
+>...
+>> +
+>> +static u32 wave6_vpu_get_code_buf_size(struct wave6_vpu_device *vpu)
+>> +{
+>> +	return min_t(u32, vpu->code_buf.size, W6_MAX_CODE_BUF_SIZE);
+>
+>now use min()
+
+OK.
+
+>
+>> +}
+>> +
+>...
+>> +
+>> +static int wave6_vpu_probe(struct platform_device *pdev)
+>> +{
+>> +	struct device_node *np;
+>> +	struct wave6_vpu_device *vpu;
+>> +	const struct wave6_vpu_resource *res;
+>> +	int ret;
+>> +
+>> +	ret =3D dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+>> +	if (ret < 0) {
+>> +		dev_err(&pdev->dev, "failed to set DMA mask: %d\n", ret);
+>> +		return ret;
+>> +	}
+>
+>Needn't check when mask > 32, if check,
+>
+>	return dev_err_probe()
+
+The mask is exactly 32 bits, so I'll keep the check and use
+dev_err_probe().
+
+>
+>> +
+>> +	res =3D device_get_match_data(&pdev->dev);
+>> +	if (!res)
+>> +		return -ENODEV;
+>> +
+>...
+>> +
+>> +	wave6_vpu_allocate_work_buffers(vpu);
+>> +
+>> +	pm_runtime_enable(&pdev->dev);
+>
+>devm_pm_runtime_enable();
+>
+>you have not enable clock here, so you need select PM at Kconfig, otherwis=
+e
+>if !CONFIG_PM, other register access will be hang because stub do nothing
+>of runtime pm when !CONFIG_PM
+
+OK. I'll add "depends on PM", as other drivers in drivers/media/platform
+do.
+
+>
+>> +
+>> +	init_completion(&vpu->fw_done);
+>> +	ret =3D firmware_request_nowait_nowarn(THIS_MODULE,
+>> +					     vpu->res->fw_name,
+>> +					     &pdev->dev,
+>> +					     GFP_KERNEL,
+>> +					     vpu,
+>> +					     wave6_vpu_load_firmware);
+>> +	if (ret) {
+>> +		dev_err(&pdev->dev, "request firmware fail, ret =3D %d\n", ret);
+>> +		goto error;
+>> +	}
+>> +
+>> +	return 0;
+>> +
+>> +error:
+>> +	wave6_vpu_release(vpu);
+>> +	pm_runtime_disable(&pdev->dev);
+>> +error_detach_pm_domains:
+>> +	wave6_vpu_detach_pm_domains(vpu);
+>
+>use devm_add_action_or_reset() to avoid goto in probe()
+
+OK.
+
+>
+>> +
+>> +	return ret;
+>> +}
+>> +
+>...
+>> +
+>> +module_platform_driver(wave6_vpu_driver);
+>> +MODULE_DESCRIPTION("chips&media Wave6 VPU driver");
+>> +MODULE_AUTHOR("CHIPS&MEDIA INC");
+>> +MODULE_FIRMWARE("cnm/wave633c_imx9_codec_fw.bin");
+>> +MODULE_LICENSE("Dual BSD/GPL");
+>> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu.h
+>b/drivers/media/platform/chips-media/wave6/wave6-vpu.h
+>> new file mode 100644
+>> index 000000000000..96d67e931e71
+>> --- /dev/null
+>> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu.h
+>> @@ -0,0 +1,137 @@
+>> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
+>> +/*
+>> + * Wave6 series multi-standard codec IP - wave6 driver
+>> + *
+>> + * Copyright (C) 2026 CHIPS&MEDIA INC
+>> + */
+>> +
+>> +#ifndef __WAVE6_VPU_H__
+>> +#define __WAVE6_VPU_H__
+>> +
+>> +#include <linux/completion.h>
+>> +#include <linux/device.h>
+>> +
+>> +#include "wave6-vpuconfig.h"
+>> +#include "wave6-vdi.h"
+>> +
+>> +#define WAVE6_VPU_PLATFORM_DRIVER_NAME "wave6-vpu"
+>> +#define WAVE6_VPU_CORE_PLATFORM_DRIVER_NAME "wave6-vpu-core"
+>
+>If only use once, needn't define macro.
+
+I'll drop WAVE6_VPU_PLATFORM_DRIVER_NAME. The core name is used by both
+the child device and the core driver, so it stays.
+
+>
+>> +
+>> +struct wave6_vpu_device;
+>> +
+>> +/**
+>> + * enum wave6_vpu_state - VPU states
+>> + * @WAVE6_VPU_STATE_OFF:	VPU is powered off
+>> + * @WAVE6_VPU_STATE_PREPARE:	VPU is booting
+>> + * @WAVE6_VPU_STATE_ON:		VPU is running
+>> + * @WAVE6_VPU_STATE_SLEEP:	VPU is in a sleep mode
+>> + */
+>...
+>> +
+>> +#define W6_VPU_MAX_NUM_CORE		4
+>> +#define MAX_NUM_INSTANCE		32
+>> +
+>> +#define W6_VPU_POLL_DELAY_US		10
+>> +#define W6_VPU_POLL_TIMEOUT		300000
+>
+>Need unit surfix
+
+OK.
+
+Thanks.
+Nas.
+
+>
+>Frank
+>
+>> +
+>> +#define W6_MAX_REMAP_PAGE_SIZE		(1024 * 1024)
+>> +#define W6_MAX_CODE_BUF_SIZE		(4 * 1024 * 1024)
+>> +#define W6_CODE_BUF_SIZE		(1 * 1024 * 1024)
+>> +#define W6_EXTRA_CODE_BUF_SIZE		(256 * 1024)
+>> +#define W637DEC_WORKBUF_SIZE_FOR_CQ	(3 * 512 * 1024)
+>> +
+>> +static inline bool wave6_is_product_w_series(u32 code)
+>> +{
+>> +	return code =3D=3D WAVE617_CODE || code =3D=3D WAVE627_CODE ||
+>> +	       code =3D=3D WAVE633_CODE || code =3D=3D WAVE637_CODE ||
+>> +	       code =3D=3D WAVE663_CODE || code =3D=3D WAVE677_CODE;
+>> +}
+>> +
+>> +#endif /* __WAVE6_VPUCONFIG_H__ */
+>> --
+>> 2.41.0.windows.3
+>>
+>>
