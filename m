@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196355;
-	b=IEY5S7rwSzRaVbsxnYood/Nx7YFWLwNjsQNbek7/1XUCAEi0y27G8cS6C9jkvnox/SQd
-	 i7mTgRxE5Vh4CIf36uNo8wffg2KXT1PqYXvY8FZrfFlpu5LAY4PCRhUTZ9av2OZAbU7tu
-	 fw0MF5MVTwGMiCzqTQ0+iODm9kr73Haqzvf/R9FJQNAJw/AE3f7tj9T9nVmq7nd2uYS4j
-	 F1nA4sHs7WIuJI4OTxtZT17u74JC5/8Bi5P7N7sn8QGBcWmVlSxRSSkAdd1SEXp9EmIF4
-	 E3QwNyrhGFe+jmrCIv6PeXUldqFNW0goIBDbPbQMoewV8fza6ZnXh8ge809AvApt9Dg==
+	t=1795196430;
+	b=HIvbrAXMZ8wItRpfHXiNoMkVtEgG5SYL9DHAOP6u5WALrMyh8NN6/UExOuelKbtS4Q4B
+	 XoTZiA+GyY9yOIvUqqIy+aKknIPiJGHw7plJmPpo59c5uaPAcwJUfL7OrsAco4zaunh0p
+	 +EhuYlLWB0+4szyOtyX+jgTiiIElGJHVBMfl0kfRPMo3amCv/F9Ngvkx0Dam+KOM6M8Al
+	 MULFFZOrGeCSJGRQihv0aFAO2CM74huYvsPts+hSSc8eGMgxSLPtKhsRl4aSl0Yxcvl68
+	 CARyFq84PPzC8BMHUzwrxKDEZ4tK1ncxzgduxs2/iMELhcm5Hjv+uRqYfwVu8SstRMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196355;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=efOmL/ac+19DmqOOXGAI2aqU8WZIeD1n+6/SOHoKPjQ=;
-	b=F5iwO+/AjbpI4ZBByjYTkMB2Yr/w1Ok6HR2LR1b2LP7i5hscOM2QEKI0HPaFsT0gKXVx
-	 7UI4uDuu5EDZ3GfXvubGPSi/Ys4TNKP5CmgfE56iolkcn7NGV/7PEXI0Tn5lg2nUAS6PY
-	 DpkvuVKLvkKdvilI032DP/Nt0ntwmVkNL08WpqPAP80jqq71l93SUJKHjySbzrSBksA5z
-	 6f4thFBtnJJLwOWLVI6o4UTNXUtO8f1G/K+5h+qi9MfRaFGi+6c3y03DTkOQzg5WGsO7E
-	 zQ3fLxmkOJUKKmwFlYBgnwrj9lMAePLIDzzdnr0VqwFKnhHgVl1MhFrPMVaARTVL1oQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196430;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Gruq8nQHIe+quQ7RML00zfULCCGlk6QoaFUMUsneJmU=;
+	b=5Tm4xlivXA2wBBF8q3j4oqnZ6o3V9g8Zi5KivPZl8alNctCzTDErEgzRqwjlM6ZiIkOH
+	 HrXWPYtd7zt2Msv5JRMIaine5mDbmzZILke3pZrZgXtCif5YCRm6dkxfuBMsEnVYc+ffh
+	 Fly8RA3Af6tNJEUogE9+ywZrXSd6t7jVnqOpl8+FriqqhTDukxcxVwj4GlXIHdP0ovEiD
+	 fqBgkuh1kEtaGHVrstAfe5Xcwx6WDbIuu3NPekwF1JyEcBovXFaUX/gacYSpe+wEWy5t9
+	 r3pabRrHQHopGjVefkXSlBkg4CzJGxS/g8QP5HQFtqMAElVFfWySXTy/ILORmMXMg0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SzACEePL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8263606A339;
-	Fri, 20 Nov 2026 17:39:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SzACEePL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EDE11F000C6;
-	Fri, 20 Nov 2026 17:39:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795196354;
-	bh=efOmL/ac+19DmqOOXGAI2aqU8WZIeD1n+6/SOHoKPjQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SzACEePLwFt0fhJplYRD+H1aQI4UDBpXwK3086+/l3/EKu4YwJ6IJ1Z3EMD48x7Jb
-	 MVXKsqo3jJqhHQHraAI8ivGvCixPi3hq1h301q5knvNanMS+WERuQF8ZwnvDovhXG+
-	 Z5NcAWZ0FjSL2aYgsfvJbmNFJkFu3VEfHV6AfXH0kLQFnwcwEpgn2DfcY5rY3oE8yv
-	 Gf7RccLFd7PnyWj9Td3XnXKN2jEJdiqIs4nC2EKhJK1x1qvt1h9etA4mhhEftQv7RD
-	 aEoJP7UQhRJy4JO0Z3TOY565fhONuTIz2aZzMsWtbJR/yD8ZWQouVkKME4/yp6Pdou
-	 yH7hhjDbpltqg==
-Date: Fri, 20 Nov 2026 17:39:08 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1584606A32A;
+	Fri, 20 Nov 2026 17:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1584606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xUSav-000000000J7-28k7;
+	Fri, 20 Nov 2026 17:40:17 +0000
+Date: Fri, 20 Nov 2026 17:40:07 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Radu Sabau <radu.sabau@analog.com>,
-	Janani Sunil <janani.sunil@analog.com>,
-	Salih Erim <salih.erim@amd.com>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: iio: Support ROHM BD79111
-Message-ID: <20261120-sugar-stipulate-1cda698616fe@spud>
-References: <cover.1795176984.git.mazziesaccount@gmail.com>
- <578cd514c24a47ffd5cb3e02b78aeaf2fd3838bc.1795176984.git.mazziesaccount@gmail.com>
+	Heiko Stuebner <heiko@sntech.de>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	David Heidelberg <david@ixit.cz>,
+	Christian Hewitt <christianshewitt@gmail.com>,
+	Marc Zyngier <maz@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Dang Huynh <dang.huynh@mainlining.org>,
+	Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
+Subject: [PATCH v5 1/5] media: dt-bindings: rockchip: Add RK3568 Video
+ Decoder bindings
+Message-ID: <70b950c4b4fefbe07fe081f780ff359ed697d37f.1795191822.git.daniel@makrotopia.org>
+References: <cover.1795191822.git.daniel@makrotopia.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,52 +70,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2cApVkMlque8bc6p"
-Content-Disposition: inline
-In-Reply-To: <578cd514c24a47ffd5cb3e02b78aeaf2fd3838bc.1795176984.git.mazziesaccount@gmail.com>
-
---2cApVkMlque8bc6p
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <cover.1795191822.git.daniel@makrotopia.org>
 
-On Fri, Nov 20, 2026 at 02:27:02PM +0200, Matti Vaittinen wrote:
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
->=20
-> ROHM BD79111 is very similar to the BD79112. Both are ADC/GPIO devices,
-> where pins can be configured to be either used as GPIO or ADC inputs.
-> ADCs are 12-bit SAR ADCs and GPIOs support input/output but not being IRQ
-> sources.
->=20
-> The main difference is amount of channels/GPIOs. The BD79112 has 32 pins
-> for this use, the BD79111 has 16. Furthermore, the BD79111 data-sheet
-> promises 0.5 MSPS sample rate with maximum of 10 MHz SPI clock,  whereas
-> the BD79112 data-sheet mentioned 1MSPS rate with maximum of 20 MHz SPI
-> clock.
->=20
-> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
->=20
-> ---
-> Revision history:
-> v1 =3D> v2:
-> Disallow additional properties again
+From: Christian Hewitt <christianshewitt@gmail.com>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+The video decoder in RK356X (vdpu346) is described in the same way as
+the one in RK3588 (vdpu381). A new compatible is added as the decoder
+capabilities are a subset of the vdpu381 capabilities.
 
-fyi, changelog isnt quite right, but in this case I don't actually need
-it so it is moot.
+Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com> # PineTab2, Quartz64-A, NanoPi R5S
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+---
+v5: no changes
+v4: add Tested-by from Diederik de Haas
 
---2cApVkMlque8bc6p
-Content-Type: application/pgp-signature; name=signature.asc
+---
+ Documentation/devicetree/bindings/media/rockchip,vdec.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawCFvAAKCRB4tDGHoIJi
-0pWwAP48OfpSyY+vDSGRyRewo5SdOJV2eS2aZ1Gq2dhyB5rCuwEAt1sz28Aq2br8
-8h0fI4FRlFip8sehzY806Vn+/1rDmwM=
-=PrfU
------END PGP SIGNATURE-----
-
---2cApVkMlque8bc6p--
+diff --git a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml b/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
+index 4f38a0ef29d84..ea5386e84f17e 100644
+--- a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
+@@ -18,6 +18,7 @@ properties:
+     oneOf:
+       - const: rockchip,rk3288-vdec
+       - const: rockchip,rk3399-vdec
++      - const: rockchip,rk3568-vdec
+       - const: rockchip,rk3576-vdec
+       - const: rockchip,rk3588-vdec
+       - items:
+@@ -110,6 +111,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - rockchip,rk3568-vdec
+               - rockchip,rk3576-vdec
+               - rockchip,rk3588-vdec
+     then:
+-- 
+2.56.1
