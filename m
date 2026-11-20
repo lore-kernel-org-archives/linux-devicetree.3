@@ -1,98 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.57
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795194734;
-	b=044eHciBi191DfpIU0ctuExYIP6eE3Ws8PNK3m7mdogqtz7qNuCzvNdE5444WxIUk92K
-	 h5cQb/AOThDY+y0LTNSVpLs5lZjbJlyk3mcvI0ICR7ZWb31dta3G1XcGhTUSKW99aGkGz
-	 6pfDP2pix4mxprswrfsuIN3fpANnYJ6DpzrbFyffcOfGNkd+fH8RrlzztllHFYBATfl3o
-	 tthxfOJtA4s26sk1/BFFZyvP/oRoK/lkuaqpaVm4PfO3a2RyJelDjM3zZ7xpBxgcQmOk2
-	 j+3REyRrorcdkXDnW2Z22QjnhBd7Pqaga/qvnfUB56V+bmrWLUiMaY4Z28by+l9+Jzg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795194734;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=SQnftGsXAm///5imGQTngI7R5mRTJQU0XUIDw+FhOUo=;
-	b=VSSRgJ56HQwuDgmcXX3C8JGcvQAaltg7RC7sW6RG9OmTQGZMHYDNhmEM0LCG0ifAk00L
-	 FfV0njYyx6IRZiYazZGU8Rwv8Jwe4qvYmgu775DP+6hvLXo9ONmO7802fEmGPodxyajx/
-	 p5d3uJUmGd7TNh/MIZiWui4aWoH3uwNZN+YHZksOfhwJgnBHtfPVB9DoWU3Y0Cu2hQk9p
-	 tHgbfrZA6Vee5t4xyAFUk/MV1KZqjwdb/5oQLvwmZLHbJWCDBnWuF/8ilR9cuX521QnHQ
-	 XMIj1M5fTc86IvrP6cBxaI8ZGulYg5FnuEhDP0plU+lPwL4lyUvQ8c1AdrAzVa1tTng==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=i0pIveu5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.57
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011057.outbound.protection.outlook.com [40.107.130.57])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795194880;
+	b=YTTkY75d+L1HnqpEnB/z3Ar5D8c80KSfhJKukjjlz9/F1llMdktKMJOpm22DbgpwpQJ4
+	 bujXsO438z/i3elQhkthAwP8eTqfYmerAEFVjg4x4VW0Nfku7+AVoPvZEldDC3oMbTrwu
+	 jeNNbCklwXWcysMDvI1LRmCAF5+x5Cv0Wk9Glqx8E0IqBM1JEOy1fzHnvSiKmJ2clHfr2
+	 xl01PwJSMYJ0TEOM//rCtqGcs9JzXWDZFLGdU1GTIOqUzi9QyATzlJJjBR7T3HAjQT7QT
+	 z5T8NvFFMLNHLdbOSsv/s63PGSf4lujcztTG7n6es4vXFmJBhxdoeSAYCCP8I7ELWvA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795194880;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=AfsaK7vstWBR+CIUmGq19kX6RuuD4U+3vDvduSS+ZUA=;
+	b=e99itI1edbhTOgT2XMFGImNyIpV83GZNgflnX/uSMgCxqiPmXwwgmwabUNWYNAg03VGN
+	 h69o5GliIMg+ONvFASbY7IElAQFePxIetscaC3+3MBSgoRjcPORm4iJr2DvSYWKG8btwR
+	 qxTeR+aIcSZ0nZII35SoJ13RP4Sk6u3guzz3pNOkSiAfxHrvTaoWW0RqFR7cBHEnSTXGG
+	 JRb8mjVddZoG1ZApxYH0gzyhemXxQVt4FRNIsxrkkT9J4etwa0HgeO+niRCfqOArq5HAU
+	 KFSxGAfLP7MNsbrucfToevQJhczPQahJ4uFnGIVJuvRrE1kltQ2JFnorcUnYoZTWbJg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kaJNstor;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4831606A330;
-	Fri, 20 Nov 2026 17:12:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4831606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82FE606A336;
+	Fri, 20 Nov 2026 17:14:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C82FE606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=i0pIveu5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lozJLD0/X5ZXCTSRn7vbwkqGOHrTU5BHAw+8iGHkol6BplJZc28wRF6bEhIy4CdWjc3ZuMc6zcSaY4zBG9EzUSMdMvNDE8K5Vwp3z7ddNsklgDF0Yp+MLX2m1qJDwZoP4c0aCmFlclr43KXwjcgTb7XKBzvquLdDoLdoEBjO83GdM2vqHWMMfi/KxwXD2TpUhWJa4YsnS74M1o3FG4GDtQ0UP6ZOytC5AL6nWPvco1oUWyZeDZtLrA1GMFRoCJ4NEjY19JRD5u7qhUkn9oZNY6Q+Pi4fYphqahtDKdOvQHwihp9wZKO85IYM9C9Dzbwx73t/bqqLTmG/sryPaOomcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SQnftGsXAm///5imGQTngI7R5mRTJQU0XUIDw+FhOUo=;
- b=qqzGtSwORuDl8yUxgzxnWPlFgBfXULOZkRX9N608YNKxelWVe9jH+1ppG4RZccNS+TfjDB9DaTnOUP7xFClR5U/xdKJ/vp5Rl2YWwFjqW0crnJg2P9v1VLPxghlMdQ5nBzIcLVOQD507cnfADIDQ3nDA1eWoDEWvjp7YgpNSCJSdeUpGRTXPTDPeAd8/Uv7IaX8uBzPJ6rYUEj/+oDlaJsL3mGN6s5CXUKggD8875Zai6fkkthEapyeORfe31J9ZHAtFCCXV4wIQmS1/BPuZ3o54evWeU1fsEGikIQdzdGiKRS8xUsU+p2hiC2IHekTd1y3BdUaHfNbvHHyXovKdjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SQnftGsXAm///5imGQTngI7R5mRTJQU0XUIDw+FhOUo=;
- b=i0pIveu5IeJFrmWGbOJxCr5+zzes1Ar/m6VQZJ9xnBxZRL/l7j3oPM9wWg228dxV26LxcyRUWQgrTLw2KxyVfc3NCoJqoJPEt6fftIIpci7JKSNaCh5ls8T9c61m+9phRkN6cxNBVF5e1wiVyqIKvojJrQ34NM23OdRN6Nv5OgAAPhK7uhbSuXIR5CMDQ7aTTQB+s5SnLjNxKHRhNp7H6IDLPh0NTRYO/rDOl2mRDN06eC37uCxXHe0YJXsv4RhBgbr68tZVwt6rGwRT3eQcBKQ+rwuUKiSnLpt7jxL7mnCtAbXPTTmbCoywiRiopYMgeMQ7S63EAs5mmdp3TqedXQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DBBPR04MB7628.eurprd04.prod.outlook.com (2603:10a6:10:204::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
- 2026 17:12:07 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Fri, 20 Nov 2026
- 17:12:06 +0000
-Date: Fri, 20 Nov 2026 11:11:56 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Joy Zou <joy.zou@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Ye Li <ye.li@nxp.com>,
-	Peng Fan <peng.fan@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: arm: fsl: add i.MX937 FRDM board
-Message-ID: <awB_XD_umRtZ5wm_@SMW015318>
-References: <20261120-b4-imx937-frdm-v2-0-5e27ceec02df@oss.nxp.com>
- <20261120-b4-imx937-frdm-v2-1-5e27ceec02df@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120-b4-imx937-frdm-v2-1-5e27ceec02df@oss.nxp.com>
-X-ClientProxiedBy: PH8PR21CA0021.namprd21.prod.outlook.com
- (2603:10b6:510:2ce::15) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kaJNstor
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 82532C6221F;
+	Fri, 20 Nov 2026 17:14:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9A0AC601B9;
+	Fri, 20 Nov 2026 17:14:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 96ECC11BC0437;
+	Fri, 20 Nov 2026 18:14:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795194875; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=AfsaK7vstWBR+CIUmGq19kX6RuuD4U+3vDvduSS+ZUA=;
+	b=kaJNstorbnqrayLL/98d3HWZsLvpTIcVlH70NLij6H5sSMGM7AyL4RC8pjazgHLM/VMnqm
+	NbzayYO5o8bFk0bjYSiYKUwEzMf3z5KmnaNseSWjzzP7yhB/IHtA+VcheGH5+cbt658RC0
+	9IfENELf3ZryHLoxyerzSxWzMdmZp1llgPwJpLC2MQgA7L/L25hlWFEhJi8XYz2LLxbe7S
+	ifwHiL5WBCdYU1+CYlj0nSA13WHpEjY+rVFdB9Ax9r8d3hoO3HIXqvJTH3+kXmKEga4j2r
+	VU6ym60q+Qmq56G0olb5tuRdb5CN/zYhNF8beEZWZ9xE945Xbz40BFwxBH8k4A==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v4 00/11] mtd/spi-mem: Enable DQS control
+Date: Fri, 20 Nov 2026 18:14:26 +0100
+Message-Id: <20261120-winbond-nand-next-phy-tuning-v4-0-8c21e1f71f41@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,102 +62,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DBBPR04MB7628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e9d3ac0-878a-49b3-f834-08df47296762
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|7416014|18002099003|22082099003|261009223027099003|11063799006|56012099006|4143699003|261102123227099003|261026121527099003|261022075727099003|261022105027099003|261026140227099003|261021121427099003|261028144727099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	J/kN30NyOlUgkhEHQxcEDKDU0vihUEMF+xDFyvnVUZrYkSWzVeefdsniEUy2TgCTtfNDEcu5lqizBMK/SA1InJXQ733gsMl4fiFCCjy3mYY+8eWbcWLypp1uLStDoapXu9lzqw2LbwV51NQOrnNqK02FoNXZiFIHUmGZXOJgKPp4bnsZe6M1v+KBjalLQ1PwxBbYYYP3CIACikA5woMx4fD7M37QkEaVlvojOOQR+r582oizIEeZkcxIXp1cRiQBufoi/A3EzDMy8fjh/ikMWIVtK+H0GhoUVwGwl8kg8jbrRuhBJ4rpbZ/pCFcRUrjfJyEHeiqvjGaOfiq+0p20DP8IgvFsuLonfCwg5huidRxuJjdm6J0f627WmtTIxTIkkqwqpwXh1suSi1KfJTIDVpBUPLUmSYsALPz0SDPTj2bne8tKwlvtEXJslQN6HoQGu6uPnHbaKRs0zKq9s47Rgp0TvatYnFUHd90vXJMjWMGnP4ORTBTgfWugjufE8npQ6x4C2ntNy4t165WX5ZOsAKPCKd4ExYtOPT6eqOOMckZQ+7XShNdgp1/i/NR/f5PYFKHzEzv1HFA91kIbVS8kGiXTvbFwFnEEODW05B24+KuxpAa6ZKAs1iLFqxwBE5Ttd4b7XG9Uz2mc4a5loVm0mhIz+MxI5Rb6nwx8Cca3SJE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(4143699003)(261102123227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261026140227099003)(261021121427099003)(261028144727099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XQ0Cg+XaMROwyA4cl+oCSKu925giAoDL4tSLij5xDNwQMkUomoeO5KHMdgsH?=
- =?us-ascii?Q?RnTdBL7bfw62MaPSn0Pzj2BJTr8buVtBck07freVWL33Fvd9dhR2UGrW5+Xp?=
- =?us-ascii?Q?NfEgAP0SBoImpHDAKEo3zqOPPP3/c/FHhzlcE2HwVpAoyhb5WcfiraksP0ii?=
- =?us-ascii?Q?xx78aJ6pI5WM6LkToQXT31OD76LNruMblh/7cBA5rGyOzg3/9ExB12DLFeqH?=
- =?us-ascii?Q?TE3ihkS1KXdNORs0K3wLu3/poWScRB5O4dXzWvkhYMcCbmqb214yWEJ7ThDF?=
- =?us-ascii?Q?D2iB6ZLA9gxPjTYwcr3Cp5i5kw6fZNvPbSFw66/nyAQZBDp4JT/cwEdrPJfA?=
- =?us-ascii?Q?LFR1xRNCeQq3gBFb5h1Pub6qIW/7yBERY0UJDJG2CQVtGbaPgsuqsJz/oXNm?=
- =?us-ascii?Q?ITELsI/FAD0VbfsVcI1QTZZ8P1Pbk5Z1PcB6cdeuAdbX29U1U2vvhtoKJtcN?=
- =?us-ascii?Q?CwSsr1Dhl4pfm41j7QawcIleQA5achUMgTxaXEp/8g5PqgRU5iuLeUV8KxUX?=
- =?us-ascii?Q?rbka8FVEgkNH3IgnZCyiJ+5LEX+4XgwGk/4cOEG9hRkalaiB6DCLVqAyjH6o?=
- =?us-ascii?Q?E1gMit8k85zRmae87p+YCwaxZCe2sYYcgDUTuWMQ65Fs/H/WCFy7NqVUnp6B?=
- =?us-ascii?Q?4KhCSI5CDHWxfENJn4YMhQMbqxgxJ1Og9X+YhjfWv6cUO2bSNlthRdSUCrdV?=
- =?us-ascii?Q?nblLDpYFYvfLNYbaORDPIN2nO5RIY81KqWy0gdc/ohbJNpAmUPjMvOWXBZm4?=
- =?us-ascii?Q?YkUsKtIVO8OxYfjkqxHI54Zvp1FPcUL4FwgfQeC+RG5oNvoGbXOyKoCZ8HrJ?=
- =?us-ascii?Q?WdrukAxHenkfTpHgkxB66ehJRrNTzdrSfFkGq7GTN27ZDnd0MiUcCj8A4oLu?=
- =?us-ascii?Q?eymayeZr166yibzrRMY8NtWgSrMu4LuA6Dhgmr2/0X359RqDitpb1uA7nR3h?=
- =?us-ascii?Q?QhrqoL3yB6NPpt1qqrssMWXjQBAwBWQxoqSHreTTippiV5FRw2a7RGituzqX?=
- =?us-ascii?Q?Mm7dbuKZgHRnu3lyZl0g8+v0S18Jw6q95kdTdcWx3Ksz9FCshfTM22kvpYQH?=
- =?us-ascii?Q?MACvLZ7ikpbXVj1cIZNZXXo3yj4ek6Q6opr6E11I5oweO22iJlBKy9hrb9dy?=
- =?us-ascii?Q?Rf4W/vFXtnShDDGEWt9LgGDPfKJQoUmcf93BsX7SegCA7I/Fjd3Sz3xrKPLy?=
- =?us-ascii?Q?JJHCC2s+mr6YdCSzlAMBHHAxvue+BPRDb6kwVEK5uUPTdgAySEJXITFtDy+g?=
- =?us-ascii?Q?mxu1NMUA35Bd6zS3A5QTtXPtfgVawqChdWHWUDMWwg8dU4txIeszmiKSXg6z?=
- =?us-ascii?Q?9e6AXe9ZmNMpFzDejmqcGWJJW8Dg1GAq5mpbGOIsHZVcuZxCL65ax9LrX2OS?=
- =?us-ascii?Q?fNXOREUtsrllLvdQCWu20kLpJC/jkvc5qp46etShj5ph2VMEEGVUhVW73Rrt?=
- =?us-ascii?Q?oyDXbzFeQWDyFPB2HjGpiMWHmT18vzuLimmHJapzMg2MTCnU5OY3CZFbUjMY?=
- =?us-ascii?Q?8y1lff1OkZjtbf0utJFyCNsyv/EvkGjVcohfDe8xcYas6iUwLIj1NXGAfMpz?=
- =?us-ascii?Q?GTi4RRj00AtJZTjKo4r25mzh2Sc/mwmvnaKthw08hEAyUfy6Tt8Tu9AjI/P+?=
- =?us-ascii?Q?V7gs8swzwuBj5e8fgHvqVEqBy7ewuZObiHX1b65WVTmJq3Pn8ZPgQEAa6HDh?=
- =?us-ascii?Q?V6ts/1zkOpwDRbFY+nfMfLGhiFXunN2SJeV+t6deR66e/X783SlO2eM+DtDg?=
- =?us-ascii?Q?3iSqItYXkGL+sl3cI58VgI6PHWqE137+0PQ0ul1BYVj8kfb0SAtv?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e9d3ac0-878a-49b3-f834-08df47296762
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 17:12:06.5909
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5r86U2Jt/lyIcf8nnhWW06ZwPHl+lZk46Q4v2erZmVjX/y8dwcWdSITTidgiwyMNo/PuibXsSzEHC9tbrE3h86M20ZiLMm5xMFSV9g3U62GyDp2U5WgW+wHvmhH2Itqr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7628
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43QTWrDMBAF4KsYrTtGP5Zkm1Jyj9KFbI9j0VhKJ
+ cVNCLl7ZWfRli5SEII3i+/Bu5KIwWIkbXElARcbrXc5VE8F6Sfj9gh2yJlwyhXlVMKndZ13Azi
+ zfnhOcJwukE7Ouj0Y0+HYU1ZTwUkmjgFHe97417ecJxuTD5etbWHr9Z/wwoCCRD2IRquRjmzXe
+ Z8O1pW9n8lKL/ybq6l+wPHMaSEbiXUzKBR/OfGDY/QBJzJnGt0LoxgqLX9zt/sSAT9Oed90n4P
+ MGKPZ9m2L57WHMSrzqwUvOROVYAIYRHhXu2RX6GVdtDMRIYfZprZYdFlB6HmuuH0BNF7cmcoBA
+ AA=
+X-Change-ID: 20260205-winbond-nand-next-phy-tuning-aabefc018032
+To: Mark Brown <broonie@kernel.org>, Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, 
+ Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, praneeth@ti.com, 
+ u-kumar1@ti.com, p-mantena@ti.com, a-dutta@ti.com, s-k6@ti.com, 
+ linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
+ Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Nov 20, 2026 at 07:09:48PM +0800, Joy Zou wrote:
-> Add DT compatible string for NXP i.MX937 FRDM board.
->
-> Most software on the i.MX937 is compatible with the i.MX952
-> including SCMI and pinctrl.
->
-> Add the fsl,imx952-frdm compatible string to reuse the existing
-> support and avoid code duplication.
->
-> Signed-off-by: Joy Zou <joy.zou@oss.nxp.com>
-> ---
+For his PHY tuning series on the Cadence QSPI controller embedded in TI
+SoCs, Santhosh initially needed to access the availability of the DQS
+(data strobe) signal. This is a chip dependent capability, which may
+sometimes be enabled.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+The SPI memory flag already exist but is too vague for it. Let the SPI
+NAND core and SPI NOR core set this flag when relevant (per-chip for SPI
+NAND, always for SPI NOR until we can do better). SPI controllers now
+feature a DQS capability that they need to fill. Manufacturer drivers
+and SPI controllers can now query the usability of the feature to use
+it/enable it.
 
-> Changes in v2:
-> 1. add description explaining why the i.MX952 compatible string is included.
-> 2. remove document for imx952-frdm compatible string.
-> ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-> index 00930fb49b63..b67d4504c34e 100644
-> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> @@ -1572,6 +1572,13 @@ properties:
->            - const: toradex,osm-imx93
->            - const: fsl,imx93
->
-> +      - description: i.MX937 based Boards
-> +        items:
-> +          - enum:
-> +              - fsl,imx937-frdm           # i.MX937 FRDM Board
-> +          - const: fsl,imx937
-> +          - const: fsl,imx952
-> +
->        - description: i.MX94 based Boards
->          items:
->            - enum:
->
-> --
-> 2.34.1
->
->
+I contributed the spi-mem bit in the previous cycle but my changes were
+too simple, and a more complex approach was actually needed. For
+applying this series, I would expect all the spi-mem and spi bits to be
+taken by Mark, either based on an immutable branch (in which case the
+mtd bits can also get in during the same cycle) or directly through b4
+(and we will wait for the next cycle to merge the patches). There will
+be a temporary regression if we span those patches over two releases:
+the PHY tuning will not be optimal because it won't be using the DQS
+capability for a period of time. Hence, merging everything in a
+single release would be better, but not stricly needed either.
+
+This series applies on top of v7.4-rc2 and Santhosh's PHY tuning series.
+
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v4:
+- Added a spi-dqs-not-wired DT property to describe boards where the DQS
+  line is not routed.
+- Parsed the property in spi-mem.
+- Renamed several helpers to explain what they do more obviously.
+- Added a controller DQS capability;
+- Expose that DQS is usable only when the memory supports it, the line
+  is wired and the controller supports it as well.
+- Advertised the DQS capability in the Cadence QSPI driver.
+- Advertised the DQS capability before the SSDR/ODTR variants are
+  negotiated.
+- Only enabled the Winbond DQS output when spi_mem_dqs_is_usable() reports
+  it as usable, to avoid useless power consumption.
+- Enabled DQS in SPI NOR (always).
+- Dropped the already merged spi-mem capability patch from the series.
+- Rebased on v7.4-rc2.
+- Link to v3: https://lore.kernel.org/r/20260810-winbond-nand-next-phy-tuning-v3-0-a97c3a61e675@bootlin.com
+
+Changes in v3:
+- Rebased on top of linux-spi/for-7.3 and dopped all existing
+  dependencies on the MTD bits.
+- Link to v2: https://lore.kernel.org/r/20260807-winbond-nand-next-phy-tuning-v2-0-73595e89d6e3@bootlin.com
+
+Changes in v2:
+- Dropped the RFC prefix.
+- Rebased on top of v7.2-rc1.
+- Dropped the spi patch for now, just allowing to use DQS on a few
+  Winbond SPI NANDs (can be improved later).
+- Link to v1: https://lore.kernel.org/r/20260205-winbond-nand-next-phy-tuning-v1-0-5e7d3976f0f1@bootlin.com
+
+---
+Miquel Raynal (11):
+      spi: spi-mem: Rename the DQS setter and pin field
+      spi: spi-mem: Clarify the conditions upon which DQS is usable
+      dt-bindings: spi: Document the spi-dqs-not-wired property
+      spi: spi-mem: Take the DQS wiring into account
+      spi: spi-mem: Take the controller DQS support into account
+      spi: cadence-quadspi: Advertise DQS support
+      spi: cadence-quadspi: Decouple the read capture bypass from DQS
+      spi: cadence-quadspi: Check DQS usability before enabling DQS capture
+      mtd: spi-nor: Advertise DQS support for octal DTR flashes
+      mtd: spi-nand: Set the DQS spi-mem capability if available
+      mtd: spi-nand: winbond: Enable the DQS pin on W35N**JW series
+
+ .../bindings/spi/spi-peripheral-props.yaml         | 10 ++++++++
+ drivers/mtd/nand/spi/core.c                        |  3 +++
+ drivers/mtd/nand/spi/winbond.c                     | 10 +++++---
+ drivers/mtd/spi-nor/core.c                         |  7 ++++++
+ drivers/spi/spi-cadence-quadspi.c                  | 11 +++++---
+ drivers/spi/spi-mem.c                              | 29 ++++++++++++++--------
+ include/linux/mtd/spinand.h                        |  1 +
+ include/linux/spi/spi-mem.h                        | 12 ++++++---
+ 8 files changed, 61 insertions(+), 22 deletions(-)
+---
+base-commit: fd9230005e85472b81c1c7c16afe93dd878996b1
+change-id: 20260205-winbond-nand-next-phy-tuning-aabefc018032
+prerequisite-message-id: <20261105105832.2134313-1-s-k6@ti.com>
+prerequisite-patch-id: 7e80450b6b26ac3240d561a7f9f0e5fe177a89b7
+prerequisite-patch-id: 865537f117247ff4312d629514dd06f1f38f1d47
+prerequisite-patch-id: 5200192ca3b2cc4a2fdf8afff7ee5c757fdb66b5
+prerequisite-patch-id: f41f68176da636e14a8221fde30b3a32cd155bdd
+prerequisite-patch-id: d23997b62c52e24d7d92a3f795b2d64ad32a6dc7
+prerequisite-patch-id: 7d0c439461665f7c41639343042ddb96937d2838
+prerequisite-patch-id: d8770bcd1d4f60e882cdd4ad6f35409a08dc2402
+prerequisite-patch-id: 5b96154a5b95e52afc0e3f128212921984713615
+prerequisite-patch-id: 500bd167644ed25f95ee48bf7992d79d611b036a
+prerequisite-patch-id: 65a2ee2f666180289b3c38aef3e238803ba93f27
+prerequisite-patch-id: a58a38e05737feb5f097cafe49f814a4f4a1b252
+prerequisite-patch-id: d0717fa96dbc2f99111be023238973932a6c59b4
+prerequisite-patch-id: 817e0b94d11c4e7884c962781ff20131a9db1aa9
+prerequisite-patch-id: 16ba1c3be3824059d975c0e48a7056b061c2d652
+prerequisite-patch-id: f7d67c3465c65f61ec878b6d3f049addd44316af
+prerequisite-patch-id: d023f74d37fe6be398aa45a5de3cd70f775cb37a
+prerequisite-patch-id: c146c437ba46a28dc74dcebe4c66ff8107ce31a3
+prerequisite-patch-id: 14cf3f31d431b4622a4f225939b8d3d3eee21085
+prerequisite-patch-id: 95db84235391fa3a39c1947f19411634d762e1f9
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
+
