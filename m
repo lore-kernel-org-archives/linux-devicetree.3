@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795202469;
-	b=rpb/YwXPSJialjLuW1UTICIZzKG+UIGlM7DKOXrJcvBPJ+kvKxK24JPVfIekpSR51H2J
-	 MvO++VvG0ivpLheR/nxvmPJmbgeDj/JmlSZHxwXFbki+R0XTfkMwal9cxTImU6Kh/TFN4
-	 y7kx6tj6G0QoBq0hiMTJlWWIK+xHFcZIlSSED39btM9GHmU+LTSzdKYptu5B0EG8xmGwL
-	 QksMNLeEFi7txd5WADHIaeJQrjSTEhm77TwvEFKgu2PFZIioV5nw/oqrLaQcJDaiicBWC
-	 FuekadcXVIkcXR/BWL3A3VLQCQFjxHqmxcs33rKStqeLCqmWhpZSlcOmk119N/Z2K3Q==
+	t=1795202484;
+	b=NEn1AKlSbqU3vuKYUo9ssP7PoIlzvkUA6f6ezQx5Urt+GzobnTZvUyLIX4+3ojyVjup6
+	 J43OtbAw5FKF5H6q+vu0jG1B/omfb1uEag9KQ33x8P2QsC+ubJvH8C4X4ds5xBmCWzgvH
+	 TnMJW6Ds+ZLH65yy50U80WX5u6e/eDeYq0YCShlxWrxoxMfikcdXfLVfSCjDMcFw8L4sn
+	 uIVnpNTyw6vhdqWgoalsKWJHQEJcWbKpm7PAPH8gB53Y/2ilhY4WMyk/PzWF4BxBZX9sX
+	 4Ealvael3BdthtCSFqX8wgwGcdVCEjlcT8srbMyvjYOrlsIcRrat3ZRsw9ZTiJYzZLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795202469;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795202484;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=Ba1LZYpNSjXVJ+zOLl8k2Tar0vWRwRjXeVxP97+SFE0=;
-	b=mlnCsS9bSRC3c4GE5ITNx390+69OlDldElqr6NHR4evSFw6gYFiqZaAVvtUMMAs0gMMN
-	 KQ/BfZKtP2WostBSu+KdHDhTHLlTDuFIMWeQlvMHoRAf3eEKOchqu2KCNAhuDBbw0CYtq
-	 W8d5nYoDInNnN6sprSJhNIbk/8whXcRmKuGtF4c/j5uEeXt3KyZyWuQVVyPbdFMpYuYoW
-	 J+ekPXnYnPMLtK9EeDDTHQsMfc6u6TDZBjLanPvXs2Kwg1C4JaXIeIqkTtVP3s6bZRF0p
-	 d0hRRpEd2dotBvzu3sR7ihErFxSbqkXKzwuFYBJ4Gmtcg6pkDtb1lQv1pP6vprpNhvg==
+	bh=7WdPVPrqEAVCZ0oTAu8C9RoFpPGs1RbxvC68iYCtVl8=;
+	b=JkFHcowyCdeyErKthLO4B4UCeuSvc4Pt/43a3Zu62q+wfPDBXQ2ij5Jp95BFS8miepaW
+	 myESbeF6SeduKgd5GMtmgf6cDiAB575YpPBlW6mHu1BUaBANFlQDkEKMXxSsTNGMmoO30
+	 urllpU1JCmo3Wk+9guwm1fOptCE4CjFeRsk2U6DIpK/vgsBnDo/+1JQFLtxWG67baU+A5
+	 WjcijC1UB916oCi7Y7TGSi9KTrtarmeLlD14s86T2TymDExdiGRoMDnaG/bdHuZXUW2io
+	 5jMfTxsnI6ttutR/SaqtpnzwlRhig6g3bT6jjPiA3b9sKMuZ2QIay/rb36lGisVJFWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iVa9bfr8;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V8ekLW+s;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B063B606A33B
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 19:21:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B063B606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB510606A330
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 19:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB510606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iVa9bfr8
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1128775f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:21:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V8ekLW+s
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb72b44a97so11235055e9.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:21:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795202466; x=1795807266; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ba1LZYpNSjXVJ+zOLl8k2Tar0vWRwRjXeVxP97+SFE0=;
-        b=iVa9bfr8WG30k/MSJdiEdmZdZ4egBy+7f5rc5VMTzKP1F1/pbxM/nmWrWTj4wJEBTd
-         tO3ZduowcMfo+P6jvecbjsKTCQS+Lb8ElXNZ36Uj+rvbWT0JvQ/5ItV0ucDe9lm4cJqW
-         LITa7FW+S4Va4KD0ngnWVHvWob1H03G4iHy+tzS2UV/Foiwb1YJaYjE2OfQEnRHZtNHn
-         OqS6TlHEiRagXYOi/P5Omb/3cCq84Wi/aDSppob7iUYjI6z97kHxCLF/9gWfINuG3Kka
-         KdUoevvtkMmJgo0jT6EDaGaUaIg9GL0X4ueAtjoYCA0Wt9oydxWSBM4Pu5+0GfP74zAb
-         4ykA==
+        d=gmail.com; s=20260707; t=1795202471; x=1795807271; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7WdPVPrqEAVCZ0oTAu8C9RoFpPGs1RbxvC68iYCtVl8=;
+        b=V8ekLW+sQq4tPZ3ynI7cvdrRVFl5DMgBTBdJtUZtvvVjISp9cSK5pi9wtfBwU2IwD0
+         8IGK1TVb0reqfmIgA3I+aqptYIz1dcSI561LTfsLvvuGEYGTTqGAb7lKWAQ5Cx4nMS+y
+         9G+NJmtMsRwDz2M+l8O4tiGiXXzO4ZZ8U9/KgWJHYkrx0g1NDcwxh70ZWKoVEAmb9r8c
+         jLF9I3uQjeEMDo0v/9foJyPxhcRHFAvVfYciLEyV6WtZ4kEIbb1gOK3itA1Eu25cIjCv
+         TPbXpBDsiJUO+a5Ze8JSlHG/dYrpndx6hl1kJ/rx2md+Lnm3+YakQ+SoCJwT79U2HEDA
+         BE1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795202466; x=1795807266;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ba1LZYpNSjXVJ+zOLl8k2Tar0vWRwRjXeVxP97+SFE0=;
-        b=MpzoK6SqkT2fhJD5pYKjvwpWUKWKY+0PYhMJA/aqChA49bEThr1JvrdgH0XdlVL9z8
-         Mg1vC6fog3VZfpZV3l32AibrMgsG7Fp2DkgNYX6GRPzy8U7h6eXfqBcuY+toG3dy8RXd
-         jAv2SuxxkxSTTFOkUqMRic5pwmbn39oxpZeAWfXRmtFscpygxR3MRY6N8m/VZJOcT6O0
-         UgUWPgKw69F9Iy8gwe1ZdIMEOn2QWXep3gXegVe/rbdR6sGJJEU7VgzVo+EUrFKr964B
-         T94KCdjm+XGmkqWH3oQ1WFD0KJjoIEM/6Rhv48a8CEW6CGXfN6lYNSpSUoNj/nXl1J1N
-         2Agw==
-X-Gm-Message-State: APuU4Z88ASueuuK1g9svl2mlm51OHj/2md3IJjZA7D7v0ILBgLNdyZ1h
-	LcU0GbZs3QF6ArNgz7AMEJBDlyX86ucBKY6LxboQfaQIbx8v2Ahd2lVM
-X-Gm-Gg: AZFdTZetsgeMLhWIULYEp4OXitren4pyyvCfOPHx7aicZvIT3o87uSbC0a1U/HfVopm
-	mfbSOv42Ravb7Gp/jmQiZ+ID+9zkj+BiO1PLU0qc9aMAgXB5a/4BpUdkOf1CTyz7+ijCk3VCtdG
-	uwgZZC+ECb8HTWnp6IiNoM5+YwrHxkwB1FYXgMarcsFa2kbQ7NvLb67R0/xfVAWZbc9PqC3XgsS
-	E/912cXXnq6mImEE3AXlrYYUoafFWbnNApAQaHfzO3kOhIHvnAM+wKAi0aiG4Lhovtdaw05IQ9k
-	31qavXt76F9uDon3xTH14oTbSnTL9pAIU+DPt5wtczdr15clTFskuCB0OIlStTSd+8OPmn685UF
-	prLfeypGtU6IQPwTOmougDrYZtIj1ZcL5qkhLMIFeoWApPJIaFWm8He5JRkvZEq9B3X2Dto82xT
-	UeZdNMWFZHICrf6PVzr74QB3/UVekEjxVaGU6skS7Y0xs4BoBo/BC0KEXczVlRLoGm0QegRuqEa
-	eOn22Ay8+BhpnI9oQt5WMS89lr7+K3wU0ZWFGx2QXJgjml+Z4yrmwn1ETvEOuyraCveuOf4suyW
-	Ewec0OOkSmkodApoKepNBIKRk/23z8/szBlCvqc+
-X-Received: by 2002:a05:6000:4541:b0:48c:4658:602b with SMTP id ffacd0b85a97d-4abb400bbf3mr6410831f8f.10.1795202465920;
-        Fri, 20 Nov 2026 11:21:05 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795202471; x=1795807271;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7WdPVPrqEAVCZ0oTAu8C9RoFpPGs1RbxvC68iYCtVl8=;
+        b=aMFK/8yDM0K5Ad/nfj0T9SzjjYV2ePNNhOSUc03PuYw116RDyORwa2UtNWaZjH6hob
+         aCqnM+wcWsUA2wSzvXerxpVxoFdd5NhbWo3cp5D8M/sdkRyYZR/qX8pDxCi1J/2zbry2
+         NNX1qYOptqF79YSl49IdC4O4tZtu7mK8YWT6/RZMWoT2Qj7YqlkW/o/kgFjj0dU61Qcj
+         +yliRuqmiiwchZgIT8kojrSuFJlj+gtm3h8x2o9WMp9CgEqrtzg5xsfpJWBR3BQWQa6g
+         RUz26cAzr8X9SQIPjxNW2XRe1umNtBieOTCx7ZrPflLQy3qudsBOLbUUGbqxZkY4ieSK
+         kJeg==
+X-Gm-Message-State: APuU4Z/G6MbJhURbrxPS5ZceB0yEeofcXs3uL30I2/7p0y87XqeSTVCt
+	2Aa71Qy+KuFpgBi/qZ4CQgy7xvTHOCQNIZu93ftlpC5oHREv1KbyqP9qzeBi2ODF+GI=
+X-Gm-Gg: AYBFou2aIgpsj2EaXwHmBUfLg9F0v+MpFq256TN93qRICoaXaPsPfEzsTiFvLaLf8kL
+	msqmoYRppH8JvqlPM/HEXZtqOwBshnhio5NGMhtF/hzolk/bAzP7v/PZpzXZwLRENiBSiv+KGgA
+	CeIQBWFnFX5SFSW/L61jnA/FEpAXGBWd1BpfKXPw7EXmv3XP9gGHiMQL+PDwKD6EaeSDy5eSyUC
+	XFXaLXRNdOi6UrQHJbsqvolIYuy/z741I3xL3uHoA7kbyjoEIG7cnGHQ28zKbu7Jcz/Aa4KR6XE
+	ySC23evA+t6Z7u9SwD1ClWSLlfWoHxjksImoX/bcpqXlMLMRNA369OlnBawlcOgcCJi92cdS8a7
+	IcVMGAcye9q0NsrhWcXTa4XaGLuxHgCpZP0tWBo+xFpGZw22JNJhs+uYaQ3gHE5N0dwY390kra+
+	fJ5rtNbdSxAdYsOV0zgAvBY0txOJrjksdDqQy5NPqH1H39d9FCy+Do1SamxcAi9mR7D+Y05LyEG
+	4//VsBb+DGGrQRXhhrQnUfxtDgIQlBaiG1lWJwywldBawgcbHs+cxxCadBJKBpicGwhxre+Z8Ff
+	HXUfEwHTwkbbjRUU2ivrrtTJ8fyC0MlrDt1enwwXlZN3MjTaFyJArJswGls1Ww==
+X-Received: by 2002:a05:600c:19d4:b0:4a1:f377:5c6c with SMTP id 5b1f17b1804b1-4bb8880ac6amr96586425e9.10.1795202471009;
+        Fri, 20 Nov 2026 11:21:11 -0800 (PST)
 Received: from [192.168.0.2] ([197.250.160.206])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67f204sm8405703f8f.21.2026.11.20.11.20.58
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67f204sm8405703f8f.21.2026.11.20.11.21.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 11:21:05 -0800 (PST)
+        Fri, 20 Nov 2026 11:21:10 -0800 (PST)
 From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Subject: [PATCH 0/6] ZTE zx297520v3 USB support
-Date: Fri, 20 Nov 2026 22:20:49 +0300
-Message-Id: <20261120-zx29usb-v1-0-b0433258e51b@gmail.com>
+Date: Fri, 20 Nov 2026 22:20:50 +0300
+Subject: [PATCH 1/6] dt-bindings: soc: zte: Document zx297520v3 socsys
+ controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,11 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0WOXQ6CMBAGr9Lss036I2B7FcNDW1atCmhbCJFwd
- yuQ+DjJ7Hw7Q8TgMYImMwQcffR9l4EfCLib6a5IfZMZBBMl57yin0moIVrqpFHM2ELJ4gjZfgW
- 8+GktneuN42Dv6NLvfDcCvoc8kTbtv6DJ1mente+eDyotq6RVjRBNqUe+blgTkbq+bX3SpMMp0
- f0tBfWyfAEDtdoxzAAAAA==
-X-Change-ID: 20261117-zx29usb-c3a90ab59354
+Message-Id: <20261120-zx29usb-v1-1-b0433258e51b@gmail.com>
+References: <20261120-zx29usb-v1-0-b0433258e51b@gmail.com>
+In-Reply-To: <20261120-zx29usb-v1-0-b0433258e51b@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>, 
@@ -111,114 +110,223 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, mfd@lists.linux.dev, 
  linux-pm@vger.kernel.org, linux-phy@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3961;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7623;
  i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=FWQb+bD4+CzUS89QtQFZvvJ9rtMw5c8LSvVgJ2lgW6o=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBrAJ2WLxQfwJwf3UU2/2ZG/baKj8e+AcifMVpgO
- DzUx5mh4amJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCawCdlhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiIY7BAAjh6uYVRLaiV6bbaXmSFHRPt6/PfvQKT
- vnjZ0TnBwX/y9aoG++Jm4tUH+wbRUU8ehmzojZRpUZ7JXcHDq55bO1AyB5pOaH57BIN4gZIebfh
- r3LdzDmBhjlXwe6Jq1Vh6M1lGMqj7zOnCUkA7KAhKFT5V/i+o/Ho4HkU++cMFmF+uakN5UA65O8
- MrhBnKtCvBafYQgDA0S2Y7hMRfUvWfPlXGTzi94rCBZE9CX6JzvyZW625HI+vhLRchX1cxvm1JK
- J6auyg2Bc6BXE+DlDcGvmmGzfUt+gvNcGVIBTkb+c+AMnkARc/IkZ8o3LgPowZEeXWp8+bYE5Cg
- /zT+Te6JV6qqnCopAErFnF5Wn9Vrobq++ZPlG35Sbp8BJIzVKaE9Wwlzz+hRR5NrFd6B7FpVDVv
- DzHCDbvNOL7+6T9JsExO1mMskdl7JiWSEJyjKcAAG9IZaeNBwRG8yaaKK0Y6eDzLcn6kG5V8EeU
- ic88V1VXgF+UA/OlSAMJ2U/6AfzTjnmDGRbrnkaeGP7CnsW64JDQD1kz1eQMWl7okCNKuDEwSpN
- g7fHe91pG8duQy7BZQvncNoS2Zm2MO3h5UZ02gvAaH+Dn69f6VNM01R4Fxd6lhD7BZ+31sPRrPi
- fs3Dug01rMorlaA8eUHw2y3MjpEiul4iA3bwKz/s9BChfh2WolHk=
+ bh=NdfxG+rjqtXpuMXB6FHKcGgU0zKZ4pW041ggmfB9o7E=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBrAJ2WVW5e1KPkQL1gQ9ewMRyMEsKrrUGaOVV+J
+ E4z6Uz/UYqJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCawCdlhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiKVqg//Uy+x4EEaYrDpooZbWoCBB9I052DMyfA
+ RTFbDzHKeZGrNXnYhcdCJs0VTL8EriH9BfRET0/SkxeqQ5Q13T1QGDXKNUWrYdhYjCHELjNeatj
+ OTFmFwSGcDU4R9PA5hE31PSckAXrDzzJ5HJP7n+BALE0RZYmQiNmIOs6XLs4P5cMdKZ9skDmb6j
+ U5RrAWXt6MMRaWndbLC2e4twXHhCVoaNshzHwyxR/rqfqz/+1tC1xiQa18vO7HyGvL4tD+xS9HU
+ 8o9HXruAjlHF2TgnOSFyh7KL2cwFv8Dh94MJnf0S+4coGZ0cbJx4BE3TbyvtGiFgMJEOFjqFq/m
+ ysCz5R346kum1NQMYBNu1JRWNAM9FKWG3pLfgPpTS2pFSxCBLVNgtEhUJ+/Shoy2ndZDniNEQ/a
+ ddlR2tvnj39IGnnlEooP3GD0Stsbz6mnHVa2RXCRpTYLS/Rqr9zoiPrSE9X9F1M0BhCcSYwb1Hj
+ M/wLT1lSEZ/oc+0jPXqoGFDYK8oUjjj3vXgfZhKz/8IPcTvdyNtm3bgy+uaM/DYIDkMUC5Lnwip
+ 5e5rnXm1A8RU0Ijmc/2MZt4SzscvNE85ggrV6Nbrx4x2G1ilD3/3vbdwRbtPLQ46JTl0khwWfn1
+ ZsWy/8B+CLoVnYIvWyqLAWgMXQnhOKJ3SYnzmllKjrnoTwMsOLVI=
 X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
  fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-Hi,
+The best way to sum up this controller is probably "misc". ZTE probably
+put everything they didn't bother to put in its own mmio area here.
+Documentation in ZTE's sources is very sparse and even the blobs only
+touch a handful of registers.
 
-This series expands the device tree and drivers for the zx297520v3 board
-enough to enable the DWC2 USB controller found on this board. This
-series depends on the zx29clk MFD driver that has been accepted into the 
-MFD tree, but not yet merged into linux-next.
+The controller contains power controls, resets, DMA multiplexing,
+auxiliary USB phy controls, i2s controls, the proprietary DSP boot
+address and many others.
 
-The individual patches contain a description of what they do and the 
-rationale for design decisions. Here is a quick overview:
+For power controls I could confirm that the USB/HSIC and a GSM-related
+controls work. There are 5 bits mentioned in ZTE's kernel though and
+there is a second register that is used in a very similar fashion by the
+LTE blob.
 
-Patch 1: DT bindings for the node containing the necessary power controls
-Patch 2: Add the socsys node to the MFD driver
-Patch 3: The power domain driver
-Patch 4: A minimal USB PHY driver
-Patch 5, 6: Link it together in the DTS
+For the Ethernet PHY reset register there are 5 settable bits,
+but only one of them produces an understood effect. I am using
+reset-cells=1 because it is likely some of the other bits have an actual
+meaning.
 
-Dependencies: 1-4-5 depend on each other at build / DTS validation time.
-2, 3, 4 are build time independent but need their previous patches to be 
-enabled at runtime.
-
-The MAINTAINERS additions are going to cause issues though. Once the 
-patches have been reviewed I can either take them out or create an 
-immutable branch.
-
-The open questions:
-
-1) How much documentation is appropriate in the binding .yaml?
-
-I want to document the identified registers *somewhere*, and since the 
-yaml lives in Documentation/ I put it there. I do understand though if 
-the Linux kernel doesn't want to be a backup SoC datasheet.
-
-2) Power domain vs reset:
-
-The pm domain controller has a reset, isolation and power register for 
-each of the 5 (maybe more) devices it controls. My binding links them 
-together into #power-domain-cells.
-
-To start up the GSM controller, its driver will have to assert and 
-deassert the reset. The GSM controller (Derived from an Infineon 
-PMB8877) has a self-arming watchdog and after 2.5 ms it stops 
-responding. With the power domain it is somewhat awkward:
-
-devm_pm_runtime_set_active_enabled()
-pm_runtime_get_noresume()
-pm_runtime_put_sync_suspend()
-pm_runtime_resume_and_get()
-
-And hope nothing else is holding the device and that runtime PM is 
-actually compiled into the kernel.
-
-Life would be easier if I expose the GSM reset bits as #reset-cells. 
-Otoh, I'd prefer not to do that for USB, as USB already has 3 different 
-reset controls already and adding another is awkward. I could of course 
-also hide the USB reset and expose the GSM resets.
-
-For now I postponed the issue and don't add GSM related controls to the 
-bindings at all.
+Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
 
 ---
-Stefan Dösinger (6):
-      dt-bindings: soc: zte: Document zx297520v3 socsys controller
-      mfd: zx297520v3: Add socsys to the mfd host driver
-      pmdomain: zte: Add a zx297520v3 power domain driver
-      phy: zte: Add a zx29 USB PHY driver.
-      ARM: dts: zte: Declare nodes to enable the board's dwc2 controller
-      ARM: dts: zte: Declare the HSIC controller node
 
- .../bindings/soc/zte/zte,zx297520v3-socsys.yaml    | 100 +++++++
- MAINTAINERS                                        |   3 +
- arch/arm/boot/dts/zte/zx297520v3.dtsi              |  42 +++
- drivers/mfd/zte-zx297520v3-crm.c                   |  12 +
- drivers/phy/Kconfig                                |  11 +
- drivers/phy/Makefile                               |   1 +
- drivers/phy/phy-zx29-usb.c                         | 183 +++++++++++++
- drivers/pmdomain/Kconfig                           |   1 +
- drivers/pmdomain/Makefile                          |   1 +
- drivers/pmdomain/zte/Kconfig                       |  15 ++
- drivers/pmdomain/zte/Makefile                      |   2 +
- drivers/pmdomain/zte/zx297520v3-pm-domain.c        | 286 +++++++++++++++++++++
- include/dt-bindings/power/zte,zx297520v3-socsys.h  |  11 +
+ZTE uses the name "SOC_SYS" in their downstream kernel. I am not
+particularly thrilled by that name, but couldn't come up with a better
+one yet. I am open to suggestions
+
+I do not want to commit to exposing the GSM related bits as power
+domains just yet, so no handle for them is defined in this binding. They
+are inside the RST/ISO/PWR registers just like their USB counterpart,
+but the PWR bit does nothing and the client driver will have to assert
+and deassert the reset to wake up the hardware. This is easier to do
+with a reset controller than a power domain. The ISO bit kinda works
+though, so I can't just pretend they are standalone resets.
+
+The hardware behind the GSM bits has a self-arming watchdog. After
+2.5ms it puts itself into a broken state and can only be recovered by
+asserting and deasserting the reset in socsys. Like almost everything on
+this board it is enabled on boot, so the client driver needs to assert
+and deassert the reset before touching it.
+
+How much documentation is appropriate in the binding .yaml? I want to
+document the identified registers *somewhere*, and since the yaml lives
+in Documentation/ I put it there. I do understand though if the Linux
+kernel doesn't want to be a backup SoC datasheet.
+---
+ .../bindings/soc/zte/zte,zx297520v3-socsys.yaml    | 100 +++++++++++++++++++++
+ MAINTAINERS                                        |   1 +
+ include/dt-bindings/power/zte,zx297520v3-socsys.h  |  11 +++
  include/dt-bindings/reset/zte,zx297520v3-reset.h   |   2 +
- 14 files changed, 670 insertions(+)
----
-base-commit: d785d132202e8e8e93335ebf74ad5b29fca0951f
-change-id: 20261117-zx29usb-c3a90ab59354
-prerequisite-change-id: 20261108-zx29clk-3b073b9d22d6:v14
-prerequisite-patch-id: 3ea4ed11578625d6aadf59c5b542e788882eab2f
+ 4 files changed, 114 insertions(+)
 
-Best regards,
---  
-Stefan Dösinger <stefandoesinger@gmail.com>
+diff --git a/Documentation/devicetree/bindings/soc/zte/zte,zx297520v3-socsys.yaml b/Documentation/devicetree/bindings/soc/zte/zte,zx297520v3-socsys.yaml
+new file mode 100644
+index 000000000000..094409c72333
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/zte/zte,zx297520v3-socsys.yaml
+@@ -0,0 +1,100 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/soc/zte/zte,zx297520v3-socsys.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ZTE zx297520v3 SoC miscellaneous system controller
++
++maintainers:
++  - Stefan Dösinger <stefandoesinger@gmail.com>
++
++description: |
++  This controller contains registers controlling numerous components of the
++  zx297520v3 board. It is poorly documented by sources available from ZTE.
++  Information about it has mostly been deduced by experimental testing.
++
++  The device contains power controls for USB and at least parts of the GSM/LTE
++  stack, a reset control for the Ethernet PHY, DMA multiplexing, I2S controls
++  and additional (beyond power) USB PHY and controller flags. To round it out it
++  also contains a flag to bring up the SoC's Cortex A53 CPU in arm64 instead of
++  arm32 mode.
++
++  The "include/dt-bindings/reset/zte,zx297520v3-reset.h" header contains reset
++  defines for this device. "dt-bindings/power/zte,zx297520v3-socsys.h" contains
++  the power domain defines.
++
++  The following registers are mentioned in ZTE's kernel and U-Boot code dumps:
++  0x0:
++    Bit 23: Boot ROM and sram2 remap
++  0x20:
++    Bit 13: A USB control "USB PHY COMMONONN", but without noticeable effect
++  0x40:
++    A mailbox system to read DDR mode registers
++  0x60:
++    I2S configuration
++  0x10c, 0x110, 0x114:
++    Power domain controls: RST (Reset), ISO (Bus isolation) and POWERON. ZTE
++    names devices "RAM", "DSP", "EDCP", "USB" and "HSIC".
++  0x120:
++    DMA channel multiplexing
++  0x150:
++    Ethernet PHY reset
++
++  The following registers are used in ZTE's power management and LTE blobs:
++  0x14:
++    Likely the ZSP rproc entrypoint
++  0x180, 0x184, 0x188:
++    Likely more power domain controls for LTE hardware
++
++  The following have been deduced by testing:
++  0x20:
++    USB PHY and DWC2 controller controls:
++      Bit 0: Force PHY into USB 1 mode
++      Bit 1: Unknown
++      Bit 2: DWC2 controller endianness
++      Bit 3: DWC2 DMA endianness
++      Bits 7:4: PHY clock adjustments
++      Bits 9:8: PHY electrical configuration. Setting them both to 1 allows
++                operating in host mode.
++  0x24:
++    More USB controls of unknown nature
++  0x2c:
++    HSIC controls mirroring the USB controls in 0x20
++  0xbc:
++    A53 mode controls. Setting bit 0 enables arm64 mode, others have no observable effect
++
++properties:
++  compatible:
++    items:
++      - const: zte,zx297520v3-socsys
++      - const: syscon
++
++  reg:
++    maxItems: 1
++
++  "#power-domain-cells":
++    const: 1
++
++  "#reset-cells":
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - "#power-domain-cells"
++  - "#reset-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/power/zte,zx297520v3-socsys.h>
++    #include <dt-bindings/reset/zte,zx297520v3-reset.h>
++
++    syscon@140000 {
++        compatible = "zte,zx297520v3-socsys", "syscon";
++        reg = <0x00140000 0x400>;
++        #power-domain-cells = <1>;
++        #reset-cells = <1>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9b6a2da28aa5..ab8797b8d0a5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4033,6 +4033,7 @@ F:	Documentation/devicetree/bindings/arm/zte.yaml
+ F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-lspcrm.yaml
+ F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml
+ F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
++F:	Documentation/devicetree/bindings/soc/zte/zte,zx297520v3-socsys.yaml
+ F:	arch/arm/boot/dts/zte/
+ F:	arch/arm/mach-zte/
+ F:	drivers/clk/zte/
+diff --git a/include/dt-bindings/power/zte,zx297520v3-socsys.h b/include/dt-bindings/power/zte,zx297520v3-socsys.h
+new file mode 100644
+index 000000000000..fb54e5deea2a
+--- /dev/null
++++ b/include/dt-bindings/power/zte,zx297520v3-socsys.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (C) Stefan Dösinger
++ */
++
++#ifndef __DT_BINDINGS_POWER_ZTE_ZX297520V3_SOCSYS_H
++#define __DT_BINDINGS_POWER_ZTE_ZX297520V3_SOCSYS_H
++
++#define ZX297520V3_PD_USB	0
++
++#endif /* __DT_BINDINGS_POWER_ZTE_ZX297520V3_SOCSYS_H */
+diff --git a/include/dt-bindings/reset/zte,zx297520v3-reset.h b/include/dt-bindings/reset/zte,zx297520v3-reset.h
+index b21d5901a7b9..7146e479695a 100644
+--- a/include/dt-bindings/reset/zte,zx297520v3-reset.h
++++ b/include/dt-bindings/reset/zte,zx297520v3-reset.h
+@@ -59,4 +59,6 @@
+ #define ZX297520V3_TIMER_L11_RESET		16
+ #define ZX297520V3_TDM_RESET			17
+ 
++#define ZX297520V3_ETH_PHY_RESET		0
++
+ #endif /* __DT_BINDINGS_RESET_ZX297520V3_H */
+
+-- 
+2.56.1
 
