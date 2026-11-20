@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795175161;
-	b=NJiWum8gF2dA7soRleVwO7FDy8r5Rahhdrk4qcmuCiSpljEbgGwPVJME4AmmO4U6of8P
-	 4eXXx8yQXM3H+coWPnMBLebdiBup/vNJ4CafjwIc9miiRhdbsuJW5goxpMy3vTFLw6U/0
-	 zXOsgi9iXMdHv2eyaXujLksFfY8Y1TVFLC2sYkskproWQ1k5HT1oWmqnwu098xUyZ1GzG
-	 pc7bgkNgK8quT6o90rGKDzQibQg8bfEvbtn0YKawIcA6Nwx+dEad68UlN0n+EAIiRPR7w
-	 N96y4NnGuZkdcOKfkOwTKSc8mELoy92BpG3kDdk17A96/yBNzOz9uTBu0CcFGBd3JkQ==
+	t=1795175166;
+	b=2bzBHq5WcVjR0YlgpYPK1DrNdu8Mx1om532+V4fQuJ6abCkhMCYjfysHqwUJKIxMwdHE
+	 aUxD2Ja0MytdQIII5Knos6W2mZ60lKnXx0Twz9EKyHFgWezVQxEKRRoIw24mBnrXaKDIJ
+	 0oe9R+3j40q0kpDWnKroZ5yK7ppUgjqI8oPo4DM9QGKI7eeI9OO0q/iTe3nr4ixAS9TCI
+	 CV1qC0a2Pg6ijxfFQpmcfLa+dz6FIPrYlodXRXXhA7Sml0pjvqTZscfvMBircK0SMB1yC
+	 AucWBSaj0YvpOy86Qc9DBZaYg+7yKaWET9UTRR4FGChHoPam/OWE3YPiqB/07LJqKHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795175161;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795175166;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=oYoHsG83FQZULUWCke+dZGB/1XRF4iHwIyLD1IPShN8=;
-	b=h3uhlQIGOmIP9d6ARX+oibQbWDep2CE5NiBYmmWk3Oai4dhuRnPziKqj9WFE2VZoour3
-	 rWFu+FHUKhJRMX5aMcaH91ylXl1btZeIy4ubjsR4E+lZfTtSe9AoPPIeGCsk3WlanCn2z
-	 j6lQpAOE3CnBWYbnS8llDI2KjVSnuQ0AN9IDHzK3vH0wouLxpIbPxsJVNe/5le6DcX/+2
-	 mxsD6r8RKW1Pr1Dru8NllT+9Xxv7KyX0zY29OS+gpu3wGvI2Wwvl3n8Wq6i26kcorYmFt
-	 mpGtQX/ZWFGk19lKIEMSuNqsFDsN8obOgvAFG8UlOqV+xhmKHXNVzTdbJe7JioykQig==
+	bh=aMjxQu5DvNMxMD2QmUMgnuSCNhoUFHlBMLUHHCISx7E=;
+	b=l6BXJ3JRFHuYo9fSizsl8sVDkO+wS6YIBb3zC84dvsEMN4+kdSanEVOjh3MOivfmxCh5
+	 fcApSsywGG0VGi/yXYSzUpiabQ4m+AlsKFoJcK3lm5uvIW5o0hBionsXjQkIfYMtgAKCl
+	 2nLeBaOyamHtmaFb15Yd//v+WVxfYr/xKKfJ3zKSuIwG3VkI3F/SMo05e/shM5KVtTvJV
+	 CJVo9P+ljUQhCTgQJIuX/HmraMzxREaZF6Q17OiyYe+74zczZRdiEFySzuzZKNqohHx0x
+	 XrsNbt3KtwGn0O3vtX5tVWxxb3XOuGlf2J/pB1qMQb5nuTs6mcOni2AmSYetU4kGA3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qe4iv3H9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nz/5t0En";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0572D60A262F;
-	Fri, 20 Nov 2026 11:46:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FB460A381E;
+	Fri, 20 Nov 2026 11:46:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qe4iv3H9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2839F1F000CA;
-	Fri, 20 Nov 2026 11:45:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nz/5t0En
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD381F000E6;
+	Fri, 20 Nov 2026 11:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795175160;
-	bh=oYoHsG83FQZULUWCke+dZGB/1XRF4iHwIyLD1IPShN8=;
+	s=k20260515; t=1795175165;
+	bh=aMjxQu5DvNMxMD2QmUMgnuSCNhoUFHlBMLUHHCISx7E=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Qe4iv3H9QRX18LS884wJFtJI1QMtrlFCZZsQzFYMsB4UvzqAFBSFlc0TpQlUGoJjt
-	 8w/jifjlut16wTKgpIoIIfAGdGNA21z7yQlDTt59XDYVdnLbmDuUDN3CyUT2UoareX
-	 wecSSKpAA7QQQUSQasn5UrCBkAODjk7CBY95aWBVQOK54i9Q6k8684TlP0eTZ6NO1W
-	 MzTlh3PCpYhBbWhGHbqkAsFYQ0SooIvoFxWvaYFKFESGRG0a07MF4fsvbrT9n/V3pT
-	 Zroilq6MXRAJRIV3tnSIXtutGVQB1ZeNqoEfw41OgB0gWpRR9CED3SRcSUGyDWd9fg
-	 69THS/vjVZVaA==
-Subject: Re: [PATCH net-next v4 05/10] net: stmmac: qcom-ethqos: add
- DLL-bypass for PHY-managed RGMII delays
+	b=nz/5t0EnMiLvCX7mt5E8GkcAaL4HeiOZ6kfivXi+TxRxH6eQHwq0Hx7OLaQm466sZ
+	 jn1bLwHjiIjTjeO+0u2lQ6BUW2PyqCSRDXb143ZmYFKHLoUph3GsGwkto1DgiLyewv
+	 hJ1hQZWqoWow1iH8xyRpyo/gBKKdwuzHZpa5TLoAorkG7hLXkwAFNsU6mcy3gBKYhD
+	 e0+3VPxIslhdgWAOU86+QjIw07qDV1kS0LvPIgRUgsMPQzrQ84g/UNauKhI48r1/Db
+	 wNgXwl6WORT91gljOAPbUm8elfw73+1XAigzU5bvsFDFS0CRi0mfjWoxQVL1ox064k
+	 Xb51+OwHzoUSw==
+Subject: Re: [PATCH net-next v4 10/10] net: stmmac: qcom-ethqos: add QCS615
+ EMAC support
 From: netdev-bot+sashiko@kernel.org
 To: mohd.anwar@oss.qualcomm.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
@@ -55,10 +55,10 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Fri, 20 Nov 2026 11:45:58 +0000
-Message-ID: <179517515873.3136.13386164324921238997@kernel.org>
-In-Reply-To: <20261117-shikra_ethernet-v4-5-c41902e5f2fa@oss.qualcomm.com>
-References: <20261117-shikra_ethernet-v4-5-c41902e5f2fa@oss.qualcomm.com>
+Date: Fri, 20 Nov 2026 11:46:03 +0000
+Message-ID: <179517516381.3136.1746646208763714610@kernel.org>
+In-Reply-To: <20261117-shikra_ethernet-v4-10-c41902e5f2fa@oss.qualcomm.com>
+References: <20261117-shikra_ethernet-v4-10-c41902e5f2fa@oss.qualcomm.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -72,10 +72,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -83,137 +83,177 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] In ethqos_set_clk_tx_rate()
-  (drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c), the new…
-- [Medium] Speculative: the new RGMII_ID DLL-bypass path returns before
-  the POR reset loop in ethqos_fix_mac_speed_rgmii().
+- [High] In drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c,
+  ethqos_set_clk_tx_rate() decides whether to double the RGMII link…
+- [Medium] In drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c,
+  the new qcs615_data descriptor has no .rgmii_por/.num_rgmii_por,…
+- [Medium] net: stmmac: qcom-ethqos: missing delay check in
+  ethqos_set_clk_tx_rate()
 
 --
 
-net: stmmac: qcom-ethqos: add DLL-bypass for PHY-managed RGMII delays
+net: stmmac: qcom-ethqos: add QCS615 EMAC support
 
-This adds a DLL-bypass programming path for RGMII_ID, where the PHY
-supplies both TX and RX delays. The path is guarded by a new
-phy_managed_delays flag in the platform descriptors. It also changes
-ethqos_set_clk_tx_rate() so the link clock is not doubled at 100M/10M in
-RGMII_ID mode.
+This adds a qcom,qcs615-ethqos match entry and a qcs615_data descriptor
+with phy_managed_delays enabled, so rgmii-id on QCS615 uses the
+DLL-bypass configuration. Before this patch, QCS615 nodes bound to the
+QCS404 descriptor through the qcom,qcs404-ethqos fallback compatible.
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index f2428f0467bbb..99ea7e0cfb00d 100644
+> index a7fdba73da2ba..790159ae1be7a 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-
-[ ... ]
-
-> @@ -189,7 +193,15 @@ static int ethqos_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
->  	if (rate < 0)
->  		return rate;
+> @@ -250,6 +250,13 @@ static const struct ethqos_emac_driver_data emac_v2_3_0_data = {
+>  	.setup = ethqos_hlos_setup,
+>  };
 >  
-> -	return clk_set_rate(ethqos->link_clk, rate * 2);
-> +	/* Clock Rate Requirements:
-> +	 * MAC added delay: 250/50/5 MHz for 1G/100M/10M
-> +	 * No MAC delay (DLL bypass): 250/25/2.5 MHz for 1G/100M/10M
-> +	 */
-> +	if (ethqos->phy_mode != PHY_INTERFACE_MODE_RGMII_ID ||
-> +	    speed == SPEED_1000)
-> +		rate *= 2;
+> +static const struct ethqos_emac_driver_data qcs615_data = {
+> +	.rgmii_config_loopback_en = true,
+> +	.phy_managed_delays = true,
 
-[Severity: High]
-Should this check also look at ethqos->data->phy_managed_delays?
+[Severity: Medium]
+This flag is meant to confine the new behaviour to tested hardware,
+but does the link clock rate follow it as well?
+ethqos_set_clk_tx_rate() decides whether to double the rate from
+phy_mode alone:
 
-In ethqos_fix_mac_speed_rgmii(), the bypass programming only runs when
-both conditions are true:
-
-	if (ethqos->data->phy_managed_delays &&
-	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
-
-The existing descriptors don't set the flag. That covers emac_v2_3_0_data
-(qcs404), emac_v2_1_0_data (sm8150), emac_v3_0_0_data (sc8280xp) and
-emac_v4_0_0_data (sa8775p). With phy-mode "rgmii-id", these still take
-the legacy POR/DLL path and call ethqos_rgmii_macro_init(). That function
-always sets RGMII_CONFIG_DDR_MODE and programs the MAX_SPD_PRG_2/9
-dividers.
-
-The comment above says the MAC-delay setup needs 50/5 MHz. After this
-patch, these boards would get 25/2.5 MHz at 100M/10M. Doesn't that
-contradict this part of the commit message?
-
-  "This new programming is guarded by a boolean set by the platform
-  descriptors. No change intended on existing platforms."
-
-A later patch in the series, "add QCS615 EMAC support", notes that unlike
-QCS404, the QCS615 RGMII clock source supports the 25 MHz and 2.5 MHz
-rates. So on QCS404 with rgmii-id, this could request rates the clock
-source can't produce.
-
-Another later patch, "set initial RGMII link clock to lowest speed",
-changes the probe-time call to SPEED_10. Non-flagged rgmii-id platforms
-would then also get the halved 2.5 MHz rate at probe. The issue is still
-present at the end of the series.
-
-Would it work to use the same predicate as the bypass path? For example:
-
-	if (!(ethqos->data->phy_managed_delays &&
-	      ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) ||
+	if (ethqos->phy_mode != PHY_INTERFACE_MODE_RGMII_ID ||
 	    speed == SPEED_1000)
 		rate *= 2;
 
-> +
-> +	return clk_set_rate(ethqos->link_clk, rate);
->  }
+ethqos_fix_mac_speed_rgmii(), by contrast, only takes the DLL-bypass
+path when ethqos->data->phy_managed_delays is also set:
 
-[ ... ]
+	if (ethqos->data->phy_managed_delays &&
+	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
+		ethqos_configure_rgmii_id(ethqos, speed);
+		return;
+	}
 
-> @@ -515,6 +527,58 @@ static void ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
+Take a descriptor without the flag (qcs404, sm8150, sc8280xp, sa8775p)
+and phy-mode = "rgmii-id". The IO macro is still programmed through
+ethqos_rgmii_macro_init() for the MAC-delay path, with
+RGMII_CONFIG_DDR_MODE set and RGMII_CONFIG2_DATA_DIVIDE_CLK_SEL
+cleared. That path wants 50/5 MHz at 100M/10M, but the link clock is
+asked for 25/2.5 MHz instead.
 
-[ ... ]
+As far as I can see this is also hit at probe, where
+ethqos_hlos_setup() requests the SPEED_10 rate before any link comes
+up.
 
-> +static void ethqos_configure_rgmii_id(struct qcom_ethqos *ethqos, int speed)
-> +{
-> +	ethqos_set_func_clk_en(ethqos);
-> +
-> +	/* For rgmii-id mode, the PHY should add the required delays.
-> +	 * Therefore, power down the DLL and program it in bypass mode.
-> +	 * Program the IO_MACRO as per the settings recommended by the
-> +	 * programming guide for bypass mode. This will ensure that the
-> +	 * MAC core doesn't add any additional delays.
-> +	 */
-> +	rgmii_setmask(ethqos, SDCC_DLL_CONFIG_PDN, SDCC_HC_REG_DLL_CONFIG);
-> +	rgmii_setmask(ethqos, SDCC_USR_CTL_DDR_BYPASS, SDCC_USR_CTL);
+This commit message says the QCS404 RGMII clock source cannot provide
+those rates. ftbl_emac_clk_src in drivers/clk/qcom/gcc-qcs404.c only
+lists 5, 50, 125 and 250 MHz. On SM8150, link_clk would end up at half
+the rate the non-bypass configuration expects.
+
+Shouldn't the doubling be skipped only under the same condition that
+ethqos_fix_mac_speed_rgmii() uses, i.e. phy_managed_delays set and
+phy_mode == PHY_INTERFACE_MODE_RGMII_ID? Or is there a reason the
+earlier DLL-bypass patch in this series made the rate depend on
+phy_mode only?
+
+[Severity: High]
+The v4 note says phy-managed delays should only affect tested hardware
+(Shikra and QCS615). Does that also hold for the link clock rate?
+
+ethqos_set_clk_tx_rate() chooses the bypass rate from phy_mode alone. It
+never checks phy_managed_delays:
+
+drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c:ethqos_set_clk_tx_rate() {
+    ...
+	/* Clock Rate Requirements:
+	 * MAC added delay: 250/50/5 MHz for 1G/100M/10M
+	 * No MAC delay (DLL bypass): 250/25/2.5 MHz for 1G/100M/10M
+	 */
+	if (ethqos->phy_mode != PHY_INTERFACE_MODE_RGMII_ID ||
+	    speed == SPEED_1000)
+		rate *= 2;
+    ...
+}
+
+ethqos_fix_mac_speed_rgmii() takes the bypass only when the flag is set:
+
+	if (ethqos->data->phy_managed_delays &&
+	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
+		ethqos_configure_rgmii_id(ethqos, speed);
+		return;
+	}
+
+Take a descriptor without the flag (emac_v2_3_0_data, emac_v2_1_0_data,
+emac_v3_0_0_data, emac_v4_0_0_data) and phy-mode = "rgmii-id". At 100M
+and 10M, the IO macro is programmed for the DLL/MAC-delay path. The link
+clock, though, is set to 25/2.5 MHz, not the 50/5 MHz that the comment
+says this path needs.
+
+This commit's message also says the QCS404 RGMII clock source does not
+support 25 MHz and 2.5 MHz.
+
+The unconditional halving came from the earlier commit in this series,
+"net: stmmac: qcom-ethqos: add DLL-bypass for PHY-managed RGMII delays".
+That commit said "No change intended on existing platforms". Before it,
+clk_set_rate(link_clk, rate * 2) was always used.
+
+Could the rate check also be gated on ethqos->data->phy_managed_delays,
+using the same condition as ethqos_fix_mac_speed_rgmii()?
+
+> +	.has_emac_ge_3 = false,
+> +	.setup = ethqos_hlos_setup,
+> +};
 
 [Severity: Medium]
-Can leftover MAC-side delay state still affect RX timing here?
+Should qcs615_data also carry the POR table from emac_v2_3_0_data?
 
-The early return in ethqos_fix_mac_speed_rgmii() skips the POR reset
-loop. The descriptors that use this path later in the series,
-qcs615_data and shikra_data, have no rgmii_por table anyway.
+static const struct ethqos_emac_driver_data emac_v2_3_0_data = {
+	.rgmii_por = emac_v2_3_0_por,
+	.num_rgmii_por = ARRAY_SIZE(emac_v2_3_0_por),
+	...
 
-This function only sets SDCC_DLL_CONFIG_PDN and SDCC_USR_CTL_DDR_BYPASS.
-ethqos_rgmii_id_macro_init() only does partial read-modify-writes of
-RGMII_IO_MACRO_CONFIG and RGMII_IO_MACRO_CONFIG2.
+The binding requires QCS615 nodes to use "qcom,qcs615-ethqos",
+"qcom,qcs404-ethqos". Until now they matched emac_v2_3_0_data through the
+fallback. The new, more specific qcom_ethqos_match entry now binds them
+to qcs615_data, where num_rgmii_por == 0.
 
-Nothing on this path does any of the following:
+Only phy-mode = "rgmii-id" takes the bypass early return. For "rgmii",
+"rgmii-txid" and "rgmii-rxid", ethqos_fix_mac_speed_rgmii() still runs
+the full DLL/MAC-delay sequence, but this loop now does nothing:
 
-  - writes SDCC_HC_REG_DDR_CONFIG (PRG_DLY_EN, PRG_RCLK_DLY,
-    EXT_PRG_RCLK_DLY_EN/CODE)
-  - clears SDCC_DLL_CONFIG_DLL_EN or SDCC_DLL_CONFIG_CK_OUT_EN
-  - programs RGMII_CONFIG_INTF_SEL or RGMII_CONFIG_MAX_SPD_PRG_2/9
+	/* Reset to POR values and enable clk */
+	for (i = 0; i < ethqos->data->num_rgmii_por; i++)
+		rgmii_writel(ethqos, ethqos->data->rgmii_por[i].value,
+			     ethqos->data->rgmii_por[i].offset);
 
-These fields keep whatever hardware reset or an earlier boot stage left.
-For example, UEFI may have brought the MAC up in DLL/MAC-delay mode for
-network boot.
+That leaves RGMII_IO_MACRO_CONFIG, SDCC_HC_REG_DLL_CONFIG,
+SDCC_HC_REG_DDR_CONFIG, SDCC_HC_REG_DLL_CONFIG2, SDCC_USR_CTL and
+RGMII_IO_MACRO_CONFIG2 to be read-modify-written on top of whatever the
+bootloader or the previous link-up left in them.
 
-The has_emac_ge_3 POR value for SDCC_HC_REG_DDR_CONFIG (0x80040800) has
-PRG_DLY_EN set, and Shikra is has_emac_ge_3.
+The rest of the sequence sets bits for one speed and does not clear the
+other speed's bits:
 
-If these fields still matter with the DLL powered down and DDR_BYPASS
-set, wouldn't the MAC add RX delay on top of the PHY's delay? The result
-would then depend on boot history. Would it be safer to clear them
-explicitly here?
+- ethqos_rgmii_macro_init() sets SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_EN at
+  10/100 and SDCC_DDR_CONFIG_PRG_DLY_EN at 1G.
+- The 1G path also sets DLL_EN and CK_OUT_EN in DLL_CONFIG, bit 26 of
+  USR_CTL, and DDR_CAL_EN, MCLK_FREQ_CALC and TRAFFIC_INIT in
+  DLL_CONFIG2.
 
-> +
-> +	ethqos_rgmii_id_macro_init(ethqos, speed);
-> +}
+Only the POR write clears these bits.
+
+After a renegotiation from 1G to 100M (or from 100M to 1G), wouldn't both
+RX delay enables stay set, along with the 1G DLL settings?
+
+The commit message says:
+
+    The existing compatible binding and qcom,qcs404-ethqos fallback
+    remain unchanged.
+
+But the descriptor those DTs bind to does change, and only the rgmii-id
+bypass path was tested.
+
+Would adding the following to qcs615_data keep the previous behaviour for
+the non-bypass modes?
+
+	.rgmii_por = emac_v2_3_0_por,
+	.num_rgmii_por = ARRAY_SIZE(emac_v2_3_0_por),
 
 [ ... ]
 
