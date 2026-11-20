@@ -1,80 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795157413;
-	b=T9OmlBFqbGMp/Xt7gfj97CcUBiC0AMRh+URLxk05jGmr66ZxOoqWtkotYbZuvX7bDyBT
-	 1ZOPAImdOZC3On3Sr+lw7hgLUp1EfHrS+qLbafbgipG+ot9EJcYdsdmaiMEbnwP9nR0vd
-	 9AkP30eu2u6JY9b5trpLkqmZzBtf+9S0NEMx6kRGzCpVJZYrsvlbVinW5YzhiDIXoi7bi
-	 GEiqML5z/gv/+XX0tlCYMte6+mUATjeUHYu5SBvMBLk9AG7e0vpMDy7VTvHTD8y0tqWP9
-	 WCWHbaH/EIzD7XXGmvOkXnJ5apm55/BQqig401wj/FmsPv7/vb6zFk4Mhoi5RVLSduA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795157413;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=fphJrXwqi5waN4URtgt47m703CKnWB5bi67O2O8Dy5Y=;
-	b=XNysZpIKnrj1unfv0qYUOpOTTzsAbTNd3XtxfZ6cCEU/F9M/VZ+ifb80UWo+JryVj/KR
-	 cz0MBkBje5dPwxjPcl1HWGecoArQwTp+s5VG/ci1tU2unFxYzt0ZjVAdUbbIE9hOlCd78
-	 hBlpi/BjcZJl0qYqfilZDr7JJt7kBSg3CCT6y9R18PmV8VqLBs+yWyG9A7H47fAdMmWS1
-	 Dw2/FLUDNknM+iHZH81+JiNxXrHntE7HqFpw+QTOnKfdRperiX+FtEPxww8egLjCLTku7
-	 xrFAbjGKU6FlrHtOCMD+0w1F6/Qt5KlbAJt7ybZWfqMWbYodcl2rfv9iBcKc248ENCg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKLEtSDs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1C5606A325;
-	Fri, 20 Nov 2026 06:50:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKLEtSDs
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795157412;
-	b=coaoxvRvP6/zLSrp0TiShijTth3Apf0bDDoR87VccLR+VcrEJ4YWIMj9Bn1ZK17t5FaF
-	 uBF3h82KbxJWHA5e5QY/IW6XjG+UhGSLVPt/nKhBFpxvbD8j4PKcW9UaN7ZA7hrcLuRh0
-	 u8HpWyx7ui9E5FjEEY3U4DzHOtU/zTdSgGf3uymt53qgd6mtyRFVOWj8Mxt2h+IXDn9kA
-	 KoLrBAW9n8qEApdaQrti2fjbHa+HRh0m0rGkoytlzU+DFGnzbgpL20I7VQFbqRNzGnZ8c
-	 9QS2QMOsyWsiOfUL9xEO6OKkWajzj+gm6jRl0JBf6/XXKNpu7eWASNoaLHTCWe/VURA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795157412;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=fphJrXwqi5waN4URtgt47m703CKnWB5bi67O2O8Dy5Y=;
-	b=cBhgP58wwTuN2KbXT4PY+1fmvMDsZTLsW7VR2EoSU22qkOkbgdztRCWVLIU+tVqlmQr9
-	 1gTtTUPlQlBsr5ZI5dxj9DRENIquvTakotnXbsgj576Lwm9qwc8elZx47ldL54FxryVRr
-	 ekC9NcqRgH8w9eixXX9s2yIaKmk27FcWz0Ygk/xNbF92chPiamHOifsWe2EYobuNbJQLb
-	 MBgFpknpoTRk21Dkh7YKQc5e+JwyOggnCYMYKYWkbYwYTKxp6q7HMaLrpK8/vCVQrwH6X
-	 28gacXUOXNNR2qzNHsIDFXjYRBwPOkLnuOa7+Tovufu5+FvP/UGTu5QTF/XAuPrx89Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.19
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795157524;
+	b=oV/eFi9P0XtvBkCXU54Gg43eyAXmSs0xX6IFUOAffllCX7Vdx8gz6c2ymzRqcYt0fNxt
+	 4Is8zgriaA6ySjDPPSIzu4aTOhTPDmrEyLMLgRSOB7HJYc/FqHixiWIad5HWHn7Kbo46M
+	 SB05OJ7FONvoOgiyg6GySQ3l2FhkRzZkpdirMR0VjqE/GkRtUShX33tygeMxD1KnPaZfX
+	 PS5BtNjVzKJF+NOX6QzZq5PFswahdqZZCA4KYLwXhS4Y0X+kDRp1b9ybnvL30wCvHrdzC
+	 eXieeug8YwF9NHBLGtt28aJmwPehnUANLg+pn5zEEgJTQebqfjetaeDTXRu0dSaBKaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795157524;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0z0AzJNanfrVB85wgMFdgJJ5GkqCfeRb/cYUccsjyJg=;
+	b=UeU04o31UMHcW8CtVMRVMhaWkbqO3Bf9oNmDYXXUEz59r1ySARlsJriDw+bCeIBv/YHj
+	 mceD6BakpfQ+QNjTvaPhzs8Fq3lOiGFFMQawlgRxsmEovlK+ANq+MTTpktrxbSqDQUZQa
+	 ZNunWilPPjBTt0oHwuXyG1ze+Cp2b6bxxQWckGxChwfR2vCND6f6XP3lDTWhnxVAH9LY/
+	 PAv/bqugPoqSJHAg+6g73i/eJG/OQEQT5DPLWWxAQiPkTOUu6EY8Ovh/oWx92xDtexhoY
+	 IYWzo3OlphI7MlTMVr8dTZzwlN+xy+64NIbUCus74VWwLVJuxEnmegnv07fBHf21/wA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jcMVexTx;
+	arc=none smtp.remote-ip=91.218.175.19
+Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 94E601F000C4;
-	Fri, 20 Nov 2026 06:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795157412;
-	bh=fphJrXwqi5waN4URtgt47m703CKnWB5bi67O2O8Dy5Y=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=QKLEtSDse56JwztLXruD5t9DcWAdS1VM7Av+EOzXMCT+lYPkmBUzM6wuDoFIC+YpN
-	 h2n0d9uXgctg7j/lGx5iYvfPTERWm15MCV+sDrgZ21PSyherj1Xd7Am9i53t7iyx0w
-	 SdvEV3sPWcAc6PlOw5tyFYLEUN9n/wmw3d5zdIsgYQ034ShNz3lYxmPvYd644Ilz+X
-	 4/k0lZOd6aNtTuFX8KaoPoJA/n1c/NTQxJ69XG8ldcy+P/XCaoN2wJKNTYC0rbiDIp
-	 cB6XYBaE8fqoH6CtfQ4MnltHGBJMmV7Hnri9g6M8KDFMMOfyXjHFmuJKjY6DPHlq+r
-	 o7xKmcFyxN8MA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 269424971D;
-	Fri, 20 Nov 2026 06:50:11 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Subject: [PATCH v5 0/2] i2c: Add Cortina Systems CS75xx I2C controller
- driver
-Date: Fri, 20 Nov 2026 09:49:43 +0300
-Message-Id: <20261120-cs75xx-i2c-v5-0-03bec242a549@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E2A606A325
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 06:52:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06E2A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jcMVexTx
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ro9VE7XGMtGJmsM9mnH8HIatHqmwaoWhZDuLhhpiHfI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795157521; v=1; x=1795762321;
+ b=jcMVexTxKDTegToAManw+obcFWicIYkyNWBbQ8bHPCWoQIHS8oeNmQEtnoc/bqLFcE+AsWYk
+ E5gvqiIkV2ACvfJguuJ26FIkKntFy9f//Qh74GihVulthqtUrTbP1pAWX2XuMuoeTRR35PbGo5H
+ /3N2qFbMT7WVqAGzErsSYReM=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ef437e63efd8efa5;
+	Fri, 20 Nov 2026 06:52:00 +0000
+X-Mizu-Trace-ID: ef437e63efd8efa5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <18426bef-b231-4685-bda7-665becfc6528@linux.dev>
+Date: Fri, 20 Nov 2026 07:51:58 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,121 +58,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNyw6CMBBFf4XM2pq2tjxc+R+GRSkjjBFqWiQYw
- r/bwsrlSc49d4WAnjDANVvB40yB3BhBnzKwvRk7ZNRGBsllLrjQzIZCLwsjaVmlVCsLeRGNshA
- Hb48PWvbYvT44fJon2ikVktFTmJz/7m+zSt4RFv/hWTHOVCNyRFOVpihv3WDodbZugHrbth8+p
- SCytgAAAA==
-X-Change-ID: 20261015-cs75xx-i2c-944d27231b4c
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Fil Dunsky <filipp.dunsky@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795157409; l=4213;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=ZF8nx2IQ8HACgl8vWRQJt54cQk/RO3BGOD/Pq4aDOZA=;
- b=6oa3JGk5fIR6mAcJu0RKPtFyuHbAaLULpX5OSj8xkLuwa4CBuCnPRVzcVgcf+iS+4yxMXlPb8
- R1Uiwjopm5lB3Wm13FyXEM32t/PIakcJNY3ZsKv06EJJVHNWy0keOTR
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
-
-The I2C ("Bi-Wire") controller of the Cortina Systems CS75xx
-("Goldengate G2") SoCs transfers one byte per command, with a command
-register much like the OpenCores one, and raises an interrupt when a
-command has completed. This series adds the binding and a driver for
-plain I2C and emulated SMBus, without quick commands (every message
-carries at least one data byte) and without 10-bit addresses.
-
-The driver used to be part of a series with the interrupt controller,
-GPIO and watchdog drivers and the device tree changes. That series is
-now split per subsystem. The driver depends on OF and HAS_IOMEM and has
-no dependency on the platform series [1], which is under review
-separately. The device tree nodes will follow with the other CS75xx dts
-changes once the platform is merged.
-
-There is no public documentation; the register layout comes from the GPL
-vendor kernels. Tested on a Securifi Almond+ (CS7542) with the SX8650
-touchscreen controller at 0x48: reads are ACKed, an empty address returns
--ENXIO without timeouts. The v5 late-interrupt change was checked with a
-host regression test of the transfer state machine; it has not been
-exercised on the board. Repeated START between messages has not been
-exercised on the board.
-
-[1] https://lore.kernel.org/all/20261114-b4-cs75xx-v7-0-8f17f38821b4@gmail.com/
-
----
-Changes in v5:
-- replace the dependency on ARCH_CORTINA_ACCESS || COMPILE_TEST with OF,
-  retaining HAS_IOMEM, so the driver can be merged without the platform
-- build built-in and modular on ARM and x86-64 with COMPILE_TEST=n,
-  without the platform series
-- ignore a late interrupt of a timed out transfer before looking at the
-  arbitration lost bit (sashiko-bot)
-- Link to v4: https://patch.msgid.link/20261115-cs75xx-i2c-v4-0-4b16eea98a78@gmail.com
-
-Changes in v4:
-- rebase on v7.4-rc1
-- split out of "Cortina Systems CS75xx: interrupt controller, GPIO, I2C
-  and TWD watchdog" so that each driver can go through its own tree; no
-  longer based on the platform series
-- binding: limit clock-frequency to 400 kHz instead of listing 100 and
-  400 kHz, which is what the driver accepts; I kept Rob's Reviewed-by
-  from v3 for this one-line change
-- collect Reviewed-by tags
-- use fsleep() and device_set_node(); sort the Kconfig and Makefile
-  entries
-- Link to v3: https://patch.msgid.link/20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com
-
-Changes in v3:
-- rebase on v6 of the platform series
-- reset the controller with its interrupt disabled, check the prescaler
-  against the field width exactly, wait for a bus held by another master
-  up to the adapter timeout (sashiko-bot)
-- Link to v2: https://patch.msgid.link/20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com
-
-Changes in v2:
-- rebase on v5 of the platform series
-- do not include <linux/mod_devicetable.h> (Uwe)
-- complete a failed transfer only once its stop condition is done, so
-  that the stop interrupt cannot race with the next transfer; take the
-  lock over the whole interrupt handler; report a NACK of the last byte
-  of a write; enable the interrupt again after a reset on timeout; fail
-  with -EBUSY when the bus stays busy (sashiko-bot)
-- Link to v1: https://patch.msgid.link/20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com
-
-To: Andi Shyti <andi.shyti@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-i2c@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-
----
-Fil Dunsky (2):
-      dt-bindings: i2c: Add Cortina Systems CS7542 I2C controller
-      i2c: Add Cortina Systems CS75xx I2C controller driver
-
- .../bindings/i2c/cortina,cs7542-i2c.yaml           |  56 +++
- drivers/i2c/busses/Kconfig                         |  11 +
- drivers/i2c/busses/Makefile                        |   1 +
- drivers/i2c/busses/i2c-cs75xx.c                    | 394 +++++++++++++++++++++
- 4 files changed, 462 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261015-cs75xx-i2c-944d27231b4c
-
-Best regards,
---  
-Fil Dunsky <filipp.dunsky@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 10/24] net: dsa: rzn1-a5psw: Fix MDIO clock
+ divider calculation
+To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ Ralph Siemsen <ralph.siemsen@linaro.org>, linux-renesas-soc@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ stable@vger.kernel.org
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Language: en-US
+From: Clement Leger <clement.leger@linux.dev>
+In-Reply-To: <20261120002549.1908299-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+
+On 11/20/26 01:25, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> The MDC frequency is hclk / (2 * CLKDIV + 1) on RZ/N1 as well as
+> RZ/T2H and RZ/N2H. The existing calculation uses the wrong divisor
+> formula and can set MDC above the requested clock-frequency.
+> 
+> Calculate the smallest CLKDIV that keeps MDC at or below the requested
+> frequency.
+> 
+> Fixes: 888cdb892b61 ("net: dsa: rzn1-a5psw: add Renesas RZ/N1 advanced 5 port switch driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v4->v5:
+> - New patch
+> ---
+>   drivers/net/dsa/rzn1_a5psw.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+> index 7fd2652813ac..df3b3f75b489 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.c
+> +++ b/drivers/net/dsa/rzn1_a5psw.c
+> @@ -11,6 +11,7 @@
+>   #include <linux/if_bridge.h>
+>   #include <linux/if_ether.h>
+>   #include <linux/kernel.h>
+> +#include <linux/math.h>
+>   #include <linux/module.h>
+>   #include <linux/of.h>
+>   #include <linux/of_mdio.h>
+> @@ -1104,7 +1105,7 @@ static int a5psw_mdio_config(struct a5psw *a5psw, u32 mdio_freq)
+>   	u32 cfgstatus;
+>   
+>   	rate = clk_get_rate(a5psw->hclk);
+> -	div = ((rate / mdio_freq) / 2);
+> +	div = DIV_ROUND_UP(DIV_ROUND_UP(rate, mdio_freq) - 1, 2);
+>   	if (div > FIELD_MAX(A5PSW_MDIO_CFG_STATUS_CLKDIV) ||
+>   	    div < A5PSW_MDIO_CLK_DIV_MIN) {
+>   		dev_err(a5psw->dev, "MDIO clock div %ld out of range\n", div);
+
+LGTM,
+
+Reviewed-by: Clément Léger <clement.leger@linux.dev>
+
+Thanks,
+
+Clément
