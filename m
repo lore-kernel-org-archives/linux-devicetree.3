@@ -1,96 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795188037;
-	b=2nNGguVaNLvfqTqM/Jmkx3egymXqpbu7mynIfQR3QqoT6vuHScruGUEwOm8oPj7AX2R3
-	 M1ZUfGI+7brUD1BCmFMQW/5Lbyg7SCcymJKAxSYFc3fiye6ZrvPh3esayOST8Qefxmy3e
-	 5MMWGDbNUsg+Y/D9iR4xL3ReQwYMENWgOBdhdMUrR0G8ARAjKmKgg5ghL+BxDrPOr7a/R
-	 j8rZh5VrmU3mEg3Sqb0LVTRmFqQBy3Pr3iadux9CZ5GE1NskoHUDcz7OfaWOXEEFxNa6w
-	 9nsOFtIypKYhmxRfJbAzXXcWWeIgW28IqkU8e8+VuxFVhtpFwRQHIXVp70IummX0TeQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795188037;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=XAPGvEQrLB1HXvB/eqEUppDavW95bHQ7K6tJw/flOAo=;
-	b=wJoe7WoUe6+/dD28SjxdywCNTMuE7a6HubFKJ0v6f+Lse8HAX2n3WHOvH6TzxJLszqu+
-	 uvfQfRWfhVdqJ8yUq0dljlgfIMiD0uuNUkKL+ftA8X1I9aakcU55nRbhKOx7QOqYCm2dl
-	 Zc9yM/iTPOF2/4CWEHgrRtxCDFaZ9ZxFs/R2I6p7EA0AVKg2I9W8OOtnAtmnoGJjtOTXb
-	 3xqac8iuYn8W7tAhbORMei0GN+pHmA1hhOVV5BEUNB94ZGhkKhca2tYIy0enSZqf1TEpq
-	 D9e1BOYP8kJtHHkFeeK79QNAMwSQ2993NuFDj8Lc92oseBvGKCCikpGm2Sbjsbu2Wlw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=KrCLE9f0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795188077;
+	b=IV7Pr5/4ZxyT3BxTUUYbzR2kDVuZwJwG1qhz+NdEDL1VKuKpf95OkUbU+XHXvH1qd6EM
+	 EZlVoYzMTN5PjF8bfGV/Yo6YCO4rJPi/Qxg3PqmihtRMWXqmdBqXvzjCfKhQ23t5t6Yn2
+	 F7OJty0lkpOMWC6cK6XzK71MzjG21Aijn8FH4pBmOjG8zjf2HXL2/fAWCuPfGoFOSlj1j
+	 XpqAH62+2aDdFvqOWsLOdOAc/aMxwnhJkb+rOY5TZzhfSbzatvHrbuF8ZLsJnBnLanihS
+	 6b6kIPJVf+xsdptXDMFX18APNj+slPeDav0KXshBygb4Xm9ixtWGgyX6jkSOkxELzNg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795188077;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=kYL+jqY6VgqR4oVW1GbkKpD1M8uQxNL9I/zUtkve4IE=;
+	b=4TuuiWj22y6IE0m7m2b4GZHH7Xj4veSEP+xw9hlQ/FPGcNLYKugYXMziZgKYS+h6HOUr
+	 gzfJ/yim5szZvJUDO2AROzeW9IHNZ5GwN/k7Rg0+svBccSNRhnJywBF8YB4K0Zfp367e5
+	 Y37kRJqQcZuudQ0Mm09c5PqeJ5Wg0UcdMGxSKJic1ZIcvTnh9GqHcznmzry8q0KkPtO7J
+	 wlqJKuSfC6WC7DPBpZzVg4cpf2G2V134obuh22eSHIHlYypHgJbQ71rtNl9kcm3jnL/Wt
+	 xpfLSsx3xyP88aH8RyZh40vb4IJtUSY3YSDwnrUoblFUR+eHZmrRw4kSlGNqNmcp9sg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ni2ho/4z";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAEE1606A32C
-	for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:20:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAEE1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82081606A330
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:21:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=KrCLE9f0
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b8c60e0d39so1275736a12.2
-        for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 07:20:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795188035; cv=none;
-        d=google.com; s=arc-20260327;
-        b=merKlwSToOcgOTnyySi6vgS3oQzw34rUF4jUAN6mlqIN8ZFFBZcGsDs7qyeD29YcHH
-         dof1+PmDCzH7R3V0atNMK0Fg6pQxMsu1x9klxRHAEzk4v5rkdhiu8505Ig6gH9NyOJTh
-         jTIVpUcEggmSCE1Qqha36+HRU31HCc1HCbZthxcxPGRQkCgDAVzZbIkYXfh5x1An8SMt
-         h63Z3rnXlTuJHSGJtwxhHF5thNwdnu0q+5ZWm2QHcvl8vJhAhQ7GMMY5WrtIcSDwj72/
-         nA9/+LEylAlL9PAJtGBBasTUfzNkmSV2DDG/xnAKhbc+ycfg6Lj3R1BqigC/jsssayAL
-         4psg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XAPGvEQrLB1HXvB/eqEUppDavW95bHQ7K6tJw/flOAo=;
-        fh=uKvcaiAhXxP4Y3qbqVd2GdWt3Lfd7XeK8JGzN68csew=;
-        b=DNFstJus0k5ZGwQiypaUSUiPqNwMohFVZAx434KJul/DgWNvNT+6ju2X973HgZIenn
-         8ZyFhVPZ2dFneaZrSMGF0HETQYuT+7yxAffuKWo1XdI37OqhET3yXkQy9MuENHomLZLq
-         Lxqf2XzkBNowK+WCT+UcxY3BpPR+nMVPOFvMCFsGlt41LwaepbBOxCxnMgQQOPfN5eo1
-         FsBnpcgAGAhkfVVpTEusxmwHiOeyMVAA/lSr1ecVkYiUamlyr1rw7ttzxYLq7TZxypD0
-         RlpOxtWcAJgNJRdo8dzTUHJyxjAsKEgXf0J6+IzGnmVqietY6PZ/o47sx3cisjwrJp+A
-         HzLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795188035; x=1795792835; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XAPGvEQrLB1HXvB/eqEUppDavW95bHQ7K6tJw/flOAo=;
-        b=KrCLE9f0l5kQICrTLb1eNF7JtQCvVuF5pqZmRGYh90Wdtxtc2EQ/byEDmslVTkS6G+
-         Y//VKMfmofLsmNk/ui+8AMa7DPRNVJn7RU1PKbE37nSs9wL/SASUgwkuODsBC0fu0Dc7
-         spKgJLyXh2jcWB4ScKLkSdjpaI9+qpIG0aZnw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795188035; x=1795792835;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XAPGvEQrLB1HXvB/eqEUppDavW95bHQ7K6tJw/flOAo=;
-        b=reFuGgUtmpI+WVg09IuLDDhO82IJK6hiwtTnZmdWkXawMEjZbwZoZZhRbhvss42Hhr
-         pVFoy7vZVIKr3fF0QIJW5Q1kBIW+IdlDGlJ+zo8Aco5IRmKgdJZTR63hSTcjw6GPxsIV
-         GCvpugEhZ0spHcFRr9LZNvpVLK0dyeVXseGtIVgTZZCtii6/IWhnnzPbpxOjHl4viozR
-         gJfHq4L+Rsam84QhCu5wlBurUmj6aZvijBS2QRvPOSdwsyT6j+dcpz01+i1nAXgG3IGe
-         b5UntV0VBd1A6cTcku+dMxaxdqEH4GmlMj2KQVBtNzrA4pG/xDpLf74Opf2ZYylgZID+
-         C9Ww==
-X-Forwarded-Encrypted: i=1; AL+hErGej8IpL28GOqicrW2o1ZYsMu8kZr9pH+GZpIe2p3hKmtQwGmCOeF/No7gnql557yPL3jHmcLjFU5cD@vger.kernel.org
-X-Gm-Message-State: APuU4Z8emqwOXkbXr7JVghV1mFmTgh/VZqXe5cG4CInODVz9VBZtnbUV
-	37ZrG4pSgL93+VmPDTUjKnG0gOzJKGrFUfo92b9pD1SWZj/zGV7yNeAZM34G/yD5bqOqs/Nj/Jj
-	x88hlYKl1bWKuVLn1+DYsDhjSS1paHE/7sqo8EdJI
-X-Gm-Gg: AZFdTZf/oPGHBH2uSYi0kjbNThDw1vj25Gqsdk8bTvAcNpvjXhIPKsm4ABeZv0gNRv6
-	ykpus0Fmy7bOSJE4gJpRe16zd1Rj+wBh7DXaGyg3gD+KVyIDiz54GDgad8JU5Vwflbh6eSLBnqk
-	ABF5BA91hpPSCV/OJmHERTxT2xyEhaArbOgwuOttk3UAoHgyf/17GYVmRjOKZ8chC6wuHW8R/9F
-	zoPTJJUeX5TE8fnd4kEl/iX2ROc6C32iNASLZv+jAWaDBYTMkM2cQcFmPcBwS2G42LMm3SKySU8
-	vuuaZkAnVVdsToorDIWlBhTbX6WMlBUmPJL2i8AYGuAP2LV1BzG/UZqQF4J7K0tLH0u4k5Wvts5
-	VlAF4dqX2r5RPM/2JpFSl+mdoAjaAvrCJtDaFmbbgQjv01aJr1pQCUfsO
-X-Received: by 2002:aa7:c249:0:b0:6b7:d0c7:4aad with SMTP id
- 4fb4d7f45d1cf-6ba37c75ef9mr2328640a12.6.1795188034912; Fri, 20 Nov 2026
- 07:20:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ni2ho/4z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BC0F1F000CA;
+	Fri, 20 Nov 2026 15:21:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795188076;
+	bh=kYL+jqY6VgqR4oVW1GbkKpD1M8uQxNL9I/zUtkve4IE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ni2ho/4zdq70vFLRoZzi+padiZ4TMvHhP6pL5lN11XRmhIoVJihHyd4w7/hwiyZxR
+	 MTRY9aW49AEMhuGZEefoY+YiQ/1f5XFIcEzKMapqtK6kkHUx27zHZSWlzA59j8/8VF
+	 UHawGiofEeYXzqdiypfCb5VE9+STDgjtW0QQiIzk/RkMjDbWuko1Kch+Bss3BJB0en
+	 RM8M7TT+vKA5XUgko7eEA/W7VB9EgVen52XlLR4ZezlLMXWlhuGnAKnO4NhAL98irJ
+	 s5ceJujxnh7FL4z7pO1G6tWIZYlmrx5wL2T3C4DZXPoTOlE6B55Lz7VCBD40dMUNjQ
+	 55TdZmMuLow6Q==
+Message-ID: <sashiko-outbox-225450@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/8] ARM: dts: rockchip: Add support for RK3506
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jonas Karlman" <jonas@kwiboo.se>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261119152055.556266-3-jonas@kwiboo.se>
+References: <20261119152055.556266-1-jonas@kwiboo.se>
+ <20261119152055.556266-3-jonas@kwiboo.se>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 15:21:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,55 +59,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261116205320.1621386-1-dianders@chromium.org> <20261116205320.1621386-8-dianders@chromium.org>
-In-Reply-To: <20261116205320.1621386-8-dianders@chromium.org>
-From: Simon Glass <sjg@chromium.org>
-Date: Fri, 20 Nov 2026 08:20:23 -0700
-X-Gm-Features: Aa3M54psUBrQPUKXYteeAD9WgtZ-YuEDe8s7JLMYNK5VihZIqFHf2DJoFUBm_As
-Message-ID: <CAFLszThHKUSDbiDqbmhSd7SDpMOvpeGcU_NdizYb1azYhejrow@mail.gmail.com>
-Subject: Re: [PATCH v4 07/14] libpydt: Add DeviceTree live tree representation
-To: dianders@chromium.org
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Chen-Yu Tsai <wenst@chromium.org>, 
-	Saravana Kannan <saravanak@kernel.org>, David Gibson <david@gibson.dropbear.id.au>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Julius Werner <jwerner@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On 2026-11-16T20:52:57, Douglas Anderson <dianders@chromium.org> wrote:
-> libpydt: Add DeviceTree live tree representation
->
-> `pylibfdt`'s `Fdt` and `FdtRo` classes operate directly on flattened
-> device tree blobs, where inserting or deleting nodes and properties
-> shifts subsequent node offsets. That works well for in-place queries and
-> localized edits, but makes multi-tree comparison, structural diffing,
-> and bottom-up tree construction (as needed by the upcoming `fdtfactor`
-> tool) awkward and error-prone.
->
-> Add `pylibfdt/libpydt.py` providing `DeviceTree`, an in-memory live tree
-> representation where each node holds `props` (a dict mapping property
-> name to `libfdt.Property`) and `children` (a dict mapping child node
-> name to child `DeviceTree`), along with `unflatten()` and `flatten()` to
-> convert between `FdtRo`/`Fdt` blobs and live trees, and helpers for path
-> lookup, node creation, and pre-order traversal.
->
-> Add unit tests in `tests/libpydt_tests.py` covering `DeviceTree`
-> round-tripping, subtree unflattening, duplicate-name and corrupt-tree
-> rejection, and navigation helpers.
->
-> Assisted-by: Gemini:gemini-pro-prerelease
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
->
->  pylibfdt/libpydt.py    | 184 +++++++++++++++++++++++++++++++++++++++++++++++++
->  pylibfdt/meson.build   |   2 +
->  tests/libpydt_tests.py | 106 ++++++++++++++++++++++++++++
->  tests/meson.build      |   2 +-
->  tests/run_tests.sh     |  13 ++--
->  5 files changed, 302 insertions(+), 5 deletions(-)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] ARM: dts: rockchip: rk3506 pinctrl syscon properties mismatch
+  driver
+--
 
-Reviewed-by: Simon Glass <sjg@chromium.org>
+commit 0d85ace454fdd5b29f4d3efc2ed9fcf711e63afd
+Author: Jonas Karlman <jonas@kwiboo.se>
+
+ARM: dts: rockchip: Add support for RK3506
+
+This commit adds the initial SoC and pinctrl devicetree files for the
+Rockchip RK3506 SoC.
+
+> diff --git a/arch/arm/boot/dts/rockchip/rk3506.dtsi b/arch/arm/boot/dts/r=
+ockchip/rk3506.dtsi
+> new file mode 100644
+> index 0000000000000..d8e942e6d0b1d
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/rockchip/rk3506.dtsi
+> @@ -0,0 +1,540 @@
+[ ... ]
+> +	pinctrl: pinctrl {
+> +		compatible =3D "rockchip,rk3506-pinctrl";
+> +		rockchip,grf =3D <&gpio234_ioc>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +		ranges;
+> +
+> +		gpio0: gpio@ff940000 {
+> +			compatible =3D "rockchip,gpio-bank";
+> +			reg =3D <0xff940000 0x200>;
+> +			clocks =3D <&cru PCLK_GPIO0>, <&cru DBCLK_GPIO0>;
+> +			gpio-controller;
+> +			#gpio-cells =3D <2>;
+> +			interrupts =3D <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <2>;
+> +			rockchip,grf =3D <&gpio0_ioc>;
+> +		};
+> +
+> +		gpio1: gpio@ff870000 {
+> +			compatible =3D "rockchip,gpio-bank";
+> +			reg =3D <0xff870000 0x200>;
+> +			clocks =3D <&cru PCLK_GPIO1>, <&cru DBCLK_GPIO1>;
+> +			gpio-controller;
+> +			#gpio-cells =3D <2>;
+> +			interrupts =3D <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <2>;
+> +			rockchip,grf =3D <&gpio1_ioc>;
+> +		};
+
+[Severity: High]
+Does omitting rockchip,pmu and rockchip,ioc1 on the parent pinctrl node
+leave info->regmap_pmu and info->regmap_ioc1 NULL in the pinctrl driver?
+
+rockchip_pinctrl_probe() populates info->regmap_pmu and info->regmap_ioc1
+from rockchip,pmu and rockchip,ioc1 on the parent pinctrl node, while the
+per-bank rockchip,grf properties on gpio0 and gpio1 populate
+bank->regmap_ioc.  However, the RK3506 callbacks in the driver ignore
+bank->regmap_ioc and use info->regmap_pmu and info->regmap_ioc1 directly:
+
+drivers/pinctrl/pinctrl-rockchip.c:rockchip_set_mux() {
+    ...
+	if (bank->regmap_ioc)
+		regmap =3D bank->regmap_ioc;
+    ...
+	if (ctrl->type =3D=3D RK3506) {
+		if (bank->bank_num =3D=3D 1)
+			regmap =3D info->regmap_ioc1;
+		else if (bank->bank_num =3D=3D 4)
+			return 0;
+	}
+    ...
+}
+
+drivers/pinctrl/pinctrl-rockchip.c:rk3506_calc_pull_reg_and_bit() {
+    ...
+	switch (bank->bank_num) {
+	case 0:
+		*regmap =3D info->regmap_pmu;
+    ...
+	case 1:
+		*regmap =3D info->regmap_ioc1;
+    ...
+}
+
+rk3506_calc_drv_reg_and_bit(), rk3506_calc_schmitt_reg_and_bit(), and
+rockchip_get_mux() do the same.  When a board enables pinconf on bank 0
+(such as uart0 with uart0_xfer) or pinmux/pinconf on bank 1, the driver
+passes a NULL regmap pointer to regmap_update_bits() or regmap_read(),
+causing a NULL pointer dereference during boot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119152055.5562=
+66-1-jonas@kwiboo.se?part=3D2
