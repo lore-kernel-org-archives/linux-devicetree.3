@@ -1,47 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795191379;
-	b=z0D2J15zjCIMEvfuZBo8RF9YM7gGll9rPwE+m5avj0FAtzOxE48EtmEiS9aurevYXiCF
-	 fGJx2mcPc6EWSCx4tsXei/lkNKNuE7PpJdL/1npEYJK3qtfPQ+PnYu19B1d/gTl+LV7za
-	 NfZUM6fZj5+jRYCgJiayN9TBmVq72lcD0Xmbfti9AFXlHf50gt8wPtJTkIHFj8NYIWjl0
-	 ujsO4E3CIUanfJyg851le83ctozO5NIVRLXbNij+6/5UK0ddcczHlgohgIz4vRO4l2139
-	 Dt40UqUXmDV1qNP1VviayT1F8t3PvppNFDnEGW5qg4wPAyCJNrmp23kzyy05/sg+aDQ==
+	t=1795191530;
+	b=fXbNTg6POgfz1COjC3AywDYf9KRdG/IQOvRRfmayFTsiQ5takctywP/BbEoWCSsvIZ8u
+	 kuNSHnmFrw2gcjKErYW5ASXYexFlJnvrbbkDp0sMDYRB1E4zlxqD6V9uvlHsa5pP/zV03
+	 pBqdiftIZ0jiiiFt3oDBhC4AgTaWo4QRkxR9bM85jfCCLkC8FuvcghQsSRjJzP5SG15YZ
+	 q+tws1lAEZFRSowINcVFj/QxXyVV4lu7ZSYIovr1rOVk6FJWH1XEZRzVT90ksQjlSqyjI
+	 IagIyDusvAeRQzw7IPVYo+UDu9e6/HPr/n/OczAc1GPxc7lqfh2dM1NKuBxb0FdOasw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795191379;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ufkrJtwpBnz6WPMTAKwab4l3d1SzDvPyFYqyMLcrdh0=;
-	b=L3QmyqecA72tcRH1RHh1CA/lG2OBoQiowOymuDM/SqO4RqSjjGfE/QjxLe29XchkYVsY
-	 XejpuKLugtVyvwiKFlYKbiKF6znmXoGzVOHTCLrnl2ufL53Jj5lqISSFzA2uxrruHtis2
-	 VOOO4VnIhdpRUSAPZRErBJfpfZFeAZVEOc9ACZ0qT5FRa319FwmEeakoa0T6Pbw3xD1hq
-	 YFP3tcDds7jQNcLuikp/TuT5X9ZHcviibJBYEMiKoxv3VlrfW7GZzfiYHltmicR7G64Tb
-	 H36VcLbChgzLVw4vHRwDdwITgPtA4ZRLP4XkbLS3CMT1c/or2qrdSDlHyxuV33QHl2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795191530;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=t4Dld1icNXmUDCSLkNCdijjtSGyDKFWKh8cFgLUwyhw=;
+	b=KXKoXyCzngflp+J7XLmjxGiRhhhdbQ0lFdijxp3Ph4HH6Pa/s4/XfVyMi3xHViVKcTvu
+	 vHxnfztU+YzkJAvKOec0MMpeORfYwlzslU51eM/Ya+8WlmlosjhvBc55VnFdFGQjdq9kz
+	 KlHN9E8/hs5KQbi/a6yeV1CBzg9HLtg/SfXlwV8TC1kKB2XY5DEQFoSMVbVF26cq7Q/Af
+	 TZA7hynT/Dfdatv/Az3nl6h+R4zKB8V5yF6tINABi7B950u+9KQTCLWNItI2DG9QxopqF
+	 DfAaEOa3NZvWWCwu35tb2qCeWqLHBybuYyOBYf3socX3TP4sm1XABgHuc9WL3SDCtFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dFvHyXyV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZlbugbdA;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TQFppb5l;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65013606A32A;
-	Fri, 20 Nov 2026 16:16:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366BF606A331
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:18:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 366BF606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dFvHyXyV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 054D01F000CF;
-	Fri, 20 Nov 2026 16:16:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795191378;
-	bh=ufkrJtwpBnz6WPMTAKwab4l3d1SzDvPyFYqyMLcrdh0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dFvHyXyVfCYjJ7NGMnBGAqmFCpcmUE94vICjEkzBBZoW/GMfsILWHwMTtiuJI1dZR
-	 isbdUdY2VdAjzDG9uOuj3HvrSFais+CocjccNOVwLZRv4W5ikc+GRT4v+Fx8NdqWKr
-	 ZyxCUZJwx62l8JwkMmsTJRdoDyRAYUklPkgCUjc0vcfaQmkZGX7zdu73B4j7pKlt9w
-	 g12fUi9O3FgrMF6IzDZZ0QywB+0HnVHqTSchls1fGpNhgm5tGk871tvM0ulpNBvy1x
-	 VvNSDoA5BvpXMpyONoBdWe1qJLOqoJGSzHqSYgnpGAyU4vXMxP3P+LXZxSsJ99YNir
-	 xqWdZ+uG5iH2A==
-Message-ID: <2bd84c5a-221e-4da0-bc08-93096b293395@kernel.org>
-Date: Fri, 20 Nov 2026 17:16:13 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZlbugbdA;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TQFppb5l
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AKEfbAH2663874
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:18:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	t4Dld1icNXmUDCSLkNCdijjtSGyDKFWKh8cFgLUwyhw=; b=ZlbugbdADM5bEepW
+	juQrJ1QpPboC/UD0P9/ahdjjJvL8khpdCZF1N1R8Sn3WWEHC4D7IwOGOFyd88zwm
+	cEF0r8rAssLKZBh1Y7qLrrIS21I3kWA/0nq3rzw4jjAcnwNMO9Rzjry+Y2xjlTQu
+	V6IDN6D6rMjNuYlIz3uyPmifo6egm7y681+/pg1c1PVxBeIhbyA1WJW1McOJ9b4c
+	Xbcn3nC8VN9FrsBfbdV5K2346HqyP/QLZ9LTSxUqglhCsrlI9obQvmBUiyrgSxBP
+	4tC14qkzd/sBXXFXXCDL8uiiIU67Q255lcjfWPUkLRDJHjzN5lUgyarhCSX3hvGy
+	dce/hA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j2f4yjt1g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:18:47 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b07b06027eso1327801a91.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 08:18:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795191527; x=1795796327; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t4Dld1icNXmUDCSLkNCdijjtSGyDKFWKh8cFgLUwyhw=;
+        b=TQFppb5lcKMUm6lpo7PUc97eM5dnLxmBdCp+hQh1nrn51oINQ1oI5vgTKX1+ktxZXl
+         wBIkX9qsVqTLAXxQ8K7EUSm9qO1qJNsoXCVWS1Hi69OPOMV6L40ZR46yTJG8q4MVKDpY
+         2xWzen6ZdKXQVEP1zThAQNO5xxFNhjBaogtghBgOHxT4gcQOgYB4+vrq+cPCdUWeHv4M
+         LnkyFu8TlDCqrFs/v1Nh/vtadLJjASx/i2x2otg8Lf7kdVmeEpEghuuJX7usGgiNyyyV
+         kIFBT4BkBcv9wCVYyaW+e9AVrV1kNR5IF0OfEv4psUin8vMsrrgt6o+D+MUnokul4qgI
+         kocQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795191527; x=1795796327;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t4Dld1icNXmUDCSLkNCdijjtSGyDKFWKh8cFgLUwyhw=;
+        b=FyWvb+Yx4dExTNNl4iznGf2S2fOJq1I09SFdZROe6Qxpq3WbGytOGe9r4i5KBT1KzQ
+         JPUfJv8kiHno50nr0VjiinTlwg4DRKHBY3QeadQWJjwn1I1Lr/GcCcgy1gHvi8HsHS1b
+         OhS+nqgYvgcxn0bTdfmaA0Kc1V9B8t948PMN+CfGM40BHq0ihtm/gNpdv6kFWW1AICal
+         kXn3V75xTRQ0qqKD9gTTJk3tkRFOG3pVhJAPRAOhb5T0IK99bykNZxtCvKzrSrKVolSJ
+         dkD2EMiRYxLp98XMfAdRpOJB3EOQxuuCwi3kpMWHyIdqIJH84hgiuB3athY7/k5nPNHJ
+         p8dQ==
+X-Forwarded-Encrypted: i=1; AL+hErH46H+uoSwAy3FiPgHiZib/MQxDS0RXwWjUwNS/10/7s5s2zlCZLCmdSg2t6RemjkQuLBdPp3T/u0kC@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wZ2rlPeNQ6uLov1Eh9rh/6aInsBhgIzJTh+6x1X/fOBHLtWRX
+	y2Wv1SJJ/Q66O/23m49NsK+Gb9YdOl0oT6A/rGrQqHL4KZpysX4sGtr+8r2zYEbujJ8tE6tmd58
+	ssASwq/T5GO1IlgUAVBYYkbFX+olxLW9W0hnhGq+fD0tA5gEIiUDNL/V5J9a5+q32
+X-Gm-Gg: AZFdTZfcDl43G7Le+Zpp9CTHyqczbVTneyK+gaa9NysFwXqf2pmMWEqufn1xOd5BYB2
+	uzhDdlxRfKqCnvWT5I/IpTiJtQWwqVrHYjshtQadvy4GVsj6ZZ8RGtYQTkZRLsV27kg5DWZfjoC
+	IAm1kxnD75aFFDPHmebTa90suqfnIoYS43p/v0w+rE5Nfwft8dRv2MPwZb4yUhJXjlMMMeFioFQ
+	1E6R6I1ezJPx6RdQF++mlJOfTeA2wOfvBWgoCPMy6QAChtNR8EpYVllCYKbPPEimxrM1o0TPQPu
+	PdVClbRNN88437ZFBuAOLw6wVkRxtAkt0Vn/6ubG/6qjPPH3HYk0/xfhdjDyxsG0xOUiqxNAEtu
+	272NY2DKg3WLrAfoYvTscrqYyy5rxsgPHU9HnI2wTf3TQ/vLbHTmQpOIuCHTsYOVv9mxnMpZAr/
+	9XTiVJ7J5U
+X-Received: by 2002:a17:90b:384d:b0:3ae:a4fe:7ad4 with SMTP id 98e67ed59e1d1-3b41c8528b4mr3720502a91.2.1795191526809;
+        Fri, 20 Nov 2026 08:18:46 -0800 (PST)
+X-Received: by 2002:a17:90b:384d:b0:3ae:a4fe:7ad4 with SMTP id 98e67ed59e1d1-3b41c8528b4mr3720458a91.2.1795191526149;
+        Fri, 20 Nov 2026 08:18:46 -0800 (PST)
+Received: from [192.168.29.31] ([49.43.232.35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ff2561asm1701473a91.1.2026.11.20.08.18.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 08:18:45 -0800 (PST)
+Message-ID: <72fcd590-cdb7-4223-942d-329ecbd950e0@oss.qualcomm.com>
+Date: Fri, 20 Nov 2026 21:48:28 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,170 +117,143 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
- sharing EL2 for Apple Silicon
-To: Ard Biesheuvel <ardb@kernel.org>, Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, asahi@lists.linux.dev
-References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
- <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
- <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
- <aplk2hHRB7Yw9FWW@willie-the-truck>
- <eb75b82a-8910-4198-b89a-5c8b487c0fd5@app.fastmail.com>
- <cadadedb-1de1-46f0-9bfd-35eb8bdfa85b@kernel.org>
- <avxETlOGyr_WQ2zp@willie-the-truck>
- <ef76e141-491d-44a9-90a6-e9cd54526012@kernel.org>
- <a1b18224-4171-4702-acb2-cef994dd9921@app.fastmail.com>
+Subject: Re: [PATCH v27 00/10] Implement PSCI reboot mode driver for PSCI
+ resets
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+        Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Arnd Bergmann <arnd@arndb.de>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        John Stultz
+ <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Pavan Kondeti
+ <pavan.kondeti@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla
+ <sudeep.holla@kernel.org>, Andy Yan <andyshrk@163.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Song Xue <quic_songxue@quicinc.com>
+References: <20261029-arm-psci-system_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com>
+ <CAPx+jO-WLCnVecquKbVaCcErbhuFt6OHFUmzbgNHjixx0r-wMw@mail.gmail.com>
+ <avo8wrWBjsk0RU6s@venus>
 Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <a1b18224-4171-4702-acb2-cef994dd9921@app.fastmail.com>
+From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+In-Reply-To: <avo8wrWBjsk0RU6s@venus>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Zs54uN7G c=1 sm=1 tr=0 ts=6b0072e7 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=rVPHjc/N4E3dzGhKvu3xTA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8
+ a=wsFT6AapSP24iMOhd5AA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDA2NCBTYWx0ZWRfX9G9tF06Rk63S
+ JoVU5KFIH4uvHqn5lwZW2Q+RgcDOMt82e8Msdm8T8CaclxR/5Bo/Tl4MHMoF0q605Ia8nz5zom7
+ bI7/HaEB47HDtK/BdXVhr0yko6dJQTlFrp9ghQo5N+szYdLHaBAVyaIzsrb4FDHSqyrTEF146nt
+ t+aueKyCJH1pVcKnSI097CQMskF2ccHXCY6uX0qdrGkKrvgUgHQ9Ctf9BGVY+BlY6zcS2iHFTzS
+ h0l+3aSQVOxJVizaf4qpm6T4Q2JzY5fCUefeElamJ3DghaHKMFohT09qzUc3YWK21bpt+/Qi+PD
+ p93EoKLeP2DLM1/ZGGQmvb9blFG4ddxVnCE7oUYqFne9wCVMYBT/Sh3ksTIeM5qK1IDfL2lGEYF
+ HPMVKyfVFpFG3kJ4RFCHHQ/mtf44JVQGY/Mt3wDKpRAS93mvFAcwUCpKmiU0mIuW+hAbMWgtMrK
+ 0vEGEkugx3cECbUWWSA==
+X-Proofpoint-GUID: EQE648atglmSsLC1RmS_yi-YurdkrXYx
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDA2NCBTYWx0ZWRfXx9B6sGbfYMKq
+ 15skvNcRytr8ykHPbm2eY98R16sxdhQHyejcSXv0FfhX3ipqqw9wbTlmtxcHXacjwCb4SVwhcGj
+ DPli5lOhS4Y+fXtR8illhR5ugMm6jd8=
+X-Proofpoint-ORIG-GUID: EQE648atglmSsLC1RmS_yi-YurdkrXYx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-20_05,2026-11-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611200064
 
 
 
-On 19.11.26 16:38, Ard Biesheuvel wrote:
+On 11/16/2026 4:44 AM, Sebastian Reichel wrote:
+> Hi,
 > 
-> 
-> On Tue, 17 Nov 2026, at 16:25, Sven Peter wrote:
->> On 17.11.26 13:10, Will Deacon wrote:
->>> On Sun, Nov 15, 2026 at 07:38:35PM +0100, Sven Peter wrote:
->>>>
->>>>
->>>> On 03.09.26 15:25, Ard Biesheuvel wrote:
->>>>> On Thu, 3 Sep 2026, at 14:15, Will Deacon wrote:
->>>>>> On Thu, Sep 03, 2026 at 12:42:39PM +0100, Mark Rutland wrote:
->>>>>>> On Thu, Sep 03, 2026 at 01:34:56PM +0200, Ard Biesheuvel wrote:
->>>>>>>> On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
->>>>>>>>> This series adds a custom EFI table that points to a PSCI entry point
->>>>>>>>> (plus some other stuff that has to be available before EFI runtime
->>>>>>>>> services are set up) and adds support for this new conduit to the psci
->>>>>>>>> code. We can't directly use the normal EFI runtime path because that one
->>>>>>>>> takes a sleeping lock and we need to be able to call into PSCI from
->>>>>>>>> atomic context during e.g. cpu bringup or during idle.
->>>>>>>>> It also adds support for specifying the specific MAIR attributes for EFI
->>>>>>>>> runtime mappings as defined in the latest UEFI spec since Apple Silicon
->>>>>>>>> is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
->>>>>>>
->>>>>>>>>          dt-bindings: arm: psci: Add EFI conduit
->>>>>>>>>          arm64/efi: Add and parse custom PSCI EFI configuration table
->>>>>>>>>          efi: Add EFI_MEMORY_ISA_{MASK,VALID}
->>>>>>>>>          arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
->>>>>>>>>          firmware/psci: Add EFI runtime conduit
->>>>>>>>>          arm64: dts: apple: t8103: Add PSCI and CPU idle states
->>>>>>>>>
->>>>>>>>
->>>>>>>> I've picked up patches #3 and #4, which are useful in their own right.
->>>>>>>>
->>>>>>>> I'm not sure if the arm64 maintainers will want to consider this, but
->>>>>>>> I think it's a reasonable compromise, as it puts the abstraction in
->>>>>>>> the right place.
->>>>>>>
->>>>>>> Sorry for the late reply; I've been away almost all of August and I'm
->>>>>>> slowly catching up on things.
->>>>>>>
->>>>>>> As with last time this was proposed (in abstract), I am not happy about
->>>>>>> bodging an EFI conduit into PSCI, given that the manner in which state
->>>>>>> is managed is completely different from SMCCC.
->>>>>>>
->>>>>>> If we need a mechanism for doing hotplug and/or idle without HVC/SMC,
->>>>>>> that's one thing we can consider. I don't think we should pretend that
->>>>>>> it is PSCI.
->>>>>>
->>>>>> What do you have in mind for an alternative mechanism? I understand your
->>>>>> objection to this proposal, but at least it keeps the interface fairly
->>>>>> high-level and avoids opening the flood gates for a bunch of SoC-specific
->>>>>> idle routines. Are you thinking of extensions to the PSCI spec or
->>>>>> something else?
->>>>>>
->>>>>
->>>>> I can't speak for Mark, of course, but I could imagine EFI being used as a
->>>>> conduit to provide a callable set of interfaces (with a rigorously defined
->>>>> set of constraints such as the ones in this patch, i.e., reentrancy, no FP
->>>>> or SIMD, not relying on ISA features that the OS needs to know about and
->>>>> enable, etc).
->>>>>
->>>>> There is prior art here in ACPI PRM, which does something similar, and this
->>>>> also relies on EFI runtime services.
->>>>>
->>>>> You'd still need to implement the CPU ops and a cpuidle driver afaict (no
->>>>> expert here), but at least those would be coded against an interface that
->>>>> the kernel itself specified, and can be made as generic as we choose to.
->>>>>
->>>>> Not saying this is all great, but it might be a worthwhile compromise to
->>>>> consider.
->>>>
->>>> Finally getting back to this series...
->>>>
->>>>
->>>> I'd definitely like to keep mapping the resident firmware using EFI runtime
->>>> services because otherwise I'd have to duplicate a whole lot of tricky code
->>>> to do the same thing via some other means (e.g. a device tree nodes that
->>>> contains all mappings + callbacks) and I just don't see much value in that.
->>>>
->>>> I'm happy to just drop the PSCI part though and replace that with a simple
->>>> and somewhat generic "efi-rt" (or similar) cpuidle driver and make that one
->>>> have similar requirements like I added for this RFC series and expose bunch
->>>> of generic callbacks (that will just happen to resemble PSCI functions very
->>>> much ;)) via a custom EFI table. That would keep PSCI out of all of this but
->>>> come at the cost of an additional cpuidle driver.
->>>>
->>>> I don't think that would open any flood gates for SoC-specific drivers since
->>>> we could just point them to the generic one and tell them to use that one if
->>>> they can't do PSCI for some reason.
->>>>
->>>>
->>>> Now before I go off and prototype this: Would this approach be fine in
->>>> general with you, Mark and Will?
+> On Mon, Nov 09, 2026 at 04:47:29PM +0100, Ulf Hansson wrote:
+>> On Thu, Oct 29, 2026 at 10:01 AM Shivendra Pratap
+>> <shivendra.pratap@oss.qualcomm.com> wrote:
 >>>
->>> tbh, if the "efi-rt" thing is just PSCI with a different conduit and that
->>> conduit is properly documented, then I really don't see the point in keeping
->>> it separate. However. I suspect that we probably all have slightly different
->>> opinions here which isn't going to help you very much :(
+>>> Userspace should be able to initiate device reboots using the various
+>>> PSCI SYSTEM_RESET and SYSTEM_RESET2 types defined by PSCI spec. This
+>>> patch series introduces psci-reboot-mode driver that will induce
+>>> command-based resets to psci driver for executing the device reset.
+>>>
+>>> The PSCI system reset calls takes two arguments: reset_type and cookie.
+>>> It defines predefined reset types, such as warm and cold reset, and
+>>> vendor-specific reset types which are SoC vendor specific. To support
+>>> these requirements, the reboot-mode framework is enhanced in two key
+>>> ways:
+>>> 1. Support upto three 32 bit magic values as arguments. This enables to
+>>> support for a 32 bit reset_type and a 64 bit cookie).
+>>> 2. Predefined modes: Add support for predefined reboot modes in the
+>>> framework.
+>>>
+>>> With these enhancements, the patch series enables:
+>>>   - Arch Warm reset and system reset cold as predefined reboot modes.
+>>>   - Vendor-specific resets, configurable via the SoC-specific device tree.
+>>>
+>>> Together, these changes allow userspace to trigger all above PSCI resets
+>>> from userspace.
+>>>
+>>> Note on introducing psci aux devices:
+>>> Based on feedback from Bart, Lee and Ufee, PSCI child functionality now
+>>> uses aux devices instead of an MFD driver, with psci-cpuidle-domain and
+>>> psci-reboot-mode probed through a common PSCI aux device enumerator.
+>>> Reference discussions on this:
+>>> https://lore.kernel.org/all/CAPx+jO9Hi2R_UnCEhsXLwf74c3RTb+RodaJ6SOVXbQX_eHt++A@mail.gmail.com/
+>>>
+>>> ---
+>>> The patch is tested on rb3Gen2, lemans-ride, lemans-evk, monaco-ride,
+>>> qcs615-ride.
+>>>
+>>> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+>>>
+>>> Changes in v27:
+>>> - Removed unnecessary headers from psci-reboot-mode - By Bart
+>>> - Rebased onto current linux-next.
+>>> - Link to v26: https://patch.msgid.link/20260928-arm-psci-system_reset2-vendor-reboots-v26-0-b24e2348e8e1@oss.qualcomm.com
 >>
->> Yeah, well, I agree but I really don't have a strong opinion or any good
->> argument if either "efi-rt" vs "psci-via-efi" is better or worse. I only
->> think both are better than SoC-specific cpuidle and cpu_ops drivers and
->> I have no idea how else we could do this. (We could drop the kernel to
->> EL1 and do "normal" PSCI in EL2 then but that would be much worse than
->> either of those options imho)
+>> Overall this looks reasonable to me, but I will take a closer look in
+>> the next few days.
 >>
+>> When it comes to the merging strategy, it seems like the best way
+>> would be to funnel this via my pmdomain tree. But I need an ack from
+>> the relevant maintainers to make sure there are no issues with that.
 > 
-> I agree with Mark that implementing a pseudo-PSCI that can never quite
-> comply with everything in the PSCI spec is probably not a great idea
-> unless we actually need it.
+> Works for me.
 > 
->> And especially with M4+ I'd like to have something that can go upstream
->> because normal wfi loses most general purpose regs there and has to be
->> disabled which is not great.
->>
->> I can also just prototype the efi-rt cpuidle+cpu_ops thing and then we
->> can take a look at it as well and see if that's better than what I have
->> in this series if that helps but I'd rather not spend that time if that
->> has no chance of being accepted either.
->>
-> 
-> I think a consistent approach for both secondary bringup (+teardown?) and
-> cpuidle that is based on the same efi-runtime layer is perfectly acceptable,
-> and allows us to define it as narrowly as we can, rather than having to
-> consider what shared code might assume once it sees enable-method=psci on
-> a CPU, or a PSCI conduit (SMCCC detection, mitigations, etc etc)
 
+Hi Lorenzo,
 
-True, that's a very good point.
-At least for Apple SoCs I don't need anything nearly as complex as what 
-PSCI provides. I think all that's required is cpu_on, maybe cpu_off, and 
-cpu_enter_idle plus a bunch of static values (number of cpus, available 
-idle states, etc.). Let me think this over and maybe come up with a 
-simple proof of concept then.
+Can you please review?
 
-
-Sven
-
+thanks,
+Shivendra
