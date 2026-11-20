@@ -1,113 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795201207;
-	b=EnmygxEvh2jN2/Zm/8/sm5dO7GrQn6BwVVBafD4fS2vBl9edlZZnhvse60YDrliECSd3
-	 7tsTqpNoPdiESEBUg+Ts0pRc3qJouwU2cU5iQrkY4o8GHpcnT+Vv/bn2uGPRiwLxV7oEE
-	 ZIC0t0Zb5v7m8KaAYr72rOmKRAzDIGNk0J68wUZXNJ4MEfW03Z4Ny2R54x1baONmLNZFR
-	 GpQw0z+NbYn6PnWA3dJ1t3KcNSnioRGx9R7pzhMcsAF//9MbYSvi0l0DVlxsF4+bc3fAv
-	 +jeNgpLgNHzWejm//D9SIIquA0dHYEIU2HvTWZ6Xs5Azjhu1XgfrscLDrovEe6Y9CdA==
+	t=1795201477;
+	b=M4RNPSpWzNquvMSaOpB7sDJeKLs3ICS4oWKlHUbKzrvlWKDSZuuO1OUge1+1KL4SdVoW
+	 3s+9Ou8unVZkcxtWAl8OdOTyAc8DIjzTdHqQ6Dd8HkRQ7xY2E1SxEjYz9qbhrSEnxsxGg
+	 p0SpwXqXAHuQz6PqDr2iF1pV2LFgq786y5z53JGfomqqJlPHDiw1VjOrEcs6RdGBMK3D6
+	 v7zinDOnIAXHoQP7Uujqw9arjyCbf8C+95W1Cyi9Y8AhBPp//ke1JhvFWHne4v81OqdZY
+	 Cq+w3T8H/V7mRDHETmvDQyt55bvhcTIjWNgmdMNLYUG/0tdNz9O3mivpWjVsUJM/sxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795201207;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795201477;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HLK3d7iXciTA3gYlWpBInCkheLbOB6EwrTlus+ykLsk=;
-	b=nMjNIcQKxN3Ec4BGOQRBbcG17kQmDl4Zfn04OtDTqp/TvKq/bu+JPrr2tgDu+hF2g1Xv
-	 6iQY9eXqHzHxuNLg+jhHo9aj7KSDW1bp9JDRLF1Se9l8wONCrgLUs5XJErb/WCn1muVHQ
-	 aExvS9eJFS0VfyTmM7cp70+W4PSRWM0v9o1ohuvV5R8onw7Cy8vluqxfME4kWzsuz3vkM
-	 lu3hNRjw4UHuI5QOi+24cIjeJbWhd5LXHMLIu1h9fj+ygXCEgNMJmVVYVTuksAUwFj/HX
-	 bEq0Z+76NjCRLmiYlHWxY9rIRcMIxVpHcDZLRHwQaZipRcQruz6GJbWg3QfqCt8Dcqw==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=UUBLYTEYTnacPQdSElmQNWFU9xXzQHJKHgKzBBSzYNg=;
+	b=VlWttt3EDLbaPm+Q36PrQPoc5P9VbvkWKewpnx9jdBT6LVe5MUwXsZHwT87qWo4IhdSe
+	 +X0NoTBLEF2L4+Xuwl4t8qwYl9JU2GfeuMkr0ejVyLzJwxOaX68xEEl/etZ924T1K3tqP
+	 8VKb3sAAl0ahiFtToy29NhVKkwMpTeuAOB+byekVyXUAOsNms53uKrGXxPWvwppoxtwnL
+	 PT+6rKqGPUqListkj53yX5q5tY0eu2fOulp2x8XV0bURGOcNWRM1g3hm7B7iYVm5Rgqp3
+	 f7Gp+FU8qSRs9WF2+TPR3ddQNVR/8r+ZC3taWfX7TggR1dOmJhWEA6fT5HEWymh9GGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="IzVVT4y/";
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=JLrvzWrj;
+	arc=none smtp.remote-ip=209.85.160.45
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F143460A380C
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 18:59:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F143460A380C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABDD560A261D
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 19:04:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABDD560A261D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IzVVT4y/
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c505186727fso219962666b.3
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:59:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=JLrvzWrj
+Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-451a49abd8aso1334516fac.3
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:04:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795201189; x=1795805989; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HLK3d7iXciTA3gYlWpBInCkheLbOB6EwrTlus+ykLsk=;
-        b=IzVVT4y/3rbXHh6TAeSjFM3cC/AXHTbk+EhYy6zelufBVD4aPc/hWkjoxi1Rmb0jVk
-         s8JQtdeHZNZNToyzuRKfrDqtxBtvkSgIcKgvDajPuk9h3TBzAJFbNAbDi2xvVdbfPNjt
-         vlhP387H/b2+Jl7MMMbGvXvpSU6EK1dgwwo6qLb32LTYeFMGZkmpvM/PneQqIL8ZLlOu
-         w38ix/s2fEZxKMfzh11UOfkdk2e63A3zZV5mnnWLwOmMLdh1YoetQvFl9H8lPkUpKtlq
-         ZQUFx3enbC0FIlisEq+y4S8VXTVhJvqt1f86dPpdDm+/xHoNrFTkiN9cJgXlbapmrHdz
-         xY2A==
+        d=riscstar.com; s=google; t=1795201470; x=1795806270; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UUBLYTEYTnacPQdSElmQNWFU9xXzQHJKHgKzBBSzYNg=;
+        b=JLrvzWrjv1Foo6HYSfTDQVhyxDufy62fACyY4TUuvVaXgUa8lSg6ccU7ISvUaCI27H
+         XwtX20FM0lAco9h28TTdGDJhvnP9d5NX+97YXXXWpfbFUFWZDBvFgg0CG7FJ6fqC6xii
+         L0UBMr7K6SzVuWyOSuC+n3EjKbo93TyJbcZGK6sRvqWpJEBbQYZwztZIOHeCYvQ/fsrb
+         7JC1ZqV0uo6I0urwInXjmsBf3Wbk3RFBF5WWgi3xER0qNs+Rn9fLAbWzqDHFsWJt7BcC
+         kNuMepTIGP5jkW7TM25coWgEjy4zyRZOe5lWrtuJf5pOEYx3Ep22hoon3Z4TQnVX7O2U
+         N8Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795201189; x=1795805989;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HLK3d7iXciTA3gYlWpBInCkheLbOB6EwrTlus+ykLsk=;
-        b=Uu+MTazUDkdVWvERj6mwASyVw47r/2nKRURsTGpBgE4W/+14CDULt6DnTMBAFrXF+J
-         pxocyspY7wF6sWvP+kYBdd3+LygVvRyJa7pVkswjIQV7o3EJoNnO4YBvmByLwDIoH5FY
-         +YSyMR3aEEeR2fQOl+hKPveGWN7JMsgtyC4uzugtvcrBieIwuBIyfo6yPVHMbkuHmlrE
-         Mfzm+uJX01s7aPpyDGe785lZnA4N2OBiOhXJdzFp3YDOSnjoalP27fG/Vaeu2rNZfv28
-         vZkZLcuts9+tK6cIpmG5/xmmEAgigxPpL91V7GRyCF0w7YyyJjs7W4x3ky8eiyKTEjgT
-         W3RA==
-X-Forwarded-Encrypted: i=1; AL+hErHizbvOFEcH9fXLP1PJh3K8lnH+5G50a6XKd9vC+6p3Yn0Gf3esB8R4rvciFLINLQnax1hvxKNO8VDe@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Xb38QlNXWq74/CukCb5cyLxH6527PKGHric0cWZh/XPokDR2x
-	HzVeRqc8649yv/wCk/Biu0cDVUeFybo4K+KW4Fq21ce6ptWaiMY/+CAj
-X-Gm-Gg: AZFdTZfEXoJsIvWJKDOdOvO5/2XfZDs5ElPXrZfDalg50kTWmCvgj1y2eIBqkQNb4DF
-	T+Wc8+svu67kVjrQCOASBeHPuHk5cEAQpy4ObGcFCi6RD+47wFzGZKQgBl/qsSrCmwVPHUx2YOf
-	/bGRNStaZFps7Ewl19r+yU0nFdgM9uzI1RtqYIEyaPMBD23ZYcic5U6u9s9ULZoiHpTTim8MIEp
-	9qxS6e8T7Xz0V42IDw6SS561tO+vPbydepEGoq5HxFkHCilN/NDk89SdzJRqWMWPxs5LDfFT55v
-	LCo6/YEtDe42Z8OC0+JXxRTwG9jXXHrXyEvyvw6CCSlO4ZybSGL/AtiFF2kTsJ8V866vH47yYVc
-	kCvvc+/WAYXuADPuXgfOb26Wsuh7JgCjuQPB8rIPwM1JADG4/+n1MignAbA0qi9DZR607ShMPTA
-	nuuZhHuQiR0LmzkPqylOqBJzpqsyfHAyMmBvTiHwiv2hwzQ7kpDvlsR5iPlQalFKKZBT0QhVh/F
-	EyVX64nxLn0J9YnzVaukzRrfM8pXq2kzZXz6B7Bd+iM9lsgWENQx3/ViVw3k2KXg44ye40j3PbT
-	BB41rbWoAdl7uo4/GP68wZFc1dwf59PHZXZvluWXrMVRcVXylEE492ti7wS39q9XJ1iWL38kYse
-	ll/gWQo8=
-X-Received: by 2002:a17:906:f583:b0:c51:3c8f:55e8 with SMTP id a640c23a62f3a-c513c8f658dmr365847966b.46.1795201189284;
-        Fri, 20 Nov 2026 10:59:49 -0800 (PST)
-Received: from antoniarch (84-40-238-230.cgnat.inetia.pl. [84.40.238.230])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513b02de1dsm125205266b.85.2026.11.20.10.59.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 10:59:48 -0800 (PST)
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: vigneshr@ti.com,
-	andi.shyti@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	aaro.koskinen@iki.fi,
-	andreas@kemnade.info,
-	khilman@baylibre.com,
-	rogerq@kernel.org,
-	tony@atomide.com,
-	jmkrzyszt@gmail.com,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	phasta@kernel.org
-Cc: linux-omap@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v3 2/3] ARM: dts: am33xx-l4: Add missing DMAs for I2C controllers
-Date: Fri, 20 Nov 2026 19:59:12 +0100
-Message-ID: <20261120185915.150228-3-apokusinski01@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261120185915.150228-1-apokusinski01@gmail.com>
-References: <20261120185915.150228-1-apokusinski01@gmail.com>
+        d=1e100.net; s=20260707; t=1795201470; x=1795806270;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UUBLYTEYTnacPQdSElmQNWFU9xXzQHJKHgKzBBSzYNg=;
+        b=H2LscM5bHR8W2Flveuumg+LUwoWU/dIwQmAAgH+87rHuCd9dFGqThJt2AJt9prgiqg
+         9z3VCqxWpvtOnwOercncCKoaU3mS+l4PWshnvqPBIJHSvPfx8GQtToPG6jXLGgjxKoeS
+         RzAFfy69izfVX8SyLhxwKTSZ82cQ93cOsoniBdSgZNuRomEYHtlNTzusJUElpBUV/g1J
+         DFKKBbVkHv4OU7WeTog2rJTsncjmTNf+C6QlyXuT6ewy82JdQOihiuD80Jp0zVlA15Ep
+         7l569RbTI+R8LFB1g4SzYcuWk9GDx0odbL+PkrbwnzHZ9ZD38Y1FLlY2gye7rdxJsiWX
+         NqPw==
+X-Forwarded-Encrypted: i=1; AL+hErHluhHvOZ/RO80tj5BqndiiVILiSvI2wIMUV3NQHnZrpLXqlU2I3/AUaPAJwU3D9X8oQNqJfPLoXbvO@vger.kernel.org
+X-Gm-Message-State: APuU4Z+BAgvL2BwmFOR7gbC7Dlmp8WHEvuI20XAR104yxKXxU7Hm6Wjk
+	2mPZjPzkfHJooeboTe0/0ULhPugdYYV5PHFz8UKc5QZN3g/457KTIvgjrwehzuKIkmY=
+X-Gm-Gg: AYBFou2uGtZdihjH17hnGQFwf7SAG0bjWlELPjPIrVFB46qlRDJ8K42aMtmUFgxlF6h
+	H5Avc1/VGHrpNUxX5xgxvK1TLM5Vrb30lttIxin4Sa+5BvUa0wnp9HNtX73iuIgBTLF9qz3LYbb
+	HHAfLLQnpJiNykw1Lsed3fZ5GuD+sdTd/K40pnTkcjafE8UajLvwUBGmTw/Y5fOPZaWYu3EyuPy
+	8TJWu5wn2w6hq13KrSFiA3ictGwaQBuKPlm+Ol1DeYleJhGRYh8vWg9N5Jl/7YQH7dyGgERztYp
+	CfhcJAHxyCkrszlngOF5oVNoIoKPx7Hs57L/gyN29XQBRovyvXG3ryrcAfNOvJTLBUoPIwwWt1P
+	ErIeamhyb3wwq2BAMaiGHzDDdTfdvgqLvQ1ATecGYMt9q1sLqAoREzWKTi+V2WOE7lZiH1V/uil
+	/q9Peh+a1w+h/WsMo6cYlNEyDOYv0S1isReTyFsLY6DruVhWDIkHLZ1Lu6er1KmvDUJ4I5WrV+h
+	oHO6hEfBoq3wnlyJeSbkgs2Jj4y3DiyxbA6VRRIRBnCDIYFH5oTbK9YBmlryfjw/ON0tp6ERln0
+	34SOW7IdSWgdpD0n31fMQY4+9I70S5FwkA==
+X-Received: by 2002:a05:6808:1528:b0:4f9:a153:8446 with SMTP id 5614622812f47-57a0980a5eemr4879032b6e.38.1795201470007;
+        Fri, 20 Nov 2026 11:04:30 -0800 (PST)
+Received: from [172.22.22.28] ([76.156.233.211])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a35655a5bsm2814524b6e.13.2026.11.20.11.04.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 11:04:29 -0800 (PST)
+Message-ID: <295d75b9-b346-4669-8c1c-397df433b699@riscstar.com>
+Date: Fri, 20 Nov 2026 13:04:28 -0600
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,39 +90,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] clk: tc9564: introduce a clock and reset driver
+From: Alex Elder <elder@riscstar.com>
+To: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
+ alexandre.torgue@foss.st.com, marex@nabladev.com,
+ changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261120183212.1264522-1-elder@riscstar.com>
+Content-Language: en-US
+In-Reply-To: <20261120183212.1264522-1-elder@riscstar.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The i2c0 and i2c1 controllers on AM33xx support TX and RX DMA
-requests. Add the EDMA request mappings and DMA names for
-both controllers.
+On 11/20/26 12:32 PM, Alex Elder wrote:
+> This code has gone around and around in various forms, having been
+> included most recently in a series that also added a system controller
+> driver.  That system controller has now been removed.
+> 
+> This series introduces a devicetree binding and single driver to support
+> the clock and reset components present within the Toshiba TC9564 chip.
+> 
+> The Toshiba TC9564 is an SoC that attaches to a host system via PCIe.
+> It includes a PCIe switch with three downstream ports.  To one of
+> these ports an embedded PCIe endpoint is attached, and that implements
+> two PCI functions.  BAR 4 for both PCI functions provides access to
+> registers controlling blocks within the SoC, including the clock and
+> resets controllers supported by this series.
+> 
+> To avoid any confusion I'm only going to refer back to the "syscon"
+> series", which provides some additional information including links
+> to earlier versions of this code.
+> 
+> 					-Alex
 
-Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
----
- arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+If anyone would like to see the DTS file that uses this clock
+and reset functionality, it's available here:
 
-diff --git a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-index 57a45609f9f5..89fb1d1eb049 100644
---- a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-@@ -239,6 +239,8 @@ i2c0: i2c@0 {
- 				reg = <0x0 0x1000>;
- 				interrupts = <70>;
- 				status = "disabled";
-+				dmas = <&edma 58 0>, <&edma 59 0>;
-+				dma-names = "tx", "rx";
- 			};
- 		};
- 
-@@ -1189,6 +1191,8 @@ i2c1: i2c@0 {
- 				reg = <0x0 0x1000>;
- 				interrupts = <71>;
- 				status = "disabled";
-+				dmas = <&edma 60 0>, <&edma 61 0>;
-+				dma-names = "tx", "rx";
- 			};
- 		};
- 
--- 
-2.56.1
+  
+https://github.com/riscstar/linux/commit/de0515ee2967d8ff7753cc179a8e05283ee62829
+
+					-Alex
+> 
+> The previous version of this code was included in this series:
+>    https://lore.kernel.org/all/20261104004332.2141282-1-elder@riscstar.com/
+> 
+> Between that series (v1) and this one (v2):
+>    - There is no more syscon, so its devicetree binding and driver have
+>      been dropped
+>    - The clock and reset components now have a single devicetree binding
+>    - We no longer use a syscon-generated regmap for accessing the common
+>      range of memory used by multiple drivers; specific sub-ranges are
+>      instead mapped
+>    - The clock and reset drivers have been combined into a single driver
+>      located under drivers/clk
+>    - The config option for the driver includes COMPILE_TEST, as requested
+>      (last month) by Jerome Brunet
+>    - The help text for the config option is simplified, first suggested
+>      by Philipp Zabel
+>    - The driver now names clocks using dev_name() rather than trying to
+>      hand-code a unique name into a fixed-size name array (also suggested
+>      by Jerome)
+>    - Certain functions now always return 0, which simplifies callers
+>      so they can simply return what the called function returns
+>    - As suggested by sashiko, a counted-by field in a flex array is now
+>      assigned explicitly
+> 
+> Alex Elder (2):
+>    dt-bindings: toshiba: introduce toshiba,tc9564-clock.yaml
+>    clk: toshiba: introduce a TC9564 clock/reset driver
+> 
+>   .../bindings/clock/toshiba,tc9564-clock.yaml  |  73 +++
+>   MAINTAINERS                                   |   9 +
+>   drivers/clk/Kconfig                           |   8 +
+>   drivers/clk/Makefile                          |   1 +
+>   drivers/clk/clk-tc9564.c                      | 501 ++++++++++++++++++
+>   include/dt-bindings/clock/toshiba,tc9564.h    |  50 ++
+>   6 files changed, 642 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>   create mode 100644 drivers/clk/clk-tc9564.c
+>   create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
+> 
+> 
+> base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
 
