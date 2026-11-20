@@ -1,87 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795171768;
-	b=k0+y+YRYWKv8fDDwrCSTVplQrg5uSdPpHid8WvhWPqyLecAd0q+AWjhloZwQWdkafmhQ
-	 1ha3RwQjicOGBPj3Qgh1Oa8YTxVzHjVR82P9u5bfS7RH+XLEs73uyREmEDSq5GdpK1ZM9
-	 G+IYpQ621f0Sla/UJSO2TPbdZfN59gRqpd6bQT296tMt5QjPZ5HUVZNrmdkUAs2mgPrUu
-	 Aww+hXT7QkVtzyy2czEX2ngGRO95R+T4tNE0GiiRG8LGUQ3qtllCteXJJpBlN1AymN2eY
-	 uzaC0cimaYHiuf5dQv/bp4ARTzHvuGQCZXQ6QQ9u4XNoTaCpVYRlcAHm+xIj/QMg82w==
+	t=1795172162;
+	b=LyLwoUBcXTKuwlYuRTrFIr0q/TTxbHp0zaJyXHD1yf/mBLD8R0sD9eLWyvbUuRXHJlrb
+	 pTVFxukgB/D8DZdT+y7pVwt3WvT3PuBEre2jgUIVYLIm2B0L2sZJvfcaOkiUGTlJoXgB5
+	 pl2lg0rQjLkvlbI/dvx6j+7ndD0jEcTDSJKSb+HKdhxjIZBBDvGXxTD1It/a+pe428zLW
+	 yFPiJZu9uvlli+ZSjLOT6MGPKsc+jBxc3OsEFTcpKs6yKNWnRUpmbNoJmGniq3HOhRKWY
+	 jHzsBB6XSkkTdTyRdz+7XC9rU6ri0/MuPr8PisLE0RwsrOsm6RjGEptaGH3EVeqjJkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795171768;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hZruxycw3HvIlDBCBri6p6ZxzTaJWuc5gr86QEFctfY=;
-	b=x3a7Gbh9hOX1RxMpuBUH9PlM2Gv72jPA+nz9yq+d6sXPVqxpfaXWy30Tkt9XOTv3xBBF
-	 ZELH0Dbd8nWYutZB7hCYKPda+oEWL/s14Wy86pLryDoVkFSpBu/LHzNspa976fzqN0C2T
-	 tkNRkn6PUcqots+dtHSgmlNMfrTjJ0g+JUrfHLWUvHOYa2e4N1qkzdaZxKkPZjKRTWI5Q
-	 MlXIDwfigfV6yrP5fKdLXcvUXuOf99N5DalYKGgVlPFLeQ2epK1svxIHh0D+V/D9sFRqq
-	 DMibytTSSLWqw2TZe39CTcXIOBOp+WkjgNeKIjHRxp4dPYyVq7RgvS4jNEI2a0/V4SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795172162;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=+7tbN9MuaCmBqXPur4Ml/M1YRKZhdD2ZO+fo0Nusx9o=;
+	b=uGvvGscbnaMrc+2mN5cLH/WrwwteY8xEH6uhW7D1Q4I+5zOcxbt+IVr2xMxIXQtOaAi2
+	 FwKQRuhA5dtYqqqFApe9D84VsuoYJ5o07J+wUum3XHu29FO/G08SeczYl1ReaHp1JIJ8D
+	 XjEAoDGWsH7UXdAEWe9Pr656J6J501CrX0M0OGOpw9EHqlEFKAgIcBNzwEoPMC33xQquc
+	 SjD/EtZw/9gi94WtDn91yrtX3GeHUj4ma42jS+/xgBSgArQZWRShBgSwMYANw+ZeN+8BR
+	 o7dHTpRmgF8OvdFpkYxSKMa5vZuDsoc44NCs1xKKvQ3yCR6mVffGq+YBg08f3fAJL5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zxH8VwOa;
-	arc=none smtp.remote-ip=209.85.210.176
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k4ck+hVE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29364606A320
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:49:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29364606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3F0606A337
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:56:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zxH8VwOa
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8b68e59ab33so624682b3a.2
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 02:49:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795171767; x=1795776567; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hZruxycw3HvIlDBCBri6p6ZxzTaJWuc5gr86QEFctfY=;
-        b=zxH8VwOaOFIJyGhmjiGa4laUF7rcA1Q9LwE8l2XJKy0orGkMrJA2teGvaVl0Unp8MA
-         KXWlmTlNj2ARrk/6v7p5wk12uOw1OGBxcxx2tflqmpNvG9uqMU0lWJ0HIiMZrI1bqecm
-         eF5btfdGpU79TCT6vY2xc8Tu91M+yHF62swIp1/K1lws8vnmM8kbQ1c5K05CnzUdqF3G
-         GRqPI61n33FUQOVMBzqswv90/C2IMOgrJlA0IgNhjL0E3gKzFPLi8KtaKhbtGoPYWLQO
-         0XGAtNyWX3LdvnI9/8++ZXWx8/PWfXaOqggGzCb13jCxJkiNqamLN/MvJ9tKnHNZKiJ3
-         D0Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795171767; x=1795776567;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hZruxycw3HvIlDBCBri6p6ZxzTaJWuc5gr86QEFctfY=;
-        b=uH2h8MUv/XD/BIgUpSaKCBlyp3fEZl/3HNOuG6xH697nx8xk60+FBa5cXFSnQ0evkG
-         4JHuFt50ihZWGiD0AJipqxfz4rjTW3f+TcfVQHQsk4Fnk8fhVL67FESt6FlafjJDi/54
-         SHOioTYZ3OHyYwf3QY0ol7o8+8suYbkeldJxCwbZk42WyN1ioBaBP+50iPVGdWSjDYfa
-         Swu7IeuSGF3wWrfHs3rpAJekJio12PgttJJpkz/c9B9neW6Jnf9MxQMXUs6u/ESJTnb6
-         UkLiZsGW7TrmmBvskqCk1uR4csx0b2tvKq/7LbbZbWxZSCrfv7ldD1Z6eFJo78fY77f1
-         Ty0Q==
-X-Forwarded-Encrypted: i=1; AL+hErGcuxuL4vtRYShRoNlPZ+rbo+mNizu2wqeYdr5voxed/qMhLF2iRN/KmHI5fR7JMBNUHCt6z+ziuLDE@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ODycaroElPHQYlWE4R365KWAvTHgV3wmocadHwcR7spyYgp2A
-	esKTkdE0sazXkcA1IfouTjKZ0eny2W0Ieh86V1epgzCT7BP7O2BXzraN
-X-Gm-Gg: AZFdTZdrxKF7+mOH5GBjYzY8/0C7+wNT7sRFIuXwT4hcO6AW3XS7oZn/bgh8nw85ZSx
-	d7OZJVqQAetNxbP2nHfX4PLwlPi1+WscKq7DxxbKgYrqyMcMFZLdngtLP0vb5KcjPsFw05TugPo
-	keAnO6gGG9kT05dQXNEauBMSjsfm0/JhvyNG1FaH7mzIygdmd2ebNdHBIZeuoPMO9UJrJK9Bx4b
-	YP+3qpaaFhUOsOJMox9ZhaSzIPPVFxpeamo0a36Jq1bg0lmGxeUhEZB3JtJQWzGZnHTTU0FQSBQ
-	qXbXBI8Rkn/Znw0VZUNWg18TEtBTirX2PJu3UFaFuWsoBabpp/aOjrICdttlJzjdqRSzXt50sXo
-	OE9IoqhL/1FD0z8J+NjQUZio8ARifP8jC4+F9xmKdjKKTRwSsmWqIFtrHiDQuLzyU8v0xnZFWqD
-	fyHzlxdTkPc29ledMzKPSnYE++NNvWy45Tu2hAWHvy5v0wt+CciN/KNKRRYNDMXel2pmO21ue7Q
-	cJN2+V4Ukdh9JSTA4XPetez/snSxUlK+Ao5j0CqJsaX4vc0oYH68pNUeN+UKz+Y+3+liT91bzwB
-	/Eh/1jgrDj9ES3Mqro1SQ38ABkwwI4+akFqx82+jSQiS6Kih
-X-Received: by 2002:a05:6a00:1ac9:b0:899:74d0:8a58 with SMTP id d2e1a72fcca58-8c87d11f274mr2712547b3a.55.1795171767464;
-        Fri, 20 Nov 2026 02:49:27 -0800 (PST)
-Received: from [10.25.164.32] ([128.77.72.132])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c872e45e32sm1292915b3a.24.2026.11.20.02.49.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 02:49:27 -0800 (PST)
-Message-ID: <7f51f7fa-7e81-404a-9b0b-44efbc38cdd6@gmail.com>
-Date: Fri, 20 Nov 2026 18:49:21 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k4ck+hVE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F74B1F000C6;
+	Fri, 20 Nov 2026 10:56:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795172161;
+	bh=+7tbN9MuaCmBqXPur4Ml/M1YRKZhdD2ZO+fo0Nusx9o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k4ck+hVEF5tUM8rELbF7T8TDfHHU+pLsiZ1IX+JFXoGQUzDZJVAwY/O7nUX+4o8Oo
+	 M3cXwy/q61z4crYDe5FqH+WbDPId2z5Q2YFjxVtMACgz7PU0eOGjMCJhhYj4P2XVR6
+	 XYBDERK94EWFL4hvoWo3bI459xjx9eJ5KBxk/xl2wif7i0PrZleguN+ZwZ3mw1THJb
+	 czqLM7bdNyoLu0LsX+WhacbtWiNHrV/G11ni3SsMBcJWq3egu5b1UxV6/rqawV4et1
+	 CG9w6RNlur4ZKpf4XdDMkL88OLq9c/rfpFe5mCXEqsBraojubmSQLfpY+a1fmCR1gY
+	 8S9W1NJdrH1CQ==
+Message-ID: <sashiko-outbox-224974@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/7] arm64: dts: rockchip: Describe Sige5 Ethernet PHYs
+ by their ID
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexey Charkov" <alchark@flipper.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261120-rk3576-phys-v1-2-6382cd14e3dc@flipper.net>
+References: <20261120-rk3576-phys-v1-0-6382cd14e3dc@flipper.net>
+ <20261120-rk3576-phys-v1-2-6382cd14e3dc@flipper.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 10:56:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,34 +60,48 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] arm64: dts: imx95-19x19-frdm-pro: Add DMIC codec to
- replace dummy codec for micfil
-To: shengjiu.wang@oss.nxp.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
- kernel@pengutronix.de, festevam@gmail.com, shawnguo@kernel.org,
- daniel.baluta@nxp.com, chancel.liu@nxp.com, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-References: <20261120031853.1175454-1-shengjiu.wang@oss.nxp.com>
- <20261120031853.1175454-8-shengjiu.wang@oss.nxp.com>
-Content-Language: en-US
-From: Chancel Liu <chancel.liu@gmail.com>
-In-Reply-To: <20261120031853.1175454-8-shengjiu.wang@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/20/2026 11:18 AM, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
-> 
-> The "fsl,imx-audio-card" machine driver uses a dummy codec by default
-> which does not allow configuring the channel number according to the
-> board design. Replace it with a proper "dmic-codec" node configured
-> for 2 channels to match the DMIC hardware layout on the board.
-> 
-> Fixes: 815fe2e0e65b ("arm64: dts: freescale: add i.MX95 19x19 FRDM PRO board dts")
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Reviewed-by: Chancel Liu <chancel.liu@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: rockchip: Fixes tag cites board addition instead of
+  63136c6fecf4
+--
 
-Regards,
-Chancel Liu
+commit 5dc14b4c5e3f94d0bf427bf2ff5dad981d4f435e
+Author: Alexey Charkov <alchark@flipper.net>
+
+> arm64: dts: rockchip: Describe Sige5 Ethernet PHYs by their ID
+>
+> Both Sige5 GMACs connect to an RTL8211F PHY (ID 0x001cc916) with its
+> reset line in the PHY node. With only the generic C22 compatible, an OS
+> has to read the PHY ID registers before it can bind a driver, and only
+> that driver releases the reset line. Unless an earlier boot stage has
+> already released it, the PHY stays in reset, never answers on MDIO, and
+> neither Ethernet port comes up. Booting straight from U-Boot SPL in
+> Falcon mode hits exactly that.
+>
+> Name the PHY by its ID, so it binds without the ID read and comes out of
+> reset as it does. Name the node ethernet-phy@1 as well, as the Realtek
+> PHY binding the ID compatible selects requires.
+>
+> Fixes: 40f742b07ab2 ("arm64: dts: rockchip: Add rk3576-armsom-sige5 board=
+")
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+
+[Severity: Low]
+In 40f742b07ab2 ("arm64: dts: rockchip: Add rk3576-armsom-sige5 board"),
+the PHY reset lines were described via snps,reset-gpio on the gmac0 and
+gmac1 nodes, which stmmac_mdio_reset() deasserts before probing the MDIO
+bus for PHY IDs.  Commit 63136c6fecf4 ("arm64: dts: rockchip: Use standard
+PHY reset properties for RK3576 ArmSoM Sige5") moved those reset lines into
+reset-gpios on rgmii_phy0 and rgmii_phy1 while keeping the generic C22
+compatible.
+
+Should the Fixes tag instead be:
+
+  Fixes: 63136c6fecf4 ("arm64: dts: rockchip: Use standard PHY reset proper=
+ties for RK3576 ArmSoM Sige5")
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-rk3576-phy=
+s-v1-0-6382cd14e3dc@flipper.net?part=3D2
