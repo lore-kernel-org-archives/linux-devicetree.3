@@ -1,85 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795191725;
-	b=lJoThuAWAy3+XHRXCdaQSPSonjR1KPogY8Wxu4XfizfK1WxnP8cMHeN34+W8A1gV9wui
-	 svCMuoLp3l15rS71dYprjcvzXz3lZjb99K62ye55R00qWkf2QsHI5AHJlDuKtZ+j5Yey4
-	 69us69l4oc7XLFv6mAn2FwZmDAFJTpTMmohqa1LNKQbhtLP8Bt+SS2JhjdO4QMvyw6Ej/
-	 v3K+LTj5Q/POkS/VtAALBW7o8mcomKoOR5tpRPhnRDhF7ZbAjpRsMHKIWs+X9oNLB3VMN
-	 lEGIGAocvP2tvF0mtlTYk7zNAHG3j0UvbbtOVvxOtzhCRiO5hxqe7f+UmF9w/FZVUag==
+	t=1795191857;
+	b=DoFEQ66L6M3As8q154a7kaypFfd0rz5AQT4wabd16ruzcQraiph0cYR/acYS7ldUtptY
+	 7Fl0z6mdANmxR6doz2HpWpzjeaEpulrDdc5vrJRftQdgc5s1ABgwMpm3oQ/ydQt2Pnx12
+	 gFci8wXmn/wPowHA3ak5kVwDSeAgDVxKa6s+KHH8aqCSTTl11G8fdQWy5MxpWNl/1NTR9
+	 /Pqz7BVya22ee14Mbo/CgNF2ueZkeUrkW8lr65DIBBr4X+pzndon9kJsgFSJlaWuYrcpG
+	 YBmyHHhciiKlBAESxD3OO/KZp0npht44lNU/YyMlGRVBx6tFPpIdqPsN7Fy//EcHI3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795191725;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=5NkzGCohaIVffPUmVbi8o3XwRDdCSTTELA+pml42lCM=;
-	b=xGjtBYW13YpJnCmliQ3a42iQQF0xN5wl6tI3A598ePpTKW7kvUUzkqvzJLt9T6JoFtRB
-	 KTwu3ZZxuAUdjF2IL95eUZTSD0EU/+eA2UD8Fq7cgyH74CmiDjn+zxzcotHTbUfkrOnKZ
-	 GttubhomCjjyCxEUC4jJmfXTaFACfn+3hmeDJmqKTsuNhG9EkgZ7AZbEOFMaRhhuLExYp
-	 DaCrhfm7JoDdwylZFFkQCgFqpCB7/uflojxE00ZV8ws4+dGeDBkYoky9B1KwbgDMZqvvD
-	 gg+AU/M4nJVsujmU0eX8S1WOdkHY87AI/ucytBGpzWGBBXffGo+BRp2Vf8KgH/BG7pA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795191857;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=eXweuammQ53+bG7aA+FdCn6vhVGbnGzeBs58ATTcDoI=;
+	b=rOz9QAMHrPiO3eCMj5DVSN4QtRtq5mZYTMPqYwIp0OA7jPHneugxsD2qd1lc348sE29r
+	 WPwYnN0jIPSq6JjpneBwQwv8hFPdq/pDgDQTmBeyIlU7Z3BsUQrhzfAzYxrKP0Y1Ma0tV
+	 w39QyOe/XpILIfufdKmDIXaZxWOjLK9bomstqtZB9oi7FnzkSd6rmXkXTwmC4gbJPMSif
+	 B3qp5AKWsEu61L7UCp7g4n88rnfQhtJM/goULvFFX3/jlLDexPibUuHEQooUEpU5AaMDB
+	 GjoPmW68MGoJhT+2ODlwJee8/kEjslvyb1yuQ+txEVq9GSNaIQM4Y2tNB9gVRdpJaeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=OuaOZqg7;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NitsyhcT;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E6D60A2615
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:22:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3E6D60A2615
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD3E606A330
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:24:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECD3E606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=OuaOZqg7
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4a34ffd3e39so603839f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 08:22:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795191723; x=1795796523; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5NkzGCohaIVffPUmVbi8o3XwRDdCSTTELA+pml42lCM=;
-        b=OuaOZqg7afbEd1aFm1dAGau1ntKt7R5Y8qC0j+YM/CILLTi/KNw8xmTK5X2PVsH6kA
-         NPpBsyQS8t4uTEaFs1PADVAE9WyvYUCAsZRYpavhYC3pDFL2xW9S/tB8jJ44lr5pmZS3
-         coUW8S+YXCXTrk7C52M4DOk8AD6LzNey5X76aH4EH8l22IdfGnRpeFtr6dmAPqXUU9qc
-         uvRmRO2CTvqtc8wEVEQjVimdF9JNJ/hMSC3nH/arvV1R6SB9FvYXNSDX8nEU9pXZp7L/
-         VoAPQaqAntnJgZIAkyUnPYIb85nLVmakiPPi1G2Z46OLjKF9J9vovakhu+ZbDxKmrEyz
-         JyUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795191723; x=1795796523;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5NkzGCohaIVffPUmVbi8o3XwRDdCSTTELA+pml42lCM=;
-        b=0yl0pk+jiDOMTmjLJu0c9hG0NtbYUwAN+Vs/x8oeazGKKAQTpvFOpVUGtDT06votaY
-         5SpIZTyagdhsDunyEe7/D0jLmbhZnrRm/dHBWDU7PowQeEtPeZKEqnCqRKm4VV7Cg+eV
-         Mcj4pKrN0ZTUwz2sL0HERckz0W1sk8QE4Wp4pFRyZTpy2auo2A4zZOBb/mQJB5u4rFT3
-         DdP+sdTvbrIeaXyTvukp7QEVyhItmwD0twkNOy7Ee0njAMJQ2ZaA+J9SRse5xPxg6G++
-         0sAXgZdDb1KhvyCIdfpi+XCGJ49rChSl9RdOnB/kJhxhXpnR9/C0B5aYuGO/VoZtsSJ8
-         AM/A==
-X-Forwarded-Encrypted: i=1; AL+hErHU74FT3ELOiUmIROKSdkt4oMG/MwtvgjQ/RgCh7Ipj5yUKkqYn86bYbc3FsVtQ+zqfUVE7v8ySOVOj@vger.kernel.org
-X-Gm-Message-State: APuU4Z94NgdkAG2lJqTViwtXjfuAkC2E9JWaDojeYrEdRxuoHd3h177f
-	QMux9GsP/UTTuux5ft8pZaePhIPXXpOU91yQxergPSZ0WMYEvO6dkJb7LZ0RhkXuIu0=
-X-Gm-Gg: AYBFou0AOCve2XJ/5KSvS6wAejwirZAtH0Xy1jaUNRxWdHEJtmUr/St3Zghb21PR55D
-	sSLv++Qy7b3cVm8tNxoPv4UANSkVbbso7FicSWEUTsRxx4D3w1UBQae9YLKzVwKBjxVS+RIb7FY
-	1py/az6Uhzi1Z8ZbwhgxOpXlJrNFOX3iyWngfs7qFmosyefO/OnL4KUgFFm9O3qvXUcyXLmKqqp
-	c/KcV6qUR4agGha84jWTySsHEdpJlJ43aUcmpaMderyePLvtm02FdZ0ZpxRUCCXPf8fu8hFtRZz
-	rWgUJ5aSlwkyAgyLD8gX9Am6/0sgNzJA9MA7gyV9CAWVJSflKJeT9lZp9w7F+ozPAtXUYs893XY
-	c0y/UubXc69EqUwdGxcQtCRqrvCYV6GDywiNV+6i2MrHMkc+NAk5rfm1AtLarrJ3q0U3jlX7xU5
-	LYAwOO8ViJX/D6vFS3JYsK6HfkpBt0K8QtBsNlpXVBJt5Msz6wGeu5gZodgqlwmBsLxpun18qS3
-	IISumq0Jk1hRJnUxGgcRjT0+dnRLjBXGoF43TKyPCDueknycSgnntWP63w3qMeb37sAY0OVAlxc
-	xlVbMQyB5ARxihYB3MDgOJitQvw0vd0lxd07KBmIz3V5/sfQ
-X-Received: by 2002:a05:600c:a08e:b0:4bb:647d:dabe with SMTP id 5b1f17b1804b1-4bb887c3afamr92312295e9.3.1795191723347;
-        Fri, 20 Nov 2026 08:22:03 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884ab091sm137854885e9.11.2026.11.20.08.22.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 08:22:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NitsyhcT
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6060A1A174E
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:24:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 354FB601B9;
+	Fri, 20 Nov 2026 16:24:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E840C11BC0459;
+	Fri, 20 Nov 2026 17:24:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795191849; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=eXweuammQ53+bG7aA+FdCn6vhVGbnGzeBs58ATTcDoI=;
+	b=NitsyhcTsZo6nspRAWCOw4J46MqCWiv6Uff41OYdpHmvpBAf0ciSur6WG4NO3gXmBrEC0g
+	hXp1ZhZ5bu9uEuCUd/K5vXDJGrbDlU8usmNYSM5GvRIieitmxNwVLTfTg/tAbrzBkyiuVX
+	y2hgH1qZECTGahTK6J3DBvx7D6sBC5iWFGggRBHN2jW7GBaZaFsaUm7vrQWsK9C4KPQ5LX
+	s4ol5ipViQpcQjXwGXCdvfpbqtiZIHVehxvtHxHLopJd/GwbjcqchDqCQoERgWdcoP8qJe
+	40q7eEPdhHjzyet4NJMVuJE4VAGsGrptXPJ36MFuyyd5hlgtjBdsoeQdOMElJQ==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v4 2/5] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
+ controller driver
+In-Reply-To: <sashiko-outbox-217188@kernel.org>
+References: <20261116-eyeq5_msi-v4-0-2e1233b014b0@bootlin.com>
+ <20261116-eyeq5_msi-v4-2-2e1233b014b0@bootlin.com>
+ <sashiko-outbox-217188@kernel.org>
+Date: Fri, 20 Nov 2026 17:24:07 +0100
+Message-ID: <87a4n3pj2w.fsf@BLaptop.bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,59 +70,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v12 10/10] MAINTAINERS: Add myself as Nuvoton MA35D1
- clock controller
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v12-10-bee2c8dad4e1@bootlin.com>
-References: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
- <20261118-perso-ma35d1-upstream-clk-v12-10-bee2c8dad4e1@bootlin.com>
-Date: Fri, 20 Nov 2026 17:21:57 +0100
-Message-Id: <179519171774.3795820.3121589367853881174.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=654; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=UYAuJv9SVgURGKW/pKO2M7vMHBgjYbXz0H2zRl5sLMI=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNkMxcufFn3NUD4mbSymcPHS9iXCz8sUe2X4GLL0RHsYf
- By1gyM6SlkYxLgYZMUUWWq4q8XfSWp9mTVd5zbMHFYmkCEMXJwCMJF5pYwMj9eqR/3X/nTu9Pwp
- X8wmLIr1uLFhAkNJevMtlgmutw10XRn+V89UVdsW7afy87rS+tO36nYKuB5ZLxh/zPbCkR+ztzL
- oMwEA
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-> I have the platform, I currently use it for my developpements and
-> therefore I care about the clock controller driver and the SPI
-> controller driver not being constantly broken. I would like to step up
-> to help the Nuvoton team (not visible in the diff since they created
-> an MA35D1 catch-all entry) in the maintaince of this driver.
-> 
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Hello,
 
-Acked-by: Jerome Brunet <jbrunet@baylibre.com>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] irqchip/eyeq5-msi: lost and unmasked interrupts in
+>   eyeq_msi_isr()
+> --
+>
+> commit ecbaf749e93a909382eba764dafb43426071620b
+> Author: Gregory CLEMENT <gregory.clement@bootlin.com>
+>
+> irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI controller driver
+>
+> This commit adds an irqchip driver for the Mobileye EyeQ5 PCIe MSI
+> controller, supporting both root complex PCI MSI and endpoint platform MSI
+> roles.
+>
+>> diff --git a/drivers/irqchip/irq-eyeq5-msi.c b/drivers/irqchip/irq-eyeq5=
+-msi.c
+>> new file mode 100644
+>> index 0000000000000..823dfb0b00b5b
+>> --- /dev/null
+>> +++ b/drivers/irqchip/irq-eyeq5-msi.c
+> [ ... ]
+>> +static struct irq_chip eyeq_msi_irq_chip =3D {
+>> +	.name			=3D "EyeQ5-MSI",
+>> +	.irq_mask		=3D eyeq_msi_mask_irq,
+>> +	.irq_unmask		=3D eyeq_msi_unmask_irq,
+>> +	.irq_ack		=3D eyeq_msi_ack_irq,
+>> +	.irq_compose_msi_msg	=3D eyeq_msi_compose_msg,
+>> +#ifdef CONFIG_SMP
+>> +	.irq_set_affinity	=3D irq_chip_redirect_set_affinity,
+>> +#endif
+>> +};
+>> +
+>> +static void eyeq_msi_isr(struct irq_desc *desc)
+>> +{
+>> +	struct irq_chip *parent_chip =3D irq_desc_get_chip(desc);
+>> +	struct eyeq_msi *msi =3D irq_desc_get_handler_data(desc);
+>> +	void __iomem *status_reg;
+>> +	unsigned long pending;
+>> +	unsigned int bit;
+>> +
+>> +	guard_chained_irq(parent_chip, desc);
+>> +
+>> +	status_reg =3D msi->gcsr_base + GCSR_IRQSTATUS;
+>> +
+>> +	while (true) {
+>> +		pending =3D FIELD_GET(GCSR_IRQSTATUS_MASK, readw(status_reg));
+>> +		if (!pending)
+>> +			break;
+>> +
+>> +		/*
+>> +		 * Write-one-to-clear status register.
+>> +		 */
+>> +		writew(FIELD_PREP(GCSR_IRQSTATUS_MASK, pending), status_reg);
+>> +
+>> +		for_each_set_bit(bit, &pending, EYEQ_MSI_MAX_VECTORS) {
+>> +			if (!generic_handle_demux_domain_irq(msi->msi_domain, bit))
+>> +				pr_err_ratelimited("unmapped MSI interrupt %u\n", bit);
+>> +		}
+>> +	}
+>> +}
+>
+> [Severity: Medium]
+> Can eyeq_msi_isr() lose interrupts that arrive while a vector is lazily
+> disabled, and dispatch vectors that are masked in GCSR_IRQMASK?
+>
+> eyeq_msi_domain_alloc() sets handle_edge_irq without IRQ_DISABLE_UNLAZY or
+> an .irq_disable callback.  When an MSI arrives after disable_irq(),
+> eyeq_msi_isr() clears its bit in GCSR_IRQSTATUS before handle_edge_irq()
+> records IRQS_PENDING and masks GCSR_IRQMASK.  Because eyeq_msi_irq_chip
+> has no .irq_retrigger callback and neither EYEQ5_MSI nor MIPS selects
+> HARDIRQS_SW_RESEND, enable_irq() -> check_irq_resend() cannot replay
+> IRQS_PENDING and the interrupt is lost.
+>
+> In addition, eyeq_msi_isr() does not mask pending with the enabled bits in
+> GCSR_IRQMASK before clearing GCSR_IRQSTATUS and calling
+> generic_handle_demux_domain_irq().  If a masked vector latches in
+> GCSR_IRQSTATUS, a sibling vector firing will clear and dispatch the masked
+> vector (for example re-entering a masked IRQF_ONESHOT threaded handler,
+> since handle_edge_irq() checks irq_can_handle() rather than
+> irqd_irq_masked()), or repeated writes to a masked vector can keep the
+> while (true) loop spinning.
+>
 
-Commit log nits:
-- The subject is missing a word: "Add myself as Nuvoton MA35D1 clock
-  controller maintainer".
-- developpements -> developments
-- maintaince -> maintenance
+I reused my MSI test setup and added a new test: on the host, a helper
+disables one MSI-X vector, raises that MSI-X from the endpoint, then
+enables the vector again and checks its count in /proc/interrupts. This
+confirmed the lost-interrupt issue was real and let me write the fix.
 
--- 
-Jerome
+Since there was no further comment, I will send a v5 with the fix soon.
 
+Gr=C3=A9gory
+
+
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-eyeq5_ms=
+i-v4-0-2e1233b014b0@bootlin.com?part=3D2
+
+--=20
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
