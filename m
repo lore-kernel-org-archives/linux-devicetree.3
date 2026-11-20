@@ -1,79 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795161948;
-	b=ITFduJdGl/r9FN6neI1lKl9SOnzXZib6GAoUFRKJP6jOQ3h3xqv0bC7aHkcsq9NvH1qZ
-	 c8Hc5VDcaUokvdOrR4Qas1URG95Z8jQfFBR+aYwj30ZIQWc2hwNh7FxxS45ZIWzAlrxE8
-	 feYdrxUtLK1ouWwTZG/vpp/hwK4aIaGqYvZ9ZkVi91JO4i4gygSJtXnis+HvYxLffHPRn
-	 WGGIgRl4/SYhSMX8ZFctg5/m1l1RGMoENwcDzZ5Q08A8lvfAmHtW1sts56CbA714toeAQ
-	 KDhorVdQ69HnmVnqjHmQU6tz7T6A9nbk0uV4b/w2OJmPJtuyWzeiu/v3NqQxvWYHYsA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795161948;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XZzO41Ucyd8tV5/TweI3pY5ja7Z1zQxYwNu5Cg8zPo4=;
-	b=wraevJOOdIDyM/PqG96TsrwK0nRfrVB84ZPGcFdwf3LNgCielEw3Cynnmfzk4skGxCyb
-	 apetepRhn0Yia2TOWVylrnh9pwuhvWIx4NBPOy9dCOyqmXJZiYKfJjPZalHi/oksxqAEU
-	 K5mdDqF1wG5lyIY9Z5/IfVZrmwNR6aCEIvrpVky0anYHYa8YrMYhX1AS0RXYapJg178IB
-	 ZULYuduSeYVVsj1Ax1XB1kRFGQOcaLhjvKpY8FHeo95dIz0KtKEppPCTerQlMs9QN3WXU
-	 9mdM2Y7z6L25GiU3THCJc3L02swyc27aSxl66tUtVyigdhAexCVDOpm17KebaoWwOCQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2nUf+fo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795162121;
+	b=fi9B4E2jL4sEsTs0WOR6kBvhsiud3WO+V1LK0+kSfbaErqV99oYgcZK36ZPDuyp27WH0
+	 bYFP83ejFv1beSRkzQgwdjoZfwE6t43u1dOJLzhs+VrFPlhcMA2CPQ/P1UZ1n+03F2e0H
+	 iTE2yvaeOl/cUuIOQ9mmLJpxv7fOqFj8NPxPOE0EnzmJxCf2Zft7/ly3MK7SC5zAlHzr7
+	 YA/xr/PV/v2VxTDbOI3hXHnPuwC8qooF/HOm2uQZcIyIyaQ7vbztSBMLonvn+Sz3Mro4D
+	 jAKgl6tjvp7Xerxcpt7PS8Dopf0zhwRuBM1GCOeScp7bsKZ1fOVkb+6yxTw6UrMLElg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795162121;
+	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=vOdQnly/qrJT0djSoitDrJq3o052nNL1pkh6L3B0ilY=;
+	b=todxhCpSD5T/I4tEQmjIqaBCXlcEfvF5wzDBIeKhamKvmest++FYjQTy5ejLTMTs3JLB
+	 XQxshneVwwCvW4TKJhvR+PzIz3Ze6beTE1D8te3LGz3teTrDFiJeDzURcEP7sEJB6b28R
+	 z9EyewUdXdOOOCqQym4/H46aIOldzsYPjmSDMZ0kwGQEbuxAhh4aqWEwkmnOVIpikfanR
+	 Ll5CvPGVCwaZ6sdL6b+sSLDPk7UtUjpnNQQqp844vxJmX5KrRNjNvq0uBGMmV9K5FnEFe
+	 7tYl6QN5C9K2X02fjxELuzNKOrIdwsd4f1Qa915KwrGQXsJlbkbPwVbDch/0l5b+/Tw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	arc=none smtp.remote-ip=64.106.246.77
+Received: from mailsc.amlogic.com (unknown [64.106.246.77])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F03F60A2615;
-	Fri, 20 Nov 2026 08:05:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2nUf+fo
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795161948;
-	b=O/cg+ZoEkDItqC5bZWp0W+qzHU2QfIBBrVirFY/9WlQ13dP03/ucJKUCo2rMuP2mN5Hc
-	 HrIp3S2nL9SQMiD8DvNWZm399UwKmdswEPRToCGVLPiQ5AWDbbqr3+B0W8hl/mgEhDaQz
-	 BTxYZ9Yq5wqYfoyz+gCedHXb3QcVjIS9iLURqgOyvrdLfQhp/FkSqzqnk0vZ2+nTh8Hx+
-	 ft8/neVtMzIJy0tC/m5V4VK4Aox4h5xSBXtrtzO4IS1WT/Ly/Nnh85x1uFtGZPSGyuCS/
-	 sKiockQraVi6k7J0QIdjMx6Hq1C75TfGggXO03Re2sJU/h1Vs2rtWumMyYmQuSF8egA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795161948;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XZzO41Ucyd8tV5/TweI3pY5ja7Z1zQxYwNu5Cg8zPo4=;
-	b=UR4N5RBTMXEKmjV68+dMHbEBFc9XZf0+QrEpD50QwASOBauQ6f0Q3/ByQzTeu6qjeBpZ
-	 4NBYP1PkAUHuf9IEPCS+seM+HXOhRXXvUZP+2TUCBBem/8VWB/qOyhsk675vpsPp9DAHM
-	 H7uQ0jVMuIEiq4CLmpe9BP58OFMarbulz3Gasoz73MtWB/LS1ARTTQfS/8uKZCZ7dk6l8
-	 kT0e6HHTr/v4e6/oKYbOGLMdt8zMLceaCbvqfAXLIjeFxOa1aC3dLe2ALaN7tRuKA59hS
-	 FccUuUAkrdRxHwJgx1tJKG5aGCt88CX7DRifqQ1yuXMNMvTVVtG7q+9s8BeALY6qX2A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0407A1F000CF;
-	Fri, 20 Nov 2026 08:05:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795161948;
-	bh=XZzO41Ucyd8tV5/TweI3pY5ja7Z1zQxYwNu5Cg8zPo4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=H2nUf+fop86UQlK/rYOnLUUqb/8I0U7ZD7daPKoc8Nx6Lx2H/KuXYVoPxkFh8RjLT
-	 hEtpyErO5EEMPMUeoQspdf83gB432e/1XazdquF4xP1Z+XQ0PXvChUSRQe6otVVFbU
-	 U/7BAX3vvdNNt8+v/T2F3Zl7SJPgZTgWt48S718Qr2cKcvKhQ4TDLJQHLQeHkIv5/1
-	 G0ct786m37rQ7x48RjrccKGZ2Iq2JPL25IZzoo26Dqq0kVJ879WQHEHIpRgrOv8E1H
-	 lynbXzOfdPTq+pPW4DdxOTAXuKW9ozFdrov7ACw3GsJMts/UqKhZwVni2C84zzQwUx
-	 GnsGNyr1QB+GQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8580B4977C;
-	Fri, 20 Nov 2026 08:05:46 +0000 (UTC)
-From: Alexandre Rapaille via B4 Relay <devnull+arapaille.atlr-engineering.com@kernel.org>
-Date: Fri, 20 Nov 2026 09:05:47 +0100
-Subject: [PATCH v2 3/3] wifi: wcn36xx: Stop waiting on a dead firmware
- during remove
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F42606A331;
+	Fri, 20 Nov 2026 08:08:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04F42606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+Received: from rd03-sz.software.amlogic (10.28.11.121) by mailsc.amlogic.com
+ (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 20 Nov
+ 2026 00:08:31 -0800
+From: zelong dong <zelong.dong@amlogic.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman
+	<khilman@baylibre.com>, Rob Herring <robh@kernel.org>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, Jerome Brunet <jbrunet@baylibre.com>,
+	Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-amlogic@lists.infradead.org>,
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-can@vger.kernel.org>, Zelong Dong <zelong.dong@amlogic.com>
+Subject: [PATCH 0/3] can: amlogic: add support for Amlogic A9 CAN-FD controller
+Date: Fri, 20 Nov 2026 16:08:17 +0800
+Message-ID: <20261120080820.3340646-1-zelong.dong@amlogic.com>
+X-Mailer: git-send-email 2.47.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,104 +54,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261120-wcnss-series-v1-v2-3-3fed518decfb@atlr-engineering.com>
-References: <20261120-wcnss-series-v1-v2-0-3fed518decfb@atlr-engineering.com>
-In-Reply-To: <20261120-wcnss-series-v1-v2-0-3fed518decfb@atlr-engineering.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Luca Weiss <luca@lucaweiss.eu>, Eugene Krasnikov <k.eugene.e@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, wcn36xx@lists.infradead.org, 
- linux-wireless@vger.kernel.org, 
- Alexandre Rapaille <arapaille@atlr-engineering.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795161947; l=2669;
- i=arapaille@atlr-engineering.com; s=20261118; h=from:subject:message-id;
- bh=aNGMzK4TGJR9fdTqFm+U1fGWoLrLo05sBlDTYvgq33U=;
- b=V/0eKlALIO82U1cNEW91q+40K7SfvMwD4HoYijeCYvjPOiUzibGnLGb+rfGHYZMRpgtS7d6/m
- m+QGSmWFvN4Bd6myr/qQVXtpkVmf+61DuNPJ7NF4uZQ8sSeGgBf4JIc
-X-Developer-Key: i=arapaille@atlr-engineering.com; a=ed25519;
- pk=xskH/sIiNU/aZCeGeBB1TK/AuiG3MXlX0m2wMlbMl08=
-X-Endpoint-Received: by B4 Relay for
- arapaille@atlr-engineering.com/20261118 with auth_id=1560
-X-Original-From: Alexandre Rapaille <arapaille@atlr-engineering.com>
-Reply-To: arapaille@atlr-engineering.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
+ (10.8.11.35)
 
-From: Alexandre Rapaille <arapaille@atlr-engineering.com>
+From: Zelong Dong <zelong.dong@amlogic.com>
 
-After a WCNSS crash, remove sends ~16 HAL commands nobody can answer,
-each waiting HAL_MSG_TIMEOUT: recovery took 160 s on msm8974. Once one
-times out during remove, fail the rest at once; recovery now takes
-~20 s. Testing removing alone would also skip the teardown on a normal
-unbind with live firmware.
+This series adds support for the CAN-FD controller found on the
+Amlogic A9 SoC family.
 
-Signed-off-by: Alexandre Rapaille <arapaille@atlr-engineering.com>
----
- drivers/net/wireless/ath/wcn36xx/main.c    | 1 +
- drivers/net/wireless/ath/wcn36xx/smd.c     | 8 ++++++++
- drivers/net/wireless/ath/wcn36xx/wcn36xx.h | 4 ++++
- 3 files changed, 13 insertions(+)
+The controller supports classic CAN and CAN-FD. The
+driver uses the generic RX offload infrastructure with hardware
+timestamps, reports bus errors through the CAN berr counter, and
+implements suspend/resume support.
 
-diff --git a/drivers/net/wireless/ath/wcn36xx/main.c b/drivers/net/wireless/ath/wcn36xx/main.c
-index ad8a4bd910..77a1029108 100644
---- a/drivers/net/wireless/ath/wcn36xx/main.c
-+++ b/drivers/net/wireless/ath/wcn36xx/main.c
-@@ -1651,6 +1651,7 @@ static void wcn36xx_remove(struct platform_device *pdev)
- 
- 	release_firmware(wcn->nv);
- 
-+	WRITE_ONCE(wcn->removing, true);
- 	ieee80211_unregister_hw(hw);
- 
- 	qcom_smem_state_put(wcn->tx_enable_state);
-diff --git a/drivers/net/wireless/ath/wcn36xx/smd.c b/drivers/net/wireless/ath/wcn36xx/smd.c
-index c0b4773458..d07ea967ac 100644
---- a/drivers/net/wireless/ath/wcn36xx/smd.c
-+++ b/drivers/net/wireless/ath/wcn36xx/smd.c
-@@ -427,6 +427,12 @@ static int wcn36xx_smd_send_and_wait(struct wcn36xx *wcn, size_t len)
- 		(struct wcn36xx_hal_msg_header *)wcn->hal_buf;
- 	u16 req_type = hdr->msg_type;
- 
-+	/* After a WCNSS crash every teardown command would wait the full
-+	 * timeout; one is enough to know nobody will answer.
-+	 */
-+	if (wcn->fw_dead)
-+		return -ETIME;
-+
- 	wcn36xx_dbg_dump(WCN36XX_DBG_SMD_DUMP, "HAL >>> ", wcn->hal_buf, len);
- 
- 	init_completion(&wcn->hal_rsp_compl);
-@@ -440,6 +446,8 @@ static int wcn36xx_smd_send_and_wait(struct wcn36xx *wcn, size_t len)
- 		msecs_to_jiffies(HAL_MSG_TIMEOUT)) <= 0) {
- 		wcn36xx_err("Timeout! No SMD response to req %d in %dms\n",
- 			    req_type, HAL_MSG_TIMEOUT);
-+		if (READ_ONCE(wcn->removing))
-+			wcn->fw_dead = true;
- 		ret = -ETIME;
- 		goto out;
- 	}
-diff --git a/drivers/net/wireless/ath/wcn36xx/wcn36xx.h b/drivers/net/wireless/ath/wcn36xx/wcn36xx.h
-index 8c43f67bd7..9e5f3918ca 100644
---- a/drivers/net/wireless/ath/wcn36xx/wcn36xx.h
-+++ b/drivers/net/wireless/ath/wcn36xx/wcn36xx.h
-@@ -276,6 +276,10 @@ struct wcn36xx {
- 	spinlock_t	dxe_lock;
- 	bool                    queues_stopped;
- 
-+	/* Set in remove; a HAL timeout then means the firmware is gone. */
-+	bool			removing;
-+	bool			fw_dead;
-+
- 	/* Memory pools */
- 	struct wcn36xx_dxe_mem_pool mgmt_mem_pool;
- 	struct wcn36xx_dxe_mem_pool data_mem_pool;
+Zelong Dong (3):
+  dt-bindings: net: can: add Amlogic A9 CAN controller
+  can: amlogic: add driver for Amlogic A9 CAN-FD controller
+  arm64: dts: amlogic: a9: add CAN controller node
+
+ .../bindings/net/can/amlogic,a9-can.yaml      |  65 ++
+ .../dts/amlogic/amlogic-a9-a311y3-by401.dts   |   7 +
+ arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi   |  25 +
+ drivers/net/can/Kconfig                       |   1 +
+ drivers/net/can/Makefile                      |   1 +
+ drivers/net/can/amlogic/Kconfig               |   9 +
+ drivers/net/can/amlogic/Makefile              |   3 +
+ drivers/net/can/amlogic/amlogic_can.c         | 864 ++++++++++++++++++
+ drivers/net/can/amlogic/amlogic_can.h         | 367 ++++++++
+ 9 files changed, 1342 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/can/amlogic,a9-can.yaml
+ create mode 100644 drivers/net/can/amlogic/Kconfig
+ create mode 100644 drivers/net/can/amlogic/Makefile
+ create mode 100644 drivers/net/can/amlogic/amlogic_can.c
+ create mode 100644 drivers/net/can/amlogic/amlogic_can.h
 
 -- 
-2.43.0
-
+2.47.1
 
