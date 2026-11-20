@@ -1,69 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795174816;
-	b=yJhxWsEb55VwHzGZAfXQh7KHmWQUgZTyGBuDsLg2LvgFkB31PxpmjxFsI4hCH/Xi8TVz
-	 I3Wwh9UEU+WsU0MhqFgMPdQtXEkaXDbLm/72ipRx0pQgmCZmuS9M6bMAi606LfrLWEYqX
-	 HAssQS1q1Z/xzvX7RNIA8zVHxdp0QP66FX0AqixdukxgdLUL6j7yvmbE1/ZspHUIq7TKz
-	 4kB1CAbkde3Dp3mJvFOLOb3Mqs+ggfKVaEOxGUEL5WPoD+3RZyg5oPMHBVLPP7l3C+1Lh
-	 KpseMT4afSNTkB//r9kxHFk0uKRRFuED1Vt7aSW3V681vgud2Be+gzR62nSc1XJXYIg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795174816;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=z7GZse95e9OsWMMR9FTF/D6iQnoJXWz8o3LKfdTm+tU=;
-	b=DFws6DZoXf8vJ8YNCv7HJDoS1vKITzLpxqy9RH5IviisGPMCvW0y0/AyWFGtyIuG4g6E
-	 9OCuVsRAbLQaJ+QLr8qi9SvQdpI4FNqZRL24aSrnRlGf2f/uyG9auBbBrOejC0nYErJMv
-	 KXafd1Ac++ehRikLEHVdeQXK4NQ3BTEXyHig1sTh/glnY5kgAcsBV91Uy29NI24S7ib/g
-	 fU2eaYrIrY7cZaxP2YP7zOEf7nWA/n1Ix6d8vA/UgIfBOWPshnE8uA0RobJVFjjgFayZH
-	 Z/iqcypgqWW+kqUJ5td5tjAEZ3jISYZbofe+DDzq4a2EA5L4aMGKKfRCjfQCSKVw2Hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ii0O5BgW;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795174854;
+	b=sSwv2+RAlQEOxlgvXnYrPttYfy3f7t712G8rx8p2WFlFdlnNoqJ/UuPDp/ZIUQfNfpc9
+	 F2kYvNWw/uUUWIIpoHBHI4A4OSnsvcT/SFdgHqshy+BAOBOs+EMb/dbYP7TQGhZyJREg2
+	 bDraFwdjfNBSujH9xsu+uua51VuvB00xHOEip3easq+0Ve4dOkB9V5IXi04vxFbnlNA71
+	 3jjXdWf0ShhgiIRlBV2kDVWGOxHqbXiB8o5aI5WzLYLAFS2DSSp3MhzJcarWhs9xSqFSc
+	 KnXx6hGBZ2Bxni9utGmxKNGlvLuG2JFvPTm8Ctcyt8Ug0ZZZZIntP6Tg7yh+beOzBiA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795174854;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RHPlhdBNPxXzXTwkaRxmCp6HVueIFSTW7DRmFxWoNDk=;
+	b=BFTIeEDRf8ezG9Fh1yyFj2h5H9w1pUkELlelye8z69xPdEYZPz17JVKdmSLFrSX9DR8p
+	 nKCGoD5WCTdnVWllbM0u9zq03AwB5L+zVaOEwuPKKE6wxFRzwB6wHRDGa3ZXH8i5J4XcA
+	 21KNQHtESnKctd7uCiOpdM3IO/0EnpajuHYfYiRcHyKzwD4E5AaQDcjKkpHfk0ctmAq2d
+	 1OQHEtxppp83s5pnLBw0Ycft2TCv4GR+rrHO998ghYc2AzHehEsvGOD6FdtMdFPCCwZBj
+	 +45kkUU4vaahFvXSU7uN412WREApoYboXIk6qeRoKKrbMAKTP9vo8XT9RDqZZbLTJ3Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jrj+iFOM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E270606A326;
+	Fri, 20 Nov 2026 11:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jrj+iFOM
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795174853;
+	b=gwX5PY75GLTzNLtYE50Us7SsgI6ifqfkW/fVPPOCJE2q4xeaHac3OBTJ8cXajf3/t1ik
+	 iPlbl9fnR9fSYdSi2R/Tr6hddmlxsV43HHpdfoCmBiyVXw55AE8hfPNJwkm1C2+ZFVemn
+	 ZyofWQo8z3yBJXorvDmj3AhTD5/DXfw5oHstlcT0afqcajxoyzK2FTv+NQij8r5XEuYpA
+	 EOLSgUBZMrgHsdDGWoRI/0vX++4a2AZUhVGHi9o9JXjKCfC/IC9QOxLSlF5zJZxoVYVNp
+	 oV1kvCCKaWyK5B+3dmnm4ytkcai8WRCEuEOsXz/d5mQdm7XVhd/6hn/QiCII7I5fuAg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795174853;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RHPlhdBNPxXzXTwkaRxmCp6HVueIFSTW7DRmFxWoNDk=;
+	b=gTa0t69lfO4fsiX1SC/O9Im+oMhzMilYaADhIQlsj7LFYJuF7ufWlFHwHqFwgKltZ1LF
+	 cG441D6yeerRy/cbIu7bY8hO2NflodHgscZIq5Ggec403a4Lp/7VFjQkUmdHZ5ZyTujLV
+	 X+zMyB82oR1ZO/4OTOZIxipLGcfmlkHxFVE8gptq5GfT77EbFL3O7i8IOyp+HasZtnigZ
+	 CLQBsy3OF1lcuv4Xx6kRou12c8YfDyPQ3u8sPtFmBsh/4uqPl6q2TXLVaefCFNhrGkIod
+	 xZg/gZkecOEHV7TNbugdXxJq59w8uFb3Fw+ptJco5owOHON3TYnj2JOLMOHJQkEHBZg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F73E606A331;
-	Fri, 20 Nov 2026 11:40:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F73E606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ii0O5BgW
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E66524E41681;
-	Fri, 20 Nov 2026 11:40:07 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AA9536017D;
-	Fri, 20 Nov 2026 11:40:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 28D7A11BC0D5A;
-	Fri, 20 Nov 2026 12:40:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795174806; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=z7GZse95e9OsWMMR9FTF/D6iQnoJXWz8o3LKfdTm+tU=;
-	b=Ii0O5BgW3ORmBERcxum5rHlZoh99KBF/YCCtFeyC90YTIam82qxFnQMYqdBzYHsjRRtQ0b
-	ceKkW1iqU/N/rtgs8+hkqhRNogEPa8nZ4YXmxaE1cQA5V6Zn06KjZIWb9J+BW93OnTkMa+
-	5uYCb0QSVQRdi1W64qNZpNMhKfCxzhm4jIsP4sXU7O8sV8G23JV1k9cNU2YzX/d+vOXJBV
-	J4Prvo7WtqZK3yGLYwOc4qyVGOnCLk9jbd5Y76Dpd/RpnwdWCQ8EpZOD5E7FjZ0kTD/v60
-	rhGh+O0VRW0FZy5+tXA0u9a++pIsff0m1tztoXhAHY2AdSU89Csrh+2+OytrkA==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v2 0/2] mailbox: Add Marvell MHU driver
-Date: Fri, 20 Nov 2026 12:39:50 +0100
-Message-ID: <20261120113952.168265-1-paul.cercueil@bootlin.com>
-X-Mailer: git-send-email 2.47.3
+	by smtp.kernel.org (Postfix) with ESMTPS id 013211F000D0;
+	Fri, 20 Nov 2026 11:40:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795174853;
+	bh=RHPlhdBNPxXzXTwkaRxmCp6HVueIFSTW7DRmFxWoNDk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=jrj+iFOMo8UJZjlJ+NdJsdiTgzLXJSh7al69m9lblPFt/bC68uGvu+HCM0hJ0yT7U
+	 FS0OfOGDE5VZ9i+CoIT/gOTi0jJmPgUk/4P6HX8tjHcWbdBs3TM9FUzHdDkHkZhUU8
+	 Qh08RYiRD504Pp0+HQCajoEcgp0UT2Wk1KWEFC4QcYR6oCLMklYAFuqgyYwNZkSpRG
+	 TwRryOodEEJtbyvpfm1Bk0L6fUDzTS3GMvLBMbUyJqy60XZwbiumq8TL2flKgVTYsU
+	 CxHzFflDPjnc4sH0EBc9dOVpb4NeDy4UGLMq31LLxh6GjjoVpNYnUgjgCH2btMf32Q
+	 MA2CNWZKjEHvA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8C9CF49863;
+	Fri, 20 Nov 2026 11:40:46 +0000 (UTC)
+From: Ivan Pfarher via B4 Relay <devnull+ipfarher.gmail.com@kernel.org>
+Date: Fri, 20 Nov 2026 12:40:45 +0100
+Subject: [PATCH 1/4] arm64: dts: allwinner: h5: orangepi-zero-plus2: Add
+ LPO clock for AP6212
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,60 +83,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261120-orangepi-zero-plus2-fixes-v1-1-ecd792189f27@gmail.com>
+References: <20261120-orangepi-zero-plus2-fixes-v1-0-ecd792189f27@gmail.com>
+In-Reply-To: <20261120-orangepi-zero-plus2-fixes-v1-0-ecd792189f27@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, Ivan Pfarher <ipfarher@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795174845; l=2115;
+ i=ipfarher@gmail.com; s=20261120; h=from:subject:message-id;
+ bh=7KEtdKj9IY+64J+dCjZb1N3Us47orLdmi9i9eYZWsuM=;
+ b=SOxTVC1DYhuLVEV7n+Im/3RiM9ou+VEHmEJgGfO8FSkz+Qz6pLswSgdzCSEG8p+bdVtsJUhhg
+ We9IBq70qemCUoxa7CgvszjvEU/6ECL/sz79h+0mCFhVGJuWuuwmOTt
+X-Developer-Key: i=ipfarher@gmail.com; a=ed25519;
+ pk=3DMYyz/xl+KRAx2TNGJpheG+5QUm7lqHhKXFqVu2TmY=
+X-Endpoint-Received: by B4 Relay for ipfarher@gmail.com/20261120 with
+ auth_id=1582
+X-Original-From: Ivan Pfarher <ipfarher@gmail.com>
+Reply-To: ipfarher@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Jassi,
+From: Ivan Pfarher <ipfarher@gmail.com>
 
-This is the v2 of my patchset that adds support for the mailbox found in
-the OcteonTX and OcteonTX2 based SoCs, which is used for SCMI
-communication.
+The AP6212 WiFi/BT module needs a 32.768 kHz low power oscillator (LPO)
+clock, which on this board comes from the RTC clock output (osc32k-out).
+Nothing in the device tree references that clock, so it is disabled as
+unused during late boot.
 
-I dropped v1's last patch (that affected the SCMI driver) since SCMI
-maintainers and Sashiko reported that I could replace it with a simple
-DT property.
+WiFi keeps working without it, but the Bluetooth core does not: with the
+LPO gated, the BCM43430A1 ROM answers HCI_Reset and nothing else (no
+Read Local Version, no firmware download), so the controller can never
+be brought up. Turning the clock output on by hand (RTC LOSC_OUT_GATING)
+makes the controller answer normally.
 
-Changelog:
+Reference the clock from the WiFi power sequence, as other boards using
+the same module do (e.g. sun8i-h2-plus-bananapi-m2-zero.dts).
 
-v2:
+Tested on an Orange Pi Zero Plus2 (H5) running Linux 6.6.160 with this
+change applied: osc32k-out stays enabled and the Bluetooth controller
+answers HCI commands. Build-tested only against current mainline.
 
-* [1/2]:
- - Fix binding path in MAINTAINERS file
- - Move MAINTAINERS entry so that it's in alphabetical order
- - Fix formatting of DT example
+This problem was investigated, and the patch drafted, in an interactive
+session with an AI coding assistant (Claude by Anthropic). The submitter
+reviewed the change and ran the tests described above.
 
-* [2/2]:
- - Add Kconfig dependency on PCI
- - Order includes properly
- - Remove duplicated macros
- - Pass a pointer to the "mhu" variable to mrvl_mhu_setup_irq(), instead
-   of getting it from drvdata. Then we don't even need to set drvdata.
- - Use devm functions unconditionally. This fixes an issue where
-   pci_free_irq_vectors() was called while IRQs were still in place.
-   It also allows to drop mrvl_mhu_remove().
- - Use pcim_iomap_region() instead of pcim_request_region() +
-   pcim_iomap().
- - Enable IRQ in .startup(), disable it in .shutdown().
- - ACK the IRQ after calling mbox_chan_received_data()
- - Fix register used for polling TX done
- - Clean up macros
+Fixes: cf8e19e1ec15 ("arm64: dts: orange-pi-zero-plus2: enable AP6212a WiFi/BT combo")
+Signed-off-by: Ivan Pfarher <ipfarher@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Cheers,
--Paul
-
-George Cherian (2):
-  dt-bindings: mailbox: add Marvell MHU
-  mailbox: marvell-mhu: add Marvell MHU driver
-
- .../bindings/mailbox/marvell,mhu.yaml         |  61 +++++
- MAINTAINERS                                   |   7 +
- drivers/mailbox/Kconfig                       |  11 +
- drivers/mailbox/Makefile                      |   2 +
- drivers/mailbox/marvell_mhu.c                 | 239 ++++++++++++++++++
- 5 files changed, 320 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/mailbox/marvell,mhu.yaml
- create mode 100644 drivers/mailbox/marvell_mhu.c
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts
+index 3eb986c35..34d6c1468 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts
+@@ -5,6 +5,7 @@
+ 
+ #include "sun50i-h5.dtsi"
+ 
++#include <dt-bindings/clock/sun6i-rtc.h>
+ #include <dt-bindings/gpio/gpio.h>
+ 
+ / {
+@@ -54,6 +55,8 @@
+ 
+ 	wifi_pwrseq: pwrseq {
+ 		compatible = "mmc-pwrseq-simple";
++		clocks = <&rtc CLK_OSC32K_FANOUT>;
++		clock-names = "ext_clock";
+ 		reset-gpios = <&pio 0 9 GPIO_ACTIVE_LOW>; /* PA9 */
+ 		post-power-on-delay-ms = <200>;
+ 	};
 
 -- 
-2.47.3
+2.43.0
+
 
