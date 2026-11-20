@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795175213;
-	b=vQ/QKDpUnl5n1DhREPwlZeTBL6ebMx2/0d2scLkwwW3HMU7ItZXOrKGp56TQrhPMGfnA
-	 tNAYg7vLbgMXEjmdqfwzZL5lc7eeZH9UEp9n11KLoC7hdQ/qBnZh07l3TvARkeg565LpO
-	 Jel4/yqyL/MTNkIvNTPi4R56ZOJpSiGmQtkHJk1LJ+GXG/1GM0uFw/Fxa/1W+UdwqKlJJ
-	 lRIdphpMEnNTucpyg8u+BH51Xrqqaf1d8EnfZSKcLh91U8dUzQODE4Z4z0N1OSubdV6UZ
-	 AeArjughKCyUvjgf4NZeqIS/RlEFDQijf/azMTljIox7GHBsreRuZObLkBVEI9+Yc/g==
+	t=1795175248;
+	b=28Qgswmf65g9k+4vajQVfpZk2NNbHCFp4D/mLvRrYwV9XFo98CJZa9FhafKEBe2hKqmz
+	 1Y553k3UhoFP4WWFQV2pyfADuQ8mPd+jWO/D68KdyBlU0O+aAHvoTFQFDrVjCXBhYrGqk
+	 1941ezUDMqtoZSFAl1KvKER1mskuddwxH/X2x9X8HnzWNjNMpR2haXMkq6StLQGOXjYdt
+	 uf9/Vo6dafbJGeDGMkDFl7jVj9cWBuBOui+h1Mm5Z7E5YbulEDZ0hQwhRNniE6sUeUtBl
+	 jKt4Jx65JWPZ/37i4NHyJuBO4s2DR/amr5X4UK0nGiFoF0JXh2HwHkEVqaOqxnlSHsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795175213;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=w5sZtHrnionc1ubz+wnLrxSH4AVC+4Px/QXb4L1EsWU=;
-	b=2hlwxXGxsllMf5Kppsl0dg2cmhMGldin+qffRDwWVyvnCfDRZgGwTwlu2DYaRF/HS1ZG
-	 kGBCSd0nquaM8jEzEkgyU8dGz/URYxXDfHWsn6dkcQ/NTKFW6eAUuR35HzBjFaXi6GA18
-	 dHYHccmT8UlSJMJFEkju/AfKqkAMV5EDNh3Po+x64+EySt5mJM9nCa+sjSIqdZIfUojUH
-	 GWAWoiYP+odFHdx/WE7BPUZP1rFDUGO/NBDg6hJrV8l6XHvtIyrjKhyCAaeAMWEBVGNe3
-	 5VSNVaHEmpKidD1+hBCzQpuWREnoj48lAaX7Zwwo8EKQc3IGRpNwir4wy5RyliVBCGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795175248;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=iyyk82KwD0gTHK6EesukEP1DVEZLAy4u41nZQjINL94=;
+	b=CCUWQ81K/yx66agYEywUFYg5R5/GhVew2XDIqA7B92zci56BBjOeyZDdP/VTCVxRD12e
+	 trIuAj3CSq09Cw6rEBJiwdCNuE6HXRmaFY9kYr1DCihHLRhpetsgUMK4yc7uwuMjLMI5o
+	 C0IQ3iboQiL/du6hFcXfCeb7Z1Kmfbme5lZJW69b1AX1Ej5hn610R0k8S4LNGy24KIp5G
+	 AuzyJnO6gcAFbS/0fTvo0b1ESDireJRCImvj1IlY/znCzZ275VmCJGCppFnC6U1PQRPtN
+	 Qw/+a+woEwGdPxvoheQIWhGUgTWiX0nKgp8fqyfH3N3Gp9peTn4sjrOxaN8M4uuhMDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VbbIA7Nm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B2E606AA48
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VbbIA7Nm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB8B1F000C0;
-	Fri, 20 Nov 2026 11:46:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795175212;
-	bh=w5sZtHrnionc1ubz+wnLrxSH4AVC+4Px/QXb4L1EsWU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VbbIA7Nmj2xSqDtVWoBwrMaGUHSIMhlV4LNb4/qxdWPdCqMmCl2XDn899+4zLzisH
-	 GZlBfitSuTMBxBaxuUR2mSEAmjxb73SICuHO3+1BGd1Ws0rNMScn7CU/1vMicMJlVv
-	 tgM0Xwx8fCRplBSPSceoXWrtsVrEe0JnZ9LXK/qR4x4jXYpDWE68vtwz+3RwJHY9G5
-	 x7maag1OZYGLvBfbsTLyCow6div9aU71SaKwkVosLu8l2/kq60nTfKbHPkCWoeqXKF
-	 L/Jmjiywavoz3CCqPrkWGFM+A2w4bkrUillDujsnUe9wGqLcw6OgEvBpvGRaa9bxFq
-	 9E6sbgU5g2t7A==
-Message-ID: <sashiko-outbox-225096@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: rk3568-rock-3b: describe the
- Ethernet PHY LEDs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: MidG971 <midgy971@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261120113555.1402132-1-midgy971@gmail.com>
-References: <20261120113555.1402132-1-midgy971@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 11:46:52 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75743606A330
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:47:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75743606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=iyyk
+	82KwD0gTHK6EesukEP1DVEZLAy4u41nZQjINL94=; b=GiD6KoS3cmPa1hLcSgGg
+	v3rXdC4hqxx4lcmtFohEFZ82WB0mJn1C8BPAIK83TXXTwjD/0kSoTGS7dCIRncTA
+	vl9D37TI1R7DXDSQ4HG4BgkGpWCj1a9t8ivFrAB9IBfQv8oWp7XjQnlG1YcfZIsm
+	cT++Szewq/WJE/NwnfC69Qo3kuguYzAnIiZxw70arMz8AT2kjxj0qzIZtMK4YvqU
+	ro4PiOlX3hYF40O2A3NTM1z9W4E9ERqHZe3eMjUtjTpRvWNwInUbXwF4yMYGZ9H+
+	H7nWZQUWHwQwmoNMVKy6q4d0kOe12oXHaTvavqu9+c8S6XrzHgcSWYrI+wI4HOvQ
+	3g==
+Received: (qmail 1461023 invoked from network); 20 Nov 2026 12:47:19 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 20 Nov 2026 12:47:19 +0100
+X-UD-Smtp-Session: l3s3148p1@CWpszrNgLOwujnuU
+Date: Fri, 20 Nov 2026 12:47:18 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: khendry@reliablecontrols.com
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	=?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH 2/6] clk: renesas: r9a06g032: Add reset controller
+Message-ID: <awAzRgXaPNHcUC2G@ninjato>
+References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
+ <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,79 +80,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: rockchip: under-indented leds nodes in
-  rk3568-rock-3b.dts
---
 
-commit 0800df3a997571bcce7adee9bf91cb1d76d2c711
-Author: Midgy BALON <midgy971@gmail.com>
+>  struct r9a06g032_priv {
+>  	struct clk_onecell_data data;
+>  	spinlock_t lock; /* protects concurrent access to gates */
 
-arm64: dts: rockchip: rk3568-rock-3b: describe the Ethernet PHY LEDs
+Build error :( No addition of 'rcdev' to priv data!
 
-This commit adds leds child subnodes to the rgmii_phy0 and rgmii_phy1
-Ethernet PHY nodes on the Radxa ROCK 3B to describe the amber and green
-RJ45 jack LEDs.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64=
-/boot/dts/rockchip/rk3568-rock-3b.dts
-> index b9f09087b1766..5fb8b9e9b104b 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-> @@ -580,6 +580,22 @@ rgmii_phy0: ethernet-phy@1 {
->  		reset-assert-us =3D <20000>;
->  		reset-deassert-us =3D <50000>;
->  		reset-gpios =3D <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>;
-> +	leds {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		led@0 {
-> +			reg =3D <0>;
-> +			color =3D <LED_COLOR_ID_AMBER>;
-> +			function =3D LED_FUNCTION_LAN;
-> +		};
-> +
-> +		led@1 {
-> +			reg =3D <1>;
-> +			color =3D <LED_COLOR_ID_GREEN>;
-> +			function =3D LED_FUNCTION_LAN;
-> +		};
-> +	};
->  	};
->  };
-> =20
-> @@ -590,6 +606,22 @@ rgmii_phy1: ethernet-phy@1 {
->  		reset-assert-us =3D <20000>;
->  		reset-deassert-us =3D <50000>;
->  		reset-gpios =3D <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
-> +	leds {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		led@0 {
-> +			reg =3D <0>;
-> +			color =3D <LED_COLOR_ID_AMBER>;
-> +			function =3D LED_FUNCTION_LAN;
-> +		};
-> +
-> +		led@1 {
-> +			reg =3D <1>;
-> +			color =3D <LED_COLOR_ID_GREEN>;
-> +			function =3D LED_FUNCTION_LAN;
-> +		};
-> +	};
->  	};
->  };
-
-[Severity: Low]
-This isn't a bug, but both leds child subnodes in rgmii_phy0 and
-rgmii_phy1 are indented by one tab instead of two (aligning with the
-enclosing ethernet-phy@1 nodes) and lack a blank line after reset-gpios,
-contrary to Documentation/devicetree/bindings/dts-coding-style.rst.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120113555.1402=
-132-1-midgy971@gmail.com?part=3D1
