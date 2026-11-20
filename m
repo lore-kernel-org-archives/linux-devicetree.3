@@ -1,108 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795162277;
-	b=hEtDQYpQG3vV/rj9/6hbO6EfYL7iysAo9DwwOdxsSljZ0OFAJd4A/QHf2b6U3iZXiT84
-	 LLEoI/v9IcS7oUv70WcICOZYeB0YUjq69C8e7W/4yaZbtVYAvM1I5Sgo96mv0xxh+/ZZr
-	 6tK+xqlwfYmJO37w0dioFoUtb5DVdK8+h9LE3y5EGmKiH0oNn6wFfmfG0P7RpqiE/0fru
-	 XaU886t4o6RlfuojeaTR/k1/MlPoKq4X7+NbX9EbiRjVywGd4StJAx/y5PoW24/IX3P3u
-	 k4lQR8HUGc9yz+VGBhkrAvkMnA5dRwoprEdbLg6kw26yyDgQqRT/UfY//qqG+YUa47Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795162277;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795162612;
+	b=nbZJzh72ULJ3wV1o3w8q2Pn2JG9vRRZdIpApybp3vuKtGeV/nT/wMYL+T0RF9JxQgaj7
+	 0RJeyrVZj7rlaJiNoCRFi1/mVkx043Xpgs8gHttSJGlGx84CoS80hFHQ6Q0ZU37OpZ/YM
+	 0F3kYqQ/EHzKUoNqNZWdK+EiOGFLUn4j3gFYvzy4uXcLH4oFX+XXgQbDZnDt7SK2ryljO
+	 gcUCs46vj+hxfAi1BrVgWchGFyMR0yLie50StQFCasNlVc3YKZ5+zfUbpQRL/hzB1+XP6
+	 vxy7WV+wv6Fsv6sZ/N8BGbtRJYybWUMvmS/nazH+30HHTNVYNyi8KjDbe65RV3ZXi3Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795162612;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=j38+nebZAxvGAf6Q1k2ptEhLWyWcl8T9jNyKUnfQvJk=;
-	b=hjY4fugkr757H2Fwcpi5jK9xcX/jhyv1PB5pikZaJGLU2bm/LJ07+exhCOOHqK6g75Et
-	 c5JSEtHynSitzORxGRjotXXb+sKtt6mUMJyoj3b2V5V9e31kH+Yx754v8fqC6FF25cpbd
-	 XwJDiIPPI39oUyViOskChpDABD8iPKTHymSEPV667wNEUfR0a4FNWnUodezARl3TrZVpX
-	 3FjJQlGQILK99HbpzOE7WkDKC5gtkEHMoF/gymQAem1uIgu0xV8oF9YQ9cekFUq0QBk7x
-	 dbRUFfMAbKgxqXhpEf10FGHFT68bF1vueEr723JvEL1OWp5ZSg7CQFqfwr5FaP9mv6Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DTrRBBbOjFLAct0zJAH34zNdYPnC8LWnjifmPkUTr3s=;
+	b=II/WWGdUydlC0NQcI4InJXyUwnGA6LhiAfHaxeh2xIMx/nv64csoXrTiM2LITfzsyjKV
+	 4qkexDM1hD/ayfD15CVyt6H5EEa2bPk4CYzyGhDJQWozh2TdPwS5WnvyXFNpXnW7LJrc3
+	 0WBnidF0WqugAihTA7eaC2QdfxWgjk5lgONaMqdG+4F1dFaUbKXAcaN6je031yZAsjqHk
+	 7T3BQ38HvAbNvFc3E5yBNk4BRQR9Qgz641O3sFOmMOoOI2tOlYNfuO3XOH6BkkhSCqxHX
+	 05CMFyq2botSBGb0dckU1FOac75YYVJj5hkA7ImEGd/QlNgc96D/zkn6rvH3Uon2CGQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QlGQhOdb;
-	arc=none smtp.remote-ip=209.85.167.51
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OidJyP58;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.43
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B9060A2627
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 08:11:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39B9060A2627
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F1C60A2600
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 08:16:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76F1C60A2600
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QlGQhOdb
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so728768e87.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 00:11:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OidJyP58
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7cc91ddf447so178161137.2
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 00:16:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795162609; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FS9LTPyTuwX/F6hegW7OmTihZhEStlZJDu8qyv1ifpUxD2kzSPkzjIO/XbEXGrSXln
+         oXExn+/QvxBx5Ul9gMXtH2+OBm692zcSI6QUyCG3jVvEVgtJqcQMzr8aypBD9ZsKxv9n
+         Ym9GPKhzI4VmdbLO6N1TIxVHXrM55yJukaaRrc/UM7DkuAnH0q1d540uT6+6aq6Arjsk
+         Jcvyg9N7tXk38JBbGf4NGPfqCjZ7RuFPkKnr0u9FMAAKg0rYWHX0FuLU6jD+cKMg7bT4
+         JhBn3jZVJfH4e+ADwUBkkWZYWdhtnXEXuhv67iOYhIYMALW6cjbgNxvmc0z0pzAcDXMJ
+         e8pQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DTrRBBbOjFLAct0zJAH34zNdYPnC8LWnjifmPkUTr3s=;
+        fh=F1PletHQGLuLuBRF5OZHBFmZrDsfUBO3IHcT6dJqcV0=;
+        b=QNgIa0ZQyvuOEAjF+GeJWVqg+lZa6b3MB1zsf2bddlpLetbvd9FJApaXrAW/TVQGt5
+         SjqGCt7+2tv3HVsa/UBBC6fadAv2guSM+HWKsk9mU7SxESxp72Q1lYcBetVGZyeBKxwH
+         eFAWFsg2jQePSCGPxXv2WTISN1pLCwGFzbO/ZLdmk3ZSMuArgVKqrFDTHbHkBVbxgyQd
+         0PjxmgWz6BPDwOPlqNvUIaDeHl1Ll/rP0Zf0+6tW+gS0IReehiS/PJPjSFb6DUP3vhs/
+         ihIUHvnKEP5nZ0Gmnx4ushZglFWIoPTiaaUR3t7vzHkTnkmHEB/yZdpORAsqGaLBHPq3
+         gtNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795162275; x=1795767075; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j38+nebZAxvGAf6Q1k2ptEhLWyWcl8T9jNyKUnfQvJk=;
-        b=QlGQhOdbE9NngEZTKzmX/WF1nHcSSb4OcwlQqHAtJIG9zxODsZO2QxDPtdr7iNgg/5
-         +8ia7e6qh2p/ytD6nJf8fLUo+VM8LrevnzLN9NtX5Q+wn0tJhdzlozNcicBA6rNM5L9t
-         16L1WWAN1Ot62Yc/7Yq1OzRx1Z47FOBaJEtf4we/quHuXyE4zOO1hX2qio8xM9WiuQUG
-         oWwgJ/dUxqtloojIbri7GhnUkn1DkImLQ31ed4oep8DhBMY3kznEYn7T3l4bbunkOPET
-         b0Yd7bXN2lVP1/9eE4iYNReoLbiy82IZJzIswPPJHQ+4M5tq0RSQlrBCjAgAWAziCJpI
-         x6yw==
+        d=gmail.com; s=20260707; t=1795162609; x=1795767409; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DTrRBBbOjFLAct0zJAH34zNdYPnC8LWnjifmPkUTr3s=;
+        b=OidJyP582FX73SpilfBJrOmiXhxrJOYCltwuoU44dARQd6knYJbLoNgzzr2QZ/AjoL
+         HGCKHEEsI3bmshiQlfpEnTfkM5hcAJsX9eANMoJEg9e3CY466eqHmlenferkg4xMEhkc
+         xpOd6DLKN5qeg8dTs+yv7+uyQgIAz4Xzk2X/hfkkSTc67c9yvB0IWX/bcw/vN7UF06Oq
+         KNFPsahTkSsJrS8+tZFSqCtMwRLOddaXqTkAsYE3tFmraWqdL37SQVgkUcjqC/2YhYmQ
+         4AbAtUlx78qBQjO5gKgsyULaQp3LIrBnyCzG+hBL4bE867SrG+nklbMutTFgtKsdHJOz
+         IZXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795162275; x=1795767075;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j38+nebZAxvGAf6Q1k2ptEhLWyWcl8T9jNyKUnfQvJk=;
-        b=AVk807wPXtnLM2oB5otMqHfUKfwSXJIMXF7BHrLAz5I7oc+Y66mNUu5I7KZpDF94+y
-         yQRMhd9aYEcsV4m8vzaQbzZCV4KodCu1X4PFIGMzhnPrJaW2WxlBOA2fiEmHPNEl7S5c
-         RRHKsRibeC9NcIFtlTU/fZLRBOSi+yBEyYV8C5T+zV8+CLSnsQeopSbZ1dxHifACHc9G
-         rDulSz8lT04EW4jopr3ztJJnbcoVuQbynHBRagjeTDxHnBLKiwSpDBOfwjG7K+PoK6rR
-         tLMCtAZuNpeX98EI6JKZ3jkRu42ENZZzoSLwm044Y4GNok0DZiyaH5G25g5c24yLWigq
-         4j4w==
-X-Forwarded-Encrypted: i=1; AL+hErH2hs7tD/uVaHGxQxZBcExcXkvii1f0okGfZnght0bRF3or29JwIMuQ5QwGYP3gGmh/rxX3rt5v6Bj9@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mizFlsLcwepMB1q6LC9A/BpV6PltIQXOhM3t5xyh4osjJZ5BA
-	JwSOo5F0mwvWhPowMwOyU7XW9QdHbybl2mrTrpADhp5NgcN4SfSbr1pk
-X-Gm-Gg: AZFdTZfswhCayihrrl0EvdXQIsJpDSRKib0vPW8EIWvVIxzf7Igy9stCoESNMp7K9RK
-	WOjqjS3sXX9ZtaZF6TdAs73XRDx8CpjMzh1XUgqAhXg6qhQ1xJ9A6iUB+T5f4OGDiN4Ko4ICWdh
-	dDp+rr6oKzcewH7ukNSkRUlxGrjIZjRSoTw/Su7Q28m6IHw16H49hzX75YA4u0Oouo68DWXpb9p
-	AhELG8JI8+ECwBSAPkDjUsqgf90I78vE3VH0MhYOFkXoj9r/oQl21gkPjOGPsAt5D6jkZtVf/lc
-	922aHXT9X3qv2xPo9H0tOBh9PEGHpwG4YYbTfCCSQslSKXcQzHk3rAxpZesULYMTEBlZJCYdPnk
-	KMIxAUw/wJdaX6xY0ArtTs2BjnNv5qPjF+fU9qYa3ivkJUKnzbJB6D+z3PdJbn8qKaZdpeO8oUf
-	JkgIHg8z3gVZgQCvKgT5i2UuaG2yKiEeNywLFlN9mbBI4phKAJL/QvBDdVj7zQgCL1X9A3q1ldF
-	iLvBNm/acFOd3Mofcs0EVU6/4Imx6K74n9LSY9+xgxjqbRbOyWv7I2WRWB/z9bbcmRTSCCo5k4N
-	0pxdMqLK3he18UwEscvG/VuQUVsHsfCdVcYHjLvHxsyoFLM=
-X-Received: by 2002:a05:6512:3503:b0:5c1:4a42:fb07 with SMTP id 2adb3069b0e04-5c1bc84b95fmr690376e87.64.1795162275265;
-        Fri, 20 Nov 2026 00:11:15 -0800 (PST)
-Received: from NB-6746.corp.yadro.com ([188.243.183.76])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd018b3asm395463e87.32.2026.11.20.00.11.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 00:11:14 -0800 (PST)
-From: Artem Shimko <a.shimko.dev@gmail.com>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	maxime.chevallier@bootlin.com,
-	pavel@ucw.cz
-Cc: Artem Shimko <a.shimko.dev@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v3 3/4] net: phy: dap8211r: add extended register write helper
-Date: Fri, 20 Nov 2026 11:11:01 +0300
-Message-ID: <20261120081106.2919010-4-a.shimko.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261120081106.2919010-1-a.shimko.dev@gmail.com>
-References: <y>
- <20261120081106.2919010-1-a.shimko.dev@gmail.com>
+        d=1e100.net; s=20260707; t=1795162609; x=1795767409;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DTrRBBbOjFLAct0zJAH34zNdYPnC8LWnjifmPkUTr3s=;
+        b=c5AlxIGu3JALpVsUGrZodF+74eA6jBv3mU70NCCNknzmXF2w3w5k4mypX6a/H58TQn
+         FTM73MeDLmslGGYvSP0GORSP+4TkO4SaNdFqdQbOp4MufBWLDh1LtRNE4moRfrpaqIRi
+         7y1SdmxrgDrlKaxMmnwZ8EL8EddirXfJ6zT8mQcqhaQTK5n32vV4ZXdwoSN+odVIt8aN
+         ye6xSIExLpko/2oFFxJgYZJDpascVqtsRQuwN4LB8L5OvU0s0yTbs9XpIzMt3U89N5f4
+         NyFcB+zZiv1qLNnM1nZk343SiKtOQHs9+r9ZT2ZjRCwcBsqcFRcJR8zGKBoZPz2x94y9
+         W9fg==
+X-Forwarded-Encrypted: i=1; AL+hErE4UFKkoxluqS/oApItU36NvJ51+d81dulDqnaRtaJ/6p/Nd7Tptrg7doMJ8wxGEvJIi7Jiju6WaKpI@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oKga/IPkkITUNmzbOMMlMljfxyovTMhF0HoSwB9f6C81/T80b
+	hyeQFNFpAYo+HWKQfoEQutJmQVLWTbBT+5fClOVYrn7J4AgPDJeo/nqlR1sR9vsA8OAxqfH839R
+	PFowLrNDOwIvyWLCiU67KiwOWtmkacTk=
+X-Gm-Gg: AZFdTZdysCeBZggWGIq/37C7n7RCGtY86K8IyxPVSV9lu4t5K3wBXD2LvpFSsEgKAZF
+	eB8spL0XiD6NcQO9J1BH/ZujadOT3opEvQk5L/pVxguF3mW8SOafavOfG/iXiRITRQElmx3sA9l
+	q9lX1Ay7fCZKYykP0aDi8hMzCholE04S4OP9CvjTY4Ad8Os83Kgvso+S19KyON48J5EUYykaKWs
+	zW9S9td1Q2svbeMem5pXVUY/fsVDfGScU9kAEHP4hqtmemLbgjFcOTD2J2BU+XX75AH60qo0vqU
+	Ez/nJh5iOBJhjTtOoiIAP2ouzS0yUDMrdw0wjwAY//Pm3lVNKek4TlYebE84cZebTvg9ZlRAWav
+	9/9xL17vgMqcXI0QuMwstIDpc9CeFZ90Na5WfSk9pIQtpZik+7hZ5EWugYdFahF32IvSKsDVClV
+	4vSZdMgwbRbOB6khxUoLX1Tf42Pp4EELbJCdtFH/LcJuYY2ILmuVcIB75InGT2dStSW72FyjE94
+	9HjJj3RoIzAXs7076hH+6e5NxgMOg==
+X-Received: by 2002:a05:6102:5cc8:b0:7c5:4da3:aefb with SMTP id
+ ada2fe7eead31-7d7396b4513mr725084137.34.1795162609310; Fri, 20 Nov 2026
+ 00:16:49 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,55 +106,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261021-submit-sun50i-h616-apb2-clock-v1-v1-0-7b857ad1198d@gmail.com>
+ <20261021-submit-sun50i-h616-apb2-clock-v1-v1-1-7b857ad1198d@gmail.com> <CAGb2v642E3bDZ60_3oA7CN=hOVGn757RwfVaZWXvRSuWoo5kag@mail.gmail.com>
+In-Reply-To: <CAGb2v642E3bDZ60_3oA7CN=hOVGn757RwfVaZWXvRSuWoo5kag@mail.gmail.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 20 Nov 2026 01:16:38 -0700
+X-Gm-Features: Aa3M54opK0HsAqJ5IKoxodsp8AVX0yGJFnC-piFBxQLeC7dh0z1JF0IENGFsfTk
+Message-ID: <CADvTj4pkgZj77566ni_ifFJODRC0XvvOddiOij4kGRxoseBqfA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: clock: sun50i-h616: export the APB2 clock
+To: wens@kernel.org
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add dap8211r_write_ext() to write extended registers via the indirect
-access registers of the PHY.
+On Thu, Nov 19, 2026 at 10:02=E2=80=AFPM Chen-Yu Tsai <wens@kernel.org> wro=
+te:
+>
+> On Thu, Oct 22, 2026 at 8:09=E2=80=AFAM James Hilliard
+> <james.hilliard1@gmail.com> wrote:
+> >
+> > UARTs use APB2 as their baud clock. Expose its existing clock ID so dev=
+ice
+>
+> And how did you discover this? How did you differentiate this from it jus=
+t
+> using a combined clock from the UART bus gate, which is also driven from
+> APB2?
 
-This will be used to write extended registers of the DAP8211R.
+I got APB2 from section 9.2.3.5.2 of the H616 manual, which says
+=E2=80=9CSCLK is usually APB2.=E2=80=9D I took that to mean the UART needed=
+ a separate
+reference to APB2 in DT.
 
-Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
----
- drivers/net/phy/dap8211r.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+> I'm not adding this simply because you want / need a baud clk that you
+> can set the rate on. That's the wrong way to go about this. You should
+> just add CLK_SET_RATE_PARENT to the bus gates. And making the bus clocks
+> variable is a whole different discussion.
 
-diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-index 1fe20efd394d..f626b43fdee1 100644
---- a/drivers/net/phy/dap8211r.c
-+++ b/drivers/net/phy/dap8211r.c
-@@ -87,6 +87,31 @@ static int dap8211r_read_ext(struct phy_device *phydev, u16 reg)
- 	return ret;
- }
- 
-+/**
-+ * dap8211r_write_ext() - Write extended register
-+ * @phydev: PHY device structure
-+ * @reg: Extended register address
-+ * @data: Data to write
-+ *
-+ * Writes a PHY extended register using the indirect access method.
-+ *
-+ * Return: 0 on success, or negative error code
-+ */
-+static int dap8211r_write_ext(struct phy_device *phydev, u16 reg, u16 data)
-+{
-+	int ret;
-+
-+	phy_lock_mdio_bus(phydev);
-+	ret = __phy_write(phydev, DAP8211R_EXT_ADD, reg);
-+	if (ret < 0)
-+		goto out;
-+
-+	ret = __phy_write(phydev, DAP8211R_EXT_DATA, data);
-+out:
-+	phy_unlock_mdio_bus(phydev);
-+	return ret;
-+}
-+
- /**
-  * dap8211r_modify_ext() - Modify extended register bits
-  * @phydev: PHY device structure
--- 
-2.43.0
+I tried your suggestion on H616. With CLK_SET_RATE_PARENT on the UART
+bus gates, I can change the baud rate using just the existing gate
+clock. So I don't think we need to export CLK_APB2 for the UARTs.
 
+>
+>
+> ChenYu
+>
+> > trees can describe it separately from the per-port bus gate. Keep the
+> > existing clock numbering.
+> >
+> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> > ---
+> >  include/dt-bindings/clock/sun50i-h616-ccu.h | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/include/dt-bindings/clock/sun50i-h616-ccu.h b/include/dt-b=
+indings/clock/sun50i-h616-ccu.h
+> > index 6889405f9fec..e3318772c92d 100644
+> > --- a/include/dt-bindings/clock/sun50i-h616-ccu.h
+> > +++ b/include/dt-bindings/clock/sun50i-h616-ccu.h
+> > @@ -11,6 +11,7 @@
+> >  #define CLK_CPUX               21
+> >
+> >  #define CLK_APB1               26
+> > +#define CLK_APB2               27
+> >
+> >  #define CLK_DE                 29
+> >  #define CLK_BUS_DE             30
+> >
+> > --
+> > 2.53.0
+> >
+> >
