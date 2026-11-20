@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795205815;
-	b=xGJVv2OAV1RWghGafhTpmmd4kRxptPH+52ZyO9Mqo7VpOXQL6fsPUJJFfUSqwhOiRYf4
-	 vmwwWE+sOJS5KGAE7BtVpKiyixbqYLy9G7ahlnjO4qUBs+omXvDiucsyfBRUJf6GAX5W7
-	 HRzJcRCTsj01XpQFpe7z/QMtlT14s+3SI8SM813Rvr7iR3GlBX25N8qjtGeuELCidYsJp
-	 3FXd+dh+lCoVyf246epIGhajjwN7VgbhoZt3mf+r4Uf8+YeJF/Eo6ANNaJUGjL8GXUl/U
-	 WRthDcx8Fz54g9wP1LMoGepVQP8mObiyJ3l0hU+Qx4PJdncuSJdO4SR+xcALqqbeTcA==
+	t=1795205977;
+	b=eas4z+zBP7iA623lX/xNDkd6ngkDC/9+PIbKVyAvlKqhFiubapTIHW+37nvKdlxkTHZs
+	 +iZfN9vLvW9dF3ClYIl0oR5FANE80JomcshB/3eoaqdqrb6WN/Yr84UzKNzsJX0Ndftm0
+	 QhD22B8vlm6zC7SrZSrpM9ZWkp5XxUgEuXnI2sPxYcbyjXMNCrInrm59VR0wzLw45bQVw
+	 Td7f3sBB0d3JHVSvt4yoaRh56JMlogBCH1LYV2iwTscY1s4+JSfHZw6ALloGKYYSrMRjl
+	 kDFWj21M9h3jziEqcNmQ0E3LIZ7pIWWThsrcnJZwkpwLeKETUXFgzYLZeSQeVfMjDyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795205815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795205977;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
+	 Content-Type:Date:Message-Id:To:Cc:Subject:From:X-Mailer:References:
 	 In-Reply-To;
-	bh=peNVHXoBFHgWsZZFgBktm0IIgj0OlxkuPlY62feLM9s=;
-	b=DWv5lLa/wNPfqCQOQ6egXKFZBh3bVLcpD0Kwk3CVHdByeqRpzwo2V2ovT11SotxOqfnW
-	 qf8xgVJxKGH1ed9JQNt/acGqtsYlr/5kCI4eUe+rCsRN1BPUaVltj31Z5mZDLLp7eP66C
-	 9nvgvW5n3BpAYrVq+Cr2MGAAaT7X/2sm55Efz+JVmlb+GAAH/xXCFZBGrHkwZ9bM4Ftk+
-	 e1hbm08zU9KJUMJNCy+wJuvT3lPZWk1aevysoEWvYTarnoW+kvW9Vo0ituIZ0hDuevlGb
-	 X9UYaUvGMINgn2leoaSMGND/NjutrvF7NVNR+L5pStFJqZENF/FDaUY/UZgNCVpECiw==
+	bh=2kPsIjv/RvpekBzoe/Xg8vqw6hjpXdYepUw3c9M02WQ=;
+	b=YKH4nSdh+oxu8s19iFFzNzkR5FghjYa/ZcUksfe0FtGV5DO1dOQ8lIP9Qsf31QW5bWgl
+	 fDo0npdGosk9xpAX+jMbsLq/FtO6bipn1UpdwXxCiFJeXGro0kwsStyIxHhy4m8hD1EPt
+	 Unnc1yAdzhvLCi2tt/bGO8S5RmgJ56QuNyGrm1WZLBsGn+by9lnZb98SFlhPLF2S7Vz4q
+	 QZOPuLhaqMrtfUdoFVS4mUZN2ycLhOZdlVGDOcUmZHMwSJ00BrEBG194EiEZ78MfiLWiI
+	 mT6v85xJ8HC9bdovOfG2ramwy/D8w7YbCk8h5EJ3dgcb8ps8WW+30IQIxGyF1vbPcAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cknow-tech.com;
 	spf=pass smtp.mailfrom=cknow-tech.com;
-	dkim=pass header.d=cknow-tech.com header.i=@cknow-tech.com header.a=rsa-sha256 header.s=key1 header.b=gKHowIYZ;
-	arc=none smtp.remote-ip=91.218.175.124
-Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
+	dkim=pass header.d=cknow-tech.com header.i=@cknow-tech.com header.a=rsa-sha256 header.s=key1 header.b=n0gTJq9f;
+	arc=none smtp.remote-ip=95.215.58.192
+Received: from mta1.migadu.com (out-192.mta1.migadu.com [95.215.58.192])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2149606A6C2
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 20:16:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2149606A6C2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D6B606A6FC
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 20:19:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0D6B606A6FC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.a=rsa-sha256 header.s=key1 header.b=gKHowIYZ
+	dkim=pass (2048-bit key, unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.a=rsa-sha256 header.s=key1 header.b=n0gTJq9f
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oCLNHmGkPtVaSdKOgJfSe9v1erehhFj7NdQ3Eg5hEtA=;
+DKIM-Signature: a=rsa-sha256; bh=zkzIxeEYCYyeYf0+e7mpu+EI1QXzBX9Ee3zgM17C3no=;
  c=simple/simple; d=cknow-tech.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795205810; v=1; x=1795810610;
- b=gKHowIYZCh6xFbfA3OQTaIxtY2Pm/e4nbwUKMbvrYX0yi9YQf3Oe5dbYk96M2L0oQkrQnRY2
- PiqomfO0JyG0qeJf9ciquCMsSVsgwFPZ8l867UyV0aJeVfiwqp1NFs8VtS3qPBf255OjnHzVPaE
- MpKmK7Q1/U18XDdOC4hkjghkkkBWhm0hRHHpgIoG9dn8G/cbxxLQNoxOOMNeUVEIgkIYHQQSE0C
- Iuh9bjrBYIu1ArwgheRJplKSlevturS39+Ccnlg+2OWB+spRk1FOcESvaGpk1p8xhdyZyy9hmyZ
- 6iZy+fhsNzRkp5bYDX4sn7S5REXF12IehtteaUw/jk+jQ==
+ t=1795205968; v=1; x=1795810768;
+ b=n0gTJq9f1yUnKtLkNxNxxzNeWh3ieqx3IDhS1X9ZA05l9QsNKqAMhHbQtcMZhC2T0yiWjPH0
+ fmxCXhKC5W50jL9eCjBRTDBQP+LMHYoQdeOcGpfs6aO9TcjUtfow7gjpoIuHd5+vtvM2fsVdcpJ
+ NJjiCtasvUaY1sZSQpzvlc+DKdyh9EoFIKEkVImLgSmgiJfGHNWKwF64MJRSXWdd9x2PEyzeWW0
+ 3PTJpf5ecg/Y6RmrctwuSEFTOpjwAzi00fLta0JcLlwPJjtG3ZT36U2M/0p8VR4nDPI2RabcuWs
+ gzj9srGSU9bdXnrbloG3VshVN/1ZW+L1jaFnidlfSbmsw==
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8603c6dc317910df;
-	Fri, 20 Nov 2026 20:16:50 +0000
-X-Mizu-Trace-ID: 8603c6dc317910df
+Received: by smtp.migadu.com with ESMTPS id 36e14be50d0ddf71;
+	Fri, 20 Nov 2026 20:19:28 +0000
+X-Mizu-Trace-ID: 36e14be50d0ddf71
 X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,15 +60,8 @@ Precedence: list
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 20 Nov 2026 21:16:42 +0100
-Message-Id: <DN0BCGELZCSC.G0MWCPQU85UO@cknow-tech.com>
-Cc: "Nicolas Dufresne" <nicolas.dufresne@collabora.com>, "Hans Verkuil"
- <hverkuil+cisco@kernel.org>, "Jonas Karlman" <jonas@kwiboo.se>, "Diederik
- de Haas" <diederik@cknow-tech.com>, "Dang Huynh"
- <dang.huynh@mainlining.org>, "Piotr Oniszczuk" <piotr.oniszczuk@gmail.com>
-Subject: Re: [PATCH v5 0/5] media: rockchip: rkvdec: add support for the
- VDPU346 variant
-From: "Diederik de Haas" <diederik@cknow-tech.com>
+Date: Fri, 20 Nov 2026 21:19:24 +0100
+Message-Id: <DN0BEIZ5BE77.AML9IJ2SIR9G@cknow-tech.com>
 To: "Daniel Golle" <daniel@makrotopia.org>, "Detlev Casanova"
  <detlev.casanova@collabora.com>, "Ezequiel Garcia"
  <ezequiel@vanguardiasur.com.ar>, "Mauro Carvalho Chehab"
@@ -80,23 +73,61 @@ To: "Daniel Golle" <daniel@makrotopia.org>, "Detlev Casanova"
  Zyngier" <maz@kernel.org>, <linux-media@vger.kernel.org>,
  <linux-rockchip@lists.infradead.org>, <devicetree@vger.kernel.org>,
  <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Cc: "Nicolas Dufresne" <nicolas.dufresne@collabora.com>, "Hans Verkuil"
+ <hverkuil+cisco@kernel.org>, "Jonas Karlman" <jonas@kwiboo.se>, "Diederik
+ de Haas" <diederik@cknow-tech.com>, "Dang Huynh"
+ <dang.huynh@mainlining.org>, "Piotr Oniszczuk" <piotr.oniszczuk@gmail.com>
+Subject: Re: [PATCH v5 1/5] media: dt-bindings: rockchip: Add RK3568 Video
+ Decoder bindings
+From: "Diederik de Haas" <diederik@cknow-tech.com>
 X-Mailer: aerc 0.22.0-31-g5c1c510d2b65
 References: <cover.1795191822.git.daniel@makrotopia.org>
-In-Reply-To: <cover.1795191822.git.daniel@makrotopia.org>
+ <70b950c4b4fefbe07fe081f780ff359ed697d37f.1795191822.git.daniel@makrotopia.org>
+In-Reply-To: <70b950c4b4fefbe07fe081f780ff359ed697d37f.1795191822.git.daniel@makrotopia.org>
 
-On Fri Nov 20, 2026 at 6:36 PM CET, Daniel Golle wrote:
-> This series adds the VDPU346 decoder of the RK3566 and RK3568 to the
-> rkvdec driver, for H.264 and HEVC. It continues Christian Hewitt's v3
-> ...
-> Known limits, none of them introduced here:
+On Fri Nov 20, 2026 at 6:40 PM CET, Daniel Golle wrote:
+> From: Christian Hewitt <christianshewitt@gmail.com>
 >
-> - FFmpeg's v4l2-request hwaccel does not set the HEVC EXT_SPS_ST_RPS
->   and EXT_SPS_LT_RPS controls, so HEVC through FFmpeg decodes wrongly
->   on this decoder as on the VDPU381 ("Long and short term RPS not
->   set"). The handling of these controls is also the subject of [6].
+> The video decoder in RK356X (vdpu346) is described in the same way as
+> the one in RK3588 (vdpu381). A new compatible is added as the decoder
+> capabilities are a subset of the vdpu381 capabilities.
+>
+> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Tested-by: Diederik de Haas <diederik@cknow-tech.com> # PineTab2, Quartz6=
+4-A, NanoPi R5S
+> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> ---
+> v5: no changes
+> v4: add Tested-by from Diederik de Haas
 
-FWIW and IIUC, Detlev has a patch for that here:
-https://gitlab.collabora.com/detlev/ffmpeg/-/commits/v4l2-request-ext-sps-r=
-ps-n8.1
+I don't think a Tested-by tag is appropriate for a DT binding patch?
+
+>
+> ---
+>  Documentation/devicetree/bindings/media/rockchip,vdec.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml b=
+/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
+> index 4f38a0ef29d84..ea5386e84f17e 100644
+> --- a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
+> +++ b/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
+> @@ -18,6 +18,7 @@ properties:
+>      oneOf:
+>        - const: rockchip,rk3288-vdec
+>        - const: rockchip,rk3399-vdec
+> +      - const: rockchip,rk3568-vdec
+>        - const: rockchip,rk3576-vdec
+>        - const: rockchip,rk3588-vdec
+>        - items:
+> @@ -110,6 +111,7 @@ allOf:
+>          compatible:
+>            contains:
+>              enum:
+> +              - rockchip,rk3568-vdec
+>                - rockchip,rk3576-vdec
+>                - rockchip,rk3588-vdec
+>      then:
 
 
