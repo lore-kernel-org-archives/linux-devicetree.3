@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795167318;
-	b=i7QYRAce+Pr3yhwZ1dktR7dRrfHJjPpkjFSjS7smvgEYwyDHkL9D5HzSKzM9HjoJjV9e
-	 x3Iuri0wApHboi+SdStv89psp7smEj90GrAYiSYOn70CMIoCkKuLFuYm3gE1+5qwBBtxO
-	 zzzq+wrzOGN/Q9yJnHWRtX0lI43WB6HagxSz+PXvTKS3ISYZD6ukVvpxM1+/twGqAgef5
-	 rVi4az2qNTiUc1IyJZhU24I2a04pwOTBXuCEFX8vG2CfTzEvvnKohudNMq1mJfOBuilBP
-	 3xaxxOAKLZaKxiIBiCqAoJquu6imHP/XSvW4ZxCMshgwGch2U4jywuvDmece7BSWMWQ==
+	t=1795167337;
+	b=tzVYKceVa++2Z/ES3z78MJf4ufVuMTVAZ/x8DcIe5zApzylO2veA+EuKjuzrlCUe9WtU
+	 xB6M/d9x492BK6Q7qKVhDFSGq4ZDsVLdcSmbsOxgdvU8sfKzBbzLAwZKUZp7Zo/egteWd
+	 fiwy3MGNknsip103jCSiYJCvx+JGgPXTOEUoJG5RNMLsWQm/zUG9kvEddj0kXpacDPaGU
+	 p98i/dXEIvqxQtdeJlXlkMjtgHKk7KIy8sbuE7DfGyhrpGfauj5BxsMrF2e0t8X+kq3NQ
+	 HQZMKI3HIxjGBhskVznnsc+a0HURK1R8i91mDMoSjWGkRsRlWaPs7ArwvTajpJs3g8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167318;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=t5cTg1tdM50qiW2AeimmxqsuB8uLI2nbdilEGqZ239g=;
-	b=09b1AJ37d7jsS3CjPB0U8ibeD6oQhq0MtVlkpY1xKLCgu9bOcyYr0KOXo1voYiNx0lZ/
-	 dPdKt+KtwFIHQYVLdxrSytZkk5OIQ6wS231wbORHSFGo2beWljKi2QmXcQYPlcTrYvmXI
-	 6/3fm8XgZd2JS4lpRjcZiMTbN3HRpGrV2bK5lcqSWSnfWBrNTF3CTfmlNHSUeYcN1UmGR
-	 7LXjg/SyW3kl3sG4efepXjf7vO1vbEvZg7/0fCgkSe4YGk4y4EB0N0Ye8VKVjx9ezOucO
-	 SZ9VWlzmiJgpVLtXW0QEeN0CxHTlHzfH0iYHvAlaSvr/47fjpfc0O2abqaJNCONIaEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167337;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=43AS4amyalzgXE0K6sJkFXQxyxxUIzihdzn0SjkUBf0=;
+	b=bqMv6vHO04uadY6LHTJiyTziMZjBPN5imtpzBZAgL1A4ROzWWzAHQ0sv471HCRY9tSvR
+	 n/jjHhuo8fuoc5+GTg+qo45eFM3WViYNJtmHfQb8j7A1/7YR7prnTA+Qte8wmo3P321vd
+	 PPsHE/ckiVr+ojC3tyoOrjAhQ13awn7PqssMmSA5Rd6L2+GRsMvyUGReKJjavV54n5oc3
+	 /7n9tipKoIco2vlS09TwptbKaiMYTE4EBCubImWMXgkYJdoPCer/J3CFvs4TWJmjLOLAG
+	 3GlSiQA1RQGiR82ZOxHTqhPXl1QK78zT6zmdAccWR0o4NpEHVO1hNlhzPRqExn30aug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ds01z1IV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RIDEQ8ct;
+	arc=none smtp.remote-ip=95.215.58.146
+Received: from mta1.migadu.com (out-146.mta1.migadu.com [95.215.58.146])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF51606A320
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:35:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75968606A32A
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:35:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75968606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ds01z1IV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3CB1F000C4;
-	Fri, 20 Nov 2026 09:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795167318;
-	bh=t5cTg1tdM50qiW2AeimmxqsuB8uLI2nbdilEGqZ239g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ds01z1IVvQNF3LH8MJIJD+hbGjo4l2dlYjcbNU2eiauDofyObr0LwJLqMJnDf6cXR
-	 EveTPItfdMD3VsVDuCpBA0BX2R21tDVOLhm24ZGLTJ5RCVESEb9QM24iX0pXrfoiz9
-	 NI4TVG7BEEVuwmJbV1ZxTLf6Ou30akHUIfiDIcgiSblh8QWFozbz7zgKjiap9SFZbf
-	 mbwYhoSCc1BlLy4vwaFDMYv+yyL1rD5KXOjOrmRZGinihmFgUKc4dyX+fYzoVU6wAY
-	 L5v2mK5en6Hvq+z6epYR/bn1ij411FuZd8b09Ql7IrwieFAKpapVWwRPMoopoXR6Jj
-	 DrvuUugMBMWPQ==
-Message-ID: <sashiko-outbox-224862@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/7] iio: adc: qcom-spmi-adc5-gen3: Add support for
- QCOM PMIC5 Gen4 ADC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261120-pmic5_gen4_adc-v2-3-94d0e1fd6847@oss.qualcomm.com>
-References: <20261120-pmic5_gen4_adc-v2-0-94d0e1fd6847@oss.qualcomm.com>
- <20261120-pmic5_gen4_adc-v2-3-94d0e1fd6847@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 09:35:17 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RIDEQ8ct
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZflrbahZsofPbCrWMnIKEw5KReETDYjuOB4jROTcdaE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795167334; v=1; x=1795772134;
+ b=RIDEQ8ctHIrwE8ojKHe9U6bAca4iJ3jXJlZPLc68RGyIwL/hGRITNsbW6P4IpVUWfleDg653
+ t117hqcZ92+p7b8Ouni3OvxGt+w3eUwFPNHNiSvkm7EXoluQAEjnDHukXonkHgv2BeV4NkHq+L1
+ Et0uYfgnoU1JwwxUPAQ3dPcs=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 49724b56a0ec4ac1;
+	Fri, 20 Nov 2026 09:35:28 +0000
+X-Mizu-Trace-ID: 49724b56a0ec4ac1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <30b4eece-f79c-4a8a-971b-e5566b96d878@linux.dev>
+Date: Fri, 20 Nov 2026 10:35:27 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,135 +57,131 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 18/24] net: dsa: rzn1-a5psw: Get pattern
+ matcher register offsets from OF data
+To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ Ralph Siemsen <ralph.siemsen@linaro.org>, linux-renesas-soc@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-19-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Language: en-US
+From: Clement Leger <clement.leger@linux.dev>
+In-Reply-To: <20261120002549.1908299-19-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] iio: adc: 32-bit overflow in
-  qcom_adc5_gen4_scale_hw_calib_therm()
-- [Medium] iio: adc: missing DIV20 channel entries in
-  adc5_gen4_chans_pmic
---
 
-commit d8180ae08a5ad388d0cacd9d70b18ca28f1e95bb
-Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 
-iio: adc: qcom-spmi-adc5-gen3: Add support for QCOM PMIC5 Gen4 ADC
+On 11/20/26 01:25, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> The RX pattern matcher registers are located at different offsets on
+> RZ/N1 and RZ/T2H/RZ/N2H. While RZ/N1 uses 0x3e80 for RXMATCH_CONFIG
+> and 0x3eb0 for PATTERN_CTRL, RZ/T2H and RZ/N2H use 0x3f00 and 0x3f40,
+> respectively.
+> 
+> Move the base offsets of both register arrays into struct a5psw_of_data
+> and use the correct values for each SoC.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v4->v5:
+> - New patch
+> ---
+>   drivers/net/dsa/rzn1_a5psw.c | 10 ++++++++--
+>   drivers/net/dsa/rzn1_a5psw.h |  8 ++++++--
+>   2 files changed, 14 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+> index 9475e53752ce..6f3f902f9f4c 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.c
+> +++ b/drivers/net/dsa/rzn1_a5psw.c
+> @@ -112,7 +112,9 @@ static void a5psw_port_pattern_set(struct a5psw *a5psw, int port, int pattern,
+>   	if (enable)
+>   		rx_match |= A5PSW_RXMATCH_CONFIG_PATTERN(pattern);
+>   
+> -	a5psw_reg_rmw(a5psw, A5PSW_RXMATCH_CONFIG(port),
+> +	a5psw_reg_rmw(a5psw,
+> +		      A5PSW_RXMATCH_CONFIG(a5psw->of_data->rxmatch_config_base,
+> +					   port),
+>   		      A5PSW_RXMATCH_CONFIG_PATTERN(pattern), rx_match);
+>   }
+>   
+> @@ -953,7 +955,9 @@ static int a5psw_setup(struct dsa_switch *ds)
+>   	a5psw_reg_writel(a5psw, A5PSW_MGMT_CFG, reg);
+>   
+>   	/* Set pattern 0 to forward all frame to mgmt port */
+> -	a5psw_reg_writel(a5psw, A5PSW_PATTERN_CTRL(A5PSW_PATTERN_MGMTFWD),
+> +	a5psw_reg_writel(a5psw,
+> +			 A5PSW_PATTERN_CTRL(a5psw->of_data->pattern_ctrl_base,
+> +					    A5PSW_PATTERN_MGMTFWD),
+>   			 A5PSW_PATTERN_CTRL_MGMTFWD);
+>   
+>   	/* Enable port tagging */
+> @@ -1348,6 +1352,8 @@ static const struct a5psw_of_data rzn1_of_data = {
+>   	.npcs = 4,
+>   	.cpu_port = 4,
+>   	.tag_proto = DSA_TAG_PROTO_RZN1_A5PSW,
+> +	.rxmatch_config_base = 0x3e80,
+> +	.pattern_ctrl_base = 0x3eb0,
+>   };
+>   
+>   static const struct of_device_id a5psw_of_mtable[] = {
+> diff --git a/drivers/net/dsa/rzn1_a5psw.h b/drivers/net/dsa/rzn1_a5psw.h
+> index 942931cbc402..5c5f5ec25774 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.h
+> +++ b/drivers/net/dsa/rzn1_a5psw.h
+> @@ -74,10 +74,10 @@
+>   #define A5PSW_VLAN_RES_VLANID		GENMASK(16, 5)
+>   #define A5PSW_VLAN_RES_PORTMASK		GENMASK(4, 0)
+>   
+> -#define A5PSW_RXMATCH_CONFIG(port)	(0x3e80 + 4 * (port))
+> +#define A5PSW_RXMATCH_CONFIG(base, port)	((base) + 4 * (port))
+>   #define A5PSW_RXMATCH_CONFIG_PATTERN(p)	BIT(p)
+>   
+> -#define A5PSW_PATTERN_CTRL(p)		(0x3eb0 + 4  * (p))
+> +#define A5PSW_PATTERN_CTRL(base, p)	((base) + 4 * (p))
+>   #define A5PSW_PATTERN_CTRL_MGMTFWD	BIT(1)
+>   
+>   #define A5PSW_LK_CTRL		0x400
+> @@ -239,6 +239,8 @@ union lk_data {
+>    * @tag_proto: DSA tag protocol used by the switch
+>    * @management_port_fixed_frame_len: Fixed frame length for the management
+>    *   port to account for the HW issue.
+> + * @rxmatch_config_base: Offset of the RXMATCH_CONFIG register of port 0
+> + * @pattern_ctrl_base: Offset of the PATTERN_CTRL register of pattern 0
+>    */
+>   struct a5psw_of_data {
+>   	unsigned int nports;
+> @@ -246,6 +248,8 @@ struct a5psw_of_data {
+>   	unsigned int cpu_port;
+>   	enum dsa_tag_protocol tag_proto;
+>   	unsigned int management_port_fixed_frame_len;
+> +	u16 rxmatch_config_base;
+> +	u16 pattern_ctrl_base;
+>   };
+>   
+>   /**
 
-This commit adds support for PMIC5 Gen4 ADC channels, including 16-bit
-ratiometric thermistor scaling, a per-channel qcom,adc5-gen4 DT property,
-and extended SPMI bus index and SID addressing.
+Reviewed-by: Clément Léger <clement.leger@linux.dev>
 
-> diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom=
--spmi-adc5-gen3.c
-> index be12bb6781cb3..aa06d4d1083ad 100644
-> --- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> +++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-[ ... ]
-> @@ -433,15 +438,60 @@ static const struct adc5_channels adc5_gen3_chans_p=
-mic[ADC5_MAX_CHANNEL] =3D {
->  					SCALE_HW_CALIB_THERM_100K_PU_PM7)
->  };
-> =20
-> +static const struct adc5_channels adc5_gen4_chans_pmic[ADC5_MAX_CHANNEL]=
- =3D {
-> +	[ADC5_GEN4_OFFSET_REF]		=3D ADC5_CHAN_VOLT(0, SCALE_HW_CALIB_DEFAULT)
-> +	[ADC5_GEN4_1P25VREF]		=3D ADC5_CHAN_VOLT(0, SCALE_HW_CALIB_DEFAULT)
-> +	[ADC5_GEN4_VPH_PWR]		=3D ADC5_CHAN_VOLT(1, SCALE_HW_CALIB_DEFAULT)
-> +	[ADC5_GEN4_VBAT_SNS_QBG]	=3D ADC5_CHAN_VOLT(1, SCALE_HW_CALIB_DEFAULT)
-> +	[ADC5_GEN4_DIE_TEMP]		=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_PMIC_THERM_P=
-M7)
-> +	[ADC5_GEN4_AMUX1_THM_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THER=
-M_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX2_THM_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THER=
-M_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX3_THM_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THER=
-M_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX4_THM_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THER=
-M_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX5_THM_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THER=
-M_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX6_THM_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THER=
-M_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX1_GPIO_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THE=
-RM_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX2_GPIO_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THE=
-RM_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX3_GPIO_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THE=
-RM_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX4_GPIO_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THE=
-RM_100K_PU_GEN4)
-> +	[ADC5_GEN4_AMUX5_GPIO_100K_PU]	=3D ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THE=
-RM_100K_PU_GEN4)
-> +};
+Thanks,
 
-[Severity: Medium]
-Should adc5_gen4_chans_pmic[] include entries for ADC5_GEN4_USB_SNS_DIV20
-(0x11) and ADC5_GEN4_VIN_DIV20_MUX (0x12)?
+Clément
 
-Both macros are added in include/linux/iio/adc/qcom-adc5-gen3-common.h
-(matching ADC5_GEN3_USB_SNS_V_16 and ADC5_GEN3_VIN_DIV16_MUX in
-adc5_gen3_chans_pmic[]), but without entries here their info_mask remains
-0 and adc5_gen3_get_fw_channel_data() rejects those channels with -EINVAL,
-failing probe.
-
-[ ... ]
-
-> diff --git a/drivers/iio/adc/qcom-vadc-common.c b/drivers/iio/adc/qcom-va=
-dc-common.c
-> index b03cf584b1657..5c4052f6f24fd 100644
-> --- a/drivers/iio/adc/qcom-vadc-common.c
-> +++ b/drivers/iio/adc/qcom-vadc-common.c
-[ ... ]
-> @@ -556,6 +561,31 @@ static int qcom_vadc7_scale_hw_calib_therm(
->  	return 0;
->  }
-> =20
-> +static int qcom_adc5_gen4_scale_hw_calib_therm(
-> +				const struct u32_fract *prescale,
-> +				const struct adc5_data *data,
-> +				u16 adc_code, int *result_mdec)
-> +{
-> +	s64 resistance =3D adc_code;
-> +	int ret, result;
-> +
-> +	if (adc_code >=3D RATIO_MAX_ADC5_GEN4)
-> +		return -EINVAL;
-> +
-> +	/* (ADC code * R_PULLUP (100Kohm)) / (full_scale_code - ADC code)*/
-> +	resistance *=3D R_PU_100K;
-> +	resistance =3D div64_s64(resistance, RATIO_MAX_ADC5_GEN4 - adc_code);
-> +
-> +	ret =3D qcom_vadc_map_voltage_temp(adcmap7_100k, ARRAY_SIZE(adcmap7_100=
-k),
-> +					 resistance, &result);
-
-[Severity: Medium]
-Can resistance overflow the s32 input parameter of
-qcom_vadc_map_voltage_temp() when adc_code is between 0xfffc and 0xfffe?
-
-With 16-bit RATIO_MAX_ADC5_GEN4 (0xffff), adc_code values in 65532..65534
-yield a 64-bit resistance between 2,184,400,000 and 6,553,400,000, which
-exceeds S32_MAX and wraps negative when passed to
-qcom_vadc_map_voltage_temp():
-
-drivers/iio/adc/qcom-vadc-common.c:qcom_vadc_map_voltage_temp() {
-	...
-	while (i < tablesize && pts[i].x > input)
-		i++;
-
-	if (i =3D=3D 0) {
-		*output =3D pts[0].y;
-	} else if (i =3D=3D tablesize) {
-		*output =3D pts[tablesize - 1].y;
-	...
-}
-
-Because every table entry's x is positive, a wrapped negative input
-advances i to tablesize and reports the hottest temperature in the table
-(+130.048 degC) instead of the coldest (-40.960 degC) on a very cold or
-open-circuit thermistor reading, which can trigger false critical thermal
-trips.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-pmic5_gen4=
-_adc-v2-0-94d0e1fd6847@oss.qualcomm.com?part=3D3
