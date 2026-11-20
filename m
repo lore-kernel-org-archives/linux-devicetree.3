@@ -1,99 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.57
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795172738;
-	b=KA+9+Xys8kaxML81HGYxc/yFWL7FX6Kp55cwR0YUYPhUhC4/Un1t/mN/ZNXzUEB1e7jz
-	 kggpMrNRbqlpUFKtY9nnaQ1jknVuQWB4GkzqH0sjWSYa3rZDfOB2xHZ84HLmIVnbFEkRo
-	 gh20yG9TqAIeTxakwACmrz6By2/SkZsle1/h4EbFfTzeNvpvrE9SzmQIbeAlZX7sYqJ7o
-	 F2g2O57k7LSMBLdsfZ59YtghIxgu2QyMSzNVs931oI2RcoPCWmlW5DdH497BXbmRAtBGN
-	 2qYQ6sU6xxOd+rgy++0oRREmdKU9m74TVBZTjX8/TLD8G6Z8K5Cj+MW5WNJHF3n5HiQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795172738;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IzhSU0zfcerLH/CrJS/0v8U75yd0W/rOP1frjaGVqlg=;
-	b=DkGNpkIphXbT38gJmAYfw8z25+15biNp6/wlWEkRPB+fNao5R/xJjGoQ16YdNL3L2LWZ
-	 aEp1NNOwYqFnJLmgNg0+W+korFQPJdmfZH4DudpZTusrLCQ2wX/CDYi6PgDeOhbn0B03f
-	 Ru8TJsys5PlqMpcCSKL5jDhQAA/im1/k7IfiPqn+BMIVlikf1GFVwPQh7z/MK2oGDuRil
-	 Hn1DKwNSoi7r78kgTMuw65z+or3190qI/56I9bcbJRUGq5aO6gv7pwPD52kIUpXilvChG
-	 U5GM1DBNVtugl0460LKCkChVnKILWT2oIAwJy1XGMxYL8MsH0l/9aczIuH9shqNslyg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ULCXBMZa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.57
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012057.outbound.protection.outlook.com [52.101.66.57])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795172813;
+	b=plbo11V1HOkVSsKEN8e4EqMoURJV1l8bLzDnh2YUYMi77tkicT2bX979RZPOhEsMlKRU
+	 YPM9vmZCDg0hVY+JETb/Xe2vcOfmHyGrX7okMZrqyBUjYPO9A0u1C910GNj3tpHO4aS+2
+	 ZQcu0RSaI/SA1W8GdkNd1Sy/8K5eFturKbwdPVN73JT9PR6RvnmmY3ZRR3jcRoaoRGEaw
+	 /fshLfLlgCVHUYuc9jKlnpw6zhnE+1vFcOS++zEbZ07x28eBKbShK/G/c+ZptGVCtpQAI
+	 zJRQ7KFp1JPJkSxiWW1BWHRmxFXeLozsK3mX+KMiiOY1APlVlYcVwe2Uy8GtTfZgsmA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795172813;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=FoAuz/4JshB4w4D/ztpI8jPhEMpDSwukAkqIBtJVx9M=;
+	b=YZR31PyNAuSmvUgkDySn/Z8k8riiOl7C/Xa6vpOZO5PaRBvVyA4QTICj2sKeIgfxxeJn
+	 hlkbgF6ah6jvcrvt33htgQQyfLwW0GjN65yjIB8t8GAo0naPEHgcvTuB37P9UgNOnsDXA
+	 JIvGMla+OBy27qeqOhFgsIROXir8J9BQzxtpUx0xuUdgHXKptN6ilsS0oLDxGjEpJKswk
+	 ukDyyFF5IGeQgwGz/a8RhLIzJ2Z8l8zdTD144QcWV+YJwfZZH4qz0tlh15etI6pN2Avc1
+	 Q/Klb0hHbJZfMFJD6zZHvhkUVlwqff2bCs6RKRlEWjdzpNkxrC9Y8V5SFrIckgIjmBw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vc431bmH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WFJiItZL;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676B060A2611;
-	Fri, 20 Nov 2026 11:05:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 676B060A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84ED1606A334
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:06:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84ED1606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ULCXBMZa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IJIF5blcnrcYWXZteoBGHz3kxXSyKik/0H2XUu7d2iaJvQ20pQA5d2SlSxWF4IGSUdrfDJ0k3JOEJPLzWX50+Hbz14xM1wgt6NgEEh+z+XG/szcj26f7dvHou7OruxF4h5uSj6xGOjGG6znMlJjDSe1NRO5UBCUjj3QdijfqqED7lZzP3t9e78ZWDJvkQZwuts30yaMJGGVTw1Sz98MTPzzTg+6dWIBm6gWekMaK5XVeZLpnoD4UHuQH44NzNuiDqXLuHhxJ7U/Sz0JozOOYxLX1JVqa/VX3mJBFQIaw6A7X6AFdgqHHw6D2cE83oloWXXBRyQ3Y10E6cn0fdiOu1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IzhSU0zfcerLH/CrJS/0v8U75yd0W/rOP1frjaGVqlg=;
- b=QZQ4sl+BlPZBGGhehtU2Np9hxo4WCSuCaHIUXcOR5L4D2ER3QezxqEKvb73/FVFaucQmOOR+XBAwZl3o2LAxen6aHB+oJaYfgrOgGiAhrxZ1/JPvz0T3hRXCR15L+edF7Flckg1Y7dkk6wbcA6KYG8htKmAqUve5xseUJNfhyWdm8UC9Ek/w+wPNge7OyrQcTnL8B9kl6/YYzvgFbKaa8F1FNVW4NTClVIc9m23GjcyVmDKknsSI6eZ9Mr8JgiekE0xa2Vfaszl9symBUtePH4WZ5LV5o/aYRJgJLnUk1vgQsibVpWAiS2zm8DaA3gI/kGEIhgzrNAPJtMH8xI6Q6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IzhSU0zfcerLH/CrJS/0v8U75yd0W/rOP1frjaGVqlg=;
- b=ULCXBMZahukGD6Dxo+/qv8gEx1R0zq4E0nnnz6sAm0YP8DszUupPIEhh5L8LrlZxB0IEhZ0L22duB6jJp1xY1HQ2bDkFiq4gQcd8VRi9lwHVfN0eX8l7rL3Q5TSzk08CYtfNThxXXiWcA/1f/ttJspTaF7JWnRqE5D/vywQ7ojuqw8/SSRqAZnnraqVsnYFhx474/AmNDl7c8pdeKtDZiWQK8i2rJAx43/fIo+v9Nz6hjqLIRTxemPt/TRR2zxaz2n924VCZu+HrOc+yKvG50FyDhww7ocz8s/mrgjKv5oh6PmvM3yVkn1mVgONOqUGJ+Oh9yk3A0+8EkmWuqnN1rw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI1PR04MB5807.eurprd04.prod.outlook.com (2603:10a6:803:ec::21)
- by MMZPR04MB400504.eurprd04.prod.outlook.com (2603:10a6:190:28::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
- 2026 11:05:35 +0000
-Received: from VI1PR04MB5807.eurprd04.prod.outlook.com
- ([fe80::3da4:2827:d637:37de]) by VI1PR04MB5807.eurprd04.prod.outlook.com
- ([fe80::3da4:2827:d637:37de%7]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 11:05:35 +0000
-From: Joy Zou <joy.zou@oss.nxp.com>
-Date: Fri, 20 Nov 2026 19:09:50 +0800
-Subject: [PATCH v2 3/3] arm64: dts: freescale: add i.MX937 FRDM board
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vc431bmH;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WFJiItZL
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AKAkBio3987435
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:06:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=FoAuz/4JshB4w4D/ztpI8j
+	PhEMpDSwukAkqIBtJVx9M=; b=Vc431bmHORXlRcFlDzGkPmQ23gWZqtZE/uP5of
+	X7dd+D/IevR2cCoMYpXW3f6TQBIa+fnZkcfe7FtniZOGvDSI6N4BSE00yK2fzd7h
+	+x1rpgc6avDIApa8TObJVtC5DccQuP4kJuzDNcOvCb2dJZBDVrHP0gZaAZPZdiyt
+	giqg2YKU4fkLWh7gwj0XnSOoUZUQtW0iFayf+zDqFbfwHmIiRojaavWzGq2vCTxT
+	B6qGoe4e1iiqpeiSvFGRrMHc0PWDugijhlFzdqd/H8HB4NVm9JZ9KSyCA1Tza0XR
+	zsqpYBGMDCcHDzrdFyDsK+gnQhX4Uy9A8Kjr4mTFhqNHmkcw==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j2gu813x6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:06:51 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so1146668eec.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:06:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795172811; x=1795777611; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FoAuz/4JshB4w4D/ztpI8jPhEMpDSwukAkqIBtJVx9M=;
+        b=WFJiItZLe6czJSvP9MX8lWnbl4vjkiV42v+3DIX/LTQd/KYEKuAEf8jrQOQz6RBcuT
+         5m9mFGWbjco7+jqE9h3iBVM8TgFTv+43Y+OtjFei+X+kO4YjxVbaFuqTce4sFCTL3LL5
+         gVYJnGlP4uGT2Y+Lh0uyNNutj1/A6U+CPOri4ATgwTk8MGH+WadkftNMcQXk6tAo/Eqp
+         8j1aWaZxeu3NWfoq6Iqv46cMSQTHOCAupCpcLTcepdiPcIbrgYD/RUtZ4o+U9HcvJi1b
+         VJ6sm5CPy1nve9EraPwjvatOokEW/DuhvAYO7yTPnMSI85dyoROLHfMmas9ISSvRuxRV
+         Vf+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795172811; x=1795777611;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FoAuz/4JshB4w4D/ztpI8jPhEMpDSwukAkqIBtJVx9M=;
+        b=rK0jZjo0MgNCo8Il/OIzVfaT7CkUX1FW1YS2M/I80DocmnsJKX8Cj0Tdqn3/l2cUIb
+         1aBCvfBm3SxO6d2VtUC4O3LquokuCD1Vqjp2LZsHYn5T5iyQ/k8L2yGEPlnBEooSOXP5
+         m80ffde/P4dmEO89+U/6S+ZEeRtKP+Zsh93580UpPenoXyszgjlYfsGRb5cqAsHUchEG
+         ZsxTmv3IEVRsQhYFFCG5kmcHTB+r2jwXSSUm4Wo/QhcXzFEcQ7mZhquzSGbQoTd1GasF
+         au+eaKH9KkKbK+TcsXtPcQbFEMs7rEiN4FzZO22P7L4kfBGn2I07A/I6RgMb3rftf02o
+         sJRg==
+X-Forwarded-Encrypted: i=1; AL+hErHw0cSdq7emtZ80PRL078+o2VLA4OYY9WOmUcUEsblD5eFRy/VdDnqPGLNvlCgZhXEZMT0ymRl2cWut@vger.kernel.org
+X-Gm-Message-State: APuU4Z8E89/w9fRwwo3Fd3bpeFTO6TcHeGPs9wm0PHbZEBZDP0Gpi7Y9
+	InlzQOTDTSRbUhiKrynw4P1Y9OLDWNj20cJaY9q83laGo8m2vDo0lGyk9cP0TPp5xVnvjOEciTb
+	9T7tAw/f6uwrdkUutTTZK6AjhBnMlri0IYhWlB7p5/Kn/pIPzeDFIgUPiqBn1nBEX
+X-Gm-Gg: AZFdTZdb7Npbr61Ra3+k/iQ2GWFRGGoauKO/Qg2Al/xv9ZrLsbvrSOUfLUF3AyiX+2e
+	fEUp7J0KHBuh25n+KF0vjNy19P1scAtCc3r+LeJDpjfwzSQqr7l/iIen0uHS4j+h5ibLZDR7WkU
+	mNZPlPoHVmee3LHpYTPyvUju6p0JYFfF3JI4jxwQyw8yxfqAVhUr+zsm4P1yi/tLOI5CGhGZ12I
+	DjDk7jUQ7FOzyR02FEtpxKPNs9Osor+sa2QALWPbYxbirv4rknfy1gZIPmb28+Y/vOU8BJ9OYsx
+	qE2mlXn8y5yVz+UmUOyhxQBoMEx+saTKk+g6d/wsr6MGwnEHKk8iiUFJ8OarQYCZv7WXSZhcFB8
+	SwqytrdO8Y5jD9he3ntRgupdsnZNGxpoJbm3DEbw2TynteAlHlyKdKeWMIdKJHkcOOMtfWz4pyt
+	57Lpan
+X-Received: by 2002:a05:7300:e9c7:20b0:385:af7b:d77d with SMTP id 5a478bee46e88-385af7bda28mr2022645eec.1.1795172810489;
+        Fri, 20 Nov 2026 03:06:50 -0800 (PST)
+X-Received: by 2002:a05:7300:e9c7:20b0:385:af7b:d77d with SMTP id 5a478bee46e88-385af7bda28mr2022569eec.1.1795172808758;
+        Fri, 20 Nov 2026 03:06:48 -0800 (PST)
+Received: from hu-bibekkum-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e99fdsm9252594eec.5.2026.11.20.03.06.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 03:06:48 -0800 (PST)
+From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+Subject: [PATCH v4 00/20] iommu/arm-smmu: Add interconnect bandwidth voting
  support
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-b4-imx937-frdm-v2-3-5e27ceec02df@oss.nxp.com>
-References: <20261120-b4-imx937-frdm-v2-0-5e27ceec02df@oss.nxp.com>
-In-Reply-To: <20261120-b4-imx937-frdm-v2-0-5e27ceec02df@oss.nxp.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Ye Li <ye.li@nxp.com>, 
- Peng Fan <peng.fan@nxp.com>, Jacky Bai <ping.bai@nxp.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Joy Zou <joy.zou@oss.nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SI3PR02CA0009.apcprd02.prod.outlook.com
- (2603:1096:4:295::14) To VI1PR04MB5807.eurprd04.prod.outlook.com
- (2603:10a6:803:ec::21)
+Date: Fri, 20 Nov 2026 16:35:41 +0530
+Message-Id: <20261120-smmu_interconnect_addition-v4-0-cab8ee8be0b3@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,220 +116,194 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5807:EE_|MMZPR04MB400504:EE_
-X-MS-Office365-Filtering-Correlation-Id: 924b0bd1-591c-418f-e3b8-08df46f633d9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|19092799006|1800799024|921020|10067099003|261021121427099003|11063799006|260925022911599003|260925021311599003|260925021911599003|56012099006|261022075727099003|261021123027099003|261102123227099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	9mr5DacyskljPKBPirP/lczgzo644Xjl34K6P+OvedPNg9f5RoqYLLvJ+6H4y8tKfTsmKh4PF/YBl9fXH7bozd+uYvP+nVzrVz9WdB0Ws1SfbkMEeWUCzwa5acmGRaGTb9eNn2W1JrMLeo9WSkRiFWZTYDNIVqvnfBfm4zFgevoqCocHroNfzL9/MjyuF3v45im6+GJF35I/VoyLfbuUbyESSFzYvMV9OW8zDMCdKZ1/5LH6JsHcMM3iprfxeJjWmp2BdxAo6cs8zsiq/Rzk4385dyCSr0wL/bsl/VX2x2KQW85if7zowOeqdSer/E4C9RBfCQKN5XHVWIIIW16Kc5HNwQWPFpglNXDSNMvPaaJtfGVP5NbrnKCMTPSGiivOtSm2tm43x2XgDXrC8HVa6qZvnDyn6Wpoej0ylihIryGjme4uMHORT1e3Tej0H05/qt2Ryr4y+EtiUzZe+aOcaz4M/garzCyJvyCi+vhyfgF7En4KDLhQeyWRvmkBJYpMSyTstvpePabIsEG8BBCUyl9VsE/mnQTNOFSHKOPvsakBqYXciCeJFQJfinKkCMvTAoP1kMmw02XPGVKD74qbfDZaPXfIyOzGH2ZrCJSNq+XML11Y5oVcTXLYa2guPB/oeAYrcmX6X7ee17BLjxUHFxh8/uAG/AbYeN7wrYjD/di+xdQRhRQQtMHl3j7sLIuxtG+4MaJZrA05v0v0LHrrzA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5807.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(19092799006)(1800799024)(921020)(10067099003)(261021121427099003)(11063799006)(260925022911599003)(260925021311599003)(260925021911599003)(56012099006)(261022075727099003)(261021123027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c2xQWm9nWFNrUk44cXJXdE9Xdm84NGxWOVlTOGs4aHBXdEtqeCtNdEQyT0d0?=
- =?utf-8?B?dUlVcVZ0YkVYQlYraXFDZXFOZi80RFYvbkovYk9VNmVKb3hNWnZ0SktoeFYw?=
- =?utf-8?B?a2hNakxrcWdQaUtnNkJkZWxraHFyc1NjUlJZdkphWkNiaDFYQUdQNWwva0k5?=
- =?utf-8?B?Uks4QmxjQkRqQXFLMk01em52bHkzZW5LSHJZeURqUjRzNVh1cGRqaUd4M0p5?=
- =?utf-8?B?RXFhR3hNOHFQaUFxOG9XWDRsY1hJWGR1UzhZVjdGT0ZzNjNqTEVmT1VLZ29a?=
- =?utf-8?B?WWw0R0Y2ZVh1VlZ2WmJaVFN1SUhTek9oeFVHd3VJSGRTY3BUTWJBZ0JJR3JI?=
- =?utf-8?B?cTB2dDgyTWF3VU5NSzlnVmxHSENMVitzbmdnUnk3aEtKSGo3bEtMNjVwU0FB?=
- =?utf-8?B?bUhtRklZdzZiRmhGRmcwR1o1TmNITlhvc3I4YW1odFc1dTQ0cUNXdHBHZHZr?=
- =?utf-8?B?WUxJZVpvbUtZamFRcW5rdVZWa2FZTlE4S09XTE5JMjhvUUxwbHExNjNkNEsz?=
- =?utf-8?B?MDBVTEJSSUpWaXRNUnd1TE1ZVEVWVCtCSmt5cS8xWUpGcWMyWTRwem52d1Vo?=
- =?utf-8?B?NGVjWTU2WFowbkQrRWJiSVVwbGdIYTdyMUVkcDNhZnVFb08wOEc1a0V3UXFm?=
- =?utf-8?B?SENzbS9ydGwwVXErUDBBL2tNRmVlZXZIUGNFaEVqbFJYejN5UWVQSXJsUWIy?=
- =?utf-8?B?aVlXakR5MDVRUi9WQm9TTzdIL056SkkzQUJTaUo1MU1oYkliOUVFZHF5WnVM?=
- =?utf-8?B?SDFXUXAzY0JYSTRPN0tja0JsRmF1aFU3YzE0d0JBTDQzT3k5Vlp5L1BKM2hj?=
- =?utf-8?B?V2dYVHRwWDZUOGhoMTdlNzlMRWpDeE1LOFlHVis1a0FSYk9vMDgrTy8rbi9D?=
- =?utf-8?B?SWlscVc4MjRMdGdwdTZOVkF4Nms5QWdNQ1QvUFFFQ1U3V3hqR3pqZ2dvMHVm?=
- =?utf-8?B?OVFyNzNyc2djcC81ZnpvOFF0MmFldmJmMkI5SGd3S3J6YjZmZDFXck5salE1?=
- =?utf-8?B?VC9sN1Q0K1lpUFRUMXZsejZybXdkcjN5YS9EMWlESmRhdWVzTTRyV2R5dWwy?=
- =?utf-8?B?SHlNWE4yRW56eDd6MlB0ZVFjYjY4OHBqTGhSZTk1V1BOelo1V3l6am5rdmg3?=
- =?utf-8?B?RGh6VVZRUWxVQStYTStSYTl4aVhUaVNnQS8yNXNoaVNicWR2OUcrZURyV0FD?=
- =?utf-8?B?cjRlK1RJQi9QZ3NCbzVNK25DSnN2a2t6K056d0pXNENuSThCeE40c08rMEND?=
- =?utf-8?B?LzBFNUlmMVNPenBtYTlzVVhvSlVaZlBEUmpYR0ZESzFpeTJya3FZSEE2ditF?=
- =?utf-8?B?aVFONTg3NklhamljampXeGI4RGU2bzhGbFI1SHJHUTY5bEZuKzVHbzhRYTcy?=
- =?utf-8?B?UTJKRXZ4UlQySmJnRFJsSUY2VkNPR0k2ZXlKekZwb0phRXdLZG5iTE5TS2di?=
- =?utf-8?B?Q0M2VHVMNk1NT0llVnZwVzVaZDQ4VCt0Z2JmMUMrZ2RkeXdrWTZmRkplcXpk?=
- =?utf-8?B?UzhIOVp4YVpvTm9RdEhzRnZ1cTBvOEZvb0lyd0xkUW1VMm5XNFpHN094WHRK?=
- =?utf-8?B?d1pkblk5UDBJdFNCZ2paS2VvUkJIN2JoWXpBenI4RDRTNHNUanppS0VPanZH?=
- =?utf-8?B?dlhkdEt0cG9zWWJyUHlLVDA5TWpPTGg5R0tWYVlyTFdvRXBkYURNVlFiR2Nq?=
- =?utf-8?B?WDN4UmNzdU92UEdTYVJHS1VvUEVwbnFqOU9FdmJQVTExL2Z1WG9SZE9qMG0x?=
- =?utf-8?B?VU00T1NzWk1ZbW9GK2h6YlNqNnNIZk45QlNWekg0NTBzVkFHNFFPYlF4akNW?=
- =?utf-8?B?UVZYNGYwUDlxNWtEd1hhL1d1MlBFL3hmb2xWeDZqbmJBcW9CVlVlOEIyRWE1?=
- =?utf-8?B?cUtPbitySVpXdHFJb2NvcXZ6cXZobmRXNVArTEREKzNrVFp6eUM5OW9vVmEw?=
- =?utf-8?B?MTFhdUJSWGVlYXNwNkNPWWdrRXM3NUxWZC9ENC80SFBOdSs3YlM2T2YrNmQ2?=
- =?utf-8?B?ZnNwT2hVS3orcStkT0JqQ0ZIaGVhVnpTTzhxOTNNUXNRb0pBRFp3aUlmVTlk?=
- =?utf-8?B?dnRlK0ZOV0JSdU5sQkxDWGZYTWZPOENjdmlZWC9LVFNWdU1kSnhyWGRVQlZY?=
- =?utf-8?B?eWJnejlWSE9XS0t2aUcxUXVIMWVvK1NJbXBYWlpmOXJNNHZzMzBNZ204WkxQ?=
- =?utf-8?B?RzZaOGlLZVVyQ2pjazQyNjg0bFJpRjhNanNYUEM0QmdOZ2s4bUdiYnlpa3dq?=
- =?utf-8?B?MnVMZWJlbm43TmhVL1lRQkVHcUlKQTE1QVhsd2xvcVg5VEFOd0tjT0hjSTFT?=
- =?utf-8?B?N2dQYmR3cGdLOVBoalZRdjBCOGxHZ2dEQzVXaUFSOERnVloxYjhjdGlVcnM2?=
- =?utf-8?Q?QEzPfGnEhLAzRikBx+F+YNuAxk4DcjT8z8KiS?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 924b0bd1-591c-418f-e3b8-08df46f633d9
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5807.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 11:05:35.6948
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RqJkdcQd5kQZ+fhOGl+r9XzXRADJGP/0QnH/So8BaLLXTYeWxqWsIHA6e6RM1L36GP6qwCFARGOQEZcNZ7KML/9wnaPpYtYJAD5KJ/Ru+pA5TW7LJFYh/3TPfpFSxvcD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB400504
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIUpAGsC/yXM0QqCQBBA0V+ReW7BtF3RXwkR25lqAkfZWSUQ/
+ 72pHs/DvTsoJSaFrtgh0cbKsxgupwLic5QHOUYzVGUVSn8OTqdpHVgypTiLUMzDiMjZMoetD42
+ vPbXYgA2WRHd+/+bX/m9dby9rvkc4jg8JhUrdfgAAAA==
+X-Change-ID: 20260516-smmu_interconnect_addition-d9567535e9d7
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Val Packett <val@packett.cool>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795172803; l=7571;
+ i=bibek.patro@oss.qualcomm.com; s=20260617; h=from:subject:message-id;
+ bh=pdxjtL/I9+iniv9i80dLDw+HuIP5yKp4NIiU9QZMoh4=;
+ b=gwbisBsC/M5CQj0fLbCn2iPoDx6q9nbsEsGFOPYapp/51vHA8DwsIpzqBp8dS9XAQzq9ulcrB
+ +/lyzsmwdiVAZHZ9XFNeMGenqRCIxiTDodKevsr4b8zg3ICOnKYtmGg
+X-Developer-Key: i=bibek.patro@oss.qualcomm.com; a=ed25519;
+ pk=DkrbE5dhskZJmBAKR5LygWRsAydEOSN+T0/YxNYxDLM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDA0NCBTYWx0ZWRfX3JPyWVtP7D8k
+ klupaWnZKxt6FVzk87YlUaGmcs0sKZ/M+ecvDshy7vSTts6m1r8GYOeCDTrZ76ZqotqQG8ffYGF
+ Ogpa1NUNdjWO1Q1PCJxPG1pyEH5CwlPZu08guHfxIStG9ohhKl8QCHJyjDaJodf8PGm6C38vxS3
+ kAIMCKzIShpLpGWeoUkQV8Srpd+KTt2Iey3uWfFw890RtEq/VDuujhq7ChMJEyZBRmkjZul0IbN
+ +5YqNer4OVzvH27oB8n3KvjRl0aJLU1ktbn4u7oMTdudYYlvVy7l90ORVBbQ13sV/M+lQLwUjE0
+ +qDMCpOmJ0eEtFuYpUzNTeUZGwZn36P2rKJygcNz8wqBG5fqXl7+MTb2g44C7hTlfBhZoaOHk5o
+ QrHukqAb1B5t9qLC66yq2TTW9CFU4RTddFVTPb73SbxfkOjH3b9HbodWC92MEqbprf8nSsfS5l2
+ PuM9t9Mg0s6HJZFPZOA==
+X-Authority-Analysis: v=2.4 cv=bLeDs/+Z c=1 sm=1 tr=0 ts=6b0029cb cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=fn02ttKd-iuB0E_vrvUA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: 53WP1S9S3BkIeHHB5F-trGIt1i851EZA
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDA0NCBTYWx0ZWRfX5P1zTr3Ombu4
+ JyOM05T7BCsbSVZbT5dSchmBbBft+6fQqiWBwqLphxj8owYUnTqhluS8AOik9HB8P7j7RvAddFD
+ cTPLQE5D5iowjkUaZpwiQRriRIQAYnc=
+X-Proofpoint-GUID: 53WP1S9S3BkIeHHB5F-trGIt1i851EZA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-20_04,2026-11-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611200044
 
-Most software on the i.MX937 is compatible with the i.MX952, so it
-reuses the i.MX952 device tree as its base. Add imx937.dtsi based
-on imx952.dtsi and imx937-frdm.dts based on imx952-frdm.dtsi to
-support the NXP i.MX937 FRDM board.
+On Qualcomm platforms using the ARM MMU-500 as the adreno SMMU,
+the GPU TCU is a separate hardware block with its own AXI master
+port (alm_gpu_tcu) on GEM_NOC, independent of the GPU rendering
+data ports. Without an explicit interconnect bandwidth vote, the
+GEM_NOC path to DDR can be left unvoted during sleep/wakeup
+transitions while the TCU is still active, causing intermittent
+SMMU register access failures and SError aborts.
 
-Compared to the i.MX952, the i.MX937 drops the local dimming and ISP
-blocks and runs its Cortex-A55 cores at a lower maximum frequency.
+On earlier platforms using QSMMU (SMMU-v2), the TCU is integrated
+inside the SMMU block and shares the GPU data AXI port, so no
+independent vote is required.
 
-The PCAL6416 GPIO expander is at I2C address 0x21 on i.MX937 FRDM,
-unlike 0x20 on i.MX952 FRDM, so disable the inherited node and add
-the expander at 0x21.
+This series adds interconnect bandwidth voting support to the
+arm-smmu driver for all Qualcomm platforms using qcom,smmu-500
+as the adreno SMMU, starting from SM8150 (Snapdragon 855) where
+this topology was introduced.
 
-Signed-off-by: Joy Zou <joy.zou@oss.nxp.com>
----
+Changes in v4:
+- dt-bindings: Changed interconnect constraint from items:-based
+  compatible matching to allOf/contains: approach as requested by
+  Dmitry Baryshkov. The new form matches any compatible string
+  combination that contains both qcom,smmu-500 and qcom,adreno-smmu,
+  rather than enumerating specific compatible strings, making the
+  constraint future-proof.
+- iommu/arm-smmu: Moved qcom_adreno_smmu_icc_init() into a function
+  pointer hook icc_init in qcom_smmu_match_data as requested by
+  Dmitry Baryshkov. The init is dispatched via data->icc_init() in
+  qcom_smmu_create(), keeping the hook architecture consistent with
+  other Qualcomm impl callbacks.
+- iommu/arm-smmu: Replaced #include <linux/interconnect.h> in
+  arm-smmu-qcom.h with a forward declaration struct icc_path; as
+  requested by Dmitry Baryshkov, to avoid propagating the full
+  interconnect header to all includers.
+- DTS: Extended platform coverage from 4 (kodiak, lemans, monaco,
+  talos) to 18 platforms, adding sm8150, sm8250, sm8350, sc8180x,
+  sc8280xp, sm8450, sm8550, sm8650, hamoa, kaanapali, glymur, milos,
+  hawi, and sar2130p. Note: glymur uses hsc_noc/MASTER_GPU_TCU
+  instead of gem_noc; sm8550 and sm8650 use MASTER_GFX3D instead of
+  MASTER_GPU_TCU.
+- DTS: Kept QCOM_ICC_TAG_ALWAYS (not changed to QCOM_ICC_TAG_ACTIVE_ONLY
+  as initially discussed). The GPU TCU is a separate AXI master on
+  GEM_NOC that may fetch page tables from DDR during CPU sleep while
+  the GPU remains powered. Using TAG_ALWAYS ensures the interconnect
+  vote is held across both active and sleep states, preventing the
+  vote from being dropped before the SMMU is fully powered down.
+- Link to v3: https://lore.kernel.org/r/20260706-smmu_interconnect_addition-v3-0-afdca0125a65@oss.qualcomm.com
+
+Changes in v3:
+- iommu/arm-smmu: Moved ICC voting from generic arm-smmu.c to
+  Qualcomm-specific arm-smmu-qcom.c via new runtime_resume and
+  runtime_suspend hooks in struct arm_smmu_impl, as suggested by
+  Konrad Dybcio.
+- iommu/arm-smmu: Moved icc_path from arm_smmu_device to
+  qcom_smmu to keep Qualcomm-specific fields out of the generic
+  driver.
+- iommu/arm-smmu: Restructured arm_smmu_icc_get() error path to
+  exit early on success as suggested by Dmitry Baryshkov.
+- iommu/arm-smmu: Dropped if (smmu->icc_path) guards from
+  icc_enable/disable since icc_set_bw() handles NULL path safely.
+- iommu/arm-smmu: Changed WARN_ON() to WARN_ON_ONCE() and
+  propagate error code to callers.
+- iommu/arm-smmu: Changed ARM_SMMU_ICC_PEAK_BW_HIGH from 1000
+  to 1 kBps as a minimal keep-alive vote.
+- Link to v2: https://lore.kernel.org/r/20260526-smmu_interconnect_addition-v2-0-2a6d8ca30d63@oss.qualcomm.com
+
 Changes in v2:
-1. replaced gpio-hog with gpio-mux in imx952-frdm.dtsi patch, so removed
-   the duplicate gpio-hog change.
-2. overwrite mux-gpios property due to different expander address.
-3. modify commit message.
+- dt-bindings: Cleaned up 'interconnects' property description --
+  removed "Optional" prefix and driver implementation details as
+  flagged by Krzysztof Kozlowski.
+- dt-bindings: Added allOf conditional using 'items' to restrict the
+  'interconnects' property to Adreno SMMU nodes only (qcom,adreno-smmu
+  with qcom,qcs615-smmu-500, qcom,qcs8300-smmu-500,
+  qcom,sa8775p-smmu-500 or qcom,sc7280-smmu-500 compatible), so
+  non-Adreno SMMU nodes on the same SoC cannot use this property.
+- Added DTS patches for kodiak, lemans, monaco and talos to add
+  the GEM_NOC interconnect path for the adreno_smmu node on each
+  platform.
+- Link to v1: https://lore.kernel.org/all/20260516-smmu_interconnect_addition-v1-0-f889d933f5c1@oss.qualcomm.com/
+
+Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile        |  1 +
- arch/arm64/boot/dts/freescale/imx937-frdm.dts | 87 +++++++++++++++++++++++++++
- arch/arm64/boot/dts/freescale/imx937.dtsi     | 12 ++++
- 3 files changed, 100 insertions(+)
+Bibek Kumar Patro (20):
+      dt-bindings: iommu: arm,smmu: Document interconnects property
+      iommu/arm-smmu: Add interconnect bandwidth voting support
+      arm64: dts: qcom: kodiak: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: lemans: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: monaco: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: talos: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: sm8150: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: sm8250: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: sm8350: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: sc8180x: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: sc8280xp: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: sm8450: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: sm8550: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: sm8650: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: hamoa: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: kaanapali: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: glymur: Add HSC_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: milos: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: hawi: Add GEM_NOC interconnect for adreno SMMU
+      arm64: dts: qcom: sar2130p: Add GEM_NOC interconnect for adreno SMMU
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index cfd548284358..8bca1a6b8478 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -958,6 +958,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxla-mini-ezurio-wlan.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-tqma9352-mba93xxla-mini-lvds-tm070jvhg33.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-var-dart-sonata.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-var-som-symphony.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx937-frdm.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93w-evk.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93w-frdm.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx943-evk.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx937-frdm.dts b/arch/arm64/boot/dts/freescale/imx937-frdm.dts
-new file mode 100644
-index 000000000000..374cf3804581
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx937-frdm.dts
-@@ -0,0 +1,87 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2026 NXP
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx937.dtsi"
-+#include "imx952-frdm.dtsi"
-+
-+/ {
-+	model = "NXP i.MX937 FRDM board";
-+	compatible = "fsl,imx937-frdm", "fsl,imx937", "fsl,imx952";
-+};
-+
-+/*
-+ * PCAL6416 (0x21) pin 4 selects the CAN/GPIO mux:
-+ * low selects CAN, high selects GPIO. With GPIO_ACTIVE_HIGH,
-+ * mux state 0 drives the pin low (CAN) and state 1 high (GPIO).
-+ */
-+&can_mux {
-+	mux-gpios = <&pcal6416_21 4 GPIO_ACTIVE_HIGH>;
-+};
-+
-+/*
-+ * The CAN transceiver silent-mode line is on the 0x21 PCAL6416 on
-+ * i.MX937 FRDM (the inherited 0x20 expander is disabled below).
-+ */
-+&flexcan2_phy {
-+	silent-gpios = <&pcal6416_21 6 GPIO_ACTIVE_HIGH>;
-+};
-+
-+&flexcan3_phy {
-+	silent-gpios = <&pcal6416_21 6 GPIO_ACTIVE_HIGH>;
-+};
-+
-+&lpi2c2 {
-+	pcal6416_21: gpio@21 {
-+		compatible = "nxp,pcal6416";
-+		reg = <0x21>;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupt-parent = <&gpio5>;
-+		interrupts = <14 IRQ_TYPE_LEVEL_LOW>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		pinctrl-0 = <&pinctrl_pcal6416>;
-+		pinctrl-names = "default";
-+		vcc-supply = <&reg_3p3v>;
-+	};
-+};
-+
-+/*
-+ * The PCAL6416 GPIO expander is at address 0x21 on i.MX937 FRDM,
-+ * unlike 0x20 on i.MX952 FRDM. Disable the inherited node.
-+ */
-+&pcal6416 {
-+	status = "disabled";
-+};
-+
-+/*
-+ * The 0x20 PCAL6416 inherited from imx952-frdm.dtsi is disabled above;
-+ * re-point every consumer to the 0x21 expander (pcal6416_21).
-+ */
-+&reg_ext_3v3 {
-+	gpio = <&pcal6416_21 13 GPIO_ACTIVE_HIGH>;
-+};
-+
-+&reg_ext_5v {
-+	gpio = <&pcal6416_21 12 GPIO_ACTIVE_HIGH>;
-+};
-+
-+&reg_m2_pwr {
-+	gpio = <&pcal6416_21 11 GPIO_ACTIVE_HIGH>;
-+};
-+
-+&reg_usb_vbus {
-+	gpio = <&pcal6416_21 15 GPIO_ACTIVE_HIGH>;
-+};
-+
-+&reg_usdhc3_vmmc {
-+	gpio = <&pcal6416_21 9 GPIO_ACTIVE_HIGH>;
-+};
-+
-+&usdhc3_pwrseq {
-+	reset-gpios = <&pcal6416_21 8 GPIO_ACTIVE_LOW>;
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx937.dtsi b/arch/arm64/boot/dts/freescale/imx937.dtsi
-new file mode 100644
-index 000000000000..7912a9c282d8
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx937.dtsi
-@@ -0,0 +1,12 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-+/*
-+ * Copyright 2026 NXP
-+ */
-+
-+#include "imx952.dtsi"
-+
-+&gpu_opp_table {
-+	opp-1000000000 {
-+		status = "disabled";
-+	};
-+};
+ .../devicetree/bindings/iommu/arm,smmu.yaml        | 25 +++++++++++
+ arch/arm64/boot/dts/qcom/glymur.dtsi               |  2 +
+ arch/arm64/boot/dts/qcom/hamoa.dtsi                |  2 +
+ arch/arm64/boot/dts/qcom/hawi.dtsi                 |  2 +
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi            |  2 +
+ arch/arm64/boot/dts/qcom/kodiak.dtsi               |  2 +
+ arch/arm64/boot/dts/qcom/lemans.dtsi               |  2 +
+ arch/arm64/boot/dts/qcom/milos.dtsi                |  2 +
+ arch/arm64/boot/dts/qcom/monaco.dtsi               |  2 +
+ arch/arm64/boot/dts/qcom/sar2130p.dtsi             |  2 +
+ arch/arm64/boot/dts/qcom/sc8180x.dtsi              |  3 +-
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi             |  3 +-
+ arch/arm64/boot/dts/qcom/sm8150.dtsi               |  2 +
+ arch/arm64/boot/dts/qcom/sm8250.dtsi               |  2 +
+ arch/arm64/boot/dts/qcom/sm8350.dtsi               |  2 +
+ arch/arm64/boot/dts/qcom/sm8450.dtsi               |  2 +
+ arch/arm64/boot/dts/qcom/sm8550.dtsi               |  3 +-
+ arch/arm64/boot/dts/qcom/sm8650.dtsi               |  3 +-
+ arch/arm64/boot/dts/qcom/talos.dtsi                |  2 +
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c         | 50 ++++++++++++++++++++++
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.h         |  4 ++
+ drivers/iommu/arm/arm-smmu/arm-smmu.c              | 29 +++++++++++--
+ drivers/iommu/arm/arm-smmu/arm-smmu.h              |  2 +
+ 23 files changed, 143 insertions(+), 7 deletions(-)
+---
+base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+change-id: 20260516-smmu_interconnect_addition-d9567535e9d7
 
--- 
-2.34.1
+Best regards,
+--  
+Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 
