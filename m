@@ -1,85 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795135169;
-	b=SsQqWv6I6Mj+xPvCuFUtsfUnZ4365Pxkq+fdzcaTpPCNtht4mkPSgAPKNBntEOZfTOsH
-	 kVs3hN4V36fL0SKheUGfv1zUWUagKCG2VZRETplrAOkunIn2BBUo3qymz+ucWLJ+dCNDF
-	 CDOGBmQzN+bJb475GtY0pUq9Ub7/yR5sdJwHkISj0juXdc56h64U5IJM0NfQbKHX9JJ4f
-	 q4rrRLx7y3vOlo6KsCIGjHwNuMGa4L3oT/fLx6L9v6j9fuJe2fqjl8GcZDENef0EXhzid
-	 VB2IYNrkCJdA/cazAS0aXd7vPwPkemfvzj6mwLY5KhN/ZUex8ZV8X23yMkhZcbGOYxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795135169;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=15vPBWuJO4ML7J1IqfBjScec+aNHdtb9jbP4UwbOc6A=;
-	b=drN80zbq8zmyJDi7i6bg4rk+ysmHlpykJyFHTnFCxuJnu0TY5XEAXqjxGM2P6WvllH5c
-	 +EvT8Rnfsl0cq8blJ/GVXkiC4OXTgEFQJSigprrkcVp2U/SHiBCcYpXm9syLZ8yuDXsJG
-	 aFZ9fAnOISeqGYAKaPjII0zCtJzJ/ZrL2ZhWJYMDAcDBmFQOvoG6LXSAEUKUP9BSeOtM9
-	 Lufy751lQfWYVMwbQagwObOqlWzOhKzFlptJLPysX94iQVrLSaujNJ2KJybA+DEKSkwfu
-	 bl+auz5gtp+cJ3p58Xozf4etMIHaQMmwRJIENJ0VhBIYb1IcZyzkM6hil16PG7LtO2Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWI7sRTP;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795135170;
+	b=J9gSigozOpjgCS9M27tjhGynDEVN9XUQwStKvWakhBLqKwPbmuJmoop0KypayCCno3QL
+	 55xVT6IZHfyTfp0Utsy4oQqzF3Q6A4l0jbk4Zr9AsCkA6OMO7YNvvYD1Xl6eR9I7AgSVH
+	 m5pfNBe232v6q7SG+uZ9XPkeAxAXD75Y9hn40BkkvCDitOcP0yBkVNHJPhUZLFgkWuFha
+	 eVmPn4Uja5OdavbDY0psMEGE8iAGLF0RlZqat8cNpWYz8Kr7p6viEKTV6QhjAaoYZB1rx
+	 acCfjjIbJrUQ8kDHZyu93Fa8M91O51PUoXCqTVWM3yAUn9UjuokN1Uy5YrRddnsJnww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795135170;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=06XIf4D6mSmxSRM87PPvsuohF9WiWE8VJBFQty+Jsbg=;
+	b=IRDzlFxJx7W4dgRcFOd3vPcbjrS5sqRaE0t49JMwj9JRaszlNFsDcVcooIrqFU3PwIPD
+	 hQEjupNnWaKsm+yh2ZqPaUt053WzF6KiuOTS27KlNlDbYPE+aLlIhL1FzSf0QR5Syt5Vk
+	 RTbIF6AXSC8eaHwK3dPGrzgfYjyXDJy9ZU/SMqiX+JEU4hyi1beusXkJhRQPc4Yy0NTSc
+	 VBid/88Agi/YMuMs5JyfDwavP1qHKf5dlmiSeSsVpoUXd/rW3yKTDZ2+60ADmsa64TmSl
+	 frdSlI+952MnX0gmvWMiZwJ2uhHJlTKHba6e9xGIp+YvVBKuL926KZ0BuNU5o2YalTA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVzC1pqe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5DC606A320;
-	Fri, 20 Nov 2026 00:39:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41FE606A336;
+	Fri, 20 Nov 2026 00:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWI7sRTP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61A91F000C6;
-	Fri, 20 Nov 2026 00:39:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVzC1pqe
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795135170;
+	b=hl85o+DYYlrYQbF3okZU7Nzrb4sf9AUKvRk0caygJ5Jss+uhZSQQWpdOuL/YP0Er4yIv
+	 tk5H7BLYZXD1eP4Uas2zRe9aqd8xdBSUBuLedqE3KDec+pWTbFrMrCN/NMkgTkH2lkclF
+	 zgVDqBAV68PBfM3x4se6azOzQ7SGkE8pe3N/qp7kQq+rN84U6SOiIvOwFKMxVP6d7gfg2
+	 MiDeIJXnGQ33fVLEnVKEM8J/VvTjtaZRCVWGjzfeNx2qW1L96noUgb0uRgQrM8eql90oV
+	 XkOULXNaf2Lnfrppg4y3IFr3sYrQTgPZQOuPdmejC6+HVNEGifUO9WLO5/1T3rcJHYg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795135170;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=06XIf4D6mSmxSRM87PPvsuohF9WiWE8VJBFQty+Jsbg=;
+	b=cAHUPflqo4rCJJdeV01+OGEdj+enG3B6r5QaL5EuTA1rm4BxH1hp4Pg/6NzLY9Yg7mZo
+	 HZH/Wn8RsuD9iizGFFWp4CD88rOuzYxlYYrCV1gipaH5DrTCogv1LyNfm/pDGUIFMVqsQ
+	 TQ6Ti92FcFm5bdPaeojak0ZuKXwyoIj7kOiyerACzjJwMNw+Chvn6+Xc7IS2D02Mxmedh
+	 SYGvEZb/kxIw7+FsWufEYbnW08fJzivqaXO/o0vjjsmgqWH/IBVzBIkfN1Q/qar3pexZL
+	 wTzGUZ/aQigY8NA6T0kOv19ITEZh1o/OpIRHiKFpbk4OXgr9AbtopAR4x80KpFsCrpw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C92B51F000C4;
+	Fri, 20 Nov 2026 00:39:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795135169;
-	bh=15vPBWuJO4ML7J1IqfBjScec+aNHdtb9jbP4UwbOc6A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fWI7sRTP+d/DvV1dwLK/WyIn1NKJ8h8dEePpuE1WOdxrdr2xlU0g2uzheW1nD6dph
-	 fRcFZklRjfdasJ1e0BT6Bp1Mpvi/RPi7cWTtQf+C/LMPJbWpvgekqc1qAVK3YognT3
-	 sQdzWrdwqOTLlx16eoPFpAsmRqU0Kjt/y5mA2iWd7ImFReHUkwyJiWC6rSox842JZ8
-	 4ALT2B1tdA6+s6qeQHVtnydN8Omn+MFxh9DWkMpzdlo9uFPVGOVaYv36ZbAJnPyn8l
-	 TwXQ82uO1HXzJ9q/bXixtTdprJNqYC0k7TIg8PECi7//g1weKZ6PGti1GAzMAws9Qz
-	 RvC3Jvv/k3JvA==
-Date: Thu, 19 Nov 2026 16:39:27 -0800
-From: Drew Fustini <fustini@kernel.org>
-To: yunhui cui <cuiyunhui@bytedance.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	Tony Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zeng Heng <zengheng@picoheart.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [External] Re: [PATCH v12 1/5] riscv_cbqri: Add capacity
- controller core
-Message-ID: <av-WvzoxSv7QpMhQ@thelio>
-References: <20261114-dfustini-atl-sc-cbqri-dt-v12-0-6ef1f627072d@kernel.org>
- <20261114-dfustini-atl-sc-cbqri-dt-v12-1-6ef1f627072d@kernel.org>
- <20261119000846.776930b3@jic23-hlaptop>
- <CAEEQ3w=voZYrfcMuKC_SQG9U8hYN_thcc02nf_PgMu5UyuG32Q@mail.gmail.com>
+	s=k20260515; t=1795135170;
+	bh=06XIf4D6mSmxSRM87PPvsuohF9WiWE8VJBFQty+Jsbg=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=AVzC1pqelpZDFsuL0+8rTC44215b/ZfeEs4JIrzxvwiYXNnl/O4pAvGgqodH8pVWa
+	 cc7anPRTpfKbaII7D1+GjySbDhSF0cH+Vm4YGwDn+uo7C3kib5G6fVvom6H6gwSJaa
+	 vkNy5CH++wGn8EHBLjly0gBSDy8axCF/qjyrJWCiCucJC2JoszZToBrcqF9AgMEKFz
+	 ymH9aFiAiZ+yGINugFO+gdJB4bBkNXdBKVy5q+TQ+BMQVa86YyjNjDN5f+4mp731Zy
+	 FhRVWNw7TxyHiXKZR2gUl488HlxlL4iTm/a7hZvWxjQJ8reUWnYmX/Gta7LV8Lt+xW
+	 Pa2aK3L75ZF7Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 561F842503;
+	Fri, 20 Nov 2026 00:39:29 +0000 (UTC)
+From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
+Subject: [PATCH 0/3] arm64: dts: rockchip: Add Mekotronics R58X-Pro
+Date: Fri, 20 Nov 2026 01:39:26 +0100
+Message-Id: <20261120-rk3588-mekotronics-r58x-pro-v1-0-4e70c077c7b4@pardini.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,66 +83,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEEQ3w=voZYrfcMuKC_SQG9U8hYN_thcc02nf_PgMu5UyuG32Q@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAL6W/2oC/yXMwQ6CMAwA0F8hPdvE4WYWf8V4GFvRStxIC4aE8
+ O8MPb7LW0FJmBRuzQpCX1YuucKcGoivkJ+EnKqhPbdXY4xHGS7Oe/zQUCYpmaOiOL/gKAWdjX0
+ Ktks+WKjDKNTz8tvvj7917t4Up6OEbdsBGklNMH8AAAA=
+X-Change-ID: 20261118-rk3588-mekotronics-r58x-pro-54cfda4bd8a4
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Ricardo Pardini <ricardo@pardini.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2290;
+ i=ricardo@pardini.net; h=from:subject:message-id;
+ bh=qkeBb/nL37zpe/lCO/iNX9Ueu125W6clmIxV9IQB1Tc=;
+ b=owEBbQGS/pANAwAKATteP+Oex+3pAcsmYgBq/5a/rKyFUzEa+akU1CoUICGtE4RZXisRa4iEo
+ DiAG/Yw1bSJATMEAAEKAB0WIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCav+WvwAKCRA7Xj/jnsft
+ 6XrGB/oD0+HisA/tWCn9MPRMdhZzKXzX8CaKmRHlythf6+qJU/bdGa2w53MFO7AMhGfHJ6ll0VX
+ tlRUrp0L/V4oLavjBeCdHl0DmaS/F1GO2Z1mpnIiaWI8wsTGco8BU70XsLRtwneMbb3CQqvQEuk
+ 9gsTZMzzU3BZGRwR/KqeCn9CyMobM89ln9N+I/fPVBiqy/B3yQwgWJQLN6hNGD1ffm3EkFPI3+u
+ 8k4Nb46tsnOlVWfXZUV7IpuE32nQ/k6/jU7iZqOazzldt1tNaMQHAzieVXwsTdvojsCnJ4or9mm
+ e6EI/qkLtQ7WBZx6PKLUOK3DTC7B9iVwG1P8ud3++AJ3ohvD
+X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
+ fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
+X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
+ auth_id=588
+X-Original-From: Ricardo Pardini <ricardo@pardini.net>
+Reply-To: ricardo@pardini.net
 
-On Thu, Nov 19, 2026 at 07:00:21PM +0800, yunhui cui wrote:
-> Hi Drew,
-> 
-> On Thu, Nov 19, 2026 at 8:09 AM Jonathan Cameron <jic23@kernel.org> wrote:
-> >
-> > On Sat, 14 Nov 2026 14:06:21 -0800
-> > Drew Fustini <fustini@kernel.org> wrote:
-> >
-> > > Add the core for RISC-V CBQRI capacity controllers: the register
-> > > layout, the capability probe, and the allocation operations that
-> > > program a capacity block mask for an RCID and read it back.
-> > >
-> > > A discovery layer maps the register block and describes the controller
-> > > in a cbqri_controller_info descriptor. riscv_cbqri_register_cc() probes
-> > > the controller from that descriptor and adds it to the controller list,
-> > > which stays private to the core. The core owns the controller state
-> > > after registration, so nothing in it depends on how the controller was
-> > > discovered. The caller keeps the register mapping alive.
-> > >
-> > > Tested-by: Zeng Heng <zengheng@picoheart.com>
-> > > Reviewed-by: Zeng Heng <zengheng@picoheart.com>
-> > > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > > Signed-off-by: Drew Fustini <fustini@kernel.org>
-[..]
-> > > +     /* The resctrl glue keys its domains on cache_id, one controller each. */
-> > > +     list_for_each_entry(other, &cbqri_controllers, list) {
-> > > +             if (other->cache.cache_level == info->cache_level &&
-> > > +                 other->cache.cache_id == info->cache_id) {
-> > > +                     pr_warn("CC at %pa duplicates the L%u cache id %u controller at %pa, skipping\n",
-> > > +                             &ctrl->addr, info->cache_level, info->cache_id,
-> > > +                             &other->addr);
-> > > +                     return -EEXIST;
-> 
-> A controller with the same cache level and Cache ID is not necessarily
-> a duplicate. A distributed LLC may have multiple physical controllers
-> managing the same logical L3 resource.
-> 
-> Matching controllers should instead be grouped into a logical component
-> keyed by (cache_level, cache_id), with the physical controllers kept in
-> a linked list. User space would see one logical controller as a single
-> resctrl L3 domain, while the update path would iterate the list and
-> program every physical controller.
+This series adds support for the Mekotronics R58X-Pro, an industrial
+mini PC based on the Rockchip RK3588.
 
-Good point that it is not a duplicate. However, I would like to keep the
-scope of this series from expanding, so I would prefer for that scenario
-to be handled in a future series. The domain id is the cache id in both
-cases, so it won't be a problem to add later.
+There is no public schematic; the DT is based on Armbian's and on the
+vendor BSP DT.
 
-Do you have a platform with such an L3 that it could be tested on?
+dt-check-style --mode=strict is clean except where the existing
+rockchip DTs differ (pinctrl-names first, no blank line before status)
+and for names fixed by bindings.
 
-For v13, I could change the comment and the warning so that they say a
-second controller for a cache is not supported, instead of calling it a
-duplicate. The alternative could be to skip the whole group if it is
-a problem to just leave the first of the group enabled.
+GMAC0 gets RX CRC errors with rgmii-id under iperf3 load, so it uses
+rgmii-rxid with tx_delay = <0x44>; GMAC1 uses rgmii-id.
 
-Thanks,
-Drew
+The Type-C port is source only (the board is powered from a 12V barrel
+jack). usbdp_phy0 has both orientation-switch and mode-switch, as
+asked for in the cover letter of [2]. On its own, v7.4-rc3 brings up
+USB 3.0 in either orientation at boot, but when the cable is re-plugged
+the other way round, the SuperSpeed link does not come up until the
+USBDP PHY is re-initialized. With Sebastian Reichel's pending DWC3 glue
+[1] and USBDP [2] series applied, it works in both orientations on
+hotplug. DP alt mode is not described, as I could not test it.
+
+Tested on the board with v7.4-rc3: it boots from eMMC and NVMe, and
+both GbE ports, USB 3.0 over Type-C, the HDMI and DP outputs,
+headphone audio, the RTC, WiFi/BT, the LEDs, the keys, the GPU
+(Panfrost) and the NPU (Mesa Teflon) work.
+
+I used Claude for cleanups, ordering and naming, according to recent
+series lore.
+
+[1] https://lore.kernel.org/all/20261114-b4-rockchip-dwc3-rockchip-glue-v19-0-b79fb5f4b42a@collabora.com/
+[2] https://lore.kernel.org/all/20261119-b4-rockchip-usbdp-cleanup-part3-v18-0-fb325e336494@collabora.com/
+
+---
+Ricardo Pardini (3):
+      dt-bindings: vendor-prefixes: Add Mekotronics
+      dt-bindings: arm: rockchip: Add Mekotronics R58X-Pro
+      arm64: dts: rockchip: Add Mekotronics R58X-Pro
+
+ .../devicetree/bindings/arm/rockchip.yaml          |    5 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
+ arch/arm64/boot/dts/rockchip/Makefile              |    1 +
+ .../dts/rockchip/rk3588-mekotronics-r58x-pro.dts   | 1215 ++++++++++++++++++++
+ 4 files changed, 1223 insertions(+)
+---
+base-commit: 23c62304dde29abe92013d85910d03a77dada35d
+change-id: 20261118-rk3588-mekotronics-r58x-pro-54cfda4bd8a4
+
+Best regards,
+--  
+Ricardo Pardini <ricardo@pardini.net>
+
+
