@@ -1,69 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795173602;
-	b=gNIpLrmno06e6YCogSfwvXJVwpnaokeZA7bcWqBzfHoKEXb5MKIzc0cjiCIb4YUXbX/r
-	 D2Moi0hN7Iy70jKzUFBg6Cxt9/XJeAiwlo3PtaAM0EaDNNlJB04Da0E6D9bkiGBjlH82e
-	 JcoBTKeJhFtxbrtYyOqZ78G2/fwqSKcYqyGgP39ckZyqW1kv2UxEooS3nqyVO1qFsLJZj
-	 ZYphkwo1ILpder5s7ltvBtBpM3LxxyvjjpNqYfJ+ombrpguGC6UxnI/H9Oq7JTOMUdYh1
-	 EUJZfitfhMf+/AP7lSxKwRfYiQsLmNqtwBfjhJS/S3bAj7JtFbeUzrGxh1NZ/cEyWTA==
+	t=1795173638;
+	b=yoUeokFhUviDb5L0Q/nkavhfomrTmYYCy9mjZDaOGmRn3t9Jn7xrMzvaPdEILiWoX9St
+	 AYlTOoT208v8jwifl5hYUeRYm4pQDi79LwjEcehqHYda6ghaMTK1rdKF1EAiZMiRCwPEQ
+	 1zpMxJdFrbvut+GcgVV6C/SWKenoubc5o1OOx3nW8tjwhAONWQtuUoX+Oa9AkYfsMRVbF
+	 JEZqgozvS9ChY6VCsJ1H3BrqzaCwDXcP+376iIt1UZGT7uYy00tv72bQfBsQ8PfAPyrps
+	 iAbDDjFpziAr2mNrKR0GnEME7yUU1FkGpbVCKrlk+lH1uq6NEmgZz4sPYjSFTFYjFnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795173602;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=gNcTdMNoAR9gRnBMyvwag/gk0hbmSsrfzpvTTscVcK0=;
-	b=1Bx0L8c/t5oO2upTTxo4kkGF7bgSEOn+X3RcJr7OOusYW1iGWWOaJgIA3LjG3nC861i8
-	 EfLZavGdMXF5Tba+90PWagRc4A9ro3B4iZISjdJLIKp6fEmymvi5L4HVJVdyi152lLTFB
-	 JKuaugoTg0g/tf9e2D4QAjYWpx8SXDZZ0Y7qU+Xnd+s2edoiEC4aVf2nHyyKdC+f6forg
-	 OPGW0XSfNnH+6cwcMNxfiEuxK5Q44UudjSiET1Nl9IyM+GgX5YL6R6r8b2TxBN6w+gPwh
-	 vVJiSXrVKwWPINpb3ZFbnLCVFf7vXeJqxUXLoLmNNvVa4d8aNlqXhzZENjKCHEyAe5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795173638;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=fYYHTUi/FbcikYuuAc9PGjmJ6qVjua1eY/ILg3ptx3U=;
+	b=dLIYlOk23O09Et5gGwQN1f/dCQjWN7APuKun0oyGgGCvVgOZ+1fnE4y2zqWbdCZtqYeJ
+	 qEdqt+06+qHdBhL0Nn6vSPADgdDHcVSsd34ILtBaqKxIuyvFDYHt1n8Qq68atlVC7nZLd
+	 4UeBFBbdlaDvmTGKoXWrM8vj790BynVJreAkjzFTp8ih/M37nsUa+TMgXb6crTQH6TTvo
+	 bTPJvoqM6qlb3tK3TGGVGvgWy+vAp94+XQsp53KGrMSIBQ8W0yFdgWwASGay1JCImuYZz
+	 /1ZkKnWaKkWlAvbd0JU3tqbVho7+utBg50cx1z/qstCDPlpb5ukQiW4HLsDnAGVXh0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=E+ipsy5D;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P+gAD/dS";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E67D6606A32C
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:20:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E67D6606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F594606A320
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:20:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=E+ipsy5D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:content-transfer-encoding
-	:in-reply-to; s=k1; bh=gNcTdMNoAR9gRnBMyvwag/gk0hbmSsrfzpvTTscVc
-	K0=; b=E+ipsy5DZmgibyZ225i2A3KvSwW/6S+7BiOwIza4wDy0EmBBTwlFvne8c
-	11HxunERh+H4/RNSzt8/qjKoaLbDPg/GOu+ZxKITLLvN5HKoXautnO/01LUqAw6+
-	m3ZION2ymsLyN7itbb1yCzWvl56yFMvEMjN1e8pVDy3XZ7ijMm0yC95+cJk6IpDH
-	v8koSDGi8iWltrPLN/z9Y4mZvadswu2Bwm99szGZTw1Bsrg3ym+GMcq3gZ5bBlok
-	X6m/voWJpmaZlBjEmrtRfRyAfpCXCpsoD/XC50ZsSyiOXUY0nfNQMUAHUfJHyg7a
-	5EchhgxfJjSiSvhzZZaDEbXPL5z7A==
-Received: (qmail 1452867 invoked from network); 20 Nov 2026 12:19:59 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 20 Nov 2026 12:19:59 +0100
-X-UD-Smtp-Session: l3s3148p1@PqSwbLNgduUujnuU
-Date: Fri, 20 Nov 2026 12:19:59 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v8 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
-Message-ID: <awAs386mgR23nmJ2@ninjato>
-References: <20261118-paul-v7-3-rc1-edac-v8-0-ed791084cc19@bootlin.com>
- <20261118-paul-v7-3-rc1-edac-v8-2-ed791084cc19@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+gAD/dS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61C2A1F000C4;
+	Fri, 20 Nov 2026 11:20:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795173637;
+	bh=fYYHTUi/FbcikYuuAc9PGjmJ6qVjua1eY/ILg3ptx3U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=P+gAD/dSK53Xoaw5J/pRdtM2aPS2mWcKzvNZ8yx3e2AvGo/RBkfy5ZAfkGde0Ad+E
+	 u3msRxEnOlZoi3rLQdkII5kLh6TbRYYTRPpwspWmGy6AFdFIFLNoaXcoBZ7I/crEsx
+	 oxRI8tcGys+xGAf9j7Y7BWGwq7dTojcAW9HXXS/C/2WjHcJLwxadgqd9jsM7igZFZK
+	 6a7oJyk4UtVP/0mBiqPy/Awe097M9KaaLwtUrPWlujeKZaFGIpd7NpAMF+ifg6nA/j
+	 E0S8wLr0lwc5algwZumQvbBdmrEduIOyeHtJ6Y/2C2VzI4zuXjDGxV7SXoCw4t6WYf
+	 c5G0IZHccYe/g==
+Message-ID: <sashiko-outbox-225025@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 04/20] arm64: dts: qcom: lemans: Add GEM_NOC
+ interconnect for adreno SMMU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bibek Kumar Patro" <bibek.patro@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261120-smmu_interconnect_addition-v4-4-cab8ee8be0b3@oss.qualcomm.com>
+References: <20261120-smmu_interconnect_addition-v4-0-cab8ee8be0b3@oss.qualcomm.com>
+ <20261120-smmu_interconnect_addition-v4-4-cab8ee8be0b3@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 11:20:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,123 +60,48 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261118-paul-v7-3-rc1-edac-v8-2-ed791084cc19@bootlin.com>
 
-Hi Paul,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: qcom: lemans: adreno_smmu interconnects placed in
+  lemans.dtsi
+--
 
-could you comment on these, please?
+commit 91aa80f6108e778c84b304ef687907083b95b19d
+Author: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 
-Happy hacking,
+arm64: dts: qcom: lemans: Add GEM_NOC interconnect for adreno SMMU
 
-   Wolfram
+This commit adds a GEM_NOC to EBI1 interconnect path to the adreno_smmu node
+in lemans.dtsi.
 
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issues to consider:
-> - [Medium] EDAC/cadence: cdns_setup_mc() reports SECDED mode when ECC is
->   disabled
-> - [Medium] EDAC/cadence: missing memory base PFN offset in
->   cdns_mc_err_handler()
-> --
-> 
-> commit 75a0021a276efa3f6b0c9a800bd2617eb0141dff
-> Author: Paul Louvel <paul.louvel@bootlin.com>
-> 
-> EDAC/cadence: Add Cadence DDR EDAC driver
-> 
-> This commit adds an EDAC driver for the Cadence DDR memory controller on
-> Renesas RZ/N1x SoCs, supporting SECDED error reporting, software
-> scrubbing, and debugfs error injection.
-> 
-> > diff --git a/drivers/edac/cadence_edac.c b/drivers/edac/cadence_edac.c
-> > new file mode 100644
-> > index 0000000000000..a3b72116ba129
-> > --- /dev/null
-> > +++ b/drivers/edac/cadence_edac.c
-> [ ... ]
-> > +static irqreturn_t cdns_mc_err_handler(int irq, void *dev_id)
-> > +{
-> > +	struct mem_ctl_info *mci = dev_id;
-> > +	struct mc_priv *priv = mci->pvt_info;
-> > +	u32 status, err_addr, syndrome, reg;
-> > +
-> > +	status = readl(priv->io_base + CDNS_ECC_INT_STAT);
-> > +	if (!status)
-> > +		return IRQ_NONE;
-> > +
-> > +	/*
-> > +	 * Hardware is not exposing how many CE / UE occurred since last ACK in
-> > +	 * case of multiple errors. Always set the error count to 1.
-> > +	 */
-> > +
-> > +	if (status & (CDNS_ECC_INT_STAT_UE | CDNS_ECC_INT_STAT_MULTIPLE_UE)) {
-> > +		reg = readl(priv->io_base + CDNS_ECC_U_ERR_STAT);
-> > +		syndrome = CDNS_ECC_ERR_STAT_GET_SYNDROME(reg);
-> > +
-> > +		err_addr = readl(priv->io_base + CDNS_ECC_U_ERR_ADDR);
-> > +
-> > +		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1, err_addr >> PAGE_SHIFT,
-> > +				     err_addr & ~PAGE_MASK, syndrome, 0, 0, -1, mci->ctl_name, "");
-> > +	}
-> > +
-> > +	if (status & (CDNS_ECC_INT_STAT_CE | CDNS_ECC_INT_STAT_MULTIPLE_CE)) {
-> > +		reg = readl(priv->io_base + CDNS_ECC_C_ERR_STAT);
-> > +		syndrome = CDNS_ECC_ERR_STAT_GET_SYNDROME(reg);
-> > +
-> > +		err_addr = readl(priv->io_base + CDNS_ECC_C_ERR_ADDR);
-> > +
-> > +		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci, 1, err_addr >> PAGE_SHIFT,
-> > +				     err_addr & ~PAGE_MASK, syndrome, 0, 0, -1, mci->ctl_name, "");
-> > +	}
-> 
-> [Severity: Medium]
-> Does passing err_addr >> PAGE_SHIFT directly to edac_mc_handle_error()
-> miss the physical memory base offset?
-> 
-> On Renesas RZ/N1 (r9a06g032), system DDR starts at physical address
-> 0x80000000, while the Cadence/Denali controller logs 0-based DRAM offsets
-> in CDNS_ECC_U_ERR_ADDR and CDNS_ECC_C_ERR_ADDR.  cdns_setup_mc() fetches
-> the /memory resource into res and enables SCRUB_SW_SRC, but discards
-> res.start and leaves mci->ctl_page_to_phys unset.  Without adding
-> PHYS_PFN(res.start), edac_mc_handle_error() reports a 0-based PFN and
-> edac_mc_scrub_block() fails pfn_valid(), silently skipping software ECC
-> scrubbing.
-> 
-> [ ... ]
-> > +	reg = readl(priv->io_base + CDNS_ECC_STAT);
-> > +	if (!CDNS_ECC_STAT_IS_ENABLED(reg))
-> > +		mci->edac_cap = EDAC_FLAG_NONE;
-> > +	else
-> > +		mci->edac_cap = EDAC_FLAG_SECDED;
-> > +
-> > +	mci->mtype_cap = MEM_FLAG_DDR2 | MEM_FLAG_DDR3;
-> > +	mci->edac_ctl_cap = EDAC_FLAG_NONE | EDAC_FLAG_SECDED;
-> > +	mci->mod_name = pdev->dev.driver->name;
-> > +	mci->ctl_name = "cdns-ddr-ctrl";
-> > +	mci->dev_name = dev_name(&pdev->dev);
-> > +	mci->scrub_mode = SCRUB_SW_SRC;
-> > +
-> > +	dimm = *mci->dimms;
-> > +	dimm->nr_pages = PFN_UP(mem_sz);
-> > +	dimm->grain = 4;
-> > +	dimm->edac_mode = EDAC_SECDED;
-> 
-> [Severity: Medium]
-> Should cdns_setup_mc() set dimm->edac_mode to EDAC_SECDED and continue
-> probing when CDNS_ECC_STAT_IS_ENABLED(reg) is false?
-> 
-> When the bootloader has not enabled ECC, mci->edac_cap is set to
-> EDAC_FLAG_NONE, but dimm->edac_mode is still hardcoded to EDAC_SECDED.
-> Because EDAC sysfs exposes dimm->edac_mode via dimm_edac_mode, userspace
-> monitoring tools will see SECDED reported as active while the driver also
-> requests the ECC interrupt, unmasks CDNS_ECC_INT_EDAC, and exposes debugfs
-> error injection on a controller with ECC disabled.  Failing probe with
-> -ENODEV (as documented in Kconfig that ECC must be configured by the
-> bootloader) or setting dimm->edac_mode = EDAC_NONE would avoid reporting
-> active ECC.
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261118-paul-v7-3-rc1-edac-v8-0-ed791084cc19@bootlin.com?part=2
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
+com/lemans.dtsi
+> index 20f329c0df751..be71eb30f9979 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> @@ -3127,6 +3127,8 @@ adreno_smmu: iommu@3da0000 {
+>  				     <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
+>  				     <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
+>  				     <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>;
+> +			interconnects =3D <&gem_noc MASTER_GPU_TCU QCOM_ICC_TAG_ALWAYS
+> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+>  		};
+
+[Severity: High]
+Should this interconnects property be placed under &adreno_smmu in
+arch/arm64/boot/dts/qcom/lemans-embedded.dtsi instead of lemans.dtsi?
+
+Commit 1f90a2bab7f6 ("arm64: dts: qcom: lemans: Move platform resources into
+lemans-embedded.dtsi") moved the RPMh interconnect binding headers, the
+gem_noc and mc_virt provider nodes, and &adreno_smmu's clocks and
+power-domains into lemans-embedded.dtsi so that
+arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi can include lemans.dtsi directly
+with SCMI-managed resources.  Adding these RPMh macros and phandles to
+lemans.dtsi breaks compilation for any target that includes
+lemans-gearvm.dtsi because neither the macros nor &gem_noc and &mc_virt are
+defined there.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-smmu_inter=
+connect_addition-v4-0-cab8ee8be0b3@oss.qualcomm.com?part=3D4
