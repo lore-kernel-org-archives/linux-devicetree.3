@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795174175;
-	b=d2NWhul7ZmrdDQZHHQ5kvz2y9ofMWgtfNq3T5a5E1K4/XKzjzwW/IcvJw8kAewog3FiL
-	 +08aSV7gYWss3NVKBlVWl/1AeptYT/1qCnAXkoj2nZsFPhFWgnZAnl1o9uLH/VD4SriZX
-	 I6te66rX4ZyxA5idkmO/y0FQ4YAi1cTwAerzIV8eNt34rlhrKYiXWMPMNB8OyH0pCkq7+
-	 /2Qx2vR+HzLYZXsdxKwYvxhpq7amvwsoMhLs7HQHbhAsEvUijlvUC/AjAeUkTwVIjBPg/
-	 1FeYA5s9v56r8IPe7OOGhkWUJgqIx4ovOyNXM9WTQ3fDBAzof24pVYjHd6GcmwdkzQQ==
+	b=tLgrNWnoiYnGKAyP+NIBlH4McCGs/9tMcisG6pVzDDfT3XKACR3A9e5Uhs6njer0fKSV
+	 bYWf/Q54mD9lqGZU0b+KERxaVtsssGdPNgZUYzjXZd+llMM9x0SZfQoMBanmckvBuqIxw
+	 i7NX83fmlLFjWA2qoNPf/t2idOwRB2Rw0obiFgto8qATl1TNteVmGQL7vVt1rwWI5mX+n
+	 Gyu1y/iucBc485gUOVOsvGM4W8H1IiOKTNRCeiY7T7VbCONsilrUVo9mUEv9J8xGSaHtZ
+	 G1CUo3LQtCFJXdTG7QfDBkYL0PyJ8IHBbWyWbtpTF3Q5MZb2mLRIjrCPnluB+qeAqKw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795174175;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zAaeGVyqVz3bkg6eZ61u/OG4LXpT7rtg0stES936Tjw=;
-	b=HM5R2RMyD3bJgCPHD1a61Q1sHKqxcE40fUhmxBTAncNUTB85TnBXiTE0wRlMciqlqnkV
-	 aUi2GETIoO8Qk5yS5wiHFNxvzZ9yO9zYydl+idlBL1V5gNezPs4TDq7H0Ep2W3BzaQH8b
-	 LOdzSTSl6IlfCL4jp2u0L4pZY3j5l6MF0rhWK+BYt7E7xZvLh/UfP36Fc3mQ/sQvAuKKz
-	 GZSye4cyML6+aM2GntCWQSCoL7ltntq2qj9io2Zthuwwg83oQUXOXwPTQrI5RxSw9zsFE
-	 GNiKQjhWEs9aVjBD8EObDoRLtZi97JbPla1ha3FRGQwH+uOvaOU/TshLqms6IpnYaTQ==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=rlJc4keRK6GaSsiQevuIQLXi+2Lt/suk1mQdTtafZTM=;
+	b=q+Oy6D28TxSlkr3WaUShvlqWKFWyt4zIMXpL1Zy2aQCHECog3lKhuMVveR3NmH8OzST3
+	 2WEEWgAjHJZN44E5dR4Jv5ESC33s5OZ7DmpKLBdENe+kuP8WovTg3qAPDS9I8T5V1IEPc
+	 lEx5GOokXOnfPQBi0cIzg0YNjtlagQGkUXBalkWeZPKsxw5nKygp6RNj5LtgvTXbJrOPt
+	 P5Z6nALq8Eoo7xg2yWg9cp7QwfgQLquvtYV90fRfVqdywvfZVElLg2aafzz1v8BoPnpUH
+	 sBDir0mB4/tK3O2oNRXvmuNDhDH6cmLTMoqesHqqOZXuoh/GzwTcgUwY7rGpXxR6ceg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBqwKvDH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+qDtJPx;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8352160A2606;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08905606A331;
 	Fri, 20 Nov 2026 11:29:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBqwKvDH
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+qDtJPx
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795174175;
-	b=Hfrw0J3h3GtvAPgvgOrbb38egiZoMJIxYqwbiqeuyBZ2V66QngO00C+uqMPZKjMTcz0p
-	 SJs+5m6S0+44GMQtmjP7GJqDAGlNQIzzpJei9F5lMK+gnZdz9fkF3IomZumFmUbuMZ1qm
-	 Lx3k46ZPzwxwQI+6JufX2D8I5qVc8bwGdx6OHxsdSx0G7A6l+XF4xTWXNUu4WIl9cYo3w
-	 7Ncf///Q8C/6LxIm0D8QVBN+DZBbSwEwI/13A4cDYeLpq/pOsJGkRQP3lRekTApXy0T4b
-	 RpQM9gq7aSko72EM6kVJorSfQdGp1/rJhEU1cZDGNvXi3ID6LLG60fwsaqFaiX/JSFg==
+	t=1795174174;
+	b=xi4LXMD9JNPiJBJgCm5nW7KWPzSbomuM0384c0Hn+4E2H6+DGLcbQWU+jyhJujBETRAR
+	 X26xVWvrzemo7SDmvbGIr+INDzVRfOTu/IYpLOw2WU9CLnMIIHRREInp7fY5rcnnZ2LC/
+	 gvF7N3FT3cF8pMCHLpPaIc49xIOIpUuY2kUmifvHPYp68RyorVg0M29o9g3gFGcSQEm5M
+	 YYF8mp8FVMefRbTcxTvX2RKavGaLL7APwyqoXoWJPJ6F1xC4Laww5Y+swtU2z6RnqaXE1
+	 AhRcLIiZ5UkwohpTZPz/UCcvYg3fLUm58SxLgMF+qQGNdt1hBcvB4wqecGSRvciDJBw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795174175;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zAaeGVyqVz3bkg6eZ61u/OG4LXpT7rtg0stES936Tjw=;
-	b=qrFilcybLRll4EB3tMddaE2aQtUH9gI0VziViZbOwGUL9gEfFbfaRpCBgV3zmD5awK5t
-	 0f7zaEX2wZCQQBaCZKirqNNPH1NOYfatszZg8+RTnbstebKJA1zND7BPxwxtZjao8cGx2
-	 tCCuZkXKJCMOVdFvvE/GAoHO/RW83aEoXFcw0vz3a+yAo20rgL0K04y2u5cTmXzoJKNOR
-	 pVMzDhBze0SUvkY81K0UwNj42YBdIwfnQZEMGeOLQXrg7L2Xf3Kb8QlJD7yB+gFtmS/PQ
-	 fR/y5D5hF+zTM0P6A+L6gYSn1n/fC9BLkjFLJ9tflM4y1dPSRvJqhuBPY+Cv82M5eEQ==
+	c=relaxed/relaxed; t=1795174174;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=rlJc4keRK6GaSsiQevuIQLXi+2Lt/suk1mQdTtafZTM=;
+	b=rn0xJV7FcXEAOg5JDMp8P52f7j2ac5BPY+RFhRINz418+gio2zt2VYzXTXBnl4gjz4nu
+	 OvkXsPgJFV21SEry37m6f9Rj2AmTuGTJprG2CBaEYuJjRfyBNttfESGuUIP5OnJOfZf2s
+	 WN4MrwdBTamOUdskKggBI0XcPt8GXV7+iU2mHYN6ibF66Mt7OzmV6PRojJX/grj98PGsz
+	 zSv3ifaS3U76GFBJKVGrlr9lK1NDlyTuDxX4GpbNYMV1XEYeKmpgzL+SdtjigBv44O+fu
+	 N+uXE1yf0jjbt+Or20TdXhogLlSQ8yCMm+xE3pndclQndccchSXvC8de+u6ZBKxfP5A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C356D1F00AD3;
+	by smtp.kernel.org (Postfix) with ESMTPS id 85C321F000EF;
 	Fri, 20 Nov 2026 11:29:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795174175;
-	bh=zAaeGVyqVz3bkg6eZ61u/OG4LXpT7rtg0stES936Tjw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=mBqwKvDHEDvCmhr1NpijwUIj6E49vTV13k6ss45aHB++9ygqOJdTwTQTJSL0KeBFs
-	 Me44vnX94/eQ0JCDURZUp1W9t+lZ7mpoeGJb9QxEF444Ij1/v8o8GJPOysw20wmYah
-	 Zl2T4L0J4tzcViG3UoOipoWI9C4IRLIamnLV7ZVX+kcSd7kjbc6uPGKWpHJKZq0iDK
-	 ZpPyqinbatkro8uemue1K/JbEDy0sS85USld9m4JlWE9seKGu0KcGtheyH4BVhO2zh
-	 rgxioxlbxc+KI3vALRM13DNUXLLqWyVpaNsTd91U8NuTD8qqaRMaZ3vObChg4iCWuL
-	 +ulkmX580XvoA==
+	s=k20260515; t=1795174174;
+	bh=rlJc4keRK6GaSsiQevuIQLXi+2Lt/suk1mQdTtafZTM=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=g+qDtJPxdC0ZXfU4aB4m1RLmeGPhux4kX39vWLgnyTFwE6rXZnosHsHMtdocA82UI
+	 gGl6h7A+CWt1Ku99Z3DR35ykzAXCKcsuyhdc1wgMoS70f/jCeM2/+XiaXpMlPaiGRP
+	 hZSVLu2/ZU3J6mAuMWc5HbeKhONpo5mRgWxnxRfsJh2SSmIFkGytn6OU7YC6Fesru8
+	 9fEG1pk6Ro4ZipOYcsORcjX/wt6fPo4fwxJqxEockw3BIujOkMwrO5cqW95s6qRk22
+	 rYBcgIqqI1eeU43u79vAhCdNeevVNKfNhiOcO2Ma4BcZSiuBmksXYEwiPrJsDVrvLC
+	 /RAKFvIbyrVrg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5087F4984D;
+	by lkml.kernel.org (Postfix) with ESMTP id 12C8049849;
 	Fri, 20 Nov 2026 11:29:24 +0000 (UTC)
 From: ILYAS NHASSE via B4 Relay <devnull+ilyas.nhasse.skf.com@kernel.org>
-Date: Fri, 20 Nov 2026 12:26:48 +0100
-Subject: [PATCH 2/2] iio: adc: ad_sigma_delta: support devices without RDY
- interrupt
+Subject: [PATCH 0/2] iio: adc: ad7124: support boards without RDY interrupt
+Date: Fri, 20 Nov 2026 12:26:46 +0100
+Message-Id: <20261120-ad7124-no-irq-v1-0-7826c5c3fd25@skf.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,9 +84,11 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261120-ad7124-no-irq-v1-2-7826c5c3fd25@skf.com>
-References: <20261120-ad7124-no-irq-v1-0-7826c5c3fd25@skf.com>
-In-Reply-To: <20261120-ad7124-no-irq-v1-0-7826c5c3fd25@skf.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHYuAGsC/yXMTQ6CMBBA4auQWTtJ/5DEqxgXpTPgsCjSqjFpe
+ ncKLr/FewUyJ+EMt65A4q9kWWODvnQQnj7OjELNYJS5amUVehq0cRhXlLQhMVnTE3vnA7TmlXi
+ S3/m7P/7On3Hh8D4mUOsO9FM0enEAAAA=
+X-Change-ID: 20261030-ad7124-no-irq-ded325dea4ac
 To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
  Michael Hennerich <Michael.Hennerich@analog.com>, 
  Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
@@ -97,160 +99,65 @@ To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
 Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, ILYAS NHASSE <ilyas.nhasse@skf.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795174009; l=4847;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795174009; l=2214;
  i=ilyas.nhasse@skf.com; s=20261120; h=from:subject:message-id;
- bh=HkzT/yb82j6rKe0Wh5OPBoTT821E9QupBRs1skXiPo8=;
- b=1hP85xBznH4d7TuSarorWfpu5RkjyLmNxMEGy/wG2fGuVOF8OGKDMx2pJuvSvMecBgFRcDdHt
- l6yYl1GYOS3CNszA/vey0D5HX3jz7VB36TNdhCDfrkmzi2nGwN9Av7s
+ bh=bCTZjYQqzky+qnBbt4zskphWPNqvvqYylRoFceegAkA=;
+ b=XrY+1DgQTQzurTiTdSTmcm2xbCafCOp+fgphvI9Sdr68cWSlgcAzHQ0S0v3/6l961U9KUrQW9
+ DiR4X2m1IMFBZIeDWzoRtypKA/63hisWMA2Bnf8KTVotSgINX18KNV4
 X-Developer-Key: i=ilyas.nhasse@skf.com; a=ed25519;
  pk=DeEyhWzUoP0HCAWFV/8oy5EFF+41tZxPpWZhfGyiMS4=
 X-Endpoint-Received: by B4 Relay for ilyas.nhasse@skf.com/20261120 with
  auth_id=1581
 X-Original-From: ILYAS NHASSE <ilyas.nhasse@skf.com>
 Reply-To: ilyas.nhasse@skf.com
-Content-Transfer-Encoding: 8bit
 
-From: ILYAS NHASSE <ilyas.nhasse@skf.com>
+Boards may wire the AD7124 DOUT/RDY pin to the SPI MISO line only, for
+instance when the ADC sits behind a digital isolator that carries just
+the SPI signals. Such boards can't use the driver today: the binding
+requires an interrupt, and the sigma-delta core can't probe without one.
 
-The end of a conversion or of a calibration is detected with the DOUT/RDY
-interrupt, so a device whose DOUT/RDY pin is only wired to the SPI MISO
-line can't be used, although its status register reports the same event
-in its RDY bit.
+The end of a conversion or calibration is also reported by the RDY bit
+of the status register. Analog Devices' no-OS driver waits for AD7124
+conversions and calibrations this way (ad7124_wait_for_conv_ready()).
 
-For devices with registers but without interrupt, wait for RDY in
-ad_sigma_delta_single_conversion() and ad_sd_calibrate() by polling the
-status register, with the same timeouts as the interrupt-driven waits.
-As with the interrupt, the bus stays locked and CS asserted during the
-wait, and ad_sigma_delta_clear_pending_event() has drained any older
-result beforehand, so the RDY bit seen by the poll belongs to the
-operation just started. A timeout is reported as -ETIMEDOUT.
+Patch 1 makes the interrupt optional in the AD7124 binding.
+Patch 2 lets the sigma-delta core poll the RDY bit when there is no
+interrupt, for single conversions and calibrations. These devices then
+only support direct mode, as the RDY interrupt is the only trigger of
+the triggered buffer. No AD7124 driver change is needed.
 
-The RDY interrupt is the only trigger source of the triggered buffer, so
-devm_ad_sd_setup_buffer_and_trigger() sets nothing up for these devices
-and they only support direct mode. Registerless devices still require
-the interrupt.
+The polling applies to every device with registers, but only the AD7124
+binding is relaxed: the other bindings still require the interrupt, so
+boards using them are not affected.
 
-Each poll is a SPI transfer, so poll every 20 ms: this delays the
-detection of the end of a conversion by at most one period, a fifth of
-a conversion at the AD7124 default output data rate of 10 SPS, while
-keeping the bus traffic, and the CPU time of PIO SPI transfers, low.
+Open questions:
+- Poll period: 20 ms, a fifth of a conversion at the AD7124 default
+  10 SPS. On our board the SPI clock runs at about 6 kHz through the
+  isolator and the controller uses PIO, so each status read costs about
+  2.7 ms of CPU time and the period directly sets the CPU load during a
+  conversion.
+- Should polling rather be opt-in per driver, with a flag in
+  struct ad_sigma_delta_info?
 
-Nothing changes for devices with an interrupt.
+Tested on a TI J721E based board with four AD7124-8 on one SPI bus
+behind an isolator, without RDY interrupt: direct reads of all channels
+with an equivalent implementation on a v6.12 based kernel. The polled
+calibration path is build-tested only.
 
-Signed-off-by: ILYAS NHASSE <ilyas.nhasse@skf.com>
 ---
- drivers/iio/adc/ad_sigma_delta.c | 47 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 41 insertions(+), 6 deletions(-)
+ILYAS NHASSE (2):
+      dt-bindings: iio: adc: adi,ad7124: make interrupts optional
+      iio: adc: ad_sigma_delta: support devices without RDY interrupt
 
-diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_delta.c
-index 119ddc5a1..546135995 100644
---- a/drivers/iio/adc/ad_sigma_delta.c
-+++ b/drivers/iio/adc/ad_sigma_delta.c
-@@ -17,6 +17,7 @@
- #include <linux/find.h>
- #include <linux/gpio/consumer.h>
- #include <linux/interrupt.h>
-+#include <linux/iopoll.h>
- #include <linux/module.h>
- #include <linux/property.h>
- #include <linux/slab.h>
-@@ -43,6 +44,8 @@
- 
- #define AD_SD_REG_STATUS_RDY	0x80
- 
-+#define AD_SD_POLL_PERIOD_US	(20 * USEC_PER_MSEC)
-+
- /**
-  * ad_sd_set_comm() - Set communications register
-  *
-@@ -347,6 +350,22 @@ static int ad_sigma_delta_clear_pending_event(struct ad_sigma_delta *sigma_delta
- 	return ret;
- }
- 
-+static int ad_sd_poll_rdy(struct ad_sigma_delta *sigma_delta,
-+			  unsigned int timeout_us)
-+{
-+	unsigned int status;
-+	int ret, ret_read;
-+
-+	ret = read_poll_timeout(ad_sd_read_reg, ret_read,
-+				ret_read || !(status & AD_SD_REG_STATUS_RDY),
-+				AD_SD_POLL_PERIOD_US, timeout_us, false,
-+				sigma_delta, AD_SD_REG_STATUS, 1, &status);
-+	if (ret)
-+		return ret;
-+
-+	return ret_read;
-+}
-+
- int ad_sd_calibrate(struct ad_sigma_delta *sigma_delta,
- 	unsigned int mode, unsigned int channel)
- {
-@@ -370,6 +389,11 @@ int ad_sd_calibrate(struct ad_sigma_delta *sigma_delta,
- 	if (ret < 0)
- 		goto out;
- 
-+	if (!sigma_delta->irq_line) {
-+		ret = ad_sd_poll_rdy(sigma_delta, 2 * USEC_PER_SEC);
-+		goto out;
-+	}
-+
- 	ad_sd_enable_irq(sigma_delta);
- 	time_left = wait_for_completion_timeout(&sigma_delta->completion, 2 * HZ);
- 	if (time_left == 0) {
-@@ -447,12 +471,16 @@ int ad_sigma_delta_single_conversion(struct iio_dev *indio_dev,
- 
- 	ad_sigma_delta_set_mode(sigma_delta, AD_SD_MODE_SINGLE);
- 
--	ad_sd_enable_irq(sigma_delta);
--	ret = wait_for_completion_interruptible_timeout(
--			&sigma_delta->completion, HZ);
-+	if (sigma_delta->irq_line) {
-+		ad_sd_enable_irq(sigma_delta);
-+		ret = wait_for_completion_interruptible_timeout(&sigma_delta->completion,
-+								HZ);
- 
--	if (ret == 0)
--		ret = -EIO;
-+		if (ret == 0)
-+			ret = -EIO;
-+	} else {
-+		ret = ad_sd_poll_rdy(sigma_delta, USEC_PER_SEC);
-+	}
- 	if (ret < 0)
- 		goto out;
- 
-@@ -466,7 +494,8 @@ int ad_sigma_delta_single_conversion(struct iio_dev *indio_dev,
- 		&raw_sample);
- 
- out:
--	ad_sd_disable_irq(sigma_delta);
-+	if (sigma_delta->irq_line)
-+		ad_sd_disable_irq(sigma_delta);
- 
- out_unlock:
- 	sigma_delta->keep_cs_asserted = false;
-@@ -816,12 +845,18 @@ static int devm_ad_sd_probe_trigger(struct device *dev, struct iio_dev *indio_de
-  * devm_ad_sd_setup_buffer_and_trigger() - Device-managed buffer & trigger setup
-  * @dev: Device object to which to bind the life-time of the resources attached
-  * @indio_dev: The IIO device
-+ *
-+ * Nothing is set up for devices with registers but without R̅D̅Y̅ interrupt:
-+ * they only support direct mode, with polled conversions.
-  */
- int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indio_dev)
- {
- 	struct ad_sigma_delta *sigma_delta = iio_device_get_drvdata(indio_dev);
- 	int ret;
- 
-+	if (!sigma_delta->irq_line && sigma_delta->info->has_registers)
-+		return 0;
-+
- 	sigma_delta->slots = devm_kcalloc(dev, sigma_delta->num_slots,
- 					  sizeof(*sigma_delta->slots), GFP_KERNEL);
- 	if (!sigma_delta->slots)
+ .../devicetree/bindings/iio/adc/adi,ad7124.yaml    |  1 -
+ drivers/iio/adc/ad_sigma_delta.c                   | 47 +++++++++++++++++++---
+ 2 files changed, 41 insertions(+), 7 deletions(-)
+---
+base-commit: 7d80b4b383bc53b48abd3a30ca4a91cdab568bfa
+change-id: 20261030-ad7124-no-irq-ded325dea4ac
 
--- 
-2.43.0
+Best regards,
+--  
+ILYAS NHASSE <ilyas.nhasse@skf.com>
 
 
