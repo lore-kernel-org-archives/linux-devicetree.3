@@ -1,57 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795167181;
-	b=h5at0wuGPnoUzPINytGKUralnPI0cTZ4YkeS9fv4G6POpG6IXTziZ5LTQnsxIYUkcAo+
-	 0T7vLsHy0VXbB7Kv3HpONiZvMKongQtxSJwj+Nau8a4pIULj88r5dbpNVbyHSkzE6rXml
-	 gUekmEGuyMLe27GYYDhFEX6ii27aeApQdZrDE4jD1j8oxFbH4HfYJFZC18FZWN1pZV3WV
-	 0yHldwrzXk0ZzLhckI/0JXULTGENMZ7ktNucqCbOK67pKuXIOmd09jRk7MdwUHyomn81X
-	 u2ns11xRNSl9d8vN/Rz/z42ypLfX2rvLQZq5Rla9HLMI7E3cLNs3RNal07xMfmiLA8A==
+	t=1795167260;
+	b=xyuzMvbUnkYV9Ya5GOSzCHr54Xf9C/kwl2Jtd6gLUAtHO9sP0hDDpeS3MYF+qsXKHueA
+	 dqvw0EcKFBIA07c3uoTxPhWwag0SPqWTk1rURTzAZoWt6qERlJKPPH0PuMGGhD1lf+HDh
+	 W0eqJkp/5qIWjCGmQhKfkPCcRmamf1xfXet0077/AW2WZeKMV5j7bOR14aNk48XfxnhSB
+	 fRg8IQB7oUuv0yjE3tVCUTj91n+zo4QS7rmHRcEMRif/fAidot7xR8ABMbw4h0EaZjLla
+	 LYCZ0+qVsZMtDB3WV1FVoOS2kwD04gXmXWFHeMKyY/725xQcrzTM0hKJ2vDhiB5888w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167181;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iGBX4zPdjrEicp5vNcMxh0PDlqBYs9v7+a6bzr8K3yo=;
-	b=RMSsZ52CRrbAn+NkoWamT0zrftRt3250yvggg+wPvYDaXH0w3pWNJxs0sigOCziX2zla
-	 FbJWD+NJ2h7aj3raOajUyDcMjUA4XgR+zVrXOqOHb12GFneWztsW/DIQsEKmuzBvIE4OS
-	 j4a29dPZc5m8LeotDlaRlx+4SXjxebIP/b2RAsOpRAMunfOzF58OamHpLBcm9hvA31VlN
-	 9KdvmKtwbE2s6rffzUiy76F3iZB6zenQ0/BZMBIOBGjMYI3kb7385KsRiiXy+lO9ND2Ny
-	 fwNcGgEqmv3R2G/C3mY9xZOHkEylpymgl9dMZkWdbb47GTD9JJHS29OzBUBNreWtuMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167260;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=cm66rIDm0mspQZkDd07/nYM38ZnF3/ekQp9ChnXHpk4=;
+	b=JCzmCKBGDqupMDhYA14eelV3DDmNID/yJ90/JAj0Tbf2O+7wbEHi/Y8NKFV/PKy8TReB
+	 WJiM55ocvnnMyYyXJyKA9QfIMJjo4LdfTIOfo57DsHRohrvfeW5zA+wWKIqdUU0YpCtAm
+	 7WuxvDQcMRdZSK2kIlkL64fAnyeU9zWXY62Xco0HwLme65t3aDujvcH4pcd0eVjyWl4HN
+	 4gCYXFs4xMNCHvk2ot2evKc5kZYqh8+VetU9qbrk1rpNe9swVa4APL16mIhh3fFna06Js
+	 t6kZv/admwYlK4BoMUThhxNIfIApL0N0LV/vB0gmh3LlqYi+OdljYWyfjmoFMyxtaXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RpKvmHsM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=EYfbxfWc;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A19D606A326
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:33:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C846606A32C
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C846606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RpKvmHsM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27E61F000CF;
-	Fri, 20 Nov 2026 09:33:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795167180;
-	bh=iGBX4zPdjrEicp5vNcMxh0PDlqBYs9v7+a6bzr8K3yo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RpKvmHsMoQofwWM3J1aUHRccwh9hJ6tfZSjfS0fDYvqiQ/1EiZSoEy0cRqkIkGYZT
-	 Wr8Us8wxTk5Nfbxp6/qNbxEToPadlvj+gv/ze0LN2V2I9mY8UgDwnPyKJBS06N3qo4
-	 rCdADBdH37FxrSM+xrjXOqUU92NBgpqMrITAi1F35IcljAKUqWRvGt477kTF6FuWWO
-	 USZSbVVi39JDpc3Pc7ZlnO/vm/pwSFM6o3xYt5jBXsy6X4EKn3sGFsinoVwttc8xtc
-	 so0MRM6eTPHny0VrMb/MTIFHYFV5G1G9xkhL/rOGj/qfbCWcAVeQUjKguY6QN+kGMj
-	 Tyc/LbTNzvPOg==
-Message-ID: <sashiko-outbox-224858@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 5/7] net: ftgmac100: Require phy-mode for
- AST2700
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jacky Chou" <jacky_chou@aspeedtech.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119-support_ast2700-v7-5-33c8ca2d0dd7@aspeedtech.com>
-References: <20261119-support_ast2700-v7-0-33c8ca2d0dd7@aspeedtech.com>
- <20261119-support_ast2700-v7-5-33c8ca2d0dd7@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 09:33:00 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=EYfbxfWc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=cm66
+	rIDm0mspQZkDd07/nYM38ZnF3/ekQp9ChnXHpk4=; b=EYfbxfWcu9Jo7SpjGnsX
+	HqFU9vohB3/40LCwE0O4/pYOAXqwoztdZxpdU1iPcYpiR8HSJpNfTefJiETTeO83
+	VJm+sX8kUj51mJM+H75N7htaWItwTXLrw/Y+jLZi/Cns/Kz8XrMADMrHW9OYqFhB
+	xyMQmm5fo8KHOte3sln7SgYNBuNUgowgd9/ZWbf1RepgVbFPyzt2EgzgieP7++/M
+	jmCv2gjh+cRxVBqaGiAi2niKBoig6ZMYG/vNReNseMxnWSLrapr9s7jZKFtax09v
+	J5qqDYp3FAgORaz+upSOq4vXlOT/0EHORBceo30RknlWCIaJmiQU71QG4utjQL7t
+	EQ==
+Received: (qmail 1417621 invoked from network); 20 Nov 2026 10:34:16 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 20 Nov 2026 10:34:16 +0100
+X-UD-Smtp-Session: l3s3148p1@W8ul8rFgZt4ujnuU
+Date: Fri, 20 Nov 2026 10:34:14 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: khendry@reliablecontrols.com
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	=?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH 6/6] ARM: dts: renesas: r9a06g032: Add resets to mii
+ converter
+Message-ID: <awAUFvXzkAlHMOsw@shikoro>
+References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
+ <20261119-rzn1-miic-resets-v1-6-feee2bb28bb4@reliablecontrols.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,65 +84,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0VmP1Vxr58+Mf2ir"
+Content-Disposition: inline
+In-Reply-To: <20261119-rzn1-miic-resets-v1-6-feee2bb28bb4@reliablecontrols.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] net: ftgmac100: unreachable AST2700 phy-mode check in
-  ftgmac100_mii_probe()
---
+--0VmP1Vxr58+Mf2ir
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit b86b29199842bf4516e7a704118276e8a5eb8767
-Author: Jacky Chou <jacky_chou@aspeedtech.com>
+On Thu, Nov 19, 2026 at 09:57:48AM -0800, Kyle Hendry via B4 Relay wrote:
+> From: Kyle Hendry <khendry@reliablecontrols.com>
+>=20
+> Add references to the resets in the system driver that the miic needs
+>=20
+> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
 
-net: ftgmac100: Require phy-mode for AST2700
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-This commit requires the device tree "phy-mode" property to be specified
-on AST2700 in ftgmac100_mii_probe(), returning -EINVAL instead of
-defaulting to RGMII.
 
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
-net/faraday/ftgmac100.c
-> index 9b7becb017262..5a578a62df673 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1526,8 +1526,13 @@ static int ftgmac100_mii_probe(struct net_device *=
-netdev)
-> =20
->  	/* Default to RGMII. It's a gigabit part after all */
->  	err =3D of_get_phy_mode(np, &phy_intf);
-> -	if (err)
-> +	if (err) {
-> +		if (priv->mac_id =3D=3D FTGMAC100_AST2700) {
-> +			dev_err(priv->dev, "phy-mode is required for this SoC\n");
-> +			return -EINVAL;
-> +		}
->  		phy_intf =3D PHY_INTERFACE_MODE_RGMII;
-> +	}
+--0VmP1Vxr58+Mf2ir
+Content-Type: application/pgp-signature; name=signature.asc
 
-[Severity: Medium]
-Can this FTGMAC100_AST2700 check ever be reached?
+-----BEGIN PGP SIGNATURE-----
 
-ftgmac100_mii_probe() returns -ENODEV right above this when !priv->mii_bus,
-and priv->mii_bus is only allocated by ftgmac100_setup_mdio(), which
-ftgmac100_probe() only calls for FTGMAC100_FARADAY, FTGMAC100_AST2400, and
-FTGMAC100_AST2500:
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsAFBYACgkQFA3kzBSg
+KbYx6w/+LrrsV2Dv4U+RN4ZZTaWUZoegihR9ijHXb1Y+KgI0n8aHjlp0SenehE/K
+FZaPUJEGMx6Dk2MmIU4IKHqjB9oC02IS0D7T6GRzPOTaHpXg014FQhVOXDDMOMD8
+wruMfqvaxyIqolSxfSWuAcvAPtJKGfR1Tw1MEFhmNfPZFeN0ChNni4UHNabWB/xK
+67ySya+itOctg3LnB0LbZBMjjHzBViagNsXTLsxzAZx8glCPsrs2FeWh6n4yFRyo
+VKhvTZRD6IxIn2jy9ijfLZ1z01/3u9mz0CiXBqcduL5UXyMbMhhUfpcuzkgHD2Ti
+IY+ZTqnql8kGZ86HaAsYMM2jCix3RlcI0KwrJBq0ONGVJe3DRiyN50oW5PTzj9xM
+jLJ9MGs2f/sq1AnMZPIhon1SLNuI804tEWHEjlXYSzzwY6nSyZa1cIe4vNJa2pJp
+8ugxKOGg9UZmfshjiJjyVrFcOJWYxYpwjsSmzio38qYloTJLhjnYtfhvt4J05pVa
+BA4hm/+CauVkreBEPXuY2zb5uHB4h3cDH1Yb3R99+BOrIAKceYEn98ttnY2hmbdD
+q4mVsx+8nD0QwtmwLinqdCHzI6K+iF5/VNiTGtt8ylj29hAkhiFS22LWwTVErAku
+H7I5Us6IYWf7KVI6hVw7rI8XYUok5xu2XWfw/EAZrJs3L638d2M=
+=0QzY
+-----END PGP SIGNATURE-----
 
-drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_probe() {
-    ...
-	if (priv->mac_id =3D=3D FTGMAC100_FARADAY ||
-	    priv->mac_id =3D=3D FTGMAC100_AST2400 ||
-	    priv->mac_id =3D=3D FTGMAC100_AST2500) {
-		err =3D ftgmac100_setup_mdio(netdev);
-		if (err)
-			return err;
-	}
-    ...
-}
-
-For FTGMAC100_AST2700, priv->mii_bus is always NULL, so
-ftgmac100_mii_probe() always exits with "No MDIO bus available" before
-reaching of_get_phy_mode().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-support_as=
-t2700-v7-0-33c8ca2d0dd7@aspeedtech.com?part=3D5
+--0VmP1Vxr58+Mf2ir--
