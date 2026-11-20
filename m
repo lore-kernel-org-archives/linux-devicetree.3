@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795197460;
-	b=nkZt+4xVcbiY7AgNUqQQf6KLM9loHkOBPJPXMcRcyKzf6c34WjX+/cpgVon8XbnHk4s8
-	 1yF4lifGWSa3e+GB2DehSaAX90giVrPOsYsrstqQD+yr9qLc6AE/aCIPrbGbZ47IjfhGa
-	 bhrWYZILpeTSIGrkES3MiOxoXR06CaGvJSpdUVK9IxUqSxKSsTs60YB4eXg4nHNjFJkfR
-	 8pqr5VM7iW623ZBOg+sFle5wUDJ5W2YjXiDveKcxVjB34E+EjDeZKLjHzfmgqqSphIQCi
-	 3vOgjWlTN7a3PkhQc+5cZKSrdz8xZkvKs8b5IL2rslr/iszrDzNGhXWqv6TCsOUnMDg==
+	t=1795197520;
+	b=WAJlEAN8H+mtMZN1SR9aKz24bEcsw7ul9As0hpDCRea1ovEjcBAEZZQdB4GCBzaADBqi
+	 Hb2OBZipTh10skL+fz3yEoRB14HE0x31FCOWeduyHDnm2mR2dfzqeRpThib2bdp6JsN2j
+	 qB4n4XHYjyfCWWwidAvckB7gFyT4KDbGFd1BMB29NU5g1XOgPcUbIA7H86t09pklWwmBb
+	 RtmneaQOEb33bCEF6HRrZJreYfYohcfeEGwZaeLn3menkZ8smEDAvCLXiGaOMNXNM3wTp
+	 lyoG+TZDyzyPntvwOTNDq7iKJDx3QQ7Cf2SR66gwR3uWTdQZhDu0IMWQVvy9YGj+Clg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795197460;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795197520;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ecLR1fN0Y+dJHROrUU5BBImS5TDB5ZusxNjERiW31Is=;
-	b=31cG1Bj7Za6Kme3Ohagx9EbB1emsp1SQwyz2erKLKR4KZOCZqMOEe52ST/z++U1r6RuM
-	 unK7GYheg51B0uT4Sg3XysgnqGp6CBqm4wmnfWxuR1oXkr1OlXxFHjlTBPxgYNfvnBfbh
-	 GmwyecbcuxbsfgPbkjltUC93iME4cW1JPdnYPTlG6kunh1Pk7goiKWNNMTEfvU7LmS8Du
-	 XmPKZuGx1e0yp+5vOuGDZjeHBrN9eRYsZqLOTu0vb0BBePC5ey2ooPIBwY84LsARyWrhB
-	 RhJZw/HA1KbJM9GjjdaRMCVgOwCBqEaAAJomKfhH0nVr1PD9jRkFvdfY38cnbfwzezQ==
+	bh=IALgOz8DPztQLfOLhC12cMAp4KPst8GZbAHpo+vCH24=;
+	b=A2pHTUV5YBGzd39SRtjOdrR0YxcroW+jnhmcpNPp6LA5w6qiLwhAbXnbHYdiy5NydY/Z
+	 TzlkPUq3IofOE9sOyH0XJmIUeDFCcXMmpi1IHQUHQZeQvX6VtorJq1b61kb8ueiln9dhB
+	 lYgKPJt3G3quz3YpI3WzjU5rvfIgaGkK3H+2fy/H/WWv/6VSFl2HlfnWHKXf4FU/N028X
+	 63LxUGlmzzgo428lW3WY4vVNvkEXOytq6BYqFWHr5+9NBafKEcKuYxaAl18kml+UoghCl
+	 4lUnPpegUMYX5eYYnixjQ6khp0aFtwlQxZPSID/FX5HJpu5Jew9yAcqKeVY+uqQnWSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBBM2iF7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3kxMamV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8711606A333
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 17:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD18B606A33E;
+	Fri, 20 Nov 2026 17:58:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBBM2iF7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8371F000C4;
-	Fri, 20 Nov 2026 17:57:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3kxMamV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40B11F000C6;
+	Fri, 20 Nov 2026 17:58:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795197459;
-	bh=ecLR1fN0Y+dJHROrUU5BBImS5TDB5ZusxNjERiW31Is=;
+	s=k20260515; t=1795197520;
+	bh=IALgOz8DPztQLfOLhC12cMAp4KPst8GZbAHpo+vCH24=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mBBM2iF7rgvKoWOTExwl2rbH1lkfqU7zFYuE3zhmmEk9LMOIx0TxR1K43es4BpQ46
-	 sUG3EBeZD5D1UebpZ5pEIGZyMk8xIBfPeVafh/APPRdH8Gx0E6SRykgv5qXkNR3FH9
-	 74GvRnMA8JajQjC+QqffFZnX0+pNCG/gqsT5dAROItSSgGVgC/ED6nBMICdYcWqbdQ
-	 bLMgXJBllOygUcM0z+dStRuZj9msDkQ/EZLdr60ab5iYDXXbT28Gs4YinttXSHXk0a
-	 Pb4agKaLmZgbyHkpSikh5mW3yPz/AeVoDrDo+6De/gJ/P+RSLS7kNo6Ki+ytCVWwNR
-	 KPagdp77r4zrA==
-Message-ID: <sashiko-outbox-225751@kernel.org>
+	b=B3kxMamV3NU2msuT8cSkG7LzoDLgbRigoFHBAa0teMJccXuiAGzuCJZzZXw1pD1pV
+	 KX3Y4iM3E3e9l+zjWFRqT4CgcHPnNMwGykfWqJPm+AFMXsBTzJzAS+e1US75QoJBu0
+	 Q0EYb5LzCx686YHjJB6YPsMNR8y3iBHRBhxFnanM8/tDO2PXHinWV+PpAw1SO5rMPu
+	 QDWbIib1pCmowTFb8NPoz1WBGN2Xzk25IRW5OgCS5SKyKmynSquLQX4mdMCc6mwOIO
+	 rm3IzAOUugsJKdxBRJ7vzdLHtqSoz7nWztqsyzTbVsGzBBKSmigk4LOSNg6eXFZ5VT
+	 Z1KEWx90fIgbA==
+Message-ID: <sashiko-outbox-225762@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] nvmem: aspeed: Add read-only AST2600 OTP support
+Subject: Re: [PATCH 5/6] net: pcs: rzn1-miic: Add resets to rzn1 info
+ structure
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Prasanth Kumar Padarthi" <prasanth.padarthi10@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261120174440.123487-3-prasanth.padarthi10@gmail.com>
-References: <20261113034213.158390-1-prasanth.padarthi10@gmail.com>
- <20261120174440.123487-1-prasanth.padarthi10@gmail.com>
- <20261120174440.123487-3-prasanth.padarthi10@gmail.com>
+To: "Kyle Hendry" <khendry@reliablecontrols.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20261119-rzn1-miic-resets-v1-5-feee2bb28bb4@reliablecontrols.com>
+References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
+ <20261119-rzn1-miic-resets-v1-5-feee2bb28bb4@reliablecontrols.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 17:57:39 +0000
+Date: Fri, 20 Nov 2026 17:58:39 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,157 +61,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] nvmem: aspeed: mix of guard(mutex) and goto cleanup in OTP
-  helpers
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] net: pcs: rzn1-miic: mandatory resets in
+  miic_reset_control_init() fail probe
+- [High] net: pcs: rzn1-miic: 1-based reset IDs fail
+  miic_reset_control_init() lookup
 --
 
-commit 34b51f06ae272e72e9e379fc1f5bbb493333d824
-Author: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+commit cf9182d3fcd65a07b7b29000ceaaa7372b1589dd
+Author: Kyle Hendry <khendry@reliablecontrols.com>
 
-nvmem: aspeed: Add read-only AST2600 OTP support
+net: pcs: rzn1-miic: Add resets to rzn1 info structure
 
-This commit adds a read-only NVMEM provider driver for the ASPEED AST2600
-OTP controller, masking the secure prefix with an NVMEM keepout and
-serializing hardware unlock, read, and relock transactions.
+This commit adds the "rst_ts" and "rst_miic" reset names and count to
+rzn1_miic_of_data so that the driver requests and deasserts the RZ/N1
+MII converter resets.
 
-Link: https://github.com/AspeedTech-BMC/linux/blob/769f62b7baa84d6998723b0e=
-a60280e380183553/drivers/soc/aspeed/ast2600-otp.c
-Link: https://lore.kernel.org/linux-aspeed/KL1PR0601MB3986A356BD06F98D0FF9A=
-D5E80792@KL1PR0601MB3986.apcprd06.prod.outlook.com/
+> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-m=
+iic.c
+> index f8bafce26bf13..38164502c08cf 100644
+> --- a/drivers/net/pcs/pcs-rzn1-miic.c
+> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
+> @@ -128,6 +128,11 @@ static const char * const index_to_string[] =3D {
+>  	"CONV5",
+>  };
+> =20
+> +static const char * const rzn1_reset_ids[] =3D {
+> +	"rst_ts",
+> +	"rst_miic",
+> +};
+> +
+>  static struct modctrl_match rzt2h_modctrl_match_table[] =3D {
+>  	{0x0, {ETHSS_GMAC0_PORT, ETHSS_ETHSW_PORT0, ETHSS_ETHSW_PORT1,
+>  	       ETHSS_ETHSW_PORT2, ETHSS_GMAC1_PORT}},
 
-> diff --git a/drivers/nvmem/nvmem-aspeed-otp.c b/drivers/nvmem/nvmem-aspee=
-d-otp.c
-> new file mode 100644
-> index 0000000000000..8a433dccaaaf0
-> --- /dev/null
-> +++ b/drivers/nvmem/nvmem-aspeed-otp.c
-> @@ -0,0 +1,297 @@
+[Severity: High]
+Does looking up rzn1_reset_ids[] fail in fwnode_reset_simple_xlate() when
+the eth_miic node uses R9A06G032_RST_TS (1) and R9A06G032_RST_MIIC (2)?
 
-[ ... ]
+include/dt-bindings/clock/r9a06g032-sysctrl.h defines R9A06G032_RST_TS as
+1 and R9A06G032_RST_MIIC as 2, while r9a06g032_clocks_probe() registers a
+2-entry r9a06g032_resets[] table (indices 0 and 1) with the default
+0-based fwnode_reset_simple_xlate().  As a result, "rst_ts" (ID 1) maps
+to r9a06g032_resets[1] (the MIIC reset bit instead of the timestamp reset
+bit at index 0), and "rst_miic" (ID 2) is rejected with -EINVAL because
+2 >=3D rcdev->nr_resets, causing miic_probe() to fail.
 
-> +static int ast2600_otp_init_keepout(struct ast2600_otp *priv)
-> +{
-> +	u32 conf0, unused;
-> +	int ret;
-> +
-> +	guard(mutex)(&priv->lock);
-> +
-> +	writel(AST2600_OTP_UNLOCK_KEY, priv->base + AST2600_OTP_PROTECT_KEY);
-> +	if (readl(priv->base + AST2600_OTP_PROTECT_KEY) !=3D 1) {
-> +		ret =3D -EACCES;
-> +		goto out_lock;
-> +	}
-> +
-> +	ret =3D ast2600_otp_init_read_mode(priv);
-> +	if (ret)
-> +		goto out_lock;
-> +
-> +	ret =3D ast2600_otp_read_pair(priv, AST2600_OTP_CONF0_ADDR,
-> +				    &conf0, &unused);
-> +	if (ret)
-> +		goto out_lock;
-> +
-> +	priv->secure_keepout.start =3D 0;
-> +	priv->secure_keepout.end =3D
-> +		FIELD_GET(AST2600_OTP_CONF0_SEC_SIZE, conf0) *
-> +		AST2600_OTP_SEC_SIZE_UNIT;
-> +	priv->secure_keepout.value =3D 0;
-> +
-> +out_lock:
-> +	writel(0, priv->base + AST2600_OTP_PROTECT_KEY);
-> +	/* Complete the lock write before returning and releasing the mutex. */
-> +	readl(priv->base + AST2600_OTP_PROTECT_KEY);
-> +	return ret;
-> +}
-> +
-> +static int ast2600_otp_read(void *context, unsigned int offset,
-> +			    void *val, size_t bytes)
-> +{
-> +	struct ast2600_otp *priv =3D context;
-> +	u8 *buf =3D val;
-> +	unsigned int word_index;
-> +	unsigned int aligned_word;
-> +	unsigned int secure_size;
-> +	u32 extra_read;
-> +	u32 word0, word1;
-> +	int ret;
-> +
-> +	if (!bytes)
-> +		return 0;
-> +
-> +	if (offset % sizeof(u32) || bytes % sizeof(u32))
-> +		return -EINVAL;
-> +
-> +	if (offset >=3D AST2600_OTP_SIZE ||
-> +	    bytes > AST2600_OTP_SIZE - offset)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&priv->lock);
-> +
-> +	if (priv->failed)
-> +		return -EIO;
-> +
-> +	/* SEC54 can grow after probe; keep the registered keepout immutable. */
-> +	extra_read =3D readl(priv->base + AST2600_OTP_EXTRA_READ_PROTECT);
-> +	secure_size =3D FIELD_GET(AST2600_OTP_EXTRA_READ_RANGE, extra_read) *
-> +		      AST2600_OTP_SEC_SIZE_UNIT;
-> +	secure_size =3D max(priv->secure_keepout.end, secure_size);
-> +	if (offset < secure_size)
-> +		return -EACCES;
-> +
-> +	writel(AST2600_OTP_UNLOCK_KEY, priv->base + AST2600_OTP_PROTECT_KEY);
-> +	if (readl(priv->base + AST2600_OTP_PROTECT_KEY) !=3D 1) {
-> +		ret =3D -EACCES;
-> +		goto out_lock;
-> +	}
-> +
-> +	ret =3D ast2600_otp_wait_complete(priv);
-> +	if (ret)
-> +		goto out_lock;
-> +
-> +	word_index =3D offset / sizeof(u32);
-> +	while (bytes) {
-> +		aligned_word =3D word_index & ~1U;
-> +
-> +		ret =3D ast2600_otp_read_pair(priv, aligned_word,
-> +					    &word0, &word1);
-> +		if (ret)
-> +			goto out_lock;
-> +
-> +		if (!(word_index & 1)) {
-> +			put_unaligned_le32(word0, buf);
-> +			buf +=3D sizeof(u32);
-> +			bytes -=3D sizeof(u32);
-> +			word_index++;
-> +		}
-> +		if (bytes) {
-> +			put_unaligned_le32(word1, buf);
-> +			buf +=3D sizeof(u32);
-> +			bytes -=3D sizeof(u32);
-> +			word_index++;
-> +		}
-> +	}
-> +
-> +	ret =3D 0;
-> +
-> +out_lock:
-> +	writel(0, priv->base + AST2600_OTP_PROTECT_KEY);
-> +	/* Complete the lock write before returning and releasing the mutex. */
-> +	readl(priv->base + AST2600_OTP_PROTECT_KEY);
-> +	return ret;
-> +}
+> @@ -855,6 +860,8 @@ static struct miic_of_data rzn1_miic_of_data =3D {
+>  	.miic_port_start =3D 1,
+>  	.miic_port_last =3D 5,
+>  	.sw_mode_mask =3D GENMASK(4, 0),
+> +	.reset_ids =3D rzn1_reset_ids,
+> +	.reset_count =3D ARRAY_SIZE(rzn1_reset_ids),
+>  	.init_unlock_lock_regs =3D true,
+>  	.miic_write =3D miic_reg_writel_unlocked,
+>  	.type =3D MIIC_TYPE_RZN1,
 
-[Severity: Low]
-This isn't a bug, but both ast2600_otp_init_keepout() and
-ast2600_otp_read() mix guard(mutex) with goto out_lock cleanup within the
-same function, contrary to the Cleanup API convention in
-include/linux/cleanup.h.  Moving the work performed while
-AST2600_OTP_PROTECT_KEY is unlocked into inner helpers (or using consistent
-cleanup) would avoid mixing guard() with goto labels and also share the
-duplicated unlock/relock sequence.
+[Severity: High]
+Will setting reset_count on rzn1_miic_of_data break probe on existing
+RZ/N1 device trees that do not have resets and reset-names properties?
+
+miic_reset_control_init() requests the resets with the non-optional
+devm_reset_control_bulk_get_exclusive(), which fails with -ENOENT when
+resets are absent from the eth-miic node.  Prior to this series, the
+renesas,rzn1-miic binding forbade resets, and in-tree r9a06g032.dtsi only
+gains them in a later commit in this series ("ARM: dts: renesas:
+r9a06g032: Add resets to mii converter"), so probe fails on older DTBs
+and at this commit during bisection unless the resets are requested as
+optional.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120174440.1234=
-87-1-prasanth.padarthi10@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-rzn1-miic-=
+resets-v1-0-feee2bb28bb4@reliablecontrols.com?part=3D5
