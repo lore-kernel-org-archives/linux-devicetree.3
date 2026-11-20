@@ -1,45 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795182424;
-	b=AP9d7ihEW2oEuzP97rAinDTkWaTKXpLPwClxSJYgytFMwNWdzcW9Qe+YUBPCBsT8s827
-	 jM3v8tFU2Nbn2ICQ0jpRKyCizUBqctrg9rMnEzlRevvEA0Fg0/vJiXFXROAYTtUNC03Vw
-	 VcPD1zMDZpjGWhmNA7PyuZWMEh2jqYZkCX3UOIQjnSBVwrTvASEiW420X7lam0v0w60V+
-	 nLFcgEZqgTgbVd2sL3CS214E0kH6BlRJPbGhHf9WEqJnDmlLwQufESbwR4oX2feXACBRv
-	 iUmJpAw7SCctX4oLUNH0838tVmNLBcQXUpbm9BF1aRnWZ73JONEjpUfdqJ5upkXbHrw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795182424;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=e+NSYRuHag+IOWBgljqQOHteMpeLzW97XrKZ6OmQSCU=;
-	b=uoLg5ZzaKnZxlBegybxEoolhV0vsdpKDu2kOxIQVtKUy8qfEk3kb/LW7qSrV7CXym5aB
-	 niA/JFqt//GynJTmFH1nBXcAvQxQYj68CEteFzDD2w0Wd4o9BJbBgSxF2Kb58bJl5WD9v
-	 zK1yHT/8m27/Qo0ug/uGXG9/uvIuws7L6YW09FwTuQ64OSOD+0Zc7+ZMWHRxBnA9mf5tj
-	 Me96PG2kul9zLSWCwfQmTnawQoWdGwn2c+G60S0P/BKVu1z4JDsP2S9VLF0/u9iAErsoe
-	 dTtRx9EPWlMlaX2JKnG4nzZPORQnH5JxBv/vt2KXk8aDsbmpIzH0oXUqF8SqOJYK1nQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zxr2wflH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795182547;
+	b=V3VJXbMTNWuz3cwXV77VteIOLZUxgWcoKAvHtcW6rslrQAtpqM4e4GdvKFgOW6orFCAc
+	 nI0ED7q9KVniI9HnliRWIP+tcKwElHn85BjiDHLKVwlinfYjv57WdmXaGRH+PR2T0yR3n
+	 3bKxWzDqPzQlBFq4/zMQ/1V5NI2mt9+IMS4gTdtFlPZKMf8tgfzKLDJiw6KLO/Y8Jj4SZ
+	 OzAO8GRO2ldfzg6YWfkfPfyo+IahFTlbR1QcWEMGhNOwJ/BrEVJYv+1JgJZkmVlRC3kYx
+	 Ak2KHPrMzLOZjZ0U5KkKZgI3IoSN7l2px7Fc+MjDggelwEl+rRRkGEuCmVT/6UnFU7A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795182547;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=PSHSxED65AnpWskI+zndcsoj9vhLG7Y6yB7a+EXXCRI=;
+	b=f8KZaoVaugPpiA0fseKhVdDvtQgQwq61j+Gv2x/uj5p570Hao4nTfIciL4Rr5ortmudV
+	 9q0arh9GbTKOvPfGwfihb+O/bs2GCkZ8TnRtDJ10eS2jHwKq2tMFo9csg62DT/8ORbuCk
+	 7cmQVMxCe5O4F11TdWAY4fv8Z3qModc5GMKUOKr/FawFVLs+rVKDCvCcejSpXsBfCNN5/
+	 tPwLY9y4IFswGrFc4BGR6hqeoovs1pS9jzsHtrxHnpe4mtcy4gKQacQbhmoW5La7BM1ff
+	 c38yK+0digVLwi2YR9t/G5eliehI1xjjW1Gf8+O/xuyrvuJUrO19PhotpQBdo9Tg2ug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YmrxRN5B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89371606A325;
-	Fri, 20 Nov 2026 13:47:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CAA606A326;
+	Fri, 20 Nov 2026 13:49:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7CAA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zxr2wflH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F8361F000D1;
-	Fri, 20 Nov 2026 13:46:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795182423;
-	bh=e+NSYRuHag+IOWBgljqQOHteMpeLzW97XrKZ6OmQSCU=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=Zxr2wflHUvrA37wDMKM2Z7eQAa9nPwD0aQjkjMf18UCgxZQCnSf/8TMo6xEMoe0D1
-	 pzlxcb2qM5YZgoUKFJPiSxQj/aDvTYWoyTd0uyvQf55HOer3Q3wBDivB2SrMo21bMp
-	 LECbNp3ZYl9rDuC6CwbxVCyCqchT2veIG87r1wYZQNCPqIYdu7z5qQ9zXG87Vp0Sea
-	 QoBOQII6Y36aa4kndLSaXtUisSr1Q+S1Gfs6lyRd1/zEMnuvooyd4ysuiz/Mo5SNRl
-	 Wuf3vh3pdobC2fQuCCRCK00jIFjag4rrIKyDl9Pa/AMhU3U3IRFJI7hO9ln92GdOP3
-	 zedUqYQedYCbw==
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YmrxRN5B
+Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C891C202284;
+	Fri, 20 Nov 2026 14:49:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795182543;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PSHSxED65AnpWskI+zndcsoj9vhLG7Y6yB7a+EXXCRI=;
+	b=YmrxRN5BlxHFPxY2kfXI38ZIFzr/mftDDptQVVgALq8EGk9KFpm/BSUUTumF7A8Lg40Z5t
+	voMLta3CKVM3VysCnjW4vOnfG5m0WR8auBgrCLd4902vrffq0E6qONyaZGNTDA9Wmssr0d
+	cxvfRY70R2A/nmWpFrfE4D/MpBNK+NQudVO2OtTMWrtHZqbj8qMzXXzVoYwzX1gG4K11Ei
+	PIecDc56J4CrUHlPxBLdHKAE7Sp0NZ3/CXF9b8Wa3Kjiec9xaMBNhIb0X8lq9InAkfvK2c
+	pOuVFmkOgf69YS+uGAdE4oELkAKSiMjCsyhMqRCq9sAR010D/CrwWmos3LAh9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795182543;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PSHSxED65AnpWskI+zndcsoj9vhLG7Y6yB7a+EXXCRI=;
+	b=RMJ//48gHnP/MWe0w62kRSDg6IbkJw6cekgiRaswZ9QGQZtBRCtu2/xUY9ch/Df8k5ktJV
+	EJ+pFcoz4KjIzNUYZ3OcA41zWU6kftNV/WgufDUgzDEneTy2XyoAmgszrHx3c/uBXXXa2R
+	QKh8NFp4tXVElNIGOwDY+4Ow1jnr2bNhM4N05Vr/dpX6ZxqTy7F97KM7MDPl/o0FlcU858
+	18u+v4coNkBtex8Tx+EPPEYZNPv5EZab4nptBKnbdaIFIrxOyU4ykp0yF0IMoo8nCo2OjO
+	0IKculyiRnGLXttfpTfWvGkyWUQiorjWNzWySMPu7zZjYOvyHZd258v48FRCzA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795182543; a=rsa-sha256;
+	cv=none;
+	b=f8N6LrVJ/HxgbB54m+tOKZ9deaW+Yb9M9s+xMyzEl6SXLcRkLuj/z1ISJJ22V+uab16Jte
+	VCEbxmoMRdGC0GgPrzIT9gygOJVPtNvbkSVGjUhwaO7YkxNDN5DNoVk5lyk0+fuWQh7tVx
+	7hxpwv/x46dlr0iO6mI9okNgDlpjlyck9T8jiL+pPT63ZIN6V6IgUXsZPH6ZDhePLdeRxv
+	xHldrd4+hl6h8LFaIPfaYyRWAzq5/vaUbnkuXDgPpsBa8Yc+ckqrDyHJO43+LLqlkpOco6
+	BG/3hMDUmDoX7bmV3jMQ1g8YJuP+moBMEf88hcC4/FHlGHcF9DGXsVOnM9upDQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+Message-ID: <8bc5870a-2b38-4e3a-9f93-76b2673a79dd@pengutronix.de>
+From: "Sascha Hauer" <s.hauer@pengutronix.de>
+Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
+To: "Nicolas Dufresne" <nicolas@ndufresne.ca>
+Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Sergei Khomenkov" <shomenkow@gmail.com>, "Lucas
+ Sinn" <lucas.sinn@wolfvision.net>, "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <41e428a6fcdcf3d0c10cada8743231797b3dd5f4.camel@ndufresne.ca>
+References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
+ <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
+ <596F6C9E-4A5D-4AE8-8D26-7A7247050D7D@gmail.com>
+ <85353f59-52a0-446d-ace3-65e2d03d0d0b@pengutronix.de>
+ <41e428a6fcdcf3d0c10cada8743231797b3dd5f4.camel@ndufresne.ca>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 13:49:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,78 +96,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/6] memory: tegra114-emc: Fix bus width and pad
- auto-calibration
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Patrick Fischer <admin@tsv-stahl-riesa.de>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, 
- devicetree@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
-References: <20261111-upstream-emc-t114-v1-0-54d9e1bceb6a@tsv-stahl-riesa.de>
-Date: Fri, 20 Nov 2026 14:46:44 +0100
-Message-Id: <179518240415.10624.13757193124982371025.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1942; i=krzk@kernel.org;
- h=from:subject:message-id; bh=5VF2fEwtX761ujH12rg2jXwnzx/wa39kyjerTpDQEf0=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBrAE9NFRwmfwslkPPpjWpqtFr8DEa0/hUZYGYTr
- 1IUbh6UZeyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCawBPTQAKCRDBN2bmhouD
- 170gD/0f1Cfr/qj/ksDRrjvlpfILxLqgKfLvokbGsEZ0nUGrlNUSy+1E3JoZX4nCk7brg1285vr
- qxiNARuAtmEp2m+vfkAnGs6XTTUAPee0whxjLcd4S2qSOoJfccQudIreB2P5NyzObZ9hAf+7v6l
- wiUiEsOqPfWEUbiVMyuiaruv29reWK4hbNfKTkbANsYoM4OFS80VNLugYJvhFiCAIs3TQ1Vyt34
- 5e5b8S9RkyHIG/E4wcKmSA4UGyBxzzbS2f7JIoLE+LYKZ1IPVAmWG9E1l0/lcc4ytUfeHMixZdC
- 1/yWhRG8h+Pn+PP0Tvr7ykukvTqPNPStF3kAvWvyMqYOuJIP7qxvNcQDtWhClBXQgauVgVQr0Ab
- k2VB69q2VC7jEkRirmiNXo4ALJvf/ti52RZXuWnI566hNqg5P6q+jfchAf5aDyj2dn/Mp07h9hL
- GZQLADOflkEMe4GS8RljtyyylCIgyc4k2Fx5S4ZNvQxqzK/LtfmW7Gp6EHAlaUS0O442fjkleGA
- UWVY2l1YeI9dIOfD4JgzTLbdBGkCkylR8rZ9+zuEMe9TX+2HBlmlsubzeOhvywYDThS9XWqWwyk
- vvNKI3q5BQagCcKpYMPUY7lLLS3YynNl1K8aGlkkVyXt+5ImPN39aSfOOP5f1H1ew7n/cPGRBjt
- JKbku/nZrr1T8Fw==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 
-> On a Tegra Note 7 (Tegra114, P1640) I had kernel panics, bit errors and
-> WLAN firmware hangs under load, and two kernel panics on EMC rate
-> changes from pll_p to 624 MHz on pll_c. Looking at the EMC I
-> found three problems in the Tegra114 EMC driver:
-> 
-> 1. EMC_AUTO_CAL_CONFIG is masked down to the self-clearing start bit
->    before it is written, which clears AUTO_CAL_ENABLE on the first rate
->    change. The bootloader leaves calibration enabled, with channel 0 as
->    master and channel 1 as slave. Patch 1 stops clearing the register.
->    Programming the table values needs the channel registers, which
->    patches 4 to 6 describe and use.
-> 2. emc_icc_set() assumes a 32-bit DRAM bus, but Tegra114 has two 32-bit
->    channels. Every interconnect request asks for twice the EMC rate, so
->    actmon at 312 MHz moves the EMC to 624 MHz (patch 2).
-> 3. Pad auto-calibration is disabled for every clock change, but the
->    interval is only restored if EMC_CTT_TERM_CTRL changes, so it stays
->    off after the first change (patch 3).
-> 
-> Patches 1 to 3 are small, do not depend on the device tree change and
-> are marked for stable. Patch 1 comes first on purpose: patch 2 and the
-> clk patch mentioned below make the EMC run at a real 624 MHz on pll_c
-> more often, and both panics I saw on a change to that rate were with
-> the calibration cleared. Patches 4 to 6 are not marked: they need the
-> binding and the device tree. Patches 1 to 5 are for the memory
-> controller tree, patch 6 for the Tegra tree. The driver has been there
-> since v7.2, but the first in-tree Tegra114 device tree with EMC timings
-> (TF701T) came with v7.4-rc1, so the stable tags matter for v7.4 and for
-> out-of-tree device trees.
+Hi Nicolas,
 
-A bit confusing. This clearly suggests dependency on DTS, thus ABI
-break, but code does not look like that.
+On 2026-11-19 11:00, Nicolas Dufresne wrote:
+> Le mercredi 18 novembre 2026 =C3=A0 14:27 +0000, Sascha Hauer a =C3=A9cri=
+t=C2=A0:
+> > > Would 3 bytes per pixel be acceptable as the default, and as a floor
+> > > for smaller requests, like the 2 bytes per pixel floor in 6/7 of your
+> > > hantro-based v1? 4:4:4 at quality 100 would still not fit, but the
+> > > subsampling is not known before the header is parsed.
+> >=20
+> > I haven't been affected by this issue lately, but saw it when the series
+> > was still based on the hantro driver. Yes, I'll change to 3 bytes per
+> > pixel next round and make that the floor of sizeimage. Would be nice to
+> > have a proper solution for this rather than either wasting tons of
+> > memory or risk having too small buffers.
+>=20
+> The hantro HW can run in ring buffer mode, that forces us to copy, but I =
+think
+> you can then perform decode without actually having the entire image in R=
+AM.
+> Would need some experimentation. We probably don't want copy to mmap + co=
+py to
+> ring buffer (double copy), and V4L2 read/write are deprecated. Note sure =
+what to
+> propose really.
 
-Best regards,
-Krzysztof
+The Rockchip JPEG decoder can stop on buffer ends and I just managed to
+resume operation on the next buffer afterwards, so in principle we could
+implement streaming mode.
 
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+Anyway, I'd say it's not worth adding the complexity to the driver to
+handle that.
+
+Sascha
+
+--=20
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+
