@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795205079;
-	b=bR9W5lra2tDP5Q777cx2aH5Ldz8mGhBY9f8qztURdzKjQeAhGExRs//ywHR4rNf9q6Mr
-	 ntO4Nja40QyAroQw8dJobPIcWWSPbYBNVweTvbMJ2noDyEWkQ/w3taISc5n5SZlBhZRjM
-	 xWhYWVGNxeAk2pR1oe+gQmhaO1lZCTh6769jXKLSDAZi5mTBpdBqi3RYhCbfw+CQkSi7e
-	 hq9xCL8yk5rJqxX5nQtxaWO6CTL2v6gedsSNWbInHT6HYLt4DskTlIwvExLZUT1/N8RNi
-	 I75nxQOsSJLd5mOLbCuffgarsgrqBx54LAPmTi5DS1lVMfqc37zJDZiWGKxsim/Hwjw==
+	t=1795205492;
+	b=VxKR3Lyio29Jyo68ExLoaySeELVwlGgUk958/yRyL7df+hmdHi+116vljNlwv25D9kXq
+	 /amSP35+caCPvkGg4XQ48iL+Km2WtMyu8vG0ZENGJ5iD+A9pMS1BYdPwKcS4mpu3s0T7F
+	 +0KvLsVBEInZYvXOkTCPtvLMhHYXQiik5FJY6fVTKjsHla9bh+50a/o82qHcQLTvWQEsr
+	 h82uCNIo2n+Jg1vNwntlrYdSD6pkSErkMF0qMt9DjprUoG+EaFZUrXfzu0OCyI5STLpj6
+	 7id1lQRWDsJFa2hY2r8K+fnY1bRUrYfXV3T+OPrRbHLVDPWT81uhEqBRIzOa3+RTZJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795205079;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DTPZmS/bPYDmH5Anx7Jvfyqcbc1hHGRWNW4JSBUYubU=;
-	b=ARqpsRE0ZgEhYFgfDLXAzFg4aEgWQPICDTHCF++OWWp3EyYkRHgELfJ4OzPGy1QcDunp
-	 ZgpB75ndFEBVh3GOnfBI4HAPTBDoWMQs9LAAzJzdJCTgJb1qDoXv+SWfGy5AqoTFUcJRE
-	 70GBfhRUELYigCdORaYRMWR6l6gcuTQkaAEZ+BGMX7VfKXxADcRtr+s29PgzO+Pcd+Gth
-	 1aYPtuQCpzgH6UGE/P7vwOmF929PjdKGQ2d8cLgmP2w9z/ujYfC6Kdde6fgHioJQ2X62+
-	 xNvO9a/g379i8iGLoObatllQ2C6I+O8khGBv9SlgUSCadTiqAjWKQA9FvIDa9AFbdAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795205492;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VSNciQwXoLzNC38H4Cu8pkuiuhLtNiZHzowcIJLxJLQ=;
+	b=T+60TAHgdH3JszW2i9Iich6JrKTPX1/AJxzWYqz/04fTGelAd377W0zoUjHmay5nx5HN
+	 hhPwLputVOw2wMQdR9XQhqn6HLBVTq072+swMz5YvxwW3le+LteopAMAiXnBLYz3Hka8W
+	 GnNyg+Ru0hzD+y9BHspaQeh10FU0a6av2b7QbrcbfZRNBcD3HuNXAjh2Bdl00MNwyxruq
+	 zDo3QSxYez9GVt/Wwj9pSblefqhea+TYlf+iwtO7tFqVHEu9bEdMGYlQfnmUzj84scL4y
+	 Yoep0bSyPdPZaOQlNfysaWstaMJCrxI7BKENe23g3Ct96W8467lCtvDgBtgIteE/vrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xEBdltaA;
-	arc=none smtp.remote-ip=95.215.58.134
-Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=caX+YDDx;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D15A606A6E0
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 20:04:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D15A606A6E0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606D5606A6E2
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 20:11:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 606D5606A6E2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xEBdltaA
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5r9H/pB0QEAQGYTbE3jhgHps7RpjUGgAGmiNOnnASh4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795205069; v=1; x=1795809869;
- b=xEBdltaAJxn+uZNdQPmBHMUXp6XV3A2z1I36RxzDw7/KL2eD9D5bmeW2bV4Am0mv2c6Xun2T
- s8x0dsgPVeNm7HZmx9r9ermtSssW8ECCqTQ0N/hFbjdABaN6+F1K0UXpW8MXkTLBf8oSVjpSEg5
- hvWjJOCkAhVRP3OKV/SJxtJ4=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 79d02deefa817cdc;
-	Fri, 20 Nov 2026 20:04:29 +0000
-X-Mizu-Trace-ID: 79d02deefa817cdc
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <3b26635a-4ab4-450f-8626-e4737d16be12@linux.dev>
-Date: Fri, 20 Nov 2026 21:04:24 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=caX+YDDx
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so12342315e9.3
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:11:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795205488; x=1795810288; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VSNciQwXoLzNC38H4Cu8pkuiuhLtNiZHzowcIJLxJLQ=;
+        b=caX+YDDxbdK7lOatziDlxo1NbeN67mglyVy5oETr/Bg/CVDK8WbHmhkGJNrTaJhyfq
+         L658wKUIOvvPgzjTnQdWj+gQkuJ/fWwmQwTEpocdjJ9bNQZEZ0iN1E/eHLd9+d1FD3kC
+         4p9jeJo1Xjwh/wB52phrpgqgm+3c6cs39cBZeknpGHCebRd9+sZD9NrG9r16Eri8jIz9
+         wDb6UpfFg7J7mYFjUV/VcuzGYD9hLMgTh46e9R9l3TWnjc/UAWnfb7E8EJ+b1IbdHqu6
+         Jvl/ly1YZVOYNnY6KXYPTbcsxoOz8VIP7GNuOeKkaocpO93yfSEUXzaYBZbjWJXLJVOt
+         ScMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795205488; x=1795810288;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VSNciQwXoLzNC38H4Cu8pkuiuhLtNiZHzowcIJLxJLQ=;
+        b=oH7n8njs9zZyEEwF9002OXsqub57/hvsQayChmAZd00ptBRgUMN+0tQDE8E1Ox+mt6
+         wpW1LW7fGc7zH853d3g62IvIWR/MtDFlXmiGeeGM0cMkdRBc/1m45sLsz7392+5jRTG1
+         DADstM3O/Jq20q/OAOPcql4WjluxWwWpstgDVzYXIEnjTt4dRrkVf9nvkAq3Xam0HT5P
+         OVQzZ9Bx47Dls6WbKfDVUU0mP/VxjKid5YJfq62hLcaDJkfx7XVT5sdUEV6hYKl7CCsv
+         980KDWKJ7usMxSbc9R0lWXbDQ1QAhApqPQ2YiyqJ3QhpkSKt9Xu28LrMqLYaSwOlzcsU
+         ySsg==
+X-Forwarded-Encrypted: i=1; AL+hErGJ9n4Q8H059E5AWdbquODeQsXf1rlvUmD26RUt0R8sSQFMM63010F26Qeghe9e1l7vBxFPphgbYMVI@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Yn9kfQWKfgnd/pvKm5zLDA91rns1YCVWW865cFdzPQ2GU+7H9
+	iBFoI5hGuPsP6Src08HcFkiqL0NxMv1cdOaeMfaBHoOZjk/IKpGIGh0l
+X-Gm-Gg: AYBFou3Lk3mmmfmEefF/UBM4UfXTbHv6P8FhgIBVDhyfYQp5kq3peb4+q23lx27IX37
+	VqAxSuEEaTI5nUpqbdwFoV+J+UwqVeObi11NQkQjx1BjaXDqSOOe8NtqVFW8iaswyIq1sLDpqRA
+	RGlRHtEJ2v0cQMVb2lIlLFobUvd0U37oKfBPXNED+YBvNbo37u+euwwjGl06MXObHKlQQW2BA8+
+	8BkOBpvrFKjGHOFsIPhY9kCDkGZEfxM7z75FUUF7RPR1e2r9+l94UicPIAKF0mZGsk8BF2G4knM
+	RjUcEb3bn0IaA+l+LAxU2+/htbPRQgXOO6ZOWfO3lgQUBXC35S5PX6M6PgMdxkKMCPCMv3QwkCH
+	bDb1QTpKG2eldBNlGESxp4AosHJupUoUwNDXp260jPmbccO2z3pC3n9AVcNsqBC4EDuvP915N8d
+	R1nV8nxqglZ+SUf9lb6Vcll6vLoaioGRw1l/6Z8P4KLi0yGna5kXJwfe69t17aMYEuZERrgRUPe
+	rSMDL/o+wZ2tZDqQKan74QQQEX4aCBqhBrNr9LB0Yhw6jT4Nb2PRUTmCZm75ATAnCXz6gJm08ca
+	B6da4nkdM8zV3XYM+qyag755tNjkA6n/qqOGjkPHLmZIa7nlQA==
+X-Received: by 2002:a05:600c:820d:b0:4bb:6cef:d14b with SMTP id 5b1f17b1804b1-4bb887c34f1mr104686305e9.2.1795205487788;
+        Fri, 20 Nov 2026 12:11:27 -0800 (PST)
+Received: from vivobook-s16.fritz.box ([2a02:908:e843:f280:6cae:291b:a1:8362])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884865a2sm115561275e9.3.2026.11.20.12.11.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 12:11:27 -0800 (PST)
+From: "Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: arm: qcom: add ASUS Vivobook S16 S3607QA
+Date: Fri, 20 Nov 2026 21:10:52 +0100
+Message-ID: <20261120201127.90969-2-ingo.kubbilun@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261120201127.90969-1-ingo.kubbilun@gmail.com>
+References: <20261120201127.90969-1-ingo.kubbilun@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,174 +104,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v5 20/24] net: dsa: rzn1-a5psw: Get lookup table
- size from OF data
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Florian Fainelli
- <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>,
- linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261120002549.1908299-21-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <99974c5f-c1c0-427c-ab10-a6559789f258@linux.dev>
- <CA+V-a8vikSkbxjoE+Wq+jZ1uQjtbu2VFttHEMGXHkWqqcqf6Lg@mail.gmail.com>
-Content-Language: en-US
-From: Clement Leger <clement.leger@linux.dev>
-In-Reply-To: <CA+V-a8vikSkbxjoE+Wq+jZ1uQjtbu2VFttHEMGXHkWqqcqf6Lg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Document the ASUS Vivobook S 16 S3607QA, a laptop based on the
+Snapdragon X X1-26-100 (X1P42100, Purwa).
 
+Developed with the help of an AI coding assistant (Anthropic Claude),
+which drafted the changes from the Windows ACPI tables, existing device
+trees and test logs; reviewed, built and tested on the device by the
+submitter.
 
-On 11/20/26 19:34, Lad, Prabhakar wrote:
-> Hi Clement,
-> 
-> Thank you for the review.
-> 
-> On Fri, Nov 20, 2026 at 9:44 AM Clement Leger <clement.leger@linux.dev> wrote:
->>
->>
->>
->> On 11/20/26 01:25, Prabhakar wrote:
->>> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->>>
->>> The RZ/N1 A5PSW has 8192 lookup table entries, whereas the RZ/T2H
->>> and RZ/N2H ETHSW have only 4096 entries.
->>>
->>> Add the lookup table size to struct a5psw_of_data, derive the address
->>> mask from it and use it in the FDB and ageing code.
->>>
->>> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->>> ---
->>> v4->v5:
->>> - New patch
->>> ---
->>>    drivers/net/dsa/rzn1_a5psw.c | 10 ++++++----
->>>    drivers/net/dsa/rzn1_a5psw.h |  4 ++--
->>>    2 files changed, 8 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
->>> index 7e9bc252d92a..c0c1f45852da 100644
->>> --- a/drivers/net/dsa/rzn1_a5psw.c
->>> +++ b/drivers/net/dsa/rzn1_a5psw.c
->>> @@ -311,18 +311,19 @@ static void a5psw_phylink_mac_link_up(struct phylink_config *config,
->>>    static int a5psw_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
->>>    {
->>>        struct a5psw *a5psw = ds->priv;
->>> +     unsigned int entries = a5psw->of_data->lk_table_entries;
->>>        unsigned long rate;
->>>        u64 max, tmp;
->>>        u32 agetime;
->>>
->>>        rate = clk_get_rate(a5psw->clk);
->>> -     max = div64_ul(((u64)A5PSW_LK_AGETIME_MASK * A5PSW_TABLE_ENTRIES * 1024),
->>> +     max = div64_ul(((u64)A5PSW_LK_AGETIME_MASK * entries * 1024),
->>>                       rate) * 1000;
->>>        if (msecs > max)
->>>                return -EINVAL;
->>>
->>>        tmp = div_u64(rate, MSEC_PER_SEC);
->>> -     agetime = div_u64(msecs * tmp, 1024 * A5PSW_TABLE_ENTRIES);
->>> +     agetime = div_u64(msecs * tmp, 1024 * entries);
->>>
->>>        a5psw_reg_writel(a5psw, A5PSW_LK_AGETIME, agetime);
->>>
->>> @@ -511,7 +512,7 @@ static int a5psw_lk_execute_lookup(struct a5psw *a5psw, union lk_data *lk_data,
->>>        if (ret)
->>>                return ret;
->>>
->>> -     *entry = ctrl & A5PSW_LK_ADDR_CTRL_ADDRESS;
->>> +     *entry = ctrl & (a5psw->of_data->lk_table_entries - 1);
->>>
->>>        return 0;
->>>    }
->>> @@ -638,7 +639,7 @@ static int a5psw_port_fdb_dump(struct dsa_switch *ds, int port,
->>>
->>>        mutex_lock(&a5psw->lk_lock);
->>>
->>> -     for (i = 0; i < A5PSW_TABLE_ENTRIES; i++) {
->>> +     for (i = 0; i < a5psw->of_data->lk_table_entries; i++) {
->>>                reg = A5PSW_LK_ADDR_CTRL_READ | A5PSW_LK_ADDR_CTRL_WAIT | i;
->>>
->>>                ret = a5psw_lk_execute_ctrl(a5psw, &reg);
->>> @@ -1357,6 +1358,7 @@ static const struct a5psw_of_data rzn1_of_data = {
->>>        .pattern_ctrl_base = 0x3eb0,
->>>        .vlan_res_vlanid = GENMASK(16, 5),
->>>        .vlan_res_portmask = GENMASK(4, 0),
->>> +     .lk_table_entries = 8192,
->>>    };
->>>
->>>    static const struct of_device_id a5psw_of_mtable[] = {
->>> diff --git a/drivers/net/dsa/rzn1_a5psw.h b/drivers/net/dsa/rzn1_a5psw.h
->>> index 29d205e2331d..fd523fe7bf47 100644
->>> --- a/drivers/net/dsa/rzn1_a5psw.h
->>> +++ b/drivers/net/dsa/rzn1_a5psw.h
->>> @@ -93,7 +93,6 @@
->>>    #define A5PSW_LK_ADDR_CTRL_WAIT             BIT(27)
->>>    #define A5PSW_LK_ADDR_CTRL_READ             BIT(26)
->>>    #define A5PSW_LK_ADDR_CTRL_WRITE    BIT(25)
->>> -#define A5PSW_LK_ADDR_CTRL_ADDRESS   GENMASK(12, 0)
->>>
->>>    #define A5PSW_LK_DATA_LO            0x40C
->>>    #define A5PSW_LK_DATA_HI            0x410
->>> @@ -210,7 +209,6 @@
->>>
->>>    #define A5PSW_LK_BUSY_USEC_POLL             10
->>>    #define A5PSW_CTRL_TIMEOUT          1000
->>> -#define A5PSW_TABLE_ENTRIES          8192
->>>
->>>    struct fdb_entry {
->>>        u8 mac[ETH_ALEN];
->>> @@ -241,6 +239,7 @@ union lk_data {
->>>     * @pattern_ctrl_base: Offset of the PATTERN_CTRL register of pattern 0
->>>     * @vlan_res_vlanid: VLANID field mask of the VLAN_RES registers
->>>     * @vlan_res_portmask: PORTMASK field mask of the VLAN_RES registers
->>> + * @lk_table_entries: Number of entries in the lookup table (power of 2)
->>>     */
->>>    struct a5psw_of_data {
->>>        unsigned int nports;
->>> @@ -252,6 +251,7 @@ struct a5psw_of_data {
->>>        u16 pattern_ctrl_base;
->>>        u32 vlan_res_vlanid;
->>>        u32 vlan_res_portmask;
->>> +     unsigned int lk_table_entries;
->>>    };
->>>
->>>    /**
->>
->> Hi Prabhakar,
->>
->> It would probably be better to fold all these commits that adds data
->> into bits of data in oa5psw_of_data into two commits: a first one that
->> prepares support for RZ/N2 and then a second one that add RZ/N2 support
->> itself. I'm not the net maintainer but your series is already quite
->> large just for this change so folding the commits make sense rather than
->> commitmaxxing.
->>
-> My intention here was to keep changes minimal so that it's easier to
-> review. Since the fixes patches will go as a separate series, I would
-> like to keep this as is. Hope thats OK.
+Signed-off-by: Ingo A. Kubbilun <ingo.kubbilun@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Yes sure, I mean if it fits under the 15 patches limit, that is 
-certainly fine :)
-
-Thanks,
-
-Clément
-
-> 
-> Cheers,
-> Prabhakar
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 7ffa4f69987f..2390568de805 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1350,6 +1350,7 @@ properties:
+       - items:
+           - enum:
+               - asus,vivobook-s15-x1p4
++              - asus,vivobook-s16-s3607qa
+               - hp,omnibook-x14-fe1
+               - lenovo,thinkbook-16
+               - qcom,x1p42100-crd
+-- 
+2.47.3
 
