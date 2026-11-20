@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.21.23.139
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795189952;
-	b=qhccdx5WPyPo9GfvCczUFX3rGhPOJoUj1kEbzdiBJcQITdoSIciN9DDVW6ZawvTU4S96
-	 60SSFnSVvFtuAnWqegMHeWKw7Nfrl3yH9uN92H0Ixw6pfFKRJ7vX+myj8gIrC1rDygPKI
-	 6R1J5bSTbH5/CPPG7MYZoFcwgEl17HJOr+T3bGepOjablw0aBkEvNVPO4panoZRIC6Pp4
-	 iC7S6rKxX7ODAEZqOxuNMHsNieP5If/uP/28qoRFwX5R7/4THBPGV9TWGb98OHH5KVgEZ
-	 x6quIG5YpqZvE/RY0w1C9MoBUb5i+qKreG+6SCu4I0Ie8sv+zRim5Iti0tQGMnX0e3w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795189952;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 To:Cc:Subject:From:References:In-Reply-To;
-	bh=TSTpvO4spealzt2/kLbsRgFYe1Ou7JNCyzrkbKYJ+ko=;
-	b=k/ZQDhUTbeYdl74hzNc4osXnRcVWW2CMqQvgUYg6+hGFw5jB3v/PKnjgt+fvG1Q4fFtg
-	 U7L9PJvCm35SXumdDT6cKbBhSWE+TvwkZAJGzvEc7j31azhfM8HR8psOrIw4xhrb6cvE3
-	 sOQeX0YG6yNnZFa8cbWBMK21o4EyIiNawpYGX5AvFIBob/t9wZIh/i/BR+Pq7ttil/lFR
-	 ANAcXk/TafuYy1pFggEv9fUKl8PbhMz4RI5017wvnEF7NFv31NMTc4FNG+JFtOdYcI2Il
-	 UTOHYneTVxPeWkEiETVvavJCvDTOlcvPM8W6Rp8VqLil7lSJBoNwNrBHTrxdU6SVMeg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=disroot.org;
-	spf=pass smtp.mailfrom=disroot.org;
-	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=bpxc4Jy+;
-	arc=none smtp.remote-ip=178.21.23.139
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795189955;
+	b=Pqc0SDSkCDnDkmQ7mUUgVRA2eLsFlawDbugbdfA0odG861tt3m0ht5Ixv/oidTASqWiY
+	 hwRz/IPgeTvLO0rafZKYKtFGkXwGLVnX9JC9WUOtelVFl95FmQTTUngpvyHHJH/UYoA2B
+	 0S8JZ1Cyalrgg3W1B35wOmkmleePHMPORGFg3xhoqOHroWPpDkXYQOQhM2a/FG4/JYqdY
+	 DD6GQr3Mzvf5QYFHTIAQoTZxtkGuFi3aZlLz5oSyo1PD4AcmXtEXC4U7vUgNmxuZHAQA3
+	 XcgN8sumszhJOx5GmWktT5m+7j1/1kMfJIy6sJhewzebdVQIs4oJ/5XaDtdwt8loKHQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795189955;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=CwicCWX1TDxY7EFve1abJlZFrEt55lTTQUzzVXHuQ1o=;
+	b=EH/uyGSGGyQppjmDQmGXoEmigEESd/Ea9LXHBZXpMp26ztRXDssgzMLw9Kh9pmI1wlEJ
+	 fRvPhc3QecOR2vdSjWeP2uiCpWe4gj6YDtujLeFhGLL8VQHalvVqQggG2EvRlGgkD3F+7
+	 XOoZgYm57ke9rYTzDMKc8AMLieRc37NUcbjW1X6Id03vIkbNDVIiR6O6kIEVkrXIqMhuN
+	 uA3aAmpXOOARHTgC4fcmLUEqeJvijlKe3CMzdX1CDNg4/73d3b0QgD908EbPYIt/iKZUt
+	 wSp5CdZycx6hTuovj0pSs6gnfH067aD/XxqoLOgIdd7/8W/LKrdnw609xAjoLxDhL+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jlLZS+L0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB56D606A33D;
+	Fri, 20 Nov 2026 15:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jlLZS+L0
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795189954;
+	b=wumw913VvYmr9PraFhWXOwtsICW4MSsgOGahcy2Do+6L3/ZTJOUIwtlexVNOkAtjAt+e
+	 N921JGTGGfTRWDweJq6kjtklLbfpNl8Lpf/Cp6vloF6aPksWf6+arhG0k7iO/LsT1l53B
+	 Y1qhUKEdIG9q+RlC38Gyj62zb2TZaB0CxM1+vHghrosDimXU2mMAjwQbXyePkBqdHhnwN
+	 OfTmFkO/frzeaNvPUqikjYsqr6/PjZ63kCwi+ny7fJdPYHrrlYgnJYD9DEXdwqgNqnDO8
+	 wz73ko3nOxNZ+klURzHzBsefS/o6LdKtDhhfN0dfEezaeKUvYlTtyBgQUuTMNJN5v3g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795189954;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=CwicCWX1TDxY7EFve1abJlZFrEt55lTTQUzzVXHuQ1o=;
+	b=lo/VAeS/8VlFNlMcJmUnZs5h+jQWnS9Nf7cJw6I8X8OL5l4oFj7u5UdAWZ5pC1pPyXqs
+	 UeeXKLDsFnJa1ARsR3fbiikZi/A40aqRcY/S1IaOE3B38GUamemVkYVH+NECcEUfmk//K
+	 BH9rN11aIv2Ar2rGfZ0rWi0VVm+ddOFcuPzGPYeoV058uQ7TdBY5IVlXsps0PCskaOIgi
+	 q7BhENjtgEKBWvyyqnVDB+5B2oY1yy15zc7mgLdfG4z2/+Fsu0zTSLRbpxTaq5ZK/WA14
+	 Q7aiv0qa9J2QqpJygsFLEoJs6uk4eBhNzJnqYvf1/IghsC+s7EBkL8e/YqkBM34BUJA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB839606A320;
-	Fri, 20 Nov 2026 15:52:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB839606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=bpxc4Jy+
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 4A46182EB0;
-	Fri, 20 Nov 2026 16:52:29 +0100 (CET)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id XuwwcV_3q_fl; Fri, 20 Nov 2026 16:52:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1795189948; bh=TSTpvO4spealzt2/kLbsRgFYe1Ou7JNCyzrkbKYJ+ko=;
-	h=Date:To:Cc:Subject:From:References:In-Reply-To;
-	b=bpxc4Jy+Yxc9ToeDYOlN3VQqx/zQ2klgGzdIc5NvXgUlmkbsDBFjxDSJeKujN7cEp
-	 gp+6A1lp/afJxcNX5qtfVgkmyNVBPComHpRMdtfvccNmo1Bm0lsUseKJPEaBncXrKx
-	 ECXip/iuYsqd+iSq9X+en7JDkUat4a/YZmpUdZrsF4zLS47K7JvzqRZNQGMQVaD9LP
-	 RWN9iicNBMnwELFkUvXORedbkAN2V8B53AJWaY0d2H2hnheyKD07vyHI3tngwOHDu+
-	 Mw35VADNjXwlOm5gqlc39SadUWCaBOm9oCPFMXyT9VDRnVHfbOzFvcWyhPw5Gh7QsQ
-	 qLbJog/AIB4/w==
+	by smtp.kernel.org (Postfix) with ESMTPS id 8681E1F000C4;
+	Fri, 20 Nov 2026 15:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795189954;
+	bh=CwicCWX1TDxY7EFve1abJlZFrEt55lTTQUzzVXHuQ1o=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=jlLZS+L0E4WQJb6p4WBosxf3VmyzZ03KEgww9SvMyT2xWNvYrytMjwtPdvUGcyuNN
+	 QYQE8qXdoA8Msz9ABmyLZX/YGIUhItljzPTu2kQSuWuOeU5ETE4hiUuYpj56T1G+D7
+	 4mRBCmGn6DkP14cFtD2I0sSutSJaaSQ0a8GLvN4jpdA8ZS/UFffZuIjUmbGHdPYWY7
+	 yTrliunwoiBk6zR1ZQIuf1j3jw58SEECfnlDoT890OByZkBPPQDKhS33Z2oaNbT7yY
+	 wP2MVN8oq4fvrXUSXgjFh6yx/mA4I3ytXMKOw3NXpPOInauf+udTkkhasHu1wH67rM
+	 wIIOZ+66bYgMw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 042B64990F;
+	Fri, 20 Nov 2026 15:52:29 +0000 (UTC)
+From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
+Subject: [PATCH v3 0/2] pinctrl: qcom: Add the Molokai TLMM
+Date: Fri, 20 Nov 2026 21:22:27 +0530
+Message-Id: <20261120-molokai-tlmm-v3-0-e5fc37e37011@yahoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,62 +82,97 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 20 Nov 2026 21:22:14 +0530
-Message-Id: <DN05PYTW4NV6.SOA0NRNOJBAR@disroot.org>
-To: =?utf-8?q?Adil_H=C3=BCsrev_Tepe?= <tadilhusrev@gmail.com>, "Sebastian
- Reichel" <sre@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Kaustabh Chakraborty" <kauschluss@disroot.org>
-Cc: "Yassine Oudjana" <y.oudjana@protonmail.com>,
- <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1 0/3] power: supply: s2mu005-battery: add S2MU106
- (Samsung Galaxy XCover5)
-From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-References: <20261116074000.355176-1-tadilhusrev@gmail.com>
- <6afc2f77.2bb6edcb.1518d5.5d4f@mx.google.com>
-In-Reply-To: <6afc2f77.2bb6edcb.1518d5.5d4f@mx.google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ7CIBQFr9KwFsOn2KAr72FcAP21qBQDldg0v
+ btQN250OcmbeTOJGCxGcqhmEjDZaP2Qod5UxPRquCC1bWbCGW8AoKHO3/1NWTrenaNaMUQBDe6
+ gJll5BOzsa82dzh+OT31FM5ZGWfQ2jj5M61+CsvuRTkAZrbUSUjDGuNHHSfXeb413pKQT/yfzL
+ Au+76SRrUQN3/KyLG9ec3yc9wAAAA==
+X-Change-ID: 20261116-molokai-tlmm-ba0ee416e513
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795189947; l=2704;
+ i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
+ bh=r7Mtff5qbkeYb7DWH6qJOe5Kqw7NebkDFy5PqqoVhjI=;
+ b=ongauZFwcUxBohtVhaqb80JrNTnOz504zbv9cJIHEpXrYuJqwAMh4uCUDfypLMvYIRT/IEqnr
+ WIBVqyiIlchCvZ7TRwxA8jFf0GR2S+pZku8cAf6tibCGtpOWWLyhpAC
+X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
+ pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
+X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
+ with auth_id=1303
+X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Reply-To: venkat.yadlapati@yahoo.com
 
-On 2026-11-17 02:41 -08:00, Adil H=C3=BCsrev Tepe wrote:
-> I'd like to withdraw this series rather than send a v2.
->
-> A review bot (Sashiko AI) flagged that patch 1's fallback compatible
-> (samsung,s2mu106-fuel-gauge falling back to samsung,s2mu005-fuel-gauge)
-> is unsound: a board using that fallback binds to the S2MU005 driver as-is=
-,
-> which still reads the MONOUT average-monitoring registers for
-> VOLTAGE_AVG/CURRENT_AVG and uses current_avg to help decide
-> POWER_SUPPLY_STATUS. The S2MU106 doesn't have that path, so those reads
-> return garbage, and garbage current_avg can flip the reported charging
-> status. Patch 3's has_monout flag avoids calling into that path from the
-> S2MU106 variant I added, but the binding still allows a device to bind
-> through the plain samsung,s2mu005-fuel-gauge compatible with no
-> has_monout gate at all, which is the actual hole.
->
-> On reflection, extending s2mu005-battery.c was the wrong shape for this
-> chip regardless of that specific bug. The S2MU106 fuel gauge is a
-> separate, standalone I2C device on the Galaxy XCover5 (own address,
-> 0x3b), not a drop-in register-compatible S2MU005 variant sharing a
-> device tree node -- it only happens to reuse the same STATUS/RVBAT/
-> RCURCC/RSOC register layout and scaling. A dedicated driver avoids the
-> fallback-compatible construction entirely, since there's nothing to
-> fall back to.
->
-> I'll send that as a new series instead: a samsung,s2mu106-fuelgauge
-> binding and a standalone drivers/power/supply/s2mu106-fuelgauge.c,
-> with no changes to s2mu005-battery.c or its binding. Sorry for the
-> noise -- I should have settled on this shape before sending v1.
+Molokai (SM8845) is a Qualcomm SoC derived from Kaanapali (SM8850), found
+for example in the Motorola Signature. Its TLMM has the Kaanapali register
+layout, but 205 GPIOs instead of 217, different functions on every pin and
+a different GPIO to PDC wakeup map. With the Kaanapali tables a
+wake-capable GPIO interrupt is routed to the wrong PDC input and never
+fires, so this adds a binding and a driver of its own.
 
-Actually, this one was just fine. I didn't look at the patches
-meticulously but it seems like it does belong here. The correct approach
-would be to adjust the driver correctly so that it accepts both.
+The SoC and board devicetree that use it are sent separately in "Add
+support for the Qualcomm Molokai (SM8845) and the Motorola Signature".
 
-The compatible patch is, in fact incorrect. The driver clearly uses two
-separate compatibles for the two devices, so there should not be any
-fallback.
+Tested on the Motorola Signature: the UFS reset, the keys and the GPIO
+interrupts that go through the PDC (touchscreen, amplifiers) work.
 
-> Adil
+I used an LLM (Claude) to help write these patches and their commit
+messages. I reviewed all of them and tested the result on the device.
+
+---
+Changes in v3:
+- Drop the Assisted-by trailers and the LLM notes from the commit
+  messages, the LLM use is stated in this cover letter (Krzysztof).
+- Rewrap the GPIO to PDC wakeup map so that no entry is split across
+  lines, no change in content.
+- Pick up the Reviewed-by of Krzysztof.
+- Link to v2: https://patch.msgid.link/20261116-molokai-tlmm-v2-0-429f8c8d8eb1@yahoo.com
+
+Changes in v2:
+- Binding: indent the example state node consistently.
+- Driver: mark egpio as a GPIO function (MSM_GPIO_PIN_FUNCTION) so GPIO
+  requests on pins muxed to egpio are not rejected.
+- Kept the default 3-bit interrupt target field: on Molokai INTR_CFG[11]
+  reads 0 out of reset and the target resets to 0x7.
+- Link to v1: https://patch.msgid.link/20261116-molokai-tlmm-v1-0-3ba4840002cb@yahoo.com
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Venkat Yadlapati (2):
+      dt-bindings: pinctrl: qcom: Add Molokai TLMM
+      pinctrl: qcom: Add Molokai TLMM driver
+
+ .../bindings/pinctrl/qcom,molokai-tlmm.yaml        |  128 ++
+ drivers/pinctrl/qcom/Kconfig.msm                   |   10 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-molokai.c             | 1681 ++++++++++++++++++++
+ 4 files changed, 1820 insertions(+)
+---
+base-commit: 7bbad7337a81d1d73559b783280a76a65a9de191
+change-id: 20261116-molokai-tlmm-ba0ee416e513
+
+Best regards,
+--  
+Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+
 
