@@ -1,102 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795185841;
-	b=EFQrc0kl9OQqVdzflQvh22s+TS9mXjJL54UarzsVTm38pTpsYcwBpfH6ltkJ7RT3ytaU
-	 v1ecCb78L2ulRnU5rFI7azLX2ge8K4ran9DRyeoo1a/LFyAg4L5L2LGHsIx9iL/ZJcf1b
-	 /hcxL6yLnDz/Llg3YOWZnMdk6wW9y0g+2q8ic8aO8Ckz5xl3RkGuEzHbGnb6d492mjBf8
-	 Kh/bPGIpjDYkE/bRHIPNtlnHf2fKaGTHFVWuFuD9X9xycf7LvPx64vXNPKP+LlZ/Cj+fx
-	 2uK5L0e7IgBVxmPHPPq/J1kT6VAqVOWE6RYBAd0EjEdQkgeCfuOxA0HQIInbB5ppQwg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795185841;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3IX7N1kFKFZuWON6FMO3tvSVP9QWmOoz3uHAxAV0zQc=;
-	b=PAjW6CtkdxmbVcb10gqaFQ8g9NyVha8px0XXykNh9aXR7xmuW45O5LM4N08uioYk+DUF
-	 6AMh/oXWrUv1FRxkq0kpq6vNx3em/LXP8e7guctIxXop7T5K9P/yXRqn/jocjf68gz7sl
-	 D82vbQwAaEbS72qQUl2t3aNEfZprMZyUMCOsxyyoDEFAQ/tN+LX4xiyJ3WqLfaf/oaQpK
-	 kxg3L98LTdOaBu5dAqcEoKhJX27tKXNEZKrewtQ5z1F2mNegaeTkH5fj2PS1nuHTSctET
-	 CqHXwb3mP/uqNTRkrtPGcVNt/MGLMLrIbiDV32qrk/HCsAxBMllgYfGkZtkynmnJ6/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYQ5tBef;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795185887;
+	b=MlGxSLGsDGcfWOv9lI+egbtgVkI8hr+sxVCw3/u1iUMh8HVvRe5+DI12RVBbDJ77qdfE
+	 MX9sBy1InhiJiA4DsS48Ynrg5e0rjCfq7NOG41/FPKTvQpn/DuRaDiTjak47f2tqY/5rQ
+	 g6y/Kt0UdU1sfs5XET9/D9S7vBG1s+EfCGg78i+/hW/h1WJ4ktpIGmjnUdr+JPUun19j7
+	 5gcYa3IAsZ1811EphlxvT/X9A8e8uFGmYKJZ/d46JO3QNTpcBMZejjH6hzkybnRGur26u
+	 m9l21ycFU83aVF46HDC9wMk75CoAk1NBG/Ntphy0CNWORu38csFW0y0T8+w0/rD5sRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795185887;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=qrjAzrJhYf5vZy8hlxQ3Jg1AthP7/RFbyFylGoaLKws=;
+	b=BC40Y54fn4EZ05+pccqqZH+ZDoiHmKdIoMrMaQmnpoCWdLIm57D9AK2ezhHHAzvAkbrZ
+	 JlLps8abqaMugqFpeIHFL+qRvwBFK91vwb8WoZAI0Hd2fnd1BiA07tZDG61kU60PlY5RZ
+	 oj6xL3EniC7Ns44+NRIIAEoKycxmnwGf3cDcn9E4abP2KhFxpa0EiLTvb2KngaSPawJOK
+	 5ZwcCBiu1vFRpptrPhVDHcAHCSB/uVYhC/XYjm6GgMBC35j1j4Jws5hSMBrUvQ1E73BxG
+	 FCGvfJTkgjoWsZUuUvhW5qm+jSO1yHVReEx4JX2hI5W9X9yySUFE+CrFZEyLenvBROQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kNSwSrMQ;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5F3606A326
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 14:44:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E5F3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C9C606A333;
+	Fri, 20 Nov 2026 14:44:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6C9C606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYQ5tBef
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb70074ab2so9745045e9.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 06:44:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795185840; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JwANgQK+10Gu714TBdNluLgazHGErsp4clGk9kU9My53gty2gd78Bh1SHFuLaHfSyG
-         Mi4DjRqi5n0eIo8fz6Pvy/lXy3g2DiGQ6amsD74uJthYwtmfl7Qui8K3hdFEAkDoLIZx
-         uNtorPRj0QIGf1SDmLRIBtZSHfkwd4AoCh8fZLsD6yf1GuYST2DVvh+hLO3vX/DJGeLp
-         embxDl4GWOcvr+1LAU470SrqZkN1KtqAzIkKfLaS2+YASCeoNkhwyN7gX25xQb/Wxs5p
-         cyE299/p/zgc0xglsNyzgIqb9e3KsthZ+dDyXrgCtms3sZ0ONN3FcBWBMOIiGVnmvRoA
-         jeYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3IX7N1kFKFZuWON6FMO3tvSVP9QWmOoz3uHAxAV0zQc=;
-        fh=zNicx7NlR6ky+2cZv8lZATrSkzAcruNph0TBNg38pkU=;
-        b=YDyKkQMLS169AGo/u/O9GQDXnUQyh7n1zIY8jy0ieSL3S4PhvZytnHxaltvw3wYCdA
-         NlqskOhb7wJTC0WKA4C4LeN2zFVBYPGyJxtGcTfaqIhPs4qZ1xOsqv4QX9R1+en2jBHK
-         0C3gn5EXKZI79GZaYVjsvhxzfQFdaEZqAXbEvPrKRQZg3zvSxE5fMB0rE8iJFID1S16U
-         jw9a044kv9/jTu5DfofI0D8GS9y8r9Byy+4ezOyLHkc1eFMjwb0M+1ZbxI06+KUTGelD
-         4ArvjuhB1dgmXjCxxYK7B3fgF22Uo8A+SRtoNs0nr47qYrIt1+vnv5d7CtwE1nztByon
-         iWeA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795185840; x=1795790640; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3IX7N1kFKFZuWON6FMO3tvSVP9QWmOoz3uHAxAV0zQc=;
-        b=QYQ5tBefbybLAahWX1T5jVNJjZMBPRgTJcbKw9SACiCbwwSstGz9QZ6ob5fsto/bXE
-         +VmKIKxLJ/kCzeAH+ZPIBRboifpiXTNqwlsZ1wHrk/YUtr8sINXI8KJ6H09oUVftbhTn
-         3kCHtT+5pz1P92H0uCuSAWGowRv4dYGficTGkvLioFE7xDeWNMAL1pveel1tNwqpB3hG
-         3PZ83BtYlHO4v3/+OKTiFFPAwQTZt9IqSUQ4gslXE37h2Ua9/EcuyE2thspfPFV05n4v
-         CXKA37NNEfw09vb/vw8SVg3kWl1qpPvnNrZA3m183s6nJWG6iPrIwCbkHM3cH0MtpDs3
-         abLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795185840; x=1795790640;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3IX7N1kFKFZuWON6FMO3tvSVP9QWmOoz3uHAxAV0zQc=;
-        b=Qjg7vnkiVpOAZ1el2ZWh3muAraLlDqPXnW5ZlHhM2mkLhXaZ9SnIk0w9MY1wLYZLjn
-         9xAQ4DDflYiEIMveQQSos752u6rtQuB51hD+gZz5pTboINSVyr1ktKTo5+znHH0QDvGh
-         xRzvLy5kLVUb6mGWWgYDOkq5lWhqkxb6jURL/+gcLrJEi35y5fPt5xZGsEdnzW9uxI1e
-         SaIyBj4r29IGsbfNO2QhAl8I/idkNKeAQC5Dvnyb/NtN+6fzVsFyQcOV44F7Axr2OJ+o
-         ctmHrCXbMQfXJRW4jzt98pcnhI+s4CqqrcPR05FuWh5EXJRFBESD4vGfl85j5AcqQoao
-         01Ig==
-X-Forwarded-Encrypted: i=1; AL+hErHuCnM42nbhiw77V3Ck6GPGFyQxJBahnyqn0qfb05ZO0bur3H13oSQcDZ5RVn4h9Z9T2iZDZNkHHrQs@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KQtRUq3V+MOKbosy6vJdugeZCErv4qi/0VyV7m0huvkppGZYj
-	Dpx2Aevhaq7qY7tPu+r45DqiJGLOMW5I6kEmVEDWx4MSDdATym6GqgLggjK7yD76N3JLJ/nEWnc
-	0fjyNTE5oLvD5LhD5xH+kIq8NxD0l3v4=
-X-Gm-Gg: AYBFou0r/5BQwU5Go8jtxW+Omqx1hcVMbjHwaJ16EfIsYbkhczCSFe3eS2tMEHKVGbP
-	zNQWEjqyBjzHNJaiBPhLmcakgd/tq2bpB85rCVTWGyMNsFUzjUNRuh9I5KWztTGrk2LEIp9wuxz
-	F5ribP57lI/qjlmNK0n+zxNxzERMeQKDjrvcdgV/81kDIo3M3/FUXm0j2kRWVJ5FLgoh9VVP5xx
-	qSriYa+zTizH5hzb6/r62JkgAY0KrdSTAeZyw9nvvZTz3BBY1wkv8dV4y0mN/ZysikVIXbhWZlu
-	kLqxzxBMj8PEUFw67osIlzr8erjKwqNrJFkhZjB+afLf8FyYUMX7YpXtsP8FLYV9Lf9Oju2PJFw
-	BPugvJjKeOoyeQOOembN0xpjIM9nj39YxmwbF3/yq9sgnYiz8w5BkbnCV3H8LykIFlGCUfBzNzY
-	XdvOMgCt/ivA9ja+rFBfkQZJAk0h7IApWGylRW5z2b4raNS0alEe58pRPQe2334/FGqgfQDcDDr
-	MlVqSvpYUlYki6dmKNp
-X-Received: by 2002:a05:600c:a088:b0:4bb:6473:cde9 with SMTP id
- 5b1f17b1804b1-4bb8880f2d8mr64314205e9.6.1795185839556; Fri, 20 Nov 2026
- 06:43:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kNSwSrMQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795185887; x=1826721887;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=v8Hyluy4b5QjlOZwYbrn8VRWZYbKc/XDtN64J/0x8LQ=;
+  b=kNSwSrMQLP53nHX9So5xg1rEFowgYECmTPTPDVtosSRz81YQ1LRNhEIm
+   C99OHUMXxKUWqGcfyfj/64VUTV0WvWCOg9cMH+G/ZMd34rXTu2YVfs6Kt
+   RJ37sQWpkEMgJGbxlaciaXKlnFIYYBJu5+vkr6qX5ImcGSiS+7VtSe1cg
+   em08Y6M/7HqDkt1U6f2ET4LrDHVcq3CdrAtt8/26qPIrJ39iDHGbDXpWz
+   h0mJF3M/kfq6OK7ShM60OG+pKXoxkrJHjSXiDTwcV5xcnQQmBG1b8QwzJ
+   8mwaNcJCaudCLSRuXgxtznhjvIRgcX4oJBTdSYteflgCtqNI/1egAPRql
+   g==;
+X-CSE-ConnectionGUID: 5ZXkItcnRNCr2bGvUfYu9Q==
+X-CSE-MsgGUID: 1ZaOiUslQ5aOGZbW1O/phQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4053642"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="4053642"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 06:44:46 -0800
+X-CSE-ConnectionGUID: qWW3kSylTN2dCXICmpoQKA==
+X-CSE-MsgGUID: EpxpNGQLSAS1hUO5cWU2XA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="10598823"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.218])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 06:44:40 -0800
+Date: Fri, 20 Nov 2026 16:44:38 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Radu Sabau <radu.sabau@analog.com>,
+	Janani Sunil <janani.sunil@analog.com>,
+	Salih Erim <salih.erim@amd.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] iio: adc: rohm-bd79112: Support ROHM BD79111
+Message-ID: <awBc1qFMhydEXo69@ashevche-desk.local>
+References: <cover.1795176984.git.mazziesaccount@gmail.com>
+ <4be17e339f768da93db2f42abd3cc5a21fea01ad.1795176984.git.mazziesaccount@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,62 +95,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <179513453453.3291.8493509332739817258@kernel.org>
-In-Reply-To: <179513453453.3291.8493509332739817258@kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 20 Nov 2026 14:43:32 +0000
-X-Gm-Features: Aa3M54p4ZaVOj21rOraLFop2-l4thT3tsd33lr6hbx18b-7slzJ7KmqEF1KOtNk
-Message-ID: <CA+V-a8vCCZy6TSDt8aSDA74GxbdFBP11DCmKB7+T_6+TU08mhA@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 00/24] Add ETHSW support for Renesas RZ/T2H
- and RZ/N2H SoCs
-To: netdev-bot+sinfo@kernel.org
-Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@linux.dev>, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Simon Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Florian Fainelli <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>, 
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4be17e339f768da93db2f42abd3cc5a21fea01ad.1795176984.git.mazziesaccount@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi,
+On Fri, Nov 20, 2026 at 02:28:28PM +0200, Matti Vaittinen wrote:
+> 
+> ROHM BD79111 is very similar to the BD79112. Both are ADC/GPIO devices,
+> where pins can be configured to be either used as GPIO or ADC inputs.
+> ADCs are 12-bit SAR ADCs and GPIOs support input/output but not being IRQ
+> sources.
+> 
+> The main difference is amount of channels/GPIOs. The BD79112 has 32 pins
+> for this use, the BD79111 has 16. Furthermore, the BD79111 data-sheet
+> promises 0.5 MSPS sample rate with maximum of 10 MHz SPI clock,  whereas
+> the BD79112 data-sheet mentioned 1MSPS rate with maximum of 20 MHz SPI
+> clock.
 
-On Fri, Nov 20, 2026 at 12:28=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrot=
-e:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by LLM and not proven at runtime). If it was triggered
->    please include the symptoms, like the stack trace or kernel messages.
->
-The issues were found while manually comparing the hardware manuals
-for RZ/N1 and RZ/T2H SoCs.
+...
 
-Cheers,
-Prabhakar
+>  - Return -ENODATA instead of -ENODEV when SPI match data is not
+>    available.
 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account.
->
-> *IMPORTANT*: If you do repost (for other reasons) - please include
-> the relevant info in the cover letter or commit messages.
-> --
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+I guess you were distracted by something, the error code is now introduced in
+the very previous patch, fix it there.
+
+...
+
+> -	tristate "Rohm BD79112 ADC driver"
+> +	tristate "ADC/GPIO Driver for ROHM BD79112 et al."
+
+> - * ROHM ADC driver for BD79112 signal monitoring hub.
+> + * ROHM ADC/GPIO driver for BD79112 and similar signal monitoring hubs.
+
+Can this text be modified to be closer to the other two?
+Something like:
+
+ * ADC/GPIO Driver for ROHM BD79112 and similar signal monitoring hubs.
+
+> -MODULE_DESCRIPTION("Driver for ROHM BD79112 ADC/GPIO");
+> +MODULE_DESCRIPTION("ADC/GPIO Driver for ROHM BD79112 et al.");
+
+...
+
+Otherwise LGTM,
+Reviewed-by; Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
