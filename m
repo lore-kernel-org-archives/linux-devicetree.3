@@ -1,80 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795210291;
-	b=ejlpe4JjmCptKHOqbsoc8nkD1SXda155pAP/+Wk6P3XKIJeIRwstIh+B0lOQmeG3yOLS
-	 Jh9uWOx3wtDbcnw7ZRcOKcYPI4hVXZTJU9SFZMm1AgKPAkI9Uqcj5ybUr16PaNMGMxYuZ
-	 hdR94MsG66CKTXH7akLAJ+trO8YK3gP80FEBnMqrgIYrGQDC/6tjFJbkGEaDN+QsJ8TqY
-	 loaTjnu+hyjtLxhkQpiLhuDyqcdbs21qLicuI+oS8F3m1oIVYtmwT6+tvkU0Yhyzr5vfq
-	 jyR3g+8DKYWFq5BtXVrPTWXY5xyHkQQXS5dkdJMPtLDBGWIyC8tBIqC558ILw1hc1ww==
+	t=1795210361;
+	b=3lGiY662BAmCLzf8yNSdCUCeDeUv7hkQJwe02WOBh3j1HgHs6fDfB0efNCJ0xxIQiDsg
+	 wuCX7U4fpOnjjwPpBUkVMgsPwHhcq6Sj8cc5KRJCf/LTj0fiYMYLHCiA8oIK3tlJZl+5r
+	 iazbQaZQ4PgF+lkNHbueInuvvjDXjmS4p1mdGw7k7yeAYHLBNv7Uv2SCrwRL48ezK8H/a
+	 FjdpUDSkFLl8tGN2MvKDjiyvqjRNmX1FQgcZJjwjVYqLumPn2u7mG2Iubc0YFIMKm+8Vh
+	 KX8lm9lhL7OMNE+i0yGrSmkaAuyO05uOhB03cb+vtOJK4Sy2MCqna2gY76QjqHPqnrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795210291;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Hre9/kYvnxV6FE+cSP1phJsMVFoDyXzQDpFxO2GUIh4=;
-	b=Z3zHXFFT3XTIEqp3LRaabBfBp2H30mCXcJh4C5UnoAU5Q1IIR/9/RSyT2ISFOZ53fmnC
-	 8QHjT6CV6Y0LO//yMVxXTieZIHVsmPzCZcP7TQ1tW9lfJDqrpwgaGRvd2HDtn4bhhnPpc
-	 M2wY1LDYL5TuYh0vPQizTaC45sacAvucJ231R82e8g0dN/mNkX9qLbNkTmGEC0ijAi2Xj
-	 yoHzv3yWn1C9jIKxC8ownSMqzXpyxJ+7NBghjfIwQ93mBof55ESixMaz/UnILNWrj4OJ/
-	 8q5lOm8sxG/F7BCkAmxHysQ8aR0gLtQd767Z8kyNU6NdLmY7Y/u5AIkWm9TEVLDRH8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795210361;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=PuN/Gt/AJpK4AGD6j4+DL6HE9Ks6ewehwc2m7UHbDHE=;
+	b=MGC07amCN16B0+bOxWFh4Z6h9LT3iSRpdoFNxyfhiQvi+480qvWtqGFmadCc6ntkyxYc
+	 vAaoujFPy78GPUdeo8Z6hKn7d9Os7lnrDuRqZoH4ZNlMKOJDfthwkmn+t67mpVCyECEtk
+	 UvOAggP1LQSeNswCxfl2JAxtBf66M+SxafqBzPUiQIsJzOlBRHP445RdQcmWwnJmIXv2u
+	 xqTjU96dT1H7WvfFaRrtrkqUxAbajwBVZHelVLzUEBkvcPthzobXmpn+pI3ekznbJBnTX
+	 qO/622kqMurfnw18wTMnp2P/L57+TV+/+Q9bg5mq7dMqbPKTqQOjCd3V7x/jg/Lnx+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y7+pEitH;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcGku4mH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE82606A69B;
-	Fri, 20 Nov 2026 21:31:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FE82606A69B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC51606A697;
+	Fri, 20 Nov 2026 21:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y7+pEitH
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6FA714E6;
-	Fri, 20 Nov 2026 22:28:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795210127;
-	bh=M7Qcq8V3Jr2gLoOzs+ayK8dikX5kJkrE/bo1yp+s4tA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y7+pEitHa7rz0OLH9JT3Q9uw0F6+sdkuHT9Va5Ttw9M7zug6ogtix7wCXpSlsVxCG
-	 NHanSRRXOK5a+B19zRjoYv+jA1z9LQvpvNAX6SSyN9Yzpd/EtJGvqYv9+kyTipz/Ck
-	 xjilVepncVyQs3BTnJRFx+9YYuNn0i87hLlfnmmw=
-Date: Fri, 20 Nov 2026 23:31:16 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Cong Nguyen <congnt264@gmail.com>,
-	Faisal Mukhtar <mukhtarfaisal03@gmail.com>,
-	Dan Carpenter <error27@gmail.com>,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	Hao-Qun Huang <alvinhuang0603@gmail.com>,
-	Yury Norov <ynorov@nvidia.com>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: Re: [PATCH v1 01/10] staging: media: tegra-video: Move driver to
- media/platform/nvidia
-Message-ID: <20261120213116.GB2472094@killaraus.ideasonboard.com>
-References: <20261113161819.36847-1-clamor95@gmail.com>
- <20261113161819.36847-2-clamor95@gmail.com>
- <20261120143147.GA2466366@killaraus.ideasonboard.com>
- <CAPVz0n3u3oe1+H_w9jE2afb9PQT0VLtYVqfHeVNc3D+tLN6NDQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcGku4mH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05EB21F000C0;
+	Fri, 20 Nov 2026 21:32:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795210361;
+	bh=PuN/Gt/AJpK4AGD6j4+DL6HE9Ks6ewehwc2m7UHbDHE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RcGku4mHeWg0IbsA/oKgVOLfsjl7tF6eKapsumairE2afRgMAHQw/GassTrpf291D
+	 HxE+E6tfdJPy7t1b8Le/HNpDXYAT2rXkCEb8Nofd7jsQ1B3yQprqEr7QBw1S7TpnVt
+	 /b9KzI1vMdVxlSKHSmIZDIPTrpsnZOc5KExSio5Y4ahKPv4ftVSOSTZKLFVe6tarrW
+	 V0AP8/XsLQeFwn4H4IfZyBE/nTRw55Fr2yyGVZq6akniJCKErrfypoz9P94QXl6ULY
+	 Sh7G59m/1f1ZLAXzpghFrZK3l6wCdVnW9gHvbMuKEedml6K1x9qHmV47EzItBRsw5p
+	 W4aiHEZqHUk0w==
+Message-ID: <sashiko-outbox-226194@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] clk: renesas: r9a06g032: Add reset controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyle Hendry" <khendry@reliablecontrols.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20261120-rzn1-miic-resets-v2-2-f1cfa678615b@reliablecontrols.com>
+References: <20261120-rzn1-miic-resets-v2-0-f1cfa678615b@reliablecontrols.com>
+ <20261120-rzn1-miic-resets-v2-2-f1cfa678615b@reliablecontrols.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 21:32:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,90 +59,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n3u3oe1+H_w9jE2afb9PQT0VLtYVqfHeVNc3D+tLN6NDQ@mail.gmail.com>
 
-On Fri, Nov 20, 2026 at 05:31:17PM +0200, Svyatoslav Ryhel wrote:
-> пт, 20 лист. 2026 р. о 16:31 Laurent Pinchart пише:
-> > On Fri, Nov 13, 2026 at 06:18:10PM +0200, Svyatoslav Ryhel wrote:
-> > > The Tegra Video Input drivers are mature and developed enough to be moved
-> > > from staging into the media subsystem. No other changes are introduced.
-> >
-> > The driver should at least be converted to be MC-centric before being
-> > moved out of staging. I haven't checked if other changes would also be
-> > needed.
-> 
-> Does the media subsystem deny video-centric devices from even being
-> moved into it? I have not seen this restriction imposed; could you
-> please point me to where this is stated in the media subsystem
-> documentation?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] clk: renesas: r9a06g032: unpopulated index 0 in
+  r9a06g032_resets
+- [Medium] clk: renesas: r9a06g032: missing RESET_CONTROLLER Kconfig
+  selection
+--
 
-There's a consensus that devices that require control of camera sensors
-(i.e. "MIPI" cameras) must be MC-centric. That's not documented, we
-should probably fix that.
+commit 2cc290ce9843c419fbe880756a7ccf01089df58d
+Author: Kyle Hendry <khendry@reliablecontrols.com>
 
-> I would like to convert this device, but that may take quite some time
-> and may case regressions if not done carefully. This patchset apart
-> from moving to media is mostly fixes to work correctly with mt9m114
-> and tegra114 bring-up which is quite simple and straight forward
-> change.
+clk: renesas: r9a06g032: Add reset controller
 
-Converting to the MC API will require some changes in userspace. That's
-why it's important to make this change before destaging the driver.
+This commit registers a reset controller in the R9A06G032 clock driver to
+expose the timestamp and RGMII/RMII converter reset bits in the
+PWRCTRL_SWITCHCTRL register.
 
-> BTW, may you ack mt9m114 get_fwnode_pad change[1]. I have updated it
-> to your liking, Sakari seems to ignore it.
-> 
-> [1] - https://lore.kernel.org/lkml/20261006153619.304520-1-clamor95@gmail.com/
+> diff --git a/drivers/clk/renesas/r9a06g032-clocks.c b/drivers/clk/renesas=
+/r9a06g032-clocks.c
+> index 3df3f2b2c6de7..a474302987aa6 100644
+> --- a/drivers/clk/renesas/r9a06g032-clocks.c
+> +++ b/drivers/clk/renesas/r9a06g032-clocks.c
+[ ... ]
+> @@ -675,7 +676,13 @@ static const struct r9a06g032_clkdesc r9a06g032_cloc=
+ks[] =3D {
+>  		RB(0xec, 16), RB(0xec, 17), RB(0xec, 18), RB(0xec, 19)),
+>  };
+> =20
+> +static const struct regbit r9a06g032_resets[] =3D {
+> +	[R9A06G032_RST_TS]	=3D RB(0x188, 3),
+> +	[R9A06G032_RST_MIIC]	=3D RB(0x188, 4),
+> +};
 
-In the review of v1, I wrote in my last message
-(https://lore.kernel.org/linux-media/20260721103845.GJ50424@killaraus.ideasonboard.com/)
-that the issue seems to come from a bug in the VI driver. Let's continue
-the discussion there.
+[Severity: Medium]
+Since R9A06G032_RST_TS is 1 and R9A06G032_RST_MIIC is 2, can reset ID 0 be
+requested and accepted even though r9a06g032_resets[0] is unpopulated?
 
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/media/platform/nvidia/Kconfig                           | 2 ++
-> > >  drivers/media/platform/nvidia/Makefile                          | 1 +
-> > >  .../media => media/platform/nvidia}/tegra-video/Kconfig         | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/Makefile        | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/TODO   | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/csi.c  | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/csi.h  | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/tegra20.c       | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/tegra210.c      | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vi.c   | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vi.h   | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/video.c         | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/video.h         | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vip.c  | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vip.h  | 0
-> > >  drivers/staging/media/Kconfig                                   | 2 --
-> > >  drivers/staging/media/Makefile                                  | 1 -
-> > >  17 files changed, 3 insertions(+), 3 deletions(-)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/Kconfig (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/Makefile (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/TODO (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/csi.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/csi.h (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/tegra20.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/tegra210.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vi.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vi.h (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/video.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/video.h (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vip.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vip.h (100%)
-> >
-> > --
-> > Regards,
-> >
-> > Laurent Pinchart
+ARRAY_SIZE(r9a06g032_resets) is 3, and without a custom xlate callback,
+fwnode_reset_simple_xlate() allows index 0.  If a consumer requests reset
+0, assert and deassert silently become no-ops in clk_rdesc_set(), while
+r9a06g032_reset_status() calls clk_rdesc_get() with { .bit =3D 0, .reg =3D =
+0 }
+and reads bit 0 of offset 0x00 (R9A06G032_SYSCTRL_USB).
 
--- 
-Regards,
+Either the reset IDs should be 0-based, or the driver should provide an
+xlate callback that rejects unpopulated entries where !reg && !bit.
 
-Laurent Pinchart
+[ ... ]
+
+> @@ -1394,6 +1446,13 @@ static int __init r9a06g032_clocks_probe(struct pl=
+atform_device *pdev)
+>  	if (error)
+>  		return error;
+> =20
+> +	clocks->rcdev.ops =3D &r9a06g032_reset_ops;
+> +	clocks->rcdev.of_node =3D np;
+> +	clocks->rcdev.nr_resets =3D ARRAY_SIZE(r9a06g032_resets);
+> +	error =3D  devm_reset_controller_register(dev, &clocks->rcdev);
+> +	if (error)
+> +		return error;
+
+[Severity: Medium]
+Should CLK_R9A06G032 select RESET_CONTROLLER in
+drivers/clk/renesas/Kconfig?
+
+When CONFIG_RESET_CONTROLLER is disabled, devm_reset_controller_register()
+compiles to a no-op stub returning 0, so the reset controller is never
+registered and consumers such as pcs-rzn1-miic fail probe with
+-EOPNOTSUPP.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-rzn1-miic-=
+resets-v2-0-f1cfa678615b@reliablecontrols.com?part=3D2
