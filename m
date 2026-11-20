@@ -1,81 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795167151;
-	b=0xgQRArB0ds+QQ1KXQpVwm2vM/LuzxjFHHC9BmRR9Fjs7hYNeKdsewAkqC+ka4/Gw1rs
-	 RX7Iw8+XZXfWfRsyasZDceQT2tHGRRDy5CtEAm2rvG0K7jX6iG/EOtSDbw89p+xF89I8+
-	 7Ca2oKPl49gO86EtWvUNtsG7s4Q7uAdxByH6+JVUrZkbdxgNW7RU202eha1nX2FLhACzW
-	 +ofh5q80nuD3rypFESUggiLCgALiqOtMh+lgFMIKUqTVQ+rzBphpbw2V1K9k+gz2JHiIL
-	 uvTpU+jU6SvrXZyw3szp7vkq5NU3YE+6Hbyrptj0rbXtdtVDTg6qYpqPngw3Wt3eQDA==
+	t=1795167171;
+	b=BZFctLUGQAYpTH7+T8Io7lOufeMBsAOUQEL/XnnryfH4qdYTu4qqCaFZj8xjSICqfgWm
+	 TXTXa5mP3YVXLMA7AnSny0w6QgZjEWMZ+DVKPNa1/3FzpKhv5/GVON1AwU7fCriFF7w8b
+	 /2dSgqKHc2CSE9FYGisIXKo7MEg34gAATT9oQeX8sA3w9A1Fle/+J36+MbLPRJ4xFDcQO
+	 Bj3UcOpAs3oTGll7IBYAPmRzOEq52/7PTE5ZO0NUWgYFTbuGB56Hyd7BJW66BGIQ2pH4J
+	 XDRG4SDFMQndu9s/5Uny8EgiLmdwc5kRFQuP8A5fgCrLbSUA9scXdAq4Q0YGj0Zt85w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167151;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Wl+1Y8SscpZu5c/+A8SGiP7r5RTTmIzRVOYemhTE16s=;
-	b=wq47hXDwrq17g+yBlTdcOF3o95EjIzC1LIAJkfUtdcCTCMGywlzLOvizus+sGnf6N5Rb
-	 XFZmnDDqv3hXGuHF54QP1f14g3bICfQcIh0DsOchbPljT+xoQrnqaPPMd/tqF0wJrnLem
-	 VU9D7oKRZQhICpwjSOdCyYVNS9OVGLs+8KQJ2dDUn4b8NM4VPFyCMWdGpB8BHoJ+b93V9
-	 QB/9v5MiJn4PGqfWXBsqUYIDHBweDSOqi2dGZ1JLmrkaz/nWUnxUBDh9GyTEg6ny93VkU
-	 LQEABxGsEEIWwTkTPyPEYnyahsF0eHzhRf21d3DDvFFN1tyTcr+IVjsA8yJarcsB8gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167171;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bxsAfoUGos9HyMRI7/4tQpMU5EwXsK5G6ozcfIozN0U=;
+	b=EDYYWy/qzGHKKlacG0tT8tEL90gVkp0Ssut1hmu7i2oXBuwNL8nuH5EbwUutMxXtGcVY
+	 diqXRBVHg2zA+RlUtJLImPg547k9xmO9yts1qT11WCmoYvosfpsJXgNykgQAwlOYprHlI
+	 tQloYqSQwVmDVTuZPCcD0S0CrTRatLyoiIwLQQ7XEJgpLyamJSIQmx5Cw10HoG5G1NKk0
+	 s8u2rHCZUb1OTAmQ1dQhR0bHAodscjBLGZQnDuO8Xe8Xzkx36inLQyeYb3ne4UHccAMpk
+	 wxkzz0vlyQ4zTymESp0bukcgTFlqGft29alGtr1F+1v4n45g9d/FSH1E3TJpOF8m8Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=kPZ0LKFM;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cGCtDQdU;
+	arc=none smtp.remote-ip=95.215.58.6
+Received: from mta1.migadu.com (out-6.mta1.migadu.com [95.215.58.6])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD51606A32A
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:32:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FD51606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695AA606A32C
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:32:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 695AA606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=kPZ0LKFM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=Wl+1
-	Y8SscpZu5c/+A8SGiP7r5RTTmIzRVOYemhTE16s=; b=kPZ0LKFMaWfHPifU/dVu
-	TJNP7mHIWypkmCCedPnNOz/ifdUipTy/3tXcXyLNlNmgqUBIpk2CGdos2ejOlBOM
-	f6GNsB9tggi6IfuaMWWrTuQpakEuiZxTK+3wnAss35LtptnBPq9+k6IUmYnRSkTG
-	grnoZZle0gvFHBIs/szATkBReI+ypE+6F5NB8ktO4V13txFmkrQ0SwOdtTuOx8Jh
-	CPKnAc51CMRLpwQHa2eAvOD9k3/5AfFixDpAQCnF89I60vL84/ouxK95+iZBDpBS
-	diUZScPReLqoC3+aknLHMej6XZWnWKz8jTDavjV+xUxOoxZiFrRo5yC9cdL62FIp
-	+g==
-Received: (qmail 1417033 invoked from network); 20 Nov 2026 10:32:27 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 20 Nov 2026 10:32:27 +0100
-X-UD-Smtp-Session: l3s3148p1@YeMm7LFgsrcujnuU
-Date: Fri, 20 Nov 2026 10:32:25 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: khendry@reliablecontrols.com
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	=?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH 3/6] ARM: dts: renesas: r9a06g032: Add #reset-cells to
- system controller node
-Message-ID: <awATqUeXeKfiTEr7@shikoro>
-References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
- <20261119-rzn1-miic-resets-v1-3-feee2bb28bb4@reliablecontrols.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cGCtDQdU
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2bXx+Df3DKXm0tFraN/tvLGKzRWUt5my4//0JU1vfoQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795167168; v=1; x=1795771968;
+ b=cGCtDQdUzqfnrIUR/kfEDoxRF6AKHSqKmodUJQxY//ZIeqDQGMeps7KeEcYHx7pgSRsP+Km6
+ Hu81kv6DKe9mPZuavwXmmrStuvjQgpIb/iSpXh9QiuFr/9z7ZhcstU/81eb3wS+VxqC76mPQSWQ
+ 57IAgiwaoqeRoFkXRhnb5tyw=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a1e58ce883610dc5;
+	Fri, 20 Nov 2026 09:32:47 +0000
+X-Mizu-Trace-ID: a1e58ce883610dc5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0ff0a7ec-b899-4668-a245-196ed1032548@linux.dev>
+Date: Fri, 20 Nov 2026 10:32:46 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,47 +58,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tO7PsHmg5vUk1tXy"
-Content-Disposition: inline
-In-Reply-To: <20261119-rzn1-miic-resets-v1-3-feee2bb28bb4@reliablecontrols.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 03/24] net: dsa: Kconfig: Expand config
+ description to cover RZ/T2H and RZ/N2H ETHSW
+To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ Ralph Siemsen <ralph.siemsen@linaro.org>, linux-renesas-soc@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Language: en-US
+From: Clement Leger <clement.leger@linux.dev>
+In-Reply-To: <20261120002549.1908299-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---tO7PsHmg5vUk1tXy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Nov 19, 2026 at 09:57:45AM -0800, Kyle Hendry via B4 Relay wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
->=20
-> Update the rzn1 system controller node with cells for the reset controller
->=20
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
-
-I'll leave the final decision for Geert, but I think this can be merged
-with patch 6. But in general:
-
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
 
---tO7PsHmg5vUk1tXy
-Content-Type: application/pgp-signature; name=signature.asc
+On 11/20/26 01:25, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Update the Kconfig entry for the RZN1 A5PSW tag driver to reflect that
+> the same tagging format is also used by the ETHSW blocks found in Renesas
+> RZ/T2H and RZ/N2H SoCs.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v4->v5:
+> - No change
+> 
+> v3->v4:
+> - No change
+> 
+> v2->v3:
+> - No change
+> 
+> v1->v2:
+> - Updated description for Kconfig entry to cover RZ/T2H and RZ/N2H ETHSW
+> ---
+>   net/dsa/Kconfig | 9 +++++----
+>   1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
+> index bdeb60af764b..3c18314aee95 100644
+> --- a/net/dsa/Kconfig
+> +++ b/net/dsa/Kconfig
+> @@ -199,11 +199,12 @@ config NET_DSA_TAG_RTL8_4
+>   	  switches with 8 byte protocol 4 tags, such as the Realtek RTL8365MB-VC.
+>   
+>   config NET_DSA_TAG_RZN1_A5PSW
+> -	tristate "Tag driver for Renesas RZ/N1 A5PSW switch"
+> +	tristate "Tag driver for Renesas RZ/N1 A5PSW and RZ/T2H, RZ/N2H ETHSW"
+>   	help
+> -	  Say Y or M if you want to enable support for tagging frames for
+> -	  Renesas RZ/N1 embedded switch that uses an 8 byte tag located after
+> -	  destination MAC address.
+> +	  Say Y or M if you want to enable frame tagging support for embedded
+> +	  switches found on Renesas RZ/N1 (A5PSW) and RZ/T2H, RZ/N2H (ETHSW)
+> +	  SoCs. These switches use an 8-byte tag located after the destination
+> +	  MAC address.
 
------BEGIN PGP SIGNATURE-----
+Hi Prabhakar,
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsAE6kACgkQFA3kzBSg
-KbYHmQ//Y9yJPTxYFP3eZThxeShEaRY1gN9JF9+fsHlS4f68NrnD+ZoqB+MSggDt
-WmHizS0YVZ6+5OcWSPmVWn4aNnXbrXFeCDSNQgIFmjQBwcvA+1uaI8rc7Ul4kAhH
-VS2Z0tdur0JMIGv5C5r20jw/4AwfDLMOrui++tjwvf9yXH7kwIRlFKzQuEz+bM8D
-b4yuwxMNe4gClr/ava4ydeaunSjwP16Y6BAQUVv9sUuwp6jto+6NOKCe+a40n5Mq
-XoaCKUcHmwkic9+GeX69q3Hn/eBR0+Pe3ESiLvnm+pElticVOd4oUVJbNMthWeqa
-fIdIpUDZN5V0AoJ6Sr0HTGoKzAPRtFo0QuWrarhUJ7HZIqx4eqEnmkUAFiwx6wjj
-GIO89J+jfg5CghQ1vfIbvODH2+XwoPbHKbgCX21tf0xTVp+GA7Zf6DdOHlhz3oPR
-VMcpZi+y7mkxNv104VmDyVmqunHr7ZU+UgIBsfvakdjsFRdqoK69se9o88wRHQH3
-DNNmqKjydp/Rru6DsoXZ9kWlpYyl5lKPvn8qBGuyQ84PSKmEeNDGflfqv3mGKW34
-PryStiAR9UV8IO+MJXH+U0qWQVYKyXGFXFWI7qcx3YhaG9gyiTLig3/fzFKmyNFY
-j7PF+L1bbq7gHKaN5CG0N6zk3uAFgzKBzfHNhydRzY+0r+Vj5dA=
-=nOOC
------END PGP SIGNATURE-----
+I would fold that in the commit that adds support for the  RZ/T2H, RZ/N2 
+itself (ie patch 23: net: dsa: rzn1-a5psw: Add support for RZ/T2H 
+Ethernet switch)
 
---tO7PsHmg5vUk1tXy--
+Thanks,
+
+Clément
+
+>   
+>   config NET_DSA_TAG_LAN9303
+>   	tristate "Tag driver for SMSC/Microchip LAN9303 family of switches"
+
