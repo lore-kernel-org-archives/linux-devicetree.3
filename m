@@ -1,84 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795159175;
-	b=ReeAQpjnn6wcttTGK5TBQkXiulSSGxAEoTI/stncGLKO8VFgXznAOEUj1QJikiJcTpA5
-	 IrqjVKR7Gp18xd0JJ5WwaxcrEM3xgRNNc0YkQHRIYoVjBs0oLN48yg4FlXOJuEnV8i/YO
-	 06moeEQC0GiXrok3RrZNRnDyVlEbbh7JiHEBCOPmUp6RsKsR/nP+dLvPvKsIA2sYaVkEE
-	 QiDVKocEk+4kZ6OVv1d6KYjuGna49kRlbRepnUM1jgdrT5CgIs7xum/Q4BkOF26aaePOC
-	 HsqCGwJs/Kdh4Yvr0fA+iUL6gw06kUnH80UutvsuMU3/sPGrMFZW3nwXwUYBlMobz9g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795159175;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-CACHE:X-CID-P-RULE:
-	 X-CID-O-INFO:X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:
-	 X-UUID:Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-MTK;
-	bh=bjcBK2Jp+j7uKnBDu+KecoXiIuvzpZoiWmlv9+9ycts=;
-	b=L50sEFW4cRq+aFlYq+ddsHBhguUo86zjEiLi0BjE6HrbIkdwVoWBmDpFx3fKYYXi5yOr
-	 iKax0U+Q95T4owSPQpDFCkhYD73V/Siei3dxIJxTkZa2B1UksR4rKRQ0I0XGq3f+uvrCt
-	 +QRY/bhWrBeBLZIqxVLXDnQZ2iaPnfswgXkJIVwdPcbl/rHpbehbCaoOo/1mluGViiHjW
-	 iiMFdzubvd/+m3/EdJKXUrbbqw6s/BpgTNEOET7OTswls92MTPjaqNO7bPgTdxPayYx0E
-	 CQW+uG1feMdOLK/OPpZbXFKjj3HdIvvsMIIXThct+RuZVm7Lsao2XfLuNy1Bb4B/VYw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=airoha.com;
-	spf=pass smtp.mailfrom=airoha.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=olkXP7aR;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795159335;
+	b=JJR4Cqse4lvT600MyasjD9+ow+KRhhZSNPLeLE2nIzeYzFyOMm9gYaR/Kc+Nq3kxMHjF
+	 0ir9W2XL6nA18Ko1mxcZLekgFf6OBsxkb5As+J/XYRCXwoCQaW7pYoqxGWInNrEFlGeEt
+	 WUaNBcBlwwFLV/aOYR1EFpvcnBMnsJd5fL8RILAmEiqx4im3IafGcHYHmUYATJ1rD8rys
+	 MwZByTdLtzWCXsvO+XiVNuhnySabxHao9B/U7bhL+W7oWuvLPmxttLfx1e42vXgbZArie
+	 tsBBSoSFwUHa+YZ7vQTMSls4osvsrZlV0uz7UMPwGPhN9yP/zdBJBeEbo8Ncvvn6NZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795159335;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=KwRrc7jJFjacNOYQ22+KumrrMJDm4/e2Aq0/zpjEOGY=;
+	b=Ek5jm7BAtMXWnnwfEAnQe1kD76yT8bDL3GaFR3+FTIVx+xq135vaSPDJZuqUn1Lg7Ojl
+	 ZofNTSfJN0At0udT85xSGkCqQZ2uSmdc95IAoqxrJaAakSvEz8jT7VPoVczwGtcuGa62M
+	 J76tob22Zx03OmqqQckfbk+Gjos7C3MfFnXSmBnFLCpGl8Y/9fxlfrBi5oTR3DVUdFuI8
+	 o8ex1Rp+HA2NHAzkmQuFKVQnMkt/1YFOfd8UPF+W5TLGYBS6axfkr6rOdUUjsnLzoGzvm
+	 jnlkOwR5ejxZ2CFmm9D/Dgy8FzwBGm5wTAYAxBvhRrC1qjzkYKsw4qp3YlLTA9VK3kg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AR6hGc0F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30615606A320;
+	Fri, 20 Nov 2026 07:22:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AR6hGc0F
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795159334;
+	b=KfofeOJVDifvWALXiZJy8vrJ05YiIVAPycKrn1+oh32oz/a9U/58pUQHDl1EJxwfVZUD
+	 v7PfVNlyPBZfcJpE/KpSy4yzKIzlu6pJ71ug2+WwoWiS0Ld0i54MwgPyGrn3OLl6iFXiP
+	 swTmyW3klxp+VgPqSEUH/DhzvdXBPHh7qfJ8J6sXX7b43OGjJqqAexRqgnxXYVy3XWniQ
+	 hVuzjFRwyDivSBKmSaPcyjK6/8NqWS5+xDojjyupD11CeL+QMHqznU3+Vq2aMI8GdIZkv
+	 SBbmU+7o8PuczaeA+s2f4ovGygwGG4OMpSjbc9iVllMb9lhETfYMhlX8Zsoutxcri7A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795159334;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=KwRrc7jJFjacNOYQ22+KumrrMJDm4/e2Aq0/zpjEOGY=;
+	b=BIejPMlC5Rn6Ks4XsZKVXpk0lNEj+ZFnm2rq2gJarLMqdK3yO/4FNuQ0cXx2mb7ntdYD
+	 6jWwcaDHyHZkrjx9J8nNTwblGeLHu0VWaG0YfxqBUGsyNajbZUUloEqCnAQ4P82rKO4AN
+	 SfhZzXfPG4xRe4Ms+sItCnbQj77gMBc490shay27BybN5zt7JrAR5b1oxyTsTyEBV0yrj
+	 iV9MsXUa/iWvmkcghz0UYc2vycjzlMjq6FSFINLntoy0DFSZcodgL6UGZVQQyFVuE+0cu
+	 3IRRQ1ab/DbjpXdrQHkny8Jp1ddNnAiK0aQW9Dd78seAR0xL2fFu6l5H+icVNqAio3A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1AE606A325;
-	Fri, 20 Nov 2026 07:19:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A1AE606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=olkXP7aR
-X-UUID: b921e870e4b211f18dc8c9802ae25ab1-20261120
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:CC:To:From:Date; bh=bjcBK2Jp+j7uKnBDu+KecoXiIuvzpZoiWmlv9+9ycts=;
-	b=olkXP7aRi6nhiVi343QgDDSd5rZDx4hE7yvhpFNHZfVTlC5gIc0mBrzYvJm5/l8bfrrenT/X+hg6jMDv11QlQMkdHtVqAuiBQwoFDIj5gYbbQ+K95VKLR9X9ilrgvzMaO6p4LWFuCT87r1tOe97Ir7/ZlBW6ey/fI1Fvjgv3xo4=;
-X-CID-CACHE: Type:Local,Time:202611201519+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:b7826b25-de42-483c-90f3-55af6eb006be,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:08c2d419-ae4c-4a2b-b1c4-72e411efd0c9,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|83|102|136|836|865|888|898,TC:-5,Content
-	:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil
-	,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b921e870e4b211f18dc8c9802ae25ab1-20261120
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
-	(envelope-from <zhengping.zhang@airoha.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1536349714; Fri, 20 Nov 2026 15:19:28 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS14N2.mediatek.inc (172.21.101.76) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Fri, 20 Nov 2026 15:19:27 +0800
-Received: from mediatek.com (172.18.153.129) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Fri, 20 Nov 2026 15:19:27 +0800
-Date: Fri, 20 Nov 2026 15:19:27 +0800
-From: Zhengping Zhang <zhengping.zhang@airoha.com>
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-CC: <linusw@kernel.org>, <lorenzo@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <brgl@kernel.org>,
-	<naseefkm@gmail.com>, <benjamin.larsson@genexis.eu>,
-	<linux-gpio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
-	<lei.dong@airoha.com>, <ansuelsmth@gmail.com>
-Subject: Re: [PATCH 05/12] pinctrl: airoha: an7581: select force GPIO mode on
- GPIO requests
-Message-ID: <av_0f3bRXyWTSUYy@mediatek.com>
-References: <20261110094339.749110-1-zhengping.zhang@airoha.com>
- <20261110094339.749110-6-zhengping.zhang@airoha.com>
- <80e72b60-3128-4594-a4bf-bb184ffc754b@iopsys.eu>
+	by smtp.kernel.org (Postfix) with ESMTPS id 391361F000C6;
+	Fri, 20 Nov 2026 07:22:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795159334;
+	bh=KwRrc7jJFjacNOYQ22+KumrrMJDm4/e2Aq0/zpjEOGY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=AR6hGc0FWWvzA7TxqsXIQFaJwAxG9t/GiRMKFboQjVVH+1ivnk0Tsb912GOCfiVeB
+	 z4YzxeUEE1te3BrBtEzhohNjNSFpfor4SQVTeKFLEVr0P9uk7TmBdJLJrez2b9GTIi
+	 N4IMOE3kkLqGcfBAM1P7e73YsQcxnmAKZoDQPJvbeojxQ4uWnxnduGDApJM2ZO5Q8k
+	 zlZO0MEvhPv2r0SCttYHrVQyNhQu7D6eExMcO+lFi1flxmIohrMfWMNl9wFy8c0bvy
+	 dTuCOXSluqCirN/10wMe7Ze7X1QLx4BG48Claue9KxMSanOjM6D3YHwtdwyzpirpqj
+	 Oeubqqpcwm0lw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id BD00D4975B;
+	Fri, 20 Nov 2026 07:22:13 +0000 (UTC)
+From: Rajan Yadav via B4 Relay <devnull+rajanyadav0307.gmail.com@kernel.org>
+Date: Fri, 20 Nov 2026 01:22:13 -0600
+Subject: [PATCH 1/4] dt-bindings: vendor-prefixes: Add Shenzhen Kickpi
+ Digital Technology
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,31 +84,66 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <80e72b60-3128-4594-a4bf-bb184ffc754b@iopsys.eu>
-X-MTK: N
+Message-Id: <20261120-k5c-dt-v1-v1-1-d9681df67bc0@gmail.com>
+References: <20261120-k5c-dt-v1-v1-0-d9681df67bc0@gmail.com>
+In-Reply-To: <20261120-k5c-dt-v1-v1-0-d9681df67bc0@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ Andre Przywara <andre.przywara@arm.com>, 
+ Paul Kocialkowski <paulk@sys-base.io>, 
+ Rajan Yadav <rajanyadav0307@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795159332; l=1286;
+ i=rajanyadav0307@gmail.com; s=20261103; h=from:subject:message-id;
+ bh=gFo6j59NzHKrlOvLgDxrGptA4LIjDH4Hdw5hr398y8U=;
+ b=fFpAMIAg/lv2xBPfX2kce0TU5AiNuFAAajV4OUITbIHuTYyxTXr5MeOoYbe4kC1sej5l5Qq7W
+ 6WdSvsIj/s1Acp0v5kKMtccaa7nlP+78pRUp8XmFIMVrfZTnqcAY8Qf
+X-Developer-Key: i=rajanyadav0307@gmail.com; a=ed25519;
+ pk=4ZPeiP5qrv2b44q/Obxi2koUS70Q6npbttJnpUoTlgg=
+X-Endpoint-Received: by B4 Relay for rajanyadav0307@gmail.com/20261103 with
+ auth_id=1391
+X-Original-From: Rajan Yadav <rajanyadav0307@gmail.com>
+Reply-To: rajanyadav0307@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Mikhail,
+From: Rajan Yadav <rajanyadav0307@gmail.com>
 
-Thanks for the suggestion. I agree that selecting GPIO mode by disabling
-the relevant functions would be preferable to use the FORCE_GPIO
-registers.
+Shenzhen Kickpi Digital Technology Co., Ltd. makes single board
+computers under the KickPi name, such as the KickPi K5C with an
+Allwinner A133 SoC. Add a vendor prefix for them.
 
-I plan to change the implementation as follows:
+The company name is the one KickPi uses on its documentation site
+(doc.kickpi.com) and as the registered owner of the KICKPI trademark
+(US registration 7747802); their e-mail and web domain is kickpi.com.
 
-- Select GPIO mode by disabling the relevant alternate functions,
-  without setting FORCE_GPIO. Reject requests that conflict with
-  existing users.
+Claude Code (Anthropic) drafted this change and its message; I
+reviewed it and checked it with dt_binding_check.
 
-- When selecting a peripheral function, clear FORCE_GPIO overrides
-  where needed so that the peripheral can control the pad.
+Link: https://www.kickpi.com/
+Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Would this approach address your concern? If it looks reasonable, I will
-adopt it in v2 and validate.
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f..a67f9c1c896 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -919,6 +919,8 @@ patternProperties:
+     description: Keymile GmbH
+   "^khadas,.*":
+     description: Khadas
++  "^kickpi,.*":
++    description: Shenzhen Kickpi Digital Technology Co., Ltd.
+   "^kiebackpeter,.*":
+     description: Kieback & Peter GmbH
+   "^kinetic,.*":
 
-Best Regards,
-Zhengping
+-- 
+2.34.1
 
-On Sun, Nov 15, 2026 at 05:21:15PM +0300, Mikhail Kshevetskiy wrote:
-> I think it's better does not play with force gpio registers and just
-> disable (if no conflicts) functions that put selected pin to non-gpio mode.
+
