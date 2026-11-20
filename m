@@ -1,66 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196540;
-	b=FUBRaL2I2/w/7+joB7ANsKy95C150MGsMDhoeFIhOZwzoZ7Pfvg0W7ix0T+275J1/NgG
-	 yFa1iMFfIT565drAbmALseSdV5WdIpsgRBto6IaPn/Z4zBYmPqDmRN0tVwVr/tc0LVX+K
-	 uyIHn1354sZSmrhaocptoeLQlbVdijYRQUNU45Sb36QaXp0FLpYnrxzGUy0DrkN4Dw8JM
-	 S/Gj8TFDhyn0/dp1VHEkEMXT60H33x8qqEHFE0ONFmSDCwB1tIDmTTLy/O4bFYlmmGy2x
-	 H3lvhVcEQFJapQqZDpHulqWIzio/preS2BXJDoPy7IdjJ4NPtCG4q6PVwtneXf1QmgQ==
+	t=1795196639;
+	b=S/M4qBNa0hiWMjpgySg54CbjUK+WIrYODb7Hy8jA4jXHfvTbNzG4hhdNyD6I8dd7Qt3d
+	 opE0t1DzqO2SZizZ0oRMmEVmnh1rB66Yg+WpNzUYDazyxwNBSGxnUzNrhoZqLXb7tZccP
+	 Ch8DNuZLX87fMLyfLpilSr5Q4NZWo1/TlysNNHYO3gm+yXZZpjfWC2pQWYd8PVwbh+yzn
+	 WuTMq7pRRvTfRw1V4bw0Y2W/t8KyHwbUEO+45iyvu/cufKHA+SX3K6DrsMirz39oncz+O
+	 Uf1AM6fCK4pld2WYVHx9ZNpI0c8ijJ/SKmnt46nqba50jUYN/QqlKLHE6QMpQWn758g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196540;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=51HZiqJ55wkpOiYW/zwhGJ++u+ZTIbnP4YwHpryh1Ho=;
-	b=kCk4IqVJWWZ1z0xV2FRyLYCK4zoJjG2m3dE8Ps4pODsJ5J/9EJ/9HBtzXgtWC6bj/D/W
-	 yL8EabKYyXhHAEwrwtPKiWQMPMbAHSEFnVTJXDwvFL3P9BcczIKsDKji7fXKGb/dtBzyG
-	 MPBAN/10XrlUE/3LK2OVYWaL7ghECwbvsrEWOe128kLJzg4u8cItzz2dftAIS2tl7ZXyR
-	 twQqBe28H7tewY7YKwamOaUgbtDC1d4omJN+gfdRBsR7p2K5jXRPSXne6wHUokwKGXIAJ
-	 igP4xSNZt+O44a4tRXdr/5iovXCwBborXoZVdvjGTqC0D4HQCuCGNuyGjWmnB23Kbyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196639;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=xat0mH4UMjxmPRzKNd3e0XnLZwP4P1uMlabaEm86BqE=;
+	b=kt/3mQv0Z0ebaP5PTTseroyBc9qI7QsVmGwpnjlILh6eq7FU9QK5fWxuWMgT5B2r3WHg
+	 xcdWvGXVM0FYIofex9f+c2hrO5iJFTKFF4Y+NGpbKX/eRrBjC4CGgiW2+x0KUA3D2l+Q+
+	 2qvTKkS6RTS33kzbYLkI8xpI0CRoSICUZ2cLTnIg3hMDT9TADKfMGF6wqcGQELL6w1dl5
+	 F023/oM7+XYvmGQ54GmpcLViFUopiLUGUfRDDwNlvIjb5JoARJKkeXoOJsyCxIfu40+3x
+	 AqgvapHNkCpxTnbnFCyMkP4zy7bc4bIAT/RsUBqMWhjVvQ5krhelojSthebibJFTgFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=makrotopia.org;
-	spf=pass smtp.mailfrom=makrotopia.org;
-	arc=none smtp.remote-ip=185.142.180.65
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2yehk+z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918CA606A331;
-	Fri, 20 Nov 2026 17:42:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 918CA606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xUScl-000000000KR-0ClV;
-	Fri, 20 Nov 2026 17:42:11 +0000
-Date: Fri, 20 Nov 2026 17:42:02 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	David Heidelberg <david@ixit.cz>,
-	Christian Hewitt <christianshewitt@gmail.com>,
-	Marc Zyngier <maz@kernel.org>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Dang Huynh <dang.huynh@mainlining.org>,
-	Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
-Subject: [PATCH v5 5/5] arm64: dts: rockchip: rk356x: Clock the vdec at 400
- MHz
-Message-ID: <225a87d038ac323040a28cd3a68656c7e5a969a0.1795191823.git.daniel@makrotopia.org>
-References: <cover.1795191822.git.daniel@makrotopia.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AA8606A7ED;
+	Fri, 20 Nov 2026 17:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2yehk+z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806E71F00AD3;
+	Fri, 20 Nov 2026 17:43:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795196638;
+	bh=xat0mH4UMjxmPRzKNd3e0XnLZwP4P1uMlabaEm86BqE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=K2yehk+zF0NETZVxwSIsQIUmU95o7SfgWlZuZx7RFV21aApbwDR3LprOwvVVf3Pkc
+	 +oUtPFq71jL5CZdYZI8QEoL7XXZJHMfFqNf5VdSm65y8rgN487yybM2bzetZkD2FAQ
+	 AIpl9VXFhsRbx1UGcawdzzcLhINCFO6vFS0mGk/CwlX+ib3zmmvaxrE95/TttiFzbi
+	 V125oXol8cGLMJTWdfAGajESnfQDvhPWwEdfFOpa+M66seY/BSBXZQl/vcfy+CuoWO
+	 rfbVkqd31w23owUQdQp7migxQacU8KCqS9LCyG/GiulcNaEpL2l4xN4CLl833UgcHr
+	 2khwVcPMVJwjw==
+From: Mark Brown <broonie@kernel.org>
+To: Neo Chang <YLCHANG2@nuvoton.com>
+Cc: lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org, 
+ krzk+dt@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ alsa-devel@alsa-project.org, neo.chang70@gmail.com, kchsu0@nuvoton.com, 
+ sjlin0@nuvoton.com
+In-Reply-To: <20261118084214.527804-1-YLCHANG2@nuvoton.com>
+References: <20261118084214.527804-1-YLCHANG2@nuvoton.com>
+Subject: Re: [PATCH v3 0/2] ASoC: codecs: nau8310: Add NAU83G10 amplifier
+Message-Id: <179519003077.6016.13854568103739443276.b4-ty@b4>
+Date: Fri, 20 Nov 2026 15:53:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,44 +60,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1795191822.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1579; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=w+ngpUDZBZVs+uIe3ql7UJZ0fyaMW6XlFX9OldcDsmc=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIZ2m7Fv8qdsWW93YkZE45tf3+3bons9qZNtUkhXA9C/
+ gmY8Hw06ihlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEltUxMpyoXLis96yHjuv5
+ H++3x578fvPKJeXyV3Z7vymyh91+cy2D4b9L1aWJR19Pce59U8P5dv0fRpWmwq+uK00sIxlePp9
+ 1mY0TAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-The decoder AXI, core and CABAC clocks are assigned 297 MHz, the rate
-the vendor kernel derives as a quarter of its 1188 MHz GPLL. This dtsi
-runs the GPLL at 1200 MHz, from which the closest rate below 297 MHz
-is 240 MHz.
+On Wed, 18 Nov 2026 16:42:12 +0800, Neo Chang wrote:
+> ASoC: codecs: nau8310: Add NAU83G10 amplifier
+> 
+> This patch series adds support for the Nuvoton NAU83G10 audio amplifier.
+> 
+> The NAU83G10 is a mono boost Class-D audio amplifier with
+> an integrated DSP and I/V-sense support. The driver supports
+> I2C register access through regmap.
+> DAPM widgets and routes, TDM interface configuration, and DSP firmware
+> loading.
+> 
+> [...]
 
-Assign 400 MHz, a third of the GPLL. The vendor kernel clocks the
-decoder at a third of its GPLL for streams above 1920x1088 and lists
-400 MHz at 900 mV as the highest decoder operating point. The rkvdec
-driver scales neither the clocks nor the supply, so the rate applies
-to every stream.
+Applied to
 
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v5: state that the rate applies to all streams; no changes to the dtsi
-v4: new patch
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks!
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index 411c9ed62d4ac..6305a57258b4c 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -666,8 +666,8 @@ vdec: video-codec@fdf80100 {
- 				  <&cru CLK_RKVDEC_CORE>,
- 				  <&cru CLK_RKVDEC_CA>,
- 				  <&cru CLK_RKVDEC_HEVC_CA>;
--		assigned-clock-rates = <297000000>, <297000000>,
--				       <297000000>, <600000000>;
-+		assigned-clock-rates = <400000000>, <400000000>,
-+				       <400000000>, <600000000>;
- 		iommus = <&vdec_mmu>;
- 		power-domains = <&power RK3568_PD_RKVDEC>;
- 		resets = <&cru SRST_A_RKVDEC>, <&cru SRST_H_RKVDEC>,
--- 
-2.56.1
+[1/2] ASoC: dt-bindings: nuvoton,nau8310: Add NAU83G10
+      https://git.kernel.org/broonie/sound/c/27d854b5e925
+[2/2] ASoC: codecs: nau8310: Add support for NAU83G10 amplifier
+      https://git.kernel.org/broonie/sound/c/8aaede9ea8ac
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
