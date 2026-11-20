@@ -1,65 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196237;
-	b=yzspPtUbUetmrrWnqrM4TzIqG1L1t/7D+vEi/LC/lb2odcWd/xY6EU5JCqQ1HTLdCefy
-	 f6rrvABehlVi76jApYHz+4M1KYEyzA++mLtcGjwKiJaevaamudTlSb46hKtkhs//4CFLB
-	 +vs3P9Jv6xLeSP+Wzk++y4aS2am0JSZ9PA/GQ5Pz73x87vVnf7gmqEWNrz5/9dkR1eN5K
-	 chhCPkEFc3DlmZTlCP92frRUb9TQ44yOFRIXg1+6Uazpfgkikama76gYz1UX7vR5jzHzH
-	 uxfDDlQwBegzI6wiBZxWGCptPhr5m+nZ7sL/GvCVh7+DyU8a9mgp8oaPw9M5CPVprDQ==
+	t=1795196279;
+	b=mHqRQh42e7qLEY3IDBJ3HU1iIaqP3uyfJiwV2c4kYtWN72yrLXxnDaIaD0Ii8R4x+VKz
+	 GAKyi7Xc8be7VOvdqnZYGJYYD+kWd9SMPR+5At8GNDPtNQJO7AMbMx5vBjBzGsxzLVevk
+	 eSkqZbAN4QytvHmryq/zkq0tijTHiQWKYA9v/arEEqrmXHej+HqKOsJqekgJAaiWf270j
+	 8eLE8CyALle3pnLMxkgtCSCrSjgHVgIfZEOtv+ORkONOCskJM2f589dMm5tl36CEwTTn1
+	 xk3u47PMhN6fUQgE8y0EGy1unqB7+1/YZy4MiQ02vCW467MS5hoSsFxdaxXejeHeDiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196237;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=UvbKzbW6H2zGItu1enhQMWdt65i+2DOT8bF0qTpQO8Y=;
-	b=0RukIQXVk3FEWDV4HDsvcqIJBEG/hUmifBksnudALZDRNATNKITjNk2IIv4RAXcFFnP1
-	 Op0gqUeUT6ANM/xNkokT/RWtvCTdbwDFzEwji0QtUHGGP+ZqL1M1BQHW9J9G+B48YowWL
-	 b//J49sS87i9RYa70N0kwJzYzNZ0RXCmIsbzjYnITMoFC4sTc+BInWMHEAH5XlaxkxNjH
-	 CinTsu46JyvFOWxeh0znB9gWFhnKOVBtuP8B+5q470TV9ird8YnElB9b3spf+3qvZMjcx
-	 1P+4VoPfyrN2hKpGWUErjKK5TLDh07Yb0m5MPZi2GuShVUzo1NKQbNgp+O8vt1VAFlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196279;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wQw7a5KD+lvlLW/FKesRQ2UDET7CuP00cuxNZsjJY6A=;
+	b=ITliNwqT3hSyCtaEoZeFQEUTL2WCWky4NDfd33uxz5jy65vMozSgrZ9Uh0kfFAKEQeuO
+	 TK51OYHxNqYU6XYX1v0u6rIAOG/cZslYJBvP78dlgBufkaVY/0PpTyUdj8M47xjgjjF0E
+	 00lyH9mEXt7kfgDaBodjMz60qTnKb6i16M2rYuwsqrXPdShZDzQEaQ67xippjRnAaAlC9
+	 TivwyFI/3wdPpVfN86PuZZNg8/0zf7wEwRHTM8xXWn7atsAFZQamVTc74xB9ZF4ajJ04J
+	 XaqC3zEXqZMy3KXginNuaZA4DEXrcsd84sRojbf66Q8a2FTVLu9Pc8GPGrobfwhg10w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=makrotopia.org;
-	spf=pass smtp.mailfrom=makrotopia.org;
-	arc=none smtp.remote-ip=185.142.180.65
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dhi5Dptv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7E3606A339;
-	Fri, 20 Nov 2026 17:37:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED7E3606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xUSXi-000000000HS-3e3A;
-	Fri, 20 Nov 2026 17:36:58 +0000
-Date: Fri, 20 Nov 2026 17:36:29 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEDE606A320;
+	Fri, 20 Nov 2026 17:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dhi5Dptv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A94581F000CF;
+	Fri, 20 Nov 2026 17:37:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795196278;
+	bh=wQw7a5KD+lvlLW/FKesRQ2UDET7CuP00cuxNZsjJY6A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Dhi5Dptv/B8q787JJw7fs//I8i+zc6erq7OquEqDJonWjIucS2ds5XZYPJJJdQ0xA
+	 Lhen6+jFtmj/3Dod5hTlR05BckqBoxoJR4POBPp2MANbeNtltOcQiq+KHnX/cUNo7u
+	 AwWHqZlQnMEd0jMP0NzmoJFm4vGUIxyY/4I2d+9gm3Wy67aVZoJgY0fMpRkZhkbT9a
+	 ijvDhFZqlqsBEXbAi534bvNthhZidvVfMgMs0uZ9Jdt90Lv3CKApaNeIhTlzcynhSq
+	 +rcqpjMQdQ05smvpZB8kP2aXj67Lq78bwLNtZgAPwInem1unPEFZfiFDDGu6TymkzX
+	 goe3u2OARb+3g==
+Date: Fri, 20 Nov 2026 17:37:52 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	David Heidelberg <david@ixit.cz>,
-	Christian Hewitt <christianshewitt@gmail.com>,
-	Marc Zyngier <maz@kernel.org>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Dang Huynh <dang.huynh@mainlining.org>,
-	Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
-Subject: [PATCH v5 0/5] media: rockchip: rkvdec: add support for the VDPU346
- variant
-Message-ID: <cover.1795191822.git.daniel@makrotopia.org>
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Radu Sabau <radu.sabau@analog.com>,
+	Janani Sunil <janani.sunil@analog.com>,
+	Salih Erim <salih.erim@amd.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: Support ROHM BD79111
+Message-ID: <20261120-unneeded-rockiness-7225e7368478@spud>
+References: <cover.1795009599.git.mazziesaccount@gmail.com>
+ <f69b996cc07fad1712871fb8b0436c71abd435b9.1795009599.git.mazziesaccount@gmail.com>
+ <20261118-ancient-ominous-4f2a4a37369b@spud>
+ <bf0dd82b-e1a5-4ab9-9ab7-1641181d303f@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,142 +75,118 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="KhCEy9qpaczk0nKs"
+Content-Disposition: inline
+In-Reply-To: <bf0dd82b-e1a5-4ab9-9ab7-1641181d303f@gmail.com>
+
+--KhCEy9qpaczk0nKs
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This series adds the VDPU346 decoder of the RK3566 and RK3568 to the
-rkvdec driver, for H.264 and HEVC. It continues Christian Hewitt's v3
-[1]; in the v2 cover letter he offered to pass the series on. The
-previous posting [2] carried no version in its subject and counts as
-v4.
+On Fri, Nov 20, 2026 at 02:01:36PM +0200, Matti Vaittinen wrote:
+> On 18/11/2026 19:37, Conor Dooley wrote:
+> > On Wed, Nov 18, 2026 at 04:19:11PM +0200, Matti Vaittinen wrote:
+> > > From: Matti Vaittinen <mazziesaccount@gmail.com>
+> > >=20
+> > > ROHM BD79111 is very similar to the BD79112. Both are ADC/GPIO device=
+s,
+> > > where pins can be configured to be either used as GPIO or ADC inputs.
+> > > ADCs are 12-bit SAR ADCs and GPIOs support input/output but not being=
+ IRQ
+> > > sources.
+> > >=20
+> > > The main difference is amount of channels/GPIOs. The BD79112 has 32 p=
+ins
+> > > for this use, the BD79111 has 16. Furthermore, the BD79111 data-sheet
+> > > promises 0.5 MSPS sample rate with maximum of 10 MHz SPI clock,  wher=
+eas
+> > > the BD79112 data-sheet mentioned 1MSPS rate with maximum of 20 MHz SPI
+> > > clock.
+> > >=20
+> > > Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+> > >=20
+> > > ---
+> > >=20
+> > > Note, I had to change the 'root-level' additionalProperties: false to
+> > > unevaluatedProperties: false in order to allow the properties in the =
+new
+> > > allOf:
+> > >    - if:
+> > >       ...
+> > >=20
+> > > section. It seems to me this is what a few other bindings in IIO do, =
+but
+> > > I suppose it makes this "less strict". Well, since I am terrible with
+> > > writing bindings, I'd better point this out and ask if it's ok, or if
+> > > there are better way(s) to handle this?
+> >=20
+> > I don't think you should have to do that though, since the children are
+> > described in the same file.
+> > If you instead retained the pattern properties section, and lowered the
+> > restriction to channel@<any number> with reg with the max of 31 and in
+> > the conditional section constrained reg to a max of 16 does it work
+> > without the unevaluatedProperties change? We typically want properties
+> > defined at the top level and constrained in conditional sections anyway.
+>=20
+> Gah. Either I don't know how to do this properly (which is likely), or th=
+ere
+> is a slight caveat. When I tried to do what you suggest, the binding allo=
+wed
+> channel@X, where the <X> was is out of the range. Sure thing this was cau=
+ght
+> by 'reg' being out of the range, but it still allowed odd combination of
+>=20
+> channel@X, reg =3D <Y>, if Y was in accepted range.
+>=20
+> I suppose the 'X' and 'Y' in previous example are expected to always be t=
+he
+> same, but I would still like to catch this type of an error.
+>=20
+> I am about to spin v2 where I use the BD79112 limits (channels 0 to 31
+> allowed) in the pattern properties, and then do:
 
-Patches 1, 2 and 4 are Christian's, with two fixups folded in that v4
-carried as separate patches. Patches 3 and 5 are new since v3 and come
-out of a comparison of the driver with the vendor kernel driver
-(rockchip-linux/kernel develop-6.6, drivers/video/rockchip/mpp) and
-the Rockchip MPP library, followed by conformance runs on hardware.
+Yeah, I kinda fucked you a bit here sorry. I just mentioned this way as an
+easier way to fiddle around/debug it than having to meddle with the
+regexes, with the intention of following up promptly when you replied
+saying that what you have done for v2 is how you would implement it in
+practice.
 
-Fluster on a NanoPi R5C (RK3568B2), GStreamer 1.28.7 v4l2sl decoders:
+>=20
+> "^channel@(1[6-9]|2[0-9]|3[01])$": false
+> to exclude 16 - 31 from the BD79111.
+>=20
+> I am not super happy with it, but it seems to work and is still decently
+> understandable even for someone yaml -illiterate like myself. :/ (At least
+> for as long as we only have ICs which don't increase the amount of default
+> channels. That might cause the exclusion regexp on other ICs to become
+> ridiculously long or hard to read. Well, I don't have such ICs on sight f=
+or
+> now.)
+>=20
+> Well, let's see what people think of it :)
+>=20
+> Yours,
+> 	-- Matti
+>=20
+> --=20
+> Matti Vaittinen
+> Linux kernel developer at ROHM Semiconductors
+> Oulu Finland
+>=20
+> ~~ When things go utterly wrong vim users can always type :help! ~~
+>=20
 
-  JCT-VC-HEVC_V1   142/147
-  JVT-AVC_V1       129/135
-  JVT-FR-EXT        65/69
+--KhCEy9qpaczk0nKs
+Content-Type: application/pgp-signature; name=signature.asc
 
-HEVC failures: PICSIZE_A/B/C/D_Bossen_1 are coded at up to 8440 luma
-samples in one dimension, beyond the 4096x2304 limit of the decoder.
-TSUNEQBD_A_MAIN10_Technicolor_2 has unequal luma and chroma bit depth,
-which the driver rejects for every variant.
+-----BEGIN PGP SIGNATURE-----
 
-H.264 failures: CVFC1_Sony_C, FM1_BT_B, FM1_FT_E, SP1_BT_A, sp2_bt_b
-and FM2_SVA_C fail in JVT-AVC_V1; the Hantro G1 of the same board
-fails the same six with the same GStreamer. In JVT-FR-EXT
-Hi422FREXT17_SONY_A, Hi422FREXT19_SONY_A, HPCAMOLQ_BRCM_B and
-HPCVMOLQ_BRCM_B fail; the two BRCM vectors fail on the Hantro G1 as
-well, the two Hi422 intra profile vectors are not understood yet.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawCFcAAKCRB4tDGHoIJi
+0qXJAQCt/f1dlG1xM9NeqXhl6z52zsXZVscTXAtq+KBGGQ7oNQD/TyvuEcK5uHbX
+auCxt69y6ycAL9UxXLGcpQ7wceubswg=
+=vug2
+-----END PGP SIGNATURE-----
 
-SAODBLK_A/B_MainConcept_4 and FREH10-1/2 are counted as passes: they
-decode correctly and exceed the default 60 s fluster timeout only
-because the checksum is computed from an uncached mapping of the
-capture buffers.
-
-Patch 3 is what makes the score deterministic. With the read caches
-left in their reset state, RAP_B_Bossen_2, WPP_D_ericsson_MAIN_2,
-WPP_D_ericsson_MAIN10_2, WPP_E_ericsson_MAIN_2 (HEVC) and
-CAPM3_Sony_D, MR8_BT_B, MR9_BT_B, NRF_MW_E (H.264) produce wrong
-output in three runs out of three; with the patch they pass in three
-out of three. This is likely the source of the artefacts reported
-against v3. The function is shared with the VDPU381, where the cache
-block is mapped by the binding already. The series has been run on
-the RK3588 as well as on the RK3568.
-
-Decode rates with the series: HEVC Main 2160p 92 fps, Main10 2160p
-77 fps, Main 1080p 380 fps, H.264 High 1080p 197 fps.
-
-Patch 5 is kept apart from the node it modifies because the existing
-Tested-by tags were given at the v3 clock rates, and so that it can be
-dropped on its own.
-
-On the row and column buffer sizes raised in the v3 review [3]: the
-MPP library uses one vdpu34x HAL with one set of size formulas for the
-RK356x and the RK3588, so the variant keeps vdpu381_rcb_sizes.
-
-Known limits, none of them introduced here:
-
-- FFmpeg's v4l2-request hwaccel does not set the HEVC EXT_SPS_ST_RPS
-  and EXT_SPS_LT_RPS controls, so HEVC through FFmpeg decodes wrongly
-  on this decoder as on the VDPU381 ("Long and short term RPS not
-  set"). The handling of these controls is also the subject of [6].
-- A decode error on such a stream ends in the IOMMU page faults and
-  the oops reported against v3 [4]. The cause is in the error path
-  shared by all variants: the interrupt handler restores the IOMMU
-  while the watchdog is still armed, and the watchdog starts the next
-  job while the IOMMU is detached. "media: rkvdec: Handle interrupts
-  without a current context" [5] covers the oops; the remainder will
-  be addressed separately.
-- The Sashiko review of v4 points out that rkvdec_probe() takes the
-  SRAM pool without a device link to its provider. This predates the
-  series, affects all variants with an sram property and will be sent
-  as a separate fix.
-
-Patches 3 and 5 were written with the help of an LLM coding assistant,
-which also performed the comparison with the vendor sources. It was
-asked to review the v3 series against the vendor driver and to
-complete it, and for v5 to go through the v4 feedback, fold the fixups
-and revise the commit messages. The conformance and A/B runs above
-were done on the board with builds of v4 on Linux 6.18; v5 differs
-from v4 in the order of two writes to the device tree source and in
-one node name, the driver code is unchanged.
-
-Changes since v4:
-- Fold "media: rkvdec: vdpu346: Limit HEVC EXT SPS RPS dimensions"
-  into "media: rkvdec: Add support for the VDPU346 variant", so that
-  no commit registers 65 element controls
-- Fold "arm64: dts: rockchip: rk356x: Order vdec regs by address" into
-  "arm64: dts: rockchip: Add the vdpu346 Video Decoders on RK356X"
-- Name the SRAM pool node codec-sram as on the RK3588
-- Read caches: shorten the commit message and state that the cache
-  block is mapped for the VDPU383 as well
-- 400 MHz: state that the rate applies to all streams
-- Cc the reviewers and testers of v3
-
-Changes since v3:
-- Add "media: rkvdec: vdpu381: Program the read caches"
-- Add "arm64: dts: rockchip: rk356x: Clock the vdec at 400 MHz"
-- Register the HEVC EXT SPS RPS controls with 64 and 32 elements
-- List the vdec register blocks as link, function, cache
-- Add fluster scores and failure analysis
-- Add Tested-by from Diederik de Haas
-
-v4: https://lore.kernel.org/r/cover.1794654074.git.daniel@makrotopia.org
-v3: https://lore.kernel.org/r/20260110053727.2295260-1-christianshewitt@gmail.com
-v2: https://lore.kernel.org/r/20251226113140.573759-1-christianshewitt@gmail.com
-
-[1] https://lore.kernel.org/r/20260110053727.2295260-1-christianshewitt@gmail.com
-[2] https://lore.kernel.org/r/cover.1794654074.git.daniel@makrotopia.org
-[3] https://lore.kernel.org/r/DFL5TY0QQNMN.1RS04UM9D1V8S@cknow-tech.com
-[4] https://lore.kernel.org/r/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tech.com
-[5] https://lore.kernel.org/r/20261026124808.642373-1-a.kazinsky@ideco.ru
-[6] https://lore.kernel.org/r/cover.1794645268.git.daniel@makrotopia.org
-
-Christian Hewitt (3):
-  media: dt-bindings: rockchip: Add RK3568 Video Decoder bindings
-  media: rkvdec: Add support for the VDPU346 variant
-  arm64: dts: rockchip: Add the vdpu346 Video Decoders on RK356X
-
-Daniel Golle (2):
-  media: rkvdec: vdpu381: Program the read caches
-  arm64: dts: rockchip: rk356x: Clock the vdec at 400 MHz
-
- .../bindings/media/rockchip,vdec.yaml         |   2 +
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi |  49 +++++++
- .../rockchip/rkvdec/rkvdec-vdpu381-h264.c     |   2 +
- .../rockchip/rkvdec/rkvdec-vdpu381-hevc.c     |   2 +
- .../rockchip/rkvdec/rkvdec-vdpu381-regs.h     |   9 ++
- .../media/platform/rockchip/rkvdec/rkvdec.c   | 121 ++++++++++++++++++
- .../media/platform/rockchip/rkvdec/rkvdec.h   |   2 +
- 7 files changed, 187 insertions(+)
-
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.56.1
+--KhCEy9qpaczk0nKs--
