@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795210979;
-	b=K70ia5z11+4k0ySd5r7j31Y1aH8mwoEv/kIwQmxP6JuEfA8OK2HhRmUDAGQQmsSlqPeu
-	 SPodhsqzookwJon3pZeWuLy4Es8nzNUgrEyDyTLuGaYbq7Mu08v7R5J1a5TTY9mj3B/7a
-	 /AGW9hK8qprpGR2eydwgFAaPMVPuGSpHyKVv+kzAbWBAsQRifnnyJG1VZd6+dGAlMzC9o
-	 X25GIu0dY4mhBeIWqnxaJ+SVzzIMeriIh8VRBd/MGyJScY7e2G/cm1cqceISQD4e/Vubs
-	 Xq6UbLcKsvIukHouN2H2uO8k9rg3/TvF4eyB+DpWkPlOk6WMjiA4X/OiI57+XtwsrfQ==
+	t=1795213045;
+	b=3/RwBbpF670C9VjMAQkHviUiAhV8IIyYFwsBCOVF7oV8S0zLXBfTWHpxeGuKneHdon6y
+	 AGddhwnFUfDyqiqgZvOEcM+HtXI7L3FnRf/bmikEh/i03nk12VYr3bYLX4TxS+Hs3JUmr
+	 fksRBIh14yfWLyKUpZvSIQ912YYogX9WLkCEe3AvglugU35parCJQA+t8x93Od3kzH9Z1
+	 kXIT5sDOKnk1CDdm/SmQp1HVXLB4X2Bj3cf3isSrWmQd1LpUDVV8XceDevBIwef/qRqi/
+	 x4LK0Ebanrug2v1I9zlMUTHcvGQe66Zv79s1s8kEWThe4SCKFpNIlirG5ucG/6tuupg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795210979;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=H/16LcwBS3pMY05rENBIXnogYiIxMoqlB7pgoFRgdeE=;
-	b=GRiCJfv6xLytJjwn7pGvkkD0lW52xYo40OY6p5iJWMwCRUsJmxSj/TVu/EFEDSlXBSZY
-	 1A47ulattJYwWFf+OZs2gE70Z6Xs23kaEi0KUs54ItcMZoKPORgV66w94+L6iPIyoP9Kh
-	 rvMdZyPmP25LdF1W8GXcDtRuvikmmAfxYBXfkEw4EEvFNECaJ3d4CdjdysCULGU/Cmf+C
-	 y0Gpo3e3Hhe4vYtiH/wTFppp7Qy3BJ2MFBf2RVi3mtKj8NSbb4rdN4vZheLDEnWE2xJXT
-	 adlGU+4cMzO6pxqDqRwSSpNTXxtHxiY466O/VOO9+oSzYSPwV3v+BW8tvCboBB4Wafw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795213045;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ugYvkLeIn+hCFsnanE87QPu37zEBsRIDzxdzwEyjNUc=;
+	b=u4RBaXIfUVhd//ZfRF9QKy4b8uR1w8XzHUvaLTqC1SKhXkJ34nUJ0WdjW/BSXowY79zV
+	 xV5b2UJvTxNlK9RzbapMz1mP3mzuyloJClXf8lK+xMa7QRhRjLInRQrKZYbfXgQiiSF+4
+	 PDYkDfsFLGTtY05grUreoIbchclyjXOnHeo7eSDI4XYN++iZsfwn+kjB+NmEkTfWMPy3a
+	 QasGNo3hSP93G1ciSX6G1qlJIGGy72knfwH44a4vS2KIT6jK2V4VAy5uYdURrPO2zRrvd
+	 GLh1NiB7y6sc/5ly29ND+or1aJlK6hI2k+NLBPclFec4e3QQ67GbYfVgkqDkz6Vm4MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4lyql3w;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="W/KOm7A9";
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197F8606A689
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 21:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49570606A6BC
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 22:17:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49570606A6BC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4lyql3w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27F8C1F000C4;
-	Fri, 20 Nov 2026 21:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795210978;
-	bh=H/16LcwBS3pMY05rENBIXnogYiIxMoqlB7pgoFRgdeE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R4lyql3w3uc6fuyQc06rRxhN/Vp503FHHBN+IDJtTRoXm/DwEYzsWv5ws8h1w89Gr
-	 qccIP6Iqzze4xJ5PbC7vcLYVBNxo6vEjn4VTyUCB8zt5HUHQQQVABpHoJFw8CDBH95
-	 c78LWbxSoXQK7VTXls70Fxh/l+5s9MGqsDOxMtwj/nPKETCaaWMMtB1IyYUJ+2V6gO
-	 WZiQaxBT+uZ4YJp4Sh3OnsyL10l+JjeeHquL7TRjc8curz4tRYHVIrNQ9O35NpP1Gl
-	 jEMsgedoye9uPoFvWDFrwNCcyCvg8W8oOktmFV98D+gM55kmI1K3Qr4YFD5UkmET0E
-	 1AiPv6gfzuhkQ==
-Message-ID: <sashiko-outbox-226207@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 2/3] power: supply: cw2217: Add support for Cellwise
- cw2217
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261120212815.35663-3-macroalpha82@gmail.com>
-References: <20261120212815.35663-1-macroalpha82@gmail.com>
- <20261120212815.35663-3-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 21:42:57 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=W/KOm7A9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=ugYv
+	kLeIn+hCFsnanE87QPu37zEBsRIDzxdzwEyjNUc=; b=W/KOm7A9slfv8kdbib0u
+	6c4Tt0oohwCGQxXFmsUNOJuRExU1OO6r9i7UisDK6dcgAeKyNpFxjbAxhdsHjUtJ
+	zvB1uuqctJaLMa7giFIBMmbrwJGCipDQrWevqNYF2ySzoTfiCDpPrRSqQhvW1nJA
+	HThhj/fYPa7DorBJL5AYhRh6qI0Hqy63V4YOST7K2caVN41mn6yDze0TCnOwM6dl
+	hDZOMSunhGEIaHt8e1fa+qO6UrAJcJvlya3H1nzalXkK+aPHkdhSCEzqVsnDAnEM
+	oujGXaLNeYBrDOSwQx00q62RSdMZUPoOtmdpUUfsIhR6wstkgppV+bhaTgfCuAf1
+	6w==
+Received: (qmail 1629929 invoked from network); 20 Nov 2026 23:17:18 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 20 Nov 2026 23:17:18 +0100
+X-UD-Smtp-Session: l3s3148p1@CtRsm7xgrOdtKXA1
+Date: Fri, 20 Nov 2026 23:17:17 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: khendry@reliablecontrols.com
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] clk: renesas: r9a06g032: Add reset controller
+Message-ID: <awDG6bClCPgRO3ZN@shikoro>
+References: <20261120-rzn1-miic-resets-v2-0-f1cfa678615b@reliablecontrols.com>
+ <20261120-rzn1-miic-resets-v2-2-f1cfa678615b@reliablecontrols.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,163 +73,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i7NGJUNCA0p0si7Y"
+Content-Disposition: inline
+In-Reply-To: <20261120-rzn1-miic-resets-v2-2-f1cfa678615b@reliablecontrols.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] power: supply: cw2217: 32-bit signed overflow in
-  cw2217_get_current()
-- [Medium] power: supply: cw2217: gauge left in shutdown mode without DT
-  profile
-- [Medium] power: supply: cw2217: missing power_supply_changed() in
-  cw2217_bat_work()
-- [Low] power: supply: cw2217: unused match table with !CONFIG_OF via
-  of_match_ptr()
---
+--i7NGJUNCA0p0si7Y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit b7f80d5b2ad4376d864e98e5237d2f7d87f7e959
-Author: Chris Morgan <macromorgan@hotmail.com>
 
-power: supply: cw2217: Add support for Cellwise cw2217
+> > +static const struct regbit r9a06g032_resets[] =3D {
+> > +	[R9A06G032_RST_TS]	=3D RB(0x188, 3),
+> > +	[R9A06G032_RST_MIIC]	=3D RB(0x188, 4),
+> > +};
+>=20
+> [Severity: Medium]
+> Since R9A06G032_RST_TS is 1 and R9A06G032_RST_MIIC is 2, can reset ID 0 be
+> requested and accepted even though r9a06g032_resets[0] is unpopulated?
+>=20
+> ARRAY_SIZE(r9a06g032_resets) is 3, and without a custom xlate callback,
+> fwnode_reset_simple_xlate() allows index 0.  If a consumer requests reset
+> 0, assert and deassert silently become no-ops in clk_rdesc_set(), while
+> r9a06g032_reset_status() calls clk_rdesc_get() with { .bit =3D 0, .reg =
+=3D 0 }
+> and reads bit 0 of offset 0x00 (R9A06G032_SYSCTRL_USB).
+>=20
+> Either the reset IDs should be 0-based, or the driver should provide an
+> xlate callback that rejects unpopulated entries where !reg && !bit.
 
-This commit adds a power supply driver for the Cellwise CW2215, CW2217, and
-CW2218 I2C battery fuel gauges.
+Seems like starting from 0 is the better (and easier) option after all.
 
-> diff --git a/drivers/power/supply/cw2217_battery.c b/drivers/power/supply=
-/cw2217_battery.c
-> new file mode 100644
-> index 0000000000000..a54e19889b46c
-> --- /dev/null
-> +++ b/drivers/power/supply/cw2217_battery.c
-[ ... ]
-> +static int cw2217_get_current(struct cw2217_battery *cw_bat)
-> +{
-> +	s32 cw_current;
-> +	__be16 reg;
-> +	u8 fw_ver;
-> +	int ret;
-> +
-> +	if (cw_bat->fw_version =3D=3D 0) {
-> +		cw_bat->cw_current =3D 0;
-> +		dev_err(cw_bat->dev, "Error! CW2217 firmware read error!\n");
-> +		return -EIO;
-> +	}
-> +
-> +	ret =3D regmap_bulk_read(cw_bat->regmap, CW2217_CURRENT_H,
-> +			       &reg, sizeof(reg));
-> +	if (ret)
-> +		return ret;
-> +
-> +	cw_current =3D (s16)be16_to_cpu(reg);
-> +
-> +	fw_ver =3D FIELD_GET(CW2217_ID_MASK, cw_bat->fw_version);
-> +	switch (fw_ver) {
-> +	case CW2215_ID:
-> +	case CW2217_ID:
-> +		cw_bat->cw_current =3D (cw_current * 1600 * 1000) / cw_bat->user_rsens=
-e;
-> +		break;
-> +	case CW2218_ID:
-> +		cw_bat->cw_current =3D (cw_current * 3815 * 1000) / cw_bat->user_rsens=
-e;
-> +		break;
+> [Severity: Medium]
+> Should CLK_R9A06G032 select RESET_CONTROLLER in
+> drivers/clk/renesas/Kconfig?
+>=20
+> When CONFIG_RESET_CONTROLLER is disabled, devm_reset_controller_register()
+> compiles to a no-op stub returning 0, so the reset controller is never
+> registered and consumers such as pcs-rzn1-miic fail probe with
+> -EOPNOTSUPP.
 
-[Severity: High]
-Can the numerator multiplication in cw2217_get_current() overflow s32?
+I agree.
 
-Because cw_current and the multiplier literals are 32-bit signed integers,
-(cw_current * 1600 * 1000) overflows s32 once abs(cw_current) reaches 1343
-(~1.43 A with the default 1500 uOhm shunt, or ~215 mA with a 10 mOhm
-shunt), and (cw_current * 3815 * 1000) overflows at 563.  When charging
-current wraps negative, POWER_SUPPLY_PROP_CURRENT_NOW is corrupted and
-cw2217_battery_get_property() misreports POWER_SUPPLY_PROP_STATUS as
-NOT_CHARGING or FULL.
 
-Using div_s64((s64)cw_current * 1600 * 1000, cw_bat->user_rsense) would
-avoid the overflow.
+--i7NGJUNCA0p0si7Y
+Content-Type: application/pgp-signature; name=signature.asc
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> +static int cw2217_init(struct cw2217_battery *cw_bat)
-> +{
-> +	int ret;
-> +
-> +	ret =3D cw2217_get_chip_id(cw_bat);
-> +	if (ret)
-> +		return dev_err_probe(cw_bat->dev, ret, "I2C read write error");
-> +
-> +	/*
-> +	 * All of the known Cellwise 221x chips set the ID bits to 0xa0. If it
-> +	 * doesn't match, we're trying to probe the wrong hardware.
-> +	 */
-> +	if (cw_bat->chip_id !=3D CW2217_CHIP_ID)
-> +		return dev_err_probe(cw_bat->dev, -ENODEV, "Not a cw221x\n");
-> +
-> +	if (!cw_bat->bat_profile) {
-> +		dev_warn(cw_bat->dev, "continuing with default bat profile\n");
-> +		return 0;
-> +	}
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsAxukACgkQFA3kzBSg
+KbZ5TQ/+LTk22zz7YpZoutzekpGc1HX6HqK2n1k1Qp6YZgMhPfNqRKr+eC2PizDk
+SHDKPexnilYeYCcrrdi+WwUtRYwSOiAsv70evhdSANtrY3cm6fpl0Q1mEBUVG3ZI
+Rvlg/2+Clb2WOK6lJTNCwdfy2Uzn+if2d8CmRUSopCfgn6h1csfj+9Fm3RVFXSRU
+TTMrOd/L7jbVzsECcCGMTNesvigPPQcgI6lEoKOpqoT5SwbYtKvg5x6lovNSLpfD
+QIZl+4cdrYq5uoqZOrpBW84fW8qRCa+TtkovI8EOnDTZ2hxJHBLA/2PCo+VWWXn8
+V7eKXU2f1rBSPCs3vxLveRMbs968VRQbUyYVjrxg7JCAQpdqhQzbObZWxYXTndRt
+5vUZZLz7m8p54xcowRgcgs2Xuh3jpY23W3zLK+qk5LJ8ajkBSV5+8tuuWFdLhZQf
+ia6aGQuwA7iOh5ApObWkLBzcaI1FTNvJk33CHPTeAVBLYsZShKU47X7WojaAi+lD
+XTMuFItP/ysMDR1xl2HjjkTM2sLLZt+6dDVHTnp7To6WcUs8VXGJg3Kz8hzahqEB
+9Hrvy17/3DvCSCZPjUk+CiS7qddurtHpJyqGKsR7UyVHQSvU7+F1BcqMAY1pUP88
+p9cS4ed2vz9GYLqEAfskV4w6LRn9vXjQAeM+Or6+k1QyXpVUilw=
+=S+1X
+-----END PGP SIGNATURE-----
 
-[Severity: Medium]
-Does returning early when cw_bat->bat_profile is NULL leave the gauge in
-shutdown mode?
-
-If the optional cellwise,battery-profile property is omitted and the chip
-is still in its default shutdown state (CW2217_CONFIG =3D 0xF0),
-CW2217_FW_VERSION reads as 0x00, causing cw2217_get_current() to fail
-cw2217_probe() with -EIO.
-
-[ ... ]
-
-> +static void cw2217_bat_work(struct work_struct *work)
-> +{
-> +	struct delayed_work *delay_work;
-> +	struct cw2217_battery *cw_bat;
-> +	int ret;
-> +
-> +	delay_work =3D container_of(work,
-> +				  struct delayed_work,
-> +				  work);
-> +
-> +	cw_bat =3D container_of(delay_work,
-> +			      struct cw2217_battery,
-> +			      battery_delay_work);
-> +
-> +	ret =3D cw2217_update_data(cw_bat);
-> +	if (ret)
-> +		dev_err(cw_bat->dev, "i2c read error when update data");
-> +
-> +	queue_delayed_work(cw_bat->battery_workqueue,
-> +			   &cw_bat->battery_delay_work,
-> +			   msecs_to_jiffies(cw_bat->poll_interval_ms));
-> +}
-
-[Severity: Medium]
-Should cw2217_bat_work() call power_supply_changed(cw_bat->cw_bat) when
-battery data changes so userspace and in-kernel subscribers receive update
-notifications?
-
-[ ... ]
-
-> +static const struct of_device_id cw2217_match_table[] =3D {
-> +	{ .compatible =3D "cellwise,cw2215", },
-> +	{ .compatible =3D "cellwise,cw2217", },
-> +	{ .compatible =3D "cellwise,cw2218", },
-> +	{ },
-> +};
-> +MODULE_DEVICE_TABLE(of, cw2217_match_table);
-> +
-> +static struct i2c_driver cw2217_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "cw2217",
-> +		.pm =3D &cw2217_bat_pm_ops,
-> +		.of_match_table =3D of_match_ptr(cw2217_match_table),
-> +	},
-
-[Severity: Low]
-Does using of_match_ptr() here trigger a -Wunused-const-variable warning on
-cw2217_match_table when CONFIG_OF is disabled?  Since the driver uses
-generic device_property_* helpers, of_match_ptr() can be dropped.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120212815.3566=
-3-1-macroalpha82@gmail.com?part=3D2
+--i7NGJUNCA0p0si7Y--
