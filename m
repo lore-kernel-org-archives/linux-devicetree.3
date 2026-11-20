@@ -1,104 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795190101;
-	b=Cgr8sBINXF2N7WwHZk+IXg3/YT/Mg8EHvb0xJ/kEHsFYeOMR565Ddnwh5Osq9jBuHHbF
-	 xUiGjWdrUHpSVoQA5ba4Remf3kZF3O5jfnSDc+r0y+9RYaY7Mx/iAXMupDzXTnVDno/ct
-	 VuYqcc8znZX3mKC6evpbD1g3coUaNCoOiTuzP1Lwjwyp84J8Z/JnKNAB+eRAeGrBOf9Pn
-	 hbYiLKnSqNB9f8pJCp4sBL3/TeP9mbVjmuJwJzPFnTDb0UTGsOGjNfOXUBOjfJVMIwbxs
-	 sYMq3AEhQ+H2rvmxMB2vipMdTsaj7CkqglANUSbowKEtUcSYOmQqESQAJmuaycFw22g==
+	t=1795190603;
+	b=kzHHQXjA3c3ILaWWMzKGFYGNMWeSYhiDKyb8Mb7qOacCzurMue6x9VLcKqD2K7CG+5CF
+	 cKOvUTHiy8Ts46kDDkspIJCXl+T07OpHeEqaSGFACQXC5YUDbVeF/kEGw9oAZ2gNpYnAn
+	 r7aeLC/RT2O4/rz0KgsX2UNoJoLtWLwDLXJUVmd1a+T2tRQSetlTF2+O+b5fwaXIXdqUp
+	 A2KETN10fpL42oTXJcVmK8nHQc8zAs4GA5O1ucfsU4KrLuCGmTXHR+QukuNrhtYuiOOtY
+	 /1GOKelvpnhS9FG5pda8URf83NGDyy1YJ2sDYVebTGzKXJXaI6cNyaUD2fsq3/JSTTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795190101;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=iEwn/neGYJcnJW/f7YdqIPyeyWp1f9cfch/HHbVGQAw=;
-	b=2IhpGsibb8HMHa2yLNw6bIqE+UIbJYvd07dXo4SGTkIsC/XSJAF+Vq+2CXOQnl/Xctau
-	 1GxHvMUO1hubfJn67mFKUvyh1MYMkhPIZxw04hYtbwEQuth3o1Onrs4e2R4F50ylgqcxq
-	 ENU25z83oTdfpJbUjQ/CEEC87hzTu7tlIXnRqLHF3NOGmLD+a6DCtKdLR++u0AgojMGaJ
-	 4xCiLeScUHPGuyZfr4mMN2PBQaje6cR7wIRD1gdlJCVABI+f6tw1PY664zrFJj5fBhf8J
-	 qzTaCaIPKQgVdECveRS/DEbmuTAzECiXkRuVZUH9HlUaSZW002h0my8Zawl7oqvuexw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795190603;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0fxeBQWA+Vv42RQyz76WkaDzLZasoMz+I7cHksuH6aY=;
+	b=EKLEjzh0hlLnxinzi9D0ezVevlFd8buIypw/9nHE7PzjU53rL80nNkYDvUqyESvnDCzF
+	 PvHqgGB+/Ni24oJYI8tnWW38XuNvdemZe6QMSEBlaLc5FSTYEcHjHgOB0AFJStnTTt95x
+	 ZdzSmBN3L7Xi+M+NO2qIVpFHrRbdb3p1COc6heoz8JQNJEylcKfgGq4cVVs6OrWvx2QNr
+	 jUaNKbfkR7kV5IEoBkcPcHfEfNWt+fCzsqY5th3nQ3K/bC1KA2atptcdCJc9vgnnoEJi0
+	 smfB/aZbXDfiH6tlKl0gNK4R//NCBlqFn5YkEn9Dyu1jRlR1yQchnTKIgW6iMvCZKLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wb6b2T8V;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUg6glcs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F87760A3826
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:54:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F87760A3826
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2918B606A330;
+	Fri, 20 Nov 2026 16:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wb6b2T8V
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e3b22e971so589286f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 07:54:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795190098; x=1795794898; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iEwn/neGYJcnJW/f7YdqIPyeyWp1f9cfch/HHbVGQAw=;
-        b=Wb6b2T8VaKJdRZgYITEFWwuBsHqJDQ3oc0mo/yiDUBLeRAG3ENZrMoZGo1VQ/Ynaec
-         iqL230isIjAVpffbFZAQGQvpTcbeq/fb31MPbqkAI4wX1+c6U8W/jNIz5N67CD4rDvQM
-         /MrTCWC2ooYipEXcZfTMX0IyEjnMfHTnSZ56tU7z7MnyTHcck5Ar2t5V8L3qiEZIOiCp
-         70KqsBH740Oe2uO1qxmKgrbvRXKo61VtdtIk5J2zCu1TfwBRpUGWqGTIbZvMic99Qwml
-         qwHuFn2SIl6YsCQZxIa7XSbpUo8SYWi7yBhhiP2n6UTX7/OapkQSxEqrd+AwuYCRUnTW
-         mIbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795190098; x=1795794898;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iEwn/neGYJcnJW/f7YdqIPyeyWp1f9cfch/HHbVGQAw=;
-        b=pjIwkj3UUBnWzKdEjEqkRog3s9H8kX+IC5SJPROnz8aQ7rhlmrTdd0a3ab5l6ENqqK
-         FCqLkP+uB4LTxi6DYyVsUkOJE/Q7I/TA2Oolrx5QBuYHpBNH1q0zf2YiZfEC9J7PQnNT
-         LFrjJOMMjp0eLqCUdBuntla2SouYL9o1HRo21Ck+q34iUs+n7ga4LD1oln0rtyYdhpuB
-         B3lCBA2cLd1EOQFk3L92yAfDUvUByMd3N6eA3M/jS0l1ikVBufVVjNZyG3ojyDL28Oek
-         6OdOffPk2CSaVu8S7nRR3jfk8r4Bdi+GRTXS+dEAQL4ABUWU4tbrJRqdYl3SiXCrpx+n
-         7sqQ==
-X-Gm-Message-State: APuU4Z9JyD3EkpL/bA+uZiWfHken3ZANLaCgJ9VJMasCvi3oJVWsS9wp
-	R1wXiY4uHROHAkZ3IsfpgVoMSPHrHXb0iQv1G27qAyE1kRlGu0JWo6Hb
-X-Gm-Gg: AYBFou2O71W0qiqSTUkgnOLBsKhR//IyXd4uU5i0+GAjDrQClKOJz+Bk8RMjKL3mY/j
-	/qGR7egNzgntWz+EnZ85lFOmWLp8A6j79c3DzT9h5i9/FNMKqZolg35tcXH/432UhuxF9y8khSO
-	JJuzM8TMFVq/oHcQTgi48zN7itY1j9kY2aH3wDCNwRKJj1rqK5Jiy7+JpZ/xyrc5sunmidp6LBY
-	LH4bvZ2+P4cy4PWw7DnM8mOlfganoO/hCDsq5Ww7n8CwlYHZAdufpxPVA80bjsXmQhn4vYY0FS6
-	aK5jB51IXI/d0MuYFDovoNHOj7ztjU4Kwp1YbWoOAp1miIV1ivAPebB6brxP3QVSPsS4YgN3AM5
-	Ibo5Z1YBUi0uGDhmjQ7sHs9TXRqT+StDBhlnBFNBwoarE8KXZ67lJ9ogTxlcH/b8sY/hY2yF4An
-	4wLYEn/XSzZPtaFA1eMiVqkOf0LMpWdK+wjy8jv/Cqgfy7IquddM6WzkZFrM57zqK0Ja1zet1OY
-	7t/sjXrALmGZObj2oHjmCYiuOS8F1J98B1aLfrrwslszMUTksdxzBlI8vbuKurni0tcoOREUChh
-	kZtpAXC3RSLnxthtIQJ0z51Z9PjwkkZAAcpK1PZNlRRYgaBhetzW84hln327149ROAc931HC6qR
-	i
-X-Received: by 2002:a05:600c:5251:b0:4a1:f8cb:7d70 with SMTP id 5b1f17b1804b1-4bb8881e837mr72253505e9.24.1795190098333;
-        Fri, 20 Nov 2026 07:54:58 -0800 (PST)
-Received: from DESKTOP-BJ3EVC4.lan (178-164-182-185.pool.digikabel.hu. [178.164.182.185])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884a15absm83982635e9.9.2026.11.20.07.54.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 07:54:57 -0800 (PST)
-From: Abdur Rofik <rofikcoga@gmail.com>
-To: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Abdur Rofik <rofikcoga@gmail.com>
-Subject: [PATCH v5 06/10] Input: touchscreen: add Silicon Works SW42902 support
-Date: Fri, 20 Nov 2026 16:54:45 +0100
-Message-Id: <20261120155450.7719-7-rofikcoga@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261120155450.7719-1-rofikcoga@gmail.com>
-References: <20261120155450.7719-1-rofikcoga@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUg6glcs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77BBA1F000CA;
+	Fri, 20 Nov 2026 16:03:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795190602;
+	bh=0fxeBQWA+Vv42RQyz76WkaDzLZasoMz+I7cHksuH6aY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZUg6glcsCUv515/4tezA+6zALJjR0/Stptxvp4oW+weiR81JS3wMwE8qYPhCQmO4D
+	 zTj0vF+6vmbSSRiz+h4RNTc8txkRUW20HjjfjKEGwZKM3elZbFSIgjeuzPFK8uQ95m
+	 8VjGrSsjrTcoCY0KOyrggVcbaS6NAATQ1h7r3vFsixnIGsF+dyWZ6xe8HLZN0WYvk3
+	 WCse8hY8VEVrf33czVN0zX+dPdAlpuE8d8W1WKeAFj9hT34f3TxkAapG/CD8ApaDfR
+	 xhm9uVxqd7fBcxMEqwkfqNqjN1KlZzMRZrHXqeS3gRUgaxT6GFT8PyF4/0WWNDKT4D
+	 twu84KBRef/Pg==
+Message-ID: <e4b514e1-4b0d-4bb7-a19e-e13518ceb277@kernel.org>
+Date: Fri, 20 Nov 2026 17:03:11 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,435 +51,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH mainline-linux 4/4] arm64: dts: renesas:
+ r9a08g046l48-smarc: Add RS485 support on RSCI2
+To: Diogo Ivo <diogo.ivo.sx@renesas.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Thierry Bultel <thierry.bultel.yh@bp.renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20261120-divo-ssgrlpcsrc-2996-rs485-v1-0-a989baae3559@renesas.com>
+ <20261120-divo-ssgrlpcsrc-2996-rs485-v1-4-a989baae3559@renesas.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261120-divo-ssgrlpcsrc-2996-rs485-v1-4-a989baae3559@renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add basic multitouch support for the SW42902 controller. Implement the
-power and reset sequence using regulator supplies and use the firmware
-already present in controller flash; no firmware update is performed.
+On 20/11/2026 16:49, Diogo Ivo wrote:
+> Add an RS485_ENABLE macro (disabled by default) to configure RSCI2
+> for RS485 operation using the RSCI2_DE pinmux instead of RTS/CTS
+> hardware flow control.
+> 
+> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+> ---
 
-Signed-off-by: Abdur Rofik <rofikcoga@gmail.com>
----
- MAINTAINERS                         |   1 +
- drivers/input/touchscreen/Kconfig   |  13 +
- drivers/input/touchscreen/Makefile  |   1 +
- drivers/input/touchscreen/sw42902.c | 360 ++++++++++++++++++++++++++++
- 4 files changed, 375 insertions(+)
- create mode 100644 drivers/input/touchscreen/sw42902.c
+Odd subject prefix. :/
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a29019d984393..7a1904f6d0fad 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25840,6 +25840,7 @@ M:	Abdur Rofik <rofikcoga@gmail.com>
- L:	linux-input@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
-+F:	drivers/input/touchscreen/sw42902.c
- 
- SILVACO I3C DUAL-ROLE MASTER
- M:	Miquel Raynal <miquel.raynal@bootlin.com>
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7fd..14c6cd999ec92 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -1299,6 +1299,19 @@ config TOUCHSCREEN_SURFACE3_SPI
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called surface3_spi.
- 
-+config TOUCHSCREEN_SW42902
-+	tristate "Silicon Works SW42902 touchscreen"
-+	depends on I2C
-+	depends on GPIOLIB
-+	help
-+	  Say Y here if you have a Silicon Works SW42902 touchscreen
-+	  connected to your system (e.g. LG V60).
-+
-+	  If unsure, say N.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called sw42902.
-+
- config TOUCHSCREEN_SX8654
- 	tristate "Semtech SX8654 touchscreen"
- 	depends on I2C
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index bfd9de83389d8..1ee2590014535 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -86,6 +86,7 @@ obj-$(CONFIG_TOUCHSCREEN_STMPE)		+= stmpe-ts.o
- obj-$(CONFIG_TOUCHSCREEN_SUN4I)		+= sun4i-ts.o
- obj-$(CONFIG_TOUCHSCREEN_SUR40)		+= sur40.o
- obj-$(CONFIG_TOUCHSCREEN_SURFACE3_SPI)	+= surface3_spi.o
-+obj-$(CONFIG_TOUCHSCREEN_SW42902)	+= sw42902.o
- obj-$(CONFIG_TOUCHSCREEN_TI_AM335X_TSC)	+= ti_am335x_tsc.o
- obj-$(CONFIG_TOUCHSCREEN_TOUCHIT213)	+= touchit213.o
- obj-$(CONFIG_TOUCHSCREEN_TOUCHRIGHT)	+= touchright.o
-diff --git a/drivers/input/touchscreen/sw42902.c b/drivers/input/touchscreen/sw42902.c
-new file mode 100644
-index 0000000000000..7e4032f6400c9
---- /dev/null
-+++ b/drivers/input/touchscreen/sw42902.c
-@@ -0,0 +1,360 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2026 Abdur Rofik <rofikcoga@gmail.com>
-+ * Silicon Works SW42902 touchscreen, as used by LG V60 (timelm).
-+ * Register protocol and report layout derived from the LGE vendor driver
-+ * (Copyright (C) 2015 LGE, author hoyeon.jang@lge.com).
-+ * This driver uses the controller's existing flash firmware.
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/input/mt.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/pm.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/slab.h>
-+#include <linux/unaligned.h>
-+
-+#define SW42902_MAX_CONTACTS	10
-+#define SW42902_REPORT_SIZE	(12 + 24 + 12 * SW42902_MAX_CONTACTS)
-+#define SW42902_IC_STATUS	0x600
-+#define SW42902_VERSION		0x642
-+#define SW42902_DEVICE_CTL	0xc00
-+#define SW42902_INTERRUPT_CTL	0xc01
-+#define SW42902_DRIVING_CTL	0xc03
-+#define SW42902_SERIAL_SPI_EN	0xfe4
-+#define SW42902_DRIVING_STOP	0x04
-+#define SW42902_DRIVING_U3	0x8303
-+
-+static const char * const sw42902_supplies[] = {
-+	"vcl",
-+	"vdd",
-+};
-+
-+struct sw42902 {
-+	struct i2c_client *client;
-+	struct input_dev *input;
-+	struct touchscreen_properties prop;
-+	struct gpio_desc *reset;
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(sw42902_supplies)];
-+	bool suspended;
-+	u8 report[SW42902_REPORT_SIZE];
-+};
-+
-+static int sw42902_read(struct sw42902 *ts, u16 reg, void *data, u16 len)
-+{
-+	u8 command[] = { (reg >> 8) | (len > 4 ? 0x20 : 0), reg & 0xff };
-+	struct i2c_msg msgs[] = {
-+		{ .addr = ts->client->addr, .len = sizeof(command),
-+		  .buf = command },
-+		{ .addr = ts->client->addr, .flags = I2C_M_RD,
-+		  .len = len, .buf = data },
-+	};
-+	int error;
-+
-+	error = i2c_transfer(ts->client->adapter, msgs, ARRAY_SIZE(msgs));
-+	if (error < 0)
-+		return error;
-+	return error == ARRAY_SIZE(msgs) ? 0 : -EIO;
-+}
-+
-+static int sw42902_write(struct sw42902 *ts, u16 reg, u32 value)
-+{
-+	u8 command[6] = { 0x40 | (reg >> 8), reg & 0xff };
-+	int error;
-+
-+	put_unaligned_le32(value, command + 2);
-+	error = i2c_master_send(ts->client, command, sizeof(command));
-+	if (error < 0)
-+		return error;
-+	return error == sizeof(command) ? 0 : -EIO;
-+}
-+
-+static void sw42902_release_contacts(struct sw42902 *ts)
-+{
-+	int i;
-+
-+	for (i = 0; i < SW42902_MAX_CONTACTS; i++) {
-+		input_mt_slot(ts->input, i);
-+		input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, false);
-+	}
-+	input_mt_sync_frame(ts->input);
-+	input_sync(ts->input);
-+}
-+
-+static irqreturn_t sw42902_irq(int irq, void *data)
-+{
-+	struct sw42902 *ts = data;
-+	struct input_dev *input = ts->input;
-+	u32 status, header;
-+	unsigned int count, i;
-+	int error;
-+
-+	error = sw42902_read(ts, SW42902_IC_STATUS, ts->report,
-+			     sizeof(ts->report));
-+	if (error) {
-+		dev_err_ratelimited(&ts->client->dev, "report read failed: %d\n", error);
-+		sw42902_release_contacts(ts);
-+		return IRQ_HANDLED;
-+	}
-+
-+	status = get_unaligned_le32(ts->report + 4);
-+	header = get_unaligned_le32(ts->report + 8);
-+	/* Only normal absolute-touch reports; ignore pen/gesture/debug IRQs. */
-+	if (((status >> 16) & 0xf) != 5 || (header & 0xff))
-+		return IRQ_HANDLED;
-+
-+	count = (header >> 8) & 0x1f;
-+	if (count > SW42902_MAX_CONTACTS) {
-+		dev_warn_ratelimited(&ts->client->dev, "invalid contact count: %u\n", count);
-+		sw42902_release_contacts(ts);
-+		return IRQ_HANDLED;
-+	}
-+
-+	/* A palm report cancels all active fingers. */
-+	if (header & BIT(31)) {
-+		sw42902_release_contacts(ts);
-+		return IRQ_HANDLED;
-+	}
-+
-+	/* Pre-scan for palm report to avoid queueing partial touch events */
-+	for (i = 0; i < count; i++) {
-+		const u8 *contact = ts->report + 36 + 12 * i;
-+		u32 a = get_unaligned_le32(contact);
-+
-+		if ((a & 0x1f) == 15) {
-+			sw42902_release_contacts(ts);
-+			return IRQ_HANDLED;
-+		}
-+	}
-+
-+	for (i = 0; i < count; i++) {
-+		const u8 *contact = ts->report + 36 + 12 * i;
-+		u32 a = get_unaligned_le32(contact);
-+		u32 b = get_unaligned_le32(contact + 4);
-+		u32 c = get_unaligned_le32(contact + 8);
-+		unsigned int id = a & 0x1f;
-+		unsigned int event = (a >> 16) & 3;
-+
-+		if (id >= SW42902_MAX_CONTACTS || (event != 1 && event != 2))
-+			continue;
-+
-+		input_mt_slot(input, id);
-+		input_mt_report_slot_state(input, MT_TOOL_FINGER, true);
-+		touchscreen_report_pos(input, &ts->prop, a >> 18, b & 0x3fff, true);
-+		input_report_abs(input, ABS_MT_PRESSURE, (b >> 14) & 0xff);
-+		input_report_abs(input, ABS_MT_TOUCH_MAJOR, (c >> 4) & 0x3fff);
-+		input_report_abs(input, ABS_MT_TOUCH_MINOR, c >> 18);
-+	}
-+
-+	input_mt_sync_frame(input);
-+	input_sync(input);
-+	return IRQ_HANDLED;
-+}
-+
-+static void sw42902_power_off(void *data)
-+{
-+	struct sw42902 *ts = data;
-+
-+	if (ts->suspended)
-+		return;
-+
-+	gpiod_set_value_cansleep(ts->reset, 1);
-+	usleep_range(1000, 2000);
-+	regulator_bulk_disable(ARRAY_SIZE(ts->supplies), ts->supplies);
-+	ts->suspended = true;
-+}
-+
-+static int sw42902_power_on(struct sw42902 *ts)
-+{
-+	int error;
-+
-+	error = regulator_bulk_enable(ARRAY_SIZE(ts->supplies), ts->supplies);
-+	if (error)
-+		return error;
-+
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ts->reset, 0);
-+	/* Docomo downstream DT specifies a 90 ms hardware reset delay. */
-+	msleep(90);
-+
-+	return 0;
-+}
-+
-+static int sw42902_start(struct sw42902 *ts)
-+{
-+	u8 version[4];
-+	int error;
-+
-+	error = sw42902_read(ts, SW42902_VERSION, version, sizeof(version));
-+	if (error)
-+		return error;
-+	if (version[2] != 10 || (version[3] & 0xf) != 4) {
-+		dev_err(&ts->client->dev, "unexpected chip/protocol: %u/%u\n",
-+			version[2], version[3] & 0xf);
-+		return -ENODEV;
-+	}
-+
-+	error = sw42902_write(ts, SW42902_SERIAL_SPI_EN, 0);
-+	if (error)
-+		return error;
-+	error = sw42902_write(ts, SW42902_DEVICE_CTL, 1);
-+	if (error)
-+		return error;
-+	error = sw42902_write(ts, SW42902_INTERRUPT_CTL, 1);
-+	if (error)
-+		return error;
-+	error = sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_STOP);
-+	if (error)
-+		return error;
-+	msleep(30);
-+	error = sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_U3);
-+	if (error)
-+		return error;
-+
-+	return 0;
-+}
-+
-+static int sw42902_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct sw42902 *ts;
-+	struct input_dev *input;
-+	int error, i;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return -EOPNOTSUPP;
-+	if (client->irq <= 0)
-+		return dev_err_probe(dev, -EINVAL, "missing interrupt\n");
-+
-+	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
-+	if (!ts)
-+		return -ENOMEM;
-+	ts->client = client;
-+	i2c_set_clientdata(client, ts);
-+
-+	ts->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ts->reset))
-+		return dev_err_probe(dev, PTR_ERR(ts->reset), "reset GPIO\n");
-+
-+	for (i = 0; i < ARRAY_SIZE(sw42902_supplies); i++)
-+		ts->supplies[i].supply = sw42902_supplies[i];
-+
-+	error = devm_regulator_bulk_get(dev, ARRAY_SIZE(ts->supplies), ts->supplies);
-+	if (error)
-+		return dev_err_probe(dev, error, "failed to get regulators\n");
-+
-+	input = devm_input_allocate_device(dev);
-+	if (!input)
-+		return -ENOMEM;
-+	ts->input = input;
-+	input->name = "Silicon Works SW42902";
-+	input->id.bustype = BUS_I2C;
-+	input_set_abs_params(input, ABS_MT_POSITION_X, 0, 1079, 0, 0);
-+	input_set_abs_params(input, ABS_MT_POSITION_Y, 0, 2459, 0, 0);
-+	input_set_abs_params(input, ABS_MT_PRESSURE, 0, 255, 0, 0);
-+	input_set_abs_params(input, ABS_MT_TOUCH_MAJOR, 0, 16383, 0, 0);
-+	input_set_abs_params(input, ABS_MT_TOUCH_MINOR, 0, 16383, 0, 0);
-+	touchscreen_parse_properties(input, true, &ts->prop);
-+	error = input_mt_init_slots(input, SW42902_MAX_CONTACTS,
-+				    INPUT_MT_DIRECT | INPUT_MT_DROP_UNUSED);
-+	if (error)
-+		return error;
-+
-+	error = sw42902_power_on(ts);
-+	if (error)
-+		return error;
-+
-+	error = devm_add_action_or_reset(dev, sw42902_power_off, ts);
-+	if (error)
-+		return error;
-+
-+	error = devm_request_threaded_irq(dev, client->irq, NULL, sw42902_irq,
-+					  IRQF_ONESHOT | IRQF_NO_AUTOEN,
-+					  dev_name(dev), ts);
-+	if (error)
-+		return error;
-+
-+	error = sw42902_start(ts);
-+	if (error)
-+		return dev_err_probe(dev, error, "controller initialization failed\n");
-+	error = input_register_device(input);
-+	if (error)
-+		return error;
-+	enable_irq(client->irq);
-+	dev_info(dev, "SW42902 initialized using existing flash firmware\n");
-+	return 0;
-+}
-+
-+static int sw42902_suspend(struct device *dev)
-+{
-+	struct sw42902 *ts = i2c_get_clientdata(to_i2c_client(dev));
-+
-+	if (ts->suspended)
-+		return 0;
-+
-+	disable_irq(ts->client->irq);
-+	sw42902_release_contacts(ts);
-+	sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_STOP);
-+	sw42902_power_off(ts);
-+
-+	return 0;
-+}
-+
-+static int sw42902_resume(struct device *dev)
-+{
-+	struct sw42902 *ts = i2c_get_clientdata(to_i2c_client(dev));
-+	int error;
-+
-+	if (!ts->suspended)
-+		return 0;
-+
-+	error = sw42902_power_on(ts);
-+	if (error)
-+		return error;
-+
-+	ts->suspended = false;
-+
-+	error = sw42902_start(ts);
-+	if (error) {
-+		sw42902_power_off(ts);
-+		return error;
-+	}
-+	enable_irq(ts->client->irq);
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(sw42902_pm_ops, sw42902_suspend, sw42902_resume);
-+
-+static const struct of_device_id sw42902_of_match[] = {
-+	{ .compatible = "lg,sw42902" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, sw42902_of_match);
-+
-+static const struct i2c_device_id sw42902_ids[] = {
-+	{ .name = "sw42902" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, sw42902_ids);
-+
-+static struct i2c_driver sw42902_driver = {
-+	.driver = {
-+		.name = "sw42902",
-+		.of_match_table = sw42902_of_match,
-+		.pm = pm_sleep_ptr(&sw42902_pm_ops),
-+	},
-+	.probe = sw42902_probe,
-+	.id_table = sw42902_ids,
-+};
-+module_i2c_driver(sw42902_driver);
-+
-+MODULE_AUTHOR("Abdur Rofik <rofikcoga@gmail.com>");
-+MODULE_DESCRIPTION("Silicon Works SW42902 touchscreen driver");
-+MODULE_LICENSE("GPL");
--- 
-2.39.5
+DTS cannot be combined in this patchset and must be split. Don't mix
+patches from independent subsystems when you send something explicitly
+targeting only one subsystem.
+See also: Documentation/devicetree/bindings/submitting-patches.rst
 
+
+>  arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+> index 68d7b579e352..d583f52e61e7 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+> @@ -23,6 +23,8 @@
+>  #define KEY_2_GPIO		RZG3L_GPIO(6, 4)
+>  #define KEY_3_GPIO		RZG3L_GPIO(6, 5)
+>  
+> +#define RS485_ENABLE		0
+> +
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/input/input.h>
+>  #include <dt-bindings/pinctrl/renesas,r9a08g046-pinctrl.h>
+> @@ -185,8 +187,12 @@ rsci1_pins: rsci1 {
+>  	rsci2_pins: rsci2 {
+>  		pinmux = <RZG3L_PORT_PINMUX(7, 6, 5)>, /* RSCI2_RXD_MISO_SCL */
+>  			 <RZG3L_PORT_PINMUX(7, 7, 5)>, /* RSCI2_TXD_MOSI_SDA */
+> +#if RS485_ENABLE
+> +			 <RZG3L_PORT_PINMUX(8, 1, 6)>; /* RSCI2_DE */
+> +#else
+
+That's dead code.
+
+
+Best regards,
+Krzysztof
