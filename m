@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795180229;
-	b=cPu+ToX0DubtsJMI9XPAhDMt6mGbgyA1Cz237XrwBuT3ERqvgDz/NrYs5BZ38f+yw6ry
-	 BxNsLS01n8MlMqZFGcthD+s24TbuiN+1dd8mibLNzB2HGu0sWvI24IfeDUAZN8KfTUWs3
-	 CG7loMtsoEmjEJSL9KERZ6oRwq9k0Pvobu4DQxFCuVwsxUXi+Txav3XoK3BMztlBa0V55
-	 Sh7lkLIHXW05o2nmjQZ6HyfcY9VOXRSEMkRSDEJ7KUHAr6NoZMqLU32RQLtvUVyoBgB0x
-	 mk9Rf3VQmCgqBgPmimHSS/Q0rif4yNFprTWM5aemx+KeIB17vdfK0Oga6Zxn9WRJHVA==
+	t=1795180286;
+	b=KA3DPLUWk2QWjqe5RJXpwGB9btq4crBEl+eKU0LZ8dTPbl+23Yjed0TVup06zrd7jCZZ
+	 Xm6sIBn5CaHIsGJgR+un0Qu01l3tLEZEC04WLAQbXn+m/k2yA3ofcuV8FTr28egF2hTR/
+	 iC+dE9C9Iq0uRY2IKDYwjS2c513jSAUpY5EbVl7URG0fGrZikI2xLXoRD20j/bbZTVQls
+	 QXMPjGLL3XXTJgdm1AlctsWH2yjrEmOJt3kaw6Dy5N/yJffhHX5CsOwhTYAxpPu/O+PjH
+	 Y+uWck1GQkVSE9LLZBcxyOaenduASLvBnFhcwARkFX9xXHXkTHkPwFPRQZ/UKUC4MzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795180229;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=WgsgDEptb1WfQcFPHT5FL+IZJcye/iQfq0n7PVkxj+s=;
-	b=NFiWNnXSSg1Fohg5tMOnr8396QlZv/3RYJnUBptRBxOjn81fYJ83r1U0ON+I2Hybzwfg
-	 MEfYs5xKWRTrJlHP89J2rNrMb/KBWuZ+QfADJeI8FoZxWCzHkzlxma3PEABRztk03vjf0
-	 UNMSzrkTemIvHePKg30K0vlKRSOgTxZP39XZLRJQDvNBrUu3Mad8NOK2yPS6tv8EP64Hj
-	 awznakbeUMOYVRj0LLdiJ5R1PbeX9lrXGenutausTrRYw7ynX6HX8B+4a2pJ8bSfWHxIK
-	 ttnYfrJfKU+r2ZM+jN13JOxmuo2zBgtoDIffU3XJQgRhsHUwKtdGE2v/8kdgx2qOpVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795180286;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=PpEHmlaRUkDXxpGvranXTA8vWqHmYOzyD7cdKeA7b38=;
+	b=bZr1iAvaVEKGahzxrUnNEiiBkuu2tYHJWg6cWI8mFQ2H2KVGwPl1c62Q4K0dUE+ekg3n
+	 7nyKy1eAgklMygsmYSqfeGneTSbtFP7RI18xvRCfXsU4zQJMWOqvS+9mKAzCAxNpmbKbd
+	 y30DKQW+zG2gmRH83JospA5lI2rGOQLkvJbAZSb8W+B61rPN+tOTiTnK/oFPTWu662tXr
+	 57D+r3pcBz7EstJUTVP8mmH6FlYN065WRBUu5QJz8Tf3kvodVH64qq17c69a3YQjxEmSB
+	 mBZIvt6sSsVlMZAXlThKArj9q9hXfeqjlOSuzhkheK9wyaZJwpcdT8Z2Qey2zoRJVvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IS82Q+yH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GyHa3yO9;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FED0606A33A
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 13:10:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A3260A3806
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 13:11:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A3260A3806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IS82Q+yH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B283C1F0093C;
-	Fri, 20 Nov 2026 13:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795180229;
-	bh=WgsgDEptb1WfQcFPHT5FL+IZJcye/iQfq0n7PVkxj+s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IS82Q+yHpVL4dgo2mR7SPki6SOwJwnp0TF0o6DVIZGrtvxKNH7tsN+MCEpSzI1cLr
-	 EXc1MQ+2xgxW9Pu6VGXNIOhr4922uCnuJImFtfY3BpAaxwFBleVbq9ezCwXzdeySOW
-	 YfdeMImB96pM7QLCfZLLJ3Yvo1BQKXuX2Sn2NGLYH0HA1hnVD11RTnLq0cw+rxu+EV
-	 aETQJD1j6hXnMtgSvkhZbnliZla+CqcuUc05O++lgJwD1umKWu3rLzVCD9F4nIg/uT
-	 /T5R1RGvFqvNnABhQqjrbbeoQWtwReUIgCQ+I/A1mgk+M3xss0XBxqziiUIbvVWzKz
-	 OKXlrdOJedBww==
-Message-ID: <sashiko-outbox-225185@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: phy: cadence-torrent: add phy-mode
- constants
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Benjamin Robin" <benjamin.robin@bootlin.com>
-Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261120-phy-cadence-torrent-ng-v1-3-da2db7125cd7@bootlin.com>
-References: <20261120-phy-cadence-torrent-ng-v1-0-da2db7125cd7@bootlin.com>
- <20261120-phy-cadence-torrent-ng-v1-3-da2db7125cd7@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 13:10:28 +0000
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GyHa3yO9
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so6633375e9.3
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 05:11:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1795180284; x=1795785084; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PpEHmlaRUkDXxpGvranXTA8vWqHmYOzyD7cdKeA7b38=;
+        b=GyHa3yO9XcmmXHRNWoSYegz5+DaD0NxLYkgoLQuVWReArzev9zK9iZUnF160zbyY1R
+         AaYi2Kn9oOyjWn2ek2RAHVemv0qwJcU6jJ1J1ZCmoY0afljg/CCxcxPHc+6g0W/TP6fg
+         KQcx1tovEgVuGDmRNTDRogw5sL37aBwPz+sFkm0ye94vNdsT6+a00o/Z/FC/Ey1BWcql
+         scRKK0s7xfJhaAaZbjSLDddst69WUIGZ9dr3A1Xd5fv/sZA21LX+z35siG22exq760Oa
+         7gaMmE5pR33kM27vug4vIwEL+F6z7Rq3JFSxJLFlrkQB7ePzP9GRY4YSdt+opRaVQuum
+         Vong==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795180284; x=1795785084;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PpEHmlaRUkDXxpGvranXTA8vWqHmYOzyD7cdKeA7b38=;
+        b=HR40JOzisJSjW+bv7XwNqt4m3JXrdjrQLBp2C04y7ldkBhNK/PIz9FcEHljZRc62oh
+         ngvkuPySbkUC1VqvQ0xtve8+g4uMY9p0xiNCNLGocD8sNLDPzX1jMvoEDUOlXVnNjNTC
+         AWpcqkFanXx1EXtKOHCY8t4NE35GzfBjdEQ+j3oKOu7f2wVqIaFXGT9vL1Js86OGYTkO
+         PXF+PlkfMEsOoXtSMifhtqWoUXBOyPbhgvlO/qFjzjEwDfIhjigcSBTsO8V+d34nHQv7
+         7pj5RhoNXR1Rmgy2nI13lAWVzTRydyzPo9UEVgJZoWssIGS5jDncph1wW4aQGzIQUu2I
+         N2oA==
+X-Forwarded-Encrypted: i=1; AL+hErEl2L5HfZWSAqEvCvPSAKP9UIWzeCqN7xgRCulPIWvRHHZcSlgjhUAHdvzAE+ldKNy1Bvx3ciPzmOYh@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ur8HPwF+4CJzfrOlpjsx7BCyk2sHMJgceZVMY2NmfY5R4b1kJ
+	QkLMTwFF2Dx9fdlIRhS5V7eKlqLEILRcQgvOCQCNQnUaaukIHqI7HNTHeTw0xWb4urM=
+X-Gm-Gg: AYBFou1YjH3VAFfafvgmAKebQQKPTWstDNlOlNg8hmTVDLMpIhXln2zjqSptqw2Nvxu
+	A0PvhnVcZnIv0O/P5b9IbSCGR0oSjlckLC3ZJxKkLkVCsIvoiTzBpSHe4q582NZ9iS4JueVobnB
+	k2GQ7iFU6V1BXY2opiznRRfdt0fnZCr7vbCRWT71wyWnnHAZCcAuLOK1hOORZ0Qy/7zZXEajRjG
+	jSXx+dnRL7fvrEpIbMFF9+HETGzE9t75ej8PElIKrapNGHzGmAtnnz3YXYH4MJCQY+JD3LTSyuI
+	GBtjPi788vDpegoFHRKAIolKVYxhs3d70f83mt6kP1EJntUC/YSYtrVyoAWGgRO1Q8TaAs2p5LK
+	vPbq7h72WYN0cXvBKX3BoBt4qY1dft0LmC+woUCBPwO2wdGGjtsPHizuiQgLdpAahuRSFXv+YEe
+	sTDPi/Sjk6HNKe9qURSoYGeuAFpcLLbj/nrhn9PCptWzkMS1FxLeRv6Xkuo5SgFtwRRAJWEi4Ni
+	0tLYyE4l/1pX9tJCAGIkGnOTWJF2sBiZycpSwv70k6mTFjt9pzyxrrMcH7vTuvCEv8TwcJ3JKf2
+	ktxvg455v81/kqlmlr1q+dOkkBSISx5t6GS3NZwSAKIjcwl70rDYcU4gVFUYie6kmvBB4wp45T0
+	CuZrm3yAnPS9dKPEbYEFYjIVVAe6jlncj0XZMaNIHquBzFA==
+X-Received: by 2002:a05:600c:6749:b0:4a2:d99:3171 with SMTP id 5b1f17b1804b1-4bb8881b52dmr64713635e9.23.1795180284211;
+        Fri, 20 Nov 2026 05:11:24 -0800 (PST)
+Received: from macbook.homenet.telecomitalia.it (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8960110fsm43497995e9.0.2026.11.20.05.11.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 05:11:22 -0800 (PST)
+From: Carlo Caione <ccaione@baylibre.com>
+Subject: [PATCH v2 0/6] Add Amlogic S7 clock controllers
+Date: Fri, 20 Nov 2026 14:11:03 +0100
+Message-Id: <20261120-upstream-s7-clk-v2-0-856cece3b9f2@baylibre.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,86 +91,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/2WOyw6CMBBFf4V0bU1bQklc+R+GRR9TGeVlW4iE8
+ O8WMHHhYhZncueeWUgAjxDIJVuIhwkD9l0CccqIqVV3B4o2MRFMSJ6GjkOIHlRLQ0lN86S50yB
+ dnstCWJKuBg8O33vjrTo4jPoBJm4134SH15hU8RerMcTez/sfE9+2h5Kzf+XEKaOlLRi3UkjB3
+ VWruUHt4Wz6llTrun4AhMrrGdgAAAA=
+X-Change-ID: 20261026-upstream-s7-clk-3fbe6f33652d
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Carlo Caione <ccaione@baylibre.com>
+Cc: Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: phy: cadence-torrent: cdns,phy-mode conflates
-  modes and duplicates QSGMII
---
+This series adds the clock controllers of the Amlogic S7 SoC family
+(S905Y5, S805X3): the PLL clock controller and the peripherals clock
+controller.
 
-commit 2de59f32b4a9ba0a123cffdae1bfb6c23d74476c
-Author: Benjamin Robin <benjamin.robin@bootlin.com>
+The peripherals controller is close to the S4 one. Two changes to the
+common code come with the PLL controller: clk-pll handles PLLs without
+a pre-divider and PLLs with an active-low reset, like the HDMI PLL.
 
-dt-bindings: phy: cadence-torrent: add phy-mode constants
+---
+Changes in v2:
+- Drop the SCMI clock IDs patch: the IDs move to the DT series and the
+  binding examples use raw SCMI clock cells (Conor, Jerome)
+- Use exclusive or for the active-low reset (Jerome)
+- Use absolute addresses in the binding examples (Conor)
+- Rename the HIFI PLL to HIFI0, as in the datasheet (Jerome)
+- Model div0p5 of the GP0, HIFI0 and HIFI1 PLLs as a read-only divider
+  instead of a fixed /2 (Jerome)
+- Swap the VCO and div0p5 clock IDs of each PLL, so the VCO init runs
+  before the div0p5 divider reads its register (Jerome)
+- Drop CLK_MESON_PLL_NOINIT_ENABLED from the HIFI0 and HIFI1 PLLs (Jerome)
+- Declare one clock per line in the fclk macros and drop the default
+  GP0 frac_max (Jerome)
+- Clarify the fclk_en and HDMIPLL_CTRL2 comments (Jerome)
+- Say why PWM H and J are read-only (Jerome)
+- Fold the video and eth_rmii clocks with the composite helpers and
+  local macros (Jerome)
+- Add Conor's Acked-by and Jerome's Reviewed-by
+- Link to v1: https://patch.msgid.link/20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com
 
-This commit adds the cdns,phy-mode property to the Cadence Torrent PHY
-binding and defines the CDNS_TORRENT_MODE_* constants in
-include/dt-bindings/phy/phy-cadence.h.
+---
+Carlo Caione (6):
+      clk: meson: pll: Support PLLs without a pre-divider
+      clk: meson: pll: Support active-low resets
+      dt-bindings: clock: Add Amlogic S7 PLL clock controller
+      clk: amlogic: Add S7 PLL clock controller driver
+      dt-bindings: clock: Add Amlogic S7 peripherals clock controller
+      clk: amlogic: Add S7 peripherals clock controller driver
 
-> diff --git a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.ya=
-ml b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
-> index 8e845e2373acd..17a8343ac8990 100644
-> --- a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
-> +++ b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
-> @@ -101,6 +101,15 @@ patternProperties:
->          $ref: /schemas/types.yaml#/definitions/uint32
->          enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 12]
-> =20
-> +      cdns,phy-mode:
-> +        description:
-> +          Specifies an optional mode of PHY for which the group of PHY l=
-anes is used.
-> +          Refer include/dt-bindings/phy/phy-cadence.h for the constants =
-to be used.
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        minimum: 0
-> +        maximum: 63
-> +        default: 0
-> +
->        cdns,num-lanes:
->          description:
->            Number of lanes.
-> diff --git a/include/dt-bindings/phy/phy-cadence.h b/include/dt-bindings/=
-phy/phy-cadence.h
-> index 0671991208fcd..94945b843288c 100644
-> --- a/include/dt-bindings/phy/phy-cadence.h
-> +++ b/include/dt-bindings/phy/phy-cadence.h
-> @@ -15,6 +15,14 @@
->  #define CDNS_TORRENT_DERIVED_REFCLK	1
->  #define CDNS_TORRENT_RECEIVED_REFCLK	2
-> =20
-> +#define CDNS_TORRENT_MODE_NONE		0x00
-> +#define CDNS_TORRENT_MODE_USB_G1	0x01
-> +#define CDNS_TORRENT_MODE_USB_IO_11V	0x02
-> +#define CDNS_TORRENT_MODE_XAUI_LP	0x04
-> +#define CDNS_TORRENT_MODE_SATA_LP	0x08
-> +#define CDNS_TORRENT_MODE_2500_BASEX	0x10
-> +#define CDNS_TORRENT_MODE_QSGMII	0x20
-> +
->  /* Sierra */
->  #define CDNS_SIERRA_PLL_CMNLC		0
->  #define CDNS_SIERRA_PLL_CMNLC1		1
+ .../clock/amlogic,s7-peripherals-clkc.yaml         |  125 ++
+ .../bindings/clock/amlogic,s7-pll-clkc.yaml        |   71 +
+ drivers/clk/meson/Kconfig                          |   30 +
+ drivers/clk/meson/Makefile                         |    2 +
+ drivers/clk/meson/clk-pll.c                        |   51 +-
+ drivers/clk/meson/clk-pll.h                        |    1 +
+ drivers/clk/meson/s7-peripherals.c                 | 1637 ++++++++++++++++++++
+ drivers/clk/meson/s7-pll.c                         |  696 +++++++++
+ .../clock/amlogic,s7-peripherals-clkc.h            |  245 +++
+ include/dt-bindings/clock/amlogic,s7-pll-clkc.h    |   42 +
+ 10 files changed, 2885 insertions(+), 15 deletions(-)
+---
+base-commit: 363f97a1ce635b86be7fd263d56a040fbd87bdbb
+change-id: 20261026-upstream-s7-clk-3fbe6f33652d
 
-[Severity: Medium]
-Should cdns,phy-mode be modeling all of these as a single unconstrained
-0..63 bitmask?
+Best regards,
+--  
+Carlo Caione <ccaione@baylibre.com>
 
-First, CDNS_TORRENT_MODE_QSGMII duplicates PHY_TYPE_QSGMII (9 in
-include/dt-bindings/phy/phy.h), which is already accepted by cdns,phy-type,
-creating two ways to describe QSGMII in Device Tree.
-
-Second, the CDNS_TORRENT_MODE_* flags pack orthogonal hardware properties
-into one bitmask: an I/O supply voltage characteristic
-(CDNS_TORRENT_MODE_USB_IO_11V), a USB link generation limit
-(CDNS_TORRENT_MODE_USB_G1), protocol low-power settings
-(CDNS_TORRENT_MODE_XAUI_LP and CDNS_TORRENT_MODE_SATA_LP), and Ethernet
-interface sub-modes (CDNS_TORRENT_MODE_2500_BASEX and
-CDNS_TORRENT_MODE_QSGMII).
-
-Finally, constraining cdns,phy-mode only with minimum: 0 and maximum: 63
-allows arbitrary bitwise combinations of mutually exclusive protocol flags
-to pass dtbs_check without per-cdns,phy-type validation.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-phy-cadenc=
-e-torrent-ng-v1-0-da2db7125cd7@bootlin.com?part=3D3
