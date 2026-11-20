@@ -1,78 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795159336;
-	b=j+IXFp2bBP+X0qcq8c1+hAH4iGeJ5RfWa8kHILSgmzLD9uNp9aNhrL4sSJlsKK5trQzN
-	 xtso/hyrpnouR7dsEIKwpximQ7HDiAfZpXwm6XkEL8Zfx0B1kp/G6SpTPu6xVyfKyq6vK
-	 QtLDoxzxRS+tOZOB6Gba7Mvw+kzEiEy8hG5Jnq+HCFtSY3/kDjuVuW76w/MEPe7tTN2lK
-	 U5+ECrCQ1+m7y1LfBFxLwC4fpRKt8byN1xi4jnzcuFjWYQfvgjLzJmsDIiBlPlr40sCBb
-	 w8m9IDQTB6UbVirep6W7t0T2Fvn6sEKgx45os0AAW63nCwxaeYX5Q+x8j+i4JmhIaFA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795159336;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=No7KAsYTECpnGhFXlBM/KGWZ+Af2mI5fNN1XKp9NC0g=;
-	b=pj8BV9V5xaTqfEQHEIXw9ykOBxB2YE2uiQxdP8KGK3cGKWLxiwIWWu1nwsL88ci4j6ay
-	 tmaHAQVwNY1+HwkJCtO8NrJI5zJAF6MMrZCKp7BGFOBZAr0Ny+1Kya7R2DBITnPH9QVFy
-	 rd5TicaeminfHapIUJI8trDBJAM0oUSMtuE1sbE3LMH6cJRZQ9aukWUJqGyqser5r7uLb
-	 6V7ZmfuUjh8N9W7KSzz11TUbJKD1i5CwgNFIhLHP1YPSO+a8jwLvUz7g5Zr5ylDFTLyrG
-	 spI0Wd4yVFN9bwQ+WxYwTqtODdh0IMrzAU8ol7IUdubebBalncRwJ0GKRTZf1eyPc1w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOXADCBw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C467860A2613;
-	Fri, 20 Nov 2026 07:22:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOXADCBw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795159336;
-	b=iHK32t5ld9WN5KbRqZjYJz5HGKKrxZyRKTHbRoDkQX0iayrh3tyY6LC7+gy9Kz77bwYs
-	 6zL0JrwSdAfE1XYlXdjWRTciKZYPCzPp44GjudlDNrQGynGaUHwF3ZGjUJvqQB5iGFHir
-	 hBCXLO8hTE8362hnVWSbIkpXZfyTzShv9NZ9EYaRqZBMfn356wKAa5m1h1thX6Nc+TxSg
-	 RTsGTr0hEVvu+vVY8/7OMkujNdusvCPPRClnt4mCiRwXFlyl4T56Ld/nwEO3v4gUjcELD
-	 kXNFULNUieLrSDRZkWBXfmkh++RoHy8vxPC91lCRVIr3YtrkZmLIKICJYLrySNfFsIA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795159336;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=No7KAsYTECpnGhFXlBM/KGWZ+Af2mI5fNN1XKp9NC0g=;
-	b=snSERYcANGfB5BSczf8lvqX0fMB/HJLCeIo3Qij5rEtYrUE0qKvkz8RcBjbD5n8reRl2
-	 DKFq4ugQgwgr9wPVMvfV2prAkwFQqWM68+fg3+MtobvidfzSbm2bwOqL9FekO+Axt43Wj
-	 x4JbKbNIsYKM/Tel/E0jzA0eIDiF5qaw0fVBJjF5xYAGwn9QeTLLvLi1gdglj6h58hmxg
-	 giGRHy6j9wKBAY5jM+jUus1ycHlYrNCPjsW/6fgu9LT8YVQeauh2DO7AHcMeRUv/HC75W
-	 gl493lD9EnGT1HXHdlYLmGHDgjOoIdyFoyFaD0QKboj7w0BHQzbiWMOWhatcjLSYseA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795159454;
+	b=LgKUjsXgUqXCQqH1aMokcrEwBtRtuhP0VmmcIpAwPZSi5w11gq2dKzDSpdnEDvGiODNd
+	 fucaPHicdssdjdDtGGkowtz/qpCGx9t1xCLMuDAc+XAq7Tm/+6ukDG5t7q9AFDaTPrZ12
+	 QQUCD6daaSf+h4RsU7d+VEPLSvyqG232NJw9aD293jzE7+3Mn1rKUjTpOK8Yw3YDJyo7A
+	 jr6a95zXkkR/pquf0S1YhGjv/nUzN+xZlABqh5xsZFr/pgHP45CZckuCwuB5VgRT6bKzV
+	 p0+f3L7oXOkfv7DqyeLvUN9zgM/j6yG6LvnXbgWBR18FuxHBSlrcpn73BZTlBs9HG1w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795159454;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=vCkduuwTwhdRZPFHnESFbOpUc/C7mFXMs6TuK3gtbA4=;
+	b=1K3ACB4Rv+Aki0jPKYAqpluhD8dSwiOEv2ublnQpvm5NOJlyQmcCiFbEypKfMOUdTeSA
+	 wqCWSrymaPWX5ZjA6w5Yc+sOKEL5UTauWsBxrXAq7vl1eRIlLOrSCX0KsZv6ihb63rVzP
+	 ccYPYyQziruqEfP1thuH/HTJGgDKe/83dAzacSAonLhVpasYW1u0ak+Fu68N3TQBf/GXX
+	 KF/9TTpyMh9yEYwVguvnWOyOm82OZLr0DWssVyHt7hpUQVaM9o/WJDGMs9wjWq6UpgYXE
+	 qrl79Ij6K/DO2ZuN22bY8wPagKquTMvLkeuPkZr4/bA0f7LluowGJ10FX7zM9TOsmgg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=towOuZq7;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 84C1E1F000D1;
-	Fri, 20 Nov 2026 07:22:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795159336;
-	bh=No7KAsYTECpnGhFXlBM/KGWZ+Af2mI5fNN1XKp9NC0g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NOXADCBwrr54MIP2Y5dqYpg0HYq8BJLY5emd7JBCSeCWJ1ymcXGna2vIGl5h/BsLV
-	 lZ2Tn92Bas7ZfNrTvfiUtG6SMK5wGi4/TmRUCHuhAWYB6crWYpOz0yYP56SHouhPbw
-	 bXkQtn8y//6aSEolbL6x6ikk0MGxI9OZoNOnzHwxTCpdtZPXmB9R+tZCGhlVVvepiY
-	 Or6eTdz7NWtU08sQo6iYLvYqrZ5GU4lU7NFiSlnU011sWngCm/aEyW2XrPxo+6kLg4
-	 tLdf4euoaeTg3gvp3MednwcEwHoHF9jjGBW4TvnDUqV1b0xTPU7Kc2AWHvKOUN31oG
-	 pJjSXeXddtbWg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 10F1149764;
-	Fri, 20 Nov 2026 07:22:14 +0000 (UTC)
-From: Rajan Yadav via B4 Relay <devnull+rajanyadav0307.gmail.com@kernel.org>
-Date: Fri, 20 Nov 2026 01:22:16 -0600
-Subject: [PATCH 4/4] arm64: dts: allwinner: a133: Add KickPi K5C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0109606A32A;
+	Fri, 20 Nov 2026 07:24:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0109606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=towOuZq7
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DEC774E41681;
+	Fri, 20 Nov 2026 07:24:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A7E206017D;
+	Fri, 20 Nov 2026 07:24:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EFD5C11BC10F1;
+	Fri, 20 Nov 2026 08:23:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795159448; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=vCkduuwTwhdRZPFHnESFbOpUc/C7mFXMs6TuK3gtbA4=;
+	b=towOuZq7KtmvM/Q5f4+wBK6Ap2w3YihaT2IF64czyeetprLfLrifLCIHG61hzQG9JRcF3n
+	DqNqSbhRmyaA41r/KS0ivKFBnjZLwB/Mti284NMMxujNUWt28azre3dJxJ/7zy7OmBHbBz
+	zH2hrbP8RROp6/n9lZAWMaOQWBkj2XEx9MlX+NCVLW8GsgJ44UUStx4QaGLRTvBFNThTO/
+	FDimLuVfBvq+rTknmEpY5S0vtwm2GP8CssMqNMc9mx/l12lrUiVX+Bc5d6o2eVAG1XOyhc
+	Namz9s4cMG1w4IdY2ncPhpyakgfYOtOPCx/az7KUm4jt2tm9bfd7ULqTsCo0+A==
+From: "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
+Subject: [PATCH v10 0/5] Add support for AAEON SRG-IMX8P MCU
+Date: Fri, 20 Nov 2026 08:23:52 +0100
+Message-Id: <20261120-dev-b4-aaeon-mcu-driver-v10-0-a756687e7997@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,335 +63,224 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261120-k5c-dt-v1-v1-4-d9681df67bc0@gmail.com>
-References: <20261120-k5c-dt-v1-v1-0-d9681df67bc0@gmail.com>
-In-Reply-To: <20261120-k5c-dt-v1-v1-0-d9681df67bc0@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Andre Przywara <andre.przywara@arm.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, 
- Rajan Yadav <rajanyadav0307@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795159332; l=8414;
- i=rajanyadav0307@gmail.com; s=20261103; h=from:subject:message-id;
- bh=cOXdIbM/pxnMp4m5in4E4b9UGDrGObP7s7gq1j9qWLU=;
- b=6ZlAFSKWhIIcH7bpVonXOW+g8iBc9q5PAmvbUt9xL5XN1on7IvKciJ3/UWFZaVxInuruQvOnP
- L5ZAbW7TBb5B1+WZ8CLvrth0ceqVsR1/AhCVkS8KJVhgYJ3ed1UHAF7
-X-Developer-Key: i=rajanyadav0307@gmail.com; a=ed25519;
- pk=4ZPeiP5qrv2b44q/Obxi2koUS70Q6npbttJnpUoTlgg=
-X-Endpoint-Received: by B4 Relay for rajanyadav0307@gmail.com/20261103 with
- auth_id=1391
-X-Original-From: Rajan Yadav <rajanyadav0307@gmail.com>
-Reply-To: rajanyadav0307@gmail.com
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XS207DMAwG4FeZek2QnVMTrngPxEWcA4sELWpHB
+ Zr27rgTUKbScWlL+Wzl97EZ81Dz2Nztjs2QpzrWvuMC4WbXxH3onrKoiRuNBGlQIoqUJ0FahJD
+ 7TrzEN5GGOuVBZMjOZyo6FGr49euQS30/0w+PXO/reOiHj/OkCefu/+aEAoTxVAJSiKqoe+r7w
+ 3PtbmP/Mg/5EuR1wVKyhqLLBeWFMO81ye9dLKBU25JkyRcdAaiQibSW1CJJuCIpliCg10pCa0N
+ cS3qRlNTbkmaJ/xsQU9Gt12vJLJIGty2ZWUreUdIOrXVryS6SVbAtWZaStWRKpCQLrKV2kVpot
+ 6WWpRhsND5wgu0f2blfkrpyR27OLhDwjUIqMqwl/yMhSL8teZaKJ5sgRmTsUjqdTp+alBrpUwM
+ AAA==
+X-Change-ID: 20251211-dev-b4-aaeon-mcu-driver-e0e89ebf4afb
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ =?utf-8?q?J=C3=A9r=C3=A9mie_Dautheribes?= <jeremie.dautheribes@bootlin.com>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, mfd@lists.linux.dev, 
+ linux-doc@vger.kernel.org, 
+ "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Rajan Yadav <rajanyadav0307@gmail.com>
+This patch series introduces support for the AAEON SRG-IMX8P embedded
+controller (MCU). The MCU is connected via I2C and provides GPIO and
+watchdog functionality for the SRG-IMX8P board.
 
-The KickPi K5C is a single board computer with an Allwinner A133 SoC.
-Mainline Linux has no support for it yet; its factory firmware runs a
-vendor Linux 4.9 kernel. Add a device tree for PCB version V1.3, which
-has:
-- 2 GB DDR3 DRAM, 8-bit eMMC (HS200) and a micro SD card slot
-- an X-Powers AXP707 PMIC, which drives VDD-CPU from DCDC2 and DCDC3
-  in dual phase mode
-- a HYM8563 RTC on I2C3 (PH12/PH13)
-- power input through a 12 V DC jack or the USB-C port (5 V)
-- two USB-A ports behind an on-board USB hub on USB1, whose power
-  switch is enabled by PL8
-- a blue status LED on PL10
-- the debug UART on PB9/PB10
+The series includes:
+- Device tree binding for the MFD driver
+- MFD driver that serves as the core driver for the MCU
+- GPIO driver implementing the GPIO functionality
+- Watchdog driver for system monitoring
+- MAINTAINERS entry for the new drivers
 
-The regulator assignment and the pins come from the board schematic
-(V1.3) and were checked against the vendor's device tree and on the
-board. The pin bank supplies are the same as on the Baijie HelperBoard
-A133. All tests were done with the board powered through the USB-C
-port.
+The drivers follow the standard Linux kernel subsystem patterns, with
+the MFD driver registering the sub-devices (GPIO and watchdog) which
+are then handled by their respective subsystem drivers.
 
-Mainline has no binding for the AXP707. Its chip ID register reads 0x51,
-which U-Boot's AXP803 code accepts, it works with the AXP803 driver, and
-the vendor device tree also describes it as an AXP803, so the PMIC node
-uses the AXP803 compatible.
-
-Not described yet:
-- Ethernet: the board has a Maxio MAE0621A PHY, which needs a driver
-  that is not in mainline yet
-- the Wi-Fi/BT module (VS6621S40, Seekwave SWT6621S) on MMC1: there is
-  no mainline driver for it, and in my tests its SDIO card did not come
-  up after a cold boot, so the slot is left out until that is understood
-- USB data on the USB-C port (USB0): the vendor's firmware uses it as
-  a peripheral port, but I could not test that yet
-- the RTC alarm interrupt on PB8: first tests pass, and it will follow
-  in a separate patch after more testing
-- display, camera, audio, the IR receiver, the fan header and the
-  battery connector
-
-The CPU uses the A100 OPP table, like the other A133 boards today.
-
-Claude Code (Anthropic) drafted this device tree and its message from
-the schematic, KickPi's documentation, the vendor device tree (as a
-reference for values only) and my board measurements; I reviewed it
-and tested it on a KickPi K5C.
-
-Suggested-by: Andre Przywara <andre.przywara@arm.com>
-Link: https://lore.kernel.org/all/d4d89cf9-884d-424b-927d-5b6692f50327@arm.com/
-Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
+Signed-off-by: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
 ---
- arch/arm64/boot/dts/allwinner/Makefile             |   1 +
- .../boot/dts/allwinner/sun50i-a133-kickpi-k5c.dts  | 228 +++++++++++++++++++++
- 2 files changed, 229 insertions(+)
+Changes in v10:
+- dt-bindings: send the AAEON vendor prefix patch again as patch 1; v9
+  omitted it, leaving the "aaeon" compatible vendor undocumented
+- mfd: reject reads whose register or value size is not the 2-byte
+  address and 1-byte value of a MCU command, as writes already do
+- mfd: replace the opcode shift and the watchdog status argument with
+  named macros, and name the register, value and command lengths
+- mfd: embed the two I2C transfer buffers, aligned to ARCH_DMA_MINALIGN,
+  in struct aaeon_mcu instead of allocating them separately
+- mfd: move the Kconfig entry, which sat between ABX500_CORE and
+  AB8500_CORE and broke the menuconfig submenu of the latter
+- mfd: include linux/module.h
+- dt-bindings: define timeout-sec in the binding (maxItems and
+  description) instead of a bare "true"; watchdog.yaml cannot be
+  referenced from an embedded-controller node
+- gpio: return 0 or 1 from .get() instead of the raw MCU byte, which
+  gpiolib warns about
+- gpio: use the shared read opcode instead of a duplicate define, and
+  build the GPIO register addresses in a helper using MAX_GPOS
+- watchdog: use the shared watchdog register macros
+- watchdog: document the timeout parameter in watchdog-parameters.rst
+- watchdog: trim the Kconfig help and add the module name line, as the
+  other MFD-child watchdog drivers do
+- watchdog: document that the suspend callback stops the MCU watchdog even
+  with nowayout set, and say so in the commit message
+- Link to v9: https://lore.kernel.org/r/20261029-dev-b4-aaeon-mcu-driver-v9-0-f9b6d0cc180d@bootlin.com
 
-diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
-index da39f02252d..0176de509fb 100644
---- a/arch/arm64/boot/dts/allwinner/Makefile
-+++ b/arch/arm64/boot/dts/allwinner/Makefile
-@@ -25,6 +25,7 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-teres-i.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h64-remix-mini-pc.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a100-allwinner-perf1.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a133-helperboard.dtb
-+dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a133-kickpi-k5c.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a133-liontron-h-a133l.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a133-teclast-p80.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h5-bananapi-m2-plus.dtb
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-kickpi-k5c.dts b/arch/arm64/boot/dts/allwinner/sun50i-a133-kickpi-k5c.dts
-new file mode 100644
-index 00000000000..ce977e9edbd
---- /dev/null
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-kickpi-k5c.dts
-@@ -0,0 +1,228 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2026 Rajan Yadav <rajanyadav0307@gmail.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sun50i-a100.dtsi"
-+#include "sun50i-a100-cpu-opp.dtsi"
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/leds/common.h>
-+
-+/{
-+	model = "KickPi K5C";
-+	compatible = "kickpi,k5c", "allwinner,sun50i-a133";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led {
-+			function = LED_FUNCTION_STATUS;
-+			color = <LED_COLOR_ID_BLUE>;
-+			gpios = <&r_pio 0 10 GPIO_ACTIVE_HIGH>; /* PL10 */
-+		};
-+	};
-+
-+	reg_usb1_vbus: regulator-usb1-vbus {
-+		/* USB-A port power switch, also powers the on-board USB hub */
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpio = <&r_pio 0 8 GPIO_ACTIVE_HIGH>; /* PL8 */
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-name = "usb1-vbus";
-+		vin-supply = <&reg_vcc5v>;
-+	};
-+
-+	reg_vcc5v: regulator-vcc5v {
-+		/* 5V rail, powered from the USB-C port or the 12V DC jack */
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-name = "vcc-5v";
-+	};
-+};
-+
-+&cpu0 {
-+	cpu-supply = <&reg_dcdc2>;
-+};
-+
-+&ehci1 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	pinctrl-0 = <&i2c3_ph_pins>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	rtc@51 {
-+		compatible = "haoyu,hym8563";
-+		reg = <0x51>;
-+		#clock-cells = <0>;
-+	};
-+};
-+
-+&mmc0 {
-+	bus-width = <4>;
-+	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>; /* PF6 */
-+	disable-wp;
-+	vmmc-supply = <&reg_dcdc1>;
-+
-+	status = "okay";
-+};
-+
-+&mmc2 {
-+	bus-width = <8>;
-+	cap-mmc-hw-reset;
-+	mmc-ddr-1_8v;
-+	mmc-hs200-1_8v;
-+	non-removable;
-+	vmmc-supply = <&reg_dcdc1>;
-+	vqmmc-supply = <&reg_eldo1>;
-+
-+	status = "okay";
-+};
-+
-+&ohci1 {
-+	status = "okay";
-+};
-+
-+&pio {
-+	vcc-pb-supply = <&reg_dcdc1>;
-+	vcc-pc-supply = <&reg_eldo1>;
-+	vcc-pd-supply = <&reg_dcdc1>;
-+	vcc-pe-supply = <&reg_dldo2>;
-+	vcc-pf-supply = <&reg_dcdc1>;
-+	vcc-pg-supply = <&reg_dldo1>;
-+	vcc-ph-supply = <&reg_dcdc1>;
-+};
-+
-+&r_i2c0 {
-+	status = "okay";
-+
-+	axp803: pmic@34 {
-+		compatible = "x-powers,axp803";
-+		reg = <0x34>;
-+		interrupt-parent = <&r_intc>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+};
-+
-+#include "axp803.dtsi"
-+
-+&reg_aldo1 {
-+	/* AVCC, PLL and DRAM 1.8V */
-+	regulator-always-on;
-+	regulator-min-microvolt = <1800000>;
-+	regulator-max-microvolt = <1800000>;
-+	regulator-name = "vcc-pll-avcc";
-+};
-+
-+/* ALDO2 is for LPDDR and not used with the DDR3 on this board */
-+
-+&reg_aldo3 {
-+	/*
-+	 * Supply of the PL pin bank. It is not given to r_pio as
-+	 * vcc-pl-supply: the PMIC is reached through PL0/PL1, so r_pio and
-+	 * the PMIC would each wait for the other and the boot stops.
-+	 */
-+	regulator-always-on;
-+	regulator-min-microvolt = <3300000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-name = "vcc-pl";
-+};
-+
-+&reg_dcdc1 {
-+	/* SoC I/O, USB analog, eMMC and SD card */
-+	regulator-always-on;
-+	regulator-min-microvolt = <3300000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-name = "vcc-3v3";
-+};
-+
-+&reg_dcdc2 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <810000>;
-+	regulator-max-microvolt = <1200000>;
-+	regulator-name = "vdd-cpux";
-+};
-+
-+/* DCDC3 runs in dual phase with DCDC2 for VDD-CPUX and has no node */
-+
-+&reg_dcdc4 {
-+	/* VDD-SYS, also used as VDD-USB */
-+	regulator-always-on;
-+	regulator-min-microvolt = <950000>;
-+	regulator-max-microvolt = <950000>;
-+	regulator-name = "vdd-sys";
-+};
-+
-+&reg_dcdc5 {
-+	/* DDR3 */
-+	regulator-always-on;
-+	regulator-min-microvolt = <1500000>;
-+	regulator-max-microvolt = <1500000>;
-+	regulator-name = "vcc-dram";
-+};
-+
-+/* DCDC6 is not connected */
-+&reg_dcdc6 {
-+	status = "disabled";
-+};
-+
-+&reg_dldo1 {
-+	regulator-min-microvolt = <1800000>;
-+	regulator-max-microvolt = <1800000>;
-+	regulator-name = "vcc-pg";
-+};
-+
-+&reg_dldo2 {
-+	regulator-min-microvolt = <1800000>;
-+	regulator-max-microvolt = <1800000>;
-+	regulator-name = "vcc-pe";
-+};
-+
-+&reg_eldo1 {
-+	regulator-min-microvolt = <1800000>;
-+	regulator-max-microvolt = <1800000>;
-+	regulator-name = "vcc-pc";
-+};
-+
-+&reg_fldo1 {
-+	/* VDD-CPUS */
-+	regulator-always-on;
-+	regulator-min-microvolt = <900000>;
-+	regulator-max-microvolt = <900000>;
-+	regulator-name = "vdd-cpus";
-+};
-+
-+&uart0 {
-+	pinctrl-0 = <&uart0_pb_pins>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&usb_power_supply {
-+	status = "okay";
-+};
-+
-+&usbphy {
-+	usb1_vbus-supply = <&reg_usb1_vbus>;
-+
-+	status = "okay";
-+};
+Changes in v9:
+- mfd: hold the I2C segment lock across the MCU command write and the
+  response read, so no other transfer on the same I2C segment can land
+  in between; the STOP between the two is kept
+- mfd: read the response through the driver's DMA-safe buffer instead of
+  flagging the regmap caller's buffer as I2C_M_DMA_SAFE; reject writes
+  that are not a single 3-byte command
+- mfd: add .readable_reg so only the GPIO input and watchdog status
+  registers can be read; any other address is a command that a read
+  (e.g. through the regmap debugfs registers file) would execute
+- mfd: drop "Multi-Function Device (MFD)" from the commit message and
+  document the bus locking and the readable registers
+- dt-bindings: document the timeout-sec property read by the watchdog
+  driver and reword the watchdog description accordingly
+- gpio: move GPIO_AAEON_MCU to the "MFD GPIO expanders" Kconfig menu
+- watchdog: set min_timeout to the 25 second hardware heartbeat, as
+  shorter timeouts cannot be honoured
+- watchdog: honour CONFIG_WATCHDOG_NOWAYOUT with watchdog_set_nowayout()
+- watchdog: fix the timeout comment and commit message (timeout module
+  parameter, not a "watchdog_timeout" boot parameter); align the defines
+  with tabs
+- MAINTAINERS: keep the F: entries sorted
+- Link to v8: https://lore.kernel.org/r/20260731-dev-b4-aaeon-mcu-driver-v8-0-9ab00e80df2a@bootlin.com
 
+Changes in v8:
+- mfd: add .use_single_read = true to regmap config; the MCU produces exactly
+  one response byte per command and a bulk read passing val_size > 1 to the
+  bus callback would be incorrect
+- watchdog: call watchdog_stop_ping_on_suspend() in probe so the kthread ping
+  worker is cancelled before platform devices are suspended, preventing I2C
+  transfers on a suspended bus
+- watchdog: check watchdog_hw_running() alongside watchdog_active() in the
+  suspend/resume callbacks so watchdog is stopped before sleep and restarted
+  on wake, preventing a spurious MCU reset if suspend exceeds the 25-second
+  hardware timeout
+- Link to v7: https://lore.kernel.org/r/20260707-dev-b4-aaeon-mcu-driver-v7-0-ca6c59abd672@bootlin.com
+
+Changes in v7:
+- mfd: fix select REGMAP Kconfig entry indented with spaces instead of a tab
+- mfd: use devm_kcalloc() instead of devm_kzalloc() for the cmd buffer allocation
+- mfd: add .use_single_write = true to the regmap config to prevent regcache sync
+or debugfs from issuing multi-register writes that would overflow the fixed 3-byte
+cmd buffer
+- watchdog: remove max_timeout; it is documented as irrelevant when
+max_hw_heartbeat_ms is set and is silently ignored by the watchdog core
+- watchdog: pass dev->parent to watchdog_init_timeout() so that the timeout-sec
+DT property is correctly read from the MCU I2C node; the MFD child platform device
+has no of_node of its own
+- watchdog: add suspend/resume PM hooks to stop the watchdog before entering sleep
+and restart it on resume, preventing spurious resets if suspend lasts longer than
+the 25-second hardware heartbeat
+- Link to v6: https://lore.kernel.org/r/20260630-dev-b4-aaeon-mcu-driver-v6-0-d66b5fcbd2f0@bootlin.com
+
+Changes in v6:
+- mfd: rename local variable to ddata in probe
+- mfd: fix driver name from "aaeon_mcu" to "aaeon-mcu"
+- mfd: set I2C_M_DMA_SAFE on all i2c_msg flags so the host driver
+  skips bounce-buffering the heap-allocated DMA-safe buffers
+- mfd: drop COMPILE_TEST
+- gpio: replace __set/__clear/__assign_bit with atomic set_bit/
+  clear_bit/assign_bit to fix potential races on shared bitmaps
+- gpio: write output value before switching pin to output mode to
+  avoid a potential glitch on direction_output
+- gpio: add MODULE_ALIAS("platform:aaeon-mcu-gpio")
+- watchdog: add WDIOF_SETTIMEOUT and watchdog_init_timeout() so the
+  software timeout is configurable via ioctl, DT timeout-sec or
+  the watchdog_timeout boot parameter
+- watchdog: add watchdog_stop_on_reboot() to prevent a spurious
+  reset from the external MCU during system shutdown
+- watchdog: add MODULE_ALIAS("platform:aaeon-mcu-wdt")
+- Link to v5: https://lore.kernel.org/r/20260408-dev-b4-aaeon-mcu-driver-v5-0-ad98bd481668@bootlin.com
+
+Changes in v5:
+- mfd: use heap-allocated DMA-safe buffers for I2C transfers, replacing
+  stack-allocated buffers in the regmap bus callbacks
+- mfd: switch from REGCACHE_NONE to REGCACHE_MAPLE; add volatile_reg
+  callback marking GPIO input read registers (opcode 0x72) as volatile;
+  add max_register
+- mfd: use PLATFORM_DEVID_AUTO instead of PLATFORM_DEVID_NONE
+- mfd: use MFD_CELL_BASIC() macro for cell definitions
+- mfd: use dev_err_probe() for regmap initialization error
+- Link to v4: https://lore.kernel.org/r/20260324-dev-b4-aaeon-mcu-driver-v4-0-afb011df4794@bootlin.com
+
+Changes in v4:
+- mfd: switch to a custom regmap bus; remove aaeon_mcu_i2c_xfer() and the aaeon_mcu_dev struct
+- mfd: locking delegated to regmap's built-in mutex; drop explicit mutex
+- mfd: remove firmware version reading at probe time
+- gpio, watchdog: use regmap_read()/regmap_write() via dev_get_regmap()
+- include: replace aaeon_mcu_i2c_xfer() declaration with AAEON_MCU_REG() macro
+- dt-bindings: remove unused label from example node
+- Link to v3: https://lore.kernel.org/r/20260203-dev-b4-aaeon-mcu-driver-v3-0-0a19432076ac@bootlin.com
+
+Changes in v3:
+- Renamed SRG-IMX8PL to SRG-IMX8P
+- dt-bindings: add gpio-controller properties as required
+- mfd: move struct aaeon_mcu_dev from header to .c file (private)
+- mfd: use guard(mutex) and devm_mutex_init() for cleanup
+- mfd: firmware version log changed to dev_dbg()
+- mfd: add select MFD_CORE to Kconfig
+- Kconfig: add || COMPILE_TEST to all three drivers
+- watchdog: add comments explaining hardware timeout and WDOG_HW_RUNNING
+- watchdog: remove unused platform_set_drvdata()
+- watchdog: add a function to query the status
+- Link to v2: https://lore.kernel.org/r/20260123-dev-b4-aaeon-mcu-driver-v2-0-9f4c00bfb5cb@bootlin.com
+
+Changes in v2:
+- Fold GPIO and watchdog bindings into MFD binding
+- Drop OF_GPIO dependency in GPIO Kconfig
+- Use __set_bit/__clear_bit/__assign_bit instead of atomic variants
+- Various driver cleanups and improvements
+- Link to v1: https://lore.kernel.org/r/20251212-dev-b4-aaeon-mcu-driver-v1-0-6bd65bc8ef12@bootlin.com
+
+---
+Thomas Perrot (Schneider Electric) (5):
+      dt-bindings: vendor-prefixes: Add AAEON vendor prefix
+      dt-bindings: mfd: Add AAEON embedded controller
+      mfd: aaeon: Add SRG-IMX8P MCU driver
+      gpio: aaeon: Add GPIO driver for SRG-IMX8P MCU
+      watchdog: aaeon: Add watchdog driver for SRG-IMX8P MCU
+
+ .../bindings/mfd/aaeon,srg-imx8p-mcu.yaml          |  73 +++++++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ Documentation/watchdog/watchdog-parameters.rst     |   8 +
+ MAINTAINERS                                        |  10 +
+ drivers/gpio/Kconfig                               |   9 +
+ drivers/gpio/Makefile                              |   1 +
+ drivers/gpio/gpio-aaeon-mcu.c                      | 235 +++++++++++++++++++++
+ drivers/mfd/Kconfig                                |  11 +
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/aaeon-mcu.c                            | 227 ++++++++++++++++++++
+ drivers/watchdog/Kconfig                           |  11 +
+ drivers/watchdog/Makefile                          |   1 +
+ drivers/watchdog/aaeon_mcu_wdt.c                   | 174 +++++++++++++++
+ include/linux/mfd/aaeon-mcu.h                      |  46 ++++
+ 14 files changed, 809 insertions(+)
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20251211-dev-b4-aaeon-mcu-driver-e0e89ebf4afb
+
+Best regards,
 -- 
-2.34.1
-
+Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
 
