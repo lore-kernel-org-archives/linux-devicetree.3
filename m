@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795186397;
-	b=LDhspy2S38MvzarB8BLvnaf4Y1x9zgX1DG01NqE2CFGAR1uFciEqbMMugI1FLER1sY9w
-	 X+0pORBmZVTAu9q1+ygAV9KL4YwuKOiM7oDABZEtRbDZaE1NQ+0CTHyOQ4FCGPf962Rkj
-	 ZAaKuVnwGi+uCbJZbcjBEP8HkoujyN+VdXBH/qGgnPcjXgEOc1WsBvCUZVOoGApZHiUt7
-	 CBTVVw1SxhO3P4YLhEkYzE1dV1BsHlLmHKotZRXEC2TdAK0fuoP4y+9/9ZZ5rH02gKa2p
-	 7xq37x8xJqZLoGVCaYgi/Od7H6pZE6WQatUudpTtZ5NWHEi/Gr93duYXeppeYRMBKEQ==
+	t=1795186635;
+	b=BPDT+QzqTd6foQSTuYH5xEmOV4B4JquBCw6XiQK4fzFwksk9VvTz0dzoLZDE2kcLPyHI
+	 atuQ8jOQwnOhmWfMbcWkZ47YkFu1eWwi80YZn+NQrEFw5lWdMIbsQBjeBhtmI3XNmH55D
+	 YhzY3mgapAglEUfFv6Zg6NxtArci/F0Vu6pvnbAT4cuebMMDTbBGs3VaAQMK57AmGwQ9w
+	 ZjdJIqdKDrYNXRH7Jt3aB5fxcV/0dNHXycv1i7EalUW8sND7yqOmrXK4+QI/YIIk6LYPK
+	 BgPOwVCrZhRZBp1KntMcsN0BpEUQoZZklE2VddAZ+ZvL1MGi3Pxn8Jmnuc5HG4CqHuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795186397;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc;
-	bh=tDuWcD/foci238Y9qoUbdSJhApRAoo0hCBRl78htX+g=;
-	b=m1B/skH2+OsqVxVzv1uRlR1jvPa6XkyJyD0vYkfJOt7azvBJxNpWI8fdMS1Kmp1InZ4U
-	 PBg5XTWQzA4ZowY3gMR7S5f5LW4D7rN1ArdNUFEUwVf+nSd3zWQQ67iVU+oK8cw6yYbVh
-	 Z2Ab3jZBhRTpMAYPo817jRsqMjDED3nIaoz1+Ph7B4EQeqoZxu7fgKPEWQ53/Y58UPHPp
-	 OOo+1G+XUJUA5r+t/sxjxy5B36rTqFqNrhyrMb9E+r5Vc8KUpGScgTn0SrsAgToY2W8/t
-	 ZTAJZlKdt+mN4ki0hzpm4UzkCdqhHpGggwwUwg4gIF+FH4wxnjDfbUotIXm1S7Te9GQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795186635;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=VigvJCRt5rXY+6Kai55nHb34XII7DZnlFQiPz+X14Z4=;
+	b=kDshSNLlnzabEPcQZHqkAYJEtxQw6ABMtxxrt35cZwntTEx3uH5cAKKXyH4dOYh7rFzq
+	 EuGDy1x3YqikYTXF0tP1tmcajkcBPoicdOwmhUHwAmYr+Z8rNngbardIHpP34nClHKh1z
+	 0kjJUDCRlOKSaQzRyfMjMss1e/BpbT523R14xA7DfH0j2LtxNEnMP30OJDMkx2uXcERUg
+	 L1aezBLl+TDI+5GCcaFryibrmFshQeqVm8dI3gUi7s1wvXst/h3vQp2qcUcZ4zu4ZKPNq
+	 yXU+04OueNNka8K5Yk0lBnL+6MsO0aMIWox1VSGgV+79IFLmXWuSCi/jPZ9AEn2wLJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=fzp+XcfO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=EzEHAUoU;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IWGA7uvu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F37860A382C;
-	Fri, 20 Nov 2026 14:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F37860A382C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1A1606A32C;
+	Fri, 20 Nov 2026 14:57:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=fzp+XcfO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=EzEHAUoU
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1795186394;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tDuWcD/foci238Y9qoUbdSJhApRAoo0hCBRl78htX+g=;
-	b=fzp+XcfOD4Ivv8V2GhnOb778dwNx7/z+Artlc76wW0fvQ0hlBJ2zHZKK9V4jle+q1DCEYX
-	ilVnmK5OY7yFHamNYW82LseB9VJOsER6Iv3/W8ZKZlHbl6JtqA6FcNYP2uHNt7+K3TrjDt
-	+sOPi/r4855sSxVJMrokNotmKg5eD4WvmXlLnOePFji2Smlvp6NV4/FIUK751/yl3+fv/1
-	sgJUzeWqy7ZQNp1bhVCY/U6GJEKeW6FyEErqfvv3gXQEsYkh6/h2779vJs4ru1g7JNVUv+
-	lItHNyMG3SepHI/UJxro6U8Jgdyc6YzjsvfCMsnFx5i5mlaubQof2SAto+D5hQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1795186394;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tDuWcD/foci238Y9qoUbdSJhApRAoo0hCBRl78htX+g=;
-	b=EzEHAUoUOxcNkzferrGCpbxhu/O6b6CByy7Z+y7fk+zzfi2eL57J/S2ew/yMva6ZzYVdls
-	sXcbZAhvNj8KrHBQ==
-Date: Fri, 20 Nov 2026 15:52:26 +0100
-Subject: [PATCH net-next v5 9/9] net: dsa: soce: Add VLAN membership table
- support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IWGA7uvu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B98C1F000C6;
+	Fri, 20 Nov 2026 14:57:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795186634;
+	bh=VigvJCRt5rXY+6Kai55nHb34XII7DZnlFQiPz+X14Z4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=IWGA7uvu2MNG1+rvnP6DxMwptyVI8Pkgsj7+Sezxf/GivzfH5F6TV+kJ0Uh4Grg5D
+	 m+Jf6nY7EKL/Ew9z/r7JgMb6+renWFEObbdwkmT6Crn+PdBvAzhnzh9GuaXB/u7yRX
+	 +xxTsjiW9bKxm9pXEYOIA5dizN9RlIecuBq00HfiqxsQowP+ZpDSjeYskl3ncXnwll
+	 5alPiJAejp3VcEbqdrhC/ED1O/H4HpjNp6Qwm1Ig8HVhTLdSVn7WiLtfUJLeCON1wn
+	 gvxFL04fVGIO7+vxD67QCUJMNe0zu2j1VZFMjcnCDjdTANnwCByyBZxxDWFLO/IuXB
+	 2s4qYPrfa1ulw==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
+ neil.armstrong@linaro.org, olteanv@gmail.com
+Subject: Re: [PATCH v5 2/2] phy: qcom-snps-femto-v2: Add support for SA8255P
+In-Reply-To: <sashiko-outbox-225334@kernel.org>
+References: <20261120-phy-qcom-snps-femto-v2-8255-v5-0-86a9880ee5a5@kernel.org>
+ <20261120-phy-qcom-snps-femto-v2-8255-v5-2-86a9880ee5a5@kernel.org>
+ <sashiko-outbox-225334@kernel.org>
+Date: Fri, 20 Nov 2026 15:57:12 +0100
+Message-ID: <xhkdbcxrzpn3r.fsf@mkorpers-koolstof.csb>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,491 +60,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-devel-vstrassheim-soce-dsa-ml-v5-9-5de9225715e6@linutronix.de>
-References: <20261120-devel-vstrassheim-soce-dsa-ml-v5-0-5de9225715e6@linutronix.de>
-In-Reply-To: <20261120-devel-vstrassheim-soce-dsa-ml-v5-0-5de9225715e6@linutronix.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, Eric Dumazet <edumazet@kernel.org>, 
- Lee Jones <lee@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: Vasilij Strassheim <v.strassheim@linutronix.de>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, mfd@lists.linux.dev, 
- Martin Kaistra <martin.kaistra@linutronix.de>, 
- Benedikt Spranger <b.spranger@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Program VLAN membership tables on switch cores that implement the Port
-VLAN synthesis option.
+On Fri, Nov 20, 2026 at 14:11, sashiko-bot@kernel.org wrote:
 
-Initialize VLAN-capable cores in VLAN-unaware mode with PVID 1 and
-configure ports to untag PVID frames on egress. For VLAN add and delete
-operations, update per-VID membership masks and include CPU ports in
-active entries. Preserve standalone VLAN 1 membership independently of
-explicit VLAN RX-filter registrations.
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Low] phy: qcom-snps-femto-v2: use devm_pm_domain_attach_list() and
+>   check ret =3D=3D 0
+> --
+>
+> commit 40323ed83ee6f03c36d2767d1e91cd08ccff373b
+> Author: Sriram Dash <quic_sriramd@quicinc.com>
+>
+> phy: qcom-snps-femto-v2: Add support for SA8255P
+>
+> This commit adds support for the SA8255P USB HS PHY variant, whose power,
+> clock, and reset resources are managed by SCMI firmware through "core" and
+> "transfer" power domains.
+>
+>> diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy=
+/qualcomm/phy-qcom-snps-femto-v2.c
+>> index 0dae8369671ab..0ec34bc5c26ec 100644
+>> --- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+>> +++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> [ ... ]
+>> @@ -164,8 +167,82 @@ struct qcom_snps_hsphy {
+>>  	bool phy_initialized;
+>>  	enum phy_mode mode;
+>>  	struct phy_override_seq update_seq_cfg[NUM_HSPHY_TUNING_PARAMS];
+>> +
+>> +	struct dev_pm_domain_list *pd_list;
+>>  };
+>>=20=20
+>> +static void qcom_snps_domain_detach(void *data)
+>> +{
+>> +	struct qcom_snps_hsphy *hsphy =3D data;
+>> +
+>> +	dev_pm_domain_detach_list(hsphy->pd_list);
+>> +}
+>> +
+>> +static int qcom_snps_domain_attach(struct qcom_snps_hsphy *hsphy)
+>> +{
+>> +	struct dev_pm_domain_attach_data pd_data =3D {
+>> +		.pd_flags       =3D PD_FLAG_NO_DEV_LINK,
+>> +		.pd_names       =3D (const char*[]) { "core", "transfer" },
+>> +		.num_pd_names   =3D 2,
+>> +	};
+>> +	struct device *dev =3D hsphy->dev;
+>> +	int ret;
+>> +
+>> +	ret =3D dev_pm_domain_attach_list(dev, &pd_data, &hsphy->pd_list);
+>> +	if (ret < 0)
+>> +		return dev_err_probe(dev, ret, "domain attach failed\n");
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static bool qcom_snps_is_fw_managed(struct qcom_snps_hsphy *hsphy)
+>> +{
+>> +	return hsphy->pd_list !=3D NULL;
+>> +}
+>> +
+>> +static int qcom_snps_pds_enable_all(struct qcom_snps_hsphy *hsphy)
+>> +{
+>> +	int ret;
+>> +
+>> +	if (!qcom_snps_is_fw_managed(hsphy))
+>> +		return 0;
+>
+> [Severity: Low]
+> Can qcom_snps_domain_attach() succeed with hsphy->pd_list left NULL when
+> dev_pm_domain_attach_list() returns 0 (for example, when CONFIG_PM is
+> disabled)?
+>
+> If that happens, qcom_snps_pds_enable_all() returns 0 without enabling the
+> power domains, and qcom_snps_hsphy_fw_managed_init() proceeds to
+> qcom_snps_hsphy_configure() and writes PHY registers while clocks, resets,
+> and power domains are off.  Also, qcom_snps_domain_attach() and
+> qcom_snps_domain_detach() with devm_add_action_or_reset() in
+> qcom_snps_hsphy_probe() duplicate devm_pm_domain_attach_list(); calling
+> devm_pm_domain_attach_list() directly and returning -ENODEV when ret =3D=
+=3D 0
+> would avoid both issues.
 
-Keep ingress filtering disabled. Bridge VLAN filtering is not offloaded.
+While I agree this can indeed happen, having a kernel on an SCMI-enabled
+board such as SA8255P does not make a lot of sense. I think that other
+things will break as well. If it's not strictly necessary I'd like to
+avoid resending a v6 just to fix this.
 
-Without Port VLAN synthesis, VLAN information is lost when frames enter
-the switch through the CPU port and is not preserved in the SDSA header.
-Reject direct VLAN uppers on such cores and warn that VLAN-aware
-bridging is unsupported. Plain software bridge port joins remain
-allowed.
+Vinod, can you please let me know if I should respin to address this?
 
-Serialize multi-register VLAN operations with a per-switch feature
-mutex. Clear the membership shadow after a successful hardware reset
-during setup. On programming failure, restore the software shadow and
-attempt a best-effort restore of the previous hardware entry. Log
-rollback failures and return the original error.
-
-Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
----
- drivers/net/dsa/soce-swip.c | 334 ++++++++++++++++++++++++++++++++++++++++++++
- drivers/net/dsa/soce-swip.h |   4 +
- 2 files changed, 338 insertions(+)
-
-diff --git a/drivers/net/dsa/soce-swip.c b/drivers/net/dsa/soce-swip.c
-index 11c570ec98bc..624c7fbfd73f 100644
---- a/drivers/net/dsa/soce-swip.c
-+++ b/drivers/net/dsa/soce-swip.c
-@@ -28,6 +28,7 @@
- #define SWIP_LIC_FEATURES_NUM_PORTS_MASK	GENMASK(31, 27)
- #define SWIP_IMPL_FEATURES0_OFFSET		0x000c
- #define SWIP_IMPL_FEATURES0_NUM_PORTS_MASK	GENMASK(31, 27)
-+#define SWIP_IMPL_FEATURES0_PORT_VLAN		BIT(9)
- #define SWIP_IMPL_FEATURES0_STP			BIT(20)
- #define SWIP_IMPL_FEATURES0_DSA			BIT(23)
- #define SWIP_MIN_NUM_PORTS			3
-@@ -52,6 +53,34 @@
- #define SWIP_STP_CTRL_OFFSET			0x0000
- #define SWIP_STP_CTRL_ENABLE			BIT(0)
- 
-+#define SWIP_VLAN_BASE_OFFSET			0x0d00
-+#define SWIP_VLAN_SIZE				0x0044
-+#define SWIP_VLAN_CTRL_OFFSET			0x0000
-+#define SWIP_VLAN_CTRL_ENABLE			BIT(0)
-+#define SWIP_VLAN_RESET_OFFSET			0x0004
-+#define SWIP_VLAN_RESET_CMD			BIT(0)
-+#define SWIP_VLAN_PORT_SEL_OFFSET		0x0010
-+#define SWIP_VLAN_PORT_SEL_PORT_MASK		GENMASK(7, 0)
-+#define SWIP_VLAN_PORT_MODE_OFFSET		0x0014
-+#define SWIP_VLAN_PORT_MODE_HYBRID		0x2
-+#define SWIP_VLAN_PORT_TYPE_OFFSET		0x0018
-+#define SWIP_VLAN_PORT_TYPE_UNAWARE		0x0
-+#define SWIP_VLAN_PORT_VLAN_OFFSET		0x001c
-+#define SWIP_VLAN_PORT_VLAN_PVID_MASK		GENMASK(11, 0)
-+#define SWIP_VLAN_PORT_INGR_FILTER_OFFSET	0x0020
-+#define SWIP_VLAN_PORT_INGR_ACCEPT_OFFSET	0x0024
-+#define SWIP_VLAN_PORT_INGR_ACCEPT_ALL		0x0
-+#define SWIP_VLAN_PORT_EGR_TAG_OFFSET		0x0028
-+#define SWIP_VLAN_PORT_EGR_TAG_MASK		GENMASK(1, 0)
-+#define SWIP_VLAN_PORT_EGR_TAG_UNTAG_PVID	0x0
-+#define SWIP_VLAN_VID_SEL_OFFSET		0x002c
-+#define SWIP_VLAN_VID_SEL_VID_MASK		GENMASK(11, 0)
-+#define SWIP_VLAN_MEMBER_CTRL_OFFSET		0x0030
-+#define SWIP_VLAN_MEMBER_CTRL_WRITE		BIT(0)
-+#define SWIP_VLAN_MEMBER_PORTS_OFFSET		0x0034
-+#define SWIP_VLAN_CMD_TIMEOUT_US		1000
-+#define SWIP_STANDALONE_PVID			1
-+
- static void __iomem *swip_ioremap(struct device *dev,
- 				  const struct resource *window,
- 				  resource_size_t offset, resource_size_t size,
-@@ -97,6 +126,7 @@ static int swip_identify(struct device *dev, void __iomem *base,
- 				     "invalid port counts\n");
- 
- 	priv->features.num_ports = implemented_ports;
-+	priv->features.port_vlan = regval & SWIP_IMPL_FEATURES0_PORT_VLAN;
- 	priv->features.stp = regval & SWIP_IMPL_FEATURES0_STP;
- 
- 	return 0;
-@@ -179,6 +209,174 @@ static void swip_stp_disable(struct swip_dsa_local *local)
- 	writel(regval, base + SWIP_STP_CTRL_OFFSET);
- }
- 
-+static void swip_vlan_set_enabled(struct swip_dsa_local *local, bool enabled)
-+{
-+	void __iomem *base = local->vlan;
-+	u32 regval;
-+
-+	regval = readl(base + SWIP_VLAN_CTRL_OFFSET);
-+	if (enabled)
-+		regval |= SWIP_VLAN_CTRL_ENABLE;
-+	else
-+		regval &= ~SWIP_VLAN_CTRL_ENABLE;
-+	writel(regval, base + SWIP_VLAN_CTRL_OFFSET);
-+}
-+
-+static int swip_vlan_reset(struct swip_dsa_local *local)
-+{
-+	void __iomem *base = local->vlan;
-+	u32 regval;
-+
-+	writel(SWIP_VLAN_RESET_CMD, base + SWIP_VLAN_RESET_OFFSET);
-+
-+	return readl_poll_timeout(base + SWIP_VLAN_RESET_OFFSET,
-+				  regval, !(regval & SWIP_VLAN_RESET_CMD), 10,
-+				  SWIP_VLAN_CMD_TIMEOUT_US);
-+}
-+
-+static int swip_vlan_wait_for_write(struct swip_dsa_local *local)
-+{
-+	void __iomem *base = local->vlan;
-+	u32 regval;
-+
-+	return readl_poll_timeout(base + SWIP_VLAN_MEMBER_CTRL_OFFSET, regval,
-+				  !(regval & SWIP_VLAN_MEMBER_CTRL_WRITE), 10,
-+				  SWIP_VLAN_CMD_TIMEOUT_US);
-+}
-+
-+static void swip_vlan_select_port(struct swip_dsa_local *local, int port)
-+{
-+	writel(FIELD_PREP(SWIP_VLAN_PORT_SEL_PORT_MASK, port),
-+	       local->vlan + SWIP_VLAN_PORT_SEL_OFFSET);
-+}
-+
-+static void swip_vlan_select_vid(struct swip_dsa_local *local, u16 vid)
-+{
-+	writel(FIELD_PREP(SWIP_VLAN_VID_SEL_VID_MASK, vid),
-+	       local->vlan + SWIP_VLAN_VID_SEL_OFFSET);
-+}
-+
-+static void swip_vlan_config_port(struct swip_priv *priv, int port)
-+{
-+	struct swip_dsa_local *local = &priv->local;
-+	void __iomem *base = local->vlan;
-+	u32 regval;
-+
-+	/*
-+	 * VLAN-unaware ports classify ingress traffic to PVID 1 without consuming
-+	 * existing in-band VLAN headers.
-+	 */
-+	swip_vlan_select_port(local, port);
-+	writel(SWIP_VLAN_PORT_MODE_HYBRID, base + SWIP_VLAN_PORT_MODE_OFFSET);
-+	writel(SWIP_VLAN_PORT_TYPE_UNAWARE, base + SWIP_VLAN_PORT_TYPE_OFFSET);
-+	writel(FIELD_PREP(SWIP_VLAN_PORT_VLAN_PVID_MASK,
-+			  SWIP_STANDALONE_PVID),
-+	       base + SWIP_VLAN_PORT_VLAN_OFFSET);
-+	writel(0, base + SWIP_VLAN_PORT_INGR_FILTER_OFFSET);
-+	writel(SWIP_VLAN_PORT_INGR_ACCEPT_ALL,
-+	       base + SWIP_VLAN_PORT_INGR_ACCEPT_OFFSET);
-+
-+	regval = readl(base + SWIP_VLAN_PORT_EGR_TAG_OFFSET);
-+	regval &= ~SWIP_VLAN_PORT_EGR_TAG_MASK;
-+	regval |= FIELD_PREP(SWIP_VLAN_PORT_EGR_TAG_MASK,
-+			     SWIP_VLAN_PORT_EGR_TAG_UNTAG_PVID);
-+	writel(regval, base + SWIP_VLAN_PORT_EGR_TAG_OFFSET);
-+}
-+
-+static int swip_vlan_write_entry(struct swip_priv *priv, u16 vid)
-+{
-+	struct swip_dsa_local *local = &priv->local;
-+	void __iomem *base = local->vlan;
-+	struct dsa_port *dp;
-+	u32 standalone = 0;
-+	u32 cpu_ports;
-+	u32 members;
-+	int ret;
-+
-+	cpu_ports = dsa_cpu_ports(&priv->ds);
-+	/*
-+	 * DSA treats software-bridged ports as standalone. Keep their default
-+	 * PVID membership independently of VLAN RX-filter registrations.
-+	 */
-+	if (vid == SWIP_STANDALONE_PVID) {
-+		dsa_switch_for_each_user_port(dp, &priv->ds) {
-+			if (!dsa_port_bridge_dev_get(dp))
-+				standalone |= BIT(dp->index);
-+		}
-+	}
-+	members = priv->vlan_members[vid] | standalone;
-+	/* CPU membership preserves VLAN delivery to the conduit. */
-+	if (members)
-+		members |= cpu_ports;
-+
-+	/* A timed-out command may still be using the shared VID selector. */
-+	ret = swip_vlan_wait_for_write(local);
-+	if (ret)
-+		return ret;
-+
-+	swip_vlan_select_vid(local, vid);
-+	writel(members, base + SWIP_VLAN_MEMBER_PORTS_OFFSET);
-+	writel(SWIP_VLAN_MEMBER_CTRL_WRITE,
-+	       base + SWIP_VLAN_MEMBER_CTRL_OFFSET);
-+
-+	return swip_vlan_wait_for_write(local);
-+}
-+
-+static int swip_vlan_setup(struct dsa_switch *ds)
-+{
-+	struct swip_priv *priv = ds->priv;
-+	struct swip_dsa_local *local;
-+	struct dsa_port *dp;
-+	int ret;
-+
-+	local = &priv->local;
-+
-+	if (!priv->features.port_vlan)
-+		return 0;
-+
-+	ret = swip_vlan_reset(local);
-+	if (ret) {
-+		dev_err(ds->dev, "failed to reset VLAN configuration: %d\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	memset(priv->vlan_members, 0,
-+	       sizeof(*priv->vlan_members) * VLAN_N_VID);
-+
-+	ret = swip_vlan_write_entry(priv, SWIP_STANDALONE_PVID);
-+	if (ret) {
-+		dev_err(ds->dev, "failed to set up standalone VLAN: %d\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	dsa_switch_for_each_available_port(dp, ds)
-+		swip_vlan_config_port(priv, dp->index);
-+
-+	swip_vlan_set_enabled(local, true);
-+
-+	return 0;
-+}
-+
-+static void swip_vlan_teardown(struct swip_priv *priv)
-+{
-+	struct swip_dsa_local *local = &priv->local;
-+	int ret;
-+
-+	if (!priv->features.port_vlan)
-+		return;
-+
-+	scoped_guard(mutex, &priv->feature_lock) {
-+		ret = swip_vlan_reset(local);
-+		if (ret)
-+			dev_warn(priv->ds.dev,
-+				 "failed to reset VLAN configuration during teardown: %d\n",
-+				 ret);
-+		swip_vlan_set_enabled(local, false);
-+	}
-+}
-+
- static void swip_port_select(struct swip_dsa_local *local, int port)
- {
- 	writel(FIELD_PREP(SWIP_PORTS_SELECTOR_PORT_MASK, port),
-@@ -222,10 +420,15 @@ static int swip_setup(struct dsa_switch *ds)
- {
- 	struct swip_priv *priv = ds->priv;
- 	struct dsa_port *dp;
-+	int ret;
- 
- 	dsa_switch_for_each_user_port(dp, ds)
- 		swip_port_set_enabled(&priv->local, dp->index, false);
- 
-+	ret = swip_vlan_setup(ds);
-+	if (ret)
-+		return ret;
-+
- 	/* Unconfigured hardware STP blocks frame forwarding. */
- 	if (priv->features.stp)
- 		swip_stp_disable(&priv->local);
-@@ -243,6 +446,7 @@ static void swip_teardown(struct dsa_switch *ds)
- 	local = &priv->local;
- 
- 	swip_disable_tagging(local);
-+	swip_vlan_teardown(priv);
- }
- 
- static enum dsa_tag_protocol swip_get_tag_protocol(struct dsa_switch *ds,
-@@ -252,6 +456,111 @@ static enum dsa_tag_protocol swip_get_tag_protocol(struct dsa_switch *ds,
- 	return DSA_TAG_PROTO_SDSA;
- }
- 
-+static int swip_port_vlan_add(struct dsa_switch *ds, int port,
-+			      const struct switchdev_obj_port_vlan *vlan,
-+			      struct netlink_ext_ack *extack)
-+{
-+	struct swip_priv *priv = ds->priv;
-+	u32 port_mask = BIT(port);
-+	int rollback_ret;
-+	u32 old_members;
-+	u32 *members;
-+	int ret;
-+
-+	members = priv->vlan_members;
-+
-+	if (!vlan->vid)
-+		return 0;
-+
-+	if (!priv->features.port_vlan) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Port VLAN support is not implemented in the switch core");
-+		return -EINVAL;
-+	}
-+
-+	scoped_guard(mutex, &priv->feature_lock) {
-+		old_members = members[vlan->vid];
-+
-+		members[vlan->vid] |= port_mask;
-+
-+		ret = swip_vlan_write_entry(priv, vlan->vid);
-+		if (ret) {
-+			NL_SET_ERR_MSG_MOD(extack,
-+					   "failed to update VLAN hardware tables");
-+			dev_err(ds->dev,
-+				"failed to add VLAN %u on port %d: %d\n",
-+				vlan->vid, port, ret);
-+			members[vlan->vid] = old_members;
-+			/* Best-effort: restore the previous hardware entry. */
-+			rollback_ret = swip_vlan_write_entry(priv, vlan->vid);
-+			if (rollback_ret)
-+				dev_err(ds->dev,
-+					"failed to restore VLAN %u on port %d: %d\n",
-+					vlan->vid, port, rollback_ret);
-+			return ret;
-+		}
-+	}
-+
-+	return ret;
-+}
-+
-+static int swip_port_vlan_del(struct dsa_switch *ds, int port,
-+			      const struct switchdev_obj_port_vlan *vlan)
-+{
-+	struct swip_priv *priv = ds->priv;
-+	u32 port_mask = BIT(port);
-+	int rollback_ret;
-+	u32 old_members;
-+	u32 *members;
-+	int ret;
-+
-+	members = priv->vlan_members;
-+
-+	if (!vlan->vid)
-+		return 0;
-+
-+	if (!priv->features.port_vlan)
-+		return -EOPNOTSUPP;
-+
-+	scoped_guard(mutex, &priv->feature_lock) {
-+		old_members = members[vlan->vid];
-+		members[vlan->vid] &= ~port_mask;
-+		ret = swip_vlan_write_entry(priv, vlan->vid);
-+		if (ret) {
-+			dev_err(ds->dev,
-+				"failed to delete VLAN %u from port %d: %d\n",
-+				vlan->vid, port, ret);
-+			members[vlan->vid] = old_members;
-+			/* Best-effort: restore the previous hardware entry. */
-+			rollback_ret = swip_vlan_write_entry(priv, vlan->vid);
-+			if (rollback_ret)
-+				dev_err(ds->dev,
-+					"failed to restore VLAN %u on port %d: %d\n",
-+					vlan->vid, port, rollback_ret);
-+			return ret;
-+		}
-+	}
-+
-+	return ret;
-+}
-+
-+static int
-+swip_port_prechangeupper(struct dsa_switch *ds, int port,
-+			 struct netdev_notifier_changeupper_info *info)
-+{
-+	struct swip_priv *priv = ds->priv;
-+	struct netlink_ext_ack *extack;
-+
-+	if (!info->linking || !is_vlan_dev(info->upper_dev) ||
-+	    priv->features.port_vlan)
-+		return 0;
-+
-+	extack = netdev_notifier_info_to_extack(&info->info);
-+	NL_SET_ERR_MSG_MOD(extack,
-+			   "VLAN uppers require Port VLAN support in the switch core");
-+	return -EOPNOTSUPP;
-+}
-+
- static const struct dsa_switch_ops swip_switch_ops = {
- 	.get_tag_protocol	= swip_get_tag_protocol,
- 	.setup			= swip_setup,
-@@ -259,6 +568,9 @@ static const struct dsa_switch_ops swip_switch_ops = {
- 	.phylink_get_caps	= swip_phylink_get_caps,
- 	.port_enable		= swip_port_enable,
- 	.port_disable		= swip_port_disable,
-+	.port_vlan_add		= swip_port_vlan_add,
-+	.port_vlan_del		= swip_port_vlan_del,
-+	.port_prechangeupper	= swip_port_prechangeupper,
- };
- 
- static int swip_probe(struct platform_device *pdev)
-@@ -306,10 +618,32 @@ static int swip_probe(struct platform_device *pdev)
- 		if (IS_ERR(local->stp))
- 			return PTR_ERR(local->stp);
- 	}
-+	ret = devm_mutex_init(dev, &priv->feature_lock);
-+	if (ret)
-+		return ret;
-+
-+	if (priv->features.port_vlan) {
-+		local->vlan = swip_ioremap(dev, res, SWIP_VLAN_BASE_OFFSET,
-+					   SWIP_VLAN_SIZE, "vlan");
-+		if (IS_ERR(local->vlan))
-+			return PTR_ERR(local->vlan);
-+
-+		priv->vlan_members =
-+			devm_kcalloc(dev, VLAN_N_VID,
-+				     sizeof(*priv->vlan_members), GFP_KERNEL);
-+		if (!priv->vlan_members)
-+			return -ENOMEM;
-+
-+	} else {
-+		dev_warn(dev,
-+			 "No Port VLAN: tagged CPU ingress loses VLAN IDs. VLAN-aware bridge unsupported\n");
-+	}
- 
- 	ds->ops = &swip_switch_ops;
- 	ds->num_ports = priv->features.num_ports;
- 
-+	ds->needs_standalone_vlan_filtering = priv->features.port_vlan;
-+
- 	dev_set_drvdata(dev, priv);
- 
- 	ret = dsa_register_switch(ds);
-diff --git a/drivers/net/dsa/soce-swip.h b/drivers/net/dsa/soce-swip.h
-index d3a523ad6694..034a05ce8dc5 100644
---- a/drivers/net/dsa/soce-swip.h
-+++ b/drivers/net/dsa/soce-swip.h
-@@ -17,18 +17,22 @@
- 
- struct swip_features {
- 	u32 num_ports;
-+	bool port_vlan;
- 	bool stp;
- };
- 
- struct swip_dsa_local {
- 	void __iomem *dsa;
- 	void __iomem *ports;
-+	void __iomem *vlan;
- 	void __iomem *stp;
- };
- 
- struct swip_priv {
- 	struct swip_dsa_local local;
- 	struct swip_features features;
-+	struct mutex feature_lock; /* Serializes multi-register feature updates */
-+	u32 *vlan_members;
- 	struct dsa_switch ds;
- };
- 
-
--- 
-2.39.5
-
+>
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-phy-qcom=
+-snps-femto-v2-8255-v5-0-86a9880ee5a5@kernel.org?part=3D2
