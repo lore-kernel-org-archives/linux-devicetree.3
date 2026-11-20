@@ -1,81 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795175378;
-	b=u+Ta56X3Uy5Yj3RsKCHq1BuUi9U/VU6gF//eVKL11T1GMqAxVPb0SiY9jopgWvP+/oI6
-	 tL8/Rk4x3B4Hl4GiZg3/33akAUXzO8GxDMxTBC86QZ+8bntWeZ8befXLqP/JRYuHD/Fjv
-	 /IiuQjo+Dn81InYDmuvdljG/cIr/s/C1oLJsySnl/xHeoBaydBwMw545J/XYlDDsE0owo
-	 hURNvGb8xDdTA2MPy0A7OBFA0Of+dgQnkv2yLS6J7N30TPRSETIMhc398couyVLQC14IR
-	 ozEJKmM9WraJiLPXeLfBYsXi7hdmGpbXRhDjgXns04PHQ83dCx6KibvA3DoayJe8bMQ==
+	t=1795175529;
+	b=dW1K1NCtJw2t5vxD877xsOcOoniEBHC5YaeR2MZ9KEj/C+OBGAbJd3b7kp0pPV0bEu5g
+	 fi2gtXwODu0VEyhgGRVosJer400t2hPivphHDvq59lopVdQ/rjCSX/DwfKUD4aiteBSyX
+	 aSVOp/3BKPBz3RPRuobYik+0lKJmjGQZFF4i5zX6vk8r+nKFwu3hzcuP0/LAahHz1qTVG
+	 uFnJGgyc7ranOlOnwrzOAbjwGVW9EreVtvtVGCCpqpnGaPi6aoiercJ5MSBiFiWBcS6GH
+	 /H6l6pQCb8H7CE1XTrJ5SWiHLjUfLhisbkJBSHWOVv9lWc5exajYesVAxCkOs/FMpHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795175378;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=KhB5LY2U3ADsZjGR79e5pFUt3iqHrkKb0g96FBQARhI=;
-	b=JOuSCikZyOpz0MFFwcknCLjyaAGoJMQuPdaLEVJIgz9F7QKafYCiz9LeVx5szRtf7LZ5
-	 AwlAOxTPrdq5QNh9rc6efEcxflhTgTO7/KC9XbNRohw5yXZY4QBPrlRrKYmLM1XSPiAXQ
-	 BXtmC6HA+4njkos2nlGhIEqvm8WK9aoSdPk4MG2Lo9iIUokBxn+iNLs7CZKeS6rlIgfXp
-	 2GpDOKgQDJItcLgNPTuQeCJN9+KygWqg+oaAPZFrNI5o2Jr2HCO5NX19gH3uDuk+WZaFC
-	 n1VrqLl6zUQgVzNA5S86xRlbEbC7rFD7sGC8byHN4AoGjRy7hIk/Tgflcdf1JyMlcNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795175529;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XaAGumhVokh+2BDdHg76E3RVHGZuSdmtCNeDNfzUGOU=;
+	b=qyvW1PQoydxbic0W/xNoDXAVhxkJu+k5/1xpkX1vOI3aw8oJtuy45Y0cjZMLxjthCNL3
+	 4Ss4odrvRg2buh0UzdKKzVBZOxCpy6rPeIvzfBHHvzfSazS8JZsE4kGhp3u99UDaYAWm5
+	 IVnMcA9bH3BxXajdrLOyabGHY2d3etKiPK3ZqJOyIHjMd1bu7OEQnbbDtatxJXq+xRZC6
+	 M96LQqmta6B2D3Q5MALNyB85x4T2QH/7yVdw8Y7MSVXoti/jmRmWQlQoLEkCP+GfVeh3d
+	 85xzjkqIblm7lvoY0H17b5wU0USqpFpuX2idu1JZRWr5Vj2VBOQVcCUN8xoDH7ABpbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=SLyHbDmf;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ke8WBbXZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2729606A32C
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2729606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFB2606A320
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:52:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=SLyHbDmf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=KhB5
-	LY2U3ADsZjGR79e5pFUt3iqHrkKb0g96FBQARhI=; b=SLyHbDmfHuoVsC60d6n9
-	XfbnExBjnWeXW6GWJvUpM3DOhf4/eHZktcfpbxBTY+7pZh8ZCxLfl1fzwMSEX4Ex
-	z0ELcPgPv/Z6ekDJ6izOHok4Qsj9fIQPbNUqypvD7cKiMtoEImlSOwcHoBILBZXl
-	eRb1SzYaGv+5KOOYUuWuj9sKKHlCIaQFmUGKQq0qspGnK+E90f6B6gRuX1glgzu9
-	jM0mQ2sWk7T+E3HpAscs8sFjTwzRWxousb3VisoRbdIK478spdA29PW2Xqu05NYI
-	pNuUbedAjDCf0Bhxo8avpw/diIhkHwoPg7NadEcBkJMzsOotSwfuRBhav+T38flQ
-	KQ==
-Received: (qmail 1461740 invoked from network); 20 Nov 2026 12:49:34 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 20 Nov 2026 12:49:34 +0100
-X-UD-Smtp-Session: l3s3148p1@WwCE1rNgOucujnuU
-Date: Fri, 20 Nov 2026 12:49:34 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: khendry@reliablecontrols.com
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	=?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH 4/6] dt-bindings: net: pcs: renesas,rzn1-miic: Document
- rzn1 resets
-Message-ID: <awAzzqHtBuM3wf9g@ninjato>
-References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
- <20261119-rzn1-miic-resets-v1-4-feee2bb28bb4@reliablecontrols.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ke8WBbXZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083D91F000CF;
+	Fri, 20 Nov 2026 11:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795175528;
+	bh=XaAGumhVokh+2BDdHg76E3RVHGZuSdmtCNeDNfzUGOU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ke8WBbXZ2WLSrmEKiXicu/EaC1eU2pOKQLVdv5B58q5v3xBL824wsd7up3NOFofPT
+	 WF8jz4y8JyjnTXUu9Ykin/C7cZ5QPoJOStxMZP59QpFkwPla/zdmlMWjdufDJ0Wxv0
+	 5O3CBBLgErVlfNZ5LQP95+TRrVcHyvO13PfYE0AlSwzJW6bqysNPRxSHxHIl1R66Q4
+	 PeLWRwVW2uOmMRTtMHE1LEOOKg91MZo9FLkb0DhO9zs1PTC6CgmquxEedvLOEXhrum
+	 zt6mKqPYtOI2ZQBRxFD7AtVu4onLlAxFtwOMbnO2m1/snx6J8QxFxwk6VxsmwwrrPb
+	 Gew3vMrsWXUTQ==
+Message-ID: <sashiko-outbox-225100@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] mailbox: marvell-mhu: add Marvell MHU driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Cercueil" <paul.cercueil@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261120113952.168265-3-paul.cercueil@bootlin.com>
+References: <20261120113952.168265-1-paul.cercueil@bootlin.com>
+ <20261120113952.168265-3-paul.cercueil@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 11:52:06 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,19 +59,117 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119-rzn1-miic-resets-v1-4-feee2bb28bb4@reliablecontrols.com>
 
-On Thu, Nov 19, 2026 at 09:57:46AM -0800, Kyle Hendry via B4 Relay wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
-> 
-> On the rzn1, there are two resets for the miic. Add documentation for them.
-> 
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] mailbox: marvell-mhu: missing IRQF_NO_AUTOEN in
+  mrvl_mhu_setup_irq()
+- [Medium] mailbox: marvell-mhu: inverted TX done check in
+  mrvl_mhu_last_tx_done()
+- [Low] mailbox: marvell-mhu: invalid min_vecs in mrvl_mhu_setup_irq()
+--
 
-I will comment on the bindings over the weekend.
+commit 2ee602a4969cc96c3afca49d7d2c3b05ee5ffda2
+Author: George Cherian <gcherian@marvell.com>
 
-For further testing on real HW, I will wait for v2.
+mailbox: marvell-mhu: add Marvell MHU driver
 
+This commit adds a mailbox controller driver for the Message Handling Unit
+on Marvell OcteonTX and OcteonTX2 platforms.
+
+> diff --git a/drivers/mailbox/marvell_mhu.c b/drivers/mailbox/marvell_mhu.c
+> new file mode 100644
+> index 0000000000000..9b618b3fe2768
+> --- /dev/null
+> +++ b/drivers/mailbox/marvell_mhu.c
+> @@ -0,0 +1,239 @@
+[ ... ]
+> +#define SCP_INDEX	0x0
+> +#define DEV_AP0		0x2
+> +#define SCP_TO_AP_INTERRUPT	2
+> +#define INT_VECS_MIN	0
+> +#define INT_VECS_MAX	3
+[ ... ]
+> +static bool mrvl_mhu_last_tx_done(struct mbox_chan *chan)
+> +{
+> +	struct mrvl_mhu *mhu =3D chan->con_priv;
+> +	u64 status;
+> +
+> +	status =3D ioread64(mhu->base + AP0_TO_SCP_MBOX_LINT);
+> +
+> +	return status !=3D 0;
+> +}
+
+[Severity: Medium]
+Is the status check in mrvl_mhu_last_tx_done() inverted?
+
+Writing the doorbell in mrvl_mhu_send_data() asserts the interrupt bit in
+AP0_TO_SCP_MBOX_LINT, and the register remains non-zero until the SCP
+services and clears the interrupt.  Returning status !=3D 0 reports TX done
+while the interrupt is still pending (or times out if the SCP clears it
+before the poll runs), instead of waiting for status =3D=3D 0.
+
+> +
+> +static int mrvl_mhu_startup(struct mbox_chan *chan)
+> +{
+> +	struct mrvl_mhu *mhu =3D chan->con_priv;
+> +
+> +	/* Enable interrupts only if there is client for data */
+> +	writeq_relaxed(1ul, mhu->base + SCP_TO_AP0_MBOX_RINT_ENA_W1S);
+> +
+> +	enable_irq(mhu->irq);
+> +
+> +	return 0;
+> +}
+> +
+> +static void mrvl_mhu_shutdown(struct mbox_chan *chan)
+> +{
+> +	struct mrvl_mhu *mhu =3D chan->con_priv;
+> +
+> +	/* Could be using SCP_TO_AP0_MBOX_RINT_DIS_W1S if we knew where it was =
+*/
+> +	disable_irq(mhu->irq);
+> +}
+[ ... ]
+> +static int mrvl_mhu_setup_irq(struct mrvl_mhu *mhu, struct pci_dev *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	int ret, nvec;
+> +
+> +	nvec =3D pci_alloc_irq_vectors(pdev, INT_VECS_MIN, INT_VECS_MAX, PCI_IR=
+Q_MSIX);
+> +	if (nvec < 0)
+> +		return nvec;
+> +
+> +	ret =3D devm_add_action_or_reset(dev, mrvl_mhu_free_irq_vector, pdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	mhu->irq =3D pci_irq_vector(pdev, SCP_TO_AP_INTERRUPT);
+
+[Severity: Low]
+Should INT_VECS_MIN be 3 (or SCP_TO_AP_INTERRUPT + 1) instead of 0?
+pci_alloc_irq_vectors() requires min_vecs >=3D 1, and requesting vector
+index 2 requires at least 3 MSI-X vectors to be allocated.
+
+> +	if (mhu->irq < 0)
+> +		return mhu->irq;
+> +
+> +	return devm_request_irq(dev, mhu->irq,
+> +				mrvl_mhu_rx_interrupt, 0, "mvl-mhu", mhu);
+> +}
+
+[Severity: High]
+Should devm_request_irq() pass IRQF_NO_AUTOEN?
+
+With irqflags set to 0, mhu->irq is enabled immediately during probe while
+mhu->chan.cl is still NULL.  When a client binds to the channel,
+mrvl_mhu_startup() calls enable_irq(mhu->irq) on the already-enabled IRQ
+and triggers an "Unbalanced enable for IRQ" warning in __enable_irq().  In
+addition, if an SCP interrupt fires before a client attaches,
+mrvl_mhu_rx_interrupt() calls mbox_chan_received_data(&mhu->chan, ...) and
+dereferences a NULL chan->cl.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120113952.1682=
+65-1-paul.cercueil@bootlin.com?part=3D2
