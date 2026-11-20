@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795215515;
-	b=UONmBSpwf1tk5UONk4jJ1iLxkxMWHkZHVRGrZplrGGimo+360AogXG6YhLPunVtBI7kU
-	 ZwwmIj2aLJLueND2rU2k4sJeZgGfD3zF9KMFaHXfnF2gx/rI2pSUFSWHMzfsYAjlLzonD
-	 qfjIORqH8F7br4afKfNPfF8iOOR1/acESKecFT3VoA9835CoOLKD/GxEGkLOOugEAMWB1
-	 jkQHsEoyPM1ztIKDx4kmzSi8huAPljlJ+n1tExsfQZ9JXDGaaMU7hRDZ9oUXld0QTcP59
-	 +T++fnOVZ6idraK0OHSObpj/iepMISiNB/WjOlQhWWmY8vsdOYdg+yZfuk9XXsxGk7g==
+	t=1795215808;
+	b=P51b0e/vqFrUDhXC+C1+SnZEUUF9+DUNQnAht/i7u5GnSni9Cg4fdHKvDU3QEthqlDC6
+	 SkT8dDQfe4s9pufhjjaEDnGoEEMxBLK6etuBu8UkBX5E5nr8WFmgN90tr/u/AKRtaqVrt
+	 8aeOJllhm8YNYHTa7jFqxrUXm+bUqICaHQVvOh1I5vXgeZuY7jfV2+zIRRiHOOgknNNVY
+	 xg62AOF0eNqEBnionqqyg+7aJN+YDms/HVEHceClC8UkpXmQ+lpUQahxMp4pVWIyXFc4g
+	 UFe28XCGYcdbcWwF/82uI0QfQL5YijKlR4YgzeaSfsPc0ekUYSP0Yx6y9TenHlo1qOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795215515;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=v1AmHF/PkA8DGobhxYuQNd3gd9+MvZDm9wc6SHKRrG8=;
-	b=hWhoxRmhqTOeJJWAVg+HqAPWoiMYFemdwMqzauACnlovuKhLEcrxqyWCZA60UNYAdu1A
-	 ADIpSnMIlUdP6zVcq+qYoYnPZ+kO37olH86kXjUpieCHApICG9QTZlnfXBRaZh//zvmMt
-	 o/P9NdHe49TzrOzh99hqIV/bwcptAWtwT4jY4GGXTVPfBbphpFHwguKHc9Ri76K2GCFRc
-	 /Jb63+2yfY+11YfwUTOfsBZAAgIOtExDHYGcxKiVr/uCgDEwx+EVVy0JiNB3M+IzH9C62
-	 W4CiPxs5/mdrwuNU5PyXtMLPCHjB6IhC99kOHX//2RgVx89MOLikUdZAvn8y42+zARw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795215808;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=5GqNarA8yhniPQn8im3r/1O/fx/VgqmvibkYDqdOfy0=;
+	b=NwUOfo+VMdpKhv0GTEuKUOXfhrF1whLajFIRdztq/nLfbCqlyYNvzU5h2vF9Uf4h1vlQ
+	 8FSudU6If5DhBTNC4rVLUefYl+n9qvgeAL1kJcRWok7n1WwSJ/d8IbTYD8l0Hwpomx0PK
+	 E9R2UssB9S2/TouOt2/eRuyou+xOVjifcjcvgq6OT41ci/sQlqCru0aw604C8N2D5BMfj
+	 2abC6q0EhVwWneZ3drBveRfX0p5vVWRkmFN1nTfS1KmM99gB16Au9PpcS6TsCKf6cPFmp
+	 1gy56wo3V/lD+erEM8GsSu1N9DKhHGECj039CnaS1y3eCVOKByTLYamWK2O2K0k7hyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MVajO/gF";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fxNmALEs;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92552606A691
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 22:58:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDD4606A686
+	for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 23:03:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBDD4606A686
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MVajO/gF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E241F000E6;
-	Fri, 20 Nov 2026 22:58:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795215515;
-	bh=v1AmHF/PkA8DGobhxYuQNd3gd9+MvZDm9wc6SHKRrG8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MVajO/gFre8wsCJHgei5pBxsXOkPArOY0p9nLtw0YcxnuyZNB/fXOCdKMiDE/yJJE
-	 VazfsKJBebN/AOdfL1PHPtSp/+fFopgPNENZO40zIRoJJSVQi38ZPf1BwSMnUxUy9l
-	 z562RVTa8LAPkVnYsaQ1HTbdOIZjtjDZoRRLNulmMEEEX8W2HSGIynDgaJf1GiBOJR
-	 ookB/UWeerxAXQyohmoSUxQqxp57cRIgb4T4cSmo8WauwyNNTtv1YeoQUs6dmkQE+K
-	 Zkol7W4Imbm4zMmVqc6i/e8N2dvMQex9vbFYcLSFtQotnPo/z7kKWtfBuPRksDI9e7
-	 y28OBOAfkSiLQ==
-Message-ID: <sashiko-outbox-226329@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v16 13/13] dpll: sit9531x: model the inter-PLL
- sync line as a pair of pins
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ali Rouhi" <arouhi@sitime.com>
-Cc: =?utf-8?b?ZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmc=?= <devicetree@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119225752.41846-14-arouhi@sitime.com>
-References: <20261119225752.41846-1-arouhi@sitime.com>
- <20261119225752.41846-14-arouhi@sitime.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 22:58:34 +0000
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fxNmALEs
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4d581da0aaso193692166b.2
+        for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:03:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795215806; x=1795820606; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5GqNarA8yhniPQn8im3r/1O/fx/VgqmvibkYDqdOfy0=;
+        b=fxNmALEs7giTEZ/uC2VoLWNHbrXDh/y49zw0XXfkx7c/tRl8Ca7795+3FYcde9jr3h
+         UcHDRtr9Bg3wLRStLNAws0oeCq/o+f2OiFtk/qUTK0XDkk+ewDiv+M1so/eheAIe21Jy
+         4KTn5W9zN01S2wIpkjJ56qvi9kOd2+FOAQ4sk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795215806; x=1795820606;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5GqNarA8yhniPQn8im3r/1O/fx/VgqmvibkYDqdOfy0=;
+        b=cedeWmH0IvzrBZQeCXDJb1iwOil2PZQ+mdyn5jGHadc+2h2R9iT3CB1yBOgsumFqI7
+         4kmSZuYg4B3J1+l6lRhkmJIPAcBt4BdTOE7RaFt0L+SJusOILYEAh/ZRAss+/dJHtNpT
+         t7SG8rBdbpN5DVW931ij2TKoWFPRLP1+j5nkXMD5+EBiBB4jj3PGAp8cWuJ4KConKcES
+         U9O5+CjBPE7Y5PSjnW5vv5dKVqQ9ytPv5FVOUjYiQMv0ialHsDRgDRalfjlYG3Q4FhME
+         p2RD0/OEd2xrCpMdKYO70VncGXqgG28DqdV4Fc5DY90hvBw0+fVaxZ/y3cWT3EWwnUUn
+         FNLg==
+X-Forwarded-Encrypted: i=1; AL+hErEZ7+DtvoQ7KqxHpd+chXgo8ISNN4iObEx3K+QtlOBk+AqsYaoq9T4a+exVwnEuzV4z491rTjYVcoHH@vger.kernel.org
+X-Gm-Message-State: APuU4Z8oHyfMG0334iijcTQNVpemsJNvMmYYuqOFpF6nGaj/3zOB5bE2
+	8xHx8TV0bBgwUwBDBYwLaWt9SEz0orCxreULLWs+okggboM7RhZdTN3DrDdu/CP8sTlJPepsa8t
+	w0SOmtq5y
+X-Gm-Gg: AYBFou2ouB8PGY3tJmTgTlt4tO35C1fFzpMDr+nYNVEeJR60oMqzUJfYNKZBa9aOd5P
+	uAoNW/T75sL3CwzqJnttuxvETpfsKprpLmYhtVw2jot8/TwG7LuFNWk1NU3RlJdOtYgaTylkIjB
+	bX4Pr/0fbBYig2Q4CICpU4bfb09EDLRIvyKiYCi0AY6wmknJKdcMeQWWEOksY0LKXQgXtL8lTyg
+	3xqyyT9WFVO1iFxqcLSzBF/M4BOEsr973ZftRwb+YSS+syqiEfmhUcfVrMioGidApSBzsTxxpC8
+	YPfYhqrvRwquBUEqr4uP78D+WVTd9Ml+vamYPaxk6ENnx1qjIooOSTCxP5VGgpCrBCpN/Hky4L6
+	NQ+c5kpeI1bArAvg8PsGySkFqi/urMeHHBVtXIF8VqZlnxIr0GTAIW6GgsypT1SmsZUczNrYOAp
+	Nxoi/FQK494At953J1AvRNmuxaMzVdc01npOvpmoRtwXMHF9QeLB62DVtgVwMmow/fqIoy9uv+k
+	4cu99jtmlFCuTwmfOMkqxzBVl72aS4XLdvJ1H4qwfVjns30vRvtgy9A0V8UjbiuJqnDAZ46pT5G
+	v5pNzFngvmm/0v3KNKRSCI9fIsU8nxpSymyQhQ9/q2ttkQi3Hu4SCKI2mu93NeOvmk0u
+X-Received: by 2002:a17:906:ccc1:b0:c29:5172:6151 with SMTP id a640c23a62f3a-c513ac9b721mr373328966b.45.1795215806225;
+        Fri, 20 Nov 2026 15:03:26 -0800 (PST)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com. [209.85.221.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513aec5115sm139166766b.51.2026.11.20.15.03.23
+        for <Devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 15:03:24 -0800 (PST)
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492690dd5daso1071490f8f.1
+        for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:03:23 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF5Ba/kWASjM5odUqEDAWo8l2pdTmCf2J3YrsdO4Oko4gW/lqt1jKf1cbrkXMjJ4QwcyWxr+AHGXDTn@vger.kernel.org
+X-Received: by 2002:a05:6000:2c13:b0:4a6:dfe3:fd93 with SMTP id
+ ffacd0b85a97d-4abb41f4dc6mr9300663f8f.40.1795215802107; Fri, 20 Nov 2026
+ 15:03:22 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,258 +92,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261113210918.356261-1-dianders@chromium.org>
+ <20261113130858.RFC.v2.2.I5cd8aab4380bc4cfd302c4e4708af58c43370715@changeid> <sashiko-outbox-215033@kernel.org>
+In-Reply-To: <sashiko-outbox-215033@kernel.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 20 Nov 2026 15:03:10 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=U=wMCvb2UXgvSpZxoBNJnMw8fy-JzfYFOtQGs1-=w-MQ@mail.gmail.com>
+X-Gm-Features: Aa3M54pRDnkxai3VLH8umlmccjAtNqBNTUBcGhqs9gRyZZN92t4mYXIwkfZVL_Q
+Message-ID: <CAD=FV=U=wMCvb2UXgvSpZxoBNJnMw8fy-JzfYFOtQGs1-=w-MQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 2/5] kbuild: fit: Support selecting DTBs and config
+ properties from a file
+To: sashiko-reviews@lists.linux.dev
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Julius Werner <jwerner@chromium.org>, Michal Simek <michal.simek@amd.com>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Simon Glass <sjg@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	linux-kbuild@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	Chen-Yu Tsai <wenst@chromium.org>, Will Deacon <will@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Devicetree@vger.kernel.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Nicolas Schier <nsc@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Brian Norris <briannorris@chromium.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+	Manuel Ebner <manuelebnerli@mailbox.org>, Marco Elver <elver@google.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Randy Dunlap <rdunlap@infradead.org>, Rong Xu <xur@google.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [Medium] dpll: sit9531x: lost global disable error in
-  __sit9531x_intsync_disable()
-- [Medium] dpll: sit9531x: sticky intsync_partial in
-  sit9531x_intsync_readback()
-- [Medium] dpll: sit9531x: stale partial state on INTSYNC source set
-  failure
-- [Medium] dpll: sit9531x: hidden INTSYNC selection in
-  sit9531x_dpll_pin_snapshot()
---
+On Sat, Nov 14, 2026 at 1:09 PM <sashiko-bot@kernel.org> wrote:
+>
+> > +# If FIT_CONFIG is specified on the command line (either relative to $(srctree)
+> > +# or relative to arch/$(SRCARCH)/boot/dts/), locate that file and extract the
+> > +# list of .dtb files to build.
+> > +ifdef FIT_CONFIG
+> > +FIT_CONFIG_REL := $(firstword $(patsubst $(abs_srctree)/%,%,\
+> > +     $(patsubst $(srctree)/%,%,$(patsubst ./%,%,$(wildcard \
+> > +     $(FIT_CONFIG) \
+> > +     $(srctree)/$(FIT_CONFIG) \
+> > +     $(srctree)/arch/$(SRCARCH)/boot/dts/$(FIT_CONFIG))))))
+> > +ifeq ($(FIT_CONFIG_REL),)
+> > +$(error FIT_CONFIG '$(FIT_CONFIG)' not found)
+> > +endif
+> > +FIT_CONFIG_FILE := $(srctree)/$(FIT_CONFIG_REL)
+> > +ifndef FIT_CONFIG_DTBS
+> > +export FIT_CONFIG_DTBS := $(addprefix $(dir $(FIT_CONFIG_REL)), \
+> > +     $(shell $(MAKE_FIT) -C $(FIT_CONFIG_FILE) --list-dtbs))
+> > +$(if $(FIT_CONFIG_DTBS),,$(error Failed to parse DTB list from $(FIT_CONFIG_FILE)))
+> > +endif
+>
+> [Severity: Medium]
+> Does $(dir $(FIT_CONFIG_REL)) prepend a leading ./ to every entry in
+> FIT_CONFIG_DTBS when FIT_CONFIG points to a file in the root of $(srctree)?
+>
+> When FIT_CONFIG_REL has no slash (or when FIT_CONFIG is passed with a
+> leading ./ in an out-of-tree build so $(patsubst ./%,%,...) runs before
+> $(srctree)/ is stripped), $(dir $(FIT_CONFIG_REL)) evaluates to ./.  In
+> scripts/Makefile.dtbs, $(filter $(obj)/%, $(FIT_CONFIG_DTBS)) compares
+> against $(obj) without a leading ./, so nothing matches, dtb-y is cleared
+> across all DTS directories, and no DTBs are built.  Stripping ./ from
+> $(dir $(FIT_CONFIG_REL)) and running $(patsubst ./%,%,...) after stripping
+> $(srctree)/ and $(abs_srctree)/ would avoid this.
+>
+> [ ... ]
+>
+> > +    if args.config:
+> > +        config = parse_config(args.config)
+> > +        by_name = {os.path.basename(fn): fn for fn in args.dtbs}
+> > +        config_dir = os.path.dirname(args.config)
+> > +        dtb_configs = [
+> > +            (by_name.get(dtb, os.path.join(config_dir, dtb)), props)
+> > +            for dtb, props in config.items()
+> > +        ]
+> > +    else:
+> > +        dtb_configs = [(fname, {}) for fname in args.dtbs]
+>
+> [Severity: Medium]
+> Will by_name.get(dtb, ...) always miss in out-of-tree (O=) builds when a
+> .fitconfig section header includes a subdirectory path such as
+> [google/lga-blazer.dtb]?
+>
+> by_name is keyed by os.path.basename(fn), so any dtb key containing a
+> slash never matches and falls back to os.path.join(config_dir, dtb).
+> Because scripts/Makefile.lib sets FIT_CONFIG_FILE in $(srctree),
+> config_dir points into the source tree rather than $(objtree) where the
+> compiled .dtb and .dtb.cmd files live, causing process_dtb() to fail with
+> FileNotFoundError.  Looking up os.path.basename(dtb) (or matching the
+> suffix against args.dtbs) would find the built DTB in $(objtree).
 
-commit cfe63c19d5fe92b45accc9dad92f48789a062ff1
-Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+Addressed both for v3 by simplifying how `.fitconfig` specifies DTB
+paths: rather than inferring the DTB directory from the `.fitconfig`
+file's location on disk, `.fitconfig` now supports an optional
+`[fitconfig]` section with `dtb-dir = arch/.../boot/dts/...` relative to
+the kernel tree root, and `parse_config()` returns normalized
+tree-relative DTB paths (`os.path.normpath(os.path.join(dtb_dir, sec))`)
+directly.
 
-dpll: sit9531x: model the inter-PLL sync line as a pair of pins
+With that:
+- `scripts/Makefile.lib` simply looks up `FIT_CONFIG` via `$(wildcard
+  $(FIT_CONFIG) $(srctree)/$(FIT_CONFIG))` (supporting external
+  `.fitconfig` paths too) and takes `FIT_CONFIG_DTBS` straight from
+  `make_fit.py --list-dtbs` with no `$(dir ...)` / `./` manipulation.
+- `_process_dtbs()` in `scripts/make_fit.py` uses those normalized
+  `$(objtree)`-relative paths directly (since Kbuild runs `make_fit.py`
+  from `$(objtree)`), so `O=` builds, subdirectory entries, and external
+  `.fitconfig` files all work without basename lookup.
 
-This commit models the internal inter-PLL sync line (INTSYNC) as a source
-pin and a destination input pin on each DPLL, adding hardware detection,
-enable/disable sequences, and resume state recovery.
-
-> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index 5ec9d2a48fcbf..ca42940796d3d 100644
-> --- a/drivers/dpll/sit9531x/core.c
-> +++ b/drivers/dpll/sit9531x/core.c
-[ ... ]
-> @@ -2620,6 +2639,574 @@ static int sit9531x_clear_notifications(struct si=
-t9531x_dev *sitdev)
->  	return 0;
->  }
-> =20
-[ ... ]
-> +int sit9531x_intsync_readback(struct sit9531x_dev *sitdev)
-> +{
-> +	bool partial =3D sitdev->intsync_partial;
-> +	s8 src =3D sitdev->intsync_src;
-> +	int rc;
-> +
-> +	rc =3D sit9531x_intsync_src_detect(sitdev);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (partial && !sitdev->intsync_foreign &&
-> +	    (sitdev->intsync_src < 0 ||
-> +	     (sitdev->intsync_src =3D=3D src && !sitdev->intsync_partial))) {
-> +		sitdev->intsync_src =3D src;
-> +		sitdev->intsync_partial =3D true;
-> +		sitdev->intsync_foreign =3D false;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-As reported by Jakub Kicinski on v15 [1], does sit9531x_intsync_readback()
-clobber the freshly scanned hardware profile on resume whenever
-sitdev->intsync_partial was set before suspend?
-
-sit9531x_resume() calls sit9531x_intsync_readback() without clearing
-sitdev->intsync_partial first.  If the reloaded hardware profile has no
-INTSYNC source, sit9531x_intsync_readback() restores the stale pre-suspend
-partial record, blocking other PLLs from connecting INTSYNC (-EBUSY).  If
-the reloaded profile has the same PLL actively driving INTSYNC, it forces
-sitdev->intsync_partial back to true, causing sit9531x_intsync_owner() to
-return -1 and the source pin to report DPLL_PIN_STATE_DISCONNECTED.
-
-Also, if INTSYNC was driven before suspend with a destination PLL locked to
-it and the reloaded profile disables INTSYNC, sit9531x_resume() does not set
-chan->intsync_dropped, so sit9531x_intsync_driven() continues returning true
-from the pre-suspend sample until the periodic poll runs.
-
-[ ... ]
-> +static int __sit9531x_intsync_disable(struct sit9531x_dev *sitdev,
-> +				      u8 src_pll_idx, bool restore,
-> +				      bool *owner_kept, bool *touched)
-> +{
-[ ... ]
-> +	rc =3D sit9531x_write_u8(sitdev, SIT9531X_REG_INTSYNC_GLOBAL,
-> +			       val & ~BIT(SIT9531X_INTSYNC_EN_BIT));
-> +	if (rc)
-> +		goto restore_global;
-> +	/* A sample taken before this write can still show a lock. */
-> +	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++)
-> +		if (sitdev->chan[i].routed_ref =3D=3D SIT9531X_INTSYNC_PIN_ID)
-> +			sitdev->chan[i].intsync_dropped =3D true;
-> +
-> +	rc =3D sit9531x_write_u8(sitdev, SIT9531X_REG_GLOBAL_UPDATE,
-> +			       SIT9531X_SMALL_UPDATE_CMD);
-> +	usleep_range(1000, 2000);
-> +	if (rc)
-> +		goto restore_global;
-[ ... ]
-> +restore_global:
-> +	/*
-> +	 * Finish the disable if the page holds the disable pattern; restore
-> +	 * the global enable only if it still holds the enable pattern. Set
-> +	 * over part of the pattern, the enable may drive the line, so it stays
-> +	 * clear.
-> +	 */
-> +	if (restore) {
-> +		bool off, on;
-> +
-> +		if (!in_window &&
-> +		    sit9531x_write_u8(sitdev,
-> +				      SIT9531X_REG(ext_page,
-> +						   SIT9531X_PLL_REG_DEBUG),
-> +				      SIT9531X_PLL_DEBUG_UNLOCK)) {
-> +			if (owner_kept)
-> +				*owner_kept =3D true;
-> +			goto relock;
-> +		}
-> +		if (sit9531x_intsync_page_state(sitdev, ext_page, &off, &on) ||
-> +		    (!off && !on)) {
-> +			if (owner_kept)
-> +				*owner_kept =3D true;
-> +			goto relock;
-> +		}
-> +		if (off) {
-> +			rc =3D sit9531x_pll_small_update(sitdev, src_pll_idx);
-> +			if (rc && owner_kept)
-> +				*owner_kept =3D true;
-> +			goto relock;
-> +		}
-> +	}
-
-[Severity: Medium]
-If clearing SIT9531X_REG_INTSYNC_GLOBAL or latching
-SIT9531X_REG_GLOBAL_UPDATE fails when the EXT page already holds the disable
-pattern (off =3D=3D true, for example after an earlier partial disable or f=
-ailed
-enable rollback), does the "if (off)" branch overwrite rc with 0 when
-sit9531x_pll_small_update() succeeds?
-
-__sit9531x_intsync_disable() then returns 0 even though the global enable b=
-it
-was never cleared or latched.  In
-sit9531x_dpll_intsync_src_state_on_dpll_set(), rc =3D=3D 0 clears
-sitdev->intsync_partial before calling sit9531x_intsync_readback(); with the
-global enable bit still set and no EXT page holding the enable pattern,
-sit9531x_intsync_src_detect() sets sitdev->intsync_foreign =3D true and loc=
-ks
-out all future INTSYNC connects.
-
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index 0f2b3d446cb5f..d831bafacf107 100644
-> --- a/drivers/dpll/sit9531x/dpll.c
-> +++ b/drivers/dpll/sit9531x/dpll.c
-[ ... ]
-> @@ -652,6 +679,355 @@ sit9531x_dpll_output_pin_direction_get(const struct=
- dpll_pin *pin,
-[ ... ]
-> +static int
-> +sit9531x_dpll_intsync_src_state_on_dpll_set(const struct dpll_pin *pin,
-> +					    void *pin_priv,
-> +					    const struct dpll_device *dpll,
-> +					    void *dpll_priv,
-> +					    enum dpll_pin_state state,
-> +					    struct netlink_ext_ack *extack)
-> +{
-[ ... ]
-> +	/* A disconnect reads back through the partial record */
-> +	if (changed)
-> +		detect_rc =3D state =3D=3D DPLL_PIN_STATE_DISCONNECTED ?
-> +			    sit9531x_intsync_readback(sitdev) :
-> +			    sit9531x_intsync_src_detect(sitdev);
-> +	if (changed && rc) {
-> +		if (owner_kept ||
-> +		    (state =3D=3D DPLL_PIN_STATE_CONNECTED &&
-> +		     (detect_rc || sitdev->intsync_src =3D=3D sitdpll->id))) {
-> +			sitdev->intsync_src =3D sitdpll->id;
-> +			sitdev->intsync_partial =3D true;
-> +			sitdev->intsync_foreign =3D false;
-> +		} else if (detect_rc) {
-> +			sitdev->intsync_stale =3D true;
-> +		}
-> +	} else if (changed && detect_rc && sitdev->intsync_conflict) {
-> +		sitdev->intsync_stale =3D true;
-> +		sitdev->intsync_ntf_pending =3D true;
-> +	}
-
-[Severity: Medium]
-When sit9531x_intsync_enable() or sit9531x_intsync_disable() fails, can this
-error recovery leave a false partial record wedged or falsely report an
-active source as disconnected?
-
-Because setting sitdev->intsync_stale =3D true is in an "else if (detect_rc=
-)"
-branch, if sit9531x_intsync_enable() fails (even after a clean rollback) and
-sit9531x_intsync_src_detect() also hits a transient bus error (detect_rc !=
-=3D
-0), the first branch sets sitdev->intsync_src =3D sitdpll->id and
-sitdev->intsync_partial =3D true while leaving sitdev->intsync_stale false,=
- so
-sit9531x_intsync_refresh() never re-reads the hardware.
-
-Conversely, on DPLL_PIN_STATE_DISCONNECTED, if the very first write to
-SIT9531X_REG_INTSYNC_GLOBAL in __sit9531x_intsync_disable() fails before any
-register is changed and unlocking the debug window in restore_global also
-fails, *owner_kept is set to true; even when sit9531x_intsync_readback()
-then succeeds and sees that the PLL is still a complete, active source,
-"if (owner_kept || ...)" forces sitdev->intsync_partial =3D true and emits a
-notification reporting the source pin as disconnected while the PLL is still
-driving the line.
-
-[ ... ]
-> +static int
-> +sit9531x_dpll_intsync_dst_state_on_dpll_get(const struct dpll_pin *pin,
-> +					    void *pin_priv,
-> +					    const struct dpll_device *dpll,
-> +					    void *dpll_priv,
-> +					    enum dpll_pin_state *state,
-> +					    struct netlink_ext_ack *extack)
-> +{
-> +	struct sit9531x_dpll *sitdpll =3D dpll_priv;
-> +	struct sit9531x_dev *sitdev =3D sitdpll->dev;
-> +	int rc;
-> +
-> +	mutex_lock(&sitdev->multiop_lock);
-> +	rc =3D sit9531x_dpll_intsync_refresh(sitdev, extack);
-> +	if (rc) {
-> +		mutex_unlock(&sitdev->multiop_lock);
-> +		return rc;
-> +	}
-> +	if (sitdev->intsync_src =3D=3D sitdpll->id)
-> +		*state =3D DPLL_PIN_STATE_DISCONNECTED;
-> +	else
-> +		sit9531x_dpll_selection_state_get(sitdev, sitdpll,
-> +						  SIT9531X_INTSYNC_PIN_ID,
-> +						  state);
-> +	mutex_unlock(&sitdev->multiop_lock);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-As reported by Jakub Kicinski on v15 [2], should
-sit9531x_dpll_intsync_dst_state_on_dpll_get() (and
-sit9531x_dpll_pin_snapshot()) force *state =3D DPLL_PIN_STATE_DISCONNECTED
-when sitdev->intsync_src =3D=3D sitdpll->id?
-
-When sitdev->intsync_partial is true on a PLL whose priority table or manual
-selection also lists INTSYNC, both the source pin and the destination pin on
-that PLL report DPLL_PIN_STATE_DISCONNECTED.  Connecting the source pin on
-that PLL then fails in sit9531x_dpll_intsync_src_state_on_dpll_set() via
-sit9531x_dpll_intsync_selected() with -EBUSY ("PLL selects INTSYNC as a
-reference; it cannot drive it"), while hiding that the destination pin is
-actually selectable (or connected in manual mode).
-
-[1] https://lore.kernel.org/r/20261117021827.2220456-1-kuba@kernel.org
-[2] https://lore.kernel.org/r/20261117021827.2220456-1-kuba@kernel.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119225752.4184=
-6-1-arouhi@sitime.com?part=3D13
+-Doug
