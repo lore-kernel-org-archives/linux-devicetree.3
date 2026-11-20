@@ -1,113 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795146443;
-	b=Phb1+KIOMmXEMB7ae6A2ZY8yuEYvIK/JacarJPX8o7lxLgDuqZDu3RgIpq5+s7MvI7sZ
-	 7Qd0GZGtbOkoHS3vLlwkwFpg90b6x92VxbMARKCJYVKgCnQvejHoutFDfM1SLHxbqlexT
-	 j23NorJNCNVNny0vRdKaT3cBNfUBjpnEvARLcjsUIp58maMaBahjGABAjeL27r/qu1BZv
-	 LPZ/YXzpZwOjalT37G+d4WDcFecdupyqMW3Vvfk/E2JExcdAc0wekP9Zp025GeLaNS5EW
-	 WKdpwsL5NUA+W5hjqUMgqC74k6k+r4EELWgur00gy1Vl67T+45znYBpziqXRze1bDbQ==
+	t=1795146717;
+	b=5YsnV3cUCnKlMvxG04lJtYmY4rTrMeO+TZKaSC68dBH7B0VNnnO2lskVs6p/pLKipIKP
+	 4a58xM6wyYolHaStz47c32/WpiAXsK8yC37Rzxo/c2tJOoNoey2z8LRG+SgmZpSpLmmq6
+	 eyvbBlilHIq7FAw7RdiL51Wu98+3Ujyd4AUbIvYJS0N49jtelb6EQspPSVvOi12ttMj+t
+	 fowgAjLI7Juy1yFS2MNP4nrbxfpyz/dDeTpLc11twYVs1XuddxFEdemUlxhlDcfO22EJ6
+	 HCGpxbboj81GVJJcayzdZSpEh0noAicdjPDItvNuhR1UUpp6PLpziAJV42CneXRUivg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795146443;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795146717;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=f+KYKIglFh//POKwGwtOiHFDzLYwRxyWG8VR6hZzeIs=;
-	b=vqyz1T3AZjAWvaSCZc3H4M0UXXB+vaL40AWLdwSYx2bxNDN/UjFcebBmGhkvORVU0XPX
-	 BUucZxjH1KnX18Vn7t5CR2Umrcj46D3NMxXNQf1vR6sBBo/SKOo7qdO5z1jMwjVXuF9en
-	 N8vFyWvoN0pV/0ZeAOO85meSJujm/wdVrxVHLYrAUxVgY9ymJpr3wfZM8TgSonUeipMUN
-	 tp1ahW/tKUFa72dJQ7gENzQ/06A+gP4CnPbToTCmclrfIKGOyzyg4tBRdnRo7XltKnY0U
-	 41g6eEYS/y6s1nWnPzY61TrZoWyi99FDtwFoXh0njFjiqqYC6b9ftYyrUikO51zqkLA==
+	bh=0ijvBy4ouVUsUQ5IZ7FDovA+rd5a1vR7YYBZwOw//FY=;
+	b=eqKxMP2lPQNMxH3OcyI7egS5KS/3tT3XRZt7FKlX0CD6v/MTyzYq2btm28F9FcfLPVuo
+	 ZOGMOKJqorPQu5PzKtgGZyq8oLMcOGxbfJDNGAiXdCR0m6U/WAtewyYpOfR6c3Jfwpx/Q
+	 PAo7VPkPByQP7gw0St1UDniW8trvtrAPYUSp8+OpL6gtS5Fy7pyUQSLWQy/J/R+4PqBA5
+	 PnGvjKKYsdix8LR2xy4nPjw2E1tej5skH9CV/ZvFTZG7p7wBfyGUvh2piiqCDMfAMdq+B
+	 PGozxZLpwyPu7fNkeM8X4AQzllo2gogcVU5+1zseaiW6K+HszZ6R58PU8q56g4dSYEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jclark.com;
-	spf=pass smtp.mailfrom=jclark.com;
-	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XQ5mm8lU;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oqwhbhLr;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6011606A326
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:47:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6011606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C29606A325
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:51:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C29606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XQ5mm8lU
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd69954c755so327523a12.3
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 19:47:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oqwhbhLr
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b41188c8b9so408641a91.0
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 19:51:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1795146442; x=1795751242; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795146716; x=1795751516; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f+KYKIglFh//POKwGwtOiHFDzLYwRxyWG8VR6hZzeIs=;
-        b=XQ5mm8lUxQ8+ICvTepkKiz3ydNdg2zzOoOPqsh8/hAEszQPco/GbhffMYyi6Y+iWkT
-         sKj+TXwhRFSJdXH/cFzVYvd/zZuRfdeagyUXcUUHo8e2OeGrOZV5JrsQGkTQ9j/REo1p
-         kCUrx+kWdLQWxZZ70xKh6QZviP6uVR10KIBMbV2XAU7hnFDgByT5arxJMfTGdPZXh4gq
-         aCqX0scU48i0pqV05uTanPuRpHzXuMtN0jA/FbUrP2Rs40svkqymdOEs0lsE8a8wWz9g
-         bxBgDXUC5mMDPA0/ymi+06n7SVLQx6f4jrDmFLZhCrjkvVz0BuAycj8LWMyp6OOs9FiS
-         CeaA==
+        bh=0ijvBy4ouVUsUQ5IZ7FDovA+rd5a1vR7YYBZwOw//FY=;
+        b=oqwhbhLrke7wU3DhtxDtOl/nykjJS3bA4ZIbNYIXKgTaOVaisx7KuhslYsv2tWIOJZ
+         AciepnPCV8zIU/GjpOY+AtgDTsqgocWlalI57xhxY9Jbx82VkrSEZO1csuxDdRiMv50i
+         IPwCKdRELs54af3bTeIXADnubtxSBYqPKeFVLAj7KYhg0Zip9AtXkFuPSMq0HUtQ2Oud
+         fn7x2U8ri37dOQNZU9CttSiuyeJfv2dGSMjoltWMhBdSWiIx5yUXkyJ7aOcykiW8OPoc
+         d+sABrGXOa0K3Rg6H6ddzKZSbPKQDBEfoJBjFF77Tvq1SMTrdNEn+JpgKGcUE/+YlidV
+         eH3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795146442; x=1795751242;
+        d=1e100.net; s=20260707; t=1795146716; x=1795751516;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f+KYKIglFh//POKwGwtOiHFDzLYwRxyWG8VR6hZzeIs=;
-        b=fJryy5VrdhokouH7nctMUO3JoxNMeKX1tOcQfvBDiDqXfifAwyFzmOL6Ck41TP556f
-         JuDvharwEr8y3a3JloVmXvMwIwZ7YQrDaflbdFlKIuwTOwHtIYXNxaDGIEIIVEhgain9
-         Vd9s657xQhpmi9mqp7I1JJbRFM9MIK5UyZM1Pam6EtQ7DUe7i35qx+m+STFfqCRkq6YS
-         sBNtlD9tDluTxqV4uAoZuHt4vY4aWHDpJ1HT7mw92F/liIb/vznPLlCgkHYHHK2lckHd
-         nyuQyrm4A2IiwocHCF9GNyHGdDnxdz4jgDIG1Hd+tGpY9avejyT5HwZPO8femvsg9sf/
-         aDRQ==
-X-Forwarded-Encrypted: i=1; AL+hErEPAdUXRhWZFPPd+V0DsLewlGqUQtSWG2V42brnkRx5vkcZ+mstnPN9OqYmP73yGMwMASSwyTamfcT1@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NhWv+7E/yzV90xWXB+8zbe2Fi80Pss/nout6/C+d3GAdGJjtG
-	tC6PYvJ7IlH5uR228VbJYTzmEGx2MgNtFJOaOSHFHD3PL1qkAVBRHD5xMoDtGxlioQ==
-X-Gm-Gg: AZFdTZeDxevOuP1uz9eqmgi3Wp1pJXTMbkfI7XUMDh6oZ8V1zS5rL/Zr6o4ae7Gtrzm
-	aorBUljTt4Yv63QuUlIU+gzdPJJNiHkrCjXIsYv1vcbfy2izaGxefd+bTJWpXJRVwJ9m9DCY3Xs
-	3Pm53cfHlMfCJ2LZXOSN68VQU/cxMLx792DvB2tppv31B76GQBWDSfnaAlIr4lTpjuEM3cYTD8S
-	5HD8n4skKURvdhVxXAzd1OiohZjQEmLuArC30OYUR8WZ7+wXPh3KEWK1FM7iPpvPZ2bKivJ5zOH
-	0FodjNb74GytELghmrpy3JzAd2YCZxV4fZ5J3x/CJQXiFhEY8yiaXj/8KmEoeUqMvLlitb7uavh
-	wMvLAT7fwCaNSkrHjTE5RNo1kPRQh1T44nUo7VH+IYt3++i+FuxOuiOKYeiUD14t5hwgwZY7LBS
-	y3PkKCEGQjBRya5Zix2Zl8IZNkbONFdOQlvMM77Kwkt/xx5hygRZYp/Z6SZf5WUomJTMkz4eyN6
-	gZ84oxQUkJxP2CJJUmt33zTsOyZNmxJ1gDOrAzYQ0jwXS8XZAiF3h0dznPg0IM8mCy8D49xcKFW
-	+l2/DliTzexgyX7aYvp8BZkt+77B9OeqCsA4EpEbIHKAzt9B6k+bUyYK2gr2Kt7Zc6NbvQ8c3tf
-	8WQjklrpmG5wAZk6beA==
-X-Received: by 2002:a17:90b:2c86:b0:3ac:9c37:9430 with SMTP id 98e67ed59e1d1-3b41c9b2bbfmr1458119a91.21.1795146441986;
-        Thu, 19 Nov 2026 19:47:21 -0800 (PST)
-Received: from cantal.lan ([58.136.72.57])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b40f4312dfsm3854582a91.3.2026.11.19.19.47.16
+        bh=0ijvBy4ouVUsUQ5IZ7FDovA+rd5a1vR7YYBZwOw//FY=;
+        b=F5eEp0E2vuR5Z64QIH+3ssRZ4BvVWxoOlTNZwUOHSE6jVamxhqz4mCtvvL7RxAQx/R
+         xTosqMsqGbWvQ4ecUH3QXnO5rnEMk0xJxRFX7KSlSTGCAGxOQ3Eem4y9tYKv6k20WuoU
+         XkaEuq9xAsagV1dlN4wGpMSvnpFa78i/f12uexon+dKjcyTfQfr0NxWZnwJ/HtGf59nE
+         xMvdPVPNXTxc37V+OcmxUj/5nh2bwZgV3jTM1wTlW52jGCWHITfvjANNl8ioK6ERt5ij
+         fz1/bfG9Zpfc/Cpht8QTMke9qOSFs7EKw631xreZYpRW8V4cLE6J751KJSO1R1OC0t+e
+         pMUg==
+X-Forwarded-Encrypted: i=1; AL+hErGAAq9Eyrfo715nFshZzn5rSUrkI4tzsebFGASSzN+1ctf0i4LYbINHG7oda2LP3zFDG6CQ3fLyAdht@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vCoJ1B8Pg6Y9utsj4kVWHe6OErsQ4EuvBQX+CcLHOe2SnmBEy
+	izJKODti9YuP/ORVy4pSHWPrQqmZKEFHyOeqdX6Ts3WsVHIwjBTHoosr
+X-Gm-Gg: AZFdTZc5GKwv4Fe2Z4p5BNQISG83WH1+/F1FUrvb8yyxBaNVBEj3gyOcSnddpwrslQ2
+	f9Go2/H7GV/rretl3e59DG51usEfgOepLrP36ha3Z7pbBtup0Q5sPUXFcelpMZNv9Rc8MdnFAD8
+	byH+4UkIZF3AHSxAHk09Ss0Av6hZaTTxupJzQFLb6I3f7ZyVPdcXgEg2T/qpgo54SBsJwZlxL2d
+	pK3JtMwzHuuLd4cfwfD8hcNlB6K748VhdhfXof6Evgl5/M+m/NAtS1V90xxI8JAxKGarVKgFauP
+	CjH9vdZB1qQPwTi3Zi0aCa/ZEi2sCiB+laH4/YwZOqKfNJ/cqxYVQ2r3qWY9vHsf/KjwMJe8fpg
+	o5dEDQ5I+0D0FkvydBBhKachf1eGvAlm9paC67Ue1MCalrJD+gU91ro5hHqrDbfHUMN7BPuPfwT
+	Y0EnQCHRjPuARZ/8fx1zHEEfZ6b+E521XeqBSjTphE/YSAeleP7H/hpPg586Iw09+/YOKkguLlA
+	fTDACpx6H4fw9qI8w5OMwYFtuF45Zirm7905rhlqB4SI8jGZsK3fZ9V9oGw0Bqj2fKNnfAo0My5
+	nibVLj6zt9D0+9YDfo8iMtDLptg59TUJyeltHLdNgSk1uNWJDaou
+X-Received: by 2002:a17:90b:3c11:b0:3b4:1336:4f6b with SMTP id 98e67ed59e1d1-3b41c905a49mr1415853a91.33.1795146716074;
+        Thu, 19 Nov 2026 19:51:56 -0800 (PST)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:6213:28::4:379])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b40a878d50sm4638218a91.11.2026.11.19.19.51.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 19:47:21 -0800 (PST)
-From: James Clark <jjc@jclark.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Rahul Sharma <r-sharma3@ti.com>,
-	Robert Nelson <robertcnelson@gmail.com>,
-	Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	netdev@vger.kernel.org,
+        Thu, 19 Nov 2026 19:51:55 -0800 (PST)
+From: David Yang <mmyangfl@gmail.com>
+To: robh@kernel.org,
+	kuba@kernel.org
+Cc: andrew+netdev@lunn.ch,
+	conor+dt@kernel.org,
+	davem@davemloft.net,
 	devicetree@vger.kernel.org,
+	edumazet@kernel.org,
+	hkallweit1@gmail.com,
+	krzk+dt@kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH net-next v2 2/2] net: ethernet: ti: am65-cpts: implement PTP_SYS_OFFSET_PRECISE
-Date: Fri, 20 Nov 2026 10:47:01 +0700
-Message-ID: <4af45df52cdd96da920bc36d29bc341615bbe95b.1795143925.git.jjc@jclark.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1795143925.git.jjc@jclark.com>
-References: <cover.1795143925.git.jjc@jclark.com>
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	pabeni@redhat.com,
+	shaojijie@huawei.com,
+	shenjian15@huawei.com,
+	David Yang <mmyangfl@gmail.com>
+Subject: Re: [PATCH] net: hisilicon: Remove orphan femac driver
+Date: Fri, 20 Nov 2026 11:51:27 +0800
+Message-ID: <20261120035127.1383109-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104145038.946918-1-robh@kernel.org>
+References: <20261104145038.946918-1-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,502 +113,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add hardware-supported PTP_SYS_OFFSET_PRECISE to the CPTS driver for
-TI K3 SoCs.
+Hi,
 
-The system counter of these SoCs, the Global Timebase Counter (GTC),
-can export one of its bits on a push event output, selected by the
-PUSHEVT_EXPBIT_SEL field of GTC_CFG0_PUSHEVT. The Time Sync Router can
-route that output to a CPTS hardware timestamp input. The CPTS then
-timestamps rising edges that fall at known counter values (with bit b
-selected, at k * 2^(b + 1) + 2^b), so each timestamp gives an exact
-pair of PHC time and system counter value.
+Sorry to see this, but please reconsider removing this driver. It is in
+active use here and is about to get its first upstream SoC users.
 
-Implement getcrosststamp with these timestamps when the CPTS node has a
-ti,gtc-push property. The property names the GTC CFG0 syscon and the
-push input to which the router delivers the push event. The router is
-set up separately, as it is for ti,pps. If the input is one of the extts
-channels, that channel can no longer be enabled.
+Two HiSTB SoC families that we are bringing up on mainline use this
+MAC as their Ethernet interface: Hi3798MV100 and Hi3798MV200H. Two fixes
+from us, both found and verified on this hardware, were merged into the
+net tree in the weeks just before this removal, so this is not dead code
+on our side:
 
-A push event timestamp contains just the PHC time, so the driver needs
-to work out which GTC edge it corresponds to. The push input is
-normally disabled. For each getcrosststamp request, the driver reads
-the GTC, enables the input, reads the GTC again, waits for a push
-event and then disables the input. The timestamp in that event must
-correspond to the first edge after the earlier reading, provided that
-edge is also after the later reading. If not, the driver retries. The
-driver also has to detect a push event lost to an overflow of the CPTS
-event FIFO. So it reads the GTC a third time when it takes the event
-from the FIFO, and retries if that reading is a period or more after
-the expected edge. After three failed attempts, the request fails with
--EBUSY.
+  444889dfa27b net: hisilicon: hisi_femac: Move setting of netops to
+               fix crash
+  d54b21d82430 net: hisilicon: hisi_femac: Stop the receiver before
+               releasing the RX ring
 
-Usually drivers capture the pair in the callback to
-get_device_system_crosststamp(), but this works only when the capture
-is fast, because the core calls the callback inside a timekeeper
-seqcount loop and repeats it whenever the timekeeper is updated. So
-this driver captures the pair before the call, and the callback just
-returns it.
+Beyond femac, the HiSTB platform push is active on our side: a dmaengine
+series for the Hi3798MV100 PL080 variant is under review (v2 [1]), and
+more HiSTB platform work is in the pipeline.
 
-The choice of counter bit is a tradeoff: each attempt waits for half a
-period on average; a longer period makes retries rarer but makes each
-attempt longer. The driver uses bit 15, which at 200 MHz gives a period
-of 328 us, chosen after testing a range of possible values. This is
-sufficiently long to ensure each attempt fails rarely (0.2% to 0.9%
-depending on CPU and memory load); failure of all three attempts
-required extreme conditions (50 kHz extts flood with memory load).
+We are also willing to maintain this driver going forward. If you would
+rather not undo the removal, tell us the shape you prefer and we will do
+that instead.
 
-The driver reads the GTC through the clocksource, which assumes that
-the clocksource counter value equals the GTC count, that is a CNTVOFF
-of 0. This holds on the tested boards. The cross-timestamp in
-dwmac-socfpga makes the same assumption.
+Thanks
 
-The timestamps are not corrected for the delay from the push output to
-the CPTS latching the edge, estimated at about 11ns on a BeagleY-AI; the
-driver similarly does not correct extts timestamps for their input
-delay.
-
-Tested on a BeagleY-AI (TI AM67A / J722S), on the MCU CPSW of a
-BeagleBone AI-64 (TI TDA4VM / J721E) and on a BeaglePlay (TI AM625).
-
-Signed-off-by: James Clark <jjc@jclark.com>
----
-v2:
-- Checked the EXPBIT_SEL read-back (Sashiko)
-- Made a failed ti,gtc-push lookup a warning; the probe continues
-  without PTP_SYS_OFFSET_PRECISE (Rob Herring)
-- Added a wait after a FIFO pop before testing TS_PEND when arming, to
-  comply with the TRM
-- Zeroed the snapshot in the push event handler
-
- drivers/net/ethernet/ti/am65-cpts.c | 313 ++++++++++++++++++++++++++++
- 1 file changed, 313 insertions(+)
-
-diff --git a/drivers/net/ethernet/ti/am65-cpts.c b/drivers/net/ethernet/ti/am65-cpts.c
-index 3ce3b2245efb..4987909d3bc2 100644
---- a/drivers/net/ethernet/ti/am65-cpts.c
-+++ b/drivers/net/ethernet/ti/am65-cpts.c
-@@ -5,11 +5,14 @@
-  *
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/clk-provider.h>
-+#include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/if_vlan.h>
- #include <linux/interrupt.h>
-+#include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/netdevice.h>
- #include <linux/net_tstamp.h>
-@@ -19,6 +22,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/ptp_classify.h>
- #include <linux/ptp_clock_kernel.h>
-+#include <linux/regmap.h>
- 
- #include "am65-cpts.h"
- 
-@@ -128,6 +132,10 @@ struct am65_cpts_regs {
- #define AM65_CPTS_EVENT_2_REG_DOMAIN_MASK	(0xFF)
- #define AM65_CPTS_EVENT_2_REG_DOMAIN_SHIFT	(0)
- 
-+/* GTC_CFG0_PUSHEVT_REG */
-+#define AM65_CPTS_GTC_PUSHEVT			0x8
-+#define AM65_CPTS_GTC_PUSHEVT_EXPBIT_SEL	GENMASK(5, 0)
-+
- enum {
- 	AM65_CPTS_EV_PUSH,	/* Time Stamp Push Event */
- 	AM65_CPTS_EV_ROLL,	/* Time Stamp Rollover Event */
-@@ -152,6 +160,11 @@ struct am65_cpts_event {
- #define AM65_CPTS_EVENT_RX_TX_TIMEOUT	(20) /* ms */
- #define AM65_CPTS_SKB_TX_WORK_TIMEOUT	1 /* jiffies */
- #define AM65_CPTS_MIN_PPM		0x400
-+#define AM65_CPTS_GTC_PUSH_BIT		15 /* 328 us period at 200 MHz */
-+#define AM65_CPTS_GTC_PUSH_PERIOD	BIT_ULL(AM65_CPTS_GTC_PUSH_BIT + 1)
-+#define AM65_CPTS_GTC_PUSH_TIMEOUT	(20) /* ms */
-+#define AM65_CPTS_GTC_PUSH_TRIES	3
-+#define AM65_CPTS_GTC_PUSH_DRAIN_PASSES	8
- 
- struct am65_cpts {
- 	struct device *dev;
-@@ -186,6 +199,13 @@ struct am65_cpts {
- 	bool pps_present;
- 	u32 pps_hw_ts_idx;
- 	u32 pps_genf_idx;
-+	struct regmap *gtc;
-+	u32 gtc_push_hw_idx;
-+	u64 gtc_push_ts;
-+	u64 gtc_push_cycles; /* the counter when the event was read */
-+	bool gtc_push_armed;
-+	wait_queue_head_t gtc_push_wq;
-+	struct mutex gtc_push_lock; /* serialises crosststamp requests */
- 	/* context save/restore */
- 	u64 sr_cpts_ns;
- 	u64 sr_ktime_ns;
-@@ -290,6 +310,22 @@ static bool am65_cpts_fifo_pop_event(struct am65_cpts *cpts,
- 	return true;
- }
- 
-+static void am65_cpts_gtc_push_event(struct am65_cpts *cpts,
-+				     struct am65_cpts_event *event)
-+{
-+	/* an invalid snapshot leaves cycles at 0, which is before any edge */
-+	struct system_time_snapshot snap = {};
-+
-+	/* keep the first event of a request; later edges are not used */
-+	if (!cpts->gtc_push_armed)
-+		return;
-+	ktime_get_snapshot_id(CLOCK_REALTIME, &snap);
-+	cpts->gtc_push_ts = event->timestamp;
-+	cpts->gtc_push_cycles = snap.cycles;
-+	WRITE_ONCE(cpts->gtc_push_armed, false);
-+	wake_up(&cpts->gtc_push_wq);
-+}
-+
- static int __am65_cpts_fifo_read(struct am65_cpts *cpts)
- {
- 	struct ptp_clock_event pevent;
-@@ -345,6 +381,11 @@ static int __am65_cpts_fifo_read(struct am65_cpts *cpts)
- 			break;
- 		case AM65_CPTS_EV_HW:
- 			pevent.index = am65_cpts_event_get_port(event) - 1;
-+			if (cpts->gtc &&
-+			    pevent.index == cpts->gtc_push_hw_idx) {
-+				am65_cpts_gtc_push_event(cpts, event);
-+				break;
-+			}
- 			pevent.timestamp = event->timestamp;
- 			if (cpts->pps_enabled && pevent.index == cpts->pps_hw_ts_idx) {
- 				pevent.type = PTP_CLOCK_PPSUSR;
-@@ -620,6 +661,9 @@ static int am65_cpts_extts_enable(struct am65_cpts *cpts, u32 index, int on)
- 	if (cpts->pps_present && index == cpts->pps_hw_ts_idx)
- 		return -EINVAL;
- 
-+	if (cpts->gtc && index == cpts->gtc_push_hw_idx)
-+		return -EINVAL;
-+
- 	if (((cpts->hw_ts_enable & BIT(index)) >> index) == on)
- 		return 0;
- 
-@@ -797,6 +841,243 @@ static int am65_cpts_ptp_enable(struct ptp_clock_info *ptp,
- 	return -EOPNOTSUPP;
- }
- 
-+struct am65_cpts_gtc_push {
-+	u64 ts;
-+	u64 cycles;
-+};
-+
-+/* the first rising edge of the exported bit after cycles */
-+static u64 am65_cpts_gtc_push_next_edge(u64 cycles)
-+{
-+	u64 half = AM65_CPTS_GTC_PUSH_PERIOD / 2;
-+
-+	return round_down(cycles - half, AM65_CPTS_GTC_PUSH_PERIOD) + half +
-+	       AM65_CPTS_GTC_PUSH_PERIOD;
-+}
-+
-+static int am65_cpts_gtc_push_read(ktime_t *device,
-+				   struct system_counterval_t *system,
-+				   void *ctx)
-+{
-+	struct am65_cpts_gtc_push *push = ctx;
-+
-+	*device = ns_to_ktime(push->ts);
-+	system->cycles = push->cycles;
-+	system->cs_id = CSID_ARM_ARCH_COUNTER;
-+	system->use_nsecs = false;
-+
-+	return 0;
-+}
-+
-+/* select the counter bit the GTC exports on its push event output */
-+static int am65_cpts_gtc_push_select(struct am65_cpts *cpts)
-+{
-+	u32 val;
-+	int ret;
-+
-+	ret = regmap_update_bits(cpts->gtc, AM65_CPTS_GTC_PUSHEVT,
-+				 AM65_CPTS_GTC_PUSHEVT_EXPBIT_SEL,
-+				 FIELD_PREP(AM65_CPTS_GTC_PUSHEVT_EXPBIT_SEL,
-+					    AM65_CPTS_GTC_PUSH_BIT));
-+	if (ret)
-+		return ret;
-+	/*
-+	 * Read the register back. This flushes the posted write before the
-+	 * input is enabled, and checks that the selection took effect.
-+	 */
-+	ret = regmap_read(cpts->gtc, AM65_CPTS_GTC_PUSHEVT, &val);
-+	if (ret)
-+		return ret;
-+	if (FIELD_GET(AM65_CPTS_GTC_PUSHEVT_EXPBIT_SEL, val) !=
-+	    AM65_CPTS_GTC_PUSH_BIT)
-+		return -EIO;
-+	return 0;
-+}
-+
-+/*
-+ * Read the FIFO until it is empty, then accept the next push event. One
-+ * __am65_cpts_fifo_read() takes at most AM65_CPTS_FIFO_DEPTH events, and after
-+ * a burst of push edges (a request that wakes up late leaves the input enabled
-+ * for many periods) more can be waiting. A push event left behind would be
-+ * taken for the next attempt's. With the push input disabled no new push
-+ * events arrive, so after enough passes every old one has been read even if
-+ * packet events keep the FIFO busy. The lock is dropped between passes; a push
-+ * event read meanwhile by the IRQ thread is ignored, as nothing is armed.
-+ */
-+static int am65_cpts_gtc_push_arm(struct am65_cpts *cpts)
-+{
-+	unsigned long flags;
-+	int i;
-+
-+	for (i = 0; i < AM65_CPTS_GTC_PUSH_DRAIN_PASSES; i++) {
-+		spin_lock_irqsave(&cpts->lock, flags);
-+		__am65_cpts_fifo_read(cpts);
-+		/*
-+		 * TS_PEND is valid only once four CPTS_RFT_CLK periods plus
-+		 * four CPPI_ICLK periods have passed since a pop. Read a
-+		 * register so that the last pop has reached the CPTS, then
-+		 * wait. 100 ns is enough for clocks of 80 MHz or more.
-+		 */
-+		am65_cpts_read32(cpts, intstat_raw);
-+		ndelay(100);
-+		if (!(am65_cpts_read32(cpts, intstat_raw) &
-+		      AM65_CPTS_INTSTAT_RAW_TS_PEND)) {
-+			cpts->gtc_push_armed = true;
-+			spin_unlock_irqrestore(&cpts->lock, flags);
-+			return 0;
-+		}
-+		spin_unlock_irqrestore(&cpts->lock, flags);
-+	}
-+	return -EBUSY;
-+}
-+
-+static void am65_cpts_gtc_push_disarm(struct am65_cpts *cpts)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&cpts->lock, flags);
-+	cpts->gtc_push_armed = false;
-+	spin_unlock_irqrestore(&cpts->lock, flags);
-+}
-+
-+/*
-+ * Enable or disable the push input and read CONTROL back. After a disable,
-+ * the read-back means no event of an edge captured before the disable
-+ * reaches the FIFO after the next drain.
-+ */
-+static void am65_cpts_gtc_push_enable(struct am65_cpts *cpts, bool on)
-+{
-+	mutex_lock(&cpts->ptp_clk_lock);
-+	am65_cpts_extts_enable_hw(cpts, cpts->gtc_push_hw_idx, on);
-+	am65_cpts_read32(cpts, control);
-+	mutex_unlock(&cpts->ptp_clk_lock);
-+}
-+
-+/*
-+ * Wait for the event of the edge at counter value edge. Returns -EAGAIN if no
-+ * event arrives in time or the event may not be of that edge.
-+ */
-+static int am65_cpts_gtc_push_wait(struct am65_cpts *cpts, u64 edge,
-+				   struct am65_cpts_gtc_push *push)
-+{
-+	unsigned long tmo = msecs_to_jiffies(AM65_CPTS_GTC_PUSH_TIMEOUT);
-+	unsigned long flags;
-+	u64 popped;
-+
-+	if (!wait_event_timeout(cpts->gtc_push_wq,
-+				!READ_ONCE(cpts->gtc_push_armed), tmo)) {
-+		dev_dbg(cpts->dev, "%s: no event for edge %llu\n",
-+			__func__, edge);
-+		return -EAGAIN;
-+	}
-+
-+	/*
-+	 * The event handler read the counter when it took the event from the
-+	 * FIFO. The event of the edge cannot be taken before the edge. If it
-+	 * was taken a period or more after the edge, the event may be of a
-+	 * later edge: when the FIFO overruns, the CPTS loses events.
-+	 */
-+	spin_lock_irqsave(&cpts->lock, flags);
-+	push->ts = cpts->gtc_push_ts;
-+	popped = cpts->gtc_push_cycles;
-+	spin_unlock_irqrestore(&cpts->lock, flags);
-+	if ((s64)(popped - edge) < 0 ||
-+	    (s64)(popped - edge) >= (s64)AM65_CPTS_GTC_PUSH_PERIOD) {
-+		dev_dbg(cpts->dev, "%s: event read at %llu, edge %llu\n",
-+			__func__, popped, edge);
-+		return -EAGAIN;
-+	}
-+
-+	push->cycles = edge;
-+	return 0;
-+}
-+
-+/*
-+ * Make one attempt to capture a push event. Whatever the outcome, the input
-+ * is left disabled and the request disarmed.
-+ */
-+static int am65_cpts_gtc_push_try(struct am65_cpts *cpts, clockid_t clock_id,
-+				  struct system_time_snapshot *before,
-+				  struct am65_cpts_gtc_push *push)
-+{
-+	struct system_time_snapshot after;
-+	u64 edge;
-+	int ret;
-+
-+	ret = am65_cpts_gtc_push_arm(cpts);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Read the counter before and after enabling the input. An edge at or
-+	 * before the first read reaches the CPTS long before the enable does,
-+	 * which needs a CONTROL read first. After the read-back of CONTROL the
-+	 * input is enabled, so an edge after the second read is captured. If
-+	 * no edge lies between the two reads, the first event is of the first
-+	 * edge after the first read.
-+	 */
-+	ktime_get_snapshot_id(clock_id, before);
-+	am65_cpts_gtc_push_enable(cpts, true);
-+	ktime_get_snapshot_id(clock_id, &after);
-+
-+	if (!before->valid || !after.valid ||
-+	    before->cs_id != CSID_ARM_ARCH_COUNTER ||
-+	    after.cs_id != CSID_ARM_ARCH_COUNTER) {
-+		ret = -ENODEV;
-+		goto disable;
-+	}
-+
-+	edge = am65_cpts_gtc_push_next_edge(before->cycles);
-+	if (edge <= after.cycles) {
-+		dev_dbg(cpts->dev, "%s: edge %llu during enable\n",
-+			__func__, edge);
-+		ret = -EAGAIN;
-+		goto disable;
-+	}
-+
-+	ret = am65_cpts_gtc_push_wait(cpts, edge, push);
-+
-+disable:
-+	am65_cpts_gtc_push_enable(cpts, false);
-+	am65_cpts_gtc_push_disarm(cpts);
-+
-+	return ret;
-+}
-+
-+static int am65_cpts_ptp_getcrosststamp(struct ptp_clock_info *ptp,
-+					struct system_device_crosststamp *cts)
-+{
-+	struct am65_cpts *cpts = container_of(ptp, struct am65_cpts, ptp_info);
-+	struct system_time_snapshot before;
-+	struct am65_cpts_gtc_push push;
-+	int i, ret;
-+
-+	mutex_lock(&cpts->gtc_push_lock);
-+
-+	ret = am65_cpts_gtc_push_select(cpts);
-+	if (ret)
-+		goto out;
-+
-+	for (i = 0; i < AM65_CPTS_GTC_PUSH_TRIES; i++) {
-+		ret = am65_cpts_gtc_push_try(cpts, cts->clock_id, &before,
-+					     &push);
-+		if (ret != -EAGAIN)
-+			break;
-+	}
-+	/* as other drivers do when a cross-timestamp cannot be had now */
-+	if (ret == -EAGAIN)
-+		ret = -EBUSY;
-+	if (ret)
-+		goto out;
-+
-+	/* before can serve as history_begin: the edge is after it */
-+	ret = get_device_system_crosststamp(am65_cpts_gtc_push_read, &push,
-+					    &before, cts);
-+out:
-+	mutex_unlock(&cpts->gtc_push_lock);
-+	return ret;
-+}
-+
- static long am65_cpts_ts_work(struct ptp_clock_info *ptp);
- 
- static struct ptp_clock_info am65_ptp_info = {
-@@ -1154,6 +1435,7 @@ static int cpts_of_mux_clk_setup(struct am65_cpts *cpts,
- 
- static int am65_cpts_of_parse(struct am65_cpts *cpts, struct device_node *node)
- {
-+	struct regmap *gtc;
- 	u32 prop[2];
- 
- 	if (!of_property_read_u32(node, "ti,cpts-ext-ts-inputs", &prop[0]))
-@@ -1179,6 +1461,29 @@ static int am65_cpts_of_parse(struct am65_cpts *cpts, struct device_node *node)
- 		}
- 	}
- 
-+	if (of_property_present(node, "ti,gtc-push")) {
-+		gtc = syscon_regmap_lookup_by_phandle_args(node, "ti,gtc-push",
-+							   1, &prop[0]);
-+		/*
-+		 * Don't return -EPROBE_DEFER. The lookup returns it for a
-+		 * phandle to a node that is not a syscon, and the probe
-+		 * would then be deferred for ever.
-+		 */
-+		if (IS_ERR(gtc)) {
-+			dev_warn(cpts->dev, "Failed to get GTC syscon: %pe\n",
-+				 gtc);
-+		} else if (prop[0] > 7 ||
-+			   (cpts->pps_present &&
-+			    prop[0] == cpts->pps_hw_ts_idx)) {
-+			dev_err(cpts->dev,
-+				"invalid GTC push HWx_TS_PUSH index: %u\n",
-+				prop[0]);
-+		} else {
-+			cpts->gtc = gtc;
-+			cpts->gtc_push_hw_idx = prop[0];
-+		}
-+	}
-+
- 	return cpts_of_mux_clk_setup(cpts, node);
- }
- 
-@@ -1215,11 +1520,13 @@ struct am65_cpts *am65_cpts_create(struct device *dev, void __iomem *regs,
- 		return ERR_PTR(ret);
- 
- 	mutex_init(&cpts->ptp_clk_lock);
-+	mutex_init(&cpts->gtc_push_lock);
- 	INIT_LIST_HEAD(&cpts->events_tx);
- 	INIT_LIST_HEAD(&cpts->events_rx);
- 	INIT_LIST_HEAD(&cpts->pool);
- 	spin_lock_init(&cpts->lock);
- 	skb_queue_head_init(&cpts->txq);
-+	init_waitqueue_head(&cpts->gtc_push_wq);
- 
- 	for (i = 0; i < AM65_CPTS_MAX_EVENTS; i++)
- 		list_add(&cpts->pool_data[i].list, &cpts->pool);
-@@ -1248,6 +1555,8 @@ struct am65_cpts *am65_cpts_create(struct device *dev, void __iomem *regs,
- 		cpts->ptp_info.n_per_out = cpts->genf_num;
- 	if (cpts->pps_present)
- 		cpts->ptp_info.pps = 1;
-+	if (cpts->gtc)
-+		cpts->ptp_info.getcrosststamp = am65_cpts_ptp_getcrosststamp;
- 
- 	am65_cpts_set_add_val(cpts);
- 
-@@ -1295,6 +1604,10 @@ void am65_cpts_suspend(struct am65_cpts *cpts)
- {
- 	/* save state and disable CPTS */
- 	cpts->sr_control = am65_cpts_read32(cpts, control);
-+	/* the GTC push input is enabled only during a request */
-+	if (cpts->gtc)
-+		cpts->sr_control &= ~BIT(AM65_CPTS_CONTROL_HW1_TS_PUSH_OFFSET +
-+					 cpts->gtc_push_hw_idx);
- 	cpts->sr_int_enable = am65_cpts_read32(cpts, int_enable);
- 	cpts->sr_rftclk_sel = am65_cpts_read32(cpts, rftclk_sel);
- 	cpts->sr_ts_ppm_hi = am65_cpts_read32(cpts, ts_ppm_hi);
--- 
-2.56.0
-
+[1] https://lore.kernel.org/r/20261106072602.77560-1-mmyangfl@gmail.com/
