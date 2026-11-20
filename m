@@ -1,98 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795190638;
-	b=zvGXqBS2qISkSTIZmO8cSss4arC+n2JL8uY0wLYZteMIMLvbUsN6SDjtyz30rJPqY12a
-	 1+5ijjn4JCaOFj04iS86wAw+pk3cKvOofJxilpgRb/7QXizJ8zqL7C3KMg1ySMlIyLCjc
-	 NlWPnJ7K4wfnuugskxHg1HFrevuQBs/wUF/RbD8GqJJ5Phzr2WsMdn1Qu9a8+5FxhZF0U
-	 cLfnEDTZCpt41LeQSXqqpJXVv1AVTxynUBTK9Ki2VduqD+d4PD+Fff1KKfHZxzo3D6mwt
-	 VUQ/HzPGLNVRdzpxz9sxNdFZ84NFc+AA46kZnd0EjCOVsRbgARzPlSZF5hRjopG9EEw==
+	t=1795190865;
+	b=ZIdMt3vrrVoL5GAzFNDs/HE+sDCW3BwfR1wfAtD6fXVgUpqnBwshARJ+K9Ls/8Ao0X2R
+	 JTkxpAx4jmhS8+0VsWESHdizyWh2LJyirYwMD0T2+JKRZJI3bwAM8hP1YznhIl2CCb8KJ
+	 vn8t0kiyw2Hp+hAfHX2IbS82QlOMAJ1z6223E3vU5mO67PYSjL2KNlCJaVWPwcEvTMLuc
+	 mAjZnBpw4kQAd5VGmOtyKCBU5ABe9dvEPM/P9+3vAauMwDL4JN16f/q42Siau6AsXoeRR
+	 yR+JqcVkjpSEqQzPN94Zmy4k6KTDDnsZy2gprVvu1EiFJzAz2KLN8tvuXynw8bisTMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795190638;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795190865;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=5WBI7zMXuMnXBAp0+kspmc9rCdvfQl+JVyaQXvmBGfo=;
-	b=w5kjm8Wpx4Y5caP6KFCf6uAMo6bMJltcYwV7Ehcqcqlg9AbpO4Rd4EfgSqpaP6LeywJh
-	 xeI79k2P3VwHHuMMnHlyVkRb4i4MVz+Wa8CME2mCRvU7fjlOGfH6a5OCFuW2SzvG2KlK7
-	 NrNjsvluaw6Z0UraQJRbmOiMH3iVO+0aYV7sMJuuCYXDp99iVVLnW1I693WcCm7+umqBJ
-	 5Sf8U2xnXP7QnAAfiJjD0iOOAEz4YJpMFH1mE8CgkeJkkOPzYBSz2/ARqVpBqggqqIQpW
-	 4Sd9ExPGKi6aIfw1+pk6pCKsCqydlqBKRsEXJdvhPmGd7axAAd2W07AMoKlByyECsrQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=URbbUiOzW46NXHtRQkNnLv7ePmh0j//RYSRN206kpCk=;
+	b=I7JEvFRypF9aV+FIyyLCpRBHmhdn5QM0muWcJEeOgTbdXuRM8+D59nGZ/GhHDFrABnQm
+	 J+pndPcKJOehX+h2RS0qc6DU6sTlLnU7LH4xqAXCUhR9VO9490ujVGe7Zkv+l2fVqnldw
+	 wbjt9nreTSt7k2aIKkWZniLtnTl5pSkNoHwJvzU1/CgqrmBM3LXge2QH4ZkovVL3XxetE
+	 Wjd8yADk99xu2MQj7ENAxFdfXIU4wkyXVSdm/kdSRkMeYAR8uQ10gsi2BDrC7L/wZLFI3
+	 lVfgI7f1fRlO5kCy9Y259AlOhjkh4eyFAe/4KzdEOUJ/l87FoJiil5Fx626zeBVUduQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Hrq3427c;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=RDGj63qr;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EB3606A333
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:03:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31EB3606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6B8606A335
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:07:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB6B8606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Hrq3427c
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc147d86bebso610715a12.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 08:03:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=RDGj63qr
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so9860745e9.2
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 08:07:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795190636; x=1795795436; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5WBI7zMXuMnXBAp0+kspmc9rCdvfQl+JVyaQXvmBGfo=;
-        b=Hrq3427cOfucxEjOLLtbn2V4Cn1I00ecESZQvbznHtS+Ajucudltlbk5Kck6unjyzP
-         OmK8MbnL7Mf7FADR5bFMEwielqji3tE/hegkZl1JBYBqibn9fMx/M/kWY0bt6bCvutKF
-         aBQMtnl8cZdm7a7ZsFjCMIBIT1A8QH/yolEFsIptwyyjBiF11Qfuv8TYl0ESY/4y3Z+T
-         SMZbAQ50cOmBtYaZBCkC1hhEYLjpZTkyDu80tlezaOgXID8A4rFu8+EU7yDlqYusjYqU
-         JlKmHzP49QAQaxUb3+eRiyMnJ5lAq7crkIfXr5wGkh2+st4AwCOhOmjwHuob3zb4wrc9
-         qpWg==
+        d=baylibre.com; s=google; t=1795190863; x=1795795663; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=URbbUiOzW46NXHtRQkNnLv7ePmh0j//RYSRN206kpCk=;
+        b=RDGj63qrufcSY1ctYS3Gui+Owgul2KOUYKWH7vDkCQTMw5SRkFCemwPz9Lgm59/DaT
+         dHzpIulElJrMzrjgFOz8OwSdmRlhT4VYccMSUYhvjW4K8BDqydJsbeFybUcK5RauBDqb
+         LqIQZOkS6pvNb7Aa1pA5k3Lisk+pnIlGsBpuIGSL4MPaRpATvgNVVGpN+F6WGGZqvQx2
+         k8aQqwRgi0aUfy6p+V9vZXz4Lf0vEaRTKnMAZJB4YDtZYeWQSN4cvM/Pg9QrBG/wzoCe
+         AKsyBv+VP7hswG7V3OrY/IMKeaMYag6a2+XxFfK+jTUNijdXirz/aHX0ssezJdkq01YP
+         G8ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795190636; x=1795795436;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5WBI7zMXuMnXBAp0+kspmc9rCdvfQl+JVyaQXvmBGfo=;
-        b=GZ3RPVgtUPDHmi/rlL8NHkKpG12XD3/ttf8Zt/vjcq3wyiNsZJAYYtKD4wxzmv48+z
-         ljBFaHaWtfXOXa7+2YHxZFUg2olU+zsT9rei+SE+fpoUyDl0juv/q7lqelyM3n96EWTS
-         GaJ3bd93en9T9Do0ZXmCdrGPRKMRs6c5geri+g27AB0Jh6fK85W2QGuwk8JX2cTPS34f
-         NLYYNFVWlkFdBrcCukuPS9IyF12L+XiSoqqkV3gtec94coGeymEmUNlBxmNWXRLdm2fw
-         trP9jfE98nUlGYKDCPZNNx+JZmhhmkaJMDyPK6yKUSFbSSGKawZ+Llr3nhTTHekgwGa4
-         Fawg==
-X-Forwarded-Encrypted: i=1; AL+hErEDosnHlZfO/UE6KlGyw2sJyOTnVFgtQjU54aLeaSOBUNm1Y46iLCrfr1PX86qHbILZEKIw1JGe0eG+@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7yJfVFhM4aqPFmASWDcXtJP81DmVy+InNVBKYUx+h40OPBOfK
-	/Hvwk0OSZc1hEiwn96zR2vUae/y95bfEJs7rX+OExMSw23GBf5PA+TR0cirARMwbFnw=
-X-Gm-Gg: AZFdTZcgXehchzLqgvgmQwCpNnXR7UMmRbkWhEgMu+ppHvMxhubV4xxAYTx0DXuc0gQ
-	UXVw0jAdtkfzLTtDXbWNXBUFQZimY9Q5QuzziROSgRC++j2UpsJP38dfiYgOXcLMuBmmYOTgWGD
-	lKThZgwNxWY1hw2XRohJNcNj3ObjyxItQ+2rMWvuQvo8IwVMac+LPKmDgcL3RLuIzYAhQZHx/dz
-	4cLkfY/eWBzk91+4T3wCVs98tHRCS4aI+D/qxepeDIFEu3019CXw84dXr9dcCkHgNwEekdyWw3+
-	qhKadJsOt752lk/HUoWO3YB9Zpbfe0LAeuno7XVEUHewSHPyInD9HzdX1TU3VPUZSRcTWMl26+l
-	pRh3AvcUgeqVKuS6IT8jcriKmSFKQ/Z2fRQhe6SVy4t6sfcbLHbdIbu948WEog6j4cCWsx880X3
-	EunqLwXBInuXDttcvpSTOLuSNNKxw1NqmVoPVHdFINC4sDWtkuv9yz2fVcivkiuXbM+hrgIiqlQ
-	DT+HSEvpZFIFovwaWShw0HieCJ1oDTJMOGdHdMz/K2DUO7y0j6z87+TpkD6/BIsX5KWUKJfOjKz
-	WDltEvhchidamgjspagqhXDMfhyKYThS
-X-Received: by 2002:a17:90b:2cce:b0:3ac:928a:68ce with SMTP id 98e67ed59e1d1-3b41c95e0ecmr2249223a91.33.1795190636291;
-        Fri, 20 Nov 2026 08:03:56 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:7124:798f:1b98:bea5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41adcfe23sm4809307a91.15.2026.11.20.08.03.55
+        d=1e100.net; s=20260707; t=1795190863; x=1795795663;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=URbbUiOzW46NXHtRQkNnLv7ePmh0j//RYSRN206kpCk=;
+        b=Lp7XKQ80fbnmZYnHaryLqdNH46eNfsKzW4BIq3u2ZtXbQjd5DcaJmiS2ksOKiCaWSq
+         L0CkdPjOuD+WvYGFqE1QcYf44D7UpFDhoNyXOHQcKWy6cJTUf3532rrc4oXsk/ZiAKeo
+         3NADQMNXpm2tFHfqdJS+Tsp461WnfQxtyKldsTSOpRZmyAmIVzrcLr8SDQO0YAA2luzq
+         43PrBMqXNvEsY/4rnZ3aDkPZ5i3er2vjxy98+wvvGsjIaaWvJUnjman2o/bHvzerxs/O
+         UtxbtaG2XOg0ImU4cQZUW8UA+/42hSoovSg5MOfBi44Yq8rf0RN9EjSiCokMA6ONwb7T
+         p0pw==
+X-Forwarded-Encrypted: i=1; AL+hErHf9yBZlcVBOrA7N8PTs7/oPEOFTar7DpOXFMsjTw02o7gVC5XlwigFJSNVG9gH4ETgfXGGxQ/791hQ@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xtmfjOmW9ZfJXYNeGpRg5N9ubPWpREfSaw/1aMCUjFCAXYXkZ
+	cDL+z5Ehiy3HUnMFnXIKqSSvcxA8AoMV02dWJdWzxNR7hU5BpNcATp8jMkJzbesCnfE=
+X-Gm-Gg: AYBFou3+WDdO/o0QaUtlzNqGwjrO6fJzxmMbaFucdwl2l75aUKvaY/x0VmbJ+JFu+1u
+	QmrFOLPZt8aLGVluLwF8vGbjZ7dOI8lOLi3xpm8xBt1Csgu6r1emCdMw+V1YajBvbN4ACwNGQO1
+	Pynj+3Btfc8A9R8RtlB/n95Wsf6W0uL7HIgDzVnzoz5DmVIl1ljoXMJ8lZCYOog4jn/oWkA/APj
+	y1U/YqbQ7iOQXxR9J6nxn48aybZU3HpueyRzK389f9Asz6Mlnl+G1lhVffz6jOxmJvWnhxP7lb4
+	bwaT5mY4dVNCl/EGYp9E6Po72Zbqgj4sdyx/BQkIGxOXkP8qMZITnI6DLJDi68T4nd4RrMh3Tjs
+	pyeHuLhLggbp/NbfF77upYFhuJOVMjokZwbwqeWLzhYxSoZpx8MjjhTh3z5vkRSv5h6KyTOSu9Z
+	ZG2NJoG5LzlPdw1pwbIieefbmL5XawpyKXHs6a0+T8DzJ7xhLdec2UT0PB7xKr5/7p4Xx4LfJ7B
+	6ZFxCPOjnwH+okUnEy0YZjH2AjdAVy7uhLYrSWPDCGvvrVH4wsYQRw1AIlZznTElr3cX0qkIfhC
+	jvjklIZv1K3XLUMD7an3QtqgIQDX45k0l2ISicBC4YjTfZk6RaEt5Zn2DAp6+2OmaqZkNQ==
+X-Received: by 2002:a05:600c:4e4c:b0:4b6:5dac:b61e with SMTP id 5b1f17b1804b1-4bb88938d2dmr75465455e9.32.1795190862878;
+        Fri, 20 Nov 2026 08:07:42 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67f281sm6077920f8f.22.2026.11.20.08.07.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 08:03:55 -0800 (PST)
-Date: Fri, 20 Nov 2026 10:03:53 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: shengjiu.wang@oss.nxp.com
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	shengjiu.wang@nxp.com, daniel.baluta@nxp.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	andersson@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com, p.zabel@pengutronix.de,
-	linux-remoteproc@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 0/5] Enable DSP device for i.MX8ULP
-Message-ID: <awBvaca7Az__X5Te@p14s>
-References: <20261111031808.570680-1-shengjiu.wang@oss.nxp.com>
+        Fri, 20 Nov 2026 08:07:42 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,57 +89,278 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261111031808.570680-1-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v9 2/2] clk: Add gpio-enabled clock driver
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20261015-feature-clock-guard-v9-2-c1c05a498d9a@bruker.com>
+References: <20261015-feature-clock-guard-v9-0-c1c05a498d9a@bruker.com>
+ <20261015-feature-clock-guard-v9-2-c1c05a498d9a@bruker.com>
+Date: Fri, 20 Nov 2026 17:07:29 +0100
+Message-Id: <179519084929.3795820.7180605641448271689.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8196; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=lkMlsQIdwsR3Pxz3J+eUVncTefvwVl9Lr2Y3TivqXRk=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNkMBe5FAv2PTm668+eXs5v0hVnHfQsfb7LLS/dSFxNIF
+ Pn3ukygo5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABOJX8fwP+KT4qO61vdRzr9a
+ ub4VSfe7dNo3vlR1OMjJO7tT1e9pLyPDV2nTmWFTlNNPf/q86I55P9+dwBn/P0ru5+ALlt295K8
+ zFwA=
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On Wed, Nov 11, 2026 at 11:18:03AM +0800, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> A gpio-enabled clock exposes a clock, which status is determined by a
+> GPIO signal. The common use-case is a FPGA-assisted clocking design
+> where peripheral clocks are generated by FPGA PLLs that are outside
+> CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
+> Consumers can use the output clock to wait until the input clock is enabled
+> and only then initialize dependent peripherals.
+
+Same feedback here. The is a generic driver, you should therefore describe
+the generic problem and how you are solving it
+
 > 
-> The debug reset control is one of the HIFI4 DSP’s reset mechanisms used
-> by the debug interface; add documentation for the optional debug reset
-> controls and update the driver to use both the soft reset and debug reset
-> controller APIs (the soft reset is already documented).
-> 
-> Add a HiFi4 DSP node and enable the DSP on i.MX8ULP.
-> 
-> Changes in v3
-> - Split the previous patch 1/4 into two patches
-> - Update the commit message to explain why the reset properties are
->   required for i.MX8ULP
-> - Update the commit message of patch 3/5 to clarify the switch from
->   direct register access to the reset controller API
-> 
-> Changes in v2:
-> - Update commit messages for all patches
-> - Require the reset properties for the i.MX8ULP HiFi4 DSP in patch 1/4,
->   as suggested by Sashiko
-> - Use sim_lpav as the clock provider for the ipg, ocram, and core clocks in
->   patch 3/4, as suggested by Sashiko
-> - Rename the reserved-memory node from dsp_reserved to memory in patch 4/4,
->   as suggested by Sashiko
-> 
-> Shengjiu Wang (5):
->   dt-bindings: dsp: fsl,dsp: document debug reset control
->   dt-bindings: dsp: fsl,dsp: require resets for i.MX8ULP
->   remoteproc: imx_dsp_rproc: use reset controller for i.MX8ULP
->   arm64: dts: imx8ulp: add HiFi4 DSP node
->   arm64: dts: imx8ulp-evk: Enable HiFi4 DSP
+> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> ---
+
+It is fine to describe you specific use-case here.
+
+
+>  drivers/clk/clk-gpio.c | 161 +++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 161 insertions(+)
 >
+> diff --git a/drivers/clk/clk-gpio.c b/drivers/clk/clk-gpio.c
+> index 918b2c6444ee..bda40fe87c8b 100644
+> --- a/drivers/clk/clk-gpio.c
+> +++ b/drivers/clk/clk-gpio.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/err.h>
+>  #include <linux/device.h>
+> +#include <linux/iopoll.h>
+>  #include <linux/of.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regulator/consumer.h>
+> @@ -241,6 +242,166 @@ static struct platform_driver gpio_clk_driver = {
+>  };
+>  builtin_platform_driver(gpio_clk_driver);
+>  
+> +/**
+> + * DOC: Clock which status is determined by a GPIO signal
 
-I have applied the first 3 patches of this set.  The remaining two will have to
-be picked-up by Frank or Sascha.
+DOC ?
 
-Thanks,
-Mathieu
- 
->  .../devicetree/bindings/dsp/fsl,dsp.yaml      |  4 +
->  arch/arm64/boot/dts/freescale/imx8ulp-evk.dts | 34 +++++++++
->  arch/arm64/boot/dts/freescale/imx8ulp.dtsi    | 23 ++++++
->  drivers/remoteproc/imx_dsp_rproc.c            | 76 +++++--------------
->  4 files changed, 82 insertions(+), 55 deletions(-)
-> 
-> -- 
-> 2.34.1
-> 
+> + * Traits of this clock:
+
+Traits ? this is not rust code ...
+
+> + * prepare - clk_prepare (is_prepared) checks for a sleeping gpio
+> + * enable - clk_enable (is_enabled) checks for a non-sleeping gpio
+> + */
+> +
+> +/**
+> + * struct clk_gpio_enabled - gpio enabled clock
+> + *
+> + * @hw:		handle between common and hardware-specific interfaces
+> + * @gpiod:	gpio descriptor
+> + * @timeout_us:	timeout that is used to get a GPIO value
+> + *
+> + * Clock, which status is determined by a GPIO signal.
+> + *
+> + * Implements .enable, .is_enabled or .prepare, .is_prepared
+> + */
+> +struct clk_gpio_enabled {
+> +	struct clk_hw hw;
+> +	struct gpio_desc *gpiod;
+> +	u32 timeout_us;
+> +};
+> +
+> +#define to_clk_gpio_enabled(_hw) container_of(_hw, struct clk_gpio_enabled, hw)
+> +#define GPIO_ENABLED_TIMEOUT_MIN 10
+> +#define GPIO_ENABLED_TIMEOUT_MAX 1000
+> +#define GPIO_ENABLED_TIMEOUT_DEFAULT 10
+> +
+> +static int clk_gpio_enabled_sleeping_is_prepared(struct clk_hw *hw)
+> +{
+> +	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
+> +
+> +	return gpiod_get_value_cansleep(clk->gpiod) > 0;
+> +}
+> +
+> +/* We can't prepare the clock, but the Common Clock Framework calls only
+> + * prepare() not is_prepared(), therefore we fallback on the actual GPIO value.
+> + * The function clk_gpio_enabled_sleeping_is_prepared() returns the raw boolean
+> + * GPIO status (1 if enabled, 0 if not enabled), but the prepare callback
+> + * clk_core_prepare() expects 0 for success and non-zero integer for failure.
+> + */
+
+This comment has been carried since v5, where the reasoning was already
+answered: returning an error from .prepare()/.enable() when the clock isn't
+running is simply how a provider reports failure, not a workaround for the
+framework. The claim is also wrong: the framework does call .is_prepared()
+(clk_unprepare_unused_subtree(), clk_hw_is_prepared()). The rest describes return
+conventions. Something like this would be enough:
+
+	/* The clock cannot be turned on, only waited for. */
+
+Also, multi-line comments style is wrong.
+
+> +static int clk_gpio_enabled_sleeping_prepare(struct clk_hw *hw)
+> +{
+> +	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
+> +	int value = 0;
+> +
+> +	readx_poll_timeout(gpiod_get_value_cansleep, clk->gpiod, value,
+> +			value != 0, 10, clk->timeout_us);
+                        ^ alignement ?
+
+errors get flattened here: a negative value (e.g. -EIO from an I2C expander)
+satisfies "value != 0", ends the poll, and is reported as -EBUSY. A timeout
+is also reported as -EBUSY rather than the -ETIMEDOUT that readx_poll_timeout()
+already returns.
+
+> +	if (value == 1)
+> +		return 0;
+> +
+> +	return -EBUSY;
+> +}
+> +
+> +static const struct clk_ops clk_gpio_enabled_sleeping_ops = {
+> +	.prepare =	clk_gpio_enabled_sleeping_prepare,
+> +	.is_prepared =	clk_gpio_enabled_sleeping_is_prepared,
+> +};
+> +
+> +static int clk_gpio_enabled_is_enabled(struct clk_hw *hw)
+> +{
+> +	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
+> +
+> +	return gpiod_get_value(clk->gpiod) > 0;
+> +}
+> +
+> +/* We can't enable the clock, but the Common Clock Framework calls only
+> + * enable() not is_enabled(), therefore we fallback on the actual GPIO value.
+> + * The function clk_gpio_enabled_is_enabled() returns the raw boolean
+> + * GPIO status (1 if enabled, 0 if not enabled), but the enable callback
+> + * clk_core_enable() expects 0 for success and non-zero integer for failure.
+> + */
+
+Seems like a repeat
+
+> +static int clk_gpio_enabled_enable(struct clk_hw *hw)
+> +{
+> +	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
+> +	int value = 0;
+> +
+> +	readx_poll_timeout_atomic(gpiod_get_value, clk->gpiod, value,
+> +			value != 0, 10, clk->timeout_us);
+
+Same error handling as in the prepare variant above.
+
+Also looking at it more closely, the binding allow 1ms max. It is lot of
+time holding a spinlock without IRQ. If you don't stricly need this variant
+please drop it for now.
+
+> +
+> +	/* If the reading timed out or return an error,
+> +	 * it means the clock is not ready
+> +	 */
+> +	if (value == 1)
+> +		return 0;
+> +
+> +	return -EBUSY;
+> +}
+> +
+> +static const struct clk_ops clk_gpio_enabled_ops = {
+> +	.enable =	clk_gpio_enabled_enable,
+> +	.is_enabled =	clk_gpio_enabled_is_enabled,
+> +};
+> +
+> +static int gpio_enabled_clk_driver_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct clk_gpio_enabled *clk;
+> +	const char *clk_name;
+> +	const struct clk_ops *ops;
+> +	const struct clk_parent_data gpio_parent_data[] = {
+> +		{ .index = 0 },
+> +	};
+> +	u32 timeout_us = GPIO_ENABLED_TIMEOUT_DEFAULT;
+> +	int ret = 0;
+> +
+> +	clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
+> +	if (!clk)
+> +		return -ENOMEM;
+> +
+> +	clk->gpiod = devm_gpiod_get(dev, "enabled", GPIOD_IN);
+> +	if (IS_ERR(clk->gpiod))
+> +		return dev_err_probe(dev, PTR_ERR(clk->gpiod),
+> +				     "Can't get enabled GPIO property\n");
+> +
+> +	ret = device_property_read_string(dev, "clock-output-names", &clk_name);
+> +	if (ret)
+> +		clk_name = fwnode_get_name(dev->fwnode);
+
+Just make it a required property
+
+> +
+> +	device_property_read_u32(dev, "poll-timeout-us", &timeout_us);
+> +	if (timeout_us < GPIO_ENABLED_TIMEOUT_MIN ||
+> +	    timeout_us > GPIO_ENABLED_TIMEOUT_MAX)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "poll-timeout-us is out of range [%u, %u]\n",
+> +				     GPIO_ENABLED_TIMEOUT_MIN,
+> +				     GPIO_ENABLED_TIMEOUT_MAX);
+> +	clk->timeout_us = timeout_us;
+> +
+> +	if (gpiod_cansleep(clk->gpiod))
+> +		ops = &clk_gpio_enabled_sleeping_ops;
+> +	else
+> +		ops = &clk_gpio_enabled_ops;
+
+As I noted above, I prefer if you dropped the enabled variant that run with
+irq off, unless you scrictly need it. Return -ENOTSUPP if the gpio can't sleep.
+
+> +
+> +	clk->hw.init = CLK_HW_INIT_PARENTS_DATA
+> +		(clk_name, gpio_parent_data, ops, 0);
+
+CLK_SET_RATE_PARENT please.
+
+> +
+> +	/* register the clock */
+> +	ret = devm_clk_hw_register(dev, &clk->hw);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to register clock\n");
+> +
+> +	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, &clk->hw);
+> +}
+> +
+> +static const struct of_device_id gpio_enabled_clk_match_table[] = {
+> +	{ .compatible = "gpio-enabled-clock" },
+> +	{ }
+> +};
+> +
+> +static struct platform_driver gpio_enabled_clk_driver = {
+> +	.probe		= gpio_enabled_clk_driver_probe,
+> +	.driver		= {
+> +		.name	= "gpio-enabled-clk",
+> +		.of_match_table = gpio_enabled_clk_match_table,
+> +	},
+> +};
+> +builtin_platform_driver(gpio_enabled_clk_driver);
+
+module_platform_driver
+
+-- 
+Jerome
+
