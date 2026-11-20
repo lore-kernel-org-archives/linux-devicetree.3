@@ -1,84 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795167429;
-	b=xdgswcfa9ppEzbqwa70zApWadS5xDfb/P31qWuuSnf7kbxSg9ez4XSP/EpsrFnUWq2DG
-	 2FtPo4Eiu1U5Q/pH9c41gASmX6CG7OCtyvs0D5lw4qCZN/aQ96jtA84NrDJEYolYwlsQ7
-	 mGrS6wiBXs4GhJfauuCAC4TJjVsto8rbEfiJ63nDStTSe3CMpqbRP9yhO2Tmqr/SARNCp
-	 wV8BSf+v5LIDqiUhVAF9TEZD8oLzJFU9Ue4u5kt0mw1wCnHw0NCyGT7d0I/tqENHpexEP
-	 q0uuSWHO5bW1AzBxTXXEQqllX59M1dI/yuN2Pm712fuxdsBMygM/E1rb+Wp7H39Eggg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167429;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=+M8hWcs4E5N08OqYVtXoBpjInpc8kFOf9jqGSDXrooc=;
-	b=1Y86VmSHRHnyizxbY/VIwAc8wdh1aHhFDYahal52tAN+CND3vmwkZJXjjBhE2N83RrvI
-	 6heXgtGDT/1p8i3vzkG0EmoYrKQTsEpOxZG95mETepUNPpPa0d6BtBxpQUyi5UCQszUUf
-	 SRpDQm4EpZZCcYDht1EOJECKmpv2cKlTwiaQVI7Wyw3iMwrfoOW6F5uect6NrVUy/wAt7
-	 YWAbnJbESSkeR1oRvGYlhTEoyz8r9ou0qXRmxs3XytpDN3zzJJMWhr+6fPn/MhudtMgoc
-	 HJ9dv1xcJaoHQxH7xJJF8xQxDFklUZ4iq3SBzAV7EuUpgP/yNy/fHvsImE6XGBzvuFw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="S0/Kgf2p";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.253
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795167450;
+	b=jHMkhN+erH4VamrQgztFrJ+0Rji8WIBb6I6oyryVzrsbYjEZgmVXjGdOZA4PDtBB1r5f
+	 AcrmI2js2O3+H/5ZGiTst/Xj9r7dtpq7qkBqoF5d+NYPNh5qslbS9CEg1uF4e4FNmkVNq
+	 7m/orunAF2sVzNMl7Wk8vKkiPQHYxAr31mYI96Q5GnTlrvjVL81gbjDffz3uPCb8h0bzI
+	 4mhAopVoSJZLANfb2Tz7ApCklVkdBvFXhzpxXXINIvdUwS6mEBbf2cZIIy6+8+CgFKF9i
+	 hQDeSoCQOaV0LzaKv/O5/hrdEPDZCEqvpMq/zBwKBoe7ZpwJYwuWweg3TFfqnN/gbzg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167450;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=nZz2QAmDzQFvqzE+UWtcCdHPziu34TyJ5fAGcQb5M38=;
+	b=uLEeTGc4it8H1GsKYRLY29mJrhKBGeXYUfvVbmxbeJM/7uq110E9D3YLJ2L0yUCRIeOb
+	 0FehuARizAoJ6+hljPxlTUYr+P6zC4owEC1i8mBcDv7OboYRgPI4gGZzOJ6Bwj323YXEf
+	 /vVGtnngPpYjZ+/BuB4yA4iSgia3C/MgY6IXnd6xCC4X3atWfJFCPfXotXSY0rOwsa4T1
+	 GQDJxLYYRPspVUddkoBQrjhDJSUSyMMisB9l6g1xYcc7MI/rvtyspTmuecS1fYLapfJGD
+	 +QYvYXiXMj5nmGNRdQXf+aKcfk602S6qrai4IslLxtWIB4+vzNjWOJLP8ZvB9ACL7Kg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CQum+Adt;
+	arc=none smtp.remote-ip=95.215.58.253
+Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9716606A337;
-	Fri, 20 Nov 2026 09:37:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9716606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EACA606A326
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:37:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EACA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=S0/Kgf2p
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 974A0205B22;
-	Fri, 20 Nov 2026 10:37:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795167425;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=+M8hWcs4E5N08OqYVtXoBpjInpc8kFOf9jqGSDXrooc=;
-	b=S0/Kgf2pAEJ7F+kSn/v+IMsSKfoej7749XbflY48WrcbcYnZClttYWM0zFQcFUbZjr7ob6
-	ZozQhl+IdqsuPRylCU1Vx9CaZA9Jfbu6svq/5nqy5/6n/uPGJ1tdblKPZ3wpmB8F2eJy3m
-	K8x6vJpjxU4UqfXConXnBwyAG89MGhY2foGhjh9wqi9xy2fbRupCd+/SpjaQzE5ZfS7J7r
-	hBuOTaJ0hkYCD1Xhjnq8Jw4ynlarFCqJE0DMo/m3KfdNzKUnCpg0vg6cQkCOx20Tb74C+o
-	O9iD9nKaieHgxOOA3ZRvbwdvlzu8ZGDnEFumq1ore+epRIow2b+TkRDJdQnYMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795167425;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=+M8hWcs4E5N08OqYVtXoBpjInpc8kFOf9jqGSDXrooc=;
-	b=eYxcoelSoJotssnavplj3Q9RMLZIFHeE94ZCqMyKIB4iqldfh0XtYTaYN6bcSjRIK4bsNn
-	qgj3OWGUqBN5R8XN5h4Pf4avoLLCLZK/lb87b8f9r5xtSv7vuVMwzvDSUjLzYTh0a9SEkE
-	rOsCVc/yWeapwcoDWqYC5jWRvpX0MYC3UxT920/XH9dHJ6bq5g/rnnMmB1VRxxxa3X2v44
-	fv7VoNiIrTzgDvX+7YdGwZnCVSULOT9u7wHxHZSUz/8AzuTgP3JB/T1AWEIakFfcASqF72
-	lP0lg/vcCsGzvPjtkkX7pOKGVoZQBkv74PrRqX4Bt6VEhnbul4btPskeWKC59A==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795167425; a=rsa-sha256;
-	cv=none;
-	b=VN8DGXOhoPfwH+qqZjXhV4ZHdjnVOtd2XHjF6OqNIrlszZKp80RjWjuzeC/1YtP8cK9xMK
-	Wki4en5Kjcoy/8rfijSKsKVA5ZPCaJ9Xd4+xhG8VRjWU7YfpQv26dlDQ988F/ft+EhKdEa
-	KQYoWsfsU9rYsVag12ac64K+RcBINMp7d+nONfB/Sm1p4s2iZnzr8bW2GPNndE42tjuMIM
-	AKAL/Q6/r/kgTbFhzNPGIpj6rIYOdUWQr+XYEpWP288jC4dtLpM7mrfuZi9Z+iOfwVSbOa
-	xIHG8dME5qGXYj6ScbA6NF7LWHJlukMjqJuJhxkzGzUlNXqM+ewfvLQGywBmkw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.2])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <f.diener@pengutronix.de>)
-	id 1xUL3J-000dRE-03;
-	Fri, 20 Nov 2026 10:37:05 +0100
-From: Freimut Diener <f.diener@pengutronix.de>
-Subject: [PATCH 0/5] arm64: dts: freescale: Fix i.MX93 FRDM hardware
- descriptions
-Date: Fri, 20 Nov 2026 10:37:03 +0100
-Message-Id: <20261120-imx93-frdm-fixes-v1-0-78dde22a56fe@pengutronix.de>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CQum+Adt
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8DN59iopTFjK8aYzOxjqCZchYMU6lENZWu1VWKz4geI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795167448; v=1; x=1795772248;
+ b=CQum+AdtqlwrH7haXuj93Rwb/S6ti3tr+5uH35yNxfprG/c9E8f3VR4N/SfBd1Ws5jbkRHDc
+ 4IN48cVLXcVMDYv8/9xcrOmV/CFkkheIKbY4z49RX0nbwbOYf/RmDsvDTWmToPwfdBh7ujY+1yU
+ BbO8h2bks2DlVXlh5z6Kjs+w=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3008a7ca7c677b1c;
+	Fri, 20 Nov 2026 09:37:27 +0000
+X-Mizu-Trace-ID: 3008a7ca7c677b1c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <96f5430f-b197-4a51-909a-79cbe86393e3@linux.dev>
+Date: Fri, 20 Nov 2026 10:37:24 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,54 +58,128 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QoCIRCF4VeRuW5Ad1GqV4kuWh1rAi2cbRHEd
- 1+ry4/DfxoIFSaBs2pQaGPhVx4wBwX+cct3Qg7DMOnJGWM0cqqnGWMJCSNXErQuHoOlqL1zMLJ
- 3od8wqsv1b/ksT/Lr9wd63wH8Kr1DdAAAAA==
-X-Change-ID: 20261110-imx93-frdm-fixes-56f8d5ef0c66
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Freimut Diener <f.diener@pengutronix.de>, 
- Marco Felsch <m.felsch@pengutronix.de>
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 19/24] net: dsa: rzn1-a5psw: Get VLAN_RES
+ field layout from OF data
+To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ Ralph Siemsen <ralph.siemsen@linaro.org>, linux-renesas-soc@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-20-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Language: en-US
+From: Clement Leger <clement.leger@linux.dev>
+In-Reply-To: <20261120002549.1908299-20-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This series fixes and completes several hardware descriptions for the
-NXP FRDM-i.MX93 board and the common i.MX91/i.MX93 device tree.
 
-The changes enable the PMIC's I2C level shifter, describe the PCAL6524
-GPIO expander supply and USB2 VBUS supply, and correct the eMMC bus
-width to allow HS400 operation.
 
-Additionally, the missing EL2 virtual timer interrupt is added to the
-common i.MX91/i.MX93 timer description, allowing VHE-enabled Linux to
-use the EL2 virtual timer.
+On 11/20/26 01:25, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> The VLAN_RES field layout differs between RZ/N1 and RZ/T2H/RZ/N2H.
+> RZ/N1 uses PORTMASK[4:0] and VLANID[16:5], whereas RZ/T2H and
+> RZ/N2H use PORTMASK[3:0] and VLANID[15:4] to accommodate their
+> four-port configuration.
+> 
+> Move the VLANID and PORTMASK field masks into struct a5psw_of_data
+> and use field_get() and field_prep() to access the respective fields.
+> 
+> Populate the OF data with the existing RZ/N1 field layout, allowing
+> SoC-specific layouts to be provided when adding support for RZ/T2H
+> and RZ/N2H.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v4->v5:
+> - New patch
+> ---
+>   drivers/net/dsa/rzn1_a5psw.c | 9 ++++++---
+>   drivers/net/dsa/rzn1_a5psw.h | 6 ++++--
+>   2 files changed, 10 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+> index 6f3f902f9f4c..7e9bc252d92a 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.c
+> +++ b/drivers/net/dsa/rzn1_a5psw.c
+> @@ -691,7 +691,7 @@ static int a5psw_find_vlan_entry(struct a5psw *a5psw, u16 vid)
+>   	/* Find vlan for this port */
+>   	for (i = 0; i < A5PSW_VLAN_COUNT; i++) {
+>   		vlan_res = a5psw_reg_readl(a5psw, A5PSW_VLAN_RES(i));
+> -		if (FIELD_GET(A5PSW_VLAN_RES_VLANID, vlan_res) == vid)
+> +		if (field_get(a5psw->of_data->vlan_res_vlanid, vlan_res) == vid)
+>   			return i;
+>   	}
+>   
+> @@ -706,8 +706,9 @@ static int a5psw_new_vlan_res_entry(struct a5psw *a5psw, u16 newvid)
+>   	/* Find a free VLAN entry */
+>   	for (i = 0; i < A5PSW_VLAN_COUNT; i++) {
+>   		vlan_res = a5psw_reg_readl(a5psw, A5PSW_VLAN_RES(i));
+> -		if (!(FIELD_GET(A5PSW_VLAN_RES_PORTMASK, vlan_res))) {
+> -			vlan_res = FIELD_PREP(A5PSW_VLAN_RES_VLANID, newvid);
+> +		if (!field_get(a5psw->of_data->vlan_res_portmask, vlan_res)) {
+> +			vlan_res = field_prep(a5psw->of_data->vlan_res_vlanid,
+> +					      newvid);
+>   			a5psw_reg_writel(a5psw, A5PSW_VLAN_RES(i), vlan_res);
+>   			return i;
+>   		}
+> @@ -1354,6 +1355,8 @@ static const struct a5psw_of_data rzn1_of_data = {
+>   	.tag_proto = DSA_TAG_PROTO_RZN1_A5PSW,
+>   	.rxmatch_config_base = 0x3e80,
+>   	.pattern_ctrl_base = 0x3eb0,
+> +	.vlan_res_vlanid = GENMASK(16, 5),
+> +	.vlan_res_portmask = GENMASK(4, 0),
+>   };
+>   
+>   static const struct of_device_id a5psw_of_mtable[] = {
+> diff --git a/drivers/net/dsa/rzn1_a5psw.h b/drivers/net/dsa/rzn1_a5psw.h
+> index 5c5f5ec25774..29d205e2331d 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.h
+> +++ b/drivers/net/dsa/rzn1_a5psw.h
+> @@ -71,8 +71,6 @@
+>   #define A5PSW_VLAN_RES_WR_PORTMASK	BIT(30)
+>   #define A5PSW_VLAN_RES_WR_TAGMASK	BIT(29)
+>   #define A5PSW_VLAN_RES_RD_TAGMASK	BIT(28)
+> -#define A5PSW_VLAN_RES_VLANID		GENMASK(16, 5)
+> -#define A5PSW_VLAN_RES_PORTMASK		GENMASK(4, 0)
+>   
+>   #define A5PSW_RXMATCH_CONFIG(base, port)	((base) + 4 * (port))
+>   #define A5PSW_RXMATCH_CONFIG_PATTERN(p)	BIT(p)
+> @@ -241,6 +239,8 @@ union lk_data {
+>    *   port to account for the HW issue.
+>    * @rxmatch_config_base: Offset of the RXMATCH_CONFIG register of port 0
+>    * @pattern_ctrl_base: Offset of the PATTERN_CTRL register of pattern 0
+> + * @vlan_res_vlanid: VLANID field mask of the VLAN_RES registers
+> + * @vlan_res_portmask: PORTMASK field mask of the VLAN_RES registers
+>    */
+>   struct a5psw_of_data {
+>   	unsigned int nports;
+> @@ -250,6 +250,8 @@ struct a5psw_of_data {
+>   	unsigned int management_port_fixed_frame_len;
+>   	u16 rxmatch_config_base;
+>   	u16 pattern_ctrl_base;
+> +	u32 vlan_res_vlanid;
+> +	u32 vlan_res_portmask;
+>   };
+>   
+>   /**
 
-The changes have been tested on an NXP FRDM-i.MX93 board.
+Reviewed-by: Clément Léger <clement.leger@linux.dev>
 
-Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
----
-Freimut Diener (5):
-      arm64: dts: freescale: imx93-11x11-frdm: Enable I2C level shifter
-      arm64: dts: freescale: imx93-11x11-frdm-common: Describe PCAL6524 supply
-      arm64: dts: freescale: imx93-11x11-frdm: use 8-bit eMMC bus
-      arm64: dts: freescale: imx91-93-common: Add EL2 virtual timer interrupt
-      arm64: dts: freescale: imx93-11x11-frdm-common: Describe USB2 VBUS supply
+Thanks,
 
- arch/arm64/boot/dts/freescale/imx91_93_common.dtsi |  3 ++-
- .../dts/freescale/imx93-11x11-frdm-common.dtsi     | 28 ++++++++++++++++++++--
- arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts |  8 ++++++-
- 3 files changed, 35 insertions(+), 4 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-imx93-frdm-fixes-56f8d5ef0c66
-
-Best regards,
---  
-Freimut Diener <f.diener@pengutronix.de>
-
+Clément
