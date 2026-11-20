@@ -1,77 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795179154;
-	b=tC/nYCM+I+N+8t0WullRVx7x8QZpti7bbjZdxQlzIzYhOa+gPrXwQiW1nCfTyFokrIc6
-	 qD1wCP2rlFaOg2VtbqwNPSx/yr4MVcc52VF3YLT8Wr2vCMMXLiKGiMsV7npDEpD/EbqFT
-	 lpu1FXryZDtmxU1DKYwDpVU9uiZmgWW1wo8db5gygytJ1AgPApIayX1rjqIXGKTMlm2Jd
-	 AGaqiV1SM8i8MobKsylO4R9a5yuy50PvDY2PoAeDSB//eON2dICjjX4S/cNZmS6Xnxpq+
-	 oRn5HgDp0SmWgYla4xSDYHQgmEwN7PCmbX/b7ExszXgRoqaiH3w+58xfcFohzWPIgoQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795179154;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=9SjRna3ikFVF0kjvJgTvEWSAoXwpZaelLjTatjkSd8k=;
-	b=ZHVJgjDZRUZh89AlgY8/ZnHWQpZ8x8hKbiM5W4Ig4jPiCH3ndAjet4icEZEh7J5oHsZF
-	 HNMdW+iAWQ4X45Z7XZX5RnshNZsZaSg0ZVIXGP00HG2H0pA4Z0+pxLchL84KCovyjrD2C
-	 DeZOeZeJCH4FIjHQDAxrb7GzvaFH+nTgl1C9tTrrkk71Lt0zJc7mJ8s9G57edURBaFzVJ
-	 c0/KzXUeoGLeKMM8dCxZ/MyxAuMmCoya1j3P0v9+iFr/a1YeDeuvO0fBnLkg4lUUMqqHA
-	 8eJ99E9U86hBY46zNlPJPXj5kO3+mYXRlhCcsatxYoW2e5i14p84/EEPZQKwvtc+Cxg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.50
-Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795179199;
+	b=f6/Gz/32fqW/wgWd8EMciH43dCdg5li3yOzAOHnEKtX87L5C92K9YdikdGFe3uHhVBeL
+	 xo2eY+G/IzGStXD3n4AtHgKset6Mkpgha6NHvHAADycTs090d9X5D9ca4kHlSEMhpxTs8
+	 6Xm4DjZ4y7xsqip49dtVhJ9HwAsiK32oTjlPjnxNxkhws0jLX6DC8LbP7TrlBRIeYxXc9
+	 TkBIWFjR38AK8qkwEZyN4mLeQL2vBXblnI9+wSqwwlsvqcwawAy1KPPvzGrHp2sJZBpTl
+	 G/DWHQ5Yu9tTWdqpa6gHqME8GMJUpAH51l52NWf/2CV4Eir0ZqOnoSuRpq1RtO5ZDXQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795179199;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ieYBoPMUvb4s/PCH+V30xJw7NXondGMmODLCCsted48=;
+	b=KqFJc8q5xcbLzpPmipCt4dVdTZIu6naGucg1qBB5YJSQNh8LzPMBXo1y8Xk5aU8TE/tM
+	 49vgNseja7gendvRLSBT6qsP7bkjWj80RjGr3N+YSZbq9x3IlPrUBHSqfvPzL29Mr4WVT
+	 4d3Ag1agKEEGsiXhmQP41zfpr3NJflHAT4tUqNsg5ECUTBuMUaicQg+aWyHQQ0nLc7n13
+	 EN+JMwvN7ZH3gGIVSxEwSiPPmV6+MV9J7BXiQai7NeFDu9AxsZDSl7jUMro5O1O8uAwgJ
+	 hEgW3Vs9EGoizLgdGTrG0JDoFXjXMCuH77gWbKOgGu94lVORUBNZ9RoVBGXqP/heCEw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=p+nwIxD+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923D6606A32A
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:52:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 923D6606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-980c4258105so506630241.2
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:52:34 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D65F606A33C
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:53:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D65F606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=p+nwIxD+
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b10d24345dso7965047b3.3
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:53:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795179197; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mYCh6TF1nTKgEWlXgFmZ3/QXvf4+mel4XATjX2Be3IcVX/JWy5AahTf0KmMRoW8JsE
+         GuyeRlDx1OJ8+IsE9lRHCnIwLN7EF2WEjalDQzaGqXkRZBFJHek2OHOwJIXPq3N0+9bs
+         jlZDDNK13cCeqBYr/Vs168zdpVpLqzUty/RuXI9S+OOlNrOePgZhvVRbGUsBHnhBY1K6
+         SPCDi6+b2fKj2Yzjgr+9Tx+Qf2JTDx9IAduylsPL3bntuXIO9UAay3gna1FHscTB9dQz
+         hMWoz5XOmyHSCGlVjAyjZUHS5s6BKo+jvs8tD/2LvLtXn1ilb3ViY6IbBeo2J0SakWeD
+         LuRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ieYBoPMUvb4s/PCH+V30xJw7NXondGMmODLCCsted48=;
+        fh=KbaNBTGonSxuoChDNU6JRTOU9Sy/ZrtFwa0YeA3ik4o=;
+        b=TWgv1fLwgHhXeqdnnycPQm4TElU+tStcSP195EA8RhP/g9JOp8skXmpY3BPDSkZ//Y
+         Yv+RzTv8upK4BNWvpsDyxz8BpGdwbhWZWl7Zh9RFa4au2j0sNk+ftQyBjgOgm1emqbTD
+         XyAiOs+jvgCMVnynE/PQYrxubxvdo0Uidffh55kr8AOZhdrbvE1b9ciriNXi0Hvvheks
+         9EQLzWp1+GqMet5Q+H5dfMz7HAU7XuafmwFl3COFdhAWGY/NTlOKnd1QzMjW3zGz5FO/
+         N2U0m+nJHS1kXESTxiHeX5IuOVZ3bM+rh7BM68khzshj3bKAm+JBEt5Y7SDBSqdAtNwd
+         B70Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1795179197; x=1795783997; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ieYBoPMUvb4s/PCH+V30xJw7NXondGMmODLCCsted48=;
+        b=p+nwIxD+6yjLv1XlsJns5B4Ag+p0R2HUx9b44padqWJLRazJNgxsCKlVLlFVEP6dHS
+         A6CyQLQvWj9Hxefmj+Z19165TNUbh1OBDvBpFGrFNdKP1EfQD2udDxQuIQrS1kWHpCZX
+         Wu1hkW3yYg9WWYC9lZSc/VjK364nRomo1VAWk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795179153; x=1795783953;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9SjRna3ikFVF0kjvJgTvEWSAoXwpZaelLjTatjkSd8k=;
-        b=ZKBJQAsghbIZpt0CPunoFGZbz/qphtvs+YvW0sP4p4dfvTnC264ldzN0oMhPan72ky
-         mdPWFULabHPo5i/AER+Vj0aLG+kNvpJ+QYocUILrGzJ4l309VoaPzmffwthXib107eEl
-         xw3+W2iZXxK1XeBF3medHy0jJLQJeXfDnyBw2PqY/6oVd3fCiY6xcb2dxrJqSbahs9v2
-         i5IotHCq/ZpqRG898sCNFiS5tctwNQsLHK7Vhu8ELDi+d03JBW404Xj9ZFwTeLXFRMlq
-         FjPNyjZZjNGgIlA6pazEBbS74C+3kO53NKEwXqdGpZyF1x4wLeUcZQJel36ZCOasmQk4
-         RlpA==
-X-Forwarded-Encrypted: i=1; AL+hErE+jlrAz8cw7GnF87O7KehrzGZJ944sHvpkmCs3XokJqN0almWssZHOlWZ5QIGA1LThDaC3jXPfuYkc@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dT/+StU2vhRLwA9wl8Qa1aH5SLGSqvMwvu09w5pDTNfCGh2hX
-	n93kr/GCPvGCNLgtErx58v5Ns8O3ghW27Ktg0EIxoMOHf2VGcnmPZImoG9oHzNoc
-X-Gm-Gg: AZFdTZdPLWgJ4MUNq0AXPGlvMWZoSrxtjnr3a4KBzVHlqGt/CZbO4dw5HZ4uxNmR6Pf
-	cTbe8dK049RilamRokMj2HIw6z35qXoWhDgP4Pc3H3H3NMyi3Lv6S0yUw3A7GIamzsClvqf1VmH
-	HlQj2KNnqAm7HOElKsch/tFdKXrAKBX7M/+0vLvwTg+jrz5ANZWzLvoRlLA/zA/I5crDO7IGLQn
-	WzwZlDQrFYxUxOTnKe1iTvokgVSLIJcS17WWGxHD57kuxbExbKujBMAHtzljFH6jS2WDVbAWdo1
-	xmagtQazZUVr+wtk63rbgfC+IkFP+HE8AM1Ik9nGlP45Uc+y+hlwjyJch+gHh2gue9N4hx3+bGf
-	0E5Jlxle0bzdHDzIR5ys3vQYmLVONlxgbNy0RE/O+ZoOGGdtKMDmhoDksNHkZdtyw9SLXpHQIuv
-	HFeFZWUo3G33ZZNQL36YT6Isk4breTOiD4MUAU9cjdVDoeCkMY/xwUnXUEG6lcYJtEnVt5Qllgo
-	PtaI3kQGRGxVoAgkxGFKI9GeBKlrLZOkqB6lQayA+0OY3MdBYgHl/F1WcPI7vVE5P63XFwDAXYz
-	QPuYdnc0ij4OeJjTj8qOxB1VW1GjmxXIUJJpoyl7wC6MIgCvFtjK9YYA92PMS6kY9oeJXHX0/eK
-	PDsSlVfvE2OsG9g==
-X-Received: by 2002:a05:6102:3f13:b0:7b4:879c:bb76 with SMTP id ada2fe7eead31-7d739582ee2mr1202858137.21.1795179153460;
-        Fri, 20 Nov 2026 04:52:33 -0800 (PST)
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com. [209.85.217.44])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d6e7f92680sm2914648137.5.2026.11.20.04.52.32
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Nov 2026 04:52:32 -0800 (PST)
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7d6a6776719so455493137.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:52:32 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG9Zx3WNXr6Mj34PW4QYHuqWAcPktOgrfifm5+ScDn3gSr4Si7IzeZK14sKCgww28OUAha44ZLVpJUF@vger.kernel.org
-X-Received: by 2002:a05:6102:3e8d:b0:7c3:fcb:180c with SMTP id
- ada2fe7eead31-7d739572406mr1186700137.20.1795179152283; Fri, 20 Nov 2026
- 04:52:32 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795179197; x=1795783997;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ieYBoPMUvb4s/PCH+V30xJw7NXondGMmODLCCsted48=;
+        b=SOKxc0IPBpMzpltqDnLLj4j8AG5O8w/ZKt72Hg/ojsjhif/d59g6IxdKKmPqa4PxGd
+         FMLv5pEMfQ0jznC/FzZGBTSrMI7+bnkZL1NPOvMzk8MiyY/TwbaVS1GMNnk9rEWcz5pR
+         CfBSnQYaT/oLGf8COto/BIPEpM9PDJ1k73S5ZUjRqCgEyeO9W0ThsxoNy2o4zvj3d4a1
+         /fo5J32j7gt1gLo1h/DZkP5o3Z4WrU+qKX500Ji3M38VJ5b/b3Q3exjnacIwIsl8/u7I
+         0tjq4d7NPS0IvBHT9gY1bFqSn38XYCsi+DLzbzEjpQgfdRcth+Fzb6KCWT7BbxjzdQlf
+         jF2w==
+X-Forwarded-Encrypted: i=1; AL+hErHtNlldooUXU7FEG7EyTFIznxnLVXTVkoVKQsKDtXLnN146g7RKQojomw5iCQhFyg/nEEFYilexKib9@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0pd8lrL4VyjvuO/GDFpUGrVxmU7oB49yqK1uDO5P0YJbbs2Xq
+	5sRyL07FrRws8J9GcH1pfj9whFtlWkqT9sksspUNBGuc6sSqCkCTAWt0FUENqYkAzSjQ8BFTcY8
+	1kHRZ64UcetT2Yibsv6WpwBftWqGqWdt54+HcRbEkpg==
+X-Gm-Gg: AZFdTZdxe/Hq0Jg0TCo0zSzzfEfpvzeaw7yXN99pDIuOkPIc/4CBDy1gjlobo3ecB1i
+	I5J3HXPFSGBctDl1R12VLVFHIb14SVRHSZBgi9mNx5i+OY9J2zf0q98w8lHGrk9jaSd/au28ONm
+	0Qigx2xwzLys1Ol2trPYM4aU9I5EzLEPYxxx7yzTN9EZWlcd3qiK3teMjH60eGZyAjKrN4UGMwc
+	KKMu/L8VyQHlhpILVtgXEZZ6fT3iwgxaiimjAiHOAH118Dob4W6LtZKkqHy4gq9hCdGRpiSsRiw
+	iCT0UFnpGJQS9b1e5n7WXIswFEYvJE6ovDJNfoB24zZ25U0QvUz1m3MrdmjL4GhrJ/q6ondVE0z
+	sUjQQ2wkqUmSc2K/TTJHN/9FXQibS71FaLKg2EvRrrftIupB7E8Qn+myU7LRW3KirMQ8=
+X-Received: by 2002:a05:690c:e3d2:b0:8b2:e0c3:1f4d with SMTP id
+ 00721157ae682-8b5204ab2a6mr13766787b3.37.1795179197354; Fri, 20 Nov 2026
+ 04:53:17 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,139 +101,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-sdhi_rzg3l-v1-0-ca30b209615d@bp.renesas.com> <20261112-sdhi_rzg3l-v1-1-ca30b209615d@bp.renesas.com>
-In-Reply-To: <20261112-sdhi_rzg3l-v1-1-ca30b209615d@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 20 Nov 2026 13:52:21 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWk_0VT_UgaYoCW8c9zac2g88bL6niZF6aDu+UbWroFjw@mail.gmail.com>
-X-Gm-Features: Aa3M54qyNQu_3mY0Gw0VIiuXO7cKeCCI_cdaF_qJo1F3yjQPV5KrJ3x92PPsDRE
-Message-ID: <CAMuHMdWk_0VT_UgaYoCW8c9zac2g88bL6niZF6aDu+UbWroFjw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] arm64: dts: renesas: r9a08g046: Add SDHI nodes for
- RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
+References: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
+In-Reply-To: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Date: Fri, 20 Nov 2026 13:53:06 +0100
+X-Gm-Features: AclHuK9f8_4hj4WZI7U8R_PPW4mheeI6fjAZW22lb_dsLGyAMF1kCmKW69Uy0Cc
+Message-ID: <CABGWkvoKQksL0vKOi2bLY5o3j998SzkAhdkkP4_ftySjbgqBrA@mail.gmail.com>
+Subject: Re: [PATCH 0/5] arm64: support Engicam i.Core MX8M Plus FE C.TOUCH
+ 2.0 board
+To: linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
+Cc: michael@amarulasolutions.com, linux-amarula@amarulasolutions.com, 
+	Conor Dooley <conor+dt@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, Fabio Estevam <festevam@gmail.com>, 
+	Francesco Dolcini <francesco.dolcini@toradex.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
+	Joseph Guo <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Markus Niebel <Markus.Niebel@ew.tq-group.com>, 
+	Maud Spierings <maudspierings@gocontroll.com>, Mehmet Fide <mehmet.fide@screeningeagle.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
+	Stefano Radaelli <stefano.r@variscite.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Biju,
+Hi Frank,
 
-On Thu, 12 Nov 2026 at 19:48, Biju Das <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
+Gentle ping on this series. Patch 2/5 has Krzysztof's Acked-by, and
+the series still applies cleanly on next-20261119.
+
+Thanks and regards,
+Dario
+
+On Fri, Oct 30, 2026 at 5:35=E2=80=AFPM Dario Binacchi
+<dario.binacchi@amarulasolutions.com> wrote:
 >
-> Add device tree nodes for the three SDHI controllers (SDHI{0,1,2})
-> on the RZ/G3L SoC (r9a08g046) and enable SDHI1 on the RZ/G3L SMARC
-> EVK platform with pincontrol and GPIO-based voltage switching
-> regulator support.
+> This series adds initial support for the Engicam i.Core MX8M Plus Fast
+> Ethernet C.TOUCH 2.0 board, based on the i.Core MX8M Plus Fast Ethernet
+> SoM.
 >
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-
-Thanks for your patch!
-
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> @@ -1062,9 +1062,80 @@ dmac: dma-controller@11820000 {
->                         dma-channels = <16>;
->                 };
+> The support includes device tree descriptions for the SoM and for the
+> C.TOUCH 2.0 carrier board, together with an overlay for the 10.1"
+> LVDS display (C.TOUCH 2.0 10.1" Open Frame).
 >
-> +               sdhi0: mmc@11c00000 {
-> +                       compatible = "renesas,sdhi-r9a08g046";
-> +                       reg = <0x0 0x11c00000 0 0x10000>;
-> +                       interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks = <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI0_CLK_HS>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK2>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI0_IACLKM>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI0_IACLKS>;
-> +                       clock-names = "core", "clkh", "cd", "aclkm", "aclks";
-> +                       max-frequency = <150000000>;
+>
+> Dario Binacchi (5):
+>   arm64: dts: imx8mp-icore-mx8mp: enable the watchdog
+>   dt-bindings: arm: fsl: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0
+>     board
+>   arm64: dts: freescale: support Engicam i.Core MX8M Plus FE SoM
+>   arm64: dts: freescale: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0
+>     board
+>   arm64: dts: freescale: add Engicam C.TOUCH 2.0 LVDS display overlay
+>
+>  .../devicetree/bindings/arm/fsl.yaml          |   7 +
+>  arch/arm64/boot/dts/freescale/Makefile        |   8 +
+>  ...ctouch2-overlay-am-1280800w8tzqw-t00h.dtso |  53 ++++++
+>  .../freescale/imx8mp-icore-mx8mp-ctouch2.dtsi | 166 ++++++++++++++++++
+>  .../imx8mp-icore-mx8mp-fe-ctouch2.dts         |  17 ++
+>  .../dts/freescale/imx8mp-icore-mx8mp-fe.dtsi  |  62 +++++++
+>  .../dts/freescale/imx8mp-icore-mx8mp.dtsi     |  13 ++
+>  7 files changed, 326 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctou=
+ch2-overlay-am-1280800w8tzqw-t00h.dtso
+>  create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctou=
+ch2.dtsi
+>  create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe-c=
+touch2.dts
+>  create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe.d=
+tsi
+>
+> ---
+> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+> branch: engicam-imx8mp-icore-fe-ctouch2
+>
+> --
+> 2.43.0
+>
 
-Given the bus clock can only run at 200, 100, 50, or 6.25 MHz,
-150 Mhz looks strange to me.
 
-> +                       resets = <&cpg R9A08G046_SDHI0_IXRST>,
-> +                                <&cpg R9A08G046_SDHI0_IXRSTAXIM>,
-> +                                <&cpg R9A08G046_SDHI0_IXRSTAXIS>;
-> +                       reset-names = "rst", "axim", "axis";
-> +                       power-domains = <&cpg>;
-> +                       status = "disabled";
-> +               };
-> +
->                 sdhi1: mmc@11c10000 {
-> +                       compatible = "renesas,sdhi-r9a08g046";
->                         reg = <0x0 0x11c10000 0 0x10000>;
-> -                       /* placeholder */
-> +                       interrupts = <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks = <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI1_CLK_HS>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK2>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI1_IACLKM>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI1_IACLKS>;
-> +                       clock-names = "core", "clkh", "cd", "aclkm", "aclks";
-> +                       max-frequency = <150000000>;
-
-Likewise. This instance does not support HS400, but HS200 and HS400
-use the same bus clock speed, right?
-
-> +                       resets = <&cpg R9A08G046_SDHI1_IXRST>,
-> +                                <&cpg R9A08G046_SDHI1_IXRSTAXIM>,
-> +                                <&cpg R9A08G046_SDHI1_IXRSTAXIS>;
-> +                       reset-names = "rst", "axim", "axis";
-> +                       power-domains = <&cpg>;
-> +                       status = "disabled";
-> +
-> +                       sdhi1_vqmmc: vqmmc-regulator {
-> +                               regulator-name = "SDHI1-VQMMC";
-> +                               regulator-min-microvolt = <1800000>;
-> +                               regulator-max-microvolt = <3300000>;
-> +                               regulator-ramp-delay = <1200>;
-> +                               status = "disabled";
-> +                       };
-> +               };
-> +
-> +               sdhi2: mmc@11c20000 {
-> +                       compatible = "renesas,sdhi-r9a08g046";
-> +                       reg = <0x0 0x11c20000 0 0x10000>;
-> +                       interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks = <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI2_CLK_HS>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK2>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI2_IACLKM>,
-> +                                <&cpg CPG_MOD R9A08G046_SDHI2_IACLKS>;
-> +                       clock-names = "core", "clkh", "cd", "aclkm", "aclks";
-> +                       max-frequency = <150000000>;
-
-This instance maxes out at SDR104, so max-frequency should be lower?
-
-> +                       resets = <&cpg R9A08G046_SDHI2_IXRST>,
-> +                                <&cpg R9A08G046_SDHI2_IXRSTAXIM>,
-> +                                <&cpg R9A08G046_SDHI2_IXRSTAXIS>;
-> +                       reset-names = "rst", "axim", "axis";
-> +                       power-domains = <&cpg>;
-> +                       status = "disabled";
-> +
-> +                       sdhi2_vqmmc: vqmmc-regulator {
-> +                               regulator-name = "SDHI2-VQMMC";
-> +                               regulator-min-microvolt = <1800000>;
-> +                               regulator-max-microvolt = <3300000>;
-> +                               regulator-ramp-delay = <1200>;
-> +                               status = "disabled";
-> +                       };
->                 };
-
-The rest LGTM.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--=20
+Dario Binacchi
+Senior Embedded Software Engineer
+M. +39 328 0625246
+dario.binacchi@amarulasolutions.com
+=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=
+=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95
+Amarula Solutions SRL
+ Via Felice Cavallotti 25D, 41012 Carpi, MO, IT
+info@amarulasolutions.com
+www.amarulasolutions.com
