@@ -1,78 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795189966;
-	b=zoVGzQzduwiEIN2UqJhTPanb9Ku1StvdQFUn28TFIX88k3Q19rht6Ele7Pz3Ia/o3hRv
-	 C4lLvIlr8QEc0I08TuzieTD28U4dflSyE8jMxMictxdIo1Rt+MWZNkaWSkZu5KYSI3D9m
-	 HCMUYCDV03Y7gBm1V4ZxlwUpdvnfBbwdcqek0mpJQz0pPOzmmoTXMy2xDCfLVe6Os8gyM
-	 TePPIp0YVQD9tieRbH23mdvOCDBZ2BrdBJ2JQlz7fSxnhzUjThWkoudPxDUCm/LJrwaWv
-	 a92J5nuuRpVltU3vTlAEZub9CQ9guljwkuwgmAbOf5NULhKHV5jvNeC6vcltPxTb8HQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795189971;
+	b=duytbaMEIIYcBmzrGeuKkffzYyBMIDy0CmKC78XgXZTMgqfgMae0iZRc0WF65sS9RBNP
+	 nfC8VkRjYWlAM92NeRjBAbTrCGbL0wzPMABrfwNmff39udEapNFK19zcpGvRb+p3nmUEs
+	 JFylKWtF1z3+irGaA36ke4POPAGTpG+q3xU5oTCygX42N0TF5zxH63ymdyqF0/My1CCKc
+	 bLLdgjCOa6IqTlA9eC+SEufp5iUMBHDC3tA867wdzqR9gyG4zgD/dWgvp1sCLxOTeAT/g
+	 iIKtNXI7JdGSwHgeSVXhSAJuOg+UZcl+DbP3BVAEDKb2VCnGiww/X5PIlzLgGk7bP8w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795189966;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mdPLtd0pb2afPShT4wihtCgHtR7V2UHGwz5z/hOYOC0=;
-	b=vqJyYfaRjfUDflHKq8g5kjJZHrqc63DkW0Y6MOOCvMz2T9R3Eq6XBrw2PxQrl0s/KrBF
-	 +y6vBVeht0hJWxxkg8w2ARMe8jjtPt8CW1pibOFcfeh23T10ohtqIQpp036XI+JKI88Zu
-	 dIAp8PmPqMozYNzu+Tt1f8TXmv4+BKEz/auQhfGIBGFTwDdSgv4eoPRzN7/cajhrKMdC1
-	 932AAPQdmvyJMyrLR9JT8uWCXLLMxNVKpCXfKHt/An0fLfoTllVeoX4vO44BPld86t01R
-	 9SLRKH4lSJsdYjud3zcEOuEOAP31RM5+tsFy0Rt07FV6OMBtaAHIcRrxp+aOndvFD8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795189971;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=sn8TBExBdNMOxU273viLC65/y/HzDXJHEFYgQqnfIzY=;
+	b=Kr17YfBO2iGj0mT0KmPKazeumIqMt/o4F7L+7xvzZNvxdTJFqIca1WbIPNjfY9+HJg9W
+	 oC1aRpXnEpz6wcV9OiWqD5y0tlTYN6TMvIDbnvgwvX3fttuVH08a0A3i5hwi8F0oTph/I
+	 DX5xUEt9KZPmtGcaD2smmaNayoq8X4ghLvdjf/uulujEQqyHDCkwKHzHD1kCzIGPHFRFe
+	 97GMEHBXOKdIu1+pK85s+fQ1iPiIOmn1r5cgp6WG9PwAOy5RICLizoiXwA555GJVJ5pSt
+	 2YLz7A9ahlz0g3m0xzPK9T9LS6sAbPW4t147tVThidhayxL3nFQdqTsrrGRx30c3cCQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YsoPTlUz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LRavwg67;
+	arc=fail smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85782606A331;
-	Fri, 20 Nov 2026 15:52:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C82606A33F;
+	Fri, 20 Nov 2026 15:52:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YsoPTlUz
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LRavwg67
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795189966;
-	b=FBTjLPGcIiAvU1RwubeTnb3LGSJBX5eEFXxdcbDqo20qoTyXLFxzWYU0TLf3WXENmW8n
-	 brZLZKVnqu1qcKfGGx4d2MWoG/+6fPYwEwtsTbRmQ5sqjwidTbkWtCNagHlYSGNdPfVFx
-	 ULqE/o9ZJfDzV5coGCX/pF0RpjhNbb9xOOscYF5SXooa/6fkO5hW2ODdgJdspbx1v4LUN
-	 RRBwAA3As6DMzupbjPChg+Gm17UhZQbczTXFPqhu3IxdPl29ivQgaKFP1X6dnPzxx0F54
-	 L/OH+v71fTwJAybimso6AXG7RvmqZw3L9hH1Roc7QsfiTqUDJiLDEjN3VMB2uzs+EpA==
+	t=1795189970;
+	b=rcNOFSp0AudMbbhWdAipbbMnadHcvOIrI1OtblQJt1bJ4UNMKsZRARhnRKIwVR2AADbE
+	 9V3RXNkKor+guI82HbWJlX4zfaLKJUdVBhE9ouQDor0QxE541TRnzsweWpe2C+bmJGpk6
+	 wUT4HZdN/IKSHrTaflOG1BpYMKQOURt8FH65GbUQcptNWQYegqQdlEPMzEXnNPukyjdEB
+	 PzYgGGFg6chct+OZv5s9bHvhd7FQkZ36qbghBhB50eSyRo7cHQoPv/e6bUNMR16N8laLE
+	 q9pIoTBNIMBYeRWj6S6CshTvXzDN2m8s7Xs8S7X7u4+kPExmdshIr5ayPxEOxbLRetQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795189966;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mdPLtd0pb2afPShT4wihtCgHtR7V2UHGwz5z/hOYOC0=;
-	b=ReKPGNSus+Bnr6lAg712DZ2TyXsW+VIbuGZeEkacakKRGujiv6BhyIPGcIw/ALDAkT/R
-	 SFMBmZaomiJF55MAiOaoZor5KcdBZNPn3PY/WG9nsGnghqmwDcGW7rOjUt9RwO+UIDIFb
-	 xWHKtJtYUABBOMcrQz17kMm+yyOQXUQzuJRipRIXfBc/nwF+bzSD5GUxNWDLlDnFkyq2E
-	 Vl017i3ABxTumuSjr6WOsX8QpR+mJ8JQHnsPs6pvvREkwiVafV26FiuB+g+3DV+WhN/Gf
-	 fIG734jFlAaNMx7Nt0ouAz1+zCmlbdC15YotX4J42CmX8zV1LTtussr6Ir3zDz6+0/w==
+	c=relaxed/relaxed; t=1795189970;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=sn8TBExBdNMOxU273viLC65/y/HzDXJHEFYgQqnfIzY=;
+	b=fo+8PS0G+q7OC4UcdSSoT8GvjKHoSRZivt4WZ7W1f15VfYMScMRBBeFqkVcJpwrfSUs+
+	 pzStYRAk1R3OKKkimNV6sgqkaymGBX2i6zFzBYRKTqJKR5pRcd4IZYbaOa8Ic266Iy6uH
+	 DyqYEHquoRFc1EMNcKpxR8Gk0bSJm/vrMM8XxqfQ6U3WDr//7RLMHEbv+mj4JxBfzleKZ
+	 LYHxlh9vLcdsMy/Z6wuse8HT4rnVcd1i8WcPDDKfbJs4GjyHtfcvk+IOGqWfq1h16LgKs
+	 t94ZbW85MIIjo1XmwLWPWvKRoIUWS8dkiqOXg1nLwZAiVHQkJMo3Lhk4VWrN0F088jw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 153831F00A36;
-	Fri, 20 Nov 2026 15:52:35 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 3D3511F01571;
+	Fri, 20 Nov 2026 15:52:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795189966;
-	bh=mdPLtd0pb2afPShT4wihtCgHtR7V2UHGwz5z/hOYOC0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YsoPTlUzu2Oib3RCWGFKHcDz0lzkt1wJparpGAwcF2ZLGhXZ+SOcm8CnKMSByenYK
-	 U304vDBzZS+3no9S6hJvuKbBL3CbKkZ4cJCk+XzPYTGHgH7uJwe4+J/SWGrtM7KGFu
-	 +l3B5obLWpAZiD+zbW3R9/deMzpPMLJ3LRWZTLF45LCr2K5mheAhLNt3LvbnISrzfB
-	 I7tm4q1LO+bBJUc7ISSGt+OkaInvj6xTn8WUDyCsWEteTeMBjiE8P8SIPnrYuEpxXb
-	 sJuvP6yDQcYPRFOqPuq2ou85LRI+93LH9yI4GMHWcwLph5JExPhkAf3Spn0Is09ahd
-	 JQsq4Kc6eA3Vg==
+	s=k20260515; t=1795189970;
+	bh=sn8TBExBdNMOxU273viLC65/y/HzDXJHEFYgQqnfIzY=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=LRavwg67eSV5e9gtrl5mEyhx4U+bHwWtQg+uCAvHPePVExDXWt6+Qb9z8/8X80cpk
+	 vMsqds3WGLo4riAg01pJDYwR3283H6crT1V86Ax/qppF9jOtkf1sHVeVDoSZKcs0Kh
+	 y95DdOP4fh6bEpRgubUArDW5pewlAlZ3uDPXHuQQ13fh/lF6fs+T3o3WYgq/jx+rsB
+	 o7Gd2aRxWXh9CyIxBH7PbqVCKdM0RV52TELGzshsaHm25Hl2bP6oX+19iAszrpPaNR
+	 1Chnnnj2LGK9FoROr8why+91GDqebSNxnIZB9V4jTW4kgoGmefGV2y4fym6e4YZu4B
+	 GniHNe1ziCHRA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C5E404991F;
-	Fri, 20 Nov 2026 15:52:32 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id B7CA84990F;
+	Fri, 20 Nov 2026 15:52:37 +0000 (UTC)
 From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Date: Fri, 20 Nov 2026 21:22:33 +0530
-Subject: [PATCH v2 2/2] clk: qcom: gpucc-kaanapali: Add support for Molokai
+Subject: [PATCH v2 0/2] drm/msm/adreno: Add Adreno 829 support
+Date: Fri, 20 Nov 2026 21:22:36 +0530
+Message-Id: <20261120-molokai-a829-v2-0-c63c268d5ab3@yahoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,119 +84,103 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261120-molokai-gpucc-v2-2-e84a0869693f@yahoo.com>
-References: <20261120-molokai-gpucc-v2-0-e84a0869693f@yahoo.com>
-In-Reply-To: <20261120-molokai-gpucc-v2-0-e84a0869693f@yahoo.com>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU2nCKGuuIdh0dYio8KYFomE9
+ O4Crl2+5P33F4g+kI9wzhYIfqJIPKygDhm4zgw3L+i6MiipSkQsRc9PfhgSplJaaGerQupcojr
+ BOnkF39Jnz12aH8e3vXs3bo3N6CiOHOb9b8LN+5OeUEjR2lzKwrZGK6xn0zEfHffQpJS+wF/h0
+ roAAAA=
+X-Change-ID: 20261116-molokai-a829-9cb850930124
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
  Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795189951; l=2918;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795189956; l=2690;
  i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=E77h2g7w1A4rr/zrVjYooX8Uzt6Yb6EK+PXIb7U1yDI=;
- b=d2NhP4nt2He+fcf2+mMfjwFvw+db0JmJM1uuQwUHDnuQep/Zx+cJaTtBjxI+z7XOckC9esrrp
- u1YF/Ytvv9CDh6z2VfsR24GItiVChESdpWDt2XKDvocDVZTNepfSqFX
+ bh=SB/YDmRW4o+ak+TUitU4f8OfQWSywzEFHMWLx5BFo1k=;
+ b=U7ZmEKfGozpKWW24mLPOggF8CqlEbLJAPr+rt8kJzl7znAgPmdcrQZYW6/DNlOfTMWMp+Eu3N
+ IALFg1qThDIBiNMCxvW4tjoaVzVX26aaZIPQUS9pJ3N+kXDM0TSQjOU
 X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
  pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
 X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
  with auth_id=1303
 X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 Reply-To: venkat.yadlapati@yahoo.com
-Content-Transfer-Encoding: 7bit
 
-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+The Qualcomm Molokai (SM8845) SoC has an Adreno 829 (gen8_9_0), a two
+slice variant of the Adreno 840 with a smaller GMEM, its own firmware and
+a smaller preemption record. This documents its GMU and adds it to the
+a8xx catalog.
 
-The graphics clock controller of Molokai (SM8845) is the Kaanapali one,
-except for the PLL0 CONFIG_CTL_HI value and the CX accu shift, DPM and
-MEMNOC GFX branch clocks, which sit one register further. Handle it in
-the Kaanapali driver.
+On msm-next it needs "drm/msm/a6xx: Fall back to MX when GMxC has no
+levels" to boot, since the Molokai command DB lists gmxc.lvl without
+levels. The SoC devicetree is sent separately in "Add support for the
+Qualcomm Molokai (SM8845) and the Motorola Signature".
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Tested on the Motorola Signature with the gen80900 firmware: the GPU
+boots and Phosh renders on it with freedreno (Mesa needs the msm chip id
+0xffff44030a20 added to its A829 entry, which only has the KGSL one).
+
+I used an LLM (Claude) to help write these patches and their commit
+messages. I reviewed all of them and tested the result on the device.
+
 ---
- drivers/clk/qcom/Kconfig           |  3 ++-
- drivers/clk/qcom/gpucc-kaanapali.c | 25 +++++++++++++++++++++++++
- 2 files changed, 27 insertions(+), 1 deletion(-)
+Changes in v2:
+- Drop the Assisted-by trailers and the LLM notes from the commit
+  messages, the LLM use is stated in this cover letter.
+- Explain in the commit message why the A840 CLX and limits tables
+  are not reused.
+- Link to v1: https://patch.msgid.link/20261116-molokai-a829-v1-0-fb3005bfa921@yahoo.com
 
-diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
-index e6c58e8b1849..5d4db3264c5a 100644
---- a/drivers/clk/qcom/Kconfig
-+++ b/drivers/clk/qcom/Kconfig
-@@ -200,7 +200,8 @@ config CLK_KAANAPALI_GPUCC
- 	select CLK_KAANAPALI_GCC
- 	default m if ARCH_QCOM
- 	help
--	  Support for the graphics clock controller on Kaanapali devices.
-+	  Support for the graphics clock controller on Kaanapali and Molokai
-+	  devices.
- 	  Say Y if you want to support graphics controller devices and
- 	  functionality such as 3D graphics.
- 
-diff --git a/drivers/clk/qcom/gpucc-kaanapali.c b/drivers/clk/qcom/gpucc-kaanapali.c
-index f75f2caa2205..ea30a9e07a83 100644
---- a/drivers/clk/qcom/gpucc-kaanapali.c
-+++ b/drivers/clk/qcom/gpucc-kaanapali.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/clk-provider.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- 
-@@ -52,6 +53,18 @@ static const struct alpha_pll_config gpu_cc_pll0_config = {
- 	.user_ctl_hi_val = 0x00000002,
- };
- 
-+/* Molokai needs a different PLL0 configuration */
-+static const struct alpha_pll_config molokai_gpu_cc_pll0_config = {
-+	.l = 0x31,
-+	.cal_l = 0x48,
-+	.alpha = 0x7aaa,
-+	.config_ctl_val = 0x25c400e7,
-+	.config_ctl_hi_val = 0x0a8060e0,
-+	.config_ctl_hi1_val = 0xf51dea20,
-+	.user_ctl_val = 0x00000408,
-+	.user_ctl_hi_val = 0x00000002,
-+};
-+
- static struct clk_alpha_pll gpu_cc_pll0 = {
- 	.offset = 0x0,
- 	.config = &gpu_cc_pll0_config,
-@@ -457,12 +470,24 @@ static const struct qcom_cc_desc gpu_cc_kaanapali_desc = {
- 
- static const struct of_device_id gpu_cc_kaanapali_match_table[] = {
- 	{ .compatible = "qcom,kaanapali-gpucc" },
-+	{ .compatible = "qcom,molokai-gpucc" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, gpu_cc_kaanapali_match_table);
- 
- static int gpu_cc_kaanapali_probe(struct platform_device *pdev)
- {
-+	if (of_device_is_compatible(pdev->dev.of_node, "qcom,molokai-gpucc")) {
-+		gpu_cc_pll0.config = &molokai_gpu_cc_pll0_config;
-+
-+		gpu_cc_cx_accu_shift_clk.halt_reg = 0x9108;
-+		gpu_cc_cx_accu_shift_clk.clkr.enable_reg = 0x9108;
-+		gpu_cc_dpm_clk.halt_reg = 0x910c;
-+		gpu_cc_dpm_clk.clkr.enable_reg = 0x910c;
-+		gpu_cc_memnoc_gfx_clk.halt_reg = 0x90f0;
-+		gpu_cc_memnoc_gfx_clk.clkr.enable_reg = 0x90f0;
-+	}
-+
- 	return qcom_cc_probe(pdev, &gpu_cc_kaanapali_desc);
- }
- 
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: Sean Paul <sean@poorly.run>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
--- 
-2.56.1
+---
+Venkat Yadlapati (2):
+      dt-bindings: display/msm/gmu: Document Adreno 829 GMU
+      drm/msm/adreno: Add Adreno 829 support
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |   4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   3 +-
+ drivers/gpu/drm/msm/adreno/a8xx_catalog.c          | 100 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   5 ++
+ 4 files changed, 110 insertions(+), 2 deletions(-)
+---
+base-commit: d024361c631b3f020a26c07d683e5103404b0fbf
+change-id: 20261116-molokai-a829-9cb850930124
+
+Best regards,
+--  
+Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 
 
