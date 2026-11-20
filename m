@@ -1,91 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795185887;
-	b=MlGxSLGsDGcfWOv9lI+egbtgVkI8hr+sxVCw3/u1iUMh8HVvRe5+DI12RVBbDJ77qdfE
-	 MX9sBy1InhiJiA4DsS48Ynrg5e0rjCfq7NOG41/FPKTvQpn/DuRaDiTjak47f2tqY/5rQ
-	 g6y/Kt0UdU1sfs5XET9/D9S7vBG1s+EfCGg78i+/hW/h1WJ4ktpIGmjnUdr+JPUun19j7
-	 5gcYa3IAsZ1811EphlxvT/X9A8e8uFGmYKJZ/d46JO3QNTpcBMZejjH6hzkybnRGur26u
-	 m9l21ycFU83aVF46HDC9wMk75CoAk1NBG/Ntphy0CNWORu38csFW0y0T8+w0/rD5sRA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795185887;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=qrjAzrJhYf5vZy8hlxQ3Jg1AthP7/RFbyFylGoaLKws=;
-	b=BC40Y54fn4EZ05+pccqqZH+ZDoiHmKdIoMrMaQmnpoCWdLIm57D9AK2ezhHHAzvAkbrZ
-	 JlLps8abqaMugqFpeIHFL+qRvwBFK91vwb8WoZAI0Hd2fnd1BiA07tZDG61kU60PlY5RZ
-	 oj6xL3EniC7Ns44+NRIIAEoKycxmnwGf3cDcn9E4abP2KhFxpa0EiLTvb2KngaSPawJOK
-	 5ZwcCBiu1vFRpptrPhVDHcAHCSB/uVYhC/XYjm6GgMBC35j1j4Jws5hSMBrUvQ1E73BxG
-	 FCGvfJTkgjoWsZUuUvhW5qm+jSO1yHVReEx4JX2hI5W9X9yySUFE+CrFZEyLenvBROQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kNSwSrMQ;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795185925;
+	b=XUL07eYX1vuaByIm3ymrYbeBU/T+7JvvgWoYznyjEC2+Vb/b2xJ3mQzw2Sj0YSGdC2gW
+	 0XjmH8Swl+S5D6tXm12uYKg9IoGmKoXzpC9odyOkaxrAUxSusAEjQqn67iZE6lE0s66m9
+	 /A1W1OJbaI9eXd92VyRvw99bHZ+mf9RagwZ+w/TO8gMKbSyuN4k6zSZia0MHWO/3B66UH
+	 NjYOENJxnUZLleNEsH6qRLDqs1r1aWo+iwoJpVNFaO9wUlnuQ9MFgUTG8ZfQ0R31Jj81Z
+	 R+K2OP2C/sohAqiWSqEuFMZADpgqKzowOU1erJJLW+yXoAwpDBcClK6yOElin88sygg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795185925;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=OM7YsIV/hvTviymzlQvqiY7ZSEwp78sZGDcRYlQvLWQ=;
+	b=Plm4cadjeF4ZEpoB7SMX39Km6AZtC0/Omhidv65sFaDa37vMQPvMcvrm+2F/dsifyZQN
+	 7ANqUAf4+RZNoJpvTmHoeXHfo2XigChiXJC5x9B8rxW4OUhmfOqdgQeGDBVChTSa09gtz
+	 pU7mgZf1THi4v0WRmgrCTOj4JEON93xCFD7I0YtVK1sjJBROsxTrktatdWjCwjbD6D+Vq
+	 Q7dcarfiY2mMGp9Bz3M2JduXVZm6ZwmrX8g7EQf/RS4KCGFZXlSLEOsFnqFzkFnNpeedo
+	 crQZ2+lloPdZYFXYJEBxZs2XUX5Xo72batgSFHL4vOEvXxtUUScDjSOeRmJRbKKFewA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f633lngd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C9C606A333;
-	Fri, 20 Nov 2026 14:44:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6C9C606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51282606A32A
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 14:45:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51282606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kNSwSrMQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795185887; x=1826721887;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=v8Hyluy4b5QjlOZwYbrn8VRWZYbKc/XDtN64J/0x8LQ=;
-  b=kNSwSrMQLP53nHX9So5xg1rEFowgYECmTPTPDVtosSRz81YQ1LRNhEIm
-   C99OHUMXxKUWqGcfyfj/64VUTV0WvWCOg9cMH+G/ZMd34rXTu2YVfs6Kt
-   RJ37sQWpkEMgJGbxlaciaXKlnFIYYBJu5+vkr6qX5ImcGSiS+7VtSe1cg
-   em08Y6M/7HqDkt1U6f2ET4LrDHVcq3CdrAtt8/26qPIrJ39iDHGbDXpWz
-   h0mJF3M/kfq6OK7ShM60OG+pKXoxkrJHjSXiDTwcV5xcnQQmBG1b8QwzJ
-   8mwaNcJCaudCLSRuXgxtznhjvIRgcX4oJBTdSYteflgCtqNI/1egAPRql
-   g==;
-X-CSE-ConnectionGUID: 5ZXkItcnRNCr2bGvUfYu9Q==
-X-CSE-MsgGUID: 1ZaOiUslQ5aOGZbW1O/phQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4053642"
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4053642"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 06:44:46 -0800
-X-CSE-ConnectionGUID: qWW3kSylTN2dCXICmpoQKA==
-X-CSE-MsgGUID: EpxpNGQLSAS1hUO5cWU2XA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="10598823"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.218])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 06:44:40 -0800
-Date: Fri, 20 Nov 2026 16:44:38 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Radu Sabau <radu.sabau@analog.com>,
-	Janani Sunil <janani.sunil@analog.com>,
-	Salih Erim <salih.erim@amd.com>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] iio: adc: rohm-bd79112: Support ROHM BD79111
-Message-ID: <awBc1qFMhydEXo69@ashevche-desk.local>
-References: <cover.1795176984.git.mazziesaccount@gmail.com>
- <4be17e339f768da93db2f42abd3cc5a21fea01ad.1795176984.git.mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f633lngd
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so11394945e9.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 06:45:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795185923; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qWTb6lvFaP9zs7yjFq0DxPhydrbCVy2CJ2BXXJbq2kOLqtd1gtcglaA5UsiM9jNe/m
+         hqznf/6AULv4whMbckq2Fq640q0iaNNvSWvNBkVTNmDNZ5OTo8uiuVeWrtQ/y/zfzmOK
+         AyVHCsFuj/ISflu1/Drmr/cL93PO/8eClsXFn8ATHQftL73GqNeMR0bIXt84FKvNONLd
+         37UvstNS8I4jJAW/JGOM/GiHW8AQRvPmAoifqMMOB1xvFlxwJ2Te7tBEsDjvVGQwi0n3
+         w06qjfrgu6zLUKivmb4xn+4KxP8de1I4bzI2QYArTVuYcBr9mETm/CZ68UYHX7DqP/JP
+         cIUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OM7YsIV/hvTviymzlQvqiY7ZSEwp78sZGDcRYlQvLWQ=;
+        fh=TWnvUSkVtUoKNdpuWrbgD4f/p6l2GvlqiJMC8qsFRkk=;
+        b=AZ35yVulVY+GFeqlT6NDqRGfXRhf7rcNg81teyqUOGgXW5gtrTzndCdaC2CoCcdGfc
+         pLSaXzm5Te9W/M/qphjRy0P2sCvssIznP65j/dTjr8cVVCIqCzTswH7Gae4KMT1XcSrS
+         rYl2EeHHSThw8vZiPXDNGPxVKSgcYP0cXyFHq6zJa4v9IACSE4qVPLuSxrbAAA1k3GuU
+         KaywQpOdiYbzVi8pM1LH1sqQuczC+G4CFkgvnSgtK7NRwAonkkWMKNBc6qNPg9YsXwCV
+         IPsiF744MfT5oxliGOgvyJVd3g1tH69iMJzskvNvmSii0+RoJf4RIseH2rdLprRLflQp
+         Ndxg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795185923; x=1795790723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OM7YsIV/hvTviymzlQvqiY7ZSEwp78sZGDcRYlQvLWQ=;
+        b=f633lngdGyeQgB25tTiMalyiPph+6hN8WmbHgECT82SJswThbaePLCy4l4EPftPtIp
+         PKShHiUnceLJ8YtKkiJ9WD4HOohsmUPru2Rk54Jp7v+h+lt0sXRUB2JmL+vGrnho9nNL
+         iNvOIx3kaDiNtxVzZSBikjptHRr4HrX4686RYbGwj4IMuKoAKLuUfOqJAi8gSRPaPPW8
+         BMOEIsSuJsOCSRF04JxQaO5ZeWJ6yMpC3+5AFtTLpXCYCXRwHkR2Kh9vOi95U2BEzdFO
+         6gFFqoSY53nH/uARMgEdZ9SRE2KvMbI/pXAxGuLZuo5Spmz6F1berC8LPUD2OBeVwLrd
+         2gCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795185923; x=1795790723;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OM7YsIV/hvTviymzlQvqiY7ZSEwp78sZGDcRYlQvLWQ=;
+        b=rBRg4YePq7rjlm1SePXIzfNsEwTR0/H7Pnx/rm06JP1qeWcFUYrtel8nBYjRy0ISP3
+         3TPnrQO+PYWLl6Zi6ch6wVefm0po7WX9Iph0SiEhpsBrTWFK2zIKg1S8dHj3rxYCo37C
+         3II0PmJXCDZfO3tp7Sxbxj83DnXMkef0a9qKk0gxFdsrP7HDTzSk4t6VbxVPN45RWSs3
+         12UKhAPil69gNW1YxghosneoDnb91P2GUBtdefQB0hxqeSviodOcfuWYJylBt7LiFy56
+         I5rvGWZdF8uUxGkuxoy3ftDrXx3K5NbEuPwGgsLxyAR00UKcSKUdH/C94HrnBIwFB6I1
+         YbeQ==
+X-Forwarded-Encrypted: i=1; AL+hErEjXgN5AXkERLsK+YkQtAzO3/lNKANxCOVVWXTaqlWuEnklJT/+7e2cEqxU9Q7N9l1AtMkk88rYCXwH@vger.kernel.org
+X-Gm-Message-State: APuU4Z/q1TkbQemzzIzpzG2TYGCS9cB5eZcwHkyiwNIIM9PEB/cHrXWS
+	SEQatJ86PFR2O1TuQJXKpRgSteFtfxRBbduRvaEhLM3kw9itJ7+wN5aYqx84HZ5go5qVrpdY2sv
+	b12jglHD52hQ0ej6zVwuhMRKLkpulZMs=
+X-Gm-Gg: AYBFou1KcrzDWTWQWvov1rMMygW1B42FSZUojS6k4dyl7SDdzqCatsEnQQ9P+Mi6ZyW
+	cMT/QswGnFDLHR+oiIT0gobSUceKNkttnoqBcT5LfquZydeqCvAxLUhQ63hEPS2w2mh/8llTZID
+	61X8de/m3BHAayCNe0qIrgengDqzvVdsVwbanZLSrzG6NJWHRCIwnhjHl9X0qLosSZj7EIAeBWT
+	3+vkZVOVfnZLaPeUPZkhr29UfnPVDOTdfQwcLt5O00XHPBcdU5jBeTki90lLXj11CcGLFVHafol
+	ZSCJrThmxM/8z5+SkQLI/ddAkm/WXMGwPOnejY/L1FntiVbpMqMj4Cxm0Pfl9SFdwwY/YsBo8P0
+	r1U55qQKIGEqdOwgmYq+aBbuwsRnca4EtmfWmhJPP/h35AZFXGePglYcmAnykSKApd1XEXO0mls
+	EiKulBJIAA1W4NnLZ3WDzNUahkqwgRrAXYuKn3iYL1xYkidyTxW6GPsaEmw47RGqyOvVCAH2Ann
+	dTLPLnlwmgyTJ04vhwa
+X-Received: by 2002:a05:600c:848a:b0:4a2:1960:6fa with SMTP id
+ 5b1f17b1804b1-4bb887fb678mr70511175e9.4.1795185923328; Fri, 20 Nov 2026
+ 06:45:23 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,56 +106,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4be17e339f768da93db2f42abd3cc5a21fea01ad.1795176984.git.mazziesaccount@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20261119191426.54709f08@kernel.org>
+In-Reply-To: <20261119191426.54709f08@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 20 Nov 2026 14:44:56 +0000
+X-Gm-Features: Aa3M54pSOd6vTx4q0dKEkhbWmYi38SveFg9iQJwARff5g85g_o0F_47BDGOOQQk
+Message-ID: <CA+V-a8vB25ypt5693HqdaRMefWUu5Dea52xY156jTT6roQ=q3g@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 00/24] Add ETHSW support for Renesas RZ/T2H
+ and RZ/N2H SoCs
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@linux.dev>, 
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Simon Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Florian Fainelli <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>, 
+	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 20, 2026 at 02:28:28PM +0200, Matti Vaittinen wrote:
-> 
-> ROHM BD79111 is very similar to the BD79112. Both are ADC/GPIO devices,
-> where pins can be configured to be either used as GPIO or ADC inputs.
-> ADCs are 12-bit SAR ADCs and GPIOs support input/output but not being IRQ
-> sources.
-> 
-> The main difference is amount of channels/GPIOs. The BD79112 has 32 pins
-> for this use, the BD79111 has 16. Furthermore, the BD79111 data-sheet
-> promises 0.5 MSPS sample rate with maximum of 10 MHz SPI clock,  whereas
-> the BD79112 data-sheet mentioned 1MSPS rate with maximum of 20 MHz SPI
-> clock.
+Hi Jakub,
 
-...
+On Fri, Nov 20, 2026 at 3:14=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wr=
+ote:
+>
+> On Fri, 20 Nov 2026 00:25:10 +0000 Prabhakar wrote:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> The max series size in netdev is 15 patches:
+>
+> Quoting documentation:
+>
+>   tl;dr
+>   -----
+>
+>    - designate your patch to a tree - ``[PATCH net]`` or ``[PATCH net-nex=
+t]``
+>    - for fixes the ``Fixes:`` tag is required, regardless of the tree
+>    - don't post large series (> 15 patches), break them up
+>    - don't repost your patches within one 24h period
+>    - reverse xmas tree
+>
+> See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#=
+tl-dr
+>
+Thank you for the pointer; I'll make a note of it.
 
->  - Return -ENODATA instead of -ENODEV when SPI match data is not
->    available.
+Cheers,
+Prabhakar
 
-I guess you were distracted by something, the error code is now introduced in
-the very previous patch, fix it there.
-
-...
-
-> -	tristate "Rohm BD79112 ADC driver"
-> +	tristate "ADC/GPIO Driver for ROHM BD79112 et al."
-
-> - * ROHM ADC driver for BD79112 signal monitoring hub.
-> + * ROHM ADC/GPIO driver for BD79112 and similar signal monitoring hubs.
-
-Can this text be modified to be closer to the other two?
-Something like:
-
- * ADC/GPIO Driver for ROHM BD79112 and similar signal monitoring hubs.
-
-> -MODULE_DESCRIPTION("Driver for ROHM BD79112 ADC/GPIO");
-> +MODULE_DESCRIPTION("ADC/GPIO Driver for ROHM BD79112 et al.");
-
-...
-
-Otherwise LGTM,
-Reviewed-by; Andy Shevchenko <andriy.shevchenko@intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> Looks like CI has already wasted time processing this, so we'll let it
+> finish, but if you break this rule again you will get banned from the
+> list for 3 months.
