@@ -1,92 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795182859;
-	b=ijt16uSDUvb2QmBLzVLd6Sj5ymGtnAnjM2XpEnsmW9Pm4NvTvw26sfdKp/sid4xJC+1t
-	 0yZpXNYRqx6llrQB4l1d+r7rDkZuYri9ja3VI4Qh7OowybfmIXNOqRnzq3eFpqRZfQr0B
-	 yQ8vZyvBuwl+8N4zU6xcDUWcAILgJpB91Hj92LoVFMSt4Y8wFbIa65TXiZQQolsHp4r6G
-	 h1lh0QxwV21yoxuUmZTIczE8kmjTjaBrOnEPQAEiPOTLUCgI8RkDOyTHbjVhTz0vkVney
-	 2P2sb1e8yfLbzmmeScCXkzyGYr2Idij7/3BrUrGbuPTJ7/h1JJLi1sV//7Kn+Hfg2/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795182859;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=y4gUhOHZ5Dg/eVpejUL/iLgyeedE8wBdB818/Yz+Gac=;
-	b=PYDZGF+CI9f66JkOlNyeNNLY35K8rZUJygJhkPM4egU0rTbGq2sha7JekwQ8VIe1Mir/
-	 AMq1u9j9YtjPbdV2TPAPxriJtpLKFhjKOAeQc3o2p1OoEG0t/OBYA7rgRAILZR9B57mTB
-	 /WAtv4Q5/Lz83VV+0J5/WVwQEeWrgR3Gmz10dFucaHiiC49gYVg/faTTepj/xRykYkOHN
-	 RInP6OUCb2+9y0Nulrnt4ZMZdZoNNT8gS4iozcRmAaKRxPQJFAfBGP+j5knXKaBbec9nN
-	 2A2QBRO44+T60J8rj3NcGe/YDE4tUIE7qKPvAKo7DFEtMVUGyF52t9yHOXZt71Hlccg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AGjG0qqK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795182980;
+	b=PSJITi+GX7iLnAxyNqlgZKAKEHoV+KH/4DO+QyETCMxgTNGUA/IplPQW/qjTQmK0LToQ
+	 Kpyrt9sNFZtOaOxpaR7ASGcaHDU7w9qR9VIKbzv9b1yZtxfD0JlMooSBJ/O9/hwjQ0Zuv
+	 9MJNmQl3ES46I3P48SDbmFxh+zwSHNCwlNWSl8WB3O4TvUYMjh9XQgr+KuqWbCifCq9wz
+	 /+EFvTrjrs+SuuxFSGC/1n8NQHZIBYTP0CEKGGFtNwbawhfGM8KHssq9M5PBq9B1Zof21
+	 EReJ1w3hj9DnrG81HPuORxeT1aMJ66GXorbNOXb77SgGWw2R/u5ZbQDHhZ+Up/WBEsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795182980;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=zF42Mi5y8Ib0X4sHCH0GaZJRw3qLxhz9wgJMlHfgL9E=;
+	b=FeFSn2zL+14k1F1zJp9feUIm2cJfzsrD0NFLmJxqrR1aCV4S22bLigpaXmquujdPgMqK
+	 aP1mA7hCe08qhMqttK54invqJ+i4hgfStvydOlzdTj0WDKQg9UPXqhXSYQ52tSSJNfZpp
+	 9qBuzh5roUgfqFrvKW5EoBdiDiQoZ6PxaG45BwkkJjzT23C3B7RIkgoxBSqE9T+TXtOoe
+	 jajqIV7g3oEIXs+ytEuFCC1+cAOyrujmFs82kh4EznEIutTMR8xepRkBEpVCbNrGVlNC0
+	 Z41ajUf7pM4RcukLFYzCtYcBYtHKrNCeHzUWmCqlyaCA81AgDPOoIEgRc08t0H1jBBQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mmByupct;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F200E606A325;
-	Fri, 20 Nov 2026 13:54:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F200E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC61860A380F;
+	Fri, 20 Nov 2026 13:56:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AGjG0qqK
-Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 04D5C205B37;
-	Fri, 20 Nov 2026 14:54:16 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795182856;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y4gUhOHZ5Dg/eVpejUL/iLgyeedE8wBdB818/Yz+Gac=;
-	b=AGjG0qqKX/dnRRDclRFEwp9LrG0BIGja6B5bhxSSGDDqOPb5yA8hC9qMxHo4g+DXTECZwD
-	IYaN68X/1Azmdy82gHGmFZ5GW81u8JMFFRRU9uV5dqM/N6OG/x+uc1xF3zJd7xuaRIJdGU
-	DOl44ccwdw/MMDmM60XV3/hV72DcNinIAn8a14Iqzwee2NoGw1AK1N4VcFQ0UHAgZR/ldN
-	lLM2EpqDyDz0vmuofAhepsk+ctEuSBSS8zemeftHb0V1er0rxRC/eGH25RQxgS1oBiP791
-	Tj89HipKsku7LiYfWPecDrRmzZ4sz+mnqChbpOjB24+K2e/VnIN+6RG/T5p33w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795182856;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y4gUhOHZ5Dg/eVpejUL/iLgyeedE8wBdB818/Yz+Gac=;
-	b=Mfe3EvlI8G6xPOHWf8h2x/WMkjBzJv+9Soql10ONZZokf8gJT78snxc2o7ZQMZQnFYrY/D
-	wJqKYMd4en+axLquesgQqClWLOWMdl8b3bVJUncFSS2BvamlX2RgjapkPBMnUAQdZY/ne9
-	fE/NyJdD3IwRvVv+v4Y05ti3k2S7MZZ5XZWRyqxlTMpPhJ3avcKoOkZIWUfTGoM+reDmfS
-	P+UzSZFW97SIxsqwmFHjvdV/S+HjIraANeegTzQ6drkPK4fQEkWxtELHXeRaM/+mQdlcUg
-	sRuUAmcchX+pOW/K9nw8YwHUqqukp2n5oh8FwDiqiQVms2VkpPbMTdEWSS6ARg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795182856; a=rsa-sha256;
-	cv=none;
-	b=G50iDqclBwQIZOWXrSdW7zR+j/nX6mLkHD8Qk5r0W79Gg3wVsvVp7z1bSLZqjKt7DZZc7Y
-	1V+/ZnBTI7wprK2F7feR7hUaqh1k9K0SlI13gMBRRDb36Gz76OwxmQsZ/8X0ejXNbp3wNt
-	s5O6W45XlBvPPtiacPbuBo3UbJNo/6v4q1ydZUDVNCBa6nlAbQLg6jq4XRpuRWN8TT66Fm
-	wp0jVvBGZyQseEVX6ALeuWGSwoKiBrcvajQI56/Now9Eu4OVmEhZu7xwoXc8Ar2jgXyrbi
-	behoYLWmgMaUNr/SBC+0BsllffVVHV4tW77uvrH+fKeKXQpY56PMpLAoc7t0tQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-Message-ID: <028df402-a8df-4084-a4bc-7eca286a0c35@pengutronix.de>
-From: "Sascha Hauer" <s.hauer@pengutronix.de>
-Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
-To: "Sergei Khomenkov" <shomenkow@gmail.com>
-Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Lucas Sinn" <lucas.sinn@wolfvision.net>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, "Philipp Zabel" <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <92CE2271-6485-4B33-AF75-480F9BD56980@gmail.com>
-References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
- <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
- <596F6C9E-4A5D-4AE8-8D26-7A7247050D7D@gmail.com>
- <85353f59-52a0-446d-ace3-65e2d03d0d0b@pengutronix.de>
- <92CE2271-6485-4B33-AF75-480F9BD56980@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 13:54:15 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mmByupct
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1A0A1F00ACF;
+	Fri, 20 Nov 2026 13:56:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795182979;
+	bh=zF42Mi5y8Ib0X4sHCH0GaZJRw3qLxhz9wgJMlHfgL9E=;
+	h=From:Subject:Date:To:Cc;
+	b=mmByupctFo9HTSIllwteEG9JbCq5ZTKBNwT/RVCi5r6LltM42qjnk1hFVvM9qZapB
+	 zzyXVf/pk70xWbkMs2WZi8/KbXvxZZXeefgKbumN6SqOP/lqaeC8xbLDr+b2XAUEqy
+	 /xUc57cJJCOfFT9BKhcuKtVWWJdH36W06LH8eIEMFeyozeK2MZGQvjoyBj4Eq5XXpZ
+	 ZQDJT+KQPv+NMQtBPkL9Prj97QgEgO/H55AloW2CaaWmceVJbVR6wBqYaOv9/t/Hki
+	 ySnJdJ8kzNtZb0K0zqLn98KB4r1JoVHIREYfSgXclgJpC90oGVtiydIvJb9rVCmPKm
+	 xH0yFxvJ6KwsQ==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: [PATCH v5 0/2] Add support for SA8255P in the
+ phy-qcom-snps-femto-v2 phy driver
+Date: Fri, 20 Nov 2026 14:56:03 +0100
+Message-Id: <20261120-phy-qcom-snps-femto-v2-8255-v5-0-86a9880ee5a5@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,47 +53,135 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Qy2rDMBAF0F8JWneKNHrYzqr/EbKw7FGstrFcy
+ RUNwf9eOS19EPDywuVcZq4sUfSU2H53ZZGyTz6MJeiHHeuGdjwR+L5khhwNr7CBabjAWxfOkMY
+ pgaPzHCAj1Kg1NNw5qkylOBesCFMk5z9u+uH4ldO7faZuXsm1Mfg0h3i5zWex9r6XJN9cygI41
+ La2TguuW1M/vVAc6fUxxBNbpzL+YrUU2xgWrO+MaCrnehL2DpM/mOActzFZMKlQK7R9Yztzh6k
+ /GFbbmFrPLP9EWXJr5D9sWZZPJeEkWMABAAA=
+X-Change-ID: 20260729-phy-qcom-snps-femto-v2-8255-90ffe7674001
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+ Sriram Dash <quic_sriramd@quicinc.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4187;
+ i=mkorpershoek@kernel.org; h=from:subject:message-id;
+ bh=jZrp9wHdk2cj+vXmr5WjanzvROeJV+DE0ZhEYl72FmA=;
+ b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBrAFGA10fCOQaYHF42xNAxYqyPZpKSbWpcDkaC1
+ PGFnPe9sweJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCawBRgAAKCRAZDR20Zk4Z
+ NfptCACDIi2reevB1Uv+IEOMSOlQvy2z2QugJbB7Oj1lnMbiruEE055T8QlNxcf4xewYHAajdKI
+ +9nxGADlW5obBWyto7vxXUl8IKdloQG5Vt2tUQseDCQEf1G3wLiGOYbDDHrB4H9Pc2Jl2YaYLq+
+ QGM3dKThQsOZ1lQggQqsyqaN8lzje0Kiqe/8e9AwOA2b/6iEjOB/JQz/EikLSP/pkbCsvraZG3Q
+ HjgKbIimI1rUBstodaATYj4q9q5IACtI9NuzcN8Jg8tvd/ILr+pTaO/88aqIFGHa3ARjLR/zDZ8
+ Mkbu7Ul4kVzYlvrCDyyk+YKQqLjf+Eydc0hHub+e5P6To4NB
+X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
+ fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
 
-Hi Sergei,
+The Qualcomm automotive SA8255p SoC abstracts resources such as resets,
+clocks and regulators in firmware. The SCMI firmware exposes multiple
+protocols to control such resources which are identified by protocol_id.
 
-On 2026-11-19 22:19, Sergei Khomenkov wrote:
-> Hi Sascha,
->=20
-> On 2026-11-18 14:27, Sascha Hauer wrote:
-> > I haven't been affected by this issue lately, but saw it when the series
-> > was still based on the hantro driver. Yes, I'll change to 3 bytes per
-> > pixel next round and make that the floor of sizeimage. Would be nice to
-> > have a proper solution for this rather than either wasting tons of
-> > memory or risk having too small buffers.
->=20
-> Thanks. A correction to my last mail: 3 bytes per pixel is not a worst
-> case for 4:2:0, despite what tj3JPEGBufSize() suggests. Since then I
-> built 4:2:0 test patterns that push the quality 100 scan as far as I
-> could: libjpeg-turbo writes 3.35 bytes per pixel of scan data, byte
-> stuffing included, for one of them (640x480), and the Hantro H1
-> encoder on the RK3026 3.14. At quality 99 the largest I found was 3.08
-> (libjpeg-turbo) and 2.88 (H1). The patterns, 96x48 and 640x480 JPEGs,
-> the same frames as raw NV12 and a short script that makes them at any
-> size, are at https://homenkow.ru/kernel/vpu/
->=20
-> With the Annex K Huffman tables and 8-bit samples, a baseline 4:2:0
-> scan is at most about 3.3 bytes per pixel before byte stuffing and 4.9
-> after it, at quality 100 (lower qualities are smaller). Other tables
-> give a higher bound, and APPn/COM segments add any amount on top, so
-> for a decoder any fixed factor is a trade-off.
->=20
-> So 3 bytes per pixel covers what the H1 wrote up to quality 99 and most
-> of its quality 100 frames, but libjpeg-turbo goes over it from quality
-> 99 up. If that trade-off is fine for you, I have no objection; I only
-> would not call it the worst case in the commit message or a comment.
+For this USB phy, 2 SCMI protocols are exposed by the firmware:
+* power domain management protocol (protocol_id=0x11)
+* performance domain management protocol (protocol_id=0x13)
 
-Ok, I'll rephrase that.
+The power domain has 2 indices: 'core' and 'transfer'.
+* core controls the regulators, the clocks and the reset
+* transfer only controls the clocks
 
-Sascha
+For example, to power on/off the PHY, we should use the 'core' domain.
+To disable data transfer and keeping power enabled, we should use the
+'transfer' domain.
 
---
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Note: the performance domain (0x13) exposes opaques values (0xa to 0x11)
+for which we don't have any information. Since it is not mandatory
+for the PHY to be functional, we have omitted it from the bindings and
+the driver.
+
+Patch 1 adds the binding for sa8255p. Similarly to what has been done
+for I2C [1], this is a separate binding.
+
+Patch 2 adds the driver change, which is based on a public vendor
+patch from qualcomm [2].
+I did the following changes on top of that:
+* Use devm_add_action_or_reset() for dev_pm_domain_detach_list() instead
+  of implementing a driver .remove()
+* Changed power domain names to drop 'usb_' prefix
+* Fixed various error handling paths
+* Added suspend/resume support
+
+This has been tested on next-20261026 with a Ride4 SA8775P board that
+has SCMI firmware (which is compatible).
+
+[1] https://lore.kernel.org/all/20260617-enable-i2c-on-sa8255p-v7-1-ad736dbeab57@oss.qualcomm.com/
+[2] https://git.codelinaro.org/clo/le/meta-qti-auto-kernel/-/blob/LY.AU.0.1.0.r1-16800-gen4meta.0/recipes-kernel/linux/files/usb/0014-PENDING-phy-qcom-snps-femto-v2-Add-support-for-SA825.patch
+
+---
+Changes in v5:
+- Rebased on phy/next (non trivial conflicts due to IPQ9650 changes)
+- Moved fw_managed to phy_config_data
+- I have kept Mani's R-b on this since the patch still has similar
+  changes to v4.
+- Link to v4: https://patch.msgid.link/20261027-phy-qcom-snps-femto-v2-8255-v4-0-874023825a63@kernel.org
+
+Changes in v4:
+- Don't control regulator, clk and reset in SCMI path (Mani)
+- Rename helper functions to qcom_snps_pds_{enable,disable}_all and
+  qcom_snps_pd_{enable,disable}_transfer (Mani)
+- Add some more helper functions to keep probe() cleaner.
+- Dropped Neil's R-b due to the above driver changes
+- Link to v3: https://lore.kernel.org/r/20261002-phy-qcom-snps-femto-v2-8255-v3-0-342542bd9bc6@kernel.org
+
+Changes in v3:
+- Applied R-b from Krzysztof and Neil
+- Link to v2: https://patch.msgid.link/20260831-phy-qcom-snps-femto-v2-8255-v2-0-dc6197ffde1b@kernel.org
+
+Changes in v2:
+- Move 'core' as first domain, before 'transfer' (Krzysztof)
+- Reworded binding commit message to be more precise about the various
+  domains ('core', 'transfer' and 'perf') (Krzysztof)
+- Link to v1: https://patch.msgid.link/20260730-phy-qcom-snps-femto-v2-8255-v1-0-8b8bf5105a68@kernel.org
+
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Mattijs Korpershoek (1):
+      dt-bindings: phy: Add sa8255p high-speed USB PHY
+
+Sriram Dash (1):
+      phy: qcom-snps-femto-v2: Add support for SA8255P
+
+ .../bindings/phy/qcom,sa8255p-usb-hs-phy.yaml      |  52 ++++
+ drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c      | 261 +++++++++++++++++----
+ 2 files changed, 270 insertions(+), 43 deletions(-)
+---
+base-commit: 6bdfbe223ed4735073c299a6645ebd3faac3f51f
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git next
+change-id: 20260729-phy-qcom-snps-femto-v2-8255-90ffe7674001
+
+Best regards,
+--  
+Mattijs Korpershoek <mkorpershoek@kernel.org>
 
