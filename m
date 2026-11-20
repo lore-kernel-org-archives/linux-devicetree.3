@@ -1,60 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795188320;
-	b=nxZq2m+1EGk/5Q5h3/00fwYtEsD3YHuEhf1DDlw8o4Zvr4/XnT2KYsTl6LMcy+033ZX0
-	 cmEqNGsGOocHGpAIHkfnQhO3EWP2HmbXOetS2hNC7+rqc775d/RwosVaFALFr0qqiohUM
-	 sfBy4Se5JsCbWhMYBn2MWPESgNa4CYamDFyfH5kvom9d+hBBvcASW53FX9BxTmsP8dk40
-	 0b7Y9UFoJNVI4i+waeR2J1gqg6iyi8S8XmA1ifOZM0s9kyqaxXFbROPhWfqoSA8t6Qk3i
-	 utG6d24xGlkcqqwRUjm6HWB6nVCxVcf+6hH+7513PmiqbkARlqiLsNr/B50abR4fBrg==
+	t=1795188495;
+	b=XMvR8JS3YHCfehEcYzWoldY/jUftXfhav4zMGokYZuG7/Lbrjv1Xda2kPBglbk/Nly38
+	 mgovf5/etN9cMccgnbge2XnqVI3j+d8SK/eXI+oDfUxU81SeaYXJjKPLKBSdtZGr7Wcw2
+	 P9owDdU8kakAFRwcWL1Xm/m3tq5ijtMG70IrDslO0jlMYrGyUI7UVvE4e83QIpIg7ok4P
+	 BeBHcOpVUqb/xI7qppkqmQkQ22D0++1PISbhh6rl3oWqcl/s+ebKTlWsuQv410EP64qiE
+	 TE+N7APs3YD9O731sObkCd5H2ltG+LRIsyxAV0aDWxvj0lasa+GzdS/sFl7BGsTtsyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795188320;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eKJ9ZcgQ0plbbLKy1sHm+A6RarK2aCkoMQ/aWF15v1E=;
-	b=LSlSwHT1rjFL5RL1fCzhcCYdpzM1hDJnmPtRVuO05g5CNmGLuudELavLqGeWjnYPgzQ+
-	 2o0K/E59gkkcxBllkpXN7a5KUnQkiEchXEtrOsQBt+ESTBEtVGFGzQJfTZr4zfv8kXO6N
-	 v1L7kQqNOGwTUmYgQAJloLnm8imBIUwwM77DlG/oOmf2ItAQOMapH/SudclEeU+SA2eIW
-	 b30ce6XJJyjfb26VtOjge9tZBQ+0oSgu59gyHQOZUHMQ+1rHh8H9em3Ct0MtauaqddYro
-	 4K7zqy/HNe/kehmXHvDCXDDgT38hiumqsL53mdEqY888LVtXRBTuNaXHBwx7pwcIhTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795188495;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=WhaebfWiS1VXN82KLOZz1WCfzqv1TpGJKn70SfWk5W0=;
+	b=MfdWbXYCWWRKcgnTLEplaFUXxze4/e/7w/0KW0BbfEpRq6bgPOELS12qaB3DpwnWa8A5
+	 aO21z2MRYaH8Oei0jZyC/NrZzmS+p5j9V/EN11TvIZcWH8lScSA91yXK+FouZKm1NRCah
+	 In2Dn/IzvNYFz/d5Of78o3j2CQn06eG4IiTpFI9yrwcpu2O3oMfe7sRddYI4VHV+QM2Of
+	 6RXn6TAai/dSdEo0vG25IZbyp9CGChFNk4lfAXmYK0B+zQA14Xwb/t0EJnLrxhaLRF/86
+	 cwddAT59tCYhsRCKXfa0PGNI4ChY/EKsNvm7T6pjPbU1FqJdedhE02KICtpYFZKzNDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Cx5+lfmY;
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOgRSLhJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B6D606A32C
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:25:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B6D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C16606A32C;
+	Fri, 20 Nov 2026 15:28:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Cx5+lfmY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1795188316; x=1795447516;
-	bh=eKJ9ZcgQ0plbbLKy1sHm+A6RarK2aCkoMQ/aWF15v1E=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Cx5+lfmY3H3HHzU3oSP9Gmdupn0ufy4RXnGzCotVbRaw/Wkd9obS5Q31WRgT8nwdo
-	 4iojvZRMPNn+NKb1alK1fe0WCMvi03MIUwiYtecHcIEjQ3rjJ7nypfD+hYOlyw3ONL
-	 R3akvz2O8RyjVavHX0axaXUOlROBwRY3v1JOF9L2xx1MfJiBNlprdZAWfJNm/T+1nE
-	 KPKOdmMTGz6J6UcuM9vEvWBCV62+N33utpinKWl6jUlPiUCfkk/fs2fo27fHTWmNgY
-	 emSt/C8OUMnYq1zRwSuax+KZqiKf/EBhJMSbM+Foh7CbL0go3s4OVOfvYC228nwTF+
-	 Yjlymflx8YhAA==
-Date: Fri, 20 Nov 2026 15:25:09 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, Emfox Zhou <emfox@debian.org>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] fixup! media: i2c: Add ST VD55G0 global shutter sensor driver
-Message-ID: <20261120152501.82411-1-lsa.uz@pm.me>
-In-Reply-To: <awAyiCEXYnf2TJpC@kekkonen.localdomain>
-References: <20261114095815.74012-1-lsa.uz@pm.me> <20261114095815.74012-3-lsa.uz@pm.me> <awAyiCEXYnf2TJpC@kekkonen.localdomain>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 4e7aece7f2af07b9f6e04ea38619e4722249d7a0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOgRSLhJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEC141F000D2;
+	Fri, 20 Nov 2026 15:28:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795188495;
+	bh=WhaebfWiS1VXN82KLOZz1WCfzqv1TpGJKn70SfWk5W0=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=AOgRSLhJCbYeK6jNnplfLl2Kq5M6XrwmKNN8elkW6waXsIj4Ns+APjITnuDSHz1f6
+	 MneXC1ecOi0p8jjYAEUytXuGhLCXhhWYXIszLzRJbz9XoJquQN4WCXFB2qq0ukwS7r
+	 ONMUGW5gL7ytJVNJi1U7ss+sUo5Psq1cU1QZaJ1bY0bxv4GmNHEm53kUgECFSSgryy
+	 U8UGB/BqCgsHVJ4m/G34c98P6/WNUkwJoNSSFNmYpT+i/08ymOQJRWKc2uwhyau5Nz
+	 WOHIbv/5DDV556chd+EKs03BijdnbtRnyej7Lg1F3mVxWzmrntalhSPSq5/D9XlPGm
+	 JufJ+bFjoMTKA==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,212 +49,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 19/24] dt-bindings: spi: Add ZTE ZX family SPI flash
+ controller binding
+From: Mark Brown <broonie@kernel.org>
+To: Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, arnd@arndb.de, 
+ stefandoesinger@gmail.com, krzk@kernel.org, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261014072109.1759502-20-ghahramani.navid@gmail.com>
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
+ <20261014072109.1759502-20-ghahramani.navid@gmail.com>
+Date: Fri, 20 Nov 2026 15:28:09 +0000
+Message-Id: <179518848943.6016.16140133614242447239.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=639; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=IYVVL1WQpODtUTYbvZYUESLycirYOu+mnnmWexmbyOA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIZ0rlY9Wcybbq5QPAnY8wKptu/A6w+HGxp3W+b75qjy
+ r7uXvOOjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAExkWjnDP91f0bu//Y8I2iPl
+ F1cb9PuZ2t0Jp/zrX13co9q9k5khKIzhf5B6jljiedXMq76cz6f7/Jjs2sZ5OEjxirVwQOn0aP+
+ 7jAA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Sakari's review of v5 2/6:
-- name the test patterns as the manual describes them, in the words
-  other sensor drivers use;
-- keep the auto exposure cold start in the exposure controls' current
-  values, as vd55g1 does, rather than in a copy in the driver;
-- no runtime PM reference across probe: autosuspend is set up after
-  registration, and pm_runtime_idle() ends probe;
-- in remove, set the device suspended only when it was not.
-
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-Hi Sakari,
-
-The fixup for v5 2/6, as you suggested. 3/6 to 6/6 do not touch the file.
-
-- The test patterns are named after the manual's table, UM2829, in the
-  words vd55g1 and the CCS drivers use.
-- The cold start is the exposure controls' cur.val now. The first stream
-  after probe therefore starts from their defaults, 200 lines, where v5's
-  copy started from 50.
-- On the error path only pm_runtime_put_noidle() went:
-  pm_runtime_disable() and pm_runtime_set_suspended() stay, as in imx219,
-  since probe sets the device active. The autosuspend delay and
-  use_autosuspend() moved after registration too. With no reference
-  held, either call before it would suspend the sensor at once.
-
-Tested on the Surface Pro 11, on 7.4.0-rc1 with KASAN and lockdep:
-- probe powers the sensor off after registration, not before;
-- v4l2-compliance 46/46, capture at 59.14 fps;
-- in every stream the cold start registers equal the controls read
-  before it: the defaults after probe, then what the last stream left,
-  manual or auto;
-- each test pattern writes v5's PATGEN_CTRL value;
-- a failed registration, and unbind, leave the clock and supplies off
-  without a WARN.
-
-Sergey
-
-Tool use, per Documentation/process/generated-content.rst (Assisted-by
-tags in commits were dropped in 7.4-rc1):
-
-* My contributions to this series were prepared with Claude Code
-  (claude-opus-5-5); work by others in it is their own.
-* This replaces any Assisted-by tags in earlier versions.
-
- drivers/media/i2c/vd55g0.c | 65 ++++++++++++++++----------------------
- 1 file changed, 27 insertions(+), 38 deletions(-)
-
-diff --git a/drivers/media/i2c/vd55g0.c b/drivers/media/i2c/vd55g0.c
-index 99bfb05225d..dc1cf48bee6 100644
---- a/drivers/media/i2c/vd55g0.c
-+++ b/drivers/media/i2c/vd55g0.c
-@@ -726,13 +726,13 @@ static const struct vd55g0_patch vd55g0_patch_cut2 =
-=3D {
-=20
- static const char * const vd55g0_test_pattern_menu[] =3D {
- =09"Disabled",
--=09"Solid",
--=09"Colorbar",
--=09"Gradbar",
--=09"Hgrey",
--=09"Vgrey",
--=09"Dgrey",
--=09"PN28",
-+=09"Solid Colour",
-+=09"Vertical Colour Bars",
-+=09"Colour Bars With Fade to Grey",
-+=09"Horizontal Grey Scale",
-+=09"Vertical Grey Scale",
-+=09"Diagonal Grey Scale",
-+=09"Pseudo-random Noise (PN28)",
- };
-=20
- static const s64 vd55g0_ev_bias_menu[] =3D {
-@@ -863,12 +863,6 @@ struct vd55g0_dev {
- =09=09struct v4l2_ctrl *dgain_ctrl;
- =09};
- =09struct v4l2_ctrl *ae_lock_ctrl;
--=09/* What the last stream applied, for the next one to start from */
--=09struct {
--=09=09u16 expo;
--=09=09u16 digital_gain;
--=09=09u8 analog_gain;
--=09} cold_start;
- };
-=20
- static inline struct vd55g0_dev *to_vd55g0_dev(struct v4l2_subdev *sd)
-@@ -1161,16 +1155,20 @@ vd55g0_try_fmt(struct v4l2_mbus_framefmt *fmt)
- =09return mode;
- }
-=20
-+/* The auto exposure starts from the exposure controls' current values */
- static int vd55g0_apply_cold_start(struct vd55g0_dev *sensor)
- {
-+=09/* A range change under auto exposure did not clamp it */
-+=09u32 expo =3D min_t(s64, sensor->expo_ctrl->cur.val,
-+=09=09=09 sensor->expo_ctrl->maximum);
- =09int ret =3D 0;
-=20
--=09vd55g0_write(sensor, VD55G0_REG_AE_COLDSTART_COARSE_EXPOSURE,
--=09=09     sensor->cold_start.expo, &ret);
-+=09vd55g0_write(sensor, VD55G0_REG_AE_COLDSTART_COARSE_EXPOSURE, expo,
-+=09=09     &ret);
- =09vd55g0_write(sensor, VD55G0_REG_AE_COLDSTART_ANALOG_GAIN,
--=09=09     sensor->cold_start.analog_gain, &ret);
-+=09=09     sensor->again_ctrl->cur.val, &ret);
- =09vd55g0_write(sensor, VD55G0_REG_AE_COLDSTART_DIGITAL_GAIN,
--=09=09     sensor->cold_start.digital_gain, &ret);
-+=09=09     sensor->dgain_ctrl->cur.val, &ret);
-=20
- =09return ret;
- }
-@@ -1288,11 +1286,12 @@ static void vd55g0_save_exposure(struct vd55g0_dev =
-*sensor)
- =09/* On a read error, keep what the previous stream left */
- =09if (!vd55g0_read(sensor, VD55G0_REG_APPLIED_COARSE_EXPOSURE, &val,
- =09=09=09 NULL))
--=09=09sensor->cold_start.expo =3D val;
-+=09=09sensor->expo_ctrl->cur.val =3D min_t(u64, val,
-+=09=09=09=09=09=09   sensor->expo_ctrl->maximum);
- =09if (!vd55g0_read(sensor, VD55G0_REG_APPLIED_DIGITAL_GAIN, &val, NULL))
--=09=09sensor->cold_start.digital_gain =3D val;
-+=09=09sensor->dgain_ctrl->cur.val =3D val;
- =09if (!vd55g0_read(sensor, VD55G0_REG_APPLIED_ANALOG_GAIN, &val, NULL))
--=09=09sensor->cold_start.analog_gain =3D val;
-+=09=09sensor->again_ctrl->cur.val =3D val;
- }
-=20
- static void vd55g0_stream_disable(struct vd55g0_dev *sensor)
-@@ -1693,14 +1692,9 @@ static int vd55g0_g_volatile_ctrl(struct v4l2_ctrl *=
-ctrl)
- =09u64 expo, again, dgain;
- =09int ret =3D 0;
-=20
--=09/* Unpowered: the last stream's values, the next one's start */
--=09if (!pm_runtime_get_if_in_use(dev)) {
--=09=09sensor->expo_ctrl->val =3D min_t(u32, sensor->cold_start.expo,
--=09=09=09=09=09       sensor->expo_ctrl->maximum);
--=09=09sensor->again_ctrl->val =3D sensor->cold_start.analog_gain;
--=09=09sensor->dgain_ctrl->val =3D sensor->cold_start.digital_gain;
-+=09/* Unpowered: the current values, which the last stream left */
-+=09if (!pm_runtime_get_if_in_use(dev))
- =09=09return 0;
--=09}
-=20
- =09vd55g0_read(sensor, VD55G0_REG_APPLIED_COARSE_EXPOSURE, &expo, &ret);
- =09vd55g0_read(sensor, VD55G0_REG_APPLIED_ANALOG_GAIN, &again, &ret);
-@@ -2066,9 +2060,6 @@ static int vd55g0_probe(struct i2c_client *client)
- =09if (IS_ERR(sensor->regmap))
- =09=09return dev_err_probe(&client->dev, PTR_ERR(sensor->regmap),
- =09=09=09=09     "failed to init CCI\n");
--=09sensor->cold_start.expo =3D 0x32;
--=09sensor->cold_start.digital_gain =3D 256;
--=09sensor->cold_start.analog_gain =3D 0;
-=20
- =09handle =3D fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-=20
-@@ -2140,12 +2131,8 @@ static int vd55g0_probe(struct i2c_client *client)
- =09=09goto error_media_entity;
- =09}
-=20
--=09/* Held until registered, so that runtime PM cannot power it down */
- =09pm_runtime_set_active(dev);
--=09pm_runtime_get_noresume(dev);
- =09pm_runtime_enable(dev);
--=09pm_runtime_set_autosuspend_delay(dev, 1000);
--=09pm_runtime_use_autosuspend(dev);
-=20
- =09ret =3D v4l2_async_register_subdev_sensor(&sensor->sd);
- =09if (ret) {
-@@ -2153,7 +2140,9 @@ static int vd55g0_probe(struct i2c_client *client)
- =09=09goto error_pm_runtime;
- =09}
-=20
--=09pm_runtime_put_autosuspend(dev);
-+=09pm_runtime_set_autosuspend_delay(dev, 1000);
-+=09pm_runtime_use_autosuspend(dev);
-+=09pm_runtime_idle(dev);
-=20
- =09dev_dbg(&client->dev, "vd55g0 probe successfully\n");
-=20
-@@ -2167,7 +2156,6 @@ static int vd55g0_probe(struct i2c_client *client)
- error_pm_runtime:
- =09pm_runtime_disable(dev);
- =09pm_runtime_set_suspended(dev);
--=09pm_runtime_put_noidle(dev);
- =09v4l2_subdev_cleanup(&sensor->sd);
- error_media_entity:
- =09media_entity_cleanup(&sensor->sd.entity);
-@@ -2190,9 +2178,10 @@ static void vd55g0_remove(struct i2c_client *client)
- =09v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
-=20
- =09pm_runtime_disable(&client->dev);
--=09if (!pm_runtime_status_suspended(&client->dev))
-+=09if (!pm_runtime_status_suspended(&client->dev)) {
- =09=09vd55g0_power_off(&client->dev);
--=09pm_runtime_set_suspended(&client->dev);
-+=09=09pm_runtime_set_suspended(&client->dev);
-+=09}
- }
-=20
- static const struct of_device_id vd55g0_dt_ids[] =3D {
---=20
-2.54.0
+> Add Device Tree binding for the ZTE ZX family SPI flash controller,
+> supporting both ZX29 and ZX279128S SoCs.
 
 
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
+
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - zte,zx29-qspi
+
+This looks like a wildcard binding which we don't normally allow.
+
+-- 
+Mark Brown <broonie@kernel.org>
