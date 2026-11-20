@@ -1,84 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795134358;
-	b=d+n1zsBZfl1TeQDlmaUytXhXbhoBZcmy+yCn9TVzr/nrG8LJfe9FCfoTHl6b+as8zZla
-	 Z9BLJCKbEjWfOj1VteA0M2hBrEHVRGlq4BpJsFAil+aZHLBbeUhgpbLI0amxhRo/+jsVO
-	 vrG2wOue/usxPFH54SljQhbEiMDAdRyr/qA8/R7jpPukLRWh7LIGsfOmRtiqY7HnwjXuJ
-	 7NUUgNaHVAjJB9f9GU+fAjaGIcnpLCLWL6upkV7qj18eom57v42JZ55c7ULBnFjpfsyho
-	 jjivtXU0x/3aNQBOUWSbIIcv94P4q21tZjObZAskAtqDmZEYkm5phoGU7LNvMvs4NBA==
+	t=1795134363;
+	b=070/vQYWakv2Bud8O9iEPQqTVXdNGC82I0cmXSK4XHJHsUaRAk8nV3AE2WyPaQ6e60jj
+	 o8P/E9TuQ6QWcarwVy5ou22S950MIUDDZT8+IqoADYek6MafVGPKMhPGNdT1hSRILVNiC
+	 4SeutaNPjQoLopOWged8USxtRcT2YY1XCyHNfMzxw4SOAdXItk/FAAwHyBfZW0uxcAi4P
+	 zKSzh9QR5fs1h2WfoABzutT/qRiAx13DcnpXTD5y9HVT12iUT/F1LIjFlRtoYXotOeqte
+	 1gpzE6Rp157u2BkxSS2tn9+uVCaJ+bnSuYdLX52VS0cBeqjZyhqA0LchSMjvWAtDN5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795134358;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795134363;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bej6NsSjfIEC15lFnYpJOiNPHYir/2JVQbFGd9Xe6pk=;
-	b=i6ebUyxW8mT3PpFHJ204Jemc3z2V9hmwsPNWLDR5HmGIrN++O1sdgDuapbwJ/pNIzljw
-	 jdHt+L1b6yWYSvQ46Ju8ZpgDEqV8mtMkbfP46qaLpNr1YBxQLDBGYlJ12LDhRnjAWhJB2
-	 W9e1S/DS8on2OmaiI22O/cS+Wo+J90zKMQKj8C3wDFfWtMRLeDqxCdshzRs0/KCZNadqp
-	 xMqfnwUHSNdHdp6dBhbV6gOTPIxqLRrHjaceBxVTHDHNsieK7Bz5aC2h7qNNxUkMK11/D
-	 2OvMVUb/HjU4JI5Avrp4nF9uWTNrDbw5Gk7D+UOSWLxoHIlCDMf7ESgfgbQ18KHOBnA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=BxV2zTydEE4k6FT+/UqpEKJRz2u+2cYDgcocvttPorY=;
+	b=TRhOrUvum3ndXdJkDIkDOytbI6BPci55Vl/TLAQAxoIMDFp/uJbcEK0CL5IGOKaafbdI
+	 jvyKN/pNA6nA4M6IgsEA0aXl3MYhXaRptnNYuy3ILLPxyDrtRsGYaGWw0z3kiaRkT3kGE
+	 TC3EwheSR20vJMAp+hLWEHcM6qq6XKeVVYrOHqVQzkYGBIMCw23gwsrrmE48nxlzKK4Nl
+	 RNtZNMt1AhLE3tdwQSs35K47l32rPOydoWd2YbWHbNIUkoEVxiQKo454BNc8EXVgJL2jQ
+	 aZ4i7D4YH1/5SM8cYcfN3JlBmMIojH8I/EcPbtpTYwIglJPQfaodUccIDuD5x1nXMFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NKkJgngY;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v9MqcPLt;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3045D60A2611
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 00:25:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3045D60A2611
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8792B60A3815
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 00:26:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8792B60A3815
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NKkJgngY
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-49412eb1474so155545f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:25:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v9MqcPLt
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4a9be758734so178930f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 19 Nov 2026 16:26:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795134356; x=1795739156; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bej6NsSjfIEC15lFnYpJOiNPHYir/2JVQbFGd9Xe6pk=;
-        b=NKkJgngYss6DYT4q4I6bM1MtlHUzzx9l6XZ3zQDqP0oho2qx0uW5dK3GaT54tOfsPh
-         v1fo+sho9zx0KUYC4dnTgUSp0gSaUpI6HV0oTJTcR76Mg7FK9htJ47bXigpqFzoIyMnm
-         W3ot7fO3A5hENnQSE9PNGvM4/7J9MLCD5dC9GfdJYx+mtRExOIyAvS1lXb6ivBmalBUD
-         npecZ7yn8Q1DUDdZph0tz3giECEaxC5WKsrC3UTXl//ikG0epOYHS1dQYVDxaYGnSeGX
-         XQiuYOBB5ChFnt2FOjEnFYzNZUBP+ZUU4n+zAgfe72f1Lsbg0tutadfQ9V7PzlIadwN8
-         ze0A==
+        d=gmail.com; s=20260707; t=1795134362; x=1795739162; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BxV2zTydEE4k6FT+/UqpEKJRz2u+2cYDgcocvttPorY=;
+        b=v9MqcPLtxE53SbjN64oHKP9t3rCkg88Zes1tVNDU+ofhyrQCe7iAjOqyGgwoAVAPyB
+         74RlAfCImWW4u3EDJgGcEgjAiFs4MrtoR0odM43Nci/Lq5HaIRvqBDlFNbttHaKnzku9
+         bvgg/zluqtZ5RKvErgFdFnt6f7vI5DzRhSamnmWF9enY8PTOkPLVNn1Uk327j3Gv0Dvz
+         Uc0gpHcmKZClPKqOMRZ8DNI5DhyyGBcDwGGNYxRYkffFwL1VudZ5IVkNevBJEBNTP71U
+         u+AVVz3mizW1JfQOmIXe3NZ5ttsOXZB8x9NJVYpIUYbvDBz4BCj1YyYuoJHrAxE/ZTJ8
+         5/lQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795134356; x=1795739156;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bej6NsSjfIEC15lFnYpJOiNPHYir/2JVQbFGd9Xe6pk=;
-        b=gwuSr40irjEMBk9r2VpycaY83Mb2D44yTVcAHUQz09XcAHv2UL78Nb/4FcMbRZ4WfK
-         mmN4vZo7+7QQxXHUatBBLU1zuflvBphLXpJEmUWhagy4pyH5R1xR5FSwh4r7ur+Wq+jx
-         7z+IT6MVR+fR2oWw2+Vjx2ONOv8A2R3oOv3maPKNTtY/qh6nxJJbEzbVuxXicLTIWr50
-         pTBwFn6QyCcISkQYIubq21hbD5ar28H6JZKGdrnlvpbs2d9wnZ8CO71Yue/onAtjACIe
-         9veD9Ft/IpTIX7cRqTAuW0zE1EkTFkPsM+2GCtf35cdHBTYhiqi6vRNnYV+kfCl9YKAo
-         E/ig==
-X-Forwarded-Encrypted: i=1; AL+hErGBP1iMgOa8Sfce/auRw48NNjYud7CqtOrnCVWsH4hjKWAT8EAnAzsaMirzFGkf2WiikzZzUsz0u+cN@vger.kernel.org
-X-Gm-Message-State: APuU4Z+X2w2Dmyh2n9jzMy11SmxItbnnsk4YkecjhW2DZllWZNzO/p/L
-	CAccaucQz2697sJl1NPuggHFdu5CKdCvoBD/KR9WzHrjIb7OZ9so/FFe
-X-Gm-Gg: AZFdTZcxVDHMKuXSbPoBToWpTMQfsnf0/axm8d0FOIJnF6jchg/c6ygM17psdQa4x6I
-	qeVgLE13+7XoKXeO05tJAHOGVKF/5OjwbrwseGQmeWwWLRqAZ06Bc4KR6TFHI7XLag+oiZf3L+P
-	7d3C0FwOfWl3c9KmlgOwvptYen3Qjt8rpqw7yQ4jzqbHZdUQFsH743s3di8gxfX4QyCn6vNqYJ8
-	hnIk7nb0OBm2/HTV5BYufeGOKFihu7M2yvP4ma6nSL7Ux5FiYK0FDV9fiWadQ7ZcVx8VkvlFUOs
-	usGu6geFxlJp5903UML3a8CyXKZhw2A176B0MNtOQLLiMMnDztr65DtknY/sq02m1LmcPtWVBEa
-	xdTUmddnwuyc7pl9CAENTLLrkZoG7b9SjIaLZjs0qDlmQe9Et7m/WmGsc7JeRzjmsbS46QaJduU
-	66dGVK6BkUOevKHZegEZP472PbBZ3Ni7KbbSpmxCPlrfHaAFfJJVKZW2reCTVagxcit074kRRxp
-	3tEi8Igz01diTVvAB8o4RNud/9i9EwR9uSvsIcfhaUUg5oz7cYtk+/NUydKf4itbgQLfSL53IXa
-	hrYvMZpjJZbAPYX+eFLhqJmicDalalYMYly82cf7itpmCix0GDUTisRrPWoGicZcyYTvgPdEI8x
-	yLM+Z37ibyS0xBuqvD9XR5OpssckpywlsXip7fywD/rZQOEKlF4VAcpopRWKqVJUhIl+sA4fk
-X-Received: by 2002:a05:6000:2310:b0:4a2:ee0f:4fa3 with SMTP id ffacd0b85a97d-4abad6a4224mr2489161f8f.8.1795134356478;
-        Thu, 19 Nov 2026 16:25:56 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795134362; x=1795739162;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BxV2zTydEE4k6FT+/UqpEKJRz2u+2cYDgcocvttPorY=;
+        b=kdc3LrT3jb7yD+w3GS8Lj5gE+guZY/qpDCviCtA5JGPZBTXS89Xs2j18wKYxK3Rs5i
+         ED8ALIAsgQPOOzZRalfQOZl2RNgdAqO5sVVPwj0Gqlni4xFre1W79TxtBBJp7M5+G+SZ
+         TJ62cYHFcrpSr/U1uiaAevbpXCmg2gLwowDVp6FfYQVp2ZmHxdVDUyiE96TDPQpf2kBk
+         eUyu9YZskuo5vI1Y0W7F3odDJOTIWytEqrHi0iboOGO502mcSU2VFxLAZmgf9tTSmRwn
+         x2J2zZcB78OZ2kELiiUI8IW5ZtxMSbQ7mFmeMyroX2D+GbTaoUjdQLXNndkFeSnWLyyM
+         KqYw==
+X-Forwarded-Encrypted: i=1; AL+hErFlBYei22jQ38Ws/3CWWxImu7jP+jVfsQNg6lW/tZTQ+98lqbzgjJVfeaYKI9g+CEIv7Tpd20RnsLM4@vger.kernel.org
+X-Gm-Message-State: APuU4Z8JbL4zdvVy+C61VeULzxWDMaUBptns/d6pUOVLRjCJt41Ta8s/
+	4xjSDQGZ5qhH96sd/fpVbYeiODyH9Fmz8iMWBnGiiKEofUDr0Oet5ugW
+X-Gm-Gg: AZFdTZdmIrR5aG6QqEuPfGQwFH4517CUSAQKGFmE1GYVLUKmLnLasjv8qMxK9Ri0hTZ
+	YwakbV8SwZxHG2zVCUtbktIF6sebcC1gqzXJFaHRZms36fG9yL5m/sL3aCROG6LdTnVxahFb3uI
+	1bQGVAvlgVdNI46iTyrprPZWIsvrk3FzvuMVNkUDOpVm5WoNBkrPQZbRooWDsH3owuHf7W2s+oI
+	WgLkzFqQWho5z+j1rOI5qRUwJJpSAjHPSKgx+XXDa7e2h/npI3aVmsLX7zdOhO2qL7nBZybj1CJ
+	YpvgKBeNttG1gDGVFm/sJpFUrZsbEdOzWXXKhbuYK30I7okb+b88cbKjACtEtxZe0/0MgUMs/s6
+	PHQRl7EGE0BHSkzKszBokkIYGsXksKBODqwG9/KLEWLNMuMo8dcgArA3XvPA3mfRswd8D4iIP0S
+	mQb3hBBBSUEQDg5XXauyEHsryGicXfpm/bAx3VdToy9jNg3v5xgcIBgi2mjVOSk1D2tSsYAA+9e
+	WnPF5ZiCQNFnFqG42nqtZQdKDQ3gm9a1n8O/PqnTP63vZi2WywvOQPftshAwoMAxqda8tDdHOQV
+	u+vQ1vnRqL4WQ5/cNXZDLnotlXT3M/IHWTxywBlff3YplwsThre6oex6V/VQ71y1txk/I2empz4
+	S7NP+4PT9aQ5Q31Ovtkkog60Rv2xinrsIEHpRLdSHIQ17xukoINdnnk2gmOQR+oIq7AFWcig6
+X-Received: by 2002:a05:6000:4916:b0:4a5:e50:ea5e with SMTP id ffacd0b85a97d-4abaf64bdfbmr1921927f8f.9.1795134361869;
+        Thu, 19 Nov 2026 16:26:01 -0800 (PST)
 Received: from iku.lan ([2a00:23c8:254f:fd01:c5c5:590b:f4b8:3e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c340df4sm2629998f8f.55.2026.11.19.16.25.55
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c340df4sm2629998f8f.55.2026.11.19.16.26.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 16:25:56 -0800 (PST)
+        Thu, 19 Nov 2026 16:26:01 -0800 (PST)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
@@ -105,10 +107,11 @@ Cc: Florian Fainelli <f.fainelli@gmail.com>,
 	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH net-next v5 02/24] net: dsa: tag_rzn1_a5psw: Add RZ/T2H ETHSW tag protocol support
-Date: Fri, 20 Nov 2026 00:25:12 +0000
-Message-ID: <20261120002549.1908299-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net-next v5 08/24] net: dsa: rzn1-a5psw: Fix LK_LEARNCOUNT write mode encoding
+Date: Fri, 20 Nov 2026 00:25:18 +0000
+Message-ID: <20261120002549.1908299-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -121,143 +124,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Add a distinct DSA tag protocol for the RZ/T2H ETHSW to separate its
-semantics from the RZ/N1 A5PSW, even though both use the same tagged
-frame structure. The on wire layout is identical, but the ControlData
-bit assignments differ between the two switch families.
+The LK_LEARNCOUNT write mode lives in bits [31:30] of the register, but
+the driver writes the raw A5PSW_LK_LEARNCOUNT_MODE_* values (0, 1, 2)
+directly. As a result, adding an FDB entry writes "set LEARNCOUNT to 1"
+and deleting one writes "set LEARNCOUNT to 2", instead of atomically
+incrementing/decrementing the counter.
 
-The common tagged frame format is:
+Use FIELD_PREP() with A5PSW_LK_LEARNCOUNT_MODE so the mode lands in the
+correct bit field.
 
-  +----------------------+-------------------------------+
-  | Field                | Size (octets)                 |
-  +----------------------+-------------------------------+
-  | Preamble             | 7                             |
-  | SFD                  | 1                             |
-  | Destination Address  | 6                             |
-  | Source Address       | 6                             |
-  | ControlTag (0xE001)  | 2                             |
-  | ControlData          | 2                             |
-  | ControlData2         | 4 (timestamp, portmask)       |
-  | Type/Length          | 2                             |
-  | Payload              | 0..1500 / 0..9000             |
-  | Pad                  | 0..42                         |
-  | FCS                  | 4                             |
-  +----------------------+-------------------------------+
-
-The differences arise in the ControlData interpretation:
-
-  ControlData field (bits):
-    +---------+-----------------------------+
-    | SoC     | Meaning                     |
-    +---------+-----------------------------+
-    | RZ/N1   | [0-3]: ingress port         |
-    |         | [4-15]: reserved            |
-    +---------+-----------------------------+
-    | RZ/T2H  | [0-3]: ingress port         |
-    |         | [4]: timestamp timer select |
-    |         | [5]: reserved               |
-    |         | [6]: RED period indicator   |
-    |         | [7-15]: reserved            |
-    +---------+-----------------------------+
-
-Because these semantics diverge, register a new
-DSA_TAG_PROTO_RZT2H_ETHSW protocol and corresponding tag driver.
-
+Fixes: 5edf246c6869 ("net: dsa: rzn1-a5psw: add FDB support")
+Cc: stable@vger.kernel.org
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
 v4->v5:
-- Rebased on next so DSA_TAG_PROTO_RZT2H_ETHSW_VALUE is updated
-
-v3->v4:
-- No change
-
-v2->v3:
-- No change
-
-v1->v2:
-- Updated commit message
+- New patch
 ---
- include/net/dsa.h             |  2 ++
- include/uapi/linux/if_ether.h |  2 +-
- net/dsa/tag_rzn1_a5psw.c      | 21 +++++++++++++++++++--
- 3 files changed, 22 insertions(+), 3 deletions(-)
+ drivers/net/dsa/rzn1_a5psw.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/include/net/dsa.h b/include/net/dsa.h
-index 09f3043d57f0..a81fe7ae4d18 100644
---- a/include/net/dsa.h
-+++ b/include/net/dsa.h
-@@ -63,6 +63,7 @@ struct tc_action;
- #define DSA_TAG_PROTO_MT7628_VALUE		35
- #define DSA_TAG_PROTO_KS8995_VALUE		36
- #define DSA_TAG_PROTO_LAN9645X_VALUE		37
-+#define DSA_TAG_PROTO_RZT2H_ETHSW_VALUE		38
- 
- enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
-@@ -103,6 +104,7 @@ enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
- 	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
- 	DSA_TAG_PROTO_LAN9645X		= DSA_TAG_PROTO_LAN9645X_VALUE,
-+	DSA_TAG_PROTO_RZT2H_ETHSW	= DSA_TAG_PROTO_RZT2H_ETHSW_VALUE,
- };
- 
- struct dsa_switch;
-diff --git a/include/uapi/linux/if_ether.h b/include/uapi/linux/if_ether.h
-index 1ffac52c39df..9fd25c5d96c9 100644
---- a/include/uapi/linux/if_ether.h
-+++ b/include/uapi/linux/if_ether.h
-@@ -121,7 +121,7 @@
- #define ETH_P_YT921X	0x9988		/* Motorcomm YT921x DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
- #define ETH_P_EDSA	0xDADA		/* Ethertype DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
- #define ETH_P_DSA_8021Q	0xDADB		/* Fake VLAN Header for DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
--#define ETH_P_DSA_A5PSW	0xE001		/* A5PSW Tag Value [ NOT AN OFFICIALLY REGISTERED ID ] */
-+#define ETH_P_DSA_A5PSW	0xE001		/* A5PSW/ETHSW Tag Value [ NOT AN OFFICIALLY REGISTERED ID ] */
- #define ETH_P_IFE	0xED3E		/* ForCES inter-FE LFB type */
- #define ETH_P_AF_IUCV   0xFBFB		/* IBM af_iucv [ NOT AN OFFICIALLY REGISTERED ID ] */
- #define ETH_P_NXP_NETC  0xFD3A		/* NXP NETC DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
-diff --git a/net/dsa/tag_rzn1_a5psw.c b/net/dsa/tag_rzn1_a5psw.c
-index aab0ec143c77..3dff661fa58c 100644
---- a/net/dsa/tag_rzn1_a5psw.c
-+++ b/net/dsa/tag_rzn1_a5psw.c
-@@ -23,6 +23,7 @@
+diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+index 13c46cf2c420..7fd2652813ac 100644
+--- a/drivers/net/dsa/rzn1_a5psw.c
++++ b/drivers/net/dsa/rzn1_a5psw.c
+@@ -5,6 +5,7 @@
+  * Clément Léger <clement.leger@bootlin.com>
   */
  
- #define A5PSW_NAME			"a5psw"
-+#define ETHSW_NAME			"ethsw"
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/etherdevice.h>
+ #include <linux/if_bridge.h>
+@@ -545,7 +546,8 @@ static int a5psw_port_fdb_add(struct dsa_switch *ds, int port,
+ 		goto lk_unlock;
  
- #define A5PSW_TAG_LEN			8
- #define A5PSW_CTRL_DATA_FORCE_FORWARD	BIT(0)
-@@ -111,8 +112,24 @@ static const struct dsa_device_ops a5psw_netdev_ops = {
- 	.rcv	= a5psw_tag_rcv,
- 	.needed_headroom = A5PSW_TAG_LEN,
- };
-+MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_A5PSW, A5PSW_NAME);
-+DSA_TAG_DRIVER(a5psw_netdev_ops);
-+
-+static const struct dsa_device_ops ethsw_netdev_ops = {
-+	.name	= ETHSW_NAME,
-+	.proto	= DSA_TAG_PROTO_RZT2H_ETHSW,
-+	.xmit	= a5psw_tag_xmit,
-+	.rcv	= a5psw_tag_rcv,
-+	.needed_headroom = A5PSW_TAG_LEN,
-+};
-+MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_RZT2H_ETHSW, ETHSW_NAME);
-+DSA_TAG_DRIVER(ethsw_netdev_ops);
-+
-+static struct dsa_tag_driver *dsa_tag_driver_array[] = {
-+	&DSA_TAG_DRIVER_NAME(a5psw_netdev_ops),
-+	&DSA_TAG_DRIVER_NAME(ethsw_netdev_ops),
-+};
-+module_dsa_tag_drivers(dsa_tag_driver_array);
+ 	if (inc_learncount) {
+-		reg = A5PSW_LK_LEARNCOUNT_MODE_INC;
++		reg = FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
++				 A5PSW_LK_LEARNCOUNT_MODE_INC);
+ 		a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
+ 	}
  
- MODULE_DESCRIPTION("DSA tag driver for Renesas RZ/N1 A5PSW switch");
- MODULE_LICENSE("GPL v2");
--MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_A5PSW, A5PSW_NAME);
--module_dsa_tag_driver(a5psw_netdev_ops);
+@@ -604,7 +606,8 @@ static int a5psw_port_fdb_del(struct dsa_switch *ds, int port,
+ 
+ 	/* Decrement LEARNCOUNT */
+ 	if (clear) {
+-		reg = A5PSW_LK_LEARNCOUNT_MODE_DEC;
++		reg = FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
++				 A5PSW_LK_LEARNCOUNT_MODE_DEC);
+ 		a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
+ 	}
+ 
+@@ -963,7 +966,8 @@ static int a5psw_setup(struct dsa_switch *ds)
+ 	}
+ 
+ 	/* Reset learn count to 0 */
+-	reg = A5PSW_LK_LEARNCOUNT_MODE_SET;
++	reg = FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
++			 A5PSW_LK_LEARNCOUNT_MODE_SET);
+ 	a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
+ 
+ 	/* Clear VLAN resource table */
 -- 
 2.56.1
 
