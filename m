@@ -1,103 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795168845;
-	b=2FnBWn+XZvgrxA09YHUEtF3nZUjQWiwpdUreeq3xUKE3t3YYjI4uFYfatfr+UUZc2AXx
-	 hR/aembrSZMYS5bw3iC18IKjMsmh1n/c6qb4x2aCR+7TSfaxIaReD25vpzCNOnw93e/sJ
-	 wfQDid8q0TTEj8gHwrQhUXWVvbNKiXBluayReMDzIMrGQKalDkIUeUyO9VNcdFZ13kJST
-	 NhrzUOnLJ4G/xjxBnWzTOG2hJIhAtpJOw5jkvGf/JUzNmaptyGgDaK9WnapD6OH5pnr0E
-	 sr8P8huDHuH5AFPxGXCQgjgt1r2ySmW3eVv6S1FcwJje5+nnE1Vk86w4NDp/EToOfdQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795168845;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=Q+4Bel0/0Td/LHufY+LdhNApw47lN/ZWvaYrdGVnaYQ=;
-	b=mbEph+2GLtKI5VxHn74YSW3RR91RbwYFVclam6B/sbnwjKPOJg3f+0hcEgSBrzQWzDCf
-	 42byKzJkP1rEn8rKJGySpilOgcWKVKLGxPCL0A2gsqKz5iB9opt+0Uv5mqyMKTI3GGwx3
-	 yVl6alIrKx6bCoOBiVwdI1rSu+CXGlYkaJ6hcPzF4yOevkjS3VX1ntSS+LFDAi3WIO5y8
-	 5tWfnjAyH2MkprDwNIvUsphjOUooYzunkRopCK7V7E1qtpEx775ias0H4/TSsrNTfdZaC
-	 NtxMlhp0lJKMJfWW2JJWAlbKOPulpSgAZcu+M/uLXQbChzudgifyG1Wu7VKM7qs0sCg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=c4BlSOkl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.168
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795168948;
+	b=bb5ZVQQn98TpSMebK0UyVbnQ+PAoBcZYodok4Uc9hSI+Frn9xDIbrSaybjAS52vfSoSp
+	 WSqd+NZv7thgmyCKk2IIo9ZUXF+kLbCB5KCxaB0JBqHTiZX/BNh+84P6ppZZBLiQg09DG
+	 1M71HHGmiKZi6nl/lSCeBky83ltj8jlNnZGkgshQ0j5vKMbF1K25e4oKMchxM6PPg9Xpg
+	 CKVH/2D7SyaAdSvr6DDYhoRvAPsk+5b+TqOmOgn/pWWn1xiNj5N2HIi1Edp7+6KN2vjuK
+	 oz/bkcalEXAtXODOelmMbZab5XLfdoC+OrljldnUoT2TCGLDD7YPellcnj/xNQSq7kw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795168948;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Infomaniak-Routing;
+	bh=+/Nvrr/kmurSuoSNX/nrEDXJoBt1+szlAZyD/QS6ioM=;
+	b=im2K66lVbYgzGuHsbZXHq4kfa/3TwHZ55Xbz0xSR+f79DPbU8bfAEsdwpYhtHtqBSiWj
+	 5Q9MoPBYCCDI/+Ztno7TsmyS63T/aq7DGLkFfyi+Av1JpNtaL6uoxEQhfiF7F42jxW2Mm
+	 iuf+FxhVfG+0NPW1DSaX+6AtcE9clMJSgclfljC+l4IZcEOUv5AnN5yag7Xz+dYXMryMc
+	 j4/ZDIQBN3rtArbPV0cnfvSZVrlYZdB2Ztkag3PjlFEE+dIEPEOhetnlycGN7CVs9cs6p
+	 8yFvRx4fkqUjmeB7fGaL4Z02lfPVTnkk4LVKT/SuD5bhWb7ADyxf8CVNMRjGZS5Pgcw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=0leil.net;
+	spf=pass smtp.mailfrom=0leil.net;
+	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=KBXagnVY;
+	arc=none smtp.remote-ip=84.16.66.168
+Received: from smtp-42a8.mail.infomaniak.ch (smtp-42a8.mail.infomaniak.ch [84.16.66.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF7A0606A320;
-	Fri, 20 Nov 2026 10:00:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF7A0606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA093606A325
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:02:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA093606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=c4BlSOkl
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8B140200EDB;
-	Fri, 20 Nov 2026 11:00:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795168842;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q+4Bel0/0Td/LHufY+LdhNApw47lN/ZWvaYrdGVnaYQ=;
-	b=c4BlSOklF59hL1pYawmhsU7RqzPUnfiS/I+4hUpR1d5qbSH0pLMOiaqWq4WVymDk3zKY1G
-	96gwtfGlD29ilXfUKD4W41cJvC6SxystFjfzEei2hARgS9+7Mdeqgj+NSivCha9X/L0it7
-	eKd1Jnb63zeFF4UPnz94GNBTL4RgDR2Vfl4qpKMigcVJzy2m+1WF32OvqZ7G7fugS2sO6s
-	8oKA20OvCvUohEIr+0poIlmahZfghRCFx/EOy6QXINpiVS1R3lrD7pgnr+h9jt8aAgSul1
-	yashgq64uaiNprTc3TXc+NHmippMvGm2ZQbnHn+KfbWYkIMlBTQrOKVcfCZqvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795168842;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q+4Bel0/0Td/LHufY+LdhNApw47lN/ZWvaYrdGVnaYQ=;
-	b=M3g3EI2eNuur12IFwUgc0ShD6XG5EXLIMVp+p+PU7yBkVYn78wqAmQkh/S/aC77sYDu3kq
-	0mZtqm+3WMMwRXdTqtXBYlOK02kxIN0yXzT8Akd3Ach9dBdNHp6H+4iS+lpKSkXaqPFJEv
-	SA98JSi9yCXTDNpy7pJu343eUyMAVgayq1Y5sTGKpZuA/MHS2YSnCCr6Rc6WAvoWP8vRhx
-	KHxaBmYpUdEUGMcni2T5rZcc+VaiJ7ut4ou56ydvF3otGcYG0q6Yb16d0kTwvF5NxwIjjF
-	FoTz/XosH5wwoK2EIgZ/G5vY/6L8WcZ6JfSPlWEZIEf8AF1ygecllmcqojsHrQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795168842; a=rsa-sha256;
-	cv=none;
-	b=GbgTki+Fmq8ov7IxA7lwbvK71uCkMFhYXPXGNmsbsDu2KybFR5A6vosczLGDqG15odxBym
-	DqOB6bXprMXeFwgazb3MV5Z/gsQyazNWyh9uSLAvKTtrHje6wXZ+LzNo2mdsjI0WIoMbgV
-	ocA24tEUBgQVn3RC9V+vgiIoiSDP4v0K6dbGYC3eoWF2Iq7WDaSBe5TTDs2+3SOS6vKsva
-	KCocofKI7IemlPZFUAdg5+rOxMt06HnE9mbhyIObP9NJPyGuZ7ty2UiDp6msBVq6fMkPND
-	l9DzVGDrEaRAaYwT5zWp9zTK+ZKq+mPJ+nF9XB+XyxH0IFWiA4MEETg+OkSqXw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <3ef39f9c3698da4a8021ded56d8fca9ae9ccfb05.camel@pengutronix.de>
-Subject: Re: [PATCH 2/6] clk: renesas: r9a06g032: Add reset controller
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: khendry@reliablecontrols.com, Geert Uytterhoeven
- <geert+renesas@glider.be>,  Stephen Boyd <sboyd@kernel.org>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet	 <jbrunet+clk@baylibre.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Magnus Damm	 <magnus.damm@gmail.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
- =?ISO-8859-1?Q?Cl=E9ment_L=E9ger?=	 <clement.leger@bootlin.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,  Paolo
- Abeni <pabeni@redhat.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, Andrew Lunn	 <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King	
- <linux@armlinux.org.uk>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-Date: Fri, 20 Nov 2026 11:00:42 +0100
-In-Reply-To: <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
-References: 
-	<20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
-	 <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=KBXagnVY
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jW9qb00VCzmQt;
+	Fri, 20 Nov 2026 11:02:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1795168938;
+	bh=+/Nvrr/kmurSuoSNX/nrEDXJoBt1+szlAZyD/QS6ioM=;
+	h=From:Date:Subject:To:Cc:From;
+	b=KBXagnVYzai5Hyt8cvC07l1zCVwAJfI7bJuefebIm04Yswvtlg2Oy+r/VCdrllwGA
+	 a1mFXDsDmRBRIcSGtmPnmvsUmUL5RqBFMEVM+bsmpOW5vCdbhVgaYN5Fq5jYB7UQ/U
+	 nqer/b7iAiYvdgu1vvC9aj5LfKEqhka6bmue6CpmuzqR5KtRK/s7MxTMGYtNInhpau
+	 FH6UePtEPU6aiERO7EoYhz4GuXvzETXqXHp5pe9EH7brhHCi/NlYiHvr+mgzP8Fwrf
+	 yMx86+BQzZLZszUb5O7GWwqlzKF0vBzwCevjlSVV47BvPgCk0Ud84XEzaFwy09Xi70
+	 GJlLx7/ONkYlw==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jW9qX6x17zX7X;
+	Fri, 20 Nov 2026 11:02:16 +0100 (CET)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Date: Fri, 20 Nov 2026 11:02:03 +0100
+Subject: [PATCH v3] arm64: dts: rockchip: support camera module on Haikou
+ Video Demo on RK3399 Puma
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,160 +61,157 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-rk3399-puma-haikou-video-demo-cam-v3-1-5183b29527f4@cherry.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/5WOQW7CMBBFr2LNmkEZGxImK+6BWDj2pHFRMLKJR
+ RTl7lXohmW7/NLTe3+BLClIhlYtkKSEHOIdWmV2Ctxg71+CwUOrQFe6JqoMppsxzPiYRouDDbc
+ 4YQleInoZIzo7oj/VndSGLZPATsEjSR9e78bl+rvz1H2Le27ijRhCfsY0v08U2rj/9AohIdsDe
+ 25Ohrvj2Q2S0rz3Aluv6A8j/cmokVAasq43VdOz/jSu6/oDSEF/tTYBAAA=
+X-Change-ID: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.17-dev
+X-Infomaniak-Routing: alpha
 
-On Do, 2026-11-19 at 09:57 -0800, Kyle Hendry via B4 Relay wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
->=20
-> The rzn1 system controller has two resets that need to be cleared for the
-> mii converter to work. They are not directly associated with any clocks
-> so they need a reset controller to set them.
->=20
-> They are documented in the PWRCTRL_SWITCHCTRL (0x4000C188) register as:
->=20
-> Bit 3: RSTN_CLK25 - Active low Reset for Timestamp signal selection logic
-> Bit 4: RSTN_ETH - Active low Reset for RGMII/RMII Converter (50 MHz).
->=20
-> Add a reset controller and add resets for those bits.
->=20
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
-> ---
->  drivers/clk/renesas/r9a06g032-clocks.c | 64 ++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 64 insertions(+)
->=20
-> diff --git a/drivers/clk/renesas/r9a06g032-clocks.c b/drivers/clk/renesas=
-/r9a06g032-clocks.c
-> index 3df3f2b2c6de..547e8d82f1cf 100644
-> --- a/drivers/clk/renesas/r9a06g032-clocks.c
-> +++ b/drivers/clk/renesas/r9a06g032-clocks.c
-> @@ -21,6 +21,7 @@
->  #include <linux/pm_clock.h>
->  #include <linux/pm_domain.h>
->  #include <linux/reboot.h>
-> +#include <linux/reset-controller.h>
->  #include <linux/slab.h>
->  #include <linux/soc/renesas/r9a06g032-sysctrl.h>
->  #include <linux/spinlock.h>
-> @@ -675,6 +676,11 @@ static const struct r9a06g032_clkdesc r9a06g032_cloc=
-ks[] =3D {
->  		RB(0xec, 16), RB(0xec, 17), RB(0xec, 18), RB(0xec, 19)),
->  };
-> =20
-> +static const struct regbit r9a06g032_resets[] =3D {
-> +	RB(0x188, 3),
-> +	RB(0x188, 4),
+From: Quentin Schulz <quentin.schulz@cherry.de>
 
-I suggest to use designated initializers:
+The Haikou Video Demo adapter has a proprietary connector for a camera
+module which has an OV5675 camera sensor and a companion DW9714 focus
+lens driver.
 
-	[R9A06G032_RST_TS] =3D RB(0x188, 3),
-	[R9A06G032_RST_MIIC] =3D RB(0x188, 4),
+This adds support for the camera module on RK3399 Puma module fitted on
+a Haikou devkit with the Haikou Video Demo adapter.
 
-to document the association and make sure there are no off-by-one
-errors.
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+---
+Camera only works once the ov5675 driver is adapted[1] to work with
+24MHz MCLK. With the similar work done for RK3588 Tiger[2], we now have
+all our modules supporting the same set of features when used in
+conjunction with Haikou Video Demo.
 
-> +};
-> +
->  struct r9a06g032_priv {
->  	struct clk_onecell_data data;
->  	spinlock_t lock; /* protects concurrent access to gates */
-> @@ -1307,6 +1313,56 @@ static void __init r9a06g032_init_h2mode(struct r9=
-a06g032_priv *clocks)
->  	writel(usb, clocks->reg + R9A06G032_SYSCTRL_USB);
->  }
-> =20
-> +
-> +#define rcdev_to_priv(x)	container_of(x, struct r9a06g032_priv, rcdev)
+Same request as made in [2], please only merge this once the OV5675
+series[1] is merged.
 
-I'd use a static inline function for this.
+[1] https://lore.kernel.org/linux-media/20261026101646.2450051-1-heiko@sntech.de/
+[2] https://lore.kernel.org/linux-rockchip/20261026102027.2451025-1-heiko@sntech.de/
+---
+Changes in v3:
+- added missing #address-cells, #size-cells, reg properties to
+  &isp1/ports/port@0,
+- Link to v2: https://patch.msgid.link/20261113-rk3399-puma-haikou-video-demo-cam-v2-1-e71acf307f92@cherry.de
 
-> +
-> +static int r9a06g032_reset_set(struct reset_controller_dev *rcdev,
-> +				  const char *func, bool set, unsigned long id)
-> +{
-> +	struct r9a06g032_priv *priv =3D rcdev_to_priv(rcdev);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +	clk_rdesc_set(priv, r9a06g032_resets[id], set);
-> +	spin_unlock_irqrestore(&priv->lock, flags);
-> +
-> +	return 0;
-> +}
-> +
-> +static int r9a06g032_reset(struct reset_controller_dev *rcdev,
-> +			  unsigned long id)
-> +{
-> +	r9a06g032_reset_set(rcdev, "reset", true, id);
-> +	udelay(5);
-> +	return r9a06g032_reset_set(rcdev, NULL, false, id);
-> +}
+Changes in v2:
+- added missing #address-cells and #size-cells to &isp1/ports,
+- Link to v1: https://patch.msgid.link/20261103-rk3399-puma-haikou-video-demo-cam-v1-1-9a49d97839b5@cherry.de
+---
+ .../rockchip/rk3399-puma-haikou-video-demo.dtso    | 62 ++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-Please don't implement the reset op unless really needed for
-compatibility with actual, self-clearing reset controllers.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
+index 141a921a06e47..925b4bb88f1b6 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
++++ b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
+@@ -16,6 +16,7 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+ #include <dt-bindings/leds/common.h>
++#include <dt-bindings/media/video-interface-devices.h>
+ #include <dt-bindings/pinctrl/rockchip.h>
+ 
+ &{/} {
+@@ -100,6 +101,12 @@ &i2c1 {
+ 	/* OV5675, GT911, DW9714 are limited to 400KHz */
+ 	clock-frequency = <400000>;
+ 
++	focus: focus@c {
++		compatible = "dongwoon,dw9714";
++		reg = <0xc>;
++		vcc-supply = <&cam_afvdd_2v8>;
++	};
++
+ 	touchscreen@14 {
+ 		compatible = "goodix,gt911";
+ 		reg = <0x14>;
+@@ -122,6 +129,57 @@ pca9670: gpio@27 {
+ 		pinctrl-names = "default";
+ 		reset-gpios = <&gpio4 RK_PD6 GPIO_ACTIVE_LOW>;
+ 	};
++
++	camera@36 {
++		compatible = "ovti,ov5675";
++		reg = <0x36>;
++		assigned-clocks = <&cru SCLK_CIF_OUT>;
++		assigned-clock-rates = <24000000>;
++		clocks = <&cru SCLK_CIF_OUT>;
++		avdd-supply = <&cam_avdd_2v8>;
++		dvdd-supply = <&cam_dvdd_1v2>;
++		dovdd-supply = <&cam_dovdd_1v8>;
++		lens-focus = <&focus>;
++		orientation = <MEDIA_ORIENTATION_FRONT>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cif_clkouta>;
++		reset-gpios = <&pca9670 6 GPIO_ACTIVE_LOW>;
++		rotation = <180>;
++
++		port {
++			cam_output: endpoint {
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <450000000>;
++				remote-endpoint = <&mipi_in_cam>;
++			};
++		};
++	};
++};
++
++&isp1 {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			mipi_in_cam: endpoint@0 {
++				reg = <0>;
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <450000000>;
++				remote-endpoint = <&cam_output>;
++			};
++		};
++	};
++};
++
++&isp1_mmu {
++	status = "okay";
+ };
+ 
+ &mipi_dsi {
+@@ -145,6 +203,10 @@ mipi_in_panel: endpoint {
+ 	};
+ };
+ 
++&mipi_dsi1 {
++	status = "okay";
++};
++
+ &mipi_out {
+ 	mipi_out_panel: endpoint {
+ 		remote-endpoint = <&mipi_in_panel>;
 
-If it is needed, please explain why. If so, is this delay enough for
-both resets? Is it enough for any other resets this reset controller
-driver may support in the future?
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.git master
+change-id: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
 
-> +
-> +static int r9a06g032_reset_assert(struct reset_controller_dev *rcdev, un=
-signed long id)
-> +{
-> +	return r9a06g032_reset_set(rcdev, "assert", false, id);
-> +}
-> +
-> +static int r9a06g032_reset_deassert(struct reset_controller_dev *rcdev,
-> +			     unsigned long id)
-> +{
-> +	return r9a06g032_reset_set(rcdev, "deassert", true, id);
-> +}
-> +
-> +static int r9a06g032_reset_status(struct reset_controller_dev *rcdev,
-> +			   unsigned long id)
-> +{
-> +	struct r9a06g032_priv *priv =3D rcdev_to_priv(rcdev);
-> +
-> +	return clk_rdesc_get(priv, r9a06g032_resets[id]);
-> +}
-> +
-> +static const struct reset_control_ops r9a06g032_reset_ops =3D {
-> +	.reset =3D r9a06g032_reset,
-> +	.assert =3D r9a06g032_reset_assert,
-> +	.deassert =3D r9a06g032_reset_deassert,
-> +	.status =3D r9a06g032_reset_status,
-> +};
-> +
->  static int __init r9a06g032_clocks_probe(struct platform_device *pdev)
->  {
->  	struct device *dev =3D &pdev->dev;
-> @@ -1404,6 +1460,14 @@ static int __init r9a06g032_clocks_probe(struct pl=
-atform_device *pdev)
->  	if (error)
->  		dev_err(dev, "Failed to populate children (%d)\n", error);
-> =20
-> +	clocks->rcdev.ops =3D &r9a06g032_reset_ops;
-> +	clocks->rcdev.of_node =3D np;
-> +	clocks->rcdev.of_reset_n_cells =3D 1;
+Best regards,
+--  
+Quentin Schulz <quentin.schulz@cherry.de>
 
-Don't set of_reset_n_cells, as of_xlate isn't set either.
-
-fwnode_reset_n_cells will be set to 1 by default in
-reset_controller_register().
-
-> +	clocks->rcdev.nr_resets =3D ARRAY_SIZE(r9a06g032_resets);
-> +	error =3D  devm_reset_controller_register(dev, &clocks->rcdev);
-                ^
-Superfluous whitespace.
-
-> +	if (error)
-> +		return error;
-> +
->  	return 0;
-
-Could be simplified to just:
-
-	return devm_reset_controller_register(dev, &clocks->rcdev);
-
-
-regards
-Philipp
