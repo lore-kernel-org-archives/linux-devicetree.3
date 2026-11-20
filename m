@@ -1,60 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795185426;
-	b=Fw8+MT5FY5EBA8vXDz0XYajak6lu5c9sEnjPMP8twueieHhW9kfJzVE95JzoxeZuOgL/
-	 4ipVuH7M50HMfN3fumCaq879cF4bFSBdpjL6IO7stTQQOs3/7/6+kSKBfosV1JND70rAx
-	 1mJhgaAkms658CNCuBtEQGVTgh0PZnnPuHU474jMFpuJ51TcJdViwfJF++0QOJ6MqGTjr
-	 NxRv6RVBk7aZB71OBS0dN33K2s4UvMWOfH9EkYzgbPWQU2DxfDagTtfkbdoVKilzRvXh0
-	 qZ2UgsAZpRozXPFRTFSKzx1bJWR6N6CbyjiY+wZo72aQku4b3XgC4Y+XUyHGK+U9JeA==
+	t=1795185476;
+	b=vfDdzkqm+eA/E0v3RaUWj3HIMVRmhPOpLg9SjC7aQSg+R/lJnVn/guJjhKFxb0/0J72w
+	 3Ejqj45KK2efnaiAEGqJekiG5Sc1Fb9DgtKFQYQaxWDvVsFQbdoWtfvBhlMW29Yaazk39
+	 g9bEXaTizQv4cTsSirOar03hYCXNAjCur8QSQwbEUx593/swLm5TYw7glU5LuLxin25sz
+	 ziSj7CF6/e6x9dU9ZSwb1oEQfLCBnBkfPlzMoq/OL/c8uK3XOIHa8Ox/+Bl3cBuYyXFZc
+	 rLk0A9n/Br51N3PWcBa8v9+3SoNNtaqJqinUVloK0AugI85AEpBgU2XTNRruw/BLrwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795185426;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=x54vwkGJvh84znXoJKgRSdPvks6XuVGgKq/gJmPTfQE=;
-	b=Z9cyhNERa4HApJhk1KFrvFSbT6YE3gels/FiTCmLdaev1ZYIo9e4oSYxyz0uwwJlZSoi
-	 erUK1Wi3ChYi3eLhLGTpxsCOho2NMCFZhtnzWtUfkWQoVf7njXwZWd8pT4gwoz+cta+ym
-	 S+j4nPHvq03mngTDGkq9CknS9m+DCoo5dUqI9p40MikNwsB7U/ewAyy0eZ7bqKDBtZFgV
-	 x2q8QhdJ5r6ssFm1pf8upRz3OAf8jpy2tKhmE0Q8zhb5a5uG/o5A00+hx8czH1MfAmy7P
-	 uWd5XZ4gtAYlqTr6XUyVZuW8SQ4JmWQ72Xw8DBbxadm6KS/7h8+DmvfJICQ/GEx1fIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795185476;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=G3Dx1Rl8sCVhKobWtk/mYO5a3CKsB1ub+4mYD8rlpqA=;
+	b=jHEJErtianIO0r+uC8A0N81W6ELaeJGZTGi2NziGuCfF1HukpnnG+uuJWeWBZ5DwuC8P
+	 ZGG4LbcEIeavuxZFG2L0t49vQaKuPUzFE0Zg275kC3Jkd5ZZWJLRHyjaA/kPzjSAvWKcX
+	 3ep5I+iA40Ovi6nyClRgQBnGi8sud3e9VseA/qR1PTORS3wk+z+quD53kDseE1l0gArNs
+	 DsQlff6Nh2MNDJUqAJ7pknupXoG1/2lpgaL7781DFHWpDjHCuihGwP6Hf5hdYXrdU5FzC
+	 hIn8X9RxczpgXDByxm3pbNsjl1BtRXimOX4XF4Dt/U8pIOUsCGpn+OjrQcp5PUFA5xQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zk5fViLS;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gwalE1n6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D21606A320;
-	Fri, 20 Nov 2026 14:37:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C098606A325;
+	Fri, 20 Nov 2026 14:37:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zk5fViLS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B81A31F000C0;
-	Fri, 20 Nov 2026 14:37:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795185425;
-	bh=x54vwkGJvh84znXoJKgRSdPvks6XuVGgKq/gJmPTfQE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Zk5fViLSIEPPjIhstwdcljs1mhbKQbngrYvTCsgddI719IHlwxGN7Pq161/T3IClb
-	 4AuSD63fjJVLZ3dHl8E4Xraq0eJMJUTk2BhYYF72f6hI9VW7rXShkFqFSfRDyA8f8l
-	 GK0GJeKScktiQ8GuTc3uF82I98/w8+OP+J5JZ3u79GUZBPrs+qAsFCuNC3nJJRkVun
-	 DH9Kw4Zz2Dh7f3eDQ2EmiDEJpgQQFNnw+4LEIMGHt9PexnDHmAMZJG5czSNEjPFLf/
-	 pj3RZNODT7nk5aUjlcrkKRFpW2crlu9yUxP4hpqHeOooTKwBVHKyIg13VDBWbxVN5D
-	 iHWMFfgw1MfoQ==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org
-In-Reply-To: <b1477db70b5a068c7ed3276cac906836031214db.1795096443.git.geert+renesas@glider.be>
-References: <b1477db70b5a068c7ed3276cac906836031214db.1795096443.git.geert+renesas@glider.be>
-Subject: Re: [PATCH v4] arm64: dts: exynos: gs101: Drop CPU masks from
- GICv3 PPI interrupts
-Message-Id: <179518541714.24590.13840055240522607419.b4-ty@b4>
-Date: Fri, 20 Nov 2026 15:36:57 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gwalE1n6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0291F000D1;
+	Fri, 20 Nov 2026 14:37:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795185476;
+	bh=G3Dx1Rl8sCVhKobWtk/mYO5a3CKsB1ub+4mYD8rlpqA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gwalE1n6xg8+aCz8tzdSBMFT4OzhyXzaXSdy+DLoS1DsZAikhr7lisJBMxV539KUQ
+	 MqnNESWJyCDJbAv8ljr1HKFYRmGmc2yP3vANzHQ0+LdXeTEwOFxgXjv/xvU9lRBrwQ
+	 t5QM+eIdfkQQNnula0BGl2GryflsnzCOKQe5pE9U=
+Date: Fri, 20 Nov 2026 15:37:53 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: joseph@telaak.dev
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Minas Harutyunyan <hminas@synopsys.com>,
+	Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] usb: dwc2: Add Siflower SF19A2890 support
+Message-ID: <2026112039-library-rise-d0b7@gregkh>
+References: <20261111-sf19a2890-dwc2-v2-0-cba9dd4a4256@telaak.dev>
+ <20261111-sf19a2890-dwc2-v2-2-cba9dd4a4256@telaak.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,36 +58,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=376; i=krzk@kernel.org;
- h=from:subject:message-id; bh=u7FKdVi4iwFQV3UicTf2xfX6Ejre3/Bp3Tj21sO7nvg=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBrAFsKig/ws+ZeUZlxD/tQYesOJHYiRTvZ727g+
- 6ryO65dMR+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCawBbCgAKCRDBN2bmhouD
- 15JND/9LcLiYB00Y5FXKJjesB0i5tqx0mhcB3NhM7QBkwc1/KJZZ0RfHDcOi5a4V62U7/5g0NmU
- DAe+IMo3ZyiPM8Kc0JM5O4gR0yQG5Y/z5GWr+cjH3+v85hZ5QiYXUbu05onKqQUR823d2/kFOi+
- gIF32D7jeaXJU2szZAE7Ai7YIUQorM1jGeqUsiubzAsdilHhhFsYrLT1K1PJXVV5Ira/+WAt3xs
- xrTSOM3CuvzV2DT/gFHDWrmgHxtiJtEzSuBnyoFDBGNw6+kUARFzhSYZ4SOcbTomMMXyN0K3/6J
- BZHddHc5YVFHhO8oePnCnD/wuLp0qys3wGu9tpyna4NTL6S5mSbqJqGj3lj49yFVbSjcuaCxbTd
- 2g7yhu5p8jTvvssw1CekJcbQwzCIvNedqalR9XWePONVYq6lSqqgOtvX59sJQAAR6aPvjhqS+Zv
- uurTZaRPnzhiL2rn9FR1mA7ppbh3nM8PHs9RHjrLFY3r6hWFjD7mOz5dPjiFegTVF1s12M11qvr
- FUcv9nimh47lvhYFVJn2f+IvaJClO4e1FH8Jfp0Sy3ZmNkykXIWtMIdfypp+c7PT/2rtzPlKrL3
- p1LXUNeGf9dao8ieUjXjLsaPZZs4/2+UIUqhvkIO3wmpwOds/Wuqychb633idDn4v/C0iPe9ObL
- 3b5qa7uVQ/kMV3Q==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-sf19a2890-dwc2-v2-2-cba9dd4a4256@telaak.dev>
 
+On Wed, Nov 11, 2026 at 03:26:02AM -0500, Joseph Telaak via B4 Relay wrote:
+> From: Chuanhong Guo <gch981213@gmail.com>
+> 
+> The Siflower SF19A2890 has a DWC OTG 3.30a controller. Limit its
+> transfers to 65535 bytes and its AHB bursts to INCR4, the settings the
+> OpenWrt port has run it with.
+> 
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> [Joseph Telaak:
+>   - take it from OpenWrt's siflower target and rebase on v7.4-rc1
+>   - commit message and subject]
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  drivers/usb/dwc2/params.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 
-On Thu, 19 Nov 2026 14:54:56 +0100, Geert Uytterhoeven wrote:
-> arm64: dts: exynos: gs101: Drop CPU masks from GICv3 PPI interrupts
-
-Applied, thanks!
-
-[1/1] arm64: dts: exynos: gs101: Drop CPU masks from GICv3 PPI interrupts
-      https://git.kernel.org/krzk/linux/c/306301ca9340a6c7ceb14d735abb9cc380933a7a
-
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
-
+When you don't cc: the dwc2 maintainer, you'll not get a review...
