@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795188078;
-	b=yLKDI4vv3MZSlj2eNkLKhRmEPrAHEMHL7bPn2Dfs+KG7bLz6i1kqH0QJM0X7qT3AKh6n
-	 nratrU/Q1Hdjo+SJt2NhITDGYmMgZFs+rzVTkUx6MnrpIxrYCkvMIS9zaOq6gfXDTQdqz
-	 waNVdvs9OtHxTYj3BddzB8KFCwOJ6iwUXXfdBXZAnkOdnispjWMCJqy6gU+Q2Tp/U/Lz4
-	 2Qt4JdD0AawsDePdTgQ7OueHlGhSHy6u6WYNHa7H2+GJfgqcdKdV4pW/sQtfPcqgJBOQE
-	 m8ECirKweCjyK1VUKLujigCm2IkOaJb0icI2ceWpDSg08SMwu2vIm7YE5wZj+nIAwXA==
+	t=1795188079;
+	b=ODxhLSEdsiMQAowcjY3ck+ls5mRJowKaoxxOvtaisk0TWFPW9SOs/JXJKvueidOeMv07
+	 3NJGVzrgsDj/e4FJspZJ1AGnscKpH6LZpBeANat+wlR++A0NR0BvUUc3GqONzmR2B6xc/
+	 /J7d9eMyeQTug3RynUHnIWiq4wsqeg0l0zsntHrz4ViNJDJwgMhzlspQz4L5fs7mRd/oE
+	 3k6ErIi3ndGo+HklI4TWx40Sf683NlLaInh3adcbKs72n1Xac7Do5zzzFA5Bm3bJa27dp
+	 GFf0QGunTfAl004BY1STLiKvc0RhdOKmQ7bm1MSj03i91WzhZru6Crzh0k+4iI52Fgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795188078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795188079;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Wv9TDIMq5PIGRvCOwikSsZTS+PIHBKiUu+4pIUxBoCE=;
-	b=HFGbnqcGep01R0MHVop3XG2cyvx6Ao1RxsfsEcIfFcySYiWI4Q0lO8V7naqufAGFgIBO
-	 zQqNV3PeK1x3LzthPbI+AqAQJuwi6lSE+qAD4Q8Rv0h2NFED4mFtVET0UWusyPcKrm1Ci
-	 Aott44CvrcxlC6Gony+67J47qLYZSzuVyabVwMQ8KAlg/B++Poeg/DdhfVL1Jp9cscm0N
-	 175cj4EKUlreeDjM1e5l0sK4LI/xc7hY0cT9OKdGO7mZvU98BJuxCyhpP4/aWG9sQSgFl
-	 HPtgPFPj9xkgNH8Ul4XMkPDMwn1JrdMe2Oy7w0g5AdL/Xe92EgwySw0E6CkeoQR980A==
+	bh=EoILwtKAFC7pUy6PTaV9xgOWsk3S7vpRb0ivrvi6Lhw=;
+	b=SJoQwhFU5cYgodYdN5CgUTa5E2EHqC9KcFMtgIjtBLdIgVGw65FrM5a9znBMI2INn7IK
+	 Q1Mp+0dyaP4dwwicQp4Sa7Ar+fkjHx3FAdr0UPCUlxVNrIoVE5sSA2WJsECzJA//WUd3A
+	 92ldjcNGPNwMH3XbnmItTQHlVRDpaWnyBK9/c/OpHDj0Jsm3Osbq4IsL1Ntm7sngJBfQp
+	 1a33UjUV6NiYudtih/NQxX2huYyyPtvdH1yylJG5V0UcWMJbV2pzmKxjMm8gYeanATATg
+	 BLhjthY1wqCNK1B2Q+PWPxivIqlvrwT/4OT7sKf0s4RKeYNUSSrRREbK88dWRt8WyXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nCgyD0/d";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VknaFJDy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C496606A330
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:21:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D355606A326
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:21:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCgyD0/d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 890C11F000D1;
-	Fri, 20 Nov 2026 15:21:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VknaFJDy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722B11F000D0;
+	Fri, 20 Nov 2026 15:21:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795188077;
-	bh=Wv9TDIMq5PIGRvCOwikSsZTS+PIHBKiUu+4pIUxBoCE=;
+	s=k20260515; t=1795188078;
+	bh=EoILwtKAFC7pUy6PTaV9xgOWsk3S7vpRb0ivrvi6Lhw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nCgyD0/dcFtUGgd+vYm6b1hzhTK1dWtmnFrBrewyIrNIbNDlnB5PtL3BcGd7dSFM7
-	 b3L7GeAebvKa2ZihumsWi7MujBeW2H1sSHGA9XnBcpaA+LRNNcciKe8HfQMczZFYH7
-	 M3klp2wNxLqRn5gmNCGqZYb1JQiOJ+HQ+9MUFfWyHGYSGMGPWNogP+S+GU0g+qvPIh
-	 kcL+lRdlj3hAX66IehEuiyomx+yn32GRzxUb4qCS8CQeJLxbgfCdf9z4E7MxYlyM9D
-	 RNBBLowYvqaunc3T9W92UbcLAbF1/DpDu7+EZiEDKUaxWY58ufzu9zl7MdXdVlhflj
-	 gf3vaJ+yicUHg==
-Message-ID: <sashiko-outbox-225452@kernel.org>
+	b=VknaFJDyVOkjpr75T9KS/JqtWgeUMhxQwjq6NfnwI2FG01rvysKayWLCbhRWpBMiz
+	 SFG/4/2HC7CHTedoXldI/SkohgZfF5RyCZCBdwbInkc7LOyXHy2qWk0qFm600869zW
+	 P24cZNKTO3u5Rc9Vo1cwEdNQDP31fQx6kz3YtDjJ5duMEe2X077BojiCXUuFG7Ld+m
+	 +uDn8TbTnWtaY1dNl635APzoYSFT5CZd5k+ykmYM4Wk4ouZto3I1FUX6FO0bF6RrgG
+	 gco8Sk5p7ve7YT8jHqXDBchumy8J62bMoSGGhJoVldoLeZUQo863HYFDZ+KoeRfWD8
+	 w2bhfqT5IgXFg==
+Message-ID: <sashiko-outbox-225456@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/8] ARM: dts: rockchip: Add Luckfox Lyra and Lyra Plus
- boards
+Subject: Re: [PATCH 8/8] ARM: dts: rockchip: Add Luckfox Lyra Zero W board
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jonas Karlman" <jonas@kwiboo.se>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261119152055.556266-5-jonas@kwiboo.se>
+In-Reply-To: <20261119152055.556266-9-jonas@kwiboo.se>
 References: <20261119152055.556266-1-jonas@kwiboo.se>
- <20261119152055.556266-5-jonas@kwiboo.se>
+ <20261119152055.556266-9-jonas@kwiboo.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 15:21:17 +0000
+Date: Fri, 20 Nov 2026 15:21:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,91 +60,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] ARM: dts: rockchip: NULL regmap dereference in pinctrl on
-  RK3506 banks 0 and 1
-- [Medium] ARM: dts: rockchip: missing pinctrl configuration on enabled
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] ARM: dts: rockchip: missing pinctrl properties on enabled
   fspi node
 --
 
-commit 4fbf9c971fb720e3dc9fb2b66cb41a8a5d9471ec
+commit 48e50ced88fba2da121063679ad813c27667c9d5
 Author: Jonas Karlman <jonas@kwiboo.se>
 
-ARM: dts: rockchip: Add Luckfox Lyra and Lyra Plus boards
+ARM: dts: rockchip: Add Luckfox Lyra Zero W board
 
-This commit adds device trees for the Rockchip RK3506G2-based Luckfox
-Lyra and Luckfox Lyra Plus boards.
+This commit adds the device tree for the Rockchip RK3506B-based Luckfox
+Lyra Zero W development board.
 
-Link: https://wiki.luckfox.com/Luckfox-Lyra/Luckfox-Lyra
-Link: https://wiki.luckfox.com/Luckfox-Lyra/Luckfox-Lyra-Plus
+Link: https://wiki.luckfox.com/Luckfox-Lyra/Luckfox-Lyra-Zero-W
 
-> diff --git a/arch/arm/boot/dts/rockchip/rk3506-luckfox-lyra.dtsi b/arch/a=
-rm/boot/dts/rockchip/rk3506-luckfox-lyra.dtsi
+> diff --git a/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-zero-w.dts b=
+/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-zero-w.dts
 > new file mode 100644
-> index 0000000000000..d02d3a18b052f
+> index 0000000000000..f2fa513e8bff1
 > --- /dev/null
-> +++ b/arch/arm/boot/dts/rockchip/rk3506-luckfox-lyra.dtsi
-> @@ -0,0 +1,124 @@
-
-[ ... ]
-
-> +	leds {
-> +		compatible =3D "gpio-leds";
+> +++ b/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-zero-w.dts
+> @@ -0,0 +1,23 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 > +
-> +		led-0 {
-> +			color =3D <LED_COLOR_ID_RED>;
-> +			default-state =3D "on";
-> +			function =3D LED_FUNCTION_HEARTBEAT;
-> +			gpios =3D <&gpio1 RK_PA0 GPIO_ACTIVE_HIGH>;
-> +			pinctrl-names =3D "default";
-> +			pinctrl-0 =3D <&led1>;
-> +			linux,default-trigger =3D "heartbeat";
-> +		};
-> +	};
-
-[Severity: High]
-Does probing led-0 (on bank 1) and uart0 (on bank 0) cause a NULL
-pointer dereference in the pinctrl driver during boot?
-
-In rk3506.dtsi, gpio0 and gpio1 specify per-bank rockchip,grf phandles
-(populating bank->regmap_ioc), while the parent pinctrl node omits
-rockchip,pmu and rockchip,ioc1 (leaving info->regmap_pmu and
-info->regmap_ioc1 NULL).  However, on RK3506 the pinctrl driver ignores
-bank->regmap_ioc for banks 0 and 1 and uses info->regmap_pmu and
-info->regmap_ioc1 instead:
-
-drivers/pinctrl/pinctrl-rockchip.c:rockchip_set_mux() {
-    ...
-	if (bank->regmap_ioc)
-		regmap =3D bank->regmap_ioc;
-    ...
-	if (ctrl->type =3D=3D RK3506) {
-		if (bank->bank_num =3D=3D 1)
-			regmap =3D info->regmap_ioc1;
-		else if (bank->bank_num =3D=3D 4)
-			return 0;
-	}
-    ...
-}
-
-drivers/pinctrl/pinctrl-rockchip.c:rk3506_calc_pull_reg_and_bit() {
-    ...
-	switch (bank->bank_num) {
-	case 0:
-		*regmap =3D info->regmap_pmu;
-    ...
-	case 1:
-		*regmap =3D info->regmap_ioc1;
-    ...
-}
-
-When led-0 applies &led1 on bank 1 or uart0 applies &uart0_xfer on
-bank 0, rockchip_set_mux() and rockchip_set_pull() pass a NULL regmap
-to regmap_update_bits().
-
-[ ... ]
-
+> +/dts-v1/;
+> +#include "rk3506b-luckfox-lyra.dtsi"
+> +
+> +/ {
+> +	model =3D "Luckfox Lyra Zero W";
+> +	compatible =3D "luckfox,lyra-zero-w", "rockchip,rk3506";
+> +};
+> +
 > +&fspi {
 > +	status =3D "okay";
 > +
@@ -161,16 +108,16 @@ to regmap_update_bits().
 > +};
 
 [Severity: Medium]
-Should &fspi configure pinctrl-names and pinctrl-0 here?
+Should &fspi define pinctrl-names =3D "default" and pinctrl-0 =3D <&fspi_bu=
+s4
+&fspi_clk &fspi_csn>?
 
-Unlike other peripheral nodes in rk3506.dtsi, the base fspi node defines
-no default pinctrl properties, and fspi_bus4, fspi_clk, and fspi_csn in
-rk3506-pinctrl.dtsi are marked /omit-if-no-ref/.  Without referencing
-them on &fspi, dtc strips those pinmux nodes from the DTB and the
-controller probes without muxing GPIO2_A0..GPIO2_A5 for 4-bit FSPI,
-breaking SPI-NAND access whenever prior firmware has not already
-configured the pins in 4-bit mode (such as when booting from SDMMC).
+The fspi node in rk3506.dtsi has no default pinctrl properties, and the
+fspi_bus4, fspi_clk, and fspi_csn pinmux nodes in rk3506-pinctrl.dtsi are
+marked /omit-if-no-ref/.  Without referencing them here, dtc strips those
+pinmux nodes from the DTB and the pinctrl subsystem cannot mux the FSPI
+pins when the bootloader has not pre-configured all four data lines.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119152055.5562=
-66-1-jonas@kwiboo.se?part=3D4
+66-1-jonas@kwiboo.se?part=3D8
