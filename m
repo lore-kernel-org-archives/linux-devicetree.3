@@ -1,96 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795200438;
-	b=iUNkUAZKsw0Ne+W0wQxnQlLMue7cVSJ1RPt6bURL7NRUsRGz5eKlBCUeIFuNGuM3FNuM
-	 C0qgn8MJbZYqVgcfo7saRWulE6/mRKluHgwOi+49d94CsjBX1XYH2aaDOSNfokwjrfRyk
-	 ZOCH4+0/4HfJrvd4azvw5gsKVK8wmAujh39oQwo2VCHC6FmRpKV+MY158Nh/W8R9yodWN
-	 E62TxirOpU+i/k6rYk8vmbQdrsXt2VCTcKQgQlzhTmDGl6odUvlrCLkiuapCLfF2KXyer
-	 ZqhgaSVvYzU+5jxTrK4ZAwwKMw8V2x6Jc0cjTCuKdfNNwMMXFV+Smbv15sfhPxFV+zw==
+	t=1795201011;
+	b=NyrFUCFSWVLLNEimMyTkLBq5JJS4q90KjDNcP4rIg192S3N7J7dco5HmwoMWRk+5twhl
+	 N5+zDdz2Sqv6JjTiHB+yWDjTdrTHdU8pIaCb40uoJxfwkyaF8dZ3QKEc+zQJ6bEjFoNSF
+	 XqsRcJSRUZyJW/c4lprPqNrr9CHPKzeSI5xC/GZuCUc2n8LmYWH+3XF6y75s7zlao9tsR
+	 PbsmXk39yiBFv8ksw4dwUI0p9LWV4lGrd3l3jmzCQsSpv4Of1r7jYXT3CIoS3IWQjsKFJ
+	 yiLJnkb2pXWrXx5jpivyyEmxeb9Is81RVPiJN4HCoCrM+tO+ScI2bQQWF9oI58vDCKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795200438;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795201011;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=ewcUplbKFZ3Kf41zlADgLuzbjc/2lDvi2YHHk/8wcoM=;
-	b=oZ7WOVtIhCMB6OIiw/GWZxgCWKAFSYH904TmczYeQwd8p0P9RTxfelHsVrt68/ZlgxXX
-	 CUpZO/Fp5En55XW2G5l5k8WcfOyW+nBU8N+7B5K4IYMbFD+R7+pVdsyTfMqDtOEUTS3yV
-	 U7yP8hQKbgkITaKKNncI4X6K9oycHcSG5zaSouHY8Vp8I5bYOUBKQJ4+D8WMV/UfQXF7m
-	 WSTLSRgjk22vQzDNlDIpFwg+q8oXYENfcoNeollpu2jppklsZ417gJ075oMOpE4k7cbDH
-	 Mub4AbqZvRsD/JSURCNnIUFy5P6Dzf2WFCE6dSlPKomqqH1FPofQEDNqL118kE5snWg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=MbVQtId4GZJpOwZIgQ5IVkC1l8C9teB2jkENg0QieKg=;
+	b=KOLPEkOvtrX61tBKNSTFpJBE+68VyY2mVJ6OnXjAK9uJCweuEhI5AWOcqe2dkkIw6Chi
+	 HXo+Di2DOfGZARG+gtWZtbYZ3efxdP7GraibzJHV4bDvzBXJWZyebBEYotqrJhuAYr7ak
+	 1OzAdyFwPBCtais+0vNHoxJZD9OofqBNciaSyGuja+ADFhUXMSqx1pgnWEbbb4SaDjVd1
+	 nja1qvsWFKtfui7DP/u3AkAVgxD/JFcVBJJM9EMPPRtQRs2jZSqdGY06iH0OYMzJcYf8Q
+	 uLwxqoig/Y9YfdRocTmxPjY6J4Buo1KF2PzUwM8JAbd+MDN4UtKlkpngM5wVqOdri8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jsoq9tDF;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r8GQQw9t;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237F360A2634
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 18:47:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 237F360A2634
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A936E60A2631
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 18:56:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A936E60A2631
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jsoq9tDF
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-491f34b4e0fso602721f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:47:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r8GQQw9t
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso604884a91.2
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:56:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795200436; x=1795805236; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1795201010; x=1795805810; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ewcUplbKFZ3Kf41zlADgLuzbjc/2lDvi2YHHk/8wcoM=;
-        b=jsoq9tDFY2Ns3Pm1V3FdvoAq20Pzi3f6JMVbc584HhPkZtwkO+zehPRvvxTe5RPBHg
-         nmSQk5MHg8Mhk6lFf0PaI9ROCSLNEsIHScTeH5JEJPA8riCmlMKQStsX+Af6zwBHx0/X
-         3CaBcegjGCscrOK6j8igh6DzGEUYw86K6fJ4t+drn9d08wwJdd27TEzLMwWeLyRm34h0
-         XLQOIIBpD1PTm2Lk/u2y/XQWljOBImADeAxcL9vYuOpkQyktyf1fIOv+G5eFE/26AILw
-         lWW+gyvlKRJnHCYv2Z1j2uRN+p0x/JauPGflgDY59dXTbqUat0ITJnmosPeI66+83sJO
-         Ymvg==
+        bh=MbVQtId4GZJpOwZIgQ5IVkC1l8C9teB2jkENg0QieKg=;
+        b=r8GQQw9tdT3JOh+6FNwiH/8laGLkVWuAdVc6z6ZwV4kBuFi5o/1q6BThpy4rU7X1fs
+         TuK8QuWm48oz7IzcriEy8yV3tCvCGN1QU+PjHPwsmFaGHK5OaevpI6Nb7PPxNiq1mr4b
+         a+Zg3dqp2LZSApuR250ogcTr0aMkngN70Rx1h8Jlyoa62yEbl5Vkh2BneroA7at+k3PT
+         zHec/Y8bHDpQ8Kc9ETuh1CXi/orZMal93vpieAuHFLGBDnqhMgwzs5FOZ7eVUk/aa7/k
+         zEWIBoX4cdB/pxY8WqnwBjGOw7lmI38HIYIujaik8O7UAtopthj4VpCZm4/bqwtefwVL
+         ft7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795200436; x=1795805236;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1795201010; x=1795805810;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ewcUplbKFZ3Kf41zlADgLuzbjc/2lDvi2YHHk/8wcoM=;
-        b=lYxSN8q4NRHRkhp+8h9qQp9TxPNWQc+UQx4DEJDdP2q5mKnqzQgPFPIF/e5HDuafqq
-         8fQQFWA7vVktFX/dQXdU2x7OIh6L0H1Brf4L7xKFmaJejfYjiVWML0D1r8QPaDpLSyHL
-         kliv8cWy8tjT/LfY6PZohdiyoXEsYO/H5OdIoCbvC7ji6/Q12xFY1xgZH0wwDL3D37KT
-         3STq3j0WfeTmJ3LoV/00ryg97bz/gzbxJvyAoomYPIU10S25I8VVPEw/fC23Fan9EtAb
-         9myqF8wYj91enag+cIzg7p/2P4pHoBVamnjaLPwtAqlE6K7zU+S4iMQN6BzNL3vpx2H6
-         UqiQ==
-X-Gm-Message-State: APuU4Z/Ok1DBahS1074Ojuz3b31I47gmhYTjCYOfaYpw9A0C8kyz7wve
-	Qb1gcOAB74Nw8HoS/Co4YJqiez25oUBMMTKuCBHqPAc/WafmkJNbntiC
-X-Gm-Gg: AZFdTZdkAuxLdqOI1J2lbORzfdSQF44sziFTRvy6FuoEf6aHUb+IdN4SSrP65YODlc/
-	Y+t2F7LMauNWPiX+v29G+xYuEDaRZSh2xwjVt7XK8cV7WpfCWAwtg082KBwGSg3CDPmJpXvug2t
-	nQipHdDYynr+jjAX8NZarIyYx4TPSs+LM2BeJ0v5NpZsqPJyDDHw7lPhTiNvoi+ElQF7MSUFqky
-	qazJicc4DSivc+Z81x0NFYZPCWcWAPu0WsScW1Ia9+d+oIm7mIlVm/GTS9Mk1eOMcCb/v2eHD7n
-	V9g+3PicmyPXKzJ0JAmvRzdYbEiNThFq8FVJPvLv+wK0i984m5OGiwgEoylWq6Ye/pSQrtClLVr
-	cQLPeqxJq4AoVuycwwkITerZ0tdbbR/eVhc+UYZylSX6GeWm3LFrPHWd3u3vk6Slbpr99DFtf5/
-	qi027y5IGflJAHJiFFCjT1xyV8V/n+TgLr2Y5pLAuXxOF+BijmJhy+4PMDJaQFRdXVGMgjJvEg7
-	jxywWwkca9LmTns/Hza2HcQpXFVema8Mf+CY3+BkdzCBeVR+szZwveWDjsnnSFa2S7BxztfYbjY
-	EK1F4V48wpbwiigu2E5jUPg8fmhohj9Bi8nx7xh7Rf+OrLtKKwZ6exfz6sGyNmorpvny9In012d
-	j+aCu/Z1U4DqlnlnsjXQ4VRcglO9jX7tKIN8b5JDTrXw2tYDRdwmFzHMiHYu8NYN59y9SBqVAds
-	E=
-X-Received: by 2002:a05:6000:178b:b0:4a4:f208:6a46 with SMTP id ffacd0b85a97d-4abaf740208mr9570917f8f.13.1795200436455;
-        Fri, 20 Nov 2026 10:47:16 -0800 (PST)
-Received: from GLaDOS.station ([193.207.36.37])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b10b2c9sm7490817f8f.31.2026.11.20.10.47.14
+        bh=MbVQtId4GZJpOwZIgQ5IVkC1l8C9teB2jkENg0QieKg=;
+        b=q5ETeJwi7DjspFisVuA217ePKQHzunzGftKsnQMSAoOWAe+RHRJatU2Sxi+NUm0jyu
+         v0OQUdQwE5uVlqciEaR1qa5VBu13IpfHdGvfg6KuVgmumEUEiZSd1zZAVAU7JNGojD3i
+         2ntKlxhZrTFzEnGhDknjBSra1TQoK9DFweDB7OqKjEj+AJnoP6p09HWjYV1HUYOeEY90
+         JJ9lJx97eVq2sqt+Pw0x/BjwWfEbfYkPSO40h1hnM+4K0/0au/D3vI1kNOrCs3XhLA7B
+         a9Owqs+P3jYu/Cg7K/C9HNhIae947OxMhC4Y0mH0+yp5BDc0gJHYHuVNKMncnbU0K0PM
+         wtIg==
+X-Forwarded-Encrypted: i=1; AL+hErERPfxzlNozkajYFF6K7itg/dTGZPM19TQBKvE4/Q9fZ9UZXtJ9tOIzEtsVrXwgKMPplWCFT9fbYYXL@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+etRDxux835vUxMd8c/70MccqLpopiMyTLhL3G8wkbJ6wk1Wc
+	ZpF43Z5o35QPIR7+QQH38PH7nX7tuZ2oRRoN2JClibsSm9QoJo6zyeSv
+X-Gm-Gg: AZFdTZce004ffTmBW+TwdSduxCKxsUqLAkAkE7GzPROnbBi0whfhhVhqGs1i9OCgIII
+	b5DPJLL5V+pE07ZIDERgr1j7eN31QACi2NFQmFfhZyUuQ1duNo0S26Yk6iwn3/6eoI2UJRQz+fx
+	DBHzpWNxFPV6+1XBS8j4Kw8AT1I5DdsglwTYwnGHxRexKzB7T8T0HvUXxQTUfBzLhhR3mcFCP2g
+	eFG5Rm+UCMRhPG9EIprPhXzQBgojgvOMcQ4g1KPZ7s1tEOZRDKICDBVBTlqRzJsTHmOUbHnXotl
+	/m4g0EAT5590MdUtggjUIIkj1ymiXyz0kBFTocvHl7R6PR69/5QG+c+ZMxxFqrezZ8nLDC9MeuF
+	wuRIywuoB7cUPqxHY9qlx9ytpxNCE3x+PoQap+ho/GRYnw/Dl1K11l8z2V9aIZU3MsHBMU7f3EU
+	cab+AJZWN5S63R1i63PYxzn3plfUw47hN/SrWTPXrl4LiMt7c34sSKK2hImKSwozZkfxCm+5MRI
+	gU1fAY2uC4xHaQI99l9SYHtCvQRC4idcWI7OBLM0kyMwJTl6Uqwn4JgDWyO/0FdB4E4m22JrF85
+	fwLxn1TEJnWnKfEwK19KDMhCGrbfqKTR4g70ww==
+X-Received: by 2002:a17:90b:3c11:b0:3a6:f1d2:57f3 with SMTP id 98e67ed59e1d1-3b41c97bc96mr3964802a91.58.1795201009657;
+        Fri, 20 Nov 2026 10:56:49 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([2001:e60:8509:ba6c:ade5:705a:60d1:a474])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d639fdsm8484216a91.10.2026.11.20.10.56.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 10:47:15 -0800 (PST)
-Date: Fri, 20 Nov 2026 19:47:13 +0100
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
-	conor+dt@kernel.org, Frank.Li@kernel.org
-Subject: Re: [PATCH v4 3/3] arm64: dts: freescale: imx93-var: Add Cortex-M33
- configurations
-Message-ID: <awCVsf3BF09a0ukI@GLaDOS.station>
-References: <cover.1795197853.git.stefano.r@variscite.com>
- <947a7bcf39d89b4a162f296278ccaa3db6512983.1795197853.git.stefano.r@variscite.com>
- <sashiko-outbox-225865@kernel.org>
+        Fri, 20 Nov 2026 10:56:48 -0800 (PST)
+From: joonhoekim <26rote@gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Joonhoe Kim <26rote@gmail.com>,
+	Thinh.Nguyen@synopsys.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	heikki.krogerus@linux.intel.com,
+	abel.vesa@oss.qualcomm.com,
+	abelvesa@kernel.org,
+	wesley.cheng@oss.qualcomm.com,
+	krishna.kurapati@oss.qualcomm.com,
+	konrad.dybcio@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	neil.armstrong@linaro.org,
+	val@packett.cool,
+	balaji.kalkonda@oss.qualcomm.com,
+	tvlad744@gmail.com,
+	effeffe99@gmail.com,
+	prashanth.k@oss.qualcomm.com,
+	yongxing.mou@oss.qualcomm.com,
+	peter.chen@oss.qualcomm.com,
+	tapas.rana@oss.qualcomm.com,
+	vkoul@kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] usb: dwc3: qcom: Use the UTMI clock as PIPE clock in DisplayPort-only modes
+Date: Sat, 21 Nov 2026 03:56:42 +0900
+Message-ID: <20261120185642.1188-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <2026112017-flyover-grape-cee7@gregkh>
+References: <20261119124558.1548-1-26rote@gmail.com> <20261119124558.1548-3-26rote@gmail.com> <2026112017-flyover-grape-cee7@gregkh>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,115 +125,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-225865@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 20, 2026 at 06:44:28PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [High] arm64: dts: freescale: imx93-var: memory@ node names break
->   imx_rproc matching
-> --
-> 
-> commit 3b76dce88eb56af58d06bc8653db1a91c42100e4
-> Author: Stefano Radaelli <stefano.r@variscite.com>
-> 
-> arm64: dts: freescale: imx93-var: Add Cortex-M33 configurations
-> 
-> This commit adds Cortex-M33 overlays and combined DTBs for DART-MX93 on Sonata
-> and VAR-SOM-MX93 on Symphony, moving the common M33 include into the overlays
-> and reserving or disabling affected peripherals.
-> 
-> > diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso
-> > new file mode 100644
-> > index 0000000000000..51ec0beea7c9f
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata-m33.dtso
-> > @@ -0,0 +1,55 @@
-> > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> > +/*
-> > + * Cortex-M33 support for Variscite DART-MX93 on Sonata-Board
-> > + *
-> > + * Link: https://variscite.com/carrier-boards/sonata-board/
-> > + *
-> > + * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-> > + *
-> > + */
-> > +
-> > +/dts-v1/;
-> > +/plugin/;
-> > +
-> > +#include "imx93-var-common-m33.dtsi"
-> 
-> [Severity: High]
-> Does imx_rproc recognize the reserved-memory regions included from
-> imx93-var-common-m33.dtsi (both here and in
-> imx93-var-som-symphony-m33.dtso)?
-> 
-> imx93-var-common-m33.dtsi names the reserved-memory nodes memory@2021e000,
-> memory@87ee0000, etc., and puts the region names in memory-region-names on
-> &cm33:
-> 
-> arch/arm64/boot/dts/freescale/imx93-var-common-m33.dtsi:
-> 	reserved-memory {
-> 		...
-> 		rsc_table: memory@2021e000 {
-> 		...
-> &cm33 {
-> 	...
-> 	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
-> 			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
-> 	memory-region-names = "vdev0buffer", "vdev0vring0", "vdev0vring1",
-> 			      "vdev1vring0", "vdev1vring1", "rsc-table";
-> 
-> However, imx_rproc_addr_init() and imx_rproc_prepare() look up regions by
-> index with of_reserved_mem_region_to_resource(), which sets res.name to
-> the /reserved-memory node name rather than reading memory-region-names:
-> 
-> drivers/remoteproc/imx_rproc.c:imx_rproc_prepare() {
-> 	...
-> 		if (strstarts(res.name, "vdev0buffer"))
-> 			continue;
-> 
-> 		if (strstarts(res.name, "rsc-table"))
-> 			continue;
-> 	...
-> 		mem = rproc_mem_entry_init(priv->dev, NULL, (dma_addr_t)res.start,
-> 					   resource_size(&res), da,
-> 					   rproc_mem_entry_ioremap_wc,
-> 					   rproc_mem_entry_iounmap,
-> 					   "%.*s", strchrnul(res.name, '@') - res.name,
-> 					   res.name);
-> 
-> Because res.name starts with "memory@", imx_rproc_addr_init() leaves
-> priv->rsc_table NULL and ioremaps the vdev regions, while
-> imx_rproc_prepare() registers all six carveouts under the name "memory",
-> so rproc_alloc_vring() fails to find the "vdev%dvring%d" carveouts at
-> runtime.  In addition, fsl,imx-rproc.yaml does not allow
-> memory-region-names on the remoteproc node, causing dtbs_check failures on
-> the new -m33 DTBs.
-> 
+From: Joonhoe Kim <26rote@gmail.com>
 
-This series depends on the following commits, already in linux-next,
-as noted in the cover letter and in patch 2:
+On Fri, Nov 20, 2026 at 04:07:21PM +0100, Greg KH wrote:
+> > -static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom)
+> > +static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom, bool utmi)
+>
+> What does that bool mean? That's going to be a pain, please make this 2
+> functions so you know what is happening when you call it.
 
-- ebb21cc5d1c0 ("dt-bindings: remoteproc: imx_rproc: Document
-  memory-region-names to avoid implicit ABI")
-- 8396089f91fa ("remoteproc: imx_rpoc: Use memory-region-names to avoid
-  implicit ABI")
+Will do in v5: dwc3_qcom_select_utmi_clk() stays as it is upstream, and
+a new dwc3_qcom_select_pipe_clk() goes back to the PIPE clock.
 
-The driver change replaces the direct calls to
-of_reserved_mem_region_to_resource() in both imx_rproc_prepare() and
-imx_rproc_addr_init() with imx_rproc_rmem_to_resource(), which reads
-memory-region-names into res.name. The binding change permits that
-property.
+> > +	mutex_lock(&qcom->pipe_clk_lock);
+>
+> Why no guard() use here?
 
-With these prerequisites applied, the generic memory@ node names do
-not affect resource table or vring matching.
+v3 used guard() and scoped_guard() for this lock. Krzysztof preferred
+plain mutex_lock()/mutex_unlock() where nothing returns early [1], so I
+changed it in v4. I'll go back to guard() for this lock in v5, unless
+Krzysztof objects.
 
-The reported issue applies when the series is evaluated without those
-prerequisites. This series needs to be applied after them.
+[1] https://lore.kernel.org/all/20261113-artificial-quixotic-firefly-84baef@quoll/
 
 Thanks,
-Stefano
+Joonhoe Kim
