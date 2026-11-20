@@ -1,92 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795202632;
-	b=PJHXanL61vPpegjuyupWgShNn5LRMgmboPBSVS+9OapCy+yR1nINLscZKrr3q9kwl8oN
-	 pMwp/563JDKL/vbj52aBE/fRKbI96DLI1wL/ao2wH7yVJhz+cnPrJtjt/R3SFHZR6AMaZ
-	 2oLljBJ1hDGSfa0ixuLS8YZRbIFl1eK29WJovda3XtGmayPMsVqlfTGwCmy+nfgqCLzl3
-	 aZH9I7Yv4BaHGTBUqDOni6jvOu2sLA6SOn203/IZXL0Ko+LGKQgkG/UmAhGFbknSg+2gM
-	 fLgCh1aU61tTuNIu8fTaIKlpZ1EfTMKDdNFEy3/FXUwZ62fqwXET6qNGIz3C44/7xVA==
+	t=1795203506;
+	b=Mie6U8njKpDOEvp71bZVrCufVCA/Zq0RoCus0GZsQMQGogrVEjcVPJ10OdXnJkfb79aj
+	 VZjUUAkS2FrVnAqXNJ1YQN5J/zmZq3hshBpPwJ95IIiob7vzTk/vQNEjAndkediUHocL+
+	 zC0COcoU52qn9W/ds6qP4U8Dx6Odr/SX4YNMQNOT7cMLvhyQP8ez3iThZkyRzu+svOqo1
+	 k8FrQaQCtXVj1/AJdHhBgyUuznb3lTp/fT2TocJ4VCvrmKNa15Nyo0PoVUcKwXDDqBx//
+	 5m1l2iGfqWOqtnRs9sOKxm8JA5bgTkHhR5CY06VNnRurgRIIMe36Y8EpihIon22cJZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795202632;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=cIMlEHAXsHupnHOFHeIKMrh67XnbyAXB3whPGGpCY5I=;
-	b=wBP2L+7bxXqa1bpjS9mhE5rHBU0HU5VfDYtp4EfSaHHmcZ56Uwu1QNQBKf3+YgaZVzY5
-	 JZR8BwbhwOz51MNeP767C3URQgokEFlaP7emlZFu27RpFU3HF+Q4dZ38s92UJmfXNC6ED
-	 mROq7VybjAcKM6MY3BMQud7SnqdvbvMOU8p6IXfS1TDla2t2flpNclgvd77cVGo/Yf+zi
-	 PCMxRaJ7Rj4RvZ8bkVDDBis6731LIRT35aEpLCuK2JA5ka5XWN539tw2zqCPthS18jl7U
-	 wHRPRXfi8QQrTppFAwxjUeqmEt0BserPCBfbC5Cl0v8B0Kq1wqauu9p6gAD6jZEDu1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795203506;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=BNd/cbS+QEmMiqM4U/E620YfNOWBNBsrFLbzL2Qo/4g=;
+	b=lvvMsZAJiBgiqNdQ1+1G9JkYDYV4kVGEnNfiG9S6cEZdXzq38RHGgjdkYZnfn1tVOLaP
+	 WA2pFWiWrAi0UpBU5och15TkqmiYwpkqVf8VcMD8rqP6mp2MJKiGAEfZvSacPlexmMm7V
+	 eNfC1G32L85cNgSOYFW3E2SXc57cOBNX3mY1nK3LxBto4vHPPt/FYgV137AIlrFcrbklG
+	 xHXzxIEyDtYs9yvFQXAoVDpsfRmxidATg6jn4iy6M5RQi8mJ+em29KOjFN/9cURFRWQsH
+	 pl95ecGPUuxgxTh4YN3jiomlWhQNseMe4i80mOncH/B4+n2Kxt+Xff67sYVBggSETxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYul8H0Y;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QlXmtIOy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AFD606A6E8;
-	Fri, 20 Nov 2026 19:23:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0AFD606A6E8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5081C606A6E4;
+	Fri, 20 Nov 2026 19:38:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYul8H0Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795202627; x=1826738627;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=A1NiJp6d9VgMIwxcRAsooN0LZHNBFTQODfOi8K94dGo=;
-  b=mYul8H0Ym90XpriRfQzLGnJ8cchCZL6sC2NfEGbj+VI+OFbKFcRMQQrw
-   VuTmArww8TBcTPrFx8SzsI+X5JJQd7gas7gPaD6mkI49jPVNJ6whemlB+
-   sgjXF8JvXzxifOrPeKrLmSna54QPl30aoolQYqItbAju1o9qtLl1I5VV6
-   ZrwEGbsWjKYcckz7WEJo4EsYSgN3wqIVP96+i6Qg3TFqaGZ1mqsqpbGKD
-   mFjf0s2WsV6GLLEzeZeA6O/vXu179Zgr0qC/jh+22wB9S914X1XqWKjou
-   sVKA8DbkTUUpzmLw6eGtzDuGhpkVda8eGL7ubrgFLV0qn40KlUJECdMJN
-   Q==;
-X-CSE-ConnectionGUID: vebcstejRCu2IVshglaJHQ==
-X-CSE-MsgGUID: jnEkCkBhQ8e9zlMrGTXSnw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="3971333"
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="3971333"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 11:23:46 -0800
-X-CSE-ConnectionGUID: IcMig1jkS+a4yth9PVQCqQ==
-X-CSE-MsgGUID: +iLoEhuvQbKE8PRygMOlvw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="10991760"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 20 Nov 2026 11:23:40 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xUUCu-00000001IN5-05op;
-	Fri, 20 Nov 2026 19:23:36 +0000
-Date: Sat, 21 Nov 2026 03:23:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Vikram Singh <vikram.singh3@oss.qualcomm.com>, peterz@infradead.org,
-	mingo@redhat.com, acme@kernel.org, namhyung@kernel.org,
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
-	paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, atishp@rivosinc.com, anup.patel@oss.qualcomm.com,
-	will@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, beeman@rivosinc.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Vikram Singh <vikram.singh3@oss.qualcomm.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org,
-	Rajnesh Kanwal <rajnesh.kanwal49@gmail.com>,
-	Anup Patel <anup@brainfault.org>
-Subject: Re: [PATCH v5 5/7] riscv: pmu: Add driver for Control Transfer
- Records Ext
-Message-ID: <202611210338.qHaMzDp7-lkp@intel.com>
-References: <20261118095053.3871267-6-vikram.singh3@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QlXmtIOy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B2C1F000C4;
+	Fri, 20 Nov 2026 19:38:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795203505;
+	bh=BNd/cbS+QEmMiqM4U/E620YfNOWBNBsrFLbzL2Qo/4g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QlXmtIOy/kW1txFTmB2O/gpGBMpnjkv7ItDSFqvRdvNWy+q5/GcmUPFsT5l5AK+gq
+	 TgtFF07bbeoSEZ1wGhXrh3y3rytQEmFEkgkPurO9eTgKBfgODn4ygo1zCq3mjXHqqe
+	 YTxtFOu3FpVYlHiq6cDUXTys2krBLNJyy2FM0O7z8N7loBnQTAyNmpXzD7P+MK4XPJ
+	 9J7S0c+KrOGuei7OsInbvBTMNhSLETpjcYQaRWyv+VqE2h36go8CjxfeUG+e70tXt9
+	 EMnyyLyzvUFUTyB93IBN3wCEP1O92ytWVIOkHyOpkNKM74WgIs6s9xzHEstLNxlOEJ
+	 uRzQjDh3YfO6w==
+Message-ID: <sashiko-outbox-225934@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/6] dt-bindings: soc: zte: Document zx297520v3 socsys
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, lee@kernel.org
+In-Reply-To: <20261120-zx29usb-v1-1-b0433258e51b@gmail.com>
+References: <20261120-zx29usb-v1-0-b0433258e51b@gmail.com>
+ <20261120-zx29usb-v1-1-b0433258e51b@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 19:38:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,115 +60,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118095053.3871267-6-vikram.singh3@oss.qualcomm.com>
 
-Hi Vikram,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on peterz-queue/sched/core]
-[also build test ERROR on perf-tools-next/perf-tools-next perf-tools/perf-tools robh/for-next linus/master v7.4-rc3 next-20261116]
-[cannot apply to tip/perf/core acme/perf/core]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Vikram-Singh/perf-Increase-the-maximum-number-of-branches-remove_loops-can-process/20261118-152047
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/peterz/queue.git sched/core
-patch link:    https://lore.kernel.org/r/20261118095053.3871267-6-vikram.singh3%40oss.qualcomm.com
-patch subject: [PATCH v5 5/7] riscv: pmu: Add driver for Control Transfer Records Ext
-config: riscv-allmodconfig (https://download.01.org/0day-ci/archive/20261121/202611210338.qHaMzDp7-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 67ab6538dff0ed2593b90166214d93e992c74905)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261121/202611210338.qHaMzDp7-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611210338.qHaMzDp7-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> arch/riscv/mm/tlbflush.c:76:3: error: call to undeclared function 'sbi_remote_sfence_vma_asid'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      76 |                 sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE, FLUSH_TLB_NO_ASID);
-         |                 ^
-   arch/riscv/mm/tlbflush.c:76:3: note: did you mean 'sbi_remote_fence_i'?
-   arch/riscv/include/asm/sbi.h:756:19: note: 'sbi_remote_fence_i' declared here
-     756 | static inline int sbi_remote_fence_i(const struct cpumask *cpu_mask) { return -1; }
-         |                   ^
-   arch/riscv/mm/tlbflush.c:112:3: error: call to undeclared function 'sbi_remote_sfence_vma_asid'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     112 |                 sbi_remote_sfence_vma_asid(cmask, start, size, asid);
-         |                 ^
-   2 errors generated.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: soc: zte: missing MAINTAINERS entry for power
+  binding header
 --
->> arch/riscv/errata/andes/errata.c:30:16: error: variable has incomplete type 'struct sbiret'
-      30 |         struct sbiret ret;
-         |                       ^
-   arch/riscv/errata/andes/errata.c:30:9: note: forward declaration of 'struct sbiret'
-      30 |         struct sbiret ret;
-         |                ^
->> arch/riscv/errata/andes/errata.c:36:8: error: call to undeclared function 'sbi_ecall'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      36 |         ret = sbi_ecall(ANDES_SBI_EXT_ANDES, ANDES_SBI_EXT_IOCP_SW_WORKAROUND,
-         |               ^
-   2 errors generated.
---
->> drivers/acpi/riscv/cpuidle.c:73:14: error: use of undeclared identifier 'SBI_HSM_SUSP_NON_RET_BIT'
-      73 |         if (state & SBI_HSM_SUSP_NON_RET_BIT)
-         |                     ^~~~~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
---
->> drivers/acpi/riscv/cppc.c:31:16: error: field has incomplete type 'struct sbiret'
-      31 |         struct sbiret ret;
-         |                       ^
-   drivers/acpi/riscv/cppc.c:31:9: note: forward declaration of 'struct sbiret'
-      31 |         struct sbiret ret;
-         |                ^
->> drivers/acpi/riscv/cppc.c:38:6: error: use of undeclared identifier 'sbi_spec_version'
-      38 |         if (sbi_spec_version >= sbi_mk_version(2, 0) &&
-         |             ^~~~~~~~~~~~~~~~
->> drivers/acpi/riscv/cppc.c:38:26: error: call to undeclared function 'sbi_mk_version'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      38 |         if (sbi_spec_version >= sbi_mk_version(2, 0) &&
-         |                                 ^
->> drivers/acpi/riscv/cppc.c:39:6: error: call to undeclared function 'sbi_probe_extension'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      39 |             sbi_probe_extension(SBI_EXT_CPPC) > 0) {
-         |             ^
->> drivers/acpi/riscv/cppc.c:53:14: error: call to undeclared function 'sbi_ecall'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      53 |         data->ret = sbi_ecall(SBI_EXT_CPPC, SBI_CPPC_READ,
-         |                     ^
-   drivers/acpi/riscv/cppc.c:61:14: error: call to undeclared function 'sbi_ecall'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      61 |         data->ret = sbi_ecall(SBI_EXT_CPPC, SBI_CPPC_WRITE,
-         |                     ^
->> drivers/acpi/riscv/cppc.c:115:11: error: call to undeclared function 'sbi_err_map_linux_errno'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     115 |                         return sbi_err_map_linux_errno(data.ret.error);
-         |                                ^
-   drivers/acpi/riscv/cppc.c:156:29: error: call to undeclared function 'sbi_err_map_linux_errno'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     156 |                 return (data.ret.error) ? sbi_err_map_linux_errno(data.ret.error) : 0;
-         |                                           ^
-   8 errors generated.
 
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for ERRATA_ANDES
-   Depends on [n]: RISCV_SBI [=n]
-   Selected by [y]:
-   - ARCH_ANDES [=y] && MMU [=y]
+commit 4865a5ea2f1de7886db40030f6e9d98eb90cad89
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
+dt-bindings: soc: zte: Document zx297520v3 socsys controller
 
-vim +/sbi_remote_sfence_vma_asid +76 arch/riscv/mm/tlbflush.c
+This commit adds the Device Tree binding schema, power domain header, and
+Ethernet PHY reset constant for the ZTE zx297520v3 socsys miscellaneous
+system controller.
 
-18d2199d81054f Anup Patel        2023-03-28  70  
-95594cb40c6e01 Christoph Hellwig 2019-08-21  71  void flush_tlb_all(void)
-95594cb40c6e01 Christoph Hellwig 2019-08-21  72  {
-9546f00410ed88 Samuel Holland    2024-03-26  73  	if (num_online_cpus() < 2)
-9546f00410ed88 Samuel Holland    2024-03-26  74  		local_flush_tlb_all();
-9546f00410ed88 Samuel Holland    2024-03-26  75  	else if (riscv_use_sbi_for_rfence())
-9d4e8d5fa7dbbb Alexandre Ghiti   2023-10-30 @76  		sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE, FLUSH_TLB_NO_ASID);
-dc892fb443224d Samuel Holland    2024-03-26  77  	else
-dc892fb443224d Samuel Holland    2024-03-26  78  		on_each_cpu(__ipi_flush_tlb_all, NULL, 1);
-95594cb40c6e01 Christoph Hellwig 2019-08-21  79  }
-95594cb40c6e01 Christoph Hellwig 2019-08-21  80  
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 9b6a2da28aa5a..ab8797b8d0a5a 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4033,6 +4033,7 @@ F:	Documentation/devicetree/bindings/arm/zte.yaml
+>  F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-lspcrm.yaml
+>  F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml
+>  F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
+> +F:	Documentation/devicetree/bindings/soc/zte/zte,zx297520v3-socsys.yaml
+>  F:	arch/arm/boot/dts/zte/
+>  F:	arch/arm/mach-zte/
+>  F:	drivers/clk/zte/
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+[Severity: Low]
+Should this section also list the new
+include/dt-bindings/power/zte,zx297520v3-socsys.h header added in this
+patch alongside the existing include/dt-bindings/* entries?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-zx29usb-v1=
+-0-b0433258e51b@gmail.com?part=3D1
