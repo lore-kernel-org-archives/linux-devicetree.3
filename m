@@ -1,102 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795217599;
-	b=PhIceX2wSCF/YiqpIlzP4NiFTUfOIAix4Bjr3yzr/xZvZqk9oZaOodkdSn3QsKLej1+e
-	 azuXufxVt4Ziyf/f9mcdJZdtmaFaJLlI6B5vgzq4S4l0HngTBG1GLVXd6zWeVx1QKn+uB
-	 J4W9tmDB3/ciqrChNOfVK5iZ9TErMnIUvP2ynSFenXsPYTpm9VZcwciZ5825o+B+XMsM7
-	 PKKVsLqYkwoHNumSZ2XeyOSD+n7RxMIgw7g8W05XTC4iLjlqY54CLbdaKCPamaeMBv9ek
-	 OGF8CtT9UJgT0qzAuG5q6cQiBJH0egJAOnQ+HH26YiS3YqrNpYxJLYw9lSmoKXWQc3w==
+	t=1795217673;
+	b=BjJRIAOobuG8ADdc+HlKWk0ycVR2l0vwCBENZvBD9PImVpFRbsn9PlnklSqIeOQhn+ro
+	 CivpbQYKAo/sQ3Acuf00IcjIM7qUIKxUNaqKOxqS8Npwcno54sbu7/tjItK8z+Eh/b61t
+	 SjqMRznB1Si5nnSnxWN2hfgczXLTPx/lGlK+ZfX84gtlAhusN2TMBs4jh+63ylvaTqSqi
+	 BbqlB2ZzWO4bjk/yxEe2r8Zj7g034ttjf2YRrjqDCkoFZxhxTiKjR+VXwKTGnmwkvGrgx
+	 6Qr9YH9lPOcB5Yj/Uzu/7Bmv2LQbPy9HhrT3sURDEtzAe+gQUq13qGWyGQXjsFKVqTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795217599;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:X-Google-Original-Message-ID:Date:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795217673;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5ue1b2+ZjqmKkDCu3UdAaIQP1rc8l0RRlBnT4tbuOuI=;
-	b=28WXH3rIBuuiWBsB347DzKM34ydFFP3aqxlEEp4Q6ESDSjOwQ6zpqsC42n+q4h50ZsA8
-	 p8MjbHeqBrJgi8uDaDBbKk2p0IJt16qJhDDqALdNBMET6FGGcSs0KX2bv44mDzsP3e3+e
-	 qQKevK6IGfZP7ZIBUy5wklW+8jl2gStosTJkeLZyzDVGRih8DHzkdf5XigYG+HZmQ3mDX
-	 Rtc2hTC4pxL1q+RxN7szL3lCgragpxC6SZLMohFsf94k33b0ulSg8CEkX9IU2xLiOCLut
-	 pQf5WS8EKb8w/DLH4gRhuOeHXk/hV9MySHxMp5TDSGc7DJzM2vrYPW1+e8uIpILyvRQ==
+	bh=jSVkms071gBFhS0ZEXeIERho5bLbtUl4WQoLD2P05l8=;
+	b=2u1PsT6BaCos5OYtpFyvIfnKVt0Gi+PZ1b1kM1AKhl2KCmgNwcnhTfy9qImZ6592y2AX
+	 yheHG6UDZT9Ueun7R6cotdUNrR/ob0IeOWCJmEEXeFh+G3uSAdud2+VnQFXWsH69uQa+U
+	 OgyLoNE07dZCquj8oHuo0K91fMGKUK1nLBNlCc/kplmqVeCGGnf0L79+EpAH2Zy3ZDZTZ
+	 7cBPUzBHklAQXrfPAaX0T5S7FAsd87BpVa3QfNV13OUeB3o+rsZaUTcG4GFg/V/U28G5+
+	 Gj9uhnoR07tgosw/aSyvEMr3R0tNLfxTAisNJMpBt2A6hdkSn76eJUHViq0NxJn8PZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HgRlFfFr;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VgPZKB/F";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C311606A330
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 23:33:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C311606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D96606A33C;
+	Fri, 20 Nov 2026 23:34:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HgRlFfFr
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4bb72b44a97so12571375e9.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:33:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795217596; x=1795822396; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5ue1b2+ZjqmKkDCu3UdAaIQP1rc8l0RRlBnT4tbuOuI=;
-        b=HgRlFfFrpkUyzgd7JVa/GkPe4W9b8tnBpYjT4sMf2y2pRWcop83zlfpr70NbTyQ6O3
-         Uk5W01XIz0ampvOmG/rOavp6u+3KylxHqaPY8mt+i2qhCDqmqIJZ8lC8gSZVgYfPz2bV
-         04Blp9Kc0vF6lcEtiIEnuBSgjdIKvG0LWLD8HFUTjEYKn/A5e3csMo17S/GNHPtN4kpX
-         y3INPSP8AkETKYAk8RkIZb5CX3TCUwWfm6pEagH9Xpqv6fhtIXBfb2x1reM0sDqk+Jy4
-         cLn4odlsQY5t/1IcmcPt66TJjsQxP1oB2rdmE+Nv389o00vjuOEU0IqMqJemLpaCWyP5
-         2wNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795217596; x=1795822396;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5ue1b2+ZjqmKkDCu3UdAaIQP1rc8l0RRlBnT4tbuOuI=;
-        b=qdwJynTlwoaa78l6xv69Enc/nccbKUwGw/MNMmcW0aFab8Org/iSiJMFVhXdJjv8ID
-         Dq9EcZtTjAKHDUmTkpmpZdi2eeFtP7MhW59ijfSLYPPXR3Ke/I1VFocJWrOvxXs0gxVB
-         iqaKra5lBT/FT4NWNcvCywkiMJpBrHhfqorllCYoCCO/PlYQb93GDyb4imwr6cMiCQkS
-         s42ud/KeQH+7WiZZ2scE8OGPoDu2l/1mt1oMzVA+aNdu3O1zaxeVZmWuGcM+S1izWeK7
-         dgwUcWj7Kb5ELz7ZwXr8GQRB8L3MKUeAmH1KCwrp42EgvZ6RdrGETsNl4eujIfUZksHY
-         vNKg==
-X-Forwarded-Encrypted: i=1; AL+hErGWrGwSfeveCPK5dBJYxXOiI+mHLWMkKZr4xDfnFUxy6hEJe5kgJYhN+4P9AKAPCDNPKbL/lOpU6rho@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ZIwH1AR8aZ/ikwBkBAxzGqO2XLWbC+IeZH3qtf/ZCjMJviw+E
-	qu0WBCrEYUClBn8o2XUYR3E1hDM3PHjCh5pSmcJQdlcoWzE+g1yeqhas
-X-Gm-Gg: AYBFou2LQndcqGDZqIqJIhJ/3YxCdU5tik5oTVEVxy9j6a+7xyidgJTBLq3br9SMpew
-	RXaIFDsvvkSuEpUPlasVhUIZ5dLi1f3c2w1ZrS9Z7X+zjW5DgIT5IM/5TmphpxaZDII2HR7HxDW
-	XkAo2iERwbnwVNFw1vRRHi3t/RIIHYESTKCm7s8g/n5BjpEp4OyF28c/4gItCSjbRnNZSAvTQ/J
-	F6sV+9k8+3MHfYYjvOspDy/vx0fuilhUotaQXhqZeXRnerUIg4UUgZNMc5uqA5lAbnQuA7yh4/z
-	XOsjN2wVuvpA/Chbscq1SpztFkNAIpb9zoxISkM4ZCReo5OTGuabAQrVDRt4jYl7VqkD3/QPjjn
-	Lhv1c2zUU+7d8lFWbdaILFh9Lr9p/bHUPsJ4msgd/8+73laRiZQdb/TWsp7g64XyaQ1Pyuy0iTe
-	MFkYhsdfLH4J54hx5R0nN1zTgddS0fe6dLWljcwyU0YBFjS4680fO3S46TCxQM8k672OBwoJYk6
-	/QPybe1nAUxZwfpRTv/a/3LzOEFKErNr6mil15W27KVmbDy222Af96Wo4hhniO7F6MEjyqGUCJR
-	8PsQl61QpQIwdEun5lKXsBKNJhdtNlt6TdLtRz+b4kVRsCyhrkBvm3lz6CDcOhrcbkQ1ufEKTLu
-	y7pg0Hwo50W10HuR8Z7GxGL4RQRqMqv48x+2ujZUWlmrzmO7Rq/Br66oDQw==
-X-Received: by 2002:a05:600c:828e:b0:4a1:e6a9:4086 with SMTP id 5b1f17b1804b1-4bb88785a99mr102949125e9.0.1795217595621;
-        Fri, 20 Nov 2026 15:33:15 -0800 (PST)
-Received: from Ansuel-XPS. (host-95-234-253-103.retail.telecomitalia.it. [95.234.253.103])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884911e3sm144076735e9.6.2026.11.20.15.33.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 15:33:15 -0800 (PST)
-Message-ID: <6b00d8bb.5576de51.27441d.756e@mx.google.com>
-X-Google-Original-Message-ID: <awDYuZ9RgrHjrcWS@Ansuel-XPS.>
-Date: Sat, 21 Nov 2026 00:33:13 +0100
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Brian Masney <masneyb@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgPZKB/F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA221F000D4;
+	Fri, 20 Nov 2026 23:34:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795217672;
+	bh=jSVkms071gBFhS0ZEXeIERho5bLbtUl4WQoLD2P05l8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VgPZKB/FSgIyhPRU6BJYdxGdGWMbuTB1hYp8WeiDLcp7OqO7xtBLeAWRf0yiArqL1
+	 yRmCt4VQ9hNrcQ8cJGcmDLApMT56qKBGzgV3HSE/ALZvkJfpYxQpNtlGG66lU0gHf0
+	 T/DnImfPtOY+vW0qgVOARu43s01XRcGkLKL/pjWFzC9nEaWsFA2KZv0OftdLoMhkOu
+	 kG2HsjJqwxPkE4/6X5hb2juou9TKL67jsUTjTxpPiM5lQhdKtc0ZcrUySuhuQdFk7M
+	 R/mRtk9CmTlXzLmuT/FLb0jDiAPtT1RG+uw1ygFAH1Ph9cXS+fDVECujNZA2jzukGu
+	 0aVQC8o8vSyGg==
+Date: Fri, 20 Nov 2026 15:34:30 -0800
+From: Drew Fustini <fustini@kernel.org>
+To: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 5/5] clk: en7523: add support for Airoha AN7583 clock
-References: <20261117182444.103123-1-ansuelsmth@gmail.com>
- <20261117182444.103123-6-ansuelsmth@gmail.com>
- <179513295004.301584.12820965897975670200.b4-review@b4>
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] riscv: dts: thead: Enable bluetooth on
+ BeagleV-Ahead
+Message-ID: <awDZBiX1VoSkO6F3@x1>
+References: <20261020132604.90708-1-thomas.gerner@muenchen-mail.de>
+ <20261020132604.90708-3-thomas.gerner@muenchen-mail.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,286 +68,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <179513295004.301584.12820965897975670200.b4-review@b4>
+In-Reply-To: <20261020132604.90708-3-thomas.gerner@muenchen-mail.de>
 
-On Thu, Nov 19, 2026 at 07:02:30PM -0500, Brian Masney wrote:
-> > Add support for Airoha AN7583 clock and reset.
-> > 
-> > Airoha AN7583 SoC have the same register address of EN7581 but implement
-> > different bits and additional base clocks. Also reset are different with
-> > the introduction of 2 dedicated MDIO line and drop of some reset lines.
-> > 
-> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> > ---
-> >  drivers/clk/clk-en7523.c | 249 +++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 249 insertions(+)
-> >
-> > diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-> > index 90bb86427c29..a7cb8dbcb048 100644
-> > --- a/drivers/clk/clk-en7523.c
-> > +++ b/drivers/clk/clk-en7523.c
-> > @@ -13,6 +13,7 @@
-> >  #include <linux/reset-controller.h>
-> >  #include <linux/spinlock.h>
-> >  #include <dt-bindings/clock/en7523-clk.h>
-> > +#include <dt-bindings/reset/airoha,an7583-reset.h>
-> >  #include <dt-bindings/reset/airoha,en7523-reset.h>
-> >  #include <dt-bindings/reset/airoha,en7581-reset.h>
-> >  #include <dt-bindings/clock/econet,en751221-scu.h>
-> > @@ -167,6 +168,14 @@ static const u32 crypto_base[] = { 540000000, 480000000 };
-> >  static const u32 emmc7581_base[] = { 200000000, 150000000 };
-> >  /* EN751221 */
-> >  static const u32 gsw751221_base[] = { 500000000, 250000000, 400000000, 200000000 };
-> > +/* AN7583 */
-> > +static const u32 gsw7583_base[] = { 540672000, 270336000, 400000000, 200000000 };
-> > +static const u32 emi7583_base[] = { 540672000, 480000000, 400000000, 300000000 };
-> > +static const u32 bus7583_base[] = { 600000000, 540672000, 480000000, 400000000 };
-> > +static const u32 spi7583_base[] = { 400000000, 12500000 };
-> > +static const u32 npu7583_base[] = { 666000000, 800000000, 720000000, 600000000 };
-> > +static const u32 crypto7583_base[] = { 540672000, 400000000 };
-> > +static const u32 emmc7583_base[] = { 150000000, 200000000 };
-> >  
-> >  static const struct en_clk_desc en7523_base_clks[] = {
-> >  	{
-> > @@ -369,6 +378,138 @@ static const struct en_clk_desc en7581_base_clks[] = {
-> >  	}
-> >  };
-> >  
-> > +static const struct en_clk_desc an7583_base_clks[] = {
-> > +	{
-> > +		.id = EN7523_CLK_GSW,
-> > +		.name = "gsw",
-> > +
-> > +		.base_reg = REG_GSW_CLK_DIV_SEL,
-> > +		.base_bits = 2,
-> > +		.base_shift = 8,
-> > +		.base_values = gsw7583_base,
-> > +		.n_base_values = ARRAY_SIZE(gsw7583_base),
-> > +
-> > +		.div_bits = 3,
-> > +		.div_shift = 0,
-> > +		.div_step = 1,
-> > +		.div_offset = 1,
-> > +	}, {
-> > +		.id = EN7523_CLK_EMI,
-> > +		.name = "emi",
-> > +
-> > +		.base_reg = REG_EMI_CLK_DIV_SEL,
-> > +		.base_bits = 2,
-> > +		.base_shift = 8,
-> > +		.base_values = emi7583_base,
-> > +		.n_base_values = ARRAY_SIZE(emi7583_base),
-> > +
-> > +		.div_bits = 3,
-> > +		.div_shift = 0,
-> > +		.div_step = 1,
-> > +		.div_offset = 1,
-> > +	}, {
-> > +		.id = EN7523_CLK_BUS,
-> > +		.name = "bus",
-> > +
-> > +		.base_reg = REG_BUS_CLK_DIV_SEL,
-> > +		.base_bits = 2,
-> > +		.base_shift = 8,
-> > +		.base_values = bus7583_base,
-> > +		.n_base_values = ARRAY_SIZE(bus7583_base),
-> > +
-> > +		.div_bits = 3,
-> > +		.div_shift = 0,
-> > +		.div_step = 1,
-> > +		.div_offset = 1,
-> > +	}, {
-> > +		.id = EN7523_CLK_SLIC,
-> > +		.name = "slic",
-> > +
-> > +		.base_reg = REG_SPI_CLK_FREQ_SEL,
-> > +		.base_bits = 1,
-> > +		.base_shift = 1,
-> > +		.base_values = slic_base,
-> > +		.n_base_values = ARRAY_SIZE(slic_base),
-> > +
-> > +		.div_reg = REG_SPI_CLK_DIV_SEL,
-> > +		.div_bits = 5,
-> > +		.div_shift = 24,
-> > +		.div_val0 = 20,
-> > +		.div_step = 2,
-> > +	}, {
-> > +		.id = EN7523_CLK_SPI,
-> > +		.name = "spi",
-> > +
-> > +		.base_reg = REG_SPI_CLK_FREQ_SEL,
-> > +		.base_bits = 1,
-> > +		.base_shift = 0,
-> > +		.base_values = spi7583_base,
-> > +		.n_base_values = ARRAY_SIZE(spi7583_base),
-> > +
-> > +		.div_reg = REG_SPI_CLK_DIV_SEL,
-> > +		.div_bits = 5,
-> > +		.div_shift = 8,
-> > +		.div_val0 = 40,
-> > +		.div_step = 2,
-> > +	}, {
-> > +		.id = EN7523_CLK_NPU,
-> > +		.name = "npu",
-> > +
-> > +		.base_reg = REG_NPU_CLK_DIV_SEL,
-> > +		.base_bits = 2,
-> > +		.base_shift = 9,
-> > +		.base_values = npu7583_base,
-> > +		.n_base_values = ARRAY_SIZE(npu7583_base),
-> > +
-> > +		.div_bits = 3,
-> > +		.div_shift = 0,
-> > +		.div_step = 1,
-> > +		.div_offset = 1,
-> > +	}, {
-> > +		.id = EN7523_CLK_CRYPTO,
-> > +		.name = "crypto",
-> > +
-> > +		.base_reg = REG_CRYPTO_CLKSRC2,
-> > +		.base_bits = 1,
-> > +		.base_shift = 0,
-> > +		.base_values = crypto7583_base,
-> > +		.n_base_values = ARRAY_SIZE(crypto7583_base),
-> > +	}, {
-> > +		.id = EN7581_CLK_EMMC,
-> > +		.name = "emmc",
-> > +
-> > +		.base_reg = REG_CRYPTO_CLKSRC2,
-> > +		.base_bits = 1,
-> > +		.base_shift = 13,
-> > +		.base_values = emmc7583_base,
-> > +		.n_base_values = ARRAY_SIZE(emmc7583_base),
-> > +	}, {
-> > +		.id = AN7583_CLK_MDIO0,
-> > +		.name = "mdio0",
-> > +
-> > +		.base_reg = REG_CRYPTO_CLKSRC2,
-> > +
-> > +		.base_value = 25000000,
-> > +
-> > +		.div_bits = 4,
-> > +		.div_shift = 15,
-> > +		.div_step = 1,
-> > +		.div_offset = 1,
-> > +	}, {
-> > +		.id = AN7583_CLK_MDIO1,
-> > +		.name = "mdio1",
-> > +
-> > +		.base_reg = REG_CRYPTO_CLKSRC2,
-> > +
-> > +		.base_value = 25000000,
-> > +
-> > +		.div_bits = 4,
-> > +		.div_shift = 19,
-> > +		.div_step = 1,
-> > +		.div_offset = 1,
-> > +	}
-> > +};
-> > +
-> >  static const u16 en7581_rst_ofs[] = {
-> >  	REG_RST_CTRL2,
-> >  	REG_RST_CTRL1,
-> > @@ -544,6 +685,64 @@ static const u16 en751221_rst_map[] = {
-> >  	[EN751221_USB_PHY_P1_RST]	= 3 * RST_NR_PER_BANK + 7,
-> >  };
-> >  
-> > +static const u16 an7583_rst_map[] = {
-> > +	/* RST_CTRL2 */
-> > +	[AN7583_XPON_PHY_RST]		= 0,
-> > +	[AN7583_GPON_OLT_RST]		= 1,
-> > +	[AN7583_CPU_TIMER2_RST]		= 2,
-> > +	[AN7583_HSUART_RST]		= 3,
-> > +	[AN7583_UART4_RST]		= 4,
-> > +	[AN7583_UART5_RST]		= 5,
-> > +	[AN7583_I2C2_RST]		= 6,
-> > +	[AN7583_XSI_MAC_RST]		= 7,
-> > +	[AN7583_XSI_PHY_RST]		= 8,
-> > +	[AN7583_NPU_RST]		= 9,
-> > +	[AN7583_TRNG_MSTART_RST]	= 12,
-> > +	[AN7583_DUAL_HSI0_RST]		= 13,
-> > +	[AN7583_DUAL_HSI1_RST]		= 14,
-> > +	[AN7583_DUAL_HSI0_MAC_RST]	= 16,
-> > +	[AN7583_DUAL_HSI1_MAC_RST]	= 17,
-> > +	[AN7583_XPON_XFI_RST]		= 18,
-> > +	[AN7583_WDMA_RST]		= 19,
-> > +	[AN7583_WOE0_RST]		= 20,
-> > +	[AN7583_HSDMA_RST]		= 22,
-> > +	[AN7583_TDMA_RST]		= 24,
-> > +	[AN7583_EMMC_RST]		= 25,
-> > +	[AN7583_SOE_RST]		= 26,
-> > +	[AN7583_XFP_MAC_RST]		= 28,
-> > +	[AN7583_MDIO0_RST]		= 30,
-> > +	[AN7583_MDIO1_RST]		= 31,
-> > +	/* RST_CTRL1 */
-> > +	[AN7583_PCM1_ZSI_ISI_RST]	= RST_NR_PER_BANK + 0,
-> > +	[AN7583_FE_PDMA_RST]		= RST_NR_PER_BANK + 1,
-> > +	[AN7583_FE_QDMA_RST]		= RST_NR_PER_BANK + 2,
-> > +	[AN7583_PCM_SPIWP_RST]		= RST_NR_PER_BANK + 4,
-> > +	[AN7583_CRYPTO_RST]		= RST_NR_PER_BANK + 6,
-> > +	[AN7583_TIMER_RST]		= RST_NR_PER_BANK + 8,
-> > +	[AN7583_PCM1_RST]		= RST_NR_PER_BANK + 11,
-> > +	[AN7583_UART_RST]		= RST_NR_PER_BANK + 12,
-> > +	[AN7583_GPIO_RST]		= RST_NR_PER_BANK + 13,
-> > +	[AN7583_GDMA_RST]		= RST_NR_PER_BANK + 14,
-> > +	[AN7583_I2C_MASTER_RST]		= RST_NR_PER_BANK + 16,
-> > +	[AN7583_PCM2_ZSI_ISI_RST]	= RST_NR_PER_BANK + 17,
-> > +	[AN7583_SFC_RST]		= RST_NR_PER_BANK + 18,
-> > +	[AN7583_UART2_RST]		= RST_NR_PER_BANK + 19,
-> > +	[AN7583_GDMP_RST]		= RST_NR_PER_BANK + 20,
-> > +	[AN7583_FE_RST]			= RST_NR_PER_BANK + 21,
-> > +	[AN7583_USB_HOST_P0_RST]	= RST_NR_PER_BANK + 22,
-> > +	[AN7583_GSW_RST]		= RST_NR_PER_BANK + 23,
-> > +	[AN7583_SFC2_PCM_RST]		= RST_NR_PER_BANK + 25,
-> > +	[AN7583_PCIE0_RST]		= RST_NR_PER_BANK + 26,
-> > +	[AN7583_PCIE1_RST]		= RST_NR_PER_BANK + 27,
-> > +	[AN7583_CPU_TIMER_RST]		= RST_NR_PER_BANK + 28,
-> > +	[AN7583_PCIE_HB_RST]		= RST_NR_PER_BANK + 29,
-> > +	[AN7583_XPON_MAC_RST]		= RST_NR_PER_BANK + 31,
-> > +
-> > +	/* RST_PCIC */
-> > +	[AN7583_PCIC_PERSTOUT0_RST]	= 2 * RST_NR_PER_BANK + 29,
-> > +	[AN7583_PCIC_PERSTOUT1_RST]	= 2 * RST_NR_PER_BANK + 26,
-> > +};
-> > +
-> >  static int en7581_reset_register(struct device *dev, void __iomem *base,
-> >  				 const u16 *rst_map, int nr_resets,
-> >  				 const u16 *rst_reg_ofs);
-> > @@ -1149,6 +1348,43 @@ static int en7581_clk_hw_init(struct platform_device *pdev,
-> >  	return en7581_serdes_phy_register(&pdev->dev);
-> >  }
-> >  
-> > +static int an7583_clk_hw_init(struct platform_device *pdev,
-> > +			      struct clk_hw_onecell_data *clk_data)
-> > +{
-> > +	struct en_clk_priv *priv = platform_get_drvdata(pdev);
-> > +	struct device *dev = &pdev->dev;
-> > +	struct regmap *map;
-> > +	void __iomem *base;
-> > +	u32 val;
-> > +	int ret;
-> > +
-> > +	map = syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,chip-scu");
-> > +	if (IS_ERR(map))
-> > +		return PTR_ERR(map);
-> > +
-> > +	base = devm_platform_ioremap_resource(pdev, 0);
-> > +	if (IS_ERR(base))
-> > +		return PTR_ERR(base);
-> > +
-> > +	priv->base = base;
-> > +
-> > +	en7581_register_clocks(dev, clk_data, map, base);
+On Tue, Oct 20, 2026 at 03:26:04PM +0200, Thomas Gerner wrote:
+> On the BeagleV-Ahead the bluetooth module of the Ampak AP6203BM is
+> identified by the btbcm driver as BCM4362A2. The module is connected by
+> UART4, several gpio pins and an I2S interface. The I2S is currently not
+> used as there is currently no driver.
 > 
-> The Sashiko output looks legit here about the missing .set_rate,
-> .round_rate, or .determine_rate callbacks.
+> Signed-off-by: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+> ---
+> Changes in v2:
+> 	- use default pinctrl definition for bluetooth in and out pins
+
+Thanks for sending v2. Sorry for the delay in review.
+
+> 	
+>  .../boot/dts/thead/th1520-beaglev-ahead.dts   | 85 +++++++++++++++++++
+>  1 file changed, 85 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
+> index e16484a47653..7161a9d4c61f 100644
+> --- a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
+> +++ b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
+> @@ -76,6 +76,23 @@ led-5 {
+>  		};
+>  	};
+>  
+> +	reg_vbat_1v8: regulator-vbat-1v8 {
+> +		compatible = "regulator-fixed";
+> +		regulator-boot-on;
+> +		regulator-max-microvolt = <1800000>;
+> +		regulator-min-microvolt = <1800000>;
+> +		regulator-name = "vbat-1v8";
+> +	};
+> +
+> +	reg_vbat_3v3: regulator-vbat-3v3 {
+> +		compatible = "regulator-fixed";
+> +		enable-active-high;
+
+enable-active-high has no effect without a gpio.
+
+> +		regulator-boot-on;
+> +		regulator-max-microvolt = <3300000>;
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-name = "vbat-3v3";
+> +	};
+
+Nothing can switch these two rails so regulator-always-on describes them
+better than regulator-boot-on.
+
+> +
+>  	hdmi-connector {
+>  		compatible = "hdmi-connector";
+>  		type = "d";
+> @@ -152,6 +169,28 @@ led-pins {
+>  };
+>  
+>  &padctrl0_apsys {
+> +	bluetooth_pins: bluetooth-0 {
+> +		in-pins {
+> +			bias-disable;
+> +			drive-strength = <1>;
+> +			function = "gpio";
+> +			input-enable;
+> +			input-schmitt-enable;
+> +			pins = "GPIO2_30";
+> +			slew-rate = <0>;
+> +		};
+> +
+> +		out-pins {
+> +			bias-disable;
+> +			drive-strength = <3>;
+> +			input-disable;
+> +			input-schmitt-disable;
+> +			pins = "SDIO1_DETN",	/* GPIO2_29 */
+> +			       "SDIO1_WPRTN";	/* GPIO2_28 */
+> +			slew-rate = <0>;
+> +		};
+> +	};
+> +
+>  	gmac0_pins: gmac0-0 {
+>  		tx-pins {
+>  			pins = "GMAC0_TX_CLK",
+> @@ -268,6 +307,30 @@ reg-on-pins {
+>  	};
+>  };
+>  
+> +&padctrl1_apsys {
+> +	uart4_pins: uart4-0 {
+> +		rx-pins {
+> +			bias-disable;
+> +			drive-strength = <1>;
+> +			function = "uart";
+> +			input-enable;
+> +			pins = "UART4_RXD", "UART4_CTSN";
+> +			input-schmitt-enable;
+> +			slew-rate = <0>;
+> +		};
+> +
+> +		tx-pins {
+> +			bias-disable;
+> +			drive-strength = <3>;
+> +			function = "uart";
+> +			input-disable;
+> +			pins = "UART4_TXD", "UART4_RTSN";
+> +			input-schmitt-disable;
+> +			slew-rate = <0>;
+> +		};
+> +	};
+> +};
+> +
+>  &sdio0 {
+>  	bus-width = <4>;
+>  	max-frequency = <198000000>;
+> @@ -314,3 +377,25 @@ &uart0 {
+>  	pinctrl-0 = <&uart0_pins>;
+>  	status = "okay";
+>  };
+> +
+> +&uart4 {
+> +	pinctrl-0 = <&uart4_pins>;
+> +	pinctrl-names = "default";
+> +	uart-has-rtscts;
+> +
+> +	status = "okay";
+> +
+> +	bluetooth {
+> +		compatible = "brcm,bcm4329-bt";
+> +		device-wakeup-gpios = <&gpio2 29 GPIO_ACTIVE_HIGH>;
+> +		interrupt-parent = <&gpio2>;
+> +		interrupts = <30 IRQ_TYPE_EDGE_RISING>;
+> +		interrupt-names = "host-wakeup";
+> +		max-speed = <921600>;
+> +		pinctrl-0 = <&bluetooth_pins>;
+> +		pinctrl-names = "default";
+> +		shutdown-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>; 	/* BT-REG-ON */
+
+This triggers checkpatch:
+
+WARNING: please, no space before tabs
+#230: FILE: arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts:397:
++^I^Ishutdown-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>; ^I/* BT-REG-ON */$
+
+> +		vbat-supply = <&reg_vbat_3v3>;
+> +		vddio-supply = <&reg_vbat_1v8>;
+> +	};
+> +};
+> -- 
+> 2.53.0
 > 
 
-It's getting handled by a different series... It's really to keep things
-split and speedup review process. When one of the 2 gets merged, I will
-quickly rebase the other if needed.
-
-(honestly was done to not make a big series)
-
--- 
-	Ansuel
+Thanks,
+Drew
