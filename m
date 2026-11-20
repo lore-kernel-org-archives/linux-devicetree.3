@@ -1,80 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795190014;
-	b=liE06sqCaifhkCZPa6URI3vzD+1fvn3O7/t9O03qYlW/XsdIeYelnKZPgTq4pZr3Dn7e
-	 A+VEdlEcfpimM1rB9PNXgTkfMdBkS4zrZ/EnYTeRX6q00VGAS2lLO28TyzUPtPDgFY76I
-	 /I0iDfKz2C0xJFSfgdQHhurDamg40DFVJ5mi+4m84hLBPFGQisVpkSXL3dqbEzPjO/l4m
-	 D/aMjKseZVSOWillq6c1IRmxeIWvc2nfhK5Gtf9W6D6IXF3BYMMiLMiqgKIFUrz2Pv0MY
-	 M92eyhVEPrYMbnBV5mahitQXanBAoadMYMkdXrG73ZHgsyw/WKa23q/4mIe0I268RBA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795190014;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=UhJ1zxKSlz8I9hqrDRWa0MRQjNQm9OFBh0TVKIyoXoA=;
-	b=eDCxhTrEl9yBp64E1pQHaIvSC0mOhB1PUXE0pkFdtiC63qfSS1TjX01maM1fjVZuyZJI
-	 IaA91EDY7C4j4K5m8Q4acnTPMWn7w4KzkvSX/GaYE3eNbGbnSS7GGBGmGsUMfxcHuBuiD
-	 CFyjCGAte4WQTlZeGIstbq5RN69Is8dN7T881KuIQ0aLJbOCX/rr5mPH8U3vGtfq+S3gv
-	 WeZPcCm8RC1sQ+bJRAW6neb7nPRV4yxScben4CFTn/HAI6aM5LhE9muIDozfN70R3/IiY
-	 jN58dZp2prhh0IhA5+aomLpub86DtArpyGniBOYTk3/3LpVR5t+1uwYU+14+Gwuf/fA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hHIG8Q/V";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6019260A2606;
-	Fri, 20 Nov 2026 15:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHIG8Q/V
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795190014;
-	b=0m7h10WS9IzbZrAAPtfG6h+S0OfHHLFoU+Tyehq+JTdigwFPxuDSBDZuNMaylmPhS/Gi
-	 Gu66hxWnef8/ebdsWoLFzq8RnUe0IqRm1aWrjK8GqGdOQt9ac3T9q1x+WrR4WMZf/921x
-	 eXQYssF26cMDALcz3NBiHIh9asHYR4zAdtylUUQCOEF0BI8w3bl11ZU9iQqMW+/q2CQxA
-	 VirjSK5LSCCTtY9hT6GZ9uFUWHEjRb6IoZ47wOHYG6j8LF/uLXtdkkPIKBsh1joYFr3ve
-	 r7/cc6zdplJ7Xy4BnAMzgSNvxy26Jmg3x5r6Kl6sgNUKvBJykLb07qbLOaPSiFu7PaA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795190014;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=UhJ1zxKSlz8I9hqrDRWa0MRQjNQm9OFBh0TVKIyoXoA=;
-	b=YxoYJufeytix4LvQksfA3a33+wlU2d4/mPeBK22qPWxVVc9/OLqI+EQHICsdmEjrH48M
-	 HzRlqovWn+mlaCXJHkyROOGTDOebjSJJ5NmxADw95ljeEXWAHKG9Ntkstn3ZUezz/3khn
-	 G7V6LLVFgBIbxl0Bv2fS9MC1khXDH63o6saucEJ5ZpE1sVKTiNUcsyUT5C31NX7OdJZnH
-	 jZL3DfTOFGssOKQu/EzwJDzEt6c1teDMltk1VM+C7ZKrxACfIzn5h5YWKVl4N5MBP/KAC
-	 aX4L7I7wBMwmNG1CKFwClG2MRxL9hC63TjjRuBHEmJJQ8ul8jwqNz19KnqUtO5GTNBQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795190094;
+	b=zLYPIpzhnmBXoZ/Q2bs+X7HusYg1ZElGsWJZKtyK91LZvXgKiXMA6Ux/T45Jog9R33nh
+	 7y+xwGyqJMjKCNNoQ4OUPzuqABPpd50AzNAwYxsvr8Jk2AlAFh+IZh/uyzu1TNdYsyATL
+	 rr9iqj/nNkXf3Ae7wGZ/wBD1g46CQrTGt5UnpH+hs9lA2GXFeWF1Zz2AI0XPoInBbxvHg
+	 XWLP49rGqEalA4kp+Ndbl5DgcRyznM8IBaGbaBqEOXHm/NwdEhC8I7jFtqSGeIIMsbELu
+	 EX2Fsf+TqsviUAZEVTNuvc5CX0VNggzp/nthRDxRtU0n10TAtaRoncZCQ0cTaw8xajQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795190094;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=3+aCHgVYgy4GxhOiFEAFYeoXQcQ3nMSgt2tm+XSQojA=;
+	b=bLuhlAQ5AOQVgmhRBvQrxi34Cy7J7+zjl5otKl96WdEgcWGgUQY8MeCsa0t+7HsuKnNq
+	 jv+p3o4fwE2DpFEctbLH/NxVo1Em7yzD1s7qJxHn92D7eio8OcD9uLwKAI+tsdWH4dAom
+	 iM9i4LB/Z+ABG/1/GAL0hJLmtzeK//gdTuVGmbeBvsFydprDz0OzauccZHAq8cfyigC+G
+	 CLTQ0q1MSv3dKHSO7Y9BrviYoZkVcx9Tm4VBXjH2/amMqS82pZSmXkqVPz4m7iThuKBAe
+	 dXrj+hhhhQXaVT2qN9fYjIwBKLpw1WSpvZisIr0o2jAzBGLDkk0GQrgdqxndoqh4Ikg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="RD5/lCtn";
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 204251F000E6;
-	Fri, 20 Nov 2026 15:53:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795190013;
-	bh=UhJ1zxKSlz8I9hqrDRWa0MRQjNQm9OFBh0TVKIyoXoA=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=hHIG8Q/Vv4mUxO/be4AX4iv2qBu2e8hCjVPH6UNyi9Gvxse8tRGCUHQy7KiJeB2IJ
-	 B0xHy+DI3VLXnIOWn1aajYLWL6eUwvgG8Ce9Ys4rqKgraSQXc+qIh4ME3MA8k+pPv6
-	 JHcLtrc0TqLPb81Ry/Xof6c3F09/WKP7RTkCpEc+NBe8Eln159552aYrkWrF9wr5Ed
-	 Grljkii2Te6eyNmdE1637KWYHtI/cbVdSZZ8ALvQA/+v1FgALECuGm2qHPCakVAg9O
-	 OsE6uFAx7OwpoQIhtyK2ukKUwu7FevDtOfMo7WGsHQpi33ZtLMwYQuRkoFXgRJFVP+
-	 tM7VQz4yYY0Sw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 961C349956;
-	Fri, 20 Nov 2026 15:53:12 +0000 (UTC)
-From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
-Subject: [PATCH v3 0/2] Add support for the BOE ILI97680A AMOLED panel of
- the Motorola Signature
-Date: Fri, 20 Nov 2026 21:23:11 +0530
-Message-Id: <20261120-vantage-panel-v3-0-00b306146240@yahoo.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC97606A335
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:54:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECC97606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RD5/lCtn
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4a5024b3c28so1443376f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 07:54:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795190092; x=1795794892; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3+aCHgVYgy4GxhOiFEAFYeoXQcQ3nMSgt2tm+XSQojA=;
+        b=RD5/lCtnOo+RVTTI7oVZaKgd9Q6AkBDr/99U8FJkjIF5smpOcyVCzuMQxHGfar6mJP
+         37JcniEPoUaZpTyUdt7yOTWPLtrvvu8AzDXr/L34n/+/Nc9nXYOPlfV4w2V781MMQM8G
+         53Na36tf6jUaKgxhT0zm5Wm3KIMtVpSTLF9W5oh/1KR1iwQmFF+qHaWV8PVJ+kHJX1iX
+         RPoDVVb4F+Eh7tSV8FPxMIWWzu8Zhcdj03O6TponxyFSrrZ9YPmtJdT7HnrqNxKkFDQf
+         7ojn0P8k9fkZxWsWkHoFIirgqk+ylgTPwXP7F3bPNM7Qc/OO+JHnYCtfr3DUp3YIo8zH
+         gQig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795190092; x=1795794892;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3+aCHgVYgy4GxhOiFEAFYeoXQcQ3nMSgt2tm+XSQojA=;
+        b=b2vQ5ggZbyGCM99dfMhmaHYN5/KZh7j6Bkt95+b6ghZzuVR/Cn/wUnPnbD8Alymvj3
+         OJXezuZdXxTkCRhcFhLCTTYM0TkyQ20Ua5YVM/J8dJdcxvBOqz1Yrw+LaVi3AgKm9U6c
+         IUas5JHtc8aNo2b45skaW3UnuAdQGGmx+aZYx/bqkp7/J1crzS1rKg2Wf6njPeubqusQ
+         MzMniuWdjNRhfbhWNBwQWbh878O9QRKkmAuxiq0IMi+l7AGLXgOdX/qVzGdRvSpMszeG
+         A/lxfTBp6oVf1g5J/FYljA+fFVPOT7U4uI7S0EHTO+Wo+XMMwuO9XlplclymvCmJNsf6
+         cqKQ==
+X-Gm-Message-State: APuU4Z+EfFx3fg1Mv1aG9RBouvbSim1V97NSp8hcrQQ1TzJxMLuJ7qQ4
+	uENVy1fpIQ1fHcyUuDcHsxN4UrtwgVNd+1u7FRdyckjIDy8gsf8ybpEZ
+X-Gm-Gg: AYBFou12RJeFhaR/OqWrEhqU5wuOXP+nVDMjxys3VyrBuc65IzmPHFBuNGyd4sS78ZH
+	HQUXhnEdfgsrFUZebnJmi8OsHbJPJaAABCbZ16AB+NLvwGZqOCRR5R496ieAmO7sDvbtM7c/0FQ
+	3M5Q4MZmssG0Ckfa5biWxMdGzhXE8A1sXpnBrNDOtL/Wiudi3m0bz6QGrHRCvsv1Maq+Xjy5MD1
+	OoZDyh1w7KcMCG8HaD03eWXuOTHgUTacfbXVykTf2DJNM7qWx5/YIn6AJ4CvX+DQX8Ul2kUniiO
+	LcesG1jzaeVDHBqd1FczcQN2WD5HsEB3aPWSJP0uHv+v9YBm52xVySf1mJIX/7kW8uxGxvEVy1W
+	8WWfoef7hYlkwgdJQyZ99QZ2UbkJ7e82+FEFxC4VHbtXYB6Eo/8TCHXvBPMSc+C6nh05oR7X85B
+	/inhMEPwL4mT3WOUnOfJhecCAxy/jNyiQ4+MFme3L0CszxhvHwdSVuhp6kaxJIvO/kJaeEhbdIR
+	Mn+JplA6jlCugld6rWc//yVLVmYHqnmGydTW+mJvovG1T7F4YD0CQQjyYmyR1g7KiXtuvYO+zaz
+	7OwXc4JRUedj603ihtPqQ1y+FZP7rckISMA9azncwbHSVnre5qmCAMDM9cE5d4HXhLfXXG0WYof
+	pR6vLx2kIFxgMSy+kGjoq
+X-Received: by 2002:a05:600c:4504:b0:4b4:a551:681a with SMTP id 5b1f17b1804b1-4bb887fc396mr78640565e9.3.1795190092017;
+        Fri, 20 Nov 2026 07:54:52 -0800 (PST)
+Received: from DESKTOP-BJ3EVC4.lan (178-164-182-185.pool.digikabel.hu. [178.164.182.185])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884a15absm83982635e9.9.2026.11.20.07.54.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 07:54:51 -0800 (PST)
+From: Abdur Rofik <rofikcoga@gmail.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Abdur Rofik <rofikcoga@gmail.com>
+Subject: [PATCH v5 00/10] arm64: dts: qcom: add LG V60 ThinQ 5G (timelm) support
+Date: Fri, 20 Nov 2026 16:54:39 +0100
+Message-Id: <20261120155450.7719-1-rofikcoga@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,101 +104,150 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ7CIBBFr2JYi4EpJdaV9zAuBjpajJYGKrFpe
- nehbtzo8k3+ezOzSMFRZIfNzAIlF53vM1TbDbMd9lfirs3MQICWUmqesB8xnwfs6c4bo6FWiAI
- VsOwMgS7utfZO5w/Hp7mRHUukLDoXRx+m9WGSZfernSQXvBKmqU2rGpD6OGHn/c76ByvtBH9ty
- DYBGrXXqiaw3/ayLG8dsNlU+gAAAA==
-X-Change-ID: 20261116-vantage-panel-9b6254aa0a42
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795189991; l=2895;
- i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
- bh=aPbq/A5mUd6zF5e0lex8/Mk32wpdmYakJPFksuVGZXk=;
- b=lVbrb//Drjpuo+bKe5Gzl+EChAL+2FzEXujU0Tuh6l5/k7VLx7ROJAb3/R7ApP1ZmZxBAM2rn
- tATubxQMChRBrnzHn2Cx4RZTPui9NffftAawwJIx3JU9dfh0+7hh6mq
-X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
- pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
-X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
- with auth_id=1303
-X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-Reply-To: venkat.yadlapati@yahoo.com
+Content-Transfer-Encoding: 8bit
 
-The Motorola Signature uses a 1264x2780 BOE AMOLED panel driven by an
-Ilitek ILI97680A. It is a MIPI DSI command mode panel with DSC 1.2
-compression on four lanes. This series adds the devicetree binding and a
-driver for it.
+This series adds initial mainline device tree and driver support for the
+Qualcomm SM8250-based LG V60 ThinQ 5G (timelm / LM-V600) smartphone.
 
-Two things are specific to this panel. The DSC picture parameter set is
-written to a vendor register on command page 7 instead of being sent as a
-standard PPS packet, and the brightness range is 0 to 16180 over DCS.
+Hardware features supported in this stage:
+- Base board devicetree (sm8250-lg-timelm.dts)
+- PM8150, PM8150B, PM8150L, and PM8009 PMICs and regulators
+- UFS 3.0 storage and MicroSD card slot
+- GPIO keys (Volume Down, Assistant) and PON keys (Power, Volume Up)
+- Simple framebuffer (continuous splash handed off from bootloader)
+- Adreno 650 GPU with GMU and zap shader
+- LG SW43103 1080x2460 DSI command mode AMOLED panel with DSC
+- Silicon Works SW42902 I2C touchscreen controller
+- PM8150B USB Type-C controller in sink mode with USB-PD and
+  orientation switch
+- QCA6390 Bluetooth HCI controller on UART6
 
-Tested on a Motorola Signature with the msm DRM driver: the panel lights
-up at its native resolution and Phosh renders on it.
+Changes in v5:
+- Touchscreen binding & DTS:
+  - Replace separate interrupt-parent and interrupts properties with
+    interrupts-extended in the lg,sw42902 binding example and the
+    touchscreen@48 DTS node.
 
-I used an LLM (Claude) to help write these patches and their commit
-messages. I reviewed all of them and tested the result on the device.
+Changes in v4:
+- Base Device Tree (arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts):
+  - Drop vendor brand prefix "Google" from the assistant key description
+    per review feedback: rename google-assist-state to assist-state,
+    google_assist_state to assist_state, and update label to "Assistant".
 
----
 Changes in v3:
-- Drop the Assisted-by trailers and the LLM notes from the commit
-  messages, the LLM use is stated in this cover letter.
-- Drop an unused include, fill the DSC configuration before adding the
-  panel and describe the PPS layout in the comment.
-- Link to v2: https://patch.msgid.link/20261116-vantage-panel-v2-0-e2ab48645e2c@yahoo.com
+- Base Device Tree (arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts):
+  - Model PM8150L SMPS6 as top-level fixed regulator smpc6-regulator
+    (0.88V) rather than in regulators-1, because PM8150L SMPS6 is an ARC
+    level resource (ebi.lvl) and querying it via VRM causes
+    rpmh_regulator_probe() to fail with -ENODEV.
+  - Drop conflicting memory-region reference from framebuffer@9c000000 to
+    prevent simple-framebuffer/simpledrm driver warning and mapping size
+    mismatch with reserved memory.
+  - Add board-specific firmware paths for CDSP
+    (qcom/sm8250/LG/timelm/cdsp.mbn) and GPU ZAP shader
+    (qcom/sm8250/LG/timelm/a650_zap.mbn).
+  - Drop duplicate sdc2_sleep_state pin configuration from &tlmm (already
+    defined in sm8250.dtsi) and redundant &pon { status = "okay"; }.
+  - Adjust ramoops pmsg-size to 0x100000 (1MB, power-of-two) to prevent
+    kernel round-down.
+  - Drop unused <dt-bindings/phy/phy.h> header.
+- Touchscreen driver (drivers/input/touchscreen/sw42902.c):
+  - Fix potential unbalanced regulator disable in error and unbind paths
+    by registering devm_add_action_or_reset() after sw42902_power_on()
+    succeeds.
+  - Guard sw42902_power_off() when suspended to avoid calling
+    regulator_bulk_disable() while supplies are already turned off.
 
 Changes in v2:
-- Give the panel its own compatible, "motorola,vantage-boe-ili97680a",
-  with "ilitek,ili97680a" as fallback: the mode, DSC settings and
-  initialization sequence belong to this BOE panel, not to every
-  ILI97680A panel. BOE's part number is not known, so the name follows
-  the "<device>-<glass vendor>-<controller>" style of the Xiaomi and
-  Lenovo NT36523 panels.
-- Driver: match the panel compatible.
-- Link to v1: https://patch.msgid.link/20261116-vantage-panel-v1-0-30b95bd49216@yahoo.com
-
-To: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+- General / DCO & Identity:
+  - Replaced account handle "rofikkerneldev" with real name
+    "Abdur Rofik <rofikcoga@gmail.com>" across all commit authors,
+    Signed-off-by trailers, MAINTAINERS entries, and copyright headers
+    per Documentation/process/submitting-patches.rst.
+  - Replaced un-documented "lge" vendor prefix with documented "lg"
+    prefix across devicetree bindings, compatible strings, and dts files.
+- Devicetree bindings:
+  - Added lg,timelm compatible in arm/qcom.yaml.
+  - Added lg,sw43103 panel binding with enable-gpios and
+    vddi/vpnl supplies.
+  - Added lg,sw42902 touchscreen binding with vcl-supply and
+    vdd-supply.
+- Device Tree (arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts):
+  - Renamed file to sm8250-lg-timelm.dts matching vendor prefix.
+  - Reserved memory: folded cont_splash_mem and log regions into base dts;
+    sorted all nodes by ascending unit-address.
+  - Ramoops: adjusted size allocations ensuring panic dump space is kept.
+  - Regulators: dropped unused LDO4 from PM8009 regulators-2 node,
+    resolving the invalid 1.05V constraint failure.
+  - USB QMP PHY: corrected swapped supplies (vdda-phy to 0.9V l18a_0p9,
+    vdda-pll to 1.2V l9a_1p2).
+  - GPU: enabled &gmu alongside &gpu to ensure MSM DRM component
+    binding succeeds without -ENODEV in a6xx_gmu_init().
+  - SDHC: added complete pinctrl states (sdc2_default_state,
+    sdc2_sleep_state, sdc2_card_det_n) to &sdhc_2.
+  - UFS: added regulator-allow-set-load and regulator-allowed-modes for
+    dynamic load scaling.
+  - Panel: added enable-gpios to panel@0 node; sorted display nodes
+    alphabetically.
+  - Touchscreen: used fixed regulators reg_ts_vcl and reg_ts_vdd for
+    power supplies instead of raw GPIO toggles.
+  - USB Type-C: replaced PDO_BATT with PDO_VAR(5000, 9000, 3000) to
+    ensure valid 9V/3A PD sink requests without clamping to 600mA;
+    added OF graph ports connecting DWC3 HS and SuperSpeed QMP PHY
+    orientation switch.
+  - Bluetooth: corrected QCA6390 PMU voltages by setting smps6 (0.95V)
+    and smps8 (1.35V) constraints.
+  - Cleaned up unused dt-bindings headers and enforced strict alphabetical
+    ordering of all referenced label nodes.
+- Panel driver (drivers/gpu/drm/panel/panel-lg-sw43103.c):
+  - Removed redundant manual unprepare call in sw43103_remove().
+  - Guarded sw43103_backlight_update_status() against execution when
+    unprepared, avoiding unsynchronized DSI DCS writes.
+  - Removed hardcoded full brightness writes in sw43103_enable().
+  - Expanded Kconfig help paragraph to 4 lines.
+- Touchscreen driver (drivers/input/touchscreen/sw42902.c):
+  - Converted GPIO power controls to standard regulator bulk supplies
+    (vcl and vdd).
+  - Pre-scanned for palm touch reports before queueing MT slots.
+  - Used named initializer in struct i2c_device_id table.
+  - Followed input subsystem error naming conventions.
+- MAINTAINERS:
+  - Added entries for LG V60 ThinQ 5G, LG SW43103 panel driver, and
+    Silicon Works SW42902 touchscreen driver in strict alphabetical
+    order.
 
 ---
-Venkat Yadlapati (2):
-      dt-bindings: display: panel: Add Ilitek ILI97680A
-      drm/panel: Add Ilitek ILI97680A DSC command mode panel driver
 
- .../bindings/display/panel/ilitek,ili97680a.yaml   |  75 ++++
- MAINTAINERS                                        |   6 +
- drivers/gpu/drm/panel/Kconfig                      |  16 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili97680a.c     | 495 +++++++++++++++++++++
- 5 files changed, 593 insertions(+)
----
-base-commit: 39e407b553ec15d4a233b651531ad431ed7542be
-change-id: 20261116-vantage-panel-9b6254aa0a42
+Abdur Rofik (10):
+  dt-bindings: arm: qcom: add LG V60 ThinQ 5G (timelm)
+  arm64: dts: qcom: add LG V60 ThinQ 5G (timelm) support
+  dt-bindings: display: panel: add LG SW43103
+  drm/panel: add LG SW43103 panel driver
+  dt-bindings: input: touchscreen: add Silicon Works SW42902
+  Input: touchscreen: add Silicon Works SW42902 support
+  arm64: dts: qcom: sm8250-lg-timelm: enable SW43103 panel
+  arm64: dts: qcom: sm8250-lg-timelm: add SW42902 touchscreen
+  arm64: dts: qcom: sm8250-lg-timelm: enable USB Type-C
+  arm64: dts: qcom: sm8250-lg-timelm: add QCA6390 Bluetooth
 
-Best regards,
---  
-Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ .../bindings/display/panel/lg,sw43103.yaml    |  69 ++
+ .../input/touchscreen/lg,sw42902.yaml         |  72 ++
+ MAINTAINERS                                   |  19 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts | 814 ++++++++++++++++++
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-lg-sw43103.c      | 587 +++++++++++++
+ drivers/input/touchscreen/Kconfig             |  13 +
+ drivers/input/touchscreen/Makefile            |   1 +
+ drivers/input/touchscreen/sw42902.c           | 360 ++++++++
+ 12 files changed, 1951 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
+ create mode 100644 drivers/gpu/drm/panel/panel-lg-sw43103.c
+ create mode 100644 drivers/input/touchscreen/sw42902.c
 
-
+-- 
+2.39.5
