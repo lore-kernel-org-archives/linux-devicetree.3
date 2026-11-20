@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795188289;
-	b=IHkdkdzp02g66HPObYNeHAdnBkoCIO6obS9zP6CES/s/uL7OiKeuCsG+iPYIl3luty6O
-	 K3oKESf6zdKAG0Fl6tPIj5QWG1I5w+FTobUNj2z2qXuuD7SsbnFiFrYQH9KAX0qWtQnqJ
-	 CygPrkc6cPn6EdfGfF6odqLaicvQw1t8MSFY7igpmO30rFXxnEUokaOi5pVlWnHFbW4Lr
-	 RgBjrXLgbvtRgp6CWDnkLb/JMit1ejjAERlp1fVXChyOkeFiCglshrgYp1+8jpqRKJYHC
-	 iaGB+YK2cbJLXka9N/WTPuOF+HQl6ctUbng5YLtHgVKOxCc1t5goTdXdrkaARruuIVQ==
+	t=1795188320;
+	b=nxZq2m+1EGk/5Q5h3/00fwYtEsD3YHuEhf1DDlw8o4Zvr4/XnT2KYsTl6LMcy+033ZX0
+	 cmEqNGsGOocHGpAIHkfnQhO3EWP2HmbXOetS2hNC7+rqc775d/RwosVaFALFr0qqiohUM
+	 sfBy4Se5JsCbWhMYBn2MWPESgNa4CYamDFyfH5kvom9d+hBBvcASW53FX9BxTmsP8dk40
+	 0b7Y9UFoJNVI4i+waeR2J1gqg6iyi8S8XmA1ifOZM0s9kyqaxXFbROPhWfqoSA8t6Qk3i
+	 utG6d24xGlkcqqwRUjm6HWB6nVCxVcf+6hH+7513PmiqbkARlqiLsNr/B50abR4fBrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795188289;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bYr+QUNJgI2MuvA03QXGQr4rvGgFxUgp/NNJvE4vbEU=;
-	b=hl1hT1uvCnJKFibhb4jVa8neEZnTrbd/UAtVlYUEVBYOpPp/J4o9WxIfZcSSvehNu+1I
-	 jBd62liDWGUSDAEF+GlpnpkYieecr2N2Npa1fpqME+yqzANUkLUjMlK7VTBboknh+WQ+w
-	 93lKnjAvmG2G6jNoU53efhkoauf6z6d6j1OAouSHVXsRIZ4b8hmfPDeiHqVXYX4ROwZxH
-	 Iwvyh0uNu2mDDjh2Chq1YJw4vQQpGCeGU8KGQP35JN5SjzuHZYa7kLEg5f1Q4emZxrOX0
-	 CC5fgJHXm03tFzWqTSubNptFFaHG13eJOJer5b8wGZL5jAvdICP93+G9rueTjPCY8Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795188320;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eKJ9ZcgQ0plbbLKy1sHm+A6RarK2aCkoMQ/aWF15v1E=;
+	b=LSlSwHT1rjFL5RL1fCzhcCYdpzM1hDJnmPtRVuO05g5CNmGLuudELavLqGeWjnYPgzQ+
+	 2o0K/E59gkkcxBllkpXN7a5KUnQkiEchXEtrOsQBt+ESTBEtVGFGzQJfTZr4zfv8kXO6N
+	 v1L7kQqNOGwTUmYgQAJloLnm8imBIUwwM77DlG/oOmf2ItAQOMapH/SudclEeU+SA2eIW
+	 b30ce6XJJyjfb26VtOjge9tZBQ+0oSgu59gyHQOZUHMQ+1rHh8H9em3Ct0MtauaqddYro
+	 4K7zqy/HNe/kehmXHvDCXDDgT38hiumqsL53mdEqY888LVtXRBTuNaXHBwx7pwcIhTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UqVIs/i7";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Cx5+lfmY;
+	arc=none smtp.remote-ip=109.224.244.16
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21DA606A320
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:24:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B6D606A32C
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:25:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B6D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqVIs/i7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 470431F000EB
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:24:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795188288;
-	bh=bYr+QUNJgI2MuvA03QXGQr4rvGgFxUgp/NNJvE4vbEU=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=UqVIs/i7TnKEi5Pn1UgmNFghzO3lvNU1K01wLHBT4Ls42aNMRJ/BMDWXFhTKXzKU3
-	 64TCk0ihAu0+w4807jkxbltQl8o7EcMobp0AP3bLAPYy6fDU1lkeNxVuVKR6R15tlC
-	 7jZlok2aFFGvuclmnaivHCP+80GGhGDy3Umwt3O81jIrxzKMTfpo39vSKmy6dBQVgM
-	 rb+/4OIF2Rc1qHGD9nlkbYcfsHWvuSCQ2SGn0SvNMcr2tSx+PUDuvJlUHz2wgyfu//
-	 9+Qc9j/I566PDhRqVVG1kxEeOMFNCRQjUBMc8DYJCSkUI9rcO5sXfC8FasSqTv+2/L
-	 1tdeuLJpCxN9Q==
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ae7d1ce1bfso9658361fa.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 07:24:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFIzEn7cjbNDutCq7OXux68kHvU/R09VNAeGsN3SzdwquGpDsT2cYfK+RSRqKxaBlcDZfufyLA1aDCx@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QH9v5gQZmHb8NXo8NSvV/rG0zKumCJNht9OmLSdjEbQ6jX6Ri
-	8c/aPUcLt1P8jE0mXd2vBFL2zXZPQBXEGaxH1zJy79okCLsHykOjHFfcQOOmisCfvE3mDw5ZJ8B
-	SQtekWmhlXIX/ZqjrrahTr9/VtRLhqk0=
-X-Received: by 2002:a2e:bc93:0:b0:3ab:4014:884b with SMTP id
- 38308e7fff4ca-3ae7f8daa51mr11747861fa.1.1795188286689; Fri, 20 Nov 2026
- 07:24:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Cx5+lfmY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1795188316; x=1795447516;
+	bh=eKJ9ZcgQ0plbbLKy1sHm+A6RarK2aCkoMQ/aWF15v1E=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Cx5+lfmY3H3HHzU3oSP9Gmdupn0ufy4RXnGzCotVbRaw/Wkd9obS5Q31WRgT8nwdo
+	 4iojvZRMPNn+NKb1alK1fe0WCMvi03MIUwiYtecHcIEjQ3rjJ7nypfD+hYOlyw3ONL
+	 R3akvz2O8RyjVavHX0axaXUOlROBwRY3v1JOF9L2xx1MfJiBNlprdZAWfJNm/T+1nE
+	 KPKOdmMTGz6J6UcuM9vEvWBCV62+N33utpinKWl6jUlPiUCfkk/fs2fo27fHTWmNgY
+	 emSt/C8OUMnYq1zRwSuax+KZqiKf/EBhJMSbM+Foh7CbL0go3s4OVOfvYC228nwTF+
+	 Yjlymflx8YhAA==
+Date: Fri, 20 Nov 2026 15:25:09 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, Emfox Zhou <emfox@debian.org>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] fixup! media: i2c: Add ST VD55G0 global shutter sensor driver
+Message-ID: <20261120152501.82411-1-lsa.uz@pm.me>
+In-Reply-To: <awAyiCEXYnf2TJpC@kekkonen.localdomain>
+References: <20261114095815.74012-1-lsa.uz@pm.me> <20261114095815.74012-3-lsa.uz@pm.me> <awAyiCEXYnf2TJpC@kekkonen.localdomain>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 4e7aece7f2af07b9f6e04ea38619e4722249d7a0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,97 +64,212 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261120-orangepi-zero-plus2-fixes-v1-0-ecd792189f27@gmail.com>
- <20261120-orangepi-zero-plus2-fixes-v1-1-ecd792189f27@gmail.com> <CAGb2v66=Wy1TEy5KrQt+TmYPowryx19tUN14QTREn9z0dOaJgw@mail.gmail.com>
-In-Reply-To: <CAGb2v66=Wy1TEy5KrQt+TmYPowryx19tUN14QTREn9z0dOaJgw@mail.gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 20 Nov 2026 23:24:34 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66CrTWmrFFtZbHgU4eQ6TxubunbR8sCAgStmL7iLYRK3Q@mail.gmail.com>
-X-Gm-Features: Aa3M54o-5sW9SWZsS-y6GLqPkComGdru7jKRb2CUEXihGp57lc4ysEFr0p-QWPk
-Message-ID: <CAGb2v66CrTWmrFFtZbHgU4eQ6TxubunbR8sCAgStmL7iLYRK3Q@mail.gmail.com>
-Subject: Re: [PATCH 1/4] arm64: dts: allwinner: h5: orangepi-zero-plus2: Add
- LPO clock for AP6212
-To: ipfarher@gmail.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 20, 2026 at 11:23=E2=80=AFPM Chen-Yu Tsai <wens@kernel.org> wro=
-te:
->
-> On Fri, Nov 20, 2026 at 7:40=E2=80=AFPM Ivan Pfarher via B4 Relay
-> <devnull+ipfarher.gmail.com@kernel.org> wrote:
-> >
-> > From: Ivan Pfarher <ipfarher@gmail.com>
-> >
-> > The AP6212 WiFi/BT module needs a 32.768 kHz low power oscillator (LPO)
-> > clock, which on this board comes from the RTC clock output (osc32k-out)=
-.
-> > Nothing in the device tree references that clock, so it is disabled as
-> > unused during late boot.
-> >
-> > WiFi keeps working without it, but the Bluetooth core does not: with th=
-e
-> > LPO gated, the BCM43430A1 ROM answers HCI_Reset and nothing else (no
-> > Read Local Version, no firmware download), so the controller can never
-> > be brought up. Turning the clock output on by hand (RTC LOSC_OUT_GATING=
-)
-> > makes the controller answer normally.
-> >
-> > Reference the clock from the WiFi power sequence, as other boards using
-> > the same module do (e.g. sun8i-h2-plus-bananapi-m2-zero.dts).
-> >
-> > Tested on an Orange Pi Zero Plus2 (H5) running Linux 6.6.160 with this
-> > change applied: osc32k-out stays enabled and the Bluetooth controller
-> > answers HCI commands. Build-tested only against current mainline.
->
-> It stays enabled only if the mmc stuff is working. So besides the changes
-> in this patch (which technically only covers the WiFi side), you should
-> add a proper bluetooth node under uart1 with all the resource references.
+Sakari's review of v5 2/6:
+- name the test patterns as the manual describes them, in the words
+  other sensor drivers use;
+- keep the auto exposure cold start in the exposure controls' current
+  values, as vd55g1 does, rather than in a copy in the driver;
+- no runtime PM reference across probe: autosuspend is set up after
+  registration, and pm_runtime_idle() ends probe;
+- in remove, set the device suspended only when it was not.
 
-And that's the next patch. Sorry for the noise.
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+Hi Sakari,
 
-> > This problem was investigated, and the patch drafted, in an interactive
-> > session with an AI coding assistant (Claude by Anthropic). The submitte=
-r
-> > reviewed the change and ran the tests described above.
-> >
-> > Fixes: cf8e19e1ec15 ("arm64: dts: orange-pi-zero-plus2: enable AP6212a =
-WiFi/BT combo")
-> > Signed-off-by: Ivan Pfarher <ipfarher@gmail.com>
-> > ---
-> >  arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts | 3 ++=
-+
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus=
-2.dts b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts
-> > index 3eb986c35..34d6c1468 100644
-> > --- a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts
-> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts
-> > @@ -5,6 +5,7 @@
-> >
-> >  #include "sun50i-h5.dtsi"
-> >
-> > +#include <dt-bindings/clock/sun6i-rtc.h>
-> >  #include <dt-bindings/gpio/gpio.h>
-> >
-> >  / {
-> > @@ -54,6 +55,8 @@
-> >
-> >         wifi_pwrseq: pwrseq {
-> >                 compatible =3D "mmc-pwrseq-simple";
-> > +               clocks =3D <&rtc CLK_OSC32K_FANOUT>;
-> > +               clock-names =3D "ext_clock";
-> >                 reset-gpios =3D <&pio 0 9 GPIO_ACTIVE_LOW>; /* PA9 */
-> >                 post-power-on-delay-ms =3D <200>;
-> >         };
-> >
-> > --
-> > 2.43.0
-> >
-> >
+The fixup for v5 2/6, as you suggested. 3/6 to 6/6 do not touch the file.
+
+- The test patterns are named after the manual's table, UM2829, in the
+  words vd55g1 and the CCS drivers use.
+- The cold start is the exposure controls' cur.val now. The first stream
+  after probe therefore starts from their defaults, 200 lines, where v5's
+  copy started from 50.
+- On the error path only pm_runtime_put_noidle() went:
+  pm_runtime_disable() and pm_runtime_set_suspended() stay, as in imx219,
+  since probe sets the device active. The autosuspend delay and
+  use_autosuspend() moved after registration too. With no reference
+  held, either call before it would suspend the sensor at once.
+
+Tested on the Surface Pro 11, on 7.4.0-rc1 with KASAN and lockdep:
+- probe powers the sensor off after registration, not before;
+- v4l2-compliance 46/46, capture at 59.14 fps;
+- in every stream the cold start registers equal the controls read
+  before it: the defaults after probe, then what the last stream left,
+  manual or auto;
+- each test pattern writes v5's PATGEN_CTRL value;
+- a failed registration, and unbind, leave the clock and supplies off
+  without a WARN.
+
+Sergey
+
+Tool use, per Documentation/process/generated-content.rst (Assisted-by
+tags in commits were dropped in 7.4-rc1):
+
+* My contributions to this series were prepared with Claude Code
+  (claude-opus-5-5); work by others in it is their own.
+* This replaces any Assisted-by tags in earlier versions.
+
+ drivers/media/i2c/vd55g0.c | 65 ++++++++++++++++----------------------
+ 1 file changed, 27 insertions(+), 38 deletions(-)
+
+diff --git a/drivers/media/i2c/vd55g0.c b/drivers/media/i2c/vd55g0.c
+index 99bfb05225d..dc1cf48bee6 100644
+--- a/drivers/media/i2c/vd55g0.c
++++ b/drivers/media/i2c/vd55g0.c
+@@ -726,13 +726,13 @@ static const struct vd55g0_patch vd55g0_patch_cut2 =
+=3D {
+=20
+ static const char * const vd55g0_test_pattern_menu[] =3D {
+ =09"Disabled",
+-=09"Solid",
+-=09"Colorbar",
+-=09"Gradbar",
+-=09"Hgrey",
+-=09"Vgrey",
+-=09"Dgrey",
+-=09"PN28",
++=09"Solid Colour",
++=09"Vertical Colour Bars",
++=09"Colour Bars With Fade to Grey",
++=09"Horizontal Grey Scale",
++=09"Vertical Grey Scale",
++=09"Diagonal Grey Scale",
++=09"Pseudo-random Noise (PN28)",
+ };
+=20
+ static const s64 vd55g0_ev_bias_menu[] =3D {
+@@ -863,12 +863,6 @@ struct vd55g0_dev {
+ =09=09struct v4l2_ctrl *dgain_ctrl;
+ =09};
+ =09struct v4l2_ctrl *ae_lock_ctrl;
+-=09/* What the last stream applied, for the next one to start from */
+-=09struct {
+-=09=09u16 expo;
+-=09=09u16 digital_gain;
+-=09=09u8 analog_gain;
+-=09} cold_start;
+ };
+=20
+ static inline struct vd55g0_dev *to_vd55g0_dev(struct v4l2_subdev *sd)
+@@ -1161,16 +1155,20 @@ vd55g0_try_fmt(struct v4l2_mbus_framefmt *fmt)
+ =09return mode;
+ }
+=20
++/* The auto exposure starts from the exposure controls' current values */
+ static int vd55g0_apply_cold_start(struct vd55g0_dev *sensor)
+ {
++=09/* A range change under auto exposure did not clamp it */
++=09u32 expo =3D min_t(s64, sensor->expo_ctrl->cur.val,
++=09=09=09 sensor->expo_ctrl->maximum);
+ =09int ret =3D 0;
+=20
+-=09vd55g0_write(sensor, VD55G0_REG_AE_COLDSTART_COARSE_EXPOSURE,
+-=09=09     sensor->cold_start.expo, &ret);
++=09vd55g0_write(sensor, VD55G0_REG_AE_COLDSTART_COARSE_EXPOSURE, expo,
++=09=09     &ret);
+ =09vd55g0_write(sensor, VD55G0_REG_AE_COLDSTART_ANALOG_GAIN,
+-=09=09     sensor->cold_start.analog_gain, &ret);
++=09=09     sensor->again_ctrl->cur.val, &ret);
+ =09vd55g0_write(sensor, VD55G0_REG_AE_COLDSTART_DIGITAL_GAIN,
+-=09=09     sensor->cold_start.digital_gain, &ret);
++=09=09     sensor->dgain_ctrl->cur.val, &ret);
+=20
+ =09return ret;
+ }
+@@ -1288,11 +1286,12 @@ static void vd55g0_save_exposure(struct vd55g0_dev =
+*sensor)
+ =09/* On a read error, keep what the previous stream left */
+ =09if (!vd55g0_read(sensor, VD55G0_REG_APPLIED_COARSE_EXPOSURE, &val,
+ =09=09=09 NULL))
+-=09=09sensor->cold_start.expo =3D val;
++=09=09sensor->expo_ctrl->cur.val =3D min_t(u64, val,
++=09=09=09=09=09=09   sensor->expo_ctrl->maximum);
+ =09if (!vd55g0_read(sensor, VD55G0_REG_APPLIED_DIGITAL_GAIN, &val, NULL))
+-=09=09sensor->cold_start.digital_gain =3D val;
++=09=09sensor->dgain_ctrl->cur.val =3D val;
+ =09if (!vd55g0_read(sensor, VD55G0_REG_APPLIED_ANALOG_GAIN, &val, NULL))
+-=09=09sensor->cold_start.analog_gain =3D val;
++=09=09sensor->again_ctrl->cur.val =3D val;
+ }
+=20
+ static void vd55g0_stream_disable(struct vd55g0_dev *sensor)
+@@ -1693,14 +1692,9 @@ static int vd55g0_g_volatile_ctrl(struct v4l2_ctrl *=
+ctrl)
+ =09u64 expo, again, dgain;
+ =09int ret =3D 0;
+=20
+-=09/* Unpowered: the last stream's values, the next one's start */
+-=09if (!pm_runtime_get_if_in_use(dev)) {
+-=09=09sensor->expo_ctrl->val =3D min_t(u32, sensor->cold_start.expo,
+-=09=09=09=09=09       sensor->expo_ctrl->maximum);
+-=09=09sensor->again_ctrl->val =3D sensor->cold_start.analog_gain;
+-=09=09sensor->dgain_ctrl->val =3D sensor->cold_start.digital_gain;
++=09/* Unpowered: the current values, which the last stream left */
++=09if (!pm_runtime_get_if_in_use(dev))
+ =09=09return 0;
+-=09}
+=20
+ =09vd55g0_read(sensor, VD55G0_REG_APPLIED_COARSE_EXPOSURE, &expo, &ret);
+ =09vd55g0_read(sensor, VD55G0_REG_APPLIED_ANALOG_GAIN, &again, &ret);
+@@ -2066,9 +2060,6 @@ static int vd55g0_probe(struct i2c_client *client)
+ =09if (IS_ERR(sensor->regmap))
+ =09=09return dev_err_probe(&client->dev, PTR_ERR(sensor->regmap),
+ =09=09=09=09     "failed to init CCI\n");
+-=09sensor->cold_start.expo =3D 0x32;
+-=09sensor->cold_start.digital_gain =3D 256;
+-=09sensor->cold_start.analog_gain =3D 0;
+=20
+ =09handle =3D fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+=20
+@@ -2140,12 +2131,8 @@ static int vd55g0_probe(struct i2c_client *client)
+ =09=09goto error_media_entity;
+ =09}
+=20
+-=09/* Held until registered, so that runtime PM cannot power it down */
+ =09pm_runtime_set_active(dev);
+-=09pm_runtime_get_noresume(dev);
+ =09pm_runtime_enable(dev);
+-=09pm_runtime_set_autosuspend_delay(dev, 1000);
+-=09pm_runtime_use_autosuspend(dev);
+=20
+ =09ret =3D v4l2_async_register_subdev_sensor(&sensor->sd);
+ =09if (ret) {
+@@ -2153,7 +2140,9 @@ static int vd55g0_probe(struct i2c_client *client)
+ =09=09goto error_pm_runtime;
+ =09}
+=20
+-=09pm_runtime_put_autosuspend(dev);
++=09pm_runtime_set_autosuspend_delay(dev, 1000);
++=09pm_runtime_use_autosuspend(dev);
++=09pm_runtime_idle(dev);
+=20
+ =09dev_dbg(&client->dev, "vd55g0 probe successfully\n");
+=20
+@@ -2167,7 +2156,6 @@ static int vd55g0_probe(struct i2c_client *client)
+ error_pm_runtime:
+ =09pm_runtime_disable(dev);
+ =09pm_runtime_set_suspended(dev);
+-=09pm_runtime_put_noidle(dev);
+ =09v4l2_subdev_cleanup(&sensor->sd);
+ error_media_entity:
+ =09media_entity_cleanup(&sensor->sd.entity);
+@@ -2190,9 +2178,10 @@ static void vd55g0_remove(struct i2c_client *client)
+ =09v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
+=20
+ =09pm_runtime_disable(&client->dev);
+-=09if (!pm_runtime_status_suspended(&client->dev))
++=09if (!pm_runtime_status_suspended(&client->dev)) {
+ =09=09vd55g0_power_off(&client->dev);
+-=09pm_runtime_set_suspended(&client->dev);
++=09=09pm_runtime_set_suspended(&client->dev);
++=09}
+ }
+=20
+ static const struct of_device_id vd55g0_dt_ids[] =3D {
+--=20
+2.54.0
+
+
