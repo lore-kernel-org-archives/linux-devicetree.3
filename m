@@ -1,101 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795199379;
-	b=Or1KUK3jYfkQUbMv+IpgyxFcvlrUxfJG5krxje3ho4f7obFPpdTUQ6saZFNENoQt3bRW
-	 KergCblqm4nUGTQx4Q4BqczQFaQ3PYK9oiF3EpwieKUq+lWwL2D4I4tip+zFf3jPh1a4f
-	 /hdjFFkHq0bGtGdyyKx0L6kNGRoIQuL7WTPMOX03mznX9Pnk0exTHQySj/JxoyMZYkuPd
-	 SbEeO9FvHD3ZlZIRhu8vUL7pq7vMC6OiNExd6o/JYPNp+7jWkNKC9AYzmvRHiuCl3WvWH
-	 9D4kor+VeIR+ERrJWCaITz0WtGZEI7wwAOb24MoMEAc7N3TcXudLC2zOb9mqP3br7Tw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795199379;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795199537;
+	b=yDyY+HPdG0Rt3qB1N+lozleaJ5NlxywFN7RwuLPPiAXrZiKfwK4FB9zA8AYXvPRfN5tX
+	 YqOVkCEeI5v67lX5Frz6mds800t4QvUg3F5Cn/6udHNsZpSNlSVDR22T7OCQUXtIMWUhx
+	 1BdHskOMxFc4UEb5XezASRLyqIKkAke7gTHusuu/5fcDskeMys6tsqXHXe33hlyuMuxsz
+	 MMMeQilQbclWUJi75IcDdFIvt2MgaEpAEHj24ZmZc5ErYiPfGRcSqkJDovY5yJ7TY/hQB
+	 YfsNFWWNuzNkRwvaffhFF9Dgg1pdYdYLYsnM7iZ5viny6QmSB6xJgc0iU98j3WNffXg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795199537;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WpZL2JSgED1dxCTCDeitpd9jOOz/PRQfRKQZbZU7GDc=;
-	b=4HYhUSMDaadumQDwXB63vSVYMdq83xXxrW3C6ov2elnief+OsaZqwaXYWNWpPCN/lKUB
-	 p/ZrX4LbSe8DYQ93O50hqCQ8XqRxszW0Akw+0rFiFpaCdxtae6iAgqx7Mk48BIta29bv5
-	 VtMZQg6UT0NAvo+Z16GMjOzjipYA5BZSnDBCnenSP/+NxmKxsyjFRyFojCDJ/50TYh3rd
-	 vqD2stnlg5CN0tJ9YApzRPc4dsnqXUlTx+0ou+lpzGu85EsiD23x5b1NWSoX2JTXEBCFI
-	 B1KDhfVnCStyz/NpuvpmI385CxToDM0vcWHaK8f1np3XBAPf6xK6X2OeWJT31kbwwFg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uwABIWmP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AZzAJOXnaWIOq2H9M30kWpYCCj54bYL5bDJVJVQmzco=;
+	b=VSm+1QhMi88OrmX2K1MTJlhoYqgv7k3jI52UYdNnCBGf1NNNEtANY6uW7enZ2M8F/6gv
+	 idhWSEFD840ythX+P/ioAToT/meaww6KltNfafSYhYj7Vjx+ocmq4Rp/cPnQY6JMAILw2
+	 trnjQwRDvj6L7eyWgXlLvKMwPgwMknQ6tyCvIsx8tZ+k8VjCzBfzzhKEHm1ccU5xLEhjH
+	 /xE+QsT/zEHjIiyip1OaSWpPG9WLCRY6zFIdYDVeqPm521S3vFwJV+uhkfW3PEwgifw/p
+	 LcssDMX0bn37bYIt2sUjc0n51hUAHIjtE1LnJk8XQmSgzPQXNlEzV+LzIt6OJYfO/+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b="pRop/DES";
+	arc=none smtp.remote-ip=209.85.167.180
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEEE9606A338
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 18:29:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEEE9606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32686606A331
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 18:32:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32686606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uwABIWmP
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4ac109a8a12so676919f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:29:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795199377; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PZhsK8drAlezQv7U/Zpccnj/BeIhf4l5QYQdReYkBvwOtsoNw4KVm/GKzrJWVVcmKc
-         aPdL29qZt24DD8j1X/m0jkRrJGbNBdfbMoYWgWTNjJXHiYj1UPf3eUJFTHJElMtIiJeX
-         Nvs1iXFtjSHflam0JY0u2I0lxLPmXkI+yOBz9YKUG9orpKCtLFgOI5XLlm8OBklcCV2e
-         F8liaAlSHXxMaEAUuROV+bjzmHjCdFY+eGSoMjvh4BftONRLl9x5JWkv6ok5cHTzaN13
-         mgnOKrNhCLOZrsS8B6pLTevy4IQnWDtl9JkHUN8J1C+Z4CZaMoWx2ITu5ZuHQ1n3P9IU
-         +NXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WpZL2JSgED1dxCTCDeitpd9jOOz/PRQfRKQZbZU7GDc=;
-        fh=3zfQspQHNqQIDSrlGf88cf3ay4Veze1MgEJNwRemvrY=;
-        b=IUwmMXa+63QlsqEknuIuPLfoBWAIQhu9gId4tYDrQks1Ji2XVlo1q02JS56HOvwXb2
-         9ewvcHYaVoK02Z3i48YytQxpimfjlI+T70m3hGO4BUPs7xN2A02ieMu9r9Om61Blej9V
-         9mX3Qnbg8D8dRsLtkESrOXSASJqBwDp/06Hss12jqCTLBh/6TX3LWEJ2fxAskv0/7LVR
-         zsopgWh+e6V5rwiGCJkHRCyJk9mBAP9/wSGXl3zOP1MaIovSmhdlYdCkxWIw4d7nw+m/
-         LkzLJDogNl7MCaIybnXdGnNVRfhclSaOqkka4EUqFlHlZ0xzqV1dQ9F9i5FO+baVT2wU
-         Oc3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=pRop/DES
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-571888655f1so466929b6e.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:32:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795199377; x=1795804177; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WpZL2JSgED1dxCTCDeitpd9jOOz/PRQfRKQZbZU7GDc=;
-        b=uwABIWmPL8ufMw3MxhB2hOwlsEmPeYT8AMWdeblvvNQ1+v8MV4AO60p9JPABKcnamE
-         9JU6LGYN7Rjwug1zxzVeJfqBL5YXMOmJO0GTOzazp/XoyyrswxdfWvwZfhhafqQqFPPt
-         puNGPl19MUAnpekoVGvKRt7Mr5vTe4SQFBbC7jnM/ITYttyruWuBOwQSJ9X52/Wj4iEH
-         bosO+SyqUgtYWJAjPH7yYL8doFP9iZQqB2OGnY5zNkhvPXMUmBIgSn+t6PsMJQXz2KOH
-         dDNGaZsmXmcj3qC835umHkJbCrs9Bn3d2RCkV/6r68WrFW+s0asEfLgHUq+ZdBKyOpQ4
-         CFUg==
+        d=riscstar.com; s=google; t=1795199536; x=1795804336; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AZzAJOXnaWIOq2H9M30kWpYCCj54bYL5bDJVJVQmzco=;
+        b=pRop/DESQLuxP12DPijGnblLatGbW1DAGt6p9yKIMDbz8ts2P+L+xZkdBsiH/xAPgz
+         ZYhsgVYwJU1B057IMpG/BrtRjVgS1bkd+Fmld+8SUAcOTv9LYJj7kDT1GYvINA2DH8k8
+         XO3g84acUey/R3/xpXcenODNsfzjHb24PRBNRLZYFeN3GHKxiVSKpKUAaBi2JMHbxu54
+         9jKt6Of57JdmQcoJAhCaSfymigMZj2OkVMpiP6ufZlPzVdkB6gN/k9fTcoHBWu2bsQS8
+         jCy5lF1rmzBPe7J50AnAXZSXV33bj6GvwZ3f4MKY8el828ois1u1DDjvhNbvQrSXYKiT
+         r7og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795199377; x=1795804177;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WpZL2JSgED1dxCTCDeitpd9jOOz/PRQfRKQZbZU7GDc=;
-        b=WTfvd2p6uHYPjh6/kQ3x4+MmFjCUfPUezcs+qHJgRozeS8uTdSXNqMOb324fcHaxLa
-         23PAzXtQY/jLOfUl2wG/jN0aYkHS4MfBihyDPeqpfV21xbUihmwHlBjeXjCefZoUVGXU
-         5MWD2Ky3zE2awDLL09OxomMND7VV0OykmimqAjY3c3pGyQvdav66j68CxHXR8jPfdWM+
-         0ioFFsNBc62mfLwzsfReYUij619DE9/BfE8oX5PMFvk8nyeERLlhy0sIKyuAor1rWcei
-         s4U3ghlNY+ey48H/aKIrCmL+JZfexLuky3S7E/lNxSX5pgRgk/qvubAxEIDr4ifVC5Yb
-         lgWw==
-X-Forwarded-Encrypted: i=1; AL+hErGLPvFtaEOpMKmbftkVhu3i9+8bwXu9UwoZVIyYOazQXdtVCtiCi345O5OaPtFUA0solxap9OY6Dq6P@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hDud9cjpKlKH13tH7tnrjbagoXbc9mn8pui0D/SMJN+wiNO98
-	RFyf1Bj4OVR6+HXhXmQa6VfnP7Mcjm5jIH5hIbLEkIM96t29MAHDf8clQ+b+CHRwMJnSxFpDhJZ
-	lQYHou5xthiQkUeZc9x9i0Fe7bbHDoT8=
-X-Gm-Gg: AZFdTZefVPwRpGnKw+JNWo/i7PdDiyOwPpRmwjYpaorQeEMi6cpXYbrpijh75l661DE
-	aVoP4NFazC8vB5SzPUmWEa3aHCjaThZwVmtwWUkgO/hWZhZMjtq3nYG/Ok/YNv6o/eIxCu1VXVx
-	7LLJtQsaXf7WI6lMiILzC2NSI4K8fS/3cCNSO7PYIm2L3/YY73i/ZtFoWykxYzwiZ7807eP2Z44
-	WjDNgL6HMNmo6gCtMKiSTPSXUYGlplT2tqFpJXqd6Fgxyrt2HCPqfvFQn4KuZhq0G656JkuesVw
-	mYfr0yPJs9uTmoJCmCyylq/TlW38W8ahI5/Ul0EudC1s4QxBAYp1c64zGL8zhfYVahXBoMmiKuH
-	YQb2eBegBK5rb/lsEyGLeBdIe7vBathax3LZe3/cf4FjyjTvwGH9i0m1V/24HWxzS8GtCxGHk6C
-	M+2u2cMoXWTrU725dM0dL7TdZGBa+QQam3mvJwgKala8Ze3VgZRk2VcqhOHw==
-X-Received: by 2002:a05:6000:481c:b0:4a5:ebcc:2260 with SMTP id
- ffacd0b85a97d-4abb2dda518mr7812309f8f.29.1795199376768; Fri, 20 Nov 2026
- 10:29:36 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795199536; x=1795804336;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AZzAJOXnaWIOq2H9M30kWpYCCj54bYL5bDJVJVQmzco=;
+        b=zpR0fvO6QEjPWenxo96OzYTzp0L/2GPnJ3Ol+W7ETkahAXJHDkDD4eRTj5hBcJNwN7
+         3Ozycwhl7awa4Bs4cqwJUJJ5sQOuxA1fRSvMSDjdt4FHfuEijFHDQQreNsPpRi8uR4HJ
+         KgOWHHX5H1rly5xvcbTN29+Q9NTLRYEvbG51GLvm6VVlbZZWO2pRisQO54toSc8hC0NR
+         1mVjH8Ri8rZKnsswkXs3Pu31CrWDDZ4DE61T/C3oPrSjtXBB2+UGj8cuxBU4mQ9CMoxf
+         j4eiPtLr5kTocFprMwEzcczsDzQdDtnhGk8tNFYmoKUo0mbQaLUwhWTSeOraTJCnJdl8
+         zIEA==
+X-Forwarded-Encrypted: i=1; AL+hErGcqka5+kL+4MVVMDD7hCZ5VxWPaCprAVLnd/+FC5wZfMQRx+GtMXH7PomcFtQi229D9tJ0Iiv7LKmj@vger.kernel.org
+X-Gm-Message-State: APuU4Z/n1yE/4xBDvGU73pWx2jlqnq70V/YmRNmNyhIQOONjDEaM4eQ9
+	jRebjZkC6BCrasXoIRBzvgXQ24JGsDe8CyY2UQ1qGuOUSmW0rWvV4V42ehJxkW7M0rvwJER+fCv
+	ISc86m8Ik/w==
+X-Gm-Gg: AYBFou1HNibmTiHC0yKqTQpUiw+70neV/4+Oe/IZDyO4p8yLFSCK1yhCRQjE7xsq43f
+	i261HYtyVC/n8ahXbEjW7vPgfTsrfiHOFAj0Jft3mZr25CytK1zIL+rHsMaF5Hu8uEiV+wzsp2Y
+	U/ckSbPo65ObZjw4pUv/3Wjov51aBTs0exiYCp+CTMTswvrbSKzqi99FjHvtNxSymadjFNHcRFr
+	w5ubbjYRk20O7zImRhIaIVi9rxt+22ryrvgAGQ8lXMNgiflv7dkQ9uiasoijSJg4vjkO4QzOhea
+	DcJRwJPkP/M4gz3lbSdsUXnWekCHgVir0gJXQMdVuZaWoHNP3fM0hQ8JxhF7FYc9zcNtlpNueeE
+	b/J5e9OldsPe3Vc0PvYTuGuK5cfe3mov0xb+avFcEFIYCFsiooY2IqDhXaOtaqLXQ0XjiEXJxqL
+	1nXZtjlxMDE6r35IVMkxj9b6HRzOQQVxKv/qbvEA29zMBMvCALzC7gRXAgv7WblLd3fFzU5G6gI
+	6isqAIcV8xpBF9dhI/uIXf0D5kqe1/mmqThVmM2mFOWj+OU4z9mmt6Nz6jUlTibDLTIRMz/8BoK
+	e5BsiNyr/v3+aK/bEBDVNx2u0X1cU7/lyosi
+X-Received: by 2002:a05:6808:3084:b0:55c:844:98ff with SMTP id 5614622812f47-57a0a93940fmr4840248b6e.34.1795199536081;
+        Fri, 20 Nov 2026 10:32:16 -0800 (PST)
+Received: from zippy.localdomain ([76.156.233.211])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a35055486sm2619940b6e.12.2026.11.20.10.32.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 10:32:15 -0800 (PST)
+From: Alex Elder <elder@riscstar.com>
+To: sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	p.zabel@pengutronix.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	fabrice.gasnier@foss.st.com,
+	alexandre.torgue@foss.st.com,
+	marex@nabladev.com,
+	changhuang.liang@starfivetech.com,
+	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] clk: tc9564: introduce a clock and reset driver
+Date: Fri, 20 Nov 2026 12:32:09 -0600
+Message-ID: <20261120183212.1264522-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,124 +109,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261120002549.1908299-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <d0f5f347-a5f6-4e84-b773-f29ffcdab156@linux.dev>
-In-Reply-To: <d0f5f347-a5f6-4e84-b773-f29ffcdab156@linux.dev>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 20 Nov 2026 18:29:10 +0000
-X-Gm-Features: Aa3M54pnhmFSvmvZzRx-r4wW9mEW3Np4iPEWnckhFv_SM03jf-al_Jy7M9nYdCI
-Message-ID: <CA+V-a8tQH_aFb871XXJ6QkNUhyXwZo_0RD4j83GbgDpfa=9x0A@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 08/24] net: dsa: rzn1-a5psw: Fix LK_LEARNCOUNT
- write mode encoding
-To: Clement Leger <clement.leger@linux.dev>
-Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Simon Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Florian Fainelli <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>, 
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Clement,
+This code has gone around and around in various forms, having been
+included most recently in a series that also added a system controller
+driver.  That system controller has now been removed.
 
-Thank you for the review.
+This series introduces a devicetree binding and single driver to support
+the clock and reset components present within the Toshiba TC9564 chip.
 
-On Fri, Nov 20, 2026 at 6:01=E2=80=AFAM Clement Leger <clement.leger@linux.=
-dev> wrote:
->
->
->
-> On 11/20/26 01:25, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > The LK_LEARNCOUNT write mode lives in bits [31:30] of the register, but
-> > the driver writes the raw A5PSW_LK_LEARNCOUNT_MODE_* values (0, 1, 2)
-> > directly. As a result, adding an FDB entry writes "set LEARNCOUNT to 1"
-> > and deleting one writes "set LEARNCOUNT to 2", instead of atomically
-> > incrementing/decrementing the counter.
-> >
-> > Use FIELD_PREP() with A5PSW_LK_LEARNCOUNT_MODE so the mode lands in the
-> > correct bit field.
-> >
-> > Fixes: 5edf246c6869 ("net: dsa: rzn1-a5psw: add FDB support")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> > v4->v5:
-> > - New patch
-> > ---
-> >   drivers/net/dsa/rzn1_a5psw.c | 10 +++++++---
-> >   1 file changed, 7 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.=
-c
-> > index 13c46cf2c420..7fd2652813ac 100644
-> > --- a/drivers/net/dsa/rzn1_a5psw.c
-> > +++ b/drivers/net/dsa/rzn1_a5psw.c
-> > @@ -5,6 +5,7 @@
-> >    * Cl=C3=A9ment L=C3=A9ger <clement.leger@bootlin.com>
-> >    */
-> >
-> > +#include <linux/bitfield.h>
-> >   #include <linux/clk.h>
-> >   #include <linux/etherdevice.h>
-> >   #include <linux/if_bridge.h>
-> > @@ -545,7 +546,8 @@ static int a5psw_port_fdb_add(struct dsa_switch *ds=
-, int port,
-> >               goto lk_unlock;
-> >
-> >       if (inc_learncount) {
-> > -             reg =3D A5PSW_LK_LEARNCOUNT_MODE_INC;
-> > +             reg =3D FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
-> > +                              A5PSW_LK_LEARNCOUNT_MODE_INC);
-> >               a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
-> >       }
-> >
-> > @@ -604,7 +606,8 @@ static int a5psw_port_fdb_del(struct dsa_switch *ds=
-, int port,
-> >
-> >       /* Decrement LEARNCOUNT */
-> >       if (clear) {
-> > -             reg =3D A5PSW_LK_LEARNCOUNT_MODE_DEC;
-> > +             reg =3D FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
-> > +                              A5PSW_LK_LEARNCOUNT_MODE_DEC);
-> >               a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
-> >       }
-> >
-> > @@ -963,7 +966,8 @@ static int a5psw_setup(struct dsa_switch *ds)
-> >       }
-> >
-> >       /* Reset learn count to 0 */
-> > -     reg =3D A5PSW_LK_LEARNCOUNT_MODE_SET;
-> > +     reg =3D FIELD_PREP(A5PSW_LK_LEARNCOUNT_MODE,
-> > +                      A5PSW_LK_LEARNCOUNT_MODE_SET);
-> >       a5psw_reg_writel(a5psw, A5PSW_LK_LEARNCOUNT, reg);
-> >
-> >       /* Clear VLAN resource table */
->
-> Hi Prabhakar,
->
-> It could probably be worth it to add a small a5psw_set_learncount()
-> helper that contains these the FIELD_PREP + writel.
->
-Sure I will do that in the next version.
+The Toshiba TC9564 is an SoC that attaches to a host system via PCIe.
+It includes a PCIe switch with three downstream ports.  To one of
+these ports an embedded PCIe endpoint is attached, and that implements
+two PCI functions.  BAR 4 for both PCI functions provides access to
+registers controlling blocks within the SoC, including the clock and
+resets controllers supported by this series.
 
-Cheers,
-Prabhakar
+To avoid any confusion I'm only going to refer back to the "syscon"
+series", which provides some additional information including links
+to earlier versions of this code.
 
-> Otherwise, LGTM:
->
-> Reviewed-by: Cl=C3=A9ment L=C3=A9ger <clement.leger@linux.dev>
->
-> Thanks,
->
-> Cl=C3=A9ment
->
+					-Alex
+
+The previous version of this code was included in this series:
+  https://lore.kernel.org/all/20261104004332.2141282-1-elder@riscstar.com/
+
+Between that series (v1) and this one (v2):
+  - There is no more syscon, so its devicetree binding and driver have
+    been dropped
+  - The clock and reset components now have a single devicetree binding
+  - We no longer use a syscon-generated regmap for accessing the common
+    range of memory used by multiple drivers; specific sub-ranges are
+    instead mapped
+  - The clock and reset drivers have been combined into a single driver
+    located under drivers/clk
+  - The config option for the driver includes COMPILE_TEST, as requested
+    (last month) by Jerome Brunet
+  - The help text for the config option is simplified, first suggested
+    by Philipp Zabel
+  - The driver now names clocks using dev_name() rather than trying to
+    hand-code a unique name into a fixed-size name array (also suggested
+    by Jerome)
+  - Certain functions now always return 0, which simplifies callers
+    so they can simply return what the called function returns
+  - As suggested by sashiko, a counted-by field in a flex array is now
+    assigned explicitly
+
+Alex Elder (2):
+  dt-bindings: toshiba: introduce toshiba,tc9564-clock.yaml
+  clk: toshiba: introduce a TC9564 clock/reset driver
+
+ .../bindings/clock/toshiba,tc9564-clock.yaml  |  73 +++
+ MAINTAINERS                                   |   9 +
+ drivers/clk/Kconfig                           |   8 +
+ drivers/clk/Makefile                          |   1 +
+ drivers/clk/clk-tc9564.c                      | 501 ++++++++++++++++++
+ include/dt-bindings/clock/toshiba,tc9564.h    |  50 ++
+ 6 files changed, 642 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+ create mode 100644 drivers/clk/clk-tc9564.c
+ create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
+
+
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+-- 
+2.53.0
+
