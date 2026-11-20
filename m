@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795186390;
-	b=Ufg3iulB6ZO6p8ORtMCXmDsTxPACr/K/1qTuuyuMc5ULkcSfon1LMm1WtRX0e3H8SgGN
-	 HjetI6fczuYywm0M/98fOCqk9lk9Uj/aDDT2CCmWSXrOpu0AXJjvJOF/FFBp9/lbRXGqg
-	 OEFmL4+P3NZGjdQzpKdrb9DKMfGQg/LAbgJgUIVLmrOYWpjojhbdCaSB5NJLoc0+HnfIE
-	 LleGr/Ma/V/vap3UZbRZmGIqSO73/v21OVeIMQXGVd1wIXA7jxozBI7xvzn5MGi3XcP9W
-	 YaHDmGs4s8IcjyUSJjhp/YEX3ac0EMtNPeGMHWtAoAvUP7l7/c1+iSe2z9Ol5IE41Kg==
+	t=1795186391;
+	b=JW2qxcQoKB6XGus7UnUaAdkJat8FxN0wPx3Ptn0MBdgCIUf5mhGKp7JXeoej79FPVqLl
+	 9V/LNw02xYUuS/lQ3YntQG4EHKdn93+L7Xj/9OL5RiRAkGFJVNYKvtqUds2qO3r7GOyge
+	 QXbjSidvH9wqBbCv12ftzAXrTpbJWI7G0gIhDJT6xlwwigaUiSed3tEgzguEWEuECQISV
+	 ig1QJdqZpWGzI/s6ioxR1ULfGC4sQpod7QrwvSZSqi41Q+t79WohpM8jui45GRJM84uMl
+	 c8Xz6TnVCDI747TWnOL1v5sJemN4Hdogid0b78b6zRBly1TdkzY7XiVU1D7i9fenOjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795186390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795186391;
 	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc;
-	bh=iBP+b6prP6kyCPScuNa8zQ2uYPSjomx3LSDLJkMRsj4=;
-	b=spbnHpl7AZTiuU4I9Z5J5+VuwRS9IGqVHUtcCA5skJNBUfvmfeq5Nx9k0iG0tOiUgI6U
-	 932spWZuU3PdwBmABzGkA2g/8aFhoMEx+nVxRLmMbSAV/w/e7+mb5ecIb56le+AsENnWH
-	 oDbQTwbsWYyV7Aog598Kuw1FygvBEG8oJWFrs125jYr3ZpGOcG6t6N04tWHkYKnIpUU+l
-	 KtonlYBwtmq98Yv06k6xMDh4HLselWxHkqJJ9mEqU+ARohTwABHPUmtT3k7i3zfAYtV5x
-	 DvBmUojOyOVdILFGV89QxMWFqekSDt/TfhivdIuH5WAlzQkeBeh6RmcySYr+qHI7BMw==
+	bh=94inkeJy4LjwOcfHpl+KRLrbPNahiIQcWA/vLQy/r54=;
+	b=mXrEziOXmZFSA4riOk4C/lDo9SLoblyXzMjA/Hjrl3HRlEuwVxDt25dEryNNBp/Tkkz2
+	 KxSuAX6Q4zULoZAkNk2gWOnjCCEqLmllEdWtPROHMw6/s7DoW+62dppDVuWmG/3ddeipD
+	 nogrJrcnbjUx+XjPqXnt6Q6fN6BB8LP/vEEhX06A0O0IIuA7cPlc19DIoT9rFlIpE7dsk
+	 wKvYowAaVYixDuqLznanLfVYAxaXTjk1ZTgFI+bSfDkYIzEPBir2YlTwr1qZom5E5bY8s
+	 N1WtXj971UrhRGpk0gCWOEVj1OvwDClsVrQAUPpShXz1WWYIrHczguZfe9uFf0e8yhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Wjfs8+jL;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="B/P0r81C";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FZgWNMAf;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=bBjihSmI;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF78606A333;
-	Fri, 20 Nov 2026 14:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EF78606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62BE60A2607;
+	Fri, 20 Nov 2026 14:53:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A62BE60A2607
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Wjfs8+jL;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=B/P0r81C
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FZgWNMAf;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=bBjihSmI
 From: Vasilij Strassheim <v.strassheim@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1795186387;
+	s=2020; t=1795186389;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iBP+b6prP6kyCPScuNa8zQ2uYPSjomx3LSDLJkMRsj4=;
-	b=Wjfs8+jLwZFhTJO1wbR2IhC06W8LE4oMzBM1nIERkNpssNL8eibxzQtKmtvhF7M8N/8/DS
-	xBVEKiKzcZ2aShE3dmigBB4P1yN18ZvFZj57oGUp4FD1jfbWBut2bobL8yL089k7a3t1oQ
-	kJC9g5EluKwvDUBNUeECqc1QYWDEXrCemGMAv5LGYtG8EGflbvoHkzdCjBiTSM8Ptrbwz8
-	UjL0rV/GMqul4t3IHxfEz3PuNJV35YM6WQ13sizFKuRTkVwx1ajmDb918VJN3n50I8lvFh
-	47QEpX58LmZ1eEisfypxkuSTEWjuCXMbrreiSQdBPf8MoRXb51b4av6t+AtS+w==
+	bh=94inkeJy4LjwOcfHpl+KRLrbPNahiIQcWA/vLQy/r54=;
+	b=FZgWNMAfgWq3oMpmXEhLs4WDG+AyR3hm2+5rObOlHKsFU9YXmFHawa/ZieqpyU6WkFfWPO
+	c1dqxN/dJrU0LHKi5HJDxIs5zTQErepCEK8sYEgKAIdqZ47dVuX6gRwx0/NfC1rytBsSlj
+	RTjKmQ8WFaz2yYmCAj7Vw+cNvrvynnOZDskp+baOBky2XuVyGSzsFg499PQVBbWS6oDWZ5
+	e82zoiXl8Pfw99b0ExsEhJfPHB6vHKCs990i5xVpUvzU0OoFdD7/0JOT7dtAu1ekpYd1AK
+	ybCpRaPt6hfTgX85kxFmE0FO0ZAEYVqDzH+Aignaf6WiY1Nav1RTKO7Y1PA0qw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1795186387;
+	s=2020e; t=1795186389;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iBP+b6prP6kyCPScuNa8zQ2uYPSjomx3LSDLJkMRsj4=;
-	b=B/P0r81Co3DWzjv7xpdy2YORB1iaTu6HASsaIE1xcB4wO53rISO3Bwpeivg+8OGyhNwAsi
-	LSRH10Nb4q5RVdAw==
-Date: Fri, 20 Nov 2026 15:52:18 +0100
-Subject: [PATCH net-next v5 1/9] dt-bindings: vendor-prefixes: Add soce
+	bh=94inkeJy4LjwOcfHpl+KRLrbPNahiIQcWA/vLQy/r54=;
+	b=bBjihSmISCdyeDrGL2Q8OW4NUiNfBsuOGzgFR6tV1xvKxeJhT87Boer2BHQm9bt60NDJ4f
+	+txTFdpa1TVdVMBA==
+Date: Fri, 20 Nov 2026 15:52:20 +0100
+Subject: [PATCH net-next v5 3/9] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch function
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,7 +71,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-devel-vstrassheim-soce-dsa-ml-v5-1-5de9225715e6@linutronix.de>
+Message-Id: <20261120-devel-vstrassheim-soce-dsa-ml-v5-3-5de9225715e6@linutronix.de>
 References: <20261120-devel-vstrassheim-soce-dsa-ml-v5-0-5de9225715e6@linutronix.de>
 In-Reply-To: <20261120-devel-vstrassheim-soce-dsa-ml-v5-0-5de9225715e6@linutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -85,31 +86,123 @@ Cc: Vasilij Strassheim <v.strassheim@linutronix.de>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  netdev@vger.kernel.org, mfd@lists.linux.dev, 
  Martin Kaistra <martin.kaistra@linutronix.de>, 
- Benedikt Spranger <b.spranger@linutronix.de>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Benedikt Spranger <b.spranger@linutronix.de>
 
-Document binding for System-On-Chip Engineering, S.L.
+Add a binding for the Ethernet switch function integrated into SoC-e
+SWIP cores as an addressed MFD child.
 
-Link: https://soc-e.com/
 Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../bindings/net/dsa/soce,swip-switch.yaml         | 101 +++++++++++++++++++++
+ 1 file changed, 101 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1..20a850a6e86f 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1599,6 +1599,8 @@ patternProperties:
-     description: Standard Microsystems Corporation
-   "^snps,.*":
-     description: Synopsys, Inc.
-+  "^soce,.*":
-+    description: System-On-Chip Engineering, S.L.
-   "^sochip,.*":
-     description: Shenzhen SoChip Technology Co., Ltd.
-   "^socionext,.*":
+diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+new file mode 100644
+index 000000000000..55232c0f3675
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+@@ -0,0 +1,101 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/dsa/soce,swip-switch.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SoC-e SWIP FPGA Ethernet switch function
++
++maintainers:
++  - Vasilij Strassheim <v.strassheim@linutronix.de>
++
++description:
++  Ethernet switch function of the SoC-e Switch IP (SWIP) FPGA core. The port
++  count and presence of VLAN and STP register blocks depend on the FPGA
++  synthesis configuration.
++
++$ref: dsa.yaml#/$defs/ethernet-ports
++
++properties:
++  compatible:
++    const: soce,swip-switch-00-04-0c-10
++    description:
++      This compatible identifies the register layout; its suffix gives
++      the offsets of the core version and feature identification
++      registers (0x00, 0x04, 0x0c, and 0x10). Port counts and optional
++      features depend on the FPGA synthesis configuration and are
++      detected at runtime using this register layout.
++
++  reg:
++    description:
++      Register window of the IP core. Switch register blocks are located at
++      offsets defined by the compatible. The MDIO controller and bus
++      multiplexer occupy separate subregions described by sibling nodes.
++    maxItems: 1
++
++  ethernet-ports:
++    type: object
++    patternProperties:
++      '^ethernet-port@[0-9a-f]+$':
++        type: object
++
++        properties:
++          reg:
++            maximum: 30
++            description: Switch port index, from 0 through 30.
++
++          phy-mode:
++            enum:
++              - mii
++              - gmii
++              - rmii
++              - rgmii
++              - rgmii-id
++              - rgmii-rxid
++              - rgmii-txid
++
++        required:
++          - reg
++          - phy-mode
++
++required:
++  - compatible
++  - reg
++  - ethernet-ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    ethernet-switch@0 {
++        compatible = "soce,swip-switch-00-04-0c-10";
++        reg = <0x0 0x10000>;
++
++        ethernet-ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            ethernet-port@0 {
++                reg = <0>;
++                phy-handle = <&switchphy0>;
++                phy-mode = "rgmii-id";
++            };
++
++            ethernet-port@1 {
++                reg = <1>;
++                phy-handle = <&switchphy1>;
++                phy-mode = "rgmii-id";
++            };
++
++            ethernet-port@2 {
++                reg = <2>;
++                ethernet = <&eth0>;
++                phy-mode = "gmii";
++
++                fixed-link {
++                    speed = <1000>;
++                    full-duplex;
++                };
++            };
++        };
++    };
 
 -- 
 2.39.5
