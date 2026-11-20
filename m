@@ -1,54 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795158211;
-	b=av1p0qYfpqs1p/WDjJ6ragbtJo73WLxoddZ8eJNDhG6POZM5zG5hHm9ImBW02z0qdNoy
-	 A71DEu0FNS0QuwmHdTY1ReYznwXXr5Mmmuknew/waDVahIdsmHt46ShCFm2y9fVOhwt5R
-	 TOQGXubHGWKQ+7Flm8/P3xiOKSbbnHhrgTCkD3RYkrmXT/4DyT9a1fZmC81aTCYasx7N2
-	 cBZsX9nheUHWFHPk2bNHQcfdgWaKmSlKCIOTfUuSPKAwdban8z99PwTzRcpaKfYBnNX1V
-	 dB2oOK2kG1qaR40lqhLc/O6geldIdanyzHH6rbJm9mKDWbfJ+25jF3d6maCbmcTM+NA==
+	t=1795158246;
+	b=W1JYjepFc8iCBMnX9B3gf3NaIcuNMbTJJhlYFtiyFBI6BINTQyTHP30CUJgu1t1BfHIt
+	 0Wyb0E6ZcF1htLDv6f7v7q55pL2qGJyBRf22R03i4YywFhlDwWmXoFF9JktPfCttrziCA
+	 98IcqXnCBkF7kOc4SS9cIieNhy1m0bMDW8QTG8IwNM1IrkOPbyTPJJFAT/pJHl6rDkYtd
+	 zcdYAM+kIXdIlzXX4mEiEZ0MgoikI3mZ3qRCusTnSaFEp1FaNxQXA3hGPAUKshxsSI2JZ
+	 JYhHDnt0bJAkMQ/gr8bFuV264nSqmhVy9LQPWN4Ffgvy+dMnm8oPnHIm6f8xr1Z6A/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795158211;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uHwvIe5lHvX4OsC6ONaqL5E8BXvpSUpMKavi/gOZ90U=;
-	b=mNKbxferFE6h+I7Cz/4kKexMKcfqHcJZycZyRkg5p6Cf3MtNimQBaAqkedNtMTZeCJav
-	 6ezuBiwJIIJd4lFDZ/b2YFkm753UFMhf8dHZAlw19iwy9bhnbN8apv/QPvKy9Hu1xE8QE
-	 BP5bBK9wAc50YFgOLYl5Vy1vhHbDgFtRVP03kGIwLFsfNOPSD0pgh+dyJxpLV7U1S0XWG
-	 FBqX4EaXw1UQCIzBXaTe5Gz1CQ9yP6Ms9w9hNFXJh6IU9PLumfi3MDnbBbqxq3PZOfRz1
-	 6eN65tmMsp/0mY+2+RmWaM63vFTkr+kQ0BQRZDcJ6NlC3tKny+u6f6yVL2LgI7SfOhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795158246;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:X-MTK;
+	bh=iQd0szpodWCkedCEQ6y+wHscJHQCmXAqsdXrKfYkri4=;
+	b=kFAh8lGgAm0wYYJKJ/mcyERsk9QGAevmR7VQLiRYMiZV5Q3qQ89yVM9LY7KMD3BXVCIe
+	 MTidupo1uzlxXFloBb9ryHuMjEATxXI3hRDtPIP9xE9L1xYSDG9623STNqlAx521i/ftZ
+	 toqGSQF7OXnT5XdnJQFScFDyRDIApLq9GeQfzUq108rvuEAFBlKM4ahIo9vHfakc/10VS
+	 N5du3OrCaHor6KIeRjXVAvQ4WCDA1iCzsE31UJyojdcPgR7Qe73w/pVrciVJ0qECfKLUe
+	 32hTzBnIcqNR16EU1EhNuIwXi0kI+WoELdk6+G4ku0LoTfkYKShkcVPPn0itE+fJBbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="m/vqxZSA";
-	arc=none smtp.remote-ip=91.218.175.197
-Received: from mta0.migadu.com (out-197.mta0.migadu.com [91.218.175.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=airoha.com;
+	spf=pass smtp.mailfrom=airoha.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b="L/emeiig";
+	arc=none smtp.remote-ip=60.244.123.138
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA901606A326
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 07:03:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA901606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29625606A320;
+	Fri, 20 Nov 2026 07:04:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29625606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=m/vqxZSA
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=iKGCF34JO5kdAIXGWAc1gSdXT5fwS16EI82kRXr3nRg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795158208; v=1; x=1795763008;
- b=m/vqxZSA/mVSIeHOWHgXEDeZvlu4k91nK1kqekCD0zeiwhoObFOicTFYz1s0RByuMM5WkB6v
- xgan2aaiEwAQDYimMXXFQcss1CT7MHBQ1L1VZo41ScHMev1bitfGBlTy9qqgBs7lj/dHO+Art7U
- gPuMDE//lYar8GeByq2VESnk=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 517fa123e3c93d7a;
-	Fri, 20 Nov 2026 07:03:28 +0000
-X-Mizu-Trace-ID: 517fa123e3c93d7a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <348c15f4-529f-4d03-8362-ccac24722ebb@linux.dev>
-Date: Fri, 20 Nov 2026 08:03:24 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=L/emeiig
+X-UUID: 8b3b7d6ae4b011f1b1788b6acf885367-20261120
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:CC:To:From:Date; bh=iQd0szpodWCkedCEQ6y+wHscJHQCmXAqsdXrKfYkri4=;
+	b=L/emeiigxAoj+4EhZZagBCq/pLrb5vXDCa6wdSs+0qxytjfLcGy2+hErnIjaNdOKZnoH/kdzirt/CAb5bYqx/eTeQ7UAUbjW1saaDZwzgRVzBc/9YnKfap2VzMXv4LK95+l4hsh1vuRi/n5xdhwnNjAugiTOgPpBAVIK4BHhpyc=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:5c51ba4a-7192-4b52-bf66-73c1359d538f,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:3e4819f7-eb8c-45c4-ab5e-2cec3871e65a,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|83|102|836|865|888|898,TC:-5,Content:0|1
+	5|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
+	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 8b3b7d6ae4b011f1b1788b6acf885367-20261120
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw01.mediatek.com
+	(envelope-from <zhengping.zhang@airoha.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 694821014; Fri, 20 Nov 2026 15:03:52 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Fri, 20 Nov 2026 15:03:52 +0800
+Received: from mediatek.com (172.18.153.129) by mtkmbs11n2.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Fri, 20 Nov 2026 15:03:52 +0800
+Date: Fri, 20 Nov 2026 15:03:52 +0800
+From: Zhengping Zhang <zhengping.zhang@airoha.com>
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+CC: <linusw@kernel.org>, <lorenzo@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <brgl@kernel.org>,
+	<naseefkm@gmail.com>, <benjamin.larsson@genexis.eu>,
+	<linux-gpio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
+	<lei.dong@airoha.com>, <ansuelsmth@gmail.com>
+Subject: Re: [PATCH 04/12] pinctrl: airoha: an7581: fix PHY LED GPIO group
+ assignments
+Message-ID: <av_w2OD7cYYWNYRS@mediatek.com>
+References: <20261110094339.749110-1-zhengping.zhang@airoha.com>
+ <20261110094339.749110-5-zhengping.zhang@airoha.com>
+ <5e681d92-9772-42e3-aae8-47faacf6d850@iopsys.eu>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,146 +86,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v5 16/24] net: dsa: rzn1-a5psw: Choose tagging
- protocol based on compatible string
-To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
- Ralph Siemsen <ralph.siemsen@linaro.org>, linux-renesas-soc@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- Prabhakar <prabhakar.csengg+renesas@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261120002549.1908299-17-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Language: en-US
-From: Clement Leger <clement.leger@linux.dev>
-In-Reply-To: <20261120002549.1908299-17-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <5e681d92-9772-42e3-aae8-47faacf6d850@iopsys.eu>
+X-MTK: N
 
+Hi Mikhail,
 
+Thanks for checking this. Could you please share the version of the
+7581 datasheet (sometimes also referred to as the Programming Guide)
+you are referring to, and the relevant pin-function table? It appears
+to differ from the pinctrl info available to me.
 
-On 11/20/26 01:25, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Prepare the A5PSW driver for forthcoming RZ/T2H ETHSW support by making
-> the DSA tag protocol selectable through SoC match data. The RZ/N1 A5PSW
-> and RZ/T2H ETHSW share the same tagged frame layout, but interpret the
-> ControlData field differently, so the tag protocol cannot remain fixed.
-> 
-> The common tagged frame structure is:
-> 
->    +----------------------+-------------------------------+
->    | Field                | Size (octets)                 |
->    +----------------------+-------------------------------+
->    | Preamble             | 7                             |
->    | SFD                  | 1                             |
->    | Destination Address  | 6                             |
->    | Source Address       | 6                             |
->    | ControlTag (0xE001)  | 2                             |
->    | ControlData          | 2                             |
->    | ControlData2         | 4 (timestamp, portmask)       |
->    | Type/Length          | 2                             |
->    | Payload              | 0..1500 / 0..9000             |
->    | Pad                  | 0..42                         |
->    | FCS                  | 4                             |
->    +----------------------+-------------------------------+
-> 
-> The ControlData semantics diverge between the two switch families:
-> 
->    +---------+----------------------------------------------+
->    | SoC     | ControlData bits                             |
->    +---------+----------------------------------------------+
->    | RZ/N1   | [0-3]: ingress port                          |
->    |         | [4-15]: reserved                             |
->    +---------+----------------------------------------------+
->    | RZ/T2H  | [0-3]: ingress port                          |
->    |         | [4]: timestamp timer select                  |
->    |         | [5]: reserved                                |
->    |         | [6]: RED period indicator                    |
->    |         | [7-15]: reserved                             |
->    +---------+----------------------------------------------+
-> 
-> Because these differences affect protocol semantics, select the tag
-> format through compatible specific data. This allows the driver to
-> choose the appropriate tagging protocol for each SoC while preserving
-> the existing RZ/N1 behaviour.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v4->v5:
-> - No change
-> 
-> v3->v4:
-> - No change
-> 
-> v2->v3:
-> - No change
-> 
-> v1->v2:
-> - Updated commit message
-> ---
->   drivers/net/dsa/rzn1_a5psw.c | 5 ++++-
->   drivers/net/dsa/rzn1_a5psw.h | 2 ++
->   2 files changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
-> index 8d7cad90d613..c59d881ce10f 100644
-> --- a/drivers/net/dsa/rzn1_a5psw.c
-> +++ b/drivers/net/dsa/rzn1_a5psw.c
-> @@ -99,7 +99,9 @@ static enum dsa_tag_protocol a5psw_get_tag_protocol(struct dsa_switch *ds,
->   						    int port,
->   						    enum dsa_tag_protocol mp)
->   {
-> -	return DSA_TAG_PROTO_RZN1_A5PSW;
-> +	struct a5psw *a5psw = ds->priv;
-> +
-> +	return a5psw->of_data->tag_proto;
->   }
->   
->   static void a5psw_port_pattern_set(struct a5psw *a5psw, int port, int pattern,
-> @@ -1330,6 +1332,7 @@ static const struct a5psw_of_data rzn1_of_data = {
->   	.nports = 5,
->   	.npcs = 4,
->   	.cpu_port = 4,
-> +	.tag_proto = DSA_TAG_PROTO_RZN1_A5PSW,
->   };
->   
->   static const struct of_device_id a5psw_of_mtable[] = {
-> diff --git a/drivers/net/dsa/rzn1_a5psw.h b/drivers/net/dsa/rzn1_a5psw.h
-> index 26d201931453..58690f5f3887 100644
-> --- a/drivers/net/dsa/rzn1_a5psw.h
-> +++ b/drivers/net/dsa/rzn1_a5psw.h
-> @@ -236,11 +236,13 @@ union lk_data {
->    * @nports: Number of ports in the switch
->    * @npcs: Number of PCS connected to the switch
->    * @cpu_port: CPU port number
-> + * @tag_proto: DSA tag protocol used by the switch
->    */
->   struct a5psw_of_data {
->   	unsigned int nports;
->   	unsigned int npcs;
->   	unsigned int cpu_port;
-> +	enum dsa_tag_protocol tag_proto;
->   };
->   
->   /**
+The GPIO lists the eight pads as follows. The key point is the mapping
+between the mux bits and the GPIO pins.
 
-Hi Prabhakar,
+GPIO    Function           IOMUX control signal    SCU register
+------  -----------------  ---------------------  ----------------
+GPIO33  LAN0 LED1           RG_GPIO_LAN0_LED1_MODE  0x1fa20214[4]
+GPIO34  LAN1 LED1           RG_GPIO_LAN1_LED1_MODE  0x1fa20214[6]
+GPIO35  LAN2 LED1           RG_GPIO_LAN2_LED1_MODE  0x1fa20214[8]
+GPIO42  LAN3 LED1           RG_GPIO_LAN3_LED1_MODE  0x1fa20214[10]
+GPIO43  LAN0 LED0           RG_GPIO_LAN0_LED0_MODE  0x1fa20214[3]
+GPIO44  LAN1 LED0           RG_GPIO_LAN1_LED0_MODE  0x1fa20214[5]
+GPIO45  LAN2 LED0           RG_GPIO_LAN2_LED0_MODE  0x1fa20214[7]
+GPIO46  LAN3 LED0           RG_GPIO_LAN3_LED0_MODE  0x1fa20214[9]
 
-Reviewed-by: Clément Léger <clement.leger@linux.dev>
+On the AN7581 EVB, I tested the configuration assigning lan0_led0
+through lan3_led0 to GPIO 43 to 46, respectively, and observed
+working hardware-controlled LAN LEDS. Register readback during testing
+showed:
 
-Thanks,
+  SCU 0x214: 0x000042a8
+  SCU 0x22c: 0x00000000
+  SCU 0x27c: 0x00043210
 
-Clément
+The LED-related bits set in 0x214 are bits 3, 5, 7 and 9, consistent
+with the GPIO overview above.
+
+Could this be a naming difference between the documents? the key
+relationship is the GPIO pad controlled by each SCU mux bit,
+together with its LED mapping register and PHY LED channel. The patch
+aims to correct that relationship, rather than rename LED0 and LED1.
+
+I would like to reconcile the documentation before deciding wheter
+to retain or drop this patch.
+
+Best Regards,
+Zhengping
+
+On Sun, Nov 15, 2026 at 05:02:12PM +0300, Mikhail Kshevetskiy wrote:
+> according to an7581 datasheet
+> * LED0 uses GPIO33-35 and GPIO42 * LED1 uses GPIO43-46 so patch is not
+> needed
+> 
