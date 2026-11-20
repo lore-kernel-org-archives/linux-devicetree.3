@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795177327;
-	b=3hwv6rBik/KGz4OC8cJ/ggPNLnIbdhgpkIU7lyJgQzOZoDPwLcN+0wwYnkmDzmY38XJs
-	 CQRQrB8v+upMW3G/k0aZDVM1OcxAF5lnpmPKSwJsGMHWt8Yza549oQU/Hm4unyf+6hqSC
-	 kipq8VwhpBjfu9quTCVH018A7Lc8B5F9hN5252EQoLjHdtcGDqGg7X7j2pnO5l2B0Bb+P
-	 GiKhoYlHse3ptBPOtEKFYOVf2Ebu4wTSTqqJJUdOmAbjRPeVe4kNwFAlfAY1Ds+adVaD0
-	 j8SuvGtzgmClUx3Kx5eKPbbpe7IX75rVqb20s5y5F4xRcnZn5c93+Wq1b8dGHvQc4Gw==
+	t=1795177370;
+	b=2fmNnv6QhWFCAafuyKZNjpM9x2hP41bwQ0X/nKwMLccsiiQNJseLKlMy0mjWP4qzMw9v
+	 wXcBOVOKB6vIQ6YQqMQKEZTKNaQCWkET0rtls23yOTmwFUL5wsFEor2CXVlyB16T3Tk50
+	 iojKc+tlXFQyZg5PDlgxvjwfDI6eHiRVLyybxu19s0FUiDiFc4lD84PJZ+9rKe6gQ4vEQ
+	 /M6LTr4hzv9f8Sk8W11Gco0zwOH0sbmig38Dr3d6ffZxoQZeLcor56jJpHzOJ294SsRr6
+	 NW0dWImIyGlQjGbTW4i6G/Hdoh+POjfN9UKdkqEk+MqGeIrR4P4Gexvg/T0VyFUmrHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795177327;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795177370;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ml7R9yJUogO8tVsg6kpY8myL5qxQsdOt4p4BEvqjWJQ=;
-	b=BI1jU57U9hHozPpzu4yOIzsBUWmKENAJ9BUiVFFC4GJw1DSOuB8DH+vqLyG9MO1dKp1y
-	 yCjwMB0y4aMqgOBe3Gn+1cWCYiaVgDH8UABNgzsCg2iFJ/uyJhaMbJYx+EBZO1xJxe0xt
-	 FcVJ718V6QKuwfiXXjtfos8qbdNBf7fR7lW0mfgMpSTF8UMcOpiSdwQZm4xRnYV90zGTa
-	 KOnEfB//ITRuYF/U/dtj0mfYZOPk5yy0VGkFR837rLoQ0SI/oi6/8QWnAezIKCAbvNa7J
-	 SObmsADkhYFd/DrEXO5AyBux6eQWZGfx4c8DlsKmtie0uJqtCpVJn6k279hin74GEoA==
+	bh=96Zhd5B1TtXmDkm0G8JywvJmgEKxebMT/FIPXFPvqRk=;
+	b=FjwbyEJ8vEACqQEDj86r7r+TtUfdrJs1+3wTyJDYOyOubXofrQJPyVQiWRJs8qqQvfIy
+	 aMYhbu9yclaYAHyCcCorZcVGyv3sn4oRjTp9gKGvhA4i1/9S5p+qqsjkFF5NdpDLrxj+s
+	 h7lcDr02oyRSQKvZJPeTVAxilWT8lTebahY5jLH0WfbzfWAARfHrQ76Ty9v/VV6LA1tkV
+	 EVVQ28gLXl+5Ny5yag0/L0RIoh4w6lJGcqHP4boQm/X3uv+fAsDPRTWTJeUIYtKYA/rOJ
+	 WxhZ4SvSASVXx6AqgZx8DilYq2hEv9IzeHRwws3JWivDZsLDat9BMHUkLNlywuu9sgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FhdT3Xue;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AmBVNGI3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485E0606A320;
-	Fri, 20 Nov 2026 12:22:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B742A606A330;
+	Fri, 20 Nov 2026 12:22:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FhdT3Xue
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD231F000C6;
-	Fri, 20 Nov 2026 12:22:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AmBVNGI3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3D91F000C4;
+	Fri, 20 Nov 2026 12:22:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795177326;
-	bh=ml7R9yJUogO8tVsg6kpY8myL5qxQsdOt4p4BEvqjWJQ=;
+	s=k20260515; t=1795177370;
+	bh=96Zhd5B1TtXmDkm0G8JywvJmgEKxebMT/FIPXFPvqRk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FhdT3XuemVMz+q+4+Y2P55BxntAvNpdvgPAFqfWF5d3xwrFGJIpRPIAfP3wWt1zNP
-	 w4R7K+Zqx9rfZo1rBlL69JWeVpy3uvKUsBOetOF9aXe1vq6lt6oR90d/hXZECVrmj0
-	 I4m9qF3Dy3+BedfHjffQAByzylN73jIp3FVlB0BXjHG2SnRrd1d+eM43ougPQ86FOV
-	 CQFrmyUJWio68biJ8EBetWBUFtDUaXn24YeL8kebAtAN2k3KObDzHG9vPcTBLcNOHP
-	 6XgDfQM/8dHPTk8fJeLQdmmJoc7Oh8vpUihNAzT4HN2l/lZBRuf+E3co38Nv2JXS3q
-	 FVMaYsh2qHP+Q==
-Message-ID: <6660afd3-ba3a-4206-96d2-21767d7f9892@kernel.org>
-Date: Fri, 20 Nov 2026 13:22:00 +0100
+	b=AmBVNGI3oxhUQny5bfIay1meY4+SmysxmhA3RZVAisqQOVEujjPF6lW6uokogpHVE
+	 XBVXXFLVtrRMWV42oTpsGjAHEefDVbNjwiynQN9uyEZAUFWG/dzZFI+ddT35ORYqOL
+	 r2c02bONRbGZ4sGDkXnSTQBJy7s+81bPDq0ziVFH8/s7AWSTD56Fg7cYQLGD72w23h
+	 XzDkC0sBnO88Wa+2LgELoaJpDONnPmsFcj/pZfQB97r0UvSNY5FgPtor0xiI/xMl3U
+	 C0tkuif7PfMwWrBVrn8tbNIkj0ylkXiEyC7qWcp+p68yjvSqOQhiblX6d2HvqxjkJA
+	 3QgZxpHfkFjgQ==
+Message-ID: <d1ecf0fc-acd9-47f6-972c-837c9a63bf4b@kernel.org>
+Date: Fri, 20 Nov 2026 13:22:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,19 +52,18 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: clock: qcom: sm8450-gpucc: Add Molokai
- GPU clock controller
+Subject: Re: [PATCH v2 07/11] dt-bindings: arm: qcom: Document Molokai and the
+ Motorola Signature
 To: venkat.yadlapati@yahoo.com, Bjorn Andersson <andersson@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261116-molokai-gpucc-v1-0-07cb3bf37c78@yahoo.com>
- <20261116-molokai-gpucc-v1-1-07cb3bf37c78@yahoo.com>
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261116-molokai-soc-v2-0-9dc4dddc4e96@yahoo.com>
+ <20261116-molokai-soc-v2-7-9dc4dddc4e96@yahoo.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -110,29 +109,19 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261116-molokai-gpucc-v1-1-07cb3bf37c78@yahoo.com>
+In-Reply-To: <20261116-molokai-soc-v2-7-9dc4dddc4e96@yahoo.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15/11/2026 21:19, Venkat Yadlapati via B4 Relay wrote:
+On 16/11/2026 08:40, Venkat Yadlapati via B4 Relay wrote:
 > From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
 > 
-> Document the graphics clock controller of the Qualcomm Molokai (SM8845)
-> SoC. It is the Kaanapali one with a different PLL configuration and three
-> branch clocks at different offsets, so it is not compatible with it.
+> Document the Qualcomm Molokai (SM8845) SoC and the Motorola Signature
+> (vantage) phone based on it.
 > 
 > An LLM was used to help write this commit message.
 
-This does not belong to the commit msg, but to the changelog. Drop.
-
-
-> 
-> Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-
-
-With commit msg corrected:
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Same comments, this does not belong to the commit msg, but to the changelog.
 
 Best regards,
 Krzysztof
