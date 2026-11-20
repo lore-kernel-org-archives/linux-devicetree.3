@@ -1,89 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795215885;
-	b=ZrgGd7AGQi0aWuQoDJ3TJ34CeZsFdKCmvLahI+E2XQ21b2l2XyDtA9ZUh4vGzxoqshjq
-	 K2ib9R8tWAf20tRIQGy7XTbz8rTIFhjlk/jxOvhpb+VIvf96iHa/iW/9Rz2ZoXGEYx58a
-	 W9mETIv/RUeqk4qGBg92vBs61iWh7trZWvmpK1T7Vlt4DHqz2x0/f85KZP+aB7qI3HRf4
-	 QU1j0u5VB1lPqg4AhvETXWdWYSl2rrAiwcq6TJ3rbVdOrpnpmcIShNaGiRPNpA7UK6plZ
-	 QC2ZLGNwwgfxu49uUHk+RH4RMuehnfK/dM680eZyZ28YCJZLyFrb4HasQyMgaZJYOhg==
+	t=1795217177;
+	b=ky4bKoy5178fx/GjxgoLvY9fAhwv3UDItk//xpC1g+UJd1QeNW9XxMwRAn2bJTdpA7R+
+	 dtQZ9YnNtl5lt9an5RcPeQSISeDRIGGmNsOlRUkDtm2vKDdoVuurE2m/O51q3P0y0/mWj
+	 YyNIqDDP4IjAgtTOvQwD7l4k+Y1DIr1Q4448E2U8WOzRZ5OLHmaJJGeUbfjDCxJTyZ5dM
+	 /hZVZGmXJ/110B0ftvDx1aQp4hNHaC4UUEmBLyXWf7vFY/x7afnT6dKVduKW1vcuIcSOq
+	 DIlipA8rJ6ilqunEuHCKCRgSTON1E1ypYoptxVmP7WZb/ceK4F3JX9XGwlq5jG4O2qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795215885;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=Fwdc+YW/XiGo0Denx5Zmu82rn+nvG4NZ73DkXRr2reM=;
-	b=1JVXUWUEgngqfs0hXQ4aNAtaOKQ8NFjvjon7W24W1y8iBK/Q3EBns3aMwLfIJtn5ABpl
-	 xKBIPtVW5hv1dkfw7JyoNERfXVN5RcAR95B/o5itw/Pjq23GBAy+vtRTgKk6M4Hnez2vF
-	 W/PfviIsmV8nD+lW9BmnDAxeB+B/oyO8m+TqxE0rySLwGkxo38AprgnaIGKCco8Ly3DVR
-	 HBSIRl3E3OI0laMIy/cH0eby3hn8z/ZcXR3K0tgrWaGdA2tLWmqB1YLMr7RBDjkjGyzBs
-	 J4CRkeXTUK5CHec/W7klLwqphqmJ6qP56T0mqmxiNFHVGk8lRo1c3uBroBPqj0Ne8+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795217177;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=HxNGyJ35hri0geA+PjED9R6TVp4HHaU3ucvR7577Fks=;
+	b=P3CMMOG5exhdbsHeUjD+5NJj3+AlJu0YFvooGdUaRtiUAYGgRRLJLbbJ+dj6vcDKtvVk
+	 jb0kk02gud7bTkE7p6dpHvTdL0oSTIwT6pVTz7YfKO6lgjlP1mdsKzXHAyRG0PXS6ZZ97
+	 Rq/RNbWUIglf+bXp9XPDivXKLIIBHcaq1U0dNYllBnEJeToe516sigYCxRxph0zrBtOIE
+	 qUX74NqjxVCZ1IUOW+tL0XlTlvQ5E9gZHBbeJCTxKgcH6dD/+ryyjYKNG+Z7+B8n+/Tpe
+	 twQiyhhIMxu5/w9GssTH62KahMyvnNpWu/ZPwelEyTR65ZCztBrByyBGFlgeJyxB9GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=dXFqTyBG;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EgsjNbIi;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40751606A698
-	for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 23:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40751606A698
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97DE606A68B;
+	Fri, 20 Nov 2026 23:26:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C97DE606A68B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=dXFqTyBG
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso312832066b.0
-        for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:04:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795215884; x=1795820684; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fwdc+YW/XiGo0Denx5Zmu82rn+nvG4NZ73DkXRr2reM=;
-        b=dXFqTyBGKiT2jQkkVsep+aURdPf9hra5cXJYyAst7bF83HksS/coFTJsqgqLlpQEVV
-         LFLj06o2ua6ST/pqEqAhZvAydnVZQcFa9qw/1NcvQ8xrrYCgwN4XG3242ZeF93c8ji/v
-         twUaIJ5xtJlj6rRmDit5xR/5JYIlBcZovZGfo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795215884; x=1795820684;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Fwdc+YW/XiGo0Denx5Zmu82rn+nvG4NZ73DkXRr2reM=;
-        b=mzszvuyZI1aTJOTKitZAP0IICBRlP3Qc2YuT7pWBkh1a0ezlQKm0wr6c1KXWeweEll
-         Hn8dIoGDbbMwvfPo0BQcJ/Aj+sn45kKZg9R+iOZE2k67jvIwjHwlPgwkAh1o92Guves1
-         oA83jvS99ZbCQpO2pAN1BPicxK3r7CgUMAs5VNSZwpX4nscGWwc/kFUeEzVBRQvopv0m
-         z5OyhqLZyFPBofuW+Wrf97ioGOU5Rf6mqDFhjn+wE+KNepkdc3axNc4K6E/a/znCN+to
-         Wj7p/RYWVmd6GgvaPbl5Y4cPzugQzMJPlba1ddPMQQxsH/95WBM57FHEj5/9ckeJYYV+
-         O3CA==
-X-Forwarded-Encrypted: i=1; AL+hErGQ4Hm3njiHIkDUV6XOI2TL9a8HDJzEaf7JEsl0phTWaY5j9lXF+mbFvS8UwPa75FHtL+FnwI5MerNz@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FyOs6WGXqO9gKUb/gc+UFAqvRouHvpeu3fSJSmtgZwyYmtesn
-	KVqivt2oCQ/8FqmSLUOVgV9zFTfsJ+0r9s0iHCTxmFcC/p+glO2KcU3n5+Ow4MrpX7i3eaETbI+
-	v5qEsl8jI
-X-Gm-Gg: AYBFou3q7LCW6kqMRKKNfnwUIYDK3oVnjHr7FcyrZdfTnqHOtXIqGTi10j9Cs7M/8h6
-	qrFbiHYxF7bNyrQM0CRVtbcJoK8GEaT6bfKKlLxz5Fp+Ym35hFoRJYnxo3A7bWA2tyJ47kITwyt
-	0fgsZoU9Oii9tHOFGXXZ4kI16F4rE3CJFlkL6JrQk8rzbGBkpUw0VJHPD2A9ncJUEqfgSdnw+VM
-	aXNHsWNEd3AxdhcwP9MGKgPYB0SwRM768Ya5+tzUHmsY84xt1GS/8OrZUuVtiJSiZfW4IoJdZxE
-	QjJFYy3FY16PxwL9q5GSNWbHBgRI1GYRslEmh+jVZHgwtU0vlenc9b2RYsoBXsQrIeK7k5LTbH4
-	9QnsyBprBaahmKsqmW3xESgigJPluxs20qYQvagznVf2vjlG6pBzdVbqONu5Ii2lzhiEknJZkUn
-	kWz4DNl8j1yvYsPz8dKMyt7hwjmL5jKCpDRHXrteLS3/dKsHg7/xJi4a/MB++eqJTm4HymGrcBg
-	r/fn7DQAc4nPgi9fonGJm+LpXeOyJy+E/tLBKx8yVM0b2EVEIbPp7cwaEYtdCmmuY5xHaX+P6Ys
-	BTBxvsFhx8jjErUrQCEVi/DEYrYgfF/Po+1CBneuMp7BNtmwXY7Ok+/smbemEGluwhGisA==
-X-Received: by 2002:a17:907:ec09:b0:c2d:c6e7:9e9a with SMTP id a640c23a62f3a-c513a816ce5mr441488966b.11.1795215883577;
-        Fri, 20 Nov 2026 15:04:43 -0800 (PST)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com. [209.85.221.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae88143sm136072566b.32.2026.11.20.15.04.42
-        for <Devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Nov 2026 15:04:42 -0800 (PST)
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-49d64a88222so1642924f8f.1
-        for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:04:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErF4gQoz4pmA1vpvndQgHW2v/ePoB7HW8Hxgz+ChVW6Y+cKgATNui/+cYNPwJoWZxlghMkv1WFTS/Ceb@vger.kernel.org
-X-Received: by 2002:a05:6000:2c05:b0:48e:6651:5956 with SMTP id
- ffacd0b85a97d-4aa488c85eamr14307450f8f.0.1795215881201; Fri, 20 Nov 2026
- 15:04:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EgsjNbIi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795217174; x=1826753174;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Nbm7dttcg2VYnk3FmoiGwjR8294oJVUEhQthcpzoxPc=;
+  b=EgsjNbIijb02s3t4/xW693lQ+QGSXRyuzrj+5MrJ3kFtP4d58lkWxHNm
+   qv4EE1klHQ750QvJP1RbfJAWUWxYPiURuOlDGXeGo+YVWnWX82W9ZqzOi
+   AfGQ6Fj3F9cdrRaEtBmjxCcpbg2svUy9TdLSjwwZZtQoau4L2ZFCiddlQ
+   2wR9xJ/Sz1UfeYFOAVNs0sRzq6keV8o3tSKSXFkRSbNKEL8u5qC5THT9i
+   gCvJ3CcnlAOe7KaATGGwhDrPesHIFU2U3q2WB+wxT9SK+5fiGPpjGahv8
+   l15CNLFXbnzS9Rq21vH5Lk4AjWymqb7uTpimb3mbYhs+etHMlxPkAL/mM
+   Q==;
+X-CSE-ConnectionGUID: 4d/29vugQOasydgYjp6ArA==
+X-CSE-MsgGUID: +CovQ9rNTQ2dD2JehiGjzw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4119575"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="4119575"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 15:26:14 -0800
+X-CSE-ConnectionGUID: idZQ6xneQb+zLcR8VejhGw==
+X-CSE-MsgGUID: x+F/2N1QQ5GFCYNgl6siGQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="12811083"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 20 Nov 2026 15:26:08 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xUXzZ-00000001IwJ-0y7s;
+	Fri, 20 Nov 2026 23:26:05 +0000
+Date: Sat, 21 Nov 2026 07:25:13 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kyle Hendry via B4 Relay <devnull+khendry.reliablecontrols.com@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	=?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: oe-kbuild-all@lists.linux.dev, netdev@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Kyle Hendry <khendry@reliablecontrols.com>
+Subject: Re: [PATCH 2/6] clk: renesas: r9a06g032: Add reset controller
+Message-ID: <202611210721.sFAijXHV-lkp@intel.com>
+References: <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,69 +102,175 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113210918.356261-1-dianders@chromium.org>
- <20261113130858.RFC.v2.3.I4a691041bb6d31e5ab2fde8cd4139ca72ee72c5b@changeid> <sashiko-outbox-215034@kernel.org>
-In-Reply-To: <sashiko-outbox-215034@kernel.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 20 Nov 2026 15:04:29 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=VqHE5PjK1vFbv73G1UaN_BwxvRJjUJbHVB=9wL_h9PDg@mail.gmail.com>
-X-Gm-Features: Aa3M54qr05eSVV9PwOwJNdqAzu1uH37TTf3Dyh-iO_tgJlOvdvevguI12yuhb0E
-Message-ID: <CAD=FV=VqHE5PjK1vFbv73G1UaN_BwxvRJjUJbHVB=9wL_h9PDg@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 3/5] kbuild: fit: Add opt-in FIT_FACTOR_DTBS
- support using fdtfactor
-To: sashiko-reviews@lists.linux.dev
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Julius Werner <jwerner@chromium.org>, Michal Simek <michal.simek@amd.com>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Simon Glass <sjg@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	linux-kbuild@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	Chen-Yu Tsai <wenst@chromium.org>, Will Deacon <will@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Devicetree@vger.kernel.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Nicolas Schier <nsc@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Brian Norris <briannorris@chromium.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
-	Manuel Ebner <manuelebnerli@mailbox.org>, Marco Elver <elver@google.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Randy Dunlap <rdunlap@infradead.org>, Rong Xu <xur@google.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
 
-On Sat, Nov 14, 2026 at 1:09 PM <sashiko-bot@kernel.org> wrote:
->
-> [Severity: Medium]
-> As reported by Simon Glass on RFC [1], can composite DTBs built via
-> cmd_fdtoverlay reach fdtfactor with incomplete /__local_fixups__ when
-> FIT_FACTOR_DTBS=1 is used without FIT_DECOMPOSE_DTBS=1?
->
-> Although DTC_FLAGS passes -@ -L to dtc for the base .dtb and .dtbo inputs,
-> fdt_overlay_apply() in the in-tree scripts/dtc/libfdt/fdt_overlay.c merges
-> __overlay__ and __symbols__ into the target DTB without merging the
-> overlay's /__local_fixups__.  When FIT_DECOMPOSE_DTBS is not set,
-> make_fit.py packs those composite .dtb blobs into image.fit, leaving
-> fdtfactor without local fixup entries for phandle properties originating
-> from the overlays.
->
-> Until in-tree libfdt preserves overlay /__local_fixups__, should
-> FIT_FACTOR_DTBS imply --decompose-dtbs (or reject composite DTBs when
-> FIT_DECOMPOSE_DTBS is not enabled)?
->
-> [1] https://lore.kernel.org/r/CAFLszTh6vmFGVD4_Reewe9p4QqQjN=CVJ3SgfQKosAhedJpAQA@mail.gmail.com
+Hi Kyle,
 
-Rather than trying to handle older in-tree `libfdt`/`fdtoverlay` (and we
-wouldn't want `FIT_FACTOR_DTBS` to imply `--decompose-dtbs`, both
-because single-base composite DTB families would leave fewer than two
-non-overlay `flat_dt` nodes for `fdtfactor` to factor and because
-bootloaders like Pixel 10's expect a single base `.dtb` plus a single
-per-board `.dtbo`), this series will remain RFC until the `fdtfactor` /
-`fdtoverlay` `/__local_fixups__` changes land in upstream `dtc`. Once
-they land, the first patch in the non-RFC series will update
-`scripts/dtc/` so in-tree `fdtoverlay` preserves `/__local_fixups__`
-directly.
+kernel test robot noticed the following build errors:
 
-I had only mentioned that in the notes below `---` on patch 3/5 rather
-than in the cover letter; I've updated the cover letter as well so that
-plan is explicit if another RFC goes out before the `dtc` changes land.
+[auto build test ERROR on 662377fd1bb1d7cf4e97d312255fed868f56342d]
 
--Doug
+url:    https://github.com/intel-lab-lkp/linux/commits/Kyle-Hendry-via-B4-Relay/dt-bindings-clock-r9a06g032-sysctrl-Document-reset-cells/20261119-095743
+base:   662377fd1bb1d7cf4e97d312255fed868f56342d
+patch link:    https://lore.kernel.org/r/20261119-rzn1-miic-resets-v1-2-feee2bb28bb4%40reliablecontrols.com
+patch subject: [PATCH 2/6] clk: renesas: r9a06g032: Add reset controller
+config: arm-shmobile_defconfig (https://download.01.org/0day-ci/archive/20261121/202611210721.sFAijXHV-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261121/202611210721.sFAijXHV-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611210721.sFAijXHV-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from include/linux/container_of.h:5,
+                    from include/linux/kernel.h:22,
+                    from include/linux/clk.h:13,
+                    from drivers/clk/renesas/r9a06g032-clocks.c:10:
+   drivers/clk/renesas/r9a06g032-clocks.c: In function 'r9a06g032_reset_set':
+>> include/linux/container_of.h:8:47: error: 'struct r9a06g032_priv' has no member named 'rcdev'
+       8 | #define typeof_member(T, m)     typeof(((T*)0)->m)
+         |                                               ^~
+   include/linux/build_bug.h:80:56: note: in definition of macro '__static_assert'
+      80 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
+         |                                                        ^~~~
+   include/linux/container_of.h:20:9: note: in expansion of macro 'static_assert'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:20:23: note: in expansion of macro '__same_type'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |                       ^~~~~~~~~~~
+   include/linux/container_of.h:20:43: note: in expansion of macro 'typeof_member'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |                                           ^~~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1317:33: note: in expansion of macro 'container_of'
+    1317 | #define rcdev_to_priv(x)        container_of(x, struct r9a06g032_priv, rcdev)
+         |                                 ^~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1322:39: note: in expansion of macro 'rcdev_to_priv'
+    1322 |         struct r9a06g032_priv *priv = rcdev_to_priv(rcdev);
+         |                                       ^~~~~~~~~~~~~
+>> include/linux/compiler_types.h:610:27: error: expression in static assertion is not an integer
+     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+         |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:80:56: note: in definition of macro '__static_assert'
+      80 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
+         |                                                        ^~~~
+   include/linux/container_of.h:20:9: note: in expansion of macro 'static_assert'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:20:23: note: in expansion of macro '__same_type'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |                       ^~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1317:33: note: in expansion of macro 'container_of'
+    1317 | #define rcdev_to_priv(x)        container_of(x, struct r9a06g032_priv, rcdev)
+         |                                 ^~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1322:39: note: in expansion of macro 'rcdev_to_priv'
+    1322 |         struct r9a06g032_priv *priv = rcdev_to_priv(rcdev);
+         |                                       ^~~~~~~~~~~~~
+   In file included from include/uapi/linux/posix_types.h:5,
+                    from include/uapi/linux/types.h:14,
+                    from include/linux/types.h:5,
+                    from include/linux/kasan-checks.h:5,
+                    from include/asm-generic/rwonce.h:26,
+                    from ./arch/arm/include/generated/asm/rwonce.h:1,
+                    from include/linux/compiler.h:391,
+                    from include/linux/err.h:5,
+                    from include/linux/clk.h:12:
+>> include/linux/stddef.h:16:33: error: 'struct r9a06g032_priv' has no member named 'rcdev'
+      16 | #define offsetof(TYPE, MEMBER)  __builtin_offsetof(TYPE, MEMBER)
+         |                                 ^~~~~~~~~~~~~~~~~~
+   include/linux/container_of.h:23:34: note: in expansion of macro 'offsetof'
+      23 |         (type *)((void *)(ptr) - offsetof(type, member)); })
+         |                                  ^~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1317:33: note: in expansion of macro 'container_of'
+    1317 | #define rcdev_to_priv(x)        container_of(x, struct r9a06g032_priv, rcdev)
+         |                                 ^~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1322:39: note: in expansion of macro 'rcdev_to_priv'
+    1322 |         struct r9a06g032_priv *priv = rcdev_to_priv(rcdev);
+         |                                       ^~~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c: In function 'r9a06g032_reset_status':
+>> include/linux/container_of.h:8:47: error: 'struct r9a06g032_priv' has no member named 'rcdev'
+       8 | #define typeof_member(T, m)     typeof(((T*)0)->m)
+         |                                               ^~
+   include/linux/build_bug.h:80:56: note: in definition of macro '__static_assert'
+      80 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
+         |                                                        ^~~~
+   include/linux/container_of.h:20:9: note: in expansion of macro 'static_assert'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:20:23: note: in expansion of macro '__same_type'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |                       ^~~~~~~~~~~
+   include/linux/container_of.h:20:43: note: in expansion of macro 'typeof_member'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |                                           ^~~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1317:33: note: in expansion of macro 'container_of'
+    1317 | #define rcdev_to_priv(x)        container_of(x, struct r9a06g032_priv, rcdev)
+         |                                 ^~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1354:39: note: in expansion of macro 'rcdev_to_priv'
+    1354 |         struct r9a06g032_priv *priv = rcdev_to_priv(rcdev);
+         |                                       ^~~~~~~~~~~~~
+>> include/linux/compiler_types.h:610:27: error: expression in static assertion is not an integer
+     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+         |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:80:56: note: in definition of macro '__static_assert'
+      80 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
+         |                                                        ^~~~
+   include/linux/container_of.h:20:9: note: in expansion of macro 'static_assert'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |         ^~~~~~~~~~~~~
+   include/linux/container_of.h:20:23: note: in expansion of macro '__same_type'
+      20 |         static_assert(__same_type(*(ptr), typeof_member(type, member)) || \
+         |                       ^~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1317:33: note: in expansion of macro 'container_of'
+    1317 | #define rcdev_to_priv(x)        container_of(x, struct r9a06g032_priv, rcdev)
+         |                                 ^~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1354:39: note: in expansion of macro 'rcdev_to_priv'
+    1354 |         struct r9a06g032_priv *priv = rcdev_to_priv(rcdev);
+         |                                       ^~~~~~~~~~~~~
+>> include/linux/stddef.h:16:33: error: 'struct r9a06g032_priv' has no member named 'rcdev'
+      16 | #define offsetof(TYPE, MEMBER)  __builtin_offsetof(TYPE, MEMBER)
+         |                                 ^~~~~~~~~~~~~~~~~~
+   include/linux/container_of.h:23:34: note: in expansion of macro 'offsetof'
+      23 |         (type *)((void *)(ptr) - offsetof(type, member)); })
+         |                                  ^~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1317:33: note: in expansion of macro 'container_of'
+    1317 | #define rcdev_to_priv(x)        container_of(x, struct r9a06g032_priv, rcdev)
+         |                                 ^~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c:1354:39: note: in expansion of macro 'rcdev_to_priv'
+    1354 |         struct r9a06g032_priv *priv = rcdev_to_priv(rcdev);
+         |                                       ^~~~~~~~~~~~~
+   drivers/clk/renesas/r9a06g032-clocks.c: In function 'r9a06g032_clocks_probe':
+>> drivers/clk/renesas/r9a06g032-clocks.c:1463:15: error: 'struct r9a06g032_priv' has no member named 'rcdev'
+    1463 |         clocks->rcdev.ops = &r9a06g032_reset_ops;
+         |               ^~
+   drivers/clk/renesas/r9a06g032-clocks.c:1464:15: error: 'struct r9a06g032_priv' has no member named 'rcdev'
+    1464 |         clocks->rcdev.of_node = np;
+         |               ^~
+   drivers/clk/renesas/r9a06g032-clocks.c:1465:15: error: 'struct r9a06g032_priv' has no member named 'rcdev'
+    1465 |         clocks->rcdev.of_reset_n_cells = 1;
+         |               ^~
+   drivers/clk/renesas/r9a06g032-clocks.c:1466:15: error: 'struct r9a06g032_priv' has no member named 'rcdev'
+    1466 |         clocks->rcdev.nr_resets = ARRAY_SIZE(r9a06g032_resets);
+         |               ^~
+   drivers/clk/renesas/r9a06g032-clocks.c:1467:61: error: 'struct r9a06g032_priv' has no member named 'rcdev'
+    1467 |         error =  devm_reset_controller_register(dev, &clocks->rcdev);
+         |                                                             ^~
+
+
+vim +8 include/linux/container_of.h
+
+d2a8ebbf8192b84 Andy Shevchenko 2021-11-08  4  
+d2a8ebbf8192b84 Andy Shevchenko 2021-11-08 @5  #include <linux/build_bug.h>
+2b8e35337605ca5 Andy Shevchenko 2023-01-30  6  #include <linux/stddef.h>
+d2a8ebbf8192b84 Andy Shevchenko 2021-11-08  7  
+d2a8ebbf8192b84 Andy Shevchenko 2021-11-08 @8  #define typeof_member(T, m)	typeof(((T*)0)->m)
+d2a8ebbf8192b84 Andy Shevchenko 2021-11-08  9  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
