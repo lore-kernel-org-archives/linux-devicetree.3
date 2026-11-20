@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795167829;
-	b=o8PwPf+E05sV2rUBEfLrKHXbWPTFOyGdFrTmEdmwi29PFVQBN2mp1Bxf5c35/lEHaklt
-	 ucZZU/mq4C8P+TdD4mt9oUM1ZkAP3GR8x30zlG0lbRfA5Uv5dFOWkHtKDFHEkeZawsX1G
-	 Q/d5p1dO7VA8CeyfasM92aRWYgDkasVdTXDuzgIsT+mNf8AbAerJvnBZOwv+E6CJw7ZCx
-	 DXhRQipJukkmOvpEjhjOJ/3EMJ/L9Dmjnj/V7bsrLR8sBK5b+u8UsSC/11jmS6RoByhVH
-	 79tBgt+Aly079PHVpKK8uyZ5z9ZEvDwGXxSQvzKvIc0CCD8b9MmHhHV0yF20w4+9N6Q==
+	t=1795167860;
+	b=q+4ldLxYBaJqxswNBcTQ17VfA7f7rIALhHmK+JMUXyIOJFgrumiwk2iu72rZneAGPG+Y
+	 vQRB+ytSsRFgj3jT8q9FH/7i7Wid8S/yv1cpuDcEs99t5JJhZ1Cxdp6QP81mLtem0STTp
+	 vtscnScB1STbsvqfNlt2S646kodWe7fNzwOsYYI7eRcXM8+LEdttnfMn/hK9NvZwkMVQy
+	 SP51SzlNGHzY319lx11lbvbz9vt9K78xmbEObexjU/YcWapTwtWyh2dNvYm+wFqFe8Ff6
+	 Zcv88uE63Q05J77HbwR37VPcxkqLV6ALHJMczy+nCuWcqs2LIo6n+ZCJVMg4hhQoIxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167829;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=GeCtzp2xoImZ0E0jQSKhDwxA/F4ssL7yrY8e3r4L1SU=;
-	b=VsQ/cwsnCbXt74Mlb6Na+GxDBIY7X4kB6oxF6WQiC2E7z1ZOeNaAW7X+XxQEPbBA5uwd
-	 YF3P6BwJKVAPuGscS+wL3t2EdeZPrWOCUJv8a/4IH2oRSkPQ/Ome6LjeNoSpGIrsxdowi
-	 d4mYd5hVpzfM27wefgdeKV2yO1JfwldBNHk1roZILB+kA7OUzb3Em9CzLfb7zhNCm4tua
-	 sklVUbU0oh2zhNPig7yo3PFF1YZ3XZqCH+EI2dN8vE36zvp+vPOspiSwEGDIs3NyiYD+m
-	 T3tzA9cAxg7p3n5VqYfHQzx7RnMFqvoxElSRf2zPcVa7OmIE1c8QZnTeiwhsctOxSUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167860;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=oFjhW+7eKqQT97kIliJ3yMumyK6wp8D8hexPVbCu+yo=;
+	b=x0FFS8tQD3MOK4buzCiBh7fRC+D/YLwC5srfHymKEtonXM+XcAOE4z9cSweYbYJ+0Lm3
+	 cdG8OMzMXsYmNQuD+UFZgBmIXivG+41KFhxmk7WecCKYgRVeqDgPX05T+V0MXx+fPfjKV
+	 lZVN0Bp7fo4WyULrZn+zBOZ09A4dezCEm/E6myTv37ejbAF1NMJ0cMvcNUvacL5swrotj
+	 Vy9IyLuTKebBmqmO2gL3zfHrb6Xok+F4anlbUzHUDYsx8MMdASuUaa0D1tOsINePOHFKn
+	 rXnlCL78yw+FWJ85GXz4qhfoI/o7jcNZKR0RlMZBx9zOklikPheFOLUtoWpjnJ+jtbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPqyTvSE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DjXhq2vT;
+	arc=none smtp.remote-ip=91.218.175.174
+Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3937E606A325;
-	Fri, 20 Nov 2026 09:43:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9803D606A326
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:44:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9803D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPqyTvSE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9C21F000C6;
-	Fri, 20 Nov 2026 09:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795167828;
-	bh=GeCtzp2xoImZ0E0jQSKhDwxA/F4ssL7yrY8e3r4L1SU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hPqyTvSErmOWwfZlhZotI9IwFsMS8pqJuFyKVcffoMoYiAMWhJSdOgWikELSwAegw
-	 EzWKybW6hJi9nwQSbNNGHPZuAiz6116gnXPg+JaXdLXkwPTyFvA4HXjNnz4G6RglUW
-	 CkFES390EAgqfUdBNZGFDn9x68FP8k1Ns12i9IojZ+6AIYvjuWQv3OgM9oXvwoRzy3
-	 qAdF/pjoT8UcfXM3sot2DmmWoSCpVyyUg9qV1G4reEGCyLDJYXNBbByk+gJI5IBW/J
-	 PMOic3tFkVK8qNCe3gtkSxyDqvHIncmeuURs7qhUczTrpxcSUuulUxqP/AZ5nOcRUp
-	 2BI5QKxdNzwHA==
-Message-ID: <sashiko-outbox-224871@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] arm64: dts: freescale: imx93-11x11-frdm: use 8-bit
- eMMC bus
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Freimut Diener" <f.diener@pengutronix.de>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261120-imx93-frdm-fixes-v1-3-78dde22a56fe@pengutronix.de>
-References: <20261120-imx93-frdm-fixes-v1-0-78dde22a56fe@pengutronix.de>
- <20261120-imx93-frdm-fixes-v1-3-78dde22a56fe@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 09:43:47 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DjXhq2vT
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oQYnZu7+wRteiPN1ghqb+fRHNCk2pIXgXlUOMBMX+4A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795167857; v=1; x=1795772657;
+ b=DjXhq2vTkD4/KuyM57OwBvaPgvVetN0WTti8yr/3rahHAnmo1+kOdcniJENRHezJ2Qj1l7e6
+ eBcNkYAKfLStx7asOt0YV4NlrmHy636KBcOVEEqycCj/KqH5SA88Afr2o2CqujmMec2F0rppkQC
+ jM7j+5oSZD8ONhRqfx+trteQ=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7ed50c03f98480e6;
+	Fri, 20 Nov 2026 09:44:17 +0000
+X-Mizu-Trace-ID: 7ed50c03f98480e6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <99974c5f-c1c0-427c-ab10-a6559789f258@linux.dev>
+Date: Fri, 20 Nov 2026 10:44:15 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,52 +57,153 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 20/24] net: dsa: rzn1-a5psw: Get lookup table
+ size from OF data
+To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ Ralph Siemsen <ralph.siemsen@linaro.org>, linux-renesas-soc@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-21-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Language: en-US
+From: Clement Leger <clement.leger@linux.dev>
+In-Reply-To: <20261120002549.1908299-21-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: freescale: imx93-11x11-frdm sets 8-bit bus-width
-  on 4-bit usdhc3
---
 
-commit 1b60016bb1be48a6e2b6b1dfc5d19ef5de2490d6
-Author: Freimut Diener <f.diener@pengutronix.de>
 
-arm64: dts: freescale: imx93-11x11-frdm: use 8-bit eMMC bus
+On 11/20/26 01:25, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> The RZ/N1 A5PSW has 8192 lookup table entries, whereas the RZ/T2H
+> and RZ/N2H ETHSW have only 4096 entries.
+> 
+> Add the lookup table size to struct a5psw_of_data, derive the address
+> mask from it and use it in the FDB and ageing code.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v4->v5:
+> - New patch
+> ---
+>   drivers/net/dsa/rzn1_a5psw.c | 10 ++++++----
+>   drivers/net/dsa/rzn1_a5psw.h |  4 ++--
+>   2 files changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+> index 7e9bc252d92a..c0c1f45852da 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.c
+> +++ b/drivers/net/dsa/rzn1_a5psw.c
+> @@ -311,18 +311,19 @@ static void a5psw_phylink_mac_link_up(struct phylink_config *config,
+>   static int a5psw_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
+>   {
+>   	struct a5psw *a5psw = ds->priv;
+> +	unsigned int entries = a5psw->of_data->lk_table_entries;
+>   	unsigned long rate;
+>   	u64 max, tmp;
+>   	u32 agetime;
+>   
+>   	rate = clk_get_rate(a5psw->clk);
+> -	max = div64_ul(((u64)A5PSW_LK_AGETIME_MASK * A5PSW_TABLE_ENTRIES * 1024),
+> +	max = div64_ul(((u64)A5PSW_LK_AGETIME_MASK * entries * 1024),
+>   		       rate) * 1000;
+>   	if (msecs > max)
+>   		return -EINVAL;
+>   
+>   	tmp = div_u64(rate, MSEC_PER_SEC);
+> -	agetime = div_u64(msecs * tmp, 1024 * A5PSW_TABLE_ENTRIES);
+> +	agetime = div_u64(msecs * tmp, 1024 * entries);
+>   
+>   	a5psw_reg_writel(a5psw, A5PSW_LK_AGETIME, agetime);
+>   
+> @@ -511,7 +512,7 @@ static int a5psw_lk_execute_lookup(struct a5psw *a5psw, union lk_data *lk_data,
+>   	if (ret)
+>   		return ret;
+>   
+> -	*entry = ctrl & A5PSW_LK_ADDR_CTRL_ADDRESS;
+> +	*entry = ctrl & (a5psw->of_data->lk_table_entries - 1);
+>   
+>   	return 0;
+>   }
+> @@ -638,7 +639,7 @@ static int a5psw_port_fdb_dump(struct dsa_switch *ds, int port,
+>   
+>   	mutex_lock(&a5psw->lk_lock);
+>   
+> -	for (i = 0; i < A5PSW_TABLE_ENTRIES; i++) {
+> +	for (i = 0; i < a5psw->of_data->lk_table_entries; i++) {
+>   		reg = A5PSW_LK_ADDR_CTRL_READ | A5PSW_LK_ADDR_CTRL_WAIT | i;
+>   
+>   		ret = a5psw_lk_execute_ctrl(a5psw, &reg);
+> @@ -1357,6 +1358,7 @@ static const struct a5psw_of_data rzn1_of_data = {
+>   	.pattern_ctrl_base = 0x3eb0,
+>   	.vlan_res_vlanid = GENMASK(16, 5),
+>   	.vlan_res_portmask = GENMASK(4, 0),
+> +	.lk_table_entries = 8192,
+>   };
+>   
+>   static const struct of_device_id a5psw_of_mtable[] = {
+> diff --git a/drivers/net/dsa/rzn1_a5psw.h b/drivers/net/dsa/rzn1_a5psw.h
+> index 29d205e2331d..fd523fe7bf47 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.h
+> +++ b/drivers/net/dsa/rzn1_a5psw.h
+> @@ -93,7 +93,6 @@
+>   #define A5PSW_LK_ADDR_CTRL_WAIT		BIT(27)
+>   #define A5PSW_LK_ADDR_CTRL_READ		BIT(26)
+>   #define A5PSW_LK_ADDR_CTRL_WRITE	BIT(25)
+> -#define A5PSW_LK_ADDR_CTRL_ADDRESS	GENMASK(12, 0)
+>   
+>   #define A5PSW_LK_DATA_LO		0x40C
+>   #define A5PSW_LK_DATA_HI		0x410
+> @@ -210,7 +209,6 @@
+>   
+>   #define A5PSW_LK_BUSY_USEC_POLL		10
+>   #define A5PSW_CTRL_TIMEOUT		1000
+> -#define A5PSW_TABLE_ENTRIES		8192
+>   
+>   struct fdb_entry {
+>   	u8 mac[ETH_ALEN];
+> @@ -241,6 +239,7 @@ union lk_data {
+>    * @pattern_ctrl_base: Offset of the PATTERN_CTRL register of pattern 0
+>    * @vlan_res_vlanid: VLANID field mask of the VLAN_RES registers
+>    * @vlan_res_portmask: PORTMASK field mask of the VLAN_RES registers
+> + * @lk_table_entries: Number of entries in the lookup table (power of 2)
+>    */
+>   struct a5psw_of_data {
+>   	unsigned int nports;
+> @@ -252,6 +251,7 @@ struct a5psw_of_data {
+>   	u16 pattern_ctrl_base;
+>   	u32 vlan_res_vlanid;
+>   	u32 vlan_res_portmask;
+> +	unsigned int lk_table_entries;
+>   };
+>   
+>   /**
 
-This commit changes the bus-width property of the usdhc3 node in
-imx93-11x11-frdm.dts from 4 to 8.
+Hi Prabhakar,
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/ar=
-m64/boot/dts/freescale/imx93-11x11-frdm.dts
-> index fbe3543e1ee8c..af674f3f48364 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> @@ -75,7 +75,7 @@ &sai1 {
->  };
-> =20
->  &usdhc3 {
-> -	bus-width =3D <4>;
-> +	bus-width =3D <8>;
->  	keep-power-in-suspend;
->  	mmc-pwrseq =3D <&usdhc3_pwrseq>;
->  	non-removable;
+It would probably be better to fold all these commits that adds data 
+into bits of data in oa5psw_of_data into two commits: a first one that 
+prepares support for RZ/N2 and then a second one that add RZ/N2 support 
+itself. I'm not the net maintainer but your series is already quite 
+large just for this change so folding the commits make sense rather than 
+commitmaxxing.
 
-[Severity: Medium]
-Should usdhc3 really have an 8-bit bus width here?
+Thanks,
 
-On the FRDM-i.MX93, the 8-bit eMMC is connected to usdhc1, which already
-has bus-width =3D <8> in
-arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi.  usdhc3
-(428b0000.mmc) is connected to the 4-bit Wi-Fi SDIO interface of the
-IW612 module, and both pinctrl_usdhc3 and the i.MX93 SoC itself
-(arch/arm64/boot/dts/freescale/imx93-pinfunc.h) only have four data lines
-(USDHC3_DATA0 through USDHC3_DATA3).
-
-428b0000.mmc logs the HS400 warning in mmc_validate_host_caps() because
-usdhc3 is missing the no-mmc property (unlike usdhc2 in
-imx93-11x11-frdm-common.dtsi).  Keeping bus-width =3D <4> and adding no-mmc
-(and no-sd) on usdhc3 would match the hardware and avoid the warning.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-imx93-frdm=
--fixes-v1-0-78dde22a56fe@pengutronix.de?part=3D3
+Clément
