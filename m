@@ -1,86 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795164046;
-	b=YqpYCoGLab8jFRyaacG4/xRw2koeAa3HTo1g+QaJHySoM2o4vLwpuzwBmbA5VEHtapkc
-	 +NJY2uag/N5YxAmBWZpxMKXjugtpLyOMjB+TwxfY1JIH3kde1K3Dttp9fKnurmuMvEokI
-	 o/ZAGV/+EW+ZCQRK64CbdB+srv0NTrFW0l839lJXHbmC/f9WQt53s77jon5pPj9Rl7PdY
-	 YhLr04vnaWIJv5fsKaS2bDDWc+L+ks400G7+KqbMISdH5nPFkqu66JjSEZjzdHkB0RBuB
-	 TJHjzGTFvrjLYR4U8qdf7iDOd7jnvUGGKtOKoTCezAHoo+JLZ4XSK69aA9NJbFI9/ng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795164046;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=G7/+dGXKwxvm7pBwkPBiroDwyoNH1aExmeBxownU6dw=;
-	b=Rxs/yJ8NfKfl1iSfogSevatudiKFpJiX5MXD/cDYvrLxh4wtTJTjpqs75NB+Iv2LuPzu
-	 BgAJTec0Dhv0UhDOmHIERUapZaqxg4hMft24H9Sry1MBc7qkeNBQZgl60fEPJbx+If26+
-	 tdXyyUnB81Fw5+vHIh5FB3zP2UFc6xpiedwYH+jYkzlARmtRK7qvQDxvXn6LuksdQyka7
-	 ao24QfiMAc70GPNnHtnApzvrUkkv+o/7xuERoJtFW42X6VUaflPtddi6sxB6jYVuhFxf/
-	 K6vrL2EeG2td7JTjIQr74Tn/pgUq7fHY2TDOUVG5URhZK29l2sV7p9Wt9eZsS+hOPmQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=M2IAcv3I;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795164178;
+	b=cVdwqC/yTAXRJxjqcyMVapYMOjEPc5XquSrTAcwh6umuwNpl3wjPE98fvCBsnf30EL/o
+	 4sK9Kwii5YSwv12l+UUYh+jlJQbAHIIBqHuTmxdt4/TDmEb5x3csfcbzxUlXNV7Nm9p5i
+	 4RxLLibZaDjPPC1dX51gNvNUZAas84KqTgid1KkQIrvnMzQxoW4zztjOxK6KmoPrT4xT4
+	 uG5gxgUNayEBJGp9efQOpl97lBkIqLIo+txYaE3s4xAAIavjedmgnrdeqrNXeQtoC2+kH
+	 py1SCIYgCEgslqoVzRfUMxl94P6hcPYEp/D+h6Ltl9zzp4qncItQFwxZMgi1wK7nmvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795164178;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=+1lJYtcw6OQFMO4dJ/PuwxGhumkrMqkJn9g2Egf88P8=;
+	b=PXdXS9So8kWy9MHKOQjvl8ZGX/7Yy/MUVvtAgRwXVcIsUXd8dhgRGF66vpzkHg89YtpZ
+	 tqPTAqKp4XyOW3zlv+LXITNK1Nx8pZvtRhGwFp65aW/XJmg0KqfiOKr2ZO3YyrWtayrA+
+	 gcEUBHqlJPn3wB0pPLYV7fGKyZsJ15nh3+BY5O7GKpMp2PE8mjfCg6wnk64r3Wcpf/pZx
+	 5JJuen7sGD94+zq1HIs1YBsi198kRGqrOE3cLXdfHmHGVINRTXYGJMB7+86+n0qnPzW/J
+	 SC9c1PvdW1kp98z7WJwupYo0k4sD/qy9amNyqoRNIc/hKKmKOMqIRJbmkLaTssguKRQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtWaAAZS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B82C606A320;
-	Fri, 20 Nov 2026 08:40:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B82C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EAE606B487;
+	Fri, 20 Nov 2026 08:42:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=M2IAcv3I
-Received: from pengutronix.de (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: mkl@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 51464200EDB;
-	Fri, 20 Nov 2026 09:40:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795164043;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G7/+dGXKwxvm7pBwkPBiroDwyoNH1aExmeBxownU6dw=;
-	b=M2IAcv3IpuDfrtikPy85aXva05WT/WH2l4cmpvqo773VNtLObicj2+no9WFrOOqRFTu9Hu
-	ne/uqyFj0oYO7GH3wgpz7ekNcWa6p5aZR1s27/CxhYrOTITEcNnIFV5PEEY96xPaVTfzEo
-	n/XkHJqw86s6wO3M7MVtaMDaQAOwOlu/W+F5NqXG29WR/2+eWNFlBzUBSrJzYXptMpLOIY
-	H9FVeASwGsGWfOXJtSM89ZSePf+9BRKGvA59So4sCHXR+z/Rf6LfYHfRXofRGEWnh+LcA7
-	/0G2Y52rXpGi7lpMxNDLhgXGzMcPzqJXkUV9uv1oZH0S1XyZODiRLRKaUJTE4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795164043;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G7/+dGXKwxvm7pBwkPBiroDwyoNH1aExmeBxownU6dw=;
-	b=BbAeXrs/KuMdUGU1d4FDIY08+wqouL0AbfAPie3JfzGkD9lpRY6epTg98KYpbce3N4dzRf
-	+BV3Lk32Mu/JDEZsu2Tqo0C+4d0Tu1EqHyK34ml8Sx04N29Hy6ej/CtB+7ydUDyZI9t1po
-	RfqTG7GgfMLXTbljqTtZqvcSITM0DENXZV79zPYh4ommnXro0CRKFNN8U266XmhPKidYzH
-	y0DhyWm6dD55a/OQvQwDQzw+2+LGZ4nkQAastY6Pm3f7cJOr70EMWAAyfpPSrRTKFO97dt
-	9bfjVVu4ErU8WN2TRDZ21UjjspBh89T2np3BpckTtZnypeqz4oMVArw3oJusHQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795164043; a=rsa-sha256;
-	cv=none;
-	b=K6jKO5GhZrnSpLLluIb2ZGgb1vR5o050DKauUlziUFm7+q+HsL84pOstb564awBMmx8q9J
-	4s329jeeTGlifXizLE5MaTcdjOhg2GuqdJ5INm0EJbXzML3JSuDtOf3Kwrc5Bo5lH281eL
-	TW7tfr3ITkxeMBj6KIKOzwOdGDJiY4r7A+PTbANlaM+yYnl8b7zXS3M/I0FFl+kgVDy562
-	iFPXJQVacKOnkIIb8RtHzkzYddM/NFGSqqSjf7d06nuSZ80Hptu5eRM+J7D1bwTS0XQv/e
-	WGcqmxy52bnlX25Rokh2UQesEGD9bOY2yx7GAzZ+lKTK0nz6ZYX9GKBpUfukVQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Date: Fri, 20 Nov 2026 09:40:43 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: zelong dong <zelong.dong@amlogic.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Vincent Mailhol <mailhol@kernel.org>, linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-can@vger.kernel.org
-Subject: Re: [PATCH 0/3] can: amlogic: add support for Amlogic A9 CAN-FD
- controller
-Message-ID: <20261120-axiomatic-foamy-bull-1684b6-mkl@pengutronix.de>
-References: <20261120080820.3340646-1-zelong.dong@amlogic.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtWaAAZS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 273C61F000D4;
+	Fri, 20 Nov 2026 08:42:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795164177;
+	bh=+1lJYtcw6OQFMO4dJ/PuwxGhumkrMqkJn9g2Egf88P8=;
+	h=From:Date:Subject:To:Cc;
+	b=VtWaAAZSFX1ll6fL8pFKrVAlDRGPO+tXtpOZ6oJX/BY7HbxWw46OZ4oh+wiEMAi/p
+	 HtHYqJCrTEVDLj+NxTboRWyG9AgN/WYv3UacA0wAZamRNA6zua+0NN8iVgu1m7BkbD
+	 OZsa1BAmzIKRdgRlDz4qkGI8iFFYKMC6m88ba1uYjvmXxxFR0XiXD12rAobIuxewPf
+	 E4wmPI5GguqB5ShyfqTR9vpEl5oCbJdc19dr/GBO92LTO2NfAH35SAoXpPprUPzxbm
+	 HDaSUaQQ1VP+pZVXI0LrPgBWtgfA9CTsBRMsPGzFJBmTTCPwMl6ya+FDUr4Az/48Hw
+	 R62xO086Eo97w==
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 20 Nov 2026 09:42:53 +0100
+Subject: [PATCH] dt-bindings: mfd: ab8500: Describe the ULP PLL supply
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,51 +52,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ykqib6zwogi4cpur"
-Content-Disposition: inline
-In-Reply-To: <20261120080820.3340646-1-zelong.dong@amlogic.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-ux500-mfd-ulp-pll-supply-binding-v1-1-2740b61bd839@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3NUQrCMAwA0KuEfC+QdnNKryJ+OJvOQK2hpTIZu
+ 7vgu8DbsUlVaRhgxyofbfouGMANgI/nvaxCGjEAevazc56pbydmeqVIPRtZztS6Wf7SoiVqWWk
+ 8j5eZ0xR5mXAAtCpJt39xvR3HDwUaLghyAAAA
+X-Change-ID: 20261120-ux500-mfd-ulp-pll-supply-binding-373860f4d0b4
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
 
+VintCore12 supplies the internal ULP clock PLL on the AB8500.
+Require the supply on its clock controller so the PLL can be powered
+while in use. The AB8505 does not have this dependency.
 
---ykqib6zwogi4cpur
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/3] can: amlogic: add support for Amlogic A9 CAN-FD
- controller
-MIME-Version: 1.0
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+ .../devicetree/bindings/mfd/stericsson,ab8500.yaml    | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-On 20.11.2026 16:08:17, zelong dong wrote:
-> From: Zelong Dong <zelong.dong@amlogic.com>
->
-> This series adds support for the CAN-FD controller found on the
-> Amlogic A9 SoC family.
->
-> The controller supports classic CAN and CAN-FD. The
-> driver uses the generic RX offload infrastructure with hardware
-> timestamps, reports bus errors through the CAN berr counter, and
-> implements suspend/resume support.
+diff --git a/Documentation/devicetree/bindings/mfd/stericsson,ab8500.yaml b/Documentation/devicetree/bindings/mfd/stericsson,ab8500.yaml
+index d819954ee731..6b995c397270 100644
+--- a/Documentation/devicetree/bindings/mfd/stericsson,ab8500.yaml
++++ b/Documentation/devicetree/bindings/mfd/stericsson,ab8500.yaml
+@@ -60,6 +60,9 @@ properties:
+       '#clock-cells':
+         const: 1
+ 
++      vintcore-supply:
++        description: VintCore12 supply for the AB8500 internal ULP clock PLL.
++
+   gpio:
+     description: Node describing the AB8500 GPIO controller. A few
+       GPIO pins available for misc usage.
+@@ -652,4 +655,20 @@ required:
+   - key
+   - regulator
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          const: stericsson,ab8500
++    then:
++      properties:
++        clock-controller:
++          required:
++            - vintcore-supply
++    else:
++      properties:
++        clock-controller:
++          properties:
++            vintcore-supply: false
++
+ additionalProperties: false
 
-Please base your driver on current net-next/main.
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261120-ux500-mfd-ulp-pll-supply-binding-373860f4d0b4
 
-regards,
-Marc
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---ykqib6zwogi4cpur
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCawAHiAAKCRDMOmT6rpmt
-0hXwAP4zJqk4wGxBgVH4cMhr3pYMTQuYMY2xDeJZLBZfXu1yAAD9GPkpGaY5WQTS
-IB5FYNdxEh/e3sY5WcLMgvSFudZ62gE=
-=yGhO
------END PGP SIGNATURE-----
-
---ykqib6zwogi4cpur--
