@@ -1,101 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795209387;
-	b=NxDt4JTv8eMmxBqt4KoDi7e6PUazDpDj47HilSQt1vCgYziHR+nJll2YPBbhLdwuVyNY
-	 ffcuxqWcsInV9x4lhCdBGFPLWMDlPYp5cOKu0GpITZGwcNM57osg/zM9Q8ZIuRJut9BpU
-	 c8XxyVeVJngygIkjZ2osLmjJThd3gkaKCp0OwXjxtvedLlveQAY67GPmU3gyc4KUwDeUX
-	 gXr7xOy2l3Qprw8IGtABySNKs+WMEJ705CgYrW06IWtbBgQZwtsWGahkzlvSpOh6iYSTo
-	 VN83fXhgZmqija4jCr8MVKtU7jYW3eOGuzy+Gln7HYWhMFXOytiiRt9SczOXmwQSVbA==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795209464;
+	b=l+TArRQDKXizhazuimdI2o/tWJ0odx4srCcIPbwHabrqlORyi9d4NbjPy1rTR2hHO69c
+	 OpZ/9snFHctFAikgAbbFoJer9TOgs1WAXXCOnt3RpANhqI9vMqt9kdbOQzPOQ/PMOE3F9
+	 slPWaAqjhH7izy19N8q/tOTpcYQ3QSPM/oD3IL4GzU/A7KsJTvrOjA8YN3gvf5OgT8NJp
+	 uRwcFJHEoTSTYrQK3ylYBgvC4L9pNdn14U5uiI/A5RDMTR0odPjQ9OLuD4QlSd2tNE9os
+	 aqD2LeN6qNXijwxHmpAO0S2d6NeWrtKi3HLybW1JvWOAgCUB3PabBdhX9vyLy/sqWbw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795209387;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=d7+mHRTo6mgB6YljCC8xTp3hfMCWQo1jCyRlofOJKI4=;
-	b=Lp9WKCL4ZWEMzLw0LHA6my0v1bys0q2cWXOcZ0B7NU1Km8aQcf42eSTFIRlSbNfvMMWr
-	 9WAVLEg9D2Jp18X0XrFYdtOg9v3+TfXEohWcw8enP13hYRg/Ot+2orIycd0vLWtKxKJA1
-	 uF/4a52dAt1W/MwEp9j3N3CEJfAehJ0aso08sHrAvxQAWiX2jO2jwpMp1+Lb02t7kyt59
-	 H/0LV1xekscN4rb0LHTAalnoglYFOz2UmxHM1VBSbyF3aYwjsqsRDJrg7gCKxbod3Vrjp
-	 RT8VWYi5o+XtMrf1I+z3uWLfSNgeuDdiJz8Gri+4Z8N3UPOaQLNxpKj/gHpkQZRawGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795209464;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=EuzUw5f1Ud4d58uJ/5SD6e0UG01nBBOaet58WDQ1pco=;
+	b=2tcbyWv67o/IwwVFXUTojpFe8sU8/ihnLHdzLJ8EgBhQT4vPw9qlJdEYSAgtnip0/wtr
+	 Lo+P9SDXKYVKlqxfUu3pBWiF+qBOMZcX3gRppZUvMTyhO1cZCgTrrPATh96O4tw3NmtRx
+	 QjVSz+hJMDJ3HFw1sEQpkXQ58udJv/lfDi+uBnyWrwD1EstNK+EewrFN/ctki4Uqv3Ajh
+	 jddX8W9HFKBh6Oe84hqaoQobracSt07ol7RMXFooaKO27flcVUrWTf5jVqI0BwxBiYVJw
+	 mCwh6SX7IAxm6l6G63alq5wbgh8y2HhguV1dMyNuXeBoTmsCAzmE55JoidWjHFuA34w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q0ezxby9;
-	arc=fail smtp.remote-ip=209.85.208.180
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nIWcPUnf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9607606A692;
+	Fri, 20 Nov 2026 21:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nIWcPUnf
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795209464;
+	b=Zxvnofe04qEkAYgy3wt7tBouCtbB8wu2X2Bj/UndBbKHYRQMsqd2sbsC2oQ3e2OT56j6
+	 T2IvyGGxdN3FuEuVz+htHt7Y3VHoHdCZi15t3sAzVVA0Fdpl3IHfeNzdCrRgzptdRVvwm
+	 RLgdJRd5QkqsdlL+WJNsRQ6rDs0wySq/qoSOWCnpTrxF6l2Z1ov9IUprt/lNfQCtDgXy2
+	 Rre9oNy/a2aAkdkSxOvL1IEiARMWy1R38qj41YbhCVWmGcinwfifTpCdR/4nXtYOTpbk4
+	 5AweXwUOnpTuxPL0LYejyKUg05K52Ze1gZIdoEE2KBosy091/AoPU84JM6+R0lmWW7A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795209464;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=EuzUw5f1Ud4d58uJ/5SD6e0UG01nBBOaet58WDQ1pco=;
+	b=DLhKsoLHAUo1Td6ZJe/05btcqYyzdDSgH+vEMJVNEtvpQcx509SoqThW1dvEs0+XoDbx
+	 32MfHfJeCVDqgjtfNLHHt+Nsu9SCZe5G713jbqWsbOpDEtdBnAtUwyO75JA1Yc4+OnWFz
+	 xNq2JI9t1p8vv+4YLDNhArYBirpbr2ZQLrjBbcUwseaJBeAWkMcWxmIZp39nmDf9M5ZTS
+	 uLgkTjGsaVOqAnLxPAXWAJJ1mZQ7XTwO5dGHsVusCNRFEaaqk+gCks0W4K6jN4bBAiTWf
+	 IxoEDb3PrsSVkjHImw5u4Xfi0M6Ket9qfO3rj5ERATDVd5MFEJ7xsf9XiVqQLFKRkQg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6743606A68E
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 21:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6743606A68E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q0ezxby9
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3acef9307c7so11150201fa.2
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 13:16:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795209384; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nJsVvjKqkvo8Ajl6GD2cYTg1h2jyFlZ2hrV6Boisrvg8A9Usu75k1yJuwbnnwwCI6D
-         DO7yszONfqvntAeYbT58zbG9UtwJn0b7nWbDYGnf2q2PUxxJMPMaGhlQwoqMYMfDw0dr
-         CBlCYZlFLflOAI6TDUICwlw/qnqS2ikeUrjRi9gRjNDnr87K8r2YvZ85E7mBWkXhF3NF
-         O24DfnckJHDyB9Tcrwe7QckmiqZa5NHHs8CCEpYM087drGfegue0L6tQQsDk9oN+leAS
-         sqfXbpP1muhXaFx7rjjyJh70NK+4YVKKLABiGKbV6FL1h8/eXDHFWNDMFoaGeQI5HsD2
-         lxJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=d7+mHRTo6mgB6YljCC8xTp3hfMCWQo1jCyRlofOJKI4=;
-        fh=i3vrJ7UX8wSqujL+WkWfbowJcirXCucevjhT+hQpsrM=;
-        b=lDfRBaSK8r3TvNJXyqcKnmQyAEQ5zdLmGvkHzF85Q1U6XZrJAzz93ogKzOK+XXwDbS
-         caUn9WvPnZRuTkX2Ub8ubfnX1XDiIiWAirJ9sShVrTJdfmFq+mHxNGGoJoxOjddRFHOQ
-         /vz1zVvMcAdMIwC0uA1kYZFH1MNBDQhvF9XtbZUkMP5Qx/gMGOhdNaiw+saisq2PeTvl
-         JCrkIKAy1L/kwlAwuZT6Wwq2Ym1lJZZu6det5z4CYrLLw83SqYnDIqoSstnR9KbBfSyT
-         TVBVmUF2pn6D/zvJ8MXQig8OHHikKxWA5wQS1+XRuracLF15iFc4oe7P1matzehTM4wc
-         BWqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795209384; x=1795814184; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d7+mHRTo6mgB6YljCC8xTp3hfMCWQo1jCyRlofOJKI4=;
-        b=q0ezxby914XfUpGLrhzfA6E1/m4QOv5ChuIclloI+bpZwI7pSVyRELveWg3VGGlf8x
-         0ah6sTes6aaFJBTBqrSDmqmK8zeRZLPStCECxFt4dPRObKQN4NTxhbUgf3PGooeUOUoB
-         V5av6Vxqu1RodwnduQCs/LIC06FqUqHLGVoQtRi+YpYNQcegi2LayeGPBGDYKO6k1HUs
-         6RZ1441EVAo+jHUIpmaivLDV9OyMZm0rjt2rU/q4wkvtqqvqzDkPC3MwrwPjX0KgP+16
-         rLdHJKs5CsP5+/40QnppnK2xzVaxqA9fxCMguzrsuioWYq+InT3/FAxG9QpEr4OyP9Bo
-         bKkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795209384; x=1795814184;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d7+mHRTo6mgB6YljCC8xTp3hfMCWQo1jCyRlofOJKI4=;
-        b=Yws1SY1M6rDZNR5v3n7e6oJRdpjbOEMg/FZy19LNUDrZAKGEh5ywb7QCawxGZlbhO7
-         1SrI0CyuAvNLQO3NuaWSqMKFuLkiMaXP5mbUbSn3Jm59k7ZSX5hD4YfPCKQHVySgUmQt
-         htwB0aN12sdID/Q+vR3iMQktHzpbOnOcucBpDhcckK/bQcYyywfXJMtl1cWI5XuM3yyG
-         FKm1Mu2ve0oIgd5srBeyrVoV8adlsu8ViOtwil9vIDwYNBzPA2xYPrhmgPnOqLxePPme
-         fWV9nsta68khnhEg4a9xW3OMGUb7PztLW7VXKUOss1ie/83Cfl3oafCwdwjbGsA2fuZ9
-         6yAw==
-X-Forwarded-Encrypted: i=1; AL+hErGRcJKx3074jk85TkJvF+dAPnAmEjyCq6vkbQJp03Pxiei3tmeZdSpp74zlEDAwdGoO4qZx5w3u/YmF@vger.kernel.org
-X-Gm-Message-State: APuU4Z9+Z/+XIpbBt1WLD8IwM+Bx74ukf5scLRvY0YdqNo3xaxuPJ3Kg
-	63uRebmPlnNUg7wZT0/kwxuHQeiam6qq5hoNlObXuaAoHr/6SpVjDt9n84w4TTPKU3janU51m0+
-	GKi8+zY39TszRF7AAkQCZwH9dvODcL58=
-X-Gm-Gg: AZFdTZf3KSl5CHXPrFCmqB89q7vGG45nvJyPNUmEAGcbFu/T0lf8/YPPDU2JVfqs9E5
-	2j04rLTR1KH1hkfOJKTqEb8IMaWDPzksxShjiJczMDzjKVcXADKJFuR++pToDwq2/cxnDgbAATq
-	0ZTSOx4rIfjQtiIMbgZlvMvBDgCHCa8zwLoiW7IkkE5UvErXOYHf7m8CbI2rau5GaBc8FRsvb1I
-	/BRhNWt2VUq1j1TTZ8tt78B1+IX/Bw5eJedAZhCenAusMWYcrcAG8OlZF+vnFyfCLYvAfiq82Mf
-	0ob6y/t7jwTLsLQRdIHULreOJPhq96bIsJGjo0NHDFAi3sy7celrl6peMbzT1WrrQeNZZpBbJsm
-	PYt2WtX0QSxmZ7WTqONvm18uOXoZ1gN3+2lhodKLzKEKYEdS+AHJ2VhQmzo1ZrQY0LCp5NS5vOW
-	B+4Hg3IsBE21/6dQXMswr5Gqxb
-X-Received: by 2002:a05:651c:1595:b0:3ad:f0bb:344c with SMTP id
- 38308e7fff4ca-3ae7f9def47mr12754941fa.10.1795209383639; Fri, 20 Nov 2026
- 13:16:23 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8212C1F000D2;
+	Fri, 20 Nov 2026 21:17:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795209464;
+	bh=EuzUw5f1Ud4d58uJ/5SD6e0UG01nBBOaet58WDQ1pco=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=nIWcPUnf08xoLeij2YAKK2wcqwuT7MGzm+secu5ctzAbPXQ1GfJTsA0bQQwpoiDNJ
+	 Pzw0xkfOOL45huNn9HCHnSmeDWTUsqGA2z5sbdvKrSsdVmJyxPyAhiNkCKj+V0lq2T
+	 shaxw9qlXSnyngyXfhWo+MCsu86lpid89TtWl06epM582AVIf86mbQTrxvA7BVH4Ri
+	 s1zlxWWWxMx5bGM6wAKwjvjd6crwntC4W8aDPdU06v8EM82u/cqFPsA7mXjIGRMj0+
+	 Au8tU5+xtPa+qA0HRFwkVayErwOn/HPU0Dz5CK8LrBmZHKrfQlBpntkm0VH3YNZtTs
+	 GtSt+m9+3bBGg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 10F364BA34;
+	Fri, 20 Nov 2026 21:17:35 +0000 (UTC)
+From: Kyle Hendry via B4 Relay <devnull+khendry.reliablecontrols.com@kernel.org>
+Date: Fri, 20 Nov 2026 13:16:53 -0800
+Subject: [PATCH v2 2/3] clk: renesas: r9a06g032: Add reset controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,159 +82,146 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261004121931.6746-1-festevam@gmail.com> <20261004121931.6746-2-festevam@gmail.com>
-In-Reply-To: <20261004121931.6746-2-festevam@gmail.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Fri, 20 Nov 2026 18:16:12 -0300
-X-Gm-Features: Aa3M54oHDOEQ22OODjmPc2GutyOvkFljPYhxfBAHn2qECiQinM-o8DAEKa4qfsg
-Message-ID: <CAOMZO5DFgk66C=+eNepzWwrNHa-t8KQ47wstPZRGW+tf548rOQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] media: rc: Add keymap for Ruwido Z3 RC-34 remote
-To: sean@mess.org
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Fabio Estevam <festevam@nabladev.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261120-rzn1-miic-resets-v2-2-f1cfa678615b@reliablecontrols.com>
+References: <20261120-rzn1-miic-resets-v2-0-f1cfa678615b@reliablecontrols.com>
+In-Reply-To: <20261120-rzn1-miic-resets-v2-0-f1cfa678615b@reliablecontrols.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Kyle Hendry <khendry@reliablecontrols.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795209454; l=3581;
+ i=khendry@reliablecontrols.com; s=20260813; h=from:subject:message-id;
+ bh=0g2POWYtRvVzTZboWK18HFCjFplyLI4cdWVXHncFx6c=;
+ b=QMkBThHxywhVBLfVFrdgLcxZpBDdWZ6PFT7jnP/0dmMSDwdV1Nv+kwM1uSZBgs6bPQwN6pqac
+ FqWzmjgr/DjBbOHtuME8ADSGktNm1nLqizBJisd6JhkvJWVR9mJ1ZhH
+X-Developer-Key: i=khendry@reliablecontrols.com; a=ed25519;
+ pk=gbK6oghz3qBlBiaGCsEzALLOtj5VklmsuolHQNhDV5M=
+X-Endpoint-Received: by B4 Relay for khendry@reliablecontrols.com/20260813
+ with auth_id=946
+X-Original-From: Kyle Hendry <khendry@reliablecontrols.com>
+Reply-To: khendry@reliablecontrols.com
+Content-Transfer-Encoding: 7bit
 
-Hi Sean,
+From: Kyle Hendry <khendry@reliablecontrols.com>
 
-On Sun, Oct 4, 2026 at 9:19=E2=80=AFAM Fabio Estevam <festevam@gmail.com> w=
-rote:
->
-> From: Fabio Estevam <festevam@nabladev.com>
->
-> Add keymap for the Ruwido Z3 RC-34 remote control.
->
-> Signed-off-by: Fabio Estevam <festevam@nabladev.com>
-> ---
-> Changes since v2:
-> - None.
+The rzn1 system controller has two resets that need to be cleared for the
+mii converter to work. They are not directly associated with any clocks
+so they need a reset controller to set them.
 
-A gentle ping.
+They are documented in the PWRCTRL_SWITCHCTRL (0x4000C188) register as:
 
->
-> Changes since v1:
-> - Use RC_PROTO_NECX. (Sean)
-> - Use media prefix in the Subject.
->
->  drivers/media/rc/keymaps/Makefile             |  1 +
->  .../media/rc/keymaps/rc-nec-ruwido-z3-rc34.c  | 80 +++++++++++++++++++
->  include/media/rc-map.h                        |  1 +
->  3 files changed, 82 insertions(+)
->  create mode 100644 drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
->
-> diff --git a/drivers/media/rc/keymaps/Makefile b/drivers/media/rc/keymaps=
-/Makefile
-> index 38b84e34b225..525d203c0a94 100644
-> --- a/drivers/media/rc/keymaps/Makefile
-> +++ b/drivers/media/rc/keymaps/Makefile
-> @@ -86,6 +86,7 @@ obj-$(CONFIG_RC_MAP) +=3D \
->                         rc-msi-tvanywhere-plus.o \
->                         rc-mygica-utv3.o \
->                         rc-nebula.o \
-> +                       rc-nec-ruwido-z3-rc34.o \
->                         rc-nec-terratec-cinergy-xs.o \
->                         rc-norwood.o \
->                         rc-npgtech.o \
-> diff --git a/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c b/drivers/m=
-edia/rc/keymaps/rc-nec-ruwido-z3-rc34.c
-> new file mode 100644
-> index 000000000000..8a090772446d
-> --- /dev/null
-> +++ b/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
-> @@ -0,0 +1,80 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +//
-> +// Keytable for the Ruwido Z3 RC-34 remote
-> +
-> +#include <media/rc-map.h>
-> +#include <linux/module.h>
-> +
-> +static struct rc_map_table nec_ruwido_z3_rc34[] =3D {
-> +       /* Ruwido Z3 RC-34, NECX address 0xe310 */
-> +       { 0xe3100f, KEY_POWER },
-> +       { 0xe31016, KEY_MENU },
-> +       { 0xe3100a, KEY_UP },
-> +       { 0xe3100b, KEY_DOWN },
-> +       { 0xe3100d, KEY_LEFT },
-> +       { 0xe3100c, KEY_RIGHT },
-> +       { 0xe31019, KEY_OK },
-> +       { 0xe3106a, KEY_BACK },
-> +       { 0xe31033, KEY_INFO },
-> +       { 0xe31066, KEY_DISPLAYTOGGLE },
-> +       { 0xe3101a, KEY_VOLUMEUP },
-> +       { 0xe31010, KEY_VOLUMEDOWN },
-> +       { 0xe31013, KEY_MUTE },
-> +       { 0xe31032, KEY_CHANNELUP },
-> +       { 0xe31031, KEY_CHANNELDOWN },
-> +       { 0xe31069, KEY_HP },
-> +       { 0xe31000, KEY_NUMERIC_1 },
-> +       { 0xe31001, KEY_NUMERIC_2 },
-> +       { 0xe31002, KEY_NUMERIC_3 },
-> +       { 0xe31003, KEY_NUMERIC_4 },
-> +       { 0xe31004, KEY_NUMERIC_5 },
-> +       { 0xe31005, KEY_NUMERIC_6 },
-> +       { 0xe31006, KEY_NUMERIC_7 },
-> +       { 0xe31007, KEY_NUMERIC_8 },
-> +       { 0xe31008, KEY_NUMERIC_9 },
-> +       { 0xe31030, KEY_NUMERIC_0 },
-> +       { 0xe31065, KEY_RED },
-> +       { 0xe31063, KEY_GREEN },
-> +       { 0xe31064, KEY_YELLOW },
-> +       { 0xe3106b, KEY_OPTION },
-> +       { 0xe31050, KEY_PLAY },
-> +       { 0xe31057, KEY_REWIND },
-> +       { 0xe31058, KEY_FASTFORWARD },
-> +       { 0xe31060, KEY_PROG1 },
-> +       { 0xe31061, KEY_PROG2 },
-> +       { 0xe31062, KEY_PROG3 },
-> +
-> +       /* RC-34 remote volume keys */
-> +       { 0x3506, KEY_VOLUMEUP },
-> +       { 0x3507, KEY_VOLUMEDOWN },
-> +
-> +       /* McIntosh HR070 remote volume keys */
-> +       { 0xca5542, KEY_VOLUMEUP },
-> +       { 0xca5543, KEY_VOLUMEDOWN },
-> +};
-> +
-> +static struct rc_map_list nec_ruwido_z3_rc34_map =3D {
-> +       .map =3D {
-> +               .scan     =3D nec_ruwido_z3_rc34,
-> +               .size     =3D ARRAY_SIZE(nec_ruwido_z3_rc34),
-> +               .rc_proto =3D RC_PROTO_NECX,
-> +               .name     =3D RC_MAP_NEC_RUWIDO_Z3_RC34,
-> +       }
-> +};
-> +
-> +static int __init init_rc_map_nec_ruwido_z3_rc34(void)
-> +{
-> +       return rc_map_register(&nec_ruwido_z3_rc34_map);
-> +}
-> +
-> +static void __exit exit_rc_map_nec_ruwido_z3_rc34(void)
-> +{
-> +       rc_map_unregister(&nec_ruwido_z3_rc34_map);
-> +}
-> +
-> +module_init(init_rc_map_nec_ruwido_z3_rc34)
-> +module_exit(exit_rc_map_nec_ruwido_z3_rc34)
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Fabio Estevam <festevam@gmail.com>");
-> +MODULE_DESCRIPTION("Ruwido Z3 RC-34 remote keytable");
-> diff --git a/include/media/rc-map.h b/include/media/rc-map.h
-> index f167c37179c8..290919a7247e 100644
-> --- a/include/media/rc-map.h
-> +++ b/include/media/rc-map.h
-> @@ -289,6 +289,7 @@ struct rc_map *rc_map_get(const char *name);
->  #define RC_MAP_MSI_TVANYWHERE_PLUS       "rc-msi-tvanywhere-plus"
->  #define RC_MAP_MYGICA_UTV3               "rc-mygica-utv3"
->  #define RC_MAP_NEBULA                    "rc-nebula"
-> +#define RC_MAP_NEC_RUWIDO_Z3_RC34        "rc-nec-ruwido-z3-rc34"
->  #define RC_MAP_NEC_TERRATEC_CINERGY_XS   "rc-nec-terratec-cinergy-xs"
->  #define RC_MAP_NORWOOD                   "rc-norwood"
->  #define RC_MAP_NPGTECH                   "rc-npgtech"
-> --
-> 2.43.0
->
+Bit 3: RSTN_CLK25 - Active low Reset for Timestamp signal selection logic
+Bit 4: RSTN_ETH - Active low Reset for RGMII/RMII Converter (50 MHz).
+
+Add a reset controller and add resets for those bits.
+
+Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+---
+ drivers/clk/renesas/r9a06g032-clocks.c | 59 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 59 insertions(+)
+
+diff --git a/drivers/clk/renesas/r9a06g032-clocks.c b/drivers/clk/renesas/r9a06g032-clocks.c
+index 3df3f2b2c6de..a474302987aa 100644
+--- a/drivers/clk/renesas/r9a06g032-clocks.c
++++ b/drivers/clk/renesas/r9a06g032-clocks.c
+@@ -21,6 +21,7 @@
+ #include <linux/pm_clock.h>
+ #include <linux/pm_domain.h>
+ #include <linux/reboot.h>
++#include <linux/reset-controller.h>
+ #include <linux/slab.h>
+ #include <linux/soc/renesas/r9a06g032-sysctrl.h>
+ #include <linux/spinlock.h>
+@@ -675,7 +676,13 @@ static const struct r9a06g032_clkdesc r9a06g032_clocks[] = {
+ 		RB(0xec, 16), RB(0xec, 17), RB(0xec, 18), RB(0xec, 19)),
+ };
+ 
++static const struct regbit r9a06g032_resets[] = {
++	[R9A06G032_RST_TS]	= RB(0x188, 3),
++	[R9A06G032_RST_MIIC]	= RB(0x188, 4),
++};
++
+ struct r9a06g032_priv {
++	struct reset_controller_dev rcdev;
+ 	struct clk_onecell_data data;
+ 	spinlock_t lock; /* protects concurrent access to gates */
+ 	void __iomem *reg;
+@@ -1307,6 +1314,51 @@ static void __init r9a06g032_init_h2mode(struct r9a06g032_priv *clocks)
+ 	writel(usb, clocks->reg + R9A06G032_SYSCTRL_USB);
+ }
+ 
++static inline
++struct r9a06g032_priv *priv_from_rcdev(struct reset_controller_dev *resetdev)
++{
++	return container_of(resetdev, struct r9a06g032_priv, rcdev);
++}
++
++static int r9a06g032_reset_set(struct reset_controller_dev *rcdev,
++				bool set, unsigned long id)
++{
++	struct r9a06g032_priv *priv = priv_from_rcdev(rcdev);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++	clk_rdesc_set(priv, r9a06g032_resets[id], set);
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	return 0;
++}
++
++static int r9a06g032_reset_assert(struct reset_controller_dev *rcdev,
++					unsigned long id)
++{
++	return r9a06g032_reset_set(rcdev, false, id);
++}
++
++static int r9a06g032_reset_deassert(struct reset_controller_dev *rcdev,
++					unsigned long id)
++{
++	return r9a06g032_reset_set(rcdev, true, id);
++}
++
++static int r9a06g032_reset_status(struct reset_controller_dev *rcdev,
++					unsigned long id)
++{
++	struct r9a06g032_priv *priv = priv_from_rcdev(rcdev);
++
++	return !clk_rdesc_get(priv, r9a06g032_resets[id]);
++}
++
++static const struct reset_control_ops r9a06g032_reset_ops = {
++	.assert = r9a06g032_reset_assert,
++	.deassert = r9a06g032_reset_deassert,
++	.status = r9a06g032_reset_status,
++};
++
+ static int __init r9a06g032_clocks_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -1394,6 +1446,13 @@ static int __init r9a06g032_clocks_probe(struct platform_device *pdev)
+ 	if (error)
+ 		return error;
+ 
++	clocks->rcdev.ops = &r9a06g032_reset_ops;
++	clocks->rcdev.of_node = np;
++	clocks->rcdev.nr_resets = ARRAY_SIZE(r9a06g032_resets);
++	error =  devm_reset_controller_register(dev, &clocks->rcdev);
++	if (error)
++		return error;
++
+ 	error = r9a06g032_add_clk_domain(dev);
+ 	if (error)
+ 		return error;
+
+-- 
+2.53.0
+
+
