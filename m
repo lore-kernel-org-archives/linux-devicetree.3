@@ -1,78 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795177716;
-	b=2kpPiJI4I4ID3uE5TNPSP3k0Z/5lFXLSgaRIrxsG+51frOtI+P9TNq8CpoEfXttsOqXJ
-	 1RVTQj9c64QR6QM9dLm+FqWmemOPTbFm1SgRfPfGgDQEpt9lZkupxhBwwmmA7ziGl2OBZ
-	 eAUTNHTiDjdK+8vWqZ0lL4KeqfrBIDX8WxK+6DmyNLPL4+yC//7pu8wGUjvlPo+xuzgU/
-	 PRp8ZJNzJlc02PK3ahJXn5iWrsU/E0/cBDPcGk5KFKzuOJTMAYjn0SoORSUdt7Uvjovdb
-	 zo8eHXOHwXcIf13W5lhDUv0TjZ+CbSxEQ3vPZLo72bNd655nfLEbFxLDKvRtYmntKmg==
+	t=1795177973;
+	b=PpMRAKC1XA/ubmGB6CF+jFsvQx3ng75ynBya56qaUgc5RanX8/DTVYW9lrtfKra1ayih
+	 x4d5eVtE/HhD+IQ0juiLigayGz9epGR58+exANCo2dXNY2i7+sVwTg4v7PTEqISY2E8CS
+	 FfClL37oB+sgP2wXUwkVyduNeLsNiH05iaFa/f4N0ziNyN84mpCzyQF8W7NK1leKJobgc
+	 ZpBVtrqUjmfE96lv4c/TaNw9L5t5bLeFf0nD9+q1mWbMVzVtCTTktbIq0BOP1VJ6FCS4h
+	 B4R10szUsKsv/+hI5Q0eJ8Vr6OYEaRjl6SQvQjdM+HFxr/Ig84vFTPJ30AuwC3iaELA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795177716;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=RSpeMgnCaVKopAGlbQsQpEYmH7lBqzMS/R2/pJiIlpw=;
-	b=xokQlwn3cMBPIGIgtKXXKjNcuEyHjFZqhOZ4lagaVyrMGio8EGo8E1d3KL8TYQaoICvo
-	 qAT5hcCn0UoTTXdYkTk/6Z5IGzZ6jmbQQciFHMTGNMLXQGAKiZAMAFyOjWutOPptYCuTf
-	 3jQOFLCO0Qoo04ZGdZGyr4s6KiT9sYcnI/2cT6NgI/q7o29TRe5glRmY/K6oQNq8RrjAV
-	 EFDQvYFguFD0/UYitqVRT46BnScSF/cJUa/1ySE0iKllQDg0Q9Hds2p6bkvjJ0lIMTwkP
-	 bD6RWkRrv9Qz5La8MDU6jK5V/ZFIjk8iaM+b21FfCUaZCyTUSezr8ItfaMjNc3fbdjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795177973;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AJXcbffl1Kij/wVcnvrgEoCXcFbDtnBB4PE3lMLxAVw=;
+	b=cV07Xt91rD7wurvYUkOA1f9zCxg4A6tAyZx4uSBQk7RyolJ2SN7Rx3M8HQcNC2RB1lln
+	 ncGbzb6fsv8be3GT3ryVpuHluxxB8uwP0Cs2Ul1sPL14XT/Fg/kMP3xNTnCvyKKdRul6k
+	 ulCPtMWJlbPKova/pLiINCEcz5WsPhsC42XJG2ga9y3G+UWcSl5vZmpXoTWpbCWzK6HyW
+	 kgaqigWWk0EtxgJboluQUJb2gwZZZBeXZlBW2ctWCbpuyncWIAxnxVpqEwege+NRqbLvI
+	 SdcLTF3ES8FuSGlcyG34oBg2dolsa3fWj9QgCoeWvKzdHPQEsry8qRyn24JYXtZE6sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="H/ksjT74";
-	arc=none smtp.remote-ip=95.215.58.82
-Received: from mta1.migadu.com (out-82.mta1.migadu.com [95.215.58.82])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W+ZWhWs2;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF45606A325
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:28:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EF45606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B23F606A325
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:32:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B23F606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=H/ksjT74
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GFu1qplnbZuq7CqyXNmmjt9Q7ABYkwEjuse0c9T6uzE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795177713; v=1; x=1795782513;
- b=H/ksjT74RKG3AnYFbTJ57j7TQVO6YRp8rIPBiNa1Ch+pyE5dxM10StMkRFUaSZyc+mipL/cs
- SYD3e3h6gefpMStIqy4yvxEMDowlXPrGH9Iyt1i+zjdoFigkdRLJnmLUWTIc6VB94vXFsuFcT+D
- kETmEhlWku7rbPxXQk7lUPRg=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id d53a5449a415dd17;
-	Fri, 20 Nov 2026 12:28:33 +0000
-X-Mizu-Trace-ID: d53a5449a415dd17
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 20 Nov 2026 14:28:28 +0200
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W+ZWhWs2
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4ac109a8a12so410377f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:32:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795177972; x=1795782772; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AJXcbffl1Kij/wVcnvrgEoCXcFbDtnBB4PE3lMLxAVw=;
+        b=W+ZWhWs2nQMXLG7qI2TrU56/xBz3sSeChLhRNo6VCoDD1Oma7vkSUGU2x4UuI3XuGI
+         LcvPCd60P48gRJzEJB25ddwTxIPylvdsVrGjGnaIOPUqE3P3vwnUVLXvK6bNIpvscc7l
+         kkS4UycoJca/fHUz1/sivWnZc9pryLK7qJXKZS/edTwpabQkFVcPvsZdO4ACbA3ZQkt+
+         Sgf9PHkxlZ9Bz1NjgEoWV4Hha5ZmA2Myzjm8STkw4RAwhReFKuylACLfl74aDjtgrgHE
+         cba0wN56zk2arT5ImPDKi/FhzqO4YDEYgi+uCBd7LxannUkBC7tVaXlQY1IMDVmAcqhy
+         dY4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795177972; x=1795782772;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AJXcbffl1Kij/wVcnvrgEoCXcFbDtnBB4PE3lMLxAVw=;
+        b=DHsVYjuWuIxMegKcTaZ0BD4ro7mh3dYOMdrUIeGApdHbnrL7qhDIhSebFU432X7ROr
+         9P4UC9Wv3M4MQcZlx2Wv2FXAY3tF0jhiHgbrL3vEoUb1ToZ5GUsqijGjyvIGjJ7uNFyc
+         uVGzXA0KLtWe/AckWUmsaYyv+qD/b5cEzUCrmN3aYUhxkmp3GeEhDPyU2Q2e6yUboRsL
+         nTx668zJJJbkukgDMeAst/BaOxWwRoSDc86tK/NK09j92nUo8Tj8h40tjO6/Aqfdw2Jd
+         0RcfVZH08CMy/nnNa50VW49orxcPH5Doh8Ps/v608+zWOnWEXPm4Q72NrT7E82OtNB1k
+         5cVg==
+X-Gm-Message-State: APuU4Z8NcX3T/w3MFyLKHL36PF0NqpSfjZl2f0m17quCGsr2TmLrDSEh
+	+BBdSVxVCpQAvS/SSWadH5a7HbmhT0UCOc0B+YUeZULG9FrEqKeQbYJa
+X-Gm-Gg: AZFdTZffOy3YQkOnfNmIIHOmS0h4DGN9/D1kTn5rnUKCftjjT5QDFWzcCuksiGVs1Hu
+	XllmVIpodOPCAfPwmQDqtnY5pi4Qy8ZSAEvRM6KYPV0N7DPtTY6pdsTwQMnLqehM/1MzPqfYT+6
+	8buDco0uF5CeG1ziBPixMxp/qLJ5rSZc89Ti3YYUq3KWuZDcUkLMu6+RdR40UnvwAqGKYwJzcj3
+	m5Qy3+QGYhg+PScZKMF31R0bVJ7+HqjolRaupltW4AjNH1GbNVKl6Qkl0JHGwrDBr+sm/HxcEv6
+	Mlov/IRNqpRgZneAj6KUsoFGOnpWgyYqx1qjik7DRTonGQImYbU5yW7ZEaUDeOVLvcZ4MMJrYg0
+	Ysfb8DI+mFbSfURQD7wr0Nq8btew7RbL7XowDLnbuTjq8Mk41QEKdKLobGXkRkJlzkoeU6yhFuq
+	6fwi+oWp6yRVR+kMpclXdhgchYbOmjU+1V6REwaRAkKTWw2i43v7w/aHv4poJGbegV1w9D/yFtW
+	jVlMhxcb1FCtZ6hFKJ6IM1TqN+2PHaJWihOIDn0DUVYYO8khvR7eW2Vg/XSBZJ3gDojszvCEB4x
+	/DGDDXMnMGxPvNZuCrvBVslIgK4JXpx+jF2Tj6kzn+3O9ziQEI+P0RS6IBdQyp8+FucMMPnuqWH
+	t
+X-Received: by 2002:a05:6000:258a:b0:48e:720a:ccaf with SMTP id ffacd0b85a97d-4abaab633d2mr6296799f8f.5.1795177971631;
+        Fri, 20 Nov 2026 04:32:51 -0800 (PST)
+Received: from debian.tailb81abf.ts.net ([213.152.28.84])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf61ddsm4968496f8f.12.2026.11.20.04.32.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 04:32:51 -0800 (PST)
+From: MidG971 <midgy971@gmail.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Radu Sabau <radu.sabau@analog.com>,
-	Janani Sunil <janani.sunil@analog.com>,
-	Salih Erim <salih.erim@amd.com>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] iio: adc: rohm-bd79112: Support ROHM BD79111
-Message-ID: <4be17e339f768da93db2f42abd3cc5a21fea01ad.1795176984.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
-References: <cover.1795176984.git.mazziesaccount@gmail.com>
+	Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	Midgy BALON <midgy971@gmail.com>
+Subject: [PATCH v2] arm64: dts: rockchip: rk3568-rock-3b: describe the Ethernet PHY LEDs
+Date: Fri, 20 Nov 2026 13:32:50 +0100
+Message-Id: <20261120123250.1417061-1-midgy971@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261120113555.1402132-1-midgy971@gmail.com>
+References: <20261120113555.1402132-1-midgy971@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,281 +102,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t7+2jXN09R9j1ZFp"
-Content-Disposition: inline
-In-Reply-To: <cover.1795176984.git.mazziesaccount@gmail.com>
+Content-Transfer-Encoding: 8bit
 
---t7+2jXN09R9j1ZFp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Midgy BALON <midgy971@gmail.com>
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+The ROCK 3B RJ45 jack carries two LEDs wired to the RTL8211F PHY LED
+pins.  Describe them in the PHY nodes' "leds" subnode (binding:
+Documentation/devicetree/bindings/net/ethernet-phy.yaml) so that
+PHYLIB_LEDS instantiates one LED classdev per pin; the RTL8211F
+driver drives them in hardware via led_hw_control_set (e.g. the
+netdev trigger with link / rx+tx modes: amber = link, green =
+activity).
 
-ROHM BD79111 is very similar to the BD79112. Both are ADC/GPIO devices,
-where pins can be configured to be either used as GPIO or ADC inputs.
-ADCs are 12-bit SAR ADCs and GPIOs support input/output but not being IRQ
-sources.
+Tooling disclosure (per Documentation/process/generated-content.rst):
+the DT hunks in this patch were drafted with AI assistance (Mistral
+Vibe), then reviewed by the author and verified on a ROCK 3B board:
+the two PHY LEDs appear as stmmac-*:amber:lan / stmmac-*:green:lan
+LED classdevs and drive the RJ45 jack LEDs via the netdev trigger
+(amber = link, green = rx/tx activity, HW-offloaded to the PHY).
 
-The main difference is amount of channels/GPIOs. The BD79112 has 32 pins
-for this use, the BD79111 has 16. Furthermore, the BD79111 data-sheet
-promises 0.5 MSPS sample rate with maximum of 10 MHz SPI clock,  whereas
-the BD79112 data-sheet mentioned 1MSPS rate with maximum of 20 MHz SPI
-clock.
 
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Changes in v2:
+- Fix leds subnode indentation (align with the enclosing PHY node)
+  and add the blank line after reset-gpios, per the Sashiko AI review
+  and Documentation/devicetree/bindings/dts-coding-style.rst.
 
+Signed-off-by: Midgy BALON <midgy971@gmail.com>
 ---
-Revision history:
-v1 =3D> v2:
- - Various styling fixes as suggested by Jonathan and Andy
- - Return -ENODATA instead of -ENODEV when SPI match data is not
-   available.
----
- drivers/iio/adc/Kconfig        | 10 +++--
- drivers/iio/adc/rohm-bd79112.c | 69 +++++++++++++++++++++++++++-------
- 2 files changed, 62 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index a802d8ee4dd9..78562e6c62f5 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1516,14 +1516,16 @@ config RN5T618_ADC
- 	  will be called rn5t618-adc.
-=20
- config ROHM_BD79112
--	tristate "Rohm BD79112 ADC driver"
-+	tristate "ADC/GPIO Driver for ROHM BD79112 et al."
- 	depends on SPI && GPIOLIB
- 	select REGMAP_SPI
- 	select IIO_ADC_HELPER
- 	help
--	  Say yes here to build support for the ROHM BD79112 ADC. The
--	  ROHM BD79112 is a 12-bit, 32-channel, SAR ADC. Analog inputs
--	  can also be used for GPIO.
-+	  Say yes here to build support for the following ROHM SAR ADCs:
-+	  - BD79111 (12-bit, 16 channels)
-+	  - BD79112 (12-bit, 32 channels)
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+index 9eef59ef7d07..9303242d20cf 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+@@ -605,6 +607,23 @@ rgmii_phy0: ethernet-phy@1 {
+ 		reset-assert-us = <20000>;
+ 		reset-deassert-us = <50000>;
+ 		reset-gpios = <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>;
 +
-+	  Analog inputs can also be used for GPIO.
-=20
- config ROHM_BD79124
- 	tristate "Rohm BD79124 ADC driver"
-diff --git a/drivers/iio/adc/rohm-bd79112.c b/drivers/iio/adc/rohm-bd79112.c
-index 04084e88984a..8bbb86098ff5 100644
---- a/drivers/iio/adc/rohm-bd79112.c
-+++ b/drivers/iio/adc/rohm-bd79112.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * ROHM ADC driver for BD79112 signal monitoring hub.
-+ * ROHM ADC/GPIO driver for BD79112 and similar signal monitoring hubs.
-  * Copyright (C) 2025, ROHM Semiconductor.
-  *
-  * SPI communication derived from ad7923.c and ti-ads7950.c
-@@ -29,7 +29,9 @@
- struct bd79112_data;
-=20
- struct bd7911x_chip_data {
-+	const char *name;
- 	const char * const *chan_names;
-+	unsigned int num_max_channels;
- 	int (*init_disable_gpios)(struct bd79112_data *data);
- };
-=20
-@@ -377,7 +379,6 @@ static int bd79112_gpio_output(struct gpio_chip *gc, un=
-signed int offset,
- }
-=20
- static const struct gpio_chip bd79112_gpio_chip =3D {
--	.label			=3D "bd79112-gpio",
- 	.get_direction		=3D bd79112_gpio_dir_get,
- 	.direction_input	=3D bd79112_gpio_input,
- 	.direction_output	=3D bd79112_gpio_output,
-@@ -386,26 +387,44 @@ static const struct gpio_chip bd79112_gpio_chip =3D {
- 	.set_multiple		=3D bd79112_gpio_set_multiple,
- 	.init_valid_mask	=3D bd79112_gpio_init_valid_mask,
- 	.can_sleep		=3D true,
--	.ngpio			=3D 32,
- 	.base			=3D -1,
- };
-=20
--static unsigned int bd79112_get_gpio_pins(const struct iio_chan_spec *cs, =
-int num_channels)
-+static unsigned int bd79112_get_gpio_pins(const struct iio_chan_spec *cs,
-+					  int num_channels, int max_channels)
- {
- 	unsigned int i, gpio_channels;
-=20
- 	/*
--	 * Let's initialize the mux config to say that all 32 channels are
-+	 * Let's initialize the mux config to say that all channels are
- 	 * GPIOs. Then we can just loop through the iio_chan_spec and clear the
- 	 * bits for found ADC channels.
- 	 */
--	gpio_channels =3D GENMASK(31, 0);
-+	gpio_channels =3D GENMASK(max_channels - 1, 0);
- 	for (i =3D 0; i < num_channels; i++)
- 		gpio_channels &=3D ~BIT(cs[i].channel);
-=20
- 	return gpio_channels;
- }
-=20
-+/* The BD79111 only has the registers for pins 0 - 15 */
-+static int bd79111_disable_gpios(struct bd79112_data *data)
-+{
-+	static const unsigned int regs[] =3D {
-+		BD79112_REG_GPI_EN_A8_A15, BD79112_REG_GPI_EN_A0_A7,
-+		BD79112_REG_GPO_EN_A8_A15, BD79112_REG_GPO_EN_A0_A7,
-+	};
-+	int ret;
++		leds {
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+	for (unsigned int i =3D 0; i < ARRAY_SIZE(regs); i++) {
-+		ret =3D regmap_write(data->map, regs[i], 0);
-+		if (ret)
-+			return ret;
-+	}
++			led@0 {
++				reg = <0>;
++				color = <LED_COLOR_ID_AMBER>;
++				function = LED_FUNCTION_LAN;
++			};
 +
-+	return 0;
-+}
++			led@1 {
++				reg = <1>;
++				color = <LED_COLOR_ID_GREEN>;
++				function = LED_FUNCTION_LAN;
++			};
++		};
+ 	};
+ };
+ 
+@@ -615,6 +634,23 @@ rgmii_phy1: ethernet-phy@1 {
+ 		reset-assert-us = <20000>;
+ 		reset-deassert-us = <50000>;
+ 		reset-gpios = <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
 +
- static int bd79112_disable_gpios(struct bd79112_data *data)
- {
- 	int ret;
-@@ -419,7 +438,15 @@ static int bd79112_disable_gpios(struct bd79112_data *=
-data)
- 	return 0;
- }
-=20
--/* ADC channels as named in the data-sheet */
-+/* The BD79111 channel names as in the data-sheet */
-+static const char * const bd79111_chan_names[] =3D {
-+	"AGIO0", "AGIO1", "AGIO2", "AGIO3",		/* 0 - 3 */
-+	"AGIO4", "AGIO5", "AGIO6", "AGIO7",		/* 4 - 7 */
-+	"AGIO8", "AGIO9", "AGIO10", "AGIO11",		/* 8 - 11 */
-+	"AGIO12", "AGIO13", "AGIO14", "AGIO15",		/* 12 - 15 */
-+};
++		leds {
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+/* The BD79112 channel name as in the data-sheet */
- static const char * const bd79112_chan_names[] =3D {
- 	"AGIO0A", "AGIO1A", "AGIO2A", "AGIO3A",		/* 0 - 3 */
- 	"AGIO4A", "AGIO5A", "AGIO6A", "AGIO7A",		/* 4 - 7 */
-@@ -431,8 +458,17 @@ static const char * const bd79112_chan_names[] =3D {
- 	"AGIO12B", "AGIO13B", "AGIO14B", "AGIO15B",	/* 28 - 31 */
- };
-=20
-+static const struct bd7911x_chip_data bd79111_chip_data =3D {
-+	.name =3D "bd79111",
-+	.chan_names =3D bd79111_chan_names,
-+	.num_max_channels =3D 16,
-+	.init_disable_gpios =3D bd79111_disable_gpios,
-+};
++			led@0 {
++				reg = <0>;
++				color = <LED_COLOR_ID_AMBER>;
++				function = LED_FUNCTION_LAN;
++			};
 +
- static const struct bd7911x_chip_data bd79112_chip_data =3D {
-+	.name =3D "bd79112",
- 	.chan_names =3D bd79112_chan_names,
-+	.num_max_channels =3D 32,
- 	.init_disable_gpios =3D bd79112_disable_gpios,
++			led@1 {
++				reg = <1>;
++				color = <LED_COLOR_ID_GREEN>;
++				function = LED_FUNCTION_LAN;
++			};
++		};
+ 	};
  };
-=20
-@@ -453,7 +489,7 @@ static int bd79112_probe(struct spi_device *spi)
- 	data =3D iio_priv(iio_dev);
- 	data->cd =3D spi_get_device_match_data(spi);
- 	if (!data->cd)
--		return -ENODEV;
-+		return -ENODATA;
-=20
- 	data->spi =3D spi;
- 	data->dev =3D dev;
-@@ -492,7 +528,7 @@ static int bd79112_probe(struct spi_device *spi)
- 				     "Failed to optimize SPI write message\n");
-=20
- 	ret =3D devm_iio_adc_device_alloc_chaninfo_se(dev, &bd79112_chan_template,
--						    BD79112_MAX_NUM_CHANNELS - 1,
-+						    data->cd->num_max_channels - 1,
- 						    &cs);
-=20
- 	/* Register all pins as GPIOs if there are no ADC channels */
-@@ -509,7 +545,7 @@ static int bd79112_probe(struct spi_device *spi)
- 		cs[i].datasheet_name =3D data->cd->chan_names[cs[i].channel];
-=20
- 	iio_dev->info =3D &bd79112_info;
--	iio_dev->name =3D "bd79112";
-+	iio_dev->name =3D data->cd->name;;
- 	iio_dev->modes =3D INDIO_DIRECT_MODE;
-=20
- 	/*
-@@ -528,14 +564,15 @@ static int bd79112_probe(struct spi_device *spi)
-=20
- register_gpios:
- 	gpio_pins =3D bd79112_get_gpio_pins(iio_dev->channels,
--					  iio_dev->num_channels);
-+					  iio_dev->num_channels,
-+					  data->cd->num_max_channels);
-=20
- 	/* If all channels are reserved for ADC, then we're done. */
- 	if (!gpio_pins)
- 		return 0;
-=20
- 	/* Default all the GPIO pins to GPI */
--	for_each_set_bit(pin, &gpio_pins, BD79112_MAX_NUM_CHANNELS) {
-+	for_each_set_bit(pin, &gpio_pins, data->cd->num_max_channels) {
- 		ret =3D bd79112_gpio_dir_set(data, pin, GPIO_LINE_DIRECTION_IN);
- 		if (ret)
- 			return dev_err_probe(dev, ret,
-@@ -545,17 +582,23 @@ static int bd79112_probe(struct spi_device *spi)
- 	data->gpio_valid_mask =3D gpio_pins;
- 	data->gc =3D bd79112_gpio_chip;
- 	data->gc.parent =3D dev;
-+	data->gc.ngpio =3D data->cd->num_max_channels;
-+	data->gc.label =3D devm_kasprintf(dev, GFP_KERNEL, "%s-gpio", data->cd->n=
-ame);
-+	if (!data->gc.label)
-+		return -ENOMEM;
-=20
- 	return devm_gpiochip_add_data(dev, &data->gc, data);
- }
-=20
- static const struct of_device_id bd79112_of_match[] =3D {
-+	{ .compatible =3D "rohm,bd79111", .data =3D &bd79111_chip_data },
- 	{ .compatible =3D "rohm,bd79112", .data =3D &bd79112_chip_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, bd79112_of_match);
-=20
- static const struct spi_device_id bd79112_id[] =3D {
-+	{ .name =3D "bd79111", .driver_data =3D (kernel_ulong_t)&bd79111_chip_dat=
-a },
- 	{ .name =3D "bd79112", .driver_data =3D (kernel_ulong_t)&bd79112_chip_dat=
-a },
- 	{ }
- };
-@@ -572,6 +615,6 @@ static struct spi_driver bd79112_driver =3D {
- module_spi_driver(bd79112_driver);
-=20
- MODULE_AUTHOR("Matti Vaittinen <mazziesaccount@gmail.com>");
--MODULE_DESCRIPTION("Driver for ROHM BD79112 ADC/GPIO");
-+MODULE_DESCRIPTION("ADC/GPIO Driver for ROHM BD79112 et al.");
- MODULE_LICENSE("GPL");
- MODULE_IMPORT_NS("IIO_DRIVER");
---=20
-2.56.1
-
-
---t7+2jXN09R9j1ZFp
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmsAPOwACgkQeFA3/03a
-ocW4+gf8CPFRSgIkBokmOnoE9x+3dFpNaJi9kaRc3BanAc3wJC1ZQNfuX7e6QIOG
-h5ofEGkkyX0qCtgWN7BTJa2fNdS10MYQU6j3mCbFtXUbOZ2z/61HeH6ftDe6/G/A
-TZMugegdUYF5/imzqlWP64KwwABVKfGFX4iMfJXqQFI269d/9SHTQtVmi4/6bUQa
-XDkS7OKCu4q8FRqMujgmjG/xfmzuhplvSjWhwU83xYLYdWZj1H/y7OHAkPkY+Qbs
-5/ChU8V46LVp0lkGPT3c3u661JFFyKzsepVK+AdakBGNNtqvHoQ3w3V1Z+apJJHy
-INiEd+hFsKJ2z3bL411HZlA2vMCElQ==
-=I1te
------END PGP SIGNATURE-----
-
---t7+2jXN09R9j1ZFp--
+ 
