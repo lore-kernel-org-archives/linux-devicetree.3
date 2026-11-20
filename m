@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795191128;
-	b=akRUWffR8OvqQH4vCdpScSWSfpVZ1xjdFcy3p0g9bNLV5Ciog22GfUYbsmBzNPPzPOv4
-	 yxo56AuLDkrowWFzWTktCxPFjJKk94gMFQTr9iHlk+utmEDZcG8aY7yiB/jSJaC6doFrC
-	 21V46JoWI0O72qog/V7yPAt6h1EpOtgl/o1wNVSzZWd3BeN+KM03UtQ1+V6RGG+fBBHPf
-	 IE/JFJxaSo7wKbIvREbyRfiozHTEL03ZVuv5UIVPw1faASjzf/m/2frqteEJNEJqXmKvA
-	 LLJ70D3AF/tBFIOx9za+oLjwPIElMwxrQO6g4npFttOK4R42JbrUxRqB/N8sYwiyJaA==
+	t=1795191283;
+	b=ALkttWnqgioW2AYW3Q6q1BiVG4pvWaXXrEFpHCQRgg7hsA3krgO8YXhsUiGh1cEt4mec
+	 iw/g821bVLFMGxqtEGHGUh0P2ZGZOlyfTx/Xs9uVwePrWVRchdoEGWn0rlO+rb7eYrNGN
+	 LkRSSh7HCKc/azoZxUhDvIoDyaA0fOxfAkzcCvXJErcAluirShFmyn6/JKaKebPxIfMSz
+	 eL/Awu35zS5rs/fR0CvtphcpRbOXPQgxUDwzEuSrJk9cuirgUU9J/orIx13vA16yDtdrb
+	 cRWe1nqe569AK9E/Vg18NuDQ38ksqUhapEXDDozzi2E2twaDzLWgsGr+AA3iOKwfNyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795191128;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=a35Mq+RYpt2dEaWC1d1eJMfVyB9If3Q8Pl622VJ/HUQ=;
-	b=SNl+0qlJ4qYSznqTLuABTYf6GV7JKE/FvDdUzdNr6vuZ1PmGGRjpzyIqrD9VjKOr1gj9
-	 CE5hq8+/NouwNcBtTbw2ozIwfw+PXl1uzzadRZSGP7yND7SPNKFVinG/NhAHHm2ejhvYf
-	 smrN3tQquIRWWxaLl9FiCJWjE9zDr3bGWHCM4wFxnYEHZYp3tzQ29gGa/YZUwzHa3jhzE
-	 Cr90FMibhr0owwFEZJCZyuVFGgeXcCWA7EFM0G5v0/md3LCLSTtPdMupCSkcaCdw4zPkl
-	 AwvHCAAD2hl7t2mJoLM5UvVcKOy6SWMv7PdPE4n5J1j/xI7o7rJwQeLDqy+wrJSbbVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795191283;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GvYCDEkwGbOkGGg0zHPjL4BohH+d4nYyJ0W4Hnr09Sw=;
+	b=XKZHSHVTL/NV0abp1xZY3Memehs/bhkGTQJpeZ0DUo2XyTo1xpfctPFpl8yJ8HdwM5nc
+	 ZFSlknloJvkX7yufCOykJi49rI307br9Pqp2pPLUflJdjiOvARgz+8cSmPVlVIM2yPQzL
+	 nrwmMlVroQas7KXF+FLcblbYxqC/SleKcN+p6TjoN3JPXdRogplbPzT64aShh4th/8afT
+	 OK1wNgmsKcfSiqWzajvBmIEXqXn7vcLlRYWxmkAa5eW6L3cIn0jT77GnqJ/1y1lRv/bTf
+	 +QtagiWOMQi/OQFC3kWVQjMuN4Fj5hbsTCu4oKukqVIGy90dO/BOYUmCuDOaWBs6ruA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=rre5WqEt;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQHfnawW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE0B606A320
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:12:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EE0B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDCC606A332
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:14:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=rre5WqEt
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a14so11664295e9.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 08:12:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1795191126; x=1795795926; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a35Mq+RYpt2dEaWC1d1eJMfVyB9If3Q8Pl622VJ/HUQ=;
-        b=rre5WqEt0XIIzu746pRmcbTYVoZFrtf9ZFff4VeOTjzJKrx4xPLRNIgj/pe9UkV7kI
-         ZQ7vBRScwwMCf3kXkZHgH7LRGEPFzOkbAiyrMu6MX3jB7+usIHcM3VDwvgttWJD/oqEO
-         iJxUIGzDcp+hcXbzpecm05CisHey7nbMYGxok=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795191126; x=1795795926;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a35Mq+RYpt2dEaWC1d1eJMfVyB9If3Q8Pl622VJ/HUQ=;
-        b=JyFykQrDH395CEYRLuWeJBq/nhpAiQ0xgyIEG8nkGwSAy0ThTRG5MNiaCtGdJZkRc4
-         AoZ0hd26I5tyKmx1lN9aQWhYvQDdFVLpMHeSVWrEk1yHqdByRfY6yNRjAgiftcwoV9+L
-         wgm8M+8Gn239rSNEm8P9BWBO4UM//ZwNXip6sU9WlYs/J8umhRy/jR7qHYywXhXNfQ7B
-         bqEKIa7rDrCz6pqv5o/1kMmdUd7Gsoz1BEoWpu3nj/fX3ifLIed3bjgb01pMP65hQWTZ
-         1BGlZZIGBMmtvK2tLCMdcwCdWvngPgBjonT1um4hWc74egxsTTjjv6sojUnaSdZWemNR
-         tbiA==
-X-Forwarded-Encrypted: i=1; AL+hErH6ynnpr7n6onQEDGj6/4lOKB3/AH/TZ7DvkgErbnX9656XwjJbTtMtikvFIZYfiUUhQSHmz9M9hEH3@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Hi+nkFz6lJ28SXexxIHZX8lIbcLa+Y5lN7NkoOybP7aHeDMBP
-	6xPyuijSeJYt0uvIhZsNcTWjH0+yHV3aV+CVXiitCHWwfkAMuLBKAJAXr0TqI5/VfyrTICZMnSE
-	mMna2
-X-Gm-Gg: AYBFou1D4setNWUsUD+hFTCy0m4xOU/HgM9a7C/McaRsjn/2bwg8FXVgEXCttHUy4Wn
-	/XwNMvrloO0ze9WLEtFH2pgRrunEn7u3DWr2xLhwtYSnn+awVvR/UqgbHHbS4UP5nr5Lse5vYZN
-	HZJIvZ/hclpqDBQ/bjldJvJfFFZGebiSj8UZYdBvDl+VhqD2H/d6bMmlcVUG4xGNg7gwKBYiXLU
-	oYCRIGbtrkseQHYMoQ3mcHn25OO2F/VZCxQ/57FG5GnZdBTP0b4auhM5f0f1rE8buv9/HN9i8KO
-	U98BzveDeUOQZzYl6RQKtuEMdJiMxVeAcctGFjx/+buEV3roXABQbCsNlryzJFEK//wbPSr9vZd
-	VvhnVx/K93lEo2WqQVIlTnwH5mozBOxPji07VTUlnSZYRepLQ8bMHAwC38xrEh69ze3HLtfXmDu
-	PwgugPnsfHx42F+J2npMvpAtcXAgPhbCKVK+XTVjbGDgN3lIWTUoG+ETnUXc5S+GGjxb9NItvz/
-	dXvay9pXNAQTAOX6dbvJtTnCs7ApGK3uVjzgxKW9a9ByFcY0vQ1YxN8bLymGZl+T+r9RXX8SeS4
-	gp6qfbDDvjrhP/MyLLrUPN7//hddnyMMZMoWwP6dqiSFT71C+XsdNt8e5PArVbMg5s1jfZAHZzl
-	CCyje5bL0HAb3B+hGg8ir1Bfy4wVuRWrQ8OGiNaSA3Y9lg3NWyBs=
-X-Received: by 2002:a05:600c:a15:b0:4b6:267a:dd6e with SMTP id 5b1f17b1804b1-4bb88938a62mr81026755e9.28.1795191125848;
-        Fri, 20 Nov 2026 08:12:05 -0800 (PST)
-Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.41.246])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b3a7sm143459745e9.3.2026.11.20.08.12.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 08:12:05 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: Frank Li <Frank.Li@nxp.com>
-Cc: michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] arm64: dts: imx8mn-bsh-smm-s2/pro: add boot phase properties
-Date: Fri, 20 Nov 2026 17:11:53 +0100
-Message-ID: <20261120161159.1944199-1-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQHfnawW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C71F1F000E1
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:14:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795191283;
+	bh=GvYCDEkwGbOkGGg0zHPjL4BohH+d4nYyJ0W4Hnr09Sw=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=VQHfnawWjbsVjDcrOHdKsTzNvVyGA2s1vjqh9c6P/gGSqgO2JKm0sAhW5owbcCE1A
+	 gGemTeFO9QbxRVC0cJADzBUoTL/bUkmFLso/QrkFvPTXFqVNVd+88g2kudNr8ooX3n
+	 MT6d+gEAMKjWgKDjBYKFx/8YuSoqj4MP8f4JqG1OduKNciPX82LtQeXAxvcLAlAcWz
+	 RnBxinOYNnwyqONwbr4ku0gV5BUUCV1mLEfwsUJWMmYEP3eck15T2ASw5Lmexwg8A+
+	 KSb/9Cvp6VRqNZwvn/FZjNFAtbTJ/BXBHO4zm/UN4+0HCb464JWNBeHQG1cXE2PW0E
+	 /zCeJ8xXTBjZQ==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3adf87fc0c6so9116121fa.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 08:14:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErETOf3rs9fSMKtjqTBobfEmfMcwrS6u+LZ8faJnjv6LUe1wHCsEcB6vD4u1WvscUi4r1wG359QPWB5c@vger.kernel.org
+X-Gm-Message-State: APuU4Z8he4sCDxdQ8ZKZsuF1CyWGutu4kIiWI79uRDFwm0OriUTnB5Ck
+	p9A7VetF95jpkkRNlKWc7kKvplJjDzdxdS0RkxFD/oZg14cMDBo4623buxqMMUoJgEww0Km/9bR
+	Kw+FgqVkz404r8xaxEF3w68+VAN5RQwU=
+X-Received: by 2002:a05:651c:54f:b0:3a9:9a2e:27fd with SMTP id
+ 38308e7fff4ca-3ae7f7cfce8mr12445241fa.0.1795191281589; Fri, 20 Nov 2026
+ 08:14:41 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,156 +59,104 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
+In-Reply-To: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sat, 21 Nov 2026 00:14:28 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66nKWdF3AvXDfb07iYVQE5FC5yDkhuutShp+Z-EgFXEfg@mail.gmail.com>
+X-Gm-Features: Aa3M54qKCun4hmKn_uEzeiCoNcJXuK8nohmeg7erANAuWhgR2_nHJkd26qyMXiE
+Message-ID: <CAGb2v66nKWdF3AvXDfb07iYVQE5FC5yDkhuutShp+Z-EgFXEfg@mail.gmail.com>
+Subject: Re: [PATCH 0/3] arm64: dts: allwinner: add Radxa Cubie A7Z support
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>, 
+	Enzo Adriano <enzo.adriano.code@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add boot phase properties to the resources needed during the boot
-process.
+On Wed, Nov 11, 2026 at 9:49=E2=80=AFPM Vinicius Pedrosa
+<vinicius.eduardo.pedrosa@gmail.com> wrote:
+>
+> Add a board DT for the Radxa Cubie A7Z (Allwinner A733), based on Enzo's
+> A733 SoC description and Cubie A7S DT [1].
+>
+> The A7Z differs from the A7S in its PG supply (BLDO5), the SY8089
+> regulator feeding the PMIC's BLDO and CLDO inputs, and the microSD
+> card-detect line, which has an external pull-up. The series enables
+> UART0, the AXP318W PMIC, MMC0, RTC, bank supplies and the green user LED.
 
-The BSH SMM S2 and S2PRO need UART, watchdog, PMIC, GPIO and boot
-device access.
+There seem to be 3 revisions of A7Z. Which one are you targeting? Or are
+there no differences as far as the OS is concerned?
 
-Tested on BSH SMM S2PRO with U-Boot v2027.01-rc1.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+ChenYu
 
----
-
- .../freescale/imx8mn-bsh-smm-s2-common.dtsi   | 22 +++++++++++++++++++
- .../boot/dts/freescale/imx8mn-bsh-smm-s2.dts  |  2 ++
- .../dts/freescale/imx8mn-bsh-smm-s2pro.dts    |  2 ++
- 3 files changed, 26 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi
-index d20393c2d901..5515236d3c09 100644
---- a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2-common.dtsi
-@@ -77,10 +77,23 @@ ethphy0: ethernet-phy@0 {
- 	};
- };
- 
-+&gpio1 {
-+	bootph-pre-ram;
-+};
-+
-+&gpio2 {
-+	bootph-pre-ram;
-+};
-+
-+&gpio4 {
-+	bootph-pre-ram;
-+};
-+
- &i2c1 {
- 	clock-frequency = <400000>;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_i2c1>;
-+	bootph-pre-ram;
- 	status = "okay";
- 
- 	bd71847: pmic@4b {
-@@ -95,8 +108,11 @@ bd71847: pmic@4b {
- 		#clock-cells = <0>;
- 		clocks = <&osc_32k>;
- 		clock-output-names = "clk-32k-out";
-+		bootph-pre-ram;
- 
- 		regulators {
-+			bootph-pre-ram;
-+
- 			buck1_reg: BUCK1 {
- 				/* PMIC_BUCK1 - VDD_SOC */
- 				regulator-name = "buck1";
-@@ -244,6 +260,7 @@ bluetooth {
- &uart4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_uart4>;
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
-@@ -280,6 +297,7 @@ &wdog1 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_wdog>;
- 	fsl,ext-reset-output;
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
-@@ -326,6 +344,7 @@ pinctrl_i2c1: i2c1grp {
- 			MX8MN_IOMUXC_I2C1_SCL_I2C1_SCL			0x400000c2
- 			MX8MN_IOMUXC_I2C1_SDA_I2C1_SDA			0x400000c2
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_i2c3: i2c3grp {
-@@ -346,6 +365,7 @@ pinctrl_pmic: pmicirqgrp {
- 		fsl,pins = <
- 			MX8MN_IOMUXC_GPIO1_IO03_GPIO1_IO3		0x040
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_uart2: uart2grp {
-@@ -369,6 +389,7 @@ pinctrl_uart4: uart4grp {
- 			MX8MN_IOMUXC_UART4_RXD_UART4_DCE_RX		0x040
- 			MX8MN_IOMUXC_UART4_TXD_UART4_DCE_TX		0x040
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_usdhc2: usdhc2grp {
-@@ -414,6 +435,7 @@ pinctrl_wdog: wdoggrp {
- 		fsl,pins = <
- 			MX8MN_IOMUXC_GPIO1_IO02_WDOG1_WDOG_B		0x046
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_wlan: wlangrp {
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts
-index 11a1ba5bfdb7..5add6a8e1c59 100644
---- a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2.dts
-@@ -21,6 +21,7 @@ memory@40000000 {
- &gpmi {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpmi_nand>;
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
-@@ -43,5 +44,6 @@ MX8MN_IOMUXC_NAND_READY_B_RAWNAND_READY_B	0x00000056
- 			MX8MN_IOMUXC_NAND_WE_B_RAWNAND_WE_B		0x00000096
- 			MX8MN_IOMUXC_NAND_WP_B_RAWNAND_WP_B		0x00000096
- 		>;
-+		bootph-pre-ram;
- 	};
- };
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dts b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dts
-index 475cbf9e0d1e..b48905a9b4dd 100644
---- a/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-bsh-smm-s2pro.dts
-@@ -85,6 +85,7 @@ &usdhc1 {
- 	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
- 	bus-width = <8>;
- 	non-removable;
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
-@@ -133,6 +134,7 @@ MX8MN_IOMUXC_SD1_DATA6_USDHC1_DATA6		0x0d0
- 			MX8MN_IOMUXC_SD1_DATA7_USDHC1_DATA7		0x0d0
- 			MX8MN_IOMUXC_SD1_STROBE_USDHC1_STROBE		0x090
- 		>;
-+		bootph-pre-ram;
- 	};
- 
- 	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
----
-base-commit: 65e4fd942f72a9dba0e4e257290c4fa1aa756854
-branch: imx8mn-bsh-smm-s2-bootph
-
--- 
-2.43.0
-
+> Tested on a Cubie A7Z with v7.4-rc1 and the posted A733 prerequisites.
+> Eight CPUs, R-I2C0/PMIC, MMC0 read/write at 3.3 V, RTC, LED, PSCI
+> reboot/power-off and CPU hotplug worked.
+>
+> MMC0 card-detect hotplug needs the separate A733 EINT-mux fix [8]. The
+> tested DTB also had a local 16 MiB no-map reservation for my boot
+> firmware, which is not part of this series.
+>
+> Dependencies:
+> [1] https://lore.kernel.org/r/cover.1794227241.git.enzo.adriano.code@gmai=
+l.com
+> [2] https://lore.kernel.org/r/20261009-a733-clk-v6-0-ae8178fce7e8@pigmora=
+l.tech
+> [3] https://lore.kernel.org/r/20260910-axp318-regulator-v8-0-e906a61a7f3d=
+@baylibre.com
+> [4] https://lore.kernel.org/r/20261025142412.112216-1-pmazzini@gmail.com
+> [5] https://lore.kernel.org/r/cover.1792439398.git.vinicius.eduardo.pedro=
+sa@gmail.com
+> [6] https://lore.kernel.org/r/20261109-a733-pinctrl-v3@gmail.com
+> [7] https://lore.kernel.org/r/20261031020640-263f7b05-a7s-clock@gmail.com
+> [8] https://lore.kernel.org/r/20261110130157.112155-1-vinicius.eduardo.pe=
+drosa@gmail.com
+>
+> Vinicius Pedrosa (3):
+>   dt-bindings: arm: sunxi: document Radxa Cubie A7Z
+>   arm64: dts: allwinner: add Radxa Cubie A7Z board
+>   arm64: dts: allwinner: sun60i-a733-cubie-a7z: add the user LED
+>
+>  .../devicetree/bindings/arm/sunxi.yaml        |   5 +
+>  arch/arm64/boot/dts/allwinner/Makefile        |   1 +
+>  .../dts/allwinner/sun60i-a733-cubie-a7z.dts   | 298 ++++++++++++++++++
+>  3 files changed, 304 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.d=
+ts
+>
+>
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> prerequisite-patch-id: 0ed6b92774b5b794761c7ce34db653a5435dc833
+> prerequisite-patch-id: 27ed3814dbd0c7ad830532ff125625917c873b4b
+> prerequisite-patch-id: 74d03898c5ce14763f4e89fb73e021de59f0fb9f
+> prerequisite-patch-id: 9225cb094cf6cbb338b14ac63711d68bed12d24d
+> prerequisite-patch-id: 568dae1c91a0d7318d6eb14a18054343b84b603a
+> prerequisite-patch-id: ff3806332e741f0e2c8dac1c11f4c71449c16c8c
+> prerequisite-patch-id: 39461e0543aefb5c40184664625cbab19ac8408a
+> prerequisite-patch-id: 6fc03bfbd343042dd3b660938fcc09c5e7d48314
+> prerequisite-patch-id: e27ef0b1e3a7fc0a659a1a82c1a7184665451265
+> prerequisite-patch-id: c598480f753e36b7f6230129b864c559b9f185d5
+> prerequisite-patch-id: f86b468a896a40f132adfcba885700327dff1bc5
+> prerequisite-patch-id: 079d60101e1b9e5425458060314bde3e9cc2fe4c
+> prerequisite-patch-id: 5d657469bcf35ca76bbe291203363403e00fab54
+> prerequisite-patch-id: 85db03df3394cdcb2780a0da122a74b2c1fe220d
+> prerequisite-patch-id: a3e883da50bf03e8f522444def66fec7f996ffbe
+> prerequisite-patch-id: c6889699a6dc13c336ce4cf4659e21b551e9a9fc
+> prerequisite-patch-id: af0aebcae7c38d58354925119c412178b5821b5e
+> prerequisite-patch-id: beb8a098ba14724e316ff243bdf8e00e729243c1
+> prerequisite-patch-id: 63342c5ec38e8eb9e55c8c74d3c5a81a630d5f69
+> prerequisite-patch-id: 1dc8d70f80674c98b2b15d09556dd27f643b20da
+> prerequisite-patch-id: cf6d9a8d3f2089f59a8a5afb4cc9375d7a6dc482
+> prerequisite-patch-id: 4cdaae8c384016491ce01e6e328acbb347debd62
+> prerequisite-patch-id: cb253a02b7d81079cc1ea4f75def94564468c80c
+> prerequisite-patch-id: 1f869e65014f3cd678bab7f235cbcb14c60a1608
+> prerequisite-patch-id: 184825f979a16a0b6900c58ba342899747da11b4
+> --
+> 2.43.0
+>
