@@ -1,93 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795182547;
-	b=V3VJXbMTNWuz3cwXV77VteIOLZUxgWcoKAvHtcW6rslrQAtpqM4e4GdvKFgOW6orFCAc
-	 nI0ED7q9KVniI9HnliRWIP+tcKwElHn85BjiDHLKVwlinfYjv57WdmXaGRH+PR2T0yR3n
-	 3bKxWzDqPzQlBFq4/zMQ/1V5NI2mt9+IMS4gTdtFlPZKMf8tgfzKLDJiw6KLO/Y8Jj4SZ
-	 OzAO8GRO2ldfzg6YWfkfPfyo+IahFTlbR1QcWEMGhNOwJ/BrEVJYv+1JgJZkmVlRC3kYx
-	 Ak2KHPrMzLOZjZ0U5KkKZgI3IoSN7l2px7Fc+MjDggelwEl+rRRkGEuCmVT/6UnFU7A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795182547;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=PSHSxED65AnpWskI+zndcsoj9vhLG7Y6yB7a+EXXCRI=;
-	b=f8KZaoVaugPpiA0fseKhVdDvtQgQwq61j+Gv2x/uj5p570Hao4nTfIciL4Rr5ortmudV
-	 9q0arh9GbTKOvPfGwfihb+O/bs2GCkZ8TnRtDJ10eS2jHwKq2tMFo9csg62DT/8ORbuCk
-	 7cmQVMxCe5O4F11TdWAY4fv8Z3qModc5GMKUOKr/FawFVLs+rVKDCvCcejSpXsBfCNN5/
-	 tPwLY9y4IFswGrFc4BGR6hqeoovs1pS9jzsHtrxHnpe4mtcy4gKQacQbhmoW5La7BM1ff
-	 c38yK+0digVLwi2YR9t/G5eliehI1xjjW1Gf8+O/xuyrvuJUrO19PhotpQBdo9Tg2ug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YmrxRN5B;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795182846;
+	b=zhyMA2mLXmlI1VHDR+IQviXKNIZXrwmx2TR0nTxYUXtQSJKxy7jyRPNijSxyr2+yOlPV
+	 JHF+VI7GoQgIElBuH4FkZoILiNBVwUMasYz5aXAHrChB2kGhtWbj8P+XpUakxD13UBzWi
+	 FiW9bDQ4eRozswOMNlKnUIzN00x0xse2rLVUUtFoU3RZ5DULQcmvBVDy1muWwKVkCqwhH
+	 Xbj+pwCvTUMrcR5tQum1AMSvVYZ6i7/nFeDQ5g4e8F/BdXyGW4lzEN1vi6DPq3caD9UTi
+	 bo2+JaHImFZD6isuSDb44HlsWTnaHXwcTQ2myZwZhNn+Sz61qOcKMVUS5uKhDdlmt5Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795182846;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=JvKgGTjq2BPEe61GwX/IAd5voKriY1si3N+Q1SQuS+8=;
+	b=1D78/n6E/z25s6CySqIYLGlTqP7VHQR9BHADRzhjUISmpRqkuhwI2s5lVPTc1GQUfgAE
+	 WS9du5OguFgcHE+Y33VDguq8eNj5Pvjud1p/G2fwUsEPSGVF/JSGKblnLR7eKSu5zQT+l
+	 nXLH+ggvsG6fYrOs+2H0AaQTEBHSitlwm4dHIbghRotGHBETvxDJF8f2gu7Hf7tR9o56n
+	 rW+CiBJgJ+m0l9QAUmKOvW/KfecaivbZoIFY9aW/jsTqcn8t4w21NxS6DegKm6zkWw6aI
+	 Hft3YNuAm8wsGh557hILKzqwM7JlCAz5LmVULBEFiNPaeJjhBoJw77B8wQup5Qr0HGQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=avxULmTp;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CAA606A326;
-	Fri, 20 Nov 2026 13:49:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7CAA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68B5606A332;
+	Fri, 20 Nov 2026 13:54:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D68B5606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YmrxRN5B
-Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C891C202284;
-	Fri, 20 Nov 2026 14:49:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795182543;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PSHSxED65AnpWskI+zndcsoj9vhLG7Y6yB7a+EXXCRI=;
-	b=YmrxRN5BlxHFPxY2kfXI38ZIFzr/mftDDptQVVgALq8EGk9KFpm/BSUUTumF7A8Lg40Z5t
-	voMLta3CKVM3VysCnjW4vOnfG5m0WR8auBgrCLd4902vrffq0E6qONyaZGNTDA9Wmssr0d
-	cxvfRY70R2A/nmWpFrfE4D/MpBNK+NQudVO2OtTMWrtHZqbj8qMzXXzVoYwzX1gG4K11Ei
-	PIecDc56J4CrUHlPxBLdHKAE7Sp0NZ3/CXF9b8Wa3Kjiec9xaMBNhIb0X8lq9InAkfvK2c
-	pOuVFmkOgf69YS+uGAdE4oELkAKSiMjCsyhMqRCq9sAR010D/CrwWmos3LAh9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795182543;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PSHSxED65AnpWskI+zndcsoj9vhLG7Y6yB7a+EXXCRI=;
-	b=RMJ//48gHnP/MWe0w62kRSDg6IbkJw6cekgiRaswZ9QGQZtBRCtu2/xUY9ch/Df8k5ktJV
-	EJ+pFcoz4KjIzNUYZ3OcA41zWU6kftNV/WgufDUgzDEneTy2XyoAmgszrHx3c/uBXXXa2R
-	QKh8NFp4tXVElNIGOwDY+4Ow1jnr2bNhM4N05Vr/dpX6ZxqTy7F97KM7MDPl/o0FlcU858
-	18u+v4coNkBtex8Tx+EPPEYZNPv5EZab4nptBKnbdaIFIrxOyU4ykp0yF0IMoo8nCo2OjO
-	0IKculyiRnGLXttfpTfWvGkyWUQiorjWNzWySMPu7zZjYOvyHZd258v48FRCzA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795182543; a=rsa-sha256;
-	cv=none;
-	b=f8N6LrVJ/HxgbB54m+tOKZ9deaW+Yb9M9s+xMyzEl6SXLcRkLuj/z1ISJJ22V+uab16Jte
-	VCEbxmoMRdGC0GgPrzIT9gygOJVPtNvbkSVGjUhwaO7YkxNDN5DNoVk5lyk0+fuWQh7tVx
-	7hxpwv/x46dlr0iO6mI9okNgDlpjlyck9T8jiL+pPT63ZIN6V6IgUXsZPH6ZDhePLdeRxv
-	xHldrd4+hl6h8LFaIPfaYyRWAzq5/vaUbnkuXDgPpsBa8Yc+ckqrDyHJO43+LLqlkpOco6
-	BG/3hMDUmDoX7bmV3jMQ1g8YJuP+moBMEf88hcC4/FHlGHcF9DGXsVOnM9upDQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-Message-ID: <8bc5870a-2b38-4e3a-9f93-76b2673a79dd@pengutronix.de>
-From: "Sascha Hauer" <s.hauer@pengutronix.de>
-Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
-To: "Nicolas Dufresne" <nicolas@ndufresne.ca>
-Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Sergei Khomenkov" <shomenkow@gmail.com>, "Lucas
- Sinn" <lucas.sinn@wolfvision.net>, "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <41e428a6fcdcf3d0c10cada8743231797b3dd5f4.camel@ndufresne.ca>
-References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
- <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
- <596F6C9E-4A5D-4AE8-8D26-7A7247050D7D@gmail.com>
- <85353f59-52a0-446d-ace3-65e2d03d0d0b@pengutronix.de>
- <41e428a6fcdcf3d0c10cada8743231797b3dd5f4.camel@ndufresne.ca>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 13:49:03 +0000
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=avxULmTp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1795182840; bh=JvKgGTjq2BPEe61GwX/IAd5voKriY1si3N+Q1SQuS+8=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=avxULmTpzYlINMYMerBM8KO0ptt/FuqSFGc8Nvesy/uIg+2oRARAUR8EfBYiazqx1
+	 2BeuOfaIqGXlYGL05H++5xKwa2BFu+nPfyPYOAAPGxmNyLFedVjxjG2D9RROMbDXF1
+	 4IUU8S2vwn88T4XCjw8TJ45yZu+FyvdkhaRWhqfU=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-XMAILINFO: OTkXlZHit/HDYSOMMYUSEEaFDIssz1W9vtk4QajQI2ZSIDw6z3e3/fziSn1gxD
+	 NRzOwWA0EKV5Xs+u57yAudQ/ZR+h/8ZQ2O1AUpRdZGuBGoLSIniCUhxiNX60gGQBeU/s7BVNMeoDK
+	 6sQTLDQAQvtnsKWBuEa8O2bR9X6uLK3NdiBgHKpcgVyp/dqCOE9FZsnvH+Nh7TABBd4s+RjqnLpzo
+	 kX0WwTvW0pry+FPxjPfTFI5bDKsWLCNfU9b7rQs0QEMCX+yjXJF3pXLY5INZt1PRaeiYIm980EC+i
+	 ksbMOELwGQyLAsjY1g5aniNmIS+geQlR2jwJniCicFcpInkrFLuerPKM/r7Uc98T/fvCoTUrxSbHe
+	 8W67anNj909GuWCLJnvyzj9VKlcT/fMW4SgyQ8g1AjRjVve1raT93B6AoJRaskEg6NfIYLFNflEcT
+	 iZrnjeqQKB4VWhI+jVbUjca1TGGFOod6sMcR5YNTJTH9u693e5BXglWXTSkr+MsYa8zB+pv9V1jpD
+	 MjDcJhgl5yVjqOWyWxYtDdh7WHUJkVdiIlAgw0ZQtr+Cj8u/CiW1d16CsnX2zzj5GLAaduahoxfyM
+	 TCEkmm432ee+WSri6RKBSVM/ktHFXJCli1M/Hk4E6cqeWfk0BqBsxH8VRQ/ihT1ahdqfyvzYLJZEp
+	 t4q4/A6Tj8UGgn909/LVRfKN2IikVmwqK8AJfyFcBMoHvxT3TM/Z4dcuj/AaFZHSDd6L9BRYNMB5m
+	 F6HKoDrSPC+sX/x48Nu3RsE5fI/fZN/QHNO9LSEB4uLbomRE99gOdW/9ewDWlEPYEb5r16UQ2oOuM
+	 +FJvdsW+5wvlJ9rFoEhFMIQ8PjOK2p6G2Lf1G2jsd8EnrSlYbnzyTKkfkiU0QIzVZAblvQQLUGwoJ
+	 rfycw2PefoJtR3rtCuqN7jF7II9g0Xb5Xbp9LjMhSY7FY2cbWxZJzTqoD5p6QGQ2lrXTRIy433COB
+	 HF0W0RuPpgEDtZXbMBRLnVBbS/AMYrm0k5Gz4MUiuX19nwNerN+cqUrNj/gU4WqwYcbNpRx7XBtiQ
+	 9obkPQmlblrCQuSR8D8yRDCao9KM8Hq4xYqZQFtwvq3/NJG9iEXLhe13raQMjUOpe5jpnPM45cZ1A
+	 8alZDdwOwNZLX9K2Udy1Vu9Vfn88od9O75+eVdokKCqFJTvDITj3pAe+
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?SGVpa28gU3TDvGJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?VWxmIEhhbnNzb24=?=" <ulfh@kernel.org>
+Cc: "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?U2ViYXN0aWFuIFJlaWNoZWw=?=" <sebastian.reichel@collabora.com>
+Subject: Re: [PATCH v5 2/2] pmdomain: rockchip: Add RK3572 power domains
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,45 +68,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Fri, 20 Nov 2026 21:53:58 +0800
+X-Priority: 3
+Message-ID: <tencent_DFB6F95537CDD14CC97C26B08CE407F4210A@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261118-add-board-ok3572-c-pmdomain-v5-0-f1af919dd434@qq.com>
+ <20261118-add-board-ok3572-c-pmdomain-v5-2-f1af919dd434@qq.com>
+	<z4ZFdDPMSaWK2zh19ZM7pA@sntech.de>
+In-Reply-To: <z4ZFdDPMSaWK2zh19ZM7pA@sntech.de>
+X-QQ-mid: xmsezb41-0t1795182838tuf7c54wx
 
-Hi Nicolas,
-
-On 2026-11-19 11:00, Nicolas Dufresne wrote:
-> Le mercredi 18 novembre 2026 =C3=A0 14:27 +0000, Sascha Hauer a =C3=A9cri=
-t=C2=A0:
-> > > Would 3 bytes per pixel be acceptable as the default, and as a floor
-> > > for smaller requests, like the 2 bytes per pixel floor in 6/7 of your
-> > > hantro-based v1? 4:4:4 at quality 100 would still not fit, but the
-> > > subsampling is not known before the header is parsed.
-> >=20
-> > I haven't been affected by this issue lately, but saw it when the series
-> > was still based on the hantro driver. Yes, I'll change to 3 bytes per
-> > pixel next round and make that the floor of sizeimage. Would be nice to
-> > have a proper solution for this rather than either wasting tons of
-> > memory or risk having too small buffers.
->=20
-> The hantro HW can run in ring buffer mode, that forces us to copy, but I =
-think
-> you can then perform decode without actually having the entire image in R=
-AM.
-> Would need some experimentation. We probably don't want copy to mmap + co=
-py to
-> ring buffer (double copy), and V4L2 read/write are deprecated. Note sure =
-what to
-> propose really.
-
-The Rockchip JPEG decoder can stop on buffer ends and I just managed to
-resume operation on the next buffer afterwards, so in principle we could
-implement streaming mode.
-
-Anyway, I'd say it's not worth adding the complexity to the driver to
-handle that.
-
-Sascha
-
---=20
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+SGkgSGVpa28sCgo+IEkgZ3Vlc3MgdGhlIGZpcnN0IHF1ZXN0aW9uIGlzLCB3aHkgZG8geW91
+IG5lZWQgdGhhdD8KPiBUaGUgVFJNcyBvZiBib3RoIFJLMzU3MiBhbmQgUkszNTg4IGhhdmUg
+dGhlIHZvbHRhZ2UtZG9tYWluIHBvd2VyLWNvbnRyb2wKPiByZWdpc3RlcnMsIGJ1dCB3aHkg
+ZG8geW91IG5lZWQgdG8gY29udHJvbCB0aGVtIG5vdz8KPgo+IFNpZGUtcXVlc3Rpb24sIGhv
+dyBhcmUgdm9sdGFnZS1kb21haW5zIGhhbmRsZWQgb24gdGhlIG90aGVyIFNvQ3MuCj4gVGhl
+IFJLMzU4OCBhbHNvIGhhcyB0aGUgUE1VX1ZPTF9HQVRFX0NPTnggcmVnaXN0ZXJzLCBzbyBJ
+IGd1ZXNzCj4gdGhleSBjb3VsZCBhbHNvIGJlIHR1cm5lZCBvZmY/CgpJbiBoaXMgdjMgcmV2
+aWV3IFsxXSwgRmlubGV5IFhpYW8sIGFuIGVuZ2luZWVyIGF0IFJvY2tjaGlwLCBhc2tlZCBt
+ZQp0byBpbmNsdWRlIFJvY2tjaGlwJ3Mgdm9sdGFnZS1kb21haW4gaGFuZHNoYWtlIHdoZW4g
+YWRkaW5nIFJLMzU3MiBOUFUKc3VwcG9ydC4gU3BlY2lmaWNhbGx5LCBoZSBhc2tlZCBtZSB0
+byBjYWxsIHJvY2tjaGlwX3BtdV92ZF9vbigpIHRvCnJlcXVlc3QgVkRfTlBVIGJlZm9yZSBh
+c2tpbmcgdGhlIFBNVSB0byBwb3dlciB1cCBQRF9OUFUuCgpTbyBmYXIgSSd2ZSBvbmx5IHRl
+c3RlZCBiYXNpYyBOUFUgcG93ZXIgbWFuYWdlbWVudCBvbiBSSzM1NzIuIEkgaGF2ZW4ndApy
+dW4gYSBjb21wdXRlIHdvcmtsb2FkLCBzbyBJIGNhbid0IHNheSB3aGljaCBOUFUgZnVuY3Rp
+b25zLCBpZiBhbnksCndvdWxkIGJlIGFmZmVjdGVkIGJ5IG9taXR0aW5nIHRoZSBWRCByZXF1
+ZXN0LgoKSSBjb21wYXJlZCB0aGUgdXBzdHJlYW0gYW5kIFJvY2tjaGlwIGRyaXZlcnMgZm9y
+IFJLMzU4OC4gQm90aCBzd2l0Y2gKdGhlIHRvcC1sZXZlbCBOUFUgZG9tYWluIHVzaW5nIGJp
+dCAxIG9mIFBNVV9QV1JfR0FURV9TRlRDT04wIFsyXS4KTmVpdGhlciB3cml0ZXMgUE1VX1ZP
+TF9HQVRFX0NPTjAgZHVyaW5nIG5vcm1hbCBOUFUgZG9tYWluIHRyYW5zaXRpb25zLgoKU2hv
+dWxkIEkga2VlcCB0aGUgVkRfTlBVIHJlcXVlc3QgYmVmb3JlIHBvd2VyaW5nIHVwIFBEX05Q
+VSBvbiBSSzM1NzIKaW4gdjY/Cgo+IEJ1dCBpbiBnZW5lcmFsLCBpZiB5b3UgbmVlZCB0byBl
+bmFibGUgdGhlIHZvbHRhZ2UtZG9tYWluIHRvIGVuYWJsZSB0aGUKPiBwb3dlci1kb21haW4g
+aW5zaWRlIGl0LCB0aGlzIHJlYWxseSBzb3VuZHMgbW9yZSBsaWtlIGEgcG93ZXItZG9tYWlu
+IG9mCj4gYSBkaWZmZXJlbnQgdHlwZSAtIGJlY2F1c2UgdGhlIHdpZ2dsaW5nIGluc2lkZSB0
+aGUgcG93ZXItZG9tYWluCj4gaGFuZGxpbmcgYmVsb3cgbG9va3Mgc3RyYW5nZSwgYW5kIHdl
+IGFscmVhZHkgYXJlIGhhbmRsaW5nIGRvbWFpbgo+IHRyZWVzLgoKSSBjaGVja2VkIFJvY2tj
+aGlwJ3Mga2VybmVsIGFuZCB0aGUgUkszNTcyIGRvY3VtZW50YXRpb24sIGJ1dCBJIGNvdWxk
+bid0CmZpbmQgYSBzZXBhcmF0ZSBzdGF0dXMgYml0IGZvciBWRF9OUFUuIElmIEkgbW9kZWwg
+aXQgYXMgYSBwYXJlbnQKZG9tYWluLCB3b3VsZCBpdCBtYWtlIHNlbnNlIHRvIHRyYWNrIGl0
+cyBzdGF0ZSBpbiBzb2Z0d2FyZT8KCj4+IC0JaW50IGNsa191bmdhdGVfd19tYXNrID0gcGRf
+aW5mby0+Y2xrX3VuZ2F0ZV9tYXNrIDw8IDE2Owo+PiArCXUzMiBjbGtfdW5nYXRlX3dfbWFz
+ayA9ICh1MzIpcGRfaW5mby0+Y2xrX3VuZ2F0ZV9tYXNrIDw8IDE2Owo+Cj4gd2h5IGRvZXMg
+aXQgbmVlZCB0byBiZSB1MzIgbm93Pwo+IFllcywgdGhlIG1hc2sgc2hvdWxkIHByb2JhYmx5
+IGJlIHUzMiwgYnV0IHdoeSBub3QgY2hhbmdlIHNpbXBseSBjaGFuZ2UKPiB0aGUgZ2xvYmFs
+IHR5cGUgdGhlbj8KCkknbGwgbWFrZSBjbGtfdW5nYXRlX21hc2sgaXRzZWxmIHUzMiBpbiB2
+NiBhbmQgZHJvcCB0aGUgY2FzdC4KCj4gYm90aCB0aGUgY2xrX3VuZ2F0ZV9vZmZzZXQgKyBz
+dGF0dXNfb2Zmc2V0IGFkZGl0aW9uIHNob3VsZCBwcm9iYWJseSBiZQo+IHNlcGFyYXRlIHBh
+dGNoZXMsIGFzIHRoZXkgc2hvdWxkIGdldCBhIGRlc2NyaXB0aXZlIGNvbW1pdCBtZXNzYWdl
+IG9uCj4gd2h5IHRoZXkgYXJlIG5lZWRlZC4KPgo+PiArCWlmIChwbXUtPmluZm8tPmNoYWlu
+X3N0YXR1c19pbnZlcnRlZCkKPj4gKwkJcmV0dXJuICEodmFsICYgcGQtPmluZm8tPm1lbV9z
+dGF0dXNfbWFzayk7Cj4KPiBhZ2FpbiwgaW50cm9kdWNpbmcgdGhpcyBuZXcgcGFyYW1ldGVy
+IHNob3VsZCBnZXQgaXRzIG93biBjb21taXQgYW5kCj4gZGVzY3JpcHRpdmUgbWVzc2FnZSBv
+biB3aGF0IHRoaXMgZG9lcy4KCkknbGwgc3BsaXQgdGhlc2UuCgo+PiArCXJldHVybiByZWdt
+YXBfcmVhZF9wb2xsX3RpbWVvdXQocG11LT5ncmYsIHBtdS0+aW5mby0+Zndfc3RhdHVzX29m
+ZnNldCwKPj4gKwkJCQkgICAgICAgdmFsLCAodmFsICYgbWFzaykgPT0gbWFzaywgMCwgMTAw
+MDApOwo+PiArfQo+Cj4gdGhpcyBkZWZpbml0bHkgYWxzbyBuZWVkcyB3YXkgbW9yZSBleHBs
+YW5hdGlvbgoKVW5kZXJzdG9vZC4KClsxXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwv
+MThmY2ZlN2EtZTI1YS00NTE2LTgxMGYtZDc4N2I3Nzk5MTRkQHJvY2stY2hpcHMuY29tLwpb
+Ml0gUkszNTg4IFRSTSwgUGFydCAxLCB2MS4xLCBjaGFwdGVyIDcsIGVzcGVjaWFsbHkgc2Vj
+dGlvbiA3LjUuNToKICAgIGh0dHBzOi8vZGwubmFtdHNvLmNvbS9wcm9kdWN0cy9hMTAvYTEw
+LTM1ODgvZGF0YXNoZWV0cy9yb2NrY2hpcC1yazM1ODgtdHJtLXYxLjEtcGFydDEucGRmCgpC
+ZXN0IHJlZ2FyZHMsCkN1bmhhbyBMdQoKcHctYm90OiBjcgo=
 
