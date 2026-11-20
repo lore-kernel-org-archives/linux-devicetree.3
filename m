@@ -1,55 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795188911;
-	b=gjGmTMvNn5dRih344kGVyMrS9BZJVVOeYKmXq3Iz0A0CYoATVK0H60jGuzFdOMv7C/PF
-	 Gg2i5vgNknParDIelZORBn8V/WjxapsBC9Tt1T+SuTLxR25uthFRyOTp+mA5b8ivGwPiC
-	 w9kQjEvG1fmF+RdScwxjISQxooI3t6N8Q9ZXvF/xf4hx3n6dSavow1qATkc4ln7a6gvZ3
-	 dpspt3aV2nVFmIRUPP7FQu3I74WRKuaSAIDXV0UJJzrXOAOM0Y7WBGtgagzl9O+jBA4gN
-	 rtJFwQbzJDH3qJyQFF5MSTmTl4BvDGqf3FOir4eD7+wvVaq83hp57ZjydQ3w4HZwk7w==
+	t=1795188978;
+	b=e3TNNlaAsC0r5SlY77qiPq09MbGUBeU4O/ynEVHl2RsN0+JRaQwNFhcsSIsQ08QNRqk+
+	 nTlm5MrxUKm008cA5dM+DvnNdPxsf2gdy/M3ztoeiqe0ip+2lTiUPHvfTknFt21mYxFQs
+	 qUtzCA7aGHsyHkjSVaTNF7bq1SF2F2h+mZIAr2ZAiV1tNKecKr2LIi7p026DwkzlzxJ2X
+	 xYhvyq6eYkQ5ncm4SkBqTDYdh8frkf50udNcjtjcprcBRxyDHPrTHGzDD5CEe9EvyyGu2
+	 FhiVZcw5cQ9sZXQpjX2bVlJxqb70u8queB2A+54kGFc/Fa0zXA/DbkLBqsKwfxTouUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795188911;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=T6IM2hwHTMA/pxCeoMK4wo9s6BDvD9P4Ko0YhtatVM4=;
-	b=nyZu+WoJeSQwmpLsigb50wlkM2Dr5qfehiT2GLw0VzhFzs0huRw0A8ayOC1vO6XvtH99
-	 Lc2qHjrb7IW+JOxbU1kdbZjXBySTljsnDDUt0wNC0Cp4qwbyE8d2eLJQesqI0fBAypQ1F
-	 P2l2IABdEbbsB0N3pdZVYvfx6C2nr6ECy05aOYyZUI14FDzli+Qd1aisG3RsXg99G62QJ
-	 6nTvF9KeoyAtxfZJUS4PpUKW5OkDrC0n7ScGCaUitozgSKeTlQVSOmz7rPL8iyAUI6z1P
-	 hG688yBIQR8Cju87DdsPmKXSxV3rBKVFBC5MGMu6bqHWO6kPdkMzyLMyR0pmPVo2evg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795188978;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=db2MO1a70PIE6Fv5WZXGz5F9j2CW0g9J+SpZG3GxKeo=;
+	b=nr3IJVgnN0WPEcXgGsSF8uOBldaFGV554gr7/CLUx5jCy2Fa4cveyVACL2f0gRmbERqs
+	 DaF6NVTT2PhNB2iH8irqhYGZ4PXKcWAD5/8JF/GX9rdx/XYObNPBjISpK0vdXklukctaD
+	 9R/CK2SQrGg++9zMIi09TO9oTnC6p/KMW5c3hEFw7viHokACdPJqLN4biDK1SBZyookJI
+	 k6v/hN5JyCH++1L2W42L4o9qMIwFcja3CZKdGwU4xMGlvONy10J78HBJClKY4ckBMctpK
+	 HsKfbIUvQFhB1mrxyTAaMSDmp4qaYH95ZjRfmSNsmJw2cZZm2QgioLQzpxiyBVe4Vrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YNOhNb3i;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iY7qbtRX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C467606A32A
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:35:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1288F606A320;
+	Fri, 20 Nov 2026 15:36:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YNOhNb3i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9201F000C4
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:35:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iY7qbtRX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ACC41F000C4;
+	Fri, 20 Nov 2026 15:36:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795188910;
-	bh=T6IM2hwHTMA/pxCeoMK4wo9s6BDvD9P4Ko0YhtatVM4=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=YNOhNb3iyidl8e/8+4SlLOXJ9h4M54YkXrJcpXUHKFnIHJcVCWeuIE0J7ylUBD6/K
-	 +AgTutx6MOpAW5KQqW4Vgr4E0fjGSbrxDxaNgYBuhf46CSrt5yIHjoB7EKC3+1HJ4c
-	 20R9KNUSifE2ekRXxiExB6s/wQGGNEns0+hYlnSTPur2L9LCNa3d0kHtNEr7Xh+Xz8
-	 vWsoghV4TpD5WTshR6o2CAD2fOjy9zqAI4biatkARX0Wh826V8tTvCWLJs3CoRGuor
-	 cKT3fIsPCyqfuXWloLIwFg9iy7jp0hcN/nAwr6WSpM5uU3//ZxHEi6vUBhyBN+uCcB
-	 jlncilkirXv/w==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ae7d1ce1bfso9788841fa.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 07:35:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEm7FKq0cL/56GAuc/UhRbj6/NSwLe/dbaAqTDphfnl+e7HQ7Mj0zptpKP3eROtKaYgwdS69QrbIhuk@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DEBhcYUBeNM/sP8XktwLh46xrGN7HVILX4n5zv8P05CdfluUX
-	S+T5rOoGNDZLFXF8aiAfJtDeatyuvyNysaWW+HuAHekLm0pCf09bzui4T83o7p/XRfDGMNiy4pz
-	GDW2tZd6GeBqEma0vlIwQnya+K7UNlF4=
-X-Received: by 2002:a05:651c:a184:b0:3ab:1207:bd2f with SMTP id
- 38308e7fff4ca-3ae7f9da258mr13361641fa.11.1795188909192; Fri, 20 Nov 2026
- 07:35:09 -0800 (PST)
+	s=k20260515; t=1795188977;
+	bh=db2MO1a70PIE6Fv5WZXGz5F9j2CW0g9J+SpZG3GxKeo=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=iY7qbtRXUOcQFowK/jqsglS7S97JW+1X5C5Fwcm81+MKpDNUZduhnGEeIU1oh+Aer
+	 fpK6iPk9Am9peRUHDCbwruJ7KiPDfWWNTG71VAT1QVxMd+AZryE/DY5K3SCA605XhW
+	 3rkWv1M29RDeZG+T5ZnaRxM6XlWOBhcQvr5SPNVDxi18QC2FLK+vFXfj66NoXL3+XX
+	 wMLhb7jCy9Eka6FwWa7iuo1sT4fDoBvjcbWPSmptA5OHIyqMRq8hCrxhCAAPOgeEgs
+	 bvT1Lh3+g+CM9VCzhouhuC9DbnJTA8MUuf2/ijBXWXgwOshPlB6i7J6FDtgmmzPFpO
+	 pZQyzi78LzyRg==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,72 +49,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261120-orangepi-zero-plus2-fixes-v1-0-ecd792189f27@gmail.com> <20261120-orangepi-zero-plus2-fixes-v1-4-ecd792189f27@gmail.com>
-In-Reply-To: <20261120-orangepi-zero-plus2-fixes-v1-4-ecd792189f27@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 20 Nov 2026 23:34:56 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64Tvdcn0rZACYmNr0Ja30u_mQb8eLPNRoU=6DK85nAikg@mail.gmail.com>
-X-Gm-Features: Aa3M54oam78LcsG1YLxbfKx9HEBPHDjI2SmmeFo6cqag_BBBoiZ82g26oZ6JYCQ
-Message-ID: <CAGb2v64Tvdcn0rZACYmNr0Ja30u_mQb8eLPNRoU=6DK85nAikg@mail.gmail.com>
-Subject: Re: [PATCH 4/4] arm64: dts: allwinner: h5: orangepi-zero-plus2: Add
- MMC aliases
-To: ipfarher@gmail.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH RFC 19/23] ASoC: qcom: sc8280xp: allow using the
+ sc8280xp card with lpass-cpu
+From: Mark Brown <broonie@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Rohit kumar <quic_rohkumar@quicinc.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ linux-gpio@vger.kernel.org
+In-Reply-To: <20261113-topic-sm8650-el2-v1-19-5183f6aab9fc@linaro.org>
+References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
+ <20261113-topic-sm8650-el2-v1-19-5183f6aab9fc@linaro.org>
+Date: Fri, 20 Nov 2026 15:36:11 +0000
+Message-Id: <179518897124.6016.130748488943015768.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=760; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=yjz8fAQ3kPUwHl3NaYwbsrK24UeGk5MNb2vPPtnlmvw=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIZMl5flv7+cs/s8ksfd2gXesrP8v/we9HlaS4PG/q27
+ zuXtixPtaOUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQATSXZjZHj093gn057njsve
+ uimc3TGrXnSbqJOnbKXX6oAYxRkszyUZ/vA9fbC880DHwxnXebgFOKsvXZ2bHf9gs4FflhO7meB
+ EH04A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, Nov 20, 2026 at 7:40=E2=80=AFPM Ivan Pfarher via B4 Relay
-<devnull+ipfarher.gmail.com@kernel.org> wrote:
->
-> From: Ivan Pfarher <ipfarher@gmail.com>
->
-> sunxi-mmc probes asynchronously, so without aliases the microSD card,
-> the SDIO WiFi and the eMMC get their mmc numbers in probe order. A boot
-> script using root=3D/dev/mmcblk0p2 for the microSD card can then end up
-> on the eMMC instead.
+> Add the missing DAI ids and set the ops to allow using
+> the sc8280xp card with lpass-cpu and keep the sm8650 sound
+> card bindings working with either Audioreach or lpass-cpu
+> interfaces.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-For sunxi we do not add MMC aliases. You are encouraged to use UUID or
-PARTUUID for specifying root devices.
+> @@ -533,12 +540,11 @@ static void sc8280xp_add_be_ops(struct snd_soc_card *card)
+>  	int i;
+>  
+>  	for_each_card_prelinks(card, i, link) {
+> -		if (link->no_pcm == 1) {
+> -			link->init = sc8280xp_snd_init;
+> -			link->exit = sc8280xp_snd_exit;
+> +		link->init = sc8280xp_snd_init;
+> +		link->exit = sc8280xp_snd_exit;
+> +		link->ops = &sc8280xp_be_ops;
 
-> Add aliases so that the microSD card is always mmc0 and the eMMC mmc1,
-> matching the numbering U-Boot uses on this board, with the SDIO WiFi
-> as mmc2.
->
-> Tested on an Orange Pi Zero Plus2 (H5) running Linux 6.6.160 with this
-> change applied: the microSD card is mmcblk0 and the eMMC mmcblk1,
-> booting from either. Build-tested only against current mainline.
->
-> This problem was investigated, and the patch drafted, in an interactive
-> session with an AI coding assistant (Claude by Anthropic). The submitter
-> reviewed the change and ran the tests described above.
->
-> Signed-off-by: Ivan Pfarher <ipfarher@gmail.com>
-> ---
->  arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.=
-dts b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts
-> index 892723b46..4a26863e8 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-zero-plus2.dts
-> @@ -13,6 +13,9 @@
->         compatible =3D "xunlong,orangepi-zero-plus2", "allwinner,sun50i-h=
-5";
->
->         aliases {
-> +               mmc0 =3D &mmc0;
-> +               mmc1 =3D &mmc2;
-> +               mmc2 =3D &mmc1;
->                 serial0 =3D &uart0;
->         };
->
->
-> --
-> 2.43.0
->
->
+This now applies to everything for all cards, that feels like it needs a
+lot of care?
+
+-- 
+Mark Brown <broonie@kernel.org>
