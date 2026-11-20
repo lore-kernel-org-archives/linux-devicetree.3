@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795167171;
-	b=BZFctLUGQAYpTH7+T8Io7lOufeMBsAOUQEL/XnnryfH4qdYTu4qqCaFZj8xjSICqfgWm
-	 TXTXa5mP3YVXLMA7AnSny0w6QgZjEWMZ+DVKPNa1/3FzpKhv5/GVON1AwU7fCriFF7w8b
-	 /2dSgqKHc2CSE9FYGisIXKo7MEg34gAATT9oQeX8sA3w9A1Fle/+J36+MbLPRJ4xFDcQO
-	 Bj3UcOpAs3oTGll7IBYAPmRzOEq52/7PTE5ZO0NUWgYFTbuGB56Hyd7BJW66BGIQ2pH4J
-	 XDRG4SDFMQndu9s/5Uny8EgiLmdwc5kRFQuP8A5fgCrLbSUA9scXdAq4Q0YGj0Zt85w==
+	t=1795167179;
+	b=utIJEp9jpC9zFNEHox5dYbeYmFWrIXEMJruhyfNHZdIpVWTTdfLRv57Ma9cNOPGynTnj
+	 iIikb5qCPpzj1Wt3p6xG3qDgTSKorzcHP2OWlaMnFpfypxWr/RPUp7teA2akIYADWoJsR
+	 sD1CvsRZTnJtaDnOgawW/ocE1GPMFoGtRUcqa7lq5ARm0rCKN3JIWTREgcZ/q0HSKiCIS
+	 HRjOTEN934KNTJHy2DuCvATVk+6FokjTqemyv7hZ6++PDLFb9qrjKFWd32fCqOntSXe1m
+	 Fiwt2deh7ZM46rKk7eYF8VK9XuWt6GEql26vzBMQtNHA+HeuOpKEVWLZ/qTD9GHTLrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167171;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bxsAfoUGos9HyMRI7/4tQpMU5EwXsK5G6ozcfIozN0U=;
-	b=EDYYWy/qzGHKKlacG0tT8tEL90gVkp0Ssut1hmu7i2oXBuwNL8nuH5EbwUutMxXtGcVY
-	 diqXRBVHg2zA+RlUtJLImPg547k9xmO9yts1qT11WCmoYvosfpsJXgNykgQAwlOYprHlI
-	 tQloYqSQwVmDVTuZPCcD0S0CrTRatLyoiIwLQQ7XEJgpLyamJSIQmx5Cw10HoG5G1NKk0
-	 s8u2rHCZUb1OTAmQ1dQhR0bHAodscjBLGZQnDuO8Xe8Xzkx36inLQyeYb3ne4UHccAMpk
-	 wxkzz0vlyQ4zTymESp0bukcgTFlqGft29alGtr1F+1v4n45g9d/FSH1E3TJpOF8m8Vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167179;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=j83YISU8SYQ7THy+mAwc0gQYTgSkFXxCa7hRqpV/rqI=;
+	b=nXGifxYrdgYJ/4S4sKUWxQXWiNkq+KJFyaDTxFpeSOoebUghxgK2YZ6OaxDra5thR2yd
+	 pHpmcam0CBGBYmGwFVWKBuLn3yBlYeYzrbNvs+rl51PT8E9sVGDAYRCw2MiP6rshG15gE
+	 I8M4jKsMwCAu8ny6DyQu0oZWCoIv6reJXdHLPQOTq1MqyFPdaGSQr1MNiGZizwKwLqYe6
+	 cgMNQ51EDE50gVqi1NlxUFSrtNq0YtJC0TQXrGOLiCNzei2Sk7UsG7Mk2Nrq7Wk++821s
+	 U76fsCdRwtdTGE0dZkU6fQKsrxVQPkf7pSH0HjRnVaSLMtYf7Teqd8xeQcsHQBCWXRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cGCtDQdU;
-	arc=none smtp.remote-ip=95.215.58.6
-Received: from mta1.migadu.com (out-6.mta1.migadu.com [95.215.58.6])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mU1VE1b5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695AA606A32C
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:32:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 695AA606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836D6606A320
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 09:32:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cGCtDQdU
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2bXx+Df3DKXm0tFraN/tvLGKzRWUt5my4//0JU1vfoQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795167168; v=1; x=1795771968;
- b=cGCtDQdUzqfnrIUR/kfEDoxRF6AKHSqKmodUJQxY//ZIeqDQGMeps7KeEcYHx7pgSRsP+Km6
- Hu81kv6DKe9mPZuavwXmmrStuvjQgpIb/iSpXh9QiuFr/9z7ZhcstU/81eb3wS+VxqC76mPQSWQ
- 57IAgiwaoqeRoFkXRhnb5tyw=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a1e58ce883610dc5;
-	Fri, 20 Nov 2026 09:32:47 +0000
-X-Mizu-Trace-ID: a1e58ce883610dc5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0ff0a7ec-b899-4668-a245-196ed1032548@linux.dev>
-Date: Fri, 20 Nov 2026 10:32:46 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mU1VE1b5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230BF1F000C4;
+	Fri, 20 Nov 2026 09:32:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795167179;
+	bh=j83YISU8SYQ7THy+mAwc0gQYTgSkFXxCa7hRqpV/rqI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mU1VE1b5EXAlsy8zapJufn8YrzOOASDm08hzgU3Qb+6utZsTpmlaQM3xJowsWkrHX
+	 yUFKxdCTEtCZVn7G3zvNi1kivwmXJK1dqtOdp9onsrtqFW0tywnxTmVOmKugMHSOdy
+	 sDxaf4KoLsWCDPKo/kP3Jx+KUQzuZykZFAfBDm9ECat/wkSGkNcB42/6QPkdMR9IaW
+	 dA37eaJaZQKU1IqxTmK4PLrct7J/EETSxEb8MRD9bDTrmZ+JLkA9vbjkRA6Jo829E5
+	 zot0rIJmOX63cjdu3hWE5nEFD69k3umhUm1+ixx4lD4DixRA9ELLb5bPDfYQGsRNu/
+	 TxeDDS9wKkvVA==
+Message-ID: <sashiko-outbox-224854@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v7 1/7] dt-bindings: net: ftgmac100: Make
+ Aspeed compatibles standalone
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jacky Chou" <jacky_chou@aspeedtech.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261119-support_ast2700-v7-1-33c8ca2d0dd7@aspeedtech.com>
+References: <20261119-support_ast2700-v7-0-33c8ca2d0dd7@aspeedtech.com>
+ <20261119-support_ast2700-v7-1-33c8ca2d0dd7@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 09:32:58 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,91 +60,156 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v5 03/24] net: dsa: Kconfig: Expand config
- description to cover RZ/T2H and RZ/N2H ETHSW
-To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
- Ralph Siemsen <ralph.siemsen@linaro.org>, linux-renesas-soc@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- Prabhakar <prabhakar.csengg+renesas@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261120002549.1908299-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Language: en-US
-From: Clement Leger <clement.leger@linux.dev>
-In-Reply-To: <20261120002549.1908299-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [Medium] dt-bindings: net: ftgmac100: dropping fallback compatible
+  breaks dtbs_check
+- [Low] dt-bindings: net: ftgmac100: broken two-clock conditional in
+  schema
+- [Low] dt-bindings: net: ftgmac100: unwieldy per-compatible
+  conditionals in schema
+- [Low] dt-bindings: net: ftgmac100: inaccurate DMA mask claim in commit
+  message
+--
 
+commit 9fe0301cae72065a7d7965c7e6fd35afb67ceddd
+Author: Jacky Chou <jacky_chou@aspeedtech.com>
 
-On 11/20/26 01:25, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Update the Kconfig entry for the RZN1 A5PSW tag driver to reflect that
-> the same tagging format is also used by the ETHSW blocks found in Renesas
-> RZ/T2H and RZ/N2H SoCs.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v4->v5:
-> - No change
-> 
-> v3->v4:
-> - No change
-> 
-> v2->v3:
-> - No change
-> 
-> v1->v2:
-> - Updated description for Kconfig entry to cover RZ/T2H and RZ/N2H ETHSW
-> ---
->   net/dsa/Kconfig | 9 +++++----
->   1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
-> index bdeb60af764b..3c18314aee95 100644
-> --- a/net/dsa/Kconfig
-> +++ b/net/dsa/Kconfig
-> @@ -199,11 +199,12 @@ config NET_DSA_TAG_RTL8_4
->   	  switches with 8 byte protocol 4 tags, such as the Realtek RTL8365MB-VC.
->   
->   config NET_DSA_TAG_RZN1_A5PSW
-> -	tristate "Tag driver for Renesas RZ/N1 A5PSW switch"
-> +	tristate "Tag driver for Renesas RZ/N1 A5PSW and RZ/T2H, RZ/N2H ETHSW"
->   	help
-> -	  Say Y or M if you want to enable support for tagging frames for
-> -	  Renesas RZ/N1 embedded switch that uses an 8 byte tag located after
-> -	  destination MAC address.
-> +	  Say Y or M if you want to enable frame tagging support for embedded
-> +	  switches found on Renesas RZ/N1 (A5PSW) and RZ/T2H, RZ/N2H (ETHSW)
-> +	  SoCs. These switches use an 8-byte tag located after the destination
-> +	  MAC address.
+dt-bindings: net: ftgmac100: Make Aspeed compatibles standalone
 
-Hi Prabhakar,
+This commit updates the Faraday FTGMAC100 binding schema to make the
+Aspeed MAC compatibles standalone and constrains the clocks and
+clock-names properties per compatible.
 
-I would fold that in the commit that adds support for the  RZ/T2H, RZ/N2 
-itself (ie patch 23: net: dsa: rzn1-a5psw: Add support for RZ/T2H 
-Ethernet switch)
+> The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
+> compatibles are currently only valid when paired with the generic
+> "faraday,ftgmac100" fallback: if a node ever bound through the
+> generic entry alone, ftgmac100_probe() would set
+> rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
+> BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
 
-Thanks,
+[Severity: Low]
+Is the commit message claim about the DMA mask accurate for these three
+compatibles?
 
-Clément
+ftgmac100_probe() configures the descriptor ring end-of-ring masks and
+Aspeed clocks for FTGMAC100_AST2400, FTGMAC100_AST2500, and
+FTGMAC100_AST2600, but does not configure a DMA mask for any of them.
 
->   
->   config NET_DSA_TAG_LAN9303
->   	tristate "Tag driver for SMSC/Microchip LAN9303 family of switches"
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml=
+ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index d14410018bcf6..9d352e3686aaf 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> @@ -11,14 +11,11 @@ maintainers:
+> =20
+>  properties:
+>    compatible:
+> -    oneOf:
+> -      - const: faraday,ftgmac100
+> -      - items:
+> -          - enum:
+> -              - aspeed,ast2400-mac
+> -              - aspeed,ast2500-mac
+> -              - aspeed,ast2600-mac
+> -          - const: faraday,ftgmac100
+> +    enum:
+> +      - faraday,ftgmac100
+> +      - aspeed,ast2400-mac
+> +      - aspeed,ast2500-mac
+> +      - aspeed,ast2600-mac
 
+[Severity: Medium]
+As reported by Rob Herring on v4 [1], does removing the two-string
+compatible combination break DT schema backward compatibility and cause
+dtbs_check errors on existing device trees?
+
+All MAC nodes in arch/arm/boot/dts/aspeed/aspeed-g4.dtsi,
+arch/arm/boot/dts/aspeed/aspeed-g5.dtsi, and
+arch/arm/boot/dts/aspeed/aspeed-g6.dtsi still pair the Aspeed compatible
+with "faraday,ftgmac100".  Retaining the two-string entry (with
+deprecated: true) alongside the standalone compatibles would preserve
+compatibility without introducing validation regressions.
+
+> @@ -88,22 +85,76 @@ allOf:
+>      else:
+>        properties:
+>          resets: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: aspeed,ast2400-mac
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 1
+> +        clock-names:
+> +          maxItems: 1
+> +      required:
+> +        - clocks
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - aspeed,ast2500-mac
+> +              - aspeed,ast2600-mac
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 1
+> +          maxItems: 2
+> +        clock-names:
+> +          minItems: 1
+> +          maxItems: 2
+> +      required:
+> +        - clocks
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              enum:
+> +                - aspeed,ast2400-mac
+> +                - aspeed,ast2500-mac
+> +                - aspeed,ast2600-mac
+> +    then:
+> +      properties:
+> +        clocks: false
+> +        clock-names: false
+
+[Severity: Low]
+This isn't a bug, but now that the Aspeed compatibles are standalone and
+do not share resets, clocks, or clock-names with plain faraday,ftgmac100,
+would splitting the Aspeed MAC binding into its own schema document be
+cleaner than piling per-compatible if/then conditionals and duplicated
+minItems/maxItems constraints into faraday,ftgmac100.yaml?
+
+> +  - if:
+> +      properties:
+> +        clocks:
+> +          minItems: 2
+> +    then:
+> +      required:
+> +        - clock-names
+
+[Severity: Low]
+Does omitting required: [clocks] from this if block cause nodes without a
+clocks property to require clock-names?
+
+In JSON Schema, a properties constraint succeeds when the tested property
+is absent, so a plain faraday,ftgmac100 node without clocks matches this
+if condition and hits required: [clock-names] even though the previous
+rule sets clock-names: false.  In addition, because clock-names allows
+minItems: 1, the then branch needs properties: clock-names: minItems: 2 so
+a node with two clocks cannot pass validation with only a single
+clock-names entry while ftgmac100_setup_clk() looks up the second clock by
+the name "RCLK".
+
+[1] https://lore.kernel.org/r/20261020181441.GA510274-robh@kernel.org
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-support_as=
+t2700-v7-0-33c8ca2d0dd7@aspeedtech.com?part=3D1
