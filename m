@@ -1,99 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795174461;
-	b=JuVEpW4QX2NUP1HGZ6XziGhNcdUWYZcJUqe4AJhh3ylXmz/D3DWMQsSx436DaVC7wBy8
-	 jlEQ/4ibHkZotNpHrVf/f+jk2fGe5iiKAZK3yPLTOzR23zLVh4PFx5lX0X+XpWernQe7Q
-	 mZOTpXwp++yx0RRjnMpMHS4H/O4ysLQARw2EuRWAczLIPvC19Via83X+aNSHRKup9cjHb
-	 BMFSM8JjwesfMNpbp80BNMKWnG1bw7IXLoafUn8mlRFkxWjwsSvOhKe8xs4k2/u/KnmfX
-	 014NXHFu5RMdGOVqRROxRHZXCF339T3hnZyeRJAz5P/rGUYfYltHSMXnkRxMzR+3XNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795174461;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795174548;
+	b=1nitZQ5CTeLIxbrVlDkwJkz3LOK8D7D8mBburfjkpOImsTUCr9VOumXKeYCna0KGvGv5
+	 winc4JXxRcTku/81UaDJ0n5sE4Gw8sm0cm/eWFOTJB7U89oLev7cUel1KFd/ih2wDchoK
+	 wV/S3pOiQLja/2o4K+BvgJudpU30S/FWpuTOBT4HYu5SvEa08BPKUa4nohG3j7G+PDXUv
+	 MdWGlilxCXhBwY+Jmj9oPQGJ/zHX6RraQ6XO1Q/SpQim6e94Y0BbUdnetXSZ+llqJzA1P
+	 9d/V5crBrLSCaGz8Wr4qzDUz36Oo7eFuGx1Lpo4YzAewBvwbDIGjoGiFUFCz/3nzP6w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795174548;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fRsO3ZDu/cz2F9ezmEnkpxWWVWCZOJbm/Q68ymsx9pA=;
-	b=h+v2ArTBX8cb/2CnzxSugS9osP1Lw3k6JuHQNgSox5v464nsqOSlCEpD9aP1NkKoBo8N
-	 EnT5oaQCA00xqvgRBnz0UzSc+KvLrTqmUNGL5fJWJi8sq8wN/+xitkaN25J3Da1+GNQXn
-	 KVdLF9zxPbbJVxcpFlizVFdo4uSTWjNhM67GgANqHQ21HYl2P47B04taokCCPP0+l4fIJ
-	 32NiGu2QzEv82RlYIDozDasKxQbZwbSl6CWnZPJ34hS+BNORD5xSEFZ943nDi1WnY0XgD
-	 EKyPiUSjSAC59L9n8e7KspR55wpplQGpKAO7t+25mnn8YkKLCTbvPvKnsxlHsc6wMJA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=VrC6DFmR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HvhrYvkQJ5ZpS127ix42A5EcPEqRi5eUCbysMzVh1pA=;
+	b=Kphvg3gur8kJeKQtFdT9yl055xrFZnR9YPUZC4knTQb8dDaBihz79w7yXZf2WJxhZ08d
+	 KbS9AvFFagMI/At1ZS8rFlh0wy+9zCygOv8bYG+U7NVUPjtcBdQLHY07cBxFxyFABez1Y
+	 EXNsAA12WDt/tx3snX3A05Cv6sejz9GhT7ixE99ekxLukX3LF41IDQzmlREAxiok8Oaml
+	 T/btbeSKDecpJd5XcMe2Lvf9rapcX9zY8mPVZftIplJkIh++TXcOQnp3Zy2dbGNNKV/tl
+	 g9Qh7ULrAco+vMf2JVViQiN2NxcYBAiOFH+Q33cqQWdULTU6CuTK/P54tbPTlInU5vw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F8804Fsh;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B5F60A2601
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:34:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B5F60A2601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D2E606A326
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:35:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14D2E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=VrC6DFmR
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4cdc606b47so145956366b.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:34:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795174459; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T+FZA6Pf3uMw80XpE+Db8Bt1znC8G1Eg62/jPlooB8JhL1IF7Of5Jh5T6CXaAvkDZ1
-         lRbrYX8g62JU3/gGSNf7xUyVx5+J1jMLoqfzfmzICtX2xx0bbO5XoxxAR72eDTqMfee6
-         rdEEXZC1E7o1R09jkMLIsx/tdjzqp/7i9AJOSJMsfnPsB+sGvxtfKzwW5I8s0H2KPztx
-         bBXwKJQfVVLQdf4RbG6uM9dBsF07gxVaBu7GVQ3mT9KGilsgwF2+SewZlOqTN5OTKHOZ
-         UMfzrgq9QDZtMV8+ylQL82ltFBvewK41mPog6cShGg6sljAx9tEKxx3ZnNF6wd8eMDpL
-         lmgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fRsO3ZDu/cz2F9ezmEnkpxWWVWCZOJbm/Q68ymsx9pA=;
-        fh=+Kn94FVzl6rE7mDhn4pFvEHlRshbQ57dQ5o19v04Oyg=;
-        b=jUpyp3e4g9sK6+GPy/iqGka7uTJpNuytLERmdKuxTdgeXvOrbsLbMxLMTYqS8xCY9t
-         iJTBz2ak6P6JIRIoqGjItI65iTQsvY03zvECS6rsLP30DCeiQDnSHcn1avvhXoRzUXzy
-         0lcS/z2rQTLDF6u88VamRbBIWL/EQSODTc8RXowsFnluP8ptAov539j28CB7cBCBPLvK
-         /TrSCQjhtencEtEOP2fvH/ZQKlmum/EjHP1I8lgpo5ODJ8mO5ff4pc79vLasJuIJGRZ4
-         J6b5ucWvIhBX304KVcPbs7PkmnWBT06081aRxJtAV7ERvKiXCFw1B+kolM7hmAgvfs1i
-         pm1g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F8804Fsh
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-383a4073e59so261596eec.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:35:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1795174459; x=1795779259; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fRsO3ZDu/cz2F9ezmEnkpxWWVWCZOJbm/Q68ymsx9pA=;
-        b=VrC6DFmRnn4E7CY8vbn4bUrlAnwIUlw5ycZduQy9MnrdaHGK24YzVbvN+x23iDKdV9
-         wYpS1QFDguNjApZ5LgBzCDVZE50Iuj+zOCbrfYm+zIvl/tVmyaKxlfFD1qkh0GfNA0Ax
-         6drJtbFdcALTL1p7CHjCbOFdzANSzIiNouTaXF7pACkDTIsAOoR8IJENyt3K/pD3i/on
-         Slr4a1KB2kHRRwLWemYfdcsv+vd6r3dn+MiQMVdPgpOSwzMvJn5P9IH8kc8zrLEMHDxw
-         x1XzXb3TnC0ffg+0U5gSYzzwhjLkjBPCEfHyVF+6Nddn4ZDPqUCIoTlMZgyi5cFpcTI3
-         9pHw==
+        d=gmail.com; s=20260707; t=1795174547; x=1795779347; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HvhrYvkQJ5ZpS127ix42A5EcPEqRi5eUCbysMzVh1pA=;
+        b=F8804FshacBXUMg/wH4Wtr/0VP2vIO3Dm4XpXThTdTquux0tCMMcJdodOwqqYYLeut
+         S+MXrTtXtCRvItpFAva9SlwOYDjY74QZ8AhJIv/9LZEOPqXRSvxNprxxPo4cnQdxxwuS
+         ytmVyXPxChg1iabq3Iwd1F1vHJvuNgfYp473HvgpMKlzbvZDVuRqZaSP+n1r/kAHUh63
+         3f7E4sH6Cyfh4VDqd7+k9spmogKiOLKHTrcZ5jxA8lGylgvNNr9zRYFOQ0o1ejpA361z
+         d2wACCl1tPsoQ9IBb+DX23jOmvaIQShaxhykkpCutMA3INrku01gF2BLqjrdXH0wNZ+1
+         NdGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795174459; x=1795779259;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fRsO3ZDu/cz2F9ezmEnkpxWWVWCZOJbm/Q68ymsx9pA=;
-        b=ufpHb7B4JBSCJCbZZ7SFPWVeyeuHTf8kNclf3o9jFWLLFOCejARTZH0CxxbmDBP1bF
-         ZAm7EFJL/rbeHG7zO6Y4ew7EnxW200URPFnqAm2kuI8CezZY6BcSUxnO7Gu16VIHkgvZ
-         MjbXeKzDlgwuOvcdI/M5+zRkSPrHj1jYZelXLtp889ngN7AB+sQ2P25MKMKPRp+c8mK6
-         H84YQZd1zTezmJjW1L0GLja7zw8mgdzR+N1Ctdcyeke1RTzB/SlPHoKFjqWNwHDBzUa7
-         va0LgA3daEGooxIPJm2j5mBissS9rFVLQYgsd5ILRmDcqJB5CkWjdL2J/US/BajnH7YW
-         WBWQ==
-X-Gm-Message-State: APuU4Z+tKxOuEAwpwUpGYGMGxJUuqNadZXp8N6hPrZgjH3LkKVLkxxwB
-	wBpiX0FzRklKw+cWMn6SSXR2WgCwHUu/oq9t/Ly1y9JspbgFJ/NFqhNXi7kj/65ECR4Xv6y8g/X
-	QXnBdhqRXLAFPiOxsgcK7U6/17el4PW+iCQx7CQpN2A==
-X-Gm-Gg: AYBFou0b9As/QFC2c4OSQAeOaPjwz4JcKX2+g1+Bc14Lr4zdUc9r6+CmNWb4h76FMdY
-	wxpqef4+vu8qqDzpyxw3UxLqs2FTFOFu/KYIMO79dJihCzdHXHo96gOyQj2w/E/b0dUTH6IL8C2
-	Q+z86cM4qFNnLNCyvW1bN35oInFZ6jWUuDqZRJ4iCxExEj1/zOf8zJGt7fqgB+HB2LhL23t57di
-	BKdLWjzVJJgn3vSihxymlzX5fGbtmtfSvwPWAgD0u/J794vUN5IvDiWpsXYLsEvzeLu5RmX+vy4
-	eWn56ckxuaqfzBn6vtCcfnmNhtu8lfmIvStjNmaDYK3vyd176ryD2ePoIz07qJ4HledPEVuXzHA
-	0S8XkSVgWfYhpOG+vSLUyLHfBwVQLKbmj1ExoxCL5UAhNyXw6lASSkduOzOHti6dwaMHK8Q==
-X-Received: by 2002:a17:906:2db1:b0:c51:691:c76e with SMTP id
- a640c23a62f3a-c513a9abeffmr212514466b.36.1795174459002; Fri, 20 Nov 2026
- 03:34:19 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795174547; x=1795779347;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HvhrYvkQJ5ZpS127ix42A5EcPEqRi5eUCbysMzVh1pA=;
+        b=hQh0Oa/8XYdCP6M2ZhcmL7MkrmNv912GYM+peR/er2YUisgkGCreynArXouoJ6ENyK
+         JQDc6t1ut7mQ/+hYNUwjC4funk05J+ZUdxn7MOvnxQlsS8IYbyAWzil1jVl1ptyX1O/f
+         5kuIVpgG/uolc6+BZHzZnDjOIFvRz6SDpgwaybh8VHxQVpzp6lYIKfD5UEuNvql/SQmy
+         5HQiraLncLFjF66mQfEyoGlCGyFK3d65L1W+GarV6KlPjHQpM/DBE1CnEDxRg8aviken
+         nGICnWm6LKK524tLAAPFS57b3ViuqUT2sYqRnArG9IKH8eyaig20ksiI55KXsFEoxIaa
+         LCUQ==
+X-Forwarded-Encrypted: i=1; AL+hErFJHTT1a5sXKpyoqXOlSjJNUOi0d7v9Srn3A6gPR+M1HArEbVqwLQTnocW/KoWUZI2xsVQqrR3nYAcc@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Cg6tixGDIsU6wZGU2++OcTZAqH8idCb4+AenIdgt54tvg2Vcd
+	pEjAdMrtQfz7F1OIu79RErkLMTduczlunSJjtsPN2SZF3cf2Vo9di/rdXs6IJNIp5vbya+1Xyvo
+	=
+X-Gm-Gg: AYBFou0V6VYQPBtgs6cndhkbO3knGA8AIUARBjhql90wmGItguhirdJiqzvzY7oXnPB
+	RQqPIRMUQRARsCeP0unlrnN5RuQXNvh1K7vH3b78QKN9zHdmu2sVrQq03JcIBdJwsSPDrJ1vcDs
+	LkckzzlEE3SRhGdvJdNsbRiX3xdfrMT9lpcvMvwjTy2Kjw1rB2M+n/Sl+iGuDlMTC5KAtepZKZY
+	lsVH+Gycpn1eiNPIyhZUlhWbgOe0CmmsRWsNmFqvikM+o/f4jfLYY8MQfeTGPvPv7MzjPD5KSz9
+	kpqeg7oC/c0SLCdd933OzRLtVQAgCmR7I3WE1LZinMNqnpQjfbYg8X4Tx9IpDuzKtX1dnRvF3z4
+	HRhUN1xCumpLgHkYNsV6NWXa3aGml/YaCdO6/LChRak5/Y9zrZDZ4TP0BT9EGIpwSerH0Q2D6fL
+	WD6QJOyfb8++ZE9cE65aDNPMz802Uiu3zaFm9F3B9hYzl5rHxhERS2J4NfQtEzjnOPwxjUm7Iyj
+	mcbZs2RsR2icS4qiWjsIvn2a2dOkkLeIto0Hj5OMqoiFQF33YhC+t8YFD6Q7C9nkYDatnjDs/NM
+	fC82+yO5PdEnT5UFyeUkE4/VloqcKUE66SE=
+X-Received: by 2002:a05:701a:cc88:10b0:151:6e80:ba7e with SMTP id a92af1059eb24-1b5567dcec1mr2519969c88.4.1795174547112;
+        Fri, 20 Nov 2026 03:35:47 -0800 (PST)
+Received: from pjhArchLinux ([199.102.217.182])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55682d301sm6274610c88.10.2026.11.20.03.35.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 03:35:46 -0800 (PST)
+From: pjh456 <pengjunhao409@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4] dt-bindings: rtc: haoyu,hym8563: document vdd-supply
+Date: Fri, 20 Nov 2026 19:35:01 +0800
+Message-ID: <20261120113502.563894-1-pengjunhao409@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,86 +99,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261120-rk3576-phys-v1-0-6382cd14e3dc@flipper.net>
- <20261120-rk3576-phys-v1-6-6382cd14e3dc@flipper.net> <sashiko-outbox-224978@kernel.org>
-In-Reply-To: <sashiko-outbox-224978@kernel.org>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 20 Nov 2026 15:34:08 +0400
-X-Gm-Features: AclHuK8RoRf7zMIuyYmJlfLbmrB--2dyFTOsmnodC1bQoiDVeS2Y2IYBUY1ezpE
-Message-ID: <CAKTNdwH+yKELMRe5RRv7UEuBFytum-k52xJXBPT_p5wC+9heQg@mail.gmail.com>
-Subject: Re: [PATCH 6/7] arm64: dts: rockchip: Shorten NanoPi M5 Ethernet PHY
- reset to datasheet timing
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 20, 2026 at 3:01=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [High] arm64: dts: rockchip: RTL8211F reset-deassert-us below 72ms
->   minimum
-> --
->
-> commit 0900c61dff0b0908a212846ea06a953d5d033faf
-> Author: Alexey Charkov <alchark@flipper.net>
->
-> arm64: dts: rockchip: Shorten NanoPi M5 Ethernet PHY reset to datasheet t=
-iming
->
-> This commit reduces reset-assert-us and reset-deassert-us for the two
-> RTL8211F Ethernet PHYs on the FriendlyElec NanoPi M5 from 20ms/100ms to
-> 10ms/30ms.
->
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/a=
-rm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-> > index 638e00b6e1658..3444198b6cf66 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-> > @@ -809,8 +809,8 @@ rgmii_phy0: ethernet-phy@1 {
-> >               interrupts =3D <RK_PB1 IRQ_TYPE_LEVEL_LOW>;
-> >               pinctrl-names =3D "default";
-> >               pinctrl-0 =3D <&gmac0_int>, <&gmac0_rst>;
-> > -             reset-assert-us =3D <20000>;
-> > -             reset-deassert-us =3D <100000>;
-> > +             reset-assert-us =3D <10000>;
-> > +             reset-deassert-us =3D <30000>;
-> >               reset-gpios =3D <&gpio2 RK_PB5 GPIO_ACTIVE_LOW>;
-> >               realtek,aldps-enable;
-> >       };
-> > @@ -824,8 +824,8 @@ rgmii_phy1: ethernet-phy@1 {
-> >               interrupts =3D <RK_PA2 IRQ_TYPE_LEVEL_LOW>;
-> >               pinctrl-names =3D "default";
-> >               pinctrl-0 =3D <&gmac1_int>, <&gmac1_rst>;
-> > -             reset-assert-us =3D <20000>;
-> > -             reset-deassert-us =3D <100000>;
-> > +             reset-assert-us =3D <10000>;
-> > +             reset-deassert-us =3D <30000>;
-> >               reset-gpios =3D <&gpio3 RK_PA3 GPIO_ACTIVE_LOW>;
-> >               realtek,aldps-enable;
-> >       };
->
-> [Severity: High]
-> Is 30000 us for reset-deassert-us on rgmii_phy0 and rgmii_phy1 below the
-> minimum post-reset settling time required by newer revisions of the
-> RTL8211F datasheet?
->
-> Revision 1.9 of the RTL8211F datasheet increased the post-reset wait afte=
-r
-> PHYRSTB deassertion from 30 ms to at least 72 ms for internal circuit
-> settling before accessing PHY registers.  Because phy_init_hw() accesses
-> MDIO registers immediately after waiting reset-deassert-us in
-> phy_device_reset(phydev, 0), a 30 ms delay can cause PHY initialization o=
-r
-> stmmac_hw_setup() DMA reset failures during probe or ip link down/up
-> cycles, as seen in 1c7412530d5d ("arm64: dts: meson: g12b: odroid-n2: fix
-> PHY deassert timing requirements").
+The HYM8563 is supplied through its VDD pin.  Add an optional
+vdd-supply property so a board can describe the regulator connected
+to it.
 
-Hmm, what a great world we would be living in if parts suppliers could
-share UP-TO-DATE datasheet versions with the customers. TIL about
-revision 1.9, and it does indeed specify a longer deassertion time.
-Will fix in v2.
+The property is optional because some boards connect VDD to an
+always-on rail.  Describing the supply also lets fw_devlink order the
+RTC probe after its regulator.
 
-Best regards,
-Alexey
+Signed-off-by: pjh456 <pengjunhao409@gmail.com>
+---
+v4: rewrite the commit message, move the AI disclosure below --- and
+    drop the version links.  No code changes.
+v3: use the generic "vdd-supply: true" form and show the supply in the
+    example; reword the rationale around the hardware instead of the
+    fw_devlink ordering; replace the non-standard "Assisted-by:"
+    trailers with a disclosure paragraph in the commit message.
+v2: rename vcc-supply to vdd-supply, matching the datasheet pin name.
+
+The patch was tested on the Purple Pi OH: cold boot, same kernel Image,
+only the DTB changed.  With vdd-supply, 3/3 boots registered hym8563
+as rtc0 at ~0.6 s.  Without it, 2/2 boots failed with -110 at ~1.37 s
+because the RTC probed before the i2c3 pull-up rail (vccio_acodec)
+reached 3.3 V at ~1.60 s.
+
+AI assistance: I used the HYM8563 datasheet and the board schematic as
+inputs, and drafted this change with help from Qwen3.8 Flash Next and
+DeepSeek V4.1 Flash through the OpenCode coding agent; Gemini 4
+Hydrogen was used to cross-check the schematic in Google AI Studio.
+I reviewed the result, ran dt_binding_check, and tested it on the board.
+
+ Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml b/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml
+index 0b9f39ef0edc..ce9712e2c406 100644
+--- a/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml
++++ b/Documentation/devicetree/bindings/rtc/haoyu,hym8563.yaml
+@@ -29,6 +29,8 @@ properties:
+   wakeup-source:
+     description: Enables wake up of host system on alarm.
+ 
++  vdd-supply: true
++
+ allOf:
+   - $ref: rtc.yaml
+ 
+@@ -52,5 +54,6 @@ examples:
+             reg = <0x51>;
+             interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
+             #clock-cells = <0>;
++            vdd-supply = <&rtc_vdd>;
+         };
+     };
+
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+-- 
+2.56.1
+
