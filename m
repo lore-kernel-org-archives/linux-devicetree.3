@@ -1,74 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795180722;
-	b=1mCOi7D9FyQMT3mJv1sjRoijTKkD7fmXagKDs9p0axJhs0XTEbT72Wh4/NI2ZMIzAXfm
-	 fDbyGm+zcPP7I/S4x9Biq/VipshF0+ZONEyQ/8RJRzt8CKYg/m9y56olGoEl6+3difOWD
-	 oI5TXM0dw797mHg9/lkYqxVgQ0tEuV5ZMwo/9ZjJfvhAhfK8/zG8sFFW6doxLLlc8d/Xy
-	 CMBpxTB8fgZFg4yu6+m79J7+bqWOVbXD+ZaAJfO0e+Kxu+HY+m+A1ILpfVQkyoe2yoe/D
-	 kH8QEXxCprmVgarMMr7PmqNim155z08ueSwkjjcTtO6GzxT9GdFzXYWLirxF+mU1KeQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795180722;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=61GJjhwg5oOvms+aARYdro5wTTJ4sOIsLi6nvULglvA=;
-	b=Cy3UGE5rgyItCW/jar6vFBhaQU1PwAlqx5d1KNmjgQOkj8jaXALhOoc/GUCEjahPXXgi
-	 QLKKA/JruwDS6RssII6vzR5enMzZfQ0JaiXYZXkx0fW2P0XAsQH8ZjF8IuRk+mKS3is1n
-	 2ZMm5aYNTPLTDBfXLiToPxOF0bFdVme7JZeYYkfbgBVXgztH7BbPK+UqkIB0RUeUCG1J4
-	 JXEsauNzimjw4EFdguuIT0mNcZgvqhC3FcPpdXwHAc6ryOG5VAO3MPg6gwdKqimh9Kbxr
-	 02bXDPzuv1moAB/0u82T5QsEUm3mVEIdtd265HSm7TrECH0jlm498hqWwfMuF3u/W8g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2w4IsVbA;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795180822;
+	b=DsHAyumrSKAcvtSiXrujtridaXCPishfYbliaQHCUQBgPFT0tFbcKVNgAfwsj1GXfjvG
+	 0My7ptw2lC2pZT5TxkQWzoYoRvw3lv26YjYDY8cG/4aTvbKlWCMbvZCx9n58/5gpYj97y
+	 Cr+wpwHwbMNykum68YkMqW9THYz33zCoXXSsm4mOsAJRaVtEYNrA+k8tsqU2StQrqvO0z
+	 5abec8nP94a09q/LyoqI5ye6wl2t9Cd5YwCiEWt9uz6VY+IwSXyeydoYjyyaaqrBbHj9z
+	 LNh/CeOBOgOFiszqX3Bf6w4ieH/O5xSzynTXi6qiYXElpeSYNk/41lb3cM6B6Lqu1yQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795180822;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=UG/+FtkvLpFLlhRjXHK8IzxoHZEuN7shKZsx9WuzrBQ=;
+	b=2bHuxyCHZzgAVL0PlbiXNCx5O03ozUVI5kduknL8uUvVi1NcvAfIQeaMERfV3ku+o1Fb
+	 5NtPhxxa06cOOJjKNCpE3e0jpgI8W3xFpx31t83fVKS/DqOl8ooxr1+eMOyTXEzs+NUB3
+	 j3Xzcx9IfHfr4Z8isJ5ZuPCzxn6nsx/tj7P2EfCTBAEDccWmIWA+S+gQaNVuntPJOnSZ3
+	 iAds48kb0uRFHLTdy5o47oMR5ZLGV792JRXw5huNRqiRxBvbgXCuGG+6K3yFSbk7XU2yT
+	 hwagr9V2vwluH2iphbQX3psKFNJIpfNwqin3T41JJnivFaTfKsHm0SqVemfWyh7KJeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FQl+MLIH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E766A606A33B
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 13:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E766A606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF02F606A326
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 13:20:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF02F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2w4IsVbA
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 57E314E4168A;
-	Fri, 20 Nov 2026 13:18:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 23B7E601B9;
-	Fri, 20 Nov 2026 13:18:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7854611BC017C;
-	Fri, 20 Nov 2026 14:18:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795180718; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=61GJjhwg5oOvms+aARYdro5wTTJ4sOIsLi6nvULglvA=;
-	b=2w4IsVbAQRTkTGYemx/0oRtViPXyOE0KkUbuv49VjBXdHmRnPbyS1I4C6rx05vpF1EplHc
-	D8fvFnixkqXgxca4MrcWmjcaALBKSrjssO0IxbFZ8nNzRaG4p2qzu7MJSEGc1OFRiALigY
-	0Rd83VmxTlqCDNOULfTWF1ALyNMWv8B39GvcIZXHdBL0wW3HbvBrMOMY2o1peBxbygRZEa
-	/L8gjADasA2YHLR8a61gDVbCxZ5aIRWqKh192/PKhkGHSD3Pfk9AHdUAqPfKX49PqsKHwn
-	sG2A1VNhg4rqYlgwHt7kdny058RU0UvQc1P3YcEiO+Qk02o9dhTTN4hP7MPm5Q==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: "Michael Walle" <mwalle@kernel.org>
-Cc: "Santhosh Kumar K" <s-k6@ti.com>,  <broonie@kernel.org>,
-  <robh@kernel.org>,  <krzk+dt@kernel.org>,  <conor+dt@kernel.org>,
-  <richard@nod.at>,  <vigneshr@ti.com>,  <pratyush@kernel.org>,
-  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,
-  <sebin.francis@ti.com>,  <u-kumar1@ti.com>,
-  <srikanth.boyapally@amd.com>,  <m-shah@ti.com>
-Subject: Re: [PATCH v11 00/19] spi: cadence-quadspi: add PHY tuning support
-In-Reply-To: <DN01ZL81VTHB.3PB0JO4WI6WU0@kernel.org> (Michael Walle's message
-	of "Fri, 20 Nov 2026 13:56:44 +0100")
-References: <20261105105832.2134313-1-s-k6@ti.com>
-	<DN01ZL81VTHB.3PB0JO4WI6WU0@kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 20 Nov 2026 14:18:31 +0100
-Message-ID: <87cxrzbpzs.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FQl+MLIH
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8b5e5e64494so550683b3a.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 05:20:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795180821; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Q/gp7d5QoVdeHdq6gkMMCx2bNYxKdOj88CAh26Ckq97aWYGnGXOhX0bllKN8rjQb8S
+         v/DX8EfhYPUByGA0DOxG06CEclL6TCJQpZLSe6G2mu87W0kAxlaMS9UKNUtirGcnACZo
+         ylF7gD1eMcaFtE/zZ6AkW0eb9dYjzXxhZ5Yg23xPlMMcDgg3QKjHbCzH0zAB891mGeVv
+         k+NLP+8ZBoXnjutepCnsJgc1Y8FjjZo3tFiVbzgbj4jj+YOyeNAjLWYLH4/Y/nZ3oSDX
+         BSbsjpzvzQtsVofMy6/SIdjGVEcixdNP7M4FJIfJspUfPj4lQoLyEhi6mH1xcuQ4ZeVV
+         TDFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=UG/+FtkvLpFLlhRjXHK8IzxoHZEuN7shKZsx9WuzrBQ=;
+        fh=lrGF/RNZKm7rpXuTe6/PgytRPUW+MejoirdRqYxRqDo=;
+        b=WzcuYQoAGC0U/BneDisakVYpeZ3WlsEj/GZYBvXYw5OKsg2fbEuFnnfE9akjm2fquL
+         i0WADbVO2lNTs9FhKlTreOEdUL1DDFNkICAblv987/xlHEA8/u0XcbxkAdt1fyeTCCXJ
+         d23YUlRUa4jY23LthYM0Gj+2StKnbu/1H9AgnRiLeC1OQMCDakNMpdbXfQQQtp7XcRs5
+         n5O3GQ4rDR878TpR+xZEJJTYHoquvnGJNF+V3cBz8UKozkMBcYbfV0+SHYlPy/LvGzAl
+         r1XD8NdoLJ+cea7ZwZa3SJnJXh3a3BFIKP8ewucKW76T1LiOGpV2QNJGBtzcLRCM4i1+
+         bskw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795180821; x=1795785621; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UG/+FtkvLpFLlhRjXHK8IzxoHZEuN7shKZsx9WuzrBQ=;
+        b=FQl+MLIHdxwh2JgRj8F2f20mWFiFTwsxLkhLfw2HnmqWXMNLW053JwuDeRIRSNOisJ
+         mQaJoHu4ojiilJTpBv17AB4JJsn9/4wDE+rhZoMsNVI2tayYp8cYevr9XtbJVJbLUV5M
+         bTY3PTNTRvJLoX9Cqf2MvjnIc3OFp8TnJ7wV64uFNCl6fdQ3rA0hiM01aO2OQQba7GlJ
+         RosslAOGIoJECwqw0BKLpQrz3hYjYagI4a9IO37GfHuBVJlihHHPWGevgGJrfumFGCUz
+         +39Ls3Xfqs+hwDrG7t/dA6PFRsqqnWURHfyt9OIecMFITiFoJtA37Y0NgWRC8PnidHz1
+         qEAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795180821; x=1795785621;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UG/+FtkvLpFLlhRjXHK8IzxoHZEuN7shKZsx9WuzrBQ=;
+        b=I69TLdPoCXEDO/MW272ATYV1/hV4DcGDLuSXwv9JWGo1th+ryPHSIGA4vsPgdYwyYu
+         U0LAOcclupNV8JMiNKOpBgrpqkXuvMQAWsHJHdIRL0iXTu+YOKma4QDm4cw0bE6HzEkd
+         IFjWXcI8w2JzWqeVyaNLAAqFAlv3rMUeE2D0qzcScn+i3I+lyLw4/PhjQDf3E7wfi3Ra
+         rMRt4slkSNSP/SEclxzWB5jsdh/ELmbjbF+l/jWk8EOsSRLmljaqhr9S9vqDGpxwsXoD
+         6CLJTvXIHZ/22AxIbLOTlx/7DAm4+mFz/xODhqqERGNtBa6N++06Ne8wphAPmrE6Jk8c
+         K9Ow==
+X-Forwarded-Encrypted: i=1; AL+hErGVqIRfKufG/VYLLYjsvxjKsHhUV3ICd7DZKO2rG9bCZGlMbJDB+/VrC3jMZT7ozYzhSUmnPbGqjPvQ@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lV2l6yFtLt14LWHECUomOZSdznYUvrpaW1EtsWUPBSX92FGfc
+	nissg9Th8ugHYvDMuDKhGkQMNyW9kQYwqTr5rsluBtPVpM+fYmd7Yq5UWIIx5dzODDru8XG9goZ
+	2EQA4JSUT/LMKfayTXKlpaSpZy67WeLY=
+X-Gm-Gg: AYBFou2ihLV+DWrTDa76NZJgCwcMoWx6Z8YI5xAvSklJMP/yT1htvY94U/VG3NXIb8j
+	+IxnRCJ96yDidRAKoByQHPD3fzLHsXgh9HJoDaZgCA9iJF/5lOtOWgKxZTecOcON4lDiG0xwkql
+	VUofC4DiCDvMftSqPwbAP09Rb9nd3Z5cJx3d+9zV+OcsHvJqB+LoDMh6yXFISeoIA9bUvOmUgZ+
+	Vmj4T9PeMh6ugXNRnYTA2tvx2/RL2H8cZzeCND8/mU04C8FueOvFpBiDBCX7IZYYdKFVYcXvOhN
+	pB3UdO2nIM+uBvZH5STAwrgQJfUCi8rV0qNb4g6JrfG8gHRWt/Y6Ts3lZfo7pVl6Rb/JN/pc57w
+	OO87HsiPDlaC6r+KiftzAznC5UZB3Eg4uuDyUamMDJS3/UPEsNoFMWJ7OvT5mltBJ5+nI51csOt
+	mlU3n7TeUThZBO4hu1GCYvHAqRGJ5aSvJexiA1ZiyEterHnLM2ZM4=
+X-Received: by 2002:a05:6a00:124c:b0:8b5:b676:4a90 with SMTP id
+ d2e1a72fcca58-8c8794b98a3mr3126684b3a.2.1795180820901; Fri, 20 Nov 2026
+ 05:20:20 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,106 +104,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261030125024.612396-1-lefteris.koutrakis@gmail.com> <20261030125024.612396-2-lefteris.koutrakis@gmail.com>
+In-Reply-To: <20261030125024.612396-2-lefteris.koutrakis@gmail.com>
+From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+Date: Fri, 20 Nov 2026 15:20:10 +0200
+X-Gm-Features: AclHuK92flz41PL9Sb5dfrDaVsUaZV45mmq0Zil7HOyndVUpO8HRVID_wLHjZ2U
+Message-ID: <CAEFrfdndWX8_xP6N9GzbU1L_ajrGFE+4P260zXOCKqBiN665OQ@mail.gmail.com>
+Subject: Re: [PATCH v9 2/2] powerpc: dts: fsl: Add support for WatchGuard
+ Firebox T30
+To: linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Cc: robh@kernel.org, krzk@kernel.org, conor+dt@kernel.org, mpe@ellerman.id.au, 
+	npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com, 
+	sshegde@linux.ibm.com, maddy@linux.ibm.com, sashiko-bot@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 20/11/2026 at 13:56:44 +01, "Michael Walle" <mwalle@kernel.org> wrote:
+Hi,
 
-> On Thu Nov 5, 2026 at 11:58 AM CET, Santhosh Kumar K wrote:
->> This series implements PHY tuning support for the Cadence QSPI controller
->> to enable reliable high-speed operations. Without PHY tuning, controllers
->> use conservative timing that limits performance. PHY tuning calibrates
->> RX/TX delay lines to find optimal data capture timing windows, enabling
->> operation up to the controller's maximum frequency.
->>
->> Background:
->> High-speed SPI memory controllers require precise timing calibration for
->> reliable operation. At higher frequencies, board-to-board variations make
->> fixed timing parameters inadequate. The Cadence QSPI controller includes
->> a PHY interface with programmable delay lines (0-127 taps) for RX and TX
->> paths, but these require runtime calibration to find the valid timing
->> window.
->>
->> Approach:
->> Add SDR/DDR PHY tuning algorithms for the Cadence controller:
->>
->> SDR Mode Tuning (1D search):
->>  - Searches for two consecutive valid RX delay windows
->>  - Selects the larger window and uses its midpoint for maximum margin
->>  - TX delay fixed at maximum (127) as it's less critical in SDR
->>
->> DDR Mode Tuning (2D search):
->>  - Finds RX boundaries (rxlow/rxhigh) using TX window sweeps
->>  - Finds TX boundaries (txlow/txhigh) at fixed RX positions
->>  - Defines valid region corners and detects gaps via binary search
->>  - Applies temperature compensation for optimal point selection
->>  - Handles single or dual passing regions with different strategies
->>
->> Patch description:
->> Infrastructure (1-5):
->>  - Patch 1:   Add spi-max-post-config-frequency-hz to describe maximum
->>               frequency achievable post controller configuration
->>  - Patch 2:   Add spi-phy-pattern-partition phandle for
->>               NOR flash PHY tuning pattern location
->>  - Patch 3:   Parse spi-max-post-config-frequency-hz in spi.c; adds
->>               spi_device.post_config_max_speed_hz (0 when not set
->>               keeping all existing DT fully compatible)
->>  - Patch 4:   Extend spi_mem_adjust_op_freq() with a bypass: if
->>               op->max_freq equals post_config_max_speed_hz, return
->>               immediately leaving op->max_freq unchanged. All other
->>               ops are capped to max_speed_hz. Also require per_op_freq
->>               controller capability for post-config ops in
->>               spi_mem_default_supports_op()
->>  - Patch 5:   Add execute_tuning callback to spi_controller_mem_ops and
->>               spi_mem_execute_tuning() wrapper in SPI-MEM core;
->>               serialises access via spi_mem_access_start/end and
->>               rejects GPIO chip selects
->>
->> Cadence QSPI Implementation (6-14):
->>  - Patch 6:   Move cqspi_readdata_capture() earlier (preparatory)
->>  - Patch 7:   Add DQS bit to cqspi_readdata_capture() (preparatory)
->>  - Patch 8:   Add complete PHY tuning support: DLL management, pattern
->>               verification (NOR via spi-phy-pattern-partition phandle,
->>               NAND via write-to-cache), SDR 1D and DDR 2D search
->>               algorithms with temperature compensation, AM654-specific
->>               execute_tuning entry point
->>  - Patch 9:   Reject 2-byte-address DDR operations via a new
->>               CQSPI_NO_PHY_TUNING_WITH_ODDR_2B_ADDR quirk flag to work
->>               around AM654 OSPI erratum i2383
->>  - Patch 10:  Refactor direct read path for PHY support (preparatory)
->>  - Patch 11:  Enable PHY for direct reads at the calibrated frequency
->>               when both transfer boundaries are 16-byte aligned,
->>               falling back to non-PHY DMA otherwise; also reprograms
->>               DLL on chip-select switch when two devices have
->>               different calibrated settings
->>  - Patch 12:  Enable PHY for indirect writes of at least
->>               CQSPI_PHY_MIN_INDIRECT_WRITE_LEN bytes
->>  - Patch 13:  Reprogram per-device CS timing on any chip-select switch
->>  - Patch 14:  Reprogram the PHY DLL (master config and RX/TX taps) on
->>               runtime resume, since the DLL loses its lock when the
->>               OSPI controller is power-gated
->>
->> MTD core (15-19):
->>  - Patch 15:  Extract spinand_select_op_variant() into a shared helper
->>               spinand_op_find_best_variant() with a skip_mask
->>  - Patch 16:  Negotiate optimal controller operating point before dirmap
->>               creation; iterate all read variants in performance order
->>               across ODTR and SSDR interfaces; re-pair cont_read_cache a=
-fter
->>               PHY tuning via protocol-shape matching
->>  - Patch 17:  Extract spi_nor_spimem_get_read_op() helper (preparatory)
->>  - Patch 18:  Execute controller optimization in spi_nor_probe() before
->>               creating dirmaps
->>  - Patch 19:  Reset max_read_op frequency for security register reads
->
-> So what is the merging strategy here? Getting the first parts in and
-> then getting the spinand and spi_nor in in the next cycle?
+Gentle ping on this patch. Patch 1/2 has been acked by Krzysztof.
+Is there anything else needed for 2/2?
 
-Agreed.
-
-> FWIW, the spi-nor parts looks good.
-
-Same for the SPI NAND bits.
-
-Miqu=C3=A8l
+Thanks,
+Lefteris
