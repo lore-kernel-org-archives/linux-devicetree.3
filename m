@@ -1,101 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795210108;
-	b=vHy+7coj6ixPnJJOcJ/jgkWIP/aC1Mz0Snazi8+gDbMAtOT0WBw+xQ81T3PQb+canuWO
-	 HJ6YZtCEx9bPJMUCOelow7t/HXOeaDiHV4rNNU9kioIzbSm7LkepgDy7QS+2xHqUH/CZm
-	 1GBspukGyTJs17E4EJJx/x7k0PBIcAWjN6MgEYvRoPGQM74n57VePQoTjeOaI/Zn86QnA
-	 ZRNTPtPpLfsioY4kaaVeqzEpfK8Hyfj9yxszZRUVX/7g3TJLdhNBKeeXiGxGx7uQCBo/a
-	 gq4Vhj6w3hnV3nTn7LnPXCmmtV0WgG4/4UKFbiWsZkHgTEY5md/Ekncidqqmn9HzDEQ==
+	t=1795210291;
+	b=ejlpe4JjmCptKHOqbsoc8nkD1SXda155pAP/+Wk6P3XKIJeIRwstIh+B0lOQmeG3yOLS
+	 Jh9uWOx3wtDbcnw7ZRcOKcYPI4hVXZTJU9SFZMm1AgKPAkI9Uqcj5ybUr16PaNMGMxYuZ
+	 hdR94MsG66CKTXH7akLAJ+trO8YK3gP80FEBnMqrgIYrGQDC/6tjFJbkGEaDN+QsJ8TqY
+	 loaTjnu+hyjtLxhkQpiLhuDyqcdbs21qLicuI+oS8F3m1oIVYtmwT6+tvkU0Yhyzr5vfq
+	 jyR3g+8DKYWFq5BtXVrPTWXY5xyHkQQXS5dkdJMPtLDBGWIyC8tBIqC558ILw1hc1ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795210108;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LXePsUP69J9BLo04WPbdbC0T2RsRqLHGKdkvwdCquvE=;
-	b=gU1kNNIUJc/hlTCBSFA2OsyWSK7VmKMPzRKETf4KX/katMBQaT+Jk1a8u8hV/0XTfIvY
-	 mDKRvvzb5MjI1iwjI8azDMSleVZ7sGuU78TK6P6XNcGwWJua7WfhThJsY8Sqo48tAeDm/
-	 YSaW6uk14oaeg7H+//kxzv2seHmOVct3iuPLrAdvo4c5y+x0UGKaKAxHQgrOr2zCIKM81
-	 ohLYv8amO60KZPmycgNgN7Nnmwq2OzO+O2o7vS0kNEdH2B0mr1b1be5e2IJznH70SxyRU
-	 GHxA/SI4iVAHDeecaqXG09ILmTiXLMxGaFjWYuUJ5AOnCkKIDmeUIP6p+j49uFvi6Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795210291;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=Hre9/kYvnxV6FE+cSP1phJsMVFoDyXzQDpFxO2GUIh4=;
+	b=Z3zHXFFT3XTIEqp3LRaabBfBp2H30mCXcJh4C5UnoAU5Q1IIR/9/RSyT2ISFOZ53fmnC
+	 8QHjT6CV6Y0LO//yMVxXTieZIHVsmPzCZcP7TQ1tW9lfJDqrpwgaGRvd2HDtn4bhhnPpc
+	 M2wY1LDYL5TuYh0vPQizTaC45sacAvucJ231R82e8g0dN/mNkX9qLbNkTmGEC0ijAi2Xj
+	 yoHzv3yWn1C9jIKxC8ownSMqzXpyxJ+7NBghjfIwQ93mBof55ESixMaz/UnILNWrj4OJ/
+	 8q5lOm8sxG/F7BCkAmxHysQ8aR0gLtQd767Z8kyNU6NdLmY7Y/u5AIkWm9TEVLDRH8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="SCnC5M/q";
-	arc=none smtp.remote-ip=209.85.160.52
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y7+pEitH;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B39606A6A8
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 21:28:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4B39606A6A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE82606A69B;
+	Fri, 20 Nov 2026 21:31:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FE82606A69B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SCnC5M/q
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4a76f63b243so2011956fac.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 13:28:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795210102; x=1795814902; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LXePsUP69J9BLo04WPbdbC0T2RsRqLHGKdkvwdCquvE=;
-        b=SCnC5M/qXfGSwGlKHnAFp/USEX4r2rxKw9pO9HZA0e4JG6ASuVP/47BZ4tZNXgydL+
-         fs5LHuWg7QaHHoHr29o7uypV7g5KIpLpDLoPo2wNyQsIo/KYNj2l1SKvcJU7CJs016Dy
-         n7VvAsaCTCiLGUP/FSrE4aogb25Mc4mP9ucgt6ZGi9kve9611vOZ2UCf9oWvO1ofbL3B
-         nCyUSa/dCrKPm6aJtna2kU0WuWiSVJw2LFnmSv6z4jZzo/dOYadt1wMFxjdAQb4N9WLH
-         l9j51wP7ahoANpuslO8qaTeKpF6in4E27hpsBLt4bx91Xp5piFCKl84QecIj/0FwSlP2
-         r2WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795210102; x=1795814902;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LXePsUP69J9BLo04WPbdbC0T2RsRqLHGKdkvwdCquvE=;
-        b=T3ckmhOynVq+2DUHsKNxEAvc+o64ErR0IeGLlKeUrO6jNpyb7z0QtPQfT0V2XFwA/y
-         a2fu9t88rDkUBd8f5IgLFPjBCcyUbVrX+AZEczSekXTFE910nuYxo8IkaYA8/K09NSM0
-         idkmn6pCGUBe8IqGnOsr6UIu8pkamG+G9hH7UsJejE8w4jujcaTRdXADM9dnaEvQa7F7
-         BIBiX4+FF85VwHquwngjUKiuxo9UGn48IBzhm8ga0rJ3ybcaxQeXKCcKlouokhR2LU2+
-         LVraO2A4sikAHiUHtfJrQA4io2cq+/NUKvkg8ZOXtqJjDjydqk4gjg1y3IK9kBT4JGVS
-         MEbQ==
-X-Gm-Message-State: APuU4Z/uVsO2+glH2QB9lPjUYuH8RDkER6ka+1fKg5eRTU9VbkRKYIAj
-	3BE53aiwJXfgxRnmgkrizPuutvp1/qjFMsWRw51Mvrfd/zBHEt6p+XEP
-X-Gm-Gg: AZFdTZfiuUEYHmVucM1K+o+OIo6ugE/tvYtM16/ioqtNXxUnmo+1e9kva/LZ1zgwSPk
-	VTv05gwYqgntLWGT3TGW0WXautxUZtMlhmtQQt4/mgkZPj+qrcT4B1BzTecI9386AoNMqgNa1KS
-	bvG1iPrrgKPnHIBUs0RIJ9dL0sfvSz561two8v0B04G7TrNYU5EwApLRJcWBCZe7o0WhVo4YbW/
-	R2sxqbA04bmoczTvtDu4NkLee9VsS28i5Px/IuFZpsVLLqQdPjANgKvB/Zuvwd8BJ1PrctaV1mu
-	fEB6T5aFU99Qnad7bYvxGP0C7GbSAqKfUOlZSj0JI6Q9isZK/jlM/BEofx/C00HgPy3PFRhUsez
-	x506BPVGlCiFMNOcJKOvPVQwNso6dXOXlKz7AMRcxZbj27wbPVsi3VpSlVoiTQBUQptcpFSW8c+
-	0tMGWWvjX+sO8x0CkiCMJEN+rtPq/2nZg1lM04qIMb82Z6YfnykIx6TKes5nxxximaat+Ft8vWa
-	yPlagiWDFYq2dgE0NhHR7YvLKVkcymgkaSRvCIaCvD6DmnhhuLlFcDbt0fCwVjVwqb40QemVjoS
-	ZO3/6YriTcVG/z6eYrovLBYv5swWlQ==
-X-Received: by 2002:a05:6870:9d90:b0:4a8:15a:b062 with SMTP id 586e51a60fabf-4bc84f170d6mr2947268fac.25.1795210102525;
-        Fri, 20 Nov 2026 13:28:22 -0800 (PST)
-Received: from neuromancer ([75.28.21.198])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bc5b07d766sm3774126fac.2.2026.11.20.13.28.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 13:28:21 -0800 (PST)
-From: Chris Morgan <macroalpha82@gmail.com>
-To: linux-rockchip@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	shawn.lin@rock-chips.com,
-	linux-pm@vger.kernel.org,
-	heiko@sntech.de,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	sre@kernel.org,
-	t.schramm@manjaro.org,
-	xsf@rock-chips.com,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V2 1/3] dt-bindings: power: cw2015: add cw2215, cw2217, and cw2218
-Date: Fri, 20 Nov 2026 15:28:13 -0600
-Message-ID: <20261120212815.35663-2-macroalpha82@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261120212815.35663-1-macroalpha82@gmail.com>
-References: <20261120212815.35663-1-macroalpha82@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y7+pEitH
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6FA714E6;
+	Fri, 20 Nov 2026 22:28:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795210127;
+	bh=M7Qcq8V3Jr2gLoOzs+ayK8dikX5kJkrE/bo1yp+s4tA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Y7+pEitHa7rz0OLH9JT3Q9uw0F6+sdkuHT9Va5Ttw9M7zug6ogtix7wCXpSlsVxCG
+	 NHanSRRXOK5a+B19zRjoYv+jA1z9LQvpvNAX6SSyN9Yzpd/EtJGvqYv9+kyTipz/Ck
+	 xjilVepncVyQs3BTnJRFx+9YYuNn0i87hLlfnmmw=
+Date: Fri, 20 Nov 2026 23:31:16 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Cong Nguyen <congnt264@gmail.com>,
+	Faisal Mukhtar <mukhtarfaisal03@gmail.com>,
+	Dan Carpenter <error27@gmail.com>,
+	Hungyu Lin <dennylin0707@gmail.com>,
+	Hao-Qun Huang <alvinhuang0603@gmail.com>,
+	Yury Norov <ynorov@nvidia.com>,
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
+Subject: Re: [PATCH v1 01/10] staging: media: tegra-video: Move driver to
+ media/platform/nvidia
+Message-ID: <20261120213116.GB2472094@killaraus.ideasonboard.com>
+References: <20261113161819.36847-1-clamor95@gmail.com>
+ <20261113161819.36847-2-clamor95@gmail.com>
+ <20261120143147.GA2466366@killaraus.ideasonboard.com>
+ <CAPVz0n3u3oe1+H_w9jE2afb9PQT0VLtYVqfHeVNc3D+tLN6NDQ@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,100 +84,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n3u3oe1+H_w9jE2afb9PQT0VLtYVqfHeVNc3D+tLN6NDQ@mail.gmail.com>
 
-From: Chris Morgan <macromorgan@hotmail.com>
+On Fri, Nov 20, 2026 at 05:31:17PM +0200, Svyatoslav Ryhel wrote:
+> пт, 20 лист. 2026 р. о 16:31 Laurent Pinchart пише:
+> > On Fri, Nov 13, 2026 at 06:18:10PM +0200, Svyatoslav Ryhel wrote:
+> > > The Tegra Video Input drivers are mature and developed enough to be moved
+> > > from staging into the media subsystem. No other changes are introduced.
+> >
+> > The driver should at least be converted to be MC-centric before being
+> > moved out of staging. I haven't checked if other changes would also be
+> > needed.
+> 
+> Does the media subsystem deny video-centric devices from even being
+> moved into it? I have not seen this restriction imposed; could you
+> please point me to where this is stated in the media subsystem
+> documentation?
 
-Add bindings for the Cellwise cw2215/cw2217/cw2218 i2C interface
-battery gauge. It is similar in function to the existing cw2015 but
-with a different register layout. Each of the cw2215, cw2217 and cw2218
-only really differ in the minor specs and the hardware ID they display
-when queried. shunt-resistor-micro-ohms is a property in use for
-multiple devices so not appending a vendor prefix to it.
+There's a consensus that devices that require control of camera sensors
+(i.e. "MIPI" cameras) must be MC-centric. That's not documented, we
+should probably fix that.
 
-Move the minItems and maxItems for the battery profile to a conditional
-based on the compatible string, as the new monitors require 80 bytes of
-firmware instead of 64 bytes.
+> I would like to convert this device, but that may take quite some time
+> and may case regressions if not done carefully. This patchset apart
+> from moving to media is mostly fixes to work correctly with mt9m114
+> and tegra114 bring-up which is quite simple and straight forward
+> change.
 
-Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
----
- .../bindings/power/supply/cw2015_battery.yaml | 41 ++++++++++++++++---
- 1 file changed, 35 insertions(+), 6 deletions(-)
+Converting to the MC API will require some changes in userspace. That's
+why it's important to make this change before destaging the driver.
 
-diff --git a/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml b/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml
-index f7bde324153d..dce7c51e4e62 100644
---- a/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml
-+++ b/Documentation/devicetree/bindings/power/supply/cw2015_battery.yaml
-@@ -14,12 +14,13 @@ description: |
-   phandle in monitored-battery. If specified the driver uses the
-   charge-full-design-microamp-hours property of the battery.
- 
--allOf:
--  - $ref: power-supply.yaml#
--
- properties:
-   compatible:
--    const: cellwise,cw2015
-+    enum:
-+      - cellwise,cw2015
-+      - cellwise,cw2215
-+      - cellwise,cw2217
-+      - cellwise,cw2218
- 
-   reg:
-     maxItems: 1
-@@ -31,8 +32,6 @@ properties:
-       it is to mail two batteries to a test facility of CellWise and receive
-       back a test report with the binary blob.
-     $ref: /schemas/types.yaml#/definitions/uint8-array
--    minItems: 64
--    maxItems: 64
- 
-   cellwise,monitor-interval-ms:
-     description:
-@@ -43,12 +42,42 @@ properties:
-     minItems: 1
-     maxItems: 8 # Should be enough
- 
-+  shunt-resistor-micro-ohms:
-+    description:
-+      The value, in micro-ohms, of the shunt resistor used for sampling
-+      the battery current.
-+    minimum: 1000
-+    maximum: 50000
-+    default: 1500
-+
-   monitored-battery: true
- 
- required:
-   - compatible
-   - reg
- 
-+allOf:
-+  - $ref: power-supply.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - cellwise,cw2015
-+    then:
-+      properties:
-+        shunt-resistor-micro-ohms: false
-+
-+        cellwise,battery-profile:
-+          minItems: 64
-+          maxItems: 64
-+
-+    else:
-+      properties:
-+        cellwise,battery-profile:
-+          minItems: 80
-+          maxItems: 80
-+
- additionalProperties: false
- 
- examples:
+> BTW, may you ack mt9m114 get_fwnode_pad change[1]. I have updated it
+> to your liking, Sakari seems to ignore it.
+> 
+> [1] - https://lore.kernel.org/lkml/20261006153619.304520-1-clamor95@gmail.com/
+
+In the review of v1, I wrote in my last message
+(https://lore.kernel.org/linux-media/20260721103845.GJ50424@killaraus.ideasonboard.com/)
+that the issue seems to come from a bug in the VI driver. Let's continue
+the discussion there.
+
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/media/platform/nvidia/Kconfig                           | 2 ++
+> > >  drivers/media/platform/nvidia/Makefile                          | 1 +
+> > >  .../media => media/platform/nvidia}/tegra-video/Kconfig         | 0
+> > >  .../media => media/platform/nvidia}/tegra-video/Makefile        | 0
+> > >  .../{staging/media => media/platform/nvidia}/tegra-video/TODO   | 0
+> > >  .../{staging/media => media/platform/nvidia}/tegra-video/csi.c  | 0
+> > >  .../{staging/media => media/platform/nvidia}/tegra-video/csi.h  | 0
+> > >  .../media => media/platform/nvidia}/tegra-video/tegra20.c       | 0
+> > >  .../media => media/platform/nvidia}/tegra-video/tegra210.c      | 0
+> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vi.c   | 0
+> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vi.h   | 0
+> > >  .../media => media/platform/nvidia}/tegra-video/video.c         | 0
+> > >  .../media => media/platform/nvidia}/tegra-video/video.h         | 0
+> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vip.c  | 0
+> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vip.h  | 0
+> > >  drivers/staging/media/Kconfig                                   | 2 --
+> > >  drivers/staging/media/Makefile                                  | 1 -
+> > >  17 files changed, 3 insertions(+), 3 deletions(-)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/Kconfig (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/Makefile (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/TODO (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/csi.c (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/csi.h (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/tegra20.c (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/tegra210.c (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vi.c (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vi.h (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/video.c (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/video.h (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vip.c (100%)
+> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vip.h (100%)
+> >
+> > --
+> > Regards,
+> >
+> > Laurent Pinchart
+
 -- 
-2.53.0
+Regards,
 
+Laurent Pinchart
