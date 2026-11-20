@@ -1,62 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795187713;
-	b=N2nGkwQ+y2n4SFaY3JT5Gf8hTnqoTLp/hz2R8yYmKzXYweVrD2h8p9bptp7qbT4pGYyi
-	 hGHahRmwn9nUHjJ+A1OEdyEN62d1Vcy4HkzXFfY9RjRj76iZ9SdI2n1SNu/FrIcT76hQQ
-	 zQgqKWLSLb26Q2WFVXlyMGgHG1mUxsDomDO7CZOcvIqskiPMzAwLIH72jKMg3W+Tebx90
-	 QAau31Q6DXVqEbirN6lGxYsn8cwaG92ef1EYVWVCN/62urfTErtXBQ6k9PcYds9ikXMwp
-	 AWbB/nUwVecyvLTvrQqPMtoEPvYfCZp0Y7ZwbblC0dCYw5FjRFmaOda9ojlC5+3tHEA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795187713;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ctb1Jv59qIphIUTiA76EUOJsYvs5jg8Gp4OuvrA3/o8=;
-	b=GeDm4G+5Pz5PWwoL7MFfpHLsHv3+03qvLCL2fTkeKVIpLO4Igb0YzsxClwSzHhdb7Xx4
-	 csqvzxwo2I7llKSKnh7cSXXp7kjUS0WSQCuJc6YKaGy1JpO3Qbqk44fL8JElyFkFJYHTb
-	 OKPv8naN/RdIVgNYjWtYSi+aWyrRWOKk7JMJ1SXUDhBqqebFHltFdVyoz5u2S2XBp5MoB
-	 vIQty1Gu28dV6ZM+Bv3F9s6efIIOB1gf2r4GuAxFdbtfqF8zuKBhnLigBTHrI4Y0hVFSf
-	 i0oGDWSNZMUu4rfXRxgWTlqO7wipW/ZbGbiBuZtxhA5UTYClods2aQhOXUz3vokYnVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TiQD9vMR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795188037;
+	b=2nNGguVaNLvfqTqM/Jmkx3egymXqpbu7mynIfQR3QqoT6vuHScruGUEwOm8oPj7AX2R3
+	 M1ZUfGI+7brUD1BCmFMQW/5Lbyg7SCcymJKAxSYFc3fiye6ZrvPh3esayOST8Qefxmy3e
+	 5MMWGDbNUsg+Y/D9iR4xL3ReQwYMENWgOBdhdMUrR0G8ARAjKmKgg5ghL+BxDrPOr7a/R
+	 j8rZh5VrmU3mEg3Sqb0LVTRmFqQBy3Pr3iadux9CZ5GE1NskoHUDcz7OfaWOXEEFxNa6w
+	 9nsOFtIypKYhmxRfJbAzXXcWWeIgW28IqkU8e8+VuxFVhtpFwRQHIXVp70IummX0TeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795188037;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=XAPGvEQrLB1HXvB/eqEUppDavW95bHQ7K6tJw/flOAo=;
+	b=wJoe7WoUe6+/dD28SjxdywCNTMuE7a6HubFKJ0v6f+Lse8HAX2n3WHOvH6TzxJLszqu+
+	 uvfQfRWfhVdqJ8yUq0dljlgfIMiD0uuNUkKL+ftA8X1I9aakcU55nRbhKOx7QOqYCm2dl
+	 Zc9yM/iTPOF2/4CWEHgrRtxCDFaZ9ZxFs/R2I6p7EA0AVKg2I9W8OOtnAtmnoGJjtOTXb
+	 3xqac8iuYn8W7tAhbORMei0GN+pHmA1hhOVV5BEUNB94ZGhkKhca2tYIy0enSZqf1TEpq
+	 D9e1BOYP8kJtHHkFeeK79QNAMwSQ2993NuFDj8Lc92oseBvGKCCikpGm2Sbjsbu2Wlw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=KrCLE9f0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261BA606A320;
-	Fri, 20 Nov 2026 15:15:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAEE1606A32C
+	for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 15:20:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAEE1606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TiQD9vMR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E891F000D2;
-	Fri, 20 Nov 2026 15:15:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795187712;
-	bh=ctb1Jv59qIphIUTiA76EUOJsYvs5jg8Gp4OuvrA3/o8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=TiQD9vMReX7MxulOHgIp4t1lAlYcg8Q6bEZe2CoRbS8R/9mIteUeSkYgPKmeIEDQu
-	 rmmr0JvsyJFDo4K8WhriZ2eAgcX2x+2HbWes+mTXJ7ECFc4KZKBSyb4TZ5aYXQfSso
-	 +2A7M7kU14nBIGXo/z5RWUlO1G7u3u5DNR+QTWGQn+zuIYWA1ioG7ps1S0Lyi0Spqj
-	 VMG6VEc9iyxEzN/WEdLtb15EIXEpYgQno86Ng57cKsxBCmBEhxNjNQZbpgxALBFmdm
-	 aYmFI2Y80W+Y3y2zo2G2fYmqwX47DW9+Px0tEnhudym+rZa5egtVn5MQrtmIl0anKv
-	 4iVPicHcNNm+g==
-From: Mark Brown <broonie@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, 
- Demeter Barna <me@fromdisposition.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org
-In-Reply-To: <20261104-b4-sm8350-sound-v1-0-4c872df294fa@fromdisposition.org>
-References: <20261104-b4-sm8350-sound-v1-0-4c872df294fa@fromdisposition.org>
-Subject: Re: (subset) [PATCH 0/7] arm64: dts: qcom: sm8350: Add SoundWire
- and LPASS
-Message-Id: <179518673827.6016.6677815995841367128.b4-ty@b4>
-Date: Fri, 20 Nov 2026 14:58:58 +0000
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=KrCLE9f0
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b8c60e0d39so1275736a12.2
+        for <Devicetree@vger.kernel.org>; Fri, 20 Nov 2026 07:20:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795188035; cv=none;
+        d=google.com; s=arc-20260327;
+        b=merKlwSToOcgOTnyySi6vgS3oQzw34rUF4jUAN6mlqIN8ZFFBZcGsDs7qyeD29YcHH
+         dof1+PmDCzH7R3V0atNMK0Fg6pQxMsu1x9klxRHAEzk4v5rkdhiu8505Ig6gH9NyOJTh
+         jTIVpUcEggmSCE1Qqha36+HRU31HCc1HCbZthxcxPGRQkCgDAVzZbIkYXfh5x1An8SMt
+         h63Z3rnXlTuJHSGJtwxhHF5thNwdnu0q+5ZWm2QHcvl8vJhAhQ7GMMY5WrtIcSDwj72/
+         nA9/+LEylAlL9PAJtGBBasTUfzNkmSV2DDG/xnAKhbc+ycfg6Lj3R1BqigC/jsssayAL
+         4psg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=XAPGvEQrLB1HXvB/eqEUppDavW95bHQ7K6tJw/flOAo=;
+        fh=uKvcaiAhXxP4Y3qbqVd2GdWt3Lfd7XeK8JGzN68csew=;
+        b=DNFstJus0k5ZGwQiypaUSUiPqNwMohFVZAx434KJul/DgWNvNT+6ju2X973HgZIenn
+         8ZyFhVPZ2dFneaZrSMGF0HETQYuT+7yxAffuKWo1XdI37OqhET3yXkQy9MuENHomLZLq
+         Lxqf2XzkBNowK+WCT+UcxY3BpPR+nMVPOFvMCFsGlt41LwaepbBOxCxnMgQQOPfN5eo1
+         FsBnpcgAGAhkfVVpTEusxmwHiOeyMVAA/lSr1ecVkYiUamlyr1rw7ttzxYLq7TZxypD0
+         RlpOxtWcAJgNJRdo8dzTUHJyxjAsKEgXf0J6+IzGnmVqietY6PZ/o47sx3cisjwrJp+A
+         HzLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795188035; x=1795792835; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XAPGvEQrLB1HXvB/eqEUppDavW95bHQ7K6tJw/flOAo=;
+        b=KrCLE9f0l5kQICrTLb1eNF7JtQCvVuF5pqZmRGYh90Wdtxtc2EQ/byEDmslVTkS6G+
+         Y//VKMfmofLsmNk/ui+8AMa7DPRNVJn7RU1PKbE37nSs9wL/SASUgwkuODsBC0fu0Dc7
+         spKgJLyXh2jcWB4ScKLkSdjpaI9+qpIG0aZnw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795188035; x=1795792835;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XAPGvEQrLB1HXvB/eqEUppDavW95bHQ7K6tJw/flOAo=;
+        b=reFuGgUtmpI+WVg09IuLDDhO82IJK6hiwtTnZmdWkXawMEjZbwZoZZhRbhvss42Hhr
+         pVFoy7vZVIKr3fF0QIJW5Q1kBIW+IdlDGlJ+zo8Aco5IRmKgdJZTR63hSTcjw6GPxsIV
+         GCvpugEhZ0spHcFRr9LZNvpVLK0dyeVXseGtIVgTZZCtii6/IWhnnzPbpxOjHl4viozR
+         gJfHq4L+Rsam84QhCu5wlBurUmj6aZvijBS2QRvPOSdwsyT6j+dcpz01+i1nAXgG3IGe
+         b5UntV0VBd1A6cTcku+dMxaxdqEH4GmlMj2KQVBtNzrA4pG/xDpLf74Opf2ZYylgZID+
+         C9Ww==
+X-Forwarded-Encrypted: i=1; AL+hErGej8IpL28GOqicrW2o1ZYsMu8kZr9pH+GZpIe2p3hKmtQwGmCOeF/No7gnql557yPL3jHmcLjFU5cD@vger.kernel.org
+X-Gm-Message-State: APuU4Z8emqwOXkbXr7JVghV1mFmTgh/VZqXe5cG4CInODVz9VBZtnbUV
+	37ZrG4pSgL93+VmPDTUjKnG0gOzJKGrFUfo92b9pD1SWZj/zGV7yNeAZM34G/yD5bqOqs/Nj/Jj
+	x88hlYKl1bWKuVLn1+DYsDhjSS1paHE/7sqo8EdJI
+X-Gm-Gg: AZFdTZf/oPGHBH2uSYi0kjbNThDw1vj25Gqsdk8bTvAcNpvjXhIPKsm4ABeZv0gNRv6
+	ykpus0Fmy7bOSJE4gJpRe16zd1Rj+wBh7DXaGyg3gD+KVyIDiz54GDgad8JU5Vwflbh6eSLBnqk
+	ABF5BA91hpPSCV/OJmHERTxT2xyEhaArbOgwuOttk3UAoHgyf/17GYVmRjOKZ8chC6wuHW8R/9F
+	zoPTJJUeX5TE8fnd4kEl/iX2ROc6C32iNASLZv+jAWaDBYTMkM2cQcFmPcBwS2G42LMm3SKySU8
+	vuuaZkAnVVdsToorDIWlBhTbX6WMlBUmPJL2i8AYGuAP2LV1BzG/UZqQF4J7K0tLH0u4k5Wvts5
+	VlAF4dqX2r5RPM/2JpFSl+mdoAjaAvrCJtDaFmbbgQjv01aJr1pQCUfsO
+X-Received: by 2002:aa7:c249:0:b0:6b7:d0c7:4aad with SMTP id
+ 4fb4d7f45d1cf-6ba37c75ef9mr2328640a12.6.1795188034912; Fri, 20 Nov 2026
+ 07:20:34 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,59 +100,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1803; i=broonie@kernel.org;
- h=from:subject:message-id; bh=YgJBtkWW8iWQG2laY8hnj1dOGRj0c+aLITIppNNt1Gk=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIZkv+wHWdj3HBx+6w8lwubg9ZsPNvQ1SHz2O3ESb/VM
- hd5zv1501HKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJTJ3K8L/6OhP3l9CT6zqP
- HbdefX+V5gXRBfPeu5fxpT88uYzbsHQuI8OXFqfDx16+sXByvVOVxtpnw7Lyqzen7j8f3qodaxs
- n/OMHAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+References: <20261116205320.1621386-1-dianders@chromium.org> <20261116205320.1621386-8-dianders@chromium.org>
+In-Reply-To: <20261116205320.1621386-8-dianders@chromium.org>
+From: Simon Glass <sjg@chromium.org>
+Date: Fri, 20 Nov 2026 08:20:23 -0700
+X-Gm-Features: Aa3M54psUBrQPUKXYteeAD9WgtZ-YuEDe8s7JLMYNK5VihZIqFHf2DJoFUBm_As
+Message-ID: <CAFLszThHKUSDbiDqbmhSd7SDpMOvpeGcU_NdizYb1azYhejrow@mail.gmail.com>
+Subject: Re: [PATCH v4 07/14] libpydt: Add DeviceTree live tree representation
+To: dianders@chromium.org
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Devicetree@vger.kernel.org, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Chen-Yu Tsai <wenst@chromium.org>, 
+	Saravana Kannan <saravanak@kernel.org>, David Gibson <david@gibson.dropbear.id.au>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Simon Glass <sjg@chromium.org>, linux-kernel@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Julius Werner <jwerner@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 04 Nov 2026 18:07:08 +0000, Demeter Barna wrote:
-> arm64: dts: qcom: sm8350: Add SoundWire and LPASS
-> 
-> SM8350 has the ADSP audio services in its dtsi but none of the LPASS
-> codec macros or SoundWire controllers, so boards can't describe their
-> codecs and DMICs yet. This series adds the RX, TX and VA macros with
-> their SoundWire controllers, and the SM8350 sound card compatible.
-> 
-> [...]
+On 2026-11-16T20:52:57, Douglas Anderson <dianders@chromium.org> wrote:
+> libpydt: Add DeviceTree live tree representation
+>
+> `pylibfdt`'s `Fdt` and `FdtRo` classes operate directly on flattened
+> device tree blobs, where inserting or deleting nodes and properties
+> shifts subsequent node offsets. That works well for in-place queries and
+> localized edits, but makes multi-tree comparison, structural diffing,
+> and bottom-up tree construction (as needed by the upcoming `fdtfactor`
+> tool) awkward and error-prone.
+>
+> Add `pylibfdt/libpydt.py` providing `DeviceTree`, an in-memory live tree
+> representation where each node holds `props` (a dict mapping property
+> name to `libfdt.Property`) and `children` (a dict mapping child node
+> name to child `DeviceTree`), along with `unflatten()` and `flatten()` to
+> convert between `FdtRo`/`Fdt` blobs and live trees, and helpers for path
+> lookup, node creation, and pre-order traversal.
+>
+> Add unit tests in `tests/libpydt_tests.py` covering `DeviceTree`
+> round-tripping, subtree unflattening, duplicate-name and corrupt-tree
+> rejection, and navigation helpers.
+>
+> Assisted-by: Gemini:gemini-pro-prerelease
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+>
+>  pylibfdt/libpydt.py    | 184 +++++++++++++++++++++++++++++++++++++++++++++++++
+>  pylibfdt/meson.build   |   2 +
+>  tests/libpydt_tests.py | 106 ++++++++++++++++++++++++++++
+>  tests/meson.build      |   2 +-
+>  tests/run_tests.sh     |  13 ++--
+>  5 files changed, 302 insertions(+), 5 deletions(-)
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
-
-Thanks!
-
-[3/7] ASoC: dt-bindings: qcom,lpass-rx-macro: Add SM8350 LPASS RX
-      https://git.kernel.org/broonie/sound/c/bc7f78224043
-[4/7] ASoC: dt-bindings: qcom,lpass-tx-macro: Add SM8350 LPASS TX
-      https://git.kernel.org/broonie/sound/c/f1184077e11d
-[5/7] ASoC: dt-bindings: qcom,lpass-va-macro: Add SM8350 LPASS VA
-      https://git.kernel.org/broonie/sound/c/991a76f7064a
-[7/7] ASoC: dt-bindings: qcom,sm8250: Add SM8350 sound card
-      https://git.kernel.org/broonie/sound/c/a5b5d062b40c
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Reviewed-by: Simon Glass <sjg@chromium.org>
