@@ -1,113 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795170981;
-	b=ZB1T+9NcZQas/7b4SsIoYGBGkVWMDKZ4xTeKwinntxV3v47quKB/v6PqhVSRa+lzFFA/
-	 EC2hn1pHordlg/r8WmepVHjWiGgcbpDs9f9om8JPsyqXrKJ3yr9Ib18h66QwJD9Oj0DzH
-	 Q1XNTE6bvd/2x2q++AOTxceX5u/MZZ9u/hkeOFzjwjnDraWUJMAixQFsve0BRUYtimIEL
-	 dKv3Q1n2C8l7VvCy1X7WncouZMW+/KLb6mATscd5sE8HenCllpW1OBwaBEo/GJjZzGJwI
-	 hTMKPTJXcep96dp2rmaxrnflF8uxLAhxvnLEJh84EAe+51q7SbaeSZCF5Pq3al3131A==
+	t=1795171075;
+	b=D8TsH0/1Cfcj19H7VeVARdE45fWgd3gqNtzVeZekhOfA2jLMcH2lVEqs9JSGBampyC7f
+	 irlqUiDBbNkGKp7lR5Ev5WPRNreIRvHKVHK7RSlxg4YLLqWGLjZ1INe41/qW8ftNHOTHn
+	 SFsSQqjeCmjtMKW+hCTZNyI3kZiFw4W8Bup7iLHs5HVvOLiY5W5HJDojDFjNDgacvQOop
+	 cQVTzhbkgo1tcZv+8qZbvUb/C8Ig3jkBaQ5tYZp6kdpHPwyraxduQqTwSWLfbTKL5VGIr
+	 2+IUF6j3NRsZyJHlnf9uMuDjgt4c9830KSxw79l/+DfdW0Jj2reE1qFn5/Sx0ElhzWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795170981;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=OuX5zcj4UPNO1ikmBe+QANwAm+PZ5dEA+zleB4MI4Kk=;
-	b=NRE6KDUOl7Wd74F8/CEqDTzIvFmtWmzS2Zc98GVnuiWbJEh2L7In5PHDIYyszmcBTRAr
-	 pvcN1bR6Le+/DnuxzezTyQMHiqD0BdjtHLjPJWqyxT3ero4Ccr9cKCzS6653b6VUmJeOS
-	 UaOis4fzUnfeAZ8MtUpKEANnTEZYPqt6YORSORzMxuK7zapekxwN8rcl4qSijucgbEYII
-	 JO50wqoHX/h42l7O0OO8jnYXieLqadGz55VOPc6bVWRwZa2Uj6c5yEcATQxsIFWAke58A
-	 sOJPgGS4RikblF18AvPGgZ0L0uv2ZEtB6jMBHy3EQ0EehOmNFJEzhX7kDQVJsflnCWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795171075;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
+	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
+	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
+	 X-Report-Abuse:X-Report-Abuse-To:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Le0RPn46jHF9e4i2vrYXLIAxlLMBBuxuXIJhsmU5VKw=;
+	b=RbZ71V18cTnWEYaQPfN+tidyK/Ef6tzWEORwjjeKGjtYX8RijO3JsubhpYQ9ml5pSKuj
+	 X8vYMnLDcziw9mVaDiHMCOsqUYqeYDatKlYEzkvEvPHuDAHhDVjvraCUpMpL3loke+w8g
+	 MANVuiNBj4ViepiclPdIcMe3riSpXH0t6O81OUKqI4+j3xIMVtlzLJPCuhOJRaKbxupnN
+	 5E4ddU0knV9Idne42mO+oiUDOB4cdIzRolgRGNRVUjXWTnin1oQSdsgVn3gF/wHVjSVoh
+	 a7RjeSkVI4Q62jZR2PsmdGEne2u1mgCXBF+r+ttSb5DNqfVbs/13jZB59BNoGZFqcCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nZLj8MnR;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SsiBcQEz;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=kwiboo.se;
+	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
+	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=bgSIX3Da;
+	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b="BVQ6XR/k";
+	arc=none smtp.remote-ip=121.127.44.73
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814BF606A326
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:36:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 814BF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616D3606A325
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:37:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 616D3606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nZLj8MnR;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SsiBcQEz
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AK7eqOj144432
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:36:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OuX5zcj4UPNO1ikmBe+QANwAm+PZ5dEA+zleB4MI4Kk=; b=nZLj8MnRYh9hs9Z1
-	DVr+pW8mc1HN1+h7E6DSbGUCPtnqf+95k2vaosJBKr2xH4jr4SDOQWstZSELjR6X
-	P4rwFyLFWy5kwqItqEIlPo4TTXkOvO6XUxiO3jL/VH4MDt+q5Tr/gnxupui2HpZx
-	Mv8GBg4sJMEtLta0MYBaoVC5oohiqcsLBvmZYaH8RObu0B0N4juu95ENTLtBbdfE
-	ezsy4ocxbNHj53s/TIY1tr1QiX9M5DEPqpG0lXSWEs31qJ/AJolmBjZwP8woOdNP
-	k3wnL36p5yzY/9nO0cJit0VVgWf9P/Paq8tSeDaa22a6FZEWjdhF9Wa1VV+jLP+m
-	lZDmmA==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j2fsbhagn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:36:20 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-154e9d2d94fso1745502c88.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 02:36:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795170980; x=1795775780; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OuX5zcj4UPNO1ikmBe+QANwAm+PZ5dEA+zleB4MI4Kk=;
-        b=SsiBcQEzZgmz24mziTZyIGXX6EWn4IZTFcPU4GCOOmpuLT9k+yynlyCSW1jLYJXhhN
-         m2gLYJP6qRzKE7XSvv7bxruCkVSCsWeTvM1XRDt07ScdEVw6Y/+VvCtUCEBUUKMGceZO
-         zgg5GIMBOhWTC8qsIETzeWcOHLwJVSZ3n3pEJC21ajATptJ0tZgBEPPRICjMt7gYgOjg
-         MWWlQM98Yp5p/DYvbyYaEljCvybLZpry01z261shpXWbzE4t+AYaRjXXeGHWCje3ZgjK
-         TAWUFhnrGR/ZpEZLeRnzAACDXOE8b9aTpSu2LbIRTwmXCqPJW9ikXhOZs/zy2Ouf6Tcq
-         X1JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795170980; x=1795775780;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OuX5zcj4UPNO1ikmBe+QANwAm+PZ5dEA+zleB4MI4Kk=;
-        b=MTkOnaQGGtDpU/RDXd/6AUDDI3ul5zLYOH2SDlpOGxxRN9vDrJYa1Gc4rybq8vFiiw
-         5+rxyd1lPvkzzKdx3ClW5wGMylVe1KTeXXpJAzDS8maKKXCvrkIC6InG5dB3WHrKyTq+
-         joxjrK0MnSUnmON6w03/u6FRTrgrf8RPrZfVptWVt3EC6Pv1RGEiPwOFKPNmAr1RjnVF
-         S73UKNq/76+8ZTKs18n/NUkPqq+YK6ei+A583ptBrfi3z5nXZKtO5zq6gk69gLncSiiu
-         dMsMZTo8tck2GkfnErKbov3KR/U/4sQ/AOKblghGiHpmCoBqIrxhd2yF1N2xbvP00Axc
-         Vzyw==
-X-Forwarded-Encrypted: i=1; AL+hErF5BnDxT0NFTLKdy/qatL7U/7y7rIs5YSUnjLWCLu4PA6T6aiVXP5GGk5sD0mtupLFWh+qPbVhM8RQN@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CieyzVWmW94Y/hBvSsAsZ+eppjWbX/fNLCL+0KH7ts8DAazEP
-	hAF7Xmxjzxdeouw0QSBwjcN0FGmoRQITG92fJLHqArkxepNGKsTB5XgvPD365F82VEHR0LtpYdz
-	u2/Pu7NT5L6YJNcLvgAoOZ5tGNH0rDuLa0qa1zLFn8RXDtffh9/qXhzzYnLgnESgk
-X-Gm-Gg: AYBFou01nCuC28NQmuCPg1xTbKVEIVPeDkBekBhItsnVufQSD9jfmHnpXkDRkXCO5OJ
-	wE+Jt9DORS2pwXpS8YpE3rQzhYICbPA0Zp6qEzHtn5uCiX3GfWfkD0XsvK8xAUVrNm9/nxRYQlv
-	S1KWChhI0DXlvDEEJTA8aQMAeTXUWzKbeUFIAA02Ty+0HI7C4ing4vc0xuzqO2uEnCObTsLkMer
-	65z2o4EfETixr6rvsrsRu9d0J6Ne1V5jq2AVNs/VZFE+AhncLTaqq9MqTYRKLmIAmTno4fjL4An
-	U3TyzWKtHQXx+nbnGsPRXbV5iXO8R1kt0NhUc5K6nSmMbuHCTmY2o1kLAjErrYOr6AFgEYd7gPE
-	Xa5BfuJrTKVAKMY7d9HWbGjZuY6l5Hki71xIuYNF4eRAOR+1p0BDerDvv1/NzuYnKPBkxB+ROdS
-	oBRhTUQFVo
-X-Received: by 2002:a05:7022:287:20b0:1a1:47b2:5512 with SMTP id a92af1059eb24-1b5568d3d0cmr2508070c88.26.1795170979975;
-        Fri, 20 Nov 2026 02:36:19 -0800 (PST)
-X-Received: by 2002:a05:7022:287:20b0:1a1:47b2:5512 with SMTP id a92af1059eb24-1b5568d3d0cmr2508034c88.26.1795170979510;
-        Fri, 20 Nov 2026 02:36:19 -0800 (PST)
-Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ffa8csm5751096c88.7.2026.11.20.02.36.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 02:36:19 -0800 (PST)
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Date: Fri, 20 Nov 2026 16:05:16 +0530
-Subject: [PATCH v8 4/4] iommu/of: Add support for "iommu-ranges" on a
- device node
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=bgSIX3Da;
+	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=BVQ6XR/k
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From:
+ Content-Language: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=fe-e1b5cab7be;
+ t=1795171074; bh=Le0RPn46jHF9e4i2vrYXLIAxlLMBBuxuXIJhsmU5VKw=;
+ b=bgSIX3DaT0PZE+fwCRadmpz0BXMJNeVDVgzbM6v8S6Ua3RZmsScicZB7de+unG3fQzxqYwIZs
+ u6h61ymtJ2tmfqcFjAr5DS5MWAXRgERkirQWSl/cpg1KTKhxOqXTg9244Jwqv4GdLECpsDZEIpH
+ r5BOjwm7+S+zx88a2/s6ZdHF6D89k6Vxo2OvqkPBvfSlWdxdjjj8/AyMH27v/OFbCHoE89dtml7
+ tI85S0IsodQJF1OIEkWSgEY74tAIRo8DPiB9XUC3SNP4xDoltiURCIR0P9xL0+Z2U79uRtXAApI
+ 1pIL+rkBPkqWbG11pfC0QQgyRq4h/Exs74jQWiMpRsJQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From:
+ Content-Language: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=default;
+ t=1795171074; bh=Le0RPn46jHF9e4i2vrYXLIAxlLMBBuxuXIJhsmU5VKw=;
+ b=BVQ6XR/k0tgnYcoRKfPpcLCFhSuzaFK5wK8IDnLaE1i0xHcp4Pzz+2diaVPOZe+acb9m9txwt
+ OYYHaBTcoRJwLx/kMOiZ67FtfVDUwqshg/eGYJ6un0zZgPa+A0C30ZiKNCyU+SD20HFgh0RMswt
+ MubybMyhhW2SePasuk/q6BA=
+CFBL-Feedback-ID: 6b0022e231c8f29e7611d90e:8bdc011d3cb26b1315eaa2ace58e4003
+CFBL-Address: abuse@forwardemail.net; report=arf
+X-Forward-Email-ID: 6b0022e231c8f29e7611d90e
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.73
+X-Forward-Email-Version: 2.19.33
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <38fbfd13-526c-47cd-b723-2ac4e77682ae@kwiboo.se>
+Date: Fri, 20 Nov 2026 11:37:18 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,223 +77,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/4] dt-bindings: clock: rockchip: Add RK3572 CRU
+To: Cunhao Lu <1579567540@qq.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Elaine Zhang <zhangqing@rock-chips.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-clk <linux-clk@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ linux-rockchip <linux-rockchip@lists.infradead.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, netdev
+ <netdev@vger.kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261117-add-board-ok3572-c-clk-v6-0-cabad6610c5f@qq.com>
+ <20261117-add-board-ok3572-c-clk-v6-1-cabad6610c5f@qq.com>
+ <34dbd46a-29cc-4b86-b9cb-9477dc0a4da8@kwiboo.se>
+ <tencent_BB5901AB88D47E874D0E348B32A609A92308@qq.com>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <tencent_BB5901AB88D47E874D0E348B32A609A92308@qq.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-add_iommu_ranges-v8-4-d90486973b73@oss.qualcomm.com>
-References: <20261120-add_iommu_ranges-v8-0-d90486973b73@oss.qualcomm.com>
-In-Reply-To: <20261120-add_iommu_ranges-v8-0-d90486973b73@oss.qualcomm.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Vasant Hegde <vasant.hegde@amd.com>,
-        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        David Woodhouse <dwmw2@infradead.org>,
-        Lu Baolu <baolu.lu@linux.intel.com>,
-        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
-        Eric Auger <eric.auger@redhat.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Joerg Roedel <jroedel@suse.de>,
-        Srinath Mannam <srinath.mannam@broadcom.com>,
-        Oza Pawandeep <quic_poza@quicinc.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-        virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-        kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-media@vger.kernel.org,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795170934; l=4773;
- i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
- bh=3u8NUa/qy0yHzef8Ilum7wr9/tHtysHRT9/CPW8PRJk=;
- b=kcvXno4oNL7+KUPZO562NIpdh0WbGdSrqywP901CqDHHI/2C/BmLn0pS6VLBAkN29PzwEU+kE
- JgZRCU/8+S7A0UhaayXO80ZzOuOFCL1RcBnVYilkO0oenfF0L6JGjq/
-X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
- pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDA0MiBTYWx0ZWRfX1Zn35zgiH5Fb
- JKF9UIFU2XG9GLfJ47UQlu0JQ3y6+fmhHTpbI4qnSvxL7ftWdc+bmviRaYEgNu5lHhfYdq1snp7
- bksH1n89iAgeSCaNAiDiNdXbeXuPa2I1sxzdARbSXdde5OU54/5WK/gE4tE5IauPCyUtLl8D8Ym
- xA885jPgTHb+ZLtfSZVILZB8pAdFyG6BV56I6Py31LR2NeYNlY0zow7V9YorqQQa70qfJsxMjtF
- Br4vik+B1FaGLJBY3p4IB4OGAfIFULPdN0/0uzIKlWoszKDjRBdNJofLFqCIkFM6iosMK+dbw6B
- DZWeCrduVhwbIg7C/3V3hVn9JZUUFwjffeAN7qKCkBBWP/oY0GlvUum5JTxSoTBtVRgoI0sRAjm
- dDJV+PPVU05t1PYrv+ZxTvQITF+PmDABsuQWOBukZKYCABAhzMextpzXtvsMfRlXev/L+HHcAlp
- mxlCOEkxaEVAJaQvH8w==
-X-Proofpoint-GUID: 2uVwd-wTuAgejEMyrdC-T7ZY4yOm1HwC
-X-Authority-Analysis: v=2.4 cv=DeiCOftW c=1 sm=1 tr=0 ts=6b0022a4 cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NeORdnCe0LA2B_GC58cA:9 a=QEXdDO2ut3YA:10
- a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-ORIG-GUID: 2uVwd-wTuAgejEMyrdC-T7ZY4yOm1HwC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDA0MiBTYWx0ZWRfX0ceTLP0JJ1fp
- RFyq9liYJOcf/TXvaqvzUqP2dm1xotSz/v2U4xtpi6wP/LBbrmmz0qEG5CsERDgeJWSyruCeXPq
- gfRvxa0gL64oajJk9HRCGHF8XMfy5kM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-20_03,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
- adultscore=0 impostorscore=0 malwarescore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611200042
 
-Reserving an IOVA address using "iommu-addresses" requires it to be
-placed in the reserved-memory node. But when "iommu-addresses" is the
-only property being described and there is no backing "reg" (i.e. no
-actual reserved system memory), it does not really belong under
-/reserved-memory. A device IOVA range is specific to its own address
-space, and does not describe the system physical memory to make it
-qualify under reserved-memory. Given this, place "iommu-addresses"
-inside reserved-memory only when it is paired with a "reg", otherwise,
-define it within the device own node. It was discussed here:
-https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
+Hi Cunhao Lu,
 
-Existing "iommu-addresses" property expects a phandle, which does
-not make sense when the property is defined within the device node.
-"iommu-ranges" was introduced to specify the device specific IOVA ranges
-when there is no backing "reg".
+On 11/20/2026 10:40 AM, Cunhao Lu wrote:
+> Hi Jonas,
+> 
+> Thank you for your review.
+> 
+>> [...]
+>>> +#define PCLK_DDR_MON 527
+>>> +
+>>> +/* Secure clocks */
+>>> +#define ACLK_CCI 600
+>>> +#define SCLK_DDR 601
+>>> +#define CLK_STIMER0_ROOT 602
+>>> +#define PCLK_SECURE_S 603
+>>> +#define HCLK_SECURE_S 604
+>>> +#define ACLK_SECURE_S 605
+>>> +#define CLK_PKA_CRYPTO_S 606
+>>> +#define PCLK_KLAD 607
+>>> +#define HCLK_CRYPTO_S 608
+>>> +#define HCLK_KLAD 609
+>>> +#define ACLK_CRYPTO_S 610
+>>> +#define PCLK_OTPC_S 611
+>>> +#define CLK_OTPC_S 612
+>>> +#define PCLK_WDT_S 613
+>>> +#define TCLK_WDT_S 614
+>>> +#define HCLK_TRNG_S 615
+>>
+>> Are these secure clocks meant to be used as SCMI clock ids? Why a gap from
+>> 527 to 600? If I am not mistaken SCMI ids should similar to Linux clock ids
+>> start at 0 and be a consecutive series.
+> 
+> Yes, these are SCMI clock IDs. The CRU IDs end at 527, but the SCMI
+> IDs are a separate set. The vendor header [1] uses 600-615 for this
+> group, matching the IDs in the released RK3572 BL31 firmware.
+> 
+> I haven't found the RK3572 BL31 source on GitHub, so I can't rebuild
+> the firmware. That also means I can't change the clock IDs it exposes
+> via SCMI. If I numbered this group from zero in the binding, Linux
+> would request ID 1 for the DDR clock, but the firmware on existing
+> boards expects 601. With those IDs, I wouldn't be able to read the
+> correct clock data on my board.
+> 
+> I'll add the SCMI_ prefix in the next version and keep the firmware IDs
+> unchanged.
 
-Suggested-by: Rob Herring <robh@kernel.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
----
- drivers/iommu/of_iommu.c | 107 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 107 insertions(+)
+Great, I think the SCMI standard may dictate that IDs should start at 0,
+and I expect the vendor firmware possible would fail SCMI validation.
 
-diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-index 6675fc900e6c2d55b34c61dc9effaeb48e24f18f..2ee5490ba3572cd9f2d2b7655cbe93055ac87d03 100644
---- a/drivers/iommu/of_iommu.c
-+++ b/drivers/iommu/of_iommu.c
-@@ -190,6 +190,111 @@ iommu_resv_region_get_type(struct device *dev,
- 	return IOMMU_RESV_RESERVED;
- }
- 
-+/**
-+ * of_iommu_derive_resv_regions - derive reserved regions which
-+ *                                are outside of iommu-ranges
-+ * @dev: device for which to get reserved regions
-+ * @list: reserved region list
-+ *
-+ * A device can describe its own usable IOVA ranges directly on its node
-+ * via "iommu-ranges". Everything not under those ranges is derived
-+ * as a reserved region so the IOMMU allocator won't use it. Entries may
-+ * appear in any order in the property.
-+ */
-+static void of_iommu_derive_resv_regions(struct device *dev, struct list_head *list)
-+{
-+	struct of_iommu_range {
-+		struct list_head node;
-+		phys_addr_t start;
-+		phys_addr_t end;
-+	} *pos, *new, *next_range;
-+	int size, prot = IOMMU_READ | IOMMU_WRITE;
-+	struct iommu_resv_region *region;
-+	const __be32 *maps, *end;
-+	struct list_head *prev;
-+	phys_addr_t next = 0;
-+	LIST_HEAD(ranges);
-+
-+	maps = of_get_property(dev->of_node, "iommu-ranges", &size);
-+	if (!maps)
-+		return;
-+
-+	end = maps + size / sizeof(__be32);
-+
-+	while (maps < end) {
-+		phys_addr_t iova, iova_end;
-+		resource_size_t length;
-+
-+		maps = of_translate_dma_region(dev->of_node, maps, &iova, &length);
-+		if (!maps) {
-+			dev_err(dev, "%pOF: failed to parse iommu-ranges\n",
-+				dev->of_node);
-+			goto exit;
-+		}
-+
-+		if (!length)
-+			continue;
-+
-+		iova_end = iova + length - 1;
-+
-+		if (iova_end < iova) {
-+			dev_err(dev, "%pOF: iommu-ranges overflows address space\n",
-+				dev->of_node);
-+			goto exit;
-+		}
-+
-+		prev = &ranges;
-+		list_for_each_entry(pos, &ranges, node) {
-+			if (pos->start > iova)
-+				break;
-+			prev = &pos->node;
-+		}
-+
-+		new = kmalloc_obj(*new);
-+		if (!new)
-+			goto exit;
-+
-+		new->start = iova;
-+		new->end = iova_end;
-+		list_add(&new->node, prev);
-+	}
-+
-+	if (list_empty(&ranges))
-+		return;
-+
-+	if (of_dma_is_coherent(dev->of_node))
-+		prot |= IOMMU_CACHE;
-+
-+	list_for_each_entry_safe(pos, next_range, &ranges, node) {
-+		if (pos->start > next) {
-+			region = iommu_alloc_resv_region(next, pos->start - next, prot,
-+							 IOMMU_RESV_RESERVED, GFP_KERNEL);
-+			if (region)
-+				list_add_tail(&region->list, list);
-+		}
-+
-+		if (pos->end >= PHYS_ADDR_MAX - 1)
-+			goto exit;
-+
-+		if (pos->end >= next)
-+			next = pos->end + 1;
-+
-+		list_del(&pos->node);
-+		kfree(pos);
-+	}
-+
-+	region = iommu_alloc_resv_region(next, PHYS_ADDR_MAX - next,
-+					 prot, IOMMU_RESV_RESERVED, GFP_KERNEL);
-+	if (region)
-+		list_add_tail(&region->list, list);
-+
-+exit:
-+	list_for_each_entry_safe(pos, next_range, &ranges, node) {
-+		list_del(&pos->node);
-+		kfree(pos);
-+	}
-+}
-+
- /**
-  * of_iommu_get_resv_regions - reserved region driver helper for device tree
-  * @dev: device for which to get reserved regions
-@@ -264,5 +369,7 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
- 			}
- 		}
- 	}
-+
-+	of_iommu_derive_resv_regions(dev, list);
- }
- EXPORT_SYMBOL(of_iommu_get_resv_regions);
+Not sure there is any point to use different IDs for vendor and mainline
+firmware. Hopefully we can nudge Rockchip to closer follow specification
+in firmware for next SoC.
 
--- 
-2.34.1
+> 
+>> [...]
+>>> +/* CRU-->SOFTRST_CON01 */
+>>> +#define SRST_ARESETN_TOP_BIU                     0
+>>> +#define SRST_PRESETN_TOP_BIU                     1
+>>> +#define SRST_ARESETN_TOP_MID_BIU                 2
+>>> +#define SRST_HRESETN_TOP_BIU                     3
+>>
+>> Please drop the unnecessary/redundant RESETN in all constants. The SRST
+>> prefix is already a short for Software Reset.
+> 
+> I'll fix the names in the next version.
+> 
+>> Please see [1] for the header I prepared for U-Boot mainline RK3572 support,
+>> it should have all these symbols cleaned up, to match naming patterns used
+>> for all currently supported Rockchip SoCs.
+>>
+>> [1] https://git.u-boot-project.org/u-boot/contributors/kwiboo/u-boot/-/blob/rk3562/include/dt-bindings/reset/rockchip%2Crk3572-cru.h
+> 
+> Thanks, I'll follow the naming convention in your header in the next
+> revision. I did notice two possible issues with the reset IDs:
+> 
+> Your header skips 421 between SRST_LINKSYM_HDMITXPHY0 (420) and
+> SRST_P_PHPPHY_CRU (422). I've fixed this gap in the current patch.
+
+Looks like I just applied renaming and not re-numbering, so this gap
+originates from vendor source header. Good catch :-)
+
+> 
+> Your header also assigns ID 453 to both SRST_H_PMU1_BIU and
+> SRST_H_PMU1_FW, but the lookup table [2] maps them to bits 9 and 10
+> of PMU1 SOFTRST_CON03, respectively. Could you confirm whether these
+> two reset lines are meant to share an ID?
+
+This duplicate seem to originate from the reset header in vendor U-Boot
+v5 branch [3], that I used for my mainline U-Boot work on RK3572. That
+and the fact that I did not re-number the indices. So I am expecting the
+vendor Linux 6.12 version is more correct (does not contain the vendor
+U-Boot duplication of 453).
+
+[3] https://github.com/rockchip-linux/u-boot/blob/v5/dts/upstream/include/dt-bindings/reset/rockchip%2Crk3572-cru.h
+
+Regards,
+Jonas
+
+> 
+> [1] https://github.com/rockchip-linux/kernel/blob/470f9dccbdc42e7b8a824d0a5c5640a10e9457d2/include/dt-bindings/clock/rockchip,rk3572-cru.h#L542-L560
+> [2] https://git.u-boot-project.org/u-boot/contributors/kwiboo/u-boot/-/blob/85afc941266af08ab30a897dde794f952321025a/drivers/reset/rst-rk3572.c#L605-606
+> 
+> Best regards,
+> Cunhao Lu
+> 
+> pw-bot: cr
 
