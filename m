@@ -1,77 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795172454;
-	b=sm2s0h/zBsreY+9HzHEhS+txGxGTq3U2driEHZhJgHoyJ4ua6nOT9JkuCmM1zMg5EqRp
-	 QDm7L/iY5LFd9oRx2F0YfANaYeyTk0RkW6k/cNIe4e31pN0sBCq5PLE0o5tTWMEEF5IsN
-	 Q0LTU0GmAfBi8pkEiG9TglyXc/Vju1E0Haa/vXZpSYSjTK2MW5jSeWw8qD9DQnFz0VUPS
-	 6q2kKuM6xK7Ov7SpPYvKB7JYzUbTa6LF44JVL2xzDUTcpnnzLyrHSCLm7MHbhAc4TZ2Qb
-	 EhD/h1BnT3HUISillNk4dKFKGCOxDOz7TxnlT3brl6OtRCjnNoRPTIBrEN7Xbnpr90g==
+	t=1795172508;
+	b=dIQ8lIZrqDm2lOYpEWYf6Y5zfvTqfKEBoa/7Rv+aP6n21uikAD2CB3MY+995H9XYoPFp
+	 cvfX5hZz48hQQEpCN7LQ+o9y4a0CwTYzYOPuW1AN8xEPU3zggoT9jQMOcxWIa50+6/HpP
+	 JoCSRnxW1yVAmXSd555lthYsl3dB660p0U1I02SjG2Juwbgi5dkV9e5pA489ZMxzaVzBE
+	 lAa5nX+acccTJJOlkVpqW9GbWzPwUwRoLadkyWMa0Cab8kCuJNNnzlYF9rxgDy7QfBvui
+	 JwzLY1tYDx4VgTejeykuwsDurxsx1X9TyA4ckZa+B5Hp8q6eYMkz2TPKiJxeEM+ZSFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795172454;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=XC0FYvI7J7PY7eGnEaiuIuCRfsjCJPAQuXRpzV9YviU=;
-	b=VfwOgX/+YKxadPYdaFYkuPwiMk/xsY1gmWFf7REcMoO6Zu9kwaP1xDJWNdr23XNgiwC1
-	 F5cZSq/Lu4qsb7USvppA4cdaoYn7ZVbn83KurDtnRGfEaS3Xce7X6s8oEMQT2JrG08unw
-	 CjCLHNrl82HmH5AYahU8ZT6UaGzHRx4ahWKLcPZmP2xUcAcqn+Fhm1M1B3nBaz94gnriW
-	 LMRdBOMBQceIPx480cSc+2yiClr9XnpOuKu7tQSszib9aEqTx0tgaipJtfuYJy2IyhZOH
-	 n2MkVIfE63rGAr8nPDkN6mBhn/Z2dUEmPauEm8f4BJ+ZDZKFjBk1RxOiWoNmydZJXAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795172508;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=dcyX3szpWcABFLM+8vnZLL0yce9Jt7RpQ7F1Fp/4XUI=;
+	b=mUlVQ78Rd72aD50tci5JmU4/62zZJy2zj+C4FjHDARaSOFDi7A/+bpBasbshYkRfueX/
+	 05tmjEvwIkFbRvaEiMNhbLfUx0RsaignhD311NzpyrZtBMHQG5t7xceTlu43KAtfYWvNX
+	 nndl8X9qt2ZnqUlX92fHws6GiO70nn8Gr2UwhApeMnJc+BEhlnpQTaulPvpmcOWKYqLoA
+	 XU4uqV+Xk+xjERpsl/YjbWIDJknr6abuGo+N9CmcxU2vszsyKR+tlH/UsFa+ICqOwqgHF
+	 xzrYO3KDRTTeum0/rtBTh0fH3yKcsnze7fmcuHeSam7JikzF3wKcLtHDAxTMZgo7MuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.177
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4CeHH3C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070C9606A325
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:00:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 070C9606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eae1276409so250220e0c.3
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:00:53 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795172453; x=1795777253;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XC0FYvI7J7PY7eGnEaiuIuCRfsjCJPAQuXRpzV9YviU=;
-        b=rHKJAlKsptfuFwjhI4nDRjKi6TRu3OTM7MJb7nxfosPhqbsLa1WLoWA+N6UebvXHa/
-         ZpVc5TkUxTUcRLoZFB7nVKBLg0dFA4qCX4EJNkuej0id+KLC1KQyOfdm9WmUm7en+wPT
-         jdbNgnaid2u2zhot02ReQUwinIYyceSBG1SaoCW1XHo6M9SM9KMgYAYThjrYpC8+vIY+
-         DNH64wah0a/43DKRE+aVRxvbWXcRAfULcJJ1EUdk4d+3+FNf81yZGDkrsAnMHWPU881w
-         dhYoPslxLfFZ83h8reiTsswZKjqYL1PHlpxYe9NeIQvhLv2aRoJMz4VfO8B7C28UIZw0
-         uUag==
-X-Forwarded-Encrypted: i=1; AL+hErFTrIfRwHnn92SCi0O3uKE9vd2SIqZ0PeBd4FPE6Zk/YStnnkzjPCfo1oqAtDysQ9Ng7PeZi7L8Zi/g@vger.kernel.org
-X-Gm-Message-State: APuU4Z/M+ewtPh5F7o87y7woKGhdMj+1xytgn8CKeTgeM5rjxdKPAg1G
-	hMeV92ff3HHIi3SawnNiLpALGtKEjbPvkhKfANI81QzWELApD6YAUGI1P76V5ZRt
-X-Gm-Gg: AZFdTZf/dhEOJ5NRMrKtqFFa0krfO0szeYRmPoU68nKBc3rrND2rTEuCp8drUKaZB13
-	tYtABu/plF/P/61UCXoF495OcdK0pcoiJRDvU6Gsz3AGMMFicbAchHP6P6YtkieRm2pDEWrJFZi
-	JInA3ZotrzWdzDwU0Fpki1PksaiTIhx3/Rx8BxrkXALoUaFdoa4nYvLIfyj9e/GTqW833fBlZpC
-	gGVee+BMucmqPHt/c988cK+tDe6d8oPqtL7ovCb1AwcSxI6Jz/6GiidresOPinjSUGNkPKd+aQx
-	DrOS9/JhYJXJM7VjUH9w5EEHNV1//ThqsKE+h5siL3kEJtwavxhq+zs3LSDPuXzLNFLDpSajp9h
-	3d/wrNWsjI7DB2JuViWQmzOEZZpAqLi/tw3wEYYcPqc2CZmziO/pNWg28L3dVIa9VFNBz5/SNwY
-	Z8vc4CDP8gAUmB0xj1c+x5sKhGSYmsM16gRVsmYKjLOETTOgewFRORQuE5GxC+RhscJ2muj+a3Y
-	Nl5h6a6CnGjkYR99p/8RvEjW9t7yFEc+ifpin5e3ITsrcziVSzfmQkH72eKJjOIOGf0doQ4rchh
-	vGQnc54iA0jI8yS2sUwjYsT2vjuvxBlY9FU632SKkBc4xO1EudKKsA4pxY7IsggJKDhpKv3tdQx
-	VVK4VH9CNFn0U
-X-Received: by 2002:a05:6122:62b1:b0:5ea:b04a:cefd with SMTP id 71dfb90a1353d-5ee8aea71dcmr1212153e0c.7.1795172452957;
-        Fri, 20 Nov 2026 03:00:52 -0800 (PST)
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com. [209.85.222.47])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee8b609bc7sm2248810e0c.12.2026.11.20.03.00.52
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Nov 2026 03:00:52 -0800 (PST)
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-99e1b352df9so232141241.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:00:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHBm6qhjAZVBEDKEECr913rRxTfGmq6jqvycaDW+dGkom+7hZEkm3IVVkOeG63vdImgctlJvkgAzomN@vger.kernel.org
-X-Received: by 2002:a05:6102:6055:b0:7cc:95ed:3147 with SMTP id
- ada2fe7eead31-7d739689235mr857768137.34.1795172452194; Fri, 20 Nov 2026
- 03:00:52 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A440A606A325
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4CeHH3C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D60A31F000CA;
+	Fri, 20 Nov 2026 11:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795172508;
+	bh=dcyX3szpWcABFLM+8vnZLL0yce9Jt7RpQ7F1Fp/4XUI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n4CeHH3CO0Zg7FoiQaIKLJmt/BPjAB5psDinrcQA0gOtlg54C+8A/I8+39Neu9X25
+	 3aOYSp5fEf1qedVa+9iN57MvQPkoL5cJhXn5iWG/l63804gCxyAW1YiuWlW5HWtg5D
+	 v+TTO8ozQhc13gNGMLvUpgbPisGXGXk74Db16yvhTTs/qc/oE61zwwGRztRYy8mNQM
+	 CuXD3q8/wNWOQ5ManweWjludj6Rt9jV2Sc/UhHRNN/4aHTzflRaQqShoCUXUaFCVU0
+	 6DCD7ec+rK8UOE1uS39drpK8g31g2aUGsWkdw2hhyiDqbRxhg37JHS+itlQ2Ae4Qxb
+	 5PRG60xWtdHuQ==
+Message-ID: <sashiko-outbox-224978@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/7] arm64: dts: rockchip: Shorten NanoPi M5 Ethernet
+ PHY reset to datasheet timing
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexey Charkov" <alchark@flipper.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261120-rk3576-phys-v1-6-6382cd14e3dc@flipper.net>
+References: <20261120-rk3576-phys-v1-0-6382cd14e3dc@flipper.net>
+ <20261120-rk3576-phys-v1-6-6382cd14e3dc@flipper.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 11:01:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,49 +60,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261116-canfd_rzg3l-v2-0-89e06c46f40b@bp.renesas.com> <20261116-canfd_rzg3l-v2-2-89e06c46f40b@bp.renesas.com>
-In-Reply-To: <20261116-canfd_rzg3l-v2-2-89e06c46f40b@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 20 Nov 2026 12:00:40 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVe5agtLEH=EhD1Jfok8h19Or42u0GAkbxoK1juaJj2Xw@mail.gmail.com>
-X-Gm-Features: Aa3M54rO1S0UF9YXcKOSJOhVHRxGaMtumaKHweYg3txlmV2R4gs_ta_WfKp8DhI
-Message-ID: <CAMuHMdVe5agtLEH=EhD1Jfok8h19Or42u0GAkbxoK1juaJj2Xw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] arm64: dts: renesas: r9a08g046l48-smarc: Enable CANFD
-To: Biju Das <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 16 Nov 2026 at 16:33, Biju Das <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Enable CANFD channel0 and channel1 on the SMARC carrier board.
->
-> Channel0 is always enabled, while channel1 is guarded by SW_DPI_EN
-> since it shares pins with the DPI interface. The CAN transceiver's
-> standby GPIOs are conditionally wired up based on the carrier-board
-> switch settings (SW_GPIO8_CAN0_STB, SW_GPIO9_CAN1_STB).
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> ---
-> v1->v2:
->  * Reverted the order of the SW_DPI_EN and SW_SD2_EN, to match the
->    signal flow order.
->  * Added missing check for !SW_DPI_EN in standby-gpios.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: rockchip: RTL8211F reset-deassert-us below 72ms
+  minimum
+--
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.5.
+commit 0900c61dff0b0908a212846ea06a953d5d033faf
+Author: Alexey Charkov <alchark@flipper.net>
 
-Gr{oetje,eeting}s,
+arm64: dts: rockchip: Shorten NanoPi M5 Ethernet PHY reset to datasheet tim=
+ing
 
-                        Geert
+This commit reduces reset-assert-us and reset-deassert-us for the two
+RTL8211F Ethernet PHYs on the FriendlyElec NanoPi M5 from 20ms/100ms to
+10ms/30ms.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm=
+64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+> index 638e00b6e1658..3444198b6cf66 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+> @@ -809,8 +809,8 @@ rgmii_phy0: ethernet-phy@1 {
+>  		interrupts =3D <RK_PB1 IRQ_TYPE_LEVEL_LOW>;
+>  		pinctrl-names =3D "default";
+>  		pinctrl-0 =3D <&gmac0_int>, <&gmac0_rst>;
+> -		reset-assert-us =3D <20000>;
+> -		reset-deassert-us =3D <100000>;
+> +		reset-assert-us =3D <10000>;
+> +		reset-deassert-us =3D <30000>;
+>  		reset-gpios =3D <&gpio2 RK_PB5 GPIO_ACTIVE_LOW>;
+>  		realtek,aldps-enable;
+>  	};
+> @@ -824,8 +824,8 @@ rgmii_phy1: ethernet-phy@1 {
+>  		interrupts =3D <RK_PA2 IRQ_TYPE_LEVEL_LOW>;
+>  		pinctrl-names =3D "default";
+>  		pinctrl-0 =3D <&gmac1_int>, <&gmac1_rst>;
+> -		reset-assert-us =3D <20000>;
+> -		reset-deassert-us =3D <100000>;
+> +		reset-assert-us =3D <10000>;
+> +		reset-deassert-us =3D <30000>;
+>  		reset-gpios =3D <&gpio3 RK_PA3 GPIO_ACTIVE_LOW>;
+>  		realtek,aldps-enable;
+>  	};
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[Severity: High]
+Is 30000 us for reset-deassert-us on rgmii_phy0 and rgmii_phy1 below the
+minimum post-reset settling time required by newer revisions of the
+RTL8211F datasheet?
+
+Revision 1.9 of the RTL8211F datasheet increased the post-reset wait after
+PHYRSTB deassertion from 30 ms to at least 72 ms for internal circuit
+settling before accessing PHY registers.  Because phy_init_hw() accesses
+MDIO registers immediately after waiting reset-deassert-us in
+phy_device_reset(phydev, 0), a 30 ms delay can cause PHY initialization or
+stmmac_hw_setup() DMA reset failures during probe or ip link down/up
+cycles, as seen in 1c7412530d5d ("arm64: dts: meson: g12b: odroid-n2: fix
+PHY deassert timing requirements").
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-rk3576-phy=
+s-v1-0-6382cd14e3dc@flipper.net?part=3D6
