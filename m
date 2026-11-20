@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795167428;
-	b=HNgjZze8Iubcx2wUV6RqqBOxBXiq8hyWqHGD14iVKO/HAyXFpLInjFGWMqwtlOBMSzl5
-	 W5kQ6gzMt88B6eBZfdCqBbGKrxt8yEJ46Tt5g8S6P7SmhfALA74tNxYjEHh/bKy0giiBq
-	 d6+SLO0I4icgugFf4y6MBQd0gVssHTdecZabl+EzV/7QKvqj01zbhcfk7c2hcDnrAbR/t
-	 O+njZRQPf9vugvHYhZvRbcBUdqld9R49u+PyBtusZe8xG84uS2WzC2GKBarSXMtlxBwFO
-	 3xR+irdQpmiaBaTOS5Kt4rnoGiz699kyHAdcdzAL4S/pyZgzmAzmF1Dz2HcrYVBF5tA==
+	t=1795167429;
+	b=SYTtCj9LWVjqK2mZCPoqMEKw1lpCXa7C3qQyeg5rQNH/N0O3cZkj88xjZ0qqMkRJp0fR
+	 2aV4skEINaqNpEVCEjEHBNOz6gZghC939NjnuLzMJEQ06bGYZ8AQW6tMXc6awm2YhrDpz
+	 pHZawLqfS5jbZI7PYuUJQM1v6v0x0rNUyHgZpDTc0Y5lRWPx5zsrMC4PbJe1Qw4V9/U1G
+	 dzXGfttyTcD6T6UPmWZHIarSZB4XKnuAd9O3W4fOldV5+RJ+5VX45dXpw/XKaeLhw8e9p
+	 ZVgITQoCWkCaRVUpwY72c9HN/RRWGuWCbQBE+5p3ULRL1chKGIl3k53VzX1oDZ5DLcg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167428;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167429;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=u/ea8WI4QvoCYR4Pzy9fmHlLGkTbFqkOAdCbw3usoHI=;
-	b=hrBKjepPMhWxFRUj5e7rc0fHtgwvX0AXqcL1c18HamFaNlu76MRzZ/cT/926l8yJs/bH
-	 jnBHjlQ7jPL6lcSefG1OXIiT7ULQag+fi1DOWt2Oy09gn6031CxP4FkNojXangvCu0whV
-	 dElsQIqQJL/J58v2R6aiQKXucmBNgpfVrZD3xcaYi8YKEIsf6okOdT/o/7RezEvdie52W
-	 lqUcxpNWGQdedp81xASYskzzzOXwMixCbnDEjhZugRghceliENVI45mk16FvtT0gZxdQp
-	 tTV3PLfJ5AcUUDENOZPESweh6XY8Wg0n/Ra65nLbyexz3wFjqVl9HWqe/o59tbQN7tg==
+	bh=+u2FXK4znTAqjZJ6FO3Ims1b2AnL3vTXsMI+XlF8czs=;
+	b=HoS+jMChyz4PbETnWmM1ADz1/14wLGXOgNcmw4qCgGYcCQoPlWQech07MR6rzb6XL7iV
+	 Bvzm7SP7+TScBlIorzZfw5b4Znbpa2RWSuTLqJQMClmRDsnBlghwIs9vkJAP4qFAhgEmq
+	 1cQyxIn9oY88STy0lA+QQyyZ+mOF0aSOhRuwo0zJrOmCxDppaqFxb686T/HIwH4o7ojie
+	 Lcwn8+cdDBwmfBKq35M6miokHPdbvMkBc4ddmAvNF2mWmjH2mzI/GKsGScedRhv3jbHEf
+	 +lUXksA6mDMqArFh5XmzSIlP2pcDxUUtMkurfrTyk/3/gKVjPLRgTwrAU7I9qpe4nWA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="PfAvd/Po";
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WuKZonIL;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98BA606A33C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97E8606A339;
 	Fri, 20 Nov 2026 09:37:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B98BA606A33C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B97E8606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PfAvd/Po
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WuKZonIL
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B5B4F205B33;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CE934205B3E;
 	Fri, 20 Nov 2026 10:37:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1795167425;
@@ -43,43 +43,43 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=u/ea8WI4QvoCYR4Pzy9fmHlLGkTbFqkOAdCbw3usoHI=;
-	b=PfAvd/Po6QhIQSuZQrsOBBuA4Hub+MEX9kp9LkQQ+YR9hHR7stHXu7/v2HXWbjGfNG2wlP
-	SAXXG6eL78prJDGzR+1IXWn7Stz7Q+9dUkOVA/bCp7rnzupDKCVpWeTod8SgUu6wGmsX+7
-	X89V358r0tyMFF2gxvcsU+vsJuNk1g1F6X3Z+v229FVCdoIQYwsprdGNaSu9uxFyQ+D1lx
-	seyLWq68J33OLjgUcfZVMl8Xmij8+2lpb5RXy1M3EBLaA22o6zIg/f2OsWUgNvTSscel/f
-	5rfqi96pFfi4VtLp9U3Xd3CafP1DvfQYON5jAUfXxtBE3b6Ew+kg1NbyvnzAdg==
+	bh=+u2FXK4znTAqjZJ6FO3Ims1b2AnL3vTXsMI+XlF8czs=;
+	b=WuKZonIL+YDeptxHrhGYNbKjjZqwqrio1cZL/F8ZzrOQPmrMiuPSwNc9o3/WlXOf35ZAYd
+	dESumHV5L5qMTPen2CyWbCnw8zjRR+3plBd/QJqjScn3pE8B6tI6ZSKZRiCHqdLX/KRQ8w
+	hgTpQDrz7F2R+uiSAra5nozciLlk2fNMAp6vGow8aQZ/aCp4b5Fchxc3+kHlX+8S/Au7nz
+	kVdUf1T296rSnfFzaPMg/OpqnEEAun2OopM5MTODaf/bj5DiHqCEbIxFPwPJiq+BAoXlP0
+	OUvrX0Og9Vei8k35FElzE2AK39wjrIlBeg/ikFfyrOBNcQ3sAAHS1oZwjBqzoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1795167425;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=u/ea8WI4QvoCYR4Pzy9fmHlLGkTbFqkOAdCbw3usoHI=;
-	b=e3X6WgI1tmSuAY7Gd8MVPJDKkCmPMxsA3cXHQPJ34/y9xA14bJwuwL2Q30vFtvX2PMBEap
-	rXXOt9ca0kdAnvIMgYuciVn2LXuPaEWQqkseJ5zKYI4wyoIK5ESc3sa/KWyTsNQ7Mfrx8x
-	Q9/bXvlf+zSbFDFrbG8As9sbPAQbnM3NyE+xmMFdlxAKEslUTHGKvlkKgAAJrPZ7MHtd48
-	+WBMbnw2LB+Uyddyww3jaFOoRiFKRp1/coi22+chWI5D3ZVTzwpLiR8jZf2AKLpbbjiwLb
-	QPBZP3XT2nntzg7RJWo5qc+DC8DBWD/DF8oPTQhrvDH3GqcrfoFiq1uvhrCXNg==
+	bh=+u2FXK4znTAqjZJ6FO3Ims1b2AnL3vTXsMI+XlF8czs=;
+	b=ctzx0h7Po2n3uMHOrnG+CsJuZYGk2zzQmVUbSSWT6hF7pZO0GDsDYY8hIxUmo6wsHbQsoy
+	+jmDiaoHzfjbh0zlbMgT8/jfPJJgO7C0dDEEzEYyLNrGrNau876U1iXxFnGXtZPB9c7bXc
+	4H6GzuJMTOiMbLdyUk0HsnYhwrzRqOneocEc0Zihq1XBKSOGVN2fMwq+1Q8C0eMIxWJ1V2
+	rcWfjkIGvyF5xAX9Uhe3j+NzxooyrwMhNRh9xmXNj/OomvNosmTEA2VyVNskF3Wh4oOiu+
+	XnF1wvU4+vZfGDf2TeER7hJ69owR08Ycp0YUJu5ZcKp4EEwXRlyDChbTDuOyEw==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795167425; a=rsa-sha256;
 	cv=none;
-	b=MkpCPF8H9gwbi8Rlht0F8Ai0tnfgNAvD6ESJeQmJEeOCs62JGk75t5BHbjtc7KlVpgVr4u
-	IZnEIwPOsEGih05Xj0KjS6vQtKncjaicNxdtoXJTfkZ0ibfLIvwtJZF3ZNuDQ6W+LzqhMy
-	69FFDELAYZf6/DCwrDgnVn6YktdKdisQXgOlfjoDENlkHSZ/oOALcvoQf7CSSVjp52/9OI
-	Bjf7yH6fVJJuSCF7aCvycRrCo00RZh9ydFHSRVJfRfu/YCMnX4NT4x2kgMadSV40NpGg0x
-	UWvfferd6p2inyU4HCL+xlgiHuONR3j+DkmjtDaSOhunxkq232Dyq/AO3AZO7Q==
+	b=Slc+e+svzZDkRlhI4NqDF+JHHOvHFuqqXOFaM4AgbXDsXQUv+Qb3GzOo5iQr4cRCArJRKl
+	/HT2Z3oN4WbI595j30QL0s21TKa6veYPNHBkilfJAlLs74zjCaFFktEUb14BAKmFhmtsja
+	KxPEAKBpWhQhXB52fzXyFNGlGKc5uzhBxC7QUBiS8m73IP8Syj2XOJ3qvFCQhnda4ui7Ek
+	rA3H+galYpteoM8Uf3uXi9DNFehYb3fPle6p6V3iQ532ZXSd4rf7J7oAmDYcjAcbCeXeKk
+	FDlTsEXMxUBhouA9oBfDFQk9NwvJeOp3AidQhh/+A9EV0smt+lA1i426kQLeDQ==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.2])
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <f.diener@pengutronix.de>)
-	id 1xUL3J-000dRE-0T;
+	id 1xUL3J-000dRE-0n;
 	Fri, 20 Nov 2026 10:37:05 +0100
 From: Freimut Diener <f.diener@pengutronix.de>
-Date: Fri, 20 Nov 2026 10:37:04 +0100
-Subject: [PATCH 1/5] arm64: dts: freescale: imx93-11x11-frdm: Enable I2C
- level shifter
+Date: Fri, 20 Nov 2026 10:37:05 +0100
+Subject: [PATCH 2/5] arm64: dts: freescale: imx93-11x11-frdm-common:
+ Describe PCAL6524 supply
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,7 +91,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-imx93-frdm-fixes-v1-1-78dde22a56fe@pengutronix.de>
+Message-Id: <20261120-imx93-frdm-fixes-v1-2-78dde22a56fe@pengutronix.de>
 References: <20261120-imx93-frdm-fixes-v1-0-78dde22a56fe@pengutronix.de>
 In-Reply-To: <20261120-imx93-frdm-fixes-v1-0-78dde22a56fe@pengutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -101,43 +101,65 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Fabio Estevam <festevam@gmail.com>
 Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Freimut Diener <f.diener@pengutronix.de>, 
- Marco Felsch <m.felsch@pengutronix.de>
+ kernel@pengutronix.de, Freimut Diener <f.diener@pengutronix.de>
 X-Mailer: b4 0.15.2
 
-Without the PMIC's I2C level translator enabled, probing the GPIO
-expander fails with input/output error:
+The PCAL6524 GPIO expander is powered by the PMIC's BUCK4 regulator.
+The PMIC in turn uses the expander as its interrupt controller.
 
-       pca953x 0-0020: failed writing register: -5
-       pca953x 0-0020: probe with driver pca953x failed with error -5
+Referencing BUCK4 directly through the expander's vcc-supply
+property creates a circular dependency: the expander requires the
+PMIC regulator to probe, while the PMIC requires the expander for
+its interrupt.
 
-So enable it.
+Describe the expander's 3.3 V supply using an always-on fixed
+regulator as a proxy for BUCK4. This allows the GPIO expander to
+acquire its supply without introducing the dependency cycle and avoid a
+respective warning:
 
-The GPIO expander is connected to the level shifted I2C output of the PMIC.
+     pca953x 1-0022: supply vcc not found, using dummy regulator
 
-Suggested-by: Marco Felsch <m.felsch@pengutronix.de>
+The proxy does not represent a separate physical regulator.
+
 Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
 ---
- arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../boot/dts/freescale/imx93-11x11-frdm-common.dtsi      | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-index 6e8351d120160..fbe3543e1ee8c 100644
---- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-@@ -49,6 +49,12 @@ pcal6408: gpio@20 {
+diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
+index 33ed26aafde88..617f2229b559b 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
+@@ -49,6 +49,19 @@ button-k3 {
+ 		};
  	};
- };
  
-+&lpi2c2 {
-+	pmic@25 {
-+		nxp,i2c-lt-enable;
++	/*
++	 * PCAL6524 is powered by PMIC BUCK4, but the PMIC uses PCAL6524
++	 * as its interrupt controller. Model the supply with a fixed
++	 * regulator to avoid a circular device dependency.
++	 */
++	reg_pcal6524_vcc: regulator-pcal6524-vcc {
++		compatible = "regulator-fixed";
++		regulator-name = "VDD_3V3_PCAL6524";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
 +	};
-+};
 +
- &mqs1 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_mqs1>;
+ 	reg_usdhc2_vmmc: regulator-usdhc2 {
+ 		compatible = "regulator-fixed";
+ 		off-on-delay-us = <12000>;
+@@ -207,8 +220,7 @@ pcal6524: gpio@22 {
+ 		gpio-controller;
+ 		pinctrl-0 = <&pinctrl_pcal6524>;
+ 		pinctrl-names = "default";
+-		/* does not boot with supplier set, because it is the bucks interrupt parent */
+-		/* vcc-supply = <&buck4>; */
++		vcc-supply = <&reg_pcal6524_vcc>;
+ 	};
+ 
+ 	pmic@25 {
 
 -- 
 2.56.0
