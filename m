@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795148904;
-	b=Stw9FAsjeAuFIMA6iZALK5+J7mvmg8b8STxRfc4Mdog62iA0IcEjVZE9kSDxEmpyCcRl
-	 nQGN7LHlPn/VGymkH1+QLu3xu3yExr9W90++x/u1BQcUaBm9aFU2FVbJ0ZOXuu2w8zq/R
-	 4nmll1M7xvVw8INNs3nJ5ltQ6CeUyy+1G+bwDkCPT6qKn+XZFh1siAPS1nzKcsXn2jz3y
-	 yNujx5ccPzJd8KIPQsaWhAjw/Xm3whDVO/LGxV6f7gDzGkgv2RlXfXoCal8Px30ujQXKd
-	 TZHwyTEDitrqxAe4+wJGmPZXs9U8ll0tV2gnp3OozWntk+/yrobRJIxw+/BYjvMKAlQ==
+	t=1795148985;
+	b=gjNprSJFNAzPt2Db1Dl2CqipW6JBbB5GOXfRMkhuc1aT9YLQon7E/Z03i0cSUGxxn0rP
+	 6TKo3TGpIScCAOv0zhA6vYlngWsgXV/94NW9iXwDUqIbdLxPgp7WpK5+cTGdZiAlUjGSJ
+	 VtDjny1NFV3+iCx8vrPo/uCpIaEwuwvLdz4jvJ8pUrPXAgPZnHt4AE7x5VHXVXzGNpbv2
+	 +FVg/8GtXvkkDfbaoFDQXiSC6jjmLNB836sfJUVj/SHBjq6fP71kJCrNbHHiyhqh+bbZX
+	 9V8/7J0+RYvZ5VxY4vWhB/luCJV+6vK3/e02D8RykGazdqLhku00apB6zXCYgw2SVkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795148904;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795148985;
 	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
 	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
@@ -15,37 +15,37 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
 	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
 	 X-Local-Domain:X-CMAE-Envelope;
-	bh=nLedZFBA7pqqAsbPKZ7gcKV3+oeuaHEN21qa0HYf6XM=;
-	b=oSlFd9VCTm6romDDx+qq3FQO22SbJxxF9GpC5JUOMHZ7GheOM5zbfwpER/ZUyONiLf9D
-	 8f3e2CctCM975/ziY9dvZWje4eY9w6l0g8CcA60hCPfRVist92YOq6KTXYf1RD9dVRBA3
-	 jtkTJ8KHL+mA2OzzgClTNzO0F0tdDwPXWAZNzjjhSDIMPyePRYxJ8ujXOVcCG6xku2LWg
-	 3Rav4qX4zBYWljBNoGHcJWZxYU+jj8iaGWAcKy7zMoohXJEopxVdVZpZggCrq0J+UygLx
-	 ig8rY/fyE9X0P5BFD+lYSBYk3aOZJr7DKJgFJSRfWlcLQdsAkWmsBQ0YSX4jax69JKQ==
+	bh=NwKyPi+EXp0S/WOyO+1mrzsEeZFSZSXM/L2QcxcxUKw=;
+	b=1gVmYQqqc4DrHukW9/A7/Jbw4j6L/yOGWqR65rUqjZrkuaSL40NpbU6/wulQspIHvwfq
+	 3+0AAQfRKRLPd0wr1y80QU0CqEFEBu9Iz2Xv08+WOC05OfgIe2jpLE76wVmOC+p2HF4v4
+	 M2a8v+dxqIUexIYU+P5p4/CPgCI/4N5TDFwDb2B0eXx5gCocNg1fXu2bSmdLVZQY4C5jr
+	 DL6VUIB4KcsWLlxdZEKypnpwUafTR+ZgykEB+2o14iTzdfbfl9dAbIkJVUIdE+cdohDuq
+	 nuBfSfL/ycWa1IRcytvpW3L74blLj7FWD4nqr0Ysu1ckSjO7fT0GfBkXqKTx5U8fg9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=roeck-us.net;
 	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FzyVJj7c;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=4XV7rKRI;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34447606A320
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34447606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A4A606A32A
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:29:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72A4A606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FzyVJj7c
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=4XV7rKRI
 Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
 	by cmsmtp with ESMTPS
-	id UCyxx5mWryb4YUGEZxTTQV; Fri, 20 Nov 2026 04:28:24 +0000
+	id U7MZxiUotVK9UUGFnxZVuo; Fri, 20 Nov 2026 04:29:39 +0000
 Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
 	by cmsmtp with ESMTPS
-	id UGEZxu6GgSeuLUGEZxXoxo; Fri, 20 Nov 2026 04:28:23 +0000
-X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6affcc67
+	id UGFmxu7ivSeuLUGFnxXqE1; Fri, 20 Nov 2026 04:29:39 +0000
+X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6affccb3
  a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
  a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=zpOVymEVAAAA:8
- a=sfOm8-O8AAAA:8 a=VwQbUJbxAAAA:8 a=hcTXbwEjzvrjQ1zhnm8A:9 a=CjuIK1q_8ugA:10
+ a=sfOm8-O8AAAA:8 a=RSmfSHFI2LoBTrHSb6wA:9 a=CjuIK1q_8ugA:10
  a=LCD48ZUe64JR9pieE8wa:22 a=TvTJqdcANYtsRzA46cdi:22 a=KPbNTLLc3YvdawN95zVk:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
@@ -53,19 +53,19 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
 	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
 	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=nLedZFBA7pqqAsbPKZ7gcKV3+oeuaHEN21qa0HYf6XM=; b=FzyVJj7cPvl7dEzz9yFaq4vsUh
-	vV8Mtn7m3ZT1wQ+TyHistVMiLvQQiaVc93lEZehmwmIZVDjKlVAegoI/Bi1Q3DVjhrAqiPaZ23QOj
-	UDpbQU4rSzBP6QCymIRj+WZgGmJVbAR0U7SI1WO867eMPhV/54DmMbc3ze3U1k/GlQGdxxC7yGS/F
-	2PeoUhwh6NO3vETtwcEc8gX6GcLdSBZ061df7JkOC/4gT5KgMYHGSBm9i6Vw9B3nmAiomi71E15IC
-	NMeEt27xdyds8cipmdI8jjiusi+LufINp3B2qLNLx++tTxEcghAlJvosRWbgs5M7W0gmWZoft6YAj
-	Fua7BaKw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:33778 helo=server.roeck-us.net)
+	bh=NwKyPi+EXp0S/WOyO+1mrzsEeZFSZSXM/L2QcxcxUKw=; b=4XV7rKRIxdtmrGqva0T2IrI2fZ
+	RbG62Z+GkHytSWmn3OK7x5TcoHPqi2jjO++MwW+nrzqIj6wGDIXNuU3DKMGjBJ7A15TJXXJtGffXP
+	Wpx5BPtFNj4E/jP4wP3PWOv6ucUEyGYvFB3j5Jmm2PB3Jly+/q8dNtWn+qJqwr8pCj7/douzEkBD7
+	5KOjlIXhDObzVwKzdztx8aRyoW2m85f0vxQTvBWdGYvoMXD1URp5oj7zoPYC9wCLCKV5dVrnjkzNI
+	X69gtLKLCLQx8MKJtNFYTnUmZ7zGBeMi9OaZekp2SCQwaen3jA8+tkz9sGZFgE8JMMgxZx/+U4MUq
+	mes/Lmog==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:42072 helo=server.roeck-us.net)
 	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <linux@roeck-us.net>)
-	id 1xUGEY-00000003dBr-1qLm;
-	Fri, 20 Nov 2026 09:58:22 +0530
-Date: Thu, 19 Nov 2026 20:28:21 -0800
+	id 1xUGFl-00000003dbL-2YK5;
+	Fri, 20 Nov 2026 09:59:37 +0530
+Date: Thu, 19 Nov 2026 20:29:36 -0800
 From: Guenter Roeck <linux@roeck-us.net>
 To: Roman Vivchar <rva333@protonmail.com>
 Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
@@ -79,11 +79,10 @@ Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
 	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 1/3] dt-bindings: watchdog: mediatek,mtk-wdt: fix mt6797
- compatible
-Message-ID: <6002e935-199e-4d0c-adb9-d0c83162994a@roeck-us.net>
+Subject: Re: [PATCH 2/3] watchdog: mediatek: add mt6797 support
+Message-ID: <f0ea8f8d-eef7-4d13-8180-ea3e297c407c@roeck-us.net>
 References: <20261110-6797-wdt-v1-0-7f07755b6074@protonmail.com>
- <20261110-6797-wdt-v1-1-7f07755b6074@protonmail.com>
+ <20261110-6797-wdt-v1-2-7f07755b6074@protonmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261110-6797-wdt-v1-1-7f07755b6074@protonmail.com>
+In-Reply-To: <20261110-6797-wdt-v1-2-7f07755b6074@protonmail.com>
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
 X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
 X-AntiAbuse: Original Domain - vger.kernel.org
@@ -104,32 +103,27 @@ X-AntiAbuse: Sender Address Domain - roeck-us.net
 X-BWhitelist: no
 X-Source-IP: 108.223.40.66
 X-Source-L: No
-X-Exim-ID: 1xUGEY-00000003dBr-1qLm
+X-Exim-ID: 1xUGFl-00000003dbL-2YK5
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:33778
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:42072
 X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 4
+X-Email-Count: 19
 X-Org: HG=direseller_whb_net_legacy;ORG=directi;
 X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfL/ej7r045VAjl+oFgtFUEmhe306HDEBBOmOdtFZs7YGz95zoqVfN6bOhTujkUslkrbPDEq9/noFSxUZx3ifNNcYX/XvSlNgoNBrlFx9PDJf3SY0Uiix
- ZCoxS4oMhGQSzaJSBF4mWhY/WYxK4uw+J4rgKFibneldXItUddJgORCnMhaZ+loLLNSN5oWRvZgx2uqM54dxQH84JaQVOgDibhlUc1Uquqq3SslR3fzdtQ3u
+X-CMAE-Envelope: MS4xfBTGPW4C3mEyVwKpKBts49FyJqYxVz/6XUKdtaUxV7wiJhTYZIRN0zbAkXs8K0cKzes8PLkJUm5sHzx/US3MNuTiBDHHpIjNhGjYdOK6+iHmRDqUq8IT
+ +Vrnx+hLlZLhMelr/fv22shfTOeBQn8Me4wTQrirIOat/nOxUSNLA9pZLusiEhgXlJ0keE/oC+3w5rJTD6Ri2pmrasEHLsVPL9/KKe9IXsaBvXVTeQ34I/Ts
 
-On Tue, Nov 10, 2026 at 09:22:21PM +0200, Roman Vivchar wrote:
+On Tue, Nov 10, 2026 at 09:22:22PM +0200, Roman Vivchar wrote:
 > From: Roman Vivchar <rva333@protonmail.com>
 > 
-> The TOPRGU reset bits on the mt6797 SoC do not match that of mt6589,
-> therefore they are not compatible [1].
-> 
-> Deprecate the mt6589 fallback for mt6797 and add its own compatible
-> string. Also add a new binding header for the actual watchdog resets on
-> the SoC.
+> Add support for mt6797 SoC watchdog, which provides 17 software resets.
+> The mapping table uses bits from the datasheet [1].
 > 
 > Link: https://www.96boards.org/documentation/consumer/mediatekx20/additional-docs/docs/MT6797_Register_Table_Part_1.pdf [1]
 > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
 Applied.
 
