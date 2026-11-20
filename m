@@ -1,58 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795175976;
-	b=3C16bvIjKJA8TGXjwBI4hQcr8Hon7XJGMMI5VHuVVNjVfysFVtuQgGIOzo2SYsPz6VsV
-	 opT5N7gZbbn5XHaH00qJR6gAQVoSult5ScRKbG7L2pwqPCx69cZZGX8DPjYiS7AQ97yVi
-	 s5DN1lAV9MfY7KBGNWrRodyL6TJAAhRNRWhsGjuEF9wesxUcjcSoEiTaUMPvltdbHAs35
-	 Zwt0QFHzIBNT2ko0+yeoYjXOZgK26ARCI06IYdFiOQBYJ3mHmc1NgoSUmJwMb6DAi5XC+
-	 J5iKQoRuqlXikQnIEgtnvX8R3ksu6obpfPiibKbaUwU1e0UZlHSiz8YnwS2tc1QfYQw==
+	t=1795176104;
+	b=b3fjBeML9uOOc2lq9yUxoCHRsWJIl/JUWVp5JU0a3CD576PD8XdiNHXma7dyXgxtck+7
+	 8X56pWh8VON3JiGP+srf1msPADcr4r0g+ZAoTnaaYgEdLRhMZQZQEqgDLaWf8Sd/LRb83
+	 Zmf4EBTw0KuPYG73ZjbGRjpDY50XoTaIfFvj3Dlf3bD9BpqxTT5M36www0IYhOk3hcyd3
+	 Bu9/VtimcIRjYR31ekhoFkyN/h+tURo72eNUiKjpnPvBZTyPJ0mHjx4FYzhePLsLE5Ti+
+	 /TzKSnLzIKM0YQw1VW97cDwWjpD2CUHPrSw0ue7ePRd/N0rajj2LHYOBtes+Jx2exoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795175976;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=xGxazQdGcUKBZXkNT3EgqWjvCMXu7XolU++fRMgk5y0=;
-	b=M3vKImimbtfQ4ilUHeA+RFlBke980Fp7ZTBSz6miqNQNHRAI4XJ7b4ooTC8yKNcppQjO
-	 j0+ZBWsfll9u1R6xE6uurZNEbLOfsU5KC1vfe5tlciRt1BEYX3MwaFgU4q+VppSf7eym+
-	 ZN3NfsLfLoHoBje2pEOCco0F2malRWWtshf5J+/SP7BwedVcCf5mPa14uoaOVh3DeICKi
-	 c34FEQrur1S8AVc6gFcQZCdnzMyVP4EDjXqLajU6nOK/xV946ITBVE/wqMwKqPr0vSqwl
-	 P2MXrX366rg3yVtjtOL4ZktpsG2U1p8YwZd+JWmJEEJ5H+U2O2c4TnankRvbnpBmrrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795176104;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MAU1alsnTI2aWDlPsrvvBfpXKOIn933Znnm/A0R9ZLc=;
+	b=PveGqlpozcx0sHBFJypwx8sChvZ40YhALig7eKuxOTVFFyFPlEXDQeIiuB35yFvshM48
+	 h9/yCW8ZirQT3w5hSDnMIROA1+DUDJhfJGNWrVCvj9QYwgnMatJxSOYl6HZHIopK5VoNQ
+	 r8UKH7mo6FY0fgwupu+qyL6LLfofOVtDzJzhg+rdRhwc8Wz+1Osd+nuT/3ENaNhQrA37o
+	 8D5zUxUki91vtBTKOaaTLxgeRVYUptum4ZvnFKgrqHRVcJ0fDTWxEGXZogDqe26vJ1Wlh
+	 Zk5TZXLj/Z18zbnZdAlrEUd34uI0GrdJ58tGwTXHVFk3slpNm4m6LJRzQBMsZfAVbvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="awtN/n7E";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BsVfFHBz;
+	arc=none smtp.remote-ip=209.85.208.171
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79E8606A320;
-	Fri, 20 Nov 2026 11:59:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAFA606A32A
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:01:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CAFA606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awtN/n7E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0298E1F000C0;
-	Fri, 20 Nov 2026 11:59:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795175976;
-	bh=xGxazQdGcUKBZXkNT3EgqWjvCMXu7XolU++fRMgk5y0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=awtN/n7EFRKtcaMFVRTe755O03sEMUEz9QS0FUgwtoGQ4hjvwu8GEwa1eWWxODuhz
-	 TVjV2k05IZiC4SzHcoqhdD7emzpbhNkGiMSkVKy+LOdfwonBISRWTeplhdySWAmCms
-	 r20GekNPcQyX2bI0VX/rq1DsWfvaMA/DyOp1rIGA7DWK4Itp4EX6Jx5/WaMmdJ5zok
-	 J4TxEnlPtWMC9/HYLOhGPDR1T7tZPlOIL9b7aY05hne3wPKZx/hA1eSFQZ/EVZMjMF
-	 0o5VFj+CLztVrzpekjEM5G/1pt82mgw4lwo+bMWbtki3tuHKeq8jPAbL2xRDs2eOpt
-	 75SMNIqmprT6w==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Venkat Yadlapati <venkat.yadlapati@yahoo.com>
-Cc: linux-sound@vger.kernel.org, phone-devel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261119-vantage-tfa9865-v3-0-5257fa45df57@yahoo.com>
-References: <20261119-vantage-tfa9865-v3-0-5257fa45df57@yahoo.com>
-Subject: Re: [PATCH v3 0/2] ASoC: Add the NXP TFA9865 amplifier
-Message-Id: <179511065502.116416.9667231227994890644.b4-ty@b4>
-Date: Thu, 19 Nov 2026 17:50:55 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BsVfFHBz
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3acd239776cso5995391fa.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:01:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795176101; x=1795780901; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MAU1alsnTI2aWDlPsrvvBfpXKOIn933Znnm/A0R9ZLc=;
+        b=BsVfFHBzdir5k0WfQJg7M2TKjqOQlCznxkryG6RC+SXvakiGG3qoADnIipX3jLyW3k
+         wYG+y/NBBdMX7kMd57swLmjdawwqSMGbYRqAe+IGN/evNX/aTFynUaG+PB34OtUMFiGG
+         fI3PzFc8pGoQH+NgdxjfD1mkOKTPDCdddPvvdg9i3r6bTEs9TLK2BxJuEKY39pnYJn6C
+         hSefyInd50J2VDe7NfW9nHWMRncvyeKq6xhMHdCbQEmoAib+YaU2jRy0suhdEUKel2dr
+         h5GfuVwNBone6cywL7EKfYtsY62ftNf5C9ySC51aplwfsocKVSUaZKP3V7thbyINLeq9
+         P8UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795176101; x=1795780901;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MAU1alsnTI2aWDlPsrvvBfpXKOIn933Znnm/A0R9ZLc=;
+        b=ZQEdXi1AQXYro2MOqWaVTl0hEsmOaWC1bONGxslZnfs2lapfg0VCNe6JBtYcUpTKMA
+         x9OAkKysLL0xj0XZIm1BG6LJmkxGTekje/Ya8nph/F+6XOpvXz6BlxKA1SaqXHflo1b8
+         XvYWnj8SnZwZ77T1ECrubISmORIQMhGh2TXubfk2KxmZKLq3jFGJnZOEi/lX8qVMqhtV
+         Zhji3+E12oKs+16aHneb3JyonaSvm5IUCJKrsq+JWOF/TQvrEZVVM/f26d6w4QxUkHi4
+         28FX5zXf80sZUgZLHCgknSbs+WbE3X6m6KsW3i74l8lHfW+wM50AN/UMqP6QvKuEchlg
+         dYlg==
+X-Forwarded-Encrypted: i=1; AL+hErGWTahaeBwY+Bp6Uhp3J8wArXCjd4EOh8ADEGGTzSvZmzymv6zcvOza35uuqgNe5Cxx0uJIABM5XFYE@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QTpK3syrhQimJNTlmNrDWUNElJyvlRdsVjia6NADR3DSof75q
+	eP21SwERwAi8FJ0DQ2/3KwrN5hnkfgImXN5CFMNlgRnn+29XVHi4SivNmaJK+O6I
+X-Gm-Gg: AZFdTZe6KbF1xvj5q6Le3BRuncN6Xn2jIuesGcW/oDZLwH8NSiZjJwJjR8WW/R5+bVN
+	wyEOOI/n4QlGFiUrUzjqRgK41gc4sILjqwSD5CPGFXb0GgfPpIQcTKV/sDb2weKdmYTQO4oe9aM
+	ZeB6C05fZ2bUtWgYUX71YNxhIyDIaSLcpvEhxnxwUS8/XnECGqz3O3ihMBbg4Z611GBQIQKQaiv
+	RMYE/g67517VZTimT9oEcwYvZjFP3k25IscOx2dKNwsRUF2pr8WUiWovxyZs8cQbvOOE5OskM8S
+	t/qxC6dq6nk9yUkv9XOx1joUsALxlQhIx20BZyHxU9A+9gRqXQYblU70pqb8zlXJ3Gwvl+bK/Ok
+	q49M2SZlAvPw8AJSJVIpA7YL89CGmzOuHmj+EbmCX5HLT9F8uZ3YbuOmUBMpgUyX3AJKdnY69WF
+	IHHtTqB49DEVBbofQEoljQ4MvOd5wMlnya4AVQaxg9b4Yq/330BvSaJp2h/KCkwsBm7xzX51ClA
+	J4EKY94mOvToCmh8l13JFM36OX1qp/CA03ZrxUuN98wOUY/sKheEEj/q2r5N5hvxiMDYHefjkJp
+	oFuufkVXrTMJier0IBbvzsrHD6r3w188wq5dLONsECQdvDfUkgFn0WYrjneJB+WHjFZM8CgPkEv
+	o+8TrIj/I2tQ80oKC9qigIJ/pRZdT19M=
+X-Received: by 2002:a2e:be8d:0:b0:3a6:6f81:1027 with SMTP id 38308e7fff4ca-3ae7fa94f03mr8379171fa.24.1795176099614;
+        Fri, 20 Nov 2026 04:01:39 -0800 (PST)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae8055cf80sm6924401fa.36.2026.11.20.04.01.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 04:01:37 -0800 (PST)
+Message-ID: <bf0dd82b-e1a5-4ab9-9ab7-1641181d303f@gmail.com>
+Date: Fri, 20 Nov 2026 14:01:36 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,60 +93,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: iio: Support ROHM BD79111
+To: Conor Dooley <conor@kernel.org>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Matti Vaittinen <matti.vaittinen@linux.dev>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Marcelo Schmitt <marcelo.schmitt@analog.com>,
+ Joshua Crofts <joshua.crofts1@gmail.com>, Radu Sabau
+ <radu.sabau@analog.com>, Janani Sunil <janani.sunil@analog.com>,
+ Salih Erim <salih.erim@amd.com>,
+ Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1795009599.git.mazziesaccount@gmail.com>
+ <f69b996cc07fad1712871fb8b0436c71abd435b9.1795009599.git.mazziesaccount@gmail.com>
+ <20261118-ancient-ominous-4f2a4a37369b@spud>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20261118-ancient-ominous-4f2a4a37369b@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1810; i=broonie@kernel.org;
- h=from:subject:message-id; bh=/0PVE2m1OploXZpaI7B48bfggYZo0YPomATOhhLoCqc=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIZzFTOlzaUXWZcJxCk+757QwejupWMVPghy0Pcz6X1p
- /AKXfvbUcrCIMbFICumyBKXxf2yvuT1Gr6DC9tg5rAygQxh4OIUgIlIczP8D0vamONyQsjYzleq
- zdX5ubtBnIrinHWnxGQftR+bMeuiAMM/C9t75b1qs+LYb+yUKlDRCrgjLWZs95rdfs1Uo6v3RNx
- 4AA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 19 Nov 2026 14:01:45 +0530, Venkat Yadlapati wrote:
-> ASoC: Add the NXP TFA9865 amplifier
+On 18/11/2026 19:37, Conor Dooley wrote:
+> On Wed, Nov 18, 2026 at 04:19:11PM +0200, Matti Vaittinen wrote:
+>> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>>
+>> ROHM BD79111 is very similar to the BD79112. Both are ADC/GPIO devices,
+>> where pins can be configured to be either used as GPIO or ADC inputs.
+>> ADCs are 12-bit SAR ADCs and GPIOs support input/output but not being IRQ
+>> sources.
+>>
+>> The main difference is amount of channels/GPIOs. The BD79112 has 32 pins
+>> for this use, the BD79111 has 16. Furthermore, the BD79111 data-sheet
+>> promises 0.5 MSPS sample rate with maximum of 10 MHz SPI clock,  whereas
+>> the BD79112 data-sheet mentioned 1MSPS rate with maximum of 20 MHz SPI
+>> clock.
+>>
+>> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+>>
+>> ---
+>>
+>> Note, I had to change the 'root-level' additionalProperties: false to
+>> unevaluatedProperties: false in order to allow the properties in the new
+>> allOf:
+>>    - if:
+>>       ...
+>>
+>> section. It seems to me this is what a few other bindings in IIO do, but
+>> I suppose it makes this "less strict". Well, since I am terrible with
+>> writing bindings, I'd better point this out and ask if it's ok, or if
+>> there are better way(s) to handle this?
 > 
-> The Motorola Signature has two NXP (now Goodix) TFA9865 mono class-D
-> speaker amplifiers. This series adds the devicetree binding and a driver.
-> 
-> The chip has no DSP and a different register map than the TFA989x parts
-> of tfa989x.c. The driver applies the initialization sequence for the
-> device revision, selects the I2S slot feeding the amplifier and powers
-> the amplifier and its boost converter up and down. The register settings
-> come from the NXP tfa98xx driver. Only the B0 revision and the 32-bit I2S
-> slots configured at reset are supported for now.
-> 
-> [...]
+> I don't think you should have to do that though, since the children are
+> described in the same file.
+> If you instead retained the pattern properties section, and lowered the
+> restriction to channel@<any number> with reg with the max of 31 and in
+> the conditional section constrained reg to a max of 16 does it work
+> without the unevaluatedProperties change? We typically want properties
+> defined at the top level and constrained in conditional sections anyway.
 
-Applied to
+Gah. Either I don't know how to do this properly (which is likely), or 
+there is a slight caveat. When I tried to do what you suggest, the 
+binding allowed channel@X, where the <X> was is out of the range. Sure 
+thing this was caught by 'reg' being out of the range, but it still 
+allowed odd combination of
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+channel@X, reg = <Y>, if Y was in accepted range.
 
-Thanks!
+I suppose the 'X' and 'Y' in previous example are expected to always be 
+the same, but I would still like to catch this type of an error.
 
-[1/2] ASoC: dt-bindings: Add NXP TFA9865 amplifier
-      https://git.kernel.org/broonie/sound/c/3bb77766ce46
-[2/2] ASoC: codecs: Add NXP TFA9865 amplifier driver
-      https://git.kernel.org/broonie/sound/c/ba47599b523e
+I am about to spin v2 where I use the BD79112 limits (channels 0 to 31 
+allowed) in the pattern properties, and then do:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+"^channel@(1[6-9]|2[0-9]|3[01])$": false
+to exclude 16 - 31 from the BD79111.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+I am not super happy with it, but it seems to work and is still decently 
+understandable even for someone yaml -illiterate like myself. :/ (At 
+least for as long as we only have ICs which don't increase the amount of 
+default channels. That might cause the exclusion regexp on other ICs to 
+become ridiculously long or hard to read. Well, I don't have such ICs on 
+sight for now.)
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Well, let's see what people think of it :)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Yours,
+	-- Matti
 
-Thanks,
-Mark
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
 
+~~ When things go utterly wrong vim users can always type :help! ~~
