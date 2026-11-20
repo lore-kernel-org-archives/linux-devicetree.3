@@ -1,80 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795174859;
-	b=xH/1ZoZ7QEdaItsrnmQc/XiG9i2HJxFNT1/QLaA0XZgovsKQb9I0dulXrMjk2Da2nen9
-	 FyuYrCLDTuaZiYCkBzsTp1IoCeYNAmjiToSNyfCGf4N4X0FZtw0hPF+yLeQBe5VgiECpX
-	 uqIwr+8CCZ84NagMtq37aqBliGCwVn9pCznTccu1XY6OPP23GKs8j4Qy7Ugb9h2yC/epF
-	 JZCHvJxt2L0gPx+/lC8uxGoqTupqgM/uCpCkSCVKgTejhy6C7NhiGxK+3g+zwfyIXjF67
-	 Zl3s4Q43KqRehPQ4efz12CwuOD19YXfuK5FhLwA+TxAERvLPUMjKQpKpM2FqEYRvc2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795174859;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=3hjpsQQN2Wrc7/hxg/+pcCIIGQ1HkqwD7EgDr+mzxCE=;
-	b=UZX1+EoxX3WgZ4obrCejKBjkrWkObc+1XD3xOKlwuRokFrhWj+DYpp7c/ngyZx2FS7BG
-	 2GpUOetBrWN/ofklI5ttV40VhSvnEBA46FXENNd2LVvcS1gk9NPsbiD6+u8BP/Yx6f/mE
-	 rRFhLA1q4F+zUW6j44H0Ha9za1JEIVfVBKAhXYUqVyjiHJ9Wz2pvr2RqlBHaFdaFxD91E
-	 DZugoDIGIUNGaIjWV7/qWIaZwqwduPV2yPI0EcySptkJsUHIYPBVX3Y2Q2+UpwRcckKYl
-	 k1Nmyn/XoKTCI8yU9VevCe2Evrm0lrMFCA06aR2LH8RVPFX2MYi+hAavSS8v0gwHjSA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwMQkOIk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537B4606A326;
-	Fri, 20 Nov 2026 11:40:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwMQkOIk
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795174858;
-	b=WorYiQJ87REYkL14Fl3qt17KynX1nER1KZ8ji2T5PD+O7++DNPDsV63AAy/9j+LO++Vj
-	 bju82Nbr6ijW4MPJO8BINLRT1/EJ52h3hcW7i/USqyAo/nvySRRAlzXJ+VLa6grfy/0qa
-	 ImUoPbKKQfpF+8p1SEHBOb0wTfZRI3LKG46pZEpJ2tiYDRVzlCa/VQmJQJDVDDN9tBWeh
-	 y713VdxUkDIZW63LSRDf5go5m5qUSJBDxUswj9ZJ8tC0bjw3I4x+xSqm48091Ta++Ycuv
-	 OOIwiVfBFIPP1o57mTZqY8Z+WvP1RNZUPxSIKjTNLvRAHFk4L032yxEIHA8ArCeAjdA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795174858;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=3hjpsQQN2Wrc7/hxg/+pcCIIGQ1HkqwD7EgDr+mzxCE=;
-	b=2KN7P8F9thsHlQJAs4STZ8S6rMrJZGv7W3KV2a8efwMKFZNiXTtfVa1VsRV4fR2exVXj
-	 j+rmzG7N40BfSSK4RNaHZWEIecPCquvx0hjAerEkDQ5XVvCe5XwnxiAc44pJ5RpwARskm
-	 uXwZzO9DO1ZvN8dFDZD95Lp2I1tYS2r4bLszHBMEy6yW0yI97XAfyrYpAVg8JzphS7knn
-	 B4pCS6U9kr0EdewQvXB5uEyzKFmdH4rQfjEKe1fCFV5QP0mytseUUl6xJklQIps350jWM
-	 07cwpnFXAis1KiklQtlbj95aWr2LPVU0zzvJcrWgBDhrTP/R5uUl22lAxwsl6YeV8mQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795174866;
+	b=5OUdsN2EbDKvi8iZfeiQ4F9Tzh+7h8SZsq2hMXm7w6B0np90X/p2cnT/utbd7oYC2QgS
+	 Q2VKD8Y1w/O7qk4JNcfjxe1fvalO5LsjMvV4El0S6veF8s81m/EJgbnRVV+2fAs4fyRkR
+	 HnV95NSkceMq9qw0ee4KkU/D1AeOmUS6cVAifdZhRxn2JTL7xeSHFQJgsaqotqWhx7xQB
+	 NPMzv6+P6Hd08VK0OH44ZT9pEv4FjUwZIgOArVO5o2a11VBQoIPr/Wilba8NzdQ3BEZ2/
+	 vEBwtQkm+BZyqrn3raPSmi2EjymOykuQRYU1u1eHoQxZMeS87JURUIRDtsb0c7QidpQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795174866;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=D3sYdKhtwMz2Ymepp70k+wJP1lW04BDHKmEdKLXQ/0g=;
+	b=39NCCNzSiTSCZpgfZvNUD+Fr2G+xJm2EYa64TymZS9gd0mbvRXz0HI9gSx+DJHapDSub
+	 7Z0JEPkDB3+EN4eSe6XKIV7yWkuDCD9/2oJJ2HlEa8k+158N7Yy11eCk+bBOZleK8JZfC
+	 1vdXpLbWs/hZxsvpEmXYPD9d4bfKa8WaQlYUE9I+goJJ5nHrJtgXOqsv4zpTzvtSpuLAh
+	 yJ+ATfSYumeBra964HX5TPSec7/LE3d+q74Joh68JToKtBm7pJ9O37AbeNA7S2ICZZDr6
+	 /mZ3l4kunsgqzQ4yts11azOIldsqO8rxHBGYxueOjkXpZTtN6HeuMNeKw40p4A9stww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JwxCqj8X;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D48201F000C4;
-	Fri, 20 Nov 2026 11:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795174858;
-	bh=3hjpsQQN2Wrc7/hxg/+pcCIIGQ1HkqwD7EgDr+mzxCE=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=jwMQkOIkmAasuMd363UDUY4F9X7nqos5YKBlH/TYgAfQJmO3MLGh1HdindqM6RR85
-	 Pw3BYUy2YXptE51rS45cbBPVJNcXS0+6QoYADe/s+E4xho6t/tezcTvj1Z9/avIx2x
-	 VFZp78ciGF2tt3+cXmuIZQhewjgzY5Klj/0SkHctwk4DUtTNBnbNni1/DrbevzH6W7
-	 yFoIivAiQheDi++mSWaWUwjOsIliygfUojnK4YR9XVs8LIDrfgJdg4XIamiTOMa89M
-	 lUgAWbdgt3ecTmXhrJG/JBtpJZvOCt5XhNAJk2aJMydaWOJdEfDYQkXDRjShQ7LEpm
-	 8h+9ZEmaV6lLQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6AD4349868;
-	Fri, 20 Nov 2026 11:40:46 +0000 (UTC)
-From: Ivan Pfarher via B4 Relay <devnull+ipfarher.gmail.com@kernel.org>
-Subject: [PATCH 0/4] arm64: dts: allwinner: h5: orangepi-zero-plus2: Fix
- Bluetooth and USB gadget
-Date: Fri, 20 Nov 2026 12:40:44 +0100
-Message-Id: <20261120-orangepi-zero-plus2-fixes-v1-0-ecd792189f27@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008B5606A325
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:41:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 008B5606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JwxCqj8X
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb55cda775so4977545e9.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 03:41:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795174864; x=1795779664; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D3sYdKhtwMz2Ymepp70k+wJP1lW04BDHKmEdKLXQ/0g=;
+        b=JwxCqj8XfU2+uyArh4tcmWO78sFv//GqEEKKhzO9qtOqV0begI692f9O6HjkRUv1Pr
+         ++YhlN6hGEd5mN0uCb6XrUh7w/zsvvo4Ts8ohVlqy021lIu6Nlrlw47/j+TBfhs6afo/
+         DReqrDYS3SK/Gd03o0MrNrPczZggH8meSTE71V+SMBcEiM4oanTiF/tNQyBFx9volFm6
+         e2GMi1rzuBgUaYJbRDWkPxAG2UlSO/PEXnHpaZuA4JrM1RPrDbqZm+J3AiK8w0unh5HN
+         /u8FDg7eQ+ffKRXdhle5BBFv1eMbTO5x29pPribFZzqdkh+K7PrZyCP4H92mhSO9UcJr
+         lUAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795174864; x=1795779664;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D3sYdKhtwMz2Ymepp70k+wJP1lW04BDHKmEdKLXQ/0g=;
+        b=U1PB2E0ReYr22jyirlhpE1lRiUZly2k9JjPF+WVHI5ioDJw6z+9587tlKo//Y+Mz0C
+         utWGIORxbwRpU/bpyv42oDArwMTUhyv1hqNQ+KDUEQGP/sRbUin5Kr7UJLDEJTn4cKmr
+         Gd6YUbREk8Mur28JtdFdPAMFcBNc4lCvu3eJDJV65SqjPuLzSrNFpFd5N3XiwGegVs6h
+         y0ReFkdMA+oIA0YSSMg2RFlHG38UXRn6o6yS74+NFS4dwD8C1WOp19VRhxJCcb29vjjs
+         h33D+P5VncsIfw8axYhA0xFq87NylUMruF1Ke5APdYak2iPsZa6q0Zkc2/4ww8b/lHZe
+         QW7w==
+X-Forwarded-Encrypted: i=1; AL+hErEjHToEomlhxwJ6tem4BCOTtAbLq5/OYFWEkVy5RsGrGUV+Imvl1BhZfv93uYfwx7uqMqeX2BhhFDmu@vger.kernel.org
+X-Gm-Message-State: APuU4Z+R/IRrI0E5nKtqkDiNb4YICfVsxOTq815tZghVw205BxeGrP4V
+	ouKfir9F7FD6zxgmp5HVKmM9CTNVuKl+cpYIC6VzD6biEztnvYgBIR8B
+X-Gm-Gg: AYBFou135LzUbMmuvKoIsZrk236NMFpto7ZpKHjawea/XgUVX22QfHEUgrb6bvRTZaR
+	3H+bmjs2cNhweCMT5dgiXhu8emhAxeibhXYWWc19o6My81Q4useO7WCnksqAvmwRtLu8nDfVwFa
+	2kJJRlWKPYhjPmfd8mbAO7LqPypOYia39wbRB/XrjfqjC0JjyyJKM2xyNqa3U2eglk72Ba4FK8Z
+	HGWGUge92w1Z6noK5D3pD8ZHMtVNGEPLG1BWVQ2tYOzam0wM9gf7v+/Zvwyx6+nhr1rHvw8yUWd
+	SbcFUQd8lnQHsR/EbmAGEyQV0KhDDcFOSTcHAjdRW0ZC8YANGVfdPdMOsXTWJPS3uInuHXSt23a
+	dLtlxvEBldmmoFpFWwgnDGCChvE8qr+6g5JlRknKD6gLf9uYr9H7pEPLGkNzihbeyXEzAllyfQT
+	k+Uf7C6EQpfkXOJBJHGbw860MdNn+41jr7tlu0bbinAc0FwnBeoxWS3NK7+b2Ftc6dB7LfzpD3J
+	SrLS3p+6KI8D5RV6YGCNt0+kdKC3jnUOBFCCEky6n18rqp1JgDqPI2pUl2iFzMeteC0D0uYfakp
+	hhKCFSgRclk/h0Od3b3reqqfow==
+X-Received: by 2002:a05:600c:154c:b0:4bb:6a78:7c42 with SMTP id 5b1f17b1804b1-4bb887c3428mr62096785e9.1.1795174864114;
+        Fri, 20 Nov 2026 03:41:04 -0800 (PST)
+Received: from dl360p ([130.61.107.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8d4f9aa8sm27419345e9.4.2026.11.20.03.41.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 03:41:03 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: neil.armstrong@linaro.org,
+	jesszhan0024@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	u.kleine-koenig@baylibre.com,
+	=?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+Subject: [PATCH v4 0/2] drm/panel: add Novatek NT36525 (Samsung Galaxy XCover5)
+Date: Fri, 20 Nov 2026 14:40:58 +0300
+Message-ID: <20261120114100.978148-1-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116070212.314228-1-tadilhusrev@gmail.com>
+References: <20261116070212.314228-1-tadilhusrev@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,84 +111,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALwxAGsC/x2LSQqAMAwAvyI5G2gDCvoV8eASNSC2JCii+Herx
- 5lhbjBWYYM6u0H5EJOwJfB5BsPSbTOjjImBHJXek8Ogn42CF2vAuO5GOMnJhhWN7KrB98VUQPq
- j8h/S3rTP8wIiTPS3awAAAA==
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, Ivan Pfarher <ipfarher@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795174845; l=2806;
- i=ipfarher@gmail.com; s=20261120; h=from:subject:message-id;
- bh=8NDP5ZNmJidSCuINYDzvhJHNJXi8K2RXS0VdGYiDgfo=;
- b=fwAfu0dfR2ngc4aIhPPXVyWR5bhlGxXAzqv3mF4h8OXYi1vICRCu30qqI8QT4BDRKtmUWBF/7
- EUWKft9RMhEDuGYa0/VJ1BF2zar9tVd2HX8K/l551LcaHvOq+8GH1eu
-X-Developer-Key: i=ipfarher@gmail.com; a=ed25519;
- pk=3DMYyz/xl+KRAx2TNGJpheG+5QUm7lqHhKXFqVu2TmY=
-X-Endpoint-Received: by B4 Relay for ipfarher@gmail.com/20261120 with
- auth_id=1582
-X-Original-From: Ivan Pfarher <ipfarher@gmail.com>
-Reply-To: ipfarher@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On the Orange Pi Zero Plus2 (H5), neither the Bluetooth part of the
-AP6212 module nor the micro USB port in peripheral mode work with the
-current device tree. This series fixes both and adds MMC aliases:
+This series adds a DRM panel driver and its DT binding for MIPI-DSI
+video-mode panels based on the Novatek NT36525 controller, as fitted on
+the Samsung Galaxy XCover5 (SM-G525F, Exynos850). The panel is 720x1480,
+uses an active-low reset (RESX), and a DCS init sequence that mirrors
+the stock Samsung bring-up. Backlight goes through drm_panel_of_backlight().
 
-1. The AP6212 needs the RTC 32.768 kHz clock (osc32k-out) as LPO. It
-   is not referenced, so it gets disabled as unused, and the BT ROM
-   then answers nothing but HCI_Reset.
-2. Describe the Bluetooth controller on UART1 (BT_REG_ON on PA10), so
-   hci_bcm can power it, load its firmware and use it at 1.5 Mbaud.
-3. EHCI0/OHCI0 share USB PHY 0 with the MUSB controller. When they
-   register, the USB core switches the PHY to host mode, so the
-   peripheral-only micro USB port never enumerates as a gadget. Drop
-   them, as the port cannot supply VBUS anyway.
-4. Add MMC aliases so the microSD card and the eMMC keep fixed numbers.
+  Patch 1  dt-bindings (no change since v3)
+  Patch 2  the panel driver
 
-About patch 3: the root cause is that phy-sun4i-usb accepts the
-host-mode request from the HCD even though the PHY's dr_mode is fixed
-to "peripheral". Changing the PHY driver would also cover other
-boards, but that is a separate discussion; this series only fixes the
-board DT. The H3 version of the board (sun8i-h3-orangepi-zero-plus2.dts)
-has the same USB and AP6212 setup and very likely the same problems,
-but it is not changed here because I could not test it.
+v4 addresses Uwe Kleine-König's v3 review comment: drop the unneeded
+<linux/mod_devicetable.h> include (it is pulled in transitively; this
+driver's of_device_id/MODULE_DEVICE_TABLE(of, ...) still build clean
+without it).
 
-Testing: all four changes were tested on an Orange Pi Zero Plus2 (H5)
-running Linux 6.6.160 (Yocto scarthgap, meta-sunxi) with the same DT
-changes: Bluetooth comes up with firmware loaded and scans, the g_cdc
-gadget enumerates on a PC, and the board boots with the microSD card
-as mmcblk0 and the eMMC as mmcblk1. Against current mainline the
-series is build-tested only: dtc gives no new warnings and dt-validate
-reports nothing for the resulting DTB.
+Adding phone-devel@vger.kernel.org to Cc per Ivon Argel's suggestion
+on the v3 thread, so the relevant ecosystem developers see it (not
+adding Ivon's own address; he asked not to be personally Cc'd).
 
-The issues were found and the patches drafted with the help of an AI
-coding assistant (Claude by Anthropic), which also ran the diagnostics
-on the board (raw HCI commands over the UART, GPIO and clock
-experiments, USB PHY state). I reviewed and tested the changes.
+On Michael McAllister's offer to add Moto G10 (DJN NT36525B) support
+on top of this series: happy to see a follow-up patch once this base
+driver lands; I'll reply on-list separately rather than hold this
+series on it.
 
-Signed-off-by: Ivan Pfarher <ipfarher@gmail.com>
+Tested on a Samsung Galaxy XCover5 running 7.4-rc3 plus this series
+(re-confirmed 2026-11-20, kernel 7.4.0-rc3-00023-gdcb8b91fb779+ #32,
+after rebasing our local tree from 7.4.0-rc1 to the real 7.4-rc3 tag):
+the DSI panel connector probes and reports "connected", debugfs
+reports the reset gpio as ACTIVE LOW, and /sys/class/backlight/ is
+present and readable. checkpatch.pl and dt_binding_check are clean
+(bar the usual new-file MAINTAINERS note; the files are covered by
+the DRM PANEL DRIVERS wildcards).
 
-Signed-off-by: Ivan Pfarher <ipfarher@gmail.com>
----
-Ivan Pfarher (4):
-      arm64: dts: allwinner: h5: orangepi-zero-plus2: Add LPO clock for AP6212
-      arm64: dts: allwinner: h5: orangepi-zero-plus2: Add AP6212 Bluetooth
-      arm64: dts: allwinner: h5: orangepi-zero-plus2: Fix USB peripheral mode
-      arm64: dts: allwinner: h5: orangepi-zero-plus2: Add MMC aliases
+Based on v7.4-rc3.
 
- .../allwinner/sun50i-h5-orangepi-zero-plus2.dts    | 25 +++++++++++++++-------
- 1 file changed, 17 insertions(+), 8 deletions(-)
----
-base-commit: 65e4fd942f72a9dba0e4e257290c4fa1aa756854
-change-id: 20261120-orangepi-zero-plus2-fixes-92de09c1b5f5
+Tool usage
+----------
+This series was developed during XCover5 mainline bring-up with the help
+of an AI coding assistant (Claude Code, Anthropic). The assistant converted
+the vendor init stream to mipi_dsi_dcs_write_seq_multi(), drafted the driver
+skeleton and the DT binding, and drafted these changelogs. I reviewed every
+line, validated the binding (dt_binding_check, yamllint), tested the driver
+on hardware, and take full responsibility for the contribution.
+Prompt summary: "convert the XCover5 NT36525 vendor panel init into a
+mainline drm_panel driver plus DT binding; keep it checkpatch- and
+dt_binding_check-clean; test on the device." Review comments are welcome
+and I will answer them myself.
 
-Best regards,
--- 
-Ivan Pfarher <ipfarher@gmail.com>
+Adil Hüsrev Tepe (2):
+  dt-bindings: display: panel: add Novatek NT36525
+  drm/panel: add Novatek NT36525 panel driver
 
+ .../display/panel/novatek,nt36525.yaml        |  83 +++
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36525.c | 490 ++++++++++++++++++
+ 4 files changed, 587 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36525.c
 
+--
+2.53.0
