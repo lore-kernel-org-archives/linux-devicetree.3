@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795175156;
-	b=DtNsRFg1W9C8nEzM82dAhCxVYljnabnbl+zCd8CO8WqO/FhjYI9htPyATg8ARb2ulVwJ
-	 2B+SVOv+VSuTWk+Kljj2gdrpujj6dL2cOeLmZDD1NXClS9UK/xwKo6YkLnd/y3NWE2Qbr
-	 7V6AYQoZVuMdNZDim6H0RTYTOVaDvLyVJSpLomf83LGIpR04GePWlp2GmCuN/t895U4ad
-	 Mt4dtNTDyhwtk6xP8LzzxUNwNHho4O/338LkjFuNkTGnpvMcSg26ryU7Ijufd8wT/ZyYq
-	 u69o7nyuA+SnIF1hYz+ITVt4IHkbkgJNIrOrSPJnVg1voolk6pPyqlfi30L22MUNKlQ==
+	t=1795175159;
+	b=xV8F8euw93dqfBmEjOTb+vWqzoQ3Krn95UwtchJ2DuYDO8ynLJJkC5Jf4v2Tx0BDPjOo
+	 fi32yXDLtkl58PYEAWmCCPbld7NirDiwtsiDH8kc8BP5ZI1fS6j0L8KHIyejq1MHowchr
+	 2/diA1kVch56AUDDWc9kT0NZNB7h+gMgDbbpcmQGUO8HQ/KVS7jopmyvYlLNG7E7c/8yU
+	 iRJzonCT615iruqn6a1l3EeM+AG42eMlG9Ec4/Z0+AP2ZM/zXB5ZYEIceuAbN3GFmYHOO
+	 U1v1zzWpKUM8FqJT/l8Vz+j1fLyQFjjewn7weWt4IZaCM4SAhZgZ1Pq8T7aHIcBgMFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795175156;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795175159;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=cXx0a8LeeD7MJwMvVRKUDaLbCvneP22P9q9pHTmM+cc=;
-	b=QnLkUDm2sBspTJlMiLiB/nk2iJ/3VczaxQUVZ+s4NBJIpPEQuvd6bvTM9MQCl4HWrlRm
-	 Trfan+t7ybWuudG0suWQUyKMW29/uPpYJxYBULvzJSe9+EKdELmdaPQ+KYEkdEYkofnpL
-	 e5ZHRagvSMy9Iyn+KwhAIbTtvRlMRmRzGf6WM2/3S/P23OfbNSCepvre6gvFjrv9BVInH
-	 NmNFwWHX5rcgefk22xhLwUdwXsG964zbGVLyzvqMN6wJrbggF6VMZoYW07gP3A1Kkblon
-	 vorFv6hX0hQm1mAzK6DRqfZJMNOnoy69ZrE/gBeX5PC3oFK/brmxbzG4gxMmm/1IlbQ==
+	bh=b53VQhGDB3fDyxFM+t+5Xty44SLQn1Any6AH//jkRcI=;
+	b=B8EWfyfh1QSs/hygCKerdwmiAP042amKQzgPjxKjZzrx3+CnHjKkC5GUdS/qLMx1mIiO
+	 IloxDEe/SYryHYIKT52t6ptpsTwupMKMrvJhjKCrPc9fcVv78ymrtTxQnKLBmCpUm6m6N
+	 4OKU0lqqorNybXzMjFnkk5ngm86CVbFvTermQKHNc9AqdhUUbHMvunokn3YGpzSicMGyN
+	 6oKg5IAOafWoolczrlSb3P+L2WytUNOKfNCPHdvYnjs7To/flwCn0l7mYUihuv3tPRSnU
+	 ydu5AmMkQVDU1k50Swz/mU32PnvV4xKj/GKzufyOc5swgkKlsV6Oy7+QiMuURuRa7JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MkPJ+L1W;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aj62RK6g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B436A606A32A;
-	Fri, 20 Nov 2026 11:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01998606AA4A;
+	Fri, 20 Nov 2026 11:45:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MkPJ+L1W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B5A1F000C0;
-	Fri, 20 Nov 2026 11:45:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aj62RK6g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8A5D1F000CA;
+	Fri, 20 Nov 2026 11:45:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795175156;
-	bh=cXx0a8LeeD7MJwMvVRKUDaLbCvneP22P9q9pHTmM+cc=;
+	s=k20260515; t=1795175158;
+	bh=b53VQhGDB3fDyxFM+t+5Xty44SLQn1Any6AH//jkRcI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MkPJ+L1WgTP5flX1Nr9XFJoUwfmWlpy89lNoJbZ5mpEXF2XlNG+vQcMKEJEzS7lUu
-	 ZiYY4eZDfGWBBScPEop3t3gZb4219h0+lGg0rQJy6tux/+rD7SlCH+y70d3PZ326ex
-	 YpvSZY2sEO/IiFYzysdRgCeqDn+FTNe/+SyOWd/eLZWbrlkwI+axdGu08zBhcMt8nl
-	 E5+K7QnqlmVajSR2+3S5atXOJIZ/+6KGix2fb08PYp/1tJ8xvKvdMrqFgVxatnoZGN
-	 25f+jsJmtoeUCMG8TykV2LieBQAIbWWurLXH3HLbnkAx0K2Arqn0DmT3Ih03/chHQy
-	 TwUK/cisfvlug==
-Subject: Re: [PATCH net-next v4 02/10] net: phy: dp83867: add regulator supply
- management
+	b=aj62RK6gzP2wZfFruZbamBHtiWRCditBicdkfNhpbm+A2wedP1Njr13YYqWSrSA5p
+	 Hr02HrwrYg5k+jD15UNYAdyrmdXx99C0jd99Eq5hRYbgZECjKxVfaRUGN+tXdCapsd
+	 J8Ostcqp9K+dXfK4N3vdx1lXf4B9nE6gQHzmnO/YuwL3Ot5RiP8tE5SxF3h7m6aYbL
+	 vuo63bDksU+WTsKzoNDEs9D6ReAlV3d/eb+GWokJdi1ZftbT9bh4h0TlU18C4dXsGp
+	 B94sTNV972RPH9IdC7uoiYwk2QDbHG32HflidfQFWXex5wmL3ht8Ocuaf6ckB+RFwm
+	 YGH3JcGwsIppg==
+Subject: Re: [PATCH net-next v4 03/10] dt-bindings: net: qcom,ethqos: add
+ qcom,shikra-ethqos compatible
 From: netdev-bot+sashiko@kernel.org
 To: mohd.anwar@oss.qualcomm.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
@@ -55,11 +55,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Fri, 20 Nov 2026 11:45:54 +0000
-Message-ID: <179517515449.3136.10802254198110142730@kernel.org>
-In-Reply-To: <20261117-shikra_ethernet-v4-2-c41902e5f2fa@oss.qualcomm.com>
-References: <20261117-shikra_ethernet-v4-2-c41902e5f2fa@oss.qualcomm.com>
-X-sashiko-severity: Medium
+Date: Fri, 20 Nov 2026 11:45:56 +0000
+Message-ID: <179517515650.3136.1478544566840893554@kernel.org>
+In-Reply-To: <20261117-shikra_ethernet-v4-3-c41902e5f2fa@oss.qualcomm.com>
+References: <20261117-shikra_ethernet-v4-3-c41902e5f2fa@oss.qualcomm.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -72,173 +72,163 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The supplies are only enabled from the phy_driver probe
-  (dp83867_probe() -> dp83867_power_on(), drivers/net/phy/dp83867.c:769…
-- [Low] The commit message says "When any supply is newly enabled the
-  driver sleeps for 200 ms".
-- [Low] dp83867_power_on() turns on the DP83867 rails after phylib has
-  already released the PHY's reset GPIO.
+- [Low] The commit message says the if/else block constrains Shikra
+  "while leaving existing compatibles unchanged", but the schema now…
+- [Low] The Shikra `then:` block (lines 116-130 of qcom,ethqos.yaml)
+  requires exactly six clocks ending in `axi-noc`, `pcie-tile-axi-noc`…
+- [Low] For Shikra, the `then:` branch of qcom,ethqos.yaml fixes clock
+  index 3 to `const: rgmii` (line 125).
 
 --
 
-net: phy: dp83867: add regulator supply management
+dt-bindings: net: qcom,ethqos: add qcom,shikra-ethqos compatible
 
-This adds dp83867_power_on(), called at the start of dp83867_probe(). It
-enables up to four optional supplies (vdda-2p5, vdd-1p0, vdda-1p8, vddio)
-with devm_regulator_get_enable_optional(). If any supply is described, the
-driver then sleeps 200 ms for the post power-up stabilisation time given
-in datasheet section 6.6.
+This adds a qcom,shikra-ethqos compatible to the qcom,ethqos and
+snps,dwmac bindings. Shikra's EMAC needs two extra NOC clocks (axi-noc,
+pcie-tile-axi-noc) and an OPP table to vote VDD_CX. An if/else block
+limits Shikra to six clocks and requires operating-points-v2 and
+power-domains.
 
-> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
-> index b4b4931c6f8ce..ed8b3089e8e0b 100644
-> --- a/drivers/net/phy/dp83867.c
-> +++ b/drivers/net/phy/dp83867.c
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> index ef520f8105773..6bd4bded650a4 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
 
 [ ... ]
 
-> @@ -730,11 +731,45 @@ static int dp83867_resume(struct phy_device *phydev)
->  	return 0;
->  }
+> @@ -81,6 +83,14 @@ properties:
+>        - const: cpu-mac
+>        - const: mac-mem
 >  
-> +static int dp83867_power_on(struct phy_device *phydev)
-> +{
-> +	static const char * const supply_names[] = {
-> +		"vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
-> +	};
-> +	struct device *dev = &phydev->mdio.dev;
-> +	bool supplies_enabled = false;
-> +	int i, ret;
+> +  operating-points-v2:
+> +    description: |
+> +      For Shikra, the OPP table specifies the rates for the NOC access
+> +      clocks in "stmmaceth", "axi-noc", "pcie-tile-axi-noc" order.
 > +
-> +	if (!IS_ENABLED(CONFIG_REGULATOR))
-> +		return 0;
+> +  opp-table:
+> +    type: object
 > +
-> +	for (i = 0; i < ARRAY_SIZE(supply_names); i++) {
-> +		ret = devm_regulator_get_enable_optional(dev, supply_names[i]);
 
 [Severity: Low]
-How does this interact with boards that describe both reset-gpios and
-these switched rails? By the time dp83867_probe() runs, phylib has already
-released the PHY reset line twice:
+The commit message says the if/else block constrains Shikra "while
+leaving existing compatibles unchanged". Is that true for these two
+properties?
 
-phy_device_register()
-    phy_device_reset(phydev, 0);
+operating-points-v2 and opp-table are added to the top-level properties
+without any compatible gating. The else branch further down only narrows
+clocks and clock-names.
 
-phy_probe()
-    phy_device_reset(phydev, 0);
+At the baseline, neither snps,dwmac.yaml nor any other binding under
+bindings/net/ defined these properties, and this file ends with
+unevaluatedProperties: false. An OPP table on a qcs404, qcs615, sa8775p,
+qcs8300, sc8280xp or sm8150 ethqos node used to fail dtbs_check. With
+this patch it passes.
+
+The property description says it applies to Shikra. Later in the series,
+the driver reads the OPP table only when num_noc_clks is set, which is
+only the case for shikra_data.
+
+Could the else branch add operating-points-v2: false and opp-table:
+false? Or should the commit message be adjusted?
+
+[ ... ]
+
+> @@ -95,6 +105,42 @@ required:
+>    - clock-names
+>    - reg-names
+>  
+> +allOf:
+> +  - $ref: snps,dwmac.yaml#
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,shikra-ethqos
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 6
+> +        clock-names:
+> +          items:
+> +            - const: stmmaceth
+> +            - const: pclk
+> +            - const: ptp_ref
+> +            - const: rgmii
+
+[Severity: Low]
+Does fixing the fourth clock to rgmii mean SGMII/serdes boards can't be
+described on Shikra?
+
+The top-level schema still allows phys and phy-names = serdes for
+Shikra, but phyaux is rejected here.
+
+The Shikra GCC exposes PHY AUX and SGMIIPHY RX/TX clocks for both EMACs:
+
+drivers/clk/qcom/gcc-shikra.c:gcc_shikra_clocks[] {
     ...
-    err = phydev->drv->probe(phydev);
-        dp83867_probe()
-            dp83867_power_on()
-                devm_regulator_get_enable_optional()
+	[GCC_EMAC0_PHY_AUX_CLK] = &gcc_emac0_phy_aux_clk.clkr,
+    ...
+}
 
-So the reset pulse and its reset-deassert-us wait happen while the PHY is
-unpowered. The rails then come up with RESET_N already high, and the PHY
-depends on its internal power-on reset. That may well be tolerated, but
-the reset pulse described for the board has no effect.
+The SGMII-capable ethqos SoCs (sa8775p and qcs8300, with link_clk_name =
+"phyaux" in emac_v4_0_0_data) use these clocks for the serdes path.
 
-There is also the gap between phy_device_register() and the supply enable
-in probe, which can be long if the regulator provider defers. During that
-time the deasserted reset GPIO drives a high level into a chip whose VDDIO
-domain may still be off. Could that back-power the chip through its pin
-protection diodes?
+On a Shikra board wired for SGMII through the serdes, a phyaux link
+clock would fail dtbs_check. ethqos_hlos_setup() would also fetch
+"rgmii", because shikra_data sets no link_clk_name:
 
-Would it make sense to call phy_device_reset(phydev, 1) before enabling
-the supplies and phy_device_reset(phydev, 0) after the stabilisation
-delay?
+	ethqos->link_clk = devm_clk_get(dev, ethqos->data->link_clk_name ?: "rgmii");
 
-> +		if (ret == -ENODEV)
-> +			continue;
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to enable %s supply\n",
-> +					     supply_names[i]);
-> +		supplies_enabled = true;
-> +	}
-> +
-> +	/* Datasheet section 6.6 suggests a 200ms post power-up stabilization */
-> +	if (supplies_enabled)
-> +		fsleep(200000);
+If SGMII is intentionally unsupported on Shikra, could the commit
+message say so? If not, should this be an enum of rgmii and phyaux, as
+it is for the other compatibles? Bindings are expected to describe the
+hardware even where the driver lacks support.
+
+> +            - const: axi-noc
+> +            - const: pcie-tile-axi-noc
 
 [Severity: Low]
-The commit message says:
+Does every Shikra EMAC instance really need pcie-tile-axi-noc?
 
-    When any supply is newly enabled the driver sleeps for 200 ms before
-    returning.
+This then block requires all six clocks on every qcom,shikra-ethqos node
+and does not distinguish the two EMAC instances.
 
-Is that accurate? supplies_enabled is set for every described supply where
-devm_regulator_get_enable_optional() returns 0. The regulator core returns
-0 whether or not the rail was already on, for example with
-regulator-always-on, regulator-boot-on, a rail shared with another
-consumer, or a rail left on by the bootloader.
+In gcc-shikra.c, gcc_pcie_tile_axi_sys_noc_clk has gcc_emac0_axi_clk_src
+as its only parent, with CLK_SET_RATE_PARENT:
 
-So the 200 ms sleep runs on every probe of any board that describes at
-least one supply. It also runs again on each re-probe after a later
--EPROBE_DEFER from dp83867_of_init(), such as the nvmem cell lookup in
-dp83867_of_init_io_impedance().
+	.name = "gcc_pcie_tile_axi_sys_noc_clk",
+	.parent_hws = (const struct clk_hw*[]) {
+		&gcc_emac0_axi_clk_src.clkr.hw,
+	},
+	.num_parents = 1,
+	.flags = CLK_SET_RATE_PARENT,
 
-Should the code check regulator_is_enabled() before enabling? Or should
-the commit message say the delay applies whenever any supply is
-described?
+EMAC1's own clocks, gcc_emac1_axi_clk and gcc_emac1_axi_sys_noc_clk, come
+from a separate RCG, gcc_emac1_axi_clk_src.
 
-> +
-> +	return 0;
-> +}
-> +
->  static int dp83867_probe(struct phy_device *phydev)
->  {
->  	struct dp83867_private *dp83867;
->  	int ret;
->  
-> +	ret = dp83867_power_on(phydev);
-> +	if (ret)
-> +		return ret;
+To pass the schema, an EMAC1 node therefore has to reference a clock in
+EMAC0's tree. Later in the series, qcom_ethqos_set_opp() calls
+dev_pm_opp_set_opp() for EMAC1, and dev_pm_opp_config_clks_simple()
+calls clk_set_rate() on that clock. The rate would propagate to EMAC0's
+AXI RCG, and EMAC1 would keep that RCG enabled.
 
-[Severity: Medium]
-Is this reached when the rails start out off? dp83867_probe() only runs
-after the MDIO core has created a phy_device and matched it by PHY ID.
+If EMAC1 has no PCIe-tile NOC path in hardware, should it be allowed
+five clocks? If it does have one, could the commit message mention it?
+This series adds no Shikra ethernet node to shikra.dtsi, so the intended
+EMAC1 wiring can't be checked.
 
-If the PHY node has no ethernet-phy-idXXXX.XXXX compatible, that ID is
-read from the PHY over MDIO before any driver code runs:
+> +      required:
+> +        - operating-points-v2
+> +        - power-domains
 
-of_mdiobus_register()
-  __of_mdiobus_parse_phys()
-    of_mdiobus_register_phy()
-      fwnode_mdiobus_register_phy()
-        if (is_c45 || fwnode_get_phy_id(child, &phy_id))
-            phy = get_phy_device(bus, addr, is_c45);
-          get_phy_c22_id()
-            if ((*phy_id & 0x1fffffff) == 0x1fffffff)
-                return -ENODEV;
-
-The GPIO-controlled rails can be off at scan time, either because the
-hardware defaults them off or because a non-boot-on fixed regulator has
-already driven its enable GPIO low. In that case the ID reads back as all
-ones and __of_mdiobus_parse_phys() only logs:
-
-    "MDIO device at address %d is missing.\n"
-
-No phy_device is created. dp83867_probe() and dp83867_power_on() never
-run, so the supplies are never enabled and the PHY is never detected.
-
-The companion binding patch "dt-bindings: net: ti,dp83867: add supply
-properties" allows the four supply properties on a node that only
-requires reg, and its example has no compatible. With the ID compatible,
-fwnode_mdiobus_register_phy() calls phy_device_create() and skips the
-MDIO read.
-
-Should the binding require, or at least document, the
-ethernet-phy-id2000.a231 compatible when supplies are described?
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117-shikra_ethernet-v4-0-c41902e5f2fa%40oss.qualcomm.com
