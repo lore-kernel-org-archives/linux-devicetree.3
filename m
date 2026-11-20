@@ -1,85 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795167429;
-	b=SYTtCj9LWVjqK2mZCPoqMEKw1lpCXa7C3qQyeg5rQNH/N0O3cZkj88xjZ0qqMkRJp0fR
-	 2aV4skEINaqNpEVCEjEHBNOz6gZghC939NjnuLzMJEQ06bGYZ8AQW6tMXc6awm2YhrDpz
-	 pHZawLqfS5jbZI7PYuUJQM1v6v0x0rNUyHgZpDTc0Y5lRWPx5zsrMC4PbJe1Qw4V9/U1G
-	 dzXGfttyTcD6T6UPmWZHIarSZB4XKnuAd9O3W4fOldV5+RJ+5VX45dXpw/XKaeLhw8e9p
-	 ZVgITQoCWkCaRVUpwY72c9HN/RRWGuWCbQBE+5p3ULRL1chKGIl3k53VzX1oDZ5DLcg==
+	t=1795167431;
+	b=TCing6x7n3gTjHbD50QXQ6B2pWPDgUiWnbrZ9BZtXsoOjxf5kd7S55whW9ErhVckqwFh
+	 Y1zRSLLJ1nnC+vN6zZn2nhRNN8nNYiGe6D15pVK5kR0VNuIxxo9ZO8SYOVv99J2hWSUtg
+	 AMekuciJyJdp1f1eqXOGH418eUKkiu6d0SlnZugr/o2ZLH/thyJiwDg1zL6Nf9dt6qTZs
+	 wmI1eEChsL4xcaDVqDC2gWtrt34byVYs9rrhuhhBr0SFuvu3GY8ZmgOEwnhL1GHFljT3I
+	 tyUGQ/6gHkJKofRqR2QbyW9HQLzfAFEbRUY7tose8kCh0W3EwKMSr2xWt0QVCGc0P4Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167431;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=+u2FXK4znTAqjZJ6FO3Ims1b2AnL3vTXsMI+XlF8czs=;
-	b=HoS+jMChyz4PbETnWmM1ADz1/14wLGXOgNcmw4qCgGYcCQoPlWQech07MR6rzb6XL7iV
-	 Bvzm7SP7+TScBlIorzZfw5b4Znbpa2RWSuTLqJQMClmRDsnBlghwIs9vkJAP4qFAhgEmq
-	 1cQyxIn9oY88STy0lA+QQyyZ+mOF0aSOhRuwo0zJrOmCxDppaqFxb686T/HIwH4o7ojie
-	 Lcwn8+cdDBwmfBKq35M6miokHPdbvMkBc4ddmAvNF2mWmjH2mzI/GKsGScedRhv3jbHEf
-	 +lUXksA6mDMqArFh5XmzSIlP2pcDxUUtMkurfrTyk/3/gKVjPLRgTwrAU7I9qpe4nWA==
+	bh=pvpHGUPE1ujSb23x/zea9sO/TzocfNv3Ja0C5XYWzds=;
+	b=SwSWKHb4u8FECczM875E7W5IYsuY6R950sSkoscU181pfCJdAn+HM1ywkO9PsgUXzqW4
+	 x7pOr8YemWf4PKGTiJ1+AuVKIGPqyFW0GU+ifah53SUgaq1AoYeOoG02JyiUk0qOcF9pD
+	 pzG21YJ4XzmOZuEmRmvXvo4WBxKOBIno3B7Ni3AEfplRe6ytV1ygcLtTW4JSqlUwH/MRc
+	 MQzUnZLH0aeJYQiyZv1fudqKYFKrPJiSaUdMoNavLjMqU4YvcuUCebmNQaGTFX/VVujVC
+	 QdinyTtVFmeMTxmSOG6VH3IZpI/h2orgSs1y2HphxPzQBQhaRspgbRuMe/1VlIQ2b6w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WuKZonIL;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YOarVCci;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97E8606A339;
-	Fri, 20 Nov 2026 09:37:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B97E8606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8632F60A261F;
+	Fri, 20 Nov 2026 09:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8632F60A261F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=WuKZonIL
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YOarVCci
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CE934205B3E;
-	Fri, 20 Nov 2026 10:37:05 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2974E205B46;
+	Fri, 20 Nov 2026 10:37:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795167425;
+	s=20260414; t=1795167426;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+u2FXK4znTAqjZJ6FO3Ims1b2AnL3vTXsMI+XlF8czs=;
-	b=WuKZonIL+YDeptxHrhGYNbKjjZqwqrio1cZL/F8ZzrOQPmrMiuPSwNc9o3/WlXOf35ZAYd
-	dESumHV5L5qMTPen2CyWbCnw8zjRR+3plBd/QJqjScn3pE8B6tI6ZSKZRiCHqdLX/KRQ8w
-	hgTpQDrz7F2R+uiSAra5nozciLlk2fNMAp6vGow8aQZ/aCp4b5Fchxc3+kHlX+8S/Au7nz
-	kVdUf1T296rSnfFzaPMg/OpqnEEAun2OopM5MTODaf/bj5DiHqCEbIxFPwPJiq+BAoXlP0
-	OUvrX0Og9Vei8k35FElzE2AK39wjrIlBeg/ikFfyrOBNcQ3sAAHS1oZwjBqzoQ==
+	bh=pvpHGUPE1ujSb23x/zea9sO/TzocfNv3Ja0C5XYWzds=;
+	b=YOarVCciynMYlaxBNN26lXYURaUu2y8N618dk3Rk8Uec8xM0zyTInDWqsqz8/GN3ZdHP7h
+	XlEGJuxRoLPxeJLC7cXkotRd+LstcWn5uv4vL5v/m+sJmm8y7inj3Wg/+1QcDCm4oS6tR0
+	A0xtlnM/d5oWJVwMQ/uBVhOn83H5TkH8o/KJQwaWR5dT4Cfd/PQIkHEcp2htrZXWLeCPQp
+	64pZlsk0PSIciOK3DoMTIwm+nyMZ2sxvKvxcZhlw1Q8VqPd7CATFlTMJekJy5Qi2S41nlW
+	Z/SHfLsQmH2cdhdJgYjdRvUiqF5WLILqQbj13CeD+o6Ar9UimWDrqytSrWL99g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795167425;
+	s=20260414; t=1795167426;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+u2FXK4znTAqjZJ6FO3Ims1b2AnL3vTXsMI+XlF8czs=;
-	b=ctzx0h7Po2n3uMHOrnG+CsJuZYGk2zzQmVUbSSWT6hF7pZO0GDsDYY8hIxUmo6wsHbQsoy
-	+jmDiaoHzfjbh0zlbMgT8/jfPJJgO7C0dDEEzEYyLNrGrNau876U1iXxFnGXtZPB9c7bXc
-	4H6GzuJMTOiMbLdyUk0HsnYhwrzRqOneocEc0Zihq1XBKSOGVN2fMwq+1Q8C0eMIxWJ1V2
-	rcWfjkIGvyF5xAX9Uhe3j+NzxooyrwMhNRh9xmXNj/OomvNosmTEA2VyVNskF3Wh4oOiu+
-	XnF1wvU4+vZfGDf2TeER7hJ69owR08Ycp0YUJu5ZcKp4EEwXRlyDChbTDuOyEw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795167425; a=rsa-sha256;
+	bh=pvpHGUPE1ujSb23x/zea9sO/TzocfNv3Ja0C5XYWzds=;
+	b=Fqc06a/bvpcfpaao7tYEdwS1QdX6/Xz2L2nZxraoafs2osTUUXOHjJbvpmlloxSPCKhlet
+	Tm9h7/yYFePdUHLIJXv3aiRGqYGysZsMlhS2pRndmxClBirLtlJuRun0eAbWG0IFkxAAoa
+	XBjcj51C2s5fICe5Ih/d2kJuoX3Ot7i4dyWLQFUbfSwhGgWhzHheltlJMncy1KCJZkeAAX
+	DlaY6vTyuAHtmS6Bop00EfJW9ky+niVfQhyv4buUHHL0wUomg3HnWdf3AxGN9ZhnoOvDAR
+	Ei3QOWEs+Jh0GtpKRVcWCu0MpvLtfdlznOrWACIhvz4drpPcZ9zpisUwADJEgQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795167426; a=rsa-sha256;
 	cv=none;
-	b=Slc+e+svzZDkRlhI4NqDF+JHHOvHFuqqXOFaM4AgbXDsXQUv+Qb3GzOo5iQr4cRCArJRKl
-	/HT2Z3oN4WbI595j30QL0s21TKa6veYPNHBkilfJAlLs74zjCaFFktEUb14BAKmFhmtsja
-	KxPEAKBpWhQhXB52fzXyFNGlGKc5uzhBxC7QUBiS8m73IP8Syj2XOJ3qvFCQhnda4ui7Ek
-	rA3H+galYpteoM8Uf3uXi9DNFehYb3fPle6p6V3iQ532ZXSd4rf7J7oAmDYcjAcbCeXeKk
-	FDlTsEXMxUBhouA9oBfDFQk9NwvJeOp3AidQhh/+A9EV0smt+lA1i426kQLeDQ==
+	b=enS3vTD7tqgiTPDYhjKoK4+YRpgr4AnCsvhnGsL0IwMw89Q/4NK6YOoKrZuG76Ms+7+McL
+	K4DJbXvNGKNUChbpP0h7uOfhNRApnb8NGZcKE55Y1Y6Jjc/Cc4dGY2yGoBNJyEmN8aQ70l
+	Hx5nAR9zVGLpj6UuBh+Mclpses+uTKPoVmRdLl9oVcMl6UDwcZD/JwfSsJnCmWOSCga9Ng
+	1CuFgmb5v1akr0CVEqZe9zglJevOEZI/biZgu0djnF91yHXjH/41jHJv7JS7070NOX5wp+
+	H8Xvl6H+9LMnmxZjgfw9M5cJs8Jb/PiraCQ+V+KXSY5W8pOA1pCdIB46LHyO+A==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.2])
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <f.diener@pengutronix.de>)
-	id 1xUL3J-000dRE-0n;
-	Fri, 20 Nov 2026 10:37:05 +0100
+	id 1xUL3J-000dRE-1p;
+	Fri, 20 Nov 2026 10:37:06 +0100
 From: Freimut Diener <f.diener@pengutronix.de>
-Date: Fri, 20 Nov 2026 10:37:05 +0100
-Subject: [PATCH 2/5] arm64: dts: freescale: imx93-11x11-frdm-common:
- Describe PCAL6524 supply
+Date: Fri, 20 Nov 2026 10:37:08 +0100
+Subject: [PATCH 5/5] arm64: dts: freescale: imx93-11x11-frdm-common:
+ Describe USB2 VBUS supply
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,7 +91,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-imx93-frdm-fixes-v1-2-78dde22a56fe@pengutronix.de>
+Message-Id: <20261120-imx93-frdm-fixes-v1-5-78dde22a56fe@pengutronix.de>
 References: <20261120-imx93-frdm-fixes-v1-0-78dde22a56fe@pengutronix.de>
 In-Reply-To: <20261120-imx93-frdm-fixes-v1-0-78dde22a56fe@pengutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -104,62 +104,54 @@ Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
  kernel@pengutronix.de, Freimut Diener <f.diener@pengutronix.de>
 X-Mailer: b4 0.15.2
 
-The PCAL6524 GPIO expander is powered by the PMIC's BUCK4 regulator.
-The PMIC in turn uses the expander as its interrupt controller.
+The FRDM-i.MX93 USB2 Type-A host port receives its 5 V VBUS supply
+through an SGM2526 load switch. The switch's enable input is tied to
+the always-on VDD_3V3 rail, keeping VBUS enabled whenever the board
+is powered.
 
-Referencing BUCK4 directly through the expander's vcc-supply
-property creates a circular dependency: the expander requires the
-PMIC regulator to probe, while the PMIC requires the expander for
-its interrupt.
+Describe the switch output as an always-on fixed regulator and
+reference it from the USB2 PHY's vbus-supply property.
 
-Describe the expander's 3.3 V supply using an always-on fixed
-regulator as a proxy for BUCK4. This allows the GPIO expander to
-acquire its supply without introducing the dependency cycle and avoid a
-respective warning:
+This provides the PHY with its actual VBUS supply instead of
+falling back to a dummy regulator, which else triggers a warning:
 
-     pca953x 1-0022: supply vcc not found, using dummy regulator
-
-The proxy does not represent a separate physical regulator.
+        usb_phy_generic usbphynop2: dummy supplies not allowed for exclusive requests (id=vbus)
 
 Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
 ---
- .../boot/dts/freescale/imx93-11x11-frdm-common.dtsi      | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
-index 33ed26aafde88..617f2229b559b 100644
+index 617f2229b559b..eed435f6f87a7 100644
 --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
 +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
-@@ -49,6 +49,19 @@ button-k3 {
- 		};
+@@ -62,6 +62,14 @@ reg_pcal6524_vcc: regulator-pcal6524-vcc {
+ 		regulator-always-on;
  	};
  
-+	/*
-+	 * PCAL6524 is powered by PMIC BUCK4, but the PMIC uses PCAL6524
-+	 * as its interrupt controller. Model the supply with a fixed
-+	 * regulator to avoid a circular device dependency.
-+	 */
-+	reg_pcal6524_vcc: regulator-pcal6524-vcc {
++	reg_usb2_vbus: regulator-usb2-vbus {
 +		compatible = "regulator-fixed";
-+		regulator-name = "VDD_3V3_PCAL6524";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
++		regulator-name = "usb2-vbus";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
 +		regulator-always-on;
 +	};
 +
  	reg_usdhc2_vmmc: regulator-usdhc2 {
  		compatible = "regulator-fixed";
  		off-on-delay-us = <12000>;
-@@ -207,8 +220,7 @@ pcal6524: gpio@22 {
- 		gpio-controller;
- 		pinctrl-0 = <&pinctrl_pcal6524>;
- 		pinctrl-names = "default";
--		/* does not boot with supplier set, because it is the bucks interrupt parent */
--		/* vcc-supply = <&buck4>; */
-+		vcc-supply = <&reg_pcal6524_vcc>;
- 	};
+@@ -398,6 +406,10 @@ &usbotg2 {
+ 	status = "okay";
+ };
  
- 	pmic@25 {
++&usbphynop2 {
++	vbus-supply = <&reg_usb2_vbus>;
++};
++
+ &usdhc1 {
+ 	bus-width = <8>;
+ 	non-removable;
 
 -- 
 2.56.0
