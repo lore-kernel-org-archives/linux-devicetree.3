@@ -1,92 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795169674;
-	b=fAyjBh7kyJFh8uex8oJGM6uRQI65Q8ZbyIIS6DxmZW/dhftFklVZYSSJ/oFghvgSNWHx
-	 jgOFVnrZQk4KFvWkzLdeLr6Qr/UbcA1avcXq/B8VByrDSWKnzK0g88mDwcNxFr1Bp6G2D
-	 8pLoKpzmuYSfOXLV4EYMfWRH6YcBdOIvDIj94hiD6ZRyN+fl1841iVc0MAR5gX9SdFwyV
-	 h0gOeNDIpODFGiG4tS+hpdJ5iVOEumEyZE4uhMFxEyeFzDlxTU5n409KFVdiSFfmao8x8
-	 sfgZcBPvA4s5ykqRjydecWTlCuf/G8YaZeMFG/7/QLOOvqEfMFdR66xGOR3gB6NOymg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795169674;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=2wpTZnwZrQmAs5yJo+iPoPh+BVh2rblZj2xJOy1LmjY=;
-	b=fSEMKOU8Uu69NY7J3n+PJO8khZFQSDwB+ER/g5+TdpMy80nYHtIMPMf6N79s74/vzBzA
-	 R3rKGdABLw724np2jcjpdeAVA592jEtJzu0K8A01/NWVJVwUCUsoLy44QABrGw55yV1UI
-	 6+amWpTt+jnFR3Jn9MEBJgr/AJksTcbR9VUqQCZ6VtjOWYN00y0pA7u/S5TJZbseo7eSe
-	 10KkmHcQen9TsQ263qtKiA+H1Q9VC4K5lgKVoiygJnRJlZ8uZQkf1EEVYo81+EqknTCQL
-	 JIjykyzt9LwktdMIXMH4KCNHarFF1OMPkUUE073IFNAXG+HV/WreP0GRF4wUKq00Khg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g4x90yCK;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795169701;
+	b=tYASi1CiO1axMjFDOPwQdAbZWC+LDJ+373gfD/m8KFrhiUEiytfwzMXYc+w6EL4VFFCY
+	 nu166EuYVvvDLnoE6bWzfxFrXHRLNd4ESwxDl3z7UDc5hyA9RGe4GhAYYAvQ56EfWWKEH
+	 37JlLgda8TUefQP4YibPlIUPcdpn94mwjLPnjXAtruQMd+yW5TyrHl6ZitJz5zgSmX3eh
+	 NSqv0dudhyENtQtZrh/vj9T6LjaX03XBwnNBKM0fCXI1YbFlBmoWDULfQOPqp6RPSX5tB
+	 pLHfRaPoxY6l4oB/1lPs5hQ9nM/3PheoeRNZTgueG9WZla2nn/ir03eRVbvMVYBszyQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795169701;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=8DcVPoMTyDMFeCgP2Bb4hOxIVd8Rzj+Mk/EOJbdxMC4=;
+	b=daRQGCWjffYTN6DIYeew2I/NghEdUv5MdSBTW+6oFnjB5aD4Pfa3lW9Vf6e9kbgOIQDD
+	 bMHUkO5cOncWTad5fRyn08NMzYNmZJIsSiruknvlFW5pxQZBt+fg3tBOGpb1A5IybuHT5
+	 T/lr1fpeugyTZLZGP0FNjiaH5mDBQCVl6nP6RrBVgWuKAgJ9OWo7FUjHMiIwUA6egwU6F
+	 PUrBYqlqmjvn+3tx4JDkVG1Mvjjr5pyX8pGErj+FoM9WgahJ30ApEC/Y7HLPH0GWxvbBX
+	 WiHP/J/JYGsYDgwp9rZSvAv9p2BBQadVJX5PNuGF01RTuwE3wTApfli7KpnbDcTReYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=drWCvDpV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BB6606A320;
-	Fri, 20 Nov 2026 10:14:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6BB6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6CA606A325;
+	Fri, 20 Nov 2026 10:15:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F6CA606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g4x90yCK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795169673; x=1826705673;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BtPSTbj/PV9cC6IAIY1CIdaxj+4MfBZB2XFfEOoQC+M=;
-  b=g4x90yCKe3ML0PQBUUWW2Y3N4Qr6qQmJHAR1PVdYeM97Ul3B14jgJQ2S
-   Zh8g/iBRfeDL2bbliFwZtyIIrg5akhsRLjnvFQ7o7USTvU5dqgqSQV8ab
-   dcpQevIsF9f/3wP4eFiX5Kmd5mma9sL5X58BdDFLXD/XougZMRVotMlOJ
-   AfU+du9Y1Xv7U1gUCzyF/6j4iM+sgqY6tcoS77vmi3A1DXM+6E4eHaiUb
-   uqHKC0VyJfK29g0bzfp66MC2x5QvzNYu2+ZaBP2tqA8CcFueI5TR5E8lF
-   Oy+cq/j/rMq8BuFosojjGUtG5FLmcnJyP5NgfGylWvJiCsn+S6ZmOvsok
-   w==;
-X-CSE-ConnectionGUID: oNwb4+HUT7WXkZ+25M5uAg==
-X-CSE-MsgGUID: CsaNoJO0RtWuMHNI269KpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3947417"
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="3947417"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 02:14:32 -0800
-X-CSE-ConnectionGUID: yxyM0xK0TTC2TWFrLPHQfA==
-X-CSE-MsgGUID: 38UGPLKAQMqh8ylx32iCVQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="10553858"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.218])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 02:14:27 -0800
-Date: Fri, 20 Nov 2026 12:14:24 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Amit Kucheria <amitk@kernel.org>,
-	Thara Gopinath <thara.gopinath@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Anjelique Melendez <anjelique.melendez@oss.qualcomm.com>,
-	Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-	Priyansh Jain <priyansh.jain@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/7] iio: adc: qcom-spmi-adc5-gen3: Add support for
- QCOM PMIC5 Gen4 ADC
-Message-ID: <awAdgHggEZtBnyYK@ashevche-desk.local>
-References: <20261120-pmic5_gen4_adc-v2-0-94d0e1fd6847@oss.qualcomm.com>
- <20261120-pmic5_gen4_adc-v2-3-94d0e1fd6847@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=drWCvDpV
+Received: from localhost (unknown [IPv6:2a0a:edc0:0:701:a74f:3cb8:3e85:d062])
+	(Authenticated sender: fdi@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A6D24202284;
+	Fri, 20 Nov 2026 11:14:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795169698;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8DcVPoMTyDMFeCgP2Bb4hOxIVd8Rzj+Mk/EOJbdxMC4=;
+	b=drWCvDpVxl3m+V11lVhD+cxvKZzjF5JYPItdT5AwcG2WxjmEFdgPhydL/7j7QSmmpkljLI
+	vPydlOrSZdKUlUdGlJrtp3ARYuerT3nfEUNtqzJQCkLlz6ore7JBwew97RIxbNsVWl8DK6
+	1f71iXdwz7RHtEmpax1c2J9zwwKzom/9DxZmjhwhXsyzp7fgbj+q+T9tmeRCCpNca60ETZ
+	/McBIPVeAdkP7dqUd/zCAuJPG4ZHGbu+RsgXMtoZVt4kHh/OQoWtIcP4wBmf8LGZ18m22k
+	kggPiq1DSpOP5YoRjkGtPxFrOcJZR24RxYs1ffWNm5ZGtosBGNLFwb8Y9WzCUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795169698;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8DcVPoMTyDMFeCgP2Bb4hOxIVd8Rzj+Mk/EOJbdxMC4=;
+	b=DNd5fSNZhUpQn0k5AbNKBXhpi4j9kHx4lhWHnLJhIp0oi/fTS8CixBSEucWRF0CTYKi+nd
+	PaUeTkYD4XAWPtdStIuOG+DsKlJ6pW+7L5JBxC1yXRGc7ScXvzBZazqfITDQiO9sHdh8By
+	kJHZW5yup+AyQTWpt6XMmFZBmctvqiNgEwyJk2trPLuDP1QtF8efzB/u9TSAP4RyUt2epa
+	Y/14BT7k0ZH+K0JHXsU0u8VV/UCIqUI4JATpPyr09ZyHChxuh0agcIuqSDzTyd2azyyiUI
+	lD8HlHboM4Ys4qeWWnFT4GU7P1Fv6mB7DuRZLOv7CzkA92fQc5PAMVOSS0OnyQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795169698; a=rsa-sha256;
+	cv=none;
+	b=ViijXAsPeeH+CZynw+5unPSy6CID0wgx0YHSs6qxRgUG4fqbnjoWI0bvPbp7Dy/KbRr6fr
+	EKiCeqOw41Lo40Ll52vXNTy5ttjIT5oqGXC6jjOLzNA1xTtV9KjO2cvq7ZgSZGyPX6HqQF
+	40bU/nbNVOQWQwo5aeFOGPhFiEb/+u2dYL5Y/5qdrj/54eS8OOAM0oagdGNtbvGNIzMRSx
+	wzjWnPZKU3BIGXqzMYOLLCN6m5OQDcTgm9wjvLx1K+gKRMhSQq0RLG2n0fphHJW8Z9b8no
+	P0wmApUgdYg2AI16dBojrTHHxxPjZYAoCRUaj5vvrvnt136IKPeZdZOLck6oag==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=fdi@pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
+From: Freimut Diener <f.diener@pengutronix.de>
+To: "Joseph Guo (OSS)" <qijian.guo@oss.nxp.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "kernel@pengutronix.de"
+ <kernel@pengutronix.de>
+Subject: RE: [PATCH 3/5] arm64: dts: freescale: imx93-11x11-frdm: use 8-bit
+ eMMC bus
+In-Reply-To: <MRWPR04MB12117CE93FD323459E370D08F94782@MRWPR04MB12117.eurprd04.prod.outlook.com>
+References: <20261120-imx93-frdm-fixes-v1-0-78dde22a56fe@pengutronix.de>
+ <20261120-imx93-frdm-fixes-v1-3-78dde22a56fe@pengutronix.de>
+ <MRWPR04MB12117CE93FD323459E370D08F94782@MRWPR04MB12117.eurprd04.prod.outlook.com>
+Date: Fri, 20 Nov 2026 11:14:58 +0100
+Message-ID: <87fqwvbyhp.fsf@theta.mail-host-address-is-not-set>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,111 +97,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120-pmic5_gen4_adc-v2-3-94d0e1fd6847@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain
 
-On Fri, Nov 20, 2026 at 02:49:43PM +0530, Jishnu Prakash wrote:
-> PMIC5 Gen4 ADC is similar to PMIC5 Gen3 ADC, with several changes made
-> for improved performance, mostly at the hardware level.
-> 
-> One significant software change is that ratiometric conversion resolution
-> has been increased from 14 bits to 16 bits, so the maximum value of
-> these measurements needs to be updated for Gen4. Add a new scaling
-> function for thermistor channels which use this type of conversion.
-> 
-> It is possible that the master PMIC has ADC of one generation and it needs
-> to communicate with another PMIC with ADC of a different generation. For
-> example, on SM8750, PMK8550 is the master PMIC with Gen3 ADC and it
-> communicates with PMIH0108, which has Gen4 ADC. Add a new DT property
-> "qcom,adc5-gen4" to distinguish Gen4 channels under a Gen3 master, to
-> ensure that their conversions are handled correctly.
-> 
-> In the latest PMIC arbiter version (v8), there can be up to 4 buses
-> under the PMIC arbiter and 32 PMICs under each bus. In order to
-> support communication between ADC on the master PMIC and ADCs on any
-> of the other PMICs, a field of width 2 bits is added for bus index
-> and the bits for SID are extended from 4 to 5 bits, in the SID
-> register. Add support for this.
+"Joseph Guo (OSS)" <qijian.guo@oss.nxp.com> writes:
 
-...
+> The usdhc3 connect to SDIO wifi module not eMMC. Are you sure you test it with exactly patch?
 
-> -	/* Write SID */
-> -	buf[0] = FIELD_PREP(ADC5_GEN3_SID_MASK, prop->sid);
-> +	/* Write SID and bus_id*/
+Yes, you (and Sashiko) are right in that usdhc3 is not the eMMC. It
+actually is the M.2 slot connected to the wifi module and it has 4 data
+lines.
 
-Missed space.
+The fix proposed by Sashiko is appropriate in my opinion (adding the
+no-sd and no-mmc properties to usdhc3) to properly describe the hardware
+and also remove the warning.
 
-> +	buf[0] = FIELD_PREP(ADC5_GEN4_BUS_INDEX_MASK, prop->bus_index) |
-> +		 FIELD_PREP(ADC5_GEN4_SID_MASK, prop->sid);
+I tested that in the frdm-imx93 and will update the patch accordingly.
 
-...
-
-> -static const struct adc5_data adc5_gen3_data_pmic = {
-> -	.full_scale_code_volt = 0x70e4,
-> -	.adc_chans = adc5_gen3_chans_pmic,
-> -	.info = &adc5_gen3_info,
-> -	.decimation = (unsigned int [ADC5_DECIMATION_SAMPLES_MAX])
-> -			   { 85, 340, 1360 },
-> -	.hw_settle_1 = (unsigned int [VADC_HW_SETTLE_SAMPLES_MAX])
-> -			   { 15, 100, 200, 300,
-> -			     400, 500, 600, 700,
-> -			     1000, 2000, 4000, 8000,
-> -			     16000, 32000, 64000, 128000 },
-> -};
-
-Seems like this is existing piece and you moved it up. Please, split that part
-to a separate prerequisite patch.
-
-...
-
-> +static int qcom_adc5_gen4_scale_hw_calib_therm(
-> +				const struct u32_fract *prescale,
-> +				const struct adc5_data *data,
-> +				u16 adc_code, int *result_mdec)
-
-Even if the rest of the file uses this ugly indentation, correct it for a new code.
-Not a problem if lines will be a bit longer.
-
-> +{
-> +	s64 resistance = adc_code;
-> +	int ret, result;
-> +
-> +	if (adc_code >= RATIO_MAX_ADC5_GEN4)
-> +		return -EINVAL;
-> +
-> +	/* (ADC code * R_PULLUP (100Kohm)) / (full_scale_code - ADC code)*/
-
-Again, missing space.
-
-> +	resistance *= R_PU_100K;
-> +	resistance = div64_s64(resistance, RATIO_MAX_ADC5_GEN4 - adc_code);
-
-I would put it like this
-
-	resistance = div64_s64(adc_code * R_PU_100K, RATIO_MAX_ADC5_GEN4 - adc_code);
-
-OR this
-
-	resistance =
-		div64_s64(adc_code * R_PU_100K, RATIO_MAX_ADC5_GEN4 - adc_code);
-
-(but it still uses two lines, so I find the previous one slightly better).
-
-> +	ret = qcom_vadc_map_voltage_temp(adcmap7_100k, ARRAY_SIZE(adcmap7_100k),
-> +					 resistance, &result);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*result_mdec = result;
-> +
-> +	return 0;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best,
+Freimut
