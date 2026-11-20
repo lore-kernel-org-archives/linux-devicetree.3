@@ -1,62 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795143938;
-	b=UOjzfgunonSgLpeiQoNca3hiYQnhwzl0kzNl6FQkXLOOv+aWdBs1v5M6eN6MT8zFJOyi
-	 4/ryNNVmFfjo1JuvmCnm2P8UdY1OxR8MYL6a5zl8uRiNZW0TJZS3lck5omXm4OH6N3XuI
-	 2RxTOEcYNpkvgWIu6CX5tc3Hrqv12GiqJ4daIcjNXUUKS36aQqFiafkFqMdqYRLmfpcrm
-	 lm5uvR9wsJnoE+ViM5TGJ1grLJ4yi89V5nzLSzQnyotmqSNVR6QYdwbLKEaRnZ25KfOxJ
-	 5qtW0grr9AS4TGHdZ5+N8QyoD3KYi7lv5j9UN/kdQdjUvDkM1TvTMhTM8uR5rgp+oKA==
+	t=1795144208;
+	b=QbzvrMoaOpH8HAxdmJSS+u5PdS4Zx0sbr58YXcGCAW6wnSmfWX/KP0qbuWA/cNmOuWyR
+	 D7Itnddcxh96/1NQeYbC/eAFEV3SER/807qpw2hnpiFD2e5Um67VO1JnyvQDRFc9ASTCK
+	 KHn8KEde2tfDyRpatGr0E0P9kBfQQTv3hDLe8dvAAp+Y83szRNHJNHcH7htq+4dXdk07R
+	 e+nGmFovIBnODJlpt93cKId8Q8/GDU3EwMJLoVtxV3lBwunaj2pTKL3/XBp4BkW0Hd3pv
+	 SvO3Y8RW7omZiNrXoSpOAXiWdbMKT3fFIMhidTPMm+wjCymo9mBje2fkjRGU/QiwUJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795143938;
-	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
-	 References:Date:MIME-Version:Content-Type;
-	bh=c3kFlEfqICMl98Y4ENwHSDXDjmBA7a5dn2l5FKiRry0=;
-	b=PZK11wsL7KxVKm10BzDDJ34Xc+eXRcmpCN8LHdlyrS1l/eVuhrwNkhvKYcGFSTTdvV5q
-	 /38MlNyq90SupMv45eLp3A9rs7ob4oS1H0PVhBdkpk2nC5tZVKrwKyg31FBOjD4Hwo0/g
-	 lu7uXSYq7rRt7wk7jne7dj83vjG5x4Fcp6jgEBsqbJhrp5FZ3QWrGLSjZOVLBaaR0CNU2
-	 TV3aZxUx62R6MhlzaR4rzwR1VoUZs/5q5VSqN1G3PFvNdaA9EyNbx4ieLbzmJ1T9AU5tm
-	 llRfIGlWkMwrzsHn6uAT1gGZEKW0xV/DoA5ccEYvll5Cmjnx+AvbrOo3Xq7tPsMnB/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795144208;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=ukKJgUBAL20jCzTZgargorWA+q45FyRreSUu86drbqA=;
+	b=pJsRA71L6ZBcJWA0d5oypK1ylyVP2tBM6CTrqvNyHy8QGy5witJ+rHUzdA2FicOZrfAl
+	 stvq5RfNNJpPBPC7haEooW1S3tPSvRMbY1u+DVKY2IqHovgroj5aOKF687H7Js/Zpfxmp
+	 Gx4wIqIi4/1WZgdpZJgdxpNGjEEYDvkpclndFeD63JaYHRHbR8RaDkFVPJC037KVLcEdv
+	 xL7JYk2LFc4EwEePOzj0kwJEV13Zbh8WFEDj8LGjbuyKQuqlfRYrIAEx3hFz8EvUy8TRW
+	 iEQ6icJ3M3EDLsxWWPHAFWnWDNtl9uoleGGqzKq9UpAIyclmX6CIEWXBcs/Lnim1w5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fco7HaVm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+NYSCYz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52494606A320;
-	Fri, 20 Nov 2026 03:05:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC60606A320;
+	Fri, 20 Nov 2026 03:10:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fco7HaVm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14A71F000C4;
-	Fri, 20 Nov 2026 03:05:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+NYSCYz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED4A1F000C6;
+	Fri, 20 Nov 2026 03:10:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795143938;
-	bh=c3kFlEfqICMl98Y4ENwHSDXDjmBA7a5dn2l5FKiRry0=;
-	h=To:Cc:Subject:From:In-Reply-To:References:Date;
-	b=fco7HaVmtYU8CrRbWtLLmsnUBlbqKsJ4xADEKuxT/I76TbUxvMOO78SMlaW9g6DsA
-	 xYAl7wMsL7BgrR0maWab+PJ/RyLNpB76GHFXCJlSlzivmjWvEiEInSuc7DHaX13+9r
-	 0z2M2vos5DXxbl8O9HB5jMxqocjB/khHuMLBXAlQIgSfWuvbX4qifA1ozqu61Q1h+9
-	 yPKWwh7/HCWpeGcHIdiH7DJ73/9QxC8ntDOgjBaDcyIyOJCEKXT+6eJLQLrsjVBHax
-	 16AOxLF2oYJFWqkPtyDGGfK78PwjA34M5LDinkplI/Jp3kGaUYXu4+3g+F/mOtsEo5
-	 +L7go9I1F4lWQ==
-To: Minda Chen <minda.chen@starfivetech.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,  Sai Krishna Potthuri
- <sai.krishna.potthuri@amd.com>,  Ajay Neeli <ajay.neeli@amd.com>,  "James
- E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,  "Martin K .
- Petersen" <martin.petersen@oracle.com>,  Pedro Sousa
- <pedrom.sousa@synopsys.com>,  Arnd Bergmann <arnd@arndb.de>,
-  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-  Bart Van Assche <bvanassche@acm.org>,  Bean Huo <beanhuo@micron.com>,
-  Stanley Jhu <stanleyjhu@google.com>,  Conor Dooley <conor@kernel.org>,
-  Rob Herring <robh+dt@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  linux-scsi@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 0/4] Add StarFive JHB100 soc UFS platform driver
-From: "Martin K. Petersen" <mkp@kernel.org>
-In-Reply-To: <20261112075616.118436-1-minda.chen@starfivetech.com>
-Message-ID: <yq1qzggp5ho.fsf@mail.kernel.org>
-References: <20261112075616.118436-1-minda.chen@starfivetech.com>
-Date: Thu, 19 Nov 2026 22:05:36 -0500
+	s=k20260515; t=1795144207;
+	bh=ukKJgUBAL20jCzTZgargorWA+q45FyRreSUu86drbqA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=A+NYSCYzxpFujYYuRndjloCnPVEaFUrzzOY+sPGtiCaNkfQMZL4RW5J7zlE8h/8Wo
+	 YY2xfK2Nb8RE03jG/M5FkNbQJvhGsim0HM9jwxdEBopzfjMVPVwXpN0HsNkY45YHQV
+	 2Wx7Jk9oJCdPhX9itaSw308WYP2UNknHUdN6B1SWOfuEd/mJZRitPCNPCFJGKRhQdX
+	 KNW7JzubPKk7mchgpWFRM39CBp/YbZbhUts7n4OFI84ZZB0JDiJCVwh0U5s4H0eDPd
+	 1qrYVdUZipHul8Q9zaGp331aIvvPOaULtLIa1hKKyaNtl4zbQBL8+d5ebVDrJRCw0l
+	 8QrB0Oa3WimGQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44333808209;
+	Fri, 20 Nov 2026 03:10:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,15 +53,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v7 0/7] Add ethernet support for the Amlogic T7
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179514420653.3998775.15150461070796128263.git-patchwork-notify@kernel.org>
+Date: Fri, 20 Nov 2026 03:10:06 +0000
+References: <20261113121852.334604-1-tanure@linux.com>
+In-Reply-To: <20261113121852.334604-1-tanure@linux.com>
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ khilman@baylibre.com, jbrunet@baylibre.com,
+ martin.blumenstingl@googlemail.com, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
 
+Hello:
 
-Minda,
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> JHB100 is a Starfive new RISC-V SoC for datacenter BMC (BaseBoard
-> Managent Controller). Similar with Aspeed 27x0.
+On Fri, 13 Nov 2026 12:18:45 +0000 you wrote:
+> The T7 has the same ethernet glue as the G12A. This adds the binding,
+> the driver support and the device tree nodes, and enables the port on
+> the Khadas VIM4.
+> 
+> Two clocks are new. The pipeline stage between the controller and the
+> DRAM has its own gate, which nothing else claims. The glue registers
+> sit in a block gated by sys_ethphy, so far claimed only by the MDIO
+> mux, which probes after the glue is programmed: every write to
+> PRG_ETH0/1 was lost. The T7 node lists that clock as "pclk".
+> 
+> [...]
 
-Applied to 7.5/scsi-staging, thanks!
+Here is the summary with links:
+  - [v7,1/7] dt-bindings: net: amlogic,meson-dwmac: list the compatible combinations
+    https://git.kernel.org/netdev/net-next/c/2297f88ce0b8
+  - [v7,2/7] dt-bindings: net: add amlogic,t7-dwmac
+    https://git.kernel.org/netdev/net-next/c/18029931478b
+  - [v7,3/7] net: stmmac: dwmac-meson8b: add support for the Amlogic T7
+    https://git.kernel.org/netdev/net-next/c/c4c851a3325e
+  - [v7,4/7] net: stmmac: dwmac-meson8b: follow the generic RGMII delay rules on the T7
+    https://git.kernel.org/netdev/net-next/c/4fdc7da7e13d
+  - [v7,5/7] arm64: dts: amlogic: t7: add the ethernet pinctrl nodes
+    (no matching commit)
+  - [v7,6/7] arm64: dts: amlogic: t7: add the ethernet controller
+    (no matching commit)
+  - [v7,7/7] arm64: dts: amlogic: t7: khadas-vim4: enable the ethernet port
+    (no matching commit)
 
+You are awesome, thank you!
 -- 
-Martin K. Petersen
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
