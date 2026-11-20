@@ -1,106 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.56
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795179073;
-	b=zLLcTkr/M3bMFM71m25V/i9YTbEeD5mbDihXbuGaxobwq/KlnCBRQDGibmPmtFkO4the
-	 ENnNrHmajwVb5zm7M603GWC0WULhhV5v8RkBSt0m6GJSYyYFybwJa8p7ts/t7QK5N8m49
-	 OFE5ubKQT8xEi5o0wFY/6I9RjgrAeN9Fhq0a8fXzBO31VhM4hPEOZe81omeyo68FzmbzO
-	 Fi5IWqEqpNRuDZ+AUkdWWw0JG6UO/JkdbcyM3wKvQL2AsQdGcGKOQjPFH9FuCTZxjEJVu
-	 iJsqIQkC+1IIYCdP+5dUuBt0Gb+c/UF7XDarl7IyX9pHYtkdCgEepJsERvJmKplDWJQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795179073;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UUgr7JDjtfbnrZX1gEKKmFNim0P0c/da/aH75q1XKww=;
-	b=tkpyGA27BB9noToNYK6xbpDZe78rtagunmHyq15KiAnwu7nzcIzdJ2x83JY5JRa3O9c0
-	 aU542CKj9WGoCWOqsn+u26GrF7bhBlmbu6HKqCGMVUWy+zKAgHHXnkEAompt1zKgwBqY/
-	 Rz9dyVqCQ4VqJORJrkQUlvjzA1ZBgySLcla7WuPYOlhLo/nrVX1bXWStTo8XM1tfazWR6
-	 15EQ0t+gPfzwHItT8/Wp8IMVIDjZ+EHkFwl/0AZHggsY28A88sCx1gZw5OV/FM4Kg+Nlw
-	 Sdt8Q9VFIcrj5W36Cnm95mIhriq73n6UW4l02nKX4UPz6NumKjUpgz7KLqDCoyvhceA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rxXXOD2n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.56
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013056.outbound.protection.outlook.com [40.107.162.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795179154;
+	b=tC/nYCM+I+N+8t0WullRVx7x8QZpti7bbjZdxQlzIzYhOa+gPrXwQiW1nCfTyFokrIc6
+	 qD1wCP2rlFaOg2VtbqwNPSx/yr4MVcc52VF3YLT8Wr2vCMMXLiKGiMsV7npDEpD/EbqFT
+	 lpu1FXryZDtmxU1DKYwDpVU9uiZmgWW1wo8db5gygytJ1AgPApIayX1rjqIXGKTMlm2Jd
+	 AGaqiV1SM8i8MobKsylO4R9a5yuy50PvDY2PoAeDSB//eON2dICjjX4S/cNZmS6Xnxpq+
+	 oRn5HgDp0SmWgYla4xSDYHQgmEwN7PCmbX/b7ExszXgRoqaiH3w+58xfcFohzWPIgoQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795179154;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=9SjRna3ikFVF0kjvJgTvEWSAoXwpZaelLjTatjkSd8k=;
+	b=ZHVJgjDZRUZh89AlgY8/ZnHWQpZ8x8hKbiM5W4Ig4jPiCH3ndAjet4icEZEh7J5oHsZF
+	 HNMdW+iAWQ4X45Z7XZX5RnshNZsZaSg0ZVIXGP00HG2H0pA4Z0+pxLchL84KCovyjrD2C
+	 DeZOeZeJCH4FIjHQDAxrb7GzvaFH+nTgl1C9tTrrkk71Lt0zJc7mJ8s9G57edURBaFzVJ
+	 c0/KzXUeoGLeKMM8dCxZ/MyxAuMmCoya1j3P0v9+iFr/a1YeDeuvO0fBnLkg4lUUMqqHA
+	 8eJ99E9U86hBY46zNlPJPXj5kO3+mYXRlhCcsatxYoW2e5i14p84/EEPZQKwvtc+Cxg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.50
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7936606A337;
-	Fri, 20 Nov 2026 12:51:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7936606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rxXXOD2n
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T1Ujx9GH1E5epvSlpw6/+/CGevw3EHVS/ReYnnGpvL+WlJcHfRY/77WYgiia6R0KqrhxQHgLdOOiiYKD3W0oUvEG+EZ7Dcxpjjo2OV943bJjGhO14CIFGsFjwBAt/bWt4+/JFW0ClWufht2OFk4ax+9t2BBpcEpwrWGALXQQ0NtJBSrnlpYWDJ7kkzpOX1tgEFmD8VMhBPwe1rPF/IufZ+WuczwdwqgKuDlwzATht7G+sdp0AFd6JqOyNAMdspMU/N306bA0t7hoFBpsCuyN/4AX0mHhBLVDp3/4AJ1uBTaLvM9e8ybfxW9xKQ148Sdr/eqTQBVtCEdJV0VKhbj2zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UUgr7JDjtfbnrZX1gEKKmFNim0P0c/da/aH75q1XKww=;
- b=iT83nfxaH/dNB1QuiGWKDhNu2XI3MlihE1dlu6vAUcBqZoxwj6hVmGvwFXZTFocYJQc/r4TWuV9HEPP1/e/1naIlcT6gr3oUtLakk9iZO1WnK/5U0c+6hmsI/kvRfkuNxTY8iRWN1QmHyPHxsZTbjbWDu1mvvohGedsdgPXqGll+OvHlSkkGFXXfVxHhIAiM0r06RoljGWbXL3u4FcxCuJ1/qcDOgN7euVd6x3iLCegQzjwB9Ej7NOeJiFBMTsyfHuawBCHdSkcoxIqH7ZqCHgzeJDBrLmU6Mbw2neOBpr/uXuNADlOKtahIi9MejzIMRe802E0IS1YxRgXtoNZzMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UUgr7JDjtfbnrZX1gEKKmFNim0P0c/da/aH75q1XKww=;
- b=rxXXOD2n+KWncHimYmiNnDedrlvZnWYDuCJWw2JEexqebKgW0CYqVuxqO+uFZWMku6ElbwqAQMsO/OCi5CEkKcplKVv0lfCgodwweG/cP8zOoKkkLntRw4RrGTqmOAH0uGqF8nidxYB7XkRbp/D7ZUhXPbhULclwSO2B7BycixO5KLaSqBF3Z0aYNUQn2WF/gXeu042EuDckBLpf0jz+Jgs8ZZlrT1O4w7WYFdextmmRClXlBwPq9W7i3Ob9D8m/Myf7xdpDEbEGVPErc3zY83IUaNGG1e14NHPaAI5nFGaCCUVSnh3fm33gC7V+T182Le0+3As/IiHbUyfPHwxyyw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by DU4PR04MB12061.eurprd04.prod.outlook.com
- (2603:10a6:10:646::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
- 2026 12:51:10 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0639.010; Fri, 20 Nov 2026
- 12:51:10 +0000
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
-	linux-clk@vger.kernel.org,
-	imx@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH v13 4/5] arm64: dts: imx94: Add display pipeline nodes
-Date: Fri, 20 Nov 2026 12:50:39 +0000
-Message-ID: <20261120-dcif-upstreaming-v13-4-966ac248773f@oss.nxp.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261120-dcif-upstreaming-v13-0-966ac248773f@oss.nxp.com>
-References: <20261120-dcif-upstreaming-v13-0-966ac248773f@oss.nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM0PR10CA0042.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:150::22) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923D6606A32A
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:52:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 923D6606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-980c4258105so506630241.2
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:52:34 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795179153; x=1795783953;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9SjRna3ikFVF0kjvJgTvEWSAoXwpZaelLjTatjkSd8k=;
+        b=ZKBJQAsghbIZpt0CPunoFGZbz/qphtvs+YvW0sP4p4dfvTnC264ldzN0oMhPan72ky
+         mdPWFULabHPo5i/AER+Vj0aLG+kNvpJ+QYocUILrGzJ4l309VoaPzmffwthXib107eEl
+         xw3+W2iZXxK1XeBF3medHy0jJLQJeXfDnyBw2PqY/6oVd3fCiY6xcb2dxrJqSbahs9v2
+         i5IotHCq/ZpqRG898sCNFiS5tctwNQsLHK7Vhu8ELDi+d03JBW404Xj9ZFwTeLXFRMlq
+         FjPNyjZZjNGgIlA6pazEBbS74C+3kO53NKEwXqdGpZyF1x4wLeUcZQJel36ZCOasmQk4
+         RlpA==
+X-Forwarded-Encrypted: i=1; AL+hErE+jlrAz8cw7GnF87O7KehrzGZJ944sHvpkmCs3XokJqN0almWssZHOlWZ5QIGA1LThDaC3jXPfuYkc@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dT/+StU2vhRLwA9wl8Qa1aH5SLGSqvMwvu09w5pDTNfCGh2hX
+	n93kr/GCPvGCNLgtErx58v5Ns8O3ghW27Ktg0EIxoMOHf2VGcnmPZImoG9oHzNoc
+X-Gm-Gg: AZFdTZdPLWgJ4MUNq0AXPGlvMWZoSrxtjnr3a4KBzVHlqGt/CZbO4dw5HZ4uxNmR6Pf
+	cTbe8dK049RilamRokMj2HIw6z35qXoWhDgP4Pc3H3H3NMyi3Lv6S0yUw3A7GIamzsClvqf1VmH
+	HlQj2KNnqAm7HOElKsch/tFdKXrAKBX7M/+0vLvwTg+jrz5ANZWzLvoRlLA/zA/I5crDO7IGLQn
+	WzwZlDQrFYxUxOTnKe1iTvokgVSLIJcS17WWGxHD57kuxbExbKujBMAHtzljFH6jS2WDVbAWdo1
+	xmagtQazZUVr+wtk63rbgfC+IkFP+HE8AM1Ik9nGlP45Uc+y+hlwjyJch+gHh2gue9N4hx3+bGf
+	0E5Jlxle0bzdHDzIR5ys3vQYmLVONlxgbNy0RE/O+ZoOGGdtKMDmhoDksNHkZdtyw9SLXpHQIuv
+	HFeFZWUo3G33ZZNQL36YT6Isk4breTOiD4MUAU9cjdVDoeCkMY/xwUnXUEG6lcYJtEnVt5Qllgo
+	PtaI3kQGRGxVoAgkxGFKI9GeBKlrLZOkqB6lQayA+0OY3MdBYgHl/F1WcPI7vVE5P63XFwDAXYz
+	QPuYdnc0ij4OeJjTj8qOxB1VW1GjmxXIUJJpoyl7wC6MIgCvFtjK9YYA92PMS6kY9oeJXHX0/eK
+	PDsSlVfvE2OsG9g==
+X-Received: by 2002:a05:6102:3f13:b0:7b4:879c:bb76 with SMTP id ada2fe7eead31-7d739582ee2mr1202858137.21.1795179153460;
+        Fri, 20 Nov 2026 04:52:33 -0800 (PST)
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com. [209.85.217.44])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d6e7f92680sm2914648137.5.2026.11.20.04.52.32
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 20 Nov 2026 04:52:32 -0800 (PST)
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7d6a6776719so455493137.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 04:52:32 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG9Zx3WNXr6Mj34PW4QYHuqWAcPktOgrfifm5+ScDn3gSr4Si7IzeZK14sKCgww28OUAha44ZLVpJUF@vger.kernel.org
+X-Received: by 2002:a05:6102:3e8d:b0:7c3:fcb:180c with SMTP id
+ ada2fe7eead31-7d739572406mr1186700137.20.1795179152283; Fri, 20 Nov 2026
+ 04:52:32 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,192 +81,139 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|DU4PR04MB12061:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12a6ca04-96ab-43ad-feec-08df4704f378
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|7416014|376014|1800799024|23010399003|22082099003|18002099003|261009223027099003|3023799007|56012099006|11063799006|10067099003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261021121427099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	sv7Nb1V+tKiXcBQRiRvM2VLPcprrgNtMNt62YrkvUroAbox9FK2U08Ahl9CxY6LAsKrjSyj9b090/ms/h+OuYuriKet8fBjU0Of+3WhjFE+lzwWWq+VsvT6DejSKFJq7f+9JZ5QnUBK42Fje5bpB29Esp/WRD0VLc+uwVavs6S+X27vVdIBA0U6PPyDqGdffM63t4xBeEXBxiCJpEZaKz89K/4I0yFuG6FSF4xXTTpz8AahG5PWdG1JOkl0P9Ab3NbY0oa0pEUbG4FSvSRFdBPxj3y1J9Khql/NOtY0KQ1wab9pZDY3xf15waRWU80L7GSuQ+2VqV14ba0X0zcQLPfvBk3Q1iShtijviKUqOXlFMCEvgh81dUL17T2UctOYtANwdF/qNTMsVHngTuX9MuB//B7PV+ranYgk0dyvPcSSHWRYJB5FBc/gAbCxAH539/5bGoLHvWPoh7XKDEOXtY+DXxIlTlhHB1zhcmAZO9+tUV6InYCglC/vD+wvBULUKV0ZdKxZu1lxmwBRbsxrtdG0F14pKfJLgqCtfzW0Y8UQwvFbmPafbdtAi+1edx+0xh5sYJecEC7kzXXbPxCocvJQUtgkruUiN/IsRZQExaE2KF9CKIba/lB5dCptmYp8q7zQKWzJuJOkyQ16VW9zjP6+MHeFcbpjikM55BMvDBZU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(7416014)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(261009223027099003)(3023799007)(56012099006)(11063799006)(10067099003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QWFXZlQ0TUdkYXFSSmxROG5pR01jUGpaWTFTY2hrVml4Sk5RZGZrMUlnaEcy?=
- =?utf-8?B?STRxdEFpV1JaajFZSGNnYmNTYzJ0czNITnVPOEJ3UnB5QUdra094WXRBUWt1?=
- =?utf-8?B?OGhlQXFZVzFLNTdnQ2IrN1hRaHFkalpFTFlnSEJTTVJqOVJ6UmoraEZsNm12?=
- =?utf-8?B?MjRGcmNadER2YUtpaXVENGxYdmptM00rOFl1VVhuR3N4eDNvWENiV3VDejdV?=
- =?utf-8?B?TFBUTHpraG5EaDh1RDZnN1g0YWdBQmRrUW5CWTJIZXhLaDdYZEdaUkh1RlY0?=
- =?utf-8?B?L2wvS3JkckRWem9qYVVySktkYWJpM1R3M1htZ1A2NkVTTk5vTk92ZGlSUjZs?=
- =?utf-8?B?TE1ac2ZIT3ZXeTAvZGQxMFdvY3hLU09TSEhBYy9nb1hlQklWM0pvWHhydHZI?=
- =?utf-8?B?eG5tYW5QN3dPN0tPN3JjOXNRNStLYkZsQjJGNk8wdGZuNkZXSU5heHFtQ0ph?=
- =?utf-8?B?WWRUMS80TWlhMHppTHZWRjJhMjVqQXJycE1Wblg0TkhpRkxZNTU1MGo5Rm42?=
- =?utf-8?B?a1R2MGtndG9uYVJhdENxZVNTL1RFalFWclhnMnhWck1GTXo1dndZMTZhbDYx?=
- =?utf-8?B?eTBqdG5hazVNWlcxS1pUQ0FFT2NVVzhQSC9TU0xjeThQUlJlek1rWFhHcCs0?=
- =?utf-8?B?TmliNS9qYnVnbzYvWjF6RHJKMjQvNmdPVDcrbHkrUUlxWEU1UjZzeUc3d3Na?=
- =?utf-8?B?NlBtcUtkT21mNVNLNjVGRGVTWkNUVTlzREJyeU85ZmFCR1hhM2hBN2NYVnNT?=
- =?utf-8?B?VzlvcEJNdjFTU0E0Z0lmUFhQNEgyR3hQMEpWbzZ2cHR3aGVSNDByZmhQeVlz?=
- =?utf-8?B?OHJ0TWx5aEp2akV5dEhrUDlRV0l2U21uOEZBT1c4cm9KSXcvZXhqY2NYU0tE?=
- =?utf-8?B?Q1ZBRWhqY0hPWmQwNHhIK1hyb3IrbUIwMG1HTjd3NmtjNnJoOXFoelFGamU4?=
- =?utf-8?B?ZCs4VWZFb0pFcDNSNU15UlpPTk1NdGkzVjdNdTdTT1RyS2lFWUxTZVZtSUkr?=
- =?utf-8?B?YzcwNTBXOVdNNzJHRVhKVU5wYkcrVXl0aWh5S2pwdzdkQWVDTXpxNmZIQWRW?=
- =?utf-8?B?eXE3MmNMU0VWSU1jWTZLczJ5cXpHay9HbE4zUGxlWTU0QzBKeWkzZCtVNkl1?=
- =?utf-8?B?eC9LRkZpMVpiYS8rbFhVd2Q0RFEvZnJEUWpvQkg1Szl3Q29keURiKzBhd25a?=
- =?utf-8?B?dEw5ODZKWHcvaUtIOGttelM1bGNKWGY1RmQ1dlJJbFdGMVpJTkZRWU4vNFpz?=
- =?utf-8?B?YmVxdmU1eE9KdkNjb09sK083NVluOGkvVFlLM09YSzh4OVlNdUovQjBXcGpp?=
- =?utf-8?B?S1JQTlJEZHBZQ0dRQ0FoTm0zQTd2SnZYM3VGdlZ6V3ZEMU9SWGlxWkhNQWE0?=
- =?utf-8?B?UnFsRi9aaTFsb3IwdisvcWpXRHRIdlE1Qzc1UnBDbXhnWTBhMHBQdThSTzJP?=
- =?utf-8?B?NUt0ejdrNm5OUGhJTzNsMlN6UzJzZzRHWWpqRzJDbG9SRWxFUmg3V0Q0ZDJ1?=
- =?utf-8?B?N0hObGs2K0hRT0VTd0xyc3JybjRDdE1QUlpKQTlzVDVmMWpVTUhOMXJ6R1Rh?=
- =?utf-8?B?SUh6ell4bjVKN0NaVU85WTBNalNQL01zMGZ5UTFBUDY0WTY0c3pKdkcyejJG?=
- =?utf-8?B?bUNYL0JxZjg1cEo0eG8xS2VNb0c3UjlaVWxxN1pkTVl1VE5VS3RwRUo1aFJz?=
- =?utf-8?B?cEJYMzNEQksxclpJUG93aUs0UjJoSlRMUzU1dXJ4STRqUzNuL0M5ODBzZldq?=
- =?utf-8?B?a2FqdjIvT0kyQXkxSnJ6MXh3RmZab29wcHRoYXdrWlZMYjZJK0xWTEZGWEsy?=
- =?utf-8?B?Z1owaFpLV0Y2dHkyQTZyQjU2NnNJdzFvTHh0U09tOTE3UEx1TDRrYTl2a3Qy?=
- =?utf-8?B?YXRuQm53STBOWDdJY04yOGVvQ0wyZUdwYjA1WFJHOTZkU1B1Ti9VYm5sY0Y1?=
- =?utf-8?B?SXdBVkNkOEVzMk1OVVpaVVRmVDdlNFkyYzhsTXBQNjE4NU9ETEEvWDR4eUgz?=
- =?utf-8?B?VmtsdmFlcTZnQ296RzczT0VEN2lXYlBUc1lYSi9qd3ZDZWI2eGhyUUpXTlJw?=
- =?utf-8?B?Z20wZjdwS3VOejc3WXVkbE56R3U2KzRoR2psZVNyaWY1K1p0Z3l3SEkrRFFJ?=
- =?utf-8?B?eTJxQlliTVEwbEs3NDM2NHJ4MXkyYUZpTjRLQ0lTWDFpVmc5ZHoyWkRydnF3?=
- =?utf-8?B?aks0WHJZQVhVbEdld2V6akVSVjVmWllJWE9zMzFhdnNESU53UXJIeW1XQmRX?=
- =?utf-8?B?ZUdicTF2UGhBZWlzNUVVNEp3azZBNW9KZGNpWEZDMlEyZXpNeFRHeVJGVW5N?=
- =?utf-8?B?amR2T3NQM21Fd2ZPclNxUWI2Zk4zWDJzWHRVOVdJaUlSZ2NvYTFOUT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12a6ca04-96ab-43ad-feec-08df4704f378
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 12:51:10.1420
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WhEPikqqZwtl+AZuExcWkwcZDukz8mt61z1ZX0Lkmj51UC2YXZdkur93FI6y7wiSBzFajY15pG8hbSJfW8+eHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12061
+References: <20261112-sdhi_rzg3l-v1-0-ca30b209615d@bp.renesas.com> <20261112-sdhi_rzg3l-v1-1-ca30b209615d@bp.renesas.com>
+In-Reply-To: <20261112-sdhi_rzg3l-v1-1-ca30b209615d@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 20 Nov 2026 13:52:21 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWk_0VT_UgaYoCW8c9zac2g88bL6niZF6aDu+UbWroFjw@mail.gmail.com>
+X-Gm-Features: Aa3M54qyNQu_3mY0Gw0VIiuXO7cKeCCI_cdaF_qJo1F3yjQPV5KrJ3x92PPsDRE
+Message-ID: <CAMuHMdWk_0VT_UgaYoCW8c9zac2g88bL6niZF6aDu+UbWroFjw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] arm64: dts: renesas: r9a08g046: Add SDHI nodes for
+ RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK
+To: Biju Das <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Add the nodes necessary for the display pipeline on i.MX94:
- * LVDS/DISPLAY CSR;
- * clock-ldb-pll-div7 needed by DCIF and LDB;
- * Display controller interface (DCIF);
- * LVDS display bridge (LDB);
+Hi Biju,
 
-Co-developed-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
----
- arch/arm64/boot/dts/freescale/imx94.dtsi | 82 ++++++++++++++++++++++++++++++++
- 1 file changed, 82 insertions(+)
+On Thu, 12 Nov 2026 at 19:48, Biju Das <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Add device tree nodes for the three SDHI controllers (SDHI{0,1,2})
+> on the RZ/G3L SoC (r9a08g046) and enable SDHI1 on the RZ/G3L SMARC
+> EVK platform with pincontrol and GPIO-based voltage switching
+> regulator support.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-diff --git a/arch/arm64/boot/dts/freescale/imx94.dtsi b/arch/arm64/boot/dts/freescale/imx94.dtsi
-index 90925d48daad4..7f87f82607abe 100644
---- a/arch/arm64/boot/dts/freescale/imx94.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx94.dtsi
-@@ -3,6 +3,7 @@
-  * Copyright 2024-2025 NXP
-  */
- 
-+#include <dt-bindings/clock/nxp,imx94-clock.h>
- #include <dt-bindings/dma/fsl-edma.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/input/input.h>
-@@ -39,6 +40,15 @@ clk_ext1: clock-ext1 {
- 		clock-output-names = "clk_ext1";
- 	};
- 
-+	clk_ldb_pll_div7: clock-ldb-pll-div7 {
-+		compatible = "fixed-factor-clock";
-+		#clock-cells = <0>;
-+		clocks = <&scmi_clk IMX94_CLK_LDBPLL>;
-+		clock-div = <7>;
-+		clock-mult = <1>;
-+		clock-output-names = "ldb_pll_div7";
-+	};
-+
- 	sai1_mclk: clock-sai1-mclk1 {
- 		compatible = "fixed-clock";
- 		#clock-cells = <0>;
-@@ -1324,6 +1334,78 @@ wdog4: watchdog@49230000 {
- 			};
- 		};
- 
-+		dispmix_csr: syscon@4b010000 {
-+			compatible = "nxp,imx94-display-csr", "syscon";
-+			reg = <0x0 0x4b010000 0x0 0x10000>;
-+			clocks = <&scmi_clk IMX94_CLK_DISPAPB>;
-+			#clock-cells = <1>;
-+			power-domains = <&scmi_devpd IMX94_PD_DISPLAY>;
-+			assigned-clocks = <&scmi_clk IMX94_CLK_DISPAXI>,
-+					  <&scmi_clk IMX94_CLK_DISPAPB>;
-+			assigned-clock-parents = <&scmi_clk IMX94_CLK_SYSPLL1_PFD1>,
-+						 <&scmi_clk IMX94_CLK_SYSPLL1_PFD1_DIV2>;
-+			assigned-clock-rates = <400000000>,  <133333333>;
-+		};
-+
-+		lvds_csr: syscon@4b0c0000 {
-+			compatible = "nxp,imx94-lvds-csr", "syscon";
-+			reg = <0x0 0x4b0c0000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			clocks = <&scmi_clk IMX94_CLK_DISPAPB>;
-+			#clock-cells = <1>;
-+			power-domains = <&scmi_devpd IMX94_PD_DISPLAY>;
-+
-+			ldb: bridge@4 {
-+				compatible = "fsl,imx94-ldb";
-+				reg = <0x4 0x4>, <0x8 0x4>;
-+				reg-names = "ldb", "lvds";
-+				clocks = <&lvds_csr IMX94_CLK_DISPMIX_LVDS_CLK_GATE>;
-+				clock-names = "ldb";
-+				status = "disabled";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+
-+						lvds_in: endpoint {
-+							remote-endpoint = <&dcif_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		dcif: display-controller@4b120000 {
-+			compatible = "nxp,imx94-dcif";
-+			reg = <0x0 0x4b120000 0x0 0x300000>;
-+			interrupts = <GIC_SPI 377 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 378 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 379 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "common", "bg_layer", "fg_layer";
-+			clocks = <&scmi_clk IMX94_CLK_DISPAPB>,
-+				 <&scmi_clk IMX94_CLK_DISPAXI>,
-+				 <&dispmix_csr IMX94_CLK_DISPMIX_CLK_SEL>;
-+			clock-names = "apb", "axi", "pix";
-+			assigned-clocks = <&dispmix_csr IMX94_CLK_DISPMIX_CLK_SEL>;
-+			assigned-clock-parents = <&clk_ldb_pll_div7>;
-+			power-domains = <&scmi_devpd IMX94_PD_DISPLAY>;
-+			status = "disabled";
-+
-+			port {
-+				dcif_out: endpoint {
-+					remote-endpoint = <&lvds_in>;
-+				};
-+			};
-+		};
-+
- 		hsio_blk_ctl: syscon@4c0100c0 {
- 			compatible = "nxp,imx95-hsio-blk-ctl", "syscon";
- 			reg = <0x0 0x4c0100c0 0x0 0x1>;
+Thanks for your patch!
+
+> --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> @@ -1062,9 +1062,80 @@ dmac: dma-controller@11820000 {
+>                         dma-channels = <16>;
+>                 };
+>
+> +               sdhi0: mmc@11c00000 {
+> +                       compatible = "renesas,sdhi-r9a08g046";
+> +                       reg = <0x0 0x11c00000 0 0x10000>;
+> +                       interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
+> +                       clocks = <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI0_CLK_HS>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK2>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI0_IACLKM>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI0_IACLKS>;
+> +                       clock-names = "core", "clkh", "cd", "aclkm", "aclks";
+> +                       max-frequency = <150000000>;
+
+Given the bus clock can only run at 200, 100, 50, or 6.25 MHz,
+150 Mhz looks strange to me.
+
+> +                       resets = <&cpg R9A08G046_SDHI0_IXRST>,
+> +                                <&cpg R9A08G046_SDHI0_IXRSTAXIM>,
+> +                                <&cpg R9A08G046_SDHI0_IXRSTAXIS>;
+> +                       reset-names = "rst", "axim", "axis";
+> +                       power-domains = <&cpg>;
+> +                       status = "disabled";
+> +               };
+> +
+>                 sdhi1: mmc@11c10000 {
+> +                       compatible = "renesas,sdhi-r9a08g046";
+>                         reg = <0x0 0x11c10000 0 0x10000>;
+> -                       /* placeholder */
+> +                       interrupts = <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
+> +                       clocks = <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI1_CLK_HS>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK2>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI1_IACLKM>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI1_IACLKS>;
+> +                       clock-names = "core", "clkh", "cd", "aclkm", "aclks";
+> +                       max-frequency = <150000000>;
+
+Likewise. This instance does not support HS400, but HS200 and HS400
+use the same bus clock speed, right?
+
+> +                       resets = <&cpg R9A08G046_SDHI1_IXRST>,
+> +                                <&cpg R9A08G046_SDHI1_IXRSTAXIM>,
+> +                                <&cpg R9A08G046_SDHI1_IXRSTAXIS>;
+> +                       reset-names = "rst", "axim", "axis";
+> +                       power-domains = <&cpg>;
+> +                       status = "disabled";
+> +
+> +                       sdhi1_vqmmc: vqmmc-regulator {
+> +                               regulator-name = "SDHI1-VQMMC";
+> +                               regulator-min-microvolt = <1800000>;
+> +                               regulator-max-microvolt = <3300000>;
+> +                               regulator-ramp-delay = <1200>;
+> +                               status = "disabled";
+> +                       };
+> +               };
+> +
+> +               sdhi2: mmc@11c20000 {
+> +                       compatible = "renesas,sdhi-r9a08g046";
+> +                       reg = <0x0 0x11c20000 0 0x10000>;
+> +                       interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
+> +                       clocks = <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI2_CLK_HS>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK2>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI2_IACLKM>,
+> +                                <&cpg CPG_MOD R9A08G046_SDHI2_IACLKS>;
+> +                       clock-names = "core", "clkh", "cd", "aclkm", "aclks";
+> +                       max-frequency = <150000000>;
+
+This instance maxes out at SDR104, so max-frequency should be lower?
+
+> +                       resets = <&cpg R9A08G046_SDHI2_IXRST>,
+> +                                <&cpg R9A08G046_SDHI2_IXRSTAXIM>,
+> +                                <&cpg R9A08G046_SDHI2_IXRSTAXIS>;
+> +                       reset-names = "rst", "axim", "axis";
+> +                       power-domains = <&cpg>;
+> +                       status = "disabled";
+> +
+> +                       sdhi2_vqmmc: vqmmc-regulator {
+> +                               regulator-name = "SDHI2-VQMMC";
+> +                               regulator-min-microvolt = <1800000>;
+> +                               regulator-max-microvolt = <3300000>;
+> +                               regulator-ramp-delay = <1200>;
+> +                               status = "disabled";
+> +                       };
+>                 };
+
+The rest LGTM.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-2.53.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
