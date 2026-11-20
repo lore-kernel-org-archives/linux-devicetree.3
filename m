@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795166653;
-	b=cbJX7Z3kvrj6ve2w8yiGOQjRKanOz6tb/LCUeDQQ9Y3pc6FDJUy0GmXklBUfZaGpgD0V
-	 A5DMTMyGvR9frHxznrF7LreRnqnMvXP5JkHbzRS0Vy269WjrwX6q6l7dUoLItE1Al0JPH
-	 HObuIAqmE01ywidOzTpsEZJOBwGxVT+GZz3V9R1D2NTf3zmk1Ey3XsrMiOZpDgewdLXQA
-	 oc3PI0+IXkVwbldyCeLRGHXl/7ECRQw+x+p71Uuky+NKecK8Tt5ftD1BVHXtfSCcgOr1P
-	 ztfEkUBDJOwBRWAMCUBrD4AgBtwWkA702UYryhXnh7AGtywZO+fECDKB88ACmRD8CmQ==
+	b=NPNb6kQZz28wK98HR5+xo6C0sCECC11sTcFWXs0HKjjx6X/ZrrLaC5Jon6YchmKuIogw
+	 sRFveXROgMnxO8dnYmIy4QeJjiPd4/H7Cba30Qhnqy4ZOkFsVdZAO1jSJyeXwqT0O+pAR
+	 H2RMU2rQRfvfPtHyNrckDXhRpyYtLuzuNZRer4jQjb06IzyWgaT9rLoS7oO0AjTJadlsP
+	 SKOplBCoMTMLhBVi1eEFzyzWGnjwkzF7UUXChe6m2vzPZd2zngI3/9r9yqdlXseAXnkwF
+	 Zcl8Ni3hvbOQHLZ/kfnKMrD5wJRs5NtCZktvOaFQxGXnYy9gCZp2VIWw7OjNf+1iPNg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795166653;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3DxZX7LHp+eAIgwhnyJoW9tDhuqcgyRIyYJ5BT0tq0s=;
-	b=W7PyHYSb4JI2m3bESYov4TzoW+c2J3xdskSqTwYrThM7bTH7fACuBK9lS2bGbbVFBPZU
-	 fUncSIvK2b5We/30S23KUWbi2SdnfN02Dett9GpYv1LPqLADgkm/PZP+WNeiqewS+Xr5H
-	 lRmEmtLPvAt2sO5iwzPo9TdUeOyq+UJ1xhRKYxhmoOID7m8BvHoKeKPf0uJquwqNGYJNQ
-	 7VezVSKhMicz2+MlLgLpA3IH8Beo9/utWungtvxWkyFpRjzRbdKCKGcaSnG5IX2hb+JSc
-	 K7P9dQhB/HHQuOpUEzdK7NxiQTD67zdioYcoOAdxqgtd7Nbc9oE/XxhDFLGrb22cRUw==
+	bh=BUOmyUk/YbEedYSsZtCkcQhdZ/wCux4Lncj9Yrl5BoM=;
+	b=mqlLpv6mqFQ3WLTrbNNU9EMf2Fy9tzwZabwpKWHIMmbAaacs9k8/ODin4Zs5M6SnrXMq
+	 uv1PnduMG94MAkV+How5b+XZCZdX81wc9QOypx6C9Jn/GlwHgIYykG7SJx/cnD2UOfryN
+	 hTc0QXcg13HVyljm6ahOP9lWQ7WjH5lElBmgaxt8Yz+nD+EvOuVb512Idw1VA4d5FisIj
+	 cPnZFYvHt9O/7H/o3nP/6c6i183u+TAvAPrtoR58MrgIq3BPcli13m1le4L6CUkF+mnRb
+	 eXjOksJcxiGrVkLkL+pA0WTQiVEnPOApNfxSEYv5G76NLMGnDxkukJN5QNX3LOD3D2A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EwX+E4Wp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOc5z0oG;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850CD606A325;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C71606A320;
 	Fri, 20 Nov 2026 09:24:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EwX+E4Wp
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOc5z0oG
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795166653;
-	b=kjt4HCeBTrzkYqFd3VvGGDSJnRDKkUx2qNAdBIl0GSqWeOq3J6RHQ5li6NhrscBeJse+
-	 AU16avVJzT2HGFBWOIFWQAabUK80qyj35U4yvUoojokoQJIKThaTLsFmR46SGjg6IbGjm
-	 Psh2BdDtuP/w0W0CjfkBKW8fuFQoiEB+IYvM7L3qctyD0HLXghJ06q+i8461M0lccWpJY
-	 xyLJ4Zc8dRvYAaV8IAsjpT/dqE+vzxgx6oTNXjjadGk4j9JxPRAhKfwjfQXSuCWYk3uCg
-	 ykn9CkDTmfYzLCZn824DxtDanVqrnptKTW3EuqpRMZ2XTrWSsRre71SbsqnYYrAQXDg==
+	b=b7/Kh8x3KJaUKwxa5q5RmcFR/S2c0CTnq8ihLR1L8Cr3XXik4Bdm3wtOFIoR+XFrrftL
+	 K0qjxVpJRItxuAl2nmcZsU+tYZAZbmrBFrDI/nWlWkIH4RkgyaXxZCDBraHsoFQbFl0zv
+	 xuHxq/pagGTGKFulluRm/gRql5lhHHSXeMoPmQED2LMd2jDTBMG3fvf/+cHGeDOXtVOQi
+	 IgcTfx3unQzC0azMaCO9pnQaqmdSVXpKO5ZdQS8X9te9kDXsfq9eMH15XvsCJYG01P5Gl
+	 B/BO9K31Udfr/u/kQyLzVHmQ4S8tS0SAwQFdh3HLc9oOqqZKe7W2kDjj7bgd8qq7rEw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795166653;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3DxZX7LHp+eAIgwhnyJoW9tDhuqcgyRIyYJ5BT0tq0s=;
-	b=KfHcoffT28ALat/OqEfr63qWmA63BH8KPtwrNzrMifQUQUF/ymspW2aQp5HHYqiNX9qJ
-	 DtFFmxKFNHBXRXzFXeHAFjECoO/tirRqFNZYL19XbcrkZDN307XKow/QD5aSvhLk2hn5b
-	 cCl60g0wO496XYB5xwUqrAzA3dz5iNRc6dJJK3VkOdxj+GBFl626sMDf2kQzny8FYY0jr
-	 t2N4Tulos/x1rl8u+mQWee9bMiHcgnnw6VR3v8/qEo+heJK+dcOGjzOaJYS1FlcuFcUqD
-	 O+jjXxVpxzCRo4EMxXCl9sOZXhnc3TsCtj6i9Gd5m04t9X/crYRAmKW2lFry1N7B3SQ==
+	bh=BUOmyUk/YbEedYSsZtCkcQhdZ/wCux4Lncj9Yrl5BoM=;
+	b=YLHFgflCeMAd45T9vOMSBrRcon1x2LgPrMxH4JhHFK0Hw2skI9MjlIwyfkwcCYhRyo1q
+	 /rGaPG/tgo805IfhFBUCg0vGIvSOt8PVoX7M32xFa8Dnnh3tgfXOvnPwDs16ZrmphTBOV
+	 kycnOCPEDkFKzRnHpbcTaSOO5kPbHO6jzPGecENK5poXbV6ARuRhfcIUlXJ7Qa6CUvmta
+	 IWrR+wdGb4xhr2A7yCNCSoyo0aVRz6DB7nvHZE6O7KsBmdvNc1D2Y5tkf9KgbhMmu/Rqw
+	 DIOFrc5giBgRnwszmjEESulGBDcYXiZZVy4kW3Hvnw+ZPAIlpR1yJb/XXMaXKiKoN1Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6448F1F000CF;
+	by smtp.kernel.org (Postfix) with ESMTPS id 7C6B31F000D0;
 	Fri, 20 Nov 2026 09:24:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795166653;
-	bh=3DxZX7LHp+eAIgwhnyJoW9tDhuqcgyRIyYJ5BT0tq0s=;
+	bh=BUOmyUk/YbEedYSsZtCkcQhdZ/wCux4Lncj9Yrl5BoM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=EwX+E4WpEc+LIIulUaGkagq5vTtdO/HV5hbtSsjS+45IJpW4/D0MSEo/bBvVQLl1s
-	 24kT2coUld+CaFCr3w4eD+CFi0VEb+zWakNU2BUU9uyOa37GYzevtQnhs6nPT+fw3Z
-	 UTzl3FDpjFt9s6Yw1qvcyOgzyz6bNd/0Eijt4GH77x5gsmhansBMdnHNjZLH9xsFNh
-	 XRV//EJDAtzOMiCpqi56j5KcBNkH4rv2SR7yumqkust68smMvJpDIzxxFbp3Rgf/iF
-	 6ObLEh9+PRgeH5Q6OrYvJlz/a/VjpzRhC7uX5y7huVthk2W6i+xoEwE/VtaWQ1jOp1
-	 8BNRYUkyV5+ZA==
+	b=MOc5z0oG/5vCL1YJ8NZ/j7SDzXEXNy4H3m1lu4Ddz2jvMTltLR56BJNSWFd/bFoKR
+	 uN42iQ90ihJ+/wqSRB0pblIeZDCoAK44dWdvbYwub4oa/LcQ9c6LsqP6bIWFdQv3/I
+	 R5nNl7/0MqUrqtcQ7A6UjtQayR9ox0K7Xh4Q2U8depFWt/m0+yb1xB7wb0P3bTSXnm
+	 6zQyNgiBv9WQQKxxJRdUhRYHnYk5pOjlwPJ2J1nCniXV/Y/X9koNJkty5zN2cROO8u
+	 dREmxU/Z6ZuGbfelTWePhWdAEzhFviyv6Pn5XKXWjUSWemTKQpQ7rAmXZ7moQIDvWb
+	 1UuURgmsTtzEA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E6C0B497BF;
-	Fri, 20 Nov 2026 09:24:11 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0ABC8497CD;
+	Fri, 20 Nov 2026 09:24:12 +0000 (UTC)
 From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
-Date: Fri, 20 Nov 2026 09:24:03 +0000
-Subject: [PATCH v3 1/2] dt-bindings: bus: Add Altera AXI Timeout Bridge
+Date: Fri, 20 Nov 2026 09:24:04 +0000
+Subject: [PATCH v3 2/2] bus: Add Altera AXI Timeout Bridge driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261120-feature-timeout-ip-v3-1-affcc644af5e@bruker.com>
+Message-Id: <20261120-feature-timeout-ip-v3-2-affcc644af5e@bruker.com>
 References: <20261120-feature-timeout-ip-v3-0-affcc644af5e@bruker.com>
 In-Reply-To: <20261120-feature-timeout-ip-v3-0-affcc644af5e@bruker.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -92,126 +92,322 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Vyacheslav Yurkov <uvv.mail@gmail.com>, 
  Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795166651; l=3208;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795166651; l=10406;
  i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
- bh=uhd2t8C5h5AY+wMQBzIl+6v3Z7b04RiF63mPUhbJcJo=;
- b=xJnzDNnk1VTeQ3OJnthe1Cb9wFW6cRPlon1ywnJ9V4kDLaF+7zIPKJmqPG+ufueblAvalFjWO
- T0iVXHvQPbJBs4LlokKnX1pY4U8o2K/ia+IC38ALwaLgF2njqHnJNVZ
+ bh=YFPYOQurzV523DYlG7bc3CNsm/PeeCewidiv0N9HBIc=;
+ b=UYuuHvxkL6+AO9YJwKkqr70qfQG3BASrnTH1tJ+fwlge9K9psa8WXvaEKJvOo3M0VEg8cYYfM
+ O1LjMzhFfskB8qF4U9dVrTkH4Frm+Kbu3HcHhX14lGs7ocJTW9VdFxL
 X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
  pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
 X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
  auth_id=686
 X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 Reply-To: V.Yurkov.EXT@bruker.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-The Altera AXI Timeout Bridge is an FPGA IP core placed between an AXI
-host, such as the HPS-to-FPGA bridge, and peripherals implemented in
-the FPGA fabric. It forwards transactions unchanged and monitors each
-one for completion. If a peripheral does not respond in time, the
-bridge terminates the transaction with an error response so that the
-host does not hang, raises an interrupt, and reports the address of
-the timed-out transaction in its control and status registers.
+The Altera AXI Timeout Bridge sits between an AXI host and peripherals
+in the FPGA fabric. When a peripheral fails to respond, the bridge
+completes the transaction with an error response instead of letting
+the host hang, raises an interrupt, and latches the address of the
+timed-out transaction.
+
+Add a driver that populates the peripherals behind the bridge as child
+devices and handles the timeout interrupt. On each timeout, the driver
+logs the address, clears the interrupt, and notifies user space through
+sysfs:
+
+  irq_count             number of timeouts since the driver was bound
+  last_timeout_address  address of the most recent timed-out transaction
+
+last_timeout_address supports poll(), so a monitoring application can
+wait for timeouts without busy-polling.
+The sysfs group is registered manually in order to get the kernfs node
+in probe, .dev_groups would register it after the probe is already done.
+
+On the host, the error response is reported as an external abort.
 
 Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 ---
- .../bindings/bus/altr,axi-timeout-bridge-1.0.yaml  | 86 ++++++++++++++++++++++
- 1 file changed, 86 insertions(+)
+ .../ABI/testing/sysfs-driver-altera-timeout-bridge |  21 +++
+ MAINTAINERS                                        |   7 +
+ drivers/bus/Kconfig                                |  13 ++
+ drivers/bus/Makefile                               |   1 +
+ drivers/bus/altera-timeout-bridge.c                | 184 +++++++++++++++++++++
+ 5 files changed, 226 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.yaml b/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.yaml
+diff --git a/Documentation/ABI/testing/sysfs-driver-altera-timeout-bridge b/Documentation/ABI/testing/sysfs-driver-altera-timeout-bridge
 new file mode 100644
-index 000000000000..2cf1ab537595
+index 000000000000..7af69e74668f
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.yaml
-@@ -0,0 +1,86 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/bus/altr,axi-timeout-bridge-1.0.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/Documentation/ABI/testing/sysfs-driver-altera-timeout-bridge
+@@ -0,0 +1,21 @@
++What:       /sys/bus/platform/devices/<dev>/irq_count
++Date:       October 2026
++KernelVersion:  7.5
++Contact:    Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
++Description:
++        (RO) Number of transaction timeouts reported by the
++        Altera AXI Timeout Bridge since the driver was bound.
 +
-+title: Altera AXI Timeout Bridge
++What:       /sys/bus/platform/devices/<dev>/last_timeout_address
++Date:       October 2026
++KernelVersion:  7.5
++Contact:    Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
++Description:
++        (RO) Address of the most recent transaction that timed
++        out, reported as the translated CPU address, formatted as
++        a hexadecimal number with a 0x prefix. Reads 0x0 until
++        the first timeout occurs.
 +
-+maintainers:
-+  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
++        The attribute supports poll(): user space can wait for
++        POLLPRI | POLLERR to be notified of each new timeout,
++        re-reading the attribute from offset 0 afterwards.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3ed1991cac46..eaf5abba00c2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -974,6 +974,13 @@ ALPS PS/2 TOUCHPAD DRIVER
+ R:	Pali Rohár <pali@kernel.org>
+ F:	drivers/input/mouse/alps.*
+ 
++ALTERA AXI TIMEOUT BRIDGE DRIVER
++M:	Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
++S:	Maintained
++F:	Documentation/ABI/testing/sysfs-driver-altera-timeout-bridge
++F:	Documentation/devicetree/bindings/bus/altr,axi-timeout-bridge-1.0.yaml
++F:	drivers/bus/altera-timeout-bridge.c
 +
-+description: |
-+  The Altera AXI Timeout Bridge is an FPGA soft IP placed between an AXI
-+  host, such as the HPS-to-FPGA bridge, and the downstream peripherals
-+  implemented in the FPGA fabric. It forwards transactions unchanged and
-+  monitors each one for completion.
+ ALTERA MAILBOX DRIVER
+ M:	Tien Sung Ang <tiensung.ang@altera.com>
+ S:	Maintained
+diff --git a/drivers/bus/Kconfig b/drivers/bus/Kconfig
+index e4b1db809187..e0c8c0a6a932 100644
+--- a/drivers/bus/Kconfig
++++ b/drivers/bus/Kconfig
+@@ -247,6 +247,19 @@ config DA8XX_MSTPRI
+ 	  configuration. Allows to adjust the priorities of all master
+ 	  peripherals.
+ 
++config ALTERA_TIMEOUT_BRIDGE
++	tristate "Altera AXI Timeout Bridge bus"
++	depends on ARCH_INTEL_SOCFPGA || COMPILE_TEST
++	depends on OF && HAS_IOMEM
++	help
++	  Driver for the Altera AXI Timeout Bridge, an FPGA IP core that
++	  sits between an AXI host and peripherals in the FPGA fabric.
++	  When a peripheral does not respond in time, the bridge
++	  terminates the transaction with an error response and raises
++	  an interrupt. This driver populates the peripherals behind the
++	  bridge and reports the address of each timed-out transaction
++	  through sysfs.
 +
-+  If a downstream peripheral does not respond within a configured number
-+  of clock cycles, the bridge terminates the outstanding transaction with
-+  an error response so that the host does not hang,
-+  and raises an interrupt.
+ source "drivers/bus/fsl-mc/Kconfig"
+ source "drivers/bus/mhi/Kconfig"
+ 
+diff --git a/drivers/bus/Makefile b/drivers/bus/Makefile
+index a01f97fef3e8..ad4e6d7b1e49 100644
+--- a/drivers/bus/Makefile
++++ b/drivers/bus/Makefile
+@@ -39,6 +39,7 @@ obj-$(CONFIG_UNIPHIER_SYSTEM_BUS)	+= uniphier-system-bus.o
+ obj-$(CONFIG_VEXPRESS_CONFIG)	+= vexpress-config.o
+ 
+ obj-$(CONFIG_DA8XX_MSTPRI)	+= da8xx-mstpri.o
++obj-$(CONFIG_ALTERA_TIMEOUT_BRIDGE)	+= altera-timeout-bridge.o
+ 
+ # MHI
+ obj-y				+= mhi/
+diff --git a/drivers/bus/altera-timeout-bridge.c b/drivers/bus/altera-timeout-bridge.c
+new file mode 100644
+index 000000000000..dd84096ec694
+--- /dev/null
++++ b/drivers/bus/altera-timeout-bridge.c
+@@ -0,0 +1,184 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Altera AXI Timeout Bridge Bus Driver
++ *
++ * Copyright (C) 2026 Bruker Corporation
++ */
 +
-+properties:
-+  compatible:
-+    const: altr,axi-timeout-bridge-1.0
++#include <linux/atomic.h>
++#include <linux/interrupt.h>
++#include <linux/io-64-nonatomic-lo-hi.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_address.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/spinlock.h>
++#include <linux/sysfs.h>
 +
-+  reg:
-+    maxItems: 1
++#define ALTERA_TIMEOUT_BRIDGE_REG_IRQ_STATUS_RESET 0x00
++#define ALTERA_TIMEOUT_BRIDGE_REG_TIMED_OUT_ADDRESS_LO 0x08
++#define ALTERA_TIMEOUT_BRIDGE_REG_TIMED_OUT_ADDRESS_HI 0x0C
 +
-+  interrupts:
-+    maxItems: 1
++struct altera_timeout_bridge_data {
++	struct device *dev;
++	void __iomem *bridge_registers;
++	atomic_t irq_count;
++	u64 last_timeout_address;
++	struct of_range range;
++	spinlock_t lock;
++	struct kernfs_node *irq_node;
++};
 +
-+  ranges:
-+    maxItems: 1
++static ssize_t last_timeout_address_show(struct device *dev,
++					 struct device_attribute *attr,
++					 char *buf)
++{
++	struct altera_timeout_bridge_data *driver_data = dev_get_drvdata(dev);
++	unsigned long flags;
++	u64 addr;
 +
-+  "#address-cells":
-+    const: 1
++	spin_lock_irqsave(&driver_data->lock, flags);
++	addr = driver_data->last_timeout_address;
++	spin_unlock_irqrestore(&driver_data->lock, flags);
 +
-+  "#size-cells":
-+    const: 1
++	return sysfs_emit(buf, "0x%016llx\n", addr);
++}
 +
-+patternProperties:
-+  "^[a-zA-Z][a-zA-Z0-9,+._-]*@[0-9a-f]+$":
-+    type: object
-+    description: |
-+      Device connected to the timeout bridge.
++static ssize_t irq_count_show(struct device *dev,
++			      struct device_attribute *attr,
++			      char *buf)
++{
++	struct altera_timeout_bridge_data *driver_data = dev_get_drvdata(dev);
 +
-+    required:
-+      - compatible
-+      - reg
++	return sysfs_emit(buf, "%u\n", atomic_read(&driver_data->irq_count));
++}
 +
-+    additionalProperties: true
++static DEVICE_ATTR_RO(last_timeout_address);
++static DEVICE_ATTR_RO(irq_count);
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - ranges
-+  - "#address-cells"
-+  - "#size-cells"
++static struct attribute *altera_timeout_bridge_sysfs_attrs[] = {
++	&dev_attr_last_timeout_address.attr,
++	&dev_attr_irq_count.attr,
++	NULL /* sentinel */
++};
 +
-+additionalProperties: false
++static const struct attribute_group altera_timeout_bridge_sysfs_group = {
++	.attrs = altera_timeout_bridge_sysfs_attrs,
++};
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
++static irqreturn_t altera_timeout_bridge_isr(int irq, void *data)
++{
++	struct altera_timeout_bridge_data *driver_data = data;
++	u64 raw, addr;
 +
-+    bus@10000 {
-+        compatible = "altr,axi-timeout-bridge-1.0";
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        reg = <0x10000 0x10>;
-+        interrupts = <0 12 IRQ_TYPE_LEVEL_HIGH>;
-+        ranges = <0x0 0x10010 0x1000>;
++	atomic_inc(&driver_data->irq_count);
 +
-+        gpio@100 {
-+            compatible = "altr,pio-1.0";
-+            reg = <0x100 0x10>;
-+            interrupts = <GIC_SPI 13 IRQ_TYPE_EDGE_RISING>;
-+            interrupt-controller;
-+            #interrupt-cells = <2>;
-+            gpio-controller;
-+            #gpio-cells = <2>;
-+        };
-+    };
++	/* Read and print the timed-out address. If the ADDRESS_WIDTH of more
++	 * than 32 bits, two CSR reads (from addresses 0x8 and 0xc) are
++	 * required to get the complete address, given that the data width
++	 * of the CSR interface is only 32 bits wide.
++	 */
++	raw = lo_hi_readq(driver_data->bridge_registers +
++		ALTERA_TIMEOUT_BRIDGE_REG_TIMED_OUT_ADDRESS_LO);
++	addr = driver_data->range.cpu_addr +
++		(raw - driver_data->range.bus_addr);
++
++	spin_lock(&driver_data->lock);
++	driver_data->last_timeout_address = addr;
++	spin_unlock(&driver_data->lock);
++
++	dev_err_ratelimited(driver_data->dev, "timeout at 0x%llx\n", addr);
++
++	/* Reset IRQ status in the bridge */
++	writel(0x1,
++		driver_data->bridge_registers +
++		ALTERA_TIMEOUT_BRIDGE_REG_IRQ_STATUS_RESET);
++	/* notify the user space */
++	sysfs_notify_dirent(driver_data->irq_node);
++
++	return IRQ_HANDLED;
++}
++
++static void altera_timeout_bridge_put_dirent(void *data)
++{
++	sysfs_put(data);
++}
++
++static int altera_timeout_bridge_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct altera_timeout_bridge_data *driver_data;
++	struct of_range_parser parser;
++	int ret;
++	int irq;
++
++	driver_data = devm_kzalloc(dev, sizeof(*driver_data), GFP_KERNEL);
++	if (!driver_data)
++		return -ENOMEM;
++
++	spin_lock_init(&driver_data->lock);
++	driver_data->dev = dev;
++	platform_set_drvdata(pdev, driver_data);
++
++	driver_data->bridge_registers = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(driver_data->bridge_registers))
++		return PTR_ERR(driver_data->bridge_registers);
++
++	ret = of_range_parser_init(&parser, dev->of_node);
++	if (ret)
++		return dev_err_probe(dev, ret, "invalid ranges\n");
++
++	if (!of_pci_range_parser_one(&parser, &driver_data->range))
++		return dev_err_probe(dev, -EINVAL, "missing ranges entry\n");
++
++	if (driver_data->range.cpu_addr == OF_BAD_ADDR)
++		return dev_err_probe(dev, -EINVAL, "untranslatable ranges entry\n");
++
++	ret = devm_device_add_group(dev, &altera_timeout_bridge_sysfs_group);
++	if (ret)
++		return ret;
++
++	driver_data->irq_node = sysfs_get_dirent(dev->kobj.sd, "last_timeout_address");
++	if (!driver_data->irq_node)
++		return -ENOENT;
++
++	ret = devm_add_action_or_reset(dev, altera_timeout_bridge_put_dirent,
++				       driver_data->irq_node);
++	if (ret)
++		return ret;
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
++
++	ret = devm_request_irq(dev, irq,
++			       altera_timeout_bridge_isr,
++			       0,
++			       dev_name(dev),
++			       driver_data);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
++
++	return devm_of_platform_populate(dev);
++}
++
++static const struct of_device_id altera_timeout_bridge_of_match[] = {
++	{ .compatible = "altr,axi-timeout-bridge-1.0", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, altera_timeout_bridge_of_match);
++
++static struct platform_driver altera_timeout_bridge_driver = {
++	.probe = altera_timeout_bridge_probe,
++	.driver = {
++		.name = "axi-timeout-bridge",
++		.of_match_table = altera_timeout_bridge_of_match,
++	},
++};
++
++module_platform_driver(altera_timeout_bridge_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Altera AXI Timeout Bridge Bus");
++MODULE_AUTHOR("Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>");
 
 -- 
 2.34.1
