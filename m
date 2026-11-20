@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795202200;
-	b=ILIqY15/ph/AqQrtE3w4BZAIsaBSE0BPzGXr7it31FB1zfyg90T5YpkIU134BMlnIAV0
-	 Rq8O2Yiuwmep/25Bd0sGi8r636Z+RXbdWOuPjo0OqbhoMDMb1jBLteGvsvUtBqM3JYmdJ
-	 xx7NQGdSMK51zKkOOw+D1UaqLgw//NO83iQKLRcNDatNEb1mTGdRltFrzCIJa6SUKkWh9
-	 sGJq6fGOGkpsmWzZ6cn/EC6O8mfeMzhjVZ0qnFaPh0aMy5DQkEn2dTxcP5ZY88izRzkug
-	 xZfUrXMSY+rqhlVWHpGOWahSbwufUrlc43XqqG1i147NWNraZmvPrTnvE95C1sB6yfg==
+	t=1795202195;
+	b=x+NUKbL39omL9Wp0KJmmxs9FAUd0ES8Vf3UWjRTuimaGx/jaMM/E7PNduBSNT8svJSAh
+	 KMFbsU848N0gDvKcJ1p49XVYjINkPV4tVjuA/pSRO8Ct4LtFObPKSgtHPCzuihP4UWSZi
+	 bHhZtwTgutSJRvazHuzYqxcUzCGsa5DiUjPdPvRE/5Rlvlq3XlGqhYmrDVb3C3/iANnLr
+	 +yitFEyaZXBMrOFkIaiLHVD36NLG7+WyJXI3QhyhEh1DcVFRcBkQ2HVcBAuHw1U1/Ir6w
+	 MkiLw8NAeIxIF/RjiHcm9oPZMa1XPFS1oAvkgOPNpB/Nwwjf7aH5c8BfksUUbXJaidQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795202200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795202195;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VoO5psaD9DFnzn5bc1zZcOjZ9Zx/iOn4te5QyeYQEoQ=;
-	b=4c0ShvX8gK9NKJLmTE9rH4s2EhEVuw5sQ8+/1T1ntFiWtsXz77XL9Bn26QcDb2+Pf2ca
-	 0qPtEaulokTZpNwNvEKX1fmmeMML6Lx8Q1BgryVNro5jTxwEVAN8N6SHQeJsJ/FLXXJ9T
-	 yKX7iS81Y2E37RY5ca1eHFiUuwEXzklHHvY9onaqCyTqFN7BHujQnM0S86qV4vK0uaxkW
-	 /myxBmzC7JdtF+b+/Kk7ni4MbT63TCqDzYURAZ3kOwb5zGDwqo5XagbJJvcG8xQd8kgqh
-	 P0Ec9Nz/jAOpbcIujdV9se9ODXNYQu39P0HtK62ZNXqncvI6IYDFq+5te3AhMuoPsRQ==
+	bh=L8S/WNv20+oRCfncRZ/tZDNWMqkqP07ca+Q4m2HbqFQ=;
+	b=Ybprodsbsl72tixAHIDxPhvvTLDXd9RCTaWrC2jrrzveJMfSDIuH+wr04LXIQhK/62TU
+	 B3bhHfhI50jXcxzmphzkEj3fo+rkuqSd1mCgvMxvwA515c9qyPPXTDElz1OBPrE3lbIEB
+	 lccd4O/1NTvYTTu3xtcDhHuZ9N63mH4f2r56UISi5D2Ou97+hsCx81tumrcZKS4SMnoXZ
+	 ujbLUI8pYtzQpwy0w2iBWpDEE5VoHtfd01hJvnHjYy4nt0+ep5PiM4n1czGBO/40tSa+I
+	 uWt8dXo09I77aBeJ11L7gxqPkDTfX4tA/Xit1O+OOV8imb99z0eL4YYn40Wuxwb998A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HYThZ1a4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KrUen82G;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DFD60A2606;
-	Fri, 20 Nov 2026 19:16:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B8560A380C;
+	Fri, 20 Nov 2026 19:16:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HYThZ1a4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KrUen82G
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795202199;
-	b=xMdV4tPxKGLlN4M4JzxNVRvWUoj7lJOKZUPklW9UdnevdbyJSdF7KYWkIyUS7DfXiupL
-	 VTOjrvzX8p+HntD33yOI2//ks3CkyqgxcCo+0I/7+GzMT90AcwER/Dnn1pNml3wRRqD2J
-	 5jh9RsRrkEtDiE4+gfxB36qAAOAEo9WP5QRex+6a2AQZqd3J5zOmnre7O1bs0cbUwV50S
-	 cVpW1okQOosHZpjUAwM0ch4hURHv6msJUJ+hOpBzpqrimpRAdXITuAoGQlChccWITMoTO
-	 2poeEDJ86QP6lOyhrAkhXHmVEG803m6P7chTM7h3JwO28NEvlId9daFrRuIjUUWO6pQ==
+	t=1795202194;
+	b=ipDqiHUMTR/rI4CYfg8N/mWtbKwaqwH+Txzgsu8ibxRnfaXY8FaBFtpjx8lbg9FIgC5r
+	 pXxiA5/6z++R5Kjt9RkBaWfBrfNOVT2BeGJQn94NPQfHbTZeotST4MUnNZnslpcTDFZVs
+	 5ECJGLB0IQx1Loec5AIxJvNwAlBEBv0dzuprJ+WK5Nv1gazH0kHMmlXgaZS7H28ICdNXq
+	 bH3ryJNCOTvQqsrQJnR0ZLPcgLc6EwYiihzHwF5uHugce/UzKiftVILyqIXLiIQs0g+GI
+	 5WKwj1Sb/9Mr3PtVR3pEuCNcS6MaagscYbHSIyyyKwvNlwhdgJlnJd7TCUdc2ffd9hQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795202199;
+	c=relaxed/relaxed; t=1795202194;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VoO5psaD9DFnzn5bc1zZcOjZ9Zx/iOn4te5QyeYQEoQ=;
-	b=QKNdG/ZG5SBYRCZ+rkIm565YCmZPVC7js6ycsW2Jgv1e+5arSuZX0ehdvZ/OxpT8N8rR
-	 yyZJ36khfHfUbQvHKp5Una/tttJ14IXi30Y5Cnu42e/TVJRDI/bwQeMppGfdoR2mx6NAn
-	 eNkDLL+hsMu+kiw52qRrCf7UJKQ53YrDJsZ0OSYHlQsuUKX/4t/lCjarTZKo9eNoGgkN3
-	 TU2i7rV9p25SkX5lV4S0qP53u7VNGDAtoWrk+WsT1WfZGsPXbiGTYpgK9Dqy7RU8QMKDU
-	 G7syU9D4WPkHevuD5SFvWx2STauStnPE17pHKPF+X7EJ0EvUwUrTqBb9ZtVRmky8oig==
+	bh=L8S/WNv20+oRCfncRZ/tZDNWMqkqP07ca+Q4m2HbqFQ=;
+	b=rXeAkijKv/Wbx0ntRsufPG6essokPorc+rdzHrZ3ZMWd2LF+NuU3RqGY7OFMyT7Js3Ab
+	 foj58YqgsGo3elvx4/YSjE5O0ZTCMVEqOVvZALMfc9wN3BMDL67vDZkVXkZyN244ZDcYG
+	 hwDwghbbtHW2tBQSvX7lCT0Mm1eZhXGWmblURr3TsWCC7RD5XgZj6Q8YbiZJQPEwpH5Sf
+	 f9htgfdl2vEvguea6uvM1/vCC77k+nM24VBaglNO1YvVnFD7kfIJtLVPHn4rTh53Nr89d
+	 Y8zaV1oMhvsM5CRbMNubuNyiOu+LrxAenKhjZxVuxa5KC+B/GMEJWrYlaecRFnRY5fg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E0D201F000EE;
-	Fri, 20 Nov 2026 19:16:33 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id A41F51F000CF;
+	Fri, 20 Nov 2026 19:16:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795202199;
-	bh=VoO5psaD9DFnzn5bc1zZcOjZ9Zx/iOn4te5QyeYQEoQ=;
+	s=k20260515; t=1795202194;
+	bh=L8S/WNv20+oRCfncRZ/tZDNWMqkqP07ca+Q4m2HbqFQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=HYThZ1a4hOsvvs+Tm7y5zXG0JNKf3bpbTlhg4Aiyip0tZ75SZYc2RsIwucIhNLyFE
-	 qZdpdlXHsja3+O+JitKRL40rKrHimL5UY+k/z7QGRZkGsplC6jAnk0JjApD0IsT7nz
-	 iknPYLMEdoNhd457fnq5xHQG3GEEiGcWGU0xaxsvjdvC6O7RW7YA9ZLAZ1why+ds94
-	 v1QZihaHuPJmZuLr06RLdAC6augh7dsKXCN4A7bs6amGNPimrks1q6aat8TfFbOYSY
-	 wW1Unx7KnhElAYeKQ4zyjXa3/a0wSZRbmNuZIuk3UQb0U7lAKlyJ6zPSJlhB6Xsi2k
-	 95mdnI4HVwhSQ==
+	b=KrUen82GrpaDH6DqOG690NaG2JwwzdNDeTPcATJqEF/fRzZE3DJXYgVg0kFacJ8IQ
+	 h+fEP9171+xiQcIg/GmDCDnZxHoH3DuPo/dglCC0h3JKl0FNfVTFeKoqj3uf0zZ49b
+	 BxsbaWu+yyyvw9nZqrT/zub8iX7x8Z0ftiq7645+3HRgXEopbbQta3ChZ81I/c5IPQ
+	 rmdUjD16vR+qy4NwMQfSSP6jdAwwiAgytlU1Nmza43W1n+t32oBY3+48K32AMPx172
+	 mqCh047+9wdBBhYVko9n3oqxiS5qVh350wdK79RBGhtPimIGd+qtZ3VUyqcc1O1nwF
+	 prLjb5waJLQQw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A405B4B9CE;
+	by lkml.kernel.org (Postfix) with ESMTP id 2CDFE4B9BE;
 	Fri, 20 Nov 2026 19:16:24 +0000 (UTC)
 From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Sat, 21 Nov 2026 03:15:52 +0800
-Subject: [PATCH v4 06/13] dt-bindings: timer: add Zhihe A210 CLINT
+Date: Sat, 21 Nov 2026 03:15:48 +0800
+Subject: [PATCH v4 02/13] dt-bindings: mailbox: add Zhihe A210 AP to E902
+ mailbox
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261121-a210-scmi-v4-6-4a795a0a9fc9@iscas.ac.cn>
+Message-Id: <20261121-a210-scmi-v4-2-4a795a0a9fc9@iscas.ac.cn>
 References: <20261121-a210-scmi-v4-0-4a795a0a9fc9@iscas.ac.cn>
 In-Reply-To: <20261121-a210-scmi-v4-0-4a795a0a9fc9@iscas.ac.cn>
 To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
@@ -103,13 +104,13 @@ To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
 Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
  linux-serial@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>, 
- Han Gao <gaohan@iscas.ac.cn>, Conor Dooley <conor.dooley@microchip.com>
+ Han Gao <gaohan@iscas.ac.cn>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795202181; l=860;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795202181; l=3069;
  i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=xDW3mj4crTCYIjLMrm7hiotLvXuQDaJfNmGBDmcpw/Y=;
- b=ITBUMLFXVAn/LcCfHEiId92uBWlW/+hUYxiLBH+Nd0AXOKYmT7nGjh7oKSsVxvXEKQMhLFEH9
- VTz6tspsrugBjsPXew0KSTSRceYGa87N9F0L2edOzfzWv1JPwEOM17y
+ bh=1bSlRTbJH+ic/kKX/KZWwqkpU0t/w8ZHzrQrtqPAxps=;
+ b=lzwwljT4hoF98KpvO2sq3Fyj8Vf7qxTxshhSDPyuOHsAGcOO1hNb+Wf7HawbD7NeTAYJHaTya
+ zVGvZdrptnMDttoQ9FmeGzixU8kHAViO2ozxRWHUI5nr0f2WG1y9zMf
 X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
  pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
 X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
@@ -120,26 +121,94 @@ Content-Transfer-Encoding: 7bit
 
 From: Han Gao <gaohan@iscas.ac.cn>
 
-Add the A210 CLINT compatible with the thead,c900-clint fallback.
+The Zhihe A210 has an E902 management core next to its application
+processors. Each side owns a mailbox block and rings the other side by
+writing to its slice of the other side's mailbox.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+The application processors ring E902 through their slice of the E902
+mailbox. E902 rings back through the application processor mailbox and
+writes INFO0 or INFO1 there to say which of its two doorbells it rang.
+The doorbells carry no data, and clients such as SCMI keep their
+messages in shared memory.
+
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- Documentation/devicetree/bindings/timer/sifive,clint.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/mailbox/zhihe,a210-ap-mailbox.yaml    | 67 ++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-index d53f52e80d88..6480c8dacf6b 100644
---- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-+++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-@@ -55,6 +55,7 @@ properties:
-               - sophgo,sg2000-clint
-               - sophgo,sg2002-clint
-               - thead,th1520-clint
-+              - zhihe,a210-clint
-           - const: thead,c900-clint
-       - items:
-           - const: sifive,clint0
+diff --git a/Documentation/devicetree/bindings/mailbox/zhihe,a210-ap-mailbox.yaml b/Documentation/devicetree/bindings/mailbox/zhihe,a210-ap-mailbox.yaml
+new file mode 100644
+index 000000000000..7d7ab1c550a0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mailbox/zhihe,a210-ap-mailbox.yaml
+@@ -0,0 +1,67 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mailbox/zhihe,a210-ap-mailbox.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Zhihe A210 application processor to E902 mailbox
++
++maintainers:
++  - Han Gao <gaohan@iscas.ac.cn>
++
++description: |
++  The A210 application processors and the E902 always-on core each own a
++  mailbox. A core raises an interrupt on the other side by writing the
++  generate register of the other core's mailbox, and can leave a value in one
++  of the INFO registers there to identify the request. The application
++  processor side therefore needs its own mailbox, which holds the INFO
++  registers written by E902 and the interrupt status, clear and mask
++  registers, and the slice of the E902 mailbox assigned to it.
++
++  The E902 firmware keeps both mailboxes clocked and out of reset. Their
++  clocks and resets are not controlled from the application processors.
++
++properties:
++  compatible:
++    const: zhihe,a210-ap-mailbox
++
++  reg:
++    items:
++      - description: Application processor mailbox
++      - description: Application processor slice of the E902 mailbox
++
++  reg-names:
++    items:
++      - const: local
++      - const: remote
++
++  interrupts:
++    maxItems: 1
++
++  '#mbox-cells':
++    const: 1
++    description:
++      Doorbell index, 0 or 1. E902 writes INFO0 or INFO1 of the application
++      processor mailbox to tell which doorbell it rings. Only doorbell 0 can
++      also be rung by the application processor.
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - '#mbox-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    mailbox@320000 {
++        compatible = "zhihe,a210-ap-mailbox";
++        reg = <0x320000 0x2000>, <0x311000 0x1000>;
++        reg-names = "local", "remote";
++        interrupts = <336 IRQ_TYPE_LEVEL_HIGH>;
++        #mbox-cells = <1>;
++    };
 
 -- 
 2.55.0
