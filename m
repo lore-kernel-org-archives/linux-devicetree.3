@@ -1,87 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795210435;
-	b=YUV7iA0+SNWWF0KoPE33Wt4FVZri3O6Xl/F8pTKwAdH1XH5yE5kyRDgaCoNXrSJUsg0Q
-	 1gX4ljg4se3fe5CXR0A/HrYmygWuEh9u8ZKGmHa3vyO0MhjbXVwMgNFGodZwOMdoM8gqA
-	 AE5L6wmaDRsSAhzHMs5xxNogsCqJ4QIxxoXzaAAavpm1Z1oNGelLLdA3jZgNpjei2Y95s
-	 SjHDfcfmq74kWuHgY9z2Kgnn2EF2vBtUL7AokL0s6x4YdHO+UoHgu72LJkl+a+zxMpMhB
-	 PXsdHafSHk6OEGL18Ktm797R2MeKtyVIZhBggkNuVXy0kydzxXpaGAJulD/GH1Rcosg==
+	t=1795210979;
+	b=K70ia5z11+4k0ySd5r7j31Y1aH8mwoEv/kIwQmxP6JuEfA8OK2HhRmUDAGQQmsSlqPeu
+	 SPodhsqzookwJon3pZeWuLy4Es8nzNUgrEyDyTLuGaYbq7Mu08v7R5J1a5TTY9mj3B/7a
+	 /AGW9hK8qprpGR2eydwgFAaPMVPuGSpHyKVv+kzAbWBAsQRifnnyJG1VZd6+dGAlMzC9o
+	 X25GIu0dY4mhBeIWqnxaJ+SVzzIMeriIh8VRBd/MGyJScY7e2G/cm1cqceISQD4e/Vubs
+	 Xq6UbLcKsvIukHouN2H2uO8k9rg3/TvF4eyB+DpWkPlOk6WMjiA4X/OiI57+XtwsrfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795210435;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=NQI7dFtW45SJmVgRHVzx21Zyb7CXJ48fgy5qE9osfjQ=;
-	b=YRWOaVXLRl5CPlKEXgP9V690nAvKDJytTVsgwuuW858tBjmcwDRrlmXNz2v+wmByp0nC
-	 6lpK9EqKTYZ0E6IWcCsX8FtyDzQPneADNnxbsWUkIoJ++3e8x6aAIhkKVyAh+Sftd/RwW
-	 IpRmnyyufwOYbazQRcwqOLpG4v+p1LtACMWPH4Ig6HniRmlphcZgQyNhXSHLEWUDnxO0u
-	 8jHFnKAKMHQF2rMD2Af/+bq8VseSNkwL8sPF3lZJzM+0yVPNskAHaOgGGuQSDpidPnU1m
-	 pJtnRgCQru7931GCNPO/mCNBB24GBbhRSTg8xBhohBiu48T9AOJjiT8QhhU6HRkClmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795210979;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=H/16LcwBS3pMY05rENBIXnogYiIxMoqlB7pgoFRgdeE=;
+	b=GRiCJfv6xLytJjwn7pGvkkD0lW52xYo40OY6p5iJWMwCRUsJmxSj/TVu/EFEDSlXBSZY
+	 1A47ulattJYwWFf+OZs2gE70Z6Xs23kaEi0KUs54ItcMZoKPORgV66w94+L6iPIyoP9Kh
+	 rvMdZyPmP25LdF1W8GXcDtRuvikmmAfxYBXfkEw4EEvFNECaJ3d4CdjdysCULGU/Cmf+C
+	 y0Gpo3e3Hhe4vYtiH/wTFppp7Qy3BJ2MFBf2RVi3mtKj8NSbb4rdN4vZheLDEnWE2xJXT
+	 adlGU+4cMzO6pxqDqRwSSpNTXxtHxiY466O/VOO9+oSzYSPwV3v+BW8tvCboBB4Wafw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=OQlWJhIi;
-	arc=none smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4lyql3w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8729D606A699
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 21:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8729D606A699
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197F8606A689
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 21:42:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=OQlWJhIi
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-4ad587ba293so911151fac.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 13:33:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1795210433; x=1795815233; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NQI7dFtW45SJmVgRHVzx21Zyb7CXJ48fgy5qE9osfjQ=;
-        b=OQlWJhIiC0XRKcfjw1tTmgnegt6YqqTE3g+iJ4Ayb7FIkwAHpLEpusjQ+NfGO9GkEl
-         IW76A+xSYfA8FCRG0kFLhM3ITqYlBBm0S+PNPUyry9CTZH5VnAxrqqrklckXGdHABVg8
-         Hcf9oklA7XaPUfXXLcTe32DI8lFcRwWMaeu/DGejsunMfqlM8YOO1oP9jDm2IKYdeadH
-         cqbLXpbjEi05gqbH3mMBYrQH2EQgqpAz71BAh/z8ER8rtNI3vnoxgKwskgmyi89SyCR0
-         rKzuOueS4+ZReoB8/Z4wtE3L4alN4Z48MsNka63ucJcdsn8Ku3QCb/3jFZb4x7qH952U
-         XDJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795210433; x=1795815233;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NQI7dFtW45SJmVgRHVzx21Zyb7CXJ48fgy5qE9osfjQ=;
-        b=VvM3nkagfw6S+XHf0fxoj7WyYHeWMT0tx/dFmsKe3Zq9Fp5j60ryN/KC+V11t0z0Ks
-         tf48L/52RBTyO3yuoyrKHImFXwL+RX4vG3UIGP+GbocDgCwwcyYdtQZzWBkJZ9YCBb3J
-         QGtAIUOytc5y2bTTAPgua4/fBW09FIVOcP013h6qXzArBCPsN+Bttrl0YUgjBPOw43Xu
-         VTX5yr379UbZuscIWNECnco5d2Po3IFfVs3CK5gk/cNpR8FXuR0dymXpsdELpKGz55ak
-         DekfxGaVo1Z+V5QcwxVSPHUEfNvY4G6x5IRUAIiTUytC140kDDrwralkfvD15SXQlUQT
-         Tkyg==
-X-Gm-Message-State: APuU4Z/iNkPmEyGEyyjWXlL7LmRbXbe0wbixk4x1UwCU3WDYB7OEq00V
-	8Ve6ifHoVHg1P6gXHWdswvJNLuEO+86GMQZyg4qjDhWcHbo9cfWnPdmLwReOQfjl1Go5fbGSd5z
-	m4S5YmuBKfw==
-X-Gm-Gg: AZFdTZdvXGeWsIGV1ve9wLO8NEeioqI+KbqVrn7RZs2htEXCyBLHnHvFnpgqdpjY+AL
-	iDSv4/IIRRSzaKb3UVLZ+YTpD64mNosX11D6BeiB3XUH4UsEhkbKDjP3O0BQ+MHjj+UHr5qf6W/
-	6Ef4RRoSWKGKsMcuhYmPto1OxJDXr2fUwuWUf60RXLsFS/AQDKHUE9KDs/Tvvz6j7fxeHVLwl8R
-	x2FkPsVkAn7Hspu2/kHQx6edC6MW+gdB46yAt5DzNa81bS7F1fXmRqLsTlNyxrwFhTHUm5iYPo5
-	lH0IJDoyfplLxKueaB2p9PNd2EYF/lfXvr8AlGD/bPfC1Q1spg/4WIGKN3Fr3fWaeqB29WvD4t2
-	C8621G+kBi4dR1VxMoNKikffgQQLTPhdKOQLsQchJj+wghprevGck3/UJ3oUtGMIZ4vxnieaRQR
-	2WuEBHX2LpuQ67OWeF7zd8VJeMrhUHpYXxQzsJby1ZprV9eD/dYeAXQs5x5zA7bRSltzID5VxUC
-	RMqL9bSnkpW3OZ2Jll+bednHg3HYFjfhMPC9Yn01AqXuBItGuLMj6sYrPC/uo2fdZrb9yDH4Fj4
-	ruha7ub8thLuTPBZ9kqf43MBrLjUmMC6fQ==
-X-Received: by 2002:a05:6870:3d8b:b0:483:cb42:3979 with SMTP id 586e51a60fabf-4bc8289cfbamr4568358fac.17.1795210433325;
-        Fri, 20 Nov 2026 13:33:53 -0800 (PST)
-Received: from [172.22.22.28] ([76.156.233.211])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bd3008160dsm3072987fac.16.2026.11.20.13.33.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Nov 2026 13:33:53 -0800 (PST)
-Message-ID: <51e8f08c-623f-44ad-a2ce-d7905984a6ee@riscstar.com>
-Date: Fri, 20 Nov 2026 15:33:52 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4lyql3w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27F8C1F000C4;
+	Fri, 20 Nov 2026 21:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795210978;
+	bh=H/16LcwBS3pMY05rENBIXnogYiIxMoqlB7pgoFRgdeE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=R4lyql3w3uc6fuyQc06rRxhN/Vp503FHHBN+IDJtTRoXm/DwEYzsWv5ws8h1w89Gr
+	 qccIP6Iqzze4xJ5PbC7vcLYVBNxo6vEjn4VTyUCB8zt5HUHQQQVABpHoJFw8CDBH95
+	 c78LWbxSoXQK7VTXls70Fxh/l+5s9MGqsDOxMtwj/nPKETCaaWMMtB1IyYUJ+2V6gO
+	 WZiQaxBT+uZ4YJp4Sh3OnsyL10l+JjeeHquL7TRjc8curz4tRYHVIrNQ9O35NpP1Gl
+	 jEMsgedoye9uPoFvWDFrwNCcyCvg8W8oOktmFV98D+gM55kmI1K3Qr4YFD5UkmET0E
+	 1AiPv6gfzuhkQ==
+Message-ID: <sashiko-outbox-226207@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V2 2/3] power: supply: cw2217: Add support for Cellwise
+ cw2217
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261120212815.35663-3-macroalpha82@gmail.com>
+References: <20261120212815.35663-1-macroalpha82@gmail.com>
+ <20261120212815.35663-3-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 21:42:57 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,301 +60,163 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] clk: toshiba: introduce a TC9564 clock/reset
- driver
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20261120183212.1264522-1-elder@riscstar.com>
- <20261120183212.1264522-3-elder@riscstar.com>
- <sashiko-outbox-225862@kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <sashiko-outbox-225862@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/20/26 12:42 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issues to consider:
-> - [Medium] clk: tc9564: unlocked register read-modify-write in
->    reset_manage()
-> - [Medium] clk: tc9564: missing select RESET_CONTROLLER in
->    COMMON_CLK_TC9564
-> - [Low] clk: tc9564: stale v1 and dt-binding text in commit message
-> - [Low] clk: tc9564: duplicate clk_gate implementation in
->    gate_register()
-> --
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] power: supply: cw2217: 32-bit signed overflow in
+  cw2217_get_current()
+- [Medium] power: supply: cw2217: gauge left in shutdown mode without DT
+  profile
+- [Medium] power: supply: cw2217: missing power_supply_changed() in
+  cw2217_bat_work()
+- [Low] power: supply: cw2217: unused match table with !CONFIG_OF via
+  of_match_ptr()
+--
 
-Quick summary (more below):  I will act on all of the observed
-issues mentioned here.
+commit b7f80d5b2ad4376d864e98e5237d2f7d87f7e959
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-> commit c8a057c6e9911108f130ae1447d0fae1c9ba8eff
-> Author: Alex Elder <elder@kernel.org>
-> 
-> clk: toshiba: introduce a TC9564 clock/reset driver
-> 
-> This commit adds a platform driver for the clock and reset controllers on
-> the Toshiba TC9564 SoC.
-> 
->> Define a new platform driver that manages clocks implemented by the
->> Toshiba TC9564 SoC.  There are 21 gate clocks that can be enabled
->> and disabled, but currently only the clocks that are (or will soon
->> be) used are defined to be controllable.
->>
->> Two registers manage the state of the clocks.  The registers are
->> accessed via a regmap supplied by a system controller.  Access to
->> the memory region is provided via a BAR on a PCIe endpoint function
->> embedded in the TC9564 SoC.
->>
->> Define the binding for the clock and reset controller that present in
->> the Toshiba TC9564 SoC.
-> 
-> [Severity: Low]
-> These first three paragraphs appear to be leftover text from v1 and the
-> devicetree binding patch: the driver now maps the platform MMIO resource
-> directly via devm_platform_ioremap_resource() instead of using a syscon
-> regmap, and the description restarts in the fourth paragraph.
+power: supply: cw2217: Add support for Cellwise cw2217
 
-This is correct, I neglected to update the text that talked about
-regmaps.  I will fix this.
+This commit adds a power supply driver for the Cellwise CW2215, CW2217, and
+CW2218 I2C battery fuel gauges.
 
-I will also fix the e-mail addresses provided for Daniel and me.
-I'll use the our @kernel.org addresses, to be consistent with
-what's in the MAINTAINERS file.
+> diff --git a/drivers/power/supply/cw2217_battery.c b/drivers/power/supply=
+/cw2217_battery.c
+> new file mode 100644
+> index 0000000000000..a54e19889b46c
+> --- /dev/null
+> +++ b/drivers/power/supply/cw2217_battery.c
+[ ... ]
+> +static int cw2217_get_current(struct cw2217_battery *cw_bat)
+> +{
+> +	s32 cw_current;
+> +	__be16 reg;
+> +	u8 fw_ver;
+> +	int ret;
+> +
+> +	if (cw_bat->fw_version =3D=3D 0) {
+> +		cw_bat->cw_current =3D 0;
+> +		dev_err(cw_bat->dev, "Error! CW2217 firmware read error!\n");
+> +		return -EIO;
+> +	}
+> +
+> +	ret =3D regmap_bulk_read(cw_bat->regmap, CW2217_CURRENT_H,
+> +			       &reg, sizeof(reg));
+> +	if (ret)
+> +		return ret;
+> +
+> +	cw_current =3D (s16)be16_to_cpu(reg);
+> +
+> +	fw_ver =3D FIELD_GET(CW2217_ID_MASK, cw_bat->fw_version);
+> +	switch (fw_ver) {
+> +	case CW2215_ID:
+> +	case CW2217_ID:
+> +		cw_bat->cw_current =3D (cw_current * 1600 * 1000) / cw_bat->user_rsens=
+e;
+> +		break;
+> +	case CW2218_ID:
+> +		cw_bat->cw_current =3D (cw_current * 3815 * 1000) / cw_bat->user_rsens=
+e;
+> +		break;
 
+[Severity: High]
+Can the numerator multiplication in cw2217_get_current() overflow s32?
 
-> 
->> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
->> index 6bfa2c8fffe1b..b27807ee93863 100644
->> --- a/drivers/clk/Kconfig
->> +++ b/drivers/clk/Kconfig
->> @@ -185,6 +185,14 @@ config COMMON_CLK_CDCE706
->>   	help
->>   	  This driver supports TI CDCE706 programmable 3-PLL clock synthesizer.
->>   
->> +config COMMON_CLK_TC9564
->> +	tristate "Toshiba TC9564 clock and reset support"
->> +	depends on TC9564_PCI || COMPILE_TEST
->> +	default TC9564_PCI
->> +	help
->> +	  This enables support for the clock and reset controllers embedded
->> +	  in the Toshiba TC9564 SoC.
-> 
-> [Severity: Medium]
-> Should COMMON_CLK_TC9564 select RESET_CONTROLLER?  Because TC9564 is a
-> PCIe endpoint device, this driver can be enabled on host architectures
-> that do not select ARCH_HAS_RESET_CONTROLLER.  When
-> CONFIG_RESET_CONTROLLER is disabled, devm_reset_controller_register()
-> compiles to a no-op stub returning 0, silently omitting the reset
-> controller functionality and causing non-optional reset consumers to fail
-> with -ENOTSUPP.
+Because cw_current and the multiplier literals are 32-bit signed integers,
+(cw_current * 1600 * 1000) overflows s32 once abs(cw_current) reaches 1343
+(~1.43 A with the default 1500 uOhm shunt, or ~215 mA with a 10 mOhm
+shunt), and (cw_current * 3815 * 1000) overflows at 563.  When charging
+current wraps negative, POWER_SUPPLY_PROP_CURRENT_NOW is corrupted and
+cw2217_battery_get_property() misreports POWER_SUPPLY_PROP_STATUS as
+NOT_CHARGING or FULL.
 
-Yes, it should.  It passed COMPILE_TEST checks, but this
-code sits outside drivers/reset so this should be selected.
+Using div_s64((s64)cw_current * 1600 * 1000, cw_bat->user_rsense) would
+avoid the overflow.
 
-> 
->> diff --git a/drivers/clk/clk-tc9564.c b/drivers/clk/clk-tc9564.c
->> new file mode 100644
->> index 0000000000000..65ed524bf2ee7
->> --- /dev/null
->> +++ b/drivers/clk/clk-tc9564.c
-> 
-> [ ... ]
-> 
->> +static const struct reset_init reset_init[] = {
->> +	[RESET_I2C] = {
->> +		.offset = RESET0_OFFSET,
->> +		.mask = BIT(12),
->> +	},
->> +	[RESET_PCIE] = {
->> +		.offset = RESET0_OFFSET,
->> +		.mask = BIT(9),
->> +	},
->> +	[RESET_MSIGEN] = {
->> +		.offset = RESET0_OFFSET,
->> +		.mask = BIT(18),
->> +	},
->> +
->> +	[RESET_MAC0_MAC] = {
->> +		.offset = RESET0_OFFSET,
->> +		.mask = BIT(7),
->> +	},
->> +	[RESET_MAC0_PMA] = {
->> +		.offset = RESET0_OFFSET,
->> +		.mask = BIT(30),
->> +	},
->> +	[RESET_MAC0_XPCS] = {
->> +		.offset = RESET0_OFFSET,
->> +		.mask = BIT(31),
->> +	},
->> +
->> +	[RESET_MAC1_MAC] = {
->> +		.offset = RESET1_OFFSET,
->> +		.mask = BIT(7),
->> +	},
->> +	[RESET_MAC1_PMA] = {
->> +		.offset = RESET1_OFFSET,
->> +		.mask = BIT(30),
->> +	},
->> +	[RESET_MAC1_XPCS] = {
->> +		.offset = RESET1_OFFSET,
->> +		.mask = BIT(31),
->> +	},
->> +};
->> +#define RESET_COUNT	ARRAY_SIZE(reset_init)
-> 
-> [ ... ]
-> 
->> +static const struct gate_clock *hw_to_gate_clock(struct clk_hw *hw)
->> +{
->> +	return container_of_const(hw, struct gate_clock, hw);
->> +}
->> +
->> +static int gate_clk_manage(struct clk_hw *hw, bool enable)
->> +{
->> +	struct tc9564_clock *tc9564_clock = dev_get_drvdata(clk_hw_get_dev(hw));
->> +	const struct gate_clock *clock = hw_to_gate_clock(hw);
->> +	u32 mask = clock->init->mask;
->> +	void __iomem *ioaddr;
->> +	u32 val;
->> +
->> +	ioaddr = tc9564_clock->ioaddr + clock->init->offset;
->> +
->> +	val = readl(ioaddr);
->> +	if (enable)
->> +		val |= mask;
->> +	else
->> +		val &= ~mask;
->> +	writel(val, ioaddr);
->> +
->> +	return 0;
->> +}
->> +
->> +static int gate_clk_enable(struct clk_hw *hw)
->> +{
->> +	return gate_clk_manage(hw, true);
->> +}
->> +
->> +static void gate_clk_disable(struct clk_hw *hw)
->> +{
->> +	(void)gate_clk_manage(hw, false);
->> +}
->> +
->> +static int gate_clk_is_enabled(struct clk_hw *hw)
->> +{
->> +	struct tc9564_clock *tc9564_clock = dev_get_drvdata(clk_hw_get_dev(hw));
->> +	const struct gate_clock *clock = hw_to_gate_clock(hw);
->> +	void __iomem *ioaddr;
->> +
->> +	ioaddr = tc9564_clock->ioaddr + clock->init->offset;
->> +
->> +	return readl(ioaddr) & clock->init->mask ? 1 : 0;
->> +}
->> +
->> +static const struct clk_ops gate_clk_ops = {
->> +	.enable = gate_clk_enable,
->> +	.disable = gate_clk_disable,
->> +	.is_enabled = gate_clk_is_enabled,
->> +};
->> +
->> +static struct clk_hw *gate_register(struct device *dev, const char *name,
->> +				    const struct clock_init *init)
->> +{
->> +	struct tc9564_clock *tc9564_clock = dev_get_drvdata(dev);
->> +	struct clk_init_data clk_init = { };
->> +	const struct clk_hw *parent_hw;
->> +	struct gate_clock *clock;
->> +	int ret;
->> +
->> +	clock = devm_kzalloc_obj(dev, *clock);
->> +	if (!clock)
->> +		return ERR_PTR(-ENOMEM);
->> +
->> +	parent_hw = tc9564_clock->clk_data->hws[init->parent];
->> +
->> +	clk_init.name = name;
->> +	clk_init.ops = &gate_clk_ops;
->> +	clk_init.parent_hws = &parent_hw;
->> +	clk_init.num_parents = 1;
->> +	if (init->type == CRITICAL_GATE)
->> +		clk_init.flags = CLK_IS_CRITICAL;
->> +
->> +	clock->hw.init = &clk_init;
->> +	clock->init = init;
->> +
->> +	ret = devm_clk_hw_register(dev, &clock->hw);
->> +	if (ret)
->> +		return ERR_PTR(ret);
->> +
->> +	return &clock->hw;
->> +}
-> 
-> [Severity: Low]
-> This isn't a bug, but now that the driver accesses MMIO registers directly
-> rather than through regmap, gate_register() and gate_clk_ops duplicate the
-> standard single-bit MMIO gate implementation.  Using
-> devm_clk_hw_register_gate_parent_hw() (as pll_register() and
-> fixed_register() do with the fixed-factor helpers) would allow dropping
-> struct gate_clock and the custom gate callbacks.
+[ ... ]
 
-This is a very good point.  Previously I avoided the standard
-gate clocks *because* we were using regmap.  I will review this
-but I expect to be able to use the existing code instead.
+> +static int cw2217_init(struct cw2217_battery *cw_bat)
+> +{
+> +	int ret;
+> +
+> +	ret =3D cw2217_get_chip_id(cw_bat);
+> +	if (ret)
+> +		return dev_err_probe(cw_bat->dev, ret, "I2C read write error");
+> +
+> +	/*
+> +	 * All of the known Cellwise 221x chips set the ID bits to 0xa0. If it
+> +	 * doesn't match, we're trying to probe the wrong hardware.
+> +	 */
+> +	if (cw_bat->chip_id !=3D CW2217_CHIP_ID)
+> +		return dev_err_probe(cw_bat->dev, -ENODEV, "Not a cw221x\n");
+> +
+> +	if (!cw_bat->bat_profile) {
+> +		dev_warn(cw_bat->dev, "continuing with default bat profile\n");
+> +		return 0;
+> +	}
 
-> 
->> +
->> +/* Warn on requests to assert or deassert critical resets */
->> +static bool reset_is_critical(unsigned long id)
->> +{
->> +	return WARN_ON(id == RESET_I2C) || WARN_ON(id == RESET_PCIE);
->> +}
->> +
->> +static int reset_manage(struct reset_controller_dev *rcdev,
->> +			unsigned long id, bool assert)
->> +{
->> +	struct tc9564_clock *tc9564_clock = dev_get_drvdata(rcdev->dev);
->> +	const struct reset_init *reset = &reset_init[id];
->> +	u32 mask = reset->mask;
->> +	void __iomem *ioaddr;
->> +	u32 val;
->> +
->> +	if (reset_is_critical(id))
->> +		return 0;		/* Just ignore the request */
->> +
->> +	ioaddr = tc9564_clock->ioaddr + reset->offset;
->> +
->> +	val = readl(ioaddr);
->> +	if (assert)
->> +		val |= mask;
->> +	else
->> +		val &= ~mask;
->> +	writel(val, ioaddr);
->> +
->> +	return 0;
->> +}
-> 
-> [Severity: Medium]
-> Can concurrent reset operations on lines sharing RESET0_OFFSET or
-> RESET1_OFFSET race in reset_manage()?
+[Severity: Medium]
+Does returning early when cw_bat->bat_profile is NULL leave the gauge in
+shutdown mode?
 
-I hadn't considered that, but yes, we could be exercising this
-code concurrently, so a spin lock should be used.
+If the optional cellwise,battery-profile property is omitted and the chip
+is still in its default shutdown state (CW2217_CONFIG =3D 0xF0),
+CW2217_FW_VERSION reads as 0x00, causing cw2217_get_current() to fail
+cw2217_probe() with -EIO.
 
-Great review feedback!
+[ ... ]
 
-					-Alex
+> +static void cw2217_bat_work(struct work_struct *work)
+> +{
+> +	struct delayed_work *delay_work;
+> +	struct cw2217_battery *cw_bat;
+> +	int ret;
+> +
+> +	delay_work =3D container_of(work,
+> +				  struct delayed_work,
+> +				  work);
+> +
+> +	cw_bat =3D container_of(delay_work,
+> +			      struct cw2217_battery,
+> +			      battery_delay_work);
+> +
+> +	ret =3D cw2217_update_data(cw_bat);
+> +	if (ret)
+> +		dev_err(cw_bat->dev, "i2c read error when update data");
+> +
+> +	queue_delayed_work(cw_bat->battery_workqueue,
+> +			   &cw_bat->battery_delay_work,
+> +			   msecs_to_jiffies(cw_bat->poll_interval_ms));
+> +}
 
-> 
-> Unlike the clock framework (which holds enable_lock across enable and
-> disable callbacks), the reset controller core only acquires a
-> per-reset-control SRCU read lock in reset_control_assert() and
-> reset_control_deassert().  Two consumers asserting or deasserting
-> different resets in the same register (such as RESET_MSIGEN and
-> RESET_MAC0_MAC in RESET0_OFFSET) can perform concurrent read-modify-write
-> sequences and overwrite each other's bit changes.  A spinlock in struct
-> tc9564_clock around the readl()/writel() sequence in reset_manage() would
-> prevent this.
+[Severity: Medium]
+Should cw2217_bat_work() call power_supply_changed(cw_bat->cw_bat) when
+battery data changes so userspace and in-kernel subscribers receive update
+notifications?
 
+[ ... ]
+
+> +static const struct of_device_id cw2217_match_table[] =3D {
+> +	{ .compatible =3D "cellwise,cw2215", },
+> +	{ .compatible =3D "cellwise,cw2217", },
+> +	{ .compatible =3D "cellwise,cw2218", },
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(of, cw2217_match_table);
+> +
+> +static struct i2c_driver cw2217_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "cw2217",
+> +		.pm =3D &cw2217_bat_pm_ops,
+> +		.of_match_table =3D of_match_ptr(cw2217_match_table),
+> +	},
+
+[Severity: Low]
+Does using of_match_ptr() here trigger a -Wunused-const-variable warning on
+cw2217_match_table when CONFIG_OF is disabled?  Since the driver uses
+generic device_property_* helpers, of_match_ptr() can be dropped.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120212815.3566=
+3-1-macroalpha82@gmail.com?part=3D2
