@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795198630;
-	b=XBuDNsXpaf7Y7g8WC7NRtVjMTcWPojR/TuK41lUhTokICkiyBI0xGB+RJ+vsqRxRfgoy
-	 G90OxD6QcS51iX8V0yP3ErHXDf9Gi8JAbkhutfSudRQnHAVIoWPrzts6mBxd1eS02AMht
-	 COfXSL0P/YRr5aIiYunw6Nbcm+5Iz7o+wfjxacOFKsKzDeveCxjDsgTHkcLYwpagTag1/
-	 mvaCU7A7lgJo3oyx/xaExIAhKxZOPVtqEDG6VJYQCGtR9AE27RB9W8kkt9aRMld/5sTxP
-	 kCFA2FBMXMtLkV91qv1VkzUS+UVdrtjYZc6AKdjcdytZUT9K2R5yuHFuTdntnsRKopg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795198630;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5kSP1RnWMSJEJYYJkds0+nXtVqYjbTw1JaXsnE/LlyU=;
-	b=e8UNI0bfUekOTR9nPymTz/CHwLnnkfUufnpyJ150ewjKi5g6wGu1uXbO9o6+CgTDpez8
-	 e5BrE1Ri83ZE/5Za5YwePHWSD3vFo9ZKLl6Y/FUV0fSQZnU2jgNrpC6WL5svEIhZaUrPr
-	 msgB8e7r0e3c4dzzdVcimf1l0D7pdacGvld3aDiUWh0doS8er7yDOgcMxSevtRN81A+/1
-	 kmfxROEhTGu60MzO4TQt43iPObewGyzwk+hOWkN7iMdJ1kW9ua1dPrOkqsck+s0rV7xp5
-	 nSXgAaLkoaUCPBOYgQzjQtK3eW72l5D3DGQqk30RviaygLAIvbmqYRS9JJCmundIjgQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EyyTEdJm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90FB607636F;
-	Fri, 20 Nov 2026 18:17:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EyyTEdJm
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795198629;
-	b=jnH1hsFxeFlfqekuMhaNDVUjCJoNJd/JbWDESTs1zpY7t4Kx533zKI7+n1nlHucLJUK2
-	 od2YzqmE+gzsyQANtIfGVkY40c4Cg1pCfvpvkZp2r7WCaeSVjtGnIo/Xr5JDDEr80cS8P
-	 NrATBSpE8kWiNPVLJj6k7EtsyzLipxXx2GLZjP6tDXjHSLUC0465fRH5P7Nduwb0rcp06
-	 3zE5dSKuUpaMDi1CWXPNL0+2dNNwh1ioGV+L2XLQyM+IiwCHcgGn9ba/c5Pz1ettXPKjB
-	 NERx5xt9Y4fgDJwJUfwNHx+QwdyRV0to/fJqYt4mDfPpL07alevT23XcubO/XGYBeUA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795198629;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5kSP1RnWMSJEJYYJkds0+nXtVqYjbTw1JaXsnE/LlyU=;
-	b=BFVufdj1URe2+jz1U35pYtL6TbuIOPI6Dd3EpW6CmcF0NrauAw7KR2o3LkiKidwfD0k4
-	 udbaqM763VzaOZ7QaZjwBuFez8rjmdfjwwtAsI2PhCO+ty8h0Q4JeI6+zCBz/vyHEp2We
-	 flw1Y9N5eU93lpCW965dcfZ2kObwS384lHOehjGz0pM44N96ttXOubcA68MuVxO4Dhuso
-	 F5lBby2Y/SBybkAGZ6IHaiwRrEUtNBJ4Oq1/EgmmVhDFe+p4QERRXpImGlR8kN0/UA4H1
-	 612ldnQQjftNUtRejEFdGjtS/aH9qgvddX46lC3KL6/jERpSuGhpG2f700hvrgaCVVg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795198656;
+	b=0/kO0tj+gzlqLt0IykQDpHAtK1IFRX9X4RgPv+cLsukmqpmx4jWKiwOPL/IDZt0pmlZJ
+	 /3Dh+1r4ccZV3v3yaZ3WFQstUh4bNrHndiaD5hHXMYP43CBWoyn+hFgAjKEpzagKAjCIC
+	 5hcQ9TqejV0N3EHzhUCgYcX3NhancFgb0slShtmpmosI9n2uSyLvo6Z0rMypP5Z5JnwNN
+	 lJBpkQ3L08ZGWNqVcRjEtFNRzcDaqH9HqDv8FOwTgsYP64SaXl958NhsyvTAV8M91epkd
+	 qNh0vyrxRlHzgPo+kxyklmwQmmmVDbE91ArzxevC9KQXkoJ0f1N3kUWIW+PfLqOCbmQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795198656;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Ao45PZIc57K7i00r/ydgLRv43mzObnJdlxREPBvg2co=;
+	b=OE15lViqYVY8TfLfHHrESIwXDFmK2L4NVoTorC7aidE/aFoUlOU5yVxyTD9SsNAoGRYp
+	 9KPc1eOtR+TkZ/C00793CryewnnQLD0F1YX11FN+n2gw9JV2u7eM8eiQ7H3ehJaJOCC9o
+	 EcCXXKPAu3SceJT8MStivM6xzMyPeJBBdrXoixjFUjrP6fCO1ARztbjBwcZCMnIEoK8vK
+	 ir9QONJCarcD51UVtmCd/2XHQaQrQdsf549h3sCIfypVIzEOFtextteoIIe0nvLVoJZ3/
+	 hDlgiGe0SAoQIIGKaghtTHCsf5oeuNhWSKTYFcfn/gEwnRYywXvld/OeOF0//rECzBw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KcWI9kak;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D06C11F000CF;
-	Fri, 20 Nov 2026 18:16:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795198629;
-	bh=5kSP1RnWMSJEJYYJkds0+nXtVqYjbTw1JaXsnE/LlyU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=EyyTEdJmznZRKDEzO6kuQk05Gp+WT5kgJ8ZIKYpsDWBQ5vzKYnznL/rGmRwVOuR29
-	 VbuiPEJLWvsQw29BNdxq90ZjqpCZp7RnMq3jNesdKgU07xiwT/ZZaUtzLsyYrpNT2O
-	 pwUYW68yzhVW2lxoQWOsGWBp63REQOqU5gwxsuOcr52i85x0Uk98QXY/KYs9XRe4aI
-	 0MvDz41raBmsGxVdJNLvtn7TFaNR0pvOXszINxs1Y/ThaJx1o1oBXRcAZ7iMLfsmN4
-	 vk8H79q/aEkRMfOuvN0XKYhEQdHfyA1du9pQ9KkiQ7nQ34DJRuzGdWuk8x3QDorezV
-	 UfMtJagYAbHAg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7DD274B965;
-	Fri, 20 Nov 2026 18:16:33 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Fri, 20 Nov 2026 19:15:49 +0100
-Subject: [PATCH v2 10/11] arm64: dts: amlogic: Add HDMI TX PHY node for
- GXBB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4117A606BDE5
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 18:17:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4117A606BDE5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KcWI9kak
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so9736985e9.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 10:17:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795198655; x=1795803455; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ao45PZIc57K7i00r/ydgLRv43mzObnJdlxREPBvg2co=;
+        b=KcWI9kakku2rGPg0hLmcq+UNgzD9XBaUIiSOCIDyNMYyBLAA+YLyvr2Tn7CgkIZvcQ
+         N88XMAiorKmAKPIZIhr2mSsJhgH8f12PRuCB8/iS9RwA3sPSWo0dqmY4jdHsOdYTpcRn
+         JD9eAHI1SHmB83D/qxBS38a02opPZmDtBX0Ec62BEf+YEcvYFbnfNIzjMTvp//89CC8C
+         hE/HkNaEYjL+qbdTya1QtEtioBSLh0/OfVi6WgVzt8W+P08AoVq+STVDhb6L/7xHDg0t
+         HeWTHYnJIzIj+BbAvi1H/oz9jSlOqfGvG971zSQO+brzNPqrmIA5hQ0q4l1lgJLk5q6h
+         wYfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795198655; x=1795803455;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ao45PZIc57K7i00r/ydgLRv43mzObnJdlxREPBvg2co=;
+        b=v+yjsVM2Wp4TrHQWgGrqc5giez/NtmLRyEL8q3eK/bG3BFVGzSygA+Ks+4DSmnKZXA
+         yzy41KiIc6E8rfFYYLIpNOesiGg51a0WhtcR7kl4zCwB43j9/kB5QxelzcQco+fyqXPz
+         YDPIRVsbL6llQyjbdmKd83P1CRWdzXMX7BY2SwyvVdOm9B6emGR2sKVPcQ/fKS4PkMl9
+         e9q5ZwZ/mbay2urfX8HlW6/cDMgcZog8X1JZZh9gjTMwXhLm+HVZADi+M8RaJb8GpqCP
+         gIs61LNecqi0yTW72I986Kac7uPZ9XmO1kZShhVyydQ/c+t8oGCC0z9UgGnMYCRWCZ/U
+         otdw==
+X-Forwarded-Encrypted: i=1; AL+hErHgLs29yVG42HJ5M2/qnO8eqBh3ERiKmNeUMQ9wySn09yxVVFeFFLvBBAj7JT4xo5LcJRrg5qVncL/Q@vger.kernel.org
+X-Gm-Message-State: APuU4Z8N66mG7pBciF0S3g6bJTCwSsf2qxln3XnEJLIdM15fPZbmAYnG
+	KSgylGFQOmO8eaFY0wbjhcvAt2fldLfC3ZH2oEV5te3dmA2riJPvjVps
+X-Gm-Gg: AYBFou0yXE+j4gkrdBfSOAf2NCG4Zsc2H8RsHKGt1BrSVXyB6pFy+rHggwvq9j7EcmZ
+	6ws6or/7IcdmB1/JVXHD6coN5SrZR5vN/xosdl4nxvgt1geXHAt+xMMGuD2Kmb8rvANQevFHWk1
+	b9NsQ4u/8w6lWs4754XakRHvGIYiGqFuEAkhVXDSvCzNWoDAVyl7xIMYI+eBdCQZ3vyTrK1fYAq
+	2VxDYEVXPKnFEOVL9aUv0RwwSXkypvyXUfIWAk8ruls3O2FpLchBo4n+10uNTojMFBlWStj7PGb
+	MMR/udxqVZZOo1qkgNVCYjLn4E65tmlSy7t3UwfVXD+gqnfA/i4mNYcshucvjAa8JJGgd9fKgkD
+	ajGPp0zQuE4uCZJn3FVZ2FHUSeUK0Kp9DeC5sSCL89tiuhnMT/++OoLqe2rw5POraV4oc9e1GCy
+	kKn31HQxqy/Kh+H8mh8bzemxPZCVp/SKBJKOuXqu9lz4SPkOlBWT6R4YIIJsGROP48PcXyhXsus
+	29UgMBQuJU0cjg7/N6CdhGRtcMrhWcza0Pu+PipH/ns7NZy9yve8GV55mOH0ZqxlmnqCIDBOd+a
+	cGNOozge7QSyiHjeQ8XqR3TDh3OiamiBgztOH71tSnusg+UbnUGQvIcqvvXJbIbwy6zsBRxQDBQ
+	xeQF3AEieVuVJRAjIBv3NVpT+WECzjHwep5pnwm21NwLmZ0aC
+X-Received: by 2002:a05:600c:828e:b0:4a7:7f3f:6f8e with SMTP id 5b1f17b1804b1-4bb8878702emr102579795e9.0.1795198654474;
+        Fri, 20 Nov 2026 10:17:34 -0800 (PST)
+Received: from GLaDOS.station ([193.207.36.37])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b2c5sm131698035e9.5.2026.11.20.10.17.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 10:17:33 -0800 (PST)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH v2 1/1] arm64: dts: freescale: imx8mp-var: Add Cortex-M7 support
+Date: Fri, 20 Nov 2026 19:17:27 +0100
+Message-ID: <20261120181727.33321-1-stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,77 +106,260 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261120-meson-drm-create-hdmitx-phy-v2-10-93d622d9bb07@aliel.fr>
-References: <20261120-meson-drm-create-hdmitx-phy-v2-0-93d622d9bb07@aliel.fr>
-In-Reply-To: <20261120-meson-drm-create-hdmitx-phy-v2-0-93d622d9bb07@aliel.fr>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Ulf Hansson <ulfh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-pm@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1081;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=JfeJFGsdjuVYuSpN9bsRq2rmNT9JvKzwp64cluLxjAw=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQzZDX4Woco+LYSxb7f8wu3TB6TEB/Jk6X/g3nZJKY3jyy
- Mrafm5HKQuDGBeDrJgiS/9cyxPvLh8983WPegrMHFYmkCEMXJwCMJE33xj+Wfm7/X4WU/loNtt9
- kQc/dpoVMvRqRK9V23HGxG6X6mqlMIb/vtH261QrkuTv9pec+vB2ycal6+fVv51i+dV7jsivmT+
- E+QA=
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-Describe the HDMI TX PHY as a child of the HHI system controller, with
-the amlogic,meson-gxbb-hdmi-tx-phy compatible and reference
-it from the HDMI TX node through "phys".
+Add Cortex-M7 configurations for DART-MX8M-PLUS on Sonata,
+VAR-SOM-MX8M-PLUS on Symphony and VAR-SMARC-MX8M-PLUS on Echo.
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Share the reserved memory and remoteproc configuration through a common
+include, and add board overlays and combined -m7 DTBs for remoteproc and
+RPMsg support.
+
+Mark the UART, I2C, SPI and CAN controllers used by the Cortex-M7 firmware
+with "reserved" status. Disable PCIe on Symphony and USB-C on Echo,
+since their reset and role controllers depend on the I2C buses reserved
+for the M7.
+
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
- arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+v1->v2:
+ - Use common node names for memory regions
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi b/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
-index 5c2fe9dc4f80..09ad9790ebc2 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
-@@ -316,6 +316,7 @@ &hdmi_tx {
- 		 <&clkc CLKID_GCLK_VENCI_INT0>;
- 	clock-names = "isfr", "iahb", "venci";
- 	power-domains = <&pwrc PWRC_GXBB_VPU_ID>;
-+	phys = <&hdmi_tx_phy>;
+ arch/arm64/boot/dts/freescale/Makefile        | 13 ++++
+ .../dts/freescale/imx8mp-var-common-m7.dtsi   | 68 +++++++++++++++++++
+ .../freescale/imx8mp-var-dart-sonata-m7.dtso  | 31 +++++++++
+ .../freescale/imx8mp-var-smarc-echo-m7.dtso   | 36 ++++++++++
+ .../freescale/imx8mp-var-som-symphony-m7.dtso | 36 ++++++++++
+ 5 files changed, 184 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-common-m7.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata-m7.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-smarc-echo-m7.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony-m7.dtso
+
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index ae28e6b02a5c..3745688a5b4a 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -723,9 +723,22 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tx8p-ml81-moduline-display-106-av123z7m-n17.dtb
  
- 	assigned-clocks = <&clkc CLKID_HDMI_SEL>,
- 			  <&clkc CLKID_HDMI>;
-@@ -330,6 +331,11 @@ clkc: clock-controller {
- 		clocks = <&xtal>;
- 		clock-names = "xtal";
- 	};
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-ultra-mach-sbc.dtb
 +
-+	hdmi_tx_phy: hdmi-phy {
-+		compatible = "amlogic,meson-gxbb-hdmi-tx-phy";
-+		#phy-cells = <0>;
++imx8mp-var-dart-sonata-m7-dtbs := imx8mp-var-dart-sonata.dtb imx8mp-var-dart-sonata-m7.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-var-dart-sonata.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-var-dart-sonata-m7.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-var-dart-sonata-m7.dtbo
++
++imx8mp-var-smarc-echo-m7-dtbs := imx8mp-var-smarc-echo.dtb imx8mp-var-smarc-echo-m7.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-var-smarc-echo.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-var-smarc-echo-m7.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-var-smarc-echo-m7.dtbo
++
++imx8mp-var-som-symphony-m7-dtbs := imx8mp-var-som-symphony.dtb imx8mp-var-som-symphony-m7.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-var-som-symphony.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-var-som-symphony-m7.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-var-som-symphony-m7.dtbo
++
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw71xx-2x.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw72xx-2x.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw73xx-2x.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-common-m7.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-var-common-m7.dtsi
+new file mode 100644
+index 000000000000..486b924e202d
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-var-common-m7.dtsi
+@@ -0,0 +1,68 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Common Cortex-M7 configuration for Variscite i.MX8M Plus modules
++ *
++ * Link: https://www.variscite.com/
++ *
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
++ *
++ */
++
++#include <dt-bindings/clock/imx8mp-clock.h>
++
++&{/} {
++	#address-cells = <2>;
++	#size-cells = <2>;
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		vdev0vring0: memory@40000000 {
++			reg = <0 0x40000000 0 0x8000>;
++			no-map;
++		};
++
++		vdev0vring1: memory@40008000 {
++			reg = <0 0x40008000 0 0x8000>;
++			no-map;
++		};
++
++		rsc_table: memory@400ff000 {
++			reg = <0 0x400ff000 0 0x1000>;
++			no-map;
++		};
++
++		vdev0buffer: memory@40400000 {
++			compatible = "shared-dma-pool";
++			reg = <0 0x40400000 0 0x100000>;
++			no-map;
++		};
++
++		/*
++		 * Keep this region aligned with the Cortex-M7 DDR region in the
++		 * boot firmware's RDC configuration.
++		 *
++		 * RDC DDR addresses are encoded as:
++		 * (physical address - 0x40000000) >> 1.
++		 */
++		m7_reserved: memory@7b000000 {
++			reg = <0 0x7b000000 0 0x1000000>;
++			no-map;
++		};
 +	};
- };
- 
- &hwrng {
-
++
++	cm7: imx8mp-cm7 {
++		compatible = "fsl,imx8mp-cm7";
++		clocks = <&clk IMX8MP_CLK_M7_CORE>;
++		mbox-names = "tx", "rx", "rxdb";
++		mboxes = <&mu 0 1
++			  &mu 1 1
++			  &mu 3 1>;
++		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
++				<&m7_reserved>, <&rsc_table>;
++		memory-region-names = "vdev0buffer", "vdev0vring0", "vdev0vring1",
++				      "m7-reserved-ddr", "rsc-table";
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata-m7.dtso b/arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata-m7.dtso
+new file mode 100644
+index 000000000000..c5cc032fb4be
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata-m7.dtso
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Cortex-M7 support for Variscite DART-MX8M-PLUS on Sonata-Board
++ *
++ * Link: https://variscite.com/carrier-boards/sonata-board/
++ *
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
++ *
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-var-common-m7.dtsi"
++
++/* Reserve the peripherals used by the Cortex-M7 firmware. */
++&ecspi1 {
++	status = "reserved";
++};
++
++&flexcan1 {
++	status = "reserved";
++};
++
++&i2c3 {
++	status = "reserved";
++};
++
++&uart3 {
++	status = "reserved";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-smarc-echo-m7.dtso b/arch/arm64/boot/dts/freescale/imx8mp-var-smarc-echo-m7.dtso
+new file mode 100644
+index 000000000000..2b91511084f4
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-var-smarc-echo-m7.dtso
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Cortex-M7 support for Variscite VAR-SMARC-MX8M-PLUS on Echo-Board
++ *
++ * Link: https://variscite.com/carrier-boards/echo-board/
++ *
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
++ *
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-var-common-m7.dtsi"
++
++/* Reserve the peripherals used by the Cortex-M7 firmware. */
++&ecspi2 {
++	status = "reserved";
++};
++
++&flexcan1 {
++	status = "reserved";
++};
++
++&i2c2 {
++	status = "reserved";
++};
++
++&uart4 {
++	status = "reserved";
++};
++
++/* The USB-C role controller is on I2C2. */
++&usb_dwc3_0 {
++	status = "disabled";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony-m7.dtso b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony-m7.dtso
+new file mode 100644
+index 000000000000..710ddff2fb11
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony-m7.dtso
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Cortex-M7 support for Variscite VAR-SOM-MX8M-PLUS on Symphony-Board
++ *
++ * Link: https://variscite.com/carrier-boards/symphony-board/
++ *
++ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
++ *
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-var-common-m7.dtsi"
++
++/* Reserve the peripherals used by the Cortex-M7 firmware. */
++&ecspi2 {
++	status = "reserved";
++};
++
++&flexcan2 {
++	status = "reserved";
++};
++
++&i2c4 {
++	status = "reserved";
++};
++
++/* The PCIe reset GPIO is provided by the expander on I2C4. */
++&pcie {
++	status = "disabled";
++};
++
++&uart4 {
++	status = "reserved";
++};
 -- 
-2.56.1
-
+2.47.3
 
