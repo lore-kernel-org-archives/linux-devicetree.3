@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795174099;
-	b=FZrokCbFVsoIYzv97khK7Ssp+flreijyHDgmi+ie0ksVmIPnlQ3S0uazE3TQsF7LE3XW
-	 7/2TZ8cpHviggHmCX++TE8YVI6A9g6o4a+pr0ZXha6y0qoZaj9I46/WVwLmL/7Ou8dXRE
-	 THm16cLUiJf2hGUF9595+zPaZDNEXoDozCBcNbcRL/DA3ligjnW9g5zjopNaM9KP+pOBf
-	 aVD486TNc1vXceAXDUmsevP3W4ZvWfEqxBm+GjYKbOj65MIamT99Cnfj0aDg3appadixm
-	 63xcZMV1goXn8B/vnxfLKmivFubIU6UoIvSd3Dgv+m1gAjRv89DCxdfqxOk9xeeCAjg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795174099;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Ct97nDx3VcHSXYPxiuvMrwXIRec4bOcuD5FjR1gbuYw=;
-	b=Q1V9ij0QJH9F2mpbB/rC2xPzON7GFCf8ftIIU9jQQ81bsmk/z8/96DnGvsVPUkNbAwyQ
-	 w0NcTHw3eXm2Ydk+SiShYlG08DITMcfLIghbo7i+BwasInUpHhvE9x8XUrK2++IkxohBe
-	 MtxguUf/40TGJnJM+Bvt+r/nUzHPKmSA5BfyQat3FvP86ke08isEqB1Le6EbfmIsS5iRG
-	 RNrxE1971iZ+BVj9L3WbM6DgeszFilmcxss1LnBKVxWk63U1QakSqQsK6V4BvWYwRWN2G
-	 WBmp/+lToDY/fRkCzjkQKXJPhKdo4eTtzhNuSsKliONgyuVAWn4+Qufpf7GZENWqeKw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aCRmZ9l6;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795174172;
+	b=nfnUyGlb1cwpP8uyMqEv0u6+9EuX4zBEOa3Z6iq32zZEDOZNbJ4CNz0/4XT0gjzfpRyy
+	 xGe3KrPKGaCkP6hYglBEvFa7VECVxi99RQv7rv7rkkDQ8fmXnXTmHUtv2NZcKs81j7rrU
+	 i5Dg3LaSePD2aC7TMHTZJJflf62Dmz4RuEVv5Sd6/D+fKyaLdibGVSFcgOS+dROcrbjMM
+	 DQb9zdWlTnxV9AQBcKxR1Xka2iC2WROd3RqclefdKVLJFDWVUkKANQh0VcpNLcCEcC+8a
+	 MQBee5iNN92hufZsO73Ik3Y1u9648x4h5GDlFUpvkX1v/+DB8QQlJFIVtTtLXEwuAjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795174172;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Y37M6X53zj2OoiECpLvG7CtVOaRukAX0K98e9OU1yss=;
+	b=kOnGlhWBSdb6vFhcJn0cD/Mg8RBlBStyr5e/pqqrjQf3JD4QpUHk4XUbBP+09AI7BMrr
+	 43fJJ4mwlkFrQ1pVzEa86a/zFnwefdX5CtJN22qSR4kGHvLk9owr31HeZC9Iba56Kvxc4
+	 O3fVam/oSVHYTqeCo5Cdapz84aU6XR3Rag2fvRRZjikftnjRcUd1Qjxrc/lHxxaIHdYSQ
+	 5o0vgf6teJZHjTBrvY2jaIgykJOoz9YlY/oklnwiUFIehqxOLLvwHrjKwSBgFyxWL2F3D
+	 cuNdjwolceAaRXWqJw1OFK0VVoEak/4cLylc1d9Htgfv7s04Co5JxOu4sbIflvqDJcg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GcpT/TV7";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CEC3606A325
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:28:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0302606A320;
+	Fri, 20 Nov 2026 11:29:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aCRmZ9l6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8761F000D1;
-	Fri, 20 Nov 2026 11:28:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcpT/TV7
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795174171;
+	b=XC7ze7fBE7GrnuTgU49lbuYVX0WF9gqt5RXBaBWCBdkJLE0HXOnkXIYN8kW4oIrY87tc
+	 Taz0j+Sb+C5c0H5UOSXnlJgapq2EEEBStk5sy+qh57njp6b6ze3lSJRHUB50M7d4LSCgg
+	 3to9Vt7Q025Rxtmul2JvZnvL7KIXEhqouGW2sTNPQxCLDK5KZqX8tTbSr5+JpUNhyKBJ2
+	 44fkj8ZCeJp18F1QOttYXYXYgoENEONN7DykFpsvpU6+bgrkG9UzySWQIKk7/aEYqbgCV
+	 GtTy0soo7mNAPfwB9k+2VB4Qd+Z87vC1jdb7ScxN+BVAbkStZMaZt+Ykq9JR0UCjQwg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795174171;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Y37M6X53zj2OoiECpLvG7CtVOaRukAX0K98e9OU1yss=;
+	b=127l+DNtfhherY6xpgtSW4lomeFK0mIP+SJQ37t2NrFWv0xtdmJv4Iv8DFIldYYO9hCL
+	 Dk/wwUbnZZzJYv24/4euLvGRUINGoZlFy2lFGZQJILJHaTOLZ/ToFwevJH1Kwz4XvfH0U
+	 LTtdvJF16MW1PFiNsshnjMXPesMGxC2wPh5dL74RLhKN0PwQnZ7YFSC79MFQ+UUFwpJCe
+	 6JxpXD6cObSoD3dg4VkwE6xHkJaSevr0k1780B+z2gHp5TV+6sdUnXXoZKBje2HZ1NKY3
+	 ycpEMge67DrjB2uQjR75plzFJONh9z+U+WsnEhSdXb+ymfnrf/bBy+9GuJn9SzLWg6A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id A63EC1F000F0;
+	Fri, 20 Nov 2026 11:29:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795174098;
-	bh=Ct97nDx3VcHSXYPxiuvMrwXIRec4bOcuD5FjR1gbuYw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aCRmZ9l6uKh5XmFw1iGnOlihfPSKD/ZwWZwtbDZs8Ipd03kYwv2UWLY25jwzWz2fx
-	 79Rg0zE4+0z9sxbQ1ocV8FtZMSb01jzRFUtaqcaXCqrmcdZ53w8lKeQ91tEHbHtpl0
-	 KdZMKt2hHhj0LtxH7tuAxR/ZREXqhF1otqg9ThLvAmGWDA2kGNs8TvB7RwLGCCWlM6
-	 IAOK7vQbR8vUCJMjZZ+WX1GbW32ri/X9bu1VnxqzVXVcJblrqGFP4eMey7y6YzuXNw
-	 3nSEJAaAmY9PYBl72m55Z4eOmD51SVDVFyVoWcAKh26gOGYtOCpdaQtVE+uDSfUJ3r
-	 vt70249b6NRgw==
-Message-ID: <sashiko-outbox-225041@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 05/12] media: iris: Route buffers to the matching
- context bank device
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261120-vpu_iommu_iova_handling-v7-5-25a771235a7f@oss.qualcomm.com>
-References: <20261120-vpu_iommu_iova_handling-v7-0-25a771235a7f@oss.qualcomm.com>
- <20261120-vpu_iommu_iova_handling-v7-5-25a771235a7f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 11:28:18 +0000
+	s=k20260515; t=1795174171;
+	bh=Y37M6X53zj2OoiECpLvG7CtVOaRukAX0K98e9OU1yss=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=GcpT/TV7Aup1WLoE9b1+tuQrk53tSeVoA83GG20nnrIQVKouXuUUsJZuey0XbvXnZ
+	 LH6uC4jC826Jk9yN2fJIPGoxcUZV1f0guSBZf5QJ+H3bAcKvO0U7pfbbcl99ck+K94
+	 5ViKlNM6uBzKyTg6qwDhxxKH7+B7/qiwOEQlsGA7Yh2qk48SavbiFcloV9ZboP/brF
+	 HoP7BfGxyo3V9B96s05kfy0b1mbj5hgJEMlSCNO/a+8HK9md0nRIHsuxImPzxTyKUb
+	 lxcRemz3oiqfrPCzMQxrGii36xgtFgzJFoD04CSg1EAkET5uyVaTL9AtKhTorezT4f
+	 jzKpza8oIE57Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3673249846;
+	Fri, 20 Nov 2026 11:29:24 +0000 (UTC)
+From: ILYAS NHASSE via B4 Relay <devnull+ilyas.nhasse.skf.com@kernel.org>
+Date: Fri, 20 Nov 2026 12:26:47 +0100
+Subject: [PATCH 1/2] dt-bindings: iio: adc: adi,ad7124: make interrupts
+ optional
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,35 +82,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261120-ad7124-no-irq-v1-1-7826c5c3fd25@skf.com>
+References: <20261120-ad7124-no-irq-v1-0-7826c5c3fd25@skf.com>
+In-Reply-To: <20261120-ad7124-no-irq-v1-0-7826c5c3fd25@skf.com>
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ILYAS NHASSE <ilyas.nhasse@skf.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795174009; l=1125;
+ i=ilyas.nhasse@skf.com; s=20261120; h=from:subject:message-id;
+ bh=OBY5HTgouzEhhyqdI03rWKM9m5ChuW0YKJiNCBaU4UY=;
+ b=Q2kK1uSKSzFCdszJZr5rQwVp9XvjHFUET83hOJYqdsVcB9Mc6fe3K2mRWxtgmi66591Kz6kkN
+ RJ0BarhykH3D72bN5LFAoUl+s/T01ZFYW/E9DIsr9Tpnhff5GJ9Hkm3
+X-Developer-Key: i=ilyas.nhasse@skf.com; a=ed25519;
+ pk=DeEyhWzUoP0HCAWFV/8oy5EFF+41tZxPpWZhfGyiMS4=
+X-Endpoint-Received: by B4 Relay for ilyas.nhasse@skf.com/20261120 with
+ auth_id=1581
+X-Original-From: ILYAS NHASSE <ilyas.nhasse@skf.com>
+Reply-To: ilyas.nhasse@skf.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] media: iris: commit message misclassifies SCRATCH_1 and omits
-  HFI queue routing
---
+From: ILYAS NHASSE <ilyas.nhasse@skf.com>
 
-commit bcf470fe5bd4c987e0c348301754ebc9faa2c5af
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+The AD7124 signals the end of a conversion on its DOUT/RDY pin, which is
+also the SPI MISO line. Using it as an interrupt requires the board to
+route that pin to an interrupt-capable input as well, which is not always
+possible, e.g. when the ADC sits behind a digital isolator that only
+carries the SPI signals.
 
-media: iris: Route buffers to the matching context bank device
+The end of a conversion can also be read from the RDY bit of the status
+register, so the interrupt is not needed to operate the device. Drop it
+from the required properties.
 
-This commit introduces iris_get_cb_dev() to route V4L2, internal, and HFI
-queue DMA allocations to the matching pixel or non-pixel context bank
-device, falling back to core->dev when context bank devices are absent.
+Signed-off-by: ILYAS NHASSE <ilyas.nhasse@skf.com>
+---
+ Documentation/devicetree/bindings/iio/adc/adi,ad7124.yaml | 1 -
+ 1 file changed, 1 deletion(-)
 
-> Add iris_get_cb_dev(), which maps a buffer type to the owning context
-> bank device. Bitstream and internal buffers (BIN, ARP, COMV, LINE,
-> NON_COMV, PERSIST) belong to the non-pixel device, and uncompressed
-> buffers (DPB, PARTIAL, SCRATCH_1, SCRATCH_2, VPSS) to the pixel device.
+diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7124.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7124.yaml
+index 2e3f84db6..875f46477 100644
+--- a/Documentation/devicetree/bindings/iio/adc/adi,ad7124.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7124.yaml
+@@ -76,7 +76,6 @@ properties:
+ required:
+   - compatible
+   - reg
+-  - interrupts
+ 
+ # Can't have both clock input and output at the same time.
+ not:
 
-[Severity: Low]
-This isn't a bug, but the commit message lists SCRATCH_1 under the pixel
-device whereas iris_get_cb_dev() routes BUF_SCRATCH_1 (the combined COMV,
-NON_COMV, and LINE internal buffer) to core->np_dev.  The commit message
-also omits mentioning that iris_hfi_queues_init() and
-iris_hfi_queues_deinit() are updated to allocate the HFI queue table and
-SFR buffers from core->np_dev.
+-- 
+2.43.0
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-vpu_iommu_=
-iova_handling-v7-0-25a771235a7f@oss.qualcomm.com?part=3D5
+
