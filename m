@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795157912;
-	b=VWUVwGLHGGAHPR930XaEiYr/unhGsOIXXerS/ujyXaZexKMk8k/AQEGYCyq0r0mECpRd
-	 YBUvsnEzBhdjf0BhPCgPRBz2tb7f2F4/d+JFI+WNGchqz0mYhFQOkNhM00i6Wbwy0WJwB
-	 V5tBW/EcEciD72LxvdMgiMmw+vd1/5VhH0h6gM1sQIznfNUbc8eiFQ41sIbBozKmZEvIe
-	 DA4450LWjKAi4Z8DmeJ0gH7j6dMuhHZ7zMxACt9WQGz27DyNrfxakTVZPnWb3H5D5Dyah
-	 S4vnJ7rt240D+IQpKN4kQfJTiZqX6+BzX6W88HVSIQdEgeRi06PGdmtLsK3is9dACaQ==
+	t=1795157928;
+	b=JvFOb5j7/kvVMf1o/0/imaxy4oEKFkfyT0/YmI17iv5pF1pLXHSVjezo/kFhZfdSEH8V
+	 K+JNeg7EeFOoNeZoqw0/pmqs59WlkVcVYgGPo4XOf3l/JB1Nzhcbv6SUS6tCMbqC5BWQL
+	 rFch5CbwrbPnVLTh1eWKDUWVekEeS4CKNi8PWGEjPFkFPC7jzvyhldqTW/IfDfvw5Ocet
+	 hhGBuLCA1AxGogbMN9dQKNTgJiR0yC3tJ4zZT5keY5KS6WIMbeEzy4zA5ZSYLHPaAIBjo
+	 yAkpAdiJjlHpaQpWC6sKRz3kIKRh1pkEHqD5L5QdlUswGOJ1ngqykRJpadWM3y5UqyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795157912;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=wtJXqNs4gh+L/nfqvAr08xM5SSYXBgNDqahh3R4IJi4=;
-	b=qww7OhucMv8IlLQzD5yJHXgWPl2ZZZEsOy2PcWFvMnWqqKfer8iDeKBbhI+NffA7VhdW
-	 2rbcFTN6hnCRxzAWFVGYbuVEL2aPn8SulA9lsVieSR5XuIWg4UB+dxO29uXU+FN66ExOW
-	 RG53BOWZQgDfecFHdziw5Stk2Rdlo/uu+7cePHtluQNwlqJyEH2MnZ5KZ158DxapFcchR
-	 XyRBUizYV1ENTmuLShrBqGZ9+VuFRyuHGUsZU5ZRRMUNlxyV7RVAWazYhqHgAKonPq0ff
-	 L6NXYYRioN+0S47VOXf7c9Tx8BCJTcxJ6t0V9nVpaNYfNNaV+Pr6bIO1GvyUxVhPvQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795157928;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=D7mHdJTvEsH8KV6HnKZGTk0iLCumja+GPMGSkHUssA0=;
+	b=0FvkOqzVrOhXUbUDfTJP+lORpVTalkV538TBerTCDGRxcjMrNBFw+EFXmMjsZpeDSVKk
+	 egPhBIQEo+7lDl/9FHd9ZtJAOhUdmoMR+VLA/XpjE4ueo7HeT2gJUOBGs/2y+ZgZU4pVr
+	 5Ij1ItIiYHfT2ScFCWqesgmI+wctf5R+SqXJToU2azgN3N0o9at1rZmLIneepkqw8ubVY
+	 kmUoMHPh2A2/aCNyvC7i4XQ5AOmEBPusUjNyYTfTl988+T5wObjdXeL6ivzM/vukl3UQX
+	 50yOsY0Y5nIucEqgxUxtL/Hs07/X0kw/G/Vp8ede9Ev2ucT+lDMAI7YZYpde3vSeGQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PzBp9Ewf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lh4XfjGQ;
+	arc=none smtp.remote-ip=91.218.175.125
+Received: from mta0.migadu.com (out-125.mta0.migadu.com [91.218.175.125])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BFE606A326
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 06:58:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DA2606A320
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 06:58:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31DA2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PzBp9Ewf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E50C11F000C6;
-	Fri, 20 Nov 2026 06:58:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795157912;
-	bh=wtJXqNs4gh+L/nfqvAr08xM5SSYXBgNDqahh3R4IJi4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PzBp9EwfmTvSuXPY1/uOoKh6bE0dnWe9axyTB+yK77/TmUE5w7btzewenjzoyvAhU
-	 UI5NdU5FP7QtYN/k36xvDk2crcorYPPttxq2SYoCZVpjC9yFOUVWFobUOMuJ9QTwxj
-	 6GDSzIvBvqBP7wXmAdSFHcL1rkiPhX6SO8viO7D9GXGLCBdlVY15J/Dq6wUHbekHJN
-	 7OtQkJOqXzznEAibsUAUxBJdjYN+kQUC02nQfcPYi+uMKLby7E6CQTC/Nz4x/XvTcO
-	 5uBZlVHrBWEWlI/ZWFQUHDwlJiBF3BLtBfUzbLAhIKlJwifoEldkMYtpGcnoPxvXwn
-	 feZJcBXLANBgQ==
-Message-ID: <sashiko-outbox-224586@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] i2c: Add Cortina Systems CS75xx I2C controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261120-cs75xx-i2c-v5-2-03bec242a549@gmail.com>
-References: <20261120-cs75xx-i2c-v5-0-03bec242a549@gmail.com>
- <20261120-cs75xx-i2c-v5-2-03bec242a549@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 06:58:31 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lh4XfjGQ
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pDDU+0D383chdCIpoFHHlcrvgVEBH5dnlyFCoSq0GdY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795157926; v=1; x=1795762726;
+ b=lh4XfjGQOQ8KMCLQjOs7mTV5ZcQaPIktvZSmmRvqnPqKmooZxOV1brSWODCWw2wpLg3kuEWx
+ 6i37+ADOHVinvpcFkXW5JzJmg08TpTxxayH6HI427LR2/+5tjQsDQGnMeZrpArmBKXTuM0aO/NI
+ mzee2lYCqqbcDeg7WyT7njE4=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b614ed43f9ab845e;
+	Fri, 20 Nov 2026 06:58:45 +0000
+X-Mizu-Trace-ID: b614ed43f9ab845e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4472929f-04ec-4a00-a872-f4a537b3ca53@linux.dev>
+Date: Fri, 20 Nov 2026 07:58:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,64 +57,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 14/24] net: dsa: rzn1-a5psw: Make use
+ dev_err_probe()
+To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ Ralph Siemsen <ralph.siemsen@linaro.org>, linux-renesas-soc@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-15-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Language: en-US
+From: Clement Leger <clement.leger@linux.dev>
+In-Reply-To: <20261120002549.1908299-15-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] i2c: cs75xx: unused CS75XX_I2C_CTRL_DONE macro in
-  cs75xx_i2c_isr()
---
 
-commit 3aed5f86a535b38a31abe106e39e42d273af7fd9
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-i2c: Add Cortina Systems CS75xx I2C controller driver
+On 11/20/26 01:25, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Replace dev_err() with dev_err_probe() when reporting failures from
+> devm_clk_get_enabled(). Clock retrieval may legitimately return
+> -EPROBE_DEFER, and the current use of dev_err() incorrectly reports
+> such cases as hard errors.
+> 
+> Suggested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v4->v5:
+> - No change
+> 
+> v3->v4:
+> - No change
+> 
+> v2->v3:
+> - No change
+> 
+> v1->v2:
+> - New patch
+> ---
+>   drivers/net/dsa/rzn1_a5psw.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+> index 4b31a1d331e1..bccfadc1d5e6 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.c
+> +++ b/drivers/net/dsa/rzn1_a5psw.c
+> @@ -1240,15 +1240,15 @@ static int a5psw_probe(struct platform_device *pdev)
+>   
+>   	a5psw->hclk = devm_clk_get_enabled(dev, "hclk");
+>   	if (IS_ERR(a5psw->hclk)) {
+> -		dev_err(dev, "failed get hclk clock\n");
+>   		ret = PTR_ERR(a5psw->hclk);
+> +		dev_err_probe(dev, ret, "failed get hclk clock\n");
+>   		goto free_pcs;
+>   	}
+>   
+>   	a5psw->clk = devm_clk_get_enabled(dev, "clk");
+>   	if (IS_ERR(a5psw->clk)) {
+> -		dev_err(dev, "failed get clk_switch clock\n");
+>   		ret = PTR_ERR(a5psw->clk);
+> +		dev_err_probe(dev, ret, "failed get clk_switch clock\n");
+>   		goto free_pcs;
+>   	}
+>   
 
-This commit adds an I2C bus driver for the byte-oriented Bi-Wire controller=
- on
-Cortina Systems CS75xx SoCs.
+Hi Prabhakar,
 
-> diff --git a/drivers/i2c/busses/i2c-cs75xx.c b/drivers/i2c/busses/i2c-cs7=
-5xx.c
-> new file mode 100644
-> index 0000000000000..69e4c9b01d15f
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-cs75xx.c
-> @@ -0,0 +1,394 @@
+LGTM,
 
-[ ... ]
+Reviewed-by: Clément Léger <clement.leger@linux.dev>
 
-> +#define CS75XX_I2C_CTRL_DONE	BIT(0)
-> +#define CS75XX_I2C_CTRL_NACK	BIT(3)
-> +#define CS75XX_I2C_CTRL_WRITE	BIT(4)
-> +#define CS75XX_I2C_CTRL_READ	BIT(5)
-> +#define CS75XX_I2C_CTRL_STOP	BIT(6)
-> +#define CS75XX_I2C_CTRL_START	BIT(7)
+Thanks,
 
-[ ... ]
-
-> +static irqreturn_t cs75xx_i2c_isr(int irq, void *dev_id)
-> +{
-> +	struct cs75xx_i2c *i2c =3D dev_id;
-> +	u32 ctrl, ack;
-> +
-> +	guard(spinlock)(&i2c->lock);
-> +
-> +	if (!(readl(i2c->base + CS75XX_I2C_INT) & CS75XX_I2C_INT_DONE))
-> +		return IRQ_NONE;
-> +
-> +	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
-> +
-> +	/* The done flag is cleared by writing it back */
-> +	ctrl =3D readl(i2c->base + CS75XX_I2C_CTRL);
-> +	writel(ctrl, i2c->base + CS75XX_I2C_CTRL);
-
-[Severity: Low]
-Should this write CS75XX_I2C_CTRL_DONE to CS75XX_I2C_CTRL instead of writing
-back the full ctrl value?  CS75XX_I2C_CTRL_DONE is defined above but never
-used, and writing the whole register back could re-assert any control bits =
-in
-CS75XX_I2C_CTRL that do not self-clear.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-cs75xx-i2c=
--v5-0-03bec242a549@gmail.com?part=3D2
+Clément
