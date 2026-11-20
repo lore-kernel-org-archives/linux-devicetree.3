@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795204967;
-	b=RayskYlgqJhVNM6Lj0ttGk+bXwW+eDlvvLNtOnEmIoiBkYd/knlhOiCyqb4ZaZ2W2F7/
-	 ZJLbiBtDquEOAkgOji7pk4FfDCgbrrJ5KE1QdNF3Q8RHjS9Pei/gFT6eDJu5dDIwSBed9
-	 Y1PicPp8HMol4P4beQA06oum2vCM4F1M1bju6oqofbjpX5tu3wdALDdkHUMktU3trgAIz
-	 JfSrwLx4dKb8lSVM8i6rIRLiCbFHEgts8EMJnBtN2gk/v7gbpXhd78iCuXjVbcqkW2mTF
-	 scfHWS4LbTXOIYgpVW7jTz3gzaI5p2UqwVnEYGJmRspnRPF+r0hAGON2BWTIgQIBDLQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795204967;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4V7U58O8sKkT2FqZynxSVbl9uHZQNKqD+q26N4wEsfM=;
-	b=XmcrGBV7pxsEbBtQEntyCyU2z8wZYlGVIny+aiIn9fouro7Q+jJ7TYirvcz+a5kXSmJl
-	 9DbEAGx0UQgPCnRF2YgqJaEO/57nyuXq34c1kregh7xBzxzZLIZifhosycJxC+QPisn9v
-	 jBYYYMz0s/ECMJ/yo7rCOPxDvP1tYMDOXjK6kd62MUUnKNWkCcVuNEdt4pSpZGU5kqDkp
-	 SqjDIB1UlnJS8AOJeAt4Hk0uo9W+JpPOQwC7oDpmUI01bk1UhapIodybsS9YsYORgDsNu
-	 JTROalnlpUBj7tPij1I56bvl3NAbhiR4yytLGuoa7R6YNVJ+5ljlR0ldzt5rmKuKBTA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WaMYcHhB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.134
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795205079;
+	b=bR9W5lra2tDP5Q777cx2aH5Ldz8mGhBY9f8qztURdzKjQeAhGExRs//ywHR4rNf9q6Mr
+	 ntO4Nja40QyAroQw8dJobPIcWWSPbYBNVweTvbMJ2noDyEWkQ/w3taISc5n5SZlBhZRjM
+	 xWhYWVGNxeAk2pR1oe+gQmhaO1lZCTh6769jXKLSDAZi5mTBpdBqi3RYhCbfw+CQkSi7e
+	 hq9xCL8yk5rJqxX5nQtxaWO6CTL2v6gedsSNWbInHT6HYLt4DskTlIwvExLZUT1/N8RNi
+	 I75nxQOsSJLd5mOLbCuffgarsgrqBx54LAPmTi5DS1lVMfqc37zJDZiWGKxsim/Hwjw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795205079;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DTPZmS/bPYDmH5Anx7Jvfyqcbc1hHGRWNW4JSBUYubU=;
+	b=ARqpsRE0ZgEhYFgfDLXAzFg4aEgWQPICDTHCF++OWWp3EyYkRHgELfJ4OzPGy1QcDunp
+	 ZgpB75ndFEBVh3GOnfBI4HAPTBDoWMQs9LAAzJzdJCTgJb1qDoXv+SWfGy5AqoTFUcJRE
+	 70GBfhRUELYigCdORaYRMWR6l6gcuTQkaAEZ+BGMX7VfKXxADcRtr+s29PgzO+Pcd+Gth
+	 1aYPtuQCpzgH6UGE/P7vwOmF929PjdKGQ2d8cLgmP2w9z/ujYfC6Kdde6fgHioJQ2X62+
+	 xNvO9a/g379i8iGLoObatllQ2C6I+O8khGBv9SlgUSCadTiqAjWKQA9FvIDa9AFbdAg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xEBdltaA;
+	arc=none smtp.remote-ip=95.215.58.134
+Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396F6606A6E6
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 20:02:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 396F6606A6E6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D15A606A6E0
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 20:04:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D15A606A6E0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WaMYcHhB
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b335ef6441so9565187b3.3
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 12:02:45 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795204964; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kIxq36FberwrWrGdtvE1g2nq4PD9ZCmVnNKsNsaZCVpAbQ+pGm0kGHcnq2ncPhq8bJ
-         28HdHLwZ+n9IWbgUDLgpXVdTLkbqKDsopmVaIm637GUyneAX4lUssOwW7i/1mEJawdJD
-         t01C8jj+XU98aXNaT/4PEdDckB6Q6sKLygPiUO4zNR6/69w54DGDIzITucaZ+zAGrlBJ
-         zxTeAFrLHVYr+ecgUjA6kdg+GSa5Otxp0+xZ9+6+J/zf7VW0a48SvQXvG3zxtGcAKc7P
-         p/99QAuCIJyYYUwDivvoe9Ul4AosB3pAxTVESTdSIWzpULaqMZURrA/6WxhNPa2xjwDJ
-         S1Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4V7U58O8sKkT2FqZynxSVbl9uHZQNKqD+q26N4wEsfM=;
-        fh=4G4VlsxW1cZdO+JMY6FROYRDwZDqc5Ag1PNOTU6q9qM=;
-        b=jHA27OtIeAYh8OMYq47S5MfLMaMTJzHptK24FdvVaSXsChD+5meQawPLzVDNGbt3kD
-         F8pF8n9DYjvz0stT2spxObpusRK89gJK2NTd5jbIUXqg6EP/OKPM2/80cV0vCLo70pA7
-         /shgu5p6sIvpTRbOk1IdlpWp41cV6+WjCv+sLphvt/UL8gyTvrK3l0ls1sWq1w01yfne
-         Exuh5H3GiUS5iBpPgQeZ0tTg6Q2LEVd6cRbF/FW+hd/zUxdYFHT6OViPuCQro6C1rWE0
-         i0trn0rLwkiEgxDBCoxXa7y2JVyZMPaiZOdnbS9FlBCHZmf0E364qXTXA1RUClqnfWLF
-         31uw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795204964; x=1795809764; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4V7U58O8sKkT2FqZynxSVbl9uHZQNKqD+q26N4wEsfM=;
-        b=WaMYcHhBNZ+35v+6wpg2naLtL6eDcZGWsH/op1cQD4c03wrQ8D9MdgfrpovhVdIVdA
-         2vQEBszX+L485tw/WsOjNI6nY9CG5gIGG0K7OjZRK2gMC/7bEIPYyrqsu7ZYpm9MYQC0
-         3I6OnJRjbJW1M/wIfBUqPj0fZpDXE7cn+bncY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795204964; x=1795809764;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4V7U58O8sKkT2FqZynxSVbl9uHZQNKqD+q26N4wEsfM=;
-        b=urOzyIiHYDldSUUvsy6jn4PBqc0aJ8A0ky2r8GTm1X2DdrMfShfUWV9W6SRjsIiWxl
-         vyh+pfPysZho16vmUu+MYXPYXwgAU4e7rNlKqzytDh/o0vGXpurBKXkRj1de5qIcOJVA
-         re5O99HK2/ILc7KFiv4tgBC9IMp2dSjtjaWD3xoxeYzQPfUgeKZgcSaHRzcseYnn2I0o
-         SzgBVX++I3qcE48J6R0IhSSrgdxMmbGcveo/Iu2OrHaOFtDUgwNTK7qXE4tdMJEQJckM
-         xYz9eIspAiqpkr6hSZ6UAP21+c89JFktqHgkB3ofjOJTHgwCjO++OCcOTO7ygre9Dw60
-         LPbQ==
-X-Forwarded-Encrypted: i=1; AL+hErGd5Lw+g7K7VXWSk0H8dxlpJy0bpXgGweKK30uOeUv7ZrDs2SMgBOHV2X3W40yjVJL/rQfWnwVWsyQ6@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KcfHq5UIs5ts48QzlwaOm4mv+pQVMzlPAYyfJWbkTBKN4pSdg
-	NFRGXk9KjR1SGPL77oxImpJCDvHJjVAxyWzdGFf0MOhsT5RyKvzpqfqaCraTUk5WkoJ5BhmVEPI
-	bU1voaMbIVPdYV8txQTh+nK8k0b/v775FPZKi+/hf
-X-Gm-Gg: AZFdTZe/17uFca0mGZjucpwW+sxDwN2a4I9jvd8yiD4WaKj77gxIPiH+KQTJftM/ok/
-	JsHASByyg3v2vWIHJ49GStf3Dc6qshkzJSdbZeRW3N/fyChvwYprvQaCzTpDnd9Ujhzkq6V3cin
-	6ZuHoqpe9nDioU+Ab6Pf4I93hGBk/PgKNEjHvN8GvqZKWhxSFNLpJS7XqhrGiQv08/ru8nU2T39
-	YAPGY+h43hvwK2BfHTHkJHoiTNxcQk11rKzGBiEYbWnrMGjcg+9ui1x2r42bTx1squ3C5/BSz66
-	BpzlLo35CVgZBoiXxmjl3MFOPlON3n5xlgytQmsJpyC5C9ONPSJR6QtvV5k7mfWtFj3dBmdmHzL
-	BMVS04Y/3QQZiLmtM9/Jsm9uHMIQLDpbfQIvJIlvzzdWf5/t0CvIs9XmN4QMn29REiQFA
-X-Received: by 2002:a05:690e:4008:b0:67d:e36c:6bc8 with SMTP id
- 956f58d0204a3-67df44c1825mr1431647d50.146.1795204963908; Fri, 20 Nov 2026
- 12:02:43 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xEBdltaA
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5r9H/pB0QEAQGYTbE3jhgHps7RpjUGgAGmiNOnnASh4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795205069; v=1; x=1795809869;
+ b=xEBdltaAJxn+uZNdQPmBHMUXp6XV3A2z1I36RxzDw7/KL2eD9D5bmeW2bV4Am0mv2c6Xun2T
+ s8x0dsgPVeNm7HZmx9r9ermtSssW8ECCqTQ0N/hFbjdABaN6+F1K0UXpW8MXkTLBf8oSVjpSEg5
+ hvWjJOCkAhVRP3OKV/SJxtJ4=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 79d02deefa817cdc;
+	Fri, 20 Nov 2026 20:04:29 +0000
+X-Mizu-Trace-ID: 79d02deefa817cdc
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <3b26635a-4ab4-450f-8626-e4737d16be12@linux.dev>
+Date: Fri, 20 Nov 2026 21:04:24 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,166 +58,174 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-send-upstream-v7-0-abad13174b43@chromium.org>
- <20261024-send-upstream-v7-8-abad13174b43@chromium.org> <20261027-silicon-unvented-a0c8dc394e87@spud>
-In-Reply-To: <20261027-silicon-unvented-a0c8dc394e87@spud>
-From: Jingyuan Liang <jingyliang@chromium.org>
-Date: Fri, 20 Nov 2026 12:02:32 -0800
-X-Gm-Features: Aa3M54pc-1DTIKZ-A-hc9wj9AlprRrg4PvxeOwd0_HsaV1fm3yOGyT9vmhS6ZyM
-Message-ID: <CAEe3GZF+P2hHHAQO_eWq=yv83HYw9ebEdkO_RZ4zPkQ6e_bAeQ@mail.gmail.com>
-Subject: Re: [PATCH v7 08/11] dt-bindings: input: Document hid-over-spi DT schema
-To: Conor Dooley <conor@kernel.org>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, hbarnor@chromium.org, tfiga@chromium.org, 
-	fqwqf@fqwqf.xyz, daleyo@gmail.com, Dmitry Antipov <dmanti@microsoft.com>, 
-	Jarrett Schultz <jaschultz@microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 20/24] net: dsa: rzn1-a5psw: Get lookup table
+ size from OF data
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Florian Fainelli
+ <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>,
+ linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-21-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <99974c5f-c1c0-427c-ab10-a6559789f258@linux.dev>
+ <CA+V-a8vikSkbxjoE+Wq+jZ1uQjtbu2VFttHEMGXHkWqqcqf6Lg@mail.gmail.com>
+Content-Language: en-US
+From: Clement Leger <clement.leger@linux.dev>
+In-Reply-To: <CA+V-a8vikSkbxjoE+Wq+jZ1uQjtbu2VFttHEMGXHkWqqcqf6Lg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 11:17=E2=80=AFAM Conor Dooley <conor@kernel.org> wr=
-ote:
->
-> On Sat, Oct 24, 2026 at 12:51:42AM +0000, Jingyuan Liang wrote:
-> > From: Dmitry Antipov <dmanti@microsoft.com>
-> >
-> > Documentation describes the required and optional properties for
-> > implementing Device Tree for a Microsoft G6 Touch Digitizer that
-> > supports HID over SPI Protocol 1.0 specification.
-> >
-> > Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
-> > Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
-> > Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
->
-> Personally I prefer how this is done now, but definitely worth those who
-> approved the previous iteration taking a look at this because it has
-> changed significantly and no longer contains any of the properties that
-> cover the timings etc anymore.
->
-> Worth noting that this changed since the previous version after I
-> pointed out that the second hid-over-spi device did not make use of them
-> at all and needed specific handling in the driver.
->
-> > ---
-> >  .../devicetree/bindings/input/hid-over-spi.yaml    | 75 ++++++++++++++=
-++++++++
-> >  1 file changed, 75 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml =
-b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
->
-> Typically this would need to match a compatible, but I think this is okay
-> provided other hid-over-spi devices actually get added here - the series
-> adding the second hid-over-spi device didn't do so but should be able to
-> I think?
->
-> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
->
-> Thanks,
-> Conor.
->
 
-Hi Conor,
 
-Thanks for the review and suggestion. The intent is for this to be the
-common binding for HID over SPI devices, and I hope more devices
-get added here over time.
+On 11/20/26 19:34, Lad, Prabhakar wrote:
+> Hi Clement,
+> 
+> Thank you for the review.
+> 
+> On Fri, Nov 20, 2026 at 9:44 AM Clement Leger <clement.leger@linux.dev> wrote:
+>>
+>>
+>>
+>> On 11/20/26 01:25, Prabhakar wrote:
+>>> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>>>
+>>> The RZ/N1 A5PSW has 8192 lookup table entries, whereas the RZ/T2H
+>>> and RZ/N2H ETHSW have only 4096 entries.
+>>>
+>>> Add the lookup table size to struct a5psw_of_data, derive the address
+>>> mask from it and use it in the FDB and ageing code.
+>>>
+>>> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>>> ---
+>>> v4->v5:
+>>> - New patch
+>>> ---
+>>>    drivers/net/dsa/rzn1_a5psw.c | 10 ++++++----
+>>>    drivers/net/dsa/rzn1_a5psw.h |  4 ++--
+>>>    2 files changed, 8 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+>>> index 7e9bc252d92a..c0c1f45852da 100644
+>>> --- a/drivers/net/dsa/rzn1_a5psw.c
+>>> +++ b/drivers/net/dsa/rzn1_a5psw.c
+>>> @@ -311,18 +311,19 @@ static void a5psw_phylink_mac_link_up(struct phylink_config *config,
+>>>    static int a5psw_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
+>>>    {
+>>>        struct a5psw *a5psw = ds->priv;
+>>> +     unsigned int entries = a5psw->of_data->lk_table_entries;
+>>>        unsigned long rate;
+>>>        u64 max, tmp;
+>>>        u32 agetime;
+>>>
+>>>        rate = clk_get_rate(a5psw->clk);
+>>> -     max = div64_ul(((u64)A5PSW_LK_AGETIME_MASK * A5PSW_TABLE_ENTRIES * 1024),
+>>> +     max = div64_ul(((u64)A5PSW_LK_AGETIME_MASK * entries * 1024),
+>>>                       rate) * 1000;
+>>>        if (msecs > max)
+>>>                return -EINVAL;
+>>>
+>>>        tmp = div_u64(rate, MSEC_PER_SEC);
+>>> -     agetime = div_u64(msecs * tmp, 1024 * A5PSW_TABLE_ENTRIES);
+>>> +     agetime = div_u64(msecs * tmp, 1024 * entries);
+>>>
+>>>        a5psw_reg_writel(a5psw, A5PSW_LK_AGETIME, agetime);
+>>>
+>>> @@ -511,7 +512,7 @@ static int a5psw_lk_execute_lookup(struct a5psw *a5psw, union lk_data *lk_data,
+>>>        if (ret)
+>>>                return ret;
+>>>
+>>> -     *entry = ctrl & A5PSW_LK_ADDR_CTRL_ADDRESS;
+>>> +     *entry = ctrl & (a5psw->of_data->lk_table_entries - 1);
+>>>
+>>>        return 0;
+>>>    }
+>>> @@ -638,7 +639,7 @@ static int a5psw_port_fdb_dump(struct dsa_switch *ds, int port,
+>>>
+>>>        mutex_lock(&a5psw->lk_lock);
+>>>
+>>> -     for (i = 0; i < A5PSW_TABLE_ENTRIES; i++) {
+>>> +     for (i = 0; i < a5psw->of_data->lk_table_entries; i++) {
+>>>                reg = A5PSW_LK_ADDR_CTRL_READ | A5PSW_LK_ADDR_CTRL_WAIT | i;
+>>>
+>>>                ret = a5psw_lk_execute_ctrl(a5psw, &reg);
+>>> @@ -1357,6 +1358,7 @@ static const struct a5psw_of_data rzn1_of_data = {
+>>>        .pattern_ctrl_base = 0x3eb0,
+>>>        .vlan_res_vlanid = GENMASK(16, 5),
+>>>        .vlan_res_portmask = GENMASK(4, 0),
+>>> +     .lk_table_entries = 8192,
+>>>    };
+>>>
+>>>    static const struct of_device_id a5psw_of_mtable[] = {
+>>> diff --git a/drivers/net/dsa/rzn1_a5psw.h b/drivers/net/dsa/rzn1_a5psw.h
+>>> index 29d205e2331d..fd523fe7bf47 100644
+>>> --- a/drivers/net/dsa/rzn1_a5psw.h
+>>> +++ b/drivers/net/dsa/rzn1_a5psw.h
+>>> @@ -93,7 +93,6 @@
+>>>    #define A5PSW_LK_ADDR_CTRL_WAIT             BIT(27)
+>>>    #define A5PSW_LK_ADDR_CTRL_READ             BIT(26)
+>>>    #define A5PSW_LK_ADDR_CTRL_WRITE    BIT(25)
+>>> -#define A5PSW_LK_ADDR_CTRL_ADDRESS   GENMASK(12, 0)
+>>>
+>>>    #define A5PSW_LK_DATA_LO            0x40C
+>>>    #define A5PSW_LK_DATA_HI            0x410
+>>> @@ -210,7 +209,6 @@
+>>>
+>>>    #define A5PSW_LK_BUSY_USEC_POLL             10
+>>>    #define A5PSW_CTRL_TIMEOUT          1000
+>>> -#define A5PSW_TABLE_ENTRIES          8192
+>>>
+>>>    struct fdb_entry {
+>>>        u8 mac[ETH_ALEN];
+>>> @@ -241,6 +239,7 @@ union lk_data {
+>>>     * @pattern_ctrl_base: Offset of the PATTERN_CTRL register of pattern 0
+>>>     * @vlan_res_vlanid: VLANID field mask of the VLAN_RES registers
+>>>     * @vlan_res_portmask: PORTMASK field mask of the VLAN_RES registers
+>>> + * @lk_table_entries: Number of entries in the lookup table (power of 2)
+>>>     */
+>>>    struct a5psw_of_data {
+>>>        unsigned int nports;
+>>> @@ -252,6 +251,7 @@ struct a5psw_of_data {
+>>>        u16 pattern_ctrl_base;
+>>>        u32 vlan_res_vlanid;
+>>>        u32 vlan_res_portmask;
+>>> +     unsigned int lk_table_entries;
+>>>    };
+>>>
+>>>    /**
+>>
+>> Hi Prabhakar,
+>>
+>> It would probably be better to fold all these commits that adds data
+>> into bits of data in oa5psw_of_data into two commits: a first one that
+>> prepares support for RZ/N2 and then a second one that add RZ/N2 support
+>> itself. I'm not the net maintainer but your series is already quite
+>> large just for this change so folding the commits make sense rather than
+>> commitmaxxing.
+>>
+> My intention here was to keep changes minimal so that it's easier to
+> review. Since the fixes patches will go as a separate series, I would
+> like to keep this as is. Hope thats OK.
+
+Yes sure, I mean if it fits under the 15 patches limit, that is 
+certainly fine :)
 
 Thanks,
-Jingyuan
 
-> > new file mode 100644
-> > index 000000000000..bed0746f004c
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> > @@ -0,0 +1,75 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: HID over SPI Devices
-> > +
-> > +maintainers:
-> > +  - Benjamin Tissoires <bentiss@kernel.org>
-> > +  - Jiri Kosina <jikos@kernel.org>
-> > +  - Jingyuan Liang <jingyliang@chromium.org>
-> > +
-> > +description: |+
-> > +  HID over SPI provides support for various Human Interface Devices ov=
-er the
-> > +  SPI bus. These devices can be for example touchpads, keyboards, touc=
-h screens
-> > +  or sensors.
-> > +
-> > +  The specification has been written by Microsoft and is currently ava=
-ilable
-> > +  here: https://www.microsoft.com/en-us/download/details.aspx?id=3D103=
-325
-> > +
-> > +allOf:
-> > +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
-> > +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - microsoft,g6-touch-digitizer
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +
-> > +  reset-gpios:
-> > +    maxItems: 1
-> > +    description:
-> > +      GPIO specifier for the device's reset line. The HID over SPI
-> > +      specification requires a dedicated, host-driven, active-low rese=
-t
-> > +      line. The line must be flagged with GPIO_ACTIVE_LOW.
-> > +
-> > +  vdd-supply:
-> > +    description:
-> > +      Regulator for the VDD supply voltage.
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - interrupts
-> > +  - reset-gpios
-> > +  - vdd-supply
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +
-> > +    spi {
-> > +      #address-cells =3D <1>;
-> > +      #size-cells =3D <0>;
-> > +
-> > +      hid@0 {
-> > +        compatible =3D "microsoft,g6-touch-digitizer";
-> > +        reg =3D <0x0>;
-> > +        interrupts-extended =3D <&gpio 42 IRQ_TYPE_EDGE_FALLING>;
-> > +        reset-gpios =3D <&gpio 27 GPIO_ACTIVE_LOW>;
-> > +        vdd-supply =3D <&pm8350c_l3>;
-> > +        pinctrl-names =3D "default";
-> > +        pinctrl-0 =3D <&ts_d6_int_bias>;
-> > +      };
-> > +    };
-> >
-> > --
-> > 2.56.0.257.gf7497c7d27-goog
-> >
+Clément
+
+> 
+> Cheers,
+> Prabhakar
+
