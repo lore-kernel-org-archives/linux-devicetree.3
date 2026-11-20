@@ -1,93 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795209640;
-	b=BLbgd3cr0QK2dau8WhnZNoNwOwIf2IrD1g9K452mE0Bjkuj+wg4DrmHprNiRzhWo6QgC
-	 c1sB/eV9EH49v0pJ9CxlBDwsl3pwBGgw2qe4O3eiz+uoG6suIEYAqp/bBvT3+4WYJSllm
-	 hiozhMtoYJx/m0fXPpEMKVxJ9CWN35d7MDe4Vql09HMTTZnyTESUCpNAv67ZuuHs1K3ct
-	 HoTUlNrCDUOqmgkJr8Ea+mslQN32P0ITLTrnqDIp8dfDdWuANoO5Nr6sSm8hw6P8GZNAd
-	 +flAmnnLQR7Eh2RSJo/jVyifizQzHVL6acckPR0TXbreBOQBwVNunOgTTs4sIajp0og==
+	t=1795210104;
+	b=aZjVfOZwSMkN5Ija1pjWBKzV9VqDAbcg8sfgvL7HCzGstXg/FsSFI4TTJUzjbh9gJID2
+	 MdSOwxCla+nDx9hX7rKKt1LVfEiqkvkkft2dRssLbJY+nJYVCznXDzqlxD1xtt91LZ3+3
+	 qN/+edyMQw3iTJTmmPJ2j3ia73luRUm36qXgBi5zcp6kzTzjgENXzTp27yGbPLGxVbQTj
+	 9QXZihoFRO8p2OtCrG7b3hKINeJ3hH/W0OlEKng9OgrLPQ7eaZfIJlk/I4CJcwKSTQ3j0
+	 3S4757eWj7UiGggzTnGcw64XBKtN1aBMNmHo4ytgUDBFz6S9BaGd5thBuYOU+hHUehg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795209640;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=LmcAi6HEybEAMZVvo4K38uL60nPeQBtPpV5MltW1eac=;
-	b=h7slA2IF08Ob9AlEl7Ti3gqYbieFseAbQcElhKuGO6YygRm8tE61PbF1jSFGTDMzu0WC
-	 Pq7PlU2GEAYRG7vAxPK19miOchP5BuqwUFG8C5SaxglilNof/crsd37fIQ0+1pJasrAEC
-	 ADWc50qyFlvoFBq3f1M096h6IP8mZLBeMgLzn9iM5L3LaICDNDo/2OAjaGbBaES9rP2YM
-	 8z/vS/QU6rHWYxiMIdRsxULLBVKVehQ+ewI3BkgkueidJThl/I4bE4OeK7f9KWT4SVNYD
-	 XF5THLkSgKAlRgCSuxZTwoWMBKaiBiQIuJXdOonvYgvrOf4hY2MEsm0+69ZbijQj9bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795210104;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=taf0KVPRoF+3JboQGvuM90twCXz2SjYe05359+kTlN0=;
+	b=oE2m0I5JTiKR+b5byPh15SNHH7GCP+XOgQZkOrRPL3qbY4CSmXcRaaYkOES8siuJvzyG
+	 vZYBzH+IEvbwcUSMu+tTyqYHFw3Sc+v5nZ+30FVFxNaDJwqLk3c0x/cKfMFHJl2e8uGQe
+	 QKqRX5gywH02aW9Hkkr5Pqmr9cnXw6xp/pQJRMlDIJfEL3f6imbfvGA9ifQmKEvb3Hgfi
+	 1Ts1g6K/8PPu3CvYbgiTn38u+ZZ0rU2A9MJMq8a2U5Ggn83RI2JK8JYS+iRiv6bdwU0gX
+	 0fkSTMQ6mT5499N0yepts6ad/pvxHmVnS73D3qbN09lCNRfr/x2kJrmVFYvmclmbfAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=l8dCeRqd;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FtUSzxaj;
+	arc=none smtp.remote-ip=209.85.160.51
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6D6606A6A8;
-	Fri, 20 Nov 2026 21:20:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF6D6606A6A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59337606A6A6
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 21:28:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59337606A6A6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=l8dCeRqd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795209636;
-	bh=LmcAi6HEybEAMZVvo4K38uL60nPeQBtPpV5MltW1eac=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=l8dCeRqdGGvDvQZ6PoqXdbpOJ2+fHWxxCuy7aAJ3wsV3nStEcpuZBlfrRlpSY2N3w
-	 kp75T389Dl2TmMOXvOIh4ISZYhHDjk5iD7ViLnd0A34sXeoqUknsWdR7cYp7Oc+hIn
-	 pBe56/3B9KMjtV7WZx3gkQ0tnfAIlsQIg8dUkR9qr0tGjKddwrHudAPm3qgJmFkWNs
-	 n5tIOgBsi8D+TFQnBOPA7qZnQdAHAmRv3EjMfN23Pd5g6xxPn6CTdEtE1PgUr7wC3l
-	 1R1F6KUaGcIqH1MwDscd7s0zLu3GFyUp5s5BFYVJOe5NWVmO3NJiSvIVUqremtdRJa
-	 kkOjH8KNmIsHg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A965017E0060;
-	Fri, 20 Nov 2026 22:20:33 +0100 (CET)
-Message-ID: <bc777a9772d1dd841d1928421a7881fb57f9d70a.camel@collabora.com>
-Subject: Re: [PATCH v5 3/5] media: rkvdec: vdpu381: Program the read caches
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Daniel Golle <daniel@makrotopia.org>, Detlev Casanova	
- <detlev.casanova@collabora.com>, Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>,  Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner	
- <heiko@sntech.de>, Shawn Lin <shawn.lin@rock-chips.com>, Michael Riesch	
- <michael.riesch@collabora.com>, David Heidelberg <david@ixit.cz>, Christian
- Hewitt <christianshewitt@gmail.com>, Marc Zyngier <maz@kernel.org>,
- linux-media@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, Jonas Karlman
- <jonas@kwiboo.se>,  Diederik de Haas <diederik@cknow-tech.com>, Dang Huynh
- <dang.huynh@mainlining.org>, Piotr Oniszczuk	 <piotr.oniszczuk@gmail.com>
-Date: Fri, 20 Nov 2026 16:20:31 -0500
-In-Reply-To: <57258f1199fdbf24ac57081c6f3df219464e870a.1795191822.git.daniel@makrotopia.org>
-References: <cover.1795191822.git.daniel@makrotopia.org>
-	 <57258f1199fdbf24ac57081c6f3df219464e870a.1795191822.git.daniel@makrotopia.org>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-xMvWOScR5XSmqSVox+1m"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FtUSzxaj
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-4bd734cf350so613006fac.1
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 13:28:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795210101; x=1795814901; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=taf0KVPRoF+3JboQGvuM90twCXz2SjYe05359+kTlN0=;
+        b=FtUSzxaj+TW/kizwQ44WcHMK7fkrtbh0TBjEM6Y8hwUmZ6hXvEcdUCkpMuuXDvcCyq
+         901SKBaL+Wpgkt3RCD5m8t7BindXheyRFBliuiIzuPFw08GphYwdsHbnJGsiYFRrMYjY
+         zdfhChHJPWCyG1X6Ck/PnRnMk+AhlS3elu0s1OWVWQFMpulStuS/IoK6h7KvF77SXFio
+         WIldfRkJwcp7xwWS+OCzCPV5Errlwco/6D80BEgc8vUEXS/wT9L+MNToNZXf0SpMDXRh
+         km2Mrdt7vlCjZ3fYdvteCdzmVJUYI8Q8URDjXnZsC08f6w6Cqg7+a8+F3R2/1jOJegTs
+         e1mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795210101; x=1795814901;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=taf0KVPRoF+3JboQGvuM90twCXz2SjYe05359+kTlN0=;
+        b=nmCUJfEhRF7K78ysvOR2lSTss3hTLTPgxpQN6qLHFujX5ryjv3/cEKPV9Bv8hGWDWA
+         dcQ+M6ocq8QgEzR95I9xsxvd5g2r8u2x06NykJN43ivfFFzH1yxt6wRFgDT5OAYQcINr
+         oENKJeWpALpJE9Y2hCnKNP9mbIa4en05wsUTb8gJCVT1TeG30eSCcQFue21NlOb4Fqob
+         ppkXB9fqdmtEe8sTcjFxY8oE/CRyWI3Zr4eQvg97/m//B7rEkQuCLMYoRYXRWrsmBfRm
+         n9btF58jOltluU6Q5mmRB2949qS6zkIbIEyb+GUY4sjjLNl5YKZtAZNo8k7X/sUtD9pq
+         qwAA==
+X-Gm-Message-State: APuU4Z9+rY5iDKXEGg3gLFmAywWOEtJTMVol4ALFP/YI6QzIeV90+2PN
+	3hG45mrrGlc58sGHk8cWjhyP/xy5Iov6DGHk9VZlU+Um4EypfzEji676u936bnHk
+X-Gm-Gg: AZFdTZch+L6kRs1zRuuUfELfM/soJovr3i5pWXH7qO4eSjoIQKgTLdAc8kJgVfCNndf
+	e3oOFGsQ5cthvOgkOq9QQqwg6flyQU11im3at7wmbrQC8WAQ+jXTx2na7HtadUAkIKL+OQZO/83
+	71+QKS5kTHrxqpX0/lVJTGRg3FvR/glpiYmzHZAJv5edmtjPTcDjrzR/LP6NRCgJp5vSrMUXZ/r
+	VcbtXSz08e7N0O2Q56Vg6A9Yfl04bQ+eei+0q+JmIXVPBREv9fMzzvz8iKc7IaBTo8Q3tKtpsR+
+	7aowT1+Zze+gXdqwWQt4CsvHtJ5wdOr6OuSqMGh+xUeo1Axfocog9NbZB1zPqtbq5qTgwm6IIWE
+	kbWOxbnQ8CQX369pncM87zJmy/YG5oBf/qt3PN10DTXEcu5v3UhppQ6EVt5tAGTkuGDEU+hgLqP
+	zIdc09tcLiPCCXc8T2XkR/HxVbMGhGh3JTqX3PcxEXwtBZ4Iq5RJNEVg6D68A/yF5s8SHc3xy7L
+	FNGfd1v+CaxbVS6XTz/RiRQq24qe0e+yuZaCleJO8VJOkqoIqR9JpijDxip1ViNG8TD9pv2DkCg
+	m37xTrPjmy/5GHeK1Ij5CW8WdXKaPQ==
+X-Received: by 2002:a05:6871:eb09:b0:47b:df9f:6c0 with SMTP id 586e51a60fabf-4bc7d6650bcmr4022958fac.4.1795210100955;
+        Fri, 20 Nov 2026 13:28:20 -0800 (PST)
+Received: from neuromancer ([75.28.21.198])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bc5b07d766sm3774126fac.2.2026.11.20.13.28.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 13:28:19 -0800 (PST)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-rockchip@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	shawn.lin@rock-chips.com,
+	linux-pm@vger.kernel.org,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	sre@kernel.org,
+	t.schramm@manjaro.org,
+	xsf@rock-chips.com,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH V2 0/3] Add Cellwise CW2217
+Date: Fri, 20 Nov 2026 15:28:12 -0600
+Message-ID: <20261120212815.35663-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,42 +101,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---=-xMvWOScR5XSmqSVox+1m
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Chris Morgan <macromorgan@hotmail.com>
 
-Le vendredi 20 novembre 2026 =C3=A0 17:41 +0000, Daniel Golle a =C3=A9crit=
-=C2=A0:
-> The VDPU381 and VDPU346 have three read caches, configured through the
-> "cache" register block. The driver leaves them in their reset state,
-> and on the RK3568 some streams then decode with wrong output.
->=20
-> Configure and clear the caches before each H.264 and HEVC run, the way
-> the vendor kernel driver does. The "cache" block, which the binding
-> requires, is now mapped at probe for every variant with named register
-> blocks; the VDPU383 does not use it.
->=20
-> On the RK3568 this fixes the HEVC conformance vectors RAP_B_Bossen_2,
-> WPP_D_ericsson_MAIN_2, WPP_D_ericsson_MAIN10_2 and
-> WPP_E_ericsson_MAIN_2 and the H.264 vectors CAPM3_Sony_D, MR8_BT_B,
-> MR9_BT_B and NRF_MW_E.
->=20
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+Add the Cellwise CW2217 battery gauge driver. This driver is based on
+the sources used for Rockchip's Board Support package [1] but has
+been updated to use the regmap API and devm helpers.
+[1] https://github.com/rockchip-linux/kernel/blob/develop-6.12/drivers/power/supply/cw221x_battery.c
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Changes Since V1:
+ - Added a default value for the shunt resistor in the binding
+   documentation, and updated the commit description to note that the
+   min and max for the battery profile is now per-compatible string.
+ - Fixed bugs pointed out by Sashiko bot, and corrected units for
+   temp and shunt resistor values.
+ - Corrected include pointed out by kernel test robot.
+ - Noted in the commit message the patch is based on original work by
+   Xu Shengfei at Rockchip. I did not list him as co-developed or
+   signed-off since I did not have his permission (yet) to do so,
+   but I have his authorship included in the file itself.
 
---=-xMvWOScR5XSmqSVox+1m
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Chris Morgan (3):
+  dt-bindings: power: cw2015: add cw2215, cw2217, and cw2218
+  power: supply: cw2217: Add support for Cellwise cw2217
+  arm64: dts: rockchip: Add Battery Gauge to Anbernic Vita-Pro
 
------BEGIN PGP SIGNATURE-----
+ .../bindings/power/supply/cw2015_battery.yaml |  41 +-
+ .../rockchip/rk3576-anbernic-rg-vita-pro.dts  |  21 +-
+ drivers/power/supply/Kconfig                  |  11 +
+ drivers/power/supply/Makefile                 |   1 +
+ drivers/power/supply/cw2217_battery.c         | 826 ++++++++++++++++++
+ 5 files changed, 893 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/power/supply/cw2217_battery.c
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawC5nwAKCRDZQZRRKWBy
-9P8TAQDpyeSu1gXllnkYGeMqRKPvJ8onxEJ+yv2Jv5OBpiybIQEA1uZT2/boTgHm
-weAd02uKsuvt1n9zB+lAaVOMSc3SMgQ=
-=K9qN
------END PGP SIGNATURE-----
+-- 
+2.53.0
 
---=-xMvWOScR5XSmqSVox+1m--
