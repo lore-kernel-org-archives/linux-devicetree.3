@@ -1,94 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.127
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795155363;
-	b=m5tDdwCzy5yNTwXae/J5H2OoDOze6WenarUAdKdGq9TJEpb55+l7cUWjaqVfHsp6pU7b
-	 /5UgcQVBl2IRK5kWehqTC/QTdXwElRhNnvD5UjvUGAam4lRfhT0LznVfVB4UHptrg9wPu
-	 +jm/HU19ah9sTnpVMxXNpgNsuqZsLaDrkATWZyrEb3j5UPn/Oqgtg50cxQeTn91LIJcuk
-	 pP/Ik/WmYBc1h/730oVHIc5GOy+g5Qv5jL2cUHZkcMPQToBSjM05JhENGYfFlfzC+Mtc9
-	 97bIscRVcZ4TocjND1GpV+d8IA+askFErG67wIb/hYGYjg8K+AmU8E7xwuDLX9l95mQ==
+	t=1795156209;
+	b=kZKAkI8AO5tkraR4VFEYZQtZxGVfw3kORyu1IIMTT2JXzrURrH8MIn86A9UCmWg+cXgB
+	 2MXseLAXBdxsJI3K1ooyTULwgQ2caXfHklmsC9J7gkIcTG6t9P54X0r+BfE9Pj57w15Gz
+	 s7kP/Y5zetDUrmcYonZpqUahn4C6NDlkf7H38z+3yPGNzPYsqQcjLOgHzXRe8klr/Ax4O
+	 uqMFRydXzKZLqIuVtAUXNYIn2Lx25FSuDfdjQChAK/UToleBTKzMyp1rffmhhJkziCpSu
+	 MM6st7IhTOlJtJuiB2cFzV16PpvV8+/8WQmSkFiuNocGWF+DbyS/YeXKLTlffblM4Og==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795155363;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=m4tshxTQDRBAA6fO2TgUWOppJiliCvGjHhGeaxVNjzU=;
-	b=rHILA/OGcjQ47spU5LSUJ7h8FDBlIHeZoEA6OQH4IGZAK3ovVqPa+Wh3ZNYlsU/xdke0
-	 QDmVdNCcHqVPpQ8C7LO3ypdayCpI9wwHl37raEFwWGcYiab5dw3TfGX8jWslde/qTHvQC
-	 C67QOqC4TLdUr4MY/8wfi7FoEfccMeaTS4gs8POVQwDMdwhXCs2sfaAwEZ9eT+iMCsTil
-	 n1bWE0IMqhJAuqnSUMBymbZUoeKMxY/sM3dk4TZP7BHfm1MVupfwe4gSKObJENfINVjie
-	 GCMqp5hGAhz5A91GS0PtfPw0F8RNSNLT2QtBcTq8X19dcfosYL3qvBxQfr9Hx5527Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795156209;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=+YKEUIR17Ys1qiI9vqcZUQdQMdxe3ZpuES93oeUi848=;
+	b=x3Wcamjey2VC3PsEY16RHhiWljXVkcu+4aPGR+9vuCYIQ3Q7I2f5NetjtOvz39a8CSy1
+	 +z5ed3J1gpvn6oyrf8yF0AsNcloI1Xz/IhsqFPDSi9XzQyJ7DzHDjAyi+F1xqHz0alaTR
+	 47eJNLUqOAyv/pu5RYx321vQlrJd0z1+Gs7PXdv2eD/LC1rbdRqQ2O7Vq3gctBWPuTlbJ
+	 iHVpGUZkmAKAJYFPjIzzNee/Rm0xEG8tWAUhR4W63xEsMxXR425J71c5uBUvQKuCLRR2G
+	 KAVmdomaLkeo/qT7/wGY51Uet7vtfEIpat35fmGvLZ6DmcGWI3smC3QHyrW5qnOAObg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.127
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022127.outbound.protection.outlook.com [40.107.75.127])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSrohA7B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692A2606A506;
-	Fri, 20 Nov 2026 06:16:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 692A2606A506
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=duNsLprkBkGoOAiimk8dmfcaOA/ie/nxmBpwGOID4Dd17r73rpCu9BWQ92ZNLWB/SwMR7mz2gT7ChEZ1Eva1zTW9328ppGdkcC/2drRTAPvk5Dv7ty8o9OhkluWeNRpeuFtwD9C8z1ONbko6TAbno0ruoYxq/avXUcPfgZX+eVp0/DfT+aXG7dsZ75I2EtS7xU6xtqljefRnY9KgNr6uN6UAQRZkb6ZT8LjE8YbryBvi8PJd23Lil0mOHcmFtTwbSSdCIm3ql31SiGW2P5/UxlO+M2Ai66TihB/uMOWoOMgj9Q0x/0C7+vAN11w/4hObXFOkXf1H+deAEOzJDwaQbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m4tshxTQDRBAA6fO2TgUWOppJiliCvGjHhGeaxVNjzU=;
- b=LB/zZCXjNzWqSuX0DRE/TTVwjW82fi80rlTJ3WeE5RRNiWzUUW9cLY0L+YWTjR/vG4u6sj+D9X1eJlP5F/PjVRO03rdPQg0NAzV5rLFdFxMDGlzZ37Kt8Ba7AAAM518XSgTEoSURdrPlFU+c6956brywGglSrhHA7XbAM9TyS0RKpInf5CtEMQgv30ZoR2K8dGzQxnqjw9G61DlZxgmHR5ompjZb8WlJyEleE18ekZ6PRjmjbYQMDeCmD9IhR+y9P2BkRtNqUDPamzzWoBk/f3ajoymjx9B4UdeO05N6njRkxG5V2cZhgHUJT2RQnjAe81e8wEy+NdQ54lLUrEqqPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=kernel.org smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PS2PR02CA0093.apcprd02.prod.outlook.com (2603:1096:300:5c::33)
- by KUYPR06MB8603.apcprd06.prod.outlook.com (2603:1096:d10:8f::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.2; Fri, 20 Nov
- 2026 06:15:59 +0000
-Received: from TY2PEPF0000AB88.apcprd03.prod.outlook.com
- (2603:1096:300:5c:cafe::69) by PS2PR02CA0093.outlook.office365.com
- (2603:1096:300:5c::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.12 via Frontend Transport; Fri,
- 20 Nov 2026 06:15:58 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB88.mail.protection.outlook.com (10.167.253.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Fri, 20 Nov 2026 06:15:58 +0000
-Received: from ubuntu (unknown [172.20.64.99])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 096D5427EFC3;
-	Fri, 20 Nov 2026 14:15:57 +0800 (CST)
-Date: Fri, 20 Nov 2026 14:15:55 +0800
-From: Jelly Jia <Jelly.Jia@cixtech.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org,
-	conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-Subject: Re: [PATCH v7 04/10] dmaengine: arm-dma350: Serialize IRQ and
- termination state
-Message-ID: <av/lm+np9hUJlpRm@ubuntu>
-References: <20261117094335.1393735-1-Jelly.Jia@cixtech.com>
- <20261117094335.1393735-5-Jelly.Jia@cixtech.com>
- <sashiko-outbox-218565@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E2A606A32A;
+	Fri, 20 Nov 2026 06:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSrohA7B
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795156208;
+	b=SjrtBkaLQpjGM5exSIKr8AktAqQ1qyJTS51CbokUjwStvDlSrYDHnJlXyfukumITT0BW
+	 mKLHemg86/xlVgYRasf67lnDxidM9AQ9ohhYe8KskFJId8Ow5+CkaYOuz2M/YNFzmt7Za
+	 SdG7sZITLwtFcHJIj1DkLBNoQzVHY4ugL8yTN+1ojFPl3NxnJndp6AE4TfCuWk+UuKlG/
+	 o8dYCIvCxmSIUjmOeY2qHxQ2QW3GVXnijTBZ8NIDstyusoDM0L0pJLnie2mZrSytaBmeh
+	 ODtDzIx7Xv+cdCMhda/gv2aMYalOmKXQ8ZkOMmPPROkvvWXmZyRV1x4SgPkhx3QmPRw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795156208;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=+YKEUIR17Ys1qiI9vqcZUQdQMdxe3ZpuES93oeUi848=;
+	b=LiwQ5vqS+GxbtaL9xu9ZneKWuNgf+EYXo6+xaOrWtL+6ZgwhZQK2jE7WFZOdi3aWqm6m
+	 f8mzyBYmfCAt0RbKJBeKrLsR4XcM2t+uxJI56rjqMJEkZ01paKgDH1zKFMPAE61RodJMG
+	 /zmJaEkMOhTOTnJHqY7a+JiiuG0WGu3mLtWYw+5dWUnkSqjvS778qeQg6RFBhBydduhoE
+	 PTJaBG1wYsMvhDEnFP9U19q9K/zqGwWXuTSv64xMciMZ14tlA6RcWcX1NFAVaio2hnVuK
+	 8VHFkviCbN5rq447feDp/mtx5/68HTZjVKiv4ssMEywFpJFDpgUIMmqPLacuTYYwIHQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 391551F000C6;
+	Fri, 20 Nov 2026 06:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795156208;
+	bh=+YKEUIR17Ys1qiI9vqcZUQdQMdxe3ZpuES93oeUi848=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=DSrohA7BZ/otoqL7hjWAvxfbdSp3M0+AtXv5W1oODjIgup71PkFo8+rhK9ficQXVh
+	 39L36mO20AV7lG60uJfT6vK/Epluo68OP7x70LCsCsCPQVTpNUyhcyL11kAYEQjkIn
+	 cQ9l1qbIKkX7GcTctbVVxgeAqEqHt1ssH8fJX6y9LEnlWjnXZs+TIFqBcKlBURV1A2
+	 dNFyi+84rHjzSWaMKyhgksCS1hkBDUbS9ezZzSwkRc6EBMAhFMeueeenb+IY4MUODU
+	 BnL7Rec818rp9tn7jlXxtI5K7j2tkhC2mlIv/rF3ozB7VAer3Rp2i1p+xpSoiKyJEE
+	 nMPFbjUAKJH5w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id AC4784970D;
+	Fri, 20 Nov 2026 06:30:07 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH v3 0/2] arm64: dts: allwinner: orangepi-zero2/zero3: Read
+ the SPI NOR over two lines
+Date: Fri, 20 Nov 2026 06:30:07 +0000
+Message-Id: <20261120-zero2-spi-nor-dual-read-v3-0-1cbb0caaed91@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,64 +84,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-218565@kernel.org>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB88:EE_|KUYPR06MB8603:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcddbe38-cf75-40de-466b-08df46cdbe29
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|18002099003|22082099003|4143699003|56012099006|261028144727099003|261026121527099003|261026140227099003|261022105027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	XBZrAiNQwOx6IfQqFouH5I/xM1GngwW8JLIwieEzKuyOGSIHpVoL3IUgeHNvO52T8f4Jgn3r9F7acAuPb2dpPbWkro3LGcyx1AnApbyqJBbtJYU9luq9GsgU068RhxAdjaSneLevKPV4naJlS3yMRBzEvsiCu3ELo6qOsfkBHOmD7+nOzfYyTNPST2KYCOvsnI1P7plvkFaQpBOzdOSTbaoGEOYezETfF2Ud7hVscZAfjYdKsJUL1HgMtXA5TL4KEDDXLIGb0AO1GLg4h0j54Uw0CqEfMBfTMLhk6T1ZhyTW2Lu1qrnitF8OguVaLFLpQQ5+DbaJUXjlWksNy8gmNjeTjSDGvAc5KxsfmYdRpaw4MecfaJ3iCjD11CQgnnbwpYH0PKt6DCNVPSpH0wVjg29LBP1agtbZjPjIECQeBK/LfZU9AuZ7KZk9fq0LFJcNp3Hb9Lvq2rkRVS7UEtKdaaziqxWT+s8Ya+AMp8dOuLL4YUfZn3lxsFOYIETde1x8M+cCzXJD/gAFtfNTz9PakUFPP7O0CcogqGm7Ct+UACq8wxPk7S1KjkMktwG4m1UVAZH7gDspqeh+WWBpnvc0vR6tbPVTTRr5ALvFSCMBjJwIRep4eQQFwNKOxCYAIoIDA/VEn3Zc3k7Mz/xdpIRuzjEhYoGhTKGXO/KSozvvSbfW5+KiYbWW/3qDPkcOI/3L7vgFfsMgV9dC6nWd4cbZ2A==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(18002099003)(22082099003)(4143699003)(56012099006)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ZCQXPRU320bAGzXPiGBDJ/sWWu6vEzcUKJD0+13ojEGRMZlWnkPqCBTuqxJuWt4YoSJtfkpQn2joiO19zi3JJoGJEpvrEE7pCb0YrlDNn8Gn0hOQYf/QTYU9B0Z9M8NXAgQIgxkXDXSkZ/Ddr0zWi42C2+ckrHsGP8vcurtANwB2pVCigYsSuEQ7AqRQRI6VN8bcv2EXK0AWIKqPr8z/mC0blB5/uxeHF0kUcTiYQtvRSgCFsi+7OTxyfEDRy05Vwxr0yJsVaW68TbyivnqNElyVmqAn0eS6puonjZEkL5xgs17p/paTgnB6lX9+m9RNTxAtc9KJey7vaAsB3kd5vbvXfVhfFNE85OzF/v7/YtaBk5n016x8GhlJ/o3x9RBSj01dRwgKjAqxlg43gw4lJG53ImAiuuQya4pgNAaNsWky6ccyTP9W/3M19tJHQ/Vc
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 06:15:58.0314
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcddbe38-cf75-40de-466b-08df46cdbe29
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB88.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR06MB8603
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XPTW6DMBAF4KsgrzuVbRiws+o9qi78MwRXCSY2o
+ LYRd69DssgmyyfNfG/myjKlQJkdqitLtIYc4lhC/VYxN5jxSBB8yUxy2QohEP4oRQl5CjDGBH4
+ xJ0hkPLQNmtaTRFKCle0pUR9+dvnz657zYr/JzTfuMZHospTK+T7GJjO7oRQeKqmsaJDrzvNeo
+ Sa0XnbWOeRSea4F9rU1jfXsRg8hzzH97j+sYpce56qX564CBFjnne07hZb4x/FswundxfNurvL
+ Z0a8dCRyEQqc63iLV+tnZtu0fJM5pAmEBAAA=
+X-Change-ID: 20261115-zero2-spi-nor-dual-read-645a6de25e81
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795156207; l=2063;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=TbezzXnMhGFtPtXyzkhDKAuplra+gjD4n+VzAJSqXBY=;
+ b=y4xQhOYT0fd7FkbqvjjxEuvNHMYfcJJYHOVEN9DSjUQzLlKWclQbSGmDywej7kWEbWNHUuEOT
+ mYejXy/io01BbI1yB/kRaFxCJt9dabk3SOd7C3Mbdh1sH6mD3imFJ7J
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
-Hi,
+Andre Przywara reviewed v1 and suggested labelling the flash node (patch
+1) and setting spi-rx-bus-width in the dtsi shared with the Zero3 (patch 2).
 
-> Can clearing CH_INTREN before stopping the channel leave CH_STAT_DONE or
-> CH_STAT_ERR latched in CH_STATUS across channel teardown?
+spi-rx-bus-width = <2> needs the binding patch of [1] (acked, not applied
+yet) to pass dtbs_check.
+Without the driver patch of [1] the driver ignores the setting.
 
-The status bits may remain set, but I don't think they can be
-misattributed to a newly started descriptor with the current locking.
+Tested on an Orange Pi Zero2, with [1]: 1-1-2 reads (opcode 0x3b),
+two 2 MiB reads identical to an earlier dump.
 
-Both d350_irq() and the call to d350_start_next() hold vc.lock.
-The IRQ handler acquires this lock before reading CH_STATUS:
+[1] https://lore.kernel.org/r/20261116-spi-sun6i-h616-dual-read-v2-0-e0c66eb71e20@gmail.com
 
-- If the handler runs before the new descriptor is installed,
-  dch->desc is NULL after termination. The handler acknowledges the
-  old status and returns without completing a descriptor.
+Developed with Claude (Anthropic), which wrote the patches and commit
+messages. I reviewed them.
 
-- If d350_start_next() runs first, it installs the new descriptor
-  and writes ENABLECMD while still holding the lock. The DMA-350
-  TRM, section 6.5.1.2, specifies that ENABLECMD automatically clears
-  STAT_DONE and STAT_ERR, which also clears the corresponding INTR
-  flags. The handler therefore cannot sample the old status against
-  the new descriptor.
+---
+Changes in v3:
+- Label renamed to spi_flash (Andre)
+- Zero3 flash supply added (Andre): reg_dldo1, see the note in patch 1
+- Zero2 &spi_flash moved after &pio (sorted)
+- Dropped Suggested-by on patch 2, added Andre's tags
+- Link to v2: https://patch.msgid.link/20261119-zero2-spi-nor-dual-read-v2-0-185c87065e39@gmail.com
 
-Also, section 6.5.1.3 states that clearing CH_INTREN does not affect
-interrupts that are already pending, so the INTR bits do not simply
-become zero when CH_INTREN is cleared.
+Changes in v2:
+- Label the flash node, no nested &spi0 override (Andre)
+- spi-rx-bus-width moved to the shared dtsi, Zero3 included (Andre;
+  he read 16 MB on a Zero3 in 1.8 s instead of 3.5 s)
+- Dropped the driver dependency (Andre); the binding is still needed for dtbs_check
+- Link to v1: https://patch.msgid.link/20261118-zero2-spi-nor-dual-read-v1-1-bcdcbf785be0@gmail.com
 
-This reasoning assumes that STOP completes successfully; STOP timeout
-recovery is a separate issue.
+---
+Arun Iyengar (2):
+      arm64: dts: allwinner: orangepi-zero2/zero3: Set the SPI NOR supply by label
+      arm64: dts: allwinner: orangepi-zero2/zero3: Read the SPI NOR over two lines
+
+ arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero.dtsi | 3 ++-
+ arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts | 6 ++----
+ arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts | 4 ++++
+ 3 files changed, 8 insertions(+), 5 deletions(-)
+---
+base-commit: 90e0d3fd460ec365617982b56bd7ea5179b36197
+change-id: 20261115-zero2-spi-nor-dual-read-645a6de25e81
+prerequisite-patch-id: 28b145097d0f859e5bd27bcc5028d0915f3ba4bd
 
 Best regards,
-Jelly
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
+
