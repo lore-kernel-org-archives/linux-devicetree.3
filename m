@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795157524;
-	b=oV/eFi9P0XtvBkCXU54Gg43eyAXmSs0xX6IFUOAffllCX7Vdx8gz6c2ymzRqcYt0fNxt
-	 4Is8zgriaA6ySjDPPSIzu4aTOhTPDmrEyLMLgRSOB7HJYc/FqHixiWIad5HWHn7Kbo46M
-	 SB05OJ7FONvoOgiyg6GySQ3l2FhkRzZkpdirMR0VjqE/GkRtUShX33tygeMxD1KnPaZfX
-	 PS5BtNjVzKJF+NOX6QzZq5PFswahdqZZCA4KYLwXhS4Y0X+kDRp1b9ybnvL30wCvHrdzC
-	 eXieeug8YwF9NHBLGtt28aJmwPehnUANLg+pn5zEEgJTQebqfjetaeDTXRu0dSaBKaA==
+	t=1795157618;
+	b=YLzE85K2H19A1Zl4OKavZC+08nJJghoXkeIPep57K4VUKbHgIlXhCt4MswmpmKjvYE8P
+	 SkDwMcOikzflORx2nATD6Y2tYQQCIP6RoRlHbqlhWPP+jOql/QdiCdrGOyts2RA/2IWO3
+	 q6SPoDah00fJJyoTBxe2QSEQZRitk4Ry+0EIMUVJTKIdAD9KYMGwWTKTZh7PIEvcDMW6P
+	 p+DBTRX0z5C6ImChKlRo2LHRS0pu34Ik+036R0mrgykLGbC+mRyLOBXhoIGt1u4bpN5th
+	 E453GogaRcu66Oe2F3VNCkfJMDnOq9ZeiZmsTh05rHiuAuYKo8431DGuKqlLoxN6aQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795157524;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795157618;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=0z0AzJNanfrVB85wgMFdgJJ5GkqCfeRb/cYUccsjyJg=;
-	b=UeU04o31UMHcW8CtVMRVMhaWkbqO3Bf9oNmDYXXUEz59r1ySARlsJriDw+bCeIBv/YHj
-	 mceD6BakpfQ+QNjTvaPhzs8Fq3lOiGFFMQawlgRxsmEovlK+ANq+MTTpktrxbSqDQUZQa
-	 ZNunWilPPjBTt0oHwuXyG1ze+Cp2b6bxxQWckGxChwfR2vCND6f6XP3lDTWhnxVAH9LY/
-	 PAv/bqugPoqSJHAg+6g73i/eJG/OQEQT5DPLWWxAQiPkTOUu6EY8Ovh/oWx92xDtexhoY
-	 IYWzo3OlphI7MlTMVr8dTZzwlN+xy+64NIbUCus74VWwLVJuxEnmegnv07fBHf21/wA==
+	bh=/5mED0zlZbWclf6hKMztAT43+oQHdLuqWKYHDbNLEWs=;
+	b=XxtGIEbHnPfVXs9hOzryg4UY1Kk/IDHvfKfyZ8jDGDAvaKdNNqnDjnIHd6rlpXk9GjXG
+	 TmIPIIDAtF0ms/fcGZ4xPwVN+n4lKIXyIZLkd3A85jrLZp77+CjI52AGioVve6K6dq8FH
+	 5RhU2XWrmHvaxjHqUA/oDpECXLNFpOfTaeF9XAbeNeQ3ayrytq5yJNy70a+9NB4anKd5r
+	 N6EmNEalOHAe3hJBrD2niA6ZdtQffivgD7rSpPskonlon/xEaD0yecdQSSiPvcm/GYlrJ
+	 wwH4MD+rH9U7DWxdWsh23ujamzQ9Ks3rOJtIEOMz9QtAjOktDGoU+7iOZAam9PMU9+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jcMVexTx;
-	arc=none smtp.remote-ip=91.218.175.19
-Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=asPFejUS;
+	arc=none smtp.remote-ip=95.215.58.218
+Received: from mta1.migadu.com (out-218.mta1.migadu.com [95.215.58.218])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E2A606A325
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 06:52:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06E2A606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E0C606A325
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 06:53:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18E0C606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jcMVexTx
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=asPFejUS
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ro9VE7XGMtGJmsM9mnH8HIatHqmwaoWhZDuLhhpiHfI=;
+DKIM-Signature: a=rsa-sha256; bh=/1Qnc6yuGP8/bJRwORfaWD/9W6hWPIsUbF/BQQzaA7M=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795157521; v=1; x=1795762321;
- b=jcMVexTxKDTegToAManw+obcFWicIYkyNWBbQ8bHPCWoQIHS8oeNmQEtnoc/bqLFcE+AsWYk
- E5gvqiIkV2ACvfJguuJ26FIkKntFy9f//Qh74GihVulthqtUrTbP1pAWX2XuMuoeTRR35PbGo5H
- /3N2qFbMT7WVqAGzErsSYReM=
+ t=1795157616; v=1; x=1795762416;
+ b=asPFejUSo4rwADv4+XgGNJxilMmZN3T+sCQ9Ov161PWTh4+IPJpEd1qWKXUfmSZ9N5o2vsiK
+ dhA6xanVXGMADfwPHMEAjEEy5cwLwdaRJgKZhS07ABKPCnj2nTGcKpUvZExqjFs3U/SEfF2rMPn
+ s+P8XN6rcg6l1DjhY/Y8g4vE=
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ef437e63efd8efa5;
-	Fri, 20 Nov 2026 06:52:00 +0000
-X-Mizu-Trace-ID: ef437e63efd8efa5
+Received: by smtp.migadu.com with ESMTPS id d7c91ca9ef99ff3a;
+	Fri, 20 Nov 2026 06:53:36 +0000
+X-Mizu-Trace-ID: d7c91ca9ef99ff3a
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <18426bef-b231-4685-bda7-665becfc6528@linux.dev>
-Date: Fri, 20 Nov 2026 07:51:58 +0100
+Message-ID: <77d4edbe-b4fc-480c-860b-5880fbd807ea@linux.dev>
+Date: Fri, 20 Nov 2026 07:53:35 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,8 +59,8 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v5 10/24] net: dsa: rzn1-a5psw: Fix MDIO clock
- divider calculation
+Subject: Re: [PATCH net-next v5 11/24] net: dsa: rzn1-a5psw: Set driver data
+ in probe
 To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
  Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
  <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
@@ -80,10 +80,10 @@ Cc: Florian Fainelli <f.fainelli@gmail.com>,
  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
  stable@vger.kernel.org
 References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261120002549.1908299-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-12-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Language: en-US
 From: Clement Leger <clement.leger@linux.dev>
-In-Reply-To: <20261120002549.1908299-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20261120002549.1908299-12-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
@@ -92,12 +92,14 @@ Content-Transfer-Encoding: 8bit
 On 11/20/26 01:25, Prabhakar wrote:
 > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
-> The MDC frequency is hclk / (2 * CLKDIV + 1) on RZ/N1 as well as
-> RZ/T2H and RZ/N2H. The existing calculation uses the wrong divisor
-> formula and can set MDC above the requested clock-frequency.
+> a5psw_remove() and a5psw_shutdown() retrieve the driver private data
+> using platform_get_drvdata(), but a5psw_probe() never sets it.
+> Consequently, both callbacks return early without unregistering or
+> shutting down the DSA switch.
 > 
-> Calculate the smallest CLKDIV that keeps MDC at or below the requested
-> frequency.
+> Set the driver data in probe to ensure the remove and shutdown
+> callbacks can access the private data and perform the required DSA
+> cleanup.
 > 
 > Fixes: 888cdb892b61 ("net: dsa: rzn1-a5psw: add Renesas RZ/N1 advanced 5 port switch driver")
 > Cc: stable@vger.kernel.org
@@ -106,32 +108,21 @@ On 11/20/26 01:25, Prabhakar wrote:
 > v4->v5:
 > - New patch
 > ---
->   drivers/net/dsa/rzn1_a5psw.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/net/dsa/rzn1_a5psw.c | 1 +
+>   1 file changed, 1 insertion(+)
 > 
 > diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
-> index 7fd2652813ac..df3b3f75b489 100644
+> index df3b3f75b489..0e4bbf34ec27 100644
 > --- a/drivers/net/dsa/rzn1_a5psw.c
 > +++ b/drivers/net/dsa/rzn1_a5psw.c
-> @@ -11,6 +11,7 @@
->   #include <linux/if_bridge.h>
->   #include <linux/if_ether.h>
->   #include <linux/kernel.h>
-> +#include <linux/math.h>
->   #include <linux/module.h>
->   #include <linux/of.h>
->   #include <linux/of_mdio.h>
-> @@ -1104,7 +1105,7 @@ static int a5psw_mdio_config(struct a5psw *a5psw, u32 mdio_freq)
->   	u32 cfgstatus;
+> @@ -1221,6 +1221,7 @@ static int a5psw_probe(struct platform_device *pdev)
+>   	if (!a5psw)
+>   		return -ENOMEM;
 >   
->   	rate = clk_get_rate(a5psw->hclk);
-> -	div = ((rate / mdio_freq) / 2);
-> +	div = DIV_ROUND_UP(DIV_ROUND_UP(rate, mdio_freq) - 1, 2);
->   	if (div > FIELD_MAX(A5PSW_MDIO_CFG_STATUS_CLKDIV) ||
->   	    div < A5PSW_MDIO_CLK_DIV_MIN) {
->   		dev_err(a5psw->dev, "MDIO clock div %ld out of range\n", div);
-
-LGTM,
+> +	platform_set_drvdata(pdev, a5psw);
+>   	a5psw->dev = dev;
+>   	mutex_init(&a5psw->lk_lock);
+>   	spin_lock_init(&a5psw->reg_lock);
 
 Reviewed-by: Clément Léger <clement.leger@linux.dev>
 
