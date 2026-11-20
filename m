@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795175148;
-	b=j/EbR6QrYpy4Y0OzyRMFDEJDtvHPZ7ZnGD0oMkSu9xtpOckfx6PlZElqjohckkq6FtV/
-	 58cSWgLi33K9LBX/i03NVkleaEcuwq2IcQjvJlC8TPqm2KqTPLzgyplWj+iGorjDFYSoN
-	 8QEgv8jTYmILWOVZgGelBUhq8HUNDkTlVY34ZS46sRIudGot5aZbLW/QRqrUDswgk5fFd
-	 SgmAmBRY+nN9K9aGFeBVIf/MbnLybeuYeFo9CRS/nPLM17+uYJ5vF3arjteWkb2lxHZ8k
-	 ns9DntLJfaKPa15SP5xmnRkSNgvSx1/lX+Nr6Vbfiq01D+eHJIeF5jhJG3eYH34zhag==
+	t=1795175149;
+	b=Zv2xr9ceKIefI5enPi7pgNTZVGJBnuN0mpua1s+asjn20vRvHSpzcAOY5IqsFLgN2jf1
+	 2GVCeS99e4nV64V8Qe4qMvR6A9/63GS7mBModndDxA0vd+yFj2ESw+FjQdNFO+3hiL3CV
+	 pVg37ll8vJPxwJKCYFnoy3bnXf9POL1sbFRzuz+WS8+i4Y2vJCjK6dDgtvNeRj+KzSbsY
+	 Saqjitm7IP3GVr+fGKEw+emUHPHKA1K9E7lr5+IdnGdKezz9feFG021qA0YltVTsB9yn8
+	 LefawHeHJqEg5hcite1D1QJcXo6h1IOM4zxZvCPQc0yh67yaNpQyCVZJxLboX1n9LQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795175148;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795175149;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=qFJHCYCBH2HdGEWOK8mNKRJIMaXl40/vMVYTvjR1Mj4=;
-	b=pDb7OhE6mXfEUHhI92ymAUBySma5WPtboYj+HykzXrKJlDbc9eUz0nGFa6z54eWCaMG0
-	 2fIeE51xtIFa7+eqmpZ9jJM0lf4LQUX2y7yunquJ0RVw0Llm6HGtwz4HUZZsTlEMWY2w1
-	 gqvCZxaKKi6P1N1UFdQ8bXuB7QgFHKXNynRZTjiLuvkHOpY+jqmk1hmSDchp41tS5Ctir
-	 leOLn5kFNjbO+gbci1eAdcoXgw4R6oLNSPp+Puffd2comXoRbzJk2u7Y58NQIEoFK9rBw
-	 z4svLi5QIvdFTWtPPl0XXAYg9/Zy1otTvTFHsz/N8XiBZXZvM7opKU4GOR3ZIKaUaLg==
+	bh=9TyTWbzrjP5wPhg7IrZaHlYF4gDbOOrwLw/7ODNyHIE=;
+	b=SQ8LdOWDWcVr9ia67Oq5wUPOjHxRv1/2Pmj0COU70X45zKeyo01Nakgo7uh0jKaftcxf
+	 dP2luEBV4ABzTN3eKmzn2PB9kcy5yTkKMhyEW8U++G1a7hErQG/SRrmKiUAnzcLXbO7Tm
+	 SqwLjTAibzyHOQWBlBo4RYEOq6LxRsOaNhuU6MS00LKoDXO02x0fprr3ZnbrvUa7dS++/
+	 H4T7hbxtvVT6dVKjWiGqImHVMlMMsNPJ/3VZRhwPd8vNybxYP7ZA3fd5ilY7sqq4pe6ae
+	 kkAPbgmI4Gjdjj49G4q8LoyaTqtwSFItU2o1VBWFpAeL0uxo3838fpDBB/MTN8x0zdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3HPSi1c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TBsq9rsO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C167460A2610
-	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:45:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A1860A2625
+	for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 11:45:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3HPSi1c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E901F000C0;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TBsq9rsO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA49C1F000C4;
 	Fri, 20 Nov 2026 11:45:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795175148;
-	bh=qFJHCYCBH2HdGEWOK8mNKRJIMaXl40/vMVYTvjR1Mj4=;
+	s=k20260515; t=1795175149;
+	bh=9TyTWbzrjP5wPhg7IrZaHlYF4gDbOOrwLw/7ODNyHIE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l3HPSi1cVz6ym+H5d3naV1oO4HajPOe8vOT6VMlhEf63NsUi+nnocGT/Hd6oD1hhu
-	 5tCPzErTNsdenoaFDsTewgqmRscHImbYX9mq5AUT8fTfUvhfBi2LIwTITeXPZ+mb35
-	 H4m8Qrk/ZaY+k1KjSN7KmauyZmuTIJpgj9TpaQhJNNG/CzeSkN8GKeg5/ScxWwACDY
-	 RfX96afeq9oRYYYXHhqRqF7KwpY6QItIBQIQMosE446Lk3tjxLoOJZ6SbpsLACZqj1
-	 eq+hDL5YO2IFEP3Fw59FOjsQI4d1BoqztwSfXLASlTRwFHvHB4Geq0ZkwCSLmwYpCz
-	 c3cBhdzB4dHBQ==
-Message-ID: <sashiko-outbox-225093@kernel.org>
+	b=TBsq9rsOtwKzGbxThsYRVePySc6WHVMgOrUEz+etRyz6JeygIM0MzPXW00grxstPn
+	 lid6OEJcRfkQwuvzW2soPd2kflfIIZYtjA4DpVzeRu7JMuRQ+f0ZT6nmw+mvpvQtJx
+	 tnd2XXcpH08uEkbkmQLnPgc/3jYgPfzNgiLDlEgpksTfl6T5DuFUeBjnEahBY0AG+y
+	 LDn1hfks1tM5sQ69daC01fP1ScF0NYBVz1GcUSXWZmHBxMm5HNxI9HwNzmzeJ83dAl
+	 5UD5Jfq8Jv5TlXkH0REg/B9Xbzsju/u7X3jigsQwgrQzp6Abq0gCXYwZAugiVM5zFw
+	 4jDGoZt8oGCdw==
+Message-ID: <sashiko-outbox-225094@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] iio: adc: ad_sigma_delta: support devices without
- RDY interrupt
+Subject: Re: [PATCH v3 2/3] media: rockchip: Add IEP2 deinterlacer driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "ILYAS NHASSE" <ilyas.nhasse@skf.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261120-ad7124-no-irq-v1-2-7826c5c3fd25@skf.com>
-References: <20261120-ad7124-no-irq-v1-0-7826c5c3fd25@skf.com>
- <20261120-ad7124-no-irq-v1-2-7826c5c3fd25@skf.com>
+To: "Arun Iyengar" <aiyengar1990@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261120-iep2-v3-2-e94eb9f629d2@gmail.com>
+References: <20261120-iep2-v3-0-e94eb9f629d2@gmail.com>
+ <20261120-iep2-v3-2-e94eb9f629d2@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 11:45:47 +0000
+Date: Fri, 20 Nov 2026 11:45:48 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,70 +62,77 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] iio: adc: ad_sigma_delta: ad_sd_init() rejects missing rdy
-  IRQ on named-IRQ chips
+- [Medium] media: rockchip: iep2: unhandled empty_domain alloc failure
+  in iep_probe()
 --
 
-commit 87e803058ca4873e10b22ef0a9b56f4fa07e3e6e
-Author: ILYAS NHASSE <ilyas.nhasse@skf.com>
+commit 412e46dad64f85e912b35379802af12bdb8fee8c
+Author: Arun Iyengar <aiyengar1990@gmail.com>
 
-iio: adc: ad_sigma_delta: support devices without RDY interrupt
+media: rockchip: Add IEP2 deinterlacer driver
 
-This commit adds polled status-register support in direct mode and
-calibration for register-based sigma-delta ADCs wired without an RDY
-interrupt.
+This commit adds a V4L2 mem2mem driver for the Rockchip IEP2 deinterlacer
+on the RK3568 and RK3588 SoCs.
 
-> diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_=
-delta.c
-> index 119ddc5a13e27..546135995bbf7 100644
-> --- a/drivers/iio/adc/ad_sigma_delta.c
-> +++ b/drivers/iio/adc/ad_sigma_delta.c
+> diff --git a/drivers/media/platform/rockchip/iep2/iep2.c b/drivers/media/=
+platform/rockchip/iep2/iep2.c
+> new file mode 100644
+> index 0000000000000..11b349dda7196
+> --- /dev/null
+> +++ b/drivers/media/platform/rockchip/iep2/iep2.c
+> @@ -0,0 +1,1320 @@
+
 [ ... ]
-> @@ -816,12 +845,18 @@ static int devm_ad_sd_probe_trigger(struct device *=
-dev, struct iio_dev *indio_de
->   * devm_ad_sd_setup_buffer_and_trigger() - Device-managed buffer & trigg=
-er setup
->   * @dev: Device object to which to bind the life-time of the resources a=
-ttached
->   * @indio_dev: The IIO device
-> + *
-> + * Nothing is set up for devices with registers but without R=CC=85D=CC=
-=85Y=CC=85 interrupt:
-> + * they only support direct mode, with polled conversions.
->   */
->  int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_d=
-ev *indio_dev)
->  {
->  	struct ad_sigma_delta *sigma_delta =3D iio_device_get_drvdata(indio_dev=
-);
->  	int ret;
-> =20
-> +	if (!sigma_delta->irq_line && sigma_delta->info->has_registers)
+
+> +static int iep_iommu_restore(struct iep_dev *iep)
+> +{
+> +	int ret;
+> +
+> +	if (!iep->empty_domain)
 > +		return 0;
+> +
+> +	/* A reset leaves the IOMMU in bypass; reattaching reprograms it */
+> +	ret =3D iommu_attach_device(iep->empty_domain, iep->dev);
+> +	if (!ret)
+> +		iommu_detach_device(iep->empty_domain, iep->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static void iep_reset(struct iep_dev *iep)
+> +{
+> +	u32 status;
+> +	int ret;
+
+[ ... ]
+
+> +	ret =3D iep_iommu_restore(iep);
+> +	enable_irq(iep->irq);
+> +	if (ret)
+> +		dev_err_ratelimited(iep->dev, "reset failed: %d\n", ret);
+> +	iep->iommu_lost =3D ret;
+> +}
+
+[ ... ]
+
+> +	if (iommu_get_domain_for_dev(dev)) {
+> +		iep->empty_domain =3D iommu_paging_domain_alloc(dev);
+> +		if (IS_ERR(iep->empty_domain)) {
+> +			dev_warn(dev, "cannot allocate empty IOMMU domain\n");
+> +			iep->empty_domain =3D NULL;
+> +		}
+> +	}
 
 [Severity: Medium]
-Can sigma_delta->irq_line ever be 0 on register-based devices that set
-info->has_named_irqs =3D true (such as the AD717x and AD411x parts in
-drivers/iio/adc/ad7173.c)?
+Should iep_probe() fail when iommu_paging_domain_alloc() returns an error?
 
-When the optional "rdy" interrupt is omitted in firmware on those devices,
-fwnode_irq_get_byname() returns a negative errno (-EINVAL or -ENODATA) and
-ad_sd_init() aborts probe before reaching the polled path:
-
-drivers/iio/adc/ad_sigma_delta.c:ad_sd_init() {
-    ...
-	if (info->has_named_irqs) {
-		sigma_delta->irq_line =3D fwnode_irq_get_byname(dev_fwnode(&spi->dev),
-							      "rdy");
-		if (sigma_delta->irq_line < 0)
-			return dev_err_probe(&spi->dev, sigma_delta->irq_line,
-					     "Interrupt 'rdy' is required\n");
-	} else {
-		sigma_delta->irq_line =3D spi->irq;
-	}
-    ...
-}
+Setting iep->empty_domain to NULL causes iep_iommu_restore() to return 0
+after a hardware reset even though an IOMMU is attached and left in bypass
+mode.  iep_reset() then clears iep->iommu_lost, skipping the synchronous
+runtime PM suspend in iep_pm_put() and the iep->iommu_lost check in
+iep_device_run(), so later jobs run DMA with IOVA addresses while the
+IOMMU is in bypass.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-ad7124-no-=
-irq-v1-0-7826c5c3fd25@skf.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-iep2-v3-0-=
+e94eb9f629d2@gmail.com?part=3D2
