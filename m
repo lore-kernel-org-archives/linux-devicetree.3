@@ -1,85 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.209
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795246376;
-	b=NpCR/vffFK3qRuuWhJqSPlSFxhrvgahDkXOuXdAVcCQPC49bwDYgavdxYHclrv/gadl3
-	 HQbzi/HTXd8t0sm7krPsoV0lRfctxTUVgcVe/jz0a0qMama5FN8JhHHeWD0Kswz8m6rOs
-	 LC5iahVsUPJgo82SM3RQ6vwRgi4frolnvQexys/EUBEpNSRH1/f7N/Hh59SXxjgzzGFaK
-	 VppaNg2rIHsxv83FdrK9xQyDVkqj8gPApAkJ/+3YJr1CpEN+QX63VHJkBOpWuYKBs/lhU
-	 LLUKGloOtEmrkFvg7alTFK2GVjjUi5m0SosBCWnEFh9oQ0ZaJdGHMemVtFXID6780bg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795246376;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=J+dcPkcXZ3s3MrRG1MQfLHmivGBQKC1Xk8mvOi8nCLY=;
-	b=AK1Vzwy7baLy3zk12xKfW++5OoE/+EH9Z28dowSg59UWPDrPQ6H4ekgg+SJxiX8fGlUU
-	 45yqGcbvzfy+brPqpt7gtnN/WJJOzDO2dCy82AJuEEm7+2ihI6u5douQlItaabpMDOXCq
-	 YPubjztL2Xl3BHpr+PylAh9zVl22/L9WttcYkx8LbHHtRIsqyG+eXCgfac3gsGP7i3nq6
-	 tfAQv6M6MJ8+nnvjzREkEJeOzD5bqQjWHaxs90czi5t0P6/45fN43pOKTa1SOPCOLU1kg
-	 7vk6tdypOEOmvSwFtXPPgIbl69byJftU/98VFJfcRtZfaNFoMeRPoyjj7C4xWya3p7Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=cdVaEk5e;
-	arc=none smtp.remote-ip=203.205.221.209
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795246853;
+	b=xyrwQkKVEHOmsfC8DhIWmaBftNoCmPhzGNR+t1OENSqi+SMm4nf4r7kxONpc5gcwtdt0
+	 B2nRNNCVXE+MEWRBjaBzf/OfapnDmiLY4WOzbtogjhIoNyEPPxiqyNObYECwQ8CcouP0c
+	 QQcGqCnA6/j2Su3C9JA/tqvqomUEq2JmOkPZQjS+mgRCUxIoGGnruI9gf+emUcfNZqoZ1
+	 lGBjFG09eWP+92ITWlIM/GH8PaYgeb7l4NCU7Rdh98ZwlSVuHL5q4N//+eHQC28P12oc/
+	 4JukZ8OTyQ9uzur4MlJzjjqVWnZSA01eu1N6YRERXmmvBvwrnzvHgBvdk8L1gDWv0Vg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795246853;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=36V+mCW4ECCK+xw/ld7e56VJdb4cJ09mJjljNXhrscc=;
+	b=vruaT5fYMx+6jp5DJTQ/psOi4r5lNnA7ANpsD3lA6tD6A3e1ORAZNmb7hm9G/ikW8Sxb
+	 qGezZRpYRbLq0cbpjytjjF45dwb7CTZHvKmgUm77f/aIj3+y3Xc0z2Mz87xeKL22wKeB9
+	 cITw3ysDjt1Zc+voBDer9Sk2pfdsKcsuzRA1ssWjwSwpAL55ZY7vABE8VToO670Q+Yjpb
+	 VpCT0dm/ad4kJDw95xvN5uC9zqw0emjQzQus9tDqQrhAmtAJtwpJejeyQDgnLjd8kjnSz
+	 3dBdZZKI1RZVvvr3gbKAsaOKCAWM1VWd1cEiPZxpoOtuOO3kH3Wt3/Wk3sCVRm5Jnlg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njbIRTBd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9BF606A334;
-	Sat, 21 Nov 2026 07:32:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB9BF606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E102606A33D;
+	Sat, 21 Nov 2026 07:40:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=cdVaEk5e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795246373; bh=J+dcPkcXZ3s3MrRG1MQfLHmivGBQKC1Xk8mvOi8nCLY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cdVaEk5eAIPmIOk5+F6iMsEjzv/6emr9/7h2mxKPmyKZLAUvRxaK4ZINgaScYjX8E
-	 5qUruKO6tpmBZ7BiX5sgmPmY+nvwdXQFxI/bgQlLEoRTS5Fgrq/bhFwCU6eLTzD69j
-	 ZWwlvXhWWmreQC3PGSWE87ou6cNTxlG5wW/cmTEg=
-Received: from jerry-PC.lan ([2408:8249:5f:7101:71a:8713:56b4:5043])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 830284BE; Sat, 21 Nov 2026 15:32:48 +0800
-X-QQ-mid: xmsmtpt1795246370tpq3bznqd
-Message-ID: <tencent_E24973E955D1A26CF5A4F983929F8F8B0006@qq.com>
-X-QQ-XMAILINFO: OATpkVjS499uL2TWbxEEsFmnEnc19DykXbomcd2rucq3Q6VPPxwPpOeHB46Rxg
-	 npusd0Ly+Fokip3MjyxvihICinj3t8vmi16KbS+EOadnd+Pendf3RXwhFo7NgyNQ2bNs1H/C+KMw
-	 mVGG7wUFNhi/kv01GV2CUaCFeFj1FH9zUoPrE8TomhHlG/jx1Z7bMJbkV6dsxYoI8fZE9H5FQ/un
-	 W4il3/9nuVDr1++Js9FwfFTxFofpJiKcb0eMNNZ/O+Hc00Lh6xc51JRm/IpJN67BMeD+wTvjpPVR
-	 OKmcs6pGNAzBqRsosgX/UOFCJM83v6nNtmPx67Jbvh8vjOtLKJYmXECPmCGS5eiC0RrT+ryhBkiR
-	 BV/clgdO53uRIr5ppUPA1RGgLgLaT7x0qU47/6pk247M+3sLAFF19/wr4IozDoahbm6csbcg1WWJ
-	 F3GhZHviwUT/DNBTv4mbW+qLUj/4jaobcMu+78J0RogRxxMBt4AlzgofwAeLUcqS7UpAfu+7c11p
-	 mYLKVOLzDO7Lpkw/6m8cekqwfDZs4qvP/hnT+Gm21YdCv//eAbBgjgPsxX/b4TVLxDz7Ik0m/5An
-	 4y/V3J2cu02gSUBq411+z7aFIwEjSxL9NwXtH1H6nPMMCo2SVen7wH1FwLRgo6GNqXYbtgwwP3qp
-	 UWcfdBh4Uc0o/seo/OhrLgk7sWFsyQfjkKsGYt9cCeXDlYrTQ15nlqkzjDVSXHr3AoPnJyLabg/Z
-	 2O595qusTXNq3sG8wtDaHeyN9vCFCVqS/KPWRV85Vr6HN4Nj3u4qkDySk85w192Pr5md2E/iTgEJ
-	 piEiue83T/I9qW7B4XvsBKgXO2FZZ4FvrQRlrzcOksliwCzxNjIlDFSccFIAlo7RYKVkxYaj15J1
-	 D/nRnNybZnL86uEs8ILw1GE21Jw9a43FGVcChcVt++IJp3vrSHR1RbgXotjixOHpBRiKj+ebx+H3
-	 Edgg9Y0RiR4/FUi31QFHviFszp8+Q+rjuruPKhct5Pky53qHrFBkohkO+8VmGqePK7Q0Pt5mUSOY
-	 m5d+V3na/Yspj1jjf751kzbRrXkTIEliA/YC6cDXQyJHFSIDKUHi8ZcEfTSWtqv0pDGAoFoA0RFe
-	 KB7byoRic0F++fgksk+yFnEZC/tQ==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: ZhuXiangyu <1194781887@qq.com>
-To: Mark Brown <broonie@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Chris Morgan <macromorgan@hotmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-spi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ZhuXiangyu <1194781887@qq.com>
-Subject: [PATCH 2/2] dt-bindings: spi: rockchip-sfc: add RK3506 support
-Date: Sat, 21 Nov 2026 15:32:46 +0800
-X-OQ-MSGID: <20261121073246.1233736-2-1194781887@qq.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261121073246.1233736-1-1194781887@qq.com>
-References: <20261121073246.1233736-1-1194781887@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njbIRTBd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795246852;
+	b=zG+PdeRLO/7MUdBE9O9dfJyZdK9yLkpTEsE1e+YFzfnndYwB9xT14GQ/wM9Z77lwa8m1
+	 Th8qCDxVsro0dyiZspBQgwcAVHieTjTvnrdY73yh/0/18jd0LcZbZeXUn9LFnlIWeUxWw
+	 A1OIVYpAwjrmSNq9kTJWDe6QY8rAk2PnWJzTCzyboAQfmuKe8L9uMh2+lPPS1ZDwh5i4D
+	 tRT6xQZ3WSZTfK7tOZgcATIfY03J8cAte52Ziv4ah+YY926vlXsoUGBsx/I0M1kJ+CFe8
+	 PzCMGCB6jeiHa9Prv6brAeniuwlVP2V5Ab8R0ObDsTWQOic/XguFz4GOdtzNPXftDTA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795246852;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=36V+mCW4ECCK+xw/ld7e56VJdb4cJ09mJjljNXhrscc=;
+	b=hPm014g8rjFPQk7/EE1uLsvTdN2wrmR0BC3SKexn/rQfG5ya2jXpgICCWzCkmh6srul+
+	 G4h0SmmYllRobhGmTrCnc5fjRJYq9ZZ1dzWr9AFWMcrzXlD/edHWO/I7xyuuDT0cyOC8R
+	 bYsmyHTMq+La2OtcqX3A0v5V0Rfu96YYrp5MhRyib7+AFGQ5WJgD1ux/VlgKDC13lcCic
+	 IFeW3tSCtShZ4C77HmmpXFg3UxSaup0355OlmnyJxmQ03Umd+0FHr+M6fpxV2j52kPPVF
+	 FhRspLLnq4n0zFANnzbqWuQW92DpJNeLFETksIatgYftxWZz6DHX47lakX0Cuv53a8w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 413651F000C0;
+	Sat, 21 Nov 2026 07:40:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795246852;
+	bh=36V+mCW4ECCK+xw/ld7e56VJdb4cJ09mJjljNXhrscc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=njbIRTBdfbRhS67jmPPhvWOCeLGt9RANEv8PSUpSoB/ogqOXNnJcl6zys5cxB1gbQ
+	 NwycZbdy92shcPxDhbrEZLsR3/RQphqCWKG87gdLy38crhpVDeNXgfr1E3RFCzZad2
+	 cQfhNM9baR7HsPI2BDfM8QfFNuX/IQdYQ4ixOb9aJfziFFOGxRJxBeApPsviIGKHCY
+	 GOQVqhXTFVZWBhN2IUPb2EKc25Ycbnoh0J8a19/3JudNpTjN8f1Oi/ZAApUCyHaL3p
+	 xue2+B3YVZd91dZajfG/Zg0mgeDQ8zTHp4kjUmlq99uj5ot1fP/FD5W3lH6QL306In
+	 NG/TTqZdoN2FA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id BB8C34BB58;
+	Sat, 21 Nov 2026 07:40:50 +0000 (UTC)
+From: Cody Kang via B4 Relay <devnull+codykang.hk.gmail.com@kernel.org>
+Date: Sat, 21 Nov 2026 15:40:43 +0800
+Subject: [PATCH v3 04/17] dt-bindings: soc: spacemit: allow eDP/DP PHY PLL
+ pixel clocks on K3 APMU
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,68 +83,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261121-k3-display-v3-4-ec419e8e96b8@gmail.com>
+References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
+In-Reply-To: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Haylen Chu <heylenay@4d2.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ Guodong Xu <docular.xu@gmail.com>, Icenowy Zheng <uwu@icenowy.me>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Sarah Emery <sarah.emery@canonical.com>, 
+ Ze Huang <ze.huang@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: Cody Kang <codykang@vsit.ai>, dri-devel@lists.freedesktop.org, 
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795246844; l=2001;
+ i=codykang.hk@gmail.com; s=codykang; h=from:subject:message-id;
+ bh=8z29uiPe9ruZwBHD+8tg202RRjoYCzOLJvY2lG+G4Hw=;
+ b=j/KA3NbGILk6e/+FOXm3iIrI4CJGQMEo1o3wlEZ4XTxVICrTNLIpZWSFw4IhMdt6cYhvqJdp/
+ 2N/YrEDtRJKCCu/Pj3JL+4mSZbXur+4mv28Fyo+y0BAqZNB8Gcqok7L
+X-Developer-Key: i=codykang.hk@gmail.com; a=ed25519;
+ pk=Osn6/cs9Su/mHHw4P19cmVc3v2FMQfiWahjsN0vEkuk=
+X-Endpoint-Received: by B4 Relay for codykang.hk@gmail.com/codykang with
+ auth_id=895
+X-Original-From: Cody Kang <codykang.hk@gmail.com>
+Reply-To: codykang.hk@gmail.com
 
-Document the RK3506 FSPI compatible with the generic SFC fallback, and
-the rockchip,grf and rockchip,max-dll properties used for the
-power-good handshake and DLL training.
+From: Cody Kang <codykang@vsit.ai>
 
-Signed-off-by: ZhuXiangyu <1194781887@qq.com>
+The APMU's eDP pixel-clock muxes select the DP PHY PLLs as parents, so the
+K3 syscon takes two clock inputs the other variants do not have.
+
+Gate them behind the K3 compatible instead of widening the shared clock
+list, so a non-K3 syscon cannot silently accept clocks it has no mux for.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Cody Kang <codykang@vsit.ai>
+
 ---
- .../devicetree/bindings/spi/rockchip-sfc.yaml | 30 ++++++++++++++++---
- 1 file changed, 26 insertions(+), 4 deletions(-)
+v3:
+- add Reviewed-by: Rob Herring (Arm)
+v2:
+- drop the redundant minItems: 4; four is already the minimum
+  (Rob Herring)
+---
+ .../bindings/soc/spacemit/spacemit,k1-syscon.yaml   | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/spi/rockchip-sfc.yaml b/Documentation/devicetree/bindings/spi/rockchip-sfc.yaml
-index ac1503de..428740c8 100644
---- a/Documentation/devicetree/bindings/spi/rockchip-sfc.yaml
-+++ b/Documentation/devicetree/bindings/spi/rockchip-sfc.yaml
-@@ -13,13 +13,27 @@ maintainers:
- allOf:
-   - $ref: spi-controller.yaml#
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3506-fspi
-+    then:
-+      required:
-+        - rockchip,grf
-+
- properties:
-   compatible:
--    const: rockchip,sfc
-+    oneOf:
-+      - const: rockchip,sfc
-+      - items:
-+          - const: rockchip,rk3506-fspi
-+          - const: rockchip,sfc
-     description:
--      The rockchip sfc controller is a standalone IP with version register,
--      and the driver can handle all the feature difference inside the IP
--      depending on the version register.
-+      The Rockchip SFC controller is a standalone IP with a version
-+      register. The driver handles most feature differences based on the
-+      version register, while SoC-specific data such as the power-good
-+      GRF offset is selected by the SoC-specific compatible.
- 
-   reg:
+diff --git a/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml b/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
+index d3a7c93c3c54f..a6ef456fe14be 100644
+--- a/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
++++ b/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
+@@ -31,14 +31,18 @@ properties:
      maxItems: 1
-@@ -44,6 +58,14 @@ properties:
-     description: Disable DMA and utilize FIFO mode only
-     type: boolean
  
-+  rockchip,grf:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: Phandle to the PMU GRF used for the power-good check.
-+
-+  rockchip,max-dll:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Maximum DLL cells used for delay-line training.
-+
- patternProperties:
-   "^flash@[0-3]$":
-     type: object
+   clocks:
+-    maxItems: 4
++    minItems: 4
++    maxItems: 6
+ 
+   clock-names:
++    minItems: 4
+     items:
+       - const: osc
+       - const: vctcxo_1m
+       - const: vctcxo_3m
+       - const: vctcxo_24m
++      - const: edp0_pll_pxclk
++      - const: edp1_pll_pxclk
+ 
+   "#clock-cells":
+     const: 1
+@@ -95,6 +99,21 @@ allOf:
+         - clocks
+         - clock-names
+         - "#clock-cells"
++  # Only the K3 APMU exposes the two eDP/DP PHY PLL pixel clocks as extra
++  # inputs (parents of its eDP pixel-clock muxes); every other variant has
++  # the four base oscillator inputs only.
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              const: spacemit,k3-syscon-apmu
++    then:
++      properties:
++        clocks:
++          maxItems: 4
++        clock-names:
++          maxItems: 4
+ 
+ additionalProperties: false
+ 
+
 -- 
-2.47.3
+2.43.0
+
 
