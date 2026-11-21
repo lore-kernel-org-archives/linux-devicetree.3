@@ -1,47 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795266732;
-	b=kvUvlAaU0F7AdGQSImrt+GumCEz5SrLBCyekOhYx6XE4NaTetjmlxP788ddwv6GlB4Wu
-	 HIaiwdkWokm1Q04klZdPfoI/Xg9HeGuBidRstBjBnobk8r/nupFPMAY686YHR1WPM5QCN
-	 LuBrpF89fAyoGJR+M0UbdN9auuowBya/n38qzLk0yKhhJBqrs90BPImrOl2qS2IHINb7C
-	 sub+rq4VAeeHrLiI52WqeLbcms01uDay0ojl+fbJN7PyOe5C3XTiUhRx6AEVCiZoLMBgc
-	 D79mJVjtd/syseYuFEMjmdg0ur5dzcuwpGZW7JChT4KRnEHtqGYBwzNf0dqhjorS9kg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795266732;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DL3+uXTpmmOZ+eFU2EbIBqbznty7fMOIe07P6uKnuow=;
-	b=Sl0/rbWfkDkG6oECHcdrS9ap1r5VBMgg1UyXTAuyTBeN5XL+zQ/AvuoKC4dBQ2+e2uSj
-	 sIqUFihPlYLIZAo8hYA+Maz0WwAWXShbHimG5AZcN0bv9hjV3lUCuVW0Dvt0hsyHb0UIz
-	 8M1GRiLkw9L0M/BtPkJxFIRMSfzDWz58YG624QvZu+nIzvk9FNgEF+265VcaVVmgxmTzz
-	 GksNcqnPm6BrCHlRsocOOqK9z9FPjABE7LYhzsxspU2JAegZEOCO88tBHxycrlxY4PgS7
-	 1t+MQ2p1jiFgETuSfe4f2WmTC8ccAmciR9bfHre2bNiT6mWpUCQ1SnZNu6F9B89zRCQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FPWMCT7l;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795266973;
+	b=kX/txf9FhzjA2kZYblF16KaVUGsnZb0Lncj3pXhhTKyDC0UFGkWW+RtdT7q9qPHb74sG
+	 zx38ok6kxHWXT5Q9jcBpJ2MULwj4bortaMx6BNeSl039YDhNjFDsxYOkzPZpf6FTLk3GR
+	 xycQTiudGcpv6wd2flaHB18zXMDGuuoZW3pyrtarWx8O+cXCxPhHCSFfSSm14CnObkWjE
+	 f3IEqg0mOQkwHHjLR3siHuu1i5befqaAFUXIYp0x6TB8Rlp58YtF3mcosqiveZ27PPEML
+	 HtJb1l2wBZTj6JdAtlxp032VZNyf/46wrL6NQtYs+NXmGp4sHIfIzMXgnDqjhI4aNnQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795266973;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=jBtEkPNRck7QDwTZxqVQd7rLlwS/IspEELx+l2l31MI=;
+	b=VweqoZI6XU0P+vn9tXm36ewfTQ8iVMfIdwQueA9dpoICNZvxyLXDf1US/4rYT7tOefwr
+	 h+n6pmv6lYCDNUfuyzYQh9G6PHQ5UINaLQOEvtal6jz3Ykkm6UvrrJgjyv60nzl2lYelm
+	 00K1EK5TTAHPIKZQh8GK/ytZ5wgJFhEFChA8QU4U28JbuGEuXfVVSmjjLuIrNdreJ0pK+
+	 W4J46vnBOdLwg0Q7052k72+O7IgiYaBWDNewzGD5OdWikQ0QuVJpwjGb02ibqgpm8W8qA
+	 /ng2fQ2ik0NdvjVXyreoaEB+HtQhojHey5+BEf6mRpbFb/ET8fCZPIAPmPCv/SOMgHg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qxqy6ekK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7598F606A320;
-	Sat, 21 Nov 2026 13:12:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E05606A330;
+	Sat, 21 Nov 2026 13:16:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FPWMCT7l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C221F000C4;
-	Sat, 21 Nov 2026 13:12:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qxqy6ekK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795266973;
+	b=LW0Y9W/UxtGrXtF9/P+KLARsL+kf9XDm1QPMr23IX3flzUVt9wa5Q8dbESBDQPA5DpyR
+	 Cz8HwW729Ja0w2A9YtGdlj+Mf9SdfSeHx4StOS2go9ftQFgNtO2UGO2noQPl/m1WvfuTf
+	 NdWIK//bo66rJ8BxWhZ34jwF3ypLqv0dAsBHiYBOSJyC9TOhLy4Vtfpi0Gk6Aqfjubn2k
+	 97jhHOHMvAL8YJmsv5l/ItPVplM4xXSglyGEZ/SNhTRcKtnu/C/n5kq3Js6IQ5UApvPTa
+	 FVuKM3CTcv7WF2KGEuPLCTGpdOvEC9a6kgVglidTpxZXEgSbpBBNxfUW12NtWfFVV7A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795266973;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=jBtEkPNRck7QDwTZxqVQd7rLlwS/IspEELx+l2l31MI=;
+	b=DZNn7NtBZtoQ9gw2MbuMelqmt7oyhKY6E5xcbIWSmxqm3UDRin+4u32VJ9FHx/+XOADj
+	 nQPycmNVZ7Hak5/n8ZsL5z7HyiQlxhG50N5iZUJo1XoWdCOa4tRcGFD1o6ilbJmrkP2yy
+	 6T6BDRKL7Nu0X8kv993G+McA0XEPrv2aFwWI72j19e8XOCe/opuGuXV+s7b2u4KUampXL
+	 gKeCl65skb4PtlL9HoLBeqqSt5zgI2kGjojvituJPR0wij82oPPbWZqekvBfjX4tTsuYN
+	 wGeKbx0X4precGEpXsZNVC0J2lDGFxtucutOLwciqlLoGJF7WLMG0JsKsPBVv+L7wCw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4CF811F000C0;
+	Sat, 21 Nov 2026 13:16:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795266732;
-	bh=DL3+uXTpmmOZ+eFU2EbIBqbznty7fMOIe07P6uKnuow=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FPWMCT7lqV4WfTCXR9cR7k9HumG1WbgX7+l7Rif1pJwo77OP+v1yXbt/Sqjrme0+2
-	 9RMbEGWaEOwuBtRwWM5bTEniUSmwUu635HfDYLmObt3NSKJ+D46wopvh4geoI5IJGM
-	 zrNdBFk7zJq1GBpEihUl3j9jzntMavxuaJpmCdq60n/vtW8REVhBP72iOQ8EIQU0X/
-	 DNCmyC+w2k9fH6V7t9HLCzCxAt47JB1iZmYj5wrNaqhwlDXPA4BNqs5Y3ZNBNjGmDL
-	 LDxlonuM6sMlHQf6KOs1QOyegkqZ1+2/JLCCmgM+EduNOUF/yRIq4Iw0R3/ZHPyePL
-	 EsJkWl3Wr/i7w==
-Message-ID: <2c21c753-9acc-4111-99d1-a5e686f35f6d@kernel.org>
-Date: Sat, 21 Nov 2026 14:12:01 +0100
+	s=k20260515; t=1795266972;
+	bh=jBtEkPNRck7QDwTZxqVQd7rLlwS/IspEELx+l2l31MI=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=Qxqy6ekKOJi5s80BCeX6/kW3Hz3RwOs8cAcnli8xbiOUjiIZGxJEaiFMtHsvKdFif
+	 9/z1BqiCfbgoeP00zUv/fC8ustIstHgZmiJBMIbKvWK7LDDT6JPtfq0ADmdwDE7Fli
+	 R7auMMNFvrZE0e7JBFJPKvy0rIjuaqoWEh4SdwaGKsLtKDI5rP/Ufw1g6zi7xRYkg0
+	 xpK8Ryw61uNyQ39b68GV+IvpwkJG6N69yGKaa76y4yFFI5/iQKqcl8ETTcFAXMCVjN
+	 hqn7r3qR6DygBcOIIdWhIv6ZB1DnC7Z4EhPcr4dSfc0/D9wbb8585KCH018eBIBN+A
+	 5DLHZBHjoryGg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A008D4BC77;
+	Sat, 21 Nov 2026 13:16:11 +0000 (UTC)
+From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Subject: [PATCH v10 0/2] A proposal to add a gpio-enabled clock driver.
+Date: Sat, 21 Nov 2026 13:16:07 +0000
+Message-Id: <20261121-feature-clock-guard-v10-0-5d449739bb8c@bruker.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,92 +83,121 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/5] media: dt-bindings: rockchip: Add RK3568 Video
- Decoder bindings
-To: Daniel Golle <daniel@makrotopia.org>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Shawn Lin <shawn.lin@rock-chips.com>,
- Michael Riesch <michael.riesch@collabora.com>,
- David Heidelberg <david@ixit.cz>,
- Christian Hewitt <christianshewitt@gmail.com>, Marc Zyngier
- <maz@kernel.org>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Dang Huynh <dang.huynh@mainlining.org>,
- Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
-References: <cover.1795191822.git.daniel@makrotopia.org>
- <70b950c4b4fefbe07fe081f780ff359ed697d37f.1795191822.git.daniel@makrotopia.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <70b950c4b4fefbe07fe081f780ff359ed697d37f.1795191822.git.daniel@makrotopia.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJeZAWsC/43RzU7DMAwA4FdBORNk5z+ceA/EwXGzrRqsKN0q0
+ LR3J92BglLQjrbkz39nMebS51E83p1FyVM/9sOhBgj3d4J3dNhm2Xc1IRQoBxqD3GQ6nkqW/Dr
+ wXm5PVDq5UUCKtU3RWVEr30ve9B9X9vmlxrt+PA7l89plwjn7vzehBOlQe04Ggkn+KZXTPpcHH
+ t7EDE5qQSzCOqJmhJU1NnRWG2gQvSB1lnVEVwSQmYAIDNkGMQvilVtHTEVy5JC0V8kjN4hdkIh
+ 2HbEVMYqS7ViTI2oQ9wNRfh1x8zrgY9AJdWbVIP4GxFckdB1G60IXqUXCDUiYv6Mh6pA1KMIGi
+ d8Iwl83iRVhZLBk4jzKL+RyuXwBvYdRROACAAA=
+X-Change-ID: 20260318-feature-clock-guard-f20a2c35b965
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795266970; l=3728;
+ i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
+ bh=WSW5wx/mSC8oXiBVGrOyu6PgJaHE0ySq4NfVc7Wh0q8=;
+ b=SPtE3G/TBzqpzeunjO8RxfFjyPgp0QqlPRA01/7/K0JN4o6AAldTo0YDCtVG+AeJCoy5mFGg4
+ 96XQH9BzrYfBZXHynM9AbzniAw3TR3wikdUBXMGRdpBlnchcqe+LNVE
+X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
+ pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
+X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
+ auth_id=686
+X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Reply-To: V.Yurkov.EXT@bruker.com
 
-On 20/11/2026 18:40, Daniel Golle wrote:
-> From: Christian Hewitt <christianshewitt@gmail.com>
-> 
-> The video decoder in RK356X (vdpu346) is described in the same way as
-> the one in RK3588 (vdpu381). A new compatible is added as the decoder
-> capabilities are a subset of the vdpu381 capabilities.
-> 
-> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Tested-by: Diederik de Haas <diederik@cknow-tech.com> # PineTab2, Quartz64-A, NanoPi R5S
+A gpio-enabled clock represents an input clock, which state is determined
+by a GPIO signal. It's similar to a gated-fixed-clock, but GPIO direction
+is inverted. Consumers can use the output clock to wait until the clock
+is ready and only then initialize / access dependent peripherals.
 
-You just ignored my feedback.
+The usage example for such a driver is when peripherals depend on PLLs in
+a FPGA, which can't be directly accessed by the CPU, but need a GPIO pin
+to check whether clock is actually usable. E.g. some of the IPs might not
+have a proper split between registers and IP core, which means that if an
+external clock and/or PLL lock is missing and one tries to access the 
+registers, the response never comes, thus the CPU stalls.
 
-NAK
+Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
+Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+---
+Changes in v10:
+- Use only sleep capable ops
+- Make commit messages more generic
+- Improve error handling for clock_prepare
+- Link to v9: https://lore.kernel.org/r/20261015-feature-clock-guard-v9-0-c1c05a498d9a@bruker.com
+
+Changes in v9:
+- Changed wordking from "locked" to "enabled" to be more generic
+- Use a separate DT schema file similar to other clock drivers
+- Add a timeout for polling in enable()/prepare()
+- Depending on whether GPIO can sleep or not use prepare() or enable()
+  set of ops respectively.
+- Decouple the implementation from exisiting drivers
+- Link to v8: https://lore.kernel.org/r/20260927-feature-clock-guard-v8-0-630938e302a1@bruker.com
+
+Changes in v8:
+- Fix return value of clk_gpio_locked_prepare()
+- Link to v7: https://lore.kernel.org/r/20260927-feature-clock-guard-v7-0-8dd19568d9a2@bruker.com
+
+Changes in v7:
+- Fix compatibility strings and schema errors.
+- Update GPIO pin name
+- Link to v6: https://lore.kernel.org/r/20260927-feature-clock-guard-v6-0-007983b13ec2@bruker.com
+
+Changes in v6:
+- Debug messages dropped.
+- The new driver is now an extension of exising clk-gpio drivers.
+- The controller doesn't enable the parent clock, the consumer is
+  supposed to do that instead.
+- Link to v5: https://lore.kernel.org/r/20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com
+
+Changes in v5:
+- Use existing DT binding with an additional property instead of adding
+  a new one
+- The driver is simplified in a way that it represents the actual HW
+  desgin without additional unrelated constructs
+- Aggregation is removed, now it's one clock input, one clock output
+- Link to v4: https://lore.kernel.org/r/20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com
+
+Changes in v4:
+- Removed driver specifics from DT binding
+- Link to v3: https://lore.kernel.org/r/20260603-feature-clock-guard-v3-0-01cca0aa04a5@bruker.com
+
+Changes in v3:
+- Removed unnecessary dt bindings
+- Improved HW description and commit messages
+- Link to v2: https://lore.kernel.org/r/20260510-feature-clock-guard-v2-0-6c25458d5340@bruker.com
+
+Changes in v2:
+- Renamed to clk-gpio-locked to express intent.
+- Provide enable() / is_enabled() operations so the clock behaves as
+  expected
+- Fixed DTS errors / warnings
+- Link to v1: https://lore.kernel.org/r/20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com
+
+---
+Vyacheslav Yurkov (2):
+      dt-bindings: clock: Add gpio-enabled-clock
+      clk: gpio: Add driver for GPIO-signalled clocks
+
+ .../bindings/clock/gpio-enabled-clock.yaml         |  55 +++++++++++
+ drivers/clk/clk-gpio.c                             | 107 +++++++++++++++++++++
+ 2 files changed, 162 insertions(+)
+---
+base-commit: 65e4fd942f72a9dba0e4e257290c4fa1aa756854
+change-id: 20260318-feature-clock-guard-f20a2c35b965
 
 Best regards,
-Krzysztof
+-- 
+Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+
+
