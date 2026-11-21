@@ -1,59 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.18.0.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795257962;
-	b=hC+CsCK5zJn/4E7C7VpoySjtR1LJqnnJNKUasdThbkP+vwkB2Abwj7r3VouJZLpOvbjm
-	 YWHOsYgrsKSH/zgZYdgTM0mPBPBfz+vcTG0eQFVFpNQPoCtQuZykpV8Zq3anguzGEaS7n
-	 EEHyQT2clEG69/dEs20Zr09ma0Yfy3VkY7o6LVZczEMqg6DWTvIoINOyDzdI4brdPzfrK
-	 be64P3KakSoa41qB29RdcoxRsU3zwZQDHHkR1ShyjzqNv97hIVzqj6KCImPaiPdyfluDB
-	 PU+OaDuk4ku9O4Mp080ED/bj+tay2ypDc3KKoki5K9vUQbpIhwrHaA0x6umAZ7e0Pzg==
+	t=1795258246;
+	b=HuB/Mdzl2G5tEU79mV0emaPJa8NQ1KxqBBCOoM+4rdigwb60H8Dnn62l1xt45CLBl4gP
+	 RcgB3jgfZwRtnBigvGvp+IHyljHNQjTxY9mhIGhxNXk6OzwjKRvLLK0sYko/4fuWG/esC
+	 3DKtmG/w9jazqTRHurb4QoMiVuOpg11C9YiPGKfvk/bYBrYLehtJ7ktNWljVedM4u0D69
+	 AyMlDFT64ayF/OTxshp/H1tyB/Zt8Wq/Tt/ZZFffkKguUtrYxKA49EKEnfmTC8m+6HoOf
+	 2BnTzqGI8bIAZH2FjEaMDHgfs650DWptTPEKC/kU6XeXpfy0eSgDch0i+NE7grJxhRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795257962;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gsLRs05el5S8eUMVy/O2WOBbiWJRz3HNAwLOV1Xv6Xs=;
-	b=AITB4KftcgOIkTN82Bfj+FUWb/NQago/MrPX3NS3kAarEl3yaEUMN6+c9Ee9K9JUDbKV
-	 XSAqGE0zeNi7xQB4wlRd46cx8IlIfW6K6J+dw0ioVOKb5HR0INUOp+gZ6ZP13V6xOiTUR
-	 EhkYrSPzdRLEg7yNVcX85xO4vtt8fQemKt55ICsoKChqUH9H487JmhqHVr3g5Fj2voXvG
-	 1Qhl8OemYQNk54WH/uusjl3rLJuN4PVfwmfS7a7BvqUqRkDWlbrpo6uHLW8YH4HHqMdgD
-	 tfDeKB4P0VmWKr+bFJJWbJfF+oBixssvdK1ReDDYC38slQWuhNl/1BDwRozqDyv9fRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795258246;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Auth-Info:
+	 X-Auth-Info:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=GQ+eMDXBDrVrEVn9GoLWEDNtXo7EEZLQkKakt155Xjc=;
+	b=TpwXg04izy6owXrUrPd50UonoHA5yHqdzJbNshYZM2A+U/cjF+JymBvunM1TQCIKIPCx
+	 YnKXGGe5+jq7LBu0L8niKh9BJ9JYw4+36Iyc4VBFjGkVJ6m9t96o5ydLemjkPc9j7X1hf
+	 QSQTJkOLMII+55ToRWRFI1bPeHIFIQLwwLv4NkDXkHBO6U0iYAZ+FJiH6w3p9+/33ySU4
+	 rKi38A+YN1YZ3OOWIFVYhc80f9Q2tBbt1k3aA7pPTzXslXcQ3dIpKmlnpM5oiQ3GG1z51
+	 vlbjODrVGn7p7BdAnxMljxulQrIvvqp3chO0dIkevFfuez7rRQj1dPGlUQf22mNMLCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NgaX9cUe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=muenchen-mail.de;
+	spf=pass smtp.mailfrom=muenchen-mail.de;
+	dkim=pass header.d=muenchen-mail.de header.i=@muenchen-mail.de header.a=rsa-sha256 header.s=r1 header.b="kpNvtQJ/";
+	arc=none smtp.remote-ip=212.18.0.10
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDFA606A320;
-	Sat, 21 Nov 2026 10:46:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B400606A334;
+	Sat, 21 Nov 2026 10:50:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B400606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muenchen-mail.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NgaX9cUe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ADF51F000C6;
-	Sat, 21 Nov 2026 10:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795257962;
-	bh=gsLRs05el5S8eUMVy/O2WOBbiWJRz3HNAwLOV1Xv6Xs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NgaX9cUeyOB46uErMYn0TiSu1JV5cHTOw/8b6D2FeUWideRIYKYtfwuJ2XyvwqDmJ
-	 zG9dFLwc1/gj/xCEvgddBjzwBNKNrg54dsrE1LbtQlMR2M2csuJ42m4Fda2aNIYzub
-	 Oar1C3dJrvXauUwlZPYnQG8fI/5hneshV4lsB0fZYqdscc3JAgwY9E7eeB1hSzaSCg
-	 7Yo2rOOl0fsXxEc1wnJKWhrlSQopj5LYO9kLudm3xwig5IBIPNwl3D+DJDc4LZcbYM
-	 fUY7oTdF/7Bxi05PHPWd2iKfY8H/WDH14BvVYh60TvcO4/E2IIhOYxhnM/kgF4v+8v
-	 opH/swCaOy+Gw==
-Date: Sat, 21 Nov 2026 11:45:58 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] media: i2c: dw9719: Update DW9800K driver
-Message-ID: <20261121-oxpecker-of-fascinating-tornado-747cea@quoll>
-References: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
- <20261119-b4-dw9800k_cleanup-v4-2-df26c431595e@fairphone.com>
+	dkim=pass (2048-bit key, unprotected) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.a=rsa-sha256 header.s=r1 header.b=kpNvtQJ/
+Received: from mail-out.m-online.net (localhost [127.0.0.1])
+	by mail-out.m-online.net (Postfix) with ESMTP id 4jWprr1dd5z1sRL0;
+	Sat, 21 Nov 2026 11:50:36 +0100 (CET)
+DKIM-Signature: a=rsa-sha256; bh=GQ+eMDXBDrVrEVn9GoLWEDNtXo7EEZLQkKakt155Xjc=;
+        c=relaxed/relaxed; d=muenchen-mail.de;
+        h=Date:From:To:Message-ID:Subject;
+        s=r1; t=1795258236; v=1;
+        b=kpNvtQJ/+V2Ss8c9TpaByzxGEglvqK4rv9YadtKtVOA8puInEP6QdEklI3YGq/bS
+         HqUlJNaSWXobFm84GUTqczT1d/gHYCPO89uqOPPMrRa9cOjQNJ6HQ+GpmY2n2wMy
+         bBccjZVyRN329VaxX8ThQrNmi1hRg5XnNIf5nDmLaHtGFWrWDjgnDYaOxu/sX955
+         w/JmndlVfUM6zr5Xs5J7YtrYcBBCjJuIkT+CpJTcjQcUyhf5n/YjmBNRvokPtlr9
+         uK+0D7peC3RrXcoKRHAbBj8MEyR75XN9XZTlFJ+BzsUEIUFj739d0VRrE/Othd/K
+         ikgNALNupRMbtrhCrXFkqA==
+Received: from frontend03.mail.m-online.net (unknown [192.168.6.182])
+	by mail-out.m-online.net (Postfix) with ESMTP id 4jWprp2t3dz1sRLT;
+	Sat, 21 Nov 2026 11:50:34 +0100 (CET)
+X-Auth-Info: gZR21gORsY69QSjr0ULjndmUbiQCWC2CS/qQJCc8xGJFaSKF6dOb8giB328fqP7N
+X-Auth-Info: gZR21gORsY69QSjr0ULjndmUbiQCWC2CS/qQJCc8xGJFaSKF6dOb8giB328fqP7N
+Received: from wiesel.intern (ppp-212-114-181-207.dynamic.mnet-online.de [212.114.181.207])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.mnet-online.de (Postfix) with ESMTPSA id 4jWprm3rb6z1qqlS;
+	Sat, 21 Nov 2026 11:50:32 +0100 (CET)
+Received: from [IPV6:fdea:9b79:8984:1:7c3b:4612:a548:c3c8] (unknown [IPv6:fdea:9b79:8984:1:7c3b:4612:a548:c3c8])
+	by wiesel.intern (Postfix) with ESMTP id A79B479A0818;
+	Sat, 21 Nov 2026 11:50:31 +0100 (CET)
+Message-ID: <fbaa1ed3-6e59-430f-9ce5-26020591bceb@muenchen-mail.de>
+Date: Sat, 21 Nov 2026 11:50:31 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,43 +71,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261119-b4-dw9800k_cleanup-v4-2-df26c431595e@fairphone.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] Bluetooth: btbcm: disable read tx power for
+ BeagleV-Ahead
+To: Drew Fustini <fustini@kernel.org>
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Guo Ren <guoren@kernel.org>,
+ Fu Wei <wefu@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org
+References: <20261020132604.90708-1-thomas.gerner@muenchen-mail.de>
+ <20261020132604.90708-2-thomas.gerner@muenchen-mail.de> <awDdetFNaeuxKkbp@x1>
+Content-Language: en-US
+From: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+In-Reply-To: <awDdetFNaeuxKkbp@x1>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 19, 2026 at 10:51:24AM +0100, Griffin Kroah-Hartman wrote:
-> The previous DW9800K driver code was created without access to a
-> datasheet for the part, now that we have one we can clean up some
-> misunderstandings and add some features for further expandability.
-> 
-> More specifically:
-> 
-> Previously we were blindly writing registers to their downstream values,
-> Now we know what the correct default values of SAC and SACT, and write
-> to the correct bits as specified from the datasheet.
-> 
-> We found that the device does indeed have an ID, and add it to the
-> switch statement when setting up the default device properties.
-> 
-> The largest change would be the implementation of "Ringing," this is
-> actually an internal switch bit used to differentiate whether the SAC
-> (smart actuator control) modes are enabled. if the "ringing" bit is
-> zero, then actuator modes DIRECT and LSC are available(based on the
-> value written to the Mode register). If the bit is 1, SAC2-SAC5 are
-> available.
-> 
-> For the devices we tested this driver on, no new values are being
-> written, but now the option for further use of the DW9800k is available
-> to others if they wish to do so.
-> 
-> Fixes: 083f7f0dce16 ("media: i2c: dw9719: Add DW9800K support")
-> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Am 21.11.26 um 00:53 schrieb Drew Fustini:
+> On Tue, Oct 20, 2026 at 03:26:03PM +0200, Thomas Gerner wrote:
+>> The bluetooth module of the Ampak AP6203BM is identified by the btbcm
+>> driver as BCM4362A2.
+>>
+>> The firmware of the bluetooth module on the BeagleV-Ahead reports a
+>> capability of reading LE tx power. However reading fails. To get
+>> bluetooth working it is necessary to disable reading of LE tx power on
+>> the BeagleV-Ahead board. The disable is implemented in a similar way as
+>> for several Apple boards but uses the board compatible identification
+>> from the DTB as there is no DMI.
+> Thanks for sending this patch. Do you know if this is a problem on any
+> other boards with the AP6203BM?
 
-Well, not your fault, but that's a nice example why register values
-should not be the DT ABI. I am going to bookmark this patchset and use
-it in future discussions when people insist on using hardware values as
-the actual ABI :/
+Unfortunately I don't know of other boards with the AP6203BM.
 
-Best regards,
-Krzysztof
+> Also, is there an error message for the failed read?
+
+
+Without the quirk I get this message:
+
+Bluetooth: hci0: unexpected cc 0x204b length: 1 < 3
+Bluetooth: hci0: Opcode 0x204b failed: -38
+
+As a result the hci driver stops initializing and Bluetooth is not working.
+
+
+>> Signed-off-by: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+>> ---
+>> No changes in v2
+>>
+>>   drivers/bluetooth/btbcm.c | 19 ++++++++++++++++---
+>>   1 file changed, 16 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
+>> index 463d59890bef..2d02cc1863d0 100644
+>> --- a/drivers/bluetooth/btbcm.c
+>> +++ b/drivers/bluetooth/btbcm.c
+> [..]
+>> -static const char *btbcm_get_board_name(struct device *dev)
+>> +static const char *btbcm_get_board_name(struct hci_dev *hdev)
+>>   {
+>>   #ifdef CONFIG_OF
+>>   	struct device_node *root __free(device_node) = of_find_node_by_path("/");
+>>   	char *board_type;
+>>   	const char *tmp;
+>> +	const char **s;
+>>   
+>>   	if (!root)
+>>   		return NULL;
+>> @@ -550,8 +556,15 @@ static const char *btbcm_get_board_name(struct device *dev)
+>>   	if (of_property_read_string_index(root, "compatible", 0, &tmp))
+>>   		return NULL;
+>>   
+>> +	/* disable broken Read LE Min/Max Tx Power on first board found in list */
+>> +	for (s = board_broken_read_transmit_power; *s; s++)
+>> +		if (!strcmp(tmp, *s)) {
+>> +			hci_set_quirk(hdev, HCI_QUIRK_BROKEN_READ_TRANSMIT_POWER);
+>> +			break;
+>> +		}
+> It seems that btbcm_get_board_name() only looks up the board name for
+> the firmware file so I think it could be unexpected to set a quirk here.
+> Maybe this would work better?
+>
+>    static const char * const board_broken_read_transmit_power[] = {
+>            "beagle,beaglev-ahead",
+>            NULL
+>    };
+>   
+>    [..]
+>
+>    if (dmi_first_match(disable_broken_read_transmit_power))
+>            hci_set_quirk(hdev, HCI_QUIRK_BROKEN_READ_TRANSMIT_POWER);
+>
+>    if (of_machine_compatible_match(board_broken_read_transmit_power))
+>            hci_set_quirk(hdev, HCI_QUIRK_BROKEN_READ_TRANSMIT_POWER);
+>
+>
+> However, I am not very familiar with Bluetooth drivers so I am hoping
+> Marcel or Luiz can comment too.
+
+My idea was to use the board name at btbcm_get_board_name() as it is 
+already available. However, this suggestion looks is it is more common 
+than my idea.
+
+> Thanks,
+> Drew
+
+
+Best regadrs
 
