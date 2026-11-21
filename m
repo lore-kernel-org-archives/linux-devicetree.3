@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795246865;
-	b=0ukDWAPc5o59XvkHGynvvTsFTptufGUlmu14D/sVwNcSLM0PHVseO38bItAODY4UA3K6
-	 Hks3ZI31I0k7HhqLG22mPO+l4Lh6+GFdpc492k9csGUn94/BNxK+mrtF0sqv1bTqboeXg
-	 wpciT1jMmoe+BMWH7flnTk//dOy9n6vI7CLIAPvwUF4vk/iFnY8Ex0JxA3B2CfzOvH/xE
-	 L0ROsn7/Te4gUywpfdj3koz4KKb5xGe08WHXwRW/yND6nAiwy9LsbKsoqhyw3r1goQN4Z
-	 5MVI3JcSIawHVbj3DdVNaoDU0aXuoCQ7zzuWb1GfGM9/hk4YV9b9OLE5jmfPF1I9l1w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795246865;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=APjcjN7LNtjWX/4CCT5XFBMQqLR6Sx43Xbky9olpkZI=;
-	b=2Xb0BoFWb3zNys53IQ8igf+Zl9SfVW98tCa1IUDbkXtptMLxVI4Jd1YXxJ5rdyMoX6xa
-	 nL8Uf6ctG8oR/kHHq3O11zzb33JuvHifvtD1P2zyEdq0glZKH00vZQ4XEYIitaR+uYkyv
-	 vDCez8NURqAooaNjnywxkJXBwDzwuh7XMdie+zG4N+ngUVnyxS8bevMZdCcd+WN2Ywav8
-	 3Lnd3xPZe7/DThPVPph6y89BhOOAzvYV7dqFC+QXwJeVm7kIaamXkNDB3GAW+uLdrTUan
-	 E4JFzuFnWy5AjEyknI9bykOvNcegO9jh2iHgb/CtXYPIIYpsNg71y8MPIJxVGQQiepw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FV26d+4O;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795247056;
+	b=GAQff7d0wbhVoPBX374w07ttikrhBwlSFzwr+2nKs4lh/5AkmwEyK8wslz+dX210HprE
+	 xCrm0afrui6iLXiXuN2IPxZrQERBOgIt8weyiyMkbaMDqa65InYXGGQ/IthOs7R22p+SU
+	 IX9V7dZWhP1l80htf0fSMIfVoYA5fHJWjlmLeTFwcJPOw6/q+CSVjlU4t/MuEakro5iKC
+	 TlKywqm1kyYNr1gD8B/f/pXLhVC8MBP8bV3PJHY8xGjbj9QUqSyJgBcgDCAW7A7FKE30F
+	 rD6hXjj/SNA/1uej07k3OH/sgd+p/clDDRCh6xn8Ps80YzKnaK/kvyjmkcfahbaabig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795247056;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=3LF0iozCK3be5qNzdN7kLidOplRMQaHvoxhaWrqnzAI=;
+	b=H7m9pafpYKFdL/6JvPmTT180jE+a7x4gy+KYsVBjhcVsS1d5g7zhXe1X0IS8o1TD9bTY
+	 2cLWUD8lC8FRUWCdPh2yXiI8BkbklpMqLTho56j91QOcZhlFDnniiwGtOJ6hHTfrK/eL1
+	 6/npPzXGUuNf8Vaagw2swPSuFhy4bNLJwUq6VJWH7fYkXTJGxmkj3ZnbyV0jN07KqN6uX
+	 6BsLzqHGf8ayE2HH2o3M/2JisRysIUJTnc81seTi7t/6TsWlI7DExb5wV6eLHTKwo2vIJ
+	 dSbPl5kttq+8oXhnDhUeJMgbUjAhtn5C1Pgc0FwHQhawhCEka386jgiynjBjVXDN1Vw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YmduxRyR;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB30C60A3823;
-	Sat, 21 Nov 2026 07:41:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6862E606A320;
+	Sat, 21 Nov 2026 07:44:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FV26d+4O
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795246865;
-	b=OsWdpC1H+IUymHXpfX/ZH4+6tKOMNHEb68Y73km8dzr5F4RVWQ541WG9t56MHxw+TRyV
-	 8s6NNlYoNY6CNLa4iUKRyPKqQO6vrZeupe6uzgqTT9gZATVBNi1rJQtO0T900jWCVr9td
-	 hEFamTPimSH5m4C7cH9JTMbG3RCqey9DCJhq9RNji2m77KQnbH6zzg0Zy8nax2aadXtp2
-	 qYv6w4WUesAjHCvhswqDVTb9ZL8XQjW4oPVek4kuuWWYMGS/JfItNGa3axRU4+fVSGefE
-	 si2X+dzH2bIxXN67g1b8fXaavFd5dKLkxTImQuagF296sN8fAVB4eQeIu5pYhW8ZJNA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795246865;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=APjcjN7LNtjWX/4CCT5XFBMQqLR6Sx43Xbky9olpkZI=;
-	b=u7qOxZWUQOkPURc5t0g9Wlvy8M+MErVwmOs8BkBzdPsLX39UdjoaOmMDIXw6s+wPfkDI
-	 rSBG/kLb+fvz9Q9XMOlYJN0F0EznSMogjd+z3VP3i1WP1I9EDnoEMFs/AIWa5tMLuNfB2
-	 q0RwY3cEd8dnaiH7sG1MPNVvT0cFwO1OgvJEp2yTVWvZnBNmKzq09tmHFYJD06zxMN3KL
-	 bzD/HewNQmRCw5pVwNEh/OpA/Tnai70f8O2zu6sJG0/SuTnAkDc0Rr25akc3uruR/UoDf
-	 p9/sRxZWDpXALc+4jFxjbYnwmk0xI3wlyzDT4fKyCeyFFNb22PZKsSuGqYF6k4cKDfw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 519021F000D8;
-	Sat, 21 Nov 2026 07:40:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YmduxRyR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B101F000C6;
+	Sat, 21 Nov 2026 07:44:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795246865;
-	bh=APjcjN7LNtjWX/4CCT5XFBMQqLR6Sx43Xbky9olpkZI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=FV26d+4O1cgP+HoKx1WmIUv0Wpy7SEEpAicOwH+hYwzly4V50FhpuNrdoR5XnQ5/a
-	 u86DkXDdP8wbTRejMCepvi5RbCm1h0hfWMbMCuUEK8ZwLpT33zlYI4xG8wxndzYooU
-	 u/RkdnQwjgmMJ40Mtj3dbZSqHj0Pu39Zlxu/6VQVFFNvhECw8ewTEOfcX4UKbSrhLc
-	 0G7yDU070IYBwfDng38Vyotfm7y9sKSgRiJtXKL+SWFVtMiJpSKX+pOD3yux4443o5
-	 YZdrBTQynLBcEp9MGp+qGpTi8tXKC2n4VfDMW6lCK8QoRqDPyPNKFVd1yxjVL7ytlm
-	 lZnzZxB4+zR5g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3681A4BB8B;
-	Sat, 21 Nov 2026 07:40:52 +0000 (UTC)
-From: Cody Kang via B4 Relay <devnull+codykang.hk.gmail.com@kernel.org>
-Date: Sat, 21 Nov 2026 15:40:56 +0800
-Subject: [PATCH v3 17/17] riscv: defconfig: spacemit: k3: enable display
- driver
+	s=k20260515; t=1795247056;
+	bh=3LF0iozCK3be5qNzdN7kLidOplRMQaHvoxhaWrqnzAI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YmduxRyRHHMU4wilmiUFb7isWnCLOvZCruN73/lYgyJt8FQqqHl3t+Umft53F4czP
+	 SumCCjfuZosaF+sd37vxCJvyXMtoY1w2UC/swHhxny8Ah5XhrPNN5/MongFecKgwF0
+	 M77dafo8ii0RR0oYFozc1SlYyDjd/SyJ5hTdvaPRKT6XihqDUiB6KinIeXiv3Quqat
+	 3gpdPL0o6zQhw1crSbReraxhRItX34hsO5mC8JIccEj14tLfYGD5Au90Ru9do67dtX
+	 Bt6g3sTv8s1tHWWETx1n5uYphwJGM/llO1PmMxBYk0eCTbf4Wj5rdr5hMRdvjMGB9g
+	 ZTer37M8kxqEw==
+Message-ID: <sashiko-outbox-226790@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 01/17] dt-bindings: display: spacemit: add K3 Saturn
+ DPU controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cody Kang" <codykang.hk@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261121-k3-display-v3-1-ec419e8e96b8@gmail.com>
+References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
+ <20261121-k3-display-v3-1-ec419e8e96b8@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 21 Nov 2026 07:44:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,79 +60,100 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261121-k3-display-v3-17-ec419e8e96b8@gmail.com>
-References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
-In-Reply-To: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Haylen Chu <heylenay@4d2.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- Guodong Xu <docular.xu@gmail.com>, Icenowy Zheng <uwu@icenowy.me>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Sarah Emery <sarah.emery@canonical.com>, 
- Ze Huang <ze.huang@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: Cody Kang <codykang@vsit.ai>, dri-devel@lists.freedesktop.org, 
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795246844; l=761;
- i=codykang.hk@gmail.com; s=codykang; h=from:subject:message-id;
- bh=tELOa0phwzFcnnYsjPBFCdZHVagIANvdSbzxyaUKABU=;
- b=I2GGXpkKedjPts8bA32L+iZxIS5TVwMypDbPdg5RwmuuEhJOkkn6XJ6fnIUuthmARg0i14S5e
- DDSHtiMfr+LCG+UgtKst1jlJ5iOdHfPNCT8AySF+jdr1n4aaqXH984u
-X-Developer-Key: i=codykang.hk@gmail.com; a=ed25519;
- pk=Osn6/cs9Su/mHHw4P19cmVc3v2FMQfiWahjsN0vEkuk=
-X-Endpoint-Received: by B4 Relay for codykang.hk@gmail.com/codykang with
- auth_id=895
-X-Original-From: Cody Kang <codykang.hk@gmail.com>
-Reply-To: codykang.hk@gmail.com
 
-From: Cody Kang <codykang@vsit.ai>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: display: spacemit: interrupts ordered before clocks
+  in K3 DPU
+--
 
-Enable the Saturn DPU and the DP/eDP controller as modules, matching the
-other DRM drivers in this defconfig; the DP PHY follows through the
-controller's imply.
+commit 5cacd6c3de4c42a0a1e84fc0f0f6938c6990b78e
+Author: Cody Kang <codykang@vsit.ai>
 
-Signed-off-by: Cody Kang <codykang@vsit.ai>
+dt-bindings: display: spacemit: add K3 Saturn DPU controller
 
----
-v3:
-- no change
-v2:
-- no change
----
- arch/riscv/configs/defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+This commit adds the Device Tree binding schema for the Saturn display
+processing unit found on the SpacemiT K3 SoC.
 
-diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-index 04ae305d5511b..7db411d385582 100644
---- a/arch/riscv/configs/defconfig
-+++ b/arch/riscv/configs/defconfig
-@@ -194,6 +194,8 @@ CONFIG_VIDEO_CADENCE_CSI2RX=m
- CONFIG_DRM=m
- CONFIG_DRM_RADEON=m
- CONFIG_DRM_NOUVEAU=m
-+CONFIG_DRM_SPACEMIT=m
-+CONFIG_SPACEMIT_INNO_DP=m
- CONFIG_DRM_SUN4I=m
- CONFIG_DRM_VIRTIO_GPU=m
- CONFIG_FB=y
+> diff --git a/Documentation/devicetree/bindings/display/spacemit/spacemit,=
+k3-saturn-dpu.yaml b/Documentation/devicetree/bindings/display/spacemit/spa=
+cemit,k3-saturn-dpu.yaml
+> new file mode 100644
+> index 0000000000000..97ea9da4b68e4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/spacemit/spacemit,k3-satu=
+rn-dpu.yaml
+> @@ -0,0 +1,132 @@
 
--- 
-2.43.0
+[ ... ]
 
+> +properties:
+> +  compatible:
+> +    const: spacemit,k3-saturn-dpu
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    items:
+> +      - description: Online (live display) compose path.
+> +      - description: Offline (writeback) compose path.
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: online
+> +      - const: offline
+> +
+> +  clocks:
+> +    items:
+> +      - description: Pixel clock.
+> +      - description: Memory clock for the compose pipeline.
+> +      - description: AXI bus clock.
+> +      - description: DSI escape clock.
+> +      - description: DSC clock.
+> +
+> +  clock-names:
+> +    items:
+> +      - const: pxclk
+> +      - const: mclk
+> +      - const: aclk
+> +      - const: escclk
+> +      - const: dscclk
 
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-names
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - ports
+
+[ ... ]
+
+> +        dpu@c0340000 {
+> +            compatible =3D "spacemit,k3-saturn-dpu";
+> +            reg =3D <0x0 0xc0340000 0x0 0x54000>;
+> +            interrupts =3D <90 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <89 IRQ_TYPE_LEVEL_HIGH>;
+> +            interrupt-names =3D "online", "offline";
+> +            clocks =3D <&syscon_apmu CLK_APMU_LCD_PXCLK>,
+> +                     <&syscon_apmu CLK_APMU_LCD_MCLK>,
+> +                     <&syscon_apmu CLK_APMU_DPU_ACLK>,
+> +                     <&syscon_apmu CLK_APMU_DSI_ESC>,
+> +                     <&syscon_apmu CLK_APMU_LCD_DSC>;
+> +            clock-names =3D "pxclk", "mclk", "aclk", "escclk", "dscclk";
+
+[Severity: Low]
+This isn't a bug, but in Device Tree binding schemas, clocks and clock-names
+should be listed before interrupts and interrupt-names in the properties,
+required, and examples sections to follow the canonical property order
+(compatible, reg, clocks, clock-names, interrupts, interrupt-names).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121-k3-display=
+-v3-0-ec419e8e96b8@gmail.com?part=3D1
