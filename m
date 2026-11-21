@@ -1,68 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795295338;
-	b=nnhHUadNRxlsox+jwho7wHZjPLGgWdEo+v9sUVpXnh2x6IULe8fCc0+rujpTSD3567Ax
-	 Zeguz9i4CTpgX+x1ymMfV2wbK0VbnLjneMAT/THfROC2RmmfFJaHXAWsLi8KDf/vkLhrj
-	 W51hSfb6HQ3I2n3FZES2OJhiZnDrGH64Z15ht8MEChx5v77tFo9vzgpcWn6Q5WaECFcDf
-	 fSHo/ZO+lTDLcEbYFXg70rdXjTBHYN9lLL0BYKYZrpeWX5XtTvrF2y9qHOksv+G6HmlOV
-	 ECoaxlXdEcHZy310PCNbt6U3HH/XzqQjg11wGfyX3Y/T0TYgb/8m1mvMLFZyxDA8HUQ==
+	t=1795295450;
+	b=JCi87Q4EkvMwfYZWKdTs4ExK/C57l4o3dnk8A8GdnwC+dTpjJSVHKLfhjHcuTc1o3lgp
+	 ETgLGR9RWLyRV8uRweN3wdzCehAW0M7bTPv6MwY1lNqUfoD20ZHUYrJ4KcYlEF+jRpPZg
+	 E5dbXY5MIOpJLmoWthVRubOCfrso1lKLDon9DnFKvuLOONG0285vmzEwkIVC76pQVTOM+
+	 XI0/Z68/LJ9iyzxM51oBU2YIPizhRSMGZpcGoGvZVYDP6NoEQFRmKC8x28a+reu1EhVKr
+	 UGngSuZoMeofW9Rma+6dS/Nvb+UM5peWG0hREbR5+tS9/twr8CcUXPxk9vpB7z32/TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795295338;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=J8c2sc9pHyGkMH12X1dKW2Db+m7WpKDYGFFOvD1bnfM=;
-	b=gw+c2BY8Juxu46iHmDJ6csxF9XEEaYQbLur9ZD/ddbeH1vRUcLXTnje50Yp8vIO+rTb3
-	 0mqRCdBrW30HhOFwF2Mr46a3eojGkw9lg7AjvkqtBk/2CnJcTuuGXaefLRhhVq1ng9Yjx
-	 uYbfbd4F+a7h2apWwLD31uS1ZFW0bTfxI7URphqZoIczERIri21+ESv0EnJQyt+k3aWvD
-	 DsgirQXTstDxuxRgFxauAeeqtfAKVHTFb3vb4b1+HRjYNrbcnAD3AgUHFyG6S26vXpGIG
-	 ULZOUWBB09Nq0Me+jpPyMgytF/BiZE6soIOubozw87lND+bzIdp9FsthdcSq4YQVUdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795295450;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=mX91vnJBAj51b8TrYzcl2pOoknrSWxJKSn+DxSW1xkI=;
+	b=Ql5eLsy7Oqnq22ya38yzmINufG0uziuZ2kxJEFcgFGJe+bnGQs+uJtBqCO0sjRJjfkkI
+	 MUxXiJD6kZEC+EJg0ssXl6X8ykaEtaEKWSguqzqeM3k7WXkZJt9S4+YNMXrTqd+WXawmq
+	 chgk4ZD1MApf3GQoy3xUH/PXYxY04/38vHANLxuQDFfuYvTqvgiaT4hqJVmvCY8fDzyjh
+	 varqhxsdVf0WOYJJy8fuFpqG9RjYSwNmM+KKI4KX/HKDSuXjLu72CRbDVrnHNU/M5HFRJ
+	 A5GNQgb/G5l0bA6pPzUtRPrjgHWj6eB8L5ungZCd+XdgoW76PfyLC9ROwUoLwfMf05g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A1c50uxe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eyktJPKm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9B2606A320;
-	Sat, 21 Nov 2026 21:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E92606A33A;
+	Sat, 21 Nov 2026 21:10:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A1c50uxe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 187481F000C0;
-	Sat, 21 Nov 2026 21:08:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eyktJPKm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3531F000CA;
+	Sat, 21 Nov 2026 21:10:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795295338;
-	bh=J8c2sc9pHyGkMH12X1dKW2Db+m7WpKDYGFFOvD1bnfM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=A1c50uxe9q2n/EXWdWf11CJGRgpdzw6KkLEYdFyJvl8P9Bl/rnZQSPLVGlmYH1h2O
-	 /IeHdNcptRndL0+A7ne7l9L17nS8eqBkCENUICZJk4QwVS8WPEb0T0o2wCNvERuA92
-	 dmFyZQq1QKdjIuWR9HEDBfwTR+TNcIPGH66qIp87I6DQ1a/DGx+qpCQgwO10/RaAte
-	 zX6El0vnu4fRBp92kwVqwlAHfDQ4EAE7Pj7Q/Fgj6TyugpbdQtCKNzut4QNN9JZQu1
-	 HpTZupP59iPwR7lJqcCs+fykHI+So8uFfdJWXGV+2uU1k2NoCNxGDT0JHCFLwvIVHp
-	 wNzcYaF4N97rA==
-Date: Sat, 21 Nov 2026 21:08:52 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Amit Kucheria <amitk@kernel.org>, Thara Gopinath
- <thara.gopinath@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Daniel
- Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, Kamal Wadhwa
- <kamal.wadhwa@oss.qualcomm.com>, Anjelique Melendez
- <anjelique.melendez@oss.qualcomm.com>, Manaf Meethalavalappu Pallikunhi
- <manaf.pallikunhi@oss.qualcomm.com>, Priyansh Jain
- <priyansh.jain@oss.qualcomm.com>
-Subject: Re: [PATCH v2 5/7] iio: adc: qcom-spmi-adc5-gen3: Remove Gen3
- virtual channel macros
-Message-ID: <20261121210852.67e2d4ed@jic23-hlaptop>
-In-Reply-To: <20261120-pmic5_gen4_adc-v2-5-94d0e1fd6847@oss.qualcomm.com>
-References: <20261120-pmic5_gen4_adc-v2-0-94d0e1fd6847@oss.qualcomm.com>
-	<20261120-pmic5_gen4_adc-v2-5-94d0e1fd6847@oss.qualcomm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1795295450;
+	bh=mX91vnJBAj51b8TrYzcl2pOoknrSWxJKSn+DxSW1xkI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eyktJPKmNFRJXlrpXNeeOvn8njhL/XCasAwhPYCIK4QAN9pdUly4g2TX8xDgb+g84
+	 jliOP+t7klkok27CFYwyuXJrJjpc15dZ0JkitJXk0wR6rzVgxPir+MMhgdn5dDIfrC
+	 jsFN4VBillMaN5b3zPfTFqQHOu5sh98j37UNewUuwXGgIwssS1pBvLJVKLNsx4bMD1
+	 nFW/t/E5qZFzPjCoEIG2bEtCmRfB+lEf+3rPni2PexirKKgtmh8bKdWbmqq5b7XBO7
+	 TBs6cGcwkC4SGEOjGefoMbuxVFiVIXEZNc0G+Vuze76nMW9O9TPb8trpp41SpKBO2I
+	 IIDRHtdTxdHvw==
+Message-ID: <sashiko-outbox-227384@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 07/10] tty: serial: Add Cortina UART driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261122-b4-cs75xx-v8-7-5f971b0dc69c@gmail.com>
+References: <20261122-b4-cs75xx-v8-0-5f971b0dc69c@gmail.com>
+ <20261122-b4-cs75xx-v8-7-5f971b0dc69c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 21 Nov 2026 21:10:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,55 +59,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 20 Nov 2026 14:49:45 +0530
-Jishnu Prakash <jishnu.prakash@oss.qualcomm.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] tty: serial: cortina-uart: unsigned port->irq check in
+  cortina_uart_probe()
+--
 
-> Now that the Gen3 virtual channel macros have been replaced with Gen4
-> macros in both main IIO ADC driver and auxiliary ADC_TM driver, remove
-> the Gen3 macros as they are no longer used.
-> 
-> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Ah. Ok.  I missed this was coming.
+commit a305c8b2604a8b9812e1e52e3a3c6ade80f87136
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Perhaps modifying these to align in earlier patches is to much
-pain given you are going to delete them.
+tty: serial: Add Cortina UART driver
 
-Ignore those comments.
+This commit adds a serial driver for the UART found in Cortina Systems
+CS75xx (Goldengate G2) SoCs, including system console and earlycon
+support.
 
-Thanks,
+> diff --git a/drivers/tty/serial/cortina-uart.c b/drivers/tty/serial/corti=
+na-uart.c
+> new file mode 100644
+> index 0000000000000..eb63848f09257
+> --- /dev/null
+> +++ b/drivers/tty/serial/cortina-uart.c
+> @@ -0,0 +1,612 @@
 
-Jonathan
+[ ... ]
 
-> ---
->  include/linux/iio/adc/qcom-adc5-gen3-common.h | 5 -----
->  1 file changed, 5 deletions(-)
-> 
-> diff --git a/include/linux/iio/adc/qcom-adc5-gen3-common.h b/include/linux/iio/adc/qcom-adc5-gen3-common.h
-> index fa7e08d67f26..105b0766a01f 100644
-> --- a/include/linux/iio/adc/qcom-adc5-gen3-common.h
-> +++ b/include/linux/iio/adc/qcom-adc5-gen3-common.h
-> @@ -40,7 +40,6 @@
->  #define ADC5_GEN3_CONV_ERR_CLR_REQ		BIT(0)
->  
->  #define ADC5_GEN3_SID				0x4f
-> -#define ADC5_GEN3_SID_MASK			GENMASK(3, 0)
->  #define ADC5_GEN4_SID_MASK			GENMASK(4, 0)
->  #define ADC5_GEN4_BUS_INDEX_MASK		GENMASK(6, 5)
->  
-> @@ -78,10 +77,6 @@
->  #define ADC5_GEN3_CONV_REQ			0xe5
->  #define ADC5_GEN3_CONV_REQ_REQ			BIT(0)
->  
-> -#define ADC5_GEN3_VIRTUAL_SID_MASK		GENMASK(15, 8)
-> -#define ADC5_GEN3_CHANNEL_MASK			GENMASK(7, 0)
-> -#define ADC5_GEN3_V_CHAN(x)		\
-> -	(FIELD_PREP(ADC5_GEN3_VIRTUAL_SID_MASK, (x).sid) | (x).channel)
->  #define ADC5_GEN4_V_CHAN_BUS_INDEX_MASK		GENMASK(14, 13)
->  #define ADC5_GEN4_V_CHAN_SID_MASK		GENMASK(12, 8)
->  #define ADC5_GEN4_V_CHAN_CHANNEL_MASK		GENMASK(7, 0)
-> 
+> +static int cortina_uart_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct cortina_uart_port *up;
+> +	struct uart_port *port;
+> +	struct resource *res;
+> +	int id, ret;
+> +
+> +	up =3D devm_kzalloc(dev, sizeof(*up), GFP_KERNEL);
+> +	if (!up)
+> +		return -ENOMEM;
+> +
+> +	port =3D &up->port;
+> +
+> +	port->membase =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+> +	if (IS_ERR(port->membase))
+> +		return PTR_ERR(port->membase);
+> +
+> +	port->irq =3D platform_get_irq(pdev, 0);
+> +	if (port->irq < 0)
+> +		return port->irq;
 
+[Severity: Medium]
+Does assigning the return value of platform_get_irq() directly to
+port->irq prevent error detection here?  struct uart_port defines irq as
+unsigned int, so port->irq < 0 is always false and negative error codes
+such as -EPROBE_DEFER allow probe to succeed with a bogus IRQ number.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-b4-cs75xx-=
+v8-0-5f971b0dc69c@gmail.com?part=3D7
