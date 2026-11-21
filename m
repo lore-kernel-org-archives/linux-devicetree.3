@@ -1,80 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795266177;
-	b=hsTZLT3UZ43nStVElODUeXJWcB7lkazA31ZStcnX+I1MyUr9/Gwudq1IvMcupVISgtcm
-	 WneXU8tluzRVDYJ/JDJDbAvUN95BAVZFq/N3WIZ+6BA8Arku7fYKjxI9mEdImtXjE1Mdm
-	 dHpKGL4983YuGYs/zniEqO+N4F98ViG8O8VGz832jCsa9/kTeZ9cjSj9T/xp/ZKrkOHhr
-	 giHWCDXi/mE9dBVgeMRlWFxXj1NJlHD9M55FjzqOHOKsaEThHfui1KTDBYC8TOnKxh0wN
-	 xTWCyej9xq0FAA+cEHzI5m13YEs5g8rH8A0rs8NJew/rUJbdDlNqP+jl+8QYYl/o0/A==
+	t=1795266454;
+	b=dPRaDRp/JXgOPUxWHo3hHx1hg5WZ9LNCSlsYpXL5z8DHniBQETFA1MpKBp4ifI4D3Rv3
+	 +SWUpjYaB86veJDhBfiNWxHOfN3dE82UZUYRRnNUJnD+pvfko5y7Laz2/wVyXUyusgjsq
+	 ZZ2ojg8YjH13MraGK1qezW3gOcyqZY7n0cstPfEDjThP4SMZ2fMmyv6HJ+/Tb57O3gRws
+	 GdFj24j1rJTvB62cec/rmL4XQuL8iYz37iRxoCrbEni4qQ5hf9E9UOSbfuI945/NBQXb/
+	 w/m9gjPfQMsk7/Nv0RNO7VkRjghKTIck9Po0EEAqm85+vTlcjfYchryKbZ3ewDrrCbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795266177;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kosSlO4n4eaj/l8QctRPYZS0nYWx+0xDQzEvrB+dFGg=;
-	b=lSgglHBg5eXBVB3n3QIOOJvkiKLzlRrWe5SRwIBJAC1Rl7UKIpg4fejC6WA9uk9EmtZW
-	 xUYxEz2D9Cb5sdTyWGHaCSKHyV4NureMxT2LFjjIyhjZH3++cm7OOOcMK44f0URkUpPEe
-	 3eq2fwN8ps2LjZySanHAsC+k7twfSc9kNFQmTqJFGqHah1u2paMftAC/7em6nDgMUgtxB
-	 Bi3qZve/9UbgcBBxFuX47kT4P/RYt792XliaSQzWXiK98Y7Sx9nkebzNo9yvbibPDGHOA
-	 yAJRuLjoUi8tp1gHhrTV+NX8C6CJdTiTe9lCL8cjIMbsPHO6x8726JZ0sieRanrhwdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795266454;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=frQf8GLkcVGcswIAKYodbKDOsPiVF8c8ULwA4X1Wha8=;
+	b=AFw1n1w0xd2qpb5kcVtEk5A3j2my6jx6yt4sAG+4huEfUvn7LEhuOm4EO4L25k213dM9
+	 cnWj9zHz5GEIHYV5miZr6OmfSHkmhZ5OgWXMsEHedr51OZvTd6CkykPgorNNiQwXAvZ4N
+	 OS0VX7lSWIhd8JuEyTa2KW42TTzUBDsKgGTZe3j0dI3DHPusgjA//zDYZHZ7ZlbDehyzM
+	 pP0m8ni3kfdA4dhFmzJ/XpHyGh9iC0QUGy+72cvdl/i4NHZ2HkUYadT6gu9bOvxsjjM5d
+	 T8PCVSJmSh9StxhDmXLFdexUIj2DDB4pEMveqdkbUyJDIAaZdYtZZqMClcZfKw+Th0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=evWxxf05;
-	arc=none smtp.remote-ip=95.215.58.41
-Received: from mta1.migadu.com (out-41.mta1.migadu.com [95.215.58.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=chaosmail.tech;
+	spf=pass smtp.mailfrom=chaosmail.tech;
+	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=NM3bT+I1;
+	arc=none smtp.remote-ip=77.81.229.115
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A233606A331
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:02:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A233606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8A8606A32C;
+	Sat, 21 Nov 2026 13:07:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C8A8606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=evWxxf05
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AXPl9MSQKEVnxwBZxVz70iQ3WAgcrk7wcvSe7Ve0uwo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795266175; v=1; x=1795870975;
- b=evWxxf05XzVJt8Tiou/ooJaFuuGuIEy6pjt2YmbAgNiOxUhEf41eaNZKkg47SGXEuGOXmAyt
- 3WwiAi8ByTAobCpv3Fp+93sxm2LZVZgMx5+WnZdbPDilExVU6ew6/6LAC8t6n1rEElzVU8kRIXn
- y9U/4883p+Brc6sMaiwDe+Bk=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2fb3a475fbc6b1aa;
-	Sat, 21 Nov 2026 13:02:54 +0000
-X-Mizu-Trace-ID: 2fb3a475fbc6b1aa
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 21 Nov 2026 21:02:42 +0800
-From: Peng Fan <peng.fan@linux.dev>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Frank Li <Frank.Li@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>, Robin Murphy <robin.murphy@arm.com>
-Cc: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v6 0/9] dmaengine: add DMA channel bus and fsl-edma
- per-channel IOMMU support
-Message-ID: <awGWcq_nKWShC81B@fedora>
-References: <20261112-edma-iommu-v3-v6-0-b038edb8ce6f@nxp.com>
- <20261116193021.GB2452510@ziepe.ca>
- <avwQl18smAW4R6ec@fedora>
- <20261117130005.GC2606445@ziepe.ca>
+	dkim=pass (1024-bit key, unprotected) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=NM3bT+I1
+Received: by chaosmail.tech (Postfix) id DB9391C8558;
+	Sat, 21 Nov 2026 13:07:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1795266445;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=frQf8GLkcVGcswIAKYodbKDOsPiVF8c8ULwA4X1Wha8=;
+	b=NM3bT+I1EL4loouUBDZTDD1r3cx3H8JOvtOGl2+TqZLzwBdrJbCJafG2vpb+JTWIHmLSW0
+	22fr4YnfmGNkmXhWkQ7cZwlzDypdNmGny4Thumq3Yoxttv5sSY1KXXT8ELg1K1lBOYoG1x
+	OE9BxO2KIOh6MsQVGPWaOoPYlzvfmok=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Date: Sat, 21 Nov 2026 14:07:20 +0100
+Subject: [PATCH v9 1/3] dt-bindings: usb: tps6598x: Add sn201202x/ACE3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,68 +57,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117130005.GC2606445@ziepe.ca>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261121-tipd-ace3-v9-1-9a2f1327a330@chaosmail.tech>
+References: <20261121-tipd-ace3-v9-0-9a2f1327a330@chaosmail.tech>
+In-Reply-To: <20261121-tipd-ace3-v9-0-9a2f1327a330@chaosmail.tech>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795266444; l=3409;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=3D67anuuGjiqz8chLYGAhdIm3naiDe35Vv0iye7zhq8=;
+ b=Tr3jCuQJnZNGFHPXKlk3HAJWMXpdSbBgvaqViBnok9cq2TS5vGn7iSlQod6+UhoUxI3Dkd0u9
+ EVFA2dHNvN/Dl+iPAJvdHFQK6bYWZu1imvKNZEGJUR279lXL8WIXonZ
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-Hi Jason, and all
+A variant of tps6598x that is attached to a SPMI bus and is found on
+Apple devices starting from the M3 series
 
-On Tue, Nov 17, 2026 at 09:00:05AM -0400, Jason Gunthorpe wrote:
->> 
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+---
+ .../devicetree/bindings/usb/apple,sn201202x.yaml   | 78 ++++++++++++++++++++++
+ MAINTAINERS                                        |  1 +
+ 2 files changed, 79 insertions(+)
 
-[...]
+diff --git a/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+new file mode 100644
+index 000000000000..133a71bbedb7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+@@ -0,0 +1,78 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/apple,sn201202x.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments sn201202x Type-C Power Delivery controller
++
++maintainers:
++  - Sasha Finkelstein <k@chaosmail.tech>
++
++description: |
++  Texas Instruments sn201202x Type-C Power Delivery controller
++
++  A variant of tps6598x controller also known as Apple ACE3
++  present on hardware with Apple SoCs starting from the M3.
++
++properties:
++  compatible:
++    enum:
++      - apple,sn201202x
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    items:
++      - description: Primary irq used for tps6598x events
++      - description: Logical register selection completed
++      - description: Standby command completed
++      - description: Wakeup command completed
++
++  interrupt-names:
++    items:
++      - const: irq
++      - const: select
++      - const: sleep
++      - const: wake
++
++  connector:
++    $ref: /schemas/connector/usb-connector.yaml#
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/spmi/spmi.h>
++    spmi {
++        #address-cells = <2>;
++        #size-cells = <0>;
++        usb-pd@c {
++            compatible = "apple,sn201202x";
++            reg = <0xc SPMI_USID>;
++            interrupts = <11 IRQ_TYPE_EDGE_RISING>,
++                         <13 IRQ_TYPE_EDGE_RISING>,
++                         <17 IRQ_TYPE_EDGE_RISING>,
++                         <19 IRQ_TYPE_EDGE_RISING>;
++            interrupt-names = "irq", "select", "sleep", "wake";
++
++            connector {
++                compatible = "usb-c-connector";
++                label = "USB-C";
++
++                port {
++                    typec_ep: endpoint {
++                        remote-endpoint = <&otg_ep>;
++                    };
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..6bf3e8f35095 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2736,6 +2736,7 @@ F:	Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
+ F:	Documentation/devicetree/bindings/spi/apple,spi.yaml
+ F:	Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+ F:	Documentation/devicetree/bindings/usb/apple,dwc3.yaml
++F:	Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+ F:	Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+ F:	Documentation/hwmon/macsmc-hwmon.rst
+ F:	arch/arm64/boot/dts/apple/
 
->> I may not describe it clear in cover-letter.
->> 
->> I understand the concern. Let me explain why I believe it is justified here
->> rather than a hack.
->> 
->> On i.MX eDMA each channel has its own interrupt, its own register region,
->> and on i.MX8QM even its own power domain. Each channel may also have its
->> own Stream ID, or share one when SIDs are scarce. These are genuine
->> per-channel hardware resources, not software fiction.
->> 
->> In dmaengine each channel is already modeled as a channel device (see
->> dmaengine_chan_dev()), and this series puts those devices on a real bus
->> (dmaengine_chan_bus_type) as a prerequisite. The DT child node simply
->> describes that existing device, so its reg/interrupts/power-domains/iommus
->> are attached per channel instead of as index-matched flat lists on the
->> controller.
->
->If they are real devices then why can't they come out as platform
->devices?
->
->I think you are overstating how independent they are. Many single
->devices have per "channel" resources like MMIO and IRQs. That's
->totally normal. It doesn't make the sub resources independent devices.
->
->AFAICT what you have here is some HW designer used SID where they
->should have used SSID and you are trying to hack DT to make that
->usable because Linux does not support a SID as SSID model today.
->
->Again, since this is the 3rd - 4th case like this, it seems like a
->popular hardware choice and we should try to do better to make Linux
->support if we can.
+-- 
+2.56.1
 
-Let's put i.MX eDMA aside, I have one general question regarding
-dma channel DMA.
-
-The below two drivers[1] has chan_dma_dev set as true which means they use
-dma channel device to do dma memory allocation. And for tegra186, it
-use dma channel device for iommu, the buggy part is that it forces
-chan dev's bus to platform bus.
-
-Do you think it is reasonable to have chan device(not platform device) do dma
-allocation? I ask because if we allow chan device to do dma allocation, we need
-to provide a dma channel bus for iommu_buses to fix tegre186(TBH, I 
-am not familar with this platform, it even has iommu-map for the dma node).
-
-[1] drivers/dma/tegra186-gpc-dma.c
-    drivers/dma/ti/k3-udma.c
-    https://elixir.bootlin.com/linux/v7.4-rc1/A/ident/chan_dma_dev
-
-Thanks
-Peng
-
->
->Jason
