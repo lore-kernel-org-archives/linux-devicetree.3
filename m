@@ -1,61 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795289407;
-	b=d1sm4z2Jx0SLAEAhXBbp2WfOF+Hnynbms7STtIjIgh6zKke/fkYoQHqOehojpV4tcjA/
-	 dtWdIvc1NCo4mqcgDjUODe1nFsl0EOhq/HFQtCIPawJzYCzLkQB3T/XwmXcjiH7ohcyq/
-	 mEaUkZoup3KMny23ChnbTIVxCy5VO3lbg9A4z5YL8UrmAJoZsn9tE0gaP/c2o6RWV+ec1
-	 SCutgv9qF+a6hmqx+8rtqopG5KDTvzZGMBUtBgV4vNh+Xy8EvmWlr/JMnAy29MIkbGQZQ
-	 VVNvVL2bEhSRNGwpxLtSr6hEh3eB1FobrPjxHAPfL3XxkXpWFk0kZbk6gkflEgD2Dfg==
+	t=1795289487;
+	b=2u3ZhXm/frr+Unj1uxGH2/Ti3M/4ZYI4G5ZGRDiddgY/ozmxhKqTb07p7sZjyZQooORE
+	 KkoVA37JTmWQ81eyRsjL+O1KICUrAU2dZNJZJqJheuKB7rXTDDDN98zmjVnCMPN/XR5yz
+	 MdbmZC+wEs91S0auYbV2ifASWfkwTm6tX5GFoihum0Eb7wGjH17622pFvQKMylUBrPmWV
+	 s7gi3aTcLBNo0Je5sYtEQ2zWberpk3l4aMSjVypZefJIMJ6KdcixTSZo0abPHSUdtL6Ga
+	 NOKzw0kjFs3pEBSjZatsT7ts7fNL+UZjayck6OWjkGFpiDt09vCKLrdXunmGpliR+LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795289407;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795289487;
+	h=DMARC-Filter:DKIM-Signature:Feedback-ID:X-Pm-Original-To:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=03K4baZo0+hChBw1mPe9JO6QtHiwPqHPetQawahxVho=;
-	b=WwL+cCxk6HCAP5e3cnq5+0vZ5+fKZEmO4QF51qQJ06rxpLOR/SK0P8RohcMRqDvdhgaN
-	 hi/w2/gI/UWuS09F+wLN8V5O/w+w+Z8cCvCS+eyUNkkxnyzrarnDay61B6HF5yHI/PP68
-	 y7HVTY4sSo2IGp6R/BzfG1Pau8dhjKFrcXBJ8NuGgHDAu+xuTmDmkk7kA5ZxAVjYHJFPL
-	 Lf0oPivZaLXtBbKplifJlz+2sKNoPzTi4juiYwXtQcEsMW5YtSpNk1sG8qVh73BOVuDEP
-	 xJnKr/MorKIZCHvTMEmvxuXfQP/qrrxdE/VtcUQskEOHxE0Lc7PSrw9lhs0jqVSBqfw==
+	bh=EypR81wghhS1C3S+cwYO0gRmc3XYoh1lyYySai7+bfo=;
+	b=vVt+tmbbOAzqXTgK+l/4vAru5i1KqVs1aaBXYbFV2iPVgeFXq467vK6atheuq3qn8MCe
+	 Njfuz7kcAtQNT9kz+aMYb3AA03dKjj5AXbUo0qPwUoueKY0pmoMbk8bNXJMu4ireBJtWs
+	 dcJI79CuSvgkrvU8aqJpKCeGRAnTaJqleBLmZ8LUx0Vqcgxt7rhkFumUAo0Ud2lJOqFfX
+	 KsQZR8qQ/sNrPlUwu0UMsRcW1awXjhcD6YR31C4cvVDKdp4a7KOaprqZMqyudI8hGryYU
+	 yjph+jMzTMyoOw6Kt6vJHpvUxxKbS/i1vweJqbdsTRT+QB0SFkEC1lcdlSuLepqsPdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fakqwj6o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=mentallysanemainliners.org;
+	spf=pass smtp.mailfrom=mentallysanemainliners.org;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b="NmSG/BKQ";
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33C1606A33A;
-	Sat, 21 Nov 2026 19:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FB4606A32A
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 19:31:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FB4606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mentallysanemainliners.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mentallysanemainliners.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fakqwj6o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEFAE1F000C0;
-	Sat, 21 Nov 2026 19:30:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795289407;
-	bh=03K4baZo0+hChBw1mPe9JO6QtHiwPqHPetQawahxVho=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fakqwj6oM/jGmcb+SRJARwnoJQCMLKDCzqNnyQW+Iu6HMimP+33FhSLbCV3ZugOwK
-	 LtosdVHnVSp3x5z9skhJz0f9zLI8dBOa2b8PxABRj2qos7IAbBT1C9CHUFqGuTf50Q
-	 6bCd1KsTqfHb2Hyy9dkQe3+cf6yOUW/Bcj6N+odJDag6hZNahmHT7ALzeW+boEYgYY
-	 Zj99kxukNdbsu6qCxPFzhiZFFcVUVSyLT+sPO4wRVXv1moYovEvLeZxWcsAAFum+zk
-	 62g7I3kYP9zLg5CpHUUm8ZGJHbxMxy5+bMpnfaQbyW/HrAcyoVnYwpmm4Yt5QzAPyq
-	 9M0OL1RBL8Nag==
-Date: Sat, 21 Nov 2026 19:29:59 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Viral Patel <viral8854@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dixit Parmar <dixitparmar19@gmail.com>, Victor
- Chernyakin <chernyakin.victor.j@outlook.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: magnetometer:
- infineon,tlv493d-a1b6: add TLE493D-W2B6
-Message-ID: <20261121192959.1ea94de9@jic23-hlaptop>
-In-Reply-To: <20261121-tle493d-v2-1-92d7e57cec89@gmail.com>
-References: <20261121-tle493d-v2-0-92d7e57cec89@gmail.com>
-	<20261121-tle493d-v2-1-92d7e57cec89@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=NmSG/BKQ
+DKIM-Signature: a=rsa-sha256; b=NmSG/BKQrgBtQgREF4Ds+Wuewpyl324eVl3S/vleH37p6Tk4rn3F1GWNG+qarizotfbc0js5U11kqyE/EaQyo/aYMsFLeSnF9bQ5SMoFl+al3EbMvcEeioHyn/P65TEiHyaJKAAZpEZv5PxwbPUGirJzcBovxoojE60Dpg46nGF0uuCv5WZfK4QvQKq1jcIpnzyEDJxZGtePa9608Z6pNDx/UovNmaPiaclLwDZp/YMpSGAZGjgkTgEhrnklsWDfxDiP72nZ9cnSxP/RVsvCoOBp1IB2lOGBWepGLa+0qSXda7hF2OHfWlsEYGD3HCX3C5fvNAMJZnuJiJa5MM1CYw==; s=purelymail2; d=purelymail.com; v=1; bh=EypR81wghhS1C3S+cwYO0gRmc3XYoh1lyYySai7+bfo=; h=Feedback-ID:Received:Message-ID:Date:Subject:To:From;
+Feedback-ID: 68229:10037:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1481673243;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Sat, 21 Nov 2026 19:30:36 +0000 (UTC)
+Message-ID: <3c7ae669-d0e8-40f1-8c22-3eb198533ddb@mentallysanemainliners.org>
+Date: Sat, 21 Nov 2026 19:30:31 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,98 +52,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] Add USB support for Exynos7885 and enable USB and FG
+ on gta3xllte
+To: David Virag <virag.david003@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org
+References: <20261119-gta3xllte-usb-battery-v1-0-0cf5f763522e@mentallysanemainliners.org>
+ <6937fed688e4bf1d7cb81b004c179cc4912cf6e2.camel@gmail.com>
+Content-Language: en-US
+From: Umer Uddin <umer.uddin@mentallysanemainliners.org>
+In-Reply-To: <6937fed688e4bf1d7cb81b004c179cc4912cf6e2.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sat, 21 Nov 2026 11:25:10 +0530
-Viral Patel <viral8854@gmail.com> wrote:
 
-> Add the Infineon TLE493D-W2B6, a 3D Hall effect magnetic sensor with
-> 12-bit resolution per axis and an integrated temperature sensor,
-> accessed over I2C. It is a second-generation sibling of the
-> TLV493D-A1B6 with a different register interface, so it gets its own
-> compatible, but it has the same supply range and the same /INT output
-> sharing the SCL pin, so it fits the existing binding.
-> 
-> The A0 to A3 variants of the part only differ in their default I2C
-> address, so a single compatible covers all of them.
-> 
-> Signed-off-by: Viral Patel <viral8854@gmail.com>
-Hi Viral
+On 21/11/2026 19:06, David Virag wrote:
+> On Thu, 2026-11-19 at 19:49 +0000, Umer Uddin via B4 Relay wrote:
+>> Hi guys, this patch series adds support for USB on Exynos7885. This
+>> series
+>> is based on David Virag's work[1] I had rebased it onto krzk's for-
+>> next
+>> tree and tested it on gta3xllte. This series also enables S2MU005 FG
+>> on gta3xllte, which is also tested.
+> Hi, thanks for reviving my old patches
+>
+> I actually have sent the patches before [1], got some reviews, but only
+> ended up with the clock patches submitted and applied, and never
+> actually got to submitting these patches with fixes based on the
+> reviews (which have been sitting on my PC for quite a while).
+>
+> I think I will submit my fixed up patches (the ones you submitted still
+> have some problems), and then your gta3xxlte patches can sit on top.
+>
+> [1]
+> https://lore.kernel.org/linux-samsung-soc/20240804215458.404085-1-virag.david003@gmail.com/
 
-A few comments inline.  Nothing to stop me merging this if nothing
-else comes up though!
+Ah sorry, I did accidentally miss that, will be waiting for you to submit
 
-Jonathan
+the fixed patches then, and I will rebase my gta3xllte changes onto your
 
-> ---
->  .../bindings/iio/magnetometer/infineon,tlv493d-a1b6.yaml   | 14 ++++++++++++--
->  MAINTAINERS                                                |  6 ++++++
->  2 files changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/magnetometer/infineon,tlv493d-a1b6.yaml b/Documentation/devicetree/bindings/iio/magnetometer/infineon,tlv493d-a1b6.yaml
-> index dd23a9370a71..3f0058cbf538 100644
-> --- a/Documentation/devicetree/bindings/iio/magnetometer/infineon,tlv493d-a1b6.yaml
-> +++ b/Documentation/devicetree/bindings/iio/magnetometer/infineon,tlv493d-a1b6.yaml
-> @@ -4,17 +4,27 @@
->  $id: http://devicetree.org/schemas/iio/magnetometer/infineon,tlv493d-a1b6.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: Infineon Technologies TLV493D Low-Power 3D Magnetic Sensor
-> +title: Infineon Technologies TLV493D and TLE493D 3D Magnetic Sensors
->  
->  maintainers:
->    - Dixit Parmar <dixitparmar19@gmail.com>
-> +  - Viral Patel <viral8854@gmail.com>
-> +
-> +description: |
+patch when submitted.
 
-Don't need to retain line wraps so IIRC > rather than | is appropriate.
+>> Please note, I did drop enabling USB on jackpotlte, this is because I
+>> don't have the device myself to test the changes personally and I
+>> didn't
+>> want to risk a regression on jackpotlte.
+> I can confirm it does still work properly on jackpotlte.
+>
+> Best regards,
+> David
 
-> +  3D Hall effect magnetic sensors with an I2C interface. The /INT output
-> +  shares a pin with SCL.
-> +
-> +  The A0 to A3 variants of the TLE493D-W2B6 only differ in their default
-> +  I2C address (0x35, 0x22, 0x78 and 0x44).
-
-For a binding I'm not sure we need this level of detail.  Perhaps
-just keep the first sentence.  I don't mind either way on this one.
-
->  
->  properties:
->    $nodename:
->      pattern: '^magnetometer@[0-9a-f]+$'
->  
->    compatible:
-> -    const: infineon,tlv493d-a1b6
-> +    enum:
-> +      - infineon,tle493d-w2b6
-> +      - infineon,tlv493d-a1b6
->  
->    reg:
->      maxItems: 1
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 02015eaec312..c3004f683e78 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -13117,6 +13117,12 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/sound/infineon,peb2466.yaml
->  F:	sound/soc/codecs/peb2466.c
->  
-> +INFINEON TLE493D-W2B6 DRIVER
-> +M:	Viral Patel <viral8854@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/magnetometer/infineon,tlv493d-a1b6.yaml
-I guess this is fine for most scripts, but I wonder if anything will drip up over
-a file being listed in two maintainers entries.  I wouldn't necessarily worry
-about adding the binding to here as you have that line in the actual file anyway
-to point people to include you on changes etc.
+Good to know, thanks for confirming.
 
 
-> +
->  INFINEON TLV493D Driver
->  M:	Dixit Parmar <dixitparmar19@gmail.com>
->  L:	linux-iio@vger.kernel.org
-> 
+Best regards,
+
+Umer
 
