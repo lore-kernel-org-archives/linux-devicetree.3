@@ -1,82 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795304632;
-	b=ECxTfKx/2ezvH7J6spZRf3cFGKUxwJ9KJ1f0Q4+clknjE5QqBFj6ZEdHiqaswdThQjL9
-	 p2k5hATUXOsxCpHbacyYxPze72Il2dSQTvyI7KSMi7Ud46Ri52eRy5SRwP4G6gr7muScP
-	 dbEbeHWc7dzgA9ytClaKdYgcbGjOFuol+olgowPZbmXo9XYL6y191pXVxMJOyMQayBSw+
-	 ff1kntOKqxNEA25w2RBRV3yznJ2qiDFnKI8b1sGnYZ3DpZYm7mfGRz9/6/8FO5lhibfmW
-	 7yyAz0wv3VvhAlY4yh/LXDgn7Q9sFY3m2aqWH1UqqiWGvYRrx1O9Wx1ODXUioLGnTcg==
+	t=1795304699;
+	b=0e7uHvdDbxX6YnTeEncopDSkeGY303WpI7/1BY4YVvCkEyncuZ0ssU4UnZf1LS9OWdI1
+	 AdyPkOWO6ZI00usu9nLIUmd87ZW3/1NZJGeiyrnZC2ZtP/3hocC/XZh6Uuf5kOJuom+kB
+	 A7IYPdbhNDScXbjmJntJTsz/XmYrKBA6djME1C2AnuvSuh7RB8AlXugydvT+oJYDtNYNK
+	 p2eTC/WAvaAfiesdquZmAbEq6b+uWZn4hTgzoQVqEQpOFUxGWghwM1RASwO7rohKuZnL8
+	 9CwNg7Joj9vLyKhSz0AGvztPwCSYPy7NSRrSe295Wdw0cszrz+2jBFN9vW6MeSiQO0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795304632;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=t7R2yoCiAeLQBhB6gJTWyBDgFqLo/L9FrePQ72IrN3c=;
-	b=0gEI2ezqBIVGD4Uz5rwlI96ZCyaAz5GipRYMMVCzJsZGtaBk/hqnMuxwkm6T2V9yktNe
-	 TdqxvhIx1TL9UNUkCSgYkq8WYD6PNPVavCZTHcqh71YdL74Hm9q1Egr06h0gRipG1gFTr
-	 mNgSqqJdpRUcDs5Yx3fiOeFar3siloIMsktv/JFMqZyAhHrI0EexNSd0vPn4Rnw7h4CDg
-	 OGo+RecZ1/r67qKYWgftdtkUF/ax5ggwgtyZvaliuJMyO/E2N5vaeM/dvggc70c+G9u0U
-	 y0DlHe3I9KoKVFsHhRIZf4iYLifZWr5qpQskDr8u+XltFyNQc/657dGRMXTy1tIshzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795304699;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2AGBcOOzRTC6ShorOU+9bsy9QDvjQLHzXkUKhS0WtwU=;
+	b=MPtJHV/uUIrtj4Cxud7BQKjSzBUpxHTto4nLIB/FoS6VGK0OTooRQ/RwxtM1UEumJN+9
+	 sVajNS0kzGHbgzAstC3KTA6E3TKxTzHer3UUdkmInmXhyNssHEANmKozdxCVpdMeYoeiM
+	 2YoJVZ7oQyr1CByxolc3Un2QGFgZgTYsEzdwmnOvmEXaqa+mnnUW2t2do+ZWhnpdylNZY
+	 pX9A7iuThOs1F+uS3Lu+WKegb7TcLpuwaPxozRY0Kg1+uCqZFhgBuQano3Q5GWAOiYNqt
+	 9CzXSaDOOIAwTlg4UTzGX819lYruL8tbWx1ht/RDqkvSwdzT/wmQ6/1jnHaBM+Z/x7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BdrPFbed;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3909606A334;
-	Sat, 21 Nov 2026 23:43:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3909606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqtuu1Nn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B461A606A6B4
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 23:44:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BdrPFbed
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2336A1575;
-	Sat, 21 Nov 2026 15:43:48 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C6A3C3F632;
-	Sat, 21 Nov 2026 15:43:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795304631; bh=hfA0ap4Xo70CAlarCd2qZoILhqj61SvsIL72n1hY+fo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BdrPFbedUT68TTWy7vCZmFOcSK2bF9LKpVBKpZahm2E0YYtNnTOGE8A6K0JeJ0Z8v
-	 UH4SlT2eWxFNisnOlSYFkBUjcbTUBCLJ4QrrvmJi/eTehXeWt34AMnKoZ9t+jzoW5c
-	 L/UBQJmZ8DLdI4k4jCxn8LBM+iIHp3SCp7ycUDHc=
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Cc: sudeep.holla@kernel.org,
-	james.quinlan@broadcom.com,
-	f.fainelli@gmail.com,
-	vincent.guittot@linaro.org,
-	etienne.carriere@st.com,
-	peng.fan@oss.nxp.com,
-	michal.simek@amd.com,
-	d-gole@ti.com,
-	jonathan.cameron@oss.qualcomm.com,
-	elif.topuz@arm.com,
-	lukasz.luba@arm.com,
-	philip.radford@arm.com,
-	david@kernel.org,
-	souvik.chakravarty@arm.com,
-	leitao@kernel.org,
-	kas@kernel.org,
-	puranjay@kernel.org,
-	usama.arif@linux.dev,
-	kernel-team@meta.com,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v16 08/31] dt-bindings: firmware: arm,scmi: Add support for telemetry protocol
-Date: Sat, 21 Nov 2026 23:39:42 +0000
-Message-ID: <20261121234005.1525419-9-cristian.marussi@arm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261121234005.1525419-1-cristian.marussi@arm.com>
-References: <20261121234005.1525419-1-cristian.marussi@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqtuu1Nn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53D8E1F000C4
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 23:44:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795304699;
+	bh=2AGBcOOzRTC6ShorOU+9bsy9QDvjQLHzXkUKhS0WtwU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=iqtuu1NnbUiqzwMauYGYsPPooUnz9J2f60EhLdDnPjEflAyC2Yum4V54XR555sZu0
+	 fqO95LJiKHzt/+Y9O5fyZekFNyVMFITbrJu2z5OusT+5LePqvOorS4MrzMODtIJRCL
+	 SWwmBUrlmuKzlC0kfFwwR3mjF45xR7L+VJ2oKJQULvJ7i/kfjJyL3MYNEBFfaT9q2r
+	 5rTWtPkR2Y54LGRr5CZKfs12A86UmYwYkkxmrsMpPfjcBFcTfsAJY4e16oWibEHM97
+	 g8Z+5wWYbhCQYblhWCj+kEaTo989BTBU+MgMecSXLZMTLL/mimMTAbMrGSD3BdeaP9
+	 h7lbp6pnZrUFQ==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c1593fd141so1620418e87.0
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 15:44:59 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGBRttrikN/+4iQyJ8DGvMFGauiRixalUM0roi6wDG9W1dekvyR+z8Kw4d9r6ppilkVRGxmtOwYr5E6@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YPXG4FDIqHQTa9lgZVEUs7N26VSGPkTOjkXnSrjBd5266tJ4p
+	rcvN9Z/p4fpxlz3kFpRgDSiNGh8zwm2pjKA0gYUqH03Nc5FIwZ4YNd4cJ7+r4DbqUTiKUZOtvKV
+	B+4Otnnv0/YjWHnDsQ2z3WG7NJSe5zkI=
+X-Received: by 2002:a05:6512:10c7:b0:5c1:5bc7:83c with SMTP id
+ 2adb3069b0e04-5c1bc89c62amr1919255e87.53.1795304697899; Sat, 21 Nov 2026
+ 15:44:57 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,44 +59,155 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261015142552.4128028-1-ryan.roberts@arm.com> <20261015142552.4128028-4-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-4-ryan.roberts@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sun, 22 Nov 2026 00:44:44 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkpUfxjH-6x6CNfZ-vmNBpZjKA_QJi14C3MvLjvH5GDCg@mail.gmail.com>
+X-Gm-Features: Aa3M54qEBsIHfq6xlw1QgwR1kLjUf8oKtfnIKMoqH8Z1sFQILc0FmuvWNVJA2Qg
+Message-ID: <CAD++jLkpUfxjH-6x6CNfZ-vmNBpZjKA_QJi14C3MvLjvH5GDCg@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 03/15] dt-bindings: misc: Add Arm Core Local Accelerator
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add new SCMI v4.0 Telemetry protocol bindings definitions.
+Hi Ryan,
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
----
-v3 --> v4
- - changed protocol number to lowercase 1b
- - fixed misplaced block for protocol 0x1b
+thanks for your patch!
 
-Cc: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org
----
- Documentation/devicetree/bindings/firmware/arm,scmi.yaml | 8 ++++++++
- 1 file changed, 8 insertions(+)
+The following review comments are based on my limited understanding
+of device tree, the actual maintainers should have the final word
+and need to look at it too.
 
-diff --git a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-index 6fc44105f1c3..b63543390fd9 100644
---- a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-+++ b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-@@ -324,6 +324,14 @@ properties:
-     required:
-       - reg
- 
-+  protocol@1b:
-+    $ref: '#/$defs/protocol-node'
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        const: 0x1b
-+
- unevaluatedProperties: false
- 
- $defs:
--- 
-2.54.0
+On Thu, Oct 15, 2026 at 4:26=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
+ wrote:
 
+> Arm Core Local Accelerator (CLA) provides a CPU-local interface to
+> accelerators that access memory through the local CPU's MMU. CLAs whose
+> accelerators cannot be isolated from each other form an isolation
+> domain.
+>
+> Add a binding for arm,cla describing the register range, CPU
+> association, DMA coherency and isolation domain. Document the
+> privilege-level register frames, including reduced ranges exposed to
+> virtual machines, and provide an example of two CLAs sharing a domain.
+>
+> Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+
+>  .../devicetree/bindings/misc/arm,cla.yaml     | 77 +++++++++++++++++++
+
+No matter where the driver goes, this binding should (IMO)
+be in
+
+Documentation/devicetree/bindings/arm/arm,core-local-accelerator.yaml
+
+> +properties:
+> +  compatible:
+> +    const: arm,cla
+
+I would spell it out arm,core-local-accelerator but others may like
+the terse acronym. I just think it's too short to be unique and
+find Documentation | grep core is good to match for one.
+
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      A single contiguous register range starting at the PL0 frame, alig=
+ned to
+> +      256 KiB. Each privilege-level frame occupies 64 KiB, with PL0, PL1=
+, PL2
+> +      and PL3 at offsets 0, 0x10000, 0x20000 and 0x30000 respectively.
+
+So these registers only exist on each node (mention that here), is this add=
+ress
+in the *physical memory* address of *that* CPU or of the entire system
+or what is it?
+
+I'm just confused so looking for this to be explained here.
+
+My guesswork is that each CPU has a slice of the physical memory
+in this reg, and that slice is then only visible from that one CPU.
+If it's like that, spell it out.
+
+> +  cpu:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the CPU for which this CLA is local. Only that CPU can =
+access
+> +      the CLA's registers.
+
+If this thing/address is local to the CPU, shouldn't this just be subnode
+inside of the CPU device tree node itself? I'm not sure so I'm asking.
+
+> +  dma-coherent: true
+
+Yeah, I guess ... on THAT CPU then?
+
+I think this property is "as seen from the CPU", and assumes all CPUs
+and IIUC the other CPUs cannot even see it so that doesn't sound very
+coherent.
+
+I'm just confused by this property being present here, but it's
+true, in a way, I guess? Do you have to specify it?
+
+> +  arm,domain:
+
+Domain is a bit generic don't you think? We have power domains
+and clock domains already.
+
+At least use arm,cla-domain?
+
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Identifier of the CLA isolation domain. CLAs whose attached accele=
+rators
+> +      cannot be isolated from each other, for example because they share=
+ an
+> +      inter-accelerator communication bus, must have the same domain ID.
+> +      Different isolation domains must have different IDs. IDs need not =
+be
+> +      consecutive. A CLA that can be isolated from all other CLAs has it=
+s own
+> +      domain ID.
+
+This doesn't explain what it means to isolate a domain, what
+isolation even means in this context.
+
+I know about isolating network interfaces for example: it means
+to physically decouple it.
+
+So express what "isolation" means here.
+
+> +examples:
+> +  - |
+> +    /* Two CPU-local CLAs in the same isolation domain. */
+> +    cla@10000000 {
+> +        compatible =3D "arm,cla";
+> +        reg =3D <0x10000000 0x40000>;
+> +        cpu =3D <&cpu0>;
+> +        dma-coherent;
+> +        arm,domain =3D <0>;
+> +    };
+> +
+> +    cla@10040000 {
+> +        compatible =3D "arm,cla";
+> +        reg =3D <0x10040000 0x40000>;
+> +        cpu =3D <&cpu1>;
+> +        dma-coherent;
+> +        arm,domain =3D <0>;
+> +    };
+
+This example makes it look like these CLAs are all uniquely
+mapped into the (shared) physical address space. Is it so?
+
+Yours,
+Linus Walleij
