@@ -1,78 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795266973;
-	b=DnKEROh2QHK1AteTt/8430nZ4lKZtF4Zs9ICtapx+zBdlwB5dMBo68/Ada1TBcpWp8ij
-	 YjOffGHDqgMWuoyam8HcNP4bSvx8n3oXWBlRE86vdwOU6GiE7/06of+hbmBGRYqwlBnci
-	 +2c9tasrGKP9XNKh/MVa5iZvGNC/nFYxGkfCjvzPzHkRJluTp2xH3AA1krdPjne1RoN+v
-	 +VzCEYqdq5y4yP3EY6ogZ/FafoHu8CpChOqvrvkHED1XIYpOzTvG5ZB5jGBRbFmeCpBoU
-	 wKVVr8uxWb65Jw1RIqG3fRlgPc8ExuIK2a1FeFJqzwt4vtatrHDrROOuNOQ2OH8vjyA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795266973;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/sGZqn97tL9illgD8dVqV08HlJBJu9Dy61Ryqg5Ev5U=;
-	b=O+MAy3s8DjSJ1tsFEIKeUj/Sv/1DSMjHDYGtJe3RMlpmf19UNR2HNA3/kGKgJzdrkqlP
-	 ZoMdppnlZ7ko3vPM+OgUYDC0apt92JoOXfuWKsAsUPF4B//8BHGMhhLimen9vI7ZcqyyY
-	 A4QU9nFMuesFIsSVk8aEpnoYK1CD06AtGI3Qtbfi0o4gyshsR79qE6DHUiTgUKHtb/phI
-	 hqQ9XwrYoZOeWunTFVGMUEZyo5+c23p3TUUxH6W73ZQvHt61wQ3zz4aGwwp974lz3uqIm
-	 /RHSTEPfFSFrzi0K3MCVe6iqoFl3jQbyL/IuiOP3EpM/NWTzw4GZGEmFUYphV1ZK6LA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmnZtiXh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716FA606A338;
-	Sat, 21 Nov 2026 13:16:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmnZtiXh
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795266973;
-	b=k04y7x7TkLQR2eGaL/7XkKAYBWIVcXd5W/JMFpwTqOWopOv3GMkWBlOsIwF8e/vpPTiL
-	 KrwvlHtgS9KE1DqUkRb+xA0EZR14u8UsCB4HmMas3JRy93z58vyYtHu2vfTB92cxf+I+V
-	 MzgDSq8owsySLDNyGN5jrsI+uhT373iei/54uSg7OIQmrU1FqFUUF6iFC+LbJAGvoXZBZ
-	 eWan71wLcTZB7AzbBcAK4xag9QWtpIE+qJ+eEfAz6Dv3gvspanfpP2RhlDzjOphxuyj/0
-	 L7bEynkn9pd8QA4Alw1LuZo+r9rhP8HUJQibqXMOh+xEnRn3SVGjV5IqoGVGBHNtLEg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795266973;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/sGZqn97tL9illgD8dVqV08HlJBJu9Dy61Ryqg5Ev5U=;
-	b=thinHGJOm75rGd0fE/ljFPbVzKUYFW/8s7F6/JoDsCYfj0Diy+w+xcMgOfkxslXipR8L
-	 D8RNaVp618D/3Hsd5RPa7ykyb2v8UN/8SQ7ZbTg4a7itDG5aP6hvOWkK/GgClTPPi5K+R
-	 9St8g4KJt89v6UWRYk0eSlSsMxI8YGpZ4+NRcphuqEBNKk7CDhHXK5ZvMlNQ7Klb0dkzC
-	 x+EmpvJ4bHfyRbxPfcHWF2qITLZerjhpfsGBnjF6wJ19gApdy/Vhrn/RNu6PTCchJofOy
-	 QFAS6zF+9y9LMz6fGt7HkExJZxo/ctUVFzxZoxS1rUcdQp0DjstJMiIDmIdBAP38wpA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795267069;
+	b=y3YA9NXsITULdnlFMWLb1udBOnxduedjt1H3MZdyClkOcSF9quMA0wk86ZDSCcNnD3/6
+	 fpYizpctQwsIjqYH7n2B2q4/T/fdU+nqUqrfWhniVgY1Yp+Ncn+oRavbSJ/HX21yYp40X
+	 61TNhcXEW/fVUbYpwMW2+DGlOoYglz7OoVycg3w/ljyBdTsaK2c/Wvu93N14JU1VH+Vxk
+	 QREgXk2de8YIf8sPM2/4KvlOKqdA3fzqub2TjsCN3ecuKe5wSlxMLXrxomYFl58AdTCLk
+	 yxV1Jj11Y1J8BILOs/ZYt6+9+bcA24q9nC/DkqdYdbjymqgYdjyvbR8aEHPMKGl+odg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795267069;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Rgt/byHJz73fVZB9npadRPJRCi06Zbw9U3jYPp0MPbc=;
+	b=f7bVszZ7Mz5CxUM7Tkh+FoGwMg8RCJL/rXJjKpJo8qh6uuWU3j2GTm8WWXLIevS/ckQ4
+	 geOyvTk583PhAkbMxPxRh89iQxpiBy9ZqzOJGC8+/5E9AoVxl9A8rM/lv6yOdMBY6BPl5
+	 X0rGutlUPxS4UoUptD4oM/CTI6fpjVqz7sv+o3SDd11BDejpuVU1CEzfTYDjMK1jg8OW9
+	 uhF0Zutm/5pzFcDSTmQWIvtzuIC5P2QBjo2f6xV9DtkOp5vV4GtIBjLSzbOrS3IsibmH5
+	 tDC8LUF6W0obgTsSrMCcHDawZQJG2EXWwMLiFsvWmO92Z66mIhUM65WudiHjHKmx7JQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Z5292Tds;
+	arc=none smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 576FF1F000C6;
-	Sat, 21 Nov 2026 13:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795266973;
-	bh=/sGZqn97tL9illgD8dVqV08HlJBJu9Dy61Ryqg5Ev5U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bmnZtiXhu+wKpx4H4jrxw4ZEJGHO4f/5z+InNwu+s8wnP8sWSLt6RLBS7ZsRRmfLS
-	 EqKiQlOoNNtDpBUj2z3OW1M0roG69VNajnFF/V9VmXM1ZwZR6D3AoN2MCwLtfvb+uf
-	 SBg2Ezwl6zFcsriiC3h+v/8zxAcZ5gW5fM8oE67tEJPR2FhGvWdLxiLQdXlsxE+19k
-	 3uc/4rz8Arnxa1so4vfqYaXfgVzGtqG5t7Q5mBxSvSYREBbMe6vdlNg5LhqQdvBhLi
-	 SWboFgMyyEgczFtHMeAoU0Ryxd658jyQYU8XEXHCP5lthztbKGu0eRbMcLpqAZCJ93
-	 ZKm+xH25QT4ZQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D73B24BC7B;
-	Sat, 21 Nov 2026 13:16:11 +0000 (UTC)
-From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
-Date: Sat, 21 Nov 2026 13:16:09 +0000
-Subject: [PATCH v10 2/2] clk: gpio: Add driver for GPIO-signalled clocks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5937606A320
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:17:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5937606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Z5292Tds
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5363c8de563so20520571cf.0
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 05:17:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795267068; x=1795871868; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rgt/byHJz73fVZB9npadRPJRCi06Zbw9U3jYPp0MPbc=;
+        b=Z5292TdssQirJ7anrgy/Ycj0wO1diReVT+xjqWqnvVpWW2hxPlSx6CnnlxSpqetc1z
+         +fddjESnGkA74Im6cQr17DvOW+VGIqruhO1KE5CwbJvPS54ALuMYtx4ha2VuyybUPXaT
+         reAh9DT5rV9fy+W//lI4WB/2FhxslsHRt8LxjfYv7VRLIEVwboWlnhQtGGPVYMmD6ihL
+         rqPFQZBMUV+gKP3QNnxGnSycOaF5ZFKfpghOCMHkZuVfrGH7y+3NT0bJUqPxS/JDH9QM
+         4l+csvlxSOav/F6ZIn19ywP7A8Me7D4xiu4/Fmr/Wb6uhFimbUOp/Inli4T67eYP/2Tt
+         /qYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795267068; x=1795871868;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rgt/byHJz73fVZB9npadRPJRCi06Zbw9U3jYPp0MPbc=;
+        b=yrlLZRwzqfCFKqdK43+vv3hW1o4P/aNxVnsVVCkotqjiu+VEPOYKVNkDej8waEZPiN
+         2SF/YUjBP97xUZ05yqJIzq7VOBIou2ZDrnDv3I21C9QGuTCSPYwG8qlNY9FOG3clUL0S
+         kfmzyAVT5l6B87iStqcHwGzdFQEFt5+LdWol0AHM+gEPHrQMSSKhjVhWqhGUF1Sw6tJU
+         65sNozQoXIOCBY29Li0Wy8fE6Vv/E1kX5LMglSSSiAQu4xfnlcihLmQu/bMc2dIcPw92
+         HIpDOPcx6yym6THxyEmV/Pk7xhV0BJ+q5JfaU/ITJMQinbbaBt9kA/NfKZX00Gtmnb+s
+         sETA==
+X-Forwarded-Encrypted: i=1; AL+hErFxoNun3P/i0927M0tldXGuqpKu+JoKoPxMkXf3Oeo7J0f7Qo94kfwpo/NkUz8AY55QvOexVf1JzaPD@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KS4N+2u4NbUXclcmnEyuv9M/GGU6M/5kvK5SJJsD/psW5TXMH
+	sjqblMzoANk1JoVc62ouk/wE++DeFp2td4n/8c1E14MA1G100ZfzV+nbz2oJdTeQQXb/c8avQEV
+	a/J4d2Ev7Qw==
+X-Gm-Gg: AZFdTZeGh5I5t/d4YokTplcB2oQQ11OIUCMJeUoe31IkO+skruoUpjg+B2FmClNrLqG
+	aD28zG+cvFge0OrKl7bs24ivkn5230zR5BSwy26R1nFSnnnetlwDZZBmD0tal3036PM/uMBErDW
+	+B4R9YGRURV9MA+XcRfkYxNNoYJKaR31bNJjpoh0s2Zbc/x8hIXl7hSOM3e+nKN4GIBOAqNbpNG
+	jKlHv0Z/x7QlrZ9r+4hheHkc+F1PcbQDLyLp06Pa5OlDJqObrGW73HFO6HNCZXapxp8uNpRepn7
+	AvyLAfABdVLomjgSZDaf6WcPglpLCfyKULoNx+3mCWyqsBxROOYrr4ZuID4e42R8eTJM2X6CXr7
+	c6NRaYT3QOGSOwcKFzG+08hERlCD17nHiFQqjlM4RoL6r3jWwDkkZNwGcH0TxwtycBYsCewPLrd
+	V9HbSz2cJ9nqL40dUEZT2vDziUaujuQ/IaJGf2DT6cHQuEOj2IaQNW8Ss67kgHZSV/REpMtr+J7
+	iQcJHFsDnEOEomphqAY6E4abie9Fs0pK0AypsXVf5bZ0noBwE1AJRQRy8EniXMObMuVsxXJgg6O
+	o6RQQCHhwMB6gBeMkqYTwFQIr3u51nwKsQYIjcFYLYmAH5L3Li7D69AsUcEzcef2IXHRZhkgpQc
+	ONSTZjNjAeeAuB/SuhxEkb3bcr3iLqIM7cy8lgX1IZZwkr6Jne/6mEYgAjP0QTErJJXvt3w==
+X-Received: by 2002:ac8:5f85:0:b0:55d:2dd1:48ba with SMTP id d75a77b69052e-55d76aa2f7cmr111131171cf.60.1795267067663;
+        Sat, 21 Nov 2026 05:17:47 -0800 (PST)
+Received: from localhost ([204.244.107.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349b1e58sm53873266d6.12.2026.11.21.05.17.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 05:17:47 -0800 (PST)
+Date: Sat, 21 Nov 2026 08:17:46 -0500
+From: Ralph Siemsen <ralph.siemsen@linaro.org>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: khendry@reliablecontrols.com,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	=?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH 2/6] clk: renesas: r9a06g032: Add reset controller
+Message-ID: <awGZ-nCCbCNEuyr7@maple.netwinder.org>
+References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
+ <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
+ <awATU_lyjPBxThwq@shikoro>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,181 +121,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261121-feature-clock-guard-v10-2-5d449739bb8c@bruker.com>
-References: <20261121-feature-clock-guard-v10-0-5d449739bb8c@bruker.com>
-In-Reply-To: <20261121-feature-clock-guard-v10-0-5d449739bb8c@bruker.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
- Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795266970; l=4749;
- i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
- bh=dyzkwpsDWy1xsw5+SbD3ygu7Ho/BhopKpUo8Bx6I3RU=;
- b=0pmBPzlfFwjpY1hNo1Yhxzco9CP542ccdODSzyrfxu4lUTpDyvIzkEz3mI8UBLTwDG6UCtyY2
- HGwhrV2XKKOAJga3Keq6YbOFV9YVWv0g9bM9QYmDEVbd5qdDITA/oFx
-X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
- pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
-X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
- auth_id=686
-X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Reply-To: V.Yurkov.EXT@bruker.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <awATU_lyjPBxThwq@shikoro>
 
-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+On Fri, Nov 20, 2026 at 10:30:59AM +0100, Wolfram Sang wrote:
+>> +static int r9a06g032_reset(struct reset_controller_dev *rcdev,
+>> +			  unsigned long id)
+>> +{
+>> +	r9a06g032_reset_set(rcdev, "reset", true, id);
+>> +	udelay(5);
+>
+>For future reference, please add a comment pointing to chapter in the
+>docs where it is saying 5us is needed.
 
-Some clocks are not under CPU control: they are generated and enabled
-by external hardware, which only reports through a GPIO whether the
-clock is running. There is currently no way to describe such a clock,
-so consumers either initialize too early or rely on ad-hoc delays.
+The reset duration could vary for each reset ID, since they refer to 
+different hardware. There's probably no "optimum" value here.
 
-Add a "gpio-enabled-clock" provider for this case. Its prepare
-callback polls the GPIO until it is asserted or a timeout expires, so
-a consumer's clk_prepare_enable() succeeds only once the clock is
-actually running, and fails otherwise. is_prepared reports the
-current state of the GPIO.
-
-Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
----
-Our use case: peripheral clocks generated by FPGA PLLs, with the
-PLL-lock signals routed to GPIOs of the SoC.
----
- drivers/clk/clk-gpio.c | 107 +++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 107 insertions(+)
-
-diff --git a/drivers/clk/clk-gpio.c b/drivers/clk/clk-gpio.c
-index df0856a39c8d..33f251b209a0 100644
---- a/drivers/clk/clk-gpio.c
-+++ b/drivers/clk/clk-gpio.c
-@@ -15,6 +15,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/err.h>
- #include <linux/device.h>
-+#include <linux/iopoll.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
-@@ -241,6 +242,112 @@ static struct platform_driver gpio_clk_driver = {
- };
- builtin_platform_driver(gpio_clk_driver);
- 
-+/**
-+ * struct clk_gpio_enabled - gpio enabled clock
-+ *
-+ * @hw:		handle between common and hardware-specific interfaces
-+ * @gpiod:	gpio descriptor
-+ * @timeout_us:	timeout that is used to get a GPIO value
-+ *
-+ * Clock whose status is determined by a GPIO signal.
-+ *
-+ * Implements .prepare and .is_prepared
-+ */
-+struct clk_gpio_enabled {
-+	struct clk_hw hw;
-+	struct gpio_desc *gpiod;
-+	u32 timeout_us;
-+};
-+
-+#define to_clk_gpio_enabled(_hw) container_of(_hw, struct clk_gpio_enabled, hw)
-+#define GPIO_ENABLED_TIMEOUT_MIN 10
-+#define GPIO_ENABLED_TIMEOUT_MAX 1000
-+#define GPIO_ENABLED_TIMEOUT_DEFAULT 10
-+
-+static int clk_gpio_enabled_is_prepared(struct clk_hw *hw)
-+{
-+	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
-+
-+	return gpiod_get_value_cansleep(clk->gpiod) > 0;
-+}
-+
-+/* The clock cannot be turned on, only waited for. */
-+static int clk_gpio_enabled_prepare(struct clk_hw *hw)
-+{
-+	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
-+	int value, ret;
-+
-+	ret = readx_poll_timeout(gpiod_get_value_cansleep, clk->gpiod, value,
-+				 value != 0, 10, clk->timeout_us);
-+	if (ret)
-+		return ret;
-+
-+	return value < 0 ? value : 0;
-+}
-+
-+static const struct clk_ops clk_gpio_enabled_ops = {
-+	.prepare =	clk_gpio_enabled_prepare,
-+	.is_prepared =	clk_gpio_enabled_is_prepared,
-+};
-+
-+static int gpio_enabled_clk_driver_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct clk_gpio_enabled *clk;
-+	const char *clk_name;
-+	const struct clk_parent_data gpio_parent_data[] = {
-+		{ .index = 0 },
-+	};
-+	u32 timeout_us = GPIO_ENABLED_TIMEOUT_DEFAULT;
-+	int ret;
-+
-+	clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
-+	if (!clk)
-+		return -ENOMEM;
-+
-+	clk->gpiod = devm_gpiod_get(dev, "enabled", GPIOD_IN);
-+	if (IS_ERR(clk->gpiod))
-+		return dev_err_probe(dev, PTR_ERR(clk->gpiod),
-+				     "Can't get enabled GPIO property\n");
-+
-+	ret = device_property_read_string(dev, "clock-output-names", &clk_name);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "missing clock-output-names\n");
-+
-+	device_property_read_u32(dev, "poll-timeout-us", &timeout_us);
-+	if (timeout_us < GPIO_ENABLED_TIMEOUT_MIN ||
-+	    timeout_us > GPIO_ENABLED_TIMEOUT_MAX)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "poll-timeout-us is out of range [%u, %u]\n",
-+				     GPIO_ENABLED_TIMEOUT_MIN,
-+				     GPIO_ENABLED_TIMEOUT_MAX);
-+	clk->timeout_us = timeout_us;
-+
-+	clk->hw.init = CLK_HW_INIT_PARENTS_DATA(clk_name, gpio_parent_data,
-+						clk_gpio_enabled_ops, CLK_SET_RATE_PARENT);
-+
-+	ret = devm_clk_hw_register(dev, &clk->hw);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to register clock\n");
-+
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, &clk->hw);
-+}
-+
-+static const struct of_device_id gpio_enabled_clk_match_table[] = {
-+	{ .compatible = "gpio-enabled-clock" },
-+	{ }
-+};
-+
-+static struct platform_driver gpio_enabled_clk_driver = {
-+	.probe		= gpio_enabled_clk_driver_probe,
-+	.driver		= {
-+		.name	= "gpio-enabled-clk",
-+		.of_match_table = gpio_enabled_clk_match_table,
-+	},
-+};
-+builtin_platform_driver(gpio_enabled_clk_driver);
-+
- /**
-  * DOC: gated fixed clock, controlled with a gpio output and a regulator
-  * Traits of this clock:
-
--- 
-2.34.1
-
-
+Ralph
