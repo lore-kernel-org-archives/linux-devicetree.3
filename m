@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795289495;
-	b=mf3Rxf3wkV0oPRbzPZg8WA1AC14KCM4y8fCq+cWIneKnimzqktysf7Nt6gYuM0eaAuCH
-	 Drht6k8kvhmigkwBrKhpqWhadC7osRllZ+wg1/YpGWht9lehfxvPdGYBAqXAIv1ayBR/1
-	 xCM6PRleQMJKOol+TGKEHtQHdLXzM+TqrBuTjEDqCisDavOvm6RwYpGIELYjhgDKHJJ5l
-	 Oew/nQeEG0ENBuKH9c+E7py07Ss1dUIBAek2wgJp9KXb2cVOY9s2NXWURgm2cclPMkmO9
-	 FwDRSHpUUHbkb571BKEg3qLUHCyqJzuEAVZcJY/8yDeQN3E6bHqb16dQ0ccbcbDcE3g==
+	t=1795289825;
+	b=2yn3CMKz7/KUCRjJMaoTrogJKVkpIq5zJmCT7ir/Ni1NF7OLkimnH+dPZsvW1MCtXvK+
+	 HNAoU3YAb1/aYKMZ042/NkMR1069S+Lbt9B/6WGj2w2lEzvo03z0rTGwZxenLLdaWCcQ7
+	 IXbVRRz97gz2dZkCcmhVJA6CgWdHfYnufqqUk464wRZigwVpmI6ayWt/H6GblEEp1a/1A
+	 j0luGvMD4ISvlhEjLMkajfUvytTthO3HtC2sSbG5nK9cfcpA3qof/+r05vV6BHzaKiwhd
+	 PvAINu5+Dx5omBPON4LM44mpYXJfTkp3G3jym8zR5tctPrjlM0fqL2AFs9ECZWcH3Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795289495;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=yqFg/CDfhcQQki7rbGu6XmQIamv54cpSA2pIhpeTPrI=;
-	b=kQy2jkY1O4WOmsxk2E7YyRx7Su3jBIjp6kN1H5RxzgA8HSvYxdCAMRRa/+N+zULVq1DO
-	 FnI8VDQ7mhj5flC2W3VTxkbWKq0BSl0y58Jiw3XSyIPz7iCC+Bpuqe1ATDSu1xkui3XCX
-	 4DuSyBhKWkvzrLVdiT3b+jXe17ES5kaF7FtnyypveGmULJLjsajNKd+JmNKBbutPyOyb8
-	 qzA65tMrYUFadLXvRR4Qn5Ks4eCAa8HGBt4nw416MmuKCRiUxUuWWD2i6qTRvilEN1YLH
-	 BcusDl0YS+W/DneX0KtHpTV9noAPYjq6jT29/g/6e58yaQXpz22P6ez+J0fECG4WUIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795289825;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=RUCRU0qWPwd9+EyyfY16haNQPZ3FbjyQHzlUswnyoQY=;
+	b=q1fcHGECGApKbWYkLA6K6exS9RCxR3+PQYCHx/dTzmgNySAMbh14SBaQPzpt27+2LiwY
+	 ZyZ6+qQrxx56BH9IizHxhib9vRptaL9Mgu7A8QEWb51Aaf7CFnOUdqA4JBo1/qHNvVUZh
+	 /9L0dLe5x3vhRfNJVLgaln5NNAYrHZtctuYbI03ORyiFxCsJODvlRCsEXOkyRPhrUp1m6
+	 9W//I13d09TyF2RTmAd5eIQuGj6qOFdVEo1TPkX4AeigrL7QpRdWT/EOZV3E0RRFiXNyA
+	 KezlD3eEb87/gtnkGztg2sAR6jNHmcOEM5ctiT8oIl9xb51EPvideHyoPRAQyes3QbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PZwUmAk8;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBnZFc4T;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C013A606A320;
-	Sat, 21 Nov 2026 19:31:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C013A606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43080606A330
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 19:37:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PZwUmAk8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795289494; x=1826825494;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9zj66kMuwbMu44FH/2iMUwR4Us5WeWzErC6aqT+gjgA=;
-  b=PZwUmAk8DJdS5U+Ob6JiIT/+61l58OoCVpQ5ZPcIez+5JRbWBa0fI16o
-   l1rKpN3JwgcqZJNk5VEqZiBLJFTpJ76lbwPAQSEpD/mlJzNnGZAYPiCMo
-   QSBya+sCIZBbgI2fXPq1484nlZZ2tWreAriI/8MQmDcMLLeqCDq8uGhfh
-   FgxYYZoyE1RP1nkjPpZ701cYYbfOnLrNLM12xCfMoOUT/QtZGginOP3Hp
-   SB1BGFDGzypynwsa/afB55kurmaWlE2ZZYom/Ak8nNYKf+CgL1MlTq3jE
-   L5eRlcOaIiRaenYycnf1LA0bwpYDig2uylAn9V+Htmf8glYKZjeet80kN
-   w==;
-X-CSE-ConnectionGUID: 2wIxOSVAQe+2ENnSNsSraw==
-X-CSE-MsgGUID: M6rhjYFHQD2DAADh0plSOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11973"; a="4035638"
-X-IronPort-AV: E=Sophos;i="6.27,225,1787036400"; 
-   d="scan'208";a="4035638"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Nov 2026 11:31:34 -0800
-X-CSE-ConnectionGUID: 0ayvV+adR7qaALPVu/CEdg==
-X-CSE-MsgGUID: KtrBk2viQS+k/l115C11bg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,225,1787036400"; 
-   d="scan'208";a="10859667"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 21 Nov 2026 11:31:30 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xUqo3-00000001KV9-1kKB;
-	Sat, 21 Nov 2026 19:31:27 +0000
-Date: Sun, 22 Nov 2026 03:31:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: Paul Cercueil <paul.cercueil@bootlin.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	George Cherian <gcherian@marvell.com>,
-	Sujeet Baranwal <sbaranwal@marvell.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: Re: [PATCH v2 2/2] mailbox: marvell-mhu: add Marvell MHU driver
-Message-ID: <202611220344.CTLohdLM-lkp@intel.com>
-References: <20261120113952.168265-3-paul.cercueil@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBnZFc4T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51C131F000CA;
+	Sat, 21 Nov 2026 19:37:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795289824;
+	bh=RUCRU0qWPwd9+EyyfY16haNQPZ3FbjyQHzlUswnyoQY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jBnZFc4T25mKhKzRF51L0ARaNmifquHlYUfXu+6Pckl7yqVItvl/wIhmsyoML88x/
+	 bH6wn7W1K1geyIMI/C0+i6OFLPJptfGvBzebRs/0Erwl/UTOxkb3tPtKZ0YrY4TYBg
+	 bu682nTNBmtKIJckPk6EcrJJiIHLLLfPoJ/MHYg0WNviBEEDmvCYFruHzC1cvgUQd+
+	 4lUJmJ7wuD8KdytF/wP0MRwgUzhv2tXyAKIlKVpXau+7AequW6YAnSUnvrCSQyn4Gz
+	 brKH0BIIFTeTtpcDzp8ORBLndFGSMjDcne0d0cA+78axKQv6SoG7x6wCbMVkJgv/DH
+	 f9yoyb9u9DwLQ==
+Message-ID: <sashiko-outbox-227314@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 08/11] drm/meson: dw-hdmi: Use the generic PHY
+ framework for the HDMI TX PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com
+In-Reply-To: <20261121-meson-drm-create-hdmitx-phy-v3-8-f8f471788076@aliel.fr>
+References: <20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr>
+ <20261121-meson-drm-create-hdmitx-phy-v3-8-f8f471788076@aliel.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 21 Nov 2026 19:37:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,71 +60,179 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120113952.168265-3-paul.cercueil@bootlin.com>
 
-Hi Paul,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] drm/meson: dw-hdmi: invalid phy_destroy() in
+  meson_dw_hdmi_bind() error path
+- [Medium] drm/meson: dw-hdmi: stateless device link leaked in
+  meson_dw_hdmi_unbind()
+- [Medium] drm/meson: dw-hdmi: meson_venc_init() clobbers PHY CNTL0 on
+  system resume
+--
 
-kernel test robot noticed the following build errors:
+commit 60b745dc55898638b05c8fcafed9d3683b30dff0
+Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-[auto build test ERROR on jassibrar-mailbox/for-next]
-[also build test ERROR on robh/for-next krzk-dt/for-next linus/master v7.4-rc3 next-20261119]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Paul-Cercueil/dt-bindings-mailbox-add-Marvell-MHU/20261120-123951
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/jassibrar/mailbox.git for-next
-patch link:    https://lore.kernel.org/r/20261120113952.168265-3-paul.cercueil%40bootlin.com
-patch subject: [PATCH v2 2/2] mailbox: marvell-mhu: add Marvell MHU driver
-config: x86_64-allmodconfig (https://download.01.org/0day-ci/archive/20261122/202611220344.CTLohdLM-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261122/202611220344.CTLohdLM-lkp@intel.com/reproduce)
+This commit converts the Meson DW-HDMI glue driver to manage the HDMI TX
+PHY through the generic PHY framework, with a legacy fallback when the
+device tree lacks a "phys" property, and adds a stateless device link
+between the VPU master and HDMI-TX device.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611220344.CTLohdLM-lkp@intel.com/
+> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meso=
+n/meson_dw_hdmi.c
+> index 20a821936b3af..8fdb997c28b40 100644
+> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
+> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
 
-All errors (new ones prefixed by >>):
+[ ... ]
 
->> drivers/mailbox/marvell_mhu.c:96:2: error: call to undeclared function 'iowrite64'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      96 |         iowrite64(doorbell, mhu->base + AP0_TO_SCP_MBOX);
-         |         ^
->> drivers/mailbox/marvell_mhu.c:106:11: error: call to undeclared function 'ioread64'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     106 |         status = ioread64(mhu->base + AP0_TO_SCP_MBOX_LINT);
-         |                  ^
-   2 errors generated.
+> @@ -746,7 +663,26 @@ static int meson_dw_hdmi_bind(struct device *dev, st=
+ruct device *master,
+>  		return ret;
+>  	}
+> =20
+> -	meson_dw_hdmi_init(meson_dw_hdmi);
+> +	meson_dw_hdmi->phy =3D devm_phy_optional_get(dev, NULL);
+> +	if (IS_ERR(meson_dw_hdmi->phy))
+> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
+> +				     "failed to get HDMI PHY\n");
+> +
+> +	if (!meson_dw_hdmi->phy) {
+> +		/* DEPRECATED: DT without "phys" */
+> +		dev_warn(dev, "missing \"phys\", using legacy HDMI PHY\n");
+> +		meson_dw_hdmi->phy =3D meson_hdmi_phy_create_legacy(dev, priv->hhi,
+> +						meson_dw_hdmi->data->phy_soc);
+> +		if (IS_ERR(meson_dw_hdmi->phy))
+> +			return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
+> +					     "failed to create legacy HDMI PHY\n");
+> +
+> +		meson_dw_hdmi->legacy_phy =3D true;
+> +	}
+> +
+> +	ret =3D meson_dw_hdmi_init(meson_dw_hdmi);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	/* Bridge / Connector */
+> =20
+> @@ -767,14 +703,26 @@ static int meson_dw_hdmi_bind(struct device *dev, s=
+truct device *master,
+>  	platform_set_drvdata(pdev, meson_dw_hdmi);
+> =20
+>  	meson_dw_hdmi->hdmi =3D dw_hdmi_probe(pdev, &meson_dw_hdmi->dw_plat_dat=
+a);
+> -	if (IS_ERR(meson_dw_hdmi->hdmi))
+> -		return PTR_ERR(meson_dw_hdmi->hdmi);
+> +	if (IS_ERR(meson_dw_hdmi->hdmi)) {
+> +		ret =3D PTR_ERR(meson_dw_hdmi->hdmi);
+> +		goto err_hdmi_probe;
+> +	}
+> =20
+>  	meson_dw_hdmi->bridge =3D of_drm_find_and_get_bridge(pdev->dev.of_node);
+> =20
+> +	link =3D device_link_add(master, dev, DL_FLAG_STATELESS);
+> +	if (!link)
+> +		dev_warn(dev, "failed to link HDMI (supplier) to DRM master (consumer)=
+\n");
+> +
+>  	DRM_DEBUG_DRIVER("HDMI controller initialized\n");
+> =20
+>  	return 0;
+> +
+> +err_hdmi_probe:
+> +	phy_exit(meson_dw_hdmi->phy);
+> +	phy_destroy(meson_dw_hdmi->phy);
+> +
+> +	return ret;
+>  }
 
+[Severity: High]
+Does calling phy_destroy(meson_dw_hdmi->phy) in err_hdmi_probe cause a
+double free or destroy the external provider's PHY when dw_hdmi_probe()
+fails (for example with -EPROBE_DEFER)?
 
-vim +/iowrite64 +96 drivers/mailbox/marvell_mhu.c
+Both devm_phy_optional_get() and meson_hdmi_phy_create_legacy() (which
+uses devm_phy_create()) are devres-managed in the component devres group
+that component_bind() releases on bind failure.  When legacy_phy is
+false, meson_dw_hdmi is only a consumer, so phy_destroy() unregisters
+the external PHY provider's device while the provider remains bound.
+When legacy_phy is true, component_bind() immediately runs
+devm_phy_consume() -> phy_destroy() a second time on the already-freed
+phy.
 
-    89	
-    90	static int mrvl_mhu_send_data(struct mbox_chan *chan, void *data)
-    91	{
-    92		const u64 doorbell = 0xff;  /* Arbitrary value, SCP requires a value */
-    93		struct mrvl_mhu *mhu = chan->con_priv;
-    94	
-    95		/* signal SCP */
-  > 96		iowrite64(doorbell, mhu->base + AP0_TO_SCP_MBOX);
-    97	
-    98		return 0;
-    99	}
-   100	
-   101	static bool mrvl_mhu_last_tx_done(struct mbox_chan *chan)
-   102	{
-   103		struct mrvl_mhu *mhu = chan->con_priv;
-   104		u64 status;
-   105	
- > 106		status = ioread64(mhu->base + AP0_TO_SCP_MBOX_LINT);
-   107	
-   108		return status != 0;
-   109	}
-   110	
+Dropping phy_destroy() from err_hdmi_probe and leaving the cleanup to
+component_bind()'s devres release avoids both issues.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> =20
+>  static void meson_dw_hdmi_unbind(struct device *dev, struct device *mast=
+er,
+> @@ -786,6 +734,10 @@ static void meson_dw_hdmi_unbind(struct device *dev,=
+ struct device *master,
+> =20
+>  	devm_free_irq(dev, irq, meson_dw_hdmi);
+>  	dw_hdmi_unbind(meson_dw_hdmi->hdmi);
+> +
+> +	phy_exit(meson_dw_hdmi->phy);
+> +	if (meson_dw_hdmi->legacy_phy)
+> +		devm_phy_destroy(dev, meson_dw_hdmi->phy);
+>  	drm_bridge_put(meson_dw_hdmi->bridge);
+>  }
+
+[Severity: Medium]
+Does meson_dw_hdmi_unbind() leak the DL_FLAG_STATELESS device link
+created in meson_dw_hdmi_bind()?  Stateless device links are not removed
+automatically by the driver core on unbind and require an explicit
+device_link_remove(master, dev) or device_link_del().
+
+> @@ -801,6 +753,8 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(st=
+ruct device *dev)
+>  	if (!meson_dw_hdmi)
+>  		return 0;
+> =20
+> +	phy_exit(meson_dw_hdmi->phy);
+> +
+>  	/* Reset TOP */
+>  	meson_dw_hdmi->data->top_write(meson_dw_hdmi,
+>  				       HDMITX_TOP_SW_RESET, 0);
+> @@ -811,11 +765,14 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(=
+struct device *dev)
+>  static int __maybe_unused meson_dw_hdmi_pm_resume(struct device *dev)
+>  {
+>  	struct meson_dw_hdmi *meson_dw_hdmi =3D dev_get_drvdata(dev);
+> +	int ret;
+> =20
+>  	if (!meson_dw_hdmi)
+>  		return 0;
+> =20
+> -	meson_dw_hdmi_init(meson_dw_hdmi);
+> +	ret =3D meson_dw_hdmi_init(meson_dw_hdmi);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	dw_hdmi_resume(meson_dw_hdmi->hdmi);
+
+[Severity: Medium]
+With the new device link ordering dev (supplier) to resume before master
+(consumer), will meson_drv_pm_resume() -> meson_venc_init() clobber
+HHI_HDMI_PHY_CNTL0 after meson_dw_hdmi_pm_resume() has initialized the
+PHY?
+
+drivers/gpu/drm/meson/meson_venc.c:meson_venc_init() {
+	...
+	/* Disable HDMI PHY */
+	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, 0);
+	...
+}
+
+meson_dw_hdmi_init() calls phy_init(), which programs HHI_HDMI_PHY_CNTL0
+to cntl0_init (0x000b4242 on G12A for the bandgap).  When the consumer
+meson_drv_pm_resume() runs next, meson_venc_init() overwrites
+HHI_HDMI_PHY_CNTL0 with 0, leaving the G12A bandgap disabled whenever no
+HDMI mode is active across suspend and resume.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121-meson-drm-=
+create-hdmitx-phy-v3-0-f8f471788076@aliel.fr?part=3D8
