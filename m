@@ -1,88 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795279777;
-	b=UZS6b48Vv+qA2YGNOoiVPgAq9A7jEGvCSa13bgrmCCf9PIT0s2Sl5Jwg7sxQIVb7VdpG
-	 wkV31TK5lKqLRK98Mc0PxJj2sA5G69Mz8lB4xBqsbyzay0/LWLrFjPnJOmcXzI3nxdcM3
-	 h7FnxjDjU0EqmrNnR3ZJ8T4HsD6z62jEzrQZwWs65dwFBJoyqbhw0BK4eXaFaffyuh2kc
-	 JwuMvcRMB3sajee2Z2Boy0eyJ6utsScv2inUg4ulF/EWlZ8qLYC6KBv7UmPHdgOUSK7Vn
-	 UHnYaM1Ze5ElgkAUtW0H81h7+bpJfL39zEDkuXwMg7PwIO5ayEwm4n9Gb1nKWIEDQCA==
+	t=1795280170;
+	b=wlC1SlC5QOkTt2qLU+5iFf0NSofRRCsms7jFPgqOeJPA/MEx/4d+6PLRUyDLte1pAGAy
+	 JbphmxuTi2zgwkk4ekz/LA2dVLdzrWA7JH/AB5tGmr9E3RG2+YZYVkhO2uGkWd1v6z+Ld
+	 OrYrDTobrYHV/0XXh7o82v1m0EAwJXtyghyVMYCGJ/ExHjVSzGGvyZr2BqfQRZj2vDEy2
+	 S0DWw2Xo1VADomQ7vTikj5qszCx5zJ184buBVuOEeW0J0Oq8pYCpSAldK5Oo96ZpYPPCk
+	 ou0T9SPydF02YbnA74POBuud/3hWc8LiwC/SBKEcafvQgr+RDvbmbsmouvCP52gDtVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795279777;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=ugnNXXIsy9Uor/V8luuCj9VNvTB9GFq713zvZphiVc8=;
-	b=K+zAmE437crs0oZgi2WG1w01+/MoTYY0JfIVu35e2x/i2i9kcWkJGi0jBJNg7rdDnxa1
-	 Qrlk1QGnbSSxjCOrWRQPgrA2JWtLxPk3R8nDo1OwK8cJnD17tmTdd/IeJBIhpffAaFd8a
-	 x0PBD8lC+vNBUh1HXbzaF2LrmJxBdRbIr+Z2ibMsnS67AblMpxyn0Hj5rQhJUnaWCzvyn
-	 9YoWzYqSEFQ/Keu9pGdGmpbkzRZeUa1fbrd/YY4lkrUGFHfrc7p1FalgEr3S0PQ2AN+BE
-	 oWPk3701V01uW/TrRMw7n9ob82wwQv1ajoXJouYD7eg6Vs/8LzUceL3m3nUsZ8zx6tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795280170;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=xYz9pA1mSMoNnWygMUOBu3XO1KnQlEYwkYTGx2Jq9oQ=;
+	b=nOdZScrrICXramFjGckD9p8SEzymV7UWaaexbuFikJuFDO3x1e95QqeHVziqxHtVRtIi
+	 RrH/e4GPXE7LNi6fYXdnQW/iLht6T3fwRlkzWVSuz3rnf4xsqGak07xSdJ97hprvl95sO
+	 bkIw70VK5sUaj6b1tFDVyKiZwpxCKcExZwNo9LXjudeBX4UY1c/pPyqDCLqcO9D5qi3ks
+	 V4EbIzuMVOUCMeqHiCOksVBaGDD4qsA+vpLR+Xa+zmH5cXesNscwyvH4knM0R6T7sg9kl
+	 LW1CRzrRuxVduWARPtbVaiQ3FnUZu0/Pa7cGHsYNQ4CxKBrJZ0awsRys8T4B48kOmjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1NccJw0;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90503606A68C
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 16:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90503606A68C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1NccJw0
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb85e07aadso22097805e9.1
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 08:49:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795279776; x=1795884576; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ugnNXXIsy9Uor/V8luuCj9VNvTB9GFq713zvZphiVc8=;
-        b=S1NccJw0Ms+NHuzySD+H8dg4z2d7XLQp651/mphadfSwCAJxOZksz4J6/G7lFu4C83
-         wgvpoYo8mezwD2HykkrtAatmVDpTlUPXyfM1Yk47PAkddq4KmODejoLVmjmCXBghfPcz
-         G7pJ2/mggW/ix9QBknkTXUrLaGIYZLl/RPYuF+Y/e/rpjiiTKMMkAQRBWKKGcm9vw7of
-         IGzhEjSSAM/t8gK86Bjv4faIaACHEsW9crqzr5bYd7Osv/lYXikDK0+kwJ1gZrJMCLWm
-         4mkUzKSqchtA5U96FxEN+CPjRFoJOlv6McHzoNFHIx6SWGeuYuE0DygUOYEwmwMAKTwH
-         LY4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795279776; x=1795884576;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ugnNXXIsy9Uor/V8luuCj9VNvTB9GFq713zvZphiVc8=;
-        b=ExXXv31KXLWUpiRpN782skvkBqU+Uw8MVRM/EREGs0uGiFHiFl37tGGNYQtgmgbSce
-         aL5LddxaJ4xl7G8znH5VEXSnjQ9x16Wj2erAq3Kp4F5y1d8vuGqYkn7qCbCU6dz08CIO
-         aGMjC1Mhqx7kFdesHcUm6w6+ydVJBcbVU1R09vEnQAXRDeRjxeEQ9Yg2CJpiXNZkuYu7
-         +e7y7252hkehopntnv1P6o288RZZQsxtVl/ZQ6nfmjyTSVKyD27SboCZb3Or2HY5dBJX
-         W/eIL/Ut7FljyLqbi5Gb4Ul4Fqo7c6uKIasQoxZQxVk87HaLwDktqJEfT2oXGBS3dr40
-         /pLA==
-X-Forwarded-Encrypted: i=1; AL+hErEzH5huwC3ATb2/BNHbWY8TdNO0uLC2AXRORU8RrfYDHKhET9qaUX//IDJfLddfnjLFsjeSVSKrXBdx@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LKTWEMN/n6Oo2F+yGWGp8KgtJ3cNyhaENmyaMWnZZX4RB+Xxh
-	QDAWmK7J38uuCG/+um4coi5MVAcyvbvxBY/0fzcz9tGwbWmY7CIPws6Q5A0Xrawj
-X-Gm-Gg: AZFdTZfnGIjOWDRnD8QgVYp4w1xnHQUOpp//OsEL4dp/ewSvl6DWSF0b9Wv40iRidT9
-	mR9+iZo2g9OvIbTKQE5oVVvbOGloF0hf2mNVMtNDslWHixAK6KRi3M3+TirbijI1+IZXrUjaJSh
-	iBbJLTLZMEctTMkBt4g6uycUhNYyn8MwZLEYtxvH9Sf07EoRhVHBp6Qef+pNnj2VNRZUgGNBgyE
-	sDCZ0QQ5rdqqKV4dBJNpmgTnvTR7sWMThQo251UTrazbxmlpSJF42QV/LOyjYjpE9MWSchaGCox
-	0FMcYeCtrw3SESj9Rib6euhfwdhNniRA3d//oQ2miemdggaSgW7F0TXThbflDMk5kYSkGXX2ndy
-	1HXcv3wECwK9xRd6513meW5f9kKNvr3yXpsz5XPxTlXsahr4XYvxJ9k/NRsNBpXLbyJgZaDbgRe
-	7yAIOGj3XRg18ZdI0AgqPHg3xRS5pgK2lPCSJyaAeUTn87eyhGV8VyleVpU0a5G99GhFSZUTDrP
-	VAJvhnrlAxTj0FFzm+ki1jXQD1qlXLVJQJ5RL9UFmlPJVx1FiKpaG8VtekdlthMyvWMeV8Tw7B0
-	1ah8SEO3qaAEy57bj0ZjQ0HCLhRJDos=
-X-Received: by 2002:a05:600c:820c:b0:4bb:6f6a:1976 with SMTP id 5b1f17b1804b1-4bb887c2923mr139557955e9.2.1795279775875;
-        Sat, 21 Nov 2026 08:49:35 -0800 (PST)
-Received: from unknown.local ([2a02:b027:11:696f:25b0:e663:79f5:e891])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4ab6b110ba3sm9761749f8f.35.2026.11.21.08.49.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 08:49:35 -0800 (PST)
-From: Gianluca Boiano <morf3089@gmail.com>
-Date: Sat, 21 Nov 2026 17:49:05 +0100
-Subject: [PATCH] dt-bindings: media: i2c: dongwoon,dw9768: add DW9763
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014E2606A320;
+	Sat, 21 Nov 2026 16:56:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 014E2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xUoNY-000000006Hk-2eaa;
+	Sat, 21 Nov 2026 16:55:56 +0000
+Date: Sat, 21 Nov 2026 16:55:40 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	David Heidelberg <david@ixit.cz>,
+	Christian Hewitt <christianshewitt@gmail.com>,
+	Marc Zyngier <maz@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Dang Huynh <dang.huynh@mainlining.org>,
+	Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
+Subject: [PATCH v6 0/5] media: rockchip: rkvdec: add support for the VDPU346
+ variant
+Message-ID: <cover.1795279680.git.daniel@makrotopia.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,74 +69,158 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261121-dw9763-v1-1-f215290602f0@gmail.com>
-References: <20261121-dw9763-v1-0-f215290602f0@gmail.com>
-In-Reply-To: <20261121-dw9763-v1-0-f215290602f0@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dongchun Zhu <dongchun.zhu@mediatek.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- David Heidelberg <david@ixit.cz>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, Gianluca Boiano <morf3089@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795279770; l=1908;
- i=morf3089@gmail.com; s=20240402; h=from:subject:message-id;
- bh=qLwwZ3rP/fjc2JAHuzzvcKw4S3Ep+DNYoDcVGI1KFc8=;
- b=FXcyCoVTdSrnvMx/FpFgdpHcR6SnrRAqBrBe9xrqyPsXhxCW27B742B0YYg0QtpySDp8a7kv9
- f7/o4C3koqzC44B2qlmfzILBcVcnnUlw6PFbYxtNUCsJZL6+gjJSXlJ
-X-Developer-Key: i=morf3089@gmail.com; a=ed25519;
- pk=HsGrEQ3ia8BGGGO8/nUM2K2UX9JKvRPV+nbrVDGrYhA=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The Dongwoon DW9763 is a 10-bit VCM driver with 8 KiB of embedded
-eFlash. No public register map exists, but the Rockchip and MediaTek
-vendor drivers program it exactly like the DW9768: control at 0x02,
-10-bit DAC at 0x03/0x04, status at 0x05, mode/prescaler at 0x06 and
-resonance timing at 0x07. The chip ID reads 0xf9 and DAC writes read
-back as expected.
+This series adds the VDPU346 decoder of the RK3566 and RK3568 to the
+rkvdec driver, for H.264 and HEVC. It continues Christian Hewitt's v3
+[1]; in the v2 cover letter he offered to pass the series on. The
+previous posting [2] carried no version in its subject and counts as
+v4.
 
-The only register-level difference is the naming of the 0x06[7:5]
-mode field: the DW9763 calls the values SAC1/2/2.5/3/4 (0/1/2/3/5),
-the DW9768 AAC2/3/4/8 (1/2/3/5). The encodings match, so the existing
-dongwoon,aac-mode and dongwoon,aac-timing properties apply unchanged.
-The dw9768 driver's settle-delay estimate assumes the AAC4 multiplier
-for mode 3, which may be slightly off for SAC3; this only affects the
-wait after a move, not the lens position. The eFlash is not covered by
-this binding.
+Patches 1, 2 and 4 are Christian's, with two fixups folded in that v4
+carried as separate patches. Patches 3 and 5 are new since v3 and come
+out of a comparison of the driver with the vendor kernel driver
+(rockchip-linux/kernel develop-6.6, drivers/video/rockchip/mpp) and
+the Rockchip MPP library, followed by conformance runs on hardware.
 
-Document dongwoon,dw9763 with dongwoon,dw9768 as fallback. No driver
-change is needed.
+Fluster on a NanoPi R5C (RK3568B2), GStreamer 1.28.7 v4l2sl decoders:
 
-Signed-off-by: Gianluca Boiano <morf3089@gmail.com>
----
- .../devicetree/bindings/media/i2c/dongwoon,dw9768.yaml         | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+  JCT-VC-HEVC_V1   142/147
+  JVT-AVC_V1       129/135
+  JVT-FR-EXT        65/69
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
-index a0855d3b7..386352f62 100644
---- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
-@@ -20,9 +20,13 @@ description: |-
- 
- properties:
-   compatible:
--    enum:
--      - dongwoon,dw9768 # for DW9768 VCM
--      - giantec,gt9769  # for GT9769 VCM
-+    oneOf:
-+      - enum:
-+          - dongwoon,dw9768 # for DW9768 VCM
-+          - giantec,gt9769  # for GT9769 VCM
-+      - items:
-+          - const: dongwoon,dw9763
-+          - const: dongwoon,dw9768
- 
-   reg:
-     maxItems: 1
+HEVC failures: PICSIZE_A/B/C/D_Bossen_1 are coded at up to 8440 luma
+samples in one dimension, beyond the 4096x2304 limit of the decoder.
+TSUNEQBD_A_MAIN10_Technicolor_2 has unequal luma and chroma bit depth,
+which the driver rejects for every variant.
 
+H.264 failures: CVFC1_Sony_C, FM1_BT_B, FM1_FT_E, SP1_BT_A, sp2_bt_b
+and FM2_SVA_C fail in JVT-AVC_V1; the Hantro G1 of the same board
+fails the same six with the same GStreamer. In JVT-FR-EXT
+Hi422FREXT17_SONY_A, Hi422FREXT19_SONY_A, HPCAMOLQ_BRCM_B and
+HPCVMOLQ_BRCM_B fail; the two BRCM vectors fail on the Hantro G1 as
+well, the two Hi422 intra profile vectors are not understood yet.
+
+SAODBLK_A/B_MainConcept_4 and FREH10-1/2 are counted as passes: they
+decode correctly and exceed the default 60 s fluster timeout only
+because the checksum is computed from an uncached mapping of the
+capture buffers.
+
+Patch 3 is what makes the score deterministic. With the read caches
+left in their reset state, RAP_B_Bossen_2, WPP_D_ericsson_MAIN_2,
+WPP_D_ericsson_MAIN10_2, WPP_E_ericsson_MAIN_2 (HEVC) and
+CAPM3_Sony_D, MR8_BT_B, MR9_BT_B, NRF_MW_E (H.264) produce wrong
+output in three runs out of three; with the patch they pass in three
+out of three. This is likely the source of the artefacts reported
+against v3. The function is shared with the VDPU381, where the cache
+block is mapped by the binding already. The series has been run on
+the RK3588 as well as on the RK3568.
+
+Decode rates with the series: HEVC Main 2160p 92 fps, Main10 2160p
+77 fps, Main 1080p 380 fps, H.264 High 1080p 197 fps.
+
+Patch 5 is kept apart from the node it modifies because the existing
+Tested-by tags were given at the v3 clock rates, and so that it can be
+dropped on its own.
+
+On the row and column buffer sizes raised in the v3 review [3]: the
+MPP library uses one vdpu34x HAL with one set of size formulas for the
+RK356x and the RK3588, so the variant keeps vdpu381_rcb_sizes.
+
+Known limits, none of them introduced here:
+
+- FFmpeg's v4l2-request hwaccel does not set the HEVC EXT_SPS_ST_RPS
+  and EXT_SPS_LT_RPS controls, so HEVC through FFmpeg decodes wrongly
+  on this decoder as on the VDPU381 ("Long and short term RPS not
+  set"). The handling of these controls is also the subject of [6].
+- A decode error on such a stream ends in the IOMMU page faults and
+  the oops reported against v3 [4]. The cause is in the error path
+  shared by all variants: the interrupt handler restores the IOMMU
+  while the watchdog is still armed, and the watchdog starts the next
+  job while the IOMMU is detached. "media: rkvdec: Handle interrupts
+  without a current context" [5] covers the oops; the remainder will
+  be addressed separately.
+- The Sashiko review of v4 points out that rkvdec_probe() takes the
+  SRAM pool without a device link to its provider. This predates the
+  series, affects all variants with an sram property and will be sent
+  as a separate fix.
+
+Patches 3 and 5 were written with the help of an LLM coding assistant,
+which also performed the comparison with the vendor sources. It was
+asked to review the v3 series against the vendor driver and to
+complete it, and for v5 to go through the v4 feedback, fold the fixups
+and revise the commit messages. The conformance and A/B runs above
+were done on the board with builds of v4 on Linux 6.18; v5 and v6
+differ from v4 in the order of two writes to the device tree source,
+in one node name and in tags, the driver code is unchanged.
+
+Changes since v5:
+- Drop the Tested-by from "media: dt-bindings: rockchip: Add RK3568
+  Video Decoder bindings"
+
+Changes since v4:
+- Fold "media: rkvdec: vdpu346: Limit HEVC EXT SPS RPS dimensions"
+  into "media: rkvdec: Add support for the VDPU346 variant", so that
+  no commit registers 65 element controls
+- Fold "arm64: dts: rockchip: rk356x: Order vdec regs by address" into
+  "arm64: dts: rockchip: Add the vdpu346 Video Decoders on RK356X"
+- Name the SRAM pool node codec-sram as on the RK3588
+- Read caches: shorten the commit message and state that the cache
+  block is mapped for the VDPU383 as well
+- 400 MHz: state that the rate applies to all streams
+- Cc the reviewers and testers of v3
+
+Changes since v3:
+- Add "media: rkvdec: vdpu381: Program the read caches"
+- Add "arm64: dts: rockchip: rk356x: Clock the vdec at 400 MHz"
+- Register the HEVC EXT SPS RPS controls with 64 and 32 elements
+- List the vdec register blocks as link, function, cache
+- Add fluster scores and failure analysis
+- Add Tested-by from Diederik de Haas
+
+Changes since v2:
+- Use correct .max_width/.max_height from TRM (Diederik de Haas)
+- Add Tested-by from Dang Huynh
+
+Changes since v1:
+- Drop DO-NOT-MERGE patch as changes included in Detlev's v7 series
+- Adapt to variant/capability changes in Detlev's v7 series
+- Add bindings ack from Rob
+- Add rkvdec ack from Nicolas
+- Rebase against Linux 6.19-rc2
+
+v5: https://lore.kernel.org/r/cover.1795191822.git.daniel@makrotopia.org
+v4: https://lore.kernel.org/r/cover.1794654074.git.daniel@makrotopia.org
+v3: https://lore.kernel.org/r/20260110053727.2295260-1-christianshewitt@gmail.com
+v2: https://lore.kernel.org/r/20251226113140.573759-1-christianshewitt@gmail.com
+
+[1] https://lore.kernel.org/r/20260110053727.2295260-1-christianshewitt@gmail.com
+[2] https://lore.kernel.org/r/cover.1794654074.git.daniel@makrotopia.org
+[3] https://lore.kernel.org/r/DFL5TY0QQNMN.1RS04UM9D1V8S@cknow-tech.com
+[4] https://lore.kernel.org/r/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tech.com
+[5] https://lore.kernel.org/r/20261026124808.642373-1-a.kazinsky@ideco.ru
+[6] https://lore.kernel.org/r/cover.1794645268.git.daniel@makrotopia.org
+
+Christian Hewitt (3):
+  media: dt-bindings: rockchip: Add RK3568 Video Decoder bindings
+  media: rkvdec: Add support for the VDPU346 variant
+  arm64: dts: rockchip: Add the vdpu346 Video Decoders on RK356X
+
+Daniel Golle (2):
+  media: rkvdec: vdpu381: Program the read caches
+  arm64: dts: rockchip: rk356x: Clock the vdec at 400 MHz
+
+ .../bindings/media/rockchip,vdec.yaml         |   2 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi |  49 +++++++
+ .../rockchip/rkvdec/rkvdec-vdpu381-h264.c     |   2 +
+ .../rockchip/rkvdec/rkvdec-vdpu381-hevc.c     |   2 +
+ .../rockchip/rkvdec/rkvdec-vdpu381-regs.h     |   9 ++
+ .../media/platform/rockchip/rkvdec/rkvdec.c   | 121 ++++++++++++++++++
+ .../media/platform/rockchip/rkvdec/rkvdec.h   |   2 +
+ 7 files changed, 187 insertions(+)
+
+
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
 -- 
 2.56.1
-
