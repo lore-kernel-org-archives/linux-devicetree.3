@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795220800;
-	b=D4nw1qNDSMfL0ep8i1gWwg062v8TZd24MD5BZzW9P9UWK/qjcqeF6xjuv+J4Gedzm0GE
-	 IpC8ELRMQNFwMWJ2OaYNrT8PHaDSXtMK6Er527PmMqK+r+E0NYPKRbkBm7z9FDSmelKUv
-	 y9OlA096ruij4tM6t9Uni/Q3X3aKavlYGdCGSlNsYHSULqpgfp7soBokAMM1Ahaz9V8nv
-	 l9U0ChAslk63M0RMMnt8QwCRlH+zgWp3FItWfNZlhW9/KnmIatU5TqHY6VcFaQyJX3WrM
-	 MX+rrHO72BKP6vNDtKjb0wtK/i7LeVJi5Tzrx44GsZDiiXMnXQ/F+Lvtu7pHYrshSUA==
+	t=1795220802;
+	b=autZpnKxQsVE4ZHw0GuL6VH6FniiTvzOMIfOLgEmRepPBiktox2lNxazQH7BvSRDb6Yt
+	 ZuLZzuuCqkwHo/LG3IJPia0WZmlQbFCeeZFho3vfYu2fB3LN/agNOawdK77nADMUa0EOw
+	 zE2W2vDRExTpLpqFrggfohaHGQmBTJaDBwIPyJTvQyQmWp6pZrni53Lzpl5+6CohFh2P3
+	 bGQU1dgIMfx9j85qnrbs/zogx5q+bKa/hKObOVfVJ12BBjSRUVI8bIZCCvUBObtg4ARa9
+	 ZDJzboMsXfsKyb0X/FwTKAtp141IPKilA5csLNt83TUpavr8hCkbac8BssuCiDJBfhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795220800;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795220802;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=gVwHkxM4LtXzfnAPFqqrm/G0O0osF+DEF3nBxNrzkzs=;
-	b=Cc01S9da2CYZj+qVFCrr33g0M/j8G5KNOH1MQrpri9SVLp+PRhvdJD3wDtZK13gctgxX
-	 1fqhjOcwsy+pdXE3yiHsyg9/K2VNARsj/HxUhS1g9RmXc40aGYKhYrvzO/XefsAVQTHlR
-	 53Yx2MFxexOLue5ZlYZfNjPlUduXi+cV0xisMtu7GFFTcWiCpnnBIsuSRFLlfwVYUnCNB
-	 g278PwB/XHaCUN9VEKJKqkRtOFoPOxy0YnS3dJWn2zpEj/YXf6+9wqKkYadTW9c8V+ugF
-	 JaJBrv+9xWUQiAowg9mJIzhQgULXNbXPHGMAXZUBgFsyhQkBp2I3aJA3eQaaSIoaN9w==
+	bh=2HdtJ+XqX5lO5ERYLerHM0E2jrL7YBGV9T/0hIoeKbQ=;
+	b=OkyKsJCVCeJ/K5CVH1o3CCEgoB+CmThBF9hiQyPJVG59Ij/ZRGVd5mpMriW/AR9oH+qd
+	 6Ztd4tBmoSSHaIvnnL3FkDVOMj5OpeFVnRwLySOnS+YGJqMTVGRNWUlOp1eYKuUsc0E7N
+	 5HMi0PedfiBKjrRDx1q86U3bSi9XdifKtou6yok0UaSzKNcHKMkB6NNf4FjTYPuRN4SXm
+	 7VjmblQG/9P/fLCcN5r/0y5PyeDAJLNPiKtSv4KRMMK5pIa1+G+WGiH5BYP1uJ0lW81Hw
+	 GEGetP67mIr83UOl/pU9GBKNjHU6lQyii0WifhIkfkGdK4gaTQhig5bigIo/umRz35Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d1P0omCW;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q5NCf4MT;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90709606A338
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 00:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90709606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7D3606A699
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 00:26:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7D3606A699
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d1P0omCW
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e9d7791b00so13935985ad.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:26:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q5NCf4MT
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso2279872a91.0
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:26:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795220797; x=1795825597; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795220800; x=1795825600; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gVwHkxM4LtXzfnAPFqqrm/G0O0osF+DEF3nBxNrzkzs=;
-        b=d1P0omCW1a2YD4GtLaOgzOKrPlIpz7Mm4KQWczHrYHYUP9GOrTqs0QTAOn3AXzrDHB
-         OusYDfVxFeTYkDnd4G5D3mATv1YBi3ylpdbg7R1ybucCIhXpvTQcCfBip7fUhjT9l3gr
-         12mtxNhG2qMzfojrOKiQ/UXsOQO/OwIt/0AZmN/y6XoWqlILrZ31kohOmannXSCaFNCY
-         e30VwIx99qgRsOunRsJ+xlPbL3TmeBBR+YKvry1wsF5fon3K9bkG2Erbs2J+vStfRAZe
-         ENH0E8e/fpsLULAn4L+od4cmr0t0cxQut1EwbFajLKQRCF21rg7OXuKggd//j1Gt/a02
-         ViXQ==
+        bh=2HdtJ+XqX5lO5ERYLerHM0E2jrL7YBGV9T/0hIoeKbQ=;
+        b=Q5NCf4MTLaJOQfMGVFHWgPLkICc6OdUZYIVZ+6L+Voj0t1FGn2ArvttBv+Ac7LoJKL
+         f2jODgq3Pm+d0wIcfLVqEydohbDOuOEA+JkZywvTzjbiPYKFNBP5Deqm1sNZq9D8FC0a
+         7wRy/GsYzyrj7mlNTm92d43/51QSs+KbX672L8OEqh0+e0DAiSXuhKHUv3H4xNgMTmk0
+         /nkzcD5Z5i5aHiFROtJfQ+7ou0qTlzllIR+uIIOUpHa5fRlMLSGz/7F4BWoehH3BU8oe
+         7vvSsf8+i1LPKBeED09FU009w19VzrRpSSGAdX9LsKy/oEuN4EzWANTKN3Gseq1eZ5GY
+         EUVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795220797; x=1795825597;
+        d=1e100.net; s=20260707; t=1795220800; x=1795825600;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gVwHkxM4LtXzfnAPFqqrm/G0O0osF+DEF3nBxNrzkzs=;
-        b=ZWIHVD2K6C9NlzavWotqy2Zd1bxFIIVwdV0TjGDiXfDn7Dx8cz/z2USkLdfNsy8+08
-         Nxl5bgSt78mkjMML/TPyv2haR0Wm6T6jtvWv6S5bJ5ENjp9hiGh2nyVbTxUKJ3W9rCAZ
-         VDeOejf8sbiLd5ORMiOBbxlErdPbNG026Yriob/mq6dr4A4igE5lRgOts3DcgTDX6eNM
-         xhKmsOE9y4Q4LrBS+PYPHm0QzceNVfoBzEeSiDmLZQwxdw+FBz1nCQ9h/4vrvhK+CQpb
-         M+meEP4h1kV/BfX2KjNDVqIVvKN9GddaK1xJjOI6bgxpvUbgYSDu5e5rjXhko4cvgvVR
-         LIrg==
-X-Forwarded-Encrypted: i=1; AL+hErHQIHlztPKjT6sP3sRMMU6VmJoVMhm6iUM3nn6oV560PKnN+q0vXAhNzTXThyFB1KCLg9aN9I8Nq8Ml@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yUmFQaU/57CZKelN6YljLGXw6yIW9Rh9hokulx1clLWWbUkiH
-	v540NT1uQsAuHxaFtirW+CucjIrmV6FXuo5Ir3SHoZpogwywlrfbkzMBmiA5sg==
-X-Gm-Gg: AZFdTZc5L7dAkBGdIxtd5rDVu20j3tnKtLfKq9WTav4hSZn0hlvt1wiqObQuPedy0SC
-	fHCtg0wP/0pf/wB31D15ozyf4PQcoUsjXW+t+TVoqjyCcgnhJaKnmrWW6Zv0EFyE8naTNuJJqlQ
-	lt1efzf3yHBc7t/eTB0HfsboxhcUOTqkGiG1uGbVxYyGVf5v5DX33Ql3+PEe1/2TM4VFf2jIyVP
-	ybUgf7Za12YFdbFoicMQ4F4UPf3MJ/kloC1TpBABPO7efWf2ucsk/U/7zvexvgdVacRNoVDEtP3
-	s25wNXa5PTO4R+ulINVXzqNWBcEkMUnhZw/kjmzgyTBbbf1PKFyvjvJ2mMp1fm1p3xDK8lsm38B
-	RAJznqt4SsP3TUZzlYsgombLonVxGPs9UAUleslhPCGp1viGbykJ90kC63qKJ6N+giz9ApBE4z3
-	8hoCKL4swr9aAqJ7FNmZN4M2nyYT2Dn6r5FOth+w8lW8QNX6Zn4jQp0to3h1JVvTsx37fGE6b8F
-	T0NhNu/wTOy+LkzSyiAqDbD1rOoHsiPpHKStwis3XyfT8nLXe4w2KjSM1QzoViUWwODaMwrgdzt
-	0v3OsqIOUH8kipmSHMEKFC3gEjKGrhE9pvWlrXH4W1WhZYT/ui5cfj5ZB3MzmeoxjO4vN0Dxpwl
-	FblckFa8/r+FrmdVG8JjJYsUnkpnxHaKjgrpMDbOFoSHMlyDS1yTXn3PxIGibF9fZe4nv/bnC/p
-	G3EfdTgzN4kWX+UtQrF/c8IOOW
-X-Received: by 2002:a17:90b:2f8f:b0:3b3:ba43:54c3 with SMTP id 98e67ed59e1d1-3b41c942998mr3916301a91.33.1795220796940;
-        Fri, 20 Nov 2026 16:26:36 -0800 (PST)
+        bh=2HdtJ+XqX5lO5ERYLerHM0E2jrL7YBGV9T/0hIoeKbQ=;
+        b=G7aRtXyd4Vu715qhr83tieNmG4lBD2T2faeDhZk20ZFFElSIfqfXvNhs+Y4Zq5mxYw
+         cVoyA4udAp62rO3Bx30kage+3/8NLIr7QUWjAx0lwqbgqLOSYxoVm2bepFsse2grB1mD
+         /CrPfQ6ZmWaNzhrQv6Y3aW9E94IjVXzbmqIGafAzQWZeBdxwcc9THtrceG6N507K8uLA
+         xjorzUhnpVcXEpnPtSfX8fRy+lxGGFjLjF+VocoDYNI0qaJGvoo/0vGDQYCrV0B3bbYE
+         I2vxzktmv0VdQ/fg1rv/l088xURZJrN86JOBowDL0tcsDQtnTNBIpscZbPLbPtHc/O0Q
+         Fmpw==
+X-Forwarded-Encrypted: i=1; AL+hErHI5pVPKrZe7seAMq87EpbpMfOHCwchOtiY0H8Apss+hDjB0LgbJl02DA9dm1wZe8F50VqELPJtG9Az@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DAhnQYExU7ByxRdNATOtI1iMVPb9qYctDE0KuVsuPoNBGOLJu
+	JFxdKfhgEH6BlaM0vX2OxZ7uiHd7Yfqu+EGZEFdzZzPy+gR+M+KmskHA
+X-Gm-Gg: AZFdTZfG7JCSiO4mK2XA4cY5TcWa8AQ9x1I197P13oBmBpChML8j+WJKnMtHYaQ+4mi
+	m+puedKzRvAZJBLL4k46wMxGlQGSNrz08Sh87T990eEUFt+Y4a46UFRo4X7dmy9ARcMefNFM1Mg
+	waD07wBgf8RxhWfEF/ePG5BASGzhmgD98ppfW4/nkDPRTaXrCUvZw2hTXbxGvSgn/CU0LTOtgSU
+	L12QdjZNAzADA8VnzLOV6ZxKbuV3gQZQ6quuFDU/AeztQGhMEmA43M87RljrBHu1dJ5tU7tK+lb
+	0VqG3QG590Sp0G5vOTYUNd82lLCgv3/lEcsFt9NJ53ijaExRd5VTUaNZidrsiOMyndd5UrQOSsP
+	O53DWjyte1uVBoUeO8HYbaLKGa0Um50MywIpNg+mc8xcaQleYBaYXpcLLTO9n291Xs/ksHoXXh6
+	USNffWA4pXWi4rFXy5DclBWaZvR3VziOTGe+D2tD6xaSUUP1qCBG7LsVkNEAN5UDgom4ozNu0Ww
+	Jha2BC4na9N4gDuIYKXJIjYXEsQEyDLL9qvvahu+bICH2xClUvbw4N8y4Rq4oSheONqakNUfNYg
+	uGP2sYtny7zJDQMvpzyQjqx3X+VH+5cBLbIgu9UZWi41slvZr6MOs1m5VStXPXND6799V5E6yi6
+	gnTNH7yOv62VSDHbUkc93/AL/X/hm9zYZj3Y9x9h1ZHsiRjcWs1aB9qM0crE+KWUWVMs4tMvrzS
+	TGKf9vMARiNgizanN8uXa4U6M=
+X-Received: by 2002:a17:90b:388b:b0:3b3:b8dc:5e0b with SMTP id 98e67ed59e1d1-3b40a5a4cffmr4844165a91.14.1795220799842;
+        Fri, 20 Nov 2026 16:26:39 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm1925230a12.8.2026.11.20.16.26.35
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm1925230a12.8.2026.11.20.16.26.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 16:26:36 -0800 (PST)
+        Fri, 20 Nov 2026 16:26:39 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Hauke Mehrtens <hauke@hauke-m.de>,
@@ -91,9 +91,9 @@ Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
 	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v3 07/22] ARM: dts: BCM5301X: phicomm-k3: add nvram node
-Date: Fri, 20 Nov 2026 16:25:47 -0800
-Message-ID: <20261121002603.25254-8-rosenp@gmail.com>
+Subject: [PATCH v3 09/22] ARM: dts: BCM5301X: R6300 v2: add nvram node
+Date: Fri, 20 Nov 2026 16:25:49 -0800
+Message-ID: <20261121002603.25254-10-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261121002603.25254-1-rosenp@gmail.com>
 References: <20261121002603.25254-1-rosenp@gmail.com>
@@ -108,48 +108,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add it and set the MAC address for gmac2, to avoid having to handle it in
-userspace.
+Add it and assign its et0macaddr cell to gmac2, so the MAC address
+doesn't have to be set from userspace.
 
-The nvram size was taken from a boot log posted online.
+The nvram partition follows the 512 KiB boot partition and is 1.5 MiB,
+as on the R6250.
+
+gmac2 connects to switch port 8, the switch's IMP port, which the next
+patch makes the only CPU port.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm/boot/dts/broadcom/bcm47094-phicomm-k3.dts | 14 ++++++++++++++
+ .../boot/dts/broadcom/bcm4708-netgear-r6300-v2.dts | 14 ++++++++++++++
  1 file changed, 14 insertions(+)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-phicomm-k3.dts b/arch/arm/boot/dts/broadcom/bcm47094-phicomm-k3.dts
-index bb1bc4e61bc2..5b9250976f13 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-phicomm-k3.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-phicomm-k3.dts
-@@ -28,6 +28,15 @@ button-restart {
- 			gpios = <&chipcommon 17 GPIO_ACTIVE_LOW>;
- 		};
+diff --git a/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6300-v2.dts b/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6300-v2.dts
+index 55f0d9e90d5f..1b99fe442dda 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6300-v2.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6300-v2.dts
+@@ -25,6 +25,15 @@ memory@0 {
+ 		      <0x88000000 0x08000000>;
  	};
-+
+ 
 +	nvram@1c080000 {
 +		compatible = "brcm,nvram";
-+		reg = <0x1c080000 0x100000>;
++		reg = <0x1c080000 0x180000>;
 +
 +		et0macaddr: et0macaddr {
 +			#nvmem-cell-cells = <1>;
 +		};
 +	};
- };
++
+ 	leds {
+ 		compatible = "gpio-leds";
  
- &uart1 {
-@@ -38,6 +47,11 @@ &usb3_phy {
- 	status = "okay";
+@@ -90,3 +99,8 @@ &usb3_phy {
+ &usb3 {
+ 	vcc-gpio = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
  };
- 
++
 +&gmac2 {
 +	nvmem-cells = <&et0macaddr 0>;
 +	nvmem-cell-names = "mac-address";
 +};
-+
- &nandcs {
- 	partitions {
- 		compatible = "fixed-partitions";
 -- 
 2.56.1
 
