@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795277951;
-	b=KLyzYdgpwiO6G0GU+RSI3qoLuS7/Ev6/enzrHx88xDV909eteBZe2iM7zCcpLrC+6R0Z
-	 P2TuvedeHZMAhKTSdMdahUC0V7z34tXxbI0sj1e/19fbd7BYmREE6Nt2Mh4tLdXhad9Fn
-	 SiyCV7dwqnaQX9P0vnMdaSSkN2RBI8V+06VBDDGbkXil0dK6grt2orvcqW4drej0uh9WR
-	 uh1xMtqVfwCXg8jnQBNPbo/sEcwVFvJrCfxtcyTue5WurSEH3L9a1sI7OMPKQL8KBII96
-	 MVXv9G35Pyt6UrDaAu15VQZLgNK9+lSLdk444ODInqfW+ABFWxe/06AfP+AE4vLVajA==
+	t=1795278031;
+	b=SsLr+cRCkJ3ZbzO9fJymGtJwwOQiLnExsThXoDArsrp3b4RGtr6UKkjrRIeZMfBZju49
+	 BvHdegIL+0UqSJW5HJWY8+UKMMHeIHt7F0/ny4oVQSQxSCcaYKn3PFv2rgC35+qupDlPI
+	 xVcQePO2R2IrAGJXj9csBmyRdq+UBOxNXuWfau3+DgfjTS2kYXllEt8mbMdfidAS9gp8G
+	 PbGeGbFXWdRCVHfTlox6p6ryYGCWKKNJU/w8FjSNZrqHlMbx/bh1wRCdIiUvEY/8s4zQ9
+	 W1Uno36/oHcsaFCgQcmuVlxYMcn6F8TqQxROMtZOi7ddponK2p1U0y9v5hRg64GgrfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795277951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795278031;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6sRevr2xT+LuyoIF335Qd8qzVJOfC1tRYDG7VWVmjQ8=;
-	b=eOZYKwW28WCn6hKRyOgamTrzLaoadb1LTstEwyPoqM079Ktr7O6wRrbjU42qlpDRpLSH
-	 Z/juLpOEtQZOIvxbjgQ12YLWnN1u87ivM4fS2u/hHa79lTK30jDLRNmATViXxw05q6x5x
-	 JHIuJD3dp3bac0noOjeoL0GJNVi8vtpisD//x9hZBamb3a9jVcvMkUA149dloU4sUk5pz
-	 gIRYO5x65zF2DNedhX9U58ZdcI5l1e0auKm5EcR0TtIJqkBPusu/ZClO7uc1EX+v3of/r
-	 NzNMI2yzr5ZNkduiWQPx64D3vQYJKgpYyYXCuiO3XBi1JTtNF66gc+QCnin/ENerD2g==
+	bh=3l4SFbuOj5dk76CH8WLlUS1oJhbjHRne3f5AmVhjTLY=;
+	b=sAOT4C0xBBlN4b+fpK5psy8L5FuZsFet/jLGHS7ORd8U9fbZWqEgxkrdm8ZOrj6vxs0+
+	 mDua+vxD4WcBbU5zc7vWRh02RmeGfpqimNV2N1oY94ihmQIavr8CQ3fMUEO/kDDQVrwF2
+	 VKxvBIgn8VwYVykNU4kJ6GrrRzqWwO1S+JuGMOdOku0ID8zjpoQ2g6ZnGMqqdwdjfxnIf
+	 WTMFfMz0RXqeNTsTmMFRpAgdiYGWLEDPpzFMCttWfvmL0cO7OGxtx8MFolShF+gWIWKaP
+	 3MU4rvY6YJKT6444ZFxyAfMEM9J4hb5r3HtqQ2kyUm8ibZ2v4IFQ05hcj3W2s5D1fRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bS64h1/A";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbVSWC7V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106C7606A320;
-	Sat, 21 Nov 2026 16:19:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013C0606A32C;
+	Sat, 21 Nov 2026 16:20:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bS64h1/A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 811131F000C0;
-	Sat, 21 Nov 2026 16:19:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbVSWC7V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7C4B1F000C0;
+	Sat, 21 Nov 2026 16:20:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795277950;
-	bh=6sRevr2xT+LuyoIF335Qd8qzVJOfC1tRYDG7VWVmjQ8=;
+	s=k20260515; t=1795278030;
+	bh=3l4SFbuOj5dk76CH8WLlUS1oJhbjHRne3f5AmVhjTLY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bS64h1/AfN9Y13uTYNtXYdH9QsSq9BtdwLzIa2UgMNjsrlnxmdVRtvyjEYUT6jZFI
-	 bJygeLsCIu6f7RLKdr8bMJHbR2k5qMb17lJnUuvTjsvixUiMVZdDHwydbYralGYqp6
-	 lTDdgW+Xg69sywWrDd7itszC1P4LhYF0Im/UBf8U3tfUPjw9GFkBmp0OfeY6qEutwr
-	 5HWWHSX6XiS0uj/sdJ88xh4eaJw0I66AL0iSyme2ANbHUJFWMC5+s5qhx1pdCOGB8Y
-	 c2PeTg2XUmsOxCN3N7i2OVWFrcf3V/6FIj1G2cZIeAVyMSKEdYA8Jrpo8PJfpTjE5h
-	 EBNSVu7RgYmYQ==
-Date: Sat, 21 Nov 2026 17:19:05 +0100
+	b=DbVSWC7VKgufodPLITMDB7xUvKLbF3dKmi6jxzzF+KquLsBbu4vAbHWbQ7f8PneDK
+	 jv/sGtfqJQuSj6RpB+9bE29OzEsVcs9J/Z6E8U09vqSUEnqQQ+jkYsVAVylh2B1Wqs
+	 7N5eLpK+raKU+qUHpz6HFNTiq6vu/wNjakwBVo2o9eZcqGK6FKz4/iLVjzWB80JE+D
+	 QO1hlzAROBWstC/lHeUbnDEzah8khFCkx8rHrz1UDGu1TQme47gbkTCdiW/zGEs0+n
+	 DLmYoKjUZQANTtI+BIoMl1KOCj4U4OxbSOQ/YjU0WV8dKCVP91f9aLx1nr9DVUrqTD
+	 6G5U4BQHmJ3qw==
+Date: Sat, 21 Nov 2026 17:20:27 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Benjamin Robin <benjamin.robin@bootlin.com>
 Cc: Rob Herring <robh@kernel.org>, 
@@ -60,11 +60,11 @@ Cc: Rob Herring <robh@kernel.org>,
 	Tawfik Bayouk <tawfik.bayouk@mobileye.com>, Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH 2/4] dt-bindings: phy: cadence-torrent: drop
- cdns,num-lanes default value
-Message-ID: <20261121-favorite-turtle-of-penetration-c3157f@quoll>
+Subject: Re: [PATCH 3/4] dt-bindings: phy: cadence-torrent: add phy-mode
+ constants
+Message-ID: <20261121-wine-nautilus-of-courage-94af4f@quoll>
 References: <20261120-phy-cadence-torrent-ng-v1-0-da2db7125cd7@bootlin.com>
- <20261120-phy-cadence-torrent-ng-v1-2-da2db7125cd7@bootlin.com>
+ <20261120-phy-cadence-torrent-ng-v1-3-da2db7125cd7@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,21 +76,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261120-phy-cadence-torrent-ng-v1-2-da2db7125cd7@bootlin.com>
+In-Reply-To: <20261120-phy-cadence-torrent-ng-v1-3-da2db7125cd7@bootlin.com>
 
-On Fri, Nov 20, 2026 at 01:55:50PM +0100, Benjamin Robin wrote:
-> The driver treats cdns,num-lanes as mandatory and refuses to probe a PHY
-> sub-node that does not provide it, logging:
-> 
->   No "cdns,num-lanes"-property.
-> 
-> A default value in the schema wrongly suggests that the property is
-> optional, which it is not since it is listed as required. Remove the
-> "default: 4" so the binding reflects the actual driver behavior and the
-> mandatory nature of the property.
+On Fri, Nov 20, 2026 at 01:55:51PM +0100, Benjamin Robin wrote:
+> Add the `CDNS_TORRENT_MODE_*` constants to
+> include/dt-bindings/phy/phy-cadence.h such as SATA-LP and 2500BASE-X.
 
-No, that's a bug in the driver introduced in 2020. You ignored the
-background and history of this driver and DT bindings.
+But why? Why do we need more of these properties?
+
+> 
+> These constants are used by the new Cadence Torrent PHY driver and
+> are referenced by the `cdns,phy-mode` property of the Cadence Torrent
+> PHY binding to select the PHY mode.
+
+That's obvious, explain why you are duplicating phy type instead.
 
 Best regards,
 Krzysztof
