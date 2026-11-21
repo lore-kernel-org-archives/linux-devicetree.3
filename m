@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795300703;
-	b=kN7Kz3q2HH8diRNXCAqXl0Nap9Wdf7GZzeCLjGUV0u5QAGaIenEeOUFTXaAvb04JzLwK
-	 /GUb2HFhyZNjI1TvZ7mpk73SHxdgBeYB8fuvSEr6vwQ318AXMF4GfsQWdhceMu3YxZkvO
-	 aiWqJRKacCEOsfYJc4MM4AYAvNOoxD6BfBT65xZ3D2LMurE7BngHwnMN26mu8asGSO5F/
-	 X08f1/sAmhufJhB+5h9a4Ap/QuYm0b9yL234dOKgRuTGx05cypM7FcRnIyOhwYcbDhqWK
-	 ++OxX36qcTa1unn6w0l70wqbdYQ2bsqqsRvxbE01noylUSnuPWsOrIDbj1eZo5bNxsA==
+	t=1795300704;
+	b=yiPlG0N1Xk2JP+GwsnU/6ccHwQr0tmlp+Y3LTrOiqUS7uZ53xQNt58NvGFuX0SYbGchZ
+	 Cesn1dW3luUnxr3LCLNvZxEqZNgxgBmUjYynn19Os3xcWZznU5R1gGZ9h1lDZDUV3OSt7
+	 0b1KqHWYysQdenRZ1eK1RseAdf5QfMcqHoQqhfRV0tkq7ybnT1rH7yQFCncWc2baU4QZn
+	 J4e7OWStPYjZgybyegU6wAIIlyoMfdaM1+rvEDWfc2NILccYm8rVQI2d+8vSFZlv8G+oJ
+	 v+/gRHok8xaLBwr0NkynSoWW/cpQYkaCPT9wPJp/wtn8JjFyDkh2gr0fMwG+eyZ4ZWQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795300703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795300704;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XD7EQF7++QV5jgZ6UYMRdry02+/ERyAYf1FpH+mXBZA=;
-	b=ma1xwRpKJDhuXSvKKeU+XkcGrgYCBvbYFbsZaRbwBFR0+QFrFEfkRJV0vF4yjoLET3dR
-	 czo8OYh1RsAQcuQs2BePA1DeMcG8CkqojacTlGqMfbrGXCuKjUOlXGLD7Rr9kARigmOrV
-	 C6G1bMONYHLxUeiPV9F9UNu53/bJzpihI5c1sUD6X6ysWm+0bqIA6CXCRl9YIPah2Y6Kj
-	 kwbZ+GTNn6kbgwwu1n3pFy8+3e4+CMvjqfhexzmucOyu499s+7BL8xWsiXjZ65q3Pyv84
-	 /Gq5V5+dlKe4SmeTXhBPHaw8vlQZtJFL/023Yf+cp2ZRaFxnyOILUTUiF1wk4APlhjw==
+	bh=l6BGL8rq8PAzR3QRqlSVv7W6mCHD1s7S80zZtUVkUDQ=;
+	b=rQ5YxOej6ohjVpfP+t1JgXro4n0UXDZo7X4G61f2np0tKHYDvodkKWXjUwsgto1m8loB
+	 KS6JwQtNkfyoNLUqyzypx0EdQYeeQMPb9EGnBfoz6iYGJVl7rxuaFdBzfBdvAPv2z3ZME
+	 WD7aKM6T4VPNmHHUClVlyWCkb5qHE6mNp0kd1FD/EKaz88XmtACnL3XsxErD++nHtiRTD
+	 QeiS8VsuBsS8RVReoMlllYffSHc8csgfiWYwJsGQ5cN9SdyN66hCrE4Vlq6EZhDezK6jl
+	 g9VhSyrxFbLeRZnsak9uBNIMLoyXHxVugkoVxurPRaV20FFDm8AhzXU+LScIXmhdgwg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WAOGt6na;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFbA0vYY;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45F1606A68C;
-	Sat, 21 Nov 2026 22:38:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CEA606A333;
+	Sat, 21 Nov 2026 22:38:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WAOGt6na
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFbA0vYY
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795300703;
-	b=y1O3FaYDLGuj7Zd8KvNBK//Y6m064IwhZ6h30afCL1nlo364GY0K6Pi7bB2fVgF8+Qv1
-	 GS4YCk7FgmwoxNwmk+K4QLHTjkW+9pTOfweDGcCHuEB+O5qxAdtH9MaQZdAReDyLtQzz2
-	 vus7BZCO9wEHiLsc+oxX5na2yHqMiyz3Npi+HsAtMJOv8KfguBAwviOW90mwiua8xH+2l
-	 Cq6PcHxnZ6wthYr9Mx5gmQxR63Na+hp3TI+UP3EJdfDhbNVecx8cGlnX6sDlA/QpAHZW4
-	 I08arxk0GaF5oV2+/qcmOFitsZMZ7sAO8KZIGWC10ln+5LeZSNf4YsS4EmXGjVujsqg==
+	t=1795300704;
+	b=JL3/g3bzZDBlOQth/7WlpPiPSGev0rsa9sKEL1TUPnRzeApIvYGzghv13BfUSeS0AhyN
+	 E+0UyPnqQnsGBrsYDNklcgyyeqH8S9+fNA/aqJS5liAjkl9UnpcW9FRpdU/LUPkFc4Udo
+	 fMgAZvz8ydNZ7GP0s0SphHNwwIgZxIf4IFKCcAZUTxN0PgnQiyt1m01FQ6RdH9rszcqxj
+	 aAjkkGvZ2yg5KsQc7DBO1IiNsGHiiK06VOfB059U6rjP6Jx9wCcsxaNjH1bCwnw4WWloK
+	 ks0KCXhVXHiLwhAh5jrFM9bJVcOUzlzAkH54ZCM7vr1Oqr4cKQki8e6XKlr7psPXSyQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795300703;
+	c=relaxed/relaxed; t=1795300704;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XD7EQF7++QV5jgZ6UYMRdry02+/ERyAYf1FpH+mXBZA=;
-	b=2O4wJENDRE7KrP3ePkjJ0qos9+AZx+lmYf18kjMHxzwWkz/dMHZixAO+NJBmWBhxruAZ
-	 uyQKsbI8nW67wv/BNqgyuAEpy7MrdyV13fRO2sUTRwEEBlpb5811g80bFcOGi+7/nERVn
-	 aKeLLpZUX+oBQJuv6lhQNrbx7ZgKx38ARSqGs/9lkZpkv3/HX4drZuoMN1gDNU8Msanjg
-	 qTzqa2jf1JVudAkicOSB/+W2mwQ6iMMDYESxshXhMmcknPpfIHYcrGJ8nOm8SdWNi2hHa
-	 usri3H6iFh6QhkL5AOclOt50uR1XvnDOT3+YfxL23Xztz5oA1vtrWEjPIaQHy2HUmFA==
+	bh=l6BGL8rq8PAzR3QRqlSVv7W6mCHD1s7S80zZtUVkUDQ=;
+	b=PM4j8f6WhZhMtzotVv+Y5IWAi8mNj/rhTZgFumj0NHq42GnFSMSc8fXdK7pHndoq37PW
+	 c0UJcpA4uFUmCnwIlV68x1I5BVcoESltsosjzezpL8QdtVmHFB1Ir5twJYhE8fveW3gvM
+	 d0qNkG8FJYxTg/bTvElJVFaUh7jB2mRyEuBDxd1iBSzxc18U5laDazTu6kBh3Qijrgord
+	 pVMCIOKOYTO1tgpX3t+OjskDE+0DYPquuQr8RoAQKUwzhQDngSLf3xZ9nq8yrVYl7fs+1
+	 S6SD/IZzCYhZUlVyJ9SJO9kEwwhmd8W43fqAyAh7+UAoNNpt56rnJJqeBEPnVHwKTjg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8AA101F000CF;
-	Sat, 21 Nov 2026 22:38:21 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9BE241F000C6;
+	Sat, 21 Nov 2026 22:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795300703;
-	bh=XD7EQF7++QV5jgZ6UYMRdry02+/ERyAYf1FpH+mXBZA=;
+	s=k20260515; t=1795300704;
+	bh=l6BGL8rq8PAzR3QRqlSVv7W6mCHD1s7S80zZtUVkUDQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WAOGt6na3peZbBGdZhqxhgxVinuVr0LR4MiPzGzL8+gxVF37iGtnEhofmwLDbFnlB
-	 5nphEvRDbPKh5K3gF7N7Ley9HEsrmZ0KRVwiQiGROefzxCd3DUtdPXq9y/Q7YrxG3z
-	 6vQkrR4WgSXcrV9+8l+HCtFBaLxe5sE1d0nGDdnT9KpQ46Y/i2F8eVmA4nVG4PflVp
-	 LOSpmJDi9jb5qGW1Ern6jzF7O9t1JaGpYKhcx9yzt8S45HMaVIQknrjB/LXkTpOGAK
-	 p126Uhlt3R2Weq8fv3Lf5nLem3/Flfyf+y0LXOEUmY9AEH+bYqUw8U++UrJrMIByUo
-	 NvCa1+iWemuSg==
+	b=FFbA0vYYoMa40IYKfgvCyFo+rZg/59nzWXa65EA1woZ4nDOazGt5WUyaVV6WftSb6
+	 +62dMH7JqO8xvMe+KecEYfTNpfBIl+tRC8xl2jpgJPGCuDYDeRP+OLSXiqCg9sPYgI
+	 xpifbV3pSDVxh3S9mF7F6NeE5HI8+dvhSTJ4x6G5yDOxeLRqJHSAngdkF46iEM51yf
+	 imIDcywsrvL1z8RsvLN9dj3B6gbvy/+TLDNY9HhVHXs8Y3egXRg3hefTH+aLK7aQVg
+	 rDkdUKbQus03G4tJ/G80MXANzcBj1qB9CQWyo1riRbBAfi+MU8x1QirJyiw/Qrn6+1
+	 sKUqigHC9viqQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0DA7F4BE2E;
+	by lkml.kernel.org (Postfix) with ESMTP id 46EFC4BE36;
 	Sat, 21 Nov 2026 22:38:21 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sat, 21 Nov 2026 23:37:57 +0100
-Subject: [PATCH v3 03/12] regulator: qcom_usb_vbus: Add support for pmi8998
+Date: Sat, 21 Nov 2026 23:37:59 +0100
+Subject: [PATCH v3 05/12] arm64: dts: qcom: pmi8998: Add node for PMIC VBUS
+ booster
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261121-pmi8998-vbus-v3-3-91ba2e61a877@ixit.cz>
+Message-Id: <20261121-pmi8998-vbus-v3-5-91ba2e61a877@ixit.cz>
 References: <20261121-pmi8998-vbus-v3-0-91ba2e61a877@ixit.cz>
 In-Reply-To: <20261121-pmi8998-vbus-v3-0-91ba2e61a877@ixit.cz>
 To: Abel Vesa <abelvesa@kernel.org>, 
@@ -102,21 +103,21 @@ Cc: Richard Acayan <mailingradian@gmail.com>,
  linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
  phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3260; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1153; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=jayZyl15D6GUZYJTF3MT/rTVZn/RUZVLzfJX2rYw+gc=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrAh1aliSo1w5taoGLSLOB/Azx4VQ3dp19WgANg
- Uiq32hpjFqJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawIdWgAKCRBgAj/E00kg
- cjpdD/wIfR0BLZtexyfdulg6uenRDEQ9894sPX6meg2yqJJY0nin1o5/8Ro4XkkE0qTlLlE0gki
- yyoVIPn8g4P2YDRSaEppBZviBISiYNniffI3z6lWPHSx5KL740j9kM3iHcRQEUWsHeCyPM4sWt9
- HAiDxjrjGm94GvQ//sAEtyrG9ffgOSNoOUjrz2RgMZF3HOXzC9+gBMgetDkQKGAVmUafRTCG2J9
- FKeADwEWtqall0FVDFgkrN4haq7CMcwtnbYxDjVw0o9mlRetRyduE/mA15beL6JKPRdPJw9dt+Y
- 50pBV+mH13c7psnd3m/6dkPPvlhpPB3DrHJeZqBzNPINiLSU0DNYfrfMrKjuycFLqgrWNQvrDBG
- rbGxQNtaA+icrJLDUuKtlQzBu51p6pebk9vOiLv/f9XtP7r52jGkdqSj3uW33i7MxrNAt/0Vvtm
- qsHf9tkTLnwpQhcGokpWD734MXkq7esOO5Q3+gsZZ5kXDsOs6yFiVCP5nawi7KeHiDimQFTt9mO
- MJykK/wGNlet7+HlNkFK3vu8nRVmhQUicGvi3cCIrSxyEcVsXFmoPbFR0YDVyrnz4D5WhXeEFVn
- U3l95MzWPuImv5eIVnurLXOd076EPuLJMeXt74CLrQB1738mqaVUksxZCa2bJIAmiQYm33VACox
- +ko/BsUwOveMiAw==
+ bh=Vml5iGmLl1DRnRJN3EG4LOdQ6VYHu9Isno8WfrbJtu0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrAh1aKQWMjhZcoN9y6hROnpzIFiqFXlRsbz9e2
+ 1MpJAixkXyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawIdWgAKCRBgAj/E00kg
+ chskD/94I/rdP84yvgfbaab9bWAmakCcY8OYFSbMDRGom0caO91AVEAs3JSNQ1+PTfcDbFbIi9K
+ /ACpKXVq7zSIbRE4Ybr+4NkrMShnKgt2KrbGN0m4xsz9fo1OdDEzDmEBXJH1LzG6dySkD4wS6oF
+ DFVhjNsF3qcPiSUKRSeejICpsIiRLLpK+Uyu2LYY8f459PWaQklilhfvGUuNcw/nyE7Z0ldXGpJ
+ mgTpFgJ/Y3SHb67B3lH3tMvOxFsiKCPdEdw0Vygra40qUULPSoP/wR5em+jkAsKj35DGcdj5n31
+ ya/+7rzuFqdt8eOir5fw9Y4ow7Z4GGwVNERPxs21Ra+JvblYzp3bFOT4PUPE81ZFXXZfRdAkBw2
+ QpqPjAN/SpeVLW38qPmddUJe6d2MeQoz+czQ5nXWpmwbP7VUlL/1at0UAkq4/Bwyf04tZGvzIW3
+ /g1vSeQwdvo/JdkJmEbSeqaxrP0kikKWQTocxDQ9lMWPzM9EBFf3t1xGttBXpLRXr5E7Hf10GQ1
+ TaWipOdoO11wbMBkFvn3JS4QB6I9MX0tnLEjWvOGVzzpbLMBXTxV6jWJHMIN2bD5teQLVaR0U8Q
+ saRmOR4LalqH0Ux67UgzPMVmQBFQmExfU7mpvdWwdX58Qa11NvuPc8ENzbdfDdBTGWPYcAQn6VX
+ szNOXLmmN4orZ9A==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -126,93 +127,43 @@ Content-Transfer-Encoding: 7bit
 
 From: David Heidelberg <david@ixit.cz>
 
-The PMI8998 uses different register layout, but due to the limited
-functionality of the qcom_usb_vbus driver, the basic registers are the
-same as the PM8150B, thus reuse these. Table of currents differentiate
-in steps and maximum 2A current. For more advanced features it'll differ.
+Add the required DTS node for the USB VBUS output regulator, which is
+available on PMI8998. This will provide the VBUS source to connected
+peripherals.
 
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/regulator/qcom_usb_vbus-regulator.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/qcom/pmi8998.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/regulator/qcom_usb_vbus-regulator.c b/drivers/regulator/qcom_usb_vbus-regulator.c
-index 88f5a6ba79e6e..61a1b45f36e84 100644
---- a/drivers/regulator/qcom_usb_vbus-regulator.c
-+++ b/drivers/regulator/qcom_usb_vbus-regulator.c
-@@ -36,17 +36,17 @@ struct qcom_usb_vbus_reg_data {
- 	unsigned int n_current_limits;
- 	u16 vsel_reg;
- 	u8 vsel_mask;
- 	const unsigned int *volt_table;
- 	unsigned int n_voltages;
- 	const struct regulator_ops *ops;
- };
+diff --git a/arch/arm64/boot/dts/qcom/pmi8998.dtsi b/arch/arm64/boot/dts/qcom/pmi8998.dtsi
+index cd3f0790fd420..9d65dd4abcdbb 100644
+--- a/arch/arm64/boot/dts/qcom/pmi8998.dtsi
++++ b/arch/arm64/boot/dts/qcom/pmi8998.dtsi
+@@ -24,16 +24,23 @@ pmi8998_charger: charger@1000 {
  
--static const unsigned int curr_table[] = {
-+static const unsigned int pm8150b_curr_table[] = {
- 	500000, 1000000, 1500000, 2000000, 2500000, 3000000,
- };
+ 			io-channels = <&pmi8998_rradc 3>,
+ 				      <&pmi8998_rradc 4>;
+ 			io-channel-names = "usbin_i", "usbin_v";
  
- static const unsigned int pm4125_vboost_table[] = {
- 	4250000, 4500000, 4750000, 5000000,
- };
+ 			status = "disabled";
+ 		};
  
- static const struct regulator_ops qcom_usb_vbus_reg_ops = {
-@@ -58,18 +58,33 @@ static const struct regulator_ops qcom_usb_vbus_reg_ops = {
- };
- 
- static const struct qcom_usb_vbus_reg_data pm8150b_data = {
- 	.cmd_otg = CMD_OTG,
- 	.otg_cfg = OTG_CFG,
- 	.otg_en_src_cfg = OTG_EN_SRC_CFG,
- 	.csel_reg = OTG_CURRENT_LIMIT_CFG,
- 	.csel_mask = OTG_CURRENT_LIMIT_MASK,
--	.curr_table = curr_table,
--	.n_current_limits = ARRAY_SIZE(curr_table),
-+	.curr_table = pm8150b_curr_table,
-+	.n_current_limits = ARRAY_SIZE(pm8150b_curr_table),
-+	.ops = &qcom_usb_vbus_reg_ops,
-+};
++		pmi8998_vbus: usb-vbus-regulator@1100 {
++			compatible = "qcom,pmi8998-vbus-reg";
++			reg = <0x1100>;
 +
-+static const unsigned int pmi8998_curr_table[] = {
-+	250000, 500000, 750000, 1000000, 1250000, 1500000, 1750000, 2000000,
-+};
++			status = "disabled";
++		};
 +
-+static const struct qcom_usb_vbus_reg_data pmi8998_data = {
-+	.cmd_otg = CMD_OTG,
-+	.otg_cfg = OTG_CFG,
-+	.otg_en_src_cfg = OTG_EN_SRC_CFG,
-+	.csel_reg = OTG_CURRENT_LIMIT_CFG,
-+	.csel_mask = OTG_CURRENT_LIMIT_MASK,
-+	.curr_table = pmi8998_curr_table,
-+	.n_current_limits = ARRAY_SIZE(pmi8998_curr_table),
- 	.ops = &qcom_usb_vbus_reg_ops,
- };
- 
- static const struct regulator_ops qcom_usb_vbus_pm4125_reg_ops = {
- 	.enable = regulator_enable_regmap,
- 	.disable = regulator_disable_regmap,
- 	.is_enabled = regulator_is_enabled_regmap,
- 	.get_voltage_sel = regulator_get_voltage_sel_regmap,
-@@ -161,16 +176,17 @@ static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
- 	regmap_update_bits(regmap, base + data->otg_cfg, data->otg_en_src_cfg, 0);
- 
- 	return 0;
- }
- 
- static const struct of_device_id qcom_usb_vbus_regulator_match[] = {
- 	{ .compatible = "qcom,pm8150b-vbus-reg", .data = &pm8150b_data },
- 	{ .compatible = "qcom,pm4125-vbus-reg",  .data = &pm4125_data },
-+	{ .compatible = "qcom,pmi8998-vbus-reg", .data = &pmi8998_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, qcom_usb_vbus_regulator_match);
- 
- static struct platform_driver qcom_usb_vbus_regulator_driver = {
- 	.driver		= {
- 		.name	= "qcom-usb-vbus-regulator",
- 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+ 		pmi8998_gpios: gpio@c000 {
+ 			compatible = "qcom,pmi8998-gpio", "qcom,spmi-gpio";
+ 			reg = <0xc000>;
+ 			gpio-controller;
+ 			gpio-ranges = <&pmi8998_gpios 0 0 14>;
+ 			#gpio-cells = <2>;
+ 			interrupt-controller;
+ 			#interrupt-cells = <2>;
 
 -- 
 2.55.0
