@@ -1,98 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795281814;
-	b=LPUYYbuCZw/uxczwaUDWnYEJPQJv7f4ZvjMfHVIjmVAcU1KlyqheeL2FyruHeoR5sy5e
-	 ztVqZMJNhTlnEPFZlMgts34rIk+ZcY6YYKTI6USUDIrmA6DBipMetnL/EJs1K3c07Mgyd
-	 ZW74dea2ie8lQBmSYVtxGdlqu/2zXGRlWgbqWaWqtQwwEWDD1VK+pYy4gbkTFkrS+wBYa
-	 UhVqu0iBT3n70sh+6gAMJr5w5TIIIBddVQokGFKQxo66fVD2uvE7Aw/jfaoeOV3Twt9dQ
-	 Dmj1UpFJGfk0ES/z0YMr752WvD7zjtv9ArbmXDxMEf8pOZxHu4W+BKY6vhM/UxvqWwQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795281814;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qNh4Be9XbgejPuvlvikrrq9VO3koxch/dMJ6rmrGJx0=;
-	b=UkDo0D0lh/lrP2Vqrritz4KbgnhgA7Sv6MX5usjH91g+q5gpXAecM2T9SWfgtOtIjvJ4
-	 YNdTrf25r9kVA+d/Sk1XnWhusWfF+iHpyCb+70ctHISj+YfZ+tECRiEMaIn44aDYRccjK
-	 d56ebh0dNA7DFyP0TGXB5aFEiVuUS5y0nS9pAhGTdhKzNpKdZyeYbES5dQ6PKGFBvcJjP
-	 kTYYfnr/szGIAKgjeLKpfFEHGwoVZM4ULyLOZvc2Q/+h8yz4ula93rk6HqtHkdEFELzA9
-	 zivwb2T3a3A1MDySknSucNROwcZXXGqj3RbICQkjEwvHYW3lQE53wGpMdgbzmM6DNjQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R11vgZXD;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795283769;
+	b=h7TH14mIJM3Tpk9RdiGPASGDPOKCIQidqJ9ppEiP61XMBWQjklb4UXfsA9p+niSljI0S
+	 RA+zbQOG/X05BKIj4I0yx1unqLd6qUWZMXoOqSDjBq5JGdUqYWes4T8+RPIfvAVklqgP9
+	 QaiCl2qctRx/rh6/ekbJl9SHR77nURJE31rflFyAL9jiz/JwUpLzWBPD8v466HpDJsFC2
+	 JUStbesrQX85E8gYtvvlkapzOCKkXaNQ/WmsG4NhpUroE3ENtdOkl/s5r3BavUj+5uLxe
+	 BeNKxrL8TFwFXmXdVPjx2Xqz62Fh9Ghlt7bVboJtamHcK8BVXhzs5InW2Fq7o56mzcQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795283769;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=md8GbRzRNRYozgNCXp9C52wGnVSgk6I5/bfSCAjMp6I=;
+	b=iqZZ2LIZZJWlUUx0gVHYGEAwoMa8NStKXqpEyZZ8jIHWiNFqPm7IS+/J22scZVkxb6Ff
+	 OwxDo5iL+kZxzsUHq04jMMBagcQulgqghIv1HwBcd4j4g7hIxXSIhLmijsrcPvhFF07sO
+	 Gf947ZHyif7BZyKcIN2796I9TgVfN5KJxlCG4gqS83yX1EqvdES83pvfX4v8kL65GvEUX
+	 HHfbbWTH71ovO9l+22Zk/nAB9P8LVlfWpnmGoBwFCvsowjXWKp0suuh2PCeYiBl6pEWFR
+	 MfGPAOj0WPQyF9COO0YaRSC8Om37hoEhWZvrsi5a55xm5yqEKReQx/P/epHrOa8RtyQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Imk7jC9S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E687B606A320;
+	Sat, 21 Nov 2026 17:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Imk7jC9S
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795283768;
+	b=O6+fmCkAjdi1VhJNVPqpmo6Gg+r2jd2IaGMY9w6TJSfVZjLKuPzn6EK6/dI7pyBtDC2u
+	 m/W7icIjETwSpIcn5FqXpkFP9wzQKv9Z9Vn5EBVhPQmk9l51Ji34ayOdN9iNhIFInuZt9
+	 e0uupMcmS+TaUFZQrkmzkYJhNE9kAq4muAU6HH4vugnImYIJklJs9GzxPfZ/O2AI3WXsO
+	 ul9RkAOx7z2UsHjVGzgn36Itv8gj8s3xDDF8WwhJhg6AsOMwAh2bpPPo+lGPQV6iel5Zs
+	 NtRdBcqjBuxQwiRL5JjP+2DnCIJgfJMhLgH+nmLFxvVksjLbTHkQwVlFyT+TlvVXkaw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795283768;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=md8GbRzRNRYozgNCXp9C52wGnVSgk6I5/bfSCAjMp6I=;
+	b=lBfGKucgIAsxAZCzTS4ndulxyxE73cV9r2P+ApMAVrtLMW/dJisy8jPrQCD2ftcp2zps
+	 /0liGNffMmTFXbBSJUrEzhXJyoo+S3hOTpq1nb6RNJcumC1rl9+ohG+FLgZ79MDWoujNK
+	 epD6A5eLJF/RarNH2K9eEct3533uQ6Bki5uQUbmClORj01n+dJcLY1uSWfOsC4NHCcPbL
+	 jDyo7wEOaqF6frAUEmjdVFHvQ2BSCBcxcwAHx0UfQD1JmaRmmNM2kXGHdTiXIdJPa6AXs
+	 28EJ3eVoKavVuu4GR9xPAQVHzgbfMO2S5U81S0XNjk+vTR3fPZcpwGnmnkqM9IP7q2g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BFF606A330
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 17:23:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01BFF606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R11vgZXD
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36a315ed211so2355552eec.0
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 09:23:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795281813; x=1795886613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qNh4Be9XbgejPuvlvikrrq9VO3koxch/dMJ6rmrGJx0=;
-        b=R11vgZXDtT0N1QS40z2jBWPHC2Kg9bm2pjRcg3i9B3OU76zGxhVGRQipuB0fwvJHly
-         w4JVWdT+vNjXzrfyALBi7YH+eCmry2WyWitMBFUxOdxTSU3vCv0oWbrp1ALvIr3+u0oC
-         Jm7eNHgERnJ4ppODCcwQlrA6xeCUO/5e9Sb78/HU5PFfdwwFOEbnPWR42LfEYRd0cZm8
-         PDKLsp7J+Q1ODvaWNdvLo7K2k7bxl9ovhMlOhnSO0nzrcZQSOJV47AgVhZuNSKv7hPwP
-         GUEfzGZwqwWL66JKNrXRvqNReWkvoPH9jQNJKbui6z7L2SmZzrTkYT2jQl7su5UxWjcy
-         mn7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795281813; x=1795886613;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qNh4Be9XbgejPuvlvikrrq9VO3koxch/dMJ6rmrGJx0=;
-        b=hkOerOJcJkqlxHf76iH8kGcVzz1VMUYeVBkKmFfSX/SSydx/1JpMLMj1z9WEDY5qz8
-         iycB1DYnRW6VD2HLen7ZKAJj8RcOJnBq86+JswX6f8Nr/jjczEXgs4rgsBbdfc6pYTNv
-         qPwIOBGRtZlbxsmDddaLOI5TNADoBoYq8lofdt89N5ZJjLLZEgrua/5YXB0WWQyYcRBk
-         TrKi+sR8FW1o57FrW8bQDSRayMRy/q8jl/UKeaJ0DLD48LUxz39R5dNz5xhk1fR98Dk0
-         S58Z9i4VUF9LIh4QyCr4EcHwc88amOdMAyBBwYkhUqXMKn/aVQYGyZ4wCkeCehRVAVfA
-         sYhA==
-X-Forwarded-Encrypted: i=1; AL+hErFo96AEBrG3/fCNVB4OgdUsbL5f04nJBVnaXEvmMLUm7TCND/sfy2OfVh4mOzcj98bhhviea1wacLUp@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TE0EAKxrnzTquGA8/LGg2Z8gIHLBs8InPV83KC9s4tXWgA+Fp
-	2R1Zv8Jub07K4eHuvm028YNGhnYv8TIFB1HXWjCIhdPqjZ1wlQG/s2f2
-X-Gm-Gg: AZFdTZdvvtargjkCyipHcms7H5EtSHjB+Vkpd1UbyaB076BHtuUlVeba14zNciBDr4o
-	MofpHIu43WYaHamO2a1xkBZoXutN7K4qzfCh7JPhGASWxYDLZnoD//ZzEhpHH2yv8uThSJYsgXM
-	hGkisibhdXuehJXgGxP2dJs+KTLGvZm4WrSEhPaG2SG86BWK61eaWtQ79frfquc+4UykUWG/OMp
-	oOFWcWFDGgmQa/02/MOsbVWM0TepoZbJ0UxIki2BKR1VJtgcpfkdEV49hC+L++vSero5iOk4xet
-	TqW8iZheUTWc+oUAGlL679BUj7L1cM98s/qGUpBPM42lWmSluvRhavyf9Fu/7ocSS3TLHg5mWTz
-	yKv8IVQwKmYMGTz1SPOD1GNt6PhcGYW+ukhkCO7AAYtXvlrB8FrmM/GdZftCA2npkyh7H9Wtq65
-	Oi3G0fF/6uTe1u3VQq++wSFXTY2Jx/Qb4W1+NzvMTuj0dVvRaDaj3aoEnJfW0QaqxsAFYMpMA8k
-	T9D9v+At+djpXfxluI6KDqyPVd5zL+N4Xf0P5IZ5nvvuQc2bffgw0cgpAU4c5bLNKlmpfVLflEi
-	fmokEu3oFRvPEBqi+uzDNWGCjPUXaTJ3Zzc5
-X-Received: by 2002:a05:693c:20ce:20b0:381:761b:f335 with SMTP id 5a478bee46e88-3856f94eda0mr6911423eec.6.1795281812915;
-        Sat, 21 Nov 2026 09:23:32 -0800 (PST)
-Received: from DESKTOP-NM9EKIA ([2001:e60:8509:ba6c:4c23:efbc:89e:50d9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385f68bc0adsm16633136eec.13.2026.11.21.09.23.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 09:23:32 -0800 (PST)
-From: Joonhoe Kim <26rote@gmail.com>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v2 6/6] Input: aw86927 - stop playback over suspend and on shutdown
-Date: Sun, 22 Nov 2026 02:23:31 +0900
-Message-ID: <20261121172331.863-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261117052112.32527-7-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261117052112.32527-1-xiaqinghuan@mail.ustc.edu.cn> <20261117052112.32527-7-xiaqinghuan@mail.ustc.edu.cn>
+	by smtp.kernel.org (Postfix) with ESMTPS id E37DD1F000C0;
+	Sat, 21 Nov 2026 17:56:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795283768;
+	bh=md8GbRzRNRYozgNCXp9C52wGnVSgk6I5/bfSCAjMp6I=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Imk7jC9SbEpGJAwppV5RF8Dt92jjD8SJkGQTV+kMeKAuXi+W4aLPugMl3WLw/t4yP
+	 S4zNkXSYisDdPFjWxWO1z97GULzaLAg+mJyzZeX83GP+28skCB8SjbJ5JsWWI2uVsP
+	 azMXROl5Y78ph4mZqpZ8QdY4V6a7/08RPZAteaahh/mvw/ptjGq94IzOopXNm5HFbv
+	 9NIsYC8sTOYopPw0+dolB/xCa1T0HMcHKuojJk2WYIlT7W620UKcD+Wufd8vMDvZoR
+	 xE6Uq+uGF1fvXNSdg+wOqH3uSkKxFPfeOSvEvT3GCUeHsh3vJc2U1SS08WjRmJFM35
+	 g4SyRmf+wgfvQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 448ED4BD31;
+	Sat, 21 Nov 2026 17:56:07 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Sat, 21 Nov 2026 19:55:54 +0200
+Subject: [PATCH v2] dt-bindings: gpu: arm,mali-utgard: add mt6572
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,15 +82,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261121-6572-dt-mali-v2-1-1c3925ec7ad1@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2jFtCS9X/Idh0ZZBxgAlbSUaw
+ r8LuHZ5knPPXSGQZwpwS1bwtHBgN+2gLgnYXk8PQm53BiVULkopMM8KhW3EUQ+MpalSI7NKC0u
+ wT2ZPHb/P3L35cXiZJ9l4NA6j5xCd/5x/izy8P+lFosTOVKLMVWE6ldazd9FNo+bhat0IzbZtX
+ z4eTkK/AAAA
+X-Change-ID: 20260810-6572-dt-mali-8b93b159a0ce
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Heiko Stuebner <heiko@sntech.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795283760; l=1233;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=yarHUuGiHB5XDU5bIl2bWj8HreokggBNwjoTqcPSgT4=;
+ b=aJF+XCEDjuAMvu1RDuLpBiDhOE3GNfJOGS8hGr/Vthvh9jCrPLfytowdDMsZZYu2JMsUjnYUt
+ jcgdVQwbtEkDUvOJi/KLujbbBe5DSGFPRFwrlMSUrdInKFA/Sh+RBPX
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
+Content-Transfer-Encoding: 7bit
 
-On Tue, 17 Nov 2026 13:21:12 +0800, Qianhui Xu wrote:
-> The chip keeps playing whatever was programmed into it when the system
-> suspends or reboots, so the actuator can still be buzzing after the screen
-> is off.
+From: Roman Vivchar <rva333@protonmail.com>
 
-Tested on a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with two AW86937
-(chip ID 0x9370), compatible "awinic,aw86937", "awinic,aw86927".
-Rumble works before and after s2idle.
+Add a compatible string for the mt6572 Mali-400 MP1 GPU.
 
-Tested-by: Joonhoe Kim <26rote@gmail.com> # Lenovo Y700 Gen 5 (TB323FU)
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+Changes in v2:
+- Pick Krzysztof's ack, resend
+- Link to v1: https://patch.msgid.link/20260810-6572-dt-mali-v1-1-fb908627bf23@protonmail.com
+---
+ Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
+index c8d0d9192d92..6bdbab82126c 100644
+--- a/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
++++ b/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
+@@ -27,6 +27,7 @@ properties:
+               - allwinner,sun8i-h3-mali
+               - allwinner,sun8i-r40-mali
+               - allwinner,sun50i-a64-mali
++              - mediatek,mt6572-mali
+               - rockchip,rk3036-mali
+               - rockchip,rk3066-mali
+               - rockchip,rk3128-mali
+
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260810-6572-dt-mali-8b93b159a0ce
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
+
+
