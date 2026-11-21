@@ -1,66 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795280255;
-	b=rmnPI7Zpcp1V0opuFxCpcehm3TY1f0ErFitLA19KYHzgXXz/p/YOOntFHZLvd+biqjrV
-	 8D9C5f7B2Ip3U02h2SP8FL4AWA5A0u+bfVKebyU7prFR7y1hiI//md570I9tzrAx1DXC3
-	 XN7MrryXllOtOQkH01y4+siXY3hYFw5WLf/tVFFnIAcBVR6o0wFKRwcQtwF8OP/lPQtUT
-	 7PaUc4mkztx9cMYMHkjqTeTGskUWNqcob38UVllcA5hwf75NDLLb/nMZKd2IvUd1snQbq
-	 tFvZOe8Cq88yo4zpZ9OTI3m/r0Bjo+J8ix3ZUeZr5tRQZOJCp9dn54sKKBKJPYqlyEw==
+	t=1795280434;
+	b=KDragaFy2OxE5+pfahvqrps2vVJV30Ciy7SCqlohkwXknKxy03FgnfE2AwlS6ORHc3H3
+	 dlARya7XGVxNV07uJ+6MiiSKudmKIZWEfJ6yZuxRob+/y2UCQ/yCGfP3x4N9fSPTtb3R2
+	 05cYTjXMoq7jz84HfRTws5PGM0umDfVI/KAwOD7PgJyXE+vXN7po2I6JsxgfMi6EmDiky
+	 a8PGDtJ3888PAElOB3/+aKv40L0D0tengr9FjU6uQVOCMvi/S1aLSDK4vi150l6eNxNOJ
+	 eqh29OfsNJlw9fQiCw81Sp8W5BXFM9bHlcBRrcIuVT1PB5eh9a9r/RDebw6/g0RomMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795280255;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VS06vSM4qtWUmBvMENtTVI0rKBtvKYghkg4SBYgLU6w=;
-	b=l27TedCkteMP/Cz01AhmF07gWnM+is3Y02oQyi+pWgDM8Ho0GEsRWI9XNoEf9iS2kEvG
-	 vw7CjpgpTwT01JiFn8eAeWoyvVfEm3VfO/qXi93dK93/2khkXQcKxrVtXL6Dus26iO+uD
-	 vdBWnYDrof6aBx34wwQp4D61ZxFEf/60JcOpZ4ZaK1A+AAHAv2IxTrdHA1EDmv41JSdGP
-	 or08L6wSlFoqlysi0MILVO631l9l7z2lXUdCMVcjoIjNssW/vxBROqmyj7QkBhEWhBiPt
-	 X2pjL3YIUoJNMgI4GY+JYbKMBafrV+l8Scw3w4S0J9pJb93j0/ydm35ygdjKoLm6K+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795280434;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=UfEvT1Av6kpV+WzLsnNeTimkMizI3/URLgUJM2UlPVI=;
+	b=INEShFnhVeMBY9Fc04sMUPy1jpc9z4c+nSix5LzoUFvsPAMYKM/gq9lVMy8jBwmpp/V0
+	 598457zscJgbysFUlZ71DgB9s+fHW1qMghgl85T51h0hzFlBLCd2E7wfyNqxyoe4rfu2l
+	 OPP8MzH7lAksMTkHOnSRAkDUgEkYgOWlasXTmXKbhWiRwK6hpBJ4e4nKr3DdyL2pxKyLL
+	 FVL+CNYmqaB4Hs5hAGihLsNnCln9sGSVqSnHVqgk59a6Kqrg6hl5GP9tumCRSwLjXIudv
+	 rBSOq22WZ3k5adM4eAzAK/9MUA3kGUmXRsGUAvFi2ASIq4UTTLQ5neGpAHE5q8/AJmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=makrotopia.org;
-	spf=pass smtp.mailfrom=makrotopia.org;
-	arc=none smtp.remote-ip=185.142.180.65
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQWS494W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF6C606A68E;
-	Sat, 21 Nov 2026 16:57:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECF6C606A68E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xUoP1-000000006J5-3KDm;
-	Sat, 21 Nov 2026 16:57:27 +0000
-Date: Sat, 21 Nov 2026 16:57:18 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	David Heidelberg <david@ixit.cz>,
-	Christian Hewitt <christianshewitt@gmail.com>,
-	Marc Zyngier <maz@kernel.org>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Dang Huynh <dang.huynh@mainlining.org>,
-	Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
-Subject: [PATCH v6 5/5] arm64: dts: rockchip: rk356x: Clock the vdec at 400
- MHz
-Message-ID: <11b23bbdd9b1e2e351978ed87ed87bfbb7a00076.1795279680.git.daniel@makrotopia.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9EF606A32C
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 17:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQWS494W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58B361F000C6;
+	Sat, 21 Nov 2026 17:00:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795280433;
+	bh=UfEvT1Av6kpV+WzLsnNeTimkMizI3/URLgUJM2UlPVI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KQWS494WccV5b9h+IPcsmofdxrc2wIlnrlfVbncecaD7ig7atMhM+nzNVpcMR9Ipz
+	 nly2MqmAvMyH15bnn2YijvugHx6bpU/IoaIBDozHTG8h5BPowYb7UTmP1Z4cXigUbW
+	 gn/qHINXoTmuRyWIB03X1ud8SJoKmoun0ui40/gxZfbm9L21ZSNB4vomnLfELCVOyQ
+	 Ycr1QpdViLt7FiZ1ykW1bch7w12IzY5LGmiE6p6JXPnmLiHc06xjOkodoLmT7dO60i
+	 xDkMA5/JqZQAbDqGGhVD1W+sGsKuL7MtZDIGLSYnjcytsLceatcF1B1WDDesxm5oFv
+	 0/7Te3eIsR7qA==
+Message-ID: <sashiko-outbox-227185@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/5] media: dt-bindings: rockchip: Add RK3568 Video
+ Decoder bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Daniel Golle" <daniel@makrotopia.org>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <b63e1b3cd0f46988b16c2f535c364e1f4dfcedc2.1795279680.git.daniel@makrotopia.org>
 References: <cover.1795279680.git.daniel@makrotopia.org>
+ <b63e1b3cd0f46988b16c2f535c364e1f4dfcedc2.1795279680.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 21 Nov 2026 17:00:32 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,46 +60,28 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1795279680.git.daniel@makrotopia.org>
 
-The decoder AXI, core and CABAC clocks are assigned 297 MHz, the rate
-the vendor kernel derives as a quarter of its 1188 MHz GPLL. This dtsi
-runs the GPLL at 1200 MHz, from which the closest rate below 297 MHz
-is 240 MHz.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: media: rockchip: redundant word bindings in commit
+  subject
+--
 
-Assign 400 MHz, a third of the GPLL. The vendor kernel clocks the
-decoder at a third of its GPLL for streams above 1920x1088 and lists
-400 MHz at 900 mV as the highest decoder operating point. The rkvdec
-driver scales neither the clocks nor the supply, so the rate applies
-to every stream.
+commit 42646cd7afc491b194c9024eee30d3ea3e9d3745
+Author: Christian Hewitt <christianshewitt@gmail.com>
 
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v6: no changes
-v5: state that the rate applies to all streams; no changes to the dtsi
-v4: new patch
+media: dt-bindings: rockchip: Add RK3568 Video Decoder bindings
 
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This commit adds the rockchip,rk3568-vdec compatible string to the Rockchip
+video decoder DT binding schema.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index 411c9ed62d4ac..6305a57258b4c 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -666,8 +666,8 @@ vdec: video-codec@fdf80100 {
- 				  <&cru CLK_RKVDEC_CORE>,
- 				  <&cru CLK_RKVDEC_CA>,
- 				  <&cru CLK_RKVDEC_HEVC_CA>;
--		assigned-clock-rates = <297000000>, <297000000>,
--				       <297000000>, <600000000>;
-+		assigned-clock-rates = <400000000>, <400000000>,
-+				       <400000000>, <600000000>;
- 		iommus = <&vdec_mmu>;
- 		power-domains = <&power RK3568_PD_RKVDEC>;
- 		resets = <&cru SRST_A_RKVDEC>, <&cru SRST_H_RKVDEC>,
--- 
-2.56.1
+> media: dt-bindings: rockchip: Add RK3568 Video Decoder bindings
+
+[Severity: Low]
+This isn't a bug, but the dt-bindings: prefix already indicates that this
+patch modifies a binding, so the trailing "bindings" in the subject can be
+dropped ("media: dt-bindings: rockchip: Add RK3568 Video Decoder").
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795279680.gi=
+t.daniel@makrotopia.org?part=3D1
