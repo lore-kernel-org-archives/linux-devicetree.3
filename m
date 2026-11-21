@@ -1,67 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.18.0.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795259379;
-	b=gUDIQM0lFA9Ne6izUsTtW4ZzXiJ4JpJXDeuAd1VzJKVAvM6106ULcUipoIj0tDM9wxGG
-	 IL+zQGzbMXHY73On7RUbKHrUusbXy8W8yY+t4+t/2BR9B+DZtCZpkwtPxUIGD99hWO6fY
-	 8ROQAQ5ULjpTt3XGG4JsNbDZHAj+0HMt3hHrt0l3996TD2oWrZiILrkrSYTeLpGkh5Eyx
-	 zcllveuoDuVMLun6jcMijY5mQtI/VU01iZaFUT/UBoYdsqA+cZ2Ei2ydv0z3k4/RhX+pE
-	 CbLu68L2Lm8DanWWv0tMYAj8/ZSdTAmimgSBQJhbu9INd8hTJKb4wANLLiH09N+51rQ==
+	t=1795260199;
+	b=s1ZwfTNNyPpMBRDtqYXYJ7T944uyxbjFD8JXX8UhmEFQQqXKmdz3dsH/P2KFnYTC5gB+
+	 YEz6jY4pUOr2eZYjluFy7EjNLmKt6SA/nX0b8pDDA1GDdCM11WHZMlGigQ5CWRb+b1beX
+	 up9oCuSocUaBieoI0g/r9hWIe5/XiXrdDajepQyI4qMUCIJZEXIFS+n7X/mkjtuprZU35
+	 sx3S7uUPl2NqWVg3wPsNrP9UDXxL38ZEZZ+tLSAgr+LANiIXnv8qr9IsVGWKa31cNw29k
+	 1N2Gs9qiTNAvZdHZG1Z0EP0eTjHaNxBgVZQXvOS6G9YZ7iCniLn7ZKWRx4M4SnxLY1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795259379;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Auth-Info:
-	 X-Auth-Info:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=nIWCIl4xLmtB84iRieZH0tm1YRmVF/7wcnmyIAkVNjc=;
-	b=FstbbeqHwz7h1DdVz2CxYjPHyLeKdEpyDhClIjYPAJHI/r522fK9z9y34u9/FZ6i2F3L
-	 Vl2HfwOOYNrByEt44AWi22mZQpQ1gJTr4YyhN4Zg/Q2/ZKbpP3Bz1722rHL2ltz+UBLhI
-	 oYiB5j/+Fl3IT5VqaUoC55qGmJuensR2ILDrpDf6/kcR5UjRzOWBEgDNxNZe8BEIlIOnI
-	 cQEofntwoUR0MPvsIzLZhQZp7iugWaysVuxsFQM1hGPPOxILIIFRlnZ+q+vWR5fD5FYbT
-	 9zI5KAY88Na9a054LIF9jWnVde+QaUAZjO7+Ql0D73jk+0ZLTWAM2tAvyDJNxYhHseQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795260199;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xm3swyOD9hZAartdvtVYhOV619I4AuZu0vugsVSqOuU=;
+	b=pq0B6E1/fibc3qOZErA3EgbNmci1PQm8FU/hvMJNMaMkpLaU1LNpymwWH0T25oOGpjkH
+	 pXcCS3V/F13qqtVjKVLXZDUtdccdq9dyUWcKfZEHYIVtRGxIHf9ClxJiKOhElML9CIS7Z
+	 +01ZPSdw6LcyS9b1zoDEzm+8I/u2VPzPZvISeYJQrVP5eL22sp6re8aIznTnSbA7k6D5Y
+	 V7v+m/+z61fTT4O2P0xKdzOjXIRdTF0XWmwI3hEzeO07iSPuf3Z4//BlaRn/G6/wnMIAT
+	 ECcqLw9zqvwidcO2gzEhAZsbT5a/eetAuakcryriPSViIPaRkblW6haAK3Avd/3bYoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=muenchen-mail.de;
-	spf=pass smtp.mailfrom=muenchen-mail.de;
-	dkim=pass header.d=muenchen-mail.de header.i=@muenchen-mail.de header.a=rsa-sha256 header.s=r1 header.b=LH+tj7Lb;
-	arc=none smtp.remote-ip=212.18.0.10
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FE5606A32C;
-	Sat, 21 Nov 2026 11:09:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02FE5606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muenchen-mail.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.a=rsa-sha256 header.s=r1 header.b=LH+tj7Lb
-Received: from mail-out.m-online.net (localhost [127.0.0.1])
-	by mail-out.m-online.net (Postfix) with ESMTP id 4jWqGk3FJYz1sP1g;
-	Sat, 21 Nov 2026 12:09:34 +0100 (CET)
-DKIM-Signature: a=rsa-sha256; bh=nIWCIl4xLmtB84iRieZH0tm1YRmVF/7wcnmyIAkVNjc=;
-        c=relaxed/relaxed; d=muenchen-mail.de;
-        h=Date:From:To:Message-ID:Subject;
-        s=r1; t=1795259374; v=1;
-        b=LH+tj7LbDItWc7DNBhdW9+/bSdmoS4H6V/EtW4xY4l0PKcmd8pxZ8V/asx9PF/xW
-         eT9VJW0BWZE+GwT3hceILSvmLgCDIgWa7fuAo3ER2tROmPgMt8ah9i3lUy8wl2UT
-         yoEss4sik8tpMVUK9p4tMXxmKCESPcxRe8BsusCFQcqAbl1sAsoH7K1on+AcQyK6
-         FbZrk8jCyjHkSDSHWLk5i1yGdCD09UytxOybmc5e3cTvSsHqn59tcrJwFg1lIfQ9
-         nvjTP/gR85Fw1aUtlkP7IwEBDQa8V2XMdOO4PbiUb/v3obVxhDxcVR7h64dRgwc7
-         LEd9cjPAJ4Z4dnEpRhBgcg==
-Received: from frontend03.mail.m-online.net (unknown [192.168.6.182])
-	by mail-out.m-online.net (Postfix) with ESMTP id 4jWqGh1c3wz1sP22;
-	Sat, 21 Nov 2026 12:09:32 +0100 (CET)
-X-Auth-Info: IHaH2TR3WvIGRr5sxN7MbW9dpk6Rd4SEz0O6VTWDB3jm97DjI6gRwBmaT81pWHNE
-X-Auth-Info: IHaH2TR3WvIGRr5sxN7MbW9dpk6Rd4SEz0O6VTWDB3jm97DjI6gRwBmaT81pWHNE
-Received: from wiesel.intern (ppp-212-114-181-207.dynamic.mnet-online.de [212.114.181.207])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGH8UoMm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by mail.mnet-online.de (Postfix) with ESMTPSA id 4jWqGf3l8Tz1qqlT;
-	Sat, 21 Nov 2026 12:09:30 +0100 (CET)
-Received: from [IPV6:fdea:9b79:8984:1:7c3b:4612:a548:c3c8] (unknown [IPv6:fdea:9b79:8984:1:7c3b:4612:a548:c3c8])
-	by wiesel.intern (Postfix) with ESMTP id E7C8879A0114;
-	Sat, 21 Nov 2026 12:09:29 +0100 (CET)
-Message-ID: <a1b47af8-72bf-4f3e-9ece-e2ceeb97a682@muenchen-mail.de>
-Date: Sat, 21 Nov 2026 12:09:29 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24413606A320;
+	Sat, 21 Nov 2026 11:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGH8UoMm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64D91F000C0;
+	Sat, 21 Nov 2026 11:23:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795260198;
+	bh=xm3swyOD9hZAartdvtVYhOV619I4AuZu0vugsVSqOuU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gGH8UoMmuBvFymZmxiVdxqpxIy01DlJgFtg+AmYxWqcG+XFCU7fzm9hDGLAARfQCh
+	 jQne0iB6/6vXxBQr7h++NQr9wtkCwemedT8uqMwfJgSOETXs4/4gXzT1nJVmYSsHjW
+	 R7jTmncQG0cfV98sgUl5dHylYI4ZajBN/j3HC0gkYF0EIAkcTp5ZZ9qw7YAr4tkHdT
+	 kQKivVQJQHo+D3jCHFOcSKPuE4Y7CxWHkNQDLEVAwhfdWVZ25vI2rydqZJXGAVzN5Z
+	 pKDgBw7IXrh/D5GsC4XWECuYf6VBVoGLAGc/wOC3IVdAc4GVWo7KA/LfAKdiB2g9K+
+	 u/NXSuyZOSUaA==
+Date: Sat, 21 Nov 2026 12:23:14 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: pjh456 <pengjunhao409@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] dt-bindings: rtc: haoyu,hym8563: document vdd-supply
+Message-ID: <20261121-attentive-grateful-caracal-5cefec@quoll>
+References: <20261120113502.563894-1-pengjunhao409@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,186 +58,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] riscv: dts: thead: Enable bluetooth on
- BeagleV-Ahead
-To: Drew Fustini <fustini@kernel.org>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Guo Ren <guoren@kernel.org>,
- Fu Wei <wefu@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org
-References: <20261020132604.90708-1-thomas.gerner@muenchen-mail.de>
- <20261020132604.90708-3-thomas.gerner@muenchen-mail.de> <awDZBiX1VoSkO6F3@x1>
-Content-Language: en-US
-From: Thomas Gerner <thomas.gerner@muenchen-mail.de>
-In-Reply-To: <awDZBiX1VoSkO6F3@x1>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261120113502.563894-1-pengjunhao409@gmail.com>
 
-Am 21.11.26 um 00:34 schrieb Drew Fustini:
-> On Tue, Oct 20, 2026 at 03:26:04PM +0200, Thomas Gerner wrote:
->> On the BeagleV-Ahead the bluetooth module of the Ampak AP6203BM is
->> identified by the btbcm driver as BCM4362A2. The module is connected by
->> UART4, several gpio pins and an I2S interface. The I2S is currently not
->> used as there is currently no driver.
->>
->> Signed-off-by: Thomas Gerner <thomas.gerner@muenchen-mail.de>
->> ---
->> Changes in v2:
->> 	- use default pinctrl definition for bluetooth in and out pins
-> Thanks for sending v2. Sorry for the delay in review.
->
->> 	
->>   .../boot/dts/thead/th1520-beaglev-ahead.dts   | 85 +++++++++++++++++++
->>   1 file changed, 85 insertions(+)
->>
->> diff --git a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
->> index e16484a47653..7161a9d4c61f 100644
->> --- a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
->> +++ b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
->> @@ -76,6 +76,23 @@ led-5 {
->>   		};
->>   	};
->>   
->> +	reg_vbat_1v8: regulator-vbat-1v8 {
->> +		compatible = "regulator-fixed";
->> +		regulator-boot-on;
->> +		regulator-max-microvolt = <1800000>;
->> +		regulator-min-microvolt = <1800000>;
->> +		regulator-name = "vbat-1v8";
->> +	};
->> +
->> +	reg_vbat_3v3: regulator-vbat-3v3 {
->> +		compatible = "regulator-fixed";
->> +		enable-active-high;
-> enable-active-high has no effect without a gpio.
->
->> +		regulator-boot-on;
->> +		regulator-max-microvolt = <3300000>;
->> +		regulator-min-microvolt = <3300000>;
->> +		regulator-name = "vbat-3v3";
->> +	};
-> Nothing can switch these two rails so regulator-always-on describes them
-> better than regulator-boot-on.
+On Fri, Nov 20, 2026 at 07:35:01PM +0800, pjh456 wrote:
+> The HYM8563 is supplied through its VDD pin.  Add an optional
+> vdd-supply property so a board can describe the regulator connected
+> to it.
+> 
+> The property is optional because some boards connect VDD to an
+> always-on rail.  Describing the supply also lets fw_devlink order the
+> RTC probe after its regulator.
+> 
+> Signed-off-by: pjh456 <pengjunhao409@gmail.com>
 
+What did the LLM tool ask you to do in regards of the commit msg?
 
-I see. With the next version I will consider this. The regulator 
-definitions are here only to
-prevent the hci driver form printing a message about missing regulator. 
-Once we have
-the final regulators for the AON subsystem we should check this 
-definitions and replace
-them if appropriate.
+What did I ask you to read - which document? What is there about DCO?
 
->
->> +
->>   	hdmi-connector {
->>   		compatible = "hdmi-connector";
->>   		type = "d";
->> @@ -152,6 +169,28 @@ led-pins {
->>   };
->>   
->>   &padctrl0_apsys {
->> +	bluetooth_pins: bluetooth-0 {
->> +		in-pins {
->> +			bias-disable;
->> +			drive-strength = <1>;
->> +			function = "gpio";
->> +			input-enable;
->> +			input-schmitt-enable;
->> +			pins = "GPIO2_30";
->> +			slew-rate = <0>;
->> +		};
->> +
->> +		out-pins {
->> +			bias-disable;
->> +			drive-strength = <3>;
->> +			input-disable;
->> +			input-schmitt-disable;
->> +			pins = "SDIO1_DETN",	/* GPIO2_29 */
->> +			       "SDIO1_WPRTN";	/* GPIO2_28 */
->> +			slew-rate = <0>;
->> +		};
->> +	};
->> +
->>   	gmac0_pins: gmac0-0 {
->>   		tx-pins {
->>   			pins = "GMAC0_TX_CLK",
->> @@ -268,6 +307,30 @@ reg-on-pins {
->>   	};
->>   };
->>   
->> +&padctrl1_apsys {
->> +	uart4_pins: uart4-0 {
->> +		rx-pins {
->> +			bias-disable;
->> +			drive-strength = <1>;
->> +			function = "uart";
->> +			input-enable;
->> +			pins = "UART4_RXD", "UART4_CTSN";
->> +			input-schmitt-enable;
->> +			slew-rate = <0>;
->> +		};
->> +
->> +		tx-pins {
->> +			bias-disable;
->> +			drive-strength = <3>;
->> +			function = "uart";
->> +			input-disable;
->> +			pins = "UART4_TXD", "UART4_RTSN";
->> +			input-schmitt-disable;
->> +			slew-rate = <0>;
->> +		};
->> +	};
->> +};
->> +
->>   &sdio0 {
->>   	bus-width = <4>;
->>   	max-frequency = <198000000>;
->> @@ -314,3 +377,25 @@ &uart0 {
->>   	pinctrl-0 = <&uart0_pins>;
->>   	status = "okay";
->>   };
->> +
->> +&uart4 {
->> +	pinctrl-0 = <&uart4_pins>;
->> +	pinctrl-names = "default";
->> +	uart-has-rtscts;
->> +
->> +	status = "okay";
->> +
->> +	bluetooth {
->> +		compatible = "brcm,bcm4329-bt";
->> +		device-wakeup-gpios = <&gpio2 29 GPIO_ACTIVE_HIGH>;
->> +		interrupt-parent = <&gpio2>;
->> +		interrupts = <30 IRQ_TYPE_EDGE_RISING>;
->> +		interrupt-names = "host-wakeup";
->> +		max-speed = <921600>;
->> +		pinctrl-0 = <&bluetooth_pins>;
->> +		pinctrl-names = "default";
->> +		shutdown-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>; 	/* BT-REG-ON */
-> This triggers checkpatch:
->
-> WARNING: please, no space before tabs
-> #230: FILE: arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts:397:
-> +^I^Ishutdown-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>; ^I/* BT-REG-ON */$
->
->> +		vbat-supply = <&reg_vbat_3v3>;
->> +		vddio-supply = <&reg_vbat_1v8>;
->> +	};
->> +};
->> -- 
->> 2.53.0
->>
-> Thanks,
-> Drew
+So at this point you are about to be treated as a bot.
 
-
-Best regards
-Thomas
+Best regards,
+Krzysztof
 
