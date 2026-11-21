@@ -1,82 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795303618;
-	b=5bw+/zukIZjuCUkywbbBznYoyMqM4uoaEHZ1ALP911dciKV7trSK4Cw7lYvpBs3mg4pR
-	 6YgQc4kIs+OG/iG5YlJUwY6Cxh45SjZlUaGzz+qLiBHdrVN8zI9nrpkCxgzZLz5/NsvWn
-	 ybitgE0vaooPsFtaz7FOB9GY1FjQFevoDM436pXvtmwX6oMtJt8brdeCwKqwNbHdEImEB
-	 Lcww0C0awFQsUTMktgOnru6nh2FCeIDp6U8RHIDZa6VhflNzqH7nVkvf3JWHBksUnN1Jo
-	 aa21OCvnN1fd2COLBhurFvz+Nd7GNSFag3U5PIzfHzY1gIRlcwSDbD4CjHWwmpbGARA==
+	t=1795304146;
+	b=pmpY3rd4Nb4yYUeKYH3u3vEBxPPT6wscBvwCAEfa7w8fIfBJrfQ4/Fdav03D0PUuF/VA
+	 gMkborM28q1RS3/7z4U+Vwd1vndeB1rhb9b91InNF4aSwLTIjMVDpsb3NU++htR9Lh+aa
+	 F2wKy0T6m93xk2ygadlsXLA//C/lhEhznewtxBhs5ZDKnkCUpMVLIV/RCwh10yoOey0Am
+	 3akfMC8VBMt9n8QvzScItpsB6xHtaYq86LBx02c5q0mvfnMDs/PEazTMPNke8m5QqNPeY
+	 wIc+MWcr3XHcqVpFamOZ24a8r1azqbtQj7sCZPCxdfmDOtNxjWiXY0t3AS3+Po+XurA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795303618;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uNHo+Sfo4SO6w4MKR8YizO7/Dz3BQ3/Jvkiq3N5ai4Y=;
-	b=bJ1HL2zsn26AYDRXTiOMJWYOe3KCs7d4BXtXxY2RCH0iOkFIrNvl2WP8FEa9FyypGz2W
-	 AAg869JFN0sBQspLhQejUr5b2ct4sBDhsxXlWovmvmxpnqOxcOIL9Jm8+1zOHCK5EBi56
-	 GsgTdRnwg7iZnNfnyW3WQsVW75ZLQsfsEz0ciaqh/FcpKwjgghTTIM+DkoQnbx0TD/FTt
-	 Oq5wWp75UnLqjhngogL9V9iHNx4UEC9gZUV+Xm60but1i3caqGuD0xaqnoq45Ux7EZb4i
-	 p2CjzENmYA3DbZMr7ou25bOzwj/fheCI8rH4eS10tzsO+GhhA0EfAEvNghR+KoxdNDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795304146;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Ygid2aXBVv/PMHiBZSaeXvMNpwKQR0Q1uS6msPaF4GI=;
+	b=KEC9Gj3eEKOX+juCULM4egHk+M06txEfGWCc9ujS/uq4R+ssAlks5Qc7bfPd1JSo9NQ9
+	 BvScs3157K/TGAm+QRYxncYQBTlfOvB8Ug0gdZObK+SBgTl+4EfjIAbarZcmDOW2EhwDE
+	 4HIEvZ9CuTHSUJ+gnRbeXQLP5odO/QV9Xnb43nls02PUJVu3F9/1y2ENPECtqwjgtN9qX
+	 Q1QViL1wQTAQ6qZ+ioVkuqX+q4FcPeHPjlGeo17vJnN4cICMJpvTywqJc30btF2geovP+
+	 6xL6ZGB6DLtudbVPCOp3eYrMNjLAnK77JoPryO65mrjUvd1kWuDRbn5OS01oSR/WBnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VpBjouCj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k3dJr6vW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB11606A6A3;
-	Sat, 21 Nov 2026 23:26:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7016606A32A;
+	Sat, 21 Nov 2026 23:35:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VpBjouCj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 638161F000E6;
-	Sat, 21 Nov 2026 23:26:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k3dJr6vW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269951F000C4;
+	Sat, 21 Nov 2026 23:35:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795303618;
-	bh=uNHo+Sfo4SO6w4MKR8YizO7/Dz3BQ3/Jvkiq3N5ai4Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VpBjouCjqQQeI8P4RhYDWkheQLduY2KtRgjsuneT/skyQuzN+Cm9NkbngYx/vyJiM
-	 Dbef+S20RA8XkAFHAsU9ksaA8j/sCG5zW85U1NFq0MWh8X97oL1TsaCv1iFTt+RQVo
-	 lsPCPanYr0ZSGw8muAC/4zCt20iLBmOl1TGD/vJC+p05bYANijE+GKcgmCUxPXetrS
-	 xsjcjlkhy44JYXELUhjjES+3aWYs0MdolvWpAwqxSTl9oXmqBngsHCqd8iBT2cb9BC
-	 dq7nXqV95PUR8YrBkhhv5rxUTCg7Yk94OLRfVMYqyE/V9qbq0LTj383Rl1/CDZYzL6
-	 QhjMB35gwuJDA==
-From: Jakub Kicinski <kuba@kernel.org>
-To: ansuelsmth@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	horms@kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	lorenzo@kernel.org,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	maxime.chevallier@bootlin.com,
-	p.zabel@pengutronix.de,
-	nathan@kernel.org,
-	ndesaulniers@google.com,
-	morbo@google.com,
-	justinstitt@google.com,
-	rmk+kernel@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	llvm@lists.linux.dev,
-	zhengping.zhang@airoha.com
-Subject: Re: [PATCH net-next v22 15/15] net: airoha: add phylink support
-Date: Sat, 21 Nov 2026 15:26:56 -0800
-Message-ID: <20261121232656.1365664-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261117123956.11981-16-ansuelsmth@gmail.com>
-References: <20261117123956.11981-16-ansuelsmth@gmail.com>
+	s=k20260515; t=1795304146;
+	bh=Ygid2aXBVv/PMHiBZSaeXvMNpwKQR0Q1uS6msPaF4GI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=k3dJr6vWy83ZksuGhx0k5kyiY5KWrWBqYvdZucHmojpaK+7ztYizKzqIpJ2SKU45u
+	 LsWt2v3OOFfYCZrce1+ZCaLPrBlaEJl/uopWQQvfYxeAfSElnS7mxBwEMCwbDQK0Ua
+	 e1OGa+kh4KBVkAWoj2jvydlDyowt2Oxcr51axNi3KAoNMnyI19cT+vcpsaBYKGZ72a
+	 7lMLXmdg1sr0hogCFo/fes0XYI9R5S8RGJJnvut14q9eT8oUIKB32mYWOensaXUuGu
+	 EH9oU1m2vveJatslqhs1fsb2Ae49RymjJsIuu8RntwwuH+MGqeutFpEsb+eNcYnQEk
+	 Ha0aj/CvxV0zA==
+Date: Sat, 21 Nov 2026 23:35:43 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob
+ Herring <robh@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>, Trevor Gamblin
+ <tgamblin@baylibre.com>, Joshua Crofts <crofts@kernel.org>, Sergiu
+ Cuciurean <sergiu.cuciurean@analog.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 1/6] pwm: core: add
+ pwm_get_waveform_step_might_sleep()
+Message-ID: <20261121233543.55426e1e@jic23-hlaptop>
+In-Reply-To: <20261119112437.197306-2-Nicolae-daniel.Deaconescu@analog.com>
+References: <20261119112437.197306-1-Nicolae-daniel.Deaconescu@analog.com>
+	<20261119112437.197306-2-Nicolae-daniel.Deaconescu@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,255 +68,182 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: airoha: add phylink support
+On Thu, 19 Nov 2026 13:24:15 +0200
+Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com> wrote:
 
-This adds phylink support for each GDM port. GDM1 is limited to the
-internal interface mode, and GDM2/3/4 use a PCS referenced through the
-pcs-handle property. The ethtool link_ksettings ops now go through
-phylink, and GDM4 TX/RX fragment sizes are set on link up.
-
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-> index 044ad0302ef35..e41dfad58b258 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-
-[ ... ]
-
-> @@ -3752,6 +3790,155 @@ bool airoha_is_valid_gdm_dev(struct airoha_eth *eth,
->  	return false;
+> A consumer that must meet minimum times, or place an edge relative to the
+> cycles of a clock a PWM gates, can't do that with the waveform API alone:
+> rounding goes down, and the margin a minimum needs is the PWM step, known
+> only to the provider.
+> 
+> Let the provider report the rate of the clock its timing derives from and
+> the clock cycles per step. A consumer then works in whole steps and rounds
+> up when converting to nanoseconds, instead of reading the rate from a clock
+> it gets on its own, which breaks if the PWM divides its clock.
+> 
+> Signed-off-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+> ---
+>  drivers/pwm/core.c  | 69 +++++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/pwm.h | 34 ++++++++++++++++++++++
+>  2 files changed, 103 insertions(+)
+> 
+> diff --git a/drivers/pwm/core.c b/drivers/pwm/core.c
+> index 2a050ff4608b..a63b8f65a43d 100644
+> --- a/drivers/pwm/core.c
+> +++ b/drivers/pwm/core.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/of.h>
+>  #include <linux/pwm.h>
+>  #include <linux/list.h>
+> +#include <linux/math64.h>
+>  #include <linux/mutex.h>
+>  #include <linux/err.h>
+>  #include <linux/slab.h>
+> @@ -325,6 +326,68 @@ int pwm_get_waveform_might_sleep(struct pwm_device *pwm, struct pwm_waveform *wf
 >  }
+>  EXPORT_SYMBOL_GPL(pwm_get_waveform_might_sleep);
 >  
-> +/* Nothing to do in MAC, everything is handled in PCS */
-> +static void airoha_mac_config(struct phylink_config *config, unsigned int mode,
-> +			      const struct phylink_link_state *state)
+> +/**
+> + * pwm_get_waveform_step_might_sleep - Query the granularity of the waveforms
+> + * Cannot be used in atomic context.
+
+Odd to have that second bit here in the kernel-doc. Particularly as you have
+a Context entry below saying the same thing below and a name of _might_sleep.
+
+> + * @pwm: PWM device
+> + * @step: output parameter
+> + *
+> + * Stores in @step the clock rate the timing of @pwm is derived from and how
+> + * many cycles of that clock one step lasts. Period, duty length and duty
+
+Can this be a cross reference to the docs in for the structure?
+Nice to not duplicate stuff where possible.
+
+> + * offset are multiples of that step, so a waveform that is asked for in whole
+> + * steps, and is within the range of the hardware, is not changed by rounding.
+> + * Compute the length of n steps in nanoseconds as
+> + * n * @step->clk_cycles_per_step * NSEC_PER_SEC / @step->clk_rate_Hz and round
+
+I'd tweak the wrap to just have the formula on a line on its own.
+
+> + * it up, because pwm_round_waveform_might_sleep() and
+> + * pwm_set_waveform_might_sleep() round down. The product can exceed 64 bits, so
+> + * compute it with mul_u64_u64_div_u64_roundup().
+
+I don't understand this. I was thinking it was an implementation detail that
+should not be in these docs anyway, but I can't immediately spot it at all.
+So rewrite or drop.
+
+
+> + *
+> + * The values can change when a clock changes its rate, so they are only valid
+> + * as long as the provider's input clocks are not reconfigured.
+> + *
+> + * Context: May sleep.
+> + * Returns: 0 on success, -EOPNOTSUPP if the provider doesn't report it or a
+> + * negative errno.
+> + */
+> +int pwm_get_waveform_step_might_sleep(struct pwm_device *pwm,
+> +				      struct pwm_waveform_step *step)
 > +{
-> +}
+> +	struct pwm_chip *chip = pwm->chip;
+> +	const struct pwm_ops *ops = chip->ops;
+> +	int ret;
 > +
-> +static void airoha_mac_link_up(struct phylink_config *config, struct phy_device *phy,
-> +			       unsigned int mode, phy_interface_t interface,
-> +			       int speed, int duplex, bool tx_pause, bool rx_pause)
-> +{
-> +	struct airoha_gdm_dev *dev = container_of(config, struct airoha_gdm_dev,
-> +						  phylink_config);
-> +	struct airoha_gdm_port *port = dev->port;
-> +	struct airoha_eth *eth = dev->eth;
-> +	u32 frag_size_tx, frag_size_rx;
+> +	might_sleep();
 > +
-> +	/* TX/RX frag is configured only for GDM4 */
-> +	if (port->id != AIROHA_GDM4_IDX)
-> +		return;
-
-[Severity: Medium]
-Should tx_pause and rx_pause be applied somewhere in airoha_mac_link_up()?
-
-airoha_setup_phylink() advertises MAC_ASYM_PAUSE | MAC_SYM_PAUSE on every
-GDM port. However, airoha_mac_link_up() returns right away for GDM1-3 and
-only writes fragment sizes for GDM4.
-
-Nothing in drivers/net/ethernet/airoha uses tx_pause, rx_pause or
-GDM_INGRESS_FC_EN_MASK.
-
-The only flow control setup on this path is in airoha_pcs_config():
-
-drivers/net/pcs/airoha/pcs-airoha-common.c:airoha_pcs_config() {
-    ...
-	/* Configure Flow Control on XFI */
-	regmap_update_bits(maps->pcs_mac, AIROHA_PCS_XFI_MAC_XFI_GIB_CFG,
-			   AIROHA_PCS_XFI_TX_FC_EN | AIROHA_PCS_XFI_RX_FC_EN,
-			   permit_pause_to_mac ?
-				AIROHA_PCS_XFI_TX_FC_EN | AIROHA_PCS_XFI_RX_FC_EN :
-				0);
-    ...
-}
-
-permit_pause_to_mac reflects whether pause autoneg is enabled. It is not
-the result negotiated with the link partner.
-
-With the default MLO_PAUSE_AN, XFI TX/RX flow control ends up enabled even
-when the partner does not support pause. With pause forced on and autoneg
-off, it ends up disabled while phylink reports pause as on.
-
-Can the hardware flow control state differ from what phylink resolved and
-reports?
-
-Also, only get/set_link_ksettings were moved to phylink in
-airoha_ethtool_ops. These are not wired up:
-
-  get/set_pauseparam (phylink_ethtool_get/set_pauseparam())
-  nway_reset (phylink_ethtool_nway_reset())
-  ndo_eth_ioctl (phylink_mii_ioctl())
-
-Is that intended, given the commit message says "now that we fully support
-phylink"?
-
-[ ... ]
-
-> +static int airoha_setup_phylink(struct net_device *netdev)
-> +{
-> +	struct airoha_gdm_dev *dev = netdev_priv(netdev);
-> +	struct device_node *np = netdev->dev.of_node;
-> +	struct airoha_gdm_port *port = dev->port;
-> +	struct phylink_config *config;
-> +	phy_interface_t phy_mode;
-> +	struct phylink *phylink;
-> +	int err;
+> +	if (!pwmchip_supports_waveform(chip) || !ops->get_waveform_step)
+> +		return -EOPNOTSUPP;
 > +
-> +	err = of_get_phy_mode(np, &phy_mode);
-> +	if (err) {
-> +		dev_err(&netdev->dev, "incorrect phy-mode\n");
-> +		return err;
-> +	}
-
-[Severity: Medium]
-Does this stop DTs that follow the current airoha,en7581-eth.yaml binding
-from probing?
-
-The binding's ^ethernet@[1-4]$ and ^ethernet@[0-5]$ patternProperties
-only require reg and compatible. The binding example has no phy-mode,
-fixed-link or pcs-handle. That example is ethernet@1, plus ethernet@4
-with eth-port children @0 and @1.
-
-With this patch, a missing phy-mode on any enabled GDM or eth-port node
-propagates up:
-
-airoha_probe()
-  airoha_alloc_gdm_port()
-    airoha_alloc_gdm_device()
-      return airoha_setup_phylink(netdev);
-        of_get_phy_mode() fails
-
-airoha_probe() then runs the error_napi_stop teardown, so every port is
-lost, GDM1 included. Before this patch the driver never called
-of_get_phy_mode(), and such DTs probed fine.
-
-A similar problem shows up in airoha_dev_open():
-
-	err = phylink_of_phy_connect(dev->phylink, netdev->dev.of_node, 0);
-	if (err) {
-		netdev_err(netdev, "could not attach PHY: %d\n", err);
-		return err;
-	}
-
-Suppose a node has phy-mode but no phy-handle, fixed-link, SFP or in-band
-managed mode. Phylink is then in MLO_AN_PHY, and
-phylink_fwnode_phy_connect() returns -ENODEV. Won't ndo_open now fail
-where it used to succeed?
-
-The commit message implies that GDM2/3/4 need pcs-handle. The code means
-GDM1 needs phy-mode = "internal" plus fixed-link, because only
-PHY_INTERFACE_MODE_INTERNAL is in supported_interfaces. The ethernet
-binding describes neither. The series updates the PCS binding but not
-this one.
-
-Should airoha,en7581-eth.yaml be updated too? Alternatively, should the
-driver fall back (for example to internal on GDM1) when phy-mode is
-absent?
-
-The in-tree en7581.dtsi gdm1 node already has phy-mode = "internal" and
-fixed-link, so in-tree boards still work.
-
+> +	guard(pwmchip)(chip);
 > +
-> +	config = &dev->phylink_config;
-> +	config->dev = &netdev->dev;
-> +	config->type = PHYLINK_NETDEV;
+> +	if (!chip->operational)
+> +		return -ENODEV;
+> +
+> +	if (IS_ENABLED(CONFIG_PWM_DEBUG) && chip->atomic) {
+> +		/*
+> +		 * Catch any drivers that have been marked as atomic but
+> +		 * that will sleep anyway.
 
-[ ... ]
+Wrap comments to 80 chars unless it helps readability to not do so.
 
+> +		 */
+> +		non_block_start();
+> +		ret = ops->get_waveform_step(chip, pwm, step);
+> +		non_block_end();
 > +	} else {
-> +		config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
-> +					   MAC_10 | MAC_100 | MAC_1000 |
-> +					   MAC_2500FD | MAC_5000FD | MAC_10000FD;
-
-[Severity: Medium]
-MAC_10, MAC_100 and MAC_1000 include MAC_10HD, MAC_100HD and MAC_1000HD.
-That means phylink will advertise and accept half duplex. Is half duplex
-actually supported on these ports?
-
-Nothing seems to configure duplex:
-
-  airoha_mac_link_up() ignores its duplex argument
-  airoha_pcs_link_up() never reads duplex
-  the Airoha PCS get_state helpers hard code DUPLEX_FULL
-  airoha_pcs_ops has no .pcs_validate to strip half duplex modes
-
-So a PHY that links half duplex with a half-duplex-only partner would
-leave the GDM/PCS running full duplex.
-
-Separately, USXGMII is in supported_interfaces and MAC_10 is advertised.
-In the out-of-band branch of airoha_pcs_link_up(), the USXGMII/10GBASE-R
-speed switch has no SPEED_10 case:
-
-drivers/net/pcs/airoha/pcs-airoha-common.c:airoha_pcs_link_up() {
-    ...
-		if (interface == PHY_INTERFACE_MODE_USXGMII ||
-		    interface == PHY_INTERFACE_MODE_10GBASER) {
-			...
-			case SPEED_100:
-				rate_adapt = AIROHA_PCS_HSGMII_RATE_ADPT_FORCE_RATE_ADAPT_MODE_100;
-				mode = AIROHA_PCS_USXGMII_MODE_100;
-				break;
-			default:
-				/* Not supported */
-				return;
-			}
-    ...
-	if (data->link_up)
-		data->link_up(priv, port->index);
-
-	/* BPI BMI enable */
-	regmap_clear_bits(maps->pcs_mac, AIROHA_PCS_XFI_MAC_XFI_GIB_CFG,
-			  AIROHA_PCS_XFI_RXMPI_STOP |
-			  AIROHA_PCS_XFI_RXMBI_STOP |
-			  AIROHA_PCS_XFI_TXMPI_STOP |
-			  AIROHA_PCS_XFI_TXMBI_STOP);
-}
-
-When a USXGMII PHY resolves to 10M, this returns before data->link_up().
-It also returns before the MPI/MBI STOP bits set by pre_config/link_down
-are cleared.
-
-Would phylink then report carrier up while the XFI datapath stays stopped
-and the USXGMII mode register keeps its old speed?
-
+> +		ret = ops->get_waveform_step(chip, pwm, step);
+> +	}
+> +	if (ret)
+> +		return ret;
 > +
-> +		config->num_possible_pcs = fwnode_phylink_pcs_count(dev_fwnode(config->dev));
-> +		config->fill_available_pcs = airoha_fill_available_pcs;
+> +	if (!step->clk_rate_Hz ||
+> +	    step->clk_rate_Hz > mul_u32_u32(step->clk_cycles_per_step, NSEC_PER_SEC))
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(pwm_get_waveform_step_might_sleep);
+> +
+>  /* Called with the pwmchip lock held */
+>  static int __pwm_set_waveform(struct pwm_device *pwm,
+>  			      const struct pwm_waveform *wf,
+> @@ -1710,6 +1773,12 @@ static bool pwm_ops_check(const struct pwm_chip *chip)
+>  		if (!ops->apply)
+>  			return false;
+>  
+> +		if (ops->get_waveform_step) {
+> +			dev_warn(pwmchip_parent(chip),
+> +				 ".get_waveform_step() needs .write_waveform()\n");
+> +			return false;
+> +		}
+> +
+>  		if (IS_ENABLED(CONFIG_PWM_DEBUG) && !ops->get_state)
+>  			dev_warn(pwmchip_parent(chip),
+>  				 "Please implement the .get_state() callback\n");
+> diff --git a/include/linux/pwm.h b/include/linux/pwm.h
+> index b11ae91723f8..c52f4c9153c2 100644
+> --- a/include/linux/pwm.h
+> +++ b/include/linux/pwm.h
+> @@ -76,6 +76,34 @@ struct pwm_waveform {
+>  	u64 duty_offset_ns;
+>  };
+>  
+> +/**
+> + * struct pwm_waveform_step - granularity of the waveforms a PWM can generate
+> + * @clk_rate_Hz: rate of the clock the PWM's timing is derived from
+> + * @clk_cycles_per_step: number of those clock cycles one step lasts
+> + *
+> + * The period, the duty length and the duty offset of a waveform are multiples
+> + * of one step, which lasts @clk_cycles_per_step / @clk_rate_Hz seconds. A PWM
+> + * that divides its input clock in hardware has @clk_cycles_per_step > 1. A
+> + * waveform that is asked for in whole steps, and is within the range of the
+> + * hardware, is not changed by rounding.
+> + *
+> + * The step is the same for every waveform and for the period, the duty length
+> + * and the duty offset, so a provider whose granularity depends on the
+> + * requested period (for example through a prescaler) can't describe itself
+> + * with it. One step also has to last at least 1 ns, otherwise rounding a
+> + * length in nanoseconds up can add a whole step.
+> + *
+> + * A consumer that needs a minimum time, or that has to place an edge relative
+> + * to the cycles of the clock a PWM channel gates, can use this to ask for
+> + * the next possible value instead of one that is rounded down, and to compute
+> + * the frequency a rounded period results in without the error of the
+> + * nanosecond resolution of struct pwm_waveform.
+> + */
+> +struct pwm_waveform_step {
+> +	unsigned long clk_rate_Hz;
+> +	unsigned int clk_cycles_per_step;
+> +};
 
-[Severity: Low]
-The commit message says:
+For this to go through IIO (or an immutable branch if needed) I'll obviously
+need PWM tags.
 
-    These needs to be defined in the GDM port node using the pcs-handle
-    property.
+Thanks,
 
-Is that accurate? fwnode_phylink_pcs_count() returns 0 when there is no
-pcs-handle, and phylink_fill_available_pcs() then returns early:
+Jonathan
 
-	if (!config->num_possible_pcs)
-		return 0;
-
-phylink_create() then succeeds with SGMII, 1000BASE-X, 2500BASE-X,
-10GBASE-R and USXGMII in supported_interfaces but no PCS at all. There is
-no error or warning.
-
-Can the port then report carrier up from the PHY while the SerDes is
-never configured? Should a missing pcs-handle on GDM2/3/4 be rejected
-here?
-
-Also, config->dev is &netdev->dev. When sub-ports exist, its of_node is
-the airoha,eth-port child. So pcs-handle is read from the child node, not
-from "the GDM port node".
-
-The commit message also leaves out the new GDM4 code in
-airoha_mac_link_up():
-
-  it writes speed-dependent TX/RX fragment sizes into
-  REG_FE_GDM4_TMBI_FRAG and REG_FE_GDM4_RMBI_FRAG
-  it picks the SGMII1 or SGMII0 fields based on dev->nbq == 1
-  it serializes the writes with the new port->link_lock mutex
-
-Could the commit message describe this as well?
