@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795290197;
-	b=dP7pRyKWJ0QiZJ+8VCS58azpNB4bFh1cXreAxkGxZsAlYLfXdcSshZUIyt7WBQvtAlJ7
-	 sHlpSpf1qdkljzlOCkNj9N09eNgIJon6NwHAVJ1bS0fHrBFQJxE4nSLQ73qe/NOan0xHl
-	 ZuDS9/TXPk2bbmu/ddGM2K5A6fjMfRWCAMxExuGvjRSN6HkH5l8F6z5bcs7vYKq7lp+g8
-	 R0A2ZOxL2Q624nwiPwAp9W3UP1CnbRlxmqFn/WZI2anlhCkEeO7VR9cRsZo1pSGyq4rPR
-	 CxM3TV1uN9eNsC6OE1buFGL90SEIzBezjqGcypa1ytOZTQTXMi0/Y+EVG7eAmpbU1Ow==
+	t=1795291167;
+	b=aUlXZYLDSu8atzfsHBemXnaC5oTLkbPcT91WDHJVum0rpEyYE41DrWv1OAMOYCT8fhMF
+	 DoSxLHG4cKgVZo0cUVjzYLWeAiDpQa+YC9CFQqURf4VzJ5qHXihyX03PirwrT8CXG6lcz
+	 Z9b1pMN2ZJwsZPq2x2FY40BDiunZZtTaJtQ3hNQZsO1DEtw7BIk7wxUgqLjWkX+wEsVbJ
+	 u12kFXo9UCml4d6JkbzC+48l03+wKhyEOZ/2mOgDbElM/i/Hf19fwjPc3J5F2/XS583pR
+	 lYT3OfIixMKk84ZgM/svtK/22xYaesV0LuoSREoZ2VSkOMtSKi60+lGT9dvsBYrvn/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795290197;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Ndnh/TEZ+lxNLtCHkCn/UU8fVcS7ajpeDoOxuytt3sA=;
-	b=riYduYh7xX+H59kQVKocMIqqRHLQIyzUbbwgVPVLuXz2YgpjmojGbeXEpHAUZ6Sy+aPj
-	 tPcMs4y2UjyD2mLAFY5LeXTYJKZCW9BNclGOFRXlsq6MjfaHjIBWUnhYxVmUFhDfKTtw0
-	 MrvtoSYcQL0rrHoLa29wVLLVruDo96tsjHKnneatL3cKr0bYmR81xjsISkmPtB6sxTxWY
-	 5YTrkhTyvAMPKXSgsYKAVSl9dBy57BulNGJkjrjj7zpJ8/gEm22ET81iJOVnFaoW9lquv
-	 BJcVTxB3dxl7WxGJFz+bG5YIKp3+bSDauRzNEMemCOiQkJbK2SHL2Yxjeqb8EQgB0MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795291167;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0q7G+RMyPqjNpAAoSS1DHITnsBLyy83Zh0kaNJU7Dho=;
+	b=M3x7UZQybju+g3gQLzs0mSG5fEeJ1D15jAip/LZfGMlzd5hOIix3ojHtJH0LIzdTdk8l
+	 o/efhRAGUb3vXl8qgzqURh74fB7aFV91b0iVViCryhuDkk2k+qyAi5Uk9VGsOJF8GqtkW
+	 lsn5axnwOSg+U+Uhgemvo3nfZqUrQltVoXSCq1jYaB+OJ5I09qc6R8FFpfy9wsT1LxSsa
+	 pFWlhwJ+SpXBD0QqLDzVEiKxI26fYqviLpDNARgM+JNmDqPDEgew5s4zAd47ySbSSNS+P
+	 N5EqU5FCOuxqaWtN+xC/p5uOCaxlXpI7eHFNoUs2ZU+ExiDDfP1pZKNaW0eahcGqC+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HsiL/K9d";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GINPSegR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD56606A320
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 19:43:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47974606A320;
+	Sat, 21 Nov 2026 19:59:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HsiL/K9d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12E41F000C4;
-	Sat, 21 Nov 2026 19:43:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GINPSegR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4731F000C0;
+	Sat, 21 Nov 2026 19:59:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795290197;
-	bh=Ndnh/TEZ+lxNLtCHkCn/UU8fVcS7ajpeDoOxuytt3sA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HsiL/K9dEM8Fk5K9FLQEcquPIPr/f5gKKJlXxBALyTnneLN/QENKGzqkBUKRFWtXO
-	 IxgGhnGsZPMMnvFP40VuzeaTr3h2f4lq/Nvhx9CLxJc3aOrwA2me0rDOPa5RCzMflE
-	 rAUQnCALnwWjRjW9JDQidbhDcK/X/YNYCznbdUDrTCWiygW1wKktthp38YpIow8Wlo
-	 Swtqz8G7FunNErgtGPsc1xMFBFZR1ZoVtzh8JpHIP9o40xwuaHZ8TVx5NXFu0JR9sh
-	 WMo/ITRaGmzWT9h2E1n+2DaR2hhtNat5hCK7Rfzc7gjQNIOoZ3xLaa6cR0mpR9xipp
-	 UmH28ZgUlbOZg==
-Message-ID: <sashiko-outbox-227322@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/11] phy: amlogic: Add Meson HDMI TX PHY driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com
-In-Reply-To: <20261121-meson-drm-create-hdmitx-phy-v3-4-f8f471788076@aliel.fr>
-References: <20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr>
- <20261121-meson-drm-create-hdmitx-phy-v3-4-f8f471788076@aliel.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 21 Nov 2026 19:43:16 +0000
+	s=k20260515; t=1795291167;
+	bh=0q7G+RMyPqjNpAAoSS1DHITnsBLyy83Zh0kaNJU7Dho=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GINPSegRlQprh21fQDt7nIuL4HehHZ1Xt0tNMwelTtz8T7bmR1jB2FcEQcCD1YnVn
+	 Z2HqUwwZtOx9d1avpYXi81NC1Je0x6JFdC218rJdTie+acubCRRuxnqC624DytOo/t
+	 1CVpFI/wZa1HAdWlbOWXQ0z61m93trhc8GBGcCijgzm50WT/splgqrLWQH9QBPa5+7
+	 tZxMfYfaP3gRF94cq8wdMdnRbgqUNAcWhy+RGeKQbnd4VTNCFI3tJomhy6Du4qFVGA
+	 h7opKKVnQx13Ravt9djLE6aDh6FxW9aFcUuoRtrS5ilcqkaQVV/NnlrJDSj5I1kfi5
+	 slsWlohGDe4DQ==
+Date: Sat, 21 Nov 2026 19:59:20 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Viral Patel <viral8854@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dixit Parmar <dixitparmar19@gmail.com>, Victor
+ Chernyakin <chernyakin.victor.j@outlook.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: magnetometer: add Infineon TLE493D-W2B6
+ driver
+Message-ID: <20261121195920.573a0727@jic23-hlaptop>
+In-Reply-To: <20261121-tle493d-v2-2-92d7e57cec89@gmail.com>
+References: <20261121-tle493d-v2-0-92d7e57cec89@gmail.com>
+	<20261121-tle493d-v2-2-92d7e57cec89@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,94 +64,253 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] phy: amlogic: phy-meson-hdmi-tx: min_rate 25175000 rejects
-  valid DMT modes
---
+On Sat, 21 Nov 2026 11:25:11 +0530
+Viral Patel <viral8854@gmail.com> wrote:
 
-commit c8d7adccab22985446c5dd65967a17a727629973
-Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> Add a driver for the Infineon TLE493D-W2B6, a 3D Hall effect magnetic
+> sensor with 12-bit resolution per axis and an integrated temperature
+> sensor, accessed over I2C.
 
-phy: amlogic: Add Meson HDMI TX PHY driver
+This either suffers from copying LLM generated commit messages or
+is pretty much what the LLM came up with.  They are way way too verbose
+as they generate something that hides the important details largely
+defeating the point of a commit message.  I'm only interested in a
+couple of lines of 'what' followed by any 'why' stuff for less obvious
+decisions.  A starting point of telling the LLM it is being to verbose
+and to keep to these aspects tends to help, but then it needs the human
+to edit even that for the bits that actually matter! 
 
-This commit adds a generic PHY driver for the Amlogic Meson HDMI TX PHY on
-GXBB, GXL, GXM, and G12A SoCs, along with a legacy creation helper for
-device trees without a phys property.
+> 
+> The sensor is run in master-controlled mode. Each measurement rewrites
+> the Config register with the "trigger after write" bits set in the
+> register address byte, which starts a single conversion, and then polls
+> registers 0x00 to 0x06 until Diag reports a completed conversion with a
+> new frame counter. Results with a fuse parity error, test mode flag or
+> bad bus parity are rejected. FP and CP are recomputed on every write of
+> MOD1 and Config, as a wrong FP makes the sensor release the bus until it
+> is reset.
 
-> diff --git a/drivers/phy/amlogic/phy-meson-hdmi-tx.c b/drivers/phy/amlogi=
-c/phy-meson-hdmi-tx.c
+This is too much detail for a commit message.  I'd just keep the first
+sentence about master-controlled mode.  The rest should be clear from
+the code and if it isn't comments belong down there, not in a commit
+message no one normally sees.
+
+> 
+> The /INT output shares a pin with SCL, so the interrupt is disabled and
+> so is clock stretching. The sensor's reset sequence is four SMBus Quick
+> commands, so it is sent during probe only if the adapter supports
+> I2C_FUNC_SMBUS_QUICK.
+
+First sentence of this good.   Second one see the code, no need to say.
+
+> 
+> Raw I2C transfers are used rather than regmap: once PR is set a plain
+> read always starts at register 0x00, and the register address byte of a
+> write carries trigger bits.
+> 
+> The X, Y and Z channels and the temperature channel are available
+> through sysfs and through a triggered buffer with a software timestamp.
+> Wake-up, self-test, low-power and fast modes, sampling frequency control
+> and the short range are not supported yet.
+
+Don't care about what you didn't support for a commit message.  What
+you do support can be summarised as something like.
+
+Both sysfs and triggered buffer capture of channels is supported.
+
+> 
+> This is not added to the tlv493d driver: apart from the X/Y/Z bit
+> packing, the two parts differ in write format, read protocol after
+> reset, register map and parity scheme.
+
+That is cover letter detail. Not useful in here unless it was really
+borderline so discussion likely.
+
+> 
+> Based on the TLE493D-W2B6 User Manual v1.11 and Datasheet v1.2. The
+> user manual is provided by Infineon after a free registration:
+> https://www.infineon.com/gated/infineon-tle493d-w2b6-usermanual-en_dc6d4e62-cde1-4d4b-87bb-c3368e25e35c
+
+Add this manual as a second datasheet tag and drop that paragraph.
+
+> 
+> Datasheet: https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle493d-w2b6-datasheet-en.pdf
+> Signed-off-by: Viral Patel <viral8854@gmail.com>
+
+A lot of the comments below are more things that I thought
+about asking for and then why I didn't! :)
+
+I want to give others time to comment anyway so wouldn't have picked it up
+today, but if it wasn't for the commit message I might just have considere
+picking it up later in the week (possibly tweaking a few trivial things
+whilst applying).
+
+Thanks,
+
+Jonathan
+
+
+> diff --git a/drivers/iio/magnetometer/tle493d.c b/drivers/iio/magnetometer/tle493d.c
 > new file mode 100644
-> index 0000000000000..872d244de8fb7
+> index 000000000000..62b7e7ea7ec0
 > --- /dev/null
-> +++ b/drivers/phy/amlogic/phy-meson-hdmi-tx.c
-[ ... ]
-> +/* GXBB */
-> +static const struct meson_hdmi_phy_rate gxbb_rates[] =3D {
-> +	/* 5.94Gbps, 3.7125Gbps */
-> +	{ 371250000, 0x33353245, 0x2100115b },
-> +	/* 2.97Gbps */
-> +	{ 297000000, 0x33634283, 0xb000115b },
-> +	/* 1.485Gbps, down to 251.75Mbps */
-> +	{ 25175000,  0x33632122, 0x2000115b },
-> +};
-> +
-> +/* GXL / GXM */
-> +static const struct meson_hdmi_phy_rate gxl_rates[] =3D {
-> +	/* 5.94Gbps, 3.7125Gbps */
-> +	{ 371250000, 0x333d3282, 0x2136315b },
-> +	/* 2.97Gbps */
-> +	{ 297000000, 0x33303382, 0x2036315b },
-> +	/* 1.485Gbps */
-> +	{ 148500000, 0x33303362, 0x2016315b },
-> +	/* 742.5Mbps, down to 251.75Mbps */
-> +	{ 25175000,  0x33604142, 0x0016315b },
-> +};
-> +
-> +/* G12A */
-> +static const struct meson_hdmi_phy_rate g12a_rates[] =3D {
-> +	/* 5.94Gbps, 3.7125Gbps */
-> +	{ 371250000, 0x37eb65c4, 0x2ab0ff3b, 0x0000080b },
-> +	/* 2.97Gbps */
-> +	{ 297000000, 0x33eb6262, 0x2ab0ff3b, 0x00000003 },
-> +	/* 1.485Gbps, down to 251.75Mbps */
-> +	{ 25175000,  0x33eb4242, 0x2ab0ff3b, 0x00000003 },
-> +};
-[ ... ]
-> +static const struct meson_hdmi_phy_rate *
-> +meson_hdmi_phy_find_rate(const struct meson_hdmi_phy_data *data, u64 rat=
-e)
+> +++ b/drivers/iio/magnetometer/tle493d.c
+
+
+> +#define TLE493D_RESET_DELAY_US	30
+> +/* A full range conversion takes about 175 us */
+> +#define TLE493D_POLL_US		100
+> +#define TLE493D_TIMEOUT_US	1000
+
+That's a generous margin. I suppose it's still only a
+millisec so who cares!
+
+
+> +/*
+> + * Write one register, updating its parity bit first. Only MOD1 and Config
+> + * are written by this driver. The sensor drops off the bus until reset if
+> + * MOD1 is written with a wrong FP.
+> + */
+> +static int tle493d_write(struct tle493d_data *data, u8 reg, u8 val, u8 trig)
 > +{
-> +	unsigned int i;
+> +	u8 buf[2];
+> +	int ret;
 > +
-> +	if (rate > data->max_rate)
-> +		return NULL;
+> +	switch (reg) {
+> +	case TLE493D_REG_MOD1:
+> +		val = tle493d_mod1_fp(val, data->regs[TLE493D_REG_MOD2]);
+
+Why reuse val?  I'd just write buf[1] directly here then no need to do
+so below.
+
+> +		break;
+> +	case TLE493D_REG_CONFIG:
+> +		val = tle493d_config_cp(data->regs, val);
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
 > +
-> +	for (i =3D 0; i < data->num_rates; i++)
-> +		if (rate >=3D data->rates[i].min_rate)
-> +			return &data->rates[i];
+> +	buf[0] = FIELD_PREP(TLE493D_ADDR_TRIG, trig) |
+> +		 FIELD_PREP(TLE493D_ADDR_REG, reg);
+
+Given I'm suggesting writing buf[1] in the switch, maybe move this
+line ahead of that as seems weird to set buf[1] before buf[0].
+
+> +	buf[1] = val;
 > +
-> +	return NULL;
+> +	ret = i2c_master_send(data->client, buf, sizeof(buf));
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret != sizeof(buf))
+> +		return -EIO;
+> +
+> +	data->regs[reg] = val;
+> +
+> +	return 0;
 > +}
 
-[Severity: Medium]
-Does setting min_rate to 25175000 in the lowest entries of gxbb_rates[],
-gxl_rates[], and g12a_rates[] cause a regression for valid display modes
-below 25.175 MHz?
 
-In drivers/gpu/drm/meson/meson_dw_hdmi.c, meson_hdmi_phy_setup_mode() used
-an unconditional else branch with no lower frequency bound for the lowest
-band ("742.5Mbps, and below" on GXL/GXM, and "1.485Gbps, and below" on GXBB
-and G12A).  Meanwhile, meson_encoder_hdmi_mode_valid() accepts non-VIC DMT
-modes down to 15.9 MHz via meson_vclk_dmt_supported_freq() without calling
-phy_validate().  Any mode between 15.9 MHz and 25.174 MHz (such as
-640x480@60Hz CVT reduced-blanking at 23.75 MHz, or a 640x480 EDID detailed
-timing descriptor whose 10 kHz step encodes 25.175 MHz as 25170 kHz) passes
-mode validation and atomic_check, then fails with -EINVAL in
-dw_hdmi_phy_init() -> phy_configure() during atomic_enable, aborting HDMI
-PHY power-on.
+> +static irqreturn_t tle493d_trigger_handler(int irq, void *p)
+> +{
+> +	struct iio_poll_func *pf = p;
+> +	struct iio_dev *indio_dev = pf->indio_dev;
+> +	struct tle493d_data *data = iio_priv(indio_dev);
+> +	u8 buf[TLE493D_DATA_LEN];
+> +	struct {
+> +		s16 magn[3];
+> +		u16 temp;
+> +		aligned_s64 timestamp;
+> +	} scan = { };
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121-meson-drm-=
-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr?part=3D4
+I messed around with a named structure type here then designated
+initialiser below but it ends up messier, so this is good.
+Just left a comment here for any other reviewers who wonder
+the same!
+
+> +	int ret;
+> +
+> +	mutex_lock(&data->lock);
+> +	ret = tle493d_measure(data, buf);
+> +	mutex_unlock(&data->lock);
+> +	if (ret)
+> +		goto out;
+> +
+> +	scan.magn[0] = tle493d_get_channel_data(buf, TLE493D_AXIS_X);
+> +	scan.magn[1] = tle493d_get_channel_data(buf, TLE493D_AXIS_Y);
+> +	scan.magn[2] = tle493d_get_channel_data(buf, TLE493D_AXIS_Z);
+> +	scan.temp = tle493d_get_channel_data(buf, TLE493D_TEMPERATURE);
+> +	iio_push_to_buffers_with_ts(indio_dev, &scan, sizeof(scan), pf->timestamp);
+> +
+> +out:
+> +	iio_trigger_notify_done(indio_dev->trig);
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+
+
+> +static int Andreas Kemnade <andreas@kemnade.info>(struct tle493d_data *data, unsigned int iicadr)
+> +{
+> +	struct device *dev = &data->client->dev;
+> +	unsigned int hwv, id;
+> +	u8 mod1;
+> +	int ret;
+> +
+> +	/*
+> +	 * After reset the sensor uses a 2-byte read protocol which plain I2C
+> +	 * reads cannot handle, so MOD1 has to be written before any read. MOD2
+> +	 * is not known yet and FP is computed with its reset value, PRD = 0.
+> +	 * Clock stretching and the interrupt are disabled because /INT shares
+> +	 * the SCL pin.
+> +	 *
+> +	 * Every MOD1 write also sets IICadr, which selects the address the
+> +	 * sensor responds on, so it must match the address the device is
+> +	 * already on or the sensor moves to another address.
+> +	 */
+
+See below for where I'm requesting a cross reference to this comment.
+I wrote a nice paragraph asking for basically this text before scrolling up
+and seeing it here :)
+
+
+> +
+> +static int tle493d_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct tle493d_data *data;
+> +	struct iio_dev *indio_dev;
+> +	unsigned int iicadr;
+> +	int ret;
+> +
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		return dev_err_probe(dev, -EOPNOTSUPP, "plain I2C transfers not supported\n");
+> +
+> +	/* MOD1 writes need the IICadr value matching the current address */
+> +	for (iicadr = 0; iicadr < ARRAY_SIZE(tle493d_i2c_addrs); iicadr++) {
+> +		if (client->addr == tle493d_i2c_addrs[iicadr])
+> +			break;
+> +	}
+> +	if (iicadr == ARRAY_SIZE(tle493d_i2c_addrs))
+> +		return dev_err_probe(dev, -EINVAL, "unsupported I2C address 0x%02x\n",
+> +				     client->addr);
+Add a reference here back to the more detailed comment above.
+/* Unable to support other addresses, see tl2493d_init() */
+
+Otherwise this smells to much like an over restrictive limitation
+on devices to ones we know about.  In this particular case it is
+a fundamental constraint!
+
+
+
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+
+> 
+
