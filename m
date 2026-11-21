@@ -1,67 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795278254;
-	b=u/fu9DV2/wUWYAlyIkW2HjCZNGxGEeLC5P3CZStb5JOT8WG1I8YS6ym3+vahrmGIiBRa
-	 2mv7KwnleMcrI3cjzNl+tJ4pfwy4kwWkxphhd1kHFj5Zmxrr8kds8fV7+Ujir0+AwW+Tu
-	 J6A26Ej4IffhCZTK0uSPpEO8VSoLNE/3DgEac0dhxjp93kZcSOf0t6y1h7cP5Ij/e/qZi
-	 Q6gIDe1B/Ok6CBps15666ICx5qX4wPU2cPcbxbl610HdL92ij9QMMytsW/gGfZze4B0uk
-	 dqdVgRexX1tScG2jnfSUpIeOMrrh3dfAuX9JpGtKaH7ggCw9TxuVPvAWMA6yWHL0s6A==
+	t=1795279497;
+	b=sb/it4Yqb2OqR3Ap0D69hhg+k9a2uTlBUamCjtuuxvIomDnQRgCArkLTWs4/p0LmsuTs
+	 mJJ531TZmcy82L9Lfti28Bwrs98i1/SXlb9IvXSxHohESlON41r3YPGwU14uerJ6m5CA8
+	 v/J3IYKs3s1W8KewoiafffVzGgBqYkAdQ4ccDeDFdGVN1eZKE2YddtaKZ5uQMVJV2yXab
+	 AEYJmVEP66dVsQ1cQdP4QmM++0kxvymik+k22tcmh762Q6xVrPWf3sfWYdib7GWWjYkhB
+	 0msg+RYalQjZHbNm2m/x852jz3sFgnSKEFs2kgoEzt0ESaJqHUR2hpAaknowzb4C/yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795278254;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
-	 X-Mailer:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
-	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=471W5chLXn50gR/+buvj/gyEydSS5vORYAWz/ynvgxQ=;
-	b=QbYTd1Lp+RQM6U7xa66w4fjQyqOgUiPOMUx0G+TaIHJEirll/4ETOgU5vFacFlb4oZLs
-	 nrSneyws8w0WJ+SAJOkCLX15Y4fLlcauhkXmciUAw31w3DGFujEhJBi+zc74WxRRJ//Qg
-	 vbUNeyZE+IafxPqB+WqAxxiwFH338sr+7dPPIQ72PrXlEV1Rylc02jcDMGecGD/JLz+Gf
-	 SP2Jo3NrFpB/pX6bKg13s8brVx7zQwc+oWqHLar/y1RjhHScptAENX/NSsMuhZAta22ax
-	 xsgUkGtF+rPaqCMahiPsab2jHqf15gXHSoNdqvkOoAWGg9DpKpH1alBnu79qdRWl7eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795279497;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CxqkyoWUaTTX2T9h8JesIf80SZlF7IaEiUzIJtTzDJk=;
+	b=OtZHihQ+9OPL3NEYD/Ysx4bh8viaa3OhZkW+aheoLzw9EYadjrslJQUUnhpox4aBw4+b
+	 dFNGCwaakETyZMXDjkgX3fw3CmXzlaUWqzharVeX1I3t/WceBl1tvLdSvFUjcHTGMH862
+	 jL3K6ayYwaQCuVRzpInGEHpBzyoLkXX5re4p+5SgWjmz4Tl8EDtK7zUey1c9txszShKjh
+	 347KFmVuLe/0OL/ktzaAdjyUtlQFmYeP1Og7z4UsqHMO57TUsZ6So4BAVKWf4AdtS0Ocy
+	 FZpBFspiiJbZuxYfRUh6G9Rxlgy0g46hFllGh831KC4BfdT3F1s0vfUmnjjx20VmsxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fqwqf.xyz;
-	spf=pass smtp.mailfrom=send.fqwqf.xyz;
-	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b="kfw/5V2H";
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=RmoFgy+L;
-	arc=none smtp.remote-ip=23.251.234.52
-Received: from e234-52.smtp-out.ap-northeast-1.amazonses.com (e234-52.smtp-out.ap-northeast-1.amazonses.com [23.251.234.52])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hz9sT3yV;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1632606A320;
-	Sat, 21 Nov 2026 16:24:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1632606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D672C606A335
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 16:44:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D672C606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=kfw/5V2H;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=RmoFgy+L
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1795278252;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=471W5chLXn50gR/+buvj/gyEydSS5vORYAWz/ynvgxQ=;
-	b=kfw/5V2HUSv3CJTPnxjWRBtdPQQ83tRMU6dp++CVBiPcehN2KhAaHXQn+JsmiHBd
-	2Jm5mn6vleQdgQ/v84zGhkmJkvim1bUoHXlv6E7Tn1zYmLDYxkhDfkiwQX3QgLY974R
-	58tbUQm1q5//Z0ZZxwsVnlPytduYbXyiNEH8cFLo=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1795278252;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=471W5chLXn50gR/+buvj/gyEydSS5vORYAWz/ynvgxQ=;
-	b=RmoFgy+LHfrPwlTP+SZwVnqZUl5bRGYoCONFZzjJrdoEczSDmgLMznlkTW4lS0V8
-	rjwXYnhSHAwNOngJVVsm6d7FBkj1jA/Y2mW1UD8uS8Pqc1Ozotx36u5nvMjtbmtI3PV
-	3yqlv3hTjfNomzbNcCZVMiu2KRqiivXcAmtVgf2A=
-In-Reply-To: <20261106-provoke-capably-b7de457b9710@spud>
-References: <20261106-provoke-capably-b7de457b9710@spud>
-X-Mailer: git-send-email 2.53.0
-From: Jizhou Tong <fqwqf@fqwqf.xyz>
-To: Conor Dooley <conor@kernel.org>
-Cc: jingyliang@chromium.org, broonie@kernel.org, robh@kernel.org, 
-	linux-input@vger.kernel.org, linux-spi@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [RFC PATCH v3 4/5] dt-bindings: input: hid-over-spi: add the
- Surface Laptop 7 touchpad
-Message-ID: <010601a1feec27d4-7cd024a3-e91a-4d7f-8205-2f94096554ac-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 21 Nov 2026 16:24:12 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hz9sT3yV
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a315ed211so2323699eec.0
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 08:44:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795279496; x=1795884296; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CxqkyoWUaTTX2T9h8JesIf80SZlF7IaEiUzIJtTzDJk=;
+        b=hz9sT3yVPSsdmeXUzzQ/OVC/OtIFzaPMVXX0ckbqhQbtpL+VG+LssjROz4BSKZt9JK
+         cdWDsaKEMuY1lyAqQeaN7+6CYDSclB/TsmEnXzMnrgNaz9GOzouZBF8sakyd5gXyqzsB
+         Etp5/+yHAoTCBrW9dKobmkzg770jwKN9wJGyM2lEp+Y+/4mVArdhuebn5B6ahstfGnbB
+         EXkoTkHe2aAKCiC7P7vcxii9Vt7ef0kwbdY714wM7sUFHW/64uwK3vDHooaZVrOiGdFL
+         eUE/kVmyW9uFt6duKhmvb5w75l6UlHrGCycn3VNVmeMfHJm/TU0RT//F+qH/hDHP0HLa
+         Cfww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795279496; x=1795884296;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CxqkyoWUaTTX2T9h8JesIf80SZlF7IaEiUzIJtTzDJk=;
+        b=WJQIP0yxc6lGxmlrGhEAc4U+7jSwB2azJtsAr26o7r1ocVZLtgUBlMR4d3EMF8BQcv
+         dwp9PQ23SKriKJC+/RqLLUoBNkKcyxY4an6MYS9ZbfU1kJKZ6PYzeYwu2aGVOCtRhZp+
+         wlzsQ74tcHDo+Mae6GW8dmfSdEMyjbU4IFR5ni51N6Ra8d+mDagYOxFppKMxqYmfyhVe
+         YiI7DNsvW+kpdjKyxBSKB1Nn7AmkyeGOhQRyGlJcuHdP5Om5VNaPYK8+cXOWxynYDdbH
+         ApdXm/7JXvOHudZ8B/LeVx+KeMyzXcOontTgbbbBpXdAfP5zifNLlsHmzF9DiG8R8/kl
+         UAZw==
+X-Forwarded-Encrypted: i=1; AL+hErFaXtD6Ziw3eoL2rDf15ex0qjme8YDmEFkVWNXKljY8wJCNMCKOX0UCdRxrzhx0ediqERH+ivFC4c9O@vger.kernel.org
+X-Gm-Message-State: APuU4Z/x9r5OWyi8D5PBKbzeNNka84GUol+xK2n6q2t7bSp9fC2XPFg3
+	r7BoibHb1Mb3O0dAjrT5vG8w6aDk+/mUg7BhVhPXWtcR8JDJCNXubv8K
+X-Gm-Gg: AZFdTZcqKVN9m37PtjvZXUcczqujZHvf5uYTT0MYPj1MgwuY8lY1yROeqHoEYlZUdsH
+	TAgg1imf9Grpw9Q3CAhdxQLZvQNkVEF/m2juIaFzCciAlAqyGxsRvGForwfxKPSnn5aiBn/2EsD
+	w+BOWKkKD02g3mSjTwIIOIvHAw3gAypGCJOTxKLD/Rfv7WSd9e64FNyhobRmgTBclulgvbJ1xFO
+	F45TeNYmr2U8/+9hCWUtDh7NVbKu6kGpZmfDhhpV3OvEykyo2pPjWh2Qp4o7hCOJIt2xo/GSDBJ
+	AeVddX0JHT/n8rPSJ6O32cGowVHnUeOK88Z5zQXMFahfMvmQmhG4ckAjY3svnH/nrs3jn2ldSJj
+	iWBDBOWNs21eWBeuJW57XzZqNvg+bMeTox8XrKULZ0Oj03YJProK9jubV4w9YGoeiMqMNQHTusj
+	2Mo1OPu4TzSvETU14rF+E7bIpiMUyARQyIWEMTL6V3MaaYOaQR8sa1nb+sxLmqX+NPGvml3jkSx
+	N9QDDXSXbS/44v/EbuCN8zLo3chEAxmIVSFPQ/N0Ke1m019OGFO3w/daychDpqpV0ZcOAYKXskJ
+	By19W+CNRxAY9aJutSOkBgywtpIU4K4qwSNIoQ==
+X-Received: by 2002:a05:7300:6b0a:b0:382:75b5:e77 with SMTP id 5a478bee46e88-384b4a80eeemr8320187eec.25.1795279495752;
+        Sat, 21 Nov 2026 08:44:55 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([2001:e60:8509:ba6c:4c23:efbc:89e:50d9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385672c6f31sm18791440eec.15.2026.11.21.08.44.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 08:44:55 -0800 (PST)
+From: Joonhoe Kim <26rote@gmail.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: abelvesa@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mani@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: kaanapali: Describe the UFS MCQ registers
+Date: Sun, 22 Nov 2026 01:44:53 +0900
+Message-ID: <20261121164453.26-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,29 +101,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.11.21-23.251.234.52
+Content-Transfer-Encoding: 8bit
 
-Hi Conor,
+The UFS host on Kaanapali supports Multi-Circular Queue (MCQ) mode, but
+its node only describes the standard register space, so ufshcd falls
+back to the legacy single doorbell.
 
-I rechecked this: spi-peripheral-props.yaml defines both =
-bus-width
-properties as uint32-array, including in current mainline [1]. =
-With
-dt-schema 2026.6, changing these constraints to plain "const: 4" makes
-the valid example fail with "spi-rx-bus-width: 4 was expected" (and
-likewise for TX).
+Describe the MCQ register region and the ITS MSI parent used for Event
+Specific Interrupts (ESI). The region has the same address and size as
+on Eliza, and the ITS device ID 0x60 is taken from the downstream
+device tree.
 
-The one-element items form passes the examples and =
-rejects missing,
-incorrect and multiple widths. I have kept it for now; is =
-there a
-preferred form for this array constraint?
+On a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) this more than doubles 4k
+random read throughput (fio, 4 jobs, QD32): 186k to 431k IOPS on the
+first run after boot.
 
-[1] https://git.kernel.=
-org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetr=
-ee/bindings/spi/spi-peripheral-props.yaml
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Thanks,
-Jizhou
+diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+index 132577d540bf..c841a1e1e1f4 100644
+--- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
++++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+@@ -2536,10 +2536,15 @@ ufs_mem_hc: ufs@1d84000 {
+ 			compatible = "qcom,kaanapali-ufshc",
+ 				     "qcom,ufshc",
+ 				     "jedec,ufs-2.0";
+-			reg = <0x0 0x01d84000 0x0 0x3000>;
++			reg = <0x0 0x01d84000 0x0 0x3000>,
++			      <0x0 0x01da0000 0x0 0x15000>;
++			reg-names = "std",
++				    "mcq";
+ 
+ 			interrupts = <GIC_SPI 265 IRQ_TYPE_LEVEL_HIGH>;
+ 
++			msi-parent = <&gic_its 0x60>;
++
+ 			clocks = <&gcc GCC_UFS_PHY_AXI_CLK>,
+ 				 <&gcc GCC_AGGRE_UFS_PHY_AXI_CLK>,
+ 				 <&gcc GCC_UFS_PHY_AHB_CLK>,
+
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+-- 
+2.53.0
+
