@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795252754;
-	b=pBpjhn/Zc1EFyiN8pxlfzIhIgg4ZK0IE8vYIVePmyv2+q0hMkWQVf4rp5TgO/WT0ESjW
-	 U0DQfr4Up2F8PFEIhbOIz4agQdnWkjImsQOMKZQu1X54wkMfKSiV7zPDOAEttPgYIigvG
-	 etGVti7ITAoLskdNFm/yorf7wk3ECxvSbiAqZM65mG19lIHFXtiX+RlsdjXTPmXZm52VN
-	 ZBNQKfEngHgIGv8Hzq3GIx+loRGpi428EIKqr/y//dZtxkdrXOpOgXz/ka31F4QS9fhUg
-	 Va3LABz6kvpCTRRqSHzbtf1Nh+9o0v1Aa8y6S/MkCUAEzKeeROpIl5n8umz/OOGzq5g==
+	t=1795252757;
+	b=v1hhMk0O0K5786c6NCN6pHgWborNFGQBh72EuxfJn5Z+/OeQciuJVg4a0u14WfYTWgsH
+	 9iJM7VZSXEvFIqQyKOuFn+Li3knXoPS+xojRZxXbyg/vRLSgJUthSOuVxNPtAxDkAQnD/
+	 zp9y/S1kXLO36iAi9dwzcw/br2OM9CJiplmxccIQdXE4VzgbIbS9fFAcwwlBfx/baknwG
+	 legSl4+uLXB14KyDszapRieF2N8rwpyZXLlavJg4Yia9OYfuDTXZZcEEZ8zNgKGa4eEF4
+	 9wFCaRZ94Prej86sY8ce1wO8vQgsuDkF78+wC2dN2rTblf3t9QxMzptsILD2MoBE0vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795252754;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795252757;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JOOW8rwk0fxLyNA5MGe5otqpgV1eEvzk99HIB9Qw9QM=;
-	b=YpZ0c2I/bj+72DvBLlcT9SpBiMffIpahngzjw7Ds5AE4SLAs7EKPcxTCcOgiGtlBiOk+
-	 1+Wa3hPX37GZGC51cvGg8S4uAiixu4+qxvCp/AnmE3XxwOdCVuld1iUyEm3StU6WIs26U
-	 mqfDJ3GkUQKy9ITRHfq/lXRTMARVj7oRk3HGTWa327WkJB7k4/q5g8EJn1TRwZPULBBhU
-	 giZ+MOdAWym+r37RaPp6/5nKShjn7qa7XxJ6GeCHwDerqftYSs/gzj9Jzi7xFvxV8mQTu
-	 Bud9MLcG/9cygBGQoqRy2mC5z8ZQRMRNyroSxjsC/PVd59Gmc1rNzYwYGF8NUeomcdg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=p77yADr+QpP0aDuHSl1uR5QAPCD5SSY2XgnFhAiep90=;
+	b=sZNQMeb7jAQ5GXOBmTlS+YhkMQelg7WxVzaCEbASeaAZ6JH6+RjgjQFaiXpw73nb6ZF6
+	 NNOkj+woCEtwlkUOno2F744poaPNVJjyXECIwtZ8yUeb8kDOS9d/OMo5eG2cfcLpHH+dE
+	 ZM2sUktJA+Bmpqz6tTJumcBAitK/Ic/afY2qGuwYPGMPMRauZBIQLQ6y8VP6HLyJckTZu
+	 BMBRdc8qDfO2BEwW6oCPG69CSAjpFAXU7pFmdqxrClYhf2RGApu6j2ME2rHwAQ1fadzl9
+	 ETgWvMtQtLoGQavmCE26UVi7m/7hMJPCS7W6jWUWQw5hxil+6vWmFx3QTxG4stAr3UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cX8Oyko+;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="n/93AaXu";
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797A3606A325
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 09:19:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 797A3606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AB2606A336
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 09:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25AB2606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cX8Oyko+
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdddc79a4afso659552a12.1
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 01:19:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n/93AaXu
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2f04bea9a93so12273515ad.3
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 01:19:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795252753; x=1795857553; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JOOW8rwk0fxLyNA5MGe5otqpgV1eEvzk99HIB9Qw9QM=;
-        b=cX8Oyko+9BUJ/LRlYYfIwfgInAZ3izQZGGnx1hum+2acbpMVS4IYjbzQzd9pKpoV0f
-         44Wpq79tf+r5VYD19ARiwSugHU8xOe6sQOtDChKtZi+KjerM87VVcXC6M0z1q05qGsV/
-         WqMydRz4AkYBRGL2jnVs3EjOUKxIUUAh+C6e4iIn+0c5x9KKOfr0c4EYFtNIaSiY3R5K
-         NW/pWs2guC4Q2psx/sEgNlnZnel9Dgy5sJW1VOr23GKKfk3Pt5HMr3iNVGeV9olKqqtU
-         UAlE3dUMzqzEYhvHzAolx11xHKYJXre9woJXGXi2JXj0DgKTvYH9wqhqQ/ZQdq0AYdVx
-         2FSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795252753; x=1795857553;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795252755; x=1795857555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JOOW8rwk0fxLyNA5MGe5otqpgV1eEvzk99HIB9Qw9QM=;
-        b=CdGF3qEvvVul1aU2ulXNsvvR76PtaPFYefshyX1K8Bt/EHKhoaP2Z45pDOir4o+2wD
-         bZJVTrOD6BNhytRpmTgB4KkenYWJEyb7DsQHazFfg3mUHmZ2hg+i2j7jRO76j6+K1VqQ
-         Q4C23WpGYgMICHgFOhuOFBplx4NlZJTEBcSdXTkS/acaLAXnovvZNYfgEYgIM2O3XMpA
-         9LUa9sksu2dHk8tS+cqFFPdD+VZ5D5+OaYVhp1kns7PZAIFZVNKqy9A4oLXEG3wyLlli
-         DRqOg6ZB6WkQnhXaW5TUPJT/YxGsiH7ne7XVWGoY8IwwFNP7pkFK8ujZM0/y4zy+Qlnm
-         m5Wg==
-X-Forwarded-Encrypted: i=1; AL+hErGgqoVIceE7HSOiNNkloNyP7N23/MQyWE8Wv7+c5a6IU0xbUxvQbWPF8kdAMZ1MB2B7EaG2rv7CUFYC@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qdExkrpEIpuWC0y//D5fnvPiadyfF8ptAYZ9bm61NHcjZC8tx
-	OjLew4CI4WuE4+7NVqLI1VAULFS45osXtNuL0bCzs9aBR9YdCX7gmxde
-X-Gm-Gg: AZFdTZcM/9wVjV8NOgWtIfpbUnrMHEtbFhHQYogPVY/C28non+3n3aKB8scvMXJhN99
-	3CJaD93is21AcW45s3bC6ExSA04aCpucu5xlvKrK7H2mKKk9bL/FNChs0HR8YziXKyMyIJ8VR6d
-	As/2Xf02FpA9hBpXAO9BsWORU14LAFMdbQt4+oGFD2qgW6HmqevRXM3p1+7Oihj2l4UgYpjJwdP
-	qC8VLZN4H4kpehmQpxfEDSCywDzDwZaMQzNSlvemeLPne9aS+JStomrSVMVUy3mdaQrTnvVkF4O
-	RUkrS8oMwrXfXvD0KeSDtC58WZKe393nZvGE8M7OF38ueWbCWOcRU2nfX/YYNXdsxB2v57ZzPLy
-	KZO7yY/Hq7YgaSzgbCoJHQhpSRCRC3YXWim2IGw06nZrraQuTI/npNQ9kfpBMjfTgq74XVZxWdh
-	KfMrH5NL4Cmysmt+I0Xz3Rpr8iQm4gNmgFNvgDKSNzUMHwQEfWv1INawyvS+rQrlZdV97hv2M+k
-	dXvIdPsZiBigQrFbm5uhH58ARhLka4iO4ak41ofyfA+vFHzBy36XtN44QBXaJIFSGWI9iPTtF3T
-	X/8lQn0SR0fKttdAyi+3QKXiwYVeAo/JAeTvj0p/utvO050lF0mhzQGNC+5lRfF+g6YYR05xpWR
-	9Qwwm9bGNw9NqTjPX1Hg=
-X-Received: by 2002:a05:6a20:e68e:b0:3fb:1640:c504 with SMTP id adf61e73a8af0-4014db5856bmr4796813637.63.1795252752623;
-        Sat, 21 Nov 2026 01:19:12 -0800 (PST)
+        bh=p77yADr+QpP0aDuHSl1uR5QAPCD5SSY2XgnFhAiep90=;
+        b=n/93AaXuvlaR9Hj0gS8oJiNSu6fr+V2NS3CPxWejn0pWaUkT5RWoND2N7afMvsUu80
+         dQA8Sl3W+Zt/dqZGxKbLLZEM9o02av8+mHmAFNPVu/ltrB+52+pjHLqwaWJwRNh3WUFN
+         BN+IgsWHtqi2dYSSxi5IVamSNR3P5q6W/PAyhHpBifJM1XqBe36nodijFop8Rbs+ce5h
+         X8pke50oNtY4zgRpEaYrH8Lufc7sbp5iODljgTGh2LVjIHtzRi8+ewaD2yQJ+caKUdeO
+         pp6P0bpkyoD8nYejVgpc21UOvlfdTPcZvsteifADp/BbwNx9sWIIwp3PC76EttIe5VpS
+         oqHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795252755; x=1795857555;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p77yADr+QpP0aDuHSl1uR5QAPCD5SSY2XgnFhAiep90=;
+        b=p7i1cVrEuXOtQfiLWPGFgkNna3iv+G7m27Qtec5Fu9nm54rLLiKMMJeq2SeecOzgHT
+         xv64EgfIofN/J0wgpWpl56M7tRUXHMFwkBEiRg5d7HZtZolp+rCgRhCMZZVgRARShXaJ
+         ZUfUgxxgv+ggDcdMqZzStYUAthroa/PCJeILjShp6pntqGRBBPum2/6O8+eM5fQKrQLz
+         1FtrGYUxMS7YzGtdqxDBEVyMjQzJFqRwDd09Ma5md9826MC+n/R1FSIGNRWgexXqFOsc
+         0cojMHdOuwaqCp+5uRgw+KhxQCxXoxp/pQKfkxCSbQQg20lRoHi1WOaGqvUfLHEqFlyS
+         0Sgw==
+X-Forwarded-Encrypted: i=1; AL+hErHmhtrznkDMADXaoAAefl+hELZUuEwbhR1qGQvI5L7vItebWZaXeSWqUK05248YHLHBhmh8Hd6GIxYq@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jkUkfz7SEEIGS20yF9EMTQqivhHdR84fhEI3z+8lq+3ohkFUp
+	6QKLAHfhckHO1ATrF0pGCj8uWKh9VGwL5qZBuhVvodZaelo2nVvkvRQZ
+X-Gm-Gg: AZFdTZfDbHh0EB7QpIPxtXCNgG1yrzzqQw9C3f5M/hX3afq8q5r18iC9LGvHDcVUa3E
+	d5D+P9fksKrU6TAtmCcM8TnO0KmDm38MGYBJtlvzOZ/ahdyh2ujDIyIf3/lxFlNz9OPgiSF3LFE
+	00QjFqynkfkkLj+QCQk90Q8kYM5wNHaMzd1HfYIdmmZ5VGSaJr6dgfZns6mqn8lOovT9VCrDOSh
+	EEs+ja6fPqncaihL2BcbsUH3JrF7Tr3QscGOi+MndHkpzu+eX1jY8+NHFuogbD8U/1h5GNn3R5m
+	z4KVRj0oh0MZcf0NQcE9c/IUCKIxNxX/COxF+ECi7qcBsi1Ro6uHK9HEhUAD1NwZlQBHR3FiaJ7
+	YNVBMe0LXuhk6k0Jzh4CXiwMigjSqj3+KiTUccMeL61S2y0ScA3y+NWuhGf8/+gxxh98tf6p0Gk
+	cV0RPUocEBEEe8z5zULWk0+YuJX12eWi0rdTVbu3hGCJlz409xD1e4V6P5vMoRoGsmbETKIC/MU
+	hvTBMfCWW+ntmiKvgkLpDz2+eTifU9gNxWp0s0YnBGlTO2eBnsAiB9gSVeZgCZ6FXNbcH4ORpLi
+	z92PN7XkVwmRPTfmoxnGLMjV6wTFPpdnmcDwJ/2QO54mjgOutTtYw3hm19zUnANImDrU182YkFb
+	8e8BYHwxFSpJyGWdS0ae7
+X-Received: by 2002:a17:90a:e705:b0:3b3:cfc5:60b3 with SMTP id 98e67ed59e1d1-3b41c9ba746mr5187437a91.63.1795252755166;
+        Sat, 21 Nov 2026 01:19:15 -0800 (PST)
 Received: from default-vnic.degu-barley.ts.net ([161.118.211.100])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d05c0cfsm2379895a12.26.2026.11.21.01.19.10
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d05c0cfsm2379895a12.26.2026.11.21.01.19.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 01:19:12 -0800 (PST)
+        Sat, 21 Nov 2026 01:19:14 -0800 (PST)
 From: Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org
@@ -88,10 +89,12 @@ Cc: sakari.ailus@linux.intel.com,
 	conor+dt@kernel.org,
 	Andrii Cherniavskyi <chernyav.a@gmail.com>,
 	Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
-Subject: [PATCH 1/2] dt-bindings: media: i2c: Add Samsung S5K5E8YX image sensor
-Date: Sat, 21 Nov 2026 16:19:06 +0700
-Message-ID: <20261121091907.1190346-1-huynhtuankiet33@gmail.com>
+Subject: [PATCH 2/2] media: i2c: Add Samsung S5K5E8YX camera sensor driver
+Date: Sat, 21 Nov 2026 16:19:07 +0700
+Message-ID: <20261121091907.1190346-2-huynhtuankiet33@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261121091907.1190346-1-huynhtuankiet33@gmail.com>
+References: <20261121091907.1190346-1-huynhtuankiet33@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,126 +108,1051 @@ Content-Transfer-Encoding: 8bit
 
 From: Andrii Cherniavskyi <chernyav.a@gmail.com>
 
-Add Device Tree bindings for the Samsung S5K5E8YX 5MP RAW10 CMOS image
-sensor, including optional standby-gpios and MIPI CSI-2 endpoint
-properties.
+Add V4L2 subdev driver for the Samsung S5K5E8YX 5MP CMOS image sensor,
+supporting 2592x1944 (30 fps) and 1304x980 (60 fps) RAW10 GRBG modes,
+exposure, analogue gain, VBLANK, H/V flip, test patterns, optional
+standby GPIO, selection rectangles, and MAINTAINERS entry.
 
 Signed-off-by: Andrii Cherniavskyi <chernyav.a@gmail.com>
 Co-developed-by: Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
 Signed-off-by: Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
 ---
- .../bindings/media/i2c/samsung,s5k5e8yx.yaml  | 102 ++++++++++++++++++
- 1 file changed, 102 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8yx.yaml
+ MAINTAINERS                  |   9 +
+ drivers/media/i2c/Kconfig    |  10 +
+ drivers/media/i2c/Makefile   |   1 +
+ drivers/media/i2c/s5k5e8yx.c | 970 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 990 insertions(+)
+ create mode 100644 drivers/media/i2c/s5k5e8yx.c
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8yx.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8yx.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2d8dd1ac5..dbc56c0ae 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23584,6 +23584,15 @@ L:	linux-media@vger.kernel.org
+ S:	Supported
+ F:	drivers/media/i2c/s5k5baf.c
+ 
++SAMSUNG S5K5E8YX CAMERA DRIVER
++M:	Andrii Cherniavskyi <chernyav.a@gmail.com>
++M:	Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++T:	git git://linuxtv.org/media_tree.git
++F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8yx.yaml
++F:	drivers/media/i2c/s5k5e8yx.c
++
+ SAMSUNG S5KJN1 CAMERA DRIVER
+ M:	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+ L:	linux-media@vger.kernel.org
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 98699f32c..e33da6559 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -812,6 +812,16 @@ config VIDEO_S5KJN1
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called s5kjn1.
+ 
++config VIDEO_S5K5E8YX
++	tristate "Samsung S5K5E8YX sensor support"
++	select V4L2_CCI_I2C
++	help
++	  This is a V4L2 sensor driver for Samsung S5K5E8YX 5MP raw
++	  camera sensor.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called s5k5e8yx.
++
+ config VIDEO_VD55G1
+ 	tristate "ST VD55G1 sensor support"
+ 	select V4L2_CCI_I2C
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index 1e4b5509c..f24826b31 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -132,6 +132,7 @@ obj-$(CONFIG_VIDEO_S5K3M5) += s5k3m5.o
+ obj-$(CONFIG_VIDEO_S5K5BAF) += s5k5baf.o
+ obj-$(CONFIG_VIDEO_S5K6A3) += s5k6a3.o
+ obj-$(CONFIG_VIDEO_S5KJN1) += s5kjn1.o
++obj-$(CONFIG_VIDEO_S5K5E8YX) += s5k5e8yx.o
+ obj-$(CONFIG_VIDEO_SAA6588) += saa6588.o
+ obj-$(CONFIG_VIDEO_SAA6752HS) += saa6752hs.o
+ obj-$(CONFIG_VIDEO_SAA7110) += saa7110.o
+diff --git a/drivers/media/i2c/s5k5e8yx.c b/drivers/media/i2c/s5k5e8yx.c
 new file mode 100644
-index 000000000..a70becba5
+index 000000000..f7602609f
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8yx.yaml
-@@ -0,0 +1,102 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/samsung,s5k5e8yx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/media/i2c/s5k5e8yx.c
+@@ -0,0 +1,970 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+title: Samsung S5K5E8YX Image Sensor
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/pm_runtime.h>
++#include <linux/regulator/consumer.h>
++#include <linux/units.h>
++#include <media/v4l2-cci.h>
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
++#include <media/v4l2-fwnode.h>
 +
-+description:
-+  Samsung S5K5E8YX image sensor is a 5MP CMOS image sensor.
-+  The sensor is controlled over a serial camera control bus protocol,
-+  the widest supported output image frame size is 2608x1960 at 30 frames
-+  per second, data output format is RAW10 transferred over 2-lane
-+  MIPI D-PHY interface.
++#define S5K5E8YX_LINK_FREQ_420MHZ	420000000ULL
++#define S5K5E8YX_MCLK_FREQ_24MHZ	24000000
++#define S5K5E8YX_DATA_LANES		2
++#define S5K5E8YX_NATIVE_WIDTH		2608
++#define S5K5E8YX_NATIVE_HEIGHT		1960
 +
-+maintainers:
-+  - Andrii Cherniavskyi <chernyav.a@gmail.com>
++#define S5K5E8YX_REG_CHIP_ID		CCI_REG16(0x0000)
++#define S5K5E8YX_CHIP_ID		0x5e80
 +
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
++#define S5K5E8YX_REG_CTRL_MODE		CCI_REG8(0x0100)
++#define S5K5E8YX_MODE_STREAMING		BIT(0)
 +
-+properties:
-+  compatible:
-+    const: samsung,s5k5e8yx
++#define S5K5E8YX_REG_ORIENTATION	CCI_REG8(0x0101)
++#define S5K5E8YX_VFLIP			BIT(1)
++#define S5K5E8YX_HFLIP			BIT(0)
 +
-+  reg:
-+    maxItems: 1
++#define S5K5E8YX_REG_EXPOSURE		CCI_REG16(0x0202)
++#define S5K5E8YX_EXPOSURE_MIN		8
++#define S5K5E8YX_EXPOSURE_STEP		1
++#define S5K5E8YX_EXPOSURE_MARGIN	4
 +
-+  clocks:
-+    description: MCLK supply clock.
-+    maxItems: 1
++#define S5K5E8YX_REG_AGAIN		CCI_REG16(0x0204)
++#define S5K5E8YX_AGAIN_MIN		0x020
++#define S5K5E8YX_AGAIN_MAX		0x200
++#define S5K5E8YX_AGAIN_STEP		1
++#define S5K5E8YX_AGAIN_DEFAULT		0x020
++#define S5K5E8YX_AGAIN_SHIFT		5
 +
-+  reset-gpios:
-+    description: Active low GPIO connected to RESET pad of the sensor.
-+    maxItems: 1
++#define S5K5E8YX_REG_VTS		CCI_REG16(0x0340)
++#define S5K5E8YX_VTS_MAX		0xffff
++#define S5K5E8YX_REG_HTS		CCI_REG16(0x0342)
++#define S5K5E8YX_REG_X_ADDR_START	CCI_REG16(0x0344)
++#define S5K5E8YX_REG_Y_ADDR_START	CCI_REG16(0x0346)
++#define S5K5E8YX_REG_X_ADDR_END		CCI_REG16(0x0348)
++#define S5K5E8YX_REG_Y_ADDR_END		CCI_REG16(0x034a)
++#define S5K5E8YX_REG_X_OUTPUT_SIZE	CCI_REG16(0x034c)
++#define S5K5E8YX_REG_Y_OUTPUT_SIZE	CCI_REG16(0x034e)
 +
-+  standby-gpios:
-+    description: Active low GPIO connected to STANDBY/XSHUTDN pad of the sensor.
-+    maxItems: 1
++#define S5K5E8YX_REG_TEST_PATTERN	CCI_REG8(0x0601)
 +
-+  vdda-supply:
-+    description: Analogue voltage supply, 2.8 volts.
++#define to_s5k5e8yx(_sd)		container_of(_sd, struct s5k5e8yx, sd)
 +
-+  vddd-supply:
-+    description: Digital core voltage supply, 1.2 volts.
++static const s64 s5k5e8yx_link_freq_menu[] = {
++	S5K5E8YX_LINK_FREQ_420MHZ,
++};
 +
-+  vddio-supply:
-+    description: Digital I/O voltage supply, 1.8 or 2.8 volts.
++/* List of supported formats to cover horizontal and vertical flip controls */
++static const u32 s5k5e8yx_mbus_formats[] = {
++	MEDIA_BUS_FMT_SGRBG10_1X10,	MEDIA_BUS_FMT_SRGGB10_1X10,
++	MEDIA_BUS_FMT_SBGGR10_1X10,	MEDIA_BUS_FMT_SGBRG10_1X10,
++};
 +
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
++struct s5k5e8yx_reg_list {
++	const struct cci_reg_sequence *regs;
++	unsigned int num_regs;
++};
 +
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
++struct s5k5e8yx_mode {
++	u32 width;				/* Frame width in pixels */
++	u32 height;				/* Frame height in pixels */
++	u32 hts;				/* Horizontal timing size */
++	u32 vts;				/* Default vertical timing size */
++	u32 exposure;				/* Default exposure value */
++	struct v4l2_rect crop;			/* Sensor array crop rect */
++	struct s5k5e8yx_reg_list reg_list;	/* Sensor register setting */
++};
 +
-+        properties:
-+          link-frequencies: true
-+          remote-endpoint: true
++static const char *const s5k5e8yx_test_pattern_menu[] = {
++	"Disabled",
++	"Solid colour",
++	"Colour bars",
++	"Fade to grey colour bars",
++};
 +
-+        required:
-+          - link-frequencies
-+          - remote-endpoint
++static const char *const s5k5e8yx_supply_names[] = {
++	"vdda",		/* Analog power */
++	"vddd",		/* Digital core power */
++	"vddio",	/* Digital I/O power */
++};
 +
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - port
++#define S5K5E8YX_NUM_SUPPLIES ARRAY_SIZE(s5k5e8yx_supply_names)
 +
-+unevaluatedProperties: false
++struct s5k5e8yx {
++	struct device *dev;
++	struct regmap *regmap;
++	struct clk *mclk;
++	struct gpio_desc *reset_gpio;
++	struct gpio_desc *standby_gpio;
++	struct regulator_bulk_data supplies[S5K5E8YX_NUM_SUPPLIES];
 +
-+examples:
-+  - |
-+      #include <dt-bindings/gpio/gpio.h>
++	struct v4l2_subdev sd;
++	struct media_pad pad;
 +
-+      i2c {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
++	struct v4l2_ctrl_handler ctrl_handler;
++	struct v4l2_ctrl *link_freq;
++	struct v4l2_ctrl *pixel_rate;
++	struct v4l2_ctrl *hblank;
++	struct v4l2_ctrl *vblank;
++	struct v4l2_ctrl *exposure;
++	struct v4l2_ctrl *vflip;
++	struct v4l2_ctrl *hflip;
 +
-+          camera@2d {
-+              compatible = "samsung,s5k5e8yx";
-+              reg = <0x2d>;
-+              clocks = <&camera_mclk 0>;
-+              assigned-clocks = <&camera_mclk 0>;
-+              assigned-clock-rates = <24000000>;
-+              reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
-+              vdda-supply = <&vreg_2p8>;
-+              vddd-supply = <&vreg_1p2>;
-+              vddio-supply = <&vreg_1p8>;
++	const struct s5k5e8yx_mode *mode;
++};
 +
-+              port {
-+                  endpoint {
-+                      link-frequencies = /bits/ 64 <420000000>;
-+                      remote-endpoint = <&mipi_csi2_ep>;
-+                  };
-+              };
-+          };
-+      };
-+...
++static const struct cci_reg_sequence init_array_setting[] = {
++	{CCI_REG8(0x0100), 0x00},
++	{CCI_REG8(0x3906), 0x7e},
++	{CCI_REG8(0x3c01), 0x0f},
++	{CCI_REG8(0x3c14), 0x00},
++	{CCI_REG8(0x3235), 0x08},
++	{CCI_REG8(0x3063), 0x2e},
++	{CCI_REG8(0x307a), 0x10},
++	{CCI_REG8(0x307b), 0x0e},
++	{CCI_REG8(0x3079), 0x20},
++	{CCI_REG8(0x3070), 0x05},
++	{CCI_REG8(0x3067), 0x06},
++	{CCI_REG8(0x3071), 0x62},
++	{CCI_REG8(0x3072), 0x16},
++	{CCI_REG8(0x3203), 0x43},
++	{CCI_REG8(0x3205), 0x43},
++	{CCI_REG8(0x320b), 0x42},
++	{CCI_REG8(0x3007), 0x00},
++	{CCI_REG8(0x3008), 0x14},
++	{CCI_REG8(0x3020), 0x58},
++	{CCI_REG8(0x300d), 0x34},
++	{CCI_REG8(0x300e), 0x17},
++	{CCI_REG8(0x3021), 0x02},
++	{CCI_REG8(0x3010), 0x59},
++	{CCI_REG8(0x3002), 0x01},
++	{CCI_REG8(0x3005), 0x01},
++	{CCI_REG8(0x3008), 0x04},
++	{CCI_REG8(0x300f), 0x70},
++	{CCI_REG8(0x3010), 0x69},
++	{CCI_REG8(0x3017), 0x10},
++	{CCI_REG8(0x3019), 0x19},
++	{CCI_REG8(0x300c), 0x62},
++	{CCI_REG8(0x3064), 0x10},
++	{CCI_REG8(0x3c08), 0x0e},
++	{CCI_REG8(0x3c09), 0x10},
++	{CCI_REG8(0x3c31), 0x0d},
++	{CCI_REG8(0x3c32), 0xac},
++};
++
++static const struct cci_reg_sequence s5k5e8yx_2592x1944_30fps_mode[] = {
++	{ CCI_REG8(0x0100), 0x00 },
++	{ CCI_REG8(0x0136), 0x18 },
++	{ CCI_REG8(0x0137), 0x00 },
++	{ CCI_REG8(0x0305), 0x06 },
++	{ CCI_REG8(0x0306), 0x18 },
++	{ CCI_REG8(0x0307), 0xa8 },
++	{ CCI_REG8(0x0308), 0x34 },
++	{ CCI_REG8(0x0309), 0x42 },
++	{ CCI_REG8(0x3c1f), 0x00 },
++	{ CCI_REG8(0x3c17), 0x00 },
++	{ CCI_REG8(0x3c0b), 0x04 },
++	{ CCI_REG8(0x3c1c), 0x47 },
++	{ CCI_REG8(0x3c1d), 0x15 },
++	{ CCI_REG8(0x3c14), 0x04 },
++	{ CCI_REG8(0x3c16), 0x00 },
++	{ CCI_REG8(0x0820), 0x03 },
++	{ CCI_REG8(0x0821), 0x44 },
++	{ CCI_REG8(0x0114), 0x01 },
++	{ S5K5E8YX_REG_X_ADDR_START,  0x0000 },
++	{ S5K5E8YX_REG_Y_ADDR_START,  0x0008 },
++	{ S5K5E8YX_REG_X_ADDR_END,    0x0a27 },
++	{ S5K5E8YX_REG_Y_ADDR_END,    0x079f },
++	{ S5K5E8YX_REG_X_OUTPUT_SIZE, 0x0a20 },
++	{ S5K5E8YX_REG_Y_OUTPUT_SIZE, 0x0798 },
++	{ CCI_REG8(0x0900), 0x00 },
++	{ CCI_REG8(0x0901), 0x00 },
++	{ CCI_REG8(0x0381), 0x01 },
++	{ CCI_REG8(0x0383), 0x01 },
++	{ CCI_REG8(0x0385), 0x01 },
++	{ CCI_REG8(0x0387), 0x01 },
++	{ S5K5E8YX_REG_VTS, 0x07b0 },
++	{ S5K5E8YX_REG_HTS, 0x0b28 },
++	{ CCI_REG8(0x0200), 0x00 },
++	{ CCI_REG8(0x0201), 0x00 },
++	{ S5K5E8YX_REG_EXPOSURE, 0x03de },
++	{ CCI_REG8(0x3303), 0x02 },
++	{ CCI_REG8(0x3400), 0x00 },
++	{ CCI_REG8(0x323b), 0x02 },
++	{ CCI_REG8(0x3301), 0x00 },
++	{ CCI_REG8(0x3321), 0x04 },
++	{ CCI_REG8(0x3306), 0x00 },
++	{ CCI_REG8(0x3307), 0x08 },
++	{ CCI_REG8(0x3308), 0x0a },
++	{ CCI_REG8(0x3309), 0x27 },
++	{ CCI_REG8(0x330a), 0x01 },
++	{ CCI_REG8(0x330b), 0x01 },
++	{ CCI_REG8(0x330e), 0x00 },
++	{ CCI_REG8(0x330f), 0x08 },
++	{ CCI_REG8(0x3310), 0x07 },
++	{ CCI_REG8(0x3311), 0x9f },
++	{ CCI_REG8(0x3312), 0x01 },
++	{ CCI_REG8(0x3313), 0x01 },
++};
++
++static const struct cci_reg_sequence s5k5e8yx_1304x980_60fps_mode[] = {
++	{ CCI_REG8(0x0100), 0x00 },
++	{ CCI_REG8(0x0136), 0x18 },
++	{ CCI_REG8(0x0137), 0x00 },
++	{ CCI_REG8(0x0305), 0x06 },
++	{ CCI_REG8(0x0306), 0x14 },
++	{ CCI_REG8(0x0307), 0xa8 },
++	{ CCI_REG8(0x0308), 0x1f },
++	{ CCI_REG8(0x0309), 0x42 },
++	{ CCI_REG8(0x3c1f), 0x00 },
++	{ CCI_REG8(0x3c17), 0x00 },
++	{ CCI_REG8(0x3c0b), 0x04 },
++	{ CCI_REG8(0x3c1c), 0x47 },
++	{ CCI_REG8(0x3c1d), 0x15 },
++	{ CCI_REG8(0x3c14), 0x04 },
++	{ CCI_REG8(0x3c16), 0x00 },
++	{ CCI_REG8(0x0820), 0x02 },
++	{ CCI_REG8(0x0821), 0x58 },
++	{ CCI_REG8(0x0114), 0x01 },
++	{ S5K5E8YX_REG_X_ADDR_START,  0x0000 },
++	{ S5K5E8YX_REG_Y_ADDR_START,  0x0000 },
++	{ S5K5E8YX_REG_X_ADDR_END,    0x0a2f },
++	{ S5K5E8YX_REG_Y_ADDR_END,    0x07a7 },
++	{ S5K5E8YX_REG_X_OUTPUT_SIZE, 0x0518 },
++	{ S5K5E8YX_REG_Y_OUTPUT_SIZE, 0x03d4 },
++	{ CCI_REG8(0x0900), 0x01 },
++	{ CCI_REG8(0x0901), 0x22 },
++	{ CCI_REG8(0x0381), 0x01 },
++	{ CCI_REG8(0x0383), 0x01 },
++	{ CCI_REG8(0x0385), 0x01 },
++	{ CCI_REG8(0x0387), 0x03 },
++	{ S5K5E8YX_REG_VTS, 0x03f1 },
++	{ S5K5E8YX_REG_HTS, 0x0ae0 },
++	{ CCI_REG8(0x0200), 0x00 },
++	{ CCI_REG8(0x0201), 0x00 },
++	{ S5K5E8YX_REG_EXPOSURE, 0x03de },
++	{ CCI_REG8(0x3303), 0x02 },
++	{ CCI_REG8(0x3400), 0x00 },
++	{ CCI_REG8(0x323b), 0x02 },
++	{ CCI_REG8(0x3301), 0x00 },
++	{ CCI_REG8(0x3321), 0x04 },
++	{ CCI_REG8(0x3306), 0x00 },
++	{ CCI_REG8(0x3309), 0x2f },
++	{ CCI_REG8(0x330a), 0x01 },
++	{ CCI_REG8(0x330b), 0x01 },
++	{ CCI_REG8(0x330e), 0x00 },
++	{ CCI_REG8(0x330f), 0x00 },
++	{ CCI_REG8(0x3310), 0x07 },
++	{ CCI_REG8(0x3311), 0xa7 },
++	{ CCI_REG8(0x3312), 0x03 },
++	{ CCI_REG8(0x3313), 0x01 },
++};
++
++static const struct s5k5e8yx_mode s5k5e8yx_supported_modes[] = {
++	{
++		.width = 2592,
++		.height = 1944,
++		.vts = 1968,
++		.hts = 2856,
++		.exposure = 990,
++		.crop = {
++			.left = 0,
++			.top = 8,
++			.width = 2592,
++			.height = 1944,
++		},
++		.reg_list = {
++			.regs = s5k5e8yx_2592x1944_30fps_mode,
++			.num_regs = ARRAY_SIZE(s5k5e8yx_2592x1944_30fps_mode),
++		},
++	},
++	{
++		.width = 1304,
++		.height = 980,
++		.vts = 1009,
++		.hts = 2784,
++		.exposure = 990,
++		.crop = {
++			.left = 0,
++			.top = 0,
++			.width = 2608,
++			.height = 1960,
++		},
++		.reg_list = {
++			.regs = s5k5e8yx_1304x980_60fps_mode,
++			.num_regs = ARRAY_SIZE(s5k5e8yx_1304x980_60fps_mode),
++		},
++	},
++};
++
++static int s5k5e8yx_set_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct s5k5e8yx *s5k5e8yx =
++		container_of(ctrl->handler, struct s5k5e8yx, ctrl_handler);
++	const struct s5k5e8yx_mode *mode = s5k5e8yx->mode;
++	s64 exposure_max;
++	int ret;
++
++	/* Propagate change of current control to all related controls */
++	switch (ctrl->id) {
++	case V4L2_CID_VBLANK:
++		/* Update max exposure while meeting expected vblanking */
++		exposure_max =
++			mode->height + ctrl->val - S5K5E8YX_EXPOSURE_MARGIN;
++		__v4l2_ctrl_modify_range(s5k5e8yx->exposure,
++					 s5k5e8yx->exposure->minimum,
++					 exposure_max, s5k5e8yx->exposure->step,
++					 s5k5e8yx->exposure->default_value);
++		break;
++	}
++
++	/* V4L2 controls are applied, when sensor is powered up for streaming */
++	if (!pm_runtime_get_if_active(s5k5e8yx->dev))
++		return 0;
++
++	switch (ctrl->id) {
++	case V4L2_CID_ANALOGUE_GAIN:
++		ret = cci_write(s5k5e8yx->regmap, S5K5E8YX_REG_AGAIN, ctrl->val,
++				NULL);
++		break;
++	case V4L2_CID_EXPOSURE:
++		ret = cci_write(s5k5e8yx->regmap, S5K5E8YX_REG_EXPOSURE,
++				ctrl->val, NULL);
++		break;
++	case V4L2_CID_VBLANK:
++		ret = cci_write(s5k5e8yx->regmap, S5K5E8YX_REG_VTS,
++				ctrl->val + mode->height, NULL);
++		break;
++	case V4L2_CID_VFLIP:
++	case V4L2_CID_HFLIP:
++		ret = cci_write(s5k5e8yx->regmap, S5K5E8YX_REG_ORIENTATION,
++				(s5k5e8yx->vflip->val ? S5K5E8YX_VFLIP : 0) |
++					(s5k5e8yx->hflip->val ? S5K5E8YX_HFLIP :
++								0),
++				NULL);
++		break;
++	case V4L2_CID_TEST_PATTERN:
++		ret = cci_write(s5k5e8yx->regmap, S5K5E8YX_REG_TEST_PATTERN,
++				ctrl->val, NULL);
++		break;
++	default:
++		ret = -EINVAL;
++		break;
++	}
++
++	pm_runtime_put(s5k5e8yx->dev);
++
++	return ret;
++}
++
++static const struct v4l2_ctrl_ops s5k5e8yx_ctrl_ops = {
++	.s_ctrl = s5k5e8yx_set_ctrl,
++};
++
++static inline u64 s5k5e8yx_freq_to_pixel_rate(const u64 freq)
++{
++	return div_u64(freq * 2 * S5K5E8YX_DATA_LANES, 10);
++}
++
++static int s5k5e8yx_init_controls(struct s5k5e8yx *s5k5e8yx)
++{
++	struct v4l2_ctrl_handler *ctrl_hdlr = &s5k5e8yx->ctrl_handler;
++	const struct s5k5e8yx_mode *mode = s5k5e8yx->mode;
++	s64 pixel_rate, hblank, vblank, exposure_max;
++	struct v4l2_fwnode_device_properties props;
++	int ret;
++
++	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
++
++	s5k5e8yx->link_freq = v4l2_ctrl_new_int_menu(
++		ctrl_hdlr, &s5k5e8yx_ctrl_ops, V4L2_CID_LINK_FREQ,
++		ARRAY_SIZE(s5k5e8yx_link_freq_menu) - 1, 0,
++		s5k5e8yx_link_freq_menu);
++	if (s5k5e8yx->link_freq)
++		s5k5e8yx->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++
++	pixel_rate = s5k5e8yx_freq_to_pixel_rate(s5k5e8yx_link_freq_menu[0]);
++	s5k5e8yx->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &s5k5e8yx_ctrl_ops,
++						 V4L2_CID_PIXEL_RATE, 0,
++						 pixel_rate, 1, pixel_rate);
++
++	hblank = mode->hts - mode->width;
++	s5k5e8yx->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &s5k5e8yx_ctrl_ops,
++					     V4L2_CID_HBLANK, hblank, hblank, 1,
++					     hblank);
++	if (s5k5e8yx->hblank)
++		s5k5e8yx->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++
++	vblank = mode->vts - mode->height;
++	s5k5e8yx->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &s5k5e8yx_ctrl_ops,
++					     V4L2_CID_VBLANK, vblank,
++					     S5K5E8YX_VTS_MAX - mode->height, 1,
++					     vblank);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, &s5k5e8yx_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
++			  S5K5E8YX_AGAIN_MIN, S5K5E8YX_AGAIN_MAX,
++			  S5K5E8YX_AGAIN_STEP, S5K5E8YX_AGAIN_DEFAULT);
++
++	exposure_max = mode->vts - S5K5E8YX_EXPOSURE_MARGIN;
++	s5k5e8yx->exposure = v4l2_ctrl_new_std(
++		ctrl_hdlr, &s5k5e8yx_ctrl_ops, V4L2_CID_EXPOSURE,
++		S5K5E8YX_EXPOSURE_MIN, exposure_max, S5K5E8YX_EXPOSURE_STEP,
++		mode->exposure);
++
++	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &s5k5e8yx_ctrl_ops,
++				     V4L2_CID_TEST_PATTERN,
++				     ARRAY_SIZE(s5k5e8yx_test_pattern_menu) - 1,
++				     0, 0, s5k5e8yx_test_pattern_menu);
++
++	s5k5e8yx->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &s5k5e8yx_ctrl_ops,
++					    V4L2_CID_HFLIP, 0, 1, 1, 0);
++	if (s5k5e8yx->hflip)
++		s5k5e8yx->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
++
++	s5k5e8yx->vflip = v4l2_ctrl_new_std(ctrl_hdlr, &s5k5e8yx_ctrl_ops,
++					    V4L2_CID_VFLIP, 0, 1, 1, 0);
++	if (s5k5e8yx->vflip)
++		s5k5e8yx->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
++
++	ret = v4l2_fwnode_device_parse(s5k5e8yx->dev, &props);
++	if (ret)
++		goto error_free_hdlr;
++
++	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &s5k5e8yx_ctrl_ops,
++					      &props);
++	if (ret)
++		goto error_free_hdlr;
++
++	s5k5e8yx->sd.ctrl_handler = ctrl_hdlr;
++
++	return 0;
++error_free_hdlr:
++	v4l2_ctrl_handler_free(ctrl_hdlr);
++
++	return ret;
++}
++
++static int s5k5e8yx_enable_streams(struct v4l2_subdev *sd,
++				   struct v4l2_subdev_state *state, u32 pad,
++				   u64 streams_mask)
++{
++	struct s5k5e8yx *s5k5e8yx = to_s5k5e8yx(sd);
++	const struct s5k5e8yx_reg_list *reg_list = &s5k5e8yx->mode->reg_list;
++	int ret;
++
++	ret = pm_runtime_resume_and_get(s5k5e8yx->dev);
++	if (ret)
++		return ret;
++
++	cci_multi_reg_write(s5k5e8yx->regmap, init_array_setting,
++			    ARRAY_SIZE(init_array_setting), &ret);
++	cci_multi_reg_write(s5k5e8yx->regmap, reg_list->regs,
++			    reg_list->num_regs, &ret);
++	if (ret)
++		goto error;
++
++	ret = __v4l2_ctrl_handler_setup(s5k5e8yx->sd.ctrl_handler);
++
++	cci_write(s5k5e8yx->regmap, S5K5E8YX_REG_CTRL_MODE,
++		  S5K5E8YX_MODE_STREAMING, &ret);
++	if (ret)
++		goto error;
++
++	__v4l2_ctrl_grab(s5k5e8yx->hflip, true);
++	__v4l2_ctrl_grab(s5k5e8yx->vflip, true);
++
++	return 0;
++
++error:
++	dev_err(s5k5e8yx->dev, "failed to start streaming: %d\n", ret);
++	pm_runtime_put_autosuspend(s5k5e8yx->dev);
++
++	return ret;
++}
++
++static int s5k5e8yx_disable_streams(struct v4l2_subdev *sd,
++				    struct v4l2_subdev_state *state, u32 pad,
++				    u64 streams_mask)
++{
++	struct s5k5e8yx *s5k5e8yx = to_s5k5e8yx(sd);
++	int ret;
++
++	ret = cci_write(s5k5e8yx->regmap, S5K5E8YX_REG_CTRL_MODE, 0, NULL);
++	if (ret)
++		dev_err(s5k5e8yx->dev, "failed to stop streaming: %d\n", ret);
++
++	__v4l2_ctrl_grab(s5k5e8yx->hflip, false);
++	__v4l2_ctrl_grab(s5k5e8yx->vflip, false);
++
++	pm_runtime_put_autosuspend(s5k5e8yx->dev);
++
++	return ret;
++}
++
++static u32 s5k5e8yx_get_format_code(struct s5k5e8yx *s5k5e8yx)
++{
++	unsigned int i;
++
++	i = (s5k5e8yx->vflip->val ? 2 : 0) | (s5k5e8yx->hflip->val ? 1 : 0);
++
++	return s5k5e8yx_mbus_formats[i];
++}
++
++static void s5k5e8yx_update_pad_format(struct s5k5e8yx *s5k5e8yx,
++				       const struct s5k5e8yx_mode *mode,
++				       struct v4l2_mbus_framefmt *fmt)
++{
++	fmt->code = s5k5e8yx_get_format_code(s5k5e8yx);
++	fmt->width = mode->width;
++	fmt->height = mode->height;
++	fmt->field = V4L2_FIELD_NONE;
++	fmt->colorspace = V4L2_COLORSPACE_RAW;
++	fmt->ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
++	fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
++	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
++}
++
++static int s5k5e8yx_set_pad_format(struct v4l2_subdev *sd,
++				   struct v4l2_subdev_state *state,
++				   struct v4l2_subdev_format *fmt)
++{
++	struct s5k5e8yx *s5k5e8yx = to_s5k5e8yx(sd);
++	s64 hblank, vblank, exposure_max;
++	const struct s5k5e8yx_mode *mode;
++
++	mode = v4l2_find_nearest_size(s5k5e8yx_supported_modes,
++				      ARRAY_SIZE(s5k5e8yx_supported_modes),
++				      width, height, fmt->format.width,
++				      fmt->format.height);
++
++	s5k5e8yx_update_pad_format(s5k5e8yx, mode, &fmt->format);
++
++	/* Format code could be updated with respect to flip controls */
++	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY || s5k5e8yx->mode == mode)
++		goto set_format;
++
++	hblank = mode->hts - mode->width;
++	__v4l2_ctrl_modify_range(s5k5e8yx->hblank, hblank, hblank, 1, hblank);
++
++	vblank = mode->vts - mode->height;
++	__v4l2_ctrl_modify_range(s5k5e8yx->vblank, vblank,
++				 S5K5E8YX_VTS_MAX - mode->height, 1, vblank);
++	__v4l2_ctrl_s_ctrl(s5k5e8yx->vblank, vblank);
++
++	exposure_max = mode->vts - S5K5E8YX_EXPOSURE_MARGIN;
++	__v4l2_ctrl_modify_range(s5k5e8yx->exposure, S5K5E8YX_EXPOSURE_MIN,
++				 exposure_max, S5K5E8YX_EXPOSURE_STEP,
++				 mode->exposure);
++	__v4l2_ctrl_s_ctrl(s5k5e8yx->exposure, mode->exposure);
++
++	if (s5k5e8yx->sd.ctrl_handler->error)
++		return s5k5e8yx->sd.ctrl_handler->error;
++
++	s5k5e8yx->mode = mode;
++
++set_format:
++	*v4l2_subdev_state_get_format(state, 0) = fmt->format;
++
++	return 0;
++}
++
++static int s5k5e8yx_enum_mbus_code(struct v4l2_subdev *sd,
++				   struct v4l2_subdev_state *sd_state,
++				   struct v4l2_subdev_mbus_code_enum *code)
++{
++	struct s5k5e8yx *s5k5e8yx = to_s5k5e8yx(sd);
++
++	/* Media bus code index is constant, but code formats are not */
++	if (code->index > 0)
++		return -EINVAL;
++
++	code->code = s5k5e8yx_get_format_code(s5k5e8yx);
++
++	return 0;
++}
++
++static int s5k5e8yx_enum_frame_size(struct v4l2_subdev *sd,
++				    struct v4l2_subdev_state *sd_state,
++				    struct v4l2_subdev_frame_size_enum *fse)
++{
++	struct s5k5e8yx *s5k5e8yx = to_s5k5e8yx(sd);
++
++	if (fse->index >= ARRAY_SIZE(s5k5e8yx_supported_modes))
++		return -EINVAL;
++
++	if (fse->code != s5k5e8yx_get_format_code(s5k5e8yx))
++		return -EINVAL;
++
++	fse->min_width = s5k5e8yx_supported_modes[fse->index].width;
++	fse->max_width = fse->min_width;
++	fse->min_height = s5k5e8yx_supported_modes[fse->index].height;
++	fse->max_height = fse->min_height;
++
++	return 0;
++}
++
++static int s5k5e8yx_get_selection(struct v4l2_subdev *sd,
++				  struct v4l2_subdev_state *state,
++				  struct v4l2_subdev_selection *sel)
++{
++	const struct v4l2_mbus_framefmt *fmt;
++	const struct s5k5e8yx_mode *mode;
++
++	switch (sel->target) {
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++		sel->r = (struct v4l2_rect){
++			.left = 0,
++			.top = 0,
++			.width = S5K5E8YX_NATIVE_WIDTH,
++			.height = S5K5E8YX_NATIVE_HEIGHT,
++		};
++		return 0;
++	case V4L2_SEL_TGT_CROP:
++		fmt = v4l2_subdev_state_get_format(state, 0);
++		mode = v4l2_find_nearest_size(s5k5e8yx_supported_modes,
++					      ARRAY_SIZE(s5k5e8yx_supported_modes),
++					      width, height, fmt->width,
++					      fmt->height);
++		sel->r = mode->crop;
++		return 0;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int s5k5e8yx_init_state(struct v4l2_subdev *sd,
++			       struct v4l2_subdev_state *state)
++{
++	struct s5k5e8yx *s5k5e8yx = to_s5k5e8yx(sd);
++	struct v4l2_subdev_format fmt = {
++		.which = V4L2_SUBDEV_FORMAT_TRY,
++		.pad = 0,
++		.format = {
++			/* Media bus code depends on current flip controls */
++			.width = s5k5e8yx->mode->width,
++			.height = s5k5e8yx->mode->height,
++		},
++	};
++
++	s5k5e8yx_set_pad_format(sd, state, &fmt);
++
++	return 0;
++}
++
++static const struct v4l2_subdev_video_ops s5k5e8yx_video_ops = {
++	.s_stream = v4l2_subdev_s_stream_helper,
++};
++
++static const struct v4l2_subdev_pad_ops s5k5e8yx_pad_ops = {
++	.set_fmt = s5k5e8yx_set_pad_format,
++	.get_fmt = v4l2_subdev_get_fmt,
++	.get_selection = s5k5e8yx_get_selection,
++	.enum_mbus_code = s5k5e8yx_enum_mbus_code,
++	.enum_frame_size = s5k5e8yx_enum_frame_size,
++	.enable_streams = s5k5e8yx_enable_streams,
++	.disable_streams = s5k5e8yx_disable_streams,
++};
++
++static const struct v4l2_subdev_ops s5k5e8yx_subdev_ops = {
++	.video = &s5k5e8yx_video_ops,
++	.pad = &s5k5e8yx_pad_ops,
++};
++
++static const struct v4l2_subdev_internal_ops s5k5e8yx_internal_ops = {
++	.init_state = s5k5e8yx_init_state,
++};
++
++static const struct media_entity_operations s5k5e8yx_subdev_entity_ops = {
++	.link_validate = v4l2_subdev_link_validate,
++};
++
++static int s5k5e8yx_identify_sensor(struct s5k5e8yx *s5k5e8yx)
++{
++	u64 val;
++	int ret;
++
++	ret = cci_read(s5k5e8yx->regmap, S5K5E8YX_REG_CHIP_ID, &val, NULL);
++	if (ret) {
++		dev_err(s5k5e8yx->dev, "failed to read chip id: %d\n", ret);
++		return ret;
++	}
++
++	if (val != S5K5E8YX_CHIP_ID) {
++		dev_err(s5k5e8yx->dev, "chip id mismatch: %x!=%llx\n",
++			S5K5E8YX_CHIP_ID, val);
++		return -ENODEV;
++	}
++
++	dev_dbg(s5k5e8yx->dev, "identified Samsung S5K5E8 sensor (chip id 0x%04llx)\n",
++		val);
++
++	return 0;
++}
++
++static int s5k5e8yx_check_hwcfg(struct s5k5e8yx *s5k5e8yx)
++{
++	struct fwnode_handle *fwnode = dev_fwnode(s5k5e8yx->dev), *ep;
++	struct v4l2_fwnode_endpoint bus_cfg = {
++		.bus = {
++			.mipi_csi2 = {
++				.num_data_lanes = S5K5E8YX_DATA_LANES,
++			},
++		},
++		.bus_type = V4L2_MBUS_CSI2_DPHY,
++	};
++	unsigned long freq_bitmap;
++	int ret;
++
++	if (!fwnode)
++		return -ENODEV;
++
++	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
++	if (!ep)
++		return -EINVAL;
++
++	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
++	fwnode_handle_put(ep);
++	if (ret)
++		return ret;
++
++	if (bus_cfg.bus.mipi_csi2.num_data_lanes != S5K5E8YX_DATA_LANES) {
++		dev_err(s5k5e8yx->dev, "Invalid number of data lanes: %u\n",
++			bus_cfg.bus.mipi_csi2.num_data_lanes);
++		ret = -EINVAL;
++		goto endpoint_free;
++	}
++
++	ret = v4l2_link_freq_to_bitmap(s5k5e8yx->dev, bus_cfg.link_frequencies,
++				       bus_cfg.nr_of_link_frequencies,
++				       s5k5e8yx_link_freq_menu,
++				       ARRAY_SIZE(s5k5e8yx_link_freq_menu),
++				       &freq_bitmap);
++
++endpoint_free:
++	v4l2_fwnode_endpoint_free(&bus_cfg);
++
++	return ret;
++}
++
++static int s5k5e8yx_power_on(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct s5k5e8yx *s5k5e8yx = to_s5k5e8yx(sd);
++	int ret;
++
++	ret = regulator_bulk_enable(S5K5E8YX_NUM_SUPPLIES, s5k5e8yx->supplies);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(s5k5e8yx->mclk);
++	if (ret)
++		goto disable_regulators;
++
++	usleep_range(1000, 2000);
++
++	gpiod_set_value_cansleep(s5k5e8yx->reset_gpio, 0);
++	usleep_range(1000, 2000);
++	gpiod_set_value_cansleep(s5k5e8yx->standby_gpio, 0);
++
++	usleep_range(10000, 11000);
++
++	return 0;
++
++disable_regulators:
++	regulator_bulk_disable(S5K5E8YX_NUM_SUPPLIES, s5k5e8yx->supplies);
++
++	return ret;
++}
++
++static int s5k5e8yx_power_off(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct s5k5e8yx *s5k5e8yx = to_s5k5e8yx(sd);
++
++	gpiod_set_value_cansleep(s5k5e8yx->standby_gpio, 1);
++	gpiod_set_value_cansleep(s5k5e8yx->reset_gpio, 1);
++
++	clk_disable_unprepare(s5k5e8yx->mclk);
++
++	regulator_bulk_disable(S5K5E8YX_NUM_SUPPLIES, s5k5e8yx->supplies);
++
++	return 0;
++}
++
++static int s5k5e8yx_probe(struct i2c_client *client)
++{
++	struct s5k5e8yx *s5k5e8yx;
++	unsigned long freq;
++	unsigned int i;
++	int ret;
++
++	s5k5e8yx = devm_kzalloc(&client->dev, sizeof(*s5k5e8yx), GFP_KERNEL);
++	if (!s5k5e8yx)
++		return -ENOMEM;
++
++	s5k5e8yx->dev = &client->dev;
++	v4l2_i2c_subdev_init(&s5k5e8yx->sd, client, &s5k5e8yx_subdev_ops);
++
++	s5k5e8yx->regmap = devm_cci_regmap_init_i2c(client, 16);
++	if (IS_ERR(s5k5e8yx->regmap))
++		return dev_err_probe(s5k5e8yx->dev, PTR_ERR(s5k5e8yx->regmap),
++				     "failed to init CCI\n");
++
++	s5k5e8yx->mclk = devm_v4l2_sensor_clk_get(s5k5e8yx->dev, NULL);
++	if (IS_ERR(s5k5e8yx->mclk))
++		return dev_err_probe(s5k5e8yx->dev, PTR_ERR(s5k5e8yx->mclk),
++				     "failed to get MCLK clock\n");
++
++	freq = clk_get_rate(s5k5e8yx->mclk);
++	if (freq != S5K5E8YX_MCLK_FREQ_24MHZ)
++		return dev_err_probe(
++			s5k5e8yx->dev, -EINVAL,
++			"MCLK clock frequency %lu is not supported\n", freq);
++
++	ret = s5k5e8yx_check_hwcfg(s5k5e8yx);
++	if (ret)
++		return dev_err_probe(s5k5e8yx->dev, ret,
++				     "failed to check HW configuration\n");
++
++	s5k5e8yx->reset_gpio =
++		devm_gpiod_get_optional(s5k5e8yx->dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(s5k5e8yx->reset_gpio))
++		return dev_err_probe(s5k5e8yx->dev,
++				     PTR_ERR(s5k5e8yx->reset_gpio),
++				     "failed to get reset GPIO\n");
++
++	s5k5e8yx->standby_gpio =
++		devm_gpiod_get_optional(s5k5e8yx->dev, "standby", GPIOD_OUT_HIGH);
++	if (IS_ERR(s5k5e8yx->standby_gpio))
++		return dev_err_probe(s5k5e8yx->dev,
++				     PTR_ERR(s5k5e8yx->standby_gpio),
++				     "failed to get standby GPIO\n");
++
++	for (i = 0; i < S5K5E8YX_NUM_SUPPLIES; i++)
++		s5k5e8yx->supplies[i].supply = s5k5e8yx_supply_names[i];
++
++	ret = devm_regulator_bulk_get(s5k5e8yx->dev, S5K5E8YX_NUM_SUPPLIES,
++				      s5k5e8yx->supplies);
++	if (ret)
++		return dev_err_probe(s5k5e8yx->dev, ret,
++				     "failed to get supply regulators\n");
++
++	ret = s5k5e8yx_power_on(s5k5e8yx->dev);
++	if (ret)
++		return ret;
++
++	ret = s5k5e8yx_identify_sensor(s5k5e8yx);
++	if (ret) {
++		dev_err_probe(s5k5e8yx->dev, ret, "failed to find sensor\n");
++		goto power_off;
++	}
++
++	s5k5e8yx->mode = &s5k5e8yx_supported_modes[0];
++	ret = s5k5e8yx_init_controls(s5k5e8yx);
++	if (ret) {
++		dev_err_probe(s5k5e8yx->dev, ret, "failed to init controls\n");
++		goto power_off;
++	}
++
++	s5k5e8yx->sd.state_lock = s5k5e8yx->ctrl_handler.lock;
++	s5k5e8yx->sd.internal_ops = &s5k5e8yx_internal_ops;
++	s5k5e8yx->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	s5k5e8yx->sd.entity.ops = &s5k5e8yx_subdev_entity_ops;
++	s5k5e8yx->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
++	s5k5e8yx->pad.flags = MEDIA_PAD_FL_SOURCE;
++
++	ret = media_entity_pads_init(&s5k5e8yx->sd.entity, 1, &s5k5e8yx->pad);
++	if (ret) {
++		dev_err_probe(s5k5e8yx->dev, ret,
++			      "failed to init media entity pads\n");
++		goto v4l2_ctrl_handler_free;
++	}
++
++	ret = v4l2_subdev_init_finalize(&s5k5e8yx->sd);
++	if (ret < 0) {
++		dev_err_probe(s5k5e8yx->dev, ret,
++			      "failed to init media entity pads\n");
++		goto media_entity_cleanup;
++	}
++
++	pm_runtime_set_active(s5k5e8yx->dev);
++	pm_runtime_enable(s5k5e8yx->dev);
++
++	ret = v4l2_async_register_subdev_sensor(&s5k5e8yx->sd);
++	if (ret < 0) {
++		dev_err_probe(s5k5e8yx->dev, ret,
++			      "failed to register V4L2 subdev\n");
++		goto subdev_cleanup;
++	}
++
++	pm_runtime_set_autosuspend_delay(s5k5e8yx->dev, 1000);
++	pm_runtime_use_autosuspend(s5k5e8yx->dev);
++	pm_runtime_idle(s5k5e8yx->dev);
++
++	return 0;
++
++subdev_cleanup:
++	v4l2_subdev_cleanup(&s5k5e8yx->sd);
++	pm_runtime_disable(s5k5e8yx->dev);
++	pm_runtime_set_suspended(s5k5e8yx->dev);
++
++media_entity_cleanup:
++	media_entity_cleanup(&s5k5e8yx->sd.entity);
++
++v4l2_ctrl_handler_free:
++	v4l2_ctrl_handler_free(s5k5e8yx->sd.ctrl_handler);
++
++power_off:
++	s5k5e8yx_power_off(s5k5e8yx->dev);
++
++	return ret;
++}
++
++static void s5k5e8yx_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct s5k5e8yx *s5k5e8yx = to_s5k5e8yx(sd);
++
++	v4l2_async_unregister_subdev(sd);
++	v4l2_subdev_cleanup(sd);
++	media_entity_cleanup(&sd->entity);
++	v4l2_ctrl_handler_free(sd->ctrl_handler);
++	pm_runtime_disable(s5k5e8yx->dev);
++
++	if (!pm_runtime_status_suspended(s5k5e8yx->dev)) {
++		s5k5e8yx_power_off(s5k5e8yx->dev);
++		pm_runtime_set_suspended(s5k5e8yx->dev);
++	}
++}
++
++static const struct dev_pm_ops s5k5e8yx_pm_ops = { SET_RUNTIME_PM_OPS(
++	s5k5e8yx_power_off, s5k5e8yx_power_on, NULL) };
++
++static const struct of_device_id s5k5e8yx_of_match[] = {
++	{ .compatible = "samsung,s5k5e8yx" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, s5k5e8yx_of_match);
++
++static struct i2c_driver s5k5e8yx_i2c_driver = {
++	.driver = {
++		.name = "s5k5e8yx",
++		.pm = &s5k5e8yx_pm_ops,
++		.of_match_table = s5k5e8yx_of_match,
++	},
++	.probe = s5k5e8yx_probe,
++	.remove = s5k5e8yx_remove,
++};
++
++module_i2c_driver(s5k5e8yx_i2c_driver);
++
++MODULE_AUTHOR("Andrii Cherniavskyi <chernyav.a@gmail.com>");
++MODULE_DESCRIPTION("Samsung S5K5E8YX image sensor driver");
++MODULE_LICENSE("GPL");
 -- 
 2.43.0
 
