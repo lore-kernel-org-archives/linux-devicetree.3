@@ -1,90 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795223501;
-	b=KAQTsyEDCd7eu2jSvtSc5/d4gWSxaa9aPNRIbOPL7DG5i8rPUvmTGCkXbbPZ+Amh2TD4
-	 ZuZp3R+XlgB+kLBOOm2udxrwsdRcvVtzdzPjfFbi4pDZ8hTC4k2KUEH7pxWQZOERU9Xo0
-	 6P5X/2gEm9RqvEOPylahb8kB25Y/fTIKt9GLhYEq/2t0w+tT+0TSfrJ1ViSsqOAxrizEZ
-	 0J1TGIp/60dVg9GGZmuLmknc4Tb0E9ZrJNz1swJfnrQbhTpNBACUGCiq+lCU90DKb/fGw
-	 m2UxvbCCrjhOiHnjM+Br675+HDecaN9JEMWoec3MdHS1y7/f67uh0d7WXlz5MMgdk3w==
+	t=1795225910;
+	b=C8x1yhGd9v7XmeCYkA/q8+nupa6n4a8Ata/yz7WzstSsQfHr4eBYcbvjseW0Qusa0KWk
+	 cA/OoTyE2Yhs6Ui8oEYpvtgSWmU3BYNprII21XoIouxvCbAg8AZemR1M8MURLqCywJ7yZ
+	 dT5B4NyUQlcpO3RErQVocHz6ClFNMF/JH+PkhEdgYVIeFyIwJ2Jv8VWwr2i+b1COARyy/
+	 xYCvCwpaFOhxht4fgHI6EcsxKm3AlDT6RFCVqqUKM0M/mJM9Eu+OuJaUp/Ug03vbuMn15
+	 OTbMc8dF6ORj+obwgo2KvxpuyjJU92+PgrWsqBCwkUt0sKSAEo74quAwQi1tQ9VaYUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795223501;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=0eYZ3HbDY5x5zovptu6rAgNNSCJghwXhmaa/sCZVI9o=;
-	b=qYvlj18/pnvsFRf4G8USDX5ZJXcA3Vpg4yMOVKNcGe5j6HJHnLbFmAL7bkTH1Iq+z7bZ
-	 BaCNnUi8Q2eL/tP5CbtxwVcYa2SlVEvMjFIXWwzvSg1MPzOd2BSBOaiEFd7CYtD1yqQfw
-	 jFK5XIyVlNWkerHIphcYNlYZD8QrMHkfdlmWEg21vy3VlVWgE07ScMBZV2e5qG/rnL2SZ
-	 tqUB8QA6JKotFF3NrXetSChM7DByq4nvHgYKTRCDekMfN22iH4U54eYYRBEciE7g+opcf
-	 BeqqB4eRfC/BYgk2Mz+PlVk2ZZWIBToiSj24AzksrZqDXoB7j+nG+AHzZqNeyRICKKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795225910;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=QzIhuJSftvZpgQFLV10hnC6j7UD3FLUoU0pfIWKv3/w=;
+	b=wHQGpToHXHIg0bYtSxY0s+xccfWn8NJdvi2WjwpwjuxPiZ/N5CTbUsoqkJdTfN01BJyU
+	 chazXh48g703RIXD0sCM29Od4Tj30M9KHoxTCb9Nu3CMZtPbxka8UTUjYJBzaFrK/D+r6
+	 9afULHHFBg3MaWE4enTWNbb14BxjtJgGsHLhfwFYWQuksx7IFh1aXzIUjIFlym5hJLBAP
+	 Qh6aZKqUCDmpagTc86OYD0lpkjcpUShQp73jK86fjHkxXhKUrUGetgsU3QhhK9XRQpGYg
+	 z1qOoJobAhuym/RgEhAxaphHaLcbRDinI4Y00jVGA8xgj3JazncWSS0WoGrAymWFqbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YNIJWlNY;
-	arc=none smtp.remote-ip=209.85.167.171
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="COia/9Fa";
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AE1606AA3E
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 01:11:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74AE1606AA3E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66191606A681;
+	Sat, 21 Nov 2026 01:51:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66191606A681
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YNIJWlNY
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-571eb508edaso714264b6e.3
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 17:11:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795223489; x=1795828289; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0eYZ3HbDY5x5zovptu6rAgNNSCJghwXhmaa/sCZVI9o=;
-        b=YNIJWlNYrZWMgThgHVAkvnAx6pGKGCaMz6jSW4hSVycXtY7uP1wmnPN5QamROLVjWu
-         NgHLGAm+KwdKOACZLrS4GUmNA5gQUEfTqFiL/aYjCaZjM8cMmW0Hgz3Q3EuGG378OS3b
-         bV8Zww7ReJBmEIJagsUBjEtLBIN9RMgTY9tZ/heVnql3yoOKG1ge11Ix3NOEScWqksIY
-         r0e0bI0ml70ibaCMVyU2J7NUV0QWUzXBUeFnHoppaWU4HCdYM4GDBOeItAXsULltrvIS
-         mBfbTYAw9MevtRfFgb1kyyNXuiEjb3XTDE4k1k/LrUJ0KVb7leQcBafjZdYeoPdKyyKh
-         jGsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795223489; x=1795828289;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0eYZ3HbDY5x5zovptu6rAgNNSCJghwXhmaa/sCZVI9o=;
-        b=HoUPloqcdPQYV2eMDyMdRZJc1pws1geoHolGdzV3HuIv0yvRhgK3btTHTYVErW+ZE0
-         LDgiUEWqg+qQ2qgYSPy6vi6g2Lm/MRqnzFYpWc62O8AmR5SAgwKkdTKVXpR95PnTksac
-         acW+Os7dNulwGiAlcP3omjRQHGneklq/a+KUHnoklZimI5vsZL5gcz7wGJNNUqZror3U
-         DEeGmtjiLzZ0LG0GGbKHB1BnW2nPIX43X801pRhEMOqUecc7YiFBHq4maOEi6MOiKCOJ
-         O1qjXNuv6W+lgyCQC1tHJFxGcMF6N7l0lb7wzqOR08PUF+x13wmw/L2yPUolpCOPpShS
-         EWdA==
-X-Forwarded-Encrypted: i=1; AL+hErHaKCQ5eZPUpXbWKcIQWxf30zWDBOC31yV2svo5S+dpwGhbGAP/2KjJ4WmkqULn9jPgxX8WqQ48zqqs@vger.kernel.org
-X-Gm-Message-State: APuU4Z/jAHNWKIlnZBxf4GJfBDf+jUoHh9+GMJDsmPySvszQhT9Q16aY
-	GRdjUOOFG4KUS+eEXE+8xYsryuPtGXoY75WT7q9NZxVGjQMU7tQDnjQ4
-X-Gm-Gg: AYBFou1N/lwYDr3liY+ZXFLKELarmdEvlHJecnipSjAN7Mss8guZIFbdSiFTccnxxnT
-	h3/DmNVNSO8SsCbmKchWDr6v4CZXp/ha2vZ7qdBAX8sA0B6JWdzjZaiEdW2LoUFG9V4HpaUfAvN
-	YDvfS2t7Ku4KL6kMzbunWtL7MnXPsugUb0F/BD4G+2RsigmEeVTdCARbS2r9rppvHhgrgLMxT4l
-	6RYcDkwEC0r1NLXq6L+cV5BwNCvN9oTbTnCbeqdoCfG+bnJ7TxaBz6vgJZmPr9HDBVzqML1af59
-	qo4ZgQnlNYy5ciTQKlQgu5yLYIcMXajQFX47sD889Bfri53VeS5w0d1JwK+q8pmKZZST1ko/xgH
-	VsMbVGxaGd580lKjC9C7VZAJS9oypClg7otLbY4tg6rJ5nzPNXsgJ3rk4kbBAaNL5XVV3XMnvNz
-	S+qP1DQQUvVFY7xvpftFMFMkDqIZugcXoV8sr7nOOtD70cCPBjGNNc1wQfqkgXT1i0TsmCoZQZs
-	GArQeDdmwCGcF1dKkViaK6khl3OqclyPAzZ1o1ZGKu+5BuqJxrYQsURMXxqc3yUKknFg8Ibl8ka
-	Ys/wVrkiYf1OHy4tHS9e47JHznytCU89bS4Mi8yea1ljxfu1eDjqRLuZ/mvKpju7uDibR7CLDVd
-	vzmJv+d6Y4wX3IdRH7CeaDUYP9YFRIu7GEMArQfWFqDP0XMNLCtFGwKxNTikZKadeAPgXDBNS6R
-	uNEJzquA0m9KnY/PM65pYvN3pP06uST+nnoY0+/ZLI46aO8JpD6+m3
-X-Received: by 2002:a05:6808:4f1f:b0:4bc:fbd4:2a43 with SMTP id 5614622812f47-57a0bb6eea6mr5839190b6e.41.1795223489248;
-        Fri, 20 Nov 2026 17:11:29 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a3485e3ecsm3291532b6e.9.2026.11.20.17.11.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 17:11:28 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 20 Nov 2026 18:10:47 -0700
-Subject: [PATCH v11 24/26] mtd: rawnand: sunxi: reset the H616 data path
- after DMA aborts
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=COia/9Fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795225905; x=1826761905;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IwahHoB4S9ZhcNncbWPcEfTPsCZcT9vB1MtXpBP03/g=;
+  b=COia/9FayfUhZoHlHdDA7chh9woWIpsKfUytj5ByoamJt+IU9+pJTYIw
+   EdzwQC75k58UmKbSre01rx9RpPO4VmLI/yMjComA6x1LwJO0pt97GOKxH
+   RvQgA7Jy0P/BssQ1WXIgEoszMVD6Gv6899U78cgTe1Yh2IugbQtHmkCYZ
+   bdOuET67gvPyGWMLNaGQogoqrQARoLWJqiKwVNyzW/NEdBejvz4HJ8aCv
+   AXNurzIhD3U1OA0C6tuGZioLeF/Ou5tMjMKrN/FK1XTPbH6agv4dbBmUz
+   hntBeKh9PueulgYE91p1BevW0DeY1+JbrEFQ5Yx802CXi89Y+3nC0yeFB
+   A==;
+X-CSE-ConnectionGUID: b1zHbiI9SqeIjhhMNxxG2A==
+X-CSE-MsgGUID: WLw1KYsDQuaMsHAyO3S8rg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4154313"
+X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; 
+   d="scan'208";a="4154313"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 17:51:44 -0800
+X-CSE-ConnectionGUID: AAmMxKbUSX+u0wxTw78PUQ==
+X-CSE-MsgGUID: NUWuXceNRh+Tm3I+RLBZpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; 
+   d="scan'208";a="10914179"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 20 Nov 2026 17:51:38 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xUaGM-00000001JC7-0LGj;
+	Sat, 21 Nov 2026 01:51:34 +0000
+Date: Sat, 21 Nov 2026 09:51:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-sound@vger.kernel.org,
+	Olivier Moysan <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH v2 08/11] iio: adc: stm32-mdf: add dma buffered
+ acquisition support
+Message-ID: <202611210936.q9qVaCjc-lkp@intel.com>
+References: <20261118-upstream_mdf_v2-v2-8-7939d3c3720a@foss.st.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,288 +105,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-submit-sunxi-nand-vendor-oob-layout-v1-v11-24-9721b1905ef4@gmail.com>
-References: <20261120-submit-sunxi-nand-vendor-oob-layout-v1-v11-0-9721b1905ef4@gmail.com>
-In-Reply-To: <20261120-submit-sunxi-nand-vendor-oob-layout-v1-v11-0-9721b1905ef4@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- James Hilliard <james.hilliard1@gmail.com>
-Cc: Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- Richard Genoud <richard.genoud@bootlin.com>, 
- Boris Brezillon <bbrezillon@kernel.org>, 
- Masahiro Yamada <yamada.masahiro@socionext.com>, 
- Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- devicetree@vger.kernel.org
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118-upstream_mdf_v2-v2-8-7939d3c3720a@foss.st.com>
 
-Resetting an active H616 MDMA read with NFC_CTL.RESET can leave the first
-1 KiB of the next read displaced. Both raw and ECC reads are affected,
-including reads for which ECC reports success. Reissuing the NAND read
-command and restoring the visible controller configuration do not correct
-the internal data-path state. The DMA read error path can therefore return
-incorrect data when it retries through PIO.
+Hi Olivier,
 
-Pulse the controller's exclusive AHB reset after stopping an H616 DMA
-operation. Drain interrupts before resetting the registers and clear the
-pending events before accepting another command. The next operation
-selects its chip and restores the page layout and timings; reads retry
-from a fresh whole-page setup, while interrupted writes return an error.
+kernel test robot noticed the following build warnings:
 
-Require the AHB reset at probe and exercise it before accepting
-transfers. An H616 device tree that omits the named reset will no longer
-probe, including for PIO reads and writes. Perform the AHB reset before
-releasing the DMA mapping. This relies on the H616 CCU reset callback,
-which asserts and deasserts the reset through register updates and
-returns success. The reset handle pins the provider module, and the CCU
-driver suppresses sysfs unbinding.
+[auto build test WARNING on d922ed738439e1d5b4701df7f4cdd49a09925624]
 
-If recovery fails, return the reset error without retrying the read in
-PIO. Leave the IRQ disabled and reject subsequent NAND commands before
-accessing the registers. Error propagation is not a substitute for
-stopping DMA if the supported reset provider contract is violated.
+url:    https://github.com/intel-lab-lkp/linux/commits/Olivier-Moysan/dt-bindings-iio-adc-add-stm32mp2-mdf-filter/20261118-161746
+base:   d922ed738439e1d5b4701df7f4cdd49a09925624
+patch link:    https://lore.kernel.org/r/20261118-upstream_mdf_v2-v2-8-7939d3c3720a%40foss.st.com
+patch subject: [PATCH v2 08/11] iio: adc: stm32-mdf: add dma buffered acquisition support
+config: csky-allmodconfig (https://download.01.org/0day-ci/archive/20261121/202611210936.q9qVaCjc-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261121/202611210936.q9qVaCjc-lkp@intel.com/reproduce)
 
-Select the stronger recovery through H616 capability data, leaving older
-controllers' abort sequences unchanged.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611210936.q9qVaCjc-lkp@intel.com/
 
-Fixes: 5ee37db34637 ("mtd: rawnand: sunxi: add H616 MBUS DMA support")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/nand/raw/sunxi_nand.c | 98 ++++++++++++++++++++++++++++++++-------
- 1 file changed, 81 insertions(+), 17 deletions(-)
+All warnings (new ones prefixed by >>):
 
-diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index abea2ab0cc42..a722636f2e15 100644
---- a/drivers/mtd/nand/raw/sunxi_nand.c
-+++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -318,6 +318,7 @@ struct sunxi_nfc_user_data_layout {
-  * @has_ecc_block_512:	If the ECC can handle 512B or only 1024B chunks
-  * @has_ecc_clk:	If the controller needs an ECC clock.
-  * @has_mbus_clk:	If the controller needs a mbus clock.
-+ * @needs_bus_reset:	Aborted DMA needs an AHB reset to restore data ordering
-  * @layout: protected user-data layout for the controller
-  * @reg_io_data:	I/O data register
-  * @reg_ecc_err_cnt:	ECC error counter register
-@@ -346,6 +347,7 @@ struct sunxi_nfc_caps {
- 	bool has_ecc_block_512;
- 	bool has_ecc_clk;
- 	bool has_mbus_clk;
-+	bool needs_bus_reset;
- 	const struct sunxi_nfc_user_data_layout *layout;
- 	unsigned int reg_io_data;
- 	unsigned int reg_ecc_err_cnt;
-@@ -389,6 +391,7 @@ struct sunxi_nfc_caps {
-  * @use_mdma: use an internal MBUS DMA backend
-  * @mdma_desc: H6-style MBUS DMA descriptor
-  * @mdma_desc_dma: DMA address of @mdma_desc
-+ * @recovery_failed: reject further operations after unsuccessful recovery
-  * @caps: NAND Controller capabilities
-  */
- struct sunxi_nfc {
-@@ -409,6 +412,7 @@ struct sunxi_nfc {
- 	bool use_mdma;
- 	struct sunxi_nfc_mdma_desc *mdma_desc;
- 	dma_addr_t mdma_desc_dma;
-+	bool recovery_failed;
- 	const struct sunxi_nfc_caps *caps;
- };
- 
-@@ -621,16 +625,50 @@ static void sunxi_nfc_dma_op_cleanup(struct sunxi_nfc *nfc,
- 				     struct scatterlist *sg)
- {
- 	dma_unmap_sg(nfc->dev, sg, 1, ddir);
-+	/* Do not access controller registers after failed recovery. */
-+	if (nfc->recovery_failed)
-+		return;
-+
- 	writel(readl(nfc->regs + NFC_REG_CTL) & ~NFC_RAM_METHOD,
- 	       nfc->regs + NFC_REG_CTL);
- }
- 
--static void sunxi_nfc_dma_op_abort(struct sunxi_nfc *nfc)
-+static int sunxi_nfc_dma_op_abort(struct sunxi_nfc *nfc)
- {
--	if (nfc->use_mdma)
--		sunxi_nfc_rst(nfc);
--	else
--		dmaengine_terminate_all(nfc->dmac);
-+	int ret;
-+
-+	if (!nfc->caps->needs_bus_reset) {
-+		if (nfc->use_mdma)
-+			sunxi_nfc_rst(nfc);
-+		else
-+			dmaengine_terminate_all(nfc->dmac);
-+		return 0;
-+	}
-+
-+	/* Drain the handler before resetting its registers. */
-+	disable_irq(nfc->irq);
-+	writel(0, nfc->regs + NFC_REG_INT);
-+	readl(nfc->regs + NFC_REG_INT);
-+
-+	/* A soft reset alone can leave the first subsequent read displaced. */
-+	sunxi_nfc_rst(nfc);
-+	ret = reset_control_reset(nfc->reset);
-+	if (ret)
-+		goto failed;
-+
-+	writel(0, nfc->regs + NFC_REG_INT);
-+	writel(NFC_INT_MASK, nfc->regs + NFC_REG_ST);
-+	readl(nfc->regs + NFC_REG_INT);
-+	enable_irq(nfc->irq);
-+
-+	/* The next operation selects the chip and restores its timing and layout. */
-+	return 0;
-+
-+failed:
-+	/* Keep the IRQ disabled and reject commands after failed recovery. */
-+	nfc->recovery_failed = true;
-+	dev_err(nfc->dev, "NAND controller recovery failed: %d\n", ret);
-+	return ret;
- }
- 
- static int sunxi_nfc_select_chip(struct nand_chip *nand, unsigned int cs)
-@@ -642,6 +680,9 @@ static int sunxi_nfc_select_chip(struct nand_chip *nand, unsigned int cs)
- 	u32 ctl;
- 	int ret;
- 
-+	if (nfc->recovery_failed)
-+		return -EIO;
-+
- 	if (cs >= sunxi_nand->nsels)
- 		return -EINVAL;
- 
-@@ -1464,8 +1505,14 @@ static int sunxi_nfc_hw_ecc_read_batch_dma(struct nand_chip *nand,
- 	       nfc->regs + NFC_REG_CMD);
- 
- 	ret = sunxi_nfc_wait_events(nfc, wait, false, 0);
--	if (ret)
--		sunxi_nfc_dma_op_abort(nfc);
-+	if (ret) {
-+		int abort_ret = sunxi_nfc_dma_op_abort(nfc);
-+
-+		if (abort_ret) {
-+			sunxi_nfc_dma_op_cleanup(nfc, DMA_FROM_DEVICE, &sg);
-+			return abort_ret;
-+		}
-+	}
- 
- 	sunxi_nfc_randomizer_disable(nand);
- 	sunxi_nfc_hw_ecc_disable(nand);
-@@ -1514,7 +1561,7 @@ static int sunxi_nfc_hw_ecc_read_chunks_dma(struct nand_chip *nand, u8 *buf,
- 	return ret;
- 
- err_stats:
--	/* The caller retries the whole read in PIO mode. */
-+	/* A PIO retry must not count completed DMA batches twice. */
- 	mtd->ecc_stats.corrected = corrected;
- 	mtd->ecc_stats.failed = failed;
- 	return ret;
-@@ -1648,6 +1695,7 @@ static int sunxi_nfc_hw_ecc_read_page(struct nand_chip *nand, u8 *buf,
- static int sunxi_nfc_hw_ecc_read_page_dma(struct nand_chip *nand, u8 *buf,
- 					  int oob_required, int page)
- {
-+	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
- 	int ret;
- 
- 	ret = nand_read_page_op(nand, page, 0, NULL, 0);
-@@ -1656,7 +1704,7 @@ static int sunxi_nfc_hw_ecc_read_page_dma(struct nand_chip *nand, u8 *buf,
- 
- 	ret = sunxi_nfc_hw_ecc_read_chunks_dma(nand, buf, oob_required, page, 0,
- 					       nand->ecc.steps);
--	if (ret >= 0)
-+	if (ret >= 0 || nfc->recovery_failed)
- 		return ret;
- 
- 	/* Fallback to PIO mode */
-@@ -1677,6 +1725,7 @@ static int sunxi_nfc_hw_ecc_read_subpage_dma(struct nand_chip *nand,
- 					     u32 data_offs, u32 readlen,
- 					     u8 *buf, int page)
- {
-+	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
- 	int first_step = data_offs / nand->ecc.size;
- 	int end_step = DIV_ROUND_UP(data_offs + readlen, nand->ecc.size);
- 	int ret;
-@@ -1686,7 +1735,7 @@ static int sunxi_nfc_hw_ecc_read_subpage_dma(struct nand_chip *nand,
- 		return ret;
- 
- 	ret = sunxi_nfc_hw_ecc_read_chunks_dma(nand, buf, false, page, first_step, end_step);
--	if (ret >= 0)
-+	if (ret >= 0 || nfc->recovery_failed)
- 		return ret;
- 
- 	/* Fallback to PIO mode */
-@@ -1828,9 +1877,10 @@ static int sunxi_nfc_hw_ecc_write_page_dma(struct nand_chip *nand,
- 		else
- 			ret = nand_prog_page_begin_op(nand, page, 0, NULL, 0);
- 		if (ret) {
--			sunxi_nfc_dma_op_abort(nfc);
-+			int abort_ret = sunxi_nfc_dma_op_abort(nfc);
-+
- 			sunxi_nfc_dma_op_cleanup(nfc, DMA_TO_DEVICE, &sg);
--			return ret;
-+			return abort_ret ?: ret;
- 		}
- 
- 		/* exec_op() restores the page's spare base during column changes. */
-@@ -1856,8 +1906,14 @@ static int sunxi_nfc_hw_ecc_write_page_dma(struct nand_chip *nand,
- 		       nfc->regs + NFC_REG_CMD);
- 
- 		ret = sunxi_nfc_wait_events(nfc, wait, false, 0);
--		if (ret)
--			sunxi_nfc_dma_op_abort(nfc);
-+		if (ret) {
-+			int abort_ret = sunxi_nfc_dma_op_abort(nfc);
-+
-+			if (abort_ret) {
-+				sunxi_nfc_dma_op_cleanup(nfc, DMA_TO_DEVICE, &sg);
-+				return abort_ret;
-+			}
-+		}
- 
- 		sunxi_nfc_randomizer_disable(nand);
- 		sunxi_nfc_hw_ecc_disable(nand);
-@@ -2794,11 +2850,18 @@ static int sunxi_nfc_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--	nfc->reset = devm_reset_control_get_optional_exclusive(dev, "ahb");
-+	if (nfc->caps->needs_bus_reset)
-+		nfc->reset = devm_reset_control_get_exclusive(dev, "ahb");
-+	else
-+		nfc->reset = devm_reset_control_get_optional_exclusive(dev, "ahb");
- 	if (IS_ERR(nfc->reset))
--		return PTR_ERR(nfc->reset);
-+		return dev_err_probe(dev, PTR_ERR(nfc->reset), "failed to get AHB reset\n");
- 
--	ret = reset_control_deassert(nfc->reset);
-+	/* Exercise the recovery reset operation before accepting DMA transfers. */
-+	if (nfc->caps->needs_bus_reset)
-+		ret = reset_control_reset(nfc->reset);
-+	else
-+		ret = reset_control_deassert(nfc->reset);
- 	if (ret) {
- 		dev_err(dev, "reset err %d\n", ret);
- 		return ret;
-@@ -2908,6 +2971,7 @@ static const struct sunxi_nfc_caps sunxi_nfc_h616_caps = {
- 	.has_mdma_desc = true,
- 	.has_ecc_clk = true,
- 	.has_mbus_clk = true,
-+	.needs_bus_reset = true,
- 	.reg_io_data = NFC_REG_A23_IO_DATA,
- 	.reg_ecc_err_cnt = NFC_REG_H6_ECC_ERR_CNT,
- 	.reg_user_data = NFC_REG_H6_USER_DATA,
+>> drivers/iio/adc/stm32-mdf-adc.c:1781:12: warning: 'stm32_mdf_adc_resume' defined but not used [-Wunused-function]
+    1781 | static int stm32_mdf_adc_resume(struct device *dev)
+         |            ^~~~~~~~~~~~~~~~~~~~
+>> drivers/iio/adc/stm32-mdf-adc.c:1766:12: warning: 'stm32_mdf_adc_suspend' defined but not used [-Wunused-function]
+    1766 | static int stm32_mdf_adc_suspend(struct device *dev)
+         |            ^~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/stm32_mdf_adc_resume +1781 drivers/iio/adc/stm32-mdf-adc.c
+
+  1765	
+> 1766	static int stm32_mdf_adc_suspend(struct device *dev)
+  1767	{
+  1768		struct iio_dev *indio_dev = dev_get_drvdata(dev);
+  1769		struct stm32_mdf_adc *adc = iio_priv(indio_dev);
+  1770		int ret = 0;
+  1771	
+  1772		if (iio_buffer_enabled(indio_dev))
+  1773			ret = stm32_mdf_adc_predisable(indio_dev);
+  1774	
+  1775		regcache_cache_only(adc->regmap, true);
+  1776		regcache_mark_dirty(adc->regmap);
+  1777	
+  1778		return ret;
+  1779	}
+  1780	
+> 1781	static int stm32_mdf_adc_resume(struct device *dev)
+  1782	{
+  1783		struct iio_dev *indio_dev = dev_get_drvdata(dev);
+  1784		struct stm32_mdf_adc *adc = iio_priv(indio_dev);
+  1785		int ret;
+  1786	
+  1787		regcache_cache_only(adc->regmap, false);
+  1788		ret = regcache_sync(adc->regmap);
+  1789	
+  1790		if (!ret && iio_buffer_enabled(indio_dev))
+  1791			ret = stm32_mdf_adc_postenable(indio_dev);
+  1792	
+  1793		return ret;
+  1794	}
+  1795	
 
 -- 
-2.53.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
