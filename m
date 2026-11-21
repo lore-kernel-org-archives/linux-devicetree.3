@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.216.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795299673;
-	b=0jurS02kW1w94uZH4fVg2kkU8iiPh3Ak/OyuZTGyORD73T/n9Yohh1lbkWvsITLnOEwx
-	 /N9T5sWl2T8AFBTmSfVyCJI3q6hcHc1IjhHzkMeFmBUPezkTldoPuvk3H08fwIgYaH7FG
-	 E73KKr0N38DNmQEuxFNN0zmnDW9vTxnJoYGzsWCzUa7HU4xD/JgPCJHXKosBjM6tlVnby
-	 S/WIOZZKV6mZTuaA5XarL/FuIMXkBDZuxoooLYOU+JVbFAXkb9TE7vyWXMaRDlaK88D9r
-	 1YUl4/payXK/B79L2BAvO4AC8+KgAbZCHCiBMwYNbAQ+duJdisf6eVTiKpV3AqA1Pyw==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795300703;
+	b=xBltGFJmgIUkapub9r1f2SmLmJ3M1Y2DsCgfknhgTp7BNurFl+k+LhxJblU8yRwMtlMK
+	 Uy+5EYHNK1hV8BmXbrGW0TALyCSygeqMnqtHj6IPi1r7TAPpQNRFacp9M65rG/pORQr36
+	 8lIUUnHOtWOvWVtk3PVPX7mPbkbnJOE4JXkSiDJ36V/KovJTfE4lc693JpjgySFIxkQhq
+	 rymM/fIOzAOy0c+HemlLos8nDtcHOLmPxz7CooioMVaJ9+kojF7E/w+nkgTSUdkIAbdWS
+	 wKouGhg8rKafSrxspx7TNxAYvVNQ746Q0CTPrvNbFGG6cW3XVWLPGqXKCAxSfHvq/aw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795299673;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Content-Type;
-	bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
-	b=vnZJTkcAgnL4P/a+l2XJqzeuiP0FW2z1eEt0VSaKQUOkrb4TSxluJiOV97ncBxs6lm1u
-	 klGqJ9d4SoWTGQ95jkR27Lt75kCemXgwgYc+Ib8KWYk1z1nYyVNWAFQCM/zPy7tQEESGA
-	 adHdhqjuh9oP0HuGjvMt1YQCKiGba9f5u02riNJY7ZyFLhLLbxtNY24l8uQWTwKb6fRQR
-	 qukTafVs11GAJ/BnaWuHJmg49mXoGvLXV2VHumg+vbNPIzHDWPudl3uevLwuyWIxrE76+
-	 LsEhOR2aey0amQyBatsllVYYFUIlWX1ymUr7SQ/VttGIK3KgIbWeBcC2eaRc5001r2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795300703;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=13Dyskqir//9BHMMxdYCYBsJ2RlGl0LeC/LKP06Z4ac=;
+	b=mnI6k/AADNguNgPAeqWto3E0peR4RKXWLQncmAhFYN1bC5365OtBvhDeTN66xZRh4Jr1
+	 apulYqPoxI2Rt3ExZLVhpzOaHmk6LdCcBsk+7iae5AC0K5LUThAhojGno5unJ8qP7aDPD
+	 QECemD34tIHXtqEALMiCvXr9KJ/T8aaP/ckauiHz/12R+7u13RXX84c1Hs9ie2ETHXjju
+	 VutUZh9oc6jE4mrogS1v//s9jnXtyRvJB5FJ5oikEOsketxItk8u+G3Y8xFq5mndmjNGf
+	 Rhp4rWqw7J9xTOme/WVjiClGugjgH4BIORUXZFAdneSdqrPC1FPzG4c3jVDxoaCDZyg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="eNxPlR/g";
-	arc=fail smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pv7QgaTA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35149606A336;
+	Sat, 21 Nov 2026 22:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pv7QgaTA
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795300703;
+	b=wiw26EtJ1YMg8SO1xqXA47FzTKoFQUR6U55LfhBpTikl9qU15lnDPfvUTr28DcoJ5Rhu
+	 RoIJnUMXenZFzbyjPa4Dx76KDJsUzIvcBql2ilBiJxAV36PvjPnOpijSjioftf3SAUOcl
+	 jFOKBAIJtjf7+NXZi/tbcea73EKD7PZJAqOSl7IsOjNFiNXVeQMvkSeF749LDZTVY0Yo1
+	 ppqopGdFdQ6VL4kLjt3edkeRDdjkgsNJo9MgCUSnpEd5tPkHjsbcj9eCgAaA7EcY64Pa6
+	 EhjBeMODZwjGfzw7PktZF9wmfx18C0fS+8RhF4IOhvsACZAfv58yQnr8MdlzAputjyw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795300703;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=13Dyskqir//9BHMMxdYCYBsJ2RlGl0LeC/LKP06Z4ac=;
+	b=G1QUgFvPzMBj6BHiAsbRYDbgf3gTaO2P1xDBIhGNdNWnVR2+OhA2ISkAyvGjBheHRPvs
+	 4szSxovzCSTKD+38jitxPXrI8RjoHLFB5v4DY01uLfEnnPrIKpDa4DxuYEKNZwoY1TZKM
+	 XKCxdRyr5lHNxO5VCfq0KFtW/m9CG8kPZ7k60Agg5RdV1qycjtjYAlsxOA5reIRSyJ4TF
+	 DHGsXqPAnKDcOyqTr8nr+a9JlbyGQtHAEkhVeBYUCNMIvL6mPUbH7EXeihBRHz5E7GpPK
+	 luwh6AHbiOrSeIOq4wLsqTJDZ5+TjkJ/BwFaJuMeTDkZF8p9kPlO5B4eCChiCX5Agkg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28E1606A32C
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 22:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B28E1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eNxPlR/g
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b41e5a1719so799196a91.3
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 14:21:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795299672; cv=none;
-        d=google.com; s=arc-20260327;
-        b=er2dGNzbhucICdscmTMcLyLZC4nskiY4tK+9Zwd8ZW+gU7zDL8bQNLgnuFSR8uM7Dc
-         z6IMe0/eBautqInAWCvyRD91iLJD9pxpfV09n0pXnTnjidZ8CKJuo0E56tpdS1hYcMDh
-         pmm7LHAW3/briekGDcHcx1Dohp4Wu9rJkt3Ylxc+LLrPTppt5VW8iMOYW6KQnAd/yrUX
-         AKvspAV/57vD4TaTrX9h1wTGsWD36CWcELkhLjxX34dQib69/EC4C46VVTbFASPx95rd
-         iMTAAQoAPwhlwK/5I8NbfJ1YaVYDB0z9H73h0yuEpSlr2iEevmGXBeXtFMli1SHWUZC3
-         un/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
-        fh=B/b/v2EBiz+D1VNBnb5mj3j9mmaURuFHdyMOpy3NeA4=;
-        b=T4ajLNNOHM6r9yuZUHxHwM1e+DmdtaZHy9MKWxEd0i7CNnHLIMlB/Grfnx4DZE/3i2
-         qtL+T8oIKYnHreyNTWByUg4XxghzgSQt5YETXHKO/o0MFGvZuk9KOgRLUkCr919is33R
-         8Wy9gWb+uQwaBe78DfY3lE3PdQAF2zgIhejTCyFPxpkgvBHsfpfsSlkyl4zz+LGYfiqX
-         +FhurCb6k/n/ePWcdSYfSsOf6x6tlq0lYZyFvjyqHnyHgI45MdGv/TNviAgcay1vvtPR
-         5rEJvAlbyHA6MWLXs4ua+aHGkjnNwIym95gi5b60b0Tq5vY0QbHUmX3bXUs6z6dUd/aZ
-         zWhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795299672; x=1795904472; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
-        b=eNxPlR/gmFsp9E5slMfUGlzAXHTjBEwdCsPq3joo6TCrIWWLOOBFMhMqnqyshtkoBO
-         cLglt3f3s2gHHs3x2Y+HesRznH5u/M0gi4q7hbVgCx/kSvYE690L6ZKSL/Omj7gHGvtO
-         58BtaJ2/DjDcMpnM7Rjb7AmMzF0uxqlG9CzQIjDODJbEUOuyBRb8FBeWtIKQ10SmsmCz
-         zXSJIt6gWTQYXnXWMOOMC7iwN1y+Tg+HbY1Syig/gldz8p+pukJOhx4jLlHQyng7q8Hg
-         O4YdLSiOJl9x+xsSDN2J730Ti9Xg8L1YrjxehYTBmf8YHiNJQahpsabsHtIZLCiPV0e3
-         DENA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795299672; x=1795904472;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
-        b=ezmO3AjJ5RW+wBJ4RK1cJgqKYP8KuBDFTKAdTD4iuxIJAIZ2+g2NccEtGUj0ZTyzM4
-         uGRbpw0COsMrVhLmJq7EpyKiOwE6D3bDfoS0+4GDWpTZKXurBemycQoLUsFKfXATi1WG
-         STYcehqrUkwEjeKdOimEYg1RTD6Zh0tmWRP7FthYATzSqwSYhx5H59biIf0ePzOVZgty
-         uEC530pTWISFV344z/mG117mFM2Q8GqYqwaJoMd+ypKZDAZXVIuiD2GMG2T3moLl01Fp
-         gTZMd0lTFTvO3SUEweCpoDaZQXde97FhD3LhBoT2CD8QZabYU5ETWfZEOKKjZb/g9xTj
-         LR0w==
-X-Forwarded-Encrypted: i=1; AL+hErEvpYcGKq996XJRYLL2x/XydPxYvp0XuMX9AA1+kDWHUZgal+RUEVTPeaeys9Fpbf2KbQj4X8v0iAfM@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fDNquxPAQqusufckB732xoBgF8MM4PKhoFo1f35SzD3vRE3qO
-	SQnTk3sbnmR1M2LxAILpDBTS6kF/V95EVzWTJeXvSYQceEYVlK0zsDspOoCMdv/FpvQEZlvC3tE
-	ZKWE8YoYyQs17LAd0EDsdQxoMMZhSXia2nk0y
-X-Gm-Gg: AZFdTZf0Kal5LvirLVLmnr6hz9ZSEZ7/XIBBp66MsPNbUQQ2H/oZGeiKroromek7L1s
-	Hf/F8R2fXk4Ti8DjAFTcYymdRw3YNrbE2Nn8XTKp52gm0orrughybkhPGypYLfG5HErikD5MEyD
-	jUiDK+XsTOhyaJetE8mBbDUNZGURWMMFRnw9cVeIEEYHMhz/dkFa1baoM0viN7JxFhJTBFH2juM
-	b1VMVdSoW2NnWm5kiXHagFuUj3YoYo7wCMH58v16EOlZqQNPjvyGlWUYuUECbGSSTt8D96RAmuF
-	ii1FIOc+FOFyzmKtehbAipphPYu/JhXrvjH6BgTIprjRQcx3mja25f8nKvw8s+SFre2f7WAUJgv
-	F9YOg1/O3GVNWq8MKIpcxFXMoSz1J9vu2MqmM
-X-Received: by 2002:a17:90b:2c84:b0:3ac:a203:e092 with SMTP id
- 98e67ed59e1d1-3b41c7b6864mr6590328a91.1.1795299671894; Sat, 21 Nov 2026
- 14:21:11 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 21 Nov 2026 14:21:11 -0800
+	by smtp.kernel.org (Postfix) with ESMTPS id A5E291F000D0;
+	Sat, 21 Nov 2026 22:38:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795300702;
+	bh=13Dyskqir//9BHMMxdYCYBsJ2RlGl0LeC/LKP06Z4ac=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Pv7QgaTATL0nZ1Fwb/gHlEG2UudbHpz0bbd2hYklIM4Dndb/r3NODkrd9SGzxIUkV
+	 jKRBkxdMJFlb/MH0hfJvl4FQ5uUGPoBI095PMUIpn+VjMD9+mcB/lT6mTl2t0/qgUh
+	 Cly1fnQNV4BDjuAba8TJnLLtAFtDli9CCRKYahy+wIEGL1QvG/zTbYDpi6MWJsJdNZ
+	 CZ+PHjeQYVZ2zjvpLUOYKB8L+C9dtRfmRSM7rfML5/pXO8rEO460dTRv0QE34nKJ9B
+	 nD47uGaS6vkl8fi65w/N1VyPR16+IUCIsMsBlpa1taS4TLaMoWVwbgVJNvrEnvQRQ/
+	 FaDIgtCM+gUdg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2A5334BE32;
+	Sat, 21 Nov 2026 22:38:21 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sat, 21 Nov 2026 23:37:58 +0100
+Subject: [PATCH v3 04/12] power: supply: qcom_smbx: Stop clearing software
+ control select
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,62 +83,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: geoca <geocausa@gmail.com>
-Date: Sat, 21 Nov 2026 14:21:11 -0800
-X-Gm-Features: Aa3M54oWaGiFdEs4GnyFcYKj9Je7NUEFv5NSE69434b6Hqj7oww9wqh-UlyJq4A
-Message-ID: <CA+7HbhKKt9thtbS0AR2Gi_Asm5X3pT51xEknuHreyHO2RuWuwQ@mail.gmail.com>
-Subject: Surface Pro 11 OLED: tested optional vddio for DW9800K (re: [PATCH v4 0/3])
-To: linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261121-pmi8998-vbus-v3-4-91ba2e61a877@ixit.cz>
+References: <20261121-pmi8998-vbus-v3-0-91ba2e61a877@ixit.cz>
+In-Reply-To: <20261121-pmi8998-vbus-v3-0-91ba2e61a877@ixit.cz>
+To: Abel Vesa <abelvesa@kernel.org>, 
+ Alexey Minnekhanov <alexeymin@minlexx.ru>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Markus Rathgeb <maggu2810@mailbox.org>, Rob Herring <robh@kernel.org>, 
+ Robin Snyders <robin@snyders.xyz>, Sebastian Reichel <sre@kernel.org>, 
+ Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: Richard Acayan <mailingradian@gmail.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2354; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=6d4asV1zW1ZVePGq0BeaT1hbifcETG4K6ZzsSB440gQ=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrAh1at/9Ag9Gs97NDXSbrqiKQfpjhzNIn6pcDx
+ M26XnW6/82JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawIdWgAKCRBgAj/E00kg
+ crc4D/40jWzfWyb8sl71g/6Gr37FlRGj8Tmmw/Hd82UENxIxy2/UAPZhf2hQ5VWuYW5D62Geh9H
+ bh/xyC9+KUPHzOnFXO0l8h+SrS83reM+TLefrq66/F1NpiHhlWI+iQIz1LEPWo5rHdyyQLs2aDN
+ s9C+Tp2oc2Qa+McF2ISl6Dv216gkgiRWejHcQQJv57CtDLufDD4EH6LfbT6bDPqkVZ+cfTahJ6a
+ bWBik00/sy4B/73XutHbY/IgKQ3nATxMTSe/C8fnzj8M256brgMkD/x8pmSCPL4fw5SbTRDk99j
+ M0X9q52S8A9u5in9DAWelVOCUNzsSb5x1v/1Pn86Zj7eDnKGqSlP7tUaYCo9NJ9cuPzZoTKDIEZ
+ VELT45N2rnw6nbpzP6KFPQfR6RgCQFL0VOwCSm8wTtmsOjGfq17QQHCGKdS8v5cWet31F/ZNI+e
+ mmwAAuB/LYS3Aiep9D+bFDVdNL/dHcQ3Kck2NkJ94LFqP0ShIvQ/YPLnxWriL35ypMPsJY17YBA
+ ytva9pA4/IdO/vjckbNf6nOIPvq5de+QvczNgE/hlrnCM5dY4kExg4ZpN5H6qrj5rordu9luT2G
+ xozMU2gB3JkEhGNis0/pjfIequllMKgCYVxGm2ns+2FXe//eBpUttlUTuqvYcXLq1HKjkTOWl/W
+ +xTJJUJtZghlRvA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-Hi Griffin, Sakari and all,
+From: David Heidelberg <david@ixit.cz>
 
-Resending this note in plain text because the earlier HTML-containing
-copy was rejected by both mailing lists. The individual recipients
-were already addressed separately.
+Charger should not touch OTG block registers now handled by the vbus
+driver. This change stops clearing OTG_EN_SRC_CFG_BIT (software control
+select).
 
-I have hardware results relevant to the November 19 DW9800K v4 patch
-series on the Surface Pro 11 OLED (X1E80100).
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/power/supply/qcom_smbx.c | 14 --------------
+ 1 file changed, 14 deletions(-)
 
-The actuator uses independent PM8550 L16B (2.912 V VDD) and PM8010 L6M
-(1.8 V I/O) supplies. L6M is shared with the rear OV13858 sensor's
-DOVDD.
+diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
+index c6188c915703a..a4f5ffd3cd6e5 100644
+--- a/drivers/power/supply/qcom_smbx.c
++++ b/drivers/power/supply/qcom_smbx.c
+@@ -96,28 +96,16 @@
+ #define USBIN_ICL_CHANGE_RT_STS_BIT			BIT(6)
+ #define USBIN_SOURCE_CHANGE_RT_STS_BIT			BIT(5)
+ #define USBIN_PLUGIN_RT_STS_BIT				BIT(4)
+ #define USBIN_OV_RT_STS_BIT				BIT(3)
+ #define USBIN_UV_RT_STS_BIT				BIT(2)
+ #define USBIN_LT_3P6V_RT_STS_BIT			BIT(1)
+ #define USBIN_COLLAPSE_RT_STS_BIT			BIT(0)
+ 
+-#define OTG_CFG						0x153
+-#define OTG_RESERVED_MASK				GENMASK(7, 6)
+-#define DIS_OTG_ON_TLIM_BIT				BIT(5)
+-#define QUICKSTART_OTG_FASTROLESWAP_BIT			BIT(4)
+-#define INCREASE_DFP_TIME_BIT				BIT(3)
+-#define ENABLE_OTG_IN_DEBUG_MODE_BIT			BIT(2)
+-#define OTG_EN_SRC_CFG_BIT				BIT(1)
+-#define CONCURRENT_MODE_CFG_BIT				BIT(0)
+-
+-#define OTG_ENG_OTG_CFG					0x1C0
+-#define ENG_BUCKBOOST_HALT1_8_MODE_BIT			BIT(0)
+-
+ #define APSD_STATUS					0x307
+ #define APSD_STATUS_7_BIT				BIT(7)
+ #define HVDCP_CHECK_TIMEOUT_BIT				BIT(6)
+ #define SLOW_PLUGIN_TIMEOUT_BIT				BIT(5)
+ #define ENUMERATION_DONE_BIT				BIT(4)
+ #define VADP_CHANGE_DONE_AFTER_AUTH_BIT			BIT(3)
+ #define QC_AUTH_DONE_STATUS_BIT				BIT(2)
+ #define QC_CHARGER_BIT					BIT(1)
+@@ -811,18 +799,16 @@ static const struct smb_init_register smb_init_seq[] = {
+ 	  .val = VCONN_EN_SRC_BIT },
+ 	/*
+ 	 * Disable Type-C factory mode and stay in Attached.SRC state when VCONN
+ 	 * over-current happens
+ 	 */
+ 	{ .addr = TYPE_C_CFG,
+ 	  .mask = FACTORY_MODE_DETECTION_EN_BIT | VCONN_OC_CFG_BIT,
+ 	  .val = 0 },
+-	/* Configure VBUS for software control */
+-	{ .addr = OTG_CFG, .mask = OTG_EN_SRC_CFG_BIT, .val = 0 },
+ 	/*
+ 	 * Use VBAT to determine the recharge threshold when battery is full
+ 	 * rather than the state of charge.
+ 	 */
+ 	{ .addr = FG_UPDATE_CFG_2_SEL,
+ 	  .mask = SOC_LT_CHG_RECHARGE_THRESH_SEL_BIT |
+ 		  VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT,
+ 	  .val = VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT },
 
-I added optional vddio handling to dw9719, enabling I/O before VDD and
-disabling it after VDD. This allows the actuator to probe and power
-down independently while preserving the shared sensor supply.
+-- 
+2.55.0
 
-Measured L6M enable counts during sensor/VCM use were 0 -> 1 -> 2 -> 1
--> 0. L16B powered down when the actuator closed, even while sensor
-capture continued.
 
-I combined your posted v4 driver changes with optional vddio handling
-and compiled it as an isolated module. On the physical SP11, the
-actuator bound, accepted focus positions 128/512/896/0 with matching
-readback, and autosuspended with L6M/L16B at zero enable counts. I
-restored the prior tested module afterward.
-
-I also added optional vddio-supply to the separate
-dongwoon,dw9800k.yaml introduced by v4, and binding and DT validation
-passed. A pre-v4 RFC and a post-v4 integration preview are prepared,
-but the latter is not suitable for submission until the ongoing v4 DT
-backwards-compatibility discussion is resolved.
-
-I have since also validated optional vddio directly on Oaklee v15's
-real kernel/userspace, with uninterrupted 240-frame capture through
-VCM open/close and successful subsequent camera/PM testing. The
-Oaklee-specific source and hardware evidence are here:
-https://github.com/geocausa/SP11X1ECamera/tree/wip/oaklee-v15-vddio-hardware-verified-20261121/experiments/E003-oaklee-v15-rear-vcm-vddio
-
-Upstream preview patches:
-https://github.com/geocausa/SP11X1ECamera/tree/wip/ov13858-dw9800k-l6m-vddio-untested-20261121/patches/ov13858-dw9800k-l6m-vddio/mail-ready
-
-Would you prefer optional-vddio support as a follow-up series after v4
-settles, or rolled into an updated v4 revision?
-
-These tests prove driver communication and regulator consumer
-lifetimes, not optical lens sharpness or full deep-standby power
-behaviour.
-
-Thanks,
-George
