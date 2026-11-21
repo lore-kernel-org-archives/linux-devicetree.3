@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795220813;
-	b=UZEhtVSOxFdOMBHUgTVbDGMYL4utcBlIptsKC6BfVLA1OCLjB3cBe2QCqhp761aeQUBK
-	 /K1t27n5hYdqoJi/DyCnmPr138GxZfmldpa+pxFIJDPzX+vhQW386s8RgSHQDWQJxehwc
-	 WH0GYBFMfZjbEtsEE7vO91X+7oyqtK/Udmum0rzmG0oMWvrK5GbIcCKCaC0luo+tPrdbU
-	 pnNz4ntXHuwoVCjqRTbuV4WngueAAZa7MV+qaRfsReFvozsmInVOdIK+N2HaPYpz24TtJ
-	 idMD/iqINAduSiDrpqhPtWXAO3MpTe1VDVcU6cKJJDQ/Egxdpb5rRVE6/yizP6g+YHw==
+	t=1795220814;
+	b=aFCdIDgezwIQlA9y38eKVd4RnWhiVDnpVRNHzNat0VMzk+Gpl21vVQ1nThaJhpzuKwla
+	 qyl9An0Mz89nKNCw9HvRfwAth5b9qgp0rlwPAcQGfiz0WqhhjIUg6eBd3HhaDg/basFNT
+	 B/yEWqV8ZhtlSNnyazzJx51PXvTIQ223w454OIs6eVPDn2KEAr3vKbKMk849VJG6QDPYl
+	 cAaA5tkv/PC4oJVp/h0nE5FlSnkAQAJq0Fmqsi8auKxImytuUpaqpJ3qMhgNPLtYAO8kx
+	 JOuyci0Lzqlg1rd/sSYXyTPYqrnz55XFfa6lrcekv7sElRaKeIYK8OQBBzFy1T29rTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795220813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795220814;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=/b1q6dU2ghEuyKkVha/xXxlJqHV7VS5GmIlgXY+GTpc=;
-	b=5OXMZT7XyCXtGuuigWAIFM1mK81RdgWmn2Hgg3jqi1Q9PoU7tFk5PiwgkpdqLlg4QsKv
-	 ou8H9ufQ5mVeg15INkMwSrCnTbdUjGgMN/DShcDAR+mc/ciCRyj2pMeZg7eCkm1FdJEFZ
-	 d1zEl2HeRghycbU26hbyC0UZRp7XSMFQLEq5VVTeR+fg9U2GtAT9i8BJNveEQY3bE54Ci
-	 zNJG+0hh+acfRUvcyLDT3PAG5v3UXhCazMS9oLFEUryBZlYNHtei4JJeRuddgJa63tob5
-	 99xrkBIEZu90I69QgOxgjiIVRYFurzPzYWKhHer1xLBWuFkKP89SPZ94zDKnFG7huGA==
+	bh=qC04sYESKIvNrNBC6lt71Dnq5FvwTYiC8PJsJBqyNvw=;
+	b=32PV2PV3u9FGmpECfxD0clY5LDV5scK4yWhLShDSMWoWLvAikFqF19/woLbntvhECuBL
+	 0FcIKZux8tuoDlXf3LKsac59/NXdH8hrNkpgE/trr76bIwfe9sKhSXAb9PRQhiLGqVBcN
+	 JZs5fiiCbXHgJaAVsbt9jG6D2hKTqrphG+vKXNGTvUhrK59KumUE670kUy2Q80MzhZI4Y
+	 xl4T/g4XjvMKA1pA+E8X5hPciBkBeAs81KJ5HXQ7DN8zIHyo5P7PXg4S6Tm4njL6y7Qrq
+	 ln92k7bM3fCazovgNHe3NdKNkeCffCWjHwzAMJ6KgTmGIxjPnW6NbZkwZz5oTZ0cupQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sB4WF5gD;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WvoD1Dnp;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B0F606A320
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 00:26:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38B0F606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43753606A695
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 00:26:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43753606A695
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sB4WF5gD
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b67f25e6e1so817111b3a.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:26:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WvoD1Dnp
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b2382bf051so837753b3a.3
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:26:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795220805; x=1795825605; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795220811; x=1795825611; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/b1q6dU2ghEuyKkVha/xXxlJqHV7VS5GmIlgXY+GTpc=;
-        b=sB4WF5gDSa3TjZ+X6E/RAPUAZ5s50Al0OxsDLP3uh7j1RXmXLnHpAjMDkLXMRo59hm
-         gI7FmEEueBAonsIA8Sz3/kGMEIYeu4Lr72eCRg75h9nqsLCjRfkyJJYLMrkVeULN5NuV
-         OF5mSPLVCfB0KhdBGgfqSsRrhyrb8XBBfULbkuthe3BEQQYM3qNivY4g6I01A3UqMHjc
-         oj96l6aGMSjCpUyMMuzrgoqRbKzT/903hP0HUTQADKY24N7X613KaoU65UxYiObZnnQ4
-         SbN7FxmU+FthgD6KlA+cui6X/0vHbu+HaBT03TTYYQOyp6l5eUk8OViLdBGHpVJU4TnP
-         3iBw==
+        bh=qC04sYESKIvNrNBC6lt71Dnq5FvwTYiC8PJsJBqyNvw=;
+        b=WvoD1DnpmAWUmPZagpeHn62IHX5IuFNqhV6Zt3dku28K8g3AKmoQO2BifMRbODnShS
+         C+3uEA9fktYzmNnC9IHIf/mjti5oU8l/XhBoa7bh/tG5ptTc7Q3aUNCqF3vyCQb9q9ee
+         2wkrvx6SwMDtNCTh0fSM7BvRfwJeeczHCZZdeBiJe9LryXHEvDV7Eg52chU4Z6D3vkV6
+         RS1jCmNpX+4yDi1CC85+TzqXmTOzkEC+v8oZ+87cz7p0bbUz988LoLJxlzr/tSy/N3sB
+         BZ0zckDpHdF1iRs83MUhPXSBxRyEDp9PBzGcIeuMizcVyDUR92IajohcU1WeMKxwzo2c
+         tmzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795220805; x=1795825605;
+        d=1e100.net; s=20260707; t=1795220811; x=1795825611;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/b1q6dU2ghEuyKkVha/xXxlJqHV7VS5GmIlgXY+GTpc=;
-        b=qd5qjJqvvv/GQbImX7RtAVroddnaBefL9kD3opcUzrb1dwkI80tFAbJpP1RQkgkGBh
-         Wh/zT/m1iF3txMfIqrj6L9vcx2zzXIAkPnv2TSrXbMJYVlwHrf1j4gFjcyibwh2kfn/e
-         93eiRpfviTTnDnDI/N/TxyBISQMN7HyGUuKk69BIqIdeLIKuqAuqXvhnp+Ws08PnblnA
-         cklK8yeF4gcjuDqWhWCpu/RWh8Kub3t83vEfxe/ZxG00o0SpIvQStIQ4cYdsBVZXhUTR
-         27220wYBCODm3Aw7ctxziAoN/KFVM2Gj+NIZatWV84rb6T88POXjzcAiFizGNY2RoU3i
-         lTNg==
-X-Forwarded-Encrypted: i=1; AL+hErHYeTLNGtge0RLHEz0Aehr++y2ok/jBj4WDa6GGLGc2WNZPeLvbfmkJ0XNe3PhQ2kDbUDoqIRl5I8ks@vger.kernel.org
-X-Gm-Message-State: APuU4Z91PAWyrf+No+pCulOKxIxn+5Bo8RvvThUAHcNNt3DBaMtDVnb3
-	q8b2m+E1B6PAY2iATwvBmXOGVrvFY8Wx+ApoDToUtYmGAS+r2m2ZfjGW
-X-Gm-Gg: AYBFou0J6YvVh6OpKxY2y0w3QorMYRSGgpailY2ful90z9DXXk2Y3n71FloL5WxT4Or
-	o+iSlVFQC8LmJzoHJQ3/0UqYDrWaNCN8XUMcMpYzA+JzF9ghSyZQ5EANyXhhD7FysGdEMlaaDmX
-	/xdMs2S34YeJ3kZrjn4kVWbqHImkZ6vIDp7oHVw4MYqT/5dk4ZnmcD9I4OZ9hjhlUvi+hsNaXCj
-	Ey0s3RIlSxgk7/sky5TT/f8HfDWj4Cx8en/91r8m2Ft0ntDnnVgtHcgerx2RPHH4Y2O+LXRlpgb
-	OYOEVodBjcipJ+xZSMuNxd0Vc/5oyCAgQS9Upy9WP1a1BiuOWDICnxn6XZbmhyq6vMFowIYfVRq
-	ir5JvuR98j6RRrxWPum56pAnLB9ML0CFzK+i/eV2MTpwYl/nYqX5lLcFxaaNGfmA78yseMDjZIG
-	A58+Vqhmmdr9kqnYB577dFkxnZSwK9zrui258pOptd74qj4xulb+VQs+mPsFhfC7c5PIsezNYdi
-	WByHLsc8/T1wNqD2pd0Gp2ZRG+LYCg/uFD56k5/Yl7JD9bsANbalOBP7juMfutu0MsLqpPHPYfO
-	xeR9OPy3trh2O3q2eqSYIXPivd+04rxszClwpf1uwM+qGJbAg+cyTIh1Ur0M2MeYQMQxR70ib41
-	qcibSi30S5s4uWm3hPjoH/R9oA8SrT4gMzhdQxdaiomsE+twQbWoHWj5K8sDH1wxF6ogmhzYuW9
-	YXrQ==
-X-Received: by 2002:a05:6a21:139a:b0:3fe:81b:5194 with SMTP id adf61e73a8af0-4014e45f92cmr4701665637.62.1795220805565;
-        Fri, 20 Nov 2026 16:26:45 -0800 (PST)
+        bh=qC04sYESKIvNrNBC6lt71Dnq5FvwTYiC8PJsJBqyNvw=;
+        b=XnaABFt8simFdpMzPUf3wDZwi3n9xhFSU+27TO4QhnYjve1uz3Sj2shCq+4UBPZQ2t
+         sv4e2WThlQjrJTTnJ85yrjAcpME1D72ChDIXZTHo7e6ZPhjUBV/Q2v8w/8Q4embuq/BR
+         0EcH1jBp1f7NieH5xSoczY8ySchbHu0JRmcLtzI0+X6dZAipVppztOUhmkH7w2lWNSN+
+         7A2pmIiWlVJ6hU6TdWrul0qJGC11ZGcL3D8EdECmfridSIYn+fpdp0v9TXyhxx3IcScl
+         zZ1V5KdkssGQfPS6lbw1HwV+IXW/W9R2yvJHVjPGYNgfNoPq/QNE+hQbYe78dfXvXkc9
+         ppFA==
+X-Forwarded-Encrypted: i=1; AL+hErEXnB82W1ItL33uemGWs0n0YytIxTG4Q3kkBG1kp7Y1dzGE+yfvfk9nK8DVjyZLVNk1sr+HasT7+5cx@vger.kernel.org
+X-Gm-Message-State: APuU4Z/epjKG9ZKdJAGOgKLwEWkdb3ikUsJ1ZB2KczqJ7m/VCMRXM4VE
+	J2HdmgTC7FVa7iaDzAeW8PDrEMeBbktU/J4Twe3PvX80QYGmQnE+/IIM
+X-Gm-Gg: AYBFou1B94jmoc4tbb+2ZBQ5soKO+hrXhWeOIEmRIX+eTzmll58NNmnoeGBAHEmGNfY
+	y9xff4XPCHPz4ioNQCuuTEKCaBBPeUfIAsECXk5b3jt5/ALfzemaY4PY0MMTlbWsYIoARL71gBq
+	pvBvgeUsI81AFzs2s/YJ++Rjy1KB5BqBsoenVCXyvlvu0Nkzyy2Op8eY2D264T7yk2pnKpUflTi
+	ZaTwfoxHo70YKXiMa06vbxbuFJSW4f+D8BsDUtAc1dJ8yZnAKGomxUKPyqnY20mCh4/IYngFzdb
+	Kr49qwbGM6+Oc0fbZps7T8mM5BQtWMwMdGZLWij6/uxAFzY+VBGf5ExpBYN1joE2WpMKsi0LSWe
+	Snc0Cas/Yef9RI9+wpCFGcoWzOQZYvyYHIoX6na67K5qfudBxsIKfWEWoCt8vT3s6hj0Y1W92or
+	Ux//CccEeXZnAqAVdccWTSrop+FTvnUWD/jri9JP390+/2par2Kc0n13IVo07SGwzmYpFF0Bdbe
+	fJiso+Hs1DZtHv9msvKf5369k9BJf+z15W+m/8t7AI1T4rpu4578n1P3O8mld6Y7L67THJyLfuK
+	2ncDdsHBo51TJNUYX7Vkac8P//gdeJhclcWBVqEVzr1Q7J6SbL+szg/TT5H9Mo/1yD3KmxuEc3T
+	w5xOuInMLLrplzf/AGyAC0c5IMreG9qbKS6ZAi0b/WqscqvFVobzB7Yj9rTpIQKD7jC1ekaniiE
+	yaRpCPOfxhEdxq2B5CU4NnOT4=
+X-Received: by 2002:a05:6a21:a97:b0:3f8:87a0:9267 with SMTP id adf61e73a8af0-4014cf529f1mr4954906637.62.1795220810578;
+        Fri, 20 Nov 2026 16:26:50 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm1925230a12.8.2026.11.20.16.26.44
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm1925230a12.8.2026.11.20.16.26.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 16:26:44 -0800 (PST)
+        Fri, 20 Nov 2026 16:26:50 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Hauke Mehrtens <hauke@hauke-m.de>,
@@ -91,9 +91,9 @@ Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
 	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v3 13/22] ARM: dts: BCM5301X: R8500: add nvram node
-Date: Fri, 20 Nov 2026 16:25:53 -0800
-Message-ID: <20261121002603.25254-14-rosenp@gmail.com>
+Subject: [PATCH v3 16/22] ARM: dts: BCM5301X: WZR-1750DHP: specify switch
+Date: Fri, 20 Nov 2026 16:25:56 -0800
+Message-ID: <20261121002603.25254-17-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261121002603.25254-1-rosenp@gmail.com>
 References: <20261121002603.25254-1-rosenp@gmail.com>
@@ -108,48 +108,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add it and assign its et2macaddr cell to gmac2, so the MAC address
-doesn't have to be set from userspace.
+Add labels to clarify which port is what.
 
-The nvram partition follows the 512 KiB boot partition and is 1.5 MiB,
-as on the other Netgear Northstar boards.
+Use port 5 (gmac0) as the CPU port. No MAC address is described for the
+board, so gmac2 would get the SPROM fallback et2macaddr, which these
+boards do not set, while gmac0 gets et0macaddr.
 
-gmac2 connects to switch port 8, the switch's IMP port, which the next
-patch makes the only CPU port.
+The port mapping is taken from OpenWrt.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../boot/dts/broadcom/bcm47094-netgear-r8500.dts   | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ .../broadcom/bcm4708-buffalo-wzr-1750dhp.dts  | 38 +++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-netgear-r8500.dts b/arch/arm/boot/dts/broadcom/bcm47094-netgear-r8500.dts
-index 76d562610654..d312afdb750f 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-netgear-r8500.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-netgear-r8500.dts
-@@ -22,6 +22,15 @@ memory@0 {
- 		      <0x88000000 0x18000000>;
- 	};
- 
-+	nvram@1c080000 {
-+		compatible = "brcm,nvram";
-+		reg = <0x1c080000 0x180000>;
-+
-+		et2macaddr: et2macaddr {
-+			#nvmem-cell-cells = <1>;
-+		};
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -94,3 +103,8 @@ button-rfkill {
+diff --git a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts
+index 95ef6ca7210b..459ed246030b 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts
+@@ -149,3 +149,41 @@ &spi_nor {
  &usb3_phy {
  	status = "okay";
  };
 +
-+&gmac2 {
-+	nvmem-cells = <&et2macaddr 0>;
-+	nvmem-cell-names = "mac-address";
++&srab {
++	status = "okay";
++
++	ports {
++		port@0 {
++			label = "lan1";
++		};
++
++		port@1 {
++			label = "lan2";
++		};
++
++		port@2 {
++			label = "lan3";
++		};
++
++		port@3 {
++			label = "lan4";
++		};
++
++		port@4 {
++			label = "wan";
++		};
++
++		port@5 {
++			label = "cpu";
++		};
++
++		port@7 {
++			status = "disabled";
++		};
++
++		port@8 {
++			status = "disabled";
++		};
++	};
 +};
 -- 
 2.56.1
