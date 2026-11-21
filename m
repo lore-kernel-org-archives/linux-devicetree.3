@@ -1,68 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795295457;
-	b=yKUp0AoTJJNbJ6pVeMzuutIDLA26fk2CmccRXGrZrs0QWdsJNryjR25LCNgbFbW4+qU7
-	 x4PMKEQvKBogRgARJin8ubtaLlW6effAeb2/Y8iQ8cqiupOM6iMe5/JKrAq3uMQg7yjU1
-	 2WlOg3dENjuB9P0NC7xK15hANkI/gvS5diUbe/HgEYwVsy7Y7w079BRpFcPk0A5ufnH92
-	 eDQyJRU4EW5fTi3ZQ+ICgDa95I3s13vU1k9jwCqmhD06nYB6TkkQ5UALbum50F/THn6AJ
-	 BAhDDu/SX6JB6maHZ7pAaxfnA16XRh3R8XoBJjE5fr1nlICrcuk+g03X2OpZZilN8Aw==
+	t=1795295771;
+	b=FiyVP3tO5Pdh0II2bLVk54VuEO31YYcb0gqSf0/V5NR/O94cj5vTHqBtyR8l4Kaf74Ct
+	 xxLniWM1ZJdOsC/HMu3ublOpaLjX2rFpnmIOXtYxE5qtq4BWdfpjEUCDhafZ6gSLg1Qf5
+	 kDescBxYBNockSXWHtj5EualZ9H8XM12I9gTM0AwVQSD/gLTBHJ+9pNb2mRFriN7dOGKX
+	 CjWOjG4/k4f681EOAikbpu9jlSC6tGT3mzs0ghq780EawV0DNucoc9pzF6CPOfPoZ66GK
+	 qaSCaLGNqhnFuowDIs2FQleM9QUkwMv4Y3tuB5D61F/mv5JK5mAQ+ZjjEPhX6gNdliw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795295457;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KKfogKoccKbSmi27EKzQDLWPjgZehkgSMNv3TPjFRRY=;
-	b=b5txVtrF3r5K5Caw7gV7GskvLLA0g0Nd80YRfpNRmEgDmL5dgreH3bDoGgWgxseRJbZe
-	 3Re8AGT2iEYWAsVS+6zefH9EHwW9w3tFKYw78gmAHgWhSxSSH0FtDxTXGQoF4JrlV48zx
-	 8tzcM0Rd37r0MyxZmEpGmJ0PLL1IzudwbnpveqR8dccPfVxYuBtfYPZpesJF/CDujk5pv
-	 f9G1kq/v4iwxDKR775ZdDIcQOTlNW7Doh9yV8dQJNwDRR+sUQpR0z7tSDNy9qF0oKRZTI
-	 QDqxTDoI6XngP7mEmpE+szWRNBcypXTjPLyvaAYL0Uun2DrYeB7wtWmYFU/JbOxmPIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795295771;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7eXrGkj05XJIeWdMg8bWi/sqvFudK/TAUg1y65LM1tg=;
+	b=VKuFcZaIeLlUyeD7RTqreQM2UJHGSow+tNt3pfFCS//T4BNBL80XIa3FXlYRT+BcHBIu
+	 BcztXSexLMNim7GaNTlGUltv+r+yGN2R3+3OiX6Us79L1v9THmZiBJ7O8+SEm64CevqOC
+	 dNn8KqwFOutBTHi9by9cLSwr+WP775Rtfee/rHTOS5k94B2hwtRvZZyC4lWJObXAs+WHS
+	 yn3+dBui/pUgpq4iEOLAfoI6NJcGaFvNCo7uXQw2vBxaTiBA+PgBtKWJg45Zb7yhGnHkY
+	 8yl2GNoFbLyWi6L+e9Y0l6H/+q5FkXykRVjpqw6SUNjOY6REsaFbyafZJcfhITB2oJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JkiRsLtF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=byGxwCUu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D7D606A682;
-	Sat, 21 Nov 2026 21:10:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50271606A334
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:16:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JkiRsLtF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396811F000C6;
-	Sat, 21 Nov 2026 21:10:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=byGxwCUu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA9031F000F0
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:16:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795295457;
-	bh=KKfogKoccKbSmi27EKzQDLWPjgZehkgSMNv3TPjFRRY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JkiRsLtFytEz7iVkJbtMjbjlgxiLgL5CcmuvZROW19g8kEgEMs2tk9p9bZUyyF3ci
-	 GnYEMG5TzsMegpOBq6v5mp398z76CEXWL+hRfxJ2nTBP1MJebP/Bw1y7/NIBbvbJyA
-	 R6kyVVePabmrMtaACvVpKZBBAUsguvzr2VCvUhp/teKmaobt6+1Yz9GR8ubRb7FOfP
-	 5/dCTvHjlMnDmRyFLI5X1rQovUIYs+J60DzRGPhz27TX4xy3iMML3uN2/A8u0aUwUj
-	 ki6diO5Rn5VVsdF9V+vEFIYq9ub2HYCT2oNOmzfKb65zU9LsE0jarjYFcZy75vpF/W
-	 30hv41QDtT7SQ==
-Date: Sat, 21 Nov 2026 21:10:51 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Amit Kucheria <amitk@kernel.org>, Thara Gopinath
- <thara.gopinath@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Daniel
- Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, Kamal Wadhwa
- <kamal.wadhwa@oss.qualcomm.com>, Anjelique Melendez
- <anjelique.melendez@oss.qualcomm.com>, Manaf Meethalavalappu Pallikunhi
- <manaf.pallikunhi@oss.qualcomm.com>, Priyansh Jain
- <priyansh.jain@oss.qualcomm.com>
-Subject: Re: [PATCH v2 6/7] dt-bindings: iio: adc: Add support for QCOM
- PMIC5 Gen4 ADC
-Message-ID: <20261121211051.7b9b337c@jic23-hlaptop>
-In-Reply-To: <20261120-pmic5_gen4_adc-v2-6-94d0e1fd6847@oss.qualcomm.com>
-References: <20261120-pmic5_gen4_adc-v2-0-94d0e1fd6847@oss.qualcomm.com>
-	<20261120-pmic5_gen4_adc-v2-6-94d0e1fd6847@oss.qualcomm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1795295770;
+	bh=7eXrGkj05XJIeWdMg8bWi/sqvFudK/TAUg1y65LM1tg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=byGxwCUuh5O87gOGC39H5SQNQxs1CDkdy0T3fQo/SjrYp6oHt/UkzZaFQEhu9iHuQ
+	 enNmWGbZFz+D7B4BNdeAx7DhShQxOMhmHptAOssaOPHVKpv2tYPbeknGi/q7FkvRN1
+	 ADE/exyhF4Az4ygBI5TL0tMWcOgWpzGjygQmNDvk4ZwtPnRECU/BBTV/lNmD7NAAeh
+	 /ABWstb7KW9HwTHm5lW1fhSxw2pOM9g1YNQr+T/Vle649Zzyb/TD+2eBTlNUzvnQvx
+	 2kJdQh9uy8q4yzsEFDpe15cYvwmGcqSjXyepL7e4lLIKQrRK+Jk1dhJ1oGt9huphvW
+	 Uhhcx8LbwBlvA==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c1a947b4adso1633218e87.2
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:16:10 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEJlNBh+XJUjmHFqnGznXdKWB1AuNkpaXlOdNv+fx9lOY7CCs83UgYTI+pq6dVW8tg7ctzG9HFQHlEH@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7fPrqkRYB1ehFb7p2gifmfsdku2003YViCXJQJ0dMPOJZRDs2
+	QAN3mmRjHLHH7bwx8A0RzqgAYNSNYqqFO7Z8T5s+nDq4Z3wGVrat6qEtdVq78TH3FMlB9KeJwTJ
+	tbjze5qXjKPk4LeSmdxyRDSWrnujjxxI=
+X-Received: by 2002:a05:6512:3087:b0:5c1:4974:c159 with SMTP id
+ 2adb3069b0e04-5c1bc8cc90cmr2071934e87.55.1795295769485; Sat, 21 Nov 2026
+ 13:16:09 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,96 +59,153 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261015142552.4128028-1-ryan.roberts@arm.com> <20261015142552.4128028-5-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-5-ryan.roberts@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sat, 21 Nov 2026 22:15:56 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnVu-nLi34mZT_wuJAHqgupgBT5A1jBUfScn81wuY3UCg@mail.gmail.com>
+X-Gm-Features: Aa3M54ro2NNB4LQvH-Q4GEm3pg_4771RV__twhnRQdUNcV3HdQO1On99ooANozQ
+Message-ID: <CAD++jLnVu-nLi34mZT_wuJAHqgupgBT5A1jBUfScn81wuY3UCg@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 04/15] misc/arm-cla: Probe firmware-described devices
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 20 Nov 2026 14:49:46 +0530
-Jishnu Prakash <jishnu.prakash@oss.qualcomm.com> wrote:
+Hi Ryan & Jean-Philippe,
 
-> At present, support is present for Gen4 ADC channels under a master PMIC
-> with Gen3 ADC. Add a compatible string "qcom,spmi-adc5-gen4" to support a
-> master PMIC with Gen4 ADC. ADC channels under such a device can be
-> considered to be of type Gen4 ADC by default.
-> 
-> To support any exceptions (Gen3 ADC channels under a Gen4 master), add the
-> "qcom,adc5-gen3" ADC channel property, analogous to "qcom,adc5-gen4", to
-> indicate that a channel is of type Gen3 ADC.
-> 
-> Add constraints to ensure that "qcom,adc5-gen4" and "qcom,adc5-gen3"
-> channel properties are only valid if the top-level compatible string is
-> of the opposite type. A channel without either of these properties can be
-> assumed to be of the same type indicated by the master PMIC's compatible
-> string.
-> 
-> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Just a note to carry through feedback from the earlier patch.
+thanks for your patch!
 
-> ---
->  .../bindings/iio/adc/qcom,spmi-adc5-gen3.yaml      | 39 +++++++++++++++++++++-
->  1 file changed, 38 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml b/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml
-> index 065b82c41e86..e79ddc2acca0 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml
-> @@ -21,9 +21,14 @@ description: |
->    All boards using a particular (SOC + master PMIC) combination will have the
->    same number of ADC SDAMs supported on that PMIC.
->  
-> +  PMIC5 Gen4 ADC is similar to Gen3 ADC, with some differences such as
-> +  improved ratiometric conversion resolution.
-> +
->  properties:
->    compatible:
-> -    const: qcom,spmi-adc5-gen3
-> +    enum:
-> +      - qcom,spmi-adc5-gen3
-> +      - qcom,spmi-adc5-gen4
->  
->    reg:
->      items:
-> @@ -91,6 +96,38 @@ patternProperties:
->            need to be marked as Gen4 to ensure their conversions are handled correctly.
->          type: boolean
->  
-> +      qcom,adc5-gen3:
-> +        description:
-> +          Indicates channel is of type ADC5 Gen3. This may be needed in cases where the
+I see this framework is (ab)using platform_device, and Greg has many
+times pointed out that he doesn't like that, and I don't like it either,
+so I'm gonna complain about that.
 
-Similar long line and language comments to the earlier dt patch.
-Make sure to update this one as well if you agree with that feedback.
+On Thu, Oct 15, 2026 at 4:26=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
+ wrote:
 
-> +          master PMIC has an ADC peripheral of type Gen4, but some of the other PMICs
-> +          under it have ADC peripherals of type Gen3.
-> +        type: boolean
+> +static int cla_of_to_cpu(struct device_node *of_node)
+> +{
+> +       int cpu;
+> +       int ret;
+> +       u32 cpu_phandle;
+> +       struct device_node *cpu_node;
 > +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,spmi-adc5-gen4
+> +       if (!of_node)
+> +               return -ENODEV;
 > +
-> +    then:
-> +      patternProperties:
-> +        "^channel@[0-9a-f]+$":
-> +          properties:
-> +            qcom,adc5-gen4: false
+> +       ret =3D of_property_read_u32(of_node, "cpu", &cpu_phandle);
+> +       if (WARN_ON(ret))
+> +               return -EINVAL;
 > +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,spmi-adc5-gen3
+> +       cpu_node =3D of_find_node_by_phandle(cpu_phandle);
+> +       if (WARN_ON(!cpu_node))
+> +               return -EINVAL;
 > +
-> +    then:
-> +      patternProperties:
-> +        "^channel@[0-9a-f]+$":
-> +          properties:
-> +            qcom,adc5-gen3: false
+> +       cpu =3D of_cpu_node_to_id(cpu_node);
+> +       of_node_put(cpu_node);
 > +
->  required:
->    - compatible
->    - reg
-> 
+> +       return cpu;
+> +}
+> +
+> +static struct cla_dev *cla_dev_alloc(struct device *parent, int cpu,
+> +                                    void __iomem *regs, phys_addr_t base=
+)
+> +{
+> +       struct cla_dev *dev;
+> +
+> +       dev =3D devm_kzalloc(parent, sizeof(*dev), GFP_KERNEL);
+> +       if (!dev)
+> +               return ERR_PTR(-ENOMEM);
+> +
+> +       dev->pfn =3D __phys_to_pfn(base);
+> +       dev->regs =3D cla_get_regs(regs, cla_kernel_pl);
+> +       dev->cpu =3D cpu;
+> +       dev->dev =3D parent;
 
+Why is struct cla_dev just a hollow thing without it's own
+struct device? This is free-riding on the parent device, which
+seems odd to me.
+
+Should you rather have:
+
+struct cla_device {
+      unsigned int cpu;
+       void __iomem *regs;
+       struct device dev;
+
+^ Not a pointer
+
+       unsigned long pfn;
+       unsigned long pg_offset;
+       struct cla_domain *domain;
+};
+
+Instead of first creating platform devices, then spawn this
+hollow struct cla_dev from the platform device, what about
+just creating struct cla_device directly from the beginning
+if the platform_device has no real use?
+
+> +static int cla_probe(struct platform_device *pdev)
+
+Why send in a platform device here at all, just create the
+cla_device and pass this in here instead. It does exist
+right?
+
+> +{
+> +       int cpu;
+> +       void __iomem *reg;
+> +       size_t reg_size;
+> +       struct cla_dev *dev;
+> +       struct resource *res;
+> +
+> +       /*
+> +        * TODO: the firmware maps this as well to access PL3, and the gu=
+est
+> +        * will map PL1 and PL0. Avoid TLB attr mismatches by only mappin=
+g what
+> +        * we need.
+> +        */
+> +       reg =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+
+And register resource to &cla->dev; etc.
+
+> +static int __init cla_module_init(void)
+> +{
+> +       bool driver_registered =3D false;
+> +       int ret;
+> +
+> +       /*
+> +        * For now, we reject any CLAs discovered via FW tables, whose CP=
+U is
+> +        * offline during init. This keeps things simple by allowing us t=
+o probe
+> +        * all HW at init time. Keep the online CPU set stable so that th=
+e
+> +        * cpu_online() check in cla_probe() is consistent with the onlin=
+e cpus
+> +        * when we call cpuhp_setup_state().
+> +        */
+> +       scoped_guard(cpus_read_lock) {
+> +               /*
+> +                * CPUs may be hotplugged, but all CLAs are described by
+> +                * firmware so the probe can be synchronous. This only se=
+ts up
+> +                * the resources, and CPUHP callbacks do the actual peeki=
+ng and
+> +                * poking. This returns an error when no CLA has an onlin=
+e CPU.
+> +                */
+> +               ret =3D platform_driver_probe(&cla_driver, cla_probe);
+
+Create your own cla_driver for cla_device instead.
+
+Yours,
+Linus Walleij
