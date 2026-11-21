@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795249658;
-	b=V2fPnz+7Wo4eEaEp8e5oJ8wtKhbHg+uEIOu67KwjCWt/TzwoczFrYf+vK7p84pf6AcpX
-	 0jz8xfkkgcmojgrZ01ysVjryz8IrcemR1SUtxQVC5kK/3jNKoR5P5M4wuTE9cz9Y4KOYK
-	 ZcYAmHmrgd1KJPHTz4yvP4fSqTBcI+4WcPkZmZwub5eHBQlg4ghGQ4TnFKnNnljcYiFe6
-	 v0X+SCOGJreJMXzqvkl2Glndj5+IBUSAswTZ46H49LrnfuuJHYcyl5WxGzHbwOqy/P9uM
-	 YWz/Ub616zQa0yQsQK8yYllp2HLn+3TJG+M6VqBGkV8fOceN7sOpHrsFsONS92qZD2A==
+	t=1795249951;
+	b=KDjEgtsfyMsPhJhk6ztObyahWMgBcsaNUGDG3qQiBCwiyExvGz6Gm6xYqP5jojF6+Z4C
+	 naG+qXQnwaHMOl05sdamF+zkOyuZJ9Tl8pr1qHQJmbUzrs5qWHdBuN/asfwEektofvzHa
+	 bVFL40QDSyTBdvQwmGLXlRRsfSFKpE04JRpZ2AXM0E/6jLqhZkEPvl4dFZf0NoozjSwLb
+	 /f6LiDEMi3WiDjQ87XILVi5awtSUE/YUEs++nwHm6xXCQZNnwM/pYbBCzSyEWWerZzwKv
+	 KNvNN/vU2B0ORs106DzQ+A8aEGy+w2IPF/j2HXfv422nnJV0UW7SzKZxv9dRgCV0JkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795249658;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795249951;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=mSsdYBj1+i2i6gNkZGFCu4NVruKN4bjut47MmHW45yg=;
-	b=DmcJblbsGpe1iKzSjKQTg/JugkX3bB8S9vXSjxdimYqtkMsIEok5a/JeNKD9fqvty35E
-	 TQnGFjlAGSoNi2srUY/KM2bKzPlth3/0DkOPUi1FLmPBCLFKdg2wEQDp7KwdmYpaeU5xp
-	 7kIthwWZ6pOhblU6S9bu1RGyEY0wa/KBamyEC9/9P7d8lcG9MLTqcAOTHEfvvXmKV5jPB
-	 JABk8uuiBPNb9i0H5F1ZBEwweBSxQTnZKohtZHosWZ/Aq+26e75xjInVC03G4J6oUQoRJ
-	 CW50amsJRmhDILk7M/2YjQhven10dkacgPBKuvuJ38+TylaeGQZglFwYoQFVRLBX2PQ==
+	bh=OGOsbXqwhms5NofAzCIF0mjaK5k8Xmmr6u3Azs0YnOM=;
+	b=YK0Ec8LKvUAxtDKPpTalT3GpLLexHjc7cAEdU1ObFzsc8zeqWHOvYMVLOy0/2RLMcHG0
+	 rH2JWxwuKsyRONHuyi9nJo+q6AWvowFwQunr9eLDdCGEEipXuWWItqehDag4zsDtfL9+g
+	 CACEyXMmh3tStC45nkSdCvnZnj+D15AtcHHY3yA3+olfpx8KOA0AbcpVbNNIfdThTJhBt
+	 qqJZF8b+fn1v+M541IzQhURC68WXv5Uvr/Sf9lCdEU4vtSwhBAz70kwjJPPJnNdfpRDLq
+	 kfH+6B1jpsajnYUFvFEMZkIGkTG09L+aF5wXl1MFbQ0y9AN/ZJPkE5H0cdPscH7sAVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eX1AnnJD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VA2iI/57";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD19A606A325
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 08:27:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D73606A320
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 08:32:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eX1AnnJD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25E691F000CA;
-	Sat, 21 Nov 2026 08:27:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VA2iI/57
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 422851F000C0;
+	Sat, 21 Nov 2026 08:32:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795249658;
-	bh=mSsdYBj1+i2i6gNkZGFCu4NVruKN4bjut47MmHW45yg=;
+	s=k20260515; t=1795249951;
+	bh=OGOsbXqwhms5NofAzCIF0mjaK5k8Xmmr6u3Azs0YnOM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eX1AnnJDvgD+mvjYmJH7JGapIf9xr+8oJG7Id/GvLxKvk2iXACh5+xWNa32RsROXo
-	 TKrS85dmZC6y69jJVzVv3PGVa6Sqzeul9YNlb/7Ow+VU4KK2PBwoYPjUZ7I+QVS10S
-	 Cpho2A85o9p9U2IOzZKAhjxK5I29UT3154/5j1r57tIyHQ4zlUhqbrF1tWYVzG6Xpu
-	 M3GbRQ+Ay4+c+pwdiszlKXZfGqJNt7LZGW8OhMjaJWnm20dipk2OA5+sG/wNn3KtGQ
-	 QB13FGntUb76ax5KAIBW1mPZh65NDWFOsD37r+ctqBXXd0APEwy2IJfB5+9IZg8Yl+
-	 zh7IpC6Aca5mg==
-Message-ID: <sashiko-outbox-226825@kernel.org>
+	b=VA2iI/57ZFdRT/xa5i8sMn0eDb00gyNDc0IH8Sh7i0UDsfDSLJ9RKhpoMY8gn3DhP
+	 8ga1z63Ps0KUg9PpMbofGYmr0KmwC7VV1UykaCANvoo1EKcDU7yjTbVKrgENq7f+Yd
+	 5Jsb9S9yMA1bC+Xe6SImmu0BF4vl49zuPFH2n1WOhNXur/6y6SPgELV3f8o8Glq4ZP
+	 elKLiKYZ7xo9xyy7ifB4Lde0TV/pfjEEtRkE4oeLhESAvkZWuaiYA+iSpWx0heExT+
+	 l6ZokgY1SoMoPmNVa4Ig+cScKLwuLTLugc2krsZbuOf2kZ/Db6FdKmgX2w+eEN/nVN
+	 ukPfmQHnMSIUA==
+Message-ID: <sashiko-outbox-226829@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: arm: samsung: samsung-boards: Add
- bindings for a20e/SM-A202F
+Subject: Re: [PATCH 2/2] arm64: exynos: Add support for Samsung Galaxy A20e
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Henri Ommer" <henri@ommer.net>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261121082404.24864-2-henri@ommer.net>
+In-Reply-To: <20261121082404.24864-3-henri@ommer.net>
 References: <20261121082404.24864-1-henri@ommer.net>
- <20261121082404.24864-2-henri@ommer.net>
+ <20261121082404.24864-3-henri@ommer.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 21 Nov 2026 08:27:37 +0000
+Date: Sat, 21 Nov 2026 08:32:30 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,28 +60,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: arm: samsung: redundant word bindings in commit
-  subject
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] arm64: dts: exynos: off-by-one size 0x3fffffff in
+  memory@80000000 node
+- [Medium] arm64: dts: exynos: debug and distro flags hardcoded in
+  chosen bootargs
+- [Low] arm64: dts: exynos: unused downstream fast-slew-rate pinctrl in
+  mmc_0
 --
 
-commit 53b148fe6d3224e56b6bbaff8e0921f7c5e931f2
+commit 3c64e215bef4d1c0f5a772e11d2129cb4345d352
 Author: Henri Ommer <henri@ommer.net>
 
-dt-bindings: arm: samsung: samsung-boards: Add bindings for a20e/SM-A202F
+arm64: exynos: Add support for Samsung Galaxy A20e
 
-This commit adds the samsung,a20e compatible string for the Exynos7885
-based Samsung Galaxy A20e (SM-A202F) board.
+This commit adds initial device tree support for the Samsung Galaxy A20e
+(SM-A202F) based on the Exynos 7885 SoC, covering memory, simple-framebuffe=
+r,
+GPIO keys, and internal eMMC.
 
-> dt-bindings: arm: samsung: samsung-boards: Add bindings for a20e/SM-A202F
+> diff --git a/arch/arm64/boot/dts/exynos/exynos7885-a20e.dts b/arch/arm64/=
+boot/dts/exynos/exynos7885-a20e.dts
+> new file mode 100644
+> index 0000000000000..61f6e5c5341cc
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/exynos/exynos7885-a20e.dts
+> @@ -0,0 +1,132 @@
+
+[ ... ]
+
+> +	chosen {
+> +		ranges;
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <1>;
+> +		bootargs =3D "console=3Dtty0 clk_ignore_unused pd_ignore_unused regula=
+tor_ignore_unused pmos.nosplash";
+
+[Severity: Medium]
+Should clk_ignore_unused, pd_ignore_unused, regulator_ignore_unused, and
+pmos.nosplash be dropped from chosen/bootargs?
+
+Hardcoding the *_ignore_unused debug flags globally disables the late
+initcalls that gate unused clocks, power domains, and regulators across
+the system, and pmos.nosplash is a distribution-specific userspace option
+rather than a hardware description.
+
+[ ... ]
+
+> +	memory@80000000 {
+> +		device_type =3D "memory";
+> +		reg =3D <0x0 0x80000000 0x3bc00000>,
+> +		      <0x0 0xc0000000 0x40000000>,
+> +		      <0x8 0x80000000 0x3fffffff>;
+> +	};
+
+[Severity: Medium]
+Should the size of the third memory bank be 0x40000000 instead of
+0x3fffffff?
+
+With #size-cells =3D <1>, the third cell is a byte size rather than an end
+offset.  early_init_dt_add_memory_arch() masks the size with PAGE_MASK
+before calling memblock_add(), so 0x3fffffff rounds down and loses the
+final page of RAM.
+
+[ ... ]
+
+> +&mmc_0 {
+
+[ ... ]
+
+> +	pinctrl-0 =3D <&sd0_clk &sd0_cmd &sd0_rdqs &sd0_bus1 &sd0_bus4 &sd0_bus=
+8>;
+> +	pinctrl-1 =3D <&sd0_clk_fast_slew_rate_1x>;
+> +	pinctrl-2 =3D <&sd0_clk_fast_slew_rate_2x>;
+> +	pinctrl-3 =3D <&sd0_clk_fast_slew_rate_3x>;
+> +	pinctrl-4 =3D <&sd0_clk_fast_slew_rate_4x>;
+> +	pinctrl-names =3D "default",
+> +			"fast-slew-rate-1x",
+> +			"fast-slew-rate-2x",
+> +			"fast-slew-rate-3x",
+> +			"fast-slew-rate-4x";
 
 [Severity: Low]
-This isn't a bug, but the dt-bindings: prefix already indicates that the
-patch adds a binding, so "bindings for" in the subject line is redundant
-and can be dropped (for example, "dt-bindings: arm: samsung: Add Samsung
-Galaxy A20e (SM-A202F)").
+Are the fast-slew-rate-1x..4x pinctrl states used by the mainline driver?
+
+Neither Documentation/devicetree/bindings/mmc/samsung,exynos-dw-mshc.yaml
+nor dw_mmc-exynos looks up fast-slew-rate-* pinctrl states, so pinctrl-1
+through pinctrl-4 are never selected.  Other Exynos 7885 boards define
+only the "default" pinctrl state and place the desired clock drive-strength
+pin node directly in pinctrl-0.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121082404.2486=
-4-1-henri@ommer.net?part=3D1
+4-1-henri@ommer.net?part=3D2
