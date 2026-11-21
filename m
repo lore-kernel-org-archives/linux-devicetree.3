@@ -1,78 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296819;
-	b=wDalw27Bq5sVaooRNtrI2sxWgOIJUZY79FiavCAQa86JeG0NQRGk8ZUagJTroR/TegEM
-	 hrx08sAtpaVHX0X3iv1nuP1Pt35Y3bOhxhO6bu31iuYeyyTVS1pdGgTSjKkt99l9qLsDu
-	 gi0hM6kp8s15WnSGR8AB3Yo58nEhChfrKuq+1AMK2RYovcZImjHZNy7WLdzviUMy1VvmJ
-	 mPB7jDZB7IyzkzOIV7w1/IMGU8+jPjYBD0c7Cv3BffE148yk9vZbFjycsT2rLY+gDiVmq
-	 CNzBvjDjOyV8n+h87juiawMr4E49cM2qOhl2GSqjbxdYwWdvsTeEhmmgd9oAeGoOY3g==
+	t=1795296840;
+	b=JN2tu0HugcO7PPEj69v+LNPxgJxJK/EyDkcJP57z28D6+sSw4LgZGSVmDahK7n0DzQik
+	 6jiQ0xq/g/KJEsSZFINnMfXyuUgM7LB5zZTNl9DPCQaIqkY4vOv74HKEtdKkT3D/iQe8/
+	 AdQZ0MGXjOiPifREAJsTnAao3Fw3ebGsqIUu8guiyzsAAFI0ohqRfO1CcerIXusP89Nwi
+	 LgsPt+nQXtRhBIOZO8SvAj4h8Fnbpx5SKrLkrwzmznsl8e7WAwi67PQdxS7wLYW8dcxPV
+	 4+Hp4PUOS0hrgrmBeDp7v/ngvEfMVWQMnhh7vXP9F+MLJIo/tvkLHBmDpRqdsbmSrNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296819;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lxD5zixKw7Tr1W31Lc/kVqjisXnCxr4/jEW2jAJqxqY=;
-	b=rB1ozHWBDl8Det5u/t42ijOxkduTyHLu1w66u7/53X/fgHKSXsNqXGzeMk0VfuEjKBmK
-	 MDepNBS3qHFUD8kAxI4XI/XZ1eEUSVi76L4HJ1rM1c/1DA8mJF4xqFEgipTu4TlDIOKSs
-	 fAw7fcNpd5ObhsgHi4LKGGXdkN8qUZ1hQ9Veg8GKXIgogzD3KTM+wDIrREogR3EKP/ven
-	 aoYD47vjaEqOOfmCs1KUjFVzaCLpz6cNU57OInDoWcPmqtw7+JqfxWR4P5i2Xjwxt/41a
-	 rCzpoa6VxKNKb5zFux3lcUf5eO0CNPkhPTiFzUU6Cv4bwhOYFpAXlrc/1HpyidQlsBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296840;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=IFHu/2bEteEfsR5EpbnBVG7ybCCpFRsZWn/fSZnLG0Q=;
+	b=T4YY4JXYf1nUDQM4wilO/+muEEXJty4HSULbWn+BtPdPjA2FuaD4aq/O7kRfOBYqhPA5
+	 LTMRvU2qrNbv4+Vf0UPHsQ3d5KVZmciHnZeoJbEmizrVkzCIlx3veXvi9MeToZfdTgP4p
+	 e+/V5sMW81oGbi/rEf7xPjEMETeop45atJVbIZYe55f4hRlEnkyF3JtZJVn7KnQB9KvJo
+	 Hsn+Tljq3Shw4z1e1i+5NfhhjdWSWZyUgfADOwBoRIfewGUx1pwGKKLOWRZAgZJ4kxIeo
+	 UkYYGfpMYXCuRaUH/2IYg806G7GHFqszQ80KAPJb5Tn3/tWwjv3utlpVu5aCo3OwwTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QangsuKn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1C7606A686
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:33:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A1C7606A686
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2f04244c3d0so17251695ad.3
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:33:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296818; x=1795901618;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lxD5zixKw7Tr1W31Lc/kVqjisXnCxr4/jEW2jAJqxqY=;
-        b=osyB+Zu/+aD8TlUVUtsFg+3AGtZ48qvAGD1hMTrSsxWSISjoFF8O9Thxmv1r5mG3gJ
-         WSBCIzrtSV6At16sloI/0V5bjfi9tAHLF9eSp/ZzxrWjgFydYVx8IjDla4zZFRG0jZbT
-         Q9haXfic99X/FHhmHcDf+mn2yyDEENhxQ3uMw2s0Ri5H26J+Pa0DE8Yf7JjLfkTv7B2F
-         XUPHujGCShiN3ASA5EjThwTjCo91OXaYdMB5X5QQQQuhMCnlmUnSe5NAa0k0BOxgv82i
-         uiYKQsLV61dItXWtSJsteKEsaTa+MCrrwZ/1Ts47AH3EL1zSrbxMlx503M+70NCBAKzD
-         VIRg==
-X-Forwarded-Encrypted: i=1; AL+hErFbPIyKwBBZM5egf/1xWBZDuxEnXuNrtYLEYuL2Bd6/XdX/siL25WrFmH+7y0oFuTRV1sMEdMz3Suoj@vger.kernel.org
-X-Gm-Message-State: APuU4Z9k2GM/ldLR0NWdU+OaXEojNpeLcpSnVZDgG85tFtCtOW5QDxeS
-	xhOLU+oQGtJUhchFWFcLUEjDNTZSATmS68rcqxxaPgqtlm1rCBuevoq9u08IrSlK
-X-Gm-Gg: AZFdTZcig/B0oAe3MojElKl3vkzU64iyjiGGVYQjlVOA2shg077vR6aYQSCaYESVhv3
-	H+5k4h/JUdWq0txYcNB2wzuJgdINJQX+hNeKcTS+9Hdhdngi76Lx+F9A9iwuUE4Sxjyi8lDs3ur
-	pEBhgtzbAnG3ZfMq1/vUnvO1QfNCZ/qic3Tb85RXD1CUFr7hLjyzDa6rJyrK5iys3UT3frVfsfD
-	66TYCXslh3T55OYV1/u6cbpUy3gGn4rTL7askw0cB8mJJg7Bnc+Rwu2DfvPrAqIMItN3vzR8+dh
-	xk1MXOiIUJ8q6zu6y+7r8PLWMZ+QD1zQ1YeNiUaXwG6ByqUNekOvFmMewfJ0rorK6OBnvyzb1gq
-	WAzmpv32yDetav7gn62zKtmqPPEQzoaIRo+WN+BBo5ZX0LF00ZQF9nfFKZ3AuD3/eJTIuZwI15I
-	gk56crfkPNCtM327aNz9v9HdK+z7Z4PNPrpOkSwK7gxorEBsWHZ4EQ7mcLccplje43WFGo9A7na
-	ltE1o/zS6M0eYJllstEUrX7cl//Yzu9J6pe4Q2lStCxjSatfkeqGmuz3RW24Nwc++f9ke/dKd9q
-	5BJwzSr9edFTQG3ZZ2edvEOrNKkKuNLH31IyvsZvwxtwfCjh6Hub+RP9E0erV5JGP/Q/akBfvZI
-	ae8ukjRzOA/Zzwa8DVuH/0cMdffb6gjTam3rOkyatDFsUnVanx85lTPzZWg==
-X-Received: by 2002:a17:902:da83:b0:2ef:e5b9:5841 with SMTP id d9443c01a7336-2f050c1d8cemr50613105ad.35.1795296818430;
-        Sat, 21 Nov 2026 13:33:38 -0800 (PST)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com. [209.85.214.177])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f1059adsm29961125ad.49.2026.11.21.13.33.37
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 21 Nov 2026 13:33:37 -0800 (PST)
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2f048476ab9so13642515ad.0
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:33:37 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGRK4T/yOJC70HhE3HvIgLzNxfNx8R3yCHRALzJ52jMqefS9mcok0QrQkwUn18O8pFlWBO6AtoPCQF/@vger.kernel.org
-X-Received: by 2002:a05:690c:7206:b0:8b4:e51a:c4f9 with SMTP id
- 00721157ae682-8b52032b68dmr26349417b3.1.1795296389589; Sat, 21 Nov 2026
- 13:26:29 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFB4606A320;
+	Sat, 21 Nov 2026 21:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QangsuKn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2BF31F000CA;
+	Sat, 21 Nov 2026 21:33:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795296839;
+	bh=IFHu/2bEteEfsR5EpbnBVG7ybCCpFRsZWn/fSZnLG0Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QangsuKnrQsVdRI6hYCdZc/VwQzDqakchyFACUWcBS1RSW56c/0EjC41z9UYfhW6X
+	 PxJA3K/pZWgNAvFl2xuf82g1HNXx7lk+yQKmhA2TvlYJUfkVekWs3oAspWYFi+9x7Z
+	 BY3ocnIn5RH7smbqrIPTZjrMmKa8oL0+JUdNVA1MP+5WtUAGckGuTBuB6JG7fDkWfy
+	 63nRnTqF7rzgaPmw/uDXhadeKLCWhSWFEJmuBeSGxkmHPmhOSHS7g63tCwRWvdtM3S
+	 e9GUcK9HLiqQgy5lW4ASerJaf3TxhNZA2xrSmoZETqTFqsQSOosCumKhxOL0pFY6R3
+	 dnw4jv6GItjYw==
+Message-ID: <sashiko-outbox-227407@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 5/5] clk: en7523: add support for Airoha AN7583
+ clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261121212738.170775-6-ansuelsmth@gmail.com>
+References: <20261121212738.170775-1-ansuelsmth@gmail.com>
+ <20261121212738.170775-6-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 21 Nov 2026 21:33:58 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,79 +60,114 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261113121852.334604-1-tanure@linux.com> <20261113121852.334604-8-tanure@linux.com>
- <CAFBinCBZpruWYPrCWhRY146C9fd6ij2cOirJNORqAJFaiGZJ5Q@mail.gmail.com>
-In-Reply-To: <CAFBinCBZpruWYPrCWhRY146C9fd6ij2cOirJNORqAJFaiGZJ5Q@mail.gmail.com>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Sat, 21 Nov 2026 21:26:17 +0000
-X-Gmail-Original-Message-ID: <CAJX_Q+3X8BGwj5ydk2TN3tDNLrrhgfKx1X1LQqjePYXJwqs5LA@mail.gmail.com>
-X-Gm-Features: Aa3M54ryC1wrMtzkfpXZSCYbt8X4yrGmEQflHHmQnHyfNLikt3muwFhwFJm0PEo
-Message-ID: <CAJX_Q+3X8BGwj5ydk2TN3tDNLrrhgfKx1X1LQqjePYXJwqs5LA@mail.gmail.com>
-Subject: Re: [PATCH v7 7/7] arm64: dts: amlogic: t7: khadas-vim4: enable the
- ethernet port
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 15, 2026 at 6:08=E2=80=AFPM Martin Blumenstingl
-<martin.blumenstingl@googlemail.com> wrote:
->
-> Hi Lucas,
->
-> On Fri, Nov 13, 2026 at 1:19=E2=80=AFPM Lucas Tanure <tanure@linux.com> w=
-rote:
-> [...]
-> > +&ext_mdio {
-> > +       external_phy: ethernet-phy@0 {
-> > +               /* Realtek RTL8211FD-CG */
-> > +               reg =3D <0>;
-> We've been following this for a long time until someone found out that
-> RTL8211F has a broadcast feature.
-> Can you check the strapping registers (or simply see if the PHY
-> answers on address 1 as well)?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] clk: en7523: AN7583 MDIO clocks lack rate ops in
+  en7581_register_clocks()
+--
 
-Checked both. The schematic (v13a, page 9) straps PHYAD[2:0] to 001:
-RXCTL/PHYAD2 and RXCLK/PHYAD1 have 4.7K to GND, RXD3/PHYAD0 has 4.7K
-to EVDDIO. So the PHY sits at address 1.
+commit 5161709c892ed291b31ad266a1982ac038057eb0
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-A scan from the running kernel agrees. It reads PHY ID registers 2
-and 3 at all 32 addresses through SIOCGMIIREG, which goes through the
-mux to the external bus:
+clk: en7523: add support for Airoha AN7583 clock
 
-  addr  0: 0x001c 0xc916
-  addr  1: 0x001c 0xc916
-  addr  2..31: 0xffff 0xffff
+This commit adds clock and reset controller support for the Airoha AN7583
+SoC to the en7523 clock driver.
 
-Address 1 is the strap. Address 0 is the RTL8211F broadcast address
-(PHYAD0_EN in PHYCR1, on after reset). The vendor tree uses 0 and
-only works because of that.
+> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+> index a4a75b8063a58..d044841cdc05a 100644
+> --- a/drivers/clk/clk-en7523.c
+> +++ b/drivers/clk/clk-en7523.c
 
-> I'd appreciate it if you could update this patch so we can use this
-> approach as reference from now on.
+[ ... ]
 
-v8 uses reg =3D <1>. The PHY attaches as mdio_mux-0.0:01, link at
-1Gbps/Full, 941/944Mbit/s with iperf3, no error. The commit message
-says where the address comes from and why 0 also worked.
+> @@ -369,6 +378,138 @@ static const struct en_clk_desc en7581_base_clks[] =
+=3D {
+>  	}
+>  };
+> =20
+> +static const struct en_clk_desc an7583_base_clks[] =3D {
 
-Thanks,
-Lucas
+[ ... ]
 
->
->
-> Best regards,
-> Martin
->
->
-> [0] https://lore.kernel.org/all/bc8c7c6a-5d5f-4f7c-a1e2-e10a6a82d50e@lunn=
-.ch/
+> +	}, {
+> +		.id =3D AN7583_CLK_MDIO0,
+> +		.name =3D "mdio0",
+> +
+> +		.base_reg =3D REG_CRYPTO_CLKSRC2,
+> +
+> +		.base_value =3D 25000000,
+> +
+> +		.div_bits =3D 4,
+> +		.div_shift =3D 15,
+> +		.div_step =3D 1,
+> +		.div_offset =3D 1,
+> +	}, {
+> +		.id =3D AN7583_CLK_MDIO1,
+> +		.name =3D "mdio1",
+> +
+> +		.base_reg =3D REG_CRYPTO_CLKSRC2,
+> +
+> +		.base_value =3D 25000000,
+> +
+> +		.div_bits =3D 4,
+> +		.div_shift =3D 19,
+> +		.div_step =3D 1,
+> +		.div_offset =3D 1,
+> +	}
+> +};
+
+[ ... ]
+
+> @@ -1144,6 +1343,43 @@ static int en7581_clk_hw_init(struct platform_devi=
+ce *pdev,
+>  	return en7581_serdes_phy_register(&pdev->dev);
+>  }
+> =20
+> +static int an7583_clk_hw_init(struct platform_device *pdev,
+> +			      struct clk_hw_onecell_data *clk_data)
+> +{
+> +	struct en_clk_priv *priv =3D platform_get_drvdata(pdev);
+> +	struct device *dev =3D &pdev->dev;
+> +	struct regmap *map;
+> +	void __iomem *base;
+> +	u32 val;
+> +	int ret;
+> +
+> +	map =3D syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,chip-scu"=
+);
+> +	if (IS_ERR(map))
+> +		return PTR_ERR(map);
+> +
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	priv->base =3D base;
+> +
+> +	en7581_register_clocks(dev, clk_data, map, base);
+
+[Severity: Medium]
+As reported by Brian Masney on v13 [1], does registering AN7583_CLK_MDIO0
+and AN7583_CLK_MDIO1 via en7581_register_clocks() leave their hardware
+dividers unprogrammed when clk_set_rate() is called?
+
+en7581_register_clocks() registers every entry in an7583_base_clks with
+devm_clk_hw_register_fixed_rate(), which attaches clk_fixed_rate_ops and
+provides no .set_rate, .round_rate, or .determine_rate callbacks.  When
+airoha_mdio_probe() in drivers/net/mdio/mdio-airoha.c calls
+clk_set_rate(priv->clk, freq) to divide the 25 MHz default down to 2.5 MHz,
+clk_set_rate() returns 0 without updating the 4-bit divider fields in
+REG_CRYPTO_CLKSRC2, leaving the MDIO bus clock at 25 MHz.
+
+Prior discussion on v10 and v13 noted that adjustable clock rate support was
+planned for a separate series, while Brian Masney confirmed on v13 that the
+missing rate callbacks here are an issue.
+
+[1] https://lore.kernel.org/r/179513295004.301584.12820965897975670200.b4-r=
+eview@b4
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121212738.1707=
+75-1-ansuelsmth@gmail.com?part=3D5
