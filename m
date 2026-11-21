@@ -1,64 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795252088;
-	b=aZW5NWditmdauQkB5gi83/0pyx05QjJw/A570Ug8Z/btr7/5VQ6LajQAsafzx+woux8J
-	 PhsL54Ip8q+QYc+USrqFgbNUB6w5BF+SWKPWGBtFjQtJn1MovA3M1/7N8/0SOsWJbtTmD
-	 WU6z2ks1qQX8nUeKgZvQRMC3scKC2V3yInMlFX5tDDDdePfUtLOfzYwt7Y4tSoEbsJrj3
-	 vz8lZMRDn3yllls9dcUw8e/A88pgICfzUJpX7XD7Skj1XhGSHtZoUO77wml1HObdHxikg
-	 YIC+dU2ng9/Ev2dP72nY3RFA61QPHqSVvYjnEnxNZzfB5N/n7Qu2qZ0e0H2XlUhFwaw==
+	t=1795252265;
+	b=O2RzzQYMwvavKvepb4YnBY9oKgF5Rbs0nuSQJg19C5dxPR2rwPLDZshadoSoJ5CXngvI
+	 wW9nQi7CtNxyuVZDDUXMHb1mCLkjJx6i6acctwnG5UosjVBzbeSpPN7/DZuaulhPpuamv
+	 hUu1pxippfoFE8fZo/ZAfFrj1PDXk0QywwISzWKmsXocvrbSAi7/lY1seV7Z6L7sxIM5m
+	 Yb9btVfcUt1Vghvc8rGb1JGnOgRaWsHztvLAd7lnZTIDqBr42jKr1PNOmudGphyce89K8
+	 OpH+AjV6rCUTN/xlYmMazBLwvs55FWpsLg1zUP+RYkLC1yjwjkA6Nqi8tSWdEb0nNAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795252088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795252265;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=v/KSonE9ptOXxsuc9pp4torUv+e/nHP0QcHgDnUNcJU=;
-	b=fxSnXhTs1NYF6TGsF7etknGfAYjJKqXkDKV4zdbDySsxM+qStUkA2F2ImmHJpJTGKWM8
-	 GgkOLBpn2Vvy3FboWjsXyBKkuzFeA5qjQ44vN21F3OyIANDOM05kblJne2lGKQJXaeN2/
-	 rVi+H87okMAH79rhowlZkpi+w0z8k0Ghr4hMf1WgD18Dsg/wA5mvCSFm3FUDkXBbAlYAR
-	 DqgMttlwB4dxszdO5+tZuuU1cl0aE6du8lIKbvdmWymyoEm9XhRWkUJ/bH6QBzjCktHVg
-	 80vHbKb6jotEoNQJXEz7lznKjq0vjgURO0DAHOl5PGM0zEKQLJ6vUBfrsWFkkO4eLYw==
+	bh=GPuPhQPXGjgK63QMd53wWjqm0zkGOhohPPcaOiUA3b4=;
+	b=UTcy6WL2ZXMIgrnEGikygClDMDMoNt3C+RXp8ot5Xby/V5Uo/syOuxGbmuadHJXT2M7h
+	 ODYxmxSWMIfujLzwWXCg4WU9TourIf7oWy5sfIjvLZehMTbUdmKZ6YtzzvP88VHcOJhdc
+	 pXeWbkYSs+2qNTR4k9lbfi7MfNBb12JqeHrx+pJfViWwcdNlmQrxQjJPF+qJhdHE8tVus
+	 N7OhGBXRPhbyXVJbUoCZgUOnabXpvh3mbgnfnyRF9OPjE8s6GMG+s5jn5JF/omb0qT52r
+	 ySLFPcjfz437+BZk23rUeGhpNmpxIHwVquIdUf1BOZgKGJc+q+Z36pLu5rn6cKjousw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxv4eaCp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pa+0yiGk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FFB606A320;
-	Sat, 21 Nov 2026 09:08:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762B5606A32C;
+	Sat, 21 Nov 2026 09:11:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxv4eaCp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B563B1F000C0;
-	Sat, 21 Nov 2026 09:08:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pa+0yiGk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EDB61F000C4;
+	Sat, 21 Nov 2026 09:11:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795252087;
-	bh=v/KSonE9ptOXxsuc9pp4torUv+e/nHP0QcHgDnUNcJU=;
+	s=k20260515; t=1795252265;
+	bh=GPuPhQPXGjgK63QMd53wWjqm0zkGOhohPPcaOiUA3b4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cxv4eaCpbXRq6+v7J1sHTC/XE2qAAtLQj83KoTTDZefr9jTQzjqRiqZh4HC71E79v
-	 Vlt8Av7KJ7IrypkZtZ1Cn9eiJuRAAf6TGWckhX742luMP83OZydl05emuuerW4iGFi
-	 bFOSua99qcr/sduVAr5VNWinteptSmxaZPzwlnyor2FHbFTbclSF0DHjxJ9g11cBGV
-	 8YBV7YlXxwhF0fR8e6yXSTtoxEUtc/ysgrmo8r7TaXZq+/r3cToH+fHVRKC523F5Y2
-	 YRDhDq614icNC0D1dMZrkIXCdTNckyawppSsihWKW3aNBEgG5dMD9FE/rzxkoB1lhv
-	 WIf3Bn9VA77Aw==
-Date: Sat, 21 Nov 2026 10:08:04 +0100
+	b=Pa+0yiGku2mi2/1RcZ70Ftb27/otW7x99MLxZQc5gSNqudcqz/jfpf7nwRE7AgQ91
+	 UVEvutFahOWa7VRAmQZkDZJg8/jJyD0GY7wYtw3KBaUCz6g0dMVX8xy+LRZesaiNNn
+	 Ty6WSeoaIYq/TcOBXn73L6neKTZXCLqT02Yj65dyzRK1x6+w4VSR9iA0EI9wjRLeFU
+	 0800eq+FTyRPAVrwx/yvQSBc9TrZZxk+YcZ5CleRfRLtpyveqM95ur2ioo4qmC5rXp
+	 /Jir66G3jlDcIdtbJyRofIymNt/a/jHtlKD2tZodW8rNbpR561Z6bDM3h2SnDJM+DZ
+	 dx9mqN/lqeLqQ==
+Date: Sat, 21 Nov 2026 10:11:00 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Ripard <mripard@kernel.org>, Richard Genoud <richard.genoud@bootlin.com>, 
-	Boris Brezillon <bbrezillon@kernel.org>, Masahiro Yamada <yamada.masahiro@socionext.com>, 
-	Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org
-Subject: Re: [PATCH v11 23/26] dt-bindings: mtd: sunxi: require the H616 AHB
- reset
-Message-ID: <20261121-active-pudu-of-flowers-ddfa8b@quoll>
-References: <20261120-submit-sunxi-nand-vendor-oob-layout-v1-v11-0-9721b1905ef4@gmail.com>
- <20261120-submit-sunxi-nand-vendor-oob-layout-v1-v11-23-9721b1905ef4@gmail.com>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: Thinh.Nguyen@synopsys.com, linux-usb@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 1/3] dt-bindings: usb: snps,dwc3: describe two
+ connectors on one HS data bus
+Message-ID: <20261121-icy-bright-partridge-afe8de@quoll>
+References: <20261117052137.32833-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261121022104.1507987-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261121022104.1507987-2-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,16 +63,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261120-submit-sunxi-nand-vendor-oob-layout-v1-v11-23-9721b1905ef4@gmail.com>
+In-Reply-To: <20261121022104.1507987-2-xiaqinghuan@mail.ustc.edu.cn>
 
-On Fri, Nov 20, 2026 at 06:10:46PM -0700, James Hilliard wrote:
-> Normal NAND reads and writes worked on H616. Fault injection exposed a
-> failure when recovering from an aborted internal DMA transfer: the
-> controller's soft reset could leave the first subsequent read displaced,
-> sometimes without an ECC error. This was not observed during ordinary
-> I/O.
+On Sat, Nov 21, 2026 at 10:21:02AM +0800, Qianhui Xu wrote:
+> Some designs route two USB Type-C receptacles through one High Speed D+/D-
+> pair with a GPIO multiplexer, so only one connector drives the controller
+> at a time.  Each connector needs to be described: which role-switch input
+> belongs to it and which mux state selects it, because the role switch is
+> registered per connector and the driver must know the state to program
+> when that connector asks for a role.
+> 
+> Describe the two connectors as the two endpoints of the High Speed port,
+> which is what a mux'ed data stream is in the OF graph: port@0 of "ports"
+> carries endpoint@0 and endpoint@1 under "mux-controls", each with
+> "usb-role-switch" and the "mux-state" that reaches it.  The mux
+> controller is referenced with "mux-controls", so an existing "gpio-mux"
+> controller can be used as is.
+> 
+> The High Speed port definition itself stays optional: a single-connector
+> controller keeps describing one plain "endpoint", and requiring the two
+> endpoints together with the rule that their mux states differ only
+> applies when "mux-controls" is present.  The two states must be opposite,
+> and the driver rejects a device tree where two connectors claim the same
+> one.
+> 
+> *** AI-assistance disclosure ***
+> This patch was prepared with the help of an LLM coding assistant.  The
+> author reviewed every line and ran the gates quoted in the series notes.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This does not go to commit msg, but changelog.
+
+You keep sending multiple revisions, this one even threaded to other
+posting and still not really responding to feedbacks.
+
+Feedback was waiting for three days and then you send the same. That's
+just wasting our time.
 
 Best regards,
 Krzysztof
