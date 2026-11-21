@@ -1,57 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795220788;
-	b=fcIH5r1WwKxQUp1h8bluHQew7oDruCu7aY5b10mCxehhRSeMMVuZYbT9VtUdm/nRo94M
-	 PCn1wJjljLD9PYhbyP4ozrtGWDskLaSmXckC3F8G0AioHkDETkeVhOQETZD+edsBoKrqg
-	 cHWrmTXnPBKt9v3qQIrYoN1n3egrc/cisZGqwByS5RhU4lhxcjmilufQFEJexI9oaiMrA
-	 u1DU2J0RDUxRmE8lJJoJLScFIjDCDgdi8f3+Td8Nvp46JhSG1fSf4klooDR3JAwhqpfPy
-	 OVi0ygQtI/0qX1LhV2LJmBUwbNgrNNJO6jpUQOWv7Lmg3tgj3VaCxHt1b7k4TUK89kA==
+	t=1795220789;
+	b=x2Pa6axamsgITnvi19K99RPjaQa3LU/FUq3XN8809szRD5HreGzQXwmvJUKYtKBCMZKk
+	 zIpCYcaJAJmGWIXbTIba8kYktNsXFq0h+0b9q8PDIizKHFG29nB9MCnjXeaexlvYZnGbk
+	 bSl0Cv9SGL+JmfMoI27OwWNk8J9MG+yzwriJELYLBMOIbo907XJMjnkIrgThSbMafiM/d
+	 BmdcFSYZO0D6SlQ8jSqdO3vwTfvWdJPm6LpOvCBo0hn0OKynnx2cT76fMSQ1AOv3fMQfo
+	 Waglii36HYK2JIlZAxWXc4R3LRdeevhWaYwpliTE+Yh1Thv2BeMi+UXRm/BOuQNyKaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795220788;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=N0Gddx+pPETauu6b6SUYJYXDdPX2KM47y59NQEHdr6I=;
-	b=edYo0oWO1RwjUHbNy1Mmvyh+glItkgEf+1jkIaK8Hayo57kKQaFL1/+0Fw40RYrFRZjX
-	 ETq3R9R8Ds4i+ncXnmqNGTjuR0IQ58tcoV5tRI8aH773AQCHSavrAZWymICotfjhvhwBy
-	 G8aATvzZpbtm8ii7+KDdHzTsJq7lljUons2aA7q/mVBxl4plQuPWUKMXAqLP1iGLsheW+
-	 TIPy6RcqfNolTRqqxD76rdZZoKYXrrGvFMZT8793D3DVLSibNImBUj1VbS4Ak3V72wTwY
-	 0LXaDvl5YXTkkFUmK7ff9441iBu+Yb5NYPWeV1sXGVCWvQjxyUT9xy203x0FIEtJ6Mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795220789;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cLUi4V8fbL/C8Xzl13pdMh4F659zGn3/FD5OqVdtaac=;
+	b=iDGsOP0h24DKDq71CJ4hLAQxKGN9LxIBXXJtKQwsJGjUj/A2jJnNCRnt8moTFnvoe7rt
+	 q/6NvPzBjIIH4v82fGq+/x8dnktF9Wd30Kd6STbO2iJPASmDOAkaAfgMPBZyFWYx34L16
+	 ej/6Sn2do52r1SOGMpdz+n3a2TVUR7yA2gu5a8qXgYN1l2V7NzUy/pnRVgLKBpgDxlWeE
+	 8LF0pVxMfMObse94ACLhmMAdPIjvbTmVJlDfJHOAzV+h+yplaFc0rWgJ+qXMmlcxsW7GR
+	 xaXAvBbKAEh69JJgpTJ3y4X0eRBcsxbytYmgCRMlMdRMVpYiFvoMi3tWkOhe19iAbjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ep+pyJvJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="e8e//15h";
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711ED60A2605
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 00:26:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C2A606A320
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 00:26:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00C2A606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ep+pyJvJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76961F000F2;
-	Sat, 21 Nov 2026 00:26:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795220787;
-	bh=N0Gddx+pPETauu6b6SUYJYXDdPX2KM47y59NQEHdr6I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ep+pyJvJw9Jt6oR968zgqaGsw50gEvOCMkBpN/zVscNbOT04tOHKCYmmCFf3O5y0k
-	 bCTObVDC0/Lihq1XEjjXV5hK8bKsxjCycoheIFZ0rIfVCtP8DKh7E6ew47gEZkyJiP
-	 vDqoOyYiOo/+hk+7dg30l1/gNU5qDJVJ62uxfcoH2w1xVyMT5z0ZC6hj40whQub8Gj
-	 IqIL13W3+XAIhvtNhIGInB41CKK5OUzHH5e63Br2cND91Fqz+oPILxcG3qBdjQDIqx
-	 xLQE/eAADhiObKzYh9rQQLQVVUXge3tAt/PhbNLHDrXkhAEwXVJ2FioGoL5zJtVVCn
-	 hqi0RQ/3up7mg==
-Message-ID: <sashiko-outbox-226422@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 22/24] net: dsa: rzn1-a5psw: Keep MAC TX
- enabled on RZ/T2H
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261120002549.1908299-23-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261120002549.1908299-23-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 21 Nov 2026 00:26:27 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e8e//15h
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd69954c755so1112148a12.3
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:26:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795220786; x=1795825586; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cLUi4V8fbL/C8Xzl13pdMh4F659zGn3/FD5OqVdtaac=;
+        b=e8e//15hIhIT1q0/n//rl0M9wqm6aTwfwRKdnJAzEHo6I644F35sS9DpVtgjIMzICs
+         LJY90mLDOXJnLLBXDLEpapTsThMsBtK2M3yg+kH9O3h7afYkuCgGlLiVRDSnnyLTsNoC
+         KQJj/SRA3I0WZZy6bfqXDNHV2TnJxiv7XCaQ6AkLIYI5Jf2r+txypxoIAuLbOU5T6guP
+         svim14GmVVYTBXNUOhdyAoEwrzlMwLIgb7QMmGRAZPdlVQVbUGPXrWTpJ5CLYnofbYAw
+         92XGkz2Q0j0nzsBtfM8HfOD0/zn+gVcMT2rNASvAd0KP82NYGnjEwmT2RCa9Kr63rAhh
+         MhBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795220786; x=1795825586;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cLUi4V8fbL/C8Xzl13pdMh4F659zGn3/FD5OqVdtaac=;
+        b=M3zQbm68RUZzJjHqa6tnX5UcFb5T/1ZYYBdrphHkoCQZJIbMArXp7HQbNHvcgOMtzM
+         cNfRfxQQbqvkJbKCbYrkelI7ryKnjKD6yw6oMk0OauuXkkfeAAScz+JL0ch7pg3Tf08Y
+         VEnJMiA1PzNXkrQ00YXBobuNphCCNnQKJLa4f7MbJN0bD6jOdDDQCjrMAdu12GSUuR/W
+         g5NDtWv0VdQOOLLEVCsi9/Km04Kafyo6zydFZLwZmXBdfWeeoefvF4HSy7ZW4/d8J0II
+         fBY7JWQNthgFyb7zaQNtkq0svFr+cJMWV5sOfaRw73LAzoIvtpD2meVKtU+SyYSyQQRr
+         45Qg==
+X-Forwarded-Encrypted: i=1; AL+hErFu2/bxXnkf+xxrxHz4zyv1syLmvFH6G4vjipjSvgTwriZPWDI0AWvUNeBtAZcf8n87YU+UsJAP0caF@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NxZ2ie247u+ZQst9kOLAbdnRsC6ob7ALnO8ElwF8n/ESp4IOt
+	5KbLQeCmrk1RLAyHwaQXX1kraKeYUZEyS8PGf6oPhUfoUepvpfwZfiOH
+X-Gm-Gg: AZFdTZccXHGsBPZIYExIGM/cONi6bj1kUOL2nJDFA3/1ZkjpzgSfQE/ycJnMz4eemdB
+	3jY89PC1lIdx1cXzbK5rzoXNtC90ETTQ/TKilQmQ4iCrHW9QW5Ik7Tc5cNcpaXZR1Bsh2Fj2AUz
+	nSWb8b2tATdyOIkU0yRcudNHSOoTTxTEf02D+bNoZGL+DH6T5rm2AbbZJqMN9j+z9Als1xGVzbY
+	dzBoOIHegLolJXQ1tgLSyfgPmWLRLyfcBJvzRP6kI/6g9I6WjgFxtaO5QhJ25AI+GW76mB5GtjD
+	89J9YbP9UQzeYTGYBnMSis3bzSQ7OFOegp/AYeGR6TmvlqMYuqRcTOSspiTTJpv5LnIGfYRHiVY
+	EcdiqJ8AXeomSve1mhHAdccDtQ46qdjKfeEcJ6dXxfsvGr2tjPN+2YRPiwiy4d0Bukm/nx5gEVN
+	XRAP10LW6NQyDVvji1NRzK7FFi5VWM+l4p9fIGp0Ta5lpBF06ogrOzxSKHiEp/7njQPMMNVWdl2
+	oNnApuL8TuhxshWLBho+0KQFPq29G3n8zgngLLpEAOwDc0L2VuWTURmzpFc+yaXg9rq+VCE1Thp
+	ZBCFqGXTBEdV6wPh+O00OiOGoSQaLo4i/m+yglZmaq7MoBMcEmBGWsU/SIy4K8B9Is1hINwnS3d
+	gAeAMvG1CsyJ1rVxIVYUrEigSwkWgdgpgq/AI3B6PsUBPDE64zdG+IMOQ0GwMtJ11cnsFg1JEJR
+	3pQQ==
+X-Received: by 2002:a17:90a:ec86:b0:3b3:ab75:c940 with SMTP id 98e67ed59e1d1-3b41c9b2ddamr4473434a91.18.1795220786299;
+        Fri, 20 Nov 2026 16:26:26 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm1925230a12.8.2026.11.20.16.26.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2026 16:26:25 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v3 02/22] ARM: dts: BCM5301X: AC68U: specify switch
+Date: Fri, 20 Nov 2026 16:25:42 -0800
+Message-ID: <20261121002603.25254-3-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261121002603.25254-1-rosenp@gmail.com>
+References: <20261121002603.25254-1-rosenp@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,137 +105,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] net: dsa: rzn1-a5psw: tx_allowed conflates admin enable and
-  STP state
---
+Add labels to clarify which port is what.
 
-commit 35401b3c17f803c4cf769c92538ab3bbb602e7e3
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Also set WAN MAC from nvram, which is offset by 1. Set in dts to avoid
+having to handle this in userspace.
 
-net: dsa: rzn1-a5psw: Keep MAC TX enabled on RZ/T2H
+The port mapping is taken from OpenWrt.
 
-This commit keeps CMD_CFG.TX_ENA enabled on SoCs that require it, pulsing
-the hardware reset line in probe instead of issuing CMD_CFG.SW_RESET and
-gating port transmission through A5PSW_PORT_ENA based on link and
-administrative/STP state.
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ .../dts/broadcom/bcm4708-asus-rt-ac68u.dts    | 37 +++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
-> index 751d03b0bde4c..86d5b9d52f8db 100644
-> --- a/drivers/net/dsa/rzn1_a5psw.c
-> +++ b/drivers/net/dsa/rzn1_a5psw.c
-> @@ -127,11 +127,20 @@ static void a5psw_port_mgmtfwd_set(struct a5psw *a5=
-psw, int port, bool enable)
->  	a5psw_port_pattern_set(a5psw, port, A5PSW_PATTERN_MGMTFWD, enable);
->  }
-> =20
-> -static void a5psw_port_tx_enable(struct a5psw *a5psw, int port, bool ena=
-ble)
-> +/* Must be called with reg_lock held */
-> +static void a5psw_port_tx_update(struct a5psw *a5psw, int port)
->  {
->  	u32 mask =3D A5PSW_PORT_ENA_TX(port);
-> -	u32 reg =3D enable ? mask : 0;
-> +	u32 reg;
-> =20
-> +	reg =3D a5psw_reg_readl(a5psw, A5PSW_PORT_ENA) & ~mask;
-> +	if (a5psw->tx_allowed & a5psw->link_up & BIT(port))
-> +		reg |=3D mask;
-> +	a5psw_reg_writel(a5psw, A5PSW_PORT_ENA, reg);
-> +}
-> +
-> +static void a5psw_port_tx_enable(struct a5psw *a5psw, int port, bool ena=
-ble)
-> +{
->  	/* Even though the port TX is disabled through TXENA bit in the
->  	 * PORT_ENA register, it can still send BPDUs. This depends on the tag
->  	 * configuration added when sending packets from the CPU port to the
-> @@ -140,18 +149,38 @@ static void a5psw_port_tx_enable(struct a5psw *a5ps=
-w, int port, bool enable)
->  	 * This allows to implement STP support when ports are in a state where
->  	 * forwarding traffic should be stopped but BPDUs should still be sent.
->  	 */
-> -	a5psw_reg_rmw(a5psw, A5PSW_PORT_ENA, mask, reg);
-> +	spin_lock(&a5psw->reg_lock);
-> +
-> +	if (enable)
-> +		a5psw->tx_allowed |=3D BIT(port);
-> +	else
-> +		a5psw->tx_allowed &=3D ~BIT(port);
-> +
-> +	a5psw_port_tx_update(a5psw, port);
-> +
-> +	spin_unlock(&a5psw->reg_lock);
->  }
-> =20
-> -static void a5psw_port_enable_set(struct a5psw *a5psw, int port, bool en=
-able)
-> +static void a5psw_port_link_set(struct a5psw *a5psw, int port, bool up)
->  {
-> -	u32 port_ena =3D 0;
-> +	spin_lock(&a5psw->reg_lock);
-> =20
-> -	if (enable)
-> -		port_ena |=3D A5PSW_PORT_ENA_TX_RX(port);
-> +	if (up)
-> +		a5psw->link_up |=3D BIT(port);
-> +	else
-> +		a5psw->link_up &=3D ~BIT(port);
-> +
-> +	a5psw_port_tx_update(a5psw, port);
-> =20
-> -	a5psw_reg_rmw(a5psw, A5PSW_PORT_ENA, A5PSW_PORT_ENA_TX_RX(port),
-> -		      port_ena);
-> +	spin_unlock(&a5psw->reg_lock);
-> +}
-> +
-> +static void a5psw_port_enable_set(struct a5psw *a5psw, int port, bool en=
-able)
-> +{
-> +	u32 rx_mask =3D BIT(port + A5PSW_PORT_ENA_RX_SHIFT);
-> +
-> +	a5psw_reg_rmw(a5psw, A5PSW_PORT_ENA, rx_mask, enable ? rx_mask : 0);
-> +	a5psw_port_tx_enable(a5psw, port, enable);
->  }
+diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac68u.dts b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac68u.dts
+index 6e82d2af9f1c..0f369c5d6a5c 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac68u.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac68u.dts
+@@ -97,3 +97,40 @@ &gmac2 {
+ 	nvmem-cells = <&et0macaddr 0>;
+ 	nvmem-cell-names = "mac-address";
+ };
++
++&srab {
++	status = "okay";
++
++	ports {
++		port@0 {
++			label = "wan";
++
++			nvmem-cells = <&et0macaddr 1>;
++			nvmem-cell-names = "mac-address";
++		};
++
++		port@1 {
++			label = "lan1";
++		};
++
++		port@2 {
++			label = "lan2";
++		};
++
++		port@3 {
++			label = "lan3";
++		};
++
++		port@4 {
++			label = "lan4";
++		};
++
++		port@5 {
++			status = "disabled";
++		};
++
++		port@7 {
++			status = "disabled";
++		};
++	};
++};
+-- 
+2.56.1
 
-[Severity: Medium]
-Can a5psw_port_enable_set() and a5psw_port_stp_state_set() overwrite each
-other's state in a5psw->tx_allowed?
-
-Both callers update the same per-port bit in a5psw->tx_allowed via
-a5psw_port_tx_enable().  When a bridged port in BR_STATE_DISABLED is
-brought administratively up, dsa_port_enable_rt() calls ds->ops->port_enabl=
-e()
-without resetting the STP state:
-
-net/dsa/port.c:dsa_port_enable_rt() {
-    ...
-	if (ds->ops->port_enable) {
-		err =3D ds->ops->port_enable(ds, port, phy);
-		if (err)
-			return err;
-	}
-
-	if (!dp->bridge)
-		dsa_port_set_state_now(dp, BR_STATE_FORWARDING, false);
-    ...
-}
-
-a5psw_port_enable() -> a5psw_port_enable_set() then sets BIT(port) in
-a5psw->tx_allowed, so once link comes up a5psw_port_link_set() enables
-A5PSW_PORT_ENA_TX(port) even though the port is still in BR_STATE_DISABLED
-(for example, while the bridge master itself is administratively down).
-Conversely, when an administratively down port leaves a bridge,
-dsa_port_switchdev_unsync_attrs() sets its STP state back to
-BR_STATE_FORWARDING, setting BIT(port) in a5psw->tx_allowed while the port
-is still down.
-
-Tracking administrative enable and STP forwarding in separate bitmasks (or
-checking both in a5psw_port_tx_update()) would prevent one from overriding
-the other.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120002549.1908=
-299-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D22
