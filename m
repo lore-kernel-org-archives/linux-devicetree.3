@@ -1,83 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296865;
-	b=4tN54HJsUC3GCJLH23mw5oHFYf1IoeF7ya64A2U4iGqw+oqbzw9rt5FmR8XXp7Voj8hX
-	 ixhpv3ksWZxR9IFdI2JrOXN7/eTTt5t4KfOWXtzVC8Vz1uQAO2m25TUwsY7yJSLu+7Ygf
-	 V1JQo9eFGVqDZ1Og0eeyVD79X3usy2LrQi11dDeu979ozI8d7PxvG6TrNVqbkPl5iowM9
-	 FT/rn57XHBZh0g4NksjwOXkySUMsPDLJd8AVeF1BReYwNrAtqsH7YS31W1H+A2aThfnFX
-	 rQmNm0X5GuX5JD8eTv13TJWYjQHivDgYQw2VqvF0K8DugbK1cuY+KXkWzuqX7dIFUhw==
+	t=1795296902;
+	b=4iWTQkHFeHIzgh8JiAWDYazPTBGAaQbrpJTO25vI0rmxX2X84/YwW3Zw+QBI2VnWiRzW
+	 ZhbkNgTXFR1GF/jB2r/kPBVq2EZenNx6Ow+PxTw4dZw2oEnhCiF/AGCaUol2v9tEX9QRg
+	 Y5wmcnT9sRWNc4h7O/e86XIl6W208Yz8Mvv3Phl0IgaK7aDaiQllka0NH9rywgXaCuzXU
+	 sOo6RS0Fil6Tewmy20dh2lahC7YUo4PS35EFtAzYpBP+yOYrnumb5oS+eMca3ImL6OvYh
+	 zoHTN1BOb/S97gluPtwELCP946G/601Nf2cjimO5JSPwdAg8V6T00EO6kydrdyftNiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296865;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=mUChzLeVR2MtutKX97MdpZQXyx2OvW2YcvAen733fVE=;
-	b=5IuU9TQ2LYXJmfG6WEubY9n6RAjlKQYXjup982R3yXh4LyF/Q/sPrnYkjXiU69Zemqti
-	 i5Vh6Nutvni/gkL8yjOXj+8DteS31Yw5tvOujJKzsM0XSA/ffByaclZpwK3l1cNZaCzff
-	 zk4XhMREuhZzXE57aY2yO45l0+Rr0D2qpumJ4kTW17Ny+oLPZvywxaqf/MrJOTF+980Nv
-	 z3S4pJNzlOjiD/o9HvtsaR8AOvxLP0vyv9xTDf4LECemqb5le8nkIBgV4CYyb230wS9Mt
-	 GqsWzIlDnPBdN4HUvCjSIN2uSKP40uWXQg4hh4G4y8d21Doj3a6Zf8+CZV92FH41p6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296902;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vLPdwXc/aJvHEChEYmLlCcJA1K0ap0UNibPU2Yd3+IU=;
+	b=Gzm03/z5cLtM1JDJXw27i+AFO80hN3vulgWHPL9WXR3YHEnrtpL7lFk6P34HFl0FDBwO
+	 YoY+PSw52jSr79QKUb3er9SIoLrjF48pB6SPP2UqdhAdG7JtdiALS5pht7LV+heElJPmq
+	 kMYcsZtsotxnRmUwEJgrb639ACJ+PQaexcTi2x/hVQ1lBQwg8IqM5YHjA9e1I0h1yIYYx
+	 wDbUB/uNknhIb/+wD83hQxecDQ5WIFQTe53El4q1jojgVPlxP/4ESeuvK/VvNm8s9PMcu
+	 ufytTI4j33lTKExri9jJqghTqxEl/RNr/iKoEkF+lWhLslmvspiYGzMGCPhOObv7acQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=d0YsZAnp;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=linux.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED08B606A32C
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:34:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED08B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=d0YsZAnp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=mUCh
-	zLeVR2MtutKX97MdpZQXyx2OvW2YcvAen733fVE=; b=d0YsZAnpbPtYmpNcRM2C
-	SwMgfmHzUur9jym6TLvWP6yFBmfbiMz7GTVq2bYzCi9mo7w/J6gmvlLNeKVbxfEF
-	ATF4zA8/M6UHo+wOll0MTUswaIbCpJ1Cy5jtzOZl/mgbRMqPWKcWExP9YxEok13Z
-	IkGJniWBTahtwqByiPMbUSDp/SLEMvMN4U0kvyY9W8ZiSH1qWjNoV6WbzFV+FdWH
-	wAJmaZEnUv7xwJ+Njk39l7jlQO2linQutAXM61ddpShNXZOWt/oRVIdp8eRhi08J
-	/FKL7hwLS4TbZmfWrpqX0qscB2/JlqXozeMgtL1R1s0Idk1ooGu9sL+DfpM6hUYH
-	ew==
-Received: (qmail 1948086 invoked from network); 21 Nov 2026 22:34:21 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 21 Nov 2026 22:34:21 +0100
-X-UD-Smtp-Session: l3s3148p1@iaquH9BgZOIgAwDpTyYqANgHwk2rnHm5
-Date: Sat, 21 Nov 2026 22:34:20 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Ralph Siemsen <ralph.siemsen@linaro.org>
-Cc: khendry@reliablecontrols.com,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	=?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH 2/6] clk: renesas: r9a06g032: Add reset controller
-Message-ID: <awIOXP337u_nHqnN@shikoro>
-References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
- <20261119-rzn1-miic-resets-v1-2-feee2bb28bb4@reliablecontrols.com>
- <awATU_lyjPBxThwq@shikoro>
- <awGZ-nCCbCNEuyr7@maple.netwinder.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F88606A320
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:35:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8F88606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-921318b2eb8so28308886d6.1
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:35:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795296901; x=1795901701;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vLPdwXc/aJvHEChEYmLlCcJA1K0ap0UNibPU2Yd3+IU=;
+        b=2hjtgRXcVYI13g9ir8z233PpYTahGw+pUBP0H7j5MGKYzX3WJP7RSROfR3Fb9iYE6d
+         LdBapp4iZ4xvxj1NY9ham+qJg2fqE/FpRyrV/jyU8Q3let7qwYtltK9+n8kSuJ8fcGcx
+         mnTEZWHayARzyXd/rewzrCBfJcsrLBL+tgnh6SVSpXpa1PZsMUOGRa+tcv+fUdcZa9qT
+         otorOqRLgfRPAxaTRxQhbAvLL5NTkPBK86f/17QZZGLZXHASeMCDV5vxp0saK+JJBhPI
+         tAbuHC8ciwFSoS+Kg7+358+RJzOzot0SqYGQRJWypx/46AckQ/rz/ZBDOX0STQMX0LJf
+         VZOA==
+X-Forwarded-Encrypted: i=1; AL+hErHBJm9NT9pB4HgON18J/RvIsnoBae9/oF4+lPvxctx2q6QsrnlilC3x3B4Aqg9851akTGKMky9bVYtB@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cLsJyZNwVFb4fLcT0cWcPwnzl0tMR/56iVrefQvPtSbucFIJU
+	q6duUlTHKeUVOZ4eMwsq/dmq0tGgptw49qtB0PDHFs7HuIi5wXMbBybRc5qommTS
+X-Gm-Gg: AZFdTZd9OoQEWJ03crHVIdMha9nzZh7e4s4S4XXibABK7HCPePdXaJQ1KPWoZhjSobe
+	rgLdwnLmcXNjh6VzI7ZZ8aZPQ4790LG6/Ft3vQSRVtOdjLmF+qJ278D0sI9F0/eFxp7KEPmqP6b
+	4YyxhRq5tDXXaxxQZskaFHoEDmpidYqtqwRUlP0K/62W/vk0/FQuin923lwdYGNB65SlNhqBAoV
+	w+HRNela998AX+xOtG87gH7fpKgPfBa5ABJgDUccqL8UIkWzjb502WIvx/+6KjRM9yXXXA0V7gZ
+	O2kl9n3/ZZ2hY3/6YcecDNQq2QOzfoyB9iAmhe8bRZ6IXjvxJ2np2PVAhqCS4c1XI/ghA2z43AQ
+	AMrutigamZT4ZTl83SVgluT7R1ejSEa5J08MP7zWOb9F6ET7AHBLOv199Oarodda3ZnwYxlp/L6
+	uhiAn3S/ulybJGV2gFHTOezP0wiODT/myCRCNgaQOxvBHfR74v2hr3M/zApGHUYcPFZ83UiTeER
+	rL63Zb6+scMCxUaMXDqC+hDEFYnFqXs7QKWKa5N/xxA7Ps0DljdnvaR6MRPmUSrNpUI7Ja7fNEH
+	Uy/bqXpcCOkScZlQV9d/Aeosgt8zz2bTXoC2XttP21FsbqxlPW0iXiZsV+3zedWV4ShWzYpFMJg
+	Qmm/rI5EeEPFPGnHqWiiJonUj7hIUFpK5oTMnEC8zvK2oEmI4cSeKYA==
+X-Received: by 2002:a05:6214:8620:b0:921:420e:aa1a with SMTP id 6a1803df08f44-921420eaa91mr69932326d6.33.1795296900763;
+        Sat, 21 Nov 2026 13:35:00 -0800 (PST)
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com. [209.85.217.44])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-92134a058aasm61677436d6.33.2026.11.21.13.35.00
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 21 Nov 2026 13:35:00 -0800 (PST)
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7d2d18f1bf5so1297073137.0
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:35:00 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErENWdiVDaq272U7B7grtqLTuQgSAkxbydRMsBSHo4br0/poNtZfoMEnPWah8vBEF4O9pVlk8VCz+dNA@vger.kernel.org
+X-Received: by 2002:a05:690c:6c92:b0:8b3:7782:675f with SMTP id
+ 00721157ae682-8b5204bb6b2mr23239647b3.66.1795296429324; Sat, 21 Nov 2026
+ 13:27:09 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,43 +82,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pTXDnQ8DG42W+K2e"
-Content-Disposition: inline
-In-Reply-To: <awGZ-nCCbCNEuyr7@maple.netwinder.org>
+References: <20261113121852.334604-1-tanure@linux.com> <20261113121852.334604-7-tanure@linux.com>
+ <CAFBinCBFfs85ZgYLq0Hbx-E22twLYMZztk3inRuRLaBB+MXsOg@mail.gmail.com>
+In-Reply-To: <CAFBinCBFfs85ZgYLq0Hbx-E22twLYMZztk3inRuRLaBB+MXsOg@mail.gmail.com>
+Reply-To: tanure@linux.com
+From: Lucas Tanure <tanure@linux.com>
+Date: Sat, 21 Nov 2026 21:26:57 +0000
+X-Gmail-Original-Message-ID: <CAJX_Q+3eB5K3UjfPHnsD8OrCg6GA8zOLWVdfFONFT_aociTCrw@mail.gmail.com>
+X-Gm-Features: Aa3M54q0-4I4quSKRWB1j7w8Nv6x5L8DyHdNe8I0CVnAIjNuxS8ecYBkoD_MhLQ
+Message-ID: <CAJX_Q+3eB5K3UjfPHnsD8OrCg6GA8zOLWVdfFONFT_aociTCrw@mail.gmail.com>
+Subject: Re: [PATCH v7 6/7] arm64: dts: amlogic: t7: add the ethernet controller
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---pTXDnQ8DG42W+K2e
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Sun, Nov 15, 2026 at 6:02=E2=80=AFPM Martin Blumenstingl
+<martin.blumenstingl@googlemail.com> wrote:
+>
+> On Fri, Nov 13, 2026 at 1:18=E2=80=AFPM Lucas Tanure <tanure@linux.com> w=
+rote:
+> [...]
+> > +                       eth_phy: mdio-multiplexer@28000 {
+> > +                               compatible =3D "amlogic,g12a-mdio-mux";
+> I think this has to get a T7 specific compatible string (dt-bindings
+> only, no driver change needed):
+>   compatible =3D "amlogic,t7-mdio-mux", "amlogic,g12a-mdio-mux";
+>
+> If we find differences in T7's mdio-mux compared to G12A then we'll be
+> able to manage them.
 
+Done in v8: a new first patch adds "amlogic,t7-mdio-mux" to
+amlogic,g12a-mdio-mux.yaml with the G12A string as fallback, and the
+node uses both. No driver change.
 
-> The reset duration could vary for each reset ID, since they refer to
-> different hardware. There's probably no "optimum" value here.
-
-Figures 7.3. and 7.4. say "5us delay is recommended" when changing
-XXX.RSTN bits, at least for the NoC parts. Yes, we can agree to trust
-the driver authors to get it right, but we could also decide to make it
-hard to get wrong. Bigger delays can still be open-coded if needed.
-
-
---pTXDnQ8DG42W+K2e
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsCDlwACgkQFA3kzBSg
-KbbM8hAArBvvQ3J6Gl2ZjLmVjeIL3UFqSTbiCDK7dNBn73kMdODTOv6XgDwwQCJ0
-+RQVzZUoF483LdiGroT52MAKjlo1oWzk3gdMmtMt7FtGeZyFbC+E8jykCJNKM8tW
-TlPcVmrqpF94fiaGWpaa35ehTON2ezntNWShpvM/N5a467PfztHUKOEMyx7ERO/D
-q8Zn//i6qbQ/bci+hmagIMmDXFBiHV6akmDzttSbf4wZdH2u1yroItrahB3wTblE
-PL6B5BA4GjBL64FLKr8XW4NVDhxQmAVDoZdMlhUWjPS5vhqCPfS6NNuTLQUzUfWy
-E/BWwxn1CWMTxV+HhO4AXFVFrys9T42Z08ICAFOHjOleoLZplVkfMN+zIh3h7wBR
-o7iZb25vxWL2hu8UgGMc2sNo8OwT0PATXlCenrBuR/uqhSIsfhRCC/nF02/ZI47v
-ahSvFkWSufuVhwIhbUmk8U5Exgzj+Mg9c4TjhrRTK6MCDa4fpdCvNnpl1U72mJHR
-Xq3jgLhM+4bodCBDJQHXPVNZwkMbyKlTf+hPpav6okETuNgQ86XE+CNYNywhmnzJ
-Mlo12B/mYG5JwpKPGcR1smZkcwNsrp/A+I1asgC7fhSDs7eD5HXNlLBN92yrCTc4
-3LnPqGr6KuIzZPaT+I3FXAJ7Zoy5D41UpNpmpYtcFmsR2WAy6ys=
-=XIqi
------END PGP SIGNATURE-----
-
---pTXDnQ8DG42W+K2e--
+Thanks,
+Lucas
