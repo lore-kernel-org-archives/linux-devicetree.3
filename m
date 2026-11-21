@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795279776;
-	b=xSK3XP77PNOq5VXXORYjObsxe9vmGqB8ytzSu9jCuCfXfw3wMkRSurWXFVaU0OrzIix9
-	 W2Y0k2bdsj8Rup0T87pQgtflwa1qH+ND/N/mvLCU5JVmVkjMWiyI+EPxcou+9QOYwEMB8
-	 ioJe5O8SfHSf3ImSur1IP8ARyDtSzNApf2w2PwbO+Q/2C6zL365ju+q8CUk1hnojgN67Z
-	 QoVoA4g6cHnKD84pAAY3+VTlCE0F42gpM2FSIm0hr/mR7pRyCJQ0y0yjjJxE28C5dQVDL
-	 p+H0Lltr8OWmsHQhQCQ1i8eYUKDcALnw9I0sb1yBUUPOnAQDbNR2TMAyl+azOqymBEw==
+	t=1795279777;
+	b=UZS6b48Vv+qA2YGNOoiVPgAq9A7jEGvCSa13bgrmCCf9PIT0s2Sl5Jwg7sxQIVb7VdpG
+	 wkV31TK5lKqLRK98Mc0PxJj2sA5G69Mz8lB4xBqsbyzay0/LWLrFjPnJOmcXzI3nxdcM3
+	 h7FnxjDjU0EqmrNnR3ZJ8T4HsD6z62jEzrQZwWs65dwFBJoyqbhw0BK4eXaFaffyuh2kc
+	 JwuMvcRMB3sajee2Z2Boy0eyJ6utsScv2inUg4ulF/EWlZ8qLYC6KBv7UmPHdgOUSK7Vn
+	 UHnYaM1Ze5ElgkAUtW0H81h7+bpJfL39zEDkuXwMg7PwIO5ayEwm4n9Gb1nKWIEDQCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795279776;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795279777;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=Tr5CKU3UlzjWznuI2jt2cmP/efOOLT4RS9lkC9TSPu8=;
-	b=qyjbARbxppYvFTUkLvbmFjSOfDdGy8+ezzblzF0BL9YDfuG9vl7ifWAHjKVVfR2m/+sh
-	 PgdOl59AX8llvBk2Gpgndk/wjvRvmN+Qn3wLJyhBG7Q68YlnRiZ7d5PLhqpk5sDEpSW3F
-	 jxZVEfqrkZr71KBBeBPy5PXek9Wa8ytRouIIDMFv4mGPIyAoc0sX0XkkjptVan/Cd9LnB
-	 LwGIpDwk/ldquguuk3ZSr2wdshdVbtd4G+D0Qfjr5id4irkp4I506uqdbuudlxN/T3jGK
-	 6GLQIkEtF3ENmzlVBUAL0jrxP8DJh6P18WmhRIktKPbH8cMsDWrBGNHwzZXA3SW+7pA==
+	bh=ugnNXXIsy9Uor/V8luuCj9VNvTB9GFq713zvZphiVc8=;
+	b=K+zAmE437crs0oZgi2WG1w01+/MoTYY0JfIVu35e2x/i2i9kcWkJGi0jBJNg7rdDnxa1
+	 Qrlk1QGnbSSxjCOrWRQPgrA2JWtLxPk3R8nDo1OwK8cJnD17tmTdd/IeJBIhpffAaFd8a
+	 x0PBD8lC+vNBUh1HXbzaF2LrmJxBdRbIr+Z2ibMsnS67AblMpxyn0Hj5rQhJUnaWCzvyn
+	 9YoWzYqSEFQ/Keu9pGdGmpbkzRZeUa1fbrd/YY4lkrUGFHfrc7p1FalgEr3S0PQ2AN+BE
+	 oWPk3701V01uW/TrRMw7n9ob82wwQv1ajoXJouYD7eg6Vs/8LzUceL3m3nUsZ8zx6tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OdcooltJ;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1NccJw0;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C39606A332
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 16:49:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86C39606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90503606A68C
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 16:49:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90503606A68C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OdcooltJ
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so1530277f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 08:49:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1NccJw0
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb85e07aadso22097805e9.1
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 08:49:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795279774; x=1795884574; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Tr5CKU3UlzjWznuI2jt2cmP/efOOLT4RS9lkC9TSPu8=;
-        b=OdcooltJshgvnRM7c+d/FGFvp62+GJqr7tPTVT3YQ1ew2d9S63WxhaYLBBMJo7Rish
-         W0jFv7E+bumkwunAAIGW3/h1O8hR53Mce65f8w7P5dd+K4xvASRMIHo6FgHTVG4+plbI
-         SLEjSMPhJ22OZpuOK+En0GZ9ZiMYu8oirKRLLUuXOTU80hnFa8601onbZ3qHt6gXDxwj
-         m3QDaylwAlOAcskZ2OhBE1pLKpx8foNt4cdlL5xCoVbVYlv4mCBYod9ShLAFq9WuzZT1
-         b3gR52+oXacMOpqxOKLS7gSu0HyRtvsVNlieaFvfxpA15HZqvZL8K07lYpZwGiQFj7sK
-         /05A==
+        d=gmail.com; s=20260707; t=1795279776; x=1795884576; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ugnNXXIsy9Uor/V8luuCj9VNvTB9GFq713zvZphiVc8=;
+        b=S1NccJw0Ms+NHuzySD+H8dg4z2d7XLQp651/mphadfSwCAJxOZksz4J6/G7lFu4C83
+         wgvpoYo8mezwD2HykkrtAatmVDpTlUPXyfM1Yk47PAkddq4KmODejoLVmjmCXBghfPcz
+         G7pJ2/mggW/ix9QBknkTXUrLaGIYZLl/RPYuF+Y/e/rpjiiTKMMkAQRBWKKGcm9vw7of
+         IGzhEjSSAM/t8gK86Bjv4faIaACHEsW9crqzr5bYd7Osv/lYXikDK0+kwJ1gZrJMCLWm
+         4mkUzKSqchtA5U96FxEN+CPjRFoJOlv6McHzoNFHIx6SWGeuYuE0DygUOYEwmwMAKTwH
+         LY4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795279774; x=1795884574;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Tr5CKU3UlzjWznuI2jt2cmP/efOOLT4RS9lkC9TSPu8=;
-        b=gI8VIHBbCUCYZMkmFrv4jcs0TA5HxhpH7lClO4JOImXmZwL2Rz/YvmYhepsOwxR0xW
-         ucWk6Gzj9rDfjWi6jMXX94hRAIvaNOlPSgHvyaYIjo0oacNU/Hlu26eNT7jCSr931nQC
-         89l84nSEphiNfIGUlg+qYCoiw8WYeuFdTKq40eqyZa8PDXKNMLNVGzEyRvABDmrRSbxr
-         JfmX8BuQLdd9z6gSLVuXxxulO6BY0tLyoOT6gpLRfASa9FTdbB91uYsAIrIf1CPFR6Hg
-         /SKxQrL/AEVwLU/M2RRr+6UVyoNSnkoFivzIwYxSOLMSObxnU4CbjULDpybxQhZxwig3
-         +qlg==
-X-Forwarded-Encrypted: i=1; AL+hErHfCvo/LXZXsVFl9wnTksIgJUCRY5n/cnEfphKW3ry4kaJON8bZ8hK7kfynMwCpxaYxHno53AxceI3r@vger.kernel.org
-X-Gm-Message-State: APuU4Z+g/oQ4fziOT3LksIgLe/bVXLUIfvvK7BPeH5S9QdaMOnyytbKS
-	rWsXeshcIGTEI9Rpa3ruglUFQCPPoKKUQM1eqb3GaZEhudAke/KAPDPPnck3rc+F
-X-Gm-Gg: AZFdTZdPMCAb4QrB6fEt1BQYkSluHWVzWCwmvCZWwfg/IlFy76hzRuseJS6N5MU3Y3x
-	MboUY374dPD+tmj9IDMlKWuS7H8Pf/bEmQsVmrrFkfYVbTrB1BhJ2U9a8iuX1a96XIkdKMr0GYq
-	O/1J96bObWJKQS3OF6nXByJTd07/F7XVO136E7jsWim9/SkVE5271kd7PCylxLT8JYegPKBbd8I
-	gazQgFiI6PxvV7NCayjz5se8uaiGbvFIckU0tduMsqXdSukJ3WrsRN+eAiT+Lh4DHuLIaKFWSd7
-	j4zlJC7IV2vwBMtuiVchsSU4Lsy+dNtohT3Dlxy8P/1mIssRvcVNFDQpp+gTvJTsm2p5plwTzWo
-	Ubw7/FVIEQFBvfwEaICbJqHRwy9l0G6TpKh98uS0i3xRTWeszJknN9ULpRSVN2QyXOhzD79oQ6l
-	t5MGJnPzTCB9BaQpyXO5Tw3Q6Njl7sfm3vIzqfuQrChGmpUrHm9lFw+zUnHGjuxzj5d+wTFZ87K
-	rLXC4AVeNs1VqqrDB5z0f4ColGTaeUmXTwGQlwa1zNSAxI6I6gWWZu1Qn910FxTIy7DvwZ/pGgs
-	6Am2l1L5s5kf+Lwne2X9mwIQo5suOdU=
-X-Received: by 2002:a05:6000:29cc:b0:4a9:32c9:a6c with SMTP id ffacd0b85a97d-4abb43deca6mr9060540f8f.50.1795279773669;
-        Sat, 21 Nov 2026 08:49:33 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795279776; x=1795884576;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ugnNXXIsy9Uor/V8luuCj9VNvTB9GFq713zvZphiVc8=;
+        b=ExXXv31KXLWUpiRpN782skvkBqU+Uw8MVRM/EREGs0uGiFHiFl37tGGNYQtgmgbSce
+         aL5LddxaJ4xl7G8znH5VEXSnjQ9x16Wj2erAq3Kp4F5y1d8vuGqYkn7qCbCU6dz08CIO
+         aGMjC1Mhqx7kFdesHcUm6w6+ydVJBcbVU1R09vEnQAXRDeRjxeEQ9Yg2CJpiXNZkuYu7
+         +e7y7252hkehopntnv1P6o288RZZQsxtVl/ZQ6nfmjyTSVKyD27SboCZb3Or2HY5dBJX
+         W/eIL/Ut7FljyLqbi5Gb4Ul4Fqo7c6uKIasQoxZQxVk87HaLwDktqJEfT2oXGBS3dr40
+         /pLA==
+X-Forwarded-Encrypted: i=1; AL+hErEzH5huwC3ATb2/BNHbWY8TdNO0uLC2AXRORU8RrfYDHKhET9qaUX//IDJfLddfnjLFsjeSVSKrXBdx@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LKTWEMN/n6Oo2F+yGWGp8KgtJ3cNyhaENmyaMWnZZX4RB+Xxh
+	QDAWmK7J38uuCG/+um4coi5MVAcyvbvxBY/0fzcz9tGwbWmY7CIPws6Q5A0Xrawj
+X-Gm-Gg: AZFdTZfnGIjOWDRnD8QgVYp4w1xnHQUOpp//OsEL4dp/ewSvl6DWSF0b9Wv40iRidT9
+	mR9+iZo2g9OvIbTKQE5oVVvbOGloF0hf2mNVMtNDslWHixAK6KRi3M3+TirbijI1+IZXrUjaJSh
+	iBbJLTLZMEctTMkBt4g6uycUhNYyn8MwZLEYtxvH9Sf07EoRhVHBp6Qef+pNnj2VNRZUgGNBgyE
+	sDCZ0QQ5rdqqKV4dBJNpmgTnvTR7sWMThQo251UTrazbxmlpSJF42QV/LOyjYjpE9MWSchaGCox
+	0FMcYeCtrw3SESj9Rib6euhfwdhNniRA3d//oQ2miemdggaSgW7F0TXThbflDMk5kYSkGXX2ndy
+	1HXcv3wECwK9xRd6513meW5f9kKNvr3yXpsz5XPxTlXsahr4XYvxJ9k/NRsNBpXLbyJgZaDbgRe
+	7yAIOGj3XRg18ZdI0AgqPHg3xRS5pgK2lPCSJyaAeUTn87eyhGV8VyleVpU0a5G99GhFSZUTDrP
+	VAJvhnrlAxTj0FFzm+ki1jXQD1qlXLVJQJ5RL9UFmlPJVx1FiKpaG8VtekdlthMyvWMeV8Tw7B0
+	1ah8SEO3qaAEy57bj0ZjQ0HCLhRJDos=
+X-Received: by 2002:a05:600c:820c:b0:4bb:6f6a:1976 with SMTP id 5b1f17b1804b1-4bb887c2923mr139557955e9.2.1795279775875;
+        Sat, 21 Nov 2026 08:49:35 -0800 (PST)
 Received: from unknown.local ([2a02:b027:11:696f:25b0:e663:79f5:e891])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4ab6b110ba3sm9761749f8f.35.2026.11.21.08.49.30
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4ab6b110ba3sm9761749f8f.35.2026.11.21.08.49.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 08:49:33 -0800 (PST)
+        Sat, 21 Nov 2026 08:49:35 -0800 (PST)
 From: Gianluca Boiano <morf3089@gmail.com>
-Subject: [PATCH] media: dt-bindings: document the Dongwoon DW9763 VCM
-Date: Sat, 21 Nov 2026 17:49:04 +0100
-Message-Id: <20261121-dw9763-v1-0-f215290602f0@gmail.com>
+Date: Sat, 21 Nov 2026 17:49:05 +0100
+Subject: [PATCH] dt-bindings: media: i2c: dongwoon,dw9768: add DW9763
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,10 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQyND3ZRyS3MzY90UQzPjRNNko2RjI2MloOKCotS0zAqwQdGxEH5xaVJ
- WanIJSLdSbS0AcDXonGoAAAA=
-X-Change-ID: 20261121-dw9763-d163a5c2c323
+Message-Id: <20261121-dw9763-v1-1-f215290602f0@gmail.com>
+References: <20261121-dw9763-v1-0-f215290602f0@gmail.com>
+In-Reply-To: <20261121-dw9763-v1-0-f215290602f0@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -107,32 +106,60 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, Gianluca Boiano <morf3089@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795279770; l=692;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795279770; l=1908;
  i=morf3089@gmail.com; s=20240402; h=from:subject:message-id;
- bh=VFe6rInvOpcbpjq2cBpErG4KxA9j/Y9r1X0v6h+zhYE=;
- b=N9bApgpYBwVxB7xDyEKPDEzkL/ZOO/P/SlJmM9T9fKdCl3jhJ1rEKJxw4rPB1UjuXyAXn9Qje
- c4Lnp5DPvgEAFM+fzXoY/wgd0DT5+jfjdjrKFbulNhO56PJ21VwdRw4
+ bh=qLwwZ3rP/fjc2JAHuzzvcKw4S3Ep+DNYoDcVGI1KFc8=;
+ b=FXcyCoVTdSrnvMx/FpFgdpHcR6SnrRAqBrBe9xrqyPsXhxCW27B742B0YYg0QtpySDp8a7kv9
+ f7/o4C3koqzC44B2qlmfzILBcVcnnUlw6PFbYxtNUCsJZL6+gjJSXlJ
 X-Developer-Key: i=morf3089@gmail.com; a=ed25519;
  pk=HsGrEQ3ia8BGGGO8/nUM2K2UX9JKvRPV+nbrVDGrYhA=
 
-The Xiaomi Mi A2 (jasmine, SDM660) has a DW9763 on each rear camera.
-Both work with the dw9768 driver as is; the commit message has the
-register comparison. The jasmine camera DT that uses this compatible
-will follow in a separate series.
+The Dongwoon DW9763 is a 10-bit VCM driver with 8 KiB of embedded
+eFlash. No public register map exists, but the Rockchip and MediaTek
+vendor drivers program it exactly like the DW9768: control at 0x02,
+10-bit DAC at 0x03/0x04, status at 0x05, mode/prescaler at 0x06 and
+resonance timing at 0x07. The chip ID reads 0xf9 and DAC writes read
+back as expected.
 
-Discussion: https://github.com/sdm660-mainline/linux/pull/267
+The only register-level difference is the naming of the 0x06[7:5]
+mode field: the DW9763 calls the values SAC1/2/2.5/3/4 (0/1/2/3/5),
+the DW9768 AAC2/3/4/8 (1/2/3/5). The encodings match, so the existing
+dongwoon,aac-mode and dongwoon,aac-timing properties apply unchanged.
+The dw9768 driver's settle-delay estimate assumes the AAC4 multiplier
+for mode 3, which may be slightly off for SAC3; this only affects the
+wait after a move, not the lens position. The eFlash is not covered by
+this binding.
 
+Document dongwoon,dw9763 with dongwoon,dw9768 as fallback. No driver
+change is needed.
+
+Signed-off-by: Gianluca Boiano <morf3089@gmail.com>
 ---
-Gianluca Boiano (1):
-      dt-bindings: media: i2c: dongwoon,dw9768: add DW9763
-
  .../devicetree/bindings/media/i2c/dongwoon,dw9768.yaml         | 10 +++++++---
  1 file changed, 7 insertions(+), 3 deletions(-)
----
-base-commit: aa0f4c41d4870a18e65772a1817af16427200371
-change-id: 20261121-dw9763-d163a5c2c323
 
-Best regards,
---  
-Gianluca Boiano <morf3089@gmail.com>
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
+index a0855d3b7..386352f62 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
+@@ -20,9 +20,13 @@ description: |-
+ 
+ properties:
+   compatible:
+-    enum:
+-      - dongwoon,dw9768 # for DW9768 VCM
+-      - giantec,gt9769  # for GT9769 VCM
++    oneOf:
++      - enum:
++          - dongwoon,dw9768 # for DW9768 VCM
++          - giantec,gt9769  # for GT9769 VCM
++      - items:
++          - const: dongwoon,dw9763
++          - const: dongwoon,dw9768
+ 
+   reg:
+     maxItems: 1
+
+-- 
+2.56.1
 
