@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795281803;
-	b=cjX9iU+8kzcGAjnY++QFmpmNw5JKnHA6kFz+iAPyUSruSk3HGcWNSlXisjHROy4r6myh
-	 9g0ULTT0ICN30/802btXp9Ys7pH8t0KywxnT3IgRu73owfAwl9CKWSeL2hZZtfxYsWc2G
-	 VqV9kHjwAGT0g3/EYtiF/C33f/hbUO3mQPbk2Nar69Rti1huvebmbsPf3TTjJuyT6UhHV
-	 6q1/38mDrP17pZ94i5QAgnu3JOXADQsyDjzamT4JP7Ayk19JlJcLA5kwaM+P7E3GP5qK2
-	 hFgsDO5bixNS7HyCnus8an1NVOVkQM2VgIjsqsglhvU2WtIY8K6JEQBuKFXo4+/lEtQ==
+	t=1795281809;
+	b=Jiql847rOp9nfrBq2fnIvJyO5NfMs8mbFykhRmU6DeEsIbJYtBjVQtKAIG9w0WuIg0/G
+	 8Xwr31CMSeVFuRy8msn++2A4aiDZ1lAmNhf3qmPJ+xXi1qkHnyR0bfNOkXrNCO8fR4DK0
+	 kVSexT7dZIA3QpcDmgzC0KVWdcQgd6qGXUXFaW+SV7aYFOrLYuPwo6QRiSz/pENdTwxEn
+	 e1OnskM/6lU2Da5rJkxHllzlvIB1/8IALQeorXDDBijb8vojfmcMHNhxyqR4FL4dstszN
+	 moE9niZ62DGLf+VHM+gaPhS336UkoRm4mNn/gUdxBHdpvb/IT88YOJeyhjWeKf45i0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795281803;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795281809;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=rf6nX6z9gFornN9cf7tozfwyaeDZkmjs0vcNKXrirVc=;
-	b=studfBqff2gxnQS8EnQPLuxdBcM/HvKMyAeBxZd040mJvbsNtDFGUtoMONrXGntbAXOJ
-	 HIGDwW0FjVY+a0gtoNtKkO4ma+9i/aLVRn63Hp8Z1HojIU6Ioxde1OFKn7XSJfv78KhyG
-	 bf6nuokCIsukWH7gqtmP0bBAwRpwxOGsxrF7NHWZsUifCNcXc6c1q8wqdGukJDDmAlmud
-	 IlZFOQ1YCYGLqly/W0FVcHVj/XFBe8mVkMxItqHbLulrvfzMc1TgCfp359gVeuh4ZzmVR
-	 TemtdKj1kDINhkRaHNJVvZflc/5X6W5IPkpMugB0UVp8LBqP42d/G00VwCubL7TJ69A==
+	bh=A0co6D3pA2qw7YPiyyMMIlKC8VVSD5A9Jz422WbS0Bo=;
+	b=w2XuB2M57Ba1JFKF+QhhzQ7vBkUjJWuVJE/ElTtFX5E5XyPn8Uwxvvx340DAvb4rR0Cl
+	 evClXvzCvDXzCrMYyuAWdbzgAjZaH6K7eHPWd6rcAli+UCxBUbLmt2hX4WH1FxnIGT6Bh
+	 lT8ZVRnX3zqHyrPkFCCxPnSJnJP4OdQfcNuD76YSoJJMvKqJO7+86WJq44JijP7POVvWR
+	 tuYQ2HHp9pynmmrE30eknLEA0sncxt25BGhBoEVUWDn+TI/URnaUu6lVn+D9CNYTfkBrB
+	 af569Kei9GSt1IpgicuVrkYD7fTas8g+eFf+TPBqzl8pqi058j68F8yeww5Zesu4cew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="W6Jv14/o";
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P8LmpFBe;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D6C606A32C
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 17:23:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47D6C606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFCF606A330
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 17:23:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAFCF606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W6Jv14/o
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-38190551625so3859237eec.1
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 09:23:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P8LmpFBe
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3282db206d3so5626334eec.0
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 09:23:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795281802; x=1795886602; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795281808; x=1795886608; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rf6nX6z9gFornN9cf7tozfwyaeDZkmjs0vcNKXrirVc=;
-        b=W6Jv14/oX0BcPQYRsaHnsjvBVFH/SSg7Gw+531o+1xtwGe18j35J/O6ym3b9t3qaEg
-         R5vxdpl9ZdOIH/GNu411QtlFPkqwmkdIaG1bJSH6AKVJGZbjD7gOP2akjNuKQzMP0MIE
-         58YIMpkv0VpPCGJ/yPUN19tRQD/+Mrk5o++6cuTYB5u/WB2wHiOrTj4M9F06SToA+ZYz
-         nJ4fRL31Mz82ERRYvkszKqr5lUnEGKE41S2pQLr+iw8eiQdbHKk3JvK1WfKrg1ITOmxk
-         N1EyniCz1Tkxve1sSB1eZzAgU9OYi+hvfcxSlrK9Hu6UIQhlFZytJTVP6PyK+i3GlYG3
-         s3pA==
+        bh=A0co6D3pA2qw7YPiyyMMIlKC8VVSD5A9Jz422WbS0Bo=;
+        b=P8LmpFBeeEHcocflIPBIlS1K9w6pTlbbXxxF7rE+383oIBdTofSXp75DxlWBqIC+TJ
+         xDrN23DlA7Nj544SQyBZaMWQvuIxEv2xKdV+fmylyy/8wDTKBon7ajKNGjyUiUwRe6zD
+         U5/K8xllqUiZ/yQDDwGJnWVEKHle89afY+SACk/iJIfVKTeUD3ddBgc9zwJTZvJ0jCjC
+         ct29Fvv7B+KhPwIZ9BDxcGEk/7IDUJoj0zSXwAjuai5Kqt/JR6Trw9EGA3NWM5ko5HNX
+         aTDfE1b40TpFlFU8oqwlqHxL3Qq1hT3xbePp7/sKIH9yyMYLAqIiiu4DaELWMcvIqcT3
+         CPTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795281802; x=1795886602;
+        d=1e100.net; s=20260707; t=1795281808; x=1795886608;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rf6nX6z9gFornN9cf7tozfwyaeDZkmjs0vcNKXrirVc=;
-        b=vdrYub70uvLnQ6j8m1B73wge6zqSJRqctd+MOid8a2x3Ey856EeZmCUsyW44vvGZWF
-         I3yJFVBHxyhzMhRnNFxJNQmIZycvF69LVdzzLi6L8GinbjesUzSC2XJG+fNZdlcfEGR9
-         mxKQGIVIr5dGj28J4DJcbtJK29fFlkXHDGJVSFQxrRTqJSKP4fVky/u3dGAZY5FmfckC
-         MpeL+StoL7u8FGInAUBimkCycOLC6Tz1okfJ2GqMC9Rgx9gBQ6Ml6bV9f0gmX7CYpN1w
-         mF5Gt2aytXN54rLG2ybDHaxaOzMnb+jKJuQIBbkHVw13kwIQbtaE0DymrGy+9JpPR5l5
-         U4jw==
-X-Forwarded-Encrypted: i=1; AL+hErFA+SAqCUR7uHoaXvVCBnbJETr/N9MjA0Vw1xfPxm9IVRA7Y9SRwFodA1W0tWTv6muqSkTWX/JF0hhx@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wx0WJRrFAUKmro1WhsvEkkOZGvzM7Qe3cUWN7C6OhOHeUnMJb
-	04dIoz0HClIJ67NkTX04VCZzCO2fpaIbEka5JXIUprcTO223fcSfJmO2
-X-Gm-Gg: AZFdTZetOvFiMNTGOJkq/DiOkAGfavyJm5IM72BCPOPd9s3HsAQElEGUTCxEQbd2JJ4
-	xI1e33lNpfIejxbOhNbuVpxOLNv5QqP3c8NxBtb4IWGThvvO2jSg4QtbeANpL4OtYX22zCnqlPG
-	iGFy1Ddv5DdfhqZ2i/S9aixJ2kCu2IyntZ1WswZnNZIy6JMaCf4StLrWRuCfZYMHZBnFLCsDjpI
-	ZRwDELjjnewGX9TUDR7I9gRkgxhD6k9oUHusR1kjojSrbNFFDrwvuwBi2BCyg8/BJrROqHvZAeY
-	8BvuwzmBOm5NHMgXOA9N30J6Q8Z3qrnVG3l69Xr7KC6fRFif1pceub+V08jJzLpK4aDlAYsXv2o
-	jTFxABEBBpg2VEK0LfaLD52gl+TxoNpPHfeSWZ9wDGIrZyPPoeh21oGYywtMS/zpJizIj72VcKo
-	oCImrbbNAYHsh6bK/IhMLScFEP/jcZ4PWJtrw9gYUeNabK7y3mOSxchPicCjAp9EUZ7nELlH3/T
-	Kx7p+tuKeMVSez3sD2TSygiS5pVtq7w7ZlfNHJziPGeRFhhJhAH7zKPyWIYxsPkOm+Ug0LM8z8F
-	Rsfk/Cv9Lgyge8rLJe+mHz7ociZ3fUddfkf1
-X-Received: by 2002:a05:7300:bf10:b0:376:b957:bfb with SMTP id 5a478bee46e88-3856f7563b1mr8528080eec.17.1795281802311;
-        Sat, 21 Nov 2026 09:23:22 -0800 (PST)
+        bh=A0co6D3pA2qw7YPiyyMMIlKC8VVSD5A9Jz422WbS0Bo=;
+        b=VKQtPFTSKBBypWH5hhYma7aIZwMOjfaxIWGKjOWJQdkvgB6rIObSAbN46yuk1F8Moo
+         M7UJ9Jb0J/S2eGD3cnLvY1Si96CtPmycuJue9VFuQv677FyB/a1vNd4quHGVQZ2yQcXN
+         t1vrptWa4C+Fuj9VXYyoEvvWe/U8yALdfQHM+IImC3PORL+HtpyWKd0LYr28ZVeIpved
+         qnuNDqm8XjhGHhJXBQU4DMotCM8qaKYi5+92vPj+5EGXMAurc5XqqbSab2CCvplWm3pj
+         3LDw/XUtSLpFfCHhLdbBX3O3BLG23krCephgc/grcraM2v6I6sBQyWHJzUt9BkPRmNc/
+         KZ4g==
+X-Forwarded-Encrypted: i=1; AL+hErGcRwXA24AfnGfs4mxEpxJqZ8SOpfDPr3yW5qdm/NQXDPqOw8u6sUAn6VarJArlzIDv6Md9NkbvtHT0@vger.kernel.org
+X-Gm-Message-State: APuU4Z++IoNCP3H162Mc+B2A1sHuNEJJNasaba7SeiItPyj2IgGfHVsr
+	/nsQzyYlSgS15uFMU3Lmf86xiK0pe8QLHv+avNbHTngLoq7FD6F83/s3
+X-Gm-Gg: AZFdTZe7JHV+kQq1W7eyuMOeIL6F0at8AgVhINAuD6VIIIom2nW9K/xzm5xggAgyazl
+	mITuqXuQIwUiIqOlbgzMmmCveK/jDdC3NIOfkSwtczPzl8pKpkdAhDTR5WC2j+Af0l9IutB0vtt
+	Kuq191krEEMj63E9FpGWrh7Orjej/XoqWKFJ8fiOOfdGSCFzXKzgN67s/8Et+pR4s4yL7uIMQve
+	wstHXbIi+MlfJcQ8NkL858YKWNSvi/82mDOV9tbRmwIi5dxwMzIN4YMl0MCMDNCJExM6Dq0Cxcw
+	HftYxkzdqFJbv76klzwoHubXEUsG1qEDkH0gWHKrNzDGA4VHSmNRYf6Ef3mvrZIhxXup9028qHu
+	xcoZfoOdev1Usoi/59gIA5uJ/oq5VL48gBmiUChAAqFoom7j2QctFZGgvOMPmTkMjABluP5hevz
+	+HTYA7rkxIrCV8SKIIEm5XHWYBaHxskGRxUYkkOLcfLFa+RrG9mD+UT+U0UG8GrkmEcFKZRtheM
+	UnU8Pd6dG3fj+beQ76k+9pSjMf+MSWC5O8gEauVDZCUFNC3Pzhp4wLaC78wrod2b3yfWejg+EKv
+	DFenIqV4NmmqJTqUPU9z9iYgV3mJFWyMLj0x
+X-Received: by 2002:a05:7301:fd16:b0:385:8744:658f with SMTP id 5a478bee46e88-3858753a876mr6679805eec.28.1795281807535;
+        Sat, 21 Nov 2026 09:23:27 -0800 (PST)
 Received: from DESKTOP-NM9EKIA ([2001:e60:8509:ba6c:4c23:efbc:89e:50d9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567da4f85sm21227439eec.27.2026.11.21.09.23.20
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e96bdsm18360832eec.7.2026.11.21.09.23.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 09:23:21 -0800 (PST)
+        Sat, 21 Nov 2026 09:23:27 -0800 (PST)
 From: Joonhoe Kim <26rote@gmail.com>
 To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
@@ -87,12 +87,12 @@ Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v2 4/6] Input: aw86927 - add support for Awinic AW86937
-Date: Sun, 22 Nov 2026 02:23:20 +0900
-Message-ID: <20261121172320.829-1-26rote@gmail.com>
+Subject: Re: [PATCH v2 5/6] Input: aw86927 - handle the AW8693X play and boost register layout
+Date: Sun, 22 Nov 2026 02:23:26 +0900
+Message-ID: <20261121172326.846-1-26rote@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261117052112.32527-5-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261117052112.32527-1-xiaqinghuan@mail.ustc.edu.cn> <20261117052112.32527-5-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261117052112.32527-6-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261117052112.32527-1-xiaqinghuan@mail.ustc.edu.cn> <20261117052112.32527-6-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,10 +104,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, 17 Nov 2026 13:21:10 +0800, Qianhui Xu wrote:
-> The AW86937 reports CHIPID 0x9370 and is register compatible with the
-> AW86938 as far as the boost setup is concerned, so it joins that branch of
-> the haptic initialisation.
+On Tue, 17 Nov 2026 13:21:11 +0800, Qianhui Xu wrote:
+> AW86937 and AW86938 keep the same register map as the AW86927 but move
+> two bits and invert the stop handshake:
 
 Tested on a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with two AW86937
 (chip ID 0x9370), compatible "awinic,aw86937", "awinic,aw86927".
