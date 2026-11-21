@@ -1,105 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795232519;
-	b=JYs4UoTJlp+cniHT1cy/DW6KqeM374+O7HHABes7770SXG8MMVCbD9UWf6RvAoXALY/v
-	 PkGshaOH1OYA+alqFMqBkpdHWI/A+MbJdMCSluKI1C76JPwAMzbQy3Q2Twvcsgit093qs
-	 9gKvoTVnfdp3isoOpNGJJEZcxm9M4SnBJt8W1Lb+Lt49+H6gsyHsvdg+xGlKOryALXOtc
-	 FlJ6lQcw2TbknG/7xn7jiErjm/hSWWGfF+aoRcW/YiRSgOCIbsJj8zKthV8cE6JW181hv
-	 zV+welLUAF8MN5wJ0lQOTywriSCuLIUtEO/Kk27aJbuCWq6zbb8YcYmUc8b/Cu4sCRQ==
+	t=1795232848;
+	b=HOAZfCf3u/H0mnqdwy1CvAdiN7K4WPUyCMOT6XUMyqXnSjUVjgeFlYFvyqVYaqEfWQbw
+	 rsqlK0zcZO3wjlnSQqQ3Lk7CgkT8f8RX9GrfmAPJOpWtlgSlcZOFXzAVT/XAjBEj3yZwq
+	 +3A5qALNMP2DrxRPbOU4QwqC7FvWjB87AqtFlpo0GkaEp1/MUkhLgJuelEBOSKHvd8iUx
+	 i07C1xIDloE4lj2ouSJXmf7QXIwTeR85G6IrtQe45Q7slvcO06a17z0oN7vTtnD5H/wQH
+	 7rgXanNPS3Vjcn1RW2a9z24LHHq8MT/skZxRCmswvuGBZzI31zks9kKw4+aPBzsPQ2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795232519;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ah3lmmwTO4kTFu9w/FRtwILA0EF2N9TZsivGOFrxvGE=;
-	b=KQLtZ5wgClRrg8XVPjVxB9DMZstKsySjPOxN+2iaeyhCBVS7r2g+jFP4KgEbTSLO8fUv
-	 5X7TsdNr43yTAb4qj8apYfmjP0sS/6fqVK6uIQ+r3Q2v5MpaP1y8IyZjpE4F8TGY34s3R
-	 fUK58GhINMx7bBW96zQOOai5lQi1/iYjFm1MyF0NFhPlwWVs+I5U+b27P+IpSUnVj8szQ
-	 nLt5v/TqTokaGm/TLUId4zGfgQP7gPgeONcdcHh/eRsdNgvL91OAVywAcxaAJUCdRQLB1
-	 1LPRFQ926POFIHuvC01zcm8cZ3yPoy7Q+5EW56PSBcyu5CN7EsAni5lgh4kYLP9H5MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795232848;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=NefLLPefkjH1B6l1iL9VhR6JuVY7bjoE3/WD0X5PSTk=;
+	b=V3zXyoz50TvnisdJUL2O1cW/KOjRMjzpw0A43k6RmOe6m9hSZgXv7n7E+DhP5VbUfvkq
+	 dcwiweCH5Fat+3vqDzT4+PiqrlTi2e2YoY5rh5/gXxCOSdRtB5swm+FguBvVJI6VXDWc7
+	 pwUCZWboek3f0Wcy3FKR0nF1DOnnhIHiC6sgR21tFO8TS8vIoPlsZQ8unN0hMks5cB1YQ
+	 Fvdw672tHEn7Ji2kXbJnbhxbOP3Ba06Ci+FJmdhv/2IbmYn5Z7SYr3MCRm9rlUDx1F683
+	 LOTyo47jdBQgCVGzFaIXse+ZB9bMtmgxcg+32DjDBmjo+xgn/vpbMJ8v1XaRbbTL1kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grCEIKR4;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CcVddzWB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B71606A6BB
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 03:41:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6B71606A6BB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79587606A6A8
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 03:47:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=grCEIKR4
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15dd124bbe7so3483080c88.1
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 19:41:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795232499; x=1795837299; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ah3lmmwTO4kTFu9w/FRtwILA0EF2N9TZsivGOFrxvGE=;
-        b=grCEIKR4cJMWF+IQ+i5NqGc9xVN2CF0ZHSSlUSV7Mu+7qXfp2Pk439cZfm5xDIPBk3
-         vPtzQYQ4lqCwENZ3qfD97Dor1tlQDKOcWav600UXFxRCe4Uit5gsAT+Ae6M20ViCB+++
-         C+PFmzVW6LbFWthQwxqzf19b8F/h4iQU1Zcpbb3/OyFNX9LgEgTwUAB4pNNxOeO6var8
-         p03cdy8K3T5yFT1ONv/e3yI43ZL626rpWgH3yl4P5q8QYhzDdE/fB3xLL0UkVp2ec17C
-         ZshDT97Ca5nx99k89W/kGSyeIAedhRDKXDSC6pepA026x8nLqCVVnMW4uwqkNu/R7Ju/
-         4VQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795232499; x=1795837299;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ah3lmmwTO4kTFu9w/FRtwILA0EF2N9TZsivGOFrxvGE=;
-        b=ecQ/EOaW5Wkm1+YyqwD8raKP1J4hm1QvL/JW30hyh1yGaklSfQ/W1w/wfQ+BZs1REh
-         LL2dd1M4nFEJIOYzdaeMTUpBFSrS7LNU6uTdiccg3uSPwCP2Xx7w1Zys/KOcYZ0e5ljN
-         r9fUnbzExohUOYegzXbtLsh6tP/aqo6r8lbmvqdVp+dTBJ5yBeR5mxOdXu9gcP2Cv1VP
-         F1pRTj5jEDo7bcsTWxE9H9J3nu5Cy7Ulfx7/wyZJ2uqAqn9NUboX31g+zcK8Bg3XhOQY
-         nh6OtnHvwJfpNUVrCUkDY99T4zwf2LBIlxpIBNId+IQqQ3Z56xHUmsp5fy5cWSfYTGba
-         GKtQ==
-X-Forwarded-Encrypted: i=1; AL+hErEZQWFpCd4cEvcn+NbivU0OBEkp170M370IU3BccRV3xb4FSwdGKw7bE42rQW76HnE+KNxgLbzEDHK5@vger.kernel.org
-X-Gm-Message-State: APuU4Z/V3Jexq6xdZ2J4vWQf40Rm80gaMX6mgxXkjldAA22877i4IhMg
-	nMCcXFZ25g9OfqqMyKigFdx4kRa7D66D0LUcXdn7B3RIhBDX21zkT8Eu
-X-Gm-Gg: AZFdTZe1sLonlGq4X2gCU0bYIX6Zz3u6V4XA5al3/67n9iAVYKkHF9KJEtwfG0428L7
-	+fgObI4d0S69YMaCvy840ueX8hJ2uxiEDmqbsf7xEmfIATgDHS2BSV5odpqMViYaza7s3dMgzWh
-	lCP+BYudqJ5WR1v5HvzP2qQ2RzUEbX7yYT7wbQ/VsQ/LQplXi4x1JGSPBVjpcF41Rw7e+srVhCb
-	2dnnuujm86++wG8/VALdMfPJQbq/anxN38gIzr/PrA1/MowLcfVUB43kBq5LCysxRzPFC/Uwcoz
-	yCegp7u1sugGCQcAaQh6m1ZOLtpAYUBSH43uLQc/x/IoFlTttk9/EN2KDbhnNah2MAO5CXIvqkS
-	zZgYB+kQ6ryUAB390mkWB7//5eQXpSP0kCBEYVqcTXhqt/XEV23GW1dUrarLBjkwbOUY5n3wAp2
-	tGpipYZpHX2DmqsC0Qkkdok9OIZltJjGu6WIHjKn5vyYMYiaiLApuc6rr7qbOqtbuG+TyiGAGHJ
-	ve+G4F6sk6i45VyF3k+iaX/q7RaSZ4PFQf6cUR7qjcSceNmXQCkoSXz8/7IvX/BbkmxxRuTzx7i
-	oIZ3evpWFRWiOe1qrIGWuggo7yKb/X60pbmUmPtKGvltyQ==
-X-Received: by 2002:a05:7300:2209:b0:386:8d2:929b with SMTP id 5a478bee46e88-38608d2945emr5305042eec.23.1795232498643;
-        Fri, 20 Nov 2026 19:41:38 -0800 (PST)
-Received: from debian.prasanth ([103.177.82.216])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385646633d0sm20891464eec.3.2026.11.20.19.41.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 19:41:38 -0800 (PST)
-From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-To: srini@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joel@jms.id.au,
-	andrew@codeconstruct.com.au,
-	ryan_chen@aspeedtech.com,
-	billy_tsai@aspeedtech.com,
-	neal_liu@aspeedtech.com,
-	tan.siewert@9elements.com,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH v3 1/2] dt-bindings: arm: aspeed: sbc: Describe OTP NVMEM provider
-Date: Sat, 21 Nov 2026 09:10:52 +0530
-Message-ID: <20261121034053.39878-2-prasanth.padarthi10@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261121034053.39878-1-prasanth.padarthi10@gmail.com>
-References: <20261121034053.39878-1-prasanth.padarthi10@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CcVddzWB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D13031F000C6;
+	Sat, 21 Nov 2026 03:47:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795232848;
+	bh=NefLLPefkjH1B6l1iL9VhR6JuVY7bjoE3/WD0X5PSTk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CcVddzWBbN6y54XzHjy+vzKI8NwGap5Lx/LAb50YAa/f3YZoNJ9byD9cu+rZlUutL
+	 IEuMYDsoVTZbvbD1s4RLL0NIruVU7/hMnekEJWA/6MjJ3sgdbMqd5vOYEUcZJguQn4
+	 5ZdWBe/rOB8RYE03ZIKFnaN57PXR1+49teyEQYpX+GA3+tdBmZWklRSmKW7utEr2OM
+	 OZzotQ2n02/U9XhStCDzJafja48MK7tiKzSoPEMqxVoxaqJIlzA5OJWFxcFhG6J+wB
+	 Rn2Pdrks4b4SigR7hYLX5vJbP0Lw8WTEHVcvpLtj78K+07/I9+u1ZSof4ShT/kI/Go
+	 fSCpD2ggZv5mg==
+Message-ID: <sashiko-outbox-226601@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v2 2/2] net: ethernet: ti: am65-cpts: implement
+ PTP_SYS_OFFSET_PRECISE
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Clark" <jjc@jclark.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <4af45df52cdd96da920bc36d29bc341615bbe95b.1795143925.git.jjc@jclark.com>
+References: <cover.1795143925.git.jjc@jclark.com>
+ <4af45df52cdd96da920bc36d29bc341615bbe95b.1795143925.git.jjc@jclark.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 21 Nov 2026 03:47:27 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,59 +60,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The AST2600 secure boot controller also provides access to its OTP data
-region. Reference the NVMEM provider schema and use unevaluatedProperties
-so common NVMEM properties are accepted while unknown properties remain
-rejected. Cell offsets address OTP data rather than controller registers.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] am65-cpts: missing per-pop TS_PEND delay in
+  am65_cpts_fifo_pop_event()
+--
 
-Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+commit e2b0e8be4be95c8c4617e693d71c09e33009c74e
+Author: James Clark <jjc@jclark.com>
 
----
-Validation: dt-doc-validate and the selected dt_binding_check target passed.
-The binding target used dtschema 2026.4 with a local diagnostic lookup fix
-for trailing # in schema IDs. No validation rules were disabled. Two
-unrelated TI type diagnostics remain; no SBC diagnostics were emitted.
-The valid example passed, and an unknown-property negative control failed
-as expected.
+net: ethernet: ti: am65-cpts: implement PTP_SYS_OFFSET_PRECISE
 
- .../devicetree/bindings/arm/aspeed/aspeed,sbc.yaml     | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+This commit adds hardware-supported PTP_SYS_OFFSET_PRECISE cross-timestampi=
+ng
+to the TI K3 CPTS driver by routing a selected bit of the Global Timebase
+Counter (GTC) to a CPTS hardware timestamp input.
 
-diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed,sbc.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed,sbc.yaml
-index b8c5cac..d8e19c2 100644
---- a/Documentation/devicetree/bindings/arm/aspeed/aspeed,sbc.yaml
-+++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed,sbc.yaml
-@@ -13,7 +13,12 @@ maintainers:
- 
- description: |
-   The ASPEED SoCs have a register bank for interacting with the secure boot
--  controller.
-+  controller. The controller also provides access to the OTP data region
-+  through NVMEM. NVMEM cell offsets are byte offsets within the OTP data
-+  region, not offsets within the controller register bank.
-+
-+allOf:
-+  - $ref: /schemas/nvmem/nvmem.yaml#
- 
- properties:
-   compatible:
-@@ -27,11 +32,12 @@ required:
-   - compatible
-   - reg
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |
-     sbc: secure-boot-controller@1e6f2000 {
-             compatible = "aspeed,ast2600-sbc";
-             reg = <0x1e6f2000 0x1000>;
-+            read-only;
-     };
--- 
-2.47.3
+> diff --git a/drivers/net/ethernet/ti/am65-cpts.c b/drivers/net/ethernet/t=
+i/am65-cpts.c
+> index 3ce3b2245efba..4987909d3bc2b 100644
+> --- a/drivers/net/ethernet/ti/am65-cpts.c
+> +++ b/drivers/net/ethernet/ti/am65-cpts.c
+[ ... ]
+> @@ -797,6 +841,243 @@ static int am65_cpts_ptp_enable(struct ptp_clock_in=
+fo *ptp,
+[ ... ]
+> +/*
+> + * Read the FIFO until it is empty, then accept the next push event. One
+> + * __am65_cpts_fifo_read() takes at most AM65_CPTS_FIFO_DEPTH events, an=
+d after
+> + * a burst of push edges (a request that wakes up late leaves the input =
+enabled
+> + * for many periods) more can be waiting. A push event left behind would=
+ be
+> + * taken for the next attempt's. With the push input disabled no new push
+> + * events arrive, so after enough passes every old one has been read eve=
+n if
+> + * packet events keep the FIFO busy. The lock is dropped between passes;=
+ a push
+> + * event read meanwhile by the IRQ thread is ignored, as nothing is arme=
+d.
+> + */
+> +static int am65_cpts_gtc_push_arm(struct am65_cpts *cpts)
+> +{
+> +	unsigned long flags;
+> +	int i;
+> +
+> +	for (i =3D 0; i < AM65_CPTS_GTC_PUSH_DRAIN_PASSES; i++) {
+> +		spin_lock_irqsave(&cpts->lock, flags);
+> +		__am65_cpts_fifo_read(cpts);
+> +		/*
+> +		 * TS_PEND is valid only once four CPTS_RFT_CLK periods plus
+> +		 * four CPPI_ICLK periods have passed since a pop. Read a
+> +		 * register so that the last pop has reached the CPTS, then
+> +		 * wait. 100 ns is enough for clocks of 80 MHz or more.
+> +		 */
+> +		am65_cpts_read32(cpts, intstat_raw);
+> +		ndelay(100);
+> +		if (!(am65_cpts_read32(cpts, intstat_raw) &
+> +		      AM65_CPTS_INTSTAT_RAW_TS_PEND)) {
+> +			cpts->gtc_push_armed =3D true;
+> +			spin_unlock_irqrestore(&cpts->lock, flags);
+> +			return 0;
+> +		}
+> +		spin_unlock_irqrestore(&cpts->lock, flags);
+> +	}
+> +	return -EBUSY;
+> +}
 
+[Severity: Medium]
+Does __am65_cpts_fifo_read() only pop a single disarmed GTC push event per
+pass in am65_cpts_gtc_push_arm()?
+
+When __am65_cpts_fifo_read() drains a disarmed GTC push event,
+am65_cpts_gtc_push_event() returns immediately and the next loop iteration
+calls am65_cpts_fifo_pop_event() without waiting for the four CPTS_RFT_CLK
+plus four CPPI_ICLK periods after writing event_pop:
+
+drivers/net/ethernet/ti/am65-cpts.c:am65_cpts_fifo_pop_event() {
+	u32 r =3D am65_cpts_read32(cpts, intstat_raw);
+
+	if (r & AM65_CPTS_INTSTAT_RAW_TS_PEND) {
+		...
+		am65_cpts_write32(cpts, AM65_CPTS_EVENT_POP, event_pop);
+		return false;
+	}
+	return true;
+}
+
+Because TS_PEND is not valid yet on that immediate re-entry,
+am65_cpts_fifo_pop_event() sees TS_PEND clear and breaks out of
+__am65_cpts_fifo_read() after popping just one event.  If a request wakes
+up ~3 ms late so 9 to 16 push events accumulate in the 16-entry FIFO,
+AM65_CPTS_GTC_PUSH_DRAIN_PASSES (8) passes only drain 8 events and
+am65_cpts_gtc_push_arm() fails with -EBUSY (aborting
+am65_cpts_ptp_getcrosststamp() without retrying).  A disarmed push event
+sitting ahead of an AM65_CPTS_EV_PUSH event in the FIFO can similarly cause
+am65_cpts_gettime() to stop reading the FIFO early and return a stale
+cpts->timestamp.
+
+Should the post-pop register read and ndelay(100) be moved into
+am65_cpts_fifo_pop_event() right after writing event_pop?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795143925.gi=
+t.jjc@jclark.com?part=3D2
