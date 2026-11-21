@@ -1,103 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296480;
-	b=MYwrF6cJUqRFeKot9uXfiVrC1pD28cViwHOHMXoRB/2kXWKO9yj5V+BSLrD6g6A2es26
-	 2sWHkW/GsjYzHKcooCESHsJASWY3enKojBH42kTyhRGtObjvxruKE+Z8tyUDsrAxeC7Vv
-	 xuQDZdkkktYxlg+piN9A639aRizvY78UV1i2SzzLXA3VxZSRsNxwVS+PCi6YcwmU5oRLw
-	 MGf1EC1bJCYPwDxs0afbQTRNyzN3sylXI9BukbPEdGGtdjJAvgCHB8kmCyDL+WNBMzxn2
-	 0IUM0ulTbo7qyMThTbtv9y8j6Pmva6ohZgsD9G5m6q+Y5LpyQmRrqd0dHrCzMZnaCSw==
+	t=1795296666;
+	b=sGkNqZLOegKqTGnTEK6Bh31WThSwqBTiMtWX/gzC+bODHY7nnAvNod+Q03NRxiOjmUg9
+	 AVgNJHRjn8qlV8Y9bikJJ7wHGpuPkRznVaTqUu748priWIbvVFAy4ivhxSPBncmxcM9jE
+	 XqtmK/rhI6hTfhaiOgnefyhYsQPjRbP9rRZ0FFZxtBlsstFZJXensQ3mn+01P5dWng0TR
+	 2lqV80mEXup4v0aqatoeFbXAv0g6sDrZfbR008lmDn9er78iJXkhPC/1ZCePUzkxkBEq3
+	 UITvXmIO5t8DMkHbkJ13h2+igBqKNmRvdljihG9X1Iut0fMrfuffuaOQ5W0O8aKCDRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296480;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9/5Ymjy5oyxeu3PGP7dCUEXnq1SZd70giaXWhsQ5gNA=;
-	b=IzXlKKRmrcc1q1pyXf9LNPFkt/bEoOxDft5gbROO+84xUi7gCS0qtwayDzVdKizMNmvW
-	 PXOnh/5b6cVqPnsgw5Yauo2tttSgzPjHve4KuMGpQuidck5kGc61Gb+zLLVxb2eo1ncgS
-	 fOxAypffDYxVQ3xPwWLmive11DO/erPg8ooXs0ML+JTDtGM5kh5Q/INcPdiGepr681h0s
-	 VP+APhROC+wUrFbZVH0Rv1Hjs1nIPNERbDhBwNFnE99l18oHDoQrO+Yps4MVy0irEaZuk
-	 lJSDUmnRUO3CDOEqQ0v1RWU9meUakIO1BK6IFhjLNugblVB0casnBIfnWycsXvYKN8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296666;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=C93fQcPXxnOGbGKaXQAkMtOoh58jzuHpLH1rCb798RU=;
+	b=i/611mA0Vh7scTdpFeW5PAx6HgnRqKnoA6pRnRh0l+q9wS5FZtlyMis4yBXiAdB0PAA/
+	 x+wMYz1ShWKfLPPcTyHzkx9kafLlVSdIZzFT0vCmysYkrJS/zFtlQvFwVPa6NlmUL5A1q
+	 hJPgr+/FgOHEdRt+Tc1Pz2HOn+YrkowLd43h5/C984IKpx5g/hcAwKkpb1ZhO4xQFgkVO
+	 22EYlw4selZDJvFvsC59BdBq3N2r1c7s+l5DU/U1tmAo18NJyl4F+zRkKEX25jcvfwjb8
+	 dNOC24j74RTG1DPqlEl+BECtIaXaIapyAEt6DS3Eo/hNXdCE8X2/XjkDG3kDAoH/1Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=linux.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v9i+Tc1e;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D76606A698
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:27:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0D76606A698
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A01F606A32A
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:31:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A01F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v9i+Tc1e
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso27727495e9.0
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:27:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795296478; x=1795901278; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9/5Ymjy5oyxeu3PGP7dCUEXnq1SZd70giaXWhsQ5gNA=;
-        b=v9i+Tc1e0jPCAEQxrC4P9vQvbWdTDpArQZKppgR5DTi1wycrC26DpKNXK8iMuobMLK
-         079iqftwxQkIVrtkH2zqumd/pzPyIrEFmUNy705+QJqy70HFT+FA+aPZBAt7z/DMmg73
-         6/fr+8aL+A6PLWEGsAUWg3JCvpmhEGkQ0QnYFuVcv1sS9ORgFihNE1Bn/WopN60H7jf8
-         EZFIJxlgboUmfn6UHSlCdNRD2q7dhl5G3b6U8jFlqCTW1PVBiMeEtkDED/VAQH7ViGho
-         SFfmNVygbmXJUU0bh8UQjQcCAG5tBrXUpDrWUKBXURUR/le9aRdy+JnIkANwegg9fe7C
-         KDgg==
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so18783815e9.3
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:31:06 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795296478; x=1795901278;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9/5Ymjy5oyxeu3PGP7dCUEXnq1SZd70giaXWhsQ5gNA=;
-        b=SQ+wKwO468l97Yw1focRYQFV7svjh32vjA8JjCUcRbG0MVzoq6kPmVZD2ruM8SOQOD
-         F1+HxnNmkShdjR1mLGwiLurxaZHiC0MBpS7QIpsyn+6QBdibLvSG1BWOQ0mQ5c9RGxX9
-         5RJ6zVytyj7heWzT6kcPP9f1nrykqVVFYkdZ3PiEkreUYxAdB16JNMeTMxRO8gz6bBiO
-         2DBzwnGaO+XzMRVILErc1Zp8gDD6U5aMiMMNMBZB29Mr9F39lY3yfHHB8oVPSw2xmo4O
-         fz+1qXJPLItdc6DCyZw1m0nPNtApqYsuO7O5W6micUtgb8AVOrQaS1SsH6w24AhfAU3i
-         5OuA==
-X-Forwarded-Encrypted: i=1; AL+hErH1M0/hDPZ9+qXrJX1bXKG8BqBMAMyGgziscymF9hiH892UL4jPCULph7caXaei0KXoXGRLyaXFrIJS@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wht+XTYH4nSah8XPs7b9i7KojeUmHxcUnNSrTok9DnYpHOPg8
-	vSzZAvT2fVymSSF8WYMrCCIWDwIWhW/HV3CXipXs7mxMb/0eGx+WuNMB
-X-Gm-Gg: AZFdTZdaoO2DyuJRSkPRSNIqS5c3QAL1ipVCjz88EjImoVkGgX4s9djrlMoxSIddwtg
-	U2159jCECg9qeBpto1eyHVHTQ5EeibhPvLNYcEtkAoPjlUvjhOW3hV6VC6Ml2iC00vlsFimJqER
-	nDr+t4G6Xo350Krt5gr/W2FeIvon0kIWwNAq8YGXsBKPb+4spLptLZNuHIVPosaJg2m9dszCU/u
-	T3unsnbXmebyDFGDu5z15XeV5jibjqK0y4v815caWR7uO77T7dN4zWJzlzBQcIBOfgyxIi1Tx2J
-	ron/2vTWdM9/9G2r9Ju5HSEPD+0nhK6ClaEEHZ6NCN+Xq1CM0ISUSZupH3IdMJK+NEpO68Mj/WM
-	o1sdbA8ydyLfL2ddYKVFTEW70XzdmAFuZwSCvxORfGPTbBtFXaGC+od6xpilu8W3dDXQotBlNTs
-	KK56cqJYkR8mNqCrEVV/gNTC60X7OBbizZsROYdPw4OgCSb/rDe+xyRQxMVL6k0ba/Ip8RDEpab
-	ir7R0CEa6FxMHB0VboB9wCuq9KRbi/2uurkJasp6Uh/dfcLIXNn1I0bFLC9I6YmTrp6RuqiYz5r
-	TFcUi8xEF+FMVl0NPF9frsM7hmZw3hcN9N/JD6A1lvWlGNuZuTv9hRIACRRJAg88d9hKT1YT87S
-	nqB4ZXY4g0MWfIDke96LHsnBi2INDJmZ87pa1uEJAD4J4OAG5UsZ2onHf5ZMTHSWxKpGCfpQ/
-X-Received: by 2002:a05:600c:848a:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4bb887fb678mr151302725e9.4.1795296478044;
-        Sat, 21 Nov 2026 13:27:58 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain (host-87-17-253-173.retail.telecomitalia.it. [87.17.253.173])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b3a7sm255668955e9.3.2026.11.21.13.27.56
+        d=1e100.net; s=20260707; t=1795296665; x=1795901465;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C93fQcPXxnOGbGKaXQAkMtOoh58jzuHpLH1rCb798RU=;
+        b=dg09BIB8OfRTACu0r9/oEvMM7MhRrUaRQSPcVY6G7t/hwpjHTpvAaNC7TaFhnzq5ys
+         yOykuMMRncOQxD0HlAmrEDtibuH58IaImdnULutoGOhkX5RWEFjSkNmfISLBvC6Uux2g
+         Sa3573rAY5/V2RSFUNJxiQwqT7FYtqpbJQFzHVqhmZAG3SRMNJ69JaDkMcqqALayVZgO
+         J8h/cBA1c3GhHWLSaLPmXT9P/6Qp/vqolrtCGxhqmH57bYdzsuDapF6/COg61MJ9B3MZ
+         +RNN5r4ecdphW0afEtjHYoxDULx9e265yDJ0v5Je0UBKHlkN9P02Kvn4smEKveKv9QVy
+         aDdg==
+X-Forwarded-Encrypted: i=1; AL+hErFVCsUe/aolfj1C1K3x38jdPL1qrHbKN2y5FV+3LxCU0cns7uK1J1aDVm524jQxRefAngSX3FfIgjoh@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HozxfAj4zGlMPJj54x43swVfAJr9m/P8Fbt94xBbFNv3BNNm1
+	VunWqWb1IP9D3Nj4gnE0YtrRpO2STNUlB+/F3M6BkelmJY06vDgm8zN6
+X-Gm-Gg: AZFdTZdtzBhzjC2OHvDDkHoRbliBc0Juw5LP2iQDlDq2IB+j6kWq2Al7XNHEraQeyjb
+	C0NidNET94SV/n+8MHIlGRZh7N1a3j5H2e2Jc6epSTu9ehS73LGTp4RmZvX8baoyvx2VzeCkV/4
+	ObISIWx9z8XSYL87G6CV4PIdB6OphhOWKrLVo67U7V5ashcrAJY9Vew4VHmr56JBlMg1wE6KhbE
+	RERQkjzSI12HHa6tF+FnEwzaK7dfr3wezmioPFCY/qKlCEMKysowMpjiskLVAP5IPHE7DOdEo1t
+	G0uP0qA/mECb8K9SLMMijPS8G92jidHqWUYvTO+wLB7cT4pPULQpN8QEL2Y30s2yjzPC2H2Yjla
+	1tqRRvK/lV+YbLET4fgYjcVD2fu1rx4gpfBOeUef+ZNtU+243mdShtvwBczYMzjVm+es34D/mdL
+	fD3V/nKsVq3yQG7m1l7xT6xlKMzus2rwSwxEqqi4x9l39sNfyUIPxq7tjHXhbhOs6wY1PFSBlnS
+	UWwapEbkvTNYIPx3IWlf5mMj5/2yDW54EEHGRAPFwMQmRoogmgAd0v6r1LmBIPj5G6Vog8omL88
+	EJguyOOX3X0bNuO6VhrBok+/xqGfMkpxdwKvOw5g+Zkqf04JljJ51WlhPnBMRGDknRLbtxHU9mw
+	NFxKpulXMwjqyzATciE7XGyo=
+X-Received: by 2002:a05:600c:5246:b0:4bb:60ba:49e0 with SMTP id 5b1f17b1804b1-4bb88930707mr167527095e9.26.1795296664478;
+        Sat, 21 Nov 2026 13:31:04 -0800 (PST)
+Received: from threads.localdomain ([84.70.136.3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67fec7sm12445954f8f.26.2026.11.21.13.31.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 13:27:57 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Sat, 21 Nov 2026 13:31:03 -0800 (PST)
+From: Lucas Tanure <tanure@linux.com>
+To: xianwei.zhao@amlogic.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Felix Fietkau <nbd@nbd.name>,
-	linux-clk@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v15 5/5] clk: en7523: add support for Airoha AN7583 clock
-Date: Sat, 21 Nov 2026 22:27:35 +0100
-Message-ID: <20261121212738.170775-6-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261121212738.170775-1-ansuelsmth@gmail.com>
-References: <20261121212738.170775-1-ansuelsmth@gmail.com>
+Subject: [PATCH v8 0/4] Add ethernet support for the Amlogic T7
+Date: Sat, 21 Nov 2026 21:30:58 +0000
+Message-ID: <20261121213102.143130-1-tanure@linux.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,318 +100,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for Airoha AN7583 clock and reset.
+Patches 1 to 4 of v7, the bindings and the driver, are in net-next:
 
-Airoha AN7583 SoC have the same register address of EN7581 but implement
-different bits and additional base clocks. Also reset are different with
-the introduction of 2 dedicated MDIO line and drop of some reset lines.
+  2297f88ce0b8 dt-bindings: net: amlogic,meson-dwmac: list the compatible combinations
+  18029931478b dt-bindings: net: add amlogic,t7-dwmac
+  c4c851a3325e net: stmmac: dwmac-meson8b: add support for the Amlogic T7
+  4fdc7da7e13d net: stmmac: dwmac-meson8b: follow the generic RGMII delay rules on the T7
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/clk/clk-en7523.c | 248 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 248 insertions(+)
+This version carries the rest: a new binding patch for the MDIO
+multiplexer, and the three device tree patches. Patch 1 is for netdev,
+patches 2 to 4 for the Amlogic tree; the device tree patches build
+without the driver part.
 
-diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-index a4a75b8063a5..d044841cdc05 100644
---- a/drivers/clk/clk-en7523.c
-+++ b/drivers/clk/clk-en7523.c
-@@ -13,6 +13,7 @@
- #include <linux/reset-controller.h>
- #include <linux/spinlock.h>
- #include <dt-bindings/clock/en7523-clk.h>
-+#include <dt-bindings/reset/airoha,an7583-reset.h>
- #include <dt-bindings/reset/airoha,en7523-reset.h>
- #include <dt-bindings/reset/airoha,en7581-reset.h>
- #include <dt-bindings/clock/econet,en751221-scu.h>
-@@ -167,6 +168,14 @@ static const u32 crypto_base[] = { 540000000, 480000000 };
- static const u32 emmc7581_base[] = { 200000000, 150000000 };
- /* EN751221 */
- static const u32 gsw751221_base[] = { 500000000, 250000000, 400000000, 200000000 };
-+/* AN7583 */
-+static const u32 gsw7583_base[] = { 540672000, 270336000, 400000000, 200000000 };
-+static const u32 emi7583_base[] = { 540672000, 480000000, 400000000, 300000000 };
-+static const u32 bus7583_base[] = { 600000000, 540672000, 480000000, 400000000 };
-+static const u32 spi7583_base[] = { 400000000, 12500000 };
-+static const u32 npu7583_base[] = { 666000000, 800000000, 720000000, 600000000 };
-+static const u32 crypto7583_base[] = { 540672000, 400000000 };
-+static const u32 emmc7583_base[] = { 150000000, 200000000 };
- 
- static const struct en_clk_desc en7523_base_clks[] = {
- 	{
-@@ -369,6 +378,138 @@ static const struct en_clk_desc en7581_base_clks[] = {
- 	}
- };
- 
-+static const struct en_clk_desc an7583_base_clks[] = {
-+	{
-+		.id = EN7523_CLK_GSW,
-+		.name = "gsw",
-+
-+		.base_reg = REG_GSW_CLK_DIV_SEL,
-+		.base_bits = 2,
-+		.base_shift = 8,
-+		.base_values = gsw7583_base,
-+		.n_base_values = ARRAY_SIZE(gsw7583_base),
-+
-+		.div_bits = 3,
-+		.div_shift = 0,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = EN7523_CLK_EMI,
-+		.name = "emi",
-+
-+		.base_reg = REG_EMI_CLK_DIV_SEL,
-+		.base_bits = 2,
-+		.base_shift = 8,
-+		.base_values = emi7583_base,
-+		.n_base_values = ARRAY_SIZE(emi7583_base),
-+
-+		.div_bits = 3,
-+		.div_shift = 0,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = EN7523_CLK_BUS,
-+		.name = "bus",
-+
-+		.base_reg = REG_BUS_CLK_DIV_SEL,
-+		.base_bits = 2,
-+		.base_shift = 8,
-+		.base_values = bus7583_base,
-+		.n_base_values = ARRAY_SIZE(bus7583_base),
-+
-+		.div_bits = 3,
-+		.div_shift = 0,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = EN7523_CLK_SLIC,
-+		.name = "slic",
-+
-+		.base_reg = REG_SPI_CLK_FREQ_SEL,
-+		.base_bits = 1,
-+		.base_shift = 1,
-+		.base_values = slic_base,
-+		.n_base_values = ARRAY_SIZE(slic_base),
-+
-+		.div_reg = REG_SPI_CLK_DIV_SEL,
-+		.div_bits = 5,
-+		.div_shift = 24,
-+		.div_val0 = 20,
-+		.div_step = 2,
-+	}, {
-+		.id = EN7523_CLK_SPI,
-+		.name = "spi",
-+
-+		.base_reg = REG_SPI_CLK_FREQ_SEL,
-+		.base_bits = 1,
-+		.base_shift = 0,
-+		.base_values = spi7583_base,
-+		.n_base_values = ARRAY_SIZE(spi7583_base),
-+
-+		.div_reg = REG_SPI_CLK_DIV_SEL,
-+		.div_bits = 5,
-+		.div_shift = 8,
-+		.div_val0 = 40,
-+		.div_step = 2,
-+	}, {
-+		.id = EN7523_CLK_NPU,
-+		.name = "npu",
-+
-+		.base_reg = REG_NPU_CLK_DIV_SEL,
-+		.base_bits = 2,
-+		.base_shift = 9,
-+		.base_values = npu7583_base,
-+		.n_base_values = ARRAY_SIZE(npu7583_base),
-+
-+		.div_bits = 3,
-+		.div_shift = 0,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = EN7523_CLK_CRYPTO,
-+		.name = "crypto",
-+
-+		.base_reg = REG_CRYPTO_CLKSRC2,
-+		.base_bits = 1,
-+		.base_shift = 0,
-+		.base_values = crypto7583_base,
-+		.n_base_values = ARRAY_SIZE(crypto7583_base),
-+	}, {
-+		.id = EN7581_CLK_EMMC,
-+		.name = "emmc",
-+
-+		.base_reg = REG_CRYPTO_CLKSRC2,
-+		.base_bits = 1,
-+		.base_shift = 13,
-+		.base_values = emmc7583_base,
-+		.n_base_values = ARRAY_SIZE(emmc7583_base),
-+	}, {
-+		.id = AN7583_CLK_MDIO0,
-+		.name = "mdio0",
-+
-+		.base_reg = REG_CRYPTO_CLKSRC2,
-+
-+		.base_value = 25000000,
-+
-+		.div_bits = 4,
-+		.div_shift = 15,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = AN7583_CLK_MDIO1,
-+		.name = "mdio1",
-+
-+		.base_reg = REG_CRYPTO_CLKSRC2,
-+
-+		.base_value = 25000000,
-+
-+		.div_bits = 4,
-+		.div_shift = 19,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}
-+};
-+
- static const u16 en7581_rst_ofs[] = {
- 	REG_RST_CTRL2,
- 	REG_RST_CTRL1,
-@@ -544,6 +685,64 @@ static const u16 en751221_rst_map[] = {
- 	[EN751221_USB_PHY_P1_RST]	= 3 * RST_NR_PER_BANK + 7,
- };
- 
-+static const u16 an7583_rst_map[] = {
-+	/* RST_CTRL2 */
-+	[AN7583_XPON_PHY_RST]		= 0,
-+	[AN7583_GPON_OLT_RST]		= 1,
-+	[AN7583_CPU_TIMER2_RST]		= 2,
-+	[AN7583_HSUART_RST]		= 3,
-+	[AN7583_UART4_RST]		= 4,
-+	[AN7583_UART5_RST]		= 5,
-+	[AN7583_I2C2_RST]		= 6,
-+	[AN7583_XSI_MAC_RST]		= 7,
-+	[AN7583_XSI_PHY_RST]		= 8,
-+	[AN7583_NPU_RST]		= 9,
-+	[AN7583_TRNG_MSTART_RST]	= 12,
-+	[AN7583_DUAL_HSI0_RST]		= 13,
-+	[AN7583_DUAL_HSI1_RST]		= 14,
-+	[AN7583_DUAL_HSI0_MAC_RST]	= 16,
-+	[AN7583_DUAL_HSI1_MAC_RST]	= 17,
-+	[AN7583_XPON_XFI_RST]		= 18,
-+	[AN7583_WDMA_RST]		= 19,
-+	[AN7583_WOE0_RST]		= 20,
-+	[AN7583_HSDMA_RST]		= 22,
-+	[AN7583_TDMA_RST]		= 24,
-+	[AN7583_EMMC_RST]		= 25,
-+	[AN7583_SOE_RST]		= 26,
-+	[AN7583_XFP_MAC_RST]		= 28,
-+	[AN7583_MDIO0_RST]		= 30,
-+	[AN7583_MDIO1_RST]		= 31,
-+	/* RST_CTRL1 */
-+	[AN7583_PCM1_ZSI_ISI_RST]	= RST_NR_PER_BANK + 0,
-+	[AN7583_FE_PDMA_RST]		= RST_NR_PER_BANK + 1,
-+	[AN7583_FE_QDMA_RST]		= RST_NR_PER_BANK + 2,
-+	[AN7583_PCM_SPIWP_RST]		= RST_NR_PER_BANK + 4,
-+	[AN7583_CRYPTO_RST]		= RST_NR_PER_BANK + 6,
-+	[AN7583_TIMER_RST]		= RST_NR_PER_BANK + 8,
-+	[AN7583_PCM1_RST]		= RST_NR_PER_BANK + 11,
-+	[AN7583_UART_RST]		= RST_NR_PER_BANK + 12,
-+	[AN7583_GPIO_RST]		= RST_NR_PER_BANK + 13,
-+	[AN7583_GDMA_RST]		= RST_NR_PER_BANK + 14,
-+	[AN7583_I2C_MASTER_RST]		= RST_NR_PER_BANK + 16,
-+	[AN7583_PCM2_ZSI_ISI_RST]	= RST_NR_PER_BANK + 17,
-+	[AN7583_SFC_RST]		= RST_NR_PER_BANK + 18,
-+	[AN7583_UART2_RST]		= RST_NR_PER_BANK + 19,
-+	[AN7583_GDMP_RST]		= RST_NR_PER_BANK + 20,
-+	[AN7583_FE_RST]			= RST_NR_PER_BANK + 21,
-+	[AN7583_USB_HOST_P0_RST]	= RST_NR_PER_BANK + 22,
-+	[AN7583_GSW_RST]		= RST_NR_PER_BANK + 23,
-+	[AN7583_SFC2_PCM_RST]		= RST_NR_PER_BANK + 25,
-+	[AN7583_PCIE0_RST]		= RST_NR_PER_BANK + 26,
-+	[AN7583_PCIE1_RST]		= RST_NR_PER_BANK + 27,
-+	[AN7583_CPU_TIMER_RST]		= RST_NR_PER_BANK + 28,
-+	[AN7583_PCIE_HB_RST]		= RST_NR_PER_BANK + 29,
-+	[AN7583_XPON_MAC_RST]		= RST_NR_PER_BANK + 31,
-+
-+	/* RST_PCIC */
-+	[AN7583_PCIC_PERSTOUT0_RST]	= 2 * RST_NR_PER_BANK + 29,
-+	[AN7583_PCIC_PERSTOUT1_RST]	= 2 * RST_NR_PER_BANK + 26,
-+};
-+
- static int en7581_reset_register(struct device *dev, void __iomem *base,
- 				 const u16 *rst_map, int nr_resets,
- 				 const u16 *rst_reg_ofs);
-@@ -1144,6 +1343,43 @@ static int en7581_clk_hw_init(struct platform_device *pdev,
- 	return en7581_serdes_phy_register(&pdev->dev);
- }
- 
-+static int an7583_clk_hw_init(struct platform_device *pdev,
-+			      struct clk_hw_onecell_data *clk_data)
-+{
-+	struct en_clk_priv *priv = platform_get_drvdata(pdev);
-+	struct device *dev = &pdev->dev;
-+	struct regmap *map;
-+	void __iomem *base;
-+	u32 val;
-+	int ret;
-+
-+	map = syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,chip-scu");
-+	if (IS_ERR(map))
-+		return PTR_ERR(map);
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	priv->base = base;
-+
-+	en7581_register_clocks(dev, clk_data, map, base);
-+
-+	val = readl(base + REG_RST_CTRL1);
-+	val |= REG_PCIE_HB_RST;
-+	writel(val, base + REG_RST_CTRL1);
-+	val &= ~REG_PCIE_HB_RST;
-+	writel(val, base + REG_RST_CTRL1);
-+
-+	ret = en7581_reset_register(dev, base, an7583_rst_map,
-+				    ARRAY_SIZE(an7583_rst_map),
-+				    en7581_rst_ofs);
-+	if (ret)
-+		return ret;
-+
-+	return en7581_serdes_phy_register(dev);
-+}
-+
- static enum en_hir get_hw_id(void __iomem *np_base)
- {
- 	u32 val = FIELD_GET(REG_HIR_MASK, readl(np_base + REG_HIR));
-@@ -1300,6 +1536,17 @@ static const struct en_clk_soc_data en7581_data = {
- 	.hw_init = en7581_clk_hw_init,
- };
- 
-+static const struct en_clk_soc_data an7583_data = {
-+	.base_clks = an7583_base_clks,
-+	.num_clocks = ARRAY_SIZE(an7583_base_clks),
-+	.pcie_ops = {
-+		.is_enabled = en7581_pci_is_enabled,
-+		.enable = en7581_pci_enable,
-+		.disable = en7581_pci_disable,
-+	},
-+	.hw_init = an7583_clk_hw_init,
-+};
-+
- static const struct en_clk_soc_data en751221_data = {
- 	/* Decrease of one as PCIe is incremented internally with PCIe OPs */
- 	.num_clocks = EN751221_MAX_CLKS - 1,
-@@ -1315,6 +1562,7 @@ static const struct en_clk_soc_data en751221_data = {
- static const struct of_device_id of_match_clk_en7523[] = {
- 	{ .compatible = "airoha,en7523-scu", .data = &en7523_data },
- 	{ .compatible = "airoha,en7581-scu", .data = &en7581_data },
-+	{ .compatible = "airoha,an7583-scu", .data = &an7583_data },
- 	{ .compatible = "econet,en751221-scu", .data = &en751221_data },
- 	{ /* sentinel */ }
- };
+The T7 has the same ethernet glue as the G12A. The glue registers sit
+in a block gated by sys_ethphy, so the controller node lists that
+clock as "pclk", and the pipeline stage between the controller and the
+DRAM has a gate of its own, listed as well. The MDIO multiplexer gets a
+T7 compatible with the G12A one as fallback. The VIM4 is plain
+rgmii-id, with the PHY at the address its pins strap.
+
+Tested on v7.4-rc2 on the Khadas VIM4 with the PHY at address 1:
+941/944Mbit/s with iperf3, no error. A scan of the bus shows the
+PHY at 0 and at 1 and nothing else.
+
+Overlaps with Xianwei Zhao's "[PATCH v2 0/3] t7: add some nodes for
+Amlogc t7."; I will drop or rebase whatever overlaps once we agree.
+
+Changes since v7:
+ - patches 1 to 4 of v7 are in net-next and are not resent; the
+   numbers below are the new ones
+ - new patch 1: the MDIO multiplexer binding gets "amlogic,t7-mdio-mux"
+   with the G12A compatible as fallback, and patch 3 uses it in the
+   multiplexer node (Martin)
+ - patch 4: the VIM4 PHY node uses address 1, where the PHY is strapped;
+   address 0 only worked through the RTL8211F broadcast address (Martin)
+ - patch 2: Martin's Reviewed-by
+
+Changes since v6:
+ - no Assisted-by trailer (Krzysztof)
+ - patch 2: the T7 gets a binding file of its own (Rob, Sashiko); the
+   pclk description names the glue registers (Krzysztof);
+   rx-internal-delay-ps as constraints, default 0, maximum 3000,
+   multipleOf 200 (Rob); tx-internal-delay-ps stays false, the
+   meta-schema refuses "not" on a top-level property, so the reason is
+   a comment above it (Rob); "snps,dwmac" dropped from the compatible
+   list (Rob)
+ - patch 6: "snps,dwmac" dropped from the node (Rob)
+ - patch 4: Andrew's Reviewed-by
+
+Changes since v5:
+ - patch 2: the T7 block follows the Meson8b..G12A block instead of
+   splitting it in two; default: 0 for rx-internal-delay-ps on the T7
+   (Sashiko). The explicit false lines stay, as asked in review.
+
+Changes since v4:
+ - patch 4: the old delay code is left untouched; the T7 only gets a
+   callback of its own, and the probe parsing it shares validates the
+   RX value (Andrew); no NULL check on the callback (Martin)
+ - 0 accepted for rx-internal-delay-ps, the T7 joins the G12A list
+   (Andrew)
+ - comment on the deprecated vendor delay properties (Andrew)
+ - the MDIO mux and the on-chip PHY bus start disabled in the dtsi; the
+   VIM4 enables the mux (Sashiko)
+
+Changes since v3:
+ - phy-mode untouched, the PHY adds the 2ns, rx-internal-delay-ps is
+   tuning only, tx-internal-delay-ps not valid for the T7 (Andrew)
+ - 0 dropped from rx-internal-delay-ps (Martin); vendor delay
+   properties explicitly false for the T7 (Andrew)
+ - init_delays callback; patch 4 renamed (Martin, Andrew)
+ - VIM4 without tx-internal-delay-ps, the PHY TX delay works (Martin)
+ - Meson8m2 moved to the dwmac-3.70a list; its boards warn in
+   dtbs_check until Martin's dtsi patch lands (Martin, Conor)
+ - the delay table in ethernet-controller.yaml dropped
+ - Martin's Reviewed-by on patch 3
+
+Changes since v2:
+ - T7-only delay path (Andrew), PHY mode from
+   phy_fix_phy_mode_for_mac_delays() (Maxime)
+ - tx-internal-delay-ps checked against the hardware values (Sashiko)
+ - vendor delay properties not valid for the T7 (Neil, Andrew)
+ - no max-speed on either PHY (Andrew); VIM4 PHY interrupt on GPIOH_6
+   (Sashiko)
+ - the T7 node owns sys_ethphy as "pclk"
+ - no longer RFC; Conor's Ack dropped from patch 2 and Neil's R-b from
+   patch 6
+
+Changes since v1:
+ - the driver honours the generic delay properties; VIM4 moved to
+   rgmii-id with tx-internal-delay-ps = <2000>, Neil's R-b dropped
+
+Lucas Tanure (4):
+  dt-bindings: net: amlogic,g12a-mdio-mux: add the T7 compatible
+  arm64: dts: amlogic: t7: add the ethernet pinctrl nodes
+  arm64: dts: amlogic: t7: add the ethernet controller
+  arm64: dts: amlogic: t7: khadas-vim4: enable the ethernet port
+
+ .../bindings/net/amlogic,g12a-mdio-mux.yaml   |  6 +-
+ .../amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 23 +++++
+ arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi   | 88 +++++++++++++++++++
+ 3 files changed, 116 insertions(+), 1 deletion(-)
+
+
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
 -- 
-2.55.0
+2.56.1
 
