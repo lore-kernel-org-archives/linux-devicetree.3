@@ -1,61 +1,82 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795303574;
-	b=btCnuAlTKVaCuUfWuqNjx4WQz1DFsF0DajlnYOLAgYvY4gc0lGqTHM3RPV8APIiJY1Kb
-	 ZB7xuNtfGt4AlrFpJrA4QErdEJ7VUZp9EndG/bAozNMVPepeKqoWHOk4FUwV3/WTVAFw4
-	 TyoDl0G9vJVk7to7otaJn6B85A/clqN/UKchseRaeFb01Dgj2Xz/xa2mlX477MnEKP7AU
-	 iDTWcqixicWJtPaiWeFG7DGlsGPcY3sXtGJrSC2WgrmJIhXodzIIbf9dFSELjQqWRuDo0
-	 //6fzvRwQJYHhuFcAR6kc53xoY6PIXYfC/Cp2qjQwNNpkw6Ba9/wPBk1tvM5q1svpGw==
+	t=1795303607;
+	b=MF8xrYXaHroHzA+TIv6pDT3aM3gv+syCVvHtQr8JnLoaUJ3iyFUVDM8Jsd7KVIbRKYKs
+	 OGbqW8j5MyoMaGsaQSV+lbmRzWd4yl5DsRrD2DEw/oPTgv8RJtysr6DhPnOF23uAY6aMV
+	 lRGur7WXnwTMZ60wNXvO0TeefRECNtUDNFYOqpeafso3wjMWe6Hxb0LJw+pee7X0FXlGz
+	 8u4HFrrbYLilB+HyqiaEtCLnL+pJVjsdtH45Agr0JwpHVl4/eyTINSLApWByf4TgeqmR5
+	 UJdZu7Q/28Jz02SxgqZX8wjSt4N3ow/5QwKdkY/zU5h/taojmWcTMzXC8wAkMs8vd6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795303574;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2h4+akabm+ASDuNc49m//l2gEtofBDGQhNVDAgqwlrc=;
-	b=0jdvs6iwNieG3YKieOIqeBi6j2HgwbCPNKN1PK9NGDzqD3h5Dceko2sknBjepxSsOnsH
-	 VmLv3MsDm1EyRDRwVwXZ1UzozxP4AADNI79egGMAcftLgI/qzS2y5k12dKryl4wKGr+gJ
-	 jY+ILsNlKNl8w4/4seGMyGI81k217TK8czgVt8khQy4se0aYlH0Vmru0NyTKyGeysI4ef
-	 iyIfesYGuA96Y/FdsFaPjTQRiI7uuWFrCYLI6I6HoyFsam6qcJngiKpLDmRU+NWosDI0F
-	 z6UMkfcMV/RmDGz2uJ2N7LZAWeqvB3raJhemEJTsTSTBRyNOmX4vC8brbMAZJgoXESg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795303607;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=fM/qA6/4U7l7719+XpQdyjrMAl2GxPV3Jko7fpcHllc=;
+	b=oK5BnQptaXWlh4nG8E4wldbJopC20bHN56ufrjJiuTNlY5AQYdNszDHWV3m9tB+i3mAx
+	 SG/eqtF1vQqPGfB+si7NHH511Ia58SqWIFxbQ1nNLEIe8ByACj3gkxPZrZk8kB+JkwlmQ
+	 Dhvq775a+gkw4BnSmbBO25yLqDN8Jxd6WYWPuGOqTmgBP1RGla+LcPFUrsoQ/w8Vb0Rfn
+	 EsGrDCIvVPKdKWWLP4IHSflYbW4qyWMYiwE1F8jMmKCCazkTsj/Stq057273n9OvjydUq
+	 ZYoiaoOVCnGhALkAadv1Ni7ajcvQE+BY3q8gvHYseLr4lXb/A2bblCOZhKellwNjQow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSNF+Svo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Igh8pVAZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C865C606A320;
-	Sat, 21 Nov 2026 23:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7615606A330;
+	Sat, 21 Nov 2026 23:26:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSNF+Svo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3331F000C0;
-	Sat, 21 Nov 2026 23:26:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Igh8pVAZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3BC71F000CF;
+	Sat, 21 Nov 2026 23:26:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795303574;
-	bh=2h4+akabm+ASDuNc49m//l2gEtofBDGQhNVDAgqwlrc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SSNF+Svo84NBPncASHi9V59JsViurOpH0gFsQx6euuEZv2XH4nHqdIVwQXgA9pnaA
-	 sVZ3HnO0u9wGQCbyy/OBzPeGzBaZF5DsOH0Hi1i1m57FeOt78FKSELat5um/eWbdy8
-	 AVqxc9kQD0RTLJJpU0dYcQzVuN9vUE7FzpN84WxrSJZoe6ShUH399dIldVr54pi/FV
-	 Cwi5ScBL4yypo6qIdmK2H1wWtMuzhnHuQRk8iYEOuDFsCukhXnm3blopvO8991KEn3
-	 nFEDf8DpVunU0VRte3PFEgqG7+I4r0f+l/04NosjUjl9VFOvNzlCZGFMaS8y3+OKWd
-	 6n5tnhgKOMUcw==
-Date: Sat, 21 Nov 2026 23:26:09 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: lee@kernel.org, maz@kernel.org, andy@kernel.org,
- dmitry.torokhov@gmail.com, linux-input@vger.kernel.org,
- mfd@lists.linux.dev, linux-iio@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, crofts@kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v5 4/4] mfd: mxs-lradc: Convert to
- devm_clk_get_enabled()
-Message-ID: <20261121232609.65a3be18@jic23-hlaptop>
-In-Reply-To: <20261119134041.16611-4-festevam@gmail.com>
-References: <20261119134041.16611-1-festevam@gmail.com>
-	<20261119134041.16611-4-festevam@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1795303607;
+	bh=fM/qA6/4U7l7719+XpQdyjrMAl2GxPV3Jko7fpcHllc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Igh8pVAZZm5rdiOR9KwRNVyTpTIf0iPk/SmyuhzdzS4PWrLqcA4mf3lAshs0dGXv4
+	 qIEG3zxFmac4IuESiWfOEn+zL0CljFNxEzdokWeoAbHw+8cBg/L1UmXkcVytlSNlZx
+	 BM4/D5qEE2lQ8JFXHAn3RiCgB/jCjiH8Eks08ia3CVIJ5AmjiZdul+z14sew2TSeRI
+	 u5jwPAPgIu8hOfBv2MfNHUqj4NGh/Rpu8kCiJqPW/wLXxTr1cigP+jVZ0Pk6KWR7Jv
+	 RcN/y6ydFTxOWS4aLEJ5lZVhZ6TGB6JiggF7croio+2iH6td/ULJduKBQ/DC+aDrWE
+	 ytQdfaAjIOCPA==
+From: Jakub Kicinski <kuba@kernel.org>
+To: ansuelsmth@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	horms@kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	lorenzo@kernel.org,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	maxime.chevallier@bootlin.com,
+	p.zabel@pengutronix.de,
+	nathan@kernel.org,
+	ndesaulniers@google.com,
+	morbo@google.com,
+	justinstitt@google.com,
+	rmk+kernel@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	llvm@lists.linux.dev,
+	zhengping.zhang@airoha.com
+Subject: Re: [PATCH net-next v22 03/15] net: phylink: introduce internal phylink PCS handling
+Date: Sat, 21 Nov 2026 15:26:43 -0800
+Message-ID: <20261121232643.1365333-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261117123956.11981-4-ansuelsmth@gmail.com>
+References: <20261117123956.11981-4-ansuelsmth@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,23 +86,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 19 Nov 2026 10:40:41 -0300
-Fabio Estevam <festevam@gmail.com> wrote:
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+net: phylink: introduce internal phylink PCS handling
 
-> The LRADC clock is acquired with a managed helper but enabled and
-> disabled manually.
-> 
-> Acquire the LRADC clock with devm_clk_get_enabled() instead of a bare
-> devm_clk_get() followed by a manual clk_prepare_enable(), so it is
-> prepared/enabled for the device lifetime and released on unbind.
-> 
-> This conversion makes the code simpler.
-> 
-> Suggested-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
-I don't mind if you get to the dev_err_probe() now or later
+This adds an alternative to .mac_select_pcs. The MAC hands phylink a list
+of PCS through .fill_available_pcs and .num_possible_pcs, and phylink
+picks a PCS by matching the interface against each PCS's
+supported_interfaces. A new pcs_interfaces mask in phylink_config marks
+the modes that need a dedicated PCS, and phylink_create() widens
+pl->supported_interfaces with the supported_interfaces of every listed
+PCS.
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index f482dc6088102..e8ba906cfba68 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+
+[ ... ]
+
+> @@ -2096,16 +2220,31 @@ struct phylink *phylink_create(struct phylink_config *config,
+>  	__set_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state);
+>  	timer_setup(&pl->link_poll, phylink_fixed_poll, 0);
+>  
+> +	/* Fill the PCS list with available PCS from phylink config */
+> +	ret = phylink_fill_available_pcs(pl, config);
+> +	if (ret < 0)
+> +		goto free_pl;
+> +
+> +	/* Link available PCS to phylink */
+> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> +		rcu_assign_pointer(pcs->phylink, pl);
+> +
+>  	phy_interface_copy(pl->supported_interfaces,
+>  			   pl->config->supported_interfaces);
+>  
+> +	/* Update supported interfaces */
+> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> +		phy_interface_or(pl->supported_interfaces,
+> +				 pl->supported_interfaces,
+> +				 pcs->supported_interfaces);
+> +
+
+[Severity: Medium]
+
+Can this OR put modes into pl->supported_interfaces that phylink will
+never select a PCS for?
+
+The PCS modes are not masked with config->pcs_interfaces. However, the
+PCS lookup this patch adds only runs when the interface is in
+pcs_interfaces. The check in phylink_validate_mac_and_pcs(),
+phylink_inband_caps() and phylink_major_config() is:
+
+	} else if (test_bit(state->interface, pl->config->pcs_interfaces)) {
+
+Suppose a listed PCS advertises a mode that is not in pcs_interfaces.
+__phylink_validate() accepts that mode after checking only the MAC
+capabilities.
+
+SFP interface selection uses the same widened mask. It also ends up in
+the SFP PHY's host_interfaces through phylink_sfp_connect_phy():
+
+	phy_interface_and(phy->host_interfaces, phylink_sfp_interfaces,
+			  pl->supported_interfaces);
+
+If that mode is then picked, phylink_major_config() skips the PCS list
+branch and pcs stays NULL:
+
+	pcs_changed = pl->pcs != pcs;
+	...
+	if (pcs_changed) {
+		phylink_pcs_disable(pl->pcs);
+		...
+		WRITE_ONCE(pl->pcs, pcs);
+	}
+
+So the active PCS is disabled and pl->pcs becomes NULL. mac_config() is
+then called for a mode the MAC never listed in
+config->supported_interfaces. No PCS is programmed for that mode.
+
+The "couldn't find a PCS for %s" error is not printed either, because it
+is only reached inside the pcs_interfaces branch.
+
+The Documentation/networking/pcs.rst added later in the series describes
+supported_interfaces as holding every MAC mode. It describes
+pcs_interfaces as the subset that needs a PCS ("PCS required only for
+USXGMII").
+
+Under that model the OR either adds nothing new, or it adds modes outside
+pcs_interfaces that never get a PCS. One example is a USXGMII PCS that
+also supports 10GBASER, 2500BASEX and 1000BASEX, such as the Airoha PCS
+added later in the series.
+
+The airoha user in the series does not hit this, because it copies
+supported_interfaces into pcs_interfaces. The final state of the series
+still has the unmasked OR in both phylink_create() and
+pcs_provider_notify().
+
+Should the OR be limited to config->pcs_interfaces? Alternatively, should
+phylink_create() reject a PCS mode that is not in pcs_interfaces?
+
+phylink_create() also does not check that the new fields are consistent:
+
+- It accepts num_possible_pcs with an empty pcs_interfaces. In that case
+  the listed PCS are never selected.
+- It accepts pcs_interfaces together with .mac_select_pcs. In that case
+  pcs_interfaces is silently ignored.
+
+Would it make sense to reject these combinations here?
+
+Separately, the kernel-doc for @supported_interfaces ("supported by the
+MAC/PCS") and @pcs_interfaces ("dedicated PCS is required") in
+include/linux/phylink.h does not match how phylink combines the two
+masks.
