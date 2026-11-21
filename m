@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795220793;
-	b=xc6as2emp33b7HMoy44HfHDklkKcOIqmuXwVw1Mq08khVNZTG0fpj4RgyUCamS9xL3Ab
-	 7ButUnI5hKj2fNhqxd7hgYzBJ/VHdrscfVi06gh1dBQUywS7a3zrDzvOpU8lCd6xz6lRr
-	 lkih/fKAk4xTqEnykhtLOABM+x1eUYJ8lQerAuv+nAbHMO+jUXUSMdeWbklOJmMWXd9Mv
-	 XKPVnDn4hR0GNoKP2riK7K2/5ZVLVy43to2tO6JbMpOutmlfssiLsaQwByr0LyYGc2C4z
-	 42BD9hOiCIZz4Uyr6EIl4o1jyOGEuvUfBI8sp7qxQn1HlSHZLgNgdVir0XkM7D2xeEg==
+	t=1795220795;
+	b=o25IbLz0zmpwBRl48Qxl3In68os9OLu0uWs35I3be3gKPY2/PQsmIf/GiKPyasME6NAw
+	 +YdKVwQ1pj2zbYa2pUCU3sV44FvCL51Dm07x+EXB09ISDBiwuy4LdA1CxykLHH35LB7ls
+	 T6OIMuTr8I/wRxBWu/JmkpHbiFLuIgip28Q7M5phwuZabfqE5cj5faPR0arJ7dHHXfnhO
+	 ziTtWbIjdvlKL61DMIApNc1dkZhL+dRod+gtdoOWXhayQsOXEiAs/emBy4Gvdjzn7A694
+	 PGxZih/tHVO4JZJmUNM6X6XeBDQVhJo3hc9Biq4OrOsnh3Q8sxnZigP9+6ydmxyhR+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795220793;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795220795;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=eVGSXsSTo55Wg6jc3sZandzP2wfVXmFm/f8qxoKsQmE=;
-	b=H+BOH97B0xftqR5f3qogvK6TcfuTkS/zS2vTGG9gljbcLCOkKFOEgJYE1ysdhyU4ltI8
-	 9e29FZboW8K0rgXJiqkmtF8FRD6dpasGjABkHh/zQ4TpZUbqEXhPyBzmUfiY3TkxkwKAa
-	 6ZlQLqlpD4KIEsGt988/knWrEnjfaFWYVnjhB+iURmPWqwRyulfosvZ/luxz3qfmnKV1i
-	 7cO8eRevBgm2VvE9s6Q0qwx8hfIJTeDmVRqGkSiDXRWfRZmLRph9ZCfEQr25tBbC64Kb5
-	 FltxYUnKK6OSy8ugRQ5jvwzwc7uUO9l8RiN1ansLv6cqiat2H2ARb7FvUOILxJfKmzg==
+	bh=ibwDa8hDIqWz6KJ5BGcs/jqLMptJO7R0iDPAOR5Uhsk=;
+	b=2fv5CEo3r902dntmbOX1hKciw2JGxyGfXjZ7vYnlU+qXF0WiegATOcXvrWTOQqqtJmkl
+	 gBpET3XKz7kz2//kS3pkElSZQBWATT0kd1NrjE5xdr+ylfb+zwevhPG2wVTqYzjcjN79x
+	 B/TpEYIBFLlxf6PUn9vKmf/IJjn7eNIsCzr4zJ/WnwPbQOwgX5/vgpIykCgg0jzVWPYO0
+	 B5pXPzVRxcAZqSAWmBQ7bleF8u0DhYVesLUagchYJaDoR8lFIgdQTBvHlir5OnLXEv5uS
+	 fWKriluhEeCwPdXXYxrovW4XAX5ZhAafQi0Clq59kV0vBxP5RaETIDjsPmWdI0WF8TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PH4d+QPa;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SjMIO0iv;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A32606A692
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 00:26:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4A32606A692
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABB5606A6A3
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 00:26:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DABB5606A6A3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PH4d+QPa
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdb9f760337so1423891a12.0
-        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:26:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SjMIO0iv
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso844086a91.2
+        for <devicetree@vger.kernel.org>; Fri, 20 Nov 2026 16:26:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795220790; x=1795825590; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795220793; x=1795825593; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eVGSXsSTo55Wg6jc3sZandzP2wfVXmFm/f8qxoKsQmE=;
-        b=PH4d+QPatWYzW9o/r+gfWgiQDsHYEKP68qm+R+I6pBfp2IE4BLaMdvXBfZmRLhWjga
-         0qMMBx20ELtzihgvizH6K1KAgA5waW/ODaFWiJ0jNedRyvJPiL/fl6/K8ndfKq2VF0EX
-         A9XB5w9s1sYPi7FqFl1sq/PiQNGmxls+ikBIMo3k7DuewMtbc89ZRYcm98OzMJqki6yH
-         VlwUbazhqZujDHJCFTDh59RwzIltHs103HduDiFr6kXRXLaH35c1tX0RTp+bstnWXGne
-         JuHtQNEfQcezjqMBxFtvB7xPq0/ajkKS6zzmobAiXlq1RDt03wLDESdFL+pH9PW+MxGl
-         HnFw==
+        bh=ibwDa8hDIqWz6KJ5BGcs/jqLMptJO7R0iDPAOR5Uhsk=;
+        b=SjMIO0iv4crfyKOx6thBXKWprskCLQMZkF77RGRXiSWHYi9URnzk3BpXfwZj85NG/W
+         +GTaXNSXZKrSNy4DmvWN/ELnVKTjrwlwlVc9mwbgf9lMtvNAdew84lROrN8KIgsx6oxf
+         9l3uTQAN5GXDKV4e4Cd5lsQyi+UH19q99OQrLUU253FUNPwTkpxWIYaNpi+laXB4Q52u
+         51JGoK7zvSg/3AUj33Jc/7u6PgqqSatta22bpGu3TXED/gtE0JDQqr7F3oNuTPmrTmKa
+         thLgkl0okq2KdKbLnaQU9GgnFlNBwR3h8eJlNzu5VQV20Q05vuSx0Uid+2tM0Z+MLyiQ
+         R32Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795220790; x=1795825590;
+        d=1e100.net; s=20260707; t=1795220793; x=1795825593;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eVGSXsSTo55Wg6jc3sZandzP2wfVXmFm/f8qxoKsQmE=;
-        b=KrVI8SjPiSc2qBVD3EGoOYOjnEZZ4fDnesRT/VrJhfGCrqfTCf8ZZZAcQQ0mfJEqWm
-         9jdQJKApXXBVQZmKlLI9JSBh4PRWOJ9EPO5dKvWYh791P8vxrHEq4dH3ImKTsdwv4qya
-         MNl3m+Feg0BqXfwn/ySvF/9Fb1GDSbq9LAeoK1b67G5Jh9Ah87MTveWMwy2UerBsfBAy
-         GGHksHn3YAf1CobtHkmRoB2YvPsFwitq5JGcqWAg5xTdqGOduPfvd3M1gpaDrQRq961a
-         TG6hTW2fKIYEINsvqo2YjVNnuIoeeCkR4yNreZ1EMaVVTF1zvlUCWTUsHJwE7tPsZ/Ih
-         Uz2Q==
-X-Forwarded-Encrypted: i=1; AL+hErEL1esC3HWCa3zeJ8y/+j6uI2zpeKpHEVzn55cbHmMN9xPkKRqLqMlN6dvXcPaMGHbjI4lzljhoAyne@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wYXsk5lcRSD/X2ygpbg31JgbomFDd42lvmQ3h7rPBJdtaf4Yg
-	p5gkgqjc7+Hb2XOfyuAhx70GANQcbhCoblM6QZ4dHNKPGl2BUjxrPeSN
-X-Gm-Gg: AZFdTZfjVKs2zuI+MuRbehUp47BpNY328686G0q6f9XjDCCvV5EeRFA1OPZPorisIB4
-	rwqqiby3g5QX1amvqIYuQJE+c+/zTYHPwFQRe/9LlsWtzcozsXr9ate2xSugB/GWJtVbetWMVCx
-	mT67USu05ocLFb4aSDt2xmi3rPR+BcQ6WjA9+yKunUYQypZG7yKDExlA2KZ4ts9q919ApUgsUZw
-	FTew2xihmEtd/3Enl73BVRpDE91ZQfdn7Eq2J35PhUcU2NWYdhY27RJp8hfr63ClW1TNouHUx4r
-	aJfKRhfhmJYYIaBgJUWPncbxk5KyZKD9swSUIdhkcf0qgq+Wh4y7lw6pY/R7HJinJs8sFOKUSCO
-	+xgte3U0SDrWuC2N9faNXw7GozbN+srawabSiUq5AnLLhUioUS6RSdzGn64qLHamJF1aEUloKqc
-	EgxvPjcJ8F3ynWP7H3UPn4OmQ6XpPeBmpj1E0Y33lOFR/ffRm4T+nbab9LvnBSvHhdeH66XvBqT
-	JkGcwgHaI32narv/xD/GZv9U95+YmEDD85r1NkdPL+DvbECum8cQsesvYcELUomy49nN9brfPZf
-	F584WlCFC8sMBAY+e7y7uKlv4CVccDNRx0rxfs6/bA6zYpXduyTDK0Mqlkg8ycNqNYhXbPYOwwG
-	XIZNt9KIoL7ctVjtdCWkuNji9e0G3YLHLwTFtDHALl1qweviFXJ0MpApQ/mjQl9oCuedqEkvS83
-	JW0G0=
-X-Received: by 2002:a17:90b:164d:b0:3b3:a575:846a with SMTP id 98e67ed59e1d1-3b40a5de1bcmr4439665a91.22.1795220789943;
-        Fri, 20 Nov 2026 16:26:29 -0800 (PST)
+        bh=ibwDa8hDIqWz6KJ5BGcs/jqLMptJO7R0iDPAOR5Uhsk=;
+        b=K0YWX+Nj36rroGlFjfVrBSWnRe/dX2Hh5Vd7ryJfHGJ3hrWRB0A5Pq45Jx6Q42W64u
+         Eo4FnNlxpxGt6MhI0ncDftFvkVdKx/oMxVxvnu2E2O95MsDHuDOiB+ObDG+YnmBZjvFv
+         gsXjqAMIIiZiFABPLjXWq20Tx0e++f7v+dmQE/sSIric5p9WFonAl4HArEJin1FKb5dV
+         k+JvcgpkxTvDFjt3dygsODPyq9mwdgbZerBGY9YuPsBb1OxxlT6PovOCZUHm6Wjwj9+c
+         j8FNw/T6yr7M3B4GS2ViqJp+E1G0lBROaEgjriciWTgMgIMTLhcDRSUs1aov0o3rJaXv
+         VAKg==
+X-Forwarded-Encrypted: i=1; AL+hErGZYlPm4H1uU48KPUbbdiufRfzDUMt9XJ4rLbso7mWiXyyN3Vi3r9P7mxMWlyQPrJY18tb4Y9dRJqx/@vger.kernel.org
+X-Gm-Message-State: APuU4Z83xtLlmT1XR9DESAD5Pd2FhdFQ4quBKrIQrkbKv+mjeLZeFtIg
+	Ef/XaiGMhiE/FDxGpWIWheHF30gO8PW8RwLBovt91uwWQykz5GcD7dKv
+X-Gm-Gg: AZFdTZfntmlMJUr5yo3r+WAr20Lli1bOYiEJ7Y8mKLu5OsMRqV6NiiweuPr9EhadUZk
+	atGNu24aH+zekjNbJ4F/0tgmqh3XscDIuMVNt2bChbdEtmZiUggU0CWv4it2IaLiokkHe27el+h
+	R6cY7KKjCHmnCYXF07+cDwFaf/8hXB2Hb1ayyGs6tjek5D/Jk9+duwPTzGqZ4EGUdN56t12xmwo
+	lPo37hXFGWjmymPcQ+Y+LJ+lSKKiBq/2sX30hd4HgDxqQ+7/u4I1iXhLbvrDtWydElcRehRPpVu
+	fyNzWyvp+9Dhipfr+7W65jMza+64y4/hLHpHzq3oVwtEnUwssz0snkVI2fXvGv6g9YCuF+rnaye
+	4AmvOcfFAYiXOaCMeyudcNeelGaV6vhsVjb2pBCtZBrJJ8ClVbnvoCok9kPtqUbuT2M6gQyeVLH
+	qughGCmMJro3EUlvgTDjMtfHhfMjQPV3Gtj2cbUdpam9t/qYa+cptIJikHHXN5NdMvFpVDDGQgi
+	F48hPk2PvaAFzS4o2CtfAhINOsOW015qnmPez93eor+lPsTJsrt+MW0MHyMctHaJ87PhI909BMN
+	ibhKPTqyxFo6wwwDgpg45TrRktSMnBNQruBwRTzF5sJLsXF0YH0mq37KNasCh+vYib1Q08/1F04
+	8UgAyy3VnYvkijVdxPC79wY5FOl6WDfXlUCKad7KmvB6CXpDCPTtScD4dVoo4pI9YutIUTfUM/w
+	b0bQ==
+X-Received: by 2002:a17:90b:5543:b0:3b1:6cab:f68b with SMTP id 98e67ed59e1d1-3b41c8d49a0mr4222346a91.11.1795220793267;
+        Fri, 20 Nov 2026 16:26:33 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm1925230a12.8.2026.11.20.16.26.27
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfc8829sm1925230a12.8.2026.11.20.16.26.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 16:26:29 -0800 (PST)
+        Fri, 20 Nov 2026 16:26:31 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Hauke Mehrtens <hauke@hauke-m.de>,
@@ -91,9 +91,9 @@ Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
 	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v3 04/22] ARM: dts: BCM5301X: R7000: specify switch
-Date: Fri, 20 Nov 2026 16:25:44 -0800
-Message-ID: <20261121002603.25254-5-rosenp@gmail.com>
+Subject: [PATCH v3 05/22] ARM: dts: BCM5301X: EA6300: set gmac2 MAC address from nvram
+Date: Fri, 20 Nov 2026 16:25:45 -0800
+Message-ID: <20261121002603.25254-6-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261121002603.25254-1-rosenp@gmail.com>
 References: <20261121002603.25254-1-rosenp@gmail.com>
@@ -108,62 +108,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add labels to clarify which port is what.
+Describe the et0macaddr nvram cell and assign it to gmac2, so the MAC
+address doesn't have to be set from userspace.
 
-Also set WAN MAC from nvram, which is offset by 1. Set in dts to avoid
-having to handle this in userspace.
-
-The port mapping is taken from OpenWrt.
+gmac2 connects to switch port 8, the switch's IMP port, which the next
+patch makes the only CPU port.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../dts/broadcom/bcm4709-netgear-r7000.dts    | 37 +++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-index 6ea845f3ac1d..65affe615bb8 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-@@ -118,3 +118,40 @@ &gmac2 {
- 	nvmem-cells = <&et0macaddr 0>;
- 	nvmem-cell-names = "mac-address";
+diff --git a/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts b/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts
+index 03d5546a147c..f8dd08cc7cca 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts
+@@ -24,6 +24,10 @@ memory@0 {
+ 	nvram@1c080000 {
+ 		compatible = "brcm,nvram";
+ 		reg = <0x1c080000 0x180000>;
++
++		et0macaddr: et0macaddr {
++			#nvmem-cell-cells = <1>;
++		};
+ 	};
+ 
+ 	gpio-keys {
+@@ -50,3 +54,8 @@ &usb3_phy {
+ &usb3 {
+ 	vcc-gpio = <&chipcommon 10 GPIO_ACTIVE_HIGH>;
  };
 +
-+&srab {
-+	status = "okay";
-+
-+	ports {
-+		port@0 {
-+			label = "wan";
-+
-+			nvmem-cells = <&et0macaddr 1>;
-+			nvmem-cell-names = "mac-address";
-+		};
-+
-+		port@1 {
-+			label = "lan1";
-+		};
-+
-+		port@2 {
-+			label = "lan2";
-+		};
-+
-+		port@3 {
-+			label = "lan3";
-+		};
-+
-+		port@4 {
-+			label = "lan4";
-+		};
-+
-+		port@5 {
-+			status = "disabled";
-+		};
-+
-+		port@7 {
-+			status = "disabled";
-+		};
-+	};
++&gmac2 {
++	nvmem-cells = <&et0macaddr 0>;
++	nvmem-cell-names = "mac-address";
 +};
 -- 
 2.56.1
