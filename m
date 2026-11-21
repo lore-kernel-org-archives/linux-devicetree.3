@@ -1,86 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.205
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795247283;
-	b=cWhVOF7EVyNTbMfc8RkmLTxSwbHfy9m4WyxhxutAtG5Gzcv0OwtPNiK2N3KYPapF+NWu
-	 bRBrQl9W2e+hNkebaKSmaeK1agJwO/T/PlxHWWlmk6Fv9LzqeI4FqVifA10I0Mqg+fi0P
-	 /rKl61WDmN2WYY3eE/rL6oQIagN4KvwE3XTob7zhId3EuUmMp8hIvyMCSGaHuoIPLoeXG
-	 G3tKa48r5JMEuU3TkSwjmqyFIEUfQ+L/4HzSeggcx6TeD63I59BQptCSSrmhtox/4KHCV
-	 vuzzVXs/cfy/EmYnlTOkD1kXBgMHVy5JLn2ZQY+LAfN0MuWqZFHZb6XDPCZP4khPHeA==
+	t=1795248083;
+	b=oQOpFFvM6JwTN1KMkimltOidvhzoN+04hhT0Ky8VXcmr1N00ZrFGm5eTTmXwbJMLT+VY
+	 dY50Z5OGXg5fcqELQyuUJEKnykWBcl6xpy79qJsb5bkXsB/xB83BZ2ljKTiQ//C1E6pZ/
+	 +cf2JEVc4QgU+O4KWGZCpgnaZb4WgLVPjImuF5QnH75rq2F7Zi7BOumKMel8mQ3qU8Kzq
+	 t6hdz+ISIapMkE+IGM3/qR6ua9YQVVVF/tvXzx8y6Ln2zpZNfFRQHSRz2C2wsgDjIBAGc
+	 Q/nvf83xhJsOfI2J+CfzqtpQvzPt4HDeEk9kH8cZ7fiSSFGebp9DBD8uyO/9Ke7dQFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795247283;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IFNwACmidFToCCNfb4iFqu5ciyIQ6dqGvleob7ligsI=;
-	b=2l5WRHENOVxfaOL0lAwLBu9Ygw/NatvV5Bq4helRg3ihE1xiVx+56vZrtcHk/024Chmg
-	 oQfc/3DyxaJs1qtTHKv8tQB7GxtJkT0bXdAPNs5USPprSw/g5bgT7/pIvB6swli6JdzOA
-	 FiTRfp4/SmLXLjvZkkPNU7mhYtBRMh05GtfE4G6fvFy74R9e0M5CJiKkx4n0MOeMWmURj
-	 FhG2nx719ebtggewpxRr77r/HxCrpaO6sTZwLdNESWVI7Iyr0oq24+CmimF+LaO571iz8
-	 vSDtFEKLHOHmAc3DM9tMat80+x6u9/Densr6RqEC0yhMYHPHcSZ9eg/Mm0ElGIN3P4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795248083;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=/nBFQZEJTSgaKpZnb3TrHVbaCxmksYr/v0Om85PtszQ=;
+	b=w67x8+GI87QrRmZU/3rYZtVpv6oEIBtBAKAMi40yjM//6mJfBGJK9GoSD9ydRp7DtGE/
+	 xBhzB01W4l9fIC0awbJqDGwOzQXzj8tg6A/5tOdnBA0Uvpgi9aPd4452sjOH80cZvEK/4
+	 Ifeo7mrYf44V6EUlpMQyvaAjSxKNieaMh47mxtrCYZ0YQUhVkexRXkFxy8bs/8wn3kglS
+	 safIduwhanStG8lWAtYiuXVz4o7oLDtrLDIdHjlOIfviMAzPfYZj8Xg7shqhZ4KylmP5D
+	 2ZitFw/15PxkQTxP5jFpa3SlInQxcs8Nw43X8+bv/Kqd0194aRb1UteeyXvNv/XCDJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BChlDjPI;
-	arc=none smtp.remote-ip=203.205.221.205
-Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=doU5WfRu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443C0606A325;
-	Sat, 21 Nov 2026 07:48:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 443C0606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9EE606A320;
+	Sat, 21 Nov 2026 08:01:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BChlDjPI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795247280; bh=IFNwACmidFToCCNfb4iFqu5ciyIQ6dqGvleob7ligsI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BChlDjPICHvQ7eX+vhw742v3dwnqhTvARFG8hLTEIYm0oe9A+3oDRVfvbxB7Uebbw
-	 4YldIZ4x3RGar2oWelfsY5m4u1fER/iEn2JwIEVuA6u31cJqijxNRzpiGS95r75fQz
-	 9tMWzBx9SDY1qy4J+1CghBZlVB1VyvXL81KeIdL0=
-Received: from jerry-PC.lan ([2408:8249:5f:7101:71a:8713:56b4:5043])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id BF71E40F; Sat, 21 Nov 2026 15:47:55 +0800
-X-QQ-mid: xmsmtpt1795247276tfzuxhlqb
-Message-ID: <tencent_1A5C41E9DE4754C0A639FE4A64B1B23AC305@qq.com>
-X-QQ-XMAILINFO: Npv5yIQT4nxMRdjQGHBeq7pCwcd+N+ut+TRiHESwHMHR/AwGJruwixJZN6B1hQ
-	 HsYmbIkFeXJkbH+ZBRWJz5CIqGFjPMKa7ToIALun3QXaDQqxhi8pCTzI1KppAz/DuVb064gXeU5u
-	 W25Z5AardHizFC4ky5XICCBysV1gVO2gdSrYSQJVfR8QDWL1ihKwjMXei/u9N6SS5Iy+bcAWTi6D
-	 uZYJMbjkc553ODhbMV/SZYE1VrugUXbF2YsjuRKGqsmIm2E9pHFIrSyNPHYgIxWV6o+dAiU3tf5P
-	 o8B3bK62rSBryKY+tnpy+ke4K9sXb/b6DcTpPXsMnT+7bvlOLBJoMa4dLr3HNcxqTCY5Te4bPfjY
-	 jHsWr3ciBmTWBuRS+xg80O4urq8gtwCS1L0IxA+W6KFHNjkPygc6cMBrXha8dFdalDukjsaBmnUY
-	 FFewkPAB8y/q+5F65I9pA8dMsGP1e+5pVqjfKOqIZ1/NgMKVRKfFIRYn5/FItIs4wa8XkV4KIt94
-	 ZABj8XyJR03yUnaaF8Cdj9AJRkjn6VWin74ratKY1DWuE54p1+Dsb2drl4S5s5/aj+pMkQb9XOKO
-	 A+qGGI/Bf97P9TIrS0MrK4zJz9wG0Yu+JVTSgotAAahUzk9HYQ251Aq9w84az8vri7Q1F98FpbZC
-	 S5hK3WN9E7yzOltWk+0We5r+8uYoASui1gTKfHkJwlI7hjaNZwEjoybjfErT7f4mFBQuddSjn8cT
-	 uvEZxBBDBmp3R4YjFbkXtemEZoYdoUMlO6iXTPt6Ds8JZD3i7ijTQRocj/PkbUh7rW39MZ0BZZ+c
-	 WtB0hW3gebJWuqKBFs9RFuOiEgu8GP6mS987IvjlRHOvGPxilU5PTVYa6pdFqq7boBaSULPSW+8A
-	 aOSzgWXjiXJ9NyymmWt/TbQGprYyfiOc1IfKxsTo4aelY1aIKUguC5NPUpNWQIUqB+lQfpeV5lRz
-	 Yvk2XRFSZIepR+aDe7PuB4ALYCStGkOadzRS8l7X2dwQjQHOioENoFjc1h8iDZAEjnVy4eqN4QgG
-	 WSAPL4SCEvWhgeEg4wnB6nFaV+Fq7LPMa9WtF7EG5/DzSrcVco3EEjJwh5vpqjnsKJ6TdImNgNvH
-	 PEF1gppF0UAmlwUpB9xI8lSY2nmeHF1tSfXkzk
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: ZhuXiangyu <1194781887@qq.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-phy@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ZhuXiangyu <1194781887@qq.com>
-Subject: [PATCH 2/2] dt-bindings: phy: rockchip: add RK3506 USB2 PHY
-Date: Sat, 21 Nov 2026 15:47:53 +0800
-X-OQ-MSGID: <20261121074753.1262819-2-1194781887@qq.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261121074753.1262819-1-1194781887@qq.com>
-References: <20261121074753.1262819-1-1194781887@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=doU5WfRu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9566B1F000C4;
+	Sat, 21 Nov 2026 08:01:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795248083;
+	bh=/nBFQZEJTSgaKpZnb3TrHVbaCxmksYr/v0Om85PtszQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=doU5WfRuRItUWINkETRxe211mtgU7E7hyrpX4ipDCYohHZ6Iu7F4qxin2F2AsPJBL
+	 98c34PQmK1nYOFqLHTmXAp/6aWxnpKsiTyxq0Ayp64Rb/Hdep96D/+wnCkCUnPlSZZ
+	 2UWFb7XJ/P3Sb3Lv3HvEDDJln0DfJ1134NNbXUOgdEkOfPXMEjlT+r27hoYq02e1YA
+	 wx5+8FMQEaE4Q/FY5K0vYop2d3BKQ//ah35vbtRP0REX+jr+qTSRwMZ4bD/t2UFRGt
+	 ACg2ZfKh8lfypRt//z3D1+WY4rd8DYnvPUBdEBOPSl5UA8sIFWGwLuQJgdb6I7Gy0Z
+	 WsghsAfJHwk1w==
+Message-ID: <sashiko-outbox-226811@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 09/17] drm/spacemit: add Saturn DPU hardware backend
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cody Kang" <codykang.hk@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261121-k3-display-v3-9-ec419e8e96b8@gmail.com>
+References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
+ <20261121-k3-display-v3-9-ec419e8e96b8@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 21 Nov 2026 08:01:22 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,66 +59,320 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Document the RK3506 USB2 PHY, which uses the phyclk and apb_pclk
-clocks and requires the PMU GRF phandle.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] drm/spacemit: vfp underflow in saturn_init_tmg() when front
+  porch < 7
+- [High] drm/spacemit: unmasked IRQ dispatch and premature vblank event
+  in ISR
+- [Medium] drm/spacemit: stale underrun IRQ and ur_mask_armed race on
+  CFG_RDY
+- [Medium] drm/spacemit: race on cfg_rdy_timer and INT_CFG_RDY in
+  spacemit_dpu_run()
+--
 
-Signed-off-by: ZhuXiangyu <1194781887@qq.com>
----
- .../bindings/phy/rockchip,inno-usb2phy.yaml     | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+commit feb91f776850387e06b93738a2a9ed3971674069
+Author: Cody Kang <codykang@vsit.ai>
 
-diff --git a/Documentation/devicetree/bindings/phy/rockchip,inno-usb2phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,inno-usb2phy.yaml
-index f50fc69f..956a82cc 100644
---- a/Documentation/devicetree/bindings/phy/rockchip,inno-usb2phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/rockchip,inno-usb2phy.yaml
-@@ -20,6 +20,7 @@ properties:
-       - rockchip,rk3328-usb2phy
-       - rockchip,rk3366-usb2phy
-       - rockchip,rk3399-usb2phy
-+      - rockchip,rk3506-usb2phy
-       - rockchip,rk3528-usb2phy
-       - rockchip,rk3562-usb2phy
-       - rockchip,rk3568-usb2phy
-@@ -47,6 +48,9 @@ properties:
-       - items:
-           - const: phyclk
-           - const: pclk
-+      - items:
-+          - const: phyclk
-+          - const: apb_pclk
-       - items:
-           - const: phyclk
-           - const: aclk
-@@ -158,6 +162,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - rockchip,rk3506-usb2phy
-               - rockchip,rk3528-usb2phy
-               - rockchip,rk3568-usb2phy
-               - rockchip,rv1108-usb2phy
-@@ -240,6 +245,18 @@ allOf:
-         clock-names:
-           minItems: 2
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3506-usb2phy
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 2
-+        clock-names:
-+          minItems: 2
-+
-   - if:
-       properties:
-         compatible:
--- 
-2.47.3
+drm/spacemit: add Saturn DPU hardware backend
 
+This commit adds the Saturn DPU hardware backend, covering clock setup,
+scene control and timing generator programming, RDMA channel and composer
+configuration, line-buffer sizing, and interrupt handling.
+
+> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c b/drivers/gpu/drm/=
+spacemit/dpu/dpu_saturn.c
+> new file mode 100644
+> index 0000000000000..704e64fb9ec7e
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c
+> @@ -0,0 +1,353 @@
+
+[ ... ]
+
+> +/* Complete a commit whose lists the engine will not confirm any more. */
+> +void spacemit_dpu_complete_event(struct spacemit_crtc *a_crtc)
+> +{
+> +	struct drm_crtc *crtc =3D &a_crtc->crtc;
+> +	struct drm_pending_vblank_event *event;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&crtc->dev->event_lock, flags);
+> +	event =3D a_crtc->event;
+> +	a_crtc->event =3D NULL;
+> +	if (event)
+> +		drm_crtc_send_vblank_event(crtc, event);
+> +	spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
+> +
+> +	if (event)
+> +		drm_crtc_vblank_put(crtc);
+> +}
+> +
+> +void spacemit_cfg_rdy_timer_handler(struct timer_list *t)
+> +{
+> +	struct spacemit_crtc *a_crtc =3D timer_container_of(a_crtc, t,
+> +							  cfg_rdy_timer);
+> +
+> +	drm_err_ratelimited(a_crtc->crtc.dev, "CFG_RDY handshake timeout\n");
+> +	/* A CFG_RDY that still comes belongs to no commit any more. */
+> +	saturn_hee_enable_irq(a_crtc, INT_CFG_RDY, false);
+> +	spacemit_dpu_complete_event(a_crtc);
+> +}
+
+[ ... ]
+
+> +/* Returns false when none of the pending status bits was this CRTC's. */
+> +bool spacemit_dpu_online_isr(struct spacemit_crtc *a_crtc)
+> +{
+> +	u32 irq_raw, irq_bit, irq_ur_bit, handled;
+> +	struct spacemit_drm_private *priv =3D a_crtc->crtc.dev->dev_private;
+> +	struct spacemit_hw_device *hwdev =3D priv->hwdev;
+> +
+> +	irq_raw =3D saturn_hee_get_int_sts(hwdev);
+> +	irq_bit =3D saturn_hee_get_irq_bit(INT_UNDERRUN);
+> +	irq_ur_bit =3D irq_raw & irq_bit;
+> +	handled =3D irq_ur_bit;
+> +	if (irq_ur_bit && !a_crtc->ur_reported) {
+> +		saturn_hee_clr_int_sts(a_crtc, irq_ur_bit);
+> +		drm_err_ratelimited(a_crtc->crtc.dev, "underrun\n");
+> +		a_crtc->ur_reported =3D true;
+> +	}
+> +	irq_bit =3D saturn_hee_get_irq_bit(INT_CFG_RDY);
+> +	if (irq_raw & irq_bit) {
+> +		saturn_hee_clr_int_sts(a_crtc, irq_bit);
+> +		timer_delete(&a_crtc->cfg_rdy_timer);
+> +		a_crtc->ur_reported =3D false;
+> +		saturn_hee_enable_irq(a_crtc, INT_CFG_RDY, false);
+> +		handled |=3D irq_bit;
+> +
+> +		/* The lists are taken: the next vblank completes the commit. */
+> +		spin_lock(&a_crtc->crtc.dev->event_lock);
+> +		if (a_crtc->event) {
+> +			drm_crtc_arm_vblank_event(&a_crtc->crtc, a_crtc->event);
+> +			a_crtc->event =3D NULL;
+> +		}
+> +		spin_unlock(&a_crtc->crtc.dev->event_lock);
+> +	}
+> +	irq_bit =3D saturn_hee_get_irq_bit(INT_VSYNC);
+> +	if (irq_raw & irq_bit) {
+> +		saturn_hee_clr_int_sts(a_crtc, irq_bit);
+> +		drm_crtc_handle_vblank(&a_crtc->crtc);
+> +		handled |=3D irq_bit;
+> +	}
+> +	irq_bit =3D saturn_hee_get_irq_bit(INT_REST) | irq_ur_bit;
+> +	if (irq_raw & irq_bit) {
+> +		saturn_hee_clr_int_sts(a_crtc, irq_bit);
+> +		handled |=3D irq_raw & irq_bit;
+> +	}
+> +
+> +	return handled;
+> +}
+
+[Severity: High]
+Can spacemit_dpu_online_isr() complete a commit's vblank event a frame
+early when INT_CFG_RDY and INT_VSYNC are both set in irq_raw?
+
+As noted in saturn_hee_irq_enable() and spacemit_dpu_run(),
+DPU_ONLINE_IRQ_STS latches status bits even while their mask bits in
+DPU_ONLINE_IRQ_MSK are cleared, yet saturn_hee_enable_irq() unmasks
+interrupts without clearing DPU_ONLINE_IRQ_STS first and
+spacemit_dpu_online_isr() does not mask irq_raw against
+DPU_ONLINE_IRQ_MSK.  When INT_CFG_RDY fires while INT_VSYNC is also set
+(either from a frame boundary or latched while vblank was masked), the
+INT_CFG_RDY branch calls drm_crtc_arm_vblank_event() and the following
+INT_VSYNC branch immediately calls drm_crtc_handle_vblank() in the same
+ISR invocation.  That delivers the flip event before the next vblank and
+unblocks drm_atomic_helper_wait_for_flip_done() early, allowing the next
+commit to overwrite the active command list slot.
+
+> +
+> +void spacemit_dpu_run(struct drm_crtc *crtc, struct drm_atomic_commit *s=
+tate)
+> +{
+> +	struct spacemit_crtc *a_crtc =3D to_spacemit_crtc(crtc);
+> +	struct spacemit_drm_private *priv =3D a_crtc->crtc.dev->dev_private;
+> +	struct spacemit_hw_device *hwdev =3D priv->hwdev;
+> +
+> +	saturn_hee_conf_dpuctrl(crtc, state);
+> +
+> +	/* flush all config register writes before CFG_RDY is raised */
+> +	mb();
+> +
+> +	/* Ack first: one left by a commit that timed out is not this one's. */
+> +	saturn_hee_clr_int_sts(a_crtc, saturn_hee_get_irq_bit(INT_CFG_RDY));
+> +	saturn_hee_enable_irq(a_crtc, INT_CFG_RDY, true);
+> +
+> +	mod_timer(&a_crtc->cfg_rdy_timer,
+> +		  jiffies + msecs_to_jiffies(SATURN_CFG_RDY_TIMEOUT_MS));
+> +	saturn_hee_cfg_ready(a_crtc, hwdev);
+> +
+> +	if (unlikely(a_crtc->is_1st_f)) {
+> +		drm_dbg(a_crtc->crtc.dev, "DPU start\n");
+> +		a_crtc->is_1st_f =3D false;
+> +		saturn_hee_sw_start(a_crtc, hwdev);
+> +	}
+> +}
+
+[Severity: Medium]
+Can spacemit_cfg_rdy_timer_handler() race with spacemit_dpu_online_isr()
+and spacemit_dpu_run() to complete the next commit's vblank event early or
+leave INT_CFG_RDY masked?
+
+CPU0 (<softirq>)                  CPU1
+spacemit_cfg_rdy_timer_handler()
+  drm_err_ratelimited(...)
+                                  <hardirq>
+                                  spacemit_dpu_online_isr()
+                                    timer_delete(&a_crtc->cfg_rdy_timer)
+                                    drm_crtc_arm_vblank_event(...)
+                                    drm_crtc_handle_vblank(...)
+                                  spacemit_crtc_atomic_flush()
+                                    a_crtc->event =3D new_event
+                                    spacemit_dpu_run()
+                                      saturn_hee_enable_irq(..., true)
+  saturn_hee_enable_irq(..., false)
+  spacemit_dpu_complete_event()
+    drm_crtc_send_vblank_event()  <-- completes new commit early
+
+timer_delete() in spacemit_dpu_online_isr() does not wait for an in-flight
+spacemit_cfg_rdy_timer_handler(), so the timer callback can mask the next
+commit's INT_CFG_RDY and complete its a_crtc->event before the hardware
+consumes its command lists.
+
+In addition, spacemit_dpu_run() unmasks INT_CFG_RDY before mod_timer() and
+saturn_hee_cfg_ready().  If a late CFG_RDY from a previously timed-out
+commit arrives right after saturn_hee_enable_irq(a_crtc, INT_CFG_RDY,
+true), spacemit_dpu_online_isr() runs timer_delete() before the timer is
+armed, masks INT_CFG_RDY, and arms a_crtc->event before both_cfg_rdy is
+written for the new commit.
+
+> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c b/drivers/gpu/=
+drm/spacemit/dpu/dpu_saturn_hee.c
+> new file mode 100644
+> index 0000000000000..1a194fe7cc7ba
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c
+> @@ -0,0 +1,670 @@
+
+[ ... ]
+
+> +void saturn_hee_enable_irq(struct spacemit_crtc *a_crtc,
+> +			   enum spacemit_dpu_irq irq_id, bool enable)
+> +{
+> +	saturn_enable_irq_mask(a_crtc, enable,
+> +			       DPU_INT_BASE_ADDR + DPU_ONLINE_IRQ_MSK,
+> +			       saturn_hee_get_irq_bit(irq_id));
+> +}
+> +
+> +void saturn_hee_cfg_ready(struct spacemit_crtc *a_crtc,
+> +			  struct spacemit_hw_device *hwdev)
+> +{
+> +	u32 base =3D DPU_SCENE_CTL_ADDR(COMPOSER1);
+> +
+> +	saturn_hee_enable_irq(a_crtc, INT_UNDERRUN, true);
+> +	a_crtc->ur_mask_armed =3D true;
+> +	dpu_write(hwdev, DPU_CTL_REG, base, both_cfg_rdy, 1);
+> +}
+
+[Severity: Medium]
+Does enabling INT_UNDERRUN in saturn_hee_cfg_ready() before setting
+a_crtc->ur_mask_armed and without clearing DPU_ONLINE_IRQ_STS race with
+spacemit_dpu_online_isr()?
+
+saturn_hee_cfg_ready()
+  saturn_hee_enable_irq(a_crtc, INT_UNDERRUN, true)
+  <hardirq>
+    spacemit_dpu_online_isr()
+      saturn_hee_clr_int_sts(a_crtc, ...)
+        if (... && a_crtc->ur_mask_armed)  <-- still false; stays unmasked
+  a_crtc->ur_mask_armed =3D true
+
+After an underrun, INT_UNDERRUN is masked for the rest of the frame while
+the hardware continues latching DPU_INT_FRM_TIMING_UNFLOW in
+DPU_ONLINE_IRQ_STS.  When the next commit calls saturn_hee_cfg_ready(),
+unmasking INT_UNDERRUN without clearing DPU_ONLINE_IRQ_STS immediately
+triggers spacemit_dpu_online_isr().  If the interrupt arrives before
+a_crtc->ur_mask_armed =3D true (which also happens in
+saturn_hee_irq_enable()), saturn_hee_clr_int_sts() sees ur_mask_armed =3D=3D
+false and leaves INT_UNDERRUN unmasked; if it arrives after
+ur_mask_armed =3D true but before INT_CFG_RDY clears ur_reported, the bottom
+saturn_hee_clr_int_sts() call in spacemit_dpu_online_isr() immediately
+masks INT_UNDERRUN again before the new commit takes effect.
+
+> +
+> +void saturn_hee_sw_start(struct spacemit_crtc *a_crtc,
+> +			 struct spacemit_hw_device *hwdev)
+> +{
+> +	u32 base;
+> +
+> +	base =3D DPU_SCENE_CTL_ADDR(COMPOSER1);
+> +	dpu_write_reg(hwdev, DPU_CTL_REG, base, sw_start, 1);
+> +}
+> +
+> +static void saturn_init_tmg(struct spacemit_crtc *a_crtc,
+> +			    const struct drm_display_mode *mode)
+> +{
+> +	u32 base =3D TMG0_BASE_ADDR;
+> +	struct spacemit_drm_private *priv =3D a_crtc->crtc.dev->dev_private;
+> +	struct spacemit_hw_device *hwdev =3D priv->hwdev;
+> +	u16 vfp, vbp, vsync, hfp, hbp, hsync;
+> +	void __iomem *tmg_addr;
+> +	u32 value;
+> +
+> +	tmg_addr =3D hwdev->base + TMG0_BASE_ADDR;
+> +
+> +	hsync =3D mode->hsync_end - mode->hsync_start;
+> +	hbp =3D mode->htotal - mode->hsync_end;
+> +	hfp =3D mode->hsync_start - mode->hdisplay;
+> +	vsync =3D mode->vsync_end - mode->vsync_start;
+> +	vbp =3D mode->vtotal - mode->vsync_end;
+> +	vfp =3D mode->vsync_start - mode->vdisplay;
+> +	drm_dbg(a_crtc->crtc.dev, "timing " DRM_MODE_FMT "\n", DRM_MODE_ARG(mod=
+e));
+> +
+> +	dpu_write(hwdev, TMG_REG, base, disp_ready_man_en, 0);
+> +	dpu_write(hwdev, TMG_REG, base, background_r, 0);
+> +	dpu_write(hwdev, TMG_REG, base, background_g, 0x0);
+> +	dpu_write(hwdev, TMG_REG, base, background_b, 0xff);
+> +	dpu_write(hwdev, TMG_REG, base, eof_1st_ln_dly_num, vfp - 7);
+> +	dpu_write(hwdev, TMG_REG, base, eof_2nd_ln_dly_num, vfp - 6);
+> +	dpu_write(hwdev, TMG_REG, base, split_en, 0);
+> +	dpu_write(hwdev, TMG_REG, base, cmd_screen, 0);
+> +	dpu_write(hwdev, TMG_REG, base, cmd_wait_en, 0);
+> +	dpu_write(hwdev, TMG_REG, base, cmd_wait_te, 0);
+> +	dpu_write(hwdev, TMG_REG, base, sof_pre_ln_num, 0);
+> +	dpu_write(hwdev, TMG_REG, base, hfp, hfp);
+> +	dpu_write(hwdev, TMG_REG, base, hbp, hbp);
+> +	dpu_write(hwdev, TMG_REG, base, vfp, vfp);
+> +	dpu_write(hwdev, TMG_REG, base, vbp, vbp);
+> +	dpu_write(hwdev, TMG_REG, base, hsync_width, hsync);
+> +	dpu_write(hwdev, TMG_REG, base, vsync_width, vsync);
+> +	dpu_write(hwdev, TMG_REG, base, hsp, 1);
+> +	dpu_write(hwdev, TMG_REG, base, vsp, 1);
+> +	dpu_write(hwdev, TMG_REG, base, h_active, mode->hdisplay);
+> +	dpu_write(hwdev, TMG_REG, base, v_active, mode->vdisplay);
+> +	dpu_write(hwdev, TMG_REG, base, fm_timing_en, 1);
+> +	/* The pipeline always hands RGB888 to the DP/eDP encoder. */
+> +	dpu_write(hwdev, TMG_REG, base, user, OUTFMT_RGB888);
+> +
+> +	value =3D readl(tmg_addr + 4 * dpu_field_word(TMG_REG, vfp));
+> +	value &=3D ~dpu_field_mask(TMG_REG, vfp);
+> +	value |=3D vfp;
+> +	writel(value, tmg_addr + 4 * dpu_field_word(TMG_REG, vfp));
+
+[Severity: High]
+Does vfp - 7 and vfp - 6 underflow when the display mode's vertical front
+porch is smaller than 7 lines?
+
+Standard modes such as 1920x1080@60Hz (vdisplay =3D 1080, vsync_start =3D
+1084, so vfp =3D 4) have vfp < 7, which wraps the 16-bit eof_1st_ln_dly_num
+and eof_2nd_ln_dly_num fields to 0xfff9..0xffff, exceeding vtotal so the
+EOF line-delay counters cannot fire within the frame.  Also, the raw
+readl()/writel() sequence at the end of saturn_init_tmg() redundantly
+rewrites the same vfp field that dpu_write(hwdev, TMG_REG, base, vfp, vfp)
+just programmed above.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121-k3-display=
+-v3-0-ec419e8e96b8@gmail.com?part=3D9
