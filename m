@@ -1,85 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795296282;
-	b=0ySCtd8E+GwX8lN5KMUyPhnDKqtWYmW0Hq3OUIH1w69xKPL7BUHSu+gx0HzP32IWhTuW
-	 Zy92O+s/pjhDP26j7BzDPpOLyMFFbxcAbCKjZ26R/OjJKl0Hfhdv0wnbhvLWY7ctU8NkH
-	 ivt+pt8LjycFvaJVT7P8Vkw1g++VTchQBO31jaY4coiQFOFYiTisWKRrM9GCAZXgCcZNk
-	 nw98RkgSocw5US7+OKiiQfkWqMoo2xna8L4wL+O5t2KHw5/PMG3zWmwKVegvdF7gN2OKw
-	 qeE62gxe5zx7ptORkR7LuHTGPO6yAXHr0HgThzYZDic2eCt05O2TE3I2+WDV9KVXM6Q==
+	t=1795296475;
+	b=rKl1blg+/bWWk0BYxm0KV8/6zyYtTT2WXvrKIRJ70eV1Flogfn4D3uca356seEFwkOsu
+	 1Bk1I+KoLnnUIpawmDlJhK5CJwYEwNPTYxXC+29pYSV0h5xDrEC3QE4rRdbtUHDeBnFgP
+	 6BWBsjleRf6LR+VxA7cQ3Y6RippJm1Gu/4bRtSGYT3zHCNFHNNHF0zJ8KokeHpNh8nFqM
+	 gAF3o265f0IgDDLiCV0f0TNObRJkUefA6DcEOrT3tJBiNpn4ZyNm+J/EHm1K+Ukm3g/tt
+	 hhoQ0ifvYizHjIY4xhovO/7VF2mzpR6jCe4ZIUzna0tmcSXWhrLikJf2YsuJ/r0jjNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795296282;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=qPv/aRybxiihzTHTiKkFME6FpgXCP+REMbbDc/0fYE8=;
-	b=U/FK1f90ShMjYQx/xL/Fwb9cZJT/HyRO+iC/TUYcw5vsb49ojXnfb9eDYHnpNguHBL8j
-	 GnXomyhU/73KpeilBCym9HHTWoDfbEUJyzn9BNq0dLtN7yqCHIj/wuHeKKoU7DDWBtsqm
-	 vgHxXVx/rv6zHLrVKqBWvxSiPoRyO49JcHXHe7TjxPuL0t0I2wGV0pNsfcGRuEVYSunrV
-	 g4uUZkx80MXxg73sBf8hBvS//lp6fBy9/Yui7jai/KpwwtF/NvERGlwFjuF+J5vNrPvcW
-	 82iqcFqJ4Mhm4LNxqhTxz8gHtSoaRwEnQskOGtSuP/RpzRYaY2ghSbm7/Pr+VhnXb5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795296475;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=g56+Yp2TKqJ5xV2s8BFdZoIDvKQ0/BGu0qh6iDTvIhE=;
+	b=im+D6/n2WSpxfFVTXaBPe5RAAXQW/59H54XiKNl9m+f/zv3pHuzdTjK52fCIJSOlU7Xf
+	 R7X7pO59X/afSG+Gh6D13zAW1ToWJ0+TjOdB7rq0YhgmPCatTHE+KehIBM5sfqBr/X4am
+	 Ch89VQcF1eoOJ7iTvW7IC/gJa4ZMbfH/PNKSPcJLGtejxAJSBNED80x6PgXi8xhFepEFI
+	 oGpoiKjcHx6rO4Nl0WwUhNIXJKK0/zYvLUS+nJ5A+9jEUM+IoG27VFVfBd8N2Zk77gXLh
+	 Qn7MaaY4uqdk8QU2G41/E7RYHCwXAGfb8FSAmtJ6QxhpytpXmhinIB9ph2pDHbxuYgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=AJqs8GGY;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ySDkEIO0;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F184606A332
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:24:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F184606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC97606A334
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:27:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFC97606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=AJqs8GGY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=qPv/
-	aRybxiihzTHTiKkFME6FpgXCP+REMbbDc/0fYE8=; b=AJqs8GGYNI1DF6qNJeT9
-	gyjB3dc6oXz4D+Yz/Qu+w02FrCzwj8AHpHK0fH6BeLfjG77NqlYQkpC3PnjCG92A
-	tGtT44cHaEKXQxziL01NLdBOJsvmclbSlpav6UUGWBRwlJmGHoHsgwOhISrn9uEE
-	fIp2eXF8iUGnlgLm56VCvglKYYvAcQx/O4G/w7AmpTw0JdjJV5aHFFZOls9s7VU5
-	diZ730+ilaxa6udyF0BVGbHNDiiEjL8n3yden5w4wI9YvSZAwHDs6DbP3dF2CAzl
-	U1uHwNFnxnbRRDCntrrlEgmN3udg9q6oA39xHetZr2yPK7N1dCq2oo/gToOVOYd2
-	tQ==
-Received: (qmail 1945706 invoked from network); 21 Nov 2026 22:24:28 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 21 Nov 2026 22:24:28 +0100
-X-UD-Smtp-Session: l3s3148p1@betU/M9gntsgAwDpTyYqANgHwk2rnHm5
-Date: Sat, 21 Nov 2026 22:24:27 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Ralph Siemsen <ralph.siemsen@linaro.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, khendry@reliablecontrols.com,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ySDkEIO0
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4bb6057b333so8058055e9.3
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:27:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795296473; x=1795901273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g56+Yp2TKqJ5xV2s8BFdZoIDvKQ0/BGu0qh6iDTvIhE=;
+        b=ySDkEIO0wCb5tRjoqzeT+i/kWYSzCqfpvATi+OfIKwYVhTdRRWSAeHlqrDNGRPM3xX
+         ZZuOsJa2B+yh7fPT6s/9jHyWDwt2hF5PSCI8oyNIblpECewVmWqGBApD8nH4lVzGuOM7
+         A0JqY4dnkaXkn5qmNvG+t4Vkt8xxY5Cfv6wLktd3HeedX2SfBsqdYsJAt4AD/cszuAo8
+         f/zkUAidDg1iA0TlekOCEpwzniwRfxx+tPPQvAZELM1Nvt3hxgOeBjqAVIKPzoQoVb3w
+         Jdhad716cTUtELqrAsJsB+RpqasK5fXJaPE+lLCZ6AA7qw8xCgrbrbciXs4ll8+qY7S8
+         barg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795296473; x=1795901273;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g56+Yp2TKqJ5xV2s8BFdZoIDvKQ0/BGu0qh6iDTvIhE=;
+        b=B3Hh475OmXI0In5y35xHHZoG8E+bGCXekhIKQGGtRJYnum4cguIwrEanZMc07NMzjE
+         usJmhE7CHv758dRkZeb+P3xjTssNrlnzVZGwnGyiLbxen4oicOXgz450LDC658u4XY1V
+         l1AnrlIJKRXiBs2ssndeUngNjhL6Q0GeMtn4WqGEWp2devMMUOk3AyuxnOhlzPTcJKFQ
+         QB8ud6uWKah2ODDybAGXCHckSc2uRR7T1Y+PEfjzk1hIgkV7Y94uDa89Phv7e5HbhKuB
+         TWT0aJTSE5Jr34KiMvnUBlaS3NzSz941GIlnSxG0uD7oqx7wLSzhmsz4ABj8Sn1nQBIG
+         k+Ow==
+X-Forwarded-Encrypted: i=1; AL+hErH2psLycymn2XHwHEvoeOynw3dQtYLnLnAv7MpQUg02E2uC1JT1x+RrnLejqdvSN+gl+FJVfQ4V83oI@vger.kernel.org
+X-Gm-Message-State: APuU4Z8brWczbP6jP+bDh9f0GD5W46q3Lv7YnZtln2FLB+hH3Fq3MBp5
+	DN3pDxs4jw4gWMhwQffK2CgPmnhK6D4tUUnN2mwTmGRuxi8hy+fX+Pfygnheag==
+X-Gm-Gg: AZFdTZf4J9Q7wrHBT6VckT4gO3hSGVkaQ+xGZJvdj7Xsj70ewy46fhXP5oxkCVHGEWJ
+	cvCc59A3tMRwqBw2Ic93J1FRTcKDg8sH/TmIZJZx6J0O8O3DKPXSPytzSoL92LsCDYoqvYpNtGa
+	vz3fPpiREiY6EFCW/iMSMdidSlQv43qMv6lmIC0XEtJCrpnzorZUDrHF3hLlmXeI0L/p1jZwbZ+
+	KdASr1NhsaGMiwuUr2SMiXc2RGqBhEdbRvEIG5/qpOd+EgGy+GO7YAhuz+ap4rTXlAzlLrpR8F+
+	sDA6WgWe9w11/+nh3VjijP3OEz0f4bgVJXyVUXIkSATrXJ4HK8IQHdIghq9BAdkEkcfsU1ZuhEb
+	mnnFL/vo/WUnf3wv441b3eNFQoHv4ne14GghmtEg+Cknk0ifQ1DljVUtH2v6HN4jq32hGto0jTq
+	o6vza+pLnM04R3cLa2WfTBddCS7M/uppoekiwhzOdkbiEFmxaGc74M5Sk0e7PXO1rTaFdFkuki1
+	8GXBQILL8kaAnKKqpJCK+zoX+Dje2B933DZbgwJE+Yr1ytccSOOr91Hp1zXxzOTLYupBmmDmd69
+	cRma1HZ5RZDngRlya0uQPzyQ8fipxLDJOxfSWklNGBQSvy2ZTDc3p1wYiOJjY98tk6Bq8S34dN4
+	WLD4K31GfDTYVQsOFrBvYSemNzuoQ5RHsDt3STduQEA4MGBi2GRwVTNKa2+TGAoxBIOdYZOlc
+X-Received: by 2002:a05:600c:4f10:b0:4a1:88de:9e8b with SMTP id 5b1f17b1804b1-4bb88807909mr163930255e9.5.1795296472996;
+        Sat, 21 Nov 2026 13:27:52 -0800 (PST)
+Received: from Ansuel-XPS24.localdomain (host-87-17-253-173.retail.telecomitalia.it. [87.17.253.173])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b3a7sm255668955e9.3.2026.11.21.13.27.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 13:27:52 -0800 (PST)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	=?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: clock: r9a06g032-sysctrl: Document
- reset cells
-Message-ID: <awIMBj_7OLrlM5G-@shikoro>
-References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
- <20261119-rzn1-miic-resets-v1-1-feee2bb28bb4@reliablecontrols.com>
- <awARmkCuelD_fdX6@shikoro>
- <5d8530485716d129be2efa0518254e3322cecdb0.camel@pengutronix.de>
- <awAq7vxcY8CGjhNl@ninjato>
- <awGV8BU_AfaXQyBv@maple.netwinder.org>
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v15 1/5] dt-bindings: clock: airoha: Document support for AN7583 clock
+Date: Sat, 21 Nov 2026 22:27:31 +0100
+Message-ID: <20261121212738.170775-2-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261121212738.170775-1-ansuelsmth@gmail.com>
+References: <20261121212738.170775-1-ansuelsmth@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,42 +108,173 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fv0MbHVxiEYH6cP3"
-Content-Disposition: inline
-In-Reply-To: <awGV8BU_AfaXQyBv@maple.netwinder.org>
+Content-Transfer-Encoding: 8bit
 
---fv0MbHVxiEYH6cP3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Document support for Airoha AN7583 clock. This is based on the EN7523
+clock schema with the new requirement of the "airoha,chip-scu".
 
+The register for clock and reset for normal system and PCIe are scattered
+between the "SCU" and "chip SCU" registers (they are 2 different register
+block, the name is taken from the programming guide)
 
-> Thinking about it some more, perhaps instead of using 0 as the special case
-> for "no parent", we could set .source to match .index. In other words a
-> clock pointing to itself means "no parent". Worth changing?
+- Chip SCU provide register access to some clk gate and clk rate
+- SCU provide register for reset, PCIe clock, other clock gate and PHY
+  SERDES.
 
-What would be the gain? As you said before we can't update the values
-because they are already in DTBs.
+Upcoming and current airoha clock driver all follow this pattern of
+declaring one of the 2 register and use a sysconf for the other as the 2
+register block are tighlty coupled.
 
+EN7581 internally handle the syscon with a direct reference by the use of
+syscon_regmap_lookup_by_compatible while AN7583 wants to make this
+explicit in DT with the new "airoha,chip-scu" phandle.
 
---fv0MbHVxiEYH6cP3
-Content-Type: application/pgp-signature; name=signature.asc
+Similar to EN7581, also AN7583 permit the selection of the serdes line.
 
------BEGIN PGP SIGNATURE-----
+Add additional binding for additional clock and reset lines.
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsCDAYACgkQFA3kzBSg
-KbaxSQ//cizj5OOLsgYrAxaW1EKGn9YvmafR+RlvEqb8FlFxWBREKwon8e0FF3gu
-2Jpvaf/tOsiK1NhtQ/eTuYRfJ89p1XpJXX0tA+oTBv8eYdCEik3NV7hBMMNAXb7G
-EA/K0pyjN4k+UqvQMWP6h+WodMzFfNvLyu8aVMaNyGfC2Bjii/GKUAfJAUcR6ZTK
-McT0/W4e4kvFRKJQ0Lq1vQjzins0eQhFtTDnGd9hqDakYfbKFYE6TZQ/GuiQdfuf
-1+2wk+shbGWC1D1zk2kzHx+QCYxAZnNnFtF+XPtgorT6XKucDDgeeZ2A0qXpT1+z
-TVL6DMGWPaC78QHXrDuh52k8IgpB9EMAPksX+GcLlHdbSwjxtbGVcg6RoyVQH+dQ
-RQ+QHRgQtuw48k/SdZ6AILxxgUGGM5wWfn/xUWz7HF6kekq91GVIDraIEhpe5M1r
-32mie0F8Ej8YQj5Tpc5MSNrtRRLAKDQFnd95BmRvZeM7dZtHo5ajZWiRq8BMFaix
-VVJk+y6dxOXlZfm6I1rZYRnz0etxZhfYaUh3xth557wkLrXft4r5x1Gyr/G2xA9U
-uh5AhXZO5WMo7H9sv6XX7KnH640ry/gJpkK4G4qcS7KrFMddn2zhFG3pDpwxMdpR
-oCQzd28u2Kelvnez5qwBUf7Y/E48ehv8YgVjkAeHbFCtHVnMbqY=
-=0+NB
------END PGP SIGNATURE-----
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ .../bindings/clock/airoha,en7523-scu.yaml     | 26 ++++++++
+ include/dt-bindings/clock/en7523-clk.h        |  3 +
+ .../dt-bindings/reset/airoha,an7583-reset.h   | 65 +++++++++++++++++++
+ 3 files changed, 94 insertions(+)
+ create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
 
---fv0MbHVxiEYH6cP3--
+diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+index fc37786ac7ed..0d5f89187525 100644
+--- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
++++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+@@ -31,6 +31,7 @@ properties:
+   compatible:
+     items:
+       - enum:
++          - airoha,an7583-scu
+           - airoha,en7523-scu
+           - airoha,en7581-scu
+           - econet,en751221-scu
+@@ -57,12 +58,37 @@ properties:
+       available serdes port.
+     const: 1
+ 
++  airoha,chip-scu:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: phandle to the Chip SCU providing the registers required
++      for configuring and read the base clock sources, dividers  and
++      clock gates.
++
+ required:
+   - compatible
+   - reg
+   - '#clock-cells'
+ 
+ allOf:
++  - if:
++      properties:
++        compatible:
++          const: airoha,an7583-scu
++
++    then:
++      properties:
++        reg:
++          maxItems: 1
++
++      required:
++        - airoha,chip-scu
++        - '#reset-cells'
++        - '#phy-cells'
++
++    else:
++      properties:
++        airoha,chip-scu: false
++
+   - if:
+       properties:
+         compatible:
+diff --git a/include/dt-bindings/clock/en7523-clk.h b/include/dt-bindings/clock/en7523-clk.h
+index edfa64045f52..0fbbcb7b1b25 100644
+--- a/include/dt-bindings/clock/en7523-clk.h
++++ b/include/dt-bindings/clock/en7523-clk.h
+@@ -14,4 +14,7 @@
+ 
+ #define EN7581_CLK_EMMC		8
+ 
++#define AN7583_CLK_MDIO0	9
++#define AN7583_CLK_MDIO1	10
++
+ #endif /* _DT_BINDINGS_CLOCK_AIROHA_EN7523_H_ */
+diff --git a/include/dt-bindings/reset/airoha,an7583-reset.h b/include/dt-bindings/reset/airoha,an7583-reset.h
+new file mode 100644
+index 000000000000..433a5c6180bf
+--- /dev/null
++++ b/include/dt-bindings/reset/airoha,an7583-reset.h
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2024 AIROHA Inc
++ * Author: Christian Marangi <ansuelsmth@gmail.com>
++ */
++
++#ifndef __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_
++#define __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_
++
++/* RST_CTRL2 */
++#define AN7583_XPON_PHY_RST		 0
++#define AN7583_GPON_OLT_RST		 1
++#define AN7583_CPU_TIMER2_RST		 2
++#define AN7583_HSUART_RST		 3
++#define AN7583_UART4_RST		 4
++#define AN7583_UART5_RST		 5
++#define AN7583_I2C2_RST			 6
++#define AN7583_XSI_MAC_RST		 7
++#define AN7583_XSI_PHY_RST		 8
++#define AN7583_NPU_RST			 9
++#define AN7583_TRNG_MSTART_RST		10
++#define AN7583_DUAL_HSI0_RST		11
++#define AN7583_DUAL_HSI1_RST		12
++#define AN7583_DUAL_HSI0_MAC_RST	13
++#define AN7583_DUAL_HSI1_MAC_RST	14
++#define AN7583_XPON_XFI_RST		15
++#define AN7583_WDMA_RST			16
++#define AN7583_WOE0_RST			17
++#define AN7583_HSDMA_RST		18
++#define AN7583_TDMA_RST			19
++#define AN7583_EMMC_RST			20
++#define AN7583_SOE_RST			21
++#define AN7583_XFP_MAC_RST		22
++#define AN7583_MDIO0_RST		23
++#define AN7583_MDIO1_RST		24
++/* RST_CTRL1 */
++#define AN7583_PCM1_ZSI_ISI_RST		25
++#define AN7583_FE_PDMA_RST		26
++#define AN7583_FE_QDMA_RST		27
++#define AN7583_PCM_SPIWP_RST		28
++#define AN7583_CRYPTO_RST		29
++#define AN7583_TIMER_RST		30
++#define AN7583_PCM1_RST			31
++#define AN7583_UART_RST			32
++#define AN7583_GPIO_RST			33
++#define AN7583_GDMA_RST			34
++#define AN7583_I2C_MASTER_RST		35
++#define AN7583_PCM2_ZSI_ISI_RST		36
++#define AN7583_SFC_RST			37
++#define AN7583_UART2_RST		38
++#define AN7583_GDMP_RST			39
++#define AN7583_FE_RST			40
++#define AN7583_USB_HOST_P0_RST		41
++#define AN7583_GSW_RST			42
++#define AN7583_SFC2_PCM_RST		43
++#define AN7583_PCIE0_RST		44
++#define AN7583_PCIE1_RST		45
++#define AN7583_CPU_TIMER_RST		46
++#define AN7583_PCIE_HB_RST		47
++#define AN7583_XPON_MAC_RST		48
++/* RST_PCIC */
++#define AN7583_PCIC_PERSTOUT0_RST	49
++#define AN7583_PCIC_PERSTOUT1_RST	50
++
++#endif /* __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_ */
+-- 
+2.55.0
+
