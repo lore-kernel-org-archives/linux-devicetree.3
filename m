@@ -1,70 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795293001;
-	b=cOYuBSOhbx0Stv3YnGpHdi1nEPregVqXIgHb2RO25Eh0sWC48T4wz8JCqlhSB2HIXCSy
-	 sN3AMmPeYsvdE3tgq/CqO2jWJd6twx9EJwOV0XZNfbK3Gp9/kcw7EX73MmzFwAQmGnbGz
-	 xv5OuH63IbC92vHL67n/pj055E3W933dvChrwTpfxGqU0Iz2PWMCK+et1EeM2x5KKv+Q8
-	 iLz//JCdUqxKnmtgS+fKH7i8ophszLnsCmDVZVAozCJ8bAwTKGm6mI9k5rgmF4ffRnkzm
-	 vDqkAfxWa7jmy36R/w7+/1rE0U6Gf7W8SV4GvcalLTw1YdU5I0guIapR2bZ8viAoXrQ==
+	t=1795294018;
+	b=1CUVKL0jsm1iMhBuTtGpstIlw/jIlwj1J9x2aNR+3a29xwwzTBj60jN3TOtKbn+NCZFw
+	 b+neaUDsktc994XFcGKk2w6ZpzuFsIzPKLJH2yZcHam1oEy7G5Z3hH1oC7pnPhy2OPcHe
+	 F8K8zgwtQY6aS0Ot44OaDMuSmtddXBWvCXx9BTNqVX1hx474GrURX7UQb+z7pe06W9eWr
+	 HZx/WFm4rdTODBkzuS0jes9wmWUdUFdQ5Q/FdD1h5QWA6NGFUDqRGbsCQbQSM2Gy0aR6t
+	 +fLMST/v+XtD3HjEmvHG0DyqSF1ZN2AT8bTrLgsztFBhYNoCz+052SzdedLxHTQp0Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795293001;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8w3CmoJyPr2BoTXS04qkem+74x63nGIjZeZRqj3Yy9c=;
-	b=iFvzvrpT80LVBoGWKHISFlOpJoOnA/15nvOFtqeBiDIs3LVfTFI8OMS2RoTm1tb+bs5R
-	 jdv2+w7zTBBAtBA8nZimwx5IcvdSmtOCZjsAZ5xF4hPoCElSooJ+KEthORhnNwjeJHmt7
-	 o8McSnPVdXBXl5DPLJk8MeAC5aFKLYuF+r5ZNKZ79ZjLooRCFWBNxSVTij+oa+OxUhGBV
-	 nv01tPIULgzd8KMaHBJsvOBvZzqLSgNk5muBV0a7cs3eLSMKNcztgF0aFGLxz1ID18c8Z
-	 ytx1KBB+GxI1Ah29K8+HhnydBB2M2FSCwqPkhKrtnYbxQ7mCi4Z4kVRE++cHPEvJvGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795294018;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=KBAP+JWazOGOCfastfioBRGlItoj95+2iYLwUgECcdg=;
+	b=DlnbpxFKstO5Jf+ffkcBnImkIfBd3UDAMNmn88DgjZqnS9ElUzxEW1PRD1lRs6S1J0J5
+	 Fnl17jx5lfKeja+qPDh5PNp6XYBZtfkuSz8HYDthEPDybJRVqGrW38e7hSK2iLpjDIYjr
+	 cABADu/fz14Ee9z9qCkUnwlbsadG4CLwR+5kdspz2IkkbzuTuhDjASb1I/2Dy0hvKlHK+
+	 jEFcdnCr6r56QczTgx57Vb4n4M3geYE9pUih9EthgkXEJ5+jIMgPbHmZ2wMQutzMLHwi3
+	 NIOmP1cpCVdmTm+795abHfFBmcVQr0bnKC8GOcKxMoTlEXP12IT52Vw/7N1KwlLfWCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QJDG9PK/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYCJCo4w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35198606A320;
-	Sat, 21 Nov 2026 20:30:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6625B606A320
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 20:46:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJDG9PK/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 273C31F000C6;
-	Sat, 21 Nov 2026 20:29:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYCJCo4w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42EA01F000CA
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 20:46:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795293000;
-	bh=8w3CmoJyPr2BoTXS04qkem+74x63nGIjZeZRqj3Yy9c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QJDG9PK/u0CJzdH9whCG8QCLfaDnGo/xSx4YgLzGxm/Pc9wcFakN1j5fYgbsTHd5X
-	 6x25+Hqkcyj1jkq/krL2F2mdwNWssf8Dpox3IHDbtYPRzBKbR2C2f+y99BGerYRzB7
-	 3t6PCW+nrc43NqqvJ7A1JevwWybQSRQ6PZGu4A3JT9Kv4aqQxLhWHv1aXihofl1qRk
-	 bXQDX6TlnCxC+wlf4YU2NHWz5lO5B6v2MkseJxM0Fh74GIX7RPCC6rFlUyaNvIAXOh
-	 rxaNPfwBHvqiyk1HBk9SQXwJnWntsJlg0GMj2av4fK/goKTUChJ8CAIw/QipRzqe7g
-	 I/3OwmccvT5Gw==
-Date: Sat, 21 Nov 2026 20:29:50 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Amit
- Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, Lukasz Luba
- <lukasz.luba@arm.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, Kamal Wadhwa
- <kamal.wadhwa@oss.qualcomm.com>, Anjelique Melendez
- <anjelique.melendez@oss.qualcomm.com>, Manaf Meethalavalappu Pallikunhi
- <manaf.pallikunhi@oss.qualcomm.com>, Priyansh Jain
- <priyansh.jain@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/7] iio: adc: qcom-spmi-adc5-gen3: Add support for
- QCOM PMIC5 Gen4 ADC
-Message-ID: <20261121202950.7dc141dd@jic23-hlaptop>
-In-Reply-To: <awAdgHggEZtBnyYK@ashevche-desk.local>
-References: <20261120-pmic5_gen4_adc-v2-0-94d0e1fd6847@oss.qualcomm.com>
-	<20261120-pmic5_gen4_adc-v2-3-94d0e1fd6847@oss.qualcomm.com>
-	<awAdgHggEZtBnyYK@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1795294018;
+	bh=KBAP+JWazOGOCfastfioBRGlItoj95+2iYLwUgECcdg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WYCJCo4w136y0Fv5X7VFsWrs1eharrpyUYMdpn0pkCL/Ks/7iUSascPrPiKFNzyys
+	 uXZJTxXgoHxl90No9O8upE9fnjorLJ0KeMFsP/M6Bs5fpgWm2FrkmiOUvwCBiV02OR
+	 juvnnrAAmum2VYuMkQCEibMtal3H4ZhTkbfyM8BDCDyNBP0ryJaGDjQCEBxQHapOMb
+	 hIFiMY/QEn7IopwGpLhXG73YHx+AuTzdw23MCewWBuDUKCz75d1uNOTfLtge693PAN
+	 xy83diRqxtZol8QGqmpiEbNl2IW8K8LyEneLfJt9rYAtODqfKW1CPAyH1yUZzW03FI
+	 dux+IB7cYVNnw==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso2980505e87.3
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 12:46:58 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEKA2QS/DshjgxqQ3Tso374597//LJab3fjjJzUMEFmSoVxf0hPOpOJHzmkWT/4g0K6t0EzYAzfLwzP@vger.kernel.org
+X-Gm-Message-State: APuU4Z8X9zrgBBf0mVE9VZm2Rn6VYBk4HMRDCxrvHBaKmJlX23u9/hkz
+	lSxVF2v18LV5HSEzx3GlAcpzoSFDRFYD2wNn21rfQadr4BYYouRZIrSNSjqwHpyC+5ob33rfXVy
+	d1pUya9Uty1LjEM1DDLxCuBXSwr5K5W8=
+X-Received: by 2002:a05:6512:1042:b0:5c1:4c4a:f026 with SMTP id
+ 2adb3069b0e04-5c1bc6f633dmr2383041e87.4.1795294017042; Sat, 21 Nov 2026
+ 12:46:57 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,116 +59,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261106-egpio_fix-v1-0-569d220a4748@oss.qualcomm.com>
+ <20261106-egpio_fix-v1-1-569d220a4748@oss.qualcomm.com> <20261110-modest-significant-ostrich-8dd408@quoll>
+In-Reply-To: <20261110-modest-significant-ostrich-8dd408@quoll>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sat, 21 Nov 2026 21:46:43 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkpFWWSV55LkhAa4YfckDvzB6PrHWugX0Mth=cQRYkMDg@mail.gmail.com>
+X-Gm-Features: Aa3M54pkPP-k4Hfm-HVSsCMs91C14Me4yvAKh2ZGSuerCOgY9HmCsGMWje0k63c
+Message-ID: <CAD++jLkpFWWSV55LkhAa4YfckDvzB6PrHWugX0Mth=cQRYkMDg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: qcom: Add qcom,remote-owned for
+ ownership update
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Pankaj Patil <pankaj.patil@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Prasad Sodagudi <quic_psodagud@quicinc.com>, Rajendra Nayak <quic_rjendra@quicinc.com>, 
+	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 20 Nov 2026 12:14:24 +0200
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On Tue, Nov 10, 2026 at 2:28=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+> On Fri, Nov 06, 2026 at 01:29:41PM +0530, Pankaj Patil wrote:
 
-> On Fri, Nov 20, 2026 at 02:49:43PM +0530, Jishnu Prakash wrote:
-> > PMIC5 Gen4 ADC is similar to PMIC5 Gen3 ADC, with several changes made
-> > for improved performance, mostly at the hardware level.
-> > 
-> > One significant software change is that ratiometric conversion resolution
-> > has been increased from 14 bits to 16 bits, so the maximum value of
-> > these measurements needs to be updated for Gen4. Add a new scaling
-> > function for thermistor channels which use this type of conversion.
-> > 
-> > It is possible that the master PMIC has ADC of one generation and it needs
-> > to communicate with another PMIC with ADC of a different generation. For
-> > example, on SM8750, PMK8550 is the master PMIC with Gen3 ADC and it
-> > communicates with PMIH0108, which has Gen4 ADC. Add a new DT property
-> > "qcom,adc5-gen4" to distinguish Gen4 channels under a Gen3 master, to
-> > ensure that their conversions are handled correctly.
-> > 
-> > In the latest PMIC arbiter version (v8), there can be up to 4 buses
-> > under the PMIC arbiter and 32 PMICs under each bus. In order to
-> > support communication between ADC on the master PMIC and ADCs on any
-> > of the other PMICs, a field of width 2 bits is added for bus index
-> > and the bits for SID are extended from 4 to 5 bits, in the SID
-> > register. Add support for this.  
-> 
-> ...
-> 
-> > -	/* Write SID */
-> > -	buf[0] = FIELD_PREP(ADC5_GEN3_SID_MASK, prop->sid);
-> > +	/* Write SID and bus_id*/  
-> 
-> Missed space.
-> 
-> > +	buf[0] = FIELD_PREP(ADC5_GEN4_BUS_INDEX_MASK, prop->bus_index) |
-> > +		 FIELD_PREP(ADC5_GEN4_SID_MASK, prop->sid);  
-> 
-> ...
-> 
-> > -static const struct adc5_data adc5_gen3_data_pmic = {
-> > -	.full_scale_code_volt = 0x70e4,
-> > -	.adc_chans = adc5_gen3_chans_pmic,
-> > -	.info = &adc5_gen3_info,
-> > -	.decimation = (unsigned int [ADC5_DECIMATION_SAMPLES_MAX])
-> > -			   { 85, 340, 1360 },
-> > -	.hw_settle_1 = (unsigned int [VADC_HW_SETTLE_SAMPLES_MAX])
-> > -			   { 15, 100, 200, 300,
-> > -			     400, 500, 600, 700,
-> > -			     1000, 2000, 4000, 8000,
-> > -			     16000, 32000, 64000, 128000 },
-> > -};  
-> 
-> Seems like this is existing piece and you moved it up. Please, split that part
-> to a separate prerequisite patch.
-> 
-> ...
-> 
-> > +static int qcom_adc5_gen4_scale_hw_calib_therm(
-> > +				const struct u32_fract *prescale,
-> > +				const struct adc5_data *data,
-> > +				u16 adc_code, int *result_mdec)  
-> 
-> Even if the rest of the file uses this ugly indentation, correct it for a new code.
-> Not a problem if lines will be a bit longer.
-> 
-> > +{
-> > +	s64 resistance = adc_code;
-> > +	int ret, result;
-> > +
-> > +	if (adc_code >= RATIO_MAX_ADC5_GEN4)
-> > +		return -EINVAL;
-> > +
-> > +	/* (ADC code * R_PULLUP (100Kohm)) / (full_scale_code - ADC code)*/  
-> 
-> Again, missing space.
-> 
-> > +	resistance *= R_PU_100K;
-> > +	resistance = div64_s64(resistance, RATIO_MAX_ADC5_GEN4 - adc_code);  
-> 
-> I would put it like this
-> 
-> 	resistance = div64_s64(adc_code * R_PU_100K, RATIO_MAX_ADC5_GEN4 - adc_code);
-> 
-Good.
+> > Add "qcom,remote-owned" boolean flag for egpio capable pins since they =
+can
+> > be owned by remote island io independently of the selected mux function
+> > even if function is non-egpio.
+> >
+> > Presently egpio is treated as a mux function level decision where as
+> > hardware programming guide(hpg) specifies it as pin conf level decision
+> > i.e setting egpio bit is independent of selected mux function, the
+> > driver/apps claims the ownership of the pin if it's egpio capable in
+> > case of mux function being specified as anything other than egpio.
+>
+> I don't understand this. If the pin is not owned by Linux, then simply
+> do not list it. What is the point of listing a pin configuration which
+> should be skipped?
 
-> OR this
-> 
-> 	resistance =
-> 		div64_s64(adc_code * R_PU_100K, RATIO_MAX_ADC5_GEN4 - adc_code);
-> 
-> (but it still uses two lines, so I find the previous one slightly better).
-Not good.
+We have instances of device trees which are maintained in Linux
+being used by e.g. secure world, U-Boot...
+So something else is using it perhaps?
 
-1st one!  The second option triggers my ugly detector.
-This is definitely a place where slightly long lines make nicer looking
-code.
+But I don't think the device tree should decide system partitioning
+like that. I think the boot loader should set gpio-reserved-ranges =3D ...
+before passing the devicetree to Linux instead, then pass
+other reserved ranges to other operating systems in the
+same physical system etc.
 
-
-> 
-> > +	ret = qcom_vadc_map_voltage_temp(adcmap7_100k, ARRAY_SIZE(adcmap7_100k),
-> > +					 resistance, &result);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	*result_mdec = result;
-> > +
-> > +	return 0;
-> > +}  
-> 
-
+Yours,
+Linus Walleij
