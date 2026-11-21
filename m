@@ -1,57 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795265314;
-	b=dUnEKxJ3Y+qFRoVnhB6df6LAklTpubfUZvVhIvoC2lcHPlCLtczoXAnBZhKBQXWuwU58
-	 77dHASqO9KTQCpSyT6lipkjITHW1r3h40RBKF+376kAuRSEVKT8GwZuHGZmJY4z1u0SA8
-	 +mf/TWFjZrurM6PKzSH/fDfRDBOgiVZEREKBUDiupLVBQEDp6c61A1PXLXEsTuVWtRLdu
-	 BBhs3uYSLP7x+Ic0ljYLFZNS0jXWuPBYmuQLvubBNZ8znmFqcH2+RnN4w0Bp6y4QwNOvO
-	 OpwxfnwAFHRCIxuONL1a9rF8ZgA7gmUx4tsfm7yUIStr2TIoo15o7nTSX22V0lWoAWg==
+	t=1795266035;
+	b=fHAIaGgwmFySpI3tibjSXZw494B4eKG36YdolLP/HZqzzytzjBpWDxqQtD98I4geElU0
+	 xuOlixXv7mq9nQy69+J4GXQqA4y/C8OMZWt/+PEOBjGdoPrvVb0oKH6KowLKOKGcbFrod
+	 C/J5o+xuEwq9clOSfhOMRnAf85DnpnWKQESavtnUj+i631BdOfD9eXuKkh63W5uX/JzqB
+	 GPJTwoHa2cZf351MP44j7zPEFz6LbkaWH2HCDZUeqQceZgOt7Fe71BhPs5UZvDOR/4CTo
+	 1WrzNi8I+I3nkx7MEyJkMNkaE51OGw2HdNvOzHtM70CBgDPI2QrgDHBQO34H3sTVsew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795265314;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=aOQ4WbZ0tzKJl0YWXeT27ZzpO8vn/eAdDKLmFw+vhoQ=;
-	b=fZXHgA7N6z0m9nyPJlu3hzTnJcXG2mfGWiK9MjJTodIGgxnAAWuqgalw0/l3cXOstQfC
-	 OILaaclhSoyRuDzVqiSN24pOOMBkyQtVRc85ZilScNoKxbo9JZsAWSANnNIGau6TEYYhv
-	 LJcLs9LZICAgnnm8wuHPh0UjiIkZkaEGzASbKzPlAv4zIWgC/jFoyBP4wjpa8Ao9iG2e0
-	 B/EJiEB7N5O+/NMUiwzkLtgKN5cMK2A9Nc4NADdLVTOS0TBp+i93EZoRVDWg428NtQjUD
-	 gIeO6mbeO6/LBo5hb4/HEMKsWF6Fqw28TWXFYmEchT1tyEU9g6Auq6vhus/aEhybKfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795266035;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=NXIuNB3ZQ4GT/Hz3ry1FYljBSts0wnPjJe/0CXC9B/Q=;
+	b=Nhfxar0Eu7vix91ExGglXf/3fk4y5IBuQC6E1Fv8tyMhQpJ2VW7XAE/+OzX9hfTGBIeK
+	 Fqy/+aLpB1YtZgCl+riBLlla94ju/oAz/F+1j7pwJNYOx8oeFABFx3dOXnKlLWfhl/ihh
+	 odpuSGZYAgrQScvfQpg4yExlZbPe1gKn1DDh6PmgZhHZIkDMGWr6aoMVxpvvaZ2mS9yPw
+	 GwxFVcrxXD/OkMRaJxkPsQ0IMp/71fh1ecO4mFlqV5W5M3un6AAfP034bPwL2gv2A/OCZ
+	 rKtOIt+zYJ6I3RqhY4x7TeuMtINBdCKzSuImFTyA9N202SC+3ghre5z22Xl0cdS/T1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WU1pPNtG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RNtRAbmQ;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C874606A320;
-	Sat, 21 Nov 2026 12:48:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3253E606A32A
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:00:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3253E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WU1pPNtG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 111511F000CA;
-	Sat, 21 Nov 2026 12:48:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795265314;
-	bh=aOQ4WbZ0tzKJl0YWXeT27ZzpO8vn/eAdDKLmFw+vhoQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WU1pPNtG1ep14uHM7muC1ukgXuUx/vQ91UA8ZndbPbxdO1S4KwHboCAyyxkidghGQ
-	 l5pRNvkMztcIzqOat6j/pRLUVh4T0tG8s5liotjwVPfmQOpftomYgsR+2lTOdDvkdc
-	 GH3vykgO/2FiuSZQEK8ndsI9A7wXggym6fxjr0PfinIQ4VDxdsXai3DobUJUO+uVO4
-	 Ec8jQKqwXqTSTV2RBsD1IlsHEojbAn2Qbv/wTs/BPkyhJbxX70kaVCaI2wdgz3CU80
-	 5dIRK6p9OU6G0ccY1yYDnXHKsW1o+y9KNq0mY8PP7MTOh7jVutde8tWN7TYhecLIXq
-	 ghvNRqWdCT26w==
-Message-ID: <sashiko-outbox-227027@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 05/13] dt-bindings: timer: add SiRF AT550 system
- timer
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yuugo Yoneda" <yogo.0917.sabu@gmail.com>, devicetree@vger.kernel.org
-Cc: linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261121-at550-rfc-v1-v2-5-b0309d0789b2@gmail.com>
-References: <20261121-at550-rfc-v1-v2-0-b0309d0789b2@gmail.com>
- <20261121-at550-rfc-v1-v2-5-b0309d0789b2@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 21 Nov 2026 12:48:33 +0000
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RNtRAbmQ
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-9496473b511so224067985a.0
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 05:00:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795266034; x=1795870834; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NXIuNB3ZQ4GT/Hz3ry1FYljBSts0wnPjJe/0CXC9B/Q=;
+        b=RNtRAbmQYXLSiaEjtX2aUWytq3ybkP6vzvMM/GYzBbb22sqY7OMQwI+6PVQp9DHcAr
+         lhyzXBhfLKqVcuJ8sVYNtP2aRDK4nll7J9DPE5KKQ2CAiVa+LkTWYungYQISMsCYyeh8
+         hpGt4X4Nli6qalkIo2q0QmQpZOhYwDWO5tabVR1HVgZiiW3bleQnCJNRgfq3ll0kyepq
+         3gsRAOgqgRVcju81U/9by/AXAbdfkcF2NzQSoJbhod4BZL71XZp0atz6aRPfoC9lunEa
+         hlKhShuYNK3XPf/2DcuSXs5DhYd1yfNh3h4hIJmP4ba3ACaEg6LShMxd5328jY0CMk/1
+         hndQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795266034; x=1795870834;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NXIuNB3ZQ4GT/Hz3ry1FYljBSts0wnPjJe/0CXC9B/Q=;
+        b=IsgwqajZDOijipP5LUoEpab15ILfkIoaEOl8xP9De1c6E2L0RnmXUcA14zx9lp3Yiz
+         g+9ScOvkmGCbvtlgP7wI3KF+pI5byfaf3sP7uxjrT2AtqXKVFQ9OlefeHms3PmJDODB6
+         Qz8/S//ZPNoOWcG1Abg2/nQL62kB3bO8MHM7te06hgq5tIfbJIdsHYQIeUrPMVfSVZgP
+         9Cw3TDpPwvh08etiln7amC/hGE7UEH8DFxTaVxuvZ2+7+v+XdlP7wCOcsEqy2ngHXB0N
+         0wKv/ukcDjGSNNqGQDsOJ92ngxrca86x5kwXBNC9K8+27IrVh8rqEQMLnHy9ZKRRIrcG
+         ytKw==
+X-Forwarded-Encrypted: i=1; AL+hErGqcW1QDxRzUVw3cioDtFCL5DWjwt+e0CVPlU9noLS/25JBqWdoChIE4S2vOwexC5KAh0ZHA0dxMoaZ@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jmQ0YD2SY6bPiv6spNup2XgWtg7ZHGxzikAB1FwimX9bIMkpy
+	3wl3HXSvWDyOoCS816B9Guvzw/NpbBHsKzjD0Qq1OZcOVseKDvS8x3FKjk5JGXVJsHA=
+X-Gm-Gg: AZFdTZfRPr+A2Irr795Cp68Ua4Zj2lNVqWrMyPIf8+6Fcy+XB/5p6ULtWI+Gar0a8jV
+	qrbS63oewzUApGqPORfxABStmmi1k0bUVVSXM4TQJdzw2WjG8W1xdBFIaxbhpXmwyf/LkpV72v0
+	allfy1Ah6/OTrch7OFqvLDovTAij7wmh5k1jOPTW5hSqNR1u9O4YxEPMvUeo+JRSUKoNOyfzTrr
+	a3k9AwO2DR0olmma4PXQ64d47unXhIHVpVgz9Rhv5GVM8ocTXvrX0GSet/VCqlk8WaMb8T0CX+g
+	4cw6SVhvC41LuCmowamXDwoYQp8XyILtwjxYEgkdMaPtUSDjhZmuIW5hNt8WeBTuvXkBiZzo244
+	NfVT1+//CaD/af0hRwUyNo6Q1AihUtqhek0J2mtBcgsyJtLe1CxhJwuFHorVW7QCTzdCPmprUIW
+	bNq59H8uQNT6+C+7kjBPueb2bgVumeTeatMI0bpN6LhatrALs3hLOc5pzXwhwoC6l4xCoAHJnTQ
+	3lsoHHBHOWdXpFVACcNL3hsTm2MHChmiINFGi48GHNU8asyEXNwsAfAdL1zl5VNTbezNnenj6r7
+	oWMlI3KB7XNgCshPmbiTOvI55HuZ9d+QauuXJRhmnij+yMJjZpoqRUPo+9OuJXTBP6CMfd2gRR4
+	Rx8X11WCht+AcrMWE3iWoRkrKPMWVrwERdmPaM+X6aN+i+mg=
+X-Received: by 2002:a05:620a:2786:b0:93e:5677:317b with SMTP id af79cd13be357-949b35e9b3fmr1046746285a.25.1795266033942;
+        Sat, 21 Nov 2026 05:00:33 -0800 (PST)
+Received: from localhost ([204.244.107.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb427388sm408593585a.42.2026.11.21.05.00.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 05:00:33 -0800 (PST)
+Date: Sat, 21 Nov 2026 08:00:32 -0500
+From: Ralph Siemsen <ralph.siemsen@linaro.org>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, khendry@reliablecontrols.com,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	=?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH 1/6] dt-bindings: clock: r9a06g032-sysctrl: Document
+ reset cells
+Message-ID: <awGV8BU_AfaXQyBv@maple.netwinder.org>
+References: <20261119-rzn1-miic-resets-v1-0-feee2bb28bb4@reliablecontrols.com>
+ <20261119-rzn1-miic-resets-v1-1-feee2bb28bb4@reliablecontrols.com>
+ <awARmkCuelD_fdX6@shikoro>
+ <5d8530485716d129be2efa0518254e3322cecdb0.camel@pengutronix.de>
+ <awAq7vxcY8CGjhNl@ninjato>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,71 +121,32 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <awAq7vxcY8CGjhNl@ninjato>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: timer: interrupts listed before clocks in
-  sirf,at550-timer.yaml
---
+On Fri, Nov 20, 2026 at 12:11:42PM +0100, Wolfram Sang wrote:
+>
+>> > > +#define R9A06G032_RST_TS		1
+>> > > +#define R9A06G032_RST_MIIC		2
+>> >
+>> > I didn't find any listing of the resets in the RZN1 docs, so coming up
+>> > with arbitrary numbers as we need them seems okay to me.
+>>
+>> Why aren't we starting at 0?
+>
+>I wondered as well but clocks are also starting from 1, so we could
+>argue with consistency.
 
-commit 7d468a2e01539543c583a2c3ed0d939b2fa94299
-Author: Yuugo Yoneda <yogo.0917.sabu@gmail.com>
+The clocks use value 0 to indicate "no parent clock", but only for the 
+".source" element of struct r9a06g032. The encoding macros add and 
+subtract 1 to the clock IDs, so it should in fact be possible to use 
+0-based values even for the clocks. Too late to change now since the 
+values are encoded into DTBs.
 
-dt-bindings: timer: add SiRF AT550 system timer
+Thinking about it some more, perhaps instead of using 0 as the special 
+case for "no parent", we could set .source to match .index. In other 
+words a clock pointing to itself means "no parent". Worth changing? 
 
-This commit adds the Devicetree binding schema for the SiRF AT550 system
-timer and lists it in MAINTAINERS.
-
-> diff --git a/Documentation/devicetree/bindings/timer/sirf,at550-timer.yam=
-l b/Documentation/devicetree/bindings/timer/sirf,at550-timer.yaml
-> new file mode 100644
-> index 0000000000000..6611dabe7f554
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/timer/sirf,at550-timer.yaml
-> @@ -0,0 +1,51 @@
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    const: sirf,at550-timer
-> +  reg:
-> +    maxItems: 1
-> +  interrupts:
-> +    minItems: 1
-> +    items:
-> +      - description: Match channel 0 interrupt
-> +      - description: Match channel 1 interrupt
-> +      - description: Match channel 2 interrupt
-> +      - description: Match channel 3 interrupt
-> +      - description: Match channel 4 interrupt
-> +      - description: Match channel 5 interrupt
-> +  clocks:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    timer@90050000 {
-> +        compatible =3D "sirf,at550-timer";
-> +        reg =3D <0x90050000 0x1000>;
-> +        interrupt-parent =3D <&intc>;
-> +        interrupts =3D <0>;
-> +        clocks =3D <&counter_clk>;
-> +    };
-
-[Severity: Low]
-In DT binding schemas and example nodes, clocks should be listed before
-interrupts (compatible, reg, clocks, interrupts) in properties, required,
-and examples.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121-at550-rfc-=
-v1-v2-0-b0309d0789b2@gmail.com?part=3D5
+Ralph 
