@@ -1,86 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795258755;
-	b=2Q2SmB/bCdFvGqhfCYjCe8ISsYWQ/0MeN7DHNQfDSdk/ArbOQGHbYHAcX/ePfg2JhNb3
-	 scplMxtgW4d+jJ1iU/3pvbgnrJx9pddp2kFdnP80jDS+R9yPSJ1tM4fozkZoEQ9DCON6T
-	 rm6n7YfG61rq0b6z72Ri+jz5ee/MkmxX3S11t+ivHHm5qK153gp9FJ1rzKYhbQzPXhUmy
-	 RQUORoE4dQGdU9KQol0Lw/qItUfAx+s8KbnfS9FHRYmqF1iGzim7AY1ZrSFx70ARzvyw6
-	 lS5qVlUojzCjxMRYAXGw3sTDG2PHV5t1d2oR3oRBeSDcStytA70SyULFZ3AHu96Jjzw==
+	t=1795258772;
+	b=ZN3N73DntRZ8p2B4d1lXdxyJ6An0jc9eZJGlGxRY/khfe0GcQ5Z4VinBdlz3vqM8DGI2
+	 08ECXqMfIvcosozJT1xMIw/R+7D1gc8MqRy/9k9yQQfg71Ftc4XB2qHLKlGMu0RUWLdHp
+	 W8CCf47mFhDk0eyBUBO4U1yyzTeqSdRL14GKUppJ8L57zBwCaMxwPVf9+4EYCcb4w6xNK
+	 OW33IRR9xQoVJ255vvYZclkiDXN2jj7bQ+IBLfLJpXkQed9MqwgsQTeBDQEwGVBPNvlsT
+	 3uh2FN1VzBVYhdkKyECXedggHmLqnEy7VIM4tuSpNS/mOr9w8v5Lr7/CW7uWgpkkXDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795258755;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UTJX+tcvo3R3E5PJ/uygxppi2tr2IitzqXxlzPaiOCc=;
-	b=USnrn0Pi6f4XslWg2Mqy+OWpWK4pmCso12ExgstsIv5uDAAUu8hVvtE9lVFE4Hthhe3s
-	 Mt/Oy+o4LH3KtNCJq1tOXoXAqvOpJLAtTm+dEvvqNHTezHiIKBNrlBbHt8oKEn9SCaZdj
-	 +yEAXGMSGbIaU5zkzjjp4ADnIodRNHprCd3Y0DpRQJtSrr9RBmiEv0cYLYuDvXHJlYSok
-	 TRmLjO1TA6k2mfX4BmbYebOuj8BEjIASpp0JKzN03XHlVF3A9POVvO6yiooljxVX3MCEm
-	 JYeJwVPP3th22qvUt+KtxsLw6O4aQCZY+92azLYxG84pljXXRwBbkVRCnFv/LzaSTmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795258772;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qY2Rg3otMYSq9Uq3AvnnixdrXC9ooPIQhGOKyhwLA9Y=;
+	b=aq9YNAqKVhnhsIQkaatsZ29rybyn5a3JZZVReeRH16LI3HDeI7RcsYkODynF25ngRKND
+	 ugKqv6tB6xRTsYSEGpShQ7vxTmK2+IdI7uVLZS5YoGoBBDZY5FK6NjPed7xvebTECddTY
+	 lkO3rYv6v+I5KBPT3JLrsLxSGCJ2vlw5/vgJFqCjLT5HU7WqZN9+3kHMgCmycvsP8XPgg
+	 Tw3LSqkYTPs4Pz/baFgbaQkYcznYHyJeRr8bFApgKYM8TEa8domM7KXRrZOPH5LvbWOSb
+	 8DOdvqplx55VpSwfLiM5zzXVITUcsCiUIJmUgUpxh3QPgk3kMmyaZrsk3eMOU4pJicQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gsRSMffZ;
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fO9z974C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5EC606A32A;
-	Sat, 21 Nov 2026 10:59:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5EC606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D65606A320;
+	Sat, 21 Nov 2026 10:59:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gsRSMffZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795258744; bh=UTJX+tcvo3R3E5PJ/uygxppi2tr2IitzqXxlzPaiOCc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gsRSMffZWtIpmbsZFbe1HuNRG+66wo2eWxuUL9BXuN7QsbfEnTLJYWFilDi4lKb4J
-	 6bZkXIsy3nrhPmYev3ZevMDh3p59f4Btqf80j7Qc7de3Jr/DdW8Jo8wsKI/fDHn4RF
-	 d+pSVlEVzSxUcKgIKPJjJijUpZEPA8NoCycPTudM=
-Received: from jerry-PC.lan ([2408:8249:5f:7101:71a:8713:56b4:5043])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id EBA89487; Sat, 21 Nov 2026 18:58:58 +0800
-X-QQ-mid: xmsmtpt1795258740tr31uycgp
-Message-ID: <tencent_6DE9C8A75BC0B999E08A6DD1A67AC25C5705@qq.com>
-X-QQ-XMAILINFO: OVFdYp27KdlJ6BC0KyBCR9g6YVS6MrPbsiOGBPpw0+PXw2cMEzhN2aJ8wwVfTE
-	 wF3GAy4lYP3ghHO8CWN5CjlwVffY+tskYo2DZuEhMNvdHF91A30NMJfl41fZvxtfgUD6hLnZsXGq
-	 EsBesXArVkC/InaXddlGFx0YuwEx6LLeFVJ+QPxy2DgwMN7JiF8DsOMRxLOdvVGpdLPgY0xrU9eq
-	 XQBE2Pi4+iQPIwfoGaXHkwvhUkB82OzQWYA4BOZkqGwSN9+7ergwINW/XOCo72e3aId9jgI90Mck
-	 j4Q9uSccAFT5NKHz4JBk95ts8cL30IB3Hu/+byJi4bJsx8MSIKNsc7nVLeB932Mtq714rkPGo1Xw
-	 F8vbThIdMTnrCG3tbkXSQDaqnyYo39rV6WN5Ge+VAlcIG7TJWuZV9H2VlwnZPql3hkYrBzeN3+Sv
-	 PZ4BblDFM+F3o1PXnjWnSxOnnnyQO+fr7tqM5gkZYGzgEdA81FvKMxBtrnU9eURS+5SaJ0hOsWz3
-	 KSarzP6PCZZb0OVEcdNwNaVjRo5m53OgEDPR6omSFfvf0Uwm4fj9vGJQ+NDtD3su1+/P8U4spseI
-	 dDlotqbSM7e6ci1/p9BOFzQmgdxgGYO68Ii9l1W0fnKEBtDSpiB/loXixBeTcr+YHvnNON8AH7kI
-	 +W8vQhQ4Kox+SbnUKxjur5TSO8xJKwvSlHgyAyYF+Y3F/I6pDKgxvtNk1T2+J0Em/1endiEifetd
-	 qKl9gkFrzriR9/R39ANElnqN0maFMQ9B/DazCzmRBFjUmb3q4YcwWJ0L6hEehf3ZhAHFs2hwziLA
-	 D0eR4Tg15VYWKb49ARGkis/diiLvJCX57GtP4WPoJu5aWKcBKxMqu4t8SEUtlq0K6K55eZ6qGSSw
-	 XIOcodasplsMWws5f4hwnRKsCCr9m6NQ6oHYVEG5oCNuUXfkFhBeIXAcctrYB1vqn7MQQAPtpblG
-	 Bcp+GhNOM+Jz28kNG2hWEHuimZ+6IWQkH/IKnXK/ckUxj6y9NDR13GCztgYENPP9Hyi8EzFZP/8z
-	 EGJ3u5L501Fxzz1ouk1ac8ZnmiTyrX8yaPE0/TbGdRrFFSkvHcA4Ws4cQtf/13q82SOITP65MjqL
-	 YrfxEKacLZPJlb+QXimePcUweNpg==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: ZhuXiangyu <1194781887@qq.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ZhuXiangyu <1194781887@qq.com>
-Subject: [PATCH 2/2] clk: rockchip: add clock output/input switch driver
-Date: Sat, 21 Nov 2026 18:58:56 +0800
-X-OQ-MSGID: <20261121105856.1414984-2-1194781887@qq.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261121105856.1414984-1-1194781887@qq.com>
-References: <20261121105856.1414984-1-1194781887@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fO9z974C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B191F000C4;
+	Sat, 21 Nov 2026 10:59:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795258771;
+	bh=qY2Rg3otMYSq9Uq3AvnnixdrXC9ooPIQhGOKyhwLA9Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fO9z974ChRoMI7+DQ0aYKZReN3YFJydIrKPj77+nuOOTgV9bQVea80pJLx/vL37Eo
+	 rQ+HRcE6u7Sk/AbholYmlukSFrriwgzdG3audpmXPOlC3+XUqbWidc/hgEopu9Shg9
+	 OHcV8cQZWVcdbFku8+t7EanSbfaD78UljRkyeL4tumnw9/WC9TgoVNvB+bMfKYJ1iT
+	 kf4qXDg3+TxlzhTYVAukkh5H8WnfwBHlUTbJ/sGniMf7nqwg5BtJd8UkTSMyljaPGg
+	 CoWtKrc28xZ2z2jODios272MIjkp9itUYMdFbbAzFefJ+JznWYSR99vrfoeCXqHhJV
+	 HWUiPOlEyGckw==
+Date: Sat, 21 Nov 2026 11:59:28 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com, 
+	Boris Brezillon <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>, 
+	Liviu Dudau <liviu.dudau@arm.com>, linux-kernel@vger.kernel.org, Akash Goel <akash.goel@arm.com>, 
+	Lukas Zapolskas <lukas.zapolskas@arm.com>, Chris Diamand <chris.diamand@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 8/9] dt-bindings: gpu: mali-gen5-am: Add Mali 5th-Gen
+ AM schema
+Message-ID: <20261121-polar-mutant-degu-2acd65@quoll>
+References: <20261119154604.2519184-1-karunika.choo@arm.com>
+ <20261119154604.2519184-9-karunika.choo@arm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,129 +64,129 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261119154604.2519184-9-karunika.choo@arm.com>
 
-Add a small driver for the Rockchip GRF-controlled clock output/input
-switch. It exposes a single gate bit as a clock, allowing the SAI MCLK
-pin direction to be controlled through the clock framework.
+On Thu, Nov 19, 2026 at 03:45:58PM +0000, Karunika Choo wrote:
+> Add a separate device-tree schema for Mali 5th-Gen AM GPUs.
+> 
+> AM_GOVERNOR controls GPU frequency. The GPU node does not accept OPP,
+> cooling or GPU supply properties.
+> 
+> Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+> ---
+> v4:
+> - Pick up Ack from Boris
+> v3:
+> - Drop the $nodename constraint from the AM GPU binding.
+> - Require the arm,zena-css-mali integration compatible followed by
+>   the arm,mali-gen5-am fallback.
+> - Update the binding example to use the new compatible, three-cell
+>   interrupt specifiers, and a single GPU clock.
+> v2:
+> - Move arm,mali-gen5-am support from arm,mali-valhall-csf.yaml to a
+>   separate arm,mali-gen5-am.yaml schema.
+> - Move the AM GPU example to the new schema and add the interrupt
+>   binding headers.
+> - Add the new schema to the Panthor MAINTAINERS entry.
+> 
+>  .../bindings/gpu/arm,mali-gen5-am.yaml        | 89 +++++++++++++++++++
+>  MAINTAINERS                                   |  1 +
+>  2 files changed, 90 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
+> new file mode 100644
+> index 0000000000000..af758daec2aeb
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
+> @@ -0,0 +1,89 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ARM Mali 5th Gen AM GPU
+> +
+> +maintainers:
+> +  - Liviu Dudau <liviu.dudau@arm.com>
+> +  - Boris Brezillon <boris.brezillon@collabora.com>
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - arm,zena-css-mali
+> +      - const: arm,mali-gen5-am
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    items:
+> +      - description: Job interrupt
+> +      - description: MMU interrupt
+> +      - description: GPU interrupt
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: job
+> +      - const: mmu
+> +      - const: gpu
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 3
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    items:
+> +      - const: core
+> +      - enum:
+> +          - coregroup
+> +          - stacks
 
-Tested on an RK3506B board with the ES8388 codec: this clock drives the
-I2S MCLK and audio playback works.
+- enum: [ coregroup, stacks ]
 
-Tested-by: ZhuXiangyu <1194781887@qq.com>
-Signed-off-by: ZhuXiangyu <1194781887@qq.com>
----
- drivers/clk/rockchip/Kconfig   |  8 ++++
- drivers/clk/rockchip/Makefile  |  1 +
- drivers/clk/rockchip/clk-out.c | 70 ++++++++++++++++++++++++++++++++++
- 3 files changed, 79 insertions(+)
- create mode 100644 drivers/clk/rockchip/clk-out.c
+> +      - const: stacks
+> +
+> +  nvmem-cells:
+> +    items:
+> +      - description: bitmask of functional shader cores
+> +
+> +  nvmem-cell-names:
+> +    items:
+> +      - const: shader-present
+> +
+> +  power-domains:
+> +    minItems: 1
+> +    maxItems: 5
+> +
+> +  power-domain-names:
+> +    minItems: 1
+> +    maxItems: 5
 
-diff --git a/drivers/clk/rockchip/Kconfig b/drivers/clk/rockchip/Kconfig
-index 4b55f48d..dfbdb231 100644
---- a/drivers/clk/rockchip/Kconfig
-+++ b/drivers/clk/rockchip/Kconfig
-@@ -156,4 +156,12 @@ config CLK_RK3588
- 	help
- 	  Build the driver for RK3588 Clock Driver.
- 
-+config ROCKCHIP_CLK_OUT
-+	tristate "Rockchip clock output/input switch"
-+	help
-+	  Say Y or M here to enable the Rockchip clock output/input switch
-+	  driver. It exposes a GRF-controlled clock gate used for the SAI
-+	  MCLK output pins. The pin direction is controlled through the
-+	  common clock framework.
-+
- endif
-diff --git a/drivers/clk/rockchip/Makefile b/drivers/clk/rockchip/Makefile
-index 554b7eb8..eed5fb59 100644
---- a/drivers/clk/rockchip/Makefile
-+++ b/drivers/clk/rockchip/Makefile
-@@ -4,6 +4,7 @@
- #
- 
- obj-$(CONFIG_COMMON_CLK_ROCKCHIP) += clk-rockchip.o
-+obj-$(CONFIG_ROCKCHIP_CLK_OUT) += clk-out.o
- 
- clk-rockchip-y += clk.o
- clk-rockchip-y += clk-pll.o
-diff --git a/drivers/clk/rockchip/clk-out.c b/drivers/clk/rockchip/clk-out.c
-new file mode 100644
-index 00000000..de56ff1f
---- /dev/null
-+++ b/drivers/clk/rockchip/clk-out.c
-@@ -0,0 +1,70 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2023 Rockchip Electronics Co., Ltd.
-+ */
-+
-+#include <linux/clk-provider.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+
-+static DEFINE_SPINLOCK(clk_out_lock);
-+
-+static int rockchip_clk_out_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *node = dev->of_node;
-+	const char *clk_name;
-+	const char *parent_name;
-+	struct clk_hw *hw;
-+	void __iomem *reg;
-+	u8 clk_gate_flags = CLK_GATE_HIWORD_MASK;
-+	u32 shift;
-+	int ret;
-+
-+	ret = device_property_read_string(dev, "clock-output-names", &clk_name);
-+	if (ret)
-+		return ret;
-+
-+	ret = device_property_read_u32(dev, "rockchip,bit-shift", &shift);
-+	if (ret)
-+		return ret;
-+
-+	if (device_property_read_bool(dev, "rockchip,bit-set-to-disable"))
-+		clk_gate_flags |= CLK_GATE_SET_TO_DISABLE;
-+
-+	parent_name = of_clk_get_parent_name(node, 0);
-+	if (!parent_name)
-+		return -EINVAL;
-+
-+	reg = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(reg))
-+		return PTR_ERR(reg);
-+
-+	hw = devm_clk_hw_register_gate(dev, clk_name, parent_name,
-+				       CLK_SET_RATE_PARENT, reg, shift,
-+				       clk_gate_flags, &clk_out_lock);
-+	if (IS_ERR(hw))
-+		return PTR_ERR(hw);
-+
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, hw);
-+}
-+
-+static const struct of_device_id rockchip_clk_out_match[] = {
-+	{ .compatible = "rockchip,clk-out" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, rockchip_clk_out_match);
-+
-+static struct platform_driver rockchip_clk_out_driver = {
-+	.driver = {
-+		.name = "rockchip-clk-out",
-+		.of_match_table = rockchip_clk_out_match,
-+	},
-+	.probe = rockchip_clk_out_probe,
-+};
-+module_platform_driver(rockchip_clk_out_driver);
-+
-+MODULE_DESCRIPTION("Rockchip Clock Input-Output-Switch");
-+MODULE_AUTHOR("Sugar Zhang <sugar.zhang@rock-chips.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.47.3
+You need to list the names
+
+> +
+> +  dma-coherent: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-names
+> +  - clocks
+> +
+
+And all the flexible properties should be constrained. Since you have
+only one device, I see little benefit in having wide constraints which
+are not used. Each integration will add them when needed.
+
+
+Best regards,
+Krzysztof
 
