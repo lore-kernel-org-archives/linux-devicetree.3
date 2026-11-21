@@ -1,48 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795289487;
-	b=2u3ZhXm/frr+Unj1uxGH2/Ti3M/4ZYI4G5ZGRDiddgY/ozmxhKqTb07p7sZjyZQooORE
-	 KkoVA37JTmWQ81eyRsjL+O1KICUrAU2dZNJZJqJheuKB7rXTDDDN98zmjVnCMPN/XR5yz
-	 MdbmZC+wEs91S0auYbV2ifASWfkwTm6tX5GFoihum0Eb7wGjH17622pFvQKMylUBrPmWV
-	 s7gi3aTcLBNo0Je5sYtEQ2zWberpk3l4aMSjVypZefJIMJ6KdcixTSZo0abPHSUdtL6Ga
-	 NOKzw0kjFs3pEBSjZatsT7ts7fNL+UZjayck6OWjkGFpiDt09vCKLrdXunmGpliR+LQ==
+	t=1795289495;
+	b=mf3Rxf3wkV0oPRbzPZg8WA1AC14KCM4y8fCq+cWIneKnimzqktysf7Nt6gYuM0eaAuCH
+	 Drht6k8kvhmigkwBrKhpqWhadC7osRllZ+wg1/YpGWht9lehfxvPdGYBAqXAIv1ayBR/1
+	 xCM6PRleQMJKOol+TGKEHtQHdLXzM+TqrBuTjEDqCisDavOvm6RwYpGIELYjhgDKHJJ5l
+	 Oew/nQeEG0ENBuKH9c+E7py07Ss1dUIBAek2wgJp9KXb2cVOY9s2NXWURgm2cclPMkmO9
+	 FwDRSHpUUHbkb571BKEg3qLUHCyqJzuEAVZcJY/8yDeQN3E6bHqb16dQ0ccbcbDcE3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795289487;
-	h=DMARC-Filter:DKIM-Signature:Feedback-ID:X-Pm-Original-To:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=EypR81wghhS1C3S+cwYO0gRmc3XYoh1lyYySai7+bfo=;
-	b=vVt+tmbbOAzqXTgK+l/4vAru5i1KqVs1aaBXYbFV2iPVgeFXq467vK6atheuq3qn8MCe
-	 Njfuz7kcAtQNT9kz+aMYb3AA03dKjj5AXbUo0qPwUoueKY0pmoMbk8bNXJMu4ireBJtWs
-	 dcJI79CuSvgkrvU8aqJpKCeGRAnTaJqleBLmZ8LUx0Vqcgxt7rhkFumUAo0Ud2lJOqFfX
-	 KsQZR8qQ/sNrPlUwu0UMsRcW1awXjhcD6YR31C4cvVDKdp4a7KOaprqZMqyudI8hGryYU
-	 yjph+jMzTMyoOw6Kt6vJHpvUxxKbS/i1vweJqbdsTRT+QB0SFkEC1lcdlSuLepqsPdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795289495;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=yqFg/CDfhcQQki7rbGu6XmQIamv54cpSA2pIhpeTPrI=;
+	b=kQy2jkY1O4WOmsxk2E7YyRx7Su3jBIjp6kN1H5RxzgA8HSvYxdCAMRRa/+N+zULVq1DO
+	 FnI8VDQ7mhj5flC2W3VTxkbWKq0BSl0y58Jiw3XSyIPz7iCC+Bpuqe1ATDSu1xkui3XCX
+	 4DuSyBhKWkvzrLVdiT3b+jXe17ES5kaF7FtnyypveGmULJLjsajNKd+JmNKBbutPyOyb8
+	 qzA65tMrYUFadLXvRR4Qn5Ks4eCAa8HGBt4nw416MmuKCRiUxUuWWD2i6qTRvilEN1YLH
+	 BcusDl0YS+W/DneX0KtHpTV9noAPYjq6jT29/g/6e58yaQXpz22P6ez+J0fECG4WUIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mentallysanemainliners.org;
-	spf=pass smtp.mailfrom=mentallysanemainliners.org;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b="NmSG/BKQ";
-	arc=none smtp.remote-ip=34.202.193.197
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PZwUmAk8;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FB4606A32A
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 19:31:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FB4606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mentallysanemainliners.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mentallysanemainliners.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C013A606A320;
+	Sat, 21 Nov 2026 19:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C013A606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=NmSG/BKQ
-DKIM-Signature: a=rsa-sha256; b=NmSG/BKQrgBtQgREF4Ds+Wuewpyl324eVl3S/vleH37p6Tk4rn3F1GWNG+qarizotfbc0js5U11kqyE/EaQyo/aYMsFLeSnF9bQ5SMoFl+al3EbMvcEeioHyn/P65TEiHyaJKAAZpEZv5PxwbPUGirJzcBovxoojE60Dpg46nGF0uuCv5WZfK4QvQKq1jcIpnzyEDJxZGtePa9608Z6pNDx/UovNmaPiaclLwDZp/YMpSGAZGjgkTgEhrnklsWDfxDiP72nZ9cnSxP/RVsvCoOBp1IB2lOGBWepGLa+0qSXda7hF2OHfWlsEYGD3HCX3C5fvNAMJZnuJiJa5MM1CYw==; s=purelymail2; d=purelymail.com; v=1; bh=EypR81wghhS1C3S+cwYO0gRmc3XYoh1lyYySai7+bfo=; h=Feedback-ID:Received:Message-ID:Date:Subject:To:From;
-Feedback-ID: 68229:10037:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1481673243;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Sat, 21 Nov 2026 19:30:36 +0000 (UTC)
-Message-ID: <3c7ae669-d0e8-40f1-8c22-3eb198533ddb@mentallysanemainliners.org>
-Date: Sat, 21 Nov 2026 19:30:31 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PZwUmAk8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795289494; x=1826825494;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9zj66kMuwbMu44FH/2iMUwR4Us5WeWzErC6aqT+gjgA=;
+  b=PZwUmAk8DJdS5U+Ob6JiIT/+61l58OoCVpQ5ZPcIez+5JRbWBa0fI16o
+   l1rKpN3JwgcqZJNk5VEqZiBLJFTpJ76lbwPAQSEpD/mlJzNnGZAYPiCMo
+   QSBya+sCIZBbgI2fXPq1484nlZZ2tWreAriI/8MQmDcMLLeqCDq8uGhfh
+   FgxYYZoyE1RP1nkjPpZ701cYYbfOnLrNLM12xCfMoOUT/QtZGginOP3Hp
+   SB1BGFDGzypynwsa/afB55kurmaWlE2ZZYom/Ak8nNYKf+CgL1MlTq3jE
+   L5eRlcOaIiRaenYycnf1LA0bwpYDig2uylAn9V+Htmf8glYKZjeet80kN
+   w==;
+X-CSE-ConnectionGUID: 2wIxOSVAQe+2ENnSNsSraw==
+X-CSE-MsgGUID: M6rhjYFHQD2DAADh0plSOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11973"; a="4035638"
+X-IronPort-AV: E=Sophos;i="6.27,225,1787036400"; 
+   d="scan'208";a="4035638"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Nov 2026 11:31:34 -0800
+X-CSE-ConnectionGUID: 0ayvV+adR7qaALPVu/CEdg==
+X-CSE-MsgGUID: KtrBk2viQS+k/l115C11bg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,225,1787036400"; 
+   d="scan'208";a="10859667"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 21 Nov 2026 11:31:30 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xUqo3-00000001KV9-1kKB;
+	Sat, 21 Nov 2026 19:31:27 +0000
+Date: Sun, 22 Nov 2026 03:31:15 +0800
+From: kernel test robot <lkp@intel.com>
+To: Paul Cercueil <paul.cercueil@bootlin.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	George Cherian <gcherian@marvell.com>,
+	Sujeet Baranwal <sbaranwal@marvell.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: Re: [PATCH v2 2/2] mailbox: marvell-mhu: add Marvell MHU driver
+Message-ID: <202611220344.CTLohdLM-lkp@intel.com>
+References: <20261120113952.168265-3-paul.cercueil@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,71 +92,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] Add USB support for Exynos7885 and enable USB and FG
- on gta3xllte
-To: David Virag <virag.david003@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org
-References: <20261119-gta3xllte-usb-battery-v1-0-0cf5f763522e@mentallysanemainliners.org>
- <6937fed688e4bf1d7cb81b004c179cc4912cf6e2.camel@gmail.com>
-Content-Language: en-US
-From: Umer Uddin <umer.uddin@mentallysanemainliners.org>
-In-Reply-To: <6937fed688e4bf1d7cb81b004c179cc4912cf6e2.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261120113952.168265-3-paul.cercueil@bootlin.com>
+
+Hi Paul,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on jassibrar-mailbox/for-next]
+[also build test ERROR on robh/for-next krzk-dt/for-next linus/master v7.4-rc3 next-20261119]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Paul-Cercueil/dt-bindings-mailbox-add-Marvell-MHU/20261120-123951
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/jassibrar/mailbox.git for-next
+patch link:    https://lore.kernel.org/r/20261120113952.168265-3-paul.cercueil%40bootlin.com
+patch subject: [PATCH v2 2/2] mailbox: marvell-mhu: add Marvell MHU driver
+config: x86_64-allmodconfig (https://download.01.org/0day-ci/archive/20261122/202611220344.CTLohdLM-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261122/202611220344.CTLohdLM-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611220344.CTLohdLM-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/mailbox/marvell_mhu.c:96:2: error: call to undeclared function 'iowrite64'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      96 |         iowrite64(doorbell, mhu->base + AP0_TO_SCP_MBOX);
+         |         ^
+>> drivers/mailbox/marvell_mhu.c:106:11: error: call to undeclared function 'ioread64'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     106 |         status = ioread64(mhu->base + AP0_TO_SCP_MBOX_LINT);
+         |                  ^
+   2 errors generated.
 
 
-On 21/11/2026 19:06, David Virag wrote:
-> On Thu, 2026-11-19 at 19:49 +0000, Umer Uddin via B4 Relay wrote:
->> Hi guys, this patch series adds support for USB on Exynos7885. This
->> series
->> is based on David Virag's work[1] I had rebased it onto krzk's for-
->> next
->> tree and tested it on gta3xllte. This series also enables S2MU005 FG
->> on gta3xllte, which is also tested.
-> Hi, thanks for reviving my old patches
->
-> I actually have sent the patches before [1], got some reviews, but only
-> ended up with the clock patches submitted and applied, and never
-> actually got to submitting these patches with fixes based on the
-> reviews (which have been sitting on my PC for quite a while).
->
-> I think I will submit my fixed up patches (the ones you submitted still
-> have some problems), and then your gta3xxlte patches can sit on top.
->
-> [1]
-> https://lore.kernel.org/linux-samsung-soc/20240804215458.404085-1-virag.david003@gmail.com/
+vim +/iowrite64 +96 drivers/mailbox/marvell_mhu.c
 
-Ah sorry, I did accidentally miss that, will be waiting for you to submit
+    89	
+    90	static int mrvl_mhu_send_data(struct mbox_chan *chan, void *data)
+    91	{
+    92		const u64 doorbell = 0xff;  /* Arbitrary value, SCP requires a value */
+    93		struct mrvl_mhu *mhu = chan->con_priv;
+    94	
+    95		/* signal SCP */
+  > 96		iowrite64(doorbell, mhu->base + AP0_TO_SCP_MBOX);
+    97	
+    98		return 0;
+    99	}
+   100	
+   101	static bool mrvl_mhu_last_tx_done(struct mbox_chan *chan)
+   102	{
+   103		struct mrvl_mhu *mhu = chan->con_priv;
+   104		u64 status;
+   105	
+ > 106		status = ioread64(mhu->base + AP0_TO_SCP_MBOX_LINT);
+   107	
+   108		return status != 0;
+   109	}
+   110	
 
-the fixed patches then, and I will rebase my gta3xllte changes onto your
-
-patch when submitted.
-
->> Please note, I did drop enabling USB on jackpotlte, this is because I
->> don't have the device myself to test the changes personally and I
->> didn't
->> want to risk a regression on jackpotlte.
-> I can confirm it does still work properly on jackpotlte.
->
-> Best regards,
-> David
-
-Good to know, thanks for confirming.
-
-
-Best regards,
-
-Umer
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
