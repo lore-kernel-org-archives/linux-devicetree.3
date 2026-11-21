@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795295771;
-	b=FiyVP3tO5Pdh0II2bLVk54VuEO31YYcb0gqSf0/V5NR/O94cj5vTHqBtyR8l4Kaf74Ct
-	 xxLniWM1ZJdOsC/HMu3ublOpaLjX2rFpnmIOXtYxE5qtq4BWdfpjEUCDhafZ6gSLg1Qf5
-	 kDescBxYBNockSXWHtj5EualZ9H8XM12I9gTM0AwVQSD/gLTBHJ+9pNb2mRFriN7dOGKX
-	 CjWOjG4/k4f681EOAikbpu9jlSC6tGT3mzs0ghq780EawV0DNucoc9pzF6CPOfPoZ66GK
-	 qaSCaLGNqhnFuowDIs2FQleM9QUkwMv4Y3tuB5D61F/mv5JK5mAQ+ZjjEPhX6gNdliw==
+	t=1795295973;
+	b=Yc+QioiPNL2E1J81ME5a972G05vSkG5+XQikgZ7bifmR7gBuShMUbuWnIcUvohXsscmC
+	 ME83FIu2bMHOyfF95kQZAWFBp9mYRz6kKY1awN0FmxOxRf/EhMeE4DWyHokWxkH7iJVl9
+	 tB7q+F2+JxPNpQiNIder6HKSl1FNnSeg6zSi5wxE8TfJ8Qr/cz9uxDYWiwDgTrdxwSXdL
+	 AhC5eU2S6nuOZQVPRrmWoICQizbBvCdEzQ8rb4j2cfFh726ShuykyWfBzb/yfIOXHXPeW
+	 /QV7PWL2mKGL7HCIybKp5fu0KtLa5zuMfUnJ168JR7tGXO9ZIGs3plaNvZk1qZBk4uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795295771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795295973;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7eXrGkj05XJIeWdMg8bWi/sqvFudK/TAUg1y65LM1tg=;
-	b=VKuFcZaIeLlUyeD7RTqreQM2UJHGSow+tNt3pfFCS//T4BNBL80XIa3FXlYRT+BcHBIu
-	 BcztXSexLMNim7GaNTlGUltv+r+yGN2R3+3OiX6Us79L1v9THmZiBJ7O8+SEm64CevqOC
-	 dNn8KqwFOutBTHi9by9cLSwr+WP775Rtfee/rHTOS5k94B2hwtRvZZyC4lWJObXAs+WHS
-	 yn3+dBui/pUgpq4iEOLAfoI6NJcGaFvNCo7uXQw2vBxaTiBA+PgBtKWJg45Zb7yhGnHkY
-	 8yl2GNoFbLyWi6L+e9Y0l6H/+q5FkXykRVjpqw6SUNjOY6REsaFbyafZJcfhITB2oJw==
+	bh=TwRAZOxTtTXy+S3cTIsOYqmghOtnES71mWdup4rt0co=;
+	b=Hh0ImGq2ecKUXzMsHqvX4/VH6g8ucfYzDi5IpzE4EKFRWT7uzZUf68nlgNsybicHdEgx
+	 F7GsJUfvKnxWiabPHwmJGQ9tq9BA7Ylk1hiEL5/HfrZN3mBvC0IL0j9i58M9oSMe1wNU7
+	 Imf6n0NTc5pYUS90SYjTgwaaZWtbnNvpX7NmSIFfxk7AamXal1lBY2W5NyAGiKHNO254t
+	 eM86ATUgFdNpaBAi0l0ZP5P+2loQq5/8KL8uULTUM+jROyNxMJEBfK8HPC9VXl+Cqdgyl
+	 xKRtModPOv8MN4mugzoG5WTXB27T5bXv7tRpp/MGBLL0u7Uap8TaiRTMKrcMqso5kwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=byGxwCUu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FhMdTVcv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50271606A334
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:16:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82BE606A333
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:19:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=byGxwCUu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA9031F000F0
-	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:16:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FhMdTVcv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6097A1F000F4
+	for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 21:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795295770;
-	bh=7eXrGkj05XJIeWdMg8bWi/sqvFudK/TAUg1y65LM1tg=;
+	s=k20260515; t=1795295973;
+	bh=TwRAZOxTtTXy+S3cTIsOYqmghOtnES71mWdup4rt0co=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=byGxwCUuh5O87gOGC39H5SQNQxs1CDkdy0T3fQo/SjrYp6oHt/UkzZaFQEhu9iHuQ
-	 enNmWGbZFz+D7B4BNdeAx7DhShQxOMhmHptAOssaOPHVKpv2tYPbeknGi/q7FkvRN1
-	 ADE/exyhF4Az4ygBI5TL0tMWcOgWpzGjygQmNDvk4ZwtPnRECU/BBTV/lNmD7NAAeh
-	 /ABWstb7KW9HwTHm5lW1fhSxw2pOM9g1YNQr+T/Vle649Zzyb/TD+2eBTlNUzvnQvx
-	 2kJdQh9uy8q4yzsEFDpe15cYvwmGcqSjXyepL7e4lLIKQrRK+Jk1dhJ1oGt9huphvW
-	 Uhhcx8LbwBlvA==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c1a947b4adso1633218e87.2
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:16:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEJlNBh+XJUjmHFqnGznXdKWB1AuNkpaXlOdNv+fx9lOY7CCs83UgYTI+pq6dVW8tg7ctzG9HFQHlEH@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7fPrqkRYB1ehFb7p2gifmfsdku2003YViCXJQJ0dMPOJZRDs2
-	QAN3mmRjHLHH7bwx8A0RzqgAYNSNYqqFO7Z8T5s+nDq4Z3wGVrat6qEtdVq78TH3FMlB9KeJwTJ
-	tbjze5qXjKPk4LeSmdxyRDSWrnujjxxI=
-X-Received: by 2002:a05:6512:3087:b0:5c1:4974:c159 with SMTP id
- 2adb3069b0e04-5c1bc8cc90cmr2071934e87.55.1795295769485; Sat, 21 Nov 2026
- 13:16:09 -0800 (PST)
+	b=FhMdTVcv7hTTIDYEMkZDmUO3HkhrUrXxLq3vHaLlCKM7YzylsICoYIYrTJzEPLoo9
+	 74m27GMvvah0DCKBWuQ6PrnTPtuQi0Mj5HochkXuFFLwSUgkupkE8pd+D4gi6l8yMY
+	 WiUsK6auPbm+CABDYq9ad1u8O4HV35tHtAx5BB0lbe7E/mMLpijZg+MBBW/og4WDVH
+	 PnrfIXeF49zLuvj/Zw5vW+24lreUmuBdqsnfKXERsHh8i+AdH9+H6q+Pj+wwBVoq9c
+	 4qZChs2Zy+IC0Q+zSRy0r9qNqwm36fY+aC33daLbfWwMzTKC/LoszT1mf+BmYgeGrY
+	 KtJv2l90OFpxQ==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5c15956ce07so2773745e87.0
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 13:19:33 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHwjh6WIbfwuOybMHQ/KP+zsM9jc7aIwArESNb6B7QNCph1H+GGdNgVZ9+5nV/vWSVc2947wKeByJB2@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6KBc4RqouRilea5/dMWZF3cJjBYTqd1WivVIGWsA8kb9WT94k
+	qi9zBbLTbg3bq+rumuFN8Yn/X6lXMYjTqutjAMNC7rd8tM9e7yT9wHaW0v3pxjPr+8/qW1/qUTp
+	w0y6p3MvqDzM/p6vgHWDHkK5efl82e/I=
+X-Received: by 2002:a05:6512:2c90:b0:5c1:7c6a:fefb with SMTP id
+ 2adb3069b0e04-5c1bc822245mr1829531e87.5.1795295972116; Sat, 21 Nov 2026
+ 13:19:32 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,14 +59,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015142552.4128028-1-ryan.roberts@arm.com> <20261015142552.4128028-5-ryan.roberts@arm.com>
-In-Reply-To: <20261015142552.4128028-5-ryan.roberts@arm.com>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com> <20261015142552.4128028-2-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-2-ryan.roberts@arm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 21 Nov 2026 22:15:56 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnVu-nLi34mZT_wuJAHqgupgBT5A1jBUfScn81wuY3UCg@mail.gmail.com>
-X-Gm-Features: Aa3M54ro2NNB4LQvH-Q4GEm3pg_4771RV__twhnRQdUNcV3HdQO1On99ooANozQ
-Message-ID: <CAD++jLnVu-nLi34mZT_wuJAHqgupgBT5A1jBUfScn81wuY3UCg@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 04/15] misc/arm-cla: Probe firmware-described devices
+Date: Sat, 21 Nov 2026 22:19:18 +0100
+X-Gmail-Original-Message-ID: <CAD++jLma8atXB=eT8TvvYfKMg=h6YGPY4THsYhLCeo2VumeJrw@mail.gmail.com>
+X-Gm-Features: Aa3M54r702fjHjrynCh9jy5iyOc-dutIFRI6s0mpbPcKoEHETe8434E7oYhGyyA
+Message-ID: <CAD++jLma8atXB=eT8TvvYfKMg=h6YGPY4THsYhLCeo2VumeJrw@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 01/15] misc/arm-cla: Add driver skeleton and documentation
 To: Ryan Roberts <ryan.roberts@arm.com>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
 	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
@@ -80,132 +80,31 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.d
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Ryan & Jean-Philippe,
-
-thanks for your patch!
-
-I see this framework is (ab)using platform_device, and Greg has many
-times pointed out that he doesn't like that, and I don't like it either,
-so I'm gonna complain about that.
+Hi Ryan, Jean-Philippe,
 
 On Thu, Oct 15, 2026 at 4:26=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
  wrote:
 
-> +static int cla_of_to_cpu(struct device_node *of_node)
-> +{
-> +       int cpu;
-> +       int ret;
-> +       u32 cpu_phandle;
-> +       struct device_node *cpu_node;
-> +
-> +       if (!of_node)
-> +               return -ENODEV;
-> +
-> +       ret =3D of_property_read_u32(of_node, "cpu", &cpu_phandle);
-> +       if (WARN_ON(ret))
-> +               return -EINVAL;
-> +
-> +       cpu_node =3D of_find_node_by_phandle(cpu_phandle);
-> +       if (WARN_ON(!cpu_node))
-> +               return -EINVAL;
-> +
-> +       cpu =3D of_cpu_node_to_id(cpu_node);
-> +       of_node_put(cpu_node);
-> +
-> +       return cpu;
-> +}
-> +
-> +static struct cla_dev *cla_dev_alloc(struct device *parent, int cpu,
-> +                                    void __iomem *regs, phys_addr_t base=
-)
-> +{
-> +       struct cla_dev *dev;
-> +
-> +       dev =3D devm_kzalloc(parent, sizeof(*dev), GFP_KERNEL);
-> +       if (!dev)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       dev->pfn =3D __phys_to_pfn(base);
-> +       dev->regs =3D cla_get_regs(regs, cla_kernel_pl);
-> +       dev->cpu =3D cpu;
-> +       dev->dev =3D parent;
 
-Why is struct cla_dev just a hollow thing without it's own
-struct device? This is free-riding on the parent device, which
-seems odd to me.
+> +/**
+> + * struct cla_dev - CLA device
+> + *
+> + * Immutable state:
+> + * @cpu:               The CPU this CLA is attached to.
+> + * @dev:               The platform device.
+> + */
+> +struct cla_dev {
 
-Should you rather have:
+Don't abbreviate compulsively, cla is fine, I would
+call it cla_device.
 
-struct cla_device {
-      unsigned int cpu;
-       void __iomem *regs;
-       struct device dev;
+> +       unsigned int cpu;
+> +       struct device *dev;
+> +};
 
-^ Not a pointer
-
-       unsigned long pfn;
-       unsigned long pg_offset;
-       struct cla_domain *domain;
-};
-
-Instead of first creating platform devices, then spawn this
-hollow struct cla_dev from the platform device, what about
-just creating struct cla_device directly from the beginning
-if the platform_device has no real use?
-
-> +static int cla_probe(struct platform_device *pdev)
-
-Why send in a platform device here at all, just create the
-cla_device and pass this in here instead. It does exist
-right?
-
-> +{
-> +       int cpu;
-> +       void __iomem *reg;
-> +       size_t reg_size;
-> +       struct cla_dev *dev;
-> +       struct resource *res;
-> +
-> +       /*
-> +        * TODO: the firmware maps this as well to access PL3, and the gu=
-est
-> +        * will map PL1 and PL0. Avoid TLB attr mismatches by only mappin=
-g what
-> +        * we need.
-> +        */
-> +       reg =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-
-And register resource to &cla->dev; etc.
-
-> +static int __init cla_module_init(void)
-> +{
-> +       bool driver_registered =3D false;
-> +       int ret;
-> +
-> +       /*
-> +        * For now, we reject any CLAs discovered via FW tables, whose CP=
-U is
-> +        * offline during init. This keeps things simple by allowing us t=
-o probe
-> +        * all HW at init time. Keep the online CPU set stable so that th=
-e
-> +        * cpu_online() check in cla_probe() is consistent with the onlin=
-e cpus
-> +        * when we call cpuhp_setup_state().
-> +        */
-> +       scoped_guard(cpus_read_lock) {
-> +               /*
-> +                * CPUs may be hotplugged, but all CLAs are described by
-> +                * firmware so the probe can be synchronous. This only se=
-ts up
-> +                * the resources, and CPUHP callbacks do the actual peeki=
-ng and
-> +                * poking. This returns an error when no CLA has an onlin=
-e CPU.
-> +                */
-> +               ret =3D platform_driver_probe(&cla_driver, cla_probe);
-
-Create your own cla_driver for cla_device instead.
+I will argue in other patches that this should be a proper
+struct device and not a pointer to a platform_devcive
+&pdev->dev.
 
 Yours,
 Linus Walleij
