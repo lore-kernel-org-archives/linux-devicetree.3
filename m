@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795303603;
-	b=n2+AZyS2eViO/Z+cm4TxfuOGKMKqVlMcI6jcR0TkeEVQdUxVzuefs8MADjNRvQS3V2cx
-	 QZBkeEFAhVZzHHLqITzdc7PhxRdtcMDLbs0p7dI5wTAu0lnD3wP4snsF9PNk9FD5bt0D2
-	 jd6uEP37OURnJHcz2z/b09UIzpnUgVh7hSgIfP4LwqoHBb1SZVi0Y7prueebfz8ZxKCq+
-	 G2W9lT+Viw5gV/jjBu3ibgz9dtHOIE97iKofhjC4/nF035mVcHC3H9JtyRACWICGHa9MS
-	 Lo2rQ+6OYuDvFI88ZzbJMa9Ml2kUSDne6gcm+6MIlbWX0rZCRSLVBdCiytrlE+68H7w==
+	t=1795303611;
+	b=I91HfKXL2WfI+HaTyoRIYjimNm/FnkANtr+RFp/A1kaqfjarKNkLXPB6sn+/AGzA3IKs
+	 gQkRtBqvOA8veYoZyOt2JpEdw02G+KKXXDzfO/Ar46BDqbh7fsgTryzyCZtiMw9eTa0JG
+	 +flU7gWkaRJWpIzZtUkuJIY3Gq9p7EBYthOSg6ggjjeP9eG2vFXzCC9rrdc5Tyj5M7OYH
+	 moRszAlfkyldviyNmAnJ2IF51bQW1bXMisnc2n+ezhK38fi1AoYvhgJ6qVuq8tiPN3lAA
+	 Fa1IZHdKR9Qpm7hGjWL50za+vogqRJBab/J66Hv4ARfJqTTgf9uDzpC++21f7GWT4QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795303603;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795303611;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=swVWLdIORzAn0CH5DXvzx6L8MBh1Ls3/BIBJUSCbZaw=;
-	b=vYztEnYjbU35fX1SyY9e6zXFZ5GkCrAVuiIIyRjOC3D7F1TXvK5dBN9s6bXgZrECbTWj
-	 CDk4g4yiI1Fh0g60wf4Sa64Bb3V0UgarkWcaZGHIkB6cKb/wB1Dal0fTRl7nyRTt/3xY9
-	 qRJ2wCcbeJoTiRqSH6vGPxtRKUp+mFXdfe4xL6BK+eNfgFBTR7TrY1yEJUb6RDrXgbFBf
-	 r4on5o82wrFPG2aJHGMQ9XjyPwgW+FwSWGP6UhkUXOsTa3UWlyPHp96F45428rC9+XQyd
-	 UUU1FNETnxbDzqPuz2J/+AObTcoPikIVdEpv4guVImSpKNzkdfFtOx3Ix3ESdoeuoNA==
+	bh=wFFvFbbLMs38KGcTgUre1HFll8uBafUzffFq5U1w/eY=;
+	b=fWeUjxwOomgB6j9STZOEWAAYdsJPFkehmNQ1pqdGYyxexltZ+dLOyQACJycWkzmBZkLP
+	 GCdwAGViaxVHWj6hHvi1xky0mf1M1S8PRTXfIE7Nhpohf8ir/6pe77MXM1kKZrFWAdHKA
+	 A46FveeLDHyYfF+r4d1kBl4qTV7pgc0AGAiTwekmWNHhMzLW4uymD39uNuCcKi7HTmJGf
+	 vaB5X5EaM2nQb4CM95lmioEIChylwVXwIDTKNI0RzLhenhiXNubrkqH8GuNvHCenX2GV0
+	 Kv/kBpWKLMszPilhAX50E/HMhfivC7OFQM9wVd0oW9/InfFL+Qa0GOERuo/pzlyA/9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jvdDXah3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhDIwKyJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B33D606A320;
-	Sat, 21 Nov 2026 23:26:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355BF606A33E;
+	Sat, 21 Nov 2026 23:26:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jvdDXah3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97CDA1F000C4;
-	Sat, 21 Nov 2026 23:26:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhDIwKyJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3511A1F000C6;
+	Sat, 21 Nov 2026 23:26:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795303603;
-	bh=swVWLdIORzAn0CH5DXvzx6L8MBh1Ls3/BIBJUSCbZaw=;
+	s=k20260515; t=1795303611;
+	bh=wFFvFbbLMs38KGcTgUre1HFll8uBafUzffFq5U1w/eY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jvdDXah3Hd6doiFD8BxoHgq35Lk519EEEBXbpMJuqFLib6fkIPhQTywtVl4OuKslw
-	 +z9zD5VdozW41LO6u3zqgi8IdR40bMhuiAJt9ktLYmCNDyq1v+NNUXq0O2GECARiKh
-	 4J9jaPjF7JEaqSm1T0ZS5589PUyWa3pyglLtMj68yNyglQJa14hA4yVuxTwxli2amE
-	 L8hs4kF2pKQaEpSHLRxzS+poH9iska0Tl/BgHO5TQxPzeQ1b6UzMstZJOjEEiQIuw6
-	 jMW6GKRhahuSfwVOj5S1iTYosoY/h7W2gO/aXoeqxWiIKGQaEwXn5Hc3asD9TmMvTD
-	 0NIpotgHAqCgg==
+	b=dhDIwKyJ9ApPr2UQORDdzdrke1gTAhL/V3SachheG8l/zkbhvJUuXxPmdYSQ3IpR1
+	 d79ybBtxpUzBem1B7/51IiXf8SX4VgWZ4wjWaStNmerIRN9DHkuWqV2IyuABcN4Ba1
+	 N0Lf+7g6yy6rjKoZ4Unv7RkqHAOpwaOH0LuatMVeyMslFBkIdCVFzmGJQ1pW7cptSu
+	 0Vq18q+KGFG3fb+RYC2jIWNaEJjGWHDKQKGZVR3SLbpTZ52XPsbPRM10ne/ebJeEj8
+	 aSMJClSWie6y7K5Czwoc1lPax48v/FogkYLkB3rAMnSsUVpS1O1NCNWOWccjEfIoyO
+	 nCzLkUITCtC7Q==
 From: Jakub Kicinski <kuba@kernel.org>
 To: ansuelsmth@gmail.com
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -71,12 +71,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	linux-mediatek@lists.infradead.org,
 	llvm@lists.linux.dev,
 	zhengping.zhang@airoha.com
-Subject: Re: [PATCH net-next v22 01/15] net: phylink: make PCS phylink instance access RCU protected
-Date: Sat, 21 Nov 2026 15:26:40 -0800
-Message-ID: <20261121232640.1365293-1-kuba@kernel.org>
+Subject: Re: [PATCH net-next v22 08/15] net: phylink: support PCS provider release
+Date: Sat, 21 Nov 2026 15:26:49 -0800
+Message-ID: <20261121232649.1365412-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261117123956.11981-2-ansuelsmth@gmail.com>
-References: <20261117123956.11981-2-ansuelsmth@gmail.com>
+In-Reply-To: <20261117123956.11981-9-ansuelsmth@gmail.com>
+References: <20261117123956.11981-9-ansuelsmth@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,99 +91,305 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-net: phylink: make PCS phylink instance access RCU protected
+net: phylink: support PCS provider release
 
-This commit makes the phylink back-pointer in struct phylink_pcs RCU
-protected and reads it under rcu_read_lock() in phylink_pcs_change().
-phylink_destroy() now clears that pointer and calls synchronize_rcu(), so
-a concurrent phylink_pcs_change() should not run on a freed phylink
-instance.
+This adds a blocking notifier chain to the fwnode PCS layer.
+fwnode_pcs_del_provider() uses it to emit FWNODE_PCS_PROVIDER_DEL. Each
+phylink instance with pcs_interfaces subscribes, drops the matching PCS from
+pl->pcs_list on that event, recalculates its capabilities, and accesses
+pcs_list under state_mutex.
+
+> diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
+> index b1d48f6eee7f1..f234a46354176 100644
+> --- a/drivers/net/pcs/pcs.c
+> +++ b/drivers/net/pcs/pcs.c
+
+[ ... ]
+
+> @@ -74,6 +87,11 @@ void fwnode_pcs_del_provider(struct fwnode_pcs_provider *pp)
+>  
+>  	mutex_unlock(&fwnode_pcs_mutex);
+>  
+> +	/* Signal phylink to release any PCS from this provider */
+> +	blocking_notifier_call_chain(&fwnode_pcs_notify_list,
+> +				     FWNODE_PCS_PROVIDER_DEL,
+> +				     pp);
+> +
+
+[Severity: Medium]
+Can this notifier call into PCS hardware that the provider has already
+powered down?
+
+pcs_provider_notify()->phylink_del_pcs() calls phylink_pcs_disable(), which
+calls pcs->ops->pcs_disable(). If the link is up it also calls
+phylink_link_down(), and later in the series that calls
+pcs->ops->pcs_link_down() too.
+
+With devm_fwnode_pcs_add_provider(), devm_fwnode_pcs_del() runs during devres
+release. That happens after the driver's .remove(), and in reverse order of
+registration.
+
+A provider might gate clocks, drop runtime PM or assert reset in .remove().
+It might also get devm clocks or resets after it registers the provider.
+Either way, these PCS register accesses would hit unpowered hardware.
+
+For example, pcs-rzn1-miic calls pm_runtime_put() in .remove(). If it were
+converted to a devm fwnode provider, the del would run after that.
+
+The airoha PCS in this series registers its devm provider last and has no
+.remove(), so it is not affected.
+
+Neither pcs-provider.h nor pcs.rst says the hardware must stay accessible
+until fwnode_pcs_del_provider() returns. Should that be documented, or
+should the notifier avoid touching the departing PCS hardware?
+
+>  	fwnode_handle_put(pp->fwnode);
+>  	kfree(pp);
+>  }
+
+[ ... ]
 
 > diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index e7734e45376cd..d9d0ace2042e5 100644
+> index 921c227a5b3c0..094a15f3dbcd0 100644
 > --- a/drivers/net/phy/phylink.c
 > +++ b/drivers/net/phy/phylink.c
 
 [ ... ]
 
-> @@ -1295,10 +1296,10 @@ static void phylink_major_config(struct phylink *pl, bool restart,
->  		phylink_pcs_disable(pl->pcs);
+> @@ -2425,6 +2451,133 @@ void phylink_update_mac_pause_capabilities(struct phylink *pl, unsigned long mac
+>  }
+>  EXPORT_SYMBOL_GPL(phylink_update_mac_pause_capabilities);
 >  
->  		if (pl->pcs)
-> -			pl->pcs->phylink = NULL;
-> +			rcu_assign_pointer(pl->pcs->phylink, NULL);
->  
->  		if (pcs)
-> -			pcs->phylink = pl;
-> +			rcu_assign_pointer(pcs->phylink, pl);
->  
->  		pl->pcs = pcs;
->  	}
+> +static void phylink_del_pcs(struct phylink *pl, struct phylink_pcs *pcs)
+> +{
+> +	ASSERT_RTNL();
+> +
+> +	lockdep_assert_held(&pl->state_mutex);
+> +
+> +	rcu_assign_pointer(pcs->phylink, NULL);
+> +	synchronize_rcu();
+> +	list_del(&pcs->list);
+
+[Severity: Low]
+Is a full grace period needed for every PCS while RTNL is held?
+
+pcs_provider_notify() calls phylink_del_pcs() in a loop. It holds
+rtnl_lock(), pl->phydev_mutex, phydev->lock and pl->state_mutex the whole
+time, inside the notifier rwsem read section.
+
+So each phylink subscribed to the departing provider holds RTNL for one
+normal grace period per removed PCS. The instances run one after another.
+
+phylink_detach_pcss() in this same patch clears all the pointers first and
+then calls synchronize_rcu() once. Could pcs_provider_notify() do the same,
+or use synchronize_net()?
+
+> +
+> +	/*
+> +	 * Check if we are removing the PCS currently
 
 [ ... ]
 
-> @@ -2137,6 +2138,11 @@ void phylink_destroy(struct phylink *pl)
->  	if (pl->link_gpio)
->  		gpiod_put(pl->link_gpio);
->  
-> +	if (pl->pcs) {
-> +		rcu_assign_pointer(pl->pcs->phylink, NULL);
-> +		synchronize_rcu();
-> +	}
+> +	if (pl->pcs == pcs) {
+> +		if (pl->old_link_state) {
+> +			phylink_link_down(pl);
+> +			pl->old_link_state = false;
+> +		}
+> +		if (pl->cfg_link_an_mode == MLO_AN_INBAND)
+> +			timer_delete_sync(&pl->link_poll);
 > +
->  	cancel_work_sync(&pl->resolve);
->  	kfree(pl);
->  }
+> +		if (pl->pcs_state != PCS_STATE_DOWN)
+> +			phylink_pcs_disable(pl->pcs);
+> +
+> +		if (!pl->phylink_disable_state)
+> +			pl->force_major_config = true;
+> +
+> +		WRITE_ONCE(pl->pcs, NULL);
+> +	}
+> +}
 
-[Severity: High]
-Can phylink_pcs_change() still use pl after kfree(pl) here?
+[Severity: Medium]
+Can the link stay down for good if the active PCS is removed while
+PHYLINK_DISABLE_LINK is set?
 
-phylink_destroy() only waits for a grace period when pl->pcs is non-NULL.
-pl->pcs can be NULL at this point if an earlier phylink_major_config()
-switched to a NULL PCS. That happens when mac_select_pcs() returns NULL
-for the new interface, for example in the default case of
-mv88e639x_pcs_select().
+On SFP loss of signal, phylink_sfp_link_down() sets PHYLINK_DISABLE_LINK
+and pcs_state stays PCS_STATE_STARTED.
 
-In that case phylink_major_config() cleared old_pcs->phylink and set
-pl->pcs to NULL without waiting for a grace period. A sequence like this
-looks possible:
+Suppose the active PCS's provider goes away during LOS.
+phylink_pcs_disable() powers the PCS down and pl->pcs becomes NULL.
+force_major_config is not set, because phylink_disable_state is non-zero.
 
-PCS driver threaded IRQ handler:
-phylink_pcs_change(old_pcs)
-    rcu_read_lock();
-    pl = rcu_dereference(pcs->phylink);
-    <preempted>
+When LOS clears:
 
-Resolve worker:
-phylink_major_config()
-    rcu_assign_pointer(pl->pcs->phylink, NULL);
-    pl->pcs = pcs;    /* pcs == NULL */
+phylink_sfp_link_up()
+  phylink_enable_and_run_resolve(pl, PHYLINK_DISABLE_LINK)
+    phylink_resolve()
+        if ((mac_config && link_state.interface != pl->link_config.interface) ||
+            pl->force_major_config) {
 
-Driver teardown:
-phylink_stop()
-phylink_destroy()
-    if (pl->pcs) { ... }    /* skipped, no synchronize_rcu() */
-    cancel_work_sync(&pl->resolve);
-    kfree(pl);
+Neither condition holds, so phylink_major_config() is skipped and no PCS is
+picked from pl->pcs_list again.
 
-IRQ handler resumes:
-    phylink_link_changed(pl, up, "pcs");
-        /* writes pl->link_failed, may queue_work(&pl->resolve) */
+In in-band mode, phylink_mac_pcs_get_state() then sees pl->pcs == NULL and
+reports link = 0.
 
-phylink_stop() does not seem to close this window. It only handles
-phylink's own link_poll timer, link_irq and resolve work, and the
-phylink_pcs_disable(pl->pcs) call gets a NULL PCS here. The mv88e6xxx PCS
-drivers use request_threaded_irq(), so with CONFIG_PREEMPT_RCU the reader
-can be preempted inside its RCU section.
+That stays true even if another PCS in pcs_list supports the interface. It
+also stays true after the provider is re-added, because the late attach
+path only forces a major config when major_config_failed is set.
 
-The commit message says the change will "syncronyze RCU to catch an
-execution of phylink_pcs_change()". This case still seems to be open at
-the end of the series. phylink_detach_pcss() only sets rcu_sync when
-pcs_list is non-empty or pl->pcs is non-NULL, and pcs_list stays empty for
-mac_select_pcs() drivers. The later READ_ONCE(pl->pcs) == pcs check in
-phylink_pcs_change() also dereferences the possibly freed pl.
+In MLO_AN_PHY mode, phylink_link_up() would call mac_link_up() and
+netif_carrier_on() while the PCS is disabled.
 
-Would it make sense to call synchronize_rcu() unconditionally in
-phylink_destroy() (and later in phylink_detach_pcss())? Another option is
-to wait for a grace period whenever phylink_major_config() detaches the
-old PCS.
+The STOPPED, MAC_WOL and REPLAY bits each recover through
+phylink_mac_initial_config() or force_major_config, but DISABLE_LINK does
+not. Should force_major_config be set here whatever phylink_disable_state
+is?
+
+> +
+> +static int pcs_provider_notify(struct notifier_block *self,
+> +			       unsigned long val, void *data)
+> +{
+> +	struct phylink *pl = container_of(self, struct phylink, fwnode_pcs_nb);
+> +	struct fwnode_pcs_provider *pp = data;
+> +	struct phylink_pcs *pcs, *tmp;
+> +	struct phy_device *phydev;
+> +	bool resolve = false;
+> +
+> +	rtnl_lock();
+> +	mutex_lock(&pl->phydev_mutex);
+> +	phydev = pl->phydev;
+> +	if (phydev)
+> +		mutex_lock(&phydev->lock);
+> +	mutex_lock(&pl->state_mutex);
+
+[Severity: Medium]
+Does this give fwnode_pcs_del_provider() a hidden "must not hold RTNL"
+requirement?
+
+fwnode_pcs_del_provider() used to take only fwnode_pcs_mutex. It now calls
+blocking_notifier_call_chain(), which holds the chain rwsem for read. While
+that is held, this callback takes rtnl_lock(), pl->phydev_mutex,
+phydev->lock and pl->state_mutex.
+
+A provider removed from a path that already holds RTNL, or any of those
+locks, would deadlock here.
+
+The rwsem-read -> rtnl ordering could also cause an ABBA deadlock with
+register_fwnode_pcs_notifier() and unregister_fwnode_pcs_notifier(), which
+take the same rwsem with down_write. That would happen if a MAC with
+non-empty pcs_interfaces called phylink_create() or phylink_destroy() under
+RTNL while another provider is being removed.
+
+No current in-tree path does this. The airoha PCS deletes through devres at
+unbind without RTNL, and airoha_eth creates and destroys phylink outside
+RTNL.
+
+But pcs-provider.h and pcs.rst do not mention this rule, and nothing
+asserts it. Would a lockdep_assert_not_held() or a note in the API
+documentation help?
+
+> +
+> +	/* phylink instance is being destroyed, ignore any event */
+> +	if (pl->pcs_state == PCS_STATE_DETACHING)
+> +		goto exit;
+> +
+> +	/*
+> +	 * Loop all the PCS for phylink instance and check if
+> +	 * this notification is relevant for some of them.
+> +	 */
+> +	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
+> +		if (!fwnode_pcs_matches_provider(pp, pl->fwnode, pcs))
+> +			continue;
+> +
+> +		phylink_del_pcs(pl, pcs);
+> +		resolve = true;
+> +	}
+
+[Severity: Medium]
+What happens when a PCS in pl->pcs_list did not come from the pcs-handle
+property of pl->fwnode?
+
+fwnode_pcs_matches_provider() works out ownership again at teardown. It
+re-parses "pcs-handle" from the fwnode it is given and calls
+provider->fwnode_xlate() again.
+
+phylink does not record where each PCS came from when fill_available_pcs()
+hands it over. The fill_available_pcs() contract in
+include/linux/phylink.h does not require the PCS to come from the fwnode
+passed to phylink_create().
+
+The earlier patch "net: phylink: save phylink instance fwnode on
+phylink_create" notes that pl->fwnode can differ from the fwnode of
+config->dev. The pcs.rst example in "net: Document PCS subsystem" calls
+fwnode_phylink_pcs_parse(dev_fwnode(config->dev), ...) from
+fill_available_pcs.
+
+For such a MAC, every check here returns false and phylink_del_pcs() is
+never called. The PCS stays on pl->pcs_list, pcs->phylink stays set, and
+the PCS may still be pl->pcs.
+
+fwnode_pcs_del_provider() then returns, and the provider frees its
+phylink_pcs (for example, a devm-allocated priv). After that,
+phylink_resolve(), phylink_major_config() and phylink_mac_pcs_get_state()
+would call pcs->ops through freed memory, and phylink_detach_pcss() would
+write to it.
+
+airoha_eth passes the same node to both, so it is not affected today. Would
+it be more robust to record the provider, or the source fwnode, for each
+PCS when it is added?
+
+[ ... ]
+
+> @@ -2515,10 +2668,18 @@ struct phylink *phylink_create(struct phylink_config *config,
+>  	__set_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state);
+>  	timer_setup(&pl->link_poll, phylink_fixed_poll, 0);
+>  
+> +	/* First register notifier for hotplug PCS events */
+> +	if (!phy_interface_empty(config->pcs_interfaces)) {
+> +		pl->fwnode_pcs_nb.notifier_call = pcs_provider_notify;
+> +		register_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
+> +	}
+
+[Severity: Medium]
+Can pcs_provider_notify() run against a partly initialized phylink here?
+
+The notifier goes live, and pl->pcs_list is filled, before
+phylink_parse_mode(), phylink_parse_fixedlink() and phylink_register_sfp()
+run.
+
+If a provider for one of the filled PCS is unbound at the same moment (for
+example via sysfs), pcs_provider_notify() takes state_mutex and runs
+phylink_update_capabilities(). That reads and writes pl->cfg_link_an_mode,
+pl->sfp_bus, pl->link_config, pl->supported and pl->advertising.
+
+Meanwhile phylink_create() writes the same fields without state_mutex.
+phylink_parse_mode() sets pl->cfg_link_an_mode. phylink_parse_fixedlink()
+sets link_config.speed and duplex, and does this before it takes
+state_mutex:
+
+	__set_bit(ETHTOOL_LINK_MODE_Pause_BIT,
+		  pl->link_config.lp_advertising);
+
+pl->req_link_an_mode and pl->sfp_bus are also written without the lock.
+
+On a fixed-link port, once cfg_link_an_mode == MLO_AN_FIXED, the notifier
+goes through phylink_parse_fixedlink_capabilities(). That function does a
+read-modify-write linkmode_or() on config->lp_advertising, which could
+overwrite the Pause bit phylink_parse_fixedlink() just set.
+
+The later locked recalculation only ORs in match, so the link partner pause
+ability from DT would be lost for good.
+
+This also seems to conflict with the commit message:
+
+  Protect every access of phylink pcs_list with state_mutex to handle async
+  PCS provider release and capabilities recalculation.
+
+Could the registration move to the end of phylink_create(), or could the
+notifier ignore events until initialization is complete?
+
+>  
+>  	/* Fill the PCS list with available PCS from phylink config */
+>  	ret = phylink_fill_available_pcs(pl, config);
+
+[ ... ]
