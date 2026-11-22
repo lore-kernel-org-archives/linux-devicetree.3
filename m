@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795380737;
-	b=ewyGMV28zHeS33ywtdnmtS8OcrYqBBFF2l2r2x/cTUUTwf6D62crGVjAZ0s2pmL01Kgm
-	 ITy8ClZsvH/6lq1xPGS2jX6QXxzsuEZad01Lp2vabJonX5Y6/Q7MxeMUfjN8BbMzZgWSr
-	 A8UQqS1SiqM+8JFgqaAZerVIF3wH8u3EZO/iRfeeR4CWz7QTeHDeBMFbDN9zQde/pG7s5
-	 o5WK5dAVUcbga/yw7XvW8VZYE1R5HPMq+KDztLiuZGv+uID+fKOgZIqDZewDvT8X9yxAM
-	 TYfRezSIe8iwd0kxdLDhE3Xvyps5tq+VnFdUZc/1R38rVmJFyMved/XrYs4LnKaOb9w==
+	t=1795380854;
+	b=eCnPAUZELYsfkBr2lubu6V5t8HGM7AuEoZR4PLDxC73tcVCypVUzXnJy+27aNLyw20I1
+	 RFNefFPE+Yy/C9HYMmjWp1N1IclvlxurvF8U7si1B+NOzddQ+sOXOP0/v4kRt5FzJnFYm
+	 b9PrgX/uZyaeGQ4jkEIQgjLkefJvOj7UlOhEcQRB6JVgitTcHWBlqdy2WbyhVm2aTQEAQ
+	 G1MLRzo7xFZkd6U/cXRxyjEe2ac73DnCqazpPRNkHtN0EZM8BOe50J8VI9PvQSxksSCHz
+	 GsWdg9XxDB0D7YLiCW2WnB4L9/4snpvACDG6ziAg93D3Y/xggQ1T0xYG7reTmGcu4OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795380737;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tuig+EQ220c3fmZpeomydXlRxIvrkJI/xod76DCTEhw=;
-	b=1kJaV3+pRw3AOK7MiY2Fb/8WxZ15AKjwnpmW+lFRee30ayioe/N/jDgPUSQ5LUmE5iJZ
-	 8tgCJD6hfbwyhYSPYwdFF2pNq5a4tm9aNktmlg7XfFOiyZrohaGZnep9dvIf+UeOkFuzO
-	 CRBuIdzrYZO++FCUggurAqu+O7wQ2wCHmPlONDbWCqgAmAnAcBGCWLjA8iylPQx7PD7nq
-	 /RdW0O+ujkUVFcQ53G8SnasNnm9XTbIyJBMBRRAKsybciM6Edarfvwcmq/zsoz50iL3eX
-	 JAioBe+nMXoApZZDhdWMjcBgrTkVDBrDJEzU3crfeXJxyNUWxK92+XORHPQ4SmPoHFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795380854;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=p7z+KmSzptEn38pg7PeFLGE32dCPLjcwqeC//Sa5oLc=;
+	b=S2+vNedbv6PM020/6at1hv7pLoVeVa7d0VD1WYDwgd0quYqUbf+5urcv5jUhwdwLIApV
+	 ZbRc1L8VudQOLPF8BoPYTTpLGncBaKiwzy0RlHsWY9+Zx3wkMVGwN+OLdmhMGZXX4iMcb
+	 6em8aNVmwdegdldiMH3XW2SCI9Jrvfq2IEYX7M/xcx5xSFjuCAlte7+e3Zy38gpgW96S5
+	 eWhmCuqxHp/vIw1rybiyqMFYdwgG6DG2itiHrTD8QX/BXfnMT+Yunwj/eLoGpogdvRg+O
+	 CBaPsKc7vQjGi3mu+aOo62dQOWYeo4R9xl2ostEy/zz1JZokzDahsKqNQl7edb8E/VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUfsrUeS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="E9lP3FS/";
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FC5606A32C;
-	Sun, 22 Nov 2026 20:52:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BC4606A31A
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:54:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39BC4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUfsrUeS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30591F000C6;
-	Sun, 22 Nov 2026 20:52:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795380737;
-	bh=tuig+EQ220c3fmZpeomydXlRxIvrkJI/xod76DCTEhw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZUfsrUeSrKt4g0u/yUZljTfb2NYx5jJqhnjwTXmJMSrCzitPNYeUim1UDJAyFrKB0
-	 +iZIm5zz+VjHFsf5NpDPM6123aiVw7DYpJSqnt7X3YUxHNCWVi7oT85L46GG2SMYYe
-	 Ij+j4ROEvvYEK2nw5x1Z2nf8vQcC1cZKcsu+9Dy8UdLqJ7pxfQZPtbJAgzt2EQbeMC
-	 udG9ZD4IHT4CTPcAPioEWDVZRVuyelBCxrooh0eeoG80YIhy5yixtJWj89QWn0Y0N1
-	 pjl1vqKlXXVp6zbLVwBv0Pbj0+VYOlwIDMTY3KfXNpwETrEnVHrWr8sGRSfHOwCuso
-	 3IAKrnQZGbGug==
-Date: Sun, 22 Nov 2026 20:52:11 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Gerard Marull-Paretas <gerard@teslabs.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Frank Li <Frank.li@nxp.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] iio: magnetometer: mmc5633: Enable the VDD
- supply
-Message-ID: <20261122205211.6c46f3cc@jic23-hlaptop>
-In-Reply-To: <20261122190836.66111-3-gerard@teslabs.com>
-References: <20261122190836.66111-1-gerard@teslabs.com>
-	<20261122190836.66111-3-gerard@teslabs.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=E9lP3FS/
+Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	by cmsmtp with ESMTPS
+	id V86uxuGQSVK9UVEZhxqj5z; Sun, 22 Nov 2026 20:54:13 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id VEZgxd5TWSeuLVEZhx6Jvc; Sun, 22 Nov 2026 20:54:13 +0000
+X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6b035675
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=_jlGtV7tAAAA:8 a=j_DNJw53LGFIdKuy69YA:9 a=QEXdDO2ut3YA:10
+ a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=p7z+KmSzptEn38pg7PeFLGE32dCPLjcwqeC//Sa5oLc=; b=E9lP3FS/8nP0
+	ZYsEjiY63kyWAetoCJktBvA2RCRZej5QcRvSjtPeXhT0H9cC7mvNIISL5ggHhNrFW1qcpAFJEnRPV
+	oeFdbuwQbEolK8mRIMTZRGiN+WeNaJE4wv3njcQk55w7ZFhFazT3U4Fl5A5O99pkJXvcvXjNz3VDJ
+	fcOm0imtbC0FSZuZ6HKEq8x/3DJFkH5BaXEZKRgRHihbyiRBTfXq1Iyuua+hAODkilgGBcr7/at1n
+	7wSC1zhSqr55EdXH0X/Ceah81AIUgfUQX9KqEE04aO+ofnfHIqvNb02RlLRHyIUfuHdSN81TULGb9
+	qRXnIn7Brm9LDqxKltyLgQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:33860)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xVEZf-000000002Ue-39SN;
+	Mon, 23 Nov 2026 02:24:11 +0530
+Message-ID: <ccb44fa4-b570-488b-8797-b9d520a09539@roeck-us.net>
+Date: Sun, 22 Nov 2026 12:54:09 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,56 +76,193 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] hwmon: (tmp401) add channel label support
+To: Bruno Thomsen <bruno.thomsen@gmail.com>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+References: <20261118174334.18759-1-bruno.thomsen@gmail.com>
+ <20261118174334.18759-2-bruno.thomsen@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261118174334.18759-2-bruno.thomsen@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xVEZf-000000002Ue-39SN
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:33860
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 22
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfDyTeYAMUuZMvsKYhBXfbgWl/y+HWN3w52eth9sfQ1yc5Oe4drozIXbO/pj7I5jDa7xSBnArwprmqUymz8CXwVJCk07brZU39EZrhE3AJFMQPuOhY+AL
+ ub9D1/bwW0G3nK1O3qVl3Wjvs6QwH8pPsXKM8X38jdVzlkwjaE+rNwUQY9HYnne5WGwgmRXDuRdmoHM9E7Klq9q0jY7Tw+Vo7mTlcO29LfWL12uUs+3JX7zz
 
-On Sun, 22 Nov 2026 20:08:35 +0100
-Gerard Marull-Paretas <gerard@teslabs.com> wrote:
-
-> Boards may switch the supply of the sensor, so get and enable it before
-> initialising the chip, and wait the 5 ms both parts need after VDD is
-> valid before they can be operated.
+On 11/18/26 09:43, Bruno Thomsen wrote:
+> Read the optional per-channel label from the device tree and expose it
+> through tempX_label, so user space can select a temperature sensor by
+> the name the board gives it instead of hardcoding a sysfs index.
 > 
-> Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
+> The channel index comes from the child node reg property. Reject a reg
+> value that the detected chip does not implement, since only TMP432 has
+> a second remote channel; accepting it would add a tempX_label with no
+> matching tempX_input.
+> 
+> This mirrors what lm90 already does.
+> 
+> Signed-off-by: Bruno Thomsen <bruno.thomsen@gmail.com>
+
+For my reference:
+
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+
 > ---
->  drivers/iio/magnetometer/mmc5633.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> Changes in v2:
+> - Fix continuation-line alignment in tmp401_read_string() reported by
+>    checkpatch --strict.
+> - Expand commit message: the channel index comes from the child node
+>    reg property, and a reg value the detected chip does not implement is
+>    rejected so no tempX_label is created without a tempX_input.
+> - Skip child nodes not named "channel", as lm90 and tmp421 do.
+> ---
+>   drivers/hwmon/tmp401.c | 36 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 36 insertions(+)
 > 
-> diff --git a/drivers/iio/magnetometer/mmc5633.c b/drivers/iio/magnetometer/mmc5633.c
-> index b651f01e1b5d..79015c7984de 100644
-> --- a/drivers/iio/magnetometer/mmc5633.c
-> +++ b/drivers/iio/magnetometer/mmc5633.c
-> @@ -27,6 +27,7 @@
->  #include <linux/mutex.h>
->  #include <linux/pm.h>
->  #include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
->  #include <linux/time.h>
->  #include <linux/types.h>
->  #include <linux/unaligned.h>
-> @@ -64,6 +65,7 @@
->  #define MMC5633_CTRL1_BW_MASK		GENMASK(1, 0)
->  
->  #define MMC5633_WAIT_SET_RESET_US	(1 * USEC_PER_MSEC)
-> +#define MMC5633_POWER_ON_US		(5 * USEC_PER_MSEC)
-
-Obviously the line above isn't great on this, but is there a spec reference
-we can make for this timing?
-
->  
->  #define MMC5633_HDR_CTRL0_MEAS_M	0x01
->  #define MMC5633_HDR_CTRL0_MEAS_T	0x03
-> @@ -472,6 +474,12 @@ static int mmc5633_common_probe(struct regmap *regmap, char *name,
->  	if (ret)
->  		return ret;
->  
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable VDD regulator\n");
+> diff --git a/drivers/hwmon/tmp401.c b/drivers/hwmon/tmp401.c
+> index 2fceeacdc88c..7b645d982c9a 100644
+> --- a/drivers/hwmon/tmp401.c
+> +++ b/drivers/hwmon/tmp401.c
+> @@ -117,6 +117,7 @@ struct tmp401_data {
+>   	struct hwmon_channel_info temp_info;
+>   	const struct hwmon_channel_info *info[3];
+>   	struct hwmon_chip_info chip;
+> +	const char *channel_label[4];
+>   };
+>   
+>   /* regmap */
+> @@ -467,6 +468,16 @@ static int tmp401_read(struct device *dev, enum hwmon_sensor_types type,
+>   	}
+>   }
+>   
+> +static int tmp401_read_string(struct device *dev, enum hwmon_sensor_types type,
+> +			      u32 attr, int channel, const char **str)
+> +{
+> +	struct tmp401_data *data = dev_get_drvdata(dev);
 > +
-> +	fsleep(MMC5633_POWER_ON_US);
+> +	*str = data->channel_label[channel];
 > +
->  	indio_dev->info = &mmc5633_info;
->  	indio_dev->name = name;
->  	indio_dev->channels = mmc5633_channels;
+> +	return 0;
+> +}
+> +
+>   static int tmp401_write(struct device *dev, enum hwmon_sensor_types type,
+>   			u32 attr, int channel, long val)
+>   {
+> @@ -502,6 +513,7 @@ static umode_t tmp401_is_visible(const void *data, enum hwmon_sensor_types type,
+>   		case hwmon_temp_fault:
+>   		case hwmon_temp_lowest:
+>   		case hwmon_temp_highest:
+> +		case hwmon_temp_label:
+>   			return 0444;
+>   		case hwmon_temp_min:
+>   		case hwmon_temp_max:
+> @@ -521,6 +533,7 @@ static umode_t tmp401_is_visible(const void *data, enum hwmon_sensor_types type,
+>   static const struct hwmon_ops tmp401_ops = {
+>   	.is_visible = tmp401_is_visible,
+>   	.read = tmp401_read,
+> +	.read_string = tmp401_read_string,
+>   	.write = tmp401_write,
+>   };
+>   
+> @@ -531,6 +544,7 @@ static int tmp401_init_client(struct tmp401_data *data)
+>   	struct regmap *regmap = data->regmap;
+>   	u32 config, config_orig;
+>   	int ret;
+> +	u32 ch;
+>   	u32 val = 0;
+>   	s32 nfactor = 0;
+>   
+> @@ -590,6 +604,28 @@ static int tmp401_init_client(struct tmp401_data *data)
+>   			return ret;
+>   	}
+>   
+> +	for_each_child_of_node_scoped(data->client->dev.of_node, child) {
+> +		if (!of_node_name_eq(child, "channel"))
+> +			continue;
+> +		ret = of_property_read_u32(child, "reg", &ch);
+> +		if (ret) {
+> +			dev_err(&data->client->dev, "missing reg property of %pOFn\n", child);
+> +			return ret;
+> +		}
+> +		if (ch >= ARRAY_SIZE(data->temp_channel_config) ||
+> +		    !data->temp_channel_config[ch]) {
+> +			dev_err(&data->client->dev, "invalid reg %u of %pOFn\n", ch, child);
+> +			return -EINVAL;
+> +		}
+> +		ret = of_property_read_string(child, "label", &data->channel_label[ch]);
+> +		if (ret == -ENODATA || ret == -EILSEQ) {
+> +			dev_err(&data->client->dev, "invalid label property in %pOFn\n", child);
+> +			return ret;
+> +		}
+> +		if (data->channel_label[ch])
+> +			data->temp_channel_config[ch] |= HWMON_T_LABEL;
+> +	}
+> +
+>   	return 0;
+>   }
+>   
 
