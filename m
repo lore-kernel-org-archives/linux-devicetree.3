@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795330852;
-	b=Q+0i6Vc9++Z5PNfBlTR5kp5iuKLc8QX6SgXCmzUEgEY4gR+9he6FHjMdkGWfz8204bkQ
-	 esRR9J9TaHzj6OQUq+vUd9QKOMCtfKjPRjd36hUU8qgvoY6ato5wlvK+7RWJ9ztt/W3DH
-	 +PLKeinQX1518WdseQxf2bULrJ8PjInyWLCl6vHeUqcItdHRrCvOltB6GGbANcjT7xRI6
-	 Y4YTMaX4ChDEQmjX7+2N9nU7ST7bqVcz0utSum1Et6yeaC/nC42cgFK/K1L8jq/XNYX2q
-	 jirbNsXRCcBTaqcbg6P8jFqd7MzyWX5fRvfgG/p2B4/Z+qJuQgMTn1KVbZarR0KKlHg==
+	t=1795330999;
+	b=3o3ZxcsNCssHXzj3G9nwQiAOCbMocgNb7qs2JYb5WwGl+PCSH+ZsAa6xlGql4474+1eP
+	 f1sYR8FZpIf5ctR10UFaaPM6nCxU1s/Ju4bHzw5smTMTbwN7Gm2HN9lYQUEj8PxYze4uG
+	 qkJKyBVW9dm0hRiz+Sx0wal1dkHj8fwuKyIL6ucve3epaefztTOONqbspqwXzHcsOWbqQ
+	 M3LJ18cvvpLnuk7LQ/OQqAc7K+mfKlnbl7XcR02r5hZCnwr11r04hlp9dGPv8vheNfsDW
+	 99JhgVD6W99hg2pWwVgLkWL4Toia1tQOLj1nz8L0Z+WMhQEG7wBwmKzLT3fIiHpy3kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795330852;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795330999;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=4mtnUF0ZD+iD0QNuZlPCLnIZsxaQq88aTBKDapWOksA=;
-	b=ZGVe1Mv9nvZlfo1AII9mwWrajoo0geybuIkqBMGw1G/+tysaBCM0gSIZ1YtXM7b7KkwO
-	 NmdJfzNtyopUz1MUHrC++QO+Id0d6dlqUJfaDcxgN7pNsgCppsftklUukkSY4UApLGuB5
-	 vEBDK0cD/iDvl6ZqLNmRk+sQVFUaiYzH4+wdjLIr9OGsMILKuNuCqWyrd4ZSN7F3TrA9l
-	 9htguo65xoP8i7N6pPdKw+1DqbvqfOXjXRIcPgk8THj9mn9nGqJZ/g5RGnRrS0YKST54V
-	 iB4b4f2YMaQdxpj+S5xkLm1WUrh5qpGp9b9TsrlTX7q1efXsPAAWy8kn+GkMFAGu+qQ==
+	bh=FGv+M23/3tHrt6xfC1VMgCGhjU3kLcdSUSdtLMyqS3A=;
+	b=DhiMyqabcKOFjtPlFU+95Ns3BAwgm9ICYIYSQJWXHTOtnE0h5EFcEHdgEmwYTkjL5Pmr
+	 3izfP2nscNBO3MDr1yDPyaGCmZTqFqkzQZ7yliAughV4fc4AsvYLx8SgugPe6s81tPmbi
+	 BzAwTLDLaPPVQoWIyJe1yKKE7fZ6jdXsuQvLU4Lh8XN0LV/qW7Bt7sy9kVVb9vaNTn11M
+	 UrowjxfoJZjqMD7zLSuslblOBHW7J9mRfTDOdlQplQrCh7P9LwRO6wqDVwLzucuIVCLc2
+	 duhd8gRN+BGebv85yFibv8sfIxLt59jPVCLPMVbQy/sR3i4Qf+JcKwBsYr2/wvG0bDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJNXawat;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+ez74Wz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F58606A32C;
-	Sun, 22 Nov 2026 07:00:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C55606A320;
+	Sun, 22 Nov 2026 07:03:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJNXawat
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09821F000C4;
-	Sun, 22 Nov 2026 07:00:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+ez74Wz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269FC1F000C4;
+	Sun, 22 Nov 2026 07:03:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795330852;
-	bh=4mtnUF0ZD+iD0QNuZlPCLnIZsxaQq88aTBKDapWOksA=;
+	s=k20260515; t=1795330999;
+	bh=FGv+M23/3tHrt6xfC1VMgCGhjU3kLcdSUSdtLMyqS3A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QJNXawatCuzqiN3ytxKy0Y3+FjNWDA/5lDMBbHZ94hYFhj0yNgbb8h9P3N6AO+Uld
-	 qDMLLeY+8kezLGs7GQjgAJSyLSsMRltL3l+ZWIX9itT4JEmmts5omm3wJI8lr+CEbQ
-	 40r5CEvrM/8bkldf++X5pqsU6ulPwG8ZL+mH8BWWdxsfx8KJB/J3o15UtheBNoKE5V
-	 SPmJccodhEqstLCTwNm3GrPPnEU7njIzL3TB9hYQpBTnYZLoGkkRh/H/snniLa6ixo
-	 GrCtRbErOUeg+0Ff19rz7OcJQPoUm+3b+ylb77zW2cH6sfESxpp2oKXsz21T3IxnET
-	 O9hgJivA06Hew==
-Message-ID: <sashiko-outbox-227775@kernel.org>
+	b=D+ez74Wzb3kGTMFB1/31bomH7G+O1NC+UVENmfWe9eqIg3AuOLl498Eqjk0QygiMn
+	 gVhCkGnjYXsMPVU+/bp/g0Rjo50+9URbD2joZFtfKCZdn92Lqi2MTCoTX4dSThIX2j
+	 wyzVI2afEAvj5DoB9knm0DK1O6f9m1ALbQU1jjVjeFtmARgnyuhD5wFW4OBgQ3Gg+6
+	 VGb7lHDL/VwcpM2NHLyQKqgOLF3VbOiQKUqsInogF3jV898pw7mmVO1gV/eDzVCZs8
+	 tb5kx9TSJ5iIq4egYWaIbYOQ9cAkXbIgRXid7ROr96TJ+58rKuJyox5an2T7zs/l/F
+	 i3rx1SrHORqhA==
+Message-ID: <sashiko-outbox-227779@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] power: sequencing: pcie-m2: Add support for PCIe
- M.2 Key B connectors
+Subject: Re: [PATCH 1/4] dt-bindings: watchdog: Add HiSilicon STB watchdog
+ binding
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261122-pcie6_fix-v2-2-2e0fe615d90b@oss.qualcomm.com>
-References: <20261122-pcie6_fix-v2-0-2e0fe615d90b@oss.qualcomm.com>
- <20261122-pcie6_fix-v2-2-2e0fe615d90b@oss.qualcomm.com>
+To: "David Yang" <mmyangfl@gmail.com>, linux-watchdog@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261122065549.3265519-2-mmyangfl@gmail.com>
+References: <20261122065549.3265519-1-mmyangfl@gmail.com>
+ <20261122065549.3265519-2-mmyangfl@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 07:00:51 +0000
+Date: Sun, 22 Nov 2026 07:03:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,87 +63,52 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [Medium] power: sequencing: pcie-m2: regulator leak on GPIO error in
-  pwrseq_pcie_m2_probe()
-- [Low] power: sequencing: pcie-m2: missing GPIO rollback in
-  pwrseq_pci_m2_b_pcie_enable()
+- [Low] dt-bindings: watchdog: redundant word binding in commit subject
+- [Low] dt-bindings: watchdog: non-canonical property order in example
+  node
 --
 
-commit 7e388f1a5a5b0e7dcbfd3500f89d85602dad1287
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+commit a1622b56fb454eac20ec415b3fb13ffbe0760e8a
+Author: David Yang <mmyangfl@gmail.com>
 
-power: sequencing: pcie-m2: Add support for PCIe M.2 Key B connectors
+dt-bindings: watchdog: Add HiSilicon STB watchdog binding
 
-This commit adds power sequencing support for PCIe M.2 Key B connectors,
-handling the power supplies along with the FULL_CARD_POWER_OFF#, RESET#,
-and W_DISABLE1# GPIOs.
+This commit adds a Device Tree binding schema for the watchdog controller
+found on HiSilicon STB SoCs.
 
-> diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/se=
-quencing/pwrseq-pcie-m2.c
-> index 56c5d51293c10..8af4a059b5961 100644
-> --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
-> +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
-[ ... ]
-> @@ -135,6 +137,45 @@ static const struct pwrseq_unit_data pwrseq_pcie_m2_=
-e_pcie_unit_data =3D {
->  	.disable =3D pwrseq_pci_m2_e_pcie_disable,
->  };
-> =20
-> +static int pwrseq_pci_m2_b_pcie_enable(struct pwrseq_device *pwrseq)
-> +{
-> +	struct pwrseq_pcie_m2_ctx *ctx =3D pwrseq_device_get_drvdata(pwrseq);
-> +	int ret;
-> +
-> +	ret =3D gpiod_set_value_cansleep(ctx->full_card_power_off_gpio, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return gpiod_set_value_cansleep(ctx->w_disable1_gpio, 0);
-> +}
+> dt-bindings: watchdog: Add HiSilicon STB watchdog binding
 
 [Severity: Low]
-If gpiod_set_value_cansleep() fails on ctx->reset_gpio or
-ctx->w_disable1_gpio, should this restore the earlier GPIOs back to 1
-before returning?
+The "dt-bindings:" prefix already states that the patch adds a binding, so
+"binding" at the end of the subject is redundant and can be dropped:
+"dt-bindings: watchdog: Add HiSilicon STB watchdog".
 
-When unit->enable() fails, pwrseq_unit_enable() disables the regulator
-dependency units without calling unit->disable(), leaving
-ctx->full_card_power_off_gpio (and ctx->reset_gpio) deasserted while
-power is off.
+> diff --git a/Documentation/devicetree/bindings/watchdog/hisilicon,histb-w=
+dt.yaml b/Documentation/devicetree/bindings/watchdog/hisilicon,histb-wdt.ya=
+ml
+> new file mode 100644
+> index 0000000000000..c0a8ccdb482a4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/watchdog/hisilicon,histb-wdt.yaml
 
 [ ... ]
 
-> @@ -577,6 +632,17 @@ static int pwrseq_pcie_m2_probe(struct platform_devi=
-ce *pdev)
->  		goto err_free_regulators;
->  	}
-> =20
-> +	ctx->full_card_power_off_gpio =3D devm_gpiod_get_optional(dev, "full-ca=
-rd-power-off",
-> +								 GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ctx->full_card_power_off_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->full_card_power_off_gpio),
-> +				     "Failed to get the FULL_CARD_POWER_OFF# GPIO\n");
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
 > +
-> +	ctx->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIG=
-H);
-> +	if (IS_ERR(ctx->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-> +				     "Failed to get the RESET# GPIO\n");
-> +
+> +    watchdog@8a2c000 {
+> +        compatible =3D "hisilicon,hi3798cv200-wdt", "hisilicon,histb-wdt=
+";
+> +        reg =3D <0x8a2c000 0x1000>;
+> +        interrupts =3D <GIC_SPI 29 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks =3D <&crg 0>;
+> +    };
 
-[Severity: Medium]
-Do these error paths leak ctx->regs and the regulator references acquired
-by of_regulator_bulk_get_all()?
-
-Unlike the w_disable1_gpio and w_disable2_gpio checks right above,
-returning directly here bypasses the err_free_regulators label that calls
-regulator_bulk_free() and kfree(ctx->regs).
+[Severity: Low]
+In the example node, clocks should be listed before interrupts to follow
+the canonical property order used in the properties list above.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-pcie6_fix-=
-v2-0-2e0fe615d90b@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122065549.3265=
+519-1-mmyangfl@gmail.com?part=3D1
