@@ -1,78 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795309215;
-	b=Sa16TlAGq3qz689TdMkJlMtQzv8B6sKJkpB5bH/R9APPF7Lqd1duJGCgjNL9XknO1vmS
-	 xbFiAx/6sYBlpd+sSl16q6RyjMEzshuGTylbYyvnSGL0v6wkSECALABkESVLIzAqZSuhQ
-	 6TDXxzCQco+mowK40RQkFT1BysFEqkoUpZkTcHo2MHPHt0Bhbw1m8gfGCqkhOpWZZqfvx
-	 YXEVCbswJJovwIth+2j4cv98po23sjTZgF2RJ3I0TRAuue9An74kjgeu1cRjhAFX6SvIJ
-	 VsqIDkY7p3qkuwkglX0jQbZ3+AUklS4wc7X2a2DQbtZ+c9qaYOJia2h8VDMDu3QyNgQ==
+	t=1795311715;
+	b=qnSksIQMwmZuG81lkt1FuFV1HmLSNj2R/2xQNB0S++9/LnBcybWIbN9hAZ2h8M8mMHHW
+	 8Ri9oUieo4Zl1PFe/W3zDTqvKagHwm3skgmd1iHC+pwuNLPeIM2G7n7RI9j1uBHaErcti
+	 fvQAGmnEoEPhF45j3vxHDcTfoku9UALxnIFGTCCVvNQc4V0seGjZ8T/xkZ8EnfwowoVMK
+	 fQikFvI85WU1WHfSoTuL/485yuU1ognZfb79KVUuUypjSMgUFWRugol+xmkwryhcb81Yj
+	 7VVY7kRbCnGTPsdKyhL7Uwjbns1TPht2nqXv2Ju9rwm3l3jPJRWGm2H6fLeq+CyUaRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795309215;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=yiOSm1bkyAMQFGBb+Y0A4VMMiKXTGYYH6qcBe1qvEcQ=;
-	b=3JyVqxXhvD7cbJo/NndODm/98ICvQs+K5oEtSKuqlsOYM0hAtEzoHTbjX2wBcMight7b
-	 y3d1tuzU+6Opc3FXkvc03P/rkEoBR8Q0NU0Uvw6pc1slm5woneWNgvCPhE5zRlkvhTE49
-	 MNXc5OvCTVpTTOfsz9kwD298btYQyaUxSOBpIdfuDs3F+3p/HmAsPynmTGveeJink0UOW
-	 8w6y+ciOuQZ282fYXkviOmpsiAbSnw3ndsJrWKgStjUL2GuUpVDmwV3161SwTeDa0ZQ7x
-	 PCYLNjiB+hv4nCB27EiMLoogBm4XaospFSJRfPN8PnHPHIvZV794YEHa6pNDHUq8QdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795311715;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EE51FGywmKNIyzivecG4EuPCn4Tr1SfguQFjQwLn8tg=;
+	b=nACcKvgl81Pt1hDmrD0UnReHMqBeW0+pClfEKkHPRuzK1trv4F4HlNCcd6vvZ9H+6o91
+	 0T4eztDAyESqyqW1XuOS23ZrzVr6jCckjZWHmh3m16YN41sO1dCwc9YCkAN49eqKY7jQW
+	 BASMv0TcWxrXJV3Uefrm0ctz3wl4ZO87FfLSJYHtUot7BrfsDxDOg8hWMKiHVLnnUV/hM
+	 MBVVWYcMw2BqI5u4OH1n/t1xEBPku4VvR2qwuxPo0wa8pnkwoNAmUYBLN28ap/f7GXpK0
+	 UhIslkLoLZjC1g7QWS8ppTDwDXi5kndB/uIg3GkfGECEcuf19IKsIf9/4BulMLIVfCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=idLo7FDd;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWAVZdKM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id F053F606A32A;
-	Sun, 22 Nov 2026 01:00:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F053F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65716606A320;
+	Sun, 22 Nov 2026 01:41:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=idLo7FDd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1795309212;
-	bh=yiOSm1bkyAMQFGBb+Y0A4VMMiKXTGYYH6qcBe1qvEcQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=idLo7FDdCW2WIP2s6cJFayiTrWkOe0sP+zL5IHZnpWk1cVN7hsAEhxuxXuB7b3TGC
-	 F6+4HON7HbgtUFSuFl4xIzAmTfaDdMR1SEyzTQHES28vx8mUkCnKHUGqNGYvkKpoeK
-	 eT9/B6DGS1mApyF7xppRNJFbCXD/RhGkRzbjQ+6zAIlAnmRGcp09ez6cHlCfN+iyxR
-	 SwHd6v3NW9oqPDmiZNPJQdXAXrOxI4wm3dgAbzam9FIzJ4p9x3ZHlv9Z74mx+OhLJU
-	 e+5fbAtCqI7WRLfbr+P/pKOxdktk2BSrxh5lyqfpMU0jbppHw+pfZdGC7DTilQMzgT
-	 WuTn/oRkQ6+0Q==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 7883A6005B;
-	Sun, 22 Nov 2026 02:00:12 +0100 (CET)
-Date: Sun, 22 Nov 2026 02:00:10 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
-	"open list:NETFILTER" <netfilter-devel@vger.kernel.org>,
-	"open list:NETFILTER" <coreteam@netfilter.org>
-Subject: Re: [PATCH net-next 6/9] net: flow_offload: allow drivers to
- validate and invalidate cached paths
-Message-ID: <awI-mtwn3ohPw-fF@chamomile>
-References: <20261116222519.1416501-1-florian.fainelli@broadcom.com>
- <20261116222519.1416501-7-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWAVZdKM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76D31F000C0;
+	Sun, 22 Nov 2026 01:41:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795311715;
+	bh=EE51FGywmKNIyzivecG4EuPCn4Tr1SfguQFjQwLn8tg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OWAVZdKM2lxiTzvEW0znVaOuVHINDawBnsoZ3R69vcG/SN98leDBxC2oddwq50KKA
+	 xwYybekufnPXNOICbSGEhGCu7PWaiZQJUMEsQGLtlfClkwoSX2afitjcR2HZpbrh3i
+	 8OgYP1IMImyY+Il5VtHVvtxVP59gdvZM5qwmsq0I3VJplFOXVWHrqMDMDPGSw+XytF
+	 yPAWTl+yK/Ivdx9SbRT++bG/lnn18Zr9dgunqzhW9mLRbnLhpZETB1lhYn6Y/pQlwg
+	 nOn15ZwXsIj2OeQyK7L7KunsiqyylxT5R1DL2JQCN4teZGgW2luKpnub2am58A5Gpm
+	 hPOtTfsny/23w==
+Date: Sun, 22 Nov 2026 01:41:45 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Eddie James <eajames@linux.ibm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Paulius Zaleckas
+ <paulius.zaleckas@gmail.com>, Rupesh Majhi <zoone.rupert@gmail.com>, Joshua
+ Crofts <crofts@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>
+Subject: Re: [PATCH 3/3] iio: pressure: dps310: add Goermicro SPL07-003
+ support
+Message-ID: <20261122014145.1bb27261@jic23-hlaptop>
+In-Reply-To: <20261117083954.335814-4-jorijnvdgraaf@catcrafts.net>
+References: <20261117083954.335814-1-jorijnvdgraaf@catcrafts.net>
+	<20261117083954.335814-4-jorijnvdgraaf@catcrafts.net>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,51 +67,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116222519.1416501-7-florian.fainelli@broadcom.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2026 at 02:25:16PM -0800, Florian Fainelli wrote:
-[...]
-> +static int nf_flow_offload_validate(unsigned long cookie)
-> +{
-> +	struct flow_offload *flow = nf_flow_offload_cookie_flow(cookie);
-> +	unsigned int dir;
-> +
-> +	for (dir = 0; dir < FLOW_OFFLOAD_DIR_MAX; dir++) {
-> +		struct flow_offload_tuple *tuple = &flow->tuplehash[dir].tuple;
-> +		struct flow_offload_tuple *other = &flow->tuplehash[!dir].tuple;
-> +		struct dst_entry *dst = tuple->dst_cache;
-> +		struct neighbour *neigh;
-> +		u8 mac[ETH_ALEN];
-> +		bool valid;
-> +
-> +		if (!dst)
-> +			return -EOPNOTSUPP;
-> +		/* This is the actual route selected with the packet's policy
-> +		 * context, including mark, DSCP and the reverse lookup's oif.
-> +		 */
-> +		if (!dst_check(dst, tuple->dst_cookie))
-> +			return -ESTALE;
-> +		if (tuple->xmit_type != FLOW_OFFLOAD_XMIT_DIRECT)
-> +			continue;
-> +		/* A stacked path may have a different final Ethernet neighbour.
-> +		 * Do not mistake that unsupported context for a stale owner.
-> +		 */
-> +		if (dst->dev->ifindex != tuple->out.ifidx)
-> +			return -EOPNOTSUPP;
-> +		neigh = dst_neigh_lookup(dst, &other->src_v4);
-> +		if (!neigh)
-> +			return -ESTALE;
-> +		neigh_ha_snapshot(mac, neigh, dst->dev);
-> +		valid = (READ_ONCE(neigh->nud_state) & NUD_VALID) &&
-> +			ether_addr_equal(mac, tuple->out.h_dest);
-> +		neigh_release(neigh);
-> +		if (!valid)
-> +			return -ESTALE;
-> +	}
-> +	return 0;
+On Tue, 17 Nov 2026 09:39:54 +0100
+Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net> wrote:
 
-This validation to catch for stale entries looks very similar to what
-I'm working on. I guess there is a chance to consolidate all this in
-common infrastructure for both software and hardware modes.
+> The Goermicro SPL07-003 needs what the ZTS8032 chip data already
+> describes: c31 and c40 in the pressure polynomial, and TMP_CFG bit 7, a
+> rate bit on this chip too, left clear. Its TMP_EXT is MEAS_CFG bit 3 and
+> stays at the reset value, the internal sensor the datasheet recommends.
+> 
+> Its c31 and c40 are 12 bit values packed into 0x22-0x24, where the
+> ZTS8032 has 16 bit values in 0x22-0x25, so the coefficient block is 21
+> bytes. Add a chip flag for that layout, the chip data and the I2C and OF
+> IDs.
+> 
+> Tested on a Fairphone (Gen. 6). The DPS310 temperature workaround skips
+> this unit: bit 1 of register 0x32 is set.
+> 
+> Datasheet: https://media.digikey.com/pdf/Data%20Sheets/Goertek%20Microelectronics%20PDFs/SPL07-003.pdf
+> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+
+Applied with one minor tweak to the testing branch of iio.git. That means
+they are queued up for the next merge window.
+
+thanks,
+
+Jonathan
+
+> @@ -1495,12 +1517,14 @@ static int dps310_probe(struct i2c_client *client)
+>  
+>  static const struct i2c_device_id dps310_id[] = {
+>  	{ .name = "dps310", .driver_data = (kernel_ulong_t)&dps310_chip_info },
+> +	{ .name = "spl07-003", .driver_data = (kernel_ulong_t)&spl07_chip_info },
+
+Only thing I tweaked was to swap the two above around so we are in the same order
+in both tables. The reasoning being that all sorts of bugs are a result
+of mismatched entrees and having them on same order makes that less likely.
+
+>  	{ .name = "zts8032", .driver_data = (kernel_ulong_t)&zts8032_chip_info },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(i2c, dps310_id);
+>  
+>  static const struct of_device_id dps310_of_match[] = {
+> +	{ .compatible = "goermicro,spl07-003", .data = &spl07_chip_info },
+>  	{ .compatible = "infineon,dps310", .data = &dps310_chip_info },
+>  	{ .compatible = "zilltek,zts8032", .data = &zts8032_chip_info },
+>  	{ }
+
