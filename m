@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795378503;
-	b=4J9z25TMw5AXdIPPzAeXNtJW+enRyZMxWusTnjieSyY7LFW0TEP+Bnb2kPj5rwg4Xaef
-	 ZsxJpjZk4aS1rTIE5Ak9FAFiw1sNsX93kUWEKkR7kUNhgaPsjuPWryDvHWIe8b0aaPuHB
-	 C19NoUT0j9470USgpfUxqmz4++HtIFsXSVMKEkoNh2jnKiexs2lLY4TeFYYdher9aN1Zn
-	 QWsMaYK0szThYcynXA8mjncseZhCBASCaLx257Y6u9SSv9JYx/rfwnWJ+7xG19O9OJA5s
-	 HB0F1RoTMdhW7KIK0UMe1CezAyrpzxvAHku5jNLXzkX5D/dqcTPQKBX4qJjPzT1NCvQ==
+	t=1795378507;
+	b=fDJD/NH2B2i8kxEMtaipFvReUAjjLHPBcFe/flfctNFHQhojT916dw0uo1nPDqqYSaGn
+	 dN6aZwbPdFt70FgDUvJDYq1W+FTQIYnpOXc4Le4FsdjtC3JIJz3PgG+rW43aBV83cP3r6
+	 byfA7lCasWU6E6Pj4LLkGSMd4KJX2Bn+LQbz7bijLA8FwoII9JqlI+/wZb5wIdTZrdHW9
+	 pMMq5gb5megqCNHDM0J/xWkCfECKiBxwFPwASw/ZGnUOnWDE6hcEikQamkM2Eh9Kih4E0
+	 wcJ8wPJ+s56N0zmi5i7uW9/1pCdQS4WeyekaN57pJhLYfT5vBj2bsMQePizHhDJoaXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795378503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795378507;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=MaqYWImv02DJ+CpqgjmSJfLLPzjJ2VjogqkfcXMZh8E=;
-	b=sZBt6eNtdKpulsTkwVtRBQCmzF6iWAn9RGseUdT4ih07PohZTBhw+j7ZY0eIY2lMYu6c
-	 gy5buOSh/LHCWVScXDG9xeMJ6oy+VoxjFFXQWT8QAJebrOlkcLPU90k0Km+8oJZe/58wW
-	 Fi1nWYfdamzZ5/leMMqPeK1k0KFbV+PkxCuzLBmRofuLE2oDAYPVcQuhRi5kklkqWUzQq
-	 Y3e2468RJpaaQYUYSHsnn4m3A4jUntW+JTdX2OjQK4mo7WO31zCxHqWSFKC3bf2u4p6H8
-	 mi/eXOYznuwruWmy/HRUzGyQT7k7HnKWR6etAqGnmnInL+PLlGLwOkdcm/xRcuWPkdQ==
+	bh=YfTCUFkmVonj2+Ucb0O5WgQRRtR1yvF0haaOsUxTjRk=;
+	b=4MIVy+k4puyYv1r+Zlg+rD60zcMM2xTBBgqhF+Kn3Iw/KZoBFEx4lOm5fcvX6jZa58sk
+	 zHjNAUTEOF1FCxgOrxIylGAxI2dxGxXfASPx7USfyWf9qEFkAGQvzDIvafnyl84iqiXtp
+	 8dRmo8wVW5CKfWk/1dYU+mfsBMAIjXYPZQfngCkZaLj26oFShX5fcV7O4W+ONLEh90rw9
+	 v16cpnWuvDDhRQnFJb/AxYDh2xBEqaU+IHM8RCqQwsxxxpBrJmCtKoFeUclZiSra/P6tY
+	 LGezNk/b1tMuLiONVNnbIDylgQ89NnsC356bPuhMrbL105stGTnTJdFl6XtNq+kXOIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A+tBIyG6;
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4SXdbiY;
+	arc=none smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A42C606A68D
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:15:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A42C606A68D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583BF606A336
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:15:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 583BF606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A+tBIyG6
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b894a5ce3dso3408921a12.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:15:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4SXdbiY
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b87a92c17eso3645769a12.3
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:15:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795378501; x=1795983301; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795378505; x=1795983305; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MaqYWImv02DJ+CpqgjmSJfLLPzjJ2VjogqkfcXMZh8E=;
-        b=A+tBIyG6FwKA51lw2JK4ViwReDqsc56mbtfe7BW93tsdunhceN+ejkxD2D0u8vNYyU
-         PcO/HRW82JLP1rm439Aljgl4SuoKKPM/PnLDLOKtzRXRE9aHCilcoX/sgIICSyacpAtF
-         UNaoQeIdQav/KcsFDCZMe1gERTA65AFO2bS+KRdQi8ENsvTHTVGzaNxmnG2dsWvhBtHP
-         PT+UqCHw42m61ldaoGj70KTYsRtdgWPh68Q+4n6ChIz6/4a+xfrNyiAdZLNpB+Wzyr10
-         fau0+BG6bLu2DJfS69pAkUHon0HQQ9YL+sxGD5mqV1MVI2Ftuk48oqcu244aCxvaabX5
-         96fA==
+        bh=YfTCUFkmVonj2+Ucb0O5WgQRRtR1yvF0haaOsUxTjRk=;
+        b=Z4SXdbiYfkuPtgwH+tNzW+Vb47lUeDOfaNR/2hDbdcdZ3Nu2hbwnMis04+77sBl87d
+         fA98IX4DgiHSqwvvYZTK/x38P6u99PUdRLDFPaKOu1XgO6pBYpbPMSvTw5q7WI5VmnyH
+         HqD1R5Y3PMGU4e4S0+XSSsTQjW3KY+t1pxoRf+XgAd8oF/R1EG8b+XIjIluQDGzJA8vy
+         g1h69nok9HmOTL27lnrWkXW1qa41xMfhQyoBwX5W4IBh8vPx5d2NwrSDJrp5mk1ojlKK
+         cFT7h6ISM4qPXILaxjb0O18k9kdmWifxdI+DlcY7SWo3rC3Dv2hQnLzTWZHpmZX9eGCQ
+         1WQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795378501; x=1795983301;
+        d=1e100.net; s=20260707; t=1795378505; x=1795983305;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MaqYWImv02DJ+CpqgjmSJfLLPzjJ2VjogqkfcXMZh8E=;
-        b=1vpUkwiyhkFsnVAOB45bXUWToxyw699G3vlbDU16SQPZMdQvOwiR+6FdSRTTcOnxOL
-         eWdEMaj0BKiqgDVUi/qHzVOAVkMTP9SIXEHo72Mfbv0iCvX+VqSuueJts/nlU3LxCti1
-         ipgNSg/mOYKGciyDrk/4wbr6jta/vdQn+l+eDCaZkSUJfJCUn0/6PPkhSqpqTCE4OOU+
-         apoiVE4y63wuowuCfWXR/22sneZbWd5MI9s9E19wi7c1rKR6FxZV75VE2ZAUs6W8v85z
-         ITtyHeh341vj/ElyhaK+xeIwyzguyUC1oh9DMFYUxlFWbhyUTz08MYNG5CZcBpF04ddf
-         tCxA==
-X-Gm-Message-State: APuU4Z8om3OGonJputS+APxPd/5AjofuJGZhuFMwXOsq4qTT1qXayl14
-	YHemSF5kAntaslY4IMPdnGSTzU41CzHHsOHl+rlfOHB+jKSyatMplefe
-X-Gm-Gg: AZFdTZeiGE8aR/lHbIjuIcnBhai8TNJgEzDdzkZjr0kkUEEUyZ7c6xHNzt11+TQutDe
-	veeaoBhSktrMIR6ZplezhF3ylYxg206UUPEXC/Pr/BiV6PvBw4VY0o7zMquHte0ZhtSAbJmSMHN
-	MxRQC4OG/EtsKOE/ZRDBJ66syv0WPlU4ist/jo8vr8y+/V4cIvPBpR7P9Ippn1pWE0hs1CIO+eQ
-	4VBUMlbbkQHr8cnG15k+hBgalJLWZpy4H8SnNE7OXKX1x3CJu79DPZq5a3iEBaF5jEzEoWJARKK
-	RPaIb2zdfxm1kXWH8dIHBkidzyZa4ALC07NraGvxJFQ7CbVtgTuZIpFr9Hlw6mC3/iIQmELOFlZ
-	HlMBsscjmXrXh64oBPdaK7UwDTlD4TqfI2QyOwxdvSWk+FcYaBjId3B7fEosuPyYiqDvqnqhQeX
-	9hVKV7maDh9g0MWmq84K2fywZOVhkPU564XpEnP60RrWhcjN/nxnBoOdj6piYaAIw7NmsPIcIe9
-	xUIq85z6cRTc5Ff/ZHPwWaOkmz1UoQyiPbLcdw3+HTBu3WYnf+FmW8NEhp2csLx4fB/6LE/fKYh
-	P6EY9iIgv78uydDXMeZoqXRkIjt+dmASiTmf7xRobo9Z1aRc3JDyAibo+mOUe1TZ9dEEvsj2dVP
-	aUJpVYJu0wA==
-X-Received: by 2002:aa7:da08:0:b0:6ba:144f:ae49 with SMTP id 4fb4d7f45d1cf-6ba37e8b7cemr4884943a12.27.1795378501279;
-        Sun, 22 Nov 2026 12:15:01 -0800 (PST)
+        bh=YfTCUFkmVonj2+Ucb0O5WgQRRtR1yvF0haaOsUxTjRk=;
+        b=JGHeRe3T1tlU63XbVlkH49CLDkfGyAIcI/+tYqbaaopc8vTMzcF8ZW4CnQq/aCotV4
+         GlIjto4JKUJKFsnkyDLbogBUPnZoDSb62VW2hZ16LS6zCqNzFz3NOcnXUrNDrPhmugv5
+         IzDQGKPBA4Kms1kyfszajNYcJXbEXKVbhlxj3GpiaiLkx+pxbgBiUQ7xccJh0yutg0H0
+         dFg2/BKVWODLWSPjQNL36gD4Oja32u5hVGJrV0CGuwiqxLmf5yAXcpgV5q3nQZExNRWR
+         aVRomZ8iNFB8q4O5um0mzxLicaAnp0ZY4aA3mAl/oaC8w07D2NfhJ8IaiUeT8peSHmEL
+         k3ow==
+X-Gm-Message-State: APuU4Z+eJRo104Qg5FwYBG3UvyOoBpTXYyLMbxHbAgiYrvLbyxSYgS9w
+	cHyYBTvgxQyfvhaTglPck07159BQRko8c7Nv5JzuSCm4a9AFC9vuvuWP
+X-Gm-Gg: AZFdTZfr5c8eNY51dA6z7iSSpZayh9lCSpMyUUHXMiPULf7t0dnB8AynEmRjtqbLPbE
+	agUy34rkypm/8FqVyh6GROiAC3PYUHQR/kFx52xg0CPqb9Qn92e6PSSoL/a1gM09q523tdHlIPb
+	yx3LkiVRaD/rqXMjxOWmdRv3Wf7A9A/TXC0BLc8TRLEph3eVjQuhRHxYPtVDbcaJ/DiUJ2EMz3+
+	IFdbgKdzXFhlTQxYDcqdSVPql+s9RwWSrdWHmahSyY2q9wgYYl8anCUCo3Ov7lqLlNhq5Say6Di
+	SRrJHAa5M65lpOyZdTcOVBBBq9l9DEg3oSeIwu4c3yAj/O79D0YxKj4wcjX3j4z6SR7+dYpZu5J
+	c3klhXGjuBMSDEZGFbivz87wUHdPdRQh7Rg96lJemfppgQiUQ1ZrB8Kk6D6B9YogA71B4RQLVcN
+	8Qv3EOdNdG/1k2Do3RTwaI3K2RR0l2azVJwAvIhrBaA6VXJGvdahYuWxEwRucAJQSkqaQ+vKi4+
+	h2DdxZiWlO5buzhsXc/ddwBx5MFWERNtMJ0BpOo2ztJR5d7iDtf7/nj8sHiaEJbQnRRuuheWINw
+	qKGtokqEFpR4DiWCofFjOimkXVBmpcpq8v4+GynDnpfSDq+JjIoVxQmpKgeJHzN38mhjrruPGEn
+	Ee7Hc+GA0cA==
+X-Received: by 2002:a05:6402:1941:b0:6ba:7bee:e0b0 with SMTP id 4fb4d7f45d1cf-6ba7beee4dfmr2785151a12.8.1795378504730;
+        Sun, 22 Nov 2026 12:15:04 -0800 (PST)
 Received: from xeon ([188.163.112.54])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.14.59
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.15.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 12:15:00 -0800 (PST)
+        Sun, 22 Nov 2026 12:15:03 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -89,9 +89,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 16/18] ARM: tegra: tegratab: Update aliases, chosen and memory nodes
-Date: Sun, 22 Nov 2026 22:14:05 +0200
-Message-ID: <20261122201407.23742-17-clamor95@gmail.com>
+Subject: [PATCH v1 17/18] ARM: tegra: tegratab: Add video input configuration
+Date: Sun, 22 Nov 2026 22:14:06 +0200
+Message-ID: <20261122201407.23742-18-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261122201407.23742-1-clamor95@gmail.com>
 References: <20261122201407.23742-1-clamor95@gmail.com>
@@ -106,87 +106,201 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the chassis-type property. Add RTC aliases and place the aliases node
-first. Drop redundant configurations from the chosen node. Expose all
-available memory in the memory node, but add reserved memory regions to
-avoid touching TrustZone or bootloader firmware.
+Add camera nodes, VI and CSI graphs, and interlink them.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../tegra114-nvidia-tegratab-common.dtsi      | 44 ++++++++++++++-----
- 1 file changed, 34 insertions(+), 10 deletions(-)
+ .../tegra114-nvidia-tegratab-common.dtsi      | 163 ++++++++++++++++++
+ 1 file changed, 163 insertions(+)
 
 diff --git a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-index f6b167dc8d338..1e9df07dadc98 100644
+index 1e9df07dadc98..99f0d1c345e63 100644
 --- a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
 +++ b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-@@ -6,23 +6,24 @@
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
+ #include <dt-bindings/input/input.h>
++#include <dt-bindings/media/video-interfaces.h>
++#include <dt-bindings/media/video-interface-devices.h>
+ #include <dt-bindings/thermal/thermal.h>
+ 
  #include "tegra114.dtsi"
- 
- / {
--	chosen {
--		/* TN7's bootloader's arguments need to be overridden */
--		bootargs = "console=ttyS0,115200n8 console=tty1 gpt fbcon=rotate:2";
--		/* TN7's bootloader will place initrd at this address */
--		linux,initrd-start = <0x82000000>;
--		linux,initrd-end = <0x82800000>;
--	};
-+	chassis-type = "tablet";
- 
- 	aliases {
- 		mmc0 = &sdmmc4; /* eMMC */
- 		mmc1 = &sdmmc3; /* uSD slot */
- 		mmc2 = &sdmmc1; /* WiFi */
- 
--		serial0 = &uartd;
-+		rtc0 = &palmas;
-+		rtc1 = "/rtc@7000e000";
-+
-+		serial0 = &uartd; /* Console */
- 		serial1 = &uartc; /* Bluetooth */
- 	};
- 
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
- 	firmware {
- 		trusted-foundations {
- 			compatible = "tlm,trusted-foundations";
-@@ -32,8 +33,31 @@ trusted-foundations {
- 	};
- 
- 	memory@80000000 {
--		/* memory >= 0x37e00000 is reserved for firmware usage */
--		reg = <0x80000000 0x37e00000>;
-+		reg = <0x80000000 0x40000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		linux,cma@80000000 {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0x80000000 0x30000000>;
-+			size = <0x10000000>;		/* 256MiB */
-+			linux,cma-default;
-+			reusable;
-+		};
-+
-+		bootloader-firmware@b7e00000 {
-+			reg = <0xb7e00000 0x8000000>;   /* 128MB */
-+			no-map;
-+		};
-+
-+		trustzone@bfe00000 {
-+			reg = <0xbfe00000 0x200000>;	/* 2MB */
-+			no-map;
-+		};
+@@ -61,6 +63,91 @@ trustzone@bfe00000 {
  	};
  
  	host1x@50000000 {
++		vi@54080000 {
++			status = "okay";
++
++			csi@800 {
++				status = "okay";
++
++				avdd-dsi-csi-supply = <&avdd_dsi_csi>;
++
++				/* CSI-A */
++				channel@0 {
++					reg = <0>;
++
++					nvidia,mipi-calibrate = <&mipi 0x003>; /* CSIA & CSIB pads */
++
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						csia_input: endpoint {
++							data-lanes = <1 2>;
++							remote-endpoint = <&rear_camera_output>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						csia_output: endpoint {
++							remote-endpoint = <&vi_ppa_input>;
++						};
++					};
++				};
++
++				/* CSI-B */
++				channel@1 {
++					reg = <1>;
++
++					nvidia,mipi-calibrate = <&mipi 0x00c>; /* CSIC & CSID pads */
++
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						csib_input: endpoint {
++							data-lanes = <3>;
++							remote-endpoint = <&front_camera_output>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						csib_output: endpoint {
++							remote-endpoint = <&vi_ppb_input>;
++						};
++					};
++				};
++			};
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					vi_ppa_input: endpoint {
++						remote-endpoint = <&csia_output>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					vi_ppb_input: endpoint {
++						remote-endpoint = <&csib_output>;
++					};
++				};
++			};
++		};
++
+ 		hdmi@54280000 {
+ 			status = "okay";
+ 
+@@ -1270,6 +1357,82 @@ power-sensor@44 {
+ 		};
+ 	};
+ 
++	i2c@7000c500 {
++		status = "okay";
++		clock-frequency = <400000>;
++
++		ad5823: coil@c {
++			compatible = "adi,ad5823";
++			reg = <0x0c>;
++
++			VANA-supply = <&avdd_2v8_front>;
++			enable-gpios = <&gpio TEGRA_GPIO(BB, 7) GPIO_ACTIVE_HIGH>;
++		};
++
++		rear-camera@10 {
++			compatible = "ovti,ov5693";
++			reg = <0x10>;
++
++			reset-gpios = <&gpio TEGRA_GPIO(BB, 5) GPIO_ACTIVE_LOW>;
++
++			clocks = <&tegra_car TEGRA114_CLK_CSUS>;
++			clock-names = "xvclk";
++
++			avdd-supply = <&avdd_2v7_rear>;
++			dvdd-supply = <&vdd_1v8_vio>; // vdd_1v2_cam
++			dovdd-supply = <&vddio_1v8_cam>;
++
++			orientation = <MEDIA_ORIENTATION_BACK>;
++			rotation = <90>;
++
++//			lens-focus = <&ad5823>;
++
++			assigned-clocks = <&tegra_car TEGRA114_CLK_VI_SENSOR>,
++					  <&tegra_car TEGRA114_CLK_CSUS>;
++			assigned-clock-rates = <24000000>;
++			assigned-clock-parents = <&tegra_car TEGRA114_CLK_PLL_P>,
++						 <&tegra_car TEGRA114_CLK_VI_SENSOR>;
++
++			port {
++				rear_camera_output: endpoint {
++					data-lanes = <1 2>;
++					bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++					link-frequencies = /bits/ 64 <400000000>;
++					remote-endpoint = <&csia_input>;
++				};
++			};
++		};
++
++		front-camera@21 {
++			compatible = "ovti,ov7695";
++			reg = <0x21>;
++
++			clocks = <&tegra_car TEGRA114_CLK_CSUS>;
++
++			enable-gpios = <&gpio TEGRA_GPIO(BB, 3) GPIO_ACTIVE_HIGH>;
++
++			vdddo-supply = <&vddio_1v8_cam>;
++			vdda-supply = <&avdd_2v8_front>;
++			vddd-supply = <&vdd_1v8_vio>;
++
++			orientation = <MEDIA_ORIENTATION_FRONT>;
++
++			assigned-clocks = <&tegra_car TEGRA114_CLK_VI_SENSOR>,
++					  <&tegra_car TEGRA114_CLK_CSUS>;
++			assigned-clock-rates = <24000000>;
++			assigned-clock-parents = <&tegra_car TEGRA114_CLK_PLL_P>,
++						 <&tegra_car TEGRA114_CLK_VI_SENSOR>;
++
++			port {
++				front_camera_output: endpoint {
++					data-lanes = <3>;
++					link-frequencies = /bits/ 64 <96000000>;
++					remote-endpoint = <&csib_input>;
++				};
++			};
++		};
++	};
++
+ 	hdmi_ddc: i2c@7000c700 {
+ 		status = "okay";
+ 		clock-frequency = <100000>;
 -- 
 2.53.0
 
