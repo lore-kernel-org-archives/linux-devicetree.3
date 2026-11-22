@@ -1,100 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795378509;
-	b=quuwU5ILU0T7sdrl+Pt/X2xkn9HAZ+kKVyTtyzPR2fx9u3H1FAK7Snx2kRBrhhFudS9e
-	 2b3G1/ZlMxfvZ1qLiBr78OMYB6wPK3xoY2JLE9sF+jSdT2zELcI00vyJiPySt9R4B7N9z
-	 f3LvGcuNJXbABBsk/EPNjOIqWyx8hNoWnyT9buZAGRLdoxYxjEgHuzL4nlFlQPPKfDMar
-	 lH0btOErSzYsTGN5lKGmDkfnsg0vARJZaovgzvaFjHTBtofOTp94oknoK58u3130D7Sx4
-	 83jaNKGWcV/8Omlu44+x/wK3Cx4ZlD1O5GzzG7fwApGzm0gGKca0unNJY8ajcWWzeow==
+	t=1795379070;
+	b=BR4wBO1nayqETK7JrP3hgxDjTGcWtS1ELZ6g+7dXxnLv1aN4uRwqe5wqJ0nL6F9LUNtJ
+	 g+s8aHmN6ztj4CkTvUrFb7azVXoLQ1ED/JDMvRh2VEe6SRrZrQdrhrP4rrVrk3sWLQLsw
+	 WNZzr0nQYWi2kFdJMj0SF/sqQGm1eyDsVh8oY1VXOHgGSVl8f8XTrRlvfn7P1+YMqNmNb
+	 NMM77FIcgovKh9/L1SpCxrxXTYMnj+5z5NwhCbekaLIRpJee/b+wzkvUL32RxdQ5a16jk
+	 9jGmJoh0Y4xqv5PnKrrbT4Gf3Xwav7u3+RFKNMYMfOgfaF0hA5INSaDNp3bl5XWS+1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795378509;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rvwcsAdY5ApuuiEEk6N9gHD31QI/cBFOyY2T9vxVLpo=;
-	b=WMIATH0x7Sw4VVjfspTwvWDenSSFtNPaE45RHzSYiY1/3tdiuLKJ1l9pXDGBoQ1D8hUy
-	 yyZPxAPysdLgyNk4STx1fKvsgfOj2fizX+H04HI9OiT1miFnNNwBvBF7lk6gECSBTIWYZ
-	 8Y2UrD0pziOrMy7BWJAvRoR5fJs2KGX6WNV9H5oGBT2tdppnc6rC4D1sxCtt6M4DZZZ8U
-	 CGeVr44e71P3sM7Or5VCrwkxvstOhTt9SIWuTFT6gDSGIptq88b8XTQBpNgPsORVrQuPb
-	 4RmOGNSZJytTR7ah+R5VugP2Hywcga1LWGUucNWPAHjgp1mY0NYFb82FodtsDxV2ywQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795379070;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=W0saEwQytD3uvCkQrs8M5XfLBUu7dlyain/D1tXVcKY=;
+	b=KDCAkQxXPu3NT1UQ06SARrYTwVaPJnO7Iwb8PNg+zh5jUtnnwc12px5ZTF+3PQZ0MMc4
+	 KJAVtrFf3/2f4+37gRcSyUswHwvr4ti0LLTPzDwO15HJIr6gSRZe7C7NHA68w72ezM34N
+	 9t9ZbwuZ92+mzWr3Ilq6RHCVhM2UaNAxkWDCIRPCNKkWAeMPzghFPzt0XZ0+xFJ2X11Ve
+	 2CFS1pOhr7evsoIik4KEKy2uLyY7cNXjTHw1ye6T4gOh5iBBF9YOp6qNbsL8qRe5JbuCv
+	 jnB6xaLO/1dI3O9oYEYo53P9rgnUiy04GUNL8rfSSdjc2DSJIVovI8JKmBf6apdjXCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYm3TeMk;
-	arc=none smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UWemDwgg;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79A3606A33F
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:15:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B79A3606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5427F606A327;
+	Sun, 22 Nov 2026 20:24:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5427F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYm3TeMk
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c5133831027so366584266b.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:15:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795378507; x=1795983307; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rvwcsAdY5ApuuiEEk6N9gHD31QI/cBFOyY2T9vxVLpo=;
-        b=GYm3TeMklN6dkS/HNb6FOP56f7UVPTedXjNJ04dD8uUgYgEKEZi7qmhLoQAVkFLdcn
-         2MZBbHzPtmeP5y7a4J59YU0ljoSBSfwfb/rXhWTOlOqEUt9avn+PNm2BTD2TUzaI3UyD
-         wM7bVoxZ4Wml/S1Dq09CSpgZUKkLrXe6VAfnroL5JvWmpp/9qxH9XhGUeQ5CMPCRb/ZU
-         8pV+VCfOju9Jonb59/QugN7jJOZIqBYsqKuReVj7UMnMGGzSE58/YFaPvTcOsB0D/59r
-         rPfgK0jF80stTzk9uPBg4/uiVjsQNTf0uqaXZ7J9svJ2fiUNADsVh8IVWVA7PtXanoYI
-         pt7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795378507; x=1795983307;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rvwcsAdY5ApuuiEEk6N9gHD31QI/cBFOyY2T9vxVLpo=;
-        b=qKEVE0MlZ4OdQlb6zYEHqGZiu9bKQaCZcbkwVEvxc3+HzAlI6Hl1D3d3xpNZ/F/U0V
-         nFGX9aFEt5kucF+GXAAA8LJEjEpCq4B8VF2Yp0f5myKMWiysA3aKKv+5cySMpdF6Md8B
-         LfpjmibkNr9eVBMZe6LmDoWx2nRmEgvi1aOQzLuox1W9ETZelHK2KF/SEi3dvFQANSBZ
-         jB4ngudmApVvsXPj6/iOPgCAA3VhqjGatvvXtK9ZkBqUHqEw1p/OIh4EOlvWY9GwTiZq
-         HMbu3S0mYSG47pTO0uoQ1yXsnxAruF3CqQB5rUR/LNLx1ey5Mf8BQ3v4nji7yshk5k9u
-         o/lg==
-X-Gm-Message-State: APuU4Z8j/b/Xvi8QfXeS+9ph4B+U9ksiNjAyMRFZOMSOoWIh4kolvkqE
-	I9xbkrGzVyNvbcWw3uDg/YTaqumOj3gRWcXsEyFBPdGddEUPPiQqAFWg
-X-Gm-Gg: AZFdTZeHLTMp5C2RrUddk3QvKHZY5aPkIYK+SQPmOzpyoSZOo9ULol0S2nrmTwKMogA
-	3RTfam8eDi7JdiVwOfJLbnWoYE9C+QOp51mppMsVPScJ9k0PQF/jrjyRXabqH4UtmBiHHInsRLz
-	DkJluw2SCr3nJ9XWbpwnUfPbD7dwIbnZ72ggOH/Boq4mTZcgOL43YIwsOFNgxNiulyuMSHzX5UH
-	W+531lvH1FWVgYSMupdFdz77ejaERUYEbQz6bxkwdrZV5kpyu48f+KsRWGIoz7rKXm7J9PCWW3Q
-	ZQHmWqrJpxnGTc6zDaXPl8SDan6eWgNZVaxfWHTNprvHu5YmOTozgqmb1sYKddnF+t5Kl/ie4IO
-	gVwBDtAWCbwQwTJPGNXJGrEd51KvAgN8Z9wpq+6GV+3llFOCQNDy4yoDEOkMjylsQ6qU3V+pIPn
-	P1kdEADa8YTxRlbJmp2NAD+2guA8R1yGchL8nKhazMgh/LM73+7iKv1OEvvF1Pu4rtuxrDJjEM5
-	NPsefZVBIgoEfckR6hips4QI9G7ZuqW9TCNNFQG8AUwUsUf9qei8gXRIVYxrAjh5ESKJXHedCiE
-	BN4YcD6KPKqyTvJtXHisHnXKQTfpaJu+6//r9Yzvzfd++VFR8LrcclXGHSV0lKD7/d6bDbVoSnw
-	KodjdSTvIJw==
-X-Received: by 2002:a05:6402:280d:b0:6ba:b1fd:6e73 with SMTP id 4fb4d7f45d1cf-6bab1fd714dmr689422a12.40.1795378506948;
-        Sun, 22 Nov 2026 12:15:06 -0800 (PST)
-Received: from xeon ([188.163.112.54])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.15.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 12:15:05 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>
-Cc: devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 18/18] ARM: tegra: tegratab: Add panel rotation
-Date: Sun, 22 Nov 2026 22:14:07 +0200
-Message-ID: <20261122201407.23742-19-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261122201407.23742-1-clamor95@gmail.com>
-References: <20261122201407.23742-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UWemDwgg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795379068; x=1826915068;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5rcgeMoxIEWePPJAz1f4GqmHb62WxQrALOVeHJzO0yU=;
+  b=UWemDwgg2t5L3NsMB9J+yl9lmu7VWpthlm2MsgNkktA6nPUkFc9t9NrC
+   fFRoCgfhp+e46/CuNwMGHWflhQ/OzMPEG3aJbD6coXrMOAG7dmuOZP9XT
+   eeEfQo9z9Iny4vX1vxBTh31adueY9VPjyn2AAFO+/pReyaHhnjm2S9V9b
+   7NDpaNhu0TE89gBkiyBOffG+4cPrxbw8ItU++ghR9b2V1f3G7bnylAfe7
+   MihALD3CZGXTItoH+Fu0w1kGJgL040o1WQYpt3+5ld45fg+tw9ElEt2A1
+   0ok+OtIg/X0+hypa4Q288znNxDNoIZf33AN6E5b+yYT+5eLMnso7fL5NH
+   Q==;
+X-CSE-ConnectionGUID: wWHTHwSHTWqRfXt6hTgNXA==
+X-CSE-MsgGUID: NO2FVFedQ+STaTMwn3yCqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4185925"
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="4185925"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2026 12:24:28 -0800
+X-CSE-ConnectionGUID: yO1d1dXORbWAun2YOPiApQ==
+X-CSE-MsgGUID: olybKecSQRakBg0RJAb4vQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="11392727"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa008.fm.intel.com with ESMTP; 22 Nov 2026 12:24:24 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xVE6n-00000001M34-0rot;
+	Sun, 22 Nov 2026 20:24:21 +0000
+Date: Mon, 23 Nov 2026 04:23:58 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sasha Finkelstein <k@chaosmail.tech>, Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Sasha Finkelstein <k@chaosmail.tech>
+Subject: Re: [PATCH v2 5/5] phy: apple: atc: Split generation-specific code
+Message-ID: <202611230426.XGazeYTu-lkp@intel.com>
+References: <20261122-t8122-phy-v2-5-8d5c8fdf31ba@chaosmail.tech>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,28 +90,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122-t8122-phy-v2-5-8d5c8fdf31ba@chaosmail.tech>
 
-Add panel rotation property required for correct panel orientation, since
-it is mounted upside down.
+Hi Sasha,
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+kernel test robot noticed the following build errors:
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-index 99f0d1c345e63..35400af7c1c1b 100644
---- a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-@@ -175,6 +175,7 @@ panel@0 {
- 				vcc-supply = <&dvdd_lcd>;
- 
- 				backlight = <&backlight>;
-+				rotation = <180>;
- 			};
- 		};
- 	};
+[auto build test ERROR on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Sasha-Finkelstein/dt-bindings-phy-atcphy-Add-M3-series/20261122-132757
+base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+patch link:    https://lore.kernel.org/r/20261122-t8122-phy-v2-5-8d5c8fdf31ba%40chaosmail.tech
+patch subject: [PATCH v2 5/5] phy: apple: atc: Split generation-specific code
+config: x86_64-buildonly-randconfig-1005-20261122 (https://download.01.org/0day-ci/archive/20261123/202611230426.XGazeYTu-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261123/202611230426.XGazeYTu-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611230426.XGazeYTu-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/phy/apple/atc-t8103.c: In function 'atcphy_configure_pipehandler_usb3_host_t8103':
+>> drivers/phy/apple/atc-t8103.c:33:21: error: implicit declaration of function 'FIELD_PREP' [-Wimplicit-function-declaration]
+      33 |                     FIELD_PREP(ACIOPHY_TOP_BIST_PHY_CFG1_LN0_PWR_DOWN, 3));
+         |                     ^~~~~~~~~~
+--
+   drivers/phy/apple/atc-t8122.c: In function 'atcphy_configure_pipehandler_usb3_host_t8122':
+>> drivers/phy/apple/atc-t8122.c:78:16: error: implicit declaration of function 'FIELD_PREP' [-Wimplicit-function-declaration]
+      78 |                FIELD_PREP(ACIOPHY_BIST_MAC_USBPHY_CFG_OV1_LN0_PWR_DOWN_OV, 2),
+         |                ^~~~~~~~~~
+
+
+vim +/FIELD_PREP +33 drivers/phy/apple/atc-t8103.c
+
+    11	
+    12	static void atcphy_configure_pipehandler_usb3_host_t8103(struct apple_atcphy *atcphy)
+    13	{
+    14		int ret;
+    15		u32 reg;
+    16	
+    17		core_set32(atcphy, ACIOPHY_TOP_BIST_PHY_CFG0,
+    18			   ACIOPHY_TOP_BIST_PHY_CFG0_LN0_RESET_N);
+    19		core_set32(atcphy, ACIOPHY_TOP_BIST_OV_CFG, ACIOPHY_TOP_BIST_OV_CFG_LN0_RESET_N_OV);
+    20		ret = readl_poll_timeout(atcphy->regs.core + ACIOPHY_TOP_PHY_STAT, reg,
+    21					 !(reg & ACIOPHY_TOP_PHY_STAT_LN0_UNK23), 10, 10000);
+    22		if (ret)
+    23			dev_warn(atcphy->dev,
+    24				 "Timed out waiting for ACIOPHY_TOP_PHY_STAT_LN0_UNK23\n");
+    25	
+    26		core_set32(atcphy, ACIOPHY_TOP_BIST_READ_CTRL,
+    27			   ACIOPHY_TOP_BIST_READ_CTRL_LN0_PHY_STATUS_RE);
+    28		core_clear32(atcphy, ACIOPHY_TOP_BIST_READ_CTRL,
+    29			     ACIOPHY_TOP_BIST_READ_CTRL_LN0_PHY_STATUS_RE);
+    30	
+    31		core_mask32(atcphy, ACIOPHY_TOP_BIST_PHY_CFG1,
+    32			    ACIOPHY_TOP_BIST_PHY_CFG1_LN0_PWR_DOWN,
+  > 33			    FIELD_PREP(ACIOPHY_TOP_BIST_PHY_CFG1_LN0_PWR_DOWN, 3));
+    34	
+    35		core_set32(atcphy, ACIOPHY_TOP_BIST_OV_CFG,
+    36			   ACIOPHY_TOP_BIST_OV_CFG_LN0_PWR_DOWN_OV);
+    37		core_set32(atcphy, ACIOPHY_TOP_BIST_CIOPHY_CFG1,
+    38			   ACIOPHY_TOP_BIST_CIOPHY_CFG1_CLK_EN);
+    39		core_set32(atcphy, ACIOPHY_TOP_BIST_CIOPHY_CFG1,
+    40			   ACIOPHY_TOP_BIST_CIOPHY_CFG1_BIST_EN);
+    41		writel(0, atcphy->regs.core + ACIOPHY_TOP_BIST_CIOPHY_CFG1);
+    42	
+    43		ret = readl_poll_timeout(atcphy->regs.core + ACIOPHY_TOP_PHY_STAT, reg,
+    44					 (reg & ACIOPHY_TOP_PHY_STAT_LN0_UNK0), 10, 10000);
+    45		if (ret)
+    46			dev_warn(atcphy->dev,
+    47				 "timed out waiting for ACIOPHY_TOP_PHY_STAT_LN0_UNK0\n");
+    48	
+    49		ret = readl_poll_timeout(atcphy->regs.core + ACIOPHY_TOP_PHY_STAT, reg,
+    50					 !(reg & ACIOPHY_TOP_PHY_STAT_LN0_UNK23), 10, 10000);
+    51		if (ret)
+    52			dev_warn(atcphy->dev,
+    53				 "timed out waiting for ACIOPHY_TOP_PHY_STAT_LN0_UNK23\n");
+    54	
+    55		atcphy_clear_nonselected_phy_reset(atcphy);
+    56	
+    57		/* More BIST stuff (?) */
+    58		writel(0, atcphy->regs.core + ACIOPHY_TOP_BIST_OV_CFG);
+    59		core_set32(atcphy, ACIOPHY_TOP_BIST_CIOPHY_CFG1,
+    60			   ACIOPHY_TOP_BIST_CIOPHY_CFG1_CLK_EN);
+    61		core_set32(atcphy, ACIOPHY_TOP_BIST_CIOPHY_CFG1,
+    62			   ACIOPHY_TOP_BIST_CIOPHY_CFG1_BIST_EN);
+    63	}
+    64	
+
 -- 
-2.53.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
