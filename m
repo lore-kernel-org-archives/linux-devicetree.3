@@ -1,87 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795327300;
-	b=vwXMtrHiNwrr40yeSjQyS5xPVYtEHdYmCJg2NmAbeDWG987ezV5QPslgU/hUS/wVxiJX
-	 lyqHTBE/ASNk+9gFpmPIT/RrCiGOlBQDa+5meqH89ygGouBs1WvtzLSWzZm7zrEXWei4Z
-	 K+1Ya5JJWGc6CT+ljX3RUXRKVwK4YkMNt/EMQYG4AUYWSXkZCT+Ph4WgDLV6jFtE8laXu
-	 AKEt2wwUgNxHtV/zZECkO8NbtylU7Hj4HMv3QxmlxNIAxL/8J+le3yphRjyEPY6jAysLm
-	 ZXKhAeEpbrntUaZncHqe0LMM0Cs5yzYyj6yD4K5OuIbzcHMPlms4Dpj8Zm7iXXx73qw==
+	t=1795329053;
+	b=QKVsCLBw5GgRPMSGNvkVhQj3QGVa5JdiOwUISysuiCagIoHLY5OQ/+g4mipL0Lie3qma
+	 Y9U2FsIdAoABDjXdADpYWTN26T4dozSpJtm/bSl0XPMNQUEHTdDwXQxcxhtYH8L54CM50
+	 FovWfxQC7KePSEtbYVXk3OAoxx74NQi/q8PfuBwUEH4W2h5jpkgu1nXj8GuND3sd1rnvg
+	 mQciwHyZr5orpWUo7D+j3Rk6HBzj2uECvR/iR0BZ7b88SUp39OWvdY5bRqEaAbQnJDuMv
+	 E28nk5fZG8oK6VTBRIeTMouQ3TFppUfkuPvSg+HUzf1wFGL6HksWyWXukNmFvSTnF+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795327300;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
-	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
-	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
-	 X-Report-Abuse:X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZPZTcZ28iypWR3zLEK6BsXPi/eB2P8Ay98qQME7HgBo=;
-	b=gXGYiUNrjI9pJ5C+a0/aL5iaWI8KudViOClICmxdkNaNLowcBsdjqLQOOLVKpQfBr9mA
-	 pY67mMvZaAW3+FKVpTdmaYnxdgI5waMlgsoqu1qTGdVwUx9ZA0i64PME9jr86vpz2mVoI
-	 /fCOLgGgn4hGOqA68Uus7Rs87EiBoVUsUjP6e67vJ1/xHUCeYQwwHw66yKSwVUEr7Fl6g
-	 JW5gwtk0nNeyWcOWZBZ8R638EMZWmpt04W4Lw8TiDPUD8fHm68I/ZEj/LVjBUx1zYWvbn
-	 Qy6X94YwXXHK5zfxnSEvoK+3U9lw8NzCGLggJPT4wM1n134hWzOVnUno5b9k5KVs59g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795329053;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=9SNgwiEjpXpdL0MUMhS19ZFeEP4o8lMFcQpCLGPkxOs=;
+	b=phqJY6GvRht+ng3t4907GiHgVowXEhKBIE+BjRU1UPz0cG/68zCB4maYn3gePXaHsiKl
+	 uZ0HYtPSlai78wnjieLCxr8SG+5WcLibepVU0/Azj1XIvI2NYIoPfbje/0RwiYbcw4rBe
+	 0XPwsiQeUTV0jWYxg2lotPMpJyGQtjtTzUZ9oNd2TyQXv4gV9k2UKKePughK7BAiFVFE4
+	 I+7OZ6RGLvrMp+1inisZuWOPrhrXtzuXIYKeYSDgBVJ6yJfpjJ3O+JmlQbyz4TVgZVwdC
+	 tOPIsAlKL6ecwYkpvzN7WMRmU/J9VRJpDTpvORDgKQ4BWD5gkUyoTdTgRLz4zGStL4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kwiboo.se;
-	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
-	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=pEh7LIp9;
-	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=QMGfry2g;
-	arc=none smtp.remote-ip=121.127.44.73
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YhNzZrpQ;
+	arc=none smtp.remote-ip=95.215.58.131
+Received: from mta1.migadu.com (out-131.mta1.migadu.com [95.215.58.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE4660A260D
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:01:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CE4660A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8E1606A334
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:30:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A8E1606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=pEh7LIp9;
-	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=QMGfry2g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
- q=dns/txt; s=fe-e1b5cab7be; t=1795327299;
- bh=ZPZTcZ28iypWR3zLEK6BsXPi/eB2P8Ay98qQME7HgBo=;
- b=pEh7LIp9FZjl0PsZowan121u4RA+0A7edpOA7YcGPFC1j5Zl7VDDGjMxMm8krNrQX+qET8GU4
- EaiC0q4vR5mTiTJhM1jhVT/CYpD9kKIAryGLs0fAMzsI+aoyFdAUbkjF2QTrk++7GwF+rc46PZr
- /OWPPiIMzx/9eC2T0n/89GbKaRvvGqGpy8Z1JIF9x5a3s7H81XmCWl2/bsku8w8X5Z+Ktt4JPM9
- jG224r4Eti25bDlAWuLAWFao1C80e9a327g8xMaB8mTusmX1GoKKMiZ20zEvkjn2qCGVdvr4hp0
- mBZaRd5bRPvYYQ0swxUglBCWChMq5CAEsVj0q9+EcXKA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID;
- q=dns/txt; s=default; t=1795327299;
- bh=ZPZTcZ28iypWR3zLEK6BsXPi/eB2P8Ay98qQME7HgBo=;
- b=QMGfry2gkdVsmXutcnaQZnEPxd5/2LqXgGG+pZsxc0yLzUT7V/NaNlEO2euo+qEku/kyr2uOb
- 2QARmrDsxuCfTZn2EKtXyTc5IllLIpiqSX0XPq70AIsyfi/kNqH9DtH3xyJPCmgWTjOlvHOFdI+
- ojb+/dww/tUA5CQz8z/aQpI=
-CFBL-Feedback-ID: 6b028540cff95ecda8c093f5:d39f546e2953e6c3bd51a1fc1a8b7a3e
-CFBL-Address: abuse@forwardemail.net; report=arf
-X-Forward-Email-ID: 6b028540cff95ecda8c093f5
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
-X-Forward-Email-Version: 2.19.37
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Jonas Karlman <jonas@kwiboo.se>
-To: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jonas Karlman <jonas@kwiboo.se>
-Subject: [PATCH v2 8/8] ARM: dts: rockchip: Add Luckfox Lyra Zero W board
-Date: Sun, 22 Nov 2026 06:01:11 +0000
-Message-ID: <20261122060114.773624-9-jonas@kwiboo.se>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261122060114.773624-1-jonas@kwiboo.se>
-References: <20261122060114.773624-1-jonas@kwiboo.se>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YhNzZrpQ
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rEm/n/NoaYAE0zuiKeGG2cf85FeHzG8S1ai+3/IdKPU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795329049; v=1; x=1795933849;
+ b=YhNzZrpQNTOrBdGOSOGgMTiERFBKAYXKjW3545SyiQCNsvZXxwrwa1v5xKMcwRxBwEXAx1Pe
+ /kx98GQZdtJ4Qy2YQ9GajTzvRtaCK2UJjWCfRsMf/EU5wM3tb7f8hcdtqFBPDZ/NxlNpdYoiLPR
+ KTTtsqk16dUzkJhQqhKhMNpY=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 583ca260f1c69be2;
+	Sun, 22 Nov 2026 06:30:48 +0000
+X-Mizu-Trace-ID: 583ca260f1c69be2
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 22 Nov 2026 06:30:43 +0000
+From: Akhilesh Patil <akhilesh.patil@linux.dev>
+To: jic23@kernel.org, andy@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+	dlechner@baylibre.com, nuno.sa@analog.com, conor+dt@kernel.org,
+	joshua.crofts1@gmail.com, maxwell@maxwelld.cc,
+	u.kleine-koenig@baylibre.com
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, akhileshpatilvnit@gmail.com,
+	akhilesh@ee.iitb.ac.in
+Subject: [PATCH 0/2] iio: chemical: Add driver and bindings for acd10
+Message-ID: <cover.1795326744.git.akhilesh.patil@linux.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,68 +66,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Luckfox Lyra Zero W is a compact wireless development board powered by
-the Rockchip RK3506B SoC. It includes 512 MB of DDR3 memory, 256 MB of
-SPI NAND flash, 2.4 GHz Wi-Fi 6, Bluetooth 5.2, and BLE connectivity.
-MIPI DSI, USB OTG, USB Host, and RM_IO interfaces are available for
-peripheral expansion.
+This patch series adds support for Aosong ASAIR acd10 CO2 (Carbon
+dioxide) sensor driver in IIO subsystem. 
 
-Link: https://wiki.luckfox.com/Luckfox-Lyra/Luckfox-Lyra-Zero-W
-Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
----
-Changes in v2:
-- No change
+Patch 1: Adds bindings for this hardware
+Patch 2: Adds driver code for acd10 under drivers/iio/chemical
 
-As mentioned in cover letter, unclear if this should use
-rockchip,rk3506b instead of rockchip,rk3506.
----
- arch/arm/boot/dts/rockchip/Makefile           |  3 ++-
- .../rockchip/rk3506b-luckfox-lyra-zero-w.dts  | 23 +++++++++++++++++++
- 2 files changed, 25 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-zero-w.dts
+Quick overview of acd10: 
+- This is CO2 sensor based on NDIR technology.
+- Can measure CO2 concentration up to 5000ppm
+- Supports serial interface over UART with 1200 baud rate. 
 
-diff --git a/arch/arm/boot/dts/rockchip/Makefile b/arch/arm/boot/dts/rockchip/Makefile
-index 9a699bb8fc5a..faebeb20f467 100644
---- a/arch/arm/boot/dts/rockchip/Makefile
-+++ b/arch/arm/boot/dts/rockchip/Makefile
-@@ -48,4 +48,5 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += \
- 	rk3288-vyasa.dtb \
- 	rk3506-luckfox-lyra-plus.dtb \
- 	rk3506-luckfox-lyra.dtb \
--	rk3506b-luckfox-lyra-ultra.dtb
-+	rk3506b-luckfox-lyra-ultra.dtb \
-+	rk3506b-luckfox-lyra-zero-w.dtb
-diff --git a/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-zero-w.dts b/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-zero-w.dts
-new file mode 100644
-index 000000000000..f2fa513e8bff
---- /dev/null
-+++ b/arch/arm/boot/dts/rockchip/rk3506b-luckfox-lyra-zero-w.dts
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/dts-v1/;
-+#include "rk3506b-luckfox-lyra.dtsi"
-+
-+/ {
-+	model = "Luckfox Lyra Zero W";
-+	compatible = "luckfox,lyra-zero-w", "rockchip,rk3506";
-+};
-+
-+&fspi {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "spi-nand";
-+		reg = <0>;
-+		bootph-pre-ram;
-+		bootph-some-ram;
-+		spi-max-frequency = <80000000>;
-+		spi-rx-bus-width = <4>;
-+		spi-tx-bus-width = <1>;
-+	};
-+};
+Datasheet: https://www.es.co.th/Schemetic/PDF/ACD10.PDF
+
+Protocol: 
+acd10 defines 4 types of UART frames - read co2, get software version,
+get instrument number and set single point calibration.
+Frame format: fixed header, length of data, command code, Actual data,
+checksum. Response from the sensor follows same format. 
+Total length of each tx and rx frame for 4 commands is fixed and defined in
+the datasheet. Driver uses this information to write and read from
+sensor for each command over serdev interface.
+
+Testing: 
+Driver is tested on Texas Instruments am62x sk board with sensor
+connected on UART5 on 40pin IO expander. Additional 3.3 to 5v
+bidirectional logic translator is used to interface with 3.3v IOs of
+am62x. Values are read using iio sysfs interface. Also I have blown into
+the sensor to observe sensor output increase due to CO2 in my exhale.
+Waveforms for read co2, get sw rev and get ins num commands are
+validated on logic analyzer. 
+
+Slight deviation from datasheet: 
+For command get software version, datasheet mentions frame length of 16
+bytes including D11 reserved, however it is observed that sensor sends
+15 bytes with length field 0xb (11 bytes of data), but actual data is 10
+bytes. Hence, this is handled in the driver.
+
+Driver supports reading co2, getting sw version and instrument number.
+Single point calibration and preheat implementation is left for
+future contributions.
+
+Akhilesh Patil (2):
+  dt-bindings: iio: chemical: Add aosong acd10
+  iio: chemical: acd10: Add driver for ACD10 CO2 sensor
+
+ .../bindings/iio/chemical/aosong,acd10.yaml   |  34 ++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/chemical/Kconfig                  |  10 +
+ drivers/iio/chemical/Makefile                 |   1 +
+ drivers/iio/chemical/acd10.c                  | 365 ++++++++++++++++++
+ 5 files changed, 417 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/chemical/aosong,acd10.yaml
+ create mode 100644 drivers/iio/chemical/acd10.c
+
 -- 
-2.56.1
+2.47.3
 
