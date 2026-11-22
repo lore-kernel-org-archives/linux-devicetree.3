@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795378254;
-	b=TUui1J1wrETqplSxvX0i6Y9+HbDQ2L5watdH+bkgr2JhVFUbNV72hAqk00lOFwS3YXgN
-	 M86vax/kzaChaKRV2UtXBGVXo5BlSPq0XxP9LZt1JJYWTQRmdVihWcc65suf8H6upctiE
-	 FHPNxg1pEafy+vNtdjt/Z1QeGsvZ+/ktMI1bCw1/9eI6JFZdbwbJCOp36VXggPdNkUgUu
-	 iFNAAZOq84dF9gGGqj19ksW4N2B7N04AsQyc/ZWBJIgsXWvInSSR3oHm/LQ2IO/UMvYh+
-	 ShKPpNMQ8QqTAIFbYMLOlSmEn8/SBWZLjh/cBjiUCHI811WPlabv5uT6Onrvzs2z1bQ==
+	t=1795378470;
+	b=rPNQ9OjI/QnNQIEHJpzJz0H8sNP34iDEDdMcc6VGHLAfLwTqtbxCYolBpgXzJCkI0z7r
+	 ljx1uFSdy+BwJb2eTaDBVRWp1OwXGy3cspahH7ZST0Wp2ainQ5E7zH6reCalQynWj7ikx
+	 SEeuoXX7J6cdE4eDvRVUYI/42F815tQ2NJAC/0tahw/SuONwVdsMjmLIW/FyRBMewnIf3
+	 JSWxNsAVHXYTUaiWzkHRfiO8FAroQCRS13u5N441xXNwt6MVWgNm/AjoedKNLpH4vCx/r
+	 Rhk7lqOLf2q72IBprk4jPLcdGbGEyaL5/09KBUhRMKqKtdk06K/QNxIcOAEZ0G8i/Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795378254;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3SCwB9gjboiaFQOjcUOZpy5EViJft48SYBNMJPGk01M=;
-	b=teaB7gqudFaMC+b5ALUuGLRBR9NoqdPyAEne3QkKLA49BK357V+hVTC1neuT4Da+xI5j
-	 F5rf+X++tlDnI+mDkEAAvcsPhi+wDn9ncnCUN/mes/3MKDENLGzr37JP6Rcywtd0M9uUu
-	 3YtTm2jy5Gm2cgyi4xcDTOpiIoEIlkrs7uMTt5z+XNWKRgrGXKjznYbA0BFfeFCZE/UJT
-	 KL9i2Jpitt0q322oVuUtOmBKN+oj+MQTBNRzcf8LTzOWLyKE3w1rHeUlVX+FxKP4pXlw3
-	 6VJi1fHKppF3z86qmkMxeAEfvR6ODBlqGO7WybR8JFJz3gm8RxgiM6GXVbjsrTRqDGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795378470;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7xLuQMY9AhHS5phvMKiL1Kg7irbD6BPlpn70hXvxYR4=;
+	b=H2L5UuPClGd7Lr4W8/8dAESUFAWJwwRe9LcybvDR81teNhPANShqsNfN4HIiTvipfrf1
+	 9l9nIeFiDb9mLDM3eUyDyT6eB5Nm55xb9wGYra5r6Ij0y1NUc9DzLX45xJV1G8TaGYhLl
+	 UFKJAmHH8MrcA17RbRghCRqOdgKa9ZjqDAk1CaZSeRoINb0O4BBwcf8/X7ggrgts57vIl
+	 gVWOSKAg/l4nzKUInPL0zfjs9JR6oCiBzIGmBORsvUdwN1XDxDFW2ccLuPnYtW1wWLTPr
+	 L4U3izzIcit+x+UG7SI446OKQGNLLnFWDnluhdjqavjjetibP76qcdLyN9nkIHDJVcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJhI2RK+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aUgCUsXH;
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E67ED606A31E;
-	Sun, 22 Nov 2026 20:10:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A55C606A31A
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:14:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A55C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJhI2RK+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0B3E1F000C6;
-	Sun, 22 Nov 2026 20:10:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795378253;
-	bh=3SCwB9gjboiaFQOjcUOZpy5EViJft48SYBNMJPGk01M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nJhI2RK+uJ2DjKI+edqSGBFqfAhORH0RvPa+kyhS82zTc2L2YF4wCxJJzL0anTnno
-	 mUak9/Qk8XFSrXInloeh/VFip+U+hFH7MJNbhjKogN7h8M1KXXmdI8Dv7l+zf+g4Ah
-	 SzeiBzAIUTcm3fZAIrVjACMvXDlRc9iaOJaR7V3y1nfQM3Z6AZpIvRl/k8GhTS4wfr
-	 N5Ib0njckQjBkeucP69WZnudCD9bUR5bTh2Gge+IaiktfSjZyuGO7XrwQC8X2r0rup
-	 hQwXAYEIYx/ZhASv6wN9XnTHKXWNBAAACMTnf6C0cHOgUYyRvMaR4o7ZYO5KylylcY
-	 Eyw0EYW8bnS9g==
-Message-ID: <sashiko-outbox-228310@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/5] ASoC: qcom: sc8280xp: add Shikra backend
- handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-shikra-machine-v3-2-e5d074264428@oss.qualcomm.com>
-References: <20261123-shikra-machine-v3-0-e5d074264428@oss.qualcomm.com>
- <20261123-shikra-machine-v3-2-e5d074264428@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 20:10:52 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aUgCUsXH
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6ba1e22ff4dso2803569a12.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:14:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795378469; x=1795983269; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7xLuQMY9AhHS5phvMKiL1Kg7irbD6BPlpn70hXvxYR4=;
+        b=aUgCUsXHYw3KaELR4kFag3t5wB9TMdvlrPOCMERQdBo6tE9XrKcTfz2uG8UIsGa2BM
+         njA6POWPRJA3ichnU0xFmq9hKVOYjVx3NCMAHHlQEODE2reX+M5wYjKoxgrlTnM6WMk0
+         gy0xblA1L5zSG7+RBF+sV2Bq0S9jS56bcVppIwTO7xDiFFFzEq1Tc3zgyaC2XwMyazSP
+         FZumSKEduASM4h1ETwbJe72L2CiBxGfUkZyHsoKbxiMMl/GE+XCQl2yHyY+NNLRtL48n
+         28ErKSMtnVdEQ3p4FOAXYrI2bVD30h6Dfl6n1fz6Ua7XKaPN46zsuIONXiApnGof/Afc
+         MhIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795378469; x=1795983269;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7xLuQMY9AhHS5phvMKiL1Kg7irbD6BPlpn70hXvxYR4=;
+        b=zSubAtGb24v7QSV9P8lLfzQ1jG7S/CoZ+iRMDpfS16c1kY6XxWf65yhxJwoVpVH+Vh
+         cQHZQd9vjKWpPKU6HALlgpqZSumUyPSiEVEc1Vw8sDDO70LcqWKU0pKMNZjc9AzYNKgQ
+         nDhdzw0n2uH8M4T4GWPDJWUFFWhq4Z/b3Tr5UjmOJDsX0PXI5CrUt5odmoPMmxf0EQVG
+         v6k17DALgqyNMRzKrTF1Cdw1wqTT5FLGoGLOQQoY6hNndgULtqOd41udKecyMT+hbNt8
+         udHtFcIiaRqQ7UCPgSx/flvyGhWBkDOsRGfO6NdmloDANMd2/qPJ3EZY37/fbAh/6FzD
+         W2Fg==
+X-Gm-Message-State: APuU4Z/67RD1+wFXNokeL87PzaUg2djbVxSHnicaKmlSuaF5HOkdCdzv
+	OwngN796IUeYqDy2J8CDePm4ushAHKkuLExGYvOKWsOp9+dptokRzuJj
+X-Gm-Gg: AZFdTZd+njxa5Iz/QlORO/wwLnBiTlRlcsMhyW6n9YeOqrxnN1O6c0mL+FaNlCc7Low
+	mLd0Gmbw6KJNb9XOqp0Xdnp5MXzkRvUzBVLqD1vptMPi0P3zgEOd69HM3c0FbX5/Im7aOI1GfdL
+	xHZ8vOV8jSQ8WinwQt6Cb9m0q0YdYfn2S0Ia9b685AjYWmCsZn64MM6NNrNKeULhSZwGj58Sj+3
+	fAedBfnat8DQuenk1GQcMZAXDEk2ua23EFp51tt+6MLojj3u70Pj9krkTCn7Q/z4gOBLId2LDKA
+	OuWObW4HmK0IMxukyCWq9yIOnr/5JNvQKWjO19GlobUju4E9Z/qS+bZbahnX6brCHFi9bh1VSzE
+	Zt2GDTmsgxh6GA4kFfGgPGnbQaKrDIvFGPAMe+i+ewtT7AxspF6pi9Y1ktcSN5MaMULqswDItCi
+	JUvYumYSLWjTFawHR+FIyaY5rJOwFG3d5oZhqVYeKj9Tg4Q+TLGBHG5eOQDAgmEccG4WGyOxTzi
+	vOiPMGB6dZt+DN7GDs45gn5BtSP2xa3n8E32M0+Bg9TwV2NF9F0F1xpMORwkfSmq8shqe5zTgFs
+	fxErUfBHQH63kE4RyqOw/CgC+/f9/7KKONZasJqAaBh7DO5IuR+todZHLI5f4zS1haBLRfIocOf
+	saWNl9KybEw==
+X-Received: by 2002:a05:6402:501c:b0:6b8:afbd:64e6 with SMTP id 4fb4d7f45d1cf-6ba37edaf1cmr6652717a12.42.1795378468547;
+        Sun, 22 Nov 2026 12:14:28 -0800 (PST)
+Received: from xeon ([188.163.112.54])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.14.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 12:14:26 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>
+Cc: devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 00/18] [WIP] ARM: tegra: Update Tegra Note 7 configuration
+Date: Sun, 22 Nov 2026 22:13:49 +0200
+Message-ID: <20261122201407.23742-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,88 +101,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] ASoC: qcom: sc8280xp: num_codecs check in
-  sc8280xp_add_be_ops() matches FEs
---
+This patch set is more a placeholder and is not meant to be merged just yet,
+I am still working on it and comments are welcome. I am sending it to be sure
+that my work is not stolen or overwritten by some AI slopper with a trial
+subsciption to a fancy new LLM. Thank you for understanding.
 
-commit c0216a2b49790ae6ec3eaaa0b8959c3342929be7
-Author: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Svyatoslav Ryhel (18):
+  dt-bindings: ARM: tegra: Document Tegra Note 7 variants
+  ARM: tegra: Diverge Tegra Note 7 device tree to support its common
+    versions
+  ARM: tegra: tegratab: Upgrade powerlines configuration
+  ARM: tegra: tegratab: Add pinmux node
+  ARM: tegra: tegratab: Bind VDE device
+  ARM: tegra: tegratab: Configure USB and power supply
+  ARM: tegra: tegratab: Configure MMC devices
+  ARM: tegra: tegratab: Configure wireless devices
+  ARM: tegra: tegratab: Add thermal configuration
+  ARM: tegra: tegratab: Configure HDMI
+  ARM: tegra: tegratab: Add audio codec and sound card configuration
+  ARM: tegra: tegratab: Add common sensor nodes
+  ARM: tegra: tegratab: Add MC and EMC timing nodes
+  ARM: tegra: tegratab: Add CPU DFLL clock node
+  ARM: tegra: tegratab: Update GPIO keys and switches
+  ARM: tegra: tegratab: Update aliases, chosen and memory nodes
+  ARM: tegra: tegratab: Add video input configuration
+  ARM: tegra: tegratab: Add panel rotation
 
-ASoC: qcom: sc8280xp: add Shikra backend handling
+ .../devicetree/bindings/arm/tegra.yaml        |    7 +-
+ arch/arm/boot/dts/nvidia/Makefile             |    6 +-
+ .../nvidia/tegra114-nvidia-tegranote7c.dts    |   14 +
+ .../tegra114-nvidia-tegratab-common.dtsi      | 2759 +++++++++++++++++
+ .../nvidia/tegra114-nvidia-tegratab-p1640.dts |  603 ++++
+ .../nvidia/tegra114-nvidia-tegratab-p1988.dts | 1405 +++++++++
+ arch/arm/boot/dts/nvidia/tegra114-tn7.dts     |  341 --
+ 7 files changed, 4791 insertions(+), 344 deletions(-)
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegranote7c.dts
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts
+ delete mode 100644 arch/arm/boot/dts/nvidia/tegra114-tn7.dts
 
-This commit adds per-DAI CPU format overrides, VA_CODEC_DMA_TX_1 handling,
-and an option to attach backend operations to codec-backed links on
-sc8280xp sound cards.
+-- 
+2.53.0
 
-> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-> index ac4dfb2c2182c..ff8ccd3065eb9 100644
-> --- a/sound/soc/qcom/sc8280xp.c
-> +++ b/sound/soc/qcom/sc8280xp.c
-[ ... ]
-> @@ -540,11 +549,13 @@ static const struct snd_soc_ops sc8280xp_be_ops =3D=
- {
-> =20
->  static void sc8280xp_add_be_ops(struct snd_soc_card *card)
->  {
-> +	struct sc8280xp_snd_data *data =3D snd_soc_card_get_drvdata(card);
->  	struct snd_soc_dai_link *link;
->  	int i;
-> =20
->  	for_each_card_prelinks(card, i, link) {
-> -		if (link->no_pcm =3D=3D 1) {
-> +		if (link->no_pcm =3D=3D 1 ||
-> +		    (data->priv->codec_link_be_ops && link->num_codecs > 0)) {
->  			link->init =3D sc8280xp_snd_init;
->  			link->exit =3D sc8280xp_snd_exit;
->  			link->be_hw_params_fixup =3D sc8280xp_be_hw_params_fixup;
-
-[Severity: Medium]
-Does checking link->num_codecs > 0 attach backend ops to codeless DPCM
-frontend links as well?
-
-card->dai_link is populated by qcom_snd_parse_of(), which sets
-num_codecs =3D 1 on DPCM frontend links using the dummy codec:
-
-sound/soc/qcom/common.c:qcom_snd_parse_of() {
-    ...
-		if (codec) {
-			ret =3D snd_soc_of_get_dai_link_codecs(dev, codec, link);
-			if (ret < 0) {
-				dev_err_probe(card->dev, ret,
-					      "%s: codec dai not found\n", link->name);
-				goto err;
-			}
-
-			if (platform) {
-				/* DPCM backend */
-				link->no_pcm =3D 1;
-				link->ignore_pmdown_time =3D 1;
-			}
-		} else {
-			/* DPCM frontend */
-			link->codecs	 =3D &snd_soc_dummy_dlc;
-			link->num_codecs =3D 1;
-			link->dynamic =3D 1;
-		}
-    ...
-}
-
-Because num_codecs is at least 1 for every link, enabling
-codec_link_be_ops attaches sc8280xp_be_ops to DPCM frontend links too.
-If a card defines frontend links whose CPU DAI IDs (such as
-MSM_FRONTEND_DAI_MULTIMEDIA3..16) overlap with the SLIMBUS_0_RX..SLIMBUS_6_=
-TX
-IDs matched by qcom_snd_is_sdw_dai(), opening and closing the frontend
-stream calls qcom_snd_sdw_startup() and leaks a struct sdw_stream_runtime
-because snd-soc-dummy-dai returns -ENOTSUPP for set_stream and
-get_stream.
-
-Checking !link->dynamic (or link->codecs !=3D &snd_soc_dummy_dlc) would
-restrict this to links backed by real codecs.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-shikra-mac=
-hine-v3-0-e5d074264428@oss.qualcomm.com?part=3D2
