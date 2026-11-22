@@ -1,55 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.28.215.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795363217;
-	b=s4wM+oh/v94LZRIr7lB9VCOXeATFuPR8/BzjsEdBCb751oDbeZWNE7LFe+qQPrRBhMaY
-	 01V5gA4mAjuf+wjRZBp+H6WGeRfxu4ClQJsUeapYnTBa0Brcrj1gtjyn4cs+Hu6ualMow
-	 coH+aJaDlLMCCYwj8+j2rz63nCIyeS51f1GZnQke3zT6HeSj9qcwSXOeJhgerx5vN8fij
-	 45el8eO/bmh/Rz/sYDoqG35bWDOc5Oaul0Z1V4iQM+rEQx2hRRGBeLgPaSziImT8V3ai3
-	 SG0NrCSjUkTebj8xdUBv4ESXZeHZKobQEbScgAIwnDfC04j3FCKIsN8ECTfbWXbJa8g==
+	t=1795363289;
+	b=2xltOrgGNWfjx2cE1xOSGrCMEJs92tLBWJbKmqR3gHG0Ci3CU/ZraN5Bs+cjypjKIa1R
+	 lboOwcZeRXrPVkzf+LxZUkkeVADDkvFVuwWT6AvTU5CfMIxv6ggAFGB7+ayG5wwCArUEG
+	 MX9bLvSKvtEUG9VEuZBHcxO3pFryT8ITckz3WsNUmQvJLlLjZGU/4avBYrc4lCOvNsl7e
+	 noQ5cVvb/mk7k6QsFmLTlB1sRp51My6zqI0GP+tpPeoEHxKEVDxdY6+S5wGsgER8SSHGv
+	 1tPhMafhcfbwDi0t1CGucomEDpZ5I8i8OFbayKIcETTs3pg3RU5AEgbJzkmMHkPMgLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795363217;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2wXPPM/VhpiWJdobsdjxR6EX3sgqzr/Ver2rW6fKyKM=;
-	b=nKwW5q4xX21sFY8PAn5iscUmWZ6Am7uBRb0vk06G9NxWN/tjpT6uJh6Kb4sLtKAuocpk
-	 t1yA+Eeov4j4ZOaCeQM93+ZKqpby/h1nTB1fLPlXRk8em+EjaZ2wcDDHe+CnDbJPpxtC5
-	 mIbhV5wlcOL1wZjSQbC7+b+Fti6SCDz8MPlVLxf1/efdcClnhZSTA0HkQc6HEkjphCWe+
-	 bEhu5QVmjgoVTBpHLaOVlrkiEvwSdbGSvKVlW0jZeb6o9F2+HDgN0XJIS0snH6DoJoUQg
-	 re1ebWIyY+GlopkqjvpnbUeInbsGCmxlGNrJUwJ+Ct2tU/4/VM6smS9O76YpZ56z+ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795363289;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
+	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
+	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
+	 X-Report-Abuse:X-Report-Abuse-To:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0nnzDdRCsGSeP+fBdqjwR5i2BMDAgYKhOGLFfKlLzIo=;
+	b=lboQw4Tc4ULJCalpCx8pGXzWuK1TOZjj2qW761eLAJNEjBPjm0A8sszG3igrihLJLsZA
+	 qg47nVC1zwHq/nX12DXCGnxNd4AAuFTV1sWFugtkYEX+7AW2KJEdD1VLancRYvlkRULVo
+	 QVAW4pRrVK3HdhC1vR6LCDkat4c8LnDYDPaXAL1EvAftY4Er7TtYbO8XZ+1OTaHkKuhc4
+	 VA4qJ6zUL+dQx052sBXuk1/v6wymFtVCi1atvcrNw5IlCs2T9ywiDp5d+ANQsn26bkt8c
+	 453lt378UJJEfVmWj6n2Omwd470sLlIZJmQKKc39j7mJs6rlEKRVnwY+m7elHsvRT1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksa1nqbz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kwiboo.se;
+	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
+	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=Eh+7VJEr;
+	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=gbuRDhUX;
+	arc=none smtp.remote-ip=149.28.215.223
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEF3606A685;
-	Sun, 22 Nov 2026 16:00:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F634606A320
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 16:01:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F634606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksa1nqbz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A01EF1F000CA;
-	Sun, 22 Nov 2026 16:00:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795363216;
-	bh=2wXPPM/VhpiWJdobsdjxR6EX3sgqzr/Ver2rW6fKyKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ksa1nqbzeGyOyPhy2/y+ZCkHO9mZynIykj8CVVEb9P7GCZzFNEZAD3XArXlz3j7BF
-	 q/NVz8B784ETR66STnJDAEOr0jAwLLLY/YFMHoO6+c1qDV+CFJKl2Qom5bhhied2bp
-	 3qV7NOmK63bIbSQjhImv98PHCRhOst3Edv7myxbWtw1w9AKJrlx58qsEyNcdSrO1m8
-	 v4feVDMVNDvdopUH9w5up/HEEI4EafrxP6rACtRs7y/woXX/33CKpbf4VmSNTOzfor
-	 7UEOabrLr08F5mX/o2A00dtBBDRG/93JsAvjZQATyLJ++qlG6uTjDkmpOUb4OGFvT4
-	 Oo5fQ0noGsVHA==
-Date: Sun, 22 Nov 2026 17:00:13 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rama devi Veggalam <rama.devi.veggalam@amd.com>
-Cc: bp@alien8.de, tony.luck@intel.com, michal.simek@amd.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
-	james.morse@arm.com, mchehab@kernel.org, rric@kernel.org, git@amd.com
-Subject: Re: [PATCH v5 1/3] dt-bindings: edac: Add Xilinx XilSEM
-Message-ID: <20261122-devout-ant-of-tact-31896b@quoll>
-References: <1795313124-2138932-1-git-send-email-rama.devi.veggalam@amd.com>
- <1795313124-2138932-2-git-send-email-rama.devi.veggalam@amd.com>
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=Eh+7VJEr;
+	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=gbuRDhUX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From:
+ Content-Language: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=fe-e1b5cab7be;
+ t=1795363286; bh=0nnzDdRCsGSeP+fBdqjwR5i2BMDAgYKhOGLFfKlLzIo=;
+ b=Eh+7VJErFIBUDYkPbpbvDOQjk5NsWIvUmABvhX2IorJ2v3Zh0ajUHVdEJ7UqzqMisnBjoz0kq
+ hjQJHPgZL2mO7dEFFKUzJgH82rqN7V2Q5tzFJ8WfX17hzTzKIrPZzHdTdQxvG1cdnTNAMrIObsb
+ XZq0WY0usSo1uphHJdJQMI4R33z1QWAVCVtR3dYMU5S1sUISZKuYD1IMZdJnGc+PGz0sh4lmCXN
+ yadoiJGtxYrn7nHbSwfdbYhVNFCo33WLVj56hqcq1EL9Iv0wdR/30jzL/tBBYcPhcQGj7QBGLG8
+ YuLTjtOGnlW7a7dE6V2/cIOcn4d7lhImBYC1TYDMt24Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From:
+ Content-Language: References: Cc: To: Subject: MIME-Version: Date:
+ Message-ID: CFBL-Address: CFBL-Feedback-ID; q=dns/txt; s=default;
+ t=1795363286; bh=0nnzDdRCsGSeP+fBdqjwR5i2BMDAgYKhOGLFfKlLzIo=;
+ b=gbuRDhUXS9DJyWrHK1POYbLb+X7FywXZ27byfLHCmbzV5K5X9TbqRx1c1R9isMfribNWKc0Dr
+ 8s24RnfOob1nmoPEl2x9OkY4UKGONW4FICwkGpgsfAy0wAZ4xbJklXpwDWJ+epUV8MqWFTG0ANI
+ gT+HYei2DvV6fWv3KyTHOCo=
+CFBL-Feedback-ID: 6b0311c84993f8611a547daf:b2541adc3895f43479a7fd6879cc7454
+CFBL-Address: abuse@forwardemail.net; report=arf
+X-Forward-Email-ID: 6b0311c84993f8611a547daf
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.19.37
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <5cf52e28-110a-4fc2-acfb-eb264e8c31e2@kwiboo.se>
+Date: Sun, 22 Nov 2026 17:01:08 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,42 +77,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1795313124-2138932-2-git-send-email-rama.devi.veggalam@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/8] ARM: dts: rockchip: Add support for RK3506
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20261122060114.773624-1-jonas@kwiboo.se>
+ <20261122060114.773624-3-jonas@kwiboo.se>
+ <86007bdd-6c10-46ba-aac6-197939934c73@lunn.ch>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <86007bdd-6c10-46ba-aac6-197939934c73@lunn.ch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 22, 2026 at 07:35:22AM +0530, Rama devi Veggalam wrote:
-> Add a devicetree binding for the Xilinx Soft Error Mitigation (XilSEM)
-> block on Versal and Versal NET devices.
+Hi Andrew,
+
+On 11/22/2026 4:46 PM, Andrew Lunn wrote:
+>> diff --git a/arch/arm/boot/dts/rockchip/rk3506.dtsi b/arch/arm/boot/dts/rockchip/rk3506.dtsi
 > 
-> XilSEM is part of the Platform Loader and Manager (PLM) that runs on
-> the Platform Management Controller (PMC). It detects, and optionally
-> corrects, soft errors in the Configuration RAM (CRAM) and the NoC
-> programming interface (NPI) registers. Errors are reported to Linux
-> through the firmware's event notification interface, so the node needs
-> no interrupt property. The only resource is the register region used to
-> read the CRAM and NPI scan status.
+>> +		gmac0: ethernet@ff4c8000 {
+>> +			compatible = "rockchip,rk3506-gmac", "snps,dwmac-4.20a";
+>> +			reg = <0xff4c8000 0x2000>;
+>> +			clocks = <&cru CLK_MAC0>, <&cru CLK_MAC0_PTP>,
+>> +				 <&cru PCLK_MAC0>, <&cru ACLK_MAC0>;
+>> +			clock-names = "stmmaceth", "ptp_ref",
+>> +				      "pclk_mac", "aclk_mac";
+>> +			interrupts = <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
+>> +			interrupt-names = "macirq", "eth_wake_irq";
+>> +			phy-mode = "rmii";
 > 
-> Only monolithic (single-SLR) devices are supported; multi-SLR devices
-> are not covered by this binding.
+> Sorry, missed this on the first pass of the patchset.
 > 
-> Use a single compatible, xlnx,xilsem, because XilSEM is common to Versal
-> and Versal NET devices.
+> phy-mode is generally a board/PCB property, not a SoC property. It
+> would only be a SoC property when the SoC cannot do anything other
+> than RMII. But given this is snps,dwmac, i expect it can do other phy
+> modes.
+
+This SoC only support RMII mode, so I put the phy-mode at SoC level.
+
+Datasheet for this SoC lists following:
+
+  RMII 10/100 Ethernet Controller
+  - Support two Ethernet Controllers
+  - Supports 10/100-Mbps data transfer rates with the RMII interfaces
+  - Supports both full-duplex and half-duplex operation
+
+The Technical Reference Manual also only mention RMII:
+
+  38.2 Block Diagram
+  ...
+  The MAC only supports the PHY interfaces of reduced MII (RMII).
+  ...
+  MAC Supports 10/100-Mbps data transfer rates with the RMII interfaces.
+
+Regards,
+Jonas
+
 > 
-> Signed-off-by: Rama devi Veggalam <rama.devi.veggalam@amd.com>
-> ---
-> Changes in v5:
-> - Moved the XilSEM binding out of the Versal DDRMC EDAC yaml into a
->   separate xilsem yaml.
-
-Why different directory? So not a memory controller?
-
-
-> - Renamed the compatible to xlnx,xilsem, shared by Versal and Versal
->   NET.
-
-Odd, you need to explain the reasons for deviating from the rules.
-
-Best regards,
-Krzysztof
+> 	Andrew
 
