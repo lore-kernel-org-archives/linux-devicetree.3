@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795363132;
-	b=EKu+f0+TupBpqyWF+Qv0VyqNO2d8aXfL/MgH8aRLNOxb04IBaPHDzel4qU8hXbRFTIXM
-	 WWA2QBaJLPa0nzMVGTRuBLGHs309/x8mOUgf8NRvtdgui4mayAw6XAdyZlrRnxpl/Ixav
-	 EuJ37cokBsXWFic2NZWdfnKRUrGQAB31mlW9Cw/LBUbqLdT0R77KJCB93YYQ+o24Z2dlf
-	 OIcslQGaxw20Go9taBWAwXI+MbYBaXu8moL9wW6ybNjC5TFZJdGF2mSgYKlGw/zltlnFx
-	 tcJC6Q1C3gNTPHMJOH8JJdUfWGYr8jF8Drshb8nPQjTLJ0OATlWSrNCS1wCXbjFZtZQ==
+	t=1795363217;
+	b=s4wM+oh/v94LZRIr7lB9VCOXeATFuPR8/BzjsEdBCb751oDbeZWNE7LFe+qQPrRBhMaY
+	 01V5gA4mAjuf+wjRZBp+H6WGeRfxu4ClQJsUeapYnTBa0Brcrj1gtjyn4cs+Hu6ualMow
+	 coH+aJaDlLMCCYwj8+j2rz63nCIyeS51f1GZnQke3zT6HeSj9qcwSXOeJhgerx5vN8fij
+	 45el8eO/bmh/Rz/sYDoqG35bWDOc5Oaul0Z1V4iQM+rEQx2hRRGBeLgPaSziImT8V3ai3
+	 SG0NrCSjUkTebj8xdUBv4ESXZeHZKobQEbScgAIwnDfC04j3FCKIsN8ECTfbWXbJa8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795363132;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=VkNsouhm78R/+6qGXHRWt/S5fZecyxYZ6dmODAQUfIQ=;
-	b=i2o94wzAeIyHYKYVuqF7LWcnHlJ9iFWYB4pkFS0egOHCoHk1xxdA+g6hyUn093guFs1l
-	 Be5+Isgb444ly2nkEbPEQEJjNIm4s86hdd/yf8262N6p+BwcGVcA0raYKeO4nT42sjCQA
-	 D1UvWt81mu0yLkCrP4rwdb4hiwSfGQIwE2jfxMA+MVEWzQzv1Q9dlSeGN4iVaN59+l6Hy
-	 AZZB3b7VrmRSozIYTUoSyOv4WO3+afn9Trly9ylYnXEZKaum1Uo/k5rrTA8AlKn9iDTe+
-	 bjZmsqP1bdE31itmE+1Ue0SSeUvZlCkIMpUCFrokGWEA1a/ZHXoxPOfAimGqYlfEoZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795363217;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2wXPPM/VhpiWJdobsdjxR6EX3sgqzr/Ver2rW6fKyKM=;
+	b=nKwW5q4xX21sFY8PAn5iscUmWZ6Am7uBRb0vk06G9NxWN/tjpT6uJh6Kb4sLtKAuocpk
+	 t1yA+Eeov4j4ZOaCeQM93+ZKqpby/h1nTB1fLPlXRk8em+EjaZ2wcDDHe+CnDbJPpxtC5
+	 mIbhV5wlcOL1wZjSQbC7+b+Fti6SCDz8MPlVLxf1/efdcClnhZSTA0HkQc6HEkjphCWe+
+	 bEhu5QVmjgoVTBpHLaOVlrkiEvwSdbGSvKVlW0jZeb6o9F2+HDgN0XJIS0snH6DoJoUQg
+	 re1ebWIyY+GlopkqjvpnbUeInbsGCmxlGNrJUwJ+Ct2tU/4/VM6smS9O76YpZ56z+ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXwIkoeR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksa1nqbz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3577F606A320
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 15:58:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEF3606A685;
+	Sun, 22 Nov 2026 16:00:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXwIkoeR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BB61F000D0;
-	Sun, 22 Nov 2026 15:58:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksa1nqbz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A01EF1F000CA;
+	Sun, 22 Nov 2026 16:00:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795363131;
-	bh=VkNsouhm78R/+6qGXHRWt/S5fZecyxYZ6dmODAQUfIQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RXwIkoeR372izVFEogyI+8JpQ1QTIpOZnbkhYNI1M+XheLmpwCqSKP4dUg4JirdXZ
-	 GLSiN3AN8vAFH7wf8sCXRB50gs2hbTKAfHPcEY0ZJMsHDg0UI6RIYzOad4SsDIs9Vq
-	 E7Ka+xiCR6L1JjTMd4Up24zg2K2Y1qO1dg/Dat2swqlPkwIfQczLR7eum8V8PhWH6F
-	 NonYr4w3UZePAZSxJECBBvSe029sMFQxpwUl91kwLUEdqWAbdF9ZkKj49Ze/D07jCA
-	 lsybAnJBrF7yquh2ek5lgjM8mQT7RyI6h9zdA/zcCpKdq1U3iVOZNsx7EY/hKLBySK
-	 /B3kl8sSeXdrw==
-Message-ID: <sashiko-outbox-228068@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/v3d: Remove V3D 3.3 and 4.1 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261122-v3d-remove-33-41-v1-2-52152b454ad8@igalia.com>
-References: <20261122-v3d-remove-33-41-v1-0-52152b454ad8@igalia.com>
- <20261122-v3d-remove-33-41-v1-2-52152b454ad8@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 15:58:50 +0000
+	s=k20260515; t=1795363216;
+	bh=2wXPPM/VhpiWJdobsdjxR6EX3sgqzr/Ver2rW6fKyKM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ksa1nqbzeGyOyPhy2/y+ZCkHO9mZynIykj8CVVEb9P7GCZzFNEZAD3XArXlz3j7BF
+	 q/NVz8B784ETR66STnJDAEOr0jAwLLLY/YFMHoO6+c1qDV+CFJKl2Qom5bhhied2bp
+	 3qV7NOmK63bIbSQjhImv98PHCRhOst3Edv7myxbWtw1w9AKJrlx58qsEyNcdSrO1m8
+	 v4feVDMVNDvdopUH9w5up/HEEI4EafrxP6rACtRs7y/woXX/33CKpbf4VmSNTOzfor
+	 7UEOabrLr08F5mX/o2A00dtBBDRG/93JsAvjZQATyLJ++qlG6uTjDkmpOUb4OGFvT4
+	 Oo5fQ0noGsVHA==
+Date: Sun, 22 Nov 2026 17:00:13 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Rama devi Veggalam <rama.devi.veggalam@amd.com>
+Cc: bp@alien8.de, tony.luck@intel.com, michal.simek@amd.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
+	james.morse@arm.com, mchehab@kernel.org, rric@kernel.org, git@amd.com
+Subject: Re: [PATCH v5 1/3] dt-bindings: edac: Add Xilinx XilSEM
+Message-ID: <20261122-devout-ant-of-tact-31896b@quoll>
+References: <1795313124-2138932-1-git-send-email-rama.devi.veggalam@amd.com>
+ <1795313124-2138932-2-git-send-email-rama.devi.veggalam@amd.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,96 +58,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1795313124-2138932-2-git-send-email-rama.devi.veggalam@amd.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] drm/v3d: V3D 3.x OVRTMUOUT bit reported on V3D 4.2 in
-  v3d_v3d_debugfs_ident()
-- [Low] drm/v3d: stale V3D 3.3 and 4.1 deprecation notice in v3d_drv.c
-  DOC comment
---
+On Sun, Nov 22, 2026 at 07:35:22AM +0530, Rama devi Veggalam wrote:
+> Add a devicetree binding for the Xilinx Soft Error Mitigation (XilSEM)
+> block on Versal and Versal NET devices.
+> 
+> XilSEM is part of the Platform Loader and Manager (PLM) that runs on
+> the Platform Management Controller (PMC). It detects, and optionally
+> corrects, soft errors in the Configuration RAM (CRAM) and the NoC
+> programming interface (NPI) registers. Errors are reported to Linux
+> through the firmware's event notification interface, so the node needs
+> no interrupt property. The only resource is the register region used to
+> read the CRAM and NPI scan status.
+> 
+> Only monolithic (single-SLR) devices are supported; multi-SLR devices
+> are not covered by this binding.
+> 
+> Use a single compatible, xlnx,xilsem, because XilSEM is common to Versal
+> and Versal NET devices.
+> 
+> Signed-off-by: Rama devi Veggalam <rama.devi.veggalam@amd.com>
+> ---
+> Changes in v5:
+> - Moved the XilSEM binding out of the Versal DDRMC EDAC yaml into a
+>   separate xilsem yaml.
 
-commit 24570297f583283eb9b4a58e9c2e78e6081f77f1
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+Why different directory? So not a memory controller?
 
-drm/v3d: Remove V3D 3.3 and 4.1 support
 
-This commit removes support for the deprecated V3D 3.3 and V3D 4.1 GPUs,
-along with their device tree compatibles, GCA and bridge reset registers,
-and V3D 3.x performance counter handling.
+> - Renamed the compatible to xlnx,xilsem, shared by Versal and Versal
+>   NET.
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_debugfs.c b/drivers/gpu/drm/v3d/v3d_=
-debugfs.c
-> index 634cc796ba232..938622c730d04 100644
-> --- a/drivers/gpu/drm/v3d/v3d_debugfs.c
-> +++ b/drivers/gpu/drm/v3d/v3d_debugfs.c
+Odd, you need to explain the reasons for deviating from the rules.
 
-[ ... ]
+Best regards,
+Krzysztof
 
-> @@ -210,8 +194,6 @@ static int v3d_v3d_debugfs_ident(struct seq_file *m, =
-void *unused)
->  		if (v3d->ver <=3D V3D_GEN_42) {
->  			seq_printf(m, "  BCG int:      %d\n",
->  				   (ident2 & V3D_IDENT2_BCG_INT) !=3D 0);
-> -		}
-> -		if (v3d->ver < V3D_GEN_41) {
->  			seq_printf(m, "  Override TMU: %d\n",
->  				   (misccfg & V3D_MISCCFG_OVRTMUOUT) !=3D 0);
->  		}
-
-[Severity: Low]
-Should the "Override TMU" line (along with the misccfg read in
-v3d_v3d_debugfs_ident() and V3D_MISCCFG_OVRTMUOUT in v3d_regs.h) be removed
-instead of folded into the v3d->ver <=3D V3D_GEN_42 block?
-
-As noted in commit a7dde1b7a5c9 ("drm/v3d: Don't try to set OVRTMUOUT on V3D
-4.x."), V3D_MISCCFG_OVRTMUOUT only existed on V3D 3.x, and this patch drops
-the corresponding write from v3d_init_core().  Keeping it here causes
-v3d_ident on V3D 4.2 to report a V3D 3.x bit that does not exist on V3D 4.x
-hardware, and the new "/* Only V3D 4.x */" comment above
-V3D_MISCCFG_OVRTMUOUT in v3d_regs.h is also inaccurate.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-> index b790be8a7face..0551e9abf17ea 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.c
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.c
-
-[ ... ]
-
-> @@ -421,18 +392,6 @@ static int v3d_platform_drm_probe(struct platform_de=
-vice *pdev)
->  	 */
->  	WARN_ON(v3d->ver !=3D gen);
-> =20
-> -	/* V3D 3.3 and V3D 4.1 has had no in-tree userspace since Mesa
-> -	 * dropped support in 2024 (MR#25851) and they have no known users.
-> -	 * Due to that, support is scheduled for removal in the next release.
-> -	 */
-> -	if (v3d->ver <=3D V3D_GEN_41) {
-> -		dev_warn(dev,
-> -			 "V3D %u.%u support is deprecated and will be removed "
-> -			 "in the next kernel release. If you rely on this hardware, "
-> -			 "please report it to dri-devel@lists.freedesktop.org.\n",
-> -			 v3d->ver / 10, v3d->ver % 10);
-> -	}
-> -
->  	v3d->cores =3D V3D_GET_FIELD(ident1, V3D_HUB_IDENT1_NCORES);
-
-[Severity: Low]
-Should the deprecation paragraph in the "DOC: Broadcom V3D Graphics Driver"
-comment at the top of drivers/gpu/drm/v3d/v3d_drv.c also be removed now that
-V3D 3.3 and 4.1 support is gone?
-
-drivers/gpu/drm/v3d/v3d_drv.c:
-    ...
-     * This driver supports the Broadcom V3D 4.2 and 7.1 GPUs.
-     *
-     * Support for V3D 3.3 and 4.1 GPUs is deprecated and it will be removed
-     * in the next kernel release.
-    ...
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-v3d-remove=
--33-41-v1-0-52152b454ad8@igalia.com?part=3D2
