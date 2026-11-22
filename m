@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795340043;
-	b=1DV2hyYc+QYm6XI8bQtfXvjKHjhgsHmsRJrU8FC84DvaxWiS0v4GQuUFnlo/y2NGh4fy
-	 ctHoNEphAOY0j7xcMf7hzsd4oKMcODQDLGWS9IIJNn/xMw42hpcgI0jGwgNwto/avA91i
-	 +NYaqAZ0LV73Pgayoe1FqPRBY+fI3WC1AdtRcvseIXqvMRFBP7VDeGavfxFSMfELTdpDb
-	 uOCTNqRdD3iGU6azpbnTNgK1nsJ6XW3lTyE2DMq2itvIl0Ly9/7s8MexauuuD6TwodGaN
-	 1kHSLUQeq9YHuzbTXU94N9m6frmta214cW8FMLJyToBVwT1GK7uLwM/32CxhnFc3K2A==
+	t=1795340045;
+	b=V+2PF7KQwfq2a0nSaFzMKDOzq2pJMHCMe3X/w7nISznWcGoNMpJQp8RGQ9htxs4ci4Op
+	 NBSWtuTiKUaPrmx6qYVyg/h5rodFMRVk9/cQKbVTBH7l1zgbjtOo5e3TlHd5+3CkiW/Xf
+	 Xw22bmmSOZ5MQnFQDvPulM47q7vty1bflSp7V7ojVLyWj+5i/aWbCaDBIzbdeo4Ex47NS
+	 im3CxOcO6o9+k3c6fcGE0f4qhAmhCTRsQoX8Oe4xNFTNoAklpC/5jMsXzTbnlEIVD/SA+
+	 fZY1eRIvIL+KjLOwklHx5zhCa1z+sBHk+UGBsaQ9LqiSYDsV/r4+hddF1NFOmpgbTbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795340043;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795340045;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=W5VTRU2ZJ4vfK29HCyapxIcp+oDTBoW4ogGlC4wIY/w=;
-	b=kFaJXWtKqiBMeqrWqowHfny1Bl/9HlnNLRMMQR17k84r3xjnJGPbFp0KZxOy8wwaXDl/
-	 jwGEsXuRmRsV3tzNDpvQ3OcT3OQbd66BOiX6xoOSo69tEPEdkVGnWF/unVsuKG8gUgwel
-	 cicMD+zyKLYHVm7lHB4C8yaYPL87C1v0wESD3InOUugk1gciGzNLjHhqVvnfC45Jl1vn0
-	 xJWhZG7K6Uh2X1mQY7kWccfGkIkdPCkKQctJJCmyg0OFo6p2ui3TERAXsSCsjrNcsGlBu
-	 rfx/jF0bsNAtVJPY9iCPtRZoYhfdQGsT/61LGatKCuOqjN6XVEZ87IjpScImGwhEZAg==
+	bh=ZgFjP6gbVoWf0N5HJMqz+f82IMBu0iSQOg21x6h2nUQ=;
+	b=5Rdg+V0E6c2vgxAsrGQuXy/LR+BXFVAuiTh31tS1vcqNX6swBTKY3RVHEGf62tncIx4j
+	 RRvL6//jkwMX5B9TC3ZKb8y2ZeJpj3FF03ZBRORkz/pRXNj6yeeYlTYiOeOyprKCeR++f
+	 frE3x9zHVtqGDgEF/vMeTmoLDejy4manpBGpYKNShn7W6YxASRadyqxpJvNSwNPYh1pUe
+	 4C9E6/buVUWIsQlQcDL+0jD+8zMbG0j7Px4N+Yi/TnZUwGz7ciXzSMxQJj3xeUGkNFd8v
+	 f8eo2diCuN59BVfNZ/zQNeaPDe2XevSQwflD+R0LViMnGQKEpYcqBy3Jr9hGpOJoRbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=teslabs.com;
 	spf=fail smtp.mailfrom=teslabs.com;
-	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=n+tQ8jlF;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MIfG8UvC;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D96606A32A
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:34:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93D96606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B723A606A32A
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:34:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B723A606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=teslabs.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=teslabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=n+tQ8jlF
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4bb69f5b161so14508965e9.0
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 01:34:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MIfG8UvC
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso17339805e9.0
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 01:34:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795340042; x=1795944842; darn=vger.kernel.org;
+        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795340043; x=1795944843; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W5VTRU2ZJ4vfK29HCyapxIcp+oDTBoW4ogGlC4wIY/w=;
-        b=n+tQ8jlF9qqkDnT181q+T6SD0KSNWI+ercVFB9Ze8d2CpIz/eVP7hfn8ejHt8ng6O4
-         0IxyK1MlxH6Hhuq6UME71z5nR3loI0BST+7UG2XxAz05XuRH23ipnoK0BGXV2hfu/llh
-         gxePZHSOKQoLTPjBaoy60Qy0eXR98WetMRr9W0eUpIrHEh8GC90/CFXQV3Ncs0SekCMy
-         6wLwfXp5jrtC0An9XR+s5ATHqa+eOSylVxfzxavyoji1XMQ1SDzF/dBIrTv1bU7cVkdi
-         aibXNXPS3umdOJhwNS8hOFO3hMzWFlZjj0vgFsn0NHkSAWYI4PS+rkWxLBI0E8KSS1hv
-         dGTA==
+        bh=ZgFjP6gbVoWf0N5HJMqz+f82IMBu0iSQOg21x6h2nUQ=;
+        b=MIfG8UvCcPxdYRirFtzogcdj1fHf7xp1wSbV6bWIvEDU7IPlMbM3zTZFjyypuQMSKs
+         PD9kbGK+w3w5Tq/y+7ZZix20lL8wHJoaAYnlD030QoavljJYEZh9ciQBbt6LPXd3gaeN
+         nHzO1t5imZ5wPwuU7eE49GSxGsrNnlfT9zai0jfX9iH43pF2V6OUcdSwaVfiLsNyuocr
+         4p2jKNvln9yUwOLsaRRm04xC+6V3AfewnIWHJJzFueJymAMcFkuqEgDmdynrUqsx/emu
+         ZvNL0YS7VwrFomoFJheWvWuEo9aa+JUBuC7/tG9pdMEtE5dFrZcwychWojkm4IMuC1Lq
+         w+JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795340042; x=1795944842;
+        d=1e100.net; s=20260707; t=1795340043; x=1795944843;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W5VTRU2ZJ4vfK29HCyapxIcp+oDTBoW4ogGlC4wIY/w=;
-        b=f6lXotZHcFW43Ropd9ZB7G+YVqsrp0liM0Fk0kBZKXGytwUcj/T/9bz/comx5rzmZp
-         61vims9MMKqilhpiGtiF5BNYB/ska/PlB9cMzWBlprv/E+vmkQfSRB5ExHD776wUncNf
-         QrHEN8dmHfyUsUQThe6VXcdcASxqU6i+e4J+vrIgA/43mxg9j3C3vTX2ZoSskuwFl8Hc
-         SGyFmc0Tak1ynA897G/hfYFpXBFJU2/vpiCp+6ys2X14ORD8O1YbPNw69w2lOpT56jd0
-         9U69Y0TME9v0xwcoRv0i5oJ+6hjVDBneSlVEwnr8aYrpO9qdQn3c45QUOiuLScw7RRAk
-         1b5w==
-X-Gm-Message-State: APuU4Z/AqCx1LZOLjqCN0Z38jZ0nndOBBRdu618r5L1Ol/DV7IEdhfd/
-	5CY7AqqGwM/l12gq+OM/gOW6DfSkG7/2Q4YQNNVzpuukY5MBAI/gTJCNdcBT6M7vdwc=
-X-Gm-Gg: AZFdTZf8NOCHdzNPAKE1R3ZDArfqZr4DQEismr7yesmpZYoEPcL70cC/dCxHwitTKBX
-	i8ISi5w4gCxoBoYOSqvfPbZs2QCS8DJ5i9sQyCY/J5nFHbu4LvzUnuAvl8bmrAj2rKer5xAvsjS
-	80NUghgqgucxY78hAKbVeYGJn9pAsCKb4EkkTDLxtgsOeiZRV0CFMlKf94cCXqD4+Frie/KdWl3
-	75b93wpH9WMSVZMXJ1poqXZ9chD5gXcNiVPEDqMxL3B7ukdJbIeoD59wCeUyB64oWxlP6Dztq5s
-	xqBqj0uZROw1uJFwEGQ0+vuRg0fYV8R1FNVjnImmLHBNpSjQP1bvoHXuzI5itoNTNzBaGhi0vBt
-	PbtR78bm43IagRCS8TfWsGEJKY/TdWLyv/7QWLk6xrklRBWyMTJoSzY2P5zIif4vol6ewJ0FQXt
-	/R5e8vElCzL5WpTiDGpMFOaQv3sGzGvBGUMQyI8grqol9Al9ZfJ8Dm4CB9VH1h4GuEF42tdkIoz
-	epByu7miVfUMWoA4uhl+PCrUm1Dprc5NJpX9hnS/QJZGQlpleEUdFTZT3tUJDvvFOE4JqpNEWZ2
-	2eac2cx9/TYBerRNLdFy8TG8WR3kxnrSYecRpwBLN4FaJOco/557C9YtvtVPmp2uFCCYjWihdlx
-	eNcEqVL3s+hA2
-X-Received: by 2002:a05:600c:1d09:b0:4bb:6fd3:5ac0 with SMTP id 5b1f17b1804b1-4bb88816c7emr186380805e9.28.1795340041982;
-        Sun, 22 Nov 2026 01:34:01 -0800 (PST)
+        bh=ZgFjP6gbVoWf0N5HJMqz+f82IMBu0iSQOg21x6h2nUQ=;
+        b=C5ZH7XJfq53/WNEYNEGl55pTxMH0dryN4VRJS7QZhqfp0Cq1Pc/wZH5bWUMdTyH7lI
+         YqLumTtTMMH/q2lKn+HWNFqxzPxN15QTtT0fs8se4srea8YV/Cj+rOK2AfXwuKCZv6Cm
+         P0Ys4dLepB5/VNuJR5Ruij3iZCE92B76qkvxYdOwWSsjyx4zI1SK5jepzAwk7B8y9FKE
+         3m5xTjHbLQcqLnwAwstI1bBmN6kvfK/LDXxy3bSmXDbfbEZgtg+2lyZ6/ittke/zpJZz
+         GwkgoFNiiG1gVbTvzddTBo31aXKOXL9D1Q7He7P/5Qfu8dfToTs4HakBOAtzAxq3TkXU
+         tHgQ==
+X-Gm-Message-State: APuU4Z9MscLWKULfC19pbtwSJjceA2agqKDLmtG0ZajWD/iaInf8vJM3
+	OK+Eb5q+5rSHlZyOwCfy7Ni9cVeGov6IZO0Az1mCQsdqbG6yAvODFnmSs0M/2QT0E+E=
+X-Gm-Gg: AZFdTZcSn3TwNaKIFlcKIEG8HZRWqADZJUS0FV5IjylVoGDm2ESSkSZwOCG5CeNXINb
+	EMsOKynN5FL4KHeZkm6nx/n3ZESPz6c3f0sI/LxoRSGUGKf3oGFVg2lcEuhUnd/zWDGk9n3C+vW
+	FK4NpkXVf35BkezwON0f1b6d74Rpd9HJVRfZauett4XpuPEq+OvoqVw9gNjpBc/HQLKfXozTYb6
+	BCnl3fpiGdb5KEMZN5NAWPXLbpw0J9EDW6SO/3ND5HI/H4WtNNGcsKVkZd+dodrYAPyDoi4Pzer
+	bDVgbLN3w7Kf1aLwjoq1dlKKTPa3Muhk65p52puvFO2R2HEpcGtOfnlCfBP8G5NL1ecD1Q9Lnpw
+	34cdTwlsxvQYzr2iy4pNL/PGE1BVvsa+4anGef1GgSL37Go+bXT4oWeAn6bKSOOj+0IhN6y124v
+	hIZdvzd5GshPrIyTr7iiTyVWNzDkLfr9ZYtMuTQwt7Avvoyz9ao5KBepFvv0ifh9eeYIR17y76d
+	rvvFqQagt+CqhUJOdiyaj2E4byyMxFIZGB+Kf9/vTC5ucVJXDvkNkV1DArdXPaM4VEqce7JNefs
+	tYR198lznkFnXtWAwO+BMm0/CxXkkDVMhfaLT85uMIZ0L7yCKCPSVjta2cVwjfj5+Uum0olNAap
+	hzKFp6BzKsjE=
+X-Received: by 2002:a05:600c:a08e:b0:4bb:647d:dabe with SMTP id 5b1f17b1804b1-4bb887c3afamr196029325e9.3.1795340042827;
+        Sun, 22 Nov 2026 01:34:02 -0800 (PST)
 Received: from localhost.localdomain ([139.47.121.129])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf61e8sm16972915f8f.11.2026.11.22.01.34.01
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf61e8sm16972915f8f.11.2026.11.22.01.34.02
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 22 Nov 2026 01:34:01 -0800 (PST)
+        Sun, 22 Nov 2026 01:34:02 -0800 (PST)
 From: Gerard Marull-Paretas <gerard@teslabs.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Lorenzo Pieralisi <lpieralisi@kernel.org>
 Cc: devicetree@vger.kernel.org
-Subject: [PATCH 1/2] dt-bindings: arm: cpus: Add Cortex-M33
-Date: Sun, 22 Nov 2026 10:33:58 +0100
-Message-ID: <20261122093359.69352-2-gerard@teslabs.com>
+Subject: [PATCH 2/2] dt-bindings: arm: cpus: Add Arm China STAR-MC1
+Date: Sun, 22 Nov 2026 10:33:59 +0100
+Message-ID: <20261122093359.69352-3-gerard@teslabs.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20261122093359.69352-1-gerard@teslabs.com>
 References: <20261122093359.69352-1-gerard@teslabs.com>
@@ -101,11 +101,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the compatible of the Arm Cortex-M33 core, next to the other
-Cortex-M cores already listed.
+Document the compatible of the Arm China STAR-MC1 core, an Armv8-M
+Mainline core compatible with the Cortex-M33.
 
-These schemas are now used by PebbleOS, whose QEMU machines are built
-around a Cortex-M33.
+These schemas are now used by PebbleOS, which runs on the SiFli SF32LB52
+and SF32LB57 SoCs, built around STAR-MC1 cores.
 
 Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
 ---
@@ -117,17 +117,17 @@ Notes:
  1 file changed, 1 insertion(+)
 
 diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
-index 96136b70dacd..da12be7f5119 100644
+index da12be7f5119..75e79aa49ab7 100644
 --- a/Documentation/devicetree/bindings/arm/cpus.yaml
 +++ b/Documentation/devicetree/bindings/arm/cpus.yaml
-@@ -170,6 +170,7 @@ properties:
-           - arm,cortex-m1
-           - arm,cortex-m3
-           - arm,cortex-m4
-+          - arm,cortex-m33
-           - arm,cortex-r4
-           - arm,cortex-r5
-           - arm,cortex-r7
+@@ -190,6 +190,7 @@ properties:
+           - arm,neoverse-v3
+           - arm,neoverse-v3ae
+           - arm,rainier
++          - armchina,star-mc1
+           - brcm,brahma-b15
+           - brcm,brahma-b53
+           - brcm,vulcan
 -- 
 2.45.2
 
