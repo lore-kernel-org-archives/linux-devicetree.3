@@ -1,49 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.205.8.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795368060;
-	b=LHsesIgJ5AKDo3G9J1xyBEIIH8jow1FHb/4kccyJ9Ecy/cecXmYatVNWeTKuCphhoOp5
-	 f8Kyit1GLxgBrwxzTnB57MRfOFSY7ZdIMYvesDFBqPwuKzQY5X67iK4vIGj9EtpOA7gc8
-	 3tJq8b3b7vbJMT3XnaKeloAt1cQvZyKSTw8lKLCf1MKe/pay4eWRUj8njRGZ2gSDPbeqe
-	 h+wRxD7eCDuA/wmpDODyajPcDVNwNu9oa0RLCwzUjLQhhTO4qRp4fidm5lFpura68JsvU
-	 5GiG9VBcVQhcA8CZdi3C+2PCLpGDfzng4t0cSvRjgLiHKDWU6joKT+JP872pimnqO4A==
+	t=1795368148;
+	b=Qe8HgHuUbtGoQtNbY3uw7XTkaUBLwLUcoWTxczhWnTUKpqjbHeABbeULjwctZO2iylUd
+	 V6Am2c+eQjOPi4bEQ2TgUaiMIOktSZFXXG5umRgILM36JECmPRNnc7Qr26E9XpLdwBU3e
+	 O7UkWnY9MqP4K+O6efJRIlBxJa90p6ZKKVJje5/Sad7mRFlW8jyOmwLNTcoWx/8d5K9hy
+	 aahDNpJ9qa+pcpK4An6ldNjTKomLo2ay/1bTqe+8pT+hfSGmhiISlGo78+39JmHNzf/JK
+	 SvBZE/2ldIO6qrWLNvK45rdeQTT5PHDHUHTH7qqLM9a0klZviN7u9NfrQEmkYh2Oz0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795368060;
-	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:To:
-	 From:References:In-Reply-To;
-	bh=xMAMvMSuemtr/dlGWGZZg9TqU0c+ENYkoUNgtIidgTI=;
-	b=WpX73jhyNZ2rtQivwRTcs1dP0kccZGd/Mom2MjrmMgW4HqEY4qPZfRr4rsAOSVYkQgmu
-	 0M8OH/GRiokqrXW94U6OvDYCMcw+O/I787aQs9d5Ig3RF6JtP/XpS/d3/4CmBlPe7lTTv
-	 ua8WuP2gU5sigz77kP1aKskCwlfVSZfeyUSMPvnd4kI1ebcLcHDi+Y7FhtYOaR2ku/dLJ
-	 YlH4yBWCV8Fs8n6BboQ+DjYyaSMuwAFmsUCzNObFPBBqaLymn/RJgmMYoVfvLYkiWKXL9
-	 meUXQhiDkaSwILNj32XS3NlWCJ0Ml9J2a1k3gi3WhfOUFoUq6xbz80NcXgGiRSkEakA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795368148;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=bsJvZUqn+Bb7/gG6ywuV/4DLp7NmQEDZvD3R+5g2Jts=;
+	b=DZpn5M+IhHhXOWAJTRnWrPm3jKil2KZK6pr5936aePHIuBN21hAqqcGqFpZT6hQWrJ74
+	 C5sIo7EplAX/b45E9xUHYDu1WADv7vaEP2yBu1JDg3sV+C8eUmq4H/juKSbU5doaw7viY
+	 irek+9jcnPz24NgsfqrF0PTxUgkdRQiQmgKPwpzwvx5ahRZSThEaM0ybfYjsVAZEPMLyW
+	 A0+u2sxdjhfJaJCVaPqTxmcFzzm5fUb0eMqIyNgXHgkmVGx+MhLlRrOtoFRiQ6myGG3RO
+	 QqDHLThvB4lH1zKIucUi1xE5f6+IfIvEGIXzHSRPqNYC+o1HRcpG+oieva1D5A0kekQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=matfyz.cz;
-	spf=pass smtp.mailfrom=vinatta.cz;
-	dkim=pass header.d=vinatta.cz header.i=@vinatta.cz header.a=rsa-sha256 header.s=default header.b=oT1CQ8nR;
-	arc=none smtp.remote-ip=37.205.8.231
-Received: from vinatta.cz (vinatta.cz [37.205.8.231])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XBAzZYcv;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF90606A681;
-	Sun, 22 Nov 2026 17:20:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF90606A681
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinatta.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E6B606A33C
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 17:22:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5E6B606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vinatta.cz header.i=@vinatta.cz header.a=rsa-sha256 header.s=default header.b=oT1CQ8nR
-DKIM-Signature: a=rsa-sha256; bh=xMAMvMSuemtr/dlGWGZZg9TqU0c+ENYkoUNgtIidgTI=;
- c=relaxed/relaxed; d=vinatta.cz;
- h=Subject:Subject:To:To:Cc:Cc:From:From:Date:Date:MIME-Version:MIME-Version:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Reply-To:In-Reply-To:In-Reply-To:Message-Id:Message-Id:References:References:Autocrypt:Openpgp;
- i=@vinatta.cz; s=default; t=1795368011; v=1; x=1795800011;
- b=oT1CQ8nR7khqT7IAnsfEfPfFZmLRzxBzw3BRr3KDj8njwtc36UDqCvlwkgiVV7DK7xi+VUnI
- f11f733vgEG08UJmp4PhxoEBn4cDoPwYiyUToX1f9TZnUYXCQBKWEpDFnQaSJOyqwjXFUiqza4K
- GfeQ3BZGY1zjP1R+sq+NafYPLr8dhZSWpC+OB9AvQF0qL7iagoHFBDKcd+c7UQ4aFu4zRPRlzA4
- Ax/IjgAhfQ2ycv8NgOnSt6OOxT/mLQlXFj3q4C/xwWzpaWUEC9yaxWGZ+xZAiwyrT62SBELTDcL
- gOyv9MG7QQW9wftp73prIAygBuFFx5HVU6eaOrERfWqeg==
-Received: by vinatta.cz (envelope-sender <karel@vinatta.cz>) with ESMTPS id
- 3a5e5229; Sun, 22 Nov 2026 18:20:11 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XBAzZYcv
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cde5a7d79b0so1209585a12.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:22:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795368147; x=1795972947; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bsJvZUqn+Bb7/gG6ywuV/4DLp7NmQEDZvD3R+5g2Jts=;
+        b=XBAzZYcvI0UAjxnxRcreZ2xa57tWzsBIk+xJyJfakPnjZQLRqB7gnVTc6Qn5CdjUbO
+         xXTqI9r+rGRXSGvF5d9u/Gnt8cBL/N5/xf6tBndcQ9TnX3hHeuD9tSzX8sNkkbj7vhA2
+         NeZPxacRSsaOBC0O3QO9DSW6vT50WIL7fgQmtZa0YNtC+iyBs2ZZbCtUEdbBWGXZZsl3
+         XzMwvQ4v9H33vCd27VDcugFyzLDIPGo4nIjz28dfG3CtbzZTvpHODKvnyuNs3l4NIsgV
+         rmrwLL0KqwTgCr+ubLcXoPp9NBBDnxFxRbDWkoQYlII4OMLRVrvsRiSieYn+T9Gsvdjr
+         irPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795368147; x=1795972947;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bsJvZUqn+Bb7/gG6ywuV/4DLp7NmQEDZvD3R+5g2Jts=;
+        b=pgK7s3BhbeX3IX0Xu/3q6OIQHo+lKqHDqCoAIoLHztsLomMTA21uK7jez/1DYkdkIm
+         0pSc+F5y26N8lQWSx+2gqw/wnSIacgfY3gWRZaSXaJdn0m5JTyf1fwrzfnWM8QBjh1ks
+         nYNh38IWd5cIBIm0yhosxGG/YXid0A4wUeEAl/sXo3EZDgYI9tskgZNLm3QmuF8zuWJl
+         mCUcb8pcD7/ZEjYPDvbTNg+hVNSMNPBqZlhIMWhwBuOXbCH78b8RNNjaV3iohybUohzj
+         wn8tXHvU+kxkzmqFzO1uPXkH6s2NWz6uXY86ntc9BdnAKYI3ChzOdrOTlbRXaRbFvJ/m
+         X0TA==
+X-Forwarded-Encrypted: i=1; AL+hErGrieqJLKeb9rbc9IsUoRxn9OBYUtEP+eMH0fSpQVSdYsmeOHVKodSuBM90uSA+gnpId1G2autt60J3@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ePETNt0rqU5+SK+UCbP8okVtoErx0k8y3h/SeeV/Dpn78OYdZ
+	vh2NTLHAtYejgN15XypMT5JuPY5k1TzXn9w3dmJRqLgT73CggLsudx4Q
+X-Gm-Gg: AZFdTZeUqVWERt7FOgONSi9JkEHsa2Jo7ObwuivTySQM/SjsmwXsq+vRg370cazzQDr
+	CIYvbjW3sIdjXqFM+MuO4vfJD6dT8kWBRs9y9qV3Tg3d10CjM+JJ5tj4WeaOeLohJyzDvpxsO94
+	gaDOHidc7MFUwbqLmRZbFoEzW3efNqDIMg56uOLxKNd3B5kDJywyhzGlQoMpsKgQJZ/FviG26iG
+	BTR8C2Vz/pltf2zEVOyoVUv0VWISqidjlvdMiVYBtzXR2oX60TymMvJ/3sDr0okhz9hwaY8bpdM
+	h9UYZZYiP8UWrcqXggQ5xAsDfrNwDmtCCgBzTNNE9xaY1u66MlKYQKoZMJaNbjId29nxcUjZl+n
+	1SHc9nXZuQgPWevotULtQM6ukgbWiyplYwvvmFbxGgl0+0RkklBBYENEvZ1bq4jD02ZXxYc0XFh
+	Bx4Ag5pr6bq/w6nvBpjw2sPp7Aw9u4EPO16fNo+xbA6up6GeBgHd/KSIs73gRJ49GOgnaUERpbO
+	bSHnqb89vDs0IBcZ3gzIGF+gZAmjn+ag/TATH/v5Ii5DNf1DUqMs61x6eY/OcQZtcfP0n2NhcdB
+	UWk6iaYs6JpwvUNnAv0d6mqRpu+6CCdiIZ9PKr6Ywx5SFgJLD6BG63ryWn/ajnNfEC9JV8qpPri
+	jAGk=
+X-Received: by 2002:a17:90b:3d4d:b0:3b0:9162:948e with SMTP id 98e67ed59e1d1-3b41c905a3dmr8081661a91.27.1795368147033;
+        Sun, 22 Nov 2026 09:22:27 -0800 (PST)
+Received: from localhost ([2.27.148.107])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad0b2c4sm13471136a91.4.2026.11.22.09.22.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 09:22:26 -0800 (PST)
+From: Han Gao <rabenda.cn@gmail.com>
+To: =?UTF-8?q?Jernej=20=C5=A0krabec?= <jernej.skrabec@gmail.com>
+Cc: Han Gao <rabenda.cn@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Guo Ren <guoren@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>,
+	Han Gao <gaohan@iscas.ac.cn>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andre Przywara <andre.przywara@arm.com>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@sifive.com>,
+	Conor Dooley <conor@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-csky@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 06/19] clk: sunxi-ng: add support for the Allwinner V861 CCU
+Date: Mon, 23 Nov 2026 01:22:15 +0800
+Message-ID: <20261122172221.3552455-1-rabenda.cn@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <c8OwiyQSR8ivEFULfFWNow@gmail.com>
+References: 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,58 +133,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 22 Nov 2026 18:20:10 +0100
-Message-Id: <DN1WUDUNU9U2.351W1X92P0BJF@matfyz.cz>
-Cc: "Brian Norris" <briannorris@chromium.org>, "Johannes Berg"
- <johannes@sipsolutions.net>, "Johannes Berg" <johannes.berg@intel.com>,
- "Francesco Dolcini" <francesco@dolcini.it>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, =?utf-8?q?Duje_Mihanovi=C4=87?=
- <duje@dujemihanovic.xyz>, "Gregory Clement" <gregory.clement@bootlin.com>,
- "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>, "Ulf Hansson"
- <ulf.hansson@linaro.org>, "Frank Li" <Frank.Li@nxp.com>,
- <linux-wireless@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-mmc@vger.kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
- <phone-devel@vger.kernel.org>, "Jeff Chen" <jeff.chen_1@nxp.com>, "Peng
- Fan" <peng.fan@nxp.com>, "David Heidelberg" <david@ixit.cz>
-Subject: Re: [DONOTAPPLY RFC PATCH v2 0/4] WiFi support for
- samsung,coreprimevelte
-To: "Andrew Lunn" <andrew@lunn.ch>
-From: "Karel Balej" <balejk@matfyz.cz>
-References: <20251026182602.26464-1-balejk@matfyz.cz>
- <DEJL1ATTQMVE.120JV9YW59I27@matfyz.cz>
- <aSnWYS2g5slVFaSk@gaggiata.pivistrello.it>
- <DI5L100Q1RKO.1A68EJIPWYSRC@matfyz.cz> <afI8y70U7wFT_07h@google.com>
- <DLQ9LXDE2P29.248MPYCJMT0DL@matfyz.cz>
- <787950f1-ff2f-4b49-b164-61da3c9971c6@ixit.cz>
- <20374af8-2f50-4637-b92a-4fa5c5192c20@lunn.ch>
-In-Reply-To: <20374af8-2f50-4637-b92a-4fa5c5192c20@lunn.ch>
+Content-Transfer-Encoding: 8bit
 
-Andrew Lunn, 2026-11-20T20:55:49+01:00:
-> Why even bother, if it has no users?
+On Sun, 15 Nov 2026 08:31:11 +0100 Jernej Škrabec <jernej.skrabec@gmail.com> wrote:
 
-I and a few others working on the phone/SoC use it and I'm sure that
-others who have the hardware lying around would appreciate being able to
-use it with a mainline kernel too.
+> Dne petek, 13. november 2026 ob 23:33:32 Srednjeevropski standardni čas je Han Gao via B4 Relay napisal(a):
+> > From: Han Gao <gaohan@iscas.ac.cn>
+> > 
+> > Add the main CCU driver for the V861, based on the A523 one. The CPU
+> > PLL, the CPU subsystem clocks and the E907 clocks are left to the
+> > firmware.
+> > 
+> > Unlike on the A523, the second divider of the 27 MHz output is a power
+> > of two. pll-audio-4x does not pass rate changes up, as its parent also
+> > feeds the UART clock mux.
+> > 
+> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> 
+> Do you have any user manual for it? Or at least BSP code? It's hard to
+> review patches without any of those references.
 
-> We have to look at it from the perspective of Maintenance. If it gets
-> merged, you have to expect a hoard of LLM script kids descending on it
-> and submitting patch after patch fixing theoretical problems. Is
-> reviewing and merging such patches a good use of time for a driver
-> with no mainstream users?
+https://github.com/RevySR/linux/commit/bb06380bc2e5a02049cd01e0b10cb3c3c694b750
 
-I don't see why this change should trigger any such patch avalanche =E2=80=
-=93
-the driver is already in-tree, all I want to do right now is to enable
-it for an additional chip ID.
+BSP code
 
-> Does openwrt support it?
+> 
+> Best regards,
+> Jernej
+> 
+> 
+> 
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
+> 
 
-Not that I was able to find.
-
-Thank you for having a look,
-Karel
+Sent using hkml (https://github.com/sjp38/hackermail)
