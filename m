@@ -1,47 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795369653;
-	b=kF5sVDlVEh96kUP4PsvwKy5B6p9YKwpN0BLY2ZQ6jFAHLGTSV4d2/8c61RmhwAFBe8XR
-	 3hNkqesip8Lpk7jPazyjCqLNO3p4Y6G6AOtJ2FBeRP2yG2RrREt4Hwl7CEd+QKUF3bCxF
-	 H+jh2l2jSeYo1xSRQqj0Vjvj4nnnSL1BAi8anf5zpwY1HXhpR+syFlgELnLZuQN+hC7+I
-	 Wb3hlVyJP/t8/WCHVsGRxQHeTu40RAwToYAJgcRq5Iww6KLyZXWjUTB9DEUmzgOIxNsrn
-	 khXV3WAXh/Pgpx7FEfjFv7wvgYSdXL7KLU2PHxhPdUHL/lqeXOQ/p4jWJV9G2wu0baw==
+	t=1795369664;
+	b=sJlSYuhNJUDhLbKlngUcCXpqeGMekpUDSJ7Z6Mv2x57AHLgrDZqGSVLMZ0iShZHPAbM1
+	 5iHsnPqnPWmd2MUOh+ou2/IRWK0FEnYsKVAw4OFuaSw3/qrj87Otk1eJyed7v97uLY4mA
+	 +KhYp5KF9luPtsMTTBQb2pyRTUS2DeE1Jc2/1dK3AAKqxuVD0nbbxr8HDWR30o7V4xAod
+	 POcaOdbmmbV5BGjBXvILtQwRSSe++FZZ/09c5dxYmFxtfhJM4vUWiWHvPMVP/qkhpJuHZ
+	 0uZ6kAP6eD2aSZukQIbsYFV8dGCcmgbg0sVetUVP3cr8l7Qk7PCXluVF2XWgntS3mBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795369653;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7fhjVYmXhrknDoPzz+huRakSdfzB221xxAx/UlB18uE=;
-	b=IJC6cx/j992llyUGyDxkh+laMlv52kLlsF3jmml/pypiVgEGugncEZmnNl43lW1HEioC
-	 MsKcWn0Ltle+zfVFa69ljmef+ttGsVSwzmLGfOlqqxokxvkzQ2KVDXHXz8nQYWLO9c/3H
-	 0UKiCrBdfx9PQc52yv3uoh94NlK8igp7q+JY5o6P9EqM9uYvrwv1Dg0ZfA+3f/CJNJdmB
-	 AC6/XzhRxprMwA4xKPer1n+xU1vPrJWxokR+2Sf8k/rbAI+tBmcMzRpNKwHRcF1+lAj4k
-	 Rc9nlBKBF748npeX4imcgbchH1aE9bEZZcOVw9VHrQovmViy33wVBDjTBFNMurS33Dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795369664;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kTI+x3eR9/fye4hy68NIkj31QquIHvu1a+2Mc0xYPcc=;
+	b=fLUG6Lsl//sD4zMCXYSLrnZSJiejRR2KiDKuHVGuSClsfvBgWhXZhEOoQzmZNDFHMZ9J
+	 cYPogXn0GhG/LcmMMM0nlnP7vW1z2HON6XYqq3rqnjJLKh+jqrGDtgStU7ZKHzjheuRST
+	 VdYLhAUSbU4qEjHK2mPv8V5nvaj4t2oCZy2mvVm1FylWnP3sJBsnMEqtE/VX5yQvY4Agg
+	 PWfUHh65JmSuN9XqqtfopPF1Ie8ArT6XNvJbrJGq7RxaSKF7R0WJr/3fRBrzrPIrQ0BlG
+	 Q7yfRb5vrFWP4E8lLrryhMnvj4kZj5EB6sfMHNV7KWZ2vF0G1w2Xpidq1CdvL+I7wwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Lyxy/3Ny";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dXYhv8kK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49CAA606A336;
-	Sun, 22 Nov 2026 17:47:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A991C606A68A;
+	Sun, 22 Nov 2026 17:47:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lyxy/3Ny
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3E51F000C4;
-	Sun, 22 Nov 2026 17:47:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dXYhv8kK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66D1F1F000C0;
+	Sun, 22 Nov 2026 17:47:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795369653;
-	bh=7fhjVYmXhrknDoPzz+huRakSdfzB221xxAx/UlB18uE=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=Lyxy/3NyKGcwyAFNUU1/4YFo1qqceNzJyE1KV8iPIkUdWqYUqIeefxkUXRwQcrTVf
-	 9kyGu6YqCLLYV8qyCmpHzK2wfvgQdRWIeJnrUVJCrGFbh3S58hanvNqYD+n58uco21
-	 TzeePT/GFz6No/C3YjWrLfwLkxYLEQI8Ih0akGe9g24uljauM2BBbqH294e4YtFUsu
-	 sqQl8Imf2ZTKUFUIaJ4FW9jsT2FkHNNoXfPnJWqhKNXtWqN5f/4MCsi2AJ55jDnURE
-	 FxJHbCFFcxcgCHmhydymaEVtHbR5W94jS/2QufygKlOwL5kjWkSXf3GifWfG8DUE5i
-	 rh5siygF1H23Q==
-Message-ID: <3b14efca-a115-4f43-b594-e7652421e7d9@kernel.org>
-Date: Sun, 22 Nov 2026 18:47:26 +0100
+	s=k20260515; t=1795369664;
+	bh=kTI+x3eR9/fye4hy68NIkj31QquIHvu1a+2Mc0xYPcc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dXYhv8kK3ic3YvG+a6aoUeQi4hkJ3JahU7VWv3qpLy1Ns0T9b397kMll4Uj4Zk+mt
+	 n8MMP+SEc1J4HYRss19sSQgD2ahXPvqpBDHDO6O+vOxhmEbT/70YcZ78kUvWCNwItm
+	 ilftl+EpYy8PgIUrLnwLRkbG1DK94Zus71K4G7XOdUXEXXxeoFKL4SSSRKhHevRuNK
+	 k4ENIUIXONy4TSdqQr4oKIar9HBdlkQgI+c61c3rEvEYgavEh4K1NZQ4HEsldgK3Ji
+	 T16hzcj9ZPcRL1zrkuTTOTWxRFiUDxit/caJVBF2hmD57gIywzChUB66/frDIZxkkP
+	 W3atUXyfU79Zw==
+Date: Sun, 22 Nov 2026 18:47:41 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Kees Cook <kees@kernel.org>, 
+	Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH v3 01/11] dt-bindings: arm: qcom,ids: Add SoC ID for
+ SM8845
+Message-ID: <20261122-spectral-sceptical-wolverine-3e510c@quoll>
+References: <20261120-molokai-soc-v3-0-403d763685d9@yahoo.com>
+ <20261120-molokai-soc-v3-1-403d763685d9@yahoo.com>
+ <20261122-convivial-electronic-stingray-5afda6@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,86 +64,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: arm: qcom,ids: Correct SoC ID for Nord
- SA8797P
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
- Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261114133304.989635-1-shengchao.guo@oss.qualcomm.com>
- <20261114133304.989635-2-shengchao.guo@oss.qualcomm.com>
- <9eda2209-d64a-4a1c-915d-4415ac47df45@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <9eda2209-d64a-4a1c-915d-4415ac47df45@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261122-convivial-electronic-stingray-5afda6@quoll>
 
-On 17/11/2026 11:02, Krzysztof Kozlowski wrote:
-> On 14/11/2026 14:33, Shawn Guo wrote:
->> QCOM_ID_SA8797P was defined as 690, but per Qualcomm chip info that
->> ID belongs to the QAM8797P/QAM8397P Snapdragon Ride module SKUs of
->> the Nord (NordAU) SoC. SA8797P itself is the default chip info
->> variant of the family with ID 648.
->>
->> Correct QCOM_ID_SA8797P to 648 and add QCOM_ID_QAM8797P for 690.
->>
->> Note this changes the value of an existing define. There are no
->> in-tree users other than the socinfo driver.
+On Sun, Nov 22, 2026 at 06:14:00PM +0100, Krzysztof Kozlowski wrote:
+> On Fri, Nov 20, 2026 at 09:23:03PM +0530, Venkat Yadlapati wrote:
+> > Add the ID of the Qualcomm SM8845 (Molokai), a variant of the SM8850
+> > (Kaanapali), as the Motorola Signature reports it in SMEM. socinfo uses
+> > it to report the SoC by name.
+> > 
+> > Signed-off-by: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+> > ---
+> >  include/dt-bindings/arm/qcom,ids.h | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
 > 
-> That ABI break for a marketing reason (which model names you use for
-> actual SKUs). Honestly, we should either treat it as ABI, so not change
-> it, or stop adding to DT bindings.
+> Some folks started changing the bindings here, so how about stop growing
+> this ABI. Add a header for socinfo directly. Let me prepare a proof of
+> work for that.
 
-I sent a patchset for that.
+OK, please rebase on top of:
+https://patch.msgid.link/20261122-qcom-socinfo-id-dt-bindings-v1-0-eeee0ffa25da@oss.qualcomm.com
 
 Best regards,
 Krzysztof
+
