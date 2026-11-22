@@ -1,57 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795383129;
-	b=1/g22ynOPxtTRvu3pVBFPkhCj5NQaxtq7UNOiNq44d2if1ZdEyRzvY5745nUEALhccqO
-	 6jfhadY7QzXdLlt4E1Cn0qU0lcCCA8SqDfiBul2fZzcIBVl8IwSyYE9SqQYxLn02PSmVr
-	 7kM43mes7dFJ2ev32r9QkUQctiow+csMPSUgKQ8jKdkRDU1UuHgYqU2SFH49tKXlRJuwT
-	 xrTLO0KyDABjgybvHerVuHF57FMFUyHlGSY/59r5AV26jc2EkbgfQzmzkhaFD36TOpPEz
-	 O73TAluguDnN4hKAR1fytAy53xTdI3TuPYv8hKEc1bq0ByXhP2pgRMaCex5iO7H9qQQ==
+	t=1795383476;
+	b=QZUgYLpc3YncF+V8n2Kl6XZ1jnK/ioVWVeiY2qqHo+Q6uvR8XydLoIPSZxK4GYERqX+/
+	 DUBLUT1FIKwIEMQ6Zc6XsruEgoxBccMiJY8i8SdEfMdi5P8FwNiiCfQEVC+D0CqckDI80
+	 WRsPEDnRLU7ZBrxjqjzD8xyWmWQx/cWXEaHkIyidh34YZdXNaePlAFC2bnotCQJO2GIb4
+	 /j395KR/Bwkr+U4JrhYnVw48961Us5eTUyiUP2ceYTq0ioR+pFmgn72YQ5ap2oA8OhUsN
+	 ljn4EN0WNaIduEeLAtv1yX00wupehkvqKO4wf+FjgZlHw/2wbqRyOGudnJq+SsSpeuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795383129;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=t8jzp+O+1tTXSegBiANij8lOfrZfHOzBN5iwtxvu7xI=;
-	b=dXFVN/YZDAlNNAyW8UQwImG6jF/GduWyuUSdf8hcl6MvSWy6mJ6YAijyoj7MBgQUOUQn
-	 BWNVPzDuuSdI7ZOR7By+ud7fg9LjydmMDHykpIcQddQqkIMjT6q0MNoBRbDHHnnPSggJK
-	 JAN3KxhOuU6TXadUlDy7EbaZIqEWlL+4czaqr1iBGFwT14BcBTfZF5yElMJ2VxFI2YZU1
-	 oAX+ZRM5uGEIduc4wMjXaSxKp0IwPSXsyFE0hQy1mR0HN+YqG5oG55/01+j/ZGaYVG7i0
-	 egIWMhR3HXQuhYiBWGUeAvDb8Laa9RaIfLZQkTZP1KryNxlHGSu86TOzcHxeMLuYbfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795383476;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=r33Cj4lupPhh24gJePZ1Dl7y1V10m6bSBH32VLKAENo=;
+	b=X6rPgLG22ODcW/pnZZru8CeEy/7UlcFLdVNrJsl9cc/DZTtSbKoJ/3npjDLaS2Qd+EE6
+	 BPAWXPZx6kdoM8EiUPDLMH3foAOHH62vjfiaoA8HkSCV848CxgF9kqgYgvDhAqLQVlgkQ
+	 MkbGPjDdgENREyghyCXR4W2zuOO0Xlw3S0GrbP5LA/kXjTD+C5FzFvXwKGhvgccyBchnL
+	 boesjszliXwf71aVAiMeCF8T27DOD846OPtLkuGLmmEGOQGsP+jYE7j1ikjzILbhz7p81
+	 ZmuFx7IkRiBc+CXn8+zjPABppn4W7IhoIi2It87xP+eUd+hax3yANRHcdgjO31z5orw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQShpZac;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AFkBYtwS;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422B1606A31D
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 21:32:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB94606A31A;
+	Sun, 22 Nov 2026 21:37:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACB94606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQShpZac
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C111F000C6;
-	Sun, 22 Nov 2026 21:32:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795383129;
-	bh=t8jzp+O+1tTXSegBiANij8lOfrZfHOzBN5iwtxvu7xI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UQShpZacK/qr95cnyb/V7rFAX2W5UkGTNBXcEyc1TtHQPZsD0QVpwsJliyUcxV/Fc
-	 /CvDjOtv1scSrKV2A/xvE9dkIcQCWz8qbb296xcPGVuQsRxfILU6N4bWqDlYqaMhOu
-	 sGGhXKkIadGWQCgtM7EDHqrQ/03uJj8C6G1hiUtPmyllhln07vmffyy4PXLWfLNTLc
-	 0PvdhMO1328iChfn2bpPy9U+Bl0WV3gcpb9YBoWY1K45Dvbr1pKJALb+HHD/TMdWHR
-	 qiK9mqUjHHRIdn2heAIuCxX9VABvNPAM6m9z5zV2Y4GYxf3slylA0GTTH/gkUlhban
-	 zQwonmh8nHzNQ==
-Message-ID: <sashiko-outbox-228358@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/4] arm64: dts: amlogic: t7: add the ethernet
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lucas Tanure" <tanure@linux.com>
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261121213102.143130-4-tanure@linux.com>
-References: <20261121213102.143130-1-tanure@linux.com>
- <20261121213102.143130-4-tanure@linux.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 21:32:08 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AFkBYtwS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795383475; x=1826919475;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=47WiqbuVGJhCQD/UFYev9AOeQxncNO/1VcFLwy5fqR8=;
+  b=AFkBYtwS5GTKXqOC8E7+Dse3unNTGZHegPG8l2FfePsuJevhleTRtAYQ
+   UL1S7RamQYC2HSvwCHlXIrZGUjlVjhDag3V/oQSv98k8mzCAM5Tdrli/r
+   cozooMTcvDLQ5NxeMyQQ8hGgZRjwJi5lYHzQTDqJiQj4X74Moo2gZnJfg
+   L69H82UoUamHdfNe4HbKdRxzKRNEuKv1BJ1eueXCzIzS2nHWBJ6kN8AgV
+   z66lExb3ieYJbhVUn5rnowCRo8Ux4ynw+MHOSChjIMn21Qrt8ZmnBfRvI
+   P5FhMUNb5K5nyOIElFJKwETgOZf2Qgiq+w4wU0b+zB0Zi9rNnO1zrWAMa
+   w==;
+X-CSE-ConnectionGUID: vpoHPZywTsuqsoyVD6HpkQ==
+X-CSE-MsgGUID: oazsXaIeRa+uhxOuxRloLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4085139"
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="4085139"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2026 13:37:54 -0800
+X-CSE-ConnectionGUID: a+H/fAZnQ1WSPIPsfJH+bw==
+X-CSE-MsgGUID: V9DTBvzdRyOQ6xxQb8LhZA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="11082364"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 22 Nov 2026 13:37:50 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xVFFs-00000001M6c-0KH7;
+	Sun, 22 Nov 2026 21:37:48 +0000
+Date: Mon, 23 Nov 2026 05:36:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sasha Finkelstein <k@chaosmail.tech>, Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
+Subject: Re: [PATCH v2 5/5] phy: apple: atc: Split generation-specific code
+Message-ID: <202611230532.xXpnoRHP-lkp@intel.com>
+References: <20261122-t8122-phy-v2-5-8d5c8fdf31ba@chaosmail.tech>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,80 +89,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122-t8122-phy-v2-5-8d5c8fdf31ba@chaosmail.tech>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] arm64: dts: amlogic: t7: ethmac uses unmatched compatible
-  amlogic,t7-dwmac
-- [High] arm64: dts: amlogic: t7: ethmac pipeline clock is never claimed
-  by driver
-- [Medium] arm64: dts: amlogic: t7: undocumented ethmac compatible and
-  clocks in binding
+Hi Sasha,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Sasha-Finkelstein/dt-bindings-phy-atcphy-Add-M3-series/20261122-132757
+base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+patch link:    https://lore.kernel.org/r/20261122-t8122-phy-v2-5-8d5c8fdf31ba%40chaosmail.tech
+patch subject: [PATCH v2 5/5] phy: apple: atc: Split generation-specific code
+config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261123/202611230532.xXpnoRHP-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2012344e5da8e03ea4b8283ecd6fad6e13f09d64)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261123/202611230532.xXpnoRHP-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611230532.xXpnoRHP-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/phy/apple/atc-t8103.c:33:7: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      33 |                     FIELD_PREP(ACIOPHY_TOP_BIST_PHY_CFG1_LN0_PWR_DOWN, 3));
+         |                     ^
+   drivers/phy/apple/atc-t8103.c:71:7: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      71 |                     FIELD_PREP(DPRX_PCLK_SELECT, 1));
+         |                     ^
+   drivers/phy/apple/atc-t8103.c:146:9: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     146 |                FIELD_PREP(ACIOPHY_SLEEP_CTRL_TX_SMALL_OV, 3));
+         |                ^
+   3 errors generated.
 --
+>> drivers/phy/apple/atc-t8122.c:78:9: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      78 |                FIELD_PREP(ACIOPHY_BIST_MAC_USBPHY_CFG_OV1_LN0_PWR_DOWN_OV, 2),
+         |                ^
+   drivers/phy/apple/atc-t8122.c:158:7: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     158 |                     FIELD_PREP(AUSPLL_APB_CMD_OVERRIDE_CMD, command) |
+         |                     ^
+   drivers/phy/apple/atc-t8122.c:173:7: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     173 |                     FIELD_PREP(DPTX_PCLK1_SELECT, 1) | FIELD_PREP(DPTX_PCLK2_SELECT, 1) |
+         |                     ^
+   drivers/phy/apple/atc-t8122.c:249:9: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     249 |                FIELD_PREP(LN_LDOCLK1_VREG_ADJ, 12));
+         |                ^
+   drivers/phy/apple/atc-t8122.c:307:25: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     307 |                LN_VREF221_EN | FIELD_PREP(LN_VREF221_FILTER_ADJUST, 1));
+         |                                ^
+   5 errors generated.
 
-commit 4e3c40142c3d0de22878c5872271d7ab4185032f
-Author: Lucas Tanure <tanure@linux.com>
 
-arm64: dts: amlogic: t7: add the ethernet controller
+vim +/FIELD_PREP +33 drivers/phy/apple/atc-t8103.c
 
-This commit adds the Devicetree nodes for the Amlogic T7 Ethernet MAC, its
-MDIO bus, and the MDIO multiplexer with the internal 100M PHY.
+    11	
+    12	static void atcphy_configure_pipehandler_usb3_host_t8103(struct apple_atcphy *atcphy)
+    13	{
+    14		int ret;
+    15		u32 reg;
+    16	
+    17		core_set32(atcphy, ACIOPHY_TOP_BIST_PHY_CFG0,
+    18			   ACIOPHY_TOP_BIST_PHY_CFG0_LN0_RESET_N);
+    19		core_set32(atcphy, ACIOPHY_TOP_BIST_OV_CFG, ACIOPHY_TOP_BIST_OV_CFG_LN0_RESET_N_OV);
+    20		ret = readl_poll_timeout(atcphy->regs.core + ACIOPHY_TOP_PHY_STAT, reg,
+    21					 !(reg & ACIOPHY_TOP_PHY_STAT_LN0_UNK23), 10, 10000);
+    22		if (ret)
+    23			dev_warn(atcphy->dev,
+    24				 "Timed out waiting for ACIOPHY_TOP_PHY_STAT_LN0_UNK23\n");
+    25	
+    26		core_set32(atcphy, ACIOPHY_TOP_BIST_READ_CTRL,
+    27			   ACIOPHY_TOP_BIST_READ_CTRL_LN0_PHY_STATUS_RE);
+    28		core_clear32(atcphy, ACIOPHY_TOP_BIST_READ_CTRL,
+    29			     ACIOPHY_TOP_BIST_READ_CTRL_LN0_PHY_STATUS_RE);
+    30	
+    31		core_mask32(atcphy, ACIOPHY_TOP_BIST_PHY_CFG1,
+    32			    ACIOPHY_TOP_BIST_PHY_CFG1_LN0_PWR_DOWN,
+  > 33			    FIELD_PREP(ACIOPHY_TOP_BIST_PHY_CFG1_LN0_PWR_DOWN, 3));
+    34	
+    35		core_set32(atcphy, ACIOPHY_TOP_BIST_OV_CFG,
+    36			   ACIOPHY_TOP_BIST_OV_CFG_LN0_PWR_DOWN_OV);
+    37		core_set32(atcphy, ACIOPHY_TOP_BIST_CIOPHY_CFG1,
+    38			   ACIOPHY_TOP_BIST_CIOPHY_CFG1_CLK_EN);
+    39		core_set32(atcphy, ACIOPHY_TOP_BIST_CIOPHY_CFG1,
+    40			   ACIOPHY_TOP_BIST_CIOPHY_CFG1_BIST_EN);
+    41		writel(0, atcphy->regs.core + ACIOPHY_TOP_BIST_CIOPHY_CFG1);
+    42	
+    43		ret = readl_poll_timeout(atcphy->regs.core + ACIOPHY_TOP_PHY_STAT, reg,
+    44					 (reg & ACIOPHY_TOP_PHY_STAT_LN0_UNK0), 10, 10000);
+    45		if (ret)
+    46			dev_warn(atcphy->dev,
+    47				 "timed out waiting for ACIOPHY_TOP_PHY_STAT_LN0_UNK0\n");
+    48	
+    49		ret = readl_poll_timeout(atcphy->regs.core + ACIOPHY_TOP_PHY_STAT, reg,
+    50					 !(reg & ACIOPHY_TOP_PHY_STAT_LN0_UNK23), 10, 10000);
+    51		if (ret)
+    52			dev_warn(atcphy->dev,
+    53				 "timed out waiting for ACIOPHY_TOP_PHY_STAT_LN0_UNK23\n");
+    54	
+    55		atcphy_clear_nonselected_phy_reset(atcphy);
+    56	
+    57		/* More BIST stuff (?) */
+    58		writel(0, atcphy->regs.core + ACIOPHY_TOP_BIST_OV_CFG);
+    59		core_set32(atcphy, ACIOPHY_TOP_BIST_CIOPHY_CFG1,
+    60			   ACIOPHY_TOP_BIST_CIOPHY_CFG1_CLK_EN);
+    61		core_set32(atcphy, ACIOPHY_TOP_BIST_CIOPHY_CFG1,
+    62			   ACIOPHY_TOP_BIST_CIOPHY_CFG1_BIST_EN);
+    63	}
+    64	
 
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boo=
-t/dts/amlogic/amlogic-t7.dtsi
-> index 7bd53ec166071..eb7f46c98b0b4 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> @@ -250,6 +250,31 @@ gic: interrupt-controller@fff01000 {
->  			interrupts =3D <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_HI=
-GH)>;
->  		};
-> =20
-> +		ethmac: ethernet@fdc00000 {
-> +			compatible =3D "amlogic,t7-dwmac", "snps,dwmac-5.10a";
-> +			reg =3D <0x0 0xfdc00000 0x0 0x10000>,
-> +			      <0x0 0xfe024000 0x0 0x8>;
-
-[Severity: High]
-Can any platform driver bind to ethmac with this compatible list?
-
-meson8b_dwmac_match[] in drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-has no entry for amlogic,t7-dwmac, and ethmac does not list a fallback
-compatible such as amlogic,meson-g12a-dwmac.  No platform driver matches
-snps,dwmac-5.10a directly either (it is only checked in
-stmmac_probe_config_dt() after a glue driver has already bound), so
-ethmac never probes when enabled by a board.
-
-> +			interrupts =3D <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names =3D "macirq";
-> +			clocks =3D <&clkc_periphs CLKID_SYS_ETH>,
-> +				 <&scmi_clk CLKID_FCLK_DIV2>,
-> +				 <&mpll CLKID_MPLL2>,
-> +				 <&clkc_periphs CLKID_SYS_AMPIPE_ETH>,
-> +				 <&clkc_periphs CLKID_SYS_ETHPHY>;
-> +			clock-names =3D "stmmaceth", "clkin0", "clkin1", "pipeline",
-> +				      "pclk";
-
-[Severity: High]
-Does any driver actually claim and enable the "pipeline" clock
-(CLKID_SYS_AMPIPE_ETH)?
-
-Neither meson8b_dwmac_probe() (which only requests "timing-adjustment",
-"clkin0", and "clkin1") nor stmmac_probe_config_dt() (which only requests
-"stmmaceth", "pclk", and "ptp_ref") acquires a clock named "pipeline".
-Because t7_sys_ampipe_eth in drivers/clk/meson/t7-peripherals.c is defined
-with flags =3D 0, CLKID_SYS_AMPIPE_ETH remains unclaimed and is gated off by
-clk_disable_unused(), breaking Ethernet DMA access to memory.
-
-[Severity: Medium]
-Are the new compatible strings and clocks documented in
-Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml?
-
-The binding schema does not allow amlogic,t7-dwmac or snps,dwmac-5.10a in
-compatible, and its clocks and clock-names properties only allow up to four
-entries (stmmaceth, clkin0, clkin1, and timing-adjustment) without
-"pipeline" or "pclk", causing dtbs_check validation to fail.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121213102.1431=
-30-1-tanure@linux.com?part=3D3
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
