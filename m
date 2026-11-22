@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795374089;
-	b=fx0Yted33EckEwlxvVuR2qToDEybf4cDAOJZe7SXZh0ueqxC3wEtkOj0hsPzFuSz0RLi
-	 CU+JNcOXjPVXeZ7lqGFYc9ldRkWcJ1Cw/ZWlhYPMV8jKBQS8MerFvwO/TTWF6LRgdShsl
-	 Op5hC3GoWcxd1YqvLMD9RMYYkd60hMrM8EJtAQAvZAV8ybEbe9Ez3T2tXvxwVmvJaP4Wb
-	 hUUhPBQtksvlHWaE9F0GfAttZziDEz4AQK/gVpg8jmDNDl3110YA4Xh9p52/XHr/0Pe/F
-	 5luOaTykZQw2FvpwRIjdOhVASFWE+4RxnEcB2cv//wGRS/x8aLUMdXsuleY+I31cByw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795374089;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=j7+ZkBlJLRc3GQvod5W5lC36Q88YLIu7SUgPhKAEXlM=;
-	b=kTE2wCmt3RmOlL9rFz0VM/sI3uVrgoiyWWjfZ79gFLRFmINlgkh6KwJdBZGSm8XpkMAG
-	 QMplXhi7/hAXB5JF8Gk6CjZO4MJaad3uulEcQAtPEJ/HhKID5p6gRdIo3wDBycVu1QcK+
-	 mn8J15/+vqlQ9Rh24K/V+Nt8FKKPRNQH5ZPIimwpaCUx1vDsCSW5TO1t0gCWh6H0iTh32
-	 bgpshty0OsoIY5qQ0qqbig2XzE1NrHGF7Tr98ELHltUVEIpybK75hRS6GAYirOe0MQpGL
-	 b0Mcq5oYpwxf3iaXPfZ1SpJ8KCsfy2Vd641TBQNYco4EhvrvFUVdtpHLkZuPPisl3kQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORrPD2nd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795374361;
+	b=I+Yo6ZOoOVcjfZ1ikg/iv4F5dDN8VIktdii/EPry2DbJYV2V7118+yShbA9q/dnlSwmc
+	 TLHZ+xwLgfQ0InFmmCjnyugBPhXBjQq8Jyzhg7fvoj4YN1MkofLvJ4X4LNqQ0mBle8jo9
+	 3HYIEMRDS9d0x1G5Sjeh32HRmM3IdxcB6jRN0OxKqneulGXOhutqoNS3eTxwUlpYmy7kQ
+	 klkhmSgMHcq5n5qUoCEFlIEoGGu/1likdJVe4+us4u9em/Gqf9EiRz1rHQCTe7louCynm
+	 FTdOMczniowY3C0P8tREz74NT/eHVQ2UnTt/snXpwDN8MxPervksW3P/rehPkwJgEIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795374361;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=CgCRyOx1AVHQEPyNaJ6YCvgdpkkxZZGiDgwP/XJnt+Y=;
+	b=rBh48x2e+umLn6sdnRJVzb0xo3U3QO/ZWanOWnjVg5GSdYuVmalBSichTvQpMFyk8Ss/
+	 Y1IA8xJ38Xo3KLlNh+cIXQJCS94ifQokPawiPukScqfQv/abgxSOUcWViGF8W4nliR6fc
+	 OLYthHa8i6aC5F9adtJ7M69XF9s/SLmjGzHLyPlfzglYO+uoorERI4xnDqLTRD+0Gl3Ei
+	 Mfk+VJhImL6zbUj3wMLMSc/SsQ0fpYPcZUBhbxw9z2obxX0kGfFCkK3RJBCMJPNqOBt1I
+	 Oaqe2FSJQO8M1CoBQsUqp3lp0rO06kDeYMhSw+7coxeufikTuMvzXER1tBRBpAtCcGQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=altera.com;
+	spf=pass smtp.mailfrom=altera.com;
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=AS4qwreD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.18
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010018.outbound.protection.outlook.com [52.101.193.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB893606A32A;
-	Sun, 22 Nov 2026 19:01:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5C8606A32A;
+	Sun, 22 Nov 2026 19:06:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB5C8606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORrPD2nd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389A41F000CA;
-	Sun, 22 Nov 2026 19:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795374089;
-	bh=j7+ZkBlJLRc3GQvod5W5lC36Q88YLIu7SUgPhKAEXlM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ORrPD2ndw6+tQ1SqEFGHkUdw5/y6uXxfWPA2I/eYs1jf9qPNKx0uPJcP12oi33DdX
-	 IlSEivRLcXH46VV44fW9e8LaJK5lsahurL13NqhCL624igNGMJcJ9+D1KvHY6Z//Xs
-	 zXKS5wza/kWolLNx3i092vt66E2A+WvqgLQMOfSYLEAkJxYorgyuJQR6+Lv9++vwir
-	 PvhsDbO/xFYSCQqvP+0EN0rCjbIDnQfBS2ZqNazhcXnour6ydzRhZzvpochwc03u1V
-	 KraAHKq48/SUfnipd0mzGKtCSOK/4drqTHlLx99C4z4cUMm9PruJf/hPJgIqMJyRKO
-	 OvTYjmUl4w4nA==
-Message-ID: <sashiko-outbox-228220@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/9] ASoC: qcom: lpass-va-macro: Add shikra
- compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-add_shikra_support-v7-4-7bf3aa089fc6@oss.qualcomm.com>
-References: <20261123-add_shikra_support-v7-0-7bf3aa089fc6@oss.qualcomm.com>
- <20261123-add_shikra_support-v7-4-7bf3aa089fc6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 19:01:27 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=AS4qwreD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FObtbRyKDtSBetkaOOZvwxylwK0kvRAZf5F+lnfXk2R7L0ViJWxtvcg7VWa5bCSIEVfiH5UgTmLbF9t7Q2oY6los8c7qWoYTJYRpV6qjZ2KpklNAI5f1sPADgpOqsT6/4loz//wFQRn2GIz/6qqtpAQQ8s8HMcw7r9asY9nTU6LoYFZlqRA6VbEoaWUCQel75/6KuCnKvzm7+qWpI/Sz0ouDs3JdrhZP0IaZoYY8yp0v1iudRoq2B7k9qpbomXZV/ErKIZNPD/qOEbgfBaxqZnij/X01ySAnrIjcowe0gZlI/LM36Wj+Z8Pnq4Z/Kb4kE4lYdHAbQm4raoSspoTvKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CgCRyOx1AVHQEPyNaJ6YCvgdpkkxZZGiDgwP/XJnt+Y=;
+ b=jIz/1LtDIN8Idte+y5tgnhFZVQX05NOHgAowU8QslaokEtAk5WVgnn9tESchlSJcF0bYuzYTVm1dVL6hj43idNNmV1YWwehT+msXyymIzIiM8/Yk8q3I4bl9vZrPlz81tryIHoga9SstrgShI8y4sxAnKug6WDY01UvfdkHk/wQ/gwfMY1DcATY5wcioZSa6qwn4JZxLk8QBtBvnIu5RQL7Y7R4aCGEhdoA7cwxSRRrEgMgXBzkqgLYsKh270Lv0zUPqaEWmwLnzXZsYzdL7384GHJSIsBkgwO6saSBVclvCtHTJRJgFxnAwn3ZmNmP6tu9+svCZj64Y7rIHgRIhpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CgCRyOx1AVHQEPyNaJ6YCvgdpkkxZZGiDgwP/XJnt+Y=;
+ b=AS4qwreDWrVUrqV9De+mbFAooL7CPODy3tf9kFIJOjYAwoGTACZEGdNq7XJ5tV0aSw2huGzTXOaD8/qqgqWKNk7xhdmE0hmtSi0ei4IhyzkVR/1pU2e4GKWxAuZNrmbWcuxQdbHVNrrYhoo1n6UBqjS8d7cCm6wDXk/w8zLIBgB4sp8i9T+XjWfBpXnKeYlpXTA32Hi1op6zxAgS7ZG7O0T019C7IVxMtrCzpROnOeLe3Y5aSS0CSD/Tz3MM3mldBi4LOwUCMKgqewe2Q6EbWD/5JiaJQszXgxMAKT1bbF7NoWFqGtyLdKN4nlShgeG5BG8TMwapoNlg9lfrdH/btw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
+ by MN6PR03MB7575.namprd03.prod.outlook.com (2603:10b6:208:500::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Sun, 22 Nov
+ 2026 19:05:56 +0000
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0639.011; Sun, 22 Nov 2026
+ 19:05:56 +0000
+Message-ID: <5de1ad0d-ef89-49e4-9195-195be48d57bf@altera.com>
+Date: Mon, 23 Nov 2026 00:35:46 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] dt-bindings: mmc: cdns,sd6hc: add SD6HC DDR50
+ read-path tuning
+To: tze.yee.ng@altera.com, Adrian Hunter <adrian.hunter@intel.com>,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Ulf Hansson <ulfh@kernel.org>
+References: <20261119-sd_cadence_ddr50_v3-v4-0-95a94a0aaaf3@altera.com>
+ <20261119-sd_cadence_ddr50_v3-v4-2-95a94a0aaaf3@altera.com>
+Content-Language: en-US
+From: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>
+In-Reply-To: <20261119-sd_cadence_ddr50_v3-v4-2-95a94a0aaaf3@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0013.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25::18) To DM4PR03MB6208.namprd03.prod.outlook.com
+ (2603:10b6:5:39c::19)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,107 +101,105 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|MN6PR03MB7575:EE_
+X-MS-Office365-Filtering-Correlation-Id: a96433a2-0274-41a4-01dd-08df48cba306
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|261026121527099003|261026140227099003|261028144727099003|261021123027099003|261022105027099003|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003|55112099003;
+X-Microsoft-Antispam-Message-Info:
+	j2vgFdxgZyB9k2V3/h+pphUGIJ/Jyh24pw2MMjPjW9vbdrUCv9MAYG8jkIiFNS5urJFReLtzRrojkcEJ3URCDMlV+tLF+XfuOVYChXi3S9b9imx2j7gMEIi9in/JhDrY++5wHowjz/O7V0l6WQarBAh8jx+VYiVIJRVjtbeW1Xp5Nau7qIRgNIpPN9fLFwWOrhPUyr15KM5VVSRjjuTZk38kzLgFJd2JkJtS/3+jdH59v9ewZ6xGyiIENTPywOJIjj4okPz7/rFtUzPROmJAAkRqErkBITwan2CNuqbB6U3ODcU7y4KEhHlH2VfOx7KKnbWimyJG9fL+E4hktFOBFWAZaRpa7jZQljjSr8w/smGJ3dbxhZItf+XIJGyvMWq5/QH/xDPp8pLveCKVta91ICQM6Bs4bAR1yAoAAoxKDvFKI52pZla3J+m2+Z6UyKSjdOfzPItraBWRXpovFj487/yNVuCFYXT8vjcwRIhxvVQ9baRghwpbHMtWcH5t92+3Xf1glccOMesn7hPW+OnUNcESgto2GxLI87hFi1ziiHO7bEdTf60WvKixwCP+d+OLZScBOGuina0UlVc70A99SCrD/D+U9kS9B0QT9v/HXG2AB6v22C+aXqkLfel1LcWjE2/NTmLL4bTfhuPZeoFkFubgD6Dr9JBFwn0AC0764Y0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261026121527099003)(261026140227099003)(261028144727099003)(261021123027099003)(261022105027099003)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(55112099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VytNSDRpVUg2YnVyeDRFL21XQXhkemxabitLOTkvWTBjT3RIQTkrcTNQeUMv?=
+ =?utf-8?B?NmpCR3VSTTJXenZCazBIYXRZV0FIeUpONG9yVm1ST0pIeDVrQzRRMTRuY0ZO?=
+ =?utf-8?B?a1c3WG9jbzIzVy9WeEZtQStXeURzcktRcEpMSGhyM0p5cld2SmJrdzl4RGwr?=
+ =?utf-8?B?YXVNS2hqTUV1VnpxY1AzYnJlckJjS3IyR1dCMGJkVFJWOEE1azZrMG5QczFQ?=
+ =?utf-8?B?SFRtYk8yeDVKQUZnZ3R5VkRKaWlCcUZsVEdYYnkvVjBMd0M0Z211THQ1UFdl?=
+ =?utf-8?B?SHZyNWRzRCswM3FjdlVtS0dxVXhpYTh1L3dEWmFlM0V0WC9BQUFzcUNTdGU3?=
+ =?utf-8?B?R3B4SVhacllRd21GL2xIQW1yeHBBVEc2bnRxS2thLzUxeXd1OW5BU3AxTzN5?=
+ =?utf-8?B?blRxVFZSSjV5Z1puS3pTKy9HVHplZElIaExRak5xSlFaQm5aYWpmYXl0V0VZ?=
+ =?utf-8?B?VUZ0cmI4Yk9mQ0U0Yjc1UkVCWm9KTGxsWlB2VlNsTmxEWlY5MjBMZnQweVZB?=
+ =?utf-8?B?eEdlUDdkRGFNK0JRZGo0OWEyV0xKVjB0M0w5WUZTZXVwTTNiZTdGTWJzVHhq?=
+ =?utf-8?B?ZHdOaUhMaVRjbGFHSjE2TW1SUkNaU3JVS1I1OE84ZjFxRENTdFdYOEIxVnVS?=
+ =?utf-8?B?aWE3b2Mzb3dkV0JuK0ViVUlIT3BrVTV2YnlucldzR3E4dlpudUdHNkJrbWwv?=
+ =?utf-8?B?amQrRnpuMG9XRklZWGRFN0VnZ0pZc1gyazlMNTZPMzJGNy9uR0cyYzkzcGFq?=
+ =?utf-8?B?TzkvQzhxYWJTZjdBOW95T24wNnA0bzNNbHZUcDA3Z2ZiU0hJSnRLSDAzNjV5?=
+ =?utf-8?B?MnYxVEpxMEsycnFnYnMyWUJjVkdzaUZCbXhJWE5sMmhtbjlyZUYwbThOY3do?=
+ =?utf-8?B?Qi9rc1lGdkV2cHRuSDduTG01TDVLc1E2REMwK2QraVJRTmJlVjFHcGFHL2hH?=
+ =?utf-8?B?ZzVOa3E3emtlbHFCQUhleHFrUVNLdzZnNkxxN3hwc0FtdEhJSnBzdW1TVDFH?=
+ =?utf-8?B?Q0R3R2haSS91MkxES0JKNXJmSzB6SVZCcWFQV0VTUXJOT2RyQkdveFFteG9F?=
+ =?utf-8?B?b1kxdzhqOHh3TExhcDBVZGh0NTZackFyZlViZHpxVmZmejVTY1E2TmNidFFW?=
+ =?utf-8?B?SjViQUlIK0FQUWgvWWNjYkFoSmErMWhNOVVqTVBYOUdzVm5JYkoxSkE0QVZp?=
+ =?utf-8?B?N1FvUUtzbEs5YTRaWWZMcUt6ZHl3V1E5K2V6MDNaaUwzWHdQak9MQXRQeHhU?=
+ =?utf-8?B?QzZlNnJVR3JlUENPR2pIUjdxK0R1SlhFVG9MUHgwMEJML2hWWnBrVmpHUFpR?=
+ =?utf-8?B?YkM5ZFk5c2JoRzJCZ2p1b2FMNmFGeVBFbHZnNmRHMlBzN2hKdlNMWTg5M0lQ?=
+ =?utf-8?B?d0k4N3N1d1NiUUNXRm5Mck5XcDR6L2tDaTJCUEdqV2MzVjZjRnRScWpJY0Nu?=
+ =?utf-8?B?cERtUEtDSnN5MjM5TlE5T3EvTXIvamNpTS93Mk5Yb2tOb0dqdEJ3TDBHWk1z?=
+ =?utf-8?B?RndMZ1dIbnVuQmh6aDBtS1Q3RFBJMFBtbjltdlFjUzlTWnBYK2g3VTFQUEo1?=
+ =?utf-8?B?ZC9DNEVJUHFuL3FqNFkwSzNlMmVOUnZsNDl1cXJkcUdYTC9GU0pEVTdob2lO?=
+ =?utf-8?B?VEdFV1RqdFcwalErSVRBQ1FqUTVEYTdUVGI2Y1FIcW4vdEpKQ1JJdnliY2dD?=
+ =?utf-8?B?UllndmpaMjNJY2lVbmx5VUdBZDdteEhHbWFBdzRTbGlCR1FwOHFaVklDWXlL?=
+ =?utf-8?B?S0lTZnlENDlPWjB3TG42a3o3L2w0VHpZRG9jQ2JrZTY4Z1VKamEzRTRmMEZk?=
+ =?utf-8?B?Uzc1UFRuUjBjMTJRQ0RSWEwwR3V5VFhLTGh1QmwxM3AwME9yOGZzMkNwbEhq?=
+ =?utf-8?B?S3VUSEY0VFRMMVl6cGdQQVZ2WmttazVmS1RxWmNVSnkySmpaYnYrb3FHVUVz?=
+ =?utf-8?B?dEt4NDlvTERONVc3dERvTzhXVGlBa2NqWEhjQlJDd0FySEprQi9ZMEJXclZT?=
+ =?utf-8?B?MFhJNWRkdXN6SzBvUVFzUnJZL21POFZ3RmNYMGtmUDJrZk1mckJ1Y2VrMFdp?=
+ =?utf-8?B?blVNSmphVmc3MjdNbHRzU29Rd1p6UXdsT0NHdUVZd2VDUG8wL1c2eWFHc2tL?=
+ =?utf-8?B?dTFwOWZDYU93NlhjdU5zbEJXZjJhdlhIeEZNUDE5bXF2L3NEd011SmJ4QXdR?=
+ =?utf-8?B?TEhHVGp6OHBmY2QrYjRoRU5OT1NtQzZqYklwMlVVV1QwSmxBVkttV1F3WHJC?=
+ =?utf-8?B?R3ZYTFVpV05CMUZDSy9vbU5RSlUrMGZOUVk0RzBLMHN6bGp1ejliTW8yL0RL?=
+ =?utf-8?B?N3dhbFdxN042U2ladkVsMnFiSHJiWmpsaTJSQW9uN2MrZ1hqZTMrYWFReUFp?=
+ =?utf-8?Q?QwPfFnb3f6SfAVxk=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a96433a2-0274-41a4-01dd-08df48cba306
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2026 19:05:56.5020
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MBEyxjibDnwIgCiO3rCM7uTf5H5ftfyxKyTLs9xYqdSW5loBQPMJeYZJ0OdjuIXxAGNOtnEfuOMN8hZBgwHxwmI+ipRVYIjHmWZji6jL0vY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR03MB7575
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] ASoC: qcom: lpass-va-macro: missing version cross-check in
-  va_macro_probe()
-- [Low] ASoC: qcom: lpass-va-macro: duplicate base defaults in
-  va_4_0_defaults
---
 
-commit 49c489f9da02e60f046ebb7c9e18f77c8725a603
-Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+On 19-11-2026 15:15, tze.yee.ng@altera.com wrote:
+> From: Tze Yee Ng <tze.yee.ng@altera.com>
+>
+> DDR50 has no CMD19 tuning, so the SD6HC read path must be centred by
+> static, board/SoC-characterised PHY settings. Add two optional SD6HC
+> properties for the extended-read DDR modes (SD DDR50 and eMMC DDR52):
+>
 
-ASoC: qcom: lpass-va-macro: Add shikra compatible
+I went through the Cadence SD/eMMC DLL PHY IP user guide (IP6185,
+rev 1.03) to understand how the delay applies to each of the read
+strobes, so that is why this comes up on v4.
 
-This commit adds Shikra VA macro match data, LPASS codec v4.0 adaptive
-filter (ADPT) register definitions and defaults, and frame sync counter
-bypass handling.
+The guide marks phony DQS "not used for SD/eMMC" (Fig 2.1), lists
+use_lpbk_dqs and use_ext_lpbk_dqs as "Mandatory setting for SD/eMMC",
+and says external loopback needs no 1/4 cycle delay on the slave DLL.
 
-> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-v=
-a-macro.c
-> index af8308eacb0ba..2401006387445 100644
-> --- a/sound/soc/codecs/lpass-va-macro.c
-> +++ b/sound/soc/codecs/lpass-va-macro.c
+Either strobe can capture a DDR read if its edge lands inside the
+card's valid data window, but the delay has to be chosen for that
+strobe. The delay is what moves the edge into the window, and the two
+strobes should not take the same value.
 
-[ ... ]
+External loopback goes out through the pads and the board and comes
+back, so most of the round-trip delay is already in the strobe. It
+should need little or no extra delay.
 
-> @@ -396,6 +448,127 @@ static const struct reg_default va_defaults[] =3D {
->  	{ CDC_VA_TX3_TX_PATH_SEC6, 0x00},
->  };
-> =20
-> +static const struct reg_default va_4_0_defaults[] =3D {
-> +	/* VA macro */
-> +	{ CDC_VA_CLK_RST_CTRL_MCLK_CONTROL, 0x00},
-> +	{ CDC_VA_CLK_RST_CTRL_FS_CNT_CONTROL, 0x00},
-> +	{ CDC_VA_CLK_RST_CTRL_SWR_CONTROL, 0x00},
+Phony DQS is generated inside the PHY, so none of that round trip is
+in it. It likely needs a larger delay to meet data that did travel
+through the pads, the board and the card.
 
-[ ... ]
+Questions:
+1. Do DDR50 and DDR52 work with the defaults (loopback DQS, read
+    delay 0)? If not, what fails?
+2. Did you sweep the read DQS delay with loopback selected?
 
-> +	{ CDC_VA_TX3_TX_PATH_SEC5, 0x00},
-> +	{ CDC_VA_TX3_TX_PATH_SEC6, 0x00},
-> +	/* ADPT blocks */
-> +	{ CDC_VA_CDC_ADPT0_ADPT_CTRL, 0x51},
-
-[Severity: Low]
-This isn't a bug, but va_4_0_defaults[] copies all 75 base register
-entries from va_defaults[] verbatim before appending the 40 new v4.0 ADPT
-entries, which makes the two tables easy to get out of sync if a common
-default changes.
-
-[ ... ]
-
-> @@ -542,7 +782,13 @@ static int va_macro_mclk_enable(struct va_macro *va,=
- bool mclk_enable)
->  	if (mclk_enable) {
->  		va_clk_rsc_fs_gen_request(va, true);
->  		regcache_mark_dirty(regmap);
-> -		regcache_sync_region(regmap, 0x0, VA_MAX_OFFSET);
-> +		regcache_sync_region(regmap, 0x0, regmap_get_max_register(regmap));
-> +		/*
-> +		 * Sync the decimator input muxes again to restore registers
-> +		 * skipped by no_sync_defaults when they hold reset values.
-> +		 */
-> +		regcache_sync_region(regmap, CDC_VA_INP_MUX_ADC_MUX0_CFG0,
-> +				     CDC_VA_INP_MUX_ADC_MUX3_CFG1);
->  	} else {
->  		va_clk_rsc_fs_gen_request(va, false);
->  	}
-
-[ ... ]
-
-> @@ -1565,6 +1817,14 @@ static int va_macro_set_lpass_codec_version(struct=
- va_macro *va)
->  		default:
->  			break;
->  		}
-> +	} else if (maj =3D=3D 4) {
-> +		switch (min) {
-> +		case 0:
-> +			version =3D LPASS_CODEC_VERSION_4_0;
-> +			break;
-> +		default:
-> +			break;
-> +		}
->  	}
-> =20
->  	if (version =3D=3D LPASS_CODEC_VERSION_UNKNOWN) {
-
-[Severity: Low]
-As reported by Ajay Kumar Nandam on v4 [1], the commit message states that
-probe cross-checks the register layout chosen from match data against the
-version reported by hardware, but neither va_macro_probe() nor
-va_macro_set_lpass_codec_version() compares the detected version against
-the selected match data (such as data->regmap_config or data->has_adpt).
-
-Also, the commit message does not mention why va_macro_mclk_enable() adds
-a second regcache_sync_region() call for CDC_VA_INP_MUX_ADC_MUX0_CFG0
-through CDC_VA_INP_MUX_ADC_MUX3_CFG1 across all VA macro platforms.
-
-[1] https://lore.kernel.org/r/84c8e0d7-b3f6-497d-93ac-4c3ad7e5956a@oss.qual=
-comm.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-add_shikra=
-_support-v7-0-7bf3aa089fc6@oss.qualcomm.com?part=3D4
