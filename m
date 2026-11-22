@@ -1,55 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795307298;
-	b=S7zuAn23mhLDi6xaxq+v/C1NpOJmJrbyMiD9RQtECnbbelucxylanPbBFu3tt9UuyBI9
-	 4bkzfC3sOExWEWTNBM3S7cQn7f/w5HvGp2dQk1hSTSvQoOn+AN8cLduM+zqVKZ26pTZ6z
-	 uZnmejFirXB+eJFYHNn2GXNYcnHytCSQZd9Mqjx+p/qhLArHeJ7AfXea+F7hpyUrDbr8I
-	 AgnhJBYnoSo2YccpaoZh0eghJ9TYh0lGPoZMkDuCV99oKVcVbfquj8VaxKgurL3NZGHws
-	 BuDrqURWmiF1pL3kVG+3AzdRfNju2G1Kzy4dW+Tm/BNggq60uQhxZgSaxra3VZoAt4A==
+	t=1795309215;
+	b=Sa16TlAGq3qz689TdMkJlMtQzv8B6sKJkpB5bH/R9APPF7Lqd1duJGCgjNL9XknO1vmS
+	 xbFiAx/6sYBlpd+sSl16q6RyjMEzshuGTylbYyvnSGL0v6wkSECALABkESVLIzAqZSuhQ
+	 6TDXxzCQco+mowK40RQkFT1BysFEqkoUpZkTcHo2MHPHt0Bhbw1m8gfGCqkhOpWZZqfvx
+	 YXEVCbswJJovwIth+2j4cv98po23sjTZgF2RJ3I0TRAuue9An74kjgeu1cRjhAFX6SvIJ
+	 VsqIDkY7p3qkuwkglX0jQbZ3+AUklS4wc7X2a2DQbtZ+c9qaYOJia2h8VDMDu3QyNgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795307298;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=8RhArZNo8p16GcHuh6NIuiaO1SE3vke5Fkl7bF9WXX4=;
-	b=FAJ6/VN92dOXnjHVRMRz4+vZfLyxSni4hWxwkiLLC7EsZGGz7ZgAux8V/6SLYIu2U7N0
-	 j6q9LvzwIbbC1a6MMEnYe9hMSH8sGP5+3qoKvZeJM/bv9O7tKNmLSoWV+gvkR/Bc7hI29
-	 FV3f1kUlrSp7rNKohpW0Pqdq6qiZI8f3HFxf69PIpjgBusiA9mvuaqEC+QYhLBY2GCTpp
-	 0xf5Z9nMPahemK1WlGvkmSTUFZ+Sy5qv5iK2w8PY1C5ciAXiQfc5C9RTq4NmTEr/Yhsaw
-	 pkknFBpBWyjP7Ai1BwhGAsd3jL9Gt9lCOwUF8891L1BPtdMdA/WM0mscMMep2yxhL2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795309215;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=yiOSm1bkyAMQFGBb+Y0A4VMMiKXTGYYH6qcBe1qvEcQ=;
+	b=3JyVqxXhvD7cbJo/NndODm/98ICvQs+K5oEtSKuqlsOYM0hAtEzoHTbjX2wBcMight7b
+	 y3d1tuzU+6Opc3FXkvc03P/rkEoBR8Q0NU0Uvw6pc1slm5woneWNgvCPhE5zRlkvhTE49
+	 MNXc5OvCTVpTTOfsz9kwD298btYQyaUxSOBpIdfuDs3F+3p/HmAsPynmTGveeJink0UOW
+	 8w6y+ciOuQZ282fYXkviOmpsiAbSnw3ndsJrWKgStjUL2GuUpVDmwV3161SwTeDa0ZQ7x
+	 PCYLNjiB+hv4nCB27EiMLoogBm4XaospFSJRfPN8PnHPHIvZV794YEHa6pNDHUq8QdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGhRLrFg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=idLo7FDd;
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7BE606A331
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 00:28:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id F053F606A32A;
+	Sun, 22 Nov 2026 01:00:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F053F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGhRLrFg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D20821F000E1
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 00:28:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795307297;
-	bh=8RhArZNo8p16GcHuh6NIuiaO1SE3vke5Fkl7bF9WXX4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UGhRLrFgtuywO9ZMC+tmRQw0GrZhEJWe37Hj5LwNPGYSWfalQC+IuGbM0vR7f33cm
-	 QbFU3k0iT31YsR/mr5ZQrOvtpgJuwcVSDLVtGQWZxPx+MC/vRZagmohzuwEJh4BMfk
-	 VeOqpsQ+P9mxUKmCdzQyaOc8UNTFQA28tmFMMhZyg2/eU0KGlf2xjRH3+xP9pvBANe
-	 h7ekRMiLhsLBcJbjAAGcBTq6emCPbJ6yVgmrOL/YNmau1hDfbSGG0hfp9JsGpeL8Am
-	 q9ZmXv08zExR02+uWxG4Tsd2JZLe0OOGPDNUycMothSucpHj5Zlg8x3vTEqXQfIJGY
-	 qUBaS4S5jzaOw==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bfa65c8617so1301944e87.0
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 16:28:17 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFl2U8dawR/to6Mf89J6hMSOFKHvYcwAee7R9qOtnriQymekKWfS8cu2EeQi2CrkkPpmFWmwBRozWRV@vger.kernel.org
-X-Gm-Message-State: APuU4Z9L47KKBP4I9+91pGANd5uu2dobm+KpEeH/kO6S/RHtWwB4hSx1
-	3nEE9DEufG8IpcKQHyI240aLQS0zTHUWhEY8o9K/KyKpGnVeYj1aDUxzgvg1X8T5v4T/BR44Qv6
-	acporbC9qTv6hvTVlyeaaJ5aIan3FAKA=
-X-Received: by 2002:a05:6512:1042:b0:5c1:606b:ae8f with SMTP id
- 2adb3069b0e04-5c1bc660882mr2353410e87.7.1795307296619; Sat, 21 Nov 2026
- 16:28:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=idLo7FDd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1795309212;
+	bh=yiOSm1bkyAMQFGBb+Y0A4VMMiKXTGYYH6qcBe1qvEcQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=idLo7FDdCW2WIP2s6cJFayiTrWkOe0sP+zL5IHZnpWk1cVN7hsAEhxuxXuB7b3TGC
+	 F6+4HON7HbgtUFSuFl4xIzAmTfaDdMR1SEyzTQHES28vx8mUkCnKHUGqNGYvkKpoeK
+	 eT9/B6DGS1mApyF7xppRNJFbCXD/RhGkRzbjQ+6zAIlAnmRGcp09ez6cHlCfN+iyxR
+	 SwHd6v3NW9oqPDmiZNPJQdXAXrOxI4wm3dgAbzam9FIzJ4p9x3ZHlv9Z74mx+OhLJU
+	 e+5fbAtCqI7WRLfbr+P/pKOxdktk2BSrxh5lyqfpMU0jbppHw+pfZdGC7DTilQMzgT
+	 WuTn/oRkQ6+0Q==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 7883A6005B;
+	Sun, 22 Nov 2026 02:00:12 +0100 (CET)
+Date: Sun, 22 Nov 2026 02:00:10 +0100
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+	"open list:NETFILTER" <netfilter-devel@vger.kernel.org>,
+	"open list:NETFILTER" <coreteam@netfilter.org>
+Subject: Re: [PATCH net-next 6/9] net: flow_offload: allow drivers to
+ validate and invalidate cached paths
+Message-ID: <awI-mtwn3ohPw-fF@chamomile>
+References: <20261116222519.1416501-1-florian.fainelli@broadcom.com>
+ <20261116222519.1416501-7-florian.fainelli@broadcom.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,69 +82,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015142552.4128028-1-ryan.roberts@arm.com> <20261015142552.4128028-7-ryan.roberts@arm.com>
-In-Reply-To: <20261015142552.4128028-7-ryan.roberts@arm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 22 Nov 2026 01:28:04 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkik4jJd0h2jnZFFQa_rZrnkoF6U2n69vPOoDMEFo5tgg@mail.gmail.com>
-X-Gm-Features: Aa3M54o4IKo8fD9YUMMNm9Se3tMa7QPg9dEL1ZzSewcxTabcAD38a3EgY369qO4
-Message-ID: <CAD++jLkik4jJd0h2jnZFFQa_rZrnkoF6U2n69vPOoDMEFo5tgg@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 06/15] misc/arm-cla: Accelerator context save and restore
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261116222519.1416501-7-florian.fainelli@broadcom.com>
 
-Hi Ryan, Jean-Philippe,
+On Mon, Nov 16, 2026 at 02:25:16PM -0800, Florian Fainelli wrote:
+[...]
+> +static int nf_flow_offload_validate(unsigned long cookie)
+> +{
+> +	struct flow_offload *flow = nf_flow_offload_cookie_flow(cookie);
+> +	unsigned int dir;
+> +
+> +	for (dir = 0; dir < FLOW_OFFLOAD_DIR_MAX; dir++) {
+> +		struct flow_offload_tuple *tuple = &flow->tuplehash[dir].tuple;
+> +		struct flow_offload_tuple *other = &flow->tuplehash[!dir].tuple;
+> +		struct dst_entry *dst = tuple->dst_cache;
+> +		struct neighbour *neigh;
+> +		u8 mac[ETH_ALEN];
+> +		bool valid;
+> +
+> +		if (!dst)
+> +			return -EOPNOTSUPP;
+> +		/* This is the actual route selected with the packet's policy
+> +		 * context, including mark, DSCP and the reverse lookup's oif.
+> +		 */
+> +		if (!dst_check(dst, tuple->dst_cookie))
+> +			return -ESTALE;
+> +		if (tuple->xmit_type != FLOW_OFFLOAD_XMIT_DIRECT)
+> +			continue;
+> +		/* A stacked path may have a different final Ethernet neighbour.
+> +		 * Do not mistake that unsupported context for a stale owner.
+> +		 */
+> +		if (dst->dev->ifindex != tuple->out.ifidx)
+> +			return -EOPNOTSUPP;
+> +		neigh = dst_neigh_lookup(dst, &other->src_v4);
+> +		if (!neigh)
+> +			return -ESTALE;
+> +		neigh_ha_snapshot(mac, neigh, dst->dev);
+> +		valid = (READ_ONCE(neigh->nud_state) & NUD_VALID) &&
+> +			ether_addr_equal(mac, tuple->out.h_dest);
+> +		neigh_release(neigh);
+> +		if (!valid)
+> +			return -ESTALE;
+> +	}
+> +	return 0;
 
-thanks for your patch!
-
-On Thu, Oct 15, 2026 at 4:27=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
- wrote:
-
-> From: Jean-Philippe Brucker <jpb@kernel.org>
->
-> Add helpers to save and restore CLA context for later domain switching.
-> The saved state includes DATA registers, LRESP, per-accelerator SRSTATE
-> and any implementation-defined internal accelerator state exposed
-> through the IAS register window.
->
-> Use ENTERSR to stop each accelerator and collect SRSTATE, then read the
-> advertised internal register state with REGREAD. Restore by entering SR
-> mode from a reset, idle accelerator, writing the saved internal state
-> with REGWRITE and completing the transition with EXITSR.
->
-> Reject accelerators that require SAVE/RESTORE operations during setup,
-> since that path needs a DMA buffer for state storage. Allocate
-> per-device save areas for all CLAs in a domain, sized from the combined
-> IASSIZE discovered at setup time.
->
-> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
-
-This just describes mechanism and not use.
-
-I see what the code is doing but not how it is used.
-
-E.g. part of me think: if it is technically a part of the CPU,
-why is the context not stored in pt_regs?
-
-So I assume the context change at other points than when
-the process on the current CPU is preempted or scheduled
-in.
-
-This context (ha!) is needed here so we can understand
-the *purpose* of this context switch.
-
-Maybe the use of contexts and context switching need to
-be in the cover letter?
-
-Yours,
-Linus Walleij
+This validation to catch for stale entries looks very similar to what
+I'm working on. I guess there is a chance to consolidate all this in
+common infrastructure for both software and hardware modes.
