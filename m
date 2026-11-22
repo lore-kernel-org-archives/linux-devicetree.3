@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795378494;
-	b=wFuSzGYxIXr4gvXDdZqTg+ital5m7RrPQl/1YSUGOYadUqFdY5oTvRZ2XwyFASd+tyd+
-	 B73pcNwB+CP5glkR3xtkLfMJ3Qy/Ha6CNlsB2S72BCEKF9mfBs1gRuKrKChzbhONV8Vnh
-	 VF+KyLEBxO0wRhVAn9WYeMrdupXosORQW3rcNadXXZ1kevvlM2SLOvBXj3N3KlHcPmsIJ
-	 5HVwf/ohNbJBbqSn70KOceHmfH39uUrFiPUdbbf2g3Stb019UuG9/zi2XY+SlwwHdghLL
-	 +kOKLGK6nj7OhHVeOdk1o0dGJX6rbq4yz9oMkvbTlwJx48muscXzHDNpEdB1YAqGh7g==
+	t=1795378493;
+	b=GWtgGqbRZnqlroS7IpbvGnRqMz3+9qZCEpVkr0MFOeuAAEbLuHSgA4BNsP29syuF/P0J
+	 J3r5V0ngQnUzm5pM1Ab0kAlqRWaKBbL2FKrw9HTzkSouDvYW0irN1Fqh3ygwfVZtPHEEE
+	 NN5w1CxMEIdnBL+0LwbEtnm0sH9fZhQEyermGswCHf3YWAujvDXZ4Vx2AFb7J83BaAHBc
+	 ClKxGYQ2j/Q4GhRgKCiLe//Gu8ekdX6KRmYHpV3zpd1h9A8GZTv4uUcuXWUh88EKjSLe4
+	 hYfF6Zg89h9pEkh4hk05h49XrMtvCgxuPI/cYbZj5wluWslIRDdvLhZLV2p/q+18vZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795378494;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795378493;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=W3DOibmTouZHMicE5mHPj229m6Ggbgawt0BEFNpJyE4=;
-	b=unGaWsvLhRm1p4m5amsDDn1tvYoqnFHl0Ohkd+hxGFFCGVCu2aI39HSUL0waaSc37HaK
-	 z34jJM6l3/53RlHqytpmHefQeFXV9+jrYKr/i67+9X2L47p1PytuRt7UTEb7EiEclTCQb
-	 B7znFV4BC0K8M7ygmxUO+cYwS/H3kaX0/0LNb/jLmcTdsvsRld9oklVFk2BAUyhQ3wW41
-	 sicLAxhL1ijokOzddO3wRsSKJHTy+B8aH21KiM73hB6q8GSnrk7IdbHnQ0PbaEnxsxV8c
-	 uCduripRLNS5l4wrPpi5U9CVAkPkuBv+bAA61Zfqo7825yVtRC6PPFPkT23b5J7Tq/Q==
+	bh=pGSVTZaAeg5ONQQr3RXHvCYFgEdl+y0kYu+jOLz8K0o=;
+	b=UhecpOHVN/UUDNvHKBePdhsNXHbhUg7J0O73bafjh3GZfnhEUe5CVetjMPO28DohMBqv
+	 Nnr3Cd2OzgjIxYs2L82nlQf7xz3rYBboKcV0n0EVQxQDDgOesJK5Dc4kbUBkBLeZayaGK
+	 +MAOojCMLosPpkakwoL9Q/KwuBahBywCKzvW5IbWFMuVp5ryhsBK47Yu+CuE64J4lShi/
+	 fQGxe5UZhwnB49kECRJaCrvmq+UBWNnCyGRuS3YycoywchFxgEcqvUV+57FxdYAXc+EWP
+	 xzL+0SVIMasj34QTCQndCOMKxSS529s/AzygHqrXIe2bkN4C/K4Th/rlULUqUDm+DLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ILYBHBS+;
-	arc=none smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v2wgH2KH;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AEF8606A683
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:14:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AEF8606A683
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3028A606A335
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:14:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3028A606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ILYBHBS+
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b894d9a075so2776035a12.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:14:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v2wgH2KH
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b8784a3284so3748340a12.1
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:14:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795378493; x=1795983293; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795378492; x=1795983292; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W3DOibmTouZHMicE5mHPj229m6Ggbgawt0BEFNpJyE4=;
-        b=ILYBHBS+B3TI7PbTogIuuMAICxrVMAFQyhYm6WTkVWi+mzR6iuxrb3UvF4rVAp0YDt
-         LGnESxqxjrV1Y8HpHmyJMURjL2kZUhp+wYrs1p9M84UbMVBFPy2G+wpY3mlQe76PorIj
-         BdcFJgbVl3flZoIBXTKuAEy5QyDrvk550CPBuM0BaPiP1ptobzKyoMexCMnhAyyWYhb2
-         eroduMh5Mo632NnK1R1O6c+XXXbgDUgXK9GkTR8xuj+RWhStwEU3LdCaqpLTuP5BAyom
-         JLuLtzxnLQts4q/BRop4L8fa1X55fFIQ9lfZCzZc9l8GO+rLqQBnXU9BuGzfziBF/XDD
-         VVQA==
+        bh=pGSVTZaAeg5ONQQr3RXHvCYFgEdl+y0kYu+jOLz8K0o=;
+        b=v2wgH2KHkoMEBCbDMNy/CLvF2i/ojO37ANtTooF92PR8zfLAXMphuBNEDpUMves8zg
+         dEftMPYnv3oKDFloRDc8nXQXgF6PCq/sFo5qlVXD5Ut7Qa3Au73qHnt1wrsS0rrrw+gW
+         GsXy+CZ5cLneeQR3oO3q2jMdI6Ekxw9JBF9mjRKjOwuTEVqiiFsN9ZpchUrIcoZdIPy+
+         je0dwgfKlOSoP6qeJ4dLUYRfLPfNmnYpvoB7LOwJxIzZcQVDexgqLFgVUkNsBYAXN/9/
+         ZYVI93gSOqpEYNWpaERq12nOPAinictzu8ttCnpYkCgIj/8JHI8uQZGAoOgdD+kEv/MZ
+         zQcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795378493; x=1795983293;
+        d=1e100.net; s=20260707; t=1795378492; x=1795983292;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W3DOibmTouZHMicE5mHPj229m6Ggbgawt0BEFNpJyE4=;
-        b=C9notTb3xahrqM/lhAb7rDKciKkxgNT8TuQw+LkL8Rjnu8RzUfqkyMulnkHRMq1dvg
-         1LQj0RFRY9f9FBbbvZaS+SC8qwIvLMXL60EDsmLF+yATsyl6XVRyeOsdGIOInD63ASkS
-         s7SGnn4292zmyQdUSI/2RNkGQ3RazLYPONVlZkTDL0VaDA8Bm7NHscu1R6LAaWPlgPW6
-         NKbCCsKr8rg6JsjRzRxrA6YVVbxM857Nkax2v/U5R3P5eoEHKRovomwT0lXJhCHL6M0j
-         3cdYLuc0FuZVKLd1SgtAKeEZfFgBBcjCXyXCUu5CZA9c+6Cw+uw2zLj2CNLu4N6xl9R6
-         w7Nw==
-X-Gm-Message-State: APuU4Z+DsSnUdxexQVVKGP2ttnssoFq1Xe7JxgzcOZU92lEo5lB2ogJ7
-	fLR78xgkljwIK4oeVBrbzJHaCTSMCrqKPDXl8nGYmMfY8VX2j80ONOb0
-X-Gm-Gg: AZFdTZf7KozIGav/uAKHPiusSrVoQH/Hf9dnkOhGQ5nxss4mJTSPctBMexMnE1EjKzy
-	IFOQ+mZunXV/NMv1NQykxbXvlzRVqbEz/GOEPQXvCjnWDVHshe/6gK6o4rs0TSqfc0DGAqYsEwm
-	qnBmbYLGHtWZdSLGCKEV5SKIAEAOSxRaEGH+FDBOWYF64iOrElxLavxuXN6/Me8yiaZ0h5ane8M
-	QsbeWM3Y+DZ0tltK/6NOre3/ocLP9nlVNpg5Ump6qMZAeoxCiQ4caQ0HPPla3u/GcgLxfHYtWYu
-	Nz/8myP6j72vXg6R12DVH/jOaPx5kZ6ocTBwyLUDqT+UNoKS2KnJmN1xpZ0/v0/pgP7qlPil7+2
-	NZPIhBjmB6golq3yda/Uqh33kmc14FTYOt9CqdYGgCX2AY2aDjCIXFHuqpXc1ecUGJen9JvAdh1
-	ttfzlwVkMFiNP/6QgfTO8q2esPv/ESE6mif360K+y7wIBjjeAtLwUZ0vQ/8Py/M6rsLjLe/RAba
-	vYOlOoHAhqDTK/ObL6XzGJS0kG0i7z554/PuF7cJwuyfqeYwdeohV8EUzqOK2yqlz2lHJmdZ1q/
-	gN7SgfPoDWHrU7/gUUBCKfXw9A5HDWjmpf2jzyl2jkd8tFph0AKnyxHbTEquupvy3cezsVTqCx2
-	nteSnNdBpbA==
-X-Received: by 2002:a05:6402:42c2:b0:6ba:b1ea:398f with SMTP id 4fb4d7f45d1cf-6bab1ea3a36mr810664a12.10.1795378492739;
-        Sun, 22 Nov 2026 12:14:52 -0800 (PST)
+        bh=pGSVTZaAeg5ONQQr3RXHvCYFgEdl+y0kYu+jOLz8K0o=;
+        b=V+KQsFh7dntSvKRsSICqTYorzhJ5KX+pLlWtKFuTS8GGYElh+dShUOyaUS7kITmvOo
+         cvQS8QCBzbL9fagep3+1QIoB0n5CU7W19nJQEFdr1zrrAKEjG1/zTEqzgBqPQU9bNF5S
+         UGuAQao9DiOdQZGj2K1SXpL+Y9rJztlHP+ivnJjD3qDbSHKXWK1ALaltDmi6pgnqx4Qp
+         PMVUYApOig/oGNPZ5PwF9J9EXoBAPQha4kNhR+M1fAuAfgdmgE0+TnBwCJpiAaXG9cLp
+         1Rgs8dXTWBwV8UftjdxudECBnwo4IxcUT9nEREW7tpjbk2oKaG6WIfQuOVttnAQrad41
+         iMTw==
+X-Gm-Message-State: APuU4Z/aKRuQ9/gaZNKJwOeyc8S8pLxi2R+FfB77QEryMGdEiw2CE5+G
+	IcU/9KTbnQf6FtD9KvGmowVQitGQGeaa4J4Vrk+PlOpF+RJBozyH4k7X
+X-Gm-Gg: AZFdTZf9VAqsraLM+6TkPQ9g1DmV7ZxPg5YY5tU5xrBFU0pvN/6Zciko+fSFREKIWu6
+	fwNV6NTXe2ebQha1V4Wr13k1cLlMGw3IMRLENUpN8PVMFt45TAt7bV/cP06ugU3z1YGQY0CtmCX
+	CLkCCAm4PuTvp5q3nZqdqjgmrgOFILiLEkNKM6CI51xqUWPiKfWQR//PgKUwFprT24ikdNJRMtJ
+	WBnhpjl7BFBGhsZZhJo1cLbPUq3ZKWq7cu6UfH1pvvpECbHs0ESy0MLG8xaMgxTjRQeZzpV47Ng
+	9N+fjOxh4hdgxqzd7WkGODGv12HjsVHCe12ncKNMlvreD7vQ1AYL77tBPOWf6LVB/J3sWErZNy6
+	sVlKjxKKA6g/eAC6NcEgkw9xdNABPKOT/QQcN1bjBf1QvNGnbW6fyEtHgPWFYAJ1KO+6QJ3wqVV
+	tUU+V6CyV7JYclSYnz5v08N7Lv9raSVzjbGJC0YeqTSTYBu5ZtX2wAYaGJ5x/mECyVD2WVXo8gq
+	M2lqmYAFbjjyaCHGED94CnCmyCH/VVcbbdCHj35p8QLiEHtEc0yNNk9dwoE9rQpV4H9C5Ke7fC9
+	46vvryGyG4UEGcuAh6Hwrb0vNKaylG1nnuERqUib6MIiaj1jAukQXl5kxKY8iwgaTTaTnrBh3Hm
+	Sjwbowa6h4w==
+X-Received: by 2002:a05:6402:4585:b0:6b7:63b7:4e7c with SMTP id 4fb4d7f45d1cf-6ba37e8f6cbmr6765670a12.17.1795378491456;
+        Sun, 22 Nov 2026 12:14:51 -0800 (PST)
 Received: from xeon ([188.163.112.54])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.14.51
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.14.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 12:14:52 -0800 (PST)
+        Sun, 22 Nov 2026 12:14:49 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -89,9 +89,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 12/18] ARM: tegra: tegratab: Add common sensor nodes
-Date: Sun, 22 Nov 2026 22:14:01 +0200
-Message-ID: <20261122201407.23742-13-clamor95@gmail.com>
+Subject: [PATCH v1 11/18] ARM: tegra: tegratab: Add audio codec and sound card configuration
+Date: Sun, 22 Nov 2026 22:14:00 +0200
+Message-ID: <20261122201407.23742-12-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261122201407.23742-1-clamor95@gmail.com>
 References: <20261122201407.23742-1-clamor95@gmail.com>
@@ -106,123 +106,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Tegra Note 7 uses an InvenSense IMU with different per-device
-calibration matrices, a Capella CM3217 ambient light sensor, and a Lite-On
-LTR-659 proximity sensor on the P1988 board.
+The Tegratab supports RT5639 codec for audio processing. Add its node,
+configure the ASoC sound card node, and link the codecs to it. Enable
+i2s1 and i2s3 in the AHUB used by this device.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../tegra114-nvidia-tegratab-common.dtsi      | 37 +++++++++++++++++++
- .../nvidia/tegra114-nvidia-tegratab-p1640.dts |  8 ++++
- .../nvidia/tegra114-nvidia-tegratab-p1988.dts | 21 +++++++++++
- 3 files changed, 66 insertions(+)
+ .../tegra114-nvidia-tegratab-common.dtsi      | 61 +++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
 diff --git a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-index 07091ffa6df19..c839e6159de5b 100644
+index 911e5e9d8a0db..07091ffa6df19 100644
 --- a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
 +++ b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-@@ -989,6 +989,13 @@ gen1_i2c: i2c@7000c000 {
+@@ -989,6 +989,20 @@ gen1_i2c: i2c@7000c000 {
  		status = "okay";
  		clock-frequency = <100000>;
  
-+		light-sensor@10 {
-+			compatible = "capella,cm3217";
-+			reg = <0x10>;
++		rt5639: audio-codec@1c {
++			compatible = "realtek,rt5639";
++			reg = <0x1c>;
 +
-+			vdd-supply = <&vdd_2v85_sen>;
-+		};
-+
- 		rt5639: audio-codec@1c {
- 			compatible = "realtek,rt5639";
- 			reg = <0x1c>;
-@@ -1022,6 +1029,36 @@ fuel-gauge@36 {
- 			wakeup-source;
- 		};
- 
-+		motion-tracker@69 {
-+			compatible = "invensense,mpu6050";
-+			reg = <0x69>;
++			clocks = <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
++			clock-names = "mclk";
 +
 +			interrupt-parent = <&gpio>;
-+			interrupts = <TEGRA_GPIO(R, 3) IRQ_TYPE_LEVEL_HIGH>;
++			interrupts = <TEGRA_GPIO(W, 3) IRQ_TYPE_LEVEL_HIGH>;
 +
-+			vdd-supply = <&vdd_2v85_sen>;
-+			vddio-supply = <&vlogic_gyro>;
-+
-+			i2c-gate {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				magnetometer@d {
-+					compatible = "asahi-kasei,ak8975";
-+					reg = <0x0d>;
-+
-+					/* no DRDY (polling) */
-+
-+					vdd-supply = <&vdd_2v85_sen>;
-+					vid-supply = <&vdd_1v8_vio>;
-+
-+					mount-matrix =  "0",  "1",  "0",
-+							"1",  "0",  "0",
-+							"0",  "0", "-1";
-+				};
-+			};
++			realtek,ldo1-en-gpios =
++				<&gpio TEGRA_GPIO(V, 3) GPIO_ACTIVE_HIGH>;
 +		};
 +
- 		bq24193: charger@6b {
- 			compatible = "ti,bq24193";
- 			reg = <0x6b>;
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts
-index 8177e4f7db489..866158f055913 100644
---- a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts
-@@ -7,6 +7,14 @@ / {
- 	model = "Nvidia Tegra Note 7 (P1640)";
- 	compatible = "nvidia,tegratab", "nvidia,tegra114";
+ 		fuel-gauge@36 {
+ 			compatible = "maxim,max17048";
+ 			reg = <0x36>;
+@@ -1346,6 +1360,18 @@ hda@70030000 {
+ 		status = "okay";
+ 	};
  
-+	i2c@7000c000 {
-+		motion-tracker@69 {
-+			mount-matrix =  "1",  "0",  "0",
-+					"0",  "1",  "0",
-+					"0",  "0",  "1";
++	ahub@70080000 {
++		/* HIFI CODEC */
++		i2s@70080400 {		/* i2s1 */
++			status = "okay";
++		};
++
++		/* BT SCO */
++		i2s@70080600 {		/* i2s3 */
++			status = "okay";
 +		};
 +	};
 +
- 	pwrseq-wifi {
- 		clocks = <&tegra_pmc TEGRA_PMC_CLK_OUT_3>;
- 		clock-names = "ext_clock";
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts
-index 9447203eeda36..7ccda46c42af2 100644
---- a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts
-@@ -7,6 +7,27 @@ / {
- 	model = "Nvidia Tegra Note 7 (P1988)";
- 	compatible = "nvidia,tegratab", "nvidia,tegra114";
+ 	/* Wifi */
+ 	sdmmc1: mmc@78000000 {
+ 		status = "okay";
+@@ -1619,6 +1645,41 @@ vdd_3v3_com: regulator-com {
+ 		vin-supply = <&vdd_3v3_sys>;
+ 	};
  
-+	i2c@7000c000 {
-+		proximity@23 {
-+			compatible = "liteon,ltr659";
-+			reg = <0x23>;
++	sound {
++		compatible = "nvidia,tegra-audio-rt5639-tegratab",
++			     "nvidia,tegra-audio-rt5640";
++		nvidia,model = "Nvidia Tegra Note 7 RT5639";
 +
-+			interrupt-parent = <&gpio>;
-+			interrupts = <TEGRA_GPIO(X, 3) IRQ_TYPE_EDGE_FALLING>;
++		nvidia,audio-routing =
++			"Headphone Jack", "HPOR",
++			"Headphone Jack", "HPOL",
++			"Int Spk", "SPORP",
++			"Int Spk", "SPORN",
++			"Int Spk", "SPOLP",
++			"Int Spk", "SPOLN",
++			"IN1P", "Mic Jack",
++			"IN1N", "Mic Jack",
++			"DMIC1", "Int Mic",
++			"DMIC2", "Int Mic";
 +
-+			proximity-near-level = <50>;
++		nvidia,i2s-controller = <&tegra_i2s1>;
++		nvidia,audio-codec = <&rt5639>;
 +
-+			vdd-supply = <&vdd_2v85_sen>;
-+			vddio-supply = <&vdd_1v8_vio>;
-+		};
++		nvidia,hp-det-gpios = <&gpio TEGRA_GPIO(R, 7) GPIO_ACTIVE_LOW>; // check
++		nvidia,int-mic-en-gpios = <&gpio TEGRA_GPIO(K, 3) GPIO_ACTIVE_HIGH>;
 +
-+		motion-tracker@69 {
-+			mount-matrix =  "0", "-1",  "0",
-+					"1",  "0",  "0",
-+					"0",  "0",  "1";
-+		};
++		clocks = <&tegra_car TEGRA114_CLK_PLL_A>,
++			 <&tegra_car TEGRA114_CLK_PLL_A_OUT0>,
++			 <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
++		clock-names = "pll_a", "pll_a_out0", "mclk";
++
++		assigned-clocks = <&tegra_car TEGRA114_CLK_EXTERN1>,
++				  <&tegra_pmc TEGRA_PMC_CLK_OUT_1>;
++
++		assigned-clock-parents = <&tegra_car TEGRA114_CLK_PLL_A_OUT0>,
++					 <&tegra_car TEGRA114_CLK_EXTERN1>;
 +	};
 +
- 	i2c@7000d000 {
- 		pmic@58 {
- 			pmic {
+ 	thermistor: thermal-sensor-thermistor {
+ 		compatible = "generic-adc-thermal";
+ 		#thermal-sensor-cells = <0>;
 -- 
 2.53.0
 
