@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795383984;
-	b=tqjhrf2itNYXzGFJZjBQ9trLxo22IKGTOLoHH7ZGzFsijtokmHEdC81qeSfzfuMaZf3Q
-	 QA230kwatj5iO2eE33baQGcxgUpJK6tC07npxdsdRa2ZkQwI9j6hlVhAT37/d94BFW0aa
-	 B9ge4YmU9J/IugJhrg7+m3fIS6efMKwPxdMyjBPGqWXNO3CJMv/qmxIWEW7FOXHpu3uQ9
-	 bsdhfPg62krkaxF3qCGj2WOkcd0dkE1ADAluQER/PkMAzMCFcNwahjkUthjPYYSPWuUXR
-	 ZVnOmCEXJ74RS/97s44BenIE6yeQj8pbml9KqanUqiXm/J/IcDocRZ/2WIdOKriAn+A==
+	t=1795383988;
+	b=5m8kCgifBEpV39qRb9H2Xxn8yO8BArx54yRiNd8cQNM7zxL1Grc+KfjnlR/bnSRDLsAo
+	 0ZYCi2iPeIU4sMzew0kFjP+xsFGNCQqVQeWw1ng13XcGFjvivKYAZROGyN4Rqs80TPkbd
+	 e3Blzi/JX05bbrcqzgApRJoumnz99yRqkRHOh/AqJab7JiEGZOVfsKezZD/SqimEAMjuZ
+	 r/a0PZwDQi+qzX4MbP4XcRb/4e6hLKFsVWNK41ZnvMrwhXkh+DjZiGZ0ybqkT6KgoNZMJ
+	 iPUyYQFkC1DdT0hMfUY4cKMXGggqBLFrMoen/BlYeCwbsLpPoHZdIIT9rYbkRQTFC4Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795383984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795383988;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MI0kpinXY8PQS+riRrYRSejf4iJugr+k2u7JnoFuvr0=;
-	b=TsQa13z59670wwrx7v3FUskg6/k6OyDqkJAHO1UT4EUFFMUOU1UrDKCJZ5HGWVztaZK6
-	 wPcROpUsAN0XC54XhzblFYD8/9RTr1kXiJMT09k+p9pax2dil0gIMG+kUfAWX6KRdpqhm
-	 xiP7R1s9pdIqj98XKasw9vDF30Q5mfEVotWT34f10dIxNEahwZrAHfrGLEDqh2bfMrz0O
-	 kTyg21C3ear4h6+6FiqCRebyDMfrcMBXTivTrTi9UBiZUgqsP2Gc0++rM9jUhllWw4nnt
-	 BRSsDLGP7eocF28FzzDDtddCsMqbHej5NPqlkKbomYnDjjkdvyk8gUs9EpAtYxiBJuA==
+	bh=60vzWfDSgUirg3Fa93+C+3eigBTGfImoqoho2GYyLOM=;
+	b=kbydlHnjmtIoOfwe1ZLBRUjDoVnFlSmvBBTVvwM4POoBIrWKyuKRDwPQ9R+vlkW8g15s
+	 uxyfr+nSzwrPoNjjZdtz/oj7iYWP63wANRzVg3b7UjQHj1IwDx3a/ppZNyneNTgZccnQ4
+	 wpykf0J2iyT+su7Tdjy1RjiNUfOGsf6ujETn5CT4+eeGrphYew/3QisWHj88RqoW2noqR
+	 NhwrNxAyLH8b9q+nz68vdACkAQGg4edbFmqDuVYw/T+j6FbQt+tl7O0AhqHtGbuW4TNlr
+	 i0pl6D/FtbNUfZj6HLI43H8nJXvLldNKFliGqxm+mRk5V3j7V6Ntbvl0io1lkkmmbWw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cDycofpL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VjcuszL+;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878B7606A320;
-	Sun, 22 Nov 2026 21:46:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FAD606A31D;
+	Sun, 22 Nov 2026 21:46:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cDycofpL
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VjcuszL+
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795383983;
-	b=Jmpt13p+TOhLBBqbqeGaiatEoIK5EcHl/NrIm9ksRBF9J2t5H4yb6bnNwkKPD0ir+W5R
-	 Cf5nYF+UD8rnVF5TJUgUITgRtPG48GcMy1FgdBxX2lJy1J8/ZlfDiTA08qE/MMne5cyk2
-	 Qhip6QrOZO2Synyu+1bPMVeKpPbnjnPqVlHWZUWxvgDBW2w2SzPvTUR741TGCVtPR9KGv
-	 eN1Qe1omyLrrrM0i1Z496X2zD6m/ywE9S0ziIVdcKzuNblIgC+kKAEZnC4yLpaVHyI/Tw
-	 5YZfHaXp/JK8SkdRhcWF1wQcuAmIRCUf9EacYqlD9j74h+OHEwhUd/zpYnQd4GHNP9w==
+	t=1795383988;
+	b=RQAkshyei2FHIcJZbv8GUk44CZKLW81MRVxywxH8YqNwpp0vUGZyRcBlGqbSNP9slHVe
+	 uIso2HBLThawHdQ9cmsjxOtxIYQkkVHgTzpat2wN6OUhiEjsQS8wW/5tacNSNJQ4C1/kL
+	 jvY/qPivvrowsWRKHeKlA5DhKKd/bf2n+6VSlHeL2x8Nb69rr0ptsk2IzlFjH+fq2Fl33
+	 7dQ/gkLRl1bzbTSib0069MJGZ0gLZAAkklw5u6GlpmzIpXC5YDX+YHyWEJdb6o5vDVOSo
+	 u2Dem9/1epB6KfwtxtRayv6xPARlYeDLQJWcrWL0ZPj8n/xNuUKHfEjWoiy47s+750A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795383983;
+	c=relaxed/relaxed; t=1795383988;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MI0kpinXY8PQS+riRrYRSejf4iJugr+k2u7JnoFuvr0=;
-	b=rVOmP/OLzbXyG/v7quIDG499nDUl65RfJke03LR50m/MMJfdyChsrqVzwKF+Aj9oLJkF
-	 Eqk+7z5wDIsWEy1E7Ut4V58IeW7CPFr/xKNvBOp2hMUZmwliwmEDYvmlgor3s9Sbdl+/V
-	 dXuUeryThgdv3+AGjRJn89ma5/P4Zz/o3x5HJ1ID85rLaU8nSe2DB13T9OeQ35GxCi+Cf
-	 O/8FMHQX5JZ/UAIxXUNVjxDdJ28Tms4wEyZkt4JI1TgIC98ujZP+dce2tvAJh4ax3LZ8r
-	 SA8gKPZMsaxoCpb9VCBi+LZkwhmiPRbnM+J1IgjFosyWDj2UhH5qo+CVxLov4mn+zvQ==
+	bh=60vzWfDSgUirg3Fa93+C+3eigBTGfImoqoho2GYyLOM=;
+	b=gTWo8lBKQAsT28zZQeYaxXUiRaMHoAi6zvFsf45DH5XtDNrrfHEnIyEkSn49BATX3QZz
+	 XOvpb6nok0A4FA/fb0hE7XDzgNjusTDCCE/OwLlKEI+hbTs8s/fOwLYSWljWx+Wo3twYh
+	 VlM+srcni0moKXUpJhx6nGXB8+7MCJIt1BGJK2K/ySrHAVJiaYJh4P/MVOBi2bBSfW/vU
+	 Aa2YzjTo6VrNFEARNHj/WOGKNASDQK8EZWrKWZKn2P4431I8HZoxAtACtyT9iAaWPXEMy
+	 /EHlINltD563o7xepm9nXtpqFbste9VL4ttoGbI6/ca8a9+My9nn2+PKPYDniO7o0aA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D03021F000CA;
-	Sun, 22 Nov 2026 21:46:20 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0F0DA1F000D2;
+	Sun, 22 Nov 2026 21:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795383983;
-	bh=MI0kpinXY8PQS+riRrYRSejf4iJugr+k2u7JnoFuvr0=;
+	s=k20260515; t=1795383988;
+	bh=60vzWfDSgUirg3Fa93+C+3eigBTGfImoqoho2GYyLOM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cDycofpLID2nQdJ9OHKlJyFm9BUyfoms/VwTcrpcKPV5M10/loaY1WvXzaIO5vWxt
-	 Uv9evSDnPVCL6plZD+ERv0lWbVNvbWmW8vIk4Oo1n0qk4wkFKqhCTMqOWjbD3lbA+n
-	 tfu3gMj5pNq+AaS8b9Wcr+hlb2sbBum5DwHvl+nJT0qZ04h7LbPD4tzTf0shOkx0Ey
-	 VC8cJ9NIgMKlkwBKxDniO71RfKOPJGy+VismJ8YUOUYf+kB6DcQ6BSlgRoP1LQ9qOO
-	 HDpvlRPOy2f4N3FZuVVhYwQWuzkPtZJdDoFSwTnXv3kjgAseXu7iZ2yRsYk2Gv/ove
-	 Fy7UAEHSjUR+Q==
+	b=VjcuszL+4Cg34rTXgb8sbZiafsjzcNyA4HZn+Xuo/q7VhrNCBo2dLh2IMcKHDENx2
+	 UD2vLwu2aHqXTaMpBVM+QocX/pKEXBxFBZUnNbGY9tEzYEGP+JsJoO1hvoD26Mfhaq
+	 w81Z7pVFY/YBCtO5UPvLHjTBFT2IoOyIbaKZ0JRiqE4rqtAlDb4XqU7DJrDD99D4Id
+	 dqYnjSicBUfbCU12drnIw/cTi0sMJkqVf3ZN6vik4CUm9f7E+qCRyCm9TFPwMYl3Ip
+	 diooDlVOsEqZU6kcf9llU8L3t17Q7w8k+SxGDyt+8xxwventHrOMrtZXU4RNruvQbe
+	 qAVkSHFExhDzQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 532694C207;
+	by lkml.kernel.org (Postfix) with ESMTP id 8FDBA4C217;
 	Sun, 22 Nov 2026 21:46:20 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Sun, 22 Nov 2026 15:46:16 -0600
-Subject: [PATCH 1/4] arm64: dts: qcom: qcs8550-retroidpocket-nova: Remove
+Date: Sun, 22 Nov 2026 15:46:18 -0600
+Subject: [PATCH 3/4] arm64: dts: qcom: qcs8550-retroidpocket-rp6: Remove
  pwm backlight
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-rp-qcs8550-display-v1-1-d513d9819a34@gmail.com>
+Message-Id: <20261122-rp-qcs8550-display-v1-3-d513d9819a34@gmail.com>
 References: <20261122-rp-qcs8550-display-v1-0-d513d9819a34@gmail.com>
 In-Reply-To: <20261122-rp-qcs8550-display-v1-0-d513d9819a34@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -94,11 +94,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795383979; l=1203;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795383979; l=1194;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=179YKHLvNNa1LrCEnmKzvwXZC97Kf2YubmEHcIb0YwI=;
- b=Eykh6KwoB5x0+roEJgHA/HVZqvPkoh7FKyFA0w2Q9xMGUY9XgzzWlwKkc8+36pUzeg0mJ6HKc
- Ych0OYERGOzDAwingIzt1Z18qZaoHDmlxts84VEb6xEYhUd3CFA4raz
+ bh=XJhe98HFyVSwJqUvStUrAk0mwelhqDfoIAU2HEa6TOw=;
+ b=Pqr+YO1s/WqKaWfJ92j1Fo/ql2Bss1xvYIHXyexKvxKIUW0B4CvnfsZYrtof17aBRbZRXH87M
+ Qi/EW/QxwPBAc/R7FZhgF2MuiV+S+DkKgx0ogrdNOOBZ/L8Ue54BHVT
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -114,16 +114,16 @@ by dcs commands via the panel.
 
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts | 12 ------------
+ arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts | 12 ------------
  1 file changed, 12 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-index 0a0546977a026..ef1356f4c34ce 100644
---- a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-@@ -10,18 +10,6 @@
- 	model = "Retroid Pocket Nova";
- 	compatible = "retroidpocket,nova", "qcom,qcs8550", "qcom,sm8550";
+diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
+index a93fe74b83383..91fed8795d611 100644
+--- a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
++++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
+@@ -13,18 +13,6 @@
+ 	model = "Retroid Pocket 6";
+ 	compatible = "retroidpocket,rp6", "qcom,qcs8550", "qcom,sm8550";
  
 -	backlight: backlight {
 -		compatible = "pwm-backlight";
