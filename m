@@ -1,64 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795359106;
-	b=Q8yeGHhvDSGl+D+nmKwNPLe8VwrxlWWsHxcowmRCQdLrvRD37IXlebez6YLFVC9NBg8l
-	 sApnPtHLbokeALJjshi+cxu0df6BcnsOY5Lf59ekXX8MOtGyAqMomwz6yxsYomD8QTbwP
-	 EsHSPADrW1+Ox4E0SYB272hppaEIltHLArxhEVoY1AcFh+wEtaP/Avfb3ozgeCPRj3rdu
-	 IwDGJMk/B1GQO0Bq+xPfPtjraP1umi1EEj450jzfjmEn+KAvL1IMV5CgNQkAvWoAVh0A8
-	 I73QXTO/4rpeoB1CW+AKkaH6otSFesEECm1/yenWLJQsCH8BbKnZmKzbhNjtpVkTYwg==
+	t=1795359266;
+	b=VdUZ+utTSDRyMkM5O6tuhW5lcCliDOfDknc2YrnggqmzU65jyKTIkysMHUXiZ3GI2ETZ
+	 H+55QoD6gNgoRenlR3Shio5/zxhB/VY/yxiLefbcmISnY0bpOx9z19jIBTdFSbxOExy9H
+	 0ZOtJO8MmQ5PZjC8R8uulxPX+/4Zl2faublp7fh2NTAzl3lBYkpI/XgHAMAU0BoC8Dh5X
+	 Td6j676/rvLuLdHaqrvimpzkY04ZSdDSJBrqYyfprM8OUi1D7OBWuyN3GwrVCw8M321E7
+	 T8Xw3MGcq8udGZbZBElbonlPe9OjP7wpNWo70Csx/P9drQxBXLC+8cNufjaNZtboEwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795359106;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795359266;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pP1Eg7j0fEyC/wpQ+r82L7kkFTb9gJSOerVN41GQVUQ=;
-	b=dzrogdHi5PgGNqSApdm3PHWgV0quXWhNwHesT6NGMwNjf1zEU+yKb4Hvt5RTioGM3n/+
-	 vWdL6E5uSnAsBpvq338qdWgyBAOKqYlEcW+/gmABapC2kqejsA/7zYJUdIbMI90mF/t9f
-	 jSiIN/bMem4XL4HD2FiWJVNiKxBa6rOOXZzxTWaGxikpkzgEUXu5sNLCNEn1Q3f8n04qd
-	 YNXT4WBiiF4MHlFOXj17yBMAHNzw13SW1bfEsdLNR9pccujGWqo34whZwq74YTO/XRLrW
-	 w6wupvjLYmkPYGtZfXcyzryjm1c54BhVByNpfn4IZ08RRI6/aU+kqmINq8Y4fYFrMpw==
+	bh=iN/nddxdvRMLU2SkW9x6MGgEnBY1rvCW4Vq0IU091oo=;
+	b=BKzCrcpsy8nb59VbFmSXMpK8ieN+AfBwUVcDO20wuxSZnVXi/JFbdTsTfVbf6SIf33Cp
+	 oqEt4H63EiwxtBtyJ8jxhjDd/XdMiAPeTBHJq6BQDZ7k634l2fNrvX5RF6YgG5ROawNGC
+	 hhoqDGQpbuxx+2Sf3qlxuKmS7r3ub6iYuYRW0S/+jtdXrbW4BUA//YE5OZZQAd6xwMfe5
+	 k85BIzTFYt26ikm3YxRoe1u9lSJwXvM3z7umNP5zOxCZF/357954NsukHBIhsJLzW7b+n
+	 S92qPb/ai8CantnDeIvqjxIrF5LOWt0HRa/LN8qLYptD/oARbRlDMbX9W9uq71u2z/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJnGbZJn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BREg/BeO";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94B2606A320;
-	Sun, 22 Nov 2026 14:51:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DAF4606A331;
+	Sun, 22 Nov 2026 14:54:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJnGbZJn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F20B81F000C0;
-	Sun, 22 Nov 2026 14:51:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BREg/BeO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C782F1F000D4;
+	Sun, 22 Nov 2026 14:54:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795359105;
-	bh=pP1Eg7j0fEyC/wpQ+r82L7kkFTb9gJSOerVN41GQVUQ=;
+	s=k20260515; t=1795359265;
+	bh=iN/nddxdvRMLU2SkW9x6MGgEnBY1rvCW4Vq0IU091oo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PJnGbZJnz7BCoxtc8LVNsEWA+vw7UkZIG1UYvRus3e6zyDQUdNwU3TYCB/3y0GrWp
-	 97PNWkw5YG1g0Hid3jasu7S37JR7ohbB+3J0zAkMWt8vPSm79Fl+/dwJMBN03AwPV3
-	 ApmO5o415Ep14oTLaXTXsKAwCE1EfGltPOxUt8A6TWe+dmjEuN9ex4dAsAKX1DwWu9
-	 Pla2zp6F/JiJKV2xBwJBqHJpbksMNMTxMxtcCyoDchkzWJa9omPU5nCVJATYqC92xl
-	 g6eesqt6KHlIZW5KS1KzDQAanoo27/WXgawCgVZf/E8dV+nkGSgNgJ7JUC2CQrFaUR
-	 etLzzqtfEJ8sQ==
-Date: Sun, 22 Nov 2026 15:51:42 +0100
+	b=BREg/BeOBdwAJd7clok41drHWisly6ktafnWOSBCuiCCVtqMUhOgRXOEwR38UJAy6
+	 SX87epgJP2Eu3/QVf2oEeuJUxQeSoQPUGn+HKOjdaNa9OUPeHjnXQ0YHo60hQ40qld
+	 ZGvJcJACjFveYKOAsDYfsen3bCwOmfHTdhQZRIpnjsYR7/Hns1+932ozb3NSbNCzht
+	 WtVJ+0jfMxOtPFSTy876LCur3vTSDwZ68zPuQsT6RzZjKwlLt7HL3liB8bAbSFFHRe
+	 y1WnG2go3Kv9NPitpZ0YjStNAfPnQ4BP+uk3xqaqzSHqgETH7uoHTR+e7FcaMSc5H4
+	 i9dZCAoLIo6jQ==
+Date: Sun, 22 Nov 2026 15:54:22 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@linux.dev>, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Simon Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Florian Fainelli <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>, 
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH net-next v5 06/24] dt-bindings: net: dsa:
- renesas,rzn1-a5psw: Limit port reg values
-Message-ID: <20261122-nifty-unnatural-caracal-1b3e4e@quoll>
-References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261120002549.1908299-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Eric Dumazet <edumazet@kernel.org>, Lee Jones <lee@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	mfd@lists.linux.dev, Martin Kaistra <martin.kaistra@linutronix.de>, 
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v5 3/9] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch function
+Message-ID: <20261122-camouflaged-pretty-camel-79f370@quoll>
+References: <20261120-devel-vstrassheim-soce-dsa-ml-v5-0-5de9225715e6@linutronix.de>
+ <20261120-devel-vstrassheim-soce-dsa-ml-v5-3-5de9225715e6@linutronix.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,27 +67,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261120002549.1908299-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20261120-devel-vstrassheim-soce-dsa-ml-v5-3-5de9225715e6@linutronix.de>
 
-On Fri, Nov 20, 2026 at 12:25:16AM +0000, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> The A5PSW has four external ports and a CPU management port, using
-> port numbers from 0 to 4.
-> 
-> Previously, the patternProperties expression only matched port nodes
-> with unit addresses from 0 to 4. This allowed port nodes with other
-> unit addresses to bypass the port-specific schema constraints.
-> 
-> Update the pattern to match all port nodes and limit their reg values
-> to a maximum of 4. This ensures the constraint is applied regardless
-> of the unit address.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v4->v5:
+On Fri, Nov 20, 2026 at 03:52:20PM +0100, Vasilij Strassheim wrote:
+> +$ref: dsa.yaml#/$defs/ethernet-ports
+> +
+> +properties:
+> +  compatible:
+> +    const: soce,swip-switch-00-04-0c-10
+> +    description:
+> +      This compatible identifies the register layout; its suffix gives
+> +      the offsets of the core version and feature identification
+> +      registers (0x00, 0x04, 0x0c, and 0x10). Port counts and optional
+> +      features depend on the FPGA synthesis configuration and are
+> +      detected at runtime using this register layout.
+> +
+> +  reg:
+> +    description:
+> +      Register window of the IP core. Switch register blocks are located at
+> +      offsets defined by the compatible. The MDIO controller and bus
+> +      multiplexer occupy separate subregions described by sibling nodes.
+> +    maxItems: 1
+> +
+> +  ethernet-ports:
+> +    type: object
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I guess this should follow:
+https://lore.kernel.org/r/20261120002549.1908299-7-prabhakar.mahadev-lad.rj@bp.renesas.com/
+
+so: additionalProperties: true
+
+> +    patternProperties:
+> +      '^ethernet-port@[0-9a-f]+$':
+
+and:
+'^ethernet-port@':
+
+> +        type: object
 
 Best regards,
 Krzysztof
