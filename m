@@ -1,101 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795340243;
-	b=IC740An5SyTmAQ2mCHkkQAiMKn6smGEuVv4qSQYXTngvE67/Hgzuh7+AXrX7GYf+UQbf
-	 Qo6hOylZfMwNA29iH9ebPqEA+WFhFeqjNTr3WVLaZWhDgBpCvJ8127KkoZl6uPaGc0BmJ
-	 VpNzButs9/HNpRl7pCb9LjFWIqBdFy2zlR10KS2EiWhpAiXPk0mbkkoPkaxMshlLsm0NK
-	 +a1Iiu48U83WIEj0tzs3BwhQ8iz9N8W3BcervhWjx7/LE2rSMJgvvdBabXtflPsPMs8j1
-	 gNbe9ZwXfKSZbb5JsSmmUEDSqrfgM4+MybCJZ9pppPbSIMIn9qpia5e907ovGOoSs3Q==
+	t=1795340456;
+	b=f8kcIh+yQ+1KqX7GLt9DADvPd015BvSMvHHRXUCcpY/h47pg8WRjEawEoCIuOLLahYrF
+	 e7FgX09F9CVN06mVjZWd3VoZNvaRPTJgn1H5QzXzn1utTyBpYfmRr4V8urowotqoPdJ4q
+	 6AJMRhQ16u+0GWr9P0zN9eXSEKxA/zvSOsZtfZELFdAN52/Yb8rXtlDEWZJgpE1jV6obR
+	 yniacehyS4/cSZpvW8rBHeiDWsby3oRW7jxpI7SDHwkk0YgG722oKTcLSYA7G0hxKYQEt
+	 3+JEP4u6c1vOy3hpPCUrxgrJfY5B3RY2GqhKbYbe1wKlrQE/+WHKAdDug8pwj8KHPsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795340243;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Date:Message-ID;
-	bh=0O70Q7pwLusshInas4sUrkw+Osg9GoLbcJc1oYS+7u0=;
-	b=13dFLklijTOIyB7mJ/31Yp1ecKAULNViw//tVzxb+oiqE3n7TTARLfmx7FRQjPoyRnyl
-	 /qqcRG8hQQirfG2yILHdtpZQIyX2ZCPU/5IZBQXkdBM25FyeVpUNg2plx/bbyIkk1kh+u
-	 8p6vFYEJjTEp8cX6HICAuGFIFL4KCQzfRc45HdvNisbhReOzAMbSCS6/Jt7hHM3xHBM8g
-	 bMzLvC8n28ajoAm2RZOo7FAk+PSbOep+PG7BI7q7+ArjLSKfSGDbm6vjUpQdkc9n9FZ/1
-	 MCiG4w470CmQDb9enfX5y1eupqzBfNKpnl0JnnjO7SSUyr2p7rhRhjvV2BEsQsCIFvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795340456;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=IkIbePbwpiJw2XaAzSr+/25S6QYyRwR70kd3c2KH4wM=;
+	b=TjEDffaKzM708LbC1yLoPain1GHo5+ZdjhsuvCZMPcqrdPlQLFGG3OAS8Pr7eBSOkOV+
+	 tvLzY0e8UrI5hhTCrAP0eyFcm3IeqrsYTXTo9KE2nKNfjsP9CPaj02jv4FCzC66tTGDw7
+	 nbOU1lfUdYAtybHBDXT7DWThBITsp9NVadNp+pQjX/CX0MRfPgWNEgknNsopBKya24TiZ
+	 QlRgVFvuWwNhP8ygM5fvmSO8m7dHHJ+ss7qFfueWD7n/WBSg7gNFKP8LGMIXcomx3XiZP
+	 oIICzPm08/dpgbD5GLSXObJyAAtkIDXeKLkAxwZ634/dWMGuL/0axpw3Edd4mJQLoCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CSd6iNgZ;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=GL0q54Lr;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AB5606A32C
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:37:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1AB5606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3497A606A320;
+	Sun, 22 Nov 2026 09:40:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3497A606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CSd6iNgZ
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b47c8930efso34462a91.1
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 01:37:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795340242; x=1795945042; darn=vger.kernel.org;
-        h=message-id:date:content-transfer-encoding:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0O70Q7pwLusshInas4sUrkw+Osg9GoLbcJc1oYS+7u0=;
-        b=CSd6iNgZwMRdMIpKElggnjFyr+SaXv2UrhUL0a1aNghamLNZJ4mM+aOxZ96cMtfkhK
-         OTHQQ7a8WpsfydVe6ftENotB0PAJ/JB+mso5AoKg2HnDnCtF3xCkRrfO6fdGtTOUDrQ2
-         LPQMeBcn4zOr9I0Bu8c2edRtb0S3J8+RgiaUUJl0XT/IYiCPyaS3aVvs4VQ+Q1mMuz+w
-         88ze+sGxsvXDQPvqus/f4Y07fIlq4HyBN8HbWR9vBNJ1CIcoItFd1znbeqT7wrCeHmRv
-         Q9RRKS5WtZ451mq96bcuMqRFAg52jJ28dYRO8AGzH84nObAq95r2SBy3BQ4d4Um5OKR+
-         T2gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795340242; x=1795945042;
-        h=message-id:date:content-transfer-encoding:content-type:mime-version
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0O70Q7pwLusshInas4sUrkw+Osg9GoLbcJc1oYS+7u0=;
-        b=VJY7/CGXHipAAMTcenRjdGCUoj3gNMeJ7hfjGOr+27HO5VIpaYFoFca5htaGrkzWEl
-         9hxlo6jUf2d2ygscowdBo9DjeEZD1ej/SEqbTaSRaLjZeu5R8UdhOeUm7LEg5wQu3L1A
-         I56By+hUlLgvhcOFyYHh8pr9O34c3Og+DhMKNOtZgXIqnymc9BBQOnmGrR4kXGzjAu3K
-         wOfV0xnqAAKaff2Jn95ukXl7SaoAliR8mBZduD04SogdZ6jOsvoDphWmY8P05GX6m4Hs
-         axRneteFN5uCMFSsMbvHVc+vLSjgHiPQVl5/YkVarZl/WuVghbSj41FqPAN/YQqRsbVu
-         E1jw==
-X-Forwarded-Encrypted: i=1; AL+hErFLhg1VSCU454JVsCbTDgAyke12tsMrL7kslzEsx7Qo0BjcxvUERVrfkBBaOBvsb8t65BxyF5Nu1ByW@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xJSYahYjvfm2u0kg8Z9/HKjiwrwhciMfUFTJgMiz553gYHBEM
-	bmnxYBwhE5ohFYgu4eyc3kaVYjpf+SSlDHGsGDW/vyFR7VvtG/EZtDIP
-X-Gm-Gg: AZFdTZd8u2Iug4jZYx54/gGvhZticw+sPgiyhXcZE4LQCcc4wjCVfFWemZ7PCpI4y7s
-	AxLtOkRm3RLC0k4UayoVfZXGYomn3fuMs06AQ0IGAAyYq2RfcwikkJs9bYsIrPwTSxp0PlUU1qk
-	TwiokGiN1U798WKCZfgC1LX/UrbkULUovU9CTUBMtueUOPCOsq/GqMxaJSjPBBad4fZ51aFOkqO
-	taLJAMUPFhzxj65HojVmLN46uwsN++WlX7vSVsYdRuSQuPDVz9QnkMcLv9Mw8Bm0nQFtbvFqC+p
-	2RJVf2hUMn7cXq7zNfVEyRag47clzTooWRprUGrCvhxfny6f4ZQKlMLTbjSEX6Gsd19E+k6IGu9
-	wVmMbEgvuZTBDx4Z3ZSN7bb/O2y3idB+ZTURJpEWfV6H5DlWLRqj86ezpoiCyXevD+IwYZ1/WDG
-	Zr4pay0St0h9LfJ5jeuVfw3boZV3USvnnt71GVZZoAeRpHSvcf+xpijjbgt+xiTzlE6VjzeYIth
-	nCQctFwiwUzwO/catOTqbd10+HpPXDWKA1D5MFWqxUr3uW1K1ax/V4OtL6FBcu26QL0bcaYvpFj
-	JphxB87N8c0uGFj4fIbFSLb1e27tA4/RExCU5p2qLlbVUY1JxGF9+gBxNWJr8yBj/8R67WtM1T2
-	Zt1oI05qz7a1JB6c6n3pS5eyzHaQ=
-X-Received: by 2002:a17:90b:2ecb:b0:3b0:9a3e:bf8b with SMTP id 98e67ed59e1d1-3b41c98a1f8mr12481111a91.6.1795340242152;
-        Sun, 22 Nov 2026 01:37:22 -0800 (PST)
-Received: from claudebox.iyengar.cloud ([50.39.139.68])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cfe9bb9sm3367272a12.12.2026.11.22.01.37.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 01:37:20 -0800 (PST)
-From: Arun Iyengar <aiyengar1990@gmail.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 0/8] serial: 8250_dw: describe the Allwinner H616 and
- A523 UART configurations
-In-Reply-To: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
-References: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=GL0q54Lr
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EDD82ABF;
+	Sun, 22 Nov 2026 10:38:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795340301;
+	bh=yTMMp7PT3K2LyuvelR0MmDh6s2VsGr4kgwTbxEVPAwE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GL0q54LrHkSn2pAjjFMO58LLdrGwbsOPFXG57oU5XxCd+1cPoP2nCvPVBSf7C9dxv
+	 TwU3KgbXpSkLaiHRp58caVX9suZEC3zznR0xZJI3ZJmN/2t9/W96BG8p9UYKDAh5Bh
+	 89KCH1L23XRTnHsOCB1YCLTR2uu+yfQ3WGQNisZ0=
+Date: Sun, 22 Nov 2026 11:40:50 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Arun Iyengar <aiyengar1990@gmail.com>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Andy Yan <andyshrk@163.com>,
+	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Damon Ding <damon.ding@rock-chips.com>,
+	Alexey Charkov <alchark@flipper.net>,
+	Igor Paunovic <royalnet026@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: Re: [PATCH v12 06/23] drm/bridge: synopsys: dw-dp: Fix AUX transfer
+ timeout race condition
+Message-ID: <20261122094050.GB2739410@killaraus.ideasonboard.com>
+References: <20261114-synopsys-dw-dp-improvements-v12-6-d42d3dc5bdd4@collabora.com>
+ <179533990370.107225.5765165679182115805@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,16 +87,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Sun, 22 Nov 2026 09:37:19 -0000
-Message-ID: <179534023971.231108.3039673113639895699@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <179533990370.107225.5765165679182115805@gmail.com>
 
-Tested patches 1-7 on an Orange Pi Zero2 (H616), backported to v7.3.3
-with the two prerequisites; 8/8 not applied (no A523 here). The UART0
-console at 115200 passed about 700 KB out and 350 KB in with matching
-md5 sums and no frame, parity or overrun errors. UART0 and UART5 come
-up as 16550A with a 256-byte FIFO, and rx_trig_bytes 1, 64, 128 and 254
-set and read back.
+On Sun, Nov 22, 2026 at 09:31:43AM -0000, Arun Iyengar wrote:
+> On Sat, Nov 14, 2026 at 06:00:39AM +0100, Sebastian Reichel wrote:
+> > @@ -1491,6 +1493,12 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
+> >  	status = wait_for_completion_timeout(&dp->complete, timeout);
+> >  	if (!status) {
+> >  		dev_err(dp->dev, "timeout waiting for AUX reply\n");
+> 
+> This still drops a reply the sink did send when the IRQ thread runs
+> more than 10 ms late. On RK3588 (7.3, KASAN on, v11 of this series:
+> same 06/23), with a SCHED_FIFO hog at the IRQ thread's priority on its
+> CPU (busy 40 ms of every 200 ms), 1410 DPCD reads gave 183 timeouts.
+> Checking for the reply once more before giving up gave 0 timeouts,
+> with 127 late replies taken:
+> 
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1493,2 +1493,6 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
+>  	status = wait_for_completion_timeout(&dp->complete, timeout);
+> +	if (!status) {
+> +		synchronize_irq(dp->irq);
+> +		status = try_wait_for_completion(&dp->complete);
+> +	}
+>  	if (!status) {
+> 
+> Feel free to fold it in.
+> 
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> Claude (Anthropic) wrote this change; I reviewed and tested it.
 
-Tested-by: Arun Iyengar <aiyengar1990@gmail.com>
+There's something missing here. You may have reviewed (whatever that
+means) and tested it (probably), it doesn't seem you've understood it.
+All of this screams of a big hack.
+
+-- 
+Regards,
+
+Laurent Pinchart
