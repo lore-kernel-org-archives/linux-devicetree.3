@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795329417;
-	b=4fqLKO02HKx0fhQHqhAjT4gqVNRELjPDK67UlkN37RTFNdqQ0Jw/5tqum2fnGYlmd8oI
-	 Bi/EzUfq7n6M3Z6B246chYJ9cGAhf0w83wU+wbJbc3UistrwqXc0A31Du4xqi9EaNJQ/I
-	 POzZgOOfhTpYRN3lI4ha78uLGdKsUf0qm0vwOZc3BH9Mw5gzGA37gvuPod0qx87go0z1j
-	 ObU438QEcI0KtmXhKRgJzsuK92qQDKTlyobhqOqRTc6WcZPJT760SzL+w1Zgoceq37UKj
-	 4cSIx4fiQ3yICvrjYlrZRpRImjqKtM1jvAHSer0PcTQ9tfRtrFccUg96GYF22RkXW9Q==
+	t=1795329661;
+	b=yhLpvtTIFjNJOjT6pS1iorunyjM8O1WsWzMErd7qBNHgSa90F6EJvc4VIkDiH03hox4r
+	 Sdz/JiwhjGs16CzGOZyV3GCA5C3WEe0QCbKJWvOuovC41jrpwhHPwmaSbW8QXRxHY6vaE
+	 m7QqfQhejx4dP7RurXVMSF43UVKaWlcA5lUtmL7aFHhxQ6qy/iMVQ44c5to0gFs0d2nKY
+	 hSXOuEymMyI3fITe7lA4jEayqpbTpdoXw3ns+/Q75iwynngjuqAapa8UhlJPLndSk1gSJ
+	 J4LTQPW/9P7Q/TFmjsGrxFNaoVzcUHxPXpWBxzPvvxfCVdAopwAOzkU0UHQHQoacg5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795329417;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=rcnHT8Ouj9aPKLbMZKYqkaRR8q6iYAvPvYte5WZ6Dpg=;
-	b=dc411mkKjmbIYm7A6EDSQAYGLv0oYzg5Ft1Jt/vVeKjQKeffUkZs0qouKO/1fZQvxMGC
-	 AJhonjDdKVkdoxnu1V+D6h9WQcHvEYFhkwY1rw4MpwjX0dvNADfdLUleSHeoW48ATpWas
-	 g3ZKeKDUOaESrgMF9svQRh22Rns+nuCIkvCgFhnH5T4gxKJFKWDR+yK9l6cBY2OSlNK2z
-	 C+5F9QpD4yOUzxFt75Na4RICHYnZWYrQUXSDc7L1c5dfCI91kUXq6mwdX2d//8x48UhSc
-	 co/NK8hu1wEsc1qaO2NvqUM9SCgRUGRsIYMi2diBGk4XKwLRXv8Y7dYUHFbOdo5AxoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795329661;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ZAH0hsXA1ka13HYPhYrcAeEuJiemOOmh0kgLuoF9E4c=;
+	b=fcuhSlcokcLxlETIafMWzxEXxb4Lwh4UQYV3hPL5yLSswIHuhV6TdYjDub0FwrUrGPeJ
+	 pOR5Mzb1bWscqywTSvB1OXlQuAzhAh2iBSdae5Xz4op6yMBu6DIoeT4YSj9cBpBdc63tm
+	 7+rpevzyN04ElAjGzIih09RJNhudGaySGAuCI9VFM2mg0OhByZEwKvxBhqUT2BNEgaPQS
+	 bTFuLWr9qJgSewcWtneuY0g3aWyPXOigl6jOuV5rx5M0PXGCGXowZfll66ncKLfe+8fhT
+	 caidLWtY4zDES8uLxSddiYtrrUSg7drfg/FMj+0xpdn8nuR3vrX+dzUXFAOhOBmv5DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cth32J3s;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68504606A32A;
-	Sun, 22 Nov 2026 06:36:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68504606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
-	by APP-03 (Coremail) with SMTP id rQCowADX4JFJjQJrB7yNAQ--.19133S2;
-	Sun, 22 Nov 2026 14:35:55 +0800 (CST)
-Message-ID: <06e509d9cbfa06179cf5327ff533ae7212e23985.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 06/19] dt-bindings: display: verisilicon: Add
- starfive,jh7110-dc8200
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Michal Wilczynski <m.wilczynski@samsung.com>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss	 <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli	
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
- <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
- <hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>, Paul
- Walmsley <pjw@kernel.org>,  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
- Belhachemi	 <db@domibel.de>, Andy Yan <andyshrk@163.com>, David Airlie
- <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>, Yakir Yang
- <kuankuan.y@gmail.com>, Dmitry Baryshkov	
- <dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>, 
- William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
- <xingyu.wu@starfivetech.com>, Sandy Huang	 <hjc@rock-chips.com>, Manivannan
- Sadhasivam <mani@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
- Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
- <maud_spierings@murena.io>, Graham Markall	 <hello@big-grey.co.uk>, Chaoyi
- Chen <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
- Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Sun, 22 Nov 2026 14:35:53 +0800
-In-Reply-To: <20261106-jh7110-clean-send-v7-6-68f7ea9913db@samsung.com>
-References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
-		<CGME20261106135900eucas1p17159021cc747335b62cad6b3326605be@eucas1p1.samsung.com>
-	 <20261106-jh7110-clean-send-v7-6-68f7ea9913db@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878AD606A330
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cth32J3s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDF551F000C0;
+	Sun, 22 Nov 2026 06:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795329661;
+	bh=ZAH0hsXA1ka13HYPhYrcAeEuJiemOOmh0kgLuoF9E4c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cth32J3sY8tpwJF6YjvP0upI4aTGTC3sJ6eSfKuxYsBVeYdRQAqFCib6FZye9w7Mr
+	 llMTMXgCxQ5BCVST7Rp3Ip9KKMUcNx30EDk4y0bje6sGb6WRQ2TDhKIDnbqK9jdGu3
+	 oWcXk3ScyhCoJQZLuzhxhim4EGHczuztBt2iRoCG1HgLLtCtwdsPfu3sR3WCbBwpJr
+	 HtmK0KEuoBX7XaowyJBDDR0bcJnQNF1yTBo4nxDlkDUXrFOrZpn0XMxcO6RiBz2tiQ
+	 T/YfbbftLhlCNJE8WBvjttL+YcJUudgwzsXBoVVewLJGK5Y4ffbHisCYnFuTsEkzWB
+	 oTNnPl8Mo9lEQ==
+Message-ID: <sashiko-outbox-227768@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] iio: chemical: acd10: Add driver for ACD10 CO2
+ sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Akhilesh Patil" <akhilesh.patil@linux.dev>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <07fe3a575ad86493076d5061ed71c15e7b837a10.1795326744.git.akhilesh.patil@linux.dev>
+References: <cover.1795326744.git.akhilesh.patil@linux.dev>
+ <07fe3a575ad86493076d5061ed71c15e7b837a10.1795326744.git.akhilesh.patil@linux.dev>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Date: Sun, 22 Nov 2026 06:40:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,56 +60,179 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-CM-TRANSID:rQCowADX4JFJjQJrB7yNAQ--.19133S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruFW7try5Zw1rGr17GrWDXFb_yoWkWwb_ua
-	yxC3WUAFs8JryFga1jkrn7KF1Fqa12yw4rC3Z8tF1rG348CrZ0gF93Jw1Yyw1UZr4I9r15
-	Crs3WryqgFsxCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbVxYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
-	xwCY1x0262kKe7AKxVWrXVW3AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
-	C0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxU-eHqUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-=E5=9C=A8 2026-11-06=E4=BA=94=E7=9A=84 14:58 +0100=EF=BC=8CMichal Wilczynsk=
-i=E5=86=99=E9=81=93=EF=BC=9A
-> The JH7110 embeds a DC8200. The binding requires an SoC specific
-> compatible ahead of the generic one, so add the JH7110 to the enum.
->=20
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] iio: chemical: acd10: race and OOB write in acd10_receive_buf()
+- [Medium] iio: chemical: acd10: missing MODULE_DEVICE_TABLE() for OF
+  matching
+- [Medium] iio: chemical: acd10: missing vcc-supply enable in
+  acd10_probe()
+--
 
-Applied this patch to drm-misc-next.
+commit 2784731160894116b07cdc2f499cc0eb12597983
+Author: Akhilesh Patil <akhilesh.patil@linux.dev>
 
-Thanks,
-Icenowy
+iio: chemical: acd10: Add driver for ACD10 CO2 sensor
 
-> ---
->  Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
-l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> index 919a9001220120054cb62d1d01b7293367266f95..05a202633cd273fec358c095c=
-64584d959d96d90 100644
-> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> @@ -16,6 +16,7 @@ properties:
->    compatible:
->      items:
->        - enum:
-> +          - starfive,jh7110-dc8200
->            - thead,th1520-dc8200
->        - const: verisilicon,dc # DC IPs have discoverable ID/revision reg=
-isters
-> =20
+This commit adds an IIO driver for the Aosong ASAIR ACD10 carbon dioxide
+sensor communicating over UART via the serdev interface.
 
+> diff --git a/drivers/iio/chemical/acd10.c b/drivers/iio/chemical/acd10.c
+> new file mode 100644
+> index 0000000000000..b92f01e7bf4a1
+> --- /dev/null
+> +++ b/drivers/iio/chemical/acd10.c
+> @@ -0,0 +1,365 @@
+
+[ ... ]
+
+> +struct acd10_state {
+> +	struct serdev_device *serdev;
+> +
+> +	/* Lock to acquire during CMD/RESP sequence */
+> +	struct mutex lock;
+> +	struct completion buf_ready;
+> +
+> +	/* Single buffer to hold tx and rx data */
+> +	u8 buf[16];
+> +	u8 buf_idx;
+> +	u8 rx_expected_len;
+> +
+> +	u8 sw_rev[16];
+> +	u8 inst_num[16];
+> +};
+
+[ ... ]
+
+> +static int acd10_serdev_transfer(struct iio_dev *indio_dev, enum acd10_c=
+mds cmd)
+> +{
+> +	struct acd10_state *drv_state =3D iio_priv(indio_dev);
+> +	struct serdev_device *serdev =3D drv_state->serdev;
+> +	struct device *dev =3D &indio_dev->dev;
+> +	int ret;
+> +
+> +	/* Prepare transmit buffer along with checksum */
+> +	drv_state->buf[0] =3D ACD10_FRAME_START;
+> +	drv_state->buf[1] =3D ACD10_FRAME_FIXED_CODE;
+> +	drv_state->buf[ACD10_FRAME_DATA_LEN_IDX] =3D cmd_info[cmd].tx_data_len;
+> +	drv_state->buf[ACD10_FRAME_CMD_CODE_IDX] =3D cmd_info[cmd].cmd_code;
+> +	drv_state->buf[cmd_info[cmd].tx_frame_len - 1] =3D
+> +		acd10_get_checksum(drv_state->buf, cmd_info[cmd].tx_frame_len);
+> +	drv_state->buf_idx =3D 0;
+> +	drv_state->rx_expected_len =3D cmd_info[cmd].rx_frame_len;
+> +	reinit_completion(&drv_state->buf_ready);
+> +
+> +	/* Transmit the buffer over serdev */
+> +	ret =3D serdev_device_write(serdev, drv_state->buf, cmd_info[cmd].tx_fr=
+ame_len,
+> +				  ACD10_SERDEV_TIMEOUT);
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret !=3D cmd_info[cmd].tx_frame_len)
+> +		return -EIO;
+> +
+> +	/* Read the received bytes in buffer */
+> +	ret =3D wait_for_completion_interruptible_timeout(&drv_state->buf_ready,
+> +							ACD10_SERDEV_TIMEOUT);
+> +	if (ret < 0)
+> +		return ret;
+> +	if (!ret)
+> +		return -ETIMEDOUT;
+
+[ ... ]
+
+> +static size_t acd10_receive_buf(struct serdev_device *serdev,
+> +				const u8 *data, size_t len)
+> +{
+> +	struct iio_dev *indio_dev =3D serdev_device_get_drvdata(serdev);
+> +	struct acd10_state *drv_state =3D iio_priv(indio_dev);
+> +	size_t consume =3D len;
+> +	int i =3D 0;
+> +
+> +	while (drv_state->rx_expected_len && (consume > 0)) {
+> +		drv_state->buf[drv_state->buf_idx++] =3D data[i++];
+> +		consume -=3D 1;
+> +		drv_state->rx_expected_len -=3D 1;
+> +	}
+> +
+> +	if (drv_state->rx_expected_len =3D=3D 0) {
+> +		drv_state->buf_idx =3D 0;
+> +		complete(&drv_state->buf_ready);
+> +	}
+> +
+> +	return len;
+> +}
+
+[Severity: High]
+Can a late UART response after a signal-interrupted or timed-out read race
+with the next transfer and overflow drv_state->buf[16]?
+
+If wait_for_completion_interruptible_timeout() returns early on a signal or
+timeout, drv_state->rx_expected_len is left non-zero while the sensor is
+still transmitting at 1200 baud.  acd10_receive_buf() runs without locking
+or a bounds check against sizeof(drv_state->buf):
+
+CPU0                                  CPU1 (tty flip workqueue)
+acd10_serdev_transfer()
+  wait_for_completion_...()
+  -> -ERESTARTSYS (rx_expected_len=3D9)
+acd10_serdev_transfer()
+  drv_state->buf_idx =3D 0;
+                                      acd10_receive_buf()
+                                        /* 8 late bytes arrive */
+                                        buf_idx becomes 8
+  drv_state->rx_expected_len =3D 9;
+                                      acd10_receive_buf()
+                                        /* 9 new bytes arrive */
+                                        drv_state->buf[16] =3D ...
+                                          <-- OOB write into drv_state
+
+Even when buf_idx does not overflow, late bytes arriving while
+rx_expected_len is still non-zero overwrite drv_state->buf[0..4] while the
+next TX command and checksum are being built, and shift subsequent RX
+frames out of alignment because acd10_receive_buf() does not resynchronize
+on ACD10_FRAME_START.
+
+[ ... ]
+
+> +	ret =3D acd10_get_sw_rev(indio_dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D acd10_get_instrument_num(indio_dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D devm_iio_device_register(dev, indio_dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Should acd10_probe() enable the vcc-supply regulator before talking to the
+sensor?
+
+The DT binding in Documentation/devicetree/bindings/iio/chemical/aosong,acd=
+10.yaml
+defines vcc-supply, so on boards where that rail is not always-on,
+acd10_get_sw_rev() will time out unless acd10_probe() enables it (for
+example with devm_regulator_get_enable(dev, "vcc")).
+
+> +
+> +static const struct of_device_id acd10_of_match_table[] =3D {
+> +	{ .compatible =3D "aosong,acd10", },
+> +	{ }
+> +};
+
+[Severity: Medium]
+Is MODULE_DEVICE_TABLE(of, acd10_of_match_table) missing here?  Without it,
+building with CONFIG_ACD10=3Dm will not emit the OF modalias for automatic
+module loading.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795326744.gi=
+t.akhilesh.patil@linux.dev?part=3D2
