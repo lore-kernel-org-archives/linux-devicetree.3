@@ -1,63 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795371329;
-	b=ZyUwiB4JXoQb65AO6KY2pGavv9JeJQ4OMFmNJ6yXFyO2klK7LIcppWokeTBwsOhSExTz
-	 pAPdF1s8IHLcPqx0ea2wykTjlWWmDwhXIp133j46gFex/GBrKXlL3wdP4wHX+g0W1acfX
-	 sj6dYN74jOxV4b9DZ98JZV4JWPomVdBRb/NM+HjyjN4s69VrqSKvrowGsDnwGQs+3uX8+
-	 8yKxJVkj7FBc8ub8hjgQ3okUtTmQxp9cCo7gCOONjTiFXxUWnNdoBOU5EhIqC+3MoZHex
-	 Z+p7m7DZ2fKODza40VjGSUxSBFKBJxCLGrunlhnB3zU8Wy71IPSCY1BL0HYfS1MhzEQ==
+	t=1795371895;
+	b=KK2kxrIkkNFRzou7OUotRXTX9uaG2yh84lHhcAryCGBbqLBFj1MrF05K023zjbQw5ljW
+	 AcPkEblgm9mhfu92AsQVlKzBLSXV/El0MbqNr5jhI3Bd+Ig6x9wMplehG+3ULRlKAT7Lg
+	 2WJd8lT7rEIB5Wlaa6yl0LKvU5+wUuM1baS6P0xhrhTrcsBi21lJ64I5x2viBsyRxKl4g
+	 h8ttIUJg2Px3iT4aD6ZbTAPxWyQa44AbvUjUsNVBJWGqC0AxEstqG3jDIiy+WMX25YJIW
+	 +loMphrjIktqnAV6Aq13jJCcAdOfQBCR0cBVL6MZJObSQ2Ku5VNeWt04xE+HycAyzOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795371329;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7imwDZep1dEobON0aQ81I9AKr9UQW/+yihI1vaQHUcc=;
-	b=aDEkSmQFAMB3p3CdMcXZHLqsrWzRsmepntzHcLHu0kTmvao7sIZLsRjaao6+4mQLXsLl
-	 yXRhgoA1lf5KJy5tsX8Cp+Ngk0gMizcjFIzlaxDoNMHWx1WQM8DT7KBaxutYyv3WNpWTk
-	 MeDzLCk5oqFwxGbHIuCwhk3WsjWy9JSfpN4V8GTgw+T7CeJqK28kT3HIh30cKoZ9xtRR2
-	 FFGaRHNfTdw4bwhGSYucEjS5hWGttnr76LC7hbGbz+zsWyHNRjucHUYgzuDxKDCPpgsWH
-	 YuWDfagjJe71eb4MnKzNuGosH2MhlUzZZrZV0Qr4FrZNLbVlO7xkvRy2dC/uxQL69tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795371895;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=I8O79LLuixI7Ncv80qos0WzCUNLLnHjxMOr/9odIaMc=;
+	b=DWnL+MLS/NFdl4huDxJX3Uc6utVCWj+tBB+Dnfj/D2d5XcMcmSVtrgAklbQL93fq2A9M
+	 wbHCBPI3gfZzoqP8v8Ws676aFsRiUPgIo054A5MCPguwSRimOzZDYyuWoh4mfONwwRPxr
+	 srNHqt9LcjgMBEkeFGjhv2A5yjiau6/J0+onMUH4VRTh9f8uKMHMfm13h3m3dbVQAPn/N
+	 NAg5vu6Qk3YrpPbNB+C4TVeQQtFl8fRz80I6o/9k7KA4dZWPJHM4iN1NZu8fSNMun21wc
+	 wGvf7L4pq6zGSNPKevtPTcJ0IybBJL43p5FUSRMDA5mTbgeAlRf79COtDE3HjCLsJkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MTGaeXjk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=BsPCX8dr;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F39606A32A;
-	Sun, 22 Nov 2026 18:15:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BE6606A32A;
+	Sun, 22 Nov 2026 18:24:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25BE6606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MTGaeXjk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62511F000CA;
-	Sun, 22 Nov 2026 18:15:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795371328;
-	bh=7imwDZep1dEobON0aQ81I9AKr9UQW/+yihI1vaQHUcc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MTGaeXjkB4AktJqB/0JgjiPmflQEHvTUcsVtsMHT7AjGLXcf0JJrdH5W8Ci4pSBTy
-	 zH5TeUpxvE5LKEsN5uozV4m32lryVAjjP5C8loPqVBt8QQHr07IN6jmp9wUyU8YZak
-	 b3mgQs3bTdrB3wKEpgAhds7gcJN8bKuVj5ptUJYmAISVKB5LP3NkQ5PYA4oyvAX3E3
-	 X3mHdEzW8P9Gyx9Hi67wTRtbSuMnrW/ttX4mESdb5cBzLKSQPqUcwexcatpFPv1xDg
-	 VhmU+Q0a29VwqNBUjrbShL9zISpZAuJ3eU0Btq39BhnZLMMelmp137o+zkF9B1nLWE
-	 ipuspYw80iyyg==
-Date: Sun, 22 Nov 2026 18:15:17 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Adil =?UTF-8?B?SMO8c3Jldg==?= Tepe <tadilhusrev@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Joshua Crofts <crofts@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: proximity: add Imagis ISG5320A
-Message-ID: <20261122181517.49972bd2@jic23-hlaptop>
-In-Reply-To: <20261122075245.2916935-1-tadilhusrev@gmail.com>
-References: <20261116074013.355363-1-tadilhusrev@gmail.com>
-	<20261117173333.1853986-1-tadilhusrev@gmail.com>
-	<20261117173333.1853986-2-tadilhusrev@gmail.com>
-	<20261121-arrogant-viridian-swift-fb8001@quoll>
-	<20261122075245.2916935-1-tadilhusrev@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=BsPCX8dr
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=I8O79LLuixI7Ncv80qos0WzCUNLLnHjxMOr/9odIaMc=; b=BsPCX8drszWkyXNyHqAHkJDoyN
+	6Z5KhKiCoIFTdy5cIoJRNHjbVJSqC9oMjYIAlfVpdYwfhjWGcmhpamxw35+z16Bq+xaF5I65ALA1N
+	kq8G/V3/CzkaBkYCaW0PsYmWhIuTSOmHcVHPHyvbMjlb27hsmcQU+uqElL4N0GcRwNPk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xVCEs-000bMR-9t; Sun, 22 Nov 2026 19:24:34 +0100
+Date: Sun, 22 Nov 2026 19:24:34 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jonas Karlman <jonas@kwiboo.se>
+Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v2 2/8] ARM: dts: rockchip: Add support for RK3506
+Message-ID: <cacdc706-3fef-491b-bb3a-96728347a17e@lunn.ch>
+References: <20261122060114.773624-1-jonas@kwiboo.se>
+ <20261122060114.773624-3-jonas@kwiboo.se>
+ <86007bdd-6c10-46ba-aac6-197939934c73@lunn.ch>
+ <5cf52e28-110a-4fc2-acfb-eb264e8c31e2@kwiboo.se>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,37 +69,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5cf52e28-110a-4fc2-acfb-eb264e8c31e2@kwiboo.se>
 
-On Sun, 22 Nov 2026 10:52:45 +0300
-Adil H=C3=BCsrev Tepe <tadilhusrev@gmail.com> wrote:
+On Sun, Nov 22, 2026 at 05:01:08PM +0100, Jonas Karlman wrote:
+> Hi Andrew,
+> 
+> On 11/22/2026 4:46 PM, Andrew Lunn wrote:
+> >> diff --git a/arch/arm/boot/dts/rockchip/rk3506.dtsi b/arch/arm/boot/dts/rockchip/rk3506.dtsi
+> > 
+> >> +		gmac0: ethernet@ff4c8000 {
+> >> +			compatible = "rockchip,rk3506-gmac", "snps,dwmac-4.20a";
+> >> +			reg = <0xff4c8000 0x2000>;
+> >> +			clocks = <&cru CLK_MAC0>, <&cru CLK_MAC0_PTP>,
+> >> +				 <&cru PCLK_MAC0>, <&cru ACLK_MAC0>;
+> >> +			clock-names = "stmmaceth", "ptp_ref",
+> >> +				      "pclk_mac", "aclk_mac";
+> >> +			interrupts = <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
+> >> +				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
+> >> +			interrupt-names = "macirq", "eth_wake_irq";
+> >> +			phy-mode = "rmii";
+> > 
+> > Sorry, missed this on the first pass of the patchset.
+> > 
+> > phy-mode is generally a board/PCB property, not a SoC property. It
+> > would only be a SoC property when the SoC cannot do anything other
+> > than RMII. But given this is snps,dwmac, i expect it can do other phy
+> > modes.
+> 
+> This SoC only support RMII mode, so I put the phy-mode at SoC level.
+> 
+> Datasheet for this SoC lists following:
+> 
+>   RMII 10/100 Ethernet Controller
+>   - Support two Ethernet Controllers
+>   - Supports 10/100-Mbps data transfer rates with the RMII interfaces
+>   - Supports both full-duplex and half-duplex operation
+> 
+> The Technical Reference Manual also only mention RMII:
+> 
+>   38.2 Block Diagram
+>   ...
+>   The MAC only supports the PHY interfaces of reduced MII (RMII).
+>   ...
+>   MAC Supports 10/100-Mbps data transfer rates with the RMII interfaces.
 
-> On Sat, Nov 21, 2026 at 01:23:42PM +0100, Krzysztof Kozlowski wrote:
-> > Do not attach (thread) your patchsets to some other threads (unrelated
-> > or older versions). This buries them deep in the mailbox and might
-> > interfere with applying entire sets. =20
->=20
-> Understood, sorry. v4 will be sent with b4 as a new thread, not as a
-> reply to v1.
->=20
-> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>=
- =20
->=20
-> Thank you. One thing up front: Jonathan's review of the driver makes
-> the vdd supply required, so in v4 vdd-supply moves into "required"
-> here. Since that changes the binding, I'll leave your tag off this
-> patch and say why below the ---, unless you're happy for me to keep it.
+That is unusual, but O.K.
 
-Whilst I agree it should be required in the binding make sure you fully
-understand what the difference between the optional and normal
-requests for regulators are.  It is not about whether they are in
-the dt-binding or not!  Code can work without it being their using
-either of those interfaces.
+For the Ethernet node only:
 
-Jonathan
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
->=20
-> Thanks,
-> Adil
-
+    Andrew
