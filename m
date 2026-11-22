@@ -1,64 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795373169;
-	b=pdfSdLsvqWTjWtBAMT9DWjTbJpwtTFvUA72udMV+Yow4XQsM3TSGlABiyIBqDYXSuANd
-	 P8jJKznfJBFV6RPICNCGGEwDaPFnhuwLHDsKPTFcoksYrdespTOoCwDeQHvZ9gRcWs0/D
-	 FxCsBO8yeKNI8trN0QZI+vkrbRFsYr90xIjXYm4zc6t64FhWg/LXrJcldstNoyoiONnHm
-	 tHZ9txBfWPbhb7BdT4Ff22BTtX4nHpqPdV9QgXplIOgAtQyvMN4/mkDqTov7DXy+4Rr8b
-	 l9883Z/D/yvjfvT8M1pMZ7QDJgsdv/RhmkIvshgUqz8Xz8n19vwNy36ABzJ7mdxHwCg==
+	b=XMWpJNSTl+ERPc+Dsa6KtGRC6ip9lBL5u+gDpQI1GEWzG2UwJW1EdaNCPn3dW7EHUx6x
+	 VGrErT5A4prQjwxhYkq1HYlGquolvwf6HUjO+XYInSHalVjhSZeyF8ET8LxDL74u1ue+0
+	 qFkWAtgBloQpmxgix/Seq7OqGOSmG0SM6XYYLY7ccfO9AopbTwCWrs+D5izDmsIXsWpk5
+	 WNxxr+nDdJpRtFR784Car8modrDAbYE7g7QZbko9DR75Dc2moSmkyb6g+C4ZVWIGwpd0/
+	 fgEfgWt1Li+dWsIn/jZp5UpyaDFAGvRHnWtVJEsSrwi5qHlFQ30oCmorIRsY/RjSpXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795373169;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Feedback-ID:
 	 CFBL-Address:X-Forward-Email-ID:X-Forward-Email-Sender:
 	 X-Forward-Email-Version:X-Forward-Email-Website:X-Complaints-To:
 	 X-Report-Abuse:X-Report-Abuse-To:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gscY0sCC1WoiWDN2vAv1igyxFvaLaq2UHt5YxYmxJrU=;
-	b=Ta4f0YQJIdozzjygL/yFJCfJK2sbLJ9uZoMtun/HrathF6laQo725HeakmxCuYAWM/IF
-	 +c+7elKnJpAu98SwYOcDo8jxPDxaj55JAQoAVFDUM2nsTgEYJVKoC6JdSx43A7WutWOcy
-	 pU2FSCjwpWIVfq4NbrurhapmRIFaxLaaJrowXVLagnbOYOgpyuW1YicUhkkRKA1+vF8Zn
-	 I/YXhFsVxbQGnnpy9JgK3QtvkDMbOQH6mnk/Z2bjNAZ5RGvP4g8mU9ZKFifwfxFWqcb85
-	 TEEHsMHvCY0XZrcSQNimSTsSdPM150j5Agz987CyxHhC8Oq04BfdlQAflrvq5gQSlXg==
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=JCpUg1xfHA0B+FJKSad8mtJycKAl0PWQ2N3i63PPRWk=;
+	b=sppTLbMhXZvRPAyEswuaeo900JAmdHyy2H1AnMbYa0DLgSHllDeddsX5Vm8/yn8KzFrP
+	 iDcxyX2yycoeDJ+/1rm13/LHEKsfOPYtvZlIW3aOTVSUKbXoT55GCLRd7XvES2D07HNpl
+	 JbxVhbyLqMsYKKYCvfS6+zWHmiH8SiZyqckEbqHkjDvy2lYheYuXSgECBQSdMs+LrcoEJ
+	 bxD97bvP154xkhYOltz7v85dFQFPquK8G1F+qtar5huk4WHuBw0fXrMpWjviEQQ83eVf5
+	 Dvipxryx/nAv73oif564+ghYwOKcE44cw9SrJbm9n5c52JJ71qbxFD+12XB9HKAYyGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kwiboo.se;
 	spf=pass smtp.mailfrom=fe-bounces.kwiboo.se;
-	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=AtZS4dWo;
-	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=eqcAiHU3;
+	dkim=pass header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=SmbMNYph;
+	dkim=pass header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b="E9av/SOw";
 	arc=none smtp.remote-ip=121.127.44.66
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DEE606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D9F606A330
 	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 18:46:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1DEE606A332
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1D9F606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=AtZS4dWo;
-	dkim=pass (1024-bit key, unprotected) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=eqcAiHU3
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.a=rsa-sha256 header.s=fe-e1b5cab7be header.b=SmbMNYph;
+	dkim=pass (1024-bit key) header.d=forwardemail.net header.i=@forwardemail.net header.a=rsa-sha256 header.s=default header.b=E9av/SOw
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: MIME-Version: References:
- In-Reply-To: Message-ID: Date: Subject: Cc: To: From: CFBL-Address:
- CFBL-Feedback-ID; q=dns/txt; s=fe-e1b5cab7be; t=1795373167;
- bh=gscY0sCC1WoiWDN2vAv1igyxFvaLaq2UHt5YxYmxJrU=;
- b=AtZS4dWoAcVbTc3BClme64ODxdL6Q1tfsdWRaLVSDg9dyyTREVbGX5mNCaYGepyHYvXvh9p8B
- z8h4waruf1ld7ZOfitt98z+plk49Ra3dYejFOi8ThgD078Q+/YODGyLLwDD+wYPqj3wQIhN1DnC
- eeGh0IMZbUGrBU11133Y5p3IGoprCQRzsXHVjRlmcol2C9g0SWTBbFty7JkrNzhM0oouqOyvaPo
- JQxvWJXwVE5s1YAILeNNmVsRDfQiG/K+/U8G4IasIZWqE/AcnObwmxLqwRQlj4jrmx/iKkYhcjd
- D9TzGUoGIn5f/SK3qU3OY5erq+9JnpArsZpxmsA8skFQ==
+ h=Content-Transfer-Encoding: Content-Type: MIME-Version: Message-ID: Date:
+ Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1795373167;
+ bh=JCpUg1xfHA0B+FJKSad8mtJycKAl0PWQ2N3i63PPRWk=;
+ b=SmbMNYpho9HvB6FxSZwegwXPcy1QTBV2f2AGwJy2yUwFk/tkXReGSW6bDbRQobYYEDReXJ805
+ vVpRZN/Ou48Em7bf6Xg9PXodmAIsUDjZzoR2sInMO+jej6F6VhG7wJ2WketGsH/Y6h1at+qAV3o
+ 9mcpeS6YPkpiEysTm0QDghCtYttaZ3NJ528+HCgGwvohxArwIIjh2NWm3OmSkyEUas/w2Xpu4wC
+ z33PmIQ+A2J33J6X+ZwdNFUnMT2vkOVrPwD+G7Fk/2F8Z7X6g0eBrS2TLMNGh6GEKb2GAnorUKc
+ soITI1504k9D3GaFBccDGv8R96k4obHBNSInihYen+Aw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=forwardemail.net;
- h=Content-Transfer-Encoding: Content-Type: MIME-Version: References:
- In-Reply-To: Message-ID: Date: Subject: Cc: To: From: CFBL-Address:
- CFBL-Feedback-ID; q=dns/txt; s=default; t=1795373167;
- bh=gscY0sCC1WoiWDN2vAv1igyxFvaLaq2UHt5YxYmxJrU=;
- b=eqcAiHU3ZWJOqIknxq/752Wl8AB7CIq5+d3cQe0uB7WQBtqlmz4MrAkw18MBfqwGguKf1SDhn
- sg2IH5CKtazS0mZXBFFM6mm67k1jd65yWVx2NLIvDOEcGH/Hv5liAUQWsGdh7HivENSZnPWz2Tk
- eL+YzxIdk4XsJQEN61tRBfQ=
-CFBL-Feedback-ID: 6b0338544432eb7754305b54:ad3e4cfbfe76785972b8dba368657c3d
+ h=Content-Transfer-Encoding: Content-Type: MIME-Version: Message-ID: Date:
+ Subject: Cc: To: From: CFBL-Address: CFBL-Feedback-ID; q=dns/txt;
+ s=default; t=1795373167; bh=JCpUg1xfHA0B+FJKSad8mtJycKAl0PWQ2N3i63PPRWk=;
+ b=E9av/SOwdFmcm7MY0KDYxlV+lTHybXgkA+/nrumf/oKWgBfjoqw83buK88ilf6eifFR89hEJc
+ 5mAq2h8RJnyerBTiUOvxacvLrmIQJDFrNvyA6bW49xn6Xro3sBq281L5Cjmkh/ViVdc4rxfUwTs
+ xNtitNce+BC/p0odq8tOdWQ=
+CFBL-Feedback-ID: 6b0338504432eb7754305b22:d73f4f47d606828bdc09bfd0c059efe0
 CFBL-Address: abuse@forwardemail.net; report=arf
-X-Forward-Email-ID: 6b0338544432eb7754305b54
+X-Forward-Email-ID: 6b0338504432eb7754305b22
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  121.127.44.66
 X-Forward-Email-Version: 2.19.37
@@ -74,14 +72,11 @@ To: Heiko Stuebner <heiko@sntech.de>,
 Cc: devicetree@vger.kernel.org,
 	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
-	Jonas Karlman <jonas@kwiboo.se>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ARM: dts: rockchip: Add ArmSoM Forge1 board
-Date: Sun, 22 Nov 2026 18:45:30 +0000
-Message-ID: <20261122184532.1300004-3-jonas@kwiboo.se>
+	Jonas Karlman <jonas@kwiboo.se>
+Subject: [PATCH 0/2] ARM: dts: rockchip: Add ArmSoM Forge1 board
+Date: Sun, 22 Nov 2026 18:45:28 +0000
+Message-ID: <20261122184532.1300004-1-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261122184532.1300004-1-jonas@kwiboo.se>
-References: <20261122184532.1300004-1-jonas@kwiboo.se>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,268 +89,36 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+This series adds initial support for ArmSoM Forge1 [1].
+
 ArmSoM Forge1​​ is an industrial-grade product powered by the ​​RK3506J
 triple-core Cortex-A7 application processor​​. It is specifically designed
 for industrial gateways, HMIs, PLCs, handheld POS devices, and home
 appliance display/control applications.
 
-Link: https://docs.armsom.org/armsom-forge1
-Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
----
-As mentioned in cover letter, unclear if this should use
-rockchip,rk3506b instead of rockchip,rk3506.
----
+This series depends on the base SoC dtsi added as part of the series
+"ARM: dts: rockchip: Add Luckfox Lyra boards" [2]. Similar to boards in
+that series this board use the rockchip,rk3506 compatible.
+
+Mainline U-Boot support can be tested using a branch at [3], it contains
+board support using same devicetree files extended with USB support.
+
+[1] https://docs.armsom.org/armsom-forge1
+[2] https://patch.msgid.link/20261122060114.773624-1-jonas@kwiboo.se/
+[3] https://git.u-boot-project.org/u-boot/contributors/kwiboo/u-boot/-/commits/rk3506
+
+Jonas Karlman (2):
+  dt-bindings: arm: rockchip: Add ArmSoM Forge1
+  ARM: dts: rockchip: Add ArmSoM Forge1 board
+
+ .../devicetree/bindings/arm/rockchip.yaml     |   5 +
  arch/arm/boot/dts/rockchip/Makefile           |   3 +-
  .../dts/rockchip/rk3506j-armsom-forge1.dts    | 229 ++++++++++++++++++
- 2 files changed, 231 insertions(+), 1 deletion(-)
+ 3 files changed, 236 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts
+---
+Based-on: <20261122060114.773624-1-jonas@kwiboo.se>
 
-diff --git a/arch/arm/boot/dts/rockchip/Makefile b/arch/arm/boot/dts/rockchip/Makefile
-index faebeb20f467..ef11b2b95ae4 100644
---- a/arch/arm/boot/dts/rockchip/Makefile
-+++ b/arch/arm/boot/dts/rockchip/Makefile
-@@ -49,4 +49,5 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += \
- 	rk3506-luckfox-lyra-plus.dtb \
- 	rk3506-luckfox-lyra.dtb \
- 	rk3506b-luckfox-lyra-ultra.dtb \
--	rk3506b-luckfox-lyra-zero-w.dtb
-+	rk3506b-luckfox-lyra-zero-w.dtb \
-+	rk3506j-armsom-forge1.dtb
-diff --git a/arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts b/arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts
-new file mode 100644
-index 000000000000..6520fa700f64
---- /dev/null
-+++ b/arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts
-@@ -0,0 +1,229 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include "rk3506.dtsi"
-+
-+/ {
-+	model = "ArmSoM Forge1";
-+	compatible = "armsom,forge1", "rockchip,rk3506";
-+
-+	aliases {
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
-+		mmc0 = &sdmmc;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:1500000n8";
-+	};
-+
-+	adc-keys {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 0>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-maskrom {
-+			label = "MASKROM";
-+			press-threshold-microvolt = <0>;
-+			linux,code = <KEY_SETUP>;
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-0 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			default-state = "on";
-+			function = LED_FUNCTION_HEARTBEAT;
-+			gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&run_led>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
-+
-+	vdd_0v9: regulator-0v9 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_0v9";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <900000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_1v8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc_3v3: regulator-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_3v3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc5v0_sys: regulator-5v0-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vcc5v0_usb20_otg1: regulator-5v0-usb20-otg1 {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usb20_otg1_drv_h>;
-+		regulator-name = "vcc5v0_usb20_otg1";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vcc_ddr: regulator-vcc-ddr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_ddr";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+};
-+
-+&fspi {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "spi-nand";
-+		reg = <0>;
-+		bootph-pre-ram;
-+		bootph-some-ram;
-+		spi-max-frequency = <80000000>;
-+		spi-rx-bus-width = <4>;
-+		spi-tx-bus-width = <1>;
-+	};
-+};
-+
-+&gmac0 {
-+	assigned-clocks = <&cru CLK_MAC0>;
-+	assigned-clock-rates = <50000000>;
-+	phy-handle = <&rmii_phy0>;
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&eth_rmii0_miim>, <&eth_rmii0_tx_bus2>,
-+		    <&eth_rmii0_rx_bus2>, <&eth_rmii0_clk>;
-+	clock_in_out = "output";
-+	status = "okay";
-+};
-+
-+&gmac1 {
-+	assigned-clocks = <&cru CLK_MAC1>;
-+	assigned-clock-rates = <50000000>;
-+	phy-handle = <&rmii_phy1>;
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&eth_rmii1_miim>, <&eth_rmii1_tx_bus2>,
-+		    <&eth_rmii1_rx_bus2>, <&eth_rmii1_clk>;
-+	clock_in_out = "output";
-+	status = "okay";
-+};
-+
-+&mdio0 {
-+	rmii_phy0: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rmii0_rstn>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio0 RK_PC2 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&mdio1 {
-+	rmii_phy1: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rmii1_rstn>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio1 RK_PC7 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&pinctrl {
-+	ethernet {
-+		rmii0_rstn: rmii0-rstn {
-+			rockchip,pins = <0 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		rmii1_rstn: rmii1-rstn {
-+			rockchip,pins = <1 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	leds {
-+		run_led: run-led {
-+			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	rtc {
-+		rtc_int: rtc-int {
-+			rockchip,pins = <0 RK_PB5 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	sdmmc {
-+		sdmmc_det_l: sdmmc-det-l {
-+			rockchip,pins = <0 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	usb {
-+		usb20_otg1_drv_h: usb20-otg1-drv-h {
-+			rockchip,pins = <1 RK_PD0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&saradc {
-+	vref-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	cd-gpios = <&gpio0 RK_PA3 GPIO_ACTIVE_LOW>;
-+	disable-wp;
-+	no-sdio;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc_bus4>, <&sdmmc_clk>, <&sdmmc_cmd>, <&sdmmc_det_l>;
-+	vmmc-supply = <&vcc_3v3>;
-+	vqmmc-supply = <&vcc_3v3>;
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
 -- 
 2.56.1
 
