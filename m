@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795383992;
-	b=PsSFnt9G3SrboxLSwTTAWh/SeQ9sUhkvzvd9DMGlBzNfm/++GW/GI4TK7w6782WM1waa
-	 vfG7pR81GeVJRMxnF/ZbBVC5Z/e8MAkgZgUwOhkvIxmjwLKlqJmr08KCh4OGs6bUIKaM8
-	 MXOgS2bUusvUuxNrKzssD9GOEI9VY6f2692mHm7sgVH5qa6UCNElktp0WaNjuxoE2yJYu
-	 WChhuvmAX2thON3M+1SKLNqC0Y+Y2/HiXBTRy/2W8CsobrL2Vt1Cy3KLIx1ZFdxMdMESC
-	 FPMie2GOKA7a7PeApvA8ozJtJqyHZMaUD1L8RPhfMe2bI5Tu0DF89uIjFegAzq9yMsA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795383992;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VMStjEXHIyLNfpeETwzCuBR1doycrm+luPBNQ3UKWpI=;
-	b=B2uCIXn1epuTmPS44MVEIzgT33D5jzaDe+CwezcFH/3HVetZbsPPCfEWCIhPeuhj8Aps
-	 +HNmsl0sK0uLpQhcaw7aS0+hLhcstxdAmh1ygX6UGkgHd3+ehKY0H6bi3RWW2C70SEn4E
-	 cue6Gw/K8HbwZsC+y94ZUsuar774yWGj0X4C2p/EE5s0Suc4k8WRvsrBvM5ExwL47Ed3k
-	 NsuLzJIrVTchOlflc8ybqsz3/SMmlg7HjUC10ZARDKwfHm/AZaimVoJ7hEQtBEUclkBag
-	 lfd0nq7QM9SyUFuVCPSmnlE7VwRJr/UNMt5UImftgHdXi1ZRVFpIGW0YaSrNOl2CGPg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYiUg+SK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A25606A33A;
-	Sun, 22 Nov 2026 21:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYiUg+SK
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795383991;
-	b=LKz4Fprzl4ljdcvrIisceHxUxoef0aFh5VVy7e/xejMtl+gRzSM3I1qWFDOVmjsx/VnE
-	 LgeWACqrEdSUejNiiiUhwc9ZmcNSIlcfs5ZLUGjcGSXD4KfiUPzfyA/x2NbjfpsH0Q87q
-	 oM1WfigPayUVjVpkP5+lHthSJg2fIrM6WSrFs8ABWxtHUyab8n1Ok0kIzX9Wa5CKTLVSk
-	 SEFLDkzyQtSBm635FQWmNLJGCh1MxYUFwsYjfELcvw4aEtJAq0Z9ZHZfOZVdyp7AAiUhn
-	 KoLcFMOQpgqAgQl40+7Yd8fqi8HhNOjPFEW48dnNJ9UcTm0RrSi22wma6DzBkxgo2Xg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795383991;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VMStjEXHIyLNfpeETwzCuBR1doycrm+luPBNQ3UKWpI=;
-	b=rLjzm1s24767lSJvdZ8tExm0uBBLyBsmaPxJBFLsKEhVoVFPvK3FrLyNWg4Ud+VDKkgg
-	 I9Eub0qKEFArrAtIBsx2Pra7uKwX9KWQOIWePZ//DDaja/yQ2Qilo45xcoxnlDkg7dmH4
-	 vC6nMD6X+olBFeVVnnpmYWHN8Fpsit0d0JbhWxd5RaKeOXKa/Px4f7+kTMVg8BaNlCv5f
-	 UsQV2zius5FPVIQ7RYK041YBO7MdEmgKgfHSeyRiBqZhYjCzQLBojMQBPmV6SlmoyjAfP
-	 0A/bPoOT/RDEwx62ccyEDRkblhXbxWzrOq87+fLGgIiDo4ZVQNQ9Uv7lqFoNeFv8ohA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.37
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795384116;
+	b=rpr18tosgxx7kBOyL3/L0tGZngf0Me66LLlCVRgNqvq2VU1D1ezxiSpj2PFAGZmqRVwy
+	 aOcN6ZVszHFPDAru8oSvbueAirovZ9XzvNSZ4fjdV1uV4npJv8shn1Q+2/c+F8q4am4bM
+	 DpozoXWPKYhXvNWuCW10QNyK/1YNbSHe5TkxYgq+wkh4XNteU/W/m2A278aeeJYwM9ggi
+	 GWr6lBRea93T7NTGpFppqReUQgnM7/HD6kLfIPoM2jUfGPBFytEjGhhubqtAkcnNCDODR
+	 rrQbfhFloE5qEosyzhS98LlfX47vnAzVe0vyZydiXJRKvgMjJCdIJPSJbsB2uVa7b5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795384116;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=pSLhsIbwZ9ueq868k2rrczxmLa+WaBFggzzt2CaJAhc=;
+	b=zaRDnYDRzyl8LVOYLNuFmRff6qDiDj4Jitm2v5zhiGm1NEKHwR8qAKKotg18TdjAptGG
+	 HHcsEGYCeVVPnF8VPPR2cDNAi8YbpgI3Ic0i4iMalsGGGwvGhGZPo/WRTKaZUlOdEs2rD
+	 /ouWdXzgfFBWu40mB+ou+yMlYsz48FLw/x0c2zcfBTtHL7uOYG2FA3SQTi3TdxfG/sZ0i
+	 XHdpsysyz/w9pcca6WNoNGRJR7VJQBV1+EzkOZ6GKeHFlBBQAW5/QFM/9RGWripw83MZA
+	 sDFK5dX7t3baNLcg0FEg6bs69q/o0jGDmtbPKstHh7ENEBMDmYmiBzdAMl4kWsvdhiQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=bzvJA75G;
+	arc=none smtp.remote-ip=91.218.175.37
+Received: from mta0.migadu.com (out-37.mta0.migadu.com [91.218.175.37])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2B8181F000D3;
-	Sun, 22 Nov 2026 21:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795383991;
-	bh=VMStjEXHIyLNfpeETwzCuBR1doycrm+luPBNQ3UKWpI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=GYiUg+SKJKHFnZCU0dOMQU9BC0tUAwcidoRJJ7qIMqe8tEvZql7Anx/F+WPcpPtXD
-	 E4Ly/E88yOQsME9BkCnXGssskFytMnzjM20tWq7w6uIjt5DVPolch6C84z0JdXITqL
-	 A1TlQzOyTmzGyYcQp74+y+Hq5yEuiK1AVKsTMCoA9PN6WRYTu+QFODoqDRCCtmVH0J
-	 3UP65pK0Sw6uVLw4iIepJRscsWRns+oU11i2UupQpjQ+o0OP8pfS9b1otzCSslDn+z
-	 syNUlF+pFw3coLa2MKyP92PTc943g3E3xk8w9x4ka/kOJs/HEIwzpSjLW1EajeMuoa
-	 11SBXdS72Fvhw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AACBE4C21B;
-	Sun, 22 Nov 2026 21:46:20 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Sun, 22 Nov 2026 15:46:19 -0600
-Subject: [PATCH 4/4] arm64: dts: qcom: qcs8550-retroidpocket-rp6: Enable
- panel
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FE5606A31A
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 21:48:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34FE5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=bzvJA75G
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ehZBvKbSmJsHXqz+5L8veHls/wX4qsWZg42tCt+K6cs=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795384113; v=1; x=1795988913;
+ b=bzvJA75GcRZudGWFyK6rC5pyVGLIhSgC1V7OAsOvsdsxOGdiK5k7zT0d0HNs1HA7kFTsVzyq
+ lWhFV6Hjxo79ecb5AOJmWOqIinjqufG4oWxgompd8o937IevlZpE+w2Rf3Q8xfMH5mXFqQroItD
+ zs5hNTO1IPxZae+8Xf5ME9AJC0ZF3HPsDj97j9hufrAdEk0uFPegpMoFvz5OmmxVKjpeU+bHB25
+ L3nWy72icCTidvHBpPET2TjMmqm+kh1y1wLZAYQl9XDvaML6oaCm0zU4QNwdWS8SbNiQvlFEOJT
+ rpWZfbjEPtkiNQJaqBJeHXHKtKJ+MavQlP6j8V77CNbjw==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id df95091bd50bf055;
+	Sun, 22 Nov 2026 21:48:33 +0000
+X-Mizu-Trace-ID: df95091bd50bf055
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 22 Nov 2026 14:48:23 -0700
+Subject: [PATCH] arm64: dts: qcom: sdm845-lg-judyln: Enable slpi
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,90 +62,85 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-rp-qcs8550-display-v1-4-d513d9819a34@gmail.com>
-References: <20261122-rp-qcs8550-display-v1-0-d513d9819a34@gmail.com>
-In-Reply-To: <20261122-rp-qcs8550-display-v1-0-d513d9819a34@gmail.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261122-sdm845-lg-judyln-slpi-v1-1-2c77758618c6@postmarketos.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQqDMBAF0KsMf+2ACRokVyku1EztSBolQ0uLe
+ PdC3wHeCZOqYoh0ospbTfeCSK4hLI+prMKaEAm+9cE579nSc+h6zitvr/TNhS0fyq6TMM19WOZ
+ B0BCOKnf9/N/beF0/rkgQn2cAAAA=
+X-Change-ID: 20261122-sdm845-lg-judyln-slpi-14e6ab56cb8e
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- Aaron Kling <webgeek1234@gmail.com>
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795383979; l=1393;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=sS5jhdq9h9XCoaTgODmQdhNRvP+F/XPgg9IT8jRPQa8=;
- b=zUIshMSKq8Px7GuMZJr598a35qPlLtS8GUNerLpan6tj2oVOxmT5NfJeYgAn6RBgbknYPmwsx
- RuGg3U+O+ArAzuAfWe3Con77SJWqLWqWAkix6WDOd7fVAP7pNnckOX8
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795384106; l=1710;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=ehZBvKbSmJsHXqz+5L8veHls/wX4qsWZg42tCt+K6cs=;
+ b=R2U5ZT1Bt22RnCNetIZh8dMc6uQyLFAm3bfPdEWrixrtK9yMEWbEMdUlTAT6DhYbdTq8QyrvC
+ uG1bzGTwCw8ClwQQ28GTDiXI1dHI8kwxnlt/v42W25aiPOezxVHcKNI
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-From: Aaron Kling <webgeek1234@gmail.com>
+Set status okay for slpi_pas and provide the firmware-name for it.
 
-This is supported by the Visionox vtdr6130 driver.
+```
+remoteproc remoteproc3: slpi is available
+remoteproc remoteproc3: powering up slpi
+remoteproc remoteproc3: Booting fw image qcom/sdm845/LG/judyln/slpi.mbn,
+size 6627444
+remoteproc remoteproc3: remote processor slpi is now up
+```
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+With a hexagonrpc patch
+https://github.com/linux-msm/hexagonrpc/pull/30
+and appropriate firmware from the device, sensors work now.
+
+```
+sudo monitor-sensor
+    Waiting for iio-sensor-proxy to appear
++++ iio-sensor-proxy appeared
+=== Has accelerometer (orientation: bottom-up, tilt: face-up)
+=== Has ambient light sensor (value: 21.000000, unit: lux)
+=== Has proximity sensor (near: 0)
+=== Has compass (heading: unset)
+    Light changed: 6.000000 (lux)
+    Compass heading changed: 103.589447
+    Compass heading changed: 103.591545
+...
+```
+
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
- .../boot/dts/qcom/qcs8550-retroidpocket-rp6.dts    | 39 ++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
-index 91fed8795d611..5bbec9e1bae7c 100644
---- a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
-@@ -84,6 +84,45 @@ touchscreen@38 {
- 	};
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+index 349faa123ff1..7c4eeff4dd0f 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+@@ -141,6 +141,12 @@ &pmi8998_charger {
+ 	status = "okay";
  };
  
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l3e_1p2>;
-+
-+	status = "okay";
-+
-+	panel@0 {
-+		reg = <0>;
-+		compatible = "retroidpocket,rp6-panel", "visionox,vtdr6130";
-+
-+		pinctrl-0 = <&dsi_p_rst_active>, <&dsi_p_te_active>;
-+		pinctrl-1 = <&dsi_p_rst_suspend>, <&dsi_p_te_suspend>;
-+		pinctrl-names = "default", "sleep";
-+
-+		vddio-supply = <&vdd_disp_1v8>;
-+		vci-supply = <&vdd_disp_2v8>;
-+
-+		reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
-+
-+		rotation = <270>;
-+
-+		port {
-+			panel0_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel0_in>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l1e_0p88>;
++&slpi_pas {
++	firmware-name = "qcom/sdm845/LG/judyln/slpi.mbn";
 +
 +	status = "okay";
 +};
 +
- &mdss_dsi1 {
- 	status = "disabled";
- };
+ &tlmm {
+ 	thinq_key_default: thinq-key-default-state {
+ 		pins = "gpio89";
 
+---
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+change-id: 20261122-sdm845-lg-judyln-slpi-14e6ab56cb8e
+
+Best regards,
 -- 
-2.56.0
-
+Paul Sajna <sajattack@postmarketos.org>
 
