@@ -1,63 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795329175;
-	b=RXaiblSZSlC1uPMJ3UIXQ5iVd9qnt/cW4wNp147Y5Km/p1TZBq2tpp1aRSs5I0m8Wqx5
-	 p5+ancQEBa8O9UVlQYq69v+iA1LOYZoqLJQ8+Q+fFfre/LAGcQqMC+CS3FcROjVPvayni
-	 rh9LYO8nkvCRi+zaCc4W0QEkw67C4zRnECBsbGAP5bOAE0e1yUjHX2kfDxddu2auaSU9M
-	 TH31tpBcukcVR4h6rVJkLuuDNuCcOKB/2G1XY6ZXUZd9lbobe12DadjIj6uAZyudNbIhl
-	 mbHYfNgiBQ2RAYhs321F4x921rBkr5jPxi4YGsozKSttTcAd49Ml4tvcm5VWxWw5Leg==
+	t=1795329417;
+	b=4fqLKO02HKx0fhQHqhAjT4gqVNRELjPDK67UlkN37RTFNdqQ0Jw/5tqum2fnGYlmd8oI
+	 Bi/EzUfq7n6M3Z6B246chYJ9cGAhf0w83wU+wbJbc3UistrwqXc0A31Du4xqi9EaNJQ/I
+	 POzZgOOfhTpYRN3lI4ha78uLGdKsUf0qm0vwOZc3BH9Mw5gzGA37gvuPod0qx87go0z1j
+	 ObU438QEcI0KtmXhKRgJzsuK92qQDKTlyobhqOqRTc6WcZPJT760SzL+w1Zgoceq37UKj
+	 4cSIx4fiQ3yICvrjYlrZRpRImjqKtM1jvAHSer0PcTQ9tfRtrFccUg96GYF22RkXW9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795329175;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=P0nN2SWiKGZJM5hZ4aJ+VFJksbcfu6U88YHPYPXMZYU=;
-	b=N7VVnHt/ZspzuNxxp9fhFET0p5RaWjfuHsQeCF8B94v/aXQKIP3A2/jyFFMJU+NBhGst
-	 +8KwyLIC7scjOi8nvjZVYhaZQfwvk2cUmqQPMtWb8fuit8BG2NpEx/g0MgMMTf25C/gYJ
-	 pgUFxAnhl6PFzT512e6GCx+MaOulGuuEyRY/4kCETtxeAJofboX8OrMfOUTk+T9sGyXtW
-	 gbP518ZqAQ8XP/OEjzyWCCo9bejguLF3hWnlOWTjlv+2htmzxBFdZe8gwylgfIVS6Pblh
-	 NKbdaS5gkjXblAYtEVBHtDy9El1DvSkgjVcuhG1kKdgBT9RbrpT+b/emOMuz9tBc2kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795329417;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=rcnHT8Ouj9aPKLbMZKYqkaRR8q6iYAvPvYte5WZ6Dpg=;
+	b=dc411mkKjmbIYm7A6EDSQAYGLv0oYzg5Ft1Jt/vVeKjQKeffUkZs0qouKO/1fZQvxMGC
+	 AJhonjDdKVkdoxnu1V+D6h9WQcHvEYFhkwY1rw4MpwjX0dvNADfdLUleSHeoW48ATpWas
+	 g3ZKeKDUOaESrgMF9svQRh22Rns+nuCIkvCgFhnH5T4gxKJFKWDR+yK9l6cBY2OSlNK2z
+	 C+5F9QpD4yOUzxFt75Na4RICHYnZWYrQUXSDc7L1c5dfCI91kUXq6mwdX2d//8x48UhSc
+	 co/NK8hu1wEsc1qaO2NvqUM9SCgRUGRsIYMi2diBGk4XKwLRXv8Y7dYUHFbOdo5AxoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Rjz/q934";
-	arc=none smtp.remote-ip=95.215.58.150
-Received: from mta1.migadu.com (out-150.mta1.migadu.com [95.215.58.150])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A01606A320
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:32:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37A01606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Rjz/q934
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=p4MAVBJ/9Qo+GOQni+AFsXx5dg/8xxOFELEHbWDxpZA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795329172; v=1; x=1795933972;
- b=Rjz/q934G4BfNRu5mcLcvQw8LH1JaCgvn5XRCB10H0/teIWCc9pSPrHa7gEpW86sgVrY8DSZ
- KJVlSUY9duSycPMRZE26lItzKEOeyVLC+j44FZyDELs+yRJwmrGY2EqD/+YWXcOhPHg4Fak8cn+
- ZKjgix+B0eK1DLTgnusuYQhk=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b1f45693e1e80040;
-	Sun, 22 Nov 2026 06:32:51 +0000
-X-Mizu-Trace-ID: b1f45693e1e80040
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 22 Nov 2026 06:32:46 +0000
-From: Akhilesh Patil <akhilesh.patil@linux.dev>
-To: jic23@kernel.org, andy@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
-	dlechner@baylibre.com, nuno.sa@analog.com, conor+dt@kernel.org,
-	joshua.crofts1@gmail.com, maxwell@maxwelld.cc,
-	u.kleine-koenig@baylibre.com
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, akhileshpatilvnit@gmail.com,
-	akhilesh@ee.iitb.ac.in
-Subject: [PATCH 2/2] iio: chemical: acd10: Add driver for ACD10 CO2 sensor
-Message-ID: <07fe3a575ad86493076d5061ed71c15e7b837a10.1795326744.git.akhilesh.patil@linux.dev>
-References: <cover.1795326744.git.akhilesh.patil@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68504606A32A;
+	Sun, 22 Nov 2026 06:36:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68504606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
+	by APP-03 (Coremail) with SMTP id rQCowADX4JFJjQJrB7yNAQ--.19133S2;
+	Sun, 22 Nov 2026 14:35:55 +0800 (CST)
+Message-ID: <06e509d9cbfa06179cf5327ff533ae7212e23985.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 06/19] dt-bindings: display: verisilicon: Add
+ starfive,jh7110-dc8200
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Michal Wilczynski <m.wilczynski@samsung.com>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss	 <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli	
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
+ <hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>, Paul
+ Walmsley <pjw@kernel.org>,  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi	 <db@domibel.de>, Andy Yan <andyshrk@163.com>, David Airlie
+ <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>, Yakir Yang
+ <kuankuan.y@gmail.com>, Dmitry Baryshkov	
+ <dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>, 
+ William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
+ <xingyu.wu@starfivetech.com>, Sandy Huang	 <hjc@rock-chips.com>, Manivannan
+ Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall	 <hello@big-grey.co.uk>, Chaoyi
+ Chen <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Sun, 22 Nov 2026 14:35:53 +0800
+In-Reply-To: <20261106-jh7110-clean-send-v7-6-68f7ea9913db@samsung.com>
+References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
+		<CGME20261106135900eucas1p17159021cc747335b62cad6b3326605be@eucas1p1.samsung.com>
+	 <20261106-jh7110-clean-send-v7-6-68f7ea9913db@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,448 +83,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1795326744.git.akhilesh.patil@linux.dev>
+X-CM-TRANSID:rQCowADX4JFJjQJrB7yNAQ--.19133S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruFW7try5Zw1rGr17GrWDXFb_yoWkWwb_ua
+	yxC3WUAFs8JryFga1jkrn7KF1Fqa12yw4rC3Z8tF1rG348CrZ0gF93Jw1Yyw1UZr4I9r15
+	Crs3WryqgFsxCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbVxYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
+	xwCY1x0262kKe7AKxVWrXVW3AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
+	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+	1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+	C0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+	73UjIFyTuYvjxU-eHqUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Add driver for Aosong ASAIR ACD10 carbon dioxide sensor.
-Use serdev interface to communicate with sensor over UART.
-Implement read co2, get software revision, get instrument number
-commands.
+=E5=9C=A8 2026-11-06=E4=BA=94=E7=9A=84 14:58 +0100=EF=BC=8CMichal Wilczynsk=
+i=E5=86=99=E9=81=93=EF=BC=9A
+> The JH7110 embeds a DC8200. The binding requires an SoC specific
+> compatible ahead of the generic one, so add the JH7110 to the enum.
+>=20
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Tested on TI am62x sk board on UART5 with 1200 baud rate.
+Applied this patch to drm-misc-next.
 
-Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
----
- MAINTAINERS                   |   7 +
- drivers/iio/chemical/Kconfig  |  10 +
- drivers/iio/chemical/Makefile |   1 +
- drivers/iio/chemical/acd10.c  | 365 ++++++++++++++++++++++++++++++++++
- 4 files changed, 383 insertions(+)
- create mode 100644 drivers/iio/chemical/acd10.c
+Thanks,
+Icenowy
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e8f06145fb54..a5d70cd11dda 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3743,6 +3743,13 @@ S:	Supported
- W:	http://www.akm.com/
- F:	drivers/iio/magnetometer/ak8974.c
- 
-+AOSONG ACD10 CARBON DIOXIDE SENSOR DRIVER
-+M:	Akhilesh Patil <akhilesh.patil@linux.dev>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/chemical/aosong,acd10.yaml
-+F:	drivers/iio/chemical/acd10.c
-+
- AOSONG AGS02MA TVOC SENSOR DRIVER
- M:	Anshul Dalal <anshulusr@gmail.com>
- L:	linux-iio@vger.kernel.org
-diff --git a/drivers/iio/chemical/Kconfig b/drivers/iio/chemical/Kconfig
-index b22afa1f6d59..2bbf49135997 100644
---- a/drivers/iio/chemical/Kconfig
-+++ b/drivers/iio/chemical/Kconfig
-@@ -5,6 +5,16 @@
- 
- menu "Chemical Sensors"
- 
-+config ACD10
-+	tristate "Aosong ACD10 CO2 gas sensor"
-+	depends on SERIAL_DEV_BUS
-+	help
-+	  Say Y here to build Aosong ASAIR ACD10 CO2 (carbon dioxide)
-+	  sensor driver.
-+
-+	  To compile this ACD10 driver as a loadable kernel module,
-+	  choose M here: the module will be called acd10
-+
- config AOSONG_AGS02MA
- 	tristate "Aosong AGS02MA TVOC sensor driver"
- 	depends on I2C
-diff --git a/drivers/iio/chemical/Makefile b/drivers/iio/chemical/Makefile
-index 2287a00a6b75..29937988cbfe 100644
---- a/drivers/iio/chemical/Makefile
-+++ b/drivers/iio/chemical/Makefile
-@@ -4,6 +4,7 @@
- #
- 
- # When adding new entries keep the list in alphabetical order
-+obj-$(CONFIG_ACD10)	+= acd10.o
- obj-$(CONFIG_AOSONG_AGS02MA)	+= ags02ma.o
- obj-$(CONFIG_ATLAS_PH_SENSOR)	+= atlas-sensor.o
- obj-$(CONFIG_ATLAS_EZO_SENSOR)	+= atlas-ezo-sensor.o
-diff --git a/drivers/iio/chemical/acd10.c b/drivers/iio/chemical/acd10.c
-new file mode 100644
-index 000000000000..b92f01e7bf4a
---- /dev/null
-+++ b/drivers/iio/chemical/acd10.c
-@@ -0,0 +1,365 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * ACD10 CO2 gas sensor driver
-+ *
-+ * Copyright (c) 2026 Akhilesh Patil <akhilesh.patil@linux.dev>
-+ *
-+ * Datasheet:
-+ * https://www.es.co.th/Schemetic/PDF/ACD10.PDF
-+ *
-+ * TODO additional features:
-+ *	1) single-point calibration feature.
-+ *	2) Sensor preheat wait feature.
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/completion.h>
-+#include <linux/dev_printk.h>
-+#include <linux/device.h>
-+#include <linux/errno.h>
-+#include <linux/iio/iio.h>
-+#include <linux/iio/types.h>
-+#include <linux/jiffies.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/serdev.h>
-+#include <linux/string.h>
-+#include <linux/types.h>
-+#include <linux/unaligned.h>
-+
-+#define ACD10_SERIAL_BAUDRATE		1200
-+#define ACD10_SERDEV_TIMEOUT		msecs_to_jiffies(500)
-+#define ACD10_FRAME_START		0xFE
-+#define ACD10_FRAME_FIXED_CODE		0xA6
-+#define ACD10_FRAME_DATA_START		4U
-+#define ACD10_FRAME_DATA_LEN_IDX	2U
-+#define ACD10_FRAME_DATA_LEN_MAX	11U
-+#define ACD10_FRAME_CMD_CODE_IDX	3U
-+
-+struct acd10_state {
-+	struct serdev_device *serdev;
-+
-+	/* Lock to acquire during CMD/RESP sequence */
-+	struct mutex lock;
-+	struct completion buf_ready;
-+
-+	/* Single buffer to hold tx and rx data */
-+	u8 buf[16];
-+	u8 buf_idx;
-+	u8 rx_expected_len;
-+
-+	u8 sw_rev[16];
-+	u8 inst_num[16];
-+};
-+
-+enum acd10_cmds {
-+	ACD10_CMD_READ_CO2 = 0,
-+	ACD10_CMD_CAL,
-+	ACD10_CMD_READ_SWREV,
-+	ACD10_CMD_READ_INS_NUM,
-+};
-+
-+struct acd10_cmd_info {
-+	u8 cmd_code;
-+	u8 tx_frame_len;
-+	u8 tx_data_len;
-+	u8 rx_frame_len;
-+};
-+
-+static const struct acd10_cmd_info cmd_info[] = {
-+	[ACD10_CMD_READ_CO2] = {
-+		.cmd_code = 0x01,
-+		.tx_frame_len = 5,
-+		.tx_data_len = 0,
-+		.rx_frame_len = 9,
-+	},
-+
-+	[ACD10_CMD_CAL] = {
-+		.cmd_code = 0x03,
-+		.tx_frame_len = 7,
-+		.tx_data_len = 2,
-+		.rx_frame_len = 5,
-+	},
-+
-+	[ACD10_CMD_READ_SWREV] = {
-+		.cmd_code = 0x1E,
-+		.tx_frame_len = 5,
-+		.tx_data_len = 0,
-+		/*
-+		 * Note: datasheet says sw rev response is D1-D11 with D11 reserved.
-+		 * However, sensor actually sends only D1-D10 (10 bytes).
-+		 * Hence, rx_frame_len is 15 and not 16.
-+		 */
-+		.rx_frame_len = 15,
-+	},
-+
-+	[ACD10_CMD_READ_INS_NUM] = {
-+		.cmd_code = 0x1F,
-+		.tx_frame_len = 5,
-+		.tx_data_len = 0,
-+		.rx_frame_len = 15,
-+	}
-+};
-+
-+static u8 acd10_get_checksum(u8 *buf, u8 len)
-+{
-+	u8 checksum = 0;
-+
-+	for (u8 i = 1; i < len - 1; i += 1)
-+		checksum += buf[i];
-+
-+	return checksum;
-+}
-+
-+/*
-+ * Do transfer based on command and fill drv_state->buf with received data.
-+ * Caller of this function should use mutex drv_state->lock.
-+ */
-+static int acd10_serdev_transfer(struct iio_dev *indio_dev, enum acd10_cmds cmd)
-+{
-+	struct acd10_state *drv_state = iio_priv(indio_dev);
-+	struct serdev_device *serdev = drv_state->serdev;
-+	struct device *dev = &indio_dev->dev;
-+	int ret;
-+
-+	/* Prepare transmit buffer along with checksum */
-+	drv_state->buf[0] = ACD10_FRAME_START;
-+	drv_state->buf[1] = ACD10_FRAME_FIXED_CODE;
-+	drv_state->buf[ACD10_FRAME_DATA_LEN_IDX] = cmd_info[cmd].tx_data_len;
-+	drv_state->buf[ACD10_FRAME_CMD_CODE_IDX] = cmd_info[cmd].cmd_code;
-+	drv_state->buf[cmd_info[cmd].tx_frame_len - 1] =
-+		acd10_get_checksum(drv_state->buf, cmd_info[cmd].tx_frame_len);
-+	drv_state->buf_idx = 0;
-+	drv_state->rx_expected_len = cmd_info[cmd].rx_frame_len;
-+	reinit_completion(&drv_state->buf_ready);
-+
-+	/* Transmit the buffer over serdev */
-+	ret = serdev_device_write(serdev, drv_state->buf, cmd_info[cmd].tx_frame_len,
-+				  ACD10_SERDEV_TIMEOUT);
-+	if (ret < 0)
-+		return ret;
-+	if (ret != cmd_info[cmd].tx_frame_len)
-+		return -EIO;
-+
-+	/* Read the received bytes in buffer */
-+	ret = wait_for_completion_interruptible_timeout(&drv_state->buf_ready,
-+							ACD10_SERDEV_TIMEOUT);
-+	if (ret < 0)
-+		return ret;
-+	if (!ret)
-+		return -ETIMEDOUT;
-+
-+	/* validate frame header */
-+	if (drv_state->buf[0] != ACD10_FRAME_START ||
-+	    drv_state->buf[1] != ACD10_FRAME_FIXED_CODE) {
-+		dev_err(dev, "RX frame invalid\n");
-+		return -EIO;
-+	}
-+
-+	/* Maximum data len can be max 11 */
-+	if (drv_state->buf[ACD10_FRAME_DATA_LEN_IDX] > ACD10_FRAME_DATA_LEN_MAX)
-+		return -EIO;
-+
-+	/* Validate command echo */
-+	if (drv_state->buf[ACD10_FRAME_CMD_CODE_IDX] != cmd_info[cmd].cmd_code)
-+		return -EIO;
-+
-+	/* Validate checksum */
-+	if (drv_state->buf[cmd_info[cmd].rx_frame_len - 1] !=
-+	    acd10_get_checksum(drv_state->buf, cmd_info[cmd].rx_frame_len)) {
-+		dev_err(dev, "Checksum error\n");
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
-+static int acd10_get_sw_rev(struct iio_dev *indio_dev)
-+{
-+	struct acd10_state *drv_state = iio_priv(indio_dev);
-+	struct device *dev = &indio_dev->dev;
-+	int ret;
-+
-+	ret = acd10_serdev_transfer(indio_dev, ACD10_CMD_READ_SWREV);
-+	if (ret)
-+		return ret;
-+
-+	memcpy(drv_state->sw_rev, &drv_state->buf[ACD10_FRAME_DATA_START], 10);
-+	drv_state->sw_rev[10] = '\0';
-+
-+	dev_info(dev, "Software revision: %s\n", drv_state->sw_rev);
-+
-+	return 0;
-+}
-+
-+static int acd10_get_instrument_num(struct iio_dev *indio_dev)
-+{
-+	struct acd10_state *drv_state = iio_priv(indio_dev);
-+	struct device *dev = &indio_dev->dev;
-+	int ret;
-+
-+	ret = acd10_serdev_transfer(indio_dev, ACD10_CMD_READ_INS_NUM);
-+	if (ret)
-+		return ret;
-+
-+	memcpy(drv_state->inst_num, &drv_state->buf[ACD10_FRAME_DATA_START], 10);
-+	drv_state->inst_num[10] = '\0';
-+
-+	dev_info(dev, "Instrument number: %s\n", drv_state->inst_num);
-+
-+	return 0;
-+}
-+
-+static size_t acd10_receive_buf(struct serdev_device *serdev,
-+				const u8 *data, size_t len)
-+{
-+	struct iio_dev *indio_dev = serdev_device_get_drvdata(serdev);
-+	struct acd10_state *drv_state = iio_priv(indio_dev);
-+	size_t consume = len;
-+	int i = 0;
-+
-+	while (drv_state->rx_expected_len && (consume > 0)) {
-+		drv_state->buf[drv_state->buf_idx++] = data[i++];
-+		consume -= 1;
-+		drv_state->rx_expected_len -= 1;
-+	}
-+
-+	if (drv_state->rx_expected_len == 0) {
-+		drv_state->buf_idx = 0;
-+		complete(&drv_state->buf_ready);
-+	}
-+
-+	return len;
-+}
-+
-+static int acd10_read_raw(struct iio_dev *indio_dev,
-+			  struct iio_chan_spec const *chan,
-+			  int *val, int *val2, long mask)
-+{
-+	struct acd10_state *drv_state = iio_priv(indio_dev);
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+
-+		/* Read CO2 sensor value*/
-+		scoped_guard(mutex, &drv_state->lock) {
-+			ret = acd10_serdev_transfer(indio_dev, ACD10_CMD_READ_CO2);
-+			if (ret)
-+				return ret;
-+
-+			*val = get_unaligned_be16(&drv_state->buf[ACD10_FRAME_DATA_START]);
-+		}
-+
-+		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = 0;
-+		*val2 = 100;
-+		return IIO_VAL_INT_PLUS_MICRO;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info acd10_info = {
-+	.read_raw = &acd10_read_raw,
-+};
-+
-+static const struct iio_chan_spec acd10_channels[] = {
-+	{
-+		.type = IIO_CONCENTRATION,
-+		.channel2 = IIO_MOD_CO2,
-+		.modified = 1,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+	},
-+};
-+
-+static const struct serdev_device_ops acd10_ser_ops = {
-+	.receive_buf = &acd10_receive_buf,
-+	.write_wakeup = serdev_device_write_wakeup,
-+};
-+
-+static int acd10_probe(struct serdev_device *serdev)
-+{
-+	int ret;
-+	struct device *dev = &serdev->dev;
-+	struct iio_dev *indio_dev;
-+	struct acd10_state *drv_state;
-+	unsigned int baudrate;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(struct acd10_state));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	indio_dev->name = "acd10";
-+	indio_dev->channels = acd10_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(acd10_channels);
-+	indio_dev->info = &acd10_info;
-+
-+	serdev_device_set_drvdata(serdev, indio_dev);
-+
-+	drv_state = iio_priv(indio_dev);
-+	drv_state->serdev = serdev;
-+
-+	init_completion(&drv_state->buf_ready);
-+	ret = devm_mutex_init(dev, &drv_state->lock);
-+	if (ret)
-+		return ret;
-+
-+	serdev_device_set_client_ops(serdev, &acd10_ser_ops);
-+	ret = devm_serdev_device_open(dev, serdev);
-+	if (ret) {
-+		dev_err(dev, "ACD10: serial device open failed\n");
-+		return ret;
-+	}
-+
-+	baudrate = serdev_device_set_baudrate(serdev, ACD10_SERIAL_BAUDRATE);
-+	dev_info(dev, "baud rate set to: %u\n", baudrate);
-+	if (baudrate != ACD10_SERIAL_BAUDRATE) {
-+		dev_err(dev, "baud rate expected: %u, got: %u\n",
-+			ACD10_SERIAL_BAUDRATE, baudrate);
-+		return -EIO;
-+	}
-+	serdev_device_set_flow_control(serdev, false);
-+	ret = serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
-+	if (ret)
-+		return ret;
-+
-+	ret = acd10_get_sw_rev(indio_dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = acd10_get_instrument_num(indio_dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_iio_device_register(dev, indio_dev);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id acd10_of_match_table[] = {
-+	{ .compatible = "aosong,acd10", },
-+	{ }
-+};
-+
-+static struct serdev_device_driver acd10_driver = {
-+	.driver = {
-+		.name = "acd10",
-+		.of_match_table = acd10_of_match_table,
-+	},
-+	.probe = acd10_probe,
-+};
-+module_serdev_device_driver(acd10_driver);
-+
-+MODULE_AUTHOR("Akhilesh Patil");
-+MODULE_DESCRIPTION("ACD10 CO2 gas sensor driver over serdev interface");
-+MODULE_LICENSE("GPL");
--- 
-2.47.3
+> ---
+>  Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
+l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> index 919a9001220120054cb62d1d01b7293367266f95..05a202633cd273fec358c095c=
+64584d959d96d90 100644
+> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> @@ -16,6 +16,7 @@ properties:
+>    compatible:
+>      items:
+>        - enum:
+> +          - starfive,jh7110-dc8200
+>            - thead,th1520-dc8200
+>        - const: verisilicon,dc # DC IPs have discoverable ID/revision reg=
+isters
+> =20
 
