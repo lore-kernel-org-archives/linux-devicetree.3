@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.235
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795364714;
-	b=KSZa7cWOI3m2h5CWdQJ53cO1YNsk3xlAShBl4ZYYneu1STZ+Fywq+pinFvuUeT+Yxu72
-	 B7vJRyz3n24IVX7t3hUbI+AoeeHmWqN42wbmcC7/gz6UJVpwcpZpjWFQCdOgwdwC+4c/h
-	 43Zb9RaMYQ47G2y1IR72gNgYMbSkjkXlEEmmvjmpQY7p2C3QwXBLQrurtdN1fGPBhDVNW
-	 0tj2bIps7cTNcI2DHnFXJSrb5UNwRvBS1Y1DXkmUapiGHcy4Ry4vrVOmG1Hbc6PWXCAYF
-	 gGVQB5yoAULQF5RExEoYFtU9DbRgqMn7IjGZABD+iOQv3a/me3oe3wweKXhjCJ0KXSQ==
+	t=1795364892;
+	b=DEHFmeGcB0cgnz2CT0pYUHpxfK9VekZoUZYHq9J4RAy3Tsg9Ndvge8VBdumFii0jLC74
+	 WiP+gwwEWDJsQi7DXMNMLiKrplllFpEHP5Cnup7sDSnzjTcs64Pbt+3SFf7i7JLQeTT2I
+	 L7FqUfVuS2zMI4CRDnwepVw7NN0iRA2kA77vwT+7/mzYYTRVyOy9Uxw300bzuRgOY/hBS
+	 CRCIvQJwLbi/x7acUg6oxa+wc8fGZ48NkQRvPZqGGa6GkeT8HLfKj/ERACVpZn+kLzpJg
+	 /bw9lukhTxp9oB5GCOGbSdUo8t1/CmPGiETYgn49M9ONvfJtnlqmtPtOfiwOS8EHuhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795364714;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Quk+i+RLhvm+ITRHRSHRS993N/vU6wVhQmtQekP7shc=;
-	b=MPVv2voFzqdABWIFooec9a97hEN+yhKcpk6F1stOq3GitnMiQmtFvB09SoWyb+HzN75V
-	 XOv5TW25IM87ag+Mem1Y5CMj+Mjo7+9Q4Em2NjuiIbly1RuJbCSopLdk0vajnPStMeLaZ
-	 S6ra7W28QAaTZ0BDBK2iN9vNrjV5oYJwlvqhECjyrkxPXJWjQWTUTLBD6jYQhEn77avkA
-	 4TCqMcn1nlnSAnlROEXhHqXgn1uuZK4vKLezpASG87Pzi64hJUu49i0M8HbM1WQU6d5Aa
-	 8EOTapDe2+M8ZE/bqBulsPXToB21JfukvE33wJmuRa1ipm4ak/KaN8MO+INZp/BbLLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795364892;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=w2jJbbjxqi3Ud6TAa04LKDmCAGuSmeUyHMDl5hTbDcw=;
+	b=FT/6jEfw73ru/N/zA2QbWgssxk5+63lZG+FiMBurIEk3wMA3Sn9vM7gL913awVWv82dL
+	 4A5nPM45QCTctq/Kvk8ixHRP8o9GVuT4I7UYV51vrygzIzquSeKZUIiP7MNe03yNGszlc
+	 VAqnfe22oNntN+UezhK6j3cEp4VGRJYSDuNZN1aynm8gzrTSFaOknpW7YZvC4Ya4kwNSG
+	 4ACa2TZlcvAfd4RfTtsrUtF/Rf3+H9Dg7mZVLsW9r8ljJ3TVkYo4Wit1Yp/kvYGGyiUVs
+	 1D4cd1isBMvl6V9MDJNe2hwNffIMBq03agUGjoxPPgthuyb/F/UwzEubxnxac50jjrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=tqIjfMxE;
-	arc=none smtp.remote-ip=203.205.221.235
-Received: from out203-205-221-235.mail.qq.com (out203-205-221-235.mail.qq.com [203.205.221.235])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axafC6tG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CA9606A330;
-	Sun, 22 Nov 2026 16:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30CA9606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B1C606A320;
+	Sun, 22 Nov 2026 16:28:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=tqIjfMxE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795364704; bh=Quk+i+RLhvm+ITRHRSHRS993N/vU6wVhQmtQekP7shc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tqIjfMxEbey3ZTSH0VXE/dgT8KvyEvN9WlG3OGJzVcwA4Re1TK95DWpcfvae5nGqS
-	 +F3EMTPSIyXDaIvqw5xCPaWQaACDU85tgXD9Bx/BqdmchT2u8PL6ppgUS/dZnhEh01
-	 JztLiPFQr1863HCMI+hsxEqwfvgTafffXr8X7L6U=
-Received: from jerry-PC.lan ([2408:8249:5f:7101:71a:8713:56b4:5043])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 640042D7; Mon, 23 Nov 2026 00:25:00 +0800
-X-QQ-mid: xmsmtpt1795364701tbdj3154j
-Message-ID: <tencent_93FC4A7191B1BAC63C4DE9C2674660AA7905@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoeurQk+2RpOXQFHYlkNOJY/sjHlDSZGHJ97j+R4SUYeYhyX8atOZ
-	 TgW8xfJE6d5YNTTM8+5XaDELGGrc4QZlS7OdRmqhU0qmfQycfaqDUsAk5iWSzig7UoIs05GHLzHy
-	 sIKv4uX1rdeXJu46VFD07Ld500EmYQsHU0UvXpUOn16s11Yhp+9hmFT6OEz06CTa9/aqJpSC7jNX
-	 BkH/PZTrKNysm3H2hVW2VlVUKVfT7ZlwdH71rtkKLbbyGwEdAbhluR6If84caQk+U9E8ut1MJBZh
-	 1dMhtzGgyIFY63ZzQ0MaZ7XdRQcuqTO+5WA5aTGBA6R+CSIXfvLALvhIa38OfMv23EPlysq15IAG
-	 MBxVJqcWgdrTr/iMkpzmtSL4C0t4jcu7lY9nkJgcHrwVSUxHCpa9nE3RK1oTKc6xYbcu3eqs9tJp
-	 a7tCC1hdp2TcmS+r0oMovjKsGhc/fDpFrhJY12F5hrZwQ33L2wWLSIs97nyZXY3B5HDcRNK9V1im
-	 MwmRPbPA6A3AxDRlNpsG/owuM6Et8v8naI4BKg0iWvq02PLV8VB5n9lwpxFGCsWKO7/ExfSsrRGA
-	 zOTswc9f3zbWyn+gMCAN0UhalaNwWP4eDZ0OjNH6aQqC+Tjxeus6wIAmeufDcdaVGNlJfHWduicv
-	 xlnM4uPkPoAa8jqiTXMDuYn53Gj71S/gQNs8B6/2MsuECprpaNNrKGyL7qQn2jbCLXlMaqSbkJsI
-	 /bkE1JPmkkJO3lPUZIC8y7/hBHHZOD5eIUVU1Y1GwpsQNmgIosJsp4vS1bTEk/y9fjyxIGTSIAgT
-	 HMISceI7WRCrG1MgNYLVcEVlksKQW5Mi0rpL8waniYdMs+18yb7C+cpwxs4Dmk11iMFUTwxibHTa
-	 VBs041pBdrfV6LTP5lvGjVtPditl1kmxMsyDER3D2Dds9z257a12ypiR+T/2YqWGgrSZWquy2GD8
-	 ZGq8S98/wqZ3bg6IG9a+YJ1BUuxeWyr0AB5VINSwWUR9d6FRGmzMyYSLQVo3k0/Mzgbk+fVWpx51
-	 JDMPbaiRmheobmmI7Z3cwP6PEzSdVoOm+O5a1puTaYgOjense5NdkCTuG2/+tduHolIHpBQsG6ci
-	 JAn8zHXcC4Takj5Ehcbd31SWITpJMA9qAOeApV7crIZwTvOaa4T8gmUdszssXK5HP5yhxFKxJK8r
-	 SrHjAD/Aog3uCUfQ==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Xiangyu Zhu <1194781887@qq.com>
-To: Heiko Stuebner <heiko@sntech.de>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: Xiangyu Zhu <1194781887@qq.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: clock: rockchip,rk3506-cru: Add SAI MCLK output gate IDs
-Date: Mon, 23 Nov 2026 00:24:45 +0800
-X-OQ-MSGID: <3d57f149a33d6746224ecbb235e3b1e6f29890a1.1795363509.git.1194781887@qq.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1795363509.git.1194781887@qq.com>
-References: <cover.1795363509.git.1194781887@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axafC6tG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D11C1F000CF;
+	Sun, 22 Nov 2026 16:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795364891;
+	bh=w2jJbbjxqi3Ud6TAa04LKDmCAGuSmeUyHMDl5hTbDcw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=axafC6tGGgO6c19nmtvdrER4Uf95U+CjzXDNzQZvFCqphKUxWOkHCRLBEQdP644Rt
+	 ABSAtNNhmltPiOqOl07+pW37YGdjZt+3FSm6Xh33JMFxQStzJMWsQJOoe6SNMEWFgd
+	 5yKLqsF/aXt9x3/Yf8P3ekn4JJFIFaIO5KsouPWj9ftCRbIXv4LxwgjYnVlT8nEc0B
+	 2ldYStiYuW99sZpqKr8LSOWXWBaexKmDDxtXUgXP4Zth8zNOnNYlyBGzZJNltpSv6k
+	 4aeLB4/2nInxyC+h70ZGUVG/hkosAwGpf84/xQU08Ty/1RnOeEZygGn2PnUvt1XEUN
+	 hciXBDB++Ho2w==
+Message-ID: <sashiko-outbox-228098@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 07/24] ASoC: codecs: wsa883x: add VI sense capture
+ DAI
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261122161437.5994-8-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261122161437.5994-8-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 22 Nov 2026 16:28:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,32 +60,78 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add clock IDs for the four SAI MCLK output-to-IO gates of the RK3506.
-SAI0 and SAI1 are controlled by bits in the PMU GRF, SAI2 and SAI3 by
-bits in the system GRF.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] ASoC: codecs: wsa883x: missing port_enable check in
+  wsa883x_vi_hw_params()
+--
 
-Signed-off-by: Xiangyu Zhu <1194781887@qq.com>
----
- include/dt-bindings/clock/rockchip,rk3506-cru.h | 4 ++++
- 1 file changed, 4 insertions(+)
+commit 82c65105b12aa380210860d9001570f29fccfcce
+Author: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
 
-diff --git a/include/dt-bindings/clock/rockchip,rk3506-cru.h b/include/dt-bindings/clock/rockchip,rk3506-cru.h
-index 71d7dda2..708502db 100644
---- a/include/dt-bindings/clock/rockchip,rk3506-cru.h
-+++ b/include/dt-bindings/clock/rockchip,rk3506-cru.h
-@@ -281,5 +281,9 @@
- #define CLK_V0PLL_REF			268
- #define CLK_V1PLL_REF			269
- #define CLK_32K_FRAC_MUX		270
-+#define MCLK_OUT_SAI0_TO_IO		271
-+#define MCLK_OUT_SAI1_TO_IO		272
-+#define MCLK_OUT_SAI2_TO_IO		273
-+#define MCLK_OUT_SAI3_TO_IO		274
- 
- #endif
--- 
-2.47.3
+ASoC: codecs: wsa883x: add VI sense capture DAI
 
+This commit moves the visense port to the SoundWire source port mask, adds
+a dedicated capture digital audio interface and stream runtime for it, and
+programs the host clock divider in bus_config.
+
+> diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
+> index 64391d654a08b..6de669288d6aa 100644
+> --- a/sound/soc/codecs/wsa883x.c
+> +++ b/sound/soc/codecs/wsa883x.c
+
+[ ... ]
+
+> @@ -1335,6 +1351,25 @@ static const struct snd_soc_component_driver wsa88=
+3x_component_drv =3D {
+>  	.num_dapm_routes =3D ARRAY_SIZE(wsa883x_audio_map),
+>  };
+> =20
+> +static int wsa883x_vi_hw_params(struct snd_pcm_substream *substream,
+> +				struct snd_pcm_hw_params *params,
+> +				struct snd_soc_dai *dai)
+> +{
+> +	struct wsa883x_priv *wsa883x =3D dev_get_drvdata(dai->dev);
+> +
+> +	wsa883x->vi_port_config =3D wsa883x_pconfig[WSA883X_PORT_VISENSE];
+> +	wsa883x->vi_sconfig.frame_rate =3D params_rate(params);
+> +	/* VISENSE carries the V and I sense pair */
+> +	wsa883x->vi_sconfig.ch_count =3D 2;
+> +	wsa883x->vi_sconfig.bps =3D 1;
+> +	wsa883x->vi_sconfig.type =3D SDW_STREAM_PDM;
+> +	wsa883x->vi_sconfig.direction =3D SDW_DATA_DIR_TX;
+> +
+> +	return sdw_stream_add_slave(wsa883x->slave, &wsa883x->vi_sconfig,
+> +				    &wsa883x->vi_port_config, 1,
+> +				    wsa883x->vi_sruntime);
+> +}
+> +
+>  static int wsa883x_hw_params(struct snd_pcm_substream *substream,
+>  			     struct snd_pcm_hw_params *params,
+>  			     struct snd_soc_dai *dai)
+> @@ -1344,6 +1379,9 @@ static int wsa883x_hw_params(struct snd_pcm_substre=
+am *substream,
+> =20
+>  	wsa883x->active_ports =3D 0;
+>  	for (i =3D 0; i < WSA883X_MAX_SWR_PORTS; i++) {
+> +		/* VISENSE is driven by the separate VI capture DAI */
+> +		if (i =3D=3D WSA883X_PORT_VISENSE)
+> +			continue;
+>  		if (!wsa883x->port_enable[i])
+>  			continue;
+
+[Severity: Medium]
+Should wsa883x_vi_hw_params() check wsa883x->port_enable for the visense
+port before calling sdw_stream_add_slave(), the same way
+wsa884x_vi_hw_params() does?
+
+Skipping this port before the port_enable[i] check in wsa883x_hw_params()
+removes the only reader of that entry, which makes the visense switch
+mixer control a no-op and unconditionally adds the port and its two-channel
+bandwidth to the SoundWire capture stream even when disabled on an
+inactive speaker.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122161437.5994=
+-1-srinivas.kandagatla@oss.qualcomm.com?part=3D7
