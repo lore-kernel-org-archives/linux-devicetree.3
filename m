@@ -1,36 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795369597;
-	b=RvgA/oxyoywswlZBL8kQvMY8BVKhzeEb6xa5cHQWrgJOHQmYbeF3hDwnf8WwqeRQN4vx
-	 yItSrEwMAEmK03s+S6EbAhwwf1fyrA/VVTQcW9NR2aUrga7M89P5Juo0Boo74edUJpuO/
-	 7Rc3hFZ0xX5MTmpb/WR5RMXRcj+4UaB6GDKDhe4R1Z9sfVenp4PvJqErNF0GT4Zyel+6w
-	 jUbt0brjxwnTsBCBibynYIKBQKjlsuVKxCcN3bDcu81Fcx5blsLBh0rc/OdXVjarpTaR5
-	 2WBYclqhXlc3QJF83MTEm6Rc3AS9Ga3p+FyLXVcGt4heNjjla6Yv91vFm4D+c+Y+IMw==
+	t=1795369653;
+	b=kF5sVDlVEh96kUP4PsvwKy5B6p9YKwpN0BLY2ZQ6jFAHLGTSV4d2/8c61RmhwAFBe8XR
+	 3hNkqesip8Lpk7jPazyjCqLNO3p4Y6G6AOtJ2FBeRP2yG2RrREt4Hwl7CEd+QKUF3bCxF
+	 H+jh2l2jSeYo1xSRQqj0Vjvj4nnnSL1BAi8anf5zpwY1HXhpR+syFlgELnLZuQN+hC7+I
+	 Wb3hlVyJP/t8/WCHVsGRxQHeTu40RAwToYAJgcRq5Iww6KLyZXWjUTB9DEUmzgOIxNsrn
+	 khXV3WAXh/Pgpx7FEfjFv7wvgYSdXL7KLU2PHxhPdUHL/lqeXOQ/p4jWJV9G2wu0baw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795369597;
-	h=Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=mVOieMnt9xLSwzv3k2gMzam8wECE7mYSND8WyMrSV2I=;
-	b=JdfLvG9pl25S1SVW0g4WOQjPW58RNQZ9O8wlc9yxapj/46m12K8+tJYtNmkLXSywxob1
-	 9U53yKLjSkreE2tNENp3ulRhLVS/E7Oy+/Mc/Bouri8A3ffXiAp6SyFUJm6qFGyK9/ZOQ
-	 YeWLhyCgoxCRsHBVfiBbzui71KywPszvhwOA37MVrN8sqceuPDCpc+/7Quk1gQZ2gNE9w
-	 WJQQJaUJWt5Siax9oVqVG3Jznp/xS6qTwpCwWkuQejicHhIclVHCGmVU/4CdrYsmsk+Ap
-	 jVzZ1Y6un1sCQrdJmRD/zpoDnjmRSS6DL47MKyyvq9yrAXd6pDtfk2CPpEzecT+nDgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795369653;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7fhjVYmXhrknDoPzz+huRakSdfzB221xxAx/UlB18uE=;
+	b=IJC6cx/j992llyUGyDxkh+laMlv52kLlsF3jmml/pypiVgEGugncEZmnNl43lW1HEioC
+	 MsKcWn0Ltle+zfVFa69ljmef+ttGsVSwzmLGfOlqqxokxvkzQ2KVDXHXz8nQYWLO9c/3H
+	 0UKiCrBdfx9PQc52yv3uoh94NlK8igp7q+JY5o6P9EqM9uYvrwv1Dg0ZfA+3f/CJNJdmB
+	 AC6/XzhRxprMwA4xKPer1n+xU1vPrJWxokR+2Sf8k/rbAI+tBmcMzRpNKwHRcF1+lAj4k
+	 Rc9nlBKBF748npeX4imcgbchH1aE9bEZZcOVw9VHrQovmViy33wVBDjTBFNMurS33Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Lyxy/3Ny";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE0F606A320;
-	Sun, 22 Nov 2026 17:46:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D474D1F0156E;
-	Sun, 22 Nov 2026 17:46:35 +0000 (UTC)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Sun, 22 Nov 2026 18:46:21 +0100
-Subject: [PATCH 2/2] dt-bindings: qcom: qcom,ids: Remove unneeded ID
- constants
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49CAA606A336;
+	Sun, 22 Nov 2026 17:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lyxy/3Ny
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3E51F000C4;
+	Sun, 22 Nov 2026 17:47:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795369653;
+	bh=7fhjVYmXhrknDoPzz+huRakSdfzB221xxAx/UlB18uE=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=Lyxy/3NyKGcwyAFNUU1/4YFo1qqceNzJyE1KV8iPIkUdWqYUqIeefxkUXRwQcrTVf
+	 9kyGu6YqCLLYV8qyCmpHzK2wfvgQdRWIeJnrUVJCrGFbh3S58hanvNqYD+n58uco21
+	 TzeePT/GFz6No/C3YjWrLfwLkxYLEQI8Ih0akGe9g24uljauM2BBbqH294e4YtFUsu
+	 sqQl8Imf2ZTKUFUIaJ4FW9jsT2FkHNNoXfPnJWqhKNXtWqN5f/4MCsi2AJ55jDnURE
+	 FxJHbCFFcxcgCHmhydymaEVtHbR5W94jS/2QufygKlOwL5kjWkSXf3GifWfG8DUE5i
+	 rh5siygF1H23Q==
+Message-ID: <3b14efca-a115-4f43-b594-e7652421e7d9@kernel.org>
+Date: Sun, 22 Nov 2026 18:47:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -40,162 +51,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: arm: qcom,ids: Correct SoC ID for Nord
+ SA8797P
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261114133304.989635-1-shengchao.guo@oss.qualcomm.com>
+ <20261114133304.989635-2-shengchao.guo@oss.qualcomm.com>
+ <9eda2209-d64a-4a1c-915d-4415ac47df45@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <9eda2209-d64a-4a1c-915d-4415ac47df45@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261122-qcom-socinfo-id-dt-bindings-v1-2-eeee0ffa25da@oss.qualcomm.com>
-References: <20261122-qcom-socinfo-id-dt-bindings-v1-0-eeee0ffa25da@oss.qualcomm.com>
-In-Reply-To: <20261122-qcom-socinfo-id-dt-bindings-v1-0-eeee0ffa25da@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Ilia Lin <ilia.lin@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-pm@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4142;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=QDNX9rIc3+V78t7V9zIwvrM/AH6wvejJsDVcaxeNNFc=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBrAypw6/Q6ki0V+mKyE5/fGBby9Q4tgr2uLfbdT
- CiU67uizO+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCawMqcAAKCRDBN2bmhouD
- 1+1YD/9RDgOcFay831vJw10yLdmlnm5V4ceIY+fBLSJMbLH1Xs+IM6USjRSbWDUFIQS22Sx01wy
- lZdgJEdFJFqd6u6/yaDT0+/k4u97vQ8L5RuZE9BGZxUm613bhWw7Fmv5VkA3NMziF3FDVlggeSl
- amTOnBTl7dpowGp97y6Z7NOBPVC43J9z5co0oyGqwYyTI5tIb21Qg5dx6gzDU8RORkCdaAhvYTF
- ECx+iM1XyqGwt629N42fRjWdZHXtXmN9IjP3J2qS3J5bFOOHSc70hs7zLEoRg0tLXVw2l+PUyGf
- ghQQwy21gRKDS2GFRm8FHdOfkukPptNIshZLyzUodI5e/xB0jv+4LQ3awFflhVWcHFhACgI9/bT
- DFmAK3mSPz5tbNP+XkNhLUZLX/5H3XtvlPKPm6OaYoVD8UXhGu6dPGtY8OOH87HjPxltWfSQJC4
- qG/R4VhN2GH70vpCW5qn7EjwQKEGHynon4eu1NFJp/MO2VEr4o2oYDmxPxnB1ktAivRbtBo0uxr
- q7VeunKto177WXb5AKed+3imLjRZYGKBbFAf+tY8lilR9wVgkxrSbTX7DROfX10Ent1yzxD89YP
- KVnzHhmVNcQ4loIIZkWDxDPw+P7bq80t0P/5/KTTu4jKg+5AR9gP/wVLxvUE1uW0Iiy/f8MvPE8
- 3JbbS/Ud13oyqiQ==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 
-The IDs of newer Qualcomm SoCs, as reported by hardware or firmware, are
-currently used only in the socinfo.c driver.  There should no and there
-is no in-tree DTS user of these, so none of these constants are really
-proper Devicetree ABI.  IDs of older SoCs were being used in DTS, thus
-that part matches the concept behind DT bindings.
+On 17/11/2026 11:02, Krzysztof Kozlowski wrote:
+> On 14/11/2026 14:33, Shawn Guo wrote:
+>> QCOM_ID_SA8797P was defined as 690, but per Qualcomm chip info that
+>> ID belongs to the QAM8797P/QAM8397P Snapdragon Ride module SKUs of
+>> the Nord (NordAU) SoC. SA8797P itself is the default chip info
+>> variant of the family with ID 648.
+>>
+>> Correct QCOM_ID_SA8797P to 648 and add QCOM_ID_QAM8797P for 690.
+>>
+>> Note this changes the value of an existing define. There are no
+>> in-tree users other than the socinfo driver.
+> 
+> That ABI break for a marketing reason (which model names you use for
+> actual SKUs). Honestly, we should either treat it as ABI, so not change
+> it, or stop adding to DT bindings.
 
-Driver have local copy of these defines, thus these can be dropped.
-This has no impact on in-tree ABI, but any outside users would be
-affected.
+I sent a patchset for that.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- include/dt-bindings/arm/qcom,ids.h | 93 +-------------------------------------
- 1 file changed, 1 insertion(+), 92 deletions(-)
-
-diff --git a/include/dt-bindings/arm/qcom,ids.h b/include/dt-bindings/arm/qcom,ids.h
-index d89d3b5dd00c..ede8fb7ee51d 100644
---- a/include/dt-bindings/arm/qcom,ids.h
-+++ b/include/dt-bindings/arm/qcom,ids.h
-@@ -229,98 +229,7 @@
- #define QCOM_ID_IPQ5028			448
- #define QCOM_ID_SC8280XP		449
- #define QCOM_ID_IPQ6005			453
--#define QCOM_ID_QRB5165			455
--#define QCOM_ID_SM8450			457
--#define QCOM_ID_SM7225			459
--#define QCOM_ID_SA8295P			460
--#define QCOM_ID_SA8540P			461
--#define QCOM_ID_QCM4290			469
--#define QCOM_ID_QCS4290			470
--#define QCOM_ID_SM7325			475
--#define QCOM_ID_SM8450_2		480
--#define QCOM_ID_SM8450_3		482
--#define QCOM_ID_SC7280			487
--#define QCOM_ID_SC7180P			495
--#define QCOM_ID_QCM6490			497
--#define QCOM_ID_QCS6490			498
--#define QCOM_ID_SM7325P			499
--#define QCOM_ID_IPQ5000			503
--#define QCOM_ID_IPQ0509			504
--#define QCOM_ID_IPQ0518			505
--#define QCOM_ID_SM7450			506
--#define QCOM_ID_SM6375			507
--#define QCOM_ID_IPQ9514			510
--#define QCOM_ID_IPQ9550			511
--#define QCOM_ID_IPQ9554			512
--#define QCOM_ID_IPQ9570			513
--#define QCOM_ID_IPQ9574			514
--#define QCOM_ID_SM8550			519
--#define QCOM_ID_IPQ5016			520
--#define QCOM_ID_IPQ9510			521
--#define QCOM_ID_QRB4210			523
--#define QCOM_ID_QRB2210			524
--#define QCOM_ID_SAR2130P		525
--#define QCOM_ID_SM8475			530
--#define QCOM_ID_SM8475P			531
--#define QCOM_ID_SA8255P			532
--#define QCOM_ID_SA8650P			533
--#define QCOM_ID_SA8775P			534
--#define QCOM_ID_QRU1000			539
--#define QCOM_ID_SM8475_2		540
--#define QCOM_ID_QDU1000			545
--#define QCOM_ID_SM7450P			547
--#define QCOM_ID_X1E80100		555
--#define QCOM_ID_SM8650			557
--#define QCOM_ID_SM4450			568
--#define QCOM_ID_SAR1130P		579
--#define QCOM_ID_QDU1010			587
--#define QCOM_ID_QRU1032			588
--#define QCOM_ID_QRU1052			589
--#define QCOM_ID_QRU1062			590
--#define QCOM_ID_IPQ5332			592
--#define QCOM_ID_IPQ5322			593
--#define QCOM_ID_IPQ5312			594
--#define QCOM_ID_IPQ5302			595
--#define QCOM_ID_QCS8550			603
--#define QCOM_ID_QCM8550			604
--#define QCOM_ID_SM8750			618
--#define QCOM_ID_IPQ5300			624
--#define QCOM_ID_SM7635			636
--#define QCOM_ID_SM6650			640
--#define QCOM_ID_SM6650P			641
--#define QCOM_ID_IPQ5321			650
--#define QCOM_ID_IPQ5424			651
--#define QCOM_ID_QCM6690			657
--#define QCOM_ID_QCS6690			658
--#define QCOM_ID_SM7750			659
--#define QCOM_ID_SM8850			660
--#define QCOM_ID_IPQ5404			671
--#define QCOM_ID_QCS9100			667
--#define QCOM_ID_QCS8300			674
--#define QCOM_ID_QCS8275			675
--#define QCOM_ID_QCS9075			676
--#define QCOM_ID_QCS615			680
--#define QCOM_ID_SA8797P			690
--#define QCOM_ID_SM8975			707
--#define QCOM_ID_CQ7790M			731
--#define QCOM_ID_CQ7790S			732
--#define QCOM_ID_SM8950			735
--#define QCOM_ID_CQ2390M			756
--#define QCOM_ID_CQ2390S			758
--#define QCOM_ID_IQ2390S			759
--#define QCOM_ID_IPQ5200			765
--#define QCOM_ID_IPQ5210			766
--#define QCOM_ID_QCF2200			767
--#define QCOM_ID_QCF3200			768
--#define QCOM_ID_QCF3210			769
--#define QCOM_ID_IPQ9620			770
--#define QCOM_ID_IPQ9650			771
--#define QCOM_ID_IPQ9610			778
--#define QCOM_ID_IPQ9630			779
--#define QCOM_ID_IPQ9640			780
--#define QCOM_ID_IPQ9670			781
--#define QCOM_ID_QCF3211			801
--#define QCOM_ID_IPQ5211			802
-+/* Do not grow the list with entries which are not used as Devicetree ABI */
- 
- /*
-  * The board type and revision information, used by Qualcomm bootloaders and
-
--- 
-2.53.0
-
+Best regards,
+Krzysztof
