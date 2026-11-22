@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795365547;
-	b=Hp11YibEOw9BmJg7ZvrvFbGVFZpUhAIzIaFvGnvdE9gnfIjoqfoNQFyIP7kdsM5ezX7N
-	 p8mmVdSMdJzDF/VL8hMQ7h9obGG34rnmkWTD8hf7HuwKVG7vTftHPfcry6bBSOZLqtqOa
-	 6Twxsb2rK/GIuqO7sjzQ7/Zy566FLWnSmXVjgfrB9W8R3anJw2CltwA1I6P3z9zez/tck
-	 IgG6jQ6npEJpDxxSVKjP1HeKqe9wXs0geLHwZXYo39ixQ2HoQQncBIhOdF4tbtPBE2TzY
-	 kTLjhiRW0mfAdmGvSWVtOv4FNkkwL5rkg8vP7tZULTKJUsYkAtCpy+7X+pjyCnQ3W6Q==
+	t=1795365697;
+	b=TCz4Kaaygzeebr+rxL4aT/5xO6tI7oOXAjwr/3rrxy5HYwN9i0YIYBjfh5t8+lWta2ME
+	 HWdX+Qj915sF3HoX30a9DGzOvVMgHx24IklL9KYGW1wuxeT0f2o0eEQ0CfVG4SgHgpAUR
+	 zlQBibEbA/Emn8l0AkVQ4YMwLUO2a65x61JWWUIGuJhEMSldKXFd4JZWrNLgUvxrLAwZr
+	 w2XB3HRHF1+BdwvU+L052rYoo2FRukt0zf7f3FKnL1L41/1z2vH4weHB72a5F8pBck/fd
+	 nEudaeyt9KIsVG2eZ81FZJP/lCBVnvWUnv/D8F68Dhu/57Yk2LFQRSmwaaOjyVgKmyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795365547;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=34QMfa42+j/TZzNn7Ym2PfhWdmHuhRB1HZu/gZrYcZU=;
-	b=Maz1VocxDUjkJJK3xkleuW4zsdg0q7AgHxBX9PRly0YBPViqbS0NTcrdXbI8+VxrC0uh
-	 Mb7g53CCTcZtfnNwUwnabA1TEcbQ9sswpGp4aUR8iHOeceZysAo5By7ywK1jOtclnCkLx
-	 JLNwHOMKGwOf9iK+TuMS9NSjNRcBgkZHG1z0xKRxLgozDBcTnHInvkhUQOyP/sBNY/eEm
-	 OUFbgi7HBYsINTGywrO965seCgOhkkRkdWim4u04DkLjtUT1J7ohfH8kp5dWt/jwNdwL2
-	 JnqRfslNhwhJiXI8YPyzFO+G/DxUvMoi9XSzcEAlk046DCSpb5Q5yzoVWzuSDt0kFsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795365697;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ANyoMJ4I/ZZXkIVeIux+/xReRYj7vye3ccs0ubJ3Xyw=;
+	b=0e9OYkHAru/Nf552l4dDnXYvAH4VAfnzYupY/he630Erzabgt3O3a6VqZLUgKXbXmk4e
+	 qetVY9H5OZAGgEx2zBz2XPAhAer+40XID1SMmz4uy5P6MrpZuNGfICWdq7KysQv6CRvPB
+	 HMKtRi2bEJWYwXjxni3JUAuFTa39uN7+aN32CMTgz1tMweMCh3rdK6phBg1IN2PnDsMTy
+	 Q1hD5SA/nwCfNZGwWz4OW+2HOJRY43dMSvpKKdXNvbFgaeoX9KobOjKXa+3mZYP2EBP8i
+	 GMAnYe4yiWIJWlnIkj/Rdt3l9bI7g/gqepmN/s2EZNikwIG5Oj7/zNDUNyN38jyYQBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVJuGDGC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERyyMm6A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739C9606A320;
-	Sun, 22 Nov 2026 16:39:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD9E606A320;
+	Sun, 22 Nov 2026 16:41:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVJuGDGC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9799D1F000CA;
-	Sun, 22 Nov 2026 16:39:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERyyMm6A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382051F000CA;
+	Sun, 22 Nov 2026 16:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795365546;
-	bh=34QMfa42+j/TZzNn7Ym2PfhWdmHuhRB1HZu/gZrYcZU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XVJuGDGCWEzCv3Z1z3LzWHqb+kZzz+8BaDxz0G4UF7jyznvGTJxyZGWu7uXjjAmK4
-	 fn8GGrHjkHgucdcSNW8hDK0eIHjQXOUBxyIOI0QRPSNbftcszK3yxDkfKyLY7780Wv
-	 Cw/RSNphNHZw3rqtXn4Nm4E8CrHKZsUbBMzXXxIHRy8ANdqTVSTXypcKUrs1ZLz15+
-	 pRcHkh1/QrIt3pOfwgKIt5Z8zDSUkzbJEkQ//hUyUoTiOjb8BtW4qwzQ/CJC+xacaR
-	 spPzV4xejH7gbs4mV+2/vmZeRtECJqK8kI2+L612yjKavMT55lABKaMg+6as6b4gmG
-	 79SwecmZIFQcg==
-Message-ID: <sashiko-outbox-228115@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 22/24] arm64: dts: qcom: glymur-crd: add WSA speaker
- protection VI feedback
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261122161437.5994-23-srinivas.kandagatla@oss.qualcomm.com>
-References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261122161437.5994-23-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 16:39:06 +0000
+	s=k20260515; t=1795365697;
+	bh=ANyoMJ4I/ZZXkIVeIux+/xReRYj7vye3ccs0ubJ3Xyw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ERyyMm6AnaavY8k/uoU70c0I7e+zy5Jtz9KGcEokl7mSZ8bKpkKhwU6XvGPpIU841
+	 HcC6mpcSn4YpN423gWoR8vvCiC4O5i6UZksZIf7kQDGwNdBA1Zn0p6wwVI1j3EOgej
+	 p6Czj/jU0ur1qBXLvND05IbSwSgJkY3mgQrmnbtG0lBXxtc+H4nmctHxpcHRMxpp/j
+	 Cj1viyhdo6uLniYn523y5cjhZ5CcrutY0Zp3Hr0yCYi90HQ+RBqRMo2X0N7Bx4LR6z
+	 vHxLwmITxZ9NEsdRKKCLwHBKp1hG5Gp+Frpt/os6hCKfyEmbLg/wOwxCvT4GtZ33+F
+	 /xNgxa+sSWYhw==
+Date: Sun, 22 Nov 2026 17:41:33 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/5] media: iris: add support for maili platform
+Message-ID: <20261122-mature-rare-saiga-c0d3c0@quoll>
+References: <20261119-add_iris_for_maili-v3-0-d47d047a3f7c@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,53 +62,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261119-add_iris_for_maili-v3-0-d47d047a3f7c@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: qcom: glymur-crd wsa-dai-link sound-dai exceeds
-  binding maxItems
---
+On Thu, Nov 19, 2026 at 01:13:23PM +0800, Wangao Wang wrote:
+> This series enables the Iris video codec on Maili, allowing Maili to
+> use hardware=E2=80=91accelerated video encoding and decoding.
+>=20
+> Compared to the Iris3 generation, this block has
+> - separate power domains for stream and pixel processing hardware blocks
+>   (bse and vpp).
+> - different clocks and reset lines.
+>=20
+> fluster result:
+> H.264:
+> Ran 76/135 tests successfully
+>=20
+> H.265:
+> Ran 138/147 tests successfully
+>=20
+> VP9:
+> Ran 235/305 tests successfully
+>=20
+> Dependency:
+> Dependency:
+> https://lore.kernel.org/linux-arm-msm/20261103-vpu_iommu_iova_handling-v6=
+-0-e4b6ad864f8f@oss.qualcomm.com/
 
-commit 8ab83f1947839b4f7156f526acb14af8beb8c7f8
-Author: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+This cannot be applied, not mentioning that itself has dependencies. So
+you depend on patches which depend on patches and none of these can be
+applied due to conflicts or some other issues.
 
-arm64: dts: qcom: glymur-crd: add WSA speaker protection VI feedback
+> https://lore.kernel.org/linux-arm-msm/20260917-glymur-v11-3-e0c8bc914742@=
+oss.qualcomm.com/
 
-This commit adds the WSA8845 speaker V/I sense DAIs, SoundWire VI ports,
-and WSA macro VI capture DAIs to the WSA Playback link in
-glymur-crd.dtsi, and updates the speakers' #sound-dai-cells to 1.
+Also cannot be applied.
 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/d=
-ts/qcom/glymur-crd.dtsi
-> index 3a9cd5f3ec2b8..8b477df6901a0 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> @@ -252,10 +252,16 @@ cpu {
->  			};
-> =20
->  			codec {
-> -				sound-dai =3D <&left_woofer>, <&left_tweeter>,
-> +				sound-dai =3D <&left_woofer 0>, <&left_tweeter 0>,
->  					    <&swr0 0>, <&lpass_wsamacro 0>,
-> -					    <&right_woofer>, <&right_tweeter>,
-> -					    <&swr3 0>, <&lpass_wsa2macro 0>;
-> +					    <&left_woofer 1>, <&left_tweeter 1>,
-> +					    <&swr0 12>, <&swr0 13>,
-> +					    <&lpass_wsamacro 2>,
-> +					    <&right_woofer 0>, <&right_tweeter 0>,
-> +					    <&swr3 0>, <&lpass_wsa2macro 0>,
-> +					    <&right_woofer 1>, <&right_tweeter 1>,
-> +					    <&swr3 12>, <&swr3 13>,
-> +					    <&lpass_wsa2macro 2>;
->  			};
+> The above patchset cannot apply cleanly; I have rebased it locally and=20
+> tested it. And only the third patch from glymur is needed.
 
-[Severity: Low]
-Does expanding codec/sound-dai to 18 entries exceed the maxItems: 8 limit
-for qcom,glymur-sndcard in
-Documentation/devicetree/bindings/sound/qcom,sm8250.yaml?  Running
-dtbs_check on the boards that include glymur-crd.dtsi fails schema
-validation unless maxItems is updated in the binding.
+Dropping from DT patchwork. Combine with dependencies.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122161437.5994=
--1-srinivas.kandagatla@oss.qualcomm.com?part=3D22
+Best regards,
+Krzysztof
+
