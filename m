@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795387848;
-	b=mFMCsn5QiZgIqas3ijUyhpNNWtWAJE2kY7Lk65m0ksIv8W/gtTT3z7bDUkwpjKTUs8Jf
-	 8yq3Eq6PsLZ60s4xNJwl/49gE3xfLSh4h+9aJKmk7qpSbVQgT74HVJT5ey3kDcaWNfTde
-	 ZZ2geSAlsv9In8yv0YF3lNsozk9+lvy3geVcG61wJ2+dMemo/h8jslHNLVKeGZzQP3RLC
-	 WsYi0oDSrwCVwUax2aojWMcAMaAtJTwDGyLOR30erQbC8ujljOgE1FDr4UadSRovUb6sp
-	 BvetdV4AaOYTdGuvT0YjIP5A0fyhOspu1uaizEQLtwQPSdskpoPoy8N4DIfCpCCVnuQ==
+	t=1795387847;
+	b=VPFA+loi2sZLLanrGWGGcrRmlVqKFX6zfD3oGu1Wa/fPYqa2UFwq3UVoBLy8oTq0GVzT
+	 nNMQod6ukLOwZoytZg9s42AxRPZ5Tvj785oKftBCljPLm0nMfNLQji4sry4w2bU7TM8pQ
+	 39osUajaXWLwi2VlTc4EaJNaDWazvHrtDKmFrIWXtXdtJEa63G3UDofLpIHygszrWRi0f
+	 VNl3dJxwD6xX3XMo2oxmeJB885FJKqSFWw4xvE8xXrg8kZOYlBX/cMtnC41WU39jIJVdv
+	 XmpikMYSP2aclAmAXYwHeVp+QIVggI+h2qs59PMekKAWgVTwJFhz9TEKZYTBP7RTlqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795387848;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795387847;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=IcX3holNlfbuwWe3ymUNcnF4pepySHThrxLBq9wtl3s=;
-	b=Jl8N+ER1+HuUph7F16FbQYJ4vWA8iwu6xj91yLYELYP6K+E3+v0y4WzTVKS4ii8Zkmjl
-	 5PvfVEhM2jqit4iHhcPo/8x60cnUUctPknhnzgGOFeOid2mqjL3RGtbJESFaZV5TvNFqu
-	 mAFwcYJkXXvmP82iNt5F6jfJw4kEVCxeViQ0cxT9x6Qq7AJ8qEmNXWfTqcZ0mHMfFBiKf
-	 6I48sC7Ob6U+1MXwPaXetgM1boB+0xjrnc+TgDQPBRS6Cy6N4zYPfZsjo676P02JvytQB
-	 jT1N/DCkFCyNT9M+ch+hmSxzvmjUQwyNkXQ3HtYbilCHfpLKEMMYKMqdegJJhiSbiIg==
+	bh=zhzorV+YhbTY7mbA8l/NasCEWm6joOpMt0hDwmNwiIU=;
+	b=luzWcLlp/KYJbvq5L7hBAGc+7RCHvzDZqOYsep3Cp/vg4rsAkB5x5uwjYUNX8bPI4otQ
+	 pViFqcfqquXJBBlgrGt860CAk4o/Nh7gOZ2mJ/3lZe/YZdbIg2VT17n9fImAApy09NN7q
+	 MybOqRYc/uHhjM82F0Le+2EU11XWNkbuYsZbnPfrjA6tLIBnoix5Sh3YZm6K3C68XI693
+	 /Swn59v2RPArqvZhKmdph0PaxXKD90nVS1Lm3grEPhVxIEd80lQvKc4Bfu82oYeLcYbIt
+	 qxyWIyIz2axvAu+6bXTjB1GXuor6I0HdeKZXw5j3zjDpdgQqkncWsQwYdeibyRADf9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=LbPpzx2j;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=PEMGhAAE;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85539606A6A2;
-	Sun, 22 Nov 2026 22:50:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85539606A6A2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADBA606A335;
+	Sun, 22 Nov 2026 22:50:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DADBA606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=LbPpzx2j
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=PEMGhAAE
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=IcX3holNlfbuwWe3ymUNcnF4pepySHThrxLBq9wtl3s=; b=LbPpzx2jqb5JH5okmQ1Jw7ZMvA
-	A5AWcc+1nHOMXWVRf5lA2aD9uBLp8CQff5xrM41vLOk9zF4Za3X3qoBoW4oB2AePlzyQKZ0IU9Vos
-	jK6fP6uk5l5YBLoc5Z3QPAucSN2XkmEQgmo8wlL6lGGKe/SL4s9Ed3Z1VBCiGRQNAziJcTXwcY3W2
-	jaO3VkuCEH672vnFfJfviNNtAefevIQfA5HEBCdFTI0XtcifhFjQPYUVB8lmzaYJeqjMJ0c2HOqo5
-	YSz5W/dqNhy1TLoJd7lunMlTQUDW2W1JJopvQVE5v+EK4nbQ4zvmTb1Yf84XuDFlTz/mgt6MBbqiV
-	tsHU5ucA==;
+	bh=zhzorV+YhbTY7mbA8l/NasCEWm6joOpMt0hDwmNwiIU=; b=PEMGhAAEnrqiDG7aDCHdsaHreN
+	yWnV1ubdWaW6VBvulUkRs8Q3qdFBNFR0grlKGhDhLM+0rD1EUHiHsgmzh2rRqo1aXXnTIfg4MdAxE
+	0y1XROFkU28RdYgfk2UkJHFOMzYtvxPGqfdt5UqvmIF/PxfAywLxLdMATSDVSsCdikqqDiUXZO8ZK
+	JnTgupENfhZOIn2kjx0h1WzvQYH2RXp3vhmWbEX32gH5E6gaUoYLJ39ukysuw8nrbP36Nv3KsgR0g
+	+sx7IINryri5V2B4168RZ5v1dapJ86yCxa9cLzLJOLoNPvJJiEOSpVElHevhJISj+tQZmpYnHDXfP
+	Vevm9Hlw==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
+To: Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Pufan Jin <cyan2254650260@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Heiko Stuebner <heiko@sntech.de>
-Subject: Re: [PATCH] arm64: dts: rockchip: Correct double space in rk3576-anbernic-rg
-Date: Sun, 22 Nov 2026 23:50:25 +0100
-Message-ID: <179538782468.3150822.17090825292677759861.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] arm64: dts: rockchip: add USB-C PD and DP altmode to LubanCat 4
+Date: Sun, 22 Nov 2026 23:50:22 +0100
+Message-ID: <179538782473.3150822.5472875370609070388.b4-ty@b4>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113185311.183045-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261113185311.183045-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261110193028.512456-1-cyan2254650260@gmail.com>
+References: <20261110193028.512456-1-cyan2254650260@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,13 +71,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 13 Nov 2026 19:53:12 +0100, Krzysztof Kozlowski wrote:
-> Correct minor style issue around white-space: double space before '='.
+On Wed, 11 Nov 2026 03:30:26 +0800, Pufan Jin wrote:
+> This series enables the front-panel USB Type-C port on the EmbedFire
+> LubanCat 4 single-board computer, covering USB Power Delivery, dual-role
+> data/power, and DisplayPort alternate mode.
+> 
+> The port is backed by a Fairchild FUSB302 controller on I2C1 (0x22),
+> a fixed 5V VBUS regulator enabled by GPIO1_C1 (limited to 2A by an
+> LPW5209 switch), the RK3588 combo PHY usbdp_phy0, and two DC switches
+> on GPIO4_B3/B4 for the SBU1/SBU2 lines.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: Correct double space in rk3576-anbernic-rg
-      commit: 009e1d975af303a3b76b3d13846788fe986fd847
+[1/2] arm64: dts: rockchip: add USB-C PD support to LubanCat 4
+      commit: 42c1e1db2ac799921819851237f22055c0af15ff
+[2/2] arm64: dts: rockchip: add USB-C DP altmode support to LubanCat 4
+      commit: dbc094626a087d379ea6ab2bf6c730965a87fb80
 
 Best regards,
 -- 
