@@ -1,112 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795329964;
-	b=daIZMzuNCnfOqIA42EndQPCN7e67yYxv/f3TzYZghecXD9GDx70u1e2y3nzBZVbvLud7
-	 wbSro5ix8Sq/pdD29fG2hUqSANsoQxUXbPdUZ8XGJthmymDSYzxPwy+LnqFVzFog/RMCK
-	 S6ZhfEf8vCp+OpxacjaMpqt5Bss1B8B4b0Qj3IN4kvxx2UHjUs1iB2j3vcY+VPQsDr03e
-	 81vvYh80OhejYm5KEqy8joXVUGNJZf6iOKFJtEH1mHgpzR+cVOhxSPa69YQyRvkt+Vbfk
-	 GR33egrVIl5d9ZfVRhGw2/dKwPpMi9u26Wsa9JF1NYtLytRwK/scNSaicTcbA818N/w==
+	t=1795329969;
+	b=pqumrrdzZpbOEoRaiw+s4nUJIhCw3iMAWbtju4MRUG/S28P2+RIeRqWnbwmqVi8qYgID
+	 9/OWu+9uOgcVbjEyaacHfX/Y0WsHnMKJWvlpxz3WKECkJbi2Z/b2a8D7caaEyNg6Nf269
+	 83+pocSgMkb2ch+hoyTmYrn9o1jG104P4u/M+4k8yPc+FGJHH075HXcr1sMG6FZgodEHw
+	 6TwseD9y/IDUDU0M1+ewq+qwx44UjIlG35Bu8CHmhc7ZFO70eNzZd/+6/6Optg55oSHAP
+	 lqk/oUVnHmb/z+a3d3+FvMf/wzurYGn1JZf/sBjcBxIpjmKfaiicgp9/UZxEFXvWBAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795329964;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795329969;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
 	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=tuiQQpowNDqgIViUd3V9zwNZ82lxLYXnJLlZHlSUB8g=;
-	b=hiHCMEfnXRt45O+bwOJ2YUntWat39nKoZDIK/JPpiSTwOnEJAfaJfj7hri9RUYaDiDa1
-	 UaXpHrudO9PGESvWJXTfIuqtgN4fxrv9MT3aHc/3DAhBcPR5SPV0iw9Zev3lsvz+zctuv
-	 h3JFCEUa1VYbOdcG0KiY/CPJtSmGtOpPqTm/noKSIcyutcFqDe0p9GGJqriQr622T0S3o
-	 UFOql4p+jgJ9shaS8Jur2fu7SbU4eNxSaXjslg2vFe9owjIZXHmWEJHuyO/AKDITAsIvw
-	 CUcldZnjg3A0CV/rrROXgIwmUY7L9W52ZnzK3/oVZ18jAmmKJP2pyOxxylS2YDuAnJw==
+	bh=H/b9r64wVj4efOL6ncKUcE6MGl+qFdrpSZkrqiV+IvQ=;
+	b=jC6zYRnAzcYxjrYn/+/CQUzxkbYM0r5G8Pa9akV8/akwGGVkNjYE3/qZTX2GG46cI+vZ
+	 p73hGZpSFfez/q3UnhCZv7WLQuLZOr5j0Qi85GM3wv7Qptg7zG0bvl44pqDJxlG6Ihx8k
+	 tUcY7TLucQLNrZQva7VgIY82SavW+hlCq9tTaL0tuZJ1SNA8sFzVpiSd3+EsB5F46JBP2
+	 17m+A6nc3shG3e6ANaao1OdC2/HY4ru+2OtkSeT8hWIq4WJUMWYvb2B+y7eJLM43FnVxa
+	 yycbmMms70Jogi4j9E9dbAwkWiyxhhr2/kwFpwhPbjTzTzFJg04TJ0gqOqN+mOUikig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AV0WbZ7v;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iVMZWAu3;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g1AHavZA;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ThTc3t5Z;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2904606A32C
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:46:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2904606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D770606A338
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:46:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D770606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AV0WbZ7v;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iVMZWAu3
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AM3kEkn3342336
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:46:02 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g1AHavZA;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ThTc3t5Z
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AM3kCqt4034223
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:46:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=tuiQQpowNDqgIViUd3V9zw
-	NZ82lxLYXnJLlZHlSUB8g=; b=AV0WbZ7vT2NcAG5tkq4+5Wq87eEDHO/50r6Dmv
-	tskHEeXHI49aFcGrDi7gBYrBQNmx2gtvJtDzfz9RSCq+vIkZGfBpoe34ipds3vSq
-	xnxnRAKCwrw/YXiMjIR2MDJiz8aYFMNWGvmzbD+tfzxt+c0yWzoHGkV3ziD+MrXr
-	lficYUvYtHjM9q+wQozxwth0lAa5CGkkY5LrmZOS7VTrrq4DXnXTlyB8CdOB8xHX
-	Ookk7wJu5TFrrYx7kluPWtLIKmWxqmx3zD8XMsLJmjVMm5RmfrSGSyRATQCDWHxQ
-	wExjQJcJx30Wa1wHAOy7b077t1zsA2Mq1s1/Uy0Lt8rQ3/NA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j310fb51h-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	H/b9r64wVj4efOL6ncKUcE6MGl+qFdrpSZkrqiV+IvQ=; b=g1AHavZA7+/wFP3E
+	uTSCsL0EAT/1GL1ykBhS5je5x4i5qA2Z+GxS1wGLKGKU08+DeycL++wFjUOyYJXb
+	847WGawtFvuJJwCyfUHpD87YnFsZxLfEngF2/eIIguZ9CFmgOh6c1jmOxSCqA38C
+	7GJ8v7gN2RYelZWt9qKN4uBhiO7tI5zPTc5G6bW/x66WPAQaZPKlN0zDAfJo6aES
+	nquRrdJ5FM2RAh+g1cxNuLTA3UGRpgYXJqX7vE//KjWpFFGc12baATZfaEODQLYV
+	CSGVM8FHhS9e8H4WlMECO3cBq3I6bMpmyQqQA23OHTqg5j0kC9v/Z/uFmFe2jiqz
+	+uL5Jw==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j32w02w8d-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:46:02 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-384c78aa0dbso3291239eec.0
-        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 22:46:02 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 06:46:07 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-384c78aa0dbso3291339eec.0
+        for <devicetree@vger.kernel.org>; Sat, 21 Nov 2026 22:46:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795329961; x=1795934761; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tuiQQpowNDqgIViUd3V9zwNZ82lxLYXnJLlZHlSUB8g=;
-        b=iVMZWAu3/MXg8/uzA1lhXlf0Fxwcu54+TU7BUKXF+oFqNUk72uHm8g5oW5IFw14wVg
-         98eZyUgX24Fm4YQi0o2T/0tMJIXx5x84Hbo6tNHV65L1S9XxoVNnJY11l6YOloYG8D1U
-         DeJ/Ws6DwQoG3g3XJYrK75/GCIkdVccw4IBYI0b/8f69BgLSB4Mlgqu4UEQHfgDm5CVd
-         m84c4wmPwTgkkpeRSUtr/2e4DzRqbvrt0EGAoRJahgG348dHQ5EZBzTvlGwElOlYDv7u
-         quaaws1VRcfKfAibcsEjc7ZXnhn3XiWqp+yHH24PMmDpT2/CAuLG54yPZbPm2cbcpL8U
-         YYJQ==
+        d=oss.qualcomm.com; s=google; t=1795329966; x=1795934766; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H/b9r64wVj4efOL6ncKUcE6MGl+qFdrpSZkrqiV+IvQ=;
+        b=ThTc3t5ZyZSNmmF/0nuTCUptAC3t+nz0BSYp/A2S4tXuxCl/9VNh6p3REGDLQP9Ke+
+         w6l3qHB1cL8W0JMXtDxOU93Aa9U9L+36hx88trqCHknWbQLeB8lNcrw8jPwdp9QBgqGa
+         z9q6wiTyys8GxzeGTvR/7q9epG/GQ87HxhjDxq9+W2LjRDH2iYbQ/6hYS++1Ho1nqT3v
+         m2BYbLbV6HJVdPnEHk9ZMO/8rECGDAqnfyeZqBcEF1COPyb/sVd3dR+x3zotu1eVKkEF
+         YkJ0QbaCyDZQOEwnTvwLOO73GcxHAJ2gW0PWGjRIOYyxg8VJfjfYR5CYtuUZiAorif8f
+         xD7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795329961; x=1795934761;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tuiQQpowNDqgIViUd3V9zwNZ82lxLYXnJLlZHlSUB8g=;
-        b=XM3yQAsX9ALR25uZNdgT9xh47L0CTBrLRvfwSMndy6nXErAeYYjYkRdhc1iNuoe84S
-         YlzUo4fVKOikv2Ns4UJ0pFxPYBE97suDMf/NcySESMFFebY3+Pp7qP7YwDn0k+ti2hhf
-         XAcT7rq4uaQlRmz8QLtnZ5MAu8THHUrhzx98NHMJJGYMxE6rJDWE+ZEuyxTxNvv2Myl3
-         qTSEQsqbcDn4dOQ0j6ttu021b+o1FfWBW71ARIJqm4IbewkOMezic5maEwlmaaxWr6Od
-         rsLkNXXN0RB9DoYR0NQqFhhKAv3lC85GWfv3Lf9VfsaubEgVeTG7FONsNKSCASmtYsjA
-         VpNg==
-X-Forwarded-Encrypted: i=1; AL+hErH/T32pz6HPtLF7WnouWe4w3eIGwEIRdJ6q2MvMDEymkokn6FDpZf1WccXl4cuvFXjMlpEsz7uUiDMk@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SnLJfFMUJedr05OAg9z47Bfzs/E9R7LPj3Ues5oqmP688Swl4
-	vtTYqpltvbdxv3zFCk5LscLK2r1UtyQ7QPiE4xZeLEoCm3vJ/FSh5X/Z9L9qC3XFXWx+CEgdpXN
-	lQ0VCqoKIKLsmFxGiKHaFaQi3QJQ7SbmWUMaFEWcbq4N3OthiSc9z6uZw27NJe8nF
-X-Gm-Gg: AZFdTZfrxC6qE/D/3v5lO2N47p1grs5OdQVSM1PK9SztLiolNKQk1uNIYc8rRNxtYUB
-	xAxyEI97OLgl3VbxNLzjv7WmY4A7s5xeI/VEM8UExtawUM4bvuh4z6QTl5LmUoh2rO1pkgkKApF
-	imqJnKE30ySxcu8vhaI0al6R4mwUpAJWbkRBTBUeaT7NHE0jlcTVmmxDLafn31SN+mU3UOvnKJc
-	thWsqXz2cLQznyXXcUyclTmlkZjGj3X5IUnJPQHiugRknYXPV0YFN56VC88lkEtvD7sReCOI7ku
-	Ys4Q4MbRjkwfiyLHILfS5RYkAoafcrqlFCmD2n+GmFPJ6fxdZlL3Ci33qGqbUpqNudFHO+kmAq1
-	X1mVgCpStwQb5ThAZXnVumOqClQnK7es9UTEy3f6DHQPLKZa8V+pbj76P30Q4CGQ2GkKX9uS9Xv
-	5YQtN6QHcf
-X-Received: by 2002:a05:693c:638d:20b0:375:c862:31c with SMTP id 5a478bee46e88-38571816d35mr8055956eec.40.1795329961149;
-        Sat, 21 Nov 2026 22:46:01 -0800 (PST)
-X-Received: by 2002:a05:693c:638d:20b0:375:c862:31c with SMTP id 5a478bee46e88-38571816d35mr8055938eec.40.1795329960649;
-        Sat, 21 Nov 2026 22:46:00 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795329966; x=1795934766;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H/b9r64wVj4efOL6ncKUcE6MGl+qFdrpSZkrqiV+IvQ=;
+        b=qc7k0zjnhFrI1a9Qvg7ntbnkJ8CLlMQO070/NLbqB4vq7AiQOlNtlsr6k6Kx3lRnKd
+         i+yrGhaJ0erHrzUuT1dUp2hv7SaDlAN+0vJM6bsyo1oEtcwKmgszccxqtxdpA1g5CckW
+         W5S/2e3Sna4UBZzxcrDTHnqfw4MwHy9J97gXlH08m40KQcah9/QAAnpqJqnGwaA0d6D7
+         ajXh/JOIaCwCU25mXrtbFAPWoOny71IROYFRamfSbc3rMhku1SntuftXSq8tqkaiwr0+
+         wvwd1hkxYlPP5zhwIu62arOZ1tWqYR/bf+MizHjnc+UbdVaAiXRR1VWLpz7jd04hKl2B
+         qjzQ==
+X-Forwarded-Encrypted: i=1; AL+hErE/sGFC6QheYnvmllzL6hi5WqQ/iIUfyo/2E8G4bzQOvQaMl0E7GzBUsNnYmOmIseWaJrzgvxXkrRxZ@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HhV0MdFwqf0iMR9oXoTuxBqF/i3cMnqAGvZjJoyym/cmqdgC3
+	HaxUCGpvRMmvGrXHDpMbLn9MERyutcUncdgVP/zinrbwHJ7YR9yz9jqe2ZH8R4xXsokbQcityj5
+	sy5hWTLg1CuolkfzkXzV0DeBuWZksfMJQImeAOOIG/6A6FyXoUypkBZrNSvMrEHLb
+X-Gm-Gg: AZFdTZdLq82FSw3l69PvXWxXiQp2P1XvXWOF1TnYI9XcXtQnf0CZxk96Xq8NU8Atpya
+	Ws3y3CFDe8tpYXzTwyiizY7o03We0I0+vBRIegrWbnJzAwcsvv5a/oQc6EXqwOpTR+ocr5kEXQC
+	3lXz0NJ6bcG9wL4mnTJaYlTBq7a8NyE4Yyn2aaUDp0DEk4ux7j61TXvWipGw13lL2ihHh7LopZf
+	F1MMqiovUe+s2opKq0qKQGYzy56v96jfilYw/+dyj7UnV842V/Zqn5JYSzEMCZZl6tYA34oCXTK
+	fi7vv3VMKwf+pSKGHWrYI6a3ybQnmyTQgrl1NzXj59QdrWlWuUc69xotGfNW6Gr0n8w4iraBrb5
+	MNJXs684uqSl/RrrBuHcHzDyy4DNZ5UgscvsVVgf1xZ5iD51z3StoHsAaCSKgZCGi2nlN2IxwyE
+	ZiEb2wTuIE
+X-Received: by 2002:a05:693c:8084:b0:36f:4981:da16 with SMTP id 5a478bee46e88-3857073f5ebmr7775371eec.25.1795329966141;
+        Sat, 21 Nov 2026 22:46:06 -0800 (PST)
+X-Received: by 2002:a05:693c:8084:b0:36f:4981:da16 with SMTP id 5a478bee46e88-3857073f5ebmr7775348eec.25.1795329965510;
+        Sat, 21 Nov 2026 22:46:05 -0800 (PST)
 Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd40c5sm27598615eec.10.2026.11.21.22.45.56
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd40c5sm27598615eec.10.2026.11.21.22.46.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 22:46:00 -0800 (PST)
+        Sat, 21 Nov 2026 22:46:05 -0800 (PST)
 From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Subject: [PATCH v2 0/4] power: sequencing: pcie-m2: Add PCIe M.2 Key B
- connector support
-Date: Sun, 22 Nov 2026 12:15:50 +0530
-Message-Id: <20261122-pcie6_fix-v2-0-2e0fe615d90b@oss.qualcomm.com>
+Date: Sun, 22 Nov 2026 12:15:51 +0530
+Subject: [PATCH v2 1/4] dt-bindings: connector: Add PCIe M.2 Mechanical Key
+ B connector
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,11 +119,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJ6PAmsC/22NQQ6CMBBFr2JmbQltsRBX3sMQU8ogY4RiB4iGc
- HcLbt1M8n5e3izAGAgZzocFAs7E5PsI6ngA19r+joLqyKBSZWSqpBgcobk19BauMabJqqLSRQ7
- RHwLGeW9dyx/zVD3QjVtgM1ri0YfP/myWm/evO0uRClvrXOrM6ZPVF8+cvCb7dL7rknigXNf1C
- 2zrkBS7AAAA
-X-Change-ID: 20261021-pcie6_fix-cf66f4b8b387
+Message-Id: <20261122-pcie6_fix-v2-1-2e0fe615d90b@oss.qualcomm.com>
+References: <20261122-pcie6_fix-v2-0-2e0fe615d90b@oss.qualcomm.com>
+In-Reply-To: <20261122-pcie6_fix-v2-0-2e0fe615d90b@oss.qualcomm.com>
 To: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -135,99 +134,419 @@ Cc: Abel Vesa <abelvesa@kernel.org>, alchark@flipper.net,
         linux-arm-msm@vger.kernel.org,
         Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795329955; l=3040;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795329955; l=15475;
  i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
- bh=nBLbfXrnUeOg/k3lrOwzMPzMyjCM8oeFudQrYc52rUI=;
- b=w0703ZbG7o+IyOKcodaTDYKM0mrFG87bvx0OmCPwNrsb0f1gNsudmjaQoF/ORAk8AdndNGWdj
- gYfEUfxCaXeDzxpAlxR0a/rHWuYGe3GTmExBpLrYgFg27qpjnbhIHeQ
+ bh=zcs4vGjIwXcjS+UfeXqojSMnLw/E4xL2h8k0QNt0xzg=;
+ b=b64UBy6CYP+LsGSWtzSBImMsk2RKvPgyZK1jQmjgVVBF3+HF5Lj6V/rdo+zKSJGwP19HENvXg
+ zY/rNaeLBqNCKWk4KH1v5EtIOPmpPIf60uOQay5rbOvUhlOnt+/m5v/
 X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
  pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIyMDAyNiBTYWx0ZWRfX9gN/gGeyczrd
- vgjiiWHk0eSuwANU2Q7asusoV/mrJod9VFJpSJbN1QpcXbQHDzbl2DnezjXQDWaxt0V7YORNHOD
- ZVN4SqIOYZKmJBNZwt9fNygZCbBcWq/zVMarV2n+SwkR1bnUnpgFbKr0PCeboJmw7n1TRKKZPms
- RcjBGloBT86zTQo0XyDXdiKwSj+gtmcrbvWdWVto0hW9H6dSRTVxaeYhhWTIkmq6Ymc/s40XsRu
- DNZwKg3ZTb3AYNSVZY4fe4P+5usZHyiSaBmnGBysu+laMcrrO+2eZeCxcDT91JnUVUki9WgbhBk
- vlHEKxBn9AGGH8wwjldXnl/yEYOss9NXfCcTzU8Bx7aVnecJdCgzLWy/NETJIMc0NHw1k7PMKc8
- S6ascLeA8pFPnHJ0zBKlZtSmKzp6GHnvtbZ7T/XEv8ElzS9lur58Del3vclc6cBM9dz/hbHExno
- LzoDluCCRhDDH+xTvAg==
-X-Proofpoint-ORIG-GUID: a6Tm__KwcCKhRQTtAZQpluKOd-SX5rvo
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIyMDAyNiBTYWx0ZWRfX1uVjgryiuPyI
- jASV+KPtHW/Y+ib2tTjOaWFpaXWhxYpli1OsY3dOxwM9V0qq+n0Q3fVz0hlqTTrmoGbXJYzIgkq
- dgS4GYBYcBLSA9YDABuNccyVBFnblMQ=
-X-Proofpoint-GUID: a6Tm__KwcCKhRQTtAZQpluKOd-SX5rvo
-X-Authority-Analysis: v=2.4 cv=UN1Ijyfy c=1 sm=1 tr=0 ts=6b028faa cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIyMDAyNiBTYWx0ZWRfX5C6dBE1N09PS
+ riPazAxapZBcRBLpyw2WdemOBtxH/6JwevnZbPipfZGVdFH3SgmUFlUMpFx6yhtg7VWs7K2msEK
+ myJTucfVBd91gmZ1SX2jg1sld/7Fk2fHxQ/qKvXzWQAAY8ZHwqkiV1Nh5RiHUhR9+XZS1ktCSq7
+ uaAAUcSwkqHpUEAidP/obglo6yazY8vVgTrHF36/8s2sb4o0GJ7BOSaK/BMLgDhWNM5MZ/FFYig
+ gBMuMeceyQMueDoMuDhxdhwfOzC83Zy2QNdEh0yE5dR+q+xj96Z4QW5x3QHCgrVdHH5chTXRng5
+ zBfXcEmM+efv/IM7aBey7bg1GTkPLVAhELLkZndz8JwwJRPCdD6JA+O/tzio8+uGVXnA4AFt82g
+ +Q5lAVyPubX0o+IdZ+83RDO76EJp/Mds3qSdBvsq9VAGS4A/jWHWweqAd/kUKtLHA3Su3UqEhJJ
+ B0+Tdvpkj26F+exr0CQ==
+X-Proofpoint-ORIG-GUID: hbeS_KbwxJsVP592qtXdn6pLjSVHnDDd
+X-Proofpoint-GUID: hbeS_KbwxJsVP592qtXdn6pLjSVHnDDd
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIyMDAyNiBTYWx0ZWRfX0eHzSpqqs6pV
+ 3hs2NfpaABnM1D0YdlkgDuy3BlmlfwIoRQEavy+haZ4Ybz2sCI/liMcaaSVqz1VLhYr6LIxNcCS
+ ZnCkLh9G0vxHudLdc/Q/RN+oAMnfoK8=
+X-Authority-Analysis: v=2.4 cv=S+dMU4sP c=1 sm=1 tr=0 ts=6b028faf cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=zkpMToBQJcapbifWyZsA:9
- a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22 a=FO4_E8m0qiDe52t0p3_H:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=MlodEPlAgwUD-2UE0MMA:9
+ a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22 a=sptkURWiP4Gy88Gu7hUp:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-22_01,2026-11-19_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
- lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0 spamscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015 malwarescore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 suspectscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611220026
 
-Add support for PCIe M.2 Mechanical Key B connectors, commonly used for
-WWAN adapters.
+Add the devicetree binding for PCIe M.2 Mechanical Key B connector
+defined in the PCI Express M.2 Specification, r4.2, sec 3.2.19.1. This
+connector is used to attach WWAN Adapters to the host machine over
+interfaces such as PCIe, USB3.1 Gen1, SSIC, or USB 2.0. The slot also
+accepts SATA and PCIe SSD Adapters, which use the same pins.
 
-The series introduces a DT binding for the M.2 Key B connector and
-extends the PCIe M.2 power sequencing driver to handle the 3.3V/VBAT
-supply and the FULL_CARD_POWER_OFF#, RESET#, and W_DISABLE1# signals.
+Interfaces that share connector pins are described as one graph port
+per pin group, with the endpoint number selecting between the mutually
+exclusive interfaces.
 
-Finally, describe the WWAN M.2 Key B connector on the Glymur CRD and the
-Nord RRD. On Glymur the WWAN supply moves from the PCIe6 Root Port node to
-the connector, so that the slot power is controlled through the pwrseq-pcie-m2
-driver and the PCI pwrctrl framework, like the other M.2 connectors.
+The connector provides a primary power supply of 3.3V/VBAT, along with
+optional GPIO signals: FULL_CARD_POWER_OFF#, RESET#, W_DISABLE1# and DPR
+for WWAN Adapters, and DEVSLP, PLN# and SMBus ALERT# for SSD Adapters,
+plus an I2C parent for the SSD SMBus.
 
-The series is based on the qcom tree [1], arm64-for-7.5, which has the Nord
-PCIe root port DT nodes that the Nord RRD patch needs. That patch also
-depends on the Nord PCIe controller support from the PCI tree, which is in
-linux-next.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git/log/?h=arm64-for-7.5
+The function of the GPIO_0..GPIO_11 pins depends on the Port
+Configuration, so they are described by gpioN-gpios properties with the
+function of each pin per configuration documented in the binding. The
+Adapter configuration is either sensed through config-gpios
+(CONFIG_0..3) or fixed with config-state, which defaults to WWAN PCIe.
 
 Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 ---
-Changes in v2:
-- Binding: describe SATA/PCIe SSD Adapters too, since the Key B slot accepts
-  them (Alexey)
-- Binding: add optional config-gpios for CONFIG_0..3 with the Table 3-18
-  decode, and config-state to fix the configuration on boards that do not
-  sense it; defaults to WWAN PCIe (Alexey)
-- Binding: replace w-disable2-gpios and wowwan-gpios with gpio0-gpios to
-  gpio11-gpios, as GPIO_0..11 change function with the Port Configuration;
-  the functions are listed in the binding, with the IPC pins and CONFIG
-  state 14 marked as vendor defined (Rob, Alexey)
-- Binding: add optional alert-gpios for the SSD SMBus ALERT# (Rob), and
-  i2c-parent, devslp-gpios and pln-gpios for the other SSD signals (Alexey)
-- Binding: replace one port per interface with one port per muxed pin group,
-  with endpoints selecting the interface: PCIe lane 0/SATA, USB3.1/SSIC/
-  PCIe lane 1, and USB 2.0 (Rob, Alexey)
-- DT: add the Nord RRD WWAN connector (new patch)
-- Rebased onto the qcom tree, arm64-for-7.5
-- Link to v1: https://patch.msgid.link/20261021-pcie6_fix-v1-0-ad37134c35a3@oss.qualcomm.com
-
----
-Krishna Chaitanya Chundru (4):
-      dt-bindings: connector: Add PCIe M.2 Mechanical Key B connector
-      power: sequencing: pcie-m2: Add support for PCIe M.2 Key B connectors
-      arm64: dts: qcom: glymur-crd: Describe the PCIe M.2 Key B connector
-      arm64: dts: qcom: nord-rrd: Describe the PCIe M.2 Key B connector
-
  .../bindings/connector/pcie-m2-b-connector.yaml    | 332 +++++++++++++++++++++
  MAINTAINERS                                        |   1 +
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi           |  29 +-
- arch/arm64/boot/dts/qcom/nord-rrd.dts              |  40 +++
- drivers/power/sequencing/pwrseq-pcie-m2.c          |  70 +++++
- 5 files changed, 470 insertions(+), 2 deletions(-)
----
-base-commit: dde0308a2f8867806a444df1fdd7e685b1c56d5b
-change-id: 20261021-pcie6_fix-cf66f4b8b387
+ 2 files changed, 333 insertions(+)
 
-Best regards,
---  
-Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+diff --git a/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.yaml b/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.yaml
+new file mode 100644
+index 000000000000..4760863ff4f7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.yaml
+@@ -0,0 +1,332 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/connector/pcie-m2-b-connector.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: PCIe M.2 Mechanical Key B Connector
++
++maintainers:
++  - Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
++
++description:
++  A PCIe M.2 B connector node represents a physical PCIe M.2 Mechanical Key B
++  connector. Mechanical Key B connectors are used to connect WWAN devices to
++  the host machine over interfaces like PCIe, USB3.1 Gen1, SSIC, or USB 2.0,
++  selected by the Adapter's configuration pins. The slot also accepts SATA and
++  PCIe SSD Adapters, which use the same pins as the WWAN interfaces.
++
++properties:
++  compatible:
++    const: pcie-m2-b-connector
++
++  vpcie3v3-supply:
++    description: A phandle to the regulator for the 3.3v/VBAT supply.
++
++  full-card-power-off-gpios:
++    description: GPIO output to FULL_CARD_POWER_OFF# signal. This signal is
++      used by the host system to turn off the entire Adapter. Refer, PCI
++      Express M.2 Specification r4.0, sec 3.2.13.1 for more details.
++    maxItems: 1
++
++  reset-gpios:
++    description: GPIO output to RESET# signal. This signal is used by the
++      host system to place the WWAN Adapter into a power-on reset condition.
++      Refer, PCI Express M.2 Specification r4.0, sec 3.2.13.2 for more
++      details.
++    maxItems: 1
++
++  w-disable1-gpios:
++    description: GPIO output to W_DISABLE1# signal. This signal is used by
++      the host system to disable the WWAN radio on the Adapter. Refer, PCI
++      Express M.2 Specification r4.0, sec 3.1.12.3 for more details.
++    maxItems: 1
++
++  dpr-gpios:
++    description: GPIO output to the Dynamic Power Reduction (DPR) signal.
++      This signal is provided by a host system proximity sensor to the
++      Adapter to trigger a reduction in the radio transmit output power to
++      meet regulatory SAR requirements. Refer, PCI Express M.2 Specification
++      r4.0, sec 3.2.13.4 for more details.
++    maxItems: 1
++
++  alert-gpios:
++    description: GPIO input to the SMBus ALERT# signal (pin 44, shared with
++      GPIO_2). SSD Adapters assert this signal to indicate to the host that
++      the SMBus device requires attention. It is not present on WWAN
++      Adapters. Refer, PCI Express M.2 Specification r4.2, sec 3.2.14.2.1
++      for more details.
++    maxItems: 1
++
++  i2c-parent:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: Phandle to the host I2C controller connected to the SMBus
++      pins SMB_CLK and SMB_DATA (pins 40 and 42, shared with GPIO_0 and
++      GPIO_1). The SMBus is only present on SSD Adapters. Refer, PCI Express
++      M.2 Specification r4.2, sec 3.2.14.2 for more details.
++
++  devslp-gpios:
++    description: GPIO output to the DEVSLP signal (pin 38). The host asserts
++      this signal to tell a SATA SSD to enter the Device Sleep power state.
++      It is only present on SATA SSD Adapters. Refer, PCI Express M.2
++      Specification r4.2, sec 3.2.10.1 for more details.
++    maxItems: 1
++
++  pln-gpios:
++    description: GPIO output to the Power Loss Notification (PLN#) signal
++      (pin 8, shared with W_DISABLE1#). The host asserts this signal to
++      notify a PCIe SSD that a power loss event is about to occur. WWAN
++      boards use w-disable1-gpios for this pin instead. Refer, PCI Express
++      M.2 Specification r4.2, sec 3.2.18.1 for more details.
++    maxItems: 1
++
++  config-gpios:
++    description: |
++      GPIO inputs sensing the four CONFIG_0..3 pins (pins 21, 69, 75 and 1
++      respectively, listed in that order in this property). The Adapter
++      grounds or leaves unconnected (NC) each of these pins to tell the host
++      the Adapter type, the host interface in use and, for WWAN Adapters, the
++      active GPIO_0..11 Port Configuration. Boards that only ever use one
++      Adapter type should use config-state instead. If both properties are
++      present, config-gpios takes precedence. Refer, PCI Express M.2
++      Specification r4.2, sec 3.2.15 and Table 3-18 for more details.
++
++      Table 3-18. Socket 2 Add-in Card Configuration:
++
++        CONFIG_0 CONFIG_1 CONFIG_2 CONFIG_3  Adapter Type / Host Interface   Port Config
++        GND      GND      GND      GND       SSD - SATA                       N/A
++        GND      NC       GND      GND       SSD - PCIe                       N/A
++        GND      GND      NC       GND       WWAN - PCIe                      0
++        GND      NC       NC       GND       WWAN - PCIe                      1
++        GND      GND      GND      NC        WWAN - PCIe, USB3.1 Gen1         0
++        GND      NC       GND      NC        WWAN - PCIe, USB3.1 Gen1         1
++        GND      GND      NC       NC        WWAN - PCIe, USB3.1 Gen1         2
++        GND      NC       NC       NC        WWAN - PCIe, USB3.1 Gen1         3
++        NC       GND      GND      GND       WWAN - SSIC                      0
++        NC       NC       GND      GND       WWAN - SSIC                      1
++        NC       GND      NC       GND       WWAN - SSIC                      2
++        NC       NC       NC       GND       WWAN - SSIC                      3
++        NC       GND      GND      NC        WWAN - PCIe                      2
++        NC       NC       GND      NC        WWAN - PCIe                      3
++        NC       GND      NC       NC        WWAN - PCIe, USB3.1 Gen1         vendor-defined
++        NC       NC       NC       NC        No Add-in Card present           N/A
++    minItems: 4
++    maxItems: 4
++
++  config-state:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Fixed Adapter configuration for boards that do not sense the CONFIG_0..3
++      pins, given as the state number (0-14) of Table 3-18 of the PCI Express
++      M.2 Specification r4.2. It selects the Adapter type, the host interface
++      and, for WWAN Adapters, the Port Configuration used to interpret the
++      gpioN-gpios properties. Ignored if config-gpios is present. If neither
++      property is present, state 2 (WWAN - PCIe, Port Config_0) is assumed.
++    minimum: 0
++    maximum: 14
++    default: 2
++
++  clocks:
++    description: 32.768 KHz Suspend Clock (SUSCLK) input from the host system to
++      the M.2 card. Refer, PCI Express M.2 Specification r4.0, sec 3.1.12.1 for
++      more details.
++    maxItems: 1
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    description: OF graph bindings modeling the interfaces exposed on the
++      connector. Several interfaces share the same connector pins and are
++      selected by the CONFIG_0..3 pins, so each port describes one group of
++      pins and its endpoints describe the mutually exclusive interfaces that
++      can be present on that group.
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: |
++          Pins 41, 43, 47 and 49. The endpoint number selects the interface:
++            0 - PCIe lane 0
++            1 - SATA
++        patternProperties:
++          '^endpoint(@[0-9a-f]+)?$':
++            type: object
++            properties:
++              reg:
++                enum: [0, 1]
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: |
++          Pins 29, 31, 35 and 37. The endpoint number selects the interface:
++            0 - USB3.1 Gen1
++            1 - SSIC
++            2 - PCIe lane 1
++        patternProperties:
++          '^endpoint(@[0-9a-f]+)?$':
++            type: object
++            properties:
++              reg:
++                enum: [0, 1, 2]
++
++      port@2:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: USB 2.0 interface (pins 7 and 9)
++
++    anyOf:
++      - required:
++          - port@0
++      - required:
++          - port@1
++
++patternProperties:
++  '^gpio([0-9]|1[01])-gpios$':
++    description: |
++      GPIO connected to the GPIO_<N> pin of the connector, where N is the
++      number in the property name. The function of these pins depends on the
++      Port Configuration selected by config-gpios or config-state (Table 3-15
++      of the PCI Express M.2 Specification r4.2, sec 3.2.13.3):
++
++        GPIO  Pin  Config_0     Config_1     Config_2     Config_3
++        0     40   GNSS_SCL     GNSS_SCL     SIM_DETECT2  IPC_0
++        1     42   GNSS_SDA     GNSS_SDA     UIM_DATA2    IPC_1
++        2     44   GNSS_IRQ     GNSS_IRQ     UIM_CLK2     IPC_2
++        3     46   SYSCLK       GNSS_0       UIM_RESET2   IPC_3
++        4     48   TX_BLANKING  GNSS_1       UIM_PWR2     IPC_4
++        5     20   AUDIO_0      AUDIO_0      RFU          AUDIO_0
++        6     22   AUDIO_1      AUDIO_1      RFU          AUDIO_1
++        7     24   AUDIO_2      AUDIO_2      RFU          IPC_5/AUDIO_2
++        8     28   AUDIO_3      AUDIO_3      PLA_S2#      IPC_6/AUDIO_3
++        9     10   LED_1#       LED_1#       LED_1#       DAS/DSS/IPC_7
++        10    26   W_DISABLE2#  W_DISABLE2#  W_DISABLE2#  HSIC_STROBE
++        11    23   WoWWAN#      WoWWAN#      WoWWAN#      HSIC_DATA
++
++      The IPC_0..7 functions of Port Config_3 are vendor defined, as are all
++      functions in CONFIG state 14.
++
++      On SSD Adapters (CONFIG states 0 and 1) the same pins are SMB_CLK
++      (GPIO_0), SMB_DATA (GPIO_1), ALERT# (GPIO_2), PLA_S2# (GPIO_8), and
++      LED_1# or, on SATA, DAS/DSS (GPIO_9).
++
++      Only list the pins that are wired to a host GPIO. Pins used as a bus
++      signal in the selected Port Configuration (I2C, I2S/SLIMbus, HSIC) are
++      not GPIOs and are not described by these properties.
++    maxItems: 1
++
++required:
++  - compatible
++  - vpcie3v3-supply
++
++additionalProperties: false
++
++examples:
++  # PCI M.2 Key B connector for WWAN with PCIe interface
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    connector {
++        compatible = "pcie-m2-b-connector";
++        vpcie3v3-supply = <&vreg_wwan>;
++        full-card-power-off-gpios = <&tlmm 121 GPIO_ACTIVE_LOW>;
++        w-disable1-gpios = <&tlmm 122 GPIO_ACTIVE_LOW>;
++        gpio10-gpios = <&tlmm 123 GPIO_ACTIVE_LOW>;
++        gpio11-gpios = <&tlmm 128 GPIO_ACTIVE_LOW>;
++        /* A zero phandle marks a CONFIG pin that is not wired to a host GPIO */
++        config-gpios = <&tlmm 124 GPIO_ACTIVE_HIGH>,
++                       <&tlmm 125 GPIO_ACTIVE_HIGH>,
++                       <0>,
++                       <&tlmm 127 GPIO_ACTIVE_HIGH>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                endpoint@0 {
++                    reg = <0>;
++                    remote-endpoint = <&pcie6_port0_ep>;
++                };
++            };
++
++            port@2 {
++                reg = <2>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                endpoint@0 {
++                    reg = <0>;
++                    remote-endpoint = <&usb_hs_ep>;
++                };
++            };
++        };
++    };
++
++  # PCI M.2 Key B connector used for a SATA SSD
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    connector {
++        compatible = "pcie-m2-b-connector";
++        vpcie3v3-supply = <&vreg_ssd>;
++        config-state = <0>;
++        i2c-parent = <&i2c0>;
++        alert-gpios = <&tlmm 130 GPIO_ACTIVE_LOW>;
++        devslp-gpios = <&tlmm 131 GPIO_ACTIVE_HIGH>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                endpoint@1 {
++                    reg = <1>;
++                    remote-endpoint = <&sata_port0_ep>;
++                };
++            };
++        };
++    };
++
++  # PCI M.2 Key B connector used for a 2-lane PCIe SSD
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    connector {
++        compatible = "pcie-m2-b-connector";
++        vpcie3v3-supply = <&vreg_ssd>;
++        config-state = <1>;
++        pln-gpios = <&tlmm 132 GPIO_ACTIVE_LOW>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                endpoint@0 {
++                    reg = <0>;
++                    remote-endpoint = <&pcie_port0_ep>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                endpoint@2 {
++                    reg = <2>;
++                    remote-endpoint = <&pcie_port1_ep>;
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..b9db9686dac5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22255,6 +22255,7 @@ PCIE M.2 POWER SEQUENCING
+ M:	Manivannan Sadhasivam <mani@kernel.org>
+ L:	linux-pci@vger.kernel.org
+ S:	Maintained
++F:	Documentation/devicetree/bindings/connector/pcie-m2-b-connector.yaml
+ F:	Documentation/devicetree/bindings/connector/pcie-m2-e-connector.yaml
+ F:	Documentation/devicetree/bindings/connector/pcie-m2-m-connector.yaml
+ F:	drivers/power/sequencing/pwrseq-pcie-m2.c
+
+-- 
+2.34.1
 
