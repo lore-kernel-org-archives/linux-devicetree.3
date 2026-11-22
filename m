@@ -1,136 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795347365;
-	b=hYeIqBIF9BYUr9pyUTs6UXk1DOgIbI3KpcqSsdZfoWCjxrghLz69+z85FkmNs4YKTgKE
-	 d33Zzr66mRhl6uKjrLHeTJCO/md2rASBZNyROnoWzVxAPWAN/LGKrVi3rx9PcOpwXyaiU
-	 Njaw7WH4JzE1QJlqA08Ok6qfiL7919nmSDstSGCBO44vLsXzdumG/UL3broH9BiuKrVjr
-	 m6SehHocPr1rldt/+lWjfE6fCO6sGXZLoWFSgem0VQrKaEwE0J+iI11R9wEfoxWaUxHE9
-	 r9jrCjn7w9a0+jcy4ObJ827E0THNNFeD8uxsbZR9OA1PbfHd/EkwFp1mZuveSfygxtw==
+	t=1795348255;
+	b=vYKC8FP1TR+pBqwz7uh60+WWpVnp5P5XmuzfEBIFaPeguZd1TLXv5nPR0dBZSVeZy0Hn
+	 bf7IiwoEXwOSocAGzqa4eWSuKDhGVmL/spvIWQGEInZZg1qNpv39fHpIKBG1q10BcHBlE
+	 MigXGJrBfuGNsGSGBu4FPaRy02BDUO62ijhpXxRD34LNsL4rSRKEIgcGNCWEaeLSVVN4T
+	 mCn3h0QNHIQRDuQa2KS3fX2YbZlZiR8F6Mdh6b2RMa963QpYnee4tNVapby+IFCzffcIv
+	 7zfhxuhiMY2gb9/5rbTC6xYHWz01PSKMDuSlz+cs/haFdEPhKA4JYDNixYWT0r7smOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795347365;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=muP6DUXg9dLTYnQcGiDX4DlIbKU6QaKtbQTgxjz4/ac=;
-	b=SRloifM5LruA3GCba+Z8qt4jC0ohihEHGbb4pHolNpASDhZKHBjZ28vwc55zo0CBerzf
-	 vYB5mdblIkt6cSfez70KwIGvNzmdV4hE1VPlQTDTkzJ1sz1LR9qT+nAAPgNWyxOtChCHQ
-	 BrkZdIfCrRtlxZanopTXCdD2KO733P38zGFYzGuVtxDT9ggUjw116ah9Y8mWM/82XS7VD
-	 sPL5xG4hC+BP78YDW2cdG6B2HbBx6eEJpsWLJITM8Yl42qirjZfOO+I82FrlhB2Ck5Dl1
-	 n+6QgUalMTUd7lWhqdjnEVWusf6xndi0u9sM8RfmVzNgxiwnnXIKqd2Twk46XyAE+TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795348255;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=cB68K9VszL8x8rzgkP/c3kcIxRgyD3G47ftVYkV0bxo=;
+	b=MqJ+LOHPSZKlRwh8PlBb+h6UNqaqAKAI6lWkaG0Mx6hLG05+NlZpECRxCPFCFZoCBpI2
+	 9yJL6Gm/vgHM2W1vQkcuPTUqW6xCrxIbxqc+/tTZL2+ddJSbIedmOX6Fb1GFi7qaAASCr
+	 cFWg6Xf2MqKL1mSBXSWptsdOGgqLaCmAF4Wyewrntlhzla7iVsFKMUgsD5ioaLOPrP5Lv
+	 9OG3BATCgz1OjS615bETq40cl10xG6UwuSeYG/Oy9jxKcb7KLVzVAUCvRry/x/sfa2IWH
+	 oSzPZBtW2OLsyJGxJgAOOuQHYg1BaL5cmSG6ZNtafn7wvArNwc3nd3iZfDaejvulHaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OoVMAZwD;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Du7TtbHq;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=BXTr1Cpc;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B0F606A32A
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65B0F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DC5606A332
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71DC5606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OoVMAZwD;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Du7TtbHq
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AM86U2A971914
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:36:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=muP6DUXg9dLTYnQcGiDX4DlI
-	bKU6QaKtbQTgxjz4/ac=; b=OoVMAZwDbDBmoUb8eL+mcd6tZqZuGBWTCaYdmzvH
-	a4LczG6uBQdDCngULHnaLsEti630LKNx+rmTtFs/DtrydtD+etmxlurqOl60/gn3
-	5HHU2BY5OGxG2VD2QNT6ZM4IcAsQEBWBConkyp8WWHj0heYkBstjxkcNanBWsPcH
-	OG/DyLDsLAvsoi8fjVEgRoUsXnrvThzLU+KGKhUdDeFOLRG6iCmsk79EPQZ+qSYt
-	PJblJILb8la5oFCW59v4HjjtHQZO3RHoH2RaiBTjKvuKhH19y9LLwsm/kyZJ4PxJ
-	eWZmY1U2a5M9ztCfItMRjezgsGRXbsG1FfPJWtTehEIT/g==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j30nnumwg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:36:04 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b56c696405so2078333c88.1
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 03:36:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=BXTr1Cpc
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso29902675e9.0
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 03:50:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795347362; x=1795952162; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=muP6DUXg9dLTYnQcGiDX4DlIbKU6QaKtbQTgxjz4/ac=;
-        b=Du7TtbHqr1vjCwWUmT+Gkp1MRR6z0kDHQ0awROW0/OoGhKnynW3K65dzjWb6dmyU/V
-         iS0QBbi5JpEXDiZcsDzxsgMsQkPRth6t8jKTLZ/707UwSsSDPcZb+Ci1TWKRj6O2Lhll
-         7L6zcQ+p3Z0S5l2kzgPZLX9Q3l8aF1FBfJDmI0OibFYtdCG+3u4q6Q2EYdIUyHOHCV5i
-         /MttkT0EwY7FYygub2MPZtVEY8vlzglni8b7vxHJsn42VDxmmUMSq9bc75gltsdB32dp
-         7Bgcre3jIhv2HAvJJvcbq10WZW/uBKWGWI+IgbLLxE9L5h0/sHMFafLrm5ijBYQ2kbuq
-         5drw==
+        d=baylibre.com; s=google; t=1795348253; x=1795953053; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cB68K9VszL8x8rzgkP/c3kcIxRgyD3G47ftVYkV0bxo=;
+        b=BXTr1Cpcmy5ZiD6nkwYf1A1L9ZCyVYQHqcj/Y58abuAg0pgE+RhWyVUsieT75cDdvA
+         yXOVqq9c9hQTpcmTAl3ScYgP2+pzG94AUnd7Uu4iGgq3E3TMY3RPgcYFU8CIhyOXkAtQ
+         6QXhqoI2wKBNCHgXsMWP+XUqvnAlFEPs5i+BUSiOmf60BkH8bKtqwa8wsOG0qCTCUyKR
+         PxWNmxMZi9bt3P9i5qg5gwa1pMbvEjvVgMNHP4YDTedsiWQiXKi35IBNUoW+1g8DA+rM
+         3l+Y3vBncVdAEAdSfwwYN38uSr/9Qvu50bGdHuTrC4i2USUQZeZDuVTuAPEeaNczUs7c
+         a8Rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795347362; x=1795952162;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1795348253; x=1795953053;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=muP6DUXg9dLTYnQcGiDX4DlIbKU6QaKtbQTgxjz4/ac=;
-        b=HYbgagO4bTg0HRMLKQGU1awIk/VJpdYI96Yoe3xqXGS/gt4chAoI9nF2Odqu84f1uE
-         XrUlt/KLRAdWi5W83UuF1sY9LVXvRsq4rGGmmpMxcUQwTjv9vzqk9PCwCLfRxfqW6on3
-         3zrdwCZoQ6ISfCLpVZtEByf+I7Yo/JLp9NZ2KfI4RD30cBDB/9CfsxFozeeCmgRtrHKq
-         26EQaDFbCaZgmEID1zlOnwFtopA6OwOMxDtYsUM9AeV4JHPqMQpYP282UHVblX0v3fnK
-         475CD1DwjJcq5C9ZAiOy7Hv4ngi0b2Wwai5CUwmOztpKaxQ14N2kMve6v1KQdqY2SD4B
-         J4Pw==
-X-Forwarded-Encrypted: i=1; AL+hErHKhq15bThbGdV129QqtTtLnvG8EQGzcQTWTCQeAbS3M7QpVkcAwgwm7DJ7Km6KGGfPnYHO7YSBIrys@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/ehtqUbJQgwVK7Q6kbdwQkn7juc7LMEYfYuhFq1CEg0dRY1e1
-	SDPINq/qppPmh5YeHJQir2ir4T2IG9/T/KfAicIAkesfDjtNSCxH9zW2oZq/sEL9/vRwSapZXrq
-	rpamfwnUhSqxZXxqY597PC3n5tobWTkuknzp/UyHdk93WLICdF+dEcpgKEnyxsM5N
-X-Gm-Gg: AZFdTZcB1Zgj/0DM3ijNnuGpnkNRego+8PHmxqEWa+OgntPj7LaeLm0tqkz3PYsu+1m
-	TvJ1lPPsCM22IJbZ63FMWuvIWKWvdE3yHSc9A3L3Bs0pcWL9/AlAFwyxMy32Jdv0wOnePxOKsL0
-	ZygXbBQfgsINYK0LD7r9OygWZVHYo4NpxyCBBPIXR+UzMYWkOWkCWj7C+AWwiXIr17uLNCQSGGW
-	9jif3UJVXGWihgABfBE8+9nkq/LWPRP/q3N4qUJ4pW+tjYr6LQl9Ux5DMrY4Mj7JeDumU0X2qgb
-	vWoPWsV9Vbcndpl6sy/cO7z6U8lABNH6snmZbk+DmveXs7XGVrIvBcxECjAlNRmpRorVxD+f+Ko
-	jrwBFMo7HVig/dZcSJ29jRWyhIG31i2BcZAMwS47s2M7swmzr/8JlmWiGCwQHpPQ=
-X-Received: by 2002:a05:7022:7f04:b0:166:af48:a2ba with SMTP id a92af1059eb24-1b5566fdfc3mr10202041c88.0.1795347362116;
-        Sun, 22 Nov 2026 03:36:02 -0800 (PST)
-X-Received: by 2002:a05:7022:7f04:b0:166:af48:a2ba with SMTP id a92af1059eb24-1b5566fdfc3mr10201991c88.0.1795347361468;
-        Sun, 22 Nov 2026 03:36:01 -0800 (PST)
-Received: from oss.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556847fdasm23234990c88.13.2026.11.22.03.35.54
+        bh=cB68K9VszL8x8rzgkP/c3kcIxRgyD3G47ftVYkV0bxo=;
+        b=Zio6FX3msCLEZ93Cuo1nIQYuY5WlaOxuXgq28gBBC4cuVHCP1ZaQF5397FOL18BJla
+         ZbsWRWPsVOv2+IiDy2t5pgx8bM3gGjH+OwaKWyk/o4/aavntAlIMsckLk5JNBK//ct3g
+         1Fnw4ojtUQK1qHngiyGHEsuwjFbm53bnrZG9rRrNKtp/oi2kmNNR5G/LXSYHjMu/xPb9
+         egXQZ0mBCnYzbgzKfFy1Vphs1f7y16x76TJNUYxwkxO0Xi5HI3d6fe8LQ4PGcRQREHxP
+         UqR6dk4KZ2WBzTEtH+HWpkvNd35EIzuAUMgzpzA8OkIlJ4TEkZrQtI/9byIVPDqVTi2+
+         hcdw==
+X-Forwarded-Encrypted: i=1; AL+hErEQJSZ7wkPsH7vWZ5lw/JksV3F/7dfqEkICbSsyBzjMkzdElc7NZoabfCgA9TEhFnUx0YNxWzXapVZF@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TY7hsautdfX1nQm80sevVIzhtVLfRkie2e4TLP29RMgRpJHQ1
+	enPo1XHunsEfw483uasasas/tDZugA6bypZuniiIYu7WyryCoOVLbCH9ZqDZBBMsQLLImaSXWF4
+	A1Xxolf0gfQ==
+X-Gm-Gg: AZFdTZeLam0wyO9NxGifkyiGXK5SzRqS6PfY1dK2JhAaLfhqRHgvwARBVEz41iMn1yP
+	r+1zs8MJfc8KiR7UmHzfsmznLKtJdXCrX9xeOhi9eM4H0DNNqhnSk6cQTkb6uFXaDHqJiBaXi9k
+	hgWm0DQnTa/dJKaRd1VxOqdP1Ni2UGpZUqahIbXYR7PhC3YB+Rkyh2fIJIoxUkgFGNb/8IpqYSj
+	JHCgbaI1GKvdYAPWzJt/IccN/oczKZom/obDuVYqZcRorf9Yxv34UnGNCbxVVPAUTnNe7Tdi8oU
+	p2XJShEk+ME3FMD6gqTz1KaBDfBZLJ1lu0aoerk6nU9c/mGeTiENqIXnqyxQzcQnS/E43+wsw0O
+	Aa6NGlEBMpR2wp9j3ND+KWdZarDS0rxQck6qCvy5i9mX4oiOVukF7vzfysajHHKGWjVXITSO8hd
+	UNSGWujI1B6Bc7F0cXJFmgDtirsjuDt/LlHSjjEtyDnFSJsFnjyBSfcgAJeEkHxEo04DIVVDTWA
+	SV63JqXQP04CAVd0tk/qKCHG/dZOj0v6raE7K/UwzYZN89Q91WXa9jQBG8mCe/NsmTzVETKPkI8
+	9BQiQlvzu4YzoQf1zLZCH9XQ6yafRSRDQ9pZKx46R2BjbEQe
+X-Received: by 2002:a05:600c:4f81:b0:4bb:5e8c:13bc with SMTP id 5b1f17b1804b1-4bb88805902mr173405365e9.7.1795348252406;
+        Sun, 22 Nov 2026 03:50:52 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b39b6sm224616505e9.12.2026.11.22.03.50.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 03:36:01 -0800 (PST)
-Date: Sun, 22 Nov 2026 17:05:51 +0530
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
-        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Jose Abreu <joabreu@synopsys.com>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-        netdev@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next v4 03/10] dt-bindings: net: qcom,ethqos: add
- qcom,shikra-ethqos compatible
-Message-ID: <awLTl77S5Pj0Maok@oss.qualcomm.com>
-References: <20261117-shikra_ethernet-v4-0-c41902e5f2fa@oss.qualcomm.com>
- <20261117-shikra_ethernet-v4-3-c41902e5f2fa@oss.qualcomm.com>
- <20261118190745.GA198891-robh@kernel.org>
+        Sun, 22 Nov 2026 03:50:51 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -140,177 +90,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118190745.GA198891-robh@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIyMDA0NiBTYWx0ZWRfX0tKHL1A0TPr7
- qP7AEAMM84jbmX8rY23OnwcrfVJ9Cat2CgZBbZqoSoJkMs+ogK2Wi77Fr5KHk7pWbSKaCMPcWXf
- Blbyd7lrWuQXxe4JIEpgiqqPZN9Gb5Jy5Juwv3//mMFQIGl2R/u56Zp2BSd73k9WwG3tbjQ0Bmd
- NOdkGfjYOO8D2I4/jFu/qoIk7SvHwPG5popY5kLaPgHU9eZVbouDuCCaBr9ZIvgYbj4wnqtIhZa
- I0wyxaEGbClOD1CjWZh6k4NCwAvurqsUtF0hD8WFz4ud9iMfD9KC1Zn3HhhikQ6NzWcqmwtk6id
- Zeemx5tFMuVfYU/g7xdE9WGN+8hJryXuu2oiw0CJ6zq7OvB32ZNTFQp4JfKxNhszxVnKBKIXSnQ
- sXvUIuAkUTG7JqJ7pZnN81psiXjJldHWYprEsGYAgATCa7GQhM+JSHxXWFymeJS7rVFGCRUkf4d
- 6pLCJw1pzlPnp8xlf7A==
-X-Proofpoint-ORIG-GUID: bfCjW22NGVGqWf3yrjiQHVZsg2p6Tj3F
-X-Authority-Analysis: v=2.4 cv=LITz05W9 c=1 sm=1 tr=0 ts=6b02d3a4 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=cC9zmzg-b8Z3h8VEsn8A:9 a=CjuIK1q_8ugA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIyMDA0NiBTYWx0ZWRfX8RvXAjzgLbqF
- HpCKNVIkPBjJS4DMsVJhmhSld+2wuGRsQjgUpMr4FtxkpkuXCURb+rfLnwxj0bIsZw6UHTBgFof
- do+3bBh8D2b5qjQnetSCBeezgqwCW5A=
-X-Proofpoint-GUID: bfCjW22NGVGqWf3yrjiQHVZsg2p6Tj3F
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-22_02,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0 adultscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611220046
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 2/2] clk: sophgo: Keep SG2042 gates listed in
+ protected-clocks enabled
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: gaohan@iscas.ac.cn, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
+ Yao Zi <me@ziyao.cc>, Chen Wang <unicorn_wang@outlook.com>, 
+ Han Gao <rabenda.cn@gmail.com>, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <awIs42O_vJN3gB7l@inochi.infowork>
+References: <20261122-b4-sg2042-efi-rtc-v2-0-6d087e03e4e8@iscas.ac.cn>
+ <20261122-b4-sg2042-efi-rtc-v2-2-6d087e03e4e8@iscas.ac.cn>
+ <awIs42O_vJN3gB7l@inochi.infowork>
+Date: Sun, 22 Nov 2026 12:50:50 +0100
+Message-Id: <179534825090.2640804.3856644920774930042.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3068; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=IdvAZSlfVMHZbcbQ9G6YqRxqWmYmrg7EOTVCXlS1rG0=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNlM16Wzti9b2Wcj+sZr/8Q3E4TmvSufv1fHe5WQhkfj0
+ X8WB/JlOkpZGMS4GGTFFFlquKvF30lqfZk1Xec2zBxWJpAhDFycAjCRHVMZ/sf6PNWvYa1VURFr
+ F0ydaZ7j9G934ovvrXmKRy+Hcz3l+cfwP++79vPLcQoXdE3O1TXcuHF2/95D0RMVjNUXfO+d4nf
+ BlwMA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On Wed, Nov 18, 2026 at 01:07:45PM -0600, Rob Herring wrote:
-> On Tue, Nov 17, 2026 at 02:15:23PM +0530, Mohd Ayaan Anwar wrote:
-> > Shikra's EMAC requires two additional clocks for NOC interconnect
-> > access (axi-noc, pcie-tile-axi-noc) beyond the standard four, and an
-> > OPP table with required-opps to vote VDD_CX to SVS when the NOC clocks
-> > are enabled.
+On 2026-11-22 07:48 +0800, Inochi Amaoto wrote:
+> On Sun, Nov 22, 2026 at 02:18:05AM +0800, Han Gao via B4 Relay wrote:
+> > From: Han Gao <gaohan@iscas.ac.cn>
 > > 
-> > Add qcom,shikra-ethqos to the compatible enum and use an if/else
-> > block to constrain Shikra to exactly six clocks and require
-> > operating-points-v2 and power-domains, while leaving existing
-> > compatibles unchanged.
+> > On Milk-V Pioneer, EFI runtime services use I2C0 and the serial flash,
+> > while Linux drives other devices behind the same gates. When those
+> > devices runtime-suspend, the gates are turned off under the firmware.
 > > 
-> > Add the relevant compatible to the binding document for snps,dwmac as
-> > well.
+> > Mark gates listed in protected-clocks as critical. Unlike qcom, still
+> > register them, since Linux devices use them too.
 > > 
-> > Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+> > Suggested-by: Yao Zi <me@ziyao.cc>
+> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 > > ---
-> > v4: moved operating-points description to the top-level, and added
-> > power-domains as a required property for Shikra.
-> > ---
-> >  .../devicetree/bindings/net/qcom,ethqos.yaml       | 54 ++++++++++++++++++++--
-> >  .../devicetree/bindings/net/snps,dwmac.yaml        |  2 +
-> >  2 files changed, 52 insertions(+), 4 deletions(-)
+> >  drivers/clk/sophgo/clk-sg2042-clkgen.c | 16 ++++++++++++++--
+> >  1 file changed, 14 insertions(+), 2 deletions(-)
 > > 
-> > diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> > index ef520f810577..6bd4bded650a 100644
-> > --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> > +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> > @@ -14,9 +14,6 @@ description:
-> >    dwmmac based Qualcomm ethernet devices which support Gigabit
-> >    ethernet (version v2.3.0 and onwards).
+> > diff --git a/drivers/clk/sophgo/clk-sg2042-clkgen.c b/drivers/clk/sophgo/clk-sg2042-clkgen.c
+> > index 6abc2c973c49..65ab18f701e1 100644
+> > --- a/drivers/clk/sophgo/clk-sg2042-clkgen.c
+> > +++ b/drivers/clk/sophgo/clk-sg2042-clkgen.c
+> > @@ -840,6 +840,18 @@ static int sg2042_clk_register_divs(struct device *dev,
+> >  	return ret;
+> >  }
 > >  
-> > -allOf:
-> > -  - $ref: snps,dwmac.yaml#
-> > -
-> >  properties:
-> >    compatible:
-> >      oneOf:
-> > @@ -32,6 +29,7 @@ properties:
-> >            - qcom,qcs404-ethqos
-> >            - qcom,sa8775p-ethqos
-> >            - qcom,sc8280xp-ethqos
-> > +          - qcom,shikra-ethqos
-> >            - qcom,sm8150-ethqos
-> >  
-> >    reg:
-> > @@ -57,9 +55,11 @@ properties:
-> >        - const: sfty
-> >  
-> >    clocks:
-> > -    maxItems: 4
-> > +    minItems: 4
-> > +    maxItems: 6
-> >  
-> >    clock-names:
-> > +    minItems: 4
-> >      items:
-> >        - const: stmmaceth
-> >        - const: pclk
-> > @@ -67,6 +67,8 @@ properties:
-> >        - enum:
-> >            - rgmii
-> >            - phyaux
-> > +      - const: axi-noc
-> > +      - const: pcie-tile-axi-noc
-> 
-> These sound like inter-connect clocks. Shouldn't they be controlled by 
-> a interconnect driver?
-
-On other platforms, yes, the EMAC AXI clock is only a gate, and the
-interconnect provider scales its rate along with the NoC.
-
-However, on Shikra, the EMAC AXI path is fed by a dedicated GCC RCG:
-
-  gcc_emac0_axi_clk_src (RCG)
-    +- gcc_emac0_axi_clk              "stmmaceth"
-    +- gcc_emac0_axi_sys_noc_clk      "axi-noc"
-    +- gcc_pcie_tile_axi_sys_noc_clk  "pcie-tile-axi-noc"
-
-This RCG is outside the Shikra interconnect provider's control.
-EMAC DMA does not work unless all three clocks stay enabled, so the
-EMAC has to hold them and also scale their frequency for the line rate.
-
-I am hoping that I understood your question correctly, please let me
-know if you were asking something else.
-
-> > ..
-> >  
-> > +allOf:
-> > +  - $ref: snps,dwmac.yaml#
+> > +static unsigned long sg2042_gate_flags(struct device *dev,
+> > +				       const struct sg2042_gate_clock *gate)
+> > +{
+> > +	u32 id;
 > > +
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: qcom,shikra-ethqos
-> > +    then:
-> > +      properties:
-> > +        clocks:
-> > +          minItems: 6
-> > +        clock-names:
-> > +          items:
-> > +            - const: stmmaceth
-> > +            - const: pclk
-> > +            - const: ptp_ref
-> > +            - const: rgmii
-> > +            - const: axi-noc
-> > +            - const: pcie-tile-axi-noc
-> 
-> No need to repeat the names here. Just 'minItems: 6'. I suppose you 
-> might also want:
-> 
-> contains:
->   const: rgmii
+> > +	of_property_for_each_u32(dev->of_node, "protected-clocks", id)
+> > +		if (id == gate->id)
 
-Understood, I will make this change.
+If you are going to do it this way, restricting to gates looks like a
+pitfall that would difficult to anticipate from the DT side.
 
+> > +			return gate->hw.init->flags | CLK_IS_CRITICAL;
+> > +
+> > +	return gate->hw.init->flags;
+> > +}
+> > +
 > 
-> > +      required:
-> > +        - operating-points-v2
-> > +        - power-domains
-> > +    else:
-> > +      properties:
-> > +        clocks:
-> > +          maxItems: 4
-> > +        clock-names:
-> > +          items:
-> > +            - const: stmmaceth
-> > +            - const: pclk
-> > +            - const: ptp_ref
-> > +            - enum:
-> > +                - rgmii
-> > +                - phyaux
+> I have a question on this: since a procteded clock should not be touched
+> by a driver. Is this logic necessary? I guess this is a shared clock
+> topology between the kernel and the firmare?
 > 
-> Just 'minItems: 4'
-> 
+> Regards,
+> Inochi
 
-I take it you meant 'maxItems: 4' here? If so, I will make that change
-in the next revision.
+It depends what the intent is with protected-clocks here. This apparently
+starte as a qcom specific flag and it might, unfortunately, be a bit
+confusing with CCF existing concept of clock protection.
 
-Thank you for the review.
+CCF concept of protected (or exlusive) clock is basically a clock that do not
+tolerate rate change or glitch, resulting from a direct rate change of the
+clock from another consumer or one of its parents. Essentially, all the tree
+leading to the related clock gets locked.
 
-	Ayaan
+This is accessed with the consumer API clk_rate_exclusive_get/put().
+CLK_IS_CRITICAL is special case where the clock is locked and protected by
+the provider, even in the absence of a consumer. Consumer can still get
+the clock, enable or disable it but it won't ever result in the HW actually
+turning the clock off. clk_set_rate() will error out if the request would
+result in a disallowed glitch.
+
+Apparently Qcom use of the flag is to skip the registration of clock,
+presumably because they've got something else controlling the clock.
+An alternative to this is register the clock with RO ops and NO_CACHE,
+this way CCF still expose the clock but does not touch it and you can
+still get it in drivers if need be.
+
+-- 
+Jerome
+
