@@ -1,57 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795384621;
-	b=WFCaDEQkitobXj4scZ/ti2DR6AGHeURkM7+zIS//NR9Ozbfam0pgfKzcoqYYaAZUXAvz
-	 Roz+qQq//TDYgcKk79+VDmp8EbqL3Ow1iT6TI7ozL+Hy/0ZNvabwP6+Hf7oiS1jyfKV/3
-	 SO25749OsXnrsb69OAbbegvihWQrYh1+UC07huHnr1Tgn2g/7y02moJCQGpWGPwXDffHU
-	 1W8yzKYmFdoBA3Q6YS91rfV77kvNcX1gmydXPp4xR3IJNsY2DvntnbZsxqDz0Et0coBga
-	 cKj+hD3sBy8uLS4MM2kSiouTQhTkaXh/1MIdsp75xEK7MMYaGCIFjhiPq1PzhE+oemA==
+	t=1795384996;
+	b=t63xVsiakKDnGHiygTRMkmOhAIVnCiIBFVX82G3CYd5S1PCoUA1wN7/knxKKlihNxwja
+	 b99il4AFnfb+fE3lCyLdMTJlo/3BV/RtyWV8MZul+5hotbREXcqZqrMosdXIzstlsEzj7
+	 qBbDx26d+gpX7XrVcJNnbhKpUoWEzTLsi8gWMtuY+re7MWt//GJXS8uqohGC/qgm6MvOy
+	 yyBObvJgWBJSWIR1VwQVCafpGZJ49/zngO5ihBkgLCZAPKC5Y17KOrG0+Ecir44vzrbMw
+	 SY69bFBeh1GcpMPlZA+qwwwM46fWLgWF9gn1bdhHVXrRiGaRoDb83ujTINncfJCaxvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795384621;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NAxtK0sOddzshjnMEdU0HAFa+DNxCMZbNF7GEmkz+2Y=;
-	b=XFX+B6EqN10dBQdfAgnuLmn2xuuw4LdyBeKf4esyCyDEWUi/PNio1OgjVVUSM9kPvuvl
-	 1zn8HVAFJYXdVRJByUl9lT3Qt9gekfy7OxV5A2+ZpXV6AyJi//qVORuB+Xd/bfFpumJCr
-	 19thSMewR6/wVqWxKO/xInRoOQyzbrJiNsoOBBz43XEE6neoM9bGzptp4Z8G3NO99qOJR
-	 hW8rPoxzbT7Q31bJ41Vj10tBs9vsmHyonR3/IgtpW4xcH+IWunMnVe59pteQuTeI7Yjh+
-	 I9TYvl2TY0JrTZ1TOxZLQfyyxlB0OMCHoH48/KHDbMUActt/cbiXyCyHz+Ol90+X2+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795384996;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=Bybb0KwOvis1rKSsjZu64GzGwowQo2jgCy7Dlcn92pY=;
+	b=JXDIOy9QARq52DEGxt9GTpAJMzXklfGG8S+BX65L5Xe4uqOf5pPQnITHOFc2n26GKQ2I
+	 FD3Kx7arVn7lQ0JHgsOHu7PzWIqsWdQ3Xyji72enepxvF2hbQYHN99DqMjcoyTc8oWqxF
+	 TIUrRlQj+cB7OuOAA6gabVWk8z+wbRK1TeNcXnxvxMc7z+1gZVBB4wELYvi2AlV7Sc/2p
+	 weEO5mfy0r8jOyH9pp9atvSjA1wEg+fT2x5majbBpii9EZKEpWLAR/J7yQmI1WIvmLIiy
+	 cwx5qIIsjzPBk/hoQv+sxjzHsP076Za6Djm7Rfo0lL+PVj5h9CRJ1NsKEPe8hKSjXNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4VwXt2w;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b="Wb/so95c";
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D77606A31A
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 21:57:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AA0606A6AF;
+	Sun, 22 Nov 2026 22:03:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3AA0606A6AF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4VwXt2w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2FC41F000D8;
-	Sun, 22 Nov 2026 21:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795384621;
-	bh=NAxtK0sOddzshjnMEdU0HAFa+DNxCMZbNF7GEmkz+2Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m4VwXt2w3ycohI+vSBpWlj6N+PKZo1aBchY3n1NZInzofI22dlJLvyq9EL5XLU/TS
-	 nGoJaCBtLlnGe2HoLEfhgQHcO6lFMJ+8fL9tMFM3u/qDHg/SBxt0LgfSpO2EpQVvrk
-	 Mc15yMdINbuI7PeeZJyQ4I1pj9rKvne6uezD2Hhl08z7Og1OovJifzv+8TSDGG/7wu
-	 9TZ9RTBShr4ogoQDdUmug07KQt7b/bSEaN+MJDRVTNtYARF1LjH6wFTMj7Jq97aHzp
-	 SVt7KAXsqEF/MszTTzc0WX5bNpAk1/VyCFuSzh800vv6MPxkHHvZxe4I5eHtGuoA/4
-	 Dt+IiixX7Wfmg==
-Message-ID: <sashiko-outbox-228399@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: qcs8550-retroidpocket-rp6: Remove
- pwm backlight
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aaron Kling" <webgeek1234@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261122-rp-qcs8550-display-v1-3-d513d9819a34@gmail.com>
-References: <20261122-rp-qcs8550-display-v1-0-d513d9819a34@gmail.com>
- <20261122-rp-qcs8550-display-v1-3-d513d9819a34@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 21:57:00 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=Wb/so95c
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=Bybb0KwOvis1rKSsjZu64GzGwowQo2jgCy7Dlcn92pY=; b=Wb/so95cJ9kddKWhnYYipbulEM
+	0scYKO6Pg39vdQLbaZb6yOzPBQbE55H9EymYx5w+jka5TlSJi6EdJPhXnJm/UAcZ6iIYXgsxTQ05B
+	smKW4DnQRwRq84gQbVI+xfDFuPSt9y98MmVAFzyfn9jUDmq+WZeWUBazzdeeLGyjjBDs0neA86zvt
+	AR2ztYLrq8ZntyDz/i+oMqbE/g93izRzm3GQ5cKolxJ0MPvdpSXKvJbrJ6jmRIsbzsr68j2eag+lp
+	A4IA0rHPS2mb6AX8V3svW/8MBy3iavrfJ7kuNeex6uQDJKRup5zGoQA1UhdJJQ6soiGJS5VtqlGLI
+	anH7awwQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: PCI: rockchip-dw: Allow endpoint supply
+Date: Sun, 22 Nov 2026 23:03:01 +0100
+Message-ID: <b0JWF81HTBuNN9Ysjciedw@sntech.de>
+In-Reply-To: <20261109184948.477095-1-robh@kernel.org>
+References: <20261109184948.477095-1-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,65 +64,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] arm64: dts: qcom: pmk8550_pwm left enabled without consumers on
-  rp6
-- [Low] arm64: dts: qcom: missing Fixes trailer for commit 9b9ac54e7eec
---
+Am Montag, 9. November 2026, 19:49:47 Mitteleurop=C3=A4ische Normalzeit sch=
+rieb Rob Herring (Arm):
+> Rockchip PCIe endpoint DTs describe the 3.3V PCIe regulator with
+> vpcie3v3-supply.
+>=20
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
-commit 4c928b402de67f834d479cbb2c2525592ba6bacd
-Author: Aaron Kling <webgeek1234@gmail.com>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
-> arm64: dts: qcom: qcs8550-retroidpocket-rp6: Remove pwm backlight
->
-> This device does not use a pwm backlight, it has a backlight controlled
-> by dcs commands via the panel.
->
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 
-[Severity: Low]
-Since this fixes an erroneous hardware description, should it include a
-Fixes tag:
-
-  Fixes: 9b9ac54e7eec ("arm64: dts: qcom: qcs8550: Add Retroid Pocket 6")
-
-> diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts b/arc=
-h/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
-> index a93fe74b83383..91fed8795d611 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-rp6.dts
-> @@ -13,18 +13,6 @@
->  	model =3D "Retroid Pocket 6";
->  	compatible =3D "retroidpocket,rp6", "qcom,qcs8550", "qcom,sm8550";
-> =20
-> -	backlight: backlight {
-> -		compatible =3D "pwm-backlight";
-> -		pwms =3D <&pmk8550_pwm 0 860000>;
-> -		brightness-levels =3D <1023 0>;
-> -		num-interpolated-steps =3D <1023>;
-> -		default-brightness-level =3D <600>;
-> -		power-supply =3D <&vph_pwr>;
-> -		enable-gpios =3D <&pmk8550_gpios 5 GPIO_ACTIVE_HIGH>;
-> -		pinctrl-0 =3D <&pwm_backlight_default>;
-> -		pinctrl-names =3D "default";
-> -	};
-> -
->  	vdd_disp_1v8: regulator-vdd-disp-1v8 {
->  		compatible =3D "regulator-fixed";
->  		regulator-name =3D "vdd_disp_1v8";
-
-[Severity: Low]
-Should the &pmk8550_pwm override at the bottom of this file also be
-removed?
-
-This backlight node was the only consumer of pmk8550_pwm on the Retroid
-Pocket 6 (the fan and LEDs in qcs8550-ayntec-common.dtsi use pm8550_pwm),
-so leaving &pmk8550_pwm enabled probes an unused PWM controller.
-Similarly, pwm_backlight_default in qcs8550-ayntec-common.dtsi appears to
-have no remaining users once the pwm-backlight nodes are removed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-rp-qcs8550=
--display-v1-0-d513d9819a34@gmail.com?part=3D3
