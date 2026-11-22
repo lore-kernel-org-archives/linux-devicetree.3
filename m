@@ -1,97 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795340056;
-	b=0X6mMQjp7DQyVWDjv3A/nTVf11fiZ+xE+jHlWiafr1DawJ5SvCTpz+8ZCC0dZ/BQabsO
-	 k/H62l8f0gwha+P97D5QdIMEsY3gIGTLEmn7KgJG2E/JDROaS2XIjyTwMZKHJo/pDnrkG
-	 dAhi231ClNgkl3/vWCmEGsKZ/fPjBKth3ZhqcztqQmY9ZbNseqo+3lr/+BP5raa5uXRvX
-	 gtl6KuVdU5KXv8oSDpk76/Rb6e2y+nWs+ee/7Xw4wCTVWreI4YNTG8DRCmH9lH3A/Vjk1
-	 GR/aG5yc01xefAQONViTs5o/XMAuPRVCBbG7OYKwm2lg/p7t1/gQkRWN0b6iYaozH7g==
+	t=1795340064;
+	b=QCKGYFkG99kjKXN+sk4f+6bUOwfSS+PUx14aPUdhsxT8lWYOFCz83xWiFeJX+YuspBfE
+	 rUf058FV52/kv0HNVZT8WMgGN9wgMtrXi3sWjJiMfa1J6kDKQoi0wRtR5MaEjHFdWcQ2/
+	 7KhjswGokBbDqjYuX+bJ3JjuPNXtj+u+iu88p9+zWzwuMrUikKsiSs9GXNrjsinE4K53w
+	 zam30UjHtBnFVcWoOdP6T8M+z0CmdpYRjyoz7zdDgpKoWJrAb9kyil+AciQwqUj+0zOgX
+	 bPJ948NmG4sP9HJtxcPNcUVsQsw+FgzD6rgy+/r1gMa6t8UBOGxkdVyqIQbRkeJfMnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795340056;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795340064;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=+2xrspYuu+FL47jccjzdtxpgEf6qiE/xXRLpMfETdrM=;
-	b=OYONn1NadBh1Y4i9QGLmTSosBy0ZHmZk8wnVePWvJXvfTV49m+ysaUeD6VjfL+qaMZmA
-	 d0PsJpDo4CJanCL9szdTKLaKSpGTrnKEuLI0x3c3P7wSR0WcCKvr9f2cqXC62A5O9BzHQ
-	 FAeism9q/mIP3bS7iHChU/QLSps6gKN5swmhVtM5vszWN4clQUig4GPitafzEi765ys+/
-	 ClIYeqCxIIN2UL/Ozajl030A5Lface79xWDNf7ea9mF73u+Dh2uCf+b5+D1sWvtcBsbIO
-	 /hEu4iZjpJyVCOJvI/ugc74kd365dbUOAMoI3f1CDqFJG8RuhTUrq/IiKI9AmKKaLwA==
+	bh=3U7CcHWRUE31wmoeiAHLUkWdPGSZYVZsuRT2MibCOxY=;
+	b=hiI6AJcajStfKBUUMOVr9CK/VDWsM6hjuTPzDyoSatGGZ5OA1ROMHa5lDr4vMSwUVTTy
+	 ce8Xu+ECbLRil5Nj5/oTadN0lVfXAyPCf4gtMx1RoNjT2PIqjxj8RSx1A8j507SyhkN7M
+	 8l4u24gPGpQLunLnTbCJ9HOt6Ux0PhZmuUP5OLYCfdQzXwttLzekP4ClnZkESKJ7LTRXr
+	 BmQt/cRE37KswHIudStLEV9/N93BDBLHJD7HsVCeWiiRxqbRRBxY9nF99Xqf/Q0YHaT0Z
+	 lJMmFZ7nyA6LMpNXi0ZhOYbCS6G5VldtGbtf9GjYbPDpKQSiXsmPLPR3jwfX5XkIvow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=teslabs.com;
 	spf=fail smtp.mailfrom=teslabs.com;
-	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bmjpe7XS;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AeqvcKlm;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5D7606A32A
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:34:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A5D7606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5645606A320
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:34:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5645606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=teslabs.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=teslabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bmjpe7XS
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49d05d51553so15248615e9.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 01:34:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AeqvcKlm
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a9be758734so1338739f8f.1
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 01:34:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795340054; x=1795944854; darn=vger.kernel.org;
+        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795340062; x=1795944862; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+2xrspYuu+FL47jccjzdtxpgEf6qiE/xXRLpMfETdrM=;
-        b=bmjpe7XSigsNo/RmiY/EbMiiQNhopFLdUm/1jAJvD+kMQAWiRIwUHz+tmo3w/+zYHr
-         fMQDJYRSqoj1mI8kaASKDRaoyWIZboEO/enrNzaavHO4BbahVNAYjcWCsi0W3WCSDfcX
-         XYFmLk9tITHWlRWyb8N9hQ7IklRjgIn9NdQLI6Oykom4Z4uPKXNpvk1PQCDIheMkbO6k
-         3u8YwMJyYsZxnoR1h5HB+DeGrSW2cHlLfueuH+kWJ1VlbF59wMtBehHTL3tS8SUL9rPo
-         gylPAHC/ETCivXluHRfK6894vm6BwUy+sfxydJT6fGfoLnye3Ze42R6+UfXwtRJZ5zNf
-         beVQ==
+        bh=3U7CcHWRUE31wmoeiAHLUkWdPGSZYVZsuRT2MibCOxY=;
+        b=AeqvcKlmO6WuW5/08hABOdRLV36YdZn1cQZDAfyiW0/pWBJ8jTutocF0NbZ8Nxbg0X
+         R4MdFnPdIzRvth8dfq7if23L/h2AF7Z3ERsdquRYCP3/9szFrj9hkralLojo3BSIaxOg
+         aFFkFqFzbjAmjrJu3ZPAQx48BxgQv+TAFp5SiHd1d/mLp8f1FWmR2ktqxTxgGrQgBBAb
+         7fPimDdzgEl9SW5l0KxFkB2rAtp78KYaDG1p78ekLNVRg5EM5n8MEfkc3bzDvXqh7HU+
+         rbFnpM4qYmr2VEAFt4J3zCxEL1B8rrpfj8r2dVA/AzYM5a5SVGnkQK8gDf4wZJ5QLV2n
+         RKrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795340054; x=1795944854;
+        d=1e100.net; s=20260707; t=1795340062; x=1795944862;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+2xrspYuu+FL47jccjzdtxpgEf6qiE/xXRLpMfETdrM=;
-        b=Jg+0tKJU1vPSd6QzwF1PL9G9Dqywdc/jerzrj2L+o0aCa5F0TqFXt51zscPhqT6+Mm
-         UUqHoJvT9i9Fn56N7v9gsdiokRy347wjmkuPFuqDCt2/vPP0j+11JOh/ej9Je7RkyMnI
-         3nG4CQNYZBJu9Qq+l0Ywvc921idoiOYFuol1c+ZfVygiJSlcahMzmpQlhrsOGIiEy/6I
-         L5HHOsOe3PnsH914vPZonRtCB951AXLwsPaGMXjAV9cj8MxNujqTlhOFPxKmxb65TWON
-         aCkGXCkoCsItQlAxs3eA5NcvPewYfV6csvD2EX08nCtto5/MWuNPFHRqREqZTHKvY+YO
-         gXJw==
-X-Forwarded-Encrypted: i=1; AL+hErFZqgJlTIe1404KIJdw+4fzRmg4s+LVZtzLH23ZDJMO5lomxog3pQvlnmTmgZJP66zfv04f4+MPFDqN@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iK3Bi5Xl8n97MNV10WYihXJlxr7+xaMv9R9onul+kbJb1ec++
-	OT2SJgfDHObaqGx09apep86io4MfhUD7v/jbvjV93teRKwecs6KPASPfo3Gsg7IeFqk=
-X-Gm-Gg: AZFdTZelBTSWq3kzpK+0620YZ2F49SdJe1he84X4RdT7UyKnhFLGwPaYhmyIpErIA3Q
-	g3u7MCnl5VhsxoWefk2IUeRCMoop/kElWOQ2kuU6oqWPKubeDRDiZK+r5LS5S9ljgBcwCiIMdG2
-	5TbXJkjHI4jAJBZjQFxANWNhGrLMkao+ADKSgq2fgGnBfk75M8Q3gq3ck7bt3qUgdbu9szVXoM4
-	3F0ygLqsOFjJAF93F23NvbLWQzPACJIMtZBW2DKbidylLxU9XfBNa7NcP8ly2l0g3uYwCjvmMtQ
-	9pECkhoVTrnsy1y5Rwl+L/83a4OwlLxFta63U2kXrzlihz1Fw+QmKiibRHeU01CjMLaProIcLx3
-	W6SQCdQJVSMiMawJG0sIbER54kWxKXWSAIRUTDprQyXjcy4P/aST+WvohOinCoqzfuwiwwvn0fv
-	8q6GXyq9gTqvoO22GW605xHX3gFWpqTHkYCE0vtNdfvGlRJeCGA2mER5JpGZZbo/PY1sb+a37Uk
-	KqjAHqyDGFSJHRlfbT6vtVgnCcWHuxObYrBlmA76jd6ElD3p3J4kEL6iqqFzNqkiGlZVG+gvS3c
-	lqVvMXB1OUsqIsr2RUQ5P0531KWuVx78VaUYtBsEASMsF6/C38Gc3TFyPUfggZQ2SEI42KBF1pj
-	NNp0GwgIu1W4=
-X-Received: by 2002:a05:600c:530f:b0:4bb:68b9:f615 with SMTP id 5b1f17b1804b1-4bb88810b22mr173144325e9.17.1795340054581;
-        Sun, 22 Nov 2026 01:34:14 -0800 (PST)
+        bh=3U7CcHWRUE31wmoeiAHLUkWdPGSZYVZsuRT2MibCOxY=;
+        b=2C+bR90W2TvLi/kwD1gTgAas+VbuuHtZFR6EvgYqrT8hqH9TGKu2fPIEd6XbpW8ngu
+         GjzHaaR/r3Toj0zryW3ygNRoTufRwbMClWffhP7+2fwgOSa0A+ztsrEAKkKkA3H0NHNY
+         sYiU3qIvo1N9v7EcIgzENcUAzXNY0F6X3fcEWKKXLztnfy7PdfFdTeAu0B3qUTf7qxeE
+         hxICvS3C5GC6nYFRwSlUgZ4Sbl5Yuz4P0/lzcq5c67pdNh+gUSP+tat1lrZcHjJjyPmg
+         2ucgwtipar/FqO9k5y9WF1fha4ZMt92oFb0BJg0DW6q4Wycc6nlDZzuv89tL7I9ySaSy
+         NlcA==
+X-Forwarded-Encrypted: i=1; AL+hErExA6W7g4k8g0/ZUPbLPNslIBVpJ+Rfec91YOPhsEI4gHjD6NJUuywupAntFTzHKSasNqNjLQIyONJR@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RSmlBqRMJ5oWTz6IZn4YRPUiqO8D42ml/lImmPAAIsecnuscT
+	uLYg41FtrJB6y3ygZTStAPqSsUFiYrQ1DH4wGAb+brX7rX2WE5kNI10TP61mtD7tYuH0z5xmzPX
+	DhaEr1QNbQWTb
+X-Gm-Gg: AZFdTZeHVMunCqByUqGZs88Esj+PpNc1MDLBg3+qbWiyVgZIHQKzxz6wRuqmf/OqCkT
+	6gs4828kcErMgvEIU1qtxNtq2aF0xWMqTj1iIVeHtpnFnrqtcRrHY7BYG8tWve/P2sFPAI71W1c
+	QVfvJl+L6hD3jyrOYciYB4XO/BROucXsvIDID6zFzr7bevwqsXRH7cVXl7G3b5IKXNnF0Qalgci
+	iWmfgEpBqvkxW/XXg36E9I2P7o5cAxwvmo5spnlWJRg4bvvnPWw5edBJabIKDa1ImSTB4MR6IU/
+	IwB77/dxYIQ96DFgs+HSaFO/2szxelESlgVKX7tE1kAWIwWyfnSeppO1RIVmbzFvLESlV90kln4
+	xpVEwrc0Hw1ctPn3xpeWkydEjmIbu5F22HVrqg24qjeIPJcHdmTOy0odeDIZvWwUXCprfllFRbT
+	W8gfX0P1NSnAcinonKfL9AR7YUxy1aaSWm5nC2ytRcsz8TH5Yg86pkucxJ+xCrGpbVcWhu3f+0v
+	3Ub2FrixLhdvuz+Qui8OScHYpLXi4xs8FPodxke7CcDQWpRcw6r3RGjeg1m3nP3pZ3qh9C7/NDb
+	eBvgMdpIVlNiqM//CvG5UmcSxx6QFm7pftVmk2rBiQ2Je6VzZ6/u9b2VQdsXHMqNS349sqkcIrh
+	z5/W+G+xCYLg=
+X-Received: by 2002:a05:6000:2f87:b0:4a3:7954:ac75 with SMTP id ffacd0b85a97d-4abb2910fb2mr15442071f8f.37.1795340062126;
+        Sun, 22 Nov 2026 01:34:22 -0800 (PST)
 Received: from localhost.localdomain ([139.47.121.129])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884911e3sm291475195e9.6.2026.11.22.01.34.13
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf62f7sm17007803f8f.13.2026.11.22.01.34.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 22 Nov 2026 01:34:14 -0800 (PST)
+        Sun, 22 Nov 2026 01:34:21 -0800 (PST)
 From: Gerard Marull-Paretas <gerard@teslabs.com>
-To: Jonathan Cameron <jic23@kernel.org>,
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: iio: magnetometer: Add MEMSIC MMC5603
-Date: Sun, 22 Nov 2026 10:34:12 +0100
-Message-ID: <20261122093412.71604-1-gerard@teslabs.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Stephan Gerhold <stephan@gerhold.net>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH] ASoC: dt-bindings: awinic,aw8738: Add AW8155
+Date: Sun, 22 Nov 2026 10:34:19 +0100
+Message-ID: <20261122093419.72135-1-gerard@teslabs.com>
 X-Mailer: git-send-email 2.45.2
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -104,13 +103,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MMC5603NJ is listed in trivial-devices.yaml, which allows no
-properties besides the register address and interrupts. Boards need to
-describe how the sensor is oriented, and the supply it runs from, which
-is often switched on wearables.
+The AW8155 is a class-D/AB mono amplifier whose mode is selected by the
+number of pulses on its CTRL pin, holding it low shutting it down, as on
+the AW8738. The waveform the aw8738 driver generates (2 us pulses, 40 ms
+start-up wait, 1-2 ms low for shutdown) is within the AW8155 datasheet
+timings (0.75-10 us pulses, 40 ms start-up, 150-800 us turn-off), so
+the AW8738 compatible can serve as a fallback.
 
-Give it a binding of its own with a mount-matrix and its single VDD
-supply, the package having no separate I/O supply pin.
+Only modes 1, 2 and 4 are valid on the AW8155, mode 3 being a test
+mode, so restrict awinic,mode to those.
 
 Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
 ---
@@ -118,75 +119,43 @@ Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
 Notes:
     Checked with dtschema 2026.9: the steps of dt_binding_check run by hand (host make too old), yamllint and dt-check-style --mode=strict.
 
- .../iio/magnetometer/memsic,mmc5603.yaml      | 45 +++++++++++++++++++
- .../devicetree/bindings/trivial-devices.yaml  |  2 -
- 2 files changed, 45 insertions(+), 2 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml
+ .../bindings/sound/awinic,aw8738.yaml          | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml b/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml
-new file mode 100644
-index 000000000000..039f53a5f912
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml
-@@ -0,0 +1,45 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/magnetometer/memsic,mmc5603.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/Documentation/devicetree/bindings/sound/awinic,aw8738.yaml b/Documentation/devicetree/bindings/sound/awinic,aw8738.yaml
+index bc6c6b172238..5ef7b800226a 100644
+--- a/Documentation/devicetree/bindings/sound/awinic,aw8738.yaml
++++ b/Documentation/devicetree/bindings/sound/awinic,aw8738.yaml
+@@ -14,12 +14,28 @@ description:
+   (set using one-wire pulse control). The mode configures the speaker-guard
+   function (primarily the power limit for the amplifier).
+ 
++  The Awinic AW8155 also has its mode set by one-wire pulses on its control
++  pin. Its modes select the amplifier class, its gain and its power limit.
 +
-+title: MEMSIC MMC5603NJ 3-axis magnetic sensor
-+
-+maintainers:
-+  - Gerard Marull-Paretas <gerard@teslabs.com>
-+
-+properties:
-+  compatible:
-+    const: memsic,mmc5603
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Regulator that provides power to the sensor
-+
-+  mount-matrix:
-+    description: an optional 3x3 mounting rotation matrix.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        magnetometer@30 {
-+            compatible = "memsic,mmc5603";
-+            reg = <0x30>;
-+            vdd-supply = <&vdd_1v8_reg>;
-+            mount-matrix = "-1", "0", "0",
-+                           "0", "1", "0",
-+                           "0", "0", "-1";
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index a8b2b9deade4..17a32dd8772e 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -261,8 +261,6 @@ properties:
-           - meas,tsys01
-             # MEMSIC magnetometer
-           - memsic,mmc35240
--            # MEMSIC 3-axis magnetometer
--          - memsic,mmc5603
-             # MEMSIC 3-axis magnetometer (Support I3C HDR)
-           - memsic,mmc5633
-             # MEMSIC 3-axis accelerometer
+ allOf:
+   - $ref: dai-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: awinic,aw8155
++    then:
++      properties:
++        awinic,mode:
++          enum: [1, 2, 4]
+ 
+ properties:
+   compatible:
+-    const: awinic,aw8738
++    oneOf:
++      - const: awinic,aw8738
++      - items:
++          - const: awinic,aw8155
++          - const: awinic,aw8738
+ 
+   mode-gpios:
+     description:
 
 base-commit: c44104f3642da720164042623e4832836aefdd8e
 -- 
