@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795335545;
-	b=z77nwEpLzlbkSXa2IwE/VJJG6aQpVtxhDNQ+k8kA+metrHaoIcPMVCR6JnER1j5F4U8e
-	 Gc7BjX4kVjwntULLtB/RFfWBvNLVwpOYOdZIl53YMZedTzxJ9TUGZEaHB6sekbAB6DLt9
-	 ogdfi9AMLw5K/T3AfJkrWHjMZSaGcahN4MEZKrnQnSoDMocAS1MyqhlJrReYdksa9aR+6
-	 2cHqj9XxEnZr0lJTCW0dmAl6Y2G48xyznGTlW7vcrAeXYSR1N+1ypEXqUD8+ugVABRen8
-	 aMoPdKEj/4CCfVbgmZZaVU7l+tcS0yamA2doyWg4+/ceizub3Dha5ZXcAcpGduvaslg==
+	t=1795335549;
+	b=aidyPmD4trc7UOaLn2oPPJuWGSodjdvPEwfUE+lLmKo40tS19ePHJ88iZlPp4+Mnbco2
+	 b0cLvRCaSILdSugD1LjB38w84ii2pCJaLuIyrmoOFBJbuqHWu1p4nW9MeWVW/o32JNUXb
+	 gvFvjv3WbEh7wDfK3i/1WBf9grkwAhmcOD5wBPlkhJWRXBXvrpiGB6991kHQnc+2cdpNh
+	 p4SfnWeiwCbv4h5MyJUYU8eh3+vmn3nTSxSsOn8OjGzJXtGgOqCKuDeIsrs7aXuX/jsCm
+	 szde43GPNB7ew9H7j2mJFxkxXFfrgx1gec4dHGWI0f0JuFxPN3JXFDoxekDfqSQ44MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795335545;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795335549;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=raX6dCAIomOIJ7ELRGbL6/J7HJwcKSM4UvEKLE/Febc=;
-	b=OW8EtJBOyGBzvYgY+Kx6OHU4S4ZM9JwzzY8kYFCG6tNV22fKZGVDLYNLH/wE7GfIpeoz
-	 0yavIbXzOcTEa2gRYgcsCq6VyECKxpR/5QgR7bbDbECO/TetlbPQHyNQ+I4L5zP7VqpDs
-	 Bsks1kOAMHn07ohqFskpvi/XJnLsq1wt978XkDVxCmHfVi6PttSZaEqmuAOb0MDYBfBEY
-	 LOE4g1ryO0CfeK43GI6ARjUhkarTUSIVCZgyy/VXAMUb4bjRkR/53BKI4MlpPQFPCet1R
-	 xQSilw5CsGjUCQWo4smqoAXqXAa+eDNCWFf5EEENQX8DySBcJIlOo/Kj0d9hs0xb7EA==
+	bh=VfcnZ/HFw1s58SKFpRHNdXm93jOgGRhJ6GdPFfCfrqo=;
+	b=Gu6OC1t6V5ljIGJUuGMwFxvenUDsXXe48UUse9XHbq2MogwVJqNzSo6Po4dluVeJkgvS
+	 z4xhqxM2C9Qf2Ri0SOpCHaaQxkXMa5y7mKfeRgDFRa3o+7/C/vI8p7xeTlRvWVzPs2Sob
+	 iY5C/tvm1Z8CakWqXcAaRDu4V2Bop8qodt+9Wb6kxQsHc+g1/qKAkqqvpt+kru09upT0w
+	 TkiAi8CLPMwnwWIqfLOuAbttGpfSrljeSMP01vgXbPya8oiSdlJ/cOiMvcmdoCgXIFATh
+	 +HSDnIRk/UJNIBYDm4IYU+H4gn7JwVHIQgROklyRlReERmpxTePzgYb/H4GMZoMea1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LvBo5S7y;
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SvD3hzCS;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CCAC606A331
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 08:19:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CCAC606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2661A606A320
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 08:19:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2661A606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LvBo5S7y
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so3648180a12.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 00:19:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SvD3hzCS
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so3323737a12.1
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 00:19:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795335544; x=1795940344; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795335547; x=1795940347; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=raX6dCAIomOIJ7ELRGbL6/J7HJwcKSM4UvEKLE/Febc=;
-        b=LvBo5S7yvr0z7KdgzrGRmCXs33lPM1QkxpmPhP2ZLyKNJU7Q/ynRbp/RIAU6gfelwc
-         rS1F4qlfTc1bxfwZM+rEYhu8EOwmNa8T81NAeZC9eUs7B6J5VgmDto0pLM2kocFwcTs9
-         Cc5TAnXMWdPMRuCiI2bBJxsZbBRUu+ilA4vm74i94CUjvCPwKOxHkg+Z2JJ30ymzrBVH
-         IAUehypO41YGi31S2P5jnJ/4XJD9MILbY53k6UEuiuQbmCoeJbS+E8wv5CmWlCuMI1uA
-         9A96EFliEBU8KBWtjwcMkilAQYJffUTUvJ9/pSRCKLxpt5ReRi0N7fdA77b1epcNm1NV
-         JqTg==
+        bh=VfcnZ/HFw1s58SKFpRHNdXm93jOgGRhJ6GdPFfCfrqo=;
+        b=SvD3hzCSvPZQwkoX4FcghI5fseAbTbHClhOYz8rkLk8Sc5AKQTVPF6eK6H8cdasJuW
+         cYMn+8SuHPmQ4NGQ6KCOcRVSw33EGaNtUTmJ5dj6PeF+YrzO910ydCMV9/HvDFjghLvf
+         OiLVv28L5QvOgqnEM6VaNGS8M6syzYJ1jrN+z5g95PUwjBOws2g07Ezic10VOYK3ixu+
+         kQ9H/FUCzxEApnNlnGpyP+YEZlfgK6lJQFItXitFZ2YHfH8B4+DVOA2l2S/jugaZZPXU
+         OmA2NawbC8vVth5Nmvh9lPI0KGEZ97ySgMwN0Nmtc722aVBkc+Uys/7C8OibdigUb7X4
+         9j0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795335544; x=1795940344;
+        d=1e100.net; s=20260707; t=1795335547; x=1795940347;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=raX6dCAIomOIJ7ELRGbL6/J7HJwcKSM4UvEKLE/Febc=;
-        b=DAZPh1uG7yRbJNF5ECyLfM/wXYbwUCYsh+ZkLdE2V11jdOlUB1SxRHapnfzkLoW4E+
-         CLzgLNdh8bdL84AbLlii6GQTKTpm7p4JWLTxHu7lM+2WXGLgxlnGivAt3dsNYtSAyBsZ
-         TsyWxn5P0On5xBuWULJtpqmq+vRJLOD3yO1TOJJ/RD1eESvuxy6vI2gIHYYJzkyoIgYL
-         FZ93pZbQfcSIZR4CugbbSoAio4ENMNzGYuTCsrG2y6TexFI/Fw3KxAfRjOAD8bMGb88q
-         5GAU3usMfr4fpk38XGWmqgxA5EYL440ih+11nzG2NGvQIbJQRnnhHL7SNbyK1thGm/67
-         5EIg==
-X-Forwarded-Encrypted: i=1; AL+hErHuGCdFWmZjziu2Efjj5c3A6nm66un6dbrNVQmczD/+eyUyKdiOCT7GI2h7STj3LmlVZPIPbYZiOsRO@vger.kernel.org
-X-Gm-Message-State: APuU4Z/GCa2IE9DASrKCtObG+UIzzVqMkFS7Ff8Hd4I2Ji2dxptuAjct
-	QT+WnD63REBYeHss9m1rdivE43mBshWRgtKkiJXGZm/1fe1GFl4bJIry
-X-Gm-Gg: AZFdTZfu0CS1q3eLcVOprHFOEJ9QEJaEssMjYd9fm0WxKN90Dj0XWisLIK5LOutdzvp
-	eg3Aa2LbAa6LHLowmghxsXEbM7kwFVPlnBT/FN2ZsDiuVtmXdzOjc24QqkSzZ714xlzOzP2+dSv
-	aN06hLQhY+uayoRyfZ7jD4AKNL2mDDrsTt/9E+PhUoS6d+ATuct4JqnXTD+oG7j9ZfVa8ydG4A2
-	rm0Vh0YV1vhSULjmxCXIsPyYtvpqMMLgPT7hfE5Cqkf4gy9QL+qwGwOFF452NnM5q67MNVuulBd
-	kkCQYmP8+eZsEhIlW5fJ/w5aIK5egOBXt05RCZv/8IBcsQLIyhrsOQyy3fvj1Ozo36af75cjUzL
-	fv22zFu7BnHOidNY6v9cfiavKKF+CYB63mP9eDarbr1Fme84DNixXHDOvIVcn9V65kX6+uEJHV5
-	n3NHdIXedwTBG2pwNN3xx/DCVK7xdzHm0lThiwl7U9k/wGtPINmSyKRqXqmFrds1EqQDLWIyFeN
-	USzNdB54cs1RXZTSuFevrxOCtnnzlV5XcavjMs5uO4/a5/qU0aWn3ZgPpMdZLj/fU/cR1bz89Ml
-	/r4jZI0vR/TWyVmvyCCHkipxaBbWSu5rAtdMPwzkiH7O9VegQihdZqMDFylwDsTF7AZDIbmwZxw
-	1oIozzOA4AA==
-X-Received: by 2002:a05:6402:1512:b0:6ba:12e2:46f2 with SMTP id 4fb4d7f45d1cf-6ba37d18d2emr4447226a12.8.1795335543575;
-        Sun, 22 Nov 2026 00:19:03 -0800 (PST)
+        bh=VfcnZ/HFw1s58SKFpRHNdXm93jOgGRhJ6GdPFfCfrqo=;
+        b=ArSMJ0kkEkyqjidUsEVvdaQ9E/47/Ul5Hz65pgV6RlvpIfNoUUuqeFxzb2ohl6UEYj
+         ZZSNby5E2aG+/sDVjWWNpv6d1H4Caz6wE1Mm1Ewi9s+nSUyyP75GyxsfErsxFDnEmzbp
+         R34j6IQ4v+2dPWnKaoyQptv792ZID/kPSz9cmMwAmmUK/8zu7RR6WJY6lMdXfT4ufWTE
+         ogNN8zBz5o1ue0A6EfmLzZqZmdtW8JJwuCViwZm1xEpPyJ9JpXKOYL2VIQgkTHo1jKJ3
+         lWzsk1sZT19xUw9txXrRdJuNZvKCspZ+xCDLXHRwITCqUArkqB2hVI5y5O92McDFykiF
+         EVuQ==
+X-Forwarded-Encrypted: i=1; AL+hErER50Ut1dkrhOuDsgOp7p1rcDu1Gzo+mTwuXUtUDIPVlnb0pcvUvIhVO0zMOSZSa9+z5Ia4AxpU0GmD@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ERn2bAF1Ytb0UBvDKTuJNa+hDqUOLhwhOl8+LazBq+/7JEj4n
+	gAI/ZIrLQF8CFwhaSOy1cE94HxXn99xdvpBIy9JzfhaX0EJ7Wz9i0zJR
+X-Gm-Gg: AZFdTZeQXKsA6ENR6zrWxhC/8IxrhGnI0YO7sgHplOZpeJXL8tE2NHFK3mNvhUixuJf
+	ai8i2oOHmNn9TOOMqWk7UwgGJcRAhqnlT37C1QpvCrOLktT38mN/rwh71ntiDxy6IJFKyzbY3bj
+	wBRZLz/ZxfOojA2oKFFbq86QjPnxj2VZu3OYncEqL1Rz+ezk5v7Tj5JBsJTbs/314alHoNkxGF+
+	6n7pQNgoHfljHtfC0/1sNlyNQ0paE4H4O+eofcYtiOYUfAJH4PI2GnsyZFQ74qPLTygiNKf2adn
+	cLU9gXBY7KcI46oOQ15rK9S9tmNSI45HZJn/VYQPS5Ar2kwWdmYsoFjkeUi0qKVTk8WHO0u3y/w
+	rwy6twwnE8x5nVU9v/50/PAhtxl22X2rTkn9KG09wsy6FrRNBqea7OfZGaKeWuEaUl7+9/fddDU
+	unfeS06ogSguiyTyMbv5tpVV0c8VKFKncBa29gJL6yyGTEJjs+LyL5+ZGBwXtk60jmEcTHmdkF5
+	1ugYL2nRncM6sE9zEG2kpmLFlE/ds4P2bpw2wtj/zv0Pj/LC1U7+EGxxJJQq2afWWlG5B7zelJO
+	WPokjwnRxeAwBN7cNEoEi9bE7GYXR7/ntwv6VtuTAzA3u97YT5or2hgTsOuJnZwoM7FRZLlF/Fa
+	cJz+OcWmOjfXH86SxUY1ZPTOAo/Foi7g=
+X-Received: by 2002:a05:6402:e87:b0:6ba:85c8:9fd3 with SMTP id 4fb4d7f45d1cf-6ba85c8a3ccmr1465163a12.31.1795335547456;
+        Sun, 22 Nov 2026 00:19:07 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370e8ad0sm3617167a12.18.2026.11.22.00.18.59
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370e8ad0sm3617167a12.18.2026.11.22.00.19.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 00:19:01 -0800 (PST)
+        Sun, 22 Nov 2026 00:19:05 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -98,9 +98,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v8 08/12] drm/tegra: output: Make panel parsing configurable
-Date: Sun, 22 Nov 2026 10:18:16 +0200
-Message-ID: <20261122081820.53199-9-clamor95@gmail.com>
+Subject: [PATCH v8 09/12] drm/tegra: Convert to use atomic versions of drm_encoder_helper_funcs
+Date: Sun, 22 Nov 2026 10:18:17 +0200
+Message-ID: <20261122081820.53199-10-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261122081820.53199-1-clamor95@gmail.com>
 References: <20261122081820.53199-1-clamor95@gmail.com>
@@ -115,162 +115,235 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The tegra_output_probe() function performs panel parsing unconditionally,
-even for devices that do not require it or that handle panel parsing on
-their own (like DSI).
+Switch to using the atomic versions of the enable() and disable()
+operations.
 
-This causes devices with dual DSI panels to fail, because they rely on the
-OF graph to find the secondary DSI controller, whereas
-tegra_output_probe() treats this port as a direct connection to the panel.
-An example of such a device is the Xiaomi Mi Pad. Make panel parsing
-configurable.
+This is required for acquiring the next bridge state without causing
+crashes, in order to properly set up the encoder.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/gpu/drm/tegra/drm.h    |  2 +-
- drivers/gpu/drm/tegra/dsi.c    |  2 +-
- drivers/gpu/drm/tegra/hdmi.c   |  2 +-
- drivers/gpu/drm/tegra/output.c | 52 ++++++++++++++++++----------------
- drivers/gpu/drm/tegra/rgb.c    |  2 +-
- drivers/gpu/drm/tegra/sor.c    |  2 +-
- 6 files changed, 32 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/tegra/dsi.c  | 20 +++++++++++++++-----
+ drivers/gpu/drm/tegra/hdmi.c | 20 +++++++++++++++-----
+ drivers/gpu/drm/tegra/rgb.c  | 23 +++++++++++++++++------
+ drivers/gpu/drm/tegra/sor.c  | 18 +++++++++++++-----
+ 4 files changed, 60 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/tegra/drm.h b/drivers/gpu/drm/tegra/drm.h
-index bc720ae8d95e1..e53fe68161cb8 100644
---- a/drivers/gpu/drm/tegra/drm.h
-+++ b/drivers/gpu/drm/tegra/drm.h
-@@ -156,7 +156,7 @@ static inline struct tegra_output *connector_to_output(struct drm_connector *c)
- }
- 
- /* from output.c */
--int tegra_output_probe(struct tegra_output *output);
-+int tegra_output_probe(struct tegra_output *output, bool get_panel);
- void tegra_output_remove(struct tegra_output *output);
- int tegra_output_init(struct drm_device *drm, struct tegra_output *output);
- void tegra_output_exit(struct tegra_output *output);
 diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
-index b5806a53e75ac..6d6adc485e51e 100644
+index 6d6adc485e51e..cd61070072beb 100644
 --- a/drivers/gpu/drm/tegra/dsi.c
 +++ b/drivers/gpu/drm/tegra/dsi.c
-@@ -1617,7 +1617,7 @@ static int tegra_dsi_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		return err;
- 
--	err = tegra_output_probe(&dsi->output);
-+	err = tegra_output_probe(&dsi->output, false);
- 	if (err < 0)
- 		return err;
- 
-diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
-index 3a94968bd983a..e8c4347f09e69 100644
---- a/drivers/gpu/drm/tegra/hdmi.c
-+++ b/drivers/gpu/drm/tegra/hdmi.c
-@@ -1855,7 +1855,7 @@ static int tegra_hdmi_probe(struct platform_device *pdev)
- 
- 	hdmi->output.dev = &pdev->dev;
- 
--	err = tegra_output_probe(&hdmi->output);
-+	err = tegra_output_probe(&hdmi->output, true);
- 	if (err < 0)
- 		return err;
- 
-diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/output.c
-index eebf0ec0eea0a..d7d7f6ce0a8c3 100644
---- a/drivers/gpu/drm/tegra/output.c
-+++ b/drivers/gpu/drm/tegra/output.c
-@@ -93,7 +93,7 @@ static irqreturn_t hpd_irq(int irq, void *data)
- 	return IRQ_HANDLED;
+@@ -855,7 +855,8 @@ static void tegra_dsi_unprepare(struct tegra_dsi *dsi)
+ 		dev_err(dsi->dev, "failed to suspend: %d\n", err);
  }
  
--int tegra_output_probe(struct tegra_output *output)
-+int tegra_output_probe(struct tegra_output *output, bool get_panel)
+-static void tegra_dsi_encoder_disable(struct drm_encoder *encoder)
++static void tegra_dsi_encoder_disable(struct drm_encoder *encoder,
++				      struct drm_atomic_commit *comm_state)
  {
- 	struct device_node *ddc, *panel;
- 	const void *edid;
-@@ -103,31 +103,33 @@ int tegra_output_probe(struct tegra_output *output)
- 	if (!output->of_node)
- 		output->of_node = output->dev->of_node;
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_dc *dc = to_tegra_dc(encoder->crtc);
+@@ -919,16 +920,25 @@ static int tegra_dsi_prepare(struct tegra_dsi *dsi)
+ 	return 0;
+ }
  
--	err = drm_of_find_panel_or_bridge(output->of_node, -1, -1,
--					  &output->panel, &output->bridge);
--	if (err && err != -ENODEV)
--		return err;
--
--	panel = of_parse_phandle(output->of_node, "nvidia,panel", 0);
--	if (panel) {
--		/*
--		 * Don't mix nvidia,panel phandle with the graph in a
--		 * device-tree.
--		 */
--		WARN_ON(output->panel || output->bridge);
--
--		if (output->panel) {
--			drm_panel_put(output->panel);
--			output->panel = NULL;
--		}
--
--		output->panel = of_drm_find_panel(panel);
--		of_node_put(panel);
--
--		if (IS_ERR(output->panel)) {
--			err = PTR_ERR(output->panel);
--			output->panel = NULL;
-+	if (get_panel) {
-+		err = drm_of_find_panel_or_bridge(output->of_node, -1, -1,
-+						  &output->panel, &output->bridge);
-+		if (err && err != -ENODEV)
- 			return err;
+-static void tegra_dsi_encoder_enable(struct drm_encoder *encoder)
++static void tegra_dsi_encoder_enable(struct drm_encoder *encoder,
++				     struct drm_atomic_commit *comm_state)
+ {
+-	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_dc *dc = to_tegra_dc(encoder->crtc);
++	struct drm_connector_state *conn_state;
+ 	struct tegra_dsi *dsi = to_dsi(output);
++	struct drm_crtc_state *crtc_state;
++	struct drm_connector *connector;
+ 	struct tegra_dsi_state *state;
++	struct drm_display_mode *mode;
+ 	u32 value;
+ 	int err;
+ 
++	connector = drm_atomic_get_new_connector_for_encoder(comm_state, encoder);
++	conn_state = drm_atomic_get_new_connector_state(comm_state, connector);
++	crtc_state = drm_atomic_get_new_crtc_state(comm_state, conn_state->crtc);
++	mode = &crtc_state->adjusted_mode;
 +
-+		panel = of_parse_phandle(output->of_node, "nvidia,panel", 0);
-+		if (panel) {
-+			/*
-+			 * Don't mix nvidia,panel phandle with the graph in a
-+			 * device-tree.
-+			 */
-+			WARN_ON(output->panel || output->bridge);
+ 	err = tegra_dsi_prepare(dsi);
+ 	if (err < 0) {
+ 		dev_err(dsi->dev, "failed to prepare: %d\n", err);
+@@ -1059,8 +1069,8 @@ static const struct drm_encoder_funcs tegra_dsi_encoder_funcs = {
+ };
+ 
+ static const struct drm_encoder_helper_funcs tegra_dsi_encoder_helper_funcs = {
+-	.disable = tegra_dsi_encoder_disable,
+-	.enable = tegra_dsi_encoder_enable,
++	.atomic_disable = tegra_dsi_encoder_disable,
++	.atomic_enable = tegra_dsi_encoder_enable,
+ 	.atomic_check = tegra_dsi_encoder_atomic_check,
+ };
+ 
+diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
+index e8c4347f09e69..a78279810dd82 100644
+--- a/drivers/gpu/drm/tegra/hdmi.c
++++ b/drivers/gpu/drm/tegra/hdmi.c
+@@ -1166,7 +1166,8 @@ tegra_hdmi_connector_helper_funcs = {
+ 	.mode_valid = tegra_hdmi_connector_mode_valid,
+ };
+ 
+-static void tegra_hdmi_encoder_disable(struct drm_encoder *encoder)
++static void tegra_hdmi_encoder_disable(struct drm_encoder *encoder,
++				       struct drm_atomic_commit *comm_state)
+ {
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_dc *dc = to_tegra_dc(encoder->crtc);
+@@ -1209,18 +1210,27 @@ static void tegra_hdmi_encoder_disable(struct drm_encoder *encoder)
+ 		dev_err(hdmi->dev, "failed to suspend: %d\n", err);
+ }
+ 
+-static void tegra_hdmi_encoder_enable(struct drm_encoder *encoder)
++static void tegra_hdmi_encoder_enable(struct drm_encoder *encoder,
++				      struct drm_atomic_commit *comm_state)
+ {
+-	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
+ 	unsigned int h_sync_width, h_front_porch, h_back_porch, i, rekey;
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_dc *dc = to_tegra_dc(encoder->crtc);
+ 	struct tegra_hdmi *hdmi = to_hdmi(output);
++	struct drm_connector_state *conn_state;
++	struct drm_crtc_state *crtc_state;
+ 	unsigned int pulse_start, div82;
++	struct drm_connector *connector;
++	struct drm_display_mode *mode;
+ 	int retries = 1000;
+ 	u32 value;
+ 	int err;
+ 
++	connector = drm_atomic_get_new_connector_for_encoder(comm_state, encoder);
++	conn_state = drm_atomic_get_new_connector_state(comm_state, connector);
++	crtc_state = drm_atomic_get_new_crtc_state(comm_state, conn_state->crtc);
++	mode = &crtc_state->adjusted_mode;
 +
-+			if (output->panel) {
-+				drm_panel_put(output->panel);
-+				output->panel = NULL;
-+			}
-+
-+			output->panel = of_drm_find_panel(panel);
-+			of_node_put(panel);
-+
-+			if (IS_ERR(output->panel)) {
-+				err = PTR_ERR(output->panel);
-+				output->panel = NULL;
-+				return err;
-+			}
- 		}
- 	}
+ 	err = host1x_client_resume(&hdmi->client);
+ 	if (err < 0) {
+ 		dev_err(hdmi->dev, "failed to resume: %d\n", err);
+@@ -1460,8 +1470,8 @@ tegra_hdmi_encoder_atomic_check(struct drm_encoder *encoder,
+ }
+ 
+ static const struct drm_encoder_helper_funcs tegra_hdmi_encoder_helper_funcs = {
+-	.disable = tegra_hdmi_encoder_disable,
+-	.enable = tegra_hdmi_encoder_enable,
++	.atomic_disable = tegra_hdmi_encoder_disable,
++	.atomic_enable = tegra_hdmi_encoder_enable,
+ 	.atomic_check = tegra_hdmi_encoder_atomic_check,
+ };
  
 diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
-index 40a02cf5939aa..227a178f761bd 100644
+index 227a178f761bd..d48d498068ac8 100644
 --- a/drivers/gpu/drm/tegra/rgb.c
 +++ b/drivers/gpu/drm/tegra/rgb.c
-@@ -236,7 +236,7 @@ int tegra_dc_rgb_probe(struct tegra_dc *dc)
- 	rgb->output.of_node = np;
- 	rgb->dc = dc;
+@@ -90,7 +90,8 @@ static void tegra_dc_write_regs(struct tegra_dc *dc,
+ 		tegra_dc_writel(dc, table[i].value, table[i].offset);
+ }
  
--	err = tegra_output_probe(&rgb->output);
-+	err = tegra_output_probe(&rgb->output, true);
- 	if (err < 0)
- 		return err;
+-static void tegra_rgb_encoder_disable(struct drm_encoder *encoder)
++static void tegra_rgb_encoder_disable(struct drm_encoder *encoder,
++				      struct drm_atomic_commit *state)
+ {
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_rgb *rgb = to_rgb(output);
+@@ -99,12 +100,22 @@ static void tegra_rgb_encoder_disable(struct drm_encoder *encoder)
+ 	tegra_dc_commit(rgb->dc);
+ }
+ 
+-static void tegra_rgb_encoder_enable(struct drm_encoder *encoder)
++static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
++				     struct drm_atomic_commit *state)
+ {
+-	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_rgb *rgb = to_rgb(output);
+-	u32 value;
++	struct drm_connector_state *conn_state;
++	struct drm_crtc_state *crtc_state;
++	struct drm_connector *connector;
++	struct drm_display_mode *mode;
++	u32 bus_flags, value;
++
++	/* Get mode flags */
++	connector = drm_atomic_get_new_connector_for_encoder(state, encoder);
++	conn_state = drm_atomic_get_new_connector_state(state, connector);
++	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
++	mode = &crtc_state->adjusted_mode;
+ 
+ 	tegra_dc_write_regs(rgb->dc, rgb_enable, ARRAY_SIZE(rgb_enable));
+ 
+@@ -201,8 +212,8 @@ static const struct drm_encoder_funcs tegra_rgb_encoder_funcs = {
+ };
+ 
+ static const struct drm_encoder_helper_funcs tegra_rgb_encoder_helper_funcs = {
+-	.disable = tegra_rgb_encoder_disable,
+-	.enable = tegra_rgb_encoder_enable,
++	.atomic_disable = tegra_rgb_encoder_disable,
++	.atomic_enable = tegra_rgb_encoder_enable,
+ 	.atomic_check = tegra_rgb_encoder_atomic_check,
+ };
  
 diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
-index 061c5dbb738be..ebac9068b670f 100644
+index ebac9068b670f..45a9ea94c4355 100644
 --- a/drivers/gpu/drm/tegra/sor.c
 +++ b/drivers/gpu/drm/tegra/sor.c
-@@ -3803,7 +3803,7 @@ static int tegra_sor_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		goto put_aux;
+@@ -2203,7 +2203,8 @@ static void tegra_sor_hdmi_scdc_start(struct tegra_sor *sor)
+ 	}
+ }
  
--	err = tegra_output_probe(&sor->output);
-+	err = tegra_output_probe(&sor->output, true);
- 	if (err < 0) {
- 		dev_err_probe(&pdev->dev, err, "failed to probe output\n");
- 		goto put_aux;
+-static void tegra_sor_hdmi_disable(struct drm_encoder *encoder)
++static void tegra_sor_hdmi_disable(struct drm_encoder *encoder,
++				   struct drm_atomic_commit *comm_state)
+ {
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_dc *dc = to_tegra_dc(encoder->crtc);
+@@ -2244,13 +2245,17 @@ static void tegra_sor_hdmi_disable(struct drm_encoder *encoder)
+ 	host1x_client_suspend(&sor->client);
+ }
+ 
+-static void tegra_sor_hdmi_enable(struct drm_encoder *encoder)
++static void tegra_sor_hdmi_enable(struct drm_encoder *encoder,
++				  struct drm_atomic_commit *comm_state)
+ {
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	unsigned int h_ref_to_sync = 1, pulse_start, max_ac;
+ 	struct tegra_dc *dc = to_tegra_dc(encoder->crtc);
+ 	struct tegra_sor_hdmi_settings *settings;
++	struct drm_connector_state *conn_state;
+ 	struct tegra_sor *sor = to_sor(output);
++	struct drm_crtc_state *crtc_state;
++	struct drm_connector *connector;
+ 	struct tegra_sor_state *state;
+ 	struct drm_display_mode *mode;
+ 	unsigned long rate, pclk;
+@@ -2259,7 +2264,10 @@ static void tegra_sor_hdmi_enable(struct drm_encoder *encoder)
+ 	int err;
+ 
+ 	state = to_sor_state(output->connector.state);
+-	mode = &encoder->crtc->state->adjusted_mode;
++	connector = drm_atomic_get_new_connector_for_encoder(comm_state, encoder);
++	conn_state = drm_atomic_get_new_connector_state(comm_state, connector);
++	crtc_state = drm_atomic_get_new_crtc_state(comm_state, conn_state->crtc);
++	mode = &crtc_state->adjusted_mode;
+ 	pclk = mode->clock * 1000;
+ 
+ 	err = host1x_client_resume(&sor->client);
+@@ -2657,8 +2665,8 @@ static void tegra_sor_hdmi_enable(struct drm_encoder *encoder)
+ }
+ 
+ static const struct drm_encoder_helper_funcs tegra_sor_hdmi_helpers = {
+-	.disable = tegra_sor_hdmi_disable,
+-	.enable = tegra_sor_hdmi_enable,
++	.atomic_disable = tegra_sor_hdmi_disable,
++	.atomic_enable = tegra_sor_hdmi_enable,
+ 	.atomic_check = tegra_sor_encoder_atomic_check,
+ };
+ 
 -- 
 2.53.0
 
