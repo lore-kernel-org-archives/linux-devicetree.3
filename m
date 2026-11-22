@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795371998;
-	b=iOIqpvBhQvPdsDo/XQkk02s7ipE7LbUfRpfKW39HTT87LBlP7P94+p3w9COAN2e+qiX7
-	 vpYc0ULpEkQIn7tQLfCn/7kcfYz3Rq6Y4OpjeGLQfb07XxyOKRp4XXqV9ZAlU6hToi8kr
-	 tYExuyjZg/47Ejy7SWNZJ7h4gfr1QUPBtFOVCtmmvPGL16VR4RwptXTOBqFYKReI8lhk2
-	 WY8Orhabdvq4Xr80f8E2MMmoxmDpudL5ojRspYWVq3fMZK/lV+Gxl5SCuDMxVtvciUoI6
-	 83V+D4rD/G6+Shku5oYJJto/YcbuPcqUml633sUVp6hJdftHCQg+0HrWCkwDp9JWhaA==
+	t=1795372484;
+	b=CMCsPhBezkDYsZEO+0/znn96+G184fFjfpBKdC8qGWR3rju/oUSz9wmhRrejEORJ1jOV
+	 KROGfuJRJnXYN7aeqPgX8sKO8tixLyKdts9tX1+7b31cRnRc0ADrazdodQNTUU3gFiWeQ
+	 QHo64psoEifEEkr/m52lzBjglMtE4okNUmVNfRFGI1lBoMIqr5sDcIMoQ3ieyvXEXvrKh
+	 Prpq6tbnQ210yuJtnCZBwz9AJgB4yNQHpfdOXOrHYfdCn14B+sN22xAP28UzbYE4RwHgF
+	 WoYX7NjySppdEHwcq/n+Fp8csulqOmkF1Hoxi/duV2WT18EkYoWLJWI1lxOWRCfV8xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795371998;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ZzhNnPgB2Wlr2bjnDZCcd0zumtaYtjaiOyOvRDsDDWc=;
-	b=q7BO1hVSm+8G7LShGCF7cixOItgNMaZQ8tlJOCt9eTP91qTs818NSAAWwzyC9JenV/ic
-	 v8q6zIE1OouIEgyOt9jM12ETCC1fHqJxUcV2ELOZc4G4Ny0fPHijW7g2Yzkh4pKfUQzqW
-	 QHsANTfe8DXqGqRAcZuMvL8UfMX5vVE2A9EOhT5gmTr+0+fZf8msKMwdyXdxCEDjAUfzi
-	 YT4nFt6Cj6I7sx27K5z/i6V/NJKyw1pHc3oF2rTEjjAWGrtkuD1wuRc9ZmPFHBMbRhGNm
-	 /9VUhKMPAnB3Ir3MnGMrsFTObVxFVCuKWcaqW2mYA2BCgqN0qsYSusPTQ10G3ammFiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795372484;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=g3FR+iyNo3hdzHnFgg2hq2ZdUCrAqloouwqTekRVFMY=;
+	b=RYQ/LP1OjFJhJddeju+fFltsuGLMW8WEtkdU2T4lvowQ+iM/BgDtSNy5BJZTCllieORM
+	 nmIWlLAqeElu0kAoN1gOVyUrUkZ23hCiLfXPfRmqzGxpsxtZsOmS1BT/O65PRrSyl9gQm
+	 x1cNyuXa9+80fYZLsJrhiJzeZehbqGgXqCKVHMsQ7Rb+MeLLQ0ZNMH1HOJu6RqdNaK+IP
+	 BRMT5lGP7kWd3gqJ7nqK06CfM8320MKG7YXEPZXamu5FsDD1vFxjIvtnHXKo3uIto+j1o
+	 T8jVyz8q1KjPtGgCxoaomTIFVOKMze1ubt0X+HR58+d4WFdMRSfl83bCWUOlCXFZpyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yzgxr2ej;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtIOaFBa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B928606A685;
-	Sun, 22 Nov 2026 18:26:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B60A606A33D
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 18:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yzgxr2ej
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B175D1F000C4;
-	Sun, 22 Nov 2026 18:26:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtIOaFBa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FBB1F000C4
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 18:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795371997;
-	bh=ZzhNnPgB2Wlr2bjnDZCcd0zumtaYtjaiOyOvRDsDDWc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Yzgxr2ejXJe0BOIhOE5AULrMJEydlhLuKmMjy+u2XG9AH5jq6OcPawP+CaahVOKH6
-	 Gtaeh6SEFjfmQyuDP/hUcAJMPkFWvaPwAxHKY4ts8eYKse19v15DWUv7yd4onMVzW/
-	 vvL4xIZrj2X/eNF+9e3saggmGH07GF44a2nJXBITRbp8vm4xEJUfuj0NziZKS+/SN+
-	 8eOtwfsMFRMA+UaG+lPzJVm6kh8I4O0l0iUyp1IDACsVV0cKVQNFesi8dWqdW13hVA
-	 /hxI+Hk3yypbLfgPPvyKR2VIyRIW3Cnm2AyyHRdLuQwtUCIAUgTUNW6BkDXeLywj+W
-	 Ge5H+JZfIXPrA==
-Date: Sun, 22 Nov 2026 18:26:35 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Gerard Marull-Paretas <gerard@teslabs.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: magnetometer: Add MEMSIC MMC5603
-Message-ID: <20261122182635.381d2cbd@jic23-hlaptop>
-In-Reply-To: <20261122093412.71604-1-gerard@teslabs.com>
-References: <20261122093412.71604-1-gerard@teslabs.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1795372484;
+	bh=g3FR+iyNo3hdzHnFgg2hq2ZdUCrAqloouwqTekRVFMY=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=RtIOaFBa5zCkgx2q5DfdkMWc5iNIHjZ82QIhqW7x5TsKx7816/9DdpHAq3GJfA8HT
+	 jseuZynNLhZxxHra/REZ4CQw+Z2dX+ts7IHLtrd+bPi52bzNR6TGMC8PxrqfWZMBYB
+	 JeDgy7JvCVTawHgnGe0sCtOn1S6wmJwNNvGvOsyFZnJSBzLoJuaKQIMRLbidFxcewm
+	 giX8mtWK2CKb7r+DqIWp52B4gJ9LqBD0OlJ1mvDw2uTlC87N/Z+qqI1zcro4xZoxUP
+	 Lix1zspS4ybktvimR1ssqXBVrWzFfqiMY/oU3GvS0DndZPIOhxUfSWN8lI/khE48DB
+	 J6dgTyLVr/LwA==
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ae25dcbd81so20575811fa.3
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 10:34:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE5qAhQSf8SEfBYL54qYfCaPHixJ2tii4YqXGNbxrTiOCImZyo5yV7bBPcF8E+cmZxtZX/MWl+7CRNv@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ICUJ9rYGWdut9S0StffQTghsArw9W9+M+4eh6JbYoLReaErSF
+	hfOR3xfAJAB3ue8ajRBbnqRgXNA1fntzCFTA7qJf/OPWycrceXBDCKLayu7itnbsCAmjPRI+Xef
+	uS+2WT4TaXJzxKc/MDGYHOaS5g64Nye4=
+X-Received: by 2002:a05:651c:a338:b0:3ae:68:d07b with SMTP id
+ 38308e7fff4ca-3ae7fa120e8mr30611471fa.11.1795372482421; Sun, 22 Nov 2026
+ 10:34:42 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,112 +59,312 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261115-sunxi-orangepi-3-lts-v4-0-7749b448a4dd@gmail.com> <20261115-sunxi-orangepi-3-lts-v4-2-7749b448a4dd@gmail.com>
+In-Reply-To: <20261115-sunxi-orangepi-3-lts-v4-2-7749b448a4dd@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Mon, 23 Nov 2026 02:34:30 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67uMTqVNQDab=R1emtapiYK=AT-5sdJqr8Goc0b-1sTWA@mail.gmail.com>
+X-Gm-Features: Aa3M54oePYcX9zWE1QwNbh2PAHySpx9JM2yVZARWtMK2CSK0rFrc02qxu6EHwOI
+Message-ID: <CAGb2v67uMTqVNQDab=R1emtapiYK=AT-5sdJqr8Goc0b-1sTWA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
+To: filipescu.cristian@gmail.com
+Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Andre Przywara <andre.przywara@arm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 22 Nov 2026 10:34:12 +0100
-Gerard Marull-Paretas <gerard@teslabs.com> wrote:
+Minor issues,
 
-> The MMC5603NJ is listed in trivial-devices.yaml, which allows no
-> properties besides the register address and interrupts. Boards need to
-> describe how the sensor is oriented, and the supply it runs from, which
-> is often switched on wearables.
-
-Why this part but not the mmc5633 that is in the same driver so I assume
-similar enough to cover with this binding?
-
-That part is a little more complex because it can also be connected over
-i3c but I'd still expect them in the same binding doc.
-
-> 
-> Give it a binding of its own with a mount-matrix and its single VDD
-> supply, the package having no separate I/O supply pin.
-> 
-
-I'm not seeing support in the driver for mount matrix or supply.
-Normally if the argument is to move it out of trivial devices because
-it needs those I'd expect to see it as part of a series adding that
-support.
-
-Or do you care about this for a non Linux usecase?
-
-Also no need to talk about what it doesn't have.
-
-> Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
+On Mon, Nov 16, 2026 at 7:50=E2=80=AFAM Cristian Filipescu via B4 Relay
+<devnull+filipescu.cristian.gmail.com@kernel.org> wrote:
+>
+> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+>
+> Add the board description for the Allwinner H6-based Orange Pi 3 LTS,
+> using the common Orange Pi H6 description for shared hardware.
+> Describe the LTS regulators, storage, Motorcomm YT8531C Ethernet PHY,
+> wireless module supplies, LEDs and USB ports.
+>
+> Reset the sole Ethernet PHY at MDIO bus registration and keep reset
+> outside interface detach so its configured 125 MHz output is retained.
+> Use generic Clause 22 discovery and PHY-internal RGMII delays.
+>
+> Inherit the schematic LED roles and defaults: red power on and green
+> status off. Select the weakest GPIO drive level for both LEDs, describe
+> the shared CPU supply on all four cores, and enable 1.8 V eMMC DDR52 and
+> HS200 modes while retaining the H6 maximum frequency of 150 MHz.
+> Remove inherited USB ID detection for fixed host mode.
+>
+> Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-3-jernej.s=
+krabec@gmail.com/
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Signed-off-by: Cristian Filipescu <filipescu.cristian@gmail.com>
 > ---
-> 
-> Notes:
->     Checked with dtschema 2026.9: the steps of dt_binding_check run by hand (host make too old), yamllint and dt-check-style --mode=strict.
-> 
->  .../iio/magnetometer/memsic,mmc5603.yaml      | 45 +++++++++++++++++++
->  .../devicetree/bindings/trivial-devices.yaml  |  2 -
->  2 files changed, 45 insertions(+), 2 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml b/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml
+>  arch/arm64/boot/dts/allwinner/Makefile             |   1 +
+>  .../dts/allwinner/sun50i-h6-orangepi-3-lts.dts     | 188 +++++++++++++++=
+++++++
+>  2 files changed, 189 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts=
+/allwinner/Makefile
+> index aa21f58a4..7ea136380 100644
+> --- a/arch/arm64/boot/dts/allwinner/Makefile
+> +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero-p=
+lus.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h5-orangepi-zero-plus2.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-beelink-gs1.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3.dtb
+> +dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-3-lts.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-lite2.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-orangepi-one-plus.dtb
+>  dtb-$(CONFIG_ARCH_SUNXI) +=3D sun50i-h6-pine-h64.dtb
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts b=
+/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
 > new file mode 100644
-> index 000000000000..039f53a5f912
+> index 000000000..d3ea73e1d
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml
-> @@ -0,0 +1,45 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/magnetometer/memsic,mmc5603.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> @@ -0,0 +1,188 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +// Copyright (C) 2025 Jernej Skrabec <jernej.skrabec@gmail.com>
+> +// Based on sun50i-h6-orangepi-3.dts, which is:
+> +// Copyright (C) 2019 Ond=C5=99ej Jirman <megous@megous.com>
 > +
-> +title: MEMSIC MMC5603NJ 3-axis magnetic sensor
-> +
-> +maintainers:
-> +  - Gerard Marull-Paretas <gerard@teslabs.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: memsic,mmc5603
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply:
-> +    description: Regulator that provides power to the sensor
-> +
-> +  mount-matrix:
-> +    description: an optional 3x3 mounting rotation matrix.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        magnetometer@30 {
-> +            compatible = "memsic,mmc5603";
-> +            reg = <0x30>;
-> +            vdd-supply = <&vdd_1v8_reg>;
-> +            mount-matrix = "-1", "0", "0",
-> +                           "0", "1", "0",
-> +                           "0", "0", "-1";
-> +        };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-> index a8b2b9deade4..17a32dd8772e 100644
-> --- a/Documentation/devicetree/bindings/trivial-devices.yaml
-> +++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-> @@ -261,8 +261,6 @@ properties:
->            - meas,tsys01
->              # MEMSIC magnetometer
->            - memsic,mmc35240
-> -            # MEMSIC 3-axis magnetometer
-> -          - memsic,mmc5603
->              # MEMSIC 3-axis magnetometer (Support I3C HDR)
->            - memsic,mmc5633
->              # MEMSIC 3-axis accelerometer
-> 
-> base-commit: c44104f3642da720164042623e4832836aefdd8e
+> +#include "sun50i-h6-orangepi.dtsi"
 
+> +#include "sun50i-h6-cpu-opp.dtsi"
+> +#include "sun50i-h6-gpu-opp.dtsi"
+
+These two are redundant.
+
+> +
+> +/ {
+> +       model =3D "OrangePi 3 LTS";
+> +       compatible =3D "xunlong,orangepi-3-lts", "allwinner,sun50i-h6";
+> +
+> +       aliases {
+> +               ethernet0 =3D &emac;
+> +               ethernet1 =3D &aw859a;
+> +       };
+
+
+> +
+> +       leds {
+> +               led-0 {
+> +                       pinctrl-names =3D "default";
+> +                       pinctrl-0 =3D <&led_red_pin>;
+> +               };
+> +
+> +               led-1 {
+> +                       pinctrl-names =3D "default";
+> +                       pinctrl-0 =3D <&led_green_pin>;
+> +               };
+> +       };
+
+I think the LED drive strength could be moved to the .dtsi file?
+
+> +
+> +       reg_gmac_3v3: gmac-3v3 {
+
+Node name should be regulator-gmac-3v3. Node names should be generic
+in most cases, or carry a generic type prefix for nodes that don't have
+addresses.
+
+> +               compatible =3D "regulator-fixed";
+> +               regulator-name =3D "gmac-3v3";
+> +               vin-supply =3D <&reg_vcc5v>;
+> +               regulator-min-microvolt =3D <3300000>;
+> +               regulator-max-microvolt =3D <3300000>;
+> +               startup-delay-us =3D <150000>;
+> +               enable-active-high;
+> +               gpio =3D <&pio 3 6 GPIO_ACTIVE_HIGH>; /* PD6 */
+> +       };
+> +
+> +       reg_wifi_3v3: wifi-3v3 {
+
+Should be regulator-wifi-3v3.
+
+> +               /* 3.3V regulator for WiFi and BT */
+> +               compatible =3D "regulator-fixed";
+> +               regulator-name =3D "wifi-3v3";
+> +               vin-supply =3D <&reg_vcc5v>;
+> +               regulator-min-microvolt =3D <3300000>;
+> +               regulator-max-microvolt =3D <3300000>;
+> +               enable-active-high;
+> +               gpio =3D <&pio 7 7 GPIO_ACTIVE_HIGH>; /* PH7 */
+> +       };
+> +
+> +       wifi_pwrseq: wifi-pwrseq {
+> +               compatible =3D "mmc-pwrseq-simple";
+> +               clocks =3D <&rtc CLK_OSC32K_FANOUT>;
+> +               clock-names =3D "ext_clock";
+> +               reset-gpios =3D <&r_pio 1 3 GPIO_ACTIVE_LOW>; /* PM3 */
+> +               post-power-on-delay-ms =3D <200>;
+> +       };
+> +};
+> +
+> +&axp805 {
+> +       /* ALDO3 is shorted to CLDO1; both inherit regulator-always-on. *=
+/
+> +       regulators {
+> +               cldo2 {
+> +                       /* unused */
+> +                       /delete-property/ regulator-min-microvolt;
+> +                       /delete-property/ regulator-max-microvolt;
+
+You should reference them by label, not by partial path. And perhaps
+also delete the name, so it goes back to the default.
+
+> +               };
+> +
+> +               cldo3 {
+> +                       /* unused */
+> +                       /delete-property/ regulator-min-microvolt;
+> +                       /delete-property/ regulator-max-microvolt;
+
+Same for this one.
+
+> +               };
+> +
+> +               /* DCDCB is polyphased with DCDCA. */
+> +               dcdca {
+> +                       regulator-min-microvolt =3D <800000>;
+> +                       regulator-max-microvolt =3D <1160000>;
+> +                       regulator-ramp-delay =3D <2500>;
+> +               };
+
+Setting is almost identical to orangepi.dtsi. Lower min voltage probably
+doesn't do anything since the lowest OPP is at 0.81V?
+
+> +
+> +               dcdcc {
+> +                       regulator-ramp-delay =3D <2500>;
+
+Same here. I think you can drop both of them.
+
+> +               };
+> +       };
+> +};
+> +
+> +&cpu0 {
+> +       cpu-supply =3D <&reg_dcdca>;
+> +};
+> +
+> +&cpu1 {
+> +       cpu-supply =3D <&reg_dcdca>;
+> +};
+> +
+> +&cpu2 {
+> +       cpu-supply =3D <&reg_dcdca>;
+> +};
+> +
+> +&cpu3 {
+> +       cpu-supply =3D <&reg_dcdca>;
+> +};
+
+These are redundant. The cpu0 supply is already inherited from the common
+.dtsi file.
+
+If anything we should add cpu-supply properties to the other cores in the
+.dtsi file. But that is another task, and one we should probably do for
+all boards together.
+
+
+Thanks
+ChenYu
+
+> +
+> +&dwc3 {
+> +       status =3D "okay";
+> +};
+> +
+> +&emac {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&ext_rgmii_pins>;
+> +       phy-mode =3D "rgmii-id";
+> +       phy-handle =3D <&ext_rgmii_phy>;
+> +       phy-supply =3D <&reg_gmac_3v3>;
+> +       allwinner,rx-delay-ps =3D <0>;
+> +       allwinner,tx-delay-ps =3D <0>;
+> +       status =3D "okay";
+> +};
+> +
+> +&hdmi {
+> +       hvcc-supply =3D <&reg_bldo2>;
+> +};
+> +
+> +&mdio {
+> +       reset-gpios =3D <&pio 3 14 GPIO_ACTIVE_LOW>; /* PD14 */
+> +       reset-delay-us =3D <15000>;
+> +       reset-post-delay-us =3D <100000>;
+> +
+> +       ext_rgmii_phy: ethernet-phy@1 {
+> +               compatible =3D "ethernet-phy-ieee802.3-c22";
+> +               reg =3D <1>;
+> +
+> +               motorcomm,clk-out-frequency-hz =3D <125000000>;
+> +               rx-internal-delay-ps =3D <1950>;
+> +               tx-internal-delay-ps =3D <1950>;
+> +       };
+> +};
+> +
+> +&mmc1 {
+> +       vmmc-supply =3D <&reg_wifi_3v3>;
+> +       vqmmc-supply =3D <&reg_bldo3>;
+> +       mmc-pwrseq =3D <&wifi_pwrseq>;
+> +       bus-width =3D <4>;
+> +       non-removable;
+> +       status =3D "okay";
+> +
+> +       aw859a: wifi@1 {
+> +               reg =3D <1>;
+> +       };
+> +};
+> +
+> +&mmc2 {
+> +       vmmc-supply =3D <&reg_cldo1>;
+> +       vqmmc-supply =3D <&reg_bldo2>;
+> +       mmc-ddr-1_8v;
+> +       mmc-hs200-1_8v;
+> +       cap-mmc-hw-reset;
+> +       non-removable;
+> +       bus-width =3D <8>;
+> +       status =3D "okay";
+> +};
+> +
+> +&pio {
+> +       vcc-pg-supply =3D <&reg_bldo3>;
+> +};
+> +
+> +&r_pio {
+> +       led_green_pin: led-green-pin {
+> +               pins =3D "PL7";
+> +               function =3D "gpio_out";
+> +               drive-strength =3D <10>;
+> +       };
+> +
+> +       led_red_pin: led-red-pin {
+> +               pins =3D "PL4";
+> +               function =3D "gpio_out";
+> +               drive-strength =3D <10>;
+> +       };
+> +};
+> +
+> +&usb2phy {
+> +       /delete-property/ usb0_id_det-gpios;
+> +};
+> +
+> +&usb3phy {
+> +       status =3D "okay";
+> +};
+>
+> --
+> 2.47.3
+>
+>
