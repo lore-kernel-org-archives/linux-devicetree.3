@@ -1,102 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795381892;
-	b=kyjZxT3/16WWB7OETdT2xAJ4wKGx+7S1zVz3wjxwq1sSRmtiFuZ72UqLqetn6x2We72w
-	 XFGT2mv/IOXA80cXkGVs0SB0/fDgEoFRgv9tP3OhqgUgeQUu+71aZrn6UsUqWLR83PpmX
-	 GdVdqKNCiq3wCX2vU7rGtkJHQLVkMF3Kf5I43+V4+ysm8ReoENJ4yTQQjoFm62vjyD9B/
-	 rTaMBqM+19tkZWpYHsx85JFCZvD4lNkFpNkvDafIml3WyEes0XJb2/1w3kJigkRbBFzgy
-	 5eLklOcNKK//KUhRfQxxiovse8QDPcYZLH4FF4WWH618tma9ZHupbnUoeIuHJKRNwiw==
+	t=1795382684;
+	b=jbJhoN6W3obnQCqbIz6uLlMWHWZrZwxJP7ocCnjVA4OCTqEzJGfag1RxMPJxW8YAGdeQ
+	 0KSlknfb3PmHQqXLJM2u2OCd5k5keN0nu5IgU4kTUQvamFJ0iOhV1IFF7XrsWlNrKifkU
+	 zEvfXlAaCEU+a6vbbUPTEJ4RMwfZrd+ZM5psnYfGpJO+06xLfctgIOF37so2LOekRFT/i
+	 OsscHcd17pf+tWzZAsGf4/CtmLBXBzr2fX4hn6B9ckcH4+reP5Sw/dG3GKLDHVp4k5wFj
+	 5WwnoxTLyJgoKH5SkzAZtwYPWmfqSdbQYXGiRBUxq6PEaD3aM8m0sdYFnsR3N0pI9WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795381892;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ge4eiVUKj3nX4tuUYC5k9dPzCXTKzLAWVgrNn1CnYhg=;
-	b=rKDISqNbQBpbPVjsLxFqYrFIssGVlbWF7xinynysIRWdj10DJszbCn6MHsjvFMYkZKIH
-	 E5/sFETbsX727RJ6OLHpOQUCtsqHWDw3YEnDJ/4efn8jQMD3jZCsnyoDXcPrb0i4peZbs
-	 SMp+dIrgkjIGfGT5Lj3bKqEtNXU99/tFgTAV/FRIziJiJiA2fknmzRZNgHDKsnJUn66zQ
-	 iUIjvNgDX+P2HXSAuhwGcvKEQkuI24Z0XPtBR7LhEcD40jL1oQB/FQIZihJZIyXb2+Fv1
-	 Vw6Nrg6ZfqC7A1V8T0JRvdbkG/8fiJMvG8IuTDHP1DCMOSdxYq+aFOPymj1A4StOx9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795382684;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=kMLeaGELYsYS7Led6Wuz9RBFocdL6pgm4qhWj2t96to=;
+	b=3LLNW61YQtCtjpZomYrdhic4xrA/h00Q2dnKkjnnqewA4yq2QIaqeFuV2SIEiTTcBAt1
+	 sJ+zFQBFiGpRSU5nFAEiTcNSDG9C4IAC7N3SNuL2GJJEHn/30S94jTQEX/KeXCd/4Hyzi
+	 TniJxrSzb2NCOGAfO2/ijf8MCaUrn9Iht3gxFZLI0Dr/vs9mkCYOtaAcy+N6ryNKxwXiz
+	 KQ20AHitNff0oe2rbDGMSxJ4NrOK2/5044vNjYD2JCtDxu23l8JfY2FOeViHS9R+92tN9
+	 4L3R0XJnT1traxZsy2eN12IXk8iTDjK/gfd81udlYwTIXCAbF1qb+ZcFkxgeU0E3Czw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=teslabs.com;
-	spf=fail smtp.mailfrom=teslabs.com;
-	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jFz4jAsb;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ea70ZD3R;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618BF606A320
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 21:11:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 618BF606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=teslabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=teslabs.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648FA606A31D;
+	Sun, 22 Nov 2026 21:24:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 648FA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jFz4jAsb
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so19483895e9.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 13:11:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795381891; x=1795986691; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ge4eiVUKj3nX4tuUYC5k9dPzCXTKzLAWVgrNn1CnYhg=;
-        b=jFz4jAsb0UInSseLDcDVLtsdUjFuIb2lcwvCt85BZQgR1AT6Fx7rZhyuuaVcztw7DI
-         SHZ0U/ohb/0XMsoxbT3U+cWFyWwo5LwSY79yKpzQ9cGwZZ1rPtClIS8lccyn0YbSHO8Q
-         /MbnqSeiwU3pJZcK2XqSv8Prdfql/n3LX6gHlHRTEsaqIK/O8NKYvVQTS65FbrWrUakf
-         ohgh4YXvxQue+l+JfIzOS12pYHL4A5CVRM4zQZQhe1nsW3yo5Wd9BAdBZ/ebu6iITp1O
-         cQ5rRqpwGZsqMLYRn8EO25QkPYSN8e64BTQt8kV9VFMArAkZslZyHa2vOjnruEv7VdVw
-         yIkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795381891; x=1795986691;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ge4eiVUKj3nX4tuUYC5k9dPzCXTKzLAWVgrNn1CnYhg=;
-        b=w5nKHxbUUKkQkU8L1dQPGE/ACFIDBG0q03eEC+aHO+ihYLnTYUYHw0/E8aSIj4i4Za
-         X5KcJ5Qu9y8YvzBP1qBlHKLJxUrvLiwVml7JUqxARWSp6FfT9Oe+GSlgm1Zu7WYX3yjz
-         XH2z5A6t5O2FC2KdAMgLO9PbSpvkwblaKM7kHUfgvsejo4/Hfm1OgxerXowRAZlQ8X4a
-         Nqz3/JVtpUGBeAmfK0ziBB9zApA6cIv0W35DgV4cJXgJKTKO2HC51b4gZyQT9sdAns+T
-         e2tvi/ELiUU/UKT+zoWcBd3RIDXdWKmlaS52wfR05ogcw7qNJ8/aDML046F6Rtump5WZ
-         HY9g==
-X-Forwarded-Encrypted: i=1; AL+hErFQ9EdcRxJ+8Ie/h0KMiQdF6a72n1F2jcGslusIOfRmbfbNHz9a/HcaFAuduATwRKuECQhwewoTAFhB@vger.kernel.org
-X-Gm-Message-State: APuU4Z/D1c3UJX7z6QTqLEpB6j7LilCpH7pc2tKdW0f8GlEp37bUzWim
-	rhYLHwGfdz2DbF4fINk1BESRGW7Z7m1RdQCkPZMp1mAKvfbXxlA3wvQJv5lSOupzJpU=
-X-Gm-Gg: AZFdTZe3QZQ1iYQ8ktgh0FE7A5jF5wpKLaWdjXBXQCnhsQB3qy8dt7hTmh4hfY4eCtV
-	vBqAAB8LKShPGmjKOKWYCATGLn1vlBUdZCqiuKvSTtdJn72XWqrLf7IIvbq3N7oNKrWXEbHhm7h
-	h1g8c6Ki0cVz87rVVlJoInTrOEjJ4zhmAkV/fkH8M7qTzAX5OccSYztTlcraMJD4LytnD2Bpbui
-	Y5kMD8srjZJYfBqz14BM8/2AEDTlKhfmncREy/oJ0LaR035VIMKbK1j5XbKsBT1PUHUpwQqJfX1
-	rU48AXNxeWOQRqmqsAN3kQszq6uUIpBHrdOjVSHw25EW2HKfu2H3kbZm4wHDYcdvkMqB7McKel3
-	bisjShEWWyJ8arRlhB7QVY9WLHhGCnUAbef+z9dgY8iF7WEGhPBillU+Q86ar8NUUQxNkFNuxYG
-	68TpLdtDWsyvqjN85Q7HXM+6+rEC4j78fZgbIMwRpOkKXJN/n70Os4FLJ6gjRRIB9QlsSEUs8dE
-	1Gy+HacdJd1qSa3NnlLkD5Fj//MqoMDRq4Ac59ar55PelB4/ZKZiIs2dIoynEwjugNZWRYyV8Ni
-	Q2kAY7Ln9GIbwZ7yteWjeucwanX7SGjGn2U/Ap3NdQU6j79DgnjtzY/kzNaZcQGy/2boSyEXzx5
-	stfCwjVoJx6A=
-X-Received: by 2002:a05:600c:3b88:b0:4a2:191f:7cbd with SMTP id 5b1f17b1804b1-4bb888078a8mr229132545e9.11.1795381890664;
-        Sun, 22 Nov 2026 13:11:30 -0800 (PST)
-Received: from localhost.localdomain ([139.47.121.129])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906640a2sm123545075e9.0.2026.11.22.13.11.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 22 Nov 2026 13:11:30 -0800 (PST)
-From: Gerard Marull-Paretas <gerard@teslabs.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ea70ZD3R
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=kMLeaGELYsYS7Led6Wuz9RBFocdL6pgm4qhWj2t96to=; b=ea70ZD3RFYf9r7Xo5xERlpSNX3
+	AuDkMXwq5WvQxReRV9XyZmMClcnUQvBR16VfFzUrCRcPoYscwPr3QyE2q08LU1T5iTvczF40nS10P
+	ciejCfBk35MXituFAEK7Lq93QSePM9voI721EsyAEnhJM+1t9eJ6ZZpUjSN9nnKwQt0A=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xVF2u-000cdk-Jj; Sun, 22 Nov 2026 22:24:24 +0100
+Date: Sun, 22 Nov 2026 22:24:24 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jonas Jelonek <jonas@jonasjelonek.de>,
+	Christian Marangi <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Frank Li <Frank.li@nxp.com>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] iio: magnetometer: mmc5633: Enable the VDD supply
-Date: Sun, 22 Nov 2026 22:11:28 +0100
-Message-ID: <20261122211128.14591-1-gerard@teslabs.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20261122205211.6c46f3cc@jic23-hlaptop>
-References: <20261122190836.66111-1-gerard@teslabs.com> <20261122190836.66111-3-gerard@teslabs.com> <20261122205211.6c46f3cc@jic23-hlaptop>
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [RFC PATCH net-next 0/2] Add Realtek XSGMII interface mode
+Message-ID: <df35e0d4-9f1f-4882-bc6b-257add4e9fb1@lunn.ch>
+References: <20261117084748.2387647-1-jonas@jonasjelonek.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,21 +74,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117084748.2387647-1-jonas@jonasjelonek.de>
 
-On Sun, 22 Nov 2026 20:52:11 +0000
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Tue, Nov 17, 2026 at 08:47:46AM +0000, Jonas Jelonek wrote:
+> Hi,
+> 
+> This RFC adds an explicit PHY interface mode for Realtek's proprietary
+> XSGMII transport. It carries eight 10/100/1000 Mbps ports over one
+> 10.3125 Gbaud SerDes lane. Each logical port remains limited to 1 Gbps;
+> the aggregate serial rate is not a per-port Ethernet speed.
 
-> >  #define MMC5633_WAIT_SET_RESET_US	(1 * USEC_PER_MSEC)
-> > +#define MMC5633_POWER_ON_US		(5 * USEC_PER_MSEC)
->
-> Obviously the line above isn't great on this, but is there a spec reference
-> we can make for this timing?
+We should be careful with naming. We have already have QSGMII and
+PSGMII, for Quad and Pent. X is too vague. So we should somehow
+indicate 8, Oct.
 
-Both datasheets list it in the "Operating Timing Diagram" table as tOp,
-"Time to operate device after VDD valid", 5 ms minimum. I'll add a comment
-referencing it in v3, and annotate the set/reset wait with tSR (1 ms
-minimum, same table) while at it.
+But...
 
-Thanks,
-Gerard
+> Protocol identity and naming
+> ----------------------------
+> 
+> XSGMII is the name Realtek uses for this interface. Calling it simply
+> "octal SGMII" would describe its capacity without identifying its
+> protocol. Existing modes such as QSGMII and PSGMII already distinguish
+> multiplexed MAC-PHY transports; the PSGMII introduction is an example of
+> adding the generic mode definitions separately from a driver user [1].
+> 
+> Cisco USGMII is a relevant comparison, but equivalent port capacity does
+> not establish interoperability. Cisco defines Q-USGMII for four ports
+> over 5.0 Gb/s and O-USGMII for eight ports over 10.0 Gb/s, using 8b/10b
+> coding and a packet-control header [2]. Linux already represents the
+> quad variant as "qusgmii", with its own control-word decoding [3].
+> 
+> Realtek documents XSGMII and O-USGMII as separate RTL8218E interfaces:
+> XSGMII runs at 10.3125 Gb/s and O-USGMII at 10.0 Gb/s, with different
+> hardware strap selections [4]. The SDK also distinguishes them in
+> phy_8218e_macIntfSerdesMode_get() and applies separate initialization
+> tables. Realtek's O-USGMII is therefore the candidate for comparison
+> with Cisco's octal USGMII; it is not evidence that XSGMII can be renamed
+> to USGMII. Compatibility of those O-USGMII implementations would need
+> separate confirmation.
+> 
+> This proposal retains the vendor's XSGMII name rather than assigning an
+> existing protocol name to a distinct hardware configuration. It does
+> not assume a particular XSGMII line encoding merely from the line rate.
+
+https://deepwiki.com/lotusmomo/airoha_sdk/3.1-sgmiixsgmii-drivers-and-apis
+
+Airoha also seems to have an XSGMII. Is it the same, or different?
+
+Adding Christian.
+
+I hope we are not going to have vendors introducing there own
+variants, and we need
+
+PHY_INTERFACE_MODE_REALTEK_OSGMII & PHY_INTERFACE_MODE_AIROHA_OSGMII,
+etc.
+
+       Andrew
