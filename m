@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795374522;
-	b=cVEJnv7B/czxU0GqqMWoIdjU1hcGJzwjKzRCKZ5L9jiG5Bmn96gehLLqRMqiPcvOnueB
-	 BwiQ1KiaFB79/QBNOpOcwtlls7EN5T7YSCwih6UOIpDZjcEuHJ48i+I11dpiHvhXxU4P8
-	 WVpbX/qAy3TUAXq5vqzWO5LpySZ4QIzMD5fxzpQS8mB6uKRgP72ftseoxbq87K5Pj1Cfp
-	 mYBz/NI/rHztEh3K8X8hBpJYwWIFX1+Q00tMcmTY6jL8U41uOJ8Sfyv7Bsv8BVh1FIKqK
-	 b7QFTCM8ySA9aUBRkUpD34+NGKeZQIJrL2j6DfANUHX74ilOEjvTCbbtyZNP4uKDSWQ==
+	t=1795374523;
+	b=pd9b0z3iPrS006R8V8/fd/Oy5hDhLrn0vtSXvac9bBzVGLZzKj8XdaXjf2/+FJ73NwiX
+	 Ef/4m2jQMBbxAL+v1ojcN7ndCrGTJyeGqM9UjxAHBODbBpXiYEb6J3/ygAY/dNFd/GOC5
+	 lNM8zolECFZBd5gQjRrcGANr160IPGRX40Bg+TJdiXjejjhiGum1psZPS7nrrIDOnHDvd
+	 CS3jPpMOo1g9VrzEXo08z7tr/zTrmZUvfaW4OhGhpUs/LLvZnyDFeiCoaNWsr6ExwIDbG
+	 flqHNW8NLRTtHqtc9DEtZWcUNFz5EvGH9ne6NM7K1BZb55DtjBB8FEvhDONoUEDX2qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795374522;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795374523;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=BP1qn3ZgXAJPwE9Z4LOxEEqcGESbeNlEBsddeXFHeNk=;
-	b=d7gnZjZwMa9N4LGLimw+UUn4/FPGLyahmpjc1G4jSR6qX4ST6OqO1cFNWve1e25pu5wH
-	 P35WibBxMOjRVUjoFEd2f35ZQBJDJj0sifLWjHd+/l/7IzQ4STSjbIOQnj7knx26Tcd5g
-	 nlu5l5I9kl2vqEaf2R0uU104t/8eOkAXb1wASTm9q6DqN8c0N/+6YnqkmNo/siaCLH9l7
-	 tZcVDOhKLQgMAkQ1LTeARD0EvVlw9c7uhkRxfykxzo8dugmRD8oGGBdDxWJlsTBlBmObU
-	 mTlPO7DmaTTiKOeD/3IUmZof4Qmq/ZZr29w//NEJZL4RAuqdlXhNDfYCDvNOMsaO5rg==
+	bh=dAs1mqfrVrH1ol/B1nRUX6eBBIxpRuHBybsWCr2GDvU=;
+	b=5GZdy88ylierUSDKtdFVMBxrRPO5IsfyLzS7aGXW8wSZHuHEY/K7gv7uzTLSwFiITeUd
+	 gs+vA/6irOKC785hbTR85jmbNdrueyhHHp+6nPhvSR+DKqNk+4kmXYWzOgeR9gyCxAS5j
+	 QtANJnYw7wJgbEMnpxFmTqTNF/eIbbtRVX2hYC0jZ9zYqGMsjSmMl+piyxMIXzTuIQ8x9
+	 Y9jybNXTQBO1ddS6PDI+jkSBbhcWpqwzXYHMn1o5mfz5Mciv2qa6965mOOmD5Gy/z2nPr
+	 0uIOusNYtoz6zaie36ctam4cBSxAQMP9s1hrJLRHdTBRJpZOKNhRSMMx2ZVR56qKhqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=teslabs.com;
 	spf=fail smtp.mailfrom=teslabs.com;
-	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OynidK4K;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=CK8UnIGY;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EEA606A33C
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9EEA606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67F1606A685
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:08:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C67F1606A685
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=teslabs.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=teslabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OynidK4K
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so18939565e9.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:08:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=CK8UnIGY
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so18939805e9.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:08:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795374520; x=1795979320; darn=vger.kernel.org;
+        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795374521; x=1795979321; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BP1qn3ZgXAJPwE9Z4LOxEEqcGESbeNlEBsddeXFHeNk=;
-        b=OynidK4KUNaR4sXs4C9eY/rwSsK23cjX7gdlwtjh2qkjgkuJQLw8IAvcTG/MScWA4q
-         iy1SZHhF9p5/nSYjuK0AvFJ70F1NuW/UcUOgbqALttsVRJ9n0ociNb7IDjbvLzxI81gQ
-         z/PS/TKoWAkW4Fl5Zsw8MFcbK77l2R4AQ8olSNgoVTAWW9O/TwymYrJbyumfI7bRrBw2
-         2TDSkXhea+56NLK0ZP8R01iiGyg9aEITaITErGUX7RnfSZIjQ3k6+/4nnbyTA/rlcBr9
-         mExjMh7sUZAr++3hoB2yej5B7sjYKzm0eIyCY+F588P8fipxyE/LYPffRDmTJaIZtYdX
-         DfWQ==
+        bh=dAs1mqfrVrH1ol/B1nRUX6eBBIxpRuHBybsWCr2GDvU=;
+        b=CK8UnIGY3tyNdi3KsdxWUFgIsuevJezdcxkZ0Tvxgvwb2yGWbic7kemqR3xCy9RriR
+         XtDRytV0gxbfFtkO0gju/ZJjOwfQSDSzNwbE2g7oBcO6OD5XDKZY3yENX1kRAqYQp3zA
+         IwPRo+10jO3xlCxlC9rJEmKQwVuaa92PQ1YcuJhQgbJ3hEbVn674bfv2Oq/ccAmP7ysu
+         KVDQURX/udZ5xXi0EJIg9v9FOWsaYl1Di5oFGsQT3JZxPyVkYIAlhsMQvL7mDeeJQ4a7
+         hksPvNghpbg7JVmb/g1u2/amPVy2WQnPV2iGFZmKp/ICzFRez1mEB0M0AqSS8H854Kab
+         nQQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795374520; x=1795979320;
+        d=1e100.net; s=20260707; t=1795374521; x=1795979321;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BP1qn3ZgXAJPwE9Z4LOxEEqcGESbeNlEBsddeXFHeNk=;
-        b=vKcXOhEznXmpMcw/cxhDP330QgbJNwqrZrR4vEDBNIHsY6V6HXHiy/UJXqB5V/NQY9
-         0oiGwAEApvc/SgevAeJS1UhNf4h9wb+8x1LnD+Wp0gXUKDvKEzWo8SM24LiMnBvZNsvA
-         mGk7bblpdeQc+B8+yJo8sI91KrlV1iHivRxeIrNOkhPXu84nsScWZ7yiMEi+hmwBQiwx
-         5G7L6u2ojg3CNCJM6ZSXv3i01h7Uns6I/phXSlvQ+2Q45lNZw877cjWnOjZvsXVXGQ1G
-         stI3aYPexIyKl1QCfJ1MHQF4OwCEQrV/g6u/jlXlVGRrr33qIg5ynVrDgmHc5I1+BR+S
-         lFow==
-X-Forwarded-Encrypted: i=1; AL+hErGzSd+tEQp4lMAfvJgGQchWfIF4fswwvf/QHZsOtitwmrP0kMsF5dELzISDycI1I1yBimhikopZyqGT@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zuPszCFOPpudYnwQDPtPojW3QqAaSAM6hbeJ60UuoYQZEM5zP
-	yT9iTAgAi1UuM01SjcAOWtDeSv8RUh2AlXq0rhxWd/EO5b9ONnDQ6MDkubcWbOpuJoo=
-X-Gm-Gg: AZFdTZc41e18btdQBQLbZ6QNugzcRFckY8i/yqcWIqkRXVFzM/4KbPNl5H5ukvoj5DS
-	KTwMDAf5radwAGapmoCfuMEBgXxOCgsEIJKBYdKcbxM2mcg8VbxfJcQJrQxvlw5Bw91yxxFqFDw
-	rI5ogZNur6eXUlsQvkVVZZbMtt5BRd4ehMPbslceG+MbohybVHkjZPYAiU78GxQCw1XOKHrpT/Q
-	KTDLC1Cv4kfLscliZVQdprZDCiW9tvH27rUAsiNgjmsLmofG7JTUafty6JnUsPZ/Lk/icJMo7Jv
-	u3zeDAaV3zt4hYUag/UPbeD0RgUmDCzv1z1RSmh7dY4jgPpn8M9mYHgXceQtbG7dckMAaO68yea
-	Z32GkqP8QiLuDELK1Xj2N8O9vrUCwFF6IgVgwKMJuHLuomQrS727tXFTERVelfFV4u9MgHwp0Fp
-	qnZVPxZLPxnnqIrbBjvg4pJ9Ry2yxrHqcU3kQg1ev4eOhqepdxOPq4jgIiC4HWGkm1y33dRPWM2
-	zqSc7vCejvLAR/0tqLb+iu9EZzVCkQIwIBGyadpsUBkhROGvnozfmekfswDAeM6/0pNHW9OiTP3
-	h4q1RnuO5eyZU5SegsM+MfWrCaMnjLRT2k2nJL3vzlCz4aJ/8qnwRvpThGGE6+EoRLAiWpmuCv6
-	hnVNmTWrxDTI=
-X-Received: by 2002:a05:600c:64c7:b0:4bb:872a:f500 with SMTP id 5b1f17b1804b1-4bb887c2697mr216534635e9.3.1795374520111;
-        Sun, 22 Nov 2026 11:08:40 -0800 (PST)
+        bh=dAs1mqfrVrH1ol/B1nRUX6eBBIxpRuHBybsWCr2GDvU=;
+        b=OrHWrolflSPL8vAloF/lUTpKuCj8y/9T5KGD+Ui0Ggaiz1BaKZVfU+Us4HBkli2cVL
+         7T7gMMB5147CKt08eNj/ee4lD6mLHukHjMunO0tS8o+1uDqpUuAV7WAxpmFYD8XqkZok
+         BzBlc01XbenxCzitThHgTs65wKnadeb6xOyqtqxah4nyIZ8NL+hgQJBBbfZnhvC8VbY3
+         PABzXKdiC1hiLgAQFmKtz7s0rpEQDMac4ydekCk6ehzNohVnHNrddnEZvxTXN7ksmD44
+         Do9KZCAryAh8cdIFXAFTPcHnjPJw1kMP5GtNi1ge+wVQMxlaFpovMIHOAICjhAeo/EAf
+         K5sQ==
+X-Forwarded-Encrypted: i=1; AL+hErHx8v0SObMrBChEYa1aBAphEYb+dQFaZf46EDLKjI2fgUxkD4scile4VmnuMk1gafV/TCl/MgKsmK9I@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SYi/WI0HFshXmTEfqMItjVV5R7dxG7UR3saXjGpepHiFKfNJB
+	VTtot0so5l4dJYCPo+cUpCsWHBtGkxp8ttqvbkndux3EhlGrAFe/eWcvUIHd8V/kvzk=
+X-Gm-Gg: AZFdTZeIXnwC6rTZI3kxTA3YmvJZQzqkE1jb+qQf6TGBLM/CPUJ/5HS/B3RzIdrWcwX
+	LuEVnOLQHkCsPevCGmTtZcofkiRAx2mvzdcSgItwdpZDe0d7mqAkn5aIlMKOSoqd620PeOSn6Fr
+	n6f2mdtkXvf/WP/VRJjQpXl95qFrWgeorFA6yj7idbVhy6EpY17AgjXLa9h+N4M8YPB9Dw5G6Ot
+	ybABjETKrerIUQAIoXlZTjg7pak3ZNVxFkaOFvpQ4kZXFXu9v7og7QN7JtyU4nv6G/2cIznmQ9S
+	OISpgcIgYghlYusrD8AFagdhygqGzAtt0cxoeaD0vifmzDMTHQpqQrO3Zno3BINV327Ltlt/R4x
+	I6isLYmIwEvauahKrzRntrPQ/9jPqP2O+zx0Xd3RFf+QJkTic8Juu752bAUCOkRFUxl0VkkGZAM
+	6U22gYXCfV0XhU74o4lIJQY25F/WUzOp2NAoMFg956ZZINhy4E2o0Af7ilbXZt4WyFd4g2DqQjx
+	CD16kwTDBUPY0JkWn8GvyTFRtqKphldPgJRvZ5d2ncOOYPBra81yIp21Fu6dgdl82pWCzvg9Nsi
+	O/GMKLpNlayzPBOXEw0c8OS0BBzeC85jt8IWwmi9OxcEpY9FFzTs2nVzoiuLCsxqk5Yb7LLCtHU
+	Vxcrc/q4N5Hg=
+X-Received: by 2002:a05:600d:600b:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4bb88815f1fmr200246095e9.21.1795374521196;
+        Sun, 22 Nov 2026 11:08:41 -0800 (PST)
 Received: from localhost.localdomain ([139.47.121.129])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb895f7bc1sm103080395e9.3.2026.11.22.11.08.39
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb895f7bc1sm103080395e9.3.2026.11.22.11.08.40
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 22 Nov 2026 11:08:39 -0800 (PST)
+        Sun, 22 Nov 2026 11:08:40 -0800 (PST)
 From: Gerard Marull-Paretas <gerard@teslabs.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -91,9 +91,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] iio: magnetometer: mmc5633: Enable the VDD supply
-Date: Sun, 22 Nov 2026 20:08:35 +0100
-Message-ID: <20261122190836.66111-3-gerard@teslabs.com>
+Subject: [PATCH v2 3/3] iio: magnetometer: mmc5633: Add mount matrix support
+Date: Sun, 22 Nov 2026 20:08:36 +0100
+Message-ID: <20261122190836.66111-4-gerard@teslabs.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20261122190836.66111-1-gerard@teslabs.com>
 References: <20261122190836.66111-1-gerard@teslabs.com>
@@ -108,44 +108,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Boards may switch the supply of the sensor, so get and enable it before
-initialising the chip, and wait the 5 ms both parts need after VDD is
-valid before they can be operated.
+Read the mount matrix from the firmware and expose it, so that user
+space can account for how the sensor is oriented on the board.
 
 Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
 ---
- drivers/iio/magnetometer/mmc5633.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/iio/magnetometer/mmc5633.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
 diff --git a/drivers/iio/magnetometer/mmc5633.c b/drivers/iio/magnetometer/mmc5633.c
-index b651f01e1b5d..79015c7984de 100644
+index 79015c7984de..f9ecb3737cf6 100644
 --- a/drivers/iio/magnetometer/mmc5633.c
 +++ b/drivers/iio/magnetometer/mmc5633.c
-@@ -27,6 +27,7 @@
- #include <linux/mutex.h>
- #include <linux/pm.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/time.h>
- #include <linux/types.h>
- #include <linux/unaligned.h>
-@@ -64,6 +65,7 @@
- #define MMC5633_CTRL1_BW_MASK		GENMASK(1, 0)
+@@ -83,6 +83,7 @@ struct mmc5633_data {
+ 	struct regmap *regmap;
+ 	struct i3c_device *i3cdev;
+ 	struct mutex mutex; /* protect to finish one whole measurement */
++	struct iio_mount_matrix orientation;
+ };
  
- #define MMC5633_WAIT_SET_RESET_US	(1 * USEC_PER_MSEC)
-+#define MMC5633_POWER_ON_US		(5 * USEC_PER_MSEC)
+ static int mmc5633_samp_freq[][2] = {
+@@ -92,6 +93,20 @@ static int mmc5633_samp_freq[][2] = {
+ 	{ 6, 600000 },
+ };
  
- #define MMC5633_HDR_CTRL0_MEAS_M	0x01
- #define MMC5633_HDR_CTRL0_MEAS_T	0x03
-@@ -472,6 +474,12 @@ static int mmc5633_common_probe(struct regmap *regmap, char *name,
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable VDD regulator\n");
++static const struct iio_mount_matrix *
++mmc5633_get_mount_matrix(const struct iio_dev *indio_dev,
++			 const struct iio_chan_spec *chan)
++{
++	struct mmc5633_data *data = iio_priv(indio_dev);
 +
-+	fsleep(MMC5633_POWER_ON_US);
++	return &data->orientation;
++}
++
++static const struct iio_chan_spec_ext_info mmc5633_ext_info[] = {
++	IIO_MOUNT_MATRIX(IIO_SHARED_BY_DIR, mmc5633_get_mount_matrix),
++	{ }
++};
++
+ #define MMC5633_CHANNEL(_axis) { \
+ 	.type = IIO_MAGN, \
+ 	.modified = 1, \
+@@ -100,6 +115,7 @@ static int mmc5633_samp_freq[][2] = {
+ 	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+ 	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SAMP_FREQ) | \
+ 				    BIT(IIO_CHAN_INFO_SCALE), \
++	.ext_info = mmc5633_ext_info, \
+ }
+ 
+ static const struct iio_chan_spec mmc5633_channels[] = {
+@@ -480,6 +496,10 @@ static int mmc5633_common_probe(struct regmap *regmap, char *name,
+ 
+ 	fsleep(MMC5633_POWER_ON_US);
+ 
++	ret = iio_read_mount_matrix(dev, &data->orientation);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to read mount matrix\n");
 +
  	indio_dev->info = &mmc5633_info;
  	indio_dev->name = name;
