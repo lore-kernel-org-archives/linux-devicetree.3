@@ -1,108 +1,36 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795369141;
-	b=QhRaXXjU5ILGRH2RWacC56WS7lEO69+27z+4WBOaVhUXu1Q7IaLtqPYEBuTh8slYLBFh
-	 QJGD+7SX8STQot5u9jNCvAqj1RNkq7PORwQD2+a8Mwcx1cWgzg+Nv/ve73YovaY51IUl2
-	 VSDFSieWMPYjMrDVHBBBxOa7LRHk5qVMOZGRsvq+tZODockz0HHH0XTkQ9d2TfamRYdP6
-	 t3qigZ6Pfnt6rIzDzZmusinV1MLbnZaw5WdeJqsnkoxGs40mPoLNNG2T20ylH++RpuSjy
-	 ezsDrqA0iiGCVT26PJtxp/DSbpBmbrdOKLMumV3t1h4y7Ykd0XgKm2TYnsCnsQC6AJg==
+	t=1795369589;
+	b=mTHOBWTAtqgAsgt8+kWpf6kSjznq60NH+TDYRK/9qpr2XeqbZWfqV97IAlZx1977jl6m
+	 8tQewTw5bFvNleMcJ3jvKHmQnam/WofHB+v8QO7OKpUzFMdzyd0Sq54tt5OO98fg9BWpg
+	 PzOuzxgCRfwG+os7cFshaMRMqTyXd205PmsvgZ1RpGWXe3vEAfOs7eTzUmp+ewBjH+Thr
+	 JQXqSdDo50cBKr0VIVlmFno9+ahtcfcztYW8uEJsePHk/BdHpIIUCxH2cvw0ZO98A+TeT
+	 6zoDq9LDfd/tfjki6w1T3EbyRW5mKdwUnZKPXKsTgbbK5bO1iGsB5LNTR0L9DvNk2yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795369141;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LlFmwfQRuK6UV6XJmGVYSVgXfF3MLqCw1TxtpepQm6U=;
-	b=BSsgqbGLEbAkW7eQGpjjsbnlzKTtq/45V9yLVgxiGZMwbgRjQ7vAjG7OxHG0a4uznULF
-	 p6JdJaJ+RPHnVxhNTAeDa0/fK+WgupfGD0l43l87GUQOLqm+tQharEk/5Bf9s8rJmORb9
-	 4lTeVGmwA5NflNnVvVEphdBPtOSPCXsLPguVeYaEGm0WJN4vdPByQhrZPUfZdnQwVbNP3
-	 ZWXac9evigpjzGt3ZgmaAnNo7QRyHa73M0hFpw1UO2mE5St7kPQes4XVZMUBm+IHKh5XR
-	 B/v4QqiO4PMNWzP4PUbfZraFhEfuFA5+zJ1rkRtu7m/4d5bY4Gy6qs0a6JcNkPOTCzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795369589;
+	h=Received:From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=y3ycCPGGbIo/EnpPrpSFCKuZkVql5TAl1Yl4QBkTIU4=;
+	b=wTazR3ruFdsbfjXYHlzH/iObu5c6sF1YqgVMch4ViPrQLI3Js9iXay+7n6VNuDj4Eta0
+	 VaFfUUA8vf79i7zXblUB1Uk6FCNR6o9kHB5odPhKWLScyJWv2nqkoSK0R0w3o0G3zYelO
+	 RtKLSiREO4L24rq7NORF7svOkO9Pu//uc/Qn8iFdA01v1D8B5lJNLLngxNjCXLfgOTrSR
+	 6LZv43D58PXcHkaAzbJTYGaZ3dX6jxqtbfW9wb4ImG/khrXe2QXhCCSOz7Lo6SRlxoaFt
+	 54rDk3TemO9u4a10MpHvfiZtGs502nC0oqFhQUvmjdgWmFNTCoF1I8Xv8w0OrhVhDCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tE+XF6mP;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257B4606A333
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 17:39:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 257B4606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tE+XF6mP
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-385d8a00598so3392054eec.1
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:39:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795369140; x=1795973940; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LlFmwfQRuK6UV6XJmGVYSVgXfF3MLqCw1TxtpepQm6U=;
-        b=tE+XF6mPTdlzsEbRygWELR4oUHzEOkRvJxaATh0RgnDUFXddqYNSLBHoHUVz/sj7vk
-         Nn+XYfktpwHIkAdvIWGKrMenBQCVOYDpESG2SzQchdxsZt+mnJ+9h26PAv/5wjfUG64/
-         54Olclsom7+1lUnZL/Y544kmNla8Y1AgJyfbVj6ZtB3IR2gfxfVtce6i5zcWKqflX++k
-         OnHiLek1D2ebgCEbx4N1RzL7gv6LL++lOVSxXvT+HvTq1Ihj20FA8dNgx1u0X4BEqD/K
-         SVSmynCWpiDEDrJeAx76nQ+hcuWUQVD1A/YIs98IkWW9QvsxtIOROZuC7NXxQhOZzXAx
-         dwAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795369140; x=1795973940;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LlFmwfQRuK6UV6XJmGVYSVgXfF3MLqCw1TxtpepQm6U=;
-        b=vqpQxgjX49/0WPbzhW9iCEBKpc9U5XISJLjFLp8P9diVjKEOqblaKJWLj3FsbAFhKd
-         pR5jOLyik/CUMGPWnaIhp8/ZpFOp+oVW9M2ax4zZUC7wQNG29Rw3KCCQDyAt1qwBNNR/
-         TpPjypKCwDR8y3OwVKgdVUGVxOTbEe9iApSNoUNtOT5oBceUQ/i4zfe3wfi0Nxc6CBLW
-         HustkKif68HRhG9r6ligAPVVHeo1/yQfHWGzs/fpAsLbV1nObHiTuHIaSuNGE8/3F7uO
-         0nXE4uT8l1HnBECMKHH4eKBgp8gOcL4BcvQwRq9PL7O9kenaShQvYxs1QsNwsAGR+uXU
-         ELIg==
-X-Forwarded-Encrypted: i=1; AL+hErEbr7pbsg+jdRSFm7HJ/DywUyjWuGlDDEm9BHikKJT2KC2lv2zSzb9JDIh89gz/ZhMxHFxecivv4wSG@vger.kernel.org
-X-Gm-Message-State: APuU4Z+11Gd1r89DlmCDpX9kxd4ZHPNFEfPVPmZXhOXNWe0VUJ3IF35E
-	tYG5pTPXXjDu9irEPvXT6Qh6eKd1b6ftnSmKtR/j4LvpBdE2BXL4x11Z
-X-Gm-Gg: AZFdTZcxn1+TPtYBZfOh6MCyPHRXfuGDm02/Jbm6l4lw+3z5EHZnrJd/lPw9lJvSeZv
-	akyDHXmbGjF9tIXqAK2vfX1zL43ankHV40jaauPbgl64yDxNbDdRbm+E9vwth58f9vOnML2Qbm7
-	826qDY/ZUc/ufWruk6x5a2MjunUpW3vePT3q9osaH0u0CWvy5CNgAjIdr+YztpmrgZNU+NI+nWr
-	ebzvA6zB1eeoVC2Tyw3hN9R0waXTutWulhTfuNEs1nZoPWzNGWZw7CA+Ql8LVKlc4vACrxqkUKO
-	dGnzizvzgj2zb2UhkZA+PmdUrpbOsTrv33hYQwQB6AuOgI3qHgzA6UHiHs2d9q9uWGwuN889hmR
-	/Cc6H3/m3Ztlwm13T4+URFbxZKfvN4zBMdoDMtLtl/VJYv3MhXLBMOnM3T/eMBmoN9iCJUuqmxf
-	r810DQcw3i4UaUopUY7Kn6eOKuXy9b8k8yf4BO/AObLRNSI4nuhdiFYWLgWSSH+3jSJYywT2pvu
-	iTj7MxrWDIW6DpkuzSGQziMAFsRiz/+49MU94iGbvSTmWkWY6WbA4fJTTKBJuFfcPC8YR/lIZtN
-	DmgrczvjZJ0/V9V9saQuyENqgcTRo5DjLPwDAMbpUNy+h1F3mg==
-X-Received: by 2002:a05:693c:42d7:b0:369:f70e:bd40 with SMTP id 5a478bee46e88-3856f84fea7mr9545686eec.16.1795369140294;
-        Sun, 22 Nov 2026 09:39:00 -0800 (PST)
-Received: from duge-G3-3500.taila331c7.ts.net ([138.199.21.246])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd4efesm29097985eec.12.2026.11.22.09.38.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 09:38:59 -0800 (PST)
-From: Jiayu Du <duge1256@gmail.com>
-To: srini@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dlan@kernel.org,
-	troy.mitchell@linux.spacemit.com,
-	me@ziyao.cc,
-	aurelien@aurel32.net,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	p.zabel@pengutronix.de,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jiayu Du <duge1256@gmail.com>
-Subject: [PATCH v3 3/3] riscv: dts: spacemit: Add K3 eFuse and temperature trim cells
-Date: Mon, 23 Nov 2026 01:38:10 +0800
-Message-ID: <20261122173810.2409146-4-duge1256@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261122173810.2409146-1-duge1256@gmail.com>
-References: <20261122173810.2409146-1-duge1256@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540A3606A320;
+	Sun, 22 Nov 2026 17:46:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44D221F000C4;
+	Sun, 22 Nov 2026 17:46:28 +0000 (UTC)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH 0/2] soc: qcom: socinfo: Drop DT bindings with IDs
+Date: Sun, 22 Nov 2026 18:46:19 +0100
+Message-Id: <20261122-qcom-socinfo-id-dt-bindings-v1-0-eeee0ffa25da@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,50 +40,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB0wwYp4ldKFSSZ2Ck7ajC2Ce
+ HdTXT4+/A2UMpPCUG2Q6cfKSQpMXYF/jjIRcigG29jOGGvx49OMmjxLTKVhWNCxBJZJkbpIvbm
+ 5tu0bKId3psjreb8/LuvXvcgv/yXs+wG2wE6JfwAAAA==
+X-Change-ID: 20261122-qcom-socinfo-id-dt-bindings-e6fe815b4480
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Ilia Lin <ilia.lin@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-pm@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1053;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=WxhspYoNAR70bc12bimxTQE3QbsRIZkWd7XFqAcidbU=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBrAypugRRfyp240hp/kgiOqb8atSODnPIKYPmAo
+ UF1DgCegAWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCawMqbgAKCRDBN2bmhouD
+ 1483D/9NFT8AtZlMxrWFvkG1ZcbantBMgjT27rPFR1dzhxniSSqx7WX66P7Oia2RzeLUqKCza+C
+ rYmiibo/pVhc+B8oKUwpb3I8bVuDmqkqxYZsyeyp/FJb1P0vQH0hFUhpDaiZNq88iTXXnikcOMS
+ TsxTbkg9FmbLxrTPJCUFw55HReYwAUmNNq05WiehpukzN8BGSeO5CJPBfJ8hHNLj6ZV8l0R6z9b
+ eRIwb6SKDUfdhKYoLHBWhYEeDhBCae1YoK9C0otLnQdGNAOO4cBuM+jWJrfLUgbYdlTH/q2Y+0h
+ qQV0aRMdqRv5Ph2PhtP6KkAMjPkTtMkzUNv/wieZjimXQZtZh+GZ/ojq9H7/P96BTBRNBqwZchx
+ 3L1F30n2PglOftE6Xw8IoXH9449nWssjqjxwczPT/wuzoMqq7OX1XulhSjiHguKSgdQeKZL5mwr
+ HwNscOei87BJQYnZjpVw4Jy2Dq+/KN2YC2Lbpk9Cx7ra1ngfYgJXojBhaW77RXrMtga7it77fA5
+ wpib+iO5LprKnUPMacU6Uo8e0OebjQa7vTDq7GegAJnck1N+dXrtf/vsZuwDrnFq2Yd3rA4MxxH
+ u1sXgb5R0+FLruMpyuvehsjuo1bFuNJOC1moWreD5otfqUow9vTl8ZdBbW7nlobejvLhDJS61cX
+ wL13iNQZsW6uXww==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 
-Add the K3 eFuse controller and NVMEM cells for the temperature
-calibration data in bank 0 and bank 7.
+It turns out that people add SoC IDs as Devicetree bindings, thus ABI,
+and then want to change them, for example because whatever
+renaming/marketing happened.  Well, that makes little sense - either
+this is ABI and cannot be changed, or is not an ABI and can be changed.
 
-Signed-off-by: Jiayu Du <duge1256@gmail.com>
+https://lore.kernel.org/all/9eda2209-d64a-4a1c-915d-4415ac47df45@kernel.org/
+
+Best regards,
+Krzysztof
+
 ---
- arch/riscv/boot/dts/spacemit/k3.dtsi | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Krzysztof Kozlowski (2):
+      soc: qcom: socinfo: Copy new SoC IDs from bindings
+      dt-bindings: qcom: qcom,ids: Remove unneeded ID constants
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index e89d2cc5ca8c..af1a758788ff 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -1439,6 +1439,29 @@ saplic: interrupt-controller@e0804000 {
- 
- 		/* sec_i2c3: 0xf0614000, not available from Linux */
- 
-+		efuse: efuse@f0702800 {
-+			compatible = "spacemit,k3-efuse";
-+			reg = <0x0 0xf0702800 0x0 0x400>;
-+			clocks = <&syscon_apmu CLK_APMU_AES_WTM>;
-+			resets = <&syscon_apmu RESET_APMU_AES_WTM>;
-+
-+			nvmem-layout {
-+				compatible = "fixed-layout";
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+
-+				soc_rtemp_trim1: temperature-trim@1c {
-+					reg = <0x1c 0x1>;
-+					bits = <0 8>;
-+				};
-+
-+				soc_rtemp_trim: temperature-trim@ea {
-+					reg = <0xea 0x2>;
-+					bits = <4 8>;
-+				};
-+			};
-+		};
-+
- 		mimsic: interrupt-controller@f1000000 {
- 			compatible = "spacemit,k3-imsics", "riscv,imsics";
- 			reg = <0x0 0xf1000000 0x0 0x10000>;
--- 
-2.43.0
+ drivers/clk/qcom/apss-ipq6018.c      |  2 +-
+ drivers/cpufreq/qcom-cpufreq-nvmem.c |  1 +
+ include/dt-bindings/arm/qcom,ids.h   | 93 +----------------------------------
+ include/linux/soc/qcom/socinfo.h     | 94 ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 97 insertions(+), 93 deletions(-)
+---
+base-commit: 74ceacafec02465d922ad68dce9498c8f50e5f5d
+change-id: 20261122-qcom-socinfo-id-dt-bindings-e6fe815b4480
+
+Best regards,
+--  
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
