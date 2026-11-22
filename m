@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795378474;
-	b=rVYnbN2638BoKtA/aOLQZjrI472NJk7f/wUl8q/vgDduhdOlcTLHgJDL0EvadABZiZAW
-	 OfFNSHl8Pt+aqortVNMzhNH1ZH3HRfYHb1G3H2WZaLkqgp7MCpIY68rtggTiUS4SYXCu6
-	 7z6mErbmHmO+Jinfy5qxn0MA+t5NBe6DLjN90noR64VCJ92gD5TRqAL8T+RHS8YTpL+lZ
-	 nOCcse566MMqjlp3UQ+MHqxD/DekLLwFQ1nhE4KplFDoHMmJ87RIQTTqX//SIIfD4vq1+
-	 zl0GHR/Dyy/5Wv0P2SlmURiGcXixO5exZlsx0riqKNJLbFYWf5t5mHjAMfcuvb/KlHg==
+	t=1795378476;
+	b=Eht8ZbiKMg9V4CUDkr7SKeruCCqM4w4p9sB8F/EeBG+8bni6QZ58GI55cKctf9v1RCau
+	 rkjiXEf6QZlQai+2Qy8jl72GwwzwxP4FyZNa3VyZxJuHFuRGoumPgm29+b/rdTcF5SBy1
+	 w/YKFhZAmutqxwCs3e6iLNj9oLgJ/XMdSCtOLnwyOsbESgNciwIbk4nOzml37/gREu4As
+	 3A5rC2fOoQjN31EIAkiGoM3pM6DJ2lc+z/x7+JmjiZr3+1eONLuQkNTfoWt+JSNjEXcJm
+	 JLTd12BP1Z2PqPWyqF2sZ6dSVTGZUQcVaXCqC+ipLTdXutG4qaEqbaitUGx2dP6qwIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795378474;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795378476;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=43C9bHqJisdAiTlKpHe0KRIkeYtDhHYePbH6vei7RK0=;
-	b=OJLTyUwcBg9xfpZywWh94TRrvZgpuulhR1K6b876bEZFH88Vn8X8l1Rc/Wxbar1YyqxP
-	 cjCOTD1R2gu6qWqA2ClJJhMFT+PP8/Z6B+u/YEEyDaTu+/xT7nkhV8yZOhtXLRqkPue4h
-	 hT+NN4tpTtKXr4WICGrZ5zz1ZH0QOgC7odB5bVmfN7bLP05Z63AKQZds+QfGraj6Y1I88
-	 5I/R6tgmkJsI8cdcclLuTmC27gD/uLUI4TCZmTFgA9XlusKoreoiQTd2ilEkcD89nuvag
-	 qweqxuRNlx7kuLvL+ykh3ib1/prIxBsuzzclM1bcBDz9jjuF7oO2qbpuus/CuQBIbew==
+	bh=RufxsIcW9PwsTJgDAnL+Gm8bxlywiO9GN5kbFPWmMeQ=;
+	b=12M2RUlnk84riF1T8kyPLG4ciHdPn0m8hgHccQgO9e3ZAbCSUtZNnsVW5kpHsbm3dShc
+	 hcxwBBl8CEvP1ZJITR0/hNd/hYEj/+iiZMzzFPWY/puaY4aNj4wRf7Yx2ObfgcfwBWf6g
+	 oEmBjDf2Zoe85FruUSFZtEn97r4eTC7vmDnlIqLmYSumlIj0UF9iHEjKu8ALMsY28Gz6d
+	 o4mQG/5bmsz8yWuui3a3qPP621vUuKlfisp0+ewsEzkB3G9W7zluLHxGE3/65KP4k/3id
+	 w+n4790HhoipJPHoiR9r3F0Tqlw1qeonLjrNTiaTvQ5vabz3kWPCfVPX3xrXxyfhH7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GD11zxSi;
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4hkw2Ed;
+	arc=none smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A755F606A338
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:14:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A755F606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A50606A333
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10A50606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GD11zxSi
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6bab10842f8so597798a12.0
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:14:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4hkw2Ed
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b894a5ce3dso3408509a12.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:14:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795378472; x=1795983272; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795378474; x=1795983274; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=43C9bHqJisdAiTlKpHe0KRIkeYtDhHYePbH6vei7RK0=;
-        b=GD11zxSiqy4Bn6JUPtpI2nzRDhPvnQ8oPMB0enhNHvhAbU8Tug1YknC/gXCIwxymdV
-         zidBrWfwT2WuR3UnCSQiFs4Z1VtoIf6wwSl2MBzxqx7XdZ7iQZj5kYNdd/+/D1WV8yqB
-         Z5kO0WaWrD8prhA3s38DVOvV/2aPBJ9AYsxiBd/1Ec+kbPguwKTYSBp8+NqH4TkFpVXJ
-         nZEOru06DOxWW89F/wjAS/t8FlrX2Fl/cUHdShpSjgEQjDBr5kCQNQW52/fZWZ1c6LHd
-         pg6cLdYJAWzQc73ppZJeBQD0NaVNEuuavBE8Ma+Avp0I2QL4P8oj5rxf6coc2MzOeryP
-         0hIQ==
+        bh=RufxsIcW9PwsTJgDAnL+Gm8bxlywiO9GN5kbFPWmMeQ=;
+        b=v4hkw2Eds+StnjJ3VJsvNGsVQxq3ls/Exom0sE5UsmnH+Lq65XiEq2nLlksZVKtta5
+         y86YOKENYFVDrEBdNEZZiGj5XqVVgeAKI1kNIbyjb3vGfAOlExXZiOznrQxKlL99oPpo
+         C1zrxg+NFlGqSd73tO0xBSlUrzNmU9riYpJe+tgVQNXvPhouo3yvr7fWhYunHSHi7NgY
+         JBnV8vZGfJKevm4jXn/Q3vOnp1A0WP3l9J1U5I3C8Bkx5di2D+TNZ2YvoQFSX6tMNpuP
+         YJJC4UW4RJ20Sk0G5iK8O6nlilKolJbvTrp69HEQbQXP3JjtUByFdisCRyPMYwc5yn/g
+         rR5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795378472; x=1795983272;
+        d=1e100.net; s=20260707; t=1795378474; x=1795983274;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=43C9bHqJisdAiTlKpHe0KRIkeYtDhHYePbH6vei7RK0=;
-        b=XcaNeKO0ePddj98cP+/ZUFiEdVLYatZGWIyNj/t3cfYNimyNvoQiIKODNZQuYXTuKb
-         y/PHkh+wj1EeJQnKQTw9RdrOyybWrVjWGWorZX6Uni1gO/VztVzbbJI1Tky8cG4SBUq8
-         KWBkR6PfLzepXh6VCcvXz1vWU6tyAsW4QtXbArTq6YxCb0g6yGDj1vaumHOpN2r7WRpK
-         oXqxdWuazi1j4awdEmu6spY/hNGjlhVcowWtIO1pYydYysShZqqv7l/VQEzb1KTJigKa
-         brKFypamdDBLm8GH2i6b+CpDVaZtQlQuQrF6yrPRKU41kV3a2SsHmd71T5r6PNE5mopy
-         wp1A==
-X-Gm-Message-State: APuU4Z+5KQ+VTw+QkUX0NKZwHtLLFPuQQDcx4Ht4RW/8dv6TzDiIqlfL
-	Xa6lRb9WgO9LTDd/pnxRzzDkwUJbcJyy2TcY36D7dQKugVj76xoJrvyB
-X-Gm-Gg: AZFdTZf1gwrjt1xacbW/XmHoFADtssxhSGud8odRebRB34KAWH47DsbgQpznrLSgtvz
-	5C4ikqD/774Abxk1hTsWfvfP9kJiukwPwCauvjeBU4HL/F7rMvFtXZfJ36WEJxEaT0QqMTdtK5Z
-	GqbYTwgZ5BTHByJGrqDeQvSxC6QSrkhNcOXONLZafbnzBGFgSlV8tr5QXAWVMC5Ho3M20KjZvf9
-	iQFzSFvkRSrr8YmzA0fR6ylld32f3EPmrmVBacNuyzTyz51ligVRdi0gspod2IbYmOOhTYeQ+Vk
-	dAeEQsTFpeGOGZAuGHQI7NffFTZ8CBp68MwsLtGIUxs5ZN6+qGLSIWsPpvdD7khL5kidgjbH0qf
-	r534cFgHzekoprGwYDmHO3mpwLre8CzN8oqyR15tReoSmeHEaVkDlqUYk/cdf5I/b+v9ILoERIZ
-	Hy3yhlwAeLzdmbaA4Drztr0nQL3hl9TNGFUt7t3ch82ELOQLb9j3of8c5MKJYcSWLngL5D4dwkf
-	0daC7ccWmsxEReJIQmzYwcDOkH0ZfdfOUE75MZQxw+DAG3ujZfJ/imN6nOUsZJnXzSW6G73PODM
-	ihZ7Vwk/Zeh9pHOl8sHy/q2YcBH4y1PyPcaD4ptCDsd7a0tOlYblWdcJa1becTLlDyMTaB4lUub
-	eb95fvv3niQ==
-X-Received: by 2002:a05:6402:5652:b0:6b7:6485:2413 with SMTP id 4fb4d7f45d1cf-6ba1fae101fmr5953289a12.5.1795378472042;
-        Sun, 22 Nov 2026 12:14:32 -0800 (PST)
+        bh=RufxsIcW9PwsTJgDAnL+Gm8bxlywiO9GN5kbFPWmMeQ=;
+        b=ch4ku2NvwjCNTkqf3IkMwXFEQOBnowBfWMJfDv67lND7OQRCwevp2O3eS6g1rbQ7lg
+         u4DP1035czwKaYLs+roAPpSVNqJijND1TDhYgszuCd4qyl6ya74Pe2dfchQGeOUh3/6u
+         e/S6Z8EaBioySVwsSysLjoNb2RGBb3DsD/Usp0wQbe+4px0cd0VJlJgu+loR2/f6xc5O
+         lfQkIj3U1Y5IQQ++PF+ro2ROGhQLmXwW993fgVxtx3RkQ/+MY8czbYl3Z8ZKorSPflU7
+         PMhaoXOL6Ykt56Elq2AS7kB+yfzIoXZsuyXorDmfRk1QrsF8T12Uy3nAWjkK/0bQVFhA
+         3T3Q==
+X-Gm-Message-State: APuU4Z8YO+7txdwmGg5Ig/x134C2F/m9DqyqdgxLdxWx1KRE7P/iGIJq
+	9xjtvM7Yts4HldjfSBHyCwAOPEiOosIUD67mtzG3/1ZBASOTYmVMf+rYrvgZ0A==
+X-Gm-Gg: AZFdTZf/PgV9eGEhAHsLFDk2fg9E++UAfZztwdPCQBb/RkTfbTkfoajmTcykpWQKYIp
+	ihrktJxBLcFRWkC8pdI4/yQJqcv5mbRR4/9kPVnYA+EQBREjEVNdoZor4CaFopcLoPy9tlZ0Cfh
+	RGd0rY3OSIqlGckVLO6WieObLVvZHYousE664Kj0r8KzV0Q8jiEo4y3g77107xp6tX0SRShLYlA
+	2wRtZJI3PTQWhwhSvWySSDMVK1kszZ66mK7I7vCLE2FG1IsCHisQCW5BNUezeA+W4k3nbHGQuTb
+	MH+ocgks6WmN2166LhkvyT+bKpgVLKg+4uthQAHv1/sr2SXwcVUEpGq2NYSNuUSpSFbdaPPR7Iz
+	hCUHydbufB4I0XHFRSpsO+mRbUWgwKM83J64oqvdha1wiiy5yPKn5hQkQXrfoXSGJpghqr23bnS
+	46UaFe8ZCu+KSSaJSOi1JBxPu6LFhk/F/eQG/TpXQL7YE3MawrB5vKl5CbPuSeZJS7Ow26ZvvOs
+	9ZAv0Pu6Gs/csjlTJ/M6MvuQfXkZFFVKBbXuc73K25u8Jj5nJItMQoc3whWKgRo0ZDqrDqsYm2S
+	rpqok9rkYC6Xpj1zNXtmsoyU1+w8LUsD+jqey8wvWQx0LeFCVQa03tPCJuX5bt0LVm8eaXHg5vo
+	WVN6Jtp2ccA==
+X-Received: by 2002:aa7:d353:0:b0:6ba:22f7:189e with SMTP id 4fb4d7f45d1cf-6ba37d63cdbmr4612308a12.7.1795378474325;
+        Sun, 22 Nov 2026 12:14:34 -0800 (PST)
 Received: from xeon ([188.163.112.54])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.14.31
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.14.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 12:14:31 -0800 (PST)
+        Sun, 22 Nov 2026 12:14:33 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -89,9 +89,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 02/18] ARM: tegra: Diverge Tegra Note 7 device tree to support its common versions
-Date: Sun, 22 Nov 2026 22:13:51 +0200
-Message-ID: <20261122201407.23742-3-clamor95@gmail.com>
+Subject: [PATCH v1 03/18] ARM: tegra: tegratab: Upgrade powerlines configuration
+Date: Sun, 22 Nov 2026 22:13:52 +0200
+Message-ID: <20261122201407.23742-4-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261122201407.23742-1-clamor95@gmail.com>
 References: <20261122201407.23742-1-clamor95@gmail.com>
@@ -106,112 +106,485 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Tegra Note 7 has at least 4 different revisions. To reflect this, the
-existing Tegra Note 7 device tree is set as a common base, and the
-differences are placed in separate trees. These separate device trees will
-be populated in subsequent commits.
+Refresh existing PMIC configuration of tegratab according to all collected
+information from downstream and device experiments. Complete PMC node
+according to tegratab/tegranote7c board configuration. Add missing and
+update existing fixed regulators.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/Makefile                  |  6 ++++--
- .../dts/nvidia/tegra114-nvidia-tegranote7c.dts     | 14 ++++++++++++++
- ...n7.dts => tegra114-nvidia-tegratab-common.dtsi} |  4 ----
- .../dts/nvidia/tegra114-nvidia-tegratab-p1640.dts  |  9 +++++++++
- .../dts/nvidia/tegra114-nvidia-tegratab-p1988.dts  |  9 +++++++++
- 5 files changed, 36 insertions(+), 6 deletions(-)
- create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegranote7c.dts
- rename arch/arm/boot/dts/nvidia/{tegra114-tn7.dts => tegra114-nvidia-tegratab-common.dtsi} (98%)
- create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts
- create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts
+ .../tegra114-nvidia-tegratab-common.dtsi      | 278 +++++++++++++-----
+ .../nvidia/tegra114-nvidia-tegratab-p1988.dts |  22 ++
+ 2 files changed, 228 insertions(+), 72 deletions(-)
 
-diff --git a/arch/arm/boot/dts/nvidia/Makefile b/arch/arm/boot/dts/nvidia/Makefile
-index 7fc27cb8e74ae..f06b2595bcd86 100644
---- a/arch/arm/boot/dts/nvidia/Makefile
-+++ b/arch/arm/boot/dts/nvidia/Makefile
-@@ -5,8 +5,10 @@ dtb-$(CONFIG_ARCH_TEGRA_114_SOC) += \
- 	tegra114-microsoft-surface-2-0b.dtb \
- 	tegra114-microsoft-surface-2-13.dtb \
- 	tegra114-microsoft-surface-2-efi.dtb \
--	tegra114-roth.dtb \
--	tegra114-tn7.dtb
-+	tegra114-nvidia-tegranote7c.dtb \
-+	tegra114-nvidia-tegratab-p1640.dtb \
-+	tegra114-nvidia-tegratab-p1988.dtb \
-+	tegra114-roth.dtb
- dtb-$(CONFIG_ARCH_TEGRA_124_SOC) += \
- 	tegra124-apalis-eval.dtb \
- 	tegra124-apalis-v1.2-eval.dtb \
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegranote7c.dts b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegranote7c.dts
-new file mode 100644
-index 0000000000000..1b50d5bbbbdf7
---- /dev/null
-+++ b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegranote7c.dts
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "tegra114-nvidia-tegratab-p1988.dts"
-+
-+/*
-+ * The LTE version of the Tegra Note 7 appears to be identical to the P1988
-+ * revision of the Tegratab. The main difference is the modem, which is
-+ * connected to the second USB controller configured in HSIC mode.
-+ */
-+
-+/ {
-+	model = "NVIDIA Tegra Note 7 LTE";
-+	compatible = "nvidia,tegranote7c", "nvidia,tegra114";
-+};
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-tn7.dts b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-similarity index 98%
-rename from arch/arm/boot/dts/nvidia/tegra114-tn7.dts
-rename to arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-index 4b1e47364fdbc..e4ba975fcc3db 100644
---- a/arch/arm/boot/dts/nvidia/tegra114-tn7.dts
+diff --git a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
+index e4ba975fcc3db..9d18cb48a1e63 100644
+--- a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
 +++ b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
-@@ -1,13 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0
--/dts-v1/;
+@@ -33,7 +33,7 @@ host1x@50000000 {
+ 		dsi@54300000 {
+ 			status = "okay";
  
- #include <dt-bindings/input/input.h>
- #include "tegra114.dtsi"
+-			avdd-dsi-csi-supply = <&vdd_1v2_ap>;
++			avdd-dsi-csi-supply = <&avdd_dsi_csi>;
  
- / {
--	model = "Tegra Note 7";
--	compatible = "nvidia,tn7", "nvidia,tegra114";
+ 			panel@0 {
+ 				compatible = "lg,ld070wx3-sl01";
+@@ -77,61 +77,129 @@ palmas_gpio: gpio {
+ 				#gpio-cells = <2>;
+ 			};
+ 
++			pinmux {
++				compatible = "ti,tps65913-pinctrl";
++				ti,palmas-enable-dvfs1;
++
++				pinctrl-names = "default";
++				pinctrl-0 = <&palmas_default>;
++
++				palmas_default: pinmux {
++					gpio0 {
++						pins = "gpio0";
++						function = "gpio";
++					};
++
++					gpio1 {
++						pins = "gpio1";
++						function = "gpio";
++					};
++
++					gpio2 {
++						pins = "gpio2";
++						function = "gpio";
++					};
++
++					gpio3 {
++						pins = "gpio3";
++						function = "gpio";
++					};
++
++					gpio4 {
++						pins = "gpio4";
++						function = "gpio";
++					};
++
++					gpio5 {
++						pins = "gpio5";
++						function = "gpio";
++					};
++
++					gpio6 {
++						pins = "gpio6";
++						function = "gpio";
++					};
++
++					gpio7 {
++						pins = "gpio7";
++						function = "gpio";
++					};
++
++					powergood {
++						pins = "powergood";
++						function = "powergood";
++					};
++
++					vac {
++						pins = "vac";
++						function = "vac";
++					};
++				};
++			};
++
+ 			pmic {
+ 				compatible = "ti,tps65913-pmic", "ti,palmas-pmic";
+ 
++				ldo1-in-supply = <&vddio_ddr>;
++				ldo2-in-supply = <&vddio_ddr>;
++				ldo5-in-supply = <&vcore_emmc>;
++				ldo6-in-supply = <&vcore_emmc>;
++				ldo7-in-supply = <&vcore_emmc>;
++				ldo9-in-supply = <&vcore_emmc>;
+ 				ldoln-in-supply = <&vdd_smps10_out2>;
+ 
+ 				regulators {
+-					smps123 {
+-						regulator-name = "vd-cpu";
+-						regulator-min-microvolt = <1000000>;
+-						regulator-max-microvolt = <1000000>;
++					vdd_cpu: smps123 {
++						regulator-name = "vdd_cpu";
++						regulator-min-microvolt = <900000>;
++						regulator-max-microvolt = <1400000>;
+ 						regulator-always-on;
+ 						regulator-boot-on;
++						ti,roof-floor = <1>;
++						ti,mode-sleep = <3>;
+ 					};
+ 
+ 					vdd_core: smps45 {
+-						regulator-name = "vd-soc";
+-						regulator-min-microvolt = <1100000>;
+-						regulator-max-microvolt = <1100000>;
++						regulator-name = "vdd_core";
++						regulator-min-microvolt = <900000>;
++						regulator-max-microvolt = <1400000>;
+ 						regulator-always-on;
+ 						regulator-boot-on;
++						ti,roof-floor = <3>;
+ 					};
+ 
+ 					avdd_lcd: smps6 {
+-						regulator-name = "va-lcd-hv";
++						regulator-name = "vdd_lcd_hv";
+ 						regulator-min-microvolt = <3160000>;
+ 						regulator-max-microvolt = <3160000>;
+ 						regulator-boot-on;
+ 					};
+ 
+-					smps7 {
+-						regulator-name = "vd-ddr";
+-						regulator-min-microvolt = <1350000>;
+-						regulator-max-microvolt = <1350000>;
++					vddio_ddr: smps7 {
++						regulator-name = "vddio_ddr";
++						regulator-min-microvolt = <1380000>;
++						regulator-max-microvolt = <1380000>;
+ 						regulator-always-on;
+ 						regulator-boot-on;
+ 					};
+ 
+-					vdd_1v8: smps8 {
+-						regulator-name = "vs-pmu-1v8";
++					vdd_1v8_vio: smps8 {
++						regulator-name = "vdd_1v8";
+ 						regulator-min-microvolt = <1800000>;
+ 						regulator-max-microvolt = <1800000>;
+ 						regulator-always-on;
+ 						regulator-boot-on;
+ 					};
+ 
+-					vdd_2v9_sys: smps9 {
+-						regulator-name = "vs-sys-2v9";
++					vcore_emmc: smps9 {
++						regulator-name = "vdd_emmc";
+ 						regulator-min-microvolt = <2900000>;
+ 						regulator-max-microvolt = <2900000>;
+-						regulator-always-on;
+ 						regulator-boot-on;
+ 					};
+ 
+-					vdd_smps10_out1: smps10_out1 {
+-						regulator-name = "vd-smps10-out1";
++					smps10_out1 {
++						regulator-name = "vd_smps10_out1";
+ 						regulator-min-microvolt = <5000000>;
+ 						regulator-max-microvolt = <5000000>;
+ 						regulator-always-on;
+@@ -139,90 +207,88 @@ vdd_smps10_out1: smps10_out1 {
+ 					};
+ 
+ 					vdd_smps10_out2: smps10_out2 {
+-						regulator-name = "vd-smps10-out2";
++						regulator-name = "vd_smps10_out2";
+ 						regulator-min-microvolt = <5000000>;
+ 						regulator-max-microvolt = <5000000>;
+ 						regulator-always-on;
+ 						regulator-boot-on;
+ 					};
+ 
+-					ldo1 {
+-						regulator-name = "va-pllx";
++					avdd_pll: ldo1 {
++						regulator-name = "vdd_pllm,x,u,a_p_c_s";
+ 						regulator-min-microvolt = <1050000>;
+ 						regulator-max-microvolt = <1050000>;
+ 						regulator-always-on;
+ 						regulator-boot-on;
++						ti,roof-floor = <3>;
+ 					};
+ 
+-					vdd_1v2_ap: ldo2 {
+-						regulator-name = "va-ap-1v2";
++					avdd_dsi_csi: ldo2 {
++						regulator-name = "avdd_dsi_csi";
+ 						regulator-min-microvolt = <1200000>;
+ 						regulator-max-microvolt = <1200000>;
+-						regulator-always-on;
+ 						regulator-boot-on;
+ 					};
+ 
+ 					ldo3 {
+-						regulator-name = "vd-fuse";
++						regulator-name = "vpp_fuse";
+ 						regulator-min-microvolt = <1800000>;
+ 						regulator-max-microvolt = <1800000>;
+-						regulator-always-on;
+-						regulator-boot-on;
+ 					};
+ 
+-					ldo4 {
+-						regulator-name = "vd-ts-hv";
+-						regulator-min-microvolt = <3200000>;
+-						regulator-max-microvolt = <3200000>;
+-						regulator-always-on;
+-						regulator-boot-on;
++					avdd_touch: ldo4 {
++						regulator-name = "avdd_ts";
++						regulator-min-microvolt = <3000000>;
++						regulator-max-microvolt = <3000000>;
+ 					};
+ 
+-					ldo5 {
+-						regulator-name = "va-cam2-hv";
+-						regulator-min-microvolt = <2700000>;
+-						regulator-max-microvolt = <2700000>;
++					avdd_2v8_front: ldo5 {
++						regulator-name = "avdd_front_cam";
++						regulator-min-microvolt = <2800000>;
++						regulator-max-microvolt = <2800000>;
+ 					};
+ 
+-					ldo6 {
+-						regulator-name = "va-sns-hv";
++					vdd_2v85_sen: ldo6 {
++						regulator-name = "vdd_dev";
+ 						regulator-min-microvolt = <2850000>;
+ 						regulator-max-microvolt = <2850000>;
+ 					};
+ 
+-					ldo7 {
+-						regulator-name = "va-cam1-hv";
++					avdd_2v7_rear: ldo7 {
++						regulator-name = "avdd_rear_cam";
+ 						regulator-min-microvolt = <2700000>;
+ 						regulator-max-microvolt = <2700000>;
+ 					};
+ 
+ 					ldo8 {
+-						regulator-name = "va-ap-rtc";
+-						regulator-min-microvolt = <1100000>;
+-						regulator-max-microvolt = <1100000>;
+-						ti,enable-ldo8-tracking;
++						regulator-name = "vdd_rtc";
++						regulator-min-microvolt = <950000>;
++						regulator-max-microvolt = <950000>;
+ 						regulator-always-on;
+ 						regulator-boot-on;
++						ti,enable-ldo8-tracking;
+ 					};
+ 
+-					ldo9 {
+-						regulator-name = "vi-sdcard";
+-						regulator-min-microvolt = <2900000>;
++					vddio_usd: ldo9 {
++						regulator-name = "vddio_usd";
++						regulator-min-microvolt = <1800000>;
+ 						regulator-max-microvolt = <2900000>;
+ 					};
+ 
+-					ldousb {
+-						regulator-name = "avdd-usb";
++					avdd_hdmi: ldoln {
++						regulator-name = "avdd_hdmi";
+ 						regulator-min-microvolt = <3300000>;
+ 						regulator-max-microvolt = <3300000>;
+-						regulator-always-on;
+ 						regulator-boot-on;
+ 					};
+ 
+-					ldoln {
+-						regulator-name = "va-hdmi";
++					avdd_usb: ldousb {
++						regulator-name = "avdd_usb";
+ 						regulator-min-microvolt = <3300000>;
+ 						regulator-max-microvolt = <3300000>;
++						regulator-always-on;
++						regulator-boot-on;
++						ti,roof-floor = <3>;
+ 					};
+ 				};
+ 			};
+@@ -230,16 +296,28 @@ ldoln {
+ 			rtc {
+ 				compatible = "ti,palmas-rtc";
+ 				interrupt-parent = <&palmas>;
+-				interrupts = <8 0>;
++				interrupts = <8 IRQ_TYPE_NONE>;
+ 			};
 -
- 	chosen {
- 		/* TN7's bootloader's arguments need to be overridden */
- 		bootargs = "console=ttyS0,115200n8 console=tty1 gpt fbcon=rotate:2";
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts
-new file mode 100644
-index 0000000000000..409df3de17a82
---- /dev/null
-+++ b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts
-@@ -0,0 +1,9 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
+ 		};
+ 	};
+ 
+ 	pmc@7000e400 {
++		nvidia,suspend-mode = <1>;
++		nvidia,cpu-pwr-good-time = <300>;
++		nvidia,cpu-pwr-off-time = <300>;
++		nvidia,core-pwr-good-time = <641 3845>;
++		nvidia,core-pwr-off-time = <2000>;
++		nvidia,core-power-req-active-high;
++		nvidia,sys-clock-req-active-high;
+ 		core-supply = <&vdd_core>;
+ 
+-		nvidia,invert-interrupt;
++		/* Clear DEV_ON bit in DEV_CTRL register of TPS65913 PMIC */
++		i2c-thermtrip {
++			nvidia,i2c-controller-id = <4>;
++			nvidia,bus-addr = <0x58>;
++			nvidia,reg-addr = <0xa0>;
++			nvidia,reg-data = <0x00>;
++		};
+ 	};
+ 
+ 	/* eMMC */
+@@ -271,12 +349,13 @@ backlight: backlight {
+ 		brightness-levels = <0 4 8 16 32 64 128 255>;
+ 		default-brightness-level = <6>;
+ 
+-		power-supply = <&lcd_bl_en>;
++		power-supply = <&vdd_3v7_bl>;
+ 	};
+ 
+ 	clk32k_in: clock-32k {
+ 		compatible = "fixed-clock";
+ 		clock-frequency = <32768>;
++		clock-output-names = "ref-oscillator";
+ 		#clock-cells = <0>;
+ 	};
+ 
+@@ -303,35 +382,90 @@ key-volume-up {
+ 		};
+ 	};
+ 
+-	/* FIXME: output of BQ24192 */
+-	vs_sys: regulator-vs {
++	vdd_5v0_sys: regulator-5v0-sys {
++		compatible = "regulator-fixed";
++		regulator-name = "vdd_5v0_sys";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-always-on;
++		regulator-boot-on;
++	};
 +
-+#include "tegra114-nvidia-tegratab-common.dtsi"
++	vdd_3v3_sys: regulator-3v3-sys {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "VS_SYS";
+-		regulator-min-microvolt = <4200000>;
+-		regulator-max-microvolt = <4200000>;
++		regulator-name = "vdd_3v3_sys";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
+ 		regulator-always-on;
+ 		regulator-boot-on;
+ 	};
+ 
+-	lcd_bl_en: regulator-lcden {
++	vdd_3v7_bl: regulator-bl-en {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "VDD_LCD_BL";
+-		regulator-min-microvolt = <16500000>;
+-		regulator-max-microvolt = <16500000>;
++		regulator-name = "vdd_3v7_bl";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++		regulator-boot-on;
+ 		gpio = <&gpio TEGRA_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+-		vin-supply = <&vs_sys>;
+-		regulator-boot-on;
++		vin-supply = <&vdd_5v0_sys>;
++	};
 +
-+/ {
-+	model = "Nvidia Tegra Note 7 (P1640)";
-+	compatible = "nvidia,tegratab", "nvidia,tegra114";
-+};
++	vdd_5v0_hdmi: regulator-hdmi {
++		compatible = "regulator-fixed";
++		regulator-name = "vdd_5v0_hdmi";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		gpio = <&gpio TEGRA_GPIO(K, 6) GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		vin-supply = <&vdd_smps10_out2>;
++	};
++
++	vddio_1v8_cam: regulator-cam-vio {
++		compatible = "regulator-fixed";
++		regulator-name = "vddio_1v8_cam";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		gpio = <&palmas_gpio 6 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		vin-supply = <&vdd_1v8_vio>;
+ 	};
+ 
+ 	dvdd_lcd: regulator-lcd {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "VD_LCD_1V8";
++		regulator-name = "dvdd_1v8_lcd";
+ 		regulator-min-microvolt = <1800000>;
+ 		regulator-max-microvolt = <1800000>;
++		regulator-boot-on;
+ 		gpio = <&palmas_gpio 4 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+-		vin-supply = <&vdd_1v8>;
++		vin-supply = <&vdd_1v8_vio>;
++	};
++
++	vlogic_gyro: regulator-gyro {
++		compatible = "regulator-fixed";
++		regulator-name = "vlogic_gyro";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		vin-supply = <&vdd_1v8_vio>;
++	};
++
++	avdd_hdmi_pll: regulator-hdmi-pll {
++		compatible = "regulator-fixed";
++		regulator-name = "avdd_hdmi_pll";
++		regulator-min-microvolt = <1050000>;
++		regulator-max-microvolt = <1050000>;
++		vin-supply = <&avdd_pll>;
++	};
++
++	vdd_3v3_com: regulator-com {
++		compatible = "regulator-fixed";
++		regulator-name = "vdd_3v3_com";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
+ 		regulator-boot-on;
++		gpio = <&gpio TEGRA_GPIO(CC, 5) GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		vin-supply = <&vdd_3v3_sys>;
+ 	};
+ };
 diff --git a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts
-new file mode 100644
-index 0000000000000..00126da319ec7
---- /dev/null
+index 00126da319ec7..f461a2c492b1f 100644
+--- a/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts
 +++ b/arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts
-@@ -0,0 +1,9 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
+@@ -6,4 +6,26 @@
+ / {
+ 	model = "Nvidia Tegra Note 7 (P1988)";
+ 	compatible = "nvidia,tegratab", "nvidia,tegra114";
 +
-+#include "tegra114-nvidia-tegratab-common.dtsi"
++	i2c@7000d000 {
++		pmic@58 {
++			pmic {
++				regulators {
++					ldo4 {
++						regulator-boot-on;
++					};
++				};
++			};
++		};
++	};
 +
-+/ {
-+	model = "Nvidia Tegra Note 7 (P1988)";
-+	compatible = "nvidia,tegratab", "nvidia,tegra114";
-+};
++	regulator-gyro {
++		gpio = <&gpio TEGRA_GPIO(R, 0) GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
++	regulator-hdmi-pll {
++		gpio = <&gpio TEGRA_GPIO(O, 6) GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
+ };
 -- 
 2.53.0
 
