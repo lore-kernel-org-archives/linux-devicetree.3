@@ -1,100 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795373677;
-	b=R96Q7C1C+F+KRcywx24jvf+HF51qBGr0BMhwzpmiFRLazrFVoDUjBxrOj8vjhPNAk8kd
-	 3k/82i8TDCHiE0C3zUXVir/bSZ/jnU89QMK0DdmHDNIzoVUy5FDtND3d43CELzAPfHT6T
-	 UcIki0XfNoK5l6GqK0/8bTi/lDO/PAEhSDfH8Km5tyOIMwq2iSuZilbtGLN7fFE3HW3mu
-	 MMAeGS8nu7o8EZYLXbUudS4SJ2wi7k/xUET1ORER1ThjpVow7UkSy1ZgQ+wn5xFRLlx/Q
-	 KHfLNccZU34BzijujpoHz+N+d91fHFCuQL01OKfKZH+vF4Ta1O3b0IDo9mtchWWRncw==
+	t=1795373710;
+	b=xU7IH7DETrUDi0Rbvdd7tGOrbGkYTgphxkUVDlhm/oQsK3Oxxzuob+DMThHQ1P7GuM5p
+	 Ogr1Je23MI7HkT2MYGzswkiDv0t7uEtHOrNxYcilVVSZdH2P1rkrej0DnM1nyKMd0apJY
+	 dEgYIl4NUl/8SKLpvwZA1tVW8K20vDHVv4/N3JQ1TtjdCKPeKTBmTor1e8V+H53In1nFy
+	 9gXfNvlnX55eH0y+HF7tDJxRnrVJPk9F6N0PPIbr7qj5o14V85FkgMUw5/+7dYp2MQ/6g
+	 5YXF7I/Yk1+iN41Lf05nLTG5paedG/zf45eLLQrOjoc3C6Xt31hF+Qc/5jRDwqS9UxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795373677;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Uf40K/pvodARX4TFG1e6YUSwIbzlkO0+M9Bn1ppfz2s=;
-	b=ukEYuW8SD1+V4lAdgdmHgF9iWsh/k8qZV4Aur6c6vfd9aVzhhMB+tjz1+8V3BXj0Gzk7
-	 F8ZMmqaYrLBYQUBU7UrMctUj84lWHihhULUpTDMoQmicWYd+uhvz9fgVFJtVkiX8ag1rJ
-	 heJuZ8OPjpiDRL0vOheLzlEHNseeVysJhvtHCjJdInQuzLdnh3gvBxf1vTkxi2CrDq00B
-	 y6FmqcwNQR/A3Qm+Sze8O4Txtc59hMEihyNaYUn4829ILZwgy4+xenGMOgnXfvVSj8Up4
-	 zgS4k8jDGkp07PleJmZBnFtPnKTsZHcp4so9SiEw2B9xqSVxv90nOoUnrUEx+ulzKAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795373710;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Aovxc5dC+lR16isdk9O4n4VlgAuF5hG7BYT0Gzrios8=;
+	b=zxCyaH50+NtiO7bTRMWAMKDZz+VhxKT/fACwGhTuhgQDXBFFjXGztQ8ATrs16ooZ4lia
+	 KNUOQ6qUEA/OlYBgmniPyxNmzCF+xsVynMuASvt75CJb+L7qbUXcqQHUhPh2vBPa0Jpm7
+	 YwGH/NrUMPKIsoXN9Ild7tZISJDHNtSumHrDOpzHwQuE+EVrHxFmEfYL1YKPzOqu8KVrI
+	 WxPyE6FUqI1oYHzkmbzbprPDRrydfkOFNt4Rvbvb3U7P18/phnlc3gkRybMvSGYCQR3dR
+	 0Ilvq6caUhCxJo7USHPYbDUGE+gVV5g+Xp6XhsQ029/RYmsu4cgfNtBQ0/l51ySxPhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Iaef/p1i";
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eFKrLAjG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA03606A320
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 18:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EA03606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D18606A331;
+	Sun, 22 Nov 2026 18:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Iaef/p1i
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6bab10844b5so471058a12.1
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 10:54:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795373676; x=1795978476; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Uf40K/pvodARX4TFG1e6YUSwIbzlkO0+M9Bn1ppfz2s=;
-        b=Iaef/p1imBWOYDmFzHXqlV2pxfpBABeFA3v8p4Ao3xWCNO/2WMkjIK7UFKLAhGbkHQ
-         POed4MhGLKUu+6WzHKcEYOMAiZGIVKDdsXbgRwFtg2SHdsDPHWxeyWalcdAD9kuW/EHa
-         fLWSGH4J3uVWyTPAMWv1VATk9VdtjOeKAPfUKTV19sQ+Ksi88M6REDfSGrWMI2//5o3P
-         aQCBEHFmcqwOjQAUvvpM/hm3+UIs1vrw6rkhSgjoHSbMyZ1O5mrJRs7D0VOj58zirupa
-         iVsYC2JQTx5oJtocVzDklyBNANhQMYjhcFbv2lxkTH+D5wK5q02dgXjHcFavYOTM5zR9
-         OOSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795373676; x=1795978476;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uf40K/pvodARX4TFG1e6YUSwIbzlkO0+M9Bn1ppfz2s=;
-        b=cLYl6hrWTAhYzH00UWzVXjO0jvo4GyUc5j87wohyLreqDy0h9DAuuzxiU+UjvsMstT
-         oVGBLBCakNcEAr43U7lZilcx7j8bmtgYVWZYosvHs8cj3/CBZ9OaN1g6kncxZhHrY7O2
-         YfkagggYZrXjYD+mzCdifIT8TZZQoF3yX642GJEV69qcnTxCSMqbPRspoXdqFNqi3zMS
-         gpuqDgH/sBiQkHl1m6VkxxHIEs86527WPKNyauaGegBAuuz/GMPz1NwKeecuuzQUjG8b
-         Xb6G4Jsbvfc0uNCrWKi8YjXxtqmuGLZQy2M0sM7epcB/KWet3vcn/5S+8SswlYe8JSDA
-         Hl/Q==
-X-Forwarded-Encrypted: i=1; AL+hErGF2Q4PO1uauzwAjmPsgF9c25CDeeLIJxUatWkCw7uE3U+wA2IuqPLJmNYAZ9zeq3wZTw7oigLi4OcH@vger.kernel.org
-X-Gm-Message-State: APuU4Z84lb6GrZt3pEXVL5kTI4mQ/FAwgK4lHaQ3YjnT23eB1tT1CyVV
-	6nNQ/B3TXHoPa2895EvSmImQFiWzJ7GlkiI3ufNFstnSAODldwCC8UkN
-X-Gm-Gg: AZFdTZdzg7Mb4L+JFSn/FN6ALpSkRMaq165XZvm6V2W3mjlFrGYaGOUYON9pDV5s/cN
-	NLk5RIZG8IJ7ZCdu5qUGGukw8uoGVsKjLTVJQZf39K0ChQBlBVEWeEhocGO42CsIxndUf6Mw4HR
-	ra/u6PXOD56lKMVB3J/5yr2Oc1xP/sZrG9HpIKHpbKRhDMSDBvI598DFA4eoCVDHYqN1F6LQYCR
-	7m+QsJd5tRrdhVJ+h0WsQJmDXSwqKRevVyQCWIoHT4j6+ySVDBQAKl68N00IWk7KAFzYU1jC5NG
-	pBV6FROpgEXCUkiPpp9hnG7MKq0NG1VSlS/xAJZ7RDkLs8YBk8QW2i6UxmP3m/tOGiihnxVu23T
-	ZIbOlHVsDan7ZcEyF0if6lq2470opwTkpNGvjE5ABSKL6KKgI6M96cXBjGl86MijeFF1yh8Z1JQ
-	HbmxgMXaBdH1n6RTXVCbRjgHOcy2S1G84orJ96NEGv/PBd+7HrI2Z0NwN+DAJnrvXnyKYI7Lyad
-	dpcnc04lUzTlDSVXYU0LAB/Rz/PYP7cIh650yUSpO3OOJ9FkFItcj3Yd7nvK5Va1AKczhLtOACf
-	zS0S900I4EYqR+V5gwypRBKb2Q==
-X-Received: by 2002:a05:6402:22ed:b0:6b1:c285:f8d8 with SMTP id 4fb4d7f45d1cf-6ba1fb0ff8cmr5919856a12.11.1795373675341;
-        Sun, 22 Nov 2026 10:54:35 -0800 (PST)
-Received: from dl360p ([195.155.168.55])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba7b9570e9sm2385762a12.36.2026.11.22.10.54.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 10:54:33 -0800 (PST)
-From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-To: Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: Sebastian Reichel <sre@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yassine Oudjana <y.oudjana@protonmail.com>,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/3] power: supply: s2mu005-battery: add S2MU106 (Samsung Galaxy XCover5)
-Date: Sun, 22 Nov 2026 21:54:30 +0300
-Message-ID: <20261122185429.557309-2-tadilhusrev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <DN05PYTW4NV6.SOA0NRNOJBAR@disroot.org>
-References: <20261116074000.355176-1-tadilhusrev@gmail.com> <6afc2f77.2bb6edcb.1518d5.5d4f@mx.google.com> <DN05PYTW4NV6.SOA0NRNOJBAR@disroot.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eFKrLAjG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365281F000C4;
+	Sun, 22 Nov 2026 18:55:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795373710;
+	bh=Aovxc5dC+lR16isdk9O4n4VlgAuF5hG7BYT0Gzrios8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eFKrLAjGinAUQ+4zMO3k+Ey4VCmyMBLWNeqZcFDUR+qFehU/zHbxHp1nt9k15z2FT
+	 s414/Zd1mkgPMDOdvz1gPtk/tdpjIX09BY4Ea75e6Q9OSo8SjuygSni1nhOaQxSiNz
+	 41ZMP1st7Fc9zRYNSGYLPG2f0DV9kfhmUd7+NdwZSjUuuWqGyPLtfmngf5t0hfxNuA
+	 shu50PI//FsNHk/H08iF9JGG9m7YJ0Lk6KKYtGtFh217AmwF5KrQDUUhrwl+xZ9t/e
+	 TJgI2AA4tfj8gIc6jtUTmlGLy02HompnKURtyXxp+gTEwaq3Q7Yh0NF7/ww8punLgD
+	 N9aBXZG1AQQAw==
+Message-ID: <sashiko-outbox-228210@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 5/9] ASoC: qcom: lpass-va-macro: Add SoundWire
+ microphone support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123-add_shikra_support-v7-5-7bf3aa089fc6@oss.qualcomm.com>
+References: <20261123-add_shikra_support-v7-0-7bf3aa089fc6@oss.qualcomm.com>
+ <20261123-add_shikra_support-v7-5-7bf3aa089fc6@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 22 Nov 2026 18:55:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,55 +60,100 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On Fri, 20 Nov 2026 21:22:14 +0530, Kaustabh Chakraborty wrote:
-> Actually, this one was just fine. I didn't look at the patches
-> meticulously but it seems like it does belong here. The correct approach
-> would be to adjust the driver correctly so that it accepts both.
->
-> The compatible patch is, in fact incorrect. The driver clearly uses two
-> separate compatibles for the two devices, so there should not be any
-> fallback.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] ASoC: qcom: lpass-va-macro: stale ADC_DMIC_SEL on live VA
+  DECn MUX switch
+--
 
-Hi Kaustabh,
+commit 06032519fa34bd074b11bdad3a1dc60749b48edd
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-Thanks for taking a look. To be precise about what I was reacting to: the
-unsoundness wasn't that the same driver matches two compatibles -- patch 3
-did add a distinct match entry for each, with has_monout set correctly per
-chip. It's that patch 1's binding declared the S2MU106 compatible as a
-fallback to the S2MU005 one:
+ASoC: qcom: lpass-va-macro: Add SoundWire microphone support
 
-compatible = "samsung,s2mu106-fuel-gauge", "samsung,s2mu005-fuel-gauge";
+This commit adds DAPM mux widgets, routes, and decimator configuration logic
+to allow VA decimators to capture audio from SoundWire microphone inputs in
+addition to DMIC inputs.
 
-That pattern exists so a kernel with no S2MU106-specific knowledge still
-binds correctly via the old compatible alone. It doesn't hold here: a DT
-node that lists only the old compatible (no S2MU106 string at all) still
-matches s2mu005-battery.c's existing entry and takes the has_monout=true
-path, reading MONOUT registers the S2MU106 doesn't have.
+> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-v=
+a-macro.c
+> index 2401006387445..8ed8420d7185b 100644
+> --- a/sound/soc/codecs/lpass-va-macro.c
+> +++ b/sound/soc/codecs/lpass-va-macro.c
+[ ... ]
+> @@ -843,10 +859,24 @@ static int va_macro_put_dec_enum(struct snd_kcontro=
+l *kcontrol,
+>  		return -EINVAL;
+>  	}
+> =20
+> -	if (val !=3D 0)
+> +	/*
+> +	 * SMIC enums use shift 0 (lower nibble of CFG0), DMIC enums use
+> +	 * shift 4 (upper nibble of CFG0). Use e->shift_l to distinguish them
+> +	 * without relying on widget name comparisons.
+> +	 */
+> +	smic_mux =3D (e->shift_l =3D=3D 0);
+> +
+> +	/*
+> +	 * Both muxes feed the same decimator and share ADC_DMIC_SEL, so only
+> +	 * the one the decimator is routed through may program it. A write to
+> +	 * the mux that is not part of the active path would otherwise switch
+> +	 * the input domain of a running capture.
+> +	 */
+> +	if (val !=3D 0 && smic_mux =3D=3D is_amic_enabled(component, decimator))
+>  		snd_soc_component_update_bits(component, mic_sel_reg,
+>  					      CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK,
+> -					      CDC_VA_TX_PATH_ADC_DMIC_SEL_DMIC);
+> +					      smic_mux ? CDC_VA_TX_PATH_ADC_DMIC_SEL_ADC :
+> +							 CDC_VA_TX_PATH_ADC_DMIC_SEL_DMIC);
+> =20
+>  	return snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
+>  }
+> @@ -1036,7 +1066,6 @@ static int va_macro_enable_dec(struct snd_soc_dapm_=
+widget *w,
+>  	u16 tx_gain_ctl_reg;
+>  	u16 adpt_ctrl_reg;
+>  	u8 hpf_cut_off_freq;
+> -
+>  	struct va_macro *va =3D snd_soc_component_get_drvdata(comp);
+> =20
+>  	decimator =3D w->shift;
+> @@ -1053,6 +1082,18 @@ static int va_macro_enable_dec(struct snd_soc_dapm=
+_widget *w,
+> =20
+>  	switch (event) {
+>  	case SND_SOC_DAPM_PRE_PMU:
+> +		/*
+> +		 * ADC_DMIC_SEL is shared by the DMIC and the SoundWire mic
+> +		 * mux, so its value depends on the order in which userspace
+> +		 * restores the two controls. Program it from the resolved
+> +		 * mux state of this decimator, which is what selects the
+> +		 * input domain.
+> +		 */
+> +		snd_soc_component_update_bits(comp, dec_cfg_reg,
+> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK,
+> +					      is_amic_enabled(comp, decimator) ?
+> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_ADC :
+> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_DMIC);
 
-You're right that the actual fix is narrower than what I did: drop the
-fallback from the binding (require samsung,s2mu106-fuel-gauge on its own),
-keep extending s2mu005-battery.c as patches 2-3 did. I went further and
-withdrew the whole series for a standalone driver, partly because I'd also
-talked myself into a chip sharing three register offsets and their scaling
-with another, on its own I2C address, not really belonging in that other
-chip's device tree node/driver file. That's a shape preference more than a
-bug fix, and I should have said so as a separate point rather than folding
-it into the same withdrawal.
+[Severity: Medium]
+Can switching VA DEC0 MUX..VA DEC3 MUX between VA_DMIC and SWR_MIC during an
+active capture leave CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK stale?
 
-The standalone series (dt-bindings: power: supply: add
-samsung,s2mu106-fuelgauge + power: supply: s2mu106-fuelgauge: add standalone
-driver) is already out and hasn't had review yet. If you still think
-reusing s2mu005-battery.c (minus the fallback) is the better shape, I'd
-rather hear that case on that thread than have it settled by default --
-I don't have a strong attachment either way beyond not wanting the MONOUT
-bug back.
+If both VA DMIC MUXn and VA SMIC MUXn already have non-ZERO inputs selected
+(for example, when userspace pre-configures the target sub-mux before
+switching VA DECn MUX), va_macro_put_dec_enum() skips updating ADC_DMIC_SEL
+for the inactive sub-mux because smic_mux !=3D is_amic_enabled().  When VA =
+DECn
+MUX is then switched to that sub-mux while capture is running, both the old
+and new upstream paths have connected input endpoints, so VA DECn MUX stays
+powered and does not re-run SND_SOC_DAPM_PRE_PMU in va_macro_enable_dec().
+Because va_dec0_mux..va_dec3_mux use plain SOC_DAPM_ENUM() without a put
+callback or SND_SOC_DAPM_POST_REG event, ADC_DMIC_SEL remains stuck on the
+previous input domain until the stream restarts or the active sub-mux is
+written again.
 
-(Resent for the lists: my two earlier copies of this reply went out as
-HTML and vger rejected both, so only you received them. Sorry for the
-duplicate.)
-
-Adil
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-add_shikra=
+_support-v7-0-7bf3aa089fc6@oss.qualcomm.com?part=3D5
