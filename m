@@ -1,86 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795339777;
-	b=INxrZIIFPOhC719QhHvtso4mLfGkeukelXr2plmbIvP6nNe38VyG+SmrV4YEuLUsplAe
-	 JJSMLhoiOGCJn7kyfaM0SqcmTcmk3hGJBwsz2dtfC0Tsqn36y0pgV8nvBgDEa3rGifXNX
-	 Wei4xhjV8gAfm+IK9hQs8Q68q05VGZSAzO8H6zCiVkzgQs1BqESYkHQ/ktkuf0jmd4iDG
-	 63RHMx335EJr7gI1/u0sS8qLnVL66T3ER2QZk1/cgYoUb7CTVik1bs1PFbGl2OhKeIbP0
-	 xLFoeyY0ifR8dnb4PXJStQgm9fNFAK0z+j6t0lEHpFCr4v3QMhQTzOiG58SfaKoK5eA==
+	t=1795339906;
+	b=jz+4cbbWUXz/Yr9xZ0FwxDR3i8vuKXXYd7xVQcHGBcGtOcMqdVGlCUQhveAiJTafTDDv
+	 42hVHsJvyszCBG7zuqGIgv1mQVgifhrPtpUFM30bQ3wlcC2hyY9zMe5BQe6+jszjqQtFy
+	 aHCRiv/D2hO3JzVMKedRqdHgrC1bv56ZJPszashtcReO0qerkP9RJ2boPcrb4KlxSCCnz
+	 C2BdZ5Y5mLWMc/+VZS0zVsnmQ99p7JPSDj6vEDvsK++8kLqtqXHqrurMfweSr+3APjr/o
+	 bRPDRHp++vxbnWEB68Xh9tGoMB52Yv59zTW/0jANjHYB62VAI5j2KU62smqz7qhXNKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795339777;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795339906;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:From:To:References:Content-Language:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=zSbBCmopfe+MoOiR3FcwmaTDcDYdusoQxsQDuT727wI=;
-	b=5FpF0CtA5umgV3qmC1hRipaz3MYwrY3/pcjGIU4EMJWCHtP2IUQYMnmzcTak044bmKAr
-	 IU0TzU4HdPVTvEgbNwAONaOmtR/a5QsJv7Z7rmcw5fPqPiBkXji9Gm40QG3Q0zqKqYQNN
-	 ob9DowTtOJF78B400Xv3kbzzQJ8O+2ZhRMx0d5DzNQsHUEv/acuhUEDdFqAYhDL8zD+w6
-	 5H7FnWK34TyjAHaNTdMa7SpVY3p39m71Ld9i/mRMtju7xBDBYGGAxshK5U5OYjrxsVC9B
-	 wUlDz+gdl309r0stA4PWd+wwdA8d/N08lIdUj1/d3kJVYz9ZvDERAjPfx15Gw/s+dHA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:Message-ID;
+	bh=R5GY9TTuofYTaa/ZejIza37Mpjz95YygMJZxjVzg2k8=;
+	b=WNzBnrZB99PghCLAyV0na/NLVvpP9wCLX1+kMta76BrG7+7CCERQUBzwiYSgnrRiRENY
+	 Bz702VpaJFkq0O2b4ADt8GFCGz9ix+oyQKyDuFaV0Sg8eOX4SG9KbYzpiLKMIZ+hCJ2Hl
+	 U4dkDChkU9guZYwqFhKwrU+MMFAiDM7w/RifTWeAMmLGykr85khmUpPUEsBkMYdEEFwNJ
+	 sLCaKT3lfFONj61ma8p/SfpaXKyh42mCGiI4HNOP95mg7bBYTw+kxH9DVV5hHj7nKPBT5
+	 bCV+0Glu9zNHxDgXOgcCDqefX+fYmuOOjowFvfXWMX6Fko5xFezEWEbYK0Zv162zTwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZjzK/IYF";
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qkqpt50t;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E15606A32A
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87E15606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B490C606A320
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:31:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B490C606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZjzK/IYF
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2240195f8f.1
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 01:29:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qkqpt50t
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b413f6dda6so267227a91.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 01:31:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795339776; x=1795944576; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:to:from:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zSbBCmopfe+MoOiR3FcwmaTDcDYdusoQxsQDuT727wI=;
-        b=ZjzK/IYFDbLKzv8ES3IISLPHkNxTDieny3WEcqm04h8LzdPKW4dWZpxh4pHbUGIs5t
-         zGbec0ZT4Dz+AWsQif98zk2F4AQAP4M3lfD3+j7abeaiVSVfNo0LHihJAOICISHxVUzr
-         XEt5Us3s9qxLkWb1WBHG95CPsPrl+pt/qIfPDoTwBufQVAa8vaW0yhEzrJnlo1flngRf
-         jM9G6VEIQ6g0V7ZU8BVReeof0Xl8HehLNfLvxLZV5j0vd3jUbRhLkdNso0JlAY+k0YrF
-         Umy+5fRoEmb0JOlQ4tDNskYR/qwSmVOAPhP+0XEFIWuYPHo/WGGa104DlkO3dJ+XXnVK
-         U9cA==
+        d=gmail.com; s=20260707; t=1795339905; x=1795944705; darn=vger.kernel.org;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R5GY9TTuofYTaa/ZejIza37Mpjz95YygMJZxjVzg2k8=;
+        b=qkqpt50t0NjfJe5lLV1jyXQ6XtjZBa5eV9qYMkjLE6ts7F2JKg9eIElrgOosmXUhd/
+         ngDz7NoWTZAOtPYbr45LkRO3oWyDLtP/qWTK6PgaoxXwJuqSY4GY/O+GM5YYsYGq+Nzb
+         46zQJ/+DdVf9gJGabH/ZJ9npegdlShBSKRrU0ZwpUVfrSV6Aj0kWijXJ7ztvPgcYeeRK
+         bhrofAXgGyQ6YiRBRHQoIf4og4GFvMuWR/Qp9obZL64esaPDhzQUKyj1Z27gYTI5bZ4M
+         7dNiV+eB1cH5w5ayLnW7QjuYGZAc94qgA09dHFfuynNq3AoWY5uOaCZKrgfnZDKj/Iq8
+         R51A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795339776; x=1795944576;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:to:from:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zSbBCmopfe+MoOiR3FcwmaTDcDYdusoQxsQDuT727wI=;
-        b=E9gcT8ozrYaLNFCVf2nii7p2kZNbVFzUKPByNHDyV+FGUn6Tl1s+IVHGwigJKgd3/c
-         toKcU0VNlWWh4Ihqq4xA5XJzaT+2aUUrRL5++LJmerNyl9F5OrVDUx4czCEOBSn4oipD
-         34xrsG4w+r23EZWo91PEqWdDGBhBkjvx6i8m279zMc3SVH+gqNNGLZ5LQXlhGcNa7lvy
-         8eeRcAgjR2DpVYf1rRwusj7rQtrb12vBhzxKucRFdfICONq0flLQWk9qT4bCAzbtgoYI
-         Cec5hC0AQtV4tBJtUuCKHePR42nFK9RZKiZ7y773cR9HuXJzyc0Gw5qgVIwRga27vx2Y
-         rsLg==
-X-Gm-Message-State: APuU4Z9Z2mj4Ssm+rhDntsiaiODQjusCr4xuK1FOWIkPorruxP7q4296
-	FJf441f+WQvddCJVZ6Xe+5RFuOIsSgIMbU+dR+WzHeFms/+KgTCFtfcY5Xmx11FA
-X-Gm-Gg: AZFdTZfibsQItdv+avgiEzS/GznZTbtqsAeSSIGm7fILTcvTYx4Bzb6bc2fOgFLGCw0
-	Z+CjUpxB7p9KXy9dSJPYl3qARSLdGH42teqj+/IdeBetrCS4UMgIsCSzM6C0QdIl+lgFs00Klvj
-	Na0zCNdFv+zIcnDdE9afNxGY57z7TtUEtu8xDCFMgZWdEQ3EK5HAunYYiLu4zNJ90NhzMJ6SBfn
-	jw8Lhv8HfcBpdJzBTRbDFSE1XrFRLapz6kRuQVwK4sZ4riYqO/N5Q0UCSmmEuuUfxwGV3YA5SOp
-	cV60uU0hXQQ//pI3AUZUtagu1P637dMtPV3nwPGGPJEiJWHG5FHEpHGhISyV9OQZUMxkvdYTqhn
-	9i9rQYxsXmeyUpOiofvj1nz8hl7jPLJdOMhA8rB5l4ZFxc+DVtPFHkBC8QmtpVT9uTQtTeQgPly
-	pSXlblrqcKluYjdtt3gdWjJU2g3C10ukW68rhXRH6HpbrK1adBdgLABUZA3Io/CtqVpgH4soKc9
-	WKnwVF9cNQlZUtCoNcdDF7jVzshOcs76jQczyduKKI61iBpljb2Q1XqXADQaaLz3Mqet4arutQ2
-	Q6G6czwEWwxEEDy6r6a92B6MhdL99eI=
-X-Received: by 2002:a05:6000:2c0e:b0:48c:58d5:30fb with SMTP id ffacd0b85a97d-4abad5ac62emr17440322f8f.5.1795339775896;
-        Sun, 22 Nov 2026 01:29:35 -0800 (PST)
-Received: from [192.168.1.224] ([88.80.252.176])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bb989e3sm16020359f8f.52.2026.11.22.01.29.35
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Nov 2026 01:29:35 -0800 (PST)
-Message-ID: <15b08e51-cb7e-4512-b477-ea67d837417a@gmail.com>
-Date: Sun, 22 Nov 2026 10:29:35 +0100
+        d=1e100.net; s=20260707; t=1795339905; x=1795944705;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R5GY9TTuofYTaa/ZejIza37Mpjz95YygMJZxjVzg2k8=;
+        b=VWXloHDulCV5Rxb9/tl4sPn0DwTCwYyEi1wc2NctHmRPOSmrIRseZ1+1sPp+yCor7I
+         QzBmv6iCk93/HIRevElhQ5CsbBnlgeos6SENIs6mEnIAnafnv7h05qu6R3Z81CH87TNO
+         oJg4efQPNZ7AHPXm0dTcr/TxlyLFtn+bK3tkU2F/2GrkzfIGIfV1s8mTwLjR4FWSfQYP
+         V4hJRAsNE61yvaHKeeF56aLRgoFQTlOFKh8iEohrdDufvo2T138uX8OGw6WZQbUJN5GO
+         YClp3XOmXbUPczSviee7T07bqnRRGyd4KuoaXsyOGtVOtV467GdXPm9uHaREI6JfAZTx
+         Lswg==
+X-Forwarded-Encrypted: i=1; AL+hErHj2t7du1WLYgSnXrVKnqqSUjPk/1WjDnNrysGlkfsBg6s7YbccWMvJPgPsSzzcZkwJKEKEeO3PGe9q@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WgLpYjKRtMEGLlun3+XSZBGHUbD9ZaKmahfocRfIRChiPlBNO
+	Ds73lPnBnfLqaDewZhSnpWWtnzDxmbupl+kcCoXbIDg+0p6I+qv1HCmt
+X-Gm-Gg: AZFdTZdZuMh0TmFnqG5669U7GSm8afEj35JkMZ5NZytDS/7Gzqs183vPNLYl8zj+hu8
+	YCbhxVPHkayQovb4LrGR19nvTMxzrv9GSB5hEepE3UBHDP8kTT5x3F5qLgREz0z2QQbpAussBFG
+	gm8pKB/D07dONo3t7IqI0Kmkoc222cqc8JDHuztQUZdBO+4r4nojTjM5Yh6qC7jAQHUIhgiHEz6
+	NKG2fpH1p2LKrd5gX4mdtJb/NMcqE7hpnkG3McLi2md2aHeJsMUuJ1JDa4W6h7ZaydbzIRywc0h
+	dSCXBVlSiXM53myg/MVed6T/YIC6ZOLs0dn2MkL2LzpfvPgwEWxB87V9xKwWcysdMWq/4Ir+dTc
+	dGD0sb930BRWbNZQDmRb225OTGS1cSnD+sv5Y/r97/iYoIn8WRJou0OXK3E208XnuGqHSE3ko4q
+	6VK71FAUW2cIurIrnkg9dIWWXZetnSavgOlLwLK8MO0m84TRio90NAf/w6NjMsP3qkSU0gfAP3s
+	TI/3c4kcNr5Vg3cLKwfjmRKSxIOQa/s5PRXI2lzRDi3Os3Pz1VXD8R7n4TIGJxL7yUhHX44hxFm
+	o5QqLVdfkufb5CWB4oYKZgPQMiez3027+Bt+c1fGDBo0+HWAls3YxLpOSe7dXQtkQ8DDF3JkDPo
+	robqi9pGDNW2EhqYeuen6VWmL8ms=
+X-Received: by 2002:a17:90a:e705:b0:3ac:9c37:9422 with SMTP id 98e67ed59e1d1-3b41c7e4cf5mr11892464a91.2.1795339905049;
+        Sun, 22 Nov 2026 01:31:45 -0800 (PST)
+Received: from claudebox.iyengar.cloud ([50.39.139.68])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ffa98esm14795295a91.17.2026.11.22.01.31.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 01:31:44 -0800 (PST)
+From: Arun Iyengar <aiyengar1990@gmail.com>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Andy Yan <andyshrk@163.com>,
+ Heiko =?utf-8?q?St=C3=BCbner?= <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Damon Ding <damon.ding@rock-chips.com>, Alexey Charkov <alchark@flipper.net>,
+ Igor Paunovic <royalnet026@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Dmitry Baryshkov <lumag@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, kernel@collabora.com
+Subject: Re: [PATCH v12 06/23] drm/bridge: synopsys: dw-dp: Fix AUX transfer
+ timeout race condition
+In-Reply-To:
+ <20261114-synopsys-dw-dp-improvements-v12-6-d42d3dc5bdd4@collabora.com>
+References:
+ <20261114-synopsys-dw-dp-improvements-v12-6-d42d3dc5bdd4@collabora.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,23 +116,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Solution for rk3588 with suspending and wakeuping at Radxa
- rock5b+ through original power button.
-From: =?UTF-8?Q?Attila_T=C3=B3th?= <tothsoft@gmail.com>
-To: devicetree@vger.kernel.org
-References: <3369e728-9af2-43a8-a25f-ff107ceb34de@gmail.com>
-Content-Language: en-US
-In-Reply-To: <3369e728-9af2-43a8-a25f-ff107ceb34de@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Date: Sun, 22 Nov 2026 09:31:43 -0000
+Message-ID: <179533990370.107225.5765165679182115805@gmail.com>
 
-Also with this dtb is going playing again of mpeg2 from dvd at kernel 
-7.3 good as at kernel 6.18 era.
+On Sat, Nov 14, 2026 at 06:00:39AM +0100, Sebastian Reichel wrote:
+> @@ -1491,6 +1493,12 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
+>  	status = wait_for_completion_timeout(&dp->complete, timeout);
+>  	if (!status) {
+>  		dev_err(dp->dev, "timeout waiting for AUX reply\n");
 
-Dňa 22. 11. 2026 o 9:37 Attila Tóth napísal(a):
->
-> It is going at Linux batocera 44 with mainline *kernel 7.2.8. (*There 
-> is also not going lan wakeup, isb wakeup, wakeup through hdmi*),* DTB 
-> is in attachment of this email
->
+This still drops a reply the sink did send when the IRQ thread runs
+more than 10 ms late. On RK3588 (7.3, KASAN on, v11 of this series:
+same 06/23), with a SCHED_FIFO hog at the IRQ thread's priority on its
+CPU (busy 40 ms of every 200 ms), 1410 DPCD reads gave 183 timeouts.
+Checking for the reply once more before giving up gave 0 timeouts,
+with 127 late replies taken:
+
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1493,2 +1493,6 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
+ 	status = wait_for_completion_timeout(&dp->complete, timeout);
++	if (!status) {
++		synchronize_irq(dp->irq);
++		status = try_wait_for_completion(&dp->complete);
++	}
+ 	if (!status) {
+
+Feel free to fold it in.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+
+Claude (Anthropic) wrote this change; I reviewed and tested it.
