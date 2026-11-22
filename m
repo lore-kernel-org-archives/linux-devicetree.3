@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795379911;
-	b=c9jjO2Z2I00bHUp/Nqcz5dtL5NdWWDa6WgLIoK4JbytkMKR+Ol99wLyNTO/i8s7Su9VB
-	 /M/44C93pkB+rWo1SXvvMnmgPwQRmbwvY1nKXWmyTHcn1Bs/eAHitG6jzeaNF48Sg4qqk
-	 o1q7txQd+xBP3LbJF9F5prgz/Sf5AInEvNdYM4XNlFG7RTTy86zyuq5ffTDOzYADmkRrr
-	 7vO2yEzCHr7vR1cISwJciTPL1C+p5k1TjSv5rdiP8rzvHs/SFREJphYeTOqqYwYnPOYmd
-	 Ef0GlrLKncEARxH4A1V4BeCgMXMKYhnlPkP8RqZb5rLq+39ft8eDjPr0Abco8qYVGpQ==
+	t=1795379969;
+	b=Phx75u3wztKqCLhpkpVdsxLN71tl5+lMgYRMooRXgYP9qrK6vu1M/Q3TXJ3hFtm3ak7k
+	 7+GijA64vTjXJqI8DOurZRyTzmopAszSYGXtNId487WeoBhaDkXoLlmGDiQq2LE3YHTP0
+	 I4vvysJyE/kYwyRZ8qnH2xMhBbcPtrqlW0NXwNrasgwh2yoiiwM9+uCNxAfqJdTojrHun
+	 AMcBtyq8zm9kYH4b/k9PdYxK5V2ssWm0NDkNC63i9m8TBeSAybNJPLZ7/0oF63350ZYWI
+	 cYKRu8oikF3nLGxu5d2ldmfY5KiG/8oq/ZnH+x2YOgGs60aD4yOZoKn+vrn05W2nv8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795379911;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=502iF91XeobRM5bHAgU3cwUNblInjy2fvN2qbJeoKfY=;
-	b=PVR1iKAV5wKtly8Q4p6l1/EpLu4f1av7G9iKTZYhQxG5D/GP6D0tTsaah5gVjixoQdrC
-	 czwgaxqG9PX9vtg65R0ykDi8Vdi/tcuhlOipKEo1JOf5HKfqQCX0tE8M+eS86qyK5l2Mq
-	 E/UqtOVLOMbiQVkEgNs0Zty9fjdPdVB3D6uxKKOxkJmfDBnbTsNcIetXeI6Gjh2VIgbaX
-	 itUGXhsoVD651NeWSB/fljgodk11VyoCv6NVveLUiRVaymcXQb8P+Jmt1NULhZC0XdZsj
-	 I2IOd7st5YpFyGzcV7TZnh3UaQhdsNb2Y7BkV8L0qNlJr+7aaPN04R9x6wdcdHuSOHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795379969;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=xjGjlzQOGxkHPrGuRUyuFFkNCgtqCfk+N7S2jegyUHs=;
+	b=wH5FeXNEIuRcd1QNJx2/Aw5JrepEHryUVhpCBfs9GnhfNd5AhB8jyM8r3nIx7qXtCN3J
+	 jN0pIZm0OYqD/WKIRffZAGQEzpKEkMoM6MVUW5TCRcGVK57PQXQEmheJHe0yB7PYLCFyc
+	 7udA3NgUWbU51P+9y5xZqKIll+whsQWino7N6T9qC2KU2rjnKv2ydh85sk1FK7Za0hR7j
+	 AFejMtV1SCGp2hyAOJ70gyO36ZvFiKm7qMmO+qxI+tWPQTZGVh20CkILSu6uiFnPJGIfx
+	 zv5aXsQZYxKFNMqtwbV5nGU5e6yvyFVEa+yalJP8HffK4l+3EFqIHfc/2JRY5Ogn/KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aEY3v/TJ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vm0L13HN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF75606A31A;
-	Sun, 22 Nov 2026 20:38:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFE3606A31A;
+	Sun, 22 Nov 2026 20:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEY3v/TJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87C11F000C4;
-	Sun, 22 Nov 2026 20:38:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vm0L13HN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D923D1F000D0;
+	Sun, 22 Nov 2026 20:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795379910;
-	bh=502iF91XeobRM5bHAgU3cwUNblInjy2fvN2qbJeoKfY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aEY3v/TJjyOLFzdPpr+wLUW8lYbAh/3fqMvgWrPRpdStErgo278vyYX/ILRbiA1JR
-	 MQ9tjVLgCreC2Pb2cPNy5crJAr85eetxnkLuVIg5ATnnnuJzEGTAAby3WYxzF4st/+
-	 KAHkNqmvCP54O/vWPpeBw6nxdyvm2Eo7JT0qBI6GnSQ4k/ZVqRC+jTnNO4FsA360A1
-	 LfhUywXgueZRDFK9FAiUOeuVcSVEF2cm8aB539bAePqfrTUUrS+FjL6Yck3RLLHTi/
-	 CQeKUVoEDf2sBQacXgidB0Zv5e0e25cYdUTtlvJ7N9V6i5v+7dt1pRSHEf3UnlrgEf
-	 QPDvOs3S5W9tA==
-Date: Sun, 22 Nov 2026 20:38:26 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: Re: [PATCH v2 0/2] iio: pressure: dps310: data-ready trigger
-Message-ID: <20261122203826.29448f34@jic23-hlaptop>
-In-Reply-To: <20261114083828.18059-1-zoone.rupert@gmail.com>
-References: <20261114083828.18059-1-zoone.rupert@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1795379969;
+	bh=xjGjlzQOGxkHPrGuRUyuFFkNCgtqCfk+N7S2jegyUHs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Vm0L13HNgR3uTsdH7yDUm/wZtcXZ1P0EMJvxxEagYE25FZmVpdx6Qechgmv8eEwzo
+	 ydTCzmTHUI5yRkUtfWcHRUJIgBP9OJKQnZ5Pi0tNieNfILgWIyQiSCckTvcqqd/KbK
+	 i/nqWC+ouVroJ2lBr5Gib3P0IQTCwj3aDuTRDhYdhxiLFEmFyLdM+ykS4jwar5mjoh
+	 K9HBuRid/lJRUlDGtk3ke7revjd1cWLQgvOnRwF/ltoUD3A74ug9iU0/KYknO+kMRo
+	 TbnqeMSwzWSpS53XAgt6MpQvJEqw2zA3FlXwZ5v72p1HJncoVjP/TcESMvYvfI+CoJ
+	 CfhMoJp+txtXw==
+Message-ID: <sashiko-outbox-228331@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/6] dt-bindings: mfd: Describe the BCM6846 PMC
+ complex
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261122-xg6846b-bcmbca-xrdp-reset-v6-1-bf2104a25095@kernel.org>
+References: <20261122-xg6846b-bcmbca-xrdp-reset-v6-0-bf2104a25095@kernel.org>
+ <20261122-xg6846b-bcmbca-xrdp-reset-v6-1-bf2104a25095@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 22 Nov 2026 20:39:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,19 +60,82 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sat, 14 Nov 2026 10:38:26 +0200
-Rupesh Majhi <zoone.rupert@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] dt-bindings: mfd: bcm6846-pmc: child nodes split PMB by Linux
+  subsystem
+--
 
-> DPS310 can raise an interrupt on SDO for each new result. Document it
-> and use it for a data-ready trigger, so triggered captures follow the
-> measurements and are stamped with the interrupt time.
+commit 1ef708faa6e24bb930c8332cea06fc31592108ce
+Author: Linus Walleij <linusw@kernel.org>
 
-Looks good to me so applied to the testing branch of iio.git.
+dt-bindings: mfd: Describe the BCM6846 PMC complex
 
-Thanks,
+This commit adds the devicetree binding schema and header definitions for
+the Broadcom BCM6846 Power Management Controller complex and its Power
+Management Bus providers.
 
-Jonathan
+> diff --git a/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml =
+b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+> new file mode 100644
+> index 0000000000000..eb01797f82622
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+> @@ -0,0 +1,238 @@
+[ ... ]
+> +patternProperties:
+> +  '^bus@[0-9a-f]+$':
+> +    type: object
+> +    description:
+> +      The Power Management Bus (PMB) connects the third generation Power
+> +      Management Controller (PMC3) to the control registers of miscellan=
+eous
+> +      independent hardware blocks.
+> +
+> +      The controller provides configuration, arbitration and four keyhole
+> +      interfaces for indirect register access.
+> +
+> +      Child nodes describe independent hardware blocks accessed over the=
+ PMB.
+> +      These provide global resources and even resources for each other.
+> +
+> +    properties:
+> +      compatible:
+> +        const: brcm,bcm6846-pmb
+> +
+> +      reg:
+> +        maxItems: 1
+> +        description: PMB configuration, keyhole and address mapping regi=
+sters
+[ ... ]
+> +    required:
+> +      - compatible
+> +      - reg
+> +      - power-controller
+> +      - clock-controller
+> +      - reset-controller
+> +      - hwmon
+
+[Severity: Medium]
+As reported by Philipp Zabel on RFC [1], why are power-controller,
+clock-controller, reset-controller and hwmon modeled as separate
+unit-address-less child nodes rather than exposing #power-domain-cells,
+#clock-cells, #reset-cells, #thermal-sensor-cells and the reference clock
+directly on the brcm,bcm6846-pmb node?
+
+These child nodes partition the PMB keyhole interface by Linux subsystem
+rather than independent hardware blocks, encoding the Linux MFD driver
+split into the Devicetree ABI.  In hardware, the PMB targets are BPCMs,
+PLLs and monitor blocks addressed by (bus, device): brcm,bcm6846-pmb-power
+and brcm,bcm6846-pmb-clock modify different bitfields of the same 32-bit
+BPCM zone control words (32 + zone * 8), and brcm,bcm6846-pmb-pvtmon,
+BCM6846_CLK_PVTMON and BCM6846_RESET_PVTMON all operate on different bits
+of the same PVTMON_CONFIG register (bus 1, device 6, word 17).
+
+[1] https://lore.kernel.org/r/f1c24a603964302ec1462b1cea790a2a7079fb3d.came=
+l@pengutronix.de
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-xg6846b-bc=
+mbca-xrdp-reset-v6-0-bf2104a25095@kernel.org?part=3D1
