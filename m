@@ -1,56 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795336987;
-	b=mHLIQl0rRWl9I5J8+COphli4uXMAHq5y9sgaEtwLa6kjVz6pAYuPWH9Zdht2KbJ3xsfC
-	 K2e0/v8QsFtGNo7aL+NOBjPIIMUi1Ih0WyZ2lRaiBXwtbEUTPGFGzlbR/p/ul8hyA40Ip
-	 0vfAXxHvno2efxiWTsSsvHuuvQgdkhs9hQDomoZhKQD7VjWWHrO+JSwbiKcUUFqrL37h6
-	 7MwuSxIxg2Q63NbLyF70o841dary/9TYXUd1sfpiCcOJ9Jjgmm88BJ+cMTe/ZZpMIJpgG
-	 1U9kMHGiLwNdwmYwKFOae9tGFcsvqPGMIUnJPxO2BPNSMUhv/BUq+IARo2BvlJsm53w==
+	t=1795338321;
+	b=r2XJA03Ode0cAj9ds5CwdkFyU+fvWni1sTwWYImda9hsaq5/GbZjSp0YKFiZGwVLYHtt
+	 WTMwBNPex480UykT3jlUl6BC2/GRDPWDBY+mNRzq31wkBE0/5pOWUdf2/6ijXzK75Pd94
+	 7OntLLROubfVdOpe7YB/JK6r73VhZq3cMzEvLMJRTOz4uA4WgVNvszYnO19Ttn98AaffO
+	 ZlHPiBkq9Td5/5BW8rOy0EO2hbxn18RgXDxbBQ3iUZ59ls+f77ND31jbwuHPj6E2uuk0L
+	 B55EQ1TxZp25RMgg0Xq2LEJZc+x5K0XaZuO/40J5VbsNlHUCU2H/1cMsqpl7XKnKbiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795336987;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=nzENoBqEP38YaFTitLU/VuQrsi/ucjE7nP4aqpSUunU=;
-	b=xy6q6v7OhRy4weRRMBWUjC29hg3b3QN9Vvik/iHIzsFlyg1UeJ5r5hC+O+Wa2INNh0rl
-	 SbFnsxUcursykIsBy2Srw+XVCUgbab60tYnYL9XPuhbwc2RigXN0PFtYL96nxGARKDsCi
-	 sg9QVjPHvrVnjzIMosEEaUL3lTC3IQfD7kQZCVEoNRTRxfoCqfDoeO6gYhRkoyl7O+m1Q
-	 9Q2ttX2+/tWmR77m04rr3n+DfDgmVT7hEBLJJNQhem8iwi+iJ2OaFS5DZSy7eyl+PcXYk
-	 tEqHmPZjaubdrNleWp80/5unTs5PWNMY5+w8bvIbmzwBjIsOyJkvImn1eXHI58I67pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795338321;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=e39Z3A9bigTbCmuYMYfcHPYG6KuluVEzdKHbh/0KQyA=;
+	b=zNoCKXtEbuwbqs86yvhJuBA7o01JNfYBQcFMozy0Lp5y/mYeQcoyc9Wvc2BW4tfl7Idr
+	 iwkj4uvNMrBcX9NoqstNqKc9bJ/RCGc4LS2aQzt3wSikcOiJmn5jXF3Hm6UV6FqBK59bC
+	 9xwb4ayvHj9phWke5WS3bpHeqq5leoKbHGJ/kQUANqqiZE+GrR8W6YDqEftEj1GYMKRWy
+	 iuNx+bst6t6NRnWD+ATOkQX3sERXK51RatG9EvRxvLI6dzFY5lvLHsMXWW9bfNmeBvvI+
+	 UNsFqovFIaas08xXNpebZn7QLy0ENdLeLuHqpXjbOsQHkW+d2eKSCNhiiMv8IiqD4Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PA0+kofj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iNnLWepe;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FErBUCC3;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C435D606A320
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 08:43:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF12606A339
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFF12606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PA0+kofj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 196F11F000C4;
-	Sun, 22 Nov 2026 08:43:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795336987;
-	bh=nzENoBqEP38YaFTitLU/VuQrsi/ucjE7nP4aqpSUunU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PA0+kofj8enDiM2l6Pax7ql/ru1G7wn6UqaNWTQvarY3Ai1hYzUEky0J5gHPgn+gd
-	 SU4p97ldclD+7nl+JHZEvcOzE1bKJVMOfO61utC9ZLpeCumvxzo19uysPdFBG2ZZOL
-	 db6yomzHCgzLOuLJXib9U9e7Ie1v7/5KH+pMKxv1/ezISvwHn8X9ius7ZKq/zoRgX6
-	 LbzN3MQYerHVQXi0MAlOhOHA//4xpcEriYFt/T6ndQPrKkzKz6TUwR8Ux1jrf7u8OJ
-	 TdbNRXJv7FJMOiMzwz0NOdLQjphFSx0LSfZGyDzJ31i99lfVvmnG2Nb8kM0nnnO49Z
-	 +/yS3CWwmQ0UQ==
-Message-ID: <sashiko-outbox-227839@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 12/12] drm/tegra: Add support for 8-bit CPU interface
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261122081820.53199-13-clamor95@gmail.com>
-References: <20261122081820.53199-1-clamor95@gmail.com>
- <20261122081820.53199-13-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 08:43:06 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iNnLWepe;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FErBUCC3
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AM86n2r3588642
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:05:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	e39Z3A9bigTbCmuYMYfcHPYG6KuluVEzdKHbh/0KQyA=; b=iNnLWepeZEbGS53P
+	Oj5AMw5fDdJf7FdLuZp1XGexYur0dkcBgZKyGnxpw7SfO8vHf0bu/Xrj8v7YB9Fh
+	tia6Md+VxBeiR+poVoOlJgX2u8m+aKwb7OdLVW2E5V/rHF1tk52BqgT8DA2N0hk8
+	ghocdyMAHVWku5ZuPtGMm6bBfjOSMtFFveXWKTIxFotyy/ZNQrzghCo0N3t9Vcyi
+	stZBDAfyRU0zS8FMzyyR6ghwhqWut2d33xdJdCdlS6IzyQPiAn5Fls8obHh/tCPc
+	OUKYB+5gEjLzx1NKZgcLMSq5E35zekhEGqJ7IjIU8xksDRKWPmh+vXIWaCIzwVFE
+	+QSXMA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j32a6k4uj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:05:19 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9308eafb465so517445085a.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 01:05:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795338319; x=1795943119; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=e39Z3A9bigTbCmuYMYfcHPYG6KuluVEzdKHbh/0KQyA=;
+        b=FErBUCC3gc9bxaCLxgifwmc4ZGnYAsIMvnx6J522JJrG2ABwRgTEKZSBrL2lkUgSb6
+         /IUnJhIh9ifipWa9hEkE5xe1kXraXOQ2aaAtABtmc+z4DZsgpTz4baltsBePBqPWMFIc
+         lstQ9NIRpUa9vxgmqTtMCMQFis9hsjGrPEP2T61Gb9Oq3ZDC1pyAfc0oW9RsOUPFKgPB
+         wVA4zHs7b5B2cJlkwvkh9yCsRXrT0nGjDKPLYZ5KmWEJbzwupztVxQVWbDxFf3I7UtP8
+         N1ekfOFrJNRW9Y71IdBhP62IK9C4rzQewofHQBmTD93N1MYqCjjidiQ2ku0MOoSCfdQ9
+         H5tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795338319; x=1795943119;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e39Z3A9bigTbCmuYMYfcHPYG6KuluVEzdKHbh/0KQyA=;
+        b=tLTTdHwJKjvby4EHe2PAF/q/os6RNRUGehkpPQnif1jgoDVC4istDwNxmVpdrYO78L
+         hJ8ACDC3gEq7SgLTriwyzrEpI/X9aBaW5kBvaSWpcAMzkUhgRc9sQa/1c4PzHvsosJQm
+         w7lrSujhlOrq3JwTm/st2C1qXY06y0O+skX7wzh+xg6h9tJQ7GiUSxmNui/towRMJFf0
+         Q7Uyqwj+SWm7h0WYGzFXWYuQOYcUbTisXX82CBQdrJOvx/+Joh8QQQirr28GBxaeVKis
+         no4fSfC3lxWNV/0DEKQBGrfaAl6Rry5Mvmn6EYODguqblKSE1EKAadZ2YZhxhJs9EB1e
+         rV8g==
+X-Forwarded-Encrypted: i=1; AL+hErEROHkRIw7DtN93P8bKseDghME8TTKWSAkyyFtEJsdnN6fgC5Q/7fY53xPwr1CMvEPJMjq3ryMMN/le@vger.kernel.org
+X-Gm-Message-State: APuU4Z/u6McpExLNnlugDGKM3MriL9qp58N6ICA+q5YjM3+PYROOwck1
+	eTX5A2sxfbXf/M0LYywdqf3DaJxHtbLOtSCAqjkMWoM0FbCOqhCamjLbCOn2mqTrqQheKqo94jS
+	5VqK16e9F5kG9Fgmf19qPgmPmuoF6Udm9Nin0wZyoQMReQZyr6ebSvgOIEAplAj9+
+X-Gm-Gg: AZFdTZfOvOhFa6ew8WINZA2kVfIjRBlI+p8HEFyCC5UYQ9VW/UdoVx6lfx0h+aY2VlA
+	GxbjR/Cy9A+0RIoM+jIGL4qj+a3j5rd9V+64C/9TxkpdaWx9HNx/tZf4CsyFYE5LF6pztlq0VIs
+	UwEio57HT7J9ub7BwEtS89mIhtq4Qc5yWwyCseyHnQKxdZAZ/j4kkhBHrMc8Fb6qWnRm0FIMtrC
+	4MgUYK0BCCIF98sMHL/PBGCRkzq4+BL6nBusqGowYZhGF9ZOosJkpOsGPhvh2OlJCewi9/H18Zq
+	PxqJuXlDokg9wourPpQnE5zJmBTUeHkDMifodbeRMJaYnQsXpvkiusKBpjBibN6DHcNPloxWO6R
+	H1LRjJkSYqQzb4gBsDwrGp38fNjCG7Ypf8Nu9McIQlK3o5bQEgy4vdEMUeq8cHg==
+X-Received: by 2002:a05:620a:540c:10b0:949:bd26:9334 with SMTP id af79cd13be357-949bd26944bmr1011098685a.37.1795338318833;
+        Sun, 22 Nov 2026 01:05:18 -0800 (PST)
+X-Received: by 2002:a05:620a:540c:10b0:949:bd26:9334 with SMTP id af79cd13be357-949bd26944bmr1011095785a.37.1795338318348;
+        Sun, 22 Nov 2026 01:05:18 -0800 (PST)
+Received: from localhost ([2a00:23c4:e5c9:901:c496:8838:86d0:bc8c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf62f7sm16878371f8f.13.2026.11.22.01.05.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 01:05:17 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,266 +111,82 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH RFC] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7:
+ Describe the HDMI port
+From: Christopher Obbard <chris.obbard@oss.qualcomm.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261109-t14s-gen7-hdmi-port-v1-1-1a691e6c180e@oss.qualcomm.com>
+References: <20261109-t14s-gen7-hdmi-port-v1-1-1a691e6c180e@oss.qualcomm.com>
+Date: Sun, 22 Nov 2026 09:05:08 +0000
+Message-Id: <179533830885.820169.12795261112757355999.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=631;
+ i=chris.obbard@oss.qualcomm.com; h=from:subject:message-id;
+ bh=7R6ofa5ylz9rX+cxpLl3SXtzYiXYEYo3/l7RH8vz14w=;
+ b=owEBbQKS/ZANAwAKAWNNxPBocEb4AcsmYgBrArBHh4pKPlzUXOphdGhw3mLyJSktAheSNIVRM
+ 8QmyaqwAEGJAjMEAAEKAB0WIQTxi9yLbCX5CqI9UXRjTcTwaHBG+AUCawKwRwAKCRBjTcTwaHBG
+ +FrID/99rOh0xy3glImPrS3kTQSdESiR/qRYGaXmUAV59gl3SwhIaGONw79gMgNRq4vj62GtIwX
+ Px2Bfp4wuLeuCz2UTz8ljZmuUecVXKbIYKzhgI8tlkebfk7lGy9HzqB10jeoGPJHTUzUfKYR30d
+ QS3F9VjQYfwlir8+E6S/x+fk/LL4xv4jKqtZE0UdiWypCVn0rkbQL3LyO3sSk8rvXhy0e++2B/t
+ zTmR4I5RJoYCHcXqjmSxPfAzBXVg1ZDZ+ZPr2JSk2cUMHGaFwFhlg2PwvGenkvtqSbF8AgpEMG8
+ nERK+W4bg3EBi61CER81NlpB3bs6bH+hPsNqXCEXlkKUfpHnyOeZdaf4O3Owj6fA7lKV5wfpDSl
+ pQymJ3omb0149tlM+PpA12MEo1tmxqGb7IXwf471DzxVIwJvjgdVvH+qLEsW/w2RYUcCbvlOP/J
+ 91zFCvDlej1HAhpvoltHkHxLvo6/86luTI6qQ8biF9jdExmE+paO083U8rno4e6p7HzKTv/lT6F
+ SLCoib1qUw+O8cQTiFTocFQzRLSFbKozOG1CM4Yi+E+gJ375Wl1qot6unt++nvN0qyBmM5kGvlH
+ glGag3AOphytmE9DZY2uTkgr8qiQr/9mhRayFaP2+1zkUwCIhdvW6SJNQgwhOcyektjvGYbiaVY
+ iAUUFOE2vd38EwQ==
+X-Developer-Key: i=chris.obbard@oss.qualcomm.com; a=openpgp;
+ fpr=F18BDC8B6C25F90AA23D5174634DC4F0687046F8
+X-Proofpoint-GUID: VrvaBG_FvFv2lEtIE8r0iXbZH6D2AfX8
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIyMDAzNSBTYWx0ZWRfX5t3EbetslvVW
+ wq7Qdv6jsb3kzyPaR5zTBinj9osIVKm82x2XEdwrXsfPpS1ZflptZ9yAGQwQUqaK941KeuvC7eD
+ oANQhxKVVpIpp9c9e/x/O/R2n0k6SoM=
+X-Proofpoint-ORIG-GUID: VrvaBG_FvFv2lEtIE8r0iXbZH6D2AfX8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIyMDAzNSBTYWx0ZWRfXx6w02yYDcGS6
+ rhpS7UJrY4V7vlFRf6T0O/5sxQlwm3v8DXFXnyxm3BNcg0ygDyq77QkREvMVwb2Aa5iWTfP1+k6
+ FJFLpKolH3gqCd5RR9iyX932LQ+3JQ1ux3JuED9KIc9WR4QLQb8QDCnai/QmMPxiiQktmRr86XN
+ GayrJxwQEtTsiXnir2qWdSqNgS7cTOCM7m/ZAo8M2d3SCtOKHtjTQyYiFK2AqBuAMmNxwU9bcAt
+ 4zL29Mg+C4tSBsta1Evejk56VhdueogVRy1DqljONBZl3EnWvnU2+vmQBkzVhK2e3O56zY08ZvS
+ XAzUPfL/c1jWchOrcIiSCFjPc8IDIXAtt4wYz6Hcj3iD50d742hATkxvaTrbjAqDsZkelAzFNZs
+ FccSSO2R5vPduVg8eoaBFb8+fDVw3JL/gSx0j6RBVSQo/67hIJpHLSDVATJRlJrGuVrxXiNFetZ
+ kkVqNLndpyr5hbwyshw==
+X-Authority-Analysis: v=2.4 cv=UbHE26SN c=1 sm=1 tr=0 ts=6b02b04f cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=Lx0Idy8H7x2P_d6LW2cA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-22_02,2026-11-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 phishscore=0 malwarescore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1011 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611220035
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] drm/tegra: duplicate and out-of-order next_bridge
-  enable/disable calls
-- [Medium] drm/tegra: missing DC stop and idle wait in
-  tegra_dbi_atomic_disable()
-- [Medium] drm/tegra: premature of_node_put() on dbi_np in
-  tegra_dc_dbi_probe()
-- [Medium] drm/tegra: NULL next_bridge dereference in DBI atomic
-  enable/disable
-- [Medium] drm/tegra: unconditional PIN_LDC muxing in
-  tegra_dbi_atomic_enable()
---
+On Mon, 09 Nov 2026 11:06:39 +0200, Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+> The HDMI port is driven by the third DisplayPort controller through the
+> DP lanes of the third USB/DP combo PHY and a Realtek RTD2171A DP to HDMI
+> bridge, with the HPD signal on GPIO 126. The USB3 lanes of this PHY are
+> not connected, the third USB controller only serves the eUSB2 port of
+> the fingerprint reader.
+> 
+> Describe all of this so the HDMI port works.
+> 
+> [...]
 
-commit 12a7641d08ff0efca036e7255db62622fe7d77c9
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Christopher Obbard <chris.obbard@oss.qualcomm.com>
+Tested-by: Christopher Obbard <chris.obbard@oss.qualcomm.com>
 
-drm/tegra: Add support for 8-bit CPU interface
+-- 
+Christopher Obbard
 
-This commit adds a DRM bridge and MIPI DBI host driver for the 8-bit CPU
-interface on Tegra20 and Tegra30 display controllers, allowing MIPI DCS
-commands to be sent to panels that receive video data over RGB.
-
-> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
-> new file mode 100644
-> index 0000000000000..8929f0013462a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tegra/dbi.c
-> @@ -0,0 +1,592 @@
-
-[ ... ]
-
-> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
-> +				    struct drm_atomic_commit *state)
-> +{
-> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
-> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
-> +	struct tegra_dc *dc =3D priv->dc;
-> +	void __iomem *disp_cmd =3D dc->regs + (DC_CMD_DISPLAY_COMMAND << 2);
-> +	u32 value;
-> +	int ret;
-> +
-> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
-> +	value &=3D ~DISP_CTRL_MODE_MASK;
-> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
-> +
-> +	/* Disable all options except cursor if enabled */
-> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_WIN_OPTIONS);
-> +	value &=3D CURSOR_ENABLE;
-> +	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
-> +
-> +	tegra_dc_commit(dc);
-> +
-> +	/* Ensure the DC is fully idle before reconfiguring pins */
-> +	tegra_dc_writel(dc, READ_MUX, DC_CMD_STATE_ACCESS);
-> +
-> +	ret =3D readl_relaxed_poll_timeout(disp_cmd, value,
-> +					 !(value & DISP_CTRL_MODE_MASK), 1000,
-> +					 100000);
-> +
-> +	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
-> +	if (ret) {
-> +		dev_err(priv->dev, "timeout waiting for DC to become idle\n");
-> +		return;
-> +	}
-> +
-> +	tegra_dc_writel(dc, V_PULSE1_ENABLE, DC_DISP_DISP_SIGNAL_OPTIONS0);
-> +	tegra_dc_writel(dc, PULSE_POLARITY_LOW, DC_DISP_V_PULSE1_CONTROL);
-> +
-> +	tegra_dc_writel(dc, PULSE_END(1), DC_DISP_V_PULSE1_POSITION_A);
-> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_B);
-> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_C);
-> +
-> +	value =3D 1 << FRAME_INIT_SEQ_CYCLES_SHIFT |
-> +		DC_SIGNAL_VPULSE1 << INIT_SEQ_DC_SIGNAL_SHIFT |
-> +		INIT_SEQUENCE_MODE_PLCD | SEND_INIT_SEQUENCE;
-> +	tegra_dc_writel(dc, value, DC_DISP_INIT_SEQ_CONTROL);
-> +
-> +	/* Init cycle 1: WRITE_MEMORY_START, set LCD_PCLK and COMMAND */
-> +	tegra_dc_writel(dc, MIPI_DCS_WRITE_MEMORY_START, DC_DISP_SPI_INIT_SEQ_D=
-ATA_A);
-> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_B);
-> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_C);
-> +	tegra_dc_writel(dc, BIT(12) | BIT(14), DC_DISP_SPI_INIT_SEQ_DATA_D);
-> +
-> +	/* Set LDC pin to V Pulse 1 */
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDC);
-> +	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
-
-[Severity: Medium]
-Does this unconditionally mux V_PULSE1 onto PIN_LDC even when the secondary
-8-bit CPU interface (nvidia,interface =3D 1) is selected?
-
-In tegra_dbi_idx[], the secondary interface uses PIN_LVP0 in
-DC_COM_PIN_OUTPUT_SELECT(4) as its D/C signal rather than PIN_LDC.  Because
-tegra_rgb_encoder_enable() programs PIN_OUTPUT_SELECT_LVP0 to
-PIN_OUTPUT_SELECT_OUT before tegra_dbi_atomic_enable() backs up the pin
-registers into com_pin_backup[], restoring com_pin_backup[] leaves PIN_LVP0
-in fixed GPIO output mode during scanout instead of driving the per-frame
-MIPI_DCS_WRITE_MEMORY_START D/C pulse on the secondary interface.
-
-[ ... ]
-
-> +	/*
-> +	 * DBI requires that the next bridge be enabled here in order to
-> +	 * send DCS commands, since the interface pins will subsequently be
-> +	 * reconfigured for video data.
-> +	 *
-> +	 * Using the prepare_prev_first flag in the panel will not work,
-> +	 * because the DBI bridge requires the panel to be enabled beforehand
-> +	 * for proper configuration.
-> +	 */
-> +	if (next_bridge->funcs && next_bridge->funcs->atomic_enable)
-> +		next_bridge->funcs->atomic_enable(next_bridge, state);
-
-[Severity: Medium]
-Can next_bridge be NULL here and in tegra_dbi_atomic_disable() if the MIPI
-DBI peripheral driver has been unbound?
-
-tegra_dbi_host_detach() calls drm_bridge_clear_and_put(&priv->next_bridge),
-setting priv->next_bridge to NULL.  A subsequent modeset or shutdown will
-then hit a NULL pointer dereference when evaluating next_bridge->funcs.
-
-> +
-> +	tegra_dbi_pin_set(dc, &priv->interface->cs, 0);
-> +
-> +	priv->active =3D false;
-> +
-> +	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
-> +
-> +	for (int i =3D 0; i <  ARRAY_SIZE(tegra_dbi_pin_regs); i++)
-> +		tegra_dc_writel(dc, priv->com_pin_backup[i],
-> +				tegra_dbi_pin_regs[i]);
-> +
-> +	tegra_dc_commit(dc);
-> +
-> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
-> +	value &=3D ~DISP_CTRL_MODE_MASK;
-> +	value |=3D DISP_CTRL_MODE_C_DISPLAY;
-> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
-> +}
-> +
-> +static void tegra_dbi_atomic_disable(struct drm_bridge *bridge,
-> +				     struct drm_atomic_commit *state)
-> +{
-> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
-> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
-> +	struct tegra_dc *dc =3D priv->dc;
-> +
-> +	for (int i =3D 0; i < ARRAY_SIZE(tegra_dbi_pin_regs); i++)
-> +		priv->com_pin_backup[i] =3D tegra_dc_readl(dc, tegra_dbi_pin_regs[i]);
-> +
-> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
-> +
-> +	priv->interface->init(priv);
-> +	priv->active =3D true;
-
-[Severity: Medium]
-Should tegra_dbi_atomic_disable() stop the DC and wait for it to become idle
-before unshadowing DC_CMD_STATE_ACCESS and reconfiguring pins, just as
-tegra_dbi_atomic_enable() does?
-
-During modeset disable, drm_atomic_helper_commit_encoder_bridge_disable()
-runs before drm_atomic_helper_commit_crtc_disable(), so the DC is still
-actively scanning out in DISP_CTRL_MODE_C_DISPLAY with V_PULSE1 frame init
-sequences enabled while the pins are switched to GPIO output mode and bit-
-banged for DBI commands.
-
-> +
-> +	/*
-> +	 * DBI requires that the next bridge be disabled here in order to
-> +	 * send DCS commands, since the interface pins will subsequently be
-> +	 * reconfigured for video data and tegra_rgb_encoder_disable() will
-> +	 * be called before drm_panel_unprepare() runs in post_disable.
-> +	 */
-> +	if (next_bridge->funcs && next_bridge->funcs->atomic_disable)
-> +		next_bridge->funcs->atomic_disable(next_bridge, state);
-
-[Severity: High]
-As reported by Mikko Perttunen on v5 [1], since tegra_dbi_attach() attaches
-priv->next_bridge to encoder->bridge_chain, won't manually calling
-next_bridge->funcs->atomic_enable() and atomic_disable() cause both
-callbacks to run twice and in the wrong order on disable?
-
-On enable, drm_atomic_bridge_chain_enable() calls tegra_dbi_atomic_enable(),
-which invokes next_bridge->funcs->atomic_enable() while priv->active is tru=
-e,
-and then drm_atomic_bridge_chain_enable() advances to priv->next_bridge and
-calls next_bridge->funcs->atomic_enable() a second time while priv->active =
-is
-false.
-
-On disable, drm_atomic_bridge_chain_disable() walks encoder->bridge_chain in
-reverse order and calls next_bridge->funcs->atomic_disable() before
-tegra_dbi_atomic_disable() runs.  At that point priv->active is still false
-and the pins are in RGB video mode, so tegra_dbi_dbi_command() rejects all
-panel disable DCS commands with -ENODEV.  If the panel's disable callback
-still returns 0, drm_panel_disable() marks panel->enabled =3D false on that
-failed first call and skips the second call inside tegra_dbi_atomic_disable=
-()
-so the panel never receives its disable commands; if it propagates -ENODEV,
-the panel disable sequence and its msleep() delays run twice.
-
-[ ... ]
-
-> +int tegra_dc_dbi_probe(struct tegra_dc *dc)
-> +{
-> +	struct device *dev =3D dc->dev;
-> +	struct device_node *dbi_np __free(device_node) =3D
-> +		of_get_available_child_by_name(dev_of_node(dev), "dbi");
-> +	struct mipi_dbi_device *dbidev;
-> +	struct tegra_dbi_priv *priv;
-> +	struct device_node *np;
-> +	u32 interface =3D 0;
-> +	int ret;
-> +
-> +	/* Missing node means that DBI is not used, continue DC probe */
-> +	if (!dbi_np)
-> +		return 0;
-> +
-> +	of_property_read_u32(dbi_np, "nvidia,interface", &interface);
-> +	if (interface !=3D 0 && interface !=3D 1)
-> +		return dev_err_probe(dev, -EINVAL, "Wrong interface value: %d\n", inte=
-rface);
-> +
-> +	priv =3D devm_drm_bridge_alloc(dev, struct tegra_dbi_priv, bridge,
-> +				     &tegra_dbi_funcs);
-> +	if (IS_ERR(priv))
-> +		return PTR_ERR(priv);
-> +
-> +	priv->dc =3D dc;
-> +	priv->dev =3D dev;
-> +	priv->interface =3D &tegra_dbi_idx[interface];
-> +
-> +	/* Initialize MIPI DBI interface */
-> +	mutex_init(&priv->dbi.cmdlock);
-> +	priv->dbi.command =3D tegra_dbi_dbi_command;
-> +
-> +	priv->dbi_host.dev =3D dev;
-> +	priv->dbi_host.dbi =3D &priv->dbi;
-> +	priv->dbi_host.ops =3D &tegra_dbi_host_ops;
-> +
-> +	priv->bridge.of_node =3D dbi_np;
-
-[Severity: Medium]
-Does declaring dbi_np with __free(device_node) drop the OF node reference as
-soon as tegra_dc_dbi_probe() returns while priv->bridge.of_node keeps using
-the pointer?
-
-Neither devm_drm_bridge_alloc() nor devm_drm_bridge_add() takes a reference
-on bridge->of_node, so when tegra_dc_dbi_probe() exits, of_node_put(dbi_np)
-releases the reference obtained from of_get_available_child_by_name() before
-tegra_dbi_host_attach() and bridge lookup helpers dereference
-priv->bridge.of_node.
-
-[1] https://lore.kernel.org/r/weWUeY3nRGCfNVcl2RuY5g@nvidia.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122081820.5319=
-9-1-clamor95@gmail.com?part=3D12
