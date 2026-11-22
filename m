@@ -1,134 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795376859;
-	b=ejqoVJOVJGERyY+/g1xfxEALXmZAqwAcVst0/JYYCMr96taRfmadzQLssdF9amMX7Lrx
-	 mF8EXSz8Kh1B9I2nOuSA18tDxAZrFmMmIQYwzbD0ZOfxZ32mv0lTnLcKpAJASDgI6xWoM
-	 eLM4T+WButGhXAIE/n5+HQ7i2cRJ9vT3/hx29vZRdYSp128q+RaYlMZSF0/87/Ael5z6Y
-	 V3BdbwYBQTDJO6rtLNsUrOGk4/OBnGYqifaX3lF47jWqktEq6tvyOkKKeh6VDWi01LU/T
-	 o5wKiNrvYoU3eIjWHNwS0SS4j2Gb2niYJZOlw0RqJooTsyxlDfSdWGZixTeR51t/r/g==
+	t=1795377865;
+	b=ZfrX33+DMumW7Cxp7wfQ3/IMJJcsO1A20pZAXtoUJK59nueyNfpDRDezgpuhHEJqSdyx
+	 S+XWVwOclwU2qA1wpLQ1qZYkF5Nt7Np1QVojhAjFLwRCr44Xz6D41SyTeqxvP7HD7CYd9
+	 14Xc5EgvIjhDE6KuqnSert/KmL9/ec8DiTMpJRD6NzeC75P7GoUmlopC9YCVl8cpbW+JT
+	 Xb4mJwOlEDMn5HQDwIoQvIfEU8yiGarBclxTX5oQXiSMAo/RsBj3BdNwH7WHa+qDNctnG
+	 wp3+WHXShAbALQAfp1Rl6FLZ5Lv26L8OjkU93UeZe3FAdvzQdiI7IUZnxWWMH+8V0Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795376859;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=kw/m5totZaX/utB4M9W1bJbsY2L3dnvokfGFuRSainE=;
-	b=W4rzgH3Ptu0Isswevd4JhUP7G+JpFVtjhvKVpd88xpI1Fel4t3PGkcH/axH380V/P44z
-	 rSE1+14RPSwmrHDklgFkk8qz8r0F4O9aISCXb2riihKqkt5z8okpqDh7MVGkxLdBIjov/
-	 kV38mWqunDqN6bzGXZssRbT9b03bJlEk+oCYxyvNug5NSjoOp6PYSp5WrITbGEnP2SBEU
-	 O5Xc9uvd0dlUf0gJGJfDJ6jZxIflEgpws/L0o4w4G1yMtOm3tUnkvMlSafQ2sHYDfu3pN
-	 ruq2nTyYOF0IRmb8Cu/85kKZPkQNfdck4WLMvlHphCE02M6/hgg5RbbqzCa+Emaou9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795377865;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5Mz4K7gymEdqf9l1yYbzgLqQdD4NiB9ApnjseA2qTmY=;
+	b=TWdotdEz7KxFUPxohgDna85ULRFegvHYVX16b/NQILECw/ST2HPyE3mmT8NpZEC+2XK7
+	 1ICJefEOSqTJPPirOb9LqLwO3Lq2Dn89tfBm4nlaYvfaG093jYISFVVOZ7T4EsS5Q2q5d
+	 zfvpl/SIlkglawN1PO6Xkj3lXT3Ms6zt5reML9xg8bH/oXzEF2omPQ0MNc0Tlc5ODemY7
+	 hGZUgn7r54TYUOCgcJPeB4qs6IrPsG8HReywProBw4LdnWw4H+aZuSPtHAplEV/l840s4
+	 PKbiyd3JtuWbSmwegLIrEbM+cordWgox9FRCztzNvrtjAvJslWPSr0MofCo4m6mMz6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gHqjla4U;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="JOiN9Uv/";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a8zWKkYT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38715606A31D
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:47:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38715606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66218606A31A;
+	Sun, 22 Nov 2026 20:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gHqjla4U;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JOiN9Uv/
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AMGUnuJ4154378
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:47:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kw/m5totZaX/utB4M9W1bJbsY2L3dnvokfGFuRSainE=; b=gHqjla4Udo5LSqE4
-	zWd0rGvx9bVODGcbMljk/U0/XkyenUf/yBHReQLzg+h3vM5c7rQImlw6+tR4OjSX
-	CCQSRDv6KLuILOLEkzQEDQUuYKEE//+B9ESaw0y0HnXsSWsXrgUAdBOSoxFuobfC
-	sqVIMfdaX7j+9QzP2T1osC5v+hpVf5ECcP3EsZf4bah3GatNB/aQvXS4jEoq9vSK
-	Vz7mEKQtvHOPykTlkaaRwRWoXOV5gMfkrztOV+iONEruDth9DdlSFFxvGAs4iZzA
-	zcOlTvYsGTYiXvIvnWVsLn+DyMDfxua0x9wKQtWOBA92MgLkjL6+uFXaiIExq3Nt
-	7lAAkg==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j328rv9yj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:47:37 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-386a7af8b94so675766eec.0
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:47:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795376857; x=1795981657; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kw/m5totZaX/utB4M9W1bJbsY2L3dnvokfGFuRSainE=;
-        b=JOiN9Uv/Ui2bsaaXJG14muTpGXA6brllBW2NxUUF1HUIY7O+KBjcDaPukRqT3RXngj
-         IvQM1y97RRlfOyiAPFgYkp/y7KTOihQBzf/lTbbMQR4wU8+QGzsKc5lc7rUpXZBao/A9
-         OldtVqC+Gx/aH1YmlaZQOIL4aT+JlPtCZLk77psdA5g/urJD+9Zo9f6xM59/Q0UetJ7O
-         4oI0UXnyYOGBnsY5UY/ERlLHppJe1qDTiKV3hwgy2jCWGFU1vPREfxTjVoojuWVSZe/j
-         gapJsHJ05XJnA8I8yhydsKZK33bW6FtdzA6Pfn4CZd/TaG2G2RgEZb6sLeqNgOdkNrF9
-         Bb8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795376857; x=1795981657;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kw/m5totZaX/utB4M9W1bJbsY2L3dnvokfGFuRSainE=;
-        b=SYfDL+1ZF/vXQfB5EoX78uIOk05E2ISJql4e/Z7dXQi2Gc1rjuBycqiRzS5Hhk63D+
-         Z/ygMklxok5FfL6C5jy3UMCdCxj7oZOWFCRDx7L/lHV4mqGsmRVNMN1ex3c+kRCB2x1S
-         JZ1umXchVunOQ9HNtBStx7d53UxjLu9Z+8Pjno+sb1xK4oOfQ6AuUi4AIf3VWnBzVhVV
-         4K68P/BYuOr4pXELaSDr9k6HMu5VeC3XCN+Eb/Y/M10mTSElXTfHgWlxvYi4NwBux8Ej
-         Sz9W2SRNR2qmxpsJxIEMzSWvkmfe0oEchZWJoSCbcEyv2cnaFaY8QVOe2Or31eta/yQJ
-         vbOQ==
-X-Forwarded-Encrypted: i=1; AL+hErEEhV6AtP/ooGpXTNjE7Y15PyRFsYRZaZf9aROw5lrA324ZsvUvpjKtTEd3XYpLYvX1BPP7oBcjmjeV@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Go/Q7YdG9CEYlrWt0yf+pgJyEfKsNZy1GW53Tc+sXm8jMZ9q8
-	182FjqyJNzyBlRWWHwENDkNguwqLq4xFeWlErozG47tyK1WLiprRXONEvShM4LODZOYp0arwfMl
-	Plp72mf4ZkXr6KXfz5T0fWmex12Qv3a6Czl0hq+Qxl8Lff8t70chQCkcrZ1ZUAE8R
-X-Gm-Gg: AZFdTZeyqTU7XJ5FkxUr6aI33rpXEzx09/iRyqnEa1isLfPrl/Xu3whxcS/OQX/8X35
-	WY+Cua+5saZ33PF8wvoAjhDZn9eytoqdVG2Ta7ESIUDaje22r/pjcukVZ4m38h76TGE0BPqwOIu
-	BJEbjTGz4KhTbPuSLp9D4AO4lSdlSpeLUc0dS8ujN4ixhO2JfUFIUlTpm9P4DBL/VSG3Rnigyuv
-	AWwa20F3fLZYEDYVVNfz71/hU/jfPrDfCfbp/5rsRAxZAyVcvc+sUx2wS0DRu7HJn72Fz7URS9y
-	rRFQujcAGvDmmS8ydhsnWwDdv7ny2nyUoeuZAOJZWiFIThotZHEIP9WchSSIszw0da2W9gToF0i
-	Lr/gPXuCXr2+goXwMf8KDHB/rYOdu3PELEtJDiwWYPgnKLe0e/WlP9zRweXApoxn6p3F4PqLeXQ
-	==
-X-Received: by 2002:a05:7301:391c:b0:384:df31:69fd with SMTP id 5a478bee46e88-3856fb6a672mr11870255eec.14.1795376856263;
-        Sun, 22 Nov 2026 11:47:36 -0800 (PST)
-X-Received: by 2002:a05:7301:391c:b0:384:df31:69fd with SMTP id 5a478bee46e88-3856fb6a672mr11870211eec.14.1795376855348;
-        Sun, 22 Nov 2026 11:47:35 -0800 (PST)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7fc3sm25608071eec.8.2026.11.22.11.47.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 11:47:35 -0800 (PST)
-Date: Mon, 23 Nov 2026 01:17:25 +0530
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Sunyun Yang <syyang@lontium.com>
-Subject: Re: [PATCH v18 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <awNGzbNgIvPVe99r@hu-mdsor-hyd.qualcomm.com>
-References: <20261021-lt9611c-v7-v18-0-4978b94896f1@oss.qualcomm.com>
- <20261021-lt9611c-v7-v18-2-4978b94896f1@oss.qualcomm.com>
- <179312387051.631593.2688359681409940856.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a8zWKkYT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2A671F000CA;
+	Sun, 22 Nov 2026 20:04:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795377864;
+	bh=5Mz4K7gymEdqf9l1yYbzgLqQdD4NiB9ApnjseA2qTmY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=a8zWKkYTydXHHuNXj6GrWI8Mz1i1vUneegJ0FXhSl4bbeg/Suvp2l5O1T21OzHe/I
+	 xUdkDBXs1ekkin/gsRId1Ch4DMKZvMkUn2e0xNjoqAwKgyvq0YvY5NQr+s0HlIjRtX
+	 3unyetIwVuPB23POai5HT7mJD45nB+kcz95Ida7db5DTiOZ5B6lo0BVOfD47zAD/of
+	 +kylmidY4K2pveUnXQ/0R7lFlFeKQr16iVJsEDNyFWhEPx8KkQEovF8NHDebfjQDh0
+	 qWUXhn7kB0FJRl94fMB5YCIx++ku0OgfnDVxVgCxo+MRsnrnWumM0qYec4/nBGGIgN
+	 9gec/TvVr/V3g==
+Date: Sun, 22 Nov 2026 20:04:18 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, Kuppuswamy
+ Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
+ <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
+ Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
+ <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: Re: [PATCH v5 0/4] iio: light: ltr501: Add LTR-659PS-01 prox sensor
+ support
+Message-ID: <20261122200418.3402abb6@jic23-hlaptop>
+In-Reply-To: <20261122080753.36349-1-clamor95@gmail.com>
+References: <20261122080753.36349-1-clamor95@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -138,775 +69,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179312387051.631593.2688359681409940856.b4-review@b4>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIyMDA3OCBTYWx0ZWRfX34pUvHg8XdFc
- gmRNixCDWKUrANe0hSYBTCwgXeKwUG9TXEbluLBfwpKppr/MuBmM40tXc8sz8vzTmBMQtrKFpae
- 3c+WtXvIGqEP2hh8NkAft28SHyZaZr8=
-X-Proofpoint-GUID: U95IVJKex-tANkdUbOjDVSuSuWf34wAW
-X-Proofpoint-ORIG-GUID: U95IVJKex-tANkdUbOjDVSuSuWf34wAW
-X-Authority-Analysis: v=2.4 cv=c9w+0h9l c=1 sm=1 tr=0 ts=6b0346d9 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=P-IC7800AAAA:8 a=Kz8-B0t5AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
- a=y6ODm9WSYb8X-rfnW2EA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22 a=d3PnA9EDa4IxuAV0gXij:22 a=RuZk68QooNbwfxovefhk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIyMDA3OCBTYWx0ZWRfX26/oXdvRbib4
- on4Kd5xuGGfR5gygDt0C4L21QNHNF3IRLtTytu1mkBdzctTdXWXbJ7flj8sEuwIbfqZSa9VxgZQ
- HmD6CpQFtx70kyr+P2siJKyyEb46ehH9PSeAtK9HPCgvQp22SdyZ5yaha33Km7w0nh3uBrIsipV
- 273pcmKPrmAyGvY8fTyzVAeFAGZcOc/t9VJYCc7RUq908EzfkWGhqIFd5ubLZRvyM4C40OvRfDr
- HA3KmhaCfku3gWyGWDY8cDxfEYGaPcz3zwUZqwpF+Q6SAOVeHmg9myxPe7i/kA1+N2rQl16a94r
- oWFDRMtoqlot+SsbibzcjMNmI2SMGPZ9wPnylURNlbWTmzR6CPK5yA8PJQ5ZGCY+urAN+RDyuo/
- 0wyKbZ+8JaarHMTqrbnYtQloMLEXKrZ5zCHEp2E/v7yb5e5gemkonIuh2SDbrbSJjDfs7TtFW8A
- x6ur8tRiFDQleQ29tCw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-22_04,2026-11-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 malwarescore=0 impostorscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611220078
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 06:57:50PM +0100, Luca Ceresoli wrote:
-> Hello,
-> 
-> > LT9611C(EX/UXD) is an I2C-controlled chip that receives single or dual
-> > port MIPI DSI and outputs HDMI. Differences in hardware features:
-> > - LT9611C:   supports 1-port MIPI DSI to HDMI 1.4
-> > - LT9611EX:  supports 2-port MIPI DSI to HDMI 1.4
-> > - LT9611UXD: supports 2-port MIPI DSI to HDMI 1.4/2.0
-> >
-> > The driver supports:
-> > - EDID read and mode filtering via custom MCU command protocol
-> > - HPD detection and interrupt handling
-> > - HDMI audio output via I2S
-> > - Firmware upgrade via sysfs
-> > - Dual DSI bonded mode for LT9611EX and LT9611UXD variants
-> >
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> > Co-developed-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> >
-> > diff --git a/Documentation/ABI/testing/sysfs-lontium-firmware b/Documentation/ABI/testing/sysfs-lontium-firmware
-> > new file mode 100644
-> > index 000000000000..8700933ba0f0
-> > --- /dev/null
-> > +++ b/Documentation/ABI/testing/sysfs-lontium-firmware
-> > @@ -0,0 +1,10 @@
-> > +What:		/sys/bus/i2c/drivers/<driver>/.../firmware
-> > +Date:		July 2026
-> > +KernelVersion:	7.3
-> 
-> This should be 7.5 now.
-Will be fixed in v19
-> 
-> > +Contact:	Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> > +Description:
-> > +		Read: Returns the current firmware version loaded on the
-> > +		Lontium bridge chip in hex format (e.g. "0x0105").
-> > +
-> > +		Write: Triggers a firmware upgrade of the chip using the
-> > +		firmware file loaded via the firmware loader.
-> 
-> Other then debugging, what is the use case for triggering a firmware
-> upgrade? It seems to creates lots of complications in the code and exposes
-> and race conditions (see sashiko-reported issues). Maybe starting with a
-> simpler driver which loads only at probe time would help reviewing.
-> 
-> In case that was discussed previously: sorry, I didn't find the discussion
-> after a quick look at the (many!) previous iterations, can you point me to
-> the exact thread?
-The LT9611UXD ships with factory-flashed firmware that may contain bugs fixed in later Lontium releases. The sysfs trigger allows platform integrators to upgrade
-firmware post-deployment (e.g. via a distro package shipping a new .bin file).
+On Sun, 22 Nov 2026 10:07:49 +0200
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
+> Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
+> nearly identical to the LTR-559ALS-01, but omits all elements related to
+> ambient light sensing.
 > 
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> > @@ -0,0 +1,1361 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
-> > + * Copyright (C) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > + */
-> > +
-> > +#include <linux/crc8.h>
-> > +#include <linux/firmware.h>
-> > +#include <linux/gpio/consumer.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/interrupt.h>
-> > +#include <linux/media-bus-format.h>
-> 
-> Unused?
-Wil be fixed in v19
-> 
-> > +#include <linux/module.h>
-> > +#include <linux/mutex.h>
-> > +#include <linux/of_graph.h>
-> > +#include <linux/regmap.h>
-> > +#include <linux/regulator/consumer.h>
-> > +#include <drm/drm_atomic_helper.h>
-> > +#include <drm/drm_bridge.h>
-> > +#include <drm/drm_connector.h>
-> 
-> Not sure this is used.
-Will be fixed in v19
-> 
-> > +#include <drm/drm_edid.h>
-> > +#include <drm/drm_mipi_dsi.h>
-> > +#include <drm/drm_modes.h>
-> > +#include <drm/drm_probe_helper.h>
-> 
-> Unused?
-Will be fixed in v19
-> 
-> > +#include <drm/display/drm_hdmi_audio_helper.h>
-> 
-> Unused?
-Will be fixed in v19
-> 
-> > +#include <drm/display/drm_hdmi_state_helper.h>
-> > +#include <sound/hdmi-codec.h>
-> 
-> > +struct lt9611c {
-> > +	struct device *dev;
-> > +	struct i2c_client *client;
-> > +	struct drm_bridge bridge;
-> > +	struct regmap *regmap;
-> > +	struct mutex mcu_lock;
-> > +	struct work_struct work;
-> > +	struct gpio_desc *reset_gpio;
-> > +	struct regulator_bulk_data supplies[2];
-> > +	int fw_version;
-> > +	const struct lt9611c_chip_data *cdata;
-> > +	bool hdmi_connected;
-> > +	bool dual_dsi;
-> > +};
-> 
->  | sashiko-bot@kernel.org <sashiko-bot@kernel.org>:
->  |
->  | [Severity: Low]
->  | In drivers/gpu/drm/bridge/lontium-lt9611c.c, is MODULE_DEVICE_TABLE(i2c,
->  | lt9611c_id) missing after lt9611c_id?
->  |
->  | Without MODULE_DEVICE_TABLE(i2c, lt9611c_id), building the driver as a module
->  | (CONFIG_DRM_LONTIUM_LT9611C=m) omits the i2c:lt9611c, i2c:lt9611ex, and
->  | i2c:lt9611uxd modalias entries from modules.alias, preventing automatic module
->  | loading when devices are instantiated via I2C device IDs.
-> 
-> Not sure why it's mentiond here, but it's right.
-> 
-> Also, please reply to sashiko remarks either saying you will fix them, or
-> saying why you won't (e.g. invalid).
-Replied to all sashiko comments.
-> 
-> > +static int lt9611c_read_write_flow(struct lt9611c *lt9611c,
-> > +				   const struct lt9611c_cmd *cmd,
-> > +				   struct lt9611c_rsp *rsp)
-> > +{
-> > +	int ret;
-> > +	unsigned int i;
-> > +	unsigned int temp;
-> > +	unsigned int max_params = 0xe0dd - 0xe0b0 + 1;
-> > +
-> > +	regmap_write(lt9611c->regmap, 0xe0de, 0x01);
-> 
-> Can't registers have a #define with a meaningful name? This is valid for th
-> entire driver.
-Fixed for entire driver.
-> 
-> > +static void lt9611c_lock(struct lt9611c *lt9611c)
-> > +{
-> > +	mutex_lock(&lt9611c->mcu_lock);
-> > +	regmap_write(lt9611c->regmap, 0xe0ee, 0x01);
-> > +}
-> 
-> I'm not sure I get why in some cases you just take mcu_lock and other times
-> you need this function, which additionally writes a register. Can you
-> elaborate on that?
-lt9611c_lock() does two things: acquires mcu_lock AND writes LT9611C_MCU_HALT=1 to pause the chip's internal MCU before
-accessing its registers. The chip's MCU and the host share the same register bus — without halting the MCU first, concurrent
-access corrupts communication.
+This seems to address Arnav's review on v4 and looks good to me.
 
-guard(mutex)(&lt9611c->mcu_lock) alone is used only inside lt9611c_read_write_flow(), which implements the MCU command
-protocol. There the MCU must remain running as it is the intended participant in the transaction.
+So given I might not get back to the tree for a few days I'll apply it now
+and we can let the bots have fun with it.  Still time for additional review
+feedback though whilst that is going on.
+
+Applied to the testing branch of iio.git.
+
+Note sashiko warning is because you don't have a based on in this cover
+letter with appropriate precursor for the export.
+
+Thanks,
+
+Jonathan
+
+> ---
+> Changes in v2:
+> - set IIO_PROXIMITY channel to scan_index 2 since driver will not handle other
+>   id properly
+> - add IIO_CHAN_INFO_SAMP_FREQ for IIO_PROXIMITY channel
+> - isolate missed ALS register calls
+> - add commit to use read_avail operation
+> - convert to use modern chip info match
 > 
-> > +static void lt9611c_hpd_work(struct work_struct *work)
-> > +{
-> > +	struct lt9611c *lt9611c = container_of(work, struct lt9611c, work);
-> > +	struct device *dev = lt9611c->dev;
-> > +	static const u8 hpd_data[] = { 0x00 };
-> > +	struct lt9611c_cmd cmd = {
-> > +		.hdr = { LT9611C_FUNC_READ, LT9611C_TYPE_HDMI, 0x31, LT9611C_CMD_SEP },
-> > +		.data = hpd_data,
-> > +		.data_len = 1,
-> > +	};
-> > +	u8 hpd_status;
-> > +	struct lt9611c_rsp rsp = { .data = &hpd_status, .data_len = 1 };
-> > +	bool connected;
-> > +	int ret;
-> > +
-> > +	/*
-> > +	 * Wait for the MCU to debounce and latch the HPD state after the
-> > +	 * interrupt fires. The MCU needs time to update its internal HPD
-> > +	 * register; reading immediately after the interrupt returns stale
-> > +	 * state. 200 ms is empirically sufficient.
-> > +	 */
-> > +	msleep(200);
-> > +
-> > +	mutex_lock(&lt9611c->mcu_lock);
-> > +	ret = lt9611c_read_write_flow(lt9611c, &cmd, &rsp);
-> > +	if (ret)
-> > +		dev_err(dev, "failed to read HPD status\n");
-> > +	else
-> > +		lt9611c->hdmi_connected = (hpd_status == 0x02);
-> > +
-> > +	connected = lt9611c->hdmi_connected;
-> > +	mutex_unlock(&lt9611c->mcu_lock);
-> > +
-> > +	drm_bridge_hpd_notify(&lt9611c->bridge,
-> > +			      connected ? connector_status_connected :
-> > +			      connector_status_disconnected);
-> > +}
-> > +
-> > +static int lt9611c_regulator_init(struct lt9611c *lt9611c)
-> > +{
-> > +	struct device *dev = lt9611c->dev;
-> > +	int ret;
-> > +
-> > +	lt9611c->supplies[0].supply = "vcc";
-> > +	lt9611c->supplies[1].supply = "vdd";
-> > +
-> > +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return regulator_bulk_enable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
-> > +}
-> > +
-> > +static struct mipi_dsi_device *lt9611c_attach_dsi(struct lt9611c *lt9611c,
-> > +						  struct device_node *dsi_node)
-> > +{
-> > +	const struct mipi_dsi_device_info info = { "lt9611c", 0, NULL };
-> > +	struct mipi_dsi_device *dsi;
-> > +	struct mipi_dsi_host *host;
-> > +	struct device *dev = lt9611c->dev;
-> > +	int ret;
-> > +
-> > +	host = of_find_mipi_dsi_host_by_node(dsi_node);
-> > +	if (!host)
-> > +		return ERR_PTR(dev_err_probe(dev, -EPROBE_DEFER, "failed to find dsi host\n"));
-> > +
-> > +	dsi = devm_mipi_dsi_device_register_full(dev, host, &info);
-> > +	if (IS_ERR(dsi))
-> > +		return ERR_PTR(dev_err_probe(dev, PTR_ERR(dsi), "failed to create dsi device\n"));
-> > +
-> > +	dsi->lanes = 4;
-> > +	dsi->format = MIPI_DSI_FMT_RGB888;
-> > +	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> > +			 MIPI_DSI_MODE_VIDEO_HSE;
-> > +
-> > +	ret = devm_mipi_dsi_attach(dev, dsi);
-> > +	if (ret < 0)
-> > +		return ERR_PTR(dev_err_probe(dev, ret, "failed to attach dsi to host\n"));
-> > +
-> > +	return dsi;
-> > +}
+> Changes in v3:
+> - LTR501_INTENSITY_CHANNEL macro adjusted to set predefined info_mask_shared_by_type,
+>   info_mask_shared_by_type_available and info_mask_shared_by_all_available
+> - added info_mask_separate_available and info_mask_shared_by_all_available to
+>   proximity channel
+> - fixed IIO_CHAN_INFO_SCALE for IIO_INTENSITY since table has -1 entries
+> - fixed indio_dev->name asignment
+> - dropped ltr501_has_als_support helper
+> - fixed channel finding in ltr501_trigger_handler
+> - isolated more accesses to ALS registers if no_als_support is enabled
 > 
-> lt9611c_regulator_init() and lt9611c_attach_dsi() are referenced only by
-> probe. So please move them just before the probe function, to make it clear
-> they are part of the probe sequence and they can legitimately use devm.
-will be fixed in v19
+> Changes in v4:
+> - adjusted intensity scale passing
+> - int_time and samp_freq converted into 2d arrays
+> - for_each_set_bit() + iio_find_channel_from_si() > iio_for_each_active_channel()
 > 
-> > +static int lt9611c_bridge_attach(struct drm_bridge *bridge,
-> > +				 struct drm_encoder *encoder,
-> > +				 enum drm_bridge_attach_flags flags)
-> > +{
-> > +	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-> > +
-> > +	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
-> > +		return -EINVAL;
+> Changes in v5
+> - fixed als_gain_tbl_len calculation
+> - restored use of iio_find_channel_from_si()
 > 
-> Good!
-Thanks
+> This patchset requires change[1] exporting iio_find_channel_from_si() since else
+> building as module will fail
 > 
-> > +	return drm_bridge_attach(encoder, lt9611c->bridge.next_bridge, bridge, flags);
-> > +}
-> > +
-> > +static enum drm_mode_status
-> > +lt9611c_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
-> > +				  const struct drm_display_mode *mode,
-> > +				  unsigned long long tmds_rate)
-> > +{
-> > +	const struct lt9611c *lt9611c = bridge_to_lt9611c_const(bridge);
-> > +
-> > +	if (tmds_rate > lt9611c->cdata->max_tmds_rate)
-> > +		return MODE_CLOCK_HIGH;
-> > +
-> > +	if (tmds_rate < 25000000)
+> [1] https://lore.kernel.org/lkml/20261115083049.46840-1-clamor95@gmail.com/
+> ---
 > 
-> Please #define this number with an informative name,
-> e.g. LT9611C_MIX_TMDS_RATE (not sure it's correct).
-Will be fixed in v19
+> Svyatoslav Ryhel (4):
+>   iio: light: ltr501: Switch to read_avail() op from manual attribute
+>     registration
+>   iio: light: ltr501: Switch to modern match mechanism
+>   dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
+>   iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
 > 
-> > +		return MODE_CLOCK_LOW;
-> > +
-> > +	return MODE_OK;
-> > +}
-> > +
-> > +static void lt9611c_video_setup(struct lt9611c *lt9611c,
-> > +				const struct drm_display_mode *mode)
-> > +{
-> > +	struct device *dev = lt9611c->dev;
-> > +	int ret;
-> > +	struct {
-> > +		__be16 htotal;
-> > +		__be16 hactive;
-> > +		__be16 hfront_porch;
-> > +		__be16 hsync_len;
-> > +		__be16 hback_porch;
-> > +		__be16 vtotal;
-> > +		__be16 vactive;
-> > +		__be16 vfront_porch;
-> > +		__be16 vsync_len;
-> > +		__be16 vback_porch;
-> > +		u8 framerate;
-> > +		u8 vic;
-> > +	} timing_data;
-> > +	struct lt9611c_rsp rsp = {};
-> > +	struct lt9611c_cmd cmd = {
-> > +		.hdr = { LT9611C_FUNC_WRITE, LT9611C_TYPE_MIPI, 0x33, LT9611C_CMD_SEP },
-> > +		.data = (u8 *)&timing_data,
-> > +		.data_len = sizeof(timing_data),
-> > +	};
-> > +
-> > +	timing_data.htotal      = cpu_to_be16(mode->htotal);
-> > +	timing_data.hactive     = cpu_to_be16(mode->hdisplay);
-> > +	timing_data.hfront_porch = cpu_to_be16(mode->hsync_start - mode->hdisplay);
-> > +	timing_data.hsync_len   = cpu_to_be16(mode->hsync_end - mode->hsync_start);
-> > +	timing_data.hback_porch = cpu_to_be16(mode->htotal - mode->hsync_end);
-> > +	timing_data.vtotal      = cpu_to_be16(mode->vtotal);
-> > +	timing_data.vactive     = cpu_to_be16(mode->vdisplay);
-> > +	timing_data.vfront_porch = cpu_to_be16(mode->vsync_start - mode->vdisplay);
-> > +	timing_data.vsync_len   = cpu_to_be16(mode->vsync_end - mode->vsync_start);
-> > +	timing_data.vback_porch = cpu_to_be16(mode->vtotal - mode->vsync_end);
-> > +	timing_data.framerate   = drm_mode_vrefresh(mode);
-> > +	timing_data.vic         = drm_match_cea_mode(mode);
-> > +
-> > +	dev_dbg(dev, "hactive=%d, vactive=%d\n", mode->hdisplay, mode->vdisplay);
-> > +	dev_dbg(dev, "framerate=%d\n", timing_data.framerate);
-> > +	dev_dbg(dev, "vic = 0x%02x\n", timing_data.vic);
-> > +
-> > +	guard(mutex)(&lt9611c->mcu_lock);
-> > +
-> > +	ret = lt9611c_read_write_flow(lt9611c, &cmd, &rsp);
-> > +	if (ret)
-> > +		dev_err(dev, "video set failed\n");
-> > +}
-> > +
-> > +/*
-> > + * Enables dual DSI port input on the LT9611UXD/EX. Must be called
-> > + * after video_setup when two DSI hosts are connected.
-> > + */
-> > +static int lt9611c_dual_port_enable(struct lt9611c *lt9611c)
-> > +{
-> > +	static const u8 dual_port_data[] = { 0x02, 0x70 };
-> > +	struct device *dev = lt9611c->dev;
-> > +	u8 ack = 0;
-> > +	int ret;
-> > +	struct lt9611c_rsp rsp = { .data = &ack, .data_len = 1 };
-> > +	struct lt9611c_cmd cmd = {
-> > +		.hdr = { LT9611C_FUNC_WRITE, LT9611C_TYPE_MIPI, 0x31, LT9611C_CMD_SEP },
-> > +		.data = dual_port_data,
-> > +		.data_len = ARRAY_SIZE(dual_port_data),
-> > +	};
-> > +
-> > +	guard(mutex)(&lt9611c->mcu_lock);
-> > +
-> > +	ret = lt9611c_read_write_flow(lt9611c, &cmd, &rsp);
-> > +	if (ret || !ack) {
-> > +		dev_err(dev, "failed to enable dual DSI port (err=%d)\n", ret);
-> > +		return ret ? ret : -EIO;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static void lt9611c_bridge_atomic_enable(struct drm_bridge *bridge,
-> > +					 struct drm_atomic_commit *state)
-> > +{
-> > +	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-> > +	struct drm_connector *connector;
-> > +	struct drm_connector_state *conn_state;
-> > +	struct drm_crtc_state *crtc_state;
-> > +	struct drm_display_mode *mode;
-> > +	int ret;
-> > +
-> > +	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
-> > +	if (WARN_ON(!connector))
-> > +		return;
-> > +
-> > +	conn_state = drm_atomic_get_new_connector_state(state, connector);
-> > +	if (WARN_ON(!conn_state))
-> > +		return;
-> > +
-> > +	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-> > +	if (WARN_ON(!crtc_state))
-> > +		return;
-> > +
-> > +	mode = &crtc_state->adjusted_mode;
-> > +
-> > +	lt9611c_video_setup(lt9611c, mode);
-> > +
-> > +	if (lt9611c->dual_dsi) {
-> > +		ret = lt9611c_dual_port_enable(lt9611c);
-> > +		if (ret)
-> > +			dev_err(lt9611c->dev, "failed to enable dual DSI port (err=%d)\n", ret);
-> > +	}
+>  .../bindings/iio/light/liteon,ltr501.yaml     |   1 +
+>  drivers/iio/light/ltr501.c                    | 427 +++++++++---------
+>  2 files changed, 211 insertions(+), 217 deletions(-)
 > 
-> lt9611c_video_setup() takes and releases mcu_lock, and
-> lt9611c_dual_port_enable() take it again, so there is a possible race
-> window. I'm not sure it can cause problems, but these two functions are
-> never called separately, so whay not folding lt9611c_dual_port_enable()
-> into lt9611c_video_setup()? Or at least calling lt9611c_dual_port_enable()
-> from lt9611c_video_setup(), so callers (or, well, the unique caller) don't
-> have to take care about dual DSI?
-Will be fixed in v19
-> 
-> > +
-> > +	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
-> > +}
-> > +
-> > +static enum drm_connector_status
-> > +lt9611c_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
-> > +{
-> > +	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-> > +	struct device *dev = lt9611c->dev;
-> > +	int ret;
-> > +	bool connected = false;
-> > +	static const u8 hpd_data[] = { 0x00 };
-> > +	struct lt9611c_cmd cmd = {
-> > +		.hdr = { LT9611C_FUNC_READ, LT9611C_TYPE_HDMI, 0x31, LT9611C_CMD_SEP },
-> > +		.data = hpd_data,
-> > +		.data_len = 1,
-> > +	};
-> > +	u8 hpd_status;
-> > +	struct lt9611c_rsp rsp = { .data = &hpd_status, .data_len = 1 };
-> > +
-> > +	guard(mutex)(&lt9611c->mcu_lock);
-> > +
-> > +	ret = lt9611c_read_write_flow(lt9611c, &cmd, &rsp);
-> > +	if (ret)
-> > +		dev_err(dev, "failed to read HPD status (err=%d)\n", ret);
-> > +	else
-> > +		connected = (hpd_status == 0x02);
-> > +
-> > +	lt9611c->hdmi_connected = connected;
-> > +
-> > +	return connected ? connector_status_connected :
-> > +				connector_status_disconnected;
-> > +}
-> 
-> This code is very similar to lt9611c_hpd_work(), can the common code be
-> moved to an internal function? It might take the msleep timeout as a
-> parameter, as it seems to be the only real difference.
-> 
-> BTW is the timeout really never necessary here? Even if
-> lt9611c_bridge_detect() is called by chance just after an interrupt?
-Will be fixed in v19
-> 
-> > +static int lt9611c_parse_dt(struct device *dev,
-> > +			    struct lt9611c *lt9611c,
-> > +			    struct device_node **dsi0_node,
-> > +			    struct device_node **dsi1_node)
-> > +{
-> > +	int ret;
-> > +
-> > +	*dsi0_node = of_graph_get_remote_node(dev->of_node, 0, -1);
-> > +	if (!*dsi0_node)
-> > +		return dev_err_probe(dev, -ENODEV, "failed to get remote node for primary dsi\n");
-> > +
-> > +	*dsi1_node = of_graph_get_remote_node(dev->of_node, 1, -1);
-> > +
-> > +	if (*dsi1_node && lt9611c->cdata->chip_type == CHIP_LT9611C) {
-> > +		ret = dev_err_probe(dev, -EINVAL,
-> > +				    "LT9611C does not support dual DSI\n");
-> > +		goto err_put_dsi1;
-> > +	}
-> > +
-> > +	if (*dsi1_node)
-> > +		lt9611c->dual_dsi = true;
-> > +
-> > +	lt9611c->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 2, -1);
-> > +	if (IS_ERR(lt9611c->bridge.next_bridge)) {
-> > +		ret = PTR_ERR(lt9611c->bridge.next_bridge);
-> > +		goto err_put_dsi1;
-> > +	}
-> > +
-> > +	return 0;
-> > +
-> > +err_put_dsi1:
-> > +	of_node_put(*dsi1_node);
-> > +	of_node_put(*dsi0_node);
-> > +	return ret;
-> > +}
-> > +
-> > +static int lt9611c_read_version(struct lt9611c *lt9611c)
-> 
-> Maybe rename to lt9611c_read_fw_version() for clarity?
-Will be fixed in v19
-> 
-> > +{
-> > +	u8 buf[2];
-> > +	int ret;
-> > +
-> > +	ret = regmap_write(lt9611c->regmap, 0xe0ee, 0x01);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = regmap_bulk_read(lt9611c->regmap, 0xe080, buf, ARRAY_SIZE(buf));
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return (buf[0] << 8) | buf[1];
-> > +}
-> 
-> > +static ssize_t firmware_store(struct device *dev, struct device_attribute *attr,
-> > +				      const char *buf, size_t len)
-> > +{
-> > +	struct lt9611c *lt9611c = dev_get_drvdata(dev);
-> > +	int ret;
-> > +
-> > +	if (!lt9611c)
-> > +		return -ENODEV;
-> > +
-> > +	dev_warn(dev, "starting firmware upgrade — display will be disrupted\n");
-> > +
-> > +	ret = lt9611c_firmware_upgrade(lt9611c);
-> > +	if (ret < 0) {
-> > +		dev_err(dev, "upgrade failure\n");
-> > +		return ret;
-> > +	}
-> > +
-> > +	lt9611c_lock(lt9611c);
-> > +	WRITE_ONCE(lt9611c->fw_version, lt9611c_read_version(lt9611c));
-> > +	lt9611c_unlock(lt9611c);
-> > +
-> > +	if (READ_ONCE(lt9611c->fw_version) < 0)
-> > +		dev_warn(dev, "upgrade succeeded but failed to read new fw version\n");
-> 
-> Logging the errno (lt9611c->fw_version) could be useful here.
-Will be fixed in v19
-> 
-> > +static int lt9611c_probe(struct i2c_client *client)
-> > +{
-> > +	struct lt9611c *lt9611c;
-> > +	struct device *dev = &client->dev;
-> > +	struct device_node *dsi0_node = NULL;
-> > +	struct device_node *dsi1_node = NULL;
-> 
-> Small improvement: using a cleanup action would simplify a bit the error
-> management, removing the err_put_nodes label here and the err_put_dsi1
-> label in lt9611c_parse_dt():
-> 
->   struct device_node *dsi0_node __free(device_node) = NULL;
-Will be fixed in v19
-> 
-> > +	struct mipi_dsi_device *dsi;
-> > +	bool fw_updated = false;
-> > +	int ret;
-> > +
-> > +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-> > +		return dev_err_probe(dev, -ENODEV, "device doesn't support I2C\n");
-> > +
-> > +	lt9611c = devm_drm_bridge_alloc(dev, struct lt9611c, bridge, &lt9611c_bridge_funcs);
-> > +	if (IS_ERR(lt9611c))
-> > +		return dev_err_probe(dev, PTR_ERR(lt9611c), "drm bridge alloc failed.\n");
-> > +
-> > +	lt9611c->dev = dev;
-> > +	lt9611c->client = client;
-> > +	i2c_set_clientdata(client, lt9611c);
-> > +
-> > +	const struct lt9611c_chip_data *cdata = i2c_get_match_data(client);
-> > +
-> > +	if (!cdata)
-> > +		return dev_err_probe(dev, -EINVAL, "no match data for device\n");
-> 
-> Minor nit: no newline between variable assignment and error checking.
-The blank line is intentionally omitted — adding it triggers a checkpatch/patchwise warning about variable declarations not
-being at the top of the block.
-> 
-> > +
-> > +	lt9611c->cdata = cdata;
-> > +
-> > +	ret = devm_mutex_init(dev, &lt9611c->mcu_lock);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "failed to init mutex\n");
-> > +
-> > +	lt9611c->regmap = devm_regmap_init_i2c(client, &lt9611c_regmap_config);
-> > +	if (IS_ERR(lt9611c->regmap))
-> > +		return dev_err_probe(dev, PTR_ERR(lt9611c->regmap), "regmap i2c init failed\n");
-> > +
-> > +	ret = lt9611c_parse_dt(dev, lt9611c, &dsi0_node, &dsi1_node);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "failed to parse device tree\n");
-> > +
-> > +	lt9611c->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> > +	if (IS_ERR(lt9611c->reset_gpio)) {
-> > +		ret = PTR_ERR(lt9611c->reset_gpio);
-> > +		goto err_put_nodes;
-> > +	}
-> > +
-> > +	ret = lt9611c_regulator_init(lt9611c);
-> > +	if (ret < 0)
-> > +		goto err_put_nodes;
-> > +
-> > +	lt9611c_reset(lt9611c);
-> > +
-> > +	lt9611c_lock(lt9611c);
-> > +
-> > +	ret = lt9611c_read_chipid(lt9611c);
-> > +	if (ret < 0) {
-> > +		dev_err(dev, "failed to read chip id.\n");
-> > +		lt9611c_unlock(lt9611c);
-> > +		goto err_disable_regulators;
-> > +	}
-> > +
-> > +retry:
-> > +	lt9611c->fw_version = lt9611c_read_version(lt9611c);
-> > +	if (lt9611c->fw_version < 0) {
-> > +		dev_err(dev, "failed to read fw version\n");
-> > +		ret = -EOPNOTSUPP;
-> > +		lt9611c_unlock(lt9611c);
-> > +		goto err_disable_regulators;
-> 
-> lt9611c_read_version() returns an error code from regmap functions. Why are
-> you ignoring it and forcing -EOPNOTSUPP?
-> 
-> Also, dev_err_probe would be better here:
-> 
-> 	if (lt9611c->fw_version < 0) {
-> 		ret = lt9611c->fw_version
-> 		dev_err_probe(dev, ret, "failed to read fw version\n");
-> 		lt9611c_unlock(lt9611c);
-> 		goto err_disable_regulators;
-> 	} else ...
-> 
-will be fixed in v19
-> > +	} else if (lt9611c->fw_version == 0) {
-> > +		if (!fw_updated) {
-> > +			fw_updated = true;
-> > +			lt9611c_unlock(lt9611c);
-> > +			ret = lt9611c_firmware_upgrade(lt9611c);
-> > +			if (ret < 0)
-> > +				goto err_disable_regulators;
-> > +			lt9611c_lock(lt9611c);
-> > +			goto retry;
-> > +
-> > +		} else {
-> > +			dev_err(dev, "fw version 0x%04x, update failed\n", lt9611c->fw_version);
-> > +			ret = -EOPNOTSUPP;
-> > +			lt9611c_unlock(lt9611c);
-> > +			goto err_disable_regulators;
-> > +		}
-> > +	}
-> 
-> Ugh, a goto-based loop in the middle of a very long function is not helping
-> readability. The FW loading logic would be better moved to its own
-> function.
-Will be fixed in v19
-> 
-> > +
-> > +	lt9611c_unlock(lt9611c);
-> > +	dev_dbg(dev, "current version:0x%04x", lt9611c->fw_version);
-> > +
-> > +	INIT_WORK(&lt9611c->work, lt9611c_hpd_work);
-> > +
-> > +	ret = devm_request_threaded_irq(&client->dev, client->irq, NULL,
-> > +					lt9611c_irq_thread_handler,
-> > +					IRQF_TRIGGER_FALLING |
-> > +					IRQF_ONESHOT |
-> > +					IRQF_NO_AUTOEN,
-> > +					"lt9611c", lt9611c);
-> > +	if (ret) {
-> > +		dev_err(dev, "failed to request irq\n");
-> > +		goto err_disable_regulators;
-> > +	}
-> > +
-> > +	lt9611c->bridge.of_node = client->dev.of_node;
-> > +	lt9611c->bridge.ops = DRM_BRIDGE_OP_DETECT |
-> > +			DRM_BRIDGE_OP_EDID |
-> > +			DRM_BRIDGE_OP_HPD |
-> > +			DRM_BRIDGE_OP_HDMI |
-> > +			DRM_BRIDGE_OP_HDMI_AUDIO;
-> > +	lt9611c->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
-> > +
-> > +	lt9611c->bridge.vendor = "Lontium";
-> > +	lt9611c->bridge.product = "LT9611C";
-> > +
-> > +	lt9611c->bridge.hdmi_audio_dev = dev;
-> > +	lt9611c->bridge.hdmi_audio_max_i2s_playback_channels = 8;
-> > +	lt9611c->bridge.hdmi_audio_dai_port = 2;
-> > +
-> > +	drm_bridge_add(&lt9611c->bridge);
-> > +
-> > +	/* Attach primary DSI */
-> > +	dsi = lt9611c_attach_dsi(lt9611c, dsi0_node);
-> > +	if (IS_ERR(dsi)) {
-> > +		ret = PTR_ERR(dsi);
-> > +		goto err_remove_bridge;
-> > +	}
-> > +
-> > +	/* Attach secondary DSI, if specified */
-> > +	if (dsi1_node) {
-> > +		dsi = lt9611c_attach_dsi(lt9611c, dsi1_node);
-> > +		if (IS_ERR(dsi)) {
-> > +			ret = PTR_ERR(dsi);
-> > +			goto err_remove_bridge;
-> > +		}
-> > +	}
-> > +
-> > +	lt9611c->hdmi_connected = false;
-> > +	enable_irq(client->irq);
-> 
-> 
-> > +
-> > +	of_node_put(dsi1_node);
-> > +	of_node_put(dsi0_node);
-> > +
-> > +	return 0;
-> > +
-> > +err_remove_bridge:
-> > +	drm_bridge_remove(&lt9611c->bridge);
-> > +	cancel_work_sync(&lt9611c->work);
-> > +
-> > +err_disable_regulators:
-> > +	regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
-> > +
-> > +err_put_nodes:
-> > +	of_node_put(dsi1_node);
-> > +	of_node_put(dsi0_node);
-> > +
-> > +	return ret;
-> > +}
-> 
-> > +static struct i2c_driver lt9611c_driver = {
-> > +	.driver = {
-> > +		.name = "lt9611c",
-> > +		.of_match_table = lt9611c_match_table,
-> > +		.pm = &lt9611c_bridge_pm_ops,
-> 
-> As suggested by sashiko, please use the new DEFINE_SIMPLE_DEV_PM_OPS()
-> macro or similar to avoid "defined but unused" warnings. Also test your
-> driver in all combinations of DRM_LONTIUM_LT9611C=y/m and PM_SLEEP=y/n.
-Will be fixed in v19
-> 
-> Luca
-> 
-> -- 
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
-> 
+
