@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795324391;
-	b=CNQdNMgSUe2nYZz70AJlMV9PXePOuGSGiezlhfq9XnzMRnaQE4rR7cV+mXZe+mQOYIOX
-	 q26rVSEdXf8rScjlqR+Mq1OlQl4++VToS64CgoyRZ5rsCvWb2s+OGFu/Zz9iW4aAxDR0a
-	 /N3PvwFXb+RjiA62jbQdmqhto3nATBUCFO4woO07kOq8FSkbNHQnCFZrHGWz6C50zGk6F
-	 Aj+1PbucNmY9+zL+2uVW7x5Xl3QF0zAJTazPDCzh82nYNra/SsGowhYg8lrLRH4Siz0cK
-	 6tSb975XVPRxFoq3dnvDZN3F7ebGkaYV8pNp+iNnoCh14T6FIH6S4f3rwRI0DnHJaJg==
+	t=1795324409;
+	b=OAFEKsJ1Ya0BC8DeEQ0dfEswkN3/cmGd+M34xfvrt/3HJ+53AxBG4WUJhUBTuRo9AEON
+	 U03GHLGR/Zm6AeqWSQpLV6yDtBFvYTGTHGMuE1xd9uz6mJ2yuC5cyhRtv+vzS6iv9S+cD
+	 oS1Yig/AdZtjDbr4q1/2G/Adr423V1mxSwGwexb2GXW1UQrs3Zxpwzq2AwR4XSOsPU3xe
+	 4ZXpANeqBBU6xH8H/JsoLwKsCbHIOZWnyKtRjg5d2lPEiLpX0Zwfjp8lA/j8th0psfOeU
+	 Arh1+hGQ14OUrIHvUwBP+LRx/ptMDyG8gYnhBihtNQ3FZRpVAUuH+CMZZtiOFcSQa6w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795324391;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795324409;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LbDS9IpPDex0TvN3no8LP70sHsZV1X+KNwV54iyF28Y=;
-	b=w6JUoiza++k8oakpbYpgWALXyvVC+lFSCZJyEqvRTTuublbiGTm68TnO4kN2axcRa2H7
-	 tGumOHlo9IEfG/Gd0PgJIVUKT3eh+VuUu7UdLNTLdFC9d7Be4zu56UU+WKolWMEi3rnSG
-	 KgVX+uWNYtd67whidp3vG2qG2jaWNDMHROgdRIR8/NDUCp9sgFT3c49OvtMOE9EnGXNQU
-	 QnvSjZP5kAT2C40mn3msBgm4G6P5iS8gWp5c1DbpjDWk0VkzeLy6HdJk3pkLnlS5QvvQK
-	 BhhFN+N5FKrvb8jBeyCPwLB2tFqJVbxSIKUHCJ9ypE/tgHlbHSQGtDnawFxch3rpBsg==
+	bh=ABzajoCm5GzVHUgyMP+//rqW5DXkrevpJ0RZL1w9Xb4=;
+	b=1ILazMw+44qlM/+GwiKbrEHRCzw3mWnEN+GwnX8iu4ltg8mvAF4qVvgajk8yIxUpOCH+
+	 KF5FJuLY5Stk+knFQ2yLPXRpexHBAKDjNKFqahk4aP2KNJ49FS8pfwG8RUbdC6g5d8jBd
+	 0I114slYNEM+rHq6j1KHRGaCDDQLPP0NiSrKQcLH+5GLBSPV1T8PDFSBG/hGAt+/Ffg/T
+	 fEXcMUzgzXtWyIJPatIKtc76dHnV7rQbom+LW9+OQUp90pWZcrHavL7OE5R2TCzd8TX4T
+	 doHqd2lnhCAshzW1FkC8mNvY4RJvrNeInZ+vqQweO9rXStdl7w4ArXm6Kip8JyjwBtw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1ji8abm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHxTHMvo;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906B2606A320;
-	Sun, 22 Nov 2026 05:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC783606A33B;
+	Sun, 22 Nov 2026 05:13:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1ji8abm
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHxTHMvo
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795324391;
-	b=ssIYXaeQHbusE+b24miVo468CUN5OXyzB/mCHm0EinmI2LRkT8ob2f2eB4VuEyXs+ErM
-	 0R5GNOOUb7OKZal38taOsKkgOSwEPtFUbrn2hNZpjIkr2j6re//MOp/TTaKMwpJaXSyu8
-	 IWF/eQs1Zd5+kybZ5UOBFXV72ejEhxy1D9TPHzo2ySIoHrr1e2soJ8LpdHeVTAEV1Siwi
-	 jB06Or8ngmOJRBvR93Q8yYgIhwnK8cUk/bb1E1gDgxayVhtLG0XcjcYizRAJ+4derpapz
-	 TG+RRbHIMB1XujNc+dLl0jQdTltekksRb5Ny00wFfF6QQNOor43H24kJiNnv9Cav+jQ==
+	t=1795324408;
+	b=AbmIw9D4scjRRhnt0+pBr2BQ44vQ740cdLiATd1dvqS9OE1yd24szgZa570FNKXXpNjg
+	 jet5jVck9iUp2WjxESDK8/TCz7uA3w+8ue2utszwTwmm/JT4O/szl73vhpEFzz6V3TRh+
+	 yK4Rd2zYdLjJH/Pwf5shoZk4sTrWACWULuJXylTh1+mRz8+nSqo6Bq5ONLcNIjeTs8BU9
+	 eZPNL5D/PzLWFInPr+cWgEDgk2TNw2fzhUvM7SMDLDP28EBzfMZnUvc3RgGXfmjg5G5o4
+	 dA/XKkA+R2yi5eS/E1JPS84p1Zha7vCpFcMrvZjewgQGvIZPNTwYNvFXAG+CNsY0/xw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795324391;
+	c=relaxed/relaxed; t=1795324408;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LbDS9IpPDex0TvN3no8LP70sHsZV1X+KNwV54iyF28Y=;
-	b=vguuNmERrGsdsaGd2nGxjs+mNWYAwrZvnIidJp5OCfA3tDVufQ9pWLXVCv4uap5UcNnx
-	 xF0RdSsqb754FZ49GurF7tQzrbiYWdSUFy2xClatdxMvQi5xM8W9blIilhkcMvXf5JAaz
-	 oL2dAlX/0HeAbcnNYobeMYv++Wx+muN0FW0MclboAvvKZOMbG3JOdypnboqBdhnBiOVoj
-	 7uVbOJLf4pD8CsnFKignYxYVqTq9wnIYpBNdAULI0B1FcK7ezQNDiFMIxuHFQ1lIdG/39
-	 GMEW70AxbRWpkemjk6KcU94RBT8xhS66pinkJQsgMuBw26SIbiquMuAvBU2EHkjDXUQ==
+	bh=ABzajoCm5GzVHUgyMP+//rqW5DXkrevpJ0RZL1w9Xb4=;
+	b=W7hIdZy3WgqsnobwuIXiSIVLO4txKVpizTpNjhQXdDW88qRy5oyeiswcPNKOTpUvGFZ3
+	 4gxGiYoz/Z+s+AiAXw+QXNJskkXUUmSi/ApsUE8edoqBQ5vIxg3OGEhHWtXdAPqoB0T0/
+	 0ulbTMaiFWDs99f6BbyvTnMgTib7e2eWNmjKrfbdlRJEKCr9Xyv1kESkhxaygk14zuKsW
+	 4RQ0qOaD9kXuCAGNscjCIP7H8CrZ7kXYNHlc4Ihy6cdPrFYfap5Nk/OFbZ0aWTxEVwZHG
+	 n0kGkZacXz0PCF+w8UbM0mJEcYAi2ZZ0SlmnKeyZZN7rImGY0xDxqQBB83K1Jl60Ugg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 93E601F000CF;
-	Sun, 22 Nov 2026 05:13:10 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1CCF01F000D0;
+	Sun, 22 Nov 2026 05:13:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795324391;
-	bh=LbDS9IpPDex0TvN3no8LP70sHsZV1X+KNwV54iyF28Y=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=H1ji8abm6wwp4PxYUSXc7FvlwA1qyfkFGNZZDHzRbYcFxScuk9BzR+W4c5CHxvD5S
-	 Hm3UH6PJegl+Ek17vZyMeHyjFnf5l5oTrl1DiMTxHWzolFaWLT5xS5uXkg9Rqt7MT1
-	 mzOE8PctUXGwhJbAOB9wZu9VjCIv/xRdLi+3NELZAQRt1uCGFnJTEajuKDDxG4R3LL
-	 /dWITcP1I0s9orBurPJuDJkp1GDL5K893x/sGsPu45hADaHXL/tgX36hDrMJS9J5m+
-	 lxpp1tMdj2RGFVgIfBb5MrHS4OJi1cN5FoU8sXnXE9Y64kn9m6FD6iaf+gDMQrfxyE
-	 jxJIhYF2T8PRw==
+	s=k20260515; t=1795324408;
+	bh=ABzajoCm5GzVHUgyMP+//rqW5DXkrevpJ0RZL1w9Xb4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=IHxTHMvoH4T9kL79JTbZJ8Z/20nbsdrD5GBypB16MCzXGG2zVdTAgo0rsLoAWezPd
+	 aUF4Sb+eJSD8O8Y8Am09nNrjsrH7QLg9Gcr7kA/pSNnktMx/9p630wTIA7fqqjE+uJ
+	 v1111DjUaBaOCboptY/veUW8OSp3jJwjy9oSHU8WScVilhyjmWMFqrlcxri6JEJfxA
+	 NA8JSSJrZddMIFr9njQ1OGKA5yXwnJ+/MGLIc7rr6TQMBYpmk0UFn7OwUI07DF34cV
+	 EQRW0Jlevr+dxOplXDQQIC2kPlVb8hnEgtzwlivd9FKmbgAKKd6AnxJ/d5LQDnV0yK
+	 20pUzKQL6yvSg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 24B2B4BF2E;
-	Sun, 22 Nov 2026 05:13:10 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id A24044BF46;
+	Sun, 22 Nov 2026 05:13:27 +0000 (UTC)
 From: EMCP333 via B4 Relay <devnull+emcp.enser.io@kernel.org>
-Date: Sun, 22 Nov 2026 05:13:07 +0000
-Subject: [PATCH] arm64: dts: qcom: sdm845-oneplus-fajita: Route the
- microphones to MCLK
+Date: Sun, 22 Nov 2026 05:13:24 +0000
+Subject: [PATCH 1/3] dt-bindings: media: qcom,sdm845-camss: Add
+ interconnects
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,26 +84,26 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-b4-fajita-codec-mclk-v1-1-ee4bca21d8ba@enser.io>
-X-B4-Tracking: v=1; b=H4sIAOJ5AmsC/yXMwQ6CMBAE0F8he3aV1orRXzEetstWFrWYFokJ4
- d+lenyTmZkhS1LJcK5mSDJp1iGuMJsKuKN4E9R2NdjaNsZYi95hoF5HQh5aYXzy445mbwK5kw9
- NfYB1+koS9PO7vVz/zm/fC4/lqzQ8ZUGfKHJXosLddNw6TGxhWb5cZyAomAAAAA==
-X-Change-ID: 20261122-b4-fajita-codec-mclk-131fa49bf605
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Casey Connolly <casey.connolly@linaro.org>, 
- Dylan Van Assche <me@dylanvanassche.be>, linux-arm-msm@vger.kernel.org, 
+Message-Id: <20261122-b4-camss-sdm845-icc-v1-1-0671ef770fd0@enser.io>
+References: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
+In-Reply-To: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
+To: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  EMCP333 <emcp@enser.io>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324388; l=2514;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324405; l=2153;
  i=emcp@enser.io; s=ultron; h=from:subject:message-id;
- bh=DGyS7iiSyD0F0W5165hIjMOEexnA6ODF4zyy8Qhxe84=;
- b=MPSGHzz05h1QrnlkAVXZ9JRXshJXFKZpSpb6sX3os1zzdzqFHl1RSXes0z96fFYozLT4XnMsl
- BEs3Zsx4KpLA2HsUkADPwgt7hB2Zvcor24BKNgGVeghlUjx9UfbIszz
+ bh=LulMe8vMo++IKeIIAh8v8M3uKtAlXb13KLuNcRYJ0PQ=;
+ b=v+A31bhfotuokwdDizd43svOLiboSnHvUQH/g4vvxlCFBFpkOb9zv8/7CTxMWPDod3R9TrjM6
+ 2oPkMrQelsaC2gnmqx1KhlVsUQPqC7WrmkHTIrYNs/MxWk0/KZtm3lm
 X-Developer-Key: i=emcp@enser.io; a=ed25519;
  pk=5sG48Lul+Vn7OzXu3VZrCWk5uvEFPYMXYnAV0TZR/tY=
 X-Endpoint-Received: by B4 Relay for emcp@enser.io/ultron with auth_id=1598
@@ -113,70 +113,69 @@ Content-Transfer-Encoding: 7bit
 
 From: EMCP333 <emcp@enser.io>
 
-The WCD934x system clock is a DAPM supply widget, "MCLK", and the codec
-driver routes nothing into it, so each board has to. fajita connects it
-only to RX_BIAS, which only the playback paths use. A capture-only
-stream therefore powers the microphone input, ADC, decimator and SLIMbus
-TX path, but not the clock they run from, and records digital silence
-until something has started playback.
+CAMSS on SDM845 reaches DDR through two camnoc HF ports and one SF
+port, and its registers through the config NoC. Describe the four
+paths, named as in the sm6150 binding, which has the same two HF ports.
 
-Route each analog microphone input to MCLK, as other WCD934x boards do
-for their microphones (sdm845-samsung-starqltechn,
-sdm850-huawei-matebook-e-2019).
-
-Tested on a OnePlus 6T with this change on the postmarketOS sdm845
-kernel (6.18). With no playback stream open, a recording from the
-bottom microphone powers MCLK while RX_BIAS stays off, and captures real
-signal (peak 22307 over 6 s). Without it, the same recording is
-constant zero. On v7.4-rc2, dtbs_check gives the same output before and
-after.
-
-The OnePlus 6 (enchilada) has the same routing and probably the same
-problem. It is left alone here because I cannot test it.
+They are optional, so existing device trees stay valid. The driver
+votes on them where they are present.
 
 The code and this changelog were prepared with the help of an AI coding
 assistant. The submitter has reviewed both and takes responsibility for
 them.
 
-Fixes: b7b734286856 ("arm64: dts: qcom: sdm845-oneplus-*: add audio devices")
 Signed-off-by: EMCP333 <emcp@enser.io>
 ---
-Also ran on v7.4-rc3 on the same phone, as this exact commit: with no
-playback open, DAPM MCLK is On and RX_BIAS Off, and the bottom mic
-records (956 distinct sample values, peak 654, in a quiet room; the
-failure is a constant zero).
----
- arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/media/qcom,sdm845-camss.yaml | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-index e9d1a1c6ac..a03c1ea8fe 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-@@ -51,10 +51,15 @@ &sound {
- 	model = "OnePlus 6T";
- 	audio-routing = "RX_BIAS", "MCLK",
- 			"AMIC1", "MIC BIAS3",
-+			"AMIC1", "MCLK",
- 			"AMIC2", "MIC BIAS2",
-+			"AMIC2", "MCLK",
- 			"AMIC3", "MIC BIAS4",
-+			"AMIC3", "MCLK",
- 			"AMIC4", "MIC BIAS1",
--			"AMIC5", "MIC BIAS3";
-+			"AMIC4", "MCLK",
-+			"AMIC5", "MIC BIAS3",
-+			"AMIC5", "MCLK";
- };
+diff --git a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
+index be09cf3a3b..8c87ecd406 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
+@@ -76,6 +76,16 @@ properties:
+       - const: vfe1
+       - const: vfe_lite
  
- &pmi8998_charger {
++  interconnects:
++    maxItems: 4
++
++  interconnect-names:
++    items:
++      - const: ahb
++      - const: hf_0
++      - const: hf_1
++      - const: sf_mnoc
++
+   iommus:
+     maxItems: 4
+ 
+@@ -233,6 +243,7 @@ examples:
+     #include <dt-bindings/interrupt-controller/arm-gic.h>
+     #include <dt-bindings/clock/qcom,camcc-sdm845.h>
+     #include <dt-bindings/clock/qcom,gcc-sdm845.h>
++    #include <dt-bindings/interconnect/qcom,sdm845.h>
+ 
+     soc {
+       #address-cells = <2>;
+@@ -337,6 +348,15 @@ examples:
+           "vfe1",
+           "vfe_lite";
+ 
++        interconnects = <&gladiator_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_CAMERA_CFG 0>,
++          <&mmss_noc MASTER_CAMNOC_HF0 0 &mem_noc SLAVE_EBI1 0>,
++          <&mmss_noc MASTER_CAMNOC_HF1 0 &mem_noc SLAVE_EBI1 0>,
++          <&mmss_noc MASTER_CAMNOC_SF 0 &mem_noc SLAVE_EBI1 0>;
++        interconnect-names = "ahb",
++          "hf_0",
++          "hf_1",
++          "sf_mnoc";
++
+         iommus = <&apps_smmu 0x0808 0x0>,
+           <&apps_smmu 0x0810 0x8>,
+           <&apps_smmu 0x0c08 0x0>,
 
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261122-b4-fajita-codec-mclk-131fa49bf605
-
-Best regards,
---  
-EMCP333 <emcp@enser.io>
+-- 
+2.47.3
 
 
