@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.243.27.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795379969;
-	b=Phx75u3wztKqCLhpkpVdsxLN71tl5+lMgYRMooRXgYP9qrK6vu1M/Q3TXJ3hFtm3ak7k
-	 7+GijA64vTjXJqI8DOurZRyTzmopAszSYGXtNId487WeoBhaDkXoLlmGDiQq2LE3YHTP0
-	 I4vvysJyE/kYwyRZ8qnH2xMhBbcPtrqlW0NXwNrasgwh2yoiiwM9+uCNxAfqJdTojrHun
-	 AMcBtyq8zm9kYH4b/k9PdYxK5V2ssWm0NDkNC63i9m8TBeSAybNJPLZ7/0oF63350ZYWI
-	 cYKRu8oikF3nLGxu5d2ldmfY5KiG/8oq/ZnH+x2YOgGs60aD4yOZoKn+vrn05W2nv8g==
+	t=1795380363;
+	b=fWwxqDHR2UfCWMZuBC66XINPF8FH7kztUwzwQyNPwe2T6HeGaJBPCTvCkqFS7eQjTvlu
+	 7G1yjk1jvkdFYfk+Q9Fw0z8t3bKDTBKHpqj2GMGtTURnbFnZiSCvBcYGoL59ywXoFodV6
+	 /AczN7MBhInO+6fjdfT711VnphhP5xTJgkbUSfq/vLwKB+hU6PsbA1lezM9AvBh2CzQLZ
+	 KT95nfOIeXk/WC8x0nakhbuklCgAZhIWU9z62uCPgaxAelkRR6FNzSexg6A83DMpA4ACj
+	 ZwqPis4l+8A6R6fISzpnDp5X5wARUNGH74+yQ0e8eAqgTUdolYfA4cB+uRgaPleGMOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795379969;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=xjGjlzQOGxkHPrGuRUyuFFkNCgtqCfk+N7S2jegyUHs=;
-	b=wH5FeXNEIuRcd1QNJx2/Aw5JrepEHryUVhpCBfs9GnhfNd5AhB8jyM8r3nIx7qXtCN3J
-	 jN0pIZm0OYqD/WKIRffZAGQEzpKEkMoM6MVUW5TCRcGVK57PQXQEmheJHe0yB7PYLCFyc
-	 7udA3NgUWbU51P+9y5xZqKIll+whsQWino7N6T9qC2KU2rjnKv2ydh85sk1FK7Za0hR7j
-	 AFejMtV1SCGp2hyAOJ70gyO36ZvFiKm7qMmO+qxI+tWPQTZGVh20CkILSu6uiFnPJGIfx
-	 zv5aXsQZYxKFNMqtwbV5nGU5e6yvyFVEa+yalJP8HffK4l+3EFqIHfc/2JRY5Ogn/KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795380363;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=r0pq03pbZTXIuJBoHRgYc0ck8lyzjEHfUvyP9RtMNj4=;
+	b=kZQAmGa7xVe6HJDVa+ad9dodrGM8S1osX4w6rwpT+HBX88cTta+ttuaqziq2221Um+lx
+	 xzyW1OaMf+Bi8ElFhbIx+VRspQbnZzCnYmI3umf6aRbYOeDXL1B2M+f1B8AQLwnRPXh3c
+	 zlDv13xJYwc+yVOeFIZJOZntyBaD2sYiPcJExT2y/shwYNfBEfY5BaP5lOz1SN5IKWLzD
+	 AeFEoRPkQVN8Ruuz7e+F+I907j3d+d8+o2sGNSlTO9yCDDzKk5W8Z91SdHpDh9oXUUeKR
+	 QTjfvusH9Z9TbUg18f5BiP5Cwkw6/MOuWi7Rsz02EwpgZONcXvMt8pBTqIPm+zMX0Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vm0L13HN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mess.org;
+	spf=pass smtp.mailfrom=mess.org;
+	dkim=pass header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=IRveC386;
+	arc=none smtp.remote-ip=92.243.27.206
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFE3606A31A;
-	Sun, 22 Nov 2026 20:39:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F54606A31D;
+	Sun, 22 Nov 2026 20:46:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72F54606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vm0L13HN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D923D1F000D0;
-	Sun, 22 Nov 2026 20:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795379969;
-	bh=xjGjlzQOGxkHPrGuRUyuFFkNCgtqCfk+N7S2jegyUHs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Vm0L13HNgR3uTsdH7yDUm/wZtcXZ1P0EMJvxxEagYE25FZmVpdx6Qechgmv8eEwzo
-	 ydTCzmTHUI5yRkUtfWcHRUJIgBP9OJKQnZ5Pi0tNieNfILgWIyQiSCckTvcqqd/KbK
-	 i/nqWC+ouVroJ2lBr5Gib3P0IQTCwj3aDuTRDhYdhxiLFEmFyLdM+ykS4jwar5mjoh
-	 K9HBuRid/lJRUlDGtk3ke7revjd1cWLQgvOnRwF/ltoUD3A74ug9iU0/KYknO+kMRo
-	 TbnqeMSwzWSpS53XAgt6MpQvJEqw2zA3FlXwZ5v72p1HJncoVjP/TcESMvYvfI+CoJ
-	 CfhMoJp+txtXw==
-Message-ID: <sashiko-outbox-228331@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/6] dt-bindings: mfd: Describe the BCM6846 PMC
- complex
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261122-xg6846b-bcmbca-xrdp-reset-v6-1-bf2104a25095@kernel.org>
-References: <20261122-xg6846b-bcmbca-xrdp-reset-v6-0-bf2104a25095@kernel.org>
- <20261122-xg6846b-bcmbca-xrdp-reset-v6-1-bf2104a25095@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 20:39:28 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=IRveC386
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1795380360; bh=Dqafq+lPIh7TL8+bt692my7vJhcK4oDNzgXGaeDpzNM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IRveC386cYXHh2DtYqESsr53zNa3sQi42NtNWdBG85RFQPytWkovqjttmNPlR5Spi
+	 SCLKWXf8Me1xr9rzPxJCTQUbNaCCVStvSOAWrljPFIcwM3SHxiQIt0s2pPMPIe+Fba
+	 XN+0jwL1dz0PT6t9XcE/il+FbCRvD3Mw2WqLppzjrArbpWF4Hsz1QS/Z496zwp+YYF
+	 t3wuRfCklp67jpz6sEkK+KPnALpvA6WNqS2FGdLymRsBsLYsYv41veF9uhnkhXeggC
+	 fh4DR5erefYcM9G3uso+LEQ+3+WKY1yIlEKv5Y63p0H5WmZt7yd6k4wviHYI1XJIHY
+	 5ZudeV6vBvnyQ==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 8066C41828; Sun, 22 Nov 2026 20:46:00 +0000 (GMT)
+Date: Sun, 22 Nov 2026 20:46:00 +0000
+From: Sean Young <sean@mess.org>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Fabio Estevam <festevam@nabladev.com>
+Subject: Re: [PATCH v3 2/2] media: rc: Add keymap for Ruwido Z3 RC-34 remote
+Message-ID: <awNUiFvhjdaz9BXl@extorris.mess.org>
+References: <20261004121931.6746-1-festevam@gmail.com>
+ <20261004121931.6746-2-festevam@gmail.com>
+ <CAOMZO5DFgk66C=+eNepzWwrNHa-t8KQ47wstPZRGW+tf548rOQ@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,82 +63,156 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOMZO5DFgk66C=+eNepzWwrNHa-t8KQ47wstPZRGW+tf548rOQ@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: mfd: bcm6846-pmc: child nodes split PMB by Linux
-  subsystem
---
+On Fri, Nov 20, 2026 at 06:16:12PM -0300, Fabio Estevam wrote:
+> Hi Sean,
+> 
+> On Sun, Oct 4, 2026 at 9:19 AM Fabio Estevam <festevam@gmail.com> wrote:
+> >
+> > From: Fabio Estevam <festevam@nabladev.com>
+> >
+> > Add keymap for the Ruwido Z3 RC-34 remote control.
+> >
+> > Signed-off-by: Fabio Estevam <festevam@nabladev.com>
+> > ---
+> > Changes since v2:
+> > - None.
+> 
+> A gentle ping.
 
-commit 1ef708faa6e24bb930c8332cea06fc31592108ce
-Author: Linus Walleij <linusw@kernel.org>
+Sorry about the delay. It's now been merged into media-committers/next
 
-dt-bindings: mfd: Describe the BCM6846 PMC complex
+Thanks
 
-This commit adds the devicetree binding schema and header definitions for
-the Broadcom BCM6846 Power Management Controller complex and its Power
-Management Bus providers.
+Sean
 
-> diff --git a/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml =
-b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
-> new file mode 100644
-> index 0000000000000..eb01797f82622
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
-> @@ -0,0 +1,238 @@
-[ ... ]
-> +patternProperties:
-> +  '^bus@[0-9a-f]+$':
-> +    type: object
-> +    description:
-> +      The Power Management Bus (PMB) connects the third generation Power
-> +      Management Controller (PMC3) to the control registers of miscellan=
-eous
-> +      independent hardware blocks.
-> +
-> +      The controller provides configuration, arbitration and four keyhole
-> +      interfaces for indirect register access.
-> +
-> +      Child nodes describe independent hardware blocks accessed over the=
- PMB.
-> +      These provide global resources and even resources for each other.
-> +
-> +    properties:
-> +      compatible:
-> +        const: brcm,bcm6846-pmb
-> +
-> +      reg:
-> +        maxItems: 1
-> +        description: PMB configuration, keyhole and address mapping regi=
-sters
-[ ... ]
-> +    required:
-> +      - compatible
-> +      - reg
-> +      - power-controller
-> +      - clock-controller
-> +      - reset-controller
-> +      - hwmon
-
-[Severity: Medium]
-As reported by Philipp Zabel on RFC [1], why are power-controller,
-clock-controller, reset-controller and hwmon modeled as separate
-unit-address-less child nodes rather than exposing #power-domain-cells,
-#clock-cells, #reset-cells, #thermal-sensor-cells and the reference clock
-directly on the brcm,bcm6846-pmb node?
-
-These child nodes partition the PMB keyhole interface by Linux subsystem
-rather than independent hardware blocks, encoding the Linux MFD driver
-split into the Devicetree ABI.  In hardware, the PMB targets are BPCMs,
-PLLs and monitor blocks addressed by (bus, device): brcm,bcm6846-pmb-power
-and brcm,bcm6846-pmb-clock modify different bitfields of the same 32-bit
-BPCM zone control words (32 + zone * 8), and brcm,bcm6846-pmb-pvtmon,
-BCM6846_CLK_PVTMON and BCM6846_RESET_PVTMON all operate on different bits
-of the same PVTMON_CONFIG register (bus 1, device 6, word 17).
-
-[1] https://lore.kernel.org/r/f1c24a603964302ec1462b1cea790a2a7079fb3d.came=
-l@pengutronix.de
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-xg6846b-bc=
-mbca-xrdp-reset-v6-0-bf2104a25095@kernel.org?part=3D1
+> 
+> >
+> > Changes since v1:
+> > - Use RC_PROTO_NECX. (Sean)
+> > - Use media prefix in the Subject.
+> >
+> >  drivers/media/rc/keymaps/Makefile             |  1 +
+> >  .../media/rc/keymaps/rc-nec-ruwido-z3-rc34.c  | 80 +++++++++++++++++++
+> >  include/media/rc-map.h                        |  1 +
+> >  3 files changed, 82 insertions(+)
+> >  create mode 100644 drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
+> >
+> > diff --git a/drivers/media/rc/keymaps/Makefile b/drivers/media/rc/keymaps/Makefile
+> > index 38b84e34b225..525d203c0a94 100644
+> > --- a/drivers/media/rc/keymaps/Makefile
+> > +++ b/drivers/media/rc/keymaps/Makefile
+> > @@ -86,6 +86,7 @@ obj-$(CONFIG_RC_MAP) += \
+> >                         rc-msi-tvanywhere-plus.o \
+> >                         rc-mygica-utv3.o \
+> >                         rc-nebula.o \
+> > +                       rc-nec-ruwido-z3-rc34.o \
+> >                         rc-nec-terratec-cinergy-xs.o \
+> >                         rc-norwood.o \
+> >                         rc-npgtech.o \
+> > diff --git a/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c b/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
+> > new file mode 100644
+> > index 000000000000..8a090772446d
+> > --- /dev/null
+> > +++ b/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
+> > @@ -0,0 +1,80 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +//
+> > +// Keytable for the Ruwido Z3 RC-34 remote
+> > +
+> > +#include <media/rc-map.h>
+> > +#include <linux/module.h>
+> > +
+> > +static struct rc_map_table nec_ruwido_z3_rc34[] = {
+> > +       /* Ruwido Z3 RC-34, NECX address 0xe310 */
+> > +       { 0xe3100f, KEY_POWER },
+> > +       { 0xe31016, KEY_MENU },
+> > +       { 0xe3100a, KEY_UP },
+> > +       { 0xe3100b, KEY_DOWN },
+> > +       { 0xe3100d, KEY_LEFT },
+> > +       { 0xe3100c, KEY_RIGHT },
+> > +       { 0xe31019, KEY_OK },
+> > +       { 0xe3106a, KEY_BACK },
+> > +       { 0xe31033, KEY_INFO },
+> > +       { 0xe31066, KEY_DISPLAYTOGGLE },
+> > +       { 0xe3101a, KEY_VOLUMEUP },
+> > +       { 0xe31010, KEY_VOLUMEDOWN },
+> > +       { 0xe31013, KEY_MUTE },
+> > +       { 0xe31032, KEY_CHANNELUP },
+> > +       { 0xe31031, KEY_CHANNELDOWN },
+> > +       { 0xe31069, KEY_HP },
+> > +       { 0xe31000, KEY_NUMERIC_1 },
+> > +       { 0xe31001, KEY_NUMERIC_2 },
+> > +       { 0xe31002, KEY_NUMERIC_3 },
+> > +       { 0xe31003, KEY_NUMERIC_4 },
+> > +       { 0xe31004, KEY_NUMERIC_5 },
+> > +       { 0xe31005, KEY_NUMERIC_6 },
+> > +       { 0xe31006, KEY_NUMERIC_7 },
+> > +       { 0xe31007, KEY_NUMERIC_8 },
+> > +       { 0xe31008, KEY_NUMERIC_9 },
+> > +       { 0xe31030, KEY_NUMERIC_0 },
+> > +       { 0xe31065, KEY_RED },
+> > +       { 0xe31063, KEY_GREEN },
+> > +       { 0xe31064, KEY_YELLOW },
+> > +       { 0xe3106b, KEY_OPTION },
+> > +       { 0xe31050, KEY_PLAY },
+> > +       { 0xe31057, KEY_REWIND },
+> > +       { 0xe31058, KEY_FASTFORWARD },
+> > +       { 0xe31060, KEY_PROG1 },
+> > +       { 0xe31061, KEY_PROG2 },
+> > +       { 0xe31062, KEY_PROG3 },
+> > +
+> > +       /* RC-34 remote volume keys */
+> > +       { 0x3506, KEY_VOLUMEUP },
+> > +       { 0x3507, KEY_VOLUMEDOWN },
+> > +
+> > +       /* McIntosh HR070 remote volume keys */
+> > +       { 0xca5542, KEY_VOLUMEUP },
+> > +       { 0xca5543, KEY_VOLUMEDOWN },
+> > +};
+> > +
+> > +static struct rc_map_list nec_ruwido_z3_rc34_map = {
+> > +       .map = {
+> > +               .scan     = nec_ruwido_z3_rc34,
+> > +               .size     = ARRAY_SIZE(nec_ruwido_z3_rc34),
+> > +               .rc_proto = RC_PROTO_NECX,
+> > +               .name     = RC_MAP_NEC_RUWIDO_Z3_RC34,
+> > +       }
+> > +};
+> > +
+> > +static int __init init_rc_map_nec_ruwido_z3_rc34(void)
+> > +{
+> > +       return rc_map_register(&nec_ruwido_z3_rc34_map);
+> > +}
+> > +
+> > +static void __exit exit_rc_map_nec_ruwido_z3_rc34(void)
+> > +{
+> > +       rc_map_unregister(&nec_ruwido_z3_rc34_map);
+> > +}
+> > +
+> > +module_init(init_rc_map_nec_ruwido_z3_rc34)
+> > +module_exit(exit_rc_map_nec_ruwido_z3_rc34)
+> > +
+> > +MODULE_LICENSE("GPL");
+> > +MODULE_AUTHOR("Fabio Estevam <festevam@gmail.com>");
+> > +MODULE_DESCRIPTION("Ruwido Z3 RC-34 remote keytable");
+> > diff --git a/include/media/rc-map.h b/include/media/rc-map.h
+> > index f167c37179c8..290919a7247e 100644
+> > --- a/include/media/rc-map.h
+> > +++ b/include/media/rc-map.h
+> > @@ -289,6 +289,7 @@ struct rc_map *rc_map_get(const char *name);
+> >  #define RC_MAP_MSI_TVANYWHERE_PLUS       "rc-msi-tvanywhere-plus"
+> >  #define RC_MAP_MYGICA_UTV3               "rc-mygica-utv3"
+> >  #define RC_MAP_NEBULA                    "rc-nebula"
+> > +#define RC_MAP_NEC_RUWIDO_Z3_RC34        "rc-nec-ruwido-z3-rc34"
+> >  #define RC_MAP_NEC_TERRATEC_CINERGY_XS   "rc-nec-terratec-cinergy-xs"
+> >  #define RC_MAP_NORWOOD                   "rc-norwood"
+> >  #define RC_MAP_NPGTECH                   "rc-npgtech"
+> > --
+> > 2.43.0
+> >
