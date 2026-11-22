@@ -1,102 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795374523;
-	b=pd9b0z3iPrS006R8V8/fd/Oy5hDhLrn0vtSXvac9bBzVGLZzKj8XdaXjf2/+FJ73NwiX
-	 Ef/4m2jQMBbxAL+v1ojcN7ndCrGTJyeGqM9UjxAHBODbBpXiYEb6J3/ygAY/dNFd/GOC5
-	 lNM8zolECFZBd5gQjRrcGANr160IPGRX40Bg+TJdiXjejjhiGum1psZPS7nrrIDOnHDvd
-	 CS3jPpMOo1g9VrzEXo08z7tr/zTrmZUvfaW4OhGhpUs/LLvZnyDFeiCoaNWsr6ExwIDbG
-	 flqHNW8NLRTtHqtc9DEtZWcUNFz5EvGH9ne6NM7K1BZb55DtjBB8FEvhDONoUEDX2qA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795374523;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dAs1mqfrVrH1ol/B1nRUX6eBBIxpRuHBybsWCr2GDvU=;
-	b=5GZdy88ylierUSDKtdFVMBxrRPO5IsfyLzS7aGXW8wSZHuHEY/K7gv7uzTLSwFiITeUd
-	 gs+vA/6irOKC785hbTR85jmbNdrueyhHHp+6nPhvSR+DKqNk+4kmXYWzOgeR9gyCxAS5j
-	 QtANJnYw7wJgbEMnpxFmTqTNF/eIbbtRVX2hYC0jZ9zYqGMsjSmMl+piyxMIXzTuIQ8x9
-	 Y9jybNXTQBO1ddS6PDI+jkSBbhcWpqwzXYHMn1o5mfz5Mciv2qa6965mOOmD5Gy/z2nPr
-	 0uIOusNYtoz6zaie36ctam4cBSxAQMP9s1hrJLRHdTBRJpZOKNhRSMMx2ZVR56qKhqQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=teslabs.com;
-	spf=fail smtp.mailfrom=teslabs.com;
-	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=CK8UnIGY;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795374525;
+	b=JbkTg1ld09883WvlPIYekPNSzGNySLrprGrebMdliTe9uW8CB50hnhWK3UBzOQl8iCh1
+	 v6HlcEKOpUeS7AvqVZm81vGV11hgX3spJ03qn+h3RkJy+G9VGaaVomFukofuLnRt1K865
+	 q5U8iHov1EDXLFoKozNxJi7JTy7HP6CkRhrEwUpxjCgAncUmNWnRtVMAJu+Nj6qv+HDCX
+	 7Y7UZoaYQMORCPqSmP5BNu5YiZjfE8jPzC2jVnQfega/k8kqgQFKLK3hM4RsG9+qGLETH
+	 Et5GLYQAsyCu0FuemezC9WccnA56J3rP1u0058zVLeQALxvcW7JlYIujGeoedfBt2cA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795374525;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=u2EtW60Jw973dWxj/6S0ahhddRRvKu201RyraM+S3PQ=;
+	b=hzHvc3W8D+6ghYAAXdSEpVmVRSXUOsxr0P/rB6nO3iMUwtdBSXWOBNI1jxE8TO9SETjT
+	 Ey086+me1UVUb4nH/MICCWm1EvGXiOw1x2rt9iPkYX93zC2GWt4CXtPDav4K8fwswczon
+	 ifRfAjqW8b12CC+dnTPmLFViS7mc2KGho/UJHiVoolsd7g5OYxA9JsQSVxLGPYY32WUCQ
+	 /ePLNYjB4GBgL2T+jWDuWsRwSYTmy5mD5vOYNRcqekysgyWDz5qokjiriJuqpcDYt3TAA
+	 FmTwjHliGmjbr66grkjOwwjhUsPEB9b3Mjf90L/hgOYgNbAAfSN2A7VJIWRJpmru72A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0iqWVlX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8177D606A68C;
+	Sun, 22 Nov 2026 19:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0iqWVlX
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795374525;
+	b=J5/fP+Cnc1CZ3MOqqJdepyEi2OChWvAikXGMbLV9zQESH4XZw03jCJjJK8og/S+jPjIz
+	 WB/v/bgbLgTPwmRDflOv2QCkZfPZoPEjHzqscm3yhl/X9uxy6ez5fovWCFcM3dCWT8gBn
+	 8r6mwgBLakYjMYBllt9yFrGjf1z/4NEimqk2z2cQ4Sw7ZfIScH8/KV1hQ9B8EjcNMrOUz
+	 +eazLIhQP5HXFqRjS20P6BVf85qnMCNulLP0IRIlGyDFlaYVmYK0DHI02hWTYHh5ZLVKI
+	 4P7PIhP/Rs3FTeEgBHgmGbbMc+uauZPvlq1PEe+wYztrnQAo1N+PlyycBt2rANzh5oA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795374525;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=u2EtW60Jw973dWxj/6S0ahhddRRvKu201RyraM+S3PQ=;
+	b=L8J9lD3UJJPTsJoZwUktaN4afKw+caOADZJ5rc9hjqshogAzmPKUSIju3YHRbySBzsjf
+	 Dzn1VohYvbuLKFSHORzf0IzavQEYG6kLOt7tW3SLynr9l8DYsNKjeLVZQ3nNrl4e/OY7H
+	 7xy4y3JSF9LJyOPNsLZ+1+bp+55iq2EqHPHD+KfAh21sZvjOaZogv38n8CHOolDFk9ahI
+	 Rj6dmIRAK67wwebG+GmWMNDMRwat8lNKnOkt6tWv+0YBnHjp0T+wHTKZUKcy0NCkzmMYv
+	 d3TBDT3mW/SrWIo9oYK0x0zcotzIhQcZ5hQMhQbndUrm2utzbKqNT6vxOJ4bnQplKSQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67F1606A685
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:08:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C67F1606A685
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=teslabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=teslabs.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=CK8UnIGY
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so18939805e9.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:08:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795374521; x=1795979321; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dAs1mqfrVrH1ol/B1nRUX6eBBIxpRuHBybsWCr2GDvU=;
-        b=CK8UnIGY3tyNdi3KsdxWUFgIsuevJezdcxkZ0Tvxgvwb2yGWbic7kemqR3xCy9RriR
-         XtDRytV0gxbfFtkO0gju/ZJjOwfQSDSzNwbE2g7oBcO6OD5XDKZY3yENX1kRAqYQp3zA
-         IwPRo+10jO3xlCxlC9rJEmKQwVuaa92PQ1YcuJhQgbJ3hEbVn674bfv2Oq/ccAmP7ysu
-         KVDQURX/udZ5xXi0EJIg9v9FOWsaYl1Di5oFGsQT3JZxPyVkYIAlhsMQvL7mDeeJQ4a7
-         hksPvNghpbg7JVmb/g1u2/amPVy2WQnPV2iGFZmKp/ICzFRez1mEB0M0AqSS8H854Kab
-         nQQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795374521; x=1795979321;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dAs1mqfrVrH1ol/B1nRUX6eBBIxpRuHBybsWCr2GDvU=;
-        b=OrHWrolflSPL8vAloF/lUTpKuCj8y/9T5KGD+Ui0Ggaiz1BaKZVfU+Us4HBkli2cVL
-         7T7gMMB5147CKt08eNj/ee4lD6mLHukHjMunO0tS8o+1uDqpUuAV7WAxpmFYD8XqkZok
-         BzBlc01XbenxCzitThHgTs65wKnadeb6xOyqtqxah4nyIZ8NL+hgQJBBbfZnhvC8VbY3
-         PABzXKdiC1hiLgAQFmKtz7s0rpEQDMac4ydekCk6ehzNohVnHNrddnEZvxTXN7ksmD44
-         Do9KZCAryAh8cdIFXAFTPcHnjPJw1kMP5GtNi1ge+wVQMxlaFpovMIHOAICjhAeo/EAf
-         K5sQ==
-X-Forwarded-Encrypted: i=1; AL+hErHx8v0SObMrBChEYa1aBAphEYb+dQFaZf46EDLKjI2fgUxkD4scile4VmnuMk1gafV/TCl/MgKsmK9I@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SYi/WI0HFshXmTEfqMItjVV5R7dxG7UR3saXjGpepHiFKfNJB
-	VTtot0so5l4dJYCPo+cUpCsWHBtGkxp8ttqvbkndux3EhlGrAFe/eWcvUIHd8V/kvzk=
-X-Gm-Gg: AZFdTZeIXnwC6rTZI3kxTA3YmvJZQzqkE1jb+qQf6TGBLM/CPUJ/5HS/B3RzIdrWcwX
-	LuEVnOLQHkCsPevCGmTtZcofkiRAx2mvzdcSgItwdpZDe0d7mqAkn5aIlMKOSoqd620PeOSn6Fr
-	n6f2mdtkXvf/WP/VRJjQpXl95qFrWgeorFA6yj7idbVhy6EpY17AgjXLa9h+N4M8YPB9Dw5G6Ot
-	ybABjETKrerIUQAIoXlZTjg7pak3ZNVxFkaOFvpQ4kZXFXu9v7og7QN7JtyU4nv6G/2cIznmQ9S
-	OISpgcIgYghlYusrD8AFagdhygqGzAtt0cxoeaD0vifmzDMTHQpqQrO3Zno3BINV327Ltlt/R4x
-	I6isLYmIwEvauahKrzRntrPQ/9jPqP2O+zx0Xd3RFf+QJkTic8Juu752bAUCOkRFUxl0VkkGZAM
-	6U22gYXCfV0XhU74o4lIJQY25F/WUzOp2NAoMFg956ZZINhy4E2o0Af7ilbXZt4WyFd4g2DqQjx
-	CD16kwTDBUPY0JkWn8GvyTFRtqKphldPgJRvZ5d2ncOOYPBra81yIp21Fu6dgdl82pWCzvg9Nsi
-	O/GMKLpNlayzPBOXEw0c8OS0BBzeC85jt8IWwmi9OxcEpY9FFzTs2nVzoiuLCsxqk5Yb7LLCtHU
-	Vxcrc/q4N5Hg=
-X-Received: by 2002:a05:600d:600b:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4bb88815f1fmr200246095e9.21.1795374521196;
-        Sun, 22 Nov 2026 11:08:41 -0800 (PST)
-Received: from localhost.localdomain ([139.47.121.129])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb895f7bc1sm103080395e9.3.2026.11.22.11.08.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 22 Nov 2026 11:08:40 -0800 (PST)
-From: Gerard Marull-Paretas <gerard@teslabs.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Frank Li <Frank.li@nxp.com>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] iio: magnetometer: mmc5633: Add mount matrix support
-Date: Sun, 22 Nov 2026 20:08:36 +0100
-Message-ID: <20261122190836.66111-4-gerard@teslabs.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20261122190836.66111-1-gerard@teslabs.com>
-References: <20261122190836.66111-1-gerard@teslabs.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id D2A611F000D1;
+	Sun, 22 Nov 2026 19:08:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795374525;
+	bh=u2EtW60Jw973dWxj/6S0ahhddRRvKu201RyraM+S3PQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=D0iqWVlXLsANu0XsBuWtoEqwE1zBxIK6e2z0JYholBe6V5nS3N5kNquEINA6WqAao
+	 Hh6vlViANKWsyvc1SuL1L7wC1YnHuUPTirmUufiEOZZo0x2cb4zPWZaJ3bAJVv9mzB
+	 SNo6pcltaufLnoDH9IF9PJh8uL21yKxYG9CS9zKTdEj7u39u5DP/2wcrDb6BSFAtRz
+	 nnvcNX1eOcYZLpn198+i84zJujPZAlhnl14fprdfqmNLQshy+SmyVHqIJCVXcPrvLz
+	 lFu43faj/rlq+ctSbWFeHWAvgQd/DlInEnRnz2smBntk86URvqo/rSH72fIGGoGjST
+	 E+lAhbq4IFKyw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 660D14C19A;
+	Sun, 22 Nov 2026 19:08:35 +0000 (UTC)
+From: Venkat Yadlapati via B4 Relay <devnull+venkat.yadlapati.yahoo.com@kernel.org>
+Subject: [PATCH v4 0/2] Add support for the BOE ILI97680A AMOLED panel of
+ the Motorola Signature
+Date: Mon, 23 Nov 2026 00:38:33 +0530
+Message-Id: <20261123-vantage-panel-v4-0-e9c2f15b318d@yahoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,68 +84,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQrCMBAF0KtI1kYm0zRYV95DXEza0Ua0KUkNl
+ tK7m+pGBF3+4b8/k4gcHEexW00icHLR+S4HvV6JuqXuzNI1OQsENEopIxN1A+VzTx1fZWUNlpo
+ ISKPIpg98co/X3uH4zvFuL1wPy8jSaF0cfBhfD5Naer+2k5IgC7BVaRtdoTL7kVrvN7W/iWU74
+ V+NWTOS1VujS8b6WxcfGuFbF1kD2AKM0gY1fOp5np/F3XYNOAEAAA==
+X-Change-ID: 20261116-vantage-panel-9b6254aa0a42
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Venkat Yadlapati <venkat.yadlapati@yahoo.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795374514; l=2628;
+ i=venkat.yadlapati@yahoo.com; s=20261023; h=from:subject:message-id;
+ bh=AiprhAqH/Wu9xU000WEmFRFBDqA3gjsFUkl/eRWDzHA=;
+ b=UrFOgMhIc75fCpgwhWq/wjbwgXYZPXM5NilNeDF9fPeRrHiTs1BtdTKWnyZb8gFBQi48njMn1
+ PFnZWLYDC+hDkDtlSJjhFRcwf7LAGVBWpciFEApAIWRRvV+Wmmos2yA
+X-Developer-Key: i=venkat.yadlapati@yahoo.com; a=ed25519;
+ pk=e8KStCtEMvUP1Se/riB/KVnDAQFEVR2Dw2PcuA8/eME=
+X-Endpoint-Received: by B4 Relay for venkat.yadlapati@yahoo.com/20261023
+ with auth_id=1303
+X-Original-From: Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+Reply-To: venkat.yadlapati@yahoo.com
 
-Read the mount matrix from the firmware and expose it, so that user
-space can account for how the sensor is oriented on the board.
+The Motorola Signature uses a 1264x2780 BOE AMOLED panel driven by an
+Ilitek ILI97680A. It is a MIPI DSI command mode panel with DSC 1.2
+compression on four lanes. This series adds the devicetree binding and a
+driver for it.
 
-Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
+Two things are specific to this panel. The DSC picture parameter set is
+written to a vendor register on command page 7 instead of being sent as a
+standard PPS packet, and the brightness range is 0 to 16180 over DCS.
+
+Tested on a Motorola Signature with the msm DRM driver: the panel lights
+up at its native resolution and Phosh renders on it.
+
+I used an LLM (Claude) to help write these patches and their commit
+messages. I reviewed all of them and tested the result on the device.
+
 ---
- drivers/iio/magnetometer/mmc5633.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+Changes in v4:
+- Binding: drop port from the required properties.
+- MAINTAINERS: add the driver file in the driver patch, where it is
+  created, instead of in the binding patch.
+- Add Krzysztof's Reviewed-by to the binding.
+- Link to v3: https://patch.msgid.link/20261120-vantage-panel-v3-0-00b306146240@yahoo.com
 
-diff --git a/drivers/iio/magnetometer/mmc5633.c b/drivers/iio/magnetometer/mmc5633.c
-index 79015c7984de..f9ecb3737cf6 100644
---- a/drivers/iio/magnetometer/mmc5633.c
-+++ b/drivers/iio/magnetometer/mmc5633.c
-@@ -83,6 +83,7 @@ struct mmc5633_data {
- 	struct regmap *regmap;
- 	struct i3c_device *i3cdev;
- 	struct mutex mutex; /* protect to finish one whole measurement */
-+	struct iio_mount_matrix orientation;
- };
- 
- static int mmc5633_samp_freq[][2] = {
-@@ -92,6 +93,20 @@ static int mmc5633_samp_freq[][2] = {
- 	{ 6, 600000 },
- };
- 
-+static const struct iio_mount_matrix *
-+mmc5633_get_mount_matrix(const struct iio_dev *indio_dev,
-+			 const struct iio_chan_spec *chan)
-+{
-+	struct mmc5633_data *data = iio_priv(indio_dev);
-+
-+	return &data->orientation;
-+}
-+
-+static const struct iio_chan_spec_ext_info mmc5633_ext_info[] = {
-+	IIO_MOUNT_MATRIX(IIO_SHARED_BY_DIR, mmc5633_get_mount_matrix),
-+	{ }
-+};
-+
- #define MMC5633_CHANNEL(_axis) { \
- 	.type = IIO_MAGN, \
- 	.modified = 1, \
-@@ -100,6 +115,7 @@ static int mmc5633_samp_freq[][2] = {
- 	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
- 	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SAMP_FREQ) | \
- 				    BIT(IIO_CHAN_INFO_SCALE), \
-+	.ext_info = mmc5633_ext_info, \
- }
- 
- static const struct iio_chan_spec mmc5633_channels[] = {
-@@ -480,6 +496,10 @@ static int mmc5633_common_probe(struct regmap *regmap, char *name,
- 
- 	fsleep(MMC5633_POWER_ON_US);
- 
-+	ret = iio_read_mount_matrix(dev, &data->orientation);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to read mount matrix\n");
-+
- 	indio_dev->info = &mmc5633_info;
- 	indio_dev->name = name;
- 	indio_dev->channels = mmc5633_channels;
--- 
-2.45.2
+Changes in v3:
+- Drop the Assisted-by trailers and the LLM notes from the commit
+  messages, the LLM use is stated in this cover letter.
+- Drop an unused include, fill the DSC configuration before adding the
+  panel and describe the PPS layout in the comment.
+- Link to v2: https://patch.msgid.link/20261116-vantage-panel-v2-0-e2ab48645e2c@yahoo.com
+
+Changes in v2:
+- Give the panel its own compatible, "motorola,vantage-boe-ili97680a",
+  with "ilitek,ili97680a" as fallback: the mode, DSC settings and
+  initialization sequence belong to this BOE panel, not to every
+  ILI97680A panel. BOE's part number is not known, so the name follows
+  the "<device>-<glass vendor>-<controller>" style of the Xiaomi and
+  Lenovo NT36523 panels.
+- Driver: match the panel compatible.
+- Link to v1: https://patch.msgid.link/20261116-vantage-panel-v1-0-30b95bd49216@yahoo.com
+
+---
+Venkat Yadlapati (2):
+      dt-bindings: display: panel: Add Ilitek ILI97680A
+      drm/panel: Add Ilitek ILI97680A DSC command mode panel driver
+
+ .../bindings/display/panel/ilitek,ili97680a.yaml   |  74 +++
+ MAINTAINERS                                        |   6 +
+ drivers/gpu/drm/panel/Kconfig                      |  16 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-ilitek-ili97680a.c     | 495 +++++++++++++++++++++
+ 5 files changed, 592 insertions(+)
+---
+base-commit: 39e407b553ec15d4a233b651531ad431ed7542be
+change-id: 20261116-vantage-panel-9b6254aa0a42
+
+Best regards,
+--  
+Venkat Yadlapati <venkat.yadlapati@yahoo.com>
+
 
