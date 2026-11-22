@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795375139;
-	b=clYZlVUsvoKYklbHcCprzolHabQsugl1G5Wr1RcCsjGdNz7wWdk8OfwyedEvs7vlsT3B
-	 d1+5GpdEj4tfocl99yMEnGaBVLT1C9nTalfpvfC4R931+SXSL23b9ConQg5cpyhu+QTVq
-	 w5fXppqJGLaZZ2BUV7uIlxkNFORQg/CHWWK/8rNHC2wrZ76oxapozleOYFDRmJGpP4xkm
-	 0Oul++m9G5BC6uqZhfKqKFdmxvFZRsrG21uuytXswlCgNUqZpQmPhO/ZybSKk08Z8RoWL
-	 PC7epV4UVV9g3G3hsQ0c6mDIEhuPNZcv7VAm0JOTUVkhAfQpKYlUkxCRK1jj/eSN21w==
+	t=1795375147;
+	b=Aa92L4al10sZgN5/g2tSBohj2Rc/6P4et4afmfGFOLsxf1QZE0t1CJMq3jjd7hVKYbNp
+	 vh1bwmR91EitPJqoDBapjMCFNcYDCll04viasinJJbq2oBYvuWrPlv/dAv7wzfm397bAN
+	 K1LdnZxMPNbgNBXrt7CTMyHZUeN0nLY22SK2zKlLy6E3ZUUqky82iyvTOh6e4c9EAuHmv
+	 9uyHdeF0Sttx//xmGniMpVcH9LI0kqMswWFeP5MpyGvUV2ZZtvJbp985Tof+oycWYW88F
+	 ED6J56+V2YA5CHeCwVmOj+9tajDNMPriV6AhL+mg3ZrPzoFM3/7wcODhMCxr3RcWBjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795375139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795375147;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JgVB/O5hBKCdOeqZ2JLGG3q/f4KIK1fx085LNchkx34=;
-	b=uFw3rsA7X0tPEe7LAsTwqEZyYOctQd2eosOeXJ45pjk+6pHGyrkrAyd4+46Yqc8u2oKi
-	 EzsnoYzTmmT3dWRQiQUhiLaZsPfQU7N7PTFiUQETayr2CNoCaul94PmcR0asr8wUWbeyy
-	 rddyWGu9bNwnqDEF5DGt4/f7FWdFBi5rW6isKX5oPLd5c28lAaqZNavpGFoOA68yUNCkd
-	 P9t/g2XTsO326nv3wLqdSfPKK0Ph24uZaBxop0ChQnProsYbBQwmOwMcgQULYB8DnKjqU
-	 DapMmJm6iwtayYa6/znVzGrd18D0jbvngIC0mqgSI8gE9uvFSymjdpstRhPYF7nrdWA==
+	bh=HsCFnP3ndBaofMImQLbTwSbFB01O6iMTbveJrzxvAyg=;
+	b=ZwzC+BXgnEFsq76HgX1KGqnx+q5ugVpfQSPPjZQ9Y865ZfHRRhotHn3VWmEOF9GeHiUV
+	 fDI4cjBfbzAxIqg34ne2YT1qNr5iCnLN9th0tsGbJoBy935Vxp6SxLU3JA8RTd//cRxEm
+	 mSAd4lB7D3ctlytuGCPRijPpMEgOkkVcPB3u6MqSdhe5DWF2nr9AnkUUiZheUidx/VPik
+	 SFhVL9GVSR51d5b4tSIXjRiO2dpB9AtArj+c9NnGzinlQYk+uVpW7UjCSF8CXTcAUmgot
+	 BfuVUFYwoZH2dGPGKpK+USek/rGaYXXKJEsJvLSVPX7vviYjLGVeiITD3MhSux9o+Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O3UjBH3C;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ANktN+JD;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA95606A31A
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:18:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DA95606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C81606A31E
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C81606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O3UjBH3C
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4bb72b44a97so20866955e9.0
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:18:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ANktN+JD
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4a7b8abe209so1962722f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:19:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795375137; x=1795979937; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795375145; x=1795979945; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JgVB/O5hBKCdOeqZ2JLGG3q/f4KIK1fx085LNchkx34=;
-        b=O3UjBH3CmNWhcmGEJhbSQHkXs5PNu0jtbxwsuPUdWbYk7HhTLqUQCZVRasMZgp1kjv
-         KSBaZEyIvEJ4mxlaMSVnEuZf+DLpxMU/XKVPPkZfy1Y35+CnkvifWZf8TqhkE4zGEJk9
-         R5ieUAlv4aqfeP+ncJ1fIhK0aCwtizM756ibsGNChZmUkb0i63l00NI64vNo0akhcQpn
-         i3CK4KrtHXExRUTQ2/xvOcxl6EDgLx5Z0wbUXODLYyx9OoPZMJ8oX4QI+gB9TumKtHpj
-         XqmmkOxo8RVqcXnVO+JR/1tjk7vjPWNboEesTNetWxR7w5fjJwVkdrrBiSWUV+D14hc2
-         h11A==
+        bh=HsCFnP3ndBaofMImQLbTwSbFB01O6iMTbveJrzxvAyg=;
+        b=ANktN+JDfZJG7QsoqdiLxuAKT49fs7fTbIzA99ZCabxHp7x2LLHtqDiLp0KWlhEXRt
+         jzWunnHP06VbZRVrw7r15yxpsUN+ohIoW+2jyaSrvrDn2L054VeY9M/jG4KW6lnTgquo
+         s+MzmztFVpXICqtnpaJz04SCjvf+sHB+iZjBiVhrVOHakLuDIhEyqgyfdahe6CHgkHD5
+         g6db38/jacnBnh5nRpPAlHP2Lc7/x5DfHxJkSHFPpjuIzrRAHLQ9wxUHhfqE4OzQlG1h
+         8q08wXWruuDYqeHuCEhVq9s7tZUZ7jbEf3uZhNWI75b/M9+W0hlbglhfzIpctJj0cQ6x
+         1Bjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795375137; x=1795979937;
+        d=1e100.net; s=20260707; t=1795375145; x=1795979945;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JgVB/O5hBKCdOeqZ2JLGG3q/f4KIK1fx085LNchkx34=;
-        b=OG9jJ1otL7582nIhnPFBVYsNB/pSI6vy7azEYP3HtFY/zL/4tSO8kuQK8u2MHvHopd
-         3jVhSNj6hyMUR+Zmpiw8k+GFQXpTNYBuM6kqfR7t8yFJ0IjJye2PWNF9C4OJLhKaaP90
-         L2B9SlrnM0fB5Kga1Xiq8Pa1lfSk/U9vynHsheVQAEO6v2GNwelvgnS5eBMuoX327d0R
-         TIw3jGzqf9bj8o9+tATSc8n6c71X/abKDM1qbLL8jvvhFl3S71QwqnBrYeHCtmWXl21U
-         HZBFen7IezcVFGUbSw7aIucXfgsctDGWMUoIlnCnUXJMJXoT24wk3snhMkg7LU1S0y4g
-         jM1w==
-X-Forwarded-Encrypted: i=1; AL+hErFAKrJosISTBfA6m/b06PsJYyQiMkF4igufGDpPunRrLyDBDT3FL6qgvm0JGFSfxvGsYmSXnjumaJnA@vger.kernel.org
-X-Gm-Message-State: APuU4Z9T/OXj/uL8AewswbjO5i1G4fE+Q+mNW8qdkkuJ83r4D8HqsTyI
-	yM+gdLo2lu1UtmGEKOGSJwpHcRbgPCsBNHiswk3U3OToFl8ztQWNhhn9
-X-Gm-Gg: AZFdTZcI2HHG+eu5ujcjaAcx3gHaZqtOa96aeNBwB9tsL6BVSwIEp1XjCKWNxc9O5JD
-	R0WHqv+zXIgltUKd18DpgfBUDdpNCIHH5IXaiEiBdvGOD+B3y+c6CVmxJ0pT2AV9+WRLrcY7yc2
-	4anP0z9umMMRZ5DadUmFkCL6TziM7W34OQeSTsp1Zca5JwAxjPZxc7fG9zE5OMS1/jgWRqTUiAA
-	ujcWWZQ4ScATLdsJhAogthS5+u6cAnTK6RHIHQxmk9m2psqHiG0gbZckbO+3D6k9J33WNNrULZB
-	wBR/c4VOfClckv2pe3cpEWPB0kShiEtgnX1Xu4RBgDKx50L3nidE0vhLlXAvu3guoKa2Z8q9NSb
-	L7obT8DrPo7UKUSTMxtaPlLMwkr4WCNktBFeB/c/U+nubxZQ5U4oGNEYEQZc5RmUkcI5HpTj9kv
-	/rOqKtqyEtWJhf0rQq0GmqfnLUEE8lLv9FreHQq/UhvYk8JNqs+icUwetQO4GYQe9vo4myoETZs
-	4CI9bkC87fNpyJe+1ieiOM0Brx4DPUANKQw5vnDbd0XLhJz/MFuxuYklIB0pCKGwWYX870VQSIN
-	JSKEt0S2XbC+VV1IKmwNKgFlFliuzceyGhIB+H5S1PN4iZ4A4NUGTpOeUErDAS6xfw==
-X-Received: by 2002:a05:600c:1549:b0:4bb:6f45:2a77 with SMTP id 5b1f17b1804b1-4bb8880abf7mr193493515e9.11.1795375137482;
-        Sun, 22 Nov 2026 11:18:57 -0800 (PST)
+        bh=HsCFnP3ndBaofMImQLbTwSbFB01O6iMTbveJrzxvAyg=;
+        b=Dvq7M2dZCzot+oKPgdLFoRwUt241BAVblXC33sVTKwMM4I5ByZWZ+QfpD7PAleDb2f
+         0UaC5sFzGRPUKD4kNxKx9No8DNh1FddGIvJ9alnJ+xOruBu8oLKhje0JQi/q8gvaBMj6
+         TqP+Q5Exg63ygf2qPiH38xWSz0bMDdrQOnid6I+B8J7+dkAjgbX4fMtuODw3dqSM0xT8
+         pZCrb7rg30mdu9bn9fuaOf1oiyVA/EGy/AuGwptCI6syg9svk6sykj4BKIFsaQZltdno
+         mhf5lqvzhk2c1DY+I6qLyqt4prb9ZMqDvr/CrDRgemc5MBM2mOrrgGnigS3C6ABcfXT/
+         /nMQ==
+X-Forwarded-Encrypted: i=1; AL+hErHehDj6F74gY/qcslqohAITtFJRhE036PSXbVdyon2xW0SqTBq/Z+rRjF2QABv0cdTaljGtopHeg6PE@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NJ9MdiGor1ZQdki2CmWEme/Ediyv4ZryeGgnFePJDhVUpOUWJ
+	SklR5NSxKF+3fI26rXRP9dPjfCVaAP1vv5z0W9bgURXg0VDn9Xn6bV0J
+X-Gm-Gg: AZFdTZeaFE9i0dD8LZrhvjJwqUGB+iXhMRii7xwwMKYi+fs8GZhxhSe/Zv3v8By4dcm
+	0ZFi/ww6u4G8MF302M0xRBo7bBmI+wn2+fCCerpNuCNineURAO8KJSXF+DXAJKdCo3egiRB8E0d
+	DCcUBZN4XM5FQQqqF6HCWVUydrwu4yQSQk8to4cWtzDY5qPmqTT11lMcQYg6WDCzoXOt8jnOR15
+	WUO7zL3d4fTnWvLy3yCPns17rklWov9e0yEAWduJt5m//jk0FBBaPUvy0FPy81+VOE5NBSdtGZ+
+	Sg9XlKkoH2cjaR8F6ZbTgRsxj66cjKOPdUKqzmq6E0auJeeXbBxOYfEgwVMmAYFixzviDhjH5+/
+	tQNpTinxUwoB4knSH6UNiwcz2jBCWQilUbtrzCBzHTciqovLaLtl2f8fkBNlot58CECSDl2B52R
+	ZhwpnptlFpIjbhg0ZxMH1nuMdGS+3W+gr8wj5zztcD6zGC82Bd+7bonYLvbynvst/YiD07PnsGQ
+	ffbyS5cryVTLtJ0KOYTf56l6tvI4UwDpv4OMpt/t8ASTSrG5WInrDuhAGq8at5GAyJCWV+4sTzL
+	2Mh7ZR84hCm6m9h+mzvtb5TT5TNSFQrRXN5ISieY/J3L
+X-Received: by 2002:adf:e00f:0:10b0:494:bf39:21a5 with SMTP id ffacd0b85a97d-4abb0e4716cmr13169170f8f.10.1795375144988;
+        Sun, 22 Nov 2026 11:19:04 -0800 (PST)
 Received: from cachyos-x8664.aetlocal ([2001:bb6:e78e:9100:cdb3:c7ee:74a4:5189])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb90660cb4sm199176045e9.2.2026.11.22.11.18.56
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6baa3c4dsm14926556f8f.46.2026.11.22.11.19.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 11:18:57 -0800 (PST)
+        Sun, 22 Nov 2026 11:19:03 -0800 (PST)
 From: Mervyn Pretorius <mervynpretorius.oss@gmail.com>
 To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
 Cc: Rob Herring <robh@kernel.org>,
@@ -99,12 +99,12 @@ Cc: Rob Herring <robh@kernel.org>,
 	Samuel Holland <samuel.holland@sifive.com>,
 	Darshan Prajapati <darshan.prajapati@einfochips.com>,
 	Pritesh Patel <pritesh.patel@einfochips.com>
-Subject: Re: [PATCH v5 1/7] riscv: dts: eswin: add reset generator for EIC7700 SoC
-Date: Sun, 22 Nov 2026 19:18:55 +0000
-Message-ID: <20261122191855.2183827-1-mervynpretorius.oss@gmail.com>
+Subject: Re: [PATCH v5 2/7] riscv: dts: eswin: add clock generator for EIC7700 SoC
+Date: Sun, 22 Nov 2026 19:19:02 +0000
+Message-ID: <20261122191902.2183925-1-mervynpretorius.oss@gmail.com>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261015125454.1381941-2-pinkesh.vaghela@einfochips.com>
-References: <20261015125454.1381941-1-pinkesh.vaghela@einfochips.com> <20261015125454.1381941-2-pinkesh.vaghela@einfochips.com>
+In-Reply-To: <20261015125454.1381941-3-pinkesh.vaghela@einfochips.com>
+References: <20261015125454.1381941-1-pinkesh.vaghela@einfochips.com> <20261015125454.1381941-3-pinkesh.vaghela@einfochips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,7 +117,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Tested on a DeepComputing FML13V03 (EIC7702X), on top of v7.4-rc3;
-details in my reply to the cover letter.
+Tested on a DeepComputing FML13V03 (EIC7702X), on top of v7.4-rc3,
+with clk_ignore_unused (without it the board hangs; that is in the
+clock driver, not this patch). Details in my reply to the cover letter.
 
 Tested-by: Mervyn Pretorius <mervynpretorius.oss@gmail.com>
