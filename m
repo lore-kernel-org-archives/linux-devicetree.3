@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795378470;
-	b=rPNQ9OjI/QnNQIEHJpzJz0H8sNP34iDEDdMcc6VGHLAfLwTqtbxCYolBpgXzJCkI0z7r
-	 ljx1uFSdy+BwJb2eTaDBVRWp1OwXGy3cspahH7ZST0Wp2ainQ5E7zH6reCalQynWj7ikx
-	 SEeuoXX7J6cdE4eDvRVUYI/42F815tQ2NJAC/0tahw/SuONwVdsMjmLIW/FyRBMewnIf3
-	 JSWxNsAVHXYTUaiWzkHRfiO8FAroQCRS13u5N441xXNwt6MVWgNm/AjoedKNLpH4vCx/r
-	 Rhk7lqOLf2q72IBprk4jPLcdGbGEyaL5/09KBUhRMKqKtdk06K/QNxIcOAEZ0G8i/Ew==
+	t=1795378472;
+	b=vOAj008p25z4kA8dItrI1x5CAPc+L58NHFLz3WkVvaLn8Z+71Hpdzr1Ws8BBHZb6TEII
+	 K9YDJiwi9YX+ViIe8Wa7gwJqwNvSbN/DJzDhNbt3E31g6napNIqxe3J0OxuJhOPvtHGSl
+	 UNgzTM3jzdhHw/W0TN2DZnrtnGtcPfnu6cR5jPqmqd0xSf46/Tr/0hw6AUzMH/KhJYO17
+	 cqa6UY+yXznOJEnWVAQzg4+q/GCE6efyU8/sGTirW4ZBV53IC/S9Bv4d96q9rty/j1Jyf
+	 JM39Ep1ZlkFr3JnsaLJyEDJc3PPBiCDQBhsHK8SWXMm9e7ZPNCoZzQcroMYS+re75Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795378470;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795378472;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7xLuQMY9AhHS5phvMKiL1Kg7irbD6BPlpn70hXvxYR4=;
-	b=H2L5UuPClGd7Lr4W8/8dAESUFAWJwwRe9LcybvDR81teNhPANShqsNfN4HIiTvipfrf1
-	 9l9nIeFiDb9mLDM3eUyDyT6eB5Nm55xb9wGYra5r6Ij0y1NUc9DzLX45xJV1G8TaGYhLl
-	 UFKJAmHH8MrcA17RbRghCRqOdgKa9ZjqDAk1CaZSeRoINb0O4BBwcf8/X7ggrgts57vIl
-	 gVWOSKAg/l4nzKUInPL0zfjs9JR6oCiBzIGmBORsvUdwN1XDxDFW2ccLuPnYtW1wWLTPr
-	 L4U3izzIcit+x+UG7SI446OKQGNLLnFWDnluhdjqavjjetibP76qcdLyN9nkIHDJVcA==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=M7Ox/HWcDEqTDXqAyvemUYyn9XHfrtj/jPusHQ98loU=;
+	b=0QA6XPBY+xCRvRVOwgqPa9MHPgyTUOw3X3AL+WhgeEw91dypZB8zblRAWnLzDoQj9PAe
+	 iqdmZmoZuwQ1FPDD3GKRvzZwMK2f3snLEBxuc+qJr9B/rhQRjrZSpXxi0I5nJlKgg1shL
+	 G2VBnrSGRDj4f7v522Sa/m9vSxPNGu6zA5Ft5D+cEymjV+yMhQHDOfBv+kuQnLACCoJt5
+	 FypiN+Mgpa1LJRB8dNds66CzJDwvQxK36EgG2yQBNyeDtU5tLxRH/vjPj46ltCLfMNOiA
+	 sWzyAr3EJBBUU8K6MhPNuF3k4UDdaW4A1rtTMrevLLVOmauwQrh1tP1SY4wAykK9iiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aUgCUsXH;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pDgThwnl;
+	arc=none smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A55C606A31A
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:14:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A55C606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A167606A331
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:14:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A167606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aUgCUsXH
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6ba1e22ff4dso2803569a12.2
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:14:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pDgThwnl
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b876afbb86so3207339a12.3
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:14:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795378469; x=1795983269; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7xLuQMY9AhHS5phvMKiL1Kg7irbD6BPlpn70hXvxYR4=;
-        b=aUgCUsXHYw3KaELR4kFag3t5wB9TMdvlrPOCMERQdBo6tE9XrKcTfz2uG8UIsGa2BM
-         njA6POWPRJA3ichnU0xFmq9hKVOYjVx3NCMAHHlQEODE2reX+M5wYjKoxgrlTnM6WMk0
-         gy0xblA1L5zSG7+RBF+sV2Bq0S9jS56bcVppIwTO7xDiFFFzEq1Tc3zgyaC2XwMyazSP
-         FZumSKEduASM4h1ETwbJe72L2CiBxGfUkZyHsoKbxiMMl/GE+XCQl2yHyY+NNLRtL48n
-         28ErKSMtnVdEQ3p4FOAXYrI2bVD30h6Dfl6n1fz6Ua7XKaPN46zsuIONXiApnGof/Afc
-         MhIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795378469; x=1795983269;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1795378471; x=1795983271; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7xLuQMY9AhHS5phvMKiL1Kg7irbD6BPlpn70hXvxYR4=;
-        b=zSubAtGb24v7QSV9P8lLfzQ1jG7S/CoZ+iRMDpfS16c1kY6XxWf65yhxJwoVpVH+Vh
-         cQHZQd9vjKWpPKU6HALlgpqZSumUyPSiEVEc1Vw8sDDO70LcqWKU0pKMNZjc9AzYNKgQ
-         nDhdzw0n2uH8M4T4GWPDJWUFFWhq4Z/b3Tr5UjmOJDsX0PXI5CrUt5odmoPMmxf0EQVG
-         v6k17DALgqyNMRzKrTF1Cdw1wqTT5FLGoGLOQQoY6hNndgULtqOd41udKecyMT+hbNt8
-         udHtFcIiaRqQ7UCPgSx/flvyGhWBkDOsRGfO6NdmloDANMd2/qPJ3EZY37/fbAh/6FzD
-         W2Fg==
-X-Gm-Message-State: APuU4Z/67RD1+wFXNokeL87PzaUg2djbVxSHnicaKmlSuaF5HOkdCdzv
-	OwngN796IUeYqDy2J8CDePm4ushAHKkuLExGYvOKWsOp9+dptokRzuJj
-X-Gm-Gg: AZFdTZd+njxa5Iz/QlORO/wwLnBiTlRlcsMhyW6n9YeOqrxnN1O6c0mL+FaNlCc7Low
-	mLd0Gmbw6KJNb9XOqp0Xdnp5MXzkRvUzBVLqD1vptMPi0P3zgEOd69HM3c0FbX5/Im7aOI1GfdL
-	xHZ8vOV8jSQ8WinwQt6Cb9m0q0YdYfn2S0Ia9b685AjYWmCsZn64MM6NNrNKeULhSZwGj58Sj+3
-	fAedBfnat8DQuenk1GQcMZAXDEk2ua23EFp51tt+6MLojj3u70Pj9krkTCn7Q/z4gOBLId2LDKA
-	OuWObW4HmK0IMxukyCWq9yIOnr/5JNvQKWjO19GlobUju4E9Z/qS+bZbahnX6brCHFi9bh1VSzE
-	Zt2GDTmsgxh6GA4kFfGgPGnbQaKrDIvFGPAMe+i+ewtT7AxspF6pi9Y1ktcSN5MaMULqswDItCi
-	JUvYumYSLWjTFawHR+FIyaY5rJOwFG3d5oZhqVYeKj9Tg4Q+TLGBHG5eOQDAgmEccG4WGyOxTzi
-	vOiPMGB6dZt+DN7GDs45gn5BtSP2xa3n8E32M0+Bg9TwV2NF9F0F1xpMORwkfSmq8shqe5zTgFs
-	fxErUfBHQH63kE4RyqOw/CgC+/f9/7KKONZasJqAaBh7DO5IuR+todZHLI5f4zS1haBLRfIocOf
-	saWNl9KybEw==
-X-Received: by 2002:a05:6402:501c:b0:6b8:afbd:64e6 with SMTP id 4fb4d7f45d1cf-6ba37edaf1cmr6652717a12.42.1795378468547;
-        Sun, 22 Nov 2026 12:14:28 -0800 (PST)
+        bh=M7Ox/HWcDEqTDXqAyvemUYyn9XHfrtj/jPusHQ98loU=;
+        b=pDgThwnlWfNp0X+IZJlpY9eY/oosSNsnD3BDUH3Ybk5y1roHWZirM1XA5N710J07zR
+         LQFfSexCEO5f8nPezjvJ4kGHNB69Ge3PvLeb4Hh+jrWY92+Ir7rWwLGbBTkp+rfdKiwi
+         UfiorIfpm3dEMY4t35Dj/Z+EaJdkQec5WxwBQXYwu6y0X5MPwNwBua2sCCiKrT32ftWt
+         y7mYElmVxyP5CNb2Vus1Ydr6YBD1HtTJOfuE7QbMx0qwaLCRA7ic+MTp07lDERQLdkcs
+         SXHJx3lcmJqgr+DylvvcqV3pDY553xlZ7v2QLHFsVuSRWAvhHApKPEI+VV0ClJpbCwTc
+         Q1Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795378471; x=1795983271;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M7Ox/HWcDEqTDXqAyvemUYyn9XHfrtj/jPusHQ98loU=;
+        b=cwS6RoHnjXtk327LikVKj6+OYfHN2q607H+vXOcgBxhYsfbFtqYHo2/zY4Yd0xOQRX
+         hWAFFYwOi83AnSdfvs9zz1rlP9brtoDsU0Uzb5oX3Wcoc8AXhOXnig8p1g4ywg73W0lI
+         vbs6KWsSNB162z6YbF54Q94vGypGc1bKq7DztUIkw8zrAI8F81bSPiKiGX4rOKnAZukI
+         vN+T/+Ko2qvmGaqVXK5be+6jEkG0ifCz6ThZXxhTlaBTFaiaUCxVXpZGeqk/gTHrE+hc
+         8WrbnC8geU2kqFEnWPpDi2msj14GmAIHFpi1kQhyIMYThz2CPI4JaJFBLmzeDfwRSWow
+         B2pw==
+X-Gm-Message-State: APuU4Z+rLibFNDAZCO+UJfC6wvXJzs2Mf9WYrTfsGqcr189aQAhYAdWp
+	NdAc9QFk7cHOgl4E3awUFejs+iZF3EK5iMxnwmWMbMYl8Iu8xz5iUJs1
+X-Gm-Gg: AZFdTZdoXLXfRPIHZvug9O7OIHzJfvU/5uKDaFGJfDbvY5zMY0JBfmV5oLkz/kVUtGC
+	XvCOq7TdkXwOGyBpdXVDixf1zrWsb8JPiUjoJZXYroudBqTnhnxVcY7L1Z4Oi3C+OV5/D7RlYVZ
+	OBWRPkQnPkS9ewxdLLFTOJcxtzsUqCsPdYenbcIRgkksMEdtCP07I/a9OhNMnIBVWr0jIKkhzBF
+	UlpoNLfaKTf4jaFSlA/K7MEy9b6Yd+E3uDiqKQjO+zNi2E7GwkU/EHfpayclnH39lOgltc1EEdW
+	O9dqHyHIhtXLvPUOy0vGYoio1rA//1rM6V4DPg/Icv2wioJ/f/cTaJQkxj9VOceSVTStKWFe5Kg
+	o2lY7cmVxAHWNRdKttW5jr9pSduIULTgpUEKfkJB9Cd77u7AyQCweGzC9qztWxFoXAePAEaXYTX
+	NsscvozIb5KeLKK1elh93CbsRRLcJY4Oo1AYZS/1091xusIuEGVeU94g3bZRg52UBWGPL91xSLI
+	82LtzzrEGaUuyey8korYIeipCYDZlWFLqhxzuvf/x2QUO/bx08jKFFuKmvNs8QgH4qB0LVhKXzQ
+	7VZ0foRdSF+5Be5k9tUCL8Sqrkq+L0sUQLHNPCjCk4iCdEGJiZBVFT70It9qQv4pGRIWMfLp7c8
+	WsgytOuQ94Q==
+X-Received: by 2002:a05:6402:400d:b0:6b8:5b54:bb9d with SMTP id 4fb4d7f45d1cf-6ba37d62876mr6316804a12.10.1795378470876;
+        Sun, 22 Nov 2026 12:14:30 -0800 (PST)
 Received: from xeon ([188.163.112.54])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.14.26
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370fa8basm4424074a12.20.2026.11.22.12.14.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 12:14:26 -0800 (PST)
+        Sun, 22 Nov 2026 12:14:29 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -89,10 +90,12 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 00/18] [WIP] ARM: tegra: Update Tegra Note 7 configuration
-Date: Sun, 22 Nov 2026 22:13:49 +0200
-Message-ID: <20261122201407.23742-1-clamor95@gmail.com>
+Subject: [PATCH v1 01/18] dt-bindings: ARM: tegra: Document Tegra Note 7 variants
+Date: Sun, 22 Nov 2026 22:13:50 +0200
+Message-ID: <20261122201407.23742-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261122201407.23742-1-clamor95@gmail.com>
+References: <20261122201407.23742-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,46 +108,34 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This patch set is more a placeholder and is not meant to be merged just yet,
-I am still working on it and comments are welcome. I am sending it to be sure
-that my work is not stolen or overwritten by some AI slopper with a trial
-subsciption to a fancy new LLM. Thank you for understanding.
+The Tegra Note 7 has at least three known versions, two of which are
+production (E1569 and P1640, along with P1988 — all classified as
+"tegratab" by downstream sources), plus an LTE-supporting version
+("tegranote7c", which has a separate board and tree downstream).
 
-Svyatoslav Ryhel (18):
-  dt-bindings: ARM: tegra: Document Tegra Note 7 variants
-  ARM: tegra: Diverge Tegra Note 7 device tree to support its common
-    versions
-  ARM: tegra: tegratab: Upgrade powerlines configuration
-  ARM: tegra: tegratab: Add pinmux node
-  ARM: tegra: tegratab: Bind VDE device
-  ARM: tegra: tegratab: Configure USB and power supply
-  ARM: tegra: tegratab: Configure MMC devices
-  ARM: tegra: tegratab: Configure wireless devices
-  ARM: tegra: tegratab: Add thermal configuration
-  ARM: tegra: tegratab: Configure HDMI
-  ARM: tegra: tegratab: Add audio codec and sound card configuration
-  ARM: tegra: tegratab: Add common sensor nodes
-  ARM: tegra: tegratab: Add MC and EMC timing nodes
-  ARM: tegra: tegratab: Add CPU DFLL clock node
-  ARM: tegra: tegratab: Update GPIO keys and switches
-  ARM: tegra: tegratab: Update aliases, chosen and memory nodes
-  ARM: tegra: tegratab: Add video input configuration
-  ARM: tegra: tegratab: Add panel rotation
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/tegra.yaml | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
- .../devicetree/bindings/arm/tegra.yaml        |    7 +-
- arch/arm/boot/dts/nvidia/Makefile             |    6 +-
- .../nvidia/tegra114-nvidia-tegranote7c.dts    |   14 +
- .../tegra114-nvidia-tegratab-common.dtsi      | 2759 +++++++++++++++++
- .../nvidia/tegra114-nvidia-tegratab-p1640.dts |  603 ++++
- .../nvidia/tegra114-nvidia-tegratab-p1988.dts | 1405 +++++++++
- arch/arm/boot/dts/nvidia/tegra114-tn7.dts     |  341 --
- 7 files changed, 4791 insertions(+), 344 deletions(-)
- create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegranote7c.dts
- create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-common.dtsi
- create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1640.dts
- create mode 100644 arch/arm/boot/dts/nvidia/tegra114-nvidia-tegratab-p1988.dts
- delete mode 100644 arch/arm/boot/dts/nvidia/tegra114-tn7.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/tegra.yaml b/Documentation/devicetree/bindings/arm/tegra.yaml
+index e7545c8c2911a..dd123b0ab8ed7 100644
+--- a/Documentation/devicetree/bindings/arm/tegra.yaml
++++ b/Documentation/devicetree/bindings/arm/tegra.yaml
+@@ -120,7 +120,12 @@ properties:
+               - asus,tf701t
+               - nvidia,dalmore
+               - nvidia,roth
+-              - nvidia,tn7
++          - const: nvidia,tegra114
++      - description: Nvidia Tegratab based Device family
++        items:
++          - enum:
++              - nvidia,tegratab
++              - nvidia,tegranote7c
+           - const: nvidia,tegra114
+       - items:
+           - enum:
 -- 
 2.53.0
 
