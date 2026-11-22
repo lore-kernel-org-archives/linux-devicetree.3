@@ -1,56 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795351491;
-	b=U3IWgq2B3BdM7ZRr0gQrvog1p2aHPg9Yu/D6LZHLd38CmcRin7CklrYwQyGPi/S9jc0I
-	 OUyhma+OG5c0bALsDD6scJ8P6KuJqvkdRLV0EqtNGTU6glumemwJb8DUrs4Tx7YyKJQll
-	 ZXxuSa6f3KaAcCRUcQ5/LLNrJUS5oy28o2qgsVp+tpfRvYpUlPlf44ctjz9WJ8MH2dEMU
-	 igKjX6cAA1VxssFNn5tGjFCJODQOoLJP3UaLzQ4uSyKI//CT7b/GPPFID7qnj5c1oD2+R
-	 JIt2fT0HRuCDKTKoPRmEGIVlghSQKJEZrjKGcau7T5FmTEE5zb0ezDZIk/3y+wm/8qw==
+	t=1795352668;
+	b=HcslXFGBZ1MBjvghYSmWZ3azcSiHs6HFrkGqfMsK37fC1wp/4IFoRPvTA1Ped6OYnOQS
+	 XGRsjo/DiSHGnPqoPNH7GqyOJ+FWlvuUnEzruMfozAc61CBrHHQohLuK0YqtcrfOYoBzs
+	 5t7uRIIMWTBmcHjR+N4rFwqpM5trEBIx3ZlDJcDHJGWddj1pOE6Fw8T2NTMbaApAG77zw
+	 lxi7++TVXicUJ2y2MguT/3ZbV54KR6VvTL1/jKnY6Nuc+cppBoeamMLgxM0Xy0eqHVqz3
+	 OVK+Z8ntEw8m3dzSs/cUvoadt3nlkCRzzEXyXi6mUS+dP6DPCkenB1l6aoB2FgaLrUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795351491;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=M50sh4WSc/gULxm3e6G9o/daS1/iwU28A/reqPrB0QM=;
-	b=XcwFQd0GRIcCe23Y8n1Cz3vaS0PaS/Fy1ZlHvVEsHBZTYv71Kj6JFCd757ir9iTYJrKR
-	 xabWJ2HiHO20KqyrdQCQNR72Wo5fcuGR9vFPL32qKnwDORc+LRq6WTeZ4XTeMVdU3uetz
-	 SXoZV6VyObLE4NaJWQKWGv4QToFK2/DKkXnu/C5PqAF3P/IfxeGpb5lOzwOhnrWBHreQ3
-	 dW67RfbJYAVG9Q+WNBK2J8x/ZAxdLpvscFV14qqDydkkiAs3dYyzD0/TV0WmKz+LwuyTq
-	 uH6m7zN7PoH+aUdcRHzxGy3+WllMCRS1AIndUzZkPM7ut0sjLjOtdmhjinvJs9d4cKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795352668;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:From:To:References:Content-Language:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=2Ghc0hBz1jHUecTvaKjNOcyBm3ZUFk09LMc3nG3eDS4=;
+	b=0hrHDgjFk2UjoQmsZXkeA/hfdStYurdZPLrtylW0xi7XKdTiNRtPe8yIuuoYjGh48MVc
+	 Gli4Af4YgHtZCYbNssBBT2P9zoFFKOEn0uTReWMhX++7hdf3zkUw9ZIrwBm5/fuSGsX+q
+	 YpfS2Ed8GAz0YxJR2TwZKjBsxX2PAzKznJEDgC+zg2A33f8v2hJN+Yf3vG4aec+Zj1lmu
+	 7SP0K2K3kNKRlgrFnvh2xX6tEY+b+MQkIBZ7QHfPUM5rYOcnnUqAND4Ml6GXcObaF0ncU
+	 XdCcCCGG5rLMYwpD3A7K6HKw3bE/GcE539JnJgIS7ZQQTGlrNrLhiG9rYvCnX3EQ1Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xsi5xdIe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rjZfJ0fI;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEA7606A320
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 12:44:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFD7606A320
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 13:04:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CFD7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xsi5xdIe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726651F000CF;
-	Sun, 22 Nov 2026 12:44:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795351490;
-	bh=M50sh4WSc/gULxm3e6G9o/daS1/iwU28A/reqPrB0QM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xsi5xdIeuVF5i8+VH2GaN8hZ1pNWZXFmrmbABpdT3IjZDroZRxncPDlVSyVHAvsEe
-	 WUYub+oymc0avfg6qq69lF7IDb40IiB0HEmEb69lnLKIPOdQ7BAr3+gd8j00ZdojCn
-	 kINoPY1d4D2cI46kKiMBO14qr2Ghl759P3t6Ws8YVsPudNNEuNPh9Z3qZN1OlfUPF/
-	 PJAPJgRyHEnGcerlE5nWxJR9sNjt+puZbK4kXv/R24b8+TeWABGuXwtb25uLSitqlz
-	 wiZwk6jWqKRtct9qPj0cVM6P0sB03p4yLhPzGQXGMUFIq/dQ1D4YRSYOPKRC6wrJhB
-	 wpPqcidPXrdlQ==
-Message-ID: <sashiko-outbox-227933@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] phy: apple: atc: Add T8122 DisplayPort support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261122-t8122-phy-v2-4-8d5c8fdf31ba@chaosmail.tech>
-References: <20261122-t8122-phy-v2-0-8d5c8fdf31ba@chaosmail.tech>
- <20261122-t8122-phy-v2-4-8d5c8fdf31ba@chaosmail.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 12:44:49 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rjZfJ0fI
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-491971ac844so2176683f8f.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 05:04:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795352667; x=1795957467; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:to:from:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2Ghc0hBz1jHUecTvaKjNOcyBm3ZUFk09LMc3nG3eDS4=;
+        b=rjZfJ0fIbNALq1KxFI5OjYBt8KqBAVJiGtv/oPrlUQR2ddh+kS8cxMOxeHi1UwkyO5
+         yjWEj/OpOl57eXI2tkM1JAOGuH+Cwsp62l6vqSrgfgOabLPxazQmiwgYTcbjuDO4LdpL
+         9mdAGYQcXFYNQwILPQm3/LuI7/ghJYUTV16bRT82htG/SjB4cgvRvWQlIS0X0lo7E598
+         drd2iGH0y5kj7VIzyid4lqzyxO/D6fb54TnGRVjlaEwmlw5K2eqavC1LDZjOW98mvn2Y
+         lcYXuMf+b2nF38JWFvYWTLhYGhCMrDEPhynlRip7urUVN4zy7Wn3A4LHT4tIpumhOdqx
+         NXnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795352667; x=1795957467;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:to:from:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2Ghc0hBz1jHUecTvaKjNOcyBm3ZUFk09LMc3nG3eDS4=;
+        b=vdjgNql3MKJCazS9SKIw0axooh/3BFXdOzUhHhO/h4mTstLzcE0BtSfF95pU2tvyb3
+         /A6fVyY9h4zYtPEsEU1w2U1A7jW4xLCOPGmjF0SmWsKUCiewIWfc60VBOJDSplKzCiab
+         ydwKz7MvBQHFz2EfmTZk58TxdAdIpS9rRw0q3nxFJm2IsC9Qg0VeMkNImtuaVFjj9JAh
+         sIF5r57Dg1jKnozaQ5gBeG1EFctyO7b5gzpkhOjawieeaUnTEHiBGLp4zb2AopVavWS8
+         3UzcCJBhUcLwkpwpCdUFnZiy21AzpTotrUoga6vbuU4B+uGKjRJd+bZ8Gs+g/GKHWZgL
+         6Xlw==
+X-Gm-Message-State: APuU4Z+3DBI0hIyRHmlAp1GgMNonYmbqTBn0SC2nlGBUm+scvOL/T0pY
+	Qfd77wSEGETjY2hRYIhyKgwSbl2kK1IFzRvO5kiVE+TariP+R9gBG8xij2yUwbaw
+X-Gm-Gg: AZFdTZcLQcGg7HtcubqAkIlc1VTJaB9DFNawNE+DLbiDUMXXZbLUste78kGStX7fMu7
+	sWrCfychXupuZUBXkZ+SxmLS/z4kE6juBOR6m4FRCwSuKjyo2wob7L9hjIQcckr245+L6NvaWPH
+	gleQVB8KXQE7GwlVNcu2bXS/cTMBh4Vr3xA6Rh8F267U8bvvRIEWJHS/SJ/hS7+sFd/re86HaTY
+	hljM+CFAWf/XjDkqgktGxHIlaB+jnjSdQxvc4SJHZh5cfy2hNxzzoILJgKNyhaCHycD39PPuXfY
+	W6yRnngATyOLuYzS/UkIU4GrBoQGuCoXxzOzyF8WMWUfuNbcyOAgs09JFyguez+JmAn9q7QsH0U
+	IpjAmq1D5Tbv04NNEzvsh3zxTIxSiQOaU4MRZUVyzRPXFjDaJp0wUA1v42SAoap5SjCRJY4towT
+	AwC0Y2dAZ154HayntlFjg3ig/TOXRuWyu/Srb2YOBwSlNgilpWCJKXiPUFeau8f9PRI+hnhFKre
+	nBuoeZq4eJ2pXiCyjWJIVbZxGq5ybSyZI9LaWKvkm+wQnBZfbOLvoZYtNGtvMVq54HvjEtN5BZa
+	mMoZck4St2C8nHdBOgvFOCBsKTdM90I=
+X-Received: by 2002:a05:6000:4381:b0:4a6:ed6f:7a6d with SMTP id ffacd0b85a97d-4abb1d93c3emr16256779f8f.28.1795352666614;
+        Sun, 22 Nov 2026 05:04:26 -0800 (PST)
+Received: from [192.168.1.224] ([88.80.252.176])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67fe75sm18549455f8f.24.2026.11.22.05.04.25
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 22 Nov 2026 05:04:26 -0800 (PST)
+Message-ID: <873c2658-dcd3-4a64-9306-01b3a501270d@gmail.com>
+Date: Sun, 22 Nov 2026 14:04:25 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,146 +89,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Solution for rk3588 with suspending and wakeuping at Radxa
+ rock5b+ through original power button.
+From: =?UTF-8?Q?Attila_T=C3=B3th?= <tothsoft@gmail.com>
+To: devicetree@vger.kernel.org
+References: <3369e728-9af2-43a8-a25f-ff107ceb34de@gmail.com>
+ <b5a72bc8-7c17-442a-a2fd-de33b467c358@gmail.com>
+Content-Language: en-US
+In-Reply-To: <b5a72bc8-7c17-442a-a2fd-de33b467c358@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] phy: apple: atc: missing RCAL1 poll for DP mode in
-  atcphy_wait_rcal1_done_t8122()
-- [Medium] phy: apple: atc: incomplete lane reconfiguration in
-  atcphy_sw_set()
---
+Link to TTL logs after using dtb from batocera in libreelec is here:
 
-commit 82ef5fe4b6ea8a9fcb315bd8a7aac593736df7fc
-Author: Ramzi Abdiche <abdicheramzi@gmail.com>
+https://forum.libreelec.tv/thread/29953-le13-testing-for-rk3288-rk3328-rk3399-rk3566-rk3568-rk3576-rk3588/?postID=209760#post209760
 
-phy: apple: atc: Add T8122 DisplayPort support
-
-This commit adds DisplayPort AUX and link setup support for T8122-family
-Type-C PHYs and stops active DisplayPort lanes before changing cable
-orientation.
-
-> diff --git a/drivers/phy/apple/atc.c b/drivers/phy/apple/atc.c
-> index 398b2be5dd116..647093bb70f1b 100644
-> --- a/drivers/phy/apple/atc.c
-> +++ b/drivers/phy/apple/atc.c
-[ ... ]
-> @@ -1931,10 +2483,8 @@ static void atcphy_configure_post_tunable_t8103(st=
-ruct apple_atcphy *atcphy, enu
->  	udelay(10);
->  }
-> =20
-> -static void atcphy_configure_post_tunable_t8122(struct apple_atcphy *atc=
-phy, enum atcphy_mode mode)
-> +static void atcphy_power_on_common_t8122(struct apple_atcphy *atcphy)
->  {
-> -	if (atcphy_modes[mode].pipehandler_state !=3D ATCPHY_PIPEHANDLER_STATE_=
-USB3)
-> -		return;
->  	core_set32(atcphy, ACIOPHY_CFG0, ACIOPHY_CFG0_COMMON_SMALL);
->  	udelay(10);
->  	core_set32(atcphy, ACIOPHY_CFG0, ACIOPHY_CFG0_COMMON_SMALL_OV);
-
-[Severity: Medium]
-Should atcphy_wait_rcal1_done_t8122() also poll AUS_COMMON_DIG_RCAL1 when
-DisplayPort is enabled?
-
-With atcphy_hw_t8122.dp set in this patch,
-atcphy_configure_post_tunable_t8122() calls atcphy_power_on_common_t8122()
-whenever atcphy_modes[mode].enable_dp_aux is true, including in 4-lane
-APPLE_ATCPHY_MODE_DP where pipehandler_state is
-ATCPHY_PIPEHANDLER_STATE_DUMMY:
-
-drivers/phy/apple/atc.c:atcphy_configure_post_tunable_t8122() {
-	if (atcphy_modes[mode].pipehandler_state =3D=3D ATCPHY_PIPEHANDLER_STATE_U=
-SB3 ||
-	    (atcphy->hw->dp && atcphy_modes[mode].enable_dp_aux))
-		atcphy_power_on_common_t8122(atcphy);
-}
-
-drivers/phy/apple/atc.c:atcphy_wait_rcal1_done_t8122() {
-	...
-	if (atcphy_modes[mode].pipehandler_state =3D=3D ATCPHY_PIPEHANDLER_STATE_U=
-SB3) {
-		ret =3D readl_poll_timeout(atcphy->regs.core + AUS_COMMON_DIG_RCAL1, reg,
-					 (reg & AUS_COMMON_DIG_RCAL1_ALL_CODES_DONE), 10, 100000);
-	...
-}
-
-Because atcphy_wait_rcal1_done_t8122() only checks for
-ATCPHY_PIPEHANDLER_STATE_USB3, configuring APPLE_ATCPHY_MODE_DP powers on
-the AUS common block and releases PHY reset without waiting for resistor
-calibration to finish.
-
-Also, the hunk introducing the new atcphy_configure_post_tunable_t8122()
-that calls atcphy_power_on_common_t8122() and dereferences atcphy->hw->dp
-was placed in the earlier commit "phy: apple: atc: Add initial M3 series
-support", which breaks git bisect compilation at that commit.
-
-[ ... ]
-
-> @@ -2290,20 +2855,32 @@ static int atcphy_probe_rcdev(struct apple_atcphy=
- *atcphy)
->  static int atcphy_sw_set(struct typec_switch_dev *sw, enum typec_orienta=
-tion orientation)
->  {
->  	struct apple_atcphy *atcphy =3D typec_switch_get_drvdata(sw);
-> +	bool swap_lanes;
-> +	int ret;
-> =20
->  	guard(mutex)(&atcphy->lock);
-> =20
->  	switch (orientation) {
->  	case TYPEC_ORIENTATION_NONE:
-> -		break;
-> +		return 0;
->  	case TYPEC_ORIENTATION_NORMAL:
-> -		atcphy->swap_lanes =3D false;
-> +		swap_lanes =3D false;
->  		break;
->  	case TYPEC_ORIENTATION_REVERSE:
-> -		atcphy->swap_lanes =3D true;
-> +		swap_lanes =3D true;
->  		break;
-> +	default:
-> +		return -EINVAL;
->  	}
-> =20
-> +	/* Cleanup needs the old lane configuration until shutdown succeeds. */
-> +	if (swap_lanes !=3D atcphy->swap_lanes && atcphy->hw->dp && atcphy->hw-=
->dp->stop) {
-> +		ret =3D atcphy->hw->dp->stop(atcphy);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	atcphy->swap_lanes =3D swap_lanes;
-> +
->  	return 0;
->  }
-
-[Severity: Medium]
-If orientation changes while atcphy->mode !=3D APPLE_ATCPHY_MODE_OFF, does
-stopping only the DisplayPort link leave the PHY crossbar and lane modes
-programmed for the old orientation?
-
-atcphy_sw_set() updates atcphy->swap_lanes without reconfiguring the PHY or
-resetting atcphy->mode, and atcphy_mux_set() skips atcphy_configure() when
-atcphy->mode already matches target_mode:
-
-drivers/phy/apple/atc.c:atcphy_mux_set() {
-	...
-	if (atcphy->mode =3D=3D target_mode)
-		return 0;
-
-	...
-	return atcphy_configure(atcphy, target_mode);
-}
-
-When atcphy_dp_set_rate_t8122() subsequently starts the DisplayPort link,
-it selects PMA lanes from atcphy_get_mode_config() using the new
-atcphy->swap_lanes value while aciophy_crossbar, aciophy_lane_mode,
-ATCPHY_MISC_LANE_SWAP, and lane tunables remain configured for the previous
-orientation, leaving DisplayPort and USB3 non-functional.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-t8122-phy-=
-v2-0-8d5c8fdf31ba@chaosmail.tech?part=3D4
+Dňa 22. 11. 2026 o 11:16 Attila Tóth napísal(a):
+> Sorry, it was not thruth. Batocera is faking by uspend and wakeup. 
+> According to ttl was clear start and shutdown. But have their dtb 
+> lower frequencies of cpu and have support of mpeg2 of dvd under kernel 
+> 7.x
+>
+>
+>
+> Dňa 22. 11. 2026 o 9:37 Attila Tóth napísal(a):
+>>
+>> It is going at Linux batocera 44 with mainline *kernel 7.2.8. (*There 
+>> is also not going lan wakeup, isb wakeup, wakeup through hdmi*),* DTB 
+>> is in attachment of this email
+>>
