@@ -1,83 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795369890;
-	b=3zt3L0aLlD9NRUwEGKeB7mW0dk4uyzBDI1rLdWmuYS6Fan/l+XTXGOZi7xSlUjn1J6DI
-	 ISr8Z0ZkngDdLbfRipEtsw54dA7Mhzdf1t99kqgz0ufh/ZHt+CaM9NULPs1vBmP0ZZEY9
-	 5Qi3KL0L/zIFJeh0hcAjk2psIqCbEJn4RQF2ndM8p7TR+/vsk8lTmRGj2gFtUUmchtIB7
-	 S1Dc6PxrFeC440XybGMIdLhkdfNwFO+jHnxWfQVAAIr97RCH1esudfM4/lsX4iMNUfT3l
-	 s+E22qUeKO56yZI6tDGKnoGty+7bjM4CX/Nrl7ueU0O8xNxP30v7shMb7ijY5EXYLqQ==
+	t=1795370051;
+	b=u/XXMM5q5bIQDZB7jFvtU813kFPWVJkTX0GjvtP05eQb7K21W5v0U0n/Rx+C6VH8Zivl
+	 TOTz7U5n8kiPZ7yrW5ndPpnMHnta0tBK+DxAoUMSYb0WySXQz75yhwpYzk/nJ5zSP25hH
+	 CGl1ftaHGj96P7E+QrKOLhCKDVuJap+9R6bya20rgV16PyLNhrAPuNEKL7eaAyw2KTW+Y
+	 heo4zd0S7/h3EVuM6mvM1d0q5iThwr9fVVh4+a7g5590h/MATdIBPHytLh+JcdqkUyi8e
+	 0w/Wxd+rUfwAu90u5A8+s9vTcRtwEKCECU1FgDzA77wxXfZmy2mtc9s1pv2y2xpEVNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795369890;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 From:To:Subject:X-Mailer:References:In-Reply-To;
-	bh=1yMVaQOiv9B9KFhOF3+nr4ODmkWDhOk1vIMDXuWTipE=;
-	b=Ndcg4yFzP9P+PDX60K6sCal9KodVXqFU2GWA4x5qJvK6x3irle01MIHEitMRRZ3p3D7C
-	 Y0M6u0fimGkXtexIMQ8JAXEX86swb2lbw2JEy1w3ltXz4Dy/Watwt+4CM7ABLRoylIyZB
-	 VDOzzIkr0V0WgdpH1LZsS5gQ/ZKbVGCbc/SFYHp3k/uODqCEDwCpC2H/2i0iLDzS2IL2C
-	 rQpbknKXGkUrHjTODdYi+IOoROcgf78ovmolD7ChhHjUF+eoKamNNBS9Ymm1ITzp5y1oj
-	 DQhuE/jYpS717tDfzdiWr8cL5WT7kikzWrz5Uw6mkUZ4QEIwq/ZqooP5aHArOcW8Zng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795370051;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Lqr2my7RK1rlIMbBVQfce1d8JLq0RXfqlMr2oVJYgIw=;
+	b=IiRiyr8Y4h+wLa3hlbBvPNj4BOLJ/f5x0jghXrjomY9pxa82qqaFK84rGi25nS+rW0Tc
+	 BRCv2zr2busAlJP3On8dVyQowl4mpC86qbhFQR7nmqE6WyI5tPMcIoiydxgDMytAeNmfT
+	 Sm/3An5T6Dxzoow+WxuIW61hXtuWBv37xZ+lyYw4DPnmPwk2yHorYEVEFpZO1lb5r5dpo
+	 Rh6Fq/OAbiAnpx/5n39O5o2h6uOMaiHIyhhkjCLz6Caw/bmLWQqZLVLq5ergGmgISNCyR
+	 IwjdUHRLqSTxNox9TvGvxwiS0U+8Zg/7Qqz58NvlAJKs/sL8TH3knlLPeSCg8fRU5wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ocIXO8tt;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eo4HcbdH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CBB8606A339
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 17:51:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CBB8606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E8D606A330
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 17:54:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ocIXO8tt
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b8a1f59d5eso3050819a12.3
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:51:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795369889; x=1795974689; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:to:from:message-id:date:content-type
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1yMVaQOiv9B9KFhOF3+nr4ODmkWDhOk1vIMDXuWTipE=;
-        b=ocIXO8ttGSav0YlCF+6rCaq8/A8X2+hNimH0KNNt7I8Z9pOrjNimf6xfgJBVch5CGn
-         KdCLCmQvhRJQmg+wq3LCmcS/aWe5jMCrTsvjj3iLIKo/Vvy32mijdyC9QMACnldboU5G
-         dHAjOx0ZaXPBXk/nJRlk8HKX+DgTHqUzs/37rU8qLYE7Jo+VJgwyk+BWvT655W93m3af
-         xGZ/d0wGUIkj3tukmsQcJZ4AQywSoBoYmLdHbQ2qQdQHp5Y+04Zr/Jspmr2v0MCB3XI+
-         4kWCF8bBWRHnzBedRjqt4a7KGLvIHh2yn+lvE28DhKfqTK5SnwZ++0TTbvVpqox0w0zr
-         QVSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795369889; x=1795974689;
-        h=in-reply-to:references:subject:to:from:message-id:date:content-type
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1yMVaQOiv9B9KFhOF3+nr4ODmkWDhOk1vIMDXuWTipE=;
-        b=0+SScKzAh6gxz23CHgn6hm+8GiSA6E7AM0iJEtT38vuhlY69xIm+VAwuKUXHNhvVtz
-         o8NcGAu7Sw/jIW8T8xpm2OdDt4C0kA5EVovdDgNU9USSfdHUNLWX8RB42CHMmhCjYu6b
-         S2JkgistaH0ie0aDuwpLdWgKVIWloPsL4+FB+zgzNjAZm1BwMCmYp0Q+RMm904P0u7NF
-         dXPa/pJ2lhzFdkC0X7brfKPm/vqcjwcWeX7ZoISRSgPQUPgSkCkidxSCoa/+AtvbKIo+
-         +v8BAPwZYcvlQVJHQPXbi0+cKPSXAMuuzY+n7yf12ipiQGwPyY5MGpjpUmyhe3Q2/oS2
-         7Epg==
-X-Forwarded-Encrypted: i=1; AL+hErFUNA0lOcrfDPCN+upaQQ2I4mG7FCl1ngIpXdJNbe85mtVg8K3fL/9XEaLHNopfxLd6G6+ZxPFUi+Eo@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jiobZGV33j9xVBBdTPHkliS1fV8Cu57zTPdnYGT9O0cnibZhs
-	vvbh01hAJyzItM0J6Es9fnq6XtM8Xl1v88FbY4NLvF2doOe0Y+vX0sKp
-X-Gm-Gg: AZFdTZdhDRcl48Uds0cUg+Y3tjVrdV1lf35VqMgK58eHyHzgs7200Wo7ODNin+aR13H
-	jSR8qsGMNeJO6NyqTBnyYTdq23Asss0GnzLHhIdnPh0OPBasDNNI/aJqCO1R7ZvcaMy5+k+VS/L
-	OhTY3iYm//6hjMPTbINIYI8+W8kXDERsPcukv2yhAxXpkduFRMwaWGjui8HYO3C3Vqp0Ga5rFYL
-	ZYGbK+eM2xkZeHJbtO5tcwYyj2DiDAqHAYkojqxMcrZVU1yBGuT8VvXq8nS2heKrL7LUYJ1reOR
-	gkX6PCxZDwI4JYMfukdN82o96HmYG9GrOjd/pUH/PC5JLURCx1j5Ep3Ji5pgTeSZvqVOCzA5cqE
-	hhaR1j15pyX0von18Z/+H80zafcw9GjWFfF3q4jM0CQ1dd7Nz7DwgNRRoRcG9Cn2Cog7j9WG42L
-	LnaipLcpgsyLBcn9wOEaBcdOpVrK3XfkR9Qqkun2r6DDVtriTsy5MzOTabiBVbneWO2F6kI4K9Q
-	djxo4REc6kE3Ie2c574zJfgO6dckLpZH53w0QYQeCqg9jNFmWExlfk9ja7qBZTPDj8afqqUoPIR
-	HunMNA5FsgtHq4qCZE/DPo7CTurq6wIIo7qQEuYYrNfbtdlBrw==
-X-Received: by 2002:a05:6402:350f:b0:6b7:d189:6044 with SMTP id 4fb4d7f45d1cf-6ba37e64b27mr6482678a12.17.1795369888545;
-        Sun, 22 Nov 2026 09:51:28 -0800 (PST)
-Received: from localhost ([2001:1b81:1b55:aa00:48b3:8eff:fe5b:7d15])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370e8adbsm4246918a12.17.2026.11.22.09.51.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Nov 2026 09:51:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eo4HcbdH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F071F000D8
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 17:54:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795370050;
+	bh=Lqr2my7RK1rlIMbBVQfce1d8JLq0RXfqlMr2oVJYgIw=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=eo4HcbdHgBVpemzOYf6oy5CgelFnR8d3OVCpLJNniLJk3xN5NwmFhvCdpciT8oVDI
+	 C/FQPq6UA1SqdiAZZToK/b4nxVBiYpEVtfnAifv8JTeIXmz6On0l5/WsJl9oNsP3P6
+	 awxA/khgreVTcq/A6tSEnSKw/daJ01cXNa6wmeYGMEiBKudPvDi/ooy20J+ntFPt58
+	 dKMhLWld7BcM/bIjhoA3dcZ0xMdgMAEJCR6kmKkc1XlhqPbmbRvS52TN00TcoGvZTx
+	 tJ3xd+3I3s35BMT2Il98iyTwjjuUwysNC/5nQAWLziGHUCfTAOaY/TWGXLvyb33Pjq
+	 nb449gghN/cHg==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3ae25c846edso17401101fa.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 09:54:10 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFsigHTpDesxJ2kHjRlwramcqg5Z6dxqHHaaQDNMCX2++wUYZ1BqHGlYHZ4MxU1jb+Om8xGgai5Ohjk@vger.kernel.org
+X-Gm-Message-State: APuU4Z/glsxxrF+IKbBVSpegnGx2XE8vaXtAiL0y23XqirODyM1DBNrL
+	uzUfHa5r045OcSSAsLDO0W/Cxp5WMVRMmCV3FBOtA77czQ4tpzbDF5AOfm8IckLeM5YUAFGXx/w
+	qJCLGAfwFwC/2nx1h6i7A6zPnB/r2jg4=
+X-Received: by 2002:a05:651c:1593:b0:3ab:4eb4:5ef5 with SMTP id
+ 38308e7fff4ca-3ae7f9d5e95mr25703721fa.9.1795370049024; Sun, 22 Nov 2026
+ 09:54:09 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,30 +58,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20261119175437.2520400-1-jernej.skrabec@gmail.com> <20261119175437.2520400-2-jernej.skrabec@gmail.com>
+In-Reply-To: <20261119175437.2520400-2-jernej.skrabec@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Mon, 23 Nov 2026 01:53:55 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66dXR=Z9FEcudG8NL_miWWH4uRvwg-RYpkTJnSrx3NKwA@mail.gmail.com>
+X-Gm-Features: Aa3M54o38aETzb2mUkHD0BeP41inxjrl5JHrW3hwDkzzKCE5Y7QgUCWC98J_8iU
+Message-ID: <CAGb2v66dXR=Z9FEcudG8NL_miWWH4uRvwg-RYpkTJnSrx3NKwA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/5] drm/sun4i: Reject fractional source coordinates
+ without scaler
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Samuel Holland <samuel@sholland.org>, mripard@kernel.org, 
+	maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com, 
+	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	Andre Przywara <andre.przywara@arm.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 22 Nov 2026 18:51:27 +0100
-Message-Id: <DN1XIBUZ90MF.2JOY3U2VDD3ZP@gmail.com>
-From: "Oleh Kuzhylnyi" <kuzhylol@gmail.com>
-To: "Oleh Kuzhylnyi" <kuzhylol@gmail.com>, "Daniel Golle"
- <daniel@makrotopia.org>, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Hendrik Noack"
- <hendrik-noack@gmx.de>, "Arnd Bergmann" <arnd@arndb.de>, "Ferass El Hafidi"
- <funderscore@postmarketos.org>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>, <linux-input@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/5] Input: hynitron-cst816x: respect touchscreen DT
- properties
-X-Mailer: aerc 0.17.0
-References: <cover.1790944534.git.daniel@makrotopia.org>
- <75b8436b900ecdce7f29513a7403b851986a3a1b.1790944534.git.daniel@makrotopia.org> <DLWC73DK15W4.2LCL8MREV6FDM@gmail.com>
-In-Reply-To: <DLWC73DK15W4.2LCL8MREV6FDM@gmail.com>
 
-Looks good to me.
+On Fri, Nov 20, 2026 at 1:54=E2=80=AFAM Jernej Skrabec <jernej.skrabec@gmai=
+l.com> wrote:
+>
+> The layer code programs the scaler whenever the source rectangle has a
+> fractional offset, since only the scaler can apply a sub-pixel phase.
+> drm_atomic_helper_check_plane_state() with DRM_PLANE_NO_SCALING doesn't
+> catch that: it only compares the scaling factor, which may still be
+> exactly 1.0 with fractional source coordinates.
+>
+> Channels without a scaler would thus have the non-existent scaler
+> programmed instead of an error being returned. Reject fractional source
+> coordinates on such channels.
+>
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Reviewed-by: Oleh Kuzhylnyi <kuzhylol@gmail.com>
-
-Best regards,
-Oleh Kuzhylnyi
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
