@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795371952;
-	b=P5UfgvANL/WpNHKUBJxSmzzy6GiQaR3LdtucgQZ+Erx+K2HlDrN92sfjHOph1Z1jkATD
-	 F1DY5Ep5596E4lh3QZzV01p/4/X2jB2IqU/feDvQxAWHGkHfOg25tV9EnnYmdzrPWlwjl
-	 gNz/Cb7YDI+i8bs56kt8oK8gMxzo4y8sPfYREL5tz2wb2/u+ObQCHp28C7oVtZWn/I2v9
-	 LIM1AB1RuObJKuW2Lj+zNLFF85SHTIDnjY7GRx5d0E1/v2hRuohlb64P27uKVLQ9Vkn5f
-	 evrMT2ubYyA7lILw9OPfLRzGAf8AcvTOrTlmXKXNj3nfE0bdWUFnfIjN4dhIXuxcKJQ==
+	t=1795371998;
+	b=iOIqpvBhQvPdsDo/XQkk02s7ipE7LbUfRpfKW39HTT87LBlP7P94+p3w9COAN2e+qiX7
+	 vpYc0ULpEkQIn7tQLfCn/7kcfYz3Rq6Y4OpjeGLQfb07XxyOKRp4XXqV9ZAlU6hToi8kr
+	 tYExuyjZg/47Ejy7SWNZJ7h4gfr1QUPBtFOVCtmmvPGL16VR4RwptXTOBqFYKReI8lhk2
+	 WY8Orhabdvq4Xr80f8E2MMmoxmDpudL5ojRspYWVq3fMZK/lV+Gxl5SCuDMxVtvciUoI6
+	 83V+D4rD/G6+Shku5oYJJto/YcbuPcqUml633sUVp6hJdftHCQg+0HrWCkwDp9JWhaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795371952;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=l9CfgsFXDwrrEwwpmeKXg+KOAvu1yqasIfQl+WG4JYU=;
-	b=a9fHA6h5TgBAdDBCPnlgOj65lR3oEn3jTpKxggB4K8Rg6LI7fnrlqm0DzbtLZ0CtxFVW
-	 5494A6OfVx7F2Ezw8bE4PUx4A1c7CkA9bY5S/d+m8Ffl6WaSDCE44ze63Hx89bfkyoart
-	 q2YeylnZUmuxwqIKieXUhPI/4Jq9clbh3/JdOqysg2U2FXnbzhncVVR+sr7NTv3IEU1fm
-	 smZAu37B4tKf7MVJv/S3qeHtoUlQX5/HHgYeC8Qd1yic4ZZZsNnBxWpCpy9h60oHVbmoU
-	 VJ847kl1+pPO84BmC+wy1sleYiOpti8RLSFGFQQexk+j0SWyI613HSRV50khAsJEe5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795371998;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZzhNnPgB2Wlr2bjnDZCcd0zumtaYtjaiOyOvRDsDDWc=;
+	b=q7BO1hVSm+8G7LShGCF7cixOItgNMaZQ8tlJOCt9eTP91qTs818NSAAWwzyC9JenV/ic
+	 v8q6zIE1OouIEgyOt9jM12ETCC1fHqJxUcV2ELOZc4G4Ny0fPHijW7g2Yzkh4pKfUQzqW
+	 QHsANTfe8DXqGqRAcZuMvL8UfMX5vVE2A9EOhT5gmTr+0+fZf8msKMwdyXdxCEDjAUfzi
+	 YT4nFt6Cj6I7sx27K5z/i6V/NJKyw1pHc3oF2rTEjjAWGrtkuD1wuRc9ZmPFHBMbRhGNm
+	 /9VUhKMPAnB3Ir3MnGMrsFTObVxFVCuKWcaqW2mYA2BCgqN0qsYSusPTQ10G3ammFiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LGc/9FGB";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yzgxr2ej;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA7A606A32A
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 18:25:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B928606A685;
+	Sun, 22 Nov 2026 18:26:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LGc/9FGB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D031F000C6
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 18:25:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yzgxr2ej
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B175D1F000C4;
+	Sun, 22 Nov 2026 18:26:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795371951;
-	bh=l9CfgsFXDwrrEwwpmeKXg+KOAvu1yqasIfQl+WG4JYU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LGc/9FGBPBQZUvNmnpW9aoAV8DRN4f++L4BqYc5ofUu3imrsycqXZMRcVEBlOftP4
-	 vqUSv2ddiGT8RF7fySiPJY4OCXr+N9UBJewMpLaZV5PW/2ggNoZZFKTFBjOTYnyc7D
-	 79wisqxD9VZDky1SD0clVI6y5/AKpoUdxmnLf4iXtYiyRraYk8SLRMeqRC1C15AJVs
-	 5Z6mvSNeDKCG3CdgJt7EnNrcGIaG5B5PNHiDeR/dULP6ZZ2SypagrvzPfAq0QfmVqy
-	 mRjtpd8gKMvNXE4FMqpuahcZlvUqm9DGbYBFVGmqKSasaJSjjMyFMHHe1TGuiDCKU3
-	 xZXITtGy+mlxQ==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c1c0c8d61aso1541272e87.1
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 10:25:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFMk16U0ZCcjemMHLRbGM714dKhJBlT8FlD5Qg4bEVNIZvVcnx4g8wAb5r+uqdLBplvuVlPcoPmmNPu@vger.kernel.org
-X-Gm-Message-State: APuU4Z94y6apTG/z/HxX1s6XU5FoZ1wVQ8eedtmuFv2+uDShUOcUDiSn
-	/KAufSnvQTDuF3IGYgBBHwtIB5X3U+CoFVTQp+Mkne6qy6NR6sGx1TZlVNmtB14Zy2GIFZUdwUf
-	xjKIjvadkqMGRPyTi1yIWY87CMr8WXw8=
-X-Received: by 2002:a05:6512:6d2:b0:5c0:d9e2:f66 with SMTP id
- 2adb3069b0e04-5c1bc7b4301mr2437293e87.20.1795371950328; Sun, 22 Nov 2026
- 10:25:50 -0800 (PST)
+	s=k20260515; t=1795371997;
+	bh=ZzhNnPgB2Wlr2bjnDZCcd0zumtaYtjaiOyOvRDsDDWc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Yzgxr2ejXJe0BOIhOE5AULrMJEydlhLuKmMjy+u2XG9AH5jq6OcPawP+CaahVOKH6
+	 Gtaeh6SEFjfmQyuDP/hUcAJMPkFWvaPwAxHKY4ts8eYKse19v15DWUv7yd4onMVzW/
+	 vvL4xIZrj2X/eNF+9e3saggmGH07GF44a2nJXBITRbp8vm4xEJUfuj0NziZKS+/SN+
+	 8eOtwfsMFRMA+UaG+lPzJVm6kh8I4O0l0iUyp1IDACsVV0cKVQNFesi8dWqdW13hVA
+	 /hxI+Hk3yypbLfgPPvyKR2VIyRIW3Cnm2AyyHRdLuQwtUCIAUgTUNW6BkDXeLywj+W
+	 Ge5H+JZfIXPrA==
+Date: Sun, 22 Nov 2026 18:26:35 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Gerard Marull-Paretas <gerard@teslabs.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: iio: magnetometer: Add MEMSIC MMC5603
+Message-ID: <20261122182635.381d2cbd@jic23-hlaptop>
+In-Reply-To: <20261122093412.71604-1-gerard@teslabs.com>
+References: <20261122093412.71604-1-gerard@teslabs.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,36 +62,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261119-cs75xx-gpio-v6-0-37aeda0aaedd@gmail.com> <20261119-cs75xx-gpio-v6-1-37aeda0aaedd@gmail.com>
-In-Reply-To: <20261119-cs75xx-gpio-v6-1-37aeda0aaedd@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 22 Nov 2026 19:25:37 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkbKaRW8J-ZRxkrM5SX0-7eZPu=C_5OLCGquYOtWU4TOg@mail.gmail.com>
-X-Gm-Features: Aa3M54rbItLFWFNiExC6gKouuAtPmZpVlhpXK-hpWeRjgFU7aqgZIJC1n_xCbCk
-Message-ID: <CAD++jLkbKaRW8J-ZRxkrM5SX0-7eZPu=C_5OLCGquYOtWU4TOg@mail.gmail.com>
-Subject: Re: [PATCH v6 1/2] dt-bindings: gpio: Add Cortina Systems CS7542 GPIO controller
-To: filipp.dunsky@gmail.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 19, 2026 at 4:09=E2=80=AFPM Fil Dunsky via B4 Relay
-<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
+On Sun, 22 Nov 2026 10:34:12 +0100
+Gerard Marull-Paretas <gerard@teslabs.com> wrote:
 
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->
-> The Cortina Systems CS75xx SoCs have five banks of 32 GPIO lines. Each
-> pin is shared between a GPIO line and a peripheral function; the pin
-> mux lives in the global control block and is not described here.
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+> The MMC5603NJ is listed in trivial-devices.yaml, which allows no
+> properties besides the register address and interrupts. Boards need to
+> describe how the sensor is oriented, and the supply it runs from, which
+> is often switched on wearables.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Why this part but not the mmc5633 that is in the same driver so I assume
+similar enough to cover with this binding?
 
-Yours,
-Linus Walleij
+That part is a little more complex because it can also be connected over
+i3c but I'd still expect them in the same binding doc.
+
+> 
+> Give it a binding of its own with a mount-matrix and its single VDD
+> supply, the package having no separate I/O supply pin.
+> 
+
+I'm not seeing support in the driver for mount matrix or supply.
+Normally if the argument is to move it out of trivial devices because
+it needs those I'd expect to see it as part of a series adding that
+support.
+
+Or do you care about this for a non Linux usecase?
+
+Also no need to talk about what it doesn't have.
+
+> Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
+> ---
+> 
+> Notes:
+>     Checked with dtschema 2026.9: the steps of dt_binding_check run by hand (host make too old), yamllint and dt-check-style --mode=strict.
+> 
+>  .../iio/magnetometer/memsic,mmc5603.yaml      | 45 +++++++++++++++++++
+>  .../devicetree/bindings/trivial-devices.yaml  |  2 -
+>  2 files changed, 45 insertions(+), 2 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml b/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml
+> new file mode 100644
+> index 000000000000..039f53a5f912
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5603.yaml
+> @@ -0,0 +1,45 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/magnetometer/memsic,mmc5603.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: MEMSIC MMC5603NJ 3-axis magnetic sensor
+> +
+> +maintainers:
+> +  - Gerard Marull-Paretas <gerard@teslabs.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: memsic,mmc5603
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply:
+> +    description: Regulator that provides power to the sensor
+> +
+> +  mount-matrix:
+> +    description: an optional 3x3 mounting rotation matrix.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        magnetometer@30 {
+> +            compatible = "memsic,mmc5603";
+> +            reg = <0x30>;
+> +            vdd-supply = <&vdd_1v8_reg>;
+> +            mount-matrix = "-1", "0", "0",
+> +                           "0", "1", "0",
+> +                           "0", "0", "-1";
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+> index a8b2b9deade4..17a32dd8772e 100644
+> --- a/Documentation/devicetree/bindings/trivial-devices.yaml
+> +++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+> @@ -261,8 +261,6 @@ properties:
+>            - meas,tsys01
+>              # MEMSIC magnetometer
+>            - memsic,mmc35240
+> -            # MEMSIC 3-axis magnetometer
+> -          - memsic,mmc5603
+>              # MEMSIC 3-axis magnetometer (Support I3C HDR)
+>            - memsic,mmc5633
+>              # MEMSIC 3-axis accelerometer
+> 
+> base-commit: c44104f3642da720164042623e4832836aefdd8e
+
