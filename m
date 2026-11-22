@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795375147;
-	b=Aa92L4al10sZgN5/g2tSBohj2Rc/6P4et4afmfGFOLsxf1QZE0t1CJMq3jjd7hVKYbNp
-	 vh1bwmR91EitPJqoDBapjMCFNcYDCll04viasinJJbq2oBYvuWrPlv/dAv7wzfm397bAN
-	 K1LdnZxMPNbgNBXrt7CTMyHZUeN0nLY22SK2zKlLy6E3ZUUqky82iyvTOh6e4c9EAuHmv
-	 9uyHdeF0Sttx//xmGniMpVcH9LI0kqMswWFeP5MpyGvUV2ZZtvJbp985Tof+oycWYW88F
-	 ED6J56+V2YA5CHeCwVmOj+9tajDNMPriV6AhL+mg3ZrPzoFM3/7wcODhMCxr3RcWBjw==
+	t=1795375155;
+	b=aYMirk91/qoG2QTULTsv/ocNGA8GWtLdR8LFA1XjoP/rBN1dvltTi6WKmFMrkCcIE9r6
+	 N8QlrtwclPWj0rrfVdX6G80natFSGkOsqWdelYOIW8eY3UtyCh0LeKwi45q7XAp5O8Uq2
+	 7F4gLCLeL1K/EHz3Px1Ar1oMvtyuIT7msAQucajE0BHJgPQOlJN50YWNWNqgWzjFnQ9ME
+	 pu7QYqSfgkKUEsG0/oZYi83Vka05mNuw0c+P8sM/vHPcfvGRcNyn4JxhhENuDwYcUDI4J
+	 zjPwwkuCI38X1MR/cru2m6rhihP62jQwcN6SmSF8e6t4M52h4Jd9ZUcm1TfJb8mfyeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795375147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795375155;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HsCFnP3ndBaofMImQLbTwSbFB01O6iMTbveJrzxvAyg=;
-	b=ZwzC+BXgnEFsq76HgX1KGqnx+q5ugVpfQSPPjZQ9Y865ZfHRRhotHn3VWmEOF9GeHiUV
-	 fDI4cjBfbzAxIqg34ne2YT1qNr5iCnLN9th0tsGbJoBy935Vxp6SxLU3JA8RTd//cRxEm
-	 mSAd4lB7D3ctlytuGCPRijPpMEgOkkVcPB3u6MqSdhe5DWF2nr9AnkUUiZheUidx/VPik
-	 SFhVL9GVSR51d5b4tSIXjRiO2dpB9AtArj+c9NnGzinlQYk+uVpW7UjCSF8CXTcAUmgot
-	 BfuVUFYwoZH2dGPGKpK+USek/rGaYXXKJEsJvLSVPX7vviYjLGVeiITD3MhSux9o+Ng==
+	bh=JgVB/O5hBKCdOeqZ2JLGG3q/f4KIK1fx085LNchkx34=;
+	b=YuDBZQWeXTTTmO0QN1b9QaZHw7HSVFDvnBQlPHauXhZUa7EHgYEskUxgFVjKoaeRdiI/
+	 BTcK3MhqYOSm/zQh84OTlPfzeqnaslWYu4ZAdWdJPzw/K2rXd0yxODXadZbhlw1+Af4an
+	 e1zwtGiGgd5CceX34voQq4yB57FxT/MDhfvdSXsDeXVDtFA7i3oeU4/u5K0PFsD925ElU
+	 l5m+Ug9vXGUyBu0uE8ncvI4p7pY9gP9Y/39VgH48kOqw6ojknZjM8yuRl1rPO/Y4lBmjA
+	 S+cDm+IUSfTHJ6VimvqTlIT8yHrMbPzTxgzLPTiMIGKo6l4+Db8IreCp49HoY4PGhNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ANktN+JD;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KQdClBoh;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C81606A31E
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:19:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C81606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D809606A327
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 19:19:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D809606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ANktN+JD
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4a7b8abe209so1962722f8f.0
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:19:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KQdClBoh
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso22767345e9.1
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 11:19:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795375145; x=1795979945; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795375153; x=1795979953; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=HsCFnP3ndBaofMImQLbTwSbFB01O6iMTbveJrzxvAyg=;
-        b=ANktN+JDfZJG7QsoqdiLxuAKT49fs7fTbIzA99ZCabxHp7x2LLHtqDiLp0KWlhEXRt
-         jzWunnHP06VbZRVrw7r15yxpsUN+ohIoW+2jyaSrvrDn2L054VeY9M/jG4KW6lnTgquo
-         s+MzmztFVpXICqtnpaJz04SCjvf+sHB+iZjBiVhrVOHakLuDIhEyqgyfdahe6CHgkHD5
-         g6db38/jacnBnh5nRpPAlHP2Lc7/x5DfHxJkSHFPpjuIzrRAHLQ9wxUHhfqE4OzQlG1h
-         8q08wXWruuDYqeHuCEhVq9s7tZUZ7jbEf3uZhNWI75b/M9+W0hlbglhfzIpctJj0cQ6x
-         1Bjg==
+        bh=JgVB/O5hBKCdOeqZ2JLGG3q/f4KIK1fx085LNchkx34=;
+        b=KQdClBoh8jcCpLG7uk8RfQGxzzKTBS1Vz22R2mosQpM4g6tHydr9advbfUzmde37yW
+         STvgE+LR7Rx+tCs7ZvSTW6NpG5uHYbFiwxwYFAr1VQRb0XTXknUsRJys3QqBs/6rFsm/
+         swBdSyIk8a2U2PsvjiDvKCnEJla209oAQ/CxXfth5bmZlFTiACcIyFSVNK7M3NsSCyy2
+         ZnbSOt4uPkTN9QB/3EqwltEuRhuJDLVxAfjwO2c4TToZdwSBKfs7rO62I2ogcsw0SeYm
+         QJfCdhXcwZJMkSkyIAT1mzeq4TdWs8muaXAuuTCINtHGVBcciTDtufcEs0RqnAH3XAkJ
+         h+vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795375145; x=1795979945;
+        d=1e100.net; s=20260707; t=1795375153; x=1795979953;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HsCFnP3ndBaofMImQLbTwSbFB01O6iMTbveJrzxvAyg=;
-        b=Dvq7M2dZCzot+oKPgdLFoRwUt241BAVblXC33sVTKwMM4I5ByZWZ+QfpD7PAleDb2f
-         0UaC5sFzGRPUKD4kNxKx9No8DNh1FddGIvJ9alnJ+xOruBu8oLKhje0JQi/q8gvaBMj6
-         TqP+Q5Exg63ygf2qPiH38xWSz0bMDdrQOnid6I+B8J7+dkAjgbX4fMtuODw3dqSM0xT8
-         pZCrb7rg30mdu9bn9fuaOf1oiyVA/EGy/AuGwptCI6syg9svk6sykj4BKIFsaQZltdno
-         mhf5lqvzhk2c1DY+I6qLyqt4prb9ZMqDvr/CrDRgemc5MBM2mOrrgGnigS3C6ABcfXT/
-         /nMQ==
-X-Forwarded-Encrypted: i=1; AL+hErHehDj6F74gY/qcslqohAITtFJRhE036PSXbVdyon2xW0SqTBq/Z+rRjF2QABv0cdTaljGtopHeg6PE@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NJ9MdiGor1ZQdki2CmWEme/Ediyv4ZryeGgnFePJDhVUpOUWJ
-	SklR5NSxKF+3fI26rXRP9dPjfCVaAP1vv5z0W9bgURXg0VDn9Xn6bV0J
-X-Gm-Gg: AZFdTZeaFE9i0dD8LZrhvjJwqUGB+iXhMRii7xwwMKYi+fs8GZhxhSe/Zv3v8By4dcm
-	0ZFi/ww6u4G8MF302M0xRBo7bBmI+wn2+fCCerpNuCNineURAO8KJSXF+DXAJKdCo3egiRB8E0d
-	DCcUBZN4XM5FQQqqF6HCWVUydrwu4yQSQk8to4cWtzDY5qPmqTT11lMcQYg6WDCzoXOt8jnOR15
-	WUO7zL3d4fTnWvLy3yCPns17rklWov9e0yEAWduJt5m//jk0FBBaPUvy0FPy81+VOE5NBSdtGZ+
-	Sg9XlKkoH2cjaR8F6ZbTgRsxj66cjKOPdUKqzmq6E0auJeeXbBxOYfEgwVMmAYFixzviDhjH5+/
-	tQNpTinxUwoB4knSH6UNiwcz2jBCWQilUbtrzCBzHTciqovLaLtl2f8fkBNlot58CECSDl2B52R
-	ZhwpnptlFpIjbhg0ZxMH1nuMdGS+3W+gr8wj5zztcD6zGC82Bd+7bonYLvbynvst/YiD07PnsGQ
-	ffbyS5cryVTLtJ0KOYTf56l6tvI4UwDpv4OMpt/t8ASTSrG5WInrDuhAGq8at5GAyJCWV+4sTzL
-	2Mh7ZR84hCm6m9h+mzvtb5TT5TNSFQrRXN5ISieY/J3L
-X-Received: by 2002:adf:e00f:0:10b0:494:bf39:21a5 with SMTP id ffacd0b85a97d-4abb0e4716cmr13169170f8f.10.1795375144988;
-        Sun, 22 Nov 2026 11:19:04 -0800 (PST)
+        bh=JgVB/O5hBKCdOeqZ2JLGG3q/f4KIK1fx085LNchkx34=;
+        b=HpoARdiA5f0nMEXBlhqu1IN2iWwlYt+S1SOA00Z2Wb4RL/vqdDWrDMvQSoCgXgTR58
+         nOHOWQjKPDLLQB5Wy/yrLZHWQ8zbTIcBOpSTsaKRYakCaavTYeJTpTomeox4Q9CC1S1+
+         QcdnmT2UrR3NaPtjGyyTi7F2XyC4To+xw6LI7JAHdLdZm7Qrj4VV5ro8WscXurFeZwYm
+         jiGx/XdikeH6tQmKzjClqFefSkIqDDBErIdx7Qmt3UNYpq8wN9eduQJwW7XslvMK7wwW
+         LXal8iPtGLKS369gaQkplYFrausuDH+zx2jRTmo89Ga3bKVei5O2FVaTv0EhFWEyfG/1
+         Fo9w==
+X-Forwarded-Encrypted: i=1; AL+hErEFCGdz0IZDUPrD/Masm/mcUAmMQ01cNZcAPctgUPpfbioWz02ANl3qRWHn2K9aM6uwPO6+UILlk5SK@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RYCy4UppLlcGczEdVmoD2OQaeGNihzAZiiFrN9deASqDBFhbC
+	vpIK8ILEVdX3NHaNmdT6yfTJfQF5qrKdIdic6SzApjDt/efJ422b/ce0
+X-Gm-Gg: AZFdTZeimjBqFGnXVE/EyNJpoY5laMlPhsHHgznyZLzYJaW9qPXPOJQGxtF7LGI3Teh
+	Twb5V0zyLHa/K95Cxmcc5Ot272NZarrNKc3y51G/o7+2nNzdo/oMjwPS9KcVLmXEd9l8ZVK66Tv
+	HX4L52hkRHqGfToMZbEU/dlCL0geiyht9YVV/tmaA5uMHsjXBf34rypys/hJJ8XxNDzfiA/OgNv
+	Vk3BcUT7C3fMM7bJ3bnZ1k5it54zSb8cXS1pW8NOq0hUljDhb5BJaGdPXJs32JqIkTgMYzw4Tyd
+	lvfksHCOIwNeWuNTA6xFQwqiutsNldYuvA9ih/8ROw7A8ZAzgH4Z55GflSLR9Fjn8NuCopQjvaS
+	h8+CfPH1q9Dagb75PEP9SLgpwkw8NStcVNiaH/vEQZw6PA7VmdiGxUDSb6jqqjMEusw+IijCA+U
+	5ZEhiNThVu52918D1V4AicEAyb1/gK4SFbjKKy3GFdP+Q+406m9MpRhsAK2pewf1wAq5RKGnw8l
+	e7EDHO2nv5MKg8uejIA2gyQZipI6W9p3ETIVeJpYV2KYSVKHsImuJxka+0Wo0t2jYEqz/Mt/cWQ
+	NOCeFW9maq87zRqHfH2Kz+RFjJb5gV5jsMDVenqWCfiL
+X-Received: by 2002:a05:600c:1549:b0:4bb:741d:ea8 with SMTP id 5b1f17b1804b1-4bb8880ad4amr192535855e9.7.1795375152884;
+        Sun, 22 Nov 2026 11:19:12 -0800 (PST)
 Received: from cachyos-x8664.aetlocal ([2001:bb6:e78e:9100:cdb3:c7ee:74a4:5189])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6baa3c4dsm14926556f8f.46.2026.11.22.11.19.03
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c4353d6sm17465595f8f.56.2026.11.22.11.19.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 11:19:03 -0800 (PST)
+        Sun, 22 Nov 2026 11:19:11 -0800 (PST)
 From: Mervyn Pretorius <mervynpretorius.oss@gmail.com>
 To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
 Cc: Rob Herring <robh@kernel.org>,
@@ -99,12 +99,12 @@ Cc: Rob Herring <robh@kernel.org>,
 	Samuel Holland <samuel.holland@sifive.com>,
 	Darshan Prajapati <darshan.prajapati@einfochips.com>,
 	Pritesh Patel <pritesh.patel@einfochips.com>
-Subject: Re: [PATCH v5 2/7] riscv: dts: eswin: add clock generator for EIC7700 SoC
-Date: Sun, 22 Nov 2026 19:19:02 +0000
-Message-ID: <20261122191902.2183925-1-mervynpretorius.oss@gmail.com>
+Subject: Re: [PATCH v5 4/7] riscv: dts: eswin: add hsp bus node
+Date: Sun, 22 Nov 2026 19:19:10 +0000
+Message-ID: <20261122191910.2184037-1-mervynpretorius.oss@gmail.com>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261015125454.1381941-3-pinkesh.vaghela@einfochips.com>
-References: <20261015125454.1381941-1-pinkesh.vaghela@einfochips.com> <20261015125454.1381941-3-pinkesh.vaghela@einfochips.com>
+In-Reply-To: <20261015125454.1381941-5-pinkesh.vaghela@einfochips.com>
+References: <20261015125454.1381941-1-pinkesh.vaghela@einfochips.com> <20261015125454.1381941-5-pinkesh.vaghela@einfochips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,8 +117,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Tested on a DeepComputing FML13V03 (EIC7702X), on top of v7.4-rc3,
-with clk_ignore_unused (without it the board hangs; that is in the
-clock driver, not this patch). Details in my reply to the cover letter.
+Tested on a DeepComputing FML13V03 (EIC7702X), on top of v7.4-rc3;
+details in my reply to the cover letter.
 
 Tested-by: Mervyn Pretorius <mervynpretorius.oss@gmail.com>
