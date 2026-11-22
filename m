@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795365513;
-	b=yz+g57Dt5IPPuTcco/1IFS7qgzVmUKpJPErrEDDfAIJfVJ2BNlPrxb+sNiNhL7thMct/
-	 XpxhjSId2WzfttUUX1UrWvHUc2kgvdUqlWTrc+fl/IsMKi6j5XjvjfsiTO2EUX+mzN4s3
-	 WksTak6F0h9z7aYch9IJnYpP7GCZZxP7+qyt2gFRIBA44s6onh/WTy8HwrZZ8ngbWL6cL
-	 4lTcSrp3tbmf/UE5NHOQ9LIBqjx4UreNlkkQem3vJBZ/lvxxGaG10meQMyJJ4nqzEr0eq
-	 8o33ORd4cLYCW7KUj5XUBq4/tUSpkNWruCwoPwibmPjPOytrgu/BzFj+W42DVE87j1A==
+	t=1795365524;
+	b=K2zRHvxKicAN+KF+IwwrY7ODSMR+6736wa+LzMgq9l9Xm/xpDbiw1nxibrH6gP9NypaP
+	 DKzcKFTbyFC20wfyFO/JuANmv7tp5w93AabXGwvSuYVcBDWmh3F704XgwZv/Dftldpc6d
+	 5UlUrKmwIFEPvyLcWA8ACbMZXo1snEv5qNmctnFNLFRMkDm+Uf4vMBNefdw6JANCFVCR2
+	 uc9Ce/Gziy/GwzkyEsp64iEWf4bZk5shQ6O+/t7P2o3F0+b2HjvAyPe3mgz0FzBnOs8iB
+	 jTj3MTX0tWRZNugWq2SRbvmif9PONd6FvBmUtcBRTGoIhkRfppPz6GnINxATt8q58BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795365513;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795365524;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=rPKC2iAErhabfICV/5s+IrsgLKScvUzd+OnEnGWWjCs=;
-	b=eYKPRfeppgCcH4OCZEzrYWm8zwnnMKq2XnqY7Ilhh4t2shYGnAq4ki9yyM42p/cBdbVh
-	 Yirej4PqQCLoxzzhSrHrhfVeDQAstAiHCB/LO8kecSY020rFWWfVrN521VA4ZZvCp4TA9
-	 uE92OCOoJM/rn/qnh3mLntsmjKHWx4nMlQ5vfv1p4QymVGeWWaJgcYQP8LNirQPX6rYuP
-	 2MajKj6BVOrwiBSTfm2LSGmKF1fk4BTAbaXY5Un1FrQbqtl8ixrm0Qsbu77BzYt9KZSZs
-	 /iys1Tfa1Lr/GCWRoNwCnEIwIN5beVg77bumgy8qjnykASWanwjsKTR0QjX/yP59KVQ==
+	bh=/AumErtbyBiemkYLSMRwh2BVayLS1+3TTsaeE03p3MQ=;
+	b=bnHkVyhBtnPN68bva4TGsOv36tlTlWZGD8/01/jsLkbZ2jbeVnLx5y+BXDgcpgVT2lGE
+	 zvGCDkOSWcCFzZCSAlZyDuapy1wBe11h17jADJhdfHIu6cw288NetyRh6X5pmoFLfkYXf
+	 JKZjINguuf+XMmM/Yfc0dmXnLm5fJHJcAOnV9J5kyChmX+FcSZRyqUfyxHwuxycts9vcF
+	 jOny2X9Gn6Cbevi5v+rc9rhk2ATX4X61FdLBUB89rg0daWPAeBhUeElcUX4qyLZoRVVim
+	 D6YTgetFW+7caVwwhyjAkm+usnPtntHReWgiUj5sg5n6KRgsrrwbYexLBx+x79hRkng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbiPT3eC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYbrsHHk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B68606A320;
-	Sun, 22 Nov 2026 16:38:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F22606A320;
+	Sun, 22 Nov 2026 16:38:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbiPT3eC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D561F000C4;
-	Sun, 22 Nov 2026 16:38:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYbrsHHk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6D11F000CF;
+	Sun, 22 Nov 2026 16:38:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795365513;
-	bh=rPKC2iAErhabfICV/5s+IrsgLKScvUzd+OnEnGWWjCs=;
+	s=k20260515; t=1795365524;
+	bh=/AumErtbyBiemkYLSMRwh2BVayLS1+3TTsaeE03p3MQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AbiPT3eCd1WfF6BtaL2/M4oClSipv0NP7WY+oag4FKVmtCpoxYHle9MkupUA21Hv4
-	 cppJMn2iAG4JypEB+CARm8habHYF+O6FqGZv+WTk/XnP5W4mHpFKfUj0Z5xfTW9Tfq
-	 udIN3kHactdzhOrFmB38UcTeAsohP0ciVx9dj328UvKpub65YF8+iHCpLCWdrCVJPd
-	 +0gowlJ6a4WpNbITL5eVXoNOgl/iao+BO1zCXZuDxbz/pN0xx3n0hKJ1wp6ev5jVAZ
-	 lW2te0PH6Sg6l5wmbz8AyDOfCp/2/deusR/E1ysXR37d0AJQ4CsSFnTEwHXxg4YqpC
-	 SwaeETRcsS32Q==
-Message-ID: <sashiko-outbox-228112@kernel.org>
+	b=EYbrsHHku+82KO+UVlJ+koF0yw0nfm7VUcm1tfd7GEVg3+Ote1y6grjim+nD2P+hH
+	 yGEHGo/OFiuvixHfOT4nuMqIRBdD7XOlsxela1a+RQC+AziOOa1UEM5GZ8Oyu+ZDTN
+	 GUYEGkVXuGUyV3ofWdRIUjqcrYIZKfBn+ADOHfSs9KnGGCozoih/BQ+atLjcKsiYRq
+	 fBX0I1ve5f4eVrRT19ofurYmKzGtrmJbJbqfF4OUSwpiXuIXZzKSfN4MuZgm1qfId4
+	 L9Xgk6vAz9INrp/m7eEuQvxt6N0YNlbMvHWsRKLfdrAfDK4gjDq10wl7S4ZkqTT/JD
+	 N7bqdN6hjZOHA==
+Message-ID: <sashiko-outbox-228113@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] clk: rockchip: rk3506: Register the SAI MCLK
- output gates
+Subject: Re: [PATCH v2 04/24] ASoC: qcom: sdw: add per-direction stream
+ runtimes for multi_direction links
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xiangyu Zhu" <1194781887@qq.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <tencent_C39B83AEA61743AAF1CCB394F87DDA05E409@qq.com>
-References: <cover.1795363509.git.1194781887@qq.com>
- <tencent_C39B83AEA61743AAF1CCB394F87DDA05E409@qq.com>
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261122161437.5994-5-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261122161437.5994-5-srinivas.kandagatla@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 16:38:32 +0000
+Date: Sun, 22 Nov 2026 16:38:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,152 +61,212 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issues to consider:
-- [High] clk: rockchip: rk3506: wrong GRF regmap assigned in
-  rk3506_clk_init()
-- [Medium] clk: rockchip: rk3506: undocumented GRF DT bindings in
-  rk3506_clk_init()
+- [High] ASoC: qcom: sdw: dangling DAI stream pointers on stream release
+- [High] ASoC: qcom: sdw: stream runtime leak in
+  qcom_snd_sdw_setup_dir()
+- [Medium] ASoC: qcom: sdw: missing direction check in
+  qcom_snd_sdw_get_stream()
+- [Low] ASoC: qcom: sdw: missing DAI ID check in qcom_snd_sdw_shutdown()
 --
 
-commit 844c13fa6f3e153943a1988cd51a8f5b1886cb96
-Author: Xiangyu Zhu <1194781887@qq.com>
+commit 68888aeca44192cad54581921c24aeb932a0fbd3
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-clk: rockchip: rk3506: Register the SAI MCLK output gates
+ASoC: qcom: sdw: add per-direction stream runtimes for multi_direction links
 
-This commit looks up the RK3506 PMU GRF syscon and registers four SAI MCLK
-output GRF gate clocks across the PMU and system GRFs.
+This commit splits the SoundWire startup, prepare, hw_free, and shutdown
+helpers into per-direction operations so that BE DAI links with
+multi_direction_codecs allocate and manage a separate sdw_stream_runtime
+for each direction.
 
-> diff --git a/drivers/clk/rockchip/clk-rk3506.c b/drivers/clk/rockchip/clk=
--rk3506.c
-> index dd59bd60382ef..d3c3452e2e68e 100644
-> --- a/drivers/clk/rockchip/clk-rk3506.c
-> +++ b/drivers/clk/rockchip/clk-rk3506.c
-[ ... ]
-> @@ -520,6 +521,8 @@ static struct rockchip_clk_branch rk3506_clk_branches=
-[] __initdata =3D {
->  			RK3506_CLKGATE_CON(14), 0, GFLAGS),
->  	GATE(MCLK_OUT_SAI0, "mclk_out_sai0", "mclk_sai0", 0,
->  			RK3506_CLKGATE_CON(14), 1, GFLAGS),
-> +	GATE_GRF(MCLK_OUT_SAI0_TO_IO, "mclk_sai0_to_io", "mclk_out_sai0",
-> +		 0, 0x4, 8, CLK_GATE_HIWORD_MASK, grf_type_pmu0),
->  	COMPOSITE(MCLK_SAI1, "mclk_sai1", mclk_sai_asrc_parents_p, 0,
->  			RK3506_CLKSEL_CON(41), 8, 4, MFLAGS, 0, 8, DFLAGS,
->  			RK3506_CLKGATE_CON(14), 2, GFLAGS),
-> @@ -527,6 +530,8 @@ static struct rockchip_clk_branch rk3506_clk_branches=
-[] __initdata =3D {
->  			RK3506_CLKGATE_CON(14), 3, GFLAGS),
->  	GATE(MCLK_OUT_SAI1, "mclk_out_sai1", "mclk_sai1", 0,
->  			RK3506_CLKGATE_CON(14), 4, GFLAGS),
-> +	GATE_GRF(MCLK_OUT_SAI1_TO_IO, "mclk_sai1_to_io", "mclk_out_sai1",
-> +		 0, 0x4, 9, CLK_GATE_HIWORD_MASK, grf_type_pmu0),
->  	GATE(HCLK_ASRC0, "hclk_asrc0", "hclk_lsperi_root", 0,
->  			RK3506_CLKGATE_CON(14), 5, GFLAGS),
->  	COMPOSITE(CLK_ASRC0, "clk_asrc0", gpll_v0pll_v1pll_g_parents_p, 0,
-> @@ -608,6 +613,8 @@ static struct rockchip_clk_branch rk3506_clk_branches=
-[] __initdata =3D {
->  			RK3506_CLKGATE_CON(18), 3, GFLAGS),
->  	GATE(MCLK_OUT_SAI2, "mclk_out_sai2", "mclk_sai2", 0,
->  			RK3506_CLKGATE_CON(18), 4, GFLAGS),
-> +	GATE_GRF(MCLK_OUT_SAI2_TO_IO, "mclk_sai2_to_io", "mclk_out_sai2",
-> +		 0, 0x4, 2, CLK_GATE_HIWORD_MASK, grf_type_sys),
->  	COMPOSITE(MCLK_SAI3_SRC, "mclk_sai3_src", mclk_sai_asrc_parents_p, 0,
->  			RK3506_CLKSEL_CON(52), 8, 4, MFLAGS, 0, 8, DFLAGS,
->  			RK3506_CLKGATE_CON(18), 5, GFLAGS),
-> @@ -617,6 +624,8 @@ static struct rockchip_clk_branch rk3506_clk_branches=
-[] __initdata =3D {
->  			RK3506_CLKGATE_CON(18), 7, GFLAGS),
->  	GATE(MCLK_OUT_SAI3, "mclk_out_sai3", "mclk_sai3_src", 0,
->  			RK3506_CLKGATE_CON(18), 8, GFLAGS),
-> +	GATE_GRF(MCLK_OUT_SAI3_TO_IO, "mclk_sai3_to_io", "mclk_out_sai3",
-> +		 0, 0x4, 3, CLK_GATE_HIWORD_MASK, grf_type_sys),
->  	COMPOSITE(MCLK_SAI4_SRC, "mclk_sai4_src", mclk_sai_asrc_parents_p, 0,
->  			RK3506_CLKSEL_CON(53), 8, 4, MFLAGS, 0, 8, DFLAGS,
->  			RK3506_CLKGATE_CON(18), 9, GFLAGS),
-> @@ -787,10 +796,20 @@ static void __init rk3506_clk_init(struct device_no=
-de *np)
->  	struct rockchip_clk_provider *ctx;
->  	unsigned long clk_nr_clks;
->  	void __iomem *reg_base;
-> +	struct regmap *pmu_grf;
+> diff --git a/sound/soc/qcom/sdw.c b/sound/soc/qcom/sdw.c
+> index 6576b47a4c8c3..953a6eaae1272 100644
+> --- a/sound/soc/qcom/sdw.c
+> +++ b/sound/soc/qcom/sdw.c
+> @@ -5,9 +5,55 @@
+>  #include <dt-bindings/sound/qcom,lpass.h>
+>  #include <dt-bindings/sound/qcom,q6afe.h>
+>  #include <linux/module.h>
+> +#include <linux/slab.h>
+>  #include <sound/soc.h>
+>  #include "sdw.h"
 > =20
->  	clk_nr_clks =3D rockchip_clk_find_max_clk_id(rk3506_clk_branches,
->  						   ARRAY_SIZE(rk3506_clk_branches)) + 1;
-> =20
-> +	/*
-> +	 * The PMU GRF only carries the SAI0/SAI1 MCLK output gates, so a
-> +	 * missing (or not yet probed) syscon must not prevent the CRU itself
-> +	 * from being registered.
-> +	 */
-> +	pmu_grf =3D syscon_regmap_lookup_by_compatible("rockchip,rk3506-grf-pmu=
-");
-> +	if (IS_ERR(pmu_grf))
-> +		pr_warn("%s: could not get PMU GRF syscon\n", __func__);
-
-[Severity: Medium]
-Are the GRF DeviceTree bindings used here documented in the RK3506 schemas?
-
-Documentation/devicetree/bindings/clock/rockchip,rk3506-cru.yaml sets
-additionalProperties: false and does not define the rockchip,grf phandle
-property that rockchip_clk_init_base() uses to populate ctx->grf, so a
-conforming DT leaves ctx->grf as ERR_PTR(-ENODEV).  In addition,
-"rockchip,rk3506-grf-pmu" is not documented in
-Documentation/devicetree/bindings/soc/rockchip/grf.yaml.
-
+> +static struct sdw_stream_runtime *
+> +qcom_snd_sdw_alloc_stream(const char *cpu_name, int dir)
+> +{
+> +	const char *suffix =3D (dir =3D=3D SNDRV_PCM_STREAM_PLAYBACK) ?
+> +			     "Playback" : "Capture";
+> +	struct sdw_stream_runtime *sr;
+> +	char *name;
 > +
->  	reg_base =3D of_iomap(np, 0);
->  	if (!reg_base) {
->  		pr_err("%s: could not map cru region\n", __func__);
-> @@ -804,6 +823,10 @@ static void __init rk3506_clk_init(struct device_nod=
-e *np)
->  		return;
->  	}
-> =20
-> +	if (!IS_ERR(pmu_grf) &&
-> +	    rockchip_clk_add_grf(ctx, pmu_grf, grf_type_pmu0))
-> +		pr_warn("%s: could not add PMU GRF\n", __func__);
+> +	name =3D kasprintf(GFP_KERNEL, "%s-%s", cpu_name, suffix);
+> +	if (!name)
+> +		return NULL;
+> +
+> +	sr =3D sdw_alloc_stream(name, SDW_STREAM_PCM);
+> +	if (!sr) {
+> +		kfree(name);
+> +		return NULL;
+> +	}
+> +	return sr;
+> +}
+> +
+> +static void qcom_snd_sdw_release_stream(struct sdw_stream_runtime *sr)
+> +{
+> +	if (!sr)
+> +		return;
+> +	kfree(sr->name);
+> +	sdw_release_stream(sr);
+> +}
 
 [Severity: High]
-Does registering only grf_type_pmu0 in ctx->aux_grf_table cause
-MCLK_OUT_SAI2_TO_IO and MCLK_OUT_SAI3_TO_IO to bind to pmu_grf instead of
-the system GRF?
+Does releasing sr without clearing the stream pointer on the codec DAIs
+leave a dangling sdw_stream_runtime pointer behind?
 
-In rockchip_clk_register_branches(), grf is initialized to ctx->grf once
-before the loop and only updated when list->grf_type matches an entry in
-ctx->aux_grf_table:
+qcom_snd_sdw_setup_dir() stores sruntime in each codec DAI via
+snd_soc_dai_set_stream(codec_dai, sruntime, dir) (for example in
+ctrl->sruntime[dai->id] in qcom_swrm_set_sdw_stream()).  When
+qcom_snd_sdw_shutdown() or the error unwind in qcom_snd_sdw_setup_dir() and
+qcom_snd_sdw_startup() calls qcom_snd_sdw_release_stream(), sr->name and sr
+are freed without calling snd_soc_dai_set_stream(codec_dai, NULL, dir).
 
-drivers/clk/rockchip/clk.c:rockchip_clk_register_branches() {
-    ...
-	struct regmap *grf =3D ctx->grf;
-    ...
-	for (idx =3D 0; idx < nr_clk; idx++, list++) {
-		flags =3D list->flags;
-		clk =3D NULL;
+Because qcom_swrm_get_sdw_stream() still returns ctrl->sruntime[dai->id], a
+subsequent sdw_find_dir_stream() call (such as when another DAI link
+sharing the same SoundWire master DAI closes, or when a later startup on a
+multi-master link fails before overwriting every DAI's stream pointer)
+retrieves the freed pointer and passes it to qcom_snd_sdw_release_stream()
+again, causing a use-after-free on sr->name and a double free of sr->name
+and sr.
 
-		/* for GRF-dependent branches, choose the right grf first */
-		if (list->branch_type =3D=3D branch_grf_mux ||
-		    list->branch_type =3D=3D branch_grf_gate ||
-		    list->branch_type =3D=3D branch_grf_mmc) {
-			hash_for_each_possible(ctx->aux_grf_table, agrf, node, list->grf_type) {
-				if (agrf->type =3D=3D list->grf_type) {
-					grf =3D agrf->grf;
-					break;
-				}
-			}
-		}
-    ...
+> +
+> +static struct sdw_stream_runtime *
+> +sdw_find_dir_stream(struct snd_soc_pcm_runtime *rtd, int dir)
+> +{
+> +	struct snd_soc_dai *codec_dai;
+> +	struct sdw_stream_runtime *sr;
+> +	int i;
+> +
+> +	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+> +		if (!snd_soc_dai_stream_valid(codec_dai, dir))
+> +			continue;
+> +		sr =3D snd_soc_dai_get_stream(codec_dai, dir);
+> +		if (!IS_ERR(sr) && sr)
+> +			return sr;
+> +	}
+> +	return NULL;
+> +}
+
+[Severity: Medium]
+Should qcom_snd_sdw_get_stream() also use sdw_find_dir_stream()?
+
+qcom_swrm_get_sdw_stream() ignores its direction argument and returns
+ctrl->sruntime[dai->id]:
+
+drivers/soundwire/qcom.c:qcom_swrm_get_sdw_stream() {
+	struct qcom_swrm_ctrl *ctrl =3D dev_get_drvdata(dai->dev);
+
+	return ctrl->sruntime[dai->id];
 }
 
-After MCLK_OUT_SAI0_TO_IO and MCLK_OUT_SAI1_TO_IO set grf to pmu_grf, the
-later MCLK_OUT_SAI2_TO_IO and MCLK_OUT_SAI3_TO_IO entries find no
-grf_type_sys entry in ctx->aux_grf_table and retain pmu_grf, so toggling
-SAI2 or SAI3 MCLK output writes to offset 0x4 in the PMU GRF instead of the
-system GRF.  Conversely, if the optional pmu_grf lookup or
-rockchip_clk_add_grf() fails while ctx->grf is valid, grf_type_pmu0 is abse=
-nt
-from ctx->aux_grf_table and MCLK_OUT_SAI0_TO_IO and MCLK_OUT_SAI1_TO_IO
-silently fall back to ctx->grf (the system GRF).
+Because qcom_snd_sdw_get_stream() still iterates over all codec DAIs
+without checking snd_soc_dai_stream_valid(codec_dai, substream->stream),
+calling it on a multi_direction_codecs link can return the opposite
+direction's sdw_stream_runtime when an opposite-direction SoundWire master
+DAI appears earlier in the link's codec list.
+
+[ ... ]
+
+> @@ -49,43 +95,42 @@ static bool qcom_snd_is_sdw_dai(int id)
+>  	return false;
+>  }
+> =20
+> +/*
+> + * Allocate a stream runtime for one direction and set it on the codec D=
+AIs
+> + * of that direction.
+> + */
+> +static int qcom_snd_sdw_setup_dir(struct snd_soc_pcm_runtime *rtd, int d=
+ir)
+> +{
+> +	const char *cpu_name =3D snd_soc_rtd_to_cpu(rtd, 0)->name;
+>  	struct sdw_stream_runtime *sruntime;
+>  	struct snd_soc_dai *codec_dai;
+> +	u32 rx_ch[SDW_MAX_PORTS], tx_ch[SDW_MAX_PORTS];
+>  	u32 rx_ch_cnt =3D 0, tx_ch_cnt =3D 0;
+>  	int ret, i, j;
+> +	bool used =3D false;
+> =20
+> +	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+> +		if (snd_soc_dai_stream_valid(codec_dai, dir)) {
+> +			used =3D true;
+> +			break;
+> +		}
+> +	}
+> +	if (!used)
+> +		return 0;
+> =20
+> +	sruntime =3D qcom_snd_sdw_alloc_stream(cpu_name, dir);
+>  	if (!sruntime)
+>  		return -ENOMEM;
+> =20
+>  	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+> +		if (!snd_soc_dai_stream_valid(codec_dai, dir))
+> +			continue;
+> +
+> +		ret =3D snd_soc_dai_set_stream(codec_dai, sruntime, dir);
+>  		if (ret < 0 && ret !=3D -ENOTSUPP) {
+>  			dev_err(rtd->dev, "Failed to set sdw stream on %s\n", codec_dai->name=
+);
+> +			goto err;
+>  		} else if (ret =3D=3D -ENOTSUPP) {
+>  			continue;
+>  		}
+
+[Severity: High]
+Can qcom_snd_sdw_setup_dir() leak sruntime and sruntime->name when none of
+the codec DAIs in dir implement SoundWire stream callbacks?
+
+used is set whenever any codec DAI on the link is stream-valid for dir,
+so qcom_snd_sdw_alloc_stream() allocates sruntime before checking whether
+those DAIs support .set_stream and .get_stream.  On links where the CPU DAI
+matches qcom_snd_is_sdw_dai() (such as TX_CODEC_DMA_TX_3 or SLIMBUS_0_TX)
+but the codec DAIs in dir all return -ENOTSUPP (or do not implement
+.get_stream), qcom_snd_sdw_setup_dir() succeeds without storing sruntime in
+any retrievable DAI.  At shutdown, sdw_find_dir_stream() returns NULL and
+both sruntime and sruntime->name are leaked on every PCM open/close cycle.
+
+[ ... ]
+
+> @@ -187,9 +289,13 @@ EXPORT_SYMBOL_GPL(qcom_snd_sdw_get_stream);
+> =20
+>  void qcom_snd_sdw_shutdown(struct snd_pcm_substream *substream)
+>  {
+> -	struct sdw_stream_runtime *sruntime =3D qcom_snd_sdw_get_stream(substre=
+am);
+> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream);
+> +
+> +	qcom_snd_sdw_release_stream(sdw_find_dir_stream(rtd, substream->stream)=
+);
+> =20
+> -	sdw_release_stream(sruntime);
+> +	if (rtd->dai_link->multi_direction_codecs)
+> +		qcom_snd_sdw_release_stream(
+> +			sdw_find_dir_stream(rtd, substream->stream ^ 1));
+>  }
+>  EXPORT_SYMBOL_GPL(qcom_snd_sdw_shutdown);
+
+[Severity: Low]
+Should qcom_snd_sdw_shutdown() still check qcom_snd_is_sdw_dai(cpu_dai->id)
+before looking up and releasing streams?
+
+Previously, qcom_snd_sdw_shutdown() went through qcom_snd_sdw_get_stream(),
+which returned NULL when !qcom_snd_is_sdw_dai(cpu_dai->id).  Without that
+check, qcom_snd_sdw_shutdown() now queries snd_soc_dai_get_stream() across
+codec DAIs on non-SoundWire BE links in machine drivers that share this
+shutdown callback across all DAI links.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_93FC4A7191B=
-1BAC63C4DE9C2674660AA7905@qq.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122161437.5994=
+-1-srinivas.kandagatla@oss.qualcomm.com?part=3D4
