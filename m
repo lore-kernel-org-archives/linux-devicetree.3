@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795373602;
-	b=NlAXhb2XxAyeKDrPeyTNcp233pOUOrCfV2dOckmWogiRv7sAa7jlLMFsRQalHKMWPvzI
-	 0sTYJLpRX+DDv3gNDDLfhXyuaunX9Yv2EDeHcfUU3iuCXoVGBR4zWjDOd0yTrFBkMrTJT
-	 A9trXdJySou1LP+NWno6sg5kdWU8qJZIDX/LhduAM6ak2P1CMu5HQxNwzfaItuHa8p4OT
-	 jdbQrOHhXgDwk2/lFaRTBsKSGBQUMVO8whHKesrNp2RqbBlPT5XbrdtSU3OPDbGjbDCpm
-	 gGW37AYK2qrKBORdxz8JiCuSGdUbIcSBwJaG2ZkjQtMcOXijvQnG0/xUCmJBlwLtPpw==
+	t=1795373677;
+	b=R96Q7C1C+F+KRcywx24jvf+HF51qBGr0BMhwzpmiFRLazrFVoDUjBxrOj8vjhPNAk8kd
+	 3k/82i8TDCHiE0C3zUXVir/bSZ/jnU89QMK0DdmHDNIzoVUy5FDtND3d43CELzAPfHT6T
+	 UcIki0XfNoK5l6GqK0/8bTi/lDO/PAEhSDfH8Km5tyOIMwq2iSuZilbtGLN7fFE3HW3mu
+	 MMAeGS8nu7o8EZYLXbUudS4SJ2wi7k/xUET1ORER1ThjpVow7UkSy1ZgQ+wn5xFRLlx/Q
+	 KHfLNccZU34BzijujpoHz+N+d91fHFCuQL01OKfKZH+vF4Ta1O3b0IDo9mtchWWRncw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795373602;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=TT0T9dKrYRMDydvovQB4ZgNJtF1rM9gQPNiW4SzRh64=;
-	b=Zw9uYP/Tw6qStEWVp8SDiRTcPwcg9/YyShCAGssR0lneHvfCe+/4OnYcbtDTizumJglK
-	 t1SAkCA1+L4jYkh29Kar3z83B2nSjvM2q/T9NXog4cCjlzPyH7udJJYXevDmg8ws/8S76
-	 oGS+/r6EOVBEGAGfjEsS/Wuh/3qETSFx9KkLK4uorzqZtPUTW3MQuBEzuWkX+3xhgoHGX
-	 UApAQm1wo2YyVlzqagfsPXyVZM7OD31kU2alUJfarazCwuXBxLtXTyE5H6d4iWk9Of1j0
-	 JEYYTPGLajtwP8qZB1c//LPk3hJhHJguU4Xse2OLcPHK/heQPH4zc0Z7aGyCFsLC2fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795373677;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Uf40K/pvodARX4TFG1e6YUSwIbzlkO0+M9Bn1ppfz2s=;
+	b=ukEYuW8SD1+V4lAdgdmHgF9iWsh/k8qZV4Aur6c6vfd9aVzhhMB+tjz1+8V3BXj0Gzk7
+	 F8ZMmqaYrLBYQUBU7UrMctUj84lWHihhULUpTDMoQmicWYd+uhvz9fgVFJtVkiX8ag1rJ
+	 heJuZ8OPjpiDRL0vOheLzlEHNseeVysJhvtHCjJdInQuzLdnh3gvBxf1vTkxi2CrDq00B
+	 y6FmqcwNQR/A3Qm+Sze8O4Txtc59hMEihyNaYUn4829ILZwgy4+xenGMOgnXfvVSj8Up4
+	 zgS4k8jDGkp07PleJmZBnFtPnKTsZHcp4so9SiEw2B9xqSVxv90nOoUnrUEx+ulzKAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a9FJT5RS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Iaef/p1i";
+	arc=none smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB22606A320
-	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 18:53:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA03606A320
+	for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 18:54:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EA03606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a9FJT5RS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2B4A1F000C0;
-	Sun, 22 Nov 2026 18:53:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795373601;
-	bh=TT0T9dKrYRMDydvovQB4ZgNJtF1rM9gQPNiW4SzRh64=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a9FJT5RS+uzk6Spt9xQDPGi28S8Ii4c3fbLHsqK1iXa+7/s/IAgO5PTS6pCWB93HX
-	 rZko8KBr5ftlBOLYpgcinrN+WUGcaq4fz/dn73maUhJ6ueTJfOWd73lNu9phO9OWhT
-	 H9lMhX/LbAJNYaXmM9txat5si7DSUo9h7HF13P6nCzBsAXEptkiTT6gukt2o36Rydz
-	 RgEC8umCorG0kMqzog1KZz0DuvRmHS3ockgyPF9qWd7UTZxbtitMUZIZaPQYyJAzxx
-	 nne7Ug9uaX0pcHAe1n+9lSDQZCnaHLWVuowtQDMXgGKbmD8ao4TMbsw/wM80zD+BcS
-	 /QA7CkOsjkHhw==
-Message-ID: <sashiko-outbox-228202@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] ARM: dts: rockchip: Add ArmSoM Forge1 board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jonas Karlman" <jonas@kwiboo.se>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261122184532.1300004-3-jonas@kwiboo.se>
-References: <20261122184532.1300004-1-jonas@kwiboo.se>
- <20261122184532.1300004-3-jonas@kwiboo.se>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 18:53:20 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Iaef/p1i
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6bab10844b5so471058a12.1
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 10:54:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795373676; x=1795978476; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Uf40K/pvodARX4TFG1e6YUSwIbzlkO0+M9Bn1ppfz2s=;
+        b=Iaef/p1imBWOYDmFzHXqlV2pxfpBABeFA3v8p4Ao3xWCNO/2WMkjIK7UFKLAhGbkHQ
+         POed4MhGLKUu+6WzHKcEYOMAiZGIVKDdsXbgRwFtg2SHdsDPHWxeyWalcdAD9kuW/EHa
+         fLWSGH4J3uVWyTPAMWv1VATk9VdtjOeKAPfUKTV19sQ+Ksi88M6REDfSGrWMI2//5o3P
+         aQCBEHFmcqwOjQAUvvpM/hm3+UIs1vrw6rkhSgjoHSbMyZ1O5mrJRs7D0VOj58zirupa
+         iVsYC2JQTx5oJtocVzDklyBNANhQMYjhcFbv2lxkTH+D5wK5q02dgXjHcFavYOTM5zR9
+         OOSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795373676; x=1795978476;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Uf40K/pvodARX4TFG1e6YUSwIbzlkO0+M9Bn1ppfz2s=;
+        b=cLYl6hrWTAhYzH00UWzVXjO0jvo4GyUc5j87wohyLreqDy0h9DAuuzxiU+UjvsMstT
+         oVGBLBCakNcEAr43U7lZilcx7j8bmtgYVWZYosvHs8cj3/CBZ9OaN1g6kncxZhHrY7O2
+         YfkagggYZrXjYD+mzCdifIT8TZZQoF3yX642GJEV69qcnTxCSMqbPRspoXdqFNqi3zMS
+         gpuqDgH/sBiQkHl1m6VkxxHIEs86527WPKNyauaGegBAuuz/GMPz1NwKeecuuzQUjG8b
+         Xb6G4Jsbvfc0uNCrWKi8YjXxtqmuGLZQy2M0sM7epcB/KWet3vcn/5S+8SswlYe8JSDA
+         Hl/Q==
+X-Forwarded-Encrypted: i=1; AL+hErGF2Q4PO1uauzwAjmPsgF9c25CDeeLIJxUatWkCw7uE3U+wA2IuqPLJmNYAZ9zeq3wZTw7oigLi4OcH@vger.kernel.org
+X-Gm-Message-State: APuU4Z84lb6GrZt3pEXVL5kTI4mQ/FAwgK4lHaQ3YjnT23eB1tT1CyVV
+	6nNQ/B3TXHoPa2895EvSmImQFiWzJ7GlkiI3ufNFstnSAODldwCC8UkN
+X-Gm-Gg: AZFdTZdzg7Mb4L+JFSn/FN6ALpSkRMaq165XZvm6V2W3mjlFrGYaGOUYON9pDV5s/cN
+	NLk5RIZG8IJ7ZCdu5qUGGukw8uoGVsKjLTVJQZf39K0ChQBlBVEWeEhocGO42CsIxndUf6Mw4HR
+	ra/u6PXOD56lKMVB3J/5yr2Oc1xP/sZrG9HpIKHpbKRhDMSDBvI598DFA4eoCVDHYqN1F6LQYCR
+	7m+QsJd5tRrdhVJ+h0WsQJmDXSwqKRevVyQCWIoHT4j6+ySVDBQAKl68N00IWk7KAFzYU1jC5NG
+	pBV6FROpgEXCUkiPpp9hnG7MKq0NG1VSlS/xAJZ7RDkLs8YBk8QW2i6UxmP3m/tOGiihnxVu23T
+	ZIbOlHVsDan7ZcEyF0if6lq2470opwTkpNGvjE5ABSKL6KKgI6M96cXBjGl86MijeFF1yh8Z1JQ
+	HbmxgMXaBdH1n6RTXVCbRjgHOcy2S1G84orJ96NEGv/PBd+7HrI2Z0NwN+DAJnrvXnyKYI7Lyad
+	dpcnc04lUzTlDSVXYU0LAB/Rz/PYP7cIh650yUSpO3OOJ9FkFItcj3Yd7nvK5Va1AKczhLtOACf
+	zS0S900I4EYqR+V5gwypRBKb2Q==
+X-Received: by 2002:a05:6402:22ed:b0:6b1:c285:f8d8 with SMTP id 4fb4d7f45d1cf-6ba1fb0ff8cmr5919856a12.11.1795373675341;
+        Sun, 22 Nov 2026 10:54:35 -0800 (PST)
+Received: from dl360p ([195.155.168.55])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba7b9570e9sm2385762a12.36.2026.11.22.10.54.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 10:54:33 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Sebastian Reichel <sre@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yassine Oudjana <y.oudjana@protonmail.com>,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/3] power: supply: s2mu005-battery: add S2MU106 (Samsung Galaxy XCover5)
+Date: Sun, 22 Nov 2026 21:54:30 +0300
+Message-ID: <20261122185429.557309-2-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <DN05PYTW4NV6.SOA0NRNOJBAR@disroot.org>
+References: <20261116074000.355176-1-tadilhusrev@gmail.com> <6afc2f77.2bb6edcb.1518d5.5d4f@mx.google.com> <DN05PYTW4NV6.SOA0NRNOJBAR@disroot.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,47 +103,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] ARM: dts: rockchip: unused rtc_int pinctrl node in
-  rk3506j-armsom-forge1.dts
---
+On Fri, 20 Nov 2026 21:22:14 +0530, Kaustabh Chakraborty wrote:
+> Actually, this one was just fine. I didn't look at the patches
+> meticulously but it seems like it does belong here. The correct approach
+> would be to adjust the driver correctly so that it accepts both.
+>
+> The compatible patch is, in fact incorrect. The driver clearly uses two
+> separate compatibles for the two devices, so there should not be any
+> fallback.
 
-commit c8399c3a39f722c5341014879ceea3f38f7b0a7e
-Author: Jonas Karlman <jonas@kwiboo.se>
+Hi Kaustabh,
 
-ARM: dts: rockchip: Add ArmSoM Forge1 board
+Thanks for taking a look. To be precise about what I was reacting to: the
+unsoundness wasn't that the same driver matches two compatibles -- patch 3
+did add a distinct match entry for each, with has_monout set correctly per
+chip. It's that patch 1's binding declared the S2MU106 compatible as a
+fallback to the S2MU005 one:
 
-This commit adds initial device tree support for the RK3506J-based ArmSoM
-Forge1 board.
+compatible = "samsung,s2mu106-fuel-gauge", "samsung,s2mu005-fuel-gauge";
 
-Link: https://docs.armsom.org/armsom-forge1
+That pattern exists so a kernel with no S2MU106-specific knowledge still
+binds correctly via the old compatible alone. It doesn't hold here: a DT
+node that lists only the old compatible (no S2MU106 string at all) still
+matches s2mu005-battery.c's existing entry and takes the has_monout=true
+path, reading MONOUT registers the S2MU106 doesn't have.
 
-> diff --git a/arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts b/arch/=
-arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts
-> new file mode 100644
-> index 0000000000000..6520fa700f647
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/rockchip/rk3506j-armsom-forge1.dts
-> @@ -0,0 +1,229 @@
+You're right that the actual fix is narrower than what I did: drop the
+fallback from the binding (require samsung,s2mu106-fuel-gauge on its own),
+keep extending s2mu005-battery.c as patches 2-3 did. I went further and
+withdrew the whole series for a standalone driver, partly because I'd also
+talked myself into a chip sharing three register offsets and their scaling
+with another, on its own I2C address, not really belonging in that other
+chip's device tree node/driver file. That's a shape preference more than a
+bug fix, and I should have said so as a separate point rather than folding
+it into the same withdrawal.
 
-[ ... ]
+The standalone series (dt-bindings: power: supply: add
+samsung,s2mu106-fuelgauge + power: supply: s2mu106-fuelgauge: add standalone
+driver) is already out and hasn't had review yet. If you still think
+reusing s2mu005-battery.c (minus the fallback) is the better shape, I'd
+rather hear that case on that thread than have it settled by default --
+I don't have a strong attachment either way beyond not wanting the MONOUT
+bug back.
 
-> +&pinctrl {
+(Resent for the lists: my two earlier copies of this reply went out as
+HTML and vger rejected both, so only you received them. Sorry for the
+duplicate.)
 
-[ ... ]
-
-> +	rtc {
-> +		rtc_int: rtc-int {
-> +			rockchip,pins =3D <0 RK_PB5 RK_FUNC_GPIO &pcfg_pull_up>;
-> +		};
-> +	};
-
-[Severity: Low]
-Is rtc_int intentionally defined here without an RTC device node
-referencing it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122184532.1300=
-004-1-jonas@kwiboo.se?part=3D2
+Adil
