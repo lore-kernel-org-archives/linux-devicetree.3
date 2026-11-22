@@ -1,60 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795358258;
-	b=M3xt4x9PfNLPC3VP4/HbweLGZmF+4q0CGzIX4na9D9kk2XAV1QewMpqHn97bVRdZDSZb
-	 pU671pGjzGBo+yu0jhmuWt2KE/R2zBM1rlwDiEUC7BDrDMR0C1BIULJMGskmm38VdK6YS
-	 RxyWDWBiXkFRDcGlW8QDgIrcZ/zOGEEH0DyBmKiFqRs32mjWHOCJLMgN5y4EYZd696xRE
-	 fNh/pS5HCG3dYIzGBV+5kkzOcJAwBK07dqv8tDqMU0pY3+7YcRZgsxxbPrf+1nf//V6QP
-	 Q9y4XW4BHhODQdaLzs5YyXEZ4p3SNmZTJTixKnkd5eOTDElmQTvcn4fcdgoMdJ10tRw==
+	t=1795359106;
+	b=Q8yeGHhvDSGl+D+nmKwNPLe8VwrxlWWsHxcowmRCQdLrvRD37IXlebez6YLFVC9NBg8l
+	 sApnPtHLbokeALJjshi+cxu0df6BcnsOY5Lf59ekXX8MOtGyAqMomwz6yxsYomD8QTbwP
+	 EsHSPADrW1+Ox4E0SYB272hppaEIltHLArxhEVoY1AcFh+wEtaP/Avfb3ozgeCPRj3rdu
+	 IwDGJMk/B1GQO0Bq+xPfPtjraP1umi1EEj450jzfjmEn+KAvL1IMV5CgNQkAvWoAVh0A8
+	 I73QXTO/4rpeoB1CW+AKkaH6otSFesEECm1/yenWLJQsCH8BbKnZmKzbhNjtpVkTYwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795358258;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795359106;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EBU7rnFp3oNZ1pkjtzcdL/kgfbKnHYrr06MJchmz4II=;
-	b=ittsQMQG+zE3HkVacDsBsOAbn3Hosz9rGPYtmXCJVJwVUuxHRsjDaYd7bjwxT7vt9McA
-	 CVP/X+zWoIY1vUYrs/DrLtghP1rVCyiyJb6aZI2EXGSXn3bKsn82au9h5eZ3rmbjbTAav
-	 2J1rl1zA/lyAzPILkiC+TOKutC7yP2U7XSpfHU1fUyOVKz5+ilCyJaJ8eta+YebiYh/7s
-	 loB+sRb2aAUdwTY5U8HXTJwZxqhQ6nq0Aw0n3dL81YqWeshyI3VAfVwU0e3VdqLDEkh0I
-	 p+I+ULoyj539IDEF77YXfGEHgSdF/HAi737+gSnEcatSLT9k/d26CwvLgG7MXUeDm7w==
+	bh=pP1Eg7j0fEyC/wpQ+r82L7kkFTb9gJSOerVN41GQVUQ=;
+	b=dzrogdHi5PgGNqSApdm3PHWgV0quXWhNwHesT6NGMwNjf1zEU+yKb4Hvt5RTioGM3n/+
+	 vWdL6E5uSnAsBpvq338qdWgyBAOKqYlEcW+/gmABapC2kqejsA/7zYJUdIbMI90mF/t9f
+	 jSiIN/bMem4XL4HD2FiWJVNiKxBa6rOOXZzxTWaGxikpkzgEUXu5sNLCNEn1Q3f8n04qd
+	 YNXT4WBiiF4MHlFOXj17yBMAHNzw13SW1bfEsdLNR9pccujGWqo34whZwq74YTO/XRLrW
+	 w6wupvjLYmkPYGtZfXcyzryjm1c54BhVByNpfn4IZ08RRI6/aU+kqmINq8Y4fYFrMpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BGMYpIkd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJnGbZJn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2D6606A320;
-	Sun, 22 Nov 2026 14:37:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94B2606A320;
+	Sun, 22 Nov 2026 14:51:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BGMYpIkd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57C4A1F000CA;
-	Sun, 22 Nov 2026 14:37:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJnGbZJn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F20B81F000C0;
+	Sun, 22 Nov 2026 14:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795358258;
-	bh=EBU7rnFp3oNZ1pkjtzcdL/kgfbKnHYrr06MJchmz4II=;
+	s=k20260515; t=1795359105;
+	bh=pP1Eg7j0fEyC/wpQ+r82L7kkFTb9gJSOerVN41GQVUQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BGMYpIkd/ioMH4S3kcMt+04VqtNUNSg931SSFKuMt8YlPxRXmAVTXP9IyxuwQbBpB
-	 ffc+Ecc6wsbAhOVHs40Gq5Xuoyf4DFsIf+VhP6UKdlI9bhq25Ux5Rtr6OtGFMAJgDo
-	 9vgNsQFFAO5L0TgpjnP2cMdlwH51CyAh9paGR1TUTviFYI5CFmaCWozTx5bOBRrUU5
-	 R9iOcIsNplkKmu6q992OIc8UiAnA7ohOUb6HVtURnHCyfSLDooQMOCccXuwRKrvSPg
-	 UkSE5Yvf7RROOeiSBUoajnFotCuguSbPEQKPPzuERmHrT4JhbD2XoBGQrPny3shxEQ
-	 +9Mk2FmUKnNEQ==
-Date: Sun, 22 Nov 2026 15:37:35 +0100
+	b=PJnGbZJnz7BCoxtc8LVNsEWA+vw7UkZIG1UYvRus3e6zyDQUdNwU3TYCB/3y0GrWp
+	 97PNWkw5YG1g0Hid3jasu7S37JR7ohbB+3J0zAkMWt8vPSm79Fl+/dwJMBN03AwPV3
+	 ApmO5o415Ep14oTLaXTXsKAwCE1EfGltPOxUt8A6TWe+dmjEuN9ex4dAsAKX1DwWu9
+	 Pla2zp6F/JiJKV2xBwJBqHJpbksMNMTxMxtcCyoDchkzWJa9omPU5nCVJATYqC92xl
+	 g6eesqt6KHlIZW5KS1KzDQAanoo27/WXgawCgVZf/E8dV+nkGSgNgJ7JUC2CQrFaUR
+	 etLzzqtfEJ8sQ==
+Date: Sun, 22 Nov 2026 15:51:42 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com, daniel@makrotopia.org, 
-	linux@armlinux.org.uk, arinc.unal@arinc9.com, Landen.Chao@mediatek.com, 
-	dqfext@gmail.com, sean.wang@mediatek.com, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
-Subject: Re: [net-next v5 2/7] dt-bindings: net: dsa: mediatek,mt7530:
- describe 'passthrough' hierarchy
-Message-ID: <20261122-millipede-of-excellent-energy-33efa5@quoll>
-References: <20261116183332.168858-1-cjd@cjdns.fr>
- <20261116183332.168858-3-cjd@cjdns.fr>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@linux.dev>, 
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Simon Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Florian Fainelli <f.fainelli@gmail.com>, Ralph Siemsen <ralph.siemsen@linaro.org>, 
+	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH net-next v5 06/24] dt-bindings: net: dsa:
+ renesas,rzn1-a5psw: Limit port reg values
+Message-ID: <20261122-nifty-unnatural-caracal-1b3e4e@quoll>
+References: <20261120002549.1908299-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261120002549.1908299-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,20 +70,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261116183332.168858-3-cjd@cjdns.fr>
+In-Reply-To: <20261120002549.1908299-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On Mon, Nov 16, 2026 at 06:33:27PM +0000, Caleb James DeLisle wrote:
-> Due to hardware limitations, full switch hierarchies are not supported
-> with DSA based on the mt7530 DSA tag, however it does support a simplified
-> hierarchy in which one or more switches act as passthrough conduits with
-> only one CPU port and one DSA port active. Document this capability.
+On Fri, Nov 20, 2026 at 12:25:16AM +0000, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+> The A5PSW has four external ports and a CPU management port, using
+> port numbers from 0 to 4.
+> 
+> Previously, the patternProperties expression only matched port nodes
+> with unit addresses from 0 to 4. This allowed port nodes with other
+> unit addresses to bypass the port-specific schema constraints.
+> 
+> Update the pattern to match all port nodes and limit their reg values
+> to a maximum of 4. This ensures the constraint is applied regardless
+> of the unit address.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > ---
->  .../devicetree/bindings/net/dsa/mediatek,mt7530.yaml        | 6 ++++++
->  1 file changed, 6 insertions(+)
+> v4->v5:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
