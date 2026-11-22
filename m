@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795324409;
-	b=T9Hw3VrJ5hfnBJb620Ksa65mwXgjMtoGFF4o9ET65DjfWzhcsWU9haExH42rumuvIjkU
-	 yuCIHMLsKFByO9j/Z8qfLwD5jOnN8JOsYQHgt1wjdqXeKpK6GcciUd7wO7nV0kLBu3A0d
-	 fUAzQC/NwVo4+eGQgd4nbEwtxv7WPPSKGNcRh0A00TQ+8lAm0Jk/wSmgQTUGvydJYGktc
-	 7t/mOk0P/SfAK2uJj410ReLzZlS2IIzApBKbpAtPNfPnyvOIJYHAGd1g5Si4DCoLRfOhG
-	 i1rP3a/ayjT+/Il7fyt4C1PBpExIzv31C0cn3Y2sFtIRaOkdmFVT6gvPomWUEhwMl3w==
+	b=5P1aRZo/eO7nW8timB43m7rFFTEadlvNFDOF+TTlBMNyehlMa79WS2aVdeBoouvtXRe7
+	 TwNrLRpbGrh1Ugs7uc/IBaJxKH9hiLP7AZP8DoiA3t6aHgdSCA1AktvbZEwQ2X5MScSf+
+	 iRez6oat8gnNnZY51ZwZ1+8NdsFNUmrsvp+0UB6Py1nzUUOZKi98kgTrRCKpJXL3cUXq8
+	 BhZodi0Ny8ezGt43RPGlHNdAEvcDenCt4r4tfQY/ApPcuMbfpdZADy9iN6ov4LAdhuchT
+	 szsN8lCSn/oDpLYmUn4xo6ovvQ/pNJjmPyn0I57xnRKdrbbTKGjOB5vYYEUT6yAhuvw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795324409;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zLnW8Sv4fuv8/fmfruOed5E1Xmdd2oj1KmKOAqoa5dA=;
-	b=3HNIl7koNvMETW/HGG2m8QB+f3s3FiY09v30JVAuPeJv364uvlNrnieZojNCsx4dzUnv
-	 gmXrUPEW2/PlOvsm3huC3b6xTrAj+5od56wArQCpDSZt9eHqJrUcUp/qhGdlyW0PoqIwi
-	 9YCoA3yp/00NY68H2Yn5ZC42Cxz8Sf1P8ekN/UvneGARo4QTX1zQxRvSSk3FqMmgDy8+b
-	 v/0mbulnKSw0j/k9dEPidNni7exO1c7AlIct8OetUY3TimlUR3Eh8mRyXebjNgfu5X6o8
-	 EPTToq0xQTEC3rf0PKGegkxb5n/7afNILXetiC91UiRYyDQ6EFSlEvdfIQbcxD5ys/Q==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=D3FHZwdzbc+DzBCXcwAt60rvyFF9oaH2jUzt7UMfw8Q=;
+	b=OxnhTGUF1v3GrEzUulqL7yHryBUE1s17OIJ6WlSxlMkcXWsYiJF/E03V74tk3pABdLKW
+	 6rTfET+2ECH87hU4oPKGQB79Z7xaWvmeSv0EBr6F4JwB6PQyDSfd6RGhoHDhJf89sMllt
+	 4upLXiM8+NptvB1icndDiJ4YF7P9jafeKArZ2PPn8lq6XV0Obvp2yekNV4b5P/VODNs64
+	 78Syyl2XF7IOa4tNvGRZGFdSYANoO6itOK+t4B6y0XoeiHE5w9uYpo5Q+oVo0WoVmRixv
+	 okYMrjlvmL77fjNo5uIWVsj0iKYd56c1Cl91jyyXsQklicpN+q4g+MwBmp8bCi6zskA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BabuUO63;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxiBqSJh;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B622606A33C;
-	Sun, 22 Nov 2026 05:13:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7BD606A33D;
+	Sun, 22 Nov 2026 05:13:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BabuUO63
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxiBqSJh
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795324409;
-	b=GLP9TQewXNMbI9PU8sGAjJRlkga1/y8SnRLWmrumrNXd/JicNYIP05xG73LKFmSNapKW
-	 4HpoqF/r/uNN95XHkZ7U7ADiA3hlS/cF/fvIBrj3mWgn0OrHUtxXIcYQGb9Wo62Z+Gl4R
-	 VogayZKmftjMwpazt3Y0tt/4OTEV5mDcG0DwOG7broxkEf0XAZCI+glfYWb8LHhvO7ocl
-	 1WCOETAdvi2RKJ0UiqzKXSGyJYftdaDEznRj4cw9PSQ82giYOAIFeDMS5rjR+a8CUBuRw
-	 j5hbDzQ972PaQYe3cUeKNjSZbyB8ioP0IirpTqSo/dB856zlx+LSElP7SnGlqbO2C8g==
+	t=1795324408;
+	b=SbALYnEakLPz5otuk1mj8aveGXfL6zj7/TF7pQSbuFWsQAoJpgnXLiZlT2fTD2i1dzVO
+	 I6L2KvHz6NgDqThJr1uqWtXISGQ3dwalD5msA9XRDN8+hfgArdkMXWgWLFebPpYFakBWi
+	 /PuPlKdEKqJJpi5ZAcAbdzImTRzBmAAmUIa2ZMj2XGjTacpw+zT3IlLqCCR2nYIgq8Y0f
+	 uunxSo/HNSib8P0DLOcVdpSs9wjvHg7Vv1uiuFW/SqhPzf9oRE496Mhzznr6WDonm7tF+
+	 CJ16/Kjtd/KmJyW8Hy92hN78eY2RXhHRb1+UaoFj/G+LPrYD0JcPIaKd19sOW9BuXUQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795324409;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zLnW8Sv4fuv8/fmfruOed5E1Xmdd2oj1KmKOAqoa5dA=;
-	b=VXL//ZSmXGtsscxXpjffLxQ0ck9p5hLNO1YfhomYUzz4nsFWvyrOmKnUVCjroUTJQtOj
-	 k0mYQinckshL5Hc8uKGw6n9I/NGEXAPy71laKMqmxQlf4mQHobtkpeMjVp93ywf5al/kH
-	 G3lSTCc5XW6RLpSPM4JA3/oeGkK1UsiR9bz5sVyihhskVK4LHyeHvb74zca/n30qQQ2lC
-	 cvjVbcnuFLFWZGzoKo4HtjVDYr4sy7UK1oI+8BSrpehTcqi1ViP5oXf7DD55alnXCLvMc
-	 tytt9q5rXaHnF3U9lxnBIGlBpRMNWQFIzhPH4RLQaaEL3AoM8IFC4TQRwLB83e/r6Hg==
+	c=relaxed/relaxed; t=1795324408;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=D3FHZwdzbc+DzBCXcwAt60rvyFF9oaH2jUzt7UMfw8Q=;
+	b=ZHIlr8hqcRP+VjCTr2Kl45jMdhYJMrRdSIqMflxXIUhB+SB3SLgNtMXcH5t/x0UEXons
+	 b3yERJjUbqjTArSXZ93T+/uvrHzR5HfQu6urwUiDg0vWTVGBPAeJ3fJopA/HJZjcOQHwn
+	 okeSylJojWdA907gIArvxggOl9wE1mfE7r2XRZn+zoRvmJe00O94dxsfaTuIyrlv0g+vv
+	 Odf5xGB09M43uWazPNsyuejpYN9r5cfWT+BilPas6wRgqnsZI/vaBMVpZugA7D0V3Ui19
+	 y8nPWo752zorjgikMYyDjYNE8Dl2xz2KZD03l/pvz08LjFW/uER6D0fFKZriW6h3JKQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 379DF1F000D3;
+	by smtp.kernel.org (Postfix) with ESMTPS id 006131F000C6;
 	Sun, 22 Nov 2026 05:13:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795324409;
-	bh=zLnW8Sv4fuv8/fmfruOed5E1Xmdd2oj1KmKOAqoa5dA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BabuUO63wnixyLEYmkZN178LkiF695H1O0MxrpzUh7NqEZgLJIEc7dP/ymBQiqNX4
-	 kGleRtyF6PdMwiHleMxfPAUPetHRYcXKusbDXaGKvdrRKkr2imbDw1H1+XCctEK1w0
-	 P/iqvO56k7YRouLWxFgUojTVJ7+3hF5nS+YtiWbFdzCr9gvWN9k5LyJm1Siyi8Vz8J
-	 LyC4fU5B49M/MBNf3Zig49noZHUmVWnepf9EwpWkUgdnhYlbtGCjxeAHCX+4n6Eqw0
-	 6+opdZMTGxQtbL0CI+roxThmGrOnSm4Xe0YfyrfM5piJM3e20nXpxRrM16zeGcuijp
-	 auDyKaiQ+878Q==
+	s=k20260515; t=1795324408;
+	bh=D3FHZwdzbc+DzBCXcwAt60rvyFF9oaH2jUzt7UMfw8Q=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=TxiBqSJhH55ZWnrZF2Vh00jz3ZZMzoPU2dLMR+ZVKJYQt1rh0bPv8RLpM7LGo533j
+	 CmmLf3hhQ02b9/4BY9Yi+QkIhQXAoX6hhcEol633KPuOg67ukTKyxMKRKsKMCYAmsM
+	 Wfz/H81KIDXDeII3rk3yDbu4BSj5dn6ihn1lQ6mLhm57oN0VzvSeCk/v9kUzJyniJg
+	 2ZAIgftGc7S9H8Q1Ms62O+TcOcvEvBlc2oetvH6HKkqs+XUsyiiUA+cAsYwIXI4wLZ
+	 1u+RfvW6o5thIFTDMnG3svtadHM1W/K27G47kETblWuw8R8VoJ2XNIKQthz8MO13Dm
+	 BIvor3Sd1kMpw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BCC2D4BF47;
+	by lkml.kernel.org (Postfix) with ESMTP id 83C574BF37;
 	Sun, 22 Nov 2026 05:13:27 +0000 (UTC)
 From: EMCP333 via B4 Relay <devnull+emcp.enser.io@kernel.org>
-Date: Sun, 22 Nov 2026 05:13:25 +0000
-Subject: [PATCH 2/3] media: qcom: camss: Vote interconnect bandwidth on
- SDM845
+Subject: [PATCH 0/3] media: qcom: camss: Interconnect votes for SDM845
+Date: Sun, 22 Nov 2026 05:13:23 +0000
+Message-Id: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,9 +84,11 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-b4-camss-sdm845-icc-v1-2-0671ef770fd0@enser.io>
-References: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
-In-Reply-To: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPN5AmsC/yXMwQ6CMBAE0F8he3bV1irEXzEc2u0qa0IlXSUkh
+ H+31eObzMwKyllY4dqskHkWlVcqMLsGaPDpwSixGOzRXoyxFoND8qMqahw7d0YhQhMdxY5OTKa
+ Fspwy32X5vd76v/UTnkzvelUbwStjyD7RUKPKw9zuHWaysG1f+uk2bZcAAAA=
+X-Change-ID: 20261122-b4-camss-sdm845-icc-1d4cd8c3ec17
 To: Bryan O'Donoghue <bod@kernel.org>, 
  Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
  Loic Poulain <loic.poulain@oss.qualcomm.com>
@@ -99,98 +101,58 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  EMCP333 <emcp@enser.io>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324405; l=2685;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324405; l=1830;
  i=emcp@enser.io; s=ultron; h=from:subject:message-id;
- bh=OGRKEtq1Lkj7N/ZDmYMtE6pVd6l+uYydxBq4WiI271o=;
- b=p+n2DY76jLDaVZyJPwPtm0f/fxI+Q8073fq8RLCO8U6oOuB1lTuWNsAkBXSibxjg5SSATESrM
- at7RsKh8GjICCJoLdNsaXwssozuSZakY2E4SfTBQeXByFW7UfvgUiRQ
+ bh=0eKhIZ+ChtKI73qyKB4ZI4olHiQz7Q9wrSL2FmVT5UU=;
+ b=/jIJzyp9G4JmqAhPZ393/BkZFtZPUci/21USxarhIHV2aEb6kzwHmXVbg00OrikYxV7dz66z1
+ J83cxfN9EFyAwqbrmz/kcDcguCUvsJlSZWfb678acfiVWdgKqWzV/qv
 X-Developer-Key: i=emcp@enser.io; a=ed25519;
  pk=5sG48Lul+Vn7OzXu3VZrCWk5uvEFPYMXYnAV0TZR/tY=
 X-Endpoint-Received: by B4 Relay for emcp@enser.io/ultron with auth_id=1598
 X-Original-From: EMCP333 <emcp@enser.io>
 Reply-To: emcp@enser.io
-Content-Transfer-Encoding: 7bit
 
-From: EMCP333 <emcp@enser.io>
+CAMSS on SDM845 declares no interconnect paths, so it never votes for
+memory bandwidth and runs on whatever the display happens to hold. With
+the display off, capture stalls: on a OnePlus 6T, 8 of 10 1080p
+captures stopped after 0-1 frames, against 10 of 10 complete with the
+display on.
 
-sdm845_resources has no icc_res, so on SDM845 CAMSS never votes for
-memory bandwidth: while streaming, the camnoc HF and SF masters show no
-votes in interconnect_summary. They get whatever another client holds
-on the same mmss_noc to mem_noc path, in practice the display, and with
-the display off capture stalls.
+Patch 1 allows the four paths in the binding, patch 2 gives the driver
+a bandwidth table for SDM845, and patch 3 adds the paths to sdm845.dtsi.
 
-On a OnePlus 6T (imx519, 1920x1080 RAW10 into the simple pipeline), ten
-100-frame captures each:
+Patches 1 and 2 are for the media tree and patch 3 for the Qualcomm
+tree. The driver gets a NULL path, and so no votes, from a device tree
+without the paths, so patch 2 is safe on its own; patch 3 needs patch
+1 for dtbs_check.
 
-  display on:   10 of 10 runs complete
-  display off:   2 of 10 complete, 8 stall at 0-1 frames
+Tested on the phone with the postmarketOS sdm845 kernel (6.18): with
+the display off, 10 of 10 1080p captures of 100 frames complete, and
+the camnoc HF ports vote while streaming and not when idle. On
+v7.4-rc2, dt_binding_check and dtbs_check are clean and camss builds
+with W=1 and no warnings.
 
-Add a table with the sm8250 values for the AHB, HF and SF paths, plus
-the second HF port that SDM845 splits its two full VFEs across. As on
-the other SoCs, the votes are applied at runtime resume and dropped at
-runtime suspend. A device tree without the interconnects gets no votes,
-as before.
+The same three commits also ran on v7.4-rc3: with the display off, 10
+of 10 captures of 100 frames, no camss errors, and the camss bandwidth
+requests go from zero to non-zero while streaming and back to zero
+after.
 
-Tested on a OnePlus 6T with this change on the postmarketOS sdm845
-kernel (6.18): with the display off, 10 of 10 1080p captures of 100
-frames complete, and the camnoc HF ports vote 2 GB/s while streaming
-and nothing when idle.
-
-The code and this changelog were prepared with the help of an AI coding
-assistant. The submitter has reviewed both and takes responsibility for
-them.
-
-Signed-off-by: EMCP333 <emcp@enser.io>
 ---
- drivers/media/platform/qcom/camss/camss.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+EMCP333 (3):
+      dt-bindings: media: qcom,sdm845-camss: Add interconnects
+      media: qcom: camss: Vote interconnect bandwidth on SDM845
+      arm64: dts: qcom: sdm845: Add CAMSS interconnects
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index f8e5cf9f3f..0ed497b7b6 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -2219,6 +2219,30 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
- 	},
- };
- 
-+static const struct resources_icc icc_res_845[] = {
-+	/* Same values as sm8250, plus the second HF port SDM845 splits its VFEs across */
-+	{
-+		.name = "ahb",
-+		.icc_bw_tbl.avg = 38400,
-+		.icc_bw_tbl.peak = 76800,
-+	},
-+	{
-+		.name = "hf_0",
-+		.icc_bw_tbl.avg = 2097152,
-+		.icc_bw_tbl.peak = 2097152,
-+	},
-+	{
-+		.name = "hf_1",
-+		.icc_bw_tbl.avg = 2097152,
-+		.icc_bw_tbl.peak = 2097152,
-+	},
-+	{
-+		.name = "sf_mnoc",
-+		.icc_bw_tbl.avg = 0,
-+		.icc_bw_tbl.peak = 2097152,
-+	},
-+};
-+
- static const struct resources_icc icc_res_sm8250[] = {
- 	{
- 		.name = "cam_ahb",
-@@ -5690,6 +5714,8 @@ static const struct camss_resources sdm845_resources = {
- 	.csiphy_res = csiphy_res_845,
- 	.csid_res = csid_res_845,
- 	.vfe_res = vfe_res_845,
-+	.icc_res = icc_res_845,
-+	.icc_path_num = ARRAY_SIZE(icc_res_845),
- 	.csiphy_num = ARRAY_SIZE(csiphy_res_845),
- 	.csid_num = ARRAY_SIZE(csid_res_845),
- 	.vfe_num = ARRAY_SIZE(vfe_res_845),
+ .../bindings/media/qcom,sdm845-camss.yaml          | 20 +++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm845.dtsi               | 10 +++++++++
+ drivers/media/platform/qcom/camss/camss.c          | 26 ++++++++++++++++++++++
+ 3 files changed, 56 insertions(+)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261122-b4-camss-sdm845-icc-1d4cd8c3ec17
 
--- 
-2.47.3
+Best regards,
+--  
+EMCP333 <emcp@enser.io>
 
 
