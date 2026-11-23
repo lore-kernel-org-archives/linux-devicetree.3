@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.88
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795409497;
-	b=3DsLn8Az48VVWuraBeHLpobPw86zg70bH2um3ud0EpvgqFbtXMwk+xGHS2Zs4g4UfJYR
-	 xkrL+Fgr1cOZp/3jV9jtRBgFPPv/jtuTcXh+mEo7aV9kN5Ds52hkY5iN/Gf1ov/E9dzKy
-	 VtJLvgUnjLvD2EIQepLpWAfQu/oyU5NaUEyzYJ0QYa2qsDsAtoCDv3EbmIc8KgUvk7zKm
-	 EVlz6DOj/ggB9EjyBt/3Yrg60qW1JytcmvzYniPTV69Q5nYLFziQvQmIluqS6bwSXyZkj
-	 PkW2bNt0Pm2IyJpRFXKEwywfBa9dSkpQDME4saIkh9jM28F70JbXiauRfjTG3lkN4jg==
+	t=1795409903;
+	b=y96s9W22fE0oQsRRggqkAn4/W7+DM3HytBJyqDG3ZQ3MgULrub5DSdlB/YWaJzdsCLqY
+	 qrSw8elKjjz/zwPtdBiewyw+OxkyoxqpQ3en7GXLgjJolZ8genJNX35NS8Y2ggMS5I69e
+	 xzwzVYvniJFo1UtVbEBa0FZuEhu/3RU9qnY/IZ1b6yHa/4jekdv1e+Uiq6Ugm2J9CGECG
+	 VyzsLnsXeeEFO4Ct1dTyZ9goNdu4YdJ/s9Ylxw0Tn7VEX6RXuxDayBIdTA0aByRJo0sfm
+	 bnM7CWsjimiD6HjG7a9nrqNs3HcwXgxEIZxdhDDujsCrNSAO1L9i0Fl2kNa1MUtaR0g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795409497;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3FwG7mX5zlZBqN+BGxKHGoAGEMqnQOwJV3TjX51GPvs=;
-	b=CmDnoFVd0C6GCXSb4KOPlRCMct/Oj0w3FghyHXN52uIuocq40iIx3haFnikKMWqSoddx
-	 uXoQHyclb7b7dm4RkFU5EauRXVSzsf0V1Gd2AAH+bq7YS9YHH62DnjbIROnLqWCDLOk0C
-	 vXOtaq/1/DEL1rE+SL9DXjdb4u04bj3KwymprmbkgjDc7hpCEuWGj3wWl3XjGxu2+NtQ9
-	 N+Xcv9n/yprGs070RRJbLwP5RCXZzpvBBBFTriwvhJle/ZgKTi5H9P2/lw+cJyGuJTBZu
-	 lSZ8HZR4Tysj8ezM4QXsetHDLz4sjPYLlxbYlzWaFR+Q+pEdcf/NsdFpd50HUhSLKuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795409903;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=MdtP9MNjKelzS2HyGgFuOpx+k1IXUf3VspmjY2T4UV0=;
+	b=A2ayisRgS4j1j1LHSKeItzeF9MUeC+w4Qjyet5bflgruUy9SYlhPAOLFVQeUJgE6iu3K
+	 nSeBpJ4r6nEkv/Y/0URpCfx8kqDEhIlFO+kl9Gr7YtbEHkRB5nwBZahfxlYCudab7VHe6
+	 3MOuXuRMLfT0OwRpu7SGy39Zry6TKFQfe3aI33scbWiHtnQqtGc69IBJPVbLOTwRAvLAY
+	 Z3HIWlcZiMoDvDLUSLPkxBNwv36uZchRqyh/ANPuc56qqmsOZ/8SXduDnYOIwHxqdZ8bH
+	 sL9HGfkCwjMdrtaffJCB/UxG7Zru+pzPPxBBqHjZ51B2r6mrkQrSdYbWc1L5SZxZorw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJuYPR7m;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.88
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022088.outbound.protection.outlook.com [52.101.126.88])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79411606A332;
-	Mon, 23 Nov 2026 04:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJuYPR7m
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795409496;
-	b=TlhgOicVuWfXkC2BxziQ9ehL+w2Ce8YtxDnvYEQ4Gwu3GKzZVzeTOF4vY0NDlP3hmKpj
-	 DyL0fiqTixHAR+6mqnVVxexVsVExlWSsqKjvjS4CH4IiU0FHvGNNF+qhrKCEzIrVBzMb8
-	 1225otILl9v7ZuY/qPwWdoMZ3mcvc9mdE1vRgcjA2LzMdUYiNTIgkFANepcmHy23yWy8w
-	 wRe8awFXWh22RQXFyoDkNMdiJZ19+fl9k+vuUjgFDlBYcKIo8JuE7METOlPEsh+8827e7
-	 tkcg6wjiTKtTJjBYNlqtreqnTYKZ+4ePZTn13u38LeSo631IfeY3BXFc3DfyhSs5sXg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795409496;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3FwG7mX5zlZBqN+BGxKHGoAGEMqnQOwJV3TjX51GPvs=;
-	b=puQh1YPEOKLFEMmVU4TRGV80CbJjzg0MRidVYzFJKUmHz7P6E3S58fQFKRg5RZGMFPPi
-	 deMFZdO4DEj6AIPs4dD5sI2eoT2Bv56ClbMtLCS6V9FthuSQiy1hQmb9YHF9QsdmlQ8uw
-	 oJQzbY6Pg3NCAkZ9V6A6nVhhB1CdUXFfNT99ty265Ao7HCa5sv0VFxJ9wJtDwkejG8gRH
-	 8Y9suYssQ4VhHZ48jZh1nIwn0GakfFPMdsgBSV/GnAXAXXunfbu6ehnTaFekb9Oot9CC9
-	 k1yAfRUhwEvanwJg01skEN1oDPBhiDnH77PNM37UicVsWbQIJaMsnY7bosjs0x2FM1Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 069511F000D0;
-	Mon, 23 Nov 2026 04:51:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795409496;
-	bh=3FwG7mX5zlZBqN+BGxKHGoAGEMqnQOwJV3TjX51GPvs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=eJuYPR7mhGc4yuKbR+9ToRV9k5dCfhvMG+Y6TeTdF2UgqV/+zQEm1haupTeuJVbT0
-	 qGcysU7/RdIGFekvJScgpdmSxnGvde95zi3YKNgmxxOpxwe5hWcmF1TOdLvfPEB0b2
-	 PoRIZpIUR2wKDx3cznT65g8br7oD69Z7X6kVUBaWPfpBXED5dB6vW6DjN0HXnqZrBP
-	 txEglvbSdj2oEBqzs3meY3oDISoscIIEbUJro3RmBIn2lZOpqtaY8Ahbhl21JF/jhh
-	 gtirENRWvvpqMjU6IOGWZxrY+Bi9a+AWR69Zbj0uYLpStbXH5vCY64Dli7VwM8k3Kb
-	 xfUnMJfO7akTg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8942E4C352;
-	Mon, 23 Nov 2026 04:51:25 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Mon, 23 Nov 2026 07:51:09 +0300
-Subject: [PATCH v6 2/2] i2c: Add Cortina Systems CS75xx I2C controller
- driver
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D64606A31A;
+	Mon, 23 Nov 2026 04:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0D64606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=obCLfHVC2wkKyAeKM6scM3MyXT+b3MeGoZdXTpEVcGcAtF5n5sMWjNQJXSX8TRWdh1oUo5Wq3QXEN9/kh8PdponuIMb5bAYuLAZSd4g2xHwtC9hhOfi3VZRfRxnIB/P4UM2AVkzzpvwfnXCJrhvNrQZuMlFWLr5przjp4/1bQQQYvKqVbnS6xGoYewJnxeKAc68ii8SUrfV/dwFCGBZgPCmleZbVDJ29a1KSzvyWOFioE9bncS0LzkwueT/bxp8uzaYWtzZW2zWniBLox5zsR5PkjO0QUswbvBpcl3ghq5QzL8W5X2RJiecDxxNIr2INiFq4CA906ixHwaSrb/CUuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MdtP9MNjKelzS2HyGgFuOpx+k1IXUf3VspmjY2T4UV0=;
+ b=MKZStMXVlzDelte1+3OrV0tBfiE0gFdPg5uHjF6TXqxcp0TuPyvetCrExE92l+jN+XGMvQFAbe49gxOUUHjX8tlRYc6qQSKNSWpTU1bVP49BDzx+zigbuAkCm6NGir05khoK7IbBqQ8Q1wAjI+tYIE576Fo5oQxjxUhKEI8k4tJ+AuIcwOcmN1mWxMr8nRa6QvdI6QpgFrPMTdaTzGnqybyBCDwwZffc5807Y8q6tLEEMv/0QXaT+x49UJ4GQs87knFfsnlLD2x19yTWKdFUsI1LWu64iTMOSQrqSrhvTrcSlFZIXY6eyNPvnRG1pY4Igaf5XREpvkiKkg4VVt+CUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from TY4P301CA0017.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:2b1::18)
+ by SE3PR06MB8229.apcprd06.prod.outlook.com (2603:1096:101:2f0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.3; Mon, 23 Nov
+ 2026 04:58:18 +0000
+Received: from TY2PEPF0000AB86.apcprd03.prod.outlook.com
+ (2603:1096:405:2b1:cafe::62) by TY4P301CA0017.outlook.office365.com
+ (2603:1096:405:2b1::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Mon,
+ 23 Nov 2026 04:58:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB86.mail.protection.outlook.com (10.167.253.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Mon, 23 Nov 2026 04:58:17 +0000
+Received: from gary-System-Product-Name (unknown [172.16.66.27])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id CF140427EFC7;
+	Mon, 23 Nov 2026 12:58:15 +0800 (CST)
+From: Gary Yang <gary.yang@cixtech.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Cc: linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	Gary Yang <gary.yang@cixtech.com>
+Subject: [PATCH v7 0/2] usb: typec: add CIX Type-C PD controller driver
+Date: Mon, 23 Nov 2026 12:58:13 +0800
+Message-ID: <20261123045815.812561-1-gary.yang@cixtech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,487 +103,172 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-cs75xx-i2c-v6-2-2504375e4342@gmail.com>
-References: <20261123-cs75xx-i2c-v6-0-2504375e4342@gmail.com>
-In-Reply-To: <20261123-cs75xx-i2c-v6-0-2504375e4342@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Fil Dunsky <filipp.dunsky@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795409484; l=12869;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=sdKb23F6aWeqpJLbpvhACtdkiZ/sWmFtTwhFjE/scGw=;
- b=TnRPoQGcBZAlEhOLNOkHDqhvLbEjZceIcKjMTnpshnCCgqYNJbq9TtcgZ39WfI11DvoeIXsNo
- ubH7ZDCpvIIDT54/kD6kyCD+TaAwgzJHGB9latsQWiWD35KVpEqk+sZ
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB86:EE_|SE3PR06MB8229:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: ef1e80ff-365f-4ba6-c8ad-08df491e63b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|261026121527099003|10067099003|56012099006|261028144727099003|261021121427099003|261022075727099003|261021123027099003|261009223027099003|261022105027099003|261026140227099003|261102123227099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	yySG4POhj0lxbjXOkL8l5HZ3Z1cipym2KTdwxz/XhFFHbOS6vumL4ofbaMi3KgWD4fIurc49zyjDM36UC6rrXd1o3ZTSNf746kvsJy+wtYDgqoln+upI1k/zUoGrWqGQAlXJ6cLQ3USQwpF3RiK7PMzH476Mm9gMFL/Miv3SQumKFudGg8wKopuWvoo+h//ifeXMUoKHALAoLT4cz3Fz+QreZ9gZK1Mmf36FnEgbyFdqre89UoiuuQx8S6wx3X1s8p0WAENYFoIv4Ml7CLvKo8EOzRY7Kvk3TQSHk0WUT6jiSrIvphz8QnT8YpSpv1uDaklSczjwbYImUA5GeEiR7c/DUftDNbENHt1yWQWOjDnWE4ya16VNAq2oLSWhl+f4LDtMOo74mAt0/Hv6Daoh5HI3DRypwbF2kxUpQ7ptUZ0wf1Xr5+bK7kjN1p3td/4q7PTlDxEdiPqzgsrv66YJLm9Ik2OzcK06OVo0B4eGdA30dUjLTJyk5nh7jhiPOjU7XfTooiiZwBraBBFxKHgug5FOUsIZwGMWykoBqYwEjINPeqXRkwaJbyptmJjU9dN0LTi/WTvXKSqHz37+537EnawqOalUxUZq8e/AwUXZ6S6HfH3yIRr7TZ40Tkf8QGr4otdilEuE8zWdoXRmKK1uipYHsn7cL4D65No8OE9/XqXOa2d0ty2m1ek+x2rApnGbKKGpBPvLYPCFnt5rlnlhiQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(261026121527099003)(10067099003)(56012099006)(261028144727099003)(261021121427099003)(261022075727099003)(261021123027099003)(261009223027099003)(261022105027099003)(261026140227099003)(261102123227099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	kQT7XrLbmkeeRWSBUDW77RrkS0j9Eu70kGTlkhLIuHmx+KwY+CuoOxdyVfI6IUBG3tUTTZS2nO2rY3Z5gcvGVt6+AJHYsxGHt9j8k0NX7wnO+kd5vCM1aQa5kyE1HRilD3OL0sqQquCWsA8HS0CyVtxr3t5QP6nO/N//WB1tkEyj6HNK6mLororXXWRaPbT9MiTnEOQNFQOjw7Mu7Kx0bKegL0uFlmi2wflF7bwKcMZqKsxy33Gz7HLajJSVdXcbWaZCR7/fZbxT490WFOJzoMeG//3OBvX2jkzldy8q7r+UTQRVvLAXu2/Qy561t27Q0W9bgUEVMaozJl2VMvxwcCFlmKPRc0v6OnvpuPs5o7qb4bh6/WOskAAeIh4j7hPFXFSeK0wkypbp0oKDtJv0pasUu7w9JB59Ykmdn6Q9HtSbnXPbPZ4bNOrB0WPrpsmy
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 04:58:17.5070
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef1e80ff-365f-4ba6-c8ad-08df491e63b0
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB86.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB8229
 
-From: Fil Dunsky <filipp.dunsky@gmail.com>
+This series adds a Type-C PD controller driver for CIX platforms.
 
-The I2C ("Bi-Wire") controller of the Cortina Systems CS75xx SoCs
-transfers one byte per command, with a command register much like the
-OpenCores one (start, stop, read, write, acknowledge), and raises an
-interrupt when a command has completed.
+The first supported controller is the Realtek RTS5453H, a stand-alone
+port controller: the CC and USB Power Delivery state machines run in
+its firmware and are configured through vendor registers rather than
+the TCPC register interface, so it cannot be driven by the tcpm
+framework. The driver translates the controller status registers into
+Type-C class notifications and drives the platform PHY's orientation
+switch and mode mux.
 
-Messages are sent with a repeated start between them and a stop after
-the last one. Every message needs at least one data byte, so SMBus quick
-commands are not supported. Arbitration loss is reported as -EAGAIN and
-retried by the core.
+The register addresses are agreed between CIX and the controller vendor
+and are configured into the PD firmware, so the host interface is not
+specific to the RTS5453H. The driver is therefore named after the
+platform integration rather than the first chip: further
+register-compatible controllers are supported by adding their compatible
+string, without renaming the driver, the module or the Kconfig symbol.
 
-The driver depends on OF and HAS_IOMEM and uses generic platform and
-I2C APIs, so it can be enabled without the CS75xx platform series.
+Patch 1 adds the devicetree binding and patch 2 adds the driver and its
+MAINTAINERS entry. The DTS patches from v1 are sent separately through
+the SoC tree.
 
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
----
- drivers/i2c/busses/Kconfig      |  11 ++
- drivers/i2c/busses/Makefile     |   1 +
- drivers/i2c/busses/i2c-cs75xx.c | 393 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 405 insertions(+)
+Changes in v7:
+- Align the register definition macros.
+- Use guard(mutex) for the event handler lock.
+- Return the actual I2C/regmap error from the event handler instead of
+  -ESHUTDOWN, and drop the now-redundant -ESHUTDOWN to -EIO conversions
+  in probe and resume.
 
-diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-index 275aaa7f3..1bebffc7d 100644
---- a/drivers/i2c/busses/Kconfig
-+++ b/drivers/i2c/busses/Kconfig
-@@ -550,6 +550,17 @@ config I2C_CPM
- 	  This driver can also be built as a module.  If so, the module
- 	  will be called i2c-cpm.
- 
-+config I2C_CS75XX
-+	tristate "Cortina Systems CS75xx I2C controller"
-+	depends on OF
-+	depends on HAS_IOMEM
-+	help
-+	  Say yes here to support the I2C ("Bi-Wire") controller of the
-+	  Cortina Systems CS75xx SoCs.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called i2c-cs75xx.
-+
- config I2C_DAVINCI
- 	tristate "DaVinci I2C driver"
- 	depends on ARCH_DAVINCI || ARCH_KEYSTONE || COMPILE_TEST
-diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-index e5440de0f..f19df25eb 100644
---- a/drivers/i2c/busses/Makefile
-+++ b/drivers/i2c/busses/Makefile
-@@ -49,6 +49,7 @@ obj-$(CONFIG_I2C_CADENCE)	+= i2c-cadence.o
- obj-$(CONFIG_I2C_CBUS_GPIO)	+= i2c-cbus-gpio.o
- obj-$(CONFIG_I2C_CGBC)		+= i2c-cgbc.o
- obj-$(CONFIG_I2C_CPM)		+= i2c-cpm.o
-+obj-$(CONFIG_I2C_CS75XX)	+= i2c-cs75xx.o
- obj-$(CONFIG_I2C_DAVINCI)	+= i2c-davinci.o
- obj-$(CONFIG_I2C_DESIGNWARE_CORE)			+= i2c-designware-core.o
- i2c-designware-core-y					:= i2c-designware-common.o
-diff --git a/drivers/i2c/busses/i2c-cs75xx.c b/drivers/i2c/busses/i2c-cs75xx.c
-new file mode 100644
-index 000000000..09a77c7be
---- /dev/null
-+++ b/drivers/i2c/busses/i2c-cs75xx.c
-@@ -0,0 +1,393 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Cortina Systems CS75xx I2C ("Bi-Wire") controller
-+ *
-+ * The controller works one byte at a time: software writes the byte to
-+ * transmit and a command (start, stop, read, write, acknowledge) and gets
-+ * an interrupt when the command has completed.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/i2c.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/spinlock.h>
-+
-+#define CS75XX_I2C_CFG		0x00
-+#define CS75XX_I2C_CTRL		0x04
-+#define CS75XX_I2C_TXR		0x08
-+#define CS75XX_I2C_RXR		0x0c
-+#define CS75XX_I2C_ACK		0x10
-+#define CS75XX_I2C_IE		0x14
-+#define CS75XX_I2C_INT		0x18
-+
-+#define CS75XX_I2C_CFG_EN	BIT(0)
-+#define CS75XX_I2C_CFG_PRER	GENMASK(31, 16)
-+
-+#define CS75XX_I2C_CTRL_NACK	BIT(3)
-+#define CS75XX_I2C_CTRL_WRITE	BIT(4)
-+#define CS75XX_I2C_CTRL_READ	BIT(5)
-+#define CS75XX_I2C_CTRL_STOP	BIT(6)
-+#define CS75XX_I2C_CTRL_START	BIT(7)
-+
-+#define CS75XX_I2C_ACK_AL	BIT(0)
-+#define CS75XX_I2C_ACK_BUSY	BIT(1)
-+#define CS75XX_I2C_ACK_NACK	BIT(2)
-+
-+#define CS75XX_I2C_INT_DONE	BIT(0)
-+
-+enum cs75xx_i2c_state {
-+	CS75XX_I2C_IDLE,
-+	CS75XX_I2C_ADDR,
-+	CS75XX_I2C_WRITE,
-+	CS75XX_I2C_READ,
-+	CS75XX_I2C_STOP,
-+};
-+
-+struct cs75xx_i2c {
-+	struct i2c_adapter adap;
-+	struct device *dev;
-+	void __iomem *base;
-+	int irq;
-+	u32 prer;
-+
-+	spinlock_t lock;	/* protects the transfer state */
-+	struct completion done;
-+	enum cs75xx_i2c_state state;
-+	struct i2c_msg *msg;
-+	unsigned int pos;
-+	bool last;
-+	int err;
-+};
-+
-+static void cs75xx_i2c_hw_init(struct cs75xx_i2c *i2c)
-+{
-+	if (readl(i2c->base + CS75XX_I2C_CFG) & CS75XX_I2C_CFG_EN) {
-+		writel(0, i2c->base + CS75XX_I2C_CFG);
-+		fsleep(5000);
-+	}
-+
-+	writel(FIELD_PREP(CS75XX_I2C_CFG_PRER, i2c->prer) | CS75XX_I2C_CFG_EN,
-+	       i2c->base + CS75XX_I2C_CFG);
-+	fsleep(5000);
-+}
-+
-+/*
-+ * Reset the controller and enable its interrupt again, with the handler
-+ * kept away from the registers meanwhile
-+ */
-+static void cs75xx_i2c_reset(struct cs75xx_i2c *i2c)
-+{
-+	disable_irq(i2c->irq);
-+	cs75xx_i2c_hw_init(i2c);
-+	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
-+	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_IE);
-+	enable_irq(i2c->irq);
-+}
-+
-+static void cs75xx_i2c_finish(struct cs75xx_i2c *i2c, int err)
-+{
-+	i2c->err = err;
-+	i2c->state = CS75XX_I2C_IDLE;
-+	complete(&i2c->done);
-+}
-+
-+/*
-+ * End the transfer with a stop condition and complete it only once the
-+ * stop is done, so that its interrupt cannot be taken for the next one
-+ */
-+static void cs75xx_i2c_abort(struct cs75xx_i2c *i2c, int err)
-+{
-+	i2c->err = err;
-+	i2c->state = CS75XX_I2C_STOP;
-+	writel(CS75XX_I2C_CTRL_STOP, i2c->base + CS75XX_I2C_CTRL);
-+}
-+
-+/* Start the transfer of the next data byte of the message */
-+static void cs75xx_i2c_next_byte(struct cs75xx_i2c *i2c)
-+{
-+	struct i2c_msg *msg = i2c->msg;
-+	bool last_byte = i2c->pos == msg->len - 1;
-+	u32 cmd;
-+
-+	if (msg->flags & I2C_M_RD) {
-+		i2c->state = CS75XX_I2C_READ;
-+		cmd = CS75XX_I2C_CTRL_READ;
-+		/* Do not acknowledge the last byte of a read */
-+		if (last_byte)
-+			cmd |= CS75XX_I2C_CTRL_NACK;
-+	} else {
-+		i2c->state = CS75XX_I2C_WRITE;
-+		writel(msg->buf[i2c->pos++], i2c->base + CS75XX_I2C_TXR);
-+		cmd = CS75XX_I2C_CTRL_WRITE;
-+	}
-+
-+	if (last_byte && i2c->last)
-+		cmd |= CS75XX_I2C_CTRL_STOP;
-+
-+	writel(cmd, i2c->base + CS75XX_I2C_CTRL);
-+}
-+
-+static void cs75xx_i2c_process(struct cs75xx_i2c *i2c, u32 ack)
-+{
-+	struct i2c_msg *msg = i2c->msg;
-+
-+	/* Late interrupt of a transfer that timed out */
-+	if (i2c->state == CS75XX_I2C_IDLE)
-+		return;
-+
-+	if (i2c->state == CS75XX_I2C_STOP) {
-+		cs75xx_i2c_finish(i2c, i2c->err);
-+		return;
-+	}
-+
-+	if (ack & CS75XX_I2C_ACK_AL) {
-+		cs75xx_i2c_abort(i2c, -EAGAIN);
-+		return;
-+	}
-+
-+	switch (i2c->state) {
-+	case CS75XX_I2C_ADDR:
-+		if (ack & CS75XX_I2C_ACK_NACK) {
-+			cs75xx_i2c_abort(i2c, -ENXIO);
-+			return;
-+		}
-+		cs75xx_i2c_next_byte(i2c);
-+		break;
-+
-+	case CS75XX_I2C_WRITE:
-+		if (ack & CS75XX_I2C_ACK_NACK) {
-+			/* The last byte of the last message carried the stop */
-+			if (i2c->pos == msg->len && i2c->last)
-+				cs75xx_i2c_finish(i2c, -EIO);
-+			else
-+				cs75xx_i2c_abort(i2c, -EIO);
-+			return;
-+		}
-+		if (i2c->pos == msg->len) {
-+			cs75xx_i2c_finish(i2c, 0);
-+			return;
-+		}
-+		cs75xx_i2c_next_byte(i2c);
-+		break;
-+
-+	case CS75XX_I2C_READ:
-+		msg->buf[i2c->pos++] = readl(i2c->base + CS75XX_I2C_RXR);
-+		if (i2c->pos == msg->len) {
-+			cs75xx_i2c_finish(i2c, 0);
-+			return;
-+		}
-+		cs75xx_i2c_next_byte(i2c);
-+		break;
-+
-+	default:
-+		break;
-+	}
-+}
-+
-+static irqreturn_t cs75xx_i2c_isr(int irq, void *dev_id)
-+{
-+	struct cs75xx_i2c *i2c = dev_id;
-+	u32 ctrl, ack;
-+
-+	guard(spinlock)(&i2c->lock);
-+
-+	if (!(readl(i2c->base + CS75XX_I2C_INT) & CS75XX_I2C_INT_DONE))
-+		return IRQ_NONE;
-+
-+	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
-+
-+	/* Acknowledge DONE with a CTRL read/writeback, as in the vendor driver. */
-+	ctrl = readl(i2c->base + CS75XX_I2C_CTRL);
-+	writel(ctrl, i2c->base + CS75XX_I2C_CTRL);
-+
-+	ack = readl(i2c->base + CS75XX_I2C_ACK);
-+	cs75xx_i2c_process(i2c, ack);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int cs75xx_i2c_xfer_msg(struct cs75xx_i2c *i2c, struct i2c_msg *msg,
-+			       bool last)
-+{
-+	unsigned long time_left;
-+
-+	spin_lock_irq(&i2c->lock);
-+	reinit_completion(&i2c->done);
-+	i2c->msg = msg;
-+	i2c->pos = 0;
-+	i2c->last = last;
-+	i2c->err = 0;
-+	i2c->state = CS75XX_I2C_ADDR;
-+	writel(i2c_8bit_addr_from_msg(msg), i2c->base + CS75XX_I2C_TXR);
-+	writel(CS75XX_I2C_CTRL_START | CS75XX_I2C_CTRL_WRITE,
-+	       i2c->base + CS75XX_I2C_CTRL);
-+	spin_unlock_irq(&i2c->lock);
-+
-+	time_left = wait_for_completion_timeout(&i2c->done, i2c->adap.timeout);
-+	if (!time_left) {
-+		spin_lock_irq(&i2c->lock);
-+		i2c->state = CS75XX_I2C_IDLE;
-+		spin_unlock_irq(&i2c->lock);
-+		dev_err(i2c->dev, "transfer timed out, resetting the controller\n");
-+		cs75xx_i2c_reset(i2c);
-+		return -ETIMEDOUT;
-+	}
-+
-+	return i2c->err;
-+}
-+
-+static int cs75xx_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
-+			   int num)
-+{
-+	struct cs75xx_i2c *i2c = i2c_get_adapdata(adap);
-+	u32 val;
-+	int i, ret;
-+
-+	/* Another master may hold the bus for a whole transfer */
-+	if (readl_poll_timeout(i2c->base + CS75XX_I2C_ACK, val,
-+			       !(val & CS75XX_I2C_ACK_BUSY), 100,
-+			       jiffies_to_usecs(adap->timeout))) {
-+		cs75xx_i2c_reset(i2c);
-+		if (readl(i2c->base + CS75XX_I2C_ACK) & CS75XX_I2C_ACK_BUSY)
-+			return -EBUSY;
-+	}
-+
-+	for (i = 0; i < num; i++) {
-+		ret = cs75xx_i2c_xfer_msg(i2c, &msgs[i], i == num - 1);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return num;
-+}
-+
-+static u32 cs75xx_i2c_func(struct i2c_adapter *adap)
-+{
-+	return I2C_FUNC_I2C | (I2C_FUNC_SMBUS_EMUL & ~I2C_FUNC_SMBUS_QUICK);
-+}
-+
-+static const struct i2c_algorithm cs75xx_i2c_algo = {
-+	.xfer = cs75xx_i2c_xfer,
-+	.functionality = cs75xx_i2c_func,
-+};
-+
-+/* A message always carries at least one data byte after the address */
-+static const struct i2c_adapter_quirks cs75xx_i2c_quirks = {
-+	.flags = I2C_AQ_NO_ZERO_LEN,
-+};
-+
-+static void cs75xx_i2c_disable(void *data)
-+{
-+	struct cs75xx_i2c *i2c = data;
-+
-+	writel(0, i2c->base + CS75XX_I2C_IE);
-+	writel(0, i2c->base + CS75XX_I2C_CFG);
-+}
-+
-+static int cs75xx_i2c_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct cs75xx_i2c *i2c;
-+	unsigned long ref_rate;
-+	struct clk *clk;
-+	u32 bus_rate;
-+	u64 div;
-+	int ret;
-+
-+	i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
-+	if (!i2c)
-+		return -ENOMEM;
-+
-+	i2c->dev = dev;
-+	spin_lock_init(&i2c->lock);
-+	init_completion(&i2c->done);
-+
-+	i2c->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(i2c->base))
-+		return PTR_ERR(i2c->base);
-+
-+	i2c->irq = platform_get_irq(pdev, 0);
-+	if (i2c->irq < 0)
-+		return i2c->irq;
-+
-+	clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
-+
-+	ref_rate = clk_get_rate(clk);
-+	if (device_property_read_u32(dev, "clock-frequency", &bus_rate))
-+		bus_rate = I2C_MAX_STANDARD_MODE_FREQ;
-+	if (!bus_rate || bus_rate > I2C_MAX_FAST_MODE_FREQ)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "unsupported bus frequency %u Hz\n",
-+				     bus_rate);
-+
-+	div = DIV_ROUND_UP_ULL(ref_rate, 5ULL * bus_rate);
-+	if (!div || div - 1 > FIELD_MAX(CS75XX_I2C_CFG_PRER))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "cannot derive %u Hz from %lu Hz\n",
-+				     bus_rate, ref_rate);
-+	i2c->prer = div - 1;
-+
-+	cs75xx_i2c_hw_init(i2c);
-+
-+	writel(0, i2c->base + CS75XX_I2C_IE);
-+	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
-+
-+	ret = devm_add_action_or_reset(dev, cs75xx_i2c_disable, i2c);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_request_irq(dev, i2c->irq, cs75xx_i2c_isr, 0, dev_name(dev),
-+			       i2c);
-+	if (ret)
-+		return ret;
-+
-+	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_IE);
-+
-+	i2c->adap.owner = THIS_MODULE;
-+	i2c->adap.algo = &cs75xx_i2c_algo;
-+	i2c->adap.quirks = &cs75xx_i2c_quirks;
-+	i2c->adap.retries = 3;
-+	i2c->adap.dev.parent = dev;
-+	device_set_node(&i2c->adap.dev, dev_fwnode(dev));
-+	strscpy(i2c->adap.name, dev_name(dev), sizeof(i2c->adap.name));
-+	i2c_set_adapdata(&i2c->adap, i2c);
-+
-+	ret = devm_i2c_add_adapter(dev, &i2c->adap);
-+	if (ret)
-+		return ret;
-+
-+	dev_dbg(dev, "bus %u Hz, reference %lu Hz\n", bus_rate,
-+		ref_rate);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id cs75xx_i2c_of_match[] = {
-+	{ .compatible = "cortina,cs7542-i2c" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, cs75xx_i2c_of_match);
-+
-+static struct platform_driver cs75xx_i2c_driver = {
-+	.probe = cs75xx_i2c_probe,
-+	.driver = {
-+		.name = "cs75xx-i2c",
-+		.of_match_table = cs75xx_i2c_of_match,
-+	},
-+};
-+module_platform_driver(cs75xx_i2c_driver);
-+
-+MODULE_DESCRIPTION("Cortina Systems CS75xx I2C controller driver");
-+MODULE_LICENSE("GPL");
+Changes in v6:
+- Explain the host interface in the commit message instead of the I2C
+  transport, and state that the register addresses are agreed between
+  CIX and the controller vendor and configured into the PD firmware, so
+  the driver is not RTS5453H specific.
+- Trim the commit message to the facts that are specific to the
+  controller; the kernel-side details are kept as comments in the code.
+- Drop the partner register and unregister dev_info messages and print
+  the port state summary with dev_dbg.
 
+Changes in v5:
+- Exclude HPD_IRQ from the status comparison and handle it as an event
+  of its own. The bit stays set until the interrupt is acknowledged, so
+  caching it in the previous status made a repeated HPD interrupt look
+  unchanged, and an acknowledged event look like a status change on the
+  next interrupt of a sibling port.
+- Reprogram the port only when the decoded status changed or an HPD
+  interrupt arrived, and skip the orientation write when the orientation
+  did not change, so a shared interrupt aimed at a sibling port no
+  longer re-reports unchanged state to the Type-C class. Invalidate the
+  cached status when a port update fails, so the update is retried on
+  the next interrupt instead of being lost with the acknowledged event.
+- Take the alternate mode device lock around device_is_bound() and
+  typec_altmode_update_active(), so activation cannot race driver
+  unbind.
+- Keep the shared interrupt line masked for the whole system sleep:
+  ->suspend() disables the line and waits for an in-flight handler, and
+  ->resume() reads the status back and acknowledges the controller
+  before re-enabling it. An event during suspend can no longer loop on
+  the level-triggered line. Wake-up through this line is not offered:
+  the GPIO controller behind it has no irq_set_wake() callback.
+
+Changes in v4:
+- Keep the interrupt disabled across system sleep and re-enable it in
+  ->resume() only, after the parent I2C adapter has resumed.
+- Return IRQ_NONE when the port status did not change, so that the
+  interrupt core can attribute the shared level-triggered line and
+  disable a line that stays asserted.
+- Mark the DisplayPort alternate mode active only after a driver is
+  bound, so that the module reference taken by
+  typec_altmode_update_active() stays balanced.
+- binding: drop the nodes below the documented device from the
+  example.
+- Carry Reviewed-by from Krzysztof Kozlowski.
+
+Changes in v3:
+- Report the Type-C data role from the controller status for every
+  connection, including DisplayPort-only configurations where no USB
+  data role is available, instead of deriving it from the USB role
+  switch.
+- Pass the port alternate mode in the mux state, matching other
+  firmware-driven port drivers.
+- Force the USB role switch to be reprogrammed on system resume and
+  check the enable_irq_wake() return value.
+- Acknowledge a pending controller interrupt during probe so that a
+  shared interrupt line is not left asserted.
+- Do not drop the borrowed fwnode reference when parsing the connector
+  properties fails.
+- Treat all fwnode_usb_role_switch_get() errors as fatal; a connector
+  without a role switch link returns NULL, not -ENODEV.
+- Drop a redundant include.
+
+Changes in v2:
+- Drop the DTS patches from the series.
+- binding: describe the single connector as a plain "connector" child
+  node instead of an addressed node, and stop requiring
+  "try-power-role", which only applies to dual-role ports.
+- driver: add the missing USB_ROLE_SWITCH Kconfig dependency.
+- driver: register the DisplayPort partner alternate mode only for
+  actual DP connections, with a valid VDO, call
+  typec_altmode_update_active() on attach/detach and set
+  no_mode_control since the firmware drives mode entry.
+- driver: never pass a NULL alternate mode to typec_mux_set(), and
+  treat debug accessories as disconnected everywhere.
+- driver: handle USB 2.0-only connections in orientation, role and
+  mux state.
+- driver: only cache the USB role after the role switch accepted it,
+  and force a role refresh on resume.
+- driver: use typec_get_fw_cap() instead of open-coding the connector
+  properties.
+- driver: acquire the mux and role switch before registering the
+  port, use dev_err_probe() on probe failures and reset the mux to the
+  safe state on teardown.
+- driver: remove the undocumented disable_pd_interrupt sysfs attribute
+  and the manual disable_irq()/IRQ_DISABLE_UNLAZY handling that could
+  leak the shared IRQ's disable depth. This also fixes the build error
+  reported by the kernel test robot on sparc64 and s390.
+- driver: use a named i2c_device_id initializer and add the missing
+  hibernation PM callbacks.
+
+Tested on a Radxa Orion O6 (Sky1): attach/detach, USB-only and DP-only
+alt modes, cable orientation detection and HPD reporting all work.
+--
+
+Gary Yang (2):
+  dt-bindings: usb: add Realtek RTS5453H Type-C port controller
+  usb: typec: add CIX Type-C PD controller driver
+
+ .../bindings/usb/realtek,rts5453h.yaml        |  70 ++
+ MAINTAINERS                                   |   7 +
+ drivers/usb/typec/Kconfig                     |  13 +
+ drivers/usb/typec/Makefile                    |   1 +
+ drivers/usb/typec/cix_pd.c                    | 766 ++++++++++++++++++
+ 5 files changed, 857 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/realtek,rts5453h.yaml
+ create mode 100644 drivers/usb/typec/cix_pd.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.53.0
-
+2.50.1
 
