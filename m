@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433662;
-	b=MDTh+mIzb2ZJyApFaLs4qVkUQo+SAqnYvJ+tfSNowYoGGSGNbPWRKjsyBYY5+oAoR/de
-	 tspzMKPjH8mouHHac7ibU72tDd1ZDZ/JdvRUTMo8QYh8ZFrxar8FYlHxko8Oykk6nGLzE
-	 /cYg0JLzC8rj1C1IlcMX7/YBELFqp0WYRwpVvRQjC5gYW+9YQirba9nNGe37Crp7kIBMQ
-	 RSpyRS6Gh0VsgJtVct92kjS2Jo1LQrM3TdZ2FUMsd6nl/oBOnGHNoLdWywHOINnzovYIu
-	 pSoRlvwJnIYi0hp1o6ZjmZea5EajuDL623EzB09f8QjCgsjP2PYQzN0/D5fQr8oWgNA==
+	t=1795433773;
+	b=h5Izq/qs9jPJvfqp/mnXIfZ0fv7o1OYbIc+ZsYsccdwo3s5C8PTMJI6t9zWY2RLZUiUu
+	 DX5yagTmCKPQbvHwdK/Wki2jSKsNAl+3tYDgMI85FOfIf6Ln35fLNoOSad97A3TOi9Yh1
+	 0BeKhnQiXdIGSI9XrLpcw7Spndj0MlRbVuVTTpSkJ7E/tJvyAp1eOHNRdDUmDbgS8c570
+	 uRnqn0yWb4/BlM5De0oLZUaMLEw6NrqlqFszfe8lBawGqueHH8bszFjW00qg4qLCp+l+b
+	 c5VGotDfaHuFDo0KOYvyEAKveHgZOf+AXgVfVo+UAUu2RHK8ECoO5vVCcRN4FGpkbGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433662;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:Date:MIME-Version:User-Agent:
-	 From:Subject:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mXK5FEY1e7FRxOAtePILYX2tLbfwL0UE9BPejme/uTk=;
-	b=0VsZPXfGIFVXy3sX68mwcCwtu6paFBHrh+34lDicFRkX9IAzqzkv2S2lVe424Mt+Ln73
-	 U1wuzEDuZkPvKXt1IeQrwrpJ0a6i7pBmVyirKlqouw6h2yPJdjDAsH6LbNkcUmNwgGese
-	 TsfNWLq1YEXOTzUPlXfctpQRov0r/yeBb2nM60+3sKC2AxfECXvtu3WR5PXnt21blbeDP
-	 nlcwezXzwc2SAqpES1pyWOwFLOqrL2MiJCp0VZO5uPwx4AvFYm6ljIl+BDdh8Gv5kS7Sx
-	 xnuzVp4oKlvJjao/Dumng0YI0oKatpSI86xKTKMjtqkuXfoZytgx17gt7lkNsBtRCpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433773;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Kvf1DqFBV/lYSc3QlXJzJuXexwpm5K3ANgpze4xoM4c=;
+	b=Jjs/ut77TqdTp//m4vOa/MyPD0nX1NXDZt/YDSxPhOtJijI+8JcRA1VU/hqWfZZqQSmc
+	 hAV5TdO/JW3AnVaCaBHJbTgO+wOdIzsFl72ucNRYvJzUo7hyZyu1uMSFJPrMBrCWT4ZvG
+	 2KjOGZ69wwdNH4iqxBZKpOcaoR+t1OrG68W6GY/u1y/44RqMwm+rF2nR7dvZhYq47WkGC
+	 BlrcyDklAz2Fq3hp8nJtkl+yFkpQc2zAzvnzZ173oPXG4DGy4aQbnGKDsKDGx0HOy3CZC
+	 DOtVQh9g59V2QYxX01QFg8FNx3rvqDWZgdafLjVdxx9OI9DsLvlyfYfeEMR+71i77IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aliel.fr;
-	spf=pass smtp.mailfrom=aliel.fr;
-	dkim=pass header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=ooeUU0hC;
-	arc=none smtp.remote-ip=65.21.61.41
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f2cTu1ho;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WHvyILew;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C36606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:34:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55C36606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B42606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:36:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68B42606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=ooeUU0hC
-Message-ID: <ceda6a5e-f314-441f-b596-21a60b48486b@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1795433659;
-	bh=DyzVVA4BHQY1L7A1w9MoxMVnpEeVU9iMkGr1NRy0wTM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=ooeUU0hCpiBSpZnhoubWSJjGhz8XJVTlm1zKpLsrdNqn8bP4KrBVGhduHnCKW+ZFx
-	 chNU/CpFE7x4QPJnCUo1x32lhLS6yUx2buXH9T89JTGjvcH1lu4NFAOgMXzz6/i/CS
-	 Mra7PQ2bd3b2mcV22l/V8FGFOE5Kzk/LaAF5gIKo=
-Date: Mon, 23 Nov 2026 12:34:18 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f2cTu1ho;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WHvyILew
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9FuSP1543949
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:36:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Kvf1DqFBV/lYSc3QlXJzJu
+	Xexwpm5K3ANgpze4xoM4c=; b=f2cTu1hoW8g4gc2nA2KmEj7+fu4Rcv6msPJOZj
+	pWfS3GBSDt57U4QgesVu2y+y7tr/1vpP9mlzE5dMRgcDztNroAjd2TSs8gOmA3Lm
+	05x5pXTTtAgW6A6fxy/dWrhJSOIUmYjq4N4N0X/NcUhzA1Hk48vbNEhPAuX8hOz2
+	aBwZaWoVmfGX1+xkQrb5bXKDBqkjOYKzfcMkDochqvhM8g7JEif3WbyzyzAdp5ei
+	L8r4dxJFAv6U1K6P3QhxtCOshymmjgt51clBV46KQtDgvbrBid8n6m1lwt6YDS8s
+	ibAiJHeOOkGhQK0ORFSAnUcZoSLBgIA7QuOBIwTgUpxEYa5A==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4fy0173g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:36:11 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b41b099809so2765388a91.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 03:36:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795433770; x=1796038570; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Kvf1DqFBV/lYSc3QlXJzJuXexwpm5K3ANgpze4xoM4c=;
+        b=WHvyILewrcips1cDH7vbJ3lUf7LorMQ1n/k7wtjsBgOEa2SgQzFszKGCHZX38OoGQj
+         POEKLJC9zfXQLXkuMG0B4X2NflTWFT8NTNjbdt26KXTafzG760Cwyx6zOv0MgJDgQ9/8
+         5MD8iRbc04aiE/bj2U7suNuA1ooXIdnVoBwIpWO/hsDaaBq5fRlGOus1VdrG7cRhYz3e
+         HxPSgEjMYP/IJhQbJmzdVrAuAXzbMYg8RtOd1wMYqi992ECyT9nG8RfPdykTyJkhuaP1
+         7jhEJ2XSThDthPjW8KqWTE/2yDorwJ31rzXeDzDFdZ5fXSb9naC91oC7UxWzlhbtK0S7
+         +5Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795433770; x=1796038570;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Kvf1DqFBV/lYSc3QlXJzJuXexwpm5K3ANgpze4xoM4c=;
+        b=EA/1lumcz2e3UzlAjd0xO8s6UdPXTE4crCv/YZIj10poVEiJaeNi/pZ7Oit6wIMYrQ
+         Q8zp5cvwj9zu7NexqgwaWykkSpx6ExD9+nSwbZEkhyIfKi8ak7H/yPwicudfyjhFyqtO
+         lHoxXU4l+WlWy8LbPW76gBJr8ZAsT2lDzMO+47i2xpNP9uSTl1SYnkFPuhCE/sgb15SH
+         vBygxEqJ7CGSLl9L2TlZRR2Ig9owem7TciGewLPhYN0k1kb79PcI/Ef4Sl2DA+s8jHjr
+         itaniR7aEZSEcXZN0VBlvDOLHOSitgZJQJTb/aTt81mhxVQYE+qlblrHwZYB4x2mYiLo
+         Vmzg==
+X-Forwarded-Encrypted: i=1; AL+hErG8ZHCBUkznOBWuCyjEmzGq+KXkeLPayha8Spyr5Zr0GQLgF2p/3NUm/NYKdFksQfCQyELPbG5C0ody@vger.kernel.org
+X-Gm-Message-State: APuU4Z+z7e0RNdYFb1R9laCjr9AvEOSsYZhTzTMYRHIyd7dUb4fqqDqO
+	IG42ccBc65AllNxN15AtXCcLuFkp5zAufoy/HAZd/ljfxF7S79n9O1eJ4BM3XNoLMaBYPi68Aub
+	h7k8YOwb6rhxyHTZPq8wB7Ga85d5/lOFQxlDaqmgQ/XeZn/k18hbb1DtYgkBkQvBT
+X-Gm-Gg: AZFdTZcYqghSldKuuGsb5goFq80RE07JfMTZIdcb+jHI5JuxqNbPK5fG1855AIHY5Um
+	hwgbhTrl4QqIOTEqcQXCRZJ4gwrLmobTtQIO5QbjrVyXrVPVOPWyxOGSRGHb3Zpu6CIY9RQUTJC
+	OYdkLAqgLMQZa0vKXKaJGVa9/I/mF6K9rC/GN30KJW4C51+EGBN8JQ4SAlLYxXY7vJ3RLNxlK3n
+	yM9Cyl/cHmjRfRILLedpkgjBm1XGYWetvE39MfFOYckviAFO56yq2jHki7xRJNmDU5sEZYtftpr
+	4R9OaVIO38mpINMfzz0eukqjOfdt0QqMdpaTYyTm0Ve7A6pWZDGqL3lmxQlqL7eYWU7soSHlzGm
+	ioolPMdApOcoXrkCLf36pnQaOjsq0C+EDpdPqEoTVTTo4ymdCdeVJfWeFrbNT08sEe4dCwRbguz
+	b3yzgG
+X-Received: by 2002:a17:90b:2d8a:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3b41c92ce58mr10129785a91.25.1795433770179;
+        Mon, 23 Nov 2026 03:36:10 -0800 (PST)
+X-Received: by 2002:a17:90b:2d8a:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3b41c92ce58mr10129770a91.25.1795433769726;
+        Mon, 23 Nov 2026 03:36:09 -0800 (PST)
+Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad8e93asm17489024a91.11.2026.11.23.03.36.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 03:36:09 -0800 (PST)
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] media: qcom: camss: Fix Glymur CSIPHY topology
+Date: Mon, 23 Nov 2026 17:05:58 +0530
+Message-Id: <20261123-glymur_camss-v4-0-d7db74f59e22@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,197 +115,106 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v3 08/11] drm/meson: dw-hdmi: Use the generic PHY
- framework for the HDMI TX PHY
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
- vkoul@kernel.org, olteanv@gmail.com
-References: <20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr>
- <20261121-meson-drm-create-hdmitx-phy-v3-8-f8f471788076@aliel.fr>
- <sashiko-outbox-227314@kernel.org>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-227314@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB4lBGsC/3XOTWrDMBAF4KsYraug0W+UVe9RSpGmo0QQx41km
+ 4bgu1dxNiGkm4E3MN+8K6tUMlW2666s0JxrHk4t6LeO4SGc9sTzd8tMCmkBhOT746WfyheGvlY
+ OmLYq6aC1S6yd/BRK+XflPj7vudB5aup4X7IYKnEc+j6Pu84LT8kFH5RIAZQn68kYQ8oKa7ciG
+ cTgnLTsZh1yHYdyWZvOsGKvS83ABU8YLfiEToF/H2rdnKdwvP3dtLF6s3wwQD0ZshkRorNGeHR
+ a/2OoR8M/GaoZDkL01qIGfNVjWZY/9npnJIMBAAA=
+X-Change-ID: 20261102-glymur_camss-1cf83f4a447f
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795433764; l=1935;
+ i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
+ bh=8yFIvWAABarJ0JyJs13EEogwta+ICFjTnQS8FxrfjGY=;
+ b=0whS6kx5agoifZd4Hi3g5c1l2aKyklENAVvviS1Ua/4nBS+idtPpWP+TpLYe7U5bN9PeDuASC
+ pzfCoAjkGS0DB8GqvdYjBCbJy38VfUNfDGEQUDk9YkXnErqt2ZZq2D+
+X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
+ pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA0NiBTYWx0ZWRfXxpyarxg/E84/
+ c1r/KKLip6LtExWoP8dX88VzxgjsTxX15ca+QqarVvAu+0AEsHKPhuj8LwP6oALvTjXS60CtMTj
+ uEH/RxoTSWNVr5HmkFTiQn/jjzQau6Kc4Lu2MQaQWyoZ3kVit+WIrBYCfMjTZf8BBt3xRgPAmg0
+ dSIHE3CrePeSMdjQbyoLi9L82tIVh/yVHViZUjpbDLwGxH2aIl4/5tKL0PEjsgL3UNmAWee9zxr
+ GAwaayhuwp5hb6Ed1OShSnTt1U+0eEI+40/TGD8SP/P0/LlFuFC8b0oXanL2wWDjM56oFAURhSr
+ hk0C9CT2OM4hitxEfe6iDA37EjgQhr0ocBI/VPiOPAM6eHg4vZuINkoHeIv2SeA/3CN7oIRTIML
+ OfeiOUM3yzklsGGKeXqRJQZdKOdBHzKVnWEBZ1QuDYwqewytuCF8ZJMnxxMr8cOROfNGOzeVzZ9
+ GgvJKRWdSlI1fMO2jOg==
+X-Proofpoint-ORIG-GUID: lCcck6UWX_rf32io7gjiJW5YcQVv_sgO
+X-Authority-Analysis: v=2.4 cv=QrXLTlyd c=1 sm=1 tr=0 ts=6b04252b cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ffzozp4-zBr36aKF_PUA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: lCcck6UWX_rf32io7gjiJW5YcQVv_sgO
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA0NiBTYWx0ZWRfX8o37wY97v+FW
+ Ot1cjf+pFklBlVTrZFttQgJdwxzUpD7ISy+UnL19LkEMYlhZhm5jyvYHIPYv+U300OkghkZdKNi
+ cMOo00Gt+zm3NpAilCC+cvXyoKWEsLk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_02,2026-11-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0 spamscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230046
 
-On 11/21/26 20:37, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issues to consider:
-> - [High] drm/meson: dw-hdmi: invalid phy_destroy() in
->   meson_dw_hdmi_bind() error path
-> - [Medium] drm/meson: dw-hdmi: stateless device link leaked in
->   meson_dw_hdmi_unbind()
-> - [Medium] drm/meson: dw-hdmi: meson_venc_init() clobbers PHY CNTL0 on
->   system resume
-> --
-> 
-> commit 60b745dc55898638b05c8fcafed9d3683b30dff0
-> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
-> 
-> This commit converts the Meson DW-HDMI glue driver to manage the HDMI TX
-> PHY through the generic PHY framework, with a legacy fallback when the
-> device tree lacks a "phys" property, and adds a stateless device link
-> between the VPU master and HDMI-TX device.
-> 
->> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
->> index 20a821936b3af..8fdb997c28b40 100644
->> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
->> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-> 
-> [ ... ]
-> 
->> @@ -746,7 +663,26 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
->>  		return ret;
->>  	}
->>  
->> -	meson_dw_hdmi_init(meson_dw_hdmi);
->> +	meson_dw_hdmi->phy = devm_phy_optional_get(dev, NULL);
->> +	if (IS_ERR(meson_dw_hdmi->phy))
->> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
->> +				     "failed to get HDMI PHY\n");
->> +
->> +	if (!meson_dw_hdmi->phy) {
->> +		/* DEPRECATED: DT without "phys" */
->> +		dev_warn(dev, "missing \"phys\", using legacy HDMI PHY\n");
->> +		meson_dw_hdmi->phy = meson_hdmi_phy_create_legacy(dev, priv->hhi,
->> +						meson_dw_hdmi->data->phy_soc);
->> +		if (IS_ERR(meson_dw_hdmi->phy))
->> +			return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
->> +					     "failed to create legacy HDMI PHY\n");
->> +
->> +		meson_dw_hdmi->legacy_phy = true;
->> +	}
->> +
->> +	ret = meson_dw_hdmi_init(meson_dw_hdmi);
->> +	if (ret)
->> +		return ret;
->>  
->>  	/* Bridge / Connector */
->>  
->> @@ -767,14 +703,26 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
->>  	platform_set_drvdata(pdev, meson_dw_hdmi);
->>  
->>  	meson_dw_hdmi->hdmi = dw_hdmi_probe(pdev, &meson_dw_hdmi->dw_plat_data);
->> -	if (IS_ERR(meson_dw_hdmi->hdmi))
->> -		return PTR_ERR(meson_dw_hdmi->hdmi);
->> +	if (IS_ERR(meson_dw_hdmi->hdmi)) {
->> +		ret = PTR_ERR(meson_dw_hdmi->hdmi);
->> +		goto err_hdmi_probe;
->> +	}
->>  
->>  	meson_dw_hdmi->bridge = of_drm_find_and_get_bridge(pdev->dev.of_node);
->>  
->> +	link = device_link_add(master, dev, DL_FLAG_STATELESS);
->> +	if (!link)
->> +		dev_warn(dev, "failed to link HDMI (supplier) to DRM master (consumer)\n");
->> +
->>  	DRM_DEBUG_DRIVER("HDMI controller initialized\n");
->>  
->>  	return 0;
->> +
->> +err_hdmi_probe:
->> +	phy_exit(meson_dw_hdmi->phy);
->> +	phy_destroy(meson_dw_hdmi->phy);
->> +
->> +	return ret;
->>  }
-> 
-> [Severity: High]
-> Does calling phy_destroy(meson_dw_hdmi->phy) in err_hdmi_probe cause a
-> double free or destroy the external provider's PHY when dw_hdmi_probe()
-> fails (for example with -EPROBE_DEFER)?
-> 
-> Both devm_phy_optional_get() and meson_hdmi_phy_create_legacy() (which
-> uses devm_phy_create()) are devres-managed in the component devres group
-> that component_bind() releases on bind failure.  When legacy_phy is
-> false, meson_dw_hdmi is only a consumer, so phy_destroy() unregisters
-> the external PHY provider's device while the provider remains bound.
-> When legacy_phy is true, component_bind() immediately runs
-> devm_phy_consume() -> phy_destroy() a second time on the already-freed
-> phy.
-> 
-> Dropping phy_destroy() from err_hdmi_probe and leaving the cleanup to
-> component_bind()'s devres release avoids both issues.
-> 
+Glymur reuses the X1E80100 CAMSS block resources, but has only three
+CSI2 PHYs instead of four.
 
-I will drop it.
+Update the binding to describe three logical CAMSS input ports, and add
+Glymur-specific CSIPHY resources for the PHYs present on Glymur while
+continuing to reuse the common X1E80100 CAMSS resources.
 
->>  
->>  static void meson_dw_hdmi_unbind(struct device *dev, struct device *master,
->> @@ -786,6 +734,10 @@ static void meson_dw_hdmi_unbind(struct device *dev, struct device *master,
->>  
->>  	devm_free_irq(dev, irq, meson_dw_hdmi);
->>  	dw_hdmi_unbind(meson_dw_hdmi->hdmi);
->> +
->> +	phy_exit(meson_dw_hdmi->phy);
->> +	if (meson_dw_hdmi->legacy_phy)
->> +		devm_phy_destroy(dev, meson_dw_hdmi->phy);
->>  	drm_bridge_put(meson_dw_hdmi->bridge);
->>  }
-> 
-> [Severity: Medium]
-> Does meson_dw_hdmi_unbind() leak the DL_FLAG_STATELESS device link
-> created in meson_dw_hdmi_bind()?  Stateless device links are not removed
-> automatically by the driver core on unbind and require an explicit
-> device_link_remove(master, dev) or device_link_del().
-> 
+This fixes the Glymur CAMSS binding added for v7.4-rc before the old
+port@3 ABI appears in a final release.
 
-I forgot it, thanks for the reminder, I will add the device_link_remove().
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+---
+Changes in v4:
+- Rebase on next-20261120
+- Add Fixes tags and clarify that this targets the current v7.4-rc cycle - Krzysztof, Bryan
+- Rework commit logs to describe the ABI fix and Glymur CSIPHY resources 
+- Link to v3: https://lore.kernel.org/r/20261119-glymur_camss-v3-0-71ab966c41c9@oss.qualcomm.com
 
->> @@ -801,6 +753,8 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
->>  	if (!meson_dw_hdmi)
->>  		return 0;
->>  
->> +	phy_exit(meson_dw_hdmi->phy);
->> +
->>  	/* Reset TOP */
->>  	meson_dw_hdmi->data->top_write(meson_dw_hdmi,
->>  				       HDMITX_TOP_SW_RESET, 0);
->> @@ -811,11 +765,14 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
->>  static int __maybe_unused meson_dw_hdmi_pm_resume(struct device *dev)
->>  {
->>  	struct meson_dw_hdmi *meson_dw_hdmi = dev_get_drvdata(dev);
->> +	int ret;
->>  
->>  	if (!meson_dw_hdmi)
->>  		return 0;
->>  
->> -	meson_dw_hdmi_init(meson_dw_hdmi);
->> +	ret = meson_dw_hdmi_init(meson_dw_hdmi);
->> +	if (ret)
->> +		return ret;
->>  
->>  	dw_hdmi_resume(meson_dw_hdmi->hdmi);
-> 
-> [Severity: Medium]
-> With the new device link ordering dev (supplier) to resume before master
-> (consumer), will meson_drv_pm_resume() -> meson_venc_init() clobber
-> HHI_HDMI_PHY_CNTL0 after meson_dw_hdmi_pm_resume() has initialized the
-> PHY?
-> 
-> drivers/gpu/drm/meson/meson_venc.c:meson_venc_init() {
-> 	...
-> 	/* Disable HDMI PHY */
-> 	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, 0);
-> 	...
-> }
-> 
-> meson_dw_hdmi_init() calls phy_init(), which programs HHI_HDMI_PHY_CNTL0
-> to cntl0_init (0x000b4242 on G12A for the bandgap).  When the consumer
-> meson_drv_pm_resume() runs next, meson_venc_init() overwrites
-> HHI_HDMI_PHY_CNTL0 with 0, leaving the G12A bandgap disabled whenever no
-> HDMI mode is active across suspend and resume.
-> 
+Changes in v3:
+- Clarify the binding ABI change and why the old port@3 ABI worked - Krzysztof
+- Explain in commit dropping port@3 does not affect in-tree users because
+  Glymur DTS support is still under review - Loic
+- Link to v2: https://lore.kernel.org/r/20261113-glymur_camss-v2-0-b1b76509c744@oss.qualcomm.com
 
-I will change the link order to the oposite, and use prepare/complete
-for the drm_mode_config_helper suspend/resume.
+Changes in v2:
+- Rebase on next-20261112
+- Use logical CAMSS ports 0-2 in the Glymur binding example - Krzysztof
+- Add Glymur-specific CSIPHY resources for the three available PHYs.
+- Link to v1: https://lore.kernel.org/r/20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com
 
--- 
+---
+Nihal Kumar Gupta (2):
+      dt-bindings: media: qcom,glymur-camss: Use linear CSI ports
+      media: qcom: camss: Add Glymur-specific resources
+
+ .../bindings/media/qcom,glymur-camss.yaml          |  6 ++--
+ drivers/media/platform/qcom/camss/camss.c          | 42 +++++++++++++++++++++-
+ 2 files changed, 44 insertions(+), 4 deletions(-)
+---
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+change-id: 20261102-glymur_camss-1cf83f4a447f
+
 Best regards,
-Ronald
+-- 
+Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+
