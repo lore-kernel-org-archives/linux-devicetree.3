@@ -1,49 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795430396;
-	b=Yx2ijtPgJFMX+Uap64lcuSXdrTjZuGsZ3po3rgMFI0zANdPeP8xDwLm4pdvZZ0vuamrt
-	 VeTgFouKHmSoM/t4t1rsZzRAdnagopu10KcjLeYU2ap1fbTW9k0xdRo3mmBhgPv3sCf08
-	 1H6HjGwGCz9648ZC6RVxbLS7xuingDrqKW1pAYHzneHeDhX/hN2uJuDUquk2XZ5xM40ei
-	 2l78Xe8F1t7Ea8u/jrRqhWACIcn1PL6zGjnUv+jLQ3mrr8uF2fSvTctF3Ykf7dBTYTma3
-	 1WBv9eRFQL32Evg98dm6PiVRaoQNCLlrJsvFEVSCrziYV5KnBG8GhGeGL8fKWDU+IiQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795430396;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=EhvWa/TiLOlRcTzUI36EfwG0krtjkwcZEbZq1/m6gSk=;
-	b=iC4a5a/lNzFmvJodwuGNnUQqVyoG/OJ/xFKPqzjiAlFoeDt3P7Sr54OHueDzWA55XmIS
-	 n41sEgKXW7ANrGLjW80InqUUxnOuxG6Dsl0JsgSsnPLuXLYqfjcAikvAnkY9TXnRespoh
-	 QjK/hPSUfVkftTrPCozAUvLVulpB7lnJb8KjWOcAa0zGzntJNJYc3X56YavxoUOu7w4kC
-	 CIu1x6eXRk5Av52OVEdvvOvAZxm8soenSKqOZ3JvH8NjIEj8SlWJnU5tjuIfkzbHvl7Hm
-	 AImxmKjzpGMwLpRtuQiDQwUKc+488y7W9euqBt2BkUbapWv0ho9MGhhgBQsC7KYyjPA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AKIoeyuH;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0C73606A31F;
-	Mon, 23 Nov 2026 10:39:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C73606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795430494;
+	b=gMojgUTQl7gmVzXSzXDrtTY1TMHMWgNWVOj+pBMplM9hBrVeW3C5IHQgRkK8Zb4fa7rH
+	 i/P9H6KFlisfcd4lX18J+kjVvi9KykQxxoKaMBvTBqQFhz52mdsos+1K0QHpkzp8+0SdC
+	 H3Z1hYu5siXzzs2bzEyYobeth7+Gjf0y1UPevLdjvhJrmF1Qsq9XeJT058MsRSO/5SqJl
+	 6vZbUVAMe/kvOPIG+L06j5J4z18WedwbTbml/S1hghsDmLvdk8EcSdJRd5pVKwRDg/p2Z
+	 QqOprrJdV74eM+laoJjF4LDDG6TFQ0AYBft3PSoLEj4Xn6TxZrqZZlAQkUR4gCaFR/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795430494;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=27iEvKhRk31vKMnFYFf2M0/AFhO1yHWq2P+tmWU0YcM=;
+	b=2qjy0M7dq2EFMus0XDmvQqYcH0Bf4LiAsm+DknO7ep3/JODDvFGDT3hAMRqzKwm3251V
+	 KfLFIaNfEk8ZtncBUmNg2tVXBajSmp+XYGiqb9zTTSdnG1/f+rR68n9K6s2lqQWdMzbZk
+	 gRrBgJ41apM/eM4WC43xqIOtuqeugj7lJnPmczBXTz69hzepD66vl3/cSAWFB4tpNZ8UY
+	 Pehm7b+JXleXAUr5amM8DYbakDA116rXx5vEbj7FBrP9E0PbwkAKbTo4hw5WHykm/zzVK
+	 1NetXYfMqsz9fwqJLMS/H9UaHz9RRgRATIMaisatYJgFR7Cw1AZXvL53jqGwjB3N89A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="MXL4C/Tw";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Lv8chtU4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC39606A31F
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 10:41:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EC39606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AKIoeyuH
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1AFE2143D;
-	Mon, 23 Nov 2026 02:39:52 -0800 (PST)
-Received: from [10.0.129.12] (Suzukis-MBP.cambridge.arm.com [10.0.129.12])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F3BB93F632;
-	Mon, 23 Nov 2026 02:39:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795430395; bh=5QddXLfT5OfirN05d9EK5OYnHt7h8p4SJZwGpR59Lt8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=AKIoeyuH3zxcEhnJbMJN7EoREGhj2gBBUpXrCrvrzYJq8edihMc8hjHSwCBWxxvUE
-	 jhWOvfaoGmWfyI+L4w70V/MCblzZezBT2Ws11fO4u+Pt2yJBQSApTRqQPlJlVGtnuv
-	 ZTe7NawxTupqecjmE8IaAsA8Q0SnfGw+Tu0suD28=
-Message-ID: <5989618f-be72-4df8-81d7-5e552b897a7f@arm.com>
-Date: Mon, 23 Nov 2026 10:39:50 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MXL4C/Tw;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Lv8chtU4
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9Fnnh1828360
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 10:41:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	27iEvKhRk31vKMnFYFf2M0/AFhO1yHWq2P+tmWU0YcM=; b=MXL4C/Tw4mJRyCmS
+	/3p5pVKnE9YSURx4VBWSffV7NPCsb1eQwGe5wCJGoutqbiPziJG2dOwZ1d1EOmiO
+	Fj0e28GKZquYDNB+ixNgS7t5kWFZlT+dicAGFFGH2n26WY2254ET/dxV9tPKsjw8
+	tAKJctyF1vXmlEPUOzL/FCv49Ed2MMWEdLQB8U2IripixkCAm0Nf5W4JU12hc0ZD
+	eyapXyta1eZz8hQPu4SyeTbBOdVB1utNJVzULLylzLeNjMz5jezX7zVOeBH5X4Xb
+	rQd8Ffzj0FFz+VSl3KikyDhJ/DEV5s/I9eNRHPC7HNHRKl0J3mLBHV1rI0DGWOVr
+	iR3gNw==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g1p8y6s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 10:41:32 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8b0e4c2f052so47558987b3.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 02:41:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795430492; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZEDAWW5fYLhiIAFsLqHAFfq9QW9Hn99QdU6LjfV4O0ory97Kk7aen44av4MKD7oiao
+         7YhN9xa+/s67yHKWbxGccthBqxG5SdnCkYSYsDLz7Jow7tKTqNNLDZ453wnddxcRUZ0x
+         0+XpWkBzxAvXJBpA6VSdglX3utbJRJmqWO5uV9UVcnr4ts8Gpd7PJkWGhXfpRZ6wYtWj
+         6VHH5Ihk0O8rfAPlLBCnSNg+mlbHcF9/mSzfIRd+1kJ2HvajLBb9KheEToie0asxJkMn
+         O3/mjD9A5U3F2gl8q2ejKKhO0arLJJs7CvewZmqloMHB8G8KLlb+sLynhdpxRYemxOXF
+         CmZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=27iEvKhRk31vKMnFYFf2M0/AFhO1yHWq2P+tmWU0YcM=;
+        fh=gdjCZKDYOUH0H+b3GTZ42BJgGAAbsKS9tiJT37Vocws=;
+        b=qO0ji650wfnqqxChr94mFSNioEQNt5RAhYZoe4dUTaDd9a57SSKH24GOO2OrGTQu3G
+         Y8bXIrXt/Z7Hbm3mOl3kusXe1PsF/0YT5wFVwZD55/nDQvzPfv3ZKdaVBlUIu1TW2UvG
+         HuGfhMAcfyFgLrxCVaazbIwlTNhJptAPQa2VHorSjC4bv0gHxo6W0fCqFHFHyKW8ig51
+         3rYTtDd0YphrzqVeLNEWpGJ76CJ1byatYzOiEIYUl2ubQhRWjuAvCIPmuPwUaeIlLeJL
+         N73qoj9VVULp9cr7jyHs2o8dKAP6o1bTwfVVzrH7LbQa+IsZOK7YxrEIr1COtQs9g7dH
+         qZvw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795430492; x=1796035292; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=27iEvKhRk31vKMnFYFf2M0/AFhO1yHWq2P+tmWU0YcM=;
+        b=Lv8chtU4egopjHPByugmBHYt68mYV9sT6UnGb8LtCz2Z+tyBUhkJEZCyajUa9z+vne
+         DMVUjc2yzgCDUkHb3HpQqMV1kAykX5Mx03SIHESvSfXWWmnyZY7EriripzhkcDTY3m67
+         GwzCroB7DEwD2tn/nRKu2Z3y0Rk5JYelYDyp8fDlcZF2roe+9kO3UGVC0E8+oqXp7oWP
+         gYMIQCMBpgoRoPKDGniCODt6DhOQpN/CjnMP/j4Mmg7raVXxMT+35Yebv7+ZVzGnv9cP
+         OqT2i3Tm5mhs0VOPSSfvhhkVU5PuJhufr5rDqD/Vz15Up8Lq9RWLtRH47dXTAGrz3/h9
+         WprA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795430492; x=1796035292;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=27iEvKhRk31vKMnFYFf2M0/AFhO1yHWq2P+tmWU0YcM=;
+        b=TLqQVG8vnhZIlj1K8K6m1Mi69QuVfzLMOSTVsb1nTVuOLOVuVYX5k142VaEkitMasu
+         AeFn19H5DiDZEUYZssbQNvrT4U4UwFmuOKWZI4vL4aEvtXJMsbHYVepwbYJKsYAfLTif
+         9ujCOw+owJlO/7hF5IQujKrgeKaL0NnDjWiFZJCpEmJiVmfwfqpT2yUR4RwH3PIFm8gA
+         lcfEMX6uU/Niyjqj7Qbuoin9xZIvHDTsRWw0HOOmGxMXbc6iDLND1UXFmYEijmoLRe3y
+         +GiKnWKp1A4k9qyRPWDQuoB7Fue9g1d3N6DO0o3GE/bArLXBrtkUqRJ43hYq1OLhY8jR
+         0VNA==
+X-Forwarded-Encrypted: i=1; AL+hErF3MY/fJTd5LVTxy4g99nap9j95O9DGjtnyHUCam9mDSirzzbTSz0gyHNIAzT7PEggdG2UDv1BAFVFF@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PrpufplZRDLFqff/ob683bNCRKAMi9UVvTEXH8T7z8vau2q2D
+	PMi5unDJDRqRZOSxl77KymTBUeWvrpxeJ5VnnBZDsv9A8xINHPndX2lFTXgvwaBTfea4WxmFs45
+	W0V/nJssnlpIgTzXWtu0rasAnYk9djlHgMWWXYg5SXS62aK54p06wQX5f/rmlIZraRcOjQq7+PS
+	l7toOU3LO37kyfB7y8oOVFFJA9GeDEqJBOzWtwvkM=
+X-Gm-Gg: AZFdTZd/RAc+AFFAhoa2wTLXtM0YmXjUkK9c/Zd6yPjaShNmXqebF7UhvLX/QxattZO
+	/L/pRv/MZ1SkVxQ/DvcSY2626P0joNMdyIibiZ9JF6JIF/eWaLSuwuWcRADuDcTyJQMIwF/atKs
+	M1k1SXQcz1bqBDori4aqcz7D+7gNIbdSs3neGP7VU+PQ9liYaqTC55NXQ=
+X-Received: by 2002:a05:690c:6104:b0:8b4:cd2a:b70a with SMTP id 00721157ae682-8b520518c27mr42200247b3.67.1795430491793;
+        Mon, 23 Nov 2026 02:41:31 -0800 (PST)
+X-Received: by 2002:a05:690c:6104:b0:8b4:cd2a:b70a with SMTP id
+ 00721157ae682-8b520518c27mr42200177b3.67.1795430491400; Mon, 23 Nov 2026
+ 02:41:31 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,660 +127,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 4/6] coresight: qcom: add QDCP STM source
-Content-Language: en-GB
-To: Jie Gan <jie.gan@oss.qualcomm.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mike Leach <mike.leach@arm.com>,
- James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
- Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20261119-introduce-qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com>
- <20261119-introduce-qcom-qecp-feature-v1-4-b1a730d2c57a@oss.qualcomm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261119-introduce-qcom-qecp-feature-v1-4-b1a730d2c57a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261114-qcm2290-eud-v1-0-b6157b817377@oss.qualcomm.com>
+ <20261114-qcm2290-eud-v1-1-b6157b817377@oss.qualcomm.com> <20261123-crayfish-of-splendid-courage-c63931@quoll>
+In-Reply-To: <20261123-crayfish-of-splendid-courage-c63931@quoll>
+From: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 11:41:20 +0100
+X-Gm-Features: Aa3M54oHmRt3xfqR24IGlW8Kt6ZRAtG-3k_KFIjDV4TNG0tPhafKEYvoA79oUAU
+Message-ID: <CAPzfCAary8rkKeF+XFRFShRiy6GZwh_ky9_mo33C8+gGSxRnMg@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: soc: qcom: eud: add the QCM2290 EUD
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Souradeep Chowdhury <quic_schowdhu@quicinc.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+        Elson Serrao <elson.serrao@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA0MiBTYWx0ZWRfX/zFbRxmx9cOP
+ rHCdZjeA62AgMsmpw9nobZG1OlL1m/PYLQlcv9nJpPXWoc7I74UCNYoU61DbZx7FBDRGJ5bZJXN
+ mG3HWyzEz23pjRMZGBxQQakKCONr6nAHU02NM3Dkjk43/FmzeRn25Y9A9ZN5LVCYNR6dGxSFN7d
+ HedWvncwbcNqDxHFmN8vRIn1asyew9epwdEEB9L0tIcUjWYjE18Ne5t6Sgs3QYKuCVmj45PivPB
+ WcCiPKeb5vD2wyoBTYWgH0DRNl9cBgsegJwn1q0FbGUcx8e90LZtd7wC8pacroAUc5b+ahjb0wr
+ X4jeS298zDLOtRS8Q6HgZi4TAS8Bi+O27+6R9r19w+cGPsBjKm7gchd0FMzf1ikCJ249gKFfyRq
+ 2wtAt6gs+Qb/o66d6rGLVlH2d5bwuuwtFr0giLGGiuw3getn8xH+a5081hPZbn4OESX/cLl0pIx
+ 7U5b4BaXP70JdpZg2bQ==
+X-Authority-Analysis: v=2.4 cv=AeIkjHXG c=1 sm=1 tr=0 ts=6b04185c cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=AX2TNvW1BK4AuF6XdYAA:9 a=QEXdDO2ut3YA:10 a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-GUID: dSoCq9t4prYkcQWKHPQNaYScPvsb4xFP
+X-Proofpoint-ORIG-GUID: dSoCq9t4prYkcQWKHPQNaYScPvsb4xFP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA0MiBTYWx0ZWRfX6LcJBxLUIEnU
+ R4Nlnu0ALQnmpFNwl7ftekT88YhZ5Xmhay6tDUjlVrQ4R2irmCjT1Xu5HGpSbledkEN7UdiR0SI
+ 2LISQfSpUUWQcItIHCtKK2DCSlADEGY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_02,2026-11-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611230042
 
-On 19/11/2026 09:01, Jie Gan wrote:
-> Add a Qualcomm-specific CoreSight STM (System Trace Macrocell) source
-> for platforms where the Qualcomm Embedded Co-Processor (QECP) firmware
-> owns the STM control registers.
-> 
-> The driver maps only the AP-visible STM stimulus aperture. Enable and
-> disable operations go through the Qualcomm Debug Control Protocol
-> (QDCP) provider referenced by qcom,qdcp, keeping the generic CoreSight
-> STM driver untouched. Firmware controls the block's clocks and power,
-> so the driver does no clock handling or runtime PM.
-> 
-> The CoreSight source disable operation cannot fail. If firmware does
-> not confirm a stop, the source is still marked disabled and a warning
-> is logged, and the failure is remembered. On removal the trace ID then
-> stays allocated, so no other source can reuse an ID that firmware may
-> still be applying. On removal the STM device is unregistered before the
-> CoreSight device, so its unlink callback never runs on a freed
-> CoreSight device.
-> 
-
-Like I mentioned on the other thread, add csdev_access() for your platform
-
-Cheers
-Suzuki
+Hi Krzysztof,
 
 
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> ---
->   drivers/hwtracing/coresight/Kconfig                |  11 +
->   drivers/hwtracing/coresight/Makefile               |   2 +
->   .../hwtracing/coresight/coresight-qcom-qdcp-stm.c  | 550 +++++++++++++++++++++
->   3 files changed, 563 insertions(+)
-> 
-> diff --git a/drivers/hwtracing/coresight/Kconfig b/drivers/hwtracing/coresight/Kconfig
-> index 6a4239ebb582..f6ad698344fe 100644
-> --- a/drivers/hwtracing/coresight/Kconfig
-> +++ b/drivers/hwtracing/coresight/Kconfig
-> @@ -119,6 +119,17 @@ config ETM4X_IMPDEF_FEATURE
->   	  ETM 4.x tracer module that can't reduce commit rate automatically.
->   	  This avoids overflow between the ETM tracer module and the cpu core.
->   
-> +config CORESIGHT_QCOM_QDCP_STM
-> +	tristate "Qualcomm QDCP CoreSight STM source driver"
-> +	depends on QCOM_QDCP
-> +	select CORESIGHT_LINKS_AND_SINKS
-> +	select STM
-> +	help
-> +	  This driver provides a Qualcomm QDCP-backed CoreSight STM source.
-> +	  It maps the AP-visible STM stimulus aperture but asks QECP firmware
-> +	  to enable and disable STM tracing through QDCP instead of touching
-> +	  STM control registers directly.
-> +
->   config CORESIGHT_STM
->   	tristate "CoreSight System Trace Macrocell driver"
->   	depends on (ARM && !(CPU_32v3 || CPU_32v4 || CPU_32v4T)) || ARM64
-> diff --git a/drivers/hwtracing/coresight/Makefile b/drivers/hwtracing/coresight/Makefile
-> index ab16d06783a5..d97e334fe1fc 100644
-> --- a/drivers/hwtracing/coresight/Makefile
-> +++ b/drivers/hwtracing/coresight/Makefile
-> @@ -23,6 +23,7 @@ condflags := \
->   subdir-ccflags-y += $(condflags)
->   
->   CFLAGS_coresight-stm.o := -D__DISABLE_TRACE_MMIO__
-> +CFLAGS_coresight-qcom-qdcp-stm.o := -D__DISABLE_TRACE_MMIO__
->   
->   obj-$(CONFIG_CORESIGHT) += coresight.o
->   coresight-y := coresight-core.o  coresight-etm-perf.o coresight-platform.o \
-> @@ -43,6 +44,7 @@ coresight-etm3x-y := coresight-etm3x-core.o coresight-etm-cp14.o \
->   obj-$(CONFIG_CORESIGHT_SOURCE_ETM4X) += coresight-etm4x.o
->   coresight-etm4x-y := coresight-etm4x-core.o coresight-etm4x-sysfs.o \
->   			coresight-etm4x-cfg.o
-> +obj-$(CONFIG_CORESIGHT_QCOM_QDCP_STM) += coresight-qcom-qdcp-stm.o
->   obj-$(CONFIG_CORESIGHT_STM) += coresight-stm.o
->   obj-$(CONFIG_CORESIGHT_CPU_DEBUG) += coresight-cpu-debug.o
->   obj-$(CONFIG_CORESIGHT_CATU) += coresight-catu.o
-> diff --git a/drivers/hwtracing/coresight/coresight-qcom-qdcp-stm.c b/drivers/hwtracing/coresight/coresight-qcom-qdcp-stm.c
-> new file mode 100644
-> index 000000000000..39c6a2798a0f
-> --- /dev/null
-> +++ b/drivers/hwtracing/coresight/coresight-qcom-qdcp-stm.c
-> @@ -0,0 +1,550 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * Qualcomm QDCP-backed CoreSight STM source driver.
-> + */
-> +
-> +#include <linux/bitmap.h>
-> +#include <linux/coresight.h>
-> +#include <linux/coresight-stm.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
-> +#include <linux/log2.h>
-> +#include <linux/mm.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/perf_event.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
-> +#include <linux/stm.h>
-> +#include <linux/string.h>
-> +
-> +#include "coresight-priv.h"
-> +#include <linux/soc/qcom/qdcp.h>
-> +#include "coresight-trace-id.h"
-> +
-> +#define QDCP_STM_BYTES_PER_CHANNEL	256
-> +#define QDCP_STM_PKT_TYPE_DATA		0x98
-> +#define QDCP_STM_PKT_TYPE_FLAG		0xe8
-> +
-> +#define qdcp_stm_channel_addr(drvdata, channel) \
-> +	((drvdata)->stimulus_base + \
-> +	 ((channel) * QDCP_STM_BYTES_PER_CHANNEL))
-> +#define qdcp_stm_channel_off(type, options)	((type) & ~(options))
-> +
-> +/**
-> + * struct qcom_qdcp_stm_drvdata - QDCP STM source data.
-> + * @stm: generic STM interface handle.
-> + * @csdev: CoreSight source device.
-> + * @stimulus_base: mapped AP-visible STM stimulus aperture.
-> + * @stimulus_phys: physical base of the STM stimulus aperture.
-> + * @guaranteed: per-channel guaranteed/invariant delivery bitmap.
-> + * @qdcp: QDCP connection state; @qdcp.id is the QECP firmware source
-> + *	identifier, @qdcp.lock serializes sleeping QDCP operations.
-> + * @traceid: CoreSight ATID assigned to this source.
-> + * @fw_stop_failed: the last firmware stop was not confirmed, so firmware may
-> + *	still be tagging trace with @traceid. Updated under @qdcp.lock; read
-> + *	without it only on removal, when nothing else can use the source.
-> + * @numsp: number of stimulus ports.
-> + * @write_bytes: maximum naturally aligned stimulus write size.
-> + * @port_mask: stimulus port enable mask sent to firmware. Like the STMSPER
-> + *	register it mirrors, this is a 32-bit mask applied per 32-port group,
-> + *	so enabling every bit covers all ports regardless of @numsp.
-> + */
-> +struct qcom_qdcp_stm_drvdata {
-> +	struct stm_data		stm;
-> +	struct coresight_device	*csdev;
-> +	void __iomem		*stimulus_base;
-> +	phys_addr_t		stimulus_phys;
-> +	unsigned long		*guaranteed;
-> +	struct qdcp_consumer	qdcp;
-> +	u8			traceid;
-> +	bool			fw_stop_failed;
-> +	u32			numsp;
-> +	u32			write_bytes;
-> +	u32			port_mask;
-> +};
-> +
-> +static bool qdcp_stm_addr_unaligned(const void *addr, u8 write_bytes)
-> +{
-> +	return (unsigned long)addr & (write_bytes - 1);
-> +}
-> +
-> +static void qdcp_stm_send(void __iomem *addr, const void *data,
-> +			  u32 size, u8 write_bytes)
-> +{
-> +	u8 payload[8];
-> +
-> +	if (qdcp_stm_addr_unaligned(data, write_bytes)) {
-> +		memcpy(payload, data, size);
-> +		data = payload;
-> +	}
-> +
-> +	switch (size) {
-> +#ifdef CONFIG_64BIT
-> +	case 8:
-> +		writeq_relaxed(*(u64 *)data, addr);
-> +		break;
-> +#endif
-> +	case 4:
-> +		writel_relaxed(*(u32 *)data, addr);
-> +		break;
-> +	case 2:
-> +		writew_relaxed(*(u16 *)data, addr);
-> +		break;
-> +	case 1:
-> +		writeb_relaxed(*(u8 *)data, addr);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +}
-> +
-> +static ssize_t notrace qdcp_stm_packet(struct stm_data *stm_data,
-> +				       unsigned int master, unsigned int channel,
-> +				       unsigned int packet, unsigned int flags,
-> +				       unsigned int size,
-> +				       const unsigned char *payload)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +	void __iomem *channel_addr;
-> +	unsigned int stm_flags;
-> +
-> +	drvdata = container_of(stm_data, struct qcom_qdcp_stm_drvdata, stm);
-> +	if (!coresight_get_mode(drvdata->csdev))
-> +		return -EACCES;
-> +
-> +	if (channel >= drvdata->numsp)
-> +		return -EINVAL;
-> +
-> +	channel_addr = qdcp_stm_channel_addr(drvdata, channel);
-> +	stm_flags = flags & STP_PACKET_TIMESTAMPED ? STM_FLAG_TIMESTAMPED : 0;
-> +	stm_flags |= test_bit(channel, drvdata->guaranteed) ?
-> +		     STM_FLAG_GUARANTEED : 0;
-> +
-> +	switch (packet) {
-> +	case STP_PACKET_FLAG:
-> +		channel_addr += qdcp_stm_channel_off(QDCP_STM_PKT_TYPE_FLAG,
-> +							 stm_flags);
-> +		qdcp_stm_send(channel_addr, payload, 1, drvdata->write_bytes);
-> +		return 1;
-> +	case STP_PACKET_DATA:
-> +		if (!size)
-> +			return 0;
-> +		if (size > drvdata->write_bytes)
-> +			size = drvdata->write_bytes;
-> +		else
-> +			size = rounddown_pow_of_two(size);
-> +
-> +		stm_flags |= flags & STP_PACKET_MARKED ? STM_FLAG_MARKED : 0;
-> +		channel_addr += qdcp_stm_channel_off(QDCP_STM_PKT_TYPE_DATA,
-> +							 stm_flags);
-> +		qdcp_stm_send(channel_addr, payload, size, drvdata->write_bytes);
-> +		return size;
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
-> +
-> +static phys_addr_t qdcp_stm_mmio_addr(struct stm_data *stm_data,
-> +				      unsigned int master, unsigned int channel,
-> +				      unsigned int nr_chans)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +	phys_addr_t addr;
-> +
-> +	drvdata = container_of(stm_data, struct qcom_qdcp_stm_drvdata, stm);
-> +	addr = drvdata->stimulus_phys +
-> +	       channel * QDCP_STM_BYTES_PER_CHANNEL;
-> +
-> +	if (offset_in_page(addr) ||
-> +	    offset_in_page(nr_chans * QDCP_STM_BYTES_PER_CHANNEL))
-> +		return 0;
-> +
-> +	return addr;
-> +}
-> +
-> +static int qdcp_stm_link(struct stm_data *stm_data, unsigned int master,
-> +			 unsigned int channel)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +
-> +	drvdata = container_of(stm_data, struct qcom_qdcp_stm_drvdata, stm);
-> +	if (!drvdata->csdev)
-> +		return -EINVAL;
-> +
-> +	return coresight_enable_sysfs(drvdata->csdev);
-> +}
-> +
-> +static void qdcp_stm_unlink(struct stm_data *stm_data, unsigned int master,
-> +			    unsigned int channel)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +
-> +	drvdata = container_of(stm_data, struct qcom_qdcp_stm_drvdata, stm);
-> +	if (drvdata->csdev)
-> +		coresight_disable_sysfs(drvdata->csdev);
-> +}
-> +
-> +static long qdcp_stm_set_options(struct stm_data *stm_data,
-> +				 unsigned int master, unsigned int channel,
-> +				 unsigned int nr_chans, unsigned long options)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +
-> +	drvdata = container_of(stm_data, struct qcom_qdcp_stm_drvdata, stm);
-> +	if (!coresight_get_mode(drvdata->csdev))
-> +		return -EINVAL;
-> +
-> +	if (channel >= drvdata->numsp)
-> +		return -EINVAL;
-> +
-> +	switch (options) {
-> +	case STM_OPTION_GUARANTEED:
-> +		set_bit(channel, drvdata->guaranteed);
-> +		break;
-> +	case STM_OPTION_INVARIANT:
-> +		clear_bit(channel, drvdata->guaranteed);
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int qdcp_stm_enable(struct coresight_device *csdev,
-> +			   struct perf_event *event, enum cs_mode mode,
-> +			   struct coresight_path *path)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +	int ret;
-> +
-> +	if (mode != CS_MODE_SYSFS)
-> +		return -EINVAL;
-> +
-> +	if (!coresight_take_mode(csdev, mode))
-> +		return -EBUSY;
-> +
-> +	drvdata = dev_get_drvdata(csdev->dev.parent);
-> +
-> +	mutex_lock(&drvdata->qdcp.lock);
-> +	ret = qdcp_stm_source_enable(drvdata->qdcp.provider, drvdata->qdcp.id,
-> +				     drvdata->traceid, drvdata->port_mask,
-> +				     false);
-> +	if (!ret)
-> +		drvdata->fw_stop_failed = false;
-> +	mutex_unlock(&drvdata->qdcp.lock);
-> +	if (ret) {
-> +		coresight_set_mode(csdev, CS_MODE_DISABLED);
-> +		return ret;
-> +	}
-> +
-> +	dev_dbg(&csdev->dev, "QDCP STM tracing enabled\n");
-> +	return 0;
-> +}
-> +
-> +/*
-> + * The CoreSight source disable op returns void and the user has already torn
-> + * the path down, so the source always ends up disabled from Linux's point of
-> + * view. Return the firmware result so the caller can at least report it.
-> + */
-> +static int qdcp_stm_disable_source(struct coresight_device *csdev)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +	struct qdcp_data *qdcp;
-> +	u64 source_id;
-> +	u8 traceid;
-> +	int ret;
-> +
-> +	if (coresight_get_mode(csdev) != CS_MODE_SYSFS)
-> +		return 0;
-> +
-> +	drvdata = dev_get_drvdata(csdev->dev.parent);
-> +	qdcp = drvdata->qdcp.provider;
-> +	source_id = drvdata->qdcp.id;
-> +	traceid = drvdata->traceid;
-> +
-> +	mutex_lock(&drvdata->qdcp.lock);
-> +	ret = qdcp_stm_source_disable(qdcp, source_id, traceid, false);
-> +	drvdata->fw_stop_failed = !!ret;
-> +	mutex_unlock(&drvdata->qdcp.lock);
-> +
-> +	coresight_set_mode(csdev, CS_MODE_DISABLED);
-> +	dev_dbg(&csdev->dev, "QDCP STM tracing disabled\n");
-> +	return ret;
-> +}
-> +
-> +static void qdcp_stm_disable(struct coresight_device *csdev,
-> +			     struct perf_event *event)
-> +{
-> +	int ret = qdcp_stm_disable_source(csdev);
-> +
-> +	if (ret)
-> +		dev_warn(&csdev->dev,
-> +			 "firmware did not confirm QDCP STM disable: %d\n",
-> +			 ret);
-> +}
-> +
-> +static int qdcp_stm_trace_id(struct coresight_device *csdev,
-> +			     enum cs_mode mode, struct coresight_device *sink)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +
-> +	drvdata = dev_get_drvdata(csdev->dev.parent);
-> +	return drvdata->traceid;
-> +}
-> +
-> +static const struct coresight_ops_source qdcp_stm_source_ops = {
-> +	.enable		= qdcp_stm_enable,
-> +	.disable	= qdcp_stm_disable,
-> +};
-> +
-> +static const struct coresight_ops qdcp_stm_cs_ops = {
-> +	.trace_id	= qdcp_stm_trace_id,
-> +	.source_ops	= &qdcp_stm_source_ops,
-> +};
-> +
-> +static ssize_t traceid_show(struct device *dev,
-> +			    struct device_attribute *attr, char *buf)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-> +
-> +	return sysfs_emit(buf, "%#x\n", drvdata->traceid);
-> +}
-> +static DEVICE_ATTR_RO(traceid);
-> +
-> +static struct attribute *qdcp_stm_attrs[] = {
-> +	&dev_attr_traceid.attr,
-> +	NULL,
-> +};
-> +
-> +static const struct attribute_group qdcp_stm_group = {
-> +	.attrs = qdcp_stm_attrs,
-> +};
-> +
-> +static const struct attribute_group *qdcp_stm_groups[] = {
-> +	&qdcp_stm_group,
-> +	NULL,
-> +};
-> +
-> +static int qdcp_stm_get_stimulus_area(struct platform_device *pdev,
-> +				      struct resource **res)
-> +{
-> +	/*
-> +	 * The binding requires reg-names = "stm-stimulus-base"; there is no
-> +	 * documented unnamed-resource form, so don't silently accept one.
-> +	 */
-> +	*res = platform_get_resource_byname(pdev, IORESOURCE_MEM,
-> +					    "stm-stimulus-base");
-> +	return *res ? 0 : -EINVAL;
-> +}
-> +
-> +static void qdcp_stm_init_stm_data(struct qcom_qdcp_stm_drvdata *drvdata,
-> +				   const char *name)
-> +{
-> +	struct stm_data *stm = &drvdata->stm;
-> +
-> +	stm->name = name;
-> +	stm->sw_start = 1;
-> +	stm->sw_end = 1;
-> +	stm->hw_override = true;
-> +	stm->sw_nchannels = drvdata->numsp;
-> +	stm->sw_mmiosz = QDCP_STM_BYTES_PER_CHANNEL;
-> +	stm->packet = qdcp_stm_packet;
-> +	stm->mmio_addr = qdcp_stm_mmio_addr;
-> +	stm->link = qdcp_stm_link;
-> +	stm->unlink = qdcp_stm_unlink;
-> +	stm->set_options = qdcp_stm_set_options;
-> +}
-> +
-> +static int qdcp_stm_probe(struct platform_device *pdev)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata;
-> +	struct coresight_platform_data *pdata;
-> +	struct coresight_desc desc = { 0 };
-> +	struct device *dev = &pdev->dev;
-> +	struct resource *res;
-> +	const char *name;
-> +	u32 numsp;
-> +	int trace_id;
-> +	int ret;
-> +
-> +	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
-> +	if (!drvdata)
-> +		return -ENOMEM;
-> +
-> +	platform_set_drvdata(pdev, drvdata);
-> +
-> +	drvdata->qdcp.provider = devm_qdcp_get(dev, "qcom,qdcp");
-> +	if (IS_ERR(drvdata->qdcp.provider)) {
-> +		dev_err(dev, "failed to get QDCP provider: %pe\n",
-> +			drvdata->qdcp.provider);
-> +		return PTR_ERR(drvdata->qdcp.provider);
-> +	}
-> +
-> +	ret = fwnode_property_read_u64(dev->fwnode, "qcom,qdcp-source-id",
-> +				       &drvdata->qdcp.id);
-> +	if (ret) {
-> +		dev_err(dev, "missing QDCP STM source id: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = qdcp_stm_get_stimulus_area(pdev, &res);
-> +	if (ret) {
-> +		dev_err(dev, "missing STM stimulus aperture: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	drvdata->stimulus_phys = res->start;
-> +	drvdata->stimulus_base = devm_ioremap_resource(dev, res);
-> +	if (IS_ERR(drvdata->stimulus_base))
-> +		return PTR_ERR(drvdata->stimulus_base);
-> +
-> +	ret = fwnode_property_read_u32(dev->fwnode, "qcom,num-stimulus-ports",
-> +				       &numsp);
-> +	if (ret) {
-> +		numsp = resource_size(res) / QDCP_STM_BYTES_PER_CHANNEL;
-> +		if (!numsp) {
-> +			dev_err(dev, "stimulus aperture of %llu bytes holds no channels\n",
-> +				(u64)resource_size(res));
-> +			return -EINVAL;
-> +		}
-> +	} else if (!numsp ||
-> +		   (u64)numsp * QDCP_STM_BYTES_PER_CHANNEL > resource_size(res)) {
-> +		/*
-> +		 * A DT-provided port count that doesn't fit the mapped
-> +		 * stimulus aperture would let channel addressing in
-> +		 * qdcp_stm_packet()/qdcp_stm_mmio_addr() compute offsets past
-> +		 * the end of what devm_ioremap_resource() actually mapped.
-> +		 */
-> +		dev_err(dev, "qcom,num-stimulus-ports %u exceeds stimulus aperture of %llu bytes\n",
-> +			numsp, (u64)resource_size(res));
-> +		return -EINVAL;
-> +	}
-> +
-> +	drvdata->numsp = numsp;
-> +	drvdata->write_bytes = IS_ENABLED(CONFIG_64BIT) ? 8 : 4;
-> +	/*
-> +	 * STMSPER-style mask: enable all ports in every 32-port group. The
-> +	 * firmware applies it to whichever group is active, so this covers
-> +	 * all ports irrespective of numsp.
-> +	 */
-> +	drvdata->port_mask = U32_MAX;
-> +	drvdata->guaranteed = devm_bitmap_zalloc(dev, numsp, GFP_KERNEL);
-> +	if (!drvdata->guaranteed)
-> +		return -ENOMEM;
-> +
-> +	mutex_init(&drvdata->qdcp.lock);
-> +
-> +	name = coresight_alloc_device_name("qdcp_stm", dev);
-> +	if (!name)
-> +		return -ENOMEM;
-> +
-> +	trace_id = coresight_trace_id_get_system_id();
-> +	if (trace_id < 0)
-> +		return trace_id;
-> +	drvdata->traceid = trace_id;
-> +
-> +	pdata = coresight_get_platform_data(dev);
-> +	if (IS_ERR(pdata)) {
-> +		ret = PTR_ERR(pdata);
-> +		goto err_trace_id_put;
-> +	}
-> +	dev->platform_data = pdata;
-> +
-> +	desc.name = name;
-> +	desc.type = CORESIGHT_DEV_TYPE_SOURCE;
-> +	desc.subtype.source_subtype = CORESIGHT_DEV_SUBTYPE_SOURCE_SOFTWARE;
-> +	desc.ops = &qdcp_stm_cs_ops;
-> +	desc.pdata = pdata;
-> +	desc.dev = dev;
-> +	desc.groups = qdcp_stm_groups;
-> +	/*
-> +	 * The STM control registers are owned by QECP firmware and are not
-> +	 * AP-accessible; only the stimulus aperture is mapped (for data
-> +	 * writes, not CoreSight management access). Leave desc.access unset
-> +	 * so the core never tries to touch programming registers directly.
-> +	 */
-> +	drvdata->csdev = coresight_register(&desc);
-> +	if (IS_ERR(drvdata->csdev)) {
-> +		ret = PTR_ERR(drvdata->csdev);
-> +		goto err_trace_id_put;
-> +	}
-> +
-> +	/*
-> +	 * csdev and traceid must both be valid before the STM char device
-> +	 * is live, since stm_register_device() makes drvdata->stm's
-> +	 * callbacks (packet(), set_options(), ...) reachable immediately via
-> +	 * /dev/<name> ioctls and writes, and those callbacks dereference
-> +	 * drvdata->csdev and drvdata->traceid.
-> +	 */
-> +	qdcp_stm_init_stm_data(drvdata, name);
-> +	ret = stm_register_device(dev, &drvdata->stm, THIS_MODULE);
-> +	if (ret) {
-> +		dev_err(dev, "failed to register STM: %d\n", ret);
-> +		goto err_coresight_unregister;
-> +	}
-> +
-> +	dev_info(&drvdata->csdev->dev, "QDCP STM initialized\n");
-> +	return 0;
-> +
-> +err_coresight_unregister:
-> +	coresight_unregister(drvdata->csdev);
-> +err_trace_id_put:
-> +	coresight_trace_id_put_system_id(drvdata->traceid);
-> +	return ret;
-> +}
-> +
-> +static void qdcp_stm_remove(struct platform_device *pdev)
-> +{
-> +	struct qcom_qdcp_stm_drvdata *drvdata = platform_get_drvdata(pdev);
-> +
-> +	/*
-> +	 * Unregister the STM first: its unlink callback disables the source
-> +	 * through drvdata->csdev, which must still be live.
-> +	 */
-> +	stm_unregister_device(&drvdata->stm);
-> +
-> +	/*
-> +	 * No-op unless the source is still in CS_MODE_SYSFS. Without it,
-> +	 * removing an enabled source would leave firmware STM enabled.
-> +	 */
-> +	qdcp_stm_disable_source(drvdata->csdev);
-> +
-> +	/*
-> +	 * A stop that failed here or earlier (fw_stop_failed) means firmware
-> +	 * may still be tagging trace with this ID. Keep it allocated rather
-> +	 * than let another source reuse it.
-> +	 */
-> +	if (drvdata->fw_stop_failed)
-> +		dev_warn(&pdev->dev,
-> +			 "QDCP STM not confirmed stopped, leaking trace ID %u\n",
-> +			 drvdata->traceid);
-> +	else
-> +		coresight_trace_id_put_system_id(drvdata->traceid);
-> +
-> +	coresight_unregister(drvdata->csdev);
-> +}
-> +
-> +static const struct of_device_id qdcp_stm_match[] = {
-> +	{ .compatible = "qcom,coresight-stm-qdcp" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, qdcp_stm_match);
-> +
-> +static struct platform_driver qdcp_stm_driver = {
-> +	.probe = qdcp_stm_probe,
-> +	.remove = qdcp_stm_remove,
-> +	.driver = {
-> +		.name = "coresight-qcom-qdcp-stm",
-> +		.of_match_table = qdcp_stm_match,
-> +		.suppress_bind_attrs = true,
-> +	},
-> +};
-> +module_platform_driver(qdcp_stm_driver);
-> +
-> +MODULE_DESCRIPTION("Qualcomm QDCP CoreSight STM source driver");
-> +MODULE_AUTHOR("Jie Gan <jie.gan@oss.qualcomm.com>");
-> +MODULE_LICENSE("GPL");
-> 
+On Mon, Nov 23, 2026 at 11:22=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
+>
+> On Sat, Nov 14, 2026 at 04:39:04PM +0100, Igor Opaniuk wrote:
+> > The QCM2290 has the same Embedded USB Debugger as the SC7280: the EUD
+> > CSRs and the mode manager register that the secure world writes on
+> > behalf of the driver. On QCM2290 the mode manager additionally ignores
+> > the enable unless the TCSR register TCSR_APSS_SPARE_REG1 is set first;
+> > the boot firmware does the same before enabling the EUD, and the
+> > register is written through the same secure IO service.
+> >
+> > Add the compatible and describe that register as a third reg entry,
+> > required on QCM2290 and not allowed on the other EUDs.
+> >
+> > Signed-off-by: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
+> > ---
+>
+> Feedback from Sashiko looks reasonable and I do not see it being
+> responded to. Dropping from DT Patchwork.
 
+On Mon, Nov 23, 2026 at 11:22:21AM +0100, Krzysztof Kozlowski wrote:
+> Feedback from Sashiko looks reasonable and I do not see it being
+> responded to. Dropping from DT Patchwork.
+
+Sorry for the silence. I just silently agreed with the feedback and
+took it as is
+without replying on the list, I was planning to send v2 with the
+sashiko's warnings
+addressed.
+
+Is an explicit reply to sashiko's review comment expected as well, even whe=
+n I
+simply agree and address it in the next version? If so, I will do that
+from now on.
+
+Thanks,
+Igor
+>
+> Best regards,
+> Krzysztof
+>
