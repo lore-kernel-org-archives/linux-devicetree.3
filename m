@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795434097;
-	b=bdRyU8Ie0TkKYrmu4b5e+EdTWpQON+vb/j12qbPQZyUwoCZClYnpPpdnG3aZYZq5vofH
-	 TIP6goKBYaGO8d9NJeI0vXAzi0mbWHQygfI6GzhpcWLN20JKEKYuaOFj6wKSiZaqWYL0z
-	 Zg5R/plo8HKqVTcZIfYZp4U+0PnBV8Fa7EJAUpe9yi/nh4TRFOpAgdWEZF0w2NtWbTRAr
-	 9yQ5N1CMZ4p5dfAUh5qvK6+iCe3g3c17uwd/9vqb/dZYJwiaHsW0zvBplsawQBU0mCtI6
-	 aWaxIYORLHl1rV2I+9c3ETZlhTCmdcr9wAA17xgnUK9n5f9RolgubC/0Bqn8i6HsanQ==
+	t=1795434112;
+	b=Ry9i4sdhIEnYniUwdTSIawfcACeOH0SKXCHlPRnowMG0AM+9ywOdzVhmqR+WjfZhEKqR
+	 IJ05NWE8R5Nejlul6Bu7orvHou6lqTF8wtRYGnFmFFG/28UNsCmkSkJIanIhH6Dcs94zc
+	 2wgo2RwmTB1WLGJfWvTrusk96oGQfuKhULAIe6FQHr2d94CUrjhLnl50cGmnWqCbbQZAm
+	 SE6jJwMcuwYyJf25TgNHN3wnJo85ILZUGYgdCVbQmJsXpE9oCcSWxlpH19UTdGi2sjDEO
+	 AwUUhGqW06zdcxED7bR3A2c8+tULLyb44wc4jMpIu6iHTZj0Q4WHfLhD9W9L3zCgMIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795434097;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hPH+xwQQ5YvRprFEfig6JwjI4JJt7gcVnXPnZvpsz58=;
-	b=r74ZiQjArYxwwdKK2kW8RHZ3Y7+qWpsfct1S6jaEP69R8GWGZ0mfSeHqcC2Zw+8rkWLu
-	 xX+KjLhDnE2RYxdQsbaz4pPc01av+PQ/nLBRVxYw8AJsLsixf6+eiRBOr8VPy8klRmB1Z
-	 FdG+cnuJh9SOyAs9xQDarJlmG2hNp9q9C4++LQiw+h+R1NDMBUDP81EFkfGgmhJ9vK/a/
-	 rxsnWdJ+8YhuoxY/vVUFXgvuTV9XCz/ercUg0zwIrLODpF/eQVXyRetkpafBaUdvxlGOU
-	 LCyEyPzItwaoDpWvAeNj6aFEw67O0iVrTAEtKDIlNRzHCFQ+sPANbnLHUP2a11Vp/XQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795434112;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Fso6q+b21aJTsaUC5ezM2VGzAQ/UhrVbM+Mobeho73E=;
+	b=VZxNRv6CQuB3wVXjmF8HXUc+MSASTaRbI/vmDNmCqovwVJ19StJ2QpQ1JkaczM/kepgI
+	 oPtBEJ7SJVtbPkgyOHmTEKAvDL5mny4Y5Xh7ZZG2aAxASY+cMILEHPsdbNGyPwXLMY0jY
+	 5PbKHHjN8teo9mz4HJthgQmsw2jdYzgJZaCtnJJ1PNMjvKDEiusi6K6MISNwLL1ZHwpys
+	 6Lbt1fwWMRwgN8NknkHEdIsu1MlLEO5x62RCfQzi/sKyiWzxIR4j+o+ZWIE2gs4CayOiD
+	 2Fi9nEUaN/gnEWYbd72+RFuczeeJEiyCnc5YWa//Uwx7rmkn4ajnYUbgYRIw/xi7zkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=AqvTCW5q;
-	arc=none smtp.remote-ip=109.224.244.121
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjnSiy8D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505ED606A327
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:41:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 505ED606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80173606A321;
+	Mon, 23 Nov 2026 11:41:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=AqvTCW5q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795434092; x=1795693292;
-	bh=hPH+xwQQ5YvRprFEfig6JwjI4JJt7gcVnXPnZvpsz58=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=AqvTCW5qPw2qcd8PAjH5z5PbIyHUU6oizOI+s+K7cDDXtV7PFmj9IPlnbrb215L2x
-	 m/RWi1veWIhSUlB/2yxBLWKrJ69FXS+kDOfxoOAtKdY0VGw8HX5V4CcN9NMqqdSUOO
-	 TkIY/hivq//dNMMUveqVLQH7TGTHMWrbAEWJz1WnXIp5tUbeopHRYv8Nald0kGqiD6
-	 +ZHfgxEipxsOUqfvrohVIY580xB1XNgjb6Uv0ukoGEnvbw3xOJCRhfzLNO0s80dZKr
-	 coDUkztBL3JK1cVGJ9a4XYR96VHe4UDIgcQUy1tcuYlBRkExLmlf0LDqW/KmalhSrC
-	 CcDxrCenLvhJw==
-Date: Mon, 23 Nov 2026 11:41:26 +0000
-To: Alexander Letuchiy <asalde.le1@gmail.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Mattijs Korpershoek <mkorpershoek@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-serial@vger.kernel.org, linux-input@vger.kernel.org, phone-devel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v3 0/7] arm64: mediatek: Add initial MT6895 and Xiaomi Poco X4 GT support
-Message-ID: <ckJZtdZ4-fPzsa3vkozNyEYYUbG9qd134hYb0hHEuq2nL8WMAR1PS87OpDfXrkU-E-85rsG1I4V99_M41j6-ewkD_41XPguDel3z8z0lmMk=@protonmail.com>
-In-Reply-To: <20261123-initial-mt6895-v3-0-95c46597e63d@gmail.com>
-References: <20261123-initial-mt6895-v3-0-95c46597e63d@gmail.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: c6b719aaffbb9f16cf86df1433c20e78eaceb862
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjnSiy8D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1AD1F000CF;
+	Mon, 23 Nov 2026 11:41:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795434111;
+	bh=Fso6q+b21aJTsaUC5ezM2VGzAQ/UhrVbM+Mobeho73E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XjnSiy8DeIcpItdaI7x+pn4YPE63DMt35QdLHbJrOfo4OzsEiqQdPspSN/SWXoWut
+	 bizvACZe9GXOARCdH14R9b1dapVdhwrBiOkyW0oyabt+SyBtxGQPz/EdUWlIHD8Omx
+	 jxdU5LtcExrD9zQgORR3AUO/YEWX1HpEfyXMasufKhoT0Sd1itNKKvDPGsPhVWBbTe
+	 10pAGsqrgJpBIXG7DO5aDxEwAqYGv5wisYWZxJo1P3nUqvoJeTTNI9WfKZRJo7cymq
+	 LQAnFmxOrHgG7EblmIgFIJftGb4lf/nM8HFUVZgkcHoSDlVSS0ZF7q6EtvVuD+2GuF
+	 PKRefM7h6CnjA==
+Date: Mon, 23 Nov 2026 12:41:48 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Nagarjuna Kristam <nkristam@nvidia.com>, JC Kuo <jckuo@nvidia.com>, 
+	Mathias Nyman <mathias.nyman@intel.com>, Thierry Reding <thierry.reding@gmail.com>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	Thierry Reding <treding@nvidia.com>, Wayne Chang <waynec@nvidia.com>
+Subject: Re: [PATCH v2 01/12] dt-bindings: usb: tegra234-xusb: Add required
+ properties
+Message-ID: <20261123-urban-belligerent-vole-6c7ac2@quoll>
+References: <20261116-tegra-usb-v2-0-42efc03a9700@nvidia.com>
+ <20261116-tegra-usb-v2-1-42efc03a9700@nvidia.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,59 +64,24 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20261116-tegra-usb-v2-1-42efc03a9700@nvidia.com>
 
-Hi,
+On Mon, Nov 16, 2026 at 03:23:58PM +0000, Jon Hunter wrote:
+> The Tegra234 XUSB binding does not specify any required properties, so
+> nodes missing the resources needed by the controller can pass validation.
+> 
+> Add a required list for the registers, interrupts, clocks, pad
+> controller, PHYs and power domains described by the Tegra234 device
+> tree.
+> 
+> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+> ---
+>  .../devicetree/bindings/usb/nvidia,tegra234-xusb.yaml       | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 
-On Monday, November 23rd, 2026 at 1:19 PM, Alexander Letuchiy <asalde.le1@g=
-mail.com> wrote:
-
-> This series adds initial support for the MediaTek MT6895 (Dimensity
-> 8000/8100) SoC and the Xiaomi xaga board, sold as Xiaomi Poco X4 GT, Redm=
-i
-> Note 11T Pro/Pro+ and Redmi K50i. It is enough to boot to an initramfs
-> with a serial console, CPU idle, the CPU and DSU PMUs and the volume down
-> key.
->=20
-> Dependencies
-> ------------
-> The SoC DT describes the pin controller and the board DT uses its pinmux
-> macros, so this series depends on the MT6895 pinctrl series:
-> https://patch.msgid.link/20261118-pinctrl-mt6895-v2-0-0728c4eddcac@gmail.=
-com
->=20
-> Bootloader dependency
-> ---------------------
-> This was tested with a modified LK bootloader that is not public.
-
-How are other xaga users supposed to boot the kernel? You might want to
-port uniLoader instead, or if you're on an old enough security patch you
-can even replace stock LK with U-Boot. U-Boot chainloading is also
-possible.
-
-> The stock LK cannot boot this DT, as its Android fixups expect nodes
-> that are not present here.
->=20
-> The DT relies on the bootloader to:
->=20
->  - update the /memory node
->  - add all firmware carveouts to /reserved-memory
->  - pass the command line from the boot image
->=20
-> The carveout addresses are therefore not listed in the DT, as the
-> bootloader allocates some of them dynamically. I can describe the
-> fixed ones in the DT if that is preferred.
->=20
-> Firmware behaviour
-> ------------------
-> Two things in the stock TF-A affect what the DT describes, but not the
-> DT itself:
->=20
->  - TF-A rejects CPU_SUSPEND for about the first 40 seconds after boot.
->    The vendor kernel lifts this earlier with a SiP call, so with this
->    series the idle states only start to be used after that time.
-
-It might be worth porting upstream TF-A too.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
-Roman
+Krzysztof
+
