@@ -1,81 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464195;
-	b=xZNM8k2XO2FUs0MErAe0Ulg4PCFLHpQrJjSABkLBYu7pLChgqA0UMqSIs9CGjGpkuZgf
-	 rXcIbLPE132k2R0nGmfa+ZHSfKSm46kpedYzGCw6R/GgQPMu0JFYVVhzNWtDQpveYpHPz
-	 ZX2lUnmhi+MPrk4lsU8UdXocvoaXzyx//BwQbZC686Ey4YkNZbwAnZYcYtfDCPZ8OOWF5
-	 2fcbRRMGMO5rFGGj2JLjwwrphuNzOCV+o+3Ninadk+TlHqpw/gL/5cGPQW1hakwUJ/Tx6
-	 suGXO2rnpJD7lDoPxcv4IMTw/UIsxIV6KhPV8sBr0SIE9NC0v+HNHIHsB9a0eu6qorw==
+	t=1795464724;
+	b=tIgqE/7T2yrz001mwLYGFYxpKBRK01i/jwG1C4z7SCi0BjXDo7ZEn9Pdmsk+SF/iXvBl
+	 7UQ0mJ1Eekap2i8FzVIdBgaBGNHyabGiP/PmU+aPeZ+LV6MbJ0ABJ1QFtde/oXErOt6D0
+	 MaEs0kzI35CnjxSWcw5f3r99l7gt/VIWcbDqMnBCDRD7zXa0s/KboV9B2gxPnXlpk0r9t
+	 r5JEGp0Liua99eAbzSfY/hN/GVEK2w0wrAvlLdppX306ycTX9HxAYJosg+w3xXiTclQYL
+	 Sc6pVBEFcheMTznu9+r4zrqGk11ndY+R+pZXRhrewi2L5OGto++bJVL5hewZqc51Yew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464195;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=vEdCKoQwce5XBiPvrfeIjFy43hwj6OR1hxIOa4L8trI=;
-	b=LK9Ds900mERI69N1IH7fAMmn101vkSGwpVX0PCUJOrqZqEJdbfyVIQzjVU/aZeofyF+N
-	 iE0Q30z05hWCWbPhs3cO4PrDzV5VDSVmnikFvTf2aIqA7UpFchU8U+DWUlghwWtvLE71T
-	 VQRbUw7UbLkno4uHL/+vnopXNX9/TeFtVMtLTIcN3Dd1HTnAJ/zTDSEyDbFWHdcULC/tL
-	 N08jZS4oXYqbYU11bHjKKZoFC1FstmqF1ScOVhf/iAyF9KlBJoXW0J/icooBTacThqSg5
-	 r1591vidsNYCinqBQwEf5x8QnxfEgvsEi+71DnhUuQ+sZ3mM0dAW2rIUyAWVtsDb1bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464724;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=NK2TAdN7QxXlztQobC5fKCMiso1wIiEVmRdbWsstQAk=;
+	b=n5cFrTXVFaeucd+INNykDZIeTZjuF88GQXg6bxEIEn7mHVtmIIgNyKeY0pRkHwHa97ba
+	 M6to66k/fjgJpQxLlM3GC9WX6eXNTzgbYVabfwhhe752MFlq11c9XUTd+a7/6PYOHaA9u
+	 yr0EUwcsz9/9+9l3AGuZ9PsqkkdVtDGevCdNpz7lQXcCr2GtbM4WHhAqW76T1KSNJV6c/
+	 HW2x8dYfSh8VZ8ssKPoa8yj9hTrMdS1vis6Mr94v+5falSG69IrfJI6Emxb3SPtBdZcyO
+	 h8upyB6QAcoEw3kJ7OVrjaWb76rKd67HGK3RMxZifRxL4AWz9NBrKEqbiTV6zyqF9AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GpBZ5p42;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=nqwqg11w;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B3B606A31E;
-	Mon, 23 Nov 2026 20:03:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7B3B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF305606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 20:12:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF305606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GpBZ5p42
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795464195; x=1827000195;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=f3nYcE/IyeafUCxFLD4l0I+/LGzzsA3qbg9Hw/NuljA=;
-  b=GpBZ5p42G6BwDcQYeuy36mTeaFIbd7BRXqarw09euFwYkdM/+peJuYvp
-   HKBGmEkFfVB1C5JH3CD7HjJfnzLXmOWuKs1UT/e3iUXt0cKxKtCxAzdpT
-   02KNJyKOynKlfVLGDSj77UQglZVGDZZLy7roV/CkrNbpAfWTeamR9j8xX
-   Z+1EpdskQsvFmZWnKqrP9ww3o1Y9ZoNTiveAbSP8xMEm9jeOI9qlGTUnm
-   W2L6aN6K0/6JxpnseSpvTey6Wy3+9uylCaD3kiVL5BBWGqYMQD8jpamGB
-   TfoUzd6ih61U8YYBq1EeWkgeSbf4qmQvgPf/l0KK2CjPhYTLucVxpOJug
-   g==;
-X-CSE-ConnectionGUID: VQ5bjysxQ12Bzeee0D+acw==
-X-CSE-MsgGUID: fD+4rm7bQHWjFCq1BoT5YQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4196999"
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="4196999"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 12:03:15 -0800
-X-CSE-ConnectionGUID: RmeUroL9ReapMKJIfq1yvg==
-X-CSE-MsgGUID: HKOp4bezRfqSrGJM/MjycQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="11942945"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 12:03:12 -0800
-Date: Mon, 23 Nov 2026 22:03:09 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Gerard Marull-Paretas <gerard@teslabs.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=nqwqg11w
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id VUaRxxudsVK9UVaORxzoEH; Mon, 23 Nov 2026 20:12:03 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id VaOQxGppESgq1VaORxAiuk; Mon, 23 Nov 2026 20:12:03 +0000
+X-Authority-Analysis: v=2.4 cv=c8KrQQ9l c=1 sm=1 tr=0 ts=6b049e13
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=p6fxDhJg9I0BSXovcPcA:9 a=CjuIK1q_8ugA:10
+ a=cvBusfyB2V15izCimMoJ:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=NK2TAdN7QxXlztQobC5fKCMiso1wIiEVmRdbWsstQAk=; b=nqwqg11wPGBOPBl0au8ZN/l02z
+	mOqyg267Xy8LoWIcDlxOs3ZjdSTIQdidEv+vDmzYr9onPkx+WhTmH0f23M0+PMAZg7FFSbOCJ67LE
+	MOBCINlW5qfxUiryS7sF+ZJXH2gRoZzknafRaVwDLrif99Vpts4sq119kfdlfVXgt7aeTK4s/k5LR
+	N6OBoJldfk6ZYxDQiRc22tRjzkW7s7zYQ2uWiPJ1SnQwoylcAQNNIVeNDsvC9lmm18YAlkNYXVZtR
+	LmCe1m3f6AtqmAamDEe0OvPfUwqYDJxM8+D7AxiFwktxrTbAEcg9ZJWHZu68DAzvUos4wZ10hyErQ
+	yqb6FFQg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:49156 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xVaOQ-00000001dt3-1HPJ;
+	Tue, 24 Nov 2026 01:42:02 +0530
+Date: Mon, 23 Nov 2026 12:12:01 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: David Yang <mmyangfl@gmail.com>
+Cc: linux-watchdog@vger.kernel.org,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Frank Li <Frank.li@nxp.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	Viresh Kumar <vireshk@kernel.org>,
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] iio: magnetometer: mmc5633: Binding, supply and
- mount matrix
-Message-ID: <awSb_WC5q3rX79dP@ashevche-desk.local>
-References: <20261123194943.57601-1-gerard@teslabs.com>
+Subject: Re: [PATCH] dt-bindings: watchdog: arm,sp805: reference the
+ PrimeCell binding
+Message-ID: <1266dc98-b755-4112-8c1a-0ad54164dbaf@roeck-us.net>
+References: <20261114184257.535546-1-mmyangfl@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,29 +91,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261123194943.57601-1-gerard@teslabs.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261114184257.535546-1-mmyangfl@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xVaOQ-00000001dt3-1HPJ
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:49156
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 20
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfEhoxE+109gEKeUEqzur/LML1exF1xh9fYrUkACynzSCLnqC8UbfwiBg5RS8YdNud6qlghLBV5G5TBoj12F1uJfB7rks5c3QirgnkAqh2FpqJB6WE8l/
+ VJR3wyJ/FsEfZCAfOLtuo02BY0iCWokj/BGe4Bg3cDcqypIKuulylsnKRLMPKCHgSX/pSnrXwPWXqPf2MNEGWTNCCRsCA04RmQyQLoUUCGeC1hHrugW16dLh
 
-On Mon, Nov 23, 2026 at 08:49:39PM +0100, Gerard Marull-Paretas wrote:
-> The MMC5603 and MMC5633 are listed in trivial-devices.yaml, but boards
-> need to describe their supply and orientation. Patch 1 gives them a
-> binding of their own. These bindings are also used by PebbleOS, which
-> is where the need came from.
+On Sun, Nov 15, 2026 at 02:42:33AM +0800, David Yang wrote:
+> Unlike the other PrimeCell bindings, the binding ends in
+> unevaluatedProperties: false without referencing
+> /schemas/arm/primecell.yaml#, so arm,primecell-periphid is not an
+> evaluated property on an arm,sp805 node. Two nodes in the tree carry
+> that property regardless -- watchdog@a2c000 in hisi-x5hd2.dtsi and
+> watchdog@8000 in mps2.dtsi.
 > 
-> Patches 2 to 4 add the matching support to the driver. I have no board
-> running Linux with these sensors, so they are only compile tested (W=1);
-> feel free to take only patch 1 if you prefer.
+> `make CHECK_DTBS=y`:
 > 
-> Changes in v3:
-> - Reference the datasheet timings tOp and tSR in comments, with the
->   tSR one in a new patch 2 (Jonathan)
+>   watchdog@a2c000 (arm,sp805): Unevaluated properties are not allowed
+>   ('arm,primecell-periphid' was unexpected)
+> 
+> Add the reference so the property becomes evaluable; both nodes then
+> validate.
+> 
+> Fixes: 73d3e43f9813 ("dt-bindings: watchdog: sp-805: Convert to Json-schema")
+> Signed-off-by: David Yang <mmyangfl@gmail.com>
+> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Right, but can you also add a pointer to the Datasheet Chapter, Table, et
-cetera in the same comments?
+Applied.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Guenter
