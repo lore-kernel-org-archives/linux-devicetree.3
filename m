@@ -1,112 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795467385;
-	b=VjMIxS6sMlDY7qXMvJnWIpgBgwN8jlZLeLJVqozZ/zLyinDlVv4qFehNzwq73Y6LEu5g
-	 TJXqd4BspKyErb8WR/FsbsWzrHCauWiIG9k/G3HqtIGXA2co3q1NVjBeG43pmDEPc6PSe
-	 TcbIGrALJH5Ip4pj2XOh0x/64Y18ELxOgDq0tPRXb/46cCjLI/h2JxOz1pAWq327nCuh5
-	 sjRGUFRer2pi1Vn4Zws5ELltgFgoqQ7mQCOfJWbjlt3t9fQwLC0u1JZgfhgK1gx2AkRkR
-	 6SyGwPnU3ikvBG2FtXU+RTbA1EjZIaynZOuwE348tjW6xS7HEv9+J6RkJVhRQwvSrYA==
+	t=1795467389;
+	b=cmsuge6qyAeoJ8CgQYwm+RUFh5i7EraslwUhkrvDinswZ7UaYUgf5vWjxt+W8WrxC3Rt
+	 qrbHXWSWFXfkESJUronHEjqSdFieP8MR/qS53JGwoiogFdd1ZdtuVksKRUOwwejpvbBjM
+	 DLwcTMCnAnTZJQTmVEnAQqa/fS1g0l1MvIXyfp8bUj63LFBRd9daw5rqujeF81tm19PmH
+	 NSlFYu6Teyjbu2qsPmcEpShZt03wKaExoAFwWQIQSeY8hWR5HHikKv/8Fi0tYnfr9Cjv3
+	 xAVrPWG4qWnlgVnchZ6eyST9xG4LnpzbI5wL3TWQpZmF23svkhCaZRyqwHq/Ng4CEwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795467385;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=HVZcSjFH4FJeUfEsBwsOf+lXeSQFSzxGuq+r24Kf3NI=;
-	b=bIXoiDz4r6skGQrMojBQLUxXottOtlMgtGfgT3HkJ7snKZHF6pXqfZMfsbIqyL7KSuEv
-	 n87rKkBY5pITR5P8Bb/CtxSag8ewH39Y93j/JPXi1X+edfCif2OulT79aN+dNyH4i/7vV
-	 XvTWCuWUbBSgmq3NaFkY5LYOYCbcG8zExB9tESzSrDprG1g45U8Anh4sHmcvPGX5vTZYb
-	 oD8gq7lJ2ZLIERNMTPU1h+DqZF16t5wJhZhtLekLfvAb8/nvTeX6/2VbPpIbmsB8086h+
-	 tPV0YhVMGhZfIzMLJYfOCSKlXoLtzY0LXxbrrnVyROSVLgWV1NFlJp+wQNlp2qfTHKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795467389;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=uMMQm4mAWp49cFU6NJgpXckSRNY1fS9XcSuusU3yNEY=;
+	b=f1Px5tixQ5jYCSXijQgxxwAQnNkj1zKJ6GjgMSmt7pQZfLPo3Ih/WWDcHFOIOZ0SK47e
+	 sULiudCr6C3w5NCEVCGNeW5cJn64DkUOjH1FQucgqkIHbMwjFmQFFrvFBurUmzJpDnKi6
+	 hB9XvLeRhg5Q+JG3peHz5+nMrKLrqtenlZiNWh9eouS4lph/LwGZ4/hSAuhH94b2EJ1u6
+	 RZVgb5Dl9CLkTFYPfHUUBdlyw8+Sb1XrM09NfNrYxVqnLYXLGgLx8tdFcweW44xuw9rXu
+	 7AQH0MRKPIFQgKbHj8KgizXhpg1joNjpdA3+FZ2vNS8Fq/hg9bBAFHr+/T8R2zo6f/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=H2z0940B;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Olu07rpe;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="Eo/ZK1MO";
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424E2606A32D
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 20:56:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 424E2606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103DF606A333;
+	Mon, 23 Nov 2026 20:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 103DF606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=H2z0940B;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Olu07rpe
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANJuXVd1332752
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 20:56:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HVZcSjFH4FJeUfEsBwsOf+lXeSQFSzxGuq+r24Kf3NI=; b=H2z0940Br/B6IYM5
-	v050grSbNasErG8gRzb/FuLQCmYqwrHcY7TL6CmETJ3DOvBxKlip3EH3Qqqd4Xmi
-	waVlwJpkhabehJ00n0ZtXV+qS5WtOjhWhF/MaR6ySBkRI3aLCmvHo6pKJNtsieqL
-	e/2it7vqG5XlXdyboJ8N9rmvxMxFoFkKMRgR7bk73Z36d0TpHMALUCD7syoZZO96
-	L69IQ6SpldT5XSP0828uLmaNCwpsp4bQODJcCAc7vm0ZZ9wKvJES7qbp/8fTQmY8
-	tew7zVMnodslqlb+AFcCaWEKATXT3yDcWf0CUA3ChfhBD8wHuscNSM8Gk8ZkFnpL
-	HIEk4g==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g743exb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 20:56:24 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-38531c1a566so2157689eec.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:56:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795467383; x=1796072183; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HVZcSjFH4FJeUfEsBwsOf+lXeSQFSzxGuq+r24Kf3NI=;
-        b=Olu07rpeqo3Hu1bcDlZO9+luO8T2OwFWlh2HzFjcEkHEloz3QFb34g8OUJVvKzR1tN
-         3bG1b2qsESxtHGiKS0wVjiO5La1l0TYrtgZyIHkRwagSipoRGI9Mmtcz2ngfdKO2Gg3U
-         85yhqeR4JN557Ueq8vX1wgCNmxeNbrFP0/RJNr2g+YTHZxFu+IxKoWVX/6SUAn4W0DaD
-         CYXskwS95nTLLPdHZjLfSWK2wxUEK11pGdzzgCbXBA9ozEMwMpvVPbotJkrl/x6kB+Nl
-         J/o1+T/Uy79oU9pL0h/vQ4vkxd0TMMoxoNc6VwRQ/blo97/YCxfs890mJB3cLQLieeJR
-         UvRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795467383; x=1796072183;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HVZcSjFH4FJeUfEsBwsOf+lXeSQFSzxGuq+r24Kf3NI=;
-        b=P+1/VyVqec2So8Sy58wXr2t+0wmbTqhtGL0IO1RTJZPM91WPWLl5+EA9dXDFIFWjyN
-         4jfwxqZ7F8k6OAjeaytuMcCG7rT99tdXZcQZRWaYBCHy4Mx/xJNSkPC75YjMnp3kTPb1
-         2JAphEEmm21toME/ossjfpXJXUPPeKuqXnpyz1ebDybbKLM3egPtqDuQdt9dqY4Hu/4O
-         yIBLvW7kKKodT3zc5BV8joEuCJXksJQFshelWrZ1/5jtdsG1hLo8t3p9NlbmqAFsPyf8
-         Y1F1FP7zOPCoaZX7ZWC9A7P8IWWWDn5g3hrC3YvWIo9vdMk9Tp2JsMw1vFFp6Y/oEWPc
-         6LOg==
-X-Forwarded-Encrypted: i=1; AL+hErG84NpRAvRkcg6SSSHiOrvL1GwnDoJtDshhzlSvsvVZIHGyuYs5ee5s8abZKBOrnf1a2i1gn/zZwyue@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DJ8xoICVSnhMWeCRTAUgVjkWXbe1rvAzBw7Uq54ZEWU8bJUAA
-	Jsga3qZGp9s67umPZknERn/uvqJ3cDW0QQB4P/L8ZZU8T+JXAttzIHbh5KkVPX1B7kIk9bciGow
-	q3SUFKqzCZCV+9zxruknEMyvRyRW++uHj2Wp+8m6UE8Cv9mG+GHQiVhxXEYokvVYW
-X-Gm-Gg: AZFdTZfxQ/e+c/rvk0dmmAiOeQIQHfTgM96Rv7bMopOsUB7FJSRZW3H/YhQS7+esaqv
-	kd9aAk4P1vBvIWwPzUyeVaQRuyP/jVZygKSCld2G6Ub7Es/OLPAbU2+BtCgalRblPRdmMxlD4aC
-	Q1vVBYNzEwmUXXD9fEsJQH95fSwZGr80BoWXuLdhM0kIpyakpw1u+9yCJbfz2RZttHm7J5LkHu3
-	b2WngETdr+i6g+nT0EAk7sdKPMVaizEgW3fvNolNdP6sw3PuLIcALo/lbFnnoqsmsV1564dLVb7
-	rwvuqqDqaTxhg4Q0975lCXD+CIUH1I6AqciI6xU9RUqtQ31CjL5Rae87ROlLFFN6xXSH4ndo8Z5
-	A608F7XTvki7XRj3gQlZwogjpc7zlVkheuU1anetvZuJ3dU6KV8x6nZkBaFSJUR/iIFCEAos/uI
-	f0cunpF+Ou
-X-Received: by 2002:a05:693c:41d1:10b0:386:9d4b:9403 with SMTP id 5a478bee46e88-3869d4b9723mr8818075eec.19.1795467383420;
-        Mon, 23 Nov 2026 12:56:23 -0800 (PST)
-X-Received: by 2002:a05:693c:41d1:10b0:386:9d4b:9403 with SMTP id 5a478bee46e88-3869d4b9723mr8818038eec.19.1795467382818;
-        Mon, 23 Nov 2026 12:56:22 -0800 (PST)
-Received: from hu-manafm-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567cafec4sm44209077eec.26.2026.11.23.12.56.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 12:56:22 -0800 (PST)
-From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Date: Tue, 24 Nov 2026 02:24:52 +0530
-Subject: [PATCH v5 12/12] arm64: dts: qcom: smb2370: Enable BCL sensor node
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Eo/ZK1MO
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 717834E41722;
+	Mon, 23 Nov 2026 20:56:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3D19C601E1;
+	Mon, 23 Nov 2026 20:56:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4BFD411E6AA3D;
+	Mon, 23 Nov 2026 21:56:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795467382; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=uMMQm4mAWp49cFU6NJgpXckSRNY1fS9XcSuusU3yNEY=;
+	b=Eo/ZK1MO3u8khRaCtZ61aO2y81AdlGUDjjkapEsvBJxG16pIiS1NIoAGwUwEGLDzBT/Pyd
+	Xpgv4HaO2ZuTviB2D6c50Qi6NdKniE1dda5oVccPv2ung+ILqk9aqao+9cMLJbalFCXfRx
+	MMRc//OCcW9j3kGniOXPayC5ebMWWH6xMDNL8n24BFUXPWSkmlIkYWMXkiR841AcWZB+br
+	qgI9vwVxBv3ZUGhFGtA4l9jF+NEbX9TtkbNex6GXi/W8npOM5Ixgw1aIAoCZ15r7taoF4e
+	niXdE7L/GiUJ1f917vN7jkN4WiGrLFSLnPShOPoV5bUkRUZV6+SPk+Q9PqJleA==
+Date: Mon, 23 Nov 2026 21:56:20 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: filipp.dunsky@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] rtc: Add Cortina Systems CS7542 RTC driver
+Message-ID: <202611232056209fabb078@mail.local>
+References: <20261123-b4-cs7542-rtc-v2-0-31ab43f2cc8e@gmail.com>
+ <20261123-b4-cs7542-rtc-v2-2-31ab43f2cc8e@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,95 +69,246 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-qcom-bcl-hwmon-v5-12-747d5383d538@oss.qualcomm.com>
-References: <20261124-qcom-bcl-hwmon-v5-0-747d5383d538@oss.qualcomm.com>
-In-Reply-To: <20261124-qcom-bcl-hwmon-v5-0-747d5383d538@oss.qualcomm.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        mfd@lists.linux.dev, linux-doc@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795467299; l=1198;
- i=manaf.pallikunhi@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
- bh=vJQuhX/oBX172FGrYO7vTJtYeipTicxxvpxXEYh0ojs=;
- b=c1lfg4TaQF9XXCtiV+bWHYb+IQQy3xyZxsYuABAYVnTRz7kwnthdKHQVzbWpLFWVTQ0yUfG/o
- wCE+6d7SD4uDvya0APz5YCTuTN4NDHptzSZdB82hrfdPR3sFiuqSBT7
-X-Developer-Key: i=manaf.pallikunhi@oss.qualcomm.com; a=ed25519;
- pk=oZ3x9jh+FDyPwxHmCbyzEMQHMzKqrH6hUbbL7dEBe2g=
-X-Proofpoint-GUID: ZWMIXcwIzraJZwbGwpbGMTdSggzlBOtc
-X-Proofpoint-ORIG-GUID: ZWMIXcwIzraJZwbGwpbGMTdSggzlBOtc
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA4MyBTYWx0ZWRfXyVwBMx/ZF2Y3
- RJdEbsLUHmBzZ7W+ORbrnFLBapYregm4fqj74i2BTiZwON6G1yaPBSZ8RDx2uxi1V34JgG5OuZC
- UBXqWCBbnszTgInyBxYNtmLBMePfCb4=
-X-Authority-Analysis: v=2.4 cv=T/cZ3PKQ c=1 sm=1 tr=0 ts=6b04a878 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=Mdvtvp0LKpy3kcB40AAA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA4MyBTYWx0ZWRfX/k6z9n3rzdmr
- N8dNvE9iAZqG755afBUWQuxdI3xpO1ip/U24rv3wpB3FLOzauuFLRuXPVOcT3fTZ8Q8ar+3zuy0
- vmFFCX/6TPOwseA3JC1eVgF+twy7ARRC7L0J/0HJ+Gg7dCBaYpdOxaR7c0nE2qpLWSlMu43+RfL
- ej3Yg71fc6XXAIkcMFlLgOfJcKxuXvGcQgcPZHcjMmBeySvHOLLgRZxvpVvWFBh3wB+7mKjhtue
- UeNZffbdLuw8MnFUIleC+CjS8BnosSNI1M1UD5202xSSfkUhxMRZ2xAIVBw9hu5xS+eJtEL8o+W
- mwvohvOnWvzmSH/olyYPKegWiTt4t+2DpRx9yLk8+nXsFdjJ6V2v2oMZOHTYoEYQwZqV3FGV7Xa
- znduFnPg/XBMfNLN3JnyIKnlAhh/HF16dgVSQTPGPJACNfVdpUbZSTp9RPuBnkcuB9l7uoUT+9F
- jMLVksTSRDejdzpKRcA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_05,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 bulkscore=0 suspectscore=0 lowpriorityscore=0
- impostorscore=0 priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230083
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123-b4-cs7542-rtc-v2-2-31ab43f2cc8e@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add Battery Current Limiting (BCL) hardware monitor node for smb2370
-PMIC. The BCL monitors battery voltage and current, providing hardware
-interrupts when configurable thresholds are violated.
+On 23/11/2026 23:27:02+0300, Fil Dunsky via B4 Relay wrote:
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+> 
+> Adapt the vendor-derived OpenWrt calendar implementation to an OF driver
+> without a platform Kconfig dependency. Decode the four-digit BCD year,
+> retry reads across second changes and preserve RTCEN after programming.
+> Expose the verified 2000-2099 calendar read/set operations. Do not
+> advertise alarm interrupts or suspend wake until their hardware
+> behaviour has been established.
+> 
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+> ---
+>  drivers/rtc/Kconfig      |   9 +++
+>  drivers/rtc/Makefile     |   1 +
+>  drivers/rtc/rtc-cs75xx.c | 174 +++++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 184 insertions(+)
+> 
+> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+> index 73ec9230e..2937f637a 100644
+> --- a/drivers/rtc/Kconfig
+> +++ b/drivers/rtc/Kconfig
+> @@ -1463,6 +1463,15 @@ config RTC_DRV_ASM9260
+>  	  This driver can also be built as a module. If so, the module
+>  	  will be called rtc-asm9260.
+>  
+> +config RTC_DRV_CS75XX
+> +	tristate "Cortina Systems CS7542 RTC"
+> +	depends on OF && HAS_IOMEM
+> +	help
+> +	  Support the calendar clock of the Cortina Systems CS7542 SoC.
+> +	  Read and set dates in the 2000-2099 range.
+> +	  Alarm interrupts are not supported.
+> +	  The module will be named rtc-cs75xx.
+> +
+>  config RTC_DRV_CV1800
+>  	tristate "Sophgo CV1800 RTC"
+>  	depends on SOPHGO_CV1800_RTCSYS || COMPILE_TEST
+> diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
+> index 46f1a0fc2..516cc6c9c 100644
+> --- a/drivers/rtc/Makefile
+> +++ b/drivers/rtc/Makefile
+> @@ -45,6 +45,7 @@ obj-$(CONFIG_RTC_DRV_CADENCE)	+= rtc-cadence.o
+>  obj-$(CONFIG_RTC_DRV_CMOS)	+= rtc-cmos.o
+>  obj-$(CONFIG_RTC_DRV_CPCAP)	+= rtc-cpcap.o
+>  obj-$(CONFIG_RTC_DRV_CROS_EC)	+= rtc-cros-ec.o
+> +obj-$(CONFIG_RTC_DRV_CS75XX)	+= rtc-cs75xx.o
+>  obj-$(CONFIG_RTC_DRV_CV1800)	+= rtc-cv1800.o
+>  obj-$(CONFIG_RTC_DRV_DA9052)	+= rtc-da9052.o
+>  obj-$(CONFIG_RTC_DRV_DA9055)	+= rtc-da9055.o
+> diff --git a/drivers/rtc/rtc-cs75xx.c b/drivers/rtc/rtc-cs75xx.c
+> new file mode 100644
+> index 000000000..2ba25ac04
+> --- /dev/null
+> +++ b/drivers/rtc/rtc-cs75xx.c
+> @@ -0,0 +1,174 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#include <linux/module.h>
+> +#include <linux/bits.h>
+> +#include <linux/err.h>
+> +#include <linux/slab.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/rtc.h>
+> +#include <linux/bcd.h>
+> +#include <linux/io.h>
+> +#include <linux/of.h>
+> +
+> +#define DRV_NAME	"cs75xx-rtc"
+> +
+> +#define G2_RTC_RTCCON		0x00
+> +#define G2_RTC_RTCCON_STARTB	BIT(0)
+> +#define G2_RTC_RTCCON_RTCEN	BIT(1)
+> +#define G2_RTC_RTCCON_CLKRST	BIT(2)
+> +#define G2_RTC_RTCCON_OSCEN	BIT(3)
+> +
+> +#define G2_RTC_RTCSEC		0x24
+> +#define G2_RTC_RTCMIN		0x28
+> +#define G2_RTC_RTCHOUR		0x2c
+> +#define G2_RTC_RTCDATE		0x30
+> +#define G2_RTC_RTCDAY		0x34
+> +#define G2_RTC_RTCMON		0x38
+> +#define G2_RTC_RTCYEAR		0x3c
+> +struct g2_rtc {
+> +	void __iomem		*base;
+> +	struct rtc_device	*rtc;
+> +};
+> +
+> +static u32 g2_rtc_readl(struct g2_rtc *p, unsigned int addr)
+> +{
+> +	return readl(p->base + addr);
+> +}
+> +
+> +static u8 g2_rtc_readb(struct g2_rtc *p, unsigned int addr)
+> +{
+> +	return readl(p->base + addr) & 0xff;
+> +}
+> +
+> +static void g2_rtc_writel(struct g2_rtc *p, unsigned int addr, u32 val, u32 mask)
+> +{
+> +	u32 reg = (readl(p->base + addr) & ~mask) | (val & mask);
+> +
+> +	writel(reg, p->base + addr);
+> +}
+> +
+> +static void g2_rtc_write_enable(struct g2_rtc *p)
+> +{
+> +	u32 tmp = g2_rtc_readb(p, G2_RTC_RTCCON);
+> +
+> +	g2_rtc_writel(p, G2_RTC_RTCCON,
+> +		      tmp | G2_RTC_RTCCON_RTCEN | G2_RTC_RTCCON_STARTB, 0xff);
+> +}
+> +
+> +static void g2_rtc_write_disable(struct g2_rtc *p)
+> +{
+> +	u32 tmp = g2_rtc_readb(p, G2_RTC_RTCCON);
+> +
+> +	g2_rtc_writel(p, G2_RTC_RTCCON,
+> +		      tmp & ~G2_RTC_RTCCON_STARTB, 0xff);
+> +}
+> +
+> +static int g2_rtc_gettime(struct device *dev, struct rtc_time *tm)
+> +{
+> +	struct g2_rtc *p = dev_get_drvdata(dev);
+> +	u32 year, sec;
+> +	int retry;
+> +
+> +	for (retry = 0; retry < 3; retry++) {
+> +		sec = g2_rtc_readb(p, G2_RTC_RTCSEC);
+> +		tm->tm_min = bcd2bin(g2_rtc_readb(p, G2_RTC_RTCMIN));
+> +		tm->tm_hour = bcd2bin(g2_rtc_readb(p, G2_RTC_RTCHOUR));
+> +		tm->tm_mday = bcd2bin(g2_rtc_readb(p, G2_RTC_RTCDATE));
+> +		tm->tm_mon = bcd2bin(g2_rtc_readb(p, G2_RTC_RTCMON)) - 1;
+> +		year = g2_rtc_readl(p, G2_RTC_RTCYEAR) & 0xffff;
+> +		if (sec == g2_rtc_readb(p, G2_RTC_RTCSEC)) {
+> +			tm->tm_sec = bcd2bin(sec);
+> +			tm->tm_year = bcd2bin(year & 0xff) +
+> +				      bcd2bin(year >> 8) * 100 - 1900;
+> +			return rtc_valid_tm(tm);
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/smb2370.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Calling rtc_valid_tm() is not necessary because the core is validating
+the tm later on.
 
-diff --git a/arch/arm64/boot/dts/qcom/smb2370.dtsi b/arch/arm64/boot/dts/qcom/smb2370.dtsi
-index 1e02578e4ee3..4809b3d8cfe2 100644
---- a/arch/arm64/boot/dts/qcom/smb2370.dtsi
-+++ b/arch/arm64/boot/dts/qcom/smb2370.dtsi
-@@ -10,6 +10,17 @@ smb2370_j_e2: pmic@9 {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 
-+		sensor@4700 {
-+			compatible = "qcom,smb2370-bcl";
-+			reg = <0x4700>;
-+			interrupts = <0x9 0x47 0x0 IRQ_TYPE_EDGE_RISING>,
-+				     <0x9 0x47 0x1 IRQ_TYPE_EDGE_RISING>,
-+				     <0x9 0x47 0x2 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "max-min",
-+					  "critical",
-+					  "emergency";
-+		};
-+
- 		smb2370_j_e2_eusb2_repeater: phy@fd00 {
- 			compatible = "qcom,smb2370-eusb2-repeater";
- 			reg = <0xfd00>;
+> +		}
+> +	}
+> +
+> +	return -EAGAIN;
+> +}
+> +
+> +static int g2_rtc_settime(struct device *dev, struct rtc_time *tm)
+> +{
+> +	struct g2_rtc *p = dev_get_drvdata(dev);
+> +	int year = tm->tm_year + 1900;
+> +
+> +	g2_rtc_write_enable(p);
+> +	g2_rtc_writel(p, G2_RTC_RTCSEC,  bin2bcd(tm->tm_sec), 0xffffffff);
+> +	g2_rtc_writel(p, G2_RTC_RTCMIN,  bin2bcd(tm->tm_min), 0xffffffff);
+> +	g2_rtc_writel(p, G2_RTC_RTCHOUR, bin2bcd(tm->tm_hour), 0xffffffff);
+> +	g2_rtc_writel(p, G2_RTC_RTCDATE, bin2bcd(tm->tm_mday), 0xffffffff);
+> +	g2_rtc_writel(p, G2_RTC_RTCMON,  bin2bcd(tm->tm_mon + 1), 0xffffffff);
+> +	g2_rtc_writel(p, G2_RTC_RTCYEAR,
+> +		      (bin2bcd(year / 100) << 8) | bin2bcd(year % 100), 0xffff);
+> +	g2_rtc_write_disable(p);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct rtc_class_ops g2_rtcops = {
+> +	.read_time		= g2_rtc_gettime,
+> +	.set_time		= g2_rtc_settime,
+> +};
+> +
+> +static void g2_rtc_enable(struct device *dev, struct g2_rtc *p)
+> +{
+> +	u32 tmp;
+> +
+> +	if ((g2_rtc_readb(p, G2_RTC_RTCCON) & G2_RTC_RTCCON_RTCEN) == 0) {
+> +		dev_info(dev, "rtc disabled, re-enabling\n");
+
+This is too verbose.
+
+> +		tmp = g2_rtc_readb(p, G2_RTC_RTCCON);
+> +		g2_rtc_writel(p, G2_RTC_RTCCON, tmp | G2_RTC_RTCCON_RTCEN, 0xff);
+> +	}
+> +	if (g2_rtc_readb(p, G2_RTC_RTCCON) & G2_RTC_RTCCON_CLKRST) {
+> +		dev_info(dev, "removing RTCCON_CLKRST\n");
+
+Ditto.
+
+> +		tmp = g2_rtc_readb(p, G2_RTC_RTCCON);
+> +		g2_rtc_writel(p, G2_RTC_RTCCON, tmp & ~G2_RTC_RTCCON_CLKRST, 0xff);
+> +	}
+> +}
+> +
+> +static int g2_rtc_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct g2_rtc *p;
+> +
+> +	p = devm_kzalloc(dev, sizeof(*p), GFP_KERNEL);
+> +	if (!p)
+> +		return -ENOMEM;
+> +
+> +	p->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(p->base))
+> +		return PTR_ERR(p->base);
+> +
+> +	platform_set_drvdata(pdev, p);
+> +
+> +	g2_rtc_enable(dev, p);
+> +
+
+No, don't unconditionally enable the RTC, you have to enable it once you
+know the time is know (that is, in .set_time). You then need to return
+-EINVAL from .read_time when the time is know to be invalid.
+
+> +	p->rtc = devm_rtc_allocate_device(dev);
+> +	if (IS_ERR(p->rtc))
+> +		return PTR_ERR(p->rtc);
+> +	p->rtc->ops = &g2_rtcops;
+> +	p->rtc->range_min = RTC_TIMESTAMP_BEGIN_2000;
+> +	p->rtc->range_max = RTC_TIMESTAMP_END_2099;
+
+Doesn't the RTC support a larger range, there are century bits. Does it
+consider 2100 to be a leap year?
+
+This can be checked with
+https://git.kernel.org/pub/scm/linux/kernel/git/abelloni/rtc-tools.git/tree/rtc-range.c
+
+
+> +	/* Alarm interrupt generation has not yet been verified. */
+> +	clear_bit(RTC_FEATURE_ALARM, p->rtc->features);
+
+Not necessary as the alarm callbacks are not implemented.
+
 
 -- 
-2.43.0
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
