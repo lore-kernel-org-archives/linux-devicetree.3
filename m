@@ -1,111 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795426532;
-	b=dQmZUG034dqR3AvnNa6x7/1LX55EcfxDqaLgfLDapb39KxsWoQXTv3CrAXEEnlFJ7kAJ
-	 NEb7uRGTGpjy4EJOBlFOkbpxiqUUjTMjQ9+q7K10JCFJovvQdHj7C5b7TQqcv0sSUEpyH
-	 vys1SgpIbkDlTm0iHACDheJsg5A+mqjlEY5yjMlsYBcFbsi/ObYKvOeBaX8iiYxAcHi7o
-	 QJYlLJZj+QlGDihww/DAZKQ0eFMK9v2OPYjZB11WgOowN83qSLA8k82Y6vxZybMl3o0rg
-	 /C2Cc4zyKwIzzltosMUe5zsVctrdEYC0jykpIDfMPOmHoR7eB87QBv+VUrJM4qbk9FA==
+	t=1795426859;
+	b=4mGpUtCMWPw7hishFOMvlZ89ToUFTBMw4E8gYBblXIyq0VKhB4N0b9XzH3vQ0CJo9tUQ
+	 FzadySBKA139HFOFqNEl1njh4xVFcukankbMPvoFqz2+DitIyll7jBqTur247fode9mYI
+	 4EyrInHX1NIauRUYmadYWQ6kbxSyoZIy3A4s+AO5r2z5ICMBi0KwgdTs17tUFi/2BesOR
+	 lVLqWId11xk0ZpqYfls4zzEbwb5C7s/uw36EZursh1rMMWnrnJQIdTx7wBMh0byadIPz8
+	 lK0LJoYAIDUucn1FwzXXYCG2Qpa8dQu8+14aQ/+paF1yCNzPK0Cr+FtoRpKGtqZsw4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795426532;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=9zQsPrR6eGS5MgOGAOaluCJvyD3N58t9WLN33C3BzZ0=;
-	b=mJxT+kdcnjaCxghSklPHL/n4FkT/yimDEsRt09GpTCeTbG/5uz3AhCRCVOmz9mUL3Jru
-	 otKAs1PwM+6u7GfIiOGRgLhRd6FdDdqFRtvTqiRpipre7MBECqMN88HPNWvw9qQI6m+mx
-	 rvVhMPscBsXdKZADp63Eauy5p1j50cu5J2R88QtJkSxwRmdonsXDnzgc0Jq3Bq/IRU629
-	 SOqLQx9ndiM8vTCvs7H1rj9BT95dnZBFRKEtMfeTWIr3kWZaK9YBNXxDw+rbyCwGS2+99
-	 PLkOQypit4D3h7uPC9B2KdvnSnBrv5RMuRUUeYeO5Qg7pPeDA7AJsK6C9bnCTcvnq8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795426859;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Ck8/DWRpmhzKsO2xFeinQ8Y/M6Rk/b55Rx3L46L5mmQ=;
+	b=wpfc99frU781xflyL3KqapBZV6zZWgikexQstfMFULrwSTw0CZppJiOS+qK+KYxnHZtY
+	 ZOHUBPN+H55MMV+FwiuAAclvhzHpCENNrlYUcQB4Vcw43pW6r7atUWzZXABir81BVGacB
+	 6XuCiIQ699wEqIfOHwCQEiKhDBnw8LbIdFzHSa4Fwee6+Q2s3XygyLmGgS/ginAKQeRtb
+	 NWqsnX/nc0DZi9mKaOHvuXdeyLOve66JwVUeFI4jCtcnrs+H46pL1SWfcBwjbRaS9gQvN
+	 1ruFCft1zdiPaUnoZng03ljFWRiJ46bHlnyNV4abiFNN1OIo8j0vaHmmqehesXs/P9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gKvFzjA2;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BneBB+0S;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Gj6aIkZ6;
+	arc=none smtp.remote-ip=91.218.175.116
+Received: from mta0.migadu.com (out-116.mta0.migadu.com [91.218.175.116])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B547606A698
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B547606A698
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1AF606A31F
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:40:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD1AF606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gKvFzjA2;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BneBB+0S
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9IZFD3490960
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9zQsPrR6eGS5MgOGAOaluCJvyD3N58t9WLN33C3BzZ0=; b=gKvFzjA2TTKhwh4c
-	RUJa/iwce2xs0gmJYMBL3ewnpFV7UZefdnlx5p0b6gXiJV+h+clCjzyYJ87mqySf
-	9crtw7uZIR6Va6Xc/C/230s5xheSxKN29AupelqAjvl1XNiO/aY+XFE6F9Wr3/vO
-	4onMQrg1wMe57ss1Putu4zdDDB4m0mGQufDwyixln+JapuOgwFTzwRM7QWROFPWz
-	MTqTjGCi57lib1twDAlADvhFeVwBgQFOfC2cfRT/QG6KFIaRtuzWjn3UujzGhG6d
-	xdun3Zme195z8wO2zXvn6/w2QEJNVLGW7OVWiowRvQ3BGCj8G8cgd6oA48PrTXp1
-	CELlHg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4evsgx75-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:30 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-542fc619afaso37274841cf.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:35:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795426530; x=1796031330; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9zQsPrR6eGS5MgOGAOaluCJvyD3N58t9WLN33C3BzZ0=;
-        b=BneBB+0ShYifV048NpCQQuY8vYZ2E/VtcdFnXMgQ8triwsX9dmuq30+1lbbR8E4aKz
-         pSOqYnwd6EPX32dOQbN+uYnTPol5q59oZaLdhiN+lAyFDSDCrlqQpIY9JbMe6/ltluK8
-         8IXQnucOdg+H5bRzBXw9sLvmwcrJyjodbqLYxTQdl0Wtq5Sg/KEglecHXyQLUAAtyjBc
-         zPqH5BmJfG55AnI4WoHw7Djxc3hQpYmA2beVmTxT2iEfxR7CXSuC/bZlf7BLb3s4S5tq
-         gdWsv3+MPqT80ABXN/4jEqV2d0WJAWMlZV8//nREQYaTam4OuY3bvZfCvImHm93z+JhN
-         gAJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795426530; x=1796031330;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9zQsPrR6eGS5MgOGAOaluCJvyD3N58t9WLN33C3BzZ0=;
-        b=GErhSPKOpdgH8HxlxFQp1oyDeScQv+qIyKHoMHTC14LTODx2rl0V9rBYmZqCDDdvyX
-         bxCo2gYWrW2xNDrW2Gf5K8ZmFXU9KsdIqGHB1oL9IqNYmKDy2ydl6KquxMxmgnx3L50a
-         VSgbJLoFI3EnExkiiziGq9XfKplscS8Jdkw8sPT+ETW9KT4oFQTt/c1FjgUfwUgQnnDm
-         GwPhBQUfXWRfVtvM+mXi9w4IISulmvJawZE6+5YJZLWldBdXScaQhoXSVAcWHcPjV2RD
-         rJxuu18HR3OH8n3+Gyogr1pHY/PJZ1+cWgSHPQBMkcRjVEno0WfSuwux4imeTCR5wCJN
-         bYkw==
-X-Gm-Message-State: APuU4Z+7lkz/HXcfeXsekF1X833amNxOdNBfpoH/fFatK1NsiOOlHKXP
-	+tB/HWGFxjCABOOPE5+/9Bd+L7NOxdekHUb+Qa3KL/bndzV6VvZQjXZ26OdYvuNKt0Om6EzS2yg
-	VBMl/4EaWjDa6bw+bXNs+CwO4TZ1Ri2jjEyV2BBK9FOUR7jtVGM3SPwL6Ve8gmtqs
-X-Gm-Gg: AZFdTZeUzoJcpKVLX6yzzQWfq6ZAieVH+eoAIriWrEUnBIBgOBhRcjOYGUrcxPm4xkY
-	70WM0OBHPSeHOFgFBJpcIsm1Ur7MoHiiGbhGkB4SuRa2lussi/3tDjcPP3IOeuz5dpehPX2t5s3
-	pwpCL9vCAtSgUsxQTUPOML3rDISc1LDUF5tMTeVL7d1Z0Er10MzkHUsP3cxbv9fMN3tiC1CQIcm
-	Ztkg6PZZ6NxaWhgvKFdtSdDrXj+BBDJNohsiStYi15uvkPLaP9xrQ30Q28AlcMVqmCAxybmjS6j
-	MePvrrvggPIe9gDoJtuJFCOCsa9vWXhn0/FWAQrG+SMJX6vDU4kAhYVydC1jxfH0SsapEkqKj23
-	QTwsvsC0YGm/5W1vDAeyZZ9Uowje7WIFGExmb/fZArtbNXTtK3GkNu2rYOA==
-X-Received: by 2002:a05:622a:a10c:b0:55d:84ac:5791 with SMTP id d75a77b69052e-55d84ac6b5fmr130773561cf.62.1795426529542;
-        Mon, 23 Nov 2026 01:35:29 -0800 (PST)
-X-Received: by 2002:a05:622a:a10c:b0:55d:84ac:5791 with SMTP id d75a77b69052e-55d84ac6b5fmr130773231cf.62.1795426528909;
-        Mon, 23 Nov 2026 01:35:28 -0800 (PST)
-Received: from [127.0.1.1] ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8960068fsm123208315e9.4.2026.11.23.01.35.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:35:28 -0800 (PST)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 11:35:17 +0200
-Subject: [PATCH v2 4/4] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7:
- Describe the Embedded Controller
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Gj6aIkZ6
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wBdhgv5N+I4zAH+2wvzcWYEP5XbAEgHVQBDbSpVhCxQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795426856; v=1; x=1796031656;
+ b=Gj6aIkZ6WdhtCWwz6fR5O0J2JLlDbtQARjBVcdQF1sRU4oi1t8nFuX5AmDCOQYHZp1CX/4dY
+ PsL9xrxMrPY8hxVm1uf5nUx7m6lU+Wvu+9mn6NEHfeX7ZUZuTmZUsYLUrQK28vjDlDQCGE8BY0D
+ C8F/seldp/Dm2ofoyBTqc8GI=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 53d929c664199600;
+	Mon, 23 Nov 2026 09:40:32 +0000
+X-Mizu-Trace-ID: 53d929c664199600
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b3df76ad-e002-4ec0-a1a6-812d22b51432@linux.dev>
+Date: Mon, 23 Nov 2026 10:39:33 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,127 +58,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/24] ASoC: soc-pcm: add multi_direction_codecs link
+ flag
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261122161437.5994-3-srinivas.kandagatla@oss.qualcomm.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <20261122161437.5994-3-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-t14s-gen7-ec-v2-4-3420a6202366@oss.qualcomm.com>
-References: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
-In-Reply-To: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1819;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=BAVqgS/qgUxiqab4nI54FtnixP0O4Z6zoFxM5h+c0Bo=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBrBAjW5TM/NoCLzhtz3zqVQlL5Uql6ptQ/zdwHl
- 10qsnARGayJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCawQI1gAKCRAbX0TJAJUV
- VopbEACHyaDNyjMFdq4gV8+iQhzyeSr3cwsVm9D1JhQl1IqfA5MxZ1BPphZi+DDVvbGHHNWID8X
- ahVHWHcHd1JhdsVv+mdlWqhIcgHLOpsxkciio0AvY8txfylk44RmEn39fONU1UAUsvCcmIX4v8z
- kal1f3kbiQUgQ6M2LAiPjfKpG1tHQRLwspzlLI8VfchClzFiS/7utJkR/hCVuQLzzG9LDuYdT7W
- 7EZVhA2CBDsuA2Aq470x/PooiNDduc2UeV03g17r9Yv3/4iFfQHzlNxwnaZG/EKNVdphN+Nwmgs
- DvpKJEaa45HD7qjjrWN1mgecfAQbzRWwx+i+/zOz+AKsjyGZ4dJuAGP7LCJxky6iUNfxW1z0u9h
- w/Pm8s1T12rybBUdqhbi1Yvhbn2HLHBe9GSblAmmYwfICaP6B/yyz5LiTiSQDhMfByJ/RETP2wN
- hbM0gbEfUepoTQcRVWzpMR+3O2lvSgDWGoCPuNVqrT8vl7Bg3Lfrs01vEZWzc+cLl9ZTI5VVOgc
- 0MKo1yggVdlPSo0VV8J4o5nkEMb23EqnBkDL2HcRsg3DUKq5wJVYg5FSjmREtpLzuhfIxHMWXfP
- HN1tOryA85CEGlbUV13ppdvLpUlH4BrvT24asRXz3fmcL5D5yUwRFzectm5zPHvUFKLF5A0H8uj
- Dauq7pbH2jbyUfg==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Authority-Analysis: v=2.4 cv=AL9GXjHq c=1 sm=1 tr=0 ts=6b0408e2 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=-ko0rdnKxUD0urDMsK4A:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: gbagpxUNHMtL1D3G7XyPbkAFY-ghJgNB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAzNiBTYWx0ZWRfXylcgF7BH+6aM
- UJ1XT/WxXdIja0MQtwz40OpSNLJ1cn7O6+2XNYVDUp0cvl/N5onIXfsTvkYz2lNWHRyjCFdl5JL
- 9RNYTUsaPBb2S5NvEUqDFFBGqfVxFTx2+oOcxZROirAsS5VxI9+hF3EjpRjAPtxpEVjfSNUbebA
- tWSvr7FBkE59SK5X7gGcVphVcB0O7FeA2JJv9EQH+IS5bdomNnYeI7Q3Lls+mDmHi7bjTqTWTP3
- ldgBktcCXFhEudRYRn7ssyZdKRau39kHNGuFhmoqpzZF7AdfgyI6DgF2cXn6UyBXSAB8Bo5/UJ4
- hGdNyRZ2YkG5HI7wQvLqIfAUJb/RqWvaegc8NrJv3wYKlVrm02zrKJ85yT8lUDwzzmLUIAgyN3Y
- FpdcpVzGp4HdcsMuil/U9wblkkBHltK9zHRuuvHTbLOtYRTrA+B/cmPtCOV2Wsr/4mTuybSK7KD
- bPKHLt43W8Z/8T+kt5g==
-X-Proofpoint-GUID: gbagpxUNHMtL1D3G7XyPbkAFY-ghJgNB
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAzNiBTYWx0ZWRfXykyI+Rdmew+S
- 9DM/5UvxGNJd76xuMd/9yP00qfDxSHaHYdcTYvJ0LIZ2YiCdpPCIeLNNAd0wOD3Qcq4NZ6gC0AW
- WGjZsxBKQGdC9oPs64DhZUPVec4oi1w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_02,2026-11-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 phishscore=0 priorityscore=1501 adultscore=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230036
 
-The ThinkPad T14s Gen 7 has its embedded controller at 0x28 on QUP
-i2c9 (ACPI \_SB.IC10). It uses a different command protocol than the
-Gen 6 one, so describe it with the Gen 7 compatible. Its interrupt is
-GPIO 66, as on the Gen 6, but the firmware describes it as edge
-triggered, active low. Using a level trigger makes the handler fire
-continuously while the EC holds the line low, with no event pending.
+On 11/22/26 17:14, Srinivas Kandagatla wrote:
+> Speaker protection needs the amplifiers' V/I sense capture running
+> whenever the speakers play. Putting the capture codec DAIs on the
+> playback BE link ties the two together, but the core skips codec DAIs
+> whose direction does not match the substream.
+> 
+> Add a multi_direction_codecs link flag. When set, the core also calls
+> .hw_params and .hw_free on codec DAIs of the other direction, with the
+> substream direction switched to theirs for the call under pcm_mutex,
+> and sends the matching stream events so their widgets power up and
+> down. An optional multi_direction_params_fixup callback lets the
+> machine driver set the parameters for those DAIs. Links without the
+> flag are unchanged.
+> 
+> Document the flag in Documentation/sound/soc/multi-direction-codecs.rst.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
+>  Documentation/sound/soc/index.rst             |   1 +
+>  .../sound/soc/multi-direction-codecs.rst      | 156 ++++++++++++++++++
+>  include/sound/soc-dapm.h                      |   2 +
+>  include/sound/soc.h                           |   7 +
+>  sound/soc/soc-dapm.c                          |  32 ++++
+>  sound/soc/soc-pcm.c                           | 136 ++++++++++++---
+>  6 files changed, 314 insertions(+), 20 deletions(-)
+>  create mode 100644 Documentation/sound/soc/multi-direction-codecs.rst
+> 
+> diff --git a/Documentation/sound/soc/index.rst b/Documentation/sound/soc/index.rst
+> index 22878d73f7a5..62d01a0a6e52 100644
+> --- a/Documentation/sound/soc/index.rst
+> +++ b/Documentation/sound/soc/index.rst
+> @@ -18,4 +18,5 @@ The documentation is split into the following sections:-
+>     jack
+>     dpcm
+>     codec-to-codec
+> +   multi-direction-codecs
+>     usb
+> diff --git a/Documentation/sound/soc/multi-direction-codecs.rst b/Documentation/sound/soc/multi-direction-codecs.rst
+> new file mode 100644
+> index 000000000000..2af61598dd7b
+> --- /dev/null
+> +++ b/Documentation/sound/soc/multi-direction-codecs.rst
+> @@ -0,0 +1,156 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +===========================
+> +Multi-direction codec DAIs
+> +===========================
+> +
+> +Overview
+> +========
+> +
+> +An ASoC backend (BE) link that bundles **codec DAIs of both directions**
+> +on a **single-direction CPU DAI** can set
+> +``snd_soc_dai_link.multi_direction_codecs`` to tell the ASoC core to
+> +call ``.hw_params`` / ``.hw_free`` on opposite-direction codec DAIs with
+> +their own direction, instead of skipping them.
+> +
+> +Typical use case: a smart-amp speaker protection link where the CPU
+> +side is a playback-only DMA (e.g. ``WSA_CODEC_DMA_RX_0`` on Qualcomm
+> +AudioReach), but the codec side exposes both a playback SPKR DAI and a
+> +companion capture V/I-sense DAI on the same SoundWire bus.  Opening the
+> +playback FE should bring up both the amplifier output chain *and* its
+> +V/I feedback capture chain atomically, without userspace having to open
+> +a secondary PCM.
 
-This provides the EC hotkeys, LEDs and keyboard backlight.
+This is a valid use case that has been problematic for some time on
+other platform as well.
 
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+What puzzles me in your approach is that the codec-side will be
+configured/started, but *something* will need to grab/process the
+feedback IV data generated by the codec DAI. That part seems to be
+completely hidden in your approach, is this intentional? How would a
+capture DAI be configured on the CPU side so that the data is provided
+to a DSP? Some of the patches, e.g. 11/24, mention a capture dai but I
+can't connect the dots with the suggested codec-dai changes.
 
-diff --git a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-index 9bda86f82a99..7e7e9b861899 100644
---- a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-+++ b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-@@ -735,6 +735,24 @@ ptn3222_fpr: redriver@4f {
- 	};
- };
- 
-+&i2c9 {
-+	clock-frequency = <400000>;
-+
-+	status = "okay";
-+
-+	embedded-controller@28 {
-+		compatible = "lenovo,thinkpad-t14s-gen7-ec";
-+		reg = <0x28>;
-+
-+		interrupts-extended = <&tlmm 66 IRQ_TYPE_EDGE_FALLING>;
-+
-+		pinctrl-0 = <&ec_int_n_default>;
-+		pinctrl-names = "default";
-+
-+		wakeup-source;
-+	};
-+};
-+
- &lpass_vamacro {
- 	pinctrl-0 = <&dmic01_default>;
- 	pinctrl-names = "default";
-@@ -1007,6 +1025,12 @@ edp_bl_reg_en: edp-bl-reg-en-state {
- 		bias-disable;
- 	};
- 
-+	ec_int_n_default: ec-int-n-state {
-+		pins = "gpio66";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
- 	kybd_default: kybd-default-state {
- 		pins = "gpio67";
- 		function = "gpio";
+In addition the feedback loop can be made of not only I/V sense but may
+also carry an echo reference, and that may have to go all the way to
+userspace depending on where the processing is handled, possibly with a
+split between IV sense and echo reference making the topology even more
+complex.
 
--- 
-2.54.0
+And last the SoundWire core exposes a concept of 'stream' that is single
+direction, and so far we've used a 1:1 mapping between dailinks and
+streams. If part of the dailink is dual-direction, don't we have a
+problem on the SoundWire side?
+
 
