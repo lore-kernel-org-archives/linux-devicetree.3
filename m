@@ -1,113 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795414774;
-	b=Fu8DCFphr01505e4/+gBUA77/oCBdSTb4M0KK3c+Upp0WmsNe2iGLSa00JJDJuvZM3mc
-	 SfBCOyeEHaLX+qhVpsBmKqmTiPGE6N8id+f394zTaSpoRlGBDPqxdXrx+DACh/ADNoX8s
-	 epIlXlghNnquRkwuMjSGgdPDexF4yImstaD0zG/Ppne/5kuPzLkCHlYGkz3r9i74i22gX
-	 KQHl7YSme/Q4iKkpcPBRFYcvtT74NCjWSxS+9EVdNiLmAwC6Cb9cJjjPbm9/7K73xAUlF
-	 jMNFTD42oMUy1QlTv6iiaXg9cxs1KV9bTH0BetmoGz91PJOfNf1d7H/q5GTmDo+qfDw==
+	t=1795415918;
+	b=cm4BJFhKf1gXVqZrueupTTodVKppTAiEGlgVovaYVvwaS/f9yT3PaN/wLEdfJwa8oWWd
+	 KE+ge1r2MThrRvcLzWBary3GC+7k0qCKwTx0GV3HfRghm3qPEJ+4hkZ7Z4CxtiIiK+gFu
+	 u7aJovnGJhhJfFH/Nctl+EnVxgLEWxDI2ZKDwiPuu44mSuCYxCvVd2N03st3YXzTqvJyH
+	 JGPy+4zNit7IxBmlXbr3bY9KUBB90Mz9uX5Vf6f/AkfuSVxuuO90hCaxOtAP2p/eCdsPa
+	 Pi+G/oSu8GxhhEucAy89xXItgf8NI8KiMR3mlO4nLUtXJyAovJ1gDGev48N3ci/sdtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795414774;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=aaqyWMc9cfnIXtQuLfSdtis1DiK5m/wRgOC4/OvUUxg=;
-	b=hC51YCh1tH000Mi9FVLEpduPVXdHwQTf1bBLPIIyqOEggKnTOUaPqWpDf9cjWk//bkIb
-	 0IwddLF5ymfZPHEC69sijdQjpSKfn+vVd4wn51vZGx7v9wYbHc6tStIy9cXSLyA8e3vBy
-	 zP9XCHizjI5DOlQI4kH6kKZBrRF0oDjQkJS1PzYo3in2IAUJHZ+LKPKIIg8jJGSdXSd+5
-	 ydF+6xvJnLIlyRm3kTE3bHgC12vDhBFpapRojSAg2HG4MFQcREHllXQURV7Jwj9cQeziy
-	 XXzJrczzgfuIDgK1y0xsqZaaKSME2eoWXgRYAzlZBR+Qce6v073Ps/Rupuc8paDWPIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795415918;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=fDtgx4VDKn1bbCHyvl2n/PhCW/zEM0917Bl08KMZ0xg=;
+	b=WeKEmq3wugikzPdCn1h5Qqq94TQq8soSzjLILfJ/Xp7F8lYHUvVj3deJOO8mBohWM6KN
+	 cwFC9/MOnDseYKyuvyqLQqYKfWVieoywrF5uzggl6lODwRGcgVOgzMKA9Ih+u6yy3hKcS
+	 ndCH9XCGJ2V1bSphy32voBlY/FXbB89EN5KkH++qpioXt6t96598wGwlcgyC6lQTcReLG
+	 t4OlTjoSxD//qnguU+D0hplEIISvQvpYpQYC+6DaUWGDAuBw9yhc+L/x9LOSIfqu4hSQx
+	 3wZa2ucS/6bADyJgrUjO2DpHM+G11H13WQwNzR3p/wbKghrh69ig+UoIgMKfsOblIsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E4gF0HMf;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=flLcxO8i;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hfa66ARy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9156F606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:19:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9156F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F01606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:38:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E4gF0HMf;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=flLcxO8i
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN516ed3527979
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:19:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aaqyWMc9cfnIXtQuLfSdtis1DiK5m/wRgOC4/OvUUxg=; b=E4gF0HMf6hCUYcB1
-	1BkGYv8POexfdkmZXcvSU70oadTvrUsrhCyfIM8EBSGj+6V0EdrIDNR3SuVGdbUS
-	jHGOqH7x0SlhJ892o/2Fpf+P5/X3djxcwjwERrqAl/gg6Q2Sce3bZlpqheRJiInx
-	K/L/a44+od9w+uIJrEIZsm8PMbbQkG7ype4TOT13twHCYAB1O4KnaCYjVhRxh8s+
-	vXm2gyCUgIB6os23vUFfqq1+Qthnoq+eOh9J/SSWMaGV13lQ6G/0R7OxgOdoaS/s
-	PQ5QVfjofaF8bzwilxJo760zKixsC324FJbpWc2FKfemIezNY91cxKBwvqCkDauE
-	pgQXQw==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j30nnwts0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:19:32 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8b60129a46eso3465970b3a.1
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 22:19:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795414772; x=1796019572; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aaqyWMc9cfnIXtQuLfSdtis1DiK5m/wRgOC4/OvUUxg=;
-        b=flLcxO8iumF/ALn/ljoxXp37s+gqavxE/9rQpmK7F0mKym6jBT3i3RD1UbsAXNfi5h
-         4p4BCgz9BaaYNPB+s5GFaSVgySAz+uZlwrtOVKx8BF4FJR47sOjYMrIfceNH6FCAvYjT
-         UYm5WxfnmIeOwR91gcYxNYwT0v65/glC0RjOGpYtjnWW0y87S76lXNSn261ibj6cVH+P
-         VABckmnIcw6nzdiSOPegqzeUHzU/HmqqUba7HPwEcvcKLlwi1/0H8wYayWbJXmBeYp6J
-         zB7McJaG6IwAtwN2+t4FFJJLDhOTxEW39h2yLSZT802G8UFcop6srukO+YjLUKyvqgjv
-         FOJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795414772; x=1796019572;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aaqyWMc9cfnIXtQuLfSdtis1DiK5m/wRgOC4/OvUUxg=;
-        b=1M0H0GQxsVT51i3L/dLSe0yOllVfVj2uZrASThyuTs/bcwwamGFY2Jz/uaDt3DOB4o
-         hQXuc+LLGhS5kko7lu2MiQ4+E1X36CDlT81IRI5dEJsg54MFcZVtyZYM4NLfR5yVNeZ0
-         OZRu+m8K8rrVNjznRIvFS02enSynoD7fUrpwRP8ShFOhqX7Yr3D7Sc9xeZFJodgfFI0l
-         eB03yUGUqwC2traADMQPwoOGXO49pyPRrxk69D2gfzzzZoqM1bQHUkJqgeUtCcT+ebqH
-         5qf8LyV5UmbuYioVDoBFqQkkJjfxt+1ol0sCHfdyPWGkX/0r4uEf5Trx+an/L3+ztCfW
-         0Wgg==
-X-Forwarded-Encrypted: i=1; AL+hErHrWxgArYhv/Yx4X9QQtXdfkbP3VkNrrTPiVgJr+bNGRm55PHhVBlEJSsm/QLBG1jlE9KhoyeTOK0a5@vger.kernel.org
-X-Gm-Message-State: APuU4Z8bR/tNTaUEQW0L0JvUAViXl7bssem0wMqMgB7A8NWsh7W6avQS
-	P3g0eogcYvInwNV1JCZY17FEfPHVjc9nf6yXHao20sZv6wEVHF9y0Vb49sYCeRb8h37E19H1Yz9
-	A977arIJY3B27Ld26PZmW3gk7g8D2EL6FjbJoWfHaIy0p/vADemplog3P5vpCu0Nm
-X-Gm-Gg: AZFdTZcuYJsjStmv+ADdqZiXVP45jxRZ7nsFSSwEunmkOBGKqsDN3oZB1wbOx9JmyCY
-	s+lghtk5CK29uj4chsdK7JiByDitWe+C5D6i8QM4DjzevDkHPiOsS/x3o2IPLmvit107cUF1CKv
-	9Yp9kzt9XyNlHnVcAIrOxIHPixgOGXUMfxuMEbjyiWbo+nTcWhF6Da5u7KlhHQTLNiGtX1G2b6s
-	GOS/0j2nRiDQwwqF1GPi8sIW4j8caZh916dYsQ36K05YLLNWCRxxCEZf7nvsa9aK3qZklqIzf5T
-	fhbymlwJK6ZvnxOWwVBxvjxtXhl7DFlRVY2YR0w4hulUL2WTbhjpmgxwW2Jlb5rbttkquZ6VfPS
-	Vsvm2i8eyrL2x0KM9VJ/f5zZd3FkvUWZ/+CEBMkslnK4fYq28gYdyqiKE1nbz+hfIu5n77rhfKo
-	QAmAGdu/Lh/A==
-X-Received: by 2002:a05:6a00:3d12:b0:89f:d9b2:4a1b with SMTP id d2e1a72fcca58-8c87b4f39e7mr9041847b3a.9.1795414771647;
-        Sun, 22 Nov 2026 22:19:31 -0800 (PST)
-X-Received: by 2002:a05:6a00:3d12:b0:89f:d9b2:4a1b with SMTP id d2e1a72fcca58-8c87b4f39e7mr9041830b3a.9.1795414771232;
-        Sun, 22 Nov 2026 22:19:31 -0800 (PST)
-Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87077944bsm4955870b3a.2.2026.11.22.22.19.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 22:19:30 -0800 (PST)
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 11:48:58 +0530
-Subject: [PATCH v2 3/3] arm64: dts: qcom: sm6375: Mark RPM message RAM as
- no-memory-wc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hfa66ARy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0470B1F00A03;
+	Mon, 23 Nov 2026 06:38:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795415918;
+	bh=fDtgx4VDKn1bbCHyvl2n/PhCW/zEM0917Bl08KMZ0xg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hfa66ARyqBBjIT1m6ygBJcbtCvdtowE1Z91zcan+S348QidwgTXfI/cQVSeQYz6gV
+	 lAOpwginA0MVFILqIzbfwtsV03UflbbYtqgaLJu7srjEgF66mbd5bC+IojLZpbCPsJ
+	 vSbEcXLFhXvUQ7omQWTzU91Wa1fSp0BtZwCnzVAnCBlpKpPPT9Oai2ousCcB9ugWAt
+	 fj6WyzNyOfmtz4lLFXOFPTmbVgCU5tFur68i5vmzjL10KGlsikA59X0SwRQ/mLR/xy
+	 NM43oceOKctZ4LAsuTwrd4ThCCKYl02inmF/PXx+pzXIQcXxDpiXkw6dqKQDP/84ai
+	 aWFCX6wxSGBRw==
+Message-ID: <sashiko-outbox-228772@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v19 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
+ DSI to HDMI driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: mohit.dsor@oss.qualcomm.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123-lt9611c-v7-v19-2-1fbe2b7b5211@oss.qualcomm.com>
+References: <20261123-lt9611c-v7-v19-0-1fbe2b7b5211@oss.qualcomm.com>
+ <20261123-lt9611c-v7-v19-2-1fbe2b7b5211@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 06:38:37 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,103 +60,263 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-rpm-memory-non-wc-v2-3-3e868b4bfa48@oss.qualcomm.com>
-References: <20261123-rpm-memory-non-wc-v2-0-3e868b4bfa48@oss.qualcomm.com>
-In-Reply-To: <20261123-rpm-memory-non-wc-v2-0-3e868b4bfa48@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Xueyao An <xueyao.an@oss.qualcomm.com>,
-        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
-        Monish Chunara <quic_mchunara@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795414746; l=1518;
- i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
- bh=/BG00vBqRpczxpyRNllb2yRgE6wS8fyaE+fWjwdrH9E=;
- b=zGS/44VxBHlPLaS4jHflPpEbRCr50HwMGwONWstbHM5+xw98heDXoxxUYSpyzhmS7ZeSBIFcy
- iFCGfa102X3AH92r3GSncvSU6xjB7ETDzzmQVu+LqF59O7lQjnbPDzV
-X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
- pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAyNCBTYWx0ZWRfX5JgABZIpKTFm
- mvUUs4EC1rrrggjkwn33AYsDKB7MJ3PvV8E+I8kD97ebicKaGityb99MtLT5VxBDqS4SNfmNwiF
- Ksvj27TwvXWUlBWqmDpTyrI8KKJPxTmpFWZ2G2/Qk7BkmryuGdoi3zQ/K6dfuQHaS+vzstSs2jg
- nZsCUo/hsBSGVZCHxu0vxGeLZ4bvuGCINGCpFjoxob2L+TyBdsz1TBZO940CR933+YcWIRWCvKq
- f11P3BO0rJnxtEBCGgmcOyaJ2fGpoGnmGN4gW6T1XcaEZ+5ziom8vcekffE56ITYP+l/Kyw5s2L
- b0hTf+RB9dr4lOiexpUzH1MFlOM+nbBpVYGRtaI0vJ0Zz7Q+r1DoDp5ug/b5S4FaAxF8Bgx8TdI
- 11vulkIpH3xT2njbDYeU7OSbLklNp1Hr9no+8sGlIh6fkNivP7oF8SnTGiRxhEkR1vh+jwTHrQU
- G3/5X68w8MihYVdv1Hw==
-X-Proofpoint-ORIG-GUID: gAgiPvc2Bg1WDe4DAreRwzmmSUNlDPku
-X-Authority-Analysis: v=2.4 cv=LITz05W9 c=1 sm=1 tr=0 ts=6b03daf4 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=ukB5r3Mx2XjEV9IxjioA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAyNCBTYWx0ZWRfXzMJioJ0K9JoY
- 40zMERf5SkFbhJq3XV3H30oh5W0U9FmuUIPVkbyGKI8nsiNDHU4SKGGPZQnNVpxoJ2PSi5jBGsa
- T0XlUF7sGOghvqDQzNSaDVBi7N0jgSo=
-X-Proofpoint-GUID: gAgiPvc2Bg1WDe4DAreRwzmmSUNlDPku
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_01,2026-11-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0 adultscore=0
- clxscore=1015 lowpriorityscore=0 impostorscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230024
 
-The RPM message RAM is shared with other subsystems, and parts of it
-are not accessible to the APSS. It is expected to be mapped as Device
-memory.
+Thank you for your contribution! Sashiko AI review found 8 potential
+issues to consider:
+- [Medium] drm/bridge: missing bridge.supported_hdmi_ver init in
+  lt9611c_probe()
+- [Medium] drm/bridge: missing empty-firmware check in
+  lt9611c_firmware_upgrade()
+- [Medium] drm/bridge: lt9611c: unlinked PM suspend/resume loses bridge
+  and HPD state
+- [Low] drm/bridge: unlocked reset recovery in lt9611c_bridge_suspend()
+- [Low] drm/bridge: u8 packet index overflow in lt9611c_get_edid_block()
+- [Low] drm/bridge: missing static qualifier on lt9611c_bridge_pm_ops
+- [Low] drm/bridge: dev_err_probe() used in runtime sysfs firmware
+  upgrade path
+- [Low] drm/bridge: unused write-only hdmi_connected field in struct
+  lt9611c
+--
 
-The "mmio-sram" compatible makes the SRAM driver map the region as
-write-combined (Normal Non-cacheable) memory instead, which allows
-speculative reads into the protected parts.
+commit e4dc76d7da66404497a0938b0ca6f5f1ea01fe2d
+Author: Sunyun Yang <syyang@lontium.com>
 
-When Linux runs at EL2 (KVM with VHE), there is no stage-2 translation
-and the write-combined mapping takes effect, so such reads can result
-in XPU violations. When Linux runs at EL1 under a hypervisor such as
-Gunyah, a Device mapping of the region at stage-2 hides the issue, as
-the stricter memory type applies.
+drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
 
-Add no-memory-wc so the region is mapped as Device memory.
+This commit adds a DRM bridge driver for the Lontium LT9611C, LT9611EX,
+and LT9611UXD MIPI DSI to HDMI bridge chips, supporting EDID reading, HPD
+handling, I2S HDMI audio, dual-DSI mode, and sysfs firmware upgrades.
 
-Fixes: d3246a0cf43f ("arm64: dts: qcom: sm6375: Hook up MPM")
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/sm6375.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
+ridge/lontium-lt9611c.c
+> new file mode 100644
+> index 0000000000000..e7c579cd80d5a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+> @@ -0,0 +1,1406 @@
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6375.dtsi b/arch/arm64/boot/dts/qcom/sm6375.dtsi
-index 71a22859709398c969bedae3e0b931f664cdac97..fa66a34c0fe284579f728266e826fc22d8cb3438 100644
---- a/arch/arm64/boot/dts/qcom/sm6375.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6375.dtsi
-@@ -1021,6 +1021,9 @@ tsens1: thermal-sensor@4413000 {
- 		rpm_msg_ram: sram@45f0000 {
- 			compatible = "qcom,rpm-msg-ram", "mmio-sram";
- 			reg = <0 0x045f0000 0 0x7000>;
-+
-+			no-memory-wc;
-+
- 			#address-cells = <1>;
- 			#size-cells = <1>;
- 			ranges = <0 0x0 0x045f0000 0x7000>;
+[ ... ]
 
--- 
-2.34.1
+> +struct lt9611c {
+> +	struct device *dev;
+> +	struct i2c_client *client;
+> +	struct drm_bridge bridge;
+> +	struct regmap *regmap;
+> +	struct mutex mcu_lock;
+> +	struct work_struct work;
+> +	struct gpio_desc *reset_gpio;
+> +	struct regulator_bulk_data supplies[2];
+> +	int fw_version;
+> +	const struct lt9611c_chip_data *cdata;
+> +	bool hdmi_connected;
+> +	bool dual_dsi;
+> +};
 
+[Severity: Low]
+This isn't a bug, but hdmi_connected is only ever written in
+lt9611c_detect_hpd() and never read.
+
+[ ... ]
+
+> +static int lt9611c_upgrade_result(struct lt9611c *lt9611c, u8 fw_crc)
+> +{
+> +	struct device *dev =3D lt9611c->dev;
+> +	unsigned int crc_result;
+> +	int ret;
+> +
+> +	regmap_write(lt9611c->regmap, LT9611C_MCU_HALT, LT9611C_MCU_HALT_ENABLE=
+);
+> +	ret =3D regmap_read(lt9611c->regmap, LT9611C_FLASH_CRC, &crc_result);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to read firmware crc\n");
+> +
+> +	if (crc_result !=3D fw_crc) {
+> +		dev_err(dev, "lt9611c fw upgrade failed, expected crc=3D0x%02x, read c=
+rc=3D0x%02x\n",
+> +			fw_crc, crc_result);
+> +		return -EIO;
+> +	}
+> +
+> +	dev_info(dev, "lt9611c firmware upgrade success, crc=3D0x%02x\n", crc_r=
+esult);
+> +	return 0;
+> +}
+> +
+> +static int lt9611c_firmware_upgrade(struct lt9611c *lt9611c)
+> +{
+> +	struct device *dev =3D lt9611c->dev;
+> +	const struct firmware *fw;
+> +	const size_t total_size =3D FW_SIZE - 1;
+> +	u8 fw_crc;
+> +	int ret;
+> +
+> +	ret =3D request_firmware(&fw, FW_FILE, dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to load '%s'\n", FW_FILE);
+
+[Severity: Low]
+Should lt9611c_firmware_upgrade() and lt9611c_upgrade_result() use
+dev_err() instead of dev_err_probe()?  Both functions are also called at
+runtime from the sysfs firmware_store() handler.
+
+> +	if (fw->size > total_size) {
+> +		dev_err(dev, "firmware too large (%zu > %zu)\n", fw->size, total_size);
+> +		ret =3D -EINVAL;
+> +		goto out_release_fw;
+> +	}
+
+[Severity: Medium]
+What happens if request_firmware() loads an empty (0-byte) firmware file?
+
+Because fw->size =3D=3D 0 is not rejected here, lt9611c_block_erase() erases
+both flash blocks to 0xff, lt9611c_write_data() computes npages =3D 0 and
+writes nothing, and lt9611c_write_crc() programs the CRC of 65535 bytes of
+0xff at 0xffff.  lt9611c_upgrade_result() then sees a matching CRC and
+reports a successful upgrade with the SPI flash completely erased.
+
+[ ... ]
+
+> +static int lt9611c_get_edid_block(void *data, u8 *buf,
+> +				  unsigned int block, size_t len)
+> +{
+> +	struct lt9611c *lt9611c =3D data;
+> +	struct device *dev =3D lt9611c->dev;
+> +	u8 edid_raw[LT9611C_CMD_Y0_SIZE + LT9611C_EDID_BUF_SIZE];
+> +	u8 y0;
+> +	int ret, i, offset =3D 0;
+> +	struct lt9611c_cmd cmd =3D {
+> +		.hdr =3D { LT9611C_FUNC_READ, LT9611C_TYPE_HDMI, 0x33, LT9611C_CMD_SEP=
+ },
+> +	};
+> +	struct lt9611c_rsp rsp =3D {
+> +		.data =3D edid_raw,
+> +		.data_len =3D LT9611C_CMD_Y0_SIZE + LT9611C_EDID_BUF_SIZE,
+> +	};
+> +
+> +	if (len !=3D 128)
+> +		return -EINVAL;
+> +	guard(mutex)(&lt9611c->mcu_lock);
+> +
+> +	for (i =3D 0; i < 4; i++) {
+> +		y0 =3D block * 4 + i;
+> +		cmd.data =3D &y0;
+> +		cmd.data_len =3D 1;
+> +		ret =3D lt9611c_read_write_flow(lt9611c, &cmd, &rsp);
+
+[Severity: Low]
+Can y0 overflow when block >=3D 64?  An EDID can have up to 256 blocks, so
+block * 4 + i wraps around in u8 and reads packet (block % 64) * 4 + i
+instead of returning -EINVAL.
+
+[ ... ]
+
+> +	lt9611c->bridge.of_node =3D client->dev.of_node;
+> +	lt9611c->bridge.ops =3D DRM_BRIDGE_OP_DETECT |
+> +			DRM_BRIDGE_OP_EDID |
+> +			DRM_BRIDGE_OP_HPD |
+> +			DRM_BRIDGE_OP_HDMI |
+> +			DRM_BRIDGE_OP_HDMI_AUDIO;
+> +	lt9611c->bridge.type =3D DRM_MODE_CONNECTOR_HDMIA;
+> +
+> +	lt9611c->bridge.vendor =3D "Lontium";
+> +	lt9611c->bridge.product =3D "LT9611C";
+> +
+> +	lt9611c->bridge.hdmi_audio_dev =3D dev;
+> +	lt9611c->bridge.hdmi_audio_max_i2s_playback_channels =3D 8;
+> +	lt9611c->bridge.hdmi_audio_dai_port =3D 2;
+> +
+> +	drm_bridge_add(&lt9611c->bridge);
+
+[Severity: Medium]
+Should lt9611c_probe() initialize lt9611c->bridge.supported_hdmi_ver before
+calling drm_bridge_add()?
+
+Because DRM_BRIDGE_OP_HDMI is set while supported_hdmi_ver is left at
+HDMI_VERSION_UNKNOWN, drm_bridge_add() triggers DRM_WARN("HDMI bridge
+misses supported HDMI version\n") on every probe, and
+drmm_connector_hdmi_init() leaves connector->hdmi.max_tmds_char_rate at 0
+and skips the HDMI 2.0 scrambler callback check for CHIP_LT9611UXD.
+
+[ ... ]
+
+> +static int lt9611c_bridge_suspend(struct device *dev)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	disable_irq(lt9611c->client->irq);
+> +	cancel_work_sync(&lt9611c->work);
+> +
+> +	mutex_lock(&lt9611c->mcu_lock);
+> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> +	ret =3D regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->=
+supplies);
+> +	mutex_unlock(&lt9611c->mcu_lock);
+> +
+> +	if (ret) {
+> +		dev_err(lt9611c->dev, "regulator bulk disable failed\n");
+> +		gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> +		msleep(400);
+> +		enable_irq(lt9611c->client->irq);
+> +		return ret;
+> +	}
+
+[Severity: Low]
+If regulator_bulk_disable() fails here, does dropping mcu_lock before
+deasserting reset_gpio and waiting 400 ms allow concurrent mcu_lock holders
+to talk to the MCU while it is still held in reset or booting?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int lt9611c_bridge_resume(struct device *dev)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(lt9611c->supplies), lt9611c->s=
+upplies);
+> +	if (ret) {
+> +		dev_err(lt9611c->dev, "regulator bulk enable failed\n");
+> +		return ret;
+> +	}
+> +
+> +	mutex_lock(&lt9611c->mcu_lock);
+> +	lt9611c_reset(lt9611c);
+> +	mutex_unlock(&lt9611c->mcu_lock);
+> +
+> +	enable_irq(lt9611c->client->irq);
+> +	return 0;
+> +}
+
+[Severity: Medium]
+As reported by Dmitry Baryshkov on v7 [1], can system suspend and resume
+miss hotplug events or lose the programmed bridge state?
+
+During suspend and resume, the falling-edge client->irq is disabled across
+power-off and the 400 ms lt9611c_reset() delay, and drm_bridge_hpd_disable()
+clears bridge->hpd_cb until drm_kms_helper_poll_enable() runs, so cable
+changes while powered off are never reported unless HPD status is re-read
+after resume.  In addition, because cyclic OF graph links between the DSI
+host and lt9611c are relaxed to DL_FLAG_SYNC_STATE_ONLY and no device link
+orders lt9611c before the DRM device on dpm_list, DRM drivers that call
+drm_mode_config_helper_resume() from their .resume callback can run
+lt9611c_bridge_atomic_enable() while lt9611c is still powered down, after
+which lt9611c_bridge_resume() resets the chip and wipes the video timing,
+dual-DSI, and infoframe state.
+
+> +
+> +DEFINE_SIMPLE_DEV_PM_OPS(lt9611c_bridge_pm_ops,
+> +			 lt9611c_bridge_suspend, lt9611c_bridge_resume);
+
+[Severity: Low]
+Should DEFINE_SIMPLE_DEV_PM_OPS() be prefixed with static so
+lt9611c_bridge_pm_ops is not exported with external linkage?
+
+[1] https://lore.kernel.org/r/4t3bar2svwex4wojumql2t66ivtj6bsxnt7pgmygnc7og=
+4zquh@fs7wdd4k4cjp
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-lt9611c-v7=
+-v19-0-1fbe2b7b5211@oss.qualcomm.com?part=3D2
