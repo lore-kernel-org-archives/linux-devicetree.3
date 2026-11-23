@@ -1,106 +1,106 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795425036;
-	b=rmVxTeWreltYKmHji/r+Bn8vOAG3JU0e0bUy/AVOPxOQI+KpBLhBVyynCmtwJTVsw8tB
-	 0bI5QM5GpP0JQRyr7M9LqiSrOyF7bbqJ8xOx5ruEG7rdDGMVjys4VIvT8oAmwSLjrgp9u
-	 6OcpRX3FCfnpH1ZSoOphyrHq1u1KUks15KI03At7GBDo1Da2jKEosdDVKN27Qk3gQwG8A
-	 0zAbNnrVVotDqIpt4cgjGwrdqaW8gvus3IkXkUIpp1F4fCF4uARZaSm6+eiZyG7cneS18
-	 2V53azBGd9PogPMvlh+9FjiR5YWb7XonTdEqaQqNGsd3RZ1jYtsBESvqJ6GXpP6IKaQ==
+	t=1795425040;
+	b=xdGtr3wGTjG+9Wb/9cvyOK3rGTEXYdQeSW95HrM2RFQ4h/Mc75hQ1Wro2zCmigV/iaQr
+	 GAWPgRPlNUOo8t55MVVTARpcKcWOhU4p9MlnptPnPaHUIsLYdc6tyJTdTNFRdFqGMSa5X
+	 jUE7xA0JPk7oemgaA/GZ3dgKxIe8gV/M6dgrMzBNga7UZ72ODj+BlnIGTWq/hukgwpRtq
+	 scBWaJIyT6ifE8TifTtK6shz26h88Ek8kbOgN/q2gigMxHqIgaZ5pFm9zU5HqA5ShcGXN
+	 Zp3LxEcs+Rz0QEyO1F+RrF4qGynrcH5P044LglxQqhxnD/xj/JkWnQR4Yn35Au4sgIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795425036;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795425040;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=bEFV+1B8rKYypxbhkr0bp5aOlzPIcTu7b/tbBgs2mgQ=;
-	b=Og/JQ2fp3SpBoj8rxd9snxjggBcf75yALOMJ5aA5+iZQs8pQjR3+scfJoFV2lfBrTuuF
-	 yHh9h8Oo1edXFT1oe2bTxKts2S6ZoIhv1/KwvikXJr5Bz1cyDPVC6gtQGdkY7IdkTMma+
-	 bVV0geujqssvhCbPqHWMf1Jz48WJF7nV0JjGZ5tCyCm6BCPwYuLrO9NqR98jNfYb8C9xV
-	 rdLIMontROZunAzgMPQ/iXnnwVsrj08wSQAIb9gT4UnxA0mZT6j4pFZ5Fa5wf0jUYdg+5
-	 Jp5AdZeaZ6ejk8bOQFCCDkgK/OfwstB4hAG9jxlIYE3UPqZb+lDh9rxjWjdtp50AG5A==
+	bh=uWN3Yvpy5H1Xwl/eUnB/hc7fSA1UbaIaF8+Ya0MATec=;
+	b=CvKqB2nNfCizNR0LhJg6feqxgXP7gXUMsnLCYqvai3sb3lf682/WjRdhhSymameFavpt
+	 P+iEtRw4Vd6C1F4zF2wxvGnUUFaH1v9xA0UIROj2I725WtkUYr001zW2926VcsPzM5ruX
+	 I1zMv7Y+HXoe+dyJjT++z+Hq0z/kkwAwiKnZWsTeQSQI10MK0gKMBGFVVevxf4x2igyaH
+	 chljiFZeb62aFpeA7QqtsdvX5hbHdYamNHtH6E8RbrqbVkoy3HuA+8uZLxXFfXf2qTO/y
+	 QucJ3qGg6JMLxlJ/S46cQM1EHPNWvHpTg09wL1I3MuEcSmgDUeLf2Lb+TjabHraLMCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pC3tPOtG;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R61Dmwgt;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XF+nHPGg;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A5likdyX;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2ED606A327
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:10:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF2ED606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF54E606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:10:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF54E606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pC3tPOtG;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R61Dmwgt
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN6PMZm3712507
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:10:35 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XF+nHPGg;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A5likdyX
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN6Da461490191
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:10:39 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=bEFV+1B8rKY
-	ypxbhkr0bp5aOlzPIcTu7b/tbBgs2mgQ=; b=pC3tPOtGbJr7Gnzvnr2IUGdZWHS
-	f96cQLRFXBf+RPxdpXEsipNm1ljDqUEFm7d6qv8fk+7MPJYfNKVk3E8IAUnuSa1o
-	njUDZOyJm5UiHK0nxhi27pqAd8YWc8h/itjKM2KpRu0uQBlD1XBqldrNfa/C63OU
-	5yzSWH71R86HyipHyU4aYCO/F1jnAmEuqPLyaawnWyV2N3rE+FDK6A7jZOtOa2QS
-	6cHQDp1xDCIQ39ZgoO8iJvSudtK/fs5MFpIy/4PIW6FfwyTa2S7iRaMcFMdV38Un
-	rnk63GkW/vdgcW02twbk9LPYBmqXUzm6cPNfG49RKLYF8ttINIt6+8r4VOw==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g740m06-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=uWN3Yvpy5H1
+	Xwl/eUnB/hc7fSA1UbaIaF8+Ya0MATec=; b=XF+nHPGgZcQvz+F0P0uwj/YAXHk
+	1ANFxBlXFoSkSNBdOJyYQjyRRucrkX8UzWGoHQM+4j8ZIW+QGYmS0S0Cw5B17/zK
+	7eKqu7lRK409eddAfO6WNQaDlJjZUK6ki+aIvGFtTIdyJOfrQMAC/yGFn+7DnWSS
+	+g4l/uJswVQasMplYuIq+6dN3m2tGk6JQi6h0tFwPew/Z1jmLMWDDGNdCDTJnDAU
+	hSm8k/YactCebhL1Ia/NdmTGqQsbPU9OEJbjArkuFCaioBsP6sEDRyjYog7TthYJ
+	wgTxI8q6AI0SK/GnHVDmCA6ZapoZA+2M7oqKkZDAC4LVLI+IGaiA3rEmHGg==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g1k0mgd-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:10:34 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-375bac6bd21so3523927eec.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:10:34 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:10:38 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso5766860eec.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:10:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795425034; x=1796029834; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795425038; x=1796029838; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bEFV+1B8rKYypxbhkr0bp5aOlzPIcTu7b/tbBgs2mgQ=;
-        b=R61DmwgtWjbUCjFlrYqTErf8DuccdGimjPJaezallQBJuzZJks2QNszrotyFhP/MAm
-         XnlgsoHOnk0VeQXADXYmInVZWbiFTzBSCAQoTLfe/+cw8Y3FiAC2AGUFwBiznkJK81yv
-         3hE8s+tlMvakl8GKSBqq3/8Tq8zr1kF8RccKwDtFfSwGVT9U3pjoTNmR7wTsf2xu9X4m
-         eifwXSdk96aLmMIjG8yidkwVZNk0qNrta7bJSuapRJ3BHDeOaTi6xMPxcy0L8D8lSiO2
-         gAMuIgmOXgfhjpRdGCHH3mgAX42y84FwItCLUblbk2pFoKxtju+dsiUbG2800f0w9n1m
-         aGng==
+        bh=uWN3Yvpy5H1Xwl/eUnB/hc7fSA1UbaIaF8+Ya0MATec=;
+        b=A5likdyXQ3wJUm24F7K8hGy/Eotmi3MtaE+Xq/bHJuxPoymQJwvBomrqQFAuWgS1Vh
+         w2+Z+VVsu6U5NX+qLnhowS1naHZUSNmlGukPD+YRZoQi7W1z9o9OTea0ZC+T7w0MzIhs
+         rCIXbsSsAqTROBqjtOhdOVHocThTK+wfnsAoiIDqTvGkpO4LKX7XXu9Jstx/Y0Za0y2L
+         wRMLkvHzyZEsln16H1OjbL/yPHwnDRZiYUuObD4EG82KW8aPHpovBMlazHx0BB4YUkUY
+         njZaOLDQfAK1ZnqfeTgtiwmfj1ZOd/PLSArlwA5uDrn11Eu/M9uE3hJzwKMTrGUCGA+o
+         a8qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795425034; x=1796029834;
+        d=1e100.net; s=20260707; t=1795425038; x=1796029838;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bEFV+1B8rKYypxbhkr0bp5aOlzPIcTu7b/tbBgs2mgQ=;
-        b=GzrgGMzPpAnoes9YLWYyBHEg1grOp6P4m4b7X9ZpoPtgFxSIXRrsJaNojGWz/IQNzH
-         3/iHvoyK4fT6Xsi7tGlYlOEYaR1cuhq+hRPjRfWu0+w1my0fdsnO4m7zkvCtTLLtBdl/
-         bhV5/wjzTuQFmfodMZ1jiNZKvrW6sna8O+nW4T0i/++mfUSWYzHzlR39ajfWu5XA6bsR
-         zE3ZpwRBuVS7xzbv1epL1pDjhzu5VQiNF97mpW7QyXfVOzNC5uNrzxO/H81iXBgXMX7s
-         ikEbZADiEEnAMMb64nKv2EznVJ2kg2j0HRio7qLAPsXSmYwCS5e+0eOP9VS2ki7Yb4Lh
-         sltg==
-X-Forwarded-Encrypted: i=1; AL+hErE15uz/F4TWZFl2Wd7jlJqF0MezNX6ABpG8ZDfmcXtSWhXFZoTU+rrNcEO/9PcDxY8MRzn3u9Ww2/fN@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FJRlfjuMeT/ieRE4cLQpOOIBQIh7GgdXirYKu/jqLIxm7ZeBp
-	znjBlI0T5e5lmUPf403vVt5yXdtuz1AHllKClG0je5LGQGBiA7YPs6UubWvsjQrGLHzzDOMKaAq
-	2YQ9dTQu9Y4luikYeuAfNO9dao9EkXoSTtA0wx9yJYDqrCAXfU7FLeVGpOrAmy8KF/SjLV8aV
-X-Gm-Gg: AZFdTZcLcmBF6TCsCByh1kt1BBgT/8ffUQH9xcD/lontXM53Z425SE60dI9+rHoxbQ3
-	I8/ChEHbXXnFyk+nLKkXTpJ2qIf9S6yp4gkGt3wzBogjnzQvm/2wMOvpT5PISz+kbVH753pXW6h
-	Wh+rcBWi3azYIAArdh81I10C82j8xhGmrAmnYIGf3W9o3zlN4pNXjSkMVvlCjfZWkwsUdIOd56d
-	IZnz+DHF413aGB3CDfJwOW26lQPKpzwhCCpGEto8i0lv0NHeUomjaA7AIzkhOgdXNoy0RLIr3Bm
-	GiY5hvB6PWS2BfFhEzeGUn/4IR2b/LDH7g0kvYDjCwWIGwhRTPujFWLL/PtHbaJTjuyEs0e4cJy
-	TYQefmmfHkOiSJPrwPOPLY/2perulRZdi0YWohcc5YCoz5JlTx3QWpT9s/Xd8v4YKsq/4WGK3Yw
-	xC7A==
-X-Received: by 2002:a05:7300:50fa:b0:383:9f52:e54d with SMTP id 5a478bee46e88-3856ff52e83mr12610671eec.8.1795425033597;
-        Mon, 23 Nov 2026 01:10:33 -0800 (PST)
-X-Received: by 2002:a05:7300:50fa:b0:383:9f52:e54d with SMTP id 5a478bee46e88-3856ff52e83mr12610639eec.8.1795425032934;
-        Mon, 23 Nov 2026 01:10:32 -0800 (PST)
+        bh=uWN3Yvpy5H1Xwl/eUnB/hc7fSA1UbaIaF8+Ya0MATec=;
+        b=NDC1kA2mT3ymapONy0QuCFtPp1YEtqLabSlKPSoilBxtA6UvOy+NOWjZNB8FwjgCTn
+         88ACfwjn+AescLvftvsRx15aUjED/tK7ZkBC0c4arGBCMBKYJMr0HM2DXgw70hGVjQH7
+         6qH+haSvrbURI+YxGuUh9Lr6mf1TaAW/UvCHwROvj0x4SPBwQAllyuYzEo9QBVAxZU/w
+         52sJKJDRV5rf0iCVkIClUpmmMOM8eKoy42G3lw94ufWlwIguteiXjHyIOjBPxngspwTK
+         0lVZ/nCO5I/mYxL5Kv63fsiCBcX/NEeF3kyW0UFGwD95K1oNPqIS0yAYEznfNqTJmH/h
+         MLmw==
+X-Forwarded-Encrypted: i=1; AL+hErGAq/GWPjAGuT/fwDC4BnUoYpsqehE8unXpuVHagR1N3zd0d4h4SY73QWedz5DgCLKP4ooVM9RUoxcN@vger.kernel.org
+X-Gm-Message-State: APuU4Z8EXEnMBUXcCeuUxi+ztre99WlAyDAjGR/o62/zusO75k/5GgB6
+	0b/tSKY2TtGe15ATK8xVCd9niNGHt+HRCeLP8z5s0d3zVMDw9z5Ad0wpD2a8lsEYLLOTUvDqLuq
+	UCr4Edk40j3C92oqUrG7aNgpfG/hLP4mKozcIpq3igLaZVMjymSnfA8nzhsRzoxbZ
+X-Gm-Gg: AZFdTZciWafNQL/dJv/eG3HuOZ21fiBS0E4Iek91CMKnbRsb80uVQYcHKQw1Q9UOYOr
+	V3zL1G23iHGcd/vNs2uOY3QVYTVa8Qs4fJ9XAa1nSBjp4ToRrv9n7uCe4XboMMlwihU+zlf13Bl
+	fyO4AYx/oLAkoAUz35T4k7DdPiPKBNGViJrCtt9QzN2jM4hT/JkQJdtZ3BUk80bGgEgb3TTUIq0
+	XcQLjxA97Hkg4vMOavo930Iog4U2DEyUL/iCt0RNmvAuK+OmHjrYtqaCLzWAR6zHl342oriLmB3
+	mWCkRT1jjytSzzA3FzoU9Aie+JPPf/gqOCL0VwcX0XhigSNJrr9fBgVDJH2FEkDajERIgeXUxHG
+	kwKxqgF5FqUrEcOSFJ1KkMSFCeI6PBFNZST6cpvDfG14C94deVvSMsC3rYQkDmdEfBphQO1I5Hy
+	frsw==
+X-Received: by 2002:a05:7300:1c95:b0:385:8851:fa4a with SMTP id 5a478bee46e88-385885211c2mr11249456eec.6.1795425037651;
+        Mon, 23 Nov 2026 01:10:37 -0800 (PST)
+X-Received: by 2002:a05:7300:1c95:b0:385:8851:fa4a with SMTP id 5a478bee46e88-385885211c2mr11249426eec.6.1795425037095;
+        Mon, 23 Nov 2026 01:10:37 -0800 (PST)
 Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385646633d0sm58687105eec.3.2026.11.23.01.10.28
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385646633d0sm58687105eec.3.2026.11.23.01.10.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:10:32 -0800 (PST)
+        Mon, 23 Nov 2026 01:10:36 -0800 (PST)
 From: Akash Kumar <akash.kumar@oss.qualcomm.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         Bjorn Andersson <andersson@kernel.org>,
@@ -111,9 +111,9 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         Heikki Krogerus <heikki.krogerus@linux.intel.com>
 Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: usb: cypress,cypd4226: Add orientation-gpios property
-Date: Mon, 23 Nov 2026 14:40:23 +0530
-Message-ID: <20261123091024.2214918-2-akash.kumar@oss.qualcomm.com>
+Subject: [PATCH v2 2/2] usb: typec: ucsi_ccg: Add CC orientation sensing via GPIO
+Date: Mon, 23 Nov 2026 14:40:24 +0530
+Message-ID: <20261123091024.2214918-3-akash.kumar@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261123091024.2214918-1-akash.kumar@oss.qualcomm.com>
 References: <20261123091024.2214918-1-akash.kumar@oss.qualcomm.com>
@@ -127,79 +127,185 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: tBNdniiCvBnuxgLfsR92oLzNyb7KYCU0
-X-Proofpoint-ORIG-GUID: tBNdniiCvBnuxgLfsR92oLzNyb7KYCU0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAzNiBTYWx0ZWRfX7EoR0bS9mvYI
- TD5ES8YePV0TG1Mr+rwRrBqOF43GAXf63b9UT1sxCW5kJAkK0TzC8kAljzd0/kLnoxvtZ3Rvf+E
- 5EebJ/gG3/oF7EsnGI33tVfKoIOmbs4=
-X-Authority-Analysis: v=2.4 cv=T/cZ3PKQ c=1 sm=1 tr=0 ts=6b04030a cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAzNiBTYWx0ZWRfX2TukxE4CyzXy
+ vTMdgjmxRNzIpuMp4RvXUK0ohfizJBd2IN1E+yX1ZrbEJ8R08LDYHuCSDnsGtHJcBRgj2eJwnKe
+ V5AiIMvssF2ZjcspGFwnZFs5i3tY34w=
+X-Proofpoint-GUID: fDKjbDzisKkbWU12nCvh31HwBrukI5p0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAzNiBTYWx0ZWRfX63HPUTYgK0pe
+ uirJfZ9mka56LIab5NXqnCup7siqOspI+WI2uE/6Q/yRfCwRFhcv4n9v/HBDYrWLPLGcjeuT6t3
+ eanmcMNC9daq9YZhd64OKlPZsCLOvRQK+BK3EoH2FHz8Hu5+vw7NJpW5qCBLIFzSRDhjTxCLkpC
+ +Ze53zBNblfFbkJuTLnxy/D7qsBspoptlAvhf5IIGNJ7koXUtbxjoM1Hdf8L9vnKyTekx0I21af
+ pyAv7x7RLPlUCpifQE3ay6kvpC7Y8nfAKks/far82jBE8fHok1IfLnvagttpCt91HCRIxRoRQSN
+ ivyizavIQermo0oMqvPNcT9iPNL5vCVZzCntgJqoIVEAs3xMR233xJjkQBEkTHFoTRMymj7N2IB
+ +1HMwrCsY15UXNZhvxk7lq6FsDGVNI2O9kdhIWND4cDoVdE5zPxQm0+wvRi2N9aynIdJO+3IEEW
+ zRBm1YbpoPFP/pI/dGA==
+X-Proofpoint-ORIG-GUID: fDKjbDzisKkbWU12nCvh31HwBrukI5p0
+X-Authority-Analysis: v=2.4 cv=cpIOAF4i c=1 sm=1 tr=0 ts=6b04030e cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=kY59nFXYWS7NJFzbzp4A:9 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAzNiBTYWx0ZWRfXwisTfuFx/YP+
- xr4T5Dji5d4U0NcyurZOI/XvHxAbDB+wlCwm5bQGorY9HOpUWnhWLfwtxbrTs446hcP6GRQD5JF
- VG62xs/HnGgQ/T/j3eGOsGGRGBJmBYpXXfOxeGEmCLYbeXuVI6BcukOdSci95AUoJUAPGTVjdXF
- 9bzPjTJySrTMMT1jTBH9AYLSI+oiKLoEUAmM/CEYYSWy7JAOg0WgRf0XtgYOgB75VaxXKA4jFAw
- sfmT1pDRUjanXjRqtfCyHRtL6zYPhgueCkoume9pL4kVKT43zAcGiySVQGUUK0HQP1Ry+xPuPNN
- vnU4QMoM2fK3wD2yofs0JbWKWoag8bMmj1u69RC6eAZU0t6zZ67L5RokjwuDlIrOBhXKjEeqrA8
- uFLsXnjMqRgCOGnuZ1ZX8DygbAYBafgw+KXnmOnQqY586j/tph7fJNRUivlmY+05F+l0OmQkaPX
- vOGJ0Kn/kLKYi2Vp6tQ==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=MKUcqzDF7wo3NqxITeYA:9 a=bBxd6f-gb0O0v-kibOvt:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-23_01,2026-11-22_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 bulkscore=0 suspectscore=0 lowpriorityscore=0
- impostorscore=0 priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 spamscore=0 clxscore=1015 priorityscore=1501 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230036
 
-Add the optional orientation-gpios property, used to sense the CC
-orientation of each Type-C connector on boards where the CCGx chip
-has no HPI register exposing CC polarity. Entries are ordered by
-connector number; an entry may be left as <0> for connectors with no
-sense line.
+The CCGx chip has no HPI register exposing CC polarity, so there is
+no way for the driver to report typec_cap.orientation_aware or call
+typec_set_orientation() from UCSI status alone. On boards that wire
+a sense line to the connector, pick it up via the orientation-gpios
+property and use it to report orientation.
+
+Acquire an optional "orientation" GPIO for each connector child node
+in ucsi_ccg_probe(), indexed by the connector's reg property. Add
+update_connector and connector_status ops that mark the connector
+orientation_aware when a GPIO is present, and drive
+typec_set_orientation() from the GPIO value while connected.
 
 Signed-off-by: Akash Kumar <akash.kumar@oss.qualcomm.com>
 ---
- .../devicetree/bindings/usb/cypress,cypd4226.yaml      | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Changes in v2:
+- Return early when the GPIO read fails instead of wrapping
+  typec_set_orientation() in a positive-case conditional, avoiding the
+  wrapped ternary continuation lines entirely (Heikki Krogerus).
 
-diff --git a/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml b/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml
-index d923ef82ecfa..5716c045d87e 100644
---- a/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml
-+++ b/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml
-@@ -59,6 +59,14 @@ properties:
-     description: enable IRQ remote wakeup, see power/wakeup-source.txt
-     type: boolean
+ drivers/usb/typec/ucsi/ucsi_ccg.c | 77 ++++++++++++++++++++++++++++++-
+ 1 file changed, 76 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
+index c560d4539302..06c536d87694 100644
+--- a/drivers/usb/typec/ucsi/ucsi_ccg.c
++++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
+@@ -10,6 +10,7 @@
+ #include <linux/acpi.h>
+ #include <linux/delay.h>
+ #include <linux/firmware.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/hex.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+@@ -17,6 +18,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm.h>
+ #include <linux/pm_runtime.h>
++#include <linux/property.h>
+ #include <linux/usb/typec_dp.h>
  
-+  orientation-gpios:
-+    description:
-+      GPIOs used to sense the CC orientation of each Type-C connector.
-+      Entries are ordered by connector number, i.e. the first entry
-+      corresponds to connector@0 and the second to connector@1.
-+    minItems: 1
-+    maxItems: 2
+ #include <linux/unaligned.h>
+@@ -201,6 +203,9 @@ struct op_region {
+ 	__le32 message_in[CCGX_MESSAGE_IN_MAX];
+ };
+ 
++/* CCGx can expose at most 2 PD ports per chip */
++#define CCG_MAX_PORTS 2
 +
- patternProperties:
-   '^connector@[01]$':
-     $ref: /schemas/connector/usb-connector.yaml#
-@@ -129,6 +137,7 @@ examples:
-       };
-     };
-   - |
-+    #include <dt-bindings/gpio/gpio.h>
-     #include <dt-bindings/interrupt-controller/irq.h>
-     i2c {
-         #address-cells = <1>;
-@@ -141,6 +150,7 @@ examples:
-             pinctrl-0 = <&usb0_intr_state>;
-             pinctrl-names = "default";
-             wakeup-source;
-+            orientation-gpios = <0>, <&tlmm XX GPIO_ACTIVE_HIGH>;
+ struct ucsi_ccg {
+ 	struct device *dev;
+ 	struct ucsi *ucsi;
+@@ -235,6 +240,15 @@ struct ucsi_ccg {
+ 	 */
+ 	spinlock_t op_lock;
+ 	struct op_region op_data;
++
++	/*
++	 * Optional per-connector CC-orientation GPIO ("orientation-gpios"
++	 * on the controller node). Not part of the UCSI spec's connector
++	 * status - the CCGx chip has no HPI register exposing CC polarity,
++	 * so orientation must come from a board-level sense line if one
++	 * exists. Left NULL (orientation_aware stays false) when absent.
++	 */
++	struct gpio_desc *orientation_gpio[CCG_MAX_PORTS];
+ };
  
-             #address-cells = <1>;
-             #size-cells = <0>;
+ static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
+@@ -694,6 +708,37 @@ static int ucsi_ccg_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
+ 	return ret;
+ }
+ 
++static void ucsi_ccg_update_connector(struct ucsi_connector *con)
++{
++	struct ucsi_ccg *uc = ucsi_get_drvdata(con->ucsi);
++
++	if (con->num > CCG_MAX_PORTS || !uc->orientation_gpio[con->num - 1])
++		return;
++
++	con->typec_cap.orientation_aware = true;
++}
++
++static void ucsi_ccg_connector_status(struct ucsi_connector *con)
++{
++	struct ucsi_ccg *uc = ucsi_get_drvdata(con->ucsi);
++	int orientation;
++
++	if (!UCSI_CONSTAT(con, CONNECTED)) {
++		typec_set_orientation(con->port, TYPEC_ORIENTATION_NONE);
++		return;
++	}
++
++	if (con->num > CCG_MAX_PORTS || !uc->orientation_gpio[con->num - 1])
++		return;
++
++	orientation = gpiod_get_value_cansleep(uc->orientation_gpio[con->num - 1]);
++	if (orientation < 0)
++		return;
++
++	typec_set_orientation(con->port, orientation ? TYPEC_ORIENTATION_REVERSE :
++							TYPEC_ORIENTATION_NORMAL);
++}
++
+ static const struct ucsi_operations ucsi_ccg_ops = {
+ 	.read_version = ucsi_ccg_read_version,
+ 	.read_cci = ucsi_ccg_read_cci,
+@@ -701,7 +746,9 @@ static const struct ucsi_operations ucsi_ccg_ops = {
+ 	.read_message_in = ucsi_ccg_read_message_in,
+ 	.sync_control = ucsi_ccg_sync_control,
+ 	.async_control = ucsi_ccg_async_control,
+-	.update_altmodes = ucsi_ccg_update_altmodes
++	.update_altmodes = ucsi_ccg_update_altmodes,
++	.update_connector = ucsi_ccg_update_connector,
++	.connector_status = ucsi_ccg_connector_status,
+ };
+ 
+ static irqreturn_t ccg_irq_handler(int irq, void *data)
+@@ -1506,6 +1553,34 @@ static int ucsi_ccg_probe(struct i2c_client *client)
+ 	if (uc->info.mode & CCG_DEVINFO_PDPORTS_MASK)
+ 		uc->port_num++;
+ 
++	device_for_each_child_node_scoped(dev, fwnode) {
++		struct gpio_desc *desc;
++		u32 port;
++
++		status = fwnode_property_read_u32(fwnode, "reg", &port);
++		if (status < 0) {
++			dev_err(dev, "missing reg property of %pOFn\n", fwnode);
++			return status;
++		}
++
++		if (port >= CCG_MAX_PORTS) {
++			dev_warn(dev, "invalid connector number, ignoring\n");
++			continue;
++		}
++
++		desc = devm_gpiod_get_index_optional(dev, "orientation", port, GPIOD_IN);
++
++		/* If GPIO isn't found, continue */
++		if (!desc)
++			continue;
++
++		if (IS_ERR(desc))
++			return dev_err_probe(dev, PTR_ERR(desc),
++					      "unable to acquire orientation gpio\n");
++
++		uc->orientation_gpio[port] = desc;
++	}
++
+ 	uc->ucsi = ucsi_create(dev, &ucsi_ccg_ops);
+ 	if (IS_ERR(uc->ucsi))
+ 		return PTR_ERR(uc->ucsi);
 -- 
 2.43.0
 
