@@ -1,57 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795447314;
-	b=3Hyz5vzZamDVG2BaLnurHo2ipZPFgzxG8hqjyu2EaXau+1kC7RHd6//ofpiXKQmQ21UK
-	 2LSbLSWT9hafcG6GXrBIXR6ycdlDeiGNybZD93izw5Wmsn1N6ejoWyN69uAL6BTDXgWHb
-	 RGhYa2Ts+jOmkk5YoeuldUiESPkcoNxStbaFr2WmpmptA76+ka0/3T5O4oKKOE7+YellZ
-	 /k5JAE3V/B5Z1sEMq233oIuplgo8hf4bcuxFB+MVaUs4dGa6CtT0fUHu9+dHUpxFKNZAD
-	 8VeXOhKwJL5s6eFYJH5DEbuov9iNzCKHzFZxwS2A8gPItD3/bzKwGFOAM4sOt/zjOSQ==
+	t=1795447362;
+	b=OPPZwhLxu02yUwpdRjnAuG1vL7S1qGLz5+Fpt5wj7A3aaB6thlwwjdYGCHie9Ub2nLUX
+	 d8hOnVwyIMlvQyePtcDD9r2H1UARAIbXtz09r5J/643rZ74nLEgkx+uWceKMW48phyBT+
+	 4uEZMdO8nQgkGDSehBA76KPkZCjhluqi8dG7RI8nBdL8rIhEzW/pzB6kzHXefCBo80VmA
+	 DULrwDGU2YuiTqBKen9COp656+nFUeMumTgi+SlpLkjstuRD/hqpaqdYcRGYpREkkBf6b
+	 0jabekctlX+/azzJP6uTBG1TFaZHL0s5lGq5Vz8E8SDmbMXUHeD+yzm/KYHIifIaeFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447314;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=mrz5Cv/5bHLNxxCRNfsurN4Q359d/6omBdl+BhC7vPU=;
-	b=iogFPyDcIk2p4L44WjboMWV5yrs/eAMC+LKAiyvfu+59cKPMBhQtnhAcGy7hkFu1gCpn
-	 YUdvjzS/ggDE/TaecA5YqIUlppMxf7butnALJtKY1tz4gdeb2dDDfII49hsY+AfJ8QvID
-	 5HcZKfQR8YHyNtORqagu4q54UpKo1/N495wyjG0mI2Kw2kuSxmgkXiW97I95cizx8ONl8
-	 mNuaJ/pdTuXQM6a5yzhBfLmXN3jiMCnbyhPQUn4TPezgWCt3bQtR9g+NTie4Es+CNA9mc
-	 xKXi766W1qV7lmshNI5BZgkzwT3EzSUFkvwIue3faQMu+NFzr5lnYgKwCoyBrg/QgqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447362;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=OJep1EZYgFGiWXkeo6ciUdVlkRDBN0EXmJY+ZapNUro=;
+	b=5o77LOFejDvf0yyjYMdJUZKzqLxGNHALxZy+g235vY2cVg+eJv8mX5HvZQY1pyRH6Jvj
+	 dSOOKMdjPVUS4QjFUJmSeXYvMzzuOKj24R8RlPeiJF46x8wR45GEqWN4kybR/mlw1OXdk
+	 8g5nnwkWS0NPC7DcIPgTMymCvJq5ss+1KcvZQYQmXKGy5Y7vaiqxWoew7QHsXxMQDOQV1
+	 p4PbRe84wjZguQChKnYGFUUhhk4Z4tKuLRkeOThI2BhY+L/MLgG6DrBlFJrJR1HbfZOYv
+	 Fvk8h1yUuWLoTLdHHPiykSWZiu1sf1LlILlE1vrrnz8UsTUFrB7f/SJEJdLsSdkxATQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUhcEc4Y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="hGlKNPG/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fVmvZh4Y;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A14C606A692;
-	Mon, 23 Nov 2026 15:21:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D5C606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:22:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97D5C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUhcEc4Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A21C61F000F0;
-	Mon, 23 Nov 2026 15:21:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795447314;
-	bh=mrz5Cv/5bHLNxxCRNfsurN4Q359d/6omBdl+BhC7vPU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VUhcEc4Y1mPjLPXskb5pWHWnPiZ0p07KPNG0ADMuLnVprdlhdImsNLbmZ4FGCM/R4
-	 H5XKHmFx/e3I/dZfoVCp2XcpBDZEMZcyWrg55NWwiykaxwvrcy9PAN+wtjz8YSxp+d
-	 0JXfm9XorTIgvL9GaK3Gq65+RGmm0swzo7HfleqY2fe1OLZdxiac+Z9Y5Hw4k6tSGO
-	 scXvoGZuRelfjuOOzCu2XQRJ88t5W/jtHziyBg4fZ4/yr9GVi38JIcXhsAAW2mMzBM
-	 yzvdPm18xKJWUv3pCP6Bp2kDh5TTL8w+L4AlCn1/He/9P+3Ez9z0aK+Up2nS1S9xA8
-	 cZWSiTFjR8+kA==
-Message-ID: <sashiko-outbox-229538@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 14/28] dmaengine: bcm2835: Use dma_map_resource() to
- translate slave addresses
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrea della Porta" <andrea.porta@suse.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261123145728.29082-15-andrea.porta@suse.com>
-References: <20261123145728.29082-1-andrea.porta@suse.com>
- <20261123145728.29082-15-andrea.porta@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 15:21:53 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hGlKNPG/;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fVmvZh4Y
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANDLGTb1461376
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:22:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OJep1EZYgFGiWXkeo6ciUdVlkRDBN0EXmJY+ZapNUro=; b=hGlKNPG/fxzm3rld
+	gNryU850G1nqO933oknVTgPAvtA4pSrWcdSaZXW/reONdtMatxVdc+s/x9VNbi+W
+	7NHeqx0AeA/hlEPBrScxqHg98CKOl63zCsTd2NUjjknfyy8iS3qTXpk9NbhdBrol
+	c/m6r8pFhlMPxaPhiRKw1XwM/4fKyxfe0vMyc7WDZSkeaC0AT3SaJ/sJIxbK+lca
+	OeNqvpHPTMwXSRkmrEBOnbciyKxDZiw/hEF6d8Ykkz1CGy2zfk1RcVf371SG4q+h
+	NsgzTbs7/XiIsTwmz2Evn6XQUdcoFLfsdWnrM/3HyXEMI61nuwPA5Iv8Gc8YUSpL
+	HlHhSA==
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g9a1yy8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:22:40 +0000 (GMT)
+Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8b0e878f574so52439267b3.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:22:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795447360; x=1796052160; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OJep1EZYgFGiWXkeo6ciUdVlkRDBN0EXmJY+ZapNUro=;
+        b=fVmvZh4YiAxrcY/nA1nEKHGYeo2VD1jUFnoBWwYqf0C5HJFDamb/XMiuffKCNJPELF
+         lSGbokLqKRCReXQvOz7FyCBVJKredJPxaiOOvM9Kk6zBuzg2xypv4dmm1Y9TB4s9h5Xe
+         H+E0lc7xo1uPfxeTxH2hEsPYPgnNrlrDEURZ7ajJBwJhYs+5XDxwc+OqtcO3zlJMem+W
+         THN02TQrxTWCTU59Jpw9JhsMzgWxx/o6yCZcTR13mIC7z9jk580BKG50Iw59IQ5e9etm
+         WcJ4lGAgn1rIokJMr+gawpIP4dwQJduVZc1PIyaxzbDcu29ZyoyqTP8wRxw3mdLgdtTJ
+         /oHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795447360; x=1796052160;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OJep1EZYgFGiWXkeo6ciUdVlkRDBN0EXmJY+ZapNUro=;
+        b=DM8chOOtOloimUl9MqE4j9GSmymcqZREJABf1XInepAkIKwIxnID+YgBrkyPRGg7ub
+         L1Ysi2Ej4k/RaCz1//6zdnSdijJeW9W2q+pvurnD1j7QMzrZWRMSiuz8Z+ag8pZ+9RX0
+         IdeD1+vaYz1hpwEQGXwidLow1dMoxCTbf8S3dWi26qtgcYajibzeL0hluXFf+DegxBVN
+         KDSW+BxGlvPwj6ij8d3CmH++hliS/9RIotrlF0KQiZNqbgmTWNIehSL6XMwTNisSJkDM
+         DewAvixySXQ4TRnkiST6Ux+jFJkFz+XjSRySFvvpq0Hk7v2I+g0ChyB+Cuh3poKGAI48
+         60Gg==
+X-Forwarded-Encrypted: i=1; AL+hErHjVlhQrjXjSKYwgK1VzRYdl7v30d3u6fjJqQF+9nKiYbBe8m0P9Q655K8Qe7ScAp4m97pZ6uKNTmQb@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0+I1gTsVZJZ+UlGE1Q1UQU0+WhRiluvN43MO89iyIbhHavIdZ
+	Pe4QQoz0105STlybF3+d78UsWDpBoM8xTojaAej53/x1txYS5qOi9HYo2HSfm+P8pe/mUUWxlN7
+	nsa2vtzNdfNb3TSONB/PrWE/vNRnk9Avc2CFKuY0WvRQe+eeyl0CpJdM0cQiobpnH
+X-Gm-Gg: AZFdTZcUise6um4Pm/6JEc+UN8sbLofCfhw/JcZQNPzD2hGea2QfyaTuY6er3VQh9Ly
+	hVgOPtbxhwTb5dRYtpPfwtrLRrLEpWBi3jWEPJjvEMnb8M+s6RViCiIHTyBXU9kRkAHn907b9nr
+	MMbuQg2WlCBSLGE/c0c4AlY3WvLvBPEqX3f0pfrv+nwA/fVGCQg5Rnj+3nELhVVfovJjTnm2BpM
+	ymJqYpeBSrryEFVurmo18KhZ8uyoeOdWhUBOywqSqqMgFsKk+yIMAj9kBZBX2kn+8RAwdWKwPca
+	aiXYCL1cIRzV79rWUMQFUCCtb+unoE9QyM/1XVfDtm+RsvtLI1aNIDimL94qcsmGQwedisrzcsH
+	sx5PNrMjPkPgBF65BToSF39KmPMuDQLJBAf7w9D9wdgQfBDl1LJjnKeQqDD96oSjha/tyLJZvwl
+	M=
+X-Received: by 2002:a05:690c:38b:b0:8b4:f6be:d2b7 with SMTP id 00721157ae682-8b518e8aa37mr47795377b3.6.1795447355041;
+        Mon, 23 Nov 2026 07:22:35 -0800 (PST)
+X-Received: by 2002:a05:690c:38b:b0:8b4:f6be:d2b7 with SMTP id 00721157ae682-8b518e8aa37mr47795207b3.6.1795447354440;
+        Mon, 23 Nov 2026 07:22:34 -0800 (PST)
+Received: from [192.168.1.110] ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bb989b3sm22927144f8f.51.2026.11.23.07.22.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 07:22:33 -0800 (PST)
+Message-ID: <b10fa9da-39e1-4bfe-8c09-cc1d5cc007f4@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 16:22:31 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,177 +113,89 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: qcom: qcom,ids: Remove unneeded ID
+ constants
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Ilia Lin <ilia.lin@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-pm@vger.kernel.org
+References: <20261122-qcom-socinfo-id-dt-bindings-v1-0-eeee0ffa25da@oss.qualcomm.com>
+ <20261122-qcom-socinfo-id-dt-bindings-v1-2-eeee0ffa25da@oss.qualcomm.com>
+ <c4509c17-2c67-4f76-899d-548edc47069c@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <c4509c17-2c67-4f76-899d-548edc47069c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2MSBTYWx0ZWRfXy+MDGyXYf0ln
+ gGTiM7jFRShFzk9lx0nnGwNKt949KJeMRytAhdSHnoijPKBTuegCwbg2GQMkBCM9V5mY6MMLERb
+ XELmtONF80UEh4EXSfZHoTojc2Q3hnM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2MSBTYWx0ZWRfX3edgGFkxkOne
+ 7ru8bcbjOKpWEB3TxkAW5P0tu4XBs48J2DdvtklX+OG8TvyeFt9BWUZzb7wlpwr3FxcE5kufKGe
+ exZH88VB5ko7DVjg1D48SjNcdvCOZEeTUhNuEYLe4eUJLrsx8F1Yv+Ml/qCgE57B1oilE5bs5JL
+ GipY5ucrux8CIpjyvic5jR2PP5ODFnuzYwB12vxJtrHL1/keW46HRNCAunYB4/L2vwNSO2RpXVn
+ sDmEcT0ntwuBKdA9NvpQZg/V0HZCC9ZSSiual6GB8n3Uagp48e7tOfGQdKyTgMrEjlj8bZ2o3Ka
+ k9UGBNRLkJQ7K9RxcrO5BPxBQqHBoE0KJTyAQpyHjAI5zRjOd3/p+klcj95dtjg0lt9fSZwvyNC
+ 6bqxjMEu9hwx7XvM1x5qaxUFf+aw2QNjNS9QWZSx0PFUyVzwIMipVHShhv78Az88vN+aI5jrxX1
+ k/to1zVOyVyLC+XHaJw==
+X-Proofpoint-ORIG-GUID: qlvTaw03IvvL7PNlM3HPnRtg2fbr6gRq
+X-Authority-Analysis: v=2.4 cv=cYJHPXDM c=1 sm=1 tr=0 ts=6b045a40 cx=c_pps
+ a=g1v0Z557R90hA0UpD/5Yag==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=SaS78iIXIhQ6CdhXs3EA:9 a=QEXdDO2ut3YA:10
+ a=MFSWADHSvvjO3QEy5MdX:22
+X-Proofpoint-GUID: qlvTaw03IvvL7PNlM3HPnRtg2fbr6gRq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_03,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611230061
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] dmaengine: bcm2835: inverted DMA direction in
-  bcm2835_dma_slave_config()
-- [Medium] dmaengine: bcm2835: redundant slave remapping in
-  bcm2835_dma_slave_config()
---
+On 23/11/2026 16:17, Konrad Dybcio wrote:
+> On 11/22/26 6:46 PM, Krzysztof Kozlowski wrote:
+>> The IDs of newer Qualcomm SoCs, as reported by hardware or firmware, are
+>> currently used only in the socinfo.c driver.  There should no and there
+>> is no in-tree DTS user of these, so none of these constants are really
+>> proper Devicetree ABI.  IDs of older SoCs were being used in DTS, thus
+>> that part matches the concept behind DT bindings.
+>>
+>> Driver have local copy of these defines, thus these can be dropped.
+>> This has no impact on in-tree ABI, but any outside users would be
+>> affected.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> ---
+> 
+> I think we can move it altogether, to prevent a situation where one has
 
-commit d1ee75073d9e0c52f103b1cc6d74fd59a5d9e874
-Author: Andrea della Porta <andrea.porta@suse.com>
+We cannot move all, because some are actual ABI. I could try to leave
+these ones only, but that's a bit too much work, IMO, that's why I cut
+everything at ~450 value of ID.
 
-dmaengine: bcm2835: Use dma_map_resource() to translate slave addresses
 
-This commit translates slave FIFO physical addresses in
-bcm2835_dma_slave_config() via dma_map_resource(), falling back to parent
-bus range translation when the peripheral window is absent from
-dma-ranges.
+> to take time out of their day to analyze which one of these is right..
+> 
+> To me, this is the same case as e.g. glymur-ipcc.h where the values are
+> some foreign constants that are specifically NOT bindings
 
-Link: https://lore.kernel.org/linux-arm-kernel/ee19a95d-fe1e-4f3f-bc81-bdef=
-38475469@arm.com/
-Link: https://lore.kernel.org/all/CAPY8ntByJYzSv0kTAc1kY0Dp=3DvwrzcA0oWiPpy=
-g7x7_BQwGSnA@mail.gmail.com/
 
-> diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
-> index f8b2202096d65..3ff30c41dc63f 100644
-> --- a/drivers/dma/bcm2835-dma.c
-> +++ b/drivers/dma/bcm2835-dma.c
 
-[ ... ]
-
-> @@ -798,11 +821,30 @@ static int bcm2835_dma_alloc_chan_resources(struct =
-dma_chan *chan)
->  			   c->irq_flags, "DMA IRQ", chan);
->  }
-> =20
-> +static void bcm2835_dma_unmap_slave_addr(struct dma_chan *chan,
-> +					 struct bcm2835_slave_addr *sa,
-> +					 enum dma_data_direction dir)
-> +{
-> +	if (sa->mapped)
-> +		dma_unmap_resource(chan->device->dev, sa->addr, sa->size, dir, 0);
-> +
-> +	memset(sa, 0, sizeof(*sa));
-> +}
-> +
-> +static void bcm2835_dma_unmap_slave_addrs(struct dma_chan *chan)
-> +{
-> +	struct bcm2835_chan *c =3D to_bcm2835_dma_chan(chan);
-> +
-> +	bcm2835_dma_unmap_slave_addr(chan, &c->slave_src, DMA_FROM_DEVICE);
-> +	bcm2835_dma_unmap_slave_addr(chan, &c->slave_dst, DMA_TO_DEVICE);
-> +}
-
-[ ... ]
-
-> @@ -1019,10 +1061,87 @@ static struct dma_async_tx_descriptor *bcm2835_dm=
-a_prep_dma_cyclic(
->  	return vchan_tx_prep(&c->vc, &d->vd, flags);
->  }
-> =20
-> +/*
-> + * Device trees which do not describe the peripheral window in dma-ranges
-> + * are handled by assuming that the legacy DMA channels see the peripher=
-als
-> + * at the same address as the bus they sit on, i.e. by reverting the
-> + * translation described by the ranges property of the parent bus. This =
-is
-> + * how the VideoCore bus addresses have always been derived. Addresses w=
-hich
-> + * are not CPU physical addresses of that bus are passed through unchang=
-ed,
-> + * as legacy clients used to provide bus addresses.
-> + */
-> +static u64 bcm2835_dma_legacy_bus_addr(struct device *dev, phys_addr_t p=
-hys)
-> +{
-> +	struct device_node *bus =3D of_get_parent(dev->of_node);
-> +	struct of_range_parser parser;
-> +	struct of_range range;
-> +	u64 addr =3D phys;
-> +
-> +	if (bus && !of_range_parser_init(&parser, bus)) {
-> +		for_each_of_range(&parser, &range) {
-> +			if (phys >=3D range.cpu_addr &&
-> +			    phys - range.cpu_addr < range.size) {
-> +				addr =3D range.bus_addr + (phys - range.cpu_addr);
-> +				break;
-> +			}
-> +		}
-> +	}
-> +
-> +	of_node_put(bus);
-> +
-> +	return addr;
-> +}
-> +
-> +static int bcm2835_dma_map_slave_addr(struct dma_chan *chan,
-> +				      struct bcm2835_slave_addr *sa,
-> +				      phys_addr_t phys,
-> +				      enum dma_slave_buswidth width,
-> +				      enum dma_data_direction dir)
-> +{
-> +	struct bcm2835_dmadev *od =3D to_bcm2835_dma_dev(chan->device);
-> +	struct device *dev =3D chan->device->dev;
-> +	size_t size =3D width ? width : DMA_SLAVE_BUSWIDTH_4_BYTES;
-> +
-> +	if (!phys)
-> +		return 0;
-> +
-> +	if (!od->map_resource) {
-> +		sa->addr =3D od->cfg->legacy_bus_addr(dev, phys);
-> +		return 0;
-> +	}
-> +
-> +	sa->addr =3D dma_map_resource(dev, phys, size, dir, 0);
-> +	if (dma_mapping_error(dev, sa->addr)) {
-> +		dev_err(dev, "failed to map slave address %pa\n", &phys);
-> +		sa->addr =3D 0;
-> +		return -EINVAL;
-> +	}
-> +
-> +	sa->size =3D size;
-> +	sa->mapped =3D true;
-> +
-> +	return 0;
-> +}
-> +
->  static int bcm2835_dma_slave_config(struct dma_chan *chan,
->  				    struct dma_slave_config *cfg)
->  {
->  	struct bcm2835_chan *c =3D to_bcm2835_dma_chan(chan);
-> +	int ret;
-> +
-> +	bcm2835_dma_unmap_slave_addrs(chan);
-
-[Severity: Medium]
-Does unmapping both c->slave_src and c->slave_dst unconditionally here
-cause every MMC transfer to tear down and recreate the slave mapping?
-
-drivers/mmc/host/bcm2835.c shares one rx-tx channel and calls
-dmaengine_slave_config() in bcm2835_prepare_dma() before every request,
-passing either dma_cfg_rx (with dst_addr =3D 0) or dma_cfg_tx (with
-src_addr =3D 0).  When !od->map_resource, every MMC request walks the parent
-device tree node and parses ranges under devtree_lock in
-bcm2835_dma_legacy_bus_addr(); when od->map_resource is true, every
-request calls dma_unmap_resource() and dma_map_resource() again instead of
-reusing the existing mapping.
-
-> +
-> +	ret =3D bcm2835_dma_map_slave_addr(chan, &c->slave_src, cfg->src_addr,
-> +					 cfg->src_addr_width, DMA_FROM_DEVICE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D bcm2835_dma_map_slave_addr(chan, &c->slave_dst, cfg->dst_addr,
-> +					 cfg->dst_addr_width, DMA_TO_DEVICE);
-
-[Severity: Medium]
-Are DMA_FROM_DEVICE and DMA_TO_DEVICE swapped here and in
-bcm2835_dma_unmap_slave_addrs()?
-
-dma_map_resource() is called on the DMA controller device
-(chan->device->dev), which is the DMA master.  For c->slave_src
-(DMA_DEV_TO_MEM), the DMA controller reads from the slave FIFO, which is
-DMA_TO_DEVICE (IOMMU_READ); for c->slave_dst (DMA_MEM_TO_DEV), the DMA
-controller writes to the slave FIFO, which is DMA_FROM_DEVICE
-(IOMMU_WRITE).  With an IOMMU or direction-checking DMA backend, the
-inverted directions grant write-only permission to the source FIFO and
-read-only permission to the destination FIFO.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123145728.2908=
-2-1-andrea.porta@suse.com?part=3D14
+Best regards,
+Krzysztof
