@@ -1,101 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795425832;
-	b=bgNN0VO2Dfn4rj14pzckxq+w0kd3HuE0q9VhRysY8prDSwCows/ufVt2vNCOWiVFp5TZ
-	 6QPdk1TEDU9qiprsq6N96F+LyYYE7GEibxTy2Wo/Ex/p2+MXuGoGp8HDXpzT3yhshPDzM
-	 I8iJ+Li7Ods2V+GnTQVGN+jLwydavrNzdKsvrRE2oe7kQqbdEUkb5MALfQbLa3LWgEl9Y
-	 3tVoqC5EoMRPQcU1wF5C657NSo0zB2Lp3Gxk9Vrj0fRnuXLqKk0wDRE3Mm51+8C2Revh2
-	 cO1ow2LL0wm7g8KNRat/lp4QE8l4Z8v86uQNEZOjOusdo+8APbcKK5KLU7Sl+bFCl/g==
+	b=zVVqzuK+RRt0q+WlMEkBsilgIaaBi5U5OWAT4wbxu51zGPQ86swAeLu33E131v9ESfqU
+	 LsBufIzX05wXjl1rIhFi/CS33AAm6QozSf3zmXN3OgveRUUwgZq2HSIMzklRWdokgIxF9
+	 WPyqWVhCScaz8RHbEKC09kNE1SiEvsjH6VaNSKnu7fHtz4gaNYtElhkfbHs78NLDniF2c
+	 XbyUAnRKGgjWmgW/bxn3LIymmtGx58cVeYDtDMDJm6cYdqIsgs8Nas6hbaIQQ6HVGG83/
+	 pdUwNsgYGmTOwlfxc3b2ykMay9UYbvZ31pcIKZV0hahbzG4a3wguj9GjuQU28LORTmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795425832;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=lBEZ1Ox/BmdNOLwypVnEWy5Q296hGUAvyFtNqCvGnJU=;
-	b=NhB1cpf9QkTUDTWEiIZ0dBjKnF6Qe+BnamKPdf1QghpBYuoh3od+m3Mv+7NxB4Bm/2np
-	 e50QpqqddzFnSEIB9Y1RfVh2Fryd9JGQL5/eThr1LbjMujZxtU4yBV2M7DAJcFUcXoWV+
-	 vGAxBkD7xuq2nzlcyGojZ8JSw+Li6ZMnFP+SFrFiGRzOKOfLrLXXV3OT45U7nm1Z4XWCR
-	 2m/ePld9XWafXEgIa5BLDGVei2gjA57jeLVfk8T9YUTSTL0SnTKwKy2EoJKJBJrEsnQVz
-	 6Aw1HJd8pORj5br0lBS6tHyajHKKeUoh5MwaSVR+XwVUBkJ5HTUGtUQ4Pa1Et9+sZew==
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=9s01IOL/VfsGnGIqdOhwdDoI7uOEMrcArvSSD1ab7Bk=;
+	b=mBuIfHNhuZlVBCs9ZQd/Tm8woQSq2B9DSV+Vog86XkFT1PhrdHEMO+VbgRxPHInOhQbI
+	 clDdmVifGWDfadx1xBvhB+yxrDITnptJfZ30SGtUpsVPtPL+xlPoRq9SvMbfSm1mW2J+Y
+	 r8gL5XcXX+2XBR1HGYKhMO4CbfutoTGEVBV//Abh1Uz0vRomEXlFjV08wObMhyQMWr/SG
+	 tSO8VMvJGyqy0UZGNWz2LlnP1KN9xpQ9v2Wwd3jC3fnCrzq0w4or5N+etC5vpVnKFd5Wr
+	 OMK9ot4T0u557gf29DZDAq8A3pTjbmN7abd28BmHWjLa3PXeTCb1NV93D8UbkEc8isw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="e/LZQ7kX";
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=IgsJAasd;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0222606A698
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:23:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0222606A698
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28536606A68E;
+	Mon, 23 Nov 2026 09:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28536606A68E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e/LZQ7kX
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1630095f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:23:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795425830; x=1796030630; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lBEZ1Ox/BmdNOLwypVnEWy5Q296hGUAvyFtNqCvGnJU=;
-        b=e/LZQ7kXPiQooHLAgyHKV7edFi8YVHtSFrT4dN5NfrCLdlmwE27ntYV79oKPxmGTFy
-         MMxE7oOFvYDfbzH1HgCCf6MOf05aewMXjiXILlwAJy/t72RfjxUp/0/iIgcEbVcF4ck3
-         qGtYlw0wvf/adDw12V9VwGYAsMOESarpH1mrhw3fog8iwXSC0oWgnnJnX03UsIGyoQQu
-         UJDWWzIoggI4Tb9VIjlzQCPTA/Bn53pPiX1W3Jq196oH3VwArIMQhMcRBJr1pwUmDyoI
-         tAF/2AbW9oT1pKNIkvxlN4hhc5KBWnf/scogxU1GB9Pzvaf92uxDZLSiH/BnaCKbzpQv
-         qU5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795425830; x=1796030630;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lBEZ1Ox/BmdNOLwypVnEWy5Q296hGUAvyFtNqCvGnJU=;
-        b=VmmmRIw7QSsIrcCjMku9WAfdGgoHpf/CBtyQF70cb7JVwVcnyVAf65x/ERqHpy5AxY
-         V3M9JiPde257IuGLNBCl4Ldhu8vQxYRVbsQLiQqVReOA2wrYdtbLR0nI53KmGAAjB1Ia
-         WJToJAPRcflVBKNFxL7dWNbqz3WNQFa2GvutvauHa2VO760sIVGy1/mTC7YVr7P8rZVZ
-         56xKOlAdHqWrn4nwEp3MOzdF/qA2Ms68vVWfmaXfgZ4nBnh+DavlmehzSu+fgiocBMjt
-         s3/MU2qMljSbhfauqErfyXGLiRMr4xTRv/G1w7XChp3Du11noTgxa2kFkG05C/Ni3+aD
-         Hy+w==
-X-Forwarded-Encrypted: i=1; AL+hErGfq8NX4/YrcQn51Awj7oO82YiKC+gBgtU5Zbid8rEeMLXeg+8gdS6kmB6ZkzGkCiOXphBeRoODjPZ8@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NKW/YjCCTnCrrct9ZP/3X2dPbWeGPVDG0LXpo/Jg3gf5GfTnE
-	LhrtS0wV3aZVAbmpBPuARx3/UCmhfB7yj4E9WUvYW8T3Ay/0m/jPHkSl
-X-Gm-Gg: AZFdTZd6f4n0fRig9wwl5bSIHrO81qCogj3DlPifuLDIY1KhYEd9d0mxO/lrn1ALjb6
-	I+/N+bWg3PY5iE1ZI5MBc0paqzmNMFQLPo9RodvQNYHKdh86j4g9cGbx8QMwfr5MgBXp4UsGr7l
-	+YL/w2FlyJKKe6SJzztzwI8wGUp0/svyTQkTDMBM21GllpwR9ouTDO2mKYiUhoYUPuDfZe8zSSg
-	3ar6Ly8iy7LvofC46zDZFwCF4dWfYedmwmqdPhNpPWUC0AvzHiF+ZlMJe/Mo97Bi2PdXGV0p9Vo
-	oMkM3SA27iHnN3NQm/xyIX9y7bl0XbgvCnV2udzav1Zv3IX5+916UXchn9Mn04JUGHyaEah082x
-	LoYW09AeOM9jfzQMYCsx531k3JU/JireMxcx/IBgbZQe52YItOfReX4nYSvnWjGvGqNoML9L0q0
-	8nqKpV/RAXLaO4W3dtZtl4QhT0Xwhq8X184GEUGdybsnHic+DS88NXvleMi5Kcjrg7oCk/yTJWj
-	JbBCJrhmBb+G381TJEhQbmu+eV95osLyDlFB+rhzydoCfiWkvH2bz/QnGCXiXwlmCQ1TxxE4UF+
-	pLoT+Y9oPGferXD3AVibSOFHYvHazvHXS5wQxknZsb5TX5jyKTFNxeOKq4B6ixYCrRWKOZdXuZ8
-	9UFR+qBUUWbLcR6X/BNmFTNd8bStiRTor55VXSSSa7TIIXEZaGbG81UQ=
-X-Received: by 2002:a05:6000:4b1e:b0:48e:7e1f:8cee with SMTP id ffacd0b85a97d-4abb0f3c23bmr21423643f8f.12.1795425830233;
-        Mon, 23 Nov 2026 01:23:50 -0800 (PST)
-Received: from DavidArch.internal (catv-78-139-0-46.catv.fixed.one.hu. [78.139.0.46])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4ab6bb989eesm21060655f8f.50.2026.11.23.01.23.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:23:49 -0800 (PST)
-From: David Virag <virag.david003@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>
-Cc: linux-kernel@vger.kernel.org,
-	David Virag <virag.david003@gmail.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: [PATCH v2 4/5] arm64: dts: exynos: Enable USB in Exynos7885
-Date: Mon, 23 Nov 2026 10:22:41 +0100
-Message-ID: <20261123092244.1792040-5-virag.david003@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261123092244.1792040-1-virag.david003@gmail.com>
-References: <20261123092244.1792040-1-virag.david003@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=IgsJAasd
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=9s01IOL/VfsGnGIqdOhwdDoI7uOEMrcArvSSD1ab7Bk=; b=IgsJAasdLG82fnozH9SFHpbn7P
+	rQN7p6u1BmpqmfCVrfFpMN/CPRVfnjghSvLdu5DNRY9Kx2aBOufpGSPkLjPPtS8/GHRKm5ZntGM8g
+	7QHA1Qmo5knPoVIFe8WGG6mRangNs/0gnzzFBRfMZsieglXNU1VL1v2kg8xs1v0KMKNGz0x2jH5T+
+	9z1t9OEv2OGKRFD7xefUZmA2NG2M1CyBskRYiKtcZtgaQ9IAdGDKrJpi1ExtuCcP3mBdx92lYzdhH
+	f9j2eWYk03aHVkkpRG+lIT+z/rWGv6H4XR0xeKrr6U4ifh/4qj7JafF5dXRdxiZdtTaeQsnNPj2Rd
+	HkQaL/Mg==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Xiangyu Zhu <1194781887@qq.com>, Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-clk@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v4 0/3] clk: rockchip: rk3506: Add the SAI MCLK output gate clocks
+Date: Mon, 23 Nov 2026 10:23:26 +0100
+Message-ID: <pWqLoF7FQU26AfZrjX9Cfw@sntech.de>
+In-Reply-To: <5176e5e2-72f3-4175-8b29-1dbc64c4e418@rock-chips.com>
+References:
+ <tencent_C2AD19EB4A6C91A75AD3DC4089CB875C4005@qq.com>
+ <5176e5e2-72f3-4175-8b29-1dbc64c4e418@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,72 +67,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Add USB controller and USB PHY controller nodes to Exynos7885 SoC DTSI
+Am Montag, 23. November 2026, 02:51:32 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Chaoyi Chen:
+> Hi Xiangyu,
+>=20
+> On 11/23/2026 8:38 AM, Xiangyu Zhu wrote:
+> > The RK3506 has four SAI MCLK output gates: SAI0 and SAI1 are controlled
+> > by bits in the PMU GRF, SAI2 and SAI3 by bits in the system GRF.  Model
+> > them as GRF gate clocks so the SAI MCLK pin direction can be controlled
+> > through the clock framework.
+> >=20
+> > This is v4 of the earlier "rockchip,clk-out" binding/driver submission.
+> > That one introduced a generic "rockchip,clk-out" compatible plus a
+> > standalone driver, which is not acceptable: upstream already has generic
+> > GRF gate support (branch_grf_gate together with rockchip_clk_add_grf()),
+> > and RK3576 and RK3588 register their SAI/I2S MCLK output gates with it.
+> > No device tree changes are included.
+>=20
+> Please slow down the pace at which you send patches so that people have
+> time to read them. Don't send your patches within 24 hours.
+>=20
+> In addition, your Message-ID seems to have been modified by your email
+> provider:
+>=20
+> Message-ID: <tencent_C4C715C962613597F98212938F8940633306@qq.com>
+>=20
+> Please try the downgrade the git version[0] you use for
+> git send-email, or switch to a different email provider.
+>=20
+> [0]: https://lore.kernel.org/all/8771714B848C3A9F+9f64a309-ff70-466f-8d29=
+=2D15950318b728@airkyi.com/
 
-The SoC theoretically supports USB3 SuperSpeed, but is not implemented
-in any known device. The vendor kernel also stubs out USB3 functions, so
-we do not support it.
+tencent is notorious for mangling message-ids (adding that "tencent_"
+in front. This will likely happen with all git versions.
 
-It is though, perfectly capable of USB 2.0 high-speed mode, both as host
-and device.
+I think the best way forward is what most "qq" users do nowadays
+to use "b4" and use it web-submission option [0]
 
-Signed-off-by: David Virag <virag.david003@gmail.com>
----
-Changes in v2:
- - Keep dt nodes ordered by unit address.
 
- arch/arm64/boot/dts/exynos/exynos7885.dtsi | 36 ++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+Heiko
 
-diff --git a/arch/arm64/boot/dts/exynos/exynos7885.dtsi b/arch/arm64/boot/dts/exynos/exynos7885.dtsi
-index 6b994b487107..8dd8d666b9bf 100644
---- a/arch/arm64/boot/dts/exynos/exynos7885.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos7885.dtsi
-@@ -480,6 +480,42 @@ i2c_7: i2c@11cd0000 {
- 
- 			status = "disabled";
- 		};
-+
-+		usbdrd_phy: phy@135d0000 {
-+			compatible = "samsung,exynos7885-usbdrd-phy";
-+			reg = <0x135d0000 0x100>;
-+			clocks = <&cmu_fsys CLK_FSYS_USB30DRD_ACLK_20PHYCTRL>,
-+				 <&cmu_fsys CLK_FSYS_USB20PHY_CLKCORE>;
-+			clock-names = "phy", "ref";
-+			samsung,pmu-syscon = <&pmu_system_controller>;
-+			#phy-cells = <1>;
-+			status = "disabled";
-+		};
-+
-+		usbdrd: usb@13600000 {
-+			compatible = "samsung,exynos7885-dwusb3",
-+				     "samsung,exynos850-dwusb3";
-+			ranges = <0x0 0x13600000 0x10000>;
-+			clocks = <&cmu_fsys CLK_FSYS_USB30DRD_BUS_CLK_EARLY>,
-+				 <&cmu_fsys CLK_FSYS_USB30DRD_REF_CLK>;
-+			clock-names = "bus_early", "ref";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			status = "disabled";
-+
-+			usbdrd_dwc3: usb@0 {
-+				compatible = "snps,dwc3";
-+				reg = <0x0 0x10000>;
-+				interrupts = <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
-+				phys = <&usbdrd_phy 0>;
-+				phy-names = "usb2-phy";
-+				/*
-+				 * SoC in theory supports SS but no device has it.
-+				 * Actual capabilities unknown.
-+				 */
-+				maximum-speed = "high-speed";
-+			};
-+		};
- 	};
- };
- 
--- 
-2.56.1
+[0] https://b4.docs.kernel.org/en/latest/contributor/send.html
+
 
