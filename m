@@ -1,58 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795448780;
-	b=bmB8XWrcNLX7A0kbPgdZXGtlMZxH43i6KBhoMCHQjh3ToGBXmEBX51t6ghWhInQypaLu
-	 P9Q1QWkKibrV3JiQCQzjFBnVeV9mR0BqlTH8US9ih8wIwJpG+xxVgPwgNfSlKPswnbYf+
-	 TqZtCWj/TSaXEQcCX5Ff3m7SLlhU0RQrkS5yasqXorsYKYNw73LW+btoV77rcJ3dY1vOB
-	 BzxInSgX/92dicrKCySqfNeQRrexpPJNkVhQ7ggQeY5fYqHAc30P4SMDvf4VmM3P9IVkO
-	 IEgpgJiLJyQ357xrv1qPFiE6mmX0uXg4y4O2qZ7/roxe0pBV3WEgqLcKGK22FHfBviQ==
+	t=1795448813;
+	b=wFz2rzZupdwCQ432Jy2cZ5p4NmJbcNT7OfSuMXex7/N1bloI3rphUZ+ANO8TirkvBM0C
+	 zuIZogGAR9BvpXRaBXcx+QxAoYSCR60qz05kscIYv4F4KgSk0pLvSldCH1txdGX6XpYvq
+	 d5pAG5CNucTJeEufS0YP89znhKEIhjKCNmlC2Rab9npr70lq8gYJUR2rRlvMov5klv6nh
+	 HWxioWIB7tbej1ilghS1k00z9mW8kS4+hRnl7FjXTbYzuKdU4/cw3GLH3nrHnQ8isQUSE
+	 13RMMfTIuqTaja4LmBR2Q19VPWOIHiiX0k4brgLbMCk65pdoi83k4gl+e0nOUs6bb4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795448780;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=09xU7ClFEgQBGI1uNF1+/hcxvFo8UWiszBeC8hjBVyU=;
-	b=UFnGrspt/jPWNTihYEenEqSE29ERblxz8bde4QTGlPmDMyNe8AQrMhDrFSRRo5FMsNTU
-	 voOpMbyKXg1L33MtFDvWq2BZhlfgoSOJNiYw+e/oBJ153FRMPSo+Hp5LGsAmyqV7NDEtc
-	 DXXUfj6713vJBmWmWyjTiFYYxt9bj4ssyZtb1ikPwxvCA0YgnP+zJ7euEHahSyRBW55vU
-	 PWkjlDj2jUsqYh482haq+5HOvJYKa0a3Dnh9ziKyxmlarXy4egX05tY0pQWRnz5zv7hg1
-	 gl0FHeSTgCns1mWVp+7YbR9yD+MfsONuYLysBMEZler0qAJUBAyDCOtdyGmEmU806sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795448813;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Jco5N9HqUZU5bQiDb/7CVG3Xd5xNAy5U7XJ/rBLzfGA=;
+	b=RRum9u74GLMVmAa6hJ5R5GPX8LISTM7y9+bvUVm/71Ao9kiRWq40SG1281fExBLj1OHh
+	 aBxlHrqwnAGa2Zinb3dXonOmQHtjZZjTtd0I5cPgjsDUYsLDXFrsudm9OLtDVsWqZm/Z3
+	 WdY9BwT/wGqE75iHU8H3R0mL9X8MA1oHDRXxK/lNNyzATF7SU4X6B37hXj3rlYkoJdlLV
+	 z1ZT7TsQM70EKOlXx/MEVGZE4loNbLBzDQgr+CwuX4CVYo26TO4OfRY1V1wcDwk//1X3P
+	 LE7C/7B1zLlP+6z9FcV7QBChxVu1uGl/Ivsqr4i2EkYjX/iuCDflXLDNAqu7TjfPKMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VuvblYos;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=fOacZBda;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC16A606A31A;
-	Mon, 23 Nov 2026 15:46:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC54606A327
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:46:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CC54606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VuvblYos
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36F1B1F000D0;
-	Mon, 23 Nov 2026 15:46:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795448780;
-	bh=09xU7ClFEgQBGI1uNF1+/hcxvFo8UWiszBeC8hjBVyU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VuvblYosDatND6/kBcqUI7uopAMsmOTfq2VEjAfxnVv+Ak5wZDCFUmHzOND76Tjvv
-	 NsUHUieUjs/BvNJ2U2STGLtd99UxCkxYKy08J2hr/AE+drN3MhwRW4CmIQzjqQWHjj
-	 8kS8+Bj/ha5I8+Vh+0qqPg6fYGfYySFiNwsTf2LP0nY7zPhzU1+998lzfcgHCJVSbU
-	 0CMGNakM5Sb4Gbps6v9NcPmAU+wiT3wdtn6dRKFvXbM9T7Q7ciQpL12Ajekip3a3O9
-	 9u/BqD2FvappDDtELlK/KRTXIiI6byW0dmxagXJ2kwy/0zlwnnioDB2Ich/Gvl75m0
-	 z+6lSh1IVd0mw==
-Message-ID: <sashiko-outbox-229602@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/7] arm64: dts: qcom: msm8953-xiaomi-tissot: enable
- front and rear cameras
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hikmah Gumelar" <hikmahgumelar@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261123152722.168879-8-hikmahgumelar@gmail.com>
-References: <20261123123546.152162-1-hikmahgumelar@gmail.com>
- <20261123152722.168879-1-hikmahgumelar@gmail.com>
- <20261123152722.168879-8-hikmahgumelar@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 15:46:19 +0000
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=fOacZBda
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4b467581b98so32620845e9.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:46:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1795448810; x=1796053610; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jco5N9HqUZU5bQiDb/7CVG3Xd5xNAy5U7XJ/rBLzfGA=;
+        b=fOacZBda84BFoSkxXuiBVPLK/rTm6IN+e9Ek3paclKzsb1oUy9+exLA1ADv7ZABA8u
+         MR1nAkc8ZxaJ/NE0ubq28uS5lLu04ASAN1E81kIwboAxh6EjEAJa57Scn80l7VM9OWPD
+         3GcOQ3H75clVIMWmk8NCvi6ucqRuF620LaP6pKF9QKb+98kPRfVBrEXzXt5KK3O4n7A1
+         QznDfPcx3UK8HKVzDGk8rremjqB7GvcZ5W1R5HlnN404GpcH1NuKWwVPDhqHknlCM68L
+         p6xI23V9vBPx9u7bWGiiiQBxtEpJDgNrSjUnB6a4pv658iUwdKWUpqcRTdQ+obyduqN6
+         yhRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795448810; x=1796053610;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jco5N9HqUZU5bQiDb/7CVG3Xd5xNAy5U7XJ/rBLzfGA=;
+        b=VH8QRMHZrrdm+uBvPjDZSRF5JlKyoi8bdr4lBYlm+T4n7OuvhkIpgt2p9e1QZEY5J+
+         sDbCieZw13mKbyVhXDs0AWFD8+6xWtWr1JbtcgcGI9Uq8xM+/jHdkHGQ10Ua4jfcLcA3
+         04qtgzGPu4YQ1NGnq67movmLQKcZRTeB13JQZDYuTxpknbcAVnUCLZ+XxJql3gVXwMiP
+         D2x1ruIQAMZUJI4Bzhqauic1Q+k2tlv8TY7L42/wDDdPHK9j/yQjDAPB71gCaLqakevA
+         ZPi1ZH/N7pT6nhuxWFgFpNf5kRZt2grKPe1PjAWJvKduTBIMxn6uh5iIqWPEvQUDVxM2
+         Ad3Q==
+X-Forwarded-Encrypted: i=1; AL+hErET9AaRwWBIE4aC93B/71Rw2eUKINLaYjZdMgCEJ0Eq3/EDFGv9mRrwPPSE08hSgy0v8+pLALOcVPXa@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XUL/AY2EjO7COs01RhAd26TNwQkbw7dzTqo7DGgtNYtCnpSiD
+	SZCjnEbFgDu6cgrMh7BhdEJcGsXwuGfIU2FaNlZ4dgLi9gBxt55Mw4rBqwOmg5JsN2Q=
+X-Gm-Gg: AZFdTZcNdg27Pu6RV1N4WjOcKQlvfeAhCjGkAK6cvAvqo9T2i6G+k+zwRBC+Mbm+9s/
+	OVNqx3GDQrR71ni9ZBW+LgazIwvN2C2sQ3vcSzmLg4q9Dpzy/9O0S8cE/VSNm1zMBc5PUikObqv
+	5PpKxyX8fHvc0Mu23kBJlyIGPr0qUDuPwGN8xgJqPy962TNpOvPO3e5A3uN4J+TM+htAZ3CQ3Rl
+	tlfu3tkhmU+qUJeTIBZ890nf/CeHzTvOY1GlvC9fhIOuGNsTWFfCrl14nzrqtEY31W9XpzwWY4n
+	t1FY7JktBwjfED8nt6+7yJSg/lo8tYwgbFkpDTe/LtgkMAIHmQ6aTRiXoDMW7FtIL7CJTaeVyr4
+	k8owTwzW7hlpiO/yFePue1e2c7w2YyJS3GzLH0B0UUP4VmgxKhvMdr3JvPMREHBXm9gAVH8X007
+	pRI0V+4xk4LFMFqC2x9y6d9rTJWxgzIxvW1WRzfcFXDI1Bhfd3kivGveduxuIV8G5ba0ARTAFAe
+	Wuu9Eyzya/4nDokbCgI4pPd/4O3VXWaXDP7zucROxfE3JPbbiuK5RN+ib0N2kTWhsFstUSIHU6Q
+	krXBU1AqJ8Szn6hzQNZ4mioo1cCbDBElyn2zwBno7upsmu1RzA8+D6XPAA==
+X-Received: by 2002:a05:600c:670b:b0:4a6:30c3:1114 with SMTP id 5b1f17b1804b1-4bb88922df3mr229426595e9.12.1795448810466;
+        Mon, 23 Nov 2026 07:46:50 -0800 (PST)
+Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442693sm312466955e9.1.2026.11.23.07.46.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 07:46:50 -0800 (PST)
+Message-ID: <fc13a7a8-b825-400c-9ea0-ceb2670dc478@baylibre.com>
+Date: Mon, 23 Nov 2026 16:46:49 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,141 +91,82 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping
+ support
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Paul Elder <paul.elder+renesas@ideasonboard.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <cover.1795029012.git.geert+renesas@glider.be>
+ <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
+ <20261119234759.GB2324725@killaraus.ideasonboard.com>
+ <19c3745a-6308-46ff-bb37-3acc88fe22e2@baylibre.com>
+ <awAqqg6F2Z1t55x2@ninjato>
+ <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
+ <20261123103633.GB2959742@killaraus.ideasonboard.com>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Autocrypt: addr=clegoffic@baylibre.com; keydata=
+ xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
+ K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
+ BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
+ AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
+ B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
+ 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
+ LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
+ vLfPDQ==
+In-Reply-To: <20261123103633.GB2959742@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] arm64: dts: qcom: 1-based data-lanes in camss endpoints break
-  camss_probe()
-- [High] arm64: dts: qcom: powerdown-gpios in camera@10 ignored by
-  ov12a10_probe()
-- [Medium] arm64: dts: qcom: missing vdd_l23-supply parent for camera@2d
-  dvdd-supply
---
+Hi Laurent,
 
-commit f90e380b7cfcacb30ebf79d76d723184343a3304
-Author: Hikmah Gumelar <hikmahgumelar@gmail.com>
+On 11/23/26 11:36 AM, Laurent Pinchart wrote:
+>> I know several SDK versions exist, and supporting several of them is work for a vendor tree.
+>> As Geert's cover says, "While upstream Linux must only support sufficiently mature firmware versions, vendor trees (e.g. renesas-lts) may still want to support development firmware versions".
+>> Each SDK version can then have its own DT there.
+> 
+> That's not how DT works. Please be gentle with Krzysztof and avoid
+> increasing his blood pressure :-)
 
-arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
+These DTs would stay in the vendor tree, so they would not reach Krzysztof :-)
+Upstream would have one SCMI DT, as v5 has one table.
 
-This commit enables CAMSS, CCI, CSIPHY0/CSIPHY2 ports, and the OmniVision
-OV12A10 rear and Samsung S5K5E8 front camera sensors on the Xiaomi Mi A1.
+>> If a release that changes ids is already out, it needs a new DT, or a quirk for that one release when the DT cannot be updated.
+> 
+> So you're proposing that, with any new firmware that introduces an ABI
+> breakage, every single DTB on all boards in the wild get updated ? That
+> just doesn't scale, sorry. Let's forget about that bad idea, and focus
+> on finding a good solution.
+I think the v5 tables have the same problem.
+As Wolfram said, "the driver is then tied to a specific firmware version", so the same ABI breakage needs a new kernel on every board in the wild.
+Either way every board needs an update, so I think the fix belong in the firmware.
 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts b/arch/ar=
-m64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-> index fccb9c4360cae..e41cbd4d01b28 100644
-> --- a/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-> +++ b/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
+I also see technical weaknesses in the remapping:
+It adds a second layer of ids on top of the SCMI ids, so each new device needs entries in the kernel tables as well as its DT node.
+And Zephyr already uses the SCMI ids in its DT for this chip, without such a layer.
 
-[ ... ]
+With the SDK DTs only in the vendor tree, what technical weakness do you see in the solution I proposed?
+I still think it is a good one ^^
 
-> +&camss {
-> +	vdda-supply =3D <&pm8953_s3>;
-> +	status =3D "okay";
-> +
-> +	ports {
-> +		port@0 {
-> +			reg =3D <0>;
-> +
-> +			csiphy0_ep: endpoint {
-> +				clock-lanes =3D <7>;
-> +				data-lanes =3D <1 2 3 4>;
-> +				remote-endpoint =3D <&rear_cam_ep>;
-> +			};
-> +		};
-> +
-> +		port@2 {
-> +			reg =3D <2>;
-> +
-> +			csiphy2_ep: endpoint {
-> +				clock-lanes =3D <7>;
-> +				data-lanes =3D <1 2>;
-> +				remote-endpoint =3D <&front_cam_ep>;
-> +			};
-> +		};
-> +	};
-> +};
-
-[Severity: High]
-Should data-lanes in csiphy0_ep and csiphy2_ep be 0-based (<0 1 2 3> and
-<0 1>)?
-
-On MSM8953, the CAMSS endpoints connect directly to sensor endpoints
-rather than standalone PHY nodes, so camss_detect_legacy_phy() sets
-camss->legacy_phy =3D true and camss_parse_ports() passes lane_base =3D 0 to
-camss_parse_endpoint_node():
-
-drivers/media/platform/qcom/camss/camss.c:camss_parse_endpoint_node() {
-    ...
-	for (i =3D 0; i < lncfg->num_data; i++) {
-		u8 lane =3D mipi_csi2->data_lanes[i];
-
-		if (lane < lane_base || lane - lane_base >=3D MSM_CSIPHY_MAX_DATA_LANE) {
-			dev_err(dev, "invalid data-lane %u\n", lane);
-			return -EINVAL;
-		}
-
-		lncfg->data[i].pos =3D mipi_csi2->data_lanes[i] - lane_base;
-    ...
-}
-
-Because MSM_CSIPHY_MAX_DATA_LANE is 4, lane 4 in csiphy0_ep fails this
-check and aborts camss_probe() with -EINVAL.  In csiphy2_ep, <1 2> with
-lane_base =3D 0 shifts lncfg->data[i].pos to physical data lanes 1 and 2
-instead of lanes 0 and 1.
-
-> +
-> +&cci {
-> +	status =3D "okay";
-> +};
-> +
-> +&cci_i2c0 {
-> +	camera@10 {
-> +		compatible =3D "ovti,ov12a10";
-> +		reg =3D <0x10>;
-> +
-> +		clocks =3D <&gcc GCC_CAMSS_MCLK0_CLK>;
-> +		pinctrl-0 =3D <&cam_sensor_rear_default &camss_mclk0_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		reset-gpios =3D <&tlmm 33 GPIO_ACTIVE_LOW>;
-> +		powerdown-gpios =3D <&tlmm 39 GPIO_ACTIVE_LOW>;
-
-[Severity: High]
-Will ov12a10_probe() ignore powerdown-gpios here?
-
-ov12a10_probe() requests the GPIO with con_id "pwdn" via
-devm_gpiod_get_optional(dev, "pwdn", GPIOD_OUT_HIGH), and gpiolib has no
-OF rename entry mapping "pwdn" to "powerdown-gpios".  The lookup silently
-returns NULL, so ov12a10_power_on() and ov12a10_power_off() never drive
-GPIO 39 and the rear sensor stays powered down.
-
-[ ... ]
-
-> +&cci_i2c1 {
-> +	camera@2d {
-> +		compatible =3D "samsung,s5k5e8";
-> +		reg =3D <0x2d>;
-> +
-> +		clocks =3D <&gcc GCC_CAMSS_MCLK1_CLK>;
-> +		pinctrl-0 =3D <&cam_sensor_front_default &camss_mclk1_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		reset-gpios =3D <&tlmm 129 GPIO_ACTIVE_LOW>;
-> +
-> +		avdd-supply =3D <&pm8953_l22>;
-> +		dvdd-supply =3D <&pm8953_l23>;
-> +		dovdd-supply =3D <&pm8953_l6>;
-
-[Severity: Medium]
-Does the rpm-pm8953-regulators node also need vdd_l23-supply =3D
-<&pm8953_s3>?
-
-camera@2d is the first consumer of pm8953_l23 in this device tree, and
-rpm_pm8953_regulators in drivers/regulator/qcom_smd-regulator.c defines
-"vdd_l23" as l23's parent supply.  Without vdd_l23-supply in the
-regulators node, pm8953_l23 falls back to dummy-regulator and enabling
-dvdd-supply in s5k5e8_power_on() does not vote for pm8953_s3.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123152722.1688=
-79-1-hikmahgumelar@gmail.com?part=3D7
+Best regards,
+Clément
