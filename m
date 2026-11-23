@@ -1,111 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795413570;
-	b=OwH3lGiAdCWpTwL8QkW7LzV5yM/ODa85QiIsaF8HYnUCLETNUHwfcidq+xFiZMyRW41x
-	 /d1tEUFaMskAzzVbO9JAEvEW6WLEd5nwG0woNNaqbN6QXOO6sCUHoHAk9tKJvKWPKuMrN
-	 BDxeIXSHsNEDi8oGiIkdBvjL0EFlFmNdIZBDs5f8eRzYw340yjStwdgS8QEvtggz+ezE0
-	 HniQ33qDrtdwoxhiXsMomf6vBj1BXoMqttXelJvW78/nIjCzDNAltuZg3OWFOVGJGMxSB
-	 O2rz58iRYekvo704NrARdF8t/3JCyOkbwQVctfBkOmnSagzSSqlf9OKTNIViJajkJ1A==
+	t=1795413683;
+	b=Grf/mqB88ANKUsmaU+xuMPWA7IsoRg1BDbRiYxWwzZzhN2kcprb7hVDWVmzOr5vDXeUP
+	 tD80Nqy0ZZHR/Xoccu/dMspNbVoegd9WliJTp7tKFf9+mkeQsLCPx/rEbRfHCieQkIlCb
+	 kmTqGBaanutezV8YwhfANPB2cmOln5mxn0KJ1RaNlov6ngoYD2bV+Mn9cNM6RWWA9SA78
+	 Bc5LdJiIwqPemhNJhxvKQY9vsuuivQQ8atYSFGfifbDwuNjbzxhpj/gwyhQwmYMjJtFaT
+	 NmZ6Kk/Cj4ToIGHkad3obW5i9nNLhSsCBDIrBIlHk4dh+i+V6d81mj2CLQlGIAgLQ2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795413570;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795413683;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
 	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=GGk0hd4f1xgs6CEflzyR83o9KzmIDk+D5Xl9w8H0RMQ=;
-	b=ijcMc5U6mO/8RQy6jOlD1o5R/duOuld7tSm/S6sZCPzrixwWXz3DVWFFGacQBrFAxMV/
-	 7IBp4xAf3fFLSSLOp42A02iI6yqe53/tkICu3oN4tXGqB1YjWT+lrtr4V4M9dlDChhj+y
-	 dIhBqlMBtxr2qJMrB7otTPAiWNSEcyvIDKpZhDH7wTsOUJsDElcZsa7eUz94QGldqQMlv
-	 gxmi1+mjKYqlPiVwYUo3aM1suLJVAeMtbItJpGZgHy9RKlfxJi+69bnpThc+lsaVQJ5A8
-	 TP6jENy1bBTDOuBlNgMrloweJpO9x+7qkEHzw406Hp2gbARDG1/PWTmpxFnbDMgGzUA==
+	bh=z6xMM+SJMdqhpJSgog3XdQq/Hd6xOFzXoUOLDwQEggk=;
+	b=V7XRM1JD9bV43e9e812ZmeAD9MVSaph4XWeAIitG2mENrQR0RRUhVucf0eLV9kVHl8vS
+	 2r6JnxSkQOmWGtg2FpF3kamXar2DIhYbEa6FWrmhDy06Us4XajjMDOOPBlQ1zBr48xiRC
+	 K6TRNbuD8lJF439Ew6oa/tkGQm8SUcBWCLE5EmFut3VbLmKUWKVQt7JO+mfuozT2ozQUq
+	 gI+fCEMhZRs5tSUOi97zdlQLgumJ6J+A4BG429ra3akD9uKGhLxlF6hIBlzU4hgMlULN8
+	 oQjezY9e+dK7xhpkKI6vvvVT3+1w1Pa3Fie5p42/wjp75cGXEZQVaEZ0Hcy3HsaiaVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="YoIom/1Z";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZJ5IQ1Mz;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XY3RLwAd;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZUYtlpQI;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB201606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 05:59:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB201606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671F0606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:01:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 671F0606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YoIom/1Z;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZJ5IQ1Mz
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN50xqL1960992
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 05:59:28 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XY3RLwAd;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZUYtlpQI
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN51URJ980238
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:01:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GGk0hd4f1xgs6CEflzyR83o9KzmIDk+D5Xl9w8H0RMQ=; b=YoIom/1Z1MBYmvzp
-	3BMsq0z1iLk1XkSMylQB8BJDr8W/SHfvjDeinB3Sa+RcIPuK1dlfmsgvwKezUOsr
-	LTkFy5XBtTgJLXFD9364c5JKNR5/T/HHVxGbgegXPON37xTPOp4H6hBwgTYp+oHA
-	h58C2HFLUnRNkL+vfam3HrfO2AFPIr3X56cCzXnuRdRhdFxq021EXFFggV7DX+kS
-	TugRHt1MNeOTi5UZUl7YJUPoVJeFs1M/kgIown3oQrsT+sGsgV0mfLOq4SKJ9SRM
-	Gk/JRNtKrc3N7e9FIQV2ZtBduvB2XV/oAlSGmBVXk13FNUle+89JvOtYYxx1Q6CY
-	R22osg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j32a6nfkt-1
+	z6xMM+SJMdqhpJSgog3XdQq/Hd6xOFzXoUOLDwQEggk=; b=XY3RLwAdMNJLfOoQ
+	33PUtc4h41WLDZBNOHlBUAW5DD/OCUG8oUOuE9bhRti4z1EG+tQL+WALKvOVTFnG
+	5IsWyzs406U5JUR+cLkupOaEmv2c1fwoCkD1jRke5NfPIfXeR7XQ+t2dIgMv9p7/
+	o/sCeDU57fUf3asVmJyhB3uk0qRzSiuYB4+1cE8SLRFuUV8Bsx1UwojHvxbGLV8S
+	rQXLspbDKX3BghQX1rVUN2R2PhqgHdbfA2Mw8Mmdd+BQABkK31QW3V4aKHz2qsXt
+	xoKBSgrGsa3Xr79Evj8/qfel5UW0akjGP8k2CDPrGRwf/PSo58SjpohAtKPS0Iiz
+	qXba7w==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j32mgdg5t-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 05:59:28 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2f0717e54b0so11325005ad.0
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 21:59:28 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:01:22 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b0c7ab2427so2237300a91.1
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 22:01:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795413567; x=1796018367; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795413681; x=1796018481; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GGk0hd4f1xgs6CEflzyR83o9KzmIDk+D5Xl9w8H0RMQ=;
-        b=ZJ5IQ1MzRGXyolWOHhlCeBx+1W/gSzvm053Lnu4zMrStjSgJcIyi33dTOi27SradxC
-         R9uh1rr6111Tt+CGuRSgS8IeqkcMoWhiGCRaHMvaKwtZKko8cSPGuMBUtISVa6qINige
-         11UKDGUOaCYh+4zFP9mBDWKSV/h0sElUzimrg3XXYKFyCf0GrnwWlIMG14KBGfL0DiGU
-         PtFzgas71MEHWeVflSZw4a869m4xfw4xrl3ZsONjzlyMQiiMuQ0rN2wVe9re3XesGIre
-         RHBUCwQADy9VtZxT6K/ncoot91fGDHKTy+2RrRXJ9ilvM/VFMgxdKWFAcTnqmnCBzC6k
-         28wg==
+        bh=z6xMM+SJMdqhpJSgog3XdQq/Hd6xOFzXoUOLDwQEggk=;
+        b=ZUYtlpQIRO968iMCf4w/j1FSgNQaOCR64fmaDUsz/8FdrQJyUtPe1w556E5FTDFSXq
+         rToQCOijUa+v2egSiEWiRmHm3bK0X77L5jz4koBQVJRjDyKg9s89VllQz14kRpWC7uuq
+         oOhm/0blNqPA4mc9stH1zI/5Mp7E5kr8BBBUzR0w1MbASyvdqU9CCGPzyraC/+KTNkXP
+         kfRcGpjqRMc9jCHDkxKYaw/fvN9feeIGKXfL/N1B8JM8Ekwezjj2l0gCV8OenAgpOq3m
+         B0xo+bzjzYKmbmWrzwuA9/CrvwmXN2cDPf4fSXiab9mMNmak7ybmypBU62ZvlfdnGlHH
+         o45g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795413567; x=1796018367;
+        d=1e100.net; s=20260707; t=1795413681; x=1796018481;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GGk0hd4f1xgs6CEflzyR83o9KzmIDk+D5Xl9w8H0RMQ=;
-        b=RPO7Kvr1Tr5Y6X0WsmBY749eQi2F62TNz1pddstkUfMRqK7WrYSeeD4JThUnSKUFyX
-         Hylhq+Tv9vVbfKZ72J4TkE5ZyB7RHpb1/DrbtbbYmK6o13zw5GWI2iFaX23GEJ9Zyv2s
-         fFdB31XvjDdXzg1D2lxi01M2C96KtmUOhseBEcGBgnw3qK4vkJ7820PJIynKWFuZiUYP
-         yQD19jRtInqllf/moJg6QhOkAUXU2eaZrua/ALDZphdX1dauxf/0fdrR5YqYl5bbAqCu
-         elEw7snQsN3vPzuP0l/vIVK0qqLB7jizRlRW+BPuJOKNoIjwtCHtzfiLcSnmX/MrU64C
-         oSrg==
-X-Forwarded-Encrypted: i=1; AL+hErEcMZ8nB3wQbvKp3Wryc2wqvQXqQCRzfx3mfJg0yzL/9V6MQPMnmsSF7m11Uxe4LBWeUF7EAR513IHI@vger.kernel.org
-X-Gm-Message-State: APuU4Z+UXQRVrU3L6qcV7Cxbk8lnfzNV9kzFFSZkkUq4FJge8Fn33e9R
-	SE6tGdXCmyu5WjNVKIk0q9BmEsU++0CLGgAzqdnlXN6qbwv6l1MG6pHaoSdIzmHNt5KhfSoyi3b
-	EUxbme9+9VKcchKdMn668uBnnRMrmw92tImpNf5DQcBD6bjPb+E+l3vHTZgQevcOT
-X-Gm-Gg: AZFdTZf/oW3ASzfj/vP2SUKUJUjUHgJfyZghz0+b4PLMsM8K+jMAb6KxMGDFK/1qDPH
-	2nPqNNzw/d5PRVowYtzinfaQieRFxxPqQqLrQC6NGxaVqmCw5uFNqtfotrbzvA1K876L3QXF703
-	2lHuf7uQjuGFoRmk3zWn4xJxqwChez8C0ghXFFtXAJYFPnQhy6BG+Nu2V4hu9glAuTAdSjxpzOQ
-	YFp+lZccWx8Y0vBqQUYMyPCawq6Xi3gCgKNPOolPnI707tBUQ83YPGxUJCGo84EbzEAy5WznEjL
-	cLmIqH475V5SOemvi/ftq8LBvC1TFht7wJ0BocTHACIqVwWWNDkHdHJXFR6FKdl20nu+JVrRNlm
-	qPojmg9nQuVa2vGOpgkxgVZ1LhIRcw2OToDrmooCSgMHE6uyo6CMpr4o15PqHwA5FJoZ9IA==
-X-Received: by 2002:a17:903:228f:b0:2f0:7707:2294 with SMTP id d9443c01a7336-2f077072a3dmr45183905ad.22.1795413567525;
-        Sun, 22 Nov 2026 21:59:27 -0800 (PST)
-X-Received: by 2002:a17:903:228f:b0:2f0:7707:2294 with SMTP id d9443c01a7336-2f077072a3dmr45183525ad.22.1795413567022;
-        Sun, 22 Nov 2026 21:59:27 -0800 (PST)
+        bh=z6xMM+SJMdqhpJSgog3XdQq/Hd6xOFzXoUOLDwQEggk=;
+        b=QOwxMP3XvMAWUXllgvI5G6CV1mMoVLYHlz7YFdnd2bjuMhKnlLvIWOn2OuCv/0Sjxk
+         F1Fg0EH8SSkgJEO98r0mQ8hKQ2WyPJbCp7pRptIhOgz9XYAm3s+YFALuY3szpVWE8x9A
+         0I+kEX2ZlQs3SxxkoSqetZOZ5I4kUzn4PUQQnfQgeDJPfkalvifxtjtqTArfoDQKFNcd
+         iPLzw31GQv7bW9AJ6TH/8PJ9dqDYxLat1BviIyf9HAjTKiiJ9xf/tgva//30IkFgut2C
+         G3nkntuZL/32gns0t+Drdl505CFQwg+MPr/Kzr7+9MwD4MTdUnDmHw9GGzur0N8i8ZDz
+         leqA==
+X-Forwarded-Encrypted: i=1; AL+hErGw7d1sH4DLRcxPE1iQD3R94LtDu5sn2FHh3ADy6MieUkBRG5j0pw+VaZgXndkeZYxTv7HX547/jzB/@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+5QdcM1BLdBLz/WMw0noHagYufBXusEzcB2hYXBazXwLHg6YD
+	Aqbhsv97BeRXStBKAwjmRLSj2lr0NWXr23OnoOhAERBsDd6kOtP4NpFL8qEpaqzPnbpnjvnxwX+
+	KJNE+BhUn8PCaQqZK8TzC76oOaiQLUjXZ1asg+LmBUlYf3oA+usud9vbWVMPOSTOu
+X-Gm-Gg: AZFdTZfWhguXbzR++26nOZmHpODkIQiFXqTRDMm7T6C+EPklJwa/1z88wrsfhm0zLMk
+	+nTp0G86v3UkPYp717RHCzzlnnAJV+UKhc4gVMka6GYRcSMpt0pGmvK54HaowbkYIfC/JEjakZN
+	pFf0ZE5VwiaDpUcbqnB7J0KKPxa3ut93tzh1e9YyoG3e6+zWb7CbK9wIM3zngmsK7Qi0gpuosLm
+	1LkTKSglxCIAzFaE/x1+dseUQwuAMeSGc7SaQkp/x7YTwDRKEkjB8LBVJKaLyKHNcy4BJqqsobT
+	5h+UDXSJbRahH1WWVPNZAl8NO8KuIImn4t9PmxhLFIslXwwk8eSvCoOEVUdWV0/jAD02tPKRPKV
+	Y7o+EaM2HzoZT8jOHC4uwrvPrYWSPZFYIMS1PC82QLw6fL84rGMDH4xJX0Mw++VTKFexYhQ==
+X-Received: by 2002:a17:90b:4a48:b0:3b4:1884:984c with SMTP id 98e67ed59e1d1-3b41c7b573amr9780741a91.6.1795413680928;
+        Sun, 22 Nov 2026 22:01:20 -0800 (PST)
+X-Received: by 2002:a17:90b:4a48:b0:3b4:1884:984c with SMTP id 98e67ed59e1d1-3b41c7b573amr9780713a91.6.1795413680447;
+        Sun, 22 Nov 2026 22:01:20 -0800 (PST)
 Received: from [10.64.68.243] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f1207f1sm46286895ad.64.2026.11.22.21.59.20
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41adcfe16sm16426806a91.17.2026.11.22.22.01.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Nov 2026 21:59:26 -0800 (PST)
-Message-ID: <81dbfe3f-c88f-4fcf-a460-ba3376d736e9@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 13:59:18 +0800
+        Sun, 22 Nov 2026 22:01:19 -0800 (PST)
+Message-ID: <20276ae3-9b8c-46b4-9ddf-ffb39bfc3b0f@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 14:01:12 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,7 +116,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/6] dt-bindings: soc: qcom: add QDCP provider
+Subject: Re: [PATCH RFC 3/6] dt-bindings: arm: qcom: add QDCP STM source
 To: Krzysztof Kozlowski <krzk@kernel.org>,
         Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>,
@@ -136,146 +136,149 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-arm-kernel@lists.infradead.org,
         linux-stm32@st-md-mailman.stormreply.com
 References: <20261119-introduce-qcom-qecp-feature-v1-0-b1a730d2c57a@oss.qualcomm.com>
- <20261119-introduce-qcom-qecp-feature-v1-1-b1a730d2c57a@oss.qualcomm.com>
- <d0dd4fad-2f56-456a-91ee-737af0f3b4e6@kernel.org>
+ <20261119-introduce-qcom-qecp-feature-v1-3-b1a730d2c57a@oss.qualcomm.com>
+ <30c74f5e-cd18-445a-964b-b839fc077b25@kernel.org>
 Content-Language: en-US
 From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <d0dd4fad-2f56-456a-91ee-737af0f3b4e6@kernel.org>
+In-Reply-To: <30c74f5e-cd18-445a-964b-b839fc077b25@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: CIMe438haFcNabWOg-EB4nRiaVv71goO
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAyMyBTYWx0ZWRfX2iaJn4YJdCgz
- 5ZTWBIRbdNicsKBZXAiM6bBFDXHJOoTgf2MlVOZZtVsyNwNnrcDhLfF9Wp6vyTDz9mF/7AisLS2
- YJguQusToU94ptJ7Dnx5s5suFoIvP98=
-X-Proofpoint-ORIG-GUID: CIMe438haFcNabWOg-EB4nRiaVv71goO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAyMyBTYWx0ZWRfX7tAPzth1vN97
- ZIDLBWy9g8mXVKgEvnoqJwLRBfb7T1sqzyRlH1tftiWm64v9Fu2Sq+DRMjgHAp7GE17kkYCWdhz
- wvICo83o76tcVANvMJBbG6N1RCZ8nBkBzXokC3oZlq1dNvjkOi8Vc64ofpcr7j8I5Zz5QJwgBVQ
- mK41OUFow0vHGGlKgldzV4Uq2HkPvptIJvASCwXTwesxi5aF4V+TBBCW/a4crR+VP18NXu3caIR
- 4VEV6TsFvosvwjjfioIbR5tvgwqJ60wAM6GWDaweKC6IDBULSys3LEI9PbK+3fsrsR6XvLtlr2l
- wDaywDaTFZ9sW1ugeKWFt1pwmuAQdyP5MgL4ripggNQeZINSkH3kbucwes8OwLRIN96gy3oJEvO
- xSFhc7u7nSRxH9JRxQqWrFNxJLrAhuPYcbnGTV8ENyb6QsktadC+49R00pFW9CgzfQSmES01WtC
- t46nYFTHPaoj4gx+kJw==
-X-Authority-Analysis: v=2.4 cv=UbHE26SN c=1 sm=1 tr=0 ts=6b03d640 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAyMyBTYWx0ZWRfXxu7bVFFN8Q2O
+ gqxnH7ajKcIpjdGxZ4GbFSRvWPCdu5zW/yJB131CjZB/9C57JHwxLn0skG9qnr1vn1frH2lcRR3
+ eKRhHThRkYC2Lsw0krckemWqH7F+/yNey24yeQRDHYko9kKfIVdAp1GuEXwPDORAyYSpiyS6cPi
+ PZ5hwwYT6W7R7KzrppQYBBwXucghuulgpWePx/2k2Dyj8klYQDp7tnY2f41bJsx/AvG8Fl3D41t
+ x5sRIT4cOmJZ0RTryzsJ0qMxPgiFf9FRT8ZdbVeiDz4SSErA0v8v7JzfemZkErCGcDax9YEdRoq
+ kTaBEXPz6k/qsdGLB24k7oWb46/ml4NQSWHuu+i9AbcYgdx0rdE9vvDaQ00syGryOWtA6bGS5Iq
+ 49Ro2uCXzRvdJ0KhWpH2TJpJReOVTcw01rHOxcQZ9mnEx4ij3yps4+X0JR4FjR9c1o6RT1KDX/Z
+ 77mFS9FchLOU1Tl/nfQ==
+X-Authority-Analysis: v=2.4 cv=OM+yTiaB c=1 sm=1 tr=0 ts=6b03d6b2 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=uD7aXjGElm0TJE3nPE0A:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=q_CrVRYiZK5X_reCBHkA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAyMyBTYWx0ZWRfX+XfNtsTdoSrh
+ rDFKGPEtwZAaR4omp9asdCuuDJmv8UApsUDgDar+jpGMQLNwcWC6gzr13JHA2LOJGpA1w6vdSHF
+ ok9Kzjwh1YG+y8JvJl9xXvtdhZaB0cM=
+X-Proofpoint-GUID: eAhH5GcGCxMooREv3IuoeE_It882XWrA
+X-Proofpoint-ORIG-GUID: eAhH5GcGCxMooREv3IuoeE_It882XWrA
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-23_01,2026-11-22_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 phishscore=0 malwarescore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230023
+ clxscore=1015 phishscore=0 adultscore=0 impostorscore=0 bulkscore=0
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611230023
 
 
 
-On 11/19/2026 10:00 PM, Krzysztof Kozlowski wrote:
+On 11/19/2026 10:02 PM, Krzysztof Kozlowski wrote:
 > On 19/11/2026 10:01, Jie Gan wrote:
->> Document the Qualcomm Debug Control Protocol (QDCP) firmware provider
->> node used by CoreSight debug and trace blocks that are owned by the
->> Qualcomm Embedded Co-Processor (QECP), a separate on-die processor that
->> runs its own firmware. QDCP is the QMI (Qualcomm MSM Interface) service,
->> carried over QRTR (Qualcomm IPC Router), that Linux uses to ask QECP
->> firmware to control those blocks.
+>> Document the Qualcomm QDCP-backed CoreSight STM (System Trace Macrocell)
+>> source, for platforms where the STM control registers are owned by
+>> Qualcomm Embedded Co-Processor (QECP) firmware instead of the
+>> application processor (AP).
 >>
->> The provider is a Qualcomm platform/QMI service node, not a CoreSight
->> graph device. It exposes the qcom,qdcp compatible along with
->> per-connection QMI service/instance identifiers; the QMI service
->> version is the only optional identifier, defaulting to 1.
+>> The node describes only the STM stimulus aperture, the MMIO region the
+>> AP writes trace data to. Firmware controls the STM through the Qualcomm
+>> Debug Control Protocol (QDCP) provider referenced by the qcom,qdcp
+>> phandle. Firmware also controls the block's clocks and power, so the
+>> binding has no clocks or power-domains properties.
+>>
+>> The output port must have an endpoint so the source can be connected to
+>> a trace sink.
 >>
 >> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 >> ---
->>   .../devicetree/bindings/soc/qcom/qcom,qdcp.yaml    | 81 ++++++++++++++++++++++
->>   1 file changed, 81 insertions(+)
+>>   .../bindings/arm/qcom,coresight-stm-qdcp.yaml      | 111 +++++++++++++++++++++
+>>   1 file changed, 111 insertions(+)
 >>
->> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,qdcp.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,qdcp.yaml
+>> diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-stm-qdcp.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-stm-qdcp.yaml
 >> new file mode 100644
->> index 000000000000..ee0a66b12dde
+>> index 000000000000..f365ce2450ad
 >> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,qdcp.yaml
->> @@ -0,0 +1,81 @@
+>> +++ b/Documentation/devicetree/bindings/arm/qcom,coresight-stm-qdcp.yaml
+>> @@ -0,0 +1,111 @@
 >> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
 >> +%YAML 1.2
 >> +---
->> +$id: http://devicetree.org/schemas/soc/qcom/qcom,qdcp.yaml#
+>> +$id: http://devicetree.org/schemas/arm/qcom,coresight-stm-qdcp.yaml#
 >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 >> +
->> +title: Qualcomm Debug Control Protocol (QDCP) provider
+>> +title: Qualcomm QDCP-backed CoreSight STM source
 >> +
 >> +maintainers:
 >> +  - Jie Gan <jie.gan@oss.qualcomm.com>
 >> +
 >> +description: |
->> +  QDCP is a QMI-based firmware provider used to control CoreSight trace
->> +  blocks that are owned by the Qualcomm Embedded Co-Processor (QECP) rather
->> +  than the application processor (AP). CoreSight-facing consumers look up
->> +  the provider through a "qcom,qdcp" phandle, naming a specific
->> +  "connection-N" child node rather than the top-level provider node, and
->> +  issue typed firmware requests instead of programming registers directly.
+>> +  The System Trace Macrocell (STM) is a CoreSight trace source designed for
+>> +  high-bandwidth trace of software instrumentation, made up of memory-mapped
+>> +  writes to the STM stimulus aperture.
 >> +
->> +  This node does not represent a CoreSight graph device. It is a platform
->> +  driver that establishes the QMI connections used by consumer drivers such
->> +  as the Qualcomm QDCP STM source and QDCP-backed TMC/ETR sink.
+>> +  On Qualcomm platforms where the STM control registers are owned by QECP
+>> +  firmware, this binding describes an STM whose stimulus aperture is mapped by
+>> +  the application processor for data writes, while enabling and disabling the
+>> +  trace path is delegated to firmware over the Qualcomm Debug Control Protocol
+>> +  (QDCP). It references a QDCP provider through the "qcom,qdcp" phandle rather
+>> +  than exposing the STM programming registers directly.
 >> +
->> +  QECP exposes more than one independent QMI service (for example, a
->> +  separate service used by remote ETM/diag sources). Each QMI connection is
->> +  described as a child node of the "qcom,qdcp" node rather than as a
->> +  property of the node itself, so a single provider device can establish
->> +  more than one connection. A node without any "connection-N" child is valid
->> +  but provides nothing for consumers to reference.
+>> +select:
+>> +  properties:
+>> +    compatible:
+>> +      contains:
+>> +        const: qcom,coresight-stm-qdcp
+>> +  required:
+>> +    - compatible
 >> +
 >> +properties:
->> +  compatible:
->> +    const: qcom,qdcp
+>> +  $nodename:
+>> +    pattern: "^stm(@[0-9a-f]+)$"
 > 
-> Standard comment - compatibles are not supposed to be generic. That's
-> why you have entire commit msg to explain any oddities or deviations
-> from common rules.
-> 
-> 
-> No resources here, so this does not look like separate device.
+> That's RFC, so maybe you do not expect review. Explain in cover letter
+> as the most important part what do you expect from us.
 
-Thanks for the comments. I agree that we should introduce a 
-device-specific compatible string with the corresponding match data. The 
-instance, service ID, and version are resources specific to each device.
+Acked. I should focus on introduce the design idea in coverletter for RFC.
 
 Thanks,
 Jie
 
 > 
+> Anyway, drop, I do not see how is this conforming to DT spec.
+> 
+> 
 >> +
->> +patternProperties:
->> +  "^connection-[0-9]+$":
->> +    type: object
+>> +  compatible:
+>> +    const: qcom,coresight-stm-qdcp
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  reg-names:
+>> +    items:
+>> +      - const: stm-stimulus-base
+>> +
+>> +  qcom,qdcp:
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
 >> +    description:
->> +      A single QMI connection established by the QDCP provider. Consumers
->> +      reference this child node directly via their "qcom,qdcp" phandle, not
->> +      the top-level provider node.
->> +
->> +    properties:
->> +      qcom,service-id:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        description:
->> +          QMI service identifier for this connection.
->> +
->> +      qcom,version:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        default: 1
->> +        description:
->> +          QMI service version for this connection.
->> +
->> +      qcom,instance-id:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        description:
->> +          QMI instance identifier for this connection.
->> +
+>> +      Phandle to the specific "connection-N" child node of the QDCP
+>> +      provider (see qcom,qdcp.yaml) that owns this STM's control registers
+>> +      and services the firmware enable/disable transactions. This must
+>> +      reference the connection child node directly, not the top-level
+>> +      QDCP provider node itself.
 > 
-> Please don't describe firmware contents as random integers in DT.
+> No, the QDCP is just part of this device.
 > 
+> 
+>> +
+>> +  qcom,qdcp-source-id:
+>> +    $ref: /schemas/types.yaml#/definitions/uint64
+>> +    description:
+>> +      QECP firmware source identifier for this STM, used to address it in QDCP
+>> +      transactions.
+> 
+> Drop, we don't allow instance IDs.
 > 
 > Best regards,
 > Krzysztof
