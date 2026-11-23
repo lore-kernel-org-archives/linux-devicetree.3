@@ -1,97 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795438037;
-	b=g3GgfYBHrOU0kETxB6AFm1g2MFGO0KIqZf2N2RuD6O5ucWA34Mzq+21FPAsOVN77Fa+y
-	 DHrjTBlvdPzWJ6e3jevBkqzmsfTCdwPd1IUgBdZ17ijBzQ75hvthIS3ryLspy/0OEFW/Q
-	 VnbpWEMSbwOOWpG7yltmW4Buk2Y5fcaEkq0x4KMSzKfGYwGcewg2rHY1xMebnc7JBWuRv
-	 1T77M4Y7gt8kZ5WTJAaXwX+oDiDw2jdt26PX0MLF1t4KVsky0G2nIB+/Xe32eizo3eUXd
-	 YOQ9GjUZV/WBQ2fyq5ytMGKjb4UD9RAEtTlrKGa0Xgj+5OP1pcSLyG/unawBarUulRw==
+	t=1795438095;
+	b=xt0u5svDwkH2NLPvjZm/l31dlEId1girNXUJ+ONXaZep2F7g1v4K02S4xjoIpawbh4MS
+	 mkK6PEYkkcRveHYYqIavxCyEz2h10EA557jOWnrixImMoHajW+oE+FRQLjuIY/ISncBFu
+	 K6j0qOB/fDkoF5AHsjsOh2DAd6X2GDuIURkVcP7gJFEbZ6TKepzMTM1rda1V8Nm1boabg
+	 GGffv5xZDGvrPPdnVgEX/01Qxu7GCL4cvgQp/2z+3ZbQtFntB7QTHRI7aFzyWPAQMCDRo
+	 2CJ1szI2WyvO675OL0QU04eXF5P3eg2/z1Gnnr4b7m6xvs8sXMcNIb+5b11Y4w87q0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795438037;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZVO8QU6aaInlhKIohIqrjiN9QqnCTSKNv3BTArRdkBM=;
-	b=TC+Aj66FDeH19tlFnizzG1GDQfpF8+EURi6vqhRn3XY5gLQNv/IiHW8OdhdoVFwS4ePm
-	 3Yk1kfaOtfnFds53Y1+qMTBkcr2SJZhpvwigd7eCNFcaSUwV10bH+MtHILzLjCqWp8yD0
-	 OBpjrRmVhBxC9Cay4SnoUv1FKgfl5Jb2uNuFZisPH4voDyqBm9gWjLyU5syST7BihaZxD
-	 Ng8DqUI9N8ZTd1oWTS97+iMXanJP1LyioNFTRIzPEeU8QuqEE2jva6QNktukl3QK7/D8c
-	 i1+0t6lGLI332gyflzGCzHChtXYqp1ywHIWiLnjea2vyZE1YZWh6UXbxCDXPuBGPZ7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795438095;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:
+	 X-Last-TLS-Session-Version;
+	bh=KYlDHaU0d0BcNbHJgBpvpRlrSDERAzx5Le8G4/1rMoY=;
+	b=2EA7rIOdu0QTLLO1/GxdHoZbthobFBakXnlI7oU1YTSIVY5kGk/xXb45KplAsfEToLaK
+	 z+QdbKpJUNOIDfANQ8kZ+Vl4H17K76zVc7Ak3YRYXi0nnsBO6yXj2P06IJIYDrZ2/7CUN
+	 OiI2eSun7EgsWDiHU2bIyfDnS/hBLSIEaaO6MUhn/mJOuc9ZxJqMfXSG64HKjmv6MydvE
+	 b4KDbS3fgj0xT9GGPs4ZhD2WUtuSY0q9amU2J5Jm6awG8SqtWM0LpLvuGJnQH6RKCd9y5
+	 WGj4DQpOCrB5zudV3X3XyyaA6DBYSCc8AxX6P04NTlnKf4vzsheHMNZIoRzdGkeCF2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QdoBDMDk;
-	arc=none smtp.remote-ip=209.85.167.173
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=e8iUMloO;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE53606A327
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:47:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEE53606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D75C606A330
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:48:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D75C606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QdoBDMDk
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-57309bd40b1so1755899b6e.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 04:47:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795438035; x=1796042835; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZVO8QU6aaInlhKIohIqrjiN9QqnCTSKNv3BTArRdkBM=;
-        b=QdoBDMDkTwWoMibB3nGc13HUaEw1mJUf8C6D9sn0HZ9pF0FF9+4RhzNOJfuASXfJGt
-         kO5ApXyzdXHZt/B8kOaM33uSKVhfGbcnAKjknpbIHTp6Yo0ReVwFvkP1Is0PhIOhKdUW
-         aw6zak5dWbkxOgTbOQ1qFPvy4ubuzll/J/lS1mXegS0vtkVm9ED4CDhLlDSdHbCc8lhh
-         6dG8bG1pl4ncJUjQG6k7Mdd5lJYv41jZUdvoGkfdvcm15Pui4xgeZ2isuenrj6pKm/x5
-         WRuKxiAEGQwMe7Cjk72p+Dfid1g8TUBmpuO4k4D9gyBQg5YosHKOCusGgfrHjJW/cWd7
-         TXPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795438035; x=1796042835;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZVO8QU6aaInlhKIohIqrjiN9QqnCTSKNv3BTArRdkBM=;
-        b=0pkG4W8WcC6NvxnkDLILXk9d9wZoJDrwW+VuU+C/xEeF+yO7AFTxErUBwzIU6JhdG7
-         4NrQPClhzLvIHeVDNjslyBJPNn3eiI7Sinj4eqJNVrZYD20jZYBAJhaDGkMN6IosvAmH
-         D2So8Z+whjAQFw7gdjCj72jo2HyOIHwqGKXCxLGucV9LmGw6c9d0haQVQE1rjTPWevFP
-         bBPeZ2Rr5thw3PcZs7TlgES4X/11Q0mPbcuTbYKFyBESyBi0W+oOO4g0MQ4AAjAabAV7
-         ES4NckjoZGBVXFAFXLVKiI3BHGbOESqchAd5MTBJlHeQ8Nncjc5BDPj2TV/tK9UI/niO
-         BAwA==
-X-Forwarded-Encrypted: i=1; AL+hErHowTZMB/O0quX8bfvw1c7k68z8RpBFcjmd3gh8JcERf7rIxtWjBy8iQSR24ETXtwcj/qkEkB2fKPK/@vger.kernel.org
-X-Gm-Message-State: APuU4Z9B9FiDOhrcx7jiSWuqDq8M20UcliuprH0Tjo4aCmSNSaZ6i2Rp
-	xX7z9tXp+fw0L//lo481XHarkCIeqBoYH5P3/LtCZLPKmyCca2MoXbuG
-X-Gm-Gg: AZFdTZeVjLgm4lVNO6oIxulJSZ2rO7ZnSj7zZhDRdLhxcQnmznLmih3UEIunlmh/lRt
-	2CLS6pgk3GrzFgkpJAPClvvIPwJlp3WAcqgg5g4IPJtA2LK4uOJljagEu11N+Z3JKekc43sEdwl
-	aI9gxVt3mPPNw3hHdvJ6QuD9EKSmRMU3VQ3LTezypfXhx6XADc61IOX5Av1R//7P34WRRS7or63
-	LeTflCD9gKxJHxPD2pvzN6Poa9dTKzxj2MiDORell33t4/VTKqt74Z6YT9mmvVzRvx1FsBuRXrx
-	KK6dFMbyLsPYGnu8Qz+sEPRj+P2qJaGYBm/JlnoFhPgMj5V8EmH2KLM6DIbVALPwQuqyEJOrJYU
-	i8JbQwj9Wc+KxXgU3RbT/4EZDFpXTqDQs05KJlq9ZbRw5/n8qx8O1NiQvqVdOtS3JrUOtXYkpoM
-	zV6/nKdJchYa4KAiNHnKgglGw/+ffczMxVb7ql380DZCBKObm0UrYegSqQEAuVwPDRzWIVizeCO
-	2KTJ86SRixG5OP0ZYc5WfV4UbsGueGbhjXnoOVUnVIEpUZ0psM1NX7mOpH8BqEPUMHqrMQJF22b
-	tj1U6LxL0iJ7yaSTm6RuqY/JxTZx
-X-Received: by 2002:a05:6808:2224:b0:563:e8b6:c5d5 with SMTP id 5614622812f47-57a0bd98885mr12866171b6e.44.1795438035324;
-        Mon, 23 Nov 2026 04:47:15 -0800 (PST)
-Received: from duge-G3-3500 ([183.192.223.84])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a34250ef2sm9385288b6e.3.2026.11.23.04.47.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 04:47:15 -0800 (PST)
-Date: Mon, 23 Nov 2026 20:47:04 +0800
-From: Jiayu Du <duge1256@gmail.com>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: srini@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, dlan@kernel.org, me@ziyao.cc, aurelien@aurel32.net, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	p.zabel@pengutronix.de, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
-Message-ID: <nke33b3mdeut4fmp2noqf3xknpfvujesco44va3yamecdb722y@u66rmnx6t6gk>
-References: <20261122173810.2409146-1-duge1256@gmail.com>
- <20261122173810.2409146-3-duge1256@gmail.com>
- <DN2HD0L9B12P.2EK0R922TOV3U@linux.spacemit.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=e8iUMloO
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9107D1A1797;
+	Mon, 23 Nov 2026 12:48:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5D6D7601E1;
+	Mon, 23 Nov 2026 12:48:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 73FB511E68F49;
+	Mon, 23 Nov 2026 13:48:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795438087; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=KYlDHaU0d0BcNbHJgBpvpRlrSDERAzx5Le8G4/1rMoY=;
+	b=e8iUMloOyNJ5zVEl5crV5boCsvIE2wqWJbvWJD1T/kqsFeIKQNBGWqNcHnCOFXGUiNYLY+
+	sGj+sEJ5Ef750Gq6UB03oHHNijrhoaM5+i268AOMVpa/UREepJVHTthHBtSm40OECGKN4t
+	g4f7lblY4VI/EFFs4FdqwdpjwEXfiD3wdu0OgDrBuHtqLrl6u3mdU9oy+Jwfc3MZpP+Yav
+	qsseEMREUtf7fFvyWmDhSPmsj9JNcTfkkFx9omDo3/Qiuc4GM/ukV1G8O29b88Lm+TixkG
+	8u07UvH8Zj746anst5Kk2/7wkKrVQefA/k0euVl7MVC8n6xWdRN7h2TnbhjcSA==
+Message-ID: <06c5bb031304c493763b829899211cb46efb96f8.camel@bootlin.com>
+Subject: Re: [PATCH v3 0/2] mailbox: Add Marvell MHU driver
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, Sunil Kovvuri Goutham	
+ <sgoutham@marvell.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Date: Mon, 23 Nov 2026 13:48:02 +0100
+In-Reply-To: <20261123094542.44101-1-paul.cercueil@bootlin.com>
+References: <20261123094542.44101-1-paul.cercueil@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,31 +75,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DN2HD0L9B12P.2EK0R922TOV3U@linux.spacemit.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Nov 23, 2026 at 09:24:52AM +0000, Troy Mitchell wrote:
-> On Mon, 23 Nov 2026 01:38:09 +0800, Jiayu Du wrote:
-> > Reload the shadows during probe and cache the data for subsequent reads.
-> > Use a 512-byte NVMEM space with bank-based offsets and keepouts for the
-> > other banks.
-> 
-> v2 said why only banks 0 and 7 are exposed, here and in a comment
-> above k3_efuse_keepouts. v3 drops both. Banks 1 and 2 hold the root
-> key and the SSK, so please keep that explanation.
-> 
-> [...]
-> >
-> > +static const struct nvmem_keepout k3_efuse_keepouts[] = {
-> 
-> The comment belongs here.
-
-Thanks, I'll restore the explanation in both the commit message and the
-comment above k3_efuse_keepouts in v4. I'll wait for feedback from the
-other reviewers before sending it.
-
-Regards,
-Jiayu Du
-
+WW91IGNhbiBpZ25vcmUgdGhpcyB2My4KCkl0IGRvZXMgbm90IGNvbXBpbGUgYWx3YXlzIHdpdGgg
+Q09NUElMRV9URVNULCBzbyBJJ2xsIHNlbmQgYSB2NC4KCkNoZWVycywKLVBhdWwKCkxlIGx1bmRp
+IDIzIG5vdmVtYnJlIDIwMjYgw6AgMTA6NDUgKzAxMDAsIFBhdWwgQ2VyY3VlaWwgYSDDqWNyaXTC
+oDoKPiBIaSBKYXNzaSwKPiAKPiBUaGlzIGlzIHRoZSB2MyBvZiBteSBwYXRjaHNldCB0aGF0IGFk
+ZHMgc3VwcG9ydCBmb3IgdGhlIG1haWxib3ggZm91bmQgaW4KPiB0aGUgT2N0ZW9uVFggYW5kIE9j
+dGVvblRYMiBiYXNlZCBTb0NzLCB3aGljaCBpcyB1c2VkIGZvciBTQ01JCj4gY29tbXVuaWNhdGlv
+bi4KPiAKPiBUaGlzIHYzIGZpeGVzIGEgZmV3IHRoaW5ncyB0aGF0IFNhc2hpa28gY29tcGxhaW5l
+ZCBhYm91dC4KPiAKPiBDaGFuZ2VzIGluIHYzOgo+IAo+IFsyLzJdOgo+IMKgLSBSZXF1ZXN0IGFu
+IGludGVycnVwdCB2ZWN0b3Igb2YgZXhhY3RseSAzIGludGVycnVwdHMKPiDCoC0gUGFzcyBJUlFG
+X05PX0FVVE9FTiB0byBkZXZtX3JlcXVlc3RfaXJxKCkKPiDCoC0gSW52ZXJ0IHN1Y2Nlc3MgY29u
+ZGl0aW9uIG9mIG1ydmxfbWh1X2xhc3RfdHhfZG9uZSgpCj4gCj4gQ2hlZXJzLAo+IC1QYXVsCj4g
+Cj4gR2VvcmdlIENoZXJpYW4gKDIpOgo+IMKgIGR0LWJpbmRpbmdzOiBtYWlsYm94OiBhZGQgTWFy
+dmVsbCBNSFUKPiDCoCBtYWlsYm94OiBtYXJ2ZWxsLW1odTogYWRkIE1hcnZlbGwgTUhVIGRyaXZl
+cgo+IAo+IMKgLi4uL2JpbmRpbmdzL21haWxib3gvbWFydmVsbCxtaHUueWFtbMKgwqDCoMKgwqDC
+oMKgwqAgfMKgIDYxICsrKysrCj4gwqBNQUlOVEFJTkVSU8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDcgKwo+
+IMKgZHJpdmVycy9tYWlsYm94L0tjb25maWfCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCB8wqAgMTEgKwo+IMKgZHJpdmVycy9tYWlsYm94L01ha2VmaWxlwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDIgKwo+IMKgZHJpdmVy
+cy9tYWlsYm94L21hcnZlbGxfbWh1LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
+IDIzOCArKysrKysrKysrKysrKysrKysKPiDCoDUgZmlsZXMgY2hhbmdlZCwgMzE5IGluc2VydGlv
+bnMoKykKPiDCoGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvbWFpbGJveC9tYXJ2ZWxsLG1odS55YW1sCj4gwqBjcmVhdGUgbW9kZSAxMDA2NDQgZHJp
+dmVycy9tYWlsYm94L21hcnZlbGxfbWh1LmMK
 
