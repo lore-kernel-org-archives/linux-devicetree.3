@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795442280;
-	b=dREWGg53hFCYJkR1IhkzlHatZZYSNY6YR57YdVhw7p+0SlVkX+K86hbLmHywLq7ofsmF
-	 ryCv2BVSkh3qhvK1zuzKvydn9CbSDvnHWAxA1V5ndOxkpk5fzLpZIphHcWxBDYRkPH6UU
-	 ODT5Ppg/ISWerfcS4qLkaiquw1/JvnvjafZSRp2pRgy/4wvyAs8oE4xzvm7yYCZdj1ZeT
-	 iHqRA61uBys7gb2Mclh7DQxu/5BfluBEw1UIKdvtn3YaymKulk7PeBcPNZZIyJEa1JvI4
-	 d7EWJ4JnLg2rFKzlUeycOg1kbzgKAnwU/o01hbzdF8pkqzlz15rBjCMT7OhHNspbcOA==
+	t=1795442281;
+	b=1oe8eo/E2kzTk581zkw8Y6JlGvz0Up7HUWPU9W0AOg21deBMggRieoGm63k8xQuFuq+a
+	 9XpvZxgTgLrs3fqY7deabpRaSdfyCQsKxk2JT3FmCxg+F0gVfbBopuK740OSSF1ix9Nlg
+	 KwYlIZbEBlx6QMEdjHHQoVjG8My/nMdSb8UFPXXxeS2j4UJv03OyHYWuqyr1O3htyrP1u
+	 xztbzANrpdte+3kWPOmz2No4wwugHn9+QqrB/tOVEkOScQZEubLZZzldLjMysO74wK39V
+	 3v2vrX2eDj5ew7Ple9rk6HanYQipn/4q2n3dXZXq8+H1se1dRRIvsBXcS3904fFhqlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795442280;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795442281;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=NyaSsWAPZgC5lXTBhJenr8CDoN3h5umUpUBYZLSGCnQ=;
-	b=ChNmyloM8/CS56gXbKSj2opxjwpFpgXHdFEa5J+wBNA7IuQTzttUh8ljmDabKqL5h92n
-	 yiAaQ/c4pjf9jGpwYJ+gVsrkg94FHWPv6jVNSgO4eYLKiiNOvtBsmbtoyaGQS/HpZceku
-	 OJXtCU8vZjlOAW9/QapXmcbC8oN9+vsL0UWq7F+cWChbbTCGwke8kMvr6KW/xfPiwrnlo
-	 yPBLMzB/MFhwxJ3QnYyRWp5yGlDWZDAKEb44pj61qi8san5KaG88VKJNCwa2CSN/wCJYG
-	 WzP7wMLMjalo/lRPiupfiHaPOb4/WjeBJJi051rdw1QWXM5/noQrcLsY+5SMi1nXO5Q==
+	bh=aDsGpgT4oiUwzFQMguwS59INDZNOdr4HuQWSjUgJW9c=;
+	b=aOB7nmfsV4625pRL5gGNulQEsxGlMJdf4RelYi1LgInZzqZNwW+Ke3Bp1+xaJRFV6MzT
+	 g9b75ecV0N09qV70TaRHgbUbGJjK6f+gWPwyVzOEMxa2YNOqrA8O7W75js4kefPRNlVUF
+	 5ZIdU2tjtpyXMKuvVbNlaiT+k2Z4wnxTyDJpFHrAAFoC+DsL7XwqRVMII6JEK50B1KXOY
+	 SqBwikTNOy6JWaAHwh+YNBki7PLBCi0W/vMbviHKUHBSj+yQQFFhwCJvksGVA3ypK7HPC
+	 3/GD+PDZ80dU8/GxBx9TjL2jzJvBc9iI5ynxO8NtaSggixwYEsN+3CiPL4AHNi4hZvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wzN7U8sT;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzeZsyNx;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32CB606A681
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 13:57:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F32CB606A681
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AA9606A69A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 13:58:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1AA9606A69A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wzN7U8sT
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4ac08f4a0b2so2387991f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 05:57:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzeZsyNx
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so27755965e9.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 05:58:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795442278; x=1796047078; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NyaSsWAPZgC5lXTBhJenr8CDoN3h5umUpUBYZLSGCnQ=;
-        b=wzN7U8sTKBWE0hnIdo4hSl5mB94unptq0osmgd7FUp1WlhAnKCMGAXL3l86ygWmb7V
-         s/rQje57Vpi+05Ehs0Hc4IGwxho5PZ/5DOv16r/NCYuszsLV2pLx62EXeArjLORct3YL
-         o63K5hYqGANmph5kBH99+P1hCQ+WsV0QnIUdc/fbLZptPdgXuiF+VSK6iP7qpIBHLYt1
-         N8oXIv9CrsKz1vAPo0o5KU2KLytiauPMqliW8QMtnFR9RXo3oL5cEWPZuknt38kAUWNP
-         /Z2zfQZi7y9XRtAJcICkVggmfN+A/Iqfv8LdLOQ0Dkl5qZMvxz7uIo2/ILhZdR13rigj
-         zQoQ==
+        d=gmail.com; s=20260707; t=1795442279; x=1796047079; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aDsGpgT4oiUwzFQMguwS59INDZNOdr4HuQWSjUgJW9c=;
+        b=pzeZsyNxCcSLOvb5ZTiPqotXWgZtNU1ZgFRQEJjq1w7SFLFw6shqlo59UlRkGvvDO8
+         F+nUElgorIUrWtcyoFWcwo4AwqvTEixKT2WH9KTdgOqbdMrb4VeEi38bJ4Yjl4nxRsYr
+         eoX0w7bSg62grmuK7CXBRNhjBhLzrGa33xubOiye+ebPHHZn+kyHdliJQEaT8kkF4oqa
+         1MEBMze4fuXpQA299zcgYnHH/741b6OYSZABpqt+aIqt+fCTPtbzWjw9F7WWqfiuXbgU
+         +EV7yklakZpvtcMZHg9GMgDETZ+yh27HtlkA7fyvzOvd4+ip1C5xv8Vj4dLEbnqM/vq0
+         umdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795442278; x=1796047078;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NyaSsWAPZgC5lXTBhJenr8CDoN3h5umUpUBYZLSGCnQ=;
-        b=axEr+8DYrLimskfT2ebSq+AbEA7Cww9S1kclgkkEph4oFx7rtYjzzj6E/pD73rH1iT
-         ADsxT8PTxKOA/y/HYQsnHthNg1xLOIQ9zVqD82nP17IyPDPOynOISB7MR6Rzv2VJHi65
-         kIAuAy6Dmipp9oe8NHc+5FRlVWlyMA/45oLGQ/TTTQaUQB4hmevAhpFv+bTEom+h9tDH
-         EBA/X2hm1ehHTYwm6/lkExyFXUzcL4d1x1UNVs8IO0G1WR9m0M9vq4By15tGr3Oo6H90
-         l4QfwvRCI6h5YgXqEd7rkMIwHn657hOWctjcgaVGYKiS1/aB9XGE+k4RQYk6I1gUudtG
-         +m2Q==
-X-Forwarded-Encrypted: i=1; AL+hErGLnFNNPyAtqIIdDuvZqx1lj/A7POsMYWRo8XmtRU+cih7td6KwdkyGU0u5rDVDJTPx8LoGM09q4wZw@vger.kernel.org
-X-Gm-Message-State: APuU4Z85usQUvOA7CEf4oacUjiocN+buZk639lZz6e8w2yTfYGoFRX9G
-	YtS7LuIjyawPuYDTswxPRA8CmfhXSi50gI9Nq24fl94bDMT1OhRgZYlC
-X-Gm-Gg: AZFdTZexSxihuue6WtGxkTK5wlI6tSG1ekb/qBreMOyd5uGv97CTUnHsRR8+yZqGpGW
-	ppOabdte8fIQ+ARxI2v8CwWFPSHCdim85upp6PtWDBBaGJihONgUHJCP4sPQlpK59Ig96vKfArs
-	Ld7EVtUnP7MnceEdzj30Smradqji5mAUKT9yAv4/rXrwynxxMpIQ6VVVxNBl3KE8QHC0cvfZh2Q
-	StHCyIiFrXQvUy4nkiUaGC+gKEf2jIeklyB0jVQy3bXxzogDssBQccQYCEJ+JjUTyd2QFF2i6z9
-	tpUieDSAKcCEYIFIbCq0XEPKkYPhy1oWBaMy3QVI6SXas98s1l8iuIgUQEtVi/43cObmdopU7zT
-	Urnf3AAiprXNlLybak/KGE7OpwZ8SW/cTL/wlldQtJx2sLwwjcBcO5HBTk0/Y+6FYTE6TBUefZC
-	7UGYsJtgBi+jMg5KpCJm8yzjhstKfy31FJRhocDhi6uXwC6cpd0mnArMgETBFaVtM9NPz97NM5E
-	xBms+4CZZjEUxniO30eT/eg2vFx4XNpGuM6vMkC6omj8GCkKdrw5We+fL0odg4bXkpiS8YLCLme
-	aOZHNg1uKhlrmFYtRoL9vYHTuNYQbkJnloDVhuErv90yllmcys1T798wAfR+y2DFBA==
-X-Received: by 2002:a5d:5d10:0:b0:4a7:f82a:7f6d with SMTP id ffacd0b85a97d-4abaa9769demr24794089f8f.6.1795442278093;
-        Mon, 23 Nov 2026 05:57:58 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795442279; x=1796047079;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aDsGpgT4oiUwzFQMguwS59INDZNOdr4HuQWSjUgJW9c=;
+        b=X71ShmXaf6Wt1+7zox4mJqZ26oxFo8qqtgqi4K/sAOY0u+m1ds6REuA8FC3hcImZln
+         AypZuFQEPXTROIKliCjrf6bxe/eDiFpqGt3ewLoGGcKLbrKH5ebFMwQ1E4iNTes4D+q4
+         D2vtB9Log2tVrSiQktdBmN8MQCoKm6QXUTbODsA/fTFq70l+0qH8cX2jckgQ0P19s2OS
+         +Hl7mcL/ZpKDsCzLTCeRooMnRzmWPXVjiWtNryfWUZDcmkULRdTtT5X13hrhrwAL0FkL
+         MkfHRxyQtUtW/PBEV/vW5XGVGoRnWrZcl3gxDIGZ8evs6BgR78/WleSbrrc3xk40NfdJ
+         J+Sw==
+X-Forwarded-Encrypted: i=1; AL+hErFX+HHEirnZXd46+p/AVcLMkaFjcYVTxhXc2uxl6pAaP9j7CGwuZFpVL1ToK97vhg/irxHOdQ2oklNu@vger.kernel.org
+X-Gm-Message-State: APuU4Z+EF1U+XTr6ZSItTzirt02GRcmqYRlSroa7fk7/EwgAKKEw6w+E
+	j6kyEI53htxfLI+HYUrl5yZgb6pQJo0K8JTFJhqlP+FZqn1WFEdBPo2F
+X-Gm-Gg: AZFdTZc0UgYRZQtfAgZCMBH7nl6RejGhveftVW7tqFhf1JO44qQ3e+yE8d0FWX3U83l
+	URtkjNRsJvW7eM6D/FA0WlXhlJYcA+gh7Yjx/yiVnNuJ23vbc1PNlrSDsPpS8BvRIndd+7rKBPK
+	5WfFQnuc4BL+2FLfQ8Enx0uKqre0Tl7CCRCHEtk9O44RYpvNJ6YSvqBMu/oiVFeBphQ1l9NlxlK
+	JTd7tGr/KCgYIc3m5mmKX28Sb3FneNTTuSB2eWKD/MGvpieOMWitVaxsTFDJHqXu7C7q9bAoMjb
+	anaaAi5u188RhBDCbUkidVNHwJrlISqCns85K21fL2u2EafKzBsmxUEhcEz9v02V/cqiDMQkhMM
+	FydT2Yk9wUUryYu8tV6ohm1Be6Q2QrSqKB4OwmWXJrraCl0DOlDGAjs+JC4X52StXzBH8uH1+vT
+	4LGnTJIRnSOwdRnU5BX5exVAs6GSGvTwXu+m7Y+2hwOrwMy2ofq0Wm70nBsIYVajrB7jdC2dw2a
+	w0+ut1JFD4CCKA4DPO/RwPv0iVHlPiCwDT+6Zbuy9t5A9zKNqeJG4NIBe+jRQQk5JLfoWOIRptv
+	r5+L5emJn14ZTAUklYWqlQb30lGzxNb7JEuId4hvtd77laaqPGjYusqoSojwwdVS6w==
+X-Received: by 2002:a05:600c:4e0b:b0:4bb:6f45:2a79 with SMTP id 5b1f17b1804b1-4bb88817920mr259820585e9.22.1795442279068;
+        Mon, 23 Nov 2026 05:57:59 -0800 (PST)
 Received: from [127.0.1.1] ([2a00:23c4:a702:d301:d6f4:1401:6558:1dff])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b110c3csm22109308f8f.36.2026.11.23.05.57.57
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b110c3csm22109308f8f.36.2026.11.23.05.57.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 05:57:57 -0800 (PST)
+        Mon, 23 Nov 2026 05:57:58 -0800 (PST)
 From: Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v2 0/3] Enable RZ/G3L SDHI
-Date: Mon, 23 Nov 2026 13:57:52 +0000
-Message-Id: <20261123-sdhi_rzg3l-v2-0-bad3a6358849@bp.renesas.com>
+Date: Mon, 23 Nov 2026 13:57:53 +0000
+Subject: [PATCH v2 1/3] arm64: dts: renesas: r9a08g046: Add SDHI nodes for
+ RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,56 +95,258 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGBGBGsC/23MywrCMBCF4VcpszYlSbFFV76HFMll0gxoWzIS1
- JJ3N3bt8j9wvg0YEyHDudkgYSamZa6hDw24aOYJBfnaoKXulVJasI90S5+puwuUbvA2DC54D/W
- wJgz02rHrWDsSP5f03u2sfutfJishhTOdtFqeenX0F7u2CWdkw61bHjCWUr6C+u8sqQAAAA==
+Message-Id: <20261123-sdhi_rzg3l-v2-1-bad3a6358849@bp.renesas.com>
+References: <20261123-sdhi_rzg3l-v2-0-bad3a6358849@bp.renesas.com>
+In-Reply-To: <20261123-sdhi_rzg3l-v2-0-bad3a6358849@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>, 
  Magnus Damm <magnus.damm@gmail.com>, 
  Wolfram Sang <wsa+renesas@sang-engineering.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
- Geert Uytterhoeven <geert@linux-m68k.org>
+ linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795442277; l=1266;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795442277; l=6931;
  i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=nfHK27eamabda+l4/yT+G4It55FfV4xdF374TgHVIUY=;
- b=jF4MLo3rk6NOxho8MwZU8an6T6CD2cpRrIil80n/V1/95q9+MXJEWUH3U9O375bYUx7mDdjCa
- onZ4gKACfplDkOhk+Q1Hx7o57ZOt1V2HaE+d3yv/6W7VRWvHy08GO0p
+ bh=ocrWc0zB2k+scyvCAQsjt8c4dk1BRCOtrssBM2yNUqw=;
+ b=MOD6Ih9GZIFcC0onSOpAMdIiFWq3REAwC1cHuZiQtioKYWJXR9RqiU8sy0DPZEGnn5wEUVXSH
+ aLVicdAlN6yBYt4lhtKHoNZlT3hMh+yyffpQVD/q6yH3ktvHsUUvxir
 X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
  pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
 
-This patch series enable eMMC on SDHI0 and SDHI1 on SDHI2
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-This patch series is depend upon [1]
-[1] https://lore.kernel.org/all/20261104-usb_rzg3l-v8-0-ab109c4bd108@bp.renesas.com/
+Add device tree nodes for the three SDHI controllers (SDHI{0,1,2})
+on the RZ/G3L SoC (r9a08g046) and enable SDHI1 on the RZ/G3L SMARC
+EVK platform with pincontrol and GPIO-based voltage switching
+regulator support.
 
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
-Changes in v2:
+v2
 - Disabled sdhi1 when RZ_BOOT_MODE3 is 0, so its pinctrl and regulators
   are not left enabled.
-- Fixed the typo RZG2L_PORT_PINMUX -> RZG3L_PORT_PINMUX.
-- Added a comment about the SD power signal.
-- Collected tags.
-- Link to v1: https://lore.kernel.org/r/20261112-sdhi_rzg3l-v1-0-ca30b209615d@bp.renesas.com
-
 ---
-Biju Das (3):
-      arm64: dts: renesas: r9a08g046: Add SDHI nodes for RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK
-      arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
-      arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi         | 73 +++++++++++++++++-
+ arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts | 90 ++++++++++++++++++++++
+ 2 files changed, 162 insertions(+), 1 deletion(-)
 
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi         |  73 ++++++-
- arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts | 102 +++++++++
- arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi   | 231 +++++++++++++++++++++
- 3 files changed, 405 insertions(+), 1 deletion(-)
----
-base-commit: f5494a6f6d818ca30f70063a573eec8c982ad747
-change-id: 20261112-sdhi_rzg3l-e0c7dbf7cfdd
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+index bb69e5e3528d..b710f47d3f03 100644
+--- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+@@ -1068,9 +1068,80 @@ dmac: dma-controller@11820000 {
+ 			dma-channels = <16>;
+ 		};
+ 
++		sdhi0: mmc@11c00000 {
++			compatible = "renesas,sdhi-r9a08g046";
++			reg = <0x0 0x11c00000 0 0x10000>;
++			interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK>,
++				 <&cpg CPG_MOD R9A08G046_SDHI0_CLK_HS>,
++				 <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK2>,
++				 <&cpg CPG_MOD R9A08G046_SDHI0_IACLKM>,
++				 <&cpg CPG_MOD R9A08G046_SDHI0_IACLKS>;
++			clock-names = "core", "clkh", "cd", "aclkm", "aclks";
++			max-frequency = <150000000>;
++			resets = <&cpg R9A08G046_SDHI0_IXRST>,
++				 <&cpg R9A08G046_SDHI0_IXRSTAXIM>,
++				 <&cpg R9A08G046_SDHI0_IXRSTAXIS>;
++			reset-names = "rst", "axim", "axis";
++			power-domains = <&cpg>;
++			status = "disabled";
++		};
++
+ 		sdhi1: mmc@11c10000 {
++			compatible = "renesas,sdhi-r9a08g046";
+ 			reg = <0x0 0x11c10000 0 0x10000>;
+-			/* placeholder */
++			interrupts = <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK>,
++				 <&cpg CPG_MOD R9A08G046_SDHI1_CLK_HS>,
++				 <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK2>,
++				 <&cpg CPG_MOD R9A08G046_SDHI1_IACLKM>,
++				 <&cpg CPG_MOD R9A08G046_SDHI1_IACLKS>;
++			clock-names = "core", "clkh", "cd", "aclkm", "aclks";
++			max-frequency = <150000000>;
++			resets = <&cpg R9A08G046_SDHI1_IXRST>,
++				 <&cpg R9A08G046_SDHI1_IXRSTAXIM>,
++				 <&cpg R9A08G046_SDHI1_IXRSTAXIS>;
++			reset-names = "rst", "axim", "axis";
++			power-domains = <&cpg>;
++			status = "disabled";
++
++			sdhi1_vqmmc: vqmmc-regulator {
++				regulator-name = "SDHI1-VQMMC";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-ramp-delay = <1200>;
++				status = "disabled";
++			};
++		};
++
++		sdhi2: mmc@11c20000 {
++			compatible = "renesas,sdhi-r9a08g046";
++			reg = <0x0 0x11c20000 0 0x10000>;
++			interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK>,
++				 <&cpg CPG_MOD R9A08G046_SDHI2_CLK_HS>,
++				 <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK2>,
++				 <&cpg CPG_MOD R9A08G046_SDHI2_IACLKM>,
++				 <&cpg CPG_MOD R9A08G046_SDHI2_IACLKS>;
++			clock-names = "core", "clkh", "cd", "aclkm", "aclks";
++			max-frequency = <150000000>;
++			resets = <&cpg R9A08G046_SDHI2_IXRST>,
++				 <&cpg R9A08G046_SDHI2_IXRSTAXIM>,
++				 <&cpg R9A08G046_SDHI2_IXRSTAXIS>;
++			reset-names = "rst", "axim", "axis";
++			power-domains = <&cpg>;
++			status = "disabled";
++
++			sdhi2_vqmmc: vqmmc-regulator {
++				regulator-name = "SDHI2-VQMMC";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-ramp-delay = <1200>;
++				status = "disabled";
++			};
+ 		};
+ 
+ 		eth0: ethernet@11c30000 {
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+index 517747aef36e..e9b7b3280615 100644
+--- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
++++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+@@ -16,6 +16,7 @@
+ #define SW_GPIO9_CAN1_STB	0
+ #define SW_I3C_EN		0
+ #define SW_SER0_PMOD		1
++#define SW_SDIO_M2E		0
+ 
+ #define PMOD_GPIO4		0
+ #define PMOD_GPIO6		0
+@@ -40,6 +41,7 @@ / {
+ 	aliases {
+ 		i2c2 = &i2c2;
+ 		i2c3 = &i2c3;
++		mmc1 = &sdhi1;
+ 		serial0 = &rsci2;
+ 		serial1 = &rsci3;
+ 		serial2 = &rsci1;
+@@ -71,6 +73,19 @@ codec_dai: codec {
+ 		};
+ 	};
+ #endif
++
++#if RZ_BOOT_MODE3
++	vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd {
++		compatible = "regulator-gpio";
++		regulator-name = "SD1_PVDD";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <3300000>;
++		gpios = <&pinctrl RZG3L_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
++		gpios-states = <0>;
++		states = <3300000 0>, <1800000 1>;
++		regulator-ramp-delay = <1200>;
++	};
++#endif
+ };
+ 
+ &canfd {
+@@ -257,6 +272,68 @@ scif0_pins: scif0 {
+ 		power-source = <1800>;
+ 	};
+ 
++#if RZ_BOOT_MODE3
++	sd1-pwr-en-hog {
++		gpio-hog;
++		gpios = <RZG3L_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "sd1_pwr_en";
++	};
++#endif
++
++	sdhi1_pins: sd1 {
++		sd1-cd {
++			pinmux = <RZG3L_PORT_PINMUX(J, 0, 8)>; /* SD1_CD */
++		};
++
++		sd1-clk {
++			pinmux = <RZG3L_PORT_PINMUX(G, 0, 1)>; /* SD1_CLK */
++			power-source = <3300>;
++		};
++
++		sd1-cmd {
++			pinmux = <RZG3L_PORT_PINMUX(G, 1, 1)>; /* SD1_CMD */
++			input-enable;
++			power-source = <3300>;
++			bias-pull-up;
++		};
++
++		sd1-data {
++			pinmux = <RZG3L_PORT_PINMUX(G, 2, 1)>, /* SD1_DAT0 */
++				 <RZG3L_PORT_PINMUX(G, 3, 1)>, /* SD1_DAT1 */
++				 <RZG3L_PORT_PINMUX(G, 4, 1)>, /* SD1_DAT2 */
++				 <RZG3L_PORT_PINMUX(G, 5, 1)>; /* SD1_DAT3 */
++			input-enable;
++			power-source = <3300>;
++		};
++	};
++
++	sdhi1_uhs_pins: sd1-uhs {
++		sd1-cd {
++			pinmux = <RZG3L_PORT_PINMUX(J, 0, 8)>; /* SD1_CD */
++		};
++
++		sd1-clk {
++			pinmux = <RZG3L_PORT_PINMUX(G, 0, 1)>; /* SD1_CLK */
++			power-source = <1800>;
++		};
++
++		sd1-cmd {
++			pinmux = <RZG3L_PORT_PINMUX(G, 1, 1)>; /* SD1_CMD */
++			input-enable;
++			power-source = <1800>;
++		};
++
++		sd1-data {
++			pinmux = <RZG3L_PORT_PINMUX(G, 2, 1)>, /* SD1_DAT0 */
++				 <RZG3L_PORT_PINMUX(G, 3, 1)>, /* SD1_DAT1 */
++				 <RZG3L_PORT_PINMUX(G, 4, 1)>, /* SD1_DAT2 */
++				 <RZG3L_PORT_PINMUX(G, 5, 1)>; /* SD1_DAT3 */
++			input-enable;
++			power-source = <1800>;
++		};
++	};
++
+ 	ssi0_pins: ssi0 {
+ 		pinmux = <RZG3L_PORT_PINMUX(H, 0, 9)>, /* SSIF0_RXD */
+ 			 <RZG3L_PORT_PINMUX(H, 1, 9)>, /* SSIF0_BCK */
+@@ -312,6 +389,19 @@ &scif0 {
+ 	pinctrl-names = "default";
+ };
+ 
++#if RZ_BOOT_MODE3
++&sdhi1 {
++	pinctrl-0 = <&sdhi1_pins>;
++	pinctrl-1 = <&sdhi1_uhs_pins>;
++	pinctrl-names = "default", "state_uhs";
++
++	vmmc-supply = <&reg_3p3v>;
++	vqmmc-supply = <&vqmmc_sd1_pvdd>;
++};
++#else
++	status = "disabled";
++#endif
++
+ #if !SW_SD2_EN
+ &ssi0 {
+ 	clocks = <&cpg CPG_MOD R9A08G046_SSI0_PCLK2>,
 
-Best regards,
 -- 
-Biju Das <biju.das.jz@bp.renesas.com>
+2.43.0
 
