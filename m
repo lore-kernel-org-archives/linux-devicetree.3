@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795463529;
-	b=VFsJXUgWAH6je/TLlsXifXltEQRT2oqtbfQY8cHtbZliNqUi+K+dBjdAEQASV+mMFIbs
-	 B/1z8oxOrVWeIK/dkPIhDFpZT+dX4ReIwMrjlajJFNRjUplpqNNQGg9HXqsv2IAMBdwkU
-	 /AawgRJZE9jdhfmQqnQ7D15FQWa2fW214pmPLAPPcUQaLqZgE1d6YiXLQoSuKk4uemZ8/
-	 Tp9AccwwcsW7m8FyQt6wQ07D0bFxlOO+9lR2eC/WiV025eRTlneswXHiJKgb82pp2FMpk
-	 /D3LS2BbXL1GY19gHzr8pDgAGsJXUc+49ICnqLCXLnSDTMzf4e2t4ttoH/WjGa3e1+w==
+	t=1795463535;
+	b=zpoay96ngRcbw8NYEDPqyqgegjdM2hE1iBbDbzqlhPFQGkmEgp4kk2W7i8nzghFf0LyW
+	 /XsPwk5DMu8DggPAo6HRuKIqBE0A/nhv97oTLk2UdpUQR2Epo7qdXvkmHReQ4a9VYZn6m
+	 8l8/XClaN5MWAzYDAiX+1ElkrP0H7kEhOp46MQcyU82+A/5OEBGP/Z+tTTWmLnp+uQvIM
+	 H/6VebXebqQIiL4GkXY8p4B6Z43M8M6dO2tmgy9zVrqYhJmpPbi/tT33WIjExZ3h+GQfT
+	 567WBtZreW8OAhoH+K9pJzmNpzDbD1XaVXMad6lClzFuORjvNLH4xaz/yjIAPXm2Osw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795463529;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795463535;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Ar7wfH49sU9H/Es8DssBv78YjfDjLaZ23GHFlhRMqOM=;
-	b=kBL/CE7gIy5OFzhnJsHuggtEAE7OkluZ/nV0op1bwfLF7mP/yY4TYoIyWgVd1vXNlNgZ
-	 WIGvD9JQXeG7sWg8voOOe3kz9M27IaLkHpA8oL8jLmWE1+YGFLZKFv7kVq5SF/ONEr+2c
-	 lGWZy5+iaX+Pb5Gc+xkPp4IpFE04b8hJNPX6cY5EPHjL1mggR8CzFgU+J2zXQ5dzvsMLQ
-	 M3xhoAQu8X94Ax/U3R+gpzXEPzgVqFKeSY+hQyr4hY3MS1gSWSfNvP64Cl+lgPF7QhJ02
-	 enAOfAkTIUNWlTdWpP3ZfDwBj1fePVcDILAuP4j5+jsdc/thLq9pu/0M8bQVMa9nHiA==
+	bh=DH6WsJtIJ/ZrlkdvNhXLsUwijSOq8s9w7YBhsklCQpY=;
+	b=ZUVJXktR3AaSn24NkBXpIgi36bWDp72k4m94l1xLmDc9yvSJOaLYFBYVxHjvNo9Y71L2
+	 sZR9o8oDgCWDwuzfxo2TaGJQcv5gOu2jBjQPSz1f/TsW/8SItBnYENhY8c8TqSkzX1tBu
+	 qfcTmNxIloUVpNl7Bf4lwcTdu+Fz583ThK7Ypid11CSnTzg3/QMxhCJZbi7NgaSYBWvR+
+	 vVlhQ2kCk3ZJwHCtw5zEyzXaBIxaXGCgfapZJ6+Jw7I9f5UY8kdu1tdA3deV1TzyOKzHZ
+	 juO2bR0p/OaBL2OBLbb71EoLZ98l7Z6KtH9vzTOnvLmN8mnva2FkD9vKMTqnhw1c6DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pdKG2Uly;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jipHR8ju;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bPSNA50S;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kuilyxAy;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4CC0606A330
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:52:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4CC0606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EA7606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:52:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9EA7606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pdKG2Uly;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jipHR8ju
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANJ1jKn3211887
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:52:08 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bPSNA50S;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kuilyxAy
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANGH3xM1093799
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:52:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ar7wfH49sU9H/Es8DssBv78YjfDjLaZ23GHFlhRMqOM=; b=pdKG2UlyPVNheH2S
-	mFdSb1Aab+HphvqEmS3zT7cmw34z1Lnr3f19yT8qogsBzUj+LQhnmwUlso7XyYCZ
-	8fZePrfDvVkcNg0yLDK6Bh7hRPF0waV+7jk5G7Xf1CKE1IclhLIpy8M2E5N1NyRp
-	1sxDAf/mUIi1ucuGtWW/1wSfxajahoIt4lIzh2w9tEeoI0xD+UzMIbiofgTfb58c
-	ohBapWvT7NNQk6rU/Xg7KnHy4yWGqC6e/k365jv+ypJuytcq2ns4hlGghKSojeif
-	FuzXdN4vm7WKrGfa9KbexvCTIKjrNc4uNakzegSwyRyrlcPpzCjECLiXXT1zscy1
-	XSQkiw==
+	DH6WsJtIJ/ZrlkdvNhXLsUwijSOq8s9w7YBhsklCQpY=; b=bPSNA50SDkegywTD
+	/HyNrfI/5vqHd3BN4C9cicL8d0LLfI4LqV0hbU6En5hUZASCZ1tyBXiQKNWUFHCa
+	OgRyjeNjl7uQCVjqRBjwfSFZpN1tBlznUDjOti1eqO/ZSHHe35nzCVFlSqJLOj8L
+	cm4CPdzDs0qb1u1f+sMyXVWuf4gqgtmKs4RrFaZ+yzQdXLGp4J3ZXbUbm/yL3aM9
+	JlX24ypdwAWahre+HfZe3k2RaCUa7+g7dymTBUxT9SnHjtKesF6G+pwhYc4XyvBw
+	TqOmFy7XEvT1Rw5BhNLizIt2jrs3SZ8XrfteXxIYA5uxUXQ/sdA6190zOAZ/EYw6
+	A/tJ6w==
 Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4u9nr6s9-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4ma0t4aq-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:52:07 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-384c78aa0dbso5164461eec.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:52:07 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:52:13 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-386ad819860so149899eec.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:52:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795463527; x=1796068327; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795463533; x=1796068333; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ar7wfH49sU9H/Es8DssBv78YjfDjLaZ23GHFlhRMqOM=;
-        b=jipHR8juXRiqMofdDqF+JcGH813GF1qHJ1bDEDgmxYgqKpTjCzX5q50JfQlOuD8z9h
-         2vPC5TStOO506OUJmtWVrsDHkWpAoOBXHh2jtfVHYJ2/TCYGC9nhKKau5a9QDtqFLS6v
-         Bq+JG08rGX+Bvp2SEEpPp3Hvb8KHoI7EqLF6TwlhxIGW5s3W0kOQgbByUbhU2nI1KlpU
-         d8NTbQYKsyUNc1iqwxfuhQ/S4aS0NyxBNZ960dbTiHb4qg5OI6+XKf9AFGExjfNym9Hu
-         4+MGHtDOpYQyD+TzUaLCALE3/wGqCzdYLvOGpKvhz05Pwk+B4m5r32k1CKP220dTD28s
-         ilfg==
+        bh=DH6WsJtIJ/ZrlkdvNhXLsUwijSOq8s9w7YBhsklCQpY=;
+        b=kuilyxAyr0nIrdbyjC3Mwbf/ZUV1C/+bOwEdeAuYS+G4JawZIuhWtbrg2F/WCPGDL3
+         oT39aw2LxSApSbJFTAOfmsHw/5qALK8mVrhjiTpBNBR5iQjyuz75Oi2aiAvIZhhZMult
+         8fyBL66sD4QGypAoveVGzTQdbtjrqcFSn0Atjbbx1QPFhdX/D0uE9etRei32Uu/i9tZW
+         +3ZinZbIiz7ciDGcCaD+sb5nNqSN/VBDpfr+PPjtwBhpRVHjznTvoCzfaLWUDS2QvbJ/
+         Bm3//3Mc/+8gRUZXEhw5FIvManO5z9SO3DQw0M3kS2nKU5zwGASRB5wEimYBJxtxNDF1
+         StjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795463527; x=1796068327;
+        d=1e100.net; s=20260707; t=1795463533; x=1796068333;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ar7wfH49sU9H/Es8DssBv78YjfDjLaZ23GHFlhRMqOM=;
-        b=X8GOFF3KH+TsYwvSy75qFtuIs1BhJCdlAi7V+dYjC6ROclbcV6veDFR3ekQgum32Y/
-         dJQA9m0n7PMAL1Wpsv1EkrNIIWQE/6+ZODJPvcUNAV9qX76SviSepDLW0qqvbwUR6Lqo
-         qJtD1CbKqP474FMDhb5ebq1WvuKuUxNqSZHbtTQr3BCUe21820pT4V4/WVuRfwnC+Utd
-         nMCi9iQa80pQn+9obwiWbZ3W3NJbkZWToUcx6m0ti8EUvcav+O7FDbyapKSD3M2Y9Yz3
-         RSeTu8d6svquiRMicW5F6DzpjDWWyXmIFhCrYEo+j1RYmzfRuJTCtDgAgd+vWCwGNQ69
-         NYtw==
-X-Forwarded-Encrypted: i=1; AL+hErEyBJfNrELG7sZe4yohH4H7rLINap+aW/weFImEOdRK2ymOgAa32t/4YIrgExnBgokmsatWs/Uo3seA@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xzbE61HyarI8xmvbeCgqJYgt8pQs6vXvdzRY6p8yZvBuTR782
-	I2xwTLPLkfHQyolk2+hWhPMwI16abHgf2TNM85MlCcQJwt9KGEFCngwJLgKy8RcsBgtQQJxjUlH
-	wbrC0C0h9DlMYWB87SXFp4iPRW3hGEO9ckvE0r2QJfsZMcTiia7YnQgZzc8JAEHp/
-X-Gm-Gg: AZFdTZf52QDZg7baHlaEV08hwNTlgxRg0YBY6F+YuFo80izsraP9KW7sIrNyl3uWNY/
-	ftmmU5vFMjxROw6lTN9Ppx40zB3QNMZr4UQj+JubcJQZ8ab9x141dNO8WKWCzWNSDP3i/YajUQX
-	2IRVeEw3K8Liwj66GlT2C2KFzHZtYDh1hNTbWiV+wk3ZotKqZrJMsqhss+k+kk9JDxfzc9x7CCe
-	a/dGqZK+cMc1bPKov4rSnehhiOLAH0iYtYf/JAnet3G6vtvXwVhntUXJKZ7cV23Dc7Jr2HoZ3ih
-	0sf8mME7gb3PBCJPgPyj5FCL0nA8fzWjQ2nkPY6Kk9sKkj10IXZath1DR5iafKSiYXNmL1Hvn24
-	plDi6PUYRHkemb2N970/6fViN3KfMrJ0S0/vQR+U3fniqTCc9mvWpJyhIifcXCypSns6hFvv5vw
+        bh=DH6WsJtIJ/ZrlkdvNhXLsUwijSOq8s9w7YBhsklCQpY=;
+        b=jOpwN+2XY0ahWKuuHIfbD3UADHEkeMlhQXbTIt4oVoKt4CmKA1oHmYMi+YV5bZTjyO
+         JA0BUQHsH0AWXtzyA4KxZTW2/ai/DUMueiEr5htqUBBunjRN4h3ZGYEbemXWV3eYbuGk
+         ACaJoRj8hx2kLbD/33/VrfzOX16xANycNi54eeqH91h38BycEwpcuAYcYc+B1L7/ZPMb
+         AiFvIB7lmANNhqZv3CqwFFg3TmP4BS76roJgsPgr9U0Gq5gcXEk0wKBlUKLJkyRFdIpz
+         mgEAODHEBSu74871JW9EtPFB5DUw4ITsOKap7/ejNik/rOZVoJ4ox/uTmbMn0NjoHnTc
+         8Z0Q==
+X-Forwarded-Encrypted: i=1; AL+hErElCbjblO3B7xGULW+LPMocUaJbKAGD5B9vFQjiKgGXx1roFcXdRdFokutDdIUFcAfTcP2NyoSXm59o@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jOyCPPm+Z04zIJ/97QwI7buUixBAGZf8gSwPgJZONN7sjU+18
+	XsNWaic4ndbwi34f/6Ix+zab+RIwX077XYvYN9/e/2h+v2+cCmUIMDvEPh0hGl2OdQQNdCZEvkq
+	H8/eFhev9meALYxBY+5MdRHrmZx48ikpndh8PCj9UsX0VQra4LhtNFYyLdvNFm+Ap
+X-Gm-Gg: AZFdTZfvHgu5lybImfKUg5+BoeAGXuW/1469DbQybs2ZZz41ICfkJIkQWPOfIxDbhEz
+	A1gQ+qjFh6EAfMtXsoakrDoKAcCgWvt9ci6iZuqX0Tc2vY17cM+NLzT6kAaW2ArPTJHBNZc7qle
+	EOReyQsOfPI9Kwn1/zv+2eu+P4WniTV5qX/EzhTLmVkvMAn929cNJr4bYyl3HCj4fFpq9SUd3ay
+	jOr44xhh9UpzAKAx3zwi0AlI9j1vVuwOBbehYoNNM083uo0FDTVRyKFULbTEBxCq/52zW/pWs4m
+	+AVz53ExbwmWTKteuKQAFJnLRnFZtxDE4fI6Xt7AP44V5ck8eUTxzCiYPD/jSTe539z5ke1Mgqe
+	Hb5Of2VLdfJJ9jZC9Rrf1QwTmIugiyJiukrcE0pZL6196S73ukhacYp93R33BA+k9DfXc8qvbAg
 	==
-X-Received: by 2002:a05:7301:6408:b0:36a:270:ce76 with SMTP id 5a478bee46e88-38570f2b27dmr13408377eec.33.1795463526269;
-        Mon, 23 Nov 2026 11:52:06 -0800 (PST)
-X-Received: by 2002:a05:7301:6408:b0:36a:270:ce76 with SMTP id 5a478bee46e88-38570f2b27dmr13408347eec.33.1795463525541;
-        Mon, 23 Nov 2026 11:52:05 -0800 (PST)
+X-Received: by 2002:a05:693c:6205:b0:386:a498:3ab1 with SMTP id 5a478bee46e88-386a4983cc5mr7927884eec.25.1795463533207;
+        Mon, 23 Nov 2026 11:52:13 -0800 (PST)
+X-Received: by 2002:a05:693c:6205:b0:386:a498:3ab1 with SMTP id 5a478bee46e88-386a4983cc5mr7927862eec.25.1795463532668;
+        Mon, 23 Nov 2026 11:52:12 -0800 (PST)
 Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e96bdsm36363123eec.7.2026.11.23.11.51.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e96bdsm36363123eec.7.2026.11.23.11.52.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 11:52:05 -0800 (PST)
+        Mon, 23 Nov 2026 11:52:12 -0800 (PST)
 From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Tue, 24 Nov 2026 01:21:34 +0530
-Subject: [PATCH v3 03/10] clk: qcom: Add a driver for PDM GP_MN fractional
- clock divider
+Date: Tue, 24 Nov 2026 01:21:35 +0530
+Subject: [PATCH v3 04/10] clk: qcom: gcc: Add configurable PDM XO4 div
+ clocks across targets
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-b4-pdm_clk_gp_mnd_v2-v3-3-98db26a87500@oss.qualcomm.com>
+Message-Id: <20261124-b4-pdm_clk_gp_mnd_v2-v3-4-98db26a87500@oss.qualcomm.com>
 References: <20261124-b4-pdm_clk_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com>
 In-Reply-To: <20261124-b4-pdm_clk_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
@@ -137,446 +137,322 @@ Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
         linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-gpio@vger.kernel.org, netdev@vger.kernel.org,
-        Taniya Das <taniya.das@oss.qualcomm.com>
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA3OSBTYWx0ZWRfXztRYCsaXdiw1
- 29HQzj95ggES+RtUlX2Rwbs/4X9RvK9Glvpcw+zaLUy2Coy14hjrMtRLNyp44/Zelf8VOnkaVRC
- 5757LdIgNycqd6/eg6sPs14G9M6h7euj+qnxg8E/ceQwTrhrvgCtlwueQ27jq7limnBSf3xTGSU
- piJ14zYPFUGCjgMXmuZ2g7ESJqZwoBOIJy8vAdBNjXKLyNaXuzlr/D6FmtrB3+tSGRkYCcV1uKt
- GGpbuR46RmlJ5KuWIzxfoaUHyFVhhXzKC6SAEOfeLZxZl9rW+GJwESsx82wj+aPOp8ZhqvfAwhi
- mKxUyVt7lnLAH215aEFgS1zPL7U4Dqj5aw5E5fw0B2erknaR+ifzWWVyWHIKOdqZ06Q9UcMD43s
- 5sPhhw+Bs2RdVPHYKHfa65F8EjvH3X8w53sDziYaIWGE+oxJmq05fIKNhf70YhuMnnm+4PsXNrf
- H8yGvTM0jNmnn1y/sWw==
-X-Proofpoint-GUID: Xi7mY6b8zAStinnIsP-gdrk_-vVacLow
-X-Authority-Analysis: v=2.4 cv=f4ndl+yM c=1 sm=1 tr=0 ts=6b049967 cx=c_pps
+X-Proofpoint-GUID: lAk5jQCMEuiFUO-ygKIwRS2ICmaVxQzZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA3OSBTYWx0ZWRfX+fB5nrL/pX1p
+ dJrLsr0Y6yqSbEcVf20c3EN88OD6epcY2Kdws2vSi9q8cUngarKbDFoOxxJrnouWEteBFiDsTeR
+ EQZU74BimJCymrcipmUY6IzR1dg6ADU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA3OSBTYWx0ZWRfX5cFL77Kw8uWM
+ YtEm5BbzFRW2lhO4rmI7KGC5HfDwB3zdW5CSmWRUmih3c+TslA1oA17PzrIXMG+6ZcrC1U0sp55
+ NZKleDqStIGpw/OCZYMRvGqQar0ZyiRMcEG/G38Hxsvcv/gf4h2vovjZBHxfnpT1+9CZezucuEm
+ g4cmHhQ7A0wSAP/GlPdYbbcla2YSaAp2hML/33VCkxvzYsm/5I4hVP3XUG8M3j1qYBkzsDGl642
+ 4aKejparQ6N+T6cEIXjh4M4MxuO+4WhszXc/3ZpNLPo00Ngly9+Kr7Fp4+oczOn+rUbr++EPctu
+ wnD/QlU3af9BnwlSM+yqbvqv0JTzVb5lRiYQG32Qg6NDZdr4wsdpkBo0gremM1cvh23NFwKcQij
+ vs/ckJzwvErmcu0IIP3GZX2dXvagvt+Ynr5fGiZE/t0/1dF0FR8qoXnynIvQPMn48sHami35LiP
+ bT4O1/jnt5CQUplhTMQ==
+X-Authority-Analysis: v=2.4 cv=Yr+a1IYX c=1 sm=1 tr=0 ts=6b04996d cx=c_pps
  a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=knmouaU1qqhetKb48BEA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=RvjwIfBVDrABg4tGW5kA:9 a=QEXdDO2ut3YA:10
  a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: Xi7mY6b8zAStinnIsP-gdrk_-vVacLow
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA3OSBTYWx0ZWRfXzKFtk0J7z3zm
- oJja9JM4zO/l8RrZHi89jjPMNPU/8wgoEy+RAT6fF54JayErAuxW51QQrKHz90gceWuK3jJRtME
- 7jBkgzXMe7eR6VWOVo4p5QRhGZ/qAvA=
+X-Proofpoint-ORIG-GUID: lAk5jQCMEuiFUO-ygKIwRS2ICmaVxQzZ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 impostorscore=0 adultscore=0 phishscore=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 malwarescore=0 suspectscore=0
+ clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230079
 
-The PDM (Pulse Density Modulation) hardware block on Qualcomm SoCs
-contains a GP_MN clock divider that produces a fractional output
-frequency from a fixed input clock (typically TCXO4):
+Add PDM XO4 divider clocks and make the PDM XO4 branches propagate rate
+requests to them on QCS615, QCS8300, SA8775P, SC7280, SM8750, and
+Shikra. This lets GP_MND select the supported PDM source clock rates.
 
-  Fout = Fin * (M / N)
-
-The hardware encodes the period in the NDIV register as the 1's
-complement of (N - M), and controls the duty cycle via a separate
-DUTY register that counts the number of low-phase native clock
-cycles over the period N.
-
-Add a standalone platform driver for this block that uses
-rational_best_approximation() to find the closest M/N pair within
-the 9-bit M and 13-bit N hardware limits. Reject ratios which cannot
-support a valid duty cycle, and program the MDIV, NDIV, and DUTY
-registers via regmap. Implement determine_rate, set_rate,
-recalc_rate, get_duty_cycle, and set_duty_cycle operations. The PDM
-AHB bus clock is gated around every register access.
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 ---
- drivers/clk/qcom/Kconfig      |  15 ++
- drivers/clk/qcom/Makefile     |   1 +
- drivers/clk/qcom/clk-gp-mnd.c | 342 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 358 insertions(+)
+ drivers/clk/qcom/gcc-qcs615.c  | 20 ++++++++++++++++++++
+ drivers/clk/qcom/gcc-qcs8300.c | 20 ++++++++++++++++++++
+ drivers/clk/qcom/gcc-sa8775p.c | 20 ++++++++++++++++++++
+ drivers/clk/qcom/gcc-sc7280.c  | 20 ++++++++++++++++++++
+ drivers/clk/qcom/gcc-shikra.c  | 20 ++++++++++++++++++++
+ drivers/clk/qcom/gcc-sm8750.c  | 20 ++++++++++++++++++++
+ 6 files changed, 120 insertions(+)
 
-diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
-index e6c58e8b184963fa3d885a7661ad982aaa5bcbc0..ccab70a11cfcaa3ea2217101ade50ab255631837 100644
---- a/drivers/clk/qcom/Kconfig
-+++ b/drivers/clk/qcom/Kconfig
-@@ -2170,4 +2170,19 @@ config SM_VIDEOCC_8450
- 	  SM8450 or SM8475 devices.
- 	  Say Y if you want to support video devices and functionality such as
- 	  video encode/decode.
-+
-+config QCOM_CLK_GP_MND
-+	tristate "Qualcomm PDM GP_MN clock divider"
-+	depends on ARM64 || COMPILE_TEST
-+	help
-+	  Support for the Qualcomm PDM GP_MN clock divider found in PDM
-+	  (Pulse Density Modulation) hardware blocks.
-+	  Given an input clock of frequency Fin (TCXO4), the output
-+	  frequency is Fout = Fin * (M / N).  For every N input cycles
-+	  the divider produces M output cycles.  D controls the duty
-+	  cycle: it is the number of native clock cycles in which the
-+	  GP_MN output is low, counted over 8192 native clock cycles.
-+
-+	  Say Y or M if you want to support GP_MN-based frequency and
-+	  duty-cycle configuration on Qualcomm SoCs.
- endif
-diff --git a/drivers/clk/qcom/Makefile b/drivers/clk/qcom/Makefile
-index f84d7343a3a475dd9ef1fa77bf0de25fab0d9e75..bc487b25ef5d9a235162fad95a3e0ef2984564f3 100644
---- a/drivers/clk/qcom/Makefile
-+++ b/drivers/clk/qcom/Makefile
-@@ -229,6 +229,7 @@ obj-$(CONFIG_SM_VIDEOCC_8550) += videocc-sm8550.o
- obj-$(CONFIG_SM_VIDEOCC_8750) += videocc-sm8750.o
- obj-$(CONFIG_SM_VIDEOCC_MILOS) += videocc-milos.o
- obj-$(CONFIG_SPMI_PMIC_CLKDIV) += clk-spmi-pmic-div.o
-+obj-$(CONFIG_QCOM_CLK_GP_MND) += clk-gp-mnd.o
- obj-$(CONFIG_KPSS_XCC) += kpss-xcc.o
- obj-$(CONFIG_QCOM_HFPLL) += hfpll.o
- obj-$(CONFIG_KRAITCC) += krait-cc.o
-diff --git a/drivers/clk/qcom/clk-gp-mnd.c b/drivers/clk/qcom/clk-gp-mnd.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..75d620166e8dc044afb08d014f9707e9b53e8e31
---- /dev/null
-+++ b/drivers/clk/qcom/clk-gp-mnd.c
-@@ -0,0 +1,342 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_clock.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/rational.h>
-+#include <linux/regmap.h>
-+
-+/*
-+ * PDM GP_MND clock divider register offsets.
-+ *
-+ * The hardware computes:
-+ *   Fout = Fin * (M / N)
-+ *
-+ * with duty cycle controlled by D, where M < D < (N - M).
-+ *
-+ * Register encoding:
-+ *   MDIV  = M
-+ *   NDIV  = ~(N - M)  [1's complement of (N - M), masked to N_REG_WIDTH bits]
-+ *   DUTY  = D
-+ */
-+#define GP_MND_MDIV_REG		0x0
-+#define GP_MND_NDIV_REG		0x4
-+#define GP_MND_DUTY_REG		0x8
-+
-+#define GP_MND_M_WIDTH		9
-+#define GP_MND_N_WIDTH		13
-+
-+#define GP_MND_MAX_M		GENMASK(GP_MND_M_WIDTH - 1, 0)
-+#define GP_MND_MAX_N		GENMASK(GP_MND_N_WIDTH - 1, 0)
-+
-+/**
-+ * struct clk_gp_mnd - GP_MND fractional clock divider
-+ * @dev:		device for runtime PM
-+ * @regmap:		register map for the PDM block
-+ * @hw:			handle between common and hardware-specific interfaces
-+ * @m_val:		M value (numerator)
-+ * @n_val:		N value (period)
-+ */
-+struct clk_gp_mnd {
-+	struct device		*dev;
-+	struct regmap		*regmap;
-+	struct clk_hw		hw;
-+	unsigned int		m_val;
-+	unsigned int		n_val;
-+};
-+
-+#define to_clk_gp_mnd(_hw) container_of(_hw, struct clk_gp_mnd, hw)
-+
-+static int gp_mnd_clk_runtime_resume(struct clk_gp_mnd *gp)
-+{
-+	return pm_runtime_resume_and_get(gp->dev);
-+}
-+
-+static void gp_mnd_clk_runtime_put(struct clk_gp_mnd *gp)
-+{
-+	pm_runtime_put(gp->dev);
-+}
-+
-+static int gp_mnd_clk_determine_rate(struct clk_hw *hw,
-+				     struct clk_rate_request *req)
-+{
-+	unsigned long m = 0, n = 0;
-+
-+	rational_best_approximation(req->rate, req->best_parent_rate,
-+				    (unsigned long)GP_MND_MAX_M,
-+				    (unsigned long)GP_MND_MAX_N,
-+				    &m, &n);
-+	if (!m || !n)
-+		return -EINVAL;
-+
-+	if (n <= 2 * m + 1)
-+		return -EINVAL;
-+
-+	req->rate = DIV_ROUND_CLOSEST_ULL((u64)req->best_parent_rate * m, n);
-+
-+	return 0;
-+}
-+
-+static int gp_mnd_clk_set_rate(struct clk_hw *hw, unsigned long rate,
-+			       unsigned long parent_rate)
-+{
-+	struct clk_gp_mnd *gp = to_clk_gp_mnd(hw);
-+	unsigned long m = 0, n = 0;
-+	unsigned int d_val, n_val;
-+	int ret;
-+
-+	rational_best_approximation(rate, parent_rate,
-+				    (unsigned long)GP_MND_MAX_M,
-+				    (unsigned long)GP_MND_MAX_N,
-+				    &m, &n);
-+	if (!m || !n)
-+		return -EINVAL;
-+
-+	if (n <= 2 * m + 1)
-+		return -EINVAL;
-+
-+	ret = gp_mnd_clk_runtime_resume(gp);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(gp->regmap, GP_MND_MDIV_REG, m);
-+	if (ret)
-+		goto err_runtime_put;
-+
-+	/* N divider holds the 1's complement of (N - M), N_WIDTH bits wide */
-+	n_val = ~(n - m) & GP_MND_MAX_N;
-+	ret = regmap_write(gp->regmap, GP_MND_NDIV_REG, n_val);
-+	if (ret)
-+		goto err_runtime_put;
-+
-+	/* Program the closest-to-50% duty cycle. */
-+	d_val = n / 2;
-+	ret = regmap_write(gp->regmap, GP_MND_DUTY_REG, d_val);
-+	if (ret)
-+		goto err_runtime_put;
-+
-+	gp->m_val = m;
-+	gp->n_val = n;
-+
-+err_runtime_put:
-+	gp_mnd_clk_runtime_put(gp);
-+
-+	return ret;
-+}
-+
-+static unsigned long gp_mnd_clk_recalc_rate(struct clk_hw *hw,
-+					    unsigned long parent_rate)
-+{
-+	struct clk_gp_mnd *gp = to_clk_gp_mnd(hw);
-+	unsigned int m_val, n_val;
-+	int ret;
-+
-+	ret = gp_mnd_clk_runtime_resume(gp);
-+	if (ret)
-+		return 0;
-+
-+	ret = regmap_read(gp->regmap, GP_MND_MDIV_REG, &m_val);
-+	if (ret)
-+		goto out_runtime_put;
-+
-+	m_val &= GP_MND_MAX_M;
-+
-+	ret = regmap_read(gp->regmap, GP_MND_NDIV_REG, &n_val);
-+	if (ret)
-+		goto out_runtime_put;
-+
-+	/* Reverse the 1's complement encoding: N = ~NDIV_REG + M */
-+	n_val = (~n_val & GP_MND_MAX_N) + m_val;
-+
-+out_runtime_put:
-+	gp_mnd_clk_runtime_put(gp);
-+
-+	if (ret)
-+		return 0;
-+
-+	/*
-+	 * At power-on the divider registers read back as zero (M = 0), which
-+	 * the 1's complement encoding would turn into a bogus N = 8191. Treat
-+	 * an unconfigured divider as rate 0 and leave the cached M/N cleared so
-+	 * the 50% duty-cycle default path in get_duty_cycle() stays valid.
-+	 */
-+	if (!m_val || !n_val) {
-+		gp->m_val = 0;
-+		gp->n_val = 0;
-+		return 0;
-+	}
-+
-+	gp->m_val = m_val;
-+	gp->n_val = n_val;
-+
-+	return DIV_ROUND_CLOSEST_ULL((u64)parent_rate * m_val, n_val);
-+}
-+
-+static int gp_mnd_clk_get_duty_cycle(struct clk_hw *hw, struct clk_duty *duty)
-+{
-+	struct clk_gp_mnd *gp = to_clk_gp_mnd(hw);
-+	unsigned int d_val;
-+	int ret;
-+
-+	if (!gp->n_val) {
-+		duty->num = 1;
-+		duty->den = 2;
-+		return 0;
-+	}
-+
-+	ret = gp_mnd_clk_runtime_resume(gp);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(gp->regmap, GP_MND_DUTY_REG, &d_val);
-+
-+	gp_mnd_clk_runtime_put(gp);
-+
-+	if (ret)
-+		return ret;
-+
-+	if (d_val >= gp->n_val)
-+		return -EINVAL;
-+
-+	/* DUTY stores the low-phase count; report the high-phase duty cycle. */
-+	duty->num = gp->n_val - d_val;
-+	duty->den = gp->n_val;
-+
-+	return 0;
-+}
-+
-+static int gp_mnd_clk_set_duty_cycle(struct clk_hw *hw, struct clk_duty *duty)
-+{
-+	struct clk_gp_mnd *gp = to_clk_gp_mnd(hw);
-+	unsigned int d_val;
-+	int ret;
-+
-+	if (!gp->n_val || !gp->m_val || !duty->den || duty->num > duty->den)
-+		return -EINVAL;
-+
-+	/* D = (1 - duty) * N, giving the low-phase count */
-+	d_val = DIV_ROUND_UP_ULL((u64)(duty->den - duty->num) * gp->n_val, duty->den);
-+
-+	/* Hardware constraint: M < D < (N - M) */
-+	if (d_val <= gp->m_val || d_val >= (gp->n_val - gp->m_val))
-+		return -EINVAL;
-+
-+	ret = gp_mnd_clk_runtime_resume(gp);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(gp->regmap, GP_MND_DUTY_REG, d_val);
-+
-+	gp_mnd_clk_runtime_put(gp);
-+
-+	return ret;
-+}
-+
-+static const struct clk_ops clk_gp_mnd_ops = {
-+	.determine_rate	= gp_mnd_clk_determine_rate,
-+	.set_rate	= gp_mnd_clk_set_rate,
-+	.recalc_rate	= gp_mnd_clk_recalc_rate,
-+	.get_duty_cycle	= gp_mnd_clk_get_duty_cycle,
-+	.set_duty_cycle	= gp_mnd_clk_set_duty_cycle,
-+};
-+
-+static const struct regmap_config gp_mnd_regmap_config = {
-+	.reg_bits	= 32,
-+	.reg_stride	= 4,
-+	.val_bits	= 32,
-+	.fast_io	= true,
-+};
-+
-+static int clk_gp_mnd_probe(struct platform_device *pdev)
-+{
-+	struct clk_parent_data parent_data = { .index = 0 };
-+	struct clk_init_data init = {
-+		.name		= "gp_mn_clk",
-+		.ops		= &clk_gp_mnd_ops,
-+		.parent_data	= &parent_data,
-+		.num_parents	= 1,
-+		.flags		= CLK_GET_RATE_NOCACHE,
-+	};
-+	struct device *dev = &pdev->dev;
-+	struct clk_gp_mnd *gp;
-+	struct clk *clk;
-+	void __iomem *base;
-+	int ret;
-+
-+	gp = devm_kzalloc(dev, sizeof(*gp), GFP_KERNEL);
-+	if (!gp)
-+		return -ENOMEM;
-+
-+	gp->dev = dev;
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_pm_clk_create(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = pm_clk_add(dev, "ahb");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get ahb clock\n");
-+
-+	clk = devm_clk_get(dev, "pdm");
-+	if (IS_ERR(clk))
-+		return PTR_ERR(clk);
-+
-+	/* Set default rate if not already configured */
-+	if (!clk_get_rate(clk)) {
-+		ret = clk_set_rate(clk, 19200000);
-+		if (ret)
-+			dev_warn(dev, "failed to set default pdm clock rate\n");
-+	}
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return dev_err_probe(dev, PTR_ERR(base),
-+				     "failed to map PDM registers\n");
-+
-+	gp->regmap = devm_regmap_init_mmio(dev, base, &gp_mnd_regmap_config);
-+	if (IS_ERR(gp->regmap))
-+		return dev_err_probe(dev, PTR_ERR(gp->regmap),
-+				     "failed to init regmap\n");
-+
-+	gp->hw.init = &init;
-+
-+	ret = devm_clk_hw_register(dev, &gp->hw);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to register gp_mnd clock\n");
-+
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, &gp->hw);
-+}
-+
-+static const struct of_device_id clk_gp_mnd_match_table[] = {
-+	{ .compatible = "qcom,sc7280-gp-mnd" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, clk_gp_mnd_match_table);
-+
-+static const struct dev_pm_ops clk_gp_mnd_pm_ops = {
-+	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
-+};
-+
-+static struct platform_driver clk_gp_mnd_driver = {
-+	.probe  = clk_gp_mnd_probe,
-+	.driver = {
-+		.name		= "qcom-clk-gp-mnd",
-+		.of_match_table	= clk_gp_mnd_match_table,
-+		.pm		= pm_ptr(&clk_gp_mnd_pm_ops),
+diff --git a/drivers/clk/qcom/gcc-qcs615.c b/drivers/clk/qcom/gcc-qcs615.c
+index f205de3a936170413b21173c7af9668c14495369..f70d6bc25b0432aebb1c33f3f7ea3b7b2062ff8b 100644
+--- a/drivers/clk/qcom/gcc-qcs615.c
++++ b/drivers/clk/qcom/gcc-qcs615.c
+@@ -1656,6 +1656,20 @@ static struct clk_branch gcc_pdm_ahb_clk = {
+ 	},
+ };
+ 
++static struct clk_regmap_div gcc_pdm_xo4_div_clk_src = {
++	.reg = 0x33028,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "gcc_pdm_xo4_div_clk_src",
++		.parent_data = &(const struct clk_parent_data){
++			.index = DT_BI_TCXO,
++		},
++		.num_parents = 1,
++		.ops = &clk_regmap_div_ops,
 +	},
 +};
-+module_platform_driver(clk_gp_mnd_driver);
 +
-+MODULE_DESCRIPTION("Qualcomm PDM GP_MND clock divider driver");
-+MODULE_LICENSE("GPL");
+ static struct clk_branch gcc_pdm_xo4_clk = {
+ 	.halt_reg = 0x33008,
+ 	.halt_check = BRANCH_HALT,
+@@ -1664,6 +1678,11 @@ static struct clk_branch gcc_pdm_xo4_clk = {
+ 		.enable_mask = BIT(0),
+ 		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gcc_pdm_xo4_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&gcc_pdm_xo4_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
+ 			.ops = &clk_branch2_ops,
+ 		},
+ 	},
+@@ -2804,6 +2823,7 @@ static struct clk_regmap *gcc_qcs615_clocks[] = {
+ 	[GCC_PDM2_CLK_SRC] = &gcc_pdm2_clk_src.clkr,
+ 	[GCC_PDM_AHB_CLK] = &gcc_pdm_ahb_clk.clkr,
+ 	[GCC_PDM_XO4_CLK] = &gcc_pdm_xo4_clk.clkr,
++	[GCC_PDM_XO4_DIV_CLK_SRC] = &gcc_pdm_xo4_div_clk_src.clkr,
+ 	[GCC_PRNG_AHB_CLK] = &gcc_prng_ahb_clk.clkr,
+ 	[GCC_QMIP_CAMERA_NRT_AHB_CLK] = &gcc_qmip_camera_nrt_ahb_clk.clkr,
+ 	[GCC_QMIP_DISP_AHB_CLK] = &gcc_qmip_disp_ahb_clk.clkr,
+diff --git a/drivers/clk/qcom/gcc-qcs8300.c b/drivers/clk/qcom/gcc-qcs8300.c
+index 916617a001c854c1a0349c1793a427a2822acfab..4a152e95aa997bdcc7ec56a6ae96c61b3575cd88 100644
+--- a/drivers/clk/qcom/gcc-qcs8300.c
++++ b/drivers/clk/qcom/gcc-qcs8300.c
+@@ -2280,6 +2280,20 @@ static struct clk_branch gcc_pdm_ahb_clk = {
+ 	},
+ };
+ 
++static struct clk_regmap_div gcc_pdm_xo4_div_clk_src = {
++	.reg = 0x3f028,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "gcc_pdm_xo4_div_clk_src",
++		.parent_data = &(const struct clk_parent_data){
++			.index = DT_BI_TCXO,
++		},
++		.num_parents = 1,
++		.ops = &clk_regmap_div_ops,
++	},
++};
++
+ static struct clk_branch gcc_pdm_xo4_clk = {
+ 	.halt_reg = 0x3f008,
+ 	.halt_check = BRANCH_HALT,
+@@ -2288,6 +2302,11 @@ static struct clk_branch gcc_pdm_xo4_clk = {
+ 		.enable_mask = BIT(0),
+ 		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gcc_pdm_xo4_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&gcc_pdm_xo4_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
+ 			.ops = &clk_branch2_ops,
+ 		},
+ 	},
+@@ -3501,6 +3520,7 @@ static struct clk_regmap *gcc_qcs8300_clocks[] = {
+ 	[GCC_PDM2_CLK_SRC] = &gcc_pdm2_clk_src.clkr,
+ 	[GCC_PDM_AHB_CLK] = &gcc_pdm_ahb_clk.clkr,
+ 	[GCC_PDM_XO4_CLK] = &gcc_pdm_xo4_clk.clkr,
++	[GCC_PDM_XO4_DIV_CLK_SRC] = &gcc_pdm_xo4_div_clk_src.clkr,
+ 	[GCC_QMIP_CAMERA_NRT_AHB_CLK] = &gcc_qmip_camera_nrt_ahb_clk.clkr,
+ 	[GCC_QMIP_CAMERA_RT_AHB_CLK] = &gcc_qmip_camera_rt_ahb_clk.clkr,
+ 	[GCC_QMIP_DISP_AHB_CLK] = &gcc_qmip_disp_ahb_clk.clkr,
+diff --git a/drivers/clk/qcom/gcc-sa8775p.c b/drivers/clk/qcom/gcc-sa8775p.c
+index 47acd1b58f13037576888a860c58b6b777aac689..7ed7953e9beb41396f3ba65706edc7ca66180059 100644
+--- a/drivers/clk/qcom/gcc-sa8775p.c
++++ b/drivers/clk/qcom/gcc-sa8775p.c
+@@ -2712,6 +2712,20 @@ static struct clk_branch gcc_pdm_ahb_clk = {
+ 	},
+ };
+ 
++static struct clk_regmap_div gcc_pdm_xo4_div_clk_src = {
++	.reg = 0x3f028,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "gcc_pdm_xo4_div_clk_src",
++		.parent_data = &(const struct clk_parent_data){
++			.index = DT_BI_TCXO,
++		},
++		.num_parents = 1,
++		.ops = &clk_regmap_div_ops,
++	},
++};
++
+ static struct clk_branch gcc_pdm_xo4_clk = {
+ 	.halt_reg = 0x3f008,
+ 	.halt_check = BRANCH_HALT,
+@@ -2720,6 +2734,11 @@ static struct clk_branch gcc_pdm_xo4_clk = {
+ 		.enable_mask = BIT(0),
+ 		.hw.init = &(const struct clk_init_data){
+ 			.name = "gcc_pdm_xo4_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&gcc_pdm_xo4_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
+ 			.ops = &clk_branch2_ops,
+ 		},
+ 	},
+@@ -4406,6 +4425,7 @@ static struct clk_regmap *gcc_sa8775p_clocks[] = {
+ 	[GCC_PDM2_CLK_SRC] = &gcc_pdm2_clk_src.clkr,
+ 	[GCC_PDM_AHB_CLK] = &gcc_pdm_ahb_clk.clkr,
+ 	[GCC_PDM_XO4_CLK] = &gcc_pdm_xo4_clk.clkr,
++	[GCC_PDM_XO4_DIV_CLK_SRC] = &gcc_pdm_xo4_div_clk_src.clkr,
+ 	[GCC_QMIP_CAMERA_NRT_AHB_CLK] = &gcc_qmip_camera_nrt_ahb_clk.clkr,
+ 	[GCC_QMIP_CAMERA_RT_AHB_CLK] = &gcc_qmip_camera_rt_ahb_clk.clkr,
+ 	[GCC_QMIP_DISP1_AHB_CLK] = &gcc_qmip_disp1_ahb_clk.clkr,
+diff --git a/drivers/clk/qcom/gcc-sc7280.c b/drivers/clk/qcom/gcc-sc7280.c
+index 9e141a7ac424ad53f6bcf2869e456633f5612082..0708a1a5560985cae5f3eff5491da7c3de1c0bdc 100644
+--- a/drivers/clk/qcom/gcc-sc7280.c
++++ b/drivers/clk/qcom/gcc-sc7280.c
+@@ -1913,6 +1913,20 @@ static struct clk_branch gcc_pdm_ahb_clk = {
+ 	},
+ };
+ 
++static struct clk_regmap_div gcc_pdm_xo4_div_clk_src = {
++	.reg = 0x33028,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "gcc_pdm_xo4_div_clk_src",
++		.parent_data = &(const struct clk_parent_data){
++			.fw_name = "bi_tcxo",
++		},
++		.num_parents = 1,
++		.ops = &clk_regmap_div_ops,
++	},
++};
++
+ static struct clk_branch gcc_pdm_xo4_clk = {
+ 	.halt_reg = 0x33008,
+ 	.halt_check = BRANCH_HALT,
+@@ -1921,6 +1935,11 @@ static struct clk_branch gcc_pdm_xo4_clk = {
+ 		.enable_mask = BIT(0),
+ 		.hw.init = &(struct clk_init_data){
+ 			.name = "gcc_pdm_xo4_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&gcc_pdm_xo4_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
+ 			.ops = &clk_branch2_ops,
+ 		},
+ 	},
+@@ -3250,6 +3269,7 @@ static struct clk_regmap *gcc_sc7280_clocks[] = {
+ 	[GCC_PDM2_CLK_SRC] = &gcc_pdm2_clk_src.clkr,
+ 	[GCC_PDM_AHB_CLK] = &gcc_pdm_ahb_clk.clkr,
+ 	[GCC_PDM_XO4_CLK] = &gcc_pdm_xo4_clk.clkr,
++	[GCC_PDM_XO4_DIV_CLK_SRC] = &gcc_pdm_xo4_div_clk_src.clkr,
+ 	[GCC_QMIP_CAMERA_NRT_AHB_CLK] = &gcc_qmip_camera_nrt_ahb_clk.clkr,
+ 	[GCC_QMIP_CAMERA_RT_AHB_CLK] = &gcc_qmip_camera_rt_ahb_clk.clkr,
+ 	[GCC_QMIP_DISP_AHB_CLK] = &gcc_qmip_disp_ahb_clk.clkr,
+diff --git a/drivers/clk/qcom/gcc-shikra.c b/drivers/clk/qcom/gcc-shikra.c
+index 13c99a883e29877d9a929f26ca0b3b04b1ea0b11..fbb4ea209345120fb3e178a648509737a0825795 100644
+--- a/drivers/clk/qcom/gcc-shikra.c
++++ b/drivers/clk/qcom/gcc-shikra.c
+@@ -3191,6 +3191,20 @@ static struct clk_branch gcc_pdm_ahb_clk = {
+ 	},
+ };
+ 
++static struct clk_regmap_div gcc_pdm_xo4_div_clk_src = {
++	.reg = 0x20028,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "gcc_pdm_xo4_div_clk_src",
++		.parent_data = &(const struct clk_parent_data){
++			.index = DT_BI_TCXO,
++		},
++		.num_parents = 1,
++		.ops = &clk_regmap_div_ops,
++	},
++};
++
+ static struct clk_branch gcc_pdm_xo4_clk = {
+ 	.halt_reg = 0x20008,
+ 	.halt_check = BRANCH_HALT,
+@@ -3199,6 +3213,11 @@ static struct clk_branch gcc_pdm_xo4_clk = {
+ 		.enable_mask = BIT(0),
+ 		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gcc_pdm_xo4_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&gcc_pdm_xo4_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
+ 			.ops = &clk_branch2_ops,
+ 		},
+ 	},
+@@ -4206,6 +4225,7 @@ static struct clk_regmap *gcc_shikra_clocks[] = {
+ 	[GCC_PDM2_CLK_SRC] = &gcc_pdm2_clk_src.clkr,
+ 	[GCC_PDM_AHB_CLK] = &gcc_pdm_ahb_clk.clkr,
+ 	[GCC_PDM_XO4_CLK] = &gcc_pdm_xo4_clk.clkr,
++	[GCC_PDM_XO4_DIV_CLK_SRC] = &gcc_pdm_xo4_div_clk_src.clkr,
+ 	[GCC_PWM0_XO512_CLK] = &gcc_pwm0_xo512_clk.clkr,
+ 	[GCC_QMIP_CAMERA_NRT_AHB_CLK] = &gcc_qmip_camera_nrt_ahb_clk.clkr,
+ 	[GCC_QMIP_CAMERA_RT_AHB_CLK] = &gcc_qmip_camera_rt_ahb_clk.clkr,
+diff --git a/drivers/clk/qcom/gcc-sm8750.c b/drivers/clk/qcom/gcc-sm8750.c
+index 80b8ec119c553d06e192d793730a0176e74e7b49..5449462c25ecc8893a5fd44004989b45d51d53d1 100644
+--- a/drivers/clk/qcom/gcc-sm8750.c
++++ b/drivers/clk/qcom/gcc-sm8750.c
+@@ -1690,6 +1690,20 @@ static struct clk_branch gcc_pdm_ahb_clk = {
+ 	},
+ };
+ 
++static struct clk_regmap_div gcc_pdm_xo4_div_clk_src = {
++	.reg = 0x33028,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "gcc_pdm_xo4_div_clk_src",
++		.parent_data = &(const struct clk_parent_data){
++			.index = DT_BI_TCXO,
++		},
++		.num_parents = 1,
++		.ops = &clk_regmap_div_ops,
++	},
++};
++
+ static struct clk_branch gcc_pdm_xo4_clk = {
+ 	.halt_reg = 0x33008,
+ 	.halt_check = BRANCH_HALT,
+@@ -1698,6 +1712,11 @@ static struct clk_branch gcc_pdm_xo4_clk = {
+ 		.enable_mask = BIT(0),
+ 		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gcc_pdm_xo4_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&gcc_pdm_xo4_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
+ 			.ops = &clk_branch2_ops,
+ 		},
+ 	},
+@@ -3000,6 +3019,7 @@ static struct clk_regmap *gcc_sm8750_clocks[] = {
+ 	[GCC_PDM2_CLK_SRC] = &gcc_pdm2_clk_src.clkr,
+ 	[GCC_PDM_AHB_CLK] = &gcc_pdm_ahb_clk.clkr,
+ 	[GCC_PDM_XO4_CLK] = &gcc_pdm_xo4_clk.clkr,
++	[GCC_PDM_XO4_DIV_CLK_SRC] = &gcc_pdm_xo4_div_clk_src.clkr,
+ 	[GCC_QMIP_CAMERA_CMD_AHB_CLK] = &gcc_qmip_camera_cmd_ahb_clk.clkr,
+ 	[GCC_QMIP_CAMERA_NRT_AHB_CLK] = &gcc_qmip_camera_nrt_ahb_clk.clkr,
+ 	[GCC_QMIP_CAMERA_RT_AHB_CLK] = &gcc_qmip_camera_rt_ahb_clk.clkr,
 
 -- 
 2.34.1
