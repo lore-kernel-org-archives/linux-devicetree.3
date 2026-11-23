@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795445620;
-	b=3KzZUEZ/yLE5a7V7TjfREhw+jkKP9AJ+8S36WuHtPy1A1s+L+7l4XZzhgIY8MWQSjTuO
-	 z5CCpmyPhnmE/uVMFUNPLv7NdFteCtQrBVOBbpM2sadhooRISjaX8MYdSTxedPjPcyXVY
-	 ji8YO5AHvA17D8mVFCCG6Ehch0/+Ji18YkeO9K5zpFXGj+mPAqhZ/52SZ0xzoTMbsndoX
-	 Hv8RbIpZ6USewVWdHOOl3XEa+j2fqLG98ojZOiUvM9JcyXD23PXqwmlYNwSrLSKaffI9w
-	 gJOsvHZs/Oe0z4/0UQI3RLiHduqxnCSQeO2Biz1Tb+7rgKN4poIX3/o9oRiGGMM18Xg==
+	t=1795445622;
+	b=mZZQ2kG/5xrTUY9RfJALM/EBlzWdxIEtZlDA/SndQhXn11MatOdWLtwOq+kJAgJrHBot
+	 +0Mk32n2xUcre3JUDChSqLQwAoEKbQxeZC2haUhl70/dfifCbynjtdzlknz0h63NO2e+C
+	 qT5SXLhxHjzlXt2WvfdGo4kIQbOTks4yBikCyaxABpjzS+Q/sw4iux6sn31FZ/WtEoq3T
+	 yUqAsMj21KHlUSXtGMDtcrYhjriqzQj5VvmZEpRfAqXAmdvDXkQ47ey3hitc9GVnNJ6ac
+	 JNmBc00Xehlp4O9P7RG7Um0X+/3e6iWP8oOqLYpYH6BQV+EtwSKhTOzu5MgVvDM3+sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795445620;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795445622;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=N0XUkbBZQjwMXywlAqudB9OULMaRdVS1E8mdwW3kIvQ=;
-	b=aH7vQDagj0fZ3VRKqITMBFidt6pPyGaiR7LoE+byC+xWVXW/LFv+XtjqWwaDlLJyIKl1
-	 KeCA/h820/MXfy1laZQaYmi6u1y5IBx5uAtr5bJ/51CLOAEWTQkWnS71VLY+kRda4QxG/
-	 XTM3aMXGOy9tlurvqnciovqqMPBMrNa/6RHukoRB6YL6wx8TULn93oqKpsGLXCf+jMqQ6
-	 fgy5STAznH2d9QWKOp4nwJy0nJ7fDP3Tur61b8iVZzLRTZ1+bmrJ/AnC460eeR0tVmFnJ
-	 W2QYpy7XJ2jWQuvpTiJ4e+uvEO2+Dgx9U7iGjaXdVjVrgEiWCWRbEK1lxbfC6TtvFfA==
+	bh=GrSoWjeoZdpdA2pLivwg9kOVjevNBkSDdhik7u3RWso=;
+	b=t3b5g94BIcOweoDzkxKNUyMr6Us3takSd+lRIECWZg0Vy6/kp06j2zGSiSPgAZvU/gm2
+	 Bl5cjTSOzqSZWszGjzC2CZgH+IwqLnEHxDmDn9faBQPsWbQV3YHkCT48pJcZLW9xUh4RT
+	 iI9GscUT7lDjljTUYnz0nx2pyLZy9a2DbAZcYBn1YRiHEChkR/tPPrN56F2sIoKofkXtl
+	 jL2mdGVXRGnNaB4yrTmQ57Vez123Qw4duL9Lu327jZHbxMkcyComIoijKYIdh62OXiZUd
+	 Y6BQif2xY4PkD2p6VAqR1po0p7wgsNiY56xp/5MrfFcMC4AphahnM1LsIW/q5U5n0Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VsRcNHUS;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I7xfCsQW;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5672606A6B4
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:53:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5672606A6B4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72871606A33A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:53:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72871606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VsRcNHUS
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bb9d8e8e90so4947645e9.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:53:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I7xfCsQW
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4bb6057b333so14933015e9.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:53:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795445618; x=1796050418; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1795445620; x=1796050420; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=N0XUkbBZQjwMXywlAqudB9OULMaRdVS1E8mdwW3kIvQ=;
-        b=VsRcNHUStZVYhtqFMcQakr0YXKqAbT6JzT7+DP8OORhloXY+hy7LjP0dZr4FCdl3LD
-         4hAFRZyEifxkGj1EzibEhkPSbSuUOHQcM24kRsM14j49f79tLmUun7UO99XZRXiVRkZ9
-         CAgfaoCshkt12aTOMolFtdXUdzW8wAk2VNHTPywNDQVw0qT6TdZWtbJNA30O/YRKopub
-         YevWMxldCWgCejmIJOsN6l3pgZ1DZysW4YQbXsIeCPLGL981TwdGE9GiMxAIn5TPXytc
-         p3+1fHHJTFiRWy/f0dYSKS5MR3d3I2yPC5NMJTjQaSLie1co05flttzCPHQBKWQao076
-         0MsQ==
+        bh=GrSoWjeoZdpdA2pLivwg9kOVjevNBkSDdhik7u3RWso=;
+        b=I7xfCsQWNGM6/3t3IFhuPig70szmaXPdWqHR4ICLd5EYf27TdS6LYX/3vN9VvL4QJq
+         QqTt1vGn6XcO09FmNlVlM2JCkUMdRmbbccEZWIv3QW4PiQGOOfvsBC4Huh69PxiFsupZ
+         iZvTlMvf53aouuFalLnWFe/2YWUwgPceGlafMd40ug/87CsMK3ysW12IfI5f44asr9iJ
+         hqxhK/ff/NNMlFEJeuoN9quCJHovzK0Z4WISwy2gAHdxvXzPHFnZFdqz3/V7QbKFu/k+
+         Tf4rGrfYp39AS7LxGmcc10xDf7/4WKW8h4xzNtxR1VD6M+konYD4HrgUbmpRBmnjyHTB
+         4Krw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795445618; x=1796050418;
+        d=1e100.net; s=20260707; t=1795445620; x=1796050420;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N0XUkbBZQjwMXywlAqudB9OULMaRdVS1E8mdwW3kIvQ=;
-        b=syIdx7eUGhej8392ApO0Fq5hD1RBQKciWBCyc2c808Ol0oOAnOl8Du0KYoFEscTkm9
-         sRcbRftSw9ifUu2Sl0hnJ3gd4dTJbFLic4Kk2OtVfTnlP4DncjfQtivfSw4bEJlgw3PU
-         U5UAMDsW8qRsDb2ECM9yVDZ15GQ3oElu3jLNEujSs15wulRPiaqORxZzlyQVQ2G/sk+e
-         5czyW4ZKoIEiJwgn5Ysu/KWhLR7U2XOde6whiI8VCAAHgEzEOktDAlzwiANIiYFRx6Q9
-         hEJE9WerzjyUUWO94ZQkg0Bv5+7LJAV24tHqvYGRiRJaZL0jN5MPIbnrCE9gAbbfyGLD
-         v9eQ==
-X-Forwarded-Encrypted: i=1; AL+hErFKYxSn17a9sV1f+N1PtZHZoyNqXDlF7DZ1u0xqn76KcYtRW6gV1aKVWXLlV/QCSBFxO3yjDG4Lglnj@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sRdioOWXZLVO9M12oc/P4CpNmDrQKiS2RTDnwkbQiDNA9GWcK
-	rtL2nmLEPI1QHPOnTHi/M3pIn79AMNtnL6VoQvQhvYrPY1GTpid/YtY0iHGv/aBnraQ=
-X-Gm-Gg: AZFdTZfA8tAqEQZJpfvH+LMgahadfrqUiOgKUl/vJYLfNbUEVqipvzzgSzsLacr+Iru
-	q5McyzCisswnLqoukPn2AY/Fkbr1UsOUlYWdj/HIHTK5l1pHql9FQNvMbnYYBveIR6MuTmB8Ahl
-	vaVt1qnvVzTyAZwpmlgACe6X8xzmFB+kT6IU1oTOSR4PuafRuTEeq2jMEeFqhZWPl5GinaNbAwr
-	W4IAOvX5Lgm0CDurGC126UM2wv7oDnVnyB3TeCBRsgu96tRo5J+6XQ5HJDcBGK76DZ+fEdNELOt
-	ABYmPtKP06YLJFxWhtABxBeoyqMozd27iKVkOJgeajwv8WZJPSZyy1N+41y8iefPGOqLoqLR4vj
-	E0dCoOt3SkB0GkB2exiGg9qGWjbdnrmpKDh0+FA14ko/rAjq7HQyIJ5PFpCLAnyJdcaSAu091E+
-	gDXpNBxcPUJ/iFk9dLAKK7a8eeIGPUJpqKOrWmN93NxzKMO/jlOnDPobAu8p6HuIbwPt2nubCu0
-	WfdN4UvHfzjEO61XIdJDmo95zn6gkeh+LBWYsRGGlBV3J/H/7dxh9ZQTSDCTZlBjGicqhIlSuLe
-	fg/vQ2lVKC4BHa+2DHFktB2/vpk=
-X-Received: by 2002:a05:600c:64c7:b0:4bb:68c4:2044 with SMTP id 5b1f17b1804b1-4bb887fe725mr228663945e9.11.1795445618234;
-        Mon, 23 Nov 2026 06:53:38 -0800 (PST)
+        bh=GrSoWjeoZdpdA2pLivwg9kOVjevNBkSDdhik7u3RWso=;
+        b=fJPAFJOqgltKIB4ERnWU/aKx3BJlec+sH4Ak1dP/18C5XbIzmekPDSeEj3HEnnEbyp
+         yBUz0DvTfFDOduac5ZylB6yD5vDVIcXoBi4BbgdeHO41UQlSMPTOnQifj+axrENuKmwf
+         ffrJnVJ4iy0s5YAQndQNug+/IIedhggndmb5q7ikY8+ij8O9aSTxW2huktBomalKOFk8
+         guj5CI4BeDej3SGMPFZ8hFhtpdWgrZv4cWhnvMFG65jAapjBgn5AYlylGQAG6vMA3wMm
+         DfVly5Vf3HTfKQhj1hDmfwuepkVEGkgfbCXpVy1BoheNNQJ+rN2/Y2oiqAZKlambAD3Y
+         y0Yg==
+X-Forwarded-Encrypted: i=1; AL+hErHP+H1EeKDSAY4RD/w46HRY70C+K44eGKfOryiQ3/YrZ6R+8vN4NpB7rses/0KBCH9PQA/YLMSXOU2D@vger.kernel.org
+X-Gm-Message-State: APuU4Z/esyvP2ne0OoczKd9U1J2nGejogjt4VHkwZ96sM0+r4IvgbJ3Q
+	DY5WNByv7SNcv3BP1IdeOzb6wX4bQoIjrEHHKplhJ11LTiDIOFZqqn+ynWJVJ55Hg1E=
+X-Gm-Gg: AZFdTZd+Bh9/4I1tLdPDnv/L/xQWalZ9C0XwDwpUH3cJl8446YZ+Jhr/Z0fG+aDXFA8
+	MdKfgAhdBpD5C9c2hIsXw+hzZEUb6j2J1BclwqznLFgeaU3iCmqmir0cGEypcepg1ZE/PGqxRn+
+	9W5/z58Cub/q+pYfUGxx2l4x8Cz6iFOvqCvERDjTQ9myELuNkl0ZZi7oNWJvtp5oMEQU27d8L8+
+	3EjpMjx5j44Z5tH2BQqWRig1+C/CipoUb9BDMzMFgjZQ0bW3JRE9HSgv8sHD7rR+kTVN8QEMREw
+	7cSrUnExItJafK1mxu5Ig1u0/HfJTe9a2UCUwAEe2Tu/VBrzAwyJYc6gMpUnJZRruGwTgQ53v7Q
+	tJs8nJqwVfnZNCy2sReXOLHjp0eCpkwrfa3Qjk/lEAE/xOmfFFudM1PqgHJOcN13Y4jz3AKtCuH
+	wZnocyvMAsLhGt4h2UzXFPalVtKbdNV4YxaySXsa/fbYyxJHRbnSz3ocZ9O0Udij4ipnKbyuFDF
+	YSt9Bj6UaozQqMXxm5Wh1jNKCwNRm2xLJq3oVJdlPDzMaJ5cueRGwDVdL5QrFrBgwEMO0LxzUBa
+	clOM7dJSou1GZ0+klwrG1nGENg8=
+X-Received: by 2002:a05:600c:3e1a:b0:4bb:6814:7391 with SMTP id 5b1f17b1804b1-4bb8881921cmr233321345e9.25.1795445619780;
+        Mon, 23 Nov 2026 06:53:39 -0800 (PST)
 Received: from localhost ([82.192.120.76])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb9066f6e6sm142776925e9.3.2026.11.23.06.53.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm663224295e9.4.2026.11.23.06.53.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 06:53:37 -0800 (PST)
+        Mon, 23 Nov 2026 06:53:39 -0800 (PST)
 From: Andrea della Porta <andrea.porta@suse.com>
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Frank Li <Frank.Li@kernel.org>,
@@ -101,9 +101,9 @@ Cc: Frank Li <Frank.Li@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH v3 04/28] dmaengine: bcm2835: Support dma flags for multi-beat burst
-Date: Mon, 23 Nov 2026 15:56:42 +0100
-Message-ID: <20261123145728.29082-5-andrea.porta@suse.com>
+Subject: [PATCH v3 05/28] dmaengine: bcm2835: Fixes for dma_abort
+Date: Mon, 23 Nov 2026 15:56:43 +0100
+Message-ID: <20261123145728.29082-6-andrea.porta@suse.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261123145728.29082-1-andrea.porta@suse.com>
 References: <20261123145728.29082-1-andrea.porta@suse.com>
@@ -120,70 +120,81 @@ Content-Transfer-Encoding: 8bit
 
 From: Dom Cobley <popcornmix@gmail.com>
 
-Add a control bit to enable a multi-beat burst on a DMA.
-This improves DMA performance and is required for HDMI audio.
+There is a problem with the current abort scheme
+when dma is blocked on a DREQ which prevents halting.
+
+This is triggered by SPI driver which aborts dma
+in this state and so leads to a halt timeout.
+
+We attempt to abort the channel, which will work
+if there is no blocked DREQ.
+
+It it times out, we can assume there is no AXI
+transfer in progress and reset anyway.
+
+The length of the timeout is observed at ~20us.
 
 Signed-off-by: Dom Cobley <popcornmix@gmail.com>
 Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 ---
- drivers/dma/bcm2835-dma.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ drivers/dma/bcm2835-dma.c | 32 +++++++++++++++++++++++---------
+ 1 file changed, 23 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
-index 118ba2f71dc8..063e1b2aabe3 100644
+index 063e1b2aabe3..51e3a40dbaec 100644
 --- a/drivers/dma/bcm2835-dma.c
 +++ b/drivers/dma/bcm2835-dma.c
-@@ -137,6 +137,7 @@ struct bcm2835_desc {
- #define BCM2835_DMA_S_DREQ	BIT(10) /* enable SREQ for source */
- #define BCM2835_DMA_S_IGNORE	BIT(11) /* ignore source reads - read 0 */
- #define BCM2835_DMA_BURST_LENGTH(x) (((x) & 15) << 12)
-+#define BCM2835_DMA_GET_BURST_LENGTH(x) (((x) >> 12) & 15)
- #define BCM2835_DMA_CS_FLAGS(x) ((x) & (BCM2835_DMA_PRIORITY(15) | \
- 				      BCM2835_DMA_PANIC_PRIORITY(15) | \
- 				      BCM2835_DMA_WAIT_FOR_WRITES | \
-@@ -160,6 +161,11 @@ struct bcm2835_desc {
- #define WIDE_DEST(x) (((x) & BCM2835_DMA_WIDE_DEST) ? \
- 		      BCM2835_DMA_D_WIDTH : 0)
+@@ -419,7 +419,7 @@ static void bcm2835_dma_fill_cb_chain_with_sg(
+ static void bcm2835_dma_abort(struct bcm2835_chan *c)
+ {
+ 	void __iomem *chan_base = c->chan_base;
+-	long timeout = 10000;
++	long timeout = 100;
  
-+/* A fake bit to request that the driver requires multi-beat burst */
-+#define BCM2835_DMA_BURST BIT(30)
-+#define BURST_LENGTH(x) (((x) & BCM2835_DMA_BURST) ? \
-+			 BCM2835_DMA_BURST_LENGTH(3) : 0)
+ 	/*
+ 	 * A zero control block address means the channel is idle.
+@@ -428,19 +428,33 @@ static void bcm2835_dma_abort(struct bcm2835_chan *c)
+ 	if (!readl(chan_base + BCM2835_DMA_ADDR))
+ 		return;
+ 
+-	/* Write 0 to the active bit - Pause the DMA */
+-	writel(0, chan_base + BCM2835_DMA_CS);
++	/* We need to clear the next DMA block pending */
++	writel(0, chan_base + BCM2835_DMA_NEXTCB);
 +
- /* debug register bits */
- #define BCM2835_DMA_DEBUG_LAST_NOT_SET_ERR	BIT(0)
- #define BCM2835_DMA_DEBUG_FIFO_ERR		BIT(1)
-@@ -621,7 +627,8 @@ static struct dma_async_tx_descriptor *bcm2835_dma_prep_dma_memcpy(
- 	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
- 	struct bcm2835_desc *d;
- 	u32 info = BCM2835_DMA_D_INC | BCM2835_DMA_S_INC |
--		   WAIT_RESP(c->dreq) | WIDE_SOURCE(c->dreq) | WIDE_DEST(c->dreq);
-+		   WAIT_RESP(c->dreq) | WIDE_SOURCE(c->dreq) |
-+		   WIDE_DEST(c->dreq) | BURST_LENGTH(c->dreq);
- 	u32 extra = BCM2835_DMA_INT_EN;
- 	size_t max_len = bcm2835_dma_max_frame_length(c);
- 	size_t frames;
-@@ -652,8 +659,8 @@ static struct dma_async_tx_descriptor *bcm2835_dma_prep_slave_sg(
- 	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
- 	struct bcm2835_desc *d;
- 	dma_addr_t src = 0, dst = 0;
--	u32 info = WAIT_RESP(c->dreq) |
--		   WIDE_SOURCE(c->dreq) | WIDE_DEST(c->dreq);
-+	u32 info = WAIT_RESP(c->dreq) | WIDE_SOURCE(c->dreq) |
-+		   WIDE_DEST(c->dreq) | BURST_LENGTH(c->dreq);
- 	u32 extra = BCM2835_DMA_INT_EN;
- 	size_t frames;
++	/* Abort the DMA, which needs to be enabled to complete */
++	writel(readl(chan_base + BCM2835_DMA_CS) | BCM2835_DMA_ABORT | BCM2835_DMA_ACTIVE,
++	       chan_base + BCM2835_DMA_CS);
  
-@@ -705,7 +712,8 @@ static struct dma_async_tx_descriptor *bcm2835_dma_prep_dma_cyclic(
- 	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
- 	struct bcm2835_desc *d;
- 	dma_addr_t src, dst;
--	u32 info = WAIT_RESP(c->dreq) | WIDE_SOURCE(c->dreq) | WIDE_DEST(c->dreq);
-+	u32 info = WAIT_RESP(c->dreq) | WIDE_SOURCE(c->dreq) |
-+		   WIDE_DEST(c->dreq) | BURST_LENGTH(c->dreq);
- 	u32 extra = 0;
- 	size_t max_len = bcm2835_dma_max_frame_length(c);
- 	size_t frames;
+-	/* Wait for any current AXI transfer to complete */
+-	while ((readl(chan_base + BCM2835_DMA_CS) &
+-		BCM2835_DMA_WAITING_FOR_WRITES) && --timeout)
++	/* wait for DMA to be aborted */
++	while ((readl(chan_base + BCM2835_DMA_CS) & BCM2835_DMA_ABORT) && --timeout)
+ 		cpu_relax();
+ 
+-	/* Peripheral might be stuck and fail to signal AXI write responses */
+-	if (!timeout)
++	/* Write 0 to the active bit - Pause the DMA */
++	writel(readl(chan_base + BCM2835_DMA_CS) & ~BCM2835_DMA_ACTIVE,
++	       chan_base + BCM2835_DMA_CS);
++
++	/*
++	 * Peripheral might be stuck and fail to complete
++	 * This is expected when dreqs are enabled but not asserted
++	 * so only report error in non dreq case
++	 */
++	if (!timeout && !(readl(chan_base + BCM2835_DMA_TI) &
++	   (BCM2835_DMA_S_DREQ | BCM2835_DMA_D_DREQ)))
+ 		dev_err(c->vc.chan.device->dev,
+-			"failed to complete outstanding writes\n");
++			"failed to complete pause on dma %d (CS:%08x)\n", c->ch,
++			readl(chan_base + BCM2835_DMA_CS));
+ 
++	/* Set CS back to default state and reset the DMA */
+ 	writel(BCM2835_DMA_RESET, chan_base + BCM2835_DMA_CS);
+ }
+ 
 -- 
 2.51.0
 
