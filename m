@@ -1,55 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795425972;
-	b=UiHFJdEs3kAoZGjK6Cq0iTUaFQ1Fu9ca/LO3ELgejQJrKPhIBBM14QSnsODx+oA1rwdl
-	 r3Az1OHfTDEfYuO0jfCFoN3dnD/cBHv/g1usASUDtQY6qvmU0DY/8+MskWy4cQxI9FUll
-	 LvJJf4CS0+mYQLttf0VC//aMUODxobnTIgMWxr3TejUpXolndVviH3uth3TFCserHBblM
-	 XmWx4siG86MCx0jE5UZLjkJUHF84oGgOuqsGKoVq4Oqc4n+zXZw1aa2U4kOjhVoGzI5Ob
-	 115h6Z74hwZiJ5wqvBj/Kw6CyeeUlDKAeMZI1BVCD/dlESNKc3gupBI0t9KavyQY47A==
+	t=1795426130;
+	b=r5Zw19jmvkC66vKQ4AArP7EZ79DQRUIKid6WU3AuD/zxqSwSnI8RWpdBy6viAbQL3WJg
+	 6CjMsZKdBQp88vrMaafwWdg7VZo/YbGvV8oHNV1uQsirbckNhspTvxc1Q5wrMg5wK4eXt
+	 HHy8UCqgzMxypdf3Ayi8IyNyQlRMftaK1ZNpZrM7roDKvK6bbdVDYxLHdoJRHM8oULEX8
+	 pk4oKqiIA3PLluv4/MU8cjR9CQHp1ZA1bS5vwWUpuuR+Z3VB4nPi3ZNcVzCByJnKep0As
+	 Mp8n7D1HfDMuvx/NYWat6KUjSaVN1qgFdJ+8GqburHGLjIMmNfRjIbewmCgH1F1DBDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795425972;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 Content-Transfer-Encoding:In-Reply-To:References:X-QQ-SENDSIZE:
-	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=JBgmFwI3d+bD4ZeA1f4oLGcqRjnONiXOuExZb/PYGVU=;
-	b=3I1LjKoNDMa9lmgNXKvyNef8uOL885iIPSWQ9tPeU/+m5fCPuLRArKCGCkP8WWpHWtDl
-	 RNC/rcbxhZnZ/xjO0fJl1rMhvlubRdZi1mKExiv9O5xXlapUUob8bUmvCJWzfiU/m2pUB
-	 jrZtXFOV2UClq0cEUppxoxM0UDD5vaYK1NwaLj4hvCLHPwiP4JvDvCL3IACZgTmbUOeuB
-	 W1lXweD/90BeXdus+lYf/o8QzzEa/qsE89hIPEhCYO8pnc+tSNijFSz8pPj3v9tT4NOZ3
-	 8NhlQ5FZXVSJ/wIGXnvCitsmyo/2byi8SxPUt1mcXzaI9g6/sRsm0BLiWjvKwlGX5mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795426130;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=L+f3aZ4x97D1fte85K6wDTG5uEQdwKWHlKnLwZT1tVk=;
+	b=OUfynNNrLNszm+nKBpAzg4axQNDN00+92rjw19CSm/+3qXYkE2V0UibBspZady+zzy09
+	 dxg6pjsc7Eitl+6P0gFmw9iDLfdav+MeUpm+g8G2bApwelHqOary7GhOvFK1Sas3mhG0a
+	 VeCBxQxVH0CEs2ovVtXCT0SL4BpVBqkPDUttSbTWYk3Imeu+onLbcoyxkC9aLqX1yvn4T
+	 hUiJsSOCsnj+0+xCxnYf0xW2he5R+EV+DbTLMYQjXNl6Qg7gnFvrRPnWmEsRvoCJXq2FT
+	 B4vi9VGsR2zYNyJ4SXnW0xRioV+WMiAh95ecKhq1cTiGkG2A0UGWlYoWYOpHkyYbnRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=bpRmjo+T;
-	arc=none smtp.remote-ip=54.206.16.166
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jA11vHXW;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9164B606A31E;
-	Mon, 23 Nov 2026 09:26:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9164B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069BB606A31E;
+	Mon, 23 Nov 2026 09:28:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 069BB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=bpRmjo+T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1795425902;
-	bh=JBgmFwI3d+bD4ZeA1f4oLGcqRjnONiXOuExZb/PYGVU=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=bpRmjo+TJx+EXAXz2i836hOhcde9JmnBTLwhD0g1BaaFKQNTrON1PGAQwc3yRdzrm
-	 41bmzeSSsrcjx6NQa68swL7yBgkHVHMg+hWf1STDN+vB8C7Mk98uEOC4QJIHRKDLWy
-	 S1Pi6ko6FisVuT8IZteniiOgdPEWLZ1ty8DsBpLc=
-X-QQ-mid: esmtpsz10t1795425896tea819c39
-X-QQ-Originating-IP: uO/dN4xpVqcgehUM7VHVJuhKXoP0Sa6dV1wDnAUdss0=
-Received: from = ( [183.48.244.245])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 23 Nov 2026 17:24:54 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6983506776198614728
-EX-QQ-RecipientCnt: 18
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jA11vHXW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795426129; x=1826962129;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OEGqfdfi9J2+Fc3m22eFlI90/tdoU7Xa6xfbXr5Kg1o=;
+  b=jA11vHXWa77L4Pyk7oW4Mto3gF492jTqQEssopaGv2I9u3Zd5kdtN+CE
+   i7GK9XZgmHlW8cNZwyAMiKQFQa1kUMFUrHFPoqKTtJr8FBEeUJDLebt+Z
+   ML6xEGcncEvDJL/qLkv5BQeOH5YyEqKyUW11+63lX1MGSAqvsoQ7p+x4U
+   ucsS6D1mv2aRtkeEC5Shj+PtKLTfzBAKOLqXgXgFBFwEfXBgYwYjtYgv5
+   SQuWHKzEWaR0PNbmWctItYH8ZXUF8pS+3le2pxwkoPinQZmans1fjofI4
+   7rNQO2e25iM214vXCO+9cZ4xNtoOS7QM4zFxYlvuMSzF7b/P2ub6lFG0o
+   A==;
+X-CSE-ConnectionGUID: GwRqoKWGQDeupvYXaRbGSw==
+X-CSE-MsgGUID: 2SQcEkP9SviRT+6BxHILuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4214638"
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="4214638"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 01:28:48 -0800
+X-CSE-ConnectionGUID: AiikV351TdSKdQoprfHXzA==
+X-CSE-MsgGUID: rMEpuSptTKyP476D0vWRBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="11613688"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 01:28:45 -0800
+Date: Mon, 23 Nov 2026 11:28:42 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Akhilesh Patil <akhilesh.patil@linux.dev>
+Cc: jic23@kernel.org, andy@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+	dlechner@baylibre.com, nuno.sa@analog.com, conor+dt@kernel.org,
+	joshua.crofts1@gmail.com, maxwell@maxwelld.cc,
+	u.kleine-koenig@baylibre.com, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	akhileshpatilvnit@gmail.com, akhilesh@ee.iitb.ac.in
+Subject: Re: [PATCH 0/2] iio: chemical: Add driver and bindings for acd10
+Message-ID: <awQHSgDkBlsOyuPP@ashevche-desk.local>
+References: <cover.1795326744.git.akhilesh.patil@linux.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,80 +81,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=d2ee13a6a85992f018305a6f724e47d00c2db0323c1bf1b05267470c5e8a;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 23 Nov 2026 09:24:52 +0000
-Message-Id: <DN2HD0L9B12P.2EK0R922TOV3U@linux.spacemit.com>
-Cc: <srini@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
- <conor+dt@kernel.org>, <dlan@kernel.org>,
- <troy.mitchell@linux.spacemit.com>, <me@ziyao.cc>, <aurelien@aurel32.net>,
- <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>,
- <alex@ghiti.fr>, <p.zabel@pengutronix.de>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Jiayu Du" <duge1256@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261122173810.2409146-3-duge1256@gmail.com>
-References: <20261122173810.2409146-1-duge1256@gmail.com>
- <20261122173810.2409146-3-duge1256@gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MEc+ZvFxT3Id0mAMkmwJzZjB6ZNyp0/aYoFf2CjA8h2Ltgc8qHtV+DEz
-	5bcTeMx4e4O3r7ZxURvIvVt4LoL3UdHpShdjxlg5uiK8zRcretqGgTQGYP0LzK7AW168M/n
-	faT8uAseSChacGFN5G6/+5TMtHzzlPGABmg8y/OqJLS6yDasxfFu4LJjN1FEKucamEtgZct
-	bWlLUQTi5jr93gYFhvQzdq4c1C7b5fgEezVkC4GVI3enZFmhdOBwAR8lSxZ0Gd4yOsGW5cU
-	LhWOR2iwdhFbs3qqSON6uhaYS1liM2bsV2w9v/iId8tbCT2rcQyD21S8EU6qezXXh/AgOno
-	Pba8S9KCPMkI1kBxnLCyXOtBhs2wz7xvjEbtTfPmyKvWrUlZfNsABRc+M+uZqvVRUmbaelO
-	6ydr5lYoriIy7AUP2+eX+M7Mg8wx94d5oWrapWtf1vaxyHx3KjuIXFDu+JTX/lSkVS6xxjn
-	/OGF8MMCN/kXoS0SCjbBL4pyLfTy9sgjTXszerguHYQfNVUZyH5pU+oAASzwdJMgtcJN/DH
-	STY/0Jk9ppMC8ukeKlikhYME3wb+TIk4Dsj1dPQjqP/C8VapPtUskc1BLJYFmtqxq4KMbaD
-	UlPoJ7qvJUjfAcdrmJswcLKL7+7OVaL470oba763476UOt2YjGV9IvpYItUPcpbh56aeOXh
-	2JYioBhVQwz0luyo09qZa+auJOsA2LAYWZ8VQy9bHHr8Cxa1SS3jyopBg4EljVj2nqG8S17
-	IF2sF8fTdhhHFiUlE0aTJdMtc3P9t7Axyf8NyuIKswUYiO1Q6NyQs+UrtDbhu2xZuiB2Y8d
-	/hRo0UvgOWfQ3nM5+NVPuRIStmMcINRch9ouwYg1QVW+D7463iiehIVbV06ft/dyLXkf88m
-	m1DauE0J94WwfQvKX1sfALa0iRhAbyTs7lh3gglA3QRls695C7GT2qoZnnbHuYsV/bmZhrW
-	QNKmXQcHSmKrD70GWi09bOhf7n+p9VIzWXStZj/HfXan8kUbM3lW5pgvScy1dShrgN3VY7B
-	pMzl5Ov5y+sP3xes3hRAht0Xlz1viQ4nOlnOabCkgjd1lE8Q0SgbNPrhYMpcldEly2s0out
-	rBNPyXu9huv
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1795326744.git.akhilesh.patil@linux.dev>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
---d2ee13a6a85992f018305a6f724e47d00c2db0323c1bf1b05267470c5e8a
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Sun, Nov 22, 2026 at 06:30:43AM +0000, Akhilesh Patil wrote:
+> This patch series adds support for Aosong ASAIR acd10 CO2 (Carbon
+> dioxide) sensor driver in IIO subsystem. 
 
-On Mon, 23 Nov 2026 01:38:09 +0800, Jiayu Du wrote:
-> Reload the shadows during probe and cache the data for subsequent reads.
-> Use a 512-byte NVMEM space with bank-based offsets and keepouts for the
-> other banks.
+There is no answer to the question "Why a brand new driver?"
 
-v2 said why only banks 0 and 7 are exposed, here and in a comment
-above k3_efuse_keepouts. v3 drops both. Banks 1 and 2 hold the root
-key and the SSK, so please keep that explanation.
+> Patch 1: Adds bindings for this hardware
+> Patch 2: Adds driver code for acd10 under drivers/iio/chemical
+> 
+> Quick overview of acd10: 
+> - This is CO2 sensor based on NDIR technology.
+> - Can measure CO2 concentration up to 5000ppm
+> - Supports serial interface over UART with 1200 baud rate. 
+> 
+> Datasheet: https://www.es.co.th/Schemetic/PDF/ACD10.PDF
+> 
+> Protocol: 
+> acd10 defines 4 types of UART frames - read co2, get software version,
+> get instrument number and set single point calibration.
+> Frame format: fixed header, length of data, command code, Actual data,
+> checksum. Response from the sensor follows same format. 
+> Total length of each tx and rx frame for 4 commands is fixed and defined in
+> the datasheet. Driver uses this information to write and read from
+> sensor for each command over serdev interface.
+> 
+> Testing: 
+> Driver is tested on Texas Instruments am62x sk board with sensor
+> connected on UART5 on 40pin IO expander. Additional 3.3 to 5v
+> bidirectional logic translator is used to interface with 3.3v IOs of
+> am62x. Values are read using iio sysfs interface. Also I have blown into
+> the sensor to observe sensor output increase due to CO2 in my exhale.
+> Waveforms for read co2, get sw rev and get ins num commands are
+> validated on logic analyzer. 
+> 
+> Slight deviation from datasheet: 
+> For command get software version, datasheet mentions frame length of 16
+> bytes including D11 reserved, however it is observed that sensor sends
+> 15 bytes with length field 0xb (11 bytes of data), but actual data is 10
+> bytes. Hence, this is handled in the driver.
+> 
+> Driver supports reading co2, getting sw version and instrument number.
+> Single point calibration and preheat implementation is left for
+> future contributions.
 
-[...]
->
-> +static const struct nvmem_keepout k3_efuse_keepouts[] =3D {
+-- 
+With Best Regards,
+Andy Shevchenko
 
-The comment belongs here.
 
---=20
-Troy Mitchell
-
---d2ee13a6a85992f018305a6f724e47d00c2db0323c1bf1b05267470c5e8a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCawQGZCEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC8cbgEAyeUFitMIdIlR
-gQa3GssF970F0URLGWsxfc3ds7zjEf0BAOJNKKuprXjtRVCBte1FETP5UaTR1Gb3
-jxY5BVbWXI0P
-=GIiJ
------END PGP SIGNATURE-----
-
---d2ee13a6a85992f018305a6f724e47d00c2db0323c1bf1b05267470c5e8a--
