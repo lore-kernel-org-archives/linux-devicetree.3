@@ -1,76 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433983;
-	b=reO4k3E18gVQh1HTkXr9EamM0vVMfKsDqYjl9h7rdXPLp08O5RQvSXmngQqnVPRM4h6w
-	 ySxRhXhSk8hUD2y9KhHn1XrfE/kQV7XxZFzDUYlOmYGs+JOfAj86kMdFRoLn8al1Qwm39
-	 kGxjG4+4+g+FaoofEKpzlnkngQSj3LxHFJk4bhiM08lAJ7VjJKy4YL4Xn34L4LwCKuxWB
-	 nCatMLbfVHpic8metFw4sOxdIRX416tMoXqxoucKVbmM85uAawiqGMALW4qG93JYqlp/I
-	 2AVbar1ismnuTV3/ekbI46CIGu0Z8Zuq04Q+R3p46ma5b+0Y/TIfuH9igBS1dv6rmXQ==
+	t=1795434097;
+	b=bdRyU8Ie0TkKYrmu4b5e+EdTWpQON+vb/j12qbPQZyUwoCZClYnpPpdnG3aZYZq5vofH
+	 TIP6goKBYaGO8d9NJeI0vXAzi0mbWHQygfI6GzhpcWLN20JKEKYuaOFj6wKSiZaqWYL0z
+	 Zg5R/plo8HKqVTcZIfYZp4U+0PnBV8Fa7EJAUpe9yi/nh4TRFOpAgdWEZF0w2NtWbTRAr
+	 9yQ5N1CMZ4p5dfAUh5qvK6+iCe3g3c17uwd/9vqb/dZYJwiaHsW0zvBplsawQBU0mCtI6
+	 aWaxIYORLHl1rV2I+9c3ETZlhTCmdcr9wAA17xgnUK9n5f9RolgubC/0Bqn8i6HsanQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433983;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ERbB76zpet3DuApuKnLZM5P0t4NNQkDvueQ2YL5Mbns=;
-	b=NedKeFpvj3htSve6oiZXUJKnSlYseEhy59sE2Y+u9VSVBs9egbdaDifLZc4XcXBl6msr
-	 QEQTmgoz9JfRYENzv+UY1KXYVDhFdhEUSl8bjZ9UQOJ9aQL9PbRN5yXQAtAXrgOX167ot
-	 5wCplmoYo2+Xl0ddD9/NoD3RnJMbcjTOiD0d9epbi710jL62DzsNOBLaXy4VSJx0+TuSM
-	 fjqB8YO1magffDrmQlq5cbJ/mdR/gXDY8jl87mRAMGQZJOrI++tzMibnbkGMnozRXkIA8
-	 DGS+j8rhROyG4dVjxy0IT3JaCKoPTA6XBNGNNbgoG8ScHx4kXhuGKEGxwieTvmoEFWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795434097;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hPH+xwQQ5YvRprFEfig6JwjI4JJt7gcVnXPnZvpsz58=;
+	b=r74ZiQjArYxwwdKK2kW8RHZ3Y7+qWpsfct1S6jaEP69R8GWGZ0mfSeHqcC2Zw+8rkWLu
+	 xX+KjLhDnE2RYxdQsbaz4pPc01av+PQ/nLBRVxYw8AJsLsixf6+eiRBOr8VPy8klRmB1Z
+	 FdG+cnuJh9SOyAs9xQDarJlmG2hNp9q9C4++LQiw+h+R1NDMBUDP81EFkfGgmhJ9vK/a/
+	 rxsnWdJ+8YhuoxY/vVUFXgvuTV9XCz/ercUg0zwIrLODpF/eQVXyRetkpafBaUdvxlGOU
+	 LCyEyPzItwaoDpWvAeNj6aFEw67O0iVrTAEtKDIlNRzHCFQ+sPANbnLHUP2a11Vp/XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=sAyxzm4R;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=AqvTCW5q;
+	arc=none smtp.remote-ip=109.224.244.121
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3405606A31A;
-	Mon, 23 Nov 2026 11:39:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3405606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505ED606A327
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:41:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 505ED606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=sAyxzm4R
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 38C3B34;
-	Mon, 23 Nov 2026 12:37:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795433829;
-	bh=d/fYOVW5pZ7TatqYKzHhPfuzuwLHZqwD4bIlohGjcyU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sAyxzm4R8p58eVBo/8lbZhtFx5M3sca61vhovfL37qG1VnayPd67mJfh4XuzgS+Rx
-	 Db8HBACnacnBJYoQDIQKvSWB7ggObdmtWwXfxA6yE5sK64Y8kZJIeTBFlp7DIA7zdH
-	 8L68N/UfI4413vqF5K4KxAzj4wdLKTFp2zfFCzKo=
-Date: Mon, 23 Nov 2026 13:39:40 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Paul Elder <paul.elder+renesas@ideasonboard.com>,
-	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v5 13/15] pmdomain: renesas: r8a78000: Shrink IDs to 16
- bits
-Message-ID: <20261123113940.GJ3010398@killaraus.ideasonboard.com>
-References: <cover.1795029012.git.geert+renesas@glider.be>
- <72f8eae23faefaa169cff7a52cdbafce2cd50e1f.1795029012.git.geert+renesas@glider.be>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=AqvTCW5q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1795434092; x=1795693292;
+	bh=hPH+xwQQ5YvRprFEfig6JwjI4JJt7gcVnXPnZvpsz58=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=AqvTCW5qPw2qcd8PAjH5z5PbIyHUU6oizOI+s+K7cDDXtV7PFmj9IPlnbrb215L2x
+	 m/RWi1veWIhSUlB/2yxBLWKrJ69FXS+kDOfxoOAtKdY0VGw8HX5V4CcN9NMqqdSUOO
+	 TkIY/hivq//dNMMUveqVLQH7TGTHMWrbAEWJz1WnXIp5tUbeopHRYv8Nald0kGqiD6
+	 +ZHfgxEipxsOUqfvrohVIY580xB1XNgjb6Uv0ukoGEnvbw3xOJCRhfzLNO0s80dZKr
+	 coDUkztBL3JK1cVGJ9a4XYR96VHe4UDIgcQUy1tcuYlBRkExLmlf0LDqW/KmalhSrC
+	 CcDxrCenLvhJw==
+Date: Mon, 23 Nov 2026 11:41:26 +0000
+To: Alexander Letuchiy <asalde.le1@gmail.com>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Mattijs Korpershoek <mkorpershoek@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-serial@vger.kernel.org, linux-input@vger.kernel.org, phone-devel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v3 0/7] arm64: mediatek: Add initial MT6895 and Xiaomi Poco X4 GT support
+Message-ID: <ckJZtdZ4-fPzsa3vkozNyEYYUbG9qd134hYb0hHEuq2nL8WMAR1PS87OpDfXrkU-E-85rsG1I4V99_M41j6-ewkD_41XPguDel3z8z0lmMk=@protonmail.com>
+In-Reply-To: <20261123-initial-mt6895-v3-0-95c46597e63d@gmail.com>
+References: <20261123-initial-mt6895-v3-0-95c46597e63d@gmail.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: c6b719aaffbb9f16cf86df1433c20e78eaceb862
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,52 +65,59 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <72f8eae23faefaa169cff7a52cdbafce2cd50e1f.1795029012.git.geert+renesas@glider.be>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 18, 2026 at 08:45:01PM +0100, Geert Uytterhoeven wrote:
-> Reduce table size by shrinking hardware module IDs from 32 to 16 bits,
-> which is still plenty.
-> 
-> While at it, use u32 to store of_phandle_args.args[1] in
-> r8a78000_mdlc_attach_dev().
-> 
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Hi,
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+On Monday, November 23rd, 2026 at 1:19 PM, Alexander Letuchiy <asalde.le1@g=
+mail.com> wrote:
 
-> ---
-> v5:
->   - New.
-> ---
->  drivers/pmdomain/renesas/r8a78000-mdlc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/pmdomain/renesas/r8a78000-mdlc.c b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> index 6477abe64511e880..733bf68dab2ce6dc 100644
-> --- a/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> @@ -17,7 +17,7 @@
->  #include <dt-bindings/power/renesas,r8a78000-mdlc.h>
->  
->  struct mod_id_map_entry {
-> -	u32 hw_id;		/* Hardware module ID */
-> +	u16 hw_id;		/* Hardware module ID */
->  };
->  
->  struct mod_id_map {
-> @@ -148,8 +148,8 @@ static int r8a78000_mdlc_attach_dev(struct generic_pm_domain *domain,
->  	struct device_node *np = dev->of_node;
->  	struct r8a78000_mdlc_priv *priv;
->  	struct of_phandle_args pd_spec;
-> -	unsigned int id;
->  	int ret, idx;
-> +	u32 id;
->  
->  	ret = of_parse_phandle_with_args(np, "power-domains",
->  					 "#power-domain-cells", 0, &pd_spec);
+> This series adds initial support for the MediaTek MT6895 (Dimensity
+> 8000/8100) SoC and the Xiaomi xaga board, sold as Xiaomi Poco X4 GT, Redm=
+i
+> Note 11T Pro/Pro+ and Redmi K50i. It is enough to boot to an initramfs
+> with a serial console, CPU idle, the CPU and DSU PMUs and the volume down
+> key.
+>=20
+> Dependencies
+> ------------
+> The SoC DT describes the pin controller and the board DT uses its pinmux
+> macros, so this series depends on the MT6895 pinctrl series:
+> https://patch.msgid.link/20261118-pinctrl-mt6895-v2-0-0728c4eddcac@gmail.=
+com
+>=20
+> Bootloader dependency
+> ---------------------
+> This was tested with a modified LK bootloader that is not public.
 
--- 
-Regards,
+How are other xaga users supposed to boot the kernel? You might want to
+port uniLoader instead, or if you're on an old enough security patch you
+can even replace stock LK with U-Boot. U-Boot chainloading is also
+possible.
 
-Laurent Pinchart
+> The stock LK cannot boot this DT, as its Android fixups expect nodes
+> that are not present here.
+>=20
+> The DT relies on the bootloader to:
+>=20
+>  - update the /memory node
+>  - add all firmware carveouts to /reserved-memory
+>  - pass the command line from the boot image
+>=20
+> The carveout addresses are therefore not listed in the DT, as the
+> bootloader allocates some of them dynamically. I can describe the
+> fixed ones in the DT if that is preferred.
+>=20
+> Firmware behaviour
+> ------------------
+> Two things in the stock TF-A affect what the DT describes, but not the
+> DT itself:
+>=20
+>  - TF-A rejects CPU_SUSPEND for about the first 40 seconds after boot.
+>    The vendor kernel lifts this earlier with a SiP call, so with this
+>    series the idle states only start to be used after that time.
+
+It might be worth porting upstream TF-A too.
+
+Best regards,
+Roman
