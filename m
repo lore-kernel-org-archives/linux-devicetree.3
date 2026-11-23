@@ -1,59 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795460755;
-	b=3o7PILvBQ+NPwrmKDRXB0C5edJ7/pLnyemRVzAwDRGXhsg13Ni3FJmVoi73vRyXvJJT9
-	 RHfG6yVsgikpxDX6nQ/yUnpE2UsHAzbIq2J2ozdl8fedLM1uUGHcJ7/YWvuYgDcYQ7E2Q
-	 KT/v/KnqpGlAlpHTHUiW1cCdDFo9hDeQBV9OI3NsJTbgOXhnO4imGcDscwaFJSb9L/J7N
-	 8M2l6FFmwuX/bXdYIe00WoeAVacZ5SLU1vYAhDMG99qiHfBT1LvDNNLjpYA4XEfmxcqsV
-	 wCGXGbUocM1Ti0ZRzdBRNbofmDMWe1sjYiR8iKtIUYFC8S24K8l0o6Tv/t+oj7VKpyg==
+	t=1795460792;
+	b=0F2oth0GKTsDYDh6RUvRSzU/qsRD5Y9PH1Y21LKCXxoiYwvvKah0YBE38olrFShgC1Pu
+	 2RIEVB4Kd/6cMCB4Xz884TO+uUY0f3LCyn43ktRgfE4w/CjOFY7ti6MUt7bnb83CieTYS
+	 66NxxkvYC3a7k5/zbQiOM/7dCxHL+aONBQb3f28sWHNQ+U98inwagX38AGIhazEcyLwLk
+	 GA/0FXj6AWTYWxBPPqx9Lt/Wp5zxgNQNNKLOD/nne15Ubho5SZoEoHcp7x9WM2UZxZ6I/
+	 e+Yi2b+jXM30BCoBQ5E3irsDNsL0ckbr33xT3H9eI9rMbawTK/uPFCtBnCqehYrdXQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795460755;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gFEMsZ6fHRPQEE8SVEormiEl+Oq9jteWEUask3chYnY=;
-	b=Lzm9TzULoGJFlhgf9uUPe2xRvJjCvzR/U2HtACGyCUCXxTnU07Rl5nH1U6WaoxNj4vY5
-	 REsuwV05G1dU2CsRNTfHwWg8wV1JtrC/IeK+Q+sSAZROmdD/DlMjOBlOhyysleFlybhJZ
-	 W406ISXYTdhUG83QDHvRA4SSdUfXbE/R1BPNfMtOqRxPvgqqCj7uKgHuuNzj9OYvfhTLC
-	 oauICMrEA51FcLoI9anD5kF4VW37CtgExxmfrLptJvydTYoRG2CSjq9GcR5W9qdVIcXzN
-	 ODY8Teu2PL3YG3g/+DsgEr9IWXf/O6Zshr+NEQ396L9hRgRjKVSlGuu/tSHPVSbdaIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795460792;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=tOiEwd6kmNV7JIBwmJP7LBiUslyemiGc6RTx8IgEqZg=;
+	b=jP2+ZIVP10Uupw2Aqg8VSEDNW+B5ZmHYVFZdVtq/EK1uxl/KNHvMjTVzUzwDlULLs3z3
+	 NkHx8WW2PtzYeqBEA3WTVJKpSzwaKj2TCDVrXunbZOQbwtvw8nJneEyDzDclTJqXRZe1C
+	 vO+bmcEd/B/2rwOftdMcXmPKQQm4TczxscXD5NrNCwLmlYASY/VH+Hmd0tpLHthUGZYZo
+	 /YdnVgL8DA6BkhkGKpdIfyvHM4HTYaLMVEJvvkZbppUE/iKLMYPzlT+sv1DFN7CoJpkfu
+	 3NEYon4YJA6+CFv+VRtLULWV8yQP7b/WLJEzm1ODwncK0wrgZXHWDVB7gztVlkL6fDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fuvcZQdx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=V2Ndm5ps;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jlsspv7T;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92BF606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:05:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DC1606A327
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:06:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1DC1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fuvcZQdx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06A01F01565;
-	Mon, 23 Nov 2026 19:05:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795460755;
-	bh=gFEMsZ6fHRPQEE8SVEormiEl+Oq9jteWEUask3chYnY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fuvcZQdx+wChXjJ/PNQCAJeO3ZOC8LEgD8rLDN5ktT/WbtrFNyfrnwyGDLdf5YKCO
-	 KBQXial1YNduln3Qi0de0iRP4T2VAlsEVN3MzA80U2QzWnrhFHsjHJ9v87XQ47qS0l
-	 fsN3GLWXMPnjPaJjbj2xO3FIC/3Agl1F88l/zREj+bYpN3wGC+3pxOTiYORfbo33wK
-	 RzJT9Zzl+HC5HNI+Ic6kGF3OVSwfKUEoyTdk1VlXOXhFrTeZkN6nkVrSz6ZrftUDFV
-	 8KplPsmmNivrjRrbHiPpk3250/HaGWWoS9tOjV290IPdFir8gAU3DsmxFDgJXoENpt
-	 k4C9q5oaU398A==
-Message-ID: <sashiko-outbox-229910@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] mtd: rawnand: Add Cortina CS7542 controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
- Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>
-Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20261123-b4-cs7542-nand-v1-2-7ce179c011e2@gmail.com>
-References: <20261123-b4-cs7542-nand-v1-0-7ce179c011e2@gmail.com>
- <20261123-b4-cs7542-nand-v1-2-7ce179c011e2@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 19:05:54 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=V2Ndm5ps;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jlsspv7T
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANGGtOv2340269
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:06:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tOiEwd6kmNV7JIBwmJP7LBiUslyemiGc6RTx8IgEqZg=; b=V2Ndm5pst2LttLdd
+	m2l7dKji3WsB65MiKKrgjJi5XWBNT1IORbR5UcCrn8c8eDP4lw5+ToHAWveqUXy0
+	923iq++6EIIRIFA7wcpqYjkGsJCqT7TDW/HLA9qUqCIOrJ49uwZN2FVju96mb+rL
+	AIXjyZkyxLZFvWP/kXHZtesVtPfPKmATb0wtix74YW7lemI4ofh9QDVg6wxtSat8
+	nop23RGxiP97gPh4l1nT8aO77dXsEFrSgThlUo4HXyulqXZAsjokaPaunJQo6FQj
+	53phjBBd2Pz84kVSK+Mic7LBnAE/wrPw6GkxilHkjjnVqTYPjeVzm7aOhoiqBwWP
+	npA7YQ==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4exx3759-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:06:31 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5ece1a3bf7fso129513e0c.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:06:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795460790; x=1796065590; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tOiEwd6kmNV7JIBwmJP7LBiUslyemiGc6RTx8IgEqZg=;
+        b=jlsspv7T/rnV6gJHWwM2AYbxAGAwKfPeYhFnWXxWXdATDKtm9HUgg6QkLNjMf5s31v
+         Tv9HE8Ier3lqfhUSA9LJHyDjRNtHhtADMuAHhntVMEOzplIoLh6lYjVcnEoS4mnKSV5b
+         mjQ6Sda403fd86OhqclG406qP3J9WsCkDLtuqs8Wsz4rU6x4Yst7QmVghALlzRapTWn4
+         xIzI/zMxMp1P8YnZZFK2A9KZg0VdHrz+U0PqdvXgyjU+luoji0vsz152H91Pi+ba3nrV
+         GLSLZlCW5S1VGz3iQLfVItw5q+0TbAeipCOj/rhpiyd0c2kWmubspMgWb558y314RAk+
+         nShg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795460790; x=1796065590;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tOiEwd6kmNV7JIBwmJP7LBiUslyemiGc6RTx8IgEqZg=;
+        b=eKIv3gFICPG2PTWrFn+nbzMxmSRs4Uxxi/OMqtn+aL/ch6Utiilv9v1m+RHzLtxMkr
+         RWR3ALT8N6KdJp1xF6pgFmpE08ghc3jum+mTdtSTs8EHyD+POnrP4Ws0IDDmCQvIRfnF
+         ENKvpuKS6Svn/AqlfZhxqOMbPIAWVkeoGbw0Qpim20aVTEBH1pdeex8JnhUuuoI64CWf
+         sypWkfEnLoRxI5e7SYJxYAmd/jSZLCG4p0Xy+sc459yCqZoqZLHkSZBgM1DvjO3AQLX8
+         vas4vdCL9Wy+zWMQop980uJ4vRjmsVC4hcfcRtQLDpo5C+nrITUi6JXxd2RxQApadLuV
+         bauw==
+X-Forwarded-Encrypted: i=1; AL+hErF9yVpODvJ+7pz5wgPzbVxypXCR302bnYcw/PFUPlVeHjvbbaH+HZrgJ4Wu2CgG+KJOl2dB+/I/qzYL@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mh8wcm6V5LLDptKGPwOR4mIs5OgfRdx/1sAk3uAoSZGyOA0Y6
+	As4Pa76Ao74F754n5AU+ZtgGa86gMPTtRQuBcRNtjsKJhcB17yYu3quO+u5dmH4rtjaJdHa7M8z
+	ZfrDPD35xyVpLWMVP0XkCZzFQi3EOEABQlSTI09GGg/58SH70L+YnygEEG58Zh4U/
+X-Gm-Gg: AZFdTZc4ZnOPdCTmDnXermkOTqPruYk1o8lEH9mZOx0EgB5IEm6zgI4NE4jm9SiQZv1
+	9nZsYkYhbwfBJrP34R4uQ8BebcQzcmfPGqzt+VhkTdKqNy2FGTn6BQG9vHnyr4eUdvLMvKCFT0+
+	7eB2jauKEVazJuX54BZhkCQBdqAAPJ8vDisLV1I3TbPgwBFswvCc3jxwsqsHckysjRdNjDj0+4W
+	364mQ4DZUoZEJ7bGoOGHq1ncLyQOPH8LAm5A5r0zK1KvkjeOg4CTdF8y2FgZOfL4AmVDQvo+rQe
+	/WF8zpSJdL1UYHedO1HXcFOf6lCUOD8WXukHqsPGCz9Mz3V8PguH2VnyboFw2Kxo4ImNYjyQ1iN
+	SoLnVlHP8741+movzGukwvgC7uUZlDxuHrFPRrQIcvYYMjaUJLGSUPKBTVtSOFq/KEWfslVA=
+X-Received: by 2002:a05:6122:4805:b0:5ce:bde0:9b53 with SMTP id 71dfb90a1353d-5ee8af179f3mr7041949e0c.3.1795460790152;
+        Mon, 23 Nov 2026 11:06:30 -0800 (PST)
+X-Received: by 2002:a05:6122:4805:b0:5ce:bde0:9b53 with SMTP id 71dfb90a1353d-5ee8af179f3mr7041913e0c.3.1795460789779;
+        Mon, 23 Nov 2026 11:06:29 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba854bed08sm3651400a12.30.2026.11.23.11.06.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 11:06:29 -0800 (PST)
+Message-ID: <786351d0-c7a6-4ebe-bae3-0c81ec20b833@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 20:06:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,274 +114,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: qcom: qcom,ids: Remove unneeded ID
+ constants
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Ilia Lin <ilia.lin@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-pm@vger.kernel.org
+References: <20261122-qcom-socinfo-id-dt-bindings-v1-0-eeee0ffa25da@oss.qualcomm.com>
+ <20261122-qcom-socinfo-id-dt-bindings-v1-2-eeee0ffa25da@oss.qualcomm.com>
+ <c4509c17-2c67-4f76-899d-548edc47069c@oss.qualcomm.com>
+ <b10fa9da-39e1-4bfe-8c09-cc1d5cc007f4@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <b10fa9da-39e1-4bfe-8c09-cc1d5cc007f4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=FKKOVOos c=1 sm=1 tr=0 ts=6b048eb7 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=09P9ZdklQj12kDAbNyMA:9 a=QEXdDO2ut3YA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-ORIG-GUID: xTYL4ifZkcplUu-3nupyVPg8gqa05m_a
+X-Proofpoint-GUID: xTYL4ifZkcplUu-3nupyVPg8gqa05m_a
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA3NiBTYWx0ZWRfX6ED+QnEOdPpu
+ 8C9rXIXA7HVR7bdvsN8Ecv19nfyrEMS167L0IhJsJWXOFllKpuWiJ2FhdvH+GNtVZZsxDYWfxKh
+ p+9ZzXWdxuesJ845qRo7EbMmwaiVbRA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA3NiBTYWx0ZWRfX80L3gkzY9PkT
+ 8LuaqJpkEhUbLwUA6dT3yM/oSSA4rlU4vtyA9THIDC6a/qex2naWGQXMNBveT2rYBc2SFK5jYs5
+ gdQ3oAjZNV30VrS+Thxge3FbbntPPnRlu/W1uOAvb1CCzqZs7Z5gbiNL/pC1D9q0BnB6a2fru8p
+ uMd7qcO+QJ5zl/BRtK+J45u+NdF+g1Dr7K8fXzJ5tR3jzdc7yK0DrB+ENiTtmgyhXHPXQ9v8rKh
+ WH4X2V8fQtI7D1CLsJ+SLjajS3/7HYefEOb4sx+3O7Dx1cgGtYwcpYCXuQTCgN+X/TOJXcvSFP6
+ J7qU9CefoSRc9gvcJIESV9uPBq3OTy0vo6OlXHsWgg7UJWIIuQoTXVppprfZR5SnCK++IHU0Fow
+ VRrgEamdeea2D9WEbSBNDFu2jm2g0zS5pYUVCB8sGzUfFQAwn0wxlGej7/aBz3fN/NMnUh8kg8Q
+ hPtb9WW1mBKSBfpLlsw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230076
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issues to consider:
-- [Medium] mtd: rawnand: cs752x: bad OOB layout checks in
-  cs752x_nand_attach_chip()
-- [Medium] mtd: rawnand: cs752x: 32-bit overflow and missing EXTADDR in
-  FLASH_NF_ACCESS
-- [Low] mtd: rawnand: cs752x: unchecked 4-bit ECC_STS_ERRBIT in
-  hamming_correct()
-- [Low] mtd: rawnand: cs752x: DT label overwritten in
-  cs752x_nand_probe()
-- [Low] mtd: rawnand: cs752x: dead small-page checks and duplicate
-  nand_write_oob_std()
-- [Low] mtd: rawnand: cs752x: missing final register read on timeout in
-  polling loops
---
+On 11/23/26 4:22 PM, Krzysztof Kozlowski wrote:
+> On 23/11/2026 16:17, Konrad Dybcio wrote:
+>> On 11/22/26 6:46 PM, Krzysztof Kozlowski wrote:
+>>> The IDs of newer Qualcomm SoCs, as reported by hardware or firmware, are
+>>> currently used only in the socinfo.c driver.  There should no and there
+>>> is no in-tree DTS user of these, so none of these constants are really
+>>> proper Devicetree ABI.  IDs of older SoCs were being used in DTS, thus
+>>> that part matches the concept behind DT bindings.
+>>>
+>>> Driver have local copy of these defines, thus these can be dropped.
+>>> This has no impact on in-tree ABI, but any outside users would be
+>>> affected.
+>>>
+>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>> ---
+>>
+>> I think we can move it altogether, to prevent a situation where one has
+> 
+> We cannot move all, because some are actual ABI. I could try to leave
+> these ones only, but that's a bit too much work, IMO, that's why I cut
+> everything at ~450 value of ID.
 
-commit a2112af7453f86da46c6a91f8462d27a8fc6193a
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+If you mean ABI as in "used in DTS", I don't think that's quite ABI
+(again, looking at the glymur-ipcc.h case)
 
-mtd: rawnand: Add Cortina CS7542 controller support
-
-This commit adds a raw NAND controller driver for the Cortina Systems CS7542
-SoC using programmed I/O, the controller's command sequencer, and hardware
-Hamming ECC.
-
-> diff --git a/drivers/mtd/nand/raw/cs752x_nand.c b/drivers/mtd/nand/raw/cs=
-752x_nand.c
-> new file mode 100644
-> index 0000000000000..7c8f73e6f1b3a
-> --- /dev/null
-> +++ b/drivers/mtd/nand/raw/cs752x_nand.c
-> @@ -0,0 +1,826 @@
-
-[ ... ]
-
-> +static int check_flash_ctrl_status(struct cs752x_nand_host *h)
-> +{
-> +	unsigned long timeo =3D jiffies + HZ;
-> +	u32 val;
-> +
-> +	do {
-> +		val =3D fl_readl(h, FLASH_STATUS) & FLASH_STATUS_NSTATE_MASK;
-> +		if (val =3D=3D 0)
-> +			return 0;
-> +		cpu_relax();
-> +	} while (time_before(jiffies, timeo));
-> +
-> +	dev_err(h->dev, "FLASH_STATUS busy: 0x%x\n", val);
-> +	return -ETIMEDOUT;
-> +}
-> +
-> +static inline u32 mk_nf_command(u8 cmd0, u8 cmd1, u8 cmd2)
-> +{
-> +	return ((u32)cmd2 << 16) | ((u32)cmd1 << 8) | cmd0;
-> +}
-> +
-> +static u32 mk_nf_addr(struct nand_chip *chip, u32 page, u32 *addr1,
-> +		      u32 *addr2, u32 column)
-> +{
-> +	*addr1 =3D ((page & 0xffff) << 16) | column;
-> +	*addr2 =3D page >> 16;
-> +	return chip->options & NAND_ROW_ADDR_3 ? NCNT_ADDR_5 : NCNT_ADDR_4;
-> +}
-> +
-> +static int wait_reg(struct cs752x_nand_host *h, u32 reg, u32 bit, const =
-char *what)
-> +{
-> +	unsigned long timeo =3D jiffies + 2 * HZ;
-> +
-> +	while (!(fl_readl(h, reg) & bit)) {
-> +		if (time_after(jiffies, timeo)) {
-> +			dev_err(h->dev, "%s timeout\n", what);
-> +			return -ETIMEDOUT;
-> +		}
-> +		udelay(1);
-> +		cond_resched();
-> +	}
-> +	return 0;
-> +}
-
-[Severity: Low]
-Can check_flash_ctrl_status() and wait_reg() return a spurious -ETIMEDOUT if
-the task is preempted between fl_readl() and the jiffies comparison?
-
-Neither loop re-reads the status register after timeo expires to check
-whether the hardware finished while the task was scheduled out.  Using
-readl_poll_timeout(), as cs752x_nand_wait_ready() does, would re-check the
-condition on timeout.
-
-[ ... ]
-
-> +static void cs752x_setup_page_regs(struct cs752x_nand_host *h, int page,
-> +				   bool write, bool oob_required)
-> +{
-> +	struct nand_chip *chip =3D &h->chip;
-> +	struct mtd_info *mtd =3D nand_to_mtd(chip);
-> +	u32 cmd, addr1, addr2, cnt;
-> +
-> +	cnt =3D NF_CNT_DATA(mtd->writesize - 1);
-> +	cnt |=3D NF_CNT_OOB(oob_required ? mtd->oobsize - 1 : NCNT_EMPTY_OOB);
-> +
-> +	cnt |=3D NF_CNT_CMD(NCNT_CMD_2);
-> +	cmd =3D write ? mk_nf_command(NAND_CMD_SEQIN, NAND_CMD_PAGEPROG, 0) :
-> +		      mk_nf_command(NAND_CMD_READ0, NAND_CMD_READSTART, 0);
-> +	cnt |=3D NF_CNT_ADDR(mk_nf_addr(chip, page, &addr1, &addr2, 0));
-> +
-> +	fl_writel(h, FLASH_NF_COUNT, cnt);
-> +	fl_writel(h, FLASH_NF_COMMAND, cmd);
-> +	fl_writel(h, FLASH_NF_ADDRESS_1, addr1);
-> +	fl_writel(h, FLASH_NF_ADDRESS_2, addr2);
-> +	fl_writel(h, FLASH_NF_ACCESS,
-> +		  NF_ACCESS_WIDTH32 |
-> +		  NF_ACCESS_EXTADDR(((u32)page << chip->page_shift) / SZ_128M));
-> +}
-
-[Severity: Medium]
-Does ((u32)page << chip->page_shift) overflow 32-bit arithmetic for byte
-offsets at or above 4 GiB?
-
-Because page is cast to u32 before shifting left by chip->page_shift, the
-upper bits are lost before dividing by SZ_128M, wrapping the 8-bit
-NF_ACCESS_EXTADDR value modulo 32.  In addition, cs752x_nand_pio() writes
-FLASH_NF_ACCESS without setting NF_ACCESS_EXTADDR at all, leaving it as 0
-for operations executed through cs752x_nand_exec_op() such as OOB reads, OOB
-writes, and block erases.
-
-[ ... ]
-
-> +static int hamming_correct(struct cs752x_nand_host *h, u8 *buf, int page)
-> +{
-
-[ ... ]
-
-> +		sts =3D fl_readl(h, FLASH_NF_ECC_STATUS);
-> +		switch (ECC_STS_STATUS(sts)) {
-> +		case ECC_NO_ERR:
-> +			break;
-> +		case ECC_1BIT_DATA_ERR:
-> +			if (ECC_STS_ERRBYTE(sts) >=3D eccsize) {
-> +				mtd->ecc_stats.failed++;
-> +				break;
-> +			}
-> +			p[ECC_STS_ERRBYTE(sts)] ^=3D BIT(ECC_STS_ERRBIT(sts));
-> +			mtd->ecc_stats.corrected++;
-> +			max_bitflips =3D max(max_bitflips, 1);
-
-[Severity: Low]
-Can BIT(ECC_STS_ERRBIT(sts)) overflow the u8 target in p[ECC_STS_ERRBYTE(st=
-s)]?
-
-ECC_STS_ERRBIT(v) masks a 4-bit field (((v) >> 3) & 0xf).  If the register
-reports a value in 8..15, BIT(ECC_STS_ERRBIT(sts)) truncates to 0 when XORed
-into u8 p[...], leaving the data byte uncorrected while incrementing
-mtd->ecc_stats.corrected.
-
-[ ... ]
-
-> +static int cs752x_nand_write_oob_std(struct nand_chip *chip, int page)
-> +{
-> +	return nand_prog_page_op(chip, page, nand_to_mtd(chip)->writesize,
-> +				 chip->oob_poi, nand_to_mtd(chip)->oobsize);
-> +}
-
-[Severity: Low]
-This isn't a bug, but cs752x_nand_write_oob_std() duplicates the core
-nand_write_oob_std() helper, which nand_set_ecc_on_host_ops() assigns
-automatically when chip->ecc.write_oob is left NULL.
-
-[ ... ]
-
-> +static int cs752x_nand_attach_chip(struct nand_chip *chip)
-> +{
-> +	struct mtd_info *mtd =3D nand_to_mtd(chip);
-> +	struct cs752x_nand_host *h =3D to_host(chip);
-> +	int ecc_total;
-> +
-> +	if (chip->options & NAND_BUSWIDTH_16 ||
-> +	    mtd->writesize <=3D 512 || mtd->oobsize % sizeof(u32) ||
-> +	    mtd->writesize + mtd->oobsize > sizeof(h->own_buf))
-> +		return -EOPNOTSUPP;
-> +	chip->ecc.engine_type =3D NAND_ECC_ENGINE_TYPE_ON_HOST;
-> +	chip->ecc.placement =3D NAND_ECC_PLACEMENT_OOB;
-> +
-> +	chip->ecc.algo =3D NAND_ECC_ALGO_HAMMING;
-> +	chip->ecc.size =3D 256;
-> +	chip->ecc.bytes =3D 3;
-> +	chip->ecc.strength =3D 1;
-> +
-> +	if (mtd->writesize < chip->ecc.size) {
-> +		dev_err(h->dev, "%d byte HW ECC not possible on %d byte page\n",
-> +			chip->ecc.size, mtd->writesize);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ecc_total =3D mtd->writesize / chip->ecc.size * chip->ecc.bytes;
-> +	if (ecc_total > mtd->oobsize - 2) {
-> +		dev_err(h->dev, "%d ECC bytes do not fit in %d byte OOB\n",
-> +			ecc_total, mtd->oobsize);
-> +		return -EINVAL;
-> +	}
-> +
-> +	h->ecc_calc =3D devm_kzalloc(h->dev, mtd->oobsize, GFP_KERNEL);
-> +	h->ecc_code =3D devm_kzalloc(h->dev, mtd->oobsize, GFP_KERNEL);
-> +	if (!h->ecc_calc || !h->ecc_code)
-> +		return -ENOMEM;
-> +
-> +	if (mtd->oobsize =3D=3D 8 || mtd->oobsize =3D=3D 16)
-> +		mtd_set_ooblayout(mtd, nand_get_small_page_ooblayout());
-> +	else
-> +		mtd_set_ooblayout(mtd, nand_get_large_page_hamming_ooblayout());
-
-[Severity: Medium]
-Does cs752x_nand_attach_chip() allow OOB geometries that
-nand_get_large_page_hamming_ooblayout() cannot handle?
-
-nand_ooblayout_ecc_lp_hamming() only supports mtd->oobsize of 64 (placing
-ECC at offset 40, so at most 24 ECC bytes fit) and 128 (placing ECC at
-offset 80, so at most 48 ECC bytes fit):
-
-drivers/mtd/nand/ecc.c:nand_ooblayout_ecc_lp_hamming() {
-    ...
-	switch (mtd->oobsize) {
-	case 64:
-		oobregion->offset =3D 40;
-		break;
-	case 128:
-		oobregion->offset =3D 80;
-		break;
-	default:
-		return -EINVAL;
-	}
-
-	oobregion->length =3D total_ecc_bytes;
-	if (oobregion->offset + oobregion->length > mtd->oobsize)
-		return -ERANGE;
-    ...
-}
-
-Because cs752x_nand_attach_chip() only checks ecc_total > mtd->oobsize - 2,
-a 4 KiB page chip with 64-byte OOB (ecc_total =3D 48) or any chip with an O=
-OB
-size other than 64 or 128 (such as 224 or 256) passes attach, underflows
-oobregion->length in nand_ooblayout_free_lp_hamming() on 4 KiB + 64B OOB,
-and fails every ECC page read and write at runtime with -ERANGE or -EINVAL.
-
-Also, cs752x_nand_attach_chip() unconditionally overwrites the chip->ecc
-fields parsed from Device Tree by rawnand_dt_init() instead of rejecting
-unsupported DT ECC settings, and the mtd->writesize < chip->ecc.size and
-mtd->oobsize =3D=3D 8 || mtd->oobsize =3D=3D 16 checks are unreachable after
-rejecting mtd->writesize <=3D 512 above.
-
-[ ... ]
-
-> +	nand_set_flash_node(chip, flash);
-> +	of_node_put(flash);
-> +	nand_set_controller_data(chip, h);
-> +	mtd->dev.parent =3D dev;
-> +	mtd->name =3D "cs752x_nand_flash";
-
-[Severity: Low]
-Does assigning mtd->name after nand_set_flash_node() overwrite a Device Tree
-label?
-
-nand_set_flash_node() calls mtd_set_of_node(), which sets mtd->name from the
-flash node's label property if mtd->name is NULL.  Setting mtd->name
-unconditionally afterwards discards any DT-provided label.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-b4-cs7542-=
-nand-v1-0-7ce179c011e2@gmail.com?part=3D2
+Konrad
