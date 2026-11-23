@@ -1,70 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795471121;
-	b=sU77sB1QbMaAipZHuYNvr+4V5zkh/r/C7E1LJhLaf8PfBhEmtXTDN1X9kfaXv4D960So
-	 c2yZceWOYwfXsgIKuyufE7IanHCMq/GfGUnMK5Dph3zD3yRpkn+X/jZvgpONKBOlv45m+
-	 2Rq4I0UrUBpLD4/Z/WZLIG2++n0W/mcihtuLsrnwE11EnDPQJBXkwj+O7hf0DdsNzGsxo
-	 Y6dlxxQq9QF1yIcVbTMt9sGoHwXKeGP2gP9t+B1GX6RVobZOCKzIaqG0QTddDoNhqd9Cf
-	 Bs2F8cFqSnZKXemOtumdVJnf4mUoI/79ZmBs/KUMynKeEVd0TXmw38y1v/Pj9bS4e3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795471121;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:User-Agent;
-	bh=HA56YBnBjS6ejjIegWe0iNjtvEk49TWfG37iY7fhSAs=;
-	b=cyk+5le+CZ8p2zg8nbhF/8XKhoIDsgFmftvBm5c17/BYvTfl8PH5Pd62qIFtAYwJmLVc
-	 uw6qNybMKSI0mnNQIGrcKPWw26HwcK0kQ3NayjR5lZ7mMG9abns1LNAfYEIHkyvXZTdsw
-	 vy1m5P9R18HWT8lCUuC6Eua/ym9u82ye770iwsZP+bqKPmflxAcg3HaCOFOSj/AD97JLw
-	 D8MQzN0Zeh3bec1rz8ayjTiropaB1Z8wi+qLdc7mzrN6ox0vz0H7WQwpEoc1+FYq9yRzy
-	 syGVcsCeRPbiMoR0F43cTHTAQLm1vtY+XtutiXk+sgUhJAgndeDVlT44ZwEJevIi+gQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aurel32.net;
-	spf=pass smtp.mailfrom=aurel32.net;
-	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=Bzeb5ZAI;
-	arc=none smtp.remote-ip=195.154.119.183
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795471179;
+	b=IzZRKuGY8lLjcPL3sjc+J8hzoEj8A3dYRGYSyzzyXxeWnrYBmReX/soHP7M8jVaIXvga
+	 V7NukkRUwy9CPzN9fA5f2RClYa5K0/pOC7ha1w5QfYKdrRTEZS5VbdGDZl7pQIYo6PKUq
+	 gJhawZRIXHszQ/RoHjeE3z7jSslCnoc/BgZruWgM7jo3yWM+zQVbSTQWYn3GZh8imsF78
+	 D6TQVLexWz7ANrbzj6iYt2ORjmprFVVRXzb/YltzslA0+5N8NM796wGrRDZ8+0dKpHjgh
+	 BENH8Yxg9ALz9REWb7zjlHra3lhVOomAcrESa5kBgI5MbHB6cJcYhdTfyx4bX3jkHrw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795471179;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=SlN1iedGIdSnNkJxuutd3w7e1Jbzw6sccZoEjYLTkIE=;
+	b=rTE7f1I+6Mplrj7UU9RBl0cp7es8EevdAzI8lQLhyjE423nedDjBqi/5VjXJ2r1Ra6Qa
+	 opskmE+YzenzsUfBwELjUot6bGj6nsOJ2uGgf11cVuOtuWuenyvVnLCCR0uTE4JKQeNqm
+	 fd5hw0LmEKLXw5k1GxoEg58KQYN78waVZeOMIR9l8ZAq+2u9hOunFvMKoDMCBqg3KUiUl
+	 OczwVuReBZaQB23FTOGLXksC18t8eADy5/NzmUA3hvjBghA/GKSVy/Niddp7IfGyosnIE
+	 DYPgQww7zaI8muAazfT87pkL894jvFU6r7GIeGJv2CyYEyB2U5d2LRhejFsbMlcvSrg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=l8a67050;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.7
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013007.outbound.protection.outlook.com [40.107.159.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B548606A31E;
-	Mon, 23 Nov 2026 21:58:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B548606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56912606A321;
+	Mon, 23 Nov 2026 21:59:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56912606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=Bzeb5ZAI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=HA56YBnBjS6ejjIegWe0iNjtvEk49TWfG37iY7fhSAs=; b=Bzeb5ZAI4Yqkb42m9BOTb1NStq
-	HTC5LTHOhHzE2ag7ZZ3wr7VPMM69K4crX6gYwDZfpq+IjhvuAQvHH+sdw20sBjnql8wX76QYFp6ys
-	1VwWvOUznFNLYc5811IAoJXjs6qH+Y2SzJmVPKCt6QnoftSwAuExGNiI8H3SsLyNPiZEJMpXH0s2E
-	5gPhFW5XNapDa2GpKtQzoKxyjr8B31KjBRMnNUEHq1oaotgPgKmxbnpjKcap4AqZJQp30iz+yRjmL
-	s7PK1Z3sw8Ng0GQatB78yyabk7eAKxTL8rHNAj56rqEaa20lFhyPR11+AaMIZNugGf/LnL64Z18Po
-	9mxwD+BQ==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xVc3G-00000007ZxZ-09JF;
-	Mon, 23 Nov 2026 22:58:18 +0100
-Date: Mon, 23 Nov 2026 22:58:17 +0100
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Zixian Zeng <sycamoremoon376@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Vivian Wang <wangruikang@iscas.ac.cn>,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH] riscv: dts: spacemit: k1: fix the EEPROM page size
-Message-ID: <awS2-clBenE1r1a1@aurel32.net>
-References: <20261123-fix-bpf3-eeprom-v1-1-df8cce6ef2b5@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=l8a67050
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CLfHlkkMmEo5wMInA3Cj8GkpJNtRW4xokHArDeDHpvRAquEA5rRfeSEvef9/wlcm7Jyg65rl+ka5keAxaTqoRRQNMUAWwOo9eegRC7FwVF5LExwGwXoFcNsMrwJ/+2C2Nj1t+LFGc7mlui561vURiQFVS0c3GcSUTk1zG0EJfZQmq7nsmTH4T/sJGaqDVmuwPubBKcl0APdAt8+IOAKAJd9awoSCI+LtkHodupiSt2n5XIiZ3Ua9AKMgXJipg3RKXRUjy9AC4/pMYDmFJ2kb7HNg1DMuuFglKrax+hAzb2N1cQ6lyvEVVMx6Dl2V/xSo/fJ77MN3/xF0pKFNc/ZKGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SlN1iedGIdSnNkJxuutd3w7e1Jbzw6sccZoEjYLTkIE=;
+ b=AOB/LdShY19CMjFrjH9lbrBD+UXvvu2yQbJi+mncxr96pxwzwDcpfgYyaOsWkmtkZvVm5Y+bYzPLkm/WaOwm+DCmnPSQT0NMMSKzIoTVyX+5n/df/e4E1YrTbNmTWFacD98y+Y7nLOj8FXUhwz3GzOkWcq8rIWY+VSZ/1BALYNI0VL22BkDh8veZ6diDkyII7oT2AaOa7IdSvI67IeEt8lcR9aBY+9jpSwoRlLxlt3Hxl+hXTqUrKCvFTjY9AtWux4RM/Q723mKZMtaB57ZKpDi01YMrgXnGEtQEYr4eUB7n2c47mOT3E+InlddFjb6tblJHLYif7LoK20tBxulMmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SlN1iedGIdSnNkJxuutd3w7e1Jbzw6sccZoEjYLTkIE=;
+ b=l8a67050XOEn7msYT9p3xk9dV3sQku6NpmFNSCvFORRlxeYItBjjjSwlNIX0iW67i/rgBEgdR7kS2zWR4AyrGYdIPjoxnVTCt9wwn6pK549wW1nQ29bJZYYUVTkf3zczpZy1NiAC8/Zlkk6ZW8s4rGyze6Jl8ELpl2K8WnwY0TNGyJ87P4OJPKnHl/hd7EjIAqccrq87+9jFpHSQQ7fgzQ/jvUJWDfngcKPVL5qckkpuDu5sVqQP+LkHDW1fa8dY6jj/2OP8xvtybpHPUdX0EMDGZ7IZWA1wMXffSvXtlYPIUMglHJ0E+0uKjDOgelO/rHhEAGIAMwpjMns4nJnIQw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PAXPR04MB8349.eurprd04.prod.outlook.com (2603:10a6:102:1bd::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
+ 2026 21:59:35 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
+ 21:59:35 +0000
+From: Frank.Li@oss.nxp.com
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 0/2] Add Toradex DSI to LVDS adapter with the 10.1" V2 display
+Date: Mon, 23 Nov 2026 16:59:26 -0500
+Message-ID: <179547116080.3011330.9892542532663386900.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117-v2-imx8mm-verdin-add-lvds-v2-v2-0-ecfd237cf7ee@toradex.com>
+References: <20261117-v2-imx8mm-verdin-add-lvds-v2-v2-0-ecfd237cf7ee@toradex.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH8P223CA0010.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:2db::20) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,44 +106,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123-fix-bpf3-eeprom-v1-1-df8cce6ef2b5@gmail.com>
-User-Agent: Mutt/2.4.1 (2026-07-04)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8349:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb9f5cdb-1130-47de-8a8a-08df49ad0fd1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|7416014|23010399003|19092799006|10067099003|11063799006|56012099006|261009223027099003|261022075727099003|261026121527099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	TGwiWXCC0Af1Rzggx4jVaF+DSjCQzhyUksmFgipKm7plWEvsS3LfxBMUk+LOVbsfy0SdCZuMF7B8YX7dSFjO7QQ7xVOMrZKYld6wVNw+6qQ6Mgz2CuWSARuWwnOiZG+ZMZXhrGdGpSsG3bXflfS9+OidJjt3s8vVTAJdFQ0iIJ94ZO6HTM6Lp2GZn7inrsO3ZLWvOEDSoaNe2YuMO+Z3FuOV5hHlzBf0yGf8VP9Vl7F0cy8fOejXkmTB092stcxxLZ2UvRQI/lTqgYdIU3mFsc1ovWco/MTR2J2X8aEDLzSpNagGU4zWbmsMJjvsIpSDOXXM8ApkkVOZ2QWFQCVmksPDBnzyiPAj30rY5+Me0azt/qrU1GmhIi7BqNbKcN+rCSEFqAFadeNeGBY7trMNptrI19bmyVSBRon7bBzyX/kvlTVrk7+ALKDcWGNwNk+86B1uyiVGKgKqOy6puE/LlaPIgkwlQ1e4TTX1Khyv0jVwriLbSZCUMRH4bUAnX6TZ1+1TECOpkqeC+PPVenxHGFEm4mYCp/QaXyKSxXGjYO7x+NHFnIhc/ALxRqY9S6HeoeG+KAGab8g1Aq2bFrP26VLRmkDXGxz41m6peg4puYL4VoVByFDG4KM74Jy0U9xsBvhgEArsZ8TmLhzT6ImVpZsflstOu8kJbMaB/+wPmBc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(23010399003)(19092799006)(10067099003)(11063799006)(56012099006)(261009223027099003)(261022075727099003)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VXJQSXBTRGRsL0hvTm1VeFN0QUZZdXNtVjFmRVFEUU9EVmZpSDl0U0ZKeE5X?=
+ =?utf-8?B?U09wUXBWdzRZemY2d0huQllhVWZUUkZ0Z2puYmlYemRlYmRvbUt4Tk1wQkdj?=
+ =?utf-8?B?WSt2K0JnT21WSGNTSjhzWXMxL21SR0JLbWFhY3Q4WFhBZElIWG5JSTltRkJT?=
+ =?utf-8?B?TDAwMU1wT2tYbnQrdnJuZmRyLzVScCtnYXRiVjIxRUhvWVIzbS94RG00Rlpz?=
+ =?utf-8?B?VXNPUDU0MTdKaGJYWlFVeUdRQmpHeUxnc3dkMytsaGdaaDFMUG5yeS9YRkk3?=
+ =?utf-8?B?cHBUQ1JRVWswN2JuOWxPZmtDNkNzeDg1VVYzeENxaDFMTFIvK3pTRTBmOHpH?=
+ =?utf-8?B?aWpDN1M3Y202MG1hdXo3RW5OejNLRXRmdDA2L2YwRDhhS1Z4M3UrYjZhUDBx?=
+ =?utf-8?B?dkdMbUdJdTBlelFqU2IxaThKdzBXN1I3TzFsQm4yck04Vld6MkFkY0xMQWs0?=
+ =?utf-8?B?VjRyYzBXa2cxdEh1c2JHQ3BXVFdoNHRLNzlGb0RhUXlRc3pHdncySU1rVEVC?=
+ =?utf-8?B?MnVLS0VjcDRaSzFsMWVtdWltWU9idmpKbVJSdmUwcDlYR2ZSeXg1eERnenhO?=
+ =?utf-8?B?d2lyZ1pWc0kzNVVZbkdtTW1iaVhpWmtqTm8rYUs1MlNJR21Ga2R4SUZ1bWl2?=
+ =?utf-8?B?LzdNWngrVFFJcVI3TG1lUGtRN20xU2FsQ1VuUnBTWWlVZ0FmemtvaUV2Yk83?=
+ =?utf-8?B?QkpWN1RwYUY3WmZ1OWVjcXZyUUsrdlJtdEVjcmxwQ2ZaR2txM2ZYUlZ5NkQx?=
+ =?utf-8?B?WE05LzFyeFM4ZzNtL2RWVnNkL2FuUERFdG45ZkNXMDZqVWdLcVpVR291cTZu?=
+ =?utf-8?B?ZGhKTE5CU2JDdEs2M2FPN2RmVnVMUG1PdG1UZTRrb0IvZWVid3pGZWVudU9z?=
+ =?utf-8?B?bjdPL3pxaVF1bFZYc1NIRTAway9zWEJzWGlWZWpYQnJ3K3JpUzlmZGxVcVp0?=
+ =?utf-8?B?R2ZxQnJ6VGtTeEJvUldqTTJrSlJqazhGTUY3VmR1b01USkhsVkpIT3BOOWN2?=
+ =?utf-8?B?NUpHY3ExZmhEa3AvVEZ3RDlFRHg3SGpHcU9PcmljSHRoWUd0NllCM3dJdkha?=
+ =?utf-8?B?VC9oK2hacVc1VkNrbzQydE45am01aWRBR3NUWGNJZGxKbW05eXhLZW9ZbWJx?=
+ =?utf-8?B?bTBoV2VvdENjQUN2MmJZM2IvdFh2VHlFOHdTWUNjbWFCRnE1UXFGSDVoYmlG?=
+ =?utf-8?B?QUZVZEsxbVkxU0NkUS8ybkVzRGhJMWhseUU3VEdZWUh5bGh4aU9iOC8zbjd1?=
+ =?utf-8?B?Rm1ycjJBUm8vaTduSkZoZUtPNGwwVStkVWEvVU5WWml4RlgxcW9ja1FETVFv?=
+ =?utf-8?B?SXB0ZThCZzlnSHltNkJIM0poQjU4R3RXcDM3bDJnSHpwdzc1TW1laGI3bWVa?=
+ =?utf-8?B?bTNDSUVwRHNqSUJxUGxPQ09uRGpMWEtQbkRMSzcxU211aW9iemYxZHFCWXlD?=
+ =?utf-8?B?VWJDc0V0Tyt6V2dnOGxTVGdhRDNZTjBGUk52ZG10RkppMEc3NE9GZWcrem5i?=
+ =?utf-8?B?aExsUUM2MUtYQmFrN2hnMEExODBiaXVTUXhhb25hbFBJRzA5TElqemJFRkZL?=
+ =?utf-8?B?UVVObWhQLzNTRE5iNFhURzR3dWNUWjkyZW1tL0U3Uml5UG9udUFKa0l0Uklw?=
+ =?utf-8?B?YStRMStucnVJSjNUQUd3ZE05Zno1MGxwNTBqZXFCRDZPby9kYkk1Q2tySkJn?=
+ =?utf-8?B?SUV2c1hvNnl0dlZ5ZnBrdnZCUGkxMUdsd2ZKb1dua1hmUFhlRldNVFNhSGtZ?=
+ =?utf-8?B?Qk1XZ0ZpTmdzMHZ4eXJ1dTI0aERBM29mcm5nQ21rQWl5QUR0RmtldXMvUXR4?=
+ =?utf-8?B?dFZ3NW54cTR3L1hJdkt1VGc1WXVNeDhKb3RoVlJyRGxxampaWU1rQ3BKZmtU?=
+ =?utf-8?B?TFo3cXRnS2NZcmVSSEpNdTVLSzZURzlld0RBR3dja3lGMm5BeDYrckQxWk9X?=
+ =?utf-8?B?d2FKZzdqSCswTXluemx5Z3pHSHErMG9wREozYmpHcEQrY012cmtNSnpCL2xh?=
+ =?utf-8?B?Q3hNQkl2aWhRVjFPSUJ6b0xkRmYzQS9JV2dNUSt6b3RmMVlBY0JES2JQY0N4?=
+ =?utf-8?B?ZEpIbFdLalZBSDc3bzE5MHk0bG5aRHhUREFCQzZSd0d5aHl4MmhrN3o4b3Ev?=
+ =?utf-8?B?M0plVkFrVEc5QU42K3I1YXMwelhDYmx3THdUOTlDTjMxd0R6MzRDOWcrM2hn?=
+ =?utf-8?B?RDZyaWpuL09QVkVXMThCVWt2eW56NUdWTGRDTEdnU3NibkhKU01YU2UzS1VG?=
+ =?utf-8?B?RDc4S29XUUw4Zld0TUtSRmFxRDlQRFM4N0dDeG4zSVhKQ0VTMk50UklSOS9u?=
+ =?utf-8?B?U1IwalREeGZXazd5d3EzNzJtOExuNFZiR01YaFplVlBEK0FqbFVDVVBPOHFK?=
+ =?utf-8?Q?u17uzxX/klfc60vNKsZR2j7nF78mllZi/Zuwv?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb9f5cdb-1130-47de-8a8a-08df49ad0fd1
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 21:59:35.4132
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Kx1ieQxTQcVMY5ZLcDcT1jXHRXpDbrIE8i7ZQK1MRGS5XXaB3Wc4iH4/TbF53JN8JIFqG9HrgTlPLgz+xLuacVZ1n8g1mq3RLIZN5t4B2RY35xDVT63zQaLGw7ZtE43W
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8349
 
-Hi,
+From: Frank Li <Frank.Li@nxp.com>
 
-On 2026-11-23 12:41, Zixian Zeng wrote:
-> The bananapi-f3 carries an AT24C02 compatible EEPROM GT24C02B [1]:
-> 256 bytes with an 8-byte write page, which can be found in schematic[2].
-> The device tree declares pagesize = <16>, which does not match the
-> eeprom chip datasheet which declares pagesize 8 bytes.
 
-Oops, I am not sure how I got that wrong. Sorry about that.
-
-> EEPROM pagesize of k1-bananapi-cm6-io[3] and k1-orangepi-rv2[4] changed
-> together, based on the chip model shown in the schematic diagram.
-
-The k1-milkv-jupiter board is also affected with the same issue, despite 
-using a slightly different EEPROM (24C04).
-
-> The TLV EEPROM on this board holds the base MAC address and the MAC count,
-> so a corrupted write leaves both Ethernet ports without a MAC address,
-> which is how this was found.
+On Tue, 17 Nov 2026 09:44:12 -0300, Leonardo Costa wrote:
+> This patch series adds the device tree overlay for the Toradex
+> Capacitive Touch Display 10.1" LVDS V2 through the DSI to LVDS bridge on
+> the Verdin iMX8M Mini.
 > 
-> Link: https://www.giantec-semi.com/uploads/20230414/GT24C02B.pdf [1]
-> Link: https://drive.google.com/file/d/19iLJ5xnCB_oK8VeQjkPGjzAn39WYyylv/view?usp=sharing [2]
-> Link: https://pan.baidu.com/s/13UTY_qM4gGuVxsZ9U7_Xpw?pwd=8888 [3]
-> Link: https://drive.google.com/drive/folders/1pcI_U0C3VJKTCg8A1zj08CwNbohnONSR?usp=sharing [4]
-> Fixes: bfce75e2345f ("riscv: dts: spacemit: add 24c02 eeprom on BPI-F3")
-> Fixes: 46a8c01700ac ("riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO board")
-> Fixes: ac436e6879f5 ("riscv: dts: spacemit: enable onboard eeprom for OrangePi")
-> Signed-off-by: Zixian Zeng <sycamoremoon376@gmail.com>
+> It also renames the existing DSI to LVDS adapter with the 10.1" V1 display
+> overlay, to keep a consistent naming scheme with the V2 and with the other
+> Toradex Displays being introduced.
+> 
+> [...]
 
-Thanks for fixing that.
+Applied, thanks!
 
-Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
+[1/2] arm64: dts: freescale: imx8mm-verdin: Rename Toradex display overlays
+      commit: c28db479bbc3aee4ad40c3a8af725c30f288e938
+[2/2] arm64: dts: freescale: imx8mm-verdin: Add Toradex DSI to LVDS adapter with the 10.1" V2 display
+      commit: 88ca7b43866db1a409e63d165e100a3bbccf5448
 
+Best regards,
 -- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+Frank Li <Frank.Li@nxp.com>
