@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795425652;
-	b=hKGGrPWcswT317OzgxgmXseCC/vFVxgguOX1RixIAouzgvmZkJd1JW5d3sCoP0k8lgE+
-	 El70u4GoAgmF+wWocKrRsGpi2cz4EBOQh5sK5tmn2AKRHBj9wxljsjcIxjO419I7Gofep
-	 KhOUOXZDBmAKTwktUkAJj0me/3hhwntvGDF2tHBzeF7IV3MehNuTL2oTx4MkzP6kx5SsU
-	 msWHNGm6Y3PcsbjwgNtnph7jmYVkMZpZTc/yzcAjXdU5kVbICCTzJdpgrNZojsYwZZiCi
-	 11snXfN+WITHVPRk2hieQVBVBLy+A+fkiiN0dFAI6hVN6KE0r+IKyw1H69afCJkFJew==
+	t=1795425760;
+	b=hV4DTTJfEhkhJJ+7HIssQL740E0ung8D6lPeiggvzPV2PNcCq6RMwb7VcwztaLkZUJcT
+	 NWUkCLd2TJVQJPsSVLygw7EB5FJ2ZGikYeV3ScH4S8/1RuyvMq+Cd/ZIhhX9q9PJGN9IK
+	 B+XMcj4kFdGi0Y/F7ABRpit4S7RMcgPF4ToapqQLlQ3yy1dZhIWuG2xtbD3S4RVDOaoDM
+	 /iY2LkQORI4iLYp+j0liovbrYwzOxxxXoYtnkl4VJwxY62BEsvVs/SA3HjSd5v6uZIwit
+	 KxLx7//XdvpIAoZ9h3hoKBx+2EU2swrm+s7+GnLdOHodJHScuwY2EKSkC0swCD8pUCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795425652;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=fqPuJJQjedPHkwWmiLlO5o36uyAtzYkH2qkSAqw5MIk=;
-	b=vBshwm+ZNhYEnRkoUVlAr1R/pNF0edIKdqfbzommG4IRLACLh7D7URtPps7fNQa0A5nx
-	 LplEQIAvDAbPlGfNh65HGQpsoyPDArZPMtdk5EHbqHxSk5LYO7mn8ZpwCy+oOo07hkEv/
-	 YAuTBO1VzuoH9RI5iO4lwtm44cDyarOJW56T/J5OXDth3GbbCkN+6qHPQdqygik7o1G/H
-	 Mbr3HEZfsB50bX4DmKFhGr1NS81k9BfAtDm37tMQ4wvk2bEtc5S+Xkd8kypZCMJO43HN3
-	 WvmOhCK/L8N23psdzqe/nDmQ/j8EGtzkOcLaNrBZrs0NXExVilLTkVcsQGb+VoS/ciw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795425760;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=1NrXZ8mJrCHO2i6rYqFBaXUUOt8Zrci/NScdvydnKUE=;
+	b=sVzFf7TZDJDlVX7Zy0XugJQoYyylgHDaGNEpAp/vGW8nU7v5z+zsZmuLyG3o4ZyyN9i8
+	 gSA+Jg+DJAGWonbyYq8xZ68PkMl3r/dkMNjTLwSzhHddxRMU/yrmoHzrpRh/wjTymEeg2
+	 582PIG6liRSIsaTvIgrkKTkUiE5AswKzrsp0n6Y4Ij8K7cM1BX6VywvRKMrAy/9IE69nT
+	 mzTddSmqgK4/sso1KkFvEu8v+UBfWtyTH4ORrqqYzY2gT6VlRx/skQ1brIu/gKRl6Ei9y
+	 H6dtxserGdIJcvewcQY/hZTObCd8ohoAITON43Z8NmmNBcgdZ7BrONxCyYmVufENWsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ZnnMHLyy;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moGoVk20;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA0D606A327
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:20:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBA0D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3932D606A31E;
+	Mon, 23 Nov 2026 09:22:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ZnnMHLyy
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a00so23118815e9.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:20:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795425650; x=1796030450; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fqPuJJQjedPHkwWmiLlO5o36uyAtzYkH2qkSAqw5MIk=;
-        b=ZnnMHLyyGEi85eItm4tPYEAe8+FkKV19phLWW9u/kEXQMLTfvMYy7r3G2HRniYSz3w
-         7MW6uyj4mxuTe3P+B5/kK6P2ruVi/OoNcpE14GXUoA8hybNbSkAVmScSpX0J3ZXKnu9T
-         yoChKBwHjhHiT5MLku9vce5ZUS8pWpYebcUpFG7qku8GUWTg/LvkjCSOqtxP4nraIB4X
-         eapoyMmbQUQYcbHrTYv5hHIrHlflqQZCIxeoSqBQC1Mpx2fkmQA6k9p7J8zG1TXt47e/
-         KYVBu968nHtGjDHJN2pqTjxKl00GZKuqIZa4CrgW00s4fKdMo3XtLfI+oVZJTk99r3Yv
-         gOkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795425650; x=1796030450;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fqPuJJQjedPHkwWmiLlO5o36uyAtzYkH2qkSAqw5MIk=;
-        b=o6hQvWx2amSS368d0/4eJ2F3qx12EI0Xjz4Kbt1Cvto1I0cgl2oV8OJCOuEsA9wtZ4
-         7Z8YMPKWIsp0eeANohEc8AWtJrthQ6Rinaa4WoSl1xADYBuZRzABK3v3IlOYW83InuLs
-         4UWfLACCvE5MaT4BZJbzX7ORHw3JSBECR+T7HiBcV1nI1tABfXuw8MjbPV42NZmS6o59
-         xc/QzeqGk8UwgJrP/ovYB+ovvXDtr++yqIoUOP2B160+IgPYKmYICqeerOZGvNJ24F4d
-         x+/9FVNKXdntY5vODzyCWCQCS/A48OeHkt7pDD4mv9UGVkIi8SzBpy64iPlJStsE6/T1
-         ebOA==
-X-Forwarded-Encrypted: i=1; AL+hErEHQYp7q4rs7ZGjdxoL9Z0clKw4TeZ5f9qPSwpkzKmsWvRAqlqOlBJBZM6TI/LFBLLxP9l07OnSozCF@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eIgNFF/9VwlKMtYH8RV8aJWtwpXo9tLisT95EjqIVQRs1tgae
-	B1s2YN7AITLzAd/NXcgjwS+ICRvOU4beTiEOUAAVg2LHLiyzjwoPsK+lQnodRYoLc8o=
-X-Gm-Gg: AZFdTZcVVHwgh+tfMQGhHda9dPQUI6HVmxnOu4fKJJXkmvpOIHep6CRuOsX05AxBmSX
-	Z3sGFgNWdEG3TnCH2g5wWEkTDa2QXmaNRDAsa3ahWz6JtpWxCdeCu/MK1Qbxd+a2sNCBie09G5p
-	Iu8F9OS0qxLvATr9vOLM93hTTszs/bZ7awFhwOzW9aqOtjWRuryGioMLkb1TBFP7nHpcxkMiN8o
-	9a6xrC2U32pqgnC9nuh0WlUamgDPcAIXHuWeW5rDP0R1VyPBOcpYT980A57iP3Dv1WBPTKAVsAP
-	D32NcsVo40boH4Qhoxvlbj+bALK8DqlwTeWzuoHnRd6byVo9VKjY951gh98Esl4WuXLtvkIlShZ
-	0W4mcFvZ76dex95qQnpynHChKjkVmb5seCk9s/3Ic73+twcAaEM+4VdZIUsT+WeVz+mhJqtshFz
-	pHxchgHQv8UKT2TcJs8bG9qjWKDgeqZH2VSX7Z1xz2bBCoy7xV7h5vlSHa+KBNkB+MUGPQvOgKJ
-	7uz+1wTfZjCMAq6j2H2Gqf0NYEN1CFdzk0LUyYYnygnZq0cnv2PTpmGnO1YAUtTgu1W6X2giNUC
-	Qd1C8YwMuZKkfJRnXjlU0Mr6cCnEAbHYUUQVXnWuJescsov/8cB6zHRMmeS2W+r4RCYR+lulWks
-	aZwtx01DlC6EPKmdYw2aSi9n3pWeeK6vzkoJULhd7L6GyXw==
-X-Received: by 2002:a05:600c:530f:b0:4bb:680f:9a3 with SMTP id 5b1f17b1804b1-4bb887e220emr216644145e9.2.1795425650233;
-        Mon, 23 Nov 2026 01:20:50 -0800 (PST)
-Received: from macbook.homenet.telecomitalia.it (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b39b6sm296458505e9.12.2026.11.23.01.20.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:20:49 -0800 (PST)
-From: Carlo Caione <ccaione@baylibre.com>
-Subject: [PATCH 0/3] Describe the Amlogic S7 clock controllers
-Date: Mon, 23 Nov 2026 10:20:44 +0100
-Message-Id: <20261123-upstream-s7-clk-dt-v1-0-95f46d67d8b4@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moGoVk20
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E1081F000D3;
+	Mon, 23 Nov 2026 09:22:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795425759;
+	bh=1NrXZ8mJrCHO2i6rYqFBaXUUOt8Zrci/NScdvydnKUE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=moGoVk20KdJ2bZXWIShIkGYdM4dF4cN8M4DlgQedVfKjY3V5aNJG8mxhVxip3lzaO
+	 GgC2GRUQIgrs50bB4fWaZjz1tUN+dwNQ6UfJKML/bzQ3ECebhfDyRy/zTK0n1XK4/w
+	 feJIHRtC+t+swMSg1plaxmc8X/TqnKU7zPcVVvSO2vropVLpXINaUa5CyFf6kb85ZG
+	 4frEof9bUxmygaA2VXzXfMtaCNYJRXbGFC8bmtCRlNNZ4nvUtZFGpjiAfUQ+WPZhfE
+	 AyOGDeW7ooldP+Qr9Sag6BBYPUMmB9baBjs6EM/NBX3BvgNI/wZwwy821Ow/nkfJ4O
+	 yHq4VJhI8Z3Cw==
+Message-ID: <sashiko-outbox-228962@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] usb: typec: ucsi_ccg: Add CC orientation sensing
+ via GPIO
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Akash Kumar" <akash.kumar@oss.qualcomm.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123091024.2214918-3-akash.kumar@oss.qualcomm.com>
+References: <20261123091024.2214918-1-akash.kumar@oss.qualcomm.com>
+ <20261123091024.2214918-3-akash.kumar@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 09:22:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,54 +60,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/2WNQQ7CIBQFr9KwlqSA0NKrGBfw+ShqbQVqTEzvL
- rVNXLic5L2ZN0kYAybSVW8S8RlSGO4F2K4icDb3E9LgChNec8Vq3tJpTDmi6WlqKNyu1GXqpeV
- yryRqBFKOY0QfXl/p4bhymuwFIS+mbRHxMZVaXme/WFdtKfWXEt6i8kIoyV335IvImoQUhr4Pu
- avaujFiD14zYE4zzy1aAQbQazRGt9ZJ5VjDyXGeP4a31iD5AAAA
-X-Change-ID: 20261028-upstream-s7-clk-dt-f5b25465e9ec
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Carlo Caione <ccaione@baylibre.com>
-X-Mailer: b4 0.16.0
 
-The S7 clocks come from the firmware, over SCMI, and from the PLL and
-peripherals clock controllers. Add the SCMI node and the two clock
-controllers to the S7 device tree.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] usb: typec: ucsi_ccg: invalid %pOFn format for fwnode in
+  ucsi_ccg_probe()
+--
 
-This series depends on the S7 clock controllers series [1], which adds
-the bindings and clock IDs used here. Jerome applied it to clk-amlogic.
+commit 0ee9b6d78660aaf0655e001e14913cd7b0e55e8e
+Author: Akash Kumar <akash.kumar@oss.qualcomm.com>
 
-[1] https://lore.kernel.org/all/20261120-upstream-s7-clk-v2-0-856cece3b9f2@baylibre.com/
+usb: typec: ucsi_ccg: Add CC orientation sensing via GPIO
 
----
-Carlo Caione (3):
-      arm64: dts: amlogic: s7: add the SCMI firmware node
-      arm64: dts: amlogic: s7: add the PLL clock controller
-      arm64: dts: amlogic: s7: add the peripherals clock controller
+This commit adds optional per-connector CC orientation sensing via the
+orientation-gpios property in ucsi_ccg_probe() and reports connector
+orientation through update_connector and connector_status callbacks.
 
- arch/arm64/boot/dts/amlogic/amlogic-s7-scmi-clk.h | 27 ++++++++
- arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi       | 80 +++++++++++++++++++++++
- 2 files changed, 107 insertions(+)
----
-base-commit: 807a34cf91c1d91f2beb3cacef9eaa98bd56d172
-change-id: 20261028-upstream-s7-clk-dt-f5b25465e9ec
-prerequisite-change-id: 20261026-upstream-s7-clk-3fbe6f33652d:v2
-prerequisite-patch-id: 9ce04eba818962dbb245b10f1709937eb8054600
-prerequisite-patch-id: a02fe1ec065748194293c458aae0bd6f6e7f152d
-prerequisite-patch-id: c04475f82637c268ace81e969b67c159a1b0ff4a
-prerequisite-patch-id: 8b60ed5e40d0bda09cc368292cdd7cffc621fd8d
-prerequisite-patch-id: 7e4acbe8258ab4bf7b5bfcaa0c7b764b011d8105
-prerequisite-patch-id: b9efe5d77d21ce83acca108e1050c5ae1dfe9701
+> diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/u=
+csi_ccg.c
+> index c560d45393024..06c536d876940 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_ccg.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
 
-Best regards,
---  
-Carlo Caione <ccaione@baylibre.com>
+[ ... ]
 
+> @@ -1506,6 +1553,34 @@ static int ucsi_ccg_probe(struct i2c_client *clien=
+t)
+>  	if (uc->info.mode & CCG_DEVINFO_PDPORTS_MASK)
+>  		uc->port_num++;
+> =20
+> +	device_for_each_child_node_scoped(dev, fwnode) {
+> +		struct gpio_desc *desc;
+> +		u32 port;
+> +
+> +		status =3D fwnode_property_read_u32(fwnode, "reg", &port);
+> +		if (status < 0) {
+> +			dev_err(dev, "missing reg property of %pOFn\n", fwnode);
+> +			return status;
+> +		}
+
+[Severity: Medium]
+Should this format string use %pfwP instead of %pOFn for fwnode?
+
+device_for_each_child_node_scoped() yields a struct fwnode_handle *, whereas
+%pOFn expects a struct device_node * and applies of_fwnode_handle() to the
+argument in device_node_string(), shifting the pointer by
+offsetof(struct device_node, fwnode) and causing an invalid pointer
+dereference if a child node lacks a reg property.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123091024.2214=
+918-1-akash.kumar@oss.qualcomm.com?part=3D2
