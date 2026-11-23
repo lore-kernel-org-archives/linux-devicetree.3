@@ -1,94 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.66
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795473437;
-	b=l39rDghziFp1GrXbE3tzFmAsz/jMdSTyQHDadvzY9/l2ZrOhDw5EqWbEsn2836XtMh9+
-	 EjTFbag/XNSftl1AfYkGcz1hX+ZAvQu5MVSBma08uBfCSHLOAB8p06izBQx5a1qiXybzx
-	 Y0I4yij7xiHGqi02cVTpzdrI065L8nSoyz9GTa4hLEaOVi8s7WcEbpmSisJE40NMfCm4c
-	 tbLlW1kSOVYZY8Z4GK8knG2ZTn+XB66o0X+Ph8vCHUlQfdEdlb+Cnl5/dhxUuJIuYRfH5
-	 PM1a641zvR9ShRQ4RpZWYEuWwY3wegABAf4b/FGN3zut+mvSDJu/q89Ih9JAf9sMF1A==
+	t=1795474209;
+	b=12YCfzCENJe/WKzaoA/6zcLLXLpS/yi64JPrn2LbYcG8K5IIlrK97lMK3b3kKEBkls+N
+	 5fcdB8zl/Yrb/YZ3CoK+lwiOetIfTzxG7iQzLwqE1Rd8JrChw4ksHAmx1vE+2c1RJxs0M
+	 KjYxR0FnSEe+c0Ag9Qtvo2KKfJj3xraXKgorGsau6hxLiFxKDk0J/vadQoBiignIN5d89
+	 qAUq/wzTDctlYs8HXwy4aWVx36Bkni5cxkdVe56nKBwwdYsfTiW932GTYMOZFKZMvCCzZ
+	 kgImEqf1aMrLZYh9QJwVEkqN1O8WDp2Zwaf+Wgp2Vj3AZLkgIKz/MRd+ACgkeqmadwg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795473437;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=i/EOq4TZZ/tSTs25OJTlgBUOYfVCAp1H5O47gCgkSPE=;
-	b=a03zNW18EKxhRcUEBkU5djj3jQa5kGODbrPj+Br92l5NdmOV6LkGDXKeGgg2pcFOwVSy
-	 +Z8VPc568x+3geFcUZeIwloDz7BQMm7ZJOKRcqBFbCrWYYZdv6zy1IZQCCnvN79kG2N3J
-	 HNHjq2YBgNWI55CYv9s4Lb6OSdGzSMQLRuAmaT/0Tj/PC80AtOdWorbeWyIhBfvw+3V1Q
-	 F/hq7Uj26uGrGWCgGUSHJ6qo1aiV5A7ao6Fiq3/i2HE59H31v3KJ6021JdQ8hc6t71+c1
-	 BASSNfFeDFnt3TFH62AOo+bSO49Gm9yryCwy4R2tfVSCZuPc536aI9AIkjb4tQPbwWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795474209;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=Ca4tTScCjuYy0lBJT/xmrIGYvwTpsOx7x01yna43BCk=;
+	b=cko9+5XNhqAGpnjfBPMUuoZ9L5gZRNmeRSk7rsk3WtnxB5rXr/FpWUydZNGH0eJ55zIA
+	 CiIYkTakQHXNns/9tkid/2pxo3tsuiZ7zh36e2e+FDIyvD5thgz3cbaG7Hj/X1L1IteWN
+	 EuVWlaEwW8GRyQAEBnoQqrlXEsPCiCm7rogrUfpik+FeBzYqx3RU9/1oO0yXDd2TxXQ4w
+	 gkGaYYlFAfd9Nf2k+JMVKSJut2d9G9H0NYoG2Eljyww+g0o9puGu19K7bzU+A37oEYG7W
+	 xj4KvManaxHfBL35JdAxzqkbr/SaWsBckgjWakNgAhy6hLiyyM7lucyneXAeFTN5g0g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b="biDje/8X";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.66
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010066.outbound.protection.outlook.com [52.101.84.66])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9uVTNs5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082E3606A31E;
-	Mon, 23 Nov 2026 22:37:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 082E3606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D29606A32A;
+	Mon, 23 Nov 2026 22:50:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=biDje/8X
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HPkhxRx4YtUguUIlycYnfgRF99QxBUna///2rExH94n80+3iq9XfgJ5msYGAN+gq6uXFh/PB7GHkLMaMvHZnQechKrtxlZ7nzVbwMi9dbyfG6knnwWITUl6yXaCgM5uzR55BAJQIqjKTf98LZ/wVyVFJnYzf6yr4nCXF59MY6NiEF6+3Exscn/hzcP1ykv+AHDtVipwQFTM/LAhWxNH1oS7b7aSekIGsTajiEUYddahTGwWCaXOiZ2ckhCqBDhBm61B+oaea0k11EzpbxQ7NVG+cCjUWKSOHQA7reuLvkPifCyH8kHt9ed+qI4scdYoquNbv+0cn1gTau2pjljtp+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i/EOq4TZZ/tSTs25OJTlgBUOYfVCAp1H5O47gCgkSPE=;
- b=vs4t+/xu95FHn85AnuwGRwBim4xKPmwqZRa2J7Q7MJk0U7G5CSqF8rAVn3khXUymOm4Lz1el93jQSOMLJkvX/KaksiSEE8pCGJ2s4qQMrADvc22HHBMZrnx/nwhAuFvSTWcbEY7nUh/wgdUl+EYZB4Yb2GLL7rkNQd4Q1fPb9GDs+ck6KzOvIi8myPn9F05rOL/gzP7axLnx+MmX0Gh0fnhWa+2H9zpwP8WsXB1iXcIOC+RNZqCiqUIbQ6Jvt8jzGOcQyVVHoW5AF2fEGAjinOEBlew9fA8f8lQcMDYYA/qQxRDpkvWLmBcOy3AoEc4cOfhsh77jYfasIcxcxDzlkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i/EOq4TZZ/tSTs25OJTlgBUOYfVCAp1H5O47gCgkSPE=;
- b=biDje/8XyeYhEUd5l+pctI5MLhjNbqZ3asDXDm7ubRniyW2480D9m3jQxWDPwvkT8ytOGcfkhfsk+nWedgnvtKKLYtHl2jm7gvpBEiuHHqbXWprN3cn6mGmd22N8UUMR1p21gBULzesbVAXeSEQnzT/6M7bGA2bdc1v+sBhJki9MdQOIYzpqEFEk5wx02zQbEZZqept4nXKsrMkQEjtUkOJDAG05ser+KBl6z9aIV+Ubt+8IwiQoeTj5mZDHRhi307V85MPqghfeMeRWrYZHOIthV9PpqeFAo1SjpJ3YKQx/CVwt9rbnwOBwEU90xr4+GkS5q3sPSzTE6jk4c6XGvg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by DU6PR04MB11181.eurprd04.prod.outlook.com (2603:10a6:10:5c0::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
- 2026 22:37:13 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 22:37:13 +0000
-Date: Tue, 24 Nov 2026 00:37:09 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Ioana Ciornei <ioana.ciornei@nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	netdev@vger.kernel.org
-Subject: Re: [PATCH 0/3] phy: lynx: add support for downstream retimer PHYs
-Message-ID: <awSbDyUn-ND2oq2Q@lxl00025.wbi.nxp.com>
-References: <20261118163134.2149894-1-ioana.ciornei@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118163134.2149894-1-ioana.ciornei@nxp.com>
-X-ClientProxiedBy: AM9P195CA0005.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:21f::10) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9uVTNs5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795474209;
+	b=Nhfpx0dmakuT5/qWQLyNJsoxzEce0QxSr5UC/NS2reV7LhUR2V/SshYkkT5t2xUNKU63
+	 ebza08LtqUOQ+DK1i2dHpkzSTOuhBBk8UVv38YvU2vutjR+tMbqFKj+SIqGUaFDg3EsJH
+	 xFdv3OtMT0/aCx3Up1y45BX5DgXGbABS8Kfb+MJ+/XdrT79SK80BfbmcqXIw4CD5iYkCV
+	 qXhWSN7btKzf0pqkWJco33qOK17yVYoYxaQHGAwS+FBZNQzN9y8k3q79lcZQOOWz6lmhu
+	 G/ABsY0KmQyDIrEeSGNXzd3gt6kmwci6J1B+wmDv7awRg/q8K20yuvLbl5ZYiybgleg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795474209;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Ca4tTScCjuYy0lBJT/xmrIGYvwTpsOx7x01yna43BCk=;
+	b=swi+2RqG+28xlj58/o7pKyMZsNc7QMT805cWZYRdfCfxBd/zKOQVP2AH3HjlDjCdiCLk
+	 StUOjYkr+1G0AvthEr0nHF6ikArCmIokq1IC//15fHocb9ZlHrEICoagX+Y2vMthHvCWt
+	 nUoJSRliYuwKvz7PwroDFhV6duvLEf7Ejx6aQnOdsk24LBZQ3cdXJmwVRuXJfONb+vjWE
+	 2SG1+5QSvAOVEIgT/hqXkGUvcuWpqRVL+rTbxgT5jymTxiBlwUMeITRk9H6r0xqAGhdv6
+	 9PhB7sAPlv+sfjQ7M9rX/3/qXl4RWqRZgtY5XqJ1GL++7XGFS63SMl4sGb3ZR3UQX5g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id E12B41F000C6;
+	Mon, 23 Nov 2026 22:50:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795474209;
+	bh=Ca4tTScCjuYy0lBJT/xmrIGYvwTpsOx7x01yna43BCk=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=d9uVTNs5Aa+/NVMSLEYhIvy5C2RcoxF553SWIXhXEqjh/r74sxcCncvbsL6PMXNf4
+	 HyMjM9C9G4Ms5CS/v/j6KT06b9F7GbeFXgX0OkpyyJopjCwvIqZ/nsw1d5PsDHcE2y
+	 nRiZAHUCmoVFa/d3xI99O3fufLraAVlHObf53CuswpRT1qClVbpNeNplZd0/aCIcNX
+	 CijdyXvzoOla4MQXqDGBILBTj214Q3cuKAWAIA13FztoWG0cJ8i0pxEA+JWA4xcSxC
+	 wU0ZJ++2hl5Ya1ZkPWJVKuq1dIRmbGGRW2gtqSdZzZhWD75ngtyZzOT8lbEDt0di1m
+	 fRRQ6ZVoVNuiA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 43EC54C7B1;
+	Mon, 23 Nov 2026 22:50:01 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH v4 0/3] rtc: Add Cortina Systems CS7542 calendar clock
+ support
+Date: Tue, 24 Nov 2026 01:50:00 +0300
+Message-Id: <20261124-b4-cs7542-rtc-v4-0-bceefd844074@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,100 +84,128 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|DU6PR04MB11181:EE_
-X-MS-Office365-Filtering-Correlation-Id: d23b382a-e41d-43b2-c7b8-08df49b25179
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|10070799003|23010399003|1800799024|376014|366016|261026121527099003|261102123227099003|261022075727099003|261021121427099003|11063799006|10067099003|56012099006|261021123027099003|22082099003|18002099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	W1V0OokySk+ozqhCWPGaRWU32u+WBJytpec3eXSfMVqe/1lNy/ugGAbXuvBLoj66IqLTV8ElUGEVA+5z1w+8baHxOen7hj3/ydJrhGl+xW41kbAXHcr2+T+sKzWJhAGK1Sw6/6Vw4FcwTiTwkFuagv6zQkOcFlFho2EmD8xJGD5TKVrOETLDDYaLc53PMUUFEfjyGU/+gZdkDBIjhUg6dK5muQ0Fg3rm/zXHoMGD5Or6s0Rvo9j/HtoTHUNdlOFVUbUMPvy4EWAtHUzs9xFVt04KX4rJVfhx9sZU4aKUVyqT03Oi+Rm+wguUGE14WxQ9F5kyJFRCUhrxdEtTUz5sP7Rj5a6aSMNyc/o6t6Ps4YSdw8s4M4YwtOlUJg6p+Xjg5nTj4l6VtyYTrO929soWDS3Oa8oaQWwDFn8QOg0AxDt78PaXOs/hwgR8vxzyEyBLvBxSkBd3fOtf85V7bPRQMpVsemBoTK9+IJhUpf4b529xg5YVXDWyVRCzirx19tlAM0Dl0wZ4m49BLdRDPsvHoviz/W6Ik42XRDuJgMi8Ueueh0NqACpuMT7BXD0eIlUvroaE/NSCmRqZxyYWTLzlHjqyVGbU5Q3pK93PrPYUqvQD/J8z8B6qd8SZAFaIFEzrzVEo40xE8Th7k4EM/nuPVJUYSqajoFsRsP1v5KXQbzI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(10070799003)(23010399003)(1800799024)(376014)(366016)(261026121527099003)(261102123227099003)(261022075727099003)(261021121427099003)(11063799006)(10067099003)(56012099006)(261021123027099003)(22082099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1p4C4SJkgW8OEQ2unN68lNgeWCRzn8Oxuq42nUmRX3grfJQRHSKqIK9LZsjJ?=
- =?us-ascii?Q?L12FFXyh1mrKjyayMv7/FCNj1SiVMZ8pIiG+oLNdca2yifHgrXty4sxUc6kg?=
- =?us-ascii?Q?aMhP5JgGkaECAn/NzdjTlkNS0VPvTTSACBUj75zFRqBHQo7fwMV6tzAqSuDU?=
- =?us-ascii?Q?EV9DAAwU+x2QzOiZf0xzPLSQ8Hu6rHan7TG48nWl4O7QQA84EXLvCV4fCyzH?=
- =?us-ascii?Q?1Q7ZfCyn1HENdnI6lILKj1TxhZlGdXYhltVNAQs25ITX3qCBTjOp31lJZjYB?=
- =?us-ascii?Q?2A18TkhoOOOLTm7YoflBWPVzXO0AmJVkd7LHiTmXML4Hn98gNt03K0Omp6Yt?=
- =?us-ascii?Q?n+yZrxnezotdCabDQrxPzzFdDltoYFwbJcGqyRF1M3itAnpoKc0oU64/3rLP?=
- =?us-ascii?Q?9QZlYGOPid5VWn3y7JwG4uu/oDFzdpIOrssPUCEw6UygX6XpU0E2R5JIgVKK?=
- =?us-ascii?Q?AP/5W9k52xXoIUYTCfTa3bF5t7BA7IUVaQMkTjy6L46Uu5ifyRfF/ugID+CG?=
- =?us-ascii?Q?T8/ZBA1NqksbiZbu/vhrZv8ALvIEd9vM1nJzj2o410NUl5ygHU60TpCT3vyI?=
- =?us-ascii?Q?gz8JWPgVdjRH0+egqu6aQ+mLiNzpSw1a31s4OOAOSYhHCGKTxvvTer+IACY3?=
- =?us-ascii?Q?gBNWwr5/eRTZTILgz+AiEG3FMgVMsWm7i+eEwFDhes/rI+BKF0lg+TyCqCm+?=
- =?us-ascii?Q?MEmVhsp1UVO0RNf3bm033gCGkcOtK8Fl88jqw8omQzwzhcQSacVuvlH3jKmA?=
- =?us-ascii?Q?6+2QT2jbpXfIEYdOpdtxs7kSSWZbJc9j1gjXrftGEAOsfIq6LsSl7s9uPZgH?=
- =?us-ascii?Q?vvK1OvNp1ROC54phI8RYpbyY92bsQxpUYNH606l/pYuEUVKD0lVKxF7I8WWP?=
- =?us-ascii?Q?Xj5wIAF/266IzASvcUCY3DXhfXAVvUJZIMnnZg2bNskPSSkAtF6xMC6FF+Iw?=
- =?us-ascii?Q?y7/zGuagh1FfDtMTi1Q+EqOFf2SzZFecJWYeYyRLpAGxXp9JbGGq2LgVPApB?=
- =?us-ascii?Q?t/Ug+dFtxwLR1Whaqyv5e70BIMp002kjtrQpd96EXomQJlLjeQu89raq3/QM?=
- =?us-ascii?Q?TI7S/j6wjPV4GW3lFJIy28iWBD42sAbWyPyFSUkFaEfSMGxce9BZia59/Wdy?=
- =?us-ascii?Q?njP7Jspat9IclXJ9H+mwK1yLTv3v6h1U7HLJPF0lZ3zXfshbrP2R5r4IhxNs?=
- =?us-ascii?Q?e8llHHnvkDsRQuOxtzYVlbURloZAof0PPx46ZBkEsxUnQ09WTuWy3iMt57Ox?=
- =?us-ascii?Q?8LdO/EtCEzB86CGWjsD4hbzr/E7OGLwBW8hOZn6PmROP59N0NpWvJ8WKKNmJ?=
- =?us-ascii?Q?Kpwrn9r+JMUh2vyHIYTgEyeFLPbfWLfIxHz9qF9zlmmzl4IKbNg5Hg3UXrQU?=
- =?us-ascii?Q?bXM4bJcWnN1eq8U3BUqYAHO5B/SYuzdGpAdSiw3Ct53JOqteOFUUMcK71JnY?=
- =?us-ascii?Q?B1QLCzyrw9KjK6WfLF5R+7S2aLychsTP7BGcZqPHb8fLFPZgq+MIlA/nT56+?=
- =?us-ascii?Q?AR+AseCb9JSRHGs91S6jgkaI90C2BYQ1sexUZs44z3Z6bmF7RA4bAX3Peq1R?=
- =?us-ascii?Q?9SEHBlKDP4M8OTVFOite9yB6QoysOEqyxAMNHDENUoh8Y6iIcBEuj4r0CWXY?=
- =?us-ascii?Q?iWs7iaX4t7DjBZH9B4LRW4xBazpkusO93Fn76SOZT5dV4NA76JID7XFE6+VK?=
- =?us-ascii?Q?xerHvk34EXbj7SzvvsnilK2zGHm2hSYUtTcOimLZm6czN6n3BW62wcIbfbs5?=
- =?us-ascii?Q?f3wJ9FU0aANNc2Wnz87ikUSdSUO7AHLDcCrxcod8LiR6zq7va8FTwMxdZVDY?=
-X-MS-Exchange-AntiSpam-MessageData-1: 3rND12Or7p+mMA==
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d23b382a-e41d-43b2-c7b8-08df49b25179
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 22:37:13.1127
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XVVRoRFtfOB2eLDxgxAVhiECQ00I2SD1+qRdRhRfJuc9QkggnjJLbG1HE0aGj6/TI6bAzTYJubVjCEtcymmHfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU6PR04MB11181
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ7CIBCF4asY1mJgoKW68h7GBVBoMbY1UImm6
+ d2FutEmunzJfP9MKBjvTECHzYS8iS64oU+DbzdIt7JvDHZ12ggIlJQCw4pjHUTBAftRY0sqWtV
+ C2FoCSubmjXWPpXc6v3e4q4vRY47ki9aFcfDP5WGk+e5XO1JMcKkLJkpqrSTs2HTSXXd66FBuR
+ /irIWlGpeLMgtaVWWv2qflas6QLtiegrDJEful5nl9aBTsAOAEAAA==
+X-Change-ID: 20261123-b4-cs7542-rtc-f0818d77fda2
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795474200; l=4972;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=VhVJSYB9z2on++tWgQG/oLKkQMYVIodUrNY/c6ejsUM=;
+ b=UgqFz5j9dCKQcMU6Mp72l5OtxPODMl0u/rDrvgg3MdUedYWWKhjK7/vzQZ0EVy6q463KLWjDw
+ viPub9HjbI9B1k6ki+4UeXcilKX6Qe7W+0DtvB3Q098EfQp0ALf3rlG
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-On Wed, Nov 18, 2026 at 06:31:31PM +0200, Ioana Ciornei wrote:
-> This patch set adds support in the Lynx SerDes PHY drivers for
-> retimer PHYs which can be found on the board downstream of the SerDes
-> lane towards any connector such as an SFP cage.
-> 
-> The first patch extends the Lynx 10G and Lynx 28G dt bindings so that we
-> allow the phys and phy-names properties at the SerDes lane level.
-> 
-> The second patch extends the core lane probing function with
-> lynx_lane_get_retimers() which walks the lane's phys array and gets a
-> reference to any downstream PHY found. The 3rd patch sets up the
-> forwarding of the phy_ops received by the SerDes lane towards the
-> retimer PHYs as well.
-> 
-> One thing to note here is that the forwarding code is kept rather
-> grouped in phy-fsl-lynx-core.c rather than in the individual Lynx10G and
-> Lynx28G drivers so that in the future, if necessary, it can be moved
-> internally into the Generic PHY framework. This leads to the consequence
-> that the actual phy_ops with which the PHY is created cannot be const
-> since the .owner field needs to be copied from the structure received
-> from the actual PHY driver.
-> 
-> Ioana Ciornei (3):
->   dt-bindings: phy: lynx: allow downstream phys on the lane nodes
->   phy: lynx: get the PHYs listed in the lane nodes
->   phy: lynx: forward the phy_ops to the downstream PHYs of a lane
-> 
->  .../devicetree/bindings/phy/fsl,lynx-10g.yaml |  27 ++
->  .../devicetree/bindings/phy/fsl,lynx-28g.yaml |  27 ++
->  drivers/phy/freescale/phy-fsl-lynx-core.c     | 266 +++++++++++++++++-
->  drivers/phy/freescale/phy-fsl-lynx-core.h     |  14 +-
->  4 files changed, 327 insertions(+), 7 deletions(-)
-> 
-> -- 
-> 2.25.1
->
+Add the memory-mapped calendar clock of the CS7542, based on the GPL
+vendor and OpenWrt implementation. Use an independent OF/HAS_IOMEM
+Kconfig option so the driver can be reviewed without the pending
+platform series.
 
-For the series:
+Decode the four-digit BCD year, bound retries across second changes and
+retain RTCEN after programming. Leave a disabled or reset RTC alone at
+probe and report its time as invalid until a known time is set. The RTC
+core validates the decoded calendar and handles absent alarm callbacks.
 
-Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Tested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Describe the hardware's 0000-9999 calendar with RTC_TIMESTAMP_BEGIN_0000
+and RTC_TIMESTAMP_END_9999. BCDYEAR assigns bits 15:0 to year data and
+reserves bits 31:16. The range metadata models physical encoding and is
+used by the core's offset handling. Ordinary core validation still
+rejects dates before 1970; no public calendar-validation bypass is added.
+Alarm interrupts and suspend wake are not implemented.
+
+The three patches are the binding, driver/Kconfig/Makefile and a
+MAINTAINERS entry, based on v7.4-rc4 without the pending CS75xx platform
+or clock/pinctrl series.
+
+Validation:
+- strict source checkpatch: no errors, warnings or checks
+- complete minimal ARM vmlinux and modules builds, RTC built in and
+  modular, GCC 14.2, W=1, COMPILE_TEST=n, without the platform
+- actual read/set/probe functions and core calendar validation helpers
+  with mocked MMIO and UBSAN: 10000 BCD-year round trips from 0000 through
+  9999, all 256 control-byte patterns, disabled/reset rejection, probe
+  side effects, known-time enable, future boundaries and error paths;
+  pre-1970 core rejection is checked separately from callback decoding
+
+On Almond+, an additional Linux 7.4-rc4 RAM-only fixture called the actual
+RTC callbacks under ops_lock to check the physical lower range. It
+bypassed core calendar validation only inside the separate test module.
+These six transitions passed, with raw BCDYEAR and decoded callback
+fields recorded:
+- 0000-01-01, 00:00:00 to 00:00:01, with raw year 0
+- 0000-02-28 to February 29
+- 0099-12-31 to 0100-01-01
+- 0100-02-28 to March 1
+- 0400-02-28 to February 29
+- 1969-12-31 to 1970-01-01
+The module recorded 219 checks, no failures, and verified current-UTC
+restoration. The outer RAM supervisor independently verified restoration
+before watchdog return, followed by fresh host-UTC restoration in
+installed OpenWrt. Firmware was not flashed. Direct pre-1970 callback
+reads succeeded while the unchanged core validator returned EINVAL;
+the transition into 1970 became core-valid.
+
+The v3 review run had already checked disabled/reset reprobe, invalid
+reads, known-current-time set/enable and counting. Its separate range
+fixture passed 1970 and 2038 ticks, year 2000 leap day, century carries into
+2100/2200/2400, non-leap 2100/2200, leap 2400, and 9999-12-31 at 23:59:58 to
+23:59:59. These are targeted hardware cases. The 10000-year round trips
+above are software encoding checks, not a hardware sweep of every year.
+
+---
+Changes in v4:
+- Describe the hardware's 0000-9999 range using RTC_TIMESTAMP_BEGIN_0000;
+  keep the core's ordinary pre-1970 calendar validation unchanged.
+- Check year 0000, early-century carry/leap transitions and 1969 to 1970
+  through direct callbacks in a guarded RAM-only fixture.
+- State the hardware calendar range explicitly in Kconfig help.
+- Link to v3: https://patch.msgid.link/20261124-b4-cs7542-rtc-v3-0-53902bfbe0ae@gmail.com
+
+Changes in v3:
+- Preserve RTC enable/reset state at probe; report disabled/reset time
+  as invalid and initialise it only when setting a known time.
+- Let the core validate calendar fields and remove redundant ALARM
+  feature clearing and the two noisy probe messages.
+- Advertise 1970-9999 after checking the 16-bit BCD field, critical century
+  carries, Gregorian century leap rules and the 9999 endpoint on hardware.
+- Link to v2: https://patch.msgid.link/20261123-b4-cs7542-rtc-v2-0-31ab43f2cc8e@gmail.com
+
+Changes in v2:
+- Place RTC_DRV_CS75XX in the on-CPU RTC section, outside the HID section.
+- Keep the Makefile entry alphabetical. Driver C code is unchanged.
+- Link to v1: https://patch.msgid.link/20261123-b4-cs7542-rtc-v1-0-6c53761ffa03@gmail.com
+
+---
+Fil Dunsky (3):
+      dt-bindings: rtc: Add Cortina Systems CS7542 RTC
+      rtc: Add Cortina Systems CS7542 RTC driver
+      MAINTAINERS: Add Cortina Systems CS7542 RTC support
+
+ .../bindings/rtc/cortina,cs7542-rtc.yaml           |  48 +++++++
+ MAINTAINERS                                        |   7 +
+ drivers/rtc/Kconfig                                |   9 ++
+ drivers/rtc/Makefile                               |   1 +
+ drivers/rtc/rtc-cs75xx.c                           | 159 +++++++++++++++++++++
+ 5 files changed, 224 insertions(+)
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-b4-cs7542-rtc-f0818d77fda2
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
+
+
