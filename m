@@ -1,86 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795463693;
-	b=lGPhCaD9jJei4ry3zV3Iqlk/Cqb6rE6njxXMuc2AikPyjFwCdmHh1es1OksKsidNZLAn
-	 NdxpXS1o/K2mYE7/z3LsoYgY4TdtHYATGWOdLmLH2fijg5fPn0+qwplso9TpwJENbDfzo
-	 JtU9XMXrCgjsdf5csu2SnmmoFH6pcpjIO7faqLmlL3vzhuNbfopce4V3J2+AufTBYU6jG
-	 6NmB76iGqj51LIv4rvybHpIIoKzF6tqPYdo49tDsyfRsbcEHyxsuUSLpq1rOfT5KTxTZi
-	 N2wl+2c1WQl7dIPCnzkWo64CqMapj6eay8ZoFJVUPAUaQ0+zM7lZb4byKKiRqi7ly2g==
+	t=1795463874;
+	b=ARhdpSXu9ODmRfUnyzKB76hfNq6ZBCSo+XAfKFu4ncv4sbNoZb9qFqKb0mjtbjpuDKgz
+	 yJuyUkwWCMEq6ftnZ3r4sCHC5GZ5AmRL5wjkKDHdC+xnjklLITDU++ufXYDlU2/hPkfM5
+	 sK0sTCIFVD3+JGYOaEDF6WZ8B26AV08oLUNGN5/vTz1o/4NQU8tmwE7tbbdMy0e5OKYyA
+	 y2UXOupZeu9JQvhoNgPTHgIs6VpTiRK9vzfQGyJWsZCx80FiWCWiWsYThaSEa6W8psyt1
+	 4XewwCQI4oU/4tP4Xp7N0yUDO/CmexTMxqXsENdNoBSOoQSBz+7r4urycqHa8/hE9tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795463693;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=g1rj9K1ufUbqZ3+8WDd2PDC8BQGGeQNY2GgcRNsqjYE=;
-	b=leKLKYYkipDka9wS6wDdd/fgIPz+zEsFFXxMAB4opjEYY+Ku7pzWjZ32gOB4TXSxpzrG
-	 aIUcjmCHgGjD9JvFUDyjpPwkiVaNjdNwuS6zyjiOYUGP6iXWj9E0fLzK6f88PoudI2l9Z
-	 +F8q6I6BOPD0mmOTchG7Bsbc+jMLznxnW7hIq2G39ddNHOBHNdR1RUGW+IMrE7FLSHnrZ
-	 JCKyHaet88KQ+gL2LLRCdY/8CJPVzjcA3+mydEgGt0RwKKpfQv6jglBLNhlPKgLhXRrvW
-	 FBzAqCpHqKiAAPX2JrurEr8OAVPM1uFBqQvirqoEKNDTyC8VBBogY3QQGUUGisibbjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795463874;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=D7q7cBjmg1g9miWY5cP21kvzMw2hIFRfrX+Qy8eFRzk=;
+	b=WMs9MpSFKPJOoY20Lr+62z++n8AefmYE8lzSbARBG+iaGnCXI8NtrWE5VBsmrCJDdPA5
+	 KkVpKbdRUdO6ZBwe0I3SgiogiyB0QdPDj/r8e+m4cIrBBRnkpegQzqMEHWOuY6qF8Weu+
+	 1pZKkX1Yg7yQNhI7+Y8BdEW/BCJtzpTcbJvy+CnGqfIC/QtET2O8lwW6srwW8sfSEd5l4
+	 geE6+PDFZE5jZi9DfozhL4KNCcjoJAGrH6FVeCsJmQp3iEhsTmhqoosLaClHghQf3Nw5k
+	 01yqCdO4sdBthRjoN6ljyslQhCsDUYvkPFCXZ5CR7jrvBV3c4Yid6V9P4VD6JmWihUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="JK7/mi4I";
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=3T9mqLlg;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8660A606A31E;
-	Mon, 23 Nov 2026 19:54:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8660A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69217606A31F;
+	Mon, 23 Nov 2026 19:57:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69217606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JK7/mi4I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795463693; x=1826999693;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=hJ0ZM2NdatffL7YZHnsJQmee+2FJa+oE3AW+dkQdS/c=;
-  b=JK7/mi4Ivsw0hw1mLhT4BOxixPIGPNKNnz4z7IgwFzadWrprql5jb6ca
-   gqgMGv041wyqgcbtO40Ii3rt/v4lC7o8GOxjv4xFKnYLyCIyoXAIn/y37
-   bqr+9Nugx9mvUUScoWELCulR2bKtbXBAQu0yc13SxYkNOzCNuCGgxEGpf
-   YD1QxStjTO6u4n6XVEOmwfRFiuAzjhdl3jWeEjgVmHdo96dWOU6t7Syfe
-   s7GAE8mTVshmzPUMLzzdaE9tZW6RrnDqRvL4jwcD9UAVFrLlm8DSuAemC
-   bztqwYDDz7iMcV6cZlAl1L5KvORTiPUMNV45Qg5uE8Jqw0zWAImL678by
-   w==;
-X-CSE-ConnectionGUID: NwQFqlksTXyuUsPffEmVkA==
-X-CSE-MsgGUID: ZFTC/8GORmaEPLTfNRhdsQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4126994"
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="4126994"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:54:52 -0800
-X-CSE-ConnectionGUID: i1f/k3zJTZukNtVuCbIc0g==
-X-CSE-MsgGUID: jsiAp24fSkOALl6yvnT1MQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="11719541"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:54:48 -0800
-Date: Mon, 23 Nov 2026 21:54:46 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=3T9mqLlg
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=D7q7cBjmg1g9miWY5cP21kvzMw2hIFRfrX+Qy8eFRzk=; b=3T9mqLlgtPoBR9w6y9TGRQXD/R
+	xCYTRGqWyQlkKtd4IxmBwovjdUDN/AQI3cqK9I/6NR/EhbWXw0cC+wDAgUReUNNP/wRdiB0JDkyRI
+	CBghBzOEzCpyvbFL/4UkThqeejtXWzSQD4bgtvgAGf/vhOG1qITUNfHeeyqsIZTtHIIQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xVaAX-000skY-KP; Mon, 23 Nov 2026 20:57:41 +0100
+Date: Mon, 23 Nov 2026 20:57:41 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v3 3/4] iio: adc: Add support for MAX8907 ADC cell
-Message-ID: <awSaBqLabqZ68ak9@ashevche-desk.local>
-References: <20261123150725.212836-1-clamor95@gmail.com>
- <20261123150725.212836-4-clamor95@gmail.com>
- <awSNc2piI26LgyAU@ashevche-desk.local>
- <CAPVz0n2yBtFh-TJ13cH8WXtiyzR3tOrbhACyq8MThi_6+7DOYg@mail.gmail.com>
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/2] net: hix5hd2_gmac: support fixed-link
+ and mdio child
+Message-ID: <a9a587e3-f7d0-4a67-8815-f12e5ff49628@lunn.ch>
+References: <20261122230134.3366017-1-mmyangfl@gmail.com>
+ <20261122230134.3366017-3-mmyangfl@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,149 +70,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n2yBtFh-TJ13cH8WXtiyzR3tOrbhACyq8MThi_6+7DOYg@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261122230134.3366017-3-mmyangfl@gmail.com>
 
-On Mon, Nov 23, 2026 at 09:24:30PM +0200, Svyatoslav Ryhel wrote:
-> пн, 23 лист. 2026 р. о 21:01 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
-> > On Mon, Nov 23, 2026 at 05:07:24PM +0200, Svyatoslav Ryhel wrote:
-
-...
-
-> > > +#define MAX8907_CHAN(_type, _idname, _datasheet_name) {              \
-> > > +     .type = (_type),                                        \
-> > > +     .address = MAX8907_REG_##_idname##_MSB |                \
-> > > +                MAX8907_REG_##_idname##_MEASURE << 8,        \
-> > > +     .indexed = 1,                                           \
-> > > +     .channel = (_idname),                                   \
-> > > +     .info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |          \
-> > > +                           BIT(IIO_CHAN_INFO_SCALE),         \
-> > > +     .scan_index = (_idname),                                \
-> >
-> > Using () means that you expect an expression as a possible input. In such
-> > a case the macro is buggy as it will evaluate it twice for _idname. The
-> > simple solution is to drop these parentheses and expect that this macro
-> > won't ever be used with the expressions in the parameters.
-
-> You have a point but current state should not cause issues as well.
-
-I know, but I saw Sashiko's complain somewhere else on a similar situation.
-It might or might not complain, better to be prepared.
-
-> > > +     .scan_type = {                                          \
-> > > +             .format = IIO_SCAN_FORMAT_UNSIGNED_INT,         \
-> > > +             .realbits = 12,                                 \
-> > > +             .storagebits = 16,                              \
-> > > +             .endianness = IIO_CPU,                          \
-> > > +     },                                                      \
-> > > +     .datasheet_name = (_datasheet_name),                    \
-> > > +}
-
-...
-
-> > > +     struct regmap **regmap = iio_priv(indio_dev);
-> >
-> > Then logically better to go further and have
-> >
-> >         struct regmap *map = *regmap;
+On Mon, Nov 23, 2026 at 07:01:31AM +0800, David Yang wrote:
+> On Hi3716cv200 hix5hd2_gmac is found directly linked to another MAC
+> without PHY. The driver didn't take fixed-link into account and failed
+> probe when the node has no phy-handle. Add support for fixed-link.
 > 
-> This is matter of taste, I was inspired by MAX77541 ADC which uses
-> exactly this approach.
+> With a fixed link declared on the MAC node, of_mdiobus_register() treats
+> the reg-less fixed-link child as a PHY candidate and walks all 32 bus
+> addresses, printing "scan phy fixed-link at address X" for each address.
+> Register the bus based on if the PHY attached to a given interface is
+> described in the device tree or not, like commit ef8a2e27289e ("net:
+> macb: fix probing of PHY not described in the dt").
 
-Not really, however it's very unlikely to happen IRL. When you dereference
-something the compiler is in its right to do it as many times as you used in
-the code. Hence theoretically (in this driver) somebody might replace the
-pointer and two consequent regmap calls will get different regmap.
+Please split this patch up.
 
-...
+Add support for the optional mdio node.
 
-> > > +             ret = regmap_bulk_read(*regmap, MAX8907_TO_REG(chan->address), &data, sizeof(data));
-> >
-> > This is a bit too long.
-> 
-> 101 char, yeah 1 char too long, though maybe it is not wort resending
-> for a single char too long?
+Then add support for fixed link.
 
-IIO is tending to follow documentation in majority of the drivers and cases
-which is 80 limit.
+These are logically different things, so should be in different
+patches.
 
-> >                 ret = regmap_bulk_read(map, MAX8907_TO_REG(chan->address),
-> >                                        &data, sizeof(data));
+    Andrew
 
-...
-
-> > > +static int max8907_adc_init(struct regmap *regmap)
-> >
-> > Why not name it 'map'?
-> 
-> Because regmap is more explicit and is used consistently across the driver.
-
-And messes with the data type name :-)
-
-...
-
-> >         ret = regmap_update_bits(map, MAX8907_REG_TSC_CNFG1, GENMASK(1, 0), BIT(1));
-> 
-> which map? bitmap? statemap? or maybe geographical map?
-
-Read the name of the call. This is really silly question here.
-
-> > > +     if (ret)
-> > > +             return ret;
-
-...
-
-> > > +     /* Check for internal reference IRQ */
-> >
-> > Please, make style of one-line comments consistent ("all or none" are with or
-> > without period, same for the first letter — capital or small).
-> 
-> First comment has 2 sentences, that is why it has periods. Second only
-> one, so it does not need period.  "same for the first letter — capital
-> or small" - have you even checked the patch?
-
-Then make the style equal. Two sentences can be written differently.
-
-And please, stop being rude. Yes, I read the patch, The second part is
-unrelated, I am sorry for mentioning it.
-
-...
-
-> > > +     ret = regmap_read_poll_timeout(regmap, MAX8907_REG_TSC_STA_INT, value,
-> > > +                                    !(value & MAX8907_MASK_NREF_OK), 10, 1000);
-> >
-> >         ret = regmap_read_poll_timeout(map, MAX8907_REG_TSC_STA_INT, value,
-> >                                        !(value & MAX8907_MASK_NREF_OK),
-> >                                        10, 1 * USEC_PER_MSEC);
-> >
-> 
-> hmm, replace 1000 (4 chars, pretty readable) with USEC_PER_MSEC (12
-> chars and twice wrapped line and needs tinkering or looking into
-> units.h), I don't think so.
-
-Because the point is missed? We have tons of much longer multipliers that kill
-two birds with one stone:
-- avoiding possible typos when many 0:s are in them (one can be missed or too many)
-- hinting reader of the units of the used values without even looking into the docs
-- (and reading 1...MSEC is quite natural, without counting 0:s and thinking how
-   many of them and what 1000 microseconds, after spending time on the
-   documentation, means in practice)
-
-Please, use multipliers where it's makes code better to understand for
-unprepared reader.
-
-...
-
-> I would like to hear what Jonathan has to say.
-
-OK.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+---
+pw-bot: cr
