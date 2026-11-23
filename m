@@ -1,100 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795449819;
-	b=3yA/lpTM0UGuNPPf/YxZ/mlNPZG6UazH9BGQxOxm2WF8XkqVkuqvSaMx4f/ZLNEGcCDk
-	 mquc30p/dgi1eNxpzkru3S19nfL0SQk8+Xl8UE/iy65BGFh9h6FiTjjlX+53I6Wap5Y7F
-	 frepxRMtlYG3T1oI00zEz1P8D8G5XtW0tQsVwZj44+3QupNdSkdIa+cqJzQrdJSkLQrQz
-	 Ar2R1M27pW4rmEGuQFFzLekT+bHL6TraxsPfAF9GRVpCOKP2VgEP42bQoe7jtmVg7/KEh
-	 1tEhjPDDHAp1iOdgH3b4qCIqA95p55jYBrABOul+j1aUvVeIOZChSUZg9o+2z/LM44g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795449819;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=cIkb6giW2DZQeI3EoSHegibeOoJUT8zoX5bP63zRKds=;
-	b=sSPjeSxAa8LkYlhpF8o4UOdSOZL9kmRTaXCiMGqfPZwUOrfT6xEJ2anw+B57lOfkznQ4
-	 i7R+udvhJinq7+zrfupFXV7a0oj7tab/P0CxfPdywx89WsDab0mWHrbVcP4kUE70oRwE1
-	 jT/1kb4lVB0AfMXONBJnVXqceXnb34QvixIjV/BbW9OZKrvNfZIGJhL8tJ0b+alXQvFM0
-	 uUdroqZx/4o0xC5albR0BddgMCCDGsd4tvUab8Gf+ZPZSgQsm9PWHZRU87E74fMNXNljz
-	 KUAnoyeL+9CQer3oPU3TGO6ElIN7ZqldHg9qUIJX8DzwtAwUgRwzCzDirixJj9SRDcA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kPxbmlxH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795449960;
+	b=tMpGlDNdyWxDf9vOKIk2VdHNunOAYfzshKHywgD2mg9cjuPjE/8BeoHyBZbM0+8wm6El
+	 eiHZ/j7/w4HTikqQfxNqkmCNNArYpIDAiqo5yiqt5LoipkXYrRE/wtYe6pZD14x2VUXOP
+	 wfybxyG9LHBFzQvDAGMc6VnsmEy1zY2dfYF0xGMg6NU9jF+ttcEbFa9JmIin939XzPMar
+	 xYn5rFCjF48dybbHaJroma6U4EeTjgYJUWXl0/EcvIkKlKGq92s4vSeyncnv6oUlLw6up
+	 3hUebYSHamjZaxq1OFEUlSlFTkLWonqCy9OijIpKgeqt3OdZM5EUVHU0xgHGUn3eR4A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795449960;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=WFaZs5yZ2TaZla+3aHjGks0CtdazRULWW7qGO/cJj/M=;
+	b=2vE9F+CkA+ITvU+esW+5WnFTFW+UBs9si76NhYAipCDsv6ppjt9q/Ra3aBBvdLBMekLt
+	 A0fSIAoNlbhURQQdJeTEWEtPR4XsZ9hwPWrpBxOCfqxtiwu9ucKBcwJ906LSg2sBpME6D
+	 5E1nC4F15amWu8UzmtBRrF10oxUZIDyrJAcjGHzXFDYdGInwofHR1DMau5Z6L2LiczEX0
+	 udMUs92RcWoVwJcb34oCGzGOYZHx0mZdl2krXTRP+rRjRCXsHXmiLrv8c+MdH3V2SqTYM
+	 2z/ASZH/qlnbTZv03fMdrWEfkijb5Gj8HwPk6ngGZEnDoMnA47IK2vdV8+jPX4uAA/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KFdgICcx;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB991606A327
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 16:03:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB991606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D861B606A31A;
+	Mon, 23 Nov 2026 16:05:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D861B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kPxbmlxH
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so569507366b.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 08:03:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795449817; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ofg142miQYPut3zVfPANs8Tth880L//tYiSThJqS6fkrQ2KDMos84Bqy59/SGKcGAt
-         nuSEf3reLKWvjrswqDch0mLpfDyurr5VPU9gpQkSSJs/kXkjP20GBjD4fPzP/yHoHeVG
-         /RRiJqeIx3EcWCuniCaA49nFdR8n+eWigAozrXFH3P73vB7e38WExvjkK6mnu1/oQFI7
-         R8af02my6Jlee2Z3fS5Te/G6cGHjb1AwWEs1kcUa+PJk8/6PB8UhNfGrEkBPdDL57nPc
-         VZL2ryBExfZztlCACmJfOzzT1IXwilWVgmLGTrpBFj9rNrBKIORE2sczq9zw7/Mrxogv
-         LAJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cIkb6giW2DZQeI3EoSHegibeOoJUT8zoX5bP63zRKds=;
-        fh=7Xqt6FgLe0hdm5CZm21p0ZvLDl1fV+P70Ni7GazvfFA=;
-        b=B4oDJgoWoTvkivjr7UvuGdNXylyMmYYO5QXtZ+fzJ3odVt1o9t19HXZ9ezqrB8oVV0
-         PGAiS9OCcxdTgzPVIG6uAn5Xy6UaFNuTbmmX6C0YsrE/30oZch2+UmH+xpGuw50Y7f+W
-         cVKB9vBG/YW4n2Y0KzSXhOtE5kStek9AP9TqgD17DHhXmxJ6W21ddd4Z2xIA0Br2y3r8
-         eJSgC9tPhFtbdllEfS/Hl5UaJVYH6OfS0hu5zfTDoZQOafCAmBaXKAQ9VXBRxiajuFAg
-         nFdUffSTYIGogZWj+zw9q7NGqvxeMlztiAB2QNJX3ok4h8goHs10RuEkUXEeqq96wDVj
-         zUyw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795449817; x=1796054617; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cIkb6giW2DZQeI3EoSHegibeOoJUT8zoX5bP63zRKds=;
-        b=kPxbmlxH36KRhpUs3rX2kF9cu8fs6nKcvV2Ep5Yd1SAPElzfO4U0yee+eyo4yYjKG9
-         bVabsqjgWrVObshBsNWmZu0Kc8SGNvonY7/47W6xWPu+XZzUut9DZVDasYOasQeH9Kb/
-         cxLOB1EaAVkrHLcauEnwPg9EXJ3MPHywPaLoCpTE0FTTIAii7phK7Avi7MNPjJVN89DP
-         s8LFLj0Mqsxb9tOW2pKJn+UDcZJsxmwmdbWgLBk3GXWSXPM0Y4SECfoiTVmHq/AsVfEi
-         eK10GDKZe/X/rTJwTT3GnOPtaNslesh71E73eFd/jgj3heXtLGBeR0+t6FPE8tiFDqrG
-         Ouyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795449817; x=1796054617;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cIkb6giW2DZQeI3EoSHegibeOoJUT8zoX5bP63zRKds=;
-        b=Ug3Ao2R9hl5lOZDokva7jPu2jp9RYiSB81tP8kvEhlylgGY9eWraENAgCKHG5rm1ER
-         ITfkECj21/cIt7oY3NEJb+tEu52X2Fnp+4YLDBB6soRQS2XdSYBRoBFdOIQoRks5sL4C
-         XHyi5kWZHtlqsoMknBoA2zOJfc1RLVP7+eSLEtrYCZB5ftInZ7gs3nu85x2Ag3V54E73
-         D95VKmXYZOy+bHkBzdrrnl4zj186dbRlMXP8dLdCDQTgfPRYitU1PY3t9K2tJq71Y8hK
-         GwSei4EmOfiiUl1us+MEfgDyJNj1/6MUdQ9ybM++jWVMWWuAYc6dnO060LJEBOq1QxqC
-         k9SQ==
-X-Forwarded-Encrypted: i=1; AL+hErFTibdHqstfBLvcmNljTQKtjh4tgWMe3HYCe9eyKanVK0XUgSsjEHVbW3gWi8bdWNVsK7hVa+uQO6Zv@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SlgHgz6tgjPf4i9pk3TlRzL8jSDTTov49Kr37cgHg7MHoUhWT
-	NLUqvRkVFafygfKnnJKjpIO9bCRMcVdN8gwqPH4ORHht2eVUX1/Bm43Hl33mT01UroDdbTbbEqi
-	pN465/V9iqlXIbpgZR6f+cgRz3AnxMN4=
-X-Gm-Gg: AZFdTZf1GvUO5UkBWH7JxTn7m9grXRr9+YghXCbsv9lZI6GZbFx0L76LUOhMbfimlS+
-	8f3en+fUC+4vK+hG5C54ppzbWXDdvhEnSBz4ef2v6dpUByuDMd2fA34Yn7K3CGqJC72vflum+eP
-	cXE8I6d12bXi4blnDhrokt1PxVYLuzvFY1RhDIztVKw/czMt7+61V515ryq/5uHKfJiM72WRJPm
-	6FrtBs8HaWtsELigQtZ0DLZWEADOjAWPqmsjdGIrMKy7oO4yIYMAxUogFSlALNAdohQn5WJ/sE+
-	8UpcgrdXWu2QQFf1uHyjBq98cBTNzRAHlBp8GgAQazg7kHCausTY3/lHsalPghbSZufqBOrh8gm
-	xrH0TTZmk/VQI598sNDYFHwxRz1coqp+MNyutgr0=
-X-Received: by 2002:a17:906:9555:b0:c50:52b5:e17 with SMTP id
- a640c23a62f3a-c513a5e1d53mr819834666b.13.1795449816568; Mon, 23 Nov 2026
- 08:03:36 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KFdgICcx
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 35FFD524;
+	Mon, 23 Nov 2026 17:03:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795449799;
+	bh=9pK6J6oL7XAG9XZBoQELiXRbBhkc76Tz47n6q6kkJAU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KFdgICcxqgkA3zwfE9GsbuyXLe7fSbl/+MVxyWxmnfzBxlItzM+xhHGfU+7lGVLPR
+	 iCJDRBNnTy1W3fGeYji3o+1IR613Jhy3HmMWP3HYW7S9LXSz5ajCmjM/LiOWM5fx4B
+	 hLr+BngZaAUkte/VYUwVgTWCSpjhnzWMhZuTiPl4=
+Date: Mon, 23 Nov 2026 18:05:50 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: =?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Paul Elder <paul.elder+renesas@ideasonboard.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping
+ support
+Message-ID: <20261123160550.GA3050935@killaraus.ideasonboard.com>
+References: <cover.1795029012.git.geert+renesas@glider.be>
+ <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
+ <20261119234759.GB2324725@killaraus.ideasonboard.com>
+ <19c3745a-6308-46ff-bb37-3acc88fe22e2@baylibre.com>
+ <awAqqg6F2Z1t55x2@ninjato>
+ <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
+ <20261123103633.GB2959742@killaraus.ideasonboard.com>
+ <fc13a7a8-b825-400c-9ea0-ceb2670dc478@baylibre.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,144 +87,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122131900.2951586-3-a.shimko.dev@gmail.com> <179543998153.3135.2533998901272176773@kernel.org>
-In-Reply-To: <179543998153.3135.2533998901272176773@kernel.org>
-From: Artem Shimko <a.shimko.dev@gmail.com>
-Date: Mon, 23 Nov 2026 19:03:25 +0300
-X-Gm-Features: Aa3M54qYkFzn2AliFXf9fRcB52n5j1nfOYqfcsg4MxuHxjWphZmjYJahIu9j42A
-Message-ID: <CAOPX745BjECumVGmNOg3HqagFVz=Bcz=x8-shzjyGjHmN8+NSQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 2/3] dt-bindings: net: dptel,dap8211r: add LED nodes
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	maxime.chevallier@bootlin.com, pavel@ucw.cz, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-leds@vger.kernel.org, 
-	netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fc13a7a8-b825-400c-9ea0-ceb2670dc478@baylibre.com>
 
-On Mon, Nov 23, 2026 at 4:19=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in ca=
-se
-> you want to address the nit picks below when you respin.
->
-> Low priority / nit picks for your consideration:
->
-> - [Low] The new `leds` block in
->   Documentation/devicetree/bindings/net/dptel,dap8211r.yaml mostly=E2=80=
-=A6
->
-> --
->
-> dt-bindings: net: dptel,dap8211r: add LED nodes
->
-> This commit documents an optional leds node in the DAP8211R PHY binding.
-> The PHY has three LED outputs, and each can be given a color, a function
-> and a default trigger. The commit also adds an example with two LED nodes=
-.
->
-> > diff --git a/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml =
-b/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
-> > index 4cd0f9730d954..772329feda059 100644
-> > --- a/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
-> > +++ b/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
->
-> [ ... ]
->
-> > @@ -45,10 +46,40 @@ properties:
-> >      maximum: 2250
-> >      default: 1950
-> >
-> > +  leds:
-> > +    type: object
-> > +
-> > +    description:
-> > +      Optional node describing the three configurable LEDs of the PHY.
-> > +      Each LED can be assigned a color, function and default trigger
-> > +      (e.g. "netdev" for link/activity indication).
-> > +
-> > +    properties:
-> > +      '#address-cells':
-> > +        const: 1
-> > +      '#size-cells':
-> > +        const: 0
-> > +
-> > +    patternProperties:
-> > +      '^led@[0-2]$':
-> > +        type: object
-> > +
-> > +        $ref: /schemas/leds/common.yaml#
-> > +        unevaluatedProperties: false
-> > +
-> > +        properties:
-> > +          reg:
-> > +            items:
-> > +              maximum: 2
-> > +
-> > +    additionalProperties: false
-> > +
->
-> [Severity: Low]
-> This isn't a bug, but does most of this block need to be here? The bindin=
-g
-> already gets a leds definition from allOf: - $ref: ethernet-phy.yaml#:
->
-> Documentation/devicetree/bindings/net/ethernet-phy.yaml:
->   leds:
->     type: object
->
->     properties:
->       '#address-cells':
->         const: 1
->
->       '#size-cells':
->         const: 0
->
->     patternProperties:
->       '^led@[a-f0-9]+$':
->         $ref: /schemas/leds/common.yaml#
->         ...
->         required:
->           - reg
->
->         unevaluatedProperties: false
->
->     additionalProperties: false
->
-> Most of the new block repeats ethernet-phy.yaml: the type: object keys, t=
-he
-> cell constraints, the common.yaml $ref and unevaluatedProperties: false.
->
-> Only two constraints are new. The '^led@[0-2]$' node name pattern, combin=
-ed
-> with the local additionalProperties: false, rejects led@3 and above. The
-> reg items maximum of 2 limits the LED index.
->
-> Could the block be cut down to just the constraints that limit the PHY to
-> three LEDs?
+On Mon, Nov 23, 2026 at 04:46:49PM +0100, Clément Le Goffic wrote:
+> On 11/23/26 11:36 AM, Laurent Pinchart wrote:
+> >> I know several SDK versions exist, and supporting several of them is work for a vendor tree.
+> >> As Geert's cover says, "While upstream Linux must only support sufficiently mature firmware versions, vendor trees (e.g. renesas-lts) may still want to support development firmware versions".
+> >> Each SDK version can then have its own DT there.
+> > 
+> > That's not how DT works. Please be gentle with Krzysztof and avoid
+> > increasing his blood pressure :-)
+> 
+> These DTs would stay in the vendor tree, so they would not reach Krzysztof :-)
+> Upstream would have one SCMI DT, as v5 has one table.
+> 
+> >> If a release that changes ids is already out, it needs a new DT, or a quirk for that one release when the DT cannot be updated.
+> > 
+> > So you're proposing that, with any new firmware that introduces an ABI
+> > breakage, every single DTB on all boards in the wild get updated ? That
+> > just doesn't scale, sorry. Let's forget about that bad idea, and focus
+> > on finding a good solution.
+> 
+> I think the v5 tables have the same problem.
 
-ok, i'll fix it.
+v5 supports one firmware version at the moment, and the driver would get
+support for new firmware versions when/if needed.
 
-> The commit message also says:
->
->   Document the optional "leds" node supported by the DAP8211R PHY.
->
-> Before this patch, a leds node with LED children already passed validatio=
-n
-> for this PHY through ethernet-phy.yaml. Would it be clearer for the messa=
-ge
-> to say that the change limits the LED nodes to indices 0-2?
+> As Wolfram said, "the driver is then tied to a specific firmware version", so the same ABI breakage needs a new kernel on every board in the wild.
+> Either way every board needs an update, so I think the fix belong in the firmware.
 
-I'll keep the current wording for now, since
-the message describes what the patch does (adds LED nodes and an
-example) and the restriction to 0..2 is visible in the diff itself.
-If the maintainers prefer a different wording, i'll adjust in a
-follow-up.
+It's much easier to update one kernel than thousands of different DTBs.
 
---
-Best regards,
-artem
+> I also see technical weaknesses in the remapping:
+> It adds a second layer of ids on top of the SCMI ids, so each new device needs entries in the kernel tables as well as its DT node.
+> And Zephyr already uses the SCMI ids in its DT for this chip, without such a layer.
+> 
+> With the SDK DTs only in the vendor tree, what technical weakness do you see in the solution I proposed?
+
+I have yet to see any vendor who can provide 100% stability guarantees
+for SCMI firmware interfaces. In theory, sure. In real life, I just
+don't buy it.
+
+And even if that were to be the case, the situation we see today with
+vendors shipping BSPs that require different DTs for different SCMI
+firmware versions (I'm thinking about ST in particular) is absolutely
+horrible. There are SoCs I don't want to touch with a 10-foot pole
+because of that. It's a model we need to push back *against*.
+
+> I still think it is a good one ^^
+
+We can agree to disagree on this, no issue.
+
+-- 
+Regards,
+
+Laurent Pinchart
