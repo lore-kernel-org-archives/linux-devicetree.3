@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795446323;
-	b=GA1aWybxsonUOtb1RdpX2jUnxhGbt0zB9TPu8xsSVlC4DBFV8vx4a2KOeUSLpwifh48Y
-	 amodBtLnq/LRMn3fsb1+QdOuQWW/p7UiqFR84bN888TCEjHac2B5S5Qand6zukjLj2jEI
-	 6HqvWSn4ApS/eRASshycefqVCwUS068Y5Hf4g4dxDGxjDiW7GyY82eIoWBLxJaONI9gFg
-	 vwjt49goMQw4RF3VBWYDVFwX7Mo3DX3OhF17kv3cq8RkOU6dLDGeYpMuogOnog4BDnSgd
-	 EGce0qOIRsT3suMbMC3W4loZiog8jSGqRGxFoSHaRWY1d/Q6QgA2Cstb5B1LOGGCDXA==
+	t=1795446389;
+	b=HI1zB8Q3ekffWHcN82658RithF7na7qSq3iBarkwLDD+ElPMYyqTWNbrrLBb+bk6koFm
+	 JMcGbpV205shLAsf4sMrSbU27wzSJtsiNbsgLXbTYJofE631wk2aR34Gzo8+PMb1TLLB4
+	 sdeUdg7w68JiyVS+erzw0KwgyUJlFDAubwcbT6sAx52+qXaZCnahCC99Qu1Ca4aTSZj3t
+	 SDO1bLPudeFT0j9p2JA6zipHF6koEoyNUSGFfRnW1/esIu/G7MASzWKBnGNtj6L+kmcto
+	 DoqJHMJbCo98ZYNiaFTvS74Ff25yhpQbswo5Xtgjhv+e2qM6C/Zk6JvPPvNLhX6lrqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795446323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795446389;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=GWqoA/UFyeq+TJq8T6CMtR/+9n963xrXddw0q5O4r1k=;
-	b=Aviz6rVIuMciJCpn+DG8sedSHyJtr9BXGdf7/XVPamsoXq+edJJLiwZUVCI0yWsAv1uA
-	 B0fy6LF3ZE+e7ENIpqOXi1fn86CEGpzj4zM7aErfLTDvtW0uHh5LtnNWBShp0ZpWSDoye
-	 f4EUNf68qLiZfU6mKf4EGqdeKh5YyrA+00l6wDa01edZJ27tGTe2rjzDHzlTmVRZZ5Paw
-	 FIwo+o+EnVTrOvIECcNYZvJOv2wzub4qSKah/s1/h72Wr/QbDIPWfNAna5YgRaazVRid8
-	 G6sAWbA3oyZROHLi6+K3Aqo3q1OAjJ5g0tEIu9z8SC4J6EpwKE933XiZJUgOrhPPJ2w==
+	bh=fXUUP6mSYsSlBC0R0+O1owxIIRiWDhbDe2LahE22B90=;
+	b=LLGd8Gw8GylvqG8lldZXOHqHgC5FY0Elo2qMnJIFC0MS7ED32+runn7/GueR6HbjsLzZ
+	 xls/wUsnl7qjlh/UwndzKh9AYgGMxUFjaEw5A27wCtXr32xPIxLUkOtobI4n4Id2jhFJ+
+	 eZEr3WFl2L6Y2gCdj9b6ra7o6UVEVnZTA7iVT5ikdJ9oAN2SgVIoTws3CYlrogQaSJlET
+	 IDSTrO1NQd3IJfQMI6G4J00UP+Q/78a37mGh4bF4Ql0MWRIW0DfFtuEpAGTr0KpQ4pNhg
+	 IwUv0NpR2H0HwP6WC96klVd5HnzTrF/PcLBMqFHTGIynEmNNA7kRPl1Ydysuky1Unig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzpqlwUK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KKoFA5UE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B24606A31A;
-	Mon, 23 Nov 2026 15:05:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E59606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:06:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzpqlwUK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46D281F000F4;
-	Mon, 23 Nov 2026 15:05:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KKoFA5UE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E501F000CF;
+	Mon, 23 Nov 2026 15:06:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795446322;
-	bh=GWqoA/UFyeq+TJq8T6CMtR/+9n963xrXddw0q5O4r1k=;
+	s=k20260515; t=1795446388;
+	bh=fXUUP6mSYsSlBC0R0+O1owxIIRiWDhbDe2LahE22B90=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TzpqlwUKGaEl6AB8ac73CXUbFHZF/9mOHLZjup1vG4NTEmQNQGdzTk+18j8rfeuR9
-	 AUDceMtRB3++Bo9L6MDi79n1zHqRHnznqjDxE90myeDcztAI8VZbb468jYh4Y/o/cg
-	 rNN/4rYIDKa2APlibLRrLgSm4RABmkcR2fj0olBSLJghDqK0PB+u6vN4klzrOhlmbw
-	 YSavsmpMZM3ae1RpO8ZEShR9je/WzGWu3fQwD3HA6D9PUOiQS6hDuGoMAuHEM6OsAk
-	 tFEPAcrnHrS8JNSbvh12W1SU6QjV44rnVXZbPVKFhFF6wf6C8UsF2BTBmbYRd+pcET
-	 nBtX2gJ13nGeg==
-Message-ID: <sashiko-outbox-229482@kernel.org>
+	b=KKoFA5UEHyGjywXv94OAnHq1Iwj+owynMrNOpyyKViKDujIlIDctdK0lOFp38yErv
+	 iQAOKqByruYWTLEsAjDao/9nnmIQPmdadVDTNabHJBmnANb28i2Q6X6NWnNC99SNUw
+	 5Mfq170yfonN04ZQxpfZOTBYAGUJJ0Vl278wzxLo6fPmKlWF/kuuZrW7ufyTSwZfJD
+	 B9XlDLBZQLdlWNOX8q6lC1iS3/6MG5YFg/w0VeT3oHWJjSE9YOr/lLzhw6T5RdHulp
+	 G1EaGQqO33MocFvoEjZtWEAwN3g7PoLQzu32NFymMEANR4xB8cbaeQ0EyWbt4CBjNO
+	 RX06nrbsC1XQQ==
+Message-ID: <sashiko-outbox-229489@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 01/28] dmaengine: bcm2835: Fix coding style issues
- and a typo
+Subject: Re: [PATCH v4 6/8] riscv: dts: mips: Initial support for the P8700
+ Boston board
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrea della Porta" <andrea.porta@suse.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261123145728.29082-2-andrea.porta@suse.com>
-References: <20261123145728.29082-1-andrea.porta@suse.com>
- <20261123145728.29082-2-andrea.porta@suse.com>
+To: "Aleksa Paunovic" <aleksa.paunovic@htecgroup.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123-p8700-dts-v4-6-60bb7bf8a7a1@htecgroup.com>
+References: <20261123-p8700-dts-v4-0-60bb7bf8a7a1@htecgroup.com>
+ <20261123-p8700-dts-v4-6-60bb7bf8a7a1@htecgroup.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 15:05:21 +0000
+Date: Mon, 23 Nov 2026 15:06:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,29 +63,105 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] dmaengine: bcm2835: commit message claims nonexistent typo fix
+- [Low] riscv: dts: mips: non-generic PCI node names and invalid unit
+  addresses
 --
 
-commit 90d915a14d82485dbf4682dc628270b622babb4c
-Author: Andrea della Porta <andrea.porta@suse.com>
+commit 79c2f7a61a39f331205c23d7c6c9e68fb0be373c
+Author: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-> dmaengine: bcm2835: Fix coding style issues and a typo
->
-> Fix the coding style issues reported by checkpatch: use u32 instead of
-> uint32_t, add the missing parentheses around macro arguments, which
-> could lead to operator precedence issues, drop superfluous parentheses
-> and long int, and align the function arguments. Also fix a typo in a
-> comment ('missmatch').
->
-> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+riscv: dts: mips: Initial support for the P8700 Boston board
+
+This commit adds the initial device tree for the MIPS P8700 SoC and the
+Boston FPGA development board, along with the corresponding Kconfig and
+Makefile entries.
+
+> diff --git a/arch/riscv/boot/dts/mips/p8700-boston.dts b/arch/riscv/boot/=
+dts/mips/p8700-boston.dts
+> new file mode 100644
+> index 0000000000000..4383ef7cec152
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/mips/p8700-boston.dts
+> @@ -0,0 +1,135 @@
+[ ... ]
+> +	pci2: pci@14000000 {
+> +		compatible =3D "xlnx,axi-pcie-host-1.00.a";
+> +		device_type =3D "pci";
+> +		reg =3D <0x14000000 0x2000000>;
+> +
+> +		#address-cells =3D <3>;
+> +		#size-cells =3D <2>;
+> +		#interrupt-cells =3D <1>;
+> +
+> +		interrupt-parent =3D <&aplic_s0>;
+> +		interrupts =3D <7 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +		ranges =3D <0x02000000 0 0x16000000
+> +			  0x16000000 0 0x100000>;
+> +
+> +		bus-range =3D <0x00 0xff>;
+> +
+> +		interrupt-map-mask =3D <0 0 0 7>;
+> +		interrupt-map =3D <0 0 0 1 &pci2_intc 1>,
+> +				<0 0 0 2 &pci2_intc 2>,
+> +				<0 0 0 3 &pci2_intc 3>,
+> +				<0 0 0 4 &pci2_intc 4>;
+> +
+> +		pci2_intc: interrupt-controller {
+> +			interrupt-controller;
+> +			#address-cells =3D <0>;
+> +			#interrupt-cells =3D <1>;
+> +		};
+> +
+> +		pci2_root@0,0 {
+> +			compatible =3D "pci10ee,7021";
+> +			reg =3D <0x00000000 0 0 0 0>;
+> +
+> +			#address-cells =3D <3>;
+> +			#size-cells =3D <2>;
+> +
+> +			eg20t_bridge@1,0,0 {
+> +				compatible =3D "pci8086,8800";
+> +				reg =3D <0x00010000 0 0 0 0>;
+> +
+> +				#address-cells =3D <3>;
+> +				#size-cells =3D <2>;
+> +
+> +				eg20t_mac@2,0,1 {
+> +					compatible =3D "pci8086,8802";
+> +					reg =3D <0x00020100 0 0 0 0>;
+> +					phy-reset-gpios =3D <&eg20t_gpio 6 GPIO_ACTIVE_LOW>;
+> +				};
+> +
+> +				eg20t_gpio: eg20t_gpio@2,0,2 {
+> +					compatible =3D "pci8086,8803";
+> +					reg =3D <0x00020200 0 0 0 0>;
+> +
+> +					gpio-controller;
+> +					#gpio-cells =3D <2>;
+> +				};
+> +
+> +				eg20t_i2c@2,12,2 {
+> +					compatible =3D "pci8086,8817";
+> +					reg =3D <0x00026200 0 0 0 0>;
 
 [Severity: Low]
-This isn't a bug, but the "missmatch" comment typo in
-bcm2835_dma_create_cb_chain() was already fixed by commit a688efea0f2a
-("dmaengine: Fix spelling mistakes"), so this patch does not fix any
-typo.  The changelog also omits removing the local variable d and the
-chained assignment in bcm2835_dma_start_desc().
+Should the PCI child nodes under pci@14000000 use generic node names,
+standard PCI unit addresses, and include device_type =3D "pci" and ranges on
+the PCI bridges?
+
+The underscore-separated names (pci2_root, eg20t_bridge, eg20t_mac,
+eg20t_gpio, eg20t_i2c) trigger dtc W=3D2 warnings, fail dtbs_check against
+xlnx,axi-pcie-host.yaml (which expects generic names such as pci,
+ethernet, gpio, and i2c), and prevent dtc and dtschema from recognizing
+eg20t_i2c as an I2C bus.
+
+In addition, PCI unit addresses take the hex form <dev> or <dev>,<func>
+without the bus number (so @1,0,0, @2,0,1, @2,0,2, and @2,12,2 with
+decimal 12 should be @0, @0,1, @0,2, and @c,2), and the two PCI-to-PCI
+bridge nodes need device_type =3D "pci" and ranges to satisfy
+check_pci_bridge() in dtc and pci-pci-bridge.yaml.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123145728.2908=
-2-1-andrea.porta@suse.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-p8700-dts-=
+v4-0-60bb7bf8a7a1@htecgroup.com?part=3D6
