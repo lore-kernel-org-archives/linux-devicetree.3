@@ -1,111 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795447408;
-	b=F0709Ql0s/IgA1a7i36xNxF2aY3nQWUjmf4HWZHt6PQgQgKrhmU3z019+GWeJLu67jmX
-	 iyvlyU1zismfAHuCip9xtv9uaX5jSboLUIeleaQUcdt2oqZAZbd7JEPHBXO3ag9Z+LkrW
-	 YWpbh6jQkveA/RE5BOJsnfhTG/bNFk9IJte2LpadamvyjyqD8rUfuLsHZ+nFUQpjL64JR
-	 qw29jSLYwi+O/81xbeMDOPxD4EZZ3SN2FoWtkyQtlwE11NVMNu+GM8N2FBKuGo8GUP87t
-	 DbEzEd1PUp/jC0t8aPpAoujnyJNowY7RW0+ZAHRIKwxt57+w+mKWn8mWnbJQAm22VOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447408;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=hlb6BJq9p61fYoar56ASHEQgHyDDnHMDuFb4MoZS8Cw=;
-	b=LyBwNlwbtyMDKYQ0vdNOwEubpogWySpdG6gaUK++s5gVu6X3X0GUXFXRR2D7HDZKPgnN
-	 ZzIa2eeW51TipTD9Q1RLpNdFFUrn+XLu/TpSEi9nIpXqFhy9wUPhrlSJ+n4VZMm1H073/
-	 6wc2JJHinRbiE/L3jFBI0A7JaTMhnR0Ep6/O89aeEYIiOQ9Blq3IzXsT6Ts5MZDiRX1kW
-	 AbZhHmDgeIU8ow2/pkPmac9YMopjMsW0oO7w2EZhiy9jIbkHfcz0+NrE6xCo0KteRD1bL
-	 DbXmmqEMBdpJ486KwfJsC5Jx3JS3opqPDUdwqHWhX3kZEMNWFDqBE7wH6ab7DvlSQig==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RqsFUyhC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=duv8Yq3W;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795447529;
+	b=xgydjWFRXcXdVbjG4swAlrtTuYTS45rAaoV04MG6r7HV+gWAwZs10obaXvRgP5wmd3Uv
+	 ckFifqorskhQxOmFxUVuMhJX4jNk8udUJQarkpKdZnAaj3TX7b3oDLSn3jmAWgz1tcZjr
+	 wApEv4EEoHBRYBPUEQpM8AMjwq57ThE8fb0FKEUQ60wtIQQZiuauICcPV1S3M/t0aLrpE
+	 yg0fbie6e17zgGNrWRElrH7az1uYVgJD6Lq+ivJzVLnFEivhuOkk1FF4YFz5Vu8cWYGtL
+	 gy/HbwKGQzf8W/o8pHzY0i7wfCvr+GBpFoTdOt6A4KY+7X832/ZQqModuUdHdRkVbgw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447529;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Jh1FAcyIFxWBHDTEoMkBkVWCay9xDRHExguDM+g3k4s=;
+	b=HaeTrSc+GFDWumEegfyXeqmng0M0RWwKRSwFT4/nHgxCp5dNMW8Ye+Gt2A7qqdp6Q7cL
+	 ORxHrP1ydu1K9PXWKtc8rOese444Q5LXONdlAY2I1zvrC2waQztv0pZsXknEKtEdmurOO
+	 fq/p2GNR6CUN4QK45jDV6HkKxS7RKqaf63UyA2geDYvrJ9djhCdMMj9KDLqdefSOnvLGG
+	 Qrhu82XEfjZ3E6tgEj8Nzb5rHIXJmvy8PrZszxU7TXSIQzqn5xucexWb+wZ8V6jVAXy4l
+	 hgjPcTpxr5gkARkzkHQNNt10DIgWNFTJJKXOTgDqDzW8YUWxoJXu1IgUXXYHIoKOW+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="a/ra4Oxi";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566E4606A32D
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:23:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 566E4606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA7A606A31A;
+	Mon, 23 Nov 2026 15:25:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDA7A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RqsFUyhC;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=duv8Yq3W
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANDL4P13072614
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:23:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hlb6BJq9p61fYoar56ASHEQgHyDDnHMDuFb4MoZS8Cw=; b=RqsFUyhCmepWWsF/
-	rr280aDKH8Udvemg/SSbsq46+Fl38Lr5q8W/RJfdI82TM0AvpGnhAhCOvXHxJ5gV
-	ZWfcZS1BYbQCSc9EtWGfw+zcgQL6q/sW4IxJVvBHEOGv3ISBggRgbQWys24T+eh8
-	57YYXbJEDWSqU/Uo5q/XEsOJuP1++7UBc+wsX9uX2FTX+pTqS+vICcJiphPvS+A0
-	E6fjdqh+7UAFny+VyWZCL6Ozik+9HYUwqkLb23pkos+54xiJwdRKy0suXfn8PbC4
-	0aLJ1FXhBwzRwXUqZ6GMLlFxKAKpO5j136LPCR5do5Ld+YyIQX3g7yy7g4fAZ3v5
-	ObYn3g==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4hn7sp2g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:23:27 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5edfa7703ffso91966e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:23:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795447407; x=1796052207; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hlb6BJq9p61fYoar56ASHEQgHyDDnHMDuFb4MoZS8Cw=;
-        b=duv8Yq3WHOwtSw5q/h4hZMBt5EwZ2n8+zGyqGuSMTfx9YgSXrYj2db/UODqBjApBNb
-         jSP0RhBVhOPw8uVrOg8Jj18mX/4u2Ebaf2UBs09m5jx3ksuN2tfcnaLJENJ+XhqW2/q+
-         7Krz1BoDX+iabw3erk+cPtI01PZVJU3WjrHskIxUe8DXlWlvegrobAb1pYgC9L3OS4hE
-         9UbtqKcdnvpGjIjoYZsr4B30IVMye7/IIYrxtux1ywTd+WIjJHcljdVmv6UCP+mAkeWU
-         oRuVO4bJLFfOMpBDzSR0qLfSuM9Es5kBAkJKStLdQ9Cqb/YWBx/5cEaSc997oTPyFv6K
-         QiEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795447407; x=1796052207;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hlb6BJq9p61fYoar56ASHEQgHyDDnHMDuFb4MoZS8Cw=;
-        b=t+aQOk//pUXM5oR1iCRL/6iWN0jGT1WT5rZyVqMPYS1W55ieykyf7f2YCACfoRcTki
-         WcAbSL6YVL0+kYfPafkY5qLbEAQBoXiN+TfIWbexFJ4lfgsViWnzJ6iavnLQbS9G+6g5
-         ftmS6+LwzXYDJWzLWMec/30uB0MxyATB+RGYwz3qcVYjZN9/Kkf+/EGxli6nMyYK9wx3
-         c+7tOXECVeK+mmiHSE1EvtFyE9XYGUdT1BoSa+HGvo+ajAUM2D4KHRmq48FrsiWmmf0a
-         F3pSm6q3DyynaqlrplK/Ofr+UGiMO8Zjz3YvqeIo1vWmRL0UUytKeqkaduDSJBwLdUlD
-         ULpg==
-X-Forwarded-Encrypted: i=1; AL+hErG1uKXllxMMz56uyINAGvOajOAjxVTWMSPs9tXxEecq0hkSN6P4vg05Hb7HnLhCA6jqaYfJhiyaF4Y1@vger.kernel.org
-X-Gm-Message-State: APuU4Z+S2Gbha7qHa9j6kUxMF/JrmOuoeX1B0zoH76tdpAYX20BPb0Lb
-	0g8UBie1F09FEUchtzk8Gx0A58rXF+KVQAw+EopwSDGyiB4TQZzCvNJoQI1hgHmkjsSoNExrlK1
-	aTP1MaPedC7za43e3JGbApyMdS5jsqCAzF7IgyE92KM4ukqNwcZKD1gPuqvoMsdwr
-X-Gm-Gg: AZFdTZeVMvRddirPqj1ovVzRGsJYk5pxu4d7WrzFTu3bh5KQp4OVoWKgg2oFKYmoTtt
-	oXxTLQXIzFS0pnJOXT+5kTNgB5w1cNt83AojUZbDEvDlTpGzsFY/FdU1lNQgDrJG+hNElPAPydv
-	8KfNw5T9iRownkV8dzuJRhLf3V3UnraU5MsxKA5UuzQph2SIL269vPUwW2PcJx2ofFiu1l6ZPAn
-	GI9YatjSR6NW1vMwCrBH4ZgsrsYBVZ9g7d3rik6qZ+T/5VyeBA3IpNHYePri7ETiU6ZUbcARBaW
-	/dCSX3XCipGCMV1B9NUn4YmRa9IWnTp+G6mTaNe6PHtIcCK6YDEb3JwDXFPaX9aIMy9yD3PwXx7
-	lV4OiTbuwcPcAWQGJNOOaIJ3LxuCfH1jMcVKyrsDozfxX0snIaYaGPNm1JSHVTrAT4Otg7+8=
-X-Received: by 2002:ac5:c00a:0:20b0:5ec:afc2:c0f6 with SMTP id 71dfb90a1353d-5ee8ae00500mr7085660e0c.2.1795447406549;
-        Mon, 23 Nov 2026 07:23:26 -0800 (PST)
-X-Received: by 2002:ac5:c00a:0:20b0:5ec:afc2:c0f6 with SMTP id 71dfb90a1353d-5ee8ae00500mr7085607e0c.2.1795447406114;
-        Mon, 23 Nov 2026 07:23:26 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513aeabdcbsm420368466b.46.2026.11.23.07.23.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2026 07:23:25 -0800 (PST)
-Message-ID: <15b682bb-4f5e-4084-86e8-df4ccd538720@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 16:23:23 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=a/ra4Oxi
+Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BC92F2004FC;
+	Mon, 23 Nov 2026 16:25:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795447521;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Jh1FAcyIFxWBHDTEoMkBkVWCay9xDRHExguDM+g3k4s=;
+	b=a/ra4Oxi5RsqC2frbeatoZnBPDf5yAZDYJ7vKmhKyuEcHgZeRtZUvjrWqduh3emYY0yG0E
+	yllsZtRgM/AXkNlsE5rEyC5NaHcmalIZJx3UfeA7IWWmRL4FjmcCTqrmgh99XGLSZ8hSDK
+	J+A6aMokzEJsAG8r83mDzoG+a77JjOfTJz9YCL7Tc0gxNgzp3vxThq+58EsWZZF8je/79U
+	ZqbWhIgg9i66CVNwmRTW105HuKe5FOlYH2Gb3y2lHySVnLMF/iu7hHiqQN9dEFG5gkeDyH
+	5kU9b/DC96fMrchTZLaJ1pDOol9iDKxX/UEIHUXPzVmNnMbpV1XwmptKSUpkzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795447521;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Jh1FAcyIFxWBHDTEoMkBkVWCay9xDRHExguDM+g3k4s=;
+	b=Rx57CHe2FGy1EN30pT9Ubv0PqdSFwY2iXarXp77oiXSfjiFHP6zBwq9ra3KNvpOvaMQMsx
+	3LjrTjgDP7zzwOENIrbc4no+4ZHtuVN/3dooPfqa4YyGh4+HmUGj2i3PUwsbJk6dKG7NcK
+	D1Wc5OnigGnnAJ7N5VRKal/E0234Hts78POtnTHlZuXmtZbLt0EIDsskv9iEz4Ii7GoN/9
+	0Qrzqr4V/UQeaXvX41yJyD+vhZpZ8JDvX3fIuor4EO/xxTsh3c/SDDwXq0mtrNV1FlCwz2
+	p08SFjhNOd8RHrFGsPQTeoIIM5TfFWMXHXHQFuo9Ib2UhscDyhutwsFThTzb1g==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795447521; a=rsa-sha256;
+	cv=none;
+	b=gjMPppAsIYrfJ82PM9SS8o2gvMzcdtBhd6Po+pA9xjWArvimmnLBptkCLvNOwlOt81zSul
+	T+xxBrkOr2+HqTTsXQQtCDZwbzVQEhtURSxwLinbB8sjmI7UMgCFiSXLXdwG4+RQF8pEH0
+	+m3P07En62fP/Wa1c/U0ZfjL/UBS/mtPGVD3YIv0MVzymG6C/P/HMue0yLlBQv7rpmXMhz
+	BQLdQ77UyJ/1NLWFPNJ0DCD6Tc2GxpUf3nDy6k1qyIjbOXa7FCKKBp9Ny5M2Lynq2M5+18
+	VYPzBUJyMhDK9tISrG90QMZ7EwpvDs04M8Rz/vi0ja5TfgmJGPmwboG9zaYNWQ==
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Subject: [PATCH v8 0/4] media: rockchip: Add JPEG decoder driver
+Date: Mon, 23 Nov 2026 16:25:19 +0100
+Message-Id: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,84 +82,198 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm6375: Mark RPM message RAM as
- no-memory-wc
-To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Xueyao An <xueyao.an@oss.qualcomm.com>,
-        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
-        Monish Chunara <quic_mchunara@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261123-rpm-memory-non-wc-v2-0-3e868b4bfa48@oss.qualcomm.com>
- <20261123-rpm-memory-non-wc-v2-3-3e868b4bfa48@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261123-rpm-memory-non-wc-v2-3-3e868b4bfa48@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Ls0HWXdc c=1 sm=1 tr=0 ts=6b045a6f cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=948W2wBnRhwx5lWVa8gA:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2MSBTYWx0ZWRfX8xikCgwwixmr
- JDXzIPThcs4ZXaoeWMIwoJKjNIkMndrGe+/y4HatjcnKfaXvKQU4652i9JWfzRO5ZMHm7I1hwUk
- PjdqQwtFAev7q6/onsq/4EQOfC5vO6leaVqRiONrquBXEaxC/ICCj+5gg6uw0iuvHJmmf0qK5ua
- 06/ENIa5ot0Aql5Gsbd6MRbqMHKTkBvrWXEc4C1erNmNO/2fcAjM2DjNTEEZF3GR0z8SIo6F4E+
- pBPaNszk4t1kACVs43nAuwnbRGTU8IxdDLxJ13w+wlRrzlSZodYgaUeGMLSwNdXBCmMbLO2UACL
- w+ci/0Q5hmY5+5AWa0mg7lU4sIRHf2JVX2vd+QTE1jxHDgb9IaKiZVKgG+5ILckqrS3BLK73gHS
- zqEFfYjMeDuEZkwDynBmdDeDyBhE4/aHoYRxTW25naPCJKj5Puxeql8J+Qag6Ua66EHA2Rs3EIT
- jYPjFcPvlN5yGbqn33g==
-X-Proofpoint-GUID: OjaICGaly2puw6Ct_kRzzTO_X4vFmWS-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2MSBTYWx0ZWRfX+2nuHaflG9+l
- C9jZAgN8xI6PLzR/hcUDEoleVqDz7juA0fg3NZqFmdP6dL5psXWegJ2hES21GUjIjiLcsmjH9bT
- KopYpeVMZFqZL+4GN4PJHcm1KQoWgkg=
-X-Proofpoint-ORIG-GUID: OjaICGaly2puw6Ct_kRzzTO_X4vFmWS-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_03,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 malwarescore=0 suspectscore=0
- priorityscore=1501 spamscore=0 phishscore=0 lowpriorityscore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611230061
+X-B4-Tracking: v=1; b=H4sIAN9aBGsC/23PwWrDMAwG4FcpPs9DlmPZ2WnvMXZILDv1Bklwu
+ tBR8u5zCtsC9fEX6NOvm1hCTmERL6ebyGFNS5rGEtzTSfhzNw5BJi5ZICCBQyXz5D/9Oc3yYw4
+ DBy+ByTnwkQx5UdbmHGK63sm395LPablM+ft+YVX79BdrHrFVSZAOlHKIfTQAr3MYh69LnsZ0f
+ eYgdnHFo2IqCu4KddGZttNIVFX0v9KqWhddFG2c9toSA2NVaY6KqyhNUYC5tRwb2/V9VTEHpfq
+ R2bsAGee09j25qkJ/igKoKVQUNFERh05Ra6uKPSiIFcXuXSJbZmNiA49dtm37AYG7FeFZAgAA
+X-Change-ID: 20260821-rockchip-jpegdec-0d6880cf656c
+To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795447521; l=8565;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=rbKUoeFc1Zv6Eaoh7f4mgSkA6iWDdk7Y4gMxMnD33EY=;
+ b=RefEf2UcSCLdPUJkGh1GnzGzfbrcdLGMLCxYmtPU55bSEeOLKS+SqDZA3icHn17u8/cjdUY/d
+ j9juXb6IgKHBnvLoMvPq6SAjWPpCmqFsu4lzA951NF1L0thiI4TWm/R
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-On 11/23/26 7:18 AM, Vishnu Santhosh wrote:
-> The RPM message RAM is shared with other subsystems, and parts of it
-> are not accessible to the APSS. It is expected to be mapped as Device
-> memory.
-> 
-> The "mmio-sram" compatible makes the SRAM driver map the region as
-> write-combined (Normal Non-cacheable) memory instead, which allows
-> speculative reads into the protected parts.
-> 
-> When Linux runs at EL2 (KVM with VHE), there is no stage-2 translation
-> and the write-combined mapping takes effect, so such reads can result
-> in XPU violations. When Linux runs at EL1 under a hypervisor such as
-> Gunyah, a Device mapping of the region at stage-2 hides the issue, as
-> the stricter memory type applies.
-> 
-> Add no-memory-wc so the region is mapped as Device memory.
-> 
-> Fixes: d3246a0cf43f ("arm64: dts: qcom: sm6375: Hook up MPM")
-> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> ---
+This series adds support for the Rockchip JPEG decoder hardware. The JPEG decoder
+is an in-house IP which is integrated into various Rockchip SoCs. The driver is
+tested on a RK3588 board but reportedly works on RK3568 as well.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+An earlier version of this driver was posted as part of the Hantro
+driver [1]. That turned out to be the wrong abstraction, so it was split
+up into a series with the Hantro fixes [2] and this series with a
+standalone driver, which started over at v1.
 
-Konrad
+[1] https://lore.kernel.org/r/20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de
+[2] https://lore.kernel.org/r/20260824-rk3588-jpegdec-v1-0-180a30a2852d@pengutronix.de
+
+An LLM (Claude) was used throughout the development of this series:
+for parts of the driver code, for reviewing it and working through
+review comments, and for debugging on the hardware and with
+GStreamer.  I have reviewed and tested all of it.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+Changes in v8:
+- Decode 4:2:2 frames to NV16, or to NV12 on request.  ENUM_FMT on the
+  capture queue lists the formats the current frame can decode to
+  (Philipp)
+- Report the coded frame sizes as continuous up to 65535.  Frames whose
+  size is not a multiple of 8, e.g. 1366x768, failed to negotiate in
+  GStreamer (Philipp)
+- Size coded buffers for at least 3 bytes per pixel, also when userspace
+  asks for less (Sergei)
+- Don't resume the m2m queue when runtime PM resume fails (Philipp),
+  drop a dead error path from suspend
+- Use one RKJPEGD_MIN_SIZE for both dimensions, inline
+  rkjpegd_irq_done() (Philipp)
+- Link to v7: https://lore.kernel.org/r/20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de
+
+Changes in v7:
+- Don't set a capture payload larger than the buffer when a job fails
+  because the buffer is too small (sashiko)
+- Drop the Assisted-by tags, upstream removed them in favour of a
+  note in the cover letter
+- Drop the review questions and answers from the driver patch
+- Link to v6: https://lore.kernel.org/r/20261005-rockchip-jpegdec-v6-0-25f16dea1697@pengutronix.de
+
+Changes in v6:
+- Rework dynamic resolution change: a changed frame is marked when it
+  is queued, the decoder stops in front of it, and only the ioctls that
+  resume change the capture format, so fmt_lock is gone
+- Keep a drain going across the capture restart of a resolution change
+- Decode grayscale frames to GREY instead of filling the NV12 chroma
+  plane from the CPU, and allocate capture buffers without a kernel
+  mapping
+- Leave cache maintenance of coded buffers to videobuf2, drop the
+  dma-buf CPU access calls
+- Drop the EOI scan, a truncated frame fails through BUF_EMPTY, and log
+  all hardware errors
+- Drop the runtime PM check in the interrupt handler
+- Drop the interrupt masking around the watchdog reset
+- Drop the hard reset fallback
+- Drop the media device
+- Drop the EOS event on STREAMOFF(OUTPUT)
+- Allow up to 65535 pixels per side, limited by the size of the decoded
+  frame instead of 16384 per side
+- Report sRGB colorimetry on the capture queue, keep what is set on the
+  coded queue and default it to V4L2_COLORSPACE_JPEG
+- Return a failed frame with its full payload, GStreamer takes an empty
+  capture buffer for the end of the stream
+- Return errors from the header parse instead of setting a flag
+- Use guard() and __free(), drop NULL checks the core rules out
+- Name the VDPU720 in the Kconfig help
+- Use Assisted-by: LLM
+- Link to v5: https://lore.kernel.org/r/20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de
+
+Changes in v5:
+- Keep the device until both the binding and the last file handle are
+  gone, devres freed it under an open file
+- Let a job still running in rkjpegd_remove() finish and start no more,
+  close() waited forever
+- Reset the block after a job that ended in error
+- Reset the block after a frame that left SOFT_RST_RDY clear
+- Skip trailing padding of any length when looking for the EOI, 63 bytes
+  of padding hid the marker, and search only the entropy coded data
+- Annotate the DMA side buffer as little-endian
+- Return -EINVAL from enum_framesizes() for an unsupported format
+- Drop most of the in-function comments
+- Drop the review note on rkjpegd_remove(), the code is fixed instead
+- Bound the Huffman value copy by the table length parsed at queue time
+- Fall back to the standard Huffman tables for frames without a DHT
+- Resume decoding on V4L2_DEC_CMD_START after a drain or resolution change
+- Do not re-arm a drain that already completed
+- Report no resolution change for a corrupt frame past the first one
+- Send no EOS event for the LAST buffer of a resolution change
+- Correct the IRQ clear and Huffman table set comments
+- Keep a resolution change out of the mem2mem drain state, a STOP sent
+  before the capture queue was restarted ended the stream at once
+- Look for a mid-stream resolution change only in device_run(), buf_queue()
+  raced the interrupt handler for the capture buffer
+- Set the field on every capture buffer and the sequence on every LAST
+  buffer the driver returns itself
+- Report the first resolution after CREATE_BUFS on the OUTPUT queue too
+- Report the capture colorimetry from the OUTPUT format rather than echoing
+  what userspace passed, and stop S_FMT(CAPTURE) changing the OUTPUT format
+- Refuse RGB coded frames, Adobe APP14 transform 0, instead of decoding them
+  as YCbCr
+- Drop the 4:4:0 mode, the JPEG parser never lets such a frame through
+- Depend on V4L_MEM2MEM_DRIVERS
+- Correct the downstream clock rate in the rk356x DT commit message
+- Serialise V4L2_DEC_CMD_STOP/START with the job completion, a drain
+  racing the last job's interrupt never finished
+- Forget a drain that STREAMOFF(CAPTURE) aborted, a later resolution
+  change re-armed it
+- Bracket CPU reads of imported coded buffers with
+  dma_buf_begin_cpu_access()
+- Wait for a running job when probe fails after registering the video
+  device
+- Add an SPDX line to the Makefile
+- Link to v4: https://lore.kernel.org/r/20260918-rockchip-jpegdec-v4-0-0dd97df47abb@pengutronix.de
+
+Changes in v4:
+- Set and read the source change flags under fmt_lock
+- Check the runtime PM state in the interrupt handler
+- Use dma-buf CPU access around the grayscale chroma fill
+- Update the review notes in the driver patch
+- Link to v3: https://lore.kernel.org/r/20260914-rockchip-jpegdec-v3-0-3583c376d0d2@pengutronix.de
+
+Changes in v3:
+- Rename binding to rockchip,rk3568-jpegd.yaml to match the compatible
+- Link the earlier Hantro based series in the cover letter
+- Enable clocks from the runtime PM callbacks, use pm_ptr()
+- Protect capture format and crop with a mutex
+- Clear bytesused on capture buffers returned without a picture
+- Revert padding the capture buffer to the MCU width, it broke 4:1:1
+- Add notes on review questions to the driver patch
+- Link to v2: https://lore.kernel.org/r/20260825-rockchip-jpegdec-v2-0-86af859a3266@pengutronix.de
+
+Changes in v2:
+- rename clocks from aclk/hclk to axi/ahb
+- Add missing Signed-off-by
+- Fix suspend/resume path
+- Pad the capture buffer to the mode's MCU width, not to a macroblock
+- Reject a frame header picture size outside the supported range
+- Set the capture payload at decode time, not at queue time
+- Trim comments in the driver
+- Link to v1: https://lore.kernel.org/r/20260824-rockchip-jpegdec-v1-0-8011822bf500@pengutronix.de
+
+---
+Sascha Hauer (4):
+      media: dt-bindings: Add Rockchip JPEG decoder
+      media: rockchip: Add JPEG decoder driver
+      arm64: dts: rockchip: rk3588: Add JPEG decoder node
+      arm64: dts: rockchip: rk356x: Add JPEG decoder node
+
+ .../bindings/media/rockchip,rk3568-jpegd.yaml      |   92 +
+ MAINTAINERS                                        |    9 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi      |   22 +
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   24 +
+ drivers/media/platform/rockchip/Kconfig            |    1 +
+ drivers/media/platform/rockchip/Makefile           |    1 +
+ drivers/media/platform/rockchip/rkjpegd/Kconfig    |   16 +
+ drivers/media/platform/rockchip/rkjpegd/Makefile   |    4 +
+ .../rockchip/rkjpegd/rkjpegd-vdpu720-regs.h        |  235 ++
+ drivers/media/platform/rockchip/rkjpegd/rkjpegd.c  | 2332 ++++++++++++++++++++
+ 10 files changed, 2736 insertions(+)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20260821-rockchip-jpegdec-0d6880cf656c
+
+Best regards,
+-- 
+Sascha Hauer <s.hauer@pengutronix.de>
+
