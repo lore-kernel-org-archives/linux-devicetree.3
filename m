@@ -1,55 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.21.61.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433634;
-	b=cW90ep60amq/h/GT/zN76C1B/jTlkOlDKOcwphLWvLmqUUpEolYjfnkNqcvsHSGlS5rw
-	 GPdNlsWzSm5Tx54Ov0VkvTIlsL55XKMnFb5lNI1B0cJUB3Nl/a6wY226ZWta7BvbxHg4p
-	 xFmHh6qxrNDE9PIW8ATGKXpvLOp6ksAJh1tzWkOmy054glm7K7osJiHQ5Hyp+v6pp9RTe
-	 TDo7zvD+uRii5jBvxlZPkc7i0qLDBjm5Y5q3iHjDBsVXkG07OwsofufYZFImxOfnlYSSj
-	 tcsJ9Xbxj16z9X3UDmTVM0zDvv94IYm6oDDhvbhuG95ijB9FLl/sFuDVLc9Qe+VX73w==
+	t=1795433662;
+	b=MDTh+mIzb2ZJyApFaLs4qVkUQo+SAqnYvJ+tfSNowYoGGSGNbPWRKjsyBYY5+oAoR/de
+	 tspzMKPjH8mouHHac7ibU72tDd1ZDZ/JdvRUTMo8QYh8ZFrxar8FYlHxko8Oykk6nGLzE
+	 /cYg0JLzC8rj1C1IlcMX7/YBELFqp0WYRwpVvRQjC5gYW+9YQirba9nNGe37Crp7kIBMQ
+	 RSpyRS6Gh0VsgJtVct92kjS2Jo1LQrM3TdZ2FUMsd6nl/oBOnGHNoLdWywHOINnzovYIu
+	 pSoRlvwJnIYi0hp1o6ZjmZea5EajuDL623EzB09f8QjCgsjP2PYQzN0/D5fQr8oWgNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433634;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hwTobTkBKm2/JiwiYi2htTTLwpWNDT0Iwb6zrj1effc=;
-	b=PZTHICa2hlpppl4MXJ/YeaYWkl7BITq30eziO1h1jbu9fP/WzAAr7kOTMUtuzfecKAs+
-	 1S4A+MXHRzW72A23zCbrzkJ6J/wOv74OVwAJTcYm6gf4hNO4IQ3gCk9ryRhGStBrENSvE
-	 keF+tSOlztL1iJ6eKs+m5IHRCtQ+nevUtlJFBsrHKixkGpJbAp8gkh+PhHoQS2p2uYUoF
-	 StSrmoyH2R3PWXLlmFRZSMdG0bLpR2f/+Ot9t20bxUn+l/jDeu2BMt/LKwmmJhUK0X4Ix
-	 tDYD9UUOCSobo+2R9ChqaYv2yWhPbnmqtCq288E6DKWEi4CXgDlJYh39q3ewG7wG5CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433662;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:Date:MIME-Version:User-Agent:
+	 From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mXK5FEY1e7FRxOAtePILYX2tLbfwL0UE9BPejme/uTk=;
+	b=0VsZPXfGIFVXy3sX68mwcCwtu6paFBHrh+34lDicFRkX9IAzqzkv2S2lVe424Mt+Ln73
+	 U1wuzEDuZkPvKXt1IeQrwrpJ0a6i7pBmVyirKlqouw6h2yPJdjDAsH6LbNkcUmNwgGese
+	 TsfNWLq1YEXOTzUPlXfctpQRov0r/yeBb2nM60+3sKC2AxfECXvtu3WR5PXnt21blbeDP
+	 nlcwezXzwc2SAqpES1pyWOwFLOqrL2MiJCp0VZO5uPwx4AvFYm6ljIl+BDdh8Gv5kS7Sx
+	 xnuzVp4oKlvJjao/Dumng0YI0oKatpSI86xKTKMjtqkuXfoZytgx17gt7lkNsBtRCpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F14sZ5ih;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=aliel.fr;
+	spf=pass smtp.mailfrom=aliel.fr;
+	dkim=pass header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=ooeUU0hC;
+	arc=none smtp.remote-ip=65.21.61.41
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DD5606A32A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:33:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C36606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:34:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55C36606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F14sZ5ih
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702C71F000D1
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:33:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795433633;
-	bh=hwTobTkBKm2/JiwiYi2htTTLwpWNDT0Iwb6zrj1effc=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=F14sZ5ihiSJcWYxHWXyA0XiJs3VZapM4gtxOv6f/78F22yc/zW94Pe+rIceK5uiQN
-	 rN4vxdPjMMyLaTkeVfu+6xo0dfJ+WOpuacTaL4RBIkvsIZQjOu2V3Shk9FxH4Eb0h9
-	 zM55HI9U2oCZop0+xtrhlkfvq2SR0fDNU9jENSHnvKbmmyM/MmX8kH9MTgwd5u34qg
-	 908tlanZCWRgXMEdez/va9HaUALagWY5NhhKO54WUiiLhS9qpkNa7QBt4eryDHMu51
-	 /Xs3wt7iWWXS6/OeXZeVt1EO2w1Vvic1+0yPI8IAZ/mGTmboaUfmvlxXnHgwfcCWCe
-	 eo021p1gITiOw==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ad5529ae64so22838451fa.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 03:33:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEvMEQOhnKYCWySX34UfMpUJqmh/3b+kVRuMpCPiJ1lvQb1L6U/hlBgVIdvJCT+VF4MmIhK2k22ADUh@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LkP04smSJHDp8FYfXBZ+vyJOQiNau3Cx8ucs2UZxGWAjUo7YZ
-	CiQNdIctW028ettlQnj6Po+oGqkg2v+ET+YDXmFMCjrR5VTBT4HFvDvc5cBuZ1DHi+XEuu84ASM
-	/tmvALn5FkIb2EmLUFIAsnFlNPWKDRZo=
-X-Received: by 2002:a05:651c:2214:b0:3ac:e24f:aa11 with SMTP id
- 38308e7fff4ca-3ae7f9978cemr32522291fa.7.1795433631887; Mon, 23 Nov 2026
- 03:33:51 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=ooeUU0hC
+Message-ID: <ceda6a5e-f314-441f-b596-21a60b48486b@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1795433659;
+	bh=DyzVVA4BHQY1L7A1w9MoxMVnpEeVU9iMkGr1NRy0wTM=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=ooeUU0hCpiBSpZnhoubWSJjGhz8XJVTlm1zKpLsrdNqn8bP4KrBVGhduHnCKW+ZFx
+	 chNU/CpFE7x4QPJnCUo1x32lhLS6yUx2buXH9T89JTGjvcH1lu4NFAOgMXzz6/i/CS
+	 Mra7PQ2bd3b2mcV22l/V8FGFOE5Kzk/LaAF5gIKo=
+Date: Mon, 23 Nov 2026 12:34:18 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,80 +51,197 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
- <CAGb2v66nKWdF3AvXDfb07iYVQE5FC5yDkhuutShp+Z-EgFXEfg@mail.gmail.com> <20261123111547.24280-1-vinicius.eduardo.pedrosa@gmail.com>
-In-Reply-To: <20261123111547.24280-1-vinicius.eduardo.pedrosa@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Mon, 23 Nov 2026 19:33:39 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67+kz8kdz1FBX+dn8oifOkQie6hv4FZ2Fw9VHZUvzAcSg@mail.gmail.com>
-X-Gm-Features: Aa3M54rCROWHf9umhZr72KzYmEmJvMkYMlPSpk2XNjS86lerVQ17v5gLjZWKnw8
-Message-ID: <CAGb2v67+kz8kdz1FBX+dn8oifOkQie6hv4FZ2Fw9VHZUvzAcSg@mail.gmail.com>
-Subject: Re: [PATCH 0/3] arm64: dts: allwinner: add Radxa Cubie A7Z support
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>, 
-	Enzo Adriano <enzo.adriano.code@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v3 08/11] drm/meson: dw-hdmi: Use the generic PHY
+ framework for the HDMI TX PHY
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ vkoul@kernel.org, olteanv@gmail.com
+References: <20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr>
+ <20261121-meson-drm-create-hdmitx-phy-v3-8-f8f471788076@aliel.fr>
+ <sashiko-outbox-227314@kernel.org>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-227314@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 23, 2026 at 7:16=E2=80=AFPM Vinicius Pedrosa
-<vinicius.eduardo.pedrosa@gmail.com> wrote:
->
-> On Sat, Nov 21, 2026 at 12:14 AM Chen-Yu Tsai <wens@kernel.org> wrote:
-> > There seem to be 3 revisions of A7Z. Which one are you targeting? Or ar=
-e
-> > there no differences as far as the OS is concerned?
->
-> I'm targeting V1.11, which is the board I have and tested.
->
-> I compared the published schematics. V1.10 differs from V1.11 in two
-> places relevant to this DT:
->
-> On V1.10, BLDOIN comes from SWOUT2 and CLDOIN from PS. V1.11 uses a
-> separate SY8089 step-down regulator at 2.4 V for both.
+On 11/21/26 20:37, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issues to consider:
+> - [High] drm/meson: dw-hdmi: invalid phy_destroy() in
+>   meson_dw_hdmi_bind() error path
+> - [Medium] drm/meson: dw-hdmi: stateless device link leaked in
+>   meson_dw_hdmi_unbind()
+> - [Medium] drm/meson: dw-hdmi: meson_venc_init() clobbers PHY CNTL0 on
+>   system resume
+> --
+> 
+> commit 60b745dc55898638b05c8fcafed9d3683b30dff0
+> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
+> 
+> This commit converts the Meson DW-HDMI glue driver to manage the HDMI TX
+> PHY through the generic PHY framework, with a legacy fallback when the
+> device tree lacks a "phys" property, and adds a stateless device link
+> between the VPU master and HDMI-TX device.
+> 
+>> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+>> index 20a821936b3af..8fdb997c28b40 100644
+>> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
+>> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+> 
+> [ ... ]
+> 
+>> @@ -746,7 +663,26 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+>>  		return ret;
+>>  	}
+>>  
+>> -	meson_dw_hdmi_init(meson_dw_hdmi);
+>> +	meson_dw_hdmi->phy = devm_phy_optional_get(dev, NULL);
+>> +	if (IS_ERR(meson_dw_hdmi->phy))
+>> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
+>> +				     "failed to get HDMI PHY\n");
+>> +
+>> +	if (!meson_dw_hdmi->phy) {
+>> +		/* DEPRECATED: DT without "phys" */
+>> +		dev_warn(dev, "missing \"phys\", using legacy HDMI PHY\n");
+>> +		meson_dw_hdmi->phy = meson_hdmi_phy_create_legacy(dev, priv->hhi,
+>> +						meson_dw_hdmi->data->phy_soc);
+>> +		if (IS_ERR(meson_dw_hdmi->phy))
+>> +			return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
+>> +					     "failed to create legacy HDMI PHY\n");
+>> +
+>> +		meson_dw_hdmi->legacy_phy = true;
+>> +	}
+>> +
+>> +	ret = meson_dw_hdmi_init(meson_dw_hdmi);
+>> +	if (ret)
+>> +		return ret;
+>>  
+>>  	/* Bridge / Connector */
+>>  
+>> @@ -767,14 +703,26 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+>>  	platform_set_drvdata(pdev, meson_dw_hdmi);
+>>  
+>>  	meson_dw_hdmi->hdmi = dw_hdmi_probe(pdev, &meson_dw_hdmi->dw_plat_data);
+>> -	if (IS_ERR(meson_dw_hdmi->hdmi))
+>> -		return PTR_ERR(meson_dw_hdmi->hdmi);
+>> +	if (IS_ERR(meson_dw_hdmi->hdmi)) {
+>> +		ret = PTR_ERR(meson_dw_hdmi->hdmi);
+>> +		goto err_hdmi_probe;
+>> +	}
+>>  
+>>  	meson_dw_hdmi->bridge = of_drm_find_and_get_bridge(pdev->dev.of_node);
+>>  
+>> +	link = device_link_add(master, dev, DL_FLAG_STATELESS);
+>> +	if (!link)
+>> +		dev_warn(dev, "failed to link HDMI (supplier) to DRM master (consumer)\n");
+>> +
+>>  	DRM_DEBUG_DRIVER("HDMI controller initialized\n");
+>>  
+>>  	return 0;
+>> +
+>> +err_hdmi_probe:
+>> +	phy_exit(meson_dw_hdmi->phy);
+>> +	phy_destroy(meson_dw_hdmi->phy);
+>> +
+>> +	return ret;
+>>  }
+> 
+> [Severity: High]
+> Does calling phy_destroy(meson_dw_hdmi->phy) in err_hdmi_probe cause a
+> double free or destroy the external provider's PHY when dw_hdmi_probe()
+> fails (for example with -EPROBE_DEFER)?
+> 
+> Both devm_phy_optional_get() and meson_hdmi_phy_create_legacy() (which
+> uses devm_phy_create()) are devres-managed in the component devres group
+> that component_bind() releases on bind failure.  When legacy_phy is
+> false, meson_dw_hdmi is only a consumer, so phy_destroy() unregisters
+> the external PHY provider's device while the provider remains bound.
+> When legacy_phy is true, component_bind() immediately runs
+> devm_phy_consume() -> phy_destroy() a second time on the already-freed
+> phy.
+> 
+> Dropping phy_destroy() from err_hdmi_probe and leaving the cleanup to
+> component_bind()'s devres release avoids both issues.
+> 
 
-This is pretty much invisible to the OS though, unless it is toggle-able.
+I will drop it.
 
-> V1.11 adds a 10k external pull-up (R59) to the microSD card-detect line,
-> which V1.10 doesn't have.
+>>  
+>>  static void meson_dw_hdmi_unbind(struct device *dev, struct device *master,
+>> @@ -786,6 +734,10 @@ static void meson_dw_hdmi_unbind(struct device *dev, struct device *master,
+>>  
+>>  	devm_free_irq(dev, irq, meson_dw_hdmi);
+>>  	dw_hdmi_unbind(meson_dw_hdmi->hdmi);
+>> +
+>> +	phy_exit(meson_dw_hdmi->phy);
+>> +	if (meson_dw_hdmi->legacy_phy)
+>> +		devm_phy_destroy(dev, meson_dw_hdmi->phy);
+>>  	drm_bridge_put(meson_dw_hdmi->bridge);
+>>  }
+> 
+> [Severity: Medium]
+> Does meson_dw_hdmi_unbind() leak the DL_FLAG_STATELESS device link
+> created in meson_dw_hdmi_bind()?  Stateless device links are not removed
+> automatically by the driver core on unbind and require an explicit
+> device_link_remove(master, dev) or device_link_del().
+> 
 
-I think this is more of a fix, but again, mostly invisible to the OS.
-The only possible difference would be that you could disable the internal
-pull-up. But leaving it on shouldn't be an issue either.
+I forgot it, thanks for the reminder, I will add the device_link_remove().
 
-> So the power supplies and card-detect configuration would need changes
-> for V1.10.
->
-> From the V2.00 schematic, the parts covered by this DT (PMIC, microSD,
-> LED and UART) appear unchanged from V1.11. V2.00 adds MIPI DSI, a second
-> CSI connector and a backlight driver, none of which are described here.
->
-> Would you prefer keeping this DT for V1.11 (and V2.00), with a separate
-> DT for V1.10 if needed, or splitting the revision-specific parts now?
+>> @@ -801,6 +753,8 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
+>>  	if (!meson_dw_hdmi)
+>>  		return 0;
+>>  
+>> +	phy_exit(meson_dw_hdmi->phy);
+>> +
+>>  	/* Reset TOP */
+>>  	meson_dw_hdmi->data->top_write(meson_dw_hdmi,
+>>  				       HDMITX_TOP_SW_RESET, 0);
+>> @@ -811,11 +765,14 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
+>>  static int __maybe_unused meson_dw_hdmi_pm_resume(struct device *dev)
+>>  {
+>>  	struct meson_dw_hdmi *meson_dw_hdmi = dev_get_drvdata(dev);
+>> +	int ret;
+>>  
+>>  	if (!meson_dw_hdmi)
+>>  		return 0;
+>>  
+>> -	meson_dw_hdmi_init(meson_dw_hdmi);
+>> +	ret = meson_dw_hdmi_init(meson_dw_hdmi);
+>> +	if (ret)
+>> +		return ret;
+>>  
+>>  	dw_hdmi_resume(meson_dw_hdmi->hdmi);
+> 
+> [Severity: Medium]
+> With the new device link ordering dev (supplier) to resume before master
+> (consumer), will meson_drv_pm_resume() -> meson_venc_init() clobber
+> HHI_HDMI_PHY_CNTL0 after meson_dw_hdmi_pm_resume() has initialized the
+> PHY?
+> 
+> drivers/gpu/drm/meson/meson_venc.c:meson_venc_init() {
+> 	...
+> 	/* Disable HDMI PHY */
+> 	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, 0);
+> 	...
+> }
+> 
+> meson_dw_hdmi_init() calls phy_init(), which programs HHI_HDMI_PHY_CNTL0
+> to cntl0_init (0x000b4242 on G12A for the bandgap).  When the consumer
+> meson_drv_pm_resume() runs next, meson_venc_init() overwrites
+> HHI_HDMI_PHY_CNTL0 with 0, leaving the G12A bandgap disabled whenever no
+> HDMI mode is active across suspend and resume.
+> 
 
-From what you mentioned it's not a big deal. For the new connectors
-on V2.00, we're still a very long way from that, and it could just
-be a separate .dts file with the new bits, and include the v1.1x one
-as its base.
+I will change the link order to the oposite, and use prepare/complete
+for the drm_mode_config_helper suspend/resume.
 
-> I also saw Andre's review of Enzo's v4 [1]. I'll apply the relevant
-> changes to this DT, including removing the MMC alias and revisiting the
-> regulator descriptions and constraints. I'll wait for Enzo's v5, test on
-> my V1.11 board and send a v2 with those changes and the LED patch
-> squashed into the board DT, as Krzysztof requested.
-
-Sure.
-
-
-Thanks
-ChenYu
-
-> [1] https://lore.kernel.org/all/20261122003932.568c099c@ryzen.lan/
->
-> Thanks,
-> Vinicius
->
+-- 
+Best regards,
+Ronald
