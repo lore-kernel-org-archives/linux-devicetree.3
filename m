@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795432805;
-	b=eSLtM0G/IjgssUx4ohkjhZ7BCvnSYyJrQMazQkpub24o9kgBfNnKoICyp0TsK4RSOfho
-	 bp8T+5o5oIjQKsePVhi9QbeCLcXIWjshgffUTQXzAqP8whu2KUPC94r8Al388fNaJNfLh
-	 rkwVz3Jf7VsbdHxyKfaj/De9h8O2WXsl5hf7xjcdRUkBky4FW/q39/zqz5nOe2pq6l2zZ
-	 mbOJ6uKh8UclvqNAtoP/h3qIGL2OhnVqsNSupfd1d+5uh5/B8XMwdjfMeQdExNXugUtTP
-	 3kvM82i+XcCmwFfWjrlZeAihYQ4qeV0WsO7l/THjlGcvm/+Omc4D/ABL6CW1T69OSOA==
+	t=1795432925;
+	b=1o9Ga/RiFpCDnkugqA4r8Tptx7NEmpi6feQeEmh31wIdHITSKx/Hto57qOVk9myXn7zt
+	 wNxAeyC7eLT8pmeUNsCRY9v0B9FGTIsj7G7z2jNZ9hIiZ9V25ylksX4cWY5RB7EWGTBVG
+	 4lqQ5i3EL2kPd+BhhFm4bwE2W88zPjtpeJOrP13MlakKjj7EIk55WUk0dTgDm6Fr70/gL
+	 SES2Zk6zGmS0+HIIjPpMI34PNqldpbJibmCdPr/LRtVo+NOavpx8tDMgKOtIkNN8ufO3x
+	 5Fb6sRLW7vXa1agfdtvSHW+uSmZswClrqiOrsDeP3LH5z/e94QPJxJ5nLH3n8MBgliw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795432805;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795432925;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NvDPN1uzBydiluj4pwaIyQ1aBVv33ogPl+ZaFWP3YRE=;
-	b=rrt5jS0xeWd4SCwleRPaWHtwYF8TeCJVkkBlnOhe1/Q50ocfSGfJ8Kl4E5ya7OLCODJs
-	 WOG1OIb/OSGKuQx1DXUX6bAqU5XtQ/On9NrLTSb9QdWuJbFvUrKCvwOpCMzRwCIb4MN+u
-	 IAeljpiGNwrYtdwTrOayspY5SqhoMZjcsmPnjX33/fl62lmGLIfcma8GUueZVPoqaIrKR
-	 k5/tK+OOh1ClA87qRUwrSM4C53oem9Aj1GwOgG0uQv7Cd21kpfQIynyi67QFJB0edX/MN
-	 +GehAfMmwWDmjONkp2h+HvE4UAHIwU8Y268OBUSdxB8UkqIUFIGzu8l21RWdBBzkQFw==
+	bh=vGo5Rr0biOUzRbqTgcdqL0cPEhygXKXc6hTCMqPuRJs=;
+	b=gJX4ZVSTPYtnNe7MjsDCwUAZ4FpXVBPIir7IjJvD86HZjot+YEFpJRk2HIULs+zYYSmq
+	 I4IVGWKXN8xlC5AKNocCwBoRytRHe4xAMCTTFzyi0Ad8ANg39ubkbkkNs70WUiDKkQ34z
+	 +AXwRz6FlxW72Z5dYBvZ9nRnhvDU8dW6xSHtjMwHsS2QjTQBj2jX8HRqT+CybNYICzNk3
+	 cqn/Pes0SWQQ5Gok29di3FZu7FUsCUEUo/J7piilrFNDXLZntLk6n6+BYM015bw32aPUQ
+	 g5MMla77PpkQuRpIqaG+Wo7sT3XKstm3g0jdMC0ThryLoa95MT4v0xdfcKfn4ZSiWlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OIIF6fdf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaEAGtfb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE226606A321;
-	Mon, 23 Nov 2026 11:20:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCC0606A31A;
+	Mon, 23 Nov 2026 11:22:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OIIF6fdf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7B91F000EE;
-	Mon, 23 Nov 2026 11:20:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaEAGtfb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6E71F000C0;
+	Mon, 23 Nov 2026 11:22:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795432805;
-	bh=NvDPN1uzBydiluj4pwaIyQ1aBVv33ogPl+ZaFWP3YRE=;
+	s=k20260515; t=1795432925;
+	bh=vGo5Rr0biOUzRbqTgcdqL0cPEhygXKXc6hTCMqPuRJs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OIIF6fdf1BrCCs+ruq1Mvor5MI237MSEBGArpu+IeV8lxMgB1PSycdxaJfBNCzQKZ
-	 BULGgtpV9n+x8VbHXVo462EzyHat97zTLMaHuaDA+YsNznBqPT29IXzl/v5xarrLbC
-	 kSDUIQUT/JdX6oFMkAAwmiSSuVN56ncum0N785MpKGK6eTMK7dlhbbAf0UPJIu4RpG
-	 ZmTmvKQKTuBkJHX5lkf7JquLJAPy8/2x+1KtdYeUqEF0R5+oRXaRExyGVmqUR4nvoV
-	 Qa3GshrtY9qHhtuvfM/PcfCIaTcO9o3piwHMUMtmQqmp+ViPR9zXjFbsJ+c4pJ4VDd
-	 O7bjESx+6ongA==
-Date: Mon, 23 Nov 2026 12:20:02 +0100
+	b=TaEAGtfb1D0eMiLppFjMfL2pfXlRlJ3/3z+jlWljMxV/TbpZTKRwWyknjQLNr/AO3
+	 OaUwdmfBmImt98xPKAoI4t0TNxr521PoFDPjzDSWD2tJ70wUgLfaHPqKTalEIFn8oj
+	 Ij9uvOUdN8jRITkjCClWXYyAN0qJvIJoIB08KH2pDKDtxrfNcOcpfG7BPwUyESRWng
+	 uaK4lGcnsta2D3EWdAFhFsldfHRPT3yMWJ+vNbHFblZcw05AC/c4AyOG50REHz1SOw
+	 74nmuw1vWsmy0YL9cl5M7XQmjTPHR4WgsSZfnC28cCEZgl+QvML5PHa6OAaSSXIAdp
+	 IjeIy4qCkDygw==
+Date: Mon, 23 Nov 2026 12:22:01 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Jisheng Zhang <jszhang@kernel.org>
 Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
@@ -51,11 +51,10 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
 	netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 5/8] dt-bindings: soc: synaptics: Allow SL2610 mux
- controller children
-Message-ID: <20261123-imposing-crimson-chinchilla-fe56de@quoll>
+Subject: Re: [PATCH 3/8] dt-bindings: net: Add Synaptics SL2610 DWMAC
+Message-ID: <20261123-aromatic-feathered-whale-bfc874@quoll>
 References: <20261116135442.4827-1-jszhang@kernel.org>
- <20261116135442.4827-6-jszhang@kernel.org>
+ <20261116135442.4827-4-jszhang@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,27 +66,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261116135442.4827-6-jszhang@kernel.org>
+In-Reply-To: <20261116135442.4827-4-jszhang@kernel.org>
 
-On Mon, Nov 16, 2026 at 09:54:39PM +0800, Jisheng Zhang wrote:
-> The SL2610 system controller includes selector fields for routing shared
-> peripheral signals. Allow a mux-controller child using the register mux
-> binding and show the shared MDIO master selector in the example.
-> 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> Assisted-by: LLM
+On Mon, Nov 16, 2026 at 09:54:37PM +0800, Jisheng Zhang wrote:
+> +  phy-mode:
+> +    enum:
+> +      - rmii
+> +      - rgmii
+> +      - rgmii-id
+> +      - rgmii-rxid
+> +      - rgmii-txid
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+Missing constraints for interrupts, clocks, resets, domains and so on.
 
-> ---
->  .../bindings/soc/synaptics/syna,sl2610-soc-syscon.yaml | 10 ++++++++++
+> +
+> +required:
+> +  - compatible
+> +  - syna,syscon
+> +  - phy-mode
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    chip: syscon@f7e10000 {
+> +        compatible = "syna,sl2610-soc-syscon", "syscon";
+> +        reg = <0xf7e10000 0x10000>;
+> +        clocks = <&osc>;
+> +        #clock-cells = <1>;
+> +        #reset-cells = <1>;
+> +    };
 
-There is no such file, which means you are fixing in-flight patches.
-Squash it with in-flight patches instead so we see entire picture.
+Not relevant, drop entire node.
+
 
 Best regards,
 Krzysztof
