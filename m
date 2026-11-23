@@ -1,93 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795465457;
-	b=1a3CR51XsPQlmCVqE/w4EBM4VTdG9QAR7SKWSp/bxUAphqzCKpEdgKBiAWz8fqDvPqGn
-	 n+606wnFrlSZOV3SN6gibUllZcV44csWRmlIbyca6j1dPcDDN5Tj9mpctC5w/GsLzbZOD
-	 gohJX2qolV2+btJhs7sFtp2DSKBiWykHQZcoGLPaRtl14+BB9R4MUimcCVYu0u2Z8N0bY
-	 bnbDk9fr4hC7q4BrgCud4m6aMobRJWtsp4v6bus245H+WG+bNtlpxu2LIQmOI7bv8kjRn
-	 DN7xmlvZOsIHNlvW89Mky1pjqR2uRkU/Wu5X7DLkPd0oWgXoIS2n6gmv4A3lFEPcolw==
+	t=1795465549;
+	b=LT7WQDq63vHJTvAR/F/+f2+PkgUjvGZ2W7pw1FLR/PmR0V+cAyDep5CSir8Jcp9/aq8C
+	 3yTtbVPYa7x7bI/QdiuvByy+WB6Pzhb5X6DZ/n7Ym8/6Oq593nyptdW1amgelxU6NdMud
+	 sklFtoPm3peJEtQzRf+FZWi3JxujtEpvmk9uXojoicONfc7GkGa6wNTk7jY3zM3g+R8Bq
+	 Isq4FHmKEzPq21FjlzYR+SgwMsjvYUwbBka/1Yex418oufWw8nJxAMzuvr/8h0fzmGSFS
+	 Z6ECHspQSr9+v8x4m5HKmfGRabutexg5m82BSFd2/sIHRa+R/rduqAHMmArNY3elUdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795465457;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1G36OaovxXTu0LQ+kkMP7/TVPf07CFUGx7fGAbDpiaQ=;
-	b=TyycF0tPe8lXQI+9clHw2/Os+oOvZQWI4t3wgrBOnEdoSWSx0jifjUaJgxokd1myl4K+
-	 1STN1BEnrYzhi6zC4srMsp2DlQBT8S1oteQqA85lRraBveyx7YFUSmbyVwcPTpnWzVKS1
-	 yQjruR88r/coDXgDjoFsJ35dPaUanB0K+LW19KLO8RMCWgvpm6FA9wpdemx9BzFPJ1t94
-	 J6PWeqB0h95i7bYp6zjx8lFlBFExmOR+3JFX2up21OK8SDGsE+8VQ8Xk1RPCj8H4r23i0
-	 MCrEx7/n01J6YnZfXSLFMxLFH+Cv9KvkmC5zTTGWHGp/BBDRgexXVYBUjYT8Ds8GPbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795465549;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=MQ2RrQtG1OM0LiBJp2KbHu85/ogHhtSJ39duNkPwNTM=;
+	b=Ps3qch0rIGPiNMkRDsif/1Ofchh2cpHg9Uzcub6qwkhv/gIyI2aagxUwOG/hWSnXwyeq
+	 Sbnahr3rKD7DGDzZqEeOpUf2jhu95DdWUVoRdD0idbBvBcSeS1bEUsN/RhFIFMWMseQMm
+	 H8gD1JD1u7rl+xr5MDzG6K6XjsdM8/8JcSw1RHPWBiDBRyhc6q3cKf79Z5ktlcmTPfY3D
+	 QOVNkDDzDvuvzVCyrdNdlLo++ttgmaqqBQ2nOk/YpBRsASsl884U4HoQYOd9XVFGwZ/Re
+	 z+TIS4Efiov7DhOrYcKBBmhhe1y7du8pW+PBgkx1Mh3j0gcDOCsM1s/ZIKpYfB0zT/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Te4b5n+8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gKiuorXW;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553BE606A321;
-	Mon, 23 Nov 2026 20:24:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03110606A31E;
+	Mon, 23 Nov 2026 20:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03110606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Te4b5n+8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A0EF1F000C6;
-	Mon, 23 Nov 2026 20:24:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795465456;
-	bh=1G36OaovxXTu0LQ+kkMP7/TVPf07CFUGx7fGAbDpiaQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Te4b5n+8loWeAUEtLMSZUihv3ZWV7+y2VMUsUhocvoi18aRAwUrVt08Y4H/HXqT9X
-	 YREbK+Ny794vhIcCK+FyThQG7FxeRtRys69sz3QL0XZfOSsILHUWv/66cNfqKepEAs
-	 KsJZrB5P7mbwaEoTpc2FeEKgqvWvlFunCrgWD2jihVmiZrB3Twe3IMxXl24krJ5tIn
-	 1lthtYmcA4TFxrwOiqMmPRF5F9r8gtqWSn83nV4e3t1mol4U+iJ7ktRQJh6YLGLPLq
-	 Xqixsj7zWDp2I+tt/9NWyth/cEeGtjbv9saAeUb8xVkV/NcnhnmqfQFuu8rVvcMg5B
-	 b3sfyov5sZjFg==
-Date: Mon, 23 Nov 2026 14:24:10 -0600
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj <jo@jsfamily.in>,
-	Jagan Teki <jagan@amarulasolutions.com>,
-	Ondrej Jirman <megi@xff.cz>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Michael Trimarchi <michael@amarulasolutions.com>,
-	Michael Tretter <m.tretter@pengutronix.de>,
-	Cristian Cozzolino <cristian_ci@protonmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Ryan Brue <ryanbrue.dev@gmail.com>,
-	Nickolay Goppen <setotau@mainlining.org>,
-	Robert Chiras <robert.chiras@nxp.com>,
-	Alexander Koskovich <akoskovich@pm.me>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>,
-	Barnabas Czeman <barnabas.czeman@mainlining.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Arpit Saini <arpit.saini@oss.qualcomm.com>,
-	Michael Walle <mwalle@kernel.org>,
-	Ritesh Kumar <quic_riteshk@quicinc.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Danila Tikhonov <danila@mainlining.org>,
-	Jens Reidel <adrian@travitia.xyz>,
-	Michael Srba <Michael.Srba@seznam.cz>,
-	Shawn Guo <shawn.guo@linaro.org>,
-	Alexandre Mergnat <amergnat@baylibre.com>,
-	Alexander Baransky <sanyapilot496@gmail.com>,
-	Abhinav Kumar <quic_abhinavk@quicinc.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	Romain TISSERAND <romain.tisserand@gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: display: panel: Make DSI panels port
- optional
-Message-ID: <20261123202410.GA1813552-robh@kernel.org>
-References: <20261113084236.53336-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gKiuorXW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795465547;
+	bh=MQ2RrQtG1OM0LiBJp2KbHu85/ogHhtSJ39duNkPwNTM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=gKiuorXWWGlvRFndCd/W8ewTB3EtABWyQ6+hc877mXzlUNbbP4XJIBBMTvCVB+v/d
+	 FFA3cvYHquUuQMM+nwqrclYAoq9XC+3Iov6VT/Xs6wpwBDT1fArFbYFwvhcUri2Mb7
+	 zJBVnBdPSalWeUtd1c/2EPHlNCZSoXBFG5pXjoL3v8rW2fRawmhr9BtkOS89qfT3cb
+	 wKSZbtFmJ+1mdXY4ngtB+hJjWgQsPWdDq6Ziw+qUmUjAgixAray1SiL3Su8RkHoakF
+	 vY/h01988YIziDCHUmmbZVaWxzC6gWIrTLLk2YbStXFwJjNovyEriSgQzDoEDpW56a
+	 FvBZeATeA93/w==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C701217E0CD7;
+	Mon, 23 Nov 2026 21:25:44 +0100 (CET)
+Message-ID: <8624fb6a39e5e13466882f01ea54842252f154af.camel@collabora.com>
+Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performance
+ profiling
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>, Frank Li <Frank.li@oss.nxp.com>, 
+ Detlev Casanova <detlev.casanova@collabora.com>
+Cc: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@kernel.org"	
+ <hverkuil@kernel.org>, "robh@kernel.org" <robh@kernel.org>, 
+ "krzk+dt@kernel.org"	 <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+ <conor+dt@kernel.org>,  "Frank.Li@nxp.com"	 <Frank.Li@nxp.com>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
+ "linux-media@vger.kernel.org"	 <linux-media@vger.kernel.org>,
+ "devicetree@vger.kernel.org"	 <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>, 
+ "linux-arm-kernel@lists.infradead.org"	
+ <linux-arm-kernel@lists.infradead.org>, "festevam@gmail.com"	
+ <festevam@gmail.com>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
+ "ming.qian@oss.nxp.com"	 <ming.qian@oss.nxp.com>, "marek.vasut@mailbox.org"
+ <marek.vasut@mailbox.org>,  "jackson.lee" <jackson.lee@chipsnmedia.com>,
+ "lafley.kim" <lafley.kim@chipsnmedia.com>
+Date: Mon, 23 Nov 2026 15:25:43 -0500
+In-Reply-To: <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
+References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
+	 <5702baa6ed97eb30dec14bddba2919252ec8f3c8.1795075582.git.nas.chung@chipsnmedia.com>
+	 <av9iadpXveXGb0R0@SMW015318>
+	 <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-hywlTlSbm67gmuaBuGD6"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,32 +103,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113084236.53336-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-On Fri, Nov 13, 2026 at 09:42:37AM +0100, Krzysztof Kozlowski wrote:
-> DSI panels can be placed under DSI bus directly and some of the Linux DRM
-> drivers will work fine with it: mipi_dsi_host_register() adds device for
-> such panel and DRM driver does not use OF graph to configure lanes.
-> Examples are Samsung Exynos and Allwinner DRM drivers.
-> 
-> The Linux panel drivers affected here do not use OF graph, either.
-> 
-> Requiring graph port for such panels is tying the binding to one
-> specific implementation of Linux DRM drivers, e.g. Qualcomm DRM which
-> requires the port.  That's a mistake, because:
-> 1. It prevents usage of such panel in DTS for other platforms,
-> 2. Places the constraint (port requirement) in wrong domain - the DSI
->    host needs the port, not the panel.
-> 
-> The port is not needed for the panel hardware to operate thus it should
-> be optional.
-> 
-> Suggested-by: Romain TISSERAND <romain.tisserand@gmail.com>
-> Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com> # renesas r61307 and r69328
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+--=-hywlTlSbm67gmuaBuGD6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Applied to drm-misc.
+Hi,
 
-Rob
+Le lundi 23 novembre 2026 =C3=A0 09:18 +0000, Nas Chung a =C3=A9crit=C2=A0:
+> Hi, Frank.
+>=20
+> > -----Original Message-----
+> > From: Frank Li <Frank.li@oss.nxp.com>
+> > Sent: Friday, November 20, 2026 5:56 AM
+> > To: Nas Chung <nas.chung@chipsnmedia.com>
+> > Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
+> > krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
+> > s.hauer@pengutronix.de; linux-media@vger.kernel.org;
+> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
+> > imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
+> > festevam@gmail.com; kernel@pengutronix.de; nicolas.dufresne@collabora.c=
+om;
+> > ming.qian@oss.nxp.com; marek.vasut@mailbox.org; jackson.lee
+> > <jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>
+> > Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performanc=
+e
+> > profiling
+> >=20
+> > On Thu, Nov 19, 2026 at 06:00:03PM +0900, Nas Chung wrote:
+> > > Add per-instance performance profiling to help identify whether a
+> > > throughput problem comes from the firmware or from the host side.
+> >=20
+> > why not register as perf interface?
+>=20
+> The numbers are kept per instance (per open file). Each instance has
+> its own fps, latency and min/max frame time, and they are updated each
+> time one of its frames is done.
+>=20
+> As far as I know, perf can only count per CPU or per task, and a device
+> PMU usually counts for the whole system. So perf would only show the
+> total of all instances, and we could not get the min/max frame time
+> from it.
+
+My preference would then go toward .fdinfo() then instead of custom debug f=
+s. It
+gives the FD owner the right to see the statistics and not just root. Here'=
+s an
+example of in progress attempt. The idea is that some key would be generali=
+zed
+and documented and some other key would be driver specific (e.g. wave6- pre=
+fix).
+
+https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@coll=
+abora.com/
+
+Then once we've upstream v4l2top, one can track the performance live, and y=
+ou
+can even add driver specific metrics.
+
+Nicolas
+
+>=20
+> Thanks.
+> Nas.
+>=20
+> >=20
+> > Frank
+> >=20
+
+--=-hywlTlSbm67gmuaBuGD6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawShRwAKCRDZQZRRKWBy
+9PT1APwIoRkl5PprFS3ATJ/OPwAb4iqJR1TdxwP7/noc44qDbAD+N7Yli8uqL8oV
+LEytlo3i71WPvgSfaRViB9O04fQiyQw=
+=qWVx
+-----END PGP SIGNATURE-----
+
+--=-hywlTlSbm67gmuaBuGD6--
