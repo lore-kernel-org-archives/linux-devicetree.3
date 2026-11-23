@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795466946;
-	b=GXvMhz7pyvd+ICp4UWA4B63rJqfKvUWJEWiNQ6Amp2BzsrphLIwnGDafF0e6wX95IXl7
-	 1DdsE65MS9an72+Z5jllzlY/b7YINXRI+oAgDJV0RnqpkQrveHENS8KUGFAJ380Mjwl75
-	 XShnWP+Hp2LHaLAaAvrVdzsNkitUCxk/YdUwvljPVjJaRjFCthj4b5CAKYhzpr1hq91q+
-	 BVOcG/QRWu8dfcg1n4KVVYZcE98jgYeZnegw5UVD3MEnPG2c0LyhVq5evjDw6LZ5CBiiB
-	 Roczx6fxj928NlUQQG9RZgw8hoybtb/OqPtFKYJD3YRWuSEpX8wVldacOHe+i5SZsWg==
+	t=1795467132;
+	b=zGG6Ttnmhr2jt/0kr49ImUKkOzgA2j2NF6sxsf6g5FdwlZjzX3TgyOA9uwSoYcOMRASw
+	 PRS/8D/F8hy166Sqttf/w8CJM3DiNki5fehWe3dm7VmECStFz1rYz9ioUJUg5D2ATBQaw
+	 mlRRuc9ShMTnCa9yva4WafeeeV3LRvb34tK7Hf7eMMgrfzqlRf2aWlNhwW7aK2fjLUOt+
+	 h42mtpfNYUcZ3FbCtAUZIbzYWhaWu9vhciIOcKQlAa/Co5ynBbWZsAswMFq7xZ0ap4EjY
+	 veHhhYGkKGMr0+xWC0n8Djf7QVlRQYNXJjH7V4otzKPf8jAb6533c2xZU9ki8yxP9BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795466946;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=LvP42X/Qe4jT8jeTYD/+pZqe6epAAoJWGuni2RHft04=;
-	b=GvBJ/3Iz7HxZ6xf5xkl4DiwHztkR7YtvIFmNOB/LMayGRKC9e1i19Cr8OZ/cLBC30R2C
-	 SxytHRfvkWD6PudgAohp6JkrXf486o0MmCtgScc/UaHQg4p4UX5NEz0ISpef5vfQTQBDZ
-	 dnrUbe3P7n3LshK3d0FpblJ7XPD5/SbQNSH0qwTik3Aep823FDxscMHPRAi5sUrZPfIxA
-	 J7B9kk6Oc69rNDG1Jq+JK/w1Qgux1SKin0TztueCMlTVdY6neZ/KjDBORANXRZDC6e2js
-	 T1kNpMvauJ+ijymtxPVzAHP9Hns2xhSNXR9l0f6LNgpn2rzoYnNe7pMBeOnKXYaWXtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795467132;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=R+PB97YJaXYfuT9JzZ2XMPTT0GrXfB9fgjWWji/d7NI=;
+	b=gpotLpJTGZIljmgEr0aNVn7VcQtQByYSizNPPJBPgGly7xuX0CIOql6k6Xmve00uQPof
+	 0B9B1ySO7h6tTy4s1yuv4HceLjYQxq8M7yIwXR/SH0JR5k8tgK+XO6f0qKjypcS9A7oeP
+	 upcjy5HrQJZ4bi2roRJQ+CifN7z1IUisSDLBEqplJ22cXXDF+rNcH4qG2G2M3GlaeZ5VQ
+	 tjDOVtRana/lfg+U/Lb7Khm2q/gRYC9FXPYytVUZxJFQwVx6mwukyTKafkFNcUJoHZjZC
+	 DTXCQsm7EN8RcfNHYu6fWlTgyqg4qSAyIijEDUy4puoqHB7rn0HFJNmQP5LUWACWCbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCaiHo+0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCqm30mp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BAEA606A32A;
-	Mon, 23 Nov 2026 20:49:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC97606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 20:52:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCaiHo+0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9AD1F000D8;
-	Mon, 23 Nov 2026 20:49:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCqm30mp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626971F000EB
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 20:52:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795466945;
-	bh=LvP42X/Qe4jT8jeTYD/+pZqe6epAAoJWGuni2RHft04=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TCaiHo+0a7VCl1zCwpcmrR2ru+Dr3UNtzrnaDZbcGqnHKAbfJKQYnNJxLbMVtwkQV
-	 eq99EBFHBjCeerWdCL1G60DW4/0LCRC3LjZVUGQ9NuOs9w6PBkBKxvz68HS9MUL28R
-	 G6e7XV7zqNIqdKWw6XROQteBUtPBs5sCaBFa5nIJuaAVcqFAX5PdvWw6EVg7DSukhC
-	 cOGKZTUrfpWjM8z/tMoY7OODqJGNUIw5o5kpS4WtPEGA3K13HKmal4cnFX3B37CspL
-	 rT5ekbbRrM6ZxAxiPzgbLClxk+6G5JNNL8mYzyjwUnr5LQPmGtAQn7cnHL/XO2SqLE
-	 mU7F/zgNCc9Ew==
-Message-ID: <sashiko-outbox-230024@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/3] ARM: imx: enable STOP-ON mode in idle if wakeup
- requirements permit
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andreas Kemnade" <andreas@kemnade.info>
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261123-imx6-idlestop-v1-1-e32f1f44e46f@kemnade.info>
-References: <20261123-imx6-idlestop-v1-0-e32f1f44e46f@kemnade.info>
- <20261123-imx6-idlestop-v1-1-e32f1f44e46f@kemnade.info>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 20:49:04 +0000
+	s=k20260515; t=1795467131;
+	bh=R+PB97YJaXYfuT9JzZ2XMPTT0GrXfB9fgjWWji/d7NI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fCqm30mp1MS8epLG7pZm9k9TPUM7K9ux1pcgdRFHyiKnAcPeuudwlPS61VSVhGb+a
+	 /6j5IbZx3PiXs9wpFVl8PI9nc3xfXQZ+c9Qki8bngfnFIidrLHBj4uC5TaRVWMUf+t
+	 +pdxZz/9FXHqWYB9sZFQLBp9/2vwXDKQZj6WK2b69/81UBI2k1Cb3XflxBzFTmT+qh
+	 a3/73TqmSqLV6pEMwNOUTICdF6uCOclNPNbmu+G4qw44o+hIBVt/Nc66ENgUsmZTq/
+	 RqMDb2GXjesBR4INW2DX/xD0AR3w0bAXnh8QnAE1nmwNciGR8liW3PMxKNJwfm7C8b
+	 4rrSNVeQqjzTg==
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b596afb4c5so4248604a12.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:52:11 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFgHywh+OVb36KD2NgZmg33juYV8IjuLNwlw14ni4bKRAaAiRCv6YhkJLZcyl1gmcWCcWmTiCva0ZaI@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WarjSVvL3YWup1/nNaN8JfojefJ9tBQobxP1qrDvZqNJp8XIW
+	1RhyC5b5SYfp2qsoW1zDr4nqwS7kYnKjFe4GJHCePzlFQarpRWYRm+OZy43ZwlMzc9TPnxQg2YB
+	D2opgwQpTZfmc+CDl4mYN4ORrbSGTKw==
+X-Received: by 2002:a05:6402:90d:b0:6ba:6654:6a6f with SMTP id
+ 4fb4d7f45d1cf-6ba66546ba7mr4869059a12.10.1795467129997; Mon, 23 Nov 2026
+ 12:52:09 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,152 +58,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261122093426.72677-1-gerard@teslabs.com> <179546531526.1777962.3727881292046293374.robh@kernel.org>
+In-Reply-To: <179546531526.1777962.3727881292046293374.robh@kernel.org>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 23 Nov 2026 14:51:58 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJc6=3oUHWTP8owtKYfhv0aqQSr0X-NEoH294YYfKc1=A@mail.gmail.com>
+X-Gm-Features: Aa3M54odu4jh8uvs4WSzy8v4k6cg8FCebB3cex27gj5FuZInNEVhAbnxHBbNCBE
+Message-ID: <CAL_JsqJc6=3oUHWTP8owtKYfhv0aqQSr0X-NEoH294YYfKc1=A@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: display: sharp,ls010b7dh04: Add LS013B7DH01
+To: Gerard Marull-Paretas <gerard@teslabs.com>
+Cc: dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Alex Lanzano <lanzano.alex@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Simona Vetter <simona@ffwll.ch>, 
+	devicetree@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [Medium] ARM: imx: i.MX6SLL-only STOP ON idle state registered on all
-  i.MX6SX/UL SoCs
-- [Medium] ARM: imx: imx6sll_check_pll_are_used() omits DCP DMA clock in
-  CCGR0 check
-- [Low] ARM: imx: duplicate BIT(21) term in CCGR5 mask in
-  imx6sll_check_pll_are_used()
-- [Low] ARM: imx: imx6sx_enter_pll_off() duplicates state 2 power-off
-  sequence
---
+On Mon, Nov 23, 2026 at 2:22=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org>=
+ wrote:
+>
+>
+> On Sun, 22 Nov 2026 10:34:26 +0100, Gerard Marull-Paretas wrote:
+> > The LS013B7DH01 is the 144x168 Sharp Memory LCD of which the LS013B7DH0=
+5
+> > is a thinner revision. It is obsolete, but still used in products.
+> >
+> > Both are electrically the same, taking the same SPI commands and VCOM
+> > signal at the same resolution, so the LS013B7DH05 compatible can serve
+> > as a fallback and the sharp-memory driver drives it unchanged.
+> >
+> > Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
+> > ---
+> >
+> > Notes:
+> >     Checked with dtschema 2026.9: the steps of dt_binding_check run by =
+hand (host make too old), yamllint and dt-check-style --mode=3Dstrict.
+> >
+> >  .../bindings/display/sharp,ls010b7dh04.yaml   | 26 +++++++++++--------
+> >  1 file changed, 15 insertions(+), 11 deletions(-)
+> >
+>
+> Applied, thanks!
 
-commit faf6510335563388f22705edc72db8052152fc32
-Author: Andreas Kemnade <andreas@kemnade.info>
+Or not. dim tool won't let me. Needs an ack from Sharp or DRM maintainers.
 
-ARM: imx: enable STOP-ON mode in idle if wakeup requirements permit
-
-This commit adds a fourth cpuidle state ("STOP ON") to imx6sx_cpuidle_driver
-that enters STOP_POWER_ON mode on i.MX6SLL when CCGR0..CCGR6 indicate that
-PLLs are not in use.
-
-> diff --git a/arch/arm/mach-imx/cpuidle-imx6sx.c b/arch/arm/mach-imx/cpuid=
-le-imx6sx.c
-> index 83c5cbd3748e1..4537cb7b3a637 100644
-> --- a/arch/arm/mach-imx/cpuidle-imx6sx.c
-> +++ b/arch/arm/mach-imx/cpuidle-imx6sx.c
-> @@ -65,6 +65,36 @@ static __cpuidle int imx6sx_enter_wait(struct cpuidle_=
-device *dev,
->  	return index;
->  }
-> =20
-> +static __cpuidle int imx6sx_enter_pll_off(struct cpuidle_device *dev,
-> +				       struct cpuidle_driver *drv, int index)
-> +{
-> +	if (!cpu_is_imx6sll() || imx6sll_check_pll_are_used())
-> +		return imx6sx_enter_wait(dev, drv, 2);
-> +
-> +	imx6_set_lpm(STOP_POWER_ON);
-> +	imx6_enable_rbc(true);
-> +	imx_gpc_set_arm_power_in_lpm(true);
-> +	imx_set_cpu_jump(0, v7_cpu_resume);
-> +	imx6_set_int_mem_clk_lpm(true);
-> +	/* Need to notify there is a cpu pm operation. */
-> +	cpu_pm_enter();
-> +	cpu_cluster_pm_enter();
-> +
-> +	ct_cpuidle_enter();
-> +
-> +	cpu_suspend(0, imx6sx_idle_finish);
-> +
-> +	ct_cpuidle_exit();
-> +
-> +	cpu_cluster_pm_exit();
-> +	cpu_pm_exit();
-> +	imx6_enable_rbc(false);
-> +	imx_gpc_set_arm_power_in_lpm(false);
-> +
-> +	imx6_set_lpm(WAIT_CLOCKED);
-> +	return index;
-> +}
-
-[Severity: Low]
-This isn't a bug, but imx6sx_enter_pll_off() duplicates the state 2
-power-off sequence from imx6sx_enter_wait(), differing only in passing
-STOP_POWER_ON instead of WAIT_UNCLOCKED to imx6_set_lpm().  Calling
-imx6_set_int_mem_clk_lpm(true) on every entry is also redundant, since
-imx6sx_cpuidle_init() sets it at init and imx6q_pm_enter() restores it on
-resume from suspend.
-
-> @@ -95,8 +125,18 @@ static struct cpuidle_driver imx6sx_cpuidle_driver =
-=3D {
->  			.name =3D "LOW-POWER-IDLE",
->  			.desc =3D "ARM power off",
->  		},
-> +		/* STOP ON */
-> +		{
-> +			.exit_latency =3D 500,
-> +			.target_residency =3D 800,
-> +			.flags =3D CPUIDLE_FLAG_TIMER_STOP |
-> +				 CPUIDLE_FLAG_RCU_IDLE,
-> +			.enter =3D imx6sx_enter_pll_off,
-> +			.name =3D "STOP ON",
-> +			.desc =3D "ARM power off + PLL off",
-> +		},
->  	},
-> -	.state_count =3D 3,
-> +	.state_count =3D 4,
->  	.safe_state_index =3D 0,
->  };
-
-[Severity: Medium]
-Should state 3 only be exposed on i.MX6SLL, and should falling back to
-state 2 respect dev->states_usage[2].disable?
-
-imx6sx_cpuidle_init() registers imx6sx_cpuidle_driver on i.MX6SX, i.MX6UL,
-i.MX6ULL and i.MX6ULZ as well as i.MX6SLL.  Unconditionally setting
-state_count =3D 4 advertises an enabled state 3 on those other SoCs that
-always demotes to state 2, causing cpuidle_enter_state() to record false
-state 2 "below" misses whenever actual idle time reaches 800 us and
-skewing governor residency bins.  In addition, calling
-imx6sx_enter_wait(dev, drv, 2) directly bypasses sysfs if state 2 has been
-disabled by userspace.
-
-> diff --git a/arch/arm/mach-imx/pm-imx6.c b/arch/arm/mach-imx/pm-imx6.c
-> index 3c73e2cdb8ceb..65a5268d31614 100644
-> --- a/arch/arm/mach-imx/pm-imx6.c
-> +++ b/arch/arm/mach-imx/pm-imx6.c
-[ ... ]
-> @@ -287,6 +295,21 @@ void imx6_enable_rbc(bool enable)
->  	imx_gpc_restore_all();
->  }
-> =20
-> +bool imx6sll_check_pll_are_used(void)
-> +{
-> +	/* check for any clock active which provides more than register access =
-*/
-> +	return readl_relaxed(ccm_base + CCGR0) & BIT(29)  ||
-
-[Severity: Medium]
-Does the CCGR0 mask also need BIT(11) for IMX6SLL_CLK_DCP?
-
-In drivers/clk/imx/clk-imx6sll.c, IMX6SLL_CLK_DCP ("dcp", parented to
-"ahb") is gated by CCGR0 bits 11:10.  When mxs_dcp_start_dma() starts a
-crypto DMA transfer and sleeps in wait_for_completion_timeout(), the
-single CPU on i.MX6SLL can enter cpuidle; without BIT(11) in the CCGR0
-check, entering STOP_POWER_ON stops AHB and PLL clocks mid-transfer and
-stalls DCP DMA until it times out.
-
-> +		readl_relaxed(ccm_base + CCGR1) & (BIT(25) | BIT(23) | BIT(15) | BIT(1=
-3) |
-> +						   BIT(11) | BIT(7) | BIT(5) | BIT(3) | BIT(1)) ||
-> +		readl_relaxed(ccm_base + CCGR2) & (BIT(31) | BIT(29) | BIT(11) | BIT(9=
-) |
-> +						   BIT(7) | BIT(3)) ||
-> +		readl_relaxed(ccm_base + CCGR3) & (BIT(11) | BIT(5) | BIT(3)) ||
-> +		readl_relaxed(ccm_base + CCGR4) & (BIT(23) | BIT(21) | BIT(19) | BIT(1=
-7)) ||
-> +		readl_relaxed(ccm_base + CCGR5) & (BIT(25) | BIT(23) | BIT(21) | BIT(2=
-1) |
-> +						   BIT(19) | BIT(15) | BIT(7)) ||
-
-[Severity: Low]
-BIT(21) is listed twice in the CCGR5 mask; is one of them redundant or
-meant to be another bit?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-imx6-idles=
-top-v1-0-e32f1f44e46f@kemnade.info?part=3D1
+Rob
