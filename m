@@ -1,122 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795425040;
-	b=xdGtr3wGTjG+9Wb/9cvyOK3rGTEXYdQeSW95HrM2RFQ4h/Mc75hQ1Wro2zCmigV/iaQr
-	 GAWPgRPlNUOo8t55MVVTARpcKcWOhU4p9MlnptPnPaHUIsLYdc6tyJTdTNFRdFqGMSa5X
-	 jUE7xA0JPk7oemgaA/GZ3dgKxIe8gV/M6dgrMzBNga7UZ72ODj+BlnIGTWq/hukgwpRtq
-	 scBWaJIyT6ifE8TifTtK6shz26h88Ek8kbOgN/q2gigMxHqIgaZ5pFm9zU5HqA5ShcGXN
-	 Zp3LxEcs+Rz0QEyO1F+RrF4qGynrcH5P044LglxQqhxnD/xj/JkWnQR4Yn35Au4sgIA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795425040;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=uWN3Yvpy5H1Xwl/eUnB/hc7fSA1UbaIaF8+Ya0MATec=;
-	b=CvKqB2nNfCizNR0LhJg6feqxgXP7gXUMsnLCYqvai3sb3lf682/WjRdhhSymameFavpt
-	 P+iEtRw4Vd6C1F4zF2wxvGnUUFaH1v9xA0UIROj2I725WtkUYr001zW2926VcsPzM5ruX
-	 I1zMv7Y+HXoe+dyJjT++z+Hq0z/kkwAwiKnZWsTeQSQI10MK0gKMBGFVVevxf4x2igyaH
-	 chljiFZeb62aFpeA7QqtsdvX5hbHdYamNHtH6E8RbrqbVkoy3HuA+8uZLxXFfXf2qTO/y
-	 QucJ3qGg6JMLxlJ/S46cQM1EHPNWvHpTg09wL1I3MuEcSmgDUeLf2Lb+TjabHraLMCQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XF+nHPGg;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A5likdyX;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.109
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795425058;
+	b=VQ/pE4FhVCtRdyg9Pg0bbkKPAQTro95zUrU4+6qqKhSEKYyO+vgywPRTM5YefebRUApF
+	 VKyfDYR7tnfGF3EGpq86MSjoiOxENRTdV748Ph5xmn6XGc4eLb+F32I2WHI3zAkPJg21Z
+	 915E/+Y4uv3dNbUuLP95pnvyreCgd1rzrrTHF5PK6DoTk1iNKwzZd7l668AjwBOV1suV1
+	 mUFe0ZoSDDjoaZc4pQx4A/rq6MIZ5u08y77l8fPEp7cSR9Iw/B4gdXeSJuhpF3a4kr+w6
+	 EVulYCNTSFg5OOTU0ah4pU/c2nUEViQXFtC/b+Z9SZjg3FQ6yY1hD7jcBVPfmeSvL4w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795425058;
+	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=2vR1bhDDylDCqnVideQPa1qxPGWB/4JKDRQDTkTHEq8=;
+	b=Mp4cPdnW0qmPJLqiBIYEEkyao0mHnu6swV2RJBZDshz29BYJhZ4YjA/MLg4vR8+V5e2B
+	 18ybxtNxLHD1KzUEN9xwlsmDi/PWqyhFkPOvks1oJxV0QUDvPP2lGxAqtdgNYpGvkXWgc
+	 Gy639ahM6XX3ta08+YUDOu9UN4DV1zUsGFSI8B7mI8NFARETeo+cWgPx7Bcdp1QR1mJ3D
+	 5BsCLyvN0pqes44I03eSaGFzoVKxS2T0891CN6dS0IupoIIib1+DsrVZ2eoQX/ybNqV4m
+	 vmBetnyTuhB2Tbkhp2ot2dfC5NpRrMrSQieC8l+TI/3Si88F1jBNSteY+AAs/wZUvRw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=starfivetech.com;
+	spf=pass smtp.mailfrom=starfivetech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.109
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2109.outbound.protection.partner.outlook.cn [139.219.146.109])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF54E606A31E
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:10:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF54E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XF+nHPGg;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A5likdyX
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN6Da461490191
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:10:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=uWN3Yvpy5H1
-	Xwl/eUnB/hc7fSA1UbaIaF8+Ya0MATec=; b=XF+nHPGgZcQvz+F0P0uwj/YAXHk
-	1ANFxBlXFoSkSNBdOJyYQjyRRucrkX8UzWGoHQM+4j8ZIW+QGYmS0S0Cw5B17/zK
-	7eKqu7lRK409eddAfO6WNQaDlJjZUK6ki+aIvGFtTIdyJOfrQMAC/yGFn+7DnWSS
-	+g4l/uJswVQasMplYuIq+6dN3m2tGk6JQi6h0tFwPew/Z1jmLMWDDGNdCDTJnDAU
-	hSm8k/YactCebhL1Ia/NdmTGqQsbPU9OEJbjArkuFCaioBsP6sEDRyjYog7TthYJ
-	wgTxI8q6AI0SK/GnHVDmCA6ZapoZA+2M7oqKkZDAC4LVLI+IGaiA3rEmHGg==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g1k0mgd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:10:38 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso5766860eec.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:10:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795425038; x=1796029838; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uWN3Yvpy5H1Xwl/eUnB/hc7fSA1UbaIaF8+Ya0MATec=;
-        b=A5likdyXQ3wJUm24F7K8hGy/Eotmi3MtaE+Xq/bHJuxPoymQJwvBomrqQFAuWgS1Vh
-         w2+Z+VVsu6U5NX+qLnhowS1naHZUSNmlGukPD+YRZoQi7W1z9o9OTea0ZC+T7w0MzIhs
-         rCIXbsSsAqTROBqjtOhdOVHocThTK+wfnsAoiIDqTvGkpO4LKX7XXu9Jstx/Y0Za0y2L
-         wRMLkvHzyZEsln16H1OjbL/yPHwnDRZiYUuObD4EG82KW8aPHpovBMlazHx0BB4YUkUY
-         njZaOLDQfAK1ZnqfeTgtiwmfj1ZOd/PLSArlwA5uDrn11Eu/M9uE3hJzwKMTrGUCGA+o
-         a8qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795425038; x=1796029838;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uWN3Yvpy5H1Xwl/eUnB/hc7fSA1UbaIaF8+Ya0MATec=;
-        b=NDC1kA2mT3ymapONy0QuCFtPp1YEtqLabSlKPSoilBxtA6UvOy+NOWjZNB8FwjgCTn
-         88ACfwjn+AescLvftvsRx15aUjED/tK7ZkBC0c4arGBCMBKYJMr0HM2DXgw70hGVjQH7
-         6qH+haSvrbURI+YxGuUh9Lr6mf1TaAW/UvCHwROvj0x4SPBwQAllyuYzEo9QBVAxZU/w
-         52sJKJDRV5rf0iCVkIClUpmmMOM8eKoy42G3lw94ufWlwIguteiXjHyIOjBPxngspwTK
-         0lVZ/nCO5I/mYxL5Kv63fsiCBcX/NEeF3kyW0UFGwD95K1oNPqIS0yAYEznfNqTJmH/h
-         MLmw==
-X-Forwarded-Encrypted: i=1; AL+hErGAq/GWPjAGuT/fwDC4BnUoYpsqehE8unXpuVHagR1N3zd0d4h4SY73QWedz5DgCLKP4ooVM9RUoxcN@vger.kernel.org
-X-Gm-Message-State: APuU4Z8EXEnMBUXcCeuUxi+ztre99WlAyDAjGR/o62/zusO75k/5GgB6
-	0b/tSKY2TtGe15ATK8xVCd9niNGHt+HRCeLP8z5s0d3zVMDw9z5Ad0wpD2a8lsEYLLOTUvDqLuq
-	UCr4Edk40j3C92oqUrG7aNgpfG/hLP4mKozcIpq3igLaZVMjymSnfA8nzhsRzoxbZ
-X-Gm-Gg: AZFdTZciWafNQL/dJv/eG3HuOZ21fiBS0E4Iek91CMKnbRsb80uVQYcHKQw1Q9UOYOr
-	V3zL1G23iHGcd/vNs2uOY3QVYTVa8Qs4fJ9XAa1nSBjp4ToRrv9n7uCe4XboMMlwihU+zlf13Bl
-	fyO4AYx/oLAkoAUz35T4k7DdPiPKBNGViJrCtt9QzN2jM4hT/JkQJdtZ3BUk80bGgEgb3TTUIq0
-	XcQLjxA97Hkg4vMOavo930Iog4U2DEyUL/iCt0RNmvAuK+OmHjrYtqaCLzWAR6zHl342oriLmB3
-	mWCkRT1jjytSzzA3FzoU9Aie+JPPf/gqOCL0VwcX0XhigSNJrr9fBgVDJH2FEkDajERIgeXUxHG
-	kwKxqgF5FqUrEcOSFJ1KkMSFCeI6PBFNZST6cpvDfG14C94deVvSMsC3rYQkDmdEfBphQO1I5Hy
-	frsw==
-X-Received: by 2002:a05:7300:1c95:b0:385:8851:fa4a with SMTP id 5a478bee46e88-385885211c2mr11249456eec.6.1795425037651;
-        Mon, 23 Nov 2026 01:10:37 -0800 (PST)
-X-Received: by 2002:a05:7300:1c95:b0:385:8851:fa4a with SMTP id 5a478bee46e88-385885211c2mr11249426eec.6.1795425037095;
-        Mon, 23 Nov 2026 01:10:37 -0800 (PST)
-Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385646633d0sm58687105eec.3.2026.11.23.01.10.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:10:36 -0800 (PST)
-From: Akash Kumar <akash.kumar@oss.qualcomm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: [PATCH v2 2/2] usb: typec: ucsi_ccg: Add CC orientation sensing via GPIO
-Date: Mon, 23 Nov 2026 14:40:24 +0530
-Message-ID: <20261123091024.2214918-3-akash.kumar@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261123091024.2214918-1-akash.kumar@oss.qualcomm.com>
-References: <20261123091024.2214918-1-akash.kumar@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372F8606A31E;
+	Mon, 23 Nov 2026 09:10:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 372F8606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B9HEwoLNLPHUESOYhImWzFg3snalHnpvZQQSUClCA4PEYrc5Nrcl8mps3kVf8j2/xnCEROJxzifN3XgbEEGHxmdXyrwUnIJbAcF5fLBHjKVzMY+LRQ6axns+bv9v/3z4avo3rnGH9bIRl8Dwy6MgPXCA8FJens4q1ZeRkj2j8ycEdVgjLQ9RWRjZz+9tEeWf+YFVw5BlhRmdd0Pcf6Mj0NvT0sA7j3Rd8aSooVy3/miXMuW4/tXfWjA5XwbHr44vAX09CLZhK4ftTsVl9S1ooWZVmkjH0f/In+n7MIRmAANqRJm32FLvXEq3eA1trWpL/NpQV4ORuUULyKKnSLBxdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2vR1bhDDylDCqnVideQPa1qxPGWB/4JKDRQDTkTHEq8=;
+ b=SjJxUcqFz2WZdXa/lL3Jf7KRTmA0cmO94m314brDYqTijxTJV7SNcpyI8bH0ByW0ajItd1en/ZYZTWdR6eUG5KLeKn36GdE2xKtsILoRxlDbQ1aHlNwFkI3wou+jvzgK+A4QVczLRhI4gLfJBx9U1DGG3WECuy2rS+WNP9gpVXxDZlvZ4EPIODf1D7sXXpvWl7Qh3/vUAcDdamVwsUWxVKjFMJEz1S/xafEgxyUe/Mbk65jUxuw+7woB8J6EhMgO8MP/eSXT/fT7q1KwnH68zFEHQOJ9EDb5JHq5ZpiSfQC/OCA41QKQvyIV/CSsjErIiN2yT4P9qbfsXNMzMBLFTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1234.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.19; Mon, 23 Nov
+ 2026 09:10:44 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%6])
+ with mapi id 15.21.0615.017; Mon, 23 Nov 2026 09:10:44 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Joel
+ Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Chia-Wei Wang <chiawei_wang@aspeedtech.com>, Oskar Senft <osk@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: Shuah Khan <skhan@linuxfoundation.org>, Jani Nikula
+	<jani.nikula@intel.com>, Vitaly Lubart <lubvital@gmail.com>, Hanjun Guo
+	<guohanjun@huawei.com>, Andrew Morton <akpm@linux-foundation.org>, Alexander
+ Usyskin <alexander.usyskin@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Breno
+ Leitao <leitao@debian.org>, Philipp Zabel <p.zabel@pengutronix.de>, James
+ Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>, Stephen
+ Hemminger <stephen@networkplumber.org>, Dave Penkler <dpenkler@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>, Jonathan Cameron <jic23@kernel.org>, Dan
+ Williams <djbw@kernel.org>, Mukesh Rathor <mrathor@linux.microsoft.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>, Alexandra Winter
+	<wintera@linux.ibm.com>, Julian Braha <julianbraha@gmail.com>, Karthikeyan KS
+	<karthiproffesional@gmail.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>
+Subject: Re: [PATCH v4 0/4] Add support for StarFive JHB100 UART Routing
+Thread-Topic: [PATCH v4 0/4] Add support for StarFive JHB100 UART Routing
+Thread-Index: AQHdX7GSpJ2Zeip1d026/L066K6O9bc7laXQ
+Date: Mon, 23 Nov 2026 09:10:44 +0000
+Message-ID:
+ <ZQ4PR01MB120270E5CFF0F70B1E71014DF2452@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20261019100643.49099-1-changhuang.liang@starfivetech.com>
+In-Reply-To: <20261019100643.49099-1-changhuang.liang@starfivetech.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1234:EE_
+x-ms-office365-filtering-correlation-id: 37262dd5-9c1e-4b92-443d-08df4941a79a
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|38070700021|10067099003|56012099006|261028144727099003|261102123227099003|261021135927099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261026140227099003|261026121527099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ lclvUU/q65351EqKN60B05CJ+WwcViVlYafDD4eM9hdg9dmusLXr/4P3JsP61YRJHq5c5C09OYp8lhCscO9EoJ3VNkE6gnnVP0lzJHxlFFoPAip5H28nUO3Ig0qXEv/Zax5KJ7lKbXzJAnMlwXODziiwAIpcsxDNLvrdH25QnPWhtYwm5TcxyGgGGpxj8rtMoz+RbjR7W7tB7+Bl17ycj5NORRZTFAgIdiFJJIhaspG/AohwVSRmuSrD8QBfmiIMh6Ngeq8td43nYwr3I+g05L6P7kEzaUYfzHty1ikNn4h4wEYSND1TBxtkyFFXo9JrtjY0FxprYGYNJFeN99Z3OvMCBUptatEJdoF8SYDAMHq+9thyAC0C2xp/zOHQMuy0l87guqwlzsMWS/Tv1ylJ65qai7EWSlafaZ5x1fOlsAmcvnWGCb5E8z6OYaPZuwZMkYEkzp3Sisi9DWDlsz1PzRdIWEyNQJ1PI2CNA6A9BAmCzUB5pQyszLZBzBEl+TI9sFOfS9dzOaTMNHai0wBgjqrzg8wWWuLdcCoBWxffASdIKQ7bGn78nxL2kLh5UBxE
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(38070700021)(10067099003)(56012099006)(261028144727099003)(261102123227099003)(261021135927099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?BfEovWpO6b9zcOiOjoQDrrruCMwn/G+grBsU+5dzt2Fa6eGLcf9q9c4OoF92?=
+ =?us-ascii?Q?gcbCqXkoRyoXj71JX+8z0YP15MpFojggcaLwQFwptZgsw0WReI6Dn8CV7QvK?=
+ =?us-ascii?Q?+KyBiDo8RujYRVprkXHgp3GIn+TMWU+GhTJ7jHdv5m9dPC8D2O0K7zL7QDBh?=
+ =?us-ascii?Q?CWd2nRscB1WfVlDAmOMl8IM0+nmAqm/TfZ49tJaL0VcDNPJXsKGsUOPzUNxF?=
+ =?us-ascii?Q?JQUpzGCVj6TZTyWCEphf2Usz8tB7bblCM//02ye6ES2lX5bpIJq+Ow4TNqF+?=
+ =?us-ascii?Q?4JlteOQS3D07vXfnz5ZJ74Evw12A0SVIzOvwyvN71Tv3uTWSisS5hDD4a0pF?=
+ =?us-ascii?Q?pp3N+hCELwIYk+FsHFH/2q7ABzmW4NskjW3Mp3wJs3myjk5OP4lCp632uzpH?=
+ =?us-ascii?Q?/Du/6NHd9MIZMa8syX7xTqD7RRWzhqZwJNrNfVUXChwawva+YhpvspCskZRv?=
+ =?us-ascii?Q?GhKfnylBGQ7/K31CzJ/b4qa9xg+SCCBHDz9NqERrn35uukX9p/kT8OTyas4G?=
+ =?us-ascii?Q?pxtnmYTLG4dLsJNoxy4mcO+rghGitNLDuP8kinx35/C7tgqv8+rRTqyI+mmo?=
+ =?us-ascii?Q?GFiJiiiwuG/jEHSFE9vey5K0htMR6c3+KsMBRvZQ2/LpYZUFYM0nkgY0V5jQ?=
+ =?us-ascii?Q?vPQWEeUfIWKTzAb0oKu30/9GPsYdA7dXN7Ye6mK9tfjPHVGWafIGtTZ/gU/f?=
+ =?us-ascii?Q?EcnD13s1R+kn5nPBmpBbEwgW7xuAZD1RQcjcUZ/wQgMHf44AGl1OiAAOWq69?=
+ =?us-ascii?Q?Asl1vRhLX2FY7fcEWHa51ejrkEAIESJpvGXKtUbtQZFkLywv8p4tIF6vmfQ8?=
+ =?us-ascii?Q?ivtRoWWEuwDA/hrFAFJQpHJXXqk0n3OtQYB9WaYb9pOS8bq7mj04iuJWg6VO?=
+ =?us-ascii?Q?rQzHI8q5NE4zTxkWMjGHZDGbpsDserKliGASVDXXPApksZBsLuYMMJOtCSDC?=
+ =?us-ascii?Q?sVYNEQmat1MrnZzCqHUp9htpyRIIvEO/7uF133D1X+x+b5dgVbiXOAhFTmOY?=
+ =?us-ascii?Q?gTZIyHzBdFxaIn899z3w9A2yVPoeq8h9wGyC8AQ9qJC+EU8TATAEOfjHiUuK?=
+ =?us-ascii?Q?/ZqJyN3Q8zn0zyYFXIkn7/qzEmS618JwIOhlxoTKsF1++9DsVMZIRWxkmOPj?=
+ =?us-ascii?Q?B95imfqCTMTPJz5rGEJal0ialCmbM15lnyiKsj5eopE9frl8jikim712ipKy?=
+ =?us-ascii?Q?11yMR0t3Pe8HTOn+qnkITrp7U/SZgjYfOTl4JBMcfXtujMgJJgc9IKOLpWeB?=
+ =?us-ascii?Q?xP5hbKLmRosR7nbYGcxwBIMyjjR+DFu4kLwG0gcVJzK7px2p122tg7tr0vZG?=
+ =?us-ascii?Q?agk7ytHeRBpADGdDDZ5WOuFomPrB+wxMRplf1MudgsO+n8J9ZRbigdsmEX3s?=
+ =?us-ascii?Q?5M7p9Rf3dSKBwEBUJhykuY0qecP+AcNhRKsMvgKARfEgqI0phXtoxTwJh2QR?=
+ =?us-ascii?Q?0Yls1Yy1SRM+UEpYsxm9bkxrh+VBJ2RHUyM3QhimWQqyZiYZgIOXuAswg6aS?=
+ =?us-ascii?Q?8ShILoPB9lfP3CyUH9kCwPI1UMdJ5OP/abLF139ePdn5mz0nqkd2XG9PJ2/Z?=
+ =?us-ascii?Q?+3f8n98wl3JFlD/dZTSFIbyxeBfImRlx8JxAv5CkkG9zApUOOLbYMe1qryYJ?=
+ =?us-ascii?Q?V41PKM8tfGTU/NmsALKrHsZZFs5Mdfl6BIP1P8U/hZyIZ1tjhkV9A5SOLaCv?=
+ =?us-ascii?Q?H6Gj/0Hp7yzKhI/cOdgChkEZNv8g0VSlmKwKS5HWABS4BgRJy5Ybb3LDyrBU?=
+ =?us-ascii?Q?tp7OBHAXsZelNwCMmCuztVIVznF1WV8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,186 +154,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAzNiBTYWx0ZWRfX2TukxE4CyzXy
- vTMdgjmxRNzIpuMp4RvXUK0ohfizJBd2IN1E+yX1ZrbEJ8R08LDYHuCSDnsGtHJcBRgj2eJwnKe
- V5AiIMvssF2ZjcspGFwnZFs5i3tY34w=
-X-Proofpoint-GUID: fDKjbDzisKkbWU12nCvh31HwBrukI5p0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAzNiBTYWx0ZWRfX63HPUTYgK0pe
- uirJfZ9mka56LIab5NXqnCup7siqOspI+WI2uE/6Q/yRfCwRFhcv4n9v/HBDYrWLPLGcjeuT6t3
- eanmcMNC9daq9YZhd64OKlPZsCLOvRQK+BK3EoH2FHz8Hu5+vw7NJpW5qCBLIFzSRDhjTxCLkpC
- +Ze53zBNblfFbkJuTLnxy/D7qsBspoptlAvhf5IIGNJ7koXUtbxjoM1Hdf8L9vnKyTekx0I21af
- pyAv7x7RLPlUCpifQE3ay6kvpC7Y8nfAKks/far82jBE8fHok1IfLnvagttpCt91HCRIxRoRQSN
- ivyizavIQermo0oMqvPNcT9iPNL5vCVZzCntgJqoIVEAs3xMR233xJjkQBEkTHFoTRMymj7N2IB
- +1HMwrCsY15UXNZhvxk7lq6FsDGVNI2O9kdhIWND4cDoVdE5zPxQm0+wvRi2N9aynIdJO+3IEEW
- zRBm1YbpoPFP/pI/dGA==
-X-Proofpoint-ORIG-GUID: fDKjbDzisKkbWU12nCvh31HwBrukI5p0
-X-Authority-Analysis: v=2.4 cv=cpIOAF4i c=1 sm=1 tr=0 ts=6b04030e cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=MKUcqzDF7wo3NqxITeYA:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_01,2026-11-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 spamscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230036
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37262dd5-9c1e-4b92-443d-08df4941a79a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2026 09:10:44.3391
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: F3ZeLeAESbsog/go4/c9y9xB+YCaHaeH3Fe0V72DziaGUqgki2GMZ+cyQBwZFw0n0MeqSEhoL2UQkIqrb0x4U3xZ+20SzSC5C+K6kpLiqrKjVALW+vSONKmJHHqqMRhk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1234
 
-The CCGx chip has no HPI register exposing CC polarity, so there is
-no way for the driver to report typec_cap.orientation_aware or call
-typec_set_orientation() from UCSI status alone. On boards that wire
-a sense line to the connector, pick it up via the orientation-gpios
-property and use it to report orientation.
+Hello, Aspeed colleagues,
 
-Acquire an optional "orientation" GPIO for each connector child node
-in ucsi_ccg_probe(), indexed by the connector's reg property. Add
-update_connector and connector_status ops that mark the connector
-orientation_aware when a GPIO is present, and drive
-typec_set_orientation() from the GPIO value while connected.
+> Currently, since Aspeed also has a similar driver, there is some code wit=
+h
+> identical structures on both sides, but a common framework is lacking.
+> Therefore, this series introduces a generic UART routing framework. It al=
+so
+> moves aspeed-uart-routing.c under this generic framework and makes it use
+> the interfaces provided by the generic framework. At the same time, StarF=
+ive
+> also registers its own driver based on this generic framework.
+>=20
+> StarFive JHB100 UART Routing allows dynamic routing of inputs between
+> built-in UARTs and physical serial I/O ports, enabling use cases such as =
+Host <->
+> BMC communication via UARTs.
+>=20
+> This series has been tested on the EVB1 board.
+>=20
+> changes since v3:
+>=20
+> PATCH 1:
+> - Use dev_get/set_drvdata() to obtain struct uart_routing * to avoid
+>   null-ptr-deref issues.
+> - Update uart-routing.rst: since dev_set_drvdata() is now used by the
+>   framework, remind the SoC driver side not to use dev_set_drvdata().
+>=20
+> PATCH 3:
+> - Add Rob's "Reviewed-by" tag.
+>=20
+> v3:
+> https://lore.kernel.org/all/20260925050947.9900-1-changhuang.liang@star
+> fivetech.com/
+> v2:
+> https://lore.kernel.org/all/20260905102901.126035-1-changhuang.liang@st
+> arfivetech.com/
+> v1:
+> https://lore.kernel.org/all/20260830065118.51551-1-changhuang.liang@star
+> fivetech.com/
+>=20
+> Changhuang Liang (4):
+>   uart-routing: Add common UART routing framework
+>   soc: aspeed: Move UART routing driver to drivers/uart-routing
+>   dt-bindings: soc: starfive: Add StarFive JHB100 UART routing
+>   uart-routing: Add UART Routing driver for StarFive JHB100 SoC
 
-Signed-off-by: Akash Kumar <akash.kumar@oss.qualcomm.com>
----
-Changes in v2:
-- Return early when the GPIO read fails instead of wrapping
-  typec_set_orientation() in a positive-case conditional, avoiding the
-  wrapped ternary continuation lines entirely (Heikki Krogerus).
+Could someone help to test this series? Thank you very much.
 
- drivers/usb/typec/ucsi/ucsi_ccg.c | 77 ++++++++++++++++++++++++++++++-
- 1 file changed, 76 insertions(+), 1 deletion(-)
+>  .../sysfs-driver-starfive-uart-routing        |  49 ++
+>  .../soc/starfive/starfive,uart-routing.yaml   |  46 ++
+>  Documentation/driver-api/index.rst            |   1 +
+>  Documentation/driver-api/uart-routing.rst     | 144 +++++
+>  MAINTAINERS                                   |  25 +
+>  drivers/Kconfig                               |   2 +
+>  drivers/Makefile                              |   1 +
+>  drivers/soc/aspeed/Kconfig                    |  10 -
+>  drivers/soc/aspeed/Makefile                   |   1 -
+>  drivers/soc/aspeed/aspeed-uart-routing.c      | 601 ------------------
+>  drivers/uart-routing/Kconfig                  |  45 ++
+>  drivers/uart-routing/Makefile                 |   5 +
+>  drivers/uart-routing/aspeed-uart-routing.c    | 415 ++++++++++++
+>  drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++
+>  drivers/uart-routing/uart-routing.c           | 183 ++++++
+>  drivers/uart-routing/uart-routing.h           |  84 +++
+>  16 files changed, 1192 insertions(+), 612 deletions(-)  create mode 1006=
+44
+> Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
+>  create mode 100644
+> Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
+>  create mode 100644 Documentation/driver-api/uart-routing.rst
+>  delete mode 100644 drivers/soc/aspeed/aspeed-uart-routing.c
+>  create mode 100644 drivers/uart-routing/Kconfig  create mode 100644
+> drivers/uart-routing/Makefile  create mode 100644
+> drivers/uart-routing/aspeed-uart-routing.c
+>  create mode 100644 drivers/uart-routing/starfive-uart-routing.c
+>  create mode 100644 drivers/uart-routing/uart-routing.c
+>  create mode 100644 drivers/uart-routing/uart-routing.h
+>=20
+> --
+> 2.25.1
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
-index c560d4539302..06c536d87694 100644
---- a/drivers/usb/typec/ucsi/ucsi_ccg.c
-+++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
-@@ -10,6 +10,7 @@
- #include <linux/acpi.h>
- #include <linux/delay.h>
- #include <linux/firmware.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/hex.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
-@@ -17,6 +18,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm.h>
- #include <linux/pm_runtime.h>
-+#include <linux/property.h>
- #include <linux/usb/typec_dp.h>
- 
- #include <linux/unaligned.h>
-@@ -201,6 +203,9 @@ struct op_region {
- 	__le32 message_in[CCGX_MESSAGE_IN_MAX];
- };
- 
-+/* CCGx can expose at most 2 PD ports per chip */
-+#define CCG_MAX_PORTS 2
-+
- struct ucsi_ccg {
- 	struct device *dev;
- 	struct ucsi *ucsi;
-@@ -235,6 +240,15 @@ struct ucsi_ccg {
- 	 */
- 	spinlock_t op_lock;
- 	struct op_region op_data;
-+
-+	/*
-+	 * Optional per-connector CC-orientation GPIO ("orientation-gpios"
-+	 * on the controller node). Not part of the UCSI spec's connector
-+	 * status - the CCGx chip has no HPI register exposing CC polarity,
-+	 * so orientation must come from a board-level sense line if one
-+	 * exists. Left NULL (orientation_aware stays false) when absent.
-+	 */
-+	struct gpio_desc *orientation_gpio[CCG_MAX_PORTS];
- };
- 
- static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
-@@ -694,6 +708,37 @@ static int ucsi_ccg_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
- 	return ret;
- }
- 
-+static void ucsi_ccg_update_connector(struct ucsi_connector *con)
-+{
-+	struct ucsi_ccg *uc = ucsi_get_drvdata(con->ucsi);
-+
-+	if (con->num > CCG_MAX_PORTS || !uc->orientation_gpio[con->num - 1])
-+		return;
-+
-+	con->typec_cap.orientation_aware = true;
-+}
-+
-+static void ucsi_ccg_connector_status(struct ucsi_connector *con)
-+{
-+	struct ucsi_ccg *uc = ucsi_get_drvdata(con->ucsi);
-+	int orientation;
-+
-+	if (!UCSI_CONSTAT(con, CONNECTED)) {
-+		typec_set_orientation(con->port, TYPEC_ORIENTATION_NONE);
-+		return;
-+	}
-+
-+	if (con->num > CCG_MAX_PORTS || !uc->orientation_gpio[con->num - 1])
-+		return;
-+
-+	orientation = gpiod_get_value_cansleep(uc->orientation_gpio[con->num - 1]);
-+	if (orientation < 0)
-+		return;
-+
-+	typec_set_orientation(con->port, orientation ? TYPEC_ORIENTATION_REVERSE :
-+							TYPEC_ORIENTATION_NORMAL);
-+}
-+
- static const struct ucsi_operations ucsi_ccg_ops = {
- 	.read_version = ucsi_ccg_read_version,
- 	.read_cci = ucsi_ccg_read_cci,
-@@ -701,7 +746,9 @@ static const struct ucsi_operations ucsi_ccg_ops = {
- 	.read_message_in = ucsi_ccg_read_message_in,
- 	.sync_control = ucsi_ccg_sync_control,
- 	.async_control = ucsi_ccg_async_control,
--	.update_altmodes = ucsi_ccg_update_altmodes
-+	.update_altmodes = ucsi_ccg_update_altmodes,
-+	.update_connector = ucsi_ccg_update_connector,
-+	.connector_status = ucsi_ccg_connector_status,
- };
- 
- static irqreturn_t ccg_irq_handler(int irq, void *data)
-@@ -1506,6 +1553,34 @@ static int ucsi_ccg_probe(struct i2c_client *client)
- 	if (uc->info.mode & CCG_DEVINFO_PDPORTS_MASK)
- 		uc->port_num++;
- 
-+	device_for_each_child_node_scoped(dev, fwnode) {
-+		struct gpio_desc *desc;
-+		u32 port;
-+
-+		status = fwnode_property_read_u32(fwnode, "reg", &port);
-+		if (status < 0) {
-+			dev_err(dev, "missing reg property of %pOFn\n", fwnode);
-+			return status;
-+		}
-+
-+		if (port >= CCG_MAX_PORTS) {
-+			dev_warn(dev, "invalid connector number, ignoring\n");
-+			continue;
-+		}
-+
-+		desc = devm_gpiod_get_index_optional(dev, "orientation", port, GPIOD_IN);
-+
-+		/* If GPIO isn't found, continue */
-+		if (!desc)
-+			continue;
-+
-+		if (IS_ERR(desc))
-+			return dev_err_probe(dev, PTR_ERR(desc),
-+					      "unable to acquire orientation gpio\n");
-+
-+		uc->orientation_gpio[port] = desc;
-+	}
-+
- 	uc->ucsi = ucsi_create(dev, &ucsi_ccg_ops);
- 	if (IS_ERR(uc->ucsi))
- 		return PTR_ERR(uc->ucsi);
--- 
-2.43.0
+Best Regards,
+Changhuang
 
