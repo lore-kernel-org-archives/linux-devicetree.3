@@ -1,110 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795426526;
-	b=sIrK1I4uROqHBBlMl+azOk0drvXo9xrLO5+F7HrZPX+gsodXOG3XidfymLVsb3TQ6wzW
-	 yjIKgNGPh/mdoEpx/WGtkGlUprOn7c36WpYrEjuBp/2m8G+CPDQ4yxvCc3TDo6xnOVfFB
-	 hHJexpqWZaLVr063Rwajm+Me0kMIucCey3ovGkvHGDMWsZ/G9fg/xvWzfGfZ6v47VrHWc
-	 teXnFuOm8kTbBF1z5zP0UaDColp3+J1BHzg96Qeg6GwOtBn3wyRF/UdK0Qv3Q2lK+Al5U
-	 DyQ0ZFSrI7aE/ZR8Jt6qiWR1+7GBEMSXkD+zL6QGYkGTf+yvU3X/BUFH7fJ5che1Orw==
+	t=1795426529;
+	b=ZSyIFYAORQ69g+s7fE2pJgWiIpXrlMfkuyZNNcRL1YS428IE9G/VBjEFqNdeNjiVDcZY
+	 MQs5gd9A1zNrAID5eVJrotAl6W3M6bXMmCQEBeR5l9810v3izuhsocsyXcrvmGKBzFOvK
+	 JQWigseUcghJ0SyDzTAv+d6whGR2sgTsmqbl4IVowxrKl7u3hDMpPpDqxIrjpruDmDnPn
+	 2J8c43De5P149Xsfpg84VMZuVH4ie0SoO0t/afs4C/zvpirdjOYxJy1T3ukcPsGVZXmGt
+	 JGAATV6Cie8e0ewWDs9Usbuia9+AqFZ/Tz+Wy0msJPJZvMBncfeG/SFFb56j7ilOWtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795426526;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795426529;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
 	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=KU0CqrOg+I+DA/52+PGJIa4IqUvI00bQBx1czwXomuI=;
-	b=PW7wYBAkB6KFeA1yAKAtnEYofhzAzOljiuNbonfdTm4kWGcqJFVd7K35v/UzdhP4mZR0
-	 +zJHvMjDhKMzv+pKInODtSBZ61Lp21HTFJGfhviuKJAgxFdy3JeKqsQ1ne2hl3qmExduW
-	 j070zS2u57uPlEejwVIQezi3xCM3ht1zfj5tXgnIFTDT0hu+DC+JB1YdJ9uU/bUHmYvys
-	 mKKamUOOFjTvIxECcGMF0sPZaQZwqNQ1sqG1hzvH/Ali/f6aiqvOPyewlNc+boyaM7vxX
-	 Q4kq72hTZBn4ErDIyK5pmG6xWIuzHveSOGn1HXBowecfPYBdy4aMNbvTpNMY4FHEMXA==
+	bh=oV9VuRdK6ONpbV2klv7+p4PYnqvjzSVu5fAJ64E0vY0=;
+	b=BmBZ6jkmeeumwqbs/t3f0FqpfqPTr1yyHu2K9zK6pPXaoJ9wf7CDnGo18kzjMoh9XYd6
+	 BZhkousnTpHdHoAYTzscI2imsUGvMwoJ+/pZJ3lmmDwaAe57JTH88DymljXCBaHdY6fOj
+	 GbbuO27bJS1GL45tRDvdLORYGqtx0XK2BdYzvit1NxkWlatnyY9gem0LMJZUSdyzZGKod
+	 lLgMVJw1El72Opl1wGR3ee0Pq7lYISME+Y7OG0oZ+8AzttW/lUq7juSvhs5SjJK2iO6pu
+	 a2lh7YrpUEUNDH56V+W4/05TycjZ/h/QPWAX6FktOKckoszc98cYTZPvWMZzR/XhG4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FZ+fB9Yw;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GRlBPVGM;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=klM0VC7n;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bne1y5iX;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73C5606A31F
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E73C5606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C4C606A33F
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16C4C606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FZ+fB9Yw;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GRlBPVGM
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9FuFe1395912
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:25 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=klM0VC7n;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bne1y5iX
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9G2ev1428507
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KU0CqrOg+I+DA/52+PGJIa4IqUvI00bQBx1czwXomuI=; b=FZ+fB9YwwOl7Z56Z
-	SwqQQ8THaWDWGaJJcIiAcFbnaXqBV6uco2lBY9V2oKQ5y8A3p2t+B3DOKCnzioCJ
-	zXmabR+Z4WvOC6aFJjF109/4RH40+EKGJax7gA0v9wWTri6v0Ce1poJarfce789C
-	7qyJ1lHF6tHSSV9QH0FCRx++hiZgLlvXxeUOKf/oWhfCLXDbNoPj/48ZTx/Ut8ym
-	vT5pQCFZaqwqQj2Jf66JafYROwGHQdpf1snyPk8DX36W6NHvABKi1Pzwqxb5obTV
-	35cs0mONSkHgrmFCHAZ1nuvPmX3NQTfBBvEyGS9L0qGENPnjg9ARNu8v2BTB+1iH
-	YFKbDA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4exx0xwd-1
+	oV9VuRdK6ONpbV2klv7+p4PYnqvjzSVu5fAJ64E0vY0=; b=klM0VC7n5WRwCXuB
+	EQf9P/2I+ANssHYZaCv3O75CyHJoto8SufPuBwhVDZW7pbl3eMf0f+JanYoiVP+/
+	VkDqYRKO4fQauZa87/EPXhT1u/KM2m/cwLhlr29WB3NVp2Ze5P5TCcqyZO64z7Hn
+	ajlRZbW92F13HxcU0/3Y3fjaiZ84E6rvIeTZvpSO2RT6lUixrvE00IMIDR+AAvhB
+	CBZkBDqHtwPtaj1BaUVabYKU4+100NtxWqLjxeeLIMkp4u/5d5Sgtwr8amDUIBBv
+	w1rlvq26zzTjP/3cOH8W6RjjshfY2+aMkJDJthZn2HzC1NAYO78tsHcxsrSIux1C
+	utyl9A==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4fyh0qke-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:25 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-947a607ec40so290685685a.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:35:24 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:26 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-948d83322f6so501526185a.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:35:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795426524; x=1796031324; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795426526; x=1796031326; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KU0CqrOg+I+DA/52+PGJIa4IqUvI00bQBx1czwXomuI=;
-        b=GRlBPVGM5euRKBOh+VjQ/m6yUIMVY52aylcuFXAcbaKiUa5ul+5mGZ28JZ3clrEn2j
-         6X8HWv5/OYCCRMY5GxFCmbgpXaSakQm8txlWCumzfuHYK9MMZV5KSUJUZ5vypipP2RNs
-         Ln/GO0H9+HfRiQcWleKZ20QPlXxrk3TqXOJrlKNIADV0Kt/IrTDiu5/ACBi+mdNUWEHr
-         EBSvLCceXo/gWnEtqiiOdG5T2IyOic+nyuSfZrJe+KUBfD6ocamPEIrRYWAmNRBkH9Wl
-         euvIJ31ADm2bH/Wcr8ye3Q8xVUrnouUZIWJCDSSOBS2MoogjDAUxEwlsLfInPUl4UItM
-         PwAw==
+        bh=oV9VuRdK6ONpbV2klv7+p4PYnqvjzSVu5fAJ64E0vY0=;
+        b=bne1y5iXEcTwKVntWPcxG+uHgyiI2Cvmb7Rgo/TeDDKq0Wmec4NBT/G+H6ar9O/56h
+         C8ZzkSj+EFxKI3E+utNblJqc1zAyzx0fehtrszvvWIkSO5xNVK7XY1+nmDr1qcBn8747
+         Hhi3sB2mDKNTsZ/MYbkEtqzdmD2rIslB2CuQxU8sWj1hxMAPe10EDoFxK2ET9oWd3vtk
+         P+Vqffeksk2dpCA10o4l2YgWekyVnrsbGJrU/Cstvs8wrd080MRX+heieQstxZz6cwsc
+         guhPwUHLuhSrs779TZrsmvdTLgrlPBW8RaDe9doNwlY+LBmPDYqwqiA4Nz1P70L32wEl
+         NJVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795426524; x=1796031324;
+        d=1e100.net; s=20260707; t=1795426526; x=1796031326;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KU0CqrOg+I+DA/52+PGJIa4IqUvI00bQBx1czwXomuI=;
-        b=Cr3yl3rG2GKBvyXuvX3MvwLSR2ua8n5rl95lMz4jy+/bvM7ICg82H/FCP4XLm3LBAa
-         7IEiuUGMBFGaBdtq/AWaOorQez+RIcxZhe/b+UomEEIqVR4B7UszRw9E/7zvSJ1ZTbZL
-         ic57bIXfORWkukMljdI7XAdduQYnTKon5/Ib3WDkiq8M19R+ckTX1LE5TXuefW8FDymR
-         07F85RpmwFWRA6o6UL80ESkqwN00BN0yCJScuxhtdLp0FU5gKzt1kQc2Z3hEentYseFf
-         rmgtL3E2OCRTbgRCzvrGA7ZRwBjOWTYIX8zItp7mzKnGzKijtn7JlX5syw/FgL2FJpmb
-         J8WQ==
-X-Gm-Message-State: APuU4Z/R+HnXbl2g2HE6pGooGbxFqOnaWWmXgSQC3yad1nrohJHzAr6E
-	+IegqRUNGNkgoE+EJHkbIEWzD4ZG/EKqHac/2HcC/O0bzeMjvOYjNfrSDRpAjj0uGAEjOFuncP5
-	hj35ZcALGaE/X715bNWrLauu4Uabh505gj7bHEUAI4YePYcM7gBmxf0keUak+V5xx
-X-Gm-Gg: AZFdTZc4jlSsYCz8Tk6Vm8Tdv1ywJPVqiwVinROK9c2QaPUYsQX6CrjNmf8NmGcNL81
-	+2siJnaFQTtV8U1bYH41KEhqRi+h1iLyh7ZDQAfh62tSbun7mFME88brBDUf2YYFgoMVIuEa0mH
-	kC5PG26gODlsroxCoZ4z2LIRbV9itsuYfM0hGI3eTSvxIhGZ9PH0pZfE/zhfYAAfasRuVfS22Jt
-	xjDxwxELu3MhQaStDcSX/nLJcHQxrVdzG8e7qabi3a4SwwhrlRFQy1VaQt/iZsP1pejmEeOc1+6
-	mX5P4XObzedcR6djTLBcif9S+WLDSODsEdOVoHOy8OtFQv/YWQLxEtx8y+mXMg4THnWe+62zjWB
-	CttRbwH1qn70nHHRHNEzgB7S2HkHwAJn9hz8q8EIZYrl2QtDYEHz/hc07rQ==
-X-Received: by 2002:a05:620a:4446:b0:949:70f1:de2f with SMTP id af79cd13be357-949ba8260f2mr1723262285a.8.1795426523964;
-        Mon, 23 Nov 2026 01:35:23 -0800 (PST)
-X-Received: by 2002:a05:620a:4446:b0:949:70f1:de2f with SMTP id af79cd13be357-949ba8260f2mr1723257785a.8.1795426523323;
-        Mon, 23 Nov 2026 01:35:23 -0800 (PST)
+        bh=oV9VuRdK6ONpbV2klv7+p4PYnqvjzSVu5fAJ64E0vY0=;
+        b=PASgU+j3xIGYb1khiwz+2pME1ylhnfBd0st5Az8R3PMhs7fcYp6ZdYDD4n0qQgExV2
+         MvX7xFFyMmgXw7ozB+Ea0IvGKhsQQtqu8esCg/6iBjGnlEFJmiv/q+PGKBI7cWSpKpEg
+         Q19a0NYu9Di4S0kKk9QNqnQUMPSUJYvapEnKf7ZZ655KPu0afS0FbXpYn4I7/FX4UAcc
+         P4IkQPtbCA+TX50iPGXZvXsATk1Mmjto6ndpnNZsNGhOSI/h7AO2sEqUB93crWK0R6Kq
+         xWOVgrV3LKlJKXftZFuvQ30sg69NhpVWr1VhSMXnIxrNFbJa26mEdVlZZ2mMpP+gjVyA
+         w/lQ==
+X-Gm-Message-State: APuU4Z9AVyuAxIreNAR15zgKV+qi5RSx92JzktK4pIwNpBMj/XD6Wmjr
+	l3sedV+2SE8OP45nDSFOmae2Zxshyjdwcm8bwSeoUTWVFQMwEqiwEZn1rh5c9kvOrtJ5a2jV7SI
+	MwZx/foLw7rZl2rwy+1aa0Ggq5lkBJ9fMPnMO2C9YWi3s+1te/iDZP2cvvbtaBMto
+X-Gm-Gg: AZFdTZewwaD0VIEoybHyyLzcby7fxGSWCZgixQxHZXurvJsyR9d+4ejkKpx1I8U6FSQ
+	NpR8AY6RCkhMuDPVX0Cxno/G1UC3F90NASPU5NzZW39j1JuOjIpZWsTmXf44whm/RBNYSWXgQax
+	VYwt6hENlto1tFuGfUdPi5w2wTRasOCoCJDyiBlymGLlsYg+YoggOi4Ub3c0T0frpNJAsFoXAjy
+	7xeqmBVebUHFpw9mU9xvv712HiFyCc0lP2zrtmktDtgFWOpmf6Si9V+g503PpdsksusZXh5m+wB
+	uRTzJN9UE5pZQr2PGwNOsXsM6ubCipD/mqP4z2DUMhsbUc52taU/BXiSPTOTcZNN+HRWo3wZrdq
+	MHRE58RSnYgpBYt6bkJZlz6lh3m8f/fpMlpJTbJ0GQqRzi2R1djZnyjn8RQ==
+X-Received: by 2002:a05:620a:4110:b0:949:a690:d9c3 with SMTP id af79cd13be357-949bab39bacmr1826863385a.62.1795426525958;
+        Mon, 23 Nov 2026 01:35:25 -0800 (PST)
+X-Received: by 2002:a05:620a:4110:b0:949:a690:d9c3 with SMTP id af79cd13be357-949bab39bacmr1826859585a.62.1795426525288;
+        Mon, 23 Nov 2026 01:35:25 -0800 (PST)
 Received: from [127.0.1.1] ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8960068fsm123208315e9.4.2026.11.23.01.35.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8960068fsm123208315e9.4.2026.11.23.01.35.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:35:22 -0800 (PST)
+        Mon, 23 Nov 2026 01:35:24 -0800 (PST)
 From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 11:35:14 +0200
-Subject: [PATCH v2 1/4] dt-bindings: embedded-controller:
- lenovo,thinkpad-t14s-ec: Add Gen 7 support
+Date: Mon, 23 Nov 2026 11:35:15 +0200
+Subject: [PATCH v2 2/4] platform: arm64: lenovo-thinkpad-t14s: Add Gen 7 EC
+ support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,7 +116,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-t14s-gen7-ec-v2-1-3420a6202366@oss.qualcomm.com>
+Message-Id: <20261123-t14s-gen7-ec-v2-2-3420a6202366@oss.qualcomm.com>
 References: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
 In-Reply-To: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
 To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -129,81 +129,441 @@ To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
         Abel Vesa <abelvesa@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Hans de Goede <johannes.goede@oss.qualcomm.com>,
         Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1121;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13361;
  i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=aW/Ws2tcO1sy5bYtB2QMD9F+QpXYhZTfqTiGgY5aZZw=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBrBAjTZo2x+nFetcp/vZWh5OUfrT/X2LS3oAmUh
- a+YqdMfBZCJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCawQI0wAKCRAbX0TJAJUV
- ViA+D/9AIYpciGbl2CH361KLQrGAlgpvHSNrjn/Fpn8HtxTv6jdjj8tpKpHv2tZf9BUR8nNQGr7
- uT5BI/ONMTqdWu9UTQ/bo5X5aklNg8SLS5NXHjUYth+1ZV/fifVBGOkWjDfICtuLMwN67tWUsZO
- gOtlYu1odRhvJ+l98QDXFIFOuZAinvMsyLMPTuapUrils36EGR923a9LszGOfoTM6IupbJOxvOS
- ERIWVgiPFJ1BvpfIypqjbbM5ercI9lz+z3Ix2mT0DJp/XgpReU0HNeVinkGB3HF4mAJgV5oe1C0
- IWpdFmWc1n7xi6Qu1ku+CYbnG2c9dt9cjHZ+2KkEnF54u1pVfVKANsWE8BDrY4I7ff64lYGjR28
- 07weAb+ObQS0mYbbaS+9Hu3XUveGAiq9W6jDehs7Egrh5b3AE63SlHKLcVyLCPtGwjvhBsX/DOQ
- 9BCo0sTNP/l/JIQQgN34LKBkYHb7gDGFAfxGNBCpaw1TNk4EwPh32Nl44j0wi+1dlriPxHy/h7k
- TDTlgzNfwdQE/Kr8+5x51HmH4JoYm4Y1svWj0CiyYF+hrP4Y7xSzie+hbzF2Cirm9lSfEb7i/UI
- SUGcf7W74pcUluJ7bUv3SEk8EdSQZehnn8ljC4Y5BcOGmfke25Zo3OwnnqP8SVQkkRJzECimzXs
- /3VWrBZENrk3U+A==
+ bh=yGa5C80ljqDLGRmToCiT2awM6F5pIsm6qxz+zCwB+uI=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBrBAjUHzjafGA12NLrrZJiKrZISB/LMRHyr+SQF
+ Locdo3iMdyJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCawQI1AAKCRAbX0TJAJUV
+ VvHgD/9a8qQj1UCKFlXsoeOfJmYEzTTzWioy03h4wInP3FiEVrY/FptjZ7bzL31dGnmrqi3UOly
+ XoO7dyWGzQk4678GL2mCw9dlcyvLDDCSnPcDqNpT6RnR5oABoeFw9QFZBqXOZYP8L5j36rSmK4f
+ IRGKuP0J5iWkXYFBNiPirW/dwqBfXMygd2ELlpZmWPKCIuri41iKmqjFObm5BvHftkeVpFcUros
+ pXzqkaDjARZR3kzazcjHoc5TdfRAkTyLKV2CYkr8zYpO8f9chKGFIbXAn3MHS7SOQKStYkdfbns
+ Y8hRL23W5gOF/sKVI+wKJcMrIrzja9D/IhJgyx3kgOHCxAiaDDZ0QCX63nsPTWsim1WIB4YUSNE
+ hRCB0qA3rmsEHQbHf8E/iHvM5/YirsU0J5R2hS6JzeLO4UmI3jUA9jKRqcy4EA1dBPLKR4nJ4cm
+ +ZRgLB+1liQiEX/q9n91RbmcC7tkX5Yw4PBqLmPg96VM4H0oLNeKCqrtgqPBJy+0wCRz3zFd+vZ
+ mnyDDyXYISEr0Pivm99QS52+ar1YJteHj8RDsnajKPdi/MpJlSTIxkvBPlZSRhVaoYSRmtE225I
+ 7hAWjdbZGe+ZkwlH8wY2lgvAovvaSocWLjdEUyYXWM0kQDaZphTAh6p9QIarTVZbTfV0y2HB30m
+ HH2v1/q39OixxCg==
 X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
  fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Authority-Analysis: v=2.4 cv=FKKOVOos c=1 sm=1 tr=0 ts=6b0408dd cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+X-Authority-Analysis: v=2.4 cv=NM1AaE6g c=1 sm=1 tr=0 ts=6b0408de cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=uZMt55wJAR8SEHwxpHMA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: dZZGdpnWvyd8eJ0nMdbM1lZ0QbAeAkdI
-X-Proofpoint-GUID: dZZGdpnWvyd8eJ0nMdbM1lZ0QbAeAkdI
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfX4kRuvwZZloPW
- 1Z/rSVpFiPPMUGv6wZtE0IEVuCyd22HWyZ612/hCw05XBYngOmEtId3RPoh/BCVY2qqffEoYu9R
- bFRBLAdgxIadwjMLaT/p8AqQmKXb0fM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfX967w/yHUnkax
- P9ss+t+fD+bpei8ajG45X2drtn/jj1U/iR/mDLMtyz0cmXJLUf6aPBtkXPR5ks6vQt86LnwXPkF
- kR7084F0SYnmrkQ9EN47pbDCSOxGqYXUcZ2VTgnwMxRwoVXl2EC4FlPvoulxSLbnV9BEB4f82PW
- NwfMnWFXLw9XgZSq7w1/iKmsvG7VmCu7HbxezW/c4HzNwNGPRh3QARGBAHTH2IndANqiHBSBo+O
- 4UMcx1FCNFgsLq1SoAoQOez1Xc7M7E++FM/gwwBeWUu4zDIFhTQMvBvgQPTX9TjvL2PINV+gvOR
- 0dfh9uPVWQij0xGdOlmZbSvVj5wqUGo7aN7eI6nSsaWft9ZrNfjjsHoY6y/3c6ZRhqwn1tdlUx3
- 2nJPkh4q4Z5Gh6R5hhR+uc+c9PAtCmKJCA1SMRaHM3ezxJABLTS+0z4QfEXi0kFQkqsL+Idyp/d
- M7o0/gBza4cco6mopSQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=bKNFMsPk6bC_SE5WJAQA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfXwN5y2sCF3Kjh
+ i37pOyyo3OQV1NPeoAyit25YGMNvu89xCqgjibUjhT+7Vewo6j/cFSKfoKA/THWWX8Jv2eeWOGF
+ A/z/rbX0QH0pyEf16bx8yYsWpgA8a44=
+X-Proofpoint-ORIG-GUID: Q7YgGfhvaXDtDpmhagWJZR4EA0y1Z1TV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfXxG+E7vFh5cPh
+ gVDsv9WFHAS0g8MrycKGMNovilWeIecEYBhckX/VDqnUhY7Aj+1dJx9APMgwkNN5UG6nQLRNhGS
+ uvkwU4s2ncylZdtAgIl7Ta+O6t4aMEfbS1X31EpEoGW9WGt8nOz7Gc/gLu4hJxnYCXuTWRCiN1h
+ FAtM1zfby9bfavMaDcFnFUw1p63oJ1g28hbCuXDhIo8KOWJYAWs2J7VhQFpgGv/nBdc2aDU8FRX
+ M4C+xLyn24DePj3D4KiqBZRjxZXFMyeW89Y1Llx6BzAeaErV8DNMfY7GfWmuj9hjoh3GI6QXdYg
+ xTssDLvbUZCy895vnvGh0eVpaGqrdjlsLts3Q1sbU1ofscleRf92WbS29zl/dM+SVDNzKmSwwqB
+ B78MurN2rGb6q2gDurAmj7D/qw7Rc4WP3SeS8Slnzzs5QgZLK9Xk3fDZs1Jkot4GjxWpcN3NSmv
+ 4sGo2lv77oYBM8XwZBg==
+X-Proofpoint-GUID: Q7YgGfhvaXDtDpmhagWJZR4EA0y1Z1TV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-23_02,2026-11-22_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
+ clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ adultscore=0 impostorscore=0 phishscore=0 malwarescore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230037
 
-The ThinkPad T14s Gen 7 (Snapdragon X2) has an embedded controller at
-the same I2C address as the Gen 6 one and reports the same kind of
-events, but it talks a different command protocol.
+The embedded controller of the ThinkPad T14s Gen 7 uses the same
+register layout and event codes as the Gen 6 one, but a different set
+of I2C commands. Going by the ACPI EC accessors in the Gen 7 firmware:
 
-Add a compatible for it.
+  - register read:  write {0x80, reg}, then write {0x80} + read 1 byte
+  - register write: write {0x81, reg, val}
+  - event read:     write {0x84, 0x00}, then write {0x84} + read 1 byte
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+With the Gen 6 commands the EC never reports any event and the LED
+and keyboard backlight accesses have no effect.
+
+Describe the bus accessors and event read per variant and add one for
+the Gen 7. The multi-message Gen 7 reads are done with the I2C bus
+locked, as the Gen 6 ones already are.
+
+Besides the protocol, the Gen 7 differs in a few other places:
+
+  - there is no second keyboard backlight register and, when cycled
+    with Fn+Space, the keyboard backlight also reports level 3;
+  - the mic mute LED is a generic LED (id 0x0e) instead of a bit in the
+    audio register;
+  - Fn+F12 reports its own event code (0x19);
+  - suspend is signalled through bit 5 of register 0xcf instead of the
+    Gen 6 modern standby register, and the firmware makes the power and
+    lid logo LEDs glow while suspended;
+  - a few hotkeys which already come in through the I2C-HID keyboard
+    (volume, mute and some Fn+Fxx combinations) also raise an EC event,
+    and the firmware reports some status events nobody acts upon.
+
+Handle those differences and treat the Gen 7 only events as known ones,
+ignoring the duplicate hotkey events.
+
+Co-developed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 ---
- .../bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml         | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/platform/arm64/lenovo-thinkpad-t14s.c | 197 ++++++++++++++++++++++++--
+ 1 file changed, 186 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
-index c87ccb5b3086..99e5e7ae3cb6 100644
---- a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
-+++ b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
-@@ -16,7 +16,9 @@ description:
+diff --git a/drivers/platform/arm64/lenovo-thinkpad-t14s.c b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+index 7a875877c8f3..cc7713aeac8e 100644
+--- a/drivers/platform/arm64/lenovo-thinkpad-t14s.c
++++ b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+@@ -17,7 +17,9 @@
+ #include <linux/interrupt.h>
+ #include <linux/leds.h>
+ #include <linux/lockdep.h>
++#include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+ #include <linux/pm.h>
+@@ -26,8 +28,20 @@
+ #define T14S_EC_CMD_ECWR	0x03
+ #define T14S_EC_CMD_EVT		0xf0
  
- properties:
-   compatible:
--    const: lenovo,thinkpad-t14s-ec
-+    enum:
-+      - lenovo,thinkpad-t14s-ec
-+      - lenovo,thinkpad-t14s-gen7-ec
++/*
++ * The Gen 7 (Snapdragon X2) EC uses a different command set over I2C, as
++ * described by the ACPI EC accessors in its firmware (RDEC, WREC, QEVT).
++ */
++#define T14S_GEN7_EC_CMD_RD	0x80
++#define T14S_GEN7_EC_CMD_WR	0x81
++#define T14S_GEN7_EC_CMD_EVT	0x84
++#define T14S_GEN7_EC_LED_MIC_MUTE	0x0e
++
+ #define T14S_EC_REG_LED				0x0c
+ #define T14S_EC_REG_KBD_BL1			0x0d
++#define T14S_EC_REG_MODERN_STANDBY_GEN7		0xcf
++/* Gen 7 DSDT sets this bit on Windows modern standby entry */
++#define T14S_EC_MODERN_STANDBY_GEN7_ESLS	BIT(5)
+ #define T14S_EC_REG_MODERN_STANDBY		0xe0
+ #define T14S_EC_MODERN_STANDBY_ENTRY		BIT(1)
+ #define T14S_EC_MODERN_STANDBY_EXIT		BIT(0)
+@@ -41,6 +55,7 @@
+ #define T14S_EC_EVT_NONE			0x00
+ #define T14S_EC_EVT_KEY_FN_4			0x13
+ #define T14S_EC_EVT_KEY_FN_F7			0x16
++#define T14S_EC_EVT_KEY_FN_F12_GEN7		0x19
+ #define T14S_EC_EVT_KEY_FN_SPACE		0x1f
+ #define T14S_EC_EVT_KEY_TP_DOUBLE_TAP		0x20
+ #define T14S_EC_EVT_AC_CONNECTED		0x26
+@@ -67,6 +82,18 @@
+ #define T14S_EC_EVT_KEY_FN_F11			0x7a
+ #define T14S_EC_EVT_KEY_FN_G			0x7e
  
-   reg:
-     const: 0x28
++/* Gen 7 only */
++#define T14S_GEN7_EC_EVT_HKEY_1010		0x14
++#define T14S_GEN7_EC_EVT_HKEY_1011		0x15
++#define T14S_GEN7_EC_EVT_HKEY_1017		0x1c
++#define T14S_GEN7_EC_EVT_STATUS_35		0x35
++#define T14S_GEN7_EC_EVT_DYTC			0x3c
++#define T14S_GEN7_EC_EVT_STATUS_40		0x40
++#define T14S_GEN7_EC_EVT_STATUS_4B		0x4b
++#define T14S_GEN7_EC_EVT_STATUS_4E		0x4e
++#define T14S_GEN7_EC_EVT_HKEY_1016		0x76
++#define T14S_GEN7_EC_EVT_HKEY_1015		0x7b
++
+ /* Hardware LED blink rate is 1 Hz (500ms off, 500ms on) */
+ #define T14S_EC_BLINK_RATE_ON_OFF_MS		500
+ 
+@@ -83,6 +110,7 @@
+ enum t14s_ec_led_status_t {
+ 	T14S_EC_LED_OFF =	0x00,
+ 	T14S_EC_LED_ON =	0x80,
++	T14S_EC_LED_GLOW =	0xa0, /* Gen 7 only, only works for power and lid LEDs */
+ 	T14S_EC_LED_BLINK =	0xc0,
+ };
+ 
+@@ -93,9 +121,18 @@ struct t14s_ec_led_classdev {
+ 	struct t14s_ec *ec;
+ };
+ 
++struct t14s_ec;
++
++struct t14s_ec_variant {
++	const struct regmap_bus *regmap_bus;
++	int (*read_evt)(struct t14s_ec *ec, u8 *val);
++};
++
+ struct t14s_ec {
+ 	struct regmap *regmap;
+ 	struct device *dev;
++	const struct t14s_ec_variant *variant;
++	enum led_brightness mic_mute_cache;
+ 	struct t14s_ec_led_classdev led_pwr_btn;
+ 	struct t14s_ec_led_classdev led_chrg_orange;
+ 	struct t14s_ec_led_classdev led_chrg_white;
+@@ -206,6 +243,85 @@ static int t14s_ec_read_evt(struct t14s_ec *ec, u8 *val)
+ 	return ret;
+ }
+ 
++static int t14s_gen7_ec_cmd_read(struct t14s_ec *ec, u8 cmd, u8 arg, u8 *val)
++{
++	struct i2c_client *client = to_i2c_client(ec->dev);
++	u8 req[2] = { cmd, arg };
++	struct i2c_msg msgs[2] = {
++		{ .addr = client->addr, .flags = 0, .len = 2, .buf = &req[0] },
++		{ .addr = client->addr, .flags = I2C_M_RD, .len = 1, .buf = val },
++	};
++	int ret;
++
++	i2c_lock_bus(client->adapter, I2C_LOCK_SEGMENT);
++
++	/* Send cmd + arg */
++	ret = __i2c_transfer(client->adapter, msgs, 1);
++	if (ret < 0)
++		goto out;
++
++	/* Resend the cmd byte + read the value */
++	msgs[0].len = 1;
++	ret = __i2c_transfer(client->adapter, msgs, 2);
++	if (ret < 0)
++		goto out;
++
++	ret = ret == 2 ? 0 : -EIO;
++out:
++	i2c_unlock_bus(client->adapter, I2C_LOCK_SEGMENT);
++	return ret;
++}
++
++static int t14s_gen7_ec_write(void *context, unsigned int reg,
++			      unsigned int val)
++{
++	struct t14s_ec *ec = context;
++	struct i2c_client *client = to_i2c_client(ec->dev);
++	u8 buf[3] = { T14S_GEN7_EC_CMD_WR, reg, val };
++	int ret;
++
++	ret = i2c_master_send(client, buf, sizeof(buf));
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
++static int t14s_gen7_ec_read(void *context, unsigned int reg,
++			     unsigned int *val)
++{
++	struct t14s_ec *ec = context;
++	u8 result;
++	int ret;
++
++	ret = t14s_gen7_ec_cmd_read(ec, T14S_GEN7_EC_CMD_RD, reg, &result);
++	if (ret)
++		return ret;
++
++	*val = result;
++	return 0;
++}
++
++static const struct regmap_bus t14s_gen7_ec_regmap_bus = {
++	.reg_write = t14s_gen7_ec_write,
++	.reg_read = t14s_gen7_ec_read,
++};
++
++static int t14s_gen7_ec_read_evt(struct t14s_ec *ec, u8 *val)
++{
++	return t14s_gen7_ec_cmd_read(ec, T14S_GEN7_EC_CMD_EVT, 0x00, val);
++}
++
++static const struct t14s_ec_variant t14s_ec_variant = {
++	.regmap_bus = &t14s_ec_regmap_bus,
++	.read_evt = t14s_ec_read_evt,
++};
++
++static const struct t14s_ec_variant t14s_gen7_ec_variant = {
++	.regmap_bus = &t14s_gen7_ec_regmap_bus,
++	.read_evt = t14s_gen7_ec_read_evt,
++};
++
+ static void t14s_ec_write_sequence(struct t14s_ec *ec, u8 reg, u8 val, u8 cnt)
+ {
+ 	int i;
+@@ -318,6 +434,9 @@ static int t14s_kbd_bl_set(struct led_classdev *led_cdev,
+ 	if (ret < 0)
+ 		return ret;
+ 
++	if (ec->variant == &t14s_gen7_ec_variant)
++		return 0;
++
+ 	val = FIELD_PREP(T14S_EC_KBD_BL2_MASK, brightness);
+ 	ret = regmap_update_bits(ec->regmap, T14S_EC_REG_KBD_BL2,
+ 				 T14S_EC_KBD_BL2_MASK, val);
+@@ -338,7 +457,11 @@ static enum led_brightness t14s_kbd_bl_get(struct led_classdev *led_cdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return FIELD_GET(T14S_EC_KBD_BL1_MASK, val);
++	/*
++	 * When cycled with Fn+Space, the Gen 7 EC also uses 3 for the high
++	 * level, which looks the same as 2.
++	 */
++	return min(FIELD_GET(T14S_EC_KBD_BL1_MASK, val), 2);
+ }
+ 
+ static void t14s_kbd_bl_update(struct t14s_ec *ec)
+@@ -383,7 +506,10 @@ static enum led_brightness t14s_mic_mute_led_get(struct led_classdev *led_cdev)
+ 	struct t14s_ec *ec = container_of(led_cdev, struct t14s_ec,
+ 					  led_mic_mute);
+ 
+-	return t14s_audio_led_get(ec, T14S_EC_MIC_MUTE_LED);
++	if (ec->variant == &t14s_ec_variant)
++		return t14s_audio_led_get(ec, T14S_EC_MIC_MUTE_LED);
++
++	return ec->mic_mute_cache;
+ }
+ 
+ static int t14s_mic_mute_led_set(struct led_classdev *led_cdev,
+@@ -391,8 +517,19 @@ static int t14s_mic_mute_led_set(struct led_classdev *led_cdev,
+ {
+ 	struct t14s_ec *ec = container_of(led_cdev, struct t14s_ec,
+ 					  led_mic_mute);
++	int ret;
+ 
+-	return t14s_audio_led_set(ec, T14S_EC_MIC_MUTE_LED, brightness);
++	if (ec->variant == &t14s_ec_variant)
++		return t14s_audio_led_set(ec, T14S_EC_MIC_MUTE_LED, brightness);
++
++	ret = regmap_write(ec->regmap, T14S_EC_REG_LED,
++			   T14S_GEN7_EC_LED_MIC_MUTE |
++			   (brightness ? T14S_EC_LED_ON : T14S_EC_LED_OFF));
++	if (ret < 0)
++		return ret;
++
++	ec->mic_mute_cache = brightness ? LED_ON : LED_OFF;
++	return 0;
+ }
+ 
+ static enum led_brightness t14s_spk_mute_led_get(struct led_classdev *led_cdev)
+@@ -444,6 +581,7 @@ static const struct key_entry t14s_keymap[] = {
+ 	T14S_EC_KEY_ENTRY(FN_F10, KEY_SELECTIVE_SCREENSHOT),
+ 	T14S_EC_KEY_ENTRY(FN_F11, KEY_LINK_PHONE),
+ 	T14S_EC_KEY_ENTRY(FN_F12, KEY_BOOKMARKS),
++	T14S_EC_KEY_ENTRY(FN_F12_GEN7, KEY_BOOKMARKS),
+ 	T14S_EC_KEY_ENTRY(FN_SPACE, KEY_KBDILLUMTOGGLE),
+ 	T14S_EC_KEY_ENTRY(FN_ESC, KEY_FN_ESC),
+ 	T14S_EC_KEY_ENTRY(FN_TAB, KEY_ZOOM),
+@@ -478,7 +616,7 @@ static irqreturn_t t14s_ec_irq_handler(int irq, void *data)
+ 	int ret;
+ 	u8 val;
+ 
+-	ret = t14s_ec_read_evt(ec, &val);
++	ret = ec->variant->read_evt(ec, &val);
+ 	if (ret < 0) {
+ 		dev_err(ec->dev, "Failed to read event\n");
+ 		return IRQ_HANDLED;
+@@ -501,6 +639,7 @@ static irqreturn_t t14s_ec_irq_handler(int irq, void *data)
+ 	case T14S_EC_EVT_KEY_FN_4:
+ 	case T14S_EC_EVT_KEY_FN_F8:
+ 	case T14S_EC_EVT_KEY_FN_F12:
++	case T14S_EC_EVT_KEY_FN_F12_GEN7:
+ 	case T14S_EC_EVT_KEY_FN_TAB:
+ 	case T14S_EC_EVT_KEY_FN_F10:
+ 	case T14S_EC_EVT_KEY_FN_N:
+@@ -553,6 +692,23 @@ static irqreturn_t t14s_ec_irq_handler(int irq, void *data)
+ 	case T14S_EC_EVT_KEY_FN_D:
+ 		dev_dbg(ec->dev, "FN + D - toggle privacy guard mode\n");
+ 		break;
++	case T14S_GEN7_EC_EVT_DYTC:
++	/*
++	 * Keys which send an EC event which the DSDT maps to a HKEY, which
++	 * also send a key-press over I2C-HID, so ignore the EC event.
++	 */
++	case T14S_GEN7_EC_EVT_HKEY_1010:
++	case T14S_GEN7_EC_EVT_HKEY_1011:
++	case T14S_GEN7_EC_EVT_HKEY_1015:
++	case T14S_GEN7_EC_EVT_HKEY_1016:
++	case T14S_GEN7_EC_EVT_HKEY_1017:
++	/* Status events the Gen 7 firmware does not act upon either */
++	case T14S_GEN7_EC_EVT_STATUS_35:
++	case T14S_GEN7_EC_EVT_STATUS_40:
++	case T14S_GEN7_EC_EVT_STATUS_4B:
++	case T14S_GEN7_EC_EVT_STATUS_4E:
++		dev_dbg(ec->dev, "EC event 0x%02x\n", val);
++		break;
+ 	default:
+ 		dev_info(ec->dev, "Unknown EC event: 0x%02x\n", val);
+ 		break;
+@@ -572,9 +728,13 @@ static int t14s_ec_probe(struct i2c_client *client)
+ 		return -ENOMEM;
+ 
+ 	ec->dev = dev;
++	ec->variant = i2c_get_match_data(client);
++	if (!ec->variant)
++		ec->variant = &t14s_ec_variant;
++
+ 	i2c_set_clientdata(client, ec);
+ 
+-	ec->regmap = devm_regmap_init(dev, &t14s_ec_regmap_bus,
++	ec->regmap = devm_regmap_init(dev, ec->variant->regmap_bus,
+ 				      ec, &t14s_ec_regmap_config);
+ 	if (IS_ERR(ec->regmap))
+ 		return dev_err_probe(dev, PTR_ERR(ec->regmap),
+@@ -618,8 +778,15 @@ static int t14s_ec_suspend(struct device *dev)
+ 
+ 	led_classdev_suspend(&ec->kbd_backlight);
+ 
+-	t14s_ec_write_sequence(ec, T14S_EC_REG_MODERN_STANDBY,
+-			       T14S_EC_MODERN_STANDBY_ENTRY, 3);
++	if (ec->variant == &t14s_ec_variant) {
++		t14s_ec_write_sequence(ec, T14S_EC_REG_MODERN_STANDBY,
++				       T14S_EC_MODERN_STANDBY_ENTRY, 3);
++	} else {
++		regmap_assign_bits(ec->regmap, T14S_EC_REG_MODERN_STANDBY_GEN7,
++				   T14S_EC_MODERN_STANDBY_GEN7_ESLS, 1);
++		t14s_led_set_status(ec, &ec->led_pwr_btn, T14S_EC_LED_GLOW);
++		t14s_led_set_status(ec, &ec->led_lid_logo_dot, T14S_EC_LED_GLOW);
++	}
+ 
+ 	return 0;
+ }
+@@ -628,8 +795,15 @@ static int t14s_ec_resume(struct device *dev)
+ {
+ 	struct t14s_ec *ec = dev_get_drvdata(dev);
+ 
+-	t14s_ec_write_sequence(ec, T14S_EC_REG_MODERN_STANDBY,
+-			       T14S_EC_MODERN_STANDBY_EXIT, 3);
++	if (ec->variant == &t14s_ec_variant) {
++		t14s_ec_write_sequence(ec, T14S_EC_REG_MODERN_STANDBY,
++				       T14S_EC_MODERN_STANDBY_EXIT, 3);
++	} else {
++		regmap_assign_bits(ec->regmap, T14S_EC_REG_MODERN_STANDBY_GEN7,
++				   T14S_EC_MODERN_STANDBY_GEN7_ESLS, 0);
++		t14s_led_set_status(ec, &ec->led_pwr_btn, T14S_EC_LED_ON);
++		t14s_led_set_status(ec, &ec->led_lid_logo_dot, T14S_EC_LED_ON);
++	}
+ 
+ 	led_classdev_resume(&ec->kbd_backlight);
+ 
+@@ -637,13 +811,14 @@ static int t14s_ec_resume(struct device *dev)
+ }
+ 
+ static const struct of_device_id t14s_ec_of_match[] = {
+-	{ .compatible = "lenovo,thinkpad-t14s-ec" },
++	{ .compatible = "lenovo,thinkpad-t14s-ec", .data = &t14s_ec_variant },
++	{ .compatible = "lenovo,thinkpad-t14s-gen7-ec", .data = &t14s_gen7_ec_variant },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, t14s_ec_of_match);
+ 
+ static const struct i2c_device_id t14s_ec_i2c_id_table[] = {
+-	{ .name = "thinkpad-t14s-ec" },
++	{ .name = "thinkpad-t14s-ec", .driver_data = (kernel_ulong_t)&t14s_ec_variant },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, t14s_ec_i2c_id_table);
 
 -- 
 2.54.0
