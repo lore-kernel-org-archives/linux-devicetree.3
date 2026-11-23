@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795411543;
-	b=s/gYLQ+lswezcWp0kU68SRvLR+E4qsDYroArQ0pychWbKcQwzDSdVd2M3YQ1sNN9DTTI
-	 OxSC6CnaTqr3bcr1fbtZqYM+pzjcvl+RQuexa1JO7SLkwJJDXsLv/STOxMehjyVb+vfI8
-	 AKhCZ/V3CQryaj5lHUMYky7EFyE+RlvZJsuiOnJgJ2Low20l32U4DEXEWf73UaOdfpWsQ
-	 y2EPayCM3RwVG2ql+usxoyMD7IPT4WLWXRteAtQp+gMnE32csAM6i6jGOKuYu2e51n3+9
-	 GPlZFcFkcGpqO6beG7Q2ToimS+MY3Oo/UGEAUEUG5A4Pq+BbKrgysOpxEF7ZmIfQt2A==
+	t=1795411919;
+	b=hi1F0aoROnhUEcbW0jOCXMG8UZUzDwyDSmmgrymT2MjLb5K6FHfH748xmzCTWXTZaAe1
+	 IhvjTTV7SfM1cDcDcfi9tGzzYm5fYn7qJoyf6ueA/vUrWpZbHP0WaqvAFZaVZ/ty3RGU1
+	 iHiH13GJTN3vbZayADBfZr5EvGY764fftjprkvBQGiZOvA9s0EnCElm764B781iTS3jjs
+	 KpcAHJa7ha4tAs8lm3ZygXlPw9VGy+KDkhVzn225s7XqngHl2lyhLZyhKi65S1AOYgYrM
+	 68Z/slVaZOygi8p+3Z/0VwowycZTW6v3f44tFi7A49fHBBc6dtCxtfLoKxuqwCILkdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795411543;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795411919;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Zo26Y8Vd+LgyoU5254aA0CjuFyfn1ojTS+iqZdmImX4=;
-	b=Fg+mYWtpCn3WdQIUYtKFf3krz5BAo5eB9xPDtHDPkrhoA+135myqYYZvbFm+Z7oamX80
-	 xdAxFSODygbNTfWa9M27ivagltCVFfIlZTJ3m5hi5DRyPBIM+bybsMOxcu+cUx8rchjN4
-	 0Gh05ougU7jtGHOlJ0+t4ErjQLXcGm6Od92S/lo+SVbLZ//RG+zL2sNSl6MKBu+RvJFjS
-	 K91hWx1xDnVV/qC5Xvyp05MQ2BMOoxTdmgVSwCpzMIUjhES+FmAeNWEong4lx8rdK6PB8
-	 FynYEtr+kTnZ2ZoNczNliRbAIdWvnlFvcNafLqTelC5V0Y46CNOzd+DI54WfzMf5uPg==
+	bh=CkosKFfEQY9KIB2ze4ArhWneRaFyWbxzmozMXVPO/UM=;
+	b=3MBEWvr8i1f017mVmIa03pxASBsTH+lQQpxjEzw7qXnDbMHChhdjuYhh/ozY3Y5buAd5
+	 OfOdNMYXda39v5pQtABAwbQOLBA8DKHV3lHvSp21H/xHv9JLiu+O/ZEtogDaTsHIar7+F
+	 Jb4WPrl5uUt1Y2R1b4OqM1haHQaHv+plxEA5Zbj/4K9qlYAMB/ivff77ZFBlHEI+Mld6X
+	 gqd3XnqmTbw7P8mfFw0GGi5w99UGeqFASM/RgxstxGI7AkHIdhFOrStukq7ZZlaJKLR01
+	 42l4G2I7im0FDKmATMu14dP9U5vV2LHbhE23l8Nmn1gX1mEC6AIRLUMT2GmmVb6BX4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bgB+K10g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ib8rz4Es;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3503D606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 05:25:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608A4606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 05:31:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bgB+K10g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15AA1F000CA;
-	Mon, 23 Nov 2026 05:25:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ib8rz4Es
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090281F000D2;
+	Mon, 23 Nov 2026 05:31:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795411542;
-	bh=Zo26Y8Vd+LgyoU5254aA0CjuFyfn1ojTS+iqZdmImX4=;
+	s=k20260515; t=1795411919;
+	bh=CkosKFfEQY9KIB2ze4ArhWneRaFyWbxzmozMXVPO/UM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bgB+K10gzId1WAiHReKei7PQ+N322/T6RgDpwZfT+VmNuo/0NCXM/V698t1eJR85L
-	 Gwi4kMwDCkZYMNN2H2fhhCWXr4sQKl2VovqEdL4p6ZYNHl8/fA9+1a0HE4nAsfM8a4
-	 TT7awE0OhVhN4X4+wYPeGF2VLBB9AlsL+zIu7bpT0tJ+pZrRZmdRmjKXKFXOnJ1ZcT
-	 fe5iSjEVDLc241tAJlE2KHNq7RPAZUP3sUWDTJBJOKmPrcF0mPmMyTZw8o86Rry2DQ
-	 dmMJgZVOGoRFc6Re26Id9hl7w/m7fKbogJ/juw/j805XIcAQglqnAncD4r2oNpOPkD
-	 uHIssHLciQKlg==
-Message-ID: <sashiko-outbox-228717@kernel.org>
+	b=ib8rz4EsSmUyTO0esyoV/WpPyH93dUWWnK45yQ0gcqnzPH2O1+QA0HiGUp9+Td/kG
+	 khQp9sxkobOMDLKA1VupROXbDf1SVPrMAH2P804K7ihU3mpaijwRee+KOrtByEcK43
+	 0tsTRu2sCX3SLYDjoO4TfDnwz1aRL7aXms0E0qHAYs7PdTdz5N2N2JT6PZxsG7m0uZ
+	 Ri2KOr9uOpsMLXlgXyrHHe38AiZUWQ5HzSBCDiOFns15+bm27V9263buaZR7vIRh6D
+	 ABky2PDjBnsjeqSsd0Xy4FCGILsMRnD7tweQjQdC4d6Qs+MVaJvKnmcS9wfi1P5o19
+	 A2MCAa/wtaZ9w==
+Message-ID: <sashiko-outbox-228719@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: monza: add Automation HAT overlay
+Subject: Re: [PATCH v3] arm64: dts: qcom: monza: add Precision AD HAT
+ overlay
 Reply-To: sashiko-reviews@lists.linux.dev
-To: prashanth.baddam@oss.qualcomm.com
+To: "Prashanth Reddy Baddam" <prashanth.baddam@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-automation-hat-v2-1-bdef1a18b858@qti.qualcomm.com>
-References: <20261123-automation-hat-v2-1-bdef1a18b858@qti.qualcomm.com>
+In-Reply-To: <20261123-ventuno-q-precision-hat-v3-1-fb96fd6b7887@qti.qualcomm.com>
+References: <20261123-ventuno-q-precision-hat-v3-1-fb96fd6b7887@qti.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 05:25:42 +0000
+Date: Mon, 23 Nov 2026 05:31:58 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,98 +62,86 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [Low] arm64: dts: qcom: decimal LED unit addresses in Monza Automation
-  HAT dtso
-- [Low] arm64: dts: qcom: unused gpio.h include and unsorted Makefile
-  entry
+- [Medium] arm64: dts: qcom: monza: fake rohm,dh2228fv compatible and
+  spidev@0 node name
+- [Medium] arm64: dts: qcom: monza: spi3 cs-gpios conflicts with
+  qup_spi3_cs on gpio28
 --
 
-commit 07a4903ac9dd988a99b288586f1d04540b8de474
+commit 12190f9e8824425ba37639e1c8a7a3b6040d0713
 Author: Prashanth Reddy Baddam <prashanth.baddam@oss.qualcomm.com>
 
-arm64: dts: qcom: monza: add Automation HAT overlay
+arm64: dts: qcom: monza: add Precision AD HAT overlay
 
-This commit adds a devicetree overlay for the Pimoroni Automation HAT on
-the Monza 40-pin JHAT connector and registers the overlay build rule in
-arch/arm64/boot/dts/qcom/Makefile.
+This commit adds a devicetree overlay and Makefile build rule for the
+Waveshare High-Precision AD HAT (ADS1263) on the Monza 40-pin JHAT
+connector.
 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
-/Makefile
-> index 19310879349d0..b60abdd392ea9 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -96,6 +96,9 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D monaco-evk.dtb
->  monaco-evk-camera-imx577-dtbs	:=3D monaco-evk.dtb monaco-evk-camera-imx5=
-77.dtbo
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D monaco-evk-camera-imx577.dtb
-> =20
-> +monaco-arduino-monza-automation-hat-dtbs :=3D monaco-arduino-monza.dtb m=
-onaco-arduino-monza-automation-hat.dtbo
-> +dtb-$(CONFIG_ARCH_QCOM) +=3D monaco-arduino-monza-automation-hat.dtb
-> +
->  monaco-evk-el2-dtbs :=3D monaco-evk.dtb monaco-el2.dtbo
-> =20
->  monaco-ac-evk-ifp-mezzanine-dtbs	:=3D monaco-ac-evk.dtb monaco-evk-ifp-m=
-ezzanine.dtbo
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza-automation-hat=
-.dtso b/arch/arm64/boot/dts/qcom/monaco-arduino-monza-automation-hat.dtso
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza-precision-hat.=
+dtso b/arch/arm64/boot/dts/qcom/monaco-arduino-monza-precision-hat.dtso
 > new file mode 100644
-> index 0000000000000..3c35b76f9c2f2
+> index 0000000000000..e50b0c9560577
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza-automation-hat.dtso
-> @@ -0,0 +1,62 @@
+> +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza-precision-hat.dtso
+> @@ -0,0 +1,24 @@
 > +// SPDX-License-Identifier: BSD-3-Clause
 > +/*
 > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 > + *
-> + * Device tree overlay for the Pimoroni Automation HAT connected to the
-> + * Monza 40-pin JHAT connector.
+> + * Device tree overlay for the Waveshare High-Precision AD HAT (ADS1263)
+> + * connected to the Monza 40-pin JHAT connector.
 > + */
-> +
 > +/dts-v1/;
 > +/plugin/;
 > +
 > +#include <dt-bindings/gpio/gpio.h>
-
-[Severity: Low]
-This isn't a bug, but dt-bindings/gpio/gpio.h is not used in this overlay,
-and the monaco-arduino-monza-automation-hat rules in the Makefile are
-placed in the middle of the monaco-evk targets rather than in alphabetical
-order alongside monaco-arduino-monza.dtb.
-
-[ ... ]
-
-> +	automation_hat_leds: led-controller@54 {
-> +		compatible =3D "si-en,sn3218";
-> +		reg =3D <0x54>;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
 > +
-> +		led@16 {
-> +			reg =3D <16>;
-> +			label =3D "automation-hat:red:warn";
-> +		};
+> +&spi3 {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +	cs-gpios =3D <&tlmm 90 GPIO_ACTIVE_LOW>;
+
+[Severity: Medium]
+Does setting cs-gpios to gpio90 without overriding pinctrl-0 on &spi3
+leave gpio28 (JHAT_P24_SPI_CE0) muxed to the hardware chip-select 0
+function?
+
+In monaco.dtsi, spi3 defaults to:
+
+  pinctrl-0 =3D <&qup_spi3_data_clk>, <&qup_spi3_cs>;
+
+where qup_spi3_cs muxes gpio28 to function "qup0_se3".  Because
+spi-geni-qcom drives its internal CS 0 output in setup_spi_params() and
+setup_gsi_xfer() on every reg =3D <0> transfer, the QUP engine will assert
+gpio28 on pin 24 of the 40-pin header alongside the software-toggled
+gpio90, while gpio90 itself has no pinctrl entry.  Should &spi3 override
+pinctrl-0 to decouple gpio28 (for example with qup_spi3_cs_gpio) and
+configure gpio90?
+
 > +
-> +		led@17 {
-> +			reg =3D <17>;
-> +			label =3D "automation-hat:green:comms";
-> +		};
-> +
-> +		led@18 {
-> +			reg =3D <18>;
-> +			label =3D "automation-hat:blue:power";
-> +		};
+> +	spidev@0 {
+> +		compatible =3D "rohm,dh2228fv";
+> +		reg =3D <0>;
+> +		spi-max-frequency =3D <8000000>;
+> +		spi-cpha;
 > +	};
 > +};
 
-[Severity: Low]
-Should these LED child nodes be named led@10, led@11, and led@12?
+[Severity: Medium]
+Should this node describe the TI ADS1263 ADC with adc@0 and
+compatible =3D "ti,ads1263", "ti,ads1262" instead of spidev@0 and
+"rohm,dh2228fv"?
 
-Devicetree unit addresses use lowercase hexadecimal to match the node's reg
-property, so decimal reg values <16>, <17>, and <18> correspond to unit
-addresses @10, @11, and @12 (just as monaco-arduino-monza.dts uses led@a
-and led@b for reg =3D <10> and <11>).
+"rohm,dh2228fv" is a deprecated entry in
+Documentation/devicetree/bindings/trivial-devices.yaml for a non-existent
+Rohm DAC used to force spidev binding, which prevents the in-tree IIO
+driver (drivers/iio/adc/ti-ads1262.c) from binding and violates the
+generic node name requirement.  In addition, trivial-devices.yaml sets
+additionalProperties: false and does not permit spi-cpha, so this node
+fails dtbs_check, whereas Documentation/devicetree/bindings/iio/adc/ti,ads1=
+262.yaml
+allows both spi-cpha and spi-max-frequency.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-automation=
--hat-v2-1-bdef1a18b858@qti.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-ventuno-q-=
+precision-hat-v3-1-fb96fd6b7887@qti.qualcomm.com?part=3D1
