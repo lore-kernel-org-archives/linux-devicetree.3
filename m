@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795459426;
-	b=11K15e41go8DU74UfC7i8WqMcJ4IT9wxDO/CxmgfY/uDIGPwLdMOekO8PBGAVQk2cejv
-	 LV3e7sMgT/eOT5b+0n+JQzPeaSADIZLC4+NAM0H+tD1Ua1sMpqCTNBvTEjwguLKAbOqvX
-	 7VLt9sTTorqHmEOnyck1rkfQO6wo/s9/kPsMv6RTp6CCtW5rn0ms1nVnH74rfTLHyzgpO
-	 x1i9KybZWGnCBQN0DMhiHDpUQUpAsb9/buZDBXtHO3nGSoEBcrV9I2W5vn3qt0/iOw+n2
-	 2P+emkN3db4uKKmJkF46/bM+IJDqoP34omf9V7T6LQS/Cmm74V5qzZkNYl0cY1ewBgg==
+	b=EEtQLwpK0H7tpcp+BMLPNw1o8tYftJVfeAi9VhnavoGvPiIvPGS4saiNPG8gAyjor9cV
+	 R8/67A98rJcNRmw8F+/TQ9fY6HhosWjT6r5iR4ajQbfs3JsQMsFdTDEZpaKzuIflBDdh+
+	 76Hw1GSFDoLoZxZeT1y+acFnSMD/Jry9D+CvyT62ZwqFdS5zg1vtFd2/FqiBQtkLxC2fF
+	 MPVDNYntjmoUwatZh84TAkSwEZP6NZOodvvU6uGMYfIHQ7oBCUqHlc+FfCO8DZSD911/p
+	 B0xIQKw+fywGXzxHwn58f5MiUoaBcJPWKbD0Qmk8DUKRI+TqG08B++PJl437cVFU9Aw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795459426;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OZXKO8Nlv27l8dDCmCRPLPT+qtuKAtiKetzeFk5MY4o=;
-	b=JcqLHX8XCOa/zro44VPdA3THPKtzC4MtrmpjSYl/d96GgCvv5x42cAS7zd3kHmsaeM/+
-	 Yo9YLiT4o0XxkKWgGO7VDCt3bI0+rNyFHcnNNC9HcHJT1XhnnDKwgsPBCt/C3ILdkhAUW
-	 ql7H3MtSYJJNOkwjFwub79lkHWAeLo3f1TZAQcnixu8tEfKK0jcaYgb5pmtPc8jm63J7k
-	 gF3MGb5Vqcra/E2a5AagzgMjFbQIQ47hPVrWTUsZHoaM1iMS2FWCJwoBncX5JWSXLkCN7
-	 0wZ/qPnffiB9jF/MthwvTzi+dc7Im1BSLYJ2fRVWI5gE+xiQ9mq3LEFY71JFxahHMxA==
+	bh=9tyMkUr9+zYWv3mAdl+/oTYNIcjMUy1JAChBbK6vIio=;
+	b=y2aDUMRSuu0Gp0yg+5qE7lvgTcuZ09rO0r02hKN7Z9LnoXgF/oMS7h696vZa0mkb8uj0
+	 XiJFGYZw7r1HNPetikcMM2x4awt/SHrGwsMRlGUWzVRZaoVpeSK8L/fQFtna90/QEXnMi
+	 6fITldozHh46KPrtliEWQN25jzDFCcnr0Va67bziSCQuon31Q+NoqzEzjq+aRBilMrY+B
+	 xaSl/X6MAp9EYv/CkA3uXY98oODBwIsxRk2Rm4B55hMUuoDT8eGHvmIvhbmZoPBcQhBeH
+	 yN8MZafYxHdhaTh6zHvY3pfLnxOTKx1lZ5K6C1a6IQoAjBTDXr+T2dxJEr2A8rkpK/Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORixFn38;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZaICRG+P;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773BF606A33D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A93D606A334;
 	Mon, 23 Nov 2026 18:43:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORixFn38
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZaICRG+P
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795459426;
-	b=OGZmdBdJI0O9tzhag8085ftK0aN3fYlUtG7QEcywaAN0DvNR6E2EUpXN8Rk57bJnc6MH
-	 T6jXxNhgBzs6aN+tc3DC9+dJNjwdQePORxtqrt8syKYiPoNVb2lwVhBHVnZPdSlld4eI7
-	 LBZBSAhqElKsBhA55qz4JdDQzvYtyMmdhHhwhXuVDYBV3STH9tS5BYyhzQvVIDrhKmYsz
-	 RyMq7cp9seKp+TBL46rSrwRdnWJwe8d10E2MuCc/SI3O3cXqWY91uQ+2tkNNlMUxewhDm
-	 JT1RMWuOjYRILDec60c56Gerft0BdRI1vupNbNlnxX9o8bR79zggaQIIGeENLe6yroQ==
+	t=1795459425;
+	b=rS8/BpRu8JViWn+uNqzMThet9tLlOrGwVslpiPi3R7aqJmTiCv8nnIRmz+z80SVxEOSK
+	 usET9LKy8Ap9o4w6C5KoIvjRCU1ztJBKfBKF5NIO7We4tQ6dSh3ZzU9qwA1mkLL9cdSx5
+	 L9sJV/nwKXi2FijXyZyFZlTAdjhihUyYug4NBtN7+psz3dTo+U6E8cWNAandl00eb/K91
+	 81KH1yim8xOedZDzsrAZYb5RLcjM0vS/ZOjR85lYgJRQASffLXBHvFb0pgRS+idC8EE7X
+	 kbrMvUmfUZfXlellOf5aJlLMdUw7NkE9Q+eV//aLqa2QGmZyPuw61OY0DnB6g5wDMoA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795459426;
+	c=relaxed/relaxed; t=1795459425;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OZXKO8Nlv27l8dDCmCRPLPT+qtuKAtiKetzeFk5MY4o=;
-	b=qAaI/e/DXM42HszJYICqVoyPwqgknnOMSuZOrt7toNpYqbhV9BIMp6JEmRF6HAsAk7XK
-	 Qc2kyQeyNp3WK0b2N3A3dAHSjMAcP6XallNg5ApEBa73DkstDofi2jAJqf8brHJhdZiA2
-	 Kfyx3V5mgjfJ79fNNClnZu5i1dfHdFRHhH00hTewFeGb3GWaTCkeCYXDWAIZZEL/zk27l
-	 CxkyOSX8Y5ptwI/PzHoP+J6TofNYx8ynw3OeFN6QuboUo07uqSPGvsI1Fazph6CVDtQ8l
-	 r+UmzsjDVEL96HJ8XyTqsLYh2IsZEtyTocEM2K0gQrMfTZLNMsjljTKmeu/3a+50+zA==
+	bh=9tyMkUr9+zYWv3mAdl+/oTYNIcjMUy1JAChBbK6vIio=;
+	b=oi8DjRiejntaobIbm6ARr0zB0EKoDT22uDDLVvonQP/+ov/UUSHAz6/fsqevH47P6KlN
+	 Ail1aiNPQdjKLbTIhsi8gkefow5oElpW+kwI2kUPRXNCD+05wTQ2DcRnZtk3OS0egMr9Y
+	 bn5Bm2y+tstKrlY+q16EBC3m9rbXnheHLnK+Ude0axrrYTdTIowXW3krAIaJmXWzcSpMl
+	 4kdSuS6bhMKsYm/Hsk+75iNhFUUz+Xnv6IRf1IlFP0E1NFC4VNg3vRKJamwaXKGFIO1Xa
+	 pHxj6hZ12thBx3nEeSdRiLA+S0vE2sKbiYTq9ci4NwSk5XCfP/EH0AbPEFm9vynnm0w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 98FEE1F000D2;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5A1261F000CA;
 	Mon, 23 Nov 2026 18:43:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795459425;
-	bh=OZXKO8Nlv27l8dDCmCRPLPT+qtuKAtiKetzeFk5MY4o=;
+	bh=9tyMkUr9+zYWv3mAdl+/oTYNIcjMUy1JAChBbK6vIio=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ORixFn38aXMQ2DM02ZdDyRg003vO+Xm07VafMDAX6aoZzHDXahhUP4+NaUVn2RvAo
-	 yX+OsuWtTn1RU0UzD20jBnSEaRaDyaurra44/EunVmWwpHzOUXW5slOPf5scHn+4aE
-	 JEWYfWnnFRVXl22S2EFY0/RGaJdI4WeumQ3MHhBZubZ/bu2hfifscKSwjaS+l30qSO
-	 sqCy9IXATw++UXNaXnZ6THWcu3fDzsG6b1ZCvsavpgA+Y8g7BuLhn1OKCcFRivc7QT
-	 D4Zn+MbX7agE2rRl55SJ+eMicEyA/iGUyPAfGJ9AS3oiQS138PA3VwbLDSDNCUNHyh
-	 IAvyn+w24DCew==
+	b=ZaICRG+PuCQK60fTxvNdKR9GV0MoPdOeTGvRCALhWL6hhkHfcAthrT5/PgBL6SwCX
+	 7Z5/5dnwVajLkhJsKFqNTRSrxA4GzpryMYUjGYXqW1GWJWD3ITaBeWTRnOoEJ+7dYr
+	 LjirD/7nTQ3vmkkJFJVIHmkrg5fQ2yN8eve6K7vH1hoQAe0AitGOWeF8vXfSaMqG9M
+	 77qO0D3TtCnIP+Qpb23IR8i4t91nnlMsfjTe4rSVi636CA3vPgkOM54v2P3UftkdHj
+	 YdZ9LRTM18Q4Yb+iArm3YXIAhySYqZ8aUP8qer17f+grXkSVvUhe5xYYJ7Y3os1RC8
+	 TmSZKddzNNtVA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 283994C5E5;
-	Mon, 23 Nov 2026 18:43:34 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id DF6F94C5D5;
+	Mon, 23 Nov 2026 18:43:33 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Mon, 23 Nov 2026 21:43:31 +0300
-Subject: [PATCH 3/8] clk: Add CS7542 PCIe gates and resets
+Date: Mon, 23 Nov 2026 21:43:29 +0300
+Subject: [PATCH 1/8] PCI: dwc: Export the multiplexed MSI interrupt handler
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-b4-cs7542-pcie-v1-3-4cde5201d404@gmail.com>
+Message-Id: <20261123-b4-cs7542-pcie-v1-1-4cde5201d404@gmail.com>
 References: <20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com>
 In-Reply-To: <20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com>
 To: Manivannan Sadhasivam <mani@kernel.org>, 
@@ -101,11 +101,11 @@ Cc: Jingoo Han <jingoohan1@gmail.com>,
  linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459409; l=6867;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459409; l=872;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=IQ3oYOkjhHmvjI099J9lb0QbUnLsKlUN+CsHrOCPogE=;
- b=bBrX5NDk5ovSGT+tLFaV3zfxL6wseB3LnVHHNP2SUFSz95ISHr57Dpw2LjCtsKecVU+I9kmDx
- UQjG/nzmimsB4na7FHqEBMZhC34rIaABbK1hTYE7RVDGeTgD95cMzDU
+ bh=Mna9V2FvctfGCov2fj28CrWMP+FmQdEcH5a5uq4pt5U=;
+ b=qNvzbOacLh6x0fSN7zTi0mn1WbwON1SuHXMEhUFL6l3FtIOVmrgsRFMGLDeZuslgdgYoJHppc
+ LWit8E7cf8GCfJgcPzOkf0z529lNCweFuB2AAzTM/guTvcrVyYhMeW7
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -116,222 +116,26 @@ Content-Transfer-Encoding: 7bit
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Use the shared global regmap for controller gates at bits 10, 12 and 14
-and block resets at bits 6 through 8. Keep the AXI reset-disable bit and
-SATA gates intact. Expose independent gate-only clocks and exclusive
-reset controls with the vendor reset pulse timing.
+Allow modular host glue with a combined application interrupt to dispatch
+the internal MSI receiver without installing a second chained handler.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- drivers/clk/Kconfig           |  11 +++
- drivers/clk/Makefile          |   2 +
- drivers/clk/clk-cs7542-pcie.c | 168 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 181 insertions(+)
+ drivers/pci/controller/dwc/pcie-designware-host.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index 47b5265fe..4abd81260 100644
---- a/drivers/clk/Kconfig
-+++ b/drivers/clk/Kconfig
-@@ -605,4 +605,15 @@ config CLK_DIVIDER_KUNIT_TEST
- 	help
- 	  Kunit test for the clk-divider type.
+diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
+index bbb02458a..1d076bb62 100644
+--- a/drivers/pci/controller/dwc/pcie-designware-host.c
++++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+@@ -85,6 +85,7 @@ void dw_handle_msi_irq(struct dw_pcie_rp *pp)
+ 			generic_handle_demux_domain_irq(pp->msi_irq_domain, irq_off + pos);
+ 	}
+ }
++EXPORT_SYMBOL_GPL(dw_handle_msi_irq);
  
-+config COMMON_CLK_CS7542_PCIE
-+	tristate "Cortina Systems CS7542 PCIe control"
-+	depends on OF && HAS_IOMEM
-+	select MFD_SYSCON
-+	select RESET_CONTROLLER
-+	help
-+	  Enable the three PCIe clock gates and controller resets in the
-+	  CS7542 global control block. Shared registers use the parent syscon.
-+	  The clocks provide gating only, without a source frequency.
-+	  The module is called clk-cs7542-pcie.
-+
- endif
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index 16b1168c8..8ebb794d0 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -187,3 +187,5 @@ obj-y					+= xilinx/
- obj-$(CONFIG_COMMON_CLK_ZTE)		+= zte/
- obj-$(CONFIG_ARCH_ZYNQ)			+= zynq/
- obj-$(CONFIG_COMMON_CLK_ZYNQMP)         += zynqmp/
-+
-+obj-$(CONFIG_COMMON_CLK_CS7542_PCIE) += clk-cs7542-pcie.o
-diff --git a/drivers/clk/clk-cs7542-pcie.c b/drivers/clk/clk-cs7542-pcie.c
-new file mode 100644
-index 000000000..c39977a25
---- /dev/null
-+++ b/drivers/clk/clk-cs7542-pcie.c
-@@ -0,0 +1,168 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Cortina Systems CS7542 PCIe clock gates and controller resets. */
-+#include <linux/clk-provider.h>
-+#include <linux/delay.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset-controller.h>
-+
-+#define CS7542_PORTS	3
-+#define GLOBAL_RESET	0x04
-+#define GLOBAL_CONFIG	0x10
-+
-+struct cs7542_gate {
-+	struct clk_hw hw;
-+	struct regmap *map;
-+	u32 mask;
-+};
-+
-+struct cs7542_control {
-+	struct reset_controller_dev rcdev;
-+	struct regmap *map;
-+	struct cs7542_gate gates[CS7542_PORTS];
-+	struct clk_hw_onecell_data *clks;
-+};
-+
-+static int cs7542_gate_prepare(struct clk_hw *hw)
-+{
-+	struct cs7542_gate *gate = container_of(hw, struct cs7542_gate, hw);
-+
-+	return regmap_update_bits(gate->map, GLOBAL_CONFIG, gate->mask, gate->mask);
-+}
-+
-+static void cs7542_gate_unprepare(struct clk_hw *hw)
-+{
-+	struct cs7542_gate *gate = container_of(hw, struct cs7542_gate, hw);
-+
-+	regmap_update_bits(gate->map, GLOBAL_CONFIG, gate->mask, 0);
-+}
-+
-+static int cs7542_gate_is_prepared(struct clk_hw *hw)
-+{
-+	struct cs7542_gate *gate = container_of(hw, struct cs7542_gate, hw);
-+	unsigned int value;
-+	int ret;
-+
-+	ret = regmap_read(gate->map, GLOBAL_CONFIG, &value);
-+	return ret ? ret : !!(value & gate->mask);
-+}
-+
-+static const struct clk_ops cs7542_gate_ops = {
-+	.prepare = cs7542_gate_prepare,
-+	.unprepare = cs7542_gate_unprepare,
-+	.is_prepared = cs7542_gate_is_prepared,
-+};
-+
-+static int cs7542_reset_update(struct reset_controller_dev *rcdev,
-+			       unsigned long id, bool assert)
-+{
-+	struct cs7542_control *ctl = container_of(rcdev, struct cs7542_control, rcdev);
-+	u32 mask = BIT(6 + id);
-+
-+	return regmap_update_bits(ctl->map, GLOBAL_RESET, mask, assert ? mask : 0);
-+}
-+
-+static int cs7542_reset_assert(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	return cs7542_reset_update(rcdev, id, true);
-+}
-+
-+static int cs7542_reset_deassert(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	return cs7542_reset_update(rcdev, id, false);
-+}
-+
-+static int cs7542_reset_status(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	struct cs7542_control *ctl = container_of(rcdev, struct cs7542_control, rcdev);
-+	unsigned int value;
-+	int ret;
-+
-+	ret = regmap_read(ctl->map, GLOBAL_RESET, &value);
-+	return ret ? ret : !!(value & BIT(6 + id));
-+}
-+
-+static int cs7542_reset_pulse(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	int ret;
-+
-+	ret = cs7542_reset_assert(rcdev, id);
-+	if (ret)
-+		return ret;
-+	usleep_range(10000, 12000);
-+	ret = cs7542_reset_deassert(rcdev, id);
-+	if (ret)
-+		return ret;
-+	usleep_range(10000, 12000);
-+	return 0;
-+}
-+
-+static const struct reset_control_ops cs7542_reset_ops = {
-+	.assert = cs7542_reset_assert,
-+	.deassert = cs7542_reset_deassert,
-+	.status = cs7542_reset_status,
-+	.reset = cs7542_reset_pulse,
-+};
-+
-+static int cs7542_control_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct cs7542_control *ctl;
-+	int ret, i;
-+
-+	ctl = devm_kzalloc(dev, sizeof(*ctl), GFP_KERNEL);
-+	if (!ctl)
-+		return -ENOMEM;
-+	ctl->map = syscon_node_to_regmap(dev->of_node->parent);
-+	if (IS_ERR(ctl->map))
-+		return dev_err_probe(dev, PTR_ERR(ctl->map), "global register map\n");
-+	ctl->clks = devm_kzalloc(dev, struct_size(ctl->clks, hws, CS7542_PORTS), GFP_KERNEL);
-+	if (!ctl->clks)
-+		return -ENOMEM;
-+	ctl->clks->num = CS7542_PORTS;
-+	for (i = 0; i < CS7542_PORTS; i++) {
-+		struct cs7542_gate *gate = &ctl->gates[i];
-+		struct clk_init_data init = { .ops = &cs7542_gate_ops };
-+
-+		init.name = devm_kasprintf(dev, GFP_KERNEL, "%s.pcie%d", dev_name(dev), i);
-+		if (!init.name)
-+			return -ENOMEM;
-+		/* Gate-only controls: no source frequency is described or assumed. */
-+		gate->map = ctl->map;
-+		gate->mask = BIT(10 + 2 * i);
-+		gate->hw.init = &init;
-+		ret = devm_clk_hw_register(dev, &gate->hw);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "clock gate %d\n", i);
-+		ctl->clks->hws[i] = &gate->hw;
-+	}
-+	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, ctl->clks);
-+	if (ret)
-+		return ret;
-+	ctl->rcdev.owner = THIS_MODULE;
-+	ctl->rcdev.ops = &cs7542_reset_ops;
-+	ctl->rcdev.of_node = dev->of_node;
-+	ctl->rcdev.nr_resets = CS7542_PORTS;
-+	return devm_reset_controller_register(dev, &ctl->rcdev);
-+}
-+
-+static const struct of_device_id cs7542_control_match[] = {
-+	{ .compatible = "cortina,cs7542-pcie-control" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, cs7542_control_match);
-+
-+static struct platform_driver cs7542_control_driver = {
-+	.probe = cs7542_control_probe,
-+	.driver = {
-+		.name = "cs7542-pcie-control",
-+		.of_match_table = cs7542_control_match,
-+	},
-+};
-+module_platform_driver(cs7542_control_driver);
-+
-+MODULE_DESCRIPTION("Cortina Systems CS7542 PCIe clock gates and resets");
-+MODULE_LICENSE("GPL");
+ /* Chained MSI interrupt service routine */
+ static void dw_chained_msi_isr(struct irq_desc *desc)
 
 -- 
 2.53.0
