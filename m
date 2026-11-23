@@ -1,69 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795435753;
-	b=vKB03CYiI2KKtdAKXKA6jMYhUCNdRjE16EEptH6EnPswTLHtqQzL4wuz6gRJ0B2SKwVO
-	 nI2O9OJ+594c0teN3Xqxv73vT2ulqvwdJQx/dm9RYbSTelMf3PwhoQPsAF6WzfT3X9E42
-	 tb2ShKAQheSnY55bnfRBBHej+nI5q0PNF9/hf8+7jvGrTDev2ER6ldpvr2Y2NfMROWiV4
-	 j6neHwVO/7IXBa+fynKtLZLb74U6oM7Lie90+cQ5Lj0EAPNOUevMunTX2DPyRGeRDMiir
-	 5ueu16MKMu+pjGTymPffjxwPqFjr3rj92Wg/0AUglORxxX++LsMw+GjjuppuDp8DpHA==
+	t=1795435770;
+	b=XXhLloZaaJBAt9wcFOaSnDiNidoz9X2K1volD3gl8nzH9fgJ3ud3k9Kc9b9sRUCF5DrK
+	 SRNqBoIHASJvLd592zw2yokq7b91toG5rbcgpc7XmhTpOdP2pplsrNjUgm4rtTwgqkfGx
+	 TnfrGfS7ZZVQ87v9YukJcNTpYxzDNVH0Spp7qx9yXoKSbtCgQ6/Ol/4bqmJ8ysg6kWlwh
+	 oc1LFUgoHNEbqyy9i4kUrCdKkqaHIwqgCyRdGXbpEl569oLbPp1t79+X4lM/aSoJmzBq3
+	 naGIRQG8/0KrpPLrXDgbEhIgIhTTTSKPqeKN4SJDHybZ1S3LYlScdxmJISZCAAJ/VJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435753;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435770;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jVlva3tLXdBvj0xTe4FKUpeZOW8lUXKWogIklw4JJwM=;
-	b=2WcoOK1swM24W62TFa4Ansiw/Bm+xVx78WU1+ycAgwjRFt8vDn6x8fX+CQv4ghH+Zml8
-	 SfmhO1SwhhxJ0SFbjj4AtaoPaapj7c1iJfZAwlArAGL1SQjxlg4lYJQUY+vuYzEB6O1YQ
-	 jsR/MZPYBjQDyO+DaXIy9Xw1fT5yq54mYz2JlRMRmgFEI6xOq9Uw16OPfVxg8t+CxxC7w
-	 n9IM6J1yr++8i2G0at+I/M4Iph+blntaBTinXzEeZU023wklGqkKK+vRgO4iwIcW/uKxO
-	 J0ZjXJmOvjQxQT20LupTgvUMDio0VN6dbNRRotaB/CJ5nnJw6pt5ZHkQiXX1Ag+Y5HA==
+	bh=EBAlgyArUaIDoaFWbczuSy+qeFGqGHKDwrHB/xbYHXM=;
+	b=To38sXSAfvBcWj2zMr3YjT3s862vzv3l7NyaoaoyFcdux6p76hlN3Agjnx1IyA/sPS+4
+	 gr8nEWpA8KGqbNR0YghKeSig+dIt6a8rvny/hE6KS+WuZFvSU5/BYU2Wh51RVfsu7zdcL
+	 k1EwcKHBnx6esgLWnxG76073u7af6FYEzbC/nXdt6IivQWEqG/pHlJB0P+CpQWOvsUogf
+	 GizDIQ4GqbREOYBNmtdatxH68MhT9WPE7KzOFcdmYKhP40gcp4nErylx/o6nfHJwpr7AU
+	 mAB2OdeleyXEAjy9/aH+moQzLX6+TZAKUQG9klSaC4h6aiqoMT6bWUaVZtxcVcRxj6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dk2QAjiR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E+6H/6oP";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689C8606A31E;
-	Mon, 23 Nov 2026 12:09:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75B7606A31A;
+	Mon, 23 Nov 2026 12:09:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dk2QAjiR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82331F000CF;
-	Mon, 23 Nov 2026 12:09:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E+6H/6oP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296FD1F000D3;
+	Mon, 23 Nov 2026 12:09:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795435752;
-	bh=jVlva3tLXdBvj0xTe4FKUpeZOW8lUXKWogIklw4JJwM=;
+	s=k20260515; t=1795435770;
+	bh=EBAlgyArUaIDoaFWbczuSy+qeFGqGHKDwrHB/xbYHXM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dk2QAjiRAqck4u5mgcf43nHan6L+gOBuX9pht3YrjJTiNTsU9Zp1iVx94SEsBM5wt
-	 ELbvLjdSGKZSLvTL6UAhw9MMMH247X6kI14+OIKt6kBsgbBn4NpNBKRA/AUnwdw9c4
-	 KzCpgReRLOEfXyzQPS0VRCbjaw+RiI62FG5hD9hu/9j0QXNRHDOcyTG5+IyDvN6Upo
-	 HwaP0VL+MyB1O8afnqzeAAPVyFPoOEPVJ6jEJV0BQKfFh1eSBp4ENpoLrrqJKsNU+i
-	 LJp++Z/x/IEO0zTGIZDswSK6OFFbSUlHCGOpQJug7tXCr3Z9UoNWU4g2L1du3qONWK
-	 Xw65fHkoW6bRQ==
-Date: Mon, 23 Nov 2026 17:39:08 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Dominique Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>,
-	Byron Stanoszek <gandalf@winds.org>, OOHehir <oo.hehir@gmail.com>
-Subject: Re: [PATCH v7 0/5] phy: Add the StarFive JH7110 Innosilicon HDMI PHY
-Message-ID: <awQs5JgFZko9rTo9@parshuram>
-References: <CGME20261106135504eucas1p14138c1ce829febb8bcd63c4de1f29ffb@eucas1p1.samsung.com>
- <20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com>
- <b6dc6c36-9ce1-49dd-bae5-245d983610bc@samsung.com>
+	b=E+6H/6oP8nLnOr4iihKZsT5mFLOzHyhwUMzMxmC6pmAe+pt5ais3/kGYPwi8oF5zr
+	 GjAUPCdau77AfYr2a7Mpi/s9QIus/zoxYa14PAqfbidqxzxwPdaC4msn8xdwhGgYbY
+	 nrWqf+M6Mn+OtAJyvAriYXzms38kkQbkOj2aCC5vFExcHvLJrAW61nRLiv+esgmheb
+	 hmdZLQDBBvmHVNc3/BLfmVLqfolD+YZt5NvD63SBFtb0XhEPrhJcH4DKSycDVALgmF
+	 Vepzp38JoPHLXSbuUbw56Yo0Q2S6VCXBAySB6aIOmtu9udEKeBIynyCXinbFCiTHjE
+	 1yVG1ElUOlkmw==
+Date: Mon, 23 Nov 2026 13:09:26 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, linux-usb@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	linux-pm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 13/16] dt-bindings: arm: qcom,ids: Add SoC ID for
+ SXR2250P
+Message-ID: <20261123-pastel-barracuda-of-rain-bce8ac@quoll>
+References: <20261116-halliday-dts-v2-0-2c92438c6c46@gmail.com>
+ <20261116-halliday-dts-v2-13-2c92438c6c46@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,17 +77,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <b6dc6c36-9ce1-49dd-bae5-245d983610bc@samsung.com>
+In-Reply-To: <20261116-halliday-dts-v2-13-2c92438c6c46@gmail.com>
 
-On 20-11-26, 14:43, Michal Wilczynski wrote:
-
-> Gentle ping on this series.
+On Mon, Nov 16, 2026 at 09:26:29PM +0000, Stanislav Aleksandrov wrote:
+> Add the ID for the Qualcomm SXR2250P (Snapdragon XR2+ Gen 2) SoC.
 > 
-> Is there anything else needed from my side ?
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+> ---
+>  include/dt-bindings/arm/qcom,ids.h | 1 +
 
-Can you please resolve the shasiko issues reported
+This should be rebased on my patch removing the IDs.
 
--- 
-~Vinod
+Best regards,
+Krzysztof
+
