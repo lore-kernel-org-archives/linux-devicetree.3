@@ -1,101 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795461017;
-	b=CFNPWmC0DpciChKEn753tF3En8Nn8/SgahNGqg4XGHI4ceitkN53KZw8ZV+uAjfquvq6
-	 ni4oU+1cEQDRXdFhNEbcLC/Du7ph/hrN/BJrHmVC17RcPb/7XIUarezKqX3zB3nfuNe6d
-	 g5/j1qBufWEliz0B9XDEysC+7nl2GTOYXY6mM7v8Rlck0EoaPJ1Vpy2w5ef4edZhdtA53
-	 cwdbUKBByJvZ0tHL4LkoR/k4gchOsK4KlRDSBwilOIr0K+FGhiNgaa/Udu+fb4cH/o3AR
-	 q8tNinKh1qcrFQjyYDtt6e4NLuezesjYK0gI79lp1DeNZhDs91tPJRsI8od/+kCcSpQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795461017;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=SN2t5kKUSYT0EN3bMFCno8MHopz+s/PrHUa4yUTEFts=;
-	b=v4nRegvoTcreprALb9rySHf8cfjdLeVbkagYlfjy93Ymn9TVBGakWLAjQU9JJ9uKvx6O
-	 gIjPM8+QBVb0QottJe67jLx8ap7gOUyvOG/IfgqIOEp787rSeP4xUgobkZwmOAkFAWpon
-	 BPiMmkdzS0HgRLUpBXD4sl0vuDDhuPsaxXX+Bbe6cH042pZJdy08wChblKZ2gaYZ9LbrO
-	 mMlut0CA6kmYYHYtgdnIu7VOltIllJKeWJt9zwd/VzvTLgqEgHJs2AdSWRWM7dBUAWwOY
-	 hY1lLuxfCCwPe6yrQv+d+p+HhVOMCy+4hA/vPKQkO5jdj75xbKV5yls3bygNnDj/9IA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="YByzpS/O";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795461072;
+	b=pg8+Djkh+KHJwEodi2dZ9cPYuGpgFJxMz3b3qn4Lykr3me3hR0aDnbTJRE+ZB9MUwdbd
+	 QW09ZnxV1JzXBbBKDWiacahegoaiadf23QGuQ0L61qrgYkNm8r9ozPuYlUS+3XHat2+De
+	 nnFAZ6TKNcT0t7o/p6RtDcIdmWV0fN4vElS6LaU0CjzFhtk+TK+Q/1kwDvBy7Uw6cmO1f
+	 e+mGI9GzX+gOyruefpQYdzTbS+9Fn8YAvbTKFDEzURBu6PpVSg4nBtQyrryQ9R5woxCzd
+	 5XTeFPPzvLJJyicGVlRu8DB73MkN7MMG1U7dxLeAV9S1f++fSSz2d76MnunlvuJMUTQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461072;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Idvm97dvG7bTw2FwlJmYkLbnCrFv39HWDBLFEaw7lno=;
+	b=FJKJN1ISvQPdPFIuMzGTuUP06kojdYVXsrPlCnDz86tl39yJ8eJBePKBJ3iUYOxtEMDS
+	 ELSRPE1ruL/TDmtURCr6sl/HZ9W7AMdUqkFPPmAivrL3SFKkgaC3mnfUScP6b/K1Li28S
+	 oQzxl7ZOi2UbNsCXZA+GctWUIn9I4VmY1F470Q5SkUi6TWgfSsXr3Q5O85ER/gPkPreAh
+	 qN5yReLEIkCereDc0DA0cI9VmaHBQj/9rohAB0V0xhJgHHkte8yd9IP9LfSwMZDFWhNN8
+	 jiKmn29lJxLomtbIIVWkGeelf5hvqpOPZrpqdst6hudUFcuZp2Pm8YBOkhY8aYJaGFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UXAG/h5g";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C1D606A684
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:10:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C1D606A684
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61D3606A32A;
+	Mon, 23 Nov 2026 19:11:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YByzpS/O
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-38699cf08dfso3674821eec.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:10:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795461017; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Xcl7d0znAvRj5JWJ04cfKooCvlypYy0Byrj87DHrXHbFvWxtyEDEbuW3uEM+ZxZdXy
-         GXnoMhh/Wu6V1BT6s2W6gmZUoTEORVGvQESIdyyWErgaRPPYxBJzPGq9EnEzYrbino3G
-         1cEcBRgvsWxj+q5qDKGY++skZPvuPGZoU1HzxdXeZH0phL1VpvC/r8WPBiWmZ4+cwmno
-         lGgk3ggcIAYYt4hguUypyvZ6e/wPkaL+TjzYSq5v7LeQydsbbPInfQgyGJuKlhGc5FMe
-         6KA8yeJ2LVLZ8s/UYRqQ0aiwPvfP4BX5DTZ44FeccSj9kLUF84G/cO79lFflQdWe3YxZ
-         UvvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SN2t5kKUSYT0EN3bMFCno8MHopz+s/PrHUa4yUTEFts=;
-        fh=M8UWODni7t67inY3U5r7mOVNoam5g1Oowpth8DfSOLg=;
-        b=d+CmwNYesXczCVckwXyF2WdDv0vclIVFFnN0Sp8xeXUp5VjTKudHjeV4Dt2p4VZhpP
-         ltxQauc0Q/M+pw624Z93TE89GcsRurfNng7ZGfF0cLEYo/D83v7/mB2p6ctm/H8DAtbv
-         NbdiBx+2hbaOARuav19p/3sw9CULBKa2uwjA91v+QmEHRDmGhOjmtpRoByUDuh8EFchP
-         +rHQ/kI1pN0DEsbIy6ebPeLGrSkxV2oOgpS4fxmxA7rjJnHQLbNWRFz11FnbJXEuaE5P
-         m9nQ9KjuVxi4OLVzrYdsWQmbfPN6mda8of8yZAC3i4s1lercKBDPkLX3evt8ds0XdKRM
-         7l1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795461016; x=1796065816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SN2t5kKUSYT0EN3bMFCno8MHopz+s/PrHUa4yUTEFts=;
-        b=YByzpS/OYf79mWwg8ZXz5g2gqNsa9mjTwv1Lgx2QaXdA8HmmpnkqNCmWYyZaCE5AaC
-         N3Hb7phIk8xVuDn2j/lz2KKbN7zl60AGlg+WWvB1iCZioHgqNNmkwpkqNzY9FqWsqGxY
-         7mBP+xOqWG0whyqBo9V7vOtiYqL5nJMACdcIyAery82/JonullVJESxQRfrUC3+UcGUN
-         2jkXNHmDhr5TbTkBq3bfcqrgMwzYTN9Um2UhbD/k6SFe4aIi2YMy8/xHbR3hqQ0ULGo7
-         mEAxAIQwGP8MikFwoKNIjGt8ISPeARNxrdTy6F9+HZoqpQ2prTD38KLbxyZhr1OAk+IO
-         UaFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795461016; x=1796065816;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SN2t5kKUSYT0EN3bMFCno8MHopz+s/PrHUa4yUTEFts=;
-        b=cwlHZL3tRlzuqnw5ai5q2Bve2LYeYsp2AGw/gnENiTxByuaRBKxQJGFY+BFLpwCAln
-         bsPIw6ByzF99ChpoNl1xDL+177uNiPuWxmnmvZzRSIoL4Y7CuGm6TlGHA7bYxDAGWaDN
-         BvoUb8gNI9wIy2E1JYttPshLwLTO8cOGLasQ4p/IKSjTwuO1RbBLvyVHHL7BC8YeYPuc
-         N2gN7to42wQORujQnebgf8c/Ua+bTJ2+rem0mP9flKc8SJYuVmZkK9HkJ+zG+r0rTtbo
-         NhZoi3R+Cwt/a00t8xZtfgKrZBxLTtOYp3+3pXmSCsifNInSyTDIT283ZqX99728hPPt
-         sVTQ==
-X-Forwarded-Encrypted: i=1; AL+hErH75ifl9pcFKU8//JChM6AW+sA25WRw5Hi85Y0oQm70i1YXDwl/plgz4su9593hLKRKuYQxj2xo/fto@vger.kernel.org
-X-Gm-Message-State: APuU4Z+D96VlT04GC8gYSzBzvoPrzs9/3w2qm+BUMtbqwYAX1uxT/+78
-	m6p8KJ8yS2ce/ys/zMJ6qs3w5WQPOinkx5go7hBqnsiOgssMf4SnlwZWjqRgGxzNni4VVehlRCM
-	45pFtD1k0JBJLlvk9Kp0BfsWqS5ipXwM=
-X-Gm-Gg: AZFdTZcweXRhBDQ+lO9y6Xbh8FzrZykYq+7zYFL1vJ1s1aIWlhAOC+TsnQ9hLbn9VQ8
-	PiQlYxf2eL1I6uucgPk9Lo4zIKQcHY8MWJKQo2t+/dTkBfZUHASXo7LMJxdOaTxKch1cOSJ0VR9
-	vh9Y9cYZTizEXi8EWH/MEzoP59mG5lO6yvTS7Qy27qD9+mzVwCxND0xcUNIf6wc55kIQ7++Gq3z
-	4Bklrp0MXHbMB8rU+kCpVTXKqAA1J7f992I4Biot5fJtvqvRwx7mpHgjvQFH8ymv5cYnC5Qx3AK
-	pcjeUY9/0cyK2JMG7+gTCdjr5OL9c2AncONQNnLyCJS6qj94P8XfClxQtI+Uzm1ToLRlxBiORZo
-	iUDs/4doIfXl6pAjjE7AUeXy3tYxWQ5n6nwII11LxMRX1/x5gO78A3CGeG1XX99y1SfyUeIkQMw
-	dXCD/slfnx3+IpBs9WfO7t15abWe7TyA==
-X-Received: by 2002:a05:693c:87d1:20b0:386:a816:ca16 with SMTP id
- 5a478bee46e88-386a816ce29mr5178321eec.15.1795461016480; Mon, 23 Nov 2026
- 11:10:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXAG/h5g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D5B1F000C4;
+	Mon, 23 Nov 2026 19:11:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795461071;
+	bh=Idvm97dvG7bTw2FwlJmYkLbnCrFv39HWDBLFEaw7lno=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UXAG/h5gcaXsoQt+kMAmviAJm66SUcara9oSzYqWQUv3zd56izLHBx98PPuu3frOr
+	 55T6J5QfliUjPb77RQRgs5XNY1sRYUlK45HQDb12FSEXsGHgIp/jUyiqSti40GNi+h
+	 vN6a5QhqDH1CqBDyWxK3tpheymYefUO2OK6Tpt0iESphKX8M9PwFZ2MQ/e4zJhMelu
+	 8++MrvB40HiXV9VlDobMoOKP75UYXR2oV9YgsQNVXiJqExu8JUHxY/LVswFdHgBpa4
+	 x9egZLsGkJBnoG7JZ5//wk18XWzKQ2gtm/+WCrRxBBjgzcYn6gyIE7CaK1KQijonAL
+	 SJYxBK+coqgPw==
+Message-ID: <sashiko-outbox-229914@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 7/8] PCI: cs7542: Add CS7542 PCIe host support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: linux-pci@vger.kernel.org, linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261123-b4-cs7542-pcie-v1-7-4cde5201d404@gmail.com>
+References: <20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com>
+ <20261123-b4-cs7542-pcie-v1-7-4cde5201d404@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 19:11:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,52 +59,186 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261123150725.212836-1-clamor95@gmail.com> <20261123150725.212836-3-clamor95@gmail.com>
- <awSLzG6IxXjKLBCx@ashevche-desk.local>
-In-Reply-To: <awSLzG6IxXjKLBCx@ashevche-desk.local>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 23 Nov 2026 21:10:05 +0200
-X-Gm-Features: Aa3M54qd0Q0FdKFQ-JpohuyS51xXnBrzclr62AhndFD0zExmhfAz7QgWmQX6nVQ
-Message-ID: <CAPVz0n3Mm+GdsS_P7Yc98FVKOijXFzWocVCkzUhg+LPJ8dY+4g@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] mfd: max8907: Add ADC client support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-iio@vger.kernel.org, mfd@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D0=BF=D0=BD, 23 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 20:5=
-4 Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon, Nov 23, 2026 at 05:07:23PM +0200, Svyatoslav Ryhel wrote:
-> > The Maxim MAX8907 has an 8-channel ADC at a fixed location. Add client
-> > support for it along with its regmap and interrupts.
->
-> ...
->
-> > +static const struct regmap_irq max8907_adc_irqs[] =3D {
-> > +     { .reg_offset =3D 0, .mask =3D BIT(0), },
-> > +     { .reg_offset =3D 0, .mask =3D BIT(1), },
->
-> When {} on the same line, the inner trailing comma is not needed (if we e=
-ver
-> need to extend this we would need to change a line anyway, so there is no
-> benefit of having a trailing comma).
->
-> If it's just this, no need to resend. Just a hint for the future.
->
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] PCI: cs7542: PCI_MSI_FLAGS_ENABLE in cortina_pcie_host_init()
+  cleared on probe
+- [High] PCI: cs7542: undisposed INTx virq mappings before
+  irq_domain_remove()
+- [Medium] PCI: cs7542: cortina_pcie_read_dbi() ~0U return masks iATU
+  failure on link loss
+- [Medium] PCI: cs7542: missing link_lost and IRQ sync in
+  cortina_pcie_shutdown()
+--
 
-Thank you, I must have overlooked.
+commit cd2c931b6a3541fd8734c17e2a7332622247b319
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-> > +};
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+PCI: cs7542: Add CS7542 PCIe host support
+
+This commit adds a DesignWare PCIe host controller driver for Cortina
+Systems CS7542 SoCs, handling clock/reset/PHY setup, multiplexed INTx and
+MSI interrupts, root configuration filtering, and link-loss blocking.
+
+> diff --git a/drivers/pci/controller/dwc/pcie-cs7542.c b/drivers/pci/contr=
+oller/dwc/pcie-cs7542.c
+> new file mode 100644
+> index 0000000000000..19225e9a292ef
+> --- /dev/null
+> +++ b/drivers/pci/controller/dwc/pcie-cs7542.c
+[ ... ]
+> +static int cortina_pcie_host_init(struct dw_pcie_rp *pp)
+> +{
+> +	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
+> +	u8 cap =3D dw_pcie_find_capability(pci, PCI_CAP_ID_MSI);
+> +	u16 flags;
+> +
+> +	pp->bridge->ops =3D &cortina_own_pci_ops;
+> +	pp->keep_rp_msi_en =3D true;
+> +	if (cap) {
+> +		flags =3D dw_pcie_readw_dbi(pci, cap + PCI_MSI_FLAGS);
+> +		dw_pcie_writew_dbi(pci, cap + PCI_MSI_FLAGS, flags | PCI_MSI_FLAGS_ENA=
+BLE);
+> +	}
+> +	return 0;
+> +}
+
+[Severity: High]
+Will pci_host_probe() clear PCI_MSI_FLAGS_ENABLE right after
+cortina_pcie_host_init() sets it?
+
+dw_pcie_host_init() runs pp->ops->init(pp) before calling
+pci_host_probe(bridge).  Because pp->keep_rp_msi_en keeps PCI_CAP_ID_MSI
+visible on the Root Port, enumerating the Root Port calls
+pci_init_capabilities() -> pci_msi_init(), which clears
+PCI_MSI_FLAGS_ENABLE via cortina_pcie_wr_own_conf() and leaves the Root
+Port MSI receiver disabled.  Setting PCI_MSI_FLAGS_ENABLE in
+pp->ops->post_init (or after dw_pcie_host_init() returns) would avoid
+this.
+
+[ ... ]
+
+> +/* Standard RC configuration above 512 bytes wedges the CS7542 bus.
+> + * The DesignWare private register bank at 0x700 and above remains acces=
+sible.
+> + */
+> +static u32 cortina_pcie_read_dbi(struct dw_pcie *pci, void __iomem *base,
+> +				 u32 reg, size_t size)
+> +{
+> +	struct cortina_pcie *cp =3D to_cortina_pcie(pci);
+> +	u32 value =3D 0;
+> +
+> +	if (READ_ONCE(cp->link_lost))
+> +		return ~0U;
+> +	if (base =3D=3D pci->dbi_base && reg < 0x700 && reg + size > RC_CFG_LIM=
+IT)
+> +		return 0;
+> +	dw_pcie_read(base + reg, size, &value);
+> +	return value;
+> +}
+
+[Severity: Medium]
+Can returning ~0U from cortina_pcie_read_dbi() when cp->link_lost is set
+trick dw_pcie_prog_outbound_atu() into reporting success?
+
+CPU0                                    CPU1
+dw_pcie_other_conf_map_bus()
+  dw_pcie_link_up() -> true
+                                        cortina_pcie_irq_handler()
+                                          cp->link_lost =3D true
+  dw_pcie_prog_outbound_atu()
+    dw_pcie_writel_atu_ob() (dropped)
+    dw_pcie_readl_atu_ob(..., ATU_REGION_CTRL2)
+      cortina_pcie_read_dbi() -> ~0U
+    val & ATU_ENABLE -> true
+    return 0
+  return pp->va_cfg0_base + where       <-- accesses downstream cfg window
+
+Because ATU_ENABLE is BIT(31), ~0U satisfies the poll in
+dw_pcie_prog_outbound_atu() even though cortina_pcie_write_dbi() dropped
+the iATU writes, allowing downstream config accesses to proceed after link
+loss.
+
+[ ... ]
+
+> +	ret =3D dw_pcie_host_init(&pci->pp);
+> +	if (ret) {
+> +		writel(0, cp->app + APP_INT_ENABLE);
+> +		irq_set_chained_handler_and_data(cp->irq, NULL, NULL);
+> +		irq_domain_remove(cp->intx_domain);
+> +		goto power_off;
+> +	}
+> +	platform_set_drvdata(pdev, cp);
+> +	return 0;
+> +
+> +power_off:
+> +	gpiod_set_value_cansleep(cp->perst, 1);
+> +	reset_control_assert(cp->reset);
+> +	phy_power_off(cp->phy);
+> +exit_phy:
+> +	phy_exit(cp->phy);
+> +disable_clk:
+> +	reset_control_assert(cp->reset);
+> +	clk_disable_unprepare(cp->clk);
+> +	return dev_err_probe(dev, ret, "host initialization\n");
+> +}
+> +
+> +static void cortina_pcie_remove(struct platform_device *pdev)
+> +{
+> +	struct cortina_pcie *cp =3D platform_get_drvdata(pdev);
+> +
+> +	dw_pcie_host_deinit(&cp->pci.pp);
+> +	irq_set_chained_handler_and_data(cp->irq, NULL, NULL);
+> +	irq_domain_remove(cp->intx_domain);
+> +	cortina_pcie_power_off(cp);
+> +}
+
+[Severity: High]
+Does removing cp->intx_domain without disposing of its mapped virtual IRQs
+leak IRQ descriptors and leave dangling pointers to cp and
+cortina_intx_chip?
+
+During pci_host_probe(), pci_assign_irq() maps INTx interrupts in
+cp->intx_domain (including for the Root Port itself, where
+dw_pcie_setup_rc() sets PCI_INTERRUPT_PIN =3D 1), and the PCI core does not
+unmap shared INTx lines on bus removal.  Both cortina_pcie_remove() and
+the dw_pcie_host_init() error path call irq_domain_remove(cp->intx_domain)
+without first calling irq_dispose_mapping(irq_find_mapping(cp->intx_domain,=
+ i))
+for each INTx line, leaving allocated irq_desc entries referencing the
+freed domain and driver state.
+
+> +static void cortina_pcie_shutdown(struct platform_device *pdev)
+> +{
+> +	struct cortina_pcie *cp =3D platform_get_drvdata(pdev);
+> +
+> +	writel(0, cp->app + APP_INT_ENABLE);
+> +	cortina_pcie_stop_link(&cp->pci);
+> +	gpiod_set_value_cansleep(cp->perst, 1);
+> +	reset_control_assert(cp->reset);
+> +}
+
+[Severity: Medium]
+Can cortina_pcie_shutdown() race with in-flight interrupts or subsequent
+DBI accesses while asserting controller reset?
+
+CPU0                                    CPU1
+cortina_pcie_shutdown()
+  writel(0, cp->app + APP_INT_ENABLE)
+                                        cortina_pcie_irq_handler()
+                                          dw_handle_msi_irq()
+  cortina_pcie_stop_link()
+  reset_control_assert(cp->reset)
+                                            dw_pcie_readl_dbi()  <-- DBI ac=
+cess in reset
+
+cortina_pcie_shutdown() does not take cp->lock, set cp->link_lost =3D true,
+or call synchronize_irq(cp->irq).  An in-flight IRQ handler or a
+concurrent config/DBI access (which checks cp->link_lost) can access DBI
+after the link is stopped and cp->reset is asserted, and a concurrent
+cortina_intx_unmask() can also re-enable bits in APP_INT_ENABLE.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-b4-cs7542-=
+pcie-v1-0-4cde5201d404@gmail.com?part=3D7
