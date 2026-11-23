@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795459317;
-	b=ui3h/w3nwanuwBETXOazGCs3+J3hA01iTE3AWJXJ2OOLccgIXFwv2gOp/RAnKzZpJdk8
-	 K/OQxypK8VKfsvbbj6Z5roaLKPl8rdQMW6/3gDTySv8rMeTl1ZflkoyYBlROckCWX6hmu
-	 YtKbV5Qj8EZ0tBEJ/Idy6nQSDuQAHcQMh1hvFm02EDcS7NJAXf9eXC83LZAoprCyaha3H
-	 0e8cMhN57sz5ww6pJqvoK4vU+kvfB+lt0bvfyAKoQr9T6IG7UOqUz6gau0vssbGpKHxsI
-	 3R6HbPJm+9z2raBa/i+I6znRy8fKg08HOblff9aOF0mAJRTGCdQPN2G7RstsZfzDKBA==
+	t=1795459323;
+	b=A4qogMRkaUU2tlAT0ud7hmrU3ya11x3qmPRFuiWzmWPd+FehVmOUK9ZjMjPggtCJSmGo
+	 sns82RLKifELIT+rQuj5IluACbSzvPv0uNf4K9sNcUXTlUTCv30JCg/N4sP2SHb0qoJH2
+	 sOop8PpJ6Hm9mol2FLXWxCOa68vM8XZnrsJWw2xOcfY8osNwstXUV3cFYWAcYm2KMbYNB
+	 72QYHePvh9hgjkxlJ4u9I8Btb4ew+8zWBllXXo6jtMFXvXrou0JxsZ1h/jgh/5/2QaRRY
+	 dPeeGClMVEuEpxFesASOsdRhb9t8NF/Z4mhTlT5tbWV0cjpio3EWBjrLpWIKQsv7jFw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795459317;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795459323;
 	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
 	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=6HrLUrfwuiFFOmr5EytGTWpbXEC4l6L9WDEJOgI0ypw=;
-	b=CintoI/5nmsOPbQCoowl7LyDyjvtu03pWm1YbKv9+NCtydcDkujJi8IFyVeo9xeZA9g9
-	 ujRqg+Nz1uysp+p6vW1h34W479g4JUtlm62elsl7zqWVn1yH9FlJoSgdtGeP2tcN7sv5H
-	 R4zmZoeDWSnQJ5eePP42PcCC+/UZEQgyfvrbRqh2zAvWplfvOYmiYthUOcxgcXfiWXNa5
-	 V6huvqOKGiqsnxJfLCqUthqg74GHa0WpTwPYS+5m0Ue2rTEQyLxT06IEPrfAjZ1nEjiar
-	 bqUaCiR+qsFwNIirFOKswUKg2tBXsCHbVTjn5z7MMxturgTOFpuqdeiN6o9Umt96jxQ==
+	bh=musLNBbvIPP0pZupDcF24ytIpe1LtyyAEg+0w1etnuc=;
+	b=EHy0ckGtHBmDnTsR+nYXtZVGCR0mdQYt94vqt776MORpZwtZtHZeKP0rrmz7/Kpy3ndq
+	 BlJ7IPj94JSeXRmd6KL85HXwQ2sKvQ0BIMGLR2uPZ6QkODJQqk+neocxr8twVd11qx9H3
+	 yMCQZRfz2zGHniqo2FYTEly4AesMvKvux1EqMFqgO3d2tsYW7cx7DfBV7BpjDVWERTKpJ
+	 6eod4f3hP6v9EuD9q3hv6K8VOaNfsuXwl6p3kKQd8IysNOy9or17K0Q6m/RXACjGEheNm
+	 LR8ZcLKOYdt7RggcGNRZINyk9bvdrsWJj/YDogt7ZcihmrNIWyVPK89Udwkx67YyOJA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SnALd6/n";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5bnUYNW;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DB1606A31F;
-	Mon, 23 Nov 2026 18:41:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B27606A31A;
+	Mon, 23 Nov 2026 18:42:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SnALd6/n
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5bnUYNW
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795459316;
-	b=j9OWKK7xbbjHx69IIf6NJRE4IwPa8UV+M2EIueU/u3TzznvfL/+O+piplnhE9oN2k8Bi
-	 1qvGtKwKEhifghDZa1/Mcsz+2qk9r0vh5/DN6XPK/clJQHDjw3OzHeLnYRBIEb9SFMcbc
-	 SggSK1fVyJFwl9rODrvo+GOeUkXuW/WunjfIKWDIjOFLAZtfU8+hT/Sp0pYu+iqZ8B/MJ
-	 PQiI4th4X9RJLNesZQ+eLvEN5gDfnrGYXjA+FTTFnqtwmgeQ5t5jLim22L849+BatlBnN
-	 zrCYL+5L15Oepl7VCa6TJOJz+AQ3TKUbmAf04Uu8FGe5eRC6qTfGmUwGwQrm2HPX7fg==
+	t=1795459323;
+	b=GVIDuwaSJGOkot5A+GOYNIDlfMwsIa8gnbqtjCjlMXBM3Wpv3/QcfQerNPsgUK8HlSAm
+	 DOoO3YMGiYwns293ZylkUmgPCtmkxuWylIUA7TRn6ZwlhwBV6/VpBxg5yTsgDTpa1JwdM
+	 /4rIMFlX/KV6oF3GP5XuzgdCAZD1SmsfD3r/UMuLWt2KwF8BQKq+HsvmBtZ42AQ2CGYBf
+	 BEtGSIjySytF21pxKqgVFNuY6bN3r8DD88jJFb2zhZ0COdTwWpwVLM4rf5yvBsaUseHgv
+	 S+p+gJwgVjoPvvlGXVVlKCKZRE2mHHQfV7kfbPyyHFBk6UOqeWtda1PDa3QVl9EioMA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795459316;
+	c=relaxed/relaxed; t=1795459323;
 	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
 	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=6HrLUrfwuiFFOmr5EytGTWpbXEC4l6L9WDEJOgI0ypw=;
-	b=iQxM7fPRJ6NZaQ8yG6OMRbL3fJXQt6i5Pj+0sdk8C4vrTsF+RgMRXJ8OeZbzJ4an2l+O
-	 zFXu8xFCVskk5rKaCZIBR3eljyC4u9ZQToxgIvUx24Ag330IakdEqX5V9UyX9jAnJu7z9
-	 vBMWkFidMLeX6IjFj6wVXPrfAvdsJepKRso7g7V5d8fIByY9XlBI5fzTOFGpllQFkvxQb
-	 uZychnVzR/CojiRfHoHUjaMmk0kaeAVBn+WK+NmkS6JPeO+vt5SxYzt4jluqCtaszsFmb
-	 FiWfC457fEdKhbKmzvtxyBnF9Eu/xaCw+ILhixvKq4iWPqKyxeGUGYDZajBTbq66Cuw==
+	bh=musLNBbvIPP0pZupDcF24ytIpe1LtyyAEg+0w1etnuc=;
+	b=tn3Z5xV+86KxjgQGbyQ4r0n0GTD1ko5esdq5b0vb3oQzDQanlW8FNyPzr+f0WS94EgZr
+	 FGauu2e1w4Z+WHUlGlkT5KnWHriBeiqwR+64K9oc3kzXOzhvGqNR2XFaVkZYFbqdpbWGQ
+	 W3+TBsPsl5828GP6bDfjkoZhT1woGmwJiLKwetdtk90k9NJseW63JHrZGfIJTtrFlo1o0
+	 giWviy4G9MhvlzM+pkf74M2aVzfq+iX1d1S+BSwb+xy2cFSJH/X0YXntxk2O1Slac+0Le
+	 jrcRrUlK6d21xuxuahPUoEQyM7YylcRDuk95rUSTTSd08BnnSsMXcfjoWbe6738COzA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8FB391F01569;
-	Mon, 23 Nov 2026 18:41:35 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id C55D71F00A36;
+	Mon, 23 Nov 2026 18:41:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795459316;
-	bh=6HrLUrfwuiFFOmr5EytGTWpbXEC4l6L9WDEJOgI0ypw=;
+	s=k20260515; t=1795459323;
+	bh=musLNBbvIPP0pZupDcF24ytIpe1LtyyAEg+0w1etnuc=;
 	h=From:Subject:Date:To:Cc:Reply-To;
-	b=SnALd6/nIWd9wPvhyXa+EpMZS0ynoism/bdTv0kV3jiP8qfvmXzOiRRu1wPcLNetx
-	 FC2nny3iKOx6FiYkQcyyIbxZiiVO1PNzUTomMzyI9wKcVXPHnkp/wIaikxFmFxLVUE
-	 dgg7hhwxHpMXx0GbCcWx9h6Xel3JObBH9nJFx/kP/rzhyE6IgxorWyku/hVy9SjCOs
-	 +w80NE75GaQt4FPf3pE4JcPmMAKlBNPhD15GwLQiWq2ijU+6GLnTTjxErzEy5bCZpx
-	 xZfHmwRiMNdEyvCdzca6/k/fGZLEFC/OYGcRh4QjRlCJ8p9/YYIATH63FIJe4kMqM/
-	 UdtkcUhSbYSYg==
+	b=P5bnUYNW/qfUnta20rQHeYIbUt9kf6vmumzv3slqe66G0sN/xnN8MfvRX9nYugYxa
+	 ZTLpPjD/kQiC1UKElkm8O+Ob+cL9ytdOxX2dFhorBhdtcOt+4RmCVeEsKJbv4nfceH
+	 p+JzRQe71SbxG1RMVI2LLj0OQmPaxUkl7pI3ieRlMHtR9e0+gj21pxoNymXA273SM1
+	 i0uneKnYgMZf5pwpBLs3bY8xH3CSvxj0wexygHaWE7LX5tGVLheeLVPcd7+d+rk3+8
+	 i42x4WYf8YcfGBdtUQn8dR9JPJZoz1FFxHMzXhWj44OjySyy6Kaqzj/OGHjhhHRhDU
+	 U1CmlFM8xp6IA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2114E4C5CD;
-	Mon, 23 Nov 2026 18:41:35 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 9C6344C5DD;
+	Mon, 23 Nov 2026 18:41:39 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Subject: [PATCH 0/3] hwrng: Add Cortina Systems CS7542 random number
- generator
-Date: Mon, 23 Nov 2026 21:41:33 +0300
-Message-Id: <20261123-b4-cs7542-trng-v1-0-92d9ffcee531@gmail.com>
+Subject: [PATCH 0/3] Add Cortina Systems CS7542 NAND controller support
+Date: Mon, 23 Nov 2026 21:41:37 +0300
+Message-Id: <20261123-b4-cs7542-nand-v1-0-7ce179c011e2@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,22 +85,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMPQ6DMAxA4asgz1jC5qeiV0EdSDDgDqGKoUJC3
- J3Qjt/w3gEmUcXgmR0Q5aumS0igPAM/92ES1CEZuOCGiEt0FXp71BXjGsOE1JNrR/JD2TKk6BN
- l1P037F5/2+be4tf7Aud5AT2b1DVyAAAA
-X-Change-ID: 20261123-b4-cs7542-trng-1a1b9f1cd392
-To: Olivia Mackall <olivia@selenic.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMPQ6DMAxA4asgz1jKDzQNV0EMEEwxQ1rFgJAQd
+ ydtx2947wShxCTQFCck2ln4HTN0WUCY+/gi5DEbjDIPrY3FocIgrq4Mxj6O+HTeO7JKKechR59
+ EEx+/Ydv9LduwUFi/F7iuG0zWVTRyAAAA
+X-Change-ID: 20261123-b4-cs7542-nand-87997e300079
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
-Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459294; l=2873;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459297; l=2618;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=+5fdkP17MS5TugucRLc1SqQw0TM5TWxx5LmS9OinWPM=;
- b=EFCNN0/CVf4KaFDdPKiaayM2jbxBRe5MW+HGmsu9zePsIYfmrkoTcPS1ib5beUOjZ5cqYckJf
- NHISGsOTHKzBmTAzSFmdwY7uo8ot2660zzP6z6qMzLYAj7ZxTldlKVx
+ bh=IP+8zwGE19sgIV+qJrA+fIZvVuRoJTEIEdbCodPzGtU=;
+ b=A3paAJAVDb1QxAgUbEX2zezC3SKwCyZzfy5VnRBZ+J1n6SsBvezOi5Eff9QoHtA3VwzJ5DQUH
+ yQkgk4XV8vNDssjh4xSkmKy+xk8Iurl0TmNFKohtHc9ZteD1qNEPgcy
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -109,60 +108,53 @@ X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
 X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
 Reply-To: filipp.dunsky@gmail.com
 
-Add the Elliptic random number generator integrated in the CS7542,
-based on the GPL vendor and OpenWrt implementations. The driver has no
-platform Kconfig dependency. Its shared global scratch bit is updated
-through a syscon regmap rather than an overlapping raw ioremap.
+Add the NAND controller used by the Securifi Almond+ (CS7542, two Cortex-A9
+CPUs). This is an independent binding/driver/MAINTAINERS series on
+Linux v7.4-rc4; it does not depend on ARCH_CORTINA_ACCESS or the platform
+series.
 
-Polling is bounded. A nonblocking read starts or resumes a pending
-transaction and returns immediately if data is not ready, instead of
-entering the blocking poll path. Partial output and failure cleanup
-preserve the caller's buffer bounds.
-
-The existing OpenWrt quality setting of 512 is retained for review.
-The output tests below only check access and obvious stuck output;
-they do not characterize entropy or establish this quality estimate.
-Feedback on that inherited policy is explicitly requested before
-publication of a final version.
-
-The three patches are the binding, the driver/Kconfig/Makefile and a
-MAINTAINERS entry. They apply to Linux v7.4-rc4 without the pending
-CS75xx platform or clock/pinctrl series. The TRNG syscon phandle can
-refer to a generic syscon; the local board integration uses the new
-CS7542 global-control binding being prepared separately.
+The controller sequences complete command/address/data transactions. Use
+exec_op with explicit capability checking and cached ID, ONFI and page reads
+for NAND core's split operations. Retain firmware-initialized bus timing.
+This version supports large-page, 8-bit NAND with on-host Hamming ECC using
+256-byte steps and the existing OOB layout. It uses programmed I/O; DMA and
+unverified BCH modes are deliberately outside this initial implementation.
 
 Validation:
-- binding schema, example compilation and style checks passed
-- strict source checkpatch with --no-signoff: no errors/warnings/checks
-- complete minimal ARM vmlinux and modules builds with both new
-  drivers built in and modular, COMPILE_TEST=n, without the platform
-- actual driver functions tested with mocked MMIO/regmap and UBSAN
-- exact sources booted in a Linux 7.4-rc4 RAM integration kernel on
-  Almond+, with platform v9, clock/pinctrl and the accepted watchdog
+- Full independent ARM vmlinux and modules builds, driver both =y and =m,
+  COMPILE_TEST=n, without the platform series.
+- Binding schema/example and strict source checkpatch pass.
+- Actual decoder functions: 292 boundary, address and sequence cases under
+  UBSAN. Address packing: 655360 cases cover every Almond+ page and
+  two-row-cycle large-page geometries. Actual Hamming correction function: 16389 cases covering every
+  single-data-bit position, invalid hardware offsets and error propagation.
+- Linux 7.4-rc4 booted in RAM on Almond+. NAND identification, all-device
+  bad-block scan, OOB reads and SHA256 of five existing protected regions
+  passed without new ECC failures.
+- The real UBI stack created a temporary two-LEB volume, wrote and verified
+  two 253952-byte patterns, removed the volume and reattached with the
+  original bad-block reserve. All 14 protected partition/configuration
+  checksums matched after returning to installed OpenWrt 6.18.64; the five
+  original UBI volumes and normal reserve remained intact.
 
-The first nonblocking read returned EAGAIN and subsequent reads
-provided 4096 bytes. Output was neither all zero nor repetitions of one
-16-byte block; no entropy estimate is inferred from those tests.
-The final combined RAM test recorded 16 checks with no failures and
-returned to installed OpenWrt 6.18.64 through the watchdog. Both CPUs
-were online. The firmware was not flashed. Earlier incomplete or
-experimental alarm runs are not counted as this successful test.
+No kernel image was installed by these RAM tests. Board integration used
+for testing is kept separate from this series.
 
 ---
 Fil Dunsky (3):
-      dt-bindings: rng: Add Cortina Systems CS7542 TRNG
-      hwrng: Add Cortina Systems CS7542 TRNG driver
-      MAINTAINERS: Add Cortina Systems CS7542 TRNG support
+      dt-bindings: mtd: Add Cortina CS7542 NAND controller
+      mtd: rawnand: Add Cortina CS7542 controller support
+      MAINTAINERS: Add Cortina CS7542 NAND controller entry
 
- .../bindings/rng/cortina,cs7542-trng.yaml          |  38 +++++
+ .../bindings/mtd/cortina,cs7542-nand.yaml          |  66 ++
  MAINTAINERS                                        |   7 +
- drivers/char/hw_random/Kconfig                     |  11 ++
- drivers/char/hw_random/Makefile                    |   1 +
- drivers/char/hw_random/cs75xx-trng.c               | 159 +++++++++++++++++++++
- 5 files changed, 216 insertions(+)
+ drivers/mtd/nand/raw/Kconfig                       |  12 +
+ drivers/mtd/nand/raw/Makefile                      |   1 +
+ drivers/mtd/nand/raw/cs752x_nand.c                 | 826 +++++++++++++++++++++
+ 5 files changed, 912 insertions(+)
 ---
 base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-change-id: 20261123-b4-cs7542-trng-1a1b9f1cd392
+change-id: 20261123-b4-cs7542-nand-87997e300079
 
 Best regards,
 --  
