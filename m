@@ -1,86 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795438947;
-	b=GD3dJRrIp6DP5mtXBih/klpuaPL7esBdNhb2GUnRLiT8WB4CmwLc7RxlagTriB4FZjGg
-	 ckgfR2wJNFyIb6+ykiQIJoJgUcvRxvuIx4NCR/qTbW5tppcMy1CZGO+WneiJHfRDgTa2r
-	 EWjvxb8gXPc7w8wdwrFwWnERGSk+6in7T1dsbYYGVMQkJl0jTl8a4Rck8n0QkYGY88WLH
-	 vapOzwtrTgg/9+AnutMLKSXZG4+0FcnluriKmeRxRKyvqlxyofVOIQiuO4YMqnH0FAcPe
-	 YEPczSIqqhxWaoxiQCzkzDpUb0EL/gAWuWcDkjO7wqc4ct4jliOEmzySdOfdRs81S5Q==
+	t=1795439000;
+	b=X4iaMllzqXPFSAnDN2q1VjLPSCGLAfNGsP/8A/sPtM8gOZL7NHS3cxJ+LJkaJHNSRcy5
+	 xlbizKXMmKDbxOqW/OdOxwU3V21NSn2rF+TKynCozr819aOXOjGbChH/4N3ZaUQyFxz9A
+	 g0u3hx9PKF7YR7SkLScMOnrnyFeT0t6Q6S1qzZ4rsHRMYzApotHq4TrfpYXcq5J/5zKCE
+	 vJzwO1U8IUEzxDH+Xuyw3QaXUDjtxcFKx42SJwgagQbNRJ3w0hHO+M8SyWvUX6Jezz+ut
+	 0cE+S6j9MfNoTYitHwXX7tr36Q0wGOlrDIcyMsvkegDJaaZ6U3p2rW17SPVx4uod1hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795438947;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=cKQuTWajHqDgBUzh5m680n1boH4vOLK3j00Iq2JfKIk=;
-	b=rn0OzDZXFW4QVDk6cnh+2H8EcALuGEuQwPKqoo6zHCW4T9p6CYP/VW03aaYz7RUJtbvC
-	 vkLwZV3wkpAD9iwPVCedKhUDp+iTa2ZiGH0pMRDCR2xbXtFQUs5JAtOSPtj6oyMEeghcB
-	 39/Z2EP2FCWiLoS4bxjwO/2/qfmt1rFjbuqwItMhK6wyJQjX9XakRThK0woMGe6/liuWl
-	 TOQHIydf3LQdS0Ym8tUsd5pJZM+qxwY3NjC1gx/J3mUv/xuYcnNss6rN3r8ouGWH367bA
-	 VAF0juCZtfKwylBGV0T5SLcxm+IByrL3BWU52baSmMPkdRxVsCmxddDK7/32OudhI0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795439000;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=X9AN5OVfTd15TEiHpz1sYzAM+wupJkMExyLyKUO7vJE=;
+	b=GxT0MED9/I6FU8oAf2ImRWI5sqOvItD/wphN4pAJsXz0ZPT3NO+8TCcM33OMJWpEX03w
+	 crwwghPZI7bdmIg6tTW+7ODg7Z+HzkSjz9B5FVfe1R8TT0pB91r9eBsd8/QXKiiuNrd7L
+	 odOyuVM33+Z4Fv51+OhIxCsI0+MZjT9dsmmgRGFXveODn4J7piaFecUyh00cHS3AXckO8
+	 05WVvqxeMoOvTIC82VZJErQy4XNsaxBjCIlxD+xefJfFo0yyK8gJxW3I85c/PMO9ZuWWS
+	 4rj3pzODVlohk4SByXneq791yEKvKMEVlmfNOnmekTCabDHIKohJsLZfbXG9b8XMvUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I+93h+Nj;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=glider.be;
+	spf=pass smtp.mailfrom=glider.be;
+	dkim=pass header.d=glider.be header.i=@glider.be header.a=rsa-sha256 header.s=fm1 header.b=KmNmIqhB;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tpGcuN+e;
+	arc=none smtp.remote-ip=202.12.124.137
+Received: from flow-b2-smtp.messagingengine.com (flow-b2-smtp.messagingengine.com [202.12.124.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFD6606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 13:02:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BFD6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C8B606A32D
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 13:03:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77C8B606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=glider.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=glider.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I+93h+Nj
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so531822566b.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 05:02:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795438946; x=1796043746; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cKQuTWajHqDgBUzh5m680n1boH4vOLK3j00Iq2JfKIk=;
-        b=I+93h+NjMVPVj9yGSCa9Yr9/aLoxakDF33sxW0hA4Me2ZHmBigmgD3nvRHdVyy6Czf
-         TA/CH/xVRgsZgVksQ6GlXxKXQMyND+oozcSLvV7DsUdVi2By+27y/9qKXG+i+00JbPRH
-         2+KHo13vwZdmzbaFnGRiyzihcwP27TD3RrfomFbXAZorz6bUacz43tU99G3ycQ0LAORs
-         T60Xd0qBHSzRgz5ln+D3CnLdPNMxPAqcmxpmoswe1W2kkMfVhTW3bEmWuelr475lx/Cd
-         SwZybLGNsQNPoVMmgOulEj9ahnKNw9Jy0lOnJOUQ5mE9UAHbofILR8xJYb6M7RFc5kXY
-         0THw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795438946; x=1796043746;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=cKQuTWajHqDgBUzh5m680n1boH4vOLK3j00Iq2JfKIk=;
-        b=PQkZv82bOD1fckS0C6J+WC8iuem7yOJJtEEXGk195R6uNAvWIvwB9DII9930Qx5WJG
-         2Yy/Alpph0OdwWCRPErAJiE3wjAFPg1Jf33co9ZIsgCFIdzXAuypXq6ZVQfN6X4QPY+a
-         A1hnvPeszqPOx/kopCEPSGUJKGu1GPvk3VKtuHxB2CxLiR5K+tAZy9yJD2Ox7m2Pg8VA
-         zhr1D1dTbJiQ8weZ7V3jPNP6RKmLoNSgIKdtlnzc7bB9t/sRVb4VkSnMKLTYOIxgLgqx
-         sUxL6nHY9BM3VVRaX1PDierP+WN6ng1qi2nM9hC7+brNow8O1cwnSczd8D381nf7foJu
-         jBIA==
-X-Forwarded-Encrypted: i=1; AL+hErFMhGEwpTK3PQRpBV1n4LNNJ5GnnoLtmAs5FYQo01U41F/dij08d9smwUpF+cBM2AZO7SWiiLqv3qxQ@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/MO2N2f4MZK9G91l2G71zH6/sDt6Rr7dbPClbik66JByfucaN
-	dSkk5vwDbVOzJaaOqtMEsU1IhMEibfuHiP0LxCDuAoQx1LHbxpprnD1b
-X-Gm-Gg: AZFdTZeorloF39WpWgSHb9CbmhDEruhDvjdvzuqtzRNa7YD7E4A/cwaMEQUJ3/mTRF0
-	488oHE/1b7EiYOeaHeHAXRTCLDeCPWKe3FGmGdUjC4lJs1KpBwQWmKUHgUbTfdGUkVn3r8WIRMv
-	el9useyZpsOcZ45NhxPyOePQshmChfvULwGTGicL1GZrVuizsgwA9zdeg37VQdGzo51YnrBmqt2
-	Ouu1M3gVl7d+mRXU9CJGsFipSwQVRaz+SR+MAYtLJBVlXqSKWEiKgdi4HRyvlbx9aBI/98PA9V5
-	BRzf5607bFlBjK4TffyLQhHrfsJqJkkalv5XXQtcKR2NksAKzRiFtYjQX8GUDSJL5iGHLknSj0M
-	shnpAXhR0x2kEJi3hn0YOsjxTlDfC8ysQbsk63k4JmPlDDnNjQ0uT5NQBSUx8zVtsDCM9/mnm9D
-	4ziTSoQSZla9NUGMGu9iHsho5lf1PKj56POx+LNkEwkMlhSmhq+oNiAVSgUGVa0L88ePP6zPNW9
-	eYTMXnEtFz25SYyd80tBMdi2zlrO3EatFoPlF6mjF8SE3Iy1q8VtP+lY6ZFf9wDllN1SQddNwcU
-	lgOcWCAifr8/teLOk2tt+mHGpIkfR5xlD81vuVfAnr/A
-X-Received: by 2002:a17:907:9584:b0:c34:e9fe:82ed with SMTP id a640c23a62f3a-c513a88223amr879508266b.28.1795438945419;
-        Mon, 23 Nov 2026 05:02:25 -0800 (PST)
-Received: from crispy-cucumber.local ([79.133.247.80])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae688f8sm412660366b.25.2026.11.23.05.02.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 05:02:24 -0800 (PST)
-From: Erikas Bitovtas <erikas99876@gmail.com>
-Date: Mon, 23 Nov 2026 15:02:12 +0200
-Subject: [PATCH] arm64: dts: qcom: sm7125-samsung: add fuel gauge
+	dkim=pass (2048-bit key, unprotected) header.d=glider.be header.i=@glider.be header.a=rsa-sha256 header.s=fm1 header.b=KmNmIqhB;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tpGcuN+e
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailflow.stl.internal (Postfix) with ESMTP id A536D1302CE7
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 08:03:19 -0500 (EST)
+Received: from ams-imap-13 ([10.64.2.33])
+  by ams-compute-02.internal (MEProxy); Mon, 23 Nov 2026 08:03:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=glider.be; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1795438984;
+	 x=1795442584; bh=X9AN5OVfTd15TEiHpz1sYzAM+wupJkMExyLyKUO7vJE=; b=
+	KmNmIqhBfUoWarllG1GjO6lKllwVP9vC5nTZjd/gToVFlseykhjdTlw67WYaqU0e
+	LYbqVuqJZX0XrkPOe12LROiPx3GhTI4UYK8kH7iShFXvE22ccD8cG4M2pah0pjch
+	7JFBcey9HWpMHYnxGGosKLhns95OnLLt9/ohNI2fKnHM5pURSmXZvW87iVMaBBao
+	Ifed5nU0U0IrYotlKtgAHTCzMK8ZHe5QT652PZSSTW5VR9SOTDuCouq3014fHSqE
+	YOVgP8sO+lh0/+giGxQHLlt/EjSM9+ocy5/tfl7cG6DTGlLIrAlFGNwWt9SphmHw
+	MZXIqPhGuawuQ1m6/Ox0jg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795438984; x=
+	1795442584; bh=X9AN5OVfTd15TEiHpz1sYzAM+wupJkMExyLyKUO7vJE=; b=t
+	pGcuN+eRVrer9DpT0Kjc/FeF8x78fbIM7z1KLK/L+wYVVUzQ/UW45+oqNC7JJa3t
+	wrgaX78k7BUypEziibxiFmxFGJy6hDG2VVAQoNbhrheJhgCzgxCDcmbTClbWIgeH
+	FH/PLUsvGLskTVVZBPphEIZO/VzRaNCDo0SHlv6ZspJbhqSxbneiAIv321Wtff5c
+	mRFH0flLIlqXeHhN3OHIapXwTFSNyytfJUAQfVkPBk1Sqvn+isqSAJIKtLaFp3Hu
+	nD+Try2CsDjNxYT0oZcFrTFAFYavtS0Tjrl6TSZ5gmcbf1ALqe5RavVA6eG3aABz
+	A35OoKmMgZ3cxo5x23/Ng==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=glider.be a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795438984; d=glider.be;
+	mf=PGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPg==;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm1:rsa-sha256:XSujTvOt/lwytCeSV6mj5LdTAmIqwNUa8EjL3IXsfq6p+Cc
+	jpdslbdRg9xy14hJW/F9RAZ93Q7fKJ/PMM+ititSsWynX0XemrMlRg3aRCBaFngF
+	mVX5twREegLGo41MqLMPk9nadctPV8o1ofk1vAzZguGC8a/DIPSemiUPKScTFEH5
+	iFOITe4eQaEtSWhOKPodM1HCYT5VbxGHitEdCpq6CpnvwNo/7pwtkuZ+Qaf0kDj9
+	WlYYyi4bi/SU7zdbSN8rySmujKDCpSl76sfe2yPHMkWAcJbOikcy9VMjQKBzqbFr
+	1p7FHGvgebjlXuXYnTcQGutN/ow3rl15/fSfE2Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:0YCg75p+MOblRwKwnlPT7R+r27/Nu0Q0f3SIIXJrPoU=:B09fes5LGgQC5htT3NtSEhy6JGXSYH/VGWW6BpL/Y1A=;
+X-ME-Sender: <xms:gDkEa4VDQCFO4pjPABBg4wEOMrNozKaTd6cyTtpY9YJdNxOYI7IZ-Q>
+    <xme:gDkEa3YRMVUKDUbpBSC7rd8qL8W33EiohAlScaCBGcFUBNhHguFB6MrTJl-AtG0Pr
+    o8KeIgu-Hp69IIZdHx9nGwvBT48LjlNUpQjM5F8ZxFbg1lSu7iGfK4g>
+X-ME-Proxy-Cause: dmFkZTFfp6oa0yJkYR9c2DqsrdzraZ9xSBuUCXNUZxpVR/nSg/eguKNOGwdFxjoPGLQv4K
+    DDIEPiS/sHS22D2pjiX/3ZqizsPUelqNF0Rx6hCDB52+C3kUyeBn/HxxwDhHo4Y3Uf2APj
+    U+sVegWnkTZ/zUEXVcUwxZNn6lOggYXLZ5yOzL/pyU5KgLyPmJdUKoSNYrROKJA6Z+mOWZ
+    xmVikDYGpHh1V6ANUjUhIFmx4jUyjC20kImuOqX0fUPYFw2UMMQPpqpXR5MyvQPrCP3o8C
+    wL8eM7lJYvO7NupF38Hbz7Byd1fhQd8sbQTG630RZMWRuzF+b6YH6Cm1LPtsepWGKnWusP
+    8OBrj0nqvNVsCrFQhRG/PEGcKvFqjZa1ovoeZ9pTbnyMscNJl56onWk+Dil0gZ10GaDeaj
+    5xp0VGCMlAjzEYy4aAd3LtXUBMhRy7IKqFMcQI3xSkkITol0+INexCTqnQMBmAJxyQG9qa
+    yf5Okp3LwX59hSzZda/4SgmxYAY/to474RfcdEV7xW0LfgPg4RB5umANSg7M3i9j7hAd1Q
+    UFBng6tPXoICTMzWw/9G2mMqpAgyeDqAoHtczVpi2LYVoUhBoKtCIbnLphdNmRuNPdE+g4
+    3PsTU6jfEDGgt9bQKtpY4GtcdcxP2IZFW7t9WMGaqaUefDPuKp+E9mBFMfBw
+X-ME-Proxy: <xmx:hDkEay_M3Tq62sjYkuK6t8x1YZXUdOXLf3yFn6xpyINHJuWpKlGYLg>
+    <xmx:hDkEaz59WZDzuRKHztL33T1pBK2xLtAxbppUWlUWFPv0t3HuZeZlrA>
+    <xmx:hDkEa4fxgvrQn5vFaRmeSgEjZpTSVFFmPPUsm8HuNc-NCLAMXZnmDg>
+    <xmx:hDkEaz2kf4VDKKLldz4MZsa6_fn0xk4NoSzZN_TXgMyzN6Jk7USrgg>
+    <xmx:iDkEaxUiwVPn4k97WPDh14OtFo5puwlqndpi11SGAKmXQ-dAOsc5o4sc>
+Feedback-ID: ia0f84a9e:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 130E9F8009D; Mon, 23 Nov 2026 08:02:56 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,149 +115,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: A9C68vVDcqlZ
+Date: Mon, 23 Nov 2026 14:02:35 +0100
+From: "Geert Uytterhoeven" <geert+renesas@glider.be>
+To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>
+Cc: "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Stephen Boyd" <sboyd@kernel.org>,
+ "Brian Masney" <bmasney+clk@redhat.com>,
+ "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Ulf Hansson" <ulfh@kernel.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ "Marek Vasut" <marek.vasut+renesas@mailbox.org>,
+ "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>,
+ "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>,
+ "Kevin Hilman" <khilman@baylibre.com>, "Vinod Koul" <vkoul@kernel.org>,
+ "Wolfram Sang" <wsa+renesas@sang-engineering.com>,
+ "Kuninori Morimoto" <kuninori.morimoto.gx@renesas.com>,
+ "Paul Elder" <paul.elder+renesas@ideasonboard.com>,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>,
+ "Sudeep Holla" <sudeep.holla@kernel.org>,
+ "Cristian Marussi" <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Message-Id: <066fcf7c-e1f6-4186-9874-622dbce18f92@app.fastmail.com>
+In-Reply-To: <20261123125410.GK3010398@killaraus.ideasonboard.com>
+References: <cover.1795029012.git.geert+renesas@glider.be>
+ <e01baebc546ed6f1b71a0487a59cda73239ea7f1.1795029012.git.geert+renesas@glider.be>
+ <20261123113619.GG3010398@killaraus.ideasonboard.com>
+ <23ab561a-c5c5-41ff-a0f4-87a3f5ca2e49@app.fastmail.com>
+ <20261123125410.GK3010398@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v5 05/15] clk: renesas: r8a78000: Add SCMI remapping support
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-sm7125-samsung-fuelgauge-v1-1-edcdef00a6ef@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0WOQQqDMBBFryJZd8CxmFSvUlzEcUxTGm0TI4J49
- 8YqdPnhzXuzisDechB1tgrPsw12HNLASybooQfDYLu0RZEXErFACE5hUULQLsTBQB/5ZXRMnC4
- VSZ1ThZJEOn977u3yU9+bY4fYPpmm3XcSnj8xNacD+yfr7AhiCpLCWw7mbaFzGrRSlbx2FSNRP
- ePuaXVgoNE5O9XZwMsE57e5aLbtC13hJprjAAAA
-X-Change-ID: 20261121-sm7125-samsung-fuelgauge-a57c6a0c916c
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Erikas Bitovtas <erikas99876@gmail.com>
-X-Mailer: b4 0.15.2
 
-Samsung Galaxy A52 and A72 use Silicon Mitus SM5714 interface PMIC,
-which includes a fuel gauge as one of its features. Enable GPI DMA and
-I2C controllers, add battery bindings and enable the interface PMIC fuel
-gauge.
+Hi Laurent,
 
-Signed-off-by: Erikas Bitovtas <erikas99876@gmail.com>
----
-Samsung Galaxy A52 and A72 use Silicon Mitus SM5714 interface PMIC which
-includes a fuel gauge to measure battery state of charge. Add device
-tree bindings for their lithium-ion 4,500 and 5,000 mAh batteries
-respectfully, enable GPI DMA and I2C controllers and enable the SM5714
-fuel gauge.
+On Mon, Nov 23, 2026, at 13:54, Laurent Pinchart wrote:
+> On Mon, Nov 23, 2026 at 01:34:06PM +0100, Geert Uytterhoeven wrote:
+>> On Mon, Nov 23, 2026, at 12:36, Laurent Pinchart wrote:
+>> > On Wed, Nov 18, 2026 at 08:44:53PM +0100, Geert Uytterhoeven wrote:
+>> >> Extend the Clock Pulse Generator driver for R-Car X5H with SCMI support,
+>> >> to remap DT clock IDs to abstractions (clocks) offered by the SCMI
+>> >> firmware when running on a system with SCMI, and SCMI support is
+>> >> enabled.  Take into account some peculiarities of the current SCMI
+>> >> firmware implementations, and fall-back to fixed-rate clocks as
+>> >> replacements for SCMI clocks that are not available.
+>> >> Support for bus clocks used by serial, I2C, and SPI devices is included.
+>> >> 
+>> >> This lets us avoid putting SCMI IDs in DT, and allows us to use the same
+>> >> hardware description in SoC DTS for systems with and without SCMI
+>> >> firmware.
+>> >> 
+>> >> For now, it is assumed SCMI clock IDs are stable, and match SCP FW
+>> >> SDKv4.31.0 and later.
+>> >> 
+>> >> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>> >> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>> >> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+>> 
+>> >> --- a/drivers/clk/renesas/r8a78000-cpg.c
+>> >> +++ b/drivers/clk/renesas/r8a78000-cpg.c
+>> 
+>> >> @@ -140,7 +182,35 @@ static struct clk_hw **get_hws(struct r8a78000_cpg_priv *priv)
+>> >>  
+>> >>  	for (unsigned int i = 0; i < map->size; i++) {
+>> >>  		fw_id = map->entries[i].fw_id;
+>> >> -		hws[i] = fixed_hws[fw_id];
+>> >> +		if (fw_id >= FIXED_CLK_OFFSET) {
+>> >> +			hws[i] = fixed_hws[fw_id - FIXED_CLK_OFFSET];
+>> >> +			continue;
+>> >> +		}
+>> >> +
+>> >> +		scmi_spec.np = scmi_clk_np;
+>> >> +		scmi_spec.args_count = 1;
+>> >> +		scmi_spec.args[0] = fw_id;
+>> >> +
+>> >> +		clk = of_clk_get_from_provider(&scmi_spec);
+>> >> +		if (IS_ERR(clk))
+>> >> +			return dev_err_cast_probe(dev, clk,
+>> >> +				"Failed to get SCMI clock %u\n", fw_id);
+>> >> +
+>> >> +		hw = __clk_get_hw(clk);
+>> >> +		clk_put(clk);
+>> >
+>> > Doesn't that leave the hw pointer possibly dangling, shouldn't you keep
+>> > the reference to the clock ?
+>> 
+>> Only struct clk is reference-counted; struct clk_hw is not, and exists as
+>> long as the clock provider hasn't unregistered it.
+>
+> That's what I meant, what prevents clk_hw from being destroyed while you
+> still hold a pointer ?
 
-Tested on Samsung Galaxy A72. The driver reports the same SoC and energy
-as on Android.
+If the SCMI clock provider goes away, we're indeed dead...
 
-This patch depends on a currently unmerged series for SC7180 GPI DMA:
-https://lore.kernel.org/all/20261112-sc7180-gpi-dma-v1-0-2a8eceb49563@gmail.com/
----
- arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts   |  4 +++
- arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts   |  4 +++
- .../arm64/boot/dts/qcom/sm7125-samsung-common.dtsi | 38 ++++++++++++++++++++++
- 3 files changed, 46 insertions(+)
+Note that __clk_get_hw() + clk_put() is a common pattern to avoid
+leaking the struct clk reference, and fixes were CCed to stable.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts b/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
-index ecba5be8164e..cd58f1449290 100644
---- a/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
-@@ -15,6 +15,10 @@ / {
- 	qcom,board-id = <0x22 0x6>;
- };
- 
-+&battery {
-+	charge-full-design-microamp-hours = <4500000>;
-+};
-+
- &rmtfs_mem {
- 	reg = <0x0 0xf4f00000 0x0 0x202000>;
- };
-diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts b/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts
-index f18d03de1585..73a1c3b7facc 100644
---- a/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts
-@@ -15,6 +15,10 @@ / {
- 	qcom,board-id = <0x22 0x5>;
- };
- 
-+&battery {
-+	charge-full-design-microamp-hours = <5000000>;
-+};
-+
- &rmtfs_mem {
- 	reg = <0x0 0xf3700000 0x0 0x202000>;
- };
-diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-index 59ef4921f31e..5d854a76bb21 100644
---- a/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-@@ -22,6 +22,11 @@ / {
- 
- 	qcom,msm-id = <QCOM_ID_SM7125 0x0>;
- 
-+	battery: battery {
-+		compatible = "simple-battery";
-+		device-chemistry = "lithium-ion";
-+	};
-+
- 	chosen {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -379,6 +384,25 @@ &dispcc {
- 	status = "disabled";
- };
- 
-+&gpi_dma0 {
-+	status = "okay";
-+};
-+
-+&gpi_dma1 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+
-+	fuel-gauge@71 {
-+		compatible = "siliconmitus,sm5714-fuel-gauge";
-+		reg = <0x71>;
-+
-+		monitored-battery = <&battery>;
-+	};
-+};
-+
- &pm6150l_gpios {
- 	key_vol_up_default: key-vol-up-default-state {
- 		pins = "gpio8";
-@@ -421,6 +445,20 @@ &qfprom {
- 	vcc-supply = <&vreg_l11a_1p8>;
- };
- 
-+/* External pull-up */
-+&qup_i2c4_default {
-+	drive-strength = <2>;
-+	bias-disable;
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
- &sdhc_2 {
- 	vmmc-supply = <&vreg_l9c_2p95>;
- 	vqmmc-supply = <&vreg_l6c_3p0>;
+"git grep -A1 __clk_get_hw | grep clk_put"
 
----
-base-commit: 2c0da72bad5631bda9c70dcfbe3497a0ebd9f936
-change-id: 20261121-sm7125-samsung-fuelgauge-a57c6a0c916c
-prerequisite-change-id: 20261111-sc7180-gpi-dma-a77963d9e1cc:v1
-prerequisite-patch-id: 70dc64e33232cae6744eeb11e8f53e099eb49c1f
-prerequisite-patch-id: 1ba00e1d0ffd80fa49f64e8b627ab07ce9478e74
+Gr{oetje,eeting}s,
 
-Best regards,
---  
-Erikas Bitovtas <erikas99876@gmail.com>
+                                                Geert
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                                            -- Linus Torvalds
