@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795440506;
-	b=sH14yOiuLgFu0vM/ISk7QLCx79LgSIB6mO6GSlegSszyCTpOU3YaEGjY141DhKzKbUB7
-	 4d3CDHlQ7s5GkdaBaj7R73zAIKXGxnGV5YRjkb1GyOv+CUNK/4GBuErx33R028QUij5y2
-	 6Z7Rip9AXlWyHQ88GAlWTvAvSFMETidRnPjOFSkfCKdbLLjw5i6Tot+Oflo6VNogk+9wM
-	 /pULS6dDPe4p6A7tE+wi1i1SUnmQoNDt7LiQzkcFD4mK8eBgS804avNGmOSwwaCrIB6m7
-	 JGDWl1eTXNARHzSGTDlbKhhtEjVGXTEc7rD6Edol9KLWsDRn2AgEHaDLycSxsgvbMrA==
+	t=1795440504;
+	b=dalYgHJ3Kt6x7CZXJNNfRAqBt7eZU3DoAkEJo728ntuLHv2fxThMLONe/yfEtB0Amwvg
+	 hA6sWUrD2wNmK3VgTJ8EZyNN1h4btbeE6C/651tcP9N9FnyLIIeY0RUJFUDelq2pBk3l1
+	 JU3IzAzbYFsoo4VUqkwpbalf4yRswB01WnWjhIiLfo32fOSxHj0cs7izGFI4zDOvf9b78
+	 dXyvPmb9hMuvp/wJzVNWS67ZNtYctZC45MEz5I2Ibn0Ywj27I+poprphNT/UbiyP6bndb
+	 6XjNhoVqSfa+JO8tAYIboA3aw7ZHyQy3M6blAo6u6tCF5vE0N71s9IVbCJv2kBe3mfg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795440506;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Iz6QLWric6cq68W3ntH94WwbQE0BNKTALt8WdXsygxk=;
-	b=O94uq6DBEbZY3pv9MfJOHIQOP1xhgX5kndxTpEZkNNvo5y+w7AKA7qIfBYNVVVsnhiHI
-	 jSrelw3lKyKDXfuwUNeQ89oXXh/tkQENmmmYmxjTsDNHkkqUunh3Xd26QCafOKa9taLUw
-	 OhF9QfgB0lGWZfvk/L8adB8+k1CmS7KtTePKgIOnSpzyUYZZlvHwsOwj5tfYDJUETwQWd
-	 WXIj5xOK8hdMN+6tNe0SVkO3nBMGSiCbJ6hf5+zRsTFa8dYehtPWWDr0iwi5+edAWHpwE
-	 Kzwo+e9viJFQtyoLPo/BtnG/3J5DjMbQGJGYPU/HWFQIeC6gnqy/wPtIBhW9FSom1Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795440504;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=G/taQXBwoIqNqn0V9uROp2Xr7eAeTMBxy+qngLdA9Fc=;
+	b=aI1OXC/iXqD9suhlJO4HMQAVUrAZs6w+R9kIMgyXmstyaCu2iMpc49TI1f5S8FkzMg6R
+	 Mh1uuqY/LazES8m5bwdV/E/fdmL9ccwfSWmnlT3a2PNbu7w5wiS8rIuo1hln34+TvEglz
+	 38Kau0aBZCDetQIC0j93DAwJ2sLmdeKJLwqymuZYKeIcE23SI5coDIu7TpJnp3H2In8WG
+	 9sm1/Lpc9+Rm3mnceb2xHodYkLKCRxZrdTa9lZ/G6wA31s2O6G1BSYhmhJplgNE+TNTth
+	 APXVz9YMhZav4M+LPn3vts8PN18Vi9FZzOdmsv2CEPVURWg2jgnlwbj84E096HDCsSg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wy6m67s0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmAY+25d;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D22606A33C;
-	Mon, 23 Nov 2026 13:28:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDB0606A31A;
+	Mon, 23 Nov 2026 13:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wy6m67s0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmAY+25d
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795440506;
-	b=JSEVKBQNWPdSzUDDTcjYr5GAkYvu21lpePWhharRqSsbEDpHjlx6IO5ctWqGfejBNNrC
-	 685g8o1psYluAsPOV+aPA0a5IHLyLtY7enmrhnS1txCkQgymrN1XoyT59GfAadrtpHSdV
-	 klieKeLA8e6ANvCKY6YwUwh1X7CjX+SqRmgf3KQNk3vgLUf5Kz/bsbgNPEWmY8zDz67xG
-	 I5PN/88WTgucW5ERWMx9R4nMbxjObDpaD1+kH1WZ2ihdUWwg5PifgXQqIHgRYkb8JbVcl
-	 V7cJ1KITDX85v4w1SIjr9z5kDjkiJCNSmjj1Vbe2heo8YY6FPtS4f2cKufV3MD7rcJQ==
+	t=1795440504;
+	b=yH6O1caavM+BNd+pRkvrXLvINjINk35hEb9iTI32qtWzdXTCg2dAys8ISk0W/ZLvkH1q
+	 bVr34BUL8UaF8K70XZoc9wW/+VqpwzVCom0TYQynze+glb+KlsaxCt8pigb1YMc1xiBmn
+	 E+NkQf+a/qDJInA+/UHD28yIQD8RELvbNZ3pxXKEd1AoqLxuj5ivJHto3x2YvKuJj5CqR
+	 OUD/MFjSi7DssPdQ/OF1V36+1tr7aEQ1mZ29Q9l5JJqwUCsfYbG1WPBBY2mgIsr4iyaZ8
+	 BrWFN0g9USSASsIcW5k7LfJgPhIplPCUjr5pb/oH3twXvqLKguWisTUVj2whCeSm7kA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795440506;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Iz6QLWric6cq68W3ntH94WwbQE0BNKTALt8WdXsygxk=;
-	b=XcC2fZV5CXnZkF/+ZNmPEKe69/OvzRj7dVKWvRQ4FSCvtewIlyNX3sDua6VJKISCeFDo
-	 8UoYVzIYbqcEYYYKGFDI6jYx6LrYcOXhFwEsf5d6sdBUpaZHB/ofxN0P2dysxGea/0bV3
-	 2//T+fc5qzRGJ/NaxoLTI37q2Ip7oXlG40ZL+u0jVrfwmjAxzCaLAOiU8GYXeSRMH0GuL
-	 quyVy/CbavpqN9cSUNZZiVQkBQLAY7AAVLKYOCaRRjic73XofAzhlXysOI6KCOKlHnado
-	 0u8ze9R+sAYfoEnuXjjKl7niHeZkKE/suMOwT+ym6xmTYxp6PGFviYVswk7BvQMC6nQ==
+	c=relaxed/relaxed; t=1795440504;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=G/taQXBwoIqNqn0V9uROp2Xr7eAeTMBxy+qngLdA9Fc=;
+	b=CJxuuQeNXcHhKzxaUmNabcDkV4Vvm/ae9yGtIckl3kuBlhhgke3TDc/MCy3AcNzmvyIw
+	 JP1NkEB4owdQv4Y7UE5zwkVv8evAt4y7GpNRQHTM9CFdhVXXFSyXRmklNVU3CI+p/MCW8
+	 y02jNFyojrr9HohCD1pmzF1GbyElqYuT/wKL5Pqm3EnURKFnNsDe7yev4zgllWLAXaYcw
+	 JoxC9sVUld0f0gLMxTWe3bKaNv7gF7yS0cI/Z9q0UCAMVPJ0LIdCQAyixTzklp9RPPzgP
+	 VCKlu6TUfhVG4sc56gHo9QjNMhaDBss/Si7rXxZAvqa3y70z+LxFUDpaMMmj7ypzDtA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 65D471F000D1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5062F1F000D3;
 	Mon, 23 Nov 2026 13:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795440506;
-	bh=Iz6QLWric6cq68W3ntH94WwbQE0BNKTALt8WdXsygxk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Wy6m67s086zCYP7xnMcOrcKP2gWsHh+THO3IyGu6bW0MI55o5GQAX8iUuCqvWY3yC
-	 IYCprsIq60S019svbAqbnnynYLtubAfQ9JFB8nt++HY8vJPpS1jn1sWrufGs96C+Su
-	 KK0f3BgRlc3BB0jyW+l9+v8ThWJrar7VfLuz49/DrgC/RqOKcTLkZk0JeKbypkFRcX
-	 o5f8koGFck5QeZZtrOU+478gMLBgrKHhJmWTS3sxiFzvT4W3KtVq+jihUI6sQGqyEn
-	 l2ZVKFsVVzOyU9XDZwCH0aHOtYS9rWLav5uHG/pStOQjPiFibpRJ8TNt1k+ptj5Ixk
-	 bakDyAivHtibw==
+	s=k20260515; t=1795440504;
+	bh=G/taQXBwoIqNqn0V9uROp2Xr7eAeTMBxy+qngLdA9Fc=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=CmAY+25dJusctYntOP9iuNNMlOWU6c9hL0hK19hiVPPkIhEYCXPiAxa/rnue9Nl2d
+	 L78kBfo3//xThIpaqaMul6bCTmY+oIPgS7v5nXMZK4V+ONlYMRUfYx4ZMa3GWuwtcy
+	 Ka+IaV8m0unZFBZ6of9uAFRaM5yiO9rkG244GthN6sefCp8/WmT1IM4Y6ZeQ97FWwx
+	 brjg5VD1a1yn/7CfqOtqJ3M8Tf22mKJVMR9LrGyvuA6G/QxkB1iUfJ0mnpYUjbjGuo
+	 OLH/hmmGjUPVovRsp3tySKgUWUUkurCmOu+X48Jn4cyF8/b352eAeOx2ID5E5oJddO
+	 Sr9D/tWlft12Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E327F4C4A1;
+	by lkml.kernel.org (Postfix) with ESMTP id C05174C48E;
 	Mon, 23 Nov 2026 13:28:12 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 23 Nov 2026 14:28:10 +0100
-Subject: [PATCH v11 1/2] arm64: dts: qcom: sdm845-google: Add dual front
- IMX355 cameras
+Subject: [PATCH v11 0/2] Add initial dual front camera and rear flash
+ support for Pixel 3 / 3 XL
+Date: Mon, 23 Nov 2026 14:28:09 +0100
+Message-Id: <20261123-pixel3-camera-v11-0-d00195d180dc@ixit.cz>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,9 +85,14 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-pixel3-camera-v11-1-d00195d180dc@ixit.cz>
-References: <20261123-pixel3-camera-v11-0-d00195d180dc@ixit.cz>
-In-Reply-To: <20261123-pixel3-camera-v11-0-d00195d180dc@ixit.cz>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33SzW7CMAwH8FdBPa9TnE+b095j2iFJnRFpA9ayi
+ g3x7kthEm2QOMbK72/L8qkZuM88NOvVqel5zEPebcsD4GnVxI3fvnObu1JopJBWKDDtPh/5Q7X
+ Rf3LvW0+EFJJBYm6K2fecyocp8PWtvDd5OOz6n0v+CFP1mqQBqqQRWtFKZ5wV1oAJ9iUf8+E5/
+ jZTzigfWlmshoBIPgTQcWnV3MraqmJZ2iBIeAsgllbfrAOqrZ76YvQBpLJo5NKah9YUS2RIJQg
+ dcjWznVkpamuL9Yk1UOCkXbUrN7d3u3LFouyUVNFG01Uz482SuLN4mTmBIUSlNC4tza2rLRUbg
+ BDS1JxgaUHMMNxhEEV3ySqQjoKi7qbP17Pr+eu7nO/h//bO5z85gaYN3AIAAA==
+X-Change-ID: 20260315-pixel3-camera-a9989bf589ee
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -98,315 +104,107 @@ Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7144; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3355; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=lAr8RSJX5l4imCi996Kh7aazXm2Dve0A7X4RSXAMayk=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBD9sYu/UmjJ+NaBSgnmzBUm7AZphXOvz+6lZH
- MYlUmccVtyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawQ/bAAKCRBgAj/E00kg
- cmPyEADCsCMTPeoe/39drsYHSzGQjNjqoK7dLv7oWsAidBS8PucnuGoK0xBNA02k5MHZiAyLu0B
- vnVAqYFCLL8ApziPSJKyDL+zCeV332Esr0V9/ydi5ER8CB8fXdCd6+uVa7DhHMVmairC8J0U5wy
- 9Htc/7u6J7ENKqYoZg3MwfPacPebjXbIRVpNVkNANxi4lCv36Agh97oro3AiFAPWn/9CS1DzmA7
- 99OucHNkZI2zPvxYUOR6lsQJ+fRY5DyuCcLelPAJ20dVqOnVIR1N7O3flsEsPm299VMC8Ir2Sks
- WlfB2lDlcHLs25u1kQoeOqUsV5Bj+eaSTD+py8l6LvMNPFbd2M4Idil3r+p9Xpd0SNMuoUgweg3
- Q7kVGRrGLZBWa8XNTW1kI0QaOpXca5UrJTOz4QVgI861ziH0THoN4kVJVQF/Wtf089bYRihwsH1
- V7upToW5CERmbNs3825V7LsS2fkZQlDbIwPsBgoPZA2DaVhscUyopGP22piIOQYbYewhGIoVpBO
- yz3o8RFd+i/mAp5Pl+kJIA8tHHhnfhADqxabXDIIrv1QMnNSjtL0HuLn2yjVuQ5aP5JZlc/2hqP
- hLP5sR2ajZ0O4MGpe6SLnu9h+uORRmSCU+xcrr5d6vVJLR6yx4fh88dPaxS78I4QBsxacjIY2KU
- L2oonr4QY4jOWRA==
+ bh=DnyxK+CH29aGE0/NgvGyExF9hEYwCx25ThxaJ/VBTS4=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBD9rd1lGXz5HexqJr0ncrOeM9r6BGzvaYBGtI
+ iRDuFXj8a2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawQ/awAKCRBgAj/E00kg
+ cugPD/98BJK3uoN4L489lXay+FaAzYEZyJbWMnHZdXjaSq68CTxlrQ620F6xg8DIoZ1MwKJggBr
+ gO2EBkhO2+lDSXVPZ+Skkq0AYH2jycQqsbdWdNh/eTq+ERHbmQfuF3nReYrF0D1u1jnqX88G/r6
+ 6sBq0WOfi9piwPWTSFRgFMSX6AKhEOj55O0vPdx7PhHOKMlpsCkwY1rVg3NLhTjHWsCKhF5JrHT
+ CI/rHlmC5TCJAuPgvKRG2VzE9JlNWLH3yJfUNSU4MHp5w4qhGVyDEfh+81M1Abmo66pQJwFCgbb
+ q6VMjtRfQgfmXt/RYJXE70mONsda2VMVi4H+TB+0yfew7Co0f3Nes6pVxnwfE0xVTc6fWDXHfDP
+ APv/5uWwb6VU3CoMbEbXXtUNO0rLWLqAoq2IMoIfU8SAlUYE/PKUn0FURCPruBQFWoOhddI8mCF
+ W8MLgNfaBDoZ74l1vYuiaAHFg+zD2kXrIsFD3YLZJA5sLG9zwNTt5Woo5D/75NBqpFeN5LnDmtw
+ EaAZv5qwDsNGpZC5qzCZfcvOh58vfGD7bFP2f+9E0BM+e4L36uj+NcDyWcyLqDqZU+KdyZYH0gb
+ unw9sF2e2/WBE7+e7UpRE/vNXEeIJM1RjywJq5zY/bR8sQOBAyOiiAgHswQ27BzCRWs2Av6mseE
+ e7X6WdwWF+2tfXQ==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
 
-From: David Heidelberg <david@ixit.cz>
+Describe the dual front-facing IMX355 sensors (standard and wide)
+and enable the PMI8998 flash LED with hardware-accurate limits.
 
-The Pixel 3 features two front-facing Sony IMX355 sensors with
-different focal lengths (standard and wide-angle).
+This brings up the basic camera topology and flash support in DT.
 
-Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
-I2C1, using MCLK2 as the clock source.
-
-This enables support for the dual front camera configuration.
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 172 ++++++++++++++++++++-
- 1 file changed, 171 insertions(+), 1 deletion(-)
+Changes in v11:
+- Reverted to the v9 (as the merging didn't occured yet, and now header
+  file is in the place).
+- Link to v10: https://patch.msgid.link/20260917-pixel3-camera-v10-0-df631279b39d@ixit.cz
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index 3c9656b88b696..1c1cc036dcfe8 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -1,16 +1,18 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
- /dts-v1/;
- 
- #include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/media/video-interface-devices.h>
-+#include <dt-bindings/media/video-interfaces.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "sdm845.dtsi"
- #include "pm8998.dtsi"
- #include "pmi8998.dtsi"
- 
- /delete-node/ &mpss_region;
- /delete-node/ &venus_mem;
-@@ -108,16 +110,48 @@ gpio-keys {
- 		key-vol-up {
- 			label = "Volume Up";
- 			linux,code = <KEY_VOLUMEUP>;
- 			gpios = <&pm8998_gpios 6 GPIO_ACTIVE_LOW>;
- 			debounce-interval = <15>;
- 		};
- 	};
- 
-+	camera_front_avdd: regulator-front-cam-avdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "front_cam_avdd";
-+
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+
-+		gpios = <&tlmm 8 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&cam_front_avdd_default>;
-+		pinctrl-names = "default";
-+
-+		vin-supply = <&vreg_bob>;
-+	};
-+
-+	camera_front_aux_avdd: regulator-front-cam-aux-avdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "front_cam_aux_avdd";
-+
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+
-+		gpios = <&tlmm 14 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&cam_front_aux_avdd_default>;
-+		pinctrl-names = "default";
-+
-+		vin-supply = <&vreg_bob>;
-+	};
-+
- 	vph_pwr: regulator-vph-pwr {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vph_pwr";
- 		regulator-min-microvolt = <3700000>;
- 		regulator-max-microvolt = <3700000>;
- 	};
- 
- 	vreg_s4a_1p8: regulator-vreg-s4a-1p8 {
-@@ -314,16 +348,21 @@ vreg_l28a_3p0: ldo28 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
- 			regulator-boot-on;
- 			/*
- 			 * We can't properly bring the panel back if it gets turned off
- 			 * so keep it's regulators always on for now.
- 			 */
- 			regulator-always-on;
- 		};
-+
-+		vreg_lvs1_1p8: lvs1 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
- 	};
- 
- 	regulators-1 {
- 		compatible = "qcom,pmi8998-rpmh-regulators";
- 		qcom,pmic-id = "b";
- 
- 		vdd-bob-supply = <&vph_pwr>;
- 
-@@ -346,24 +385,127 @@ regulators-2 {
- 
- 		vreg_s3c_0p6: smps3 {
- 			regulator-min-microvolt = <600000>;
- 			regulator-max-microvolt = <600000>;
- 		};
- 	};
- };
- 
-+&camss {
-+	vdda-phy-supply = <&vreg_l1a_0p875>;
-+	vdda-pll-supply = <&vreg_l26a_1p2>;
-+
-+	/*
-+	 * MCLK2 (GPIO15) is shared between both front camera sensors.
-+	 * The clock is generated by CAMCC, therefore the pin is
-+	 * configured here rather than in individual sensor nodes.
-+	 */
-+	pinctrl-0 = <&cam_mclk2_default>;
-+	pinctrl-1 = <&cam_mclk2_sleep>;
-+	pinctrl-names = "default", "sleep";
-+
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			camss_endpoint1: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&cam_aux_front_endpoint>;
-+			};
-+		};
-+
-+		port@2 {
-+			reg = <2>;
-+
-+			camss_endpoint2: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&cam_front_endpoint>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci0_sleep {
-+	/* bus has external pull-up */
-+	/delete-property/ bias-pull-down;
-+	bias-disable;
-+};
-+
- &cci {
- 	status = "okay";
- };
- 
- &cci_i2c1 {
- 	/* actuator @0c */
- 
--	/* front camera, imx355 @1a */
-+	front_cam: camera@10 {
-+		compatible = "sony,imx355";
-+		reg = <0x10>;
-+
-+		clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
-+		assigned-clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
-+		assigned-clock-rates = <24000000>;
-+
-+		reset-gpios = <&tlmm 21 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&camera_front_avdd>;
-+		dvdd-supply = <&vreg_s3a_1p35>;
-+		dovdd-supply = <&vreg_lvs1_1p8>;
-+
-+		pinctrl-0 = <&cam_front_reset_default>;
-+		pinctrl-names = "default";
-+
-+		rotation = <270>;
-+		orientation = <MEDIA_ORIENTATION_FRONT>;
-+
-+		port {
-+			cam_front_endpoint: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <360000000>;
-+				remote-endpoint = <&camss_endpoint2>;
-+			};
-+		};
-+	};
-+
-+	front_aux_cam: camera@1a {
-+		compatible = "sony,imx355";
-+		reg = <0x1a>;
-+
-+		clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
-+		assigned-clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
-+		assigned-clock-rates = <24000000>;
-+
-+		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&camera_front_aux_avdd>;
-+		dvdd-supply = <&vreg_s3a_1p35>;
-+		dovdd-supply = <&vreg_lvs1_1p8>;
-+
-+		pinctrl-0 = <&cam_front_aux_reset_default>;
-+		pinctrl-names = "default";
-+
-+		rotation = <270>;
-+		orientation = <MEDIA_ORIENTATION_FRONT>;
-+
-+		port {
-+			cam_aux_front_endpoint: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <360000000>;
-+				remote-endpoint = <&camss_endpoint1>;
-+			};
-+		};
-+	};
- 
- 	/* eeprom @50, at24 driver says 8K */
- };
- 
- &cdsp_pas {
- 	firmware-name = "qcom/sdm845/Google/blueline/cdsp.mbn";
- 
- 	status = "okay";
-@@ -518,16 +660,44 @@ firmware-pins {
- 			pins = "gpio79";
- 			function = "gpio";
- 			drive-strength = <2>;
- 			bias-pull-down;
- 		};
- 
- 	};
- 
-+	cam_front_avdd_default: cam-avdd-default-state {
-+		pins = "gpio8";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	cam_front_aux_reset_default: cam-front-aux-reset-default-state {
-+		pins = "gpio9";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	cam_front_aux_avdd_default: cam-avdd-aux-default-state {
-+		pins = "gpio14";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	cam_front_reset_default: cam-front-reset-default-state {
-+		pins = "gpio21";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	touchscreen_reset: ts-reset-state {
- 		pins = "gpio99";
- 		function = "gpio";
- 		drive-strength = <8>;
- 		bias-pull-up;
- 	};
- 
- 	touchscreen_pins: ts-pins-gpio-state {
+Changes in v10:
+- Removed the (not yet met) dependency. I'll apply fix after it gets
+  merged. Feel free to pick between v10 and v9 for merging as what you
+  think is the best way.
+- Link to v9: https://patch.msgid.link/20260907-pixel3-camera-v9-0-b1981f2d3291@ixit.cz
 
--- 
-2.55.0
+Changes in v9:
+- Dependency merged, no longer depends on anything.
+- Link to v8: https://patch.msgid.link/20260901-pixel3-camera-v8-0-99f159883348@ixit.cz
+
+Changes in v8:
+- Fix ordering of includes. (Konrad)
+- Link to v7: https://lore.kernel.org/r/20260721-pixel3-camera-v7-0-82d323c6c5d2@ixit.cz
+
+Changes in v7:
+- Depend on the
+  https://lore.kernel.org/all/20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com/
+  (Konrad)
+- Sort the renamed regulators. Why Mr. Anderson, why. (Konrad)
+- Link to v6: https://lore.kernel.org/r/20260720-pixel3-camera-v6-0-afe419bef476@ixit.cz
+
+Changes in v6:
+- Remove forgotten bias-pull-down property from cci0_sleep node.
+  (dtbs_check)
+- ..-regulator -> regulator-.. (Konrad)
+- Rename camera -pin to -state and remove _pin from the labes. (Konrad,
+  dtbs_check)
+- Link to v5: https://lore.kernel.org/r/20260719-pixel3-camera-v5-0-99593f1bd8ec@ixit.cz
+
+Changes in v5:
+- Added function-enumarator to flash LEDs. (Sashiko)
+- Dropped l22a regulator needed only for NFOV actuator. (Sashiko)
+- Dropped vdda-csi[0-2]-supply, as it was unused. (Sashiko).
+- Added previously omited cam_mclk2_sleep sleep state.
+- Link to v4: https://lore.kernel.org/r/20260719-pixel3-camera-v4-0-48cab1236852@ixit.cz
+
+Changes in v4:
+- Use 24 MHz ext clock for the cameras, as the downstream does, since
+  the upstream driver can now support it.
+- Added additional LED, as the phone contains two separately controlled
+  white LEDs flash (upper and bottom, in one module).
+- Increase flash-max-microamp, as I took wrong "flash" from the
+  downstream sources and dropped Dmitry R-b.
+- Address formatting issues. (Konrad)
+- Link to v3: https://lore.kernel.org/r/20260412-pixel3-camera-v3-0-e26b090a6110@ixit.cz
+
+Changes in v3:
+- Dropped cam_vio label. (Dmitry)
+- Move the MCLK2 pinctrl from cameras to common camss. (Dmitry)
+- Link to v2: https://lore.kernel.org/r/20260411-pixel3-camera-v2-0-41b889abb14c@ixit.cz
+
+Changes in v2:
+- leds.h include escaped the initial submission. Fixed.
+- Link to v1: https://lore.kernel.org/r/20260411-pixel3-camera-v1-0-2757606515b6@ixit.cz
+
+---
+David Heidelberg (2):
+      arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
+      arm64: dts: qcom: sdm845-google: Enable PMI8998 camera flash LEDs
+
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 199 ++++++++++++++++++++-
+ 1 file changed, 198 insertions(+), 1 deletion(-)
+---
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+change-id: 20260315-pixel3-camera-a9989bf589ee
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
