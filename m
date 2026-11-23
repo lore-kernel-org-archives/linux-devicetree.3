@@ -1,89 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795448146;
-	b=fI19LsULlRNg22DMBE8Sz66CiyYk1WwJrpFZpBrXVRybaxbz76A43Y4+3+v4OgEtWjry
-	 vEZ7IUGrZvvq9zFEADdWuUXzbT9lPiNZvB7GZdAdIjWzglEzXq2fCytKLtC+FcOIOkXSL
-	 UE59yb7M3EyO78QqYRpUai+MxFX8J9GkzBOtInP4+DZhxQuu+N5Hms6CyWLL+wpLtjbpW
-	 CeusIcpVj85/TJ8IIWKYYUwZfTyeSof4MB8ao3wbvbRZNt41UXHE+Yed536wfyUMVKlpm
-	 6GI4/62+nccFfkLrJnwmiul91UTh//KuB6FJ3d5c0L8DOihE0/Rs1IzFONN0vw91ruQ==
+	t=1795448149;
+	b=LDkE/1/F/jBTfGVMPyjdwj09sbQS5ybnmaLuNTGUqFu4721p6R+OhVUnBAVkpC8kq4M4
+	 lZihRSKUPNHSz4P3O3cVPQH6+P/nXGCPDMV0JYqLKPXxNxNfrVUQV9tbxVHpvmv0DOll8
+	 dWaUPX7CqRb4WiVUX/TPt3KEtUi/nFa8dqKVUVBEM3R6lDS/qZ6Yqz59A2Zq4HR6026sG
+	 G924uYjsMRDLRnrCQWI124IbBv5nldkSdZCgr34rnThEyYW+ZkiTY5aFxS0Rwhj3l2+7+
+	 kSaW/raSw2gf8KeDSHEmUcBUU8WMrf1wrerQ+jEpx2wdjjQSJLF+bQhs8iYdtNhYQZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795448146;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795448149;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=U5vpypoSKp4E8dfxVFDQ4mbg6cBO9LFnQEcbGDqjzgg=;
-	b=MwBEwRdxTN5v7NxjP3duGlKyn+yIT1JeG1794xycBSHeamkekT9yCYccYqg4H7FbZ9SI
-	 Avt1NDWPYk9Cgz8ic0AIm8Ct513su8FBHjjNwC2ra4JZn1Wd57EL+LSv0z2u+vFIVEOJl
-	 C5GIpwf5eo7FI097uGUQv2jzYHbVjQze82D1C7ai978qF93SJram/hh6QVYZKjHZXok0I
-	 3aqA51G47aurh7nH6sjvQ90VNLJ6Y3qlrd1eNgKC2p+JrLHtEEhpN7e9T/G/aOEoNdzWE
-	 OJrSfp4ap2fYcPcmfx2QCMAWxdRQ/mjFhzGCDiSgyDmTjiKjaIBMkRb1PIrGQ7GkVNA==
+	bh=aHa4P0YtaZuvv8+v7789rnOLQIKeJc0wIhDUBtVf6zY=;
+	b=pr/UQ+c7uNc5/9QCTD/ikGGQLYKW6MDdKburjrNtLVy0PRngEUbfCY834UNvM8juFreT
+	 VK1lCm3f8logcRbg/K+F82shGu818ePlAjC2REMz9T+OylDDA4mYMI2KLVxn72HOoSh79
+	 IBnWPZVfI1+u6kS8sSiFodR9iyfSWgNi+j1QLjth5bVwwHFGNQ/QShkpTEKCV5nkGsiXx
+	 aSY6DsHeTKWlZaUQ9m34nR6gVsfGWMZw1gDnuccNu4YsMPZCS75WiT7BdVyOM2KtRkeY8
+	 jzKtqe/OJs5Xpmh39K/xbzwMSxx5atGpPlnjXaSATz5UB7XJcL4rgLQsnf19VtX/4aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=flipper.net;
 	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=ToI0FsWb;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=XQonE5Qm;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C72A606A33E
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:35:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C72A606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397AF606A33A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:35:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 397AF606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=ToI0FsWb
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4b467581b98so32489665e9.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:35:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=XQonE5Qm
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb5b8ef642so28959625e9.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:35:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1795448144; x=1796052944; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1795448147; x=1796052947; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U5vpypoSKp4E8dfxVFDQ4mbg6cBO9LFnQEcbGDqjzgg=;
-        b=ToI0FsWbD0Eah/2QyhzClH9SQPlsS38lhruMXa+ffVAuIRscFhzB2Ur5Y9KtNkF+gZ
-         cgK4/0U+C3JwAfK6wKVTG+2gvBMlnfkrPCOy0UPcm2nYYLa3JmmsdhSpfOuN+oXmsXbr
-         AWV2TUlc+IHb5CAc1BrmJ1MW5QEmz59IXr6kfLJLWj/E8asnyr91D0E+yRTOWvSb060z
-         klBtrNGDNrvqmquHYK8fAXtDT9xofocZjZqOQDg93SW2wrl3XhkO/zfC1L4+nX+LPnVn
-         WTA+9yXuqDfaxRLLioQlYobh/pJI4HzcsBUUmXnZ0ttMcMZlQutCumbv/UwZCu8R/XAv
-         06yA==
+        bh=aHa4P0YtaZuvv8+v7789rnOLQIKeJc0wIhDUBtVf6zY=;
+        b=XQonE5QmTSyDMfonUm0D6odshnwM5tHOIljHA3Fsj/l7JPAQZ6yqeSd0FBeqomnf9p
+         2IvE5oSqWzvd0pOwxvL4nJFAQ7W983UufoZYgzJoPuvjghxpFNfAfZ7ANEd6N60lzSpK
+         4M9ezOaC/V0jPwP8a8u/KPnz16oBHIZcqc96L4RXOv4O40sM2TfW5/I8tJ98PPypty0n
+         OQH1ORTWf7ObcFYZ4mCMk7PMEVTPH221p+hGglE9y18vSSDkcRnr5WiwQ8H4Bgnsiyie
+         9CEZcYw4ETZTN08iJXmc3LaxJoTvhTOSm93lmJuiQKIC1S7xrlG10KEhmElWLDZYRmAN
+         XFCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795448144; x=1796052944;
+        d=1e100.net; s=20260707; t=1795448147; x=1796052947;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=U5vpypoSKp4E8dfxVFDQ4mbg6cBO9LFnQEcbGDqjzgg=;
-        b=SptowRYjO+QdqUAKlvgFhIYSsu83IC+iBSwzLp1Q8wOGx6lazUqtWLuD6BXr4pCgv9
-         2iGc6sKXzOUgRevRdTN3bPoDMWKYwEq6rqgMLdhNPeT6yOWLa5mHFOmCQq8evLhfNM1S
-         ogfAPs1jhYVRmFCkSt2B7b4KJiRrDnRn0kb5/HG1TfmMX9YIGvPEFpfOU11livJjz+iH
-         ZfdrJ1lMHDWM39u2bCOECcb3GNPjX06CjzR3xsH+36hwMV5ljoHmPe+CZhF5r1dK8i/U
-         XnHTA02unDhM78lSWY9a8Sf5/vexmXEN62MhXFHYOfV0Y35vuu/8eyc8Xz4vQ2qCKWtz
-         1jDQ==
-X-Forwarded-Encrypted: i=1; AL+hErHhVNJZ53Oept/wxCTupRjm4dvjjG1pBsfooxpTVwcmtrRnE4p1toUgcmbhCPXwHt91zUDGmdo4J0zZ@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ORR8PYBgctD6BWONg5GX/G99hnbqFzTlt8qs7Pmh72T3A2D46
-	C2v3fqmuPI01sBhysMY3LQUpAxRR0hv99snU7hQAr+90eKaq1a0mS03s/iDz19OlXmk=
-X-Gm-Gg: AZFdTZfy7H74O/PmY18doSthZrEMPvMO5m3i3GzSCupJY+kPT14uc++lbiA5TXScKcM
-	a8buKg4MZ/ryeCgo5a+ZxLHDOR61QqEq7gC9QMq8Zpd0rs3gBW5TreOYRNuLdTeEHSrnx4vAk1w
-	X7zcscNGp2meLbMoawoFaipLcYPKD1ZSbZe3/Prqs2iHZsEXO2BHyma04QneSUJDIvQsoQxHioP
-	+KoZtBBb3GpZwSgpYwl4H2E8OcH9Sq20GlC7RRSAW4LICuSogHL0YzoiPJcYJd5UJRHPWiStH7B
-	AWUv1f0ZxaA9GLgxdHu5zGTS1lB/7BAu6OQYC83UqszA6slf3JmuPV8Mb58TpfO/s2oepNG7NtC
-	wFUvj9QaAg84jJX+xYO+YoHanaPknwxsGKl/Ak1s53yzO53A6itkhUmAqo93ZQhyUzaHWs05zWY
-	OU5ZprIrXeNwwhKf02sBssMCRhBCEBetOUE2nrVbT/5CI5j80V/VhrqPV1TvlhazxiwHnTgtO+z
-	lzNC5WwIwaiMkPtky9adPgYOMytm+dbsrrDuKB8Qp0aBYBTSpGRPR2tOG0lj3mFCscH9/Bt9bhR
-	vhWFq3ux7dmxUw1rw0F9zcHxL5XIais2MjSnuozAZlqz9yXEK7zE12Qh7qZny2ytonQeOeKECDS
-	8ezxYoKlHWe+OV+yAvLUGH/LRgVG4rnM=
-X-Received: by 2002:a05:600c:64c8:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4bb887e2380mr225893635e9.4.1795448144501;
-        Mon, 23 Nov 2026 07:35:44 -0800 (PST)
+        bh=aHa4P0YtaZuvv8+v7789rnOLQIKeJc0wIhDUBtVf6zY=;
+        b=eZHs8DEpH8SHds5ilOvZPzBJe4hvuO3L5h1RpRcWx6QwMqkppvZt+GhXRxJ5WhtLXs
+         isLljBkHAAOdN6p/pwyPmbr13dhtdKWbQ7uYw5ESdMF2a4L2zIqjw9CvpRtRuwlmblO8
+         TZDP5Um+A0lBOVWrIsW6uuOR8L+fHRevcZgtBwzJlzZs3trYNZISI6DLk7lpaSLuJR2p
+         5huaNyzbdgQ4oIBMGl8EmywMCZBZvyWVD5C5bjeFT/Pv20O2owHn20RTlD6WwS1zTUif
+         rgDsSdtpH071tojgMiUJQA1+/nH+tLNJ9nCoNDKTIvz+H9+lRHPL+D8K4JOmqUSJB8Yi
+         3VLw==
+X-Forwarded-Encrypted: i=1; AL+hErElHmjaqtew+e4rA5vn/AYibtrjTd/95FjLzcgLvBWsTBSHtY+6b1ZX1q5o3qW0JVR+Jh0HafAQF6SR@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AvxmLTXbXna63Olz0lU/omUbGM6S7jpA4/GxX8zaBCpFi0B2V
+	aofnZ5Uj45mNjFUcBRU2DFIcu2xc0NSiLorMakLBHUBcZLvbGL5P7ZAjdpO7a2jECcA=
+X-Gm-Gg: AZFdTZeen9h3fvkm1RfetkNhPRWbYThL2Fw3MksL0kmrB83Z9LKfuGizqo9xOivQVli
+	+DNNxcMmYgr0brZi40j3bz30p1IOiFkREsJTHYMVQ6IDqb9hWhu0ChbImjuh/eBqmlMXUsGnrla
+	GUuLmY7Wv7U+VvzTmr26N96B4PLIbEm4lmfnE5R2Mp77XXoBBztsEinIcKclR+hrytuMlMzumWO
+	/oCzXI50jyGa8C/a7NTRfrana11JcmnM8f+fOqHhiTp2HHnWjB8a7XnSu0nBcnVC0oQMmcbSE6X
+	qruqlPDh3nPUszXgqH2Sqg/HxJ4WDIkYGm1N7NpACigBHWcsbQlJ24ZWhCMSxOZ0N6S+SLRu4Xu
+	+LIZmqUBhAv59GBgaSewD2ygPT7WuepwwmrASMRa09StG9tW7LUvn0CGqJyB9jVHQJXS4IG2i3P
+	7Mis+4C0zAxGZnUSqOw83YwfpYbhuGJ7KfrRikmT8tUtg3gZ9K45zWIdEkOzmwB9DQrr9xTUSGy
+	e2sduHsS4uIY6L/7q7BLNZnASAvuazGt1woO7NrYVEWjC5KaINhY80+LRu1cpAcPbhDqyDtJ3LL
+	nIN/3cOSgPQneEjegHl/gNxSXedfwD9RZZNXgbQXFSN+A+faXHGMJm2UjU4xcsacrcjpDSAZhjY
+	8ubBMCNP+ZYEAYK2N/aQtT50j8HDkPng=
+X-Received: by 2002:a05:600c:64c6:b0:4bb:6a75:d04f with SMTP id 5b1f17b1804b1-4bb88807d96mr234285915e9.8.1795448147605;
+        Mon, 23 Nov 2026 07:35:47 -0800 (PST)
 Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a1e8bsm305917455e9.9.2026.11.23.07.35.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a1e8bsm305917455e9.9.2026.11.23.07.35.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 07:35:44 -0800 (PST)
+        Mon, 23 Nov 2026 07:35:47 -0800 (PST)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 23 Nov 2026 19:35:35 +0400
-Subject: [PATCH v3 1/5] dt-bindings: nvmem: fixed-cell: Add Rockchip CPU ID
+Date: Mon, 23 Nov 2026 19:35:36 +0400
+Subject: [PATCH v3 2/5] nvmem: core: Let read post-processing return a
+ shorter length
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-rk3576-otp-cpuid-mac-v3-1-40c756dcf36f@flipper.net>
+Message-Id: <20261123-rk3576-otp-cpuid-mac-v3-2-40c756dcf36f@flipper.net>
 References: <20261123-rk3576-otp-cpuid-mac-v3-0-40c756dcf36f@flipper.net>
 In-Reply-To: <20261123-rk3576-otp-cpuid-mac-v3-0-40c756dcf36f@flipper.net>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -110,107 +111,103 @@ Cc: Ryan Leung <untilscour@protonmail.com>,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4080; i=alchark@flipper.net;
- h=from:subject:message-id; bh=CS20fXFVzcjdeDfFRS8feA1q6Da6FDy2IYeGw5SpswI=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWSzxHrKKs0NOXrWbHuL6dy7FkVJ/w/fVjU3e1eiHZF28
- uiFi24VHRNZGMS4GCzFFFnmfltiO9WIb9YuD4+vMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
- oZGOsY4RAxenAEy1ejUjw+vperrr1krosv0zKhQ6bOgZ/p99ysff5eIi0kKBgke3fGf4pxXLKK2
- 9JWrJNEex6/NyY7w3zfW+Ix6m+GvtNP6wk7G3OAE=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3605; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=nTVuYbBKOZbvakHzhdzTWG9sbZJz+RCYmADvGAiJs8A=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWSzxHoeiGEsNpDQ2b79kdqy2a6JKx8U5nXE+tYzXI6xP
+ M0k6M7XMZGFQYyLwVJMkWXutyW2U434Zu3y8PgKM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
+ GukY6xgxcHEKwFSHWjD8j7pj0Gc8Q0hot/Kan0u63S6+/brq6gyxjsg2JyYvhffL4hkZvkaZS8/
+ I0Tpd8L1LgX+fwrR7gSt9plo+E3fbZyMzd2cFCwA=
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Rockchip SoCs ship with a unique CPU ID programmed into their OTP memory,
-and compatible bootloaders derive Ethernet MAC addresses from it, so that
-boards with no dedicated storage for one still get a stable address.
-Whether a board ends up with those addresses then depends on the
-bootloader patching them into the device tree.
+A cell can hold data from which a provider derives a shorter value for
+some of its consumers, while others still need the raw cell content. A
+CPU ID which serves as the base for MAC addresses is one example: the
+MAC address consumer needs six bytes, whereas anyone after the ID itself
+needs all of it. The post-processing hook has no way to express that,
+as the reported length is always the full cell size, and consumers such
+as of_get_mac_address() reject anything but the exact length they
+expect.
 
-Describe the CPU ID cell with a compatible which also defines that
-derivation, so that the addresses are available to anything which reads
-the device tree, whatever the boot flow. Referencing the cell as a
-"mac-address" selects the derived address, keeping the raw CPU ID
-available to any other consumer from the same cell. Keep the compatible
-vendor-wide, as only the location of the CPU ID differs between SoCs,
-and that is given by the reg property already.
-
-Plain "mac-base" does not fit: the CPU ID is not a MAC address in either
-of the formats it allows, and its offset argument is added to the base,
-whereas the bootloaders XOR the index into the last octet.
+Let the hook return the shortened length of its output instead of 0,
+and zero the buffer beyond it, so that a caller ignoring the reported
+length sees no leftovers of the raw cell. Reject a length beyond the
+cell size as a bug in the hook. Every existing hook returns 0 on
+success, so their behaviour does not change. Clamp the sysfs cell
+attribute read to the reported length, as it can now be shorter than
+the attribute size.
 
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- .../bindings/nvmem/layouts/fixed-cell.yaml         | 33 ++++++++++++++++++++++
- .../bindings/nvmem/layouts/fixed-layout.yaml       |  6 ++++
- 2 files changed, 39 insertions(+)
+ drivers/nvmem/core.c           | 17 ++++++++++++++---
+ include/linux/nvmem-provider.h |  8 +++++++-
+ 2 files changed, 21 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-index 38e3ad50ff4f..ad38954cfb59 100644
---- a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-@@ -19,6 +19,18 @@ properties:
-           addresses.
-           It can be stored in a plain binary format (cell length 6) or as an
-           ASCII text like "00:11:22:33:44:55" (cell length 17).
-+      - const: rockchip,cpuid
-+        description: >
-+          Cell with the unique CPU ID of a Rockchip SoC (cell length 16).
-+          A consumer referencing it as its "mac-address" NVMEM cell, as
-+          Ethernet controllers do, refers to a stable MAC address derived from
-+          the CPU ID rather than to the CPU ID itself. The base of such
-+          addresses consists of the first six octets of the SHA-256 digest of
-+          the 32-character string of lowercase hexadecimal digits representing
-+          the 16 CPU ID bytes in stored order, without separators or a
-+          terminator. In the first octet, the multicast bit (bit 0) is then
-+          cleared and the locally administered bit (bit 1) set. Any other
-+          reference to the cell refers to the CPU ID as stored.
+diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+index d976c0d6603b..dde77f78e109 100644
+--- a/drivers/nvmem/core.c
++++ b/drivers/nvmem/core.c
+@@ -384,7 +384,8 @@ static ssize_t nvmem_cell_attr_read(struct file *filp, struct kobject *kobj,
+ 		goto destroy_cell;
+ 	}
  
-   reg:
-     maxItems: 1
-@@ -48,6 +60,27 @@ allOf:
-           const: 1
-       required:
-         - "#nvmem-cell-cells"
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,cpuid
-+      required: [ compatible ]
-+    then:
-+      properties:
-+        reg:
-+          items:
-+            - items:
-+                - description: Offset of the CPU ID
-+                - const: 16
-+        "#nvmem-cell-cells":
-+          description:
-+            For a "mac-address" reference, the first argument is the index of
-+            the MAC address, which is XORed into the last octet of the base
-+            address. It is ignored for any other reference.
-+          const: 1
-+      required:
-+        - "#nvmem-cell-cells"
+-	read_len = min_t(unsigned int, cell_sz - pos, count);
++	/* Post-processing may have left less data than the attribute size */
++	read_len = pos < cell_sz ? min_t(size_t, cell_sz - pos, count) : 0;
+ 	memcpy(buf, content + pos, read_len);
+ 	kfree(content);
  
- required:
-   - reg
-diff --git a/Documentation/devicetree/bindings/nvmem/layouts/fixed-layout.yaml b/Documentation/devicetree/bindings/nvmem/layouts/fixed-layout.yaml
-index b01567f99284..f30166109a7f 100644
---- a/Documentation/devicetree/bindings/nvmem/layouts/fixed-layout.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/layouts/fixed-layout.yaml
-@@ -56,6 +56,12 @@ examples:
-             #nvmem-cell-cells = <1>;
-         };
+@@ -1647,6 +1648,7 @@ static int __nvmem_cell_read(struct nvmem_device *nvmem,
+ 			     struct nvmem_cell_entry *cell,
+ 			     void *buf, size_t *len, const char *id, int index)
+ {
++	size_t out_len = cell->bytes;
+ 	int rc;
  
-+        id@200 {
-+            compatible = "rockchip,cpuid";
-+            reg = <0x200 0x10>;
-+            #nvmem-cell-cells = <1>;
-+        };
+ 	rc = nvmem_reg_read(nvmem, cell->offset, buf, cell->raw_len);
+@@ -1661,12 +1663,21 @@ static int __nvmem_cell_read(struct nvmem_device *nvmem,
+ 	if (cell->read_post_process) {
+ 		rc = cell->read_post_process(cell->priv, id, index,
+ 					     cell->offset, buf, cell->raw_len);
+-		if (rc)
++		if (rc < 0)
+ 			return rc;
 +
-         calibration@4000 {
-             reg = <0x4000 0x100>;
-         };
++		/* The post-processor may have shrunk the data: drop the rest */
++		if (rc > 0) {
++			if (WARN_ON_ONCE(rc > cell->bytes))
++				return -EINVAL;
++
++			out_len = rc;
++			memset(buf + out_len, 0, cell->bytes - out_len);
++		}
+ 	}
+ 
+ 	if (len)
+-		*len = cell->bytes;
++		*len = out_len;
+ 
+ 	return 0;
+ }
+diff --git a/include/linux/nvmem-provider.h b/include/linux/nvmem-provider.h
+index 6063fe5b7784..a95529aa3e80 100644
+--- a/include/linux/nvmem-provider.h
++++ b/include/linux/nvmem-provider.h
+@@ -20,7 +20,13 @@ typedef int (*nvmem_reg_read_t)(void *priv, unsigned int offset,
+ 				void *val, size_t bytes);
+ typedef int (*nvmem_reg_write_t)(void *priv, unsigned int offset,
+ 				 void *val, size_t bytes);
+-/* used for vendor specific post processing of cell data */
++/*
++ * Used for vendor specific post processing of cell data. Returns 0 if the
++ * data keeps the cell size (the cell's bytes, not the raw length passed in),
++ * the length of the processed data if it ends up shorter (1 up to the cell
++ * size), or a negative error code. The core zeroes the buffer beyond a
++ * shortened length. An empty result cannot be reported.
++ */
+ typedef int (*nvmem_cell_post_process_t)(void *priv, const char *id, int index,
+ 					 unsigned int offset, void *buf,
+ 					 size_t bytes);
 
 -- 
 2.56.0
