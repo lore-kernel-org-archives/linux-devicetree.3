@@ -1,100 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795426329;
-	b=D7EmAXAeuYAryvdj6XJopa5eZoxkUUbpT6BptXm0noM3g53u5q81VyMSjuGs4TNHs7tk
-	 SJ6xI1AL8dS8gtqDh/+Ee5fF54SAdtvXM01AqMBJYtjVGUECwvBHW4tNhRMYM0JUrfVUa
-	 CcfjhfxiUrtZxMKYlwrMztL/9x5lt2nmPcbF5wtaUpY0zPQwy6Oi4d8RfaouAEfT/uW3N
-	 1zmeAiNNJY43DisRqu7POqrd+2dviBekx5KqDSD24kbDIsa/6vg+PdjB3+rV7yE0SEJEx
-	 U8ofbfWNTLqliUXihfsydLAa4dPXI/AyXTTsaQ/nzIowo9hhPn2Url1q0DcJI/lwhFQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795426329;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=JqaNNY8+fBRcbsHJnnz48qA9IbD7DLdSU3+18Z2kgkk=;
-	b=ty/yPFAyq4peTaakUsT/ure3MLk6cec9W+fggexyToifWQ9bg8xd6a1adSRq1zTx5Ow/
-	 T2K0C3QzH+3J+/SudrPiEOtin/hJzC0VlPxgZ4p4lt3QYf2f8eLEgmxrtqyXpeKN92a2z
-	 3GNGIe5rbJ/yU7DEEFb0mlIbhXlKvP36beMDIl56F+3UyGy3Bi+/81ik5n78QW8C4chhT
-	 y3JuvBqbqc7eeCQjixH1L+ZtUKyEMBYI6lO/7/Cq6SQzWIiHincMO0/OS8yILLQaSLYle
-	 8OhJ4sa6plh8xz/60Qa3As+TJvmycdp2Z9FK8l94kAcHlqJzib92AC9ZCxKZNw439UQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=imfeXxH6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795426525;
+	b=rgQPUroRqrKVswhFFVVlwI7Rc/acgyYCgoJRz9/g7S2HO1lzFI3Vv2rLZ45Y7KJqJrps
+	 yQkZ12d/56qrvotmNSM8eEzaPVPMrxC8k/GpkeDfASQmJ6v8EqmC6XdS7I/5Zh36a4F5R
+	 NaZMAeMWJwcUKCiW2PtzfrMNYNlL5JC8NAPJ/GBgU4jvJK5r/EN+/W50TmTaw4A8cPvwt
+	 vAd9G+km9nEU8a4GCzgO0lTPVqXoUeoOxClhoXWIAbMpaDXeKIPPqy8C408Tq9+vQn64X
+	 2Du+5A1sZ0Oksz1diTnVQv5afkFtIMy9Ie7JWHyPgIOP74tR/I3V40JT7P3QulTPcTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795426525;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=au/lqSIvjCDlFYBkZ6wmQ+r9MXW9GHZNgvB5cJ3OfOY=;
+	b=rm+s8iDiiTwSSGgKtl+f0f+FoGVR/o4y858a7nPKjGaDG4gf/9I2bN5PnF3esA2ixojn
+	 yQ6eSxfXxJSA9FOhO3p41JiZw5KQoXR1CZdCIEZkJLhm7qbO6dOLsYWHijUV2wnIHOYYi
+	 8QtN4GdpT30woyh5awaFK4G1s9Frul01GIq+ZXGCDRXQqNN3djHQlc+48aSC5XaKWJVel
+	 NoZtrhtNlPF5l/KwCHZr1PLXYqTOBP6YxGIyhr+sudX/BxbgvtXv165B0TrldCvY0q6Us
+	 T1Y14bxTfo24/Dx48JINztzZD1H5buIny03hEhJ8PfudA4hk9mv7mcHCWYGp752FnEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="eh6lBDN/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="OI/1ZjY2";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7AC606A31E
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:32:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C7AC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F0D606A31F
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F0D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=imfeXxH6
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c5126505cb3so385474366b.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:32:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795426327; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TfbVaHw2qrPUx4vMvbKrFq9lmxEk4P+i60wMG5iZRh6XgnI6ZQ2WOmaCJ1EM6j5R+l
-         j164QmEHBxt6TX2h0vBtZ3g/TvcSAwbPBTyd3k004MT3HcH8gpx7wt8CopJIOHmRoK15
-         HEKMM0E63ZRVhBnEjWr5N2oIyKm/WMuPJcMg+D6a49fSZNlNoKydybh+g2L6K5HrSjrp
-         HRlfEJF3vIvX4Sa7LonGEzBbzvip4ycxNk4mV5xfSG+986labCLzy/YovPC5HpKzi76v
-         eWGZ0xEhQp1zIGUR6PmCFMbIruoNVY/McOF7GgrQtZKNfEYy+NdnXw3S+y6tu7JzkpxK
-         jVWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JqaNNY8+fBRcbsHJnnz48qA9IbD7DLdSU3+18Z2kgkk=;
-        fh=8xIgUSxyW4Q6tpOGaFJYM9WMpEvOO1IExOrTHSRFhvU=;
-        b=hXIIMz35XEfAhSIXUzXdNuEsLkGHA4VwRy1EF1JBQHQ1SNSE3pcrrHHIyAi0HTNecl
-         d4T0mIay9Cy3QEuD0Eo1/dpg61FOWI4jdGsm402aTOgy2IvMfZ8br2IpexoYYWRy4JFy
-         yETiVOZnWddNYsK0yyL0S5NLCVo4u+ux+5sEE+nCThfL+FXZjX+lhfI08pWpk7vg0see
-         Wc7HGXcvqWC7+oNqX1tP3MrrgFutpq15fNRZ81VQoD35RNaGDc/gM9n0y9BMKwMXNc5m
-         WdnxVDV3vftrungiUEdHo3mh8BY7AacK82Solzgiv8nChf0SRU0kakZlyNPi/OYvM9N1
-         Yq8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eh6lBDN/;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OI/1ZjY2
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9Fudi1828528
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=au/lqSIvjCDlFYBkZ6wmQ+
+	r9MXW9GHZNgvB5cJ3OfOY=; b=eh6lBDN/hjrP4yUwh2eoUzSJnBsJzbL2KDNu/U
+	kniV1nNKl0khJB4oKRATUG822+e8uuClO/8PkC/9pXCihRWp8RarQRrOncBFYPSx
+	HB8aqPIHfU4mIgcWybFW5WmOhX7lTRIGFLU/3YJPof71BBb5cvq4av4X0AeG6MnA
+	/l/l7XZKcFRWruE4zTT7/xQ69J9o34wCQeGLg0nmp7PysKrG279FD8us4fFnAgxV
+	zSKT6ecUuYE864q2lMOXUPoqwjkEZ0+3K1u2QLgNlru48TvDsTSqP+fG+PAXIZ7e
+	10HlpmEWFIqPQ1LvaiW/zBJAXjK22e0bzrq/Qd7PFG5AIrYA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g1p8q76-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:23 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5363763b556so61575951cf.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:35:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795426327; x=1796031127; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JqaNNY8+fBRcbsHJnnz48qA9IbD7DLdSU3+18Z2kgkk=;
-        b=imfeXxH66PBpj/E84EZCxuqW7Po7Duqu10Xa69+uMMVtV6g2StkpPtgpz6WE9RdgPp
-         qAf1rYfavtizXM5Gj1QZnGeYNZx5QesbKPyFU9VGDTZtj1AT/JRkYMEFKOHP89Wc4yar
-         dKGdm4OOx4y9cRufchgiqXMcU4Wcgmh7VHDoETtFv8RN+E553L8l5JKr+si8jzZShpTf
-         INhKo5slDcVEKG7NLRyMEHGQfZiiFvJUkVs9X41yUDS9sSabZPMyT0ugB8o3TdputLpT
-         wCAk69LqnrJ2/LcQjmutaNkB+UOKImwVAi3G5j3gCApMDga5jZosgSb/c48Bp51fXm3Y
-         BJ0g==
+        d=oss.qualcomm.com; s=google; t=1795426522; x=1796031322; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=au/lqSIvjCDlFYBkZ6wmQ+r9MXW9GHZNgvB5cJ3OfOY=;
+        b=OI/1ZjY23x9IoopzqGY1jGeq73sGWdQ7+bCtf84KHBoYaorxs428m+So7hT0slVONF
+         mj11hMRv9MKxviLMfINCP5UsaOPMwVyZHnSYPEJzt8ATaAj0SA2+twA6G6lH1wqnauH6
+         4eD6gLXjA3Gxd/fh0UIKSu3J8dPiupOoFfIol37NjU9U42iYICh7aAjeJ3DGTpbpeHFM
+         Eo9DwiUkiG8QcL4dR6rFSXJ+rRx8XPo0kruS07TI/w/4iUnzUU7uj1UOeFq4/WTJbeI8
+         e5xeow+AHXlo4M/rxjSN0ucrdRgFRslA2zmceY/F9pUuFN56PTMzxeFHYAebn9c65Pdl
+         kyGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795426327; x=1796031127;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JqaNNY8+fBRcbsHJnnz48qA9IbD7DLdSU3+18Z2kgkk=;
-        b=1tFZOFNuHfdDkex8L9l0encQOY/CSsZdTf1Mx8Wffq6wOHciT0LDWZ+wWHVkz/ch8k
-         WIZkICWvyOBr4pipMQ1VHUH4jaSw+nNfQAtm8HQckfFqnNUDChVsgQNF4QOneb5vU3VP
-         RlszkeGLm1m0LbTP7zSxospXMdkQatjRDtEuXgWr1pcZ0dDuP6reuaDDCYL8gAa16s3H
-         SDnCyv0A/tXt2uEeBNFNbJoLuKcRTOceKgpfFn4Syk+npNTWzN7Nyc7p/m5m+qTz2Ibl
-         PRHby+IZt6qij2GEoUUcywjuSNoZPSYwESGn2bcqiLLea76wxAeXMAqcr4U3IaprW+0J
-         2miA==
-X-Forwarded-Encrypted: i=1; AL+hErFOXOBgKwGJWhKSIgcLZe7oI7DvEYXFOAWf8oTv+xrKRf3MB0hrGGnDZBzQvwSdDv+qLn9+t5kI2CLm@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LL7iNc8f6hfsPYYgC4C9OoW4vsDEVkATHeSObfDLjdCSfdIbu
-	BW+lPtWoCvHDVTSPMX4Satg6Gxg3Dqm/HtYl8h/TAqKeF2JCVl24Uvk2AoS1p9ELwiSvFWYYmXJ
-	aocMg2jh5mu4AQQ0tikbhMBiKMhOlQdw=
-X-Gm-Gg: AZFdTZfr+o+DAbsw9w3mFnYU8UhePTAuj95musjGegJllVAzZ+P+iP7DZrLALiW8s/l
-	E6mQ24b36C1iddUr2w0L/ktB1KtIOmC0T7HeNhmufGEgTqvCmyZPmX0Gvv3RI5QJKyR4AoyNq7s
-	GZQZsKnV+jTUoT+QWuwdpT3WE25q5x247V49SCB4eYQOj0wnoMwqd760SxVnU6xnjJR0RBFl9ka
-	Mr3APZ9qwZuNG4IOZykWQoFe9Xh+19T4Km7p8TqzRCb1mcRcWhGyqEfb+B1qo3NgVqIbaWl+E4D
-	bGJlF+eB0GWPZ0YLxObSVShuX8wz+6d8eLTJEzGNOc09pFEnra3eCY2ZnhHQthLrgOt67GuQZXN
-	XPvaeEP413xBdmvBfJsszluZZKJ9/R3j1lb/e
-X-Received: by 2002:a17:906:3b04:b0:c29:3c97:c994 with SMTP id
- a640c23a62f3a-c513ab47f35mr695113266b.35.1795426327146; Mon, 23 Nov 2026
- 01:32:07 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795426522; x=1796031322;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=au/lqSIvjCDlFYBkZ6wmQ+r9MXW9GHZNgvB5cJ3OfOY=;
+        b=PLu5TTOcTBqRU2xoA3ihwdY7MIlbtqFnNXTi3tqJXOhWDNWeWVD5TG4TcPpYz0yTFo
+         yJs2/1gV8+hshEpAEcbsAn9R81QrnlYi2jgkAu4RrYcKRlhDxwjn6zOrhE6ZYMAqxImf
+         MXc9x3/vRWn68znBKkWUzMiBKmpR2JANZ1VRWA8fnGefJK6GQi1UCzVuYuTm+1cxjVzF
+         qq7RC/r2WqFNWHGl8wDCLhJTOkUMASDCTFypkFsLqNhiCXNbj0lm1IrK6HEwQo6dSSsA
+         i0SvtaItLVCP5CsHsc7salT9x1Prn0AgpRd4zL4nxI4iwIL2Y6m7QZ5/3LcApogl0Gqb
+         nHIg==
+X-Gm-Message-State: APuU4Z8szJ0/K5FM58ffDQW6s7sJpOJK4h6odacA1+FauCzic7M9X84Q
+	sHScKmkXGV0ox1yXRIbtmx0a8Y8raUSxLjHOuKXLLN75uTWdDsHtcdGhz6VwC18xTYX57RGwrB5
+	LvVEaPxp+o5mTjJYeTlo3Nq5nEWAOqQiJ53rJuzsH0V5wQXkPHKqsoMqtQJL+dYBB
+X-Gm-Gg: AZFdTZd6ARL1+VGkw/KTmPHQdI2MyPO5l/BMG18zjbM4iFabtNoMy4ZDsHqSkbtrgYI
+	FOWKfq8Dkt4ByHkEJoaxtiE7e4q/dFM9uqFP0nfWShRiXZoGBEbSpXNttdvpMhsGvseFvqbITNg
+	r53PKD0LTrSIZ6m24jskvcCgGnA5Tq8uyy6Q4P+YaJPdj9lMYUWxC5C7RKZONQUEwnV6+05yg6a
+	aqiR2NI349wigOF0rbW+EkpcCbJAmpp26uvxuUoXvmO0Ng9kU/YX+ldnEtFhaVMHsSvoMDvbtNB
+	I8V4M2yWREoApYctbt15IfLnE2wBQWuBt2curKi3lLZP9ihT8M6Kf3YMnmf/WBjHcTYCz+utu6/
+	FC9KpveopWECpA0Ac4442KZCGJS315x1Qa4TJL+pYtb/C5synlCjWTD04Jg==
+X-Received: by 2002:a05:620a:bd3:b0:93c:6417:f9c8 with SMTP id af79cd13be357-949ba9b3e00mr1900373285a.29.1795426522158;
+        Mon, 23 Nov 2026 01:35:22 -0800 (PST)
+X-Received: by 2002:a05:620a:bd3:b0:93c:6417:f9c8 with SMTP id af79cd13be357-949ba9b3e00mr1900368985a.29.1795426521455;
+        Mon, 23 Nov 2026 01:35:21 -0800 (PST)
+Received: from [127.0.1.1] ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8960068fsm123208315e9.4.2026.11.23.01.35.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 01:35:20 -0800 (PST)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: [PATCH v2 0/4] platform: arm64: lenovo-thinkpad-t14s: Add support
+ for the Gen 7 EC
+Date: Mon, 23 Nov 2026 11:35:13 +0200
+Message-Id: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,106 +113,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1792986696.git.zhoubinbin@loongson.cn>
-In-Reply-To: <cover.1792986696.git.zhoubinbin@loongson.cn>
-From: Binbin Zhou <zhoubb.aaron@gmail.com>
-Date: Mon, 23 Nov 2026 17:31:54 +0800
-X-Gm-Features: Aa3M54rO-ksGTZJl4gmuLyF4LQ_Lpi7KMAzUqlHvweFGPCWngAkxXQw_vYlvNLk
-Message-ID: <CAMpQs4KyZbsQO3-kvKrzAVJWEFghpGG7kSmpJvniYeKYaGfanA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] Add Loongson-2K0300 APB DMA mux support
-To: Binbin Zhou <zhoubinbin@loongson.cn>
-Cc: Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org, 
-	Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, 
-	devicetree@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANEIBGsC/1WNQQ6CMBREr0L+2pK2ViqsvIdhUcoHaoRqPxAN4
+ e4WjAs3k7xk5s0ChMEhQZEsEHB25PwQQR4SsJ0ZWmSujgySy0wInrFRKGItDpqhZTLXp/xY1YY
+ 3FuLkEbBxr113Lb9MU3VDO26OrdE5Gn1473+z2Ho/tf5Xz4Jx1ihzxtoYq5S+eKL0OZm79X2fx
+ oByXdcPQF2M5MEAAAA=
+X-Change-ID: 20261106-t14s-gen7-ec-297593bda0fc
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Hans de Goede <johannes.goede@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2910;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=blI6AwuqcaJ2elfDvzAakaLljojAtt1Pz/ZlSN3Mziw=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBrBAjS5xxW3Ev8QtMtb8W3cIPQYDZX0CxhyqkU/
+ DKUW1UeCHyJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCawQI0gAKCRAbX0TJAJUV
+ Vo7xD/wOevjc+K049UslrZSx2p9bbI5v9Z9GkeHR0RsaA1cq4pk495alAZlD8e42RAHE4jU9Jmn
+ euBGuwxGG0oVPp0h9q4brMlVX83be5W9qdP+Jh5Gt5mW6+GBV+6cAXIFfMRxZLbUKv3hNALbReB
+ wz3WQNZfEJbBFRvgYmGQqtuQ2g3+JW6Tv3z8rHr1n2bcvYH5+Kywrw+R5clVDkdbXGLaQ+f6SBk
+ zf/TBvLmiGTvuFLfBnjdxhQj2s75WqIX4oDrOsVPp4Dj/hnYsgrnJm7ElkwKYuLroUPncn2i1wF
+ VPMkGveouIhzRk/+lWoWmHHFqfzPlUTvuIll02rf7LQPcxsBAG2DdYXmMN+a0aCJTBlHQdKX42c
+ D2RaX2MtAh2HbdYyIE9bq0nciKD3AOR1sqTg2ia77oAuE1fCFS5chagQNXhQM96GVGjJBy2nAC3
+ t51/+eFFGJ599p4cowhrN1iyIyEy5csd5F/fbXv0slFDMU7F0E5oYWxEtIhW4Js/MxtJ/JERs31
+ zzk9TyY84KFf/pBn/aPOvotltcwU5cIMrm676KBRjIGQ+8xuLjAdNoNgi0qf/33eVekoB2jese7
+ m2QUP2JZhvx0fSkMXdJ9gNnb4nd7RXLagVCNCabDE4bweBeH6OqmSKIS67bZeq5G2pD+8G1grO4
+ ka0GZRhBRF0z/Qg==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfX9fdH+dbIN8f/
+ M+l4aN/OgwSPtN9wJVfhF6Ixe15zU4nXWhv4N7R6ypQ5XS0p62ijmzubYTWZR0wSKyVcrCt2UOE
+ Ea2Mh3JIrABYJKNM+jX1y/P8X4Y4z823gzK74XzPTBZfnF010kaklRKZzqzz7tGhoZCaQ6/iZJY
+ E7n6nZ3bxSIj5S64Xj9yxg6nj4f1bP+VyHJpOe7iCqhurmqQ6tNKcHZ0s3R4XmV7FPkdjTxQNEA
+ w+l/kyJcuMc5hfHcLPvadA4VtWzeT5aS2NGYftgp0zkXs8TYXaGT0Ixbzzi0JGT+32T7xRGHz2T
+ bJC4i/Ve2tZUpA6IyZrjmBnXlgJMkqofGwXRSGGFkEqhpkQreDEMa8T+hEx1LicdogaQ6SHQBkE
+ Q9EeST7+fOg4pfYmCWfxrQiG8xgJUblGEVd869V1tTmwBPqVdQBwVonC60JCRKo22frqsVzcR++
+ Gtcad8RgnWpVqkXsjFQ==
+X-Authority-Analysis: v=2.4 cv=AeIkjHXG c=1 sm=1 tr=0 ts=6b0408db cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=L8UcFDWDmyMNVybWMAcA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: yQmr6h0w24_hxeiM4LqRwjxAZNFcQwen
+X-Proofpoint-ORIG-GUID: yQmr6h0w24_hxeiM4LqRwjxAZNFcQwen
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfX0oAxe2FDBfxP
+ c8kEksP+ut7Vi88/dapkXILZtK4eyN92nReavNIalrOeDNgYz4xXd7ENcc+D8kZeNxAIvHLrPDW
+ iYT/4AeQlj5o8Sp9kcqNVgnnjkDQ+HM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_02,2026-11-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611230037
 
-Hi all:
+The Lenovo ThinkPad T14s Gen 7 (Snapdragon X2, Mahua) has an embedded
+controller at the same I2C address as the Gen 6 one, with the same
+register layout and event codes, but it speaks a different command
+protocol over I2C. With the existing driver the EC never reports any
+event and the LED and keyboard backlight writes have no effect.
 
-On Mon, Oct 26, 2026 at 12:33=E2=80=AFPM Binbin Zhou <zhoubinbin@loongson.c=
-n> wrote:
->
-> Hi all:
->
-> Loongson-2K0300 integrates a CMC DMA controller with 8 physical
-> channels. Peripheral DMA requests are not hard-wired to these channels;
-> they are routed through the CHIP_CTRL13/14/15 DMA_MAP fields.
->
-> This series adds support for that DMA request router.
->
-> Patch 1 adds the DT binding constants for the peripheral request IDs
-> and yaml file for the DMA mux.
-> Patch 2 adds the driver, Kconfig symbol and Makefile entry.
->
-> The driver registers with of_dma_router_register(). In the route
-> allocation callback it validates the <request> <channel> <flags>
-> specifier, programs the SoC-specific route register, and forwards
-> <channel> <flags> to the parent CMC DMA controller.
->
-> Thanks.
-> Binbin.
->
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D
-> V3:
-> Patch(1/2):
->  - Merged the two commits containing the dt-binding header file and
->    the YAML file; no other changes were made;
->  - Add Acked-by tag from Conor.
->
-> Patch(2/2):
->  - Append the dmamux object to the existing CMC DMA line;
->  - Add loongson2_dmamux_assign_bits() helper, no functional change;
->  - Add Reviewed-by tag from Frank.
+The Gen 7 protocol is taken from the ACPI EC accessors in the Gen 7
+firmware (RDEC, WREC and QEVT): reads, writes and event reads use the
+0x80, 0x81 and 0x84 commands. The firmware also describes the EC
+interrupt as edge triggered, active low.
 
-Gentle ping.
-Any comments about this patchset ?
->
-> Link to V2:
-> https://lore.kernel.org/all/cover.1791535540.git.zhoubinbin@loongson.cn/
->
-> V2:
-> Patch(1/3):
->  - Drop LS2K0300_DMA_REQ_MAX as it is not part of the ABI;
-> Patch(2/3):
->  - A more detailed description of `dma-cells`;
->  - Add the `dma_requests` constraint
-> Patch(3/3):
->  - Drop loongson2_dmamux_map->shift;
->  - Move of_parse_phandle() into loongson2_dmamux_route_allocate() avoid
->    UAF;
->  - Drop loongson2_dmamux->dma_np;
->  - Check dma_requests;
->  - Add devm_add_action_or_reset() instead of .remove();
->  - Replace `metux()` with `spinlock()`, which has lower overhead;
->  - Add loongson2_dmamux_route_free().
->
-> Link to V1:
-> https://lore.kernel.org/all/cover.1790068409.git.zhoubinbin@loongson.cn/
->
-> Binbin Zhou (2):
->   dt-bindings: dma: Document DMA mux support for Loongson-2K0300
->   dmaengine: loongson: Add Loongson-2K0300 APB DMA mux driver
->
->  .../dma/loongson,ls2k0300-dmamux.yaml         |  72 ++++
->  MAINTAINERS                                   |   3 +
->  drivers/dma/loongson/Makefile                 |   2 +-
->  drivers/dma/loongson/loongson2-apb-dmamux.c   | 404 ++++++++++++++++++
->  .../dt-bindings/dma/loongson,ls2k-dmamux.h    |  53 +++
->  5 files changed, 533 insertions(+), 1 deletion(-)
->  create mode 100644 Documentation/devicetree/bindings/dma/loongson,ls2k03=
-00-dmamux.yaml
->  create mode 100644 drivers/dma/loongson/loongson2-apb-dmamux.c
->  create mode 100644 include/dt-bindings/dma/loongson,ls2k-dmamux.h
->
->
-> base-commit: aff5e6a77fc69a7c490246465940d18422d7c631
-> --
-> 2.52.0
->
->
+Patch 1 adds a Gen 7 compatible to the binding, patch 2 adds the Gen 7
+variant to the driver, patch 3 sorts the TLMM states of the T14s Gen 7
+by pin number and patch 4 describes the EC on the T14s Gen 7.
 
---=20
-Thanks.
-Binbin
+Tested on a ThinkPad T14s Gen 7 (LCD): the hotkeys handled by the EC
+(mic mute, F10, F12) are reported, the duplicate EC events of the
+volume and mute keys are ignored, the mic mute, speaker mute and lid
+logo LEDs (including the hardware blinking) and the keyboard backlight
+work, and Fn+Space changes are reported through the LED class.
+
+Prepared with help from an LLM-based assistant.
+
+---
+Changes in v2:
+- Patch 1: pick up Krzysztof's R-b.
+- Squashed in Hans' fixups for patch 2 (added his Co-developed-by and
+  Signed-off-by):
+  - Gen 7 suspend/resume: set bit 5 of register 0xcf and make the
+    power and lid logo LEDs glow while suspended
+  - report Fn+F12 (event 0x19) as KEY_BOOKMARKS
+  - ignore the EC events of hotkeys which also come in through the
+    I2C-HID keyboard
+  - check the variant directly instead of the two feature bools
+  - lock the I2C bus around the Gen 7 reads instead of a driver mutex
+    and drop the 5 ms delay between the transfers
+- Patch 2: return -EIO instead of EIO on a short read.
+- Patch 2: reword the commit message to match the above.
+- New patch 3 sorting the TLMM states by pin number (Konrad).
+- Patch 4: place the EC pin state by pin number and pick up Konrad's
+  R-b.
+- Link to v1: https://patch.msgid.link/20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com
+
+---
+Abel Vesa (4):
+      dt-bindings: embedded-controller: lenovo,thinkpad-t14s-ec: Add Gen 7 support
+      platform: arm64: lenovo-thinkpad-t14s: Add Gen 7 EC support
+      arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Sort the TLMM states by pin number
+      arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Describe the Embedded Controller
+
+ .../lenovo,thinkpad-t14s-ec.yaml                   |   4 +-
+ .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 126 +++++++------
+ drivers/platform/arm64/lenovo-thinkpad-t14s.c      | 197 +++++++++++++++++++--
+ 3 files changed, 264 insertions(+), 63 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261106-t14s-gen7-ec-297593bda0fc
+
+Best regards,
+--  
+
+Abel
+
