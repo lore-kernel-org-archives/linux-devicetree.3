@@ -1,108 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.72.192.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795437407;
-	b=xk0wmRqr4EZLzlM0a1xWMcIH19GqI1JqUL7+rev/+HlViNCertytAyfz95DzyPumq8gp
-	 LjgMYjAtlnZ80Cl1I5PoCMI5CiNlstNGa8CgLtFBWs+Vl0lOyr7J6OxsMintO6zK2QDd0
-	 J0slwk0PQNcq7bgHwAKxUgPR0lAN3OkEO6YpXMB4j9PbMe1H6hoMkyWDi1wP5LuxG+bwR
-	 G6aMmZrHVbCt5RsUeAxkTUpeZqZ0N8ZMWKukjX74dr85/rKZIqQTo/RqWdxDlqwhAuz2Z
-	 G/X6qwaxd/Xapc2bwpskX9DIUup7OGMQ0W4XX3I8rjep21n8/MBE6ceGgbKdvZoYxrQ==
+	t=1795437425;
+	b=AeDoP3V5LD31sPk3MIHPPnWLPSvGe16a6wI08J27oBb+FWC42Ils5tC6IGkdsOhOfvxC
+	 JjHiLHGoQ3a8prZs/dGlW5MO1PDx/+aBkHfjIdkBOb1EStNB9T9wxaCD+rYYJxOhcIwvM
+	 2GSC9GobGxwee3ImeCN+UFzqAygAToXJJ9TD6PeXKyvY1uQLSaM+faGqnj4wfRJLrKTDD
+	 DdWZ+y5+A3/NbEiEmkYIPRjXlzkVVLDd0wDrIT99JUQ7gf8yIMUMcVT5u0MzuO6O/Ubcz
+	 PhfAIAj9zqKAhJGhrSLghnVIOSrVGJ54G4uM40BKFHGMozn3RklAAdq2tVd4hVN97cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795437407;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZZRwBHNibaWlFnpiuuEMtUB0YA/t47H+l2X5jKIQ1Dw=;
-	b=mUbr4q8gLETiIbxhGKWJndqG4AEK/j2nyiVS6OypCNyguiJQcWmXYC1ZlHxUG0dcrNVZ
-	 PQ0Ujih8NPaZ5EXsnF/FAY/1258dvbql8umlB7NlTyhvRze3/5JPK7M9H7hGaZAVBpC2s
-	 CnI3HggRtwTTRegP4l9nalbiedoLZr+wOSYLshQHtfpCtFGvqJuSd5VJOq3awvtNlj6B3
-	 +4mHVj62d2utwZlEKg0KSKuv3R9+AzTmYtnSBsJggGcFF5+ELzuw9NrNjEuHZevJybTPX
-	 UlaCMKnhPuqCVzk0Niwk2Xjx57HoNYFWPI4aafc6Q5QftCfVkK12KcyXfq6D9piipeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795437425;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=l925ZWGbqN1yJ3oYRddUoTyEflV8xChX7JXyYMyuMo4=;
+	b=xSZ93xKhpEQCWZa5CbFIeJJH4TyCD2u7jOeRo/c5gJRDhq8gs+KD7IpR11+/tJZRM8HC
+	 vNv8uN9a/LbKmG6MV1JvyfdoweZSHz/Zawt9uDu8UZSUvLkn+sUKiVgPAKFfTK5R3yqV3
+	 uamug2V7E/eV8kOXIKYR/cmna9ZyvtuxX/QFlsvZo5rSxOUqX4YW+jENejLB7vcqgteaO
+	 J8FdxASYS9L3tM9Xx60hQfxI2yxH/JzC3bDlMq4f5KuWdfLG0SESRS+dU3F4HMMYYkqpE
+	 XuMIKCAYEcgZG3ygl/xhSzDi/zsh6kSW/ZO/u7EsRIKFiMT3M9ht+9qV2rohignW9hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=atlI4xhW;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=jonasjelonek.de;
+	spf=pass smtp.mailfrom=jonasjelonek.de;
+	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=wZN5i8RC;
+	arc=none smtp.remote-ip=217.72.192.73
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7661606A33F
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:36:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7661606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03179606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:37:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03179606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=atlI4xhW
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3869b68caecso4153998eec.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 04:36:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795437406; x=1796042206; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZZRwBHNibaWlFnpiuuEMtUB0YA/t47H+l2X5jKIQ1Dw=;
-        b=atlI4xhWUQnHPQ9nkYx3mQO8Swph4K/bleOIqj2B5EWCD+vbxo7zUlwusUjhC8SBMI
-         74SAW8d+AsGsQPS49KlhZ3wmObfzg3i8k6bjnLML1v3xvmi93htAIrRa3G5Mt47kUkbg
-         8WPcf+BlbVDglyiG/AoRiiYZEv/QbipWZYqJLn/H5MvLp3vLv/WGzFZS8cZZUREwIitt
-         q0EFaL7AhpJcMNbXN/xAKAu5BF0Ucd6YxQBsWhUGBV0e0YZUYNlHBOa0Xb/jU4GhT689
-         kH9CLaUi8j8aRI+IOBYW7nODAPcyglZclBG0+lvwv1k4+VVdcc2GJXQFBiHF+2emdk/p
-         nl4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795437406; x=1796042206;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZZRwBHNibaWlFnpiuuEMtUB0YA/t47H+l2X5jKIQ1Dw=;
-        b=XOekGYKO0Y2yrcSMOfPuV40eECCxxccJcueDc5ylEztHvKlWbMRqQoyZbN9k41gF2j
-         UP3QYO6CSlj9trxGipH13lilhjvICsskJm2e4ORF7tbrg70KZiRonGbKD9eeqayhrZhu
-         GNooT0zmGM71JaEKY4EPL7Pe4x/nRjEaWuuF9hKYcX5O6I/Z5VlA2SunhHB6C0YAlviM
-         f/pJl1bjVC2A0tc3AbS26RIJKiTVZ+n74OvrlTZD3UmXW9iGxW0iPW5BEnBhuz4ttx1J
-         jePU8BLX+vAu3UPxmyuXu3yWvZ55pV0I2+nwaJxschV9hmcSpJ1//KqRy6Omv7apgwo0
-         NPtw==
-X-Forwarded-Encrypted: i=1; AL+hErHfrNPJdp6lXG3Vm9aJBfM9Kv0rwVQTYSaQkO04gpj+UvU9nnKrh4vSAuN/kBzqx0Xu7QU+LpkGdF3P@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FM88+Fsw2YeqY9eTDFBnEi3jbsc4Ikr8vXSwOVasPCzirnv5n
-	CBOI7NuQ0KqKpls3VhPs8Zqf8CWsNJMzpJIvHvmN8ksG6XxMhHztrZ6l
-X-Gm-Gg: AZFdTZfTWLeowYUDzU39d0PMyDCKeEE6rtMBph5SeVemkC218Q68OqFCR3RB9NZKPDv
-	7IqDilLbuDdNPBL975iasvPrIJWITrC8N5jHMt5vIPKYx1g8XiSKJ8LRuYqdcSWFJWYBAKUMzWs
-	5G83EuG5G8cOkJeEz4zAVIh1gdX1RiBN8gPytdgLl4R3/w5UaStM3H4aLrsZhgEnWpiduIlzDXh
-	qdMBVBzARPGWQrG6cuSda+m9+Fnd/Cvn/cBsgkW3X0+mEihxQ49266K/A0llTj+QYa934BxQS9P
-	KA7TydS8ShO41SDF6ab76ujjiapJDzwKk3/KtYdwc1aLXW/ym17N5f3A8d5X4RlCxIssuyvDdkl
-	8WIoJkx56/Lfvxo1DALMAHfLWx2fPWcRhXAhqZ6kYjyEWNGrcHWxDQ5jO5W/oPUGtipN9oPzswP
-	c1Zokwuz18U+/kkIxofihFgogLrrZofDbG1gI/MvQGl73/yxcr3D0X+aGFsnB44q7eecwQkIHgr
-	rePyF9eYchEEErTPubSpCKJEf5tJLjUDccZQsNzGz30VQ3rVYyMBytti32pC3a8+I2odizG3m2n
-	I6lDY6v3uva830kBWaQf2VUme3sUdYh27Jok1PLRArccPWLMAhCmRvdpZIEqigZ3hbU=
-X-Received: by 2002:a05:693c:8209:b0:36a:4a68:84e5 with SMTP id 5a478bee46e88-3856f14bcfbmr12986753eec.8.1795437405845;
-        Mon, 23 Nov 2026 04:36:45 -0800 (PST)
-Received: from localhost.localdomain ([2404:c0:aa07:12b3:e89:dfdd:d14b:d911])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385f68bc0adsm32854353eec.13.2026.11.23.04.36.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 04:36:45 -0800 (PST)
-From: Hikmah Gumelar <hikmahgumelar@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Hikmah Gumelar <hikmahgumelar@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v2 7/7] arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
-Date: Mon, 23 Nov 2026 19:35:46 +0700
-Message-ID: <20261123123546.152162-8-hikmahgumelar@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261123123546.152162-1-hikmahgumelar@gmail.com>
-References: <20261123110805.119610-1-hikmahgumelar@gmail.com>
- <20261123123546.152162-1-hikmahgumelar@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=wZN5i8RC
+DKIM2-Signature:  i=1; m=1; t=1795437416;
+ mf=PGpvbmFzQGpvbmFzamVsb25lay5kZT4=;
+ rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+ d=jonasjelonek.de;
+ s=s1-ionos:rsa-sha256:myGyhvpRZW7AVaYwpkk6k3VrzYg1
+   tLPzlxqC6SV24ffJv6qDfAR0bXjPlQXCYbHWCn19y3o3VDMzZFEPj4HocFTu9bHCv8/Zos2E2GU
+   HrFEypbVFgRJ1CuznZX8qJhcEYA+Sv1L47QysCTunwCK2p57liVCEJ+D/fHqzpBdlzmjmwLEtnC
+   F9icmIc0eSInK+FVGlymBmYrA6wyZlNL84DGEAi86IAt0gQ/M79tqTS1o9EKp8e6kbT0svh1Wlx
+   tg9DWMqc3Lw6L78DL8iaUxq4ZsN/gzGVizDW8lNVVjLzE5QPrL6EjizHW/J/FIqEwIoLLmf1+Jy
+   X7oYveyugDBBJg==;
+Message-Instance:  m=1;
+ h=sha256:
+   qCggyGSepEfwd6Ws17fS0jgkH06TMthdsnY7dniNvbk=:
+   10qJieUpEb4nI3vpsi0Ab0qPkuyKz9JLg1FBgTO6Cus=,
+  sha512:
+   7N0/k+/wlEJ2cZaevImKMqfMpI0Ngy4gE50xyrW8ZPA1Ko6mZfenVjADCDL1l49JixnjEcjCQ0sfv6zA0koXHw==:
+   2D1sQUisp1i/mbcx3Qd1m/5aZZoUE7UliGWDbQdeSLcZdCFSm/WBthHQlLOzRU2cOphrzlUeTuLVoqK9EV95Fw==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
+	s=s1-ionos; t=1795437394; x=1796042194; i=jonas@jonasjelonek.de;
+	bh=l925ZWGbqN1yJ3oYRddUoTyEflV8xChX7JXyYMyuMo4=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=wZN5i8RCk3un1ss/rNJE+6mE9hblNLFvVdLMi4JcWjpSTmQofpcZbZ/WrV7pyi2L
+	 fMnq1xHlLbpBxlOdvvy/xMcCM9xn3ohDM7Vf8XKOQBjZUaKdgAM5DAR2/HPfEJQrY
+	 BRmgWjK2TtITeEDyLd/b3uiVCm8tOmPNMYZZO0t1Z7ntRVRGDTFF5oaSxpY5hNI50
+	 I5Kllocc2CPZ8EFaoMuW5alZOZwxCrIaKSTxpArwqmMNbQqI40OjPG3leM7itenzL
+	 M7f9QTQ5xoku+LvAT096gIRGPTPkWWlGQiSIiR8b0S+uyImtT9YO2l6GTh7y33I8I
+	 8MEAuwoGUHZn4uTBQg==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [213.165.67.113]) with ESMTPSA (Nemesis) id 1MYvPq-1y0HoY0rEu-00XfeH; Mon, 23
+ Nov 2026 13:36:34 +0100
+Message-ID: <6fecc631-e493-4e05-aa3c-61a8b0d2d1cc@jonasjelonek.de>
+Date: Mon, 23 Nov 2026 13:36:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,145 +81,181 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH net-next 0/2] Add Realtek XSGMII interface mode
+Content-Language: en-US
+To: Andrew Lunn <andrew@lunn.ch>, Christian Marangi <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ netdev@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261117084748.2387647-1-jonas@jonasjelonek.de>
+ <df35e0d4-9f1f-4882-bc6b-257add4e9fb1@lunn.ch>
+From: Jonas Jelonek <jonas@jonasjelonek.de>
+In-Reply-To: <df35e0d4-9f1f-4882-bc6b-257add4e9fb1@lunn.ch>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:neKmgYZDofjCZsVDLf+n7cuzeb01P8X804PywG8qYRSDgmuIMNh
+ ofB4XQ2jgUHIbyzj3lsIED/SkDHi7PbRJDVFl2R8oQcYmgoAo7J0BBMvLjRNUAl1kUXpOnj
+ arGNHV5T6wiqXqylmDQacAhn8CW8eDb2jbgIMKMs40q2LQpbz5JdfiBdo3VGs+GbPTv5bQg
+ rxFLmPLI20zTx41NAKHTA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:GX0+nk2N86Y=;XTifLCGyDObhAk3n7MnmvGsdWY8
+ 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
+ 9Fw==
 
-Enable the CAMSS, CCI, CSIPHY0/CSIPHY2 ports, and the OmniVision OV12A10
-rear camera and Samsung S5K5E8 front camera on Xiaomi Mi A1 (tissot).
+Hi Andrew,
 
-Signed-off-by: Hikmah Gumelar <hikmahgumelar@gmail.com>
----
- .../boot/dts/qcom/msm8953-xiaomi-tissot.dts   | 114 ++++++++++++++++++
- 1 file changed, 114 insertions(+)
+On 22.11.26 22:24, Andrew Lunn wrote:
+> On Tue, Nov 17, 2026 at 08:47:46AM +0000, Jonas Jelonek wrote:
+>> Hi,
+>>
+>> This RFC adds an explicit PHY interface mode for Realtek's proprietary
+>> XSGMII transport. It carries eight 10/100/1000 Mbps ports over one
+>> 10.3125 Gbaud SerDes lane. Each logical port remains limited to 1 Gbps;
+>> the aggregate serial rate is not a per-port Ethernet speed.
+> We should be careful with naming. We have already have QSGMII and
+> PSGMII, for Quad and Pent. X is too vague. So we should somehow
+> indicate 8, Oct.
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts b/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-index fccb9c4360ca..5d4fd7f42042 100644
---- a/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-@@ -308,6 +308,20 @@ ts_int_default: ts-int-default-state {
- 		drive-strength = <2>;
- 		bias-pull-up;
- 	};
-+
-+	cam_sensor_rear_default: cam-sensor-rear-default-state {
-+		pins = "gpio33", "gpio39", "gpio62";
-+		function = "gpio";
-+		bias-disable;
-+		drive-strength = <2>;
-+	};
-+
-+	cam_sensor_front_default: cam-sensor-front-default-state {
-+		pins = "gpio129";
-+		function = "gpio";
-+		bias-disable;
-+		drive-strength = <2>;
-+	};
- };
- 
- &uart_0 {
-@@ -325,3 +339,103 @@ &usb3_dwc3 {
- 	/delete-property/ usb-role-switch;
- 	dr_mode = "peripheral";
- };
-+
-+&camss {
-+	status = "okay";
-+	vdda-supply = <&pm8953_s3>;
-+
-+	ports {
-+		port@0 {
-+			reg = <0>;
-+			csiphy0_ep: endpoint {
-+				clock-lanes = <7>;
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&rear_cam_ep>;
-+			};
-+		};
-+
-+		port@2 {
-+			reg = <2>;
-+			csiphy2_ep: endpoint {
-+				clock-lanes = <7>;
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&front_cam_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&cci0_default>,
-+		    <&cci1_default>,
-+		    <&camss_mclk0_default>,
-+		    <&camss_mclk1_default>,
-+		    <&camss_mclk2_default>;
-+
-+	status = "okay";
-+};
-+
-+&cci_i2c0 {
-+	camera-sensor@10 {
-+		compatible = "ovti,ov12a10";
-+		reg = <0x10>;
-+		clocks = <&gcc GCC_CAMSS_MCLK0_CLK>;
-+		pinctrl-0 = <&cam_sensor_rear_default>;
-+		pinctrl-names = "default";
-+		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
-+		pwdn-gpios = <&tlmm 39 GPIO_ACTIVE_LOW>;
-+		vana-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
-+		avdd-supply = <&pm8953_l22>;
-+		dvdd-supply = <&pm8953_l2>;
-+		dovdd-supply = <&pm8953_l6>;
-+		rotation = <270>;
-+		orientation = <1>;
-+		status = "okay";
-+		port {
-+			rear_cam_ep: endpoint {
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&csiphy0_ep>;
-+				link-frequencies = /bits/ 64 <216000000>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci_i2c1 {
-+	camera-sensor@2d {
-+		compatible = "samsung,s5k5e8";
-+		reg = <0x2d>;
-+
-+		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-+		pinctrl-0 = <&cam_sensor_front_default>;
-+		pinctrl-names = "default";
-+
-+		reset-gpios = <&tlmm 129 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&pm8953_l22>;
-+		dvdd-supply = <&pm8953_l23>;
-+		dovdd-supply = <&pm8953_l6>;
-+		rotation = <90>;
-+		orientation = <0>;
-+
-+		status = "okay";
-+
-+		port {
-+			front_cam_ep: endpoint {
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&csiphy2_ep>;
-+				link-frequencies = /bits/ 64 <418000000>;
-+			};
-+		};
-+	};
-+};
-+
-+&pm8953_l23 {
-+	regulator-min-microvolt = <1200000>;
-+};
-+
-+&pm8953_l2 {
-+	regulator-min-microvolt = <1200000>;
-+	regulator-max-microvolt = <1225000>;
-+};
--- 
-2.47.3
+In principal I agree, the naming doesn't really fit the others. I just use=
+d
+Realtek's naming for now, they use XSGMII everywhere for this.
 
+> But...
+>
+>> Protocol identity and naming
+>> ----------------------------
+>>
+>> XSGMII is the name Realtek uses for this interface. Calling it simply
+>> "octal SGMII" would describe its capacity without identifying its
+>> protocol. Existing modes such as QSGMII and PSGMII already distinguish
+>> multiplexed MAC-PHY transports; the PSGMII introduction is an example o=
+f
+>> adding the generic mode definitions separately from a driver user [1].
+>>
+>> Cisco USGMII is a relevant comparison, but equivalent port capacity doe=
+s
+>> not establish interoperability. Cisco defines Q-USGMII for four ports
+>> over 5.0 Gb/s and O-USGMII for eight ports over 10.0 Gb/s, using 8b/10b
+>> coding and a packet-control header [2]. Linux already represents the
+>> quad variant as "qusgmii", with its own control-word decoding [3].
+>>
+>> Realtek documents XSGMII and O-USGMII as separate RTL8218E interfaces:
+>> XSGMII runs at 10.3125 Gb/s and O-USGMII at 10.0 Gb/s, with different
+>> hardware strap selections [4]. The SDK also distinguishes them in
+>> phy_8218e_macIntfSerdesMode_get() and applies separate initialization
+>> tables. Realtek's O-USGMII is therefore the candidate for comparison
+>> with Cisco's octal USGMII; it is not evidence that XSGMII can be rename=
+d
+>> to USGMII. Compatibility of those O-USGMII implementations would need
+>> separate confirmation.
+>>
+>> This proposal retains the vendor's XSGMII name rather than assigning an
+>> existing protocol name to a distinct hardware configuration. It does
+>> not assume a particular XSGMII line encoding merely from the line rate.
+> https://deepwiki.com/lotusmomo/airoha_sdk/3.1-sgmiixsgmii-drivers-and-ap=
+is
+>
+> Airoha also seems to have an XSGMII. Is it the same, or different?
+
+Looking at the referenced code it seems to me that this is rather used
+like 'xSGMII' - an umbrella term for SGMII, HSGMII and USXGMII in the
+SDK code. Probably the deepwiki side summarized that incorrectly.
+
+Overall I found no other usage or naming of a real XSGMII mode apart
+from Realtek switch SoCs and PHYs. Those PHYs (mostly RTL8218D
+and RTL8218E) apparently are exclusively used with Realtek switches.
+The RTL8218E might be used elsewhere too but in contrast, it explicitly
+also support O-USGMII as a separate interface next to XSGMII.
+
+> Adding Christian.
+>
+> I hope we are not going to have vendors introducing there own
+> variants, and we need
+>
+> PHY_INTERFACE_MODE_REALTEK_OSGMII & PHY_INTERFACE_MODE_AIROHA_OSGMII,
+> etc.
+
+Doing some more research on this, as already mentioned in the patch,
+there is O-USGMII: described by Cisco, being compatible to SGMII and
+QSGMII, using 8b/10b coding, 10Gbaud rate. Though, this should be
+totally separate from the proposed mode because it uses 10Gbaud
+instead of 10.3125Gbaud like XSGMII does.
+
+Apart from that I occasionally saw some vague information about an
+extension to USXGMII, allowing 8 ports and reusing the USXGMII spec
+control word and format.
+
+There is no detailed documentation about XSGMII, so assuming it uses
+any standardized frame format would be risky and very likely doesn't
+apply. The naming of the mode - given it'll be accepted somehow -=C2=A0
+should reflect that and not conflict with variants like 10G-QXGMII.
+
+>
+>        Andrew
+
+Best,
+Jonas
