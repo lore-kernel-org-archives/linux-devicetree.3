@@ -1,90 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795444645;
-	b=3DsDBGFl+8Jf75OJ4G9LZN7Zmb5s5CCv//FYW1CKvwH8ADacALUkdDwd6RDIG1UUg6BZ
-	 KOpwtxjVthms7F96v7dipMAS5aWNZTfbwYlWNKWc8aNnAzgK6g0yuv2TgophiRBi781P2
-	 PuWJr/ZQoqruSiZQrp/M6sbZ3G9ppFjtnZZDLFjiZNdtL0Lj3ABVlRvJqvHkURrRzSHzM
-	 JIwAb7v2e0NmPeWogHQgMQjX1aCPEPT6ZgUcTntQF0iW2s15Cyl0BV88l4QMdCHul9VVn
-	 HgI+QyDPZ5pJUKeVv+26NhLi+POImZ3SQMql4tdlEAETcRWykXf4p3d5gxldncPBhog==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795445098;
+	b=1j9rg6UphgazdnSXp1cqagYAaCnOyIgD1mRoSaG+G4GsYUqfDv7lCfsqu/qBYYHm+dkC
+	 8+AGTEi6qmIzpJp6yQvLXnypLfyLKReumquTwX6Z/HjcWSz+4CmjjDk6xEFH+8P/mHk4f
+	 7jZ5uvUGRARbN0H8kbkvpdyi9Aq7eNpiSzfBZfp4CbwMxgzZX+h1GuYn8/I58z1YdAzAz
+	 ygCSz87gvY89qPzPpSe8TENvNecfIhkxpFRogzQfMa7CcSx+jzSt8YTjUC+Egz42VkQgc
+	 VAaOIGECJuB+vioZkAtiVACS/XSWfW+Ihiavb81xTkVpJ11dipV3tFjHW/kIlukrBAg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795444645;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=hnYJCBiRfz7yllErcSmEBCv6f1PEOQS5KfWCrNNzX9U=;
-	b=GMJ2zg2LZYkXEEXvdXAXvv4KcF1zrDqc4T9j3+hXBC2WdUmAiQnANpI3jDxk7eCrMn3C
-	 Yu0b8cluGoh5vFCb2B5AvFBqVnz+O5lKPW7RUH7Aq9v15SPPS+1ivG9LFtyFd5OhNVL2k
-	 pg8xqa3XAZTg6XV+XHaIXEbnd0G1MJsjUShImC096C/dWIiKhRlRJagsQzcCJlxII8mvZ
-	 dMbJNs0KumEegFj3xHkBmTpEdXZ9ByzCEifEcgo5w/0Geaq7HjNg9QtSsayz3HWvtlWwA
-	 cWQf58Y2D66WSXbh8Q/mPMLpjH/zII4aZVcmWTJ6QXF/ptadFL1mAIRnJsZtgp4bVZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795445098;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=/d3C83PDhTdKS4Gzi1sKn6/sMS00aaFlTGMatqgMHxw=;
+	b=idrP4z8KtPRT4Lu+FP7OEFA9m+vT3JhMyj7BN/Lj0QlCmm785S7q5YJZztc7M/t9021t
+	 3CvRHX3JeBkkmVhMT7HdT3l0ZV724EtJZJkSfTeyiW8GLfCyd6OKYNam7b/OheyxiIEzt
+	 2+6KxrxPodZIgM362fwxYhY5pYJwantQ5KLLH/vnag17mZq3Y33wxv4oufbOX3Gzr8qub
+	 J+Tp2CjfhEVJUmuovIHl4jqWYLHXMuHtlX1CCgl2Br9dU7jprPiI1itfR6eJTCoCU5lfi
+	 EF0DkQrqa2y1QN71cRQws/NH7f/iL15dgzctwaIAIT41eBME1hUAcWfwBgu27i3NYbw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=alPWYmgy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eaZOWP70;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IdaadmqP;
+	arc=fail smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9510F606A33A;
-	Mon, 23 Nov 2026 14:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9510F606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C549606A321
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:44:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C549606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=alPWYmgy
-Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 784592020DC;
-	Mon, 23 Nov 2026 15:37:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795444638;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hnYJCBiRfz7yllErcSmEBCv6f1PEOQS5KfWCrNNzX9U=;
-	b=alPWYmgyip7ZtXwDQnfvGEFHT2Vf4GgtfehdO2x9jpPrZarvupKfolT6gdVOR7x/jMbvbx
-	l1g/ljk6KDsWPZSK4OdZsm7iyPL865uOgd5AgHGnxou8clgdNIJFULRWuikVEycxFH2a6O
-	G3kqr+X/5MTBlPP1jKphwJmFDzMVKy1tG54wY2L/3XfJI1Kfd0v49EsILrbVysVuAOw/u9
-	o/GebSmw3jzvQkUUsGv+YnlU/u4g8oIYrazFl5waNrmMAylMMLasdrmQnzNshf1ZxH0QN6
-	w7jkALJ8F3i+LbW6jywT/AG/5ourWOhFnXcipmNRb8JRq/epUXZr2neNRnZypA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795444638;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hnYJCBiRfz7yllErcSmEBCv6f1PEOQS5KfWCrNNzX9U=;
-	b=I/WTdnfLS/bKcKqhFAyV+yXnfcHSLyA2CeYu+0oJW3SFN6iZ7hhvDYL9v+6G7qi72AVGHv
-	cEmMnesQPScLxXt8KCpqzG4kzlh/uBRk/tV8GwmiQkBMuRpzwjtrJ9Zoc/GsRn5lAF29D0
-	3RVANz8+Hjn7pY9xwKhiJcbJ1ojuHMOTBMEMYeTia6JQZ+dtAgTwFU/8GaSTk6c3CYjjw+
-	YMQR0ugR/BEFu6m0KY4gS0NUjMlpKUkE2M+PTbTtf7yN/BErVLCaE8+8rPZygsli+jdbSI
-	JFE54AvvhJeoL2pHj13cH2uzk76GiaIEblxd8KHCB/FQpcyTz1UQ+xD77Lz/lw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795444638; a=rsa-sha256;
-	cv=none;
-	b=VyrsRtnBpkODZmAdxfMV+MoBNy3FPDmMTbrBEk0s5rZRo7/E1zC5LVRKwhyZcFAY9qYTr6
-	ggZNrY83tSAsakpMOzvnXRgDUgrWBZdSg94bzHJ3qJNpickakNtgBoKNxfe1rJTqClrVcP
-	W8RwQuvdOTTSd7Q/NWY1jLJiMazCNN4JY6RWVkCQ1gCNYqBPqtymk8TBFsRufaVEhYhjky
-	Y38VwMpcRLGyyB+A4nOctuFqz9tOjNmW6GQxi85/Hla7IBz6XV1TbBONUBO0BxongDQEIO
-	5nI8bcQ+wFluw3yxNs1Q077yjYvy+Vjid/us9cXw/5PLDDSs0q0mi75u97EWdA==
-Message-ID: <20c75d45-0b9b-4465-83aa-3ef24b90309b@pengutronix.de>
-From: "Sascha Hauer" <s.hauer@pengutronix.de>
-Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
-To: "Philipp Zabel" <p.zabel@pengutronix.de>
-Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Lucas Sinn" <lucas.sinn@wolfvision.net>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <266c9fe4a9aca943c2c2be39a7dc0f3bea2df362.camel@pengutronix.de>
-References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
- <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
- <266c9fe4a9aca943c2c2be39a7dc0f3bea2df362.camel@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 14:37:17 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eaZOWP70;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IdaadmqP
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANDL21l3072550
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:44:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/d3C83PDhTdKS4Gzi1sKn6/sMS00aaFlTGMatqgMHxw=; b=eaZOWP70t09Rj07+
+	cPJieXBnlKsehB+GrJAydZDT4+PLIYK5pwuW2r5gNJH0Ojd7pEgMs9r1m7UJdBwM
+	7zQKYMmWL5kxVdZlZToJgb7EbSrJo+bICo+4pzanjkiC32c6sBdLCP0QpHDvY6o7
+	2N3LRchjol5Kcyj9VoiTImB5GCC9sG44+izkryoUavpx5ETRmQ8hsqXj0PFeoFPE
+	VVs3eVVE4trvEH/2pNWN68ptXYzHit7ybHQ9WjKMfQry0Hl+hcfvNyem1wBUiSP8
+	j+93DPws1QuTtVdpd1VoOT/++TZwI6m4sUIepZrJmTbemGkiwsq21zFG4MnOuAvU
+	ZL8I+w==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4hn7sgku-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:44:56 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8b69b8c6dd5so3323426b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:44:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795445095; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dREbduHoUXhKN+AHc//lJfmlBve2p/LmLrz0KW5lA2Y2L+TJ4LVNuLX63r1nI6DWO8
+         6NsrGBJJ1AAbN9zMgGEYmeOjL1QoQ0DiXFfyYyd2SoMeEfOQb/CPths/77as+dyPDxpo
+         UKZ49prwYGuMjzT3XM5UHVec324UVRuLJ1q1PWwSsw7zC1EjsgOwUyaHrKIEuqhz7aPB
+         VdMqXuGZo4xrRnWGzAx1CTYIFuWgHnENq5RRR3YFFhEpZYtKGIPPwSUibI4R+yO7/Lgf
+         t0QF7TI882ICvfLcDYLIE8IlqqLEEWW9xr/UcEsB4RcarNZ3UNefocUFkQTAUjfQg+f5
+         9+ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/d3C83PDhTdKS4Gzi1sKn6/sMS00aaFlTGMatqgMHxw=;
+        fh=W/Au/8f0Y0hdTJaRP13ocwpGqDKDIQMBaL0agEqjWTQ=;
+        b=FPrccwSaz3YRJJUzlbH6rJk+4VS68sfFqEq6fSShcWFYgpaT2+SCthrddtL8I5Ji0Y
+         dqk3yBb0lXRcUkKnexO1ZzXDJQ+k2hnYub3GCPWQeJ7+VXauXDGrQgXrk6O6nuoFwJj+
+         RaflnVxA0zd82OgPDsE4UX3xlux3i19ONZMRGFL1jFUzzYDRpU85YC8eyLjngsB1vXph
+         6xhveHHFIubWGJAYAegR4LSrmxk68niy6KD1koohdFuqfFGzRwIXhwapuW6amZzEzMHl
+         9HG9OucLsspRK04rfXZ5LZN3NGWXaNVOrf4R97MPYQAlSlqbT+N90EfiaKIC3VP0OLA/
+         TxZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795445095; x=1796049895; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/d3C83PDhTdKS4Gzi1sKn6/sMS00aaFlTGMatqgMHxw=;
+        b=IdaadmqPxlrWInEksHGTbMHQw+6cBlh1Ikp0dHsSCrliSqatwldTV7brzaR61dmqKg
+         iTsH0WcKNbfqHa9/RMhyk5JAvXhN26AKkI2aCRXGSHTXTAXnQCAaKv4wwvY5zyZYQH9M
+         3Av+Dlg6ItpjDuBdmcatiEj2bxGjQUqzCedAxmsC/PBPjBkB+JCg/Nt9MAlg37HYym2P
+         6bz9XGYBnwEiPJ2b2lFsi/m1C3VcxkoLdxrgb3vAgBrfPEKfDDKMDdyUZaN9altdouBu
+         IOeCGzmX0UIvlwVKLU2GVkdYOhfiDPj1tNsAiv7CoYOMzBgbM/LIg29fUU0Eh52aA64L
+         NUow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795445095; x=1796049895;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/d3C83PDhTdKS4Gzi1sKn6/sMS00aaFlTGMatqgMHxw=;
+        b=s01PO7GGFVJdcr/y0qMEG9uKtByzRlDZVIB9ovKodvvMK0g00NP9Fc/bUs9dTj57Lt
+         oFK1OsVK3+ueM4KgDKopVpYCwENeP7jMFoF9dHAyeM6lhieBsU+FdgzJdB2jlkqOgetc
+         bfzAyX9cSpUczgikfMMcVikCmfBgqIomM72dIDM5RLd+rkwc46zO9q3XGPp/w1TH1gi3
+         zaqkIX7k3ct293DQC7jfslxoF9M14VjvXI5Sgr68SRO8yu0PWU5CYjD9on9rm8PtFyXF
+         0TjOOQFZc9zc2Ek7WUphiCPFhKcboTsW5dnCQhQeuahnv0UJfy/qNyfew7BgV7XOyM+G
+         O8ig==
+X-Forwarded-Encrypted: i=1; AL+hErH1RSCftApQ6CvisxGgdAdqoetsqeuQT/wmlfW68p2melea/ZGPpLe/eZGNzwCDIOdT82/14YKHGLW0@vger.kernel.org
+X-Gm-Message-State: APuU4Z8s/A7dLsD3VwH2nLuMuxTaal21PClzQpwTyShAfWdnADX9er2G
+	TopKbfuZ1SQEaj/lfUf/RtrcvvN8NrTUv7SKwpRYEFZZi7iqET5mDRUSBXPz/aAnvZnHpnRqqBA
+	AEjHeaBEhYV9buAMfPEZb/CUnmMJA3dhuoB5RKi6Wkuimpwx2+OKE+UFqlDlDdxCLFxh53yt75B
+	+DaBh2beNm5ezjZ9J2X+VProj5o/h5v89PpoA7vMY=
+X-Gm-Gg: AZFdTZdfzcg1vUbsxU5GUYIf/HU57ZD6yj4l3dCFu8Klgt2BBivnv3dm0I60UBjbfhT
+	hvTbSBpLh5fHe5fSVXJzJKkbTQGSPfLuhSRph3PBtXr0ZyjOcOLeZnh8sKqBhSbVv4/ZjNqy+EK
+	oJ5xz+O4BmjwNr3+HodNl99t/yAHmAGBdmUtzUfIYSi9B+PmkBKHkV2gz+o2wlC7qMPRocIWzjo
+	ZqAu5e5gEPYeCz0
+X-Received: by 2002:a05:6a00:18a0:b0:899:268e:c848 with SMTP id d2e1a72fcca58-8c87cc450e4mr9837963b3a.48.1795445095408;
+        Mon, 23 Nov 2026 06:44:55 -0800 (PST)
+X-Received: by 2002:a05:6a00:18a0:b0:899:268e:c848 with SMTP id
+ d2e1a72fcca58-8c87cc450e4mr9837944b3a.48.1795445094856; Mon, 23 Nov 2026
+ 06:44:54 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,288 +127,111 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261113-s2idle_state-v2-0-ad604182e7e7@oss.qualcomm.com>
+ <20261113-s2idle_state-v2-1-ad604182e7e7@oss.qualcomm.com>
+ <20261116-icy-free-lionfish-c3eed8@quoll> <d3060950-04ea-4f9b-b160-0e068946e623@oss.qualcomm.com>
+ <20261123-humble-native-ibex-7d2f72@quoll>
+In-Reply-To: <20261123-humble-native-ibex-7d2f72@quoll>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 15:44:43 +0100
+X-Gm-Features: Aa3M54pEpZ40tQjszZMv2Cjc9ZKJszGaoEabHp-a4xi-MEaol4PsN--f8rv57Hc
+Message-ID: <CAPx+jO-e337v234_wF5QKDf5YJaEZE1-+_Mo5=Y9BfwuG+29_A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: power: domain-idle-state: Add system-state
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Maulik Shah <maulik.shah@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Kevin Hilman <khilman@baylibre.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=Ls0HWXdc c=1 sm=1 tr=0 ts=6b045168 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=I1gXTs31tpYBTtf-1f4A:9 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA1OCBTYWx0ZWRfX1jsY17Xv46Jg
+ cUvdPRhDg4djxyrpVcYWE3M58gxj6w2XzjXvwmQOz8OE9/w9C1jMjk6kLN391I/t7mF25lw57fm
+ g0Vk8u4Rdi0rCjKst7YFsJa3d/5Z/akyOXIaLNJQSQBJakv/ohURCiEiUsft3poskagxkGq+Fq5
+ 6+tqB0EtlyzEGaRhYXMLCg0+/JNKGt+vdllsDpbLJNiBdIuyaEgEUBQaTnIQvyQFsJibSeiDo4X
+ CAVO4Gp22zGxCc886YaIStEQBJbsxGJRWfKFnnGwVqz6+S9p8pEnYMpcgg2J50FEgT/tykwzuS6
+ VThmXFWZrqwl/Ef26SZ2B2Y6TouL2i97Sde2LIKgaYcxAoqt4TcfaYE2bnT9VkKZBnGdKmW7DR7
+ eyjoYxbLVXIPEVsZhD9HiBTNfBdKlV5LMFSEFjFWwB+zPLb98bPMxb/PZukLTQ2saXHvJWwczMU
+ tlIPUP7NG+Q1RsFJsbw==
+X-Proofpoint-GUID: hBflXLas2aKGTDDMHGGBsT6TkkQftVNX
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA1OCBTYWx0ZWRfX+dJh1TqwvEae
+ QtDL5Fw3+V0yxnSVwHDWtjq/40sGbRpf4cMs0HwM5kyWXGD1VlBt6cb8NEh20bUkcT1A5Eetw45
+ 52b7ED9gvGfdQwaRI+mb+X7JKFdcgNw=
+X-Proofpoint-ORIG-GUID: hBflXLas2aKGTDDMHGGBsT6TkkQftVNX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_03,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 lowpriorityscore=0 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611230058
 
-On 2026-11-20 15:58, Philipp Zabel wrote:
-> > +
-> > +/* Error status bits used to decide whether a hardware reset is needed=
- */
-> > +#define VDPU720_ERR_MASK		(VDPU720_BUS_ERR | VDPU720_DEC_ERR | \
-> > +					 VDPU720_TIMEOUT | VDPU720_BUF_EMPTY)
-> > +
-> > +/*
-> > + * VPU720 IRQ clear mask.
-> > + *
-> > + * Some revisions require a two-step IRQ acknowledgment before checking
-> > + * VDPU720_IRQ_RAW: write the status back with only the enable and con=
-trol
-> > + * bits kept, then write 0 to fully clear.  The downstream BSP compute=
-s the
-> > + * first value as
-> > + *
-> > + *   clr =3D (~(0x00fe7f40 & status)) & (0xff0180bf & status)
-> > + *
-> > + * The two masks are complements, so that is status & 0xff0180bf: bits=
- 0-5,
-> > + * 7, 15, 16 and 24-31 are kept, IRQ_RAW and the status bits 8-14 drop=
-ped.
-> > + *
-> > + * It is applied unconditionally here.  The BSP gates it on the revisi=
-on in
-> > + * VDPU720_REG_VERSION matching 0xdb1f0006 exactly, and the RK3588 rep=
-orts
-> > + * 0xdb1f0005, so it is not needed on that part.  The extra write is
-> > + * harmless there and saves a revision check that would need silicon w=
-e do
-> > + * not have to validate.
-> > + */
-> > +#define VDPU720_IRQ_CLR_KEEP		0xff0180bf
-> > +
-> > +#define VDPU720_REG_SYS			0x008
-> > +#define VDPU720_FORCE_SOFTRST		BIT(17)	/* set when dec_e=3D0 before so=
-ft-reset */
-> > +#define VDPU720_FILL_DOWN_E		BIT(24)	/* fill bottom padding rows */
-> > +#define VDPU720_FILL_RIGHT_E		BIT(25)
-> > +#define VDPU720_OUT_SEQ			BIT(26)	/* 0=3Draster, 1=3Dtile */
-> > +#define VDPU720_YUV_OUT_FMT		GENMASK(29, 27)
-> > +#define VDPU720_YUV_OUT_FMT_NATIVE	0	/* no format conversion */
->=20
-> This is never used.
-
-It will be in v8 due to adding NV16 support ;)
-
->=20
-> > +#define VDPU720_YUV_OUT_FMT_NV12	3	/* output as NV12 */
-> > +
-> > +#define VDPU720_REG_PIC_SIZE		0x00c
-> > +#define VDPU720_PIC_W_M1		GENMASK(15, 0)
-> > +#define VDPU720_PIC_H_M1		GENMASK(31, 16)
-> > +
-> > +#define VDPU720_REG_PIC_FMT		0x010
-> > +#define VDPU720_JPEG_MODE		GENMASK(2, 0)
-> > +#define VDPU720_JPEG_MODE_YUV400	0
-> > +#define VDPU720_JPEG_MODE_YUV411	1
-> > +#define VDPU720_JPEG_MODE_YUV420	2
-> > +#define VDPU720_JPEG_MODE_YUV422	3
-> > +#define VDPU720_JPEG_MODE_YUV440	4
-> > +#define VDPU720_JPEG_MODE_YUV444	5
->=20
-> So the driver can decode 4:4:4 JPEGs but always subsamples and outputs
-> them as 4:2:0 (NV12)?
-
-For simplicity, yes. I added NV16 support for 4:2:2 sampling for the
-next round, as that's a common format for webcams. I'll leave 4:4:4
-to NV24 for a later exercise.
-
-> > +#include <media/v4l2-jpeg.h>
-> > +#include <media/v4l2-mem2mem.h>
-> > +#include <media/videobuf2-core.h>
-> > +#include <media/videobuf2-dma-contig.h>
-> > +
-> > +#include "rkjpegd-vdpu720-regs.h"
-> > +
-> > +#define RKJPEGD_NAME "rockchip-jpegd"
-> > +
-> > +/*
-> > + * The reference manual gives 48x48 to 65536x65536, and a frame header=
- cannot
-> > + * describe more than 65535.  The coded format steps in RKJPEGD_CODED_=
-STEP.
-> > + * Beyond that only the decoded frame has to fit a 32 bit sizeimage, s=
-ee
-> > + * rkjpegd_raw_fits().
-> > + */
-> > +#define RKJPEGD_MIN_WIDTH	48
-> > +#define RKJPEGD_MIN_HEIGHT	48
-> > +#define RKJPEGD_MAX_SIZE	65528
->=20
-> This seems inconsistent. Why not MIN_SIZE or MAX_WIDTH/HEIGHT?
-
-Ok, will change to RKJPEGD_MIN_SIZE
-
->=20
->=20
-> [...]
-> > +/* The capture format and crop a frame decodes to. */
-> > +static void rkjpegd_fill_hdr_fmt(struct v4l2_pix_format_mplane *pix_mp,
-> > +				 struct v4l2_rect *crop,
-> > +				 const struct v4l2_jpeg_header *hdr)
-> > +{
-> > +	rkjpegd_fill_raw_fmt(pix_mp, rkjpegd_raw_pixelformat(hdr),
-> > +			     ALIGN(hdr->frame.width, RKJPEGD_RAW_STEP),
-> > +			     ALIGN(hdr->frame.height, RKJPEGD_RAW_STEP));
->=20
-> Aligning to 16 is safe, but for e.g. grayscale (or YUV 4:4:4) I'd
-> expect aligning to 8 to be enough (see vdpu720_mcu_width/height()).
-
-The width has to stay at 16 pixel alignment, as the hardware takes its
-stride in units of 16 pixels.
-
-For the height I'd say we have to play around with the FILL_DOWN_E bit.
-When set, the reference manual says: "Fill picture height to multiple of
-16 pixels". Right now we always have this bit set, same as the Rockchip
-driver does. I'd rather leave this up for a later exercise to dig deeper
-into that.
-
->=20
-> > +	crop->left =3D 0;
-> > +	crop->top =3D 0;
-> > +	crop->width =3D hdr->frame.width;
-> > +	crop->height =3D hdr->frame.height;
-> > +}
-> > +
-> [...]
-> > +/*
-> > + * The capture format as userspace sees it.  Once the decoder stopped =
-at a
-> > + * format change, that is the one of the frame it stopped in front of.
-> > + */
-> > +static void rkjpegd_get_cap_fmt(struct rkjpegd_ctx *ctx,
-> > +				struct v4l2_pix_format_mplane *pix_mp,
-> > +				struct v4l2_rect *crop)
-> > +{
-> > +	struct vb2_v4l2_buffer *src;
-> > +
-> > +	if (READ_ONCE(ctx->stopped_at_change)) {
->=20
-> Why does TRY_FMT depend on decoder state?
-
-The format is dictated by the JPEG stream. It depends on the decoder
-state to support a midstream format change. When stopped at a format
-change we have to report the new format, otherwise the current format.
-
->=20
-> > +		src =3D v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-> > +		rkjpegd_fill_hdr_fmt(pix_mp, crop,
-> > +				     &vb2_to_rkjpegd_src_buf(&src->vb2_buf)->header);
-> > +		return;
-> > +	}
-> > +
-> > +	*pix_mp =3D ctx->dst_fmt;
-> > +	*crop =3D ctx->crop;
-> > +}
-> [...]
-> > +static int rkjpegd_enum_framesizes(struct file *file, void *priv,
-> > +				   struct v4l2_frmsizeenum *fsize)
-> > +{
-> > +	/* The decoded format follows the bitstream, nothing to enumerate. */
-> > +	if (fsize->pixel_format =3D=3D V4L2_PIX_FMT_NV12 ||
-> > +	    fsize->pixel_format =3D=3D V4L2_PIX_FMT_GREY)
-> > +		return -ENOTTY;
-> > +
-> > +	if (fsize->pixel_format !=3D V4L2_PIX_FMT_JPEG)
-> > +		return -EINVAL;
-> > +
-> > +	if (fsize->index)
-> > +		return -EINVAL;
-> > +
-> > +	fsize->type =3D V4L2_FRMSIZE_TYPE_STEPWISE;
-> > +	fsize->stepwise.min_width =3D RKJPEGD_MIN_WIDTH;
-> > +	fsize->stepwise.max_width =3D RKJPEGD_MAX_SIZE;
-> > +	fsize->stepwise.step_width =3D RKJPEGD_CODED_STEP;
-> > +	fsize->stepwise.min_height =3D RKJPEGD_MIN_HEIGHT;
-> > +	fsize->stepwise.max_height =3D RKJPEGD_MAX_SIZE;
-> > +	fsize->stepwise.step_height =3D RKJPEGD_CODED_STEP;
->=20
-> This is the coded size. I'd expect this to be continuous. You just have
-> to make sure that the decoded buffer is properly aligned and set the
-> PADDED selection rectangle accordingly.
-
-Oh, yes. That can indeed be continuous. Will change.
-
-> > +
-> [...]
-> > +
-> > +	rkjpegd_irq_done(jpegd, state);
->=20
-> Why is this hidden in a separate function call?
-
-Likely historic reasons. I'll inline the code here.
-
->=20
-> > +	return IRQ_HANDLED;
-> > +}
-> > +
-> > +static void rkjpegd_watchdog(struct work_struct *work)
-> > +{
-> > +	struct rkjpegd_dev *jpegd =3D container_of(to_delayed_work(work),
-> > +						 struct rkjpegd_dev,
-> > +						 watchdog_work);
-> > +	/* Only armed while a job runs, so there is always a context. */
-> > +	struct rkjpegd_ctx *ctx =3D v4l2_m2m_get_curr_priv(jpegd->m2m_dev);
-> > +
-> > +	dev_err(jpegd->dev, "frame processing timed out\n");
-> > +
-> > +	rkjpegd_vdpu720_reset(ctx);
-> > +	rkjpegd_job_finish(ctx, VB2_BUF_STATE_ERROR);
-> > +}
-> [...]
-> > +static int rkjpegd_buf_out_validate(struct vb2_buffer *vb)
-> > +{
-> > +	struct vb2_v4l2_buffer *vbuf =3D to_vb2_v4l2_buffer(vb);
-> > +
-> > +	vbuf->field =3D V4L2_FIELD_NONE;
->=20
-> Hmm, "drivers can use this to validate userspace-provided information".
-> Is this really validation?
+On Mon, Nov 23, 2026 at 9:20=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
 >
-> It seems a lot of drivers have exactly the same function:
->=20
->   vpu_vb2_buf_out_validate()
->   cedrus_buf_out_validate()
->   mdp_m2m_buf_out_validate()
->   vb2ops_venc_buf_out_validate()
->   tegra_buf_out_validate()
->   dw100_buf_out_validate()
->   mxc_jpeg_buf_out_validate()
->   rkvdec_buf_out_validate()
->   hantro_buf_out_validate()
->   vicodec_buf_out_validate()
->   visl_buf_out_validate()
->=20
-> At least e5010_buf_out_validate() and
-> dma2d_buf_out_validate() warn or fail, respectively, if the field value
-> is invalid.
->=20
-> Is overwriting field to NONE what this callback was designed for, and
-> if so, does this warrant a common helper?
+> On Tue, Nov 17, 2026 at 10:34:52AM +0530, Maulik Shah wrote:
+> >
+> >
+> > On 16-11-2026 17:28, Krzysztof Kozlowski wrote:
+> > > On Fri, Nov 13, 2026 at 10:25:25AM +0530, Maulik Shah wrote:
+> > >> Some domain idle states require system-wide coordination and are not
+> > >> applicable while the platform is up and running.
+> > > You repeated the property description. Say something more. Why they a=
+re
+> > > not applicable when platform is running? So if not running, when are
+> > > they applicable? Why?
+> >
+> > On certain platforms CPU subsystem deepest idle state requires co-ordin=
+ation with SAIL subsystem
+> > such that both must be powered down in coordinated sequence. During wak=
+eup SAIL subsystem must
+> > be powered up before CPU can resume. The wakeup can take a second or mo=
+re.
+> >
+> > Selecting this state during opportunistic CPU idle can therefore cause =
+substantial wakeup delays and
+> > repeatedly interrupt SAIL operation whenever the CPUs become idle.
+>
+> The idle state latency times define that. No need for a new property.
 
-1f2f510753be ("media: vivid: add buf_out_validate callback") which Hans
-upstreamed along with the patch adding the buf_out_validate hook
-suggests it's really for validation rather than normalisation.
+Unfortunately they don't. The extended coordination that is needed in
+the FW to reach these states has nothing to do with latency.
 
-However, buf_out contains the coded stream. The field order has no
-meaning in a coded stream, which is why I think that most decoder
-drivers just normalize to a sane value.
+We simply can't reach these states unless the entire system becomes
+suspended. From the PSCI point of view this can be compared with the
+PSCI SYSTEM SUSPEND call, that we use for suspend-to-ram.
 
-Yes, this sounds an opportunity to add a generic helper function. If
-that's desired I would add one as a separate series though.
+If a "system state" would be voted for from cpuidle in runtime and
+when using PSCI OSI mode, the FW would always return an error code. In
+PSCI PC mode, the FW would typically downgrade the vote and pick a
+shallower state.
 
->=20
-> > +
-> > +	return 0;
-> > +}
-> >=20
-> [...]
-> > +
-> > +static int rkjpegd_resume(struct device *dev)
-> > +{
-> > +	struct rkjpegd_dev *jpegd =3D dev_get_drvdata(dev);
-> > +	int ret;
-> > +
-> > +	ret =3D pm_runtime_force_resume(dev);
->=20
-> I'd expect this to not call v4l2_m2m_resume() if runtime PM resume
-> failed.
+In regards to ACPI, this can be compared with the S-states.
 
-Yes. Will change to return early when it fails.
+Please have a look at the discussion [1] I had with Sudeep around this
+to get more details.
 
-Regards,
-  Sascha
+That said, I will work with Maulik to clarify this. Seems like we
+could improve the commit message and the description of the property a
+bit more.
 
+Kind regards
+Uffe
 
---=20
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
-
+[1]
+https://lore.kernel.org/all/20261005-s2idle_state-v1-2-3c402c66f388@oss.qua=
+lcomm.com/
