@@ -1,85 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795424335;
-	b=mAAiVTuCgFl0rIThQbsT4ga5RQkPnJKP6OlS+50a23hfGmItPgLt+NUQSEYCzl4Q0NLA
-	 eKGbLV/8Bmy2KyFwZNFDDHawmUeyc+SCbCV4PmUqLANsGBVvwbXU3uo9ytyHnS7oE5Cbn
-	 Aj+kQlGcTa1wOivOQWWq/NkRgYUgXT4x2Zo34qo9DxNF/+hqUZcxvgM0v0OyUicR7yKxi
-	 3GNF2Q013+iHHrMckY6e3+I/rygQMpEg+4VY0Tc2/NwB/o4pjlYB7l2tWtJveQlAcJt5J
-	 gYCh4OevLuX4v+rZ6OF1FzV+3cFrXaBmjPd+f9QB58w4//GA8efoCgvySEfwIDNr3zQ==
+	t=1795424336;
+	b=oO4DKHpPd6NFcCmdqHUSNVvxRV9WhU6M2rOYChOwqU1fG0OJbPpK5gUpmeQQUKxuxcPY
+	 YMmiJZyb3t8CNUK5WE26DO0m44AxECpmA4WvxwnKs+a0FyAkMmoAwznn6wv6CxQByAol7
+	 EPN1hog1jd9gls08l12NXk9tK14y9wK3kijDbHbVDsjHiga8l6c1AgLSfRvR0HJ/Qw8Yu
+	 qsXcY9mWYZ9b6LRyk2k91pjEENNYjiVYdBHvhY8jYThUOBqOlVHCfEH4hHBU4SNz+mF4Q
+	 W1RokOmSTq2AJ/F72xroVmPJhuSeaGBFlzGh9/+OCRvXA61zO8LK4qYavevIFL7nG9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795424335;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795424336;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Fw/YKdGx/bEJxv6m8dJuQDKu0hTKbF1u6pYTLgihK3c=;
-	b=UT1r6glBvXToBWjt1Cepvavv3C5nq5fnQ8EDxcfL2o8dDzP+zWpKBt74J70VkyV1Oxkh
-	 J7rZmMYXsgjycyJR1J/coEpk2eSGZhPkRUl0j85voMlkTa3ML8bReEXiLOWDoF5sEdTZN
-	 nR8FjZbvqJXz+RLMm9a9x1WVuavBf1T2LkKHfvQ2GM9gKr3juerTlIwvkD7JX7oskfnBB
-	 y2nzVtX5Ll44zkB6Bf93i/f8PFbkkrcxHeELaATmJpQSuBR3IOcU5X8x98OkraCPuVOOG
-	 0Qy+W5zmKhO30daZ7FW/RttodTntnsctLU6sShMmEqeq3kfrT/XdIxHZXMYCTizzA+A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=s8y1Uqc1mwCpun1OXoOsJDUzZaLNzgAL1GBXFJFqXhk=;
+	b=w5pE+VFAVna9DtXov2ID0IVeZMAyjGPzxc7t3E0jZ0HeVUVrazDjR8g5zAdVzxXg/xG4
+	 jG43uH6+DOiJsPNNMwLNffk538JVQ+qKNSikFBw2UigUoo/kQeDvzNtDcYHVtbVsz+Ilb
+	 WmKOsPNU/aJ7E34QvKL06DQMlAKWM4BdZ+WCpiC9q9c1Hha3CVl4Z+gg1QXEaGhmfFPEm
+	 E/CTuWfze8Z2Vq+4HBDrs+rU7rAbVMO6wKmAVlm2b0Qs60fUhC3V65jfT63aVlS7kcdyO
+	 SrVtIfXHcWWa/70+DwdCp3+8BvoPhP6CRYw+U8TDmBAEYrEDP1TP5/zU5qOJyfxW0Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BG3Ypb0E;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ba8TENrB;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36DB606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 08:58:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A36DB606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30318606A331
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 08:58:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30318606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BG3Ypb0E
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4b467581b98so27519025e9.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 00:58:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ba8TENrB
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso21050395e9.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 00:58:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795424333; x=1796029133; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fw/YKdGx/bEJxv6m8dJuQDKu0hTKbF1u6pYTLgihK3c=;
-        b=BG3Ypb0EPki8K0XfjcKNMNuWucIAzL1bgG6ic8Fl526qhYmAzeJDj04amPik0ZIyEv
-         krByJmeBrF2EX27hvuynzUkunMkRLag4getHQ7U61x3hmWpf0mbHApq2FDGN4WcadM1b
-         hKrWEIaFZuIiUEsHWT+L3n6n2vGpXrBHUzRMjkjxIt3zt9VGNIj9wvkm3TxCwsJKULRv
-         0lOp3y3mHl2HWuQZOnT+senHO7IIyQCtRhkt5vPFG+unrx0G8z6mp5tUFrDw0bWj5e3E
-         ypKaAoimHoA3QkKyr3CjJU6ZOz4Q00PfVy/Hy5U9Tim91UYEs4FWfISIww6Sjsx3yXGx
-         Z/hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795424333; x=1796029133;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795424334; x=1796029134; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fw/YKdGx/bEJxv6m8dJuQDKu0hTKbF1u6pYTLgihK3c=;
-        b=rN99ISDkAv0nMgQUJugmH4y/4l/Wxp86rB+XOfLRa2thmjUb9yFat7H1cuY35nAl0U
-         hT92FxhkVa7k6yAKhOp/O1qCjMvKIysyz6R0DLBdAF4qhb4IuyVGSIfpDv75JabHJ2nN
-         b6YSUN5ZyK6W3R8y9nWyqKNz/30+94h8BBivG4OaPTcdpAjvGgjhs1ZU9KHc9kvuLRLs
-         Tz/E3xPKmCwJWFpp1CvGs03RJdGgmb7ZsGp1WNgulqFK6B6uDKMecn3zvL8gz/96WNhc
-         SxeranYpXaSiNlzjgW/30tX3IN2Q30HJn+wPlcWdMsbH/6rrSC8uYcoPJ4Q0qeYWppPc
-         ja2A==
-X-Forwarded-Encrypted: i=1; AL+hErGO7SIyoNNz+zUToyeXX9XWTLX4Y6Ico1zZkiWXuCtrS24xcm1ljx5ZCgccBPW3/Tv3KxfxSYVxiYeP@vger.kernel.org
-X-Gm-Message-State: APuU4Z96eHt3ASGgLubn79b1x6NIaY4A/vqjZneKu4OW/ww6Hz67Tbp/
-	OQOIfq68uYcM759BgKav261/JOBSaSrYgEJs15eTslN94+x+aRvgknN3
-X-Gm-Gg: AZFdTZcm48KqUjS5JODnvOyCKABFPJGGvGWyhRvB4QWVN+3G4fTm2v6JzaOIuWvzvEb
-	pkVO4skxOoe4U4Dvbn2IepcssSLo3bFgd4ZahmX/61gVtSCfs6wrjxjWT+ScuSmgT0dZvtELE3o
-	WoIZ7D8toryE7YLgqJf3PSgMRQS4zD9tzgJHknh4RBXVOMB3anFT9vnuq4B/mNmAPX+mNTWJVSB
-	3s8Od0Ql7N3nEK3rE/NLfmvn2CFYK6aOnUlBhAtQUYT/JGMS9p7Equ+JsdyPgFdVPU3Rj2O/fpd
-	5VbSYupOXhkzedOiWVNHIf5J2UZprfDogHPBJVAQ+GNqGFqu0dzcva0SOU18X4N+GVTNCoOh6cf
-	AhV0NZQOQPIARjq5KIpU1NgpAh8QDefRocntGsIzKa+gqpucOyjidehdooI65hwqW4UlREYC+ez
-	AIdR8wlX5FDNikNHAMaEyHr81O+q6f9ixAf8APfJLlD51A5qljSTWS6wnIk6vSPhZsrlNJf1m6t
-	E5mX2kt+de/Fecw0IZTv2ge+LR9O/3f8hDXPIedalIpHvXtfkppQ6grOTrnuPDRj+HfaIML6NpJ
-	0dizSDoTayBpLum+RHLnpKbsLg==
-X-Received: by 2002:a05:600c:190d:b0:4ba:2bfc:c8b5 with SMTP id 5b1f17b1804b1-4bb888267aemr217464265e9.10.1795424332866;
-        Mon, 23 Nov 2026 00:58:52 -0800 (PST)
+        bh=s8y1Uqc1mwCpun1OXoOsJDUzZaLNzgAL1GBXFJFqXhk=;
+        b=ba8TENrBsjirPDWfts90pUDcL14i9TR1XCG+S+Tfh52l3iwLA8bl+Yt9U4knjgpAED
+         zl5STchzMfkrtpt5ovoJmtjS6AwDkqqFTugCW8/6NWNGwpDvkmN3DQ4mIgC3qthroXBM
+         5kzsoyw1RLr5bveGAHSfJQWFNWbdN9L8YB6s8fExRgHhQRx+/Zi5irO+B9lQ2/9bL/9Q
+         enQjJskLMKDYh4UnwLvN/DkV4F4eiTv0uXxL0RtKBOihR9rcMpCqXty1kJZIKjRQUq6c
+         HnZiWJIIlQW0PFfwheQU1j1zubbOLhsVR/gbRIn0PfbPQcjB/wgBypdGqaIambjYdgXN
+         SDQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795424334; x=1796029134;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s8y1Uqc1mwCpun1OXoOsJDUzZaLNzgAL1GBXFJFqXhk=;
+        b=gZc0na9i9VIBfqgVTysz8iUIeKNnfhEYW/d47zHI6iCQkPysDk1D0mIJASkBqVaepK
+         Tr3pdVGbIPt8oEBA91sR3UIoMHLXMc5T5viBXIPtaLSePUoBC5LCligFYCGqGJxte32H
+         0ddCig3ShDhaQqMZvqjX9qe6vbuKl7HbAD72mVgnPRERdp8NdHxrqFr/HsqhppCF9H62
+         hW+HbauKXXc+hszXyJHCmSDaTZJuaOAh4AYwa9MRf7qLAHdpNKRDoSkKe7j7y8BABk7j
+         EEQlZqo/YhfnpDIbZmot4RRS6mYSvJW8JJnpWo75yyw/+1AN1funjx05TJXhdRDGLtkj
+         8U2w==
+X-Forwarded-Encrypted: i=1; AL+hErGWX9GDpjTh3u/EeG+G9i2YCWTz2a9KIQ2pdMIF69E00hRnntoKW7KBlsuFj94K5AutLCj8ypIEGXl0@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FAtX4ab+EFTQ6EyJw0sMv1bMmfZH7+r+tEtAlKpg6+GUs6QDu
+	vFi+VdeGJrADxn3ZxpKCOme99Q8qDJ5vLSM+iB++9Er5Xf62LidLML8E
+X-Gm-Gg: AZFdTZcWoufMELOu8M0Me4x9oaWUTQIBqoz730y3brD/fkgBiXqqD9r7YbZMbSg0d7V
+	9LLqVN+lZa/aYxGa7JyxWgzLGqDO66TFATX4NnMqpBzAHnLcuHxjNzZ4VBr1VHu9HYej+DGoZ84
+	1JKofhdwpFnUwHNz7xFidWRc3QJ/gDTiDYhQyhjV1m8DXmaJzNVBAqIP1LLHm8OYwyvwL2RSpWI
+	t9HEDp3ruAz7IwWBTx06e3k8sOppolIupq9e3qG0Jx08ONVxXCas70Qlrbhu7cA8j8DgMUT6gsb
+	DSA9MeSg5guEqXy85+V8TYjXXVIuXtNIRJ53HXilrYmVPcYuBroPlxNYmHOwo1Om+3qlMN59dSp
+	VIvtM3C1HdTXPDQfEhTjUYo2aFadTDrutHfbRtWaQSdXfV8QL9Hawbalfn7BOpdDpoE+Y0TQUxx
+	BSig28LmoTKKhUg4vbWGKKE3m/1CT60rCu1LxC34sjMBSz0Opjnr7H6puDINPkoT3l0d5Yarres
+	0nBoamYzOKA4wlMg5iwaRPkzJISk5aXRbiTMBemV6QaoDIiU16PkyKWL5UO/JtFvNfn7ASuYeRW
+	C5yyS4UJg9C+EBVvPBNAUMbx
+X-Received: by 2002:a05:600c:4514:b0:4bb:6823:3d3c with SMTP id 5b1f17b1804b1-4bb888169d0mr234585905e9.20.1795424334315;
+        Mon, 23 Nov 2026 00:58:54 -0800 (PST)
 Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853b216esm375960755e9.12.2026.11.23.00.58.51
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853b216esm375960755e9.12.2026.11.23.00.58.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 00:58:52 -0800 (PST)
+        Mon, 23 Nov 2026 00:58:53 -0800 (PST)
 From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 To: linux-mediatek@lists.infradead.org
 Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
 	David Airlie <airlied@gmail.com>,
@@ -91,17 +93,18 @@ Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	CK Hu <ck.hu@mediatek.com>,
 	Jitao shi <jitao.shi@mediatek.com>,
 	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 0/2] arm64: dts: mediatek: mt8167: Add DRM nodes
-Date: Mon, 23 Nov 2026 09:57:53 +0100
-Message-ID: <20261123085840.8687-1-l.scorcia@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: display: mediatek: dpi: Add compatible for mt8167
+Date: Mon, 23 Nov 2026 09:57:54 +0100
+Message-ID: <20261123085840.8687-2-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261123085840.8687-1-l.scorcia@gmail.com>
+References: <20261123085840.8687-1-l.scorcia@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,45 +116,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds support for the main display pipeline on the MediaTek
-mt8167 SoC.
+MediaTek mt8167 SoC has two Digital Parallel Interface (DPI) blocks,
+one can be routed to a DPI display while the other is wired to the HDMI
+block. They are not compatible with any other device, so add a new
+compatible to describe them in the device tree.
 
-The driver bits have already been applied in CK Hu drm-next branch,
-together with the first patch of this series regarding the DPI block DT
-binding. I am including the latter again in this series because it was
-un-acked by DT maintainers last week due to the addition of un-documented
-alias section [1]. Those aliases are currently required by the driver to
-drive the secondary (external) display pipeline, but the main display
-pipeline does not require them and they can be safely omitted.
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+This patch is resubmitted due to the un-ACK of the previous iteration by
+DT maintainers, because of the addition of undocumented aliases in the
+SoC dtsi changes. Those aliases have been removed in this iteration as
+they are not necessary to drive the main display pipeline.
 
-In version v2 I removed the nodes related to the secondary display pipeline
-to add display support for 90% of the devices that only use the main
-display pipeline while an acceptable alternative to aliases is devised.
+ .../devicetree/bindings/display/mediatek/mediatek,dpi.yaml       | 1 +
+ 1 file changed, 1 insertion(+)
 
-The series has been tested on Xiaomi Mi Smart Clock (X04G), Lenovo Smart
-Clock 2 (CD-24502F), Lenovo Tab Essential 7 (TB-7104F).
-
-Changes in v2:
-- Removed the secondary pipeline nodes (rdma1, dpi1);
-- Removed the aliases block;
-- Implemented the complete OF graph for the main pipeline, using the same
-  path that is currently hardcoded fallback in DRM driver code (output to
-  DSI display). This improves backward compatibility for the upstream
-  mt8167 Pumpkin board.
-
-v1: [2]
-
-[1] https://lore.kernel.org/linux-mediatek/bbefcf0b-b31e-4f74-bf79-b0ccc983f62b@kernel.org/
-[2] https://lore.kernel.org/linux-mediatek/20261117122802.728987-1-l.scorcia@gmail.com/
-
-Luca Leonardo Scorcia (2):
-  dt-bindings: display: mediatek: dpi: Add compatible for mt8167
-  arm64: dts: mediatek: mt8167: Add DRM nodes for primary display path
-
- .../display/mediatek/mediatek,dpi.yaml        |   1 +
- arch/arm64/boot/dts/mediatek/mt8167.dtsi      | 297 ++++++++++++++++++
- 2 files changed, 298 insertions(+)
-
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
+index eb4f276e8dc4..6cd96a5cd4ae 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
+@@ -21,6 +21,7 @@ properties:
+       - enum:
+           - mediatek,mt2701-dpi
+           - mediatek,mt7623-dpi
++          - mediatek,mt8167-dpi
+           - mediatek,mt8173-dpi
+           - mediatek,mt8183-dpi
+           - mediatek,mt8186-dpi
 -- 
 2.43.0
 
