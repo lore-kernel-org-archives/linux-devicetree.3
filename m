@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795446703;
-	b=eaU3+wuvi2WsP34uHDn8w4sA0CmuxFPCzvTXdF5Zp507R8CkJp0bNWPGVE1GYuwiCFDC
-	 I0SATgard6LJcDwyVEJVgG2TAJOxstk79t6kEUGb9KndREwLN2b5nx2DhevCN3yOSl+6s
-	 T0n7kKAt10UYk3OTGZueiIesUHtzE1vFnyQHl6kfHmzRWHL7y/fZK/wlWbNMOyDfHBksX
-	 OXdqwo752DZ2hI9Xp/0VV1L3fzPKFFs20Yta7Nzloy2R604nbncn9VbNgEkZ0qQ7DmOUK
-	 xnqLxurxn3Rm0XiKc2r+ZYt1WFVg0K355e635EXhmrhDqszfV7e6W5REtf6R6vZPtNA==
+	t=1795446708;
+	b=m17q0/6kUB/BTVUJVXeoKVeJO9L9JMvn+/UDGiggw/uRTDP1Ch+wIJll9ZeWO/Tkxqq9
+	 azGmv9x1k5TtEpDDqVuCil7O0rqCbcS0AEipf5JuVm1Jytw+/J/K7+vXFTSjQp6HDJ1no
+	 wEZciTgal7nid1+HBlUe4t7HVtHGwhMrvO4XDIU0OEiIcLfGIreW4PpGO9pBmBue2cKEL
+	 chOCPmpTxzZZSk0/C9RJj+Y7erR1YxmRuin4wn8XlsbL+8rD5guLCUhlzqgFHWPgusxAs
+	 yqrxMBHezEJronL/IhsfFJ1bU7+5c2Ti9gguw+JXH2KnXor+dXD30zcrYw3B5tialbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795446703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795446708;
 	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
 	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=qedVrhq6D8yXZ08FWvsn8UPMBlUAfXLJ/UDjf19Vavg=;
-	b=X6K/sSh7cvV96oC8DzbLUFvBzCfjVW6yzWVVsVc/XyPGerXeO7aPn7xpB7A9LorxUNI8
-	 rFECkJeHoX9/5g8rmx4sXC4kPE0PQL+Vsu2op0XscJKmnLsFBwkG/O+5h7pfnUyXhukye
-	 eKeeZAL6Ji33fCxHKUQYTa/863apGZIhzCNJiGtY/XueAdvAFMTFu16r3dyveCimnywWh
-	 pKfaX1gdmzqR/q/zzzBJztdL4vVaIiDa4kbI7lH3H7/4HfVboA+hR0BkWPeVkC0PwaoU6
-	 0soafNespO/avKw7A/xnscnG1G0PNLMHENruaxBX8/RxL0gsjzOrLIlaHYE9aV7quTw==
+	bh=Bguxprv9af9sIZu8H90jTyVeqmhxNUY00+W9NIe0CBw=;
+	b=YAJ2xEaE4kH2UwLe86F+pgwmvTTXfhh8yQoYxpfXXC0kMjdPzT8qZDR3/H/mi81MAfZO
+	 w1kmIbogETGwWT0ku9VJlVgav4dj8Uornd9eo0wDTeZodtdBI7/JIsVOGzZ55an0DQUfW
+	 AIIBVVy8kCPUq2FSTG9PRsSWezR6kP3MvPyDdf6Ha2EEKvO5jY//jOzWFkTkk5K92UqnC
+	 kUTlSG9unwsmPeZrbGLSQ2jV/QU5GZsHZryWd8Si9RmzADXJwwjjszo9vWXXHXTfu5vTG
+	 gksOf+hhf5Pv+KSGkfvMxhrTrrVJtCpqvtqUUp/nWQ/nmKm2PDXTthbJvmVXwkdL7IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DvMfOoMM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NM1SK7MJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851A8606A327;
-	Mon, 23 Nov 2026 15:11:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00CDC606A33D;
+	Mon, 23 Nov 2026 15:11:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DvMfOoMM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27CE41F01574;
-	Mon, 23 Nov 2026 15:11:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NM1SK7MJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D5A1F000F4;
+	Mon, 23 Nov 2026 15:11:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795446703;
-	bh=qedVrhq6D8yXZ08FWvsn8UPMBlUAfXLJ/UDjf19Vavg=;
+	s=k20260515; t=1795446707;
+	bh=Bguxprv9af9sIZu8H90jTyVeqmhxNUY00+W9NIe0CBw=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=DvMfOoMMUl/SMHQ93v4UNM2/f51C6gWbHw15TggSVxgmPNhjtnokXHhj6EJxl0edp
-	 2cHzrulaq1+XOCdR3HwaRb+wyR+CrbDwyZhbVvfaCgBTXdIlmNJX153opNRXVmpGRg
-	 /E5OV+ubV8ibFseOELosoRyDkEHpVxxcYNmNodvxaZwQg3K8Uw3tPmj6Wvf8eIJsHa
-	 AVJtLmFAsZ8J/BW+4pg8hoYgvE3fFbn2XKdpPRnmPZZHL/tApR4rDN9DCaRkuv+Pg7
-	 43wyBDDQAWV/j3YbVdA5lLBzIp7eKF9daGg5E0KRRrSHnzlAKHdLNPiOtO/cOGa0xH
-	 307efp+nH/UEQ==
-Date: Mon, 23 Nov 2026 09:11:42 -0600
+	b=NM1SK7MJ6y48IdEy7d8zOvydV9kgRJbSKP8zYm7Llf3MmRDoTo0Yv2r06lVf0MV0A
+	 aLeQaUelrdlQ0ee32PTivM11eUse+Aj0Iw5IiNF9NENEe6O5MhVAzNOJ3wPdh2t+5z
+	 KvfTECaQW1k32a64vol9gvkNSAXxncAPgoVURF0P75dapi6IbxEhRSeDp/aM64djX5
+	 oHHaDmpgx5h0SVi3Qj7yjhy1zlrtkh8x9uCDWy7cXcEleOA0L6mkrLfE06HsVkO/Ov
+	 15vzGTqiSOaK+HlyjPEAOXPfhmFO+NL5PDHtpfYcUNABW1ZCVOMhK2Tl6Amn32Npuk
+	 RRsOONsnfG3ZQ==
+Date: Mon, 23 Nov 2026 09:11:45 -0600
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -52,34 +52,34 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>
-In-Reply-To: <20261123091024.2214918-2-akash.kumar@oss.qualcomm.com>
-References: <20261123091024.2214918-1-akash.kumar@oss.qualcomm.com>
- <20261123091024.2214918-2-akash.kumar@oss.qualcomm.com>
-Message-Id: <179544616363.2477641.14590053759680367457.robh@kernel.org>
-Subject: Re: [PATCH v2 1/2] dt-bindings: usb: cypress,cypd4226: Add
- orientation-gpios property
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Conor Dooley <conor+dt@kernel.org>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org
+To: Hikmah Gumelar <hikmahgumelar@gmail.com>
+In-Reply-To: <20261123123546.152162-3-hikmahgumelar@gmail.com>
+References: <20261123110805.119610-1-hikmahgumelar@gmail.com>
+ <20261123123546.152162-1-hikmahgumelar@gmail.com>
+ <20261123123546.152162-3-hikmahgumelar@gmail.com>
+Message-Id: <179544616634.2477873.11039098838412723713.robh@kernel.org>
+Subject: Re: [PATCH v2 2/7] media: dt-bindings: media: i2c: add Samsung
+ S5K5E8
 
 
-On Mon, 23 Nov 2026 14:40:23 +0530, Akash Kumar wrote:
-> Add the optional orientation-gpios property, used to sense the CC
-> orientation of each Type-C connector on boards where the CCGx chip
-> has no HPI register exposing CC polarity. Entries are ordered by
-> connector number; an entry may be left as <0> for connectors with no
-> sense line.
+On Mon, 23 Nov 2026 19:35:41 +0700, Hikmah Gumelar wrote:
+> Add Devicetree binding schema for the Samsung S5K5E8 5-megapixel MIPI
+> CSI-2 CMOS image sensor.
 > 
-> Signed-off-by: Akash Kumar <akash.kumar@oss.qualcomm.com>
+> Signed-off-by: Hikmah Gumelar <hikmahgumelar@gmail.com>
 > ---
->  .../devicetree/bindings/usb/cypress,cypd4226.yaml      | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  .../bindings/media/i2c/samsung,s5k5e8.yaml    | 103 ++++++++++++++++++
+>  1 file changed, 103 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -87,16 +87,11 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-Lexical error: Documentation/devicetree/bindings/usb/cypress,cypd4226.example.dts:84.49-51 Unexpected 'XX'
-FATAL ERROR: Syntax error parsing input tree
-make[2]: *** [scripts/Makefile.dtbs:138: Documentation/devicetree/bindings/usb/cypress,cypd4226.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/linux-dt-review/Makefile:1716: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
+./Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml: error checking schema file: cannot load meta-schema http://devicetree.org
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20261123091024.2214918-2-akash.kumar@oss.qualcomm.com
+See https://patchwork.kernel.org/project/devicetree/patch/20261123123546.152162-3-hikmahgumelar@gmail.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
