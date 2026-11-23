@@ -1,75 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433094;
-	b=M7XbCaF4scPXr5gomqBhbw64/mx9EjZrQeO9EKAO3k+cdEnaFt0TvMuaR56PR2Q3dE9Y
-	 pbZQskc1I3H9A5NUBveD/fl/hzcyaVierWx3hSX39+Yqbr4/NIQe8I5yuUntmdexR6PFP
-	 vfesIHVMAkclftDm7W/5Htr8my24rdv1qxrH7PJUHr/6GQLrQnIaF412HHHwFjVgF6v1E
-	 T+wvPUX9qSs/SMH/8STcEYxmCVoAg/UQH1nZ5s8msj8GwBs1H3mdPSPHtFaW/EIYi0VbM
-	 FO6Vt9Yn6vScMsu0kuOxIq4QRNHpCkR6yXgxMffmjNNbEmRc81qZ3n1j3CG0SD27dLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433094;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=FDLkdAG6SH1GnUEwqnA+0+a0OunQrhtXxs1sKgVVilc=;
-	b=Y4nMxvTL8D/ZqUp6atykCWhItLW4NuVT6XeTT9chUr1Q0zr1Dq5Y+pQZeOhK70tN6OBV
-	 etKPIhIpBtwh8O3uTYhtuMBlsFC1q9K+c3/dwmjuvHhta6HO6IXk4OHpnH6J26uNH7kIW
-	 FRavGFPWEtMu9j1NYrelEHp72LIXJiDDoSTDbCYHVOjpSpR8RXFWoaj61EhLvKoP9XnNR
-	 z6/k2Hy3hSSjmPsJ2PUpVuQyEYWXyVVl+8U6lSOCefx4q5Y06+0oAp50wvtB31j7OVzON
-	 0FamwirD+YPK+zFHUvUmpD26F4HowpgrYbZzs/7/o7pcvKbs6/SQjP5uY6mBmXIK1Vg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Ti2+aFmQ;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795433145;
+	b=3CoifAlox9BjVPK67/H3h9bH72vBBQTHF6y8CQkZAX96WYmY2d7P0ZOJwNZPMVbNaXcU
+	 Z7ZR9Ra9Z0DtfK2SgivHpDqsIRw52HMwyQoAkuaxlYSebNvQOq4P3wId3Xt+g4tlUhyoj
+	 TVmcHL6PJIQCC5l8yVogxc0GYGOnIxT5fCaHJEL0MM1+oL9kyW/t+QVd6iGtDXQTRfCl/
+	 PIE4u3ZV34IWDb5bYxH7LD9dGAUflz2AWRiHCRNpC0hki6ElXu4Z3Qb57fnEpKmk/Pvw+
+	 e8MJm6dRTGdNLWexBwWRbmt3ILhFCeDPm5aWFaE/Ujv2plnf3/pyTy3/YKO1jydkvKg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433145;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=FZTB+VKUReCx8XgfvlzddrAeMA7GwaWZltQEpDEq+1w=;
+	b=KEqClZUZmMFfIxvOcIyof5qak6zoQOTW45DrpdkArfx1qTVVU68MzkGYyFACXUu7c0w5
+	 cDMNRBwa3e4aU8LM5jShHJndRxJxv1+hq2Hl1oWP0HnZwwks1MaXJ2RPFWFBmSZfZSpc7
+	 +1N+kIR/DwaUNdPIMiW+GLdoPfAyrrRHplDP5lgLhyh8/59jtibD0YYe3Ink4qV1b+GS9
+	 4645pIGvyIvRVEtcMqXiPGwsCkHyNmK3eZsVV1q/56U8cg2KVa0EAh9AnxAN+wLPUFhcu
+	 oMHcul1hkYiYtSN8ht0XVlmHhuFjAARU4+Lc6IzTMFpY17hRySOIYXTGBuPsOB2vdNA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="XC7/GABB";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D7B606A31A;
-	Mon, 23 Nov 2026 11:24:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52D7B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515E4606A32A;
+	Mon, 23 Nov 2026 11:25:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 515E4606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Ti2+aFmQ
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DA13C177;
-	Mon, 23 Nov 2026 12:22:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795432940;
-	bh=hb4P93d/CtVlWvdjmqk9rxhiNgKlW9A8FN0kJu+NlyM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ti2+aFmQsLywTbAqtWhyNj/ERQn8nDDJjLUKNhy4OCjouOkuyL6EhkyX/3YTLmDf8
-	 DQ1AsbEDHhsppR3ToClGA9YlqiUWzMfHopnGL0TGh1J5kv7DbtylTGPAJfNz3WUdA/
-	 neI8AomK8DIaUCNfaRHKRFHmmbR3MlnhepffjMjM=
-Date: Mon, 23 Nov 2026 13:24:50 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Paul Elder <paul.elder+renesas@ideasonboard.com>,
-	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v5 04/15] clk: renesas: r8a78000: Add clk_hw to clk_map
-Message-ID: <20261123112450.GF3010398@killaraus.ideasonboard.com>
-References: <cover.1795029012.git.geert+renesas@glider.be>
- <ea85d72ca37bc7abc59fda5aed4b8272578922c4.1795029012.git.geert+renesas@glider.be>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XC7/GABB
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4FAA92004F5;
+	Mon, 23 Nov 2026 12:25:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795433142;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FZTB+VKUReCx8XgfvlzddrAeMA7GwaWZltQEpDEq+1w=;
+	b=XC7/GABBbVCy6qSUBLzaxbF1Tgdso6abzV0o+CLMO7Pyrc+E4bpaPHhMYOPvqBcnH6d8Kz
+	pS744332w9d2Kp0QSlr2pLp+O5LG9/ly1US6YHoFz3jhhV4uM7cFIFjCgkeLnqFaedQ/8X
+	t59iSGt91W1E5YUbdEfD5WV/CvRzJFxllHa5BlVFlLGFnpt08gEWlnnm92Qalp8YzLgSLM
+	EhOje00UR1YbhXNIkbvE1YUmdZC3FMOe8XXkBTblXQzLoTUXRdK6aIoL+B25EFCLoV/oie
+	gwBhmddDSciXPsBhRIct8uprObwmvLzcF1sv0cLEFyP88X/pa4wtRjCzai+/6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795433142;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FZTB+VKUReCx8XgfvlzddrAeMA7GwaWZltQEpDEq+1w=;
+	b=CZKb7kQBUh/XBdr74KsMTSaav0Yi7PRhKkXpjI35Isabftlf1S41trm1bBY9rQ2Q/hl2YL
+	Qmmjad12VNfrJkN/zhHa+QjU9aaLXBq5A7vtjkyLRSRoqZ8axd4oPN3e5BEBkRERDYX1hb
+	CH1HCW9BLduGvjeWfcOI2e3zQrC2BT9jDEpalwF4oaKewpLpzMJi2NxB26aOfVHY+hCYk+
+	rKK/3nj8XKBy1stxatUc925dn6NSryBENfIeK7M/S6ex5y4ucm3jEfuFKA5h5nuJ2MZWIA
+	fyx94IpDLymJ9rdQstIPhuRROPv97OXsA3Fsy5DQfkD6m85/bhu4ryET8OANiw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795433142; a=rsa-sha256;
+	cv=none;
+	b=Px/bp4ZMaZED356D0hsShG2xnXTdCwbJlF2VKHrd0g1sRd1h9xMausOhY1EmQISVZ/QMUO
+	tqqidIDPAUp1tgz2WaxyEVIDpYuvafWx5Oe9BJkefHqTwfE8WUwdvixgM5En6vdWpT7W4T
+	znkivYous1GncOc4DJT0vdwepOQM9fjksa9J/SeSNXEdUSP10aXUInxU8SAtxeG9jL2j7p
+	1Sn30dYn+ygxqbYanRUTyU7QOrD2vIrFkJCrBrU+Ww3TSJIVYgoM+ocb3LOyxhRaZ0qgEg
+	UOY7FA7qYrZN/jomXKqWInUUR2p15ehJFz2/3qGS33qwc8SZbTZcOMgHj4luaw==
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.2])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <f.diener@pengutronix.de>)
+	id 1xVSB3-0016XI-2L;
+	Mon, 23 Nov 2026 12:25:42 +0100
+From: Freimut Diener <f.diener@pengutronix.de>
+Subject: [PATCH v2 0/5] arm64: dts: freescale: Fix i.MX93 FRDM hardware
+ descriptions
+Date: Mon, 23 Nov 2026 12:25:14 +0100
+Message-Id: <20261123-imx93-frdm-fixes-v2-0-dd97c7fca4b1@pengutronix.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,219 +88,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ea85d72ca37bc7abc59fda5aed4b8272578922c4.1795029012.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBBEf4Xs2TVtDRU98R+GA9ItrAmFtIVgC
+ P9uQY8eX2bmzQqBPFOAe7aCp5kDDy6BOmXQdLVrCdkkBiWUllIK5H65XdB606PlhQLm2hYmJys
+ arSHNRk9HkFaP6sther6oibtnb3Qc4uDfx+cs995Pr/7oZ4kCr4UxpFSdvqgcybVT9IPj5WwIq
+ m3bPsgMzwnHAAAA
+X-Change-ID: 20261110-imx93-frdm-fixes-56f8d5ef0c66
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, Freimut Diener <f.diener@pengutronix.de>, 
+ Marco Felsch <m.felsch@pengutronix.de>
+X-Mailer: b4 0.15.2
 
-On Wed, Nov 18, 2026 at 08:44:52PM +0100, Geert Uytterhoeven wrote:
-> Prepare for mapping to other than fixed-rate clocks by adding an array
-> of clk_hw pointers, indexed by the clock map entry index, and populating
-> it up-front.
-> 
-> Move r8a78000_cpg_priv.fixed_hws into get_hws(), as it is no longer
-> needed afterwards, and drop NUM_FIXED_CLKS.
-> 
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> ---
-> v5:
->   - Add Tested-by,
->   - Rebase,
->   - Use kzalloc_objs() and __free() instead of devm_k{calloc,free}() for
->     the temporary array of fixed clocks,
->   - Replace devm_kcalloc() by devm_kzalloc_objs(),
->   - Replace unified clk_map by keeping the original clk_id_map and
->     adding a separate array of clk_hw pointers,
->   - Let clk_id_map_find() return an index,
->   - Replace fill_clk_map() by get_hws(),
-> 
-> v4:
->   - No changes,
-> 
-> v3:
->   - New.
-> ---
->  drivers/clk/renesas/r8a78000-cpg.c | 71 ++++++++++++++++++++----------
->  1 file changed, 48 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/clk/renesas/r8a78000-cpg.c b/drivers/clk/renesas/r8a78000-cpg.c
-> index 236c638834703f95..fd97e1558d423f95 100644
-> --- a/drivers/clk/renesas/r8a78000-cpg.c
-> +++ b/drivers/clk/renesas/r8a78000-cpg.c
-> @@ -5,6 +5,7 @@
->   * Copyright (C) 2026 Glider bv
->   */
->  
-> +#include <linux/cleanup.h>
->  #include <linux/clk.h>
->  #include <linux/clk-provider.h>
->  #include <linux/dev_printk.h>
-> @@ -35,10 +36,9 @@ enum fixed_clk {
->  	FIXED_CLK_66M,
->  	FIXED_CLK_133M,
->  	FIXED_CLK_266M,
-> -	NUM_FIXED_CLKS
->  };
->  
-> -static const unsigned long fixed_clk_rates[NUM_FIXED_CLKS] = {
-> +static const unsigned long fixed_clk_rates[] = {
->  	[FIXED_CLK_66M] = 66666000,
->  	[FIXED_CLK_133M] = 133330000,
->  	[FIXED_CLK_266M] = 266660000,
-> @@ -51,31 +51,30 @@ static const unsigned long fixed_clk_rates[NUM_FIXED_CLKS] = {
->   *
->   * @dev: CPG device
->   * @map: Mapping from DT clock IDs to fixed-rate clock IDs
-> - * @fixed_hws: Fixed rate clocks
-> + * @hws: Clocks, indexed by @map entry index
->   */
->  struct r8a78000_cpg_priv {
->  	struct device *dev;
->  	const struct clk_id_map *map;
-> -	struct clk_hw *fixed_hws[NUM_FIXED_CLKS];
-> +	struct clk_hw **hws;
->  };
->  
-> -static const struct clk_id_map_entry *clk_id_map_find(const struct clk_id_map *map,
-> -						u32 dt_id)
-> +static int clk_id_map_find(const struct clk_id_map *map, u32 dt_id)
+This series fixes and completes several hardware descriptions for the
+NXP FRDM-i.MX93 board and the common i.MX91/i.MX93 device tree.
 
-While at it, I'd recommend adding a r8a78000_ prefix to this and other
-functions below to avoid future namespace clashes.
+The changes enable the PMIC's I2C level shifter, describe the PCAL6524
+GPIO expander supply and USB2 VBUS supply, and restrict USDHC3 probing
+to SDIO devices.
 
->  {
->  	for (unsigned int i = 0; i < map->size; i++) {
->  		if (map->entries[i].dt_id == dt_id)
-> -			return &map->entries[i];
-> +			return i;
->  	}
->  
-> -	return NULL;
-> +	return -1;
->  }
->  
->  static struct clk_hw *r8a78000_clk_get(struct of_phandle_args *spec, void *data)
->  {
->  	struct r8a78000_cpg_priv *priv = data;
-> -	const struct clk_id_map_entry *entry;
->  	struct device *dev = priv->dev;
->  	struct clk_hw *hw;
-> +	int idx;
->  	u32 id;
->  
->  	if (spec->args_count != 1)
-> @@ -83,13 +82,13 @@ static struct clk_hw *r8a78000_clk_get(struct of_phandle_args *spec, void *data)
->  
->  	id = spec->args[0];
->  
-> -	entry = clk_id_map_find(priv->map, id);
-> -	if (!entry) {
-> +	idx = clk_id_map_find(priv->map, id);
-> +	if (idx < 0) {
->  		dev_err(dev, "Unknown clock %u\n", id);
->  		return ERR_PTR(-ENOENT);
->  	}
->  
-> -	hw = priv->fixed_hws[entry->fw_id];
-> +	hw = priv->hws[idx];
->  
->  	dev_dbg(dev, "Mapping DT clock %u to %s at %lu Hz\n", id,
->  		clk_hw_get_name(hw), clk_hw_get_rate(hw));
-> @@ -97,27 +96,54 @@ static struct clk_hw *r8a78000_clk_get(struct of_phandle_args *spec, void *data)
->  	return hw;
->  }
->  
-> -static int register_fixed_clks(struct r8a78000_cpg_priv *priv)
-> +static struct clk_hw **register_fixed_clks(struct device *dev)
+Additionally, the missing EL2 virtual timer interrupt is added to the
+common i.MX91/i.MX93 timer description, allowing VHE-enabled Linux to
+use the EL2 virtual timer.
 
-I would have kept the r8a78000_cpg_priv argument for consistency. Not a
-big deal, up to you.
+The changes have been tested on an NXP FRDM-i.MX93 board.
 
->  {
-> -	struct device *dev = priv->dev;
-> +	unsigned int n = ARRAY_SIZE(fixed_clk_rates);
->  	unsigned long rate;
->  	struct clk_hw *hw;
->  	const char *name;
+Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
+---
+Changes in v2:
+- Keep USDHC3 at 4-bit bus width and restrict probing to SDIO.
+- Move the I2C level shifter configuration to the common DTSI.
+- Address review feedback.
+- Link to v1: https://patch.msgid.link/20261120-imx93-frdm-fixes-v1-0-78dde22a56fe@pengutronix.de
 
-Those three variables can be moved within the loop. Also up to you.
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Frank Li <Frank.Li@nxp.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+To: Pengutronix Kernel Team <kernel@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 
->  
-> -	for (unsigned int i = 0; i < ARRAY_SIZE(fixed_clk_rates); i++) {
-> +	struct clk_hw **hws __free(kfree) = kzalloc_objs(*hws, n);
-> +	if (!hws)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	for (unsigned int i = 0; i < n; i++) {
->  		rate = fixed_clk_rates[i];
->  		name = devm_kasprintf(dev, GFP_KERNEL, "cpg-%lu", rate);
->  		if (!name)
-> -			return -ENOMEM;
-> +			return ERR_PTR(-ENOMEM);
->  
->  		hw = devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
->  		if (IS_ERR(hw))
-> -			return PTR_ERR(hw);
-> +			return ERR_CAST(hw);
-> +
-> +		hws[i] = hw;
-> +	}
-> +
-> +	return_ptr(hws);
-> +}
->  
-> -		priv->fixed_hws[i] = hw;
-> +static struct clk_hw **get_hws(struct r8a78000_cpg_priv *priv)
-> +{
-> +	const struct clk_id_map *map = priv->map;
-> +	struct device *dev = priv->dev;
-> +	struct clk_hw **hws;
-> +	u16 fw_id;
+---
+Freimut Diener (5):
+      arm64: dts: freescale: imx93-11x11-frdm-common: Enable I2C level shifter
+      arm64: dts: freescale: imx93-11x11-frdm-common: Describe PCAL6524 supply
+      arm64: dts: freescale: imx93-11x11-frdm: restrict USDHC3 to SDIO
+      arm64: dts: freescale: imx91-93-common: Add EL2 virtual timer interrupt
+      arm64: dts: freescale: imx93-11x11-frdm-common: Describe USB2 VBUS supply
 
-This can also be moved within the loop.
+ arch/arm64/boot/dts/freescale/imx91_93_common.dtsi |  3 ++-
+ .../dts/freescale/imx93-11x11-frdm-common.dtsi     | 29 ++++++++++++++++++++--
+ arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts |  2 ++
+ 3 files changed, 31 insertions(+), 3 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-imx93-frdm-fixes-56f8d5ef0c66
 
-> +
-> +	struct clk_hw **fixed_hws __free(kfree) = register_fixed_clks(dev);
-> +	if (IS_ERR(fixed_hws))
-> +		return ERR_CAST(fixed_hws);
-> +
-> +	hws = devm_kzalloc_objs(dev, *hws, map->size);
-> +	if (!hws)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	for (unsigned int i = 0; i < map->size; i++) {
-> +		fw_id = map->entries[i].fw_id;
-> +		hws[i] = fixed_hws[fw_id];
->  	}
->  
-> -	return 0;
-> +	return hws;
->  }
->  
->  static int r8a78000_cpg_probe(struct platform_device *pdev)
-> @@ -125,7 +151,6 @@ static int r8a78000_cpg_probe(struct platform_device *pdev)
->  	struct device *dev = &pdev->dev;
->  	struct r8a78000_cpg_priv *priv;
->  	const struct clk_id_map *map;
-> -	int ret;
->  
->  	map = of_device_get_match_data(dev);
->  	if (!map)
-> @@ -138,9 +163,9 @@ static int r8a78000_cpg_probe(struct platform_device *pdev)
->  	priv->dev = dev;
->  	priv->map = map;
->  
-> -	ret = register_fixed_clks(priv);
-> -	if (ret)
-> -		return ret;
-> +	priv->hws = get_hws(priv);
-> +	if (IS_ERR(priv->hws))
-> +		return PTR_ERR(priv->hws);
->  
->  	return devm_of_clk_add_hw_provider(dev, r8a78000_clk_get, priv);
->  }
+Best regards,
+--  
+Freimut Diener <f.diener@pengutronix.de>
 
--- 
-Regards,
-
-Laurent Pinchart
