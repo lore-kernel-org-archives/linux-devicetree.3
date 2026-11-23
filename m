@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795459696;
-	b=TOVcWSVc5nnjYhiCgqTTmAXszC+S4xWbdBkVmG4Lt2HP4ZgvV+Bbc7aXPpWWgCciB1wg
-	 tJ/diljXD+stYYyMEJJ4JR8+6xkc92rD/HbgmSfVSk+JolLJ9T5QBYlWs8KCOv8hsNLT/
-	 F152VMpnuxxu/jCDQEf9wvXsqL6XUh8eFsA4QM6yQTuf17+Ko5j5Mikxyiw6zmNwUUNIJ
-	 eSlPICD8Xf84W+lmks4TpYS2YzkdgnLBj8KwDSrHzgAhP53efwUVZs85a0fOACaHw1DBT
-	 yOlBr6nt7DJ5Oq0BpiAfceOejlZxsx/3aanctTVXz1/cx/jgGjeqUdNVMd7FyiA2Low==
+	t=1795459716;
+	b=3YGaGBarHojGB02TMfGlCHxwNFQM9kEnpSsNcmk9dE3266tykIghlwpDH9/PQNxQlC1F
+	 g3b9YMCp7VtALEz7fMxulFyG1Kf2zZWX0K23haXMWz2ajQEyeSDQtRbAOvBeIr23Jnu6c
+	 mm7WSjLTWhoRfq3LjwmOUs/kpQm5ZrwM/JHp2LksjIL4WUg9aL/0EBc776qJITl4jvex8
+	 ptGED8kafTpfvIvkGGgpxWLDDeVMW+ttJmcbbhfMgssudUi4YKCLU1gsPs8sy3N2H0is+
+	 Z7JtDM7MokraET/F5232A8YSSSdhDy+svvmVJB/NLWTLSJayKmGOlkBEAQ5B4ShSJKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795459696;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795459716;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=qGqJMqBNSEIrXUkPGXlYgp70+bRooqpf5MsmH7CyCl4=;
-	b=CseeuKvA42k3mEU68FzCV0Wm8JX6OrnVa0ODLKcMpQbHc1CEcA2p1vw4yHc+ythNeqmy
-	 ggJGpCXcUsfFHFgY3fJyBvw5Dr5/eauDjmwyfJojWrPqxVVJjgTPqOJsoqpqLd9P+ZTSx
-	 GXtfCMVl0guCVemEHbHbLoVyhaYG87uJZcBpcTgfjlyADLcXJshZ3jAkHKD5g+AbUjKsC
-	 0u69kWUGg6av3zru43HVfE4ECphw95FOFy3uYKev2x9XghfMkb1DLoWtAJdT0e9uGUwlL
-	 NU6WB4rJ22G1BrKXfPP4wUz27j3u3eT56oFF3GzgjCUu4Q8nOAUK6QoNj/GSYYK5lig==
+	bh=xXNRP6N11HCJmcGvV43+RSr6DG3BdnYd3pIeleM93pY=;
+	b=yaaXFMNmMk0C8HOegzVPK227KoMCVzRyRUH5jzyo2x1AkKB6p/TBw+mkRFxPSyTDpxrr
+	 SpH2Ft/OcoHM/d9EhVhePg19md3EX4oQmHPOB5LzE4OD2qZZMyOKx0MLd5oyLOZ3b2TjC
+	 GOeTmp01Qt4g2+8UI5uVkugeLbaZ17UcaKGYob1lj1zi/aLaJFXZassviCwMwIpfpuTzt
+	 /YjOd21URPFKuT0pAzT4OC2rQGNtljMEbnK+ee6QxI6g4g9KbSLMjtLptyEqkETOTxaba
+	 Vpsgzi+TxdtOb0/U4D6kAkwSrSMvLuUfHZ828j+KLhYcnF5/ww136wEp53fnuKMTspw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpAURQOo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjcLTuAc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F367C606A31A;
-	Mon, 23 Nov 2026 18:48:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0939606A31A;
+	Mon, 23 Nov 2026 18:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpAURQOo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2DA31F000C0;
-	Mon, 23 Nov 2026 18:48:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjcLTuAc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578691F000CF;
+	Mon, 23 Nov 2026 18:48:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795459695;
-	bh=qGqJMqBNSEIrXUkPGXlYgp70+bRooqpf5MsmH7CyCl4=;
+	s=k20260515; t=1795459716;
+	bh=xXNRP6N11HCJmcGvV43+RSr6DG3BdnYd3pIeleM93pY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lpAURQOoGAeb67wRO0gSaKTdZ9oWRpxlEAFayQqEDTvWZ8NoFDZDOwGzKJuV2dPdb
-	 Ri4vrRwhta8nb4jwq+kt690HKNmkcTvysw6mYB+XakFarrUHgnXeeD70LOh8Y5jdyz
-	 mjUUPrO/8HsixDr3oCtvkqsB3Zy0pli8QrXD74fDQkPNJjIvk+UKGLii/25/NvpawX
-	 g8OuWNxsKqmovhj7udfkeiuBnZzivOjaMP11fzssgY/Zi8yVC9eMhfe640vNUOV6WL
-	 AyEqmVNHyRjUkr4dIPkPs1CTHkLhIzH0SHffqH3Rqhtz2Ca9pwThUF6OeqI4W16nAL
-	 RByFfYHAn24qA==
-Message-ID: <sashiko-outbox-229870@kernel.org>
+	b=GjcLTuAc+s+/vhQS/0PUSAw2duT0R+FKUjhOKx3IGRdkTgi25ZO2DwQgj+hBjPTkj
+	 zWGcDOpi3EW6y8YZrj2KQcoF4T9jnTCQTli6CTpLDYYP2JEvkVzYR/kK6+hy3vtUtw
+	 +q+T5ckE2YByV/Ei7pWOcek2xOUo44wHIIBWrE3Gsj76BHlsLymLCQyCIVBog+S6aM
+	 jEtL7Ia7oTlklOrKXjxCZqxNkJsKhHuSbysW+G1H/QKMzuzC2ZYPxG0enrUfSu/xgg
+	 3wv4D6n2teeIIPq+OWC00RY0EcaE1Te8zRlnXv/F4c3Tm1F/sr89jralYN4U/q05nK
+	 uJfzY0n/HSJhA==
+Message-ID: <sashiko-outbox-229871@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/8] dt-bindings: PCI: Describe the CS7542 host
- controller
+Subject: Re: [PATCH v10 3/7] usb: misc: qcom_eud: add per-path High-Speed
+ PHY control
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: linux-pci@vger.kernel.org, linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261123-b4-cs7542-pcie-v1-6-4cde5201d404@gmail.com>
-References: <20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com>
- <20261123-b4-cs7542-pcie-v1-6-4cde5201d404@gmail.com>
+To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123182847.143892-4-elson.serrao@oss.qualcomm.com>
+References: <20261123182847.143892-1-elson.serrao@oss.qualcomm.com>
+ <20261123182847.143892-4-elson.serrao@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 18:48:14 +0000
+Date: Mon, 23 Nov 2026 18:48:35 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,76 +63,110 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] dt-bindings: PCI: interrupts listed before clocks in
-  cortina,cs7542-pcie.yaml
+- [Medium] usb: misc: qcom_eud: eud_probe() fails when secondary path is
+  disabled in DT
 --
 
-commit 7f66a931d3a9682495c9ee6049f36df0d2615a1f
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+commit e2fd91a7c0ed5f3452a494a0a91ef1ddd34b1c26
+Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
 
-dt-bindings: PCI: Describe the CS7542 host controller
+usb: misc: qcom_eud: add per-path High-Speed PHY control
 
-This commit adds the Device Tree binding schema for the Cortina Systems
-CS7542 PCIe host controller.
+This commit adds per-path High-Speed PHY management to the Qualcomm EUD
+driver so that the PHY associated with the selected UTMI path is
+initialized and powered when EUD is enabled.
 
-> diff --git a/Documentation/devicetree/bindings/pci/cortina,cs7542-pcie.ya=
-ml b/Documentation/devicetree/bindings/pci/cortina,cs7542-pcie.yaml
-> new file mode 100644
-> index 0000000000000..8883b8d091398
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pci/cortina,cs7542-pcie.yaml
-> @@ -0,0 +1,127 @@
+> diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
+> index fa640e88c88b5..a3afa3bb93481 100644
+> --- a/drivers/usb/misc/qcom_eud.c
+> +++ b/drivers/usb/misc/qcom_eud.c
 
 [ ... ]
 
-> +properties:
-> +  compatible:
-> +    const: cortina,cs7542-pcie
+> @@ -228,8 +294,54 @@ static void eud_role_switch_release(void *data)
+>  	usb_role_switch_put(chip->role_sw);
+>  }
+> =20
+> +static int eud_init_path(struct eud_chip *chip, struct device_node *np)
+> +{
+> +	struct device_node *controller_node;
+> +	struct eud_path *path;
+> +	u32 path_num;
+> +	int ret;
 > +
-> +  reg:
-> +    items:
-> +      - description: DBI registers including the viewport iATU
-> +      - description: Downstream configuration window
-> +      - description: Application wrapper registers
+> +	ret =3D of_property_read_u32(np, "reg", &path_num);
+> +	if (ret) {
+> +		/* Legacy DT uses 'ports' node without 'reg' property; treat as path 0=
+ */
+> +		if (of_node_name_eq(np, "ports"))
+> +			path_num =3D 0;
+> +		else
+> +			return dev_err_probe(chip->dev, ret, "unexpected child node '%s'\n",
+> +					     np->name);
+> +	}
 > +
-> +  reg-names:
-> +    items:
-> +      - const: dbi
-> +      - const: config
-> +      - const: app
+> +	if (path_num >=3D EUD_MAX_PORTS)
+> +		return dev_err_probe(chip->dev, -EINVAL, "invalid path number: %u (max=
+ %d)\n",
+> +				     path_num, EUD_MAX_PORTS - 1);
 > +
-> +  interrupts:
-> +    maxItems: 1
+> +	path =3D devm_kzalloc(chip->dev, sizeof(*path), GFP_KERNEL);
+> +	if (!path)
+> +		return -ENOMEM;
 > +
-> +  interrupt-names:
-> +    const: msi
+> +	path->chip =3D chip;
+> +	path->num =3D path_num;
 > +
-> +  clocks:
-> +    maxItems: 1
+> +	controller_node =3D of_graph_get_remote_node(np, 0, -1);
+> +	if (!controller_node)
+> +		return dev_err_probe(chip->dev, -ENODEV,
+> +				     "failed to get controller node for path %u\n", path_num);
+> +
+> +	path->phy =3D devm_of_phy_get_by_index(chip->dev, controller_node, 0);
+> +	of_node_put(controller_node);
+> +
+> +	if (IS_ERR(path->phy))
+> +		return dev_err_probe(chip->dev, PTR_ERR(path->phy),
+> +				     "failed to get PHY for path %d\n", path_num);
+> +
+> +	chip->paths[path_num] =3D path;
+> +
+> +	return 0;
+> +}
+> +
+>  static int eud_probe(struct platform_device *pdev)
+>  {
+> +	struct device_node *np =3D pdev->dev.of_node;
+>  	struct eud_chip *chip;
+>  	struct resource *res;
+>  	int ret;
+> @@ -258,7 +370,22 @@ static int eud_probe(struct platform_device *pdev)
+>  		return -ENODEV;
+>  	chip->mode_mgr =3D res->start;
+> =20
+> +	for_each_child_of_node_scoped(np, child) {
+> +		ret =3D eud_init_path(chip, child);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/* Primary path is mandatory. Secondary is optional */
+> +	if (!chip->paths[0])
+> +		return dev_err_probe(chip->dev, -ENODEV, "primary path not found\n");
 
-[ ... ]
+[Severity: Medium]
+Does eud_probe() fail on dual-path SoCs when a board disables the secondary
+path or its USB controller/PHY in Devicetree?
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - interrupt-names
-> +  - clocks
-
-[ ... ]
-
-> +        interrupt-parent =3D <&gic>;
-> +        interrupts =3D <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
-> +        interrupt-names =3D "msi";
-> +        clocks =3D <&pcie_control 0>;
-
-[Severity: Low]
-This isn't a bug, but DT binding schemas and example nodes place clocks
-before interrupts and interrupt-names following the canonical property
-order (compatible, reg, reg-names, clocks, interrupts, interrupt-names) in
-properties, required, and examples.
+for_each_child_of_node_scoped() visits child nodes even when they are
+marked status =3D "disabled" (unlike
+for_each_available_child_of_node_scoped()).  In Addition, on dual-path SoCs
+where the SoC dtsi defines both eud-path@0 and eud-path@1, if a board leaves
+the secondary USB controller disabled then of_graph_get_remote_node()
+returns NULL (failing probe with -ENODEV), and if the secondary High-Speed
+PHY is disabled then devm_of_phy_get_by_index() returns -EPROBE_DEFER
+indefinitely, preventing EUD from probing even for the primary port.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-b4-cs7542-=
-pcie-v1-0-4cde5201d404@gmail.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123182847.1438=
+92-1-elson.serrao@oss.qualcomm.com?part=3D3
