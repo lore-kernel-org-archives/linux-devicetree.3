@@ -1,109 +1,110 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795426525;
-	b=rgQPUroRqrKVswhFFVVlwI7Rc/acgyYCgoJRz9/g7S2HO1lzFI3Vv2rLZ45Y7KJqJrps
-	 yQkZ12d/56qrvotmNSM8eEzaPVPMrxC8k/GpkeDfASQmJ6v8EqmC6XdS7I/5Zh36a4F5R
-	 NaZMAeMWJwcUKCiW2PtzfrMNYNlL5JC8NAPJ/GBgU4jvJK5r/EN+/W50TmTaw4A8cPvwt
-	 vAd9G+km9nEU8a4GCzgO0lTPVqXoUeoOxClhoXWIAbMpaDXeKIPPqy8C408Tq9+vQn64X
-	 2Du+5A1sZ0Oksz1diTnVQv5afkFtIMy9Ie7JWHyPgIOP74tR/I3V40JT7P3QulTPcTA==
+	t=1795426526;
+	b=sIrK1I4uROqHBBlMl+azOk0drvXo9xrLO5+F7HrZPX+gsodXOG3XidfymLVsb3TQ6wzW
+	 yjIKgNGPh/mdoEpx/WGtkGlUprOn7c36WpYrEjuBp/2m8G+CPDQ4yxvCc3TDo6xnOVfFB
+	 hHJexpqWZaLVr063Rwajm+Me0kMIucCey3ovGkvHGDMWsZ/G9fg/xvWzfGfZ6v47VrHWc
+	 teXnFuOm8kTbBF1z5zP0UaDColp3+J1BHzg96Qeg6GwOtBn3wyRF/UdK0Qv3Q2lK+Al5U
+	 DyQ0ZFSrI7aE/ZR8Jt6qiWR1+7GBEMSXkD+zL6QGYkGTf+yvU3X/BUFH7fJ5che1Orw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795426525;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795426526;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=au/lqSIvjCDlFYBkZ6wmQ+r9MXW9GHZNgvB5cJ3OfOY=;
-	b=rm+s8iDiiTwSSGgKtl+f0f+FoGVR/o4y858a7nPKjGaDG4gf/9I2bN5PnF3esA2ixojn
-	 yQ6eSxfXxJSA9FOhO3p41JiZw5KQoXR1CZdCIEZkJLhm7qbO6dOLsYWHijUV2wnIHOYYi
-	 8QtN4GdpT30woyh5awaFK4G1s9Frul01GIq+ZXGCDRXQqNN3djHQlc+48aSC5XaKWJVel
-	 NoZtrhtNlPF5l/KwCHZr1PLXYqTOBP6YxGIyhr+sudX/BxbgvtXv165B0TrldCvY0q6Us
-	 T1Y14bxTfo24/Dx48JINztzZD1H5buIny03hEhJ8PfudA4hk9mv7mcHCWYGp752FnEw==
+	bh=KU0CqrOg+I+DA/52+PGJIa4IqUvI00bQBx1czwXomuI=;
+	b=PW7wYBAkB6KFeA1yAKAtnEYofhzAzOljiuNbonfdTm4kWGcqJFVd7K35v/UzdhP4mZR0
+	 +zJHvMjDhKMzv+pKInODtSBZ61Lp21HTFJGfhviuKJAgxFdy3JeKqsQ1ne2hl3qmExduW
+	 j070zS2u57uPlEejwVIQezi3xCM3ht1zfj5tXgnIFTDT0hu+DC+JB1YdJ9uU/bUHmYvys
+	 mKKamUOOFjTvIxECcGMF0sPZaQZwqNQ1sqG1hzvH/Ali/f6aiqvOPyewlNc+boyaM7vxX
+	 Q4kq72hTZBn4ErDIyK5pmG6xWIuzHveSOGn1HXBowecfPYBdy4aMNbvTpNMY4FHEMXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="eh6lBDN/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="OI/1ZjY2";
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FZ+fB9Yw;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GRlBPVGM;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F0D606A31F
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F0D606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73C5606A31F
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E73C5606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eh6lBDN/;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OI/1ZjY2
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9Fudi1828528
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:23 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FZ+fB9Yw;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GRlBPVGM
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9FuFe1395912
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=au/lqSIvjCDlFYBkZ6wmQ+
-	r9MXW9GHZNgvB5cJ3OfOY=; b=eh6lBDN/hjrP4yUwh2eoUzSJnBsJzbL2KDNu/U
-	kniV1nNKl0khJB4oKRATUG822+e8uuClO/8PkC/9pXCihRWp8RarQRrOncBFYPSx
-	HB8aqPIHfU4mIgcWybFW5WmOhX7lTRIGFLU/3YJPof71BBb5cvq4av4X0AeG6MnA
-	/l/l7XZKcFRWruE4zTT7/xQ69J9o34wCQeGLg0nmp7PysKrG279FD8us4fFnAgxV
-	zSKT6ecUuYE864q2lMOXUPoqwjkEZ0+3K1u2QLgNlru48TvDsTSqP+fG+PAXIZ7e
-	10HlpmEWFIqPQ1LvaiW/zBJAXjK22e0bzrq/Qd7PFG5AIrYA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g1p8q76-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KU0CqrOg+I+DA/52+PGJIa4IqUvI00bQBx1czwXomuI=; b=FZ+fB9YwwOl7Z56Z
+	SwqQQ8THaWDWGaJJcIiAcFbnaXqBV6uco2lBY9V2oKQ5y8A3p2t+B3DOKCnzioCJ
+	zXmabR+Z4WvOC6aFJjF109/4RH40+EKGJax7gA0v9wWTri6v0Ce1poJarfce789C
+	7qyJ1lHF6tHSSV9QH0FCRx++hiZgLlvXxeUOKf/oWhfCLXDbNoPj/48ZTx/Ut8ym
+	vT5pQCFZaqwqQj2Jf66JafYROwGHQdpf1snyPk8DX36W6NHvABKi1Pzwqxb5obTV
+	35cs0mONSkHgrmFCHAZ1nuvPmX3NQTfBBvEyGS9L0qGENPnjg9ARNu8v2BTB+1iH
+	YFKbDA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4exx0xwd-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:23 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5363763b556so61575951cf.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:35:23 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:35:25 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-947a607ec40so290685685a.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:35:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795426522; x=1796031322; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=au/lqSIvjCDlFYBkZ6wmQ+r9MXW9GHZNgvB5cJ3OfOY=;
-        b=OI/1ZjY23x9IoopzqGY1jGeq73sGWdQ7+bCtf84KHBoYaorxs428m+So7hT0slVONF
-         mj11hMRv9MKxviLMfINCP5UsaOPMwVyZHnSYPEJzt8ATaAj0SA2+twA6G6lH1wqnauH6
-         4eD6gLXjA3Gxd/fh0UIKSu3J8dPiupOoFfIol37NjU9U42iYICh7aAjeJ3DGTpbpeHFM
-         Eo9DwiUkiG8QcL4dR6rFSXJ+rRx8XPo0kruS07TI/w/4iUnzUU7uj1UOeFq4/WTJbeI8
-         e5xeow+AHXlo4M/rxjSN0ucrdRgFRslA2zmceY/F9pUuFN56PTMzxeFHYAebn9c65Pdl
-         kyGA==
+        d=oss.qualcomm.com; s=google; t=1795426524; x=1796031324; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KU0CqrOg+I+DA/52+PGJIa4IqUvI00bQBx1czwXomuI=;
+        b=GRlBPVGM5euRKBOh+VjQ/m6yUIMVY52aylcuFXAcbaKiUa5ul+5mGZ28JZ3clrEn2j
+         6X8HWv5/OYCCRMY5GxFCmbgpXaSakQm8txlWCumzfuHYK9MMZV5KSUJUZ5vypipP2RNs
+         Ln/GO0H9+HfRiQcWleKZ20QPlXxrk3TqXOJrlKNIADV0Kt/IrTDiu5/ACBi+mdNUWEHr
+         EBSvLCceXo/gWnEtqiiOdG5T2IyOic+nyuSfZrJe+KUBfD6ocamPEIrRYWAmNRBkH9Wl
+         euvIJ31ADm2bH/Wcr8ye3Q8xVUrnouUZIWJCDSSOBS2MoogjDAUxEwlsLfInPUl4UItM
+         PwAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795426522; x=1796031322;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=au/lqSIvjCDlFYBkZ6wmQ+r9MXW9GHZNgvB5cJ3OfOY=;
-        b=PLu5TTOcTBqRU2xoA3ihwdY7MIlbtqFnNXTi3tqJXOhWDNWeWVD5TG4TcPpYz0yTFo
-         yJs2/1gV8+hshEpAEcbsAn9R81QrnlYi2jgkAu4RrYcKRlhDxwjn6zOrhE6ZYMAqxImf
-         MXc9x3/vRWn68znBKkWUzMiBKmpR2JANZ1VRWA8fnGefJK6GQi1UCzVuYuTm+1cxjVzF
-         qq7RC/r2WqFNWHGl8wDCLhJTOkUMASDCTFypkFsLqNhiCXNbj0lm1IrK6HEwQo6dSSsA
-         i0SvtaItLVCP5CsHsc7salT9x1Prn0AgpRd4zL4nxI4iwIL2Y6m7QZ5/3LcApogl0Gqb
-         nHIg==
-X-Gm-Message-State: APuU4Z8szJ0/K5FM58ffDQW6s7sJpOJK4h6odacA1+FauCzic7M9X84Q
-	sHScKmkXGV0ox1yXRIbtmx0a8Y8raUSxLjHOuKXLLN75uTWdDsHtcdGhz6VwC18xTYX57RGwrB5
-	LvVEaPxp+o5mTjJYeTlo3Nq5nEWAOqQiJ53rJuzsH0V5wQXkPHKqsoMqtQJL+dYBB
-X-Gm-Gg: AZFdTZd6ARL1+VGkw/KTmPHQdI2MyPO5l/BMG18zjbM4iFabtNoMy4ZDsHqSkbtrgYI
-	FOWKfq8Dkt4ByHkEJoaxtiE7e4q/dFM9uqFP0nfWShRiXZoGBEbSpXNttdvpMhsGvseFvqbITNg
-	r53PKD0LTrSIZ6m24jskvcCgGnA5Tq8uyy6Q4P+YaJPdj9lMYUWxC5C7RKZONQUEwnV6+05yg6a
-	aqiR2NI349wigOF0rbW+EkpcCbJAmpp26uvxuUoXvmO0Ng9kU/YX+ldnEtFhaVMHsSvoMDvbtNB
-	I8V4M2yWREoApYctbt15IfLnE2wBQWuBt2curKi3lLZP9ihT8M6Kf3YMnmf/WBjHcTYCz+utu6/
-	FC9KpveopWECpA0Ac4442KZCGJS315x1Qa4TJL+pYtb/C5synlCjWTD04Jg==
-X-Received: by 2002:a05:620a:bd3:b0:93c:6417:f9c8 with SMTP id af79cd13be357-949ba9b3e00mr1900373285a.29.1795426522158;
-        Mon, 23 Nov 2026 01:35:22 -0800 (PST)
-X-Received: by 2002:a05:620a:bd3:b0:93c:6417:f9c8 with SMTP id af79cd13be357-949ba9b3e00mr1900368985a.29.1795426521455;
-        Mon, 23 Nov 2026 01:35:21 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795426524; x=1796031324;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KU0CqrOg+I+DA/52+PGJIa4IqUvI00bQBx1czwXomuI=;
+        b=Cr3yl3rG2GKBvyXuvX3MvwLSR2ua8n5rl95lMz4jy+/bvM7ICg82H/FCP4XLm3LBAa
+         7IEiuUGMBFGaBdtq/AWaOorQez+RIcxZhe/b+UomEEIqVR4B7UszRw9E/7zvSJ1ZTbZL
+         ic57bIXfORWkukMljdI7XAdduQYnTKon5/Ib3WDkiq8M19R+ckTX1LE5TXuefW8FDymR
+         07F85RpmwFWRA6o6UL80ESkqwN00BN0yCJScuxhtdLp0FU5gKzt1kQc2Z3hEentYseFf
+         rmgtL3E2OCRTbgRCzvrGA7ZRwBjOWTYIX8zItp7mzKnGzKijtn7JlX5syw/FgL2FJpmb
+         J8WQ==
+X-Gm-Message-State: APuU4Z/R+HnXbl2g2HE6pGooGbxFqOnaWWmXgSQC3yad1nrohJHzAr6E
+	+IegqRUNGNkgoE+EJHkbIEWzD4ZG/EKqHac/2HcC/O0bzeMjvOYjNfrSDRpAjj0uGAEjOFuncP5
+	hj35ZcALGaE/X715bNWrLauu4Uabh505gj7bHEUAI4YePYcM7gBmxf0keUak+V5xx
+X-Gm-Gg: AZFdTZc4jlSsYCz8Tk6Vm8Tdv1ywJPVqiwVinROK9c2QaPUYsQX6CrjNmf8NmGcNL81
+	+2siJnaFQTtV8U1bYH41KEhqRi+h1iLyh7ZDQAfh62tSbun7mFME88brBDUf2YYFgoMVIuEa0mH
+	kC5PG26gODlsroxCoZ4z2LIRbV9itsuYfM0hGI3eTSvxIhGZ9PH0pZfE/zhfYAAfasRuVfS22Jt
+	xjDxwxELu3MhQaStDcSX/nLJcHQxrVdzG8e7qabi3a4SwwhrlRFQy1VaQt/iZsP1pejmEeOc1+6
+	mX5P4XObzedcR6djTLBcif9S+WLDSODsEdOVoHOy8OtFQv/YWQLxEtx8y+mXMg4THnWe+62zjWB
+	CttRbwH1qn70nHHRHNEzgB7S2HkHwAJn9hz8q8EIZYrl2QtDYEHz/hc07rQ==
+X-Received: by 2002:a05:620a:4446:b0:949:70f1:de2f with SMTP id af79cd13be357-949ba8260f2mr1723262285a.8.1795426523964;
+        Mon, 23 Nov 2026 01:35:23 -0800 (PST)
+X-Received: by 2002:a05:620a:4446:b0:949:70f1:de2f with SMTP id af79cd13be357-949ba8260f2mr1723257785a.8.1795426523323;
+        Mon, 23 Nov 2026 01:35:23 -0800 (PST)
 Received: from [127.0.1.1] ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8960068fsm123208315e9.4.2026.11.23.01.35.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8960068fsm123208315e9.4.2026.11.23.01.35.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:35:20 -0800 (PST)
+        Mon, 23 Nov 2026 01:35:22 -0800 (PST)
 From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: [PATCH v2 0/4] platform: arm64: lenovo-thinkpad-t14s: Add support
- for the Gen 7 EC
-Date: Mon, 23 Nov 2026 11:35:13 +0200
-Message-Id: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 11:35:14 +0200
+Subject: [PATCH v2 1/4] dt-bindings: embedded-controller:
+ lenovo,thinkpad-t14s-ec: Add Gen 7 support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,11 +116,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANEIBGsC/1WNQQ6CMBREr0L+2pK2ViqsvIdhUcoHaoRqPxAN4
- e4WjAs3k7xk5s0ChMEhQZEsEHB25PwQQR4SsJ0ZWmSujgySy0wInrFRKGItDpqhZTLXp/xY1YY
- 3FuLkEbBxr113Lb9MU3VDO26OrdE5Gn1473+z2Ho/tf5Xz4Jx1ihzxtoYq5S+eKL0OZm79X2fx
- oByXdcPQF2M5MEAAAA=
-X-Change-ID: 20261106-t14s-gen7-ec-297593bda0fc
+Message-Id: <20261123-t14s-gen7-ec-v2-1-3420a6202366@oss.qualcomm.com>
+References: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
+In-Reply-To: <20261123-t14s-gen7-ec-v2-0-3420a6202366@oss.qualcomm.com>
 To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
@@ -131,116 +130,81 @@ To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Hans de Goede <johannes.goede@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2910;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1121;
  i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=blI6AwuqcaJ2elfDvzAakaLljojAtt1Pz/ZlSN3Mziw=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBrBAjS5xxW3Ev8QtMtb8W3cIPQYDZX0CxhyqkU/
- DKUW1UeCHyJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCawQI0gAKCRAbX0TJAJUV
- Vo7xD/wOevjc+K049UslrZSx2p9bbI5v9Z9GkeHR0RsaA1cq4pk495alAZlD8e42RAHE4jU9Jmn
- euBGuwxGG0oVPp0h9q4brMlVX83be5W9qdP+Jh5Gt5mW6+GBV+6cAXIFfMRxZLbUKv3hNALbReB
- wz3WQNZfEJbBFRvgYmGQqtuQ2g3+JW6Tv3z8rHr1n2bcvYH5+Kywrw+R5clVDkdbXGLaQ+f6SBk
- zf/TBvLmiGTvuFLfBnjdxhQj2s75WqIX4oDrOsVPp4Dj/hnYsgrnJm7ElkwKYuLroUPncn2i1wF
- VPMkGveouIhzRk/+lWoWmHHFqfzPlUTvuIll02rf7LQPcxsBAG2DdYXmMN+a0aCJTBlHQdKX42c
- D2RaX2MtAh2HbdYyIE9bq0nciKD3AOR1sqTg2ia77oAuE1fCFS5chagQNXhQM96GVGjJBy2nAC3
- t51/+eFFGJ599p4cowhrN1iyIyEy5csd5F/fbXv0slFDMU7F0E5oYWxEtIhW4Js/MxtJ/JERs31
- zzk9TyY84KFf/pBn/aPOvotltcwU5cIMrm676KBRjIGQ+8xuLjAdNoNgi0qf/33eVekoB2jese7
- m2QUP2JZhvx0fSkMXdJ9gNnb4nd7RXLagVCNCabDE4bweBeH6OqmSKIS67bZeq5G2pD+8G1grO4
- ka0GZRhBRF0z/Qg==
+ bh=aW/Ws2tcO1sy5bYtB2QMD9F+QpXYhZTfqTiGgY5aZZw=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBrBAjTZo2x+nFetcp/vZWh5OUfrT/X2LS3oAmUh
+ a+YqdMfBZCJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCawQI0wAKCRAbX0TJAJUV
+ ViA+D/9AIYpciGbl2CH361KLQrGAlgpvHSNrjn/Fpn8HtxTv6jdjj8tpKpHv2tZf9BUR8nNQGr7
+ uT5BI/ONMTqdWu9UTQ/bo5X5aklNg8SLS5NXHjUYth+1ZV/fifVBGOkWjDfICtuLMwN67tWUsZO
+ gOtlYu1odRhvJ+l98QDXFIFOuZAinvMsyLMPTuapUrils36EGR923a9LszGOfoTM6IupbJOxvOS
+ ERIWVgiPFJ1BvpfIypqjbbM5ercI9lz+z3Ix2mT0DJp/XgpReU0HNeVinkGB3HF4mAJgV5oe1C0
+ IWpdFmWc1n7xi6Qu1ku+CYbnG2c9dt9cjHZ+2KkEnF54u1pVfVKANsWE8BDrY4I7ff64lYGjR28
+ 07weAb+ObQS0mYbbaS+9Hu3XUveGAiq9W6jDehs7Egrh5b3AE63SlHKLcVyLCPtGwjvhBsX/DOQ
+ 9BCo0sTNP/l/JIQQgN34LKBkYHb7gDGFAfxGNBCpaw1TNk4EwPh32Nl44j0wi+1dlriPxHy/h7k
+ TDTlgzNfwdQE/Kr8+5x51HmH4JoYm4Y1svWj0CiyYF+hrP4Y7xSzie+hbzF2Cirm9lSfEb7i/UI
+ SUGcf7W74pcUluJ7bUv3SEk8EdSQZehnn8ljC4Y5BcOGmfke25Zo3OwnnqP8SVQkkRJzECimzXs
+ /3VWrBZENrk3U+A==
 X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
  fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfX9fdH+dbIN8f/
- M+l4aN/OgwSPtN9wJVfhF6Ixe15zU4nXWhv4N7R6ypQ5XS0p62ijmzubYTWZR0wSKyVcrCt2UOE
- Ea2Mh3JIrABYJKNM+jX1y/P8X4Y4z823gzK74XzPTBZfnF010kaklRKZzqzz7tGhoZCaQ6/iZJY
- E7n6nZ3bxSIj5S64Xj9yxg6nj4f1bP+VyHJpOe7iCqhurmqQ6tNKcHZ0s3R4XmV7FPkdjTxQNEA
- w+l/kyJcuMc5hfHcLPvadA4VtWzeT5aS2NGYftgp0zkXs8TYXaGT0Ixbzzi0JGT+32T7xRGHz2T
- bJC4i/Ve2tZUpA6IyZrjmBnXlgJMkqofGwXRSGGFkEqhpkQreDEMa8T+hEx1LicdogaQ6SHQBkE
- Q9EeST7+fOg4pfYmCWfxrQiG8xgJUblGEVd869V1tTmwBPqVdQBwVonC60JCRKo22frqsVzcR++
- Gtcad8RgnWpVqkXsjFQ==
-X-Authority-Analysis: v=2.4 cv=AeIkjHXG c=1 sm=1 tr=0 ts=6b0408db cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+X-Authority-Analysis: v=2.4 cv=FKKOVOos c=1 sm=1 tr=0 ts=6b0408dd cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=L8UcFDWDmyMNVybWMAcA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: yQmr6h0w24_hxeiM4LqRwjxAZNFcQwen
-X-Proofpoint-ORIG-GUID: yQmr6h0w24_hxeiM4LqRwjxAZNFcQwen
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfX0oAxe2FDBfxP
- c8kEksP+ut7Vi88/dapkXILZtK4eyN92nReavNIalrOeDNgYz4xXd7ENcc+D8kZeNxAIvHLrPDW
- iYT/4AeQlj5o8Sp9kcqNVgnnjkDQ+HM=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=uZMt55wJAR8SEHwxpHMA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: dZZGdpnWvyd8eJ0nMdbM1lZ0QbAeAkdI
+X-Proofpoint-GUID: dZZGdpnWvyd8eJ0nMdbM1lZ0QbAeAkdI
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfX4kRuvwZZloPW
+ 1Z/rSVpFiPPMUGv6wZtE0IEVuCyd22HWyZ612/hCw05XBYngOmEtId3RPoh/BCVY2qqffEoYu9R
+ bFRBLAdgxIadwjMLaT/p8AqQmKXb0fM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDAzNyBTYWx0ZWRfX967w/yHUnkax
+ P9ss+t+fD+bpei8ajG45X2drtn/jj1U/iR/mDLMtyz0cmXJLUf6aPBtkXPR5ks6vQt86LnwXPkF
+ kR7084F0SYnmrkQ9EN47pbDCSOxGqYXUcZ2VTgnwMxRwoVXl2EC4FlPvoulxSLbnV9BEB4f82PW
+ NwfMnWFXLw9XgZSq7w1/iKmsvG7VmCu7HbxezW/c4HzNwNGPRh3QARGBAHTH2IndANqiHBSBo+O
+ 4UMcx1FCNFgsLq1SoAoQOez1Xc7M7E++FM/gwwBeWUu4zDIFhTQMvBvgQPTX9TjvL2PINV+gvOR
+ 0dfh9uPVWQij0xGdOlmZbSvVj5wqUGo7aN7eI6nSsaWft9ZrNfjjsHoY6y/3c6ZRhqwn1tdlUx3
+ 2nJPkh4q4Z5Gh6R5hhR+uc+c9PAtCmKJCA1SMRaHM3ezxJABLTS+0z4QfEXi0kFQkqsL+Idyp/d
+ M7o0/gBza4cco6mopSQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-23_02,2026-11-22_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 clxscore=1015
- suspectscore=0 phishscore=0 impostorscore=0 malwarescore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611230037
+ clxscore=1015 spamscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230037
 
-The Lenovo ThinkPad T14s Gen 7 (Snapdragon X2, Mahua) has an embedded
-controller at the same I2C address as the Gen 6 one, with the same
-register layout and event codes, but it speaks a different command
-protocol over I2C. With the existing driver the EC never reports any
-event and the LED and keyboard backlight writes have no effect.
+The ThinkPad T14s Gen 7 (Snapdragon X2) has an embedded controller at
+the same I2C address as the Gen 6 one and reports the same kind of
+events, but it talks a different command protocol.
 
-The Gen 7 protocol is taken from the ACPI EC accessors in the Gen 7
-firmware (RDEC, WREC and QEVT): reads, writes and event reads use the
-0x80, 0x81 and 0x84 commands. The firmware also describes the EC
-interrupt as edge triggered, active low.
+Add a compatible for it.
 
-Patch 1 adds a Gen 7 compatible to the binding, patch 2 adds the Gen 7
-variant to the driver, patch 3 sorts the TLMM states of the T14s Gen 7
-by pin number and patch 4 describes the EC on the T14s Gen 7.
-
-Tested on a ThinkPad T14s Gen 7 (LCD): the hotkeys handled by the EC
-(mic mute, F10, F12) are reported, the duplicate EC events of the
-volume and mute keys are ignored, the mic mute, speaker mute and lid
-logo LEDs (including the hardware blinking) and the keyboard backlight
-work, and Fn+Space changes are reported through the LED class.
-
-Prepared with help from an LLM-based assistant.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 ---
-Changes in v2:
-- Patch 1: pick up Krzysztof's R-b.
-- Squashed in Hans' fixups for patch 2 (added his Co-developed-by and
-  Signed-off-by):
-  - Gen 7 suspend/resume: set bit 5 of register 0xcf and make the
-    power and lid logo LEDs glow while suspended
-  - report Fn+F12 (event 0x19) as KEY_BOOKMARKS
-  - ignore the EC events of hotkeys which also come in through the
-    I2C-HID keyboard
-  - check the variant directly instead of the two feature bools
-  - lock the I2C bus around the Gen 7 reads instead of a driver mutex
-    and drop the 5 ms delay between the transfers
-- Patch 2: return -EIO instead of EIO on a short read.
-- Patch 2: reword the commit message to match the above.
-- New patch 3 sorting the TLMM states by pin number (Konrad).
-- Patch 4: place the EC pin state by pin number and pick up Konrad's
-  R-b.
-- Link to v1: https://patch.msgid.link/20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com
+ .../bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml         | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
----
-Abel Vesa (4):
-      dt-bindings: embedded-controller: lenovo,thinkpad-t14s-ec: Add Gen 7 support
-      platform: arm64: lenovo-thinkpad-t14s: Add Gen 7 EC support
-      arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Sort the TLMM states by pin number
-      arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Describe the Embedded Controller
+diff --git a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
+index c87ccb5b3086..99e5e7ae3cb6 100644
+--- a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
++++ b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
+@@ -16,7 +16,9 @@ description:
+ 
+ properties:
+   compatible:
+-    const: lenovo,thinkpad-t14s-ec
++    enum:
++      - lenovo,thinkpad-t14s-ec
++      - lenovo,thinkpad-t14s-gen7-ec
+ 
+   reg:
+     const: 0x28
 
- .../lenovo,thinkpad-t14s-ec.yaml                   |   4 +-
- .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 126 +++++++------
- drivers/platform/arm64/lenovo-thinkpad-t14s.c      | 197 +++++++++++++++++++--
- 3 files changed, 264 insertions(+), 63 deletions(-)
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261106-t14s-gen7-ec-297593bda0fc
-
-Best regards,
---  
-
-Abel
+-- 
+2.54.0
 
