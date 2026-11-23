@@ -1,81 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795430198;
-	b=hzekJHrmZns1DjTF/gZN1NbeS/RxcCaayBrpbJMCX4QYDVUHHufN0vVWTfvSkrnAj+do
-	 g790KDwXqmbnYRJggZhbaaBNx+u9IqQ8Lz9h0/qMy62382yV8pPJ4xpnFdCmanMIq/qoX
-	 8Qt6wzutfKR+Vw11/UA2QZmQgAAQ/kuJJGZ1OYJr93FfCIBAzd3u3ZX9+z1WCmM3aN8+D
-	 XmXAe2owCUa39IZ3A1S+W2hd/60XDZPZttEWgNNk3438A21EhunYBZLW93paOZtmyfCeb
-	 s2i381orFsuL+A8eWllQbN+0y3zMeDTGkBozy/uznHlsxM6nwxZlGcdT6oW2RX0gCxg==
+	t=1795430267;
+	b=fYZK+U133JMJUEHCE5oKyBYgury/KOO9DHCmTwsTIF052IKKZmxmkiuM0YYs9zwvxZYt
+	 k1Unqj+H+Lo6pi//Z26kDHIdrk8PXaPt4h4yH8RuSz/k2LMOesRXcA7YEIWNoHCAuMax+
+	 neSw/GP0AZAhCd7vX/ZeBrfP74Yhh8lTOjMn2kRgmmh+ff10agCLRCSYKSGeOelHXz1wM
+	 NO0jWP3jyqlwgCb2LoK719N8kMn7tR6XCWzBLrCIvUEzcQEhfznykIQOtYQ1cCXgxsuMG
+	 VaVTeD1dSsAMbm69OkAWP0crz3nvEX2/eWi0P1WgsEwLUo9TSpl7zRnMwv+KGZfgvRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795430198;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=PcLcbUy9WLbB87302gRwaNmUCRa+6gKrWS43onZVWUM=;
-	b=RkvvQun+qFaWR9ow+NTuLY6PohM9Ds5oZi9Mzdlpn984jxuZ3n+n91bUfEalQV1GQAcA
-	 bAomRVgFVAvdnux5fEjQjCaxj8AO22kS+j40VcytlzTUbyEw8/KsSMOeaElRB7nQLAb/U
-	 UYboyhwOAaDHf9YzzCdNCuJQbidheicLhogAQ/V9RjXHvPfLqVdQ+SQCJ43XCnaV3baSB
-	 Zt5ptjcClnnSPA7YGxzXdR9yYfC5R293UJ8gfW/0i2mVvs8ZQ5v77VApLzEt0LZ85Oxkb
-	 1sN3NyFYXFDITCFBdJAaiMhtlwSc/2jiCBeRetzMQeWJ6+z/oKr7m0h4ck/oL6GKvjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795430267;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=X0P6T5TIyeZHejLWQgv4Ks9BJmqVUBnGiJMfvXesVpE=;
+	b=ywBy4bvEKZ3hQu53nDop5Cjw0XP229TfgeX+lI0nrZFr8LDyfoOHqj3vL14w5PKdecaw
+	 2Dk22kGs5VnD+keVLUttL1YyE+ZukV1nMmG/fW5Gw4IKS93/ZPchBeKSANbjbHHIrlnkF
+	 J/DJDPvfMxtw7wU47VqhDaeVwV8ZwS+YCrxGAygXNZBspqkRYvzim3ReBMK+BbR6NyJrU
+	 qLHrAUez6+IALQwARY9wjENtM/3Pf6/tft84gjEyj1yFoiVTCJ1kcsMhtLzk6J9NkttxO
+	 Ws2g/BgBPT9gl7LcAvQNNHD/yaJim4ij7FU090DjL4v+HjlNkfbOIZwLNVGoYfi/CQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mITrGh2T;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GfIbnBam;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58482606A31E;
-	Mon, 23 Nov 2026 10:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58482606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F283C606A32A;
+	Mon, 23 Nov 2026 10:37:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mITrGh2T
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 834BE4B0;
-	Mon, 23 Nov 2026 11:34:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795430042;
-	bh=ccjAAMHgAJq89pSqUHBH89F3ZPD7R6QW9itkpi2hSf0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mITrGh2T1FVa6dXh336gRFij/ePLSfcLwEekVfS1AxwaI7aqZ0bLgYy/lJEqruSUi
-	 FObd+PkgFTebQAZS8wBeD2K5FUZEdu7ymMqsxsBxmV4tRsWqYAeyJUQAp8z0+2dNCm
-	 P5/jt6wVW1mR4TlGRbHZb1csDC+J4CXxqUIxhxnA=
-Date: Mon, 23 Nov 2026 12:36:33 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: =?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Paul Elder <paul.elder+renesas@ideasonboard.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping
- support
-Message-ID: <20261123103633.GB2959742@killaraus.ideasonboard.com>
-References: <cover.1795029012.git.geert+renesas@glider.be>
- <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
- <20261119234759.GB2324725@killaraus.ideasonboard.com>
- <19c3745a-6308-46ff-bb37-3acc88fe22e2@baylibre.com>
- <awAqqg6F2Z1t55x2@ninjato>
- <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GfIbnBam
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824951F000D1;
+	Mon, 23 Nov 2026 10:37:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795430266;
+	bh=X0P6T5TIyeZHejLWQgv4Ks9BJmqVUBnGiJMfvXesVpE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GfIbnBamiMU9Mqfr4xnzJ+DIxdGX8VN3SJx5xURfj+N1LSyxe3EO15kOfvfT7Q5HA
+	 ehgMLXQ0qYgPthiwkM0HdQXI6yvAOMvlb5Q7mN/sPc3/l4tmgXaSXmmSytuNQZVWf2
+	 WVg2c+r97ROZt+inJoGFUCENyfmNUJ2XB2dmcP22ljHOFE+7HWupnp1VSFTtmb8xyq
+	 UOXt0XwPtyPYOvdOPoP8tkArG85kWFmBi4vIkSTDzasmKl+/uHPNh/RD0vuXlrXTC/
+	 whDgQSfLzy9fd+AgYhN9VGrPIOl6/tLi5pLiAlg87uV4cZX1JssOB1Vr0a7ngkerZu
+	 Ceixe0FOZFj8A==
+Message-ID: <sashiko-outbox-229057@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 5/8] Bluetooth: hci_qca: Support QCA2066 on M.2
+ connector via pwrseq
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123-monza-wireless-v8-5-a8b38604be6c@oss.qualcomm.com>
+References: <20261123-monza-wireless-v8-0-a8b38604be6c@oss.qualcomm.com>
+ <20261123-monza-wireless-v8-5-a8b38604be6c@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 10:37:46 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,73 +60,139 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
 
-On Fri, Nov 20, 2026 at 03:33:11PM +0100, Clément Le Goffic wrote:
-> Hi Wolfram,
-> 
-> Thank you for the rewording, it is clear
-> 
-> On 11/20/26 12:10 PM, Wolfram Sang wrote:
-> > In the past, we wanted to support all kinds of firmware. Sadly, each new
-> > firmware introduced different IDs here and there. So, we came up with
-> > some stable IDs ourselves and mapped them to the IDs per firmware. This
-> > is a n:1-mapping of firmware IDs to our stable IDs.
-> 
-> Sure, that is part of firmware development.
-> I know several SDK versions exist, and supporting several of them is work for a vendor tree.
-> As Geert's cover says, "While upstream Linux must only support sufficiently mature firmware versions, vendor trees (e.g. renesas-lts) may still want to support development firmware versions".
-> Each SDK version can then have its own DT there.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] Bluetooth: hci_qca: unguarded QCA6390 and default cases in
+  qca_serdev_probe()
+- [Medium] Bluetooth: hci_qca: stale QCA2066 default-branch logic in
+  qca_power_on()
+- [Medium] Bluetooth: hci_qca: asymmetric bt_en GPIO handling in
+  qca_power_off()
+--
 
-That's not how DT works. Please be gentle with Krzysztof and avoid
-increasing his blood pressure :-)
+commit 85edd5303f1b81a5f668119805aeb29135fdf56f
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-> > The support for <n> firmware versions got serious opposition from
-> > upstream. We concluded that supporting only the latest firmware will
-> > make most controversial discussion points vanish. So, we now have a
-> > 1:1-mapping of (the latest) firmware IDs to our stable IDs.
-> 
-> Agreed, supporting several numbering upstream for the same chip only brings confusion.
-> But then, why can't that one mapping be one DT?
-> 
-> > I guess this is what Geert means with IDs becoming "stable". <n>
-> > firmware versions might return <n> IDs, but supporting only one firmware
-> > we get the same "stable" ID from it.
-> > 
-> > Sadly, of course, with the next firmware update, we still might get a
-> > different ID all the time. So, not stable in that regard and we still
-> > need the mapping :(
-> 
-> When the firmware can be updated, I think an id change should be fixed there first.
-> That is what I would do in the open-source SCMI server firmware I am writing for this chip.
-> 
-> > Yes, this means the driver is then tied to a specific firmware version
-> > because it only has this mapping. Not nice for a user. But we didn't see
-> > another way moving things forward for now.
-> I think the DT is that other way.
-> With the SCMI ids in DT, only the DT is tied to a firmware version, not the drivers.
-> If a release that changes ids is already out, it needs a new DT, or a quirk for that one release when the DT cannot be updated.
+Bluetooth: hci_qca: Support QCA2066 on M.2 connector via pwrseq
 
-So you're proposing that, with any new firmware that introduces an ABI
-breakage, every single DTB on all boards in the wild get updated ? That
-just doesn't scale, sorry. Let's forget about that bad idea, and focus
-on finding a good solution.
+This commit moves the M.2 pwrseq lookup in qca_serdev_probe() ahead of the
+SoC type switch and enables pwrseq in the default branch of qca_power_on().
 
-> The hardware stays described
-> The CPG and MDLC belong to the SCMI server, so the DT should mark them status = "reserved", and the consumers use the SCMI clock, power domain and reset providers.
-> 
-> The Devicetree Specification v0.4 define "reserved" for this case (section 2.3.4, Table 2.4):
-> "Typically this is used for devices that are controlled by another software component, such as platform firmware."
-> 
-> Zephyr also uses SCMI on this chip, and it already keeps the SCMI ids in its X5H DT
-> Juno and STM32MP15 handle their firmware differences the same way, with separate -scmi DT variants that simply include the board DT and an SCMI .dtsi.
-> If the number of variants grows, tools such as Lopper, which I mentioned before, can help manage them.
+> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> index 08efce663eea4..f8b572a5c3d2d 100644
+> --- a/drivers/bluetooth/hci_qca.c
+> +++ b/drivers/bluetooth/hci_qca.c
+> @@ -1907,6 +1907,9 @@ static int qca_power_on(struct hci_dev *hdev)
+>  			/* Controller needs time to bootup. */
+>  			msleep(150);
+>  		}
+> +
+> +		if (qcadev->bt_power.pwrseq)
+> +			ret =3D pwrseq_enable(qcadev->bt_power.pwrseq);
+>  	}
+> =20
+>  	clear_bit(QCA_BT_OFF, &qca->flags);
 
--- 
-Regards,
+[Severity: Medium]
+Does QCA_QCA2066 ever reach the default branch of qca_power_on()?
 
-Laurent Pinchart
+Commit a57a255ce204 ("Bluetooth: hci_qca: Reopen the UART after enabling
+QCA2066") already added QCA_QCA2066 to the switch cases in qca_power_on()
+(calling qca_regulator_init()) and qca_serdev_probe(), and the earlier patch
+in this series, commit "Bluetooth: hci_qca: Add M.2 Bluetooth device support
+using pwrseq", already factored out qca_serdev_get_m2_pwrseq(). As a result,
+this branch is only reached by QCA_ROME devices, where calling
+pwrseq_enable() directly bypasses the UART close/reopen performed by
+qca_regulator_init().
+
+[Severity: Medium]
+Can qca_power_off() leave qcadev->bt_en asserted when a default-branch SoC
+has both bt_en and pwrseq?
+
+The default branch of qca_serdev_probe() still acquires qcadev->bt_en even
+when qcadev->bt_power.pwrseq is populated, and qca_power_on() asserts
+qcadev->bt_en before calling pwrseq_enable(). However, qca_power_off()
+returns early after disabling pwrseq without driving qcadev->bt_en low:
+
+drivers/bluetooth/hci_qca.c:qca_power_off() {
+    ...
+	if (power->pwrseq) {
+		pwrseq_disable(power->pwrseq);
+		set_bit(QCA_BT_OFF, &qca->flags);
+		return;
+        }
+    ...
+	default:
+		gpiod_set_value_cansleep(qcadev->bt_en, 0);
+	}
+}
+
+[ ... ]
+
+> @@ -2501,6 +2507,10 @@ static int qca_serdev_probe(struct serdev_device *=
+serdev)
+>  	else
+>  		qcadev->btsoc_type =3D QCA_ROME;
+> =20
+> +	err =3D qca_serdev_get_m2_pwrseq(qcadev);
+> +	if (err)
+> +		return err;
+> +
+>  	switch (qcadev->btsoc_type) {
+>  	case QCA_WCN3950:
+>  	case QCA_WCN3988:
+> @@ -2511,13 +2521,9 @@ static int qca_serdev_probe(struct serdev_device *=
+serdev)
+>  	case QCA_QCA2066:
+>  	case QCA_WCN6855:
+>  	case QCA_WCN7850:
+> -		if (qca_serdev_is_m2(serdev)) {
+> -			err =3D qca_serdev_get_m2_pwrseq(qcadev);
+> -			if (err)
+> -				return err;
+> -
+> +		/* M.2 connector modules are powered by the pwrseq acquired above. */
+> +		if (qcadev->bt_power.pwrseq)
+>  			break;
+> -		}
+> =20
+>  		if (!device_property_present(&serdev->dev, "enable-gpios")) {
+>  			/*
+
+[Severity: High]
+Does hoisting qca_serdev_get_m2_pwrseq() before the switch break M.2 probe
+for QCA_QCA6390 and fail to skip legacy resource acquisition in the default
+case?
+
+Only the QCA_WCN3950..QCA_WCN7850 switch arm checks qcadev->bt_power.pwrseq
+and breaks out:
+
+drivers/bluetooth/hci_qca.c:qca_serdev_probe() {
+    ...
+	case QCA_QCA6390:
+		if (dev_of_node(&serdev->dev)) {
+			qcadev->bt_power.pwrseq =3D devm_pwrseq_get(&serdev->dev,
+								  "bluetooth");
+			if (IS_ERR(qcadev->bt_power.pwrseq))
+				return PTR_ERR(qcadev->bt_power.pwrseq);
+			break;
+		}
+		fallthrough;
+
+	default:
+		qcadev->bt_en =3D devm_gpiod_get_optional(&serdev->dev, "enable",
+					       GPIOD_OUT_LOW);
+    ...
+}
+
+For QCA_QCA6390 on an M.2 connector with an OF node, case QCA_QCA6390
+overwrites the M.2 "uart" pwrseq handle acquired from &serdev->ctrl->dev
+with devm_pwrseq_get(&serdev->dev, "bluetooth") and aborts probe when the
+child node has no "bluetooth" target. For QCA_ROME (default), probe still
+acquires the legacy enable GPIO and susclk instead of breaking out when
+qcadev->bt_power.pwrseq is already set.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-monza-wire=
+less-v8-0-a8b38604be6c@oss.qualcomm.com?part=3D5
