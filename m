@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795453682;
-	b=hKXN+Js3VIJQ1UyxbKu6Rn9ZhnbMCfR8lGEEryob+sqCifkMfJ0fVYXzJi20dxzRIWbM
-	 2q3tUJA1oTtxLrpcc6h1SQWVIp9AnAAgBCCgC03gJSTcj9/8lDWIZvCkmnq1aIbamKpgw
-	 ohdpJRxKAeXpqTQ1BK9hNGAWlgJsiYmxf3LMTmsaNoxp+dreYIkUwNJV2Vl5HN4axGv6D
-	 NzrbCjxi3+llIGzXjuIJh4KpedYOoB53wHfMihS8xbAWOcUPE/agWP0YjXQE8QOspCo6a
-	 oNMZMLTuxkN8pl4wqxks3Vbsaq9/5sS56d9WstgWYXNtXwAhuFtL0MSrv5S9B42Qd8A==
+	t=1795453739;
+	b=Wo9rRZ7Nms5+hHwOiiuF1s1si3fwpJp+8MlslpmYfbT+1smqyGjGRAABt5+1oyGmJ4hQ
+	 f4sVX42z2BeEkAjUa/5CdfAxUWMR1t9RCDz1XICkuO0MmMdn6UdnVF3FKCsgM3lWIF6xt
+	 HGWefylCAqzt+s9EpSk3l3okw1pskwF3897qqNARwJ6ilcDWqo9TeLemGjEbC8PgGRX8D
+	 e6l/3NEhgbF82W9tZKo7UoW+UqoCdZP8OQwxx8Gbi4RHC9UVX+zci4UQUwjHNRB4tQ9fv
+	 Wz5ClLX+aq3BFJk+MKrtq+NAKFt5zE3bbaaKIRpr55UWVkGtNqDSFontDmtSiHZvDyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795453682;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DlOdsAbl+7GPy5K40QdjPtFjdnN5GP44VrhDUatQmqs=;
-	b=RkXW/7uMTJ3CIkMtqoz0FBytBHojdQZjKUdIOgjn5MEGoxh/wHczrJqCqcfsdWhV0hB4
-	 TH03CACgClwlXZv7/PtsvrheLc1lujxV/zZ2Lig7RGHnpcmvcnqI0OkYktV0Z3IfRWrvv
-	 xkQu/4V1RTRZGxIUGd9u8AvLZdkPOlNjjUtwnqC7Rp9KBV9S912mRjPmrvKMtXPHv0w0z
-	 F3ZeJ+kcrZQ4CraSOKYnv4q86U5OgkpFx2G1BER7taYTJ2MqeKCNBVIGGSYme4z6uRtgg
-	 QFNtLnbAVAsWZbyvuyhstZvBzzfwaNua2lB+Jf/hqpOh7xrRz6ij7B6o+ubNxP9n2Dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795453739;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=8zVNvSWaZtmK/qyn+5vvSO75ij5A9eblqUujvV++/s4=;
+	b=x0dAbXdgY1GuhCj3jKFdgFYSi/SN8mFipmKSrIfhBmU4wRUkb/erxcqmmA883j9y3jk9
+	 RHYQ3LcfmU7z5QgQ/nCENiTZ6H6OvhLKl43n9B/U6UX9lpiP4A05QukfsVw2akFJTIlom
+	 XViBsPM/K9GFP/YcWQmDeFF5NaRCD69D3TYfl3lQrPVVxBDgzOD10PtQSL60O8wq8b5Lx
+	 BOts5MabRsn7rddwvHyzaFa1MmNnmVNaEe9yGNk/TQ2yg72ptbpOHYchtQcvXRBYCJ4wG
+	 en9bpRjgZeksv/XfP8qcrqzMex2y7orIBvZPgDuvxFg3Cso5/HXoMSYlDRSHp6slN9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hq/CIiDe";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Uh7g/8T7";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F14606A31A;
-	Mon, 23 Nov 2026 17:08:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A76E606A699
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 17:08:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hq/CIiDe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A601F000D2;
-	Mon, 23 Nov 2026 17:07:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uh7g/8T7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11BF01F000E1;
+	Mon, 23 Nov 2026 17:08:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795453682;
-	bh=DlOdsAbl+7GPy5K40QdjPtFjdnN5GP44VrhDUatQmqs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hq/CIiDe0OP6u66SeqJ1/t9AN0UcCaHCcTZVdClRVs2zltCok+PqRzRnE5NIfrIIg
-	 eQAxPUpHAZH8QSWaIcMynaXEifLFafHi3I0rs3zl17rDX6eg92G6s4KjWfJFJOHg9s
-	 I+aHC3wv/9w7LHfTZUPnsjDa/4Ukwzx/bFev7CWFS2BNgN9+lHye9eOLIK/uKO+CuS
-	 IgIJiUP2Yq59wK/lVDX6R1nEwvvEioqEKWOGi3sMK/GrB/l3sMxJm4TZxTOD4FS2lk
-	 Yc/NIeKTDV9tn8AydAwIT6EaHDmYeNKiusTF8s58Z45vGqdXOMbeeiTvFcoWmwzRSW
-	 n24s8yrzdtb2A==
-Date: Mon, 23 Nov 2026 17:07:57 +0000
-From: Conor Dooley <conor@kernel.org>
-To: rva333@protonmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joshua Crofts <crofts@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 6/7] dt-bindings: iio: light: stk33xx: add stk3331
-Message-ID: <20261123-emblaze-dismount-b03962c99a21@spud>
-References: <20261122-6768-stk3337-v3-0-b0d0a924e843@protonmail.com>
- <20261122-6768-stk3337-v3-6-b0d0a924e843@protonmail.com>
+	s=k20260515; t=1795453738;
+	bh=8zVNvSWaZtmK/qyn+5vvSO75ij5A9eblqUujvV++/s4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Uh7g/8T7WLq4p+K0qtdpr1TEXL+y1ZVIcIyj7yJXNzltEaDCOaM0XRl2uCscPB5p+
+	 WBwWmoh+9SToZBkoTWXUiUMxG3ieesFUC4poIV0pxz8Bn6UAFrHuv1bgj53NeEffiI
+	 ZcD6+GBvXJCumnLPcYSdLugldAV/qn64bxE7//38PUgk1FrgR3iEc7F2yFka1wIkOi
+	 zffjfBMT7DaGPg0Iu7uxqmZJruUhOmaqGT8gi+Oo7GfgN/Ft4w3eThbvQnV20VL2Lx
+	 HYUaHLpombdXIMpWMRMYUnsFrWp5GZIo5jVP5Pwgvrr2NOWvocU5IkfRc9wfDHMTJ7
+	 85lmKLTt/qfvA==
+Message-ID: <sashiko-outbox-229706@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 3/3] arm64: dts: rockchip: rk3568-photonicat: enable
+ SGMII LAN port
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Coia Prant" <coiaprant@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123165703.667564-4-coiaprant@gmail.com>
+References: <20261123165703.667564-1-coiaprant@gmail.com>
+ <20261123165703.667564-4-coiaprant@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 17:08:57 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,28 +60,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OkWGF633C/Dze2zf"
-Content-Disposition: inline
-In-Reply-To: <20261122-6768-stk3337-v3-6-b0d0a924e843@protonmail.com>
 
---OkWGF633C/Dze2zf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: rockchip: undocumented rockchip,sgmii-mac-sel in
+  combphy2
+--
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+commit 770288b759f8f8b66f29b229b4d9964668ae4042
+Author: Coia Prant <coiaprant@gmail.com>
 
---OkWGF633C/Dze2zf
-Content-Type: application/pgp-signature; name=signature.asc
+arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
 
------BEGIN PGP SIGNATURE-----
+This commit enables the SGMII LAN port on the Ariaboard Photonicat by
+configuring GMAC0, XPCS, combphy2, and the Motorcomm YT8521SC PHY on
+MDIO0.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawRy7QAKCRB4tDGHoIJi
-0jViAQCaXQ2kHbIfFQRLocQFqn5kifQGAjCZ8YeuakKAEYTjmgEA0hngKuGnvhC/
-4u286bBbTHC6FVKqIhWjR/JKSxnkJwE=
-=wg8a
------END PGP SIGNATURE-----
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/ar=
+m64/boot/dts/rockchip/rk3568-photonicat.dts
+> index 12ae9159bea87..f3cac046565bc 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
 
---OkWGF633C/Dze2zf--
+[ ... ]
+
+> @@ -242,6 +249,7 @@ &combphy1 {
+>  };
+> =20
+>  &combphy2 {
+> +	rockchip,sgmii-mac-sel =3D <0>;
+>  	status =3D "okay";
+>  };
+
+[Severity: Medium]
+Is rockchip,sgmii-mac-sel a valid property for combphy2?
+
+Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.yaml
+does not define rockchip,sgmii-mac-sel and specifies additionalProperties:
+false, so this fails dtbs_check.  No mainline driver parses this property
+either (rk_pcs_init() in drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+selects the XPCS MII port from the GMAC controller ID), so the property
+and the commit message note about routing combphy2 through it should be
+dropped.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123165703.6675=
+64-1-coiaprant@gmail.com?part=3D3
