@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795428800;
-	b=QNkLDF+bMJdkz0IRLsZNlGMvKxR3J624tA56TyR/Uile7mkW1Ag4InPZHcSB7aav33jT
-	 FdT98yPLMU6E5Xp3pNWAQ6/1Fjycd76WN+XTIJtKskc6zP08QZrb2ONjAKwHjhM8fxWGp
-	 UoxbXfMYjNGslGEKpmU/m14iMIaT3PdsTr7Kd+iCFlNHlRJh1ENc+FNf3O+Hs9qasvkh5
-	 cfmXxx8P1voqLfb+xCO6YWV/oot8PT2nV3L3Vh9dTY3MEqzy5sZxYoaSUR9WrR3m4rngR
-	 5eChBPHRBPspmneiooXph0pPJczUqEj+uQ9jEbsYr48gGwJmyrlKdGo9yvLWP5Y9kwA==
+	t=1795428793;
+	b=n3ESgFJZptnvo5xSpbfBd3japqWUzSTdVJ1zMv2HP6WlW0hzWrBcJqs0GN/H60UZkUZ+
+	 pIWtVj3nbrobvclt0Z1SkpLzhfs7VYD6UtSkWpfRzUbt2xk1+45TzGvyTSom7I9bxP+PT
+	 8B+rz9AS0hlUHNbCTEDhELAKL3wkNFvr2j3zRY3VDPYlqbwjyfoTnzIbCan93Lk7d0JV7
+	 SChIiLOp5OLZFotSS27CE9QbN1bo1jjH1cDSweFxQDR3mClw4vY+Vjp5jnM80EsOH822H
+	 +W24xx4gsYEFYA4zVvsPIRrXjGLBAtv+aQnPf/MsLG1OFcifxBHgdjMmByDzc67knYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795428800;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795428793;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=lyb37VHY3Cz0Xe1qCFGWBdDx+Gpu8rjZZrsCih1gYKE=;
-	b=K5iGGzoy0woEaEtyQfHynYCX+6QKZ9Z7XZVfoTFo1+Az00wxJERqmTVOkqZwCgCNLwWf
-	 6Odkcwd3AfxTOv6GEO7Cn/7oPE6p9dYuL6diXMHXV1cRmw6vC5UuFzHaNmVvxAo/wFOzJ
-	 UdNBbLfumu4Qt60F3jpFuOpa335sIoArLxlNRiyua1+XQit/P9FodkWXSaXqRdNcvK/1A
-	 CeKDZ03bxEi/uXgbBuBQ2I0prt/ksLdHeFQzSZXfRwHI60UEPLKsa6layRjT5UL0TMF1y
-	 A8yplhunrBPhnLp/TgyXCxa3aWEwFg5ClCf80GGgYBRJdknlXQYQTHWb6TN5uws8AHA==
+	bh=8V3O6wyOQ9NrgDMzQPFf7QNUTcuIMnknpuo4OWvqhX4=;
+	b=zVT7kwyB4C8RVU+Bhp6k22PanvAqL8akB8fPO4FrNEuXmW6r8vRnMANz9xF7V+Nl/K8R
+	 WtnNb57kEaIjQrPOBnx7WNim34yMFPQR1U8i34vrBCmuAccploUTCGdOZMpxrI6/OFmdX
+	 UNY6xH01pgznv/jAbIiybr1xp/2l+vS90HS1aDQi1x5PjsQCByovaQCzr0K/qr9HWWzmy
+	 gX/MMfQVn5BI7ujXFrW973GmHupEM0Fe9yMWmXk9Itn/FdlmoEuOgvPSYcUsXCsmpoqcr
+	 Fr9uQNRBannkZf2HaWbbgAs/uujG4vZDB9caGMY8LOPMRPZKNV4q1JsR9Xuh0HcjqGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n5w/vE7m";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nS/JSCDJ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D255606A69E;
-	Mon, 23 Nov 2026 10:13:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BB5606A31E;
+	Mon, 23 Nov 2026 10:13:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5w/vE7m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080571F000D4;
-	Mon, 23 Nov 2026 10:13:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nS/JSCDJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D94251F000D1;
+	Mon, 23 Nov 2026 10:13:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795428799;
-	bh=lyb37VHY3Cz0Xe1qCFGWBdDx+Gpu8rjZZrsCih1gYKE=;
+	s=k20260515; t=1795428792;
+	bh=8V3O6wyOQ9NrgDMzQPFf7QNUTcuIMnknpuo4OWvqhX4=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=n5w/vE7m+gYv6JZcG/Zbjgr9P4R1G4Ww2IbRzZaGir/wA9LvLBstljTkaH4ggozfq
-	 vE3U+r4IKeVVgz+blyoW4YtYqHVZwAAo4Ltxb60gasobFcveT7IzP1ojnRMHVm57oD
-	 nBGNE1kAA9DWYHH6/untuMG1YYFcmrza0unqgc6nYFZRFi1fCYQD8r7eUwkHwt26N4
-	 QGc13hLj4EwwLnUo8SOTciLEWR2gQTAdeNQq9gZ/ShENKTojQLUjhuo2ibuyz680Hc
-	 9AgTifw8fPf0AQdeYqHN+gEJnz1NZI4FGBOab2cbOJgn+3TVmSQz77AsQCjPYFNwMl
-	 +znmeqmYxMBEg==
-Subject:
- Re: [PATCH net-next v7 5/7] net: ftgmac100: Require phy-mode for AST2700
+	b=nS/JSCDJsiFO8/ODNh/xFhy6VwhV6pza3huyX7ImGQ1HBn88f+Ow3Lrj8np4dhsGS
+	 h0dICaMMRuSnJwZ3EK4uLTtvTbWWNQs1P4w7vmO/d+43bd9HavmG85PSMmOQkXDcsd
+	 4mhbmu36W0XGBk8TdhodPiE9TAqyQcMxHO6d6CYh7z2+rIGL+6buexnMhDUXr1hKg8
+	 h8Pv5STySrhT5X8uIkfBkqMubbYOGqsm9gfyltoLSsQgVxSyIKIAsccHelnDfPep5A
+	 zsAcFGN3SxNdRwpGlFqRB9wkJnSRCP7VoHPCUhPQ0OdVbT0ANvJh+5TyfThjWQzH38
+	 NQtr+R2K2gqHA==
+Subject: Re: [PATCH net-next v7 1/7] dt-bindings: net: ftgmac100: Make Aspeed
+ compatibles standalone
 From: netdev-bot+sashiko@kernel.org
 To: jacky_chou@aspeedtech.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
@@ -49,11 +49,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
  ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
  linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, andrew@lunn.ch
-Date: Mon, 23 Nov 2026 10:13:18 +0000
-Message-ID: <179542879858.3135.15143972557396175443@kernel.org>
-In-Reply-To: <20261119-support_ast2700-v7-5-33c8ca2d0dd7@aspeedtech.com>
-References: <20261119-support_ast2700-v7-5-33c8ca2d0dd7@aspeedtech.com>
-X-sashiko-severity: High
+Date: Mon, 23 Nov 2026 10:13:11 +0000
+Message-ID: <179542879143.3135.17776735347529304516@kernel.org>
+In-Reply-To: <20261119-support_ast2700-v7-1-33c8ca2d0dd7@aspeedtech.com>
+References: <20261119-support_ast2700-v7-1-33c8ca2d0dd7@aspeedtech.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -69,7 +69,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 1
+Critical: 0 · High: 0 · Medium: 2 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,149 +77,220 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The new AST2700 phy-mode check in ftgmac100_mii_probe()
-  (drivers/net/ethernet/faraday/ftgmac100.c, lines 1529-1533) can never…
-- [Medium] The commit message says "The driver currently defaults to
-  RGMII when the phy-mode property is missing" and describes the patch…
-- [Medium] One AST2700 configuration can still probe without phy-mode: a
-  node with an 'mdio' child but no 'phy-handle', 'fixed-link' or 'use-…
-- [Low] The comment above of_get_phy_mode() in ftgmac100_mii_probe()
-  (line 1527) still says "Default to RGMII.
+- [Medium] The binding no longer accepts the established two-string
+  compatible form ("aspeed,ast2400/2500/2600-mac", "faraday,ftgmac100"),…
+- [Medium] With the new allOf conditionals, no node using the plain
+  "faraday,ftgmac100" compatible can pass validation, even though the…
+- [Low] The commit message says that binding the AST2400/2500/2600 MACs
+  through the generic entry would 'leave the DMA mask too narrow'.
+- [Low] For aspeed,ast2500-mac and aspeed,ast2600-mac, the new per-
+  compatible block (lines 101-117) limits `clocks` (1-2) and `clock-…
 
 --
 
-net: ftgmac100: Require phy-mode for AST2700
+dt-bindings: net: ftgmac100: Make Aspeed compatibles standalone
 
-This commit makes phy-mode a required property for AST2700. When
-of_get_phy_mode() fails in ftgmac100_mii_probe(), probe now returns
--EINVAL for that SoC instead of falling back to RGMII.
+This patch makes aspeed,ast2400-mac, aspeed,ast2500-mac and
+aspeed,ast2600-mac standalone compatibles. They no longer need the
+"faraday,ftgmac100" fallback. It also adds per-compatible constraints on
+clocks and clock-names, and requires clock-names when two clocks are listed.
 
-> The driver currently defaults to RGMII when the "phy-mode" property
-> is missing from the device tree. This default is no longer valid for
-> AST2700, which also supports RMII via FTGMAC100_QUIRK_RMII_ENABLE.
-
-[Severity: Medium]
-Is this description accurate for AST2700? No AST2700 probe path seems to
-reach the RGMII default.
-
-With use-ncsi, ftgmac100_probe_ncsi() connects with
-PHY_INTERFACE_MODE_RMII and never reads phy-mode.
-
-With phy-handle or fixed-link, of_phy_get_and_connect() already fails
-when phy-mode is missing:
-
-	ret = of_get_phy_mode(np, &iface);
-	if (ret)
-		return NULL;
-
-With the legacy MDIO scan, ftgmac100_mii_probe() returns -ENODEV on the
-NULL mii_bus before it reads phy-mode.
-
-The RGMII fallback only applies to FARADAY, AST2400 and AST2500. Could the
-commit message say that this patch does not change AST2700 behaviour? As
-written, it suggests a silent RGMII default on AST2700 has been fixed.
-
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 9b7becb017262..5a578a62df673 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1526,8 +1526,13 @@ static int ftgmac100_mii_probe(struct net_device *netdev)
->  
->  	/* Default to RGMII. It's a gigabit part after all */
+> The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
+> compatibles are currently only valid when paired with the generic
+> "faraday,ftgmac100" fallback: if a node ever bound through the
+> generic entry alone, ftgmac100_probe() would set
+> rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
+> BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
 
 [Severity: Low]
-This isn't a bug, but this comment no longer matches the code. On
-FTGMAC100_AST2700 a missing phy-mode now returns -EINVAL instead of
-defaulting to RGMII.
+Is the DMA mask part accurate for these three compatibles?
 
->  	err = of_get_phy_mode(np, &phy_intf);
-> -	if (err)
-> +	if (err) {
-> +		if (priv->mac_id == FTGMAC100_AST2700) {
-> +			dev_err(priv->dev, "phy-mode is required for this SoC\n");
-> +			return -EINVAL;
-> +		}
+At this commit, drivers/net/ethernet/faraday/ftgmac100.c has no
+dma_set_mask*() or DMA_BIT_MASK() call. ftgmac100_probe() uses mac_id for
+only three things: picking the EDORR/EDOTR bits, setting is_aspeed, and
+calling ftgmac100_setup_clk():
 
-[Severity: High]
-Can this check ever run on AST2700? Before it reaches of_get_phy_mode(),
-ftgmac100_mii_probe() checks priv->mii_bus:
+    if (priv->mac_id == FTGMAC100_AST2400 ||
+        priv->mac_id == FTGMAC100_AST2500 ||
+        priv->mac_id == FTGMAC100_AST2600) {
+            priv->rxdes0_edorr_mask = BIT(30);
+            priv->txdes0_edotr_mask = BIT(30);
+            priv->is_aspeed = true;
 
-	if (!priv->mii_bus) {
-		dev_err(priv->dev, "No MDIO bus available\n");
-		return -ENODEV;
-	}
+Later in the series, the only DMA mask call is
+dma_set_mask_and_coherent(..., DMA_BIT_MASK(35)), and it is gated by
+FTGMAC100_QUIRK_DMA_35BIT. That quirk is set only for the AST2700 match
+data.
 
-priv->mii_bus is only assigned in ftgmac100_setup_mdio(). ftgmac100_probe()
-only calls that for the older MACs:
+Could the "leave the DMA mask too narrow" clause be dropped from the
+commit message?
 
-	if (priv->mac_id == FTGMAC100_FARADAY ||
-	    priv->mac_id == FTGMAC100_AST2400 ||
-	    priv->mac_id == FTGMAC100_AST2500) {
-		err = ftgmac100_setup_mdio(netdev);
-
-priv comes zeroed from devm_alloc_etherdev(), so priv->mii_bus is always
-NULL on AST2700. ftgmac100_mii_probe() therefore returns -ENODEV before the
-new FTGMAC100_AST2700 test.
-
-Here is what ftgmac100_probe_dt() does for an AST2700 node without
-phy-mode:
-
-  use-ncsi: ftgmac100_probe_ncsi() hardcodes RMII, which the binding
-  allows.
-
-  phy-handle or fixed-link: of_phy_get_and_connect() already returns NULL,
-  so probe fails with "Failed to connect to phy" with or without this
-  patch.
-
-  mdio child, no phy-handle: ftgmac100_mii_probe() is skipped and
-  ftgmac100_probe_dt() returns 0 without checking phy-mode.
-
-  no mdio child, no phy-handle: ftgmac100_mii_probe() fails with "No MDIO
-  bus available" before the new check.
-
-This patch changes the result of none of these paths. The check is still
-unreachable, and unchanged, at the end of the series in "net: ftgmac100:
-Allow building on ARM64".
-
-Also, "dt-bindings: net: ftgmac100: Add AST2700 compatible" justifies its
-oneOf(phy-mode, use-ncsi) rule by pointing to "ftgmac100_mii_probe(), where
-the AST2700 phy-mode check lives".
-
-Would this check work better in ftgmac100_probe_dt(), after the use-ncsi
-branch and before the fixed-link/phy-handle/mdio split?
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index d14410018bcf6..9d352e3686aaf 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> @@ -11,14 +11,11 @@ maintainers:
+>  
+>  properties:
+>    compatible:
+> -    oneOf:
+> -      - const: faraday,ftgmac100
+> -      - items:
+> -          - enum:
+> -              - aspeed,ast2400-mac
+> -              - aspeed,ast2500-mac
+> -              - aspeed,ast2600-mac
+> -          - const: faraday,ftgmac100
+> +    enum:
+> +      - faraday,ftgmac100
+> +      - aspeed,ast2400-mac
+> +      - aspeed,ast2500-mac
+> +      - aspeed,ast2600-mac
 
 [Severity: Medium]
-Related to the above: an AST2700 node with an mdio child node but no
-phy-handle, fixed-link or use-ncsi still probes without phy-mode.
+With the oneOf/items branch removed, does the established two-string form
+("aspeed,astXXXX-mac", "faraday,ftgmac100") become invalid?
 
-ftgmac100_probe_dt() {
-	...
-	if (!ftgmac100_has_child_node(np, "mdio")) {
-		...
-		err = ftgmac100_mii_probe(netdev);
-		...
-	}
+Every MAC node in aspeed-g4.dtsi, aspeed-g5.dtsi and aspeed-g6.dtsi uses
+that form, for example:
 
-	return 0;
+arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:
+    compatible = "aspeed,ast2600-mac", "faraday,ftgmac100";
+
+All eight of those nodes would fail dtbs_check as soon as this lands.
+
+The planned follow-up dtsi change would then drop the fallback. Before
+commit 03a2aba50b2c ("net: ftgmac100: List all compatibles"),
+ftgmac100_of_match[] had only:
+
+    { .compatible = "faraday,ftgmac100" },
+
+Those kernels told the Aspeed variants apart afterwards with
+of_device_is_compatible().
+
+Wouldn't a DTB without the fallback leave those older kernels, including
+current LTS kernels, with no Ethernet driver bound at all?
+
+The commit message calls binding through the generic entry a hypothetical
+hazard ("if a node ever bound through the generic entry alone"). On
+kernels before 03a2aba50b2c, that was the only way these nodes bound, and
+it worked.
+
+With the current driver, of_match scoring already prefers the more
+specific Aspeed string over the fallback. So the two-string form doesn't
+run into the problem the commit message describes either.
+
+The impact is mentioned only below the --- line, which is dropped when the
+patch is applied. That note also covers only the dtbs_check warnings.
+
+Would keeping the two-string form as a deprecated: true oneOf branch avoid
+breaking older kernels? This is still the case at the end of the series.
+
+>  
+>    reg:
+>      maxItems: 1
+> @@ -88,22 +85,76 @@ allOf:
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - aspeed,ast2500-mac
+> +              - aspeed,ast2600-mac
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 1
+> +          maxItems: 2
+> +        clock-names:
+> +          minItems: 1
+> +          maxItems: 2
+> +      required:
+> +        - clocks
+
+[Severity: Low]
+Should the clocks and clock-names counts be tied together here?
+
+The two limits are set separately. The later rule only requires
+clock-names to be present when two clocks are listed. So this passes:
+
+    clocks = <&a>, <&b>;
+    clock-names = "MACCLK";
+
+However, the driver looks up the second clock by name:
+
+drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_setup_clk() {
+    ...
+    priv->rclk = devm_clk_get_optional_enabled(priv->dev, "RCLK");
+    ...
 }
 
-The device then registers with netdev->phydev == NULL. On open, would
-ftgmac100_reset_and_config_mac() dereference a NULL phydev here for any
-is_aspeed device?
+The missing name returns -ENOENT, which the optional API turns into NULL.
+Probe then succeeds without enabling the RCLK gate.
 
-	if (priv->is_aspeed && priv->netdev->phydev->interface == PHY_INTERFACE_MODE_RMII) {
+The reverse mismatch also passes, and an in-tree example exists. &mac3 in
+aspeed-bmc-ampere-mtmitchell.dts has:
 
-ftgmac100_start_hw() makes a similar read for the RMII quirk added in
-"net: ftgmac100: Enable AST2700 RMII support". That commit says
-"ftgmac100_probe_dt() always attaches a phy_device", which does not seem to
-hold for this path.
+    clock-names = "MACCLK", "RCLK";
 
-The NULL phydev read on open can also be reached on AST2600 with the same
-DT layout. For AST2700, moving the phy-mode check into ftgmac100_probe_dt()
-right after the use-ncsi branch would cover this case.
+but it inherits only one clock from aspeed-g6.dtsi. The old schema already
+accepted that case, so it isn't new with this patch. Both cases assume
+dt-schema has no generic check that a *-names list matches the length of
+its property.
 
->  		phy_intf = PHY_INTERFACE_MODE_RGMII;
-> +	}
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              enum:
+> +                - aspeed,ast2400-mac
+> +                - aspeed,ast2500-mac
+> +                - aspeed,ast2600-mac
+> +    then:
+> +      properties:
+> +        clocks: false
+> +        clock-names: false
+> +  - if:
+> +      properties:
+> +        clocks:
+> +          minItems: 2
+> +    then:
+> +      required:
+> +        - clock-names
+
+[Severity: Medium]
+Can a node using the plain "faraday,ftgmac100" compatible pass validation
+with these two blocks?
+
+The not-Aspeed block forbids both clocks and clock-names for that
+compatible. This last if has no required: [clocks]. When clocks is absent,
+the properties check is vacuously true, so the then branch still applies.
+
+The commit message says a faraday,ftgmac100 node should have no clocks
+("the plain faraday,ftgmac100 compatible takes none"). Such a node would
+get:
+
+    'clock-names' is a required property
+
+even though the block above forbids clock-names.
+
+The driver still binds this compatible through
+ftgmac100_match_data_faraday. The examples only cover ast2500 nodes with
+clocks, so dt_binding_check doesn't catch this. The blocks are unchanged
+at the end of the series.
+
+Would adding required inside the if fix this? For example:
+
+  - if:
+      required:
+        - clocks
+      properties:
+        clocks:
+          minItems: 2
 
 [ ... ]
 
