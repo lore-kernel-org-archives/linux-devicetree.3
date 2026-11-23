@@ -1,63 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795420556;
-	b=RyC7Vai9JP5Xj8UTYgh+E3/i937UWAqMe7scr4xLvKIiiEfvKFLvTnfJjghUfnUNe+zD
-	 Xf1QmzgwX1jhwk0cu0D/oOkjWHI+iFj4niKhHcuLtW07wu+Y72itEvKyFYeItwNYWExFA
-	 0jaMlcIorPZMOz7zvfvLvmQ6zlRsIk1k/uhRgCnorEZdBrTuUKbDhjzSEd0Cbbapi+rSA
-	 aUyyOJQp+gbLA52l8QaGQDHB1ZjBSjOH+8ULSKNJ5P6sdI8MfKl9d1NhCSD6OIAobxTQR
-	 o7DtVYecl3xq4422cIlbZinbvEtEYj6t7Bl33XLN+VXsBfZxWvzQenEMc0EDgjvuSHA==
+	t=1795420823;
+	b=PO6xgUWcy9x6EXm3+eslm/zrYTwNuAHNRZlwMuHSr2l0flYdRS++LUpRDnKwn2kAD8f4
+	 Oak2y+gBtIYxQ+TCtv786j4Ix0j5ce2fl1GqTRAEwo/Rl1KhcVezHNe+E5S5L+LuF6iNC
+	 12SpnF6tBDAC+lD9nOg5uO/Znjxna+wFqHyXY5l/PMn0yEELoocUNRXWi5ugUWLjTju2v
+	 j+bLiMIrHf1XtCLF6ltFaBMsfYwfvhBC6eZdkyaTZiPKyoabjEpQeKCK3mkbJRVghux2q
+	 riXNvXrHdBGekEp+5e3+S0LlZDoiCNslB6Qi0Gs753Uc5ciq0cmxjQGz4fToShmN+IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795420556;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=YUQU3dBsUJdDwQ9xKYFhn6QcsGAgc7ifYrpI/+8q6ts=;
-	b=Qo7QqbXe21ENOQ5wSv/HUmzBCLls1mcn/upZurxArmHOOyvcp8x7Z6pDTGj8cGw4u40h
-	 Mdndk/SnTpM+WNoiHfN3XSkk5pgLhTKtEU77bW+KKgUzhALqVrKehuHlX6e7dt7noW4YT
-	 FEjWmFSYubynCou8mGddifKl1Whydz7rdcRSc1jE10jRA2IifMeVwqyai4UY2ZJVneh3P
-	 /m8kGhhRJZyDpuuggB4Rkoc1ZXQqVYNz4oFY9vH+4wx3YfDzYsmvYi60nRMOVB/eCUDhw
-	 Db2+yqTlV3PNxYFrP0hm6jgleUnyZo3ttv0TjI869NrkMb10W3qhcYVLN5Bq4aZnZ4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795420823;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2OnPm5ivslBz4KVWlKoUxVBmTVqZjfY7/E8iMQZaZfw=;
+	b=yYz7tRUd1Nr+O5oXQR1Sjo7yRC6wKrPTgkFqOwCIEsCBPTYWb6orbNFlBSuTHKxfc2pd
+	 nIllhXR/gVBXq62Jja37GVkac2hwd+lXWyK9rmRPrubBcQDx3UdrlaOdUAO8klogfjXDc
+	 RvN75ST+ZgA3htKgFyAtTsMEwDgDtqdRizFQE2FquLV/pPdGXFX9KFJpOG/2mYkjVRzKe
+	 99YO5oVQPcoA3ReMZKFdBA9eVC0sVlh5nAgYfAWmrT234VqTaOHyK8HvqlxQsxSdjwo4Z
+	 M/2oxgkh1dMeoZ2JEHxb+jlf0pGqK6cMN9K8odXp280rRoXJ/HXzsJR2/K4hivXBgCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=EGMJKwRT;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mGtRMt8A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8248C606A31E;
-	Mon, 23 Nov 2026 07:55:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8248C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9B760A5BC3;
+	Mon, 23 Nov 2026 08:00:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=EGMJKwRT
-Received: from ideasonboard.com (mob-5-92-38-150.net.vodafone.it [5.92.38.150])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1E50A177;
-	Mon, 23 Nov 2026 08:53:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795420401;
-	bh=YUQU3dBsUJdDwQ9xKYFhn6QcsGAgc7ifYrpI/+8q6ts=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EGMJKwRTKvlVDyVh268QA/XzFo7jW4cPhdabLDBOl7m5tsnpdTmgXZ06FVFEeZlPG
-	 195ga8lI/3PnIt/l12p4DcWWXyDw5A7tbgKT+RHjQGpAZlKpS2Y77t3hWQoYd4HGgU
-	 WRQgAamTvdfI9exWsE7wZN8eUh46MyxvbG7ZS0fo=
-Date: Mon, 23 Nov 2026 08:55:49 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v6 0/6] arm64: dts: renesas: Enable ISP and IVC on RZ/V2H
- EVK
-Message-ID: <awPxSN7wctw6xsDf@zed>
-References: <20261105-mali-c55-renesas-dts-v6-0-7dff41bf7107@kernel.org>
- <CAD++jLndZTg0tk+GRo3aZrQ=0rVL+5CA=Swi7_KKQr=iBDs6Vg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mGtRMt8A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97681F01569;
+	Mon, 23 Nov 2026 08:00:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795420822;
+	bh=2OnPm5ivslBz4KVWlKoUxVBmTVqZjfY7/E8iMQZaZfw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mGtRMt8AUlkPvUgp4yNw5Vn3jhhla0B/bnOICYzS/FkE7Od4PQLm+D1YLDHchIk1V
+	 E6KqM0wJlJhobzbOICK362X3py9zo0A7mQ8/R7fj+9Vl9R9Y9HN4Tz8swdLaTV8omT
+	 OKvUrT7LuQftaZfiqTYEm78V21pWUbuIgk2cxuc7uJPNkQNpaH3WzUxUMZo3TNPgbk
+	 HQEF4V3R0VSm0e6Z3wxr/nLsE1FAHJ9OaTt4jOAbm8xB+QCSfozTF5t1WyGIDw1Owp
+	 eHLrRbj45wSuA5Jv7AfYFG/oF6maRyrnvK6ljNVxMzj9Xu49BtPTHbfBig0L/1nIUL
+	 nRJrjveLBXrHw==
+Date: Mon, 23 Nov 2026 09:00:19 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Markus Probst <markus.probst@posteo.de>, linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Lukas Wunner <lukas@wunner.de>, 
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Lino Sanfilippo <l.sanfilippo@kunbus.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: Re: [PATCH 3/7] dt-bindings: serial: sc16is7xx: Disallow transceiver
+ GPIO on dual parts
+Message-ID: <20261123-outrageous-narwhal-of-refinement-b1bf8d@quoll>
+References: <20261111-serial-transceiver-supply-v1-0-40bad0f912f2@vaisala.com>
+ <20261111-serial-transceiver-supply-v1-3-40bad0f912f2@vaisala.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,29 +65,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLndZTg0tk+GRo3aZrQ=0rVL+5CA=Swi7_KKQr=iBDs6Vg@mail.gmail.com>
+In-Reply-To: <20261111-serial-transceiver-supply-v1-3-40bad0f912f2@vaisala.com>
 
-Hi Linus
+On Wed, Nov 11, 2026 at 12:28:02PM +0000, Tapio Reijonen wrote:
+> The SC16IS752 and SC16IS762 describe both of their channels in the one
+> node that references serial.yaml, so transceiver-enable-gpios validates
+> on it, while the GPIO belongs to one port: the driver gives both ports
+> the same device, serial core requests the line once per port, and the
+> second request fails with -EBUSY, which fails the probe of the whole
 
-On Mon, Nov 23, 2026 at 01:11:22AM +0100, Linus Walleij wrote:
-> On Thu, Nov 5, 2026 at 1:53 PM Linus Walleij <linusw@kernel.org> wrote:
->
-> > Describe the optional ISP DMA line-tick and IVC frame-start/frame-stop
-> > interrupts. Add the RZ/V2H(P) IVC and Arm Mali-C55 ISP nodes, connect their
-> > video endpoints, and enable both blocks on the RZ/V2H EVK.
->
-> Gentle ping on this series, everyone happy?
->
+Which line? If you mean GPIO, then use consistent naming to make it easy
+to understand and then that's Linux GPIO limitation which is being
+fixed, thus no need for bindings change.
 
-I have queued the patches already for my forthcoming PR for 7.5
-https://gitlab.freedesktop.org/linux-media/users/jmondi/-/commits/pr/mali-ivc/for-7.5
+> chip. Reject the transceiver properties on these parts until their
+> channels have nodes of their own.
+> 
 
-> I guess the DTS patches go to the
-> renesas tree and Jacopo picks up the dt-bindings and the driver fix?
->
+Best regards,
+Krzysztof
 
-As we prefer, I got a PR for all 6 patches ready.
-
-> Yours,
-> Linus Walleij
