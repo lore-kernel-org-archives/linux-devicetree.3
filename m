@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795394982;
-	b=cEw+z7XmHcsGP09qWo4pL310TUeN5DdBI8zZc6yhavi4wz07ZCQx5Gd+/PKM+HYiUSuj
-	 oKbtM3Waqh8jmpgsQr0if4l3TXeWuCYXbsTgrep5xpBHNs4OQA7JPCt2jsdhK+tDDMRBk
-	 dZ6SwwqmJ+ILPCyrNQc/lGFAKkVOdDKQpxBBjldjadhNlhPvHs2Hg/2RXGYWMxc3PxJg4
-	 Srcatm/2smFdEpX4pEJbQTVBOFZVjna+tVAUdMMV7NAq8biidaW1R2C6lufngYqSC5wTl
-	 JJ2G6Su9K0lP22PyktKUfyYlHDOrz+h0HYRU5fTX8O8niezP7hViMO/3VG1nZms5q8A==
+	t=1795395427;
+	b=J9hLWmkciBaYp0jlsY9GWaXEmU3JQ+U1fsudwqPthza5z3e23+me+WiPevCMDty4AhGH
+	 oNEZ6+mW90LdtY8ZcJrp/b09UrjMZxIE7dPOZ8CgAxc+oXIyfB3AF912w//3X5wmRJ8ez
+	 BXKET6Nt5Nq6SoAj8WCp/m9boAoG/Y5AuG/iPsPsZ8xcgVOU3zniRNrn5BEhDjFBXxenz
+	 bgUM3yzAfvSLCSWrZtl8mtWV9krUkOqP7oSc+TUALEZWQlpYWpHGY4DXBZBQLGaZAQCyW
+	 7Hc1z7d8Th/YrFF2tV6UViL3hu3F/AfjYmHmo5+pcv0ntDDskyW8FF6OWAPyYdzFmZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795394982;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=dBNSkOvXBZR3CJPdDxhio9zzIZk3YmEPw+7Nrxa4TV0=;
-	b=y5gbbkIkI2mx3pFN6UW3rpokBXsWs+RNXZ3ibu4XOSQwMDjzlc0Y+EVZ9qTg3Vtumvcn
-	 /V5puGLcZt53H/1OzwjB1Ka4/g5OnDIJiMGaSbixpGacGQ0S20h0KH1qkn0Boh8I+4DFy
-	 pBLJKX6v4uKx/2bV06TILnGulcZhNPO33JTX3p6CRYHkUxkp//Z7YgzAmPAlxsTvdud7h
-	 dKZLXhBAyeUt34j9XSSZSSSkautyFMM2caafWYfnilJ7Ob2BSdOlIbJasj/xLmTgiu0rh
-	 mV7dseEkVpYbFg1QZeXKi3DOFpqiX4sQxt91a+IqGxKB9xOINbdsZq3RmOlv6ryl1Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795395427;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gxvaU6l29IKFaRAkpXOj2cOR3APQrTCBsOxVrKA4i9M=;
+	b=Lhc6qcLJy106TgVdYg/w8MLieyYN0yuSRhCgbi2MOPwTCR3vRihdjYWsBfRYhhCvcYWp
+	 nxRRJTifsloN2Y6J+EWoHvzUVRPLry6dVw0Bd1jopd1ryQ+kVcmToyC0joun/4BCtWvOM
+	 On3mV44JEo6aDe/E82PUPzDJR8t5HM23yMcmLJTGPoj8LWMKPLXC+EfePPzhjMZ6vyyD7
+	 0Mpy3tCXd7/7owTxMObCbWujajwMcbrmDVA+/TuAUjo6TWuSPe4XZ0oMqOsZrSojmnqfk
+	 Y57dIiJclwmNbxMENYqIAy/I9n4TZ7DjXYE02VUuzqFWiHTc/tV1KqBmXnSc3cfi4eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lxVsU9NT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E9fJI3Ds;
+	arc=none smtp.remote-ip=91.218.175.195
+Received: from mta0.migadu.com (out-195.mta0.migadu.com [91.218.175.195])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B624C606A31E;
-	Mon, 23 Nov 2026 00:49:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6C4606A32A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 00:57:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF6C4606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lxVsU9NT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118381F000C6;
-	Mon, 23 Nov 2026 00:49:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795394982;
-	bh=dBNSkOvXBZR3CJPdDxhio9zzIZk3YmEPw+7Nrxa4TV0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lxVsU9NTVqhAJXB7sKU3Wyu5gvbntVlcQ/xlCt8WjtvExMXALM0L/XL2wIwJ34gsA
-	 zu4SjMwB4UfwOjxpqFk2pwf+6ex+wMGxMfZkSZv8NCCAO9EiLLL0wG9kQwFOi4dNFt
-	 eRbKtdhXowY0wsZTjgwWix5KPn8WdrWKboSNoMiWaRgq3Hh0VADvn0ftj6ikcRt5ye
-	 lij2bvBlsg0UFO6YQxT5oYAKVGl6jxO9IoAoqABQUXGS2mENPz2cll2Z78FMru56nL
-	 KLpTzFe/Z94rkWZpvBiT/QB4FCmxo7xbbtvEhZyWVGvYIVgutgvxSK6jLzYWnlHzTG
-	 Gz0H78iBE8aLQ==
-Message-ID: <sashiko-outbox-228491@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] clk: rockchip: rk3506: Register the SAI MCLK
- output gates
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xiangyu Zhu" <1194781887@qq.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <tencent_4C9312830F80807EB3C015E9A2653587B906@qq.com>
-References: <cover.1795394137.git.1194781887@qq.com>
- <tencent_4C9312830F80807EB3C015E9A2653587B906@qq.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 00:49:41 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E9fJI3Ds
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eWEFZWHZfFCAhK2XmNa/wVqm+6q8zSGaxKeXW6zWVNY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795395423; v=1; x=1796000223;
+ b=E9fJI3DsDB5cz5isO/HQiSAo1jOm3YV9R/iPtuUpw2slYkkPM0HkaIM4ab8iCv8piiKJAk3y
+ ZOZQ+Dg1c6jNCTN2wjfaruu1fLN4F7b/FeoILjEt84Acn6qMWaHoER+ZmzJvVe63hnDg7KDAzHx
+ vexa9QqkEWgeWIDb3m1lisUw=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8e70aef377a98481;
+	Mon, 23 Nov 2026 00:57:03 +0000
+X-Mizu-Trace-ID: 8e70aef377a98481
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <40455616-b1af-4801-865c-187bcb2e0c39@linux.dev>
+Date: Mon, 23 Nov 2026 08:56:56 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,84 +57,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] riscv: dts: sophgo: make sg2002-milkv-duo256m-eth
+ overlay generic
+To: Hiago De Franco <hfranco@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Inochi Amaoto <inochiama@gmail.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Chen-Yu Yeh <chenyou910331@gmail.com>,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ sophgo@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261104-milkv-duo-eth-overlay-v2-0-e3d2d39cf229@baylibre.com>
+ <20261104-milkv-duo-eth-overlay-v2-1-e3d2d39cf229@baylibre.com>
+From: Chen Wang <chen.wang@linux.dev>
+In-Reply-To: <20261104-milkv-duo-eth-overlay-v2-1-e3d2d39cf229@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] clk: rockchip: rk3506: missing system GRF lookup in
-  rk3506_clk_init()
---
 
-commit a7ec6ea6b886d5202ab753e0b478970ccba36fb0
-Author: Xiangyu Zhu <1194781887@qq.com>
+On 11/4/2026 10:52 PM, Hiago De Franco wrote:
+> The overlay only enables gmac0 and the MDIO mux, which are common to the
+> CV180x and SG200x SoCs, so it can be reused by other boards such as the
+> Milk-V Duo (CV1800B).
+>
+> Rename it to cv18xx-eth.dtso.
+>
+> Signed-off-by: Hiago De Franco <hfranco@baylibre.com>
 
-clk: rockchip: rk3506: Register the SAI MCLK output gates
+Reviewed-by: Chen Wang <chen.wang@linux.dev>
 
-This commit registers the four RK3506 SAI MCLK output gates in the system
-and PMU GRFs, looking up the PMU GRF syscon by compatible and registering
-the SAI0 and SAI1 gates when it is present.
+Thanks.
 
-> diff --git a/drivers/clk/rockchip/clk-rk3506.c b/drivers/clk/rockchip/clk=
--rk3506.c
-> index dd59bd60382ef..956d5e9238b9c 100644
-> --- a/drivers/clk/rockchip/clk-rk3506.c
-> +++ b/drivers/clk/rockchip/clk-rk3506.c
-[ ... ]
-> @@ -608,6 +609,8 @@ static struct rockchip_clk_branch rk3506_clk_branches=
-[] __initdata =3D {
->  			RK3506_CLKGATE_CON(18), 3, GFLAGS),
->  	GATE(MCLK_OUT_SAI2, "mclk_out_sai2", "mclk_sai2", 0,
->  			RK3506_CLKGATE_CON(18), 4, GFLAGS),
-> +	GATE_GRF(MCLK_OUT_SAI2_TO_IO, "mclk_sai2_to_io", "mclk_out_sai2",
-> +		 0, 0x4, 2, CLK_GATE_HIWORD_MASK, grf_type_sys),
->  	COMPOSITE(MCLK_SAI3_SRC, "mclk_sai3_src", mclk_sai_asrc_parents_p, 0,
->  			RK3506_CLKSEL_CON(52), 8, 4, MFLAGS, 0, 8, DFLAGS,
->  			RK3506_CLKGATE_CON(18), 5, GFLAGS),
-> @@ -617,6 +620,8 @@ static struct rockchip_clk_branch rk3506_clk_branches=
-[] __initdata =3D {
->  			RK3506_CLKGATE_CON(18), 7, GFLAGS),
->  	GATE(MCLK_OUT_SAI3, "mclk_out_sai3", "mclk_sai3_src", 0,
->  			RK3506_CLKGATE_CON(18), 8, GFLAGS),
-> +	GATE_GRF(MCLK_OUT_SAI3_TO_IO, "mclk_sai3_to_io", "mclk_out_sai3",
-> +		 0, 0x4, 3, CLK_GATE_HIWORD_MASK, grf_type_sys),
->  	COMPOSITE(MCLK_SAI4_SRC, "mclk_sai4_src", mclk_sai_asrc_parents_p, 0,
->  			RK3506_CLKSEL_CON(53), 8, 4, MFLAGS, 0, 8, DFLAGS,
->  			RK3506_CLKGATE_CON(18), 9, GFLAGS),
-[ ... ]
-> @@ -804,6 +818,15 @@ static void __init rk3506_clk_init(struct device_nod=
-e *np)
->  		return;
->  	}
-> =20
-> +	pmu_grf =3D syscon_regmap_lookup_by_compatible("rockchip,rk3506-pmu-grf=
-");
-> +	if (IS_ERR(pmu_grf)) {
-> +		pr_warn("%s: could not get PMU GRF syscon\n", __func__);
-> +	} else if (rockchip_clk_add_grf(ctx, pmu_grf, grf_type_pmu0)) {
-> +		pr_warn("%s: could not add PMU GRF\n", __func__);
-> +	} else {
-> +		have_pmu_grf =3D true;
-> +	}
-> +
-
-[Severity: Medium]
-Does registering MCLK_OUT_SAI2_TO_IO and MCLK_OUT_SAI3_TO_IO fail with
--EOPNOTSUPP on a binding-compliant device tree?
-
-The commit message notes that the CRU already has the system GRF via its
-"rockchip,grf" phandle, which rockchip_clk_init_base() uses to populate
-ctx->grf.  However,
-Documentation/devicetree/bindings/clock/rockchip,rk3506-cru.yaml does not
-define "rockchip,grf" and sets "additionalProperties: false", so ctx->grf
-is ERR_PTR(-ENODEV).  Because rk3506_clk_init() does not look up
-"rockchip,rk3506-grf" or register grf_type_sys via rockchip_clk_add_grf(),
-rockchip_clk_register_branches() falls back to ctx->grf and
-rockchip_clk_register_gate_grf() fails for both SAI2 and SAI3 gates.
-
-Should rk3506_clk_init() also look up "rockchip,rk3506-grf" by compatible
-and register grf_type_sys (and if the SAI2/SAI3 gates are moved to a
-separate conditional branch table, include that table when computing
-clk_nr_clks since MCLK_OUT_SAI3_TO_IO has the highest clock ID)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_452BA245FE6=
-A7C7308A5121F5281E9E6A807@qq.com?part=3D3
+> ---
+>   arch/riscv/boot/dts/sophgo/Makefile                                   | 4 ++--
+>   .../dts/sophgo/{sg2002-milkv-duo256m-eth.dtso => cv18xx-eth.dtso}     | 3 ++-
+>   2 files changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/sophgo/Makefile
+> index 49639cb0888b..440acd0aa55a 100644
+> --- a/arch/riscv/boot/dts/sophgo/Makefile
+> +++ b/arch/riscv/boot/dts/sophgo/Makefile
+> @@ -1,12 +1,12 @@
+>   # SPDX-License-Identifier: GPL-2.0
+>   dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo.dtb
+>   dtb-$(CONFIG_ARCH_SOPHGO) += cv1812h-huashan-pi.dtb
+> +dtb-$(CONFIG_ARCH_SOPHGO) += cv18xx-eth.dtbo
+>   dtb-$(CONFIG_ARCH_SOPHGO) += sg2000-milkv-duo-s.dtb
+>   dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-licheerv-nano-b.dtb
+>   dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-milkv-duo256m.dtb
+> -sg2002-milkv-duo256m-eth-dtbs := sg2002-milkv-duo256m.dtb sg2002-milkv-duo256m-eth.dtbo
+> +sg2002-milkv-duo256m-eth-dtbs := sg2002-milkv-duo256m.dtb cv18xx-eth.dtbo
+>   dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-milkv-duo256m-eth.dtb
+> -dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-milkv-duo256m-eth.dtbo
+>   dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-milkv-pioneer.dtb
+>   dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v1.dtb
+>   dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v2.dtb
+> diff --git a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m-eth.dtso b/arch/riscv/boot/dts/sophgo/cv18xx-eth.dtso
+> similarity index 66%
+> rename from arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m-eth.dtso
+> rename to arch/riscv/boot/dts/sophgo/cv18xx-eth.dtso
+> index cc93746d932c..cdb8db063977 100644
+> --- a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m-eth.dtso
+> +++ b/arch/riscv/boot/dts/sophgo/cv18xx-eth.dtso
+> @@ -1,6 +1,7 @@
+>   // SPDX-License-Identifier: (GPL-2.0 OR MIT)
+>   /*
+> - * Enable ethernet on Milk-V Duo 256M with the USB & Ethernet IO board.
+> + * Enable ethernet on boards that use the internal ethernet PHY of the
+> + * CV180x and SG200x SoCs.
+>    *
+>    * Copyright (c) 2026, Chen-Yu Yeh <chenyou910331@gmail.com>
+>    */
+>
