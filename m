@@ -1,108 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.59
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795453049;
-	b=maHmz54DT9ESOWepy7kOr3UFs6SsisTzQHBX1o1TMvsw0GuE9Cj5aizi8KHMsnc545ST
-	 pPGM5QKW6k2WJlZ45MNRYpg8UuymN0+OKtFSIU4Oe94Vj/cZwsVgdy1Xa6yGiL6AQ1J/W
-	 x4S32zjUVSQxiYZ5Bqd3HBMHUINMm7FM3TPSF2VBfZi9Hqp+OYur9tCSVTcLiURYxvgPQ
-	 mnH8X5MJndF1L7wOTOZwBqr+jeEm9sV7/8Hm+HhXZw+PKS6DPV+mgd7UrrtAs0Ef6W94v
-	 wFj5fJC768HhHi08feT+5D07aXbuTKqsH2J+f6iTZ8bJc6ujB+5baIIoVRA0RUYmmZw==
+	t=1795453057;
+	b=YvpPzsOJiw4nX5x38BWuMoKcywlGB7O0TpJBtzB1gmGdzX65uWbE5JThHFUF+fk3EI1x
+	 z2eLumfUElG8NkjS7sYw0Lc/rrNvnB1g0gYfKjaXsq6J8FVmlW3PZAwqyag2A1o5Bb3CJ
+	 s7erO0dwq/zsF+TNM0cjy+V4AQlOJVapEZ4pMoVBoSKIJQCsJmH+29zpeH5O/zIrfGv5F
+	 8IRxdRT7Nop60s18lkyTfX8MYc7k9dZ+7G+tKmB6S55NnYLOjRygySsZTc29PFaBlo4E4
+	 vpH8vgfKMqulA7ZJC7SYw4SO5N9i3PMVnqhrdnyGd5UPV3wbW7bJ8gdNp9sn5ml9cVg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795453049;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=80aQkLY6UjaQSByLlgddT0UUZMb+tPTxz+bcynB4vJg=;
-	b=hMaGz+L8rX6rJz6hHUWVcytU5BD4tsVNRr4iMqaUGO4iCY2MrOXzbniP/z6djXYM8uj7
-	 dDuaRwMlcg8JI1A8wlU95b3mHz+TNaHRwerewsqpn1AJdjgLA5PbfI8qIvFRMW/xO/BkP
-	 ym7gyOagpMGammyWsEltQ5qi/N3DUvvvjhZyZU4NtJywBi1Z6v+IUiySvGpKhnlUi0T8A
-	 Sj+jqW8WPk8fX/LmUxYTy/t4WMBkbBCIT5ItJkcDJxQo+vZ5OIV8C3HMqZ+r1YYE0KMao
-	 jf/Cg9FGYjWQpkcxktHJeSY5KO+N5OhVDMJkRAnr2jJAKofa/d60mXqHe4fMpS3ppaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795453057;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 In-Reply-To:References:MIME-Version:From:X-Google-Nh-Sender:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=7dN/vVzubn6FBy5JBi1JKDPMoy3qFWTVECLWV3xaYhk=;
+	b=IRKTdqY0ageO67ALu1bcVbLjvWmSHJWniWVLXdCtz7ZNq+FU6CdI7fmIItjUnfAWyKqt
+	 QegKNZ686hhk5j+x1NPWxV5KF3jK0UDQvpUQ8QC/vzXAEvyaKyaqfEsitqRjpArAwtbcx
+	 QBOdtUsHYI2AhfLNt1yJvtf1pUQ5qblw7tzhESNSxzmTif1odd2YX8NECNpc912IpshVP
+	 IxJ8h55C+Chp8Z8+rLqBHtn1FU2aIUiYhLDUtW29aDXf41OGxDPIkC5fQRS8F62bE5oDj
+	 Gbh+I4+3nGc4EiUqNHvyN7rjlQor048ge7+SeVaz9fjrm6Ae7leeq5bhjCupGFPiADQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LshtOkQ2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.59
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013059.outbound.protection.outlook.com [40.107.159.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cy+ADox4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1DC606A327;
-	Mon, 23 Nov 2026 16:57:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A1DC606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A53F606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 16:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A53F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LshtOkQ2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zs7qBfusIojnOd7uT5ZuULSHXUMyNkr5C19TvUj3IC/eJlxslFOUfrUQ1kbjYQz11bZaksvtkhDHMQ6DBJriUoHLhN40do4mmGntesdzy0isRWK9Xb67PCh/WtHKNBbJCLm4pcvcCTFoz9nPPdCmqBcg4ahxp3tHIJ1wCIey/ROan08LAn+Fd6NrhEvUTwM5/JSz8RXYxohqXNLyQ1n3QzFAGPkie/LSbDoSvQEHh049jW4xB4Vy85BHDl1NKdjkn/1iiBWDD/c4zMxbIkG+rV0muD8o9w3Mb9lFDBYzCF4kXa6hAGkPvSO4/E+VQ9dBVLJKJWiTcpDXGlBbQeRUzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=80aQkLY6UjaQSByLlgddT0UUZMb+tPTxz+bcynB4vJg=;
- b=xgPrRg6o16W2XaHoIeU5udrEj9Nu0AtpFWFq4iPLZREdUHAj0dLLjDee+/xtDuOH6RnRUWlskIAHptsJu+/TELHBiGTpcv3deYzKq8SXNSxcqrWQZ7fLAXdQ/cyWdWqcjk6jRshSfPeSn2ozWT3vWmdlrXV0rS3FdqNYr/oKZozE83I0DoopsjABSXGYPgOTBbhi1ILny1mUJbTy84kBGe2Yd3+OsB6xcdELqFj5QREP/eW3eLiw/1zLv7HPySk1CUVgJgjjq7kZDefrGTiTIIjytypsoMghCfeVjdSlJPU/LuGNnZbmyL5SZ/4THonYqsFf2ttGub0p139zShfmhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=80aQkLY6UjaQSByLlgddT0UUZMb+tPTxz+bcynB4vJg=;
- b=LshtOkQ2sFJniHDEDEVvYijnnG2BglxQ+PmvelLJVZ0uWo05jooazqtF276OCRf5+kUu6KzEI5vJIERSy8TQQTG5F0BNzzYDNl5JQBM7FpKJF3emFB9i2POVF3glBCCnNVnq6O9tgFJjxviClNthoBzd1vmXlBDiq1esAXmbnuSqKm/eY7B3saxjYpI7ML9a0F2BXDSef4G92OI8EzriDu6G3cM7Gf1ZnDD56aR1jGifEyfQZzRDoke9uKpppI8tXKLHTsRlvFD+foY40/30fJK2QI7RgIEHjS0LBIANwVQ1hWR1kh4pJ4GXTqksbq39ePmqRKKIvSAch2behZTTCA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM0PR04MB12001.eurprd04.prod.outlook.com (2603:10a6:20b:73f::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 16:57:22 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 16:57:22 +0000
-Date: Mon, 23 Nov 2026 10:57:11 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Niklas Cassel <cassel@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH 06/11] phy: qcom: qmp-pcie: Add Nord endpoint mode init
- sequences
-Message-ID: <awRwZ8ydn6W0pR_6@SMW015318>
-References: <20261122-nord_ep-v1-0-6d8839ffa9aa@oss.qualcomm.com>
- <20261122-nord_ep-v1-6-6d8839ffa9aa@oss.qualcomm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261122-nord_ep-v1-6-6d8839ffa9aa@oss.qualcomm.com>
-X-ClientProxiedBy: PH8P220CA0033.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:348::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cy+ADox4
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b86bbce3d1so4669981a12.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 08:57:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795453055; cv=none;
+        d=google.com; s=arc-20260327;
+        b=M65za90cDxNwrCTNt1vgyTBU+DicUnUtYl++vW3P72LlyN6P/MqjKNSS0qX7zUrnyM
+         hSr1DQTI3y8AqpAeas29j6sWS9GN0dS2T8Cq2aHGmWLgAlLtjS1iFNi3hpQTckYtTjJf
+         GHW/xnExalU3ozc05oL+JWjeI1Bn1h4jZB0M5EQf+mtpoxb3lRHJVBV/DO/mslqbiKLM
+         /AQz7LEkyxdefUK/XpitqNOiLsKgPe7hZD98SWTkKVvXE4/faG4D6wZ5ZcVn8ZCwvF3V
+         o3W9ay1U3zm6vMiKFkvB8TWvYn+3F7bAdDTaf1Q0QV7+kQPzZY2AkBOFD2MV9DvNhYJu
+         WKUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:references
+         :in-reply-to:dkim-signature;
+        bh=7dN/vVzubn6FBy5JBi1JKDPMoy3qFWTVECLWV3xaYhk=;
+        fh=uvkgiOV25RkyLu209bZw6898DgwEvVIU6ZmSYG1lkxc=;
+        b=RtZS1/rk+7dqOoq6u+YH1SpcH6Ng8Hjwfou/dqFqW51TeTT2fjqgWGX6ziVTq4yEFC
+         AMX4ci7yOEW1n58ZNuGzmZEYecF2tgJx73VdH8R/G6TSxNmgbOMu8LjFnmmpIA3K18eL
+         xVPOaH1wZXGXe8pfIL14SVGzhFwtR5IbROY1aTdVEBMJc+yzYpEF+pxloXhxVRkqlUwe
+         ZI8aPtmn6oC54aqpuyOMCuiG7plSY9Ha2Y8R1SWRR1z0DQ5KllXwyU8EcZTSBiTKKqod
+         qTWyo/PXAkP21p1ZOF95KZrIWNfbh5wtw7JyN+8oWQVL/JFTeoc62GqqChLS7NteyCbq
+         nmUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795453055; x=1796057855; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :references:in-reply-to:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7dN/vVzubn6FBy5JBi1JKDPMoy3qFWTVECLWV3xaYhk=;
+        b=cy+ADox4A65zhFKOUnE2Xpili3MQn+5JJYxZAICrJlBF8Rqp3Rkuh0x5LfNXdZb/pd
+         xod+qC/kr3RmdAI86IbWSUMdQ1+UTvZw1wxZ0ZfE3Lg6EJ+o9Ezn3xbTUDoIUnYVh7Rh
+         bOoHEHukAGoZ456FZ98XGTS7umRLfWkjVCN48FZ7LqEyM0ZGjwPUO+NXDhbpI2i9BSlt
+         1/EIfMR49TQBZ16Ty3FdBDDdhd/U1c5xnfoF+39RJG+jgVby55KrJCKp5CBO0e2/3sQU
+         x7gIaXNfYuzStvsYfXx1qYqbUgu1ImDpvWsosLIrekQaFWH0HLwiuMhzEaVHx3D0y1oH
+         fSQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795453055; x=1796057855;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :references:in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7dN/vVzubn6FBy5JBi1JKDPMoy3qFWTVECLWV3xaYhk=;
+        b=WSSF+JQIEYxoR7jtpbGoOEwXdCl7QybURTkxEpYt9EArpOA95bcJLRDP8PBKeGp2uS
+         rgxWqC2ZBsCGMCJMBYIFI5L52qqvzg++JyRU8xrwttonTGn6VvHMl9yFr191DB/TD5hq
+         yWd8xDVyqrD90yJQ/su7t461yVJX1IetRKO6XvljGwc46cscTyGhK0QlCgDkCNfAQpkd
+         ULcOwDF48BvVwLltLbNQU0HrqiHCQq1JhJmlhmzUmVOsPqI6se65HqNkMpJetrjiIaIl
+         9Q86kL5VM1KEmmgLgl5gPD6cPJuSwtN+U4Z40VWhwTWLjhHCwkbB779uSYNVMOVJKwIo
+         XCBg==
+X-Forwarded-Encrypted: i=1; AL+hErEUiIe8S3sXnIKUDXkLgPhikjZ9TLmrhOXPGwa7ZjxMcg3nIcpGWVDJhY1paOBynCRAPuDUoEIdubHA@vger.kernel.org
+X-Gm-Message-State: APuU4Z9t54lHQucxLhZco8YOT5PKQhZJzB3M4/po7UPcuHaCRYt1cP2S
+	kTPjlGwlZj14v1pQ0oacu+q+WVifF+nCJGNokGonPaIxFWzV00RIw8lplZQLGwzj6J97PjTKQAd
+	vFpV5Pmv7AwXt5MqnJNP+H99kGB91U++bL+iAZ0w=
+X-Gm-Gg: AZFdTZfid+XbNivfulFSG2LUxLT2ln4dwzGYUI6w5uOVr7ZwpiQwBhceQj5enbtmuPj
+	mhybHGzAfkm/JDMU/yyth6pvpb63nmBF+wWsldOdpA3ZwHAss3d+cWIu02smd35Djq128jKagEH
+	+GUMlyG7zZBUMzs0+UOYmk8xdAj9nkN14bZbQq2VvCh+nR+iBDWdu1GQq++K0wzvYJltPV+j/yn
+	v3Iio+AW/UQjHOzzAI09/gR2K8I26l6rXbIe2sRpGsrrxAWhvihFvnYV+zomThB+8WcaJ9ocBVO
+	erW1JCV/qNdLGknPnwTNu9xou+lKtaYormPDjHJQSQ/2CX2CDURP44bsSg4FLskAc0vhU2FgBfX
+	4eWggAWrvnbLGzOS1a+Igc3nhHYbjBs1BKi9X4Yw0A4wnKT2VUfNOp30U99jzHAn+lpNTPbNv5a
+	x2K1pVMvbq9yP3fSmyk0Umi5o=
+X-Received: by 2002:aa7:da13:0:b0:6b4:1037:2b87 with SMTP id
+ 4fb4d7f45d1cf-6ba37e8ded8mr5943359a12.31.1795453055285; Mon, 23 Nov 2026
+ 08:57:35 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 23 Nov 2026 08:57:34 -0800
+In-Reply-To: <8f9f9752-4c23-48de-9483-63268627ff3c@arm.com>
+References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
+ <20261111134919.90264-3-vinicius.eduardo.pedrosa@gmail.com> <8f9f9752-4c23-48de-9483-63268627ff3c@arm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,234 +109,477 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM0PR04MB12001:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbc0325f-08f5-48f5-316a-08df4982d7b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|376014|7416014|261102123227099003|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261026121527099003|11063799006|261026140227099003|4143699003|56012099006|10067099003|22082099003|18002099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	J6/047VgWei3sTDt8ch88N3a1Nx1xpLpT+aC3XI+HTSf9CFo7WVU2pkjYl1YjdXTnV9D2qAHfTnmDqFNvGrVVZm2N/B3Uaemt1B+GMfK/0NIl/PunkZsru22MekxZl+4D5nBxDqOSQ05balTsJGfLm0xtS23s1ycLKHFp0V35xJiQ85Gcdnx/dMY28GrHNSI5RJbYaFwXPAgKKO8TZqy5ZU2ZUKsFfwZb27tvgXMEgI4JbDzGN4IaHM4V8/pDY6fdblVJlXuOl8/7hOT0Uu/gy+Q2/N8lK7IaKh4YoQwk+5In1IICJFIvIuOJZDjF/1wK7IisYb8bqndWBQJ7Olg1m263tc5swaEX21RdFu2EQXO36yailGSglcdXYxX0qsYHhslA0gpGt6SiA2Q/gHwgShMgtCeAmb5S9RgUPchX6fdMSNY4a8ZQPh/egzgSTf+ngN/pyfcCCZerr1Tvf4gplUoAcEQDQBNCcun9FcoQh0Ws34IKotzIJbf2ZgiTAreIkO8j7V/sLGht8bTgyHVhMQmSqbT41UWKFs0i7auvE5Xhcuw2vTx0kpW+FQcfYzjXi4ar6C1M9LVOUpZVK9w9CO9vBsU+H93pu1d5spl8c4ui2y6L/BzeM28Mtq+Y3arcDzkS1MDJWElB2keFWSUC1MeneWXZ0eMOkkM/+HMnOI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(376014)(7416014)(261102123227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261026121527099003)(11063799006)(261026140227099003)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SsgJeaWXV/Pyqz2D8egRyphPyexMpj2kMQaKhsgJwkaqyqQASyRV5reibrBV?=
- =?us-ascii?Q?UI17QVYwiqCZoon8Ad4BIlu+c2l8wkW3pevRlRMS3bvv/0JpktfSx1rFNoYx?=
- =?us-ascii?Q?yTYiLezdQ0hhou63UyNEqB6RURSMfuuI9camlNt/j4fUAS3BrHa11n/xSexQ?=
- =?us-ascii?Q?uLQL7hcYVKWBFCwkzgr0rtgTDSjiquTAfE2rmEmssPUl+UWUdF3Q8C2oD6mZ?=
- =?us-ascii?Q?nQWW6Ag7Q66s2cDCB4sWMV7BTYP1tDYGSJ1yut/wTh3U35cyMNPWWptCwjcC?=
- =?us-ascii?Q?fQa8IjdR6whnvTwCY8yFF2GQMCjqgrKjkt92rJDh7LQTFSVmI96bDHrCFMjx?=
- =?us-ascii?Q?sNHQrg8IxAuF5OJghKMqCA8o0+d0Lv8wG0h2INXKeCD7yD1dfulaRX1tTpZU?=
- =?us-ascii?Q?rNhbgd+lh6NbudFDZCgysQeWLKLKt0kaeYYa9TFmIVYV6ZK7Fl9KQ8uh9nUd?=
- =?us-ascii?Q?YrwgjHZn/kwmPYL26/7nT6+iJdPuIISguzTTDAYw4fkWhjj4IXiptQPBuSp4?=
- =?us-ascii?Q?r7EFwAQgvVKJTVLGLaClhmsF+wO4dh2K0SErTd2RNxxfQMoDmRsEYkdiGdE0?=
- =?us-ascii?Q?dQdxOP6cEhPeOgd33NvlBP1XvXQVPKvS+6cH3eNSAJKCe4wc0pgwiWsnL+gq?=
- =?us-ascii?Q?+92ld2bmcw7IFoGDSTAhuGIOkF/HSI6pOGU9xTDhcvs3CrhV0IQzu/l4wich?=
- =?us-ascii?Q?6Cdd8zaHdE0XMnz1pGykpZjQwxzzbniF9Jjo4Ye54tQr4zmTdlXhtRCilTeK?=
- =?us-ascii?Q?JTE9tE84XjXz8F+QKi6hxTVwkiubBbV2d/UrnpEOauLbk01iSIEuivgpGIBp?=
- =?us-ascii?Q?n+ZPC2GAmob0JUMJKn44meNrL2zdoUQgM3sGWTezg9gE56TylYXJJZBRih6q?=
- =?us-ascii?Q?wL+8EwZVUKClRDALBnKHhfKov1HxaRkGvcQDNiNgyQfdAc4ooLwluUhR9ED0?=
- =?us-ascii?Q?Hpvf00uOM1vVUcq7KGgnQDT130DPLX3fvUu2fkx5RlNwyLUArESk33MHTkgW?=
- =?us-ascii?Q?DmEeekkU4xf4ptFU9PEga9sCqc4PJo44uqOFnZ8wIhpJ+6anwzSvdN92eI4c?=
- =?us-ascii?Q?xodl4Mhv3ocW+hloX6C3qrhNSrgFVNjVgV6qDCHn89HyfrNnjOsMIYoS94hn?=
- =?us-ascii?Q?5f+H4oGN4wsb7/BDotsXuxclxzUxfxEoXLKUKga+nKWUlHFuxvqBaYbFKBk3?=
- =?us-ascii?Q?aILjGdCO6In4r4IMsDrFKYgLFnRP5Vu7YvhxyEM8l+9ndwUKIwsFbZnLBCpt?=
- =?us-ascii?Q?VdkKtzct+CYkkJuz0j79M2fuIilDUFsIqDxAO1Vk5i3VjyUsQSM9X8KAM8mr?=
- =?us-ascii?Q?9MNcl3HGUXhh+Bxbls13fbF5GEMWJee+0TEPa2C5gv4b2J6L49DGmTlqfJsa?=
- =?us-ascii?Q?Rfs4wu8zI88T0pCXZJZ8ooejLTThQNeuZmpxjKqpw7fIoH6pTwF2e3k4WbD1?=
- =?us-ascii?Q?Rx7Lz8+beOULSixxYkzK7iqca6avPGRAnSMAlGwfDNnMjvr6n3lOfY5rlTaQ?=
- =?us-ascii?Q?dc/FtPK3fdCXjoj0l/C+o6WQIBWMWVNFJhjGmRhK7sWrmyd2BfP8pUPJDIv8?=
- =?us-ascii?Q?hILrHPTuh4BL8NbbtTa6O9k6DYCFsmouWkjZAeFQtWbOxGuhFS3WQV8YeCdk?=
- =?us-ascii?Q?ValEZ0FkM0tay5a4rGGC43L6q3kbAG2STAMWit2eQ6qusjsGTEM6mDrYlBzb?=
- =?us-ascii?Q?SQuEG5Q/BVrhETRU2uB6TzX158BM7lMnKoJSOdfiswX2KgTWbvLiCX2z7Qmx?=
- =?us-ascii?Q?4vvNB9elvcr/PwgNxygXevMNfiB7LD8t3l6dGcGopQh2ry0yF9w6?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbc0325f-08f5-48f5-316a-08df4982d7b3
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 16:57:22.5424
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XzwaVtyOAu5/LX5d5/4oihHWK3HgCKpvHYZMN4sTLsRCg2gDG45urp7K53u/h4fIUhmyQMMOnAi/svvG3LvGdDCA98GvsrOtqcgTF6XugkFHOXCpN8xKYgPcL60lZ57x
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB12001
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+X-Google-Nh-Sender: AW_J_UrASlPMOi1enYGbDd7RalW38PQ50ZaFfiwV6Y_BxvNUm5lQPRQ5rH16_Fvib--E9iewX8hh0ND8RTsKAmoDL-KACpMwZtTzhG4ooDVpLbIj8uuiHeWRLBxnpU6OrkTH2tfBoZswn_Qm0uzsBw3F6Pv7eX0d1rI4IiVhDjv6Ay7Xw0JxWYfgxfY6jaL6C_sJv31GI0AF0uqrzU2IspM9ed5gPH_aJSa3SXHBMMqxg189u8lFZgVlTPL0iQ7gqi-DGGyPJWyDsA
+Date: Mon, 23 Nov 2026 08:57:34 -0800
+X-Gm-Features: Aa3M54r3FfAiu2L7EUgWFmqbow6mlwYvIizYOohUXl_c9RKexdrT-6tJ232IkjI
+Message-ID: <nh-1384c024-38de-4962-9d4f-a0bfb55471a6@google.com>
+Subject: Re: [PATCH 2/3] arm64: dts: allwinner: add Radxa Cubie A7Z board
+To: andre.przywara@arm.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, 
+	samuel@sholland.org
+Cc: enzo.adriano.code@gmail.com, mripard@kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Nov 22, 2026 at 08:26:19AM +0530, Krishna Chaitanya Chundru wrote:
-> Provide the endpoint-mode PLL, TXRXZ and PCS init table deltas for the
-> Nord Gen5x16 PCIe multi-PHY and wire them up as tbls_ep so they are
-> applied on top of the shared root-complex tables when the controller is
-> operated in endpoint mode.
->
-> Add the QSERDES v6_40 COM register offsets (INTEGLOOP_GAIN0/1 for all
-> three modes and CLK_FWD_CONFIG_2) used by these sequences.
->
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> ---
+On Mon, Nov 23, 2026 at 1:35 PM Andre Przywara <andre.przywara@arm.com> wrote:
+> sorry, I missed your post earlier, so made my own version of the DT
+> yesterday. So this is more like comparing this to yours ;-)
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+No worries. I'll fold your comments into a v2 once Enzo's v5 is out. Do
+you plan to post yours? I'd rather end up with one A7Z DT than two.
 
->  drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c  | 97 ++++++++++++++++++++++
->  .../qualcomm/phy-qcom-qmp-qserdes-com-pcie-v6_40.h |  7 ++
->  2 files changed, 104 insertions(+)
+> > + reg_dcdc9: dcdc9 {
+> > + regulator-name = "eldo-input";
 >
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-> index 21cf6adf7d60..dcd8a3f794cb 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-> @@ -653,6 +653,102 @@ static const struct qmp_phy_cfg_tbls nord_qmp_pcie_tbls = {
->  	.port_split_post_cfg_num	= ARRAY_SIZE(nord_qmp_pcie_port_split_post_cfg_tbl),
->  };
+> The schematic says 1.1V/1.25V. Can you check what it is on your board,
+> at runtime? If in doubt, go with 1.1V, this should be enough headroom
+> for the ELDO6 this supplies, with outputs 0.8V.
+
+It reads 1240 mV at runtime on my v1.11, what the firmware leaves. I also
+ran it at a fixed 1.1 V and it was fine for a few minutes, but the
+AXP318W datasheet draft lists 1.2 V as the minimum ELDOIN as an LDO. I'd
+use a 1.2 to 1.25 V range, which keeps 1.24 V.
+
+Thanks,
+Vinicius
+
+On Mon, 23 Nov 2026 13:35:44 +0100, Andre Przywara
+<andre.przywara@arm.com> wrote:
+> Hi Vinicius,
 >
-> +static const struct qmp_phy_init_tbl nord_qmp_pcie_pll_ep_tbl[] = {
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_CLK_FWD_CONFIG_2, 0x28),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_CP_CTRL_MODE2, 0x28),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_PLL_RCTRL_MODE2, 0x0d),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_PLL_CCTRL_MODE2, 0x00),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_LOCK_CMP1_MODE2, 0xff),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_LOCK_CMP2_MODE2, 0x09),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_DEC_START_MODE2, 0x28),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN0_MODE2, 0xfb),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN1_MODE2, 0x03),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_BIN_VCOCAL_CMP_CODE1_MODE2, 0x87),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_BIN_VCOCAL_CMP_CODE2_MODE2, 0x17),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_CP_CTRL_MODE1, 0x28),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_PLL_RCTRL_MODE1, 0x0d),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_PLL_CCTRL_MODE1, 0x00),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_LOCK_CMP1_MODE1, 0xff),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_LOCK_CMP2_MODE1, 0x04),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_DEC_START_MODE1, 0x28),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN0_MODE1, 0xfb),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN1_MODE1, 0x03),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_BIN_VCOCAL_CMP_CODE1_MODE1, 0xc4),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_BIN_VCOCAL_CMP_CODE2_MODE1, 0x0b),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_CP_CTRL_MODE0, 0x28),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_PLL_RCTRL_MODE0, 0x0d),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_PLL_CCTRL_MODE0, 0x00),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_LOCK_CMP1_MODE0, 0x3f),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_LOCK_CMP2_MODE0, 0x01),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_DEC_START_MODE0, 0x19),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN0_MODE0, 0xfb),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN1_MODE0, 0x03),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_BIN_VCOCAL_CMP_CODE1_MODE0, 0xab),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_BG_TIMER, 0x06),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_SYS_CLK_CTRL, 0x07),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_PLL_IVCO, 0x0f),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_SYSCLK_EN_SEL, 0x00),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_PSM_CAL_EN, 0x01),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_COM_CMN_IETRIM, 0x1b),
-> +};
-> +
-> +static const struct qmp_phy_init_tbl nord_qmp_pcie_txrxz_ep_tbl[] = {
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE2_B1, 0x30),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE2_B3, 0x60),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE2_B4, 0x2c),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE2_B7, 0x1d),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE3_B0, 0xde),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE3_B1, 0x35),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE3_B2, 0x38),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE3_B4, 0x2c),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE3_B5, 0xdd),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE3_B7, 0x23),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE4_B0, 0xed),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE4_B1, 0x68),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE4_B2, 0x6d),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE4_B3, 0x20),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE4_B4, 0x8c),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE4_B7, 0x06),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE_0_1_B1, 0x42),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_MODE_RATE_0_1_B4, 0x1a),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_LANE_MODE_4, 0x00),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_TOP_LDO_CODE_CTRL3, 0x83),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_CDR_CP_CUR_PLL_RATE3, 0x01),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_CDR_CP_CUR_PLL_RATE4, 0x02),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_CDR_IQTUNE_CTRL, 0x00),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_KP_CAL_LOWER_FREQ_DIFF_BND_RATE3, 0x15),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_KP_CAL_LOWER_FREQ_DIFF_BND_RATE4, 0x0a),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RX_IVCM_CAL_CTRL4, 0x03),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_CDR_LOOP_RCODE_FAST_RATE_0_1, 0x00),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_CDR_LOOP_RCODE_FAST_RATE4, 0x02),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_CDR_VCO_CTUNE_MEAS_CNT1_RATE2, 0x09),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_CDR_VCO_CTUNE_MEAS_CNT1_RATE3, 0x09),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_VGA_CAL_MAN_VAL_RATE4, 0x0a),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_KVCO_IDEAL_FREQ_DIFF1_RATE3, 0x2f),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_KVCO_INIT_RATE_2_3, 0x11),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_KVCO_INIT_RATE_4, 0x03),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_RESTRIM_VREF_SEL, 0x12),
-> +	QMP_PHY_INIT_CFG(QSERDES_PCIE_V6_40_TXRXZ_VTHRESH_CAL_MAN_VAL_RATE4, 0x45),
-> +};
-> +
-> +static const struct qmp_phy_init_tbl nord_qmp_pcie_pcs_ep_tbl[] = {
-> +	QMP_PHY_INIT_CFG(QPHY_PCIE_V6_40_PCS_COM_POWER_STATE_CONFIG2, 0x34),
-> +	QMP_PHY_INIT_CFG(QPHY_PCIE_V6_40_PCS_COM_PCS_TX_RX_CONFIG5, 0x01),
-> +	QMP_PHY_INIT_CFG(QPHY_PCIE_V6_40_PCS_COM_PCS_TX_RX_CONFIG10, 0x00),
-> +	QMP_PHY_INIT_CFG(QPHY_PCIE_V6_40_PCS_COM_ALIGN_DETECT_CONFIG7, 0x30),
-> +	QMP_PHY_INIT_CFG(QPHY_PCIE_V6_40_PCS_COM_EQ_CONFIG2, 0xdc),
-> +	QMP_PHY_INIT_CFG(QPHY_PCIE_V6_40_PCS_COM_G345_EQ_CONFIG1, 0x07),
-> +};
-> +
-> +static const struct qmp_phy_cfg_tbls nord_qmp_pcie_ep_tbls = {
-> +	.pll_common	= nord_qmp_pcie_pll_ep_tbl,
-> +	.pll_common_num	= ARRAY_SIZE(nord_qmp_pcie_pll_ep_tbl),
-> +	.txrxz		= nord_qmp_pcie_txrxz_ep_tbl,
-> +	.txrxz_num	= ARRAY_SIZE(nord_qmp_pcie_txrxz_ep_tbl),
-> +	.pcs		= nord_qmp_pcie_pcs_ep_tbl,
-> +	.pcs_num	= ARRAY_SIZE(nord_qmp_pcie_pcs_ep_tbl),
-> +};
-> +
->  static const struct qmp_phy_init_tbl * const nord_qmp_pcie_pll_a[] = {
->  	nord_qmp_pcie_pll_a_ovl_tbl,
->  };
-> @@ -839,6 +935,7 @@ static const char * const nord_pciephy_port_d_pipeclk_l[] = { "pipe_d" };
->  static const struct qmp_phy_cfg nord_qmp_pcie_port_##_port##_cfg = {		\
->  	.offsets		= &nord_pcie_offsets_v6_40,			\
->  	.tbls			= nord_qmp_pcie_tbls,				\
-> +	.tbls_ep		= &nord_qmp_pcie_ep_tbls,			\
->  	.pll_tbls		= nord_qmp_pcie_pll_##_port,			\
->  	.pll_nums		= nord_qmp_pcie_pll_##_port##_nums,		\
->  	.port_split		= _port_split,					\
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-pcie-v6_40.h b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-pcie-v6_40.h
-> index 0eeab0693e9b..3cc030625f25 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-pcie-v6_40.h
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-pcie-v6_40.h
-> @@ -8,6 +8,8 @@
+> sorry, I missed your post earlier, so made my own version of the DT
+> yesterday. So this is more like comparing this to yours ;-)
+> As you saw my reply to Enzo's .dtsi and A7S .dts, I will keep the same
+> issues I mentioned there brief.
 >
->  #define QSERDES_PCIE_V6_40_COM_SSC_STEP_SIZE1_MODE1		0x000
->  #define QSERDES_PCIE_V6_40_COM_SSC_STEP_SIZE2_MODE1		0x004
-> +#define QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN0_MODE1		0x040
-> +#define QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN1_MODE1		0x044
->  #define QSERDES_PCIE_V6_40_COM_CLK_EP_DIV_MODE1			0x00c
->  #define QSERDES_PCIE_V6_40_COM_CP_CTRL_MODE1			0x010
->  #define QSERDES_PCIE_V6_40_COM_PLL_RCTRL_MODE1			0x014
-> @@ -26,6 +28,8 @@
->  #define QSERDES_PCIE_V6_40_COM_BIN_VCOCAL_CMP_CODE2_MODE0	0x05c
->  #define QSERDES_PCIE_V6_40_COM_SSC_STEP_SIZE1_MODE0		0x060
->  #define QSERDES_PCIE_V6_40_COM_SSC_STEP_SIZE2_MODE0		0x064
-> +#define QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN0_MODE0		0x0a0
-> +#define QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN1_MODE0		0x0a4
->  #define QSERDES_PCIE_V6_40_COM_CLK_EP_DIV_MODE0			0x06c
->  #define QSERDES_PCIE_V6_40_COM_CP_CTRL_MODE0			0x070
->  #define QSERDES_PCIE_V6_40_COM_PLL_RCTRL_MODE0			0x074
-> @@ -68,6 +72,8 @@
->  #define QSERDES_PCIE_V6_40_COM_CMN_CONFIG_2			0x22c
->  #define QSERDES_PCIE_V6_40_COM_SSC_STEP_SIZE1_MODE2		0x1cc
->  #define QSERDES_PCIE_V6_40_COM_SSC_STEP_SIZE2_MODE2		0x1d0
-> +#define QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN0_MODE2		0x208
-> +#define QSERDES_PCIE_V6_40_COM_INTEGLOOP_GAIN1_MODE2		0x20c
->  #define QSERDES_PCIE_V6_40_COM_CP_CTRL_MODE2			0x1dc
->  #define QSERDES_PCIE_V6_40_COM_PLL_RCTRL_MODE2			0x1e0
->  #define QSERDES_PCIE_V6_40_COM_PLL_CCTRL_MODE2			0x1e4
-> @@ -83,6 +89,7 @@
->  #define QSERDES_PCIE_V6_40_COM_DCC_CAL_3			0x2e0
->  #define QSERDES_PCIE_V6_40_COM_PSM_CAL_EN			0x2f0
->  #define QSERDES_PCIE_V6_40_COM_CLK_FWD_CONFIG_1			0x2f4
-> +#define QSERDES_PCIE_V6_40_COM_CLK_FWD_CONFIG_2			0x2f8
->  #define QSERDES_PCIE_V6_40_COM_IP_CTRL_AND_DP_SEL		0x2fc
->  #define QSERDES_PCIE_V6_40_COM_PLL_SPARE_FOR_ECO		0x2b8
->  #define QSERDES_PCIE_V6_40_COM_PLL_IVCO_MODE1			0x0f8
+> On 11/11/26 14:49, Vinicius Pedrosa wrote:
+> > Add the device tree for the Radxa Cubie A7Z. Describe UART0, the AXP318W
+> > PMIC over R-I2C0, MMC0, RTC and the bank supplies. It is based on the
+> > Cubie A7S DT.
+> >
+> > Unlike the A7S, this board uses BLDO5 for PG and a SY8089 regulator for
+> > the PMIC's BLDO and CLDO inputs, and the microSD card-detect line has an
+> > external pull-up, so no internal pull-down is used. ELDO1 only supplies
+> > VDD2L for LPDDR5 and this board uses LPDDR4, so it is not described.
+> > SWOUT1 only feeds ports D and J on the 40-pin header, so it is not kept
+> > always-on.
 >
-> --
-> 2.34.1
+> I think this stanza does not belong into the commit message, as
+> comparing to some different board is not relevant here.
+> Instead you should briefly list the features/connectors of this board,
+> look at other commit messages for board .dts files.
 >
+> >
+> > Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+> > ---
+> > arch/arm64/boot/dts/allwinner/Makefile | 1 +
+> > .../dts/allwinner/sun60i-a733-cubie-a7z.dts | 286 ++++++++++++++++++
+> > 2 files changed, 287 insertions(+)
+> > create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
+> >
+> > diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
+> > index 792152525b43..2eee91dcbd77 100644
+> > --- a/arch/arm64/boot/dts/allwinner/Makefile
+> > +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> > @@ -69,3 +69,4 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun55i-h728-x96qpro+.dtb
+> > dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-avaota-a1.dtb
+> > dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-orangepi-4a.dtb
+> > dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7s.dtb
+> > +dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7z.dtb
+> > diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
+> > new file mode 100644
+> > index 000000000000..ab3d3d70f9ff
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
+> > @@ -0,0 +1,286 @@
+> > +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+>
+> I think you need a copyright line here.
+>
+> Also please explain the situation with the v1.10 and v1.11 versions here.
+>
+> > +/dts-v1/;
+> > +
+> > +#include "sun60i-a733.dtsi"
+> > +
+> > +#include <dt-bindings/gpio/gpio.h>
+> > +
+> > +/ {
+> > + model = "Radxa Cubie A7Z";
+> > + compatible = "radxa,cubie-a7z", "allwinner,sun60i-a733";
+> > +
+> > + aliases {
+> > + mmc0 = &mmc0;
+>
+> Please remove.
+>
+> > + serial0 = &uart0;
+> > + };
+> > +
+> > + chosen {
+> > + stdout-path = "serial0:115200n8";
+> > + };
+> > +
+> > + reg_ps: regulator-system-power {
+>
+> Please add a short comment where this power comes from (USB-C connector).
+>
+> > + compatible = "regulator-fixed";
+> > + regulator-name = "ps";
+> > + regulator-min-microvolt = <5000000>;
+> > + regulator-max-microvolt = <5000000>;
+> > + regulator-always-on;
+> > + };
+> > +
+>
+> As mentioned in the other mail, please add a comment that this has been
+> added in v1.11, and v1.10 doesn't have it.
+>
+> > + reg_ldo_input: regulator-ldo-input {
+> > + compatible = "regulator-fixed";
+> > + regulator-name = "ldo2v5-input";
+> > + /* SY8089: 0.6 V * (1 + RP11 / RP6), 30k / 10k. */
+> > + regulator-min-microvolt = <2400000>;
+> > + regulator-max-microvolt = <2400000>;
+> > + regulator-always-on;
+> > + vin-supply = <&reg_ps>;
+> > + };
+> > +
+> > + osc32k: osc32k-clk {
+> > + compatible = "fixed-clock";
+> > + #clock-cells = <0>;
+> > + clock-frequency = <32768>;
+> > + };
+> > +};
+> > +
+> > +&cpu0 {
+> > + cpu-supply = <&reg_dcdc5>;
+> > +};
+> > +
+> > +&cpu1 {
+> > + cpu-supply = <&reg_dcdc5>;
+> > +};
+> > +
+> > +&cpu2 {
+> > + cpu-supply = <&reg_dcdc5>;
+> > +};
+> > +
+> > +&cpu3 {
+> > + cpu-supply = <&reg_dcdc5>;
+> > +};
+> > +
+> > +&cpu4 {
+> > + cpu-supply = <&reg_dcdc5>;
+> > +};
+> > +
+> > +&cpu5 {
+> > + cpu-supply = <&reg_dcdc5>;
+> > +};
+> > +
+> > +&cpu6 {
+> > + cpu-supply = <&reg_dcdc3>;
+> > +};
+> > +
+> > +&cpu7 {
+> > + cpu-supply = <&reg_dcdc3>;
+> > +};
+> > +
+> > +&mmc0 {
+> > + bus-width = <4>;
+> > + cap-sd-highspeed;
+>
+> Same as the A7S, please add the others.
+>
+> > + /* PF6 has an external 10k pull-up and reads high with a card. */
+>
+> "reads high with a card" is a redundant comment, since this is what
+> GPIO_ACTIVE_HIGH already says.
+> Please explain the situation with the v1.10 vs. v1.11 versions here.
+> And my v1.10 board needs GPIO_PULL_DOWN
+>
+> > + cd-gpios = <&pio 5 6 GPIO_ACTIVE_HIGH>;
+> > + disable-wp;
+> > + max-frequency = <50000000>;
+> > + no-1-8-v;
+>
+> Please remove both.
+>
+> > + vmmc-supply = <&reg_swout2>;
+> > + /* The 3.3 V path uses VCC-IO; no Port F voltage switching yet. */
+> > + vqmmc-supply = <&reg_swout2>;
+>
+> Please remove those two lines, we will add vqmmc later.
+>
+> > + status = "okay";
+> > +};
+> > +
+> > +&osc {
+> > + clock-frequency = <26000000>;
+> > +};
+> > +
+> > +&pio {
+> > + vcc-pb-supply = <&reg_swout2>;
+>
+> Please add a comment that this comes from VCC-IO. See the Cubie A5E DT.
+>
+> > + vcc-pc-supply = <&reg_cldo5>;
+> > + vcc-pd-supply = <&reg_swout1>;
+> > + vcc-pe-supply = <&reg_bldo1>;
+> > + /* CLDO5 feeds VCC18-PF; the 3.3 V path uses VCC-IO. */
+> > + vcc-pf-supply = <&reg_cldo5>;
+>
+> As it stands this is VCC-IO, so swout2, please change that, plus the
+> VCC-IO comment.
+>
+> > + vcc-pg-supply = <&reg_bldo5>;
+> > + vcc-ph-supply = <&reg_swout2>;
+>
+> VCC-IO comment, please.
+>
+> > + vcc-pj-supply = <&reg_swout1>;
+> > + vcc-pk-supply = <&reg_bldo1>;
+> > +};
+> > +
+> > +&r_i2c0 {
+> > + status = "okay";
+> > + pinctrl-names = "default";
+> > + pinctrl-0 = <&r_i2c0_pl_pins>;
+> > +
+> > + axp318w: pmic@36 {
+> > + compatible = "x-powers,axp318w";
+> > + reg = <0x36>;
+> > + interrupt-parent = <&nmi_intc>;
+> > + interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
+> > + interrupt-controller;
+> > + #interrupt-cells = <1>;
+> > +
+> > + aldo156in-supply = <&reg_ps>;
+> > + aldo234in-supply = <&reg_aldo1>;
+> > + bldoin-supply = <&reg_ldo_input>;
+> > + cldoin-supply = <&reg_ldo_input>;
+>
+> Please add a comment about v1.10 differing.
+>
+> > + dldoin-supply = <&reg_ps>;
+> > + eldoin-supply = <&reg_dcdc9>;
+> > + ips-supply = <&reg_ps>;
+> > + vin19-supply = <&reg_ps>;
+> > + vin23-supply = <&reg_ps>;
+> > + vin45-supply = <&reg_ps>;
+> > + vin678-supply = <&reg_ps>;
+> > +
+> > + regulators {
+> > + reg_dcdc1: dcdc1 {
+> > + regulator-name = "vcc-3v3";
+> > + regulator-min-microvolt = <3300000>;
+> > + regulator-max-microvolt = <3300000>;
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_dcdc2: dcdc2 {
+> > + regulator-name = "vdd-sys";
+>
+> Please add the voltage: 0.8V.
+>
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_dcdc3: dcdc3 {
+> > + regulator-name = "vdd-cpub";
+>
+> From the OPP tables I could find in the Radxa repo on github, the range
+> should be 0.8V - 1.05V. We can adjust this later when we add proper DVFS
+> support, if needed.
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_dcdc4: dcdc4 {
+> > + regulator-name = "vdd-gpu";
+> > + regulator-always-on;
+>
+> Voltage range should be 0.8V - 0.96V, and drop the always-on.
+>
+> > + };
+> > +
+> > + reg_dcdc5: dcdc5 {
+> > + regulator-name = "vdd-cpul";
+>
+> Voltage range 0.8V - 1.05V.
+>
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_dcdc6: dcdc6 {
+> > + regulator-name = "vcc-draml";
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_dcdc7: dcdc7 {
+> > + regulator-name = "vcc-dram";
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_dcdc8: dcdc8 {
+> > + regulator-name = "vcc-ufs-io";
+>
+> The voltage is 1.2V, and please drop the always-on.
+>
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_dcdc9: dcdc9 {
+> > + regulator-name = "eldo-input";
+>
+> The schematic says 1.1V/1.25V. Can you check what it is on your board,
+> at runtime? If in doubt, go with 1.1V, this should be enough headroom
+> for the ELDO6 this supplies, with outputs 0.8V.
+>
+> > + regulator-always-on;
+>
+> Please remove.
+>
+> > + };
+> > +
+> > + reg_swout1: swout1 {
+> > + regulator-name = "vcc33-lcd";
+>
+> Please use "vcc-pd-pj" as the name.
+>
+> > + };
+> > +
+> > + reg_swout2: swout2 {
+> > + regulator-name = "vcc-io-card";
+>
+> I used "vcc-io-ph-usb", "card" does not seem to be used.
+>
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_aldo1: aldo1 {
+> > + regulator-name = "vcc-pl";
+>
+> Also USB it seems, so I used "vcc-pl-usb".
+>
+> > + regulator-min-microvolt = <3300000>;
+> > + regulator-max-microvolt = <3300000>;
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_bldo1: bldo1 {
+> > + regulator-name = "vcc-pe-pk-mcsi";
+>
+> Voltage is 1.8V.
+>
+> > + };
+> > +
+> > + reg_bldo2: bldo2 {
+> > + regulator-name = "vcc-lvds0";
+>
+> 1.8V as well.
+>
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_bldo4: bldo4 {
+> > + regulator-name = "vcc18-codec";
+> > + regulator-min-microvolt = <1800000>;
+> > + regulator-max-microvolt = <1800000>;
+> > + };
+> > +
+> > + reg_bldo5: bldo5 {
+> > + regulator-name = "vcc-pg";
+> > + regulator-min-microvolt = <1800000>;
+> > + regulator-max-microvolt = <1800000>;
+> > + };
+> > +
+> > + reg_cldo1: cldo1 {
+> > + regulator-name = "vcc33-18-usb";
+>
+> That is a confusing name ;-) "vcc-pm-lpddr" should explain the always-on.
+>
+> > + regulator-min-microvolt = <1800000>;
+> > + regulator-max-microvolt = <1800000>;
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_cldo2: cldo2 {
+> > + regulator-name = "vcc18-hdmi";
+> > + regulator-min-microvolt = <1800000>;
+> > + regulator-max-microvolt = <1800000>;
+> > + };
+> > +
+> > + reg_cldo3: cldo3 {
+> > + regulator-name = "vcc-pll-dram";
+> > + regulator-min-microvolt = <1800000>;
+> > + regulator-max-microvolt = <1800000>;
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_cldo5: cldo5 {
+> > + regulator-name = "vcc18-pf-pc";
+>
+> "pf" is somewhat misleading. I had "vcc-pc-combo".
+> > + regulator-min-microvolt = <1800000>;
+> > + regulator-max-microvolt = <1800000>;
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_dldo1: dldo1 {
+> > + regulator-name = "vcc-efuse";
+>
+> Voltage is 1.8V.
+>
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_dldo6: dldo6 {
+> > + regulator-name = "vcc-ufs";
+>
+> Voltage is 2.5V, and no always-on should be needed.
+>
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_eldo6: eldo6 {
+> > + regulator-name = "vdd-cpus";
+>
+> Voltage is 0.8V.
+>
+> > + regulator-always-on;
+> > + };
+> > +
+> > + reg_rtc_ldo: rtc-ldo {
+> > + regulator-name = "vcc-rtc";
+> > + regulator-min-microvolt = <1800000>;
+> > + regulator-max-microvolt = <1800000>;
+> > + regulator-always-on;
+> > + };
+> > + };
+> > + };
+> > +};
+> > +
+> > +&r_pio {
+> > + /* PL powers the PMIC bus itself; firmware must keep ALDO1 enabled. */
+>
+> Probably better to copy the comment from the other DTs, and have the
+> "would-be" line inside the comment (vcc-pl-supply = <&reg_aldo1>;)
+>
+> Cheers,
+> Andre
+>
+> > + vcc-pm-supply = <&reg_aldo1>;
+> > +};
+> > +
+> > +&rtc {
+> > + clocks = <&r_ccu CLK_BUS_R_RTC>, <&osc>, <&r_ccu CLK_R_AHB>,
+> > + <&osc32k>;
+> > + clock-names = "bus", "hosc", "ahb", "ext-osc32k";
+> > +};
+> > +
+> > +&uart0 {
+> > + pinctrl-names = "default";
+> > + pinctrl-0 = <&uart0_pb_pins>;
+> > + status = "okay";
+> > +};
