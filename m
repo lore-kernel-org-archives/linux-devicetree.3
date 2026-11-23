@@ -1,157 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.117
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795425500;
-	b=OSV2oPftomXR0SxBhGIYUi8Vupt/st4rl+TqI+LW5bmyZqyXZRTcvZi4/3lx7UtQcVdJ
-	 hJNpJr+2ZKjkUnzRAPSW3aN4lcfD+B+f6j3UtXgJAkX5UK4SmHleOGsHaS6YHKgcciIXt
-	 eRdtkFWviNOHBFyNs2IK3zqp8f6ZYU7w8dEajd1n3vto0sNaKGtIYzxhcL0iWeZtdPnld
-	 p3XSemnq+O9Jn3nB3YYD8PTLKjO3KV8rRMO+T4fbqc9C8YcvpcEnM0jRgmzBneso8xkC9
-	 G1YhdMK2CR/GqtkZiL++X684smdDEKHNO9XEa3xsywKTNR7UANRy68tgaSqcWHgmnSw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795425500;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8xEcf+JyXjOCRv3etNU7OeMjdr0ygwgHqZHtKv9gdYo=;
-	b=B9yD14oT+rvLMDW+08I7+vOJSbj5RBmhs7sYtu1kCTNRrf33E29QztZ3vzqBm0bdtU4V
-	 7chsLa58PtYZNy1yM3FPTP011sI9kFBTODoA0/WiY22dy+2b6y2HI3O0xGcV55Ff5sgCR
-	 d1Y3UYODheFPpSu5qT/8Jcbdi0Y2thzETEz1d5byk9NRrDQcNS8OW7ZdEpqOzzk/OTWmO
-	 1fWDIH4ljodyUX7e5/9Ugl0MOjnRPd+Lc4ZhRuytekJod1odAIHpAQlDi4htp+O0CcDyD
-	 kDmDiRu3nerr9DDOBhuKVK7x7NHTdRcgMulTxtcfA8lyLBJHSk7AtzPgkdl3BfO7aHA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chipsnmedia.com;
-	spf=fail smtp.mailfrom=chipsnmedia.com;
-	dkim=pass header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=WORRtsc2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.117
-Received: from SE2P216CU007.outbound.protection.outlook.com (mail-koreacentralazon11021117.outbound.protection.outlook.com [40.107.42.117])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795425653;
+	b=DVKmy/0Osm5o10ExNjRwtv6gLIm09347YBmqWsRzUShJj9G580oc5UekDyJreT90Pog4
+	 1nhoAoBJt1MUjN/GzX1fc/m5W7umsExcO87ACtqzcjpbEDWY2EiZKS3GG8LX9Gt+t+n6D
+	 QGPFv2iXfHP96x996P8pbINzVDPHNtF+ko39NsL5s/9q65nZjI5VgRGsA7u3ifZKz71sq
+	 /bRQtOnMw1a2F4rXzu9UVG+Iki/M1+sxzG25jyyXtPLiTg4EhYDwcIZxWOCAfdXExY2VY
+	 Jk/dlBTjrx5Peq+nyz414SAzIeNrh0DZ+fXo5ukPU+zbirr6PQX86wAGXh+SxtNVHPw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795425653;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=Ig8NpIwfuVm57PMXnS1/HkeHo8NBh9VYFSj4z2Q3cYI=;
+	b=koyvKKvwPVFWCMk55vCfl66bLpcqYhlfrQO2osbP2IsKVpfQcFFp+1mviKgGnpAgmhav
+	 71riTOm/i3xJYcWpA2HubV5Pnjlmg+PgPik/06bNFhisHyKoQ6PCDJKxhocM721oxGRMG
+	 WdgnBRxR1jw5uGuCvNycevpBG/sIa/jNEpPz7cjMjWyR99PYzoeAIJJgfaRrmPr2659j7
+	 L9nSrekrCyQIEuHXTjGpwtxoSx6r2dYNoInQ9pcEWJFpMADtE6iu2TMwe5IMjF8GQci1Q
+	 DHqowJhHeAjKDI65kglDPzyBZ8OJ1Oc3Jlh8Q1VfAUcN2PruLT43+zSxol4779mLFCQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=XauEX3xg;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027C6606A332;
-	Mon, 23 Nov 2026 09:18:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 027C6606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49EF606A32C
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:20:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A49EF606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=WORRtsc2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k8zDj+b5NOGkmiZzDU/V0m15enOHTmNbNf17hKb6ByXbkVrKl6XHzin5ZJOsc65dpaghnInwq3f6NbbtR7Gdrrwq16IE+Ryy4BrAO3eS1fXCUTAjvqylL9EXQNTUb+j6Qon0PtkqfQ+HYkrUpCnthP0ixgvHJ/7MCzXHarOOxikLQXGjElq13XyBfTKxEa12/k1WHwGvcFNlFApgvaaVTzJIGJR8cMSv+SiCehalj29Rs3ywSabohip0WKAp3hFu2VB0ap+nkjZhpyStG+pPfzNwgqdlzfzJSb8XtTiEZ4/98z1rNZ+aKKHKtglXZh9Sx/Q3jw0vxypP/VequiN+nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8xEcf+JyXjOCRv3etNU7OeMjdr0ygwgHqZHtKv9gdYo=;
- b=T1T6rvueSfkMfu99m+enAyMJC3cyq6TfZfMDxBazuJA7sk+vYNCrpaex6wAATk/BXaPcs5gK4eR54SWjDX7I/Tr8ojOLZ0TRvD+4ZqHKOH4rh7VQcGGwYnT+C8gg2ZkH3qV0LR3AcTuwmfOiMHxTFsvtvzjK+YtCjbgiWGbqztiT5T4QH+Bf8MY1IbklKjG7g/0JCJ2Z9MbIFqdjcIo5m7uvI/BWsZcgZlqYRvYoJl3v7Dv/t2Jr/rcya8tO+NToDWgUutuJ56zKe0plqU8iqMglHZFFy4hVfd1kIy/sUQE+qECGgrrpNnJci/nbfsCxMVhpo8v3xCIrQcg+QDq32A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8xEcf+JyXjOCRv3etNU7OeMjdr0ygwgHqZHtKv9gdYo=;
- b=WORRtsc2LXDgsMhKbbED4aXMdhPc+2gwcKJDxbZVepphjj9PppY3ESM8gPaoshKMLvlMX48peerTiTNTDqwenHoOBawr6Q8v9lF5dA7OMT/qg6moWaKxvmVe8CKVr6/CSNM8eGEa6pdUigrMDg9b9yUy4EAA1qPTXVxMHz3BysjaV27oaAGzYiWZdv3PW3gtvTkQmN/rkJ8zrtq7XxEA7E6ApMGdU8inob/Oxgg1shLPvOLfXByRxcem/BPtri9xm0Rz5feQ4QFy3SClI9KxIrkmakoJRzXPtrEkJZLDDojXDyUAh8qmQ5XvK4JBVpqIenz3vmVNDK7Sfn1s6OtipQ==
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1b9::8)
- by SE2P216MB1826.KORP216.PROD.OUTLOOK.COM (2603:1096:101:fc::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
- 2026 09:18:14 +0000
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232]) by SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232%6]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 09:18:14 +0000
-From: Nas Chung <nas.chung@chipsnmedia.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-CC: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@kernel.org"
-	<hverkuil@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "Frank.Li@nxp.com" <Frank.Li@nxp.com>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "festevam@gmail.com"
-	<festevam@gmail.com>, "kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"nicolas.dufresne@collabora.com" <nicolas.dufresne@collabora.com>,
-	"ming.qian@oss.nxp.com" <ming.qian@oss.nxp.com>, "marek.vasut@mailbox.org"
-	<marek.vasut@mailbox.org>, "jackson.lee" <jackson.lee@chipsnmedia.com>,
-	"lafley.kim" <lafley.kim@chipsnmedia.com>
-Subject: RE: [PATCH v8 09/11] media: chips-media: wave6: Add performance
- profiling
-Thread-Topic: [PATCH v8 09/11] media: chips-media: wave6: Add performance
- profiling
-Thread-Index: AQHdeARslT7+PahjZk6zjlKKFGa+pbc14MWAgAWF4AA=
-Date: Mon, 23 Nov 2026 09:18:13 +0000
-Message-ID:
- <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
- <5702baa6ed97eb30dec14bddba2919252ec8f3c8.1795075582.git.nas.chung@chipsnmedia.com>
- <av9iadpXveXGb0R0@SMW015318>
-In-Reply-To: <av9iadpXveXGb0R0@SMW015318>
-Accept-Language: en-US, ko-KR
-Content-Language: ko-KR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SL2P216MB2441:EE_|SE2P216MB1826:EE_
-x-ms-office365-filtering-correlation-id: 838553d4-c788-4b7d-d296-08df4942b396
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|38070700021|10067099003|4143699003|56012099006|261021135927099003|261021121427099003|261022075727099003|261022105027099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- eJ5NdXO3b1Dhpv1k2OHMKuI33xleU7G5UgwJkFZ1Gcc0ZZSmiw6quP9ta/iD9cM2/+HyhfLvaG56Pb/vtdlK0puQjbXujDIovFDZ3I76MjJ01cm+cO0INgT0uAV9gfWX3rb3m3t28DwJnFztI28sOpifs2IykYkqE3kMjK3n1SVvgpAv8pGTcd3tiIh28ZmchFuaYCvdEbE4uKGXjkdZl7gpGXoICOgVTJW2Rwfgj7QFgAenjJ2p2KHbyK2RjKCaNddAtOEMHMFzBjGBoxglsb0b1sOOjrO3dq856wwlACqCWdnbx0J6UeBcvzAfxj/yiz4p5cAYs4qsbWsJLe9j3cg4/Q1OhBKCn+hkINhHbBHW5r2PPqJXiVJCcOvXXr99Mh1Tlaqtxa3/6Cfm4hCLbNqBTWhg9ZjEwSErTDS/Q0wqPYS8taggQQnqaSrfHc20sB/AtqVAryqL+CRvbZPoQzaqsTLf+uCZC23EJeVbTcHN8PJCh3fQZTraXKDPBqHBdIZxJbzaU4zzSzXnoZckF8lt/+HQDtb6zCfenlwBObQGtxdfrwznsQ3SFZG12jWwE0sJcVRjYXa28CxPQn40bkSNJNWvaF7uJNl0pSKif6vkzq5Yu/YHdytW86WAUHYVDCM6wj5oZf/EqXbXzd/szQPqGAWD2vxYe2kMtPNxH0mjEPLiiIj6FtXhN44yOXvSbOPvWxQmo480UDfQHqsFvo2ZPfl3HpZDhnWRYcSwRFM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2441.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(38070700021)(10067099003)(4143699003)(56012099006)(261021135927099003)(261021121427099003)(261022075727099003)(261022105027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?s4lkpaZnhfa9KsKJnlYWQSaXePtM25XaoDkPlBRCxVl5f2b/fpJZFJll+dvH?=
- =?us-ascii?Q?tC7TUfx1duRk69cnfR9xKistE/uaVhexOiK/msOEEJ0nhIPh8exSw4M4IhAu?=
- =?us-ascii?Q?xkJ7GBr4vfXabQwZObvrD5ekPxwRI6MLuOymNJWAQO9uI/vXGYCXuIB3z7CQ?=
- =?us-ascii?Q?M3CgIVOdvhTprTBqkTr9uEicgqMJsG+Ez4LQioV8wfSleX0jjG1anuzVGB0e?=
- =?us-ascii?Q?yyQjhiStmHq3JIOEAOsZ6MANVEibxdgTMTm1cI2pfYGszO4iDf6TRQuP9u0C?=
- =?us-ascii?Q?poP/4y+yEm4AUeOjHZdhxQl6prF4IqTTMpNIdyaaCEfN/2R3t4F0Zj3E1dh8?=
- =?us-ascii?Q?RLgAQwNtAZIfE5Sll0pbS4OXG0KptXrzwWbc8sNPwbqlVJqUOCxQWl0EUNJy?=
- =?us-ascii?Q?37nj32fRxUiQyqbo6Ttu3no8UtwYWhwQwpmoach8/0DWgB6hZ77qT4RATZpm?=
- =?us-ascii?Q?6WWXT/7r27tKzXo6rZsvcVYLfRKNOXbHASPCvSCzQJkn2dNjTWpj3A7v3hh+?=
- =?us-ascii?Q?xbNzKW36VwK1u8AUYGucq0377ixkmCQ4piQobZSo7ULSzix6Agj1DkREsZmX?=
- =?us-ascii?Q?Ob0ke9aLCt/qEqH4+s99MN6MTQVEIdob77Iq/LS8fda/AtMhdqms8l2Z+6eY?=
- =?us-ascii?Q?uW+GaQlkf7rSfh1EcaxW0U8r7SOefjcpCddT8wXzsdtCmyNQNCOf6HYW0Hvp?=
- =?us-ascii?Q?6rPiR/D7A1CeTp6ru4BUnRQ5Pbfi0TFlGsHijc6iKIgLwpLwSeBgH9SWmfsU?=
- =?us-ascii?Q?rXIdlm2fqpcv9ySKoPtK2CDebFZKtM0ci8xiQ5Cj7uF5nWiAehXd4Lda6FA+?=
- =?us-ascii?Q?NXTVN6zp81HoDbSuyMdb+u49XYNd9zbw4pCK2fPpiySO32j5pkwNmLa64PT0?=
- =?us-ascii?Q?vU8/aEc/mWwShSuxaY52/NxL/rSxlLjpHs+FFiBvYdy7bU4ZnWL5clv1MQy8?=
- =?us-ascii?Q?I/eeFRQPNtF2TkquTq39GSN8OHrsWW7Ony2tO2Qag0wsqrVnscgD7wvO7uLP?=
- =?us-ascii?Q?X9VvOjBblOt8PQu6SJ55pfC1NezCWotwmfOi5zkv7AykL7HK+Kn4w+OzcIY9?=
- =?us-ascii?Q?6270d8mKEkGqya8hjXdMYfvSD1Zovrl08uwGy6yxE2rR9DymEXAX8v22qajk?=
- =?us-ascii?Q?VRbHDqPbZxOLCC1dCelT2kMAOG1lpUeey4WWFLiVRiVABeOA7qMj3ZjyCeUS?=
- =?us-ascii?Q?5q3Tqj5v5IkzelahzMJwsIieIAC60JN4kUCvmRhH//6VLGWLy0xcw/jE/R0B?=
- =?us-ascii?Q?Kh/skBIxgwa4lxpxuMPs6tQ12MdSx5WuBzsGUldJw0VZHBhzdCbcxmCQ7h7g?=
- =?us-ascii?Q?dMs0HykNkmj4wKD2B1mmxjHbeWQfEKkJZEb1nF0B5JFcbEHDpgqhNDObBfE7?=
- =?us-ascii?Q?W8viVCSmGn0tluDr1oJu5284zFrGHfzVa+pNiVgixhxEPBVr1tWIJw0VneOt?=
- =?us-ascii?Q?Wd/K4UCHi+3f4vtYQHDf0jJ7EnGKkXJno8cleJQR+IA97tQRn7NIobq3Bhi4?=
- =?us-ascii?Q?d6znjrn20Oorr2KrGRuaA5UrP5H1njpqN3ElGUbS/MOQxYTR4kRzGE2bw1Ix?=
- =?us-ascii?Q?fVG9vAHUrJx/5Cdf7Vu4AMdN6T2AuKfj1GAae/tlarl2iFSXXJxc1ZkhT1K8?=
- =?us-ascii?Q?QVS5GdqaeJodn3Udi1RPx0T5fPU+ND4mtGgKJek3l2fLtHVGiwLNn9Rr4SlZ?=
- =?us-ascii?Q?GDqAtjJEDy9a7TQ3V9WAUKhfwVcN9/S0LQOAy8b3umDct53o/TJFgeT7j9iK?=
- =?us-ascii?Q?8curHs+Ing=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=XauEX3xg
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so29082985e9.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:20:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1795425651; x=1796030451; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ig8NpIwfuVm57PMXnS1/HkeHo8NBh9VYFSj4z2Q3cYI=;
+        b=XauEX3xgxlW+dEF3DNnSm27iF0+ozTlnPxRzOiMcl6S9/btAEDGTTCzsov+NVLufQq
+         Je15fmg2xLDNCiUpYaqVvad69kFPJoM0HqinIrFHPQ/cfyKXAtbyCkmuy+6Z0Ic2N/3k
+         gCjq83F+eE5lep5hR+Cw9ai40QRPX8uDpf0rbEau5DFj/P+QwWuNqyc3X5Ppc2eGqNjn
+         vHsfmtzeVQNz7FUN4Kb68sZ48V/Rz2DOvA2qwfxQliRu0YlNJLqsTL1syx/H2JArAmck
+         2N8wwa8aOcZnCAJX+E3sdpFk+om9ALJeiSmkCnuK8U9BMa+5KCmORdWspdkfV/uCeCZG
+         eigQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795425651; x=1796030451;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ig8NpIwfuVm57PMXnS1/HkeHo8NBh9VYFSj4z2Q3cYI=;
+        b=M7shexYVR3//dhoY3waK2IndGW71iAlBllawPw0PjxdqMdxcZ965nyLgHkd/qiJ1f+
+         zswx38DEduUPYyKbf0BIQSucAYf3FmzOYIlls80gIIXTPdNHuo0rpqCFHlNrD9uClmBt
+         9mGHwHivkIksLPpJr/hYa0lOTOlxRsH4vPPwxqsOd9RoutOvUWZ7/kHJqmghWsmWS/Wj
+         WFzaqRCWEO1CxWkxB20vVUEuxKAWw+vGP8STjjHfoqDKGBe4w42bnq9WVJMdZQR9rtl9
+         6wC4QzuHzY1Fb7gHqoyJsAu0P0s9YMoNFLOLSFTW33MvhXelFF1VBJjid1gpjz2yDBZ/
+         DnbA==
+X-Forwarded-Encrypted: i=1; AL+hErEdxWaLV4faeWlBI5/cOLAC30ZuxxEqp8jYIlo1EBjdddQSLLzS0g3w5t27fAWFacLUlhoPxnvb+O86@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vO4ZEDm7Nyc6H3VbaeqJQN0VhwmlozVz3gevz70ly1ZQelztl
+	ksWSYgwga2IiG+f0r8pypkFq1/zvAg8Ek6sKaoJGVJHC5RUYpfp1QG32S59g0mWoydY=
+X-Gm-Gg: AZFdTZcWRGPi3P3ppwALgTcPM6e/9lzOprEMSTOjYYTfLBkZHScA5wLjcRK7jwjjAvS
+	gjAc/TPgmx9CV4b4I8Xr/zOGet8sTPPk+M+hAw9baiU0K3xaZOyJVc+mZ5Vwyv6QKpo1MENJAxW
+	tTSjtzsRHyNKoTa2F4AKFH9cQLgdstqAFJaffn35j7yo+08RaBRYbo7Ay7Tr2qzKiS1KT0gvmTL
+	AcNgLjCgqDVgZ5AeYC8R2huV5ssZ5yCPqPbCQ6R4ogdfZGBLpXY2EB/SjQJGSyqQ6z7GpoM981G
+	FkjbRvXi0kY2rmWoE3+uJaeFy6PlNMOgRKlg532tkgeYcJwJNri7NRNpPo9y65muaZ7DImGuPLt
+	nAsxkp5ls8VwBBu/GQa2smJAeM5PeAIH1bsLJ2U5ZCAYlvCKv6ZT7rUBhcsEYEQogunsmvMSBEk
+	Wa5HZEG81jVBZYR5k/j7CbiVqMXasqi0/0NzmNILW/7qaBekaQ++DnazHovg1bikcPUJzE82m8x
+	WjJLH3QcHaQGCZ0GKwJJ7hM3pNSJPwLUENOiMx3JRs7kIVlP5b+7rt4lN23mEbxlrgxc+xJW7wj
+	Z7Z0UeFv9UvPw2YMgcjvMbhgjpIruqGlvOU/jl09khDavi5K8BQfJu9UKPk6kJVNuWUzmU7Bd0D
+	AZN7M3Kp77xEGPjakuLOd0PB6691WJrC2zqZU+rg+7yd7oA==
+X-Received: by 2002:a05:600c:1548:b0:4a1:e00b:a10b with SMTP id 5b1f17b1804b1-4bb88800020mr245433325e9.7.1795425651076;
+        Mon, 23 Nov 2026 01:20:51 -0800 (PST)
+Received: from macbook.homenet.telecomitalia.it (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b39b6sm296458505e9.12.2026.11.23.01.20.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 01:20:50 -0800 (PST)
+From: Carlo Caione <ccaione@baylibre.com>
+Date: Mon, 23 Nov 2026 10:20:45 +0100
+Subject: [PATCH 1/3] arm64: dts: amlogic: s7: add the SCMI firmware node
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -161,53 +92,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 838553d4-c788-4b7d-d296-08df4942b396
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2026 09:18:13.9546
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aOJh6WqfKpDQJ2Cq3B15HZHuLpQFndY4kv9uaPS4js/UgFceyqkNyhKyo9IIWq2x2BImM0uOG9enZ07dBDBJjs97X2HM0cSk00UBLeODZKo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE2P216MB1826
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261123-upstream-s7-clk-dt-v1-1-95f46d67d8b4@baylibre.com>
+References: <20261123-upstream-s7-clk-dt-v1-0-95f46d67d8b4@baylibre.com>
+In-Reply-To: <20261123-upstream-s7-clk-dt-v1-0-95f46d67d8b4@baylibre.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Carlo Caione <ccaione@baylibre.com>
+X-Mailer: b4 0.16.0
 
-Hi, Frank.
+The firmware of the Amlogic S7 SoC family exposes the clocks it owns
+over SCMI. Add the SCMI node, its shared memory and a header with the
+SCMI clock IDs.
 
->-----Original Message-----
->From: Frank Li <Frank.li@oss.nxp.com>
->Sent: Friday, November 20, 2026 5:56 AM
->To: Nas Chung <nas.chung@chipsnmedia.com>
->Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
->krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
->s.hauer@pengutronix.de; linux-media@vger.kernel.org;
->devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
->imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
->festevam@gmail.com; kernel@pengutronix.de; nicolas.dufresne@collabora.com;
->ming.qian@oss.nxp.com; marek.vasut@mailbox.org; jackson.lee
-><jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>
->Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performance
->profiling
->
->On Thu, Nov 19, 2026 at 06:00:03PM +0900, Nas Chung wrote:
->> Add per-instance performance profiling to help identify whether a
->> throughput problem comes from the firmware or from the host side.
->
->why not register as perf interface?
+Acked-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Carlo Caione <ccaione@baylibre.com>
+---
+ arch/arm64/boot/dts/amlogic/amlogic-s7-scmi-clk.h | 27 +++++++++++++++++++++
+ arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi       | 29 +++++++++++++++++++++++
+ 2 files changed, 56 insertions(+)
 
-The numbers are kept per instance (per open file). Each instance has
-its own fps, latency and min/max frame time, and they are updated each
-time one of its frames is done.
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7-scmi-clk.h b/arch/arm64/boot/dts/amlogic/amlogic-s7-scmi-clk.h
+new file mode 100644
+index 000000000000..71630bc94531
+--- /dev/null
++++ b/arch/arm64/boot/dts/amlogic/amlogic-s7-scmi-clk.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2026 BayLibre, SAS.
++ */
++
++#ifndef __DTS_AMLOGIC_S7_SCMI_CLK_H
++#define __DTS_AMLOGIC_S7_SCMI_CLK_H
++
++#define CLKID_DDR_PHY_OSC			0
++#define CLKID_USB1_PLL_OSC			1
++#define CLKID_TOP_PLL_OSC			2
++#define CLKID_HDMI_PLL_OSC			3
++#define CLKID_USB0_PHY_PLL_OSC			4
++#define CLKID_USB1_PHY_PLL_OSC			5
++#define CLKID_USB0_PLL_OSC			6
++#define CLKID_ETH_PLL_OSC			7
++#define CLKID_ADC_PLL_OSC			8
++#define CLKID_CPU_CLK				9
++#define CLKID_DSU_CLK				10
++#define CLKID_GP1_PLL				11
++#define CLKID_ACLKM				12
++#define CLKID_PWM_G				13
++#define CLKID_PWM_H				14
++#define CLKID_PWM_I				15
++#define CLKID_PWM_J				16
++
++#endif /* __DTS_AMLOGIC_S7_SCMI_CLK_H */
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
+index 64440df4f542..69dec312e7d6 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
++++ b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
+@@ -8,6 +8,7 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/pinctrl/amlogic,pinctrl.h>
+ #include <dt-bindings/power/amlogic,s7-pwrc.h>
++#include "amlogic-s7-scmi-clk.h"
+ 
+ / {
+ 	cpus {
+@@ -109,6 +110,34 @@ xtal: xtal-clk {
+ 		#clock-cells = <0>;
+ 	};
+ 
++	sram@50f6000 {
++		compatible = "mmio-sram";
++		reg = <0x0 0x050f6000 0x0 0x100>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges = <0 0x0 0x050f6000 0x100>;
++
++		scmi_shmem: sram@0 {
++			compatible = "arm,scmi-shmem";
++			reg = <0x0 0x100>;
++		};
++	};
++
++	firmware {
++		scmi: scmi {
++			compatible = "arm,scmi-smc";
++			arm,smc-id = <0x820000c1>;
++			shmem = <&scmi_shmem>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			scmi_clk: protocol@14 {
++				reg = <0x14>;
++				#clock-cells = <1>;
++			};
++		};
++	};
++
+ 	soc {
+ 		compatible = "simple-bus";
+ 		#address-cells = <2>;
 
-As far as I know, perf can only count per CPU or per task, and a device
-PMU usually counts for the whole system. So perf would only show the
-total of all instances, and we could not get the min/max frame time
-from it.
+-- 
+2.56.1
 
-Thanks.
-Nas.
-
->
->Frank
->
