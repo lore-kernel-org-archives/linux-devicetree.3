@@ -1,73 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795435770;
-	b=XXhLloZaaJBAt9wcFOaSnDiNidoz9X2K1volD3gl8nzH9fgJ3ud3k9Kc9b9sRUCF5DrK
-	 SRNqBoIHASJvLd592zw2yokq7b91toG5rbcgpc7XmhTpOdP2pplsrNjUgm4rtTwgqkfGx
-	 TnfrGfS7ZZVQ87v9YukJcNTpYxzDNVH0Spp7qx9yXoKSbtCgQ6/Ol/4bqmJ8ysg6kWlwh
-	 oc1LFUgoHNEbqyy9i4kUrCdKkqaHIwqgCyRdGXbpEl569oLbPp1t79+X4lM/aSoJmzBq3
-	 naGIRQG8/0KrpPLrXDgbEhIgIhTTTSKPqeKN4SJDHybZ1S3LYlScdxmJISZCAAJ/VJg==
+	t=1795435901;
+	b=BXA1gtJFiyTU9EcEG93oxdvI+4HJnRUJJPKrxNJiq5AHhlWo+/g+LyjBjX/tv703NLdF
+	 MAAhSRQgtg+rkLkDSP35aA3H/jy5zB1wjqwY+XQHV4a61p+8mX3GjNk4dPlfqMR1PBmUO
+	 1M/B17WEDc6+FhO3BM7G6/xDrJLDW1qyEseJ3U2PzTQyeHIHKoSz+ySLrf8XNR9fKSoX4
+	 wPGPYkDwerdrQagRy8X0FWDkVH1e1Hkp+tyMlsnhqdFyBhL0CIQRxr9q5OjeJuP5wlfNg
+	 h8qdReIrKJgqeSelzICndx30a+MFhc9wAdYfJzsL92hMg+hJsHlpiNUp8vOiH9mSBzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435770;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EBAlgyArUaIDoaFWbczuSy+qeFGqGHKDwrHB/xbYHXM=;
-	b=To38sXSAfvBcWj2zMr3YjT3s862vzv3l7NyaoaoyFcdux6p76hlN3Agjnx1IyA/sPS+4
-	 gr8nEWpA8KGqbNR0YghKeSig+dIt6a8rvny/hE6KS+WuZFvSU5/BYU2Wh51RVfsu7zdcL
-	 k1EwcKHBnx6esgLWnxG76073u7af6FYEzbC/nXdt6IivQWEqG/pHlJB0P+CpQWOvsUogf
-	 GizDIQ4GqbREOYBNmtdatxH68MhT9WPE7KzOFcdmYKhP40gcp4nErylx/o6nfHJwpr7AU
-	 mAB2OdeleyXEAjy9/aH+moQzLX6+TZAKUQG9klSaC4h6aiqoMT6bWUaVZtxcVcRxj6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435901;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ys650cAde3Q0UZPCkuSKgdoYQBhDD7kH4x34+Y7aDk4=;
+	b=MwN9Bqy2v9abZUXwk/5pSiYZ4Reqw/VBSVccbnxjcGBMLiOOIfZaH3L3dPTDaEsvkZsW
+	 yPehsJEA9EobYKTMnkRLiZKCStt0B1gsvhdeohNW2jd5xuiho/0ZkAOC8C3p/wfEtSqlR
+	 la8VEpbAFIVtKyPj6iq19Dk7cxA25frhPZPyTqIu95N8FFh5IdOnVXCCgATVUL7cQ719M
+	 mkullT1CpB5i4d8jEXjyDuI16QXSXso6FwXqHx0vVaCmxI7Z0WtPzBampa5YDczcJQx1A
+	 yhTTFH1rsaDahilJpLbK8F45W66G/g22h6+fnBJE3SxzOwhg5VqZXmlunQmbw+P62Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E+6H/6oP";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75B7606A31A;
-	Mon, 23 Nov 2026 12:09:30 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=upi0++HA;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9A593606A31A;
+	Mon, 23 Nov 2026 12:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A593606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E+6H/6oP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296FD1F000D3;
-	Mon, 23 Nov 2026 12:09:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795435770;
-	bh=EBAlgyArUaIDoaFWbczuSy+qeFGqGHKDwrHB/xbYHXM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E+6H/6oP8nLnOr4iihKZsT5mFLOzHyhwUMzMxmC6pmAe+pt5ais3/kGYPwi8oF5zr
-	 GjAUPCdau77AfYr2a7Mpi/s9QIus/zoxYa14PAqfbidqxzxwPdaC4msn8xdwhGgYbY
-	 nrWqf+M6Mn+OtAJyvAriYXzms38kkQbkOj2aCC5vFExcHvLJrAW61nRLiv+esgmheb
-	 hmdZLQDBBvmHVNc3/BLfmVLqfolD+YZt5NvD63SBFtb0XhEPrhJcH4DKSycDVALgmF
-	 Vepzp38JoPHLXSbuUbw56Yo0Q2S6VCXBAySB6aIOmtu9udEKeBIynyCXinbFCiTHjE
-	 1yVG1ElUOlkmw==
-Date: Mon, 23 Nov 2026 13:09:26 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, linux-usb@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 13/16] dt-bindings: arm: qcom,ids: Add SoC ID for
- SXR2250P
-Message-ID: <20261123-pastel-barracuda-of-rain-bce8ac@quoll>
-References: <20261116-halliday-dts-v2-0-2c92438c6c46@gmail.com>
- <20261116-halliday-dts-v2-13-2c92438c6c46@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=upi0++HA
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0F092143D;
+	Mon, 23 Nov 2026 04:11:37 -0800 (PST)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F38793F882;
+	Mon, 23 Nov 2026 04:11:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795435899; bh=IXJlhkOu02PMLJhAmFQG3suYsDUBwjTHBtjb3rIawWI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=upi0++HA2QQxKi3l/eDto4HMDostHb/auc9eIJQt4fBdzYPGzQRfCHEz+vl/NlpzT
+	 lNuooRR/vLYiLvR8RrRDrnBCKnBuz4xEy5w+1cpBTy6V4FPWHFt/xLu+HwM+nvkRiQ
+	 ChyjiRsOhlqi87WQfkg7lR0nkKUVgDSmKcqGVbbs=
+Message-ID: <374d9bf5-5c91-4f93-aa25-f0666802e153@arm.com>
+Date: Mon, 23 Nov 2026 13:11:37 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,20 +53,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116-halliday-dts-v2-13-2c92438c6c46@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] arm64: dts: allwinner: add Radxa Cubie A7Z support
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ Chen-Yu Tsai <wens@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Enzo Adriano <enzo.adriano.code@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
+ <CAGb2v66nKWdF3AvXDfb07iYVQE5FC5yDkhuutShp+Z-EgFXEfg@mail.gmail.com>
+ <20261123111547.24280-1-vinicius.eduardo.pedrosa@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261123111547.24280-1-vinicius.eduardo.pedrosa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2026 at 09:26:29PM +0000, Stanislav Aleksandrov wrote:
-> Add the ID for the Qualcomm SXR2250P (Snapdragon XR2+ Gen 2) SoC.
+Hi,
+
+On 11/23/26 12:15, Vinicius Pedrosa wrote:
+> On Sat, Nov 21, 2026 at 12:14 AM Chen-Yu Tsai <wens@kernel.org> wrote:
+>> There seem to be 3 revisions of A7Z. Which one are you targeting? Or are
+>> there no differences as far as the OS is concerned?
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
->  include/dt-bindings/arm/qcom,ids.h | 1 +
+> I'm targeting V1.11, which is the board I have and tested.
 
-This should be rebased on my patch removing the IDs.
+I think we should aim to support both variants with one DT. I don't 
+think it's nice to expect users to pick the right version. The board I 
+have is v1.10, and it's about a year old. I think there is an even 
+earlier batch, having been sent out in summer of 2025.
 
-Best regards,
-Krzysztof
+I think the DT can be made compatible with both v1.10 and v1.11, and 
+probably even v2.00 later:
+
+> I compared the published schematics. V1.10 differs from V1.11 in two
+> places relevant to this DT:
+> 
+> On V1.10, BLDOIN comes from SWOUT2 and CLDOIN from PS. V1.11 uses a
+> separate SY8089 step-down regulator at 2.4 V for both.
+
+Both SWOUT2 and PS are always-on, and this SY8089 regulator seems to 
+have no enable control as well. So the DT dependencies should be only 
+cosmetic. So it shouldn't hurt keeping the regulator, just adding a 
+comment about the v1.10 not having it.
+
+> V1.11 adds a 10k external pull-up (R59) to the microSD card-detect line,
+> which V1.10 doesn't have.
+
+Argh, on the v1.10 I need to enable the internal pull-down(!) to make 
+the switch work. So I guess it connects to Vdd internally if an SD card 
+is in? In the v1.11 schematic it looks like D1 and D2 form the two sides 
+of the switch, and the other side (D2) is connected to GND. So the 
+switch trigger is probably inverted?
+When I leave the pull register bits at 0, the readout is inconsistent 
+(goes to high when a card is inserted, but stays there when removed).
+
+I wonder if this works anyway with using both the internal pull-down and 
+potentially external pull-up resistors? As one would win over the other?
+Can you try how your board behaves with:
+         cd-gpios = <&pio 5 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+
+Let's hope this works ...
+
+Cheers,
+Andre
+
+> So the power supplies and card-detect configuration would need changes
+> for V1.10.
+> 
+>  From the V2.00 schematic, the parts covered by this DT (PMIC, microSD,
+> LED and UART) appear unchanged from V1.11. V2.00 adds MIPI DSI, a second
+> CSI connector and a backlight driver, none of which are described here.
+> 
+> Would you prefer keeping this DT for V1.11 (and V2.00), with a separate
+> DT for V1.10 if needed, or splitting the revision-specific parts now?
+
+
+> I also saw Andre's review of Enzo's v4 [1]. I'll apply the relevant
+> changes to this DT, including removing the MMC alias and revisiting the
+> regulator descriptions and constraints. I'll wait for Enzo's v5, test on
+> my V1.11 board and send a v2 with those changes and the LED patch
+> squashed into the board DT, as Krzysztof requested.
+> 
+> [1] https://lore.kernel.org/all/20261122003932.568c099c@ryzen.lan/
+> 
+> Thanks,
+> Vinicius
 
