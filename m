@@ -1,57 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795460275;
-	b=4ebOgmO14KGbs5kqBIcqjShWqpMjUkn+sXTjLu3uQ/qess81v8EbfsbUW2ih6peHUHrM
-	 U1kJAm7x49w3jA6u3bUy1FeYgixiRLCC/wBDd4SNOI6EXk12A8CuquNAOD+ZsOct3FsQ+
-	 ZPPZ1IzcjlLqZ5pPQxTfEl5AK/SXqnatVdhugOsaxM57vqXos9kJfW4+n3gBFQfkWn2tz
-	 GECpaxmF7J7r4YuSqThWD+bm9OUf5bTtAxEwTRLl87elPU82PnSVzYHgjkOp9VQIhTq5O
-	 K4wctqcr9AS2bWTvGaP9z1khgJp70cOSZentcaCGywtqhZvd14nRndjq6wLjD8DhA8w==
+	t=1795460365;
+	b=f/ipdfHTHSbYIhZ8xiHAy132RYU0nGvVtU8q+zfVO0GKLfW0ZFirCyIJIpOlFYk8H5nV
+	 Q3gl6sLc46N2LoK1h47A6PdcU/sPbyC2dMe3WwKxin0Crxbor7lOOkKqBvo8gnZJN8Uh4
+	 PNyQBs67EG6dsdrNPYQJIcpIUmpurHd/4z9yxzGVfHD2Jf5UHUWsVvsiKogMcaenR2x9P
+	 lpW6GF+a81EtK3GnnTANXIPv/PXviLmNQ2p5JLrzmhmGacs6n2lAcqsBibbxZqUlvMrNc
+	 mWdH3f9e/fW6Rx9eWisMEoF3nO/9/WlvIcT36K9TKRSoaS/FoUW15YUwPBB0DANDFmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795460275;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=kSfjBnZBWfZq7XeQ/GDzjNOUZXZqg1ZujX6SW66Y9TM=;
-	b=4DKiY0R1umsFhdwj1w1U2+rcDO2buYeekdx5fQLO5x4mB9sffUuEse9O3RLv2wKOWA+F
-	 Y65150pNHpdmpewewc3DHArcOQ8dp7jwOxv3ZoPU0C0msEgwhYCrWkmE2JsEEFQP+xj3W
-	 KxhryenA0CJ9PIc8pcYuyBNmLL79DuhGLCD4iGajlnTDEu1CGG6s/r4LTxZCGrxBidFDo
-	 Hk8+cHdnbhV+yZn9heTlYngvRG5iCPgKU5+W3D0jT4JMOro+Yf4BKAh2Nm2PCLokVHWR6
-	 Bb3rn61+6vVt/+5rV8p595/0k+sRdv7GAmCV2d9yd7c286JaIatOjhgOLvDIfYws1pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795460365;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=9rM4GZXOgC1yOcev7Pd1LAp+V/n4emj7sYZ2cQwywT8=;
+	b=5fAC82Jsw+1fbCIFjvZYM2DMYPQlNaIjeg+FQL7ZUdbChvDSsqo/N7o2d+m6U7CHB7NI
+	 vwYHmuLFYxlNaeFtmPFshuDvg2XIlXfpeX/A2Jr4sBva+H+hZ6oozHFIZ55JstKXEMkdO
+	 nuyzlMS+SBtPa1shPptPwMRhr1UkJ0xEHd0g05CaBfmi6PQ0S0Xg6RUwi+BvUtsXSIINq
+	 bBqY3KOPnGLBmkcLltorwom4AwL9qQWC6EXorryOFOJWjIaYlhHqvXzA1YjdbfjPfbcBl
+	 lBSgUwOiPLsIKcAFSRNW5UdqRnKeGBEWFxu1Y9Ng+ypepJvxrJbrdtqjy/ZynLEz1OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oc54pgyh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WK1u4VMH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2596A606A321;
-	Mon, 23 Nov 2026 18:57:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E4F606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 18:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oc54pgyh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A1501F000CF;
-	Mon, 23 Nov 2026 18:57:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WK1u4VMH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9E21F000D8;
+	Mon, 23 Nov 2026 18:59:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795460274;
-	bh=kSfjBnZBWfZq7XeQ/GDzjNOUZXZqg1ZujX6SW66Y9TM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oc54pgyhN8UhE8Elvu4rABHWgXRqhAaWcPaEg5JFonh1d0Vk9n+W3FNQ88QJZkTn+
-	 mqvpWw2RO5ESphd9XXcZBeaFLZYDBjxXw9uZk9O2G9o/GMJr/UBGo7Wvly9V1mIfr0
-	 FpKzAYgWkKFec5JOKSwLERveHsxUSz5T9yX0TxHo+1ZCsynFu966KO5kgxHX3i4ACy
-	 AW6ql9c7HLz542uwdJmnweRJ81Q4OzfWi2WcuQlR28tuWXAPYlllw95ysJMhrQF9HO
-	 SRavGiCdYwvchdc4hTgIIb5IubEPjlZ6JP4E3YaG9OZEkNHwCQjnlLeFkTgcsOu0vR
-	 96jTNxA93Z50g==
-Message-ID: <sashiko-outbox-229891@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] clk: qcom: gcc-glymur: Convert USB4 clocks to use
- phymux ops
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-topic-usb4_clks-v1-4-531ab5635c03@oss.qualcomm.com>
-References: <20261123-topic-usb4_clks-v1-0-531ab5635c03@oss.qualcomm.com>
- <20261123-topic-usb4_clks-v1-4-531ab5635c03@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 18:57:54 +0000
+	s=k20260515; t=1795460365;
+	bh=9rM4GZXOgC1yOcev7Pd1LAp+V/n4emj7sYZ2cQwywT8=;
+	h=From:Date:Subject:To:Cc;
+	b=WK1u4VMH5LV8L8chBV5+ffc8VB9P9g9z4gqw9rAD1xbOz8ybGqJcZTquGYxWCvp8o
+	 P07VkVSIyF0y4Wge+ZqNVVRhpCQoZV/r9Srr/jARvcpKzTlgZDJLoZe+jDpWweC/Zl
+	 W0zV/QjjKa/rafUAo0H7F0uNPzpqNNkcXkL4lKO15nw1z0HvWV7jTY7a2FgBrOEW4n
+	 c3y1GEWu+8E3rtgXjpp8n31VLByiYQuo9F7aUuyJPDSDSB0SI7wlzYOsqU4f1r2dsH
+	 HDX/HVw986oiZmXRkx+RZH5vFnFrFq6Lg9Ai2K6TXk2Obl+Hsf0rzTO7ltxHTuRFfd
+	 cqZ0i+Xm7Vw7g==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Mon, 23 Nov 2026 19:59:16 +0100
+Subject: [PATCH v3] of: property: Create devlink between PCI Host bridge
+ and Root Port supplies
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,80 +52,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261123-topic-pcie_hb_rp_link-v3-1-f90191217c74@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5FMBBA0V+RWWvS1ouIXxFpGINBqmkRifj3V
+ yzP4t4LAnmmAGVygaeDA682IksTwLGxAwnuokFLnSulM7GtjlE4ZDJja7wzC9tZoCx+lEvVdNh
+ DbJ2nns/3W9Wfw95OhNszg/v+A8+kcoh5AAAA
+X-Change-ID: 20261123-topic-pcie_hb_rp_link-c084e601adcf
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795460362; l=4589;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=eaqhIPZmDT+AqMVjs4K8JRsEVbvlM8yNAdZ7+oa/IuQ=;
+ b=VYGCAt6lxrvnKpOTKrR7bEFMswV6WJapE1gJ0ZYw6xShGOSOU6RymPA6lnnCKhlHGIrhFgLn1
+ SoAj2Ti+0ZzALsvvUbzxv60lKFkgfWTLfMDL9V6fCP9AV4+LiXF2Toq
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] clk: qcom: gcc-glymur: USB4 PHY RX branch clocks poll halt with
-  phymux parent
-- [Medium] clk: qcom: gcc-glymur:
-  gcc_usb4_{0,1,2}_phy_p2rr2p_pipe_clk_src not converted
---
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-commit b685bd7088c460b8ed23d2168b56f940cdb682c3
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Recently, devicetree started to represent the PCI Host bridge supplies like
+PHY in the Root Port nodes as seen in commit 38fcbfbd4207
+("dt-bindings: PCI: qcom: Move PHY & reset GPIO to Root Port node"). But
+the Host bridge drivers still control the Root Port supplies as a part of
+their controller initialization/deinitialization sequence.
 
-clk: qcom: gcc-glymur: Convert USB4 clocks to use phymux ops
+So the Host bridge drivers end up parsing the Root Port supplies in their
+probe() and control them. A downside to this approach is that the devlink
+dependency between the suppliers and Host bridge is completely broken. Due
+to this, the driver core probes the Host bridge drivers even if the
+supplies are not ready, causing probe deferrals and setup teardowns in
+Host bridge probe().
 
-This commit converts gcc_usb4_{0,1,2}_phy_rx{0,1}_clk_src from
-clk_regmap_mux with clk_regmap_mux_closest_ops to clk_regmap_phy_mux with
-clk_regmap_phy_mux_ops.
+These probe deferrals sometime happen over 1000 times (as reported in Qcom
+Glymur platform) leading to a waste of CPU resources and increase in boot
+time. So to fix these unnecessary deferrals, create devlink between the
+Host bridge and Root Port supplies in of_fwnode_add_links(). This will
+allow the driver core to probe the Host bridge drivers only when all Root
+Port supplies are available.
 
-> diff --git a/drivers/clk/qcom/gcc-glymur.c b/drivers/clk/qcom/gcc-glymur.c
-> index 96d1c07348bcb..186c779e30846 100644
-> --- a/drivers/clk/qcom/gcc-glymur.c
-> +++ b/drivers/clk/qcom/gcc-glymur.c
-[ ... ]
-> @@ -1099,32 +1033,30 @@ static struct clk_regmap_mux gcc_usb4_0_phy_pcie_=
-pipe_mux_clk_src =3D {
->  	},
->  };
-> =20
-> -static struct clk_regmap_mux gcc_usb4_0_phy_rx0_clk_src =3D {
-> +static struct clk_regmap_phy_mux gcc_usb4_0_phy_rx0_clk_src =3D {
->  	.reg =3D 0x2b0c0,
-> -	.shift =3D 0,
-> -	.width =3D 2,
-> -	.parent_map =3D gcc_parent_map_34,
->  	.clkr =3D {
->  		.hw.init =3D &(const struct clk_init_data) {
->  			.name =3D "gcc_usb4_0_phy_rx0_clk_src",
-> -			.parent_data =3D gcc_parent_data_34,
-> -			.num_parents =3D ARRAY_SIZE(gcc_parent_data_34),
-> -			.ops =3D &clk_regmap_mux_closest_ops,
-> +			.parent_data =3D &(const struct clk_parent_data){
-> +				.index =3D DT_QUSB4PHY_0_GCC_USB4_RX0_CLK,
-> +			},
-> +			.num_parents =3D 1,
-> +			.ops =3D &clk_regmap_phy_mux_ops,
->  		},
->  	},
->  };
+Reported-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v3:
+- Resubmit as-is (bump the version as I added my sob at the end since
+  the submitter is different) - there was no activity and no response
+  to a bump for quite a while, but this patch is still useful.
+  I dropped the tags I left at v2, as it would look a bit silly.
 
-[Severity: High]
-Should the child branches gcc_usb4_{0,1,2}_phy_rx{0,1}_clk use
-BRANCH_HALT_SKIP instead of BRANCH_HALT now that their parents use
-clk_regmap_phy_mux_ops?
+Link to v2: https://lore.kernel.org/linux-arm-msm/20260506075625.8490-1-manivannan.sadhasivam@oss.qualcomm.com/
 
-With clk_regmap_phy_mux_ops, phy_mux_enable() switches the parent mux from
-BI_TCXO to the external PHY RX clock before enabling the child branch, and
-clk_branch2_disable() disables the child branch before phy_mux_disable()
-parks the mux back on BI_TCXO.  If the PHY is not actively driving the RX
-clock when the branch is toggled, clk_branch_wait() will time out polling
-CBCR_CLK_OFF, trigger a WARN, and fail with -EBUSY.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ drivers/of/property.c | 29 +++++++++++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 2 deletions(-)
 
-[Severity: Medium]
-Should gcc_usb4_{0,1,2}_phy_p2rr2p_pipe_clk_src also be converted to
-clk_regmap_phy_mux with clk_regmap_phy_mux_ops (as in
-drivers/clk/qcom/gcc-x1e80100.c)?
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index 45e55f618488..51db25cbcd4e 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -1601,6 +1601,7 @@ static const struct supplier_bindings of_supplier_bindings[] = {
+ /**
+  * of_link_property - Create device links to suppliers listed in a property
+  * @con_np: The consumer device tree node which contains the property
++ * @parent_np: Optional parent device tree node requiring child's supplies
+  * @prop_name: Name of property to be parsed
+  *
+  * This function checks if the property @prop_name that is present in the
+@@ -1617,7 +1618,8 @@ static const struct supplier_bindings of_supplier_bindings[] = {
+  * device tree nodes even when attempts to create a link to one or more
+  * suppliers fail.
+  */
+-static int of_link_property(struct device_node *con_np, const char *prop_name)
++static int of_link_property(struct device_node *con_np, struct device_node *parent_np,
++			    const char *prop_name)
+ {
+ 	struct device_node *phandle;
+ 	const struct supplier_bindings *s = of_supplier_bindings;
+@@ -1638,6 +1640,10 @@ static int of_link_property(struct device_node *con_np, const char *prop_name)
+ 			matched = true;
+ 			i++;
+ 			of_link_to_phandle(con_dev_np, phandle, s->fwlink_flags);
++
++			/* Link the child's supplies to parent if needed */
++			if (parent_np)
++				of_link_to_phandle(parent_np, phandle, s->fwlink_flags);
+ 			of_node_put(phandle);
+ 		}
+ 		s++;
+@@ -1696,7 +1702,26 @@ static int of_fwnode_add_links(struct fwnode_handle *fwnode)
+ 		return -EINVAL;
+ 
+ 	for_each_property_of_node(con_np, p)
+-		of_link_property(con_np, p->name);
++		of_link_property(con_np, NULL, p->name);
++
++	/*
++	 * Since the host bridge drivers parse and control the Root Port
++	 * supplies, create a devlink between host bridge and Root Port
++	 * supplies. This will prevent the host bridge drivers from being
++	 * probed before the supplies become available.
++	 *
++	 * For checking the host bridge node, first ensure that it is a PCI node
++	 * and its parent is not a PCI node. Only host bridge nodes will have
++	 * this structure.
++	 */
++	if (of_node_is_type(con_np, "pci") && !of_node_is_type(con_np->parent, "pci")) {
++		for_each_available_child_of_node_scoped(con_np, child) {
++			if (of_node_is_type(child, "pci")) {
++				for_each_property_of_node(child, p)
++					of_link_property(child, con_np, p->name);
++			}
++		}
++	}
+ 
+ 	return 0;
+ }
 
-Those three muxes have the same 2-bit phymux layout switching between
-P_USB4_{0,1,2}_PHY_GCC_USB4_PCIE_PIPE_CLK (0) and P_BI_TCXO (2).  Because
-qmp_combo_usb4_init() and qmp_combo_usb4_exit() only call
-clk_prepare_enable() and clk_disable_unprepare() on qmp->p2rr2p_pipe_clk
-without calling clk_set_parent(), leaving them on
-clk_regmap_mux_closest_ops prevents the mux from switching between the PHY
-pipe clock and BI_TCXO.
+---
+base-commit: 3191063649dbf7c0d0b768e1f3655e4c5fc6edb5
+change-id: 20261123-topic-pcie_hb_rp_link-c084e601adcf
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-topic-usb4=
-_clks-v1-0-531ab5635c03@oss.qualcomm.com?part=3D4
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
