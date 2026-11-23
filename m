@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795465934;
-	b=l+ylTQQy2fzIhp3YUXiLV9lGKxT3ZR3p/TRO3pEnuW1Ic57ZyHg7dnii4vqlKvh6CIJa
-	 V9jbW7rvufHQrSzy54OtQF4Gs4AEvBILL9hJafRJzzKujhcXL/q/9Csyazr6ucLKROxRf
-	 QB60dQe4KsQ4ODaAIv3P1G5tUItuNk1IWvfop0F28cOMmrrD0zUj+xH0Tszm/g8PsEiJx
-	 g/SQ2QjEat19buUSBuGtzbeSxJRJtEylEgwQP9aNhuj6rnxHJdonYNfh58JEHz/u8EZIc
-	 01OKFUn5/HCJeHf5/PTlUvfl0Zv2G5jyzoAh5iNON35umDZfBnBR3HXpN4D1BFjjbQA==
+	b=XtDRfTiZyS+7GjW7ZkGNemxl0QOEdwrSZyd09K/vZKg+gAg0HLmYUHdyKw3YmWbrlqDn
+	 iXEMQEgslfEZH9YknEZ5OQGWZj8cvXEwgQV6Jr+oh2m8I3Cmucs0Z70xkeWkgw/ttQLV1
+	 a1/pwf1Ipib8+XSBVPaGEsoYWWjKiHni0qXHZOos+GWlZ/Y7lyYkRHF5YZlRtgkqkkacO
+	 1AuLu3yUEeHOKtlbRMPpt0JlLuBwCBn62UEVUPO1Wfjx7P+CVy9Mn3ND07u5n7Kbdcptv
+	 KwyXR4xPA6NFzXTozjc40CZvl7dX6km5LS+9oY6E6tet9zepg/Sou5fGDbExD7/Yg3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795465934;
 	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=crdpRbf/fj88j4MDqPdQowdHt/HZuMRPboLP7OQ8lXI=;
-	b=qNtOI3c6t4+ZVdUbbppbfXl0MSygohY170fU4JdlDM4YZyFhVigincG4LR2+WC2b0SHg
-	 T23bIstyIqIWFrudLTiV8ny18gomAwjKkBok+1hRtp6bBdesKoxxjD9079CrnEkJnzHd6
-	 PWMI/FlKOZ6XNVvaYeK0DK6j5wnBJtbub+ZWRqA9hHkjwcyan5DI4Dy8AfLzcRvB6Ycd8
-	 2QgYQSHX+Naylu01ZT7vK7rKWVyV2dE8ieYp5yeEYSA65iDX5sgDXH9mbLXHTNz2uCwJa
-	 zGLAKS324cSFhRX2HbVG33EZ1u99pCdkq1XInMwg+6kpYUxNVh475wfSfk66BqF9vmQ==
+	bh=MeOL5WQuiPJrRNxkrcCwP2WQz32GfGwFwheiNLPGmRs=;
+	b=U8oatCgcUNALOAJuThFJ0U1r0OFty8h8gO04NroyhtM6rhJ/cf4Teokpm+vJsOciupSM
+	 snQTdX27ebofDYw50onWp8iNHO5GnAWawx+2J/Utq7vA7pybBbOOYHGRuI6Rn0wqfRQQq
+	 3Kc29YGDco0iSB5E/YqTeV/JNKqt+eWIY1MSsPVw/NzRhaklCjKptiWj8UHl+W6NQomjc
+	 hPLENhISH33YgAHrJujzyKLT6ktxL0VzNmgUiYEzf0Tn537ia8h92bBi/RYgKtKtjY2Qa
+	 rLkpxRLQoGajK3Z4phoXLwSphYmNcwjraAvZdGslbZrR8xzB1UY2J5LvZRHeK/j1ErQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kemnade.info;
 	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=aBI8Wuna;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=wEzK+BfT;
 	arc=none smtp.remote-ip=178.238.236.174
 Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993BF606A334;
-	Mon, 23 Nov 2026 20:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 993BF606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607F9606A33A;
+	Mon, 23 Nov 2026 20:32:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 607F9606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=aBI8Wuna
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=wEzK+BfT
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
 	Reply-To:Content-ID:Content-Description;
-	bh=crdpRbf/fj88j4MDqPdQowdHt/HZuMRPboLP7OQ8lXI=; t=1795465933; x=1796675533; 
-	b=aBI8WunaHJmSu5iLlWkpi/4obtoDGpw5moZ/mBU13TVAVGlfGR3rKwVjjwK7WubFfgXW49BZeha
-	T6NSwBAZKxmjDUjMvqud0FTHcras109k05MAVUmILfcOGejRQv0dF73y88FhthlIWzgwxlkexFU6S
-	0DPbkyyMQ78CNq9zFXzvLC7jFCyB9u1GLxB8vGSgW+4y3GRF4I7g3/Hl0tJTOFEW+tm80kmugi9F3
-	xplXUwQAJZhCAqJSeFuhCgpoq0/WVQKEyzMzXxd8HvzEx1ZUTPydfNIohXLwmsa86Uey7IeGjmluS
-	XLm9jslxdwZE2ej7D95Ro8sNJ4UuU3jtA4jQ==;
+	bh=MeOL5WQuiPJrRNxkrcCwP2WQz32GfGwFwheiNLPGmRs=; t=1795465934; x=1796675534; 
+	b=wEzK+BfT/TrzOhtDpm9E+0JYhVoF2RF5anl/qVLQleGaKFCBEnHrzVWU7j4Fl1j2db0zuTmI9oE
+	sdJgVczKxhSKHlrywofENQMj1h1gusLUntUY2px19hCFSvtEgsesLNfIg+Dj36Ud4O7eFf8sTwCPS
+	eBwA3RyVbRg8K4jXBUYAqLo1hpBEU6GEiQZW0dTDQgbEXA+Oy3BQ+0NJsok4IEWD+GnlmOSjZDNKY
+	rBRjxF2l4eIptKJ96PPj8y7pQzhluTd+cdx9dNKVpFQnRgIT3ZW0ZXmPchVD8e4fZ1xm/mB6q2JLo
+	ufX5RROiZwAP/AvAkk7dmQljYDRXtSFHFukw==;
 From: Andreas Kemnade <andreas@kemnade.info>
-Date: Mon, 23 Nov 2026 21:31:19 +0100
-Subject: [PATCH RFC 1/3] ARM: imx: enable STOP-ON mode in idle if wakeup
- requirements permit
+Date: Mon, 23 Nov 2026 21:31:20 +0100
+Subject: [PATCH 2/3] timer-imx-gpt: Allow 32K clock to be used as a clock
+ source
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-imx6-idlestop-v1-1-e32f1f44e46f@kemnade.info>
+Message-Id: <20261123-imx6-idlestop-v1-2-e32f1f44e46f@kemnade.info>
 References: <20261123-imx6-idlestop-v1-0-e32f1f44e46f@kemnade.info>
 In-Reply-To: <20261123-imx6-idlestop-v1-0-e32f1f44e46f@kemnade.info>
 To: Russell King <linux@armlinux.org.uk>, Frank Li <Frank.Li@nxp.com>, 
@@ -72,156 +72,69 @@ Cc: linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux@yoavmoshe.com, Andreas Kemnade <andreas@kemnade.info>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4614; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=ntGS1US+arjnYdgF/bjGJOwq/Z9wV52FocMKZLs+wYQ=;
- b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBKKuXjetOqHBL7nFgfi77nvDEQFyNRKo3D88i
- usgEoXAdYWJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawSirgAKCRCEYUX6QCjc
- 8eqCD/0f5ikBPNIahit9k7kHBrOI2CxnrVvel/0MvHfTBsT2hDec+c5y7FhKHqTd1B7O/l/DRo+
- /Y+FhH12SvFfaQ3jRRKhprP1HLR/uRxl6xBuYz6IGHkGwinecXxLVl0GmeE/8WPR/Pa8BF+XJEG
- oMU19OLjdmuYC+gYeixpJ46ypy13E1xlAzPBHDk4jjEMeA0+b1eItOgw296fDlTGoHKvzYjBK0N
- 3O4WcUjHvArgbD5f0lhYNfzvdVX2a/prmj8qGwtW+d972OcJzrZ4NlhKwT5X0iv8u6YbjqRwQi7
- ei2ISCn1L5tUzcNqntpveuiozzQMyzKkMlJoi7khjSDEg2CRB8IwyYWX/p/fNxLK0urBFDdC1Bw
- XbIvUj6Yoz2UVMVSBPgKWyaCu1cndKlNHkn2eQgehs77rSZAxosyOcIKH9W/O8rKpTGOJLQfHLt
- v4P5LAgSMhWNZjlzMCKS7aK6NdEurIdsqmDNkChFRn53d5Y2vKhEGuYKvTHUha06oPV7CAFhChe
- rWKOywyq8O3bg/DETST1XSAFThiVU04hmcAOFmMGah1pxYvcs1bQ+u1OE1sKkjhck6FtB6er/Fp
- bR7cA4tshPViWmVom28AqlmDXX1yH/cx0YGS1D4z+5j6ZAL1k7m9s/YMJdDHDceqGfbOjGwR2v5
- xvuYEPSE7VFUOsg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1764; i=andreas@kemnade.info;
+ h=from:subject:message-id; bh=OMgusFlYnyHNaF3mFmXvpoVMfUD10qiEbL98nAnPX60=;
+ b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBKKx0JnQSzWfDoJjNNYZbebVRLqsRoHC87Iu/
+ wxiPP28pJyJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawSisQAKCRCEYUX6QCjc
+ 8V+MD/4tj/iELyGTEIUG5cntzZaNXrbq8ktvputcge1aQ5MfnhJxBlMc+3KmmaWjVqBP2VauODu
+ 8uKlX2wy0kytjdUeL7WmO6cZUVVF7fsGsHBb4cfEdcf8u5V/WFUvN936f88rVBlWRy7Z+WlgHuX
+ JOtlXQpe6/qEt3994+vdGQhyjCO/XpPm7EIfB5PA87gA4t5hWUGdJWW1I8kBuAcrafriGH9PkV1
+ vz6pPDjHmhwqAxDNY5fOoxL3+6eG7BNwd9aHhRHXVfOq/NLxjE+iysd56KG+ctfyRrNQdGrTOJ+
+ PSeDinod5Tu/icJBA6opBY+L95V8cCed5iPL7x79vPdI/jku/1GRRb/p3136u9eM0ZwZVu3PJt6
+ m7eNLb8fKs0n+Uwj/ebH9IusKaqZndywD7dlyXxgtoUQ7b/cP640Pc2nSE+JxNSDrhFpQrjL/X8
+ DZ2aZpQ0QQDVv/BeizU9GD8aSegNcqqYXVA+tC4MeZdVKCJdQEFUMM5eIIuDyDtW9eR6k69XjyD
+ JPnW1BjNvH/uUiNZhYczZr/1V43zi7zVzMeCQg0qgaBNhC1Vyyx/bxvJ89kLdPowhQh7O9zE5pQ
+ Rtp+zf/s23N2boQLuCtgCaFeQL8dCFxNfsMX7Wmayf5mZUckpSvx/r18L04NueLBnplvfZfI/yI
+ ZDVrCauXF9X/WFQ==
 X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
  fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
-Since there are situations when only wakeup from some GPIO IRQs is
-required (besides the timekeeping infrastructure which can be fed by
-an always on 32K clock), add another idle state to allow power-hungry
-PLLs to be turned off in that condition.
-Since some clocks are not turned off by RPM and
-implementing it seems not feasible, keep a list of clocks to be ignored.
-This includes clocks marked as CLK_IS_CRITICAL (romclk, aips_tzX clocks).
-
-This is RFC because that mask check feels hacky. collecting references to
-every clock feels a bit too much, maybe set a flag somewhere by
-the clock driver.
+To avoid depending on PLL infrastructure for timekeeping, prepare for
+using the 32K clock by configuring the clock source accordingly.
 
 Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 ---
- arch/arm/mach-imx/common.h         |  1 +
- arch/arm/mach-imx/cpuidle-imx6sx.c | 42 +++++++++++++++++++++++++++++++++++++-
- arch/arm/mach-imx/pm-imx6.c        | 23 +++++++++++++++++++++
- 3 files changed, 65 insertions(+), 1 deletion(-)
+ drivers/clocksource/timer-imx-gpt.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/mach-imx/common.h b/arch/arm/mach-imx/common.h
-index d7ecaa822adbd..7804cf5d83922 100644
---- a/arch/arm/mach-imx/common.h
-+++ b/arch/arm/mach-imx/common.h
-@@ -35,6 +35,7 @@ void imx_gpc_set_arm_power_down_timing(u32 sw2iso, u32 sw);
- void imx25_pm_init(void);
- void imx27_pm_init(void);
- void imx5_pmu_init(void);
-+bool imx6sll_check_pll_are_used(void);
+diff --git a/drivers/clocksource/timer-imx-gpt.c b/drivers/clocksource/timer-imx-gpt.c
+index 8335bd7f8c6ce..3c023da565564 100644
+--- a/drivers/clocksource/timer-imx-gpt.c
++++ b/drivers/clocksource/timer-imx-gpt.c
+@@ -50,8 +50,10 @@ enum imx_gpt_type {
  
- enum mxc_cpu_pwr_mode {
- 	WAIT_CLOCKED,		/* wfi only */
-diff --git a/arch/arm/mach-imx/cpuidle-imx6sx.c b/arch/arm/mach-imx/cpuidle-imx6sx.c
-index 83c5cbd3748e1..4537cb7b3a637 100644
---- a/arch/arm/mach-imx/cpuidle-imx6sx.c
-+++ b/arch/arm/mach-imx/cpuidle-imx6sx.c
-@@ -65,6 +65,36 @@ static __cpuidle int imx6sx_enter_wait(struct cpuidle_device *dev,
- 	return index;
+ /* MX31, MX35, MX25, MX5, MX6 */
+ #define V2_TCTL_WAITEN		(1 << 3) /* Wait enable mode */
++#define V2_TCTL_STOPEN		(1 << 5) /* Stop enable mode */
+ #define V2_TCTL_CLK_IPG		(1 << 6)
+ #define V2_TCTL_CLK_PER		(2 << 6)
++#define V2_TCTL_CLK_32K		(4 << 6)
+ #define V2_TCTL_CLK_OSC_DIV8	(5 << 6)
+ #define V2_TCTL_FRR		(1 << 9)
+ #define V2_TCTL_24MEN		(1 << 10)
+@@ -314,14 +316,19 @@ static void imx6dl_gpt_setup_tctl(struct imx_timer *imxtm)
+ 	u32 tctl_val;
+ 
+ 	tctl_val = V2_TCTL_FRR | V2_TCTL_WAITEN | MXC_TCTL_TEN;
+-	if (clk_get_rate(imxtm->clk_per) == V2_TIMER_RATE_OSC_DIV8) {
++	if (clk_get_rate(imxtm->clk_per) == V2_TIMER_RATE_OSC_DIV8)  {
+ 		tctl_val |= V2_TCTL_CLK_OSC_DIV8;
+ 		/* 24 / 8 = 3 MHz */
+ 		writel_relaxed(7 << V2_TPRER_PRE24M, imxtm->base + MXC_TPRER);
+ 		tctl_val |= V2_TCTL_24MEN;
+-	} else {
++	} else if (clk_get_rate(imxtm->clk_per) == 32768)
++		/*
++		 * if powered by that always on clock, it is feasible to let
++		 * it run in stop mode, too, allowing lower idle states
++		 */
++		tctl_val |= V2_TCTL_CLK_32K | V2_TCTL_STOPEN;
++	else
+ 		tctl_val |= V2_TCTL_CLK_PER;
+-	}
+ 
+ 	writel_relaxed(tctl_val, imxtm->base + MXC_TCTL);
  }
- 
-+static __cpuidle int imx6sx_enter_pll_off(struct cpuidle_device *dev,
-+				       struct cpuidle_driver *drv, int index)
-+{
-+	if (!cpu_is_imx6sll() || imx6sll_check_pll_are_used())
-+		return imx6sx_enter_wait(dev, drv, 2);
-+
-+	imx6_set_lpm(STOP_POWER_ON);
-+	imx6_enable_rbc(true);
-+	imx_gpc_set_arm_power_in_lpm(true);
-+	imx_set_cpu_jump(0, v7_cpu_resume);
-+	imx6_set_int_mem_clk_lpm(true);
-+	/* Need to notify there is a cpu pm operation. */
-+	cpu_pm_enter();
-+	cpu_cluster_pm_enter();
-+
-+	ct_cpuidle_enter();
-+
-+	cpu_suspend(0, imx6sx_idle_finish);
-+
-+	ct_cpuidle_exit();
-+
-+	cpu_cluster_pm_exit();
-+	cpu_pm_exit();
-+	imx6_enable_rbc(false);
-+	imx_gpc_set_arm_power_in_lpm(false);
-+
-+	imx6_set_lpm(WAIT_CLOCKED);
-+	return index;
-+}
-+
- static struct cpuidle_driver imx6sx_cpuidle_driver = {
- 	.name = "imx6sx_cpuidle",
- 	.owner = THIS_MODULE,
-@@ -95,8 +125,18 @@ static struct cpuidle_driver imx6sx_cpuidle_driver = {
- 			.name = "LOW-POWER-IDLE",
- 			.desc = "ARM power off",
- 		},
-+		/* STOP ON */
-+		{
-+			.exit_latency = 500,
-+			.target_residency = 800,
-+			.flags = CPUIDLE_FLAG_TIMER_STOP |
-+				 CPUIDLE_FLAG_RCU_IDLE,
-+			.enter = imx6sx_enter_pll_off,
-+			.name = "STOP ON",
-+			.desc = "ARM power off + PLL off",
-+		},
- 	},
--	.state_count = 3,
-+	.state_count = 4,
- 	.safe_state_index = 0,
- };
- 
-diff --git a/arch/arm/mach-imx/pm-imx6.c b/arch/arm/mach-imx/pm-imx6.c
-index 3c73e2cdb8ceb..65a5268d31614 100644
---- a/arch/arm/mach-imx/pm-imx6.c
-+++ b/arch/arm/mach-imx/pm-imx6.c
-@@ -64,6 +64,14 @@
- #define MX6Q_SUSPEND_OCRAM_SIZE		0x1000
- #define MX6_MAX_MMDC_IO_NUM		33
- 
-+#define CCGR0 0x68
-+#define CCGR1 0x6c
-+#define CCGR2 0x70
-+#define CCGR3 0x74
-+#define CCGR4 0x78
-+#define CCGR5 0x7c
-+#define CCGR6 0x80
-+
- static void __iomem *ccm_base __ro_after_init;
- static void __iomem *suspend_ocram_base __ro_after_init;
- static void (*imx6_suspend_in_ocram_fn)(void __iomem *ocram_vbase) __ro_after_init;
-@@ -287,6 +295,21 @@ void imx6_enable_rbc(bool enable)
- 	imx_gpc_restore_all();
- }
- 
-+bool imx6sll_check_pll_are_used(void)
-+{
-+	/* check for any clock active which provides more than register access */
-+	return readl_relaxed(ccm_base + CCGR0) & BIT(29)  ||
-+		readl_relaxed(ccm_base + CCGR1) & (BIT(25) | BIT(23) | BIT(15) | BIT(13) |
-+						   BIT(11) | BIT(7) | BIT(5) | BIT(3) | BIT(1)) ||
-+		readl_relaxed(ccm_base + CCGR2) & (BIT(31) | BIT(29) | BIT(11) | BIT(9) |
-+						   BIT(7) | BIT(3)) ||
-+		readl_relaxed(ccm_base + CCGR3) & (BIT(11) | BIT(5) | BIT(3)) ||
-+		readl_relaxed(ccm_base + CCGR4) & (BIT(23) | BIT(21) | BIT(19) | BIT(17)) ||
-+		readl_relaxed(ccm_base + CCGR5) & (BIT(25) | BIT(23) | BIT(21) | BIT(21) |
-+						   BIT(19) | BIT(15) | BIT(7)) ||
-+		readl_relaxed(ccm_base + CCGR6) & (BIT(7) | BIT(5) | BIT(3) | BIT(1));
-+}
-+
- static void imx6q_enable_wb(bool enable)
- {
- 	u32 val;
 
 -- 
 2.47.3
