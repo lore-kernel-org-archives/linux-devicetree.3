@@ -1,49 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795460365;
-	b=f/ipdfHTHSbYIhZ8xiHAy132RYU0nGvVtU8q+zfVO0GKLfW0ZFirCyIJIpOlFYk8H5nV
-	 Q3gl6sLc46N2LoK1h47A6PdcU/sPbyC2dMe3WwKxin0Crxbor7lOOkKqBvo8gnZJN8Uh4
-	 PNyQBs67EG6dsdrNPYQJIcpIUmpurHd/4z9yxzGVfHD2Jf5UHUWsVvsiKogMcaenR2x9P
-	 lpW6GF+a81EtK3GnnTANXIPv/PXviLmNQ2p5JLrzmhmGacs6n2lAcqsBibbxZqUlvMrNc
-	 mWdH3f9e/fW6Rx9eWisMEoF3nO/9/WlvIcT36K9TKRSoaS/FoUW15YUwPBB0DANDFmw==
+	t=1795460474;
+	b=SzqtkR3gsJ27+Pp8897U9hSzuEcXx9q9nHqP2r3J2K6rvH73EKpFtjqTY5RtIvwuzSss
+	 DoOq7kRoL2P8iLV227SDKsyjsrdSKcyuPAZgGF3Ab1sBNs2bo9j3jbBB705lDDenzpUFj
+	 dYKCkD4dTq7sEImMnZNqcPOKmuwZhuCoLmcwFKCkFFi/iS5oreJqd76rh88VmiqHEJ0BF
+	 3XDRzP7N5NXMDXNj9fsDZl1D31VbEnBBm2yCgZqoOZtQoPSwpTOALoMmgHkSLf7vxo9HN
+	 oMlPNgk2g3bnQW/kFDRNf4G5CO7Vui7iygvmhbwnP2jeK9KLPOWgWCAnSoMGi6GECVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795460365;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=9rM4GZXOgC1yOcev7Pd1LAp+V/n4emj7sYZ2cQwywT8=;
-	b=5fAC82Jsw+1fbCIFjvZYM2DMYPQlNaIjeg+FQL7ZUdbChvDSsqo/N7o2d+m6U7CHB7NI
-	 vwYHmuLFYxlNaeFtmPFshuDvg2XIlXfpeX/A2Jr4sBva+H+hZ6oozHFIZ55JstKXEMkdO
-	 nuyzlMS+SBtPa1shPptPwMRhr1UkJ0xEHd0g05CaBfmi6PQ0S0Xg6RUwi+BvUtsXSIINq
-	 bBqY3KOPnGLBmkcLltorwom4AwL9qQWC6EXorryOFOJWjIaYlhHqvXzA1YjdbfjPfbcBl
-	 lBSgUwOiPLsIKcAFSRNW5UdqRnKeGBEWFxu1Y9Ng+ypepJvxrJbrdtqjy/ZynLEz1OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795460474;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=OM1l1a6MaFYM6UQWajjylj0wSszPBen8KKq+VqeSNlI=;
+	b=TGnKQuT8EeBy51i50E1IT46+D6564W9UT9NcT80NN93jNRBfIEXjGz0hyo6upyJ4gqf6
+	 bA+bHyis8ystb528tcj3/ndBdKSYPiKx9VMrebhjhgDtGkgNNS4jzvERnnl1q1VdvX1VN
+	 LanDbiHOJ29BRtnZ+HShUn0haqDhibY7CpmJVo1rTViVn6ZwC+t9nyC3Ncf9drXy5oXOE
+	 D/L+4L0MAvfxs+nNHb63QMok80z4DpL8SPAOl8VrFB4Tr0Z5Mj8Uhjaum/Q2hykrjzPDX
+	 +ptWUaI4x4VdMK0Q2HZFmyMFk51CSQgsCBUSSnhTGyMckP9uRFoYHHLuhQFJBMsJtgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WK1u4VMH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DiBe3VvV;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E4F606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 18:59:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10EC606A32C;
+	Mon, 23 Nov 2026 19:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B10EC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WK1u4VMH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B9E21F000D8;
-	Mon, 23 Nov 2026 18:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795460365;
-	bh=9rM4GZXOgC1yOcev7Pd1LAp+V/n4emj7sYZ2cQwywT8=;
-	h=From:Date:Subject:To:Cc;
-	b=WK1u4VMH5LV8L8chBV5+ffc8VB9P9g9z4gqw9rAD1xbOz8ybGqJcZTquGYxWCvp8o
-	 P07VkVSIyF0y4Wge+ZqNVVRhpCQoZV/r9Srr/jARvcpKzTlgZDJLoZe+jDpWweC/Zl
-	 W0zV/QjjKa/rafUAo0H7F0uNPzpqNNkcXkL4lKO15nw1z0HvWV7jTY7a2FgBrOEW4n
-	 c3y1GEWu+8E3rtgXjpp8n31VLByiYQuo9F7aUuyJPDSDSB0SI7wlzYOsqU4f1r2dsH
-	 HDX/HVw986oiZmXRkx+RZH5vFnFrFq6Lg9Ai2K6TXk2Obl+Hsf0rzTO7ltxHTuRFfd
-	 cqZ0i+Xm7Vw7g==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Mon, 23 Nov 2026 19:59:16 +0100
-Subject: [PATCH v3] of: property: Create devlink between PCI Host bridge
- and Root Port supplies
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DiBe3VvV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795460474; x=1826996474;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=ecKjDsDaB9Pn4lvanWhrhh0Qxeke2fq2ZAe/eYi4PXo=;
+  b=DiBe3VvVG7srBP1kmI64jQzLN11oIfsvo+7qlscq389MXYcmmkzYx2MF
+   CUjb1lR8o9jmowsjY7tbzh2ZA2jk7m+T+lF+l8WYt3djUOX7IFAKNpBX3
+   aphHvpXA59thJIKetjtPcsr4uM1zT6SQBIxOvFn2Cv2hycb4He782jvZF
+   XjljfAhaOn9j/MCoEo+SoHRECd8MweVjBOp4kdXU3ekCq5GQSWJ9YTYIo
+   gbLijRUkg8Z/rt2RaE1nblEEp+hwcCT/nz5YUs/+iD0HQopo2nDXkm67r
+   pZr0D8uVHWDP5TOvyPZTjzwBKErv//24DGJMA6Rn0PGsQNfgTABCgAo+i
+   w==;
+X-CSE-ConnectionGUID: XW/hT8cuRNiokU3oQPd6Rg==
+X-CSE-MsgGUID: fVuXxTKmRsm886Sp9TIUZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4173902"
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="4173902"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:01:14 -0800
+X-CSE-ConnectionGUID: gJ6pmc+hSe22J6YUqkmvXw==
+X-CSE-MsgGUID: vMGGdCEiS1SWS+p5o9xSzw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="11142338"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:01:09 -0800
+Date: Mon, 23 Nov 2026 21:01:07 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v3 3/4] iio: adc: Add support for MAX8907 ADC cell
+Message-ID: <awSNc2piI26LgyAU@ashevche-desk.local>
+References: <20261123150725.212836-1-clamor95@gmail.com>
+ <20261123150725.212836-4-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,133 +88,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-topic-pcie_hb_rp_link-v3-1-f90191217c74@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5FMBBA0V+RWWvS1ouIXxFpGINBqmkRifj3V
- yzP4t4LAnmmAGVygaeDA682IksTwLGxAwnuokFLnSulM7GtjlE4ZDJja7wzC9tZoCx+lEvVdNh
- DbJ2nns/3W9Wfw95OhNszg/v+A8+kcoh5AAAA
-X-Change-ID: 20261123-topic-pcie_hb_rp_link-c084e601adcf
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: devicetree@vger.kernel.org, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795460362; l=4589;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=eaqhIPZmDT+AqMVjs4K8JRsEVbvlM8yNAdZ7+oa/IuQ=;
- b=VYGCAt6lxrvnKpOTKrR7bEFMswV6WJapE1gJ0ZYw6xShGOSOU6RymPA6lnnCKhlHGIrhFgLn1
- SoAj2Ti+0ZzALsvvUbzxv60lKFkgfWTLfMDL9V6fCP9AV4+LiXF2Toq
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261123150725.212836-4-clamor95@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+On Mon, Nov 23, 2026 at 05:07:24PM +0200, Svyatoslav Ryhel wrote:
+> The MAX8907 PMIC has a dedicated ADC cell, which provides 8 ADC channels
+> with information about different parts of the power system, including the
+> battery, charger/plug, jack and thermal readings.
 
-Recently, devicetree started to represent the PCI Host bridge supplies like
-PHY in the Root Port nodes as seen in commit 38fcbfbd4207
-("dt-bindings: PCI: qcom: Move PHY & reset GPIO to Root Port node"). But
-the Host bridge drivers still control the Root Port supplies as a part of
-their controller initialization/deinitialization sequence.
+...
 
-So the Host bridge drivers end up parsing the Root Port supplies in their
-probe() and control them. A downside to this approach is that the devlink
-dependency between the suppliers and Host bridge is completely broken. Due
-to this, the driver core probes the Host bridge drivers even if the
-supplies are not ready, causing probe deferrals and setup teardowns in
-Host bridge probe().
+> +#define MAX8907_CHAN(_type, _idname, _datasheet_name) {		\
+> +	.type = (_type),					\
+> +	.address = MAX8907_REG_##_idname##_MSB |		\
+> +		   MAX8907_REG_##_idname##_MEASURE << 8,	\
+> +	.indexed = 1,						\
+> +	.channel = (_idname),					\
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		\
+> +			      BIT(IIO_CHAN_INFO_SCALE),		\
+> +	.scan_index = (_idname),				\
 
-These probe deferrals sometime happen over 1000 times (as reported in Qcom
-Glymur platform) leading to a waste of CPU resources and increase in boot
-time. So to fix these unnecessary deferrals, create devlink between the
-Host bridge and Root Port supplies in of_fwnode_add_links(). This will
-allow the driver core to probe the Host bridge drivers only when all Root
-Port supplies are available.
+Using () means that you expect an expression as a possible input. In such
+a case the macro is buggy as it will evaluate it twice for _idname. The
+simple solution is to drop these parentheses and expect that this macro
+won't ever be used with the expressions in the parameters.
 
-Reported-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
-Changes in v3:
-- Resubmit as-is (bump the version as I added my sob at the end since
-  the submitter is different) - there was no activity and no response
-  to a bump for quite a while, but this patch is still useful.
-  I dropped the tags I left at v2, as it would look a bit silly.
+> +	.scan_type = {						\
+> +		.format = IIO_SCAN_FORMAT_UNSIGNED_INT,		\
+> +		.realbits = 12,					\
+> +		.storagebits = 16,				\
+> +		.endianness = IIO_CPU,				\
+> +	},							\
+> +	.datasheet_name = (_datasheet_name),			\
+> +}
 
-Link to v2: https://lore.kernel.org/linux-arm-msm/20260506075625.8490-1-manivannan.sadhasivam@oss.qualcomm.com/
+...
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/of/property.c | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+> +static int max8907_adc_read(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct regmap **regmap = iio_priv(indio_dev);
 
-diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 45e55f618488..51db25cbcd4e 100644
---- a/drivers/of/property.c
-+++ b/drivers/of/property.c
-@@ -1601,6 +1601,7 @@ static const struct supplier_bindings of_supplier_bindings[] = {
- /**
-  * of_link_property - Create device links to suppliers listed in a property
-  * @con_np: The consumer device tree node which contains the property
-+ * @parent_np: Optional parent device tree node requiring child's supplies
-  * @prop_name: Name of property to be parsed
-  *
-  * This function checks if the property @prop_name that is present in the
-@@ -1617,7 +1618,8 @@ static const struct supplier_bindings of_supplier_bindings[] = {
-  * device tree nodes even when attempts to create a link to one or more
-  * suppliers fail.
-  */
--static int of_link_property(struct device_node *con_np, const char *prop_name)
-+static int of_link_property(struct device_node *con_np, struct device_node *parent_np,
-+			    const char *prop_name)
- {
- 	struct device_node *phandle;
- 	const struct supplier_bindings *s = of_supplier_bindings;
-@@ -1638,6 +1640,10 @@ static int of_link_property(struct device_node *con_np, const char *prop_name)
- 			matched = true;
- 			i++;
- 			of_link_to_phandle(con_dev_np, phandle, s->fwlink_flags);
-+
-+			/* Link the child's supplies to parent if needed */
-+			if (parent_np)
-+				of_link_to_phandle(parent_np, phandle, s->fwlink_flags);
- 			of_node_put(phandle);
- 		}
- 		s++;
-@@ -1696,7 +1702,26 @@ static int of_fwnode_add_links(struct fwnode_handle *fwnode)
- 		return -EINVAL;
- 
- 	for_each_property_of_node(con_np, p)
--		of_link_property(con_np, p->name);
-+		of_link_property(con_np, NULL, p->name);
-+
-+	/*
-+	 * Since the host bridge drivers parse and control the Root Port
-+	 * supplies, create a devlink between host bridge and Root Port
-+	 * supplies. This will prevent the host bridge drivers from being
-+	 * probed before the supplies become available.
-+	 *
-+	 * For checking the host bridge node, first ensure that it is a PCI node
-+	 * and its parent is not a PCI node. Only host bridge nodes will have
-+	 * this structure.
-+	 */
-+	if (of_node_is_type(con_np, "pci") && !of_node_is_type(con_np->parent, "pci")) {
-+		for_each_available_child_of_node_scoped(con_np, child) {
-+			if (of_node_is_type(child, "pci")) {
-+				for_each_property_of_node(child, p)
-+					of_link_property(child, con_np, p->name);
-+			}
-+		}
-+	}
- 
- 	return 0;
- }
+Then logically better to go further and have
 
----
-base-commit: 3191063649dbf7c0d0b768e1f3655e4c5fc6edb5
-change-id: 20261123-topic-pcie_hb_rp_link-c084e601adcf
+	struct regmap *map = *regmap;
 
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> +	__be16 data;
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret = regmap_write(*regmap, MAX8907_TO_MEASURE(chan->address), 0);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = regmap_bulk_read(*regmap, MAX8907_TO_REG(chan->address), &data, sizeof(data));
+
+This is a bit too long.
+
+		ret = regmap_bulk_read(map, MAX8907_TO_REG(chan->address),
+				       &data, sizeof(data));
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = be16_to_cpu(data) >> 4;
+> +
+> +		return IIO_VAL_INT;
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val = max8907_default_ref[chan->channel];
+> +		*val2 = chan->scan_type.realbits;
+> +
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +static int max8907_adc_init(struct regmap *regmap)
+
+Why not name it 'map'?
+
+> +{
+> +	u32 value;
+> +	int ret;
+> +
+> +	/* Enable internal voltage reference. Exact purpose of bits is not known. */
+> +	ret = regmap_update_bits(regmap, MAX8907_REG_TSC_CNFG1, GENMASK(1, 0), BIT(1));
+
+	ret = regmap_update_bits(map, MAX8907_REG_TSC_CNFG1, GENMASK(1, 0), BIT(1));
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Check for internal reference IRQ */
+
+Please, make style of one-line comments consistent ("all or none" are with or
+without period, same for the first letter — capital or small).
+
+> +	ret = regmap_read_poll_timeout(regmap, MAX8907_REG_TSC_STA_INT, value,
+> +				       !(value & MAX8907_MASK_NREF_OK), 10, 1000);
+
+	ret = regmap_read_poll_timeout(map, MAX8907_REG_TSC_STA_INT, value,
+				       !(value & MAX8907_MASK_NREF_OK),
+				       10, 1 * USEC_PER_MSEC);
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(regmap, MAX8907_REG_ADC_SCHED,
+> +				  MAX8907_ADC_SCHED_AUTOSCH_ENABLE |
+> +				  MAX8907_ADC_SCHED_AUTOSCH_TIME,
+> +				  MAX8907_ADC_SCHED_AUTOSCH_ENABLE);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
