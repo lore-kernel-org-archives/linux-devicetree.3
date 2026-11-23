@@ -1,68 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795420543;
-	b=qyvEA7py9GJbXWvsBbMc5hEx3qyvemm/5gRgJ+MYf1ylroQ01KU1+U1MarKJ35KPNVKN
-	 4ZGLrpkwGsh6S9Lu+NLO1o1FIa9+5sCYyVO2SFWqDX+n4I0uZVQebnRZspfz7G9VkxbWd
-	 wOAig3H47n4HXlP8demfyf4OfTtbTLqdojQJCN7j0RohHtt7MmPOYJgAo3oA5sUrRrZ0d
-	 v8Aq0Kbo04QWeBuvLAR2U5/R1wfXuZiO+zRDZyxAjO1j/Hbb9rrM3dIOsNbiBLKwRKwCt
-	 7hphuONDgxa988cAmxhfpJnO18B0nVJ1kdHRZ10TEL3PtHHx/pZzyC2TMTOg0PxeKpw==
+	t=1795420556;
+	b=RyC7Vai9JP5Xj8UTYgh+E3/i937UWAqMe7scr4xLvKIiiEfvKFLvTnfJjghUfnUNe+zD
+	 Xf1QmzgwX1jhwk0cu0D/oOkjWHI+iFj4niKhHcuLtW07wu+Y72itEvKyFYeItwNYWExFA
+	 0jaMlcIorPZMOz7zvfvLvmQ6zlRsIk1k/uhRgCnorEZdBrTuUKbDhjzSEd0Cbbapi+rSA
+	 aUyyOJQp+gbLA52l8QaGQDHB1ZjBSjOH+8ULSKNJ5P6sdI8MfKl9d1NhCSD6OIAobxTQR
+	 o7DtVYecl3xq4422cIlbZinbvEtEYj6t7Bl33XLN+VXsBfZxWvzQenEMc0EDgjvuSHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795420543;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nYLwjkPeDoYKPQ9fpj7sj29JLi9BGT+W9npk3A58FDA=;
-	b=o9B/i3izBlyr0Qa1r2BgY64A3uej8F5vmFFnB6yn4gVytjDRuA+5UzQOc5wTez7WU2pk
-	 4NRtEdkmQFk3tEzabw5qhnfKCYVWuCbvUqEpizCnwPmCiv4jt4V+UyitPWos/gsoPjH6F
-	 vVGBVrcWfYDOXtUksTVVjOLIIX1pdPHV0QvDGJ8hRR0d0ZzBRSdfaeOVxDL2EeuUecia9
-	 fGg2xYV5lJZGwiMJaad6l/jPXmCESXhdkjtFwqx0xCV6yRkliOEJJ/AdnmzbIyXnbpA9c
-	 VxqNTxL6oxW9i53Oypy6NE8g6G48701w8RPkIC6ISJ8iHJj26hRlqiGzbJu12NZ3xHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795420556;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=YUQU3dBsUJdDwQ9xKYFhn6QcsGAgc7ifYrpI/+8q6ts=;
+	b=Qo7QqbXe21ENOQ5wSv/HUmzBCLls1mcn/upZurxArmHOOyvcp8x7Z6pDTGj8cGw4u40h
+	 Mdndk/SnTpM+WNoiHfN3XSkk5pgLhTKtEU77bW+KKgUzhALqVrKehuHlX6e7dt7noW4YT
+	 FEjWmFSYubynCou8mGddifKl1Whydz7rdcRSc1jE10jRA2IifMeVwqyai4UY2ZJVneh3P
+	 /m8kGhhRJZyDpuuggB4Rkoc1ZXQqVYNz4oFY9vH+4wx3YfDzYsmvYi60nRMOVB/eCUDhw
+	 Db2+yqTlV3PNxYFrP0hm6jgleUnyZo3ttv0TjI869NrkMb10W3qhcYVLN5Bq4aZnZ4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YXAvsKFi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=EGMJKwRT;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D20606A336;
-	Mon, 23 Nov 2026 07:55:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8248C606A31E;
+	Mon, 23 Nov 2026 07:55:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8248C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YXAvsKFi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AA821F000C6;
-	Mon, 23 Nov 2026 07:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795420543;
-	bh=nYLwjkPeDoYKPQ9fpj7sj29JLi9BGT+W9npk3A58FDA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YXAvsKFiWSvpBAh0r/bLzhP/mDijS6wWiRAI/eNzzlW42pXDN4k8BL54YfASB4YyZ
-	 KDaG4gPrLUiNxP8Y53xiVgpDqyQYPNbffcEa5ycmQNLiBTR+5HEYIMJYvdAThv6YH9
-	 HpUjHRD3AKwKVwH6wIB1q+2q2wI63zezLOdt1UVU2EDTOuJDj6XbRN9XB1c4M1qRwJ
-	 nNsYrkMkn/h6oyq0H7wZPcnDLbwg1Mo1uDNj1WKorr/U67FRXRdTJ2zYV89UO4yI1c
-	 A8yJwwgZo6rSUPiINE2/hvWe4cJZZZanigQdCdzOb55tcn4lLBhSTUMLTCFRqbJA6u
-	 SjNDfuq17V90Q==
-Date: Mon, 23 Nov 2026 08:55:40 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: codykang.hk@gmail.com
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=EGMJKwRT
+Received: from ideasonboard.com (mob-5-92-38-150.net.vodafone.it [5.92.38.150])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1E50A177;
+	Mon, 23 Nov 2026 08:53:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795420401;
+	bh=YUQU3dBsUJdDwQ9xKYFhn6QcsGAgc7ifYrpI/+8q6ts=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EGMJKwRTKvlVDyVh268QA/XzFo7jW4cPhdabLDBOl7m5tsnpdTmgXZ06FVFEeZlPG
+	 195ga8lI/3PnIt/l12p4DcWWXyDw5A7tbgKT+RHjQGpAZlKpS2Y77t3hWQoYd4HGgU
+	 WRQgAamTvdfI9exWsE7wZN8eUh46MyxvbG7ZS0fo=
+Date: Mon, 23 Nov 2026 08:55:49 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, Guodong Xu <docular.xu@gmail.com>, 
-	Icenowy Zheng <uwu@icenowy.me>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Sarah Emery <sarah.emery@canonical.com>, Ze Huang <ze.huang@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Cody Kang <codykang@vsit.ai>, dri-devel@lists.freedesktop.org, 
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v3 10/17] drm/spacemit: add Saturn DPU KMS pipeline
-Message-ID: <awPxPHpr4NYxqdmf@houat>
-References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
- <20261121-k3-display-v3-10-ec419e8e96b8@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v6 0/6] arm64: dts: renesas: Enable ISP and IVC on RZ/V2H
+ EVK
+Message-ID: <awPxSN7wctw6xsDf@zed>
+References: <20261105-mali-c55-renesas-dts-v6-0-7dff41bf7107@kernel.org>
+ <CAD++jLndZTg0tk+GRo3aZrQ=0rVL+5CA=Swi7_KKQr=iBDs6Vg@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,80 +67,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="psp6wiqhchja3kyl"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261121-k3-display-v3-10-ec419e8e96b8@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLndZTg0tk+GRo3aZrQ=0rVL+5CA=Swi7_KKQr=iBDs6Vg@mail.gmail.com>
 
+Hi Linus
 
---psp6wiqhchja3kyl
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v3 10/17] drm/spacemit: add Saturn DPU KMS pipeline
-MIME-Version: 1.0
+On Mon, Nov 23, 2026 at 01:11:22AM +0100, Linus Walleij wrote:
+> On Thu, Nov 5, 2026 at 1:53 PM Linus Walleij <linusw@kernel.org> wrote:
+>
+> > Describe the optional ISP DMA line-tick and IVC frame-start/frame-stop
+> > interrupts. Add the RZ/V2H(P) IVC and Arm Mali-C55 ISP nodes, connect their
+> > video endpoints, and enable both blocks on the RZ/V2H EVK.
+>
+> Gentle ping on this series, everyone happy?
+>
 
-Hi,
+I have queued the patches already for my forthcoming PR for 7.5
+https://gitlab.freedesktop.org/linux-media/users/jmondi/-/commits/pr/mali-ivc/for-7.5
 
-On Sat, Nov 21, 2026 at 03:40:49PM +0800, Cody Kang via B4 Relay wrote:
-> +static int spacemit_drm_master_bind(struct device *dev)
-> +{
-> +	struct spacemit_drm_private *priv = dev_get_drvdata(dev);
-> +	struct spacemit_crtc *a_crtc;
-> +	struct drm_device *drm;
-> +	int ret;
-> +
-> +	ret = aperture_remove_all_conflicting_devices(spacemit_drm_drv.name);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to remove existing framebuffers\n");
-> +
-> +	/*
-> +	 * Bind-scoped, not devm: the aggregate can rebind without this
-> +	 * device being re-probed, and each bind must release its own
-> +	 * drm_device.
-> +	 */
-> +	drm = drm_dev_alloc(&spacemit_drm_drv, dev);
-> +	if (IS_ERR(drm))
-> +		return PTR_ERR(drm);
-> +	priv->ddev = drm;
-> +	drm->dev_private = priv;
-> +
-> +	ret = spacemit_drm_mode_config_init(drm);
-> +	if (ret)
-> +		goto err_dc;
-> +
-> +	a_crtc = spacemit_drm_pipeline_init(drm);
-> +	if (IS_ERR(a_crtc)) {
-> +		ret = PTR_ERR(a_crtc);
-> +		goto err_dc;
-> +	}
-> +	priv->a_crtc = a_crtc;
-> +
-> +	/*
-> +	 * component_bind_all() unbinds what it bound before returning an error.
-> +	 */
-> +	ret = component_bind_all(dev, drm);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to bind all components\n");
-> +		goto err_dc;
-> +	}
-> +
-> +	drm_mode_config_reset(drm);
+> I guess the DTS patches go to the
+> renesas tree and Jacopo picks up the dt-bindings and the driver fix?
+>
 
-You need to use drm_mode_config_create_initial_state().
+As we prefer, I got a PR for all 6 patches ready.
 
-Maxime
-
---psp6wiqhchja3kyl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawPxewAKCRAnX84Zoj2+
-dnHQAX9iDOtufQbymoduwPA/eIzFT4DPhesCne28+rDvff2JXlYtbNrRxUrTcGWq
-XGPo3ywBgIkbYttgELJJr4UywnFDhIGMTRi83oG6Mg+R1tb0t9izOxptosxvIQK+
-fEnXpcLERQ==
-=seld
------END PGP SIGNATURE-----
-
---psp6wiqhchja3kyl--
+> Yours,
+> Linus Walleij
