@@ -1,78 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795426130;
-	b=r5Zw19jmvkC66vKQ4AArP7EZ79DQRUIKid6WU3AuD/zxqSwSnI8RWpdBy6viAbQL3WJg
-	 6CjMsZKdBQp88vrMaafwWdg7VZo/YbGvV8oHNV1uQsirbckNhspTvxc1Q5wrMg5wK4eXt
-	 HHy8UCqgzMxypdf3Ayi8IyNyQlRMftaK1ZNpZrM7roDKvK6bbdVDYxLHdoJRHM8oULEX8
-	 pk4oKqiIA3PLluv4/MU8cjR9CQHp1ZA1bS5vwWUpuuR+Z3VB4nPi3ZNcVzCByJnKep0As
-	 Mp8n7D1HfDMuvx/NYWat6KUjSaVN1qgFdJ+8GqburHGLjIMmNfRjIbewmCgH1F1DBDA==
+	t=1795426167;
+	b=vbiDpLxN8lyze6RbisVbvvzL24eXAjocy8u1if8haBojbShPuPrFViDa1P2uio1hpNsV
+	 fbyQIw/N4Xg3Lr9uS5dzFGtbqqt5/7eBxlKA8JxDJ3xUF4YhLAV19S6SkuDUUOmKKwyAS
+	 m1blfZCHx+7A/uBgX61j5KbsgpmHIgwbQUfgPgpcsP8ky7PuT+XeYavW3jxBXFsM7Vi5V
+	 KxlxiTgIh+MzmcDrG5cBzXNWBA81Gc6Svvb0BYuk07lAzkOoPJNQpCtKM3FN0sgEBexdK
+	 1IygdjnsSy30O8r6qhWRfYFuWgUq/8t5sVPKBKswetiPfsC10J8Gd/GXPopBs5vJFDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795426130;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=L+f3aZ4x97D1fte85K6wDTG5uEQdwKWHlKnLwZT1tVk=;
-	b=OUfynNNrLNszm+nKBpAzg4axQNDN00+92rjw19CSm/+3qXYkE2V0UibBspZady+zzy09
-	 dxg6pjsc7Eitl+6P0gFmw9iDLfdav+MeUpm+g8G2bApwelHqOary7GhOvFK1Sas3mhG0a
-	 VeCBxQxVH0CEs2ovVtXCT0SL4BpVBqkPDUttSbTWYk3Imeu+onLbcoyxkC9aLqX1yvn4T
-	 hUiJsSOCsnj+0+xCxnYf0xW2he5R+EV+DbTLMYQjXNl6Qg7gnFvrRPnWmEsRvoCJXq2FT
-	 B4vi9VGsR2zYNyJ4SXnW0xRioV+WMiAh95ecKhq1cTiGkG2A0UGWlYoWYOpHkyYbnRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795426167;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=OjCvPPBJRfinyfsh0nJkEZstEcSjV/41TXkNaIVQ2jg=;
+	b=YV9W5fKgxTYn8uTXyB6hrMPoWWytdlIXddoDtBi58fpgTCXhlkN388yi11En7PCSS4RP
+	 nhfb44nKCNJ74sZAvpYFS7kHE532xrg/X2hSOy/fisn8DqqOPxV3whdVVhT55GR7ahKMw
+	 tds/X5RIdXC0NNuMapD1g9OfQkFz0zHwTaO2EJ5wAFfBIi+hDxXyqZkN/T+y86+6ocIFX
+	 mmtbGE1/R+4/PIDNX2Lr3FKfoo6UFQ3IBtPIDbSi9oYMrV8C0xJKveUGYkebcRsp6BaH4
+	 7GGE+yOW/xccacw8ZuolO9J0u2DRmqYZ9g1YUPwTNh+nrYqvcxS4eJQYMFPIqsl3Jfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jA11vHXW;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J48Kcj49;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069BB606A31E;
-	Mon, 23 Nov 2026 09:28:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 069BB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D7E606A332
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:29:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jA11vHXW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795426129; x=1826962129;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OEGqfdfi9J2+Fc3m22eFlI90/tdoU7Xa6xfbXr5Kg1o=;
-  b=jA11vHXWa77L4Pyk7oW4Mto3gF492jTqQEssopaGv2I9u3Zd5kdtN+CE
-   i7GK9XZgmHlW8cNZwyAMiKQFQa1kUMFUrHFPoqKTtJr8FBEeUJDLebt+Z
-   ML6xEGcncEvDJL/qLkv5BQeOH5YyEqKyUW11+63lX1MGSAqvsoQ7p+x4U
-   ucsS6D1mv2aRtkeEC5Shj+PtKLTfzBAKOLqXgXgFBFwEfXBgYwYjtYgv5
-   SQuWHKzEWaR0PNbmWctItYH8ZXUF8pS+3le2pxwkoPinQZmans1fjofI4
-   7rNQO2e25iM214vXCO+9cZ4xNtoOS7QM4zFxYlvuMSzF7b/P2ub6lFG0o
-   A==;
-X-CSE-ConnectionGUID: GwRqoKWGQDeupvYXaRbGSw==
-X-CSE-MsgGUID: 2SQcEkP9SviRT+6BxHILuQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4214638"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4214638"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 01:28:48 -0800
-X-CSE-ConnectionGUID: AiikV351TdSKdQoprfHXzA==
-X-CSE-MsgGUID: rMEpuSptTKyP476D0vWRBQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="11613688"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 01:28:45 -0800
-Date: Mon, 23 Nov 2026 11:28:42 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Akhilesh Patil <akhilesh.patil@linux.dev>
-Cc: jic23@kernel.org, andy@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
-	dlechner@baylibre.com, nuno.sa@analog.com, conor+dt@kernel.org,
-	joshua.crofts1@gmail.com, maxwell@maxwelld.cc,
-	u.kleine-koenig@baylibre.com, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	akhileshpatilvnit@gmail.com, akhilesh@ee.iitb.ac.in
-Subject: Re: [PATCH 0/2] iio: chemical: Add driver and bindings for acd10
-Message-ID: <awQHSgDkBlsOyuPP@ashevche-desk.local>
-References: <cover.1795326744.git.akhilesh.patil@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J48Kcj49
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5451F000CF;
+	Mon, 23 Nov 2026 09:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795426166;
+	bh=OjCvPPBJRfinyfsh0nJkEZstEcSjV/41TXkNaIVQ2jg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=J48Kcj49/7dUWi1M7HZ7QU/wQMdVKR/80+FrmLWxldk+qEpIbUOC+SKVzEjlbDWu4
+	 E2CtyhCPmiZ57POtQI7GE/fAxZ+euPL6fbtk3EPvXPC1iD0jV+JOLysppTJHeACs+K
+	 oVO4uE7uCZGraecW0XC3FWD5LeaaHadaAaK+YYMyKWYGhmO5fL2Uyn7uhMZtb8Uzx8
+	 HW2zitdz/QFXNP6ah5wWU1XVRsuYngCmfbN8kYWsZCMNF2BZBX6r8HX1Q0CunDPquw
+	 tKjHiA8DFQRBdfPVzcWXHS3CzgXM9REPMSXFWw6r9kSWJ+PAe8M1pfHy0Gl0Rp7rWJ
+	 c66jtxwFH3N6g==
+Message-ID: <sashiko-outbox-228973@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/5] arm64: dts: exynos: exynos7885-jackpotlte:
+ Enable USB support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Virag" <virag.david003@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123092244.1792040-6-virag.david003@gmail.com>
+References: <20261123092244.1792040-1-virag.david003@gmail.com>
+ <20261123092244.1792040-6-virag.david003@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 09:29:26 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,59 +60,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1795326744.git.akhilesh.patil@linux.dev>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Nov 22, 2026 at 06:30:43AM +0000, Akhilesh Patil wrote:
-> This patch series adds support for Aosong ASAIR acd10 CO2 (Carbon
-> dioxide) sensor driver in IIO subsystem. 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: exynos: status placed before supply properties in
+  usbdrd node
+--
 
-There is no answer to the question "Why a brand new driver?"
+commit efb93eac6c5ba5a303715dcd3358d29290401517
+Author: David Virag <virag.david003@gmail.com>
 
-> Patch 1: Adds bindings for this hardware
-> Patch 2: Adds driver code for acd10 under drivers/iio/chemical
-> 
-> Quick overview of acd10: 
-> - This is CO2 sensor based on NDIR technology.
-> - Can measure CO2 concentration up to 5000ppm
-> - Supports serial interface over UART with 1200 baud rate. 
-> 
-> Datasheet: https://www.es.co.th/Schemetic/PDF/ACD10.PDF
-> 
-> Protocol: 
-> acd10 defines 4 types of UART frames - read co2, get software version,
-> get instrument number and set single point calibration.
-> Frame format: fixed header, length of data, command code, Actual data,
-> checksum. Response from the sensor follows same format. 
-> Total length of each tx and rx frame for 4 commands is fixed and defined in
-> the datasheet. Driver uses this information to write and read from
-> sensor for each command over serdev interface.
-> 
-> Testing: 
-> Driver is tested on Texas Instruments am62x sk board with sensor
-> connected on UART5 on 40pin IO expander. Additional 3.3 to 5v
-> bidirectional logic translator is used to interface with 3.3v IOs of
-> am62x. Values are read using iio sysfs interface. Also I have blown into
-> the sensor to observe sensor output increase due to CO2 in my exhale.
-> Waveforms for read co2, get sw rev and get ins num commands are
-> validated on logic analyzer. 
-> 
-> Slight deviation from datasheet: 
-> For command get software version, datasheet mentions frame length of 16
-> bytes including D11 reserved, however it is observed that sensor sends
-> 15 bytes with length field 0xb (11 bytes of data), but actual data is 10
-> bytes. Hence, this is handled in the driver.
-> 
-> Driver supports reading co2, getting sw version and instrument number.
-> Single point calibration and preheat implementation is left for
-> future contributions.
+arm64: dts: exynos: exynos7885-jackpotlte: Enable USB support
 
--- 
-With Best Regards,
-Andy Shevchenko
+This commit enables the USB DRD controller, DWC3 peripheral mode, and
+USB PHY nodes on the Samsung Galaxy A8 (2018) with a temporary dummy
+fixed regulator.
 
+> diff --git a/arch/arm64/boot/dts/exynos/exynos7885-jackpotlte.dts b/arch/=
+arm64/boot/dts/exynos/exynos7885-jackpotlte.dts
+> index 4b1961ca365be..5550b21e4113b 100644
+> --- a/arch/arm64/boot/dts/exynos/exynos7885-jackpotlte.dts
+> +++ b/arch/arm64/boot/dts/exynos/exynos7885-jackpotlte.dts
 
+[ ... ]
+
+> @@ -112,3 +118,17 @@ key_power: key-power-pins {
+>  &serial_2 {
+>  	status =3D "okay";
+>  };
+> +
+> +&usbdrd {
+> +	status =3D "okay";
+> +	vdd10-supply =3D <&reg_dummy>;
+> +	vdd33-supply =3D <&reg_dummy>;
+> +};
+
+[Severity: Low]
+This isn't a bug, but per the Devicetree coding style (and matching
+&mmc_0 in this file), should status =3D "okay" be placed last in &usbdrd
+after a blank line?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123092244.1792=
+040-1-virag.david003@gmail.com?part=3D5
