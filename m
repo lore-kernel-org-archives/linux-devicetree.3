@@ -1,156 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795449309;
-	b=mIE23d1vPPV5FHO09Lm1lxgJMwPEp1l6b3hXbxy1c5r44roSvd/dmtTZow2ElNorKGi0
-	 J0VypdoGZTlkPOUNwF+b851A48Tbv7yoP1+kh2/ZCvK4vqEt+2Z21iQy96+sFuD8pwbex
-	 NKm1QNOem73S/ko/l4tkZlfzNIsta+qsXixv676uLaQyAioYIdqHjag+gg+AY6H/5fSOJ
-	 HihNA2iQMTMVodTY0xoIB827M4tae54V99tcDiVc0p8Fg2tkNvP3KDDhIqip/8i1aChE2
-	 xbbpq8GaY/tvu/sC/nJBXCwNomU/McHKEopDTprGOM3F2ATlRlTXoxVf1aZsgMyII4Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795449309;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WmG0rbnnfLtWH5aPfB+mbwNH2jm9+sWUakR7U+/yEP4=;
-	b=zDJg4P7OYoEG7rG+V9MD1ujtKRV6h98zESddcad6Zk9WPGBZRYgdY0kI1Jpfuh3I8rDd
-	 LgJSVQ6zhTDQLWLg+FCN0zsf2v6iEyR3sF64JpmdiOemI1zzQYlu6WyL0HQtpXEpJKnep
-	 aBRbOFot/71zRztQZKo/SA+UzcZNT5hT/6AG/vZcvvEJp0PxMLdF6hLgslFzgX7MPQT98
-	 PlSZNQNXUA6s3diUUo4NmgkaZCCXsedhkfk7bSfFsKdACxtBLemW+kVMdw65XiBQJNPw0
-	 lJ7qEC8PVB7rMXkACwu6ttenAYr4PIL5o1J9ubkoG6l4c2/aLIPUmdBkJUjo5Y7KNkQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=RzwmmUBY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.20
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010020.outbound.protection.outlook.com [52.101.229.20])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795449421;
+	b=NB1rafD2quVGYGy1+8AD3IjldOoqDNSKi7WZPzBOwxWUOvWFYIKsbuThd5FjHCUM3w8x
+	 guCnrl1s8Snj8dfGU7IsYK4oFoJFb/WHCOZ7Ft88bfCWBYuC0FPsxevnW7wRDrfMtZgyk
+	 fA3Z4znBvD7jTPHVOu4bFS3d7JtgYfPDAoYK62S9Qy877ThDsMWs/YKcYL6hP/Z47H68f
+	 X5KbIapNekDfl69/xRoKFh0PQQ4oBvuQOAAnRuNM2edrpci+NoP8QA7QbHTZ79twDKjkc
+	 Yyk31CfgMc2WQerfj/FMzunE+i+s5OI2AGUx8M6IBY1cJTQMmOtX6VL0kGK0ye4Wiew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795449421;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=61fi01KAm9ypNij5A9AEGjV2SnLBgg55Eroty9lOb0w=;
+	b=NPqAWuBkU4vkQuuN3+mHS/wEdj6EtkV/YGlMhXVxJWCx+C1e6ZXtIqFjyXAcRJ/XR+Dr
+	 qyKkVmKN75NpRnc8x/EVqP/r+HpGQXnX73/ughtyHno0uS48aN4WWetg+lkl+J+pHf9Gc
+	 6W9S5sagbA+GovEH4Fc8NxTmIq2qn5DjtFgbsIByJn9QaJqS7ek1p2/h94MTWql/3Okz9
+	 rLNk3ENRMVUI/sKdMK9vcRFpz+O4lHfoZHNxDAgCusoCR+KQaiA037NZjdu0V9jdC/xI7
+	 CYZJ57sJJY/hVTWElPS+H9mwn5Mv+nShotsNvUZ9cq2Tal3iREMtHiT6md9TJWp05mw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cv4C6L75;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F049E606A31A;
-	Mon, 23 Nov 2026 15:55:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F049E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AAE606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:57:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=RzwmmUBY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WI66egRAveI3mUSB/Y+EIkBXrZTNjIBDwV+19JILMsV15lgHrWut6qs2n0uHOXS2SCzez6Tni6wJ14f0Nwq/ZssFRGhB3XWgWSV8Ds9ERDEBdM1unBnAT1CZUzu15Tf0cQtzfpLckLvJdXRuj7K+Tw+eJwtnWmsYSf8WE09AQp3u/+zY0N1b8MX8I0hdT3oKcP60KJGTcCHa5oRfqzdfxWtm5MGU6XryON/KQ7f7sYf6RQPIJbCiwVZS76tYC4S2yCDWGuyPDs3Kvi8Tj2e7VY+/kv5OSAJzW3M4ZQxSqcoxaPGb90Iqz8QL/BkTZBjiZEmjMabP52VicgPpYa/opQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WmG0rbnnfLtWH5aPfB+mbwNH2jm9+sWUakR7U+/yEP4=;
- b=A0l1dO1nxxaMEgvZ2C1pVxAE/XaEnI/VQeyEckGap9yjyWgCBWyxtXzr8xe0iyZQ07Fz5pkWQB88zgyqTVZ5OiIvev8d4PIX2cwGIqUVol9u6Gt/vKPE4MIlMtlYuXmwruEoybtyUHkCnigocXldYtbxA5zPMIO94zSpVolJiSdajByF9XBsjXcm74sW2sx8myEKGQ26nH6I9abScmimiriiJPy7RLx9WTSUoYZ1FKoiKHsGPtvG6N9ym+Ca10ckLVBACY6+PlFo9IWaV5E0qK3g+ugjWEWzpEIWMdla+IC/uh0BMpK/HoZZY5iuBkDkFHQloEkuz/Eq5ZLed6j6vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WmG0rbnnfLtWH5aPfB+mbwNH2jm9+sWUakR7U+/yEP4=;
- b=RzwmmUBY8rkgsXdqhfiV4meYVbHauIn/nJQqftJglFS92mM1zij4GTwvo2T3TfQW0gKOis9IWilBEW0saLvI7QClskYju1rTlndra3RH1BbbfahGRM3tJS5CNSav9RcdQtNHsZ7n5ZwohZIH9BsjyYqMZUyY3u/gm3nmzS4AHQU=
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
- by OS9PR01MB14268.jpnprd01.prod.outlook.com (2603:1096:604:367::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 15:55:05 +0000
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 15:55:05 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Tommaso Merciai
-	<tomm.merciai@gmail.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>, Laurent Pinchart
-	<laurent.pinchart+renesas@ideasonboard.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v10 03/12] drm: renesas: rz-du: Reference the DRM device
- by pointer
-Thread-Topic: [PATCH v10 03/12] drm: renesas: rz-du: Reference the DRM device
- by pointer
-Thread-Index: AQHdc2lzLvef3a1Rkk2a0VWXEC5J87c71AUw
-Date: Mon, 23 Nov 2026 15:55:04 +0000
-Message-ID:
- <TYYPR01MB66036F725B906B38CE740B3986452@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <249e7d61f9ab39a9d4cbc8349fabdaf65899c9c9.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To:
- <249e7d61f9ab39a9d4cbc8349fabdaf65899c9c9.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|OS9PR01MB14268:EE_
-x-ms-office365-filtering-correlation-id: 1212afec-5733-49ac-d25c-08df497a2422
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|18002099003|22082099003|3023799007|56012099006|11063799006|261009223027099003|4143699003|261028144727099003|261102123227099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|38070700021|10067099003;
-x-microsoft-antispam-message-info:
- d7u3rOUE1kg1RiogFIGEFi8doGoK6baZii0WpG10EphNkGwx10ivq0QXPoEMf5v1m9+bVjgzmZunjDcp/bLB9xkL5RF21AOBZ9jaLU5gFJQXl3Q4VAE1mIlAYTj9QRXEHopah84BsoSXAfggpTyYloiS1Vjb/70sFqfRXezRYWPi4d7Ed/LEpX2u4Oodf0GNTWId8jV0MuM+a1qnvKWneJemcH1xp5+KO0TGoutMF7bJ86YNzQuSp029Vh9aYNnqNbFZXixizmvT/KnjU49SAIzLs2aK9a5umrmaBQ7wBtqkLClo1AVnR928lO6MPbcKDWQqt5MUSMJ6Kx9ABNUr31JiiQx77AdiOoPoOJVl6XWWPXW5j8mfXfbDhI2CSDcJeth+SCy0uJJ2eQotoSO1EBXcTUgU+asoILLHO+gyCp3wOfCD4X4flmPowEGK8eNd3JIh/PQfoE9Oo0SqXU5EJ1ZIZ2xt81QujeRDhmPSsWs61bvWeDqqcbkBEcfTQBlkD7uX/Ss+6lO9X1bq5ozlrT7CCqKKYDp8gftOEJH3H0blRip5VJ0x9vER/njFs+KgqpVuQj+H43jUl5hj9Vnegb37OUqlo0dqpa3wDfog8UiA4jLADp2H44VyhYzKswnlejKP/uT2Dho5m82Sp3N2zFND5BzSml6I2iyb/yomZznnjLC/FNgNxW5RTM+Caj2D6JIACL/zXR9IFidnf5DMj4umMXlxJVMY6F+mIMtMQ1U=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(261009223027099003)(4143699003)(261028144727099003)(261102123227099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(38070700021)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?/kTMQdL7mb83iKwnucLwYdO1i1GNi3f0A0yEI3uQrAWMgZr764nUkmVWlJ2s?=
- =?us-ascii?Q?y0si0yhtVIMCb1HFaKOwqzXyOTiiECJUXri157G0tSPsTY4pHXc7erawTHa4?=
- =?us-ascii?Q?xKFdu1riwtv+QaWWjSX5KAa9YMUL2YJyG7GdrPQkARkbz0UOaPm3vzFv42V1?=
- =?us-ascii?Q?HWTctS/ICMVWQ74eAyVTqFnYCMzfXpQ6z3iLSeNgwv+iLph5UWYk1y8wjVCP?=
- =?us-ascii?Q?BXr4ZnoZmmHDad9jradCT4XjqDVE7reLkph9AngQAoK+yPo2X1UALDRSr0Hd?=
- =?us-ascii?Q?dvsIyO350eJNNDYjuDHHOiAEYMDVx9a9UFq5TRyIBbyoE3DWvVJ72FNsuR6P?=
- =?us-ascii?Q?QySVj43YVkZlegeQw06JEiUsgX6XJRaFRZ+DVOYLNuVExMSik/7KvG/50aFe?=
- =?us-ascii?Q?GBGfz7GYHzDN61V1hNVksmDCbJyS/iqogvTtaXyqHvltT0NgN32WG/9iel9S?=
- =?us-ascii?Q?C/6ZiMHKN4/dAWnRx9RKQ5x8jp/+y5lYtlXOrjwiBQ+x7vgcYEzo/zwKT0VL?=
- =?us-ascii?Q?1bPmutvDONh49FGVnTXyrmFKUYRR7zZ6Q3q/xYmoP3hTD7MG2WdhNskr+LPZ?=
- =?us-ascii?Q?3PGFn7IZduZbcOUcEBdvzVYSRL5W0n3pET4EOZdI20lHMAb6hoj7i+RDIqKa?=
- =?us-ascii?Q?0X2iu966wiOG85J2ytijKfNzCe2A7WZk5WYyZmx85oN8W9XV1T0YMho0uFHG?=
- =?us-ascii?Q?OAxt2J8w2utVEyg5eopqhZ2r5piKq35uz9HCXVWgOAQBl7Ksv460+sY/6S9M?=
- =?us-ascii?Q?+tXSaisvlShnq92G5LwHs5bMU9mxiSiIDPiq9QdunMlotwvMBp3+ye0+CA0z?=
- =?us-ascii?Q?bMtujnjHQN5dEHehOHjUcCPzQjV3/3EY3KWBgHQBn/sMMVJXVvBZXkUkNal3?=
- =?us-ascii?Q?fdHx5kwMQZZ9R9zaNYrO7r/CCGPa34OD7VIPvumAafj7gkq/cGaivnr9/7iI?=
- =?us-ascii?Q?UZKrFtyfBgU1YY3IbD/zffzoHKroDpJv1ybfAfcWGDnmoDpZ8Xm8d2CjGz7U?=
- =?us-ascii?Q?akfyDI5G2Yv02wkwLajRb7LelI09NlcorqUmaVopUVEZFfh7+XxWRCZBcW9Z?=
- =?us-ascii?Q?GPfVZMeNHxa+fVrfxAGnhut0ixcEQoXS3lNfv++vHtdX0uNhjY6mEiLtmZxb?=
- =?us-ascii?Q?Kj7J1UmRBEfeEhZ3sjjOyXLKh+y/wsGYLQaG6iX/UUTVCKkkQ/VfWvOVRM0j?=
- =?us-ascii?Q?IGhQsTY3PDasmlu3eEayREoNQlkhmNCnk+I2LelPhVXkPHxjIqbC0m/xmmT6?=
- =?us-ascii?Q?+2N8bvYo3xEeA29fDhn+wRGQNwV0lp2FsM+LDqRh+/N5PW6R2vncYkRxzcW5?=
- =?us-ascii?Q?H0jB3oxVev5OtYcoLCoAIZcA0Gw50wViSa6Mdc0u7n+48buVJrzczPoQKaIE?=
- =?us-ascii?Q?Rd1av/nAkxLrSdVIZ2Jbjmrrh3Xggwh/Mf1psxJVcvAxKeIp5cdxhL+INPjh?=
- =?us-ascii?Q?2ul8FcrD6Q4Z4U9ouSdsrUrbtPI2vbeYAmJ1ks7+gSnt2eLqPojgmOtRek9I?=
- =?us-ascii?Q?x7AzoZVeKMO5QUjRGjsuMG2OTISRX59L7qcUoJe2KdcJ1846ClWWyP0+sBBO?=
- =?us-ascii?Q?KhdrmIWlBpA+ghYgv3E0fCzNmpANRk+Jv5K/G+fZ/WbgdyTv6lUDia3hkB1g?=
- =?us-ascii?Q?TBe+aWHWhrJVcADelrjOHgzoH7zHJ+rvFyOF2xjyVPOd8CFdMsfO14fFHY8e?=
- =?us-ascii?Q?HHA3gtMUX8Y5N4i1lfcHfPnp9IlkwlciZD7QjcjAS5iKzU7BNTYBqG4ix5Xo?=
- =?us-ascii?Q?rggkW3P+Xg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cv4C6L75
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E14E1F000C6;
+	Mon, 23 Nov 2026 15:57:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795449420;
+	bh=61fi01KAm9ypNij5A9AEGjV2SnLBgg55Eroty9lOb0w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Cv4C6L759xMdzXup5ZFyBXUqQHLCskZfqiRpnZunBkZi4qNTLhlDBlcnq05lGqRda
+	 C/EUKeiEBOOBFBryjKgWil+ay7ZwoGRd2/h2HIz4TAOuT9gQVnqAuDP/MFroI6uXoJ
+	 Io4j6oB76L4bqVWP07XnwE2B9g9DWdbGTySKi3ToSJobbd9C6sqWFUUeh8uC49E7Ia
+	 8TX3j3oMlOX4NLCF0icgt3hGWBovj6GZeeJ1fFNhPmtrHmqAhzDv5yYJinp2UIne8R
+	 2khM3DsHSPK3v9ajTpqxp6dzoYlZ3+/mS8iI9fjAHeqIiR0BD6DrcY/484Q7eTrE97
+	 h2STYvfJxqwiA==
+Message-ID: <sashiko-outbox-229627@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/4] media: rockchip: Add JPEG decoder driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sascha Hauer" <s.hauer@pengutronix.de>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261123-rockchip-jpegdec-v8-2-3316cd31b043@pengutronix.de>
+References: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
+ <20261123-rockchip-jpegdec-v8-2-3316cd31b043@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 15:56:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -159,334 +59,336 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1212afec-5733-49ac-d25c-08df497a2422
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2026 15:55:05.0526
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: x6KumQ8Bz2yev1YppU/D7/f0mvO/6PmV2CC4QtBrJv+zCeGyC9vsAUz0OXEiuUK3haOETV5XpUBApsNwUMccyZclgjSXcz1rVNcU1SQoIOE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB14268
 
-Hi Tommaso,
+Thank you for your contribution! Sashiko AI review found 6 potential
+issues to consider:
+- [High] media: rockchip: rkjpegd: race and early flag clear in
+  rkjpegd_stop_at_change()
+- [High] media: rockchip: rkjpegd: missing vdev_lock and work sync in
+  rkjpegd_suspend()
+- [High] media: rockchip: rkjpegd: race between rkjpegd_watchdog() and
+  rkjpegd_vdpu720_irq()
+- [Medium] media: rockchip: rkjpegd: missing EOS event in
+  rkjpegd_stop_streaming()
+- [Medium] media: rockchip: rkjpegd: stale draining state across stream
+  stop
+- [Medium] media: rockchip: rkjpegd: rkjpegd_track_fmt() clobbers
+  negotiated format
+--
 
-> -----Original Message-----
-> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> Sent: 13 November 2026 12:20
-> Subject: [PATCH v10 03/12] drm: renesas: rz-du: Reference the DRM device =
-by pointer
->=20
-> struct rzg2l_du_device embeds the DRM device, which makes a DU instance a=
-nd the DRM device one and the
-> same. RZ/G3E has two instances that have to share a single DRM device.
->=20
-> In preparation of supporting it, reference the DRM device by pointer and =
-give it a container of its
-> own. The instance is allocated with the DRM device rather than with the p=
-latform device, as the CRTC
-> and VSP cleanup handlers point into it and run once the DRM device is rel=
-eased.
->=20
-> No functional change intended.
->=20
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> ---
-> v9->v10:
->  - Rebased on top of [1], converted the PM ops too.
->  - Kept rzg2l_du_device as platform drvdata, use rcdu->ddev.
->=20
-> v9->v10:
->  - No changes just rebased.
+commit b2f1b48c77bd5e7b91c91e6a3d7b73159e4ded9c
+Author: Sascha Hauer <s.hauer@pengutronix.de>
 
-Duplicate change log v9->v10.
+media: rockchip: Add JPEG decoder driver
 
->=20
-> v8->v9:
->  - New patch.
->=20
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  2 +-  drivers/gpu/drm/r=
-enesas/rz-du/rzg2l_du_drv.c
-> | 39 ++++++++++++-------  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |=
-  7 +---
->   .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  8 ++--  .../gpu/drm/re=
-nesas/rz-
-> du/rzg2l_du_encoder.h  |  1 +  drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms=
-.c  |  2 +-
-> drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c  |  4 +-
->  7 files changed, 35 insertions(+), 28 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/=
-drm/renesas/rz-
-> du/rzg2l_du_crtc.c
-> index c57884ab5b9b..398532933013 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> @@ -411,7 +411,7 @@ int rzg2l_du_crtc_create(struct rzg2l_du_device *rcdu=
-)
->=20
->  	primary =3D &rcrtc->vsp->planes[rcrtc->vsp_pipe]->plane;
->=20
-> -	ret =3D drmm_crtc_init_with_planes(&rcdu->ddev, crtc, primary, NULL,
-> +	ret =3D drmm_crtc_init_with_planes(rcdu->ddev, crtc, primary, NULL,
->  					 &crtc_funcs_rz, NULL);
->  	if (ret < 0)
->  		return ret;
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/d=
-rm/renesas/rz-
-> du/rzg2l_du_drv.c
-> index c7d71dd9198e..57197356143f 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> @@ -17,6 +17,7 @@
->  #include <drm/drm_drv.h>
->  #include <drm/drm_fbdev_dma.h>
->  #include <drm/drm_gem_dma_helper.h>
-> +#include <drm/drm_managed.h>
->  #include <drm/drm_print.h>
->  #include <drm/drm_probe_helper.h>
->=20
-> @@ -148,14 +149,14 @@ static int rzg2l_du_pm_suspend(struct device *dev) =
- {
->  	struct rzg2l_du_device *rcdu =3D dev_get_drvdata(dev);
->=20
-> -	return drm_mode_config_helper_suspend(&rcdu->ddev);
-> +	return drm_mode_config_helper_suspend(rcdu->ddev);
->  }
->=20
->  static int rzg2l_du_pm_resume(struct device *dev)  {
->  	struct rzg2l_du_device *rcdu =3D dev_get_drvdata(dev);
->=20
-> -	return drm_mode_config_helper_resume(&rcdu->ddev);
-> +	return drm_mode_config_helper_resume(rcdu->ddev);
->  }
->=20
->  static DEFINE_SIMPLE_DEV_PM_OPS(rzg2l_du_pm_ops,
-> @@ -165,10 +166,14 @@ static DEFINE_SIMPLE_DEV_PM_OPS(rzg2l_du_pm_ops,
->   * Platform driver
->   */
->=20
-> +struct rzg2l_du_drm {
-> +	struct drm_device ddev;
-> +};
+This commit adds a V4L2 M2M stateful JPEG decoder driver for the Rockchip
+VDPU720 hardware block found on SoCs such as the RK3568 and RK3588.
+
+> diff --git a/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c b/drivers/=
+media/platform/rockchip/rkjpegd/rkjpegd.c
+> new file mode 100644
+> index 0000000000000..21cc08c0d4672
+> --- /dev/null
+> +++ b/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c
+[ ... ]
+> +static irqreturn_t rkjpegd_vdpu720_irq(int irq, void *dev_id)
+> +{
+> +	struct rkjpegd_dev *jpegd =3D dev_id;
+> +	enum vb2_buffer_state state;
+> +	u32 status;
+> +
+> +	status =3D rkjpegd_read(jpegd, VDPU720_REG_INT);
+> +
+> +	/* First phase of the IRQ clear, see VDPU720_IRQ_CLR_KEEP. */
+> +	rkjpegd_write(jpegd, status & VDPU720_IRQ_CLR_KEEP, VDPU720_REG_INT);
+> +
+> +	if (!(status & VDPU720_IRQ_RAW))
+> +		return IRQ_NONE;
+> +
+> +	rkjpegd_write(jpegd, 0, VDPU720_REG_INT);
+> +
+> +	state =3D (status & VDPU720_ERR_MASK) ?
+> +		VB2_BUF_STATE_ERROR : VB2_BUF_STATE_DONE;
+> +
+> +	/*
+> +	 * A block that did not park itself wedges on the next frame, and a
+> +	 * clean frame can leave it unparked too, as SOFT_RST_RDY shows.  The
+> +	 * reset sleeps, so leave it to rkjpegd_vdpu720_run().  The next job
+> +	 * is only started after job_spinlock has released this one, which
+> +	 * orders the store.
+> +	 */
+> +	if (state =3D=3D VB2_BUF_STATE_ERROR || !(status & VDPU720_SOFT_RST_RDY=
+))
+> +		jpegd->needs_reset =3D true;
+> +
+> +	if (status & VDPU720_DEC_ERR) {
+> +		u32 mcu_pos  =3D rkjpegd_read(jpegd, VDPU720_REG_DBG_MCU_POS);
+> +		u32 err_info =3D rkjpegd_read(jpegd, VDPU720_REG_DBG_ERROR);
+> +
+> +		dev_warn_ratelimited(jpegd->dev,
+> +				     "decode error: MCU pos=3D(%u,%u) flags=3D0x%04x [%s%s%s%s%s%s%s=
+%s%s%s] first_idx=3D%u\n",
+> +				     (u32)FIELD_GET(VDPU720_DBG_MCU_POS_X, mcu_pos),
+> +				     (u32)FIELD_GET(VDPU720_DBG_MCU_POS_Y, mcu_pos),
+> +				     (u32)FIELD_GET(VDPU720_DERR_FLAGS, err_info),
+> +				     (err_info & VDPU720_DERR_DRI_SEQ)     ? "dri_seq "    : "",
+> +				     (err_info & VDPU720_DERR_STREAM_FFFF) ? "ffff "       : "",
+> +				     (err_info & VDPU720_DERR_OTHER_MARK)  ? "bad_mark "   : "",
+> +				     (err_info & VDPU720_DERR_MCU_CNT_L)   ? "dri_early "  : "",
+> +				     (err_info & VDPU720_DERR_MCU_CNT_M)   ? "dri_late "   : "",
+> +				     (err_info & VDPU720_DERR_EOI_NO_END)  ? "eoi_early "  : "",
+> +				     (err_info & VDPU720_DERR_END_NO_EOI)  ? "no_eoi "     : "",
+> +				     (err_info & VDPU720_DERR_OVERFLOW)    ? "overflow "   : "",
+> +				     (err_info & VDPU720_DERR_HUFF_EMPTY)  ? "huff_empty " : "",
+> +				     (err_info & (VDPU720_DERR_STREAM_R0 |
+> +						  VDPU720_DERR_STREAM_R1)) ? "stream_mark " : "",
+> +				     (u32)FIELD_GET(VDPU720_DERR_FIRST_IDX, err_info));
+> +
+> +		rkjpegd_write(jpegd, err_info, VDPU720_REG_DBG_ERROR);
+> +	} else if (state =3D=3D VB2_BUF_STATE_ERROR) {
+> +		dev_warn_ratelimited(jpegd->dev, "decode error: status 0x%08x\n",
+> +				     status);
+> +	}
+> +
+> +	/* A pending watchdog means a job is running, see rkjpegd_watchdog(). */
+> +	if (cancel_delayed_work(&jpegd->watchdog_work))
+> +		rkjpegd_job_finish(v4l2_m2m_get_curr_priv(jpegd->m2m_dev),
+> +				   state);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +/*
+> + * The block ends a stalled job itself, TIMEOUT_E raises an interrupt af=
+ter
+> + * 2^24 idle cycles.  This only fires for a block that stopped answering
+> + * altogether, whose interrupt will not come now either.
+> + */
+> +static void rkjpegd_watchdog(struct work_struct *work)
+> +{
+> +	struct rkjpegd_dev *jpegd =3D container_of(to_delayed_work(work),
+> +						 struct rkjpegd_dev,
+> +						 watchdog_work);
+> +	/* Only armed while a job runs, so there is always a context. */
+> +	struct rkjpegd_ctx *ctx =3D v4l2_m2m_get_curr_priv(jpegd->m2m_dev);
+> +
+> +	dev_err(jpegd->dev, "frame processing timed out\n");
+> +
+> +	rkjpegd_vdpu720_reset(ctx);
+> +	rkjpegd_job_finish(ctx, VB2_BUF_STATE_ERROR);
+> +}
+
+[Severity: High]
+Can rkjpegd_watchdog() and rkjpegd_vdpu720_irq() race when the watchdog
+expires around the same time an interrupt fires?
+
+Once the workqueue dequeues watchdog_work, cancel_delayed_work() in
+rkjpegd_vdpu720_irq() returns false without waiting for rkjpegd_watchdog(),
+and nothing serializes the two paths:
+
+CPU0 (<hardirq>)                  CPU1 (kworker)
+rkjpegd_vdpu720_irq()             rkjpegd_watchdog()
+  /* job 1 IRQ */                   rkjpegd_vdpu720_reset()
+  dev_warn_ratelimited(...)         rkjpegd_job_finish() /* job 1 */
+                                      ...
+                                      rkjpegd_vdpu720_run() /* job 2 */
+                                        rkjpegd_arm_watchdog()
+  cancel_delayed_work(...)
+    /* cancels job 2's watchdog */
+  rkjpegd_job_finish()
+    /* completes job 2 during DMA */
+
+In addition, if rkjpegd_vdpu720_irq() runs while vdpu720_soft_reset() is
+polling VDPU720_REG_INT, the interrupt handler writes 0 to VDPU720_REG_INT
+(clearing VDPU720_SOFT_RST_EN) and sets jpegd->needs_reset =3D true, after
+which rkjpegd_vdpu720_reset() times out and overwrites
+jpegd->needs_reset =3D false.
 
 > +
->  static void rzg2l_du_remove(struct platform_device *pdev)  {
->  	struct rzg2l_du_device *rcdu =3D platform_get_drvdata(pdev);
-> -	struct drm_device *ddev =3D &rcdu->ddev;
-> +	struct drm_device *ddev =3D rcdu->ddev;
->=20
->  	drm_dev_unregister(ddev);
->  	drm_atomic_helper_shutdown(ddev);
-> @@ -180,28 +185,34 @@ static void rzg2l_du_shutdown(struct platform_devic=
-e *pdev)  {
->  	struct rzg2l_du_device *rcdu =3D platform_get_drvdata(pdev);
->=20
-> -	drm_atomic_helper_shutdown(&rcdu->ddev);
-> +	drm_atomic_helper_shutdown(rcdu->ddev);
->  }
->=20
->  static int rzg2l_du_probe(struct platform_device *pdev)  {
->  	struct rzg2l_du_device *rcdu;
-> +	struct rzg2l_du_drm *rzgdrm;
->  	int ret;
->=20
->  	if (drm_firmware_drivers_only())
->  		return -ENODEV;
->=20
->  	/* Allocate and initialize the RZ/G2L device structure. */
-> -	rcdu =3D devm_drm_dev_alloc(&pdev->dev, &rzg2l_du_driver,
-> -				  struct rzg2l_du_device, ddev);
-> -	if (IS_ERR(rcdu))
-> -		return PTR_ERR(rcdu);
-> +	rzgdrm =3D devm_drm_dev_alloc(&pdev->dev, &rzg2l_du_driver,
-> +				    struct rzg2l_du_drm, ddev);
-> +	if (IS_ERR(rzgdrm))
-> +		return PTR_ERR(rzgdrm);
->=20
-> -	rcdu->dev =3D &pdev->dev;
-> -	rcdu->info =3D of_device_get_match_data(rcdu->dev);
-> +	rcdu =3D drmm_kzalloc(&rzgdrm->ddev, sizeof(*rcdu), GFP_KERNEL);
-> +	if (!rcdu)
-> +		return -ENOMEM;
->=20
->  	platform_set_drvdata(pdev, rcdu);
-
-Previously this code is after rcdu->info.=20
-
->=20
-> +	rcdu->dev =3D &pdev->dev;
-> +	rcdu->info =3D of_device_get_match_data(rcdu->dev);
-> +	rcdu->ddev =3D &rzgdrm->ddev;
+> +/**
+> + * rkjpegd_track_fmt() - find where the capture format changes
+> + * @ctx:	context the coded buffer belongs to
+> + * @src_buf:	coded buffer being queued
+> + *
+> + * The first frame queued while the capture queue is stopped sets the ca=
+pture
+> + * format and reports it.  A refused one has no format, but an applicati=
+on
+> + * waits for the event either way, so it gets it for the format as it st=
+ands.
+> + * A later frame that decodes to another format is marked, and the decod=
+er
+> + * stops in front of it, see rkjpegd_stop_at_change().
+> + */
+> +static void rkjpegd_track_fmt(struct rkjpegd_ctx *ctx,
+> +			      struct rkjpegd_src_buf *src_buf)
+> +{
+> +	const struct v4l2_jpeg_header *hdr =3D &src_buf->header;
+> +	struct v4l2_m2m_ctx *m2m_ctx =3D ctx->fh.m2m_ctx;
+> +	u32 pixelformat;
 > +
->  	/* I/O resources */
->  	rcdu->mmio =3D devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(rcdu->mmio))
-> @@ -228,18 +239,18 @@ static int rzg2l_du_probe(struct platform_device *p=
-dev)
->  	 * Register the DRM device with the core and the connectors with
->  	 * sysfs.
->  	 */
-> -	ret =3D drm_dev_register(&rcdu->ddev, 0);
-> +	ret =3D drm_dev_register(&rzgdrm->ddev, 0);
->  	if (ret)
->  		goto error;
->=20
-> -	drm_info(&rcdu->ddev, "Device %s probed\n", dev_name(&pdev->dev));
-> +	drm_info(&rzgdrm->ddev, "Device %s probed\n", dev_name(&pdev->dev));
->=20
-> -	drm_client_setup(&rcdu->ddev, NULL);
-> +	drm_client_setup(&rzgdrm->ddev, NULL);
->=20
->  	return 0;
->=20
->  error:
-> -	drm_kms_helper_poll_fini(&rcdu->ddev);
-> +	drm_kms_helper_poll_fini(&rzgdrm->ddev);
->  	return ret;
->  }
->=20
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/d=
-rm/renesas/rz-
-> du/rzg2l_du_drv.h
-> index e9626ef37cde..47ceaf892339 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> @@ -69,7 +69,7 @@ struct rzg2l_du_device {
->=20
->  	void __iomem *mmio;
->=20
-> -	struct drm_device ddev;
-> +	struct drm_device *ddev;
->=20
->  	struct rzg2l_du_crtc crtcs[RZG2L_DU_MAX_CRTCS];
->  	unsigned int num_crtcs;
-> @@ -77,11 +77,6 @@ struct rzg2l_du_device {
->  	struct rzg2l_du_vsp vsps[RZG2L_DU_MAX_VSPS];  };
->=20
-> -static inline struct rzg2l_du_device *to_rzg2l_du_device(struct drm_devi=
-ce *dev) -{
-> -	return container_of(dev, struct rzg2l_du_device, ddev);
-> -}
-> -
->  static inline bool rzg2l_du_has(struct rzg2l_du_device *rcdu,
->  				unsigned int feature)
->  {
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/g=
-pu/drm/renesas/rz-
-> du/rzg2l_du_encoder.c
-> index a1b48973aa8e..5c21c5f9fbaf 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> @@ -52,8 +52,7 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *encoder=
-,
->  			    const struct drm_display_mode *mode)  {
->  	struct rzg2l_du_encoder *renc =3D to_rzg2l_encoder(encoder);
-> -	struct rzg2l_du_device *rcdu =3D to_rzg2l_du_device(renc->base.dev);
-> -	const struct rzg2l_du_device_info *info =3D rcdu->info;
+> +	src_buf->fmt_change =3D false;
+> +
+> +	if (!vb2_is_streaming(v4l2_m2m_get_dst_vq(m2m_ctx)) &&
+> +	    !v4l2_m2m_num_src_bufs_ready(m2m_ctx)) {
+> +		if (!src_buf->parse_error) {
+> +			rkjpegd_set_hdr_fmt(ctx, hdr);
+> +			rkjpegd_reset_queued(ctx);
+> +		}
+> +		v4l2_event_queue_fh(&ctx->fh, &rkjpegd_src_change_event);
+> +		return;
+> +	}
 
-Maybe to keep the change minimal
+[Severity: Medium]
+Does this branch reset ctx->dst_fmt and ctx->convert even when
+ctx->hdr_known is already true and the format has not changed?
 
-       struct rzg2l_du_device *rcdu =3D renc->rcdu;
-	 const struct rzg2l_du_device_info *info =3D rcdu->info;
+If userspace negotiates V4L2_PIX_FMT_NV12 for a 4:2:2 stream (setting
+ctx->convert =3D true and allocating NV12 capture buffers) and later stops
+and restarts streaming when no output buffers are ready, queuing the next
+4:2:2 output buffer enters this branch.  rkjpegd_set_hdr_fmt() then resets
+ctx->convert =3D false and overwrites ctx->dst_fmt back to V4L2_PIX_FMT_NV1=
+6,
+causing rkjpegd_buf_prepare() to reject the already-allocated NV12 capture
+buffers with -EINVAL and queuing a spurious V4L2_EVENT_SOURCE_CHANGE.
 
-> +	const struct rzg2l_du_device_info *info =3D renc->dev->info;
->=20
->  	if (renc->output !=3D RZG2L_DU_OUTPUT_DPAD0)
->  		return MODE_OK;
-> @@ -133,12 +132,13 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *=
-rcdu,
->  	dev_dbg(rcdu->dev, "initializing encoder %pOF for output %s\n",
->  		enc_node, rzg2l_du_output_name(output));
->=20
-> -	renc =3D drmm_encoder_alloc(&rcdu->ddev, struct rzg2l_du_encoder, base,
-> +	renc =3D drmm_encoder_alloc(rcdu->ddev, struct rzg2l_du_encoder, base,
->  				  &rzg2l_du_encoder_funcs, DRM_MODE_ENCODER_NONE,
->  				  NULL);
->  	if (IS_ERR(renc))
->  		return PTR_ERR(renc);
->=20
-> +	renc->dev =3D rcdu;
->  	renc->output =3D output;
->  	drm_encoder_helper_add(&renc->base, &rzg2l_du_encoder_helper_funcs);
->=20
-> @@ -153,7 +153,7 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rc=
-du,
->  	}
->=20
->  	/* Create the connector for the chain of bridges. */
-> -	connector =3D drm_bridge_connector_init(&rcdu->ddev, &renc->base);
-> +	connector =3D drm_bridge_connector_init(rcdu->ddev, &renc->base);
->  	if (IS_ERR(connector)) {
->  		dev_err(rcdu->dev,
->  			"failed to created connector for output %s (%ld)\n", diff --git
-> a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h b/drivers/gpu/drm/rene=
-sas/rz-du/rzg2l_du_encoder.h
-> index 3e430c1f6132..dfffcc14e0a3 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
-> @@ -17,6 +17,7 @@ struct rzg2l_du_device;
->=20
->  struct rzg2l_du_encoder {
->  	struct drm_encoder base;
-> +	struct rzg2l_du_device *dev;
+[ ... ]
 
-dev->rcdu for consistency
+> +static void rkjpegd_stop_at_change(struct rkjpegd_ctx *ctx,
+> +				   struct vb2_v4l2_buffer *dst)
+> +{
+> +	struct v4l2_m2m_ctx *m2m_ctx =3D ctx->fh.m2m_ctx;
+> +
+> +	/* Set before the event, so that a query after it sees the change. */
+> +	WRITE_ONCE(ctx->stopped_at_change, true);
+> +	v4l2_event_queue_fh(&ctx->fh, &rkjpegd_src_change_event);
+> +
+> +	v4l2_m2m_dst_buf_remove(m2m_ctx);
+> +	rkjpegd_last_buffer_done(ctx, dst);
+> +	v4l2_m2m_job_finish(ctx->dev->m2m_dev, m2m_ctx);
+> +}
 
-Cheers,
-Biju
+[Severity: High]
+Can rkjpegd_stop_at_change() race with rkjpegd_decoder_cmd() when
+rkjpegd_device_run() runs from m2m_dev->job_work without jpegd->vdev_lock?
 
->  	enum rzg2l_du_output output;
->  };
->=20
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c b/drivers/gpu/d=
-rm/renesas/rz-
-> du/rzg2l_du_kms.c
-> index 87f171145a23..13d14ecacba9 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c
-> @@ -402,7 +402,7 @@ static int rzg2l_du_vsps_init(struct rzg2l_du_device =
-*rcdu)
->=20
->  int rzg2l_du_modeset_init(struct rzg2l_du_device *rcdu)  {
-> -	struct drm_device *dev =3D &rcdu->ddev;
-> +	struct drm_device *dev =3D rcdu->ddev;
->  	struct drm_encoder *encoder;
->  	unsigned int num_encoders;
->  	int ret;
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/d=
-rm/renesas/rz-
-> du/rzg2l_du_vsp.c
-> index 12fe35740c62..4df4f0ff0ed5 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
-> @@ -298,7 +298,7 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struc=
-t device_node *np,
->=20
->  	vsp->vsp =3D &pdev->dev;
->=20
-> -	ret =3D drmm_add_action_or_reset(&rcdu->ddev, rzg2l_du_vsp_cleanup, vsp=
-);
-> +	ret =3D drmm_add_action_or_reset(rcdu->ddev, rzg2l_du_vsp_cleanup, vsp)=
-;
->  	if (ret < 0)
->  		return ret;
->=20
-> @@ -324,7 +324,7 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struc=
-t device_node *np,
->  					 : DRM_PLANE_TYPE_OVERLAY;
->  		struct rzg2l_du_vsp_plane *plane;
->=20
-> -		plane =3D drmm_universal_plane_alloc(&rcdu->ddev, struct rzg2l_du_vsp_=
-plane,
-> +		plane =3D drmm_universal_plane_alloc(rcdu->ddev, struct
-> +rzg2l_du_vsp_plane,
->  						   plane, crtcs, &rzg2l_du_vsp_plane_funcs,
->  						   rzg2l_du_vsp_formats,
->  						   ARRAY_SIZE(rzg2l_du_vsp_formats),
-> --
-> 2.54.0
+When a previous frame finishes in rkjpegd_vdpu720_irq(),
+v4l2_m2m_buf_done_and_job_finish() schedules m2m_dev->job_work, which
+invokes rkjpegd_device_run() -> rkjpegd_stop_at_change() without holding
+jpegd->vdev_lock.  As soon as stopped_at_change and
+V4L2_EVENT_SOURCE_CHANGE are published, userspace can issue
+V4L2_DEC_CMD_START on another CPU before rkjpegd_stop_at_change() finishes:
 
+CPU0 (kworker)                    CPU1 (ioctl)
+rkjpegd_stop_at_change()
+  stopped_at_change =3D true
+  v4l2_event_queue_fh(...)
+                                  rkjpegd_decoder_cmd(V4L2_DEC_CMD_START)
+                                    rkjpegd_resume_at_change()
+                                      src_buf->fmt_change =3D false
+                                      stopped_at_change =3D false
+                                    v4l2_m2m_try_schedule()
+                                      /* skipped: TRANS_RUNNING set */
+  v4l2_m2m_dst_buf_remove()
+  rkjpegd_last_buffer_done()      <-- completes dst as V4L2_BUF_FLAG_LAST
+                                      after resume
+  v4l2_m2m_job_finish()
+
+Separately, calling vb2_clear_last_buffer_dequeued() in
+rkjpegd_decoder_cmd() (or in rkjpegd_stop_streaming() on the output queue)
+before userspace has dequeued that V4L2_BUF_FLAG_LAST buffer from done_list
+clears last_buffer_dequeued while it is still false; when userspace later
+dequeues the V4L2_BUF_FLAG_LAST buffer, vb2_dqbuf() sets
+last_buffer_dequeued =3D true and fails all subsequent capture dequeues with
+-EPIPE.
+
+[ ... ]
+
+> +	if (V4L2_TYPE_IS_OUTPUT(vq->type)) {
+> +		/* A seek aborts a format change, decoding goes on as before. */
+> +		if (ctx->stopped_at_change) {
+> +			WRITE_ONCE(ctx->stopped_at_change, false);
+> +			vb2_clear_last_buffer_dequeued(&ctx->fh.m2m_ctx->cap_q_ctx.q);
+> +		}
+> +		rkjpegd_reset_queued(ctx);
+> +	} else if (ctx->stopped_at_change) {
+> +		/*
+> +		 * Part of the format change, which does not abort a drain:
+> +		 * dev-decoder.rst has the drain go on once it is handled.
+> +		 */
+> +		rkjpegd_resume_at_change(ctx);
+> +		return;
+> +	}
+
+[Severity: Medium]
+Can returning early here without calling
+v4l2_m2m_update_stop_streaming_state() leave m2m_ctx->is_draining and
+m2m_ctx->next_buf_last stuck at true when both queues are stopped?
+
+If a drain is active when the decoder stops at a format change and
+userspace stops the capture queue first, this branch clears
+ctx->stopped_at_change and skips v4l2_m2m_update_stop_streaming_state(),
+leaving m2m_ctx->is_draining set while the capture queue is not streaming
+(the same state can be reached if V4L2_DEC_CMD_STOP is called in
+rkjpegd_decoder_cmd() while the capture queue is not streaming).  If
+userspace then stops the output queue as well,
+v4l2_m2m_update_stop_streaming_state() on the output queue sees
+is_draining =3D=3D true with no ready capture buffer and sets
+m2m_ctx->next_buf_last =3D true.  When streaming is later restarted, the
+first capture buffer queued in rkjpegd_buf_queue() hits
+v4l2_m2m_dst_buf_is_last() and terminates the new stream immediately.
+
+> +
+> +	v4l2_m2m_update_stop_streaming_state(ctx->fh.m2m_ctx, vq);
+> +}
+
+[Severity: Medium]
+Should rkjpegd_stop_streaming() queue rkjpegd_eos_event when
+v4l2_m2m_update_stop_streaming_state() marks the decoder stopped?
+
+When the output queue stops streaming while a drain is in progress and a
+capture buffer is already on rdy_queue,
+v4l2_m2m_update_stop_streaming_state() completes that capture buffer with
+V4L2_BUF_FLAG_LAST and sets m2m_ctx->has_stopped =3D true, so
+rkjpegd_buf_queue() will not run later to queue V4L2_EVENT_EOS.
+
+[ ... ]
+
+> +/* pm_runtime_force_suspend() ignores the usage count, let the job finis=
+h. */
+> +static int rkjpegd_suspend(struct device *dev)
+> +{
+> +	struct rkjpegd_dev *jpegd =3D dev_get_drvdata(dev);
+> +
+> +	v4l2_m2m_suspend(jpegd->m2m_dev);
+> +
+> +	return pm_runtime_force_suspend(dev);
+> +}
+
+[Severity: High]
+Does rkjpegd_suspend() need jpegd->vdev_lock around v4l2_m2m_suspend() and
+cancel_delayed_work_sync(&jpegd->watchdog_work) before
+pm_runtime_force_suspend(), as rkjpegd_vdev_unregister() does?
+
+v4l2_m2m_suspend() reads m2m_dev->curr_ctx under job_spinlock, drops the
+spinlock, and waits on curr_ctx->finished.  Without jpegd->vdev_lock, a
+concurrent rkjpegd_release() (for example from delayed_fput_work) can free
+m2m_ctx while v4l2_m2m_suspend() is about to wait on it:
+
+CPU0                              CPU1
+rkjpegd_suspend()                 rkjpegd_release()
+  v4l2_m2m_suspend()
+    curr_ctx =3D m2m_dev->curr_ctx
+                                    mutex_lock(&jpegd->vdev_lock)
+                                    v4l2_m2m_ctx_release(m2m_ctx)
+                                      kfree(m2m_ctx)
+    wait_event(curr_ctx->finished, ...)
+                                  <-- use-after-free
+
+Without cancel_delayed_work_sync(&jpegd->watchdog_work), an in-flight
+rkjpegd_watchdog() can also touch device registers after
+pm_runtime_force_suspend() disables the clocks.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-rockchip-j=
+pegdec-v8-0-3316cd31b043@pengutronix.de?part=3D2
