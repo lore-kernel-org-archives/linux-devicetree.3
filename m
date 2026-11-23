@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795440350;
-	b=fbdZh4VzIe3d6ryMf8ojk8htv9y4aHzS8dnxPwsHL5EtFFG4Ey9fAgZUXHGCiDQfevr1
-	 JymWShnN+2EpLMrrJu5IPktPb9jgXFjMoIDmHWqdPQ/wZQyvq225s/Wm3IBhFhiBpH3PC
-	 ZkMD3E/Ia5gEv2kLHKoWfXI6Hh5tOKfGNhVOXshJ+y9pTw375OmJZ2mE84bJ6W75HuSWH
-	 Vj1atV/faXVFhjel5XLICf7SvoHDu+cR6uCQ7B7urUTnSP515U56KuHJnYLAw4deZka9j
-	 824OK6kUihRWNFxkywLzegPwTIy6h4ps0HosTpwY1btEW1Vtt51Wg5MJUlv3Vpk5L1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795440350;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
-	bh=DBCFU9vOrJdstCRij3rT/Hl2Y7D7MQX+Hld/OsjMT7U=;
-	b=A6Gaa4mYVQr7hiUfd9EcHl6vb/V3v07Hm77JjTFL0azlFICb6yGBtKUvDotPKpr4B1ZQ
-	 1l4o9/7NZzpmce59nqq0sJPONVl7RgZkVZ45OccYgWCNlXjBkHUws2VWDCPQ5xgr1H/mm
-	 1nTSo4eTTRUMUrO7E5/tgGGaM/ZHkp2jR6+h/6+TDdRtMt0+X+haetZfJydUzmvhVk47/
-	 1JHZPGJR8tC64gVhtk9atYwGuk3CXfnC2elaTsaIHny05ZPf/E6vSff/aP61FxSUwMyTD
-	 tqnYizXwPV7rTtiLfMTfSxMMb0oseqk0NjZF+eZUQw6ZXqDoj6JkGnQ9PLgBwCOW03A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b="rxywaiJ/";
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795440506;
+	b=sH14yOiuLgFu0vM/ISk7QLCx79LgSIB6mO6GSlegSszyCTpOU3YaEGjY141DhKzKbUB7
+	 4d3CDHlQ7s5GkdaBaj7R73zAIKXGxnGV5YRjkb1GyOv+CUNK/4GBuErx33R028QUij5y2
+	 6Z7Rip9AXlWyHQ88GAlWTvAvSFMETidRnPjOFSkfCKdbLLjw5i6Tot+Oflo6VNogk+9wM
+	 /pULS6dDPe4p6A7tE+wi1i1SUnmQoNDt7LiQzkcFD4mK8eBgS804avNGmOSwwaCrIB6m7
+	 JGDWl1eTXNARHzSGTDlbKhhtEjVGXTEc7rD6Edol9KLWsDRn2AgEHaDLycSxsgvbMrA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795440506;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Iz6QLWric6cq68W3ntH94WwbQE0BNKTALt8WdXsygxk=;
+	b=O94uq6DBEbZY3pv9MfJOHIQOP1xhgX5kndxTpEZkNNvo5y+w7AKA7qIfBYNVVVsnhiHI
+	 jSrelw3lKyKDXfuwUNeQ89oXXh/tkQENmmmYmxjTsDNHkkqUunh3Xd26QCafOKa9taLUw
+	 OhF9QfgB0lGWZfvk/L8adB8+k1CmS7KtTePKgIOnSpzyUYZZlvHwsOwj5tfYDJUETwQWd
+	 WXIj5xOK8hdMN+6tNe0SVkO3nBMGSiCbJ6hf5+zRsTFa8dYehtPWWDr0iwi5+edAWHpwE
+	 Kzwo+e9viJFQtyoLPo/BtnG/3J5DjMbQGJGYPU/HWFQIeC6gnqy/wPtIBhW9FSom1Kg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wy6m67s0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D22606A33C;
+	Mon, 23 Nov 2026 13:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wy6m67s0
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795440506;
+	b=JSEVKBQNWPdSzUDDTcjYr5GAkYvu21lpePWhharRqSsbEDpHjlx6IO5ctWqGfejBNNrC
+	 685g8o1psYluAsPOV+aPA0a5IHLyLtY7enmrhnS1txCkQgymrN1XoyT59GfAadrtpHSdV
+	 klieKeLA8e6ANvCKY6YwUwh1X7CjX+SqRmgf3KQNk3vgLUf5Kz/bsbgNPEWmY8zDz67xG
+	 I5PN/88WTgucW5ERWMx9R4nMbxjObDpaD1+kH1WZ2ihdUWwg5PifgXQqIHgRYkb8JbVcl
+	 V7cJ1KITDX85v4w1SIjr9z5kDjkiJCNSmjj1Vbe2heo8YY6FPtS4f2cKufV3MD7rcJQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795440506;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Iz6QLWric6cq68W3ntH94WwbQE0BNKTALt8WdXsygxk=;
+	b=XcC2fZV5CXnZkF/+ZNmPEKe69/OvzRj7dVKWvRQ4FSCvtewIlyNX3sDua6VJKISCeFDo
+	 8UoYVzIYbqcEYYYKGFDI6jYx6LrYcOXhFwEsf5d6sdBUpaZHB/ofxN0P2dysxGea/0bV3
+	 2//T+fc5qzRGJ/NaxoLTI37q2Ip7oXlG40ZL+u0jVrfwmjAxzCaLAOiU8GYXeSRMH0GuL
+	 quyVy/CbavpqN9cSUNZZiVQkBQLAY7AAVLKYOCaRRjic73XofAzhlXysOI6KCOKlHnado
+	 0u8ze9R+sAYfoEnuXjjKl7niHeZkKE/suMOwT+ym6xmTYxp6PGFviYVswk7BvQMC6nQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F3560A382D;
-	Mon, 23 Nov 2026 13:25:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2F3560A382D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=rxywaiJ/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1795440350; x=1826976350;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=bBo0I05VdlQLgenPhmy0GmOEtXQJWt5VHRNZsb0qbBg=;
-  b=rxywaiJ/39syUj/eB3FAWCkthnE5JixUS8toA+l7qkYsj1BuTJKlGCPY
-   CNMpcOI9WJuXyxqhWV6XeLWcw4STdO+/i2iKyQx7Js+9EHsfgR4Qr9dgi
-   FiWt8bQwJg81A3r0z/PAZ+T6LgyDsP/TDyr1i6vba2Bzc0TfjfvEnc6ke
-   aVtDnvock/oAmrWNwRoHzq4he3/P13pGzDspiLI5vNEQ3Nvte66a5Uko+
-   qv1fdmsklnOuw0/kM14+smMaVvrWSBQhW9iF/DjEQ85BByxvnZ6vARTDZ
-   DTIIDNC5iKgjt6p5sEd0H10KTPjaxLIytyg9u1UeuXdbbOcJNiyYxhv0a
-   g==;
-X-CSE-ConnectionGUID: NDR+tIaTRs+D6MAlDHcSbg==
-X-CSE-MsgGUID: C0Yj1zaZTvqvnj4ZU5YucQ==
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="67154024"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 23 Nov 2026 06:25:49 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 23 Nov 2026 06:25:49 -0700
-Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Mon, 23 Nov 2026 06:25:47 -0700
-From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-Date: Mon, 23 Nov 2026 14:25:08 +0100
-Subject: [PATCH 4/4] mfd: ocelot: Read LAN9645x registers in a single SPI
- transfer
+	by smtp.kernel.org (Postfix) with ESMTPS id 65D471F000D1;
+	Mon, 23 Nov 2026 13:28:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795440506;
+	bh=Iz6QLWric6cq68W3ntH94WwbQE0BNKTALt8WdXsygxk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Wy6m67s086zCYP7xnMcOrcKP2gWsHh+THO3IyGu6bW0MI55o5GQAX8iUuCqvWY3yC
+	 IYCprsIq60S019svbAqbnnynYLtubAfQ9JFB8nt++HY8vJPpS1jn1sWrufGs96C+Su
+	 KK0f3BgRlc3BB0jyW+l9+v8ThWJrar7VfLuz49/DrgC/RqOKcTLkZk0JeKbypkFRcX
+	 o5f8koGFck5QeZZtrOU+478gMLBgrKHhJmWTS3sxiFzvT4W3KtVq+jihUI6sQGqyEn
+	 l2ZVKFsVVzOyU9XDZwCH0aHOtYS9rWLav5uHG/pStOQjPiFibpRJ8TNt1k+ptj5Ixk
+	 bakDyAivHtibw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E327F4C4A1;
+	Mon, 23 Nov 2026 13:28:12 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 23 Nov 2026 14:28:10 +0100
+Subject: [PATCH v11 1/2] arm64: dts: qcom: sdm845-google: Add dual front
+ IMX355 cameras
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,212 +84,329 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID: <20261123-mfd-ocelot-add-lan9645x-support-v1-4-567d811fe1de@microchip.com>
-References: <20261123-mfd-ocelot-add-lan9645x-support-v1-0-567d811fe1de@microchip.com>
-In-Reply-To: <20261123-mfd-ocelot-add-lan9645x-support-v1-0-567d811fe1de@microchip.com>
-To: Colin Foster <colin.foster@in-advantage.com>, Lee Jones <lee@kernel.org>,
-	<UNGLinuxDriver@microchip.com>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Richard
- Cochran" <richardcochran@gmail.com>
-CC: <mfd@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>
-X-Mailer: b4 0.15-dev
+Message-Id: <20261123-pixel3-camera-v11-1-d00195d180dc@ixit.cz>
+References: <20261123-pixel3-camera-v11-0-d00195d180dc@ixit.cz>
+In-Reply-To: <20261123-pixel3-camera-v11-0-d00195d180dc@ixit.cz>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Petr Hodina <petr.hodina@protonmail.com>, 
+ Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7144; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=lAr8RSJX5l4imCi996Kh7aazXm2Dve0A7X4RSXAMayk=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBD9sYu/UmjJ+NaBSgnmzBUm7AZphXOvz+6lZH
+ MYlUmccVtyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawQ/bAAKCRBgAj/E00kg
+ cmPyEADCsCMTPeoe/39drsYHSzGQjNjqoK7dLv7oWsAidBS8PucnuGoK0xBNA02k5MHZiAyLu0B
+ vnVAqYFCLL8ApziPSJKyDL+zCeV332Esr0V9/ydi5ER8CB8fXdCd6+uVa7DhHMVmairC8J0U5wy
+ 9Htc/7u6J7ENKqYoZg3MwfPacPebjXbIRVpNVkNANxi4lCv36Agh97oro3AiFAPWn/9CS1DzmA7
+ 99OucHNkZI2zPvxYUOR6lsQJ+fRY5DyuCcLelPAJ20dVqOnVIR1N7O3flsEsPm299VMC8Ir2Sks
+ WlfB2lDlcHLs25u1kQoeOqUsV5Bj+eaSTD+py8l6LvMNPFbd2M4Idil3r+p9Xpd0SNMuoUgweg3
+ Q7kVGRrGLZBWa8XNTW1kI0QaOpXca5UrJTOz4QVgI861ziH0THoN4kVJVQF/Wtf089bYRihwsH1
+ V7upToW5CERmbNs3825V7LsS2fkZQlDbIwPsBgoPZA2DaVhscUyopGP22piIOQYbYewhGIoVpBO
+ yz3o8RFd+i/mAp5Pl+kJIA8tHHhnfhADqxabXDIIrv1QMnNSjtL0HuLn2yjVuQ5aP5JZlc/2hqP
+ hLP5sR2ajZ0O4MGpe6SLnu9h+uORRmSCU+xcrr5d6vVJLR6yx4fh88dPaxS78I4QBsxacjIY2KU
+ L2oonr4QY4jOWRA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-A register read is three SPI transfers: the address, the padding bytes
-and the value. The SPI controller handles each transfer separately, with
-its own setup and interrupt.
+From: David Heidelberg <david@ixit.cz>
 
-Read the address, the padding bytes and the value of a LAN9645x register
-in one full duplex transfer instead, which removes the handling of two
-transfers from every read. The three transfer read works on the
-LAN9645x as well, this only reduces the cost of a read. The transfer
-buffer is allocated per regmap, so the regmap lock serializes its use.
+The Pixel 3 features two front-facing Sony IMX355 sensors with
+different focal lengths (standard and wide-angle).
 
-With the interrupt driven Atmel SPI controller of a LAN966x host at
-25 MHz and a GPIO chip select, a register read takes 35.8 us instead of
-62.2 us, with a standard deviation below 0.1 us over seven runs of
-13800 reads.
+Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
+I2C1, using MCLK2 as the clock source.
 
-Half duplex controllers and devices in 3-wire mode cannot transmit and
-receive in one transfer, so fall back to the three transfer read for
-them.
+This enables support for the dual front camera configuration.
 
-Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/mfd/ocelot-spi.c | 92 ++++++++++++++++++++++++++++++++++++++++++++++--
- drivers/mfd/ocelot.h     |  3 +-
- 2 files changed, 92 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 172 ++++++++++++++++++++-
+ 1 file changed, 171 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/ocelot-spi.c b/drivers/mfd/ocelot-spi.c
-index 6d405627136d..4f2ef847c909 100644
---- a/drivers/mfd/ocelot-spi.c
-+++ b/drivers/mfd/ocelot-spi.c
-@@ -13,6 +13,7 @@
-  * Author: Colin Foster <colin.foster@in-advantage.com>
-  */
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index 3c9656b88b696..1c1cc036dcfe8 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -1,16 +1,18 @@
+ // SPDX-License-Identifier: GPL-2.0-only
  
-+#include <linux/cache.h>
- #include <linux/device.h>
- #include <linux/err.h>
- #include <linux/errno.h>
-@@ -45,7 +46,12 @@
- #define LAN9645X_RESET_PADDING_BYTES	15
- #define LAN9645X_REG_ACCESS_TIME_US	2
+ /dts-v1/;
  
-+#define OCELOT_SPI_ADDR_SIZE		3
- #define OCELOT_SPI_MAX_PADDING_BYTES	15
-+#define OCELOT_SPI_VAL_SIZE		4
-+#define OCELOT_SPI_XFER_BUF_SIZE	(OCELOT_SPI_ADDR_SIZE + \
-+					 OCELOT_SPI_MAX_PADDING_BYTES + \
-+					 OCELOT_SPI_VAL_SIZE)
+ #include <dt-bindings/arm/qcom,ids.h>
+ #include <dt-bindings/dma/qcom-gpi.h>
+ #include <dt-bindings/input/linux-event-codes.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/media/video-interface-devices.h>
++#include <dt-bindings/media/video-interfaces.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
  
- static const struct resource vsc7512_dev_cpuorg_resource =
- 	DEFINE_RES_REG_NAMED(VSC7512_DEVCPU_ORG_RES_START,
-@@ -70,6 +76,12 @@ struct ocelot_spi_data {
- 	const struct resource *gcb_res;
- 	int reset_padding_bytes;
- 	int (*padding_bytes)(u32 max_speed_hz);
-+	bool single_xfer_read;
+ #include "sdm845.dtsi"
+ #include "pm8998.dtsi"
+ #include "pmi8998.dtsi"
+ 
+ /delete-node/ &mpss_region;
+ /delete-node/ &venus_mem;
+@@ -108,16 +110,48 @@ gpio-keys {
+ 		key-vol-up {
+ 			label = "Volume Up";
+ 			linux,code = <KEY_VOLUMEUP>;
+ 			gpios = <&pm8998_gpios 6 GPIO_ACTIVE_LOW>;
+ 			debounce-interval = <15>;
+ 		};
+ 	};
+ 
++	camera_front_avdd: regulator-front-cam-avdd {
++		compatible = "regulator-fixed";
++		regulator-name = "front_cam_avdd";
++
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++
++		gpios = <&tlmm 8 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&cam_front_avdd_default>;
++		pinctrl-names = "default";
++
++		vin-supply = <&vreg_bob>;
++	};
++
++	camera_front_aux_avdd: regulator-front-cam-aux-avdd {
++		compatible = "regulator-fixed";
++		regulator-name = "front_cam_aux_avdd";
++
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++
++		gpios = <&tlmm 14 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&cam_front_aux_avdd_default>;
++		pinctrl-names = "default";
++
++		vin-supply = <&vreg_bob>;
++	};
++
+ 	vph_pwr: regulator-vph-pwr {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vph_pwr";
+ 		regulator-min-microvolt = <3700000>;
+ 		regulator-max-microvolt = <3700000>;
+ 	};
+ 
+ 	vreg_s4a_1p8: regulator-vreg-s4a-1p8 {
+@@ -314,16 +348,21 @@ vreg_l28a_3p0: ldo28 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+ 			regulator-boot-on;
+ 			/*
+ 			 * We can't properly bring the panel back if it gets turned off
+ 			 * so keep it's regulators always on for now.
+ 			 */
+ 			regulator-always-on;
+ 		};
++
++		vreg_lvs1_1p8: lvs1 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
+ 	};
+ 
+ 	regulators-1 {
+ 		compatible = "qcom,pmi8998-rpmh-regulators";
+ 		qcom,pmic-id = "b";
+ 
+ 		vdd-bob-supply = <&vph_pwr>;
+ 
+@@ -346,24 +385,127 @@ regulators-2 {
+ 
+ 		vreg_s3c_0p6: smps3 {
+ 			regulator-min-microvolt = <600000>;
+ 			regulator-max-microvolt = <600000>;
+ 		};
+ 	};
+ };
+ 
++&camss {
++	vdda-phy-supply = <&vreg_l1a_0p875>;
++	vdda-pll-supply = <&vreg_l26a_1p2>;
++
++	/*
++	 * MCLK2 (GPIO15) is shared between both front camera sensors.
++	 * The clock is generated by CAMCC, therefore the pin is
++	 * configured here rather than in individual sensor nodes.
++	 */
++	pinctrl-0 = <&cam_mclk2_default>;
++	pinctrl-1 = <&cam_mclk2_sleep>;
++	pinctrl-names = "default", "sleep";
++
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++
++			camss_endpoint1: endpoint {
++				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++				data-lanes = <0 1 2 3>;
++				remote-endpoint = <&cam_aux_front_endpoint>;
++			};
++		};
++
++		port@2 {
++			reg = <2>;
++
++			camss_endpoint2: endpoint {
++				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++				data-lanes = <0 1 2 3>;
++				remote-endpoint = <&cam_front_endpoint>;
++			};
++		};
++	};
 +};
 +
-+struct ocelot_spi_regmap_ctx {
-+	struct device *dev;
-+	u8 buf[OCELOT_SPI_XFER_BUF_SIZE] __aligned(ARCH_DMA_MINALIGN);
- };
- 
- static int vsc7512_spi_padding_bytes(u32 max_speed_hz)
-@@ -105,6 +117,7 @@ static const struct ocelot_spi_data lan9645x_spi_data = {
- 	.gcb_res = &lan9645x_gcb_resource,
- 	.reset_padding_bytes = LAN9645X_RESET_PADDING_BYTES,
- 	.padding_bytes = lan9645x_spi_padding_bytes,
-+	.single_xfer_read = true,
- };
- 
- static const struct ocelot_spi_data vsc7512_spi_data = {
-@@ -249,12 +262,78 @@ static const struct regmap_bus ocelot_spi_regmap_bus = {
- 	.read = ocelot_spi_regmap_bus_read,
- };
- 
-+static int ocelot_spi_regmap_xfer_read(void *context, const void *reg,
-+				       size_t reg_size, void *val,
-+				       size_t val_size)
-+{
-+	struct ocelot_spi_regmap_ctx *ctx = context;
-+	struct spi_transfer xfer = {};
-+	struct ocelot_ddata *ddata;
-+	const u8 *regu8 = reg;
-+	u8 *buf = ctx->buf;
-+	u8 *valu8 = val;
-+	size_t off;
-+	int err;
-+
-+	ddata = dev_get_drvdata(ctx->dev);
-+
-+	if (reg_size != OCELOT_SPI_ADDR_SIZE || val_size != OCELOT_SPI_VAL_SIZE ||
-+	    ddata->spi_padding_bytes > OCELOT_SPI_MAX_PADDING_BYTES)
-+		return -EINVAL;
-+
-+	off = OCELOT_SPI_ADDR_SIZE + ddata->spi_padding_bytes;
-+
-+	buf[0] = regu8[0];
-+	buf[1] = regu8[1];
-+	buf[2] = regu8[2];
-+	memset(&buf[OCELOT_SPI_ADDR_SIZE], 0,
-+	       ddata->spi_padding_bytes + OCELOT_SPI_VAL_SIZE);
-+
-+	xfer.tx_buf = buf;
-+	xfer.rx_buf = buf;
-+	xfer.len = off + OCELOT_SPI_VAL_SIZE;
-+
-+	err = spi_sync_transfer(to_spi_device(ctx->dev), &xfer, 1);
-+	if (err)
-+		return err;
-+
-+	valu8[0] = buf[off + 0];
-+	valu8[1] = buf[off + 1];
-+	valu8[2] = buf[off + 2];
-+	valu8[3] = buf[off + 3];
-+
-+	return 0;
-+}
-+
-+static int ocelot_spi_regmap_xfer_write(void *context, const void *data,
-+					size_t count)
-+{
-+	struct ocelot_spi_regmap_ctx *ctx = context;
-+
-+	return spi_write(to_spi_device(ctx->dev), data, count);
-+}
-+
-+static const struct regmap_bus ocelot_spi_regmap_xfer_bus = {
-+	.write = ocelot_spi_regmap_xfer_write,
-+	.read = ocelot_spi_regmap_xfer_read,
++&cci0_sleep {
++	/* bus has external pull-up */
++	/delete-property/ bias-pull-down;
++	bias-disable;
 +};
 +
-+static bool ocelot_spi_single_xfer_read(struct spi_device *spi,
-+					const struct ocelot_spi_data *data)
-+{
-+	return data->single_xfer_read &&
-+	       !(spi->controller->flags & SPI_CONTROLLER_HALF_DUPLEX) &&
-+	       !(spi->mode & SPI_3WIRE);
-+}
+ &cci {
+ 	status = "okay";
+ };
+ 
+ &cci_i2c1 {
+ 	/* actuator @0c */
+ 
+-	/* front camera, imx355 @1a */
++	front_cam: camera@10 {
++		compatible = "sony,imx355";
++		reg = <0x10>;
 +
- struct regmap *ocelot_spi_init_regmap(struct device *dev,
- 				      const struct resource *res,
- 				      const struct regmap_access_table *rd_table,
- 				      const struct regmap_access_table *wr_table)
- {
-+	struct spi_device *spi = to_spi_device(dev);
- 	struct regmap_config regmap_config;
-+	struct ocelot_spi_regmap_ctx *ctx;
- 
- 	memcpy(&regmap_config, &ocelot_spi_regmap_config, sizeof(regmap_config));
- 
-@@ -264,7 +343,16 @@ struct regmap *ocelot_spi_init_regmap(struct device *dev,
- 	regmap_config.rd_table = rd_table;
- 	regmap_config.wr_table = wr_table;
- 
--	return devm_regmap_init(dev, &ocelot_spi_regmap_bus, dev, &regmap_config);
-+	if (!ocelot_spi_single_xfer_read(spi, spi_get_device_match_data(spi)))
-+		return devm_regmap_init(dev, &ocelot_spi_regmap_bus, dev, &regmap_config);
++		clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
++		assigned-clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
++		assigned-clock-rates = <24000000>;
 +
-+	ctx = devm_kzalloc_obj(dev, *ctx);
-+	if (!ctx)
-+		return ERR_PTR(-ENOMEM);
++		reset-gpios = <&tlmm 21 GPIO_ACTIVE_LOW>;
 +
-+	ctx->dev = dev;
++		avdd-supply = <&camera_front_avdd>;
++		dvdd-supply = <&vreg_s3a_1p35>;
++		dovdd-supply = <&vreg_lvs1_1p8>;
 +
-+	return devm_regmap_init(dev, &ocelot_spi_regmap_xfer_bus, ctx, &regmap_config);
- }
- EXPORT_SYMBOL_NS(ocelot_spi_init_regmap, "MFD_OCELOT_SPI");
++		pinctrl-0 = <&cam_front_reset_default>;
++		pinctrl-names = "default";
++
++		rotation = <270>;
++		orientation = <MEDIA_ORIENTATION_FRONT>;
++
++		port {
++			cam_front_endpoint: endpoint {
++				data-lanes = <1 2 3 4>;
++				link-frequencies = /bits/ 64 <360000000>;
++				remote-endpoint = <&camss_endpoint2>;
++			};
++		};
++	};
++
++	front_aux_cam: camera@1a {
++		compatible = "sony,imx355";
++		reg = <0x1a>;
++
++		clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
++		assigned-clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
++		assigned-clock-rates = <24000000>;
++
++		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
++
++		avdd-supply = <&camera_front_aux_avdd>;
++		dvdd-supply = <&vreg_s3a_1p35>;
++		dovdd-supply = <&vreg_lvs1_1p8>;
++
++		pinctrl-0 = <&cam_front_aux_reset_default>;
++		pinctrl-names = "default";
++
++		rotation = <270>;
++		orientation = <MEDIA_ORIENTATION_FRONT>;
++
++		port {
++			cam_aux_front_endpoint: endpoint {
++				data-lanes = <1 2 3 4>;
++				link-frequencies = /bits/ 64 <360000000>;
++				remote-endpoint = <&camss_endpoint1>;
++			};
++		};
++	};
  
-@@ -296,7 +384,7 @@ static int ocelot_spi_probe(struct spi_device *spi)
- 				     spi->max_speed_hz, OCELOT_SPI_MAX_PADDING_BYTES);
+ 	/* eeprom @50, at24 driver says 8K */
+ };
  
- 	dummy_len = max(padding, data->reset_padding_bytes);
--	if (dummy_len) {
-+	if (!ocelot_spi_single_xfer_read(spi, data) && dummy_len) {
- 		ddata->dummy_buf = devm_kzalloc(dev, dummy_len, GFP_KERNEL);
- 		if (!ddata->dummy_buf)
- 			return -ENOMEM;
-diff --git a/drivers/mfd/ocelot.h b/drivers/mfd/ocelot.h
-index fa02590a5026..5d0301f0b194 100644
---- a/drivers/mfd/ocelot.h
-+++ b/drivers/mfd/ocelot.h
-@@ -32,7 +32,8 @@ enum ocelot_chip {
-  *			reset default of the chip around a chip reset.
-  * @dummy_buf:		Zero-filled buffer of at least spi_padding_bytes size.
-  *			The dummy bytes that will be sent out between the
-- *			address and data of a SPI read operation.
-+ *			address and data of a SPI read operation. Not
-+ *			allocated when reads are done in a single transfer.
-  */
- struct ocelot_ddata {
- 	enum ocelot_chip chip;
+ &cdsp_pas {
+ 	firmware-name = "qcom/sdm845/Google/blueline/cdsp.mbn";
+ 
+ 	status = "okay";
+@@ -518,16 +660,44 @@ firmware-pins {
+ 			pins = "gpio79";
+ 			function = "gpio";
+ 			drive-strength = <2>;
+ 			bias-pull-down;
+ 		};
+ 
+ 	};
+ 
++	cam_front_avdd_default: cam-avdd-default-state {
++		pins = "gpio8";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cam_front_aux_reset_default: cam-front-aux-reset-default-state {
++		pins = "gpio9";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cam_front_aux_avdd_default: cam-avdd-aux-default-state {
++		pins = "gpio14";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cam_front_reset_default: cam-front-reset-default-state {
++		pins = "gpio21";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
+ 	touchscreen_reset: ts-reset-state {
+ 		pins = "gpio99";
+ 		function = "gpio";
+ 		drive-strength = <8>;
+ 		bias-pull-up;
+ 	};
+ 
+ 	touchscreen_pins: ts-pins-gpio-state {
 
 -- 
-2.52.0
+2.55.0
+
 
