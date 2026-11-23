@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795459716;
-	b=3YGaGBarHojGB02TMfGlCHxwNFQM9kEnpSsNcmk9dE3266tykIghlwpDH9/PQNxQlC1F
-	 g3b9YMCp7VtALEz7fMxulFyG1Kf2zZWX0K23haXMWz2ajQEyeSDQtRbAOvBeIr23Jnu6c
-	 mm7WSjLTWhoRfq3LjwmOUs/kpQm5ZrwM/JHp2LksjIL4WUg9aL/0EBc776qJITl4jvex8
-	 ptGED8kafTpfvIvkGGgpxWLDDeVMW+ttJmcbbhfMgssudUi4YKCLU1gsPs8sy3N2H0is+
-	 Z7JtDM7MokraET/F5232A8YSSSdhDy+svvmVJB/NLWTLSJayKmGOlkBEAQ5B4ShSJKg==
+	t=1795459768;
+	b=Lb3avppIJOiICbHsGSM6BHqWZYhmzovG/nuDZRc514lsTy7mwalOHAQ9Ui2no3kn+wNO
+	 Wl252VcQl2SYTzUAbnVNuxejJkabvAr8uG9/f298ZzcwwcEm3QDCV+GZrIMpWJFNC5Jh4
+	 B3M3Cs4YPYqs6iBTHleSRBGn/zNjxZmthOoWkWNYl/UmlfySfmw3N0O4VZG+DOkfI03Ph
+	 Sd1y/rAQYYpPjbuX+4XnzkZB0v31z2ItzuZn8SQCif/5SJG6GRHJLm9iDw9VgYhUJT/es
+	 fElSx3M82WFUOJcRZLTE+UhcNrBKBMdrX8tFHrOCnpz+0yUgfWN68MxWOiKybUwlKoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795459716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795459768;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=xXNRP6N11HCJmcGvV43+RSr6DG3BdnYd3pIeleM93pY=;
-	b=yaaXFMNmMk0C8HOegzVPK227KoMCVzRyRUH5jzyo2x1AkKB6p/TBw+mkRFxPSyTDpxrr
-	 SpH2Ft/OcoHM/d9EhVhePg19md3EX4oQmHPOB5LzE4OD2qZZMyOKx0MLd5oyLOZ3b2TjC
-	 GOeTmp01Qt4g2+8UI5uVkugeLbaZ17UcaKGYob1lj1zi/aLaJFXZassviCwMwIpfpuTzt
-	 /YjOd21URPFKuT0pAzT4OC2rQGNtljMEbnK+ee6QxI6g4g9KbSLMjtLptyEqkETOTxaba
-	 Vpsgzi+TxdtOb0/U4D6kAkwSrSMvLuUfHZ828j+KLhYcnF5/ww136wEp53fnuKMTspw==
+	bh=qdOirH751T6yc5stWtVH4gVrsmB09EyvutyaMmR4CTw=;
+	b=h8AmZHgkNV9v+Jflz8JPbkQctPw5LZQ/KVuipAL5RqB5AqAgavPv4oJLAcIamCgDBFoZ
+	 eNypXx5V9uXepz7skT0mMqlNXzHQKCcfUwzDS3DS0sbzrRjfmWtUx75p7mUavR6NdMR/7
+	 WI9rhV8MCSouCGC1at5m835caxOuH+lW9OtBoarQSCAvRGgTUTa+eI7IVwY2uUnGDrYQt
+	 M6opFAXmBMlvbc8t/M2awPKWmuoAJ+BhARfLhIreMohrnlY9V0DrnmP1+KRARfRZcmF3M
+	 4Fd029yoq5Cx3/64vjlvWjOzdPazD+HJrAElMj4+ONsEiZ15z40aTsrfgyLbUXBnShQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjcLTuAc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ady0plQI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0939606A31A;
-	Mon, 23 Nov 2026 18:48:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E9A606A31A;
+	Mon, 23 Nov 2026 18:49:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjcLTuAc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578691F000CF;
-	Mon, 23 Nov 2026 18:48:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ady0plQI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B951F000C6;
+	Mon, 23 Nov 2026 18:49:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795459716;
-	bh=xXNRP6N11HCJmcGvV43+RSr6DG3BdnYd3pIeleM93pY=;
+	s=k20260515; t=1795459767;
+	bh=qdOirH751T6yc5stWtVH4gVrsmB09EyvutyaMmR4CTw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GjcLTuAc+s+/vhQS/0PUSAw2duT0R+FKUjhOKx3IGRdkTgi25ZO2DwQgj+hBjPTkj
-	 zWGcDOpi3EW6y8YZrj2KQcoF4T9jnTCQTli6CTpLDYYP2JEvkVzYR/kK6+hy3vtUtw
-	 +q+T5ckE2YByV/Ei7pWOcek2xOUo44wHIIBWrE3Gsj76BHlsLymLCQyCIVBog+S6aM
-	 jEtL7Ia7oTlklOrKXjxCZqxNkJsKhHuSbysW+G1H/QKMzuzC2ZYPxG0enrUfSu/xgg
-	 3wv4D6n2teeIIPq+OWC00RY0EcaE1Te8zRlnXv/F4c3Tm1F/sr89jralYN4U/q05nK
-	 uJfzY0n/HSJhA==
-Message-ID: <sashiko-outbox-229871@kernel.org>
+	b=ady0plQIBLuWfhEFPx00lOIjz3zchA4MWxao94lM1PamShUVP6YduZZQsc4/RBatX
+	 7IWMZ6UEaCkiFAuRMFfNU4rpVsptTi6SvC1RJDxjsDUKUCNdBrEhWrwT2Yenx85qWn
+	 8ByZIhTMrDupwrLoHOwoe2YSVHdcuEVRcU1UiiRBSrIyfKZwmQaJFCc8kKtViWPBbk
+	 YzSYBmWM9MILxkLVsdfBZbnvT9s80UJT4STBd7ZcFiwn2i5CPgFWFevo9sz9EPe9pN
+	 YcBlhySIxhsj4D/6DKZr+LRKkIBgVMEQ0jefSnYSfbiQYXEBNwHO/LAsp8fjZUrB7D
+	 jnp3f8E9Wp2/g==
+Message-ID: <sashiko-outbox-229877@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/7] usb: misc: qcom_eud: add per-path High-Speed
- PHY control
+Subject: Re: [PATCH 2/8] dt-bindings: clock: Describe CS7542 PCIe gates and
+ resets
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123182847.143892-4-elson.serrao@oss.qualcomm.com>
-References: <20261123182847.143892-1-elson.serrao@oss.qualcomm.com>
- <20261123182847.143892-4-elson.serrao@oss.qualcomm.com>
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: linux-pci@vger.kernel.org, linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261123-b4-cs7542-pcie-v1-2-4cde5201d404@gmail.com>
+References: <20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com>
+ <20261123-b4-cs7542-pcie-v1-2-4cde5201d404@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 18:48:35 +0000
+Date: Mon, 23 Nov 2026 18:49:26 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,110 +63,65 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] usb: misc: qcom_eud: eud_probe() fails when secondary path is
-  disabled in DT
+- [Medium] dt-bindings: clock: virtual child node for parent syscon
+  clocks and resets
 --
 
-commit e2fd91a7c0ed5f3452a494a0a91ef1ddd34b1c26
-Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
+commit 9d52d2650fe35dd9a422c99bb705a36a99c1ed9f
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-usb: misc: qcom_eud: add per-path High-Speed PHY control
+dt-bindings: clock: Describe CS7542 PCIe gates and resets
 
-This commit adds per-path High-Speed PHY management to the Qualcomm EUD
-driver so that the PHY associated with the selected UTMI path is
-initialized and powered when EUD is enabled.
+This commit adds a Devicetree binding for the Cortina Systems CS7542 PCIe
+clock gates and resets as a child node of the global control syscon.
 
-> diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
-> index fa640e88c88b5..a3afa3bb93481 100644
-> --- a/drivers/usb/misc/qcom_eud.c
-> +++ b/drivers/usb/misc/qcom_eud.c
-
+> diff --git a/Documentation/devicetree/bindings/clock/cortina,cs7542-pcie-=
+control.yaml b/Documentation/devicetree/bindings/clock/cortina,cs7542-pcie-=
+control.yaml
+> new file mode 100644
+> index 0000000000000..08e0214d2bb22
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/cortina,cs7542-pcie-control=
+.yaml
+> @@ -0,0 +1,47 @@
 [ ... ]
-
-> @@ -228,8 +294,54 @@ static void eud_role_switch_release(void *data)
->  	usb_role_switch_put(chip->role_sw);
->  }
+> +properties:
+> +  compatible:
+> +    const: cortina,cs7542-pcie-control
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +  "#reset-cells":
+> +    const: 1
+[ ... ]
+> diff --git a/Documentation/devicetree/bindings/soc/cortina/cortina,cs7542=
+-syscon.yaml b/Documentation/devicetree/bindings/soc/cortina/cortina,cs7542=
+-syscon.yaml
+> index fb074de870bd4..52597c4e84d20 100644
+> --- a/Documentation/devicetree/bindings/soc/cortina/cortina,cs7542-syscon=
+.yaml
+> +++ b/Documentation/devicetree/bindings/soc/cortina/cortina,cs7542-syscon=
+.yaml
+> @@ -29,6 +29,10 @@ properties:
+>    "#clock-cells":
+>      const: 1
 > =20
-> +static int eud_init_path(struct eud_chip *chip, struct device_node *np)
-> +{
-> +	struct device_node *controller_node;
-> +	struct eud_path *path;
-> +	u32 path_num;
-> +	int ret;
-> +
-> +	ret =3D of_property_read_u32(np, "reg", &path_num);
-> +	if (ret) {
-> +		/* Legacy DT uses 'ports' node without 'reg' property; treat as path 0=
- */
-> +		if (of_node_name_eq(np, "ports"))
-> +			path_num =3D 0;
-> +		else
-> +			return dev_err_probe(chip->dev, ret, "unexpected child node '%s'\n",
-> +					     np->name);
-> +	}
-> +
-> +	if (path_num >=3D EUD_MAX_PORTS)
-> +		return dev_err_probe(chip->dev, -EINVAL, "invalid path number: %u (max=
- %d)\n",
-> +				     path_num, EUD_MAX_PORTS - 1);
-> +
-> +	path =3D devm_kzalloc(chip->dev, sizeof(*path), GFP_KERNEL);
-> +	if (!path)
-> +		return -ENOMEM;
-> +
-> +	path->chip =3D chip;
-> +	path->num =3D path_num;
-> +
-> +	controller_node =3D of_graph_get_remote_node(np, 0, -1);
-> +	if (!controller_node)
-> +		return dev_err_probe(chip->dev, -ENODEV,
-> +				     "failed to get controller node for path %u\n", path_num);
-> +
-> +	path->phy =3D devm_of_phy_get_by_index(chip->dev, controller_node, 0);
-> +	of_node_put(controller_node);
-> +
-> +	if (IS_ERR(path->phy))
-> +		return dev_err_probe(chip->dev, PTR_ERR(path->phy),
-> +				     "failed to get PHY for path %d\n", path_num);
-> +
-> +	chip->paths[path_num] =3D path;
-> +
-> +	return 0;
-> +}
-> +
->  static int eud_probe(struct platform_device *pdev)
->  {
-> +	struct device_node *np =3D pdev->dev.of_node;
->  	struct eud_chip *chip;
->  	struct resource *res;
->  	int ret;
-> @@ -258,7 +370,22 @@ static int eud_probe(struct platform_device *pdev)
->  		return -ENODEV;
->  	chip->mode_mgr =3D res->start;
-> =20
-> +	for_each_child_of_node_scoped(np, child) {
-> +		ret =3D eud_init_path(chip, child);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	/* Primary path is mandatory. Secondary is optional */
-> +	if (!chip->paths[0])
-> +		return dev_err_probe(chip->dev, -ENODEV, "primary path not found\n");
+> +  pcie-control:
+> +    type: object
+> +    $ref: /schemas/clock/cortina,cs7542-pcie-control.yaml#
 
 [Severity: Medium]
-Does eud_probe() fail on dual-path SoCs when a board disables the secondary
-path or its USB controller/PHY in Devicetree?
+Should the PCIe gate clocks and controller resets be provided directly by
+the parent cortina,cs7542-syscon node instead of a resource-less
+pcie-control child node?
 
-for_each_child_of_node_scoped() visits child nodes even when they are
-marked status =3D "disabled" (unlike
-for_each_available_child_of_node_scoped()).  In Addition, on dual-path SoCs
-where the SoC dtsi defines both eud-path@0 and eud-path@1, if a board leaves
-the secondary USB controller disabled then of_graph_get_remote_node()
-returns NULL (failing probe with -ENODEV), and if the secondary High-Speed
-PHY is disabled then devm_of_phy_get_by_index() returns -EPROBE_DEFER
-indefinitely, preventing EUD from probing even for the primary port.
+The parent node already maps the 0x100-byte global control register block
+and acts as a clock provider with #clock-cells =3D <1>.  Creating a child
+node with no reg property or Devicetree resources of its own puts a
+driver split into the Devicetree ABI, contrary to
+Documentation/devicetree/bindings/writing-bindings.rst.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123182847.1438=
-92-1-elson.serrao@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-b4-cs7542-=
+pcie-v1-0-4cde5201d404@gmail.com?part=3D2
