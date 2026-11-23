@@ -1,56 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795398590;
-	b=vY5zK86FqX/Skc18bUlgaNCMauWhZDrDvhJ9pA/MtW6T0HR78EnafGFOFeIsxeRXydwC
-	 YamgB65EkPANpNuN/kbvLXQypv4mdT57PlJaRxwd8+e42ybgTtTMAWvBoIRbOsocefYQK
-	 JYA9X5wQeniEWSCmpqvCA06kqjucfJm3z5QpGdPG080gls9jFINIz6S8pNamMMf5QFe2l
-	 zgSxFFCmW6uFGQXgUR37PLQxC26xYpZjl3+cVNtxYaQ73w+0A47A5Gl+oGfJyZwnR+pqa
-	 8H9RLZAzrHTEQJ4MQKv6h3d8xoyfrcfp6tVeEZFpkDAwaT36fMc45Kv5148Ck3LRM5Q==
+	t=1795398614;
+	b=KUgXmI7ow3so1naTWZZlo1a9AlVPUGjCKT7l2DD59duKjKtQKGi6UCX04z1SY6mJsXRq
+	 YjoYCVQL4JFvAwq9bG1jG8L8lhV4DkqkcgQLchJYyLQc9JtYtZPFWPayBTIEoHJhe/Qyy
+	 Dg5/ZDj552JUW4vPwPYjsXNg2iv+3OkKiZxm2gaJZeosZJ36tJIc6UmM8n34KURIL97KO
+	 +sFxeAhhN4lWIV8Av1M/Mc6koSzoZNKh8PvPNLQknU5DY2HvxpxmEam+eivjKTy6X6tYL
+	 3PsWA7iQXBZqpkaDZIQJXbwbPUgZ4WVIsMy0zrDGqb+kpP2YnJ6PFbmihGuW7dhZgQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795398590;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=glzj+R7+FS/ozRyLbp/lqz11txiRCEoRKrNHhF4+8iU=;
-	b=iW4hFjEYxIVtkfnGFgWQ8HklCDDVBFxFC53lFwCTp/zLkOKDD9yLIYYg3Pz+XIId9R0x
-	 S33ewdXg23hYcimrw767f+2ZNy0mSm6CLjOutlMUgJQZkekAeKS+9ximYrhhQio3/gXzi
-	 QYqB6bu1XbuEMSlW+5YvN0HnPXdj20Fp3uA+O0ZGF3RSmOmmlu4ayMQccTHZppo5rKCoI
-	 lXzQ1TCxzuUbmhYlirz9gTTj8CF5ule+m2Uc3J2iT1Hib7/zmZseoacL7xc7bWgkgNvqu
-	 OZPkiPoaImmYfGRkBTkt/i6aUIyR0QVLPq/hcGFFIBrF/F2fBAbveDb3p5TdpGtO+Ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795398614;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=HPgiKAKXJD1IfapqnG6OwznXuOp3qOSKSxNr/yY/XDo=;
+	b=0Wmj7rUUITjPDnAm0dn7ufizrVaHfiIGmfphq83NOmyu44SfY/t4uS9XdY2liioQPeSz
+	 AGgI6FVaGOwarBymGqyH9dsLkWK8iYEKmCPLfXd4Taymw4WjwYOgxNcpkh+hv+7Busy4U
+	 INVWuqoGHzcYgHZEdB1hUZICmGkm594Fp79JGGFbovOXaIzJWCtUAxtaFEkhGLuTUdldz
+	 SJvKu0aR97razL+tZAKhdyeVPji/aijXXEjmHBWbz6jxzyEcChSubr9il+1SsMjPx/DEm
+	 NFiXRci0o4mga3jwHgkv/H8ZtcUfmhVJzqZT5aJIyxESJzE9+FspPdLMd8Qy5/zLM6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g94SMgWL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MNA1EOOg;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79A5606A31A;
-	Mon, 23 Nov 2026 01:49:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB499606A327
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB499606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g94SMgWL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517221F000C4;
-	Mon, 23 Nov 2026 01:49:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795398590;
-	bh=glzj+R7+FS/ozRyLbp/lqz11txiRCEoRKrNHhF4+8iU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g94SMgWLRcZecpoz27ZpPeVY25ouM3foddkMm5JqcXW/PWPmhOoEjry+7y9RkAeWg
-	 0rz/jq5QVp7wGAw5qIqeRkB+MMFBpNYOcJq9Flb8uD9gRnKGCyWxB1mK6S+QCeb3bh
-	 CmHxx010mEYkDL5R1MXK4NkpdXkBLJgAiAGX4r9b5P7S5GV7VRMcinWRo71PmpD4Zi
-	 hOQEMq73pByUojOGZ7+f4HpHPEogNxIsFXQqM1lxCs0RC95UE2BHjgz9PMNbH+vvR8
-	 5CNwx3VqVKGd+ofeIkApnSxPhglrS21G7VeZus8H1drzwSN97EsqtbAEk3SKBnLqF6
-	 mgd54Ownp9bhQ==
-Message-ID: <sashiko-outbox-228534@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] gpio: Add Siflower GPIO controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joseph Telaak" <joseph@telaak.dev>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261122-sf19a2890-gpio-v3-2-3a4857ebc84a@telaak.dev>
-References: <20261122-sf19a2890-gpio-v3-0-3a4857ebc84a@telaak.dev>
- <20261122-sf19a2890-gpio-v3-2-3a4857ebc84a@telaak.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 01:49:49 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MNA1EOOg
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-14394530ec6so4135670c88.1
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 17:50:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795398613; x=1796003413; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HPgiKAKXJD1IfapqnG6OwznXuOp3qOSKSxNr/yY/XDo=;
+        b=MNA1EOOgy6ZBUuhdD/ZBI7Krj7F286wnIncjH3RvwMa9Lc6CVzlP3UWssD/jKo8kN7
+         184A5ipSF0KxnBffvHbZUN+7mGJxIAZqrn4T/nS9fYIOIeVXd1Xfe58RDS3ca8MxmdlG
+         f7ip3ojQ3TguSeO2SPj0EX9SjMAZLOpzJI7OppbJeoTT+ksGEU/4zTxb31E2/b+LE1ky
+         XZR4ZxT+5e3Ks+ZDfQnGbk5ix4v6y6AlYras45QHR/82UCqVk5NvRExUoY/e7bjEGuid
+         1axATOXDH4WLjGw3TC4bdTjr6UJy04UtiZyYcHA4T8SfZsYNl3mcJ3kKl9XUgaLCMnRq
+         vKLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795398613; x=1796003413;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HPgiKAKXJD1IfapqnG6OwznXuOp3qOSKSxNr/yY/XDo=;
+        b=GWdCsKppxTn0mbJ3B+PxSeG4G4L4B0Zzyfqpa46xhq8Nf5pQP4iNaoAcrAOUhVrh8B
+         0unD4YyCRISXtqtWCTw79fAPQlUZoR8wXoQH22xXs537vN8xu8GsRTuJGm9fWmskOkYR
+         vtdIc6EItSIDICYhBKTpCRhpQ+EcJJYfqSCRfxlt/QeW8Wy9xjzOYyi5KZSNZcw2XAz/
+         LR+A4tk90NqNnGzGin22wKyLKx90BHeufMfeJl5TrA23tqR+QsTYp/xOggVAo5oZlIUC
+         Uf5UUYI4+esG16gJ6mWjudToVQ3+OX3tTlzZmsL/VzjcDEEtrTpx8R0jVHfsfaotxXk8
+         2BKQ==
+X-Forwarded-Encrypted: i=1; AL+hErEOffff+FGzPaK6PtmaQZQwAw5lESIqqq5lUH8ioSgFr5/6VDQ/6k/XTeIHddIEfbPWAHYLpY778Xac@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HMjfxf/ZdiKWiCwGSZu9G6Pq8x/XxdCTk3pT2WzmY2IN9d3g5
+	uWc7FRJxHPDTJ2adTTTKySC4FjE8iNy8WOgYIm1IXxZyKcqPttBBOP5w
+X-Gm-Gg: AZFdTZew9vdmGL+R5vbICu1swi44lyY6kEuvqv5+k9GlhsY0MB3Rv8qCy1lRtJkSjFB
+	4CI0zkNjBuBehM2T3uFcatxhR6VR9L9DU+nQDt8shz6YD6AJuDd1UraJnvT2jUsP3kbYyUmO1lw
+	Fh6GXMLwaW3aWCkUcZ3eA9NI41kjyOuFmTl++H9p5S9yKRmZtZldRrwzIWPONoWdyjLPda26BqA
+	9lNM7FIx50pPFjti3/zeiza1FpUtfVPWk/4Wvg27wpynyQxyVpaWfNPNCuP3lsGmH8yZ/eDmfJp
+	gRDlmh1Jt5HOciUJ8WCUnv7SZtZ3T0Fn9MMYbon8waM8KM/xFgybSyHh684e7XMN6cNkv+vsMnY
+	M1yCxOyIWXkViDGkcTctp7txmbhCyoet3s6KxyXkHvp3Bxz1kG8IIYSkPM3pWTFKHLhuovC13KC
+	oCj0p0suzmlt5KqJBMc4of2KtlVDAyAjDqoaoKLhO9E19zpNznMPKjAN657CzRwo6AxiL8sMbRz
+	VdSrhV6ZL+kLgeHQYMRxyVzWKjZeT+hBRaBHp8PQvczWnWGFneuJ+H5UXyJf4mSG6ZNF4VaB+8M
+	QOWRrbKD/0ObbqsJSk0EGat+MRwHHCU2u51Fzm3fCWNO0nig22DUM0JJy5j64G/OMOV2UQ==
+X-Received: by 2002:a05:701b:230b:b0:1b2:4da6:bccd with SMTP id a92af1059eb24-1b5568feaadmr8740253c88.34.1795398612828;
+        Sun, 22 Nov 2026 17:50:12 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:f002:4621:aeeb:e0e7])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567e2bd1sm23364703c88.3.2026.11.22.17.50.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 17:50:12 -0800 (PST)
+Date: Sun, 22 Nov 2026 17:50:11 -0800
+Message-ID: <8c2d4920319771e3f7edb083b2e831a9@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
+Cc: Mark Brown <broonie@kernel.org>,
+	Jakob Unterwurzacher <jakobunt@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Joseph Chen <chenjh@rock-chips.com>,
+	Lee Jones <lee@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	mfd@lists.linux.dev,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/4] Input: rk805-pwrkey - enable the wakeup interrupt during system suspend
+In-Reply-To: <7bec766f-14b1-4eac-96c7-d7f1cf38021d@cherry.de>
+References: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de> <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-1-cb12621c1fb4@cherry.de> <avUGEQhSKlko0Fm9@google.com> <7bec766f-14b1-4eac-96c7-d7f1cf38021d@cherry.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,133 +112,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] gpio: siflower: non-raw regmap spinlock acquired in raw IRQ and
-  hardirq contexts
-- [High] gpio: siflower: IRQ domain and chained handlers registered
-  before priv->gpio
-- [Medium] gpio: siflower: undisposed virtual IRQ mappings in
-  priv->domain on teardown
-- [Medium] gpio: siflower: Kconfig dependency on undefined symbol
-  MACH_SIFLOWER_MIPS
---
+Hi Jakob,
 
-commit 86affe3feaf16149d7ee585860ef5d5bfff26ad5
-Author: Qingfang Deng <qingfang.deng@siflower.com.cn>
+On Fri, Nov 20, 2026 at 02:42:57PM +0100, Jakob Unterwurzacher wrote:
+> On 11/12/26 01:25, Dmitry Torokhov wrote:
+...
+> > Sounds like this needs to be solved in PM core rather than hacked around
+> > in individual driver? Let's CC Tony and Rafael.
+>
+> How about something like this, copy-pasted below? If no immediate 
+> objections I'll post it as a proper patch.
+>
+> With this, rk805-pwrkey can use dev_pm_set_wake_irq with no issues 
+> (tested on RK3588-Tiger).
 
-gpio: Add Siflower GPIO controller driver
+This approach makes sense to me (and matches what several I2C controller
+drivers such as i2c-imx already do), though ultimately it is up to Mark
+Brown to decide for SPI.
 
-This commit adds a GPIO and interrupt controller driver for Siflower MIPS
-and RISC-V SoCs using gpio-regmap and regmap-mmio.
+For rk805-pwrkey, please use devm_pm_set_wake_irq() in v2.
 
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index 55e4280029d86..0b52fc2a5335e 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -721,6 +721,20 @@ config GPIO_SIFIVE
->  	help
->  	  Say yes here to support the GPIO device on SiFive SoCs.
-> =20
-> +config GPIO_SIFLOWER
-> +	tristate "Siflower GPIO support"
-> +	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
+...
+> >     Take a runtime PM reference in the regular suspend phase and drop it on
+> >     resume. This keeps the controller usable until its noirq suspend
+> >     callback, and since it was active then, pm_runtime_force_resume()
+> >     restores it in the noirq resume phase, before interrupts of child
+> >     devices are handled again.
+> >     
+> >     Signed-off-by: Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
 
-[Severity: Medium]
-Is MACH_SIFLOWER_MIPS defined anywhere in the tree?  Because that Kconfig
-symbol does not exist (and there is no RISC-V dependency for the RISC-V
-SoCs mentioned in the changelog), GPIO_SIFLOWER can only be enabled when
-COMPILE_TEST is set.
+Probably worth adding
 
-> diff --git a/drivers/gpio/gpio-siflower.c b/drivers/gpio/gpio-siflower.c
-> new file mode 100644
-> index 0000000000000..4bf7e36960e4c
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-siflower.c
-[ ... ]
-> +static const struct regmap_config sf_gpio_regmap_config =3D {
-> +	.reg_bits	=3D 32,
-> +	.reg_stride	=3D 4,
-> +	.val_bits	=3D 32,
-> +};
+	Fixes: be721b451aff ("spi: rockchip: Resolve unbalanced runtime PM / system PM handling")
 
-[Severity: High]
-Should sf_gpio_regmap_config set .use_raw_spinlock =3D true?
+as well.
 
-Without it, devm_regmap_init_mmio() protects priv->regmap with a non-raw
-spinlock_t.  sf_gpio_irq_ack(), sf_gpio_irq_mask(), sf_gpio_irq_unmask()
-and sf_gpio_irq_set_type() access priv->regmap while holding the irq_desc
-raw_spinlock_t, and sf_gpio_irq_handler() reads priv->regmap in hardirq
-context, triggering a lockdep invalid wait context splat or sleeping in
-atomic context on PREEMPT_RT.
+...
+> > +/*
+> > + * Child devices (e.g. an RK806 PMIC with its interrupt controller and wakeup
+> > + * interrupts) can still need the bus during the late and noirq phases of
+> > + * system suspend and resume, while runtime PM is disabled. Keep the controller
+> > + * runtime-active from the regular suspend phase on, so that such transfers
+> > + * work and pm_runtime_force_resume() restores the controller in the noirq
+> > + * resume phase, before child device interrupts are handled again.
+> > + */
 
-> +static int sf_gpio_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	d_info.fwnode =3D dev_fwnode(dev);
-> +	d_info.size =3D soc->ngpios;
-> +	d_info.hwirq_max =3D soc->ngpios;
-> +	d_info.ops =3D &sf_gpio_irq_domain_ops;
-> +	d_info.host_data =3D priv;
-> +
-> +	priv->domain =3D devm_irq_domain_instantiate(dev, &d_info);
-> +	if (IS_ERR(priv->domain))
-> +		return PTR_ERR(priv->domain);
+One nit on the comment: rockchip_spi_isr() does not use IRQF_NO_SUSPEND
+(and pl330 DMA suspends in the late phase), so arbitrary transfers in
+child suspend_noirq()/resume_noirq() callbacks still will not work. What
+this actually enables are PIO transfers in the late/early phases, during
+device_wakeup_arm_wake_irqs() before device IRQs are suspended, and once
+resume_device_irqs() re-enables them at the end of the noirq resume
+phase. It might be worth wording the comment more precisely so nobody
+assumes general noirq transfers are supported.
 
-[Severity: Medium]
-Does teardown dispose of virtual IRQ mappings in priv->domain before the
-domain is removed?
+Thanks.
 
-Because priv->domain is allocated externally and passed via
-config.irq_domain, gpiochip_irqchip_remove() skips irq_dispose_mapping().
-When devm_irq_domain_remove() then calls irq_domain_remove(), any mapped
-irq_desc entries are leaked with dangling pointers to the freed domain and
-priv.
-
-> +	for (i =3D 0; i < ngroups; i++) {
-> +		ret =3D platform_get_irq(pdev, i);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		priv->irq[i] =3D ret;
-> +		irq_set_chained_handler_and_data(priv->irq[i],
-> +						 sf_gpio_irq_handler, priv);
-> +		ret =3D devm_add_action_or_reset(dev,
-> +					       sf_gpio_remove_chained_handler,
-> +					       (void *)(unsigned long)priv->irq[i]);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	config.parent =3D dev;
-> +	config.regmap =3D priv->regmap;
-> +	config.ngpio =3D soc->ngpios;
-> +	config.reg_dat_base =3D GPIO_REGMAP_ADDR(GPIO_IR(0));
-> +	config.reg_set_base =3D GPIO_OR(0);
-> +	config.reg_dir_in_base =3D GPIO_OEN(0);
-> +	config.reg_mask_xlate =3D sf_gpio_reg_mask_xlate;
-> +	config.set_config =3D sf_gpio_set_config;
-> +	config.irq_domain =3D priv->domain;
-> +	config.drvdata =3D priv;
-> +
-> +	priv->gpio =3D devm_gpio_regmap_register(dev, &config);
-
-[Severity: High]
-Can irq_chip callbacks dereference priv->gpio before it is initialized or
-after it has been freed?
-
-sf_gpio_irq_mask(), sf_gpio_irq_unmask(), sf_gpio_irq_request_resources()
-and sf_gpio_irq_release_resources() all pass priv->gpio to
-gpio_regmap_*_irq(), which dereferences &gpio->gpio_chip.  Because
-priv->domain and the parent chained handlers are registered before
-devm_gpio_regmap_register(), priv->gpio is NULL until
-devm_gpio_regmap_register() returns.  Furthermore, devres unwinds in
-reverse order on unbind, so devm_gpio_regmap_unregister() frees priv->gpio
-before sf_gpio_remove_chained_handler() and devm_irq_domain_remove() run,
-leaving a use-after-free window if an IRQ is masked, unmasked or released
-during teardown.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-sf19a2890-=
-gpio-v3-0-3a4857ebc84a@telaak.dev?part=3D2
+-- 
+Dmitry
