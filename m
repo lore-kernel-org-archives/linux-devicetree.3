@@ -1,110 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.81
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795436652;
-	b=vDa5OBnVyjsWl8JGK9cnmpMIC9O3eLrMZNbfq2czgHAjlGzcOoSAQVfpbBT1B9KrGkkM
-	 aG3cXAE61jBozJ3wDXtyyHRVP5hkElTANGLmJnn0EDnuulIgL2gR7Huo2YpUZ3ORxvQSj
-	 m5OInQDB8h/u/oMSgFK1WdOg9eBnUF1Zb8hHhKgraqy4+NQUScnj6b3LMx/QD5aT12D4r
-	 +HyMxDCxUAdy/2TbhEwnj4VdT8AAKqqZWqPUxP/iOCgIIgO/qI9WNPne6/4KC7YFed1Bw
-	 k1jEfzGnPCr4eIZfClQFhnmHs/VZOLSiZ2TIUtuniH50pVGavTWqrm8T2TCV1mB4JvQ==
+	t=1795436695;
+	b=wQEcHUt6APdE84KN+LGG0aRpilxhz5L0qmMKnLBdrMfsQEAiZD8a+avAdcbU5lw0Y+j6
+	 9X8bFNdAFMDXEPK69AXKblrNYQFpSDpsWG1DqGRuUAUwAcVaBd0qaZBqj7ghh6+BlFN3Z
+	 SJNo6qaBAaRl9UAofsfycCKM2eJffCOvPeUASvowqIC/BeVsxU7evhkOdL1RffG+WtXiH
+	 pRyBJDd/NfLWhpGIStGk/4E/edhKuKnKCiPFfiyyJ3CuCntm03VDeZ5WFLCbJ6FP3uCvT
+	 2n8fo8/DWx4L4iTHr6QdjDWu3GYzbeS0mg2kw0jm8fBmkBx5n5ZC8sc3ZR2hF6qxjTQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795436652;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Qe+WnX/uVdFD9IZfK7yAjEwOAl/mxKoAfroHvk6dJHw=;
-	b=o9EDtxPdKt0sOXV9Vv31oQOxi62iR0ecgR4GIyOTc9/0S/2ST9lIlYbq28k4ykTu+ryQ
-	 UEhX+LkhhijXLEYbZVvf9wrdqaqNHLTHhaT2KHrqDCD6iiGakMp50pZNlB481fz+yLEzW
-	 CRBaRA1qc7udnXPhtaMKyCh7OLYF2iNFMlkeaX1nzjD2Wj7hiDunt1DkL2JtAZjF9zGVW
-	 YfU0gyfbkHxMXUH5fAggXz4ABW1eER3XgBPqS9/E1RRcqhQZSAZRhnRaqfChcGAOVcJ9S
-	 8mwedpzHq6E1ec3CPOWbojs6XCGg6j1DQDsnkAzetDkdcPvTYnRNDHGWiYFMVLTAJEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795436695;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3JGEHCaGHgSI8BrKRQk6rt3qVFIqpC8XEVH84mN8VhI=;
+	b=Mj5xpiysbEaCiHdNkn+IRqzJlK1wGNNYU0ikcpnwe6c4tj+bPMPr1BVNBu4nIMo/Uzdf
+	 3L+0dUa2BdTZ1lb51iTPKyb+S5u1UBlcCr//o1uP67wa7AEUjQRHmfQDdP7tHd4V3ngjc
+	 JBc3OIUVfrQGHZCY4pry4k/hqrdELxbyEWhWqeZkPBdNVqqGL9bFHy9wCrQVWX3ybvxXQ
+	 7eOFGUk4mkpiiWLvCTGatWLawl+7pM2iBh6/CD9Yy7URgC4/AE8/oPOEDqWCWSet8drp9
+	 9j7aeWEoM51FK9Vj6av0z1jXitqpNu1G6TpLPfMM7/8b3+nO4Gg1Q9pppOWjqo4057Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=tpbqtlcM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.81
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022081.outbound.protection.outlook.com [52.101.126.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=SMANlYAy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419C4606A31A;
-	Mon, 23 Nov 2026 12:24:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 419C4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73AF606A321
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:24:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C73AF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=tpbqtlcM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FP5BEEozl2QHO19kVo7vL61E4GLmSMODaPO7t7WGtjAHg4S/I6Iva1veUDAXbnlu7ccOZpsjIte3JG3sfd21oLjw79mjIR+5ShOgqbrmxpIjHC0azh9R2GmGg+RHkpgsH1eLYU26nrYR0DTGa+Iq2xIHtkI803oCQYn8z9Tldud2kVdW9fubJFShF+oImRCb0381ON2DaypYBYuV0jovZ5HFgRCTnm1/gJMsIhbAVt2YB6wzdFCbghptDXdophv6X7fk5a/07gsIhROaPffea+xUFQjehsFlAF35LqhO4IG2jLPqCcIgjKl9XbpuZsD5eo8hKhogczujFiymSFwPEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qe+WnX/uVdFD9IZfK7yAjEwOAl/mxKoAfroHvk6dJHw=;
- b=sf9ZdHMZOsEow5u3/LBmW5b3bjP39iefsyNIjs7spOpdyOxjMH4nBaWA4RN50UyAqA59Olp3tGeDRSSL2cwZFsbQCYAoBCVOrg/27G4MJ/VysffNK1+l6Mg+rWKrZVV7N0g0dgWK3w/DX0X+bZrGNAcugvs8f8F2EKf7cYdyGZBlWI3EEqkwSH2KB5xvHL1Xq0VeCqcJVHHiMoG40DVDO9fQ00KoCgr3ZsSpnu8uoJYPbrfsGmQGxVVluk+A0qmL7HN0irrXgG3xFrPPJ32YdyuQXzuPdppSbh5FxStD2iHhu6yTNTXRjK8gJZb9nzbqy1xexrtrQKVFEIza17BMWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qe+WnX/uVdFD9IZfK7yAjEwOAl/mxKoAfroHvk6dJHw=;
- b=tpbqtlcMu4DZA1yXwF6Oae7k19T1sv39Gr44j++wpJ3fU5H2Bka0g6uX25P4WPpcBlB/WSqyZbgU5XR9SQtxSAwKLQs1gm1376tWyi1tY/iX6MUl9hzyBRsNematUtIIl1UVKkwMzE0uJPG+ToCtQAmC3IIM0xcn4hiM4feVKRoVK2mNA1ogG+7WHvdpVZYpA/TOdhwIhLGuxP/hw36XVv8XGGG3m0UqTbQoXFAwPEWNb/5mXsHnCIENX2ncwduMvtqf7BaxgwYmGGfhA1naSZIwuQU8X7q0xtzqMoRFcB9A4WH+BOeJVcLndP+DpCUdAwXekPsCk2MaKCEQ3JtCIw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
- by SEZPR03MB8523.apcprd03.prod.outlook.com (2603:1096:101:21a::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
- 2026 12:24:06 +0000
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 12:24:06 +0000
-Message-ID: <b606819a-661e-4488-b5fb-9e786de463c6@amlogic.com>
-Date: Mon, 23 Nov 2026 20:23:59 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Christian Hewitt <christianshewitt@gmail.com>,
- Viresh Kumar <viresh.kumar@linaro.org>, Jerome Brunet
- <jbrunet@baylibre.com>, christian.koever-draxl@student.uibk.ac.at,
- neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com,
- khilman@baylibre.com, rafael@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Drax?=
- =?UTF-8?Q?l?= <ckoever@outlook.de>
-References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
- <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
- <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
- <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
- <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
- <A45EC676-5B14-4932-A4CF-87ED3B71108D@gmail.com>
- <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
- <CAFBinCBkJJeRPKLFBA9KYjwXMxFjow_NOtvFoKRQdxD=rOPW3w@mail.gmail.com>
- <48b333a3-ef88-4739-a087-3ed9d8ec60a4@amlogic.com>
- <CAFBinCCgmRmk--W53wqdJhF-SzJbai--s7wyzDNt3LpfN00spw@mail.gmail.com>
-From: Chuan Liu <chuan.liu@amlogic.com>
-In-Reply-To: <CAFBinCCgmRmk--W53wqdJhF-SzJbai--s7wyzDNt3LpfN00spw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI1PR02CA0057.apcprd02.prod.outlook.com
- (2603:1096:4:1f5::10) To KL1PR03MB5778.apcprd03.prod.outlook.com
- (2603:1096:820:6d::13)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=SMANlYAy
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c506a231b88so443580166b.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 04:24:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795436693; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Tc/Ghn9AXAVlO+qyVBbqV8XrV1zcZEU4/UqMmxIKMgLPeHZyjfDzYUycmjRmZr22jJ
+         ABiHA63BkO476XMhGZbcpYhZTsHb31PiO5NYn2H1Q8HZbae4NJmM9eoTMTpUMGOZ367P
+         Cpnd7UUv7wjbGKxenLdwrBFBEFMPgBM5HBhQzgkhdQWDKhT5ukWz5lfDbZYM7FsqAtNK
+         edsIAcFuBRBWu5Ec3NWccCJv1SWaMlw/u5UHaFyUhrol13brGE2S83fJJIn8FDUdNQPZ
+         bQ6MFYA5Aylnvto49vg63/I+lvIeaFr9uUsdtcckNL63/3BOEAjDlOHwZwUf1NK13Gbf
+         YuuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3JGEHCaGHgSI8BrKRQk6rt3qVFIqpC8XEVH84mN8VhI=;
+        fh=VmUzOM/GU6OJl9svk2oAa0U4eec4GYfLF1KQTiGUeJQ=;
+        b=MTwIpTXn0rUH1ssxkScSdEoBaQZ156uXSKH/8KMAzfdQahEaorhlxncIkeZ5lZCi5J
+         BOZWYvi/OhCskfI/kqfrXN7B0FQfAvFFoiIywzX1Aj2CGy+jq2w9kIxCtHaui7p7/rzI
+         sMbI9Nl//oUf5faEAiR02J5QOyLurGQFKkaNtYwe2DXFWNaThEU9YcAJxp9lFhq2ng8P
+         MvsHMzr/HZORTxaBMaJGg3NB/yhgIqs27nDmhrxG49clkoIzWq4G308B78K5ehcurkpM
+         jdUStS115rWa4GQHkj0HGprkUao2gvWOSVxCI6pupyCUNtbUG/dAKpOCj4tOK9RmV67H
+         Stag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1795436693; x=1796041493; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3JGEHCaGHgSI8BrKRQk6rt3qVFIqpC8XEVH84mN8VhI=;
+        b=SMANlYAyDeGkrtgBxN1TqmHqif7PndowLtrYXDCvfpS41NPxmuMXJ6jsNNc1zmz0Dh
+         VkzUSIlzCAUMjR57cjvMvGDj7JSQ7Is69x/ZRWBbNAbA/cj/RFfYVFVvpPQeICtt3kkP
+         T1mLwgtcbLB22yBUoh/AG+y6olc7pVHR86O3aJYjIu1333qq4MMiicORUlMC94lpov7v
+         0KqOJwjAUfYh2e52uWhjmdbTHyAhuFc66iuNpk1TntsqbqIWDmWN8KcVWyrAD+MZ7y6p
+         PJuvWoLdC9Dc8TdGQmajQg4Pxk20AAkOctDJZF3zZm1dNFNIH+3FhrguLyx5jviyO37e
+         8OOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795436693; x=1796041493;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3JGEHCaGHgSI8BrKRQk6rt3qVFIqpC8XEVH84mN8VhI=;
+        b=s4rIqbrt33o9rzyRuKEf7JKgkMjR3ng+5VyW46f2y7POuMnGDkNeyBkwZYaGQAOqbE
+         oDHdnfbgch6He8ljoUSlgxOKEuHi+VEO7G+v34gKFiCEAEQ6eT5YXuSVn+8GC+vh+Htm
+         Y+6VqlXpI2SnA3yXOME4T5D61iRv0rEpUxd2IUcSb6pKT5KJDcYxLYqZB+FEnpBKvdqH
+         UH5gA2b8VefSRoIM/twLOo22MOZQV5/7Iury6KUBLW8Rh3gjiABQJhnHXiP4FTg9Uv5Z
+         zBO6tpoQ3MmyLSGoaZAHef/ZtY1NBoJJqCsFqYaaRb8Fi/7bI1dzyQWheoq1napKe4AE
+         TJVg==
+X-Forwarded-Encrypted: i=1; AL+hErE7hybGcE6DTJkpHstjAF8ITmYUyZoNtMI62Ft51rPMc4F1l7AQ1b8guR+RvEAxSZR+y14EFMeSGQ24@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nFMt1XVvAwOEw8VSwA9mPepD/3N36I8WUsLlFHmSd/usRPoon
+	KpYbLKL2MKELAIO0tmyUSiVy7LgVOnH1IA2U3U0TyjiFtTw+DOvq6HF7PN8dEZfx8T8NV5cP+RI
+	chMT4Dgk3sYHQHOh2X4E1cHUtvfXpOKFCMS8RENBFDQ==
+X-Gm-Gg: AZFdTZeI+Ad9CXwSj81Ry6msXQYVen4Q/NgAW6vX62dwAyedirDP0We/hHhsehhsZ8C
+	FQ28NZdQGBTGD2+UzkivkGSke5ThgZq/QxDThICRB2z3Lh3QE19SZJ3IaIWVtSZXyRKroFTxZRn
+	KHvvDLaBf5QjYfgVIhE8GQnwDpetps9okDEdnSF/CMWtWd9NxGuRERWUqI0AiLCjvzBGUjZ6SVI
+	wx6MeVyt9d9aiVFKyOIVYEmyxgKdSHKDq2Pyeo2yUxnefkPEQQJX+r04uS3+WbRdm0sgdoQp/bW
+	x5hZ+BMKJLdAmAaF2rSs+l/hLCUyfT27lewbajV89RScj9A+CvHvC0ZjqTyZdlE5/q4FyzlF/AD
+	/q9YlWQxoYU5h0Nn8m5Tfh9WEbNXCeErRKbLZ1Y5suKa3kl2G3ji//fAgFM+HEOcf2xMW6zV2in
+	Xcsi+YMbzufxOx4sQ=
+X-Received: by 2002:a17:907:fd15:b0:c40:33d:f06f with SMTP id
+ a640c23a62f3a-c513aaad90bmr920564266b.39.1795436692893; Mon, 23 Nov 2026
+ 04:24:52 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,192 +105,183 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|SEZPR03MB8523:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6912feb1-0a8e-4888-3654-08df495caaf8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|10067099003|11063799006|4143699003|56012099006|261021130227099003|261021121427099003|261021123027099003|261021135927099003|261026130827099003|261022105027099003|261026121527099003|261022075727099003|261022113327099003|261009223027099003|261022115727099003|261026140227099003|261028144727099003|261102123227099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	fWE1/j+HZdMm3VvEDtV/aPlYmeAMv520RjCfzg4Cr/Ygt+lU+pZx3K07tOz8OYFXLgWnSvHMzeL0wRlSE3xqM9K3wRKcPS3vfabUE0d0LlAp+LctdXowp1AOtGe8Cr7khQbFCo3ohmKPZeSXUlbeK5jxzqWxbUyUS62QF0Mu9ZbKauUzKAnm0/n0Fcg0S6e4Quqnpd385847ADDsq++igFd+COXNvL3xyHRQo7SObzNjYqsj4cpMChG2RlkxghmFTxO4iDwFhvhLf9VyJQ0dnAQ+RckRaYah4tLdrpCXl3hxaSUCjYSIdkpsDEk5B/gCNMRB7FRYhPk/+F9pMeLwLxfroBjFmDv0CqAXv9tgA//SbAuIiCpxbfS319zSjRr7vWmhLj1IAf7USCNYNgVWMVynyckitV4k/T7SMEe7S4C5G/3nDlRldZl/UUg9Pt6LpJV2gcc56zyXMvCvS5a8uVb1b/QUObck2sjxGTmQg+ifxmoSsj4VAkWgJKpobzrw4bdD4uSn5gHuJMuoPuAwsV1BdluO5xKRZpPhBdqMS6n0UpWGbDM4O/XP3Fk53e+/esncXYsZ3POzu94WONPaMKuj1FFNFn/mLWHWaCRLnO42zqER1yGMaXpxeDyTdXav1S1xBU0gvLGu6a84Qnf8qUa7g+Oq1kg3P4xSeAL3ghc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(261021130227099003)(261021121427099003)(261021123027099003)(261021135927099003)(261026130827099003)(261022105027099003)(261026121527099003)(261022075727099003)(261022113327099003)(261009223027099003)(261022115727099003)(261026140227099003)(261028144727099003)(261102123227099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NVpjdFArczVGMVE3aFJKcm1XSFcweFJjdDF1bzNGTEs3MFRON2Y1dktXZE0z?=
- =?utf-8?B?M0l0aml0bUxWS1ZmK1p3OXdEc0hZREw2NUltUWovMm4yNExpNmpTdEJWdWJn?=
- =?utf-8?B?bkRUWXhkRCtwTERIM29zNlpJTER2bE9hRGora3UzdmprVEtsTmp5Y0VSVGJC?=
- =?utf-8?B?QWY0U1FYWUd4Y3k3RGRxUm5PUmdRNHBxbXR2cmFIK1lFQmhuSis2RHhVaVM2?=
- =?utf-8?B?dU4xeEFUbUNoaGlHK1daYXdtcWsvTnNNQTFDUHpGZFoxZXVOUWZ2cXpLRUFu?=
- =?utf-8?B?Ujg2U0E1K2xnRFRpUk1IVW42WXlqNDY1Z1BCTWxXWGR1ZlAxa25wSkluMzZn?=
- =?utf-8?B?SWd5ZE92WEFnbUlWNEZZc0NzZ1U2Y0ROYy9DTWRsR0VvOW9oY1BVKzl4OTd0?=
- =?utf-8?B?L2JFNVJIZ1pGY3FZSnRWNVo0c0xVZm9XTFlEVk9qVkN2aUJUaWtVOG1OM1dD?=
- =?utf-8?B?WUNjVTI4eDFXazhTZ08ya0pjWkhKYjNKRmUvbU1lYjVXNEhsSEpQQmluQ0NH?=
- =?utf-8?B?UmZPR0hKK1R2SG4xSlJZOHE0MEJ6c1Yrc20xeStwamt1ZzdPL3RjNXhaRDN3?=
- =?utf-8?B?cmNPWEpZejVRZ0FIM3ZkY3B1MTdtK2hLWVJxQkNFQjd1dllqeWlWVEplT3FB?=
- =?utf-8?B?T3EyS2tvWW5YVDYzSCs4Kzhkek1rSmRabStSUkZ0bWYxNjFuZVVMOU0zZnlD?=
- =?utf-8?B?R0x5N2pBVjFtcnRjaCtUMEZEUWF1OXh3eU5qbHh1UENiTXZDZVgzRm1yOFUr?=
- =?utf-8?B?TkR0V29NR3lTemVqNXpSblEzYlg1b1N1NUFUV1piME5LVlpQRVlZVXlSRExi?=
- =?utf-8?B?dFZhNkdWWjY5VjR0bEpaaWRQVUN3dnpNZ1B0N3F2c21iWVNJQlVaVDRWNGt3?=
- =?utf-8?B?Mk1FY29OSS9yenY5ZG14dElFRlhCN0RHeTJLeFlQU2JaSHlPMkNUL3gwZThD?=
- =?utf-8?B?OUlDSUJiNWUyUDN2SHdVbUFLcGs1WHNDWVl6TTB0d2JJcXlqd2RFOHhvL21U?=
- =?utf-8?B?aTlTMEZQU3RCSWZabEVIMW5wVGttZGlyTGJHeDVzZXlWRW5CdUllV2NudUpK?=
- =?utf-8?B?Y0YxSkNMVUpxYnh6cTE4QlA2VDgxTjNEWDRWbmMrajFsclh6dmNvQlVQR251?=
- =?utf-8?B?SEtYeXptTHlHdURORk8vY1pKQnBqT2EyUUVGcFJjSmNMdzNoTTVpQjZucnA1?=
- =?utf-8?B?bUIrZDROZnM2d09SVk9ZNjNkTzVOZ1NiSm5yUVVEL2ZQZ0JZTmxvN1JBeGRK?=
- =?utf-8?B?cUluSjVRbmF4TW5CNVR0MG1qWjBRQlNBNWRrSlUxbFFRT1Joa2V2L0FvcDVr?=
- =?utf-8?B?d2k4OHRXTk5NdVJVSVVySTluSlBEZ0lRWHFzQmdEWE03K3V3N3FyQU14R3JG?=
- =?utf-8?B?VnJmdzk4a3VJVDRnemN3ZllUMzd1T29LbGNCSi8zY2lpV25rK3QzZFkxanli?=
- =?utf-8?B?V1dRVXRiMElCdDh0a1VMSEMxMHpQQTNhRTJ0NE5CWGNjUDh4SGZ2WGREVVpP?=
- =?utf-8?B?NFFlQXk4S0lkTXRIZFJidW5TRC9BeFEvN2NRWk9YQlFPMTNUUWJsOVZhTStR?=
- =?utf-8?B?R3RDVFNuY0dBTU9CNjVqZU5Xc1lXbFI0MDJ1RVBxakhDSmlpRHBWRXZEZ0ZE?=
- =?utf-8?B?UWVrWXBucGhvckszc1hmM1hjWkxyTGRVOUorbG1TSmVwaDhQVDQ0YTR2ZW1l?=
- =?utf-8?B?ZXhGZGFZOUZCRDRhMGQrVFZtV09zQ3BYTk81Nmo4cXhzb2FwRWNmTzIrRmRv?=
- =?utf-8?B?SW4xTUtkOHlqWDAyYTZOMWdxOUJsY3gvd29LUjZuVXVxaDlvclJ1WFJPRk56?=
- =?utf-8?B?SlVMVDhDZ1ppSVlvOWExSG5Td2RKRkl4bStucjY2YkUxKzF4YkNQeFdKdFJi?=
- =?utf-8?B?aCs0UVhPWXBYd1VySGNUeElscnpycGFpTXl0UElsbmlDYWFIZWdydjRiZE9a?=
- =?utf-8?B?eGoxMXVoNExmY0JLNWZLbEVqOEs0RkpRdWZwazFxSU5wMEozSUJOTGRldWFF?=
- =?utf-8?B?Y011dGVnVDJhMEQvSTZBZ1lvU3U3WEhCcW93VDJ5b01GSm5BUkZiQTIyVlVa?=
- =?utf-8?B?WDdJVGtFOGgzMUkwTFhpS2ZuVGRKTFJLWWFjdGthZ01KSlFueFZXK0xSRTNS?=
- =?utf-8?B?QzNSWVJwNzNzTmxueXJsb3BaRjFEb1NBNHJkdHJLQ0Y5TjBqb25FNjV4R3BZ?=
- =?utf-8?B?Lzhzc2sva1M2eCtlVTcwcHVidFNqQTlMbUlWOFZzaHljYXMreXpmOEw4MlQ4?=
- =?utf-8?B?SjNCUE1mbHM0UHY2WXhHR0Zrd0FIMm9qSVA3clA3MWYweXBLcVNTd2tFU2Yw?=
- =?utf-8?B?WFhOd3ZrNzdzdnN0WGlZZFhGRTVSVXR6eHFXRmpmdnFVK0tGbk55dz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6912feb1-0a8e-4888-3654-08df495caaf8
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 12:24:06.5455
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cDbv8Cv16mtDiNpMSeZRIxdVs6QD/gjS+h8dU6p08HpZQ2PdqFg4Imy1Dz6ug1ZBgDASRxu68rJFYJmycPOySA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB8523
+References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+ <CAKTNdwH9QAgreJ-6+t1j_P1di4VyoMBSsFkf_g=mCi_-M8g9Pw@mail.gmail.com>
+ <20260917221857.GA4056431-robh@kernel.org> <CAKTNdwH6E5=9gZHB6tdianC2+1aDv4wnLmvL59kDW-dR3a12bg@mail.gmail.com>
+ <AQpdyd6hRl9cLAxBK-fEdzq0dcZsWpHP63dbDpOxcNQWCdaNIc4D3Mfi9Ll86jBVsbEVhr5-9EZzFHbkF6efBDcRUT7nXx9TH5Aeffy5DyU=@protonmail.com>
+ <RWg2ZbGh-TJtEJMDWD9DGxBKsszG10BM07351ALdCUa9UL-IImPGxSYztcNF3kiRFVCA0x5cECwign-2lb56nPMGZQ5LVZhckY4-KTb5qpk=@protonmail.com>
+In-Reply-To: <RWg2ZbGh-TJtEJMDWD9DGxBKsszG10BM07351ALdCUa9UL-IImPGxSYztcNF3kiRFVCA0x5cECwign-2lb56nPMGZQ5LVZhckY4-KTb5qpk=@protonmail.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Mon, 23 Nov 2026 16:24:40 +0400
+X-Gm-Features: Aa3M54pJDInt1dUc3UbuIPmLJ056A7-Am1qM49T-fqpCAj8EFLf-eta10BiPxGY
+Message-ID: <CAKTNdwHOoG8j59X7z6j15n8TTf-A-+EQhvC+SqNWOq24p9vNLw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP
+ CPU ID
+To: Ryan Leung <untilscour@protonmail.com>
+Cc: Rob Herring <robh@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Michael Walle <michael@walle.cc>, 
+	Miquel Raynal <miquel.raynal@bootlin.com>, Finley Xiao <finley.xiao@rock-chips.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Viresh, Cc Martin,
-     I've run into some issues while adapting the Amlogic A9 to 
-cpufreq-dt to support the coordinated adjustment of multiple clocks, and 
-I'd like to ask for your opinion.
+Hi Ryan,
 
-On 11/9/2026 5:45 AM, Martin Blumenstingl wrote:
-> [ EXTERNAL EMAIL ]
-> 
-> On Tue, Nov 3, 2026 at 10:46 AM Chuan Liu <chuan.liu@amlogic.com> wrote:
->>
->> Hi Martin,
->>       Thank you for joining this discussion. :)
->>
->> I have re-examined the capabilities provided by pm_opp and cpufreq-dt,
->> and it seems that we may also be able to adapt A9 fairly well based on
->> the amlogic-cpufreq.c here. So we have no objections to the driver
->> implementation in amlogic-cpufreq.c here.
->>
->> I was most worried about before was that cpufreq-dt might not fully
->> handle the complicated clock and supply adjustment logic between
->> multiple clusters, which would have required adding a separate
->> cpufreq_driver. But it now looks like this can be solved by adding the
->> corresponding config_clks() and config_regulators() callbacks in
->> dev_pm_opp_set_config().
+On Sun, Nov 22, 2026 at 6:08=E2=80=AFAM Ryan Leung <untilscour@protonmail.c=
+om> wrote:
+>
+> Hi Alexey,
+>
+> On Wednesday, November 18th, 2026 at 10:51 PM, Ryan Leung <untilscour@pro=
+tonmail.com> wrote:
+>
+> > On Friday, September 18th, 2026 at 3:08 PM, Alexey Charkov <alchark@fli=
+pper.net> wrote:
+> >
+> > > Hi Rob,
+> > >
+> > > On Fri, Sep 18, 2026 at 2:19=E2=80=AFAM Rob Herring <robh@kernel.org>=
+ wrote:
+> > > >
+> > > > On Thu, Sep 10, 2026 at 06:48:33PM +0400, Alexey Charkov wrote:
+> > > > > On Wed, Sep 2, 2026 at 5:08=E2=80=AFPM Alexey Charkov <alchark@fl=
+ipper.net> wrote:
+> > > > > >
+> > > > > > Rockchip SoCs are shipped with a unique CPU ID in their interna=
+l OTP
+> > > > > > memory, and Rockchip bootloaders use it to give boards which ha=
+ve no
+> > > > > > dedicated storage for a MAC address a stable one anyway: they h=
+ash the CPU
+> > > > > > ID and patch the resulting addresses into the device tree they =
+hand over.
+> > > > > >
+> > > > > > Kernels started without that fixup, e.g. straight from the SPL =
+in Falcon
+> > > > > > mode or by any other loader which does not implement Rockchip's=
+ derivation,
+> > > > > > fall back to random MAC addresses which change on every boot.
+> > > > > >
+> > > > > > Formalize the derivation in the DT binding and add a Linux kern=
+el driver
+> > > > > > implementing it, so that a Linux image can use the same stable =
+addresses
+> > > > > > regardless of the boot flow.
+> > > > > >
+> > > > > > Only RK3576 is wired up here, that being the SoC I can test on.=
+ Other
+> > > > > > Rockchip SoCs keep the same CPU ID at a different OTP offset - =
+0x7 rather
+> > > > > > than 0xa on RK3588, for instance - which makes supporting them =
+a two-line
+> > > > > > addition to the driver's match table plus the layout node.
+> > > > > >
+> > > > > > Patch 1 is a prerequisite fix. The OTP hardware has its own int=
+ernal state
+> > > > > > machine which only works correctly with serial access, but the =
+current
+> > > > > > driver serializes nothing, which results in timeouts and/or cor=
+rupted
+> > > > > > reads (e.g. returning splicing a TSADC trim value into the buff=
+er of a
+> > > > > > caller asking for the CPU ID, or mixing up trim values of diffe=
+rent TSADC
+> > > > > > callers). Hence the Fixes: tag and Cc: stable.
+> > > > > >
+> > > > > > Cross-checked on an RK3576 board: the addresses fixed up into t=
+he FDT by
+> > > > > > U-Boot match the ones derived by the new driver, and the driver=
+ correctly
+> > > > > > assigns them to the network interfaces when the kernel is boote=
+d without
+> > > > > > U-Boot proper at all (via Falcon mode).
+> > > > > >
+> > > > > > Sashiko also rightly pointed out a use-after-free in the nvmem =
+core when
+> > > > > > a layout driver is unloaded leaving its sysfs nodes and the pos=
+tprocessor
+> > > > > > function pointer dangling. This is fixed separately in [1].
+> > > > > >
+> > > > > > [1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-=
+1-2d16bebeb518@flipper.net/
+> > > > > >
+> > > > > > Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> > > > > > ---
+> > > > > > Changes in v2:
+> > > > > > - Switched from a scope-based guard to explicit lock/unlock cal=
+ls in the
+> > > > > >   OTP driver to avoid mixing styles in a function using goto er=
+ror
+> > > > > >   handling (Sashiko)
+> > > > > > - Link to v1: https://patch.msgid.link/20260901-rk3576-otp-cpui=
+d-mac-v1-0-ea9135270fc2@flipper.net
+> > > > > >
+> > > > > > ---
+> > > > > > Alexey Charkov (4):
+> > > > > >       nvmem: rockchip-otp: Serialize reads
+> > > > >
+> > > > > Incidentally, patch 1 of this series also fixes CPU thermal throt=
+tling
+> > > > > on my RK3576 device: apparently, the mis-read OTP-programmed ther=
+mal
+> > > > > trim values broke the thermal governor logic, which now works
+> > > > > correctly with properly serialized OTP reads. So it would be grea=
+t to
+> > > > > have these merged.
+> > > >
+> > > > It would be great to have the sashiko comments analyzed and replied=
+ to
+> > > > as well if you would like this to be reviewed.
+> > >
+> > > Of course. One code-related comment Sashiko raised has been addressed
+> > > in a separate patch [1] which is still pending review. The
+> > > binding-related comments will need to be revisited, as I'd like to
+> > > first explore the idea Ryan proposed in the adjacent thread [2], as i=
+t
+> > > will change the approach somewhat if it works out.
+> > >
+> > > Best regards,
+> > > Alexey
+> > >
+> > > [1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-1-2d16=
+bebeb518@flipper.net/
+> > > [2] https://lore.kernel.org/all/20260916123355.4507-1-untilscour@prot=
+onmail.com/
+> >
+> > Hi Alexey,
+> >
+> > Have you had a chance to explore this? I have got a working proof of
+> > concept [1] for the format I suggested, tested on RK3576 (NanoPi M5) an=
+d
+> > RK3528 (NanoPi R28S).
+> >
+> > Best regards,
+> > Ryan
+> >
+> > [1] https://github.com/untilscour/openwrt/commit/a622c1cf292f7a4bb70935=
+21e25436be324fc1a4
+>
+> I've updated [1] the proof of concept slightly. Perhaps you are busy
+> with other patches? As it's been more than 2 months, if you don't mind,
+> I'd like to send it in as v3 of this series, with you as co-author.
 
-Our original intention was to try to structure our Amlogic cpufreq 
-driver around cpufreq-dt.
+I've had a look at your proof of concept. What worries me is that it
+introduces a "virtual" DT node for the MAC address derivation without
+a corresponding hardware block underneath it, which sounds against DT
+conventions.
 
-> That's great news, indeed!
-> 
-> [...]
->> All in all, it looks like we can currently support all Amlogic SoCs in a
->> single amlogic-cpufreq.c? Then, for the specific characteristics of
->> different SoCs, we can differentiate them through the "compatible"
->> property and add the corresponding drvdata for each.
->>
->> I'll also try to support S7/A9 with representative differences based on
->> this patch.
+I'd like to try a slightly different approach: have the CPUID cell
+carry a dedicated compatible string such as "rockchip,cpuid", with a
+binding description outlining the added semantics for deriving a MAC
+address from it. Then have the NVMEM driver check if the cell is
+accessed as "mac-address" and apply postprocessing before returning
+the buffer. That's what e.g. drivers/nvmem/imx-ocotp.c does currently.
 
-I have already completed the support on A9, but cpufreq-dt currently 
-only supports the single-clock case, for example:
-dt_cpufreq_early_init()
-   ->dev_pm_opp_init_cpufreq_table()
-     ->dev_pm_opp_find_freq_ceil()
-       ->_find_key_ceil()
-         ->assert_single_clk()
+Let me give it a try, and then let's see what other reviewers say.
+I'll add you in Cc.
 
-set_target()
-   ->dev_pm_opp_set_rate()
-     ->_find_freq_ceil()
-       ->assert_single_clk()
-
-Both of the interfaces above are limited to "single_clk", so SoCs that 
-need to adjust the DSU clock in coordination with the CPU clock (such as 
-SM1, S7, A9, etc. mentioned above) cannot directly work on top of 
-cpufreq-dt.
-
-I changed assert_single_clk() to assert_clk_index() in the two functions 
-above and it works, but I'm afraid such a brute-force change may break 
-the semantics of the original APIs.
-
-To support the Amlogic cpufreq driver coordinating the adjustment of 
-multiple clocks as specified, We can currently think of three approaches:
-
-1) Extend the cpufreq-dt/OPP function interfaces, for example:
-   - Add dev_pm_opp_init_cpufreq_table_indexed() and 
-dev_pm_opp_set_rate_indexed()
-   - Adapt cpufreq-dt to these newly added functions, sample changes:
-
-diff --git a/drivers/cpufreq/cpufreq-dt.c b/drivers/cpufreq/cpufreq-dt.c
-index 7d5079fd16882..8940d36f2371d 100644
---- a/drivers/cpufreq/cpufreq-dt.c
-+++ b/drivers/cpufreq/cpufreq-dt.c
-@@ -53,7 +53,7 @@ static int set_target(struct cpufreq_policy *policy, 
-unsigned int index)
-         struct private_data *priv = policy->driver_data;
-         unsigned long freq = policy->freq_table[index].frequency;
-
--       return dev_pm_opp_set_rate(priv->cpu_dev, freq * 1000);
-+       return dev_pm_opp_set_rate_indexed(priv->cpu_dev, freq * 1000, 0);
-  }
-
-  /*
-@@ -245,7 +245,7 @@ static int dt_cpufreq_early_init(struct device *dev, 
-int cpu)
-                                 __func__, ret);
-         }
-
--       ret = dev_pm_opp_init_cpufreq_table(cpu_dev, &priv->freq_table);
-+       ret = dev_pm_opp_init_cpufreq_table_indexed(cpu_dev, 
-&priv->freq_table, 0);
-         if (ret) {
-                 dev_err(cpu_dev, "failed to init cpufreq table: %d\n", 
-ret);
-                 goto out;
-
-2) Keep cpufreq-dt and adjust the DSU clock synchronously when adjusting 
-the CPU clock in config_clks(), only a single CPU clock is kept in 
-"struct dev_pm_opp_config config.clk_names".
-
-3) Create a separate Amlogic cpufreq driver independent of cpufreq-dt 
-(similar to mediatek-cpufreq.c)
-
-Which approach would you prefer? Do you have any better suggestions?
-
-> Great, let's look at some code rather than discussing theory on how to
-> write code :-)
-> 
-> There's one last detail that we have to manage in case we also want to
-> include the Meson8* code into the same file:
-> config MESON_SM depends on ARM64_4K_PAGES
-> 32-bit kernel builds can't satisfy this (meaning: we end up with
-> linker errors). I think a simple way to get around this is to add stub
-> functions to include/linux/firmware/meson/meson_sm.h.
-> I'll take care of that once I can submit Meson8 support patches for
-> your upcoming amlogic-cpufreq.c!
-> 
-> 
-> Best regards,
-> Martin
-
--- 
 Best regards,
-Chuan
-
+Alexey
