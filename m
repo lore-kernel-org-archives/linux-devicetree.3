@@ -1,161 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.88
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795438388;
-	b=sx4NmugGDWU84JkbMc5LSkqCWFg/FDn1EvvNNoyOGZ3Fa2NAj6VEkMONzWe5lg0TmQhr
-	 Kag82xlfWC3uWicWFFxwdTCCq7BZNpRI1jQ39AMXE265RGFhpf8DOCjH3yl7NiZ6ZhRYh
-	 IjVIcWgx9wsUMRVI7iNVkzC0mjdyH2MRNMSDXogmFvgKAUlZQ3b1a1QlbXVrzWtArPD4M
-	 7YSMud9e8P+6aIfbyuKnMZl58uCTOWHQxLNRPqaWUd7oeksy15OaIo4DT6APozpcIHkJW
-	 ExeOSFP226zK3FWk0S6INHZ6acECwbhyZXd44um7q37UWn/yK/fCoulaqVGIAOI0Q8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795438388;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6qVgCKgUOwmeIT5fX5deR69AiVkRO2HnIDOLOuzmPLs=;
-	b=iiOf3K3zFCvCn6Erl8BVocWFs4SnhAmsewd4l4Hit28hbTgc2jOkGdg+JPZRTBLhF8/R
-	 QpbKQADquo42jEsKOAAjCBeEVWyHyqhkK2IO8OTTbYOqW8ar6pr/du36T+ZdoPpTDeWLH
-	 WBHBmwVwHX2VtemXQtt8fqf8xFLsJiUKFXbzvwb32XCDUCvBPAQDWG8Hr4esfI6Jb1Dl8
-	 HccW8HIPgtQ83RkP2UVBujT3LB3vcJAQdEH1JzGfSJU/PPKrn41iYudZllDFvDEYuvq6K
-	 HSP6vcFTznqM64QoiC/TnGvH1vnmMavbwbXZIoOG9kr1Ab733OGm7vIJfuX7ICeGibA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=phytec.de;
-	spf=pass smtp.mailfrom=phytec.de;
-	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=GyeL1hQM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.88
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020088.outbound.protection.outlook.com [52.101.84.88])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795438397;
+	b=yJtTd6SGeURyQ6nowOfK0JVoWTT48jaYsNIK3xki8lVi3AV/Tq3wEP6F+IdaEI8tTJbg
+	 BsyEmIof3mQ44o2sdDnfQUlZB7sZI09rPGxc5PDeikcLMd3Oglg49E7vrie1V48ga7V8y
+	 UtMcAYcvTL6HCjgeWECo0WwC9dcM2uy348flsKhlVcJDhmmUTreNQj4cCwCGsK2d+TJnN
+	 31bG/uVLCbOZqjGM4j2qBKDRy++c3Y1wUtJkUJpo6+47YGKvzHmljrTXDhqFOSE33Bg/E
+	 YWUtUpFJo+KZN3CTkcZNj4WjaqmWoxtMy/58PoHgz2b+qHSyM1659FkcJM3TsfvbZmQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795438397;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=35QlNOZpCdu2KRQ7HBQ0if+iYLEEt/LogrJmHd+ldZA=;
+	b=fC43lyp6ci7PU9twHuqPE/LpMJdTrzfit9GWpRFN2Gu9ES5Bo0+61lCpjunqOgc2jawe
+	 ZcYwFjC0NxSiD9anbKtRlxkMTKUt+s7mXN1SBkrFOmEDTnR8VDOGLBCST1bO2hgiS4iKf
+	 D9i4MpyCD1G8m95LiU5QyuCgMyWW856H9ud4vaZkzOe9AQdVN9oIYlmIiQmBREUgX3vIw
+	 tjCWpJtJOdhks1cKf9Ztu7jyGIFh7oPqg4q6m/191nA4fVQvcCK69IWQFS2fPcqO2A4VR
+	 K5RGvjovaxUcNCotPKNqyE/LJ/tLMedj7Tm1H4YIzaD8blYu+aV9vZW1JfaXCLmq6Wg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RQJCa3UX;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D4AA606A334;
-	Mon, 23 Nov 2026 12:53:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D4AA606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEC8606A333
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:53:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EEC8606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=GyeL1hQM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n1uum7sP5KvUl6fZOHhfBNVENAqaOQjE2bUHjyMM2IojSZyLfK2j66lluIzX5m1rNWuhawBHOPS9Y+Q3iTO294E9td9GZtb7Iild0C5QtkOLrqo0FdIFlNKOorwx9QVQXFspF0XQRA5DH203Ta17KGquiUHITY6mnnUXVcmQ6AGPQpFUAJ1CjiPaIS0OkuTO11/Hax8XEXHhXIyENr+zUV3aAowVnU5+g+xpU27wyOJ2OIuEaScCKf/XSKSK/fJloxuCNXNxwxYrqTfY7+bn+lvG4vbTlA5/zfKLrwX/49dWSnjOc1J5s1/NCUdv8dF+gbnfFXMgZTIm3fe9GewcHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6qVgCKgUOwmeIT5fX5deR69AiVkRO2HnIDOLOuzmPLs=;
- b=k9t7cbE7Q9xhdchkWbWyPz8cjbiKfzxVkdpGmhiYuVvyOhguoEEmGFsBJSTLAePutZPb5cCRq2uff4W5DaKGZw2wHxGy0TfOxLU/qgXfYd8l/03aByC47z8ok9lcXPYaTbOKr3i53dld9MA5touNlJ7vHM9/upsKNwoRzTFGn/+yNVIuUqcl3Fi4lrocoF4IMKR+UGcnpGMrj/+IqTw/Cswkr3RY7AED7f1o8fyra+XB7fw1Rr2E0jTW6CUuT+4f5W8yZp1/HYug0zmHP6kOY9f9iDwmN+luP39YCuYxGBoA5YAhwrihlDqH10Os26RjvIPOBqYctvRwO+Ee4nxqVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=phytec.de; dmarc=pass action=none header.from=phytec.de;
- dkim=pass header.d=phytec.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6qVgCKgUOwmeIT5fX5deR69AiVkRO2HnIDOLOuzmPLs=;
- b=GyeL1hQMVdmjtEr7BldkVU9LExjFCUfxvHdWq/1vJHXMzYyR3ehL7zi8p2gHVm60e+3K3+Wn4cXRrHzz2V+fpfKxCAq/WZNuR7/uRexxsPw8NH2vJL0tA/lSguMEglwgEqf/g89FBnU4Z0BIRqykbSuumthaQ/Egv8uE7yclMnsv9yEDZ8Cyj4qwDEH8U9BOSXYLr3cTapE9fEVDothnabVCiygZkXqYHyP+eCSTAds6NEYi0NpB/eYbc2XzS8ZeBEmmSyrt5ThDC0SiAGwW2A45X0Jn7PJT01FoRFNU7h5/vhaZgKyuUVS+pE46WBVO1FRLsklZyvf8IH0bhH+v+Q==
-Received: from BESP195MB976599.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:b10:105::21) by DB9P195MB1370.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:10:29f::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 12:53:03 +0000
-Received: from BESP195MB976599.EURP195.PROD.OUTLOOK.COM
- ([fe80::5d6e:6efe:9bc2:6893]) by BESP195MB976599.EURP195.PROD.OUTLOOK.COM
- ([fe80::5d6e:6efe:9bc2:6893%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 12:53:03 +0000
-From: Yannic Moog <Y.Moog@phytec.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
-	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel
- Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Benjamin
- Hahn <B.Hahn@phytec.de>, Christian Hemp <C.Hemp@phytec.de>, Jan Remmet
-	<J.Remmet@phytec.de>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "upstream@lists.phytec.de"
-	<upstream@lists.phytec.de>
-Subject: Re: [PATCH 5/5] dt-bindings: fsl: remove phyCORE-i.MX 8M Plus FPSC
-Thread-Topic: [PATCH 5/5] dt-bindings: fsl: remove phyCORE-i.MX 8M Plus FPSC
-Thread-Index: AQHddbkFk/mNP9YwAEuNkLOR54LZl7c3DouAgASSagCAAAFggIAABWCA
-Date: Mon, 23 Nov 2026 12:53:03 +0000
-Message-ID: <93ece91784725dd2f37a40a7edc59cc9144e18d7.camel@phytec.de>
-References: <20261116-imx8mp-phyflex-v1-0-4adcf8b4d373@phytec.de>
-	 <20261116-imx8mp-phyflex-v1-5-4adcf8b4d373@phytec.de>
-	 <20261120-intelligent-victorious-jackrabbit-4caf35@quoll>
-	 <0ca6fb6acea9fe40cf2190f3a67d6376f9bfaaae.camel@phytec.de>
-	 <4a325394-9d5b-49cf-a3c0-6b945e6cd241@kernel.org>
-In-Reply-To: <4a325394-9d5b-49cf-a3c0-6b945e6cd241@kernel.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=phytec.de;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BESP195MB976599:EE_|DB9P195MB1370:EE_
-x-ms-office365-filtering-correlation-id: 31cc3e67-be09-486e-7c39-08df4960b66d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|22082099003|18002099003|56012099006|11063799006|261009223027099003|4143699003|261028144727099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003|261021135927099003|38070700021|10067099003;
-x-microsoft-antispam-message-info:
- 7nQHpPULZt2m+CfQi+WUA2TluR2t5TbceN6fQLFjnSweJ9MyXrtUh5q/YuUFSYiEsvg0p3DFB/jx++fI5hOZ9AAS2/V0v3w8mbZz+btsXdKFDiWUKXzuGtS8e8X0xQLnFqCrWrRaQJ+HcVrPSAea7/5VZVm7fdjkNQEv7yP7OD6pTmDnrG4tOZEOUtWPUY2MEFZqkpDIEmzqiRqVA0pNkz1J9jri/WgWl4LkHaqg1LKoJnaONLu6FfTFGQaWmYjwxuz8k62vVdXpbu+1D5w3NRUYFcU+Zl1pRFARy2LxFyadv9gujtu1lFku7pnJ4/XM9/sOE8J8Cts+1nOBfkE6seG6A4ZBknUz3bXgfkmo/oFW3UGbCj5tZh+8DZWtUqDq3T/bCscfVkljaR8stjxMrExpKWiVASxgwm4ixpWoesTsj3hfCPgGB3EA2h+mNss1etDAtVyNRgbyuoOcPz7G8EWLoLzP4/neq3Y+ZVl9i4EjQYsm8mDFe9rG1caFp/kRl1tH6rGnlTjTK4kj45uuIul1ZENh2HH1QkLzX6CUTCzXJy+UTUOJngvfSfwT2hxNMgEQsS7VQo7QZKDRYuxA035yeHTdyivNdX8Ftkn7kYnMrqjVNedy7STFtc6oiRmUJ+aBYZPyRemrenU0RP6pS6NcocDB0EAfZuKAqEHu6Cvhfkdo9SMgWll81EvplMk4fDeYrZSFHfo4afMN/siyoH1acc4K8Jp6R08kS8sQSfs=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BESP195MB976599.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(261009223027099003)(4143699003)(261028144727099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261021135927099003)(38070700021)(10067099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?dnoyanFUTmZBR0g1VTBVY25DSU10YUlNY01hQUFwYUhOTjRsSE9iQUl6dkhr?=
- =?utf-8?B?cVF3cEowZlQ5ZTcwR0RrQkkrY3pRM0QzeXNqMlJJYVoySlRHQUkxeGxuUnNJ?=
- =?utf-8?B?dHhNM1VDZWQxUkE4REhodjkwV1NadlloNHBWWHVHc3ZMQUVlcUtVakxvOVpy?=
- =?utf-8?B?MXZUd1JGVHM5NE1RVzc4L29oaFBhMkFkdFhsMnF5KzkwN2M5dkRwOW41QUc3?=
- =?utf-8?B?ZXdsam9rdzhzZ1RwTEJlNllMQWcybCs0Sm05MHRQc2tiRVIvWjZPYXJhUW1C?=
- =?utf-8?B?MVJqMG0xNGU1UE1lc1BQQkszZ1g0UFdqSWtWUUl6SEhVWUIzZHlIOU5NcmNa?=
- =?utf-8?B?SzFrcmx3azYrNytGT0xYNUNtL2JTRERDMllrUHhCMHF1bW9IdGZ5aGxiVjhx?=
- =?utf-8?B?ejVQTXM5Y3RNL2JMM0RGY2xJcUhKcHRydmtwMmNwSDVKd2VWd201M3E1VzBz?=
- =?utf-8?B?Zi9rc3pGUjhpK2REQmlyMGJVMGhCVGErNmZYak4xYzhjLzRSQ0FRbmx1SjRK?=
- =?utf-8?B?Z25nMWdxcGhjQksyTEt4R1F5SDcxNE1PSUgrQjd0Q2s1Tkl5NVVyUXBWbHlv?=
- =?utf-8?B?aitGcXpjWDg3QVpDQlZZcmJIL1dSZzkySjN2SzI2a1lQL0J5Y0JnUG12cXc4?=
- =?utf-8?B?bEdTUE1ITFdSZmdsSm9SaHBHWkRXVFZ4V3BSb2RTK0xUMnV1MmRwMHZhbVg0?=
- =?utf-8?B?bVVTWjVTQnJwY1d1OVZQSWRmem5rZ3ZtYWRCb0xoeXJjWFUwbVRtYWpob3Mx?=
- =?utf-8?B?NFlvWnJuVFBaY2RrS2ROeFdwRHhidm45UTRQR25xMG93bXhwR0NheEZNTWt0?=
- =?utf-8?B?aWRTTndkdDNIbWVMMzV4YlJNNnYwR2VEYkxrQk9vWXJxRlRFV0l3UkV0cE1K?=
- =?utf-8?B?ZThsdHhzR3o2WWZoejNkSUFpdHNKWkx6SWoyc2R6WExXbGh1T2ExQ3Z6WmJl?=
- =?utf-8?B?WDM3djNPUHNZZzVjY2xEM0pkZDlyRGRmdDVVQm1LQ1plU1BucWZ6Um9EN0dL?=
- =?utf-8?B?akhJOHFjMXllcWQxRmhxMDJ2aE9QOE9HOTFCbzk2bkpJR0pITzJSU21CaVZq?=
- =?utf-8?B?YVByUDVla2R3dGZRMVRJSkJxaW5lSjJ5WjREaXZXRDZwZUFjdHNpbWgvU3hy?=
- =?utf-8?B?bTVkcEY5V1BSNVdMbk5jbDdUUS83VGZ0UjZ3cXZKNmdva2tLMU5FbUM2NEs1?=
- =?utf-8?B?azg0Ullob2hkMEtPR2FLcmFXWDdJSk4yR01iWVFaNDhCd3Axem03MTJiQytv?=
- =?utf-8?B?bnNFUzVmbXVmd29Ra0trMzAwcUxtTVE5SE1GNlQxdWhSaG9URHBwaGU3cEwr?=
- =?utf-8?B?L04zYVJEZ2tVTU5MTkF2OWxLOExnRDdVUFhVUFpjT25jTTZLSHFFWTJiMVRE?=
- =?utf-8?B?b1lyMS90Q1kwYnNxYTVEanEzVE91d1NjU1VtZkJFZkYycit2Vlp6K3h6a3hX?=
- =?utf-8?B?NVdOQ0lacFVyalluektuTU9uNW1SdTJPZjJ3ZUNZUEcycmlCQzRtUGY0KzIy?=
- =?utf-8?B?bGpHbGlQZTFhc29LMklJbDNzbkQ4OEY0Z1NraWxvLysrTXQ3akZ6V09kbU5u?=
- =?utf-8?B?NVZWL1VaNGR1bDVFVGV2cG1sU3hpKzVwNnBGUlFoaXcxZWRXTzZORkdkc3Yw?=
- =?utf-8?B?UnE3d2hIQmtLYkc2SVRNckgwSjh0ZCtzNnBlWVNRRytEWnJVOWQ3SWU2bUNQ?=
- =?utf-8?B?blQ1SEs2dzlnclBIR2IrZHFNcXZWbTRwbVBWdHV6NEpZaDVVVE5sTFpDM2x6?=
- =?utf-8?B?UXNabE9oTHpBdnpsalFtRHhmNjZZYllybzdiUjZDbmxFQlVreXRiaGFDL0pq?=
- =?utf-8?B?cXM0VW4ySFMyRzlsKzNvTG1uMWRaUk03NmdKWTBkcmFpK0tFT3JPMW0zdjk5?=
- =?utf-8?B?ZWszanRnZXErY3VqMEJlQXVUTnZvVDYzeVVFbjgzUU9MTjlxUlo1azByWlVn?=
- =?utf-8?B?MEhOSUNrSnlIc2VqOTBlRVBSc0FBdFIzdGZ5aEMxVzRBM1VzZnMyWHpqcXVw?=
- =?utf-8?B?dnU4NGpVSEZUQ2diUmNlallOc1I0MlpJaXRMaXlBZElRb00veFBzb1F3SWUz?=
- =?utf-8?B?TDdvNUMxclhuS0IyUjA0dytNTktNVGtjWnd6NlZYS2d2NWtWUXdnR0hHMG8y?=
- =?utf-8?B?ZWZSU29QZWZtbGk5eFl3aHgwQS9HSllrTU0rUlE0akdmSGtMR1lVWitxMzZW?=
- =?utf-8?B?aVRXNTVwWnlwZnhNZVJVeVhKcmRjek5mUU9rcEdCZzUrV0hERDVvMm45ZEJH?=
- =?utf-8?B?NTduUy9JaWdpc1phZFlXTC92SW02TjV2QU54bHhISUxTWmJENXc5QkVkVXdw?=
- =?utf-8?Q?dVxZGs7ocZMic+ENNB?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <FE95615B85CC954A93033B11858AFB80@EURP195.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RQJCa3UX
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0EAA41A17A1;
+	Mon, 23 Nov 2026 12:53:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D13FF601E1;
+	Mon, 23 Nov 2026 12:53:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3415211E6958F;
+	Mon, 23 Nov 2026 13:53:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795438394; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=35QlNOZpCdu2KRQ7HBQ0if+iYLEEt/LogrJmHd+ldZA=;
+	b=RQJCa3UXWvamQLIg04zULPeYF08RKu4kCavHpV6FONMzD9INDgZ5pC+20A6WV+9MVEyJer
+	Zo6ZzwUxfebZ4ejX1kh9BLgXhaEmHRj4as79ebxS7wN/2iJH5qdgIrkgS9HMsp32bRq9gR
+	GLkFWa4vVcivZOmhC3T8awedgVMmLGjkZLU5DdaFq2L0Wf7X+ApcGVmEVUz4ba493WZ00i
+	Y0QbowQ9j4poJG3IBK0rO9XlE4YIYgG8byrShYA3wMmhzXjS17T+AcfMp0YHNZ53vJpXT8
+	91vUXrS2QMch3l5bTNe8pecO/iFVcxv/7eCkwl5Z8aChjj+EATiON+JXVxj25w==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	George Cherian <gcherian@marvell.com>,
+	Sujeet Baranwal <sbaranwal@marvell.com>,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v4 2/2] mailbox: marvell-mhu: add Marvell MHU driver
+Date: Mon, 23 Nov 2026 13:52:57 +0100
+Message-ID: <20261123125257.111219-3-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261123125257.111219-1-paul.cercueil@bootlin.com>
+References: <20261123125257.111219-1-paul.cercueil@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -165,40 +78,346 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: phytec.de
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BESP195MB976599.EURP195.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31cc3e67-be09-486e-7c39-08df4960b66d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2026 12:53:03.6057
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: e609157c-80e2-446d-9be3-9c99c2399d29
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /cKUKgE+9h97GKVHng7XR23eNmnmlIbxSToZgnHAuYaeNcl5MjvRox2vp1gZn6rFyIr55mvL89qrB83NLbG+Xg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P195MB1370
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-T24gTW9uLCAyMDI2LTExLTIzIGF0IDEzOjMzICswMTAwLCBLcnp5c3p0b2YgS296bG93c2tpIHdy
-b3RlOgo+IE9uIDIzLzExLzIwMjYgMTM6MjgsIFlhbm5pYyBNb29nIHdyb3RlOgo+ID4gT24gRnJp
-LCAyMDI2LTExLTIwIGF0IDE1OjM5ICswMTAwLCBLcnp5c3p0b2YgS296bG93c2tpIHdyb3RlOgo+
-ID4gPiA+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJt
-L2ZzbC55YW1sCj4gPiA+ID4gYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJt
-L2ZzbC55YW1sCj4gPiA+ID4gaW5kZXggMmQyMWExOTQ5ZDk0OS4uYWU4MjNhNzY3MGIwMiAxMDA2
-NDQKPiA+ID4gPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJtL2Zz
-bC55YW1sCj4gPiA+ID4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Fy
-bS9mc2wueWFtbAo+ID4gPiA+IEBAIC0xMjI3LDExICsxMjI3LDYgQEAgcHJvcGVydGllczoKPiA+
-ID4gPiDCoAo+ID4gPiA+IMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBQSFlURUMgaS5NWDhN
-UCBGUFNDIGJhc2VkIGJvYXJkcwo+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqAgb25lT2Y6Cj4gPiA+
-ID4gLcKgwqDCoMKgwqDCoMKgwqDCoCAtIGl0ZW1zOgo+ID4gPiA+IC3CoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIC0gZW51bToKPiA+ID4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC0g
-cGh5dGVjLGlteDhtcC1saWJyYS1yZGstZnBzY8KgICMgaS5NWCA4TSBQbHVzIExpYnJhIFJESwo+
-ID4gPiAKPiA+ID4gWW91IGp1c3QgY2hhbmdlZCB0aGlzIGxpbmUgaW4gZWFybGllciBwYXRjaC4K
-PiA+IAo+ID4gWWVwLCBhZmFpayBJIG5lZWQgdGhpcyBvcmRlciB0byBhdm9pZCBlcnJvcnMuIAo+
-ID4gCj4gPiBTdHJhdGVneSBpcyAKPiA+IAo+ID4gMS4gaW50cm9kdWNlICJjdXJyZW50IiBiaW5k
-aW5nCj4gPiAyLiBpbnRyb2R1Y2UgImN1cnJlbnQiIGR0cwo+ID4gMy4gcmVtb3ZlIHByZWRlY2Vz
-c29yIGR0cwo+ID4gNC4gcmVtb3ZlIHByZWRlY2Vzc29yIGJpbmRpbmcKPiA+IAo+ID4gV2hhdCBz
-aGFsbCBJIGRvIGRpZmZlcmVudGx5Pwo+IAo+IFRoYXQncyBwb2ludGxlc3MuIENvbW1pdHMgYXJl
-IG9uZSBhZnRlciBhbm90aGVyLCBzbyBqdXN0IHNxdWFzaCB0aGVtLiBPcgo+IGV4cGxhaW4gd2h5
-IGRvIHlvdSBuZWVkIGFueSBvZiBzdWNoIHN0cmF0ZWd5IChhcyBleGNlcHRpb24gb2Yga2VybmVs
-IHJ1bGVzKS4KCk9rYXksIEkgYW0gaGFwcHkgdG8gbW92ZSB0aGUgYmluZGluZ3MgcGF0Y2ggYmV0
-d2VlbiB0aGUgZHRzIHBhdGNoZXMgYW5kIHNxdWFzaCB0aGVtLiAKVGhhbmtzLgoKWWFubmljCgo+
-IAo+IEJlc3QgcmVnYXJkcywKPiBLcnp5c3p0b2YK
+From: George Cherian <gcherian@marvell.com>
+
+Add support for Message Handling Units on Marvell OcteonTx and OcteonTx2
+platforms. The module uses mailbox controller interface to provide
+communication between SCP and AP using SCMI protocol over a single
+shared memory communication channel.
+
+Signed-off-by: George Cherian <gcherian@marvell.com>
+Co-developed-by: Sujeet Baranwal <sbaranwal@marvell.com>
+Signed-off-by: Sujeet Baranwal <sbaranwal@marvell.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
+---
+
+v4:
+ - Use readq / writeq instead of ioread64 / iowrite64, which aren't
+   available on every arch.
+
+v3:
+ - Request an interrupt vector of exactly 3 interrupts
+ - Pass IRQF_NO_AUTOEN to devm_request_irq()
+ - Invert success condition of mrvl_mhu_last_tx_done()
+
+v2:
+ - Add Kconfig dependency on PCI
+ - Order includes properly
+ - Remove duplicated macros
+ - Pass a pointer to the "mhu" variable to mrvl_mhu_setup_irq(), instead
+   of getting it from drvdata. Then we don't even need to set drvdata.
+ - Use devm functions unconditionally. This fixes an issue where
+   pci_free_irq_vectors() was called while IRQs were still in place.
+   It also allows to drop mrvl_mhu_remove().
+ - Use pcim_iomap_region() instead of pcim_request_region() +
+   pcim_iomap().
+ - Enable IRQ in .startup(), disable it in .shutdown().
+ - ACK the IRQ after calling mbox_chan_received_data()
+ - Fix register used for polling TX done
+ - Clean up macros
+---
+ MAINTAINERS                   |   1 +
+ drivers/mailbox/Kconfig       |  11 ++
+ drivers/mailbox/Makefile      |   2 +
+ drivers/mailbox/marvell_mhu.c | 239 ++++++++++++++++++++++++++++++++++
+ 4 files changed, 253 insertions(+)
+ create mode 100644 drivers/mailbox/marvell_mhu.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8f6f98acc8fc..06c49bef8390 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15830,6 +15830,7 @@ M:	Sujeet Baranwal <sbaranwal@marvell.com>
+ M:	George Cherian <gcherian@marvell.com>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/mailbox/marvell,mhu.yaml
++F:	drivers/mailbox/marvell_mhu.c
+ 
+ MARVELL MV643XX ETHERNET DRIVER
+ M:	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
+index ab869769e278..62744399cdb8 100644
+--- a/drivers/mailbox/Kconfig
++++ b/drivers/mailbox/Kconfig
+@@ -195,6 +195,17 @@ config MAILBOX_TEST
+ 	  Test client to help with testing new Controller driver
+ 	  implementations.
+ 
++config MARVELL_MHU
++	tristate "Marvell Message Handling Unit"
++	depends on (ARM64 || COMPILE_TEST) && 64BIT
++	depends on PCI && OF
++	help
++	  This driver adds support for Marvell MHU controller.
++	  The MHU mailbox is used by SCMI for OcteonTX and OcteonTX2
++	  to control various aspects of platform operation like cpufreq
++	  or sensors. The controller supports single channel to SCP.
++	  Say Y here to build this module. If unsure say N.
++
+ config POLARFIRE_SOC_MAILBOX
+ 	tristate "PolarFire SoC (MPFS) Mailbox"
+ 	depends on HAS_IOMEM
+diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
+index 45dc59bb3e7f..83b26e7bbd27 100644
+--- a/drivers/mailbox/Makefile
++++ b/drivers/mailbox/Makefile
+@@ -49,6 +49,8 @@ obj-$(CONFIG_BCM_PDC_MBOX)	+= bcm-pdc-mailbox.o
+ 
+ obj-$(CONFIG_BCM_FLEXRM_MBOX)	+= bcm-flexrm-mailbox.o
+ 
++obj-$(CONFIG_MARVELL_MHU)	+= marvell_mhu.o
++
+ obj-$(CONFIG_POLARFIRE_SOC_MAILBOX)	+= mailbox-mpfs.o
+ 
+ obj-$(CONFIG_MCHP_SBI_IPC_MBOX)		+= mailbox-mchp-ipc-sbi.o
+diff --git a/drivers/mailbox/marvell_mhu.c b/drivers/mailbox/marvell_mhu.c
+new file mode 100644
+index 000000000000..5cb1dd5a911c
+--- /dev/null
++++ b/drivers/mailbox/marvell_mhu.c
+@@ -0,0 +1,239 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Marvell Message Handling Unit
++ *
++ * Copyright (c) 2023, 2026 Marvell
++ */
++
++#define DRIVER_NAME	"marvell-mhu"
++
++#define pr_fmt(fmt)	DRIVER_NAME ": " fmt
++
++#include <linux/acpi.h>
++#include <linux/device/devres.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/mailbox_controller.h>
++#include <linux/pci.h>
++
++#define SCP_INDEX	0x0
++#define DEV_AP0		0x2
++#define SCP_TO_AP_INTERRUPT	2
++#define INT_VECS	3
++
++#define XCP_ADDR(offt, xcp_core, device_id) \
++	((offt) | ((uint64_t)(xcp_core) << 36) | ((uint64_t)(device_id) << 4))
++
++#define DEV_TO_XCP_MBOX_LINT(xcp_core, device_id)  \
++	XCP_ADDR(0x000E1C00, xcp_core, device_id)
++
++/* The transmit interrupt status register */
++#define AP0_TO_SCP_MBOX_LINT    DEV_TO_XCP_MBOX_LINT(SCP_INDEX, DEV_AP0)
++
++/*
++ * Doorbell-Register: XCP(0..1)_DEV(0..7)_XCP_MBOX
++ * Communication data from devices to XCP. When written, sets
++ * XCP(0..1)_DEV(0..7)_XCP_MBOX.
++ * PS: it doesn't matter what is written into this register,
++ * Attempting to writing 'anything' would cause an interrupt
++ * to the target!
++ */
++#define DEV_TO_XCP_MBOX(xcp_core, device_id) \
++	XCP_ADDR(0x000E1000, xcp_core, device_id)
++
++/* AP0-to-SCP doorbell */
++#define AP0_TO_SCP_MBOX         DEV_TO_XCP_MBOX(SCP_INDEX, DEV_AP0)
++
++/*  Register offset: Enable interrupt from SCP to AP */
++#define XCP_TO_DEV_XCP_MBOX_RINT_ENA_W1S(xcp_core, device_id) \
++	XCP_ADDR(0x000D1C40, xcp_core, device_id)
++
++#define SCP_TO_AP0_MBOX_RINT_ENA_W1S XCP_TO_DEV_XCP_MBOX_RINT_ENA_W1S(SCP_INDEX, DEV_AP0)
++
++/* Rx interrupt from SCP to Non-secure AP (linux kernel) */
++#define XCP_TO_DEV_MBOX_RINT(xcp_core, device_id) \
++	XCP_ADDR(0x000D1C00, xcp_core, device_id)
++
++/* The receive interrupt status register */
++#define SCP_TO_AP0_MBOX_RINT  XCP_TO_DEV_MBOX_RINT(SCP_INDEX, DEV_AP0)
++
++struct mrvl_mhu {
++	/* SCP link information */
++	void __iomem *base; /* tx_reg, rx_reg */
++
++	int irq;
++
++	struct mbox_controller ctrl;
++	struct mbox_chan chan;
++};
++
++static irqreturn_t mrvl_mhu_rx_interrupt(int irq, void *p)
++{
++	struct mrvl_mhu *mhu = p;
++	u64 val;
++
++	/* Read interrupt status register */
++	val = readq_relaxed(mhu->base + SCP_TO_AP0_MBOX_RINT);
++	if (val) {
++		/* Poke mbox */
++		mbox_chan_received_data(&mhu->chan, (void *)&val);
++
++		/* Clear the interrupt */
++		writeq_relaxed(1ul, mhu->base + SCP_TO_AP0_MBOX_RINT);
++
++		return IRQ_HANDLED;
++	}
++
++	return IRQ_NONE;
++}
++
++static int mrvl_mhu_send_data(struct mbox_chan *chan, void *data)
++{
++	const u64 doorbell = 0xff;  /* Arbitrary value, SCP requires a value */
++	struct mrvl_mhu *mhu = chan->con_priv;
++
++	/* signal SCP */
++	writeq(doorbell, mhu->base + AP0_TO_SCP_MBOX);
++
++	return 0;
++}
++
++static bool mrvl_mhu_last_tx_done(struct mbox_chan *chan)
++{
++	struct mrvl_mhu *mhu = chan->con_priv;
++	u64 status;
++
++	status = readq(mhu->base + AP0_TO_SCP_MBOX_LINT);
++
++	return status == 0;
++}
++
++static int mrvl_mhu_startup(struct mbox_chan *chan)
++{
++	struct mrvl_mhu *mhu = chan->con_priv;
++
++	/* Enable interrupts only if there is client for data */
++	writeq_relaxed(1ul, mhu->base + SCP_TO_AP0_MBOX_RINT_ENA_W1S);
++
++	enable_irq(mhu->irq);
++
++	return 0;
++}
++
++static void mrvl_mhu_shutdown(struct mbox_chan *chan)
++{
++	struct mrvl_mhu *mhu = chan->con_priv;
++
++	/* Could be using SCP_TO_AP0_MBOX_RINT_DIS_W1S if we knew where it was */
++	disable_irq(mhu->irq);
++}
++
++/* Define operations related to mbox */
++static const struct mbox_chan_ops mrvl_mhu_chan_ops = {
++	.startup = mrvl_mhu_startup,
++	.shutdown = mrvl_mhu_shutdown,
++	.send_data = mrvl_mhu_send_data,
++	.last_tx_done = mrvl_mhu_last_tx_done,
++};
++
++static void mrvl_mhu_free_irq_vector(void *pdev)
++{
++	pci_free_irq_vectors(pdev);
++}
++
++static int mrvl_mhu_setup_irq(struct mrvl_mhu *mhu, struct pci_dev *pdev)
++{
++	struct device *dev = &pdev->dev;
++	int ret, nvec;
++
++	nvec = pci_alloc_irq_vectors(pdev, INT_VECS, INT_VECS, PCI_IRQ_MSIX);
++	if (nvec < 0)
++		return nvec;
++
++	ret = devm_add_action_or_reset(dev, mrvl_mhu_free_irq_vector, pdev);
++	if (ret)
++		return ret;
++
++	mhu->irq = pci_irq_vector(pdev, SCP_TO_AP_INTERRUPT);
++	if (mhu->irq < 0)
++		return mhu->irq;
++
++	return devm_request_irq(dev, mhu->irq, mrvl_mhu_rx_interrupt,
++				IRQF_NO_AUTOEN, "mvl-mhu", mhu);
++}
++
++static const struct of_device_id mrvl_mhu_dt_ids[] = {
++	{ .compatible = "marvell,octeontx-mhu" },
++	{ .compatible = "marvell,octeontx2-mhu" },
++	{ .compatible = "marvell,cn10-mhu" },
++	{ },
++};
++MODULE_DEVICE_TABLE(of, mrvl_mhu_dt_ids);
++
++#define PCI_DEVICE_ID_CAVIUM_OCTEON_MHU	0xa067
++static const struct pci_device_id mrvl_mhu_ids[] = {
++	{ PCI_VDEVICE(CAVIUM, PCI_DEVICE_ID_CAVIUM_OCTEON_MHU) },
++	{ 0 },
++};
++MODULE_DEVICE_TABLE(pci, mrvl_mhu_ids);
++
++static int mrvl_mhu_probe(struct pci_dev *pdev, const struct pci_device_id *id)
++{
++	struct device *dev = &pdev->dev;
++	struct mrvl_mhu *mhu;
++	int ret;
++
++	/* Only support PCI devices with a corresponding OF node. */
++	if (!dev->of_node)
++		return -ENODEV;
++	if (!of_match_node(mrvl_mhu_dt_ids, dev->of_node))
++		return -EINVAL;
++
++	mhu = devm_kzalloc(dev, sizeof(*mhu), GFP_KERNEL);
++	if (!mhu)
++		return -ENOMEM;
++
++	mhu->chan = (struct mbox_chan) {
++		.con_priv = mhu,
++	};
++
++	mhu->ctrl = (struct mbox_controller){
++		.chans = &mhu->chan,
++		.num_chans = 1,
++		.txdone_poll = true,
++		.txpoll_period = 100,
++		.ops = &mrvl_mhu_chan_ops,
++		.dev = dev,
++	};
++
++	ret = pcim_enable_device(pdev);
++	if (ret)
++		return ret;
++
++	mhu->base = pcim_iomap_region(pdev, 0, DRIVER_NAME);
++	if (IS_ERR(mhu->base))
++		return PTR_ERR(mhu->base);
++
++	/* Configure IRQ from SCP to AP */
++	ret = mrvl_mhu_setup_irq(mhu, pdev);
++	if (ret)
++		return ret;
++
++	return devm_mbox_controller_register(dev, &mhu->ctrl);
++}
++
++static struct pci_driver mrvl_mhu_driver = {
++	.name = DRIVER_NAME,
++	.id_table = mrvl_mhu_ids,
++	.probe = mrvl_mhu_probe,
++	.driver = {
++		.name = DRIVER_NAME,
++		.of_match_table = mrvl_mhu_dt_ids,
++	},
++};
++module_pci_driver(mrvl_mhu_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Marvell Message Handling Unit");
++MODULE_AUTHOR("Sujeet Baranwal <sbaranwal@marvell.com>");
++MODULE_AUTHOR("George Cherian <gcherian@marvell.com>");
+-- 
+2.47.3
+
