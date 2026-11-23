@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795428329;
-	b=tkmxtTmxy1PNLSzALs7Z47wt8DlUunsKlnW9DFw4GSo39oIDag7IKCYTD/GSqKBT/dBf
-	 gQaakF5mgEFmXBZzTIKmQuAokKDtwfj+JUKSb7SUObiGRTrPHbHDwZPPv0qnphzhaPWSG
-	 PPc0Xo89caAn3LnMf1h1lDt8Xb/KRMBZl8U3VW+1c3V6SNeF6ZJblRxo/zw8YtripByst
-	 HKE1wloH6nA4fMb91TQz4QnWtxTjxmd48jM37RsarJFZUvqWr+cQBUmeAb0L/03h3pMkt
-	 DVUn+EZCkZhml0D9ScoP1mTI1RuqE1NUPV+jZHidHXu1L+ecM0XgIujCLErHl8sGssQ==
+	t=1795428328;
+	b=wAnqm0c43tc+wbc44rAOImWu6Ob16ecoetblrQ/Vx4wm7LRecIb0Jo7paAFBuuwRkLe+
+	 Ms1HQF7TXd7lenlgBg9a0JK0FLmlMC0MQEyhBeABILa3XDc7A8BjlCkZlTpdGAzOSupZT
+	 obYm46rddEgXRXx3SaNDfDHgjjfG8QWPx4SNyNlvpXe1+Ct6pBV5jpo8uo7lnMlCzKgAI
+	 W86bFgTmVv0E4g1Q3Hv8LdfLOequnCkCKO0c0vVk8ufPFshR3AyFqdvtZq3KjbLzc+97I
+	 eb73ri5V2+BvDsxPByL2C0d35Fjv5OHUSkdmBOUStP8nny1vM0SfLYc3gkD2An2SQKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795428329;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=QQZgVkcJ/TANVsFTmZIKMPM1BlK5beIL8SDsM5Ps0CU=;
-	b=5JSTGxvAljyYyF1hnRJ5XrZjyAVa6/yyxNtBH0UMJwJCk5oi7wdxojqljgqJ/n30wqBe
-	 YmDol6fvyGVXzweCiJSU3liTcSUK6HNAUMdIKkAElEPCrdUKixtPrSLbzk5YYAtUrdlp1
-	 e++I4JV+t8Oq1FqgYoIWZw3ZbA3tr2/58V0FCFppzZO6RjtqltkZYwsBE64sDRdh7xgin
-	 HXP75gteHsc7PM0vA+b9JhtKHGH0YI/k9V1wzYug7sQi3wCJ3lOCC0WFg1ussr3L8VB6Y
-	 plXuHCoakSGiXLZ8hGWXgDMOIxukA4jR+3ci6SMWHiLrAfVaSmGQzSRcMlcO3wVr5EA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795428328;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=dRuT4N91hHE9iRqRCs95W/ga15XeLCIhv2rAxfMU6cg=;
+	b=mwnRcmCQo8DVjMI9uh6YjRr35LuTk9UnRf/WoUQkbZxleBCYCEAc9y50BGLJHsh8FxR8
+	 j3k/EOWmtuqp5Nqd5ezySrruGaC0PvshQMawchh21f5fCdv8o4YGuGJeis32dPd+Veac0
+	 GOH1td9CdpuqXQaLJhWLto7immMa046RRKjDo6AwY6GyEbGp7kD9dW/G1D55RiJulCCt7
+	 /Ck0pfRx8DDb/6vUH0gxcP98Ds0zfKmznPkugt+EIrlKgFjgRQiChY79Oao6nb0M+cTpx
+	 8vywgFEhPJJ1JKFE/1yjgoBVNArtxZY05QtjCiMDHgwuT82v6wRBh9xXr37YgJTf1vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwtoyoAV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Fy4TrY6T;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6615D606A32C
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 10:05:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwtoyoAV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80EF01F000D0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7CB606A31A;
 	Mon, 23 Nov 2026 10:05:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795428328;
-	bh=QQZgVkcJ/TANVsFTmZIKMPM1BlK5beIL8SDsM5Ps0CU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RwtoyoAVM+wV9kg4/rl9qhapdfUUw8GT7mtWCuuxLNcDboEUl43sl5z9nd62ACrJW
-	 txoqFd8+Dryemiof/tiShjqwcoFyXRjVTAEt1+b6cwvkUwi++dcUcBE1DvOFjcacUy
-	 83BqiTV6/UAjgrbECYBcpe+z2VYVF1frQzCfQfoOn6ijRIe6cMWjWmw4wvk60NCFY5
-	 2Wnrqievite5qwdNXxC3fnY03gJievPGSJoTH0JwFft6i/bhuYXQsm2QtWWaksY1M4
-	 SAnNG2y8RPGwWpHsjBYrjGSAbWa98d/SxItXiH3XkoGHU+zAV+nm3yqnSj/4TsEt/V
-	 rocjJ3YbeG+NQ==
-Message-ID: <sashiko-outbox-229025@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] spi: loongson-io: Add SPI-IO interrupt-driven
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Binbin Zhou" <zhoubinbin@loongson.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <010b8f2cd618854142124c6418f4e9ccb80fb852.1795425389.git.zhoubinbin@loongson.cn>
-References: <cover.1795425389.git.zhoubinbin@loongson.cn>
- <010b8f2cd618854142124c6418f4e9ccb80fb852.1795425389.git.zhoubinbin@loongson.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 10:05:28 +0000
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A7CB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Fy4TrY6T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795428326;
+	bh=a1/XioPUQOk/Y+CGy7Ob4OJm/x2Pd/UgMyEWsylmoiU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Fy4TrY6TmXh/ljo+lsHC4WaWEu3NPgVkyxOLpm54IQha82S/0hNWaowDfWqbOZ9Q9
+	 7c5OKwrgrF9RTFGykd3PuoR0dW/b/oI2aG0DtAEUJF63bU9wpv52bLBXd3/rGicn0O
+	 FQHJVomaKIwGtUsxz83Kjhy4HYSMH+R3eCWU7TnpgKtkjnjYILzWyPnwh+g7+mkM5L
+	 G+/HPAoTC+Rq3S31aumUL7381kXn3vNC7FnA9A4cbjMc1Ie9KfUdRLwedlyG5Ur1KD
+	 xGqgkRIL3FlM+yXwz62bKtI566fz7CR5vWDQ1/VMFNvXud8H7pzlF/u5yTK7b5NPyV
+	 J29BH1iSf8yFQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E9C5517E007F;
+	Mon, 23 Nov 2026 11:05:25 +0100 (CET)
+Message-ID: <33cf13e4-6df0-45f8-b621-ffe3f43419c9@collabora.com>
+Date: Mon, 23 Nov 2026 11:05:25 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,219 +60,127 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 27/46] dt-bindings: display: mediatek: Introduce
+ Digital Video Output HW
+To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+Cc: "robh@kernel.org" <robh@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
+ <mripard@kernel.org>, "kernel@collabora.com" <kernel@collabora.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-28-angelogioacchino.delregno@collabora.com>
+ <98cde7319f539cab9f72ec370d309b26569889c9.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <98cde7319f539cab9f72ec370d309b26569889c9.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] spi: loongson-io: missing error IRQ enables and uncleared SR1
-  in ISR
-- [High] spi: loongson-io: 32-bit divisor truncation in
-  loongson_spi_io_timeout()
-- [Medium] spi: loongson-io: IRQ enabled before hardware and batch init
-  in probe/xfer
-- [Medium] spi: loongson-io: unsynchronized timeout in
-  loongson_spi_io_transfer_one()
-- [Low] spi: loongson-io: inverted @high CS contract in
-  loongson_spi_io_set_cs()
---
+On 11/20/26 03:17, CK Hu (胡俊光) wrote:
+> On Tue, 2026-07-14 at 13:43 +0200, AngeloGioacchino Del Regno wrote:
+>> Add documentation for the Digital Video Output (DVO) IP found in
+>> the newer generation SoCs MT8196, MT8189 and their variants.
+>>
+>> This is effectively a more capable block replacing the DisplayPort
+>> Interface (DPI/DP_INTF) one found in older SoCs.
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>   .../display/mediatek/mediatek,mt8196-dvo.yaml | 143 ++++++++++++++++++
+>>   1 file changed, 143 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
+>> new file mode 100644
+>> index 000000000000..b38960327ca1
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
+> 
+> This file would include multiple SoC dvo, so it's better to use mediatek,dvo.yaml.
 
-commit 7a2b450ad49a89d82f040f8bc7f2f42d5aadeb60
-Author: Binbin Zhou <zhoubinbin@loongson.cn>
+Devicetree bindings maintainers will disagree with this statement ;-)
 
-spi: loongson-io: Add SPI-IO interrupt-driven driver
+> 
+>> @@ -0,0 +1,143 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: https://urldefense.com/v3/__http://devicetree.org/schemas/display/mediatek/mediatek,mt8196-dvo.yaml*__;Iw!!CTRNKA9wMg0ARbw!n3pk94kKoN-7zfem5SHfJn_ixDmAleFOW2dJwmZ8W5gJz-iEQGAN6yOkpupaMXAvAlr3KfAndB5Fjy57tNXsxA_uvNy3$
+>> +$schema: https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.yaml*__;Iw!!CTRNKA9wMg0ARbw!n3pk94kKoN-7zfem5SHfJn_ixDmAleFOW2dJwmZ8W5gJz-iEQGAN6yOkpupaMXAvAlr3KfAndB5Fjy57tNXsxNztWOiH$
+>> +
+>> +title: MediaTek Digital Video Output (DVO) Controller
+>> +
+>> +maintainers:
+>> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> +
+>> +description:
+>> +  The MediaTek Digital Video Output (DVO) hardware provides 120-bits (4P) data,
+>> +  video timing and info data for the Embedded DisplayPort, hardware-abstracting
+> 
+>  From the compatible listed below, DVO not only for eDP, but also DP, right?
+> 
 
-This commit adds an interrupt-driven platform driver for the Loongson-2K0300
-SPI-IO controller (SPI2 and SPI3).
+Yeah, on MT8189 it's also for DP.
 
-> diff --git a/drivers/spi/spi-loongson-io.c b/drivers/spi/spi-loongson-io.c
-> new file mode 100644
-> index 0000000000000..e273c9f4a9430
-> --- /dev/null
-> +++ b/drivers/spi/spi-loongson-io.c
-> @@ -0,0 +1,737 @@
+>> +  the previous generation Display Port Interface (DPI/DP_INTF) blocks, other
+>> +  than providing new capabilities.
+> 
+> No new capability? But what you list below is new capability or the same as DPI/DP_INTF?
+> 
 
-[ ... ]
+The new capabilities include PSR and MSO, other than the 4T1R in output (as DP_INTF
+did support that but only for very specific configurations).
 
-> +static unsigned long loongson_spi_io_timeout(struct loongson_spi_priv *p=
-riv,
-> +					     struct spi_transfer *xfer)
-> +{
-> +	u64 frames =3D xfer->len / priv->frame_bytes;
-> +	u64 nsec =3D frames * priv->bits_per_word * NSEC_PER_SEC;
-> +	u32 rate =3D priv->hz ? priv->hz : 1000;
-> +	u64 msec =3D DIV_ROUND_UP_ULL(nsec, (u64)rate * NSEC_PER_MSEC);
-> +
-> +	return msecs_to_jiffies(max_t(u64, msec * 2, 1000));
-> +}
+>> +  This hardware block supports 1/2/4 pixels per iteration in both its input and
+>> +  output and provides 8/10-bit RGB, YUV422 and YUV444 data formats in output,
+>> +  other than supporting input/output video window cropping and padding.
+>> +  Digital Video Output also provides Panel Self Refresh (PSR) and Multi-SST
+>> +  Operation (MSO) features for eDP 1.3/1.4.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - mediatek,mt8189-dp-dvo
+>> +      - mediatek,mt8189-edp-dvo
+> 
+> This series is so large, so it's better to drop any thing that is not related to mt8196 and you could add them back later.
 
-[Severity: High]
-Does DIV_ROUND_UP_ULL() truncate the 64-bit divisor (u64)rate * NSEC_PER_MS=
-EC
-to 32 bits?
+Are you sure you want me to drop that?
 
-DIV_ROUND_UP_ULL() expands to do_div(), which casts its divisor to uint32_t.
-For any SPI clock rate >=3D 4,295 Hz, (u64)rate * NSEC_PER_MSEC exceeds
-U32_MAX, corrupting the timeout calculation, and when rate is a multiple of
-67,108,864 Hz (2^26 Hz), the truncated 32-bit divisor becomes zero and caus=
-es
-a division-by-zero panic.  In addition, because transfers run in 4-byte IRQ
-batches, computing the timeout from ideal wire speed alone leaves large
-high-speed transfers clamped at the 1000 ms floor despite per-batch interru=
-pt
-and MMIO overhead; using DIV64_U64_ROUND_UP() avoids the divisor truncation.
+It's just 10 lines of code and some platform data really, I don't think it's all
+that much to justify dropping it?
 
-[ ... ]
+Cheers,
+Angelo
 
-> +/**
-> + * loongson_spi_io_set_cs() - Set the hardware chip-select output
-> + * @spi: SPI target device
-> + * @high: true to assert chip select
-> + *
-> + * The SSREV bit controls the hardware chip-select assertion state.
-> + */
-> +static void loongson_spi_io_set_cs(struct spi_device *spi, bool high)
-> +{
-> +	struct loongson_spi_priv *priv =3D spi_controller_get_devdata(spi->cont=
-roller);
-> +	u32 val =3D high ? LOONGSON_SPI_IO_CR1_SSREV : 0;
-> +
-> +	loongson_spi_update_bits(priv, LOONGSON_SPI_IO_CR1_REG,
-> +				 LOONGSON_SPI_IO_CR1_SSREV, val);
-> +}
-
-[Severity: Low]
-Is the @high polarity in loongson_spi_io_set_cs() inverted relative to the
-SPI core's set_cs() contract?
-
-Because SPI_CS_HIGH is not set in host->mode_bits, spi_set_cs() passes
-high =3D=3D false (logic low) to assert an active-low chip select and
-high =3D=3D true (logic high) to deassert it.  If LOONGSON_SPI_IO_CR1_SSREV
-asserts chip select as the comment states, the ternary condition is inverte=
-d;
-if it drives the CS line high, the kernel-doc comment is inverted.
-
-[ ... ]
-
-> +static irqreturn_t loongson_spi_io_irq_handler(int irq, void *dev_id)
-> +{
-> +	struct loongson_spi_priv *priv =3D dev_id;
-> +	u32 rx_data;
-> +	u32 sr1;
-> +
-> +	sr1 =3D loongson_spi_readl(priv, LOONGSON_SPI_IO_SR1_REG);
-> +
-> +	if (sr1 & LOONGSON_SPI_IO_SR1_ERR_MASK) {
-> +		dev_err(&priv->controller->dev, "SPI error: SR1=3D0x%x", sr1);
-> +		loongson_spi_writel(priv, LOONGSON_SPI_IO_IER_REG, 0);
-> +		priv->xfer_ret =3D -EIO;
-> +		complete(&priv->xfer_completion);
-> +		return IRQ_HANDLED;
-> +	}
-
-[Severity: High]
-Does the error path in loongson_spi_io_irq_handler() leave
-LOONGSON_SPI_IO_SR1_ERR_MASK latched in LOONGSON_SPI_IO_SR1_REG while none =
-of
-the error interrupt bits are enabled in LOONGSON_SPI_IO_IER_REG?
-
-loongson_spi_io_transfer_one() only enables LOONGSON_SPI_IO_IER_EOTIE, so an
-overrun, underrun, mode fault, or CRC error that halts a transfer before EOT
-never raises an interrupt and stalls until the transfer timeout.  Conversel=
-y,
-because loongson_spi_io_irq_handler() does not mask sr1 against
-LOONGSON_SPI_IO_IER_REG and does not write LOONGSON_SPI_IO_SR1_ERR_MASK back
-to LOONGSON_SPI_IO_SR1_REG to clear the status bits, any latched error bit
-causes every subsequent interrupt from another device on the shared IRQ line
-to re-enter this error branch, log an error, and complete
-priv->xfer_completion while idle.
-
-[ ... ]
-
-> +	reinit_completion(&priv->xfer_completion);
-> +	priv->xfer_mode =3D XFER_INTERRUPT;
-> +
-> +	loongson_spi_update_bits(priv, LOONGSON_SPI_IO_CR1_REG,
-> +				 LOONGSON_SPI_IO_CR1_AUTOSUS,
-> +				 LOONGSON_SPI_IO_CR1_AUTOSUS);
-> +	loongson_spi_update_bits(priv, LOONGSON_SPI_IO_IER_REG,
-> +				 LOONGSON_SPI_IO_IER_EOTIE,
-> +				 LOONGSON_SPI_IO_IER_EOTIE);
-> +
-> +	loongson_spi_io_start_batch(priv);
-> +
-> +	ret =3D wait_for_completion_timeout(&priv->xfer_completion,
-> +					  loongson_spi_io_timeout(priv, xfer));
-> +	priv->xfer_mode =3D XFER_IDLE;
-> +
-> +	if (ret =3D=3D 0) {
-> +		loongson_spi_writel(priv, LOONGSON_SPI_IO_IER_REG, 0);
-> +		dev_err(&spi->dev, "Interrupt transfer timeout");
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	return priv->xfer_ret;
-> +}
-
-[Severity: Medium]
-Can a timeout in loongson_spi_io_transfer_one() race with an in-flight
-loongson_spi_io_irq_handler() on another CPU?
-
-CPU0                              CPU1
-loongson_spi_io_transfer_one()
-  wait_for_completion_timeout()
-  /* times out */
-                                  loongson_spi_io_irq_handler()
-                                    switch (priv->xfer_mode)
-                                    case XFER_INTERRUPT:
-  priv->xfer_mode =3D XFER_IDLE;
-  loongson_spi_writel(..., IER_REG, 0);
-  return -ETIMEDOUT;
-spi_transfer_one_message()
-  spi_dma_sync_for_cpu()
-                                      memcpy(priv->rx_buf, ...)
-                                      loongson_spi_io_start_batch()
-                                        loongson_spi_update_bits(CR1_REG)
-  spi_set_cs()
-    loongson_spi_io_set_cs()
-      loongson_spi_update_bits(CR1_REG)  <-- unlocked RMW race
-  loongson_spi_io_handle_err()
-    synchronize_irq(priv->irq)
-
-Because loongson_spi_io_transfer_one() returns -ETIMEDOUT without a spinlock
-or synchronize_irq(priv->irq), spi_transfer_one_message() runs
-spi_dma_sync_for_cpu() and loongson_spi_io_set_cs() before calling
-loongson_spi_io_handle_err().  A concurrent ISR that already read
-XFER_INTERRUPT can touch priv->rx_buf and priv->tx_buf, start another hardw=
-are
-batch, and perform an unlocked read-modify-write on LOONGSON_SPI_IO_CR1_REG
-concurrently with loongson_spi_io_set_cs(), clobbering
-LOONGSON_SPI_IO_CR1_SSREV or LOONGSON_SPI_IO_CR1_CSTART.
-
-[ ... ]
-
-> +	ret =3D devm_request_irq(dev, priv->irq, loongson_spi_io_irq_handler,
-> +			       IRQF_SHARED, dev_name(dev), priv);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to request IRQ");
-> +
-> +	loongson_spi_io_reginit(priv);
-> +	loongson_spi_writel(priv, LOONGSON_SPI_IO_IER_REG, 0);
-
-[Severity: Medium]
-Can an interrupt on the shared IRQ line fire in loongson_spi_io_probe() bef=
-ore
-the controller registers are initialized and LOONGSON_SPI_IO_IER_REG is
-masked?
-
-devm_request_irq() registers the IRQF_SHARED handler before
-loongson_spi_io_reginit() runs and before LOONGSON_SPI_IO_IER_REG is cleared
-(and without clearing stale status flags in LOONGSON_SPI_IO_SR1_REG).
-Similarly, in loongson_spi_io_transfer_one(), priv->xfer_mode =3D XFER_INTE=
-RRUPT
-and LOONGSON_SPI_IO_IER_EOTIE are set before loongson_spi_io_start_batch()
-initializes priv->batch_size and clears LOONGSON_SPI_IO_SR1_EOT, leaving a
-window where a shared or stale IRQ sees the previous transfer's
-priv->batch_size.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795425389.gi=
-t.zhoubinbin@loongson.cn?part=3D3
+> 
+> Regards,
+> CK
+> 
+>> +      - mediatek,mt8196-edp-dvo
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>>
+> 
