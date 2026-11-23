@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433517;
-	b=L9/VPsRMZ20JpCH0HN8B9NjT4Oks35H07AQd+DOu947HqnjtxjB0qX/VHOB09TX0zrDk
-	 APe7rtGQ4xCl4DHJgsBhcG//6U2rwNK0GY1KjBy28HEcWlnFS/XvKrY8c7HjEO6cAGXIT
-	 gnwckGgxoyZRWSpg3pwoptigj3AKDXsBiXW7AUky7J3CzDpNk5ui8LuJg+Fwd1QbhZeM0
-	 jfTUsMAy0lpbx1LTPaC2sjjoI7zgD0SzTK+Rm7u5UmKdhKVVORoHh5iKfrdyxNnf3N5bj
-	 u9vgbrtYxizwaVjBE9tYBN35UvpLxFVmueAFuwR0dSyFzj+gbX92lnoT7EPE8gfjJ0w==
+	t=1795433634;
+	b=cW90ep60amq/h/GT/zN76C1B/jTlkOlDKOcwphLWvLmqUUpEolYjfnkNqcvsHSGlS5rw
+	 GPdNlsWzSm5Tx54Ov0VkvTIlsL55XKMnFb5lNI1B0cJUB3Nl/a6wY226ZWta7BvbxHg4p
+	 xFmHh6qxrNDE9PIW8ATGKXpvLOp6ksAJh1tzWkOmy054glm7K7osJiHQ5Hyp+v6pp9RTe
+	 TDo7zvD+uRii5jBvxlZPkc7i0qLDBjm5Y5q3iHjDBsVXkG07OwsofufYZFImxOfnlYSSj
+	 tcsJ9Xbxj16z9X3UDmTVM0zDvv94IYm6oDDhvbhuG95ijB9FLl/sFuDVLc9Qe+VX73w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433517;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iFQx7ij9ao3ncm+SaqcJRRS379BU6ubkMJ9vCKsJ9PQ=;
-	b=qwDSzU/ilfayLRo30i/GyliYn2hpUhc8ttMurW0gUt7fxKwjo775bZ7RLbNggNVTxGsQ
-	 3NmPsZiwf/mZuxFY+/XkAC/UwvIebS92xfuMdb3zNDoO2ez7AaLWAdx3jABr9BU4EAORF
-	 q0GFUUBVQS66KtX0ISRmD1eVwQ/j+83YE6bo4U+HHe7ZK8tRgNiOAW2LLx4JXHubhwjoz
-	 B8HPufW2Q1G5b2fC/fy2okltk8A6GL0bv+vrlNodlHy+6qZmuE8O1mcqi7TfYckZNBcOh
-	 j+f2L26lBPtbKsMJzVk3Su40XVqLUx3i+q3/QZXKzCSIY5XAvd5s8It7dpF4Wx1FuKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433634;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hwTobTkBKm2/JiwiYi2htTTLwpWNDT0Iwb6zrj1effc=;
+	b=PZTHICa2hlpppl4MXJ/YeaYWkl7BITq30eziO1h1jbu9fP/WzAAr7kOTMUtuzfecKAs+
+	 1S4A+MXHRzW72A23zCbrzkJ6J/wOv74OVwAJTcYm6gf4hNO4IQ3gCk9ryRhGStBrENSvE
+	 keF+tSOlztL1iJ6eKs+m5IHRCtQ+nevUtlJFBsrHKixkGpJbAp8gkh+PhHoQS2p2uYUoF
+	 StSrmoyH2R3PWXLlmFRZSMdG0bLpR2f/+Ot9t20bxUn+l/jDeu2BMt/LKwmmJhUK0X4Ix
+	 tDYD9UUOCSobo+2R9ChqaYv2yWhPbnmqtCq288E6DKWEi4CXgDlJYh39q3ewG7wG5CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQxKqQ3i;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F14sZ5ih;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578B1606A31A;
-	Mon, 23 Nov 2026 11:31:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DD5606A32A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:33:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQxKqQ3i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA51F1F000C6;
-	Mon, 23 Nov 2026 11:31:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F14sZ5ih
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702C71F000D1
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:33:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795433517;
-	bh=iFQx7ij9ao3ncm+SaqcJRRS379BU6ubkMJ9vCKsJ9PQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WQxKqQ3i1pr04Ae/CToJvR9MaTlNlt96KW7ucZDBfBdghcdGo1VG3036vAcv2fkQo
-	 F1k4jgS3f5NVdQfW8ccxYsh6QMk7bRFKrZsUCdHeffoDhb2Fo7+Fx1EaBEjA/dPS7U
-	 XhVK5VRh/FxPX/CjpVI/VCLtikOv7tmvuxhmixws8Vt+qAvml+ir4qUsxxlVIYiToY
-	 sc19JmfVEv5syfBLOLs8Jvgt9W8vFw5WUWH/eSXjffWykyZHlk4tnL2Lz0ygqHAHRQ
-	 lTdVpbQ6THZSC7t4dZAhDRBIcZ08D6wm6NaByYR3ZcuIMvjgaUJFJJsDSfdx1TdljD
-	 LE2ntX37fXWFA==
-Message-ID: <sashiko-outbox-229145@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] arm64: dts: freescale: imx93-11x11-frdm-common:
- Describe PCAL6524 supply
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Freimut Diener" <f.diener@pengutronix.de>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261123-imx93-frdm-fixes-v2-2-dd97c7fca4b1@pengutronix.de>
-References: <20261123-imx93-frdm-fixes-v2-0-dd97c7fca4b1@pengutronix.de>
- <20261123-imx93-frdm-fixes-v2-2-dd97c7fca4b1@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 11:31:56 +0000
+	s=k20260515; t=1795433633;
+	bh=hwTobTkBKm2/JiwiYi2htTTLwpWNDT0Iwb6zrj1effc=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=F14sZ5ihiSJcWYxHWXyA0XiJs3VZapM4gtxOv6f/78F22yc/zW94Pe+rIceK5uiQN
+	 rN4vxdPjMMyLaTkeVfu+6xo0dfJ+WOpuacTaL4RBIkvsIZQjOu2V3Shk9FxH4Eb0h9
+	 zM55HI9U2oCZop0+xtrhlkfvq2SR0fDNU9jENSHnvKbmmyM/MmX8kH9MTgwd5u34qg
+	 908tlanZCWRgXMEdez/va9HaUALagWY5NhhKO54WUiiLhS9qpkNa7QBt4eryDHMu51
+	 /Xs3wt7iWWXS6/OeXZeVt1EO2w1Vvic1+0yPI8IAZ/mGTmboaUfmvlxXnHgwfcCWCe
+	 eo021p1gITiOw==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ad5529ae64so22838451fa.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 03:33:53 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEvMEQOhnKYCWySX34UfMpUJqmh/3b+kVRuMpCPiJ1lvQb1L6U/hlBgVIdvJCT+VF4MmIhK2k22ADUh@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LkP04smSJHDp8FYfXBZ+vyJOQiNau3Cx8ucs2UZxGWAjUo7YZ
+	CiQNdIctW028ettlQnj6Po+oGqkg2v+ET+YDXmFMCjrR5VTBT4HFvDvc5cBuZ1DHi+XEuu84ASM
+	/tmvALn5FkIb2EmLUFIAsnFlNPWKDRZo=
+X-Received: by 2002:a05:651c:2214:b0:3ac:e24f:aa11 with SMTP id
+ 38308e7fff4ca-3ae7f9978cemr32522291fa.7.1795433631887; Mon, 23 Nov 2026
+ 03:33:51 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,75 +58,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
+ <CAGb2v66nKWdF3AvXDfb07iYVQE5FC5yDkhuutShp+Z-EgFXEfg@mail.gmail.com> <20261123111547.24280-1-vinicius.eduardo.pedrosa@gmail.com>
+In-Reply-To: <20261123111547.24280-1-vinicius.eduardo.pedrosa@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Mon, 23 Nov 2026 19:33:39 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67+kz8kdz1FBX+dn8oifOkQie6hv4FZ2Fw9VHZUvzAcSg@mail.gmail.com>
+X-Gm-Features: Aa3M54rCROWHf9umhZr72KzYmEmJvMkYMlPSpk2XNjS86lerVQ17v5gLjZWKnw8
+Message-ID: <CAGb2v67+kz8kdz1FBX+dn8oifOkQie6hv4FZ2Fw9VHZUvzAcSg@mail.gmail.com>
+Subject: Re: [PATCH 0/3] arm64: dts: allwinner: add Radxa Cubie A7Z support
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>, 
+	Enzo Adriano <enzo.adriano.code@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: imx93-11x11-frdm-common: fake fixed regulator for
-  pcal6524 vcc-supply
---
+On Mon, Nov 23, 2026 at 7:16=E2=80=AFPM Vinicius Pedrosa
+<vinicius.eduardo.pedrosa@gmail.com> wrote:
+>
+> On Sat, Nov 21, 2026 at 12:14 AM Chen-Yu Tsai <wens@kernel.org> wrote:
+> > There seem to be 3 revisions of A7Z. Which one are you targeting? Or ar=
+e
+> > there no differences as far as the OS is concerned?
+>
+> I'm targeting V1.11, which is the board I have and tested.
+>
+> I compared the published schematics. V1.10 differs from V1.11 in two
+> places relevant to this DT:
+>
+> On V1.10, BLDOIN comes from SWOUT2 and CLDOIN from PS. V1.11 uses a
+> separate SY8089 step-down regulator at 2.4 V for both.
 
-commit e42789fdf3e25ebbcd3c5baf782ad166ded4e5f4
-Author: Freimut Diener <f.diener@pengutronix.de>
+This is pretty much invisible to the OS though, unless it is toggle-able.
 
-arm64: dts: freescale: imx93-11x11-frdm-common: Describe PCAL6524 supply
+> V1.11 adds a 10k external pull-up (R59) to the microSD card-detect line,
+> which V1.10 doesn't have.
 
-This commit adds a fixed 3.3 V regulator node as a proxy for PMIC BUCK4
-and wires it to the PCAL6524 GPIO expander's vcc-supply to avoid a circular
-probe dependency between the PMIC and its interrupt parent.
+I think this is more of a fix, but again, mostly invisible to the OS.
+The only possible difference would be that you could disable the internal
+pull-up. But leaving it on shouldn't be an issue either.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi b=
-/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
-> index b3dfe516b1d55..e81b2342c50dc 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
-> @@ -49,6 +49,19 @@ button-k3 {
->  		};
->  	};
-> =20
-> +	/*
-> +	 * PCAL6524 is powered by PMIC BUCK4, but the PMIC uses PCAL6524
-> +	 * as its interrupt controller. Model the supply with a fixed
-> +	 * regulator to avoid a circular device dependency.
-> +	 */
-> +	reg_pcal6524_vcc: regulator-pcal6524-vcc {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VDD_3V3_PCAL6524";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		regulator-always-on;
-> +	};
-> +
->  	reg_usdhc2_vmmc: regulator-usdhc2 {
->  		compatible =3D "regulator-fixed";
->  		off-on-delay-us =3D <12000>;
-> @@ -207,8 +220,7 @@ pcal6524: gpio@22 {
->  		gpio-controller;
->  		pinctrl-0 =3D <&pinctrl_pcal6524>;
->  		pinctrl-names =3D "default";
-> -		/* does not boot with supplier set, because it is the bucks interrupt =
-parent */
-> -		/* vcc-supply =3D <&buck4>; */
-> +		vcc-supply =3D <&reg_pcal6524_vcc>;
->  	};
+> So the power supplies and card-detect configuration would need changes
+> for V1.10.
+>
+> From the V2.00 schematic, the parts covered by this DT (PMIC, microSD,
+> LED and UART) appear unchanged from V1.11. V2.00 adds MIPI DSI, a second
+> CSI connector and a backlight driver, none of which are described here.
+>
+> Would you prefer keeping this DT for V1.11 (and V2.00), with a separate
+> DT for V1.10 if needed, or splitting the revision-specific parts now?
 
-[Severity: Medium]
-Should reg_pcal6524_vcc be added to the Devicetree when no separate
-fixed regulator exists on the board?
+From what you mentioned it's not a big deal. For the new connectors
+on V2.00, we're still a very long way from that, and it could just
+be a separate .dts file with the new bits, and include the v1.1x one
+as its base.
 
-Devicetree describes the physical hardware topology rather than encoding
-workarounds for Linux driver probe ordering or dummy-regulator log
-messages.  Modeling BUCK4 as a standalone always-on regulator-fixed node
-misrepresents the board's power tree in the DT ABI and instantiates a
-redundant platform device duplicating the regulator core's dummy
-regulator.
+> I also saw Andre's review of Enzo's v4 [1]. I'll apply the relevant
+> changes to this DT, including removing the MMC alias and revisiting the
+> regulator descriptions and constraints. I'll wait for Enzo's v5, test on
+> my V1.11 board and send a v2 with those changes and the LED patch
+> squashed into the board DT, as Krzysztof requested.
 
-In Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml, vcc-supply
-is optional, and other i.MX91/i.MX93 boards with the same PCA9451A and
-PCAL6524 topology (such as imx93-11x11-evk-common.dtsi and
-imx91-11x11-frdm.dts) omit vcc-supply on pcal6524 until the cyclic
-dependency between PMIC IRQ resolution and expander supply lookup is
-handled in the kernel drivers.
+Sure.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-imx93-frdm=
--fixes-v2-0-dd97c7fca4b1@pengutronix.de?part=3D2
+
+Thanks
+ChenYu
+
+> [1] https://lore.kernel.org/all/20261122003932.568c099c@ryzen.lan/
+>
+> Thanks,
+> Vinicius
+>
