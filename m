@@ -1,101 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795398642;
-	b=ixS5PlQC6lFGtvnjdA9B53/xewhIh3NHmhslA4cFHDWwzcaD7cKPLWKe9RtB6ee82TFS
-	 pwDdzK5LMG998BO0IlK3qbKs95Uy9DyKvrZJsDhZZw6+lutMSjjoVjYXRBoyM94Em2Lm0
-	 O9zgVlm1VFzJPCsECY0D0oM4OxUQnmxkELPghRd4g5mLlxFLl8zTgKIB+wfXWYXlD0ven
-	 qMGTP3fPu7zfuBKDry/7mPVBE7CfPAD2Ddx8IwvLkRnYhv5N3m8KWmDKSpEU0TPGiHH+W
-	 rnSEPd9gWbvDFQbDZo5viz6DxX4IFylVCwDeU5UxE1J6HPOeZwuWj2307YIxxfkFHRg==
+	t=1795398707;
+	b=PbSKW/nPXnZgYizTZ9pQGguGXsqomxFSt06i0NpSZjg75wAXOoRJI+0qdBoo3JfL3cJD
+	 a9ZEusc1mA6mwSdErv3U+4zfNkxi+89Gp/Gu0Ng9ZZwD+ubp6pmM2iII6t+y6CKpa2S2b
+	 FRr0SvKc9r3+36sX7O37U9wKgmbASdgL3fg8kEEaQAboM21vTGu2K+Wgkrf7Xhh0XrGja
+	 qqPSsH1uYPum+85KuJfSU64wvl4QXJRieJBdI7TwDR68s1hRC9Pq9R/wr6p+3cw1Kllbm
+	 U19q6a2OJla0SEUZ+ABRD5+Yd/NHo2rgli7jqEyKAOHjyOyeT9mlK3B0nLDjmjpVOeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795398642;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vtcXd26CBIIDN3LfpX4nHV3TvJWIXKwwyZF0T/tbLeY=;
-	b=ixEGZ+Rx/J/YBj7Xo9wtmV2WkNDZbbX5fqbqxDZv7gp5PMwaKNaDOvkczCL8IJeo+/tN
-	 ePitU+YZtt7apqzNNoio5mizA3qZrNsEb+lGFNVTl51E/BChDitTtPXymDu/nKv3dOskZ
-	 lHiv5xmTLX0XeYuAforoBa/muNYCrxe3aQ+/rxFh0vUkw+t+EDSW6ATV9yY34vgNkkfb3
-	 dQRyqqhi0mjhronyN+SjukWkF2h2NBpQ2fBQpNtNaht61NsaeH/d2Fo2uF8Bspn8idI/q
-	 d/50ehB7ZWPhVZe/gAS7YpPtvx6PsZhJAkmWTOOWWZEFhS14++GfnE/9BxwclIV4HUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795398707;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=Q9NunyhRXef+uYLUVcBJxPIw1fxbnbcm5osyb8TqXYc=;
+	b=QKsHkxh9PgYaOeSy15I6MtGYzYIdKm+Cmx2k5U70237sEmxSlpNpc8Omra7P+UL3dXrN
+	 OoAA5QqdYxpGseqKEkBfcLcRqE15wI8F1xgSLTx7PJfcHFIlExefUSlINGx9hy+uqyiUT
+	 HqmkcVfviia0ZlpPTRSwAp2w7HdDTGKhhvPiC9UmyMHbLaA91nA8iuVWF3S6JzsO1Smn+
+	 9+0UU1pBHXK4YIBCVteuvn+KLE+ilh/U2oBgGkpfRMlaTmNoMLSf/zISVISqCNAwYChwM
+	 UTYimqZdWBcIxWcv4KXZdw2lICRkEjpA4JlFIeaSPEhRPUALXhYtYOkavOxRQyJ9C/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BnmEjv4F;
-	arc=none smtp.remote-ip=209.85.160.52
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="NJoD1TY/";
+	arc=none smtp.remote-ip=210.79.60.76
+Received: from mail-m6076.netease.com (mail-m6076.netease.com [210.79.60.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950EC606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:50:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 950EC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3693606A31A;
+	Mon, 23 Nov 2026 01:51:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3693606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BnmEjv4F
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4b5138f0991so1992736fac.1
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 17:50:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795398641; x=1796003441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vtcXd26CBIIDN3LfpX4nHV3TvJWIXKwwyZF0T/tbLeY=;
-        b=BnmEjv4F9phMdjsssxMAHoJOKTucq2jeBrTuFvujQ5JHJCNZT/NcJlxU2YAdmvrbA4
-         t7qhlNCoTejLZq5+il4P0PREQ2s8wzIsGuHzBMIwG+viIc2lqG2rZEvKSFHJOjrFS4Aq
-         QOkQqDJeqM8HFmDVtHBSr00xUe97ZjOwNW78icwsXmRtHgg32Z1Hshui9OiONTgWHXH4
-         f2Er0Wr0ZP67H8zqMQPwellI5WFPuhCVAiniU5CPz8XxlQ0Dtsfd4JMxlOCGYBySe0vp
-         9wTxzclgRhKk3FqCCRCKb3B7tQA22tgPGeF0agLf4SvcWC17I7kUXf7gh03DIMBAtCax
-         eaBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795398641; x=1796003441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vtcXd26CBIIDN3LfpX4nHV3TvJWIXKwwyZF0T/tbLeY=;
-        b=bQsxhHf00JP13q3OYOs+ADLlLcol0nfZL1gBpX+xZZTAv2m0Ats2UalLTThdSMFZfT
-         B4EIF+wW9O8weM+0x6KdQP2gX+cXvVEBXQyhEFB1RyXDdB1X0SU563pfppJJh3K4pYwG
-         ZMMTz2rZHObj/0/qO9xTXdpWczFIsWuHS2qZ/BKRvX5WdF9d0+ojerIvah9uEjwyRQ3u
-         hDaPeVF0BQiH5SLCcftqvuBw5DUdHdLkq/nN4p4dtRUx27h76E3TLQ2XucFkwpr1ZyCh
-         UxfMTutPxK9YiMvJ34d1250aMMmmYnuE1foOu8IISOUEEDMxR/NarD52/RWxX/blGV0X
-         PLxg==
-X-Gm-Message-State: APuU4Z+gQ99NyfNuPR4BJuZfyvuTbd+Wbyfio7uUhKknWoGkHvGhjkm8
-	IpIcz2FNkmVCZO8NOKzxN1E3JmMJoTlNo1qdl0+b8Ii6B20pSv5eVFAR
-X-Gm-Gg: AZFdTZd/A7bGhwDm0x3O+WPJIimmyoffK0Vx2D5w+e2h1FXnrmHSO9jyfNY6VM9AE4x
-	4bMpU6rDRI3esU4mwUQNqZ/xkArpr/hZgl/QQRWnw1pMI/CSkcj0qtA0OQ4mxmtoNrL1x8OzDN3
-	ynDBEsM5Msz11yOtnQT5o91+3awnVhILyk4xnbkbMVZkVq4e5KPNwM+8sH5/PoW3MiGXEuu4p4X
-	uqFLvYaWo8s0Fb3XanO9XA1tkX0Wfnkap8GSvqL5V/0X5822FzdniSEWU99lQ3J4szxuxYNXRWo
-	Y4UELSapS3WCSSMuQMPsj+K5Oj3Z5eLGn3yZs7rZ1ZdBw4uEA2JISdFx67uQnPTUOzDD9PzY40z
-	4aSSmrfrmgYaG+YIlIH0nh0a6lN1zlBk84N/gU6o0e8fd/EzXZ+jIzDghky0ry91AYjjURPP9Fq
-	t6bCYRk/3paaeJ0/L/ddj0Cnnd67W4GLhtyzJm9xgNrDpLU6gPw1/4YoYZTDVpWGLQpINSpjPny
-	y7U+sm+0ti8fQqhzF45s2Mxcpc1QxPZ++K4kLzC6ixojdk71xMbiOOcLXjGUtMa+iYgOrnquLyd
-	18jVAJYsSt0qtDxppuPkY1KkZUNcww==
-X-Received: by 2002:a05:6870:b0f6:b0:48f:e0f6:bfee with SMTP id 586e51a60fabf-4bc852ff281mr6943652fac.26.1795398641649;
-        Sun, 22 Nov 2026 17:50:41 -0800 (PST)
-Received: from neuromancer ([75.28.21.198])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bc5f7ae7dcsm9209484fac.8.2026.11.22.17.50.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 17:50:41 -0800 (PST)
-From: Chris Morgan <macroalpha82@gmail.com>
-To: linux-rockchip@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	shawn.lin@rock-chips.com,
-	linux-pm@vger.kernel.org,
-	heiko@sntech.de,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	sre@kernel.org,
-	t.schramm@manjaro.org,
-	xsf@rock-chips.com,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V3 3/3] arm64: dts: rockchip: Add Battery Gauge to Anbernic Vita-Pro
-Date: Sun, 22 Nov 2026 19:50:35 -0600
-Message-ID: <20261123015035.369192-4-macroalpha82@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261123015035.369192-1-macroalpha82@gmail.com>
-References: <20261123015035.369192-1-macroalpha82@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=NJoD1TY/
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5595de3af;
+	Mon, 23 Nov 2026 09:51:34 +0800 (GMT+08:00)
+Message-ID: <5176e5e2-72f3-4175-8b29-1dbc64c4e418@rock-chips.com>
+Date: Mon, 23 Nov 2026 09:51:32 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,50 +48,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/3] clk: rockchip: rk3506: Add the SAI MCLK output
+ gate clocks
+To: Xiangyu Zhu <1194781887@qq.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-clk@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <tencent_C2AD19EB4A6C91A75AD3DC4089CB875C4005@qq.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <tencent_C2AD19EB4A6C91A75AD3DC4089CB875C4005@qq.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa20619f63c03a7kunm9ecc2466b555bb
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQkwdVkNJH0hDQk9CTEIYGVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=NJoD1TY/x5HC+BNx2DhEsOexcaA3iF2SBwoYNe3h21uciMr+ZKulGD2CmX3tWEuWoWlx+JRbSnUoWMVVqTcm+C10FJTNIwn1lVOklkI9jXhJJ21KejXGgvp9IaaViHs4YFlyGtsfsu7MPnqwVfPKHG58LodKmT8Ysv35BcjRq/k=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=Q9NunyhRXef+uYLUVcBJxPIw1fxbnbcm5osyb8TqXYc=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Chris Morgan <macromorgan@hotmail.com>
+Hi Xiangyu,
 
-Add support for the Cellwise cw2217 battery gauge to the Anbernic
-Vita-Pro.
+On 11/23/2026 8:38 AM, Xiangyu Zhu wrote:
+> The RK3506 has four SAI MCLK output gates: SAI0 and SAI1 are controlled
+> by bits in the PMU GRF, SAI2 and SAI3 by bits in the system GRF.  Model
+> them as GRF gate clocks so the SAI MCLK pin direction can be controlled
+> through the clock framework.
+> 
+> This is v4 of the earlier "rockchip,clk-out" binding/driver submission.
+> That one introduced a generic "rockchip,clk-out" compatible plus a
+> standalone driver, which is not acceptable: upstream already has generic
+> GRF gate support (branch_grf_gate together with rockchip_clk_add_grf()),
+> and RK3576 and RK3588 register their SAI/I2S MCLK output gates with it.
+> No device tree changes are included.
 
-Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
----
- .../rockchip/rk3576-anbernic-rg-vita-pro.dts  | 21 ++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+Please slow down the pace at which you send patches so that people have
+time to read them. Don't send your patches within 24 hours.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-index e66803b5399c..2203e092e8c8 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-@@ -954,7 +954,26 @@ hym8563: rtc@51 {
- 		wakeup-source;
- 	};
- 
--	/* cellwise,cw221X battery manager at 0x64 */
-+	cw2217: fuel-gauge@64 {
-+		compatible = "cellwise,cw2217";
-+		reg = <0x64>;
-+		cellwise,battery-profile = /bits/ 8 <
-+			0x5a 0x00 0x00 0x00 0x00 0x00 0x00 0x00
-+			0xab 0xb5 0xae 0xc0 0xa9 0xa4 0xcf 0xaf
-+			0x96 0xff 0xff 0xd7 0x9a 0x83 0x70 0x69
-+			0x65 0x65 0x65 0xb8 0x81 0xd9 0xaf 0xd9
-+			0xd2 0xce 0xcd 0xcb 0xca 0xc7 0xc8 0xc5
-+			0xc2 0xba 0xa8 0x96 0x8a 0x85 0x7d 0x7a
-+			0x7f 0x88 0x92 0x93 0x94 0xd3 0xff 0x5f
-+			0x20 0x00 0xab 0x10 0x00 0x91 0x68 0x00
-+			0x00 0x00 0x64 0x3c 0xa0 0x89 0x00 0x00
-+			0x00 0x00 0x00 0x00 0x00 0x00 0x00 0xb2
-+		>;
-+		monitored-battery = <&battery>;
-+		power-supplies = <&sgm41542>;
-+		shunt-resistor-micro-ohms = <2000>;
-+		status = "okay";
-+	};
- };
- 
- &mipidcphy {
+In addition, your Message-ID seems to have been modified by your email
+provider:
+
+Message-ID: <tencent_C4C715C962613597F98212938F8940633306@qq.com>
+
+Please try the downgrade the git version[0] you use for
+git send-email, or switch to a different email provider.
+
+[0]: https://lore.kernel.org/all/8771714B848C3A9F+9f64a309-ff70-466f-8d29-15950318b728@airkyi.com/
+
+> 
+> v2 registered all four gates from one branch table while only the PMU GRF
+> was added as an auxiliary GRF.  The two system GRF gates therefore came
+> right after two PMU GRF gates in the same table, and
+> rockchip_clk_register_branches() keeps using the regmap it picked for the
+> previous branch when it finds no entry for a branch's grf_type, so they
+> ended up toggling bits of the PMU GRF.  The SAI0/SAI1 gates are now
+> registered from their own table, and only once the PMU GRF was really
+> added, so no branch table mixes two GRF types and the PMU GRF gates can
+> no longer fall back to the system GRF.
+> 
+> The series now also documents the RK3506 GRF compatibles in the Rockchip
+> GRF binding, including the "rockchip,rk3506-pmu-grf" name used by the
+> clock driver.  The RK3506 DTS uses the same PMU GRF compatible; that
+> rename is part of the RK3506 DTS series.
+> 
+> Tested on a RK3506B board: the SAI0 MCLK output runs at 12.288 MHz and
+> drives the ES8388 codec, audio playback works, and the GRF gate bits were
+> read back from the registers to confirm that they get set.  Enabling the
+> SAI2/SAI3 gates sets bit 2 and bit 3 of the system GRF (0xff288004) and
+> leaves the PMU GRF alone.
+> 
+> Changes since v3:
+>  - add the RK3506 GRF compatibles to the Rockchip GRF binding
+>  - look up the PMU GRF using the documented "rockchip,rk3506-pmu-grf"
+>    compatible instead of the vendor's "rockchip,rk3506-grf-pmu" name
+> 
+> Changes since v2:
+>  - register the SAI0/SAI1 gates from a separate table that is only used
+>    when the PMU GRF was added successfully
+> 
+> Changes since v1:
+>  - drop the rockchip,clk-out binding and driver
+>  - use the existing GATE_GRF support like RK3576 and RK3588 do
+>  - limit the series to the clock driver and the dt-bindings IDs
+> 
+> Xiangyu Zhu (3):
+>   dt-bindings: soc: rockchip: Add RK3506 GRF compatibles
+>   dt-bindings: clock: rockchip,rk3506-cru: Add SAI MCLK output gate IDs
+>   clk: rockchip: rk3506: Register the SAI MCLK output gates
+> 
+>  .../devicetree/bindings/soc/rockchip/grf.yaml |  4 +++
+>  drivers/clk/rockchip/clk-rk3506.c             | 27 +++++++++++++++++++
+>  .../dt-bindings/clock/rockchip,rk3506-cru.h   |  4 +++
+>  3 files changed, 35 insertions(+)
+> 
+
 -- 
-2.53.0
-
+Best, 
+Chaoyi
