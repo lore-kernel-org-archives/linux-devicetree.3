@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795453552;
-	b=czFJGTY9QNPzZ+Ifzyr4MyNFzZ9jV1pOUg/j82JT1zZ18j6NsUnD3uodYyUp1lPDykbS
-	 Y2Bm7CXKMMoxDhcXDyHkkB63nra9FIqOS3pRMplFkI8/npJyJTDT1Mr1+GHgiiTH1aMBZ
-	 A7x435KZrRlVv25z/+KA+u70gvVUyiMT0WpXVfRyPbkaO4UPeWF0fanf138CWOIQLWENH
-	 khh4LSq0jv4b2h9UqenLVcwTzcwtxRbu4fYNNB5NjkU/gR4Aa8+do0oZ0RV9RydaWb7nq
-	 KHo1GDwUuaHVn5uvYQv7jDPEZ3HSQhFh8Hdh/Kd/jFqnc6L2J4KTVvPdoHXZcD4c9ww==
+	t=1795453682;
+	b=hKXN+Js3VIJQ1UyxbKu6Rn9ZhnbMCfR8lGEEryob+sqCifkMfJ0fVYXzJi20dxzRIWbM
+	 2q3tUJA1oTtxLrpcc6h1SQWVIp9AnAAgBCCgC03gJSTcj9/8lDWIZvCkmnq1aIbamKpgw
+	 ohdpJRxKAeXpqTQ1BK9hNGAWlgJsiYmxf3LMTmsaNoxp+dreYIkUwNJV2Vl5HN4axGv6D
+	 NzrbCjxi3+llIGzXjuIJh4KpedYOoB53wHfMihS8xbAWOcUPE/agWP0YjXQE8QOspCo6a
+	 oNMZMLTuxkN8pl4wqxks3Vbsaq9/5sS56d9WstgWYXNtXwAhuFtL0MSrv5S9B42Qd8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795453552;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795453682;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UdOz9tM78aKCNuwtvaRDMGailtWmOr3a12bo3DCQKKM=;
-	b=titz/ARUq9+2YeHutPVQ055ORFZfDrwXJkNzWIFoRmbS7BZ8OT5vg12FwVkib9TvPVLT
-	 bKDqziBjeUQueg72HmVkk0oN+oShA/RJJ0vkLBuTVVnd8fiA4cTEs9HVSRTqCaWApjr7o
-	 pHDSeQWyXj22ynbqFMXoSD9RXj4CgKCeA7KavtZrZGZ4sL2amrPLsPczYRVer5njJ9iQu
-	 fgoDzxwRJpL8zo+arbAkf4Nl6jD8IYwf471KzEgrWaP3hxclD6gMSgOZb6i/ydYViMsUO
-	 kUTD8TGRA3UaxUFpfWRzUzznA0v4CUjRmob+uFXs5Sw11kyMMYNyrQ7OVPC+zUW+Z6A==
+	bh=DlOdsAbl+7GPy5K40QdjPtFjdnN5GP44VrhDUatQmqs=;
+	b=RkXW/7uMTJ3CIkMtqoz0FBytBHojdQZjKUdIOgjn5MEGoxh/wHczrJqCqcfsdWhV0hB4
+	 TH03CACgClwlXZv7/PtsvrheLc1lujxV/zZ2Lig7RGHnpcmvcnqI0OkYktV0Z3IfRWrvv
+	 xkQu/4V1RTRZGxIUGd9u8AvLZdkPOlNjjUtwnqC7Rp9KBV9S912mRjPmrvKMtXPHv0w0z
+	 F3ZeJ+kcrZQ4CraSOKYnv4q86U5OgkpFx2G1BER7taYTJ2MqeKCNBVIGGSYme4z6uRtgg
+	 QFNtLnbAVAsWZbyvuyhstZvBzzfwaNua2lB+Jf/hqpOh7xrRz6ij7B6o+ubNxP9n2Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lw/4s7PA";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hq/CIiDe";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D45606A31E;
-	Mon, 23 Nov 2026 17:05:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F14606A31A;
+	Mon, 23 Nov 2026 17:08:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lw/4s7PA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40AB1F000C4;
-	Mon, 23 Nov 2026 17:05:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hq/CIiDe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A601F000D2;
+	Mon, 23 Nov 2026 17:07:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795453551;
-	bh=UdOz9tM78aKCNuwtvaRDMGailtWmOr3a12bo3DCQKKM=;
+	s=k20260515; t=1795453682;
+	bh=DlOdsAbl+7GPy5K40QdjPtFjdnN5GP44VrhDUatQmqs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lw/4s7PA9Qla9M6pyfDknLccka+tq6vuVRz/vbaY/sABfmgf3JY7C86z7VRe3+khP
-	 4XmqAScsw3+Ph3jikfOvUSiWg/MhO4vN2nGE1whUyTpSby5BUPtBigqzPGDi9pfPtM
-	 1d5b966w+CW0ATxP3b4D12pJbua7UYD4k4DY/2nJ6fvoNdqo3PUTKPpKqzOQDCSAPM
-	 DRmcCJ/6n6OhM85v6JAlqEVJrNRl88UDcOHdmfiYbFLqKzYSk711DpfABfpppbg8K6
-	 5ulk8ekabYv0IBnTLLE/MrY6Nm1l/iWiCGmiZTt1Mw/rl3J+1siDwG+sK0wnhbmnan
-	 GiITtjhTImdAQ==
-Date: Mon, 23 Nov 2026 17:05:46 +0000
+	b=hq/CIiDe0OP6u66SeqJ1/t9AN0UcCaHCcTZVdClRVs2zltCok+PqRzRnE5NIfrIIg
+	 eQAxPUpHAZH8QSWaIcMynaXEifLFafHi3I0rs3zl17rDX6eg92G6s4KjWfJFJOHg9s
+	 I+aHC3wv/9w7LHfTZUPnsjDa/4Ukwzx/bFev7CWFS2BNgN9+lHye9eOLIK/uKO+CuS
+	 IgIJiUP2Yq59wK/lVDX6R1nEwvvEioqEKWOGi3sMK/GrB/l3sMxJm4TZxTOD4FS2lk
+	 Yc/NIeKTDV9tn8AydAwIT6EaHDmYeNKiusTF8s58Z45vGqdXOMbeeiTvFcoWmwzRSW
+	 n24s8yrzdtb2A==
+Date: Mon, 23 Nov 2026 17:07:57 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Binbin Zhou <zhoubinbin@loongson.cn>
-Cc: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
+To: rva333@protonmail.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>, Mark Brown <broonie@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-spi@vger.kernel.org,
-	Bingxiong Li <libingxiong@loongson.cn>
-Subject: Re: [PATCH 2/5] spi: dt-bindings: loongson,ls2k-spi: Document
- loongson,ls2k0300-spi-io compatible
-Message-ID: <20261123-bulldozer-corporal-630630eb69b9@spud>
-References: <cover.1795425389.git.zhoubinbin@loongson.cn>
- <f4b1bbc084281212070f4aacd19fafbaaff11b42.1795425389.git.zhoubinbin@loongson.cn>
+	Joshua Crofts <crofts@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 6/7] dt-bindings: iio: light: stk33xx: add stk3331
+Message-ID: <20261123-emblaze-dismount-b03962c99a21@spud>
+References: <20261122-6768-stk3337-v3-0-b0d0a924e843@protonmail.com>
+ <20261122-6768-stk3337-v3-6-b0d0a924e843@protonmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,28 +64,26 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BiGc8CbVpXuZRysG"
+	protocol="application/pgp-signature"; boundary="OkWGF633C/Dze2zf"
 Content-Disposition: inline
-In-Reply-To: <f4b1bbc084281212070f4aacd19fafbaaff11b42.1795425389.git.zhoubinbin@loongson.cn>
+In-Reply-To: <20261122-6768-stk3337-v3-6-b0d0a924e843@protonmail.com>
 
---BiGc8CbVpXuZRysG
+--OkWGF633C/Dze2zf
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
-Sashiko comments on the other binding patch however are worth looking at.
-
---BiGc8CbVpXuZRysG
+--OkWGF633C/Dze2zf
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawRyagAKCRB4tDGHoIJi
-0q6dAP4o3xF06bi8JXip8F7kt3m3k+/i7n/Kchl4KRL6Ls++uwD/XF17S/Wrg/bK
-PR7gr3s+yLbRjj1aq9h6y/0FtY3V4Qg=
-=jpFS
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawRy7QAKCRB4tDGHoIJi
+0jViAQCaXQ2kHbIfFQRLocQFqn5kifQGAjCZ8YeuakKAEYTjmgEA0hngKuGnvhC/
+4u286bBbTHC6FVKqIhWjR/JKSxnkJwE=
+=wg8a
 -----END PGP SIGNATURE-----
 
---BiGc8CbVpXuZRysG--
+--OkWGF633C/Dze2zf--
