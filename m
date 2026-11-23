@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795447268;
-	b=PEnvZReQw5UfKiBjaqZCMaxLsLLG90H6lr3txmTakLoDkHqxuHkViy33AZdvFu8kpxTi
-	 UKSxwUd5vNGxbfbBbHfKeIF6m/18ceEhbaTiwDWYwJwJqEkm/BU4JQ+FdFAR7Gd7OsAsN
-	 02fKINs6cl1TmPHSdOFinsCO5ujKU+6LlA/8EIp3Vj8Oj1Fb2OyuP+kIHD112b9RZDUnT
-	 EaCO1xT3FxqaYlBeg7Ov0Fx2BvKBEWFyPmAuuHb1Wxy3hTyDf0J7E3esvYeS1/0Knrp98
-	 QOd6315/8HzoMpPSMh5scf4DagzouVXC17gF5txdi3qXejh89nt+lW/e385ZA2p4MkQ==
+	t=1795447314;
+	b=3Hyz5vzZamDVG2BaLnurHo2ipZPFgzxG8hqjyu2EaXau+1kC7RHd6//ofpiXKQmQ21UK
+	 2LSbLSWT9hafcG6GXrBIXR6ycdlDeiGNybZD93izw5Wmsn1N6ejoWyN69uAL6BTDXgWHb
+	 RGhYa2Ts+jOmkk5YoeuldUiESPkcoNxStbaFr2WmpmptA76+ka0/3T5O4oKKOE7+YellZ
+	 /k5JAE3V/B5Z1sEMq233oIuplgo8hf4bcuxFB+MVaUs4dGa6CtT0fUHu9+dHUpxFKNZAD
+	 8VeXOhKwJL5s6eFYJH5DEbuov9iNzCKHzFZxwS2A8gPItD3/bzKwGFOAM4sOt/zjOSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447268;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=IdyWnBJTIgrZY1jF9JegcJlwviocUMY4EwnV3tMGDMk=;
-	b=bvjaN4tZudqR6saYCT+KI0dkjsqiEuT2+clFuj9YB8UhhkZXdnCvbAJWDtxzcQYAsD+d
-	 v25hQC5bnki4qlFD/QSvSV49OkrAM7h6pvf+t03KdPRevQlFY6Xk+o9p8yUqkxjDdQlka
-	 X0RE2L94U7FkUuZgRVv/UJBajmf8TV+RHzALt+OjCRfO15Bp1DD1WjKmLPG1tJ0vEfuL3
-	 PiAVRsvSad48PmYwF9anH893kgiY3TgwxvTNCSsvr/NTSqOR0jpbzLTgBRkMQ63Vxf/JJ
-	 UiadgF8YFnsDTcHUNKQm4txl6AKZ1luemcyNl8TaP+eJDWOzTH+DWwfGDE4aTH0RoDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447314;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=mrz5Cv/5bHLNxxCRNfsurN4Q359d/6omBdl+BhC7vPU=;
+	b=iogFPyDcIk2p4L44WjboMWV5yrs/eAMC+LKAiyvfu+59cKPMBhQtnhAcGy7hkFu1gCpn
+	 YUdvjzS/ggDE/TaecA5YqIUlppMxf7butnALJtKY1tz4gdeb2dDDfII49hsY+AfJ8QvID
+	 5HcZKfQR8YHyNtORqagu4q54UpKo1/N495wyjG0mI2Kw2kuSxmgkXiW97I95cizx8ONl8
+	 mNuaJ/pdTuXQM6a5yzhBfLmXN3jiMCnbyhPQUn4TPezgWCt3bQtR9g+NTie4Es+CNA9mc
+	 xKXi766W1qV7lmshNI5BZgkzwT3EzSUFkvwIue3faQMu+NFzr5lnYgKwCoyBrg/QgqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z7rhCiUm;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d6ZxGWPi;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUhcEc4Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6918606A321
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:21:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6918606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A14C606A692;
+	Mon, 23 Nov 2026 15:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z7rhCiUm;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d6ZxGWPi
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANDLPaR1461620
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:21:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IdyWnBJTIgrZY1jF9JegcJlwviocUMY4EwnV3tMGDMk=; b=Z7rhCiUm1Yg2sudi
-	2PFkyr/8G2GSQ4Rw42s2N0EEBhXHuCXgraAr7/chrPArc6k1xjUap6408kqVKf8N
-	bZmucUTooXeXiCaPET0e12DVrfdO+xM8CgT/1uA8Bin/+lX78MeuOTgU+tX3BKnp
-	woRsr0MVaNFnKlf7+OcaJBEib5dlY3RC/Rv1UAt+imNWfpbObrT5lmFCrSQnUdRW
-	kmb4qRTCQfdSm36xiRHDrKC0672pJn4zNknHviC4l2oryid8EkVfEG7o4ClqcCRz
-	lC9GUrpy26uwxg1m01uZ8hO04kt4DVwCWiWqGiOXcH0etGd7/o8pRRX2YObIi1x9
-	nudJaQ==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g9a1yp7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:21:07 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-5407322f927so143286b6e.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:21:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795447266; x=1796052066; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IdyWnBJTIgrZY1jF9JegcJlwviocUMY4EwnV3tMGDMk=;
-        b=d6ZxGWPiqbNxaw5lhbK8DQAGemnqRRPIeiJ5GTZcv+h8E1sgfkr63clTz64Zvng/nv
-         BcU2LCU3DHOgPxBzvwFhS9mNzBYK48KoLOPFDlK15SQjuh9Y3bRsL2tR1w5kHsCzSd0G
-         DsPF5MTaMNcEXn1DHS21SlpgGI97M5E3BmkX1UYBuOOYWZSrLOyj3a11Djc5kAhWwVSm
-         6CjyTgvp+JkZDHOj8GeS1fSy9YSoHauHUZkuv05R7lOK8NoNDSLmQJFdnb1Js0cE12gy
-         d4HDPQVgM6jIP6sPFlGSX2YNpKTpwonSI5a4Qo+yhY8LL+zTh9emHltPxqhf2fuuJxvi
-         esrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795447266; x=1796052066;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IdyWnBJTIgrZY1jF9JegcJlwviocUMY4EwnV3tMGDMk=;
-        b=C0JJwiZq5JDveCWe1Kx8+CHDPpAPdJeZmFWyBt8U7nGn3HCKpp8P0/wT6YsyqcM7Db
-         p97BdxcLpyKd6k03wKVtx33BGi2X19T3puXYfVkZU82yN0Ube5UxOKI2JRFxPppqmL9X
-         ubbFhME7b0xpo2TXHL659W2ACiS9vXVr5YFXKNutWjaSbfP8IOgh2eXY4epxS3OxXSrF
-         vURlsyzFq+y6sgGU/8yXSF31TLZVLXTIcBMBIg+QfnDlGW9YVRFR6BozuwiWE87FZXr2
-         oq7AJ7OfKzr12s3h3OZ6qNj2MohqWNtMlVtX6HvWoefBwwXd7YIVKPhspAAMugFWluaH
-         mX2g==
-X-Forwarded-Encrypted: i=1; AL+hErEsUB2rcruo4Wjc8pBmpPwAQE78A5ScEnNZMyL710574d7je/h5433hFGCsxz+bYX9OpVrtgZYsgkIG@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hBC63A7NcVXsz8n+Hp8AjslWBI/hpC3R3fttZhtdTJN2Qnlhh
-	BgVZQnsa7hXxroHtT8lLshTsalua6CBCoAVJOoGP08GbBLGGeNuEvctl6rjhco092DZ2zVWNC7j
-	nruksG6QHPrVeD916tLqJHMpdnCzFKONF5YJNd++YEaUPS7ODGO/cA9j1nGiyDCtM
-X-Gm-Gg: AZFdTZfzrF1b6BSX06WwrKjXmc2eklWHaSA1H4ZKfjCFqyZCKrsoNcb+E2fgkUzyvkT
-	jaRe/qPUKf+GlI2a8xTVMy4ai1Ks6ck8zDp9sLHhxy+WOasDcnS9b8czv9iAYn1VEFewYZ28BHH
-	l/aqJ7MSmksONt4VXMTn3gDINgiDa2k1AEn9O0akvpIoJjaODEEyh6hb2Ndj+5iqqngHnP/Yx8Q
-	9ZaZe62oejjcQFc7iqok6Jk+fJvhUiGpo/P14gCt2lNgo3e6JmjVMvo9cVFuAteypdAVf5Uuef7
-	gqrblx6Xr/UVi864lFUMWXg78O1Yw+8QSs98hmEcwW2Xsp3Hwj/nRxp3HDj0AZvCH3Ob276DRjb
-	TJ4eoEkBizI5XjRYU3O76wf1oxZdYznkbsFeFRYpkfGes0LpztgrHUsM+7w33kqSnV2Fa1w8=
-X-Received: by 2002:a05:6808:5198:b0:573:2541:180b with SMTP id 5614622812f47-57a058e8466mr17194556b6e.1.1795447266167;
-        Mon, 23 Nov 2026 07:21:06 -0800 (PST)
-X-Received: by 2002:a05:6808:5198:b0:573:2541:180b with SMTP id 5614622812f47-57a058e8466mr17194509b6e.1.1795447265752;
-        Mon, 23 Nov 2026 07:21:05 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba37109c58sm5375497a12.33.2026.11.23.07.21.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2026 07:21:04 -0800 (PST)
-Message-ID: <646c17cd-aded-46dd-874b-dbe7ae0f4a1d@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 16:21:01 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUhcEc4Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A21C61F000F0;
+	Mon, 23 Nov 2026 15:21:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795447314;
+	bh=mrz5Cv/5bHLNxxCRNfsurN4Q359d/6omBdl+BhC7vPU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VUhcEc4Y1mPjLPXskb5pWHWnPiZ0p07KPNG0ADMuLnVprdlhdImsNLbmZ4FGCM/R4
+	 H5XKHmFx/e3I/dZfoVCp2XcpBDZEMZcyWrg55NWwiykaxwvrcy9PAN+wtjz8YSxp+d
+	 0JXfm9XorTIgvL9GaK3Gq65+RGmm0swzo7HfleqY2fe1OLZdxiac+Z9Y5Hw4k6tSGO
+	 scXvoGZuRelfjuOOzCu2XQRJ88t5W/jtHziyBg4fZ4/yr9GVi38JIcXhsAAW2mMzBM
+	 yzvdPm18xKJWUv3pCP6Bp2kDh5TTL8w+L4AlCn1/He/9P+3Ez9z0aK+Up2nS1S9xA8
+	 cZWSiTFjR8+kA==
+Message-ID: <sashiko-outbox-229538@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 14/28] dmaengine: bcm2835: Use dma_map_resource() to
+ translate slave addresses
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrea della Porta" <andrea.porta@suse.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261123145728.29082-15-andrea.porta@suse.com>
+References: <20261123145728.29082-1-andrea.porta@suse.com>
+ <20261123145728.29082-15-andrea.porta@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 15:21:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,66 +60,177 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] clk: qcom: gcc-shikra: add PWM XO512 source clock
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261116-pwm_clocks_shikra-v1-0-55fc11501821@oss.qualcomm.com>
- <20261116-pwm_clocks_shikra-v1-2-55fc11501821@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261116-pwm_clocks_shikra-v1-2-55fc11501821@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2MSBTYWx0ZWRfX+uiJ9GZ9B32d
- 3x9ODe9yJ+wy+Z50L9hhYthl1Ot1jdlD1HZl9rZSz5sB9pwdmlwzGwVGqeYO6wY7vRsa5DNvaG0
- 2XO5zVEVFX6C6KlTlDk8Ai1q1ux6+AQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2MSBTYWx0ZWRfX3hGlfvWPzKu3
- 1eJqEszsroHoRVq7H4QNFgSNvisle/GAsEjcBqGVyclpcN4OkYFTslUsqmfcu5U33hY/+aiukwv
- j//PYb9DFR82jmE1eExN8dq2s3WFWeHLHR1hfSi3VkZWEVFIi/wBq/H98pYHLftJ9eveao13q6f
- Ndoazd16mKbUe2/jiRdmofe9l5cF3asv8psP4eTbs7zX7WnPRSTirlUzjzx7IMuWsqRTKaCkGJj
- GzAlGucrzN0qkFfVF+dLyRbyBsMvn3VIsVjRMbQNKKbi+NWK6TQxy2mH3v15zK3GsuZCj9ZvP8T
- F3JCqj7YWKAchWPczDkJVsfO9sVgz3HcJgV9ag8QYnWx+YU4U+CXB51QYui/sAjVp6jrGS6+iUu
- +WEL90VwWws3EsSw6p817vtATVEEHm9OGPtvELokbCEqR8w9mzj/yJ9+a1Wuirh2DtrRLHXGK8M
- y1H1c6IoIP9ZFpm1ZZw==
-X-Proofpoint-ORIG-GUID: xLuO5MuHYbTklhUdscvF88f6ThDyMLiQ
-X-Authority-Analysis: v=2.4 cv=cYJHPXDM c=1 sm=1 tr=0 ts=6b0459e3 cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=GtvZotVShuh0uySl3soA:9 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-GUID: xLuO5MuHYbTklhUdscvF88f6ThDyMLiQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_03,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611230061
 
-On 11/16/26 6:27 AM, Taniya Das wrote:
-> Add the programmable PWM XO512 divider sourced from bi_tcxo and make
-> GCC_PWM0_XO512_CLK its child. This permits PWM consumers to select their
-> PWM core rate through the common clock framework.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] dmaengine: bcm2835: inverted DMA direction in
+  bcm2835_dma_slave_config()
+- [Medium] dmaengine: bcm2835: redundant slave remapping in
+  bcm2835_dma_slave_config()
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit d1ee75073d9e0c52f103b1cc6d74fd59a5d9e874
+Author: Andrea della Porta <andrea.porta@suse.com>
 
-Konrad
+dmaengine: bcm2835: Use dma_map_resource() to translate slave addresses
+
+This commit translates slave FIFO physical addresses in
+bcm2835_dma_slave_config() via dma_map_resource(), falling back to parent
+bus range translation when the peripheral window is absent from
+dma-ranges.
+
+Link: https://lore.kernel.org/linux-arm-kernel/ee19a95d-fe1e-4f3f-bc81-bdef=
+38475469@arm.com/
+Link: https://lore.kernel.org/all/CAPY8ntByJYzSv0kTAc1kY0Dp=3DvwrzcA0oWiPpy=
+g7x7_BQwGSnA@mail.gmail.com/
+
+> diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+> index f8b2202096d65..3ff30c41dc63f 100644
+> --- a/drivers/dma/bcm2835-dma.c
+> +++ b/drivers/dma/bcm2835-dma.c
+
+[ ... ]
+
+> @@ -798,11 +821,30 @@ static int bcm2835_dma_alloc_chan_resources(struct =
+dma_chan *chan)
+>  			   c->irq_flags, "DMA IRQ", chan);
+>  }
+> =20
+> +static void bcm2835_dma_unmap_slave_addr(struct dma_chan *chan,
+> +					 struct bcm2835_slave_addr *sa,
+> +					 enum dma_data_direction dir)
+> +{
+> +	if (sa->mapped)
+> +		dma_unmap_resource(chan->device->dev, sa->addr, sa->size, dir, 0);
+> +
+> +	memset(sa, 0, sizeof(*sa));
+> +}
+> +
+> +static void bcm2835_dma_unmap_slave_addrs(struct dma_chan *chan)
+> +{
+> +	struct bcm2835_chan *c =3D to_bcm2835_dma_chan(chan);
+> +
+> +	bcm2835_dma_unmap_slave_addr(chan, &c->slave_src, DMA_FROM_DEVICE);
+> +	bcm2835_dma_unmap_slave_addr(chan, &c->slave_dst, DMA_TO_DEVICE);
+> +}
+
+[ ... ]
+
+> @@ -1019,10 +1061,87 @@ static struct dma_async_tx_descriptor *bcm2835_dm=
+a_prep_dma_cyclic(
+>  	return vchan_tx_prep(&c->vc, &d->vd, flags);
+>  }
+> =20
+> +/*
+> + * Device trees which do not describe the peripheral window in dma-ranges
+> + * are handled by assuming that the legacy DMA channels see the peripher=
+als
+> + * at the same address as the bus they sit on, i.e. by reverting the
+> + * translation described by the ranges property of the parent bus. This =
+is
+> + * how the VideoCore bus addresses have always been derived. Addresses w=
+hich
+> + * are not CPU physical addresses of that bus are passed through unchang=
+ed,
+> + * as legacy clients used to provide bus addresses.
+> + */
+> +static u64 bcm2835_dma_legacy_bus_addr(struct device *dev, phys_addr_t p=
+hys)
+> +{
+> +	struct device_node *bus =3D of_get_parent(dev->of_node);
+> +	struct of_range_parser parser;
+> +	struct of_range range;
+> +	u64 addr =3D phys;
+> +
+> +	if (bus && !of_range_parser_init(&parser, bus)) {
+> +		for_each_of_range(&parser, &range) {
+> +			if (phys >=3D range.cpu_addr &&
+> +			    phys - range.cpu_addr < range.size) {
+> +				addr =3D range.bus_addr + (phys - range.cpu_addr);
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +	of_node_put(bus);
+> +
+> +	return addr;
+> +}
+> +
+> +static int bcm2835_dma_map_slave_addr(struct dma_chan *chan,
+> +				      struct bcm2835_slave_addr *sa,
+> +				      phys_addr_t phys,
+> +				      enum dma_slave_buswidth width,
+> +				      enum dma_data_direction dir)
+> +{
+> +	struct bcm2835_dmadev *od =3D to_bcm2835_dma_dev(chan->device);
+> +	struct device *dev =3D chan->device->dev;
+> +	size_t size =3D width ? width : DMA_SLAVE_BUSWIDTH_4_BYTES;
+> +
+> +	if (!phys)
+> +		return 0;
+> +
+> +	if (!od->map_resource) {
+> +		sa->addr =3D od->cfg->legacy_bus_addr(dev, phys);
+> +		return 0;
+> +	}
+> +
+> +	sa->addr =3D dma_map_resource(dev, phys, size, dir, 0);
+> +	if (dma_mapping_error(dev, sa->addr)) {
+> +		dev_err(dev, "failed to map slave address %pa\n", &phys);
+> +		sa->addr =3D 0;
+> +		return -EINVAL;
+> +	}
+> +
+> +	sa->size =3D size;
+> +	sa->mapped =3D true;
+> +
+> +	return 0;
+> +}
+> +
+>  static int bcm2835_dma_slave_config(struct dma_chan *chan,
+>  				    struct dma_slave_config *cfg)
+>  {
+>  	struct bcm2835_chan *c =3D to_bcm2835_dma_chan(chan);
+> +	int ret;
+> +
+> +	bcm2835_dma_unmap_slave_addrs(chan);
+
+[Severity: Medium]
+Does unmapping both c->slave_src and c->slave_dst unconditionally here
+cause every MMC transfer to tear down and recreate the slave mapping?
+
+drivers/mmc/host/bcm2835.c shares one rx-tx channel and calls
+dmaengine_slave_config() in bcm2835_prepare_dma() before every request,
+passing either dma_cfg_rx (with dst_addr =3D 0) or dma_cfg_tx (with
+src_addr =3D 0).  When !od->map_resource, every MMC request walks the parent
+device tree node and parses ranges under devtree_lock in
+bcm2835_dma_legacy_bus_addr(); when od->map_resource is true, every
+request calls dma_unmap_resource() and dma_map_resource() again instead of
+reusing the existing mapping.
+
+> +
+> +	ret =3D bcm2835_dma_map_slave_addr(chan, &c->slave_src, cfg->src_addr,
+> +					 cfg->src_addr_width, DMA_FROM_DEVICE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D bcm2835_dma_map_slave_addr(chan, &c->slave_dst, cfg->dst_addr,
+> +					 cfg->dst_addr_width, DMA_TO_DEVICE);
+
+[Severity: Medium]
+Are DMA_FROM_DEVICE and DMA_TO_DEVICE swapped here and in
+bcm2835_dma_unmap_slave_addrs()?
+
+dma_map_resource() is called on the DMA controller device
+(chan->device->dev), which is the DMA master.  For c->slave_src
+(DMA_DEV_TO_MEM), the DMA controller reads from the slave FIFO, which is
+DMA_TO_DEVICE (IOMMU_READ); for c->slave_dst (DMA_MEM_TO_DEV), the DMA
+controller writes to the slave FIFO, which is DMA_FROM_DEVICE
+(IOMMU_WRITE).  With an IOMMU or direction-checking DMA backend, the
+inverted directions grant write-only permission to the source FIFO and
+read-only permission to the destination FIFO.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123145728.2908=
+2-1-andrea.porta@suse.com?part=3D14
