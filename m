@@ -1,104 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795441010;
-	b=QoMx7hH0h868pPioxusQsQinh4UJR0vzM+4bfHBXy1jZSmxm+jXWyrbK+Ff19vXggkO2
-	 zFRDWVEnW0zuB7yy85fFxNpzAWcRoH/W2Iyi+aIbq6ikULPW3EtxFB3V6j4oDhevj0G1m
-	 spuA7Q9X7ZVLhqz8XJOcMtTpXcgxHctOSwK/LFdD8kGeGo8BwCdICJ8Sy1zWlHgzPpUKJ
-	 wa/y7PFDpT5kuHBGa/DAeiF3hROcPybTneuf61kSZaRHIsOJ+jmhQtgainqfT6TE+vMh4
-	 NejUJmFPZhK97u2s2iobOT1YWS0wQwDxw6KN957jDtec7rRTVvi1orBN+Y4spRD3lHg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795441010;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/jYgnNJ1eaAxfY39NefHstRDCZbe1wDlUFbblgfZf+4=;
-	b=lyoMc0tww6uBjoP+UmAR497RR1gmsQtuUn4H+3XAILv3l2iqpy7reLuwAtnqD/E8UBt6
-	 8j0+a4j5QKVM1Ytw4Rpc1bDnvxjAGHO4wcgcl74d/30+o54qffTV6iFIiIMLzPSt1lpKs
-	 h2vtiaqXMgFQs04L1pbNrWSQMibqcHVM+s6fVzjTOWqWW+zdPy/1XBu0MIryuNunVU+Cw
-	 np6Qb9U3VHMUQtUI7y3K3kzQWkT8JoX+JIPrCUvhi/MdyZOFQZnQQNmG6cEZnzViajZap
-	 uZ2JiZlrcDdg9GeT2L6gAnCbg3igl4r7GCTHwe6vbbJwKaPinctqhuPcjyhCKaCD3Lg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MOJSFDGp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.43
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010043.outbound.protection.outlook.com [52.101.193.43])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795441309;
+	b=ATFdZUgT4akaXB/8JYWDCLltqCU3VTSo49nId1I98/k3c5Vpet7VXy+2JzOsoLpXsLap
+	 hTFjVcBCVstghSzQET3mISZrzUXNnSfI9luQY+cAVWjisv4GZaJUseU6Hqw1uer2ArS1O
+	 bjB1rKIaezi+CAPeQpAR8YwbOQrt4Uj4cJp0SQGdWWUDjRyTImUzLfTYaUEf4ia785SpY
+	 Xh3FkV5r2Uemwe/u7p9kJ4XZb0hFWcsImzECdYYOLUgpQrKn9VqfMvKff3sRVG6XPKJzR
+	 dJ0vtLS83BNADA0FbHJsFMl+WOYNchOUGD71eB9UA1kEIPMhr4dGyoGxvO5T/Ey5qAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795441309;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OfUQG0hIlRCU2lWDqx8AQM7i0FOxlUbopxLtGav1S8I=;
+	b=QF94kiDBtwhdWQLSgSL7tM6MtzAAj53Q0kktiD/yW2a4XjqkdoTi3adwfa5vjuKZXz2C
+	 dfD9pNIYpaaE31zUxD87ZGzV48TTutWt0EEXiFZYn+F8BElahh7D3U3n4xu4FWG76CzC7
+	 DiRq7CKyFZdWcG3GUNWM0Yvj5l5bFXiXI1OQdsisFxh7Byg2kiRVrmvH6pFXwpDWQ4kf2
+	 47hzNJw36QzhEhXxNm1USzVmIfrubJuFXA9Ac5M1HFFweZJz66ZLYX2b3pECC4wATtC2e
+	 QNM2YSMqes3H5H3E4LjXLX0VPh4jAVpxBWJrstKDX58nFSzb2LhH8/V/MFsEyp7NhdQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ph0NGALv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20357606A327;
-	Mon, 23 Nov 2026 13:36:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20357606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9E4EB606B53B;
+	Mon, 23 Nov 2026 13:41:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MOJSFDGp
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qciVD4+ZaG+hb5VNJMUF2duE3KYxSvUYc/xvPBjtLm1K5MLGi+1cJhbNGjqUrE7ygYGMZMfNCtCxiQGZ5gtJFQk2NbG1n3an3jNO0isWuo7e+ef+UuJ8MBL44nzGZbIyHaCXAwqJCy/mm/6afQHW/TdzbcWwnlHgIMH1McuFSjS0n6Wxp32ebhmesdCrS62T0M+MVqp7tD1enbT/kzVxVe8Q/lFwczDjNuHn91UIhzL7vL4E/NeOuJidzM0LbVPa/xLp7PcbUpPu2OBoV2ABrxwqiohEAMuqiFTT3bjYns4fF5E75wupJpvn/ecF8cS6U+H4DgJ/iut3SwWi1Dp9HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/jYgnNJ1eaAxfY39NefHstRDCZbe1wDlUFbblgfZf+4=;
- b=RowmcTNdRarzDu7oSaJptYplkBmH/o16mMU3b1sMtRobMCuV7QycQP3nQsu7IrtOnqmAn/ZkHuj8fSi3+M0qZDtvAnIQxVZ9v5NRFP2g8vF2o7sIWB3fClGct5bTwumeYMdhECBvZx1sMPbjubB01XNHstZJ3qoO180zgCkd6pAkcA6XERUido6mKWw+q5n4HWUZ90PiKLp7N6tg6TFlb5aS0D7Boy+9DjD4kTTgquq6yzk0s4KVYyqwQwVLnTO4tl0yHz7O/RrAgnzM3/wnYPb8w6BKIy1wJPPZxaPjewz4xlXcnanWGDtCQxn0X1l/ZO/FuHQpt0Nfgs2r76BOrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/jYgnNJ1eaAxfY39NefHstRDCZbe1wDlUFbblgfZf+4=;
- b=MOJSFDGpQzqpynF+Ja1OMLSrfnGmtxv70tRcETGJV8bJAIkat+1B5c8KOU9iZWvpCARmHZ2YjkW4iBpcB9cyJmn6JQVrTsgBjf1SwLqa2ovKSXh5gVuzg/QtLuyvWBTulXbNPU/M0nhQZHAYnmp2J82zHN+dllhmpTaNFKrxkuO6f8K/D58njdw63DXiMZxPQzhV39KxPnmZC++/KwMFr09m3ylkvMJh6hM3vu6EBPAe/GgTk+U5DDIFYs/5Ej+QGeYqv0PTV1gDaqmkhkaP42Idgwf/JjJw5mGlyy3/1Yam9Bmm4rocffMqVQAGHS1+tD7NNA4iLt91JMg2PxJUpQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by SA1PR12MB7125.namprd12.prod.outlook.com (2603:10b6:806:29f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 13:36:43 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0639.011; Mon, 23 Nov 2026
- 13:36:43 +0000
-Message-ID: <9e84ec1f-2c41-4be8-8ed1-f9350d9f2d67@nvidia.com>
-Date: Mon, 23 Nov 2026 13:36:36 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/12] dt-bindings: usb: Add Tegra238 XUSB host
- controller support
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Nagarjuna Kristam <nkristam@nvidia.com>, JC Kuo <jckuo@nvidia.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- Thierry Reding <treding@nvidia.com>, Wayne Chang <waynec@nvidia.com>
-References: <20261116-tegra-usb-v2-0-42efc03a9700@nvidia.com>
- <20261116-tegra-usb-v2-2-42efc03a9700@nvidia.com>
- <20261123-sassy-fragrant-markhor-c6fbb3@quoll>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <20261123-sassy-fragrant-markhor-c6fbb3@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0071.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ce::6) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ph0NGALv
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6F91C1F000D3;
+	Mon, 23 Nov 2026 13:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795441309;
+	bh=OfUQG0hIlRCU2lWDqx8AQM7i0FOxlUbopxLtGav1S8I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ph0NGALvgJ6621gLVBUDxpyOtR116nbgvX0Xz+SeVGMmN1mSDrPPpPOqxov/QpsOm
+	 5dzSMOVvNtZkEWuhmlNi/oEqaavEHtHc7n0aJDHdESU5SgbtP6Fx2benaJ9YeWvUUH
+	 lm1zomPR7U6eJhzvjGS+m//YQtH+lU7uVAETCFwuczLPZMZF9G5lNSiS1xLnscDeW4
+	 AvlF1blkqjClLo06CrxhCkkb25CmgU5neVR1wv/vkeq7YAiT2oWrvZGD4q/jSKMMRr
+	 uHgRlSYYigdYK2Dh+2qwuGi3NXMbk6D9wbaqOSBGWpqeUAtqVwtg/G0yYHo30HObQT
+	 we9Cku3bTx1UA==
+Date: Mon, 23 Nov 2026 14:41:46 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Rob Herring <robh@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
+	Michael Hennerich <michael.hennerich@analog.com>, Trevor Gamblin <tgamblin@baylibre.com>, 
+	Joshua Crofts <crofts@kernel.org>, Sergiu Cuciurean <sergiu.cuciurean@analog.com>, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/6] pwm: core: add pwm_get_waveform_step_might_sleep()
+Message-ID: <awQ9oGse6orrsCDj@monoceros>
+References: <20261119112437.197306-1-Nicolae-daniel.Deaconescu@analog.com>
+ <20261119112437.197306-2-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,119 +63,271 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|SA1PR12MB7125:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac1fa236-7f77-40ba-e74e-08df4966cf62
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|366016|376014|7416014|1800799024|22082099003|18002099003|11063799006|56012099006|4143699003|261028144727099003|261026140227099003|261026121527099003|261022105027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	/5ZjNrOPUKY49HzAKf2VSs0uydDxlZyPmHzVsY0lcGRQyS6qJVea5hHZL2YR+6S1/s/MFAtI14+/TE9lTyQdj0sJtKTline8EjL6PnCz7RPLfYs0/N//vHpcnMUs0ZcWZgVK6CWvtFAnR3L0geHmNEsGvYlfnrZ//rqRfre4xyxMh/d4t2XD44SaH1nnDxFPOn5w7gGMTrJ8j+0PoWL9bTP9RCq7Ul/wjSdzNodhJacQrAWQqQDWkjDhAHOICj0AsHUc4cioXBX5a+MgHTpWJk8V0sLG3uZzBPPVAltD+FOSoYQ7J2E2Rk6B8jhR+vhnMzpWzIDrqnmvh4X1BZ0wPbM+AuiJXBOmnBry9jl+1oPW4+Wmz7LmHWHiNm5Hp2HyvYl35C5drYPXPf+QYmhTVbfGQ/QvTqVXyunhywLiyTVzR+0ZxDSl8y2aqF8dagUFPrZUZxKQo10cRWKP6YrR/ZfMKpX2m8zDQPeSZdokGDGXPN96WW7+Q7eeS9dVbfc6piHHm8Mpwo5QggouDGLLNE1AAyVgUdLEv6RIprf6dCETcG927gKqh1Tclr32x0g2nsBfKFYdkleMSxfj9HasDiXynbspGCGwKPJ9YQkSnEe/WXTARHLSXMm1US8XjsR1oJ92aqnOIoo+MXnpDR053beB1t9KHG9Mxoh75ZOZ5fY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(376014)(7416014)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RHpuSndLREQ2b3BDUmtkVDcxUDJ3RHVSOCt2WGpQamIzYzhnbWFTUTdPQytH?=
- =?utf-8?B?S0F6Q2JhZDcyOWZ4cVMyUzE0V0VNYjJTTHVIYm1naDE0SDZ5VnFsdGxoL1gv?=
- =?utf-8?B?OUt2dWxiQUk5SzNuT2c0UW9DZlVhSlViam5MdlVZaklhc1d2ZEdFTlQxYTFl?=
- =?utf-8?B?dXJra1ZhdHBVeXJVS3gydGUrd3NqT1dEYW8wYWNGYmROMjJmNy9vMEJMWGxM?=
- =?utf-8?B?dHRWVjlySHppUWgrZm9wZWVHZ2sxRFZNcWZOMDBuTlZIT1RHLzgrUm1xRWZL?=
- =?utf-8?B?QXFMRnlJNXNTdUczd3JWbnlXdUk1UnRSZXozdll6dVE0T2JSS3BETVBMeWlE?=
- =?utf-8?B?K205Nnp3dkV4bWdUdU5CQ09Iajh0aVVXMFl1Z2loK2k4WGlqQnZDZWd2c1B5?=
- =?utf-8?B?dW5CdEZITGwvaGd6SzM0SU5BOFV4clJLd2V1SnNLK2c2K0kwNlBDQjdjSmwx?=
- =?utf-8?B?UXd5ekJYRmQwbGg2L3haaDVZMGUwcjN6d25NVm5hYXRNa1hPU3lRSGo0QmRZ?=
- =?utf-8?B?Zm9OUXppOWhJeC84ekRUNXUvdW0xcXd6REEzdDRpbGJMSjllY3BFMlRTZzcv?=
- =?utf-8?B?bE0xMGZuNDA5REFZTmpYZ1E3UGhmelFqcDRGOWIwUnd1TU9jeVR1b09pcWkr?=
- =?utf-8?B?ejI2UWt1cnhvZ1B5UXNVVUxkZDNoVEhlVEFRbGV0eHRsMlVNV1Rkb0JUelND?=
- =?utf-8?B?RUVrb2ZnVjFsT0czenpRUkFPSmZENTE1bXhaUnVRbnhHWEdvYnRpYldTcmps?=
- =?utf-8?B?TzIzTDduOFU5V2hOVVpub1JGalFXTnpNV3JiUytobDV1WnVSRzU1dTNHRzBa?=
- =?utf-8?B?eHZmaUM1QWNHR2RpaG8rY1JwTytMZzBtRGNiSldGREovYXI3UUZHdVZ6TEg3?=
- =?utf-8?B?QzIxS1l3K0YwdFYxT2U2NUp2YllMWWo2K3U5ZGVlYXA1c1hOcG5YSHlZNm93?=
- =?utf-8?B?eFFzSWc0YmVzMFpOaHlRUnY0VlhlM21Jc2MwcU04NG9NNCtxZXNMYytlVCt0?=
- =?utf-8?B?Z29OWHY3UjBQcjUxL3NHL241dWhrYkxsV2FPclVzSEZvREZ6RXk5WXp2dmxP?=
- =?utf-8?B?akIzYjYxZFhDWUhLWlhuM3ZrT0V0c1BDR3crK1p5c2d5d0pEM0VMMjBYRnda?=
- =?utf-8?B?dFRxUUpaZUdHdlJpS3VmNHF2L25NVEVpaDhJbFptSnBkWkdsbTNNSUVqcWpR?=
- =?utf-8?B?SDYzWElvYXc0TU5JbVM1RGR1QitTV3Jhd205b0xONFcvOHEzUlU0TEI4ZWdD?=
- =?utf-8?B?VmlvWkdRUzBmaDYyK2hXNWpxSEE0c0U4WEJ5OVViYzFYNkJ2OGZQY1c2b2FX?=
- =?utf-8?B?eTlkR1REMG9iU0hzbjV6Vm8rTTlwSGhOcm9rSTI4YWpKdjdWQ2Z1VWowSTVR?=
- =?utf-8?B?WUp5Tm9oZjZvUkVqZlpyOGt3TFdDVHVKTk5SaWhoRHNLSHM3T0ZNcWlVeTlF?=
- =?utf-8?B?cUJheEUrR3NNZzJjOG9sWGY0Q0JneVVLZ1d5Z2Z5SThqS2VZK0M2dzR6RFEz?=
- =?utf-8?B?Q0RETStiU3FRRFpYYmwvdWdHZ2JmSEFTM2RZcE03bjEzQXZvNmJDTUplSVhD?=
- =?utf-8?B?TWJ0OGlGU3VNQ016ZjEwNDRwc1VhVDFBeWI4eUQ2TkZDZjJTSGJPMHBmUU5V?=
- =?utf-8?B?cENQRE5KaUNyU0pOdllndCtTY0R3cHF2N2tCdDdGeDRDeHdiNnBzTU0wbnkw?=
- =?utf-8?B?bS9LM1lTaE1BamltSjlOK2dHZVpFRmtsVzgyNjdGYVl0WHhMdTBpSnJLd01R?=
- =?utf-8?B?VHVVTER0MVJDVmNSc3RqaHF3bGdhbjM3clM0bDcwYm8xRDQ1ZFBzc3pUSjI3?=
- =?utf-8?B?cTNFY3NCRXJkajltMW9icEVYcUpHNngrK2xTQnFOekxxL2s5TG5INkU2Mllu?=
- =?utf-8?B?YTJkYWxtc0J4YzhlV0wvZmdxT1VQd2g3TGRrRy9Eei9GcGFIbGk3RWVNdy9q?=
- =?utf-8?B?VE1FbHhkK28yY2VXZmRERE1IdllaMEdpRWFwQVA5OWdTL25hdnUxRHJ1QllF?=
- =?utf-8?B?SnU5VDdyeWdlcFFVclc2TkUxMVZDZzRuSWdrQWZGSjg0V09ZNnZGSXpZeXA3?=
- =?utf-8?B?YUZVSDdlelNYb2VpK3lrMmlRaW5kclYzbEtnZnRITDhSMmw4NTU4ZSt6Njlp?=
- =?utf-8?B?R08vYTZ0K0FKMkVhZzMwSGhSRTA1bHJGN3NzYS96OXEvZ0JwQ2ZkQWdwb2x0?=
- =?utf-8?B?L201RzZ4b1RzUnVQcWlqYUR0L0xtVDZLWWpIUWJXRU0yaHBwdWwvWmJ3bEJJ?=
- =?utf-8?B?YjE4eWpvbllIYkY1b3pEMXRKeDNpTy9hUVZBVXBRL3dBSFBDY2lTcGNwYmpX?=
- =?utf-8?B?Szk5bHEvdzRiMU1MOUNVaUdIdFlXTWxuN3RRT1Nmb0k3MXdyaHlBdDhHUjlW?=
- =?utf-8?Q?X6kXQrtww4LZPJmA+l2GChxWLZHUa71euq52/zX2kAUDx?=
-X-MS-Exchange-AntiSpam-MessageData-1: 1thZyqyheP3DOQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac1fa236-7f77-40ba-e74e-08df4966cf62
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 13:36:42.6758
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S1OTvJZV+wpkQvjMjwcf/VKyq97y41CKMx2ok7sou2S+Y5x0yrR3p7d/yVblPjBtMu5pg3SERqQWLEuI0+7sXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7125
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="piy3wfen7flpu6zb"
+Content-Disposition: inline
+In-Reply-To: <20261119112437.197306-2-Nicolae-daniel.Deaconescu@analog.com>
 
 
-On 23/11/2026 11:44, Krzysztof Kozlowski wrote:
-> On Mon, Nov 16, 2026 at 03:23:59PM +0000, Jon Hunter wrote:
->>    reg:
->> @@ -140,6 +141,16 @@ properties:
->>          - usb3-2
->>          - usb3-3
->>  
->> +  resets:
->> +    items:
->> +      - description: XUSB host controller reset
->> +      - description: XUSB SuperSpeed reset
->> +
->> +  reset-names:
->> +    items:
->> +      - const: xusb_host
->> +      - const: xusb_ss
-> 
-> Drop xusb_ prefix, that's the name of this device.
+--piy3wfen7flpu6zb
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 1/6] pwm: core: add pwm_get_waveform_step_might_sleep()
+MIME-Version: 1.0
 
+On Thu, Nov 19, 2026 at 01:24:15PM +0200, Nicolae-Daniel Deaconescu wrote:
+> A consumer that must meet minimum times, or place an edge relative to the
+> cycles of a clock a PWM gates, can't do that with the waveform API alone:
+> rounding goes down, and the margin a minimum needs is the PWM step, known
+> only to the provider.
+>=20
+> Let the provider report the rate of the clock its timing derives from and
+> the clock cycles per step. A consumer then works in whole steps and rounds
+> up when converting to nanoseconds, instead of reading the rate from a clo=
+ck
+> it gets on its own, which breaks if the PWM divides its clock.
+>=20
+> Signed-off-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analo=
+g.com>
+> ---
+>  drivers/pwm/core.c  | 69 +++++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/pwm.h | 34 ++++++++++++++++++++++
+>  2 files changed, 103 insertions(+)
+>=20
+> diff --git a/drivers/pwm/core.c b/drivers/pwm/core.c
+> index 2a050ff4608b..a63b8f65a43d 100644
+> --- a/drivers/pwm/core.c
+> +++ b/drivers/pwm/core.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/of.h>
+>  #include <linux/pwm.h>
+>  #include <linux/list.h>
+> +#include <linux/math64.h>
+>  #include <linux/mutex.h>
+>  #include <linux/err.h>
+>  #include <linux/slab.h>
+> @@ -325,6 +326,68 @@ int pwm_get_waveform_might_sleep(struct pwm_device *=
+pwm, struct pwm_waveform *wf
+>  }
+>  EXPORT_SYMBOL_GPL(pwm_get_waveform_might_sleep);
+> =20
+> +/**
+> + * pwm_get_waveform_step_might_sleep - Query the granularity of the wave=
+forms
+> + * Cannot be used in atomic context.
+> + * @pwm: PWM device
+> + * @step: output parameter
+> + *
+> + * Stores in @step the clock rate the timing of @pwm is derived from and=
+ how
+> + * many cycles of that clock one step lasts. Period, duty length and duty
+> + * offset are multiples of that step, so a waveform that is asked for in=
+ whole
+> + * steps, and is within the range of the hardware, is not changed by rou=
+nding.
+> + * Compute the length of n steps in nanoseconds as
+> + * n * @step->clk_cycles_per_step * NSEC_PER_SEC / @step->clk_rate_Hz an=
+d round
+> + * it up, because pwm_round_waveform_might_sleep() and
+> + * pwm_set_waveform_might_sleep() round down. The product can exceed 64 =
+bits, so
+> + * compute it with mul_u64_u64_div_u64_roundup().
+> + *
+> + * The values can change when a clock changes its rate, so they are only=
+ valid
+> + * as long as the provider's input clocks are not reconfigured.
 
-While I don't disagree, this is consistent with the other naming for
-things such as ...
+That function seems to be conceptually bogous. Some drivers change their
+input clock when configuring a given setting. Also not all hardware
+implementations have such a step value (see e.g. the tegra driver. There
+the duty can be configured to i/256 * period (for i in 0..256), so the
+step value for duty differs from the step value for period).
 
-  clock-names:
-    items:
-      - const: xusb_host
-      - const: xusb_falcon_src
-      - const: xusb_ss
-      - const: xusb_ss_src
-      - const: xusb_hs_src
-      - const: xusb_fs_src
-      - const: pll_u_480m
-      - const: clk_m
-      - const: pll_e
+> + *
+> + * Context: May sleep.
+> + * Returns: 0 on success, -EOPNOTSUPP if the provider doesn't report it =
+or a
+> + * negative errno.
+> + */
+> +int pwm_get_waveform_step_might_sleep(struct pwm_device *pwm,
+> +				      struct pwm_waveform_step *step)
+> +{
+> +	struct pwm_chip *chip =3D pwm->chip;
+> +	const struct pwm_ops *ops =3D chip->ops;
+> +	int ret;
+> +
+> +	might_sleep();
+> +
+> +	if (!pwmchip_supports_waveform(chip) || !ops->get_waveform_step)
+> +		return -EOPNOTSUPP;
+> +
+> +	guard(pwmchip)(chip);
+> +
+> +	if (!chip->operational)
+> +		return -ENODEV;
+> +
+> +	if (IS_ENABLED(CONFIG_PWM_DEBUG) && chip->atomic) {
+> +		/*
+> +		 * Catch any drivers that have been marked as atomic but
+> +		 * that will sleep anyway.
+> +		 */
+> +		non_block_start();
+> +		ret =3D ops->get_waveform_step(chip, pwm, step);
+> +		non_block_end();
+> +	} else {
+> +		ret =3D ops->get_waveform_step(chip, pwm, step);
+> +	}
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!step->clk_rate_Hz ||
+> +	    step->clk_rate_Hz > mul_u32_u32(step->clk_cycles_per_step, NSEC_PER=
+_SEC))
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(pwm_get_waveform_step_might_sleep);
+> +
+>  /* Called with the pwmchip lock held */
+>  static int __pwm_set_waveform(struct pwm_device *pwm,
+>  			      const struct pwm_waveform *wf,
+> @@ -1710,6 +1773,12 @@ static bool pwm_ops_check(const struct pwm_chip *c=
+hip)
+>  		if (!ops->apply)
+>  			return false;
+> =20
+> +		if (ops->get_waveform_step) {
+> +			dev_warn(pwmchip_parent(chip),
+> +				 ".get_waveform_step() needs .write_waveform()\n");
+> +			return false;
+> +		}
+> +
+>  		if (IS_ENABLED(CONFIG_PWM_DEBUG) && !ops->get_state)
+>  			dev_warn(pwmchip_parent(chip),
+>  				 "Please implement the .get_state() callback\n");
+> diff --git a/include/linux/pwm.h b/include/linux/pwm.h
+> index b11ae91723f8..c52f4c9153c2 100644
+> --- a/include/linux/pwm.h
+> +++ b/include/linux/pwm.h
+> @@ -76,6 +76,34 @@ struct pwm_waveform {
+>  	u64 duty_offset_ns;
+>  };
+> =20
+> +/**
+> + * struct pwm_waveform_step - granularity of the waveforms a PWM can gen=
+erate
+> + * @clk_rate_Hz: rate of the clock the PWM's timing is derived from
+> + * @clk_cycles_per_step: number of those clock cycles one step lasts
+> + *
+> + * The period, the duty length and the duty offset of a waveform are mul=
+tiples
+> + * of one step, which lasts @clk_cycles_per_step / @clk_rate_Hz seconds.=
+ A PWM
+> + * that divides its input clock in hardware has @clk_cycles_per_step > 1=
+=2E A
+> + * waveform that is asked for in whole steps, and is within the range of=
+ the
+> + * hardware, is not changed by rounding.
+> + *
+> + * The step is the same for every waveform and for the period, the duty =
+length
+> + * and the duty offset, so a provider whose granularity depends on the
+> + * requested period (for example through a prescaler) can't describe its=
+elf
+> + * with it. One step also has to last at least 1 ns, otherwise rounding a
+> + * length in nanoseconds up can add a whole step.
+> + *
+> + * A consumer that needs a minimum time, or that has to place an edge re=
+lative
+> + * to the cycles of the clock a PWM channel gates, can use this to ask f=
+or
+> + * the next possible value instead of one that is rounded down, and to c=
+ompute
+> + * the frequency a rounded period results in without the error of the
+> + * nanosecond resolution of struct pwm_waveform.
+> + */
+> +struct pwm_waveform_step {
+> +	unsigned long clk_rate_Hz;
+> +	unsigned int clk_cycles_per_step;
+> +};
+> +
+>  /*
+>   * struct pwm_state - state of a PWM channel
+>   * @period: PWM period (in nanoseconds)
+> @@ -287,6 +315,9 @@ struct pwm_capture {
+>   * @round_waveform_fromhw: convert a driver specific waveform presentati=
+on to struct pwm_waveform
+>   * @read_waveform: read driver specific waveform presentation from hardw=
+are
+>   * @write_waveform: write driver specific waveform presentation to hardw=
+are
+> + * @get_waveform_step: optional, report the granularity of the waveforms=
+=2E Called
+> + *	with the chip locked, so it must not sleep on an atomic chip and shou=
+ld
+> + *	report a cached clock rate instead of calling clk_get_rate()
 
-  power-domain-names:
-    items:
-      - const: xusb_host
-      - const: xusb_ss
+The part about clk_get_rate() is an implementation detail that doesn't
+need to be mentioned after "must not sleep" was stated.
 
-We probably should have dropped the 'xusb_' for all of these. Given the
-above do you still prefer we drop 'xusb_' for the resets?
+>   * @apply: atomically apply a new PWM config
+>   * @get_state: get the current PWM state.
+>   */
+> @@ -305,6 +336,8 @@ struct pwm_ops {
+>  			    void *wfhw);
+>  	int (*write_waveform)(struct pwm_chip *chip, struct pwm_device *pwm,
+>  			      const void *wfhw);
+> +	int (*get_waveform_step)(struct pwm_chip *chip, struct pwm_device *pwm,
+> +				 struct pwm_waveform_step *step);
+> =20
+>  	int (*apply)(struct pwm_chip *chip, struct pwm_device *pwm,
+>  		     const struct pwm_state *state);
+> @@ -394,6 +427,7 @@ static inline void pwmchip_set_drvdata(struct pwm_chi=
+p *chip, void *data)
+>  /* PWM consumer APIs */
+>  int pwm_round_waveform_might_sleep(struct pwm_device *pwm, struct pwm_wa=
+veform *wf);
+>  int pwm_get_waveform_might_sleep(struct pwm_device *pwm, struct pwm_wave=
+form *wf);
+> +int pwm_get_waveform_step_might_sleep(struct pwm_device *pwm, struct pwm=
+_waveform_step *step);
+>  int pwm_set_waveform_might_sleep(struct pwm_device *pwm, const struct pw=
+m_waveform *wf, bool exact);
+>  int pwm_apply_might_sleep(struct pwm_device *pwm, const struct pwm_state=
+ *state);
+>  int pwm_apply_atomic(struct pwm_device *pwm, const struct pwm_state *sta=
+te);
 
-Jon
+I didn't understand what you want to achieve with this function. For
+some PWMs it might help to select a configuration matching your needs.
+"some" and "might" in the previous sentence are bad, so you need to fall
+back to the already existing rounding functions to make your driver
+generic. And then please use the existing functions already now. (That
+doesn't mean I oppose extending the pwm core for that, new helpers are
+fine iff they work independant of the underlying hardware.)
 
+For example the already existing callbacks allow to compute for a given
+period P and duty_cycle D the next bigger implementable duty cycle value
+D' such that configuring D' and P yields a duty_cycle bigger than D.
 
--- 
-nvpublic
+Best regards
+Uwe
 
+--piy3wfen7flpu6zb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsEQpcACgkQj4D7WH0S
+/k5n/wf/Z4nW6w8kpUfDZfFpHvhb3vn+jXJ4YZImAJhcfFLWVyhnttqXVirhK5zp
+JfWhz7f5pqU1uQcoDGWoBnNQ22WY5ZKqg07nDqBoWrUvSscV+LFZdmbIRmwGlJT3
+dUPkx4EF38FGdIvIlgolVwalmtbagh0SyPMWp+jM7ACf9gCjzA2+Ndt72SqzQ1ft
+iSOoepiQengajmqlz8mxFgZFi/YyX6L/lrc0S2/ZeZA05G5sYcdoJK/nahb369F9
+6pZ0fd5KdYSbyq3tgdIB5Xi7WELZctT8OPWGD0kZ1bEZo17hvUlrHyoUB0idWY0D
+hC4OE3FZIuC1n4ErtVypFEmgdk75oQ==
+=NSy7
+-----END PGP SIGNATURE-----
+
+--piy3wfen7flpu6zb--
