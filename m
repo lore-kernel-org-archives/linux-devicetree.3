@@ -1,76 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795431689;
-	b=nH58HBW0364YMlzy/gdwHo/vDnEf72unmxWPdKGbphxpUxRh8JXcThISBRwDOLQWhvTW
-	 +f9AVbZPN1OYbwFwmi4pv9TcBAoLdu8u95q6jVdNHaBG9nbji2sLzAMXzz1xAe5NbRtpV
-	 l4irhx6BcKWlL0J0okOkDuMshTeZBHyLy8B5Xqg/5sfop5/YMZFkeTy+xcTis2sTE3FS6
-	 PhdZfV1Tdh7+EocpiB6Kh8578y9I1tJxXut/ZMh7JUIA/si9W8mzqLteNaaNLA3l4B2sv
-	 GrBuHgJ3be58XP+X3VzCZ20Bsoew//cT+0UY4wrQ/Qc4VDJWT7Pumm8Ko6Tp2gctuuQ==
+	t=1795431956;
+	b=jM9aE2psAuQ8ZYueBDcRiJXCsBUrh36idRriipUNkD/eMA7LADdstf43hz+RMO5zVu8l
+	 GwANxx6ZchlQhcA184BHa35kzxk206ttTHTYexc0E0F2gVA0PWTaiqZoyZMuP7Deeq372
+	 eZp+CQoPklnvfIEj3LJg+tHvPbDtaH0YhZxwjw9y6k/5IYhE8Q2CliTgQ/B3V88+tH9PP
+	 rBVbg9q1g1XPNSoTwSDkOhJMuOIIUTDAjid2SNqvt23y1sEj48NXixLJ3gAZrrB+d6Gu9
+	 VgCJIz9R6ESoRkN3gQk8LmwlorL6rix9rQqFbodaiIxAQ+WpoJktHKIzFfh+JVCCZPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795431689;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=9baLRy6PuRfKPu52T+JMh1Xvttd6fycEOeAlQX9Fbco=;
-	b=fem1bUY08vfv4XYcsibdS+WLp8xvy25EAv0iG9S7B0PkDiHsaw2F9JoBGE443xAIJQff
-	 WJPPFDUtoQff1P3pYo2o6uLNa1IVfgw/PA95wDZ6egF1a8d/xr2tIsI3XDbX0IM4Wpy+u
-	 BofPRLUa6sB5SMTjfs2EAJZmrVzqVR2xr4rTyMCMAJmbmpYGjpFtfrilt0H2jkLyrGgir
-	 LhLktZzvNFHg9cMTNK60I/mVhTF07+Q9lCWijNDu3SogJSMb2ibjezsuSKdUYeUR8l2GR
-	 daXpcIHmjMqQv2zsW8RofOd+MXca1s15n12EEoN2NRNQT6iM5WPCtAwjiHpmwwd535Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795431956;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cuMhs9MxlBL0fy/9YlMvcsamK52UjZ9Dphft59nHtEs=;
+	b=zeTQOHxFVdzBJBz51G7yjaJpi8ZHV8u922QtxUFouPHVqg0YxWc9jyU5Qc2fH/3CxGKk
+	 2YRxiTkPYCOSeG64v1zPhVDXNWfnP0Np0VEV/2degY/Isn2mOEaZTWdgUvuuC52n4U83q
+	 XKu4mL/X68FjPGhsd9jZOjTwDeCDbPVAdSK2RvgxVgQEL2xpxQx8/GpCC7XX3nKqfjmXz
+	 6qcVSHD3lvd0OM0ow6GNSOWiGl3x1QFskhvWcRJXQLXZBRKceqMqFxXQ1KUS5rIx2W4Rn
+	 AclMazHiZ34KUlZpJww7aS/Hze7zaQn5a1sv/BZakhh0yhqw7m2OWJDZ8qsogwkwCEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=b+c5zFzb;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHNtcvsw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90E9606A31A;
-	Mon, 23 Nov 2026 11:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B90E9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606DD606A31A;
+	Mon, 23 Nov 2026 11:05:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=b+c5zFzb
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 57521177;
-	Mon, 23 Nov 2026 11:58:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795431534;
-	bh=5hqJD3AbPoo6JiX/eE7N7lyp8uyKcnxG0dSWzKXr3MM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b+c5zFzbG4eQfeQqPqWNPxMD4xLARc8Cvx7jjrTW2pOj8YnE/swkyBnJ+pU7lK1AP
-	 5wvaHjS/R5+S00YgJ/6j2uQ0wvIeoFItHBWbTZA5HE47z7ihGa3kSfr8/dO44UtQ9U
-	 9I0DPQMZgWjxRBR6FDI3VyiL+koobmUwWQuHXHG8=
-Date: Mon, 23 Nov 2026 13:01:25 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Paul Elder <paul.elder+renesas@ideasonboard.com>,
-	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v5 02/15] clk: renesas: r8a78000: Replace sentinel by
- explicit ID map size
-Message-ID: <20261123110125.GC3010398@killaraus.ideasonboard.com>
-References: <cover.1795029012.git.geert+renesas@glider.be>
- <bf9d3d694fc06f29819b6883610c0e86c2d0066e.1795029012.git.geert+renesas@glider.be>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHNtcvsw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD22D1F000D4;
+	Mon, 23 Nov 2026 11:05:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795431955;
+	bh=cuMhs9MxlBL0fy/9YlMvcsamK52UjZ9Dphft59nHtEs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DHNtcvswe64wykBGCeW18mWpGkl5J31TaQlJDSYsljjsQSlAlqW4S1kJd/QUBMQ49
+	 aiAOrYJPmKynqnBJllf8+kYBvp9pvVJ/eSkNDASO1PSRMr8lMkcCi5kvJyWBuZAgTB
+	 wA0NxtWGTm/ouxLscqW655BM+hHYNkEDMACxGTDvGBrPc/KMIAZ1KQ9j5TZNto+ClG
+	 DyjpOOjFVEGD56gpCGnk83vrrTxowHEJiAOTEbG8RqcH3PH6SMroHMmcRZSaEGpMay
+	 NB1gWkMYa/ILJklSlZ930outO6MNL49mTQvHMEm4VzFEpeecafoShWZxNhyVoFPzes
+	 GJFPX6jiLyJIg==
+Date: Mon, 23 Nov 2026 12:05:52 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: CL Wang <cl634@andestech.com>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, tim609@andestech.com
+Subject: Re: [PATCH 1/3] dt-bindings: gpio: Add support for ATCGPIO100 GPIO
+ controller
+Message-ID: <20261123-precise-funny-wildcat-5bbbf8@quoll>
+References: <20261116040914.368298-1-cl634@andestech.com>
+ <20261116040914.368298-2-cl634@andestech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,147 +62,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <bf9d3d694fc06f29819b6883610c0e86c2d0066e.1795029012.git.geert+renesas@glider.be>
+In-Reply-To: <20261116040914.368298-2-cl634@andestech.com>
 
-On Wed, Nov 18, 2026 at 08:44:50PM +0100, Geert Uytterhoeven wrote:
-> The use of a sentinel in the clock ID mapping array will become
-> cumbersome when the need arises to find out the actual number of
-> elements in the array.  Rework the mapping data structure to fix this,
-> also improving naming.  Add a CLK_ID_MAP() initialization macro for
-> brevity.
+On Mon, Nov 16, 2026 at 12:09:12PM +0800, CL Wang wrote:
+> Document devicetree bindings for the Andes ATCGPIO100 GPIO controller.
 > 
-> While at it, drop the check for "!map" in clk_id_map_find(), as that
-> pointer can never be NULL.
+> ATCGPIO100 is the name of the IP, which is integrated in the Andes AE350
+> platform and in SoCs such as Qilai. As in the ATCSPI200 SPI controller
+> binding, the compatibles follow the platform and SoC rather than the IP
+> name: andestech,ae350-gpio is the fallback, and an SoC that integrates
+> the IP adds its own compatible, such as andestech,qilai-gpio, in front
+> of it. Drivers can then match on the fallback and still add SoC-specific
+> handling later.
+
+Do not paste here LLM. LLM should not be used for writing commit msgs,
+because this is a test if you understood what you did here. You explain
+heer basics of DT and driver, which is exactly what LLM would do.
+
 > 
-> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> The controller has up to 32 lines, and ngpios gives the number of lines
+> implemented. The debounce logic can run from either of two clocks: pclk,
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Are you saying that SoC has multiple controllers with different number
+of GPIOs? Where is the DTS, can you link it?
 
+> the APB bus clock, which is required, or extclk, an optional external
+> clock that allows longer debounce periods. The interrupt is optional, as
+> the controller also works as a plain GPIO controller without it.
+
+SoC routing is fixed, no?
+
+> 
+> Signed-off-by: CL Wang <cl634@andestech.com>
 > ---
-> v5:
->   - New.
-> ---
->  drivers/clk/renesas/r8a78000-cpg.c | 45 +++++++++++++++++-------------
->  1 file changed, 26 insertions(+), 19 deletions(-)
+>  .../bindings/gpio/andestech,ae350-gpio.yaml   | 92 +++++++++++++++++++
+>  1 file changed, 92 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
 > 
-> diff --git a/drivers/clk/renesas/r8a78000-cpg.c b/drivers/clk/renesas/r8a78000-cpg.c
-> index 0e11ae139fbffd80..03fcd128d4293cfc 100644
-> --- a/drivers/clk/renesas/r8a78000-cpg.c
-> +++ b/drivers/clk/renesas/r8a78000-cpg.c
-> @@ -16,11 +16,21 @@
->  
->  #include <dt-bindings/clock/renesas,r8a78000-cpg.h>
->  
-> -struct clk_map {
-> -	int dt_id;		/* DT binding clock ID or -1 sentinel */
-> +struct clk_id_map_entry {
-> +	u32 dt_id;		/* DT binding clock ID */
->  	u32 fw_id;		/* FIXED_CLK() ID */
->  };
->  
-> +struct clk_id_map {
-> +	const struct clk_id_map_entry *entries;
-> +	unsigned int size;
-> +};
+> diff --git a/Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml b/Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
+> new file mode 100644
+> index 000000000000..01badd2a1342
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/gpio/andestech,ae350-gpio.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +#define CLK_ID_MAP(_entries) &(struct clk_id_map) {	\
-> +	.entries = _entries,				\
-> +	.size = ARRAY_SIZE(_entries),			\
-> +}
+> +title: Andes ATCGPIO100 GPIO controller on AE350 platform
 > +
->  enum fixed_clk {
->  	FIXED_CLK_66M,
->  	FIXED_CLK_133M,
-> @@ -40,23 +50,21 @@ static const unsigned long fixed_clk_rates[NUM_FIXED_CLKS] = {
->   * struct r8a78000_cpg_priv - Clock Pulse Generator Private Data
->   *
->   * @dev: CPG device
-> - * @map: Mapping from DT clock IDs to fixed-rate clocks
-> + * @map: Mapping from DT clock IDs to fixed-rate clock IDs
->   * @fixed_hws: Fixed rate clocks
->   */
->  struct r8a78000_cpg_priv {
->  	struct device *dev;
-> -	const struct clk_map *map;
-> +	const struct clk_id_map *map;
->  	struct clk_hw *fixed_hws[NUM_FIXED_CLKS];
->  };
->  
-> -static const struct clk_map *clk_map_find(const struct clk_map *map, u32 id)
-> +static const struct clk_id_map_entry *clk_id_map_find(const struct clk_id_map *map,
-> +						u32 dt_id)
->  {
-> -	if (!map)
-> -		return NULL;
-> -
-> -	for (; map->dt_id >= 0; map++) {
-> -		if (map->dt_id == id)
-> -			return map;
-> +	for (unsigned int i = 0; i < map->size; i++) {
-> +		if (map->entries[i].dt_id == dt_id)
-> +			return &map->entries[i];
->  	}
->  
->  	return NULL;
-> @@ -65,8 +73,8 @@ static const struct clk_map *clk_map_find(const struct clk_map *map, u32 id)
->  static struct clk_hw *r8a78000_clk_get(struct of_phandle_args *spec, void *data)
->  {
->  	struct r8a78000_cpg_priv *priv = data;
-> +	const struct clk_id_map_entry *entry;
->  	struct device *dev = priv->dev;
-> -	const struct clk_map *map;
->  	struct clk_hw *hw;
->  	u32 id;
->  
-> @@ -75,13 +83,13 @@ static struct clk_hw *r8a78000_clk_get(struct of_phandle_args *spec, void *data)
->  
->  	id = spec->args[0];
->  
-> -	map = clk_map_find(priv->map, id);
-> -	if (!map) {
-> +	entry = clk_id_map_find(priv->map, id);
-> +	if (!entry) {
->  		dev_err(dev, "Unknown clock %u\n", id);
->  		return ERR_PTR(-ENOENT);
->  	}
->  
-> -	hw = priv->fixed_hws[map->fw_id];
-> +	hw = priv->fixed_hws[entry->fw_id];
->  
->  	dev_dbg(dev, "Mapping DT clock %u to %s at %lu Hz\n", id,
->  		clk_hw_get_name(hw), clk_hw_get_rate(hw));
-> @@ -116,7 +124,7 @@ static int r8a78000_cpg_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
->  	struct r8a78000_cpg_priv *priv;
-> -	const struct clk_map *map;
-> +	const struct clk_id_map *map;
->  	int ret;
->  
->  	map = of_device_get_match_data(dev);
-> @@ -137,17 +145,16 @@ static int r8a78000_cpg_probe(struct platform_device *pdev)
->  	return devm_of_clk_add_hw_provider(dev, r8a78000_clk_get, priv);
->  }
->  
-> -static const struct clk_map r8a78000_cpg_default[] = {
-> +static const struct clk_id_map_entry r8a78000_cpg_default[] = {
->  	{ R8A78000_CPG_SGASYNCD4_PERW_BUS,	FIXED_CLK(266M) },
->  	{ R8A78000_CPG_SGASYNCD8_PERW_BUS,	FIXED_CLK(133M) },
->  	{ R8A78000_CPG_SGASYNCD16_PERW_BUS,	FIXED_CLK(66M) },
-> -	{ -1 }
->  };
->  
->  static const struct of_device_id r8a78000_cpg_match[] = {
->  	{
->  		.compatible = "renesas,r8a78000-cpg",
-> -		.data = &r8a78000_cpg_default,
-> +		.data = CLK_ID_MAP(r8a78000_cpg_default),
->  	},
->  	{ /* sentinel */ }
->  };
+> +maintainers:
+> +  - CL Wang <cl634@andestech.com>
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - andestech,qilai-gpio
+> +          - const: andestech,ae350-gpio
+> +      - const: andestech,ae350-gpio
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
+> +  gpio-controller: true
+> +
+> +  "#gpio-cells":
+> +    const: 2
+> +
+> +  ngpios:
+> +    minimum: 1
+> +    maximum: 32
+> +
+> +  gpio-line-names:
+> +    minItems: 1
+> +    maxItems: 32
+> +
+> +  clocks:
+> +    minItems: 1
 
--- 
-Regards,
+Why is this flexible?
 
-Laurent Pinchart
+> +    items:
+> +      - description: APB bus clock
+> +      - description: External clock for debounce
+
+Best regards,
+Krzysztof
+
