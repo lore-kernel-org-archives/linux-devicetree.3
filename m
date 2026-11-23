@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795460949;
-	b=t3wjjz22ALOQJJkkoRa0YRcQiQiFkUx/e7x7NXUUyjsVOBNxiOjq1RzOeYqa0HeHZAsS
-	 Gr514q64lxqH02SosN24piwQTijUpwgToaaky6dfpDlksSMEEJVwegl9wOmaNvJy9L1Vu
-	 CAysPiBl+gE9vAPjxcDpuPkPSX/zy3HBpewmXLereSK+VtngguOzH1KyyMsxlm7rTC5HQ
-	 DrHUh4gmT1BKsHUCOzf7YQEYi8CAEQ3XqfkEDGGSaI70ZdL3LPs7e9HCm/YhAO9uU5Z/P
-	 I2aQBS6K4jhdmoXMQZKvtl8QgZuX+GC9FEeeLaLrsVk0NhaBT/YxhYmafv1TQWFM/MA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795460949;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795461017;
+	b=CFNPWmC0DpciChKEn753tF3En8Nn8/SgahNGqg4XGHI4ceitkN53KZw8ZV+uAjfquvq6
+	 ni4oU+1cEQDRXdFhNEbcLC/Du7ph/hrN/BJrHmVC17RcPb/7XIUarezKqX3zB3nfuNe6d
+	 g5/j1qBufWEliz0B9XDEysC+7nl2GTOYXY6mM7v8Rlck0EoaPJ1Vpy2w5ef4edZhdtA53
+	 cwdbUKBByJvZ0tHL4LkoR/k4gchOsK4KlRDSBwilOIr0K+FGhiNgaa/Udu+fb4cH/o3AR
+	 q8tNinKh1qcrFQjyYDtt6e4NLuezesjYK0gI79lp1DeNZhDs91tPJRsI8od/+kCcSpQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461017;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hXmxFeoTBX/tQ++ntzQj/is3shY2/2htZh6VSebwwAc=;
-	b=H0B5zscH2J8EXXlaqYyZMci/qcIsBCCVQHJrsyIXrgKV5cLF2PAOZrlscKKgFse5HJkT
-	 2BDkkSvBW2VTDfg52+Y0bEH5KxVHSw94eDWnouUavtFOCrN84jlp/j9WEre6mxfG5ea+i
-	 vr8157buAujILcNvpPkLahfiehaZ4oX7ZFkO1Rw6jLNhpZbI5N8m0hn/h9sJqbuR2SdKP
-	 a21h0bUZ4tymuOtamIYWBEz0tkwdblrgmgRIBTkUkqJqE8Z07aleDuTMQGODAxzz0Azxz
-	 /lK4UHgzeAje9q6j1OIq3x+v5SNYtosllJ7moyswyDqUAX9pvEcqhaMGgbjEi65xICQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bvzvFjpx;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=SN2t5kKUSYT0EN3bMFCno8MHopz+s/PrHUa4yUTEFts=;
+	b=v4nRegvoTcreprALb9rySHf8cfjdLeVbkagYlfjy93Ymn9TVBGakWLAjQU9JJ9uKvx6O
+	 gIjPM8+QBVb0QottJe67jLx8ap7gOUyvOG/IfgqIOEp787rSeP4xUgobkZwmOAkFAWpon
+	 BPiMmkdzS0HgRLUpBXD4sl0vuDDhuPsaxXX+Bbe6cH042pZJdy08wChblKZ2gaYZ9LbrO
+	 mMlut0CA6kmYYHYtgdnIu7VOltIllJKeWJt9zwd/VzvTLgqEgHJs2AdSWRWM7dBUAWwOY
+	 hY1lLuxfCCwPe6yrQv+d+p+HhVOMCy+4hA/vPKQkO5jdj75xbKV5yls3bygNnDj/9IA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="YByzpS/O";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166B9606A327
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:09:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 166B9606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C1D606A684
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:10:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C1D606A684
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bvzvFjpx
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4a2f4ca0dcfso2138991f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:09:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YByzpS/O
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-38699cf08dfso3674821eec.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:10:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795461017; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Xcl7d0znAvRj5JWJ04cfKooCvlypYy0Byrj87DHrXHbFvWxtyEDEbuW3uEM+ZxZdXy
+         GXnoMhh/Wu6V1BT6s2W6gmZUoTEORVGvQESIdyyWErgaRPPYxBJzPGq9EnEzYrbino3G
+         1cEcBRgvsWxj+q5qDKGY++skZPvuPGZoU1HzxdXeZH0phL1VpvC/r8WPBiWmZ4+cwmno
+         lGgk3ggcIAYYt4hguUypyvZ6e/wPkaL+TjzYSq5v7LeQydsbbPInfQgyGJuKlhGc5FMe
+         6KA8yeJ2LVLZ8s/UYRqQ0aiwPvfP4BX5DTZ44FeccSj9kLUF84G/cO79lFflQdWe3YxZ
+         UvvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SN2t5kKUSYT0EN3bMFCno8MHopz+s/PrHUa4yUTEFts=;
+        fh=M8UWODni7t67inY3U5r7mOVNoam5g1Oowpth8DfSOLg=;
+        b=d+CmwNYesXczCVckwXyF2WdDv0vclIVFFnN0Sp8xeXUp5VjTKudHjeV4Dt2p4VZhpP
+         ltxQauc0Q/M+pw624Z93TE89GcsRurfNng7ZGfF0cLEYo/D83v7/mB2p6ctm/H8DAtbv
+         NbdiBx+2hbaOARuav19p/3sw9CULBKa2uwjA91v+QmEHRDmGhOjmtpRoByUDuh8EFchP
+         +rHQ/kI1pN0DEsbIy6ebPeLGrSkxV2oOgpS4fxmxA7rjJnHQLbNWRFz11FnbJXEuaE5P
+         m9nQ9KjuVxi4OLVzrYdsWQmbfPN6mda8of8yZAC3i4s1lercKBDPkLX3evt8ds0XdKRM
+         7l1w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795460946; x=1796065746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hXmxFeoTBX/tQ++ntzQj/is3shY2/2htZh6VSebwwAc=;
-        b=bvzvFjpx075sG+8K5J2gMyO/voucUrNRFEDa5aga5/eRAnJrFMNDEHtmtxhq6Es/Vf
-         Va3ETZB02Tk+HUDIDJL4wHTugoTbHv9LhbfA8qJ+FltMF+6rxnoXlKREnf1XnHEscMHl
-         4E2U+tE2vJJWY69UqWY5h5XssZSKEqbBuyzI2GvHjPVmufkUG+tFZQNNQqvLcZmFV9HA
-         rzorDz8pNbd9EN9nUfRRAA/K8MHECzaVgQIl2EajITYjyvlYh//ZSYV081SXgvyeBF51
-         3REd/KLvhzSchHA1VZZvKwUVvO7+1PWJdaWjPxIklFfQn+lDVy8U3xgvTVpggqZq5/G2
-         YS7A==
+        d=gmail.com; s=20260707; t=1795461016; x=1796065816; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SN2t5kKUSYT0EN3bMFCno8MHopz+s/PrHUa4yUTEFts=;
+        b=YByzpS/OYf79mWwg8ZXz5g2gqNsa9mjTwv1Lgx2QaXdA8HmmpnkqNCmWYyZaCE5AaC
+         N3Hb7phIk8xVuDn2j/lz2KKbN7zl60AGlg+WWvB1iCZioHgqNNmkwpkqNzY9FqWsqGxY
+         7mBP+xOqWG0whyqBo9V7vOtiYqL5nJMACdcIyAery82/JonullVJESxQRfrUC3+UcGUN
+         2jkXNHmDhr5TbTkBq3bfcqrgMwzYTN9Um2UhbD/k6SFe4aIi2YMy8/xHbR3hqQ0ULGo7
+         mEAxAIQwGP8MikFwoKNIjGt8ISPeARNxrdTy6F9+HZoqpQ2prTD38KLbxyZhr1OAk+IO
+         UaFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795460946; x=1796065746;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hXmxFeoTBX/tQ++ntzQj/is3shY2/2htZh6VSebwwAc=;
-        b=fRa0YTeeyC+J6GQsEZ3/N9Acnmc00RIIKtNzpaS+eT/iAJzSkKCbfefCStWFLGTBl/
-         5PfEmlZx24YlGzNJ9CcxZOWU1zwXinKOri8eO7Q2QKJw+aRuq4PmI0ydV0MahesVmlHp
-         R73e5X1fsUKKDzmM+fLxXZF13VOsaWx7g7hEuVZp8iaUPFELXXWhyAwjRqTgJnYsGtSL
-         qpOV3raJIM6k2GyCxsKgJTKAUiEk+xzaYcmRoUWRptpIq66G+9TeMXlLB0w8LFyuoWzV
-         09S4LOOufpIx46S7tGBRqe+a8tpDa8i09P9Qi2Q+oeaBckyg0gqUiQdXknSO+GcWiFAX
-         ZGCg==
-X-Forwarded-Encrypted: i=1; AL+hErFN7qIiBQFWI+wUQo1vfY086zH+rIbMWFEUeuMZ5vkLnJ/Ix0hnJnrmMgCVvSK/b1tdtkZ1KwsdmND+@vger.kernel.org
-X-Gm-Message-State: APuU4Z/EFVnbVb6QaJm7fcDPn/ZKL/+Ecpbvq+tamLbMBOjhfDA7tl5d
-	gLR0or00rXErN4iBouAlc4ylh6UOD97cWpkgI6/N3+3ER7i1HplDRazg+7NQ/yqeknQ=
-X-Gm-Gg: AZFdTZfDYItxb/XkDUXA0WjAWgrCh5nnX/Ur72K3g7ox4RpGyQZq5kpdDDteteuMlGk
-	iv9z3axWnVW+Sfqk/RT5QldhuuHgSnbxPKv55yHq4lwWlTzuBYRZjRbmhdJoWX4EO41nqPNScAR
-	nEp39tAzvewG94w164YZ7//o1z5BOmjN+WpqmU7snWLj12T5YVFmNcE7NRZqXtRTbdoIIK9jA+U
-	pJyqyCgFL0gYAofSkR9bH6WNAej3AYgNALo4HBxT3xsUskNEqc5cCHtkgMRBT+OF89Qxr+kCOCk
-	dliHsB5w+veYA5vLk3IU97hemxON3q4e5mOxYoBfgDZEkZgOetr0YsXgVuoQuStoCpxS8sCyx/8
-	EU7NYvlOmI0nmrT8IitlcZq02aVzISzZFz8swSZHlWbv/kInCxgpE5LFnUQKoSvM/FfSRfNrfHe
-	uL+PnniiwGyHfwO0ew5JsvDeEIlX10MGGsJ8tOJ6cnSPNdBXSEV3E20AxN5U/S0XNdjHjsz/6hN
-	QMHkM165f/PY/xn9OFRgZVYJnV7IzWlUuczE+slaFQ6bZiJhwgGDEPZu9WhnUAlj5xHsAfzkXcJ
-	AdnraGVcQWM+SOJyWg9Q9RpwaX7wvUhuR74Ae9zj36Hafe5111dpncRnAg==
-X-Received: by 2002:a05:600c:3e1a:b0:4bb:6814:7391 with SMTP id 5b1f17b1804b1-4bb8881921cmr248187205e9.25.1795460946295;
-        Mon, 23 Nov 2026 11:09:06 -0800 (PST)
-Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b9add26sm24014155f8f.44.2026.11.23.11.09.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2026 11:09:05 -0800 (PST)
-Message-ID: <27796cff-eef5-46ce-8079-93a0a8d40db5@baylibre.com>
-Date: Mon, 23 Nov 2026 20:09:05 +0100
+        d=1e100.net; s=20260707; t=1795461016; x=1796065816;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SN2t5kKUSYT0EN3bMFCno8MHopz+s/PrHUa4yUTEFts=;
+        b=cwlHZL3tRlzuqnw5ai5q2Bve2LYeYsp2AGw/gnENiTxByuaRBKxQJGFY+BFLpwCAln
+         bsPIw6ByzF99ChpoNl1xDL+177uNiPuWxmnmvZzRSIoL4Y7CuGm6TlGHA7bYxDAGWaDN
+         BvoUb8gNI9wIy2E1JYttPshLwLTO8cOGLasQ4p/IKSjTwuO1RbBLvyVHHL7BC8YeYPuc
+         N2gN7to42wQORujQnebgf8c/Ua+bTJ2+rem0mP9flKc8SJYuVmZkK9HkJ+zG+r0rTtbo
+         NhZoi3R+Cwt/a00t8xZtfgKrZBxLTtOYp3+3pXmSCsifNInSyTDIT283ZqX99728hPPt
+         sVTQ==
+X-Forwarded-Encrypted: i=1; AL+hErH75ifl9pcFKU8//JChM6AW+sA25WRw5Hi85Y0oQm70i1YXDwl/plgz4su9593hLKRKuYQxj2xo/fto@vger.kernel.org
+X-Gm-Message-State: APuU4Z+D96VlT04GC8gYSzBzvoPrzs9/3w2qm+BUMtbqwYAX1uxT/+78
+	m6p8KJ8yS2ce/ys/zMJ6qs3w5WQPOinkx5go7hBqnsiOgssMf4SnlwZWjqRgGxzNni4VVehlRCM
+	45pFtD1k0JBJLlvk9Kp0BfsWqS5ipXwM=
+X-Gm-Gg: AZFdTZcweXRhBDQ+lO9y6Xbh8FzrZykYq+7zYFL1vJ1s1aIWlhAOC+TsnQ9hLbn9VQ8
+	PiQlYxf2eL1I6uucgPk9Lo4zIKQcHY8MWJKQo2t+/dTkBfZUHASXo7LMJxdOaTxKch1cOSJ0VR9
+	vh9Y9cYZTizEXi8EWH/MEzoP59mG5lO6yvTS7Qy27qD9+mzVwCxND0xcUNIf6wc55kIQ7++Gq3z
+	4Bklrp0MXHbMB8rU+kCpVTXKqAA1J7f992I4Biot5fJtvqvRwx7mpHgjvQFH8ymv5cYnC5Qx3AK
+	pcjeUY9/0cyK2JMG7+gTCdjr5OL9c2AncONQNnLyCJS6qj94P8XfClxQtI+Uzm1ToLRlxBiORZo
+	iUDs/4doIfXl6pAjjE7AUeXy3tYxWQ5n6nwII11LxMRX1/x5gO78A3CGeG1XX99y1SfyUeIkQMw
+	dXCD/slfnx3+IpBs9WfO7t15abWe7TyA==
+X-Received: by 2002:a05:693c:87d1:20b0:386:a816:ca16 with SMTP id
+ 5a478bee46e88-386a816ce29mr5178321eec.15.1795461016480; Mon, 23 Nov 2026
+ 11:10:16 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,82 +105,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping
- support
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Paul Elder <paul.elder+renesas@ideasonboard.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <cover.1795029012.git.geert+renesas@glider.be>
- <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
- <20261119234759.GB2324725@killaraus.ideasonboard.com>
- <19c3745a-6308-46ff-bb37-3acc88fe22e2@baylibre.com>
- <awAqqg6F2Z1t55x2@ninjato>
- <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
- <20261123103633.GB2959742@killaraus.ideasonboard.com>
- <fc13a7a8-b825-400c-9ea0-ceb2670dc478@baylibre.com>
- <20261123160550.GA3050935@killaraus.ideasonboard.com>
-Content-Language: en-US, fr
-From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
-Autocrypt: addr=clegoffic@baylibre.com; keydata=
- xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
- K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
- BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
- AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
- B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
- 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
- LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
- vLfPDQ==
-In-Reply-To: <20261123160550.GA3050935@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261123150725.212836-1-clamor95@gmail.com> <20261123150725.212836-3-clamor95@gmail.com>
+ <awSLzG6IxXjKLBCx@ashevche-desk.local>
+In-Reply-To: <awSLzG6IxXjKLBCx@ashevche-desk.local>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 23 Nov 2026 21:10:05 +0200
+X-Gm-Features: Aa3M54qd0Q0FdKFQ-JpohuyS51xXnBrzclr62AhndFD0zExmhfAz7QgWmQX6nVQ
+Message-ID: <CAPVz0n3Mm+GdsS_P7Yc98FVKOijXFzWocVCkzUhg+LPJ8dY+4g@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] mfd: max8907: Add ADC client support
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-iio@vger.kernel.org, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/23/26 5:05 PM, Laurent Pinchart wrote:
-> v5 supports one firmware version at the moment, and the driver would get
-> support for new firmware versions when/if needed.
+=D0=BF=D0=BD, 23 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 20:5=
+4 Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Mon, Nov 23, 2026 at 05:07:23PM +0200, Svyatoslav Ryhel wrote:
+> > The Maxim MAX8907 has an 8-channel ADC at a fixed location. Add client
+> > support for it along with its regmap and interrupts.
+>
+> ...
+>
+> > +static const struct regmap_irq max8907_adc_irqs[] =3D {
+> > +     { .reg_offset =3D 0, .mask =3D BIT(0), },
+> > +     { .reg_offset =3D 0, .mask =3D BIT(1), },
+>
+> When {} on the same line, the inner trailing comma is not needed (if we e=
+ver
+> need to extend this we would need to change a line anyway, so there is no
+> benefit of having a trailing comma).
+>
+> If it's just this, no need to resend. Just a hint for the future.
+>
 
-This is where I disagree: I don't think a SoC driver should follow the SDK versions.
+Thank you, I must have overlooked.
 
-> I have yet to see any vendor who can provide 100% stability guarantees
-> for SCMI firmware interfaces. In theory, sure. In real life, I just
-> don't buy it.
-
-I agree that while an SCMI firmware is in development, its ids can change between versions.
-To keep the ids of a released firmware stable, I see three rules:
-- an id always names the same resource, ids are never swapped,
-- an id is never dropped: when a resource goes away, the firmware keeps its id reserved and denies access to it, as SCMI 4.0 section 3.2.1 describes,
-- new ids are only added at the end
-
-I think upstream should only support a firmware that follows these rules, with its ids in the DT.
-
-For firmware still in development, I agree with what Cristian wrote on the RFC[1]: "fix your firmwares AND/OR apply quirks in the meantime".
-
-Any other view on this is welcome.
-
-> We can agree to disagree on this, no issue.
-
-Sure, I think we both already know we disagree on this :-)
-Thanks for taking the time to discuss it
-
-[1] https://lore.kernel.org/r/aekXUvIPb8nkhdKu@pluto
-
-Best regards,
-Clément
+> > +};
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
