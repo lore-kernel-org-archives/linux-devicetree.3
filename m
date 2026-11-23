@@ -1,88 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795442283;
-	b=BIS2Bzx7RoVnFrdV27FJARLjBskdjH3CZc9bfI8PUmrKrD4ohRNMBW+7tzwQAXU8Bzht
-	 ixEc37WWFgSEIMbuT00B/5uJilgCPVEioAxBZRrdCofUVy/00k644bjGg0wq+RyxExO7w
-	 gaQu4xvi+u4K7bFloyn6OckD/hthmjPu2kfj55pgbKB9h7M7X69j8dz6Gh0wyAdsrY/xt
-	 N/iP+gfU/WuG9WBDhDTOoZnu0Lb12S34b3mMNBYIwllSLIS+Q82hJyA6ExUWYjAZRjY1c
-	 5uVtjBcX6uT3Z5LgeHTPSUlf5ewZHgS0pvMk6lBCUVIuGLLdeqWIu45VEW5blOKezww==
+	t=1795442405;
+	b=SH1n0O9iX7q/NSzpg3g9ju2LJSkjuH3Rsa8Ujl8+/rZIblx+QhXO6zDo6BRCSkCKhC2h
+	 uLpB0erdur+QcdqFtBYcvE34Lq8qON5y5prUVYcU1mFZwQrvscg2XLjso1+E3g1z/tArk
+	 dL5pfAAy7UKlZBmprFk4L/LwnGTcXMQAnIo6WBMPonJCTlVuqVOIw8WzWdKX5VGUeL0wI
+	 Ggv8p2qzDmPjU8elmLBqsymS5r8Jo6pItg6B4iNDDA4s8mzEoO+s7wMAp0tlntpspOXgk
+	 mw6t8y96nenqRzebLDzMpQEJI/cbW3wZuQv9N/mjHHHG6RuRgfIUmd3L+xVyZkz6IBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795442283;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=rNrAG0FwlseYPe/ZdyatSVBSgZTqm1Xim7o4c6/vvS0=;
-	b=wno2UnWE98NWpLVWlQkOILk+fukkkO41efHPIjBN9x73hdh0TbBWb6YIbZePgBRxaTSz
-	 GhMawKGIFUffKvf0dK3BRtejM7ibEY7ZLe2WUamB0PbxQqZYnaDm3R2VExbLY4P5D97Bk
-	 TC4S8k3AXaGlT7NPtvQQHaRgV7PbSYMUwhfcmb8/XwalrSoTzJcrag5tL37ZDE3lE1sdN
-	 rBHrESs/APfNBz6QHpUg5R5g5AN/ZeorEBItjmdd23ybOGSaIIGf+PeGxJGneLU/E5BtL
-	 OvmKKfmoenxVTTXkbY5NF7sbgZ+ECgMD/FccsKLpUNrdKMhtTqqaMBUwjCEcWIigXWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795442405;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=KTNFFpQ3kER92nljtjnxslEg2HatMNO3Pm/4eF+/uVo=;
+	b=XX59QD4dVyHOhxw7j2URj3Xr/C8hIYfrim1V74CnBLYdvycfn/G1KQYKMwmRezUHluI1
+	 e9mZL+dtsz8Brh6FI2/q/Rn7kG9eL9RlREtZZZbQBEWRg026XORG2720ESFr8deJ3rXhG
+	 MftUqknZ/Qx+5K/c0UegSsTq+qFgCB0GF0uHKE7lHP+FgAbX0lwb97DEKv8yPKByThHfw
+	 fvSgoF9vkEVTmlsOzUxt0Nv1qT6VTDZTjAcNqF69xY4ur4SodSqIMLnkPD64q6ntyomq3
+	 APDVqFv9FzB8KysZ94oX4lkj3q2/Ekdn+iVZwNYHWjrFAcS6k0SiFIIty53dCErhZkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sEy3pcRf;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HSaCR1P4;
+	arc=none smtp.remote-ip=91.218.175.89
+Received: from mta0.migadu.com (out-89.mta0.migadu.com [91.218.175.89])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CE6606A6B1
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 13:58:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6CE6606A6B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11025606A32E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11025606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sEy3pcRf
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4a42b34e930so2919666f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 05:58:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795442281; x=1796047081; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rNrAG0FwlseYPe/ZdyatSVBSgZTqm1Xim7o4c6/vvS0=;
-        b=sEy3pcRfo8cHflY2T7S828p4717fDh7JpH1WhbLZ3kQUrh/oxE4KRMjg8ZhO9ERZD+
-         ubfr+eE/zfEmyrgXj7IcdVVJZZHulIs3OGfUHnlaFdRRvWvOtTYhsfkzKmpXJilNcnLZ
-         nRxKCChVnFAwAD9Rrxaf0M2kjjOJcHD0ReQDNia6fMazPiqm5V8m3/emj3ezbbIrr8fE
-         M0xbRdBEV6q9Zs5cxgNVlyKUBVcjvbleDkf8jyDal0S+jbSnbeNacUaz4LqTTfpu5D/E
-         eiXNzDlrLwQW4FsrA8MeV5SwuP2FR9fXtBbsQJkaCGbEk+bKhC225XT8OZMKyMFpLRoH
-         twTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795442281; x=1796047081;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rNrAG0FwlseYPe/ZdyatSVBSgZTqm1Xim7o4c6/vvS0=;
-        b=oSpAkJzrXLOldlypJJ/cO7NGAKnxLzjBs9mcjRfI1mvU7ZF+9dnhsGkWn//SXuMyas
-         /G+qEzjwBuCc5eiPz3FoZbesNweINLo4xTzuLA+DZ3KH2h5WUpkSpRE/lT4Ua88YVOe2
-         ySCk0O06veOnj94hgVlm+xQlEm+Tc0Ma1kJmALtJ9TvTm7JhALns1aDA6K0xqZ+aACqY
-         aGOn2bLc3Fbpb2gkG43ZFgm9nzryMawNPAW102Foru3AMQhPa6ZZ7w8r9u0dwAXaI3Zp
-         RuVqvhXCaMGiKVBXJIB+dRXyc3rOF0OYhXmCRXVfWqdMHI81Wjk36LUk+rXNx/N0k6OO
-         bSdA==
-X-Forwarded-Encrypted: i=1; AL+hErEIjm7rQ6hLEbes+VJLTXjBV/Q3SsmxwZu+hkZu+3YpNNrkecPBjN2VkQX+TvDIga6LU9Cq112imM80@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hVJ2WIGA3NMTQbsSTIz18UeQAPL4P5agZs5hcAUF4ga5KdXAD
-	Kgsp90nZkWGAT8gHRe1G1tTYMrNQga20tRcOf5A4Vsr0eU6sVj0DKUPw
-X-Gm-Gg: AZFdTZecNZ849lxd6r3J0BSr6laG4JHZTm2S18kz7ex+q12C3nzEIhP/Iqjgc5fFBSu
-	Pm6G9M/zL9ChVTbJIlFEMaoulh2XjfczxRSMspBgxbJ6+00YlrdAKebMr6gcQI2sOXixrknyKFl
-	ndGbsAzuNo1chp+JngDVlm3CUbU5FkDFIseRQbL1jgLL7Xj/TMFvxTYboqJa12E6gvKBQaBMpif
-	ncRSZZ7R3+mYafHO/v5jNRRml5yoP2S2LVF5CHDHns9t3K749AmFnrFeS5Y8pXTBdFkXRRY4YKR
-	nUQ6goSv/iTF+v+9aB71IualfN4lJUhQ5Y+MdqsaQtvwj+i2/LXDtrKA3OY14J8VvK8OdBiJsOA
-	pKVMA1xnE/UB0a14oPcVPJYKSPZIbYW8+JUVRazRTQ3knqAruexwJ6bG9qyok7/vy2eC+f2TzhL
-	5HoDiJzMAj4WQu5F52MnmWqGxYs72KghnuuS/YtrEHoAT/o8jyAdMlI4bk4yIph2Q33g2/LSui8
-	RZouyW2s6R/kgK1d7HkWFTvg2nWFV87nI2Gp98a927efIdSiPYhJLd066WErW5xn6zzyUp8ECnN
-	Fts68UGnlBl4yW9YWNyiIf7LpCzzVYkk4p2lJx+dkWfT4YjQ7Ra+AHsQdrc6H2Dr/A==
-X-Received: by 2002:a05:6000:2409:b0:48f:d7cd:a5af with SMTP id ffacd0b85a97d-4aba56f5488mr21665771f8f.0.1795442280851;
-        Mon, 23 Nov 2026 05:58:00 -0800 (PST)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:d6f4:1401:6558:1dff])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b110c3csm22109308f8f.36.2026.11.23.05.58.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 05:58:00 -0800 (PST)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Mon, 23 Nov 2026 13:57:55 +0000
-Subject: [PATCH v2 3/3] arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HSaCR1P4
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Q+a6mEtr7v7r3AOnn5SeGdS5lSXCWUahw75AjJpOxjY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795442403; v=1; x=1796047203;
+ b=HSaCR1P4legPkF6kIb5xXNUX70+TzNIKQiy91SGabZEsMrUkIJDPKchokqE2YZdH2OIu8tMe
+ nf40zv1YulwKl+13ksCphNkK2UZI3JfcIMS203PCxciZzTg6WV+IOyro/yK90jcTKw5WJvJlmdi
+ DgLethbld3AEN4cUFrJ9KvO8=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e58aebc7aa3e4872;
+	Mon, 23 Nov 2026 14:00:01 +0000
+X-Mizu-Trace-ID: e58aebc7aa3e4872
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <062359fb-c169-4253-aade-07cba63a279e@linux.dev>
+Date: Mon, 23 Nov 2026 14:58:23 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,183 +58,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/24] ASoC: soc-pcm: add multi_direction_codecs link
+ flag
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261122161437.5994-3-srinivas.kandagatla@oss.qualcomm.com>
+ <b3df76ad-e002-4ec0-a1a6-812d22b51432@linux.dev>
+ <e10e701e-b478-4fe5-a62a-2365507e5d8c@oss.qualcomm.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <e10e701e-b478-4fe5-a62a-2365507e5d8c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-sdhi_rzg3l-v2-3-bad3a6358849@bp.renesas.com>
-References: <20261123-sdhi_rzg3l-v2-0-bad3a6358849@bp.renesas.com>
-In-Reply-To: <20261123-sdhi_rzg3l-v2-0-bad3a6358849@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
- Geert Uytterhoeven <geert@linux-m68k.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795442277; l=4238;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=SdO9oPTeSId+gQhJbIDdaFXl20G3i+msvzfHkDzH2Mg=;
- b=Oc+V/0XBOdXK9fNQw7BgpL4HoMlMkSLmcZhLE7VBiY4Fks59eEM53bZjGz52HxBOdwgaK8foJ
- O1v7zPBqfHeCrxztvDiJiM5DbCp3np/XDuc1z6q9Y9lW+DqrjaFQWqh
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Enable SDHI2 on the RZ/G3L SMARC EVK platform using the internal
-voltage regulator for voltage switching. SDHI2 signals are muxed
-with I2S0; the selection is controlled by the SW_SD2_EN macro in
-the board DTS, which must match the position of switch SYS.4 on
-the SoM. By default, I2S0 is enabled.
+>>> +Typical use case: a smart-amp speaker protection link where the CPU
+>>> +side is a playback-only DMA (e.g. ``WSA_CODEC_DMA_RX_0`` on Qualcomm
+>>> +AudioReach), but the codec side exposes both a playback SPKR DAI and a
+>>> +companion capture V/I-sense DAI on the same SoundWire bus.  Opening the
+>>> +playback FE should bring up both the amplifier output chain *and* its
+>>> +V/I feedback capture chain atomically, without userspace having to open
+>>> +a secondary PCM.
+>>
+>> This is a valid use case that has been problematic for some time on
+>> other platform as well.
+>>
+>> What puzzles me in your approach is that the codec-side will be
+>> configured/started, but *something* will need to grab/process the
+>> feedback IV data generated by the codec DAI. That part seems to be
+>> completely hidden in your approach, is this intentional? How would a
+>> capture DAI be configured on the CPU side so that the data is provided
+> 
+> In this setup there is no capture codec cpu dai. The capture data is
+> never seen by the userspace. VI Feeback data is directly feed into
+> Speaker Protection module within the DSP using the codec-to-codec setup.
 
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v2
-- Added a comment about the SD power signal.
-- Collected tag.
----
- arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts | 11 +++
- arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi   | 88 ++++++++++++++++++++++
- 2 files changed, 99 insertions(+)
+Humm, even if there's no user-space visibility, don't you have a
+SoundWire capture port? How would that be configured? At the very least
+it should be prepared and enabled.
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 3699712d8bf1..e59126e7ff9e 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -34,6 +34,17 @@
- #include "rzg3l-smarc-som.dtsi"
- #include "renesas-smarc2.dtsi"
- 
-+/*
-+ * The SDHI power signal can be controlled either by a GPIO hog or an internal
-+ * regulator, so a customer design can use whichever matches its hardware:
-+ *  - SD0 does not have an internal regulator, but SD1 and SD2 do.
-+ *  - SD0 and SD1 use GPIO hogs to control the power signal on the board.
-+ *  - SD2 uses the SoC's internal voltage regulator.
-+ *
-+ * The mixed usage is only meant to demonstrate both options. It is not a
-+ * hardware requirement of this board.
-+ */
-+
- / {
- 	model = "Renesas SMARC EVK version 2 based on r9a08g046l48";
- 	compatible = "renesas,smarc2-evk", "renesas,rzg3l-smarcm",
-diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-index e64a611aebec..fc5ed4907a65 100644
---- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-+++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-@@ -42,6 +42,7 @@ aliases {
- 		ethernet1 = &eth1;
- 		i2c0 = &i2c0;
- 		mmc0 = &sdhi0;
-+		mmc2 = &sdhi2;
- 	};
- 
- 	memory@48000000 {
-@@ -355,6 +356,74 @@ sd0-data {
- 			power-source = <1800>;
- 		};
- 	};
-+
-+	sdhi2_pins: sd2 {
-+		sd2-cd {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
-+		};
-+
-+		sd2-clk {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
-+			power-source = <3300>;
-+		};
-+
-+		sd2-cmd {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
-+			input-enable;
-+			power-source = <3300>;
-+		};
-+
-+		sd2-data {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
-+				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
-+				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
-+				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
-+			input-enable;
-+			power-source = <3300>;
-+		};
-+
-+		sd2-iovs {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
-+		};
-+
-+		sd2-pwen {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
-+		};
-+	};
-+
-+	sdhi2_pins_uhs: sd2-uhs {
-+		sd2-cd {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
-+		};
-+
-+		sd2-clk {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
-+			power-source = <1800>;
-+		};
-+
-+		sd2-cmd {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
-+			input-enable;
-+			power-source = <1800>;
-+		};
-+
-+		sd2-data {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
-+				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
-+				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
-+				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
-+			input-enable;
-+			power-source = <1800>;
-+		};
-+
-+		sd2-iovs {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
-+		};
-+
-+		sd2-pwen {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
-+		};
-+	};
- };
- 
- #if (SW_SD0_DEV_SEL)
-@@ -386,6 +455,25 @@ &sdhi0 {
- };
- #endif
- 
-+#if SW_SD2_EN
-+&sdhi2 {
-+	pinctrl-0 = <&sdhi2_pins>;
-+	pinctrl-1 = <&sdhi2_pins_uhs>;
-+	pinctrl-names = "default", "state_uhs";
-+
-+	vmmc-supply = <&reg_3p3v>;
-+	vqmmc-supply = <&sdhi2_vqmmc>;
-+	bus-width = <4>;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	status = "okay";
-+};
-+
-+&sdhi2_vqmmc {
-+	status = "okay";
-+};
-+#endif
-+
- &wdt0 {
- 	timeout-sec = <60>;
- 	status = "okay";
+> Host only drives the playback data and the VI feedback path is entirely
+> with-in the DSP.
+> 
+>> to a DSP? Some of the patches, e.g. 11/24, mention a capture dai but I
+>> can't connect the dots with the suggested codec-dai changes.
+>>
+>> In addition the feedback loop can be made of not only I/V sense but may
+>> also carry an echo reference, and that may have to go all the way to
+>> userspace depending on where the processing is handled, possibly with a
+>> split between IV sense and echo reference making the topology even more
+>> complex.
+> 
+> multi_direction_flag is really agnostic to driving data(VI or echo
+> reference)
+> All this flag is doing is setting up the codec which are configured in
+> opposite direction.
 
--- 
-2.43.0
+but the configuration of the capture part is missing entirely, no?
 
+>> And last the SoundWire core exposes a concept of 'stream' that is single
+>> direction, and so far we've used a 1:1 mapping between dailinks and
+>> streams. If part of the dailink is dual-direction, don't we have a
+>> problem on the SoundWire side?
+> 
+> 04 patch addresses this, we create two separate runtime streams per
+> direction instead of one.
+ok, that should be made clearer in the introduction, which mentions
+codec dais but omits the gory details of SoundWire management.
+
+I have mixed feelings about having 2 streams. It 'works' but it's not
+optimal. Maybe it's time to revisit and extend this concept to deal with
+data that's closely related to the regular PCM data but flowing to
+another direction and used for a specific purpose.
+
+There's the case of the IV sense, but also the companion amp which may
+require a device-to-device communication scheme. It would be much better
+if all the prepare was done in one shot for all the direction/ports used
+for a given use case, and likewise the enable should be done with a
+single bank switch. Not to mention that this sort of solution should be
+handled at the SoundWire core level, so that we don't have to implement
+this dual-stream implementation for every platform.
