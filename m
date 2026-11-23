@@ -1,113 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795445647;
-	b=m6tyKKR+zGl3EBrpIssUw/+FNp+bsC01nVT0o7CFsmj+G9h5G8jyHMIGFk1IwS9gD/hy
-	 pA0xJZebq3EXgNUeWjPAua6Hf8/xvuIeLJvcNku+TGlgh9TgxQGTJU4BKOMmG6GkAafB/
-	 GXdh2kdABxUJlb/3BEf7Ry7s/FACNK52cQ1yWf1muZ/aosy0z1jDB/OfUpxPTRFkipFVh
-	 Q+s3CV/rfgFo3k3S9wgWFS1UtSa/Z1XvlmBDwXbclRtX5CA2rkdIwXlCUHhpMaQJK9WhE
-	 3uVYIodcHhVOYNTiRc8sel6dAKtz2rwWT4OBeBzdbN5xA2Kgby4ZnaVpfrBxAazXq/g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795445647;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1ORwnkX7J2hOX5n3O1ta3audEQJV0+CKETTB/1+Lf3w=;
-	b=bSFwe+53dfkG2wPPPTi5SykGxnd0o6UlyH7rzrzCGPyX7DhkMMYCiPClTl9mMTJDTavT
-	 +SHTCv8l1YWUsO5rhUnCbEFbjDL8Z5ZHTBulx35abXKecKhwkBYm67RFPkyJHNKXAwCx7
-	 WqCI0KE6uIBf6Vg1kNH1deSLoYJZfGpRBY/ZxmtuHveEn5rG6H+KQ3/KRuiAFs5N/vZaj
-	 Jmr5HaK8VbFOiuFezMgdtZhcxWdi5jhTRpdYEBN18GKP9eXaqL/IMCA/+CmIboYTjZX7G
-	 0C3lOVcw+qckQchRZyXZou6Tu1F/olWDhH3AhWmRsKvOrjzujCiT8lQXkb/goUWwkaQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=AdpIuPTA;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.51.109
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795445715;
+	b=RO60hifFpZr95CwiHOc/lx1ZY3HNDyYeU10TAzd98rb11sBGxCbVlp6p5gXxeqD7dXEP
+	 IyARNfjbutm68ALzhXkktldPrfJD3T2TLcNQfev64JRakwydTbzlIRPOjpdDd00biByi9
+	 XS4hiDH9QucsyQartB6THzoF61CcbGRByyb0O9v8HZ3ho4DoYy/ltDp8BbmVdImw2kFuw
+	 bpGOTqa4XzUOMBMU8zGDbBcsiSyEyDXNQ8QkppCPtR6IT8IR/PZgVInReqXSA5/XX47uy
+	 VhzJY5A2m6bCbJ5TO1ms9YwxmbhQb/47laRwyrBPM47G75IzuHu/msTuXyEWnDVnM+A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795445715;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=l2taCXCD9bdO3YEA+EqKbY07b1XZPPrX/WZSxS4/dWE=;
+	b=O2eKLhXKB9HYrX3yvHdHINdzEdAS49H6xtvZZfgmmw7w3EWIMawUkoGGSsuCLVzysbp/
+	 /aPX5yiQ1QqCp8daGe7rPL9xxsSiYtNPkvOoAQ6+L38Np18LAATCYV8QCy621IP+FGYEf
+	 R5v3dW/Rz6R0AW1xuZDttb/mWQT/4hM49yOKMNgyCkqhzcOBHkoUUPZ5qoGAAlN1qGmFL
+	 ddsx13O63wGTNJPlV4P6kfdppGpMi9h7lGRMIPUmmXeGyzBbUqpYgv2fA4DMYf9bb0tEl
+	 plavJBNb8pAF5990t6VXzCmFgkabmZquM15B1lNyzZd6bHaTVEtCItwvv4+Op3FLh1A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=siliconsignals.io;
+	spf=pass smtp.mailfrom=siliconsignals.io;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.51.109
+Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021109.outbound.protection.outlook.com [40.107.51.109])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26985606A6A9
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:54:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26985606A6A9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=AdpIuPTA
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1776885f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:54:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795445645; x=1796050445; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1ORwnkX7J2hOX5n3O1ta3audEQJV0+CKETTB/1+Lf3w=;
-        b=AdpIuPTAFtxQYe9e3oALunPMgkqq0WHN1wt9+08FmpsjDYbHHpHxDFFVZwKeqUSpHD
-         e/I+U4W9fQQHvYUN+JQNJB+TTjjDdKIhytaLLI1AWvxFsJEW/JBrKoXnrLKKT5LtvCcs
-         y6VW0kEllA9NWqHJ8Zp0u0LYHEXKQnel2rSLe7Q0X7JIL9SwB9O4HWjIarn6OXpPXZwq
-         DBlLLMXg/pkkHqdBzcwPpNgNojFnkhD3ZwRn0K2N+dLT+xWM0lm1b2ADoOq1dOeAiQ/d
-         ayYymBoeLQlJmXNJak6YAbfv/y6eV+Bh8VT7+E/Y4wBMbRV2MX07VIXuNbOz98vmIgqu
-         0a1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795445645; x=1796050445;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1ORwnkX7J2hOX5n3O1ta3audEQJV0+CKETTB/1+Lf3w=;
-        b=WgHYL5RHhxA95zzcpHv4CzZfrblZxqmWLNnL4umVlx63/KiELwMMCqRSPgNyh3XPl4
-         3gPHKth8vJsbGmDdgvimBaqH54CC0r42o0k7g9s8WUrglXI2wEHItAYMjniPdYUhHzlr
-         4wMdVf4fEs4qtKhlHKEKzKJZRgYL2Sq4x8kiyXdEO+OWbXchaWq6v8bHeumTpYZvEu44
-         rAqdEsBMRwrdsTwrEJlE+8LwRiIHazAEf7FmkEWkMwG//yLoUQF1JwEERh0R4eP0hqM5
-         EIjR0S9AB5JE87OwysTH9C2JTNnzWGfxMsXHHKX/ChhYMUPutaAZ14YuPpGdTMyo8xp2
-         29tg==
-X-Forwarded-Encrypted: i=1; AL+hErE+TfRM29+UXgC9GDaSFQ03YQSt0MsfzwW/0J7DAYszLDmmEDB4nnVDxWdAGjcicU3SC28nX6VVsJ6F@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AVvA+fxEqCK9iig8wff5jAvqaxHbtxAs7JpUvOR4FXMgk2ADt
-	2nILhr5e98CuwOh3am6RedRJZj+mP1y9lBUCAcTgmEyRVwqJ4nCsVPuGwasXBisQX2myFgtkN1M
-	fveWUxhc=
-X-Gm-Gg: AZFdTZeMzr4aIilM12/lHxfALww3y0e8QJHRuQ8IqLZ7pYvtioSgfJ+RCmr+5iPWQBd
-	71sAK12EMZevWUMVtYeCxpu7x4t0T2bnq/zAS+dsIUq2zfxiZ4nK8c0l+pHYlE75CVwA+wUw0pc
-	O10JnsDKWDNuTSFYdWCgGatgiT73I9L5iCBVzkIINML9mUxY26eo0hIm8u/76d5hA+cjByBcuI4
-	t+yvceT6vmoXaiQgCKfd4MgV5pug/3VvqDEBZ7cqwa1PhLxGVtQ5q9ddWFHftxUJi0QP/9j/pwU
-	Euc66G/4eK1mPVRVGbj7ol0ZMHCfdRwUrSEFwwcqLuDG6dqaJYHmV7xUnzME3QuuNZhnufFMhtJ
-	brZOiNEkryLfHP0vhKC2aGUs8hMBmrgkYwlPXyByIpyCmfIbKvGIbjk6hI00XNt7D99BGgH34iS
-	I2pbukP8tFBgFb/RNARiFtF1pHoZzoNRa1lDnNduxIYSYf8Bq+oXnYMn63zvKsAycXF4ybJjnEK
-	rTnS1mIceMj841cUkphsPnXX1VLYTU2DWedybjp7sSmWZ8UFCfv7UhfanOG9lnE3YtM3BsvRFD7
-	G/Yuye8r212eyKWxOwo19IhGXjY4VjgBKKGY5vb8Tnnon3ss
-X-Received: by 2002:a5d:5d87:0:b0:499:9f62:d64c with SMTP id ffacd0b85a97d-4abaf64be07mr25689240f8f.10.1795445645615;
-        Mon, 23 Nov 2026 06:54:05 -0800 (PST)
-Received: from localhost ([82.192.120.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf685asm22057256f8f.20.2026.11.23.06.54.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 06:54:05 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A15606B080;
+	Mon, 23 Nov 2026 14:55:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8A15606B080
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xsfXNJ3X9fSY28iiHmaVmDh4CFeJJ8yHGKhacsn2pp80vGf3NR/64bbFrfafefR24EaH71wiKtaYi8bgS8y8QiAG8nciZqT4n354mAw8QLApPgh71My8XGC4aiuRvyAQTNupkREMc14ZMi3uSBqiHbKWXBGfqfXdp/MI6HgAkBdyFGN5iLVOqlEHKUMFkOevbosqGctuYqGiqNrQB9jGycoHfke6EbgdPZrZfS59lR0zRnmulB2tVcvV80KsK1d49Xic2QWGmqrkuI9kYhXyOOrAo8cibsMujM6D9WrSSMTytOfgbFUCTyuyM+M/1apxmR5XpB/+FgU/3k5cEjoRew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l2taCXCD9bdO3YEA+EqKbY07b1XZPPrX/WZSxS4/dWE=;
+ b=EujsUKkGSHqGQDficOmX3fMXB1m3BVtJaEurFRiL2V2Ujode6nV9XZBHEg97Fg/kyh6tuwgSvTN78CxEcbEVmTu/t8TiUEmRSkAL9L6WqSeK9gHAQ+HICCkaDV7imIKH39/+YHbV9c1qQdBk+15IGvCZTSWJbjXwbXMUmnbOx4giPOiAM6+rQJjIK0bqiE/YPANjnz7zx18dZf1h3pP6qLi4SHFa4zxfEEKVHHRxh1Hh5VaoaxRjobwfgXObJsQSbXYhomOX6AnMqMpuOFB+zNjEcpM0nVVTNQ5zsRWPVXLQacPbsv1k3RwGVKn6SL9l5X4ODkA1UJiSf3qe0YI+Ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+Received: from PNWP287MB5428.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:320::14)
+ by PNZP287MB4106.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:282::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
+ 2026 14:55:09 +0000
+Received: from PNWP287MB5428.INDP287.PROD.OUTLOOK.COM
+ ([fe80::13c8:b6b8:e4e6:ddf3]) by PNWP287MB5428.INDP287.PROD.OUTLOOK.COM
+ ([fe80::13c8:b6b8:e4e6:ddf3%5]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
+ 14:55:08 +0000
+From: Bhavin Sharma <bhavin.sharma@siliconsignals.io>
+To:
+Cc: tarang.raval@siliconsignals.io,
+	sakari.ailus@linux.intel.com,
+	Bhavin Sharma <bhavin.sharma@siliconsignals.io>,
+	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Cosmin Tanislav <demonsingur@gmail.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Xiaolei Wang <xiaolei.wang@windriver.com>,
+	Hermes Wu <Hermes.wu@ite.com.tw>,
+	Walter Werner Schneider <contact@schnwalter.eu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Saenz Julienne <nsaenz@kernel.org>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Phil Elwell <phil@raspberrypi.com>,
-	Dom Cobley <popcornmix@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH v3 24/28] dt-bindings: dma: brcm,bcm2835-dma: Add BCM2712 40-bit DMA
-Date: Mon, 23 Nov 2026 15:57:02 +0100
-Message-ID: <20261123145728.29082-25-andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261123145728.29082-1-andrea.porta@suse.com>
-References: <20261123145728.29082-1-andrea.porta@suse.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] media: i2c: Add os05e10 camera sensor driver
+Date: Mon, 23 Nov 2026 20:24:36 +0530
+Message-Id: <20261123145445.66636-1-bhavin.sharma@siliconsignals.io>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PN4PR01CA0099.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:2ac::9) To PNWP287MB5428.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:320::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,57 +104,162 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PNWP287MB5428:EE_|PNZP287MB4106:EE_
+X-MS-Office365-Filtering-Correlation-Id: c04c563a-9984-4df6-3e14-08df4971c476
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|52116014|7416014|376014|1800799024|23010399003|18002099003|6133799003|3023799007|56012099006|5023799004|261009223027099003|261028144727099003|261102123227099003|261026140227099003|261022115727099003|261026121527099003|261022075727099003|261022105027099003|261021121427099003|261022113327099003|38350700014|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	aVhkrjoVedxiXQslMvOxa3Bq+smwQ1+Jsn6ccbYDwpLwQT+fFCn2anzjXb+EcRsRh7JGi1zJIEAHiUZS4XFAUnf/ax4elXjpLYPNoP8N+hPsAAqAmFxErmdA8qshvCBa7sCXF9ldzugfvHUHhD5iFR3rzXhlHLfkQadz0r87Dra2W7WKsMXfzbonBxlx8KCO9PBD3FQ+eOdKrnKt+71uCK4rS4ljhcS67eyKYSiMw0X17YRiQiftmlLjrTdfjIAZHEjN8qeu112h3HXlzTNjowuRERLNYs9k9EL0Up7IbostW8zLY6TiiVcyViwC2qc0zBXABY4zaW5JuYM0pN9dZP0SMB7cfJFLlASFyhWHRi+TXneUfXVuqQRGT93GoUHJAScr96tQxlmBtuG7gJgLL9fGj7Fz+JeUbb+8DdIsAiuYMzhOS0P+fW8cD7zenfH1JV4QbN4XQNK2vKltN4iPjsL8blVrruOtC5MSZ3CAxT52jZOSmg8qRnuuiNdxhSG4+unlCs9gNwYwGphGpds7xuUvpWI0Y5ByOdoqRAUBB0S/ys5jMCZsdRuhp0soGHFn6DgAIzlL9k0msNV5CN6N4t7wD6yE135+llCLRLKlROAcXDpsEapL1OXzUPSKLJS8NozMEzzwuX1uP2wmV9YZ4ZFCLJo7aBajznhyrPXS0fl2CJLN5j/cYY4cFTj5epHuG0OC2Fw1xgpJygQZFxnpUYQ+BNsiNR+dUGXLzc5mGqg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PNWP287MB5428.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(7416014)(376014)(1800799024)(23010399003)(18002099003)(6133799003)(3023799007)(56012099006)(5023799004)(261009223027099003)(261028144727099003)(261102123227099003)(261026140227099003)(261022115727099003)(261026121527099003)(261022075727099003)(261022105027099003)(261021121427099003)(261022113327099003)(38350700014)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?xNR+bqLWa3SOjjAQiCmVI+zgyKuhnrzLC5ZnsU2S/6aI2lPTn2W8Ns8BhOoh?=
+ =?us-ascii?Q?OjLxMSeu+ITMP7gUyIaXdFsiDUR/GfcwBxqrSxxDrJtoWIdxyy2gZsyaJ4Y2?=
+ =?us-ascii?Q?CQ/XnlDCWvtjSik6xyi8mQDQJzXiT6zPBsxitfRsyeCJvZu84sJdjjCHgPX9?=
+ =?us-ascii?Q?9q/ThtmyXoq6yBLaThWZpnZdnhZ5x9BZ8xcDc+10mB8Ka22JX55TlfNJ/wPm?=
+ =?us-ascii?Q?QQTyu10r1tgGpNXJ0/VKvpoxgZwLZcnM52vUWDvgkbPWqkq0OY9dsLrC0Xtc?=
+ =?us-ascii?Q?8DRbWiwBN3qkZRBLFSo8m8EQhcQQpUp9C0roxj1F6EKShzXLeImfVeGzhTmo?=
+ =?us-ascii?Q?ZR5L0hEkftskXsU8LKle5D+A2LJ95ZTk5MyJF5u33/ttw108ab7Ay3b7XOns?=
+ =?us-ascii?Q?1ZNW62w4+L7NPpNhBpnGKkAsCjqULJBBvzSccyHUOND37AIck4oWURM7KFyX?=
+ =?us-ascii?Q?24DNUOqdGPBQBs22qMW+ysK0BpQfge0T/U1X17g4fm+lmiCmqHALHj4TKCfJ?=
+ =?us-ascii?Q?leY6UrwtCz2zOHJz5+ZVojoKZpIf9IGt2c3pXCZGnqwmvO3bCDAFmq7d0LWh?=
+ =?us-ascii?Q?u+1UdZkmKbHyjdA0A/CvLJT9UbTyXxuJnp7YMlKm56s83fk9ab7/Ck79l+tR?=
+ =?us-ascii?Q?kG9+3I2W+EjKOq18sBP+E126l8WmRkip/qetDGK23UmqnLCqvEiEOuMyu7u/?=
+ =?us-ascii?Q?Sq6bMsbeEvRX2BlahyxKiJcNiOC/qL7d/x7O7m9Wso76aNZgDgCgE/U3YPFm?=
+ =?us-ascii?Q?tBa2r9DMYmpVFER7oSYYM4UVtTPS2nP5pzDHpbyj+IxWxHxPpTdyb87ZI5Gm?=
+ =?us-ascii?Q?xneNlnio8Qy89DaSswTKQ+CYvuRsF/lbFG9sRNvQcrRHPfbyOursGZBldRyi?=
+ =?us-ascii?Q?1ZX17xZF3FYGrsuveXyu4W5ErCpOKUhVuNVYQLa+VjdzZTIGAz7O+m06OeuY?=
+ =?us-ascii?Q?k1ep6T8byQHSoRCX8DE1kUxg9YnQWXQJhiLcn9YKMjRkpQTEWnUSBT5Y9+eS?=
+ =?us-ascii?Q?/ghs9r1DYWwuunVJeFj1vUhWFEll38UqqgkcamHJpUwTvN3QModrA3gi/ZLv?=
+ =?us-ascii?Q?wm2bIQv0pZZzkUXOLK29pM0CBqQ+9pVhImNXKtgRGEYsBmxAMuELoEOBLJx0?=
+ =?us-ascii?Q?E2J4dY/iGresEeObs6iG6lqSmy252Bkuzl61FWhE2O4ozXVhKHVhWqi7sm1O?=
+ =?us-ascii?Q?wE8qdG3DC8760g8f48tsc/iYU0RUebufDMURTuPNSRSIahgdXmpXbCy6t0dD?=
+ =?us-ascii?Q?Xvr7ea7k9gIBQy/7ZxvOiiyMRvEneG/wdlkTuJjLyy/Q58dZLyJeapwIuugS?=
+ =?us-ascii?Q?D9VLjVZFIrmnj7BfsTkdkEdyTfao07gd//zyFGpAhhFcLjbN5LsPqYYuOOhT?=
+ =?us-ascii?Q?ADUgHbpcizDO9ixbf5eqU3Wg2uoYDF1KhLWksIzhtz4T9PtN7T/oJBMiWLqZ?=
+ =?us-ascii?Q?DlkGOZxjTCzJLVbLlSOKCx7ecPrNyvaRlaUcs65H0arkCUCH9jiMtYm6EVAe?=
+ =?us-ascii?Q?CTh/JIXa7VXgsUntLr3d45tZVJvnUuOIQR+gx3JexupQsI7R4ljShuHMLrnx?=
+ =?us-ascii?Q?7Qp6yAhuyQgCq7RyDFf1yfPIz5cXIpstmw7MRoYF1GyDySD8meOPM91/7cxB?=
+ =?us-ascii?Q?IzkFmZ+o0lH2oVj/FcyU2UneIgL17gsOgl+x7EnJ11iz5XvdFEVpQQyAUiAf?=
+ =?us-ascii?Q?pCgeykjtWSqjPkO+wy6UHoS+y9WmwdtagBgHCw6d5rnQBuONT1+8AgMzUI3G?=
+ =?us-ascii?Q?QY4Edmq/TRzareIY/IvpJkkXFE421hM=3D?=
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-Network-Message-Id: c04c563a-9984-4df6-3e14-08df4971c476
+X-MS-Exchange-CrossTenant-AuthSource: PNWP287MB5428.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 14:55:08.7613
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rj0YjG/lwVlhdhB0FW4u8u6IRtkosVvif8cfpxAg5URJodUfhhTEUZCPPEjkYgIAU7mG46k2e1mODVmI8L9OvnXXBGOzVTGa0iOkTXZ5kYk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNZP287MB4106
 
-BCM2712 has six DMA channels (6 to 11) with the same 40-bit programming
-model as the BCM2711 ones, each with a dedicated interrupt. Add a
-compatible for them.
+The following features are supported:
+- Manual exposure an gain control support.
+- vblank control support.
+- mode support 2592 x 1944 @ 60 fps, SBGGR10
 
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
----
- .../bindings/dma/brcm,bcm2835-dma.yaml          | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+The driver is tested on mainline branch v7.3.0-rc6 on IMX8MP Verdin Toradex.
 
-diff --git a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-index b53652d5146b..0c74cc1d223e 100644
---- a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-+++ b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-@@ -17,7 +17,8 @@ description: |
- 
-   On BCM2711 the channels 11 to 14 of the same DMA block have a different
-   programming model, which allows them to address 40 bits, and are described
--  by a separate node.
-+  by a separate node. BCM2712 has six channels with the same programming
-+  model, numbered from 6 to 11.
- 
-   The channel numbers used in the channel mask and in the interrupt names
-   always refer to the whole DMA block, also when a node only describes some
-@@ -38,11 +39,25 @@ allOf:
-           maxItems: 4
-       required:
-         - interrupt-names
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: brcm,bcm2712-dma
-+    then:
-+      properties:
-+        interrupts:
-+          maxItems: 6
-+        interrupt-names:
-+          maxItems: 6
-+      required:
-+        - interrupt-names
- 
- properties:
-   compatible:
-     enum:
-       - brcm,bcm2711-dma
-+      - brcm,bcm2712-dma
-       - brcm,bcm2835-dma
- 
-   reg:
--- 
-2.51.0
+root@verdin-imx8mp-15445880:~# v4l2-compliance -d /dev/v4l-subdev3
+v4l2-compliance 1.26.1-5142, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 4aee01a02792 2023-12-12 21:40:38
+
+Compliance test for device /dev/v4l-subdev3:
+
+Driver Info:
+	Driver version   : 7.3.0
+	Capabilities     : 0x00000000
+
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev3 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 9 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+
+Total for device /dev/v4l-subdev3: 44, Succeeded: 44, Failed: 0, Warnings: 0
+
+Bhavin Sharma (1):
+  media: i2c: add os05e10 image sensor driver
+
+Elgin Perumbilly (1):
+  dt-bindings: media: i2c: Add os05e10 sensor
+
+ .../bindings/media/i2c/ovti,os05e10.yaml      | 103 ++
+ MAINTAINERS                                   |   8 +
+ drivers/media/i2c/Kconfig                     |  10 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/os05e10.c                   | 969 ++++++++++++++++++
+ 5 files changed, 1091 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,os05e10.yaml
+ create mode 100644 drivers/media/i2c/os05e10.c
+
+--
+2.34.1
 
