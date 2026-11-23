@@ -1,105 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795432572;
-	b=glyOxpls5HZhJwpv69eFnancP3rXgzkkVdwveFe9+omtNtxy1uOQeU/aCCnXlSvcjNaG
-	 WYeUO969mvOdUcnBxtcRy9h83XXMvkG1Zk5HZAtwWM5UeuAoB/BVLYFgk8kMCVM9Imr1Y
-	 13xi+B8IHZ8QtBI/mXQ0/fKqbfx1AYUtvfEEm3HaXwjbdgbgmNrJxByCnjiAIrwcF0ONS
-	 iluzH2YBe2YgaysnTTroEwmSwhiNL2TRTjMavgG9j8ntnVHau6Zq2e/llvQJRGA3g4jSy
-	 gStD8+UZN+1Ms+GxA4UxlAhhpKpS9l0udEGHaaM5pWGma/fxF/DpEafuW9ysqk10ZLw==
+	t=1795432661;
+	b=wZUZ5NehrUbU33eXhJ0aHH6q+5hGoEE+CsMgmjOPuF5B++mQ7WlKmhcWqG4Iwt193Tmt
+	 BL4QWl3j8xvSd76z8YifM83ZRVwhEFh1OPRJ0bzyGwnc/0G2qRCQ1ODDvL0mV7//GMloM
+	 vlFQpxs4gEOrtmKBXpzky2b/rmElthjmkf3wuMlGibWjqhVDUI0h2zN9qx0ZGsB/Si3Y7
+	 P61tEPcxiFBn4TVWktannSxyPwmbdmUsDVHFjfeMOhE4USoemP83pu408xrz+8oPOjQEQ
+	 NfbPxbqBdzIgafDLgcI9V88EXpU96iX6Ad55ZfdInOliChruJrI0qfyFlAqR5kpqYOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795432572;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wHEXuOSq8IB0JemVzpCJR/4WrOKlizJ3OUREG2wJ9Qk=;
-	b=kaccYsqJnRGcmUGc+/cqUgZTH59aCs2sBFSLgpsAeZa8sxYWbZgOZuVSQnVDxlrVYjMS
-	 pjyhEYINHzYoEs+WqoiwgyUH9Jo8KbKTLOt+RRUZNRigOsG/3QGBTVr6YPCEqSOu2BdPc
-	 y2ihJ7yXYNuRXAaygvDTaB9v3GMWpQtBmLwCWJcrLf1KNoBkpEusnIWU0IAnFEOtbkhxa
-	 2Js1/rnwpgaQ2WHKm/SvffxrNyzNwHlIRNlrh9PHwG+nT8sKFRI0ZFhNChW/V/IfpBc8l
-	 barDYK6B+P2ECAYstW/Y2SLJCD7AWAsNxQli3r/JMg9cRdRhuZPoSRogiyXjiIsyr9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795432661;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wRknIvw0cLKTwtOeyMRq4oTgIEAc2aw6LoyAAqqSPKc=;
+	b=eoLqvkedt7TlGdcNFinClAQ5C0DGLHPpLrZlkQECWlTfxCqgZ+htY+YVyTq6eRXgqnwt
+	 tS4Hnwgxc7KehGPIluglccBXjvNEztxOl3dECuKNYKOIqfpFb+qVyLvIui7pYNJJ4h5h0
+	 sIty6/DjWIgHkeApfCF3umM/1q91wPGEZBbUC8px3G5rT0VQHfmT+F6I9Gq2zv6CQK5oW
+	 ySoZ4E+S5bE0LckV0fyurFLJgtuOPdbO+s6sKxk18zM7ug+FWBmtJsXK6rhdLznoZyaTS
+	 I+lq8pnwIRBjxdJa2p7glHjmmTpMn+rGcOyJAhW31f/h7CrXOkotE6VvJQTpk2ZDmxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yf+SMwhU;
-	arc=none smtp.remote-ip=209.85.221.176
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bUf3NrwC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6C1606A31E
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:16:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E6C1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EB4606A31A;
+	Mon, 23 Nov 2026 11:17:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yf+SMwhU
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5ece6c1d1cbso961378e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 03:16:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795432571; x=1796037371; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wHEXuOSq8IB0JemVzpCJR/4WrOKlizJ3OUREG2wJ9Qk=;
-        b=yf+SMwhUXQdwf3ksRdD6AYU7wddNetPL90dWfhTdFfBWhXvVQozMsBVTaTSZc+L0c8
-         NDSI07AXbfg3Vp5k8VGZAnvjjQdyrxTW8uRi6CqVVqTbUB8cLwoe0xaWE8VrL78zWhkc
-         ctqvkUTzYgiZmUWGyPamz6TKiDufOYD5oL8FHQue4dzDTqqEUg0rBXPjinREr2EVH0yy
-         RhtxzvPl8WcrWkhK6wz5Jiu+Eg7oJGpi2qAwWQ0PvQSudcVUrItq+VFg2YrxfqvkQxLt
-         aFefnQpcTCsefUzY7LNI34SUnsnPbuJWJOe+OWyjpcpS9dWSwiWuOmeZrD+LLI6DYTa1
-         Ydeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795432571; x=1796037371;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wHEXuOSq8IB0JemVzpCJR/4WrOKlizJ3OUREG2wJ9Qk=;
-        b=qNlayW9ozDXNVjeb9BvwY39Irw43MAJyPEPmTDA00YpDNJd+pS/Upe62LlEo/trj/r
-         HlgFI9AZIlfrz2Czhf2MmtD7tJo12Ew62EdIN6VtbiAvrcilg8pTeFfyUsmgnPbi78VZ
-         Pd/ErF3YULJyQ0JgGTCm5LeHrCDXlwJ9zw+jIOXxRF+r58HpN6oL0Kz82+uTEUnFBcBI
-         QoWEEyxHheQKIPMu0mKo3seVXm48JuGmIv4SZCX/qJE2KbTztdQEQwgTewPuxOAisCvI
-         gKVfkxwifavzLbXOz9CAkVVcl0UbRXaUf+k0aZf5HOvuXlz7c+TXUYdOQ1bSVVEtZ6oD
-         zPBw==
-X-Forwarded-Encrypted: i=1; AL+hErH82+Z4V39Vog1dp3a3nBQHeYqLvO78eFkRxyJSuqp52Q4RgIDs/6zAVQj3uqBAMkpEh4BKGGBnsRs1@vger.kernel.org
-X-Gm-Message-State: APuU4Z9f6tA0s7/XQvBod3XvJp+5IAwdYT9t+/eAzhqQFBKrvKvFPrqK
-	kWscw1phUp4ApVE7ZmiU4xw8lXXJ55Cc6hIe4b1fRobOuIl141zI/eYk
-X-Gm-Gg: AZFdTZfbHcZdGfVocQq3oO32O3gIEs3y8Fq0FeeipVpG2NliQ455uDONRWsDjzWr9At
-	wgFMl1BJgyglQ7FPKkL33reCTHorP4Sm/QEblr1wTYltT0wukmOKQ2guihiJdZFNt9m9Xxx7rXI
-	+lm6/QGEC3kLiwi+ogNhPheeihfbNOJAiJYy9bT/BjkzuGhqhd6qH55KElQM/Q3vdCoUHUwz2w+
-	SjP7qpf9FBaD/7xmRrwY58Bx7m755XyaT5bboSWpGeutjOSFh+/wI0SyuxpyxiwMlyjRJx24QQa
-	41dg6W+RqDloqNSZ+JmcTB7/+o8+LG73eFhWVJFOLK9AqV6sEnmTStfEbR8qyDHKUvLK8u6LUW1
-	ZOdhx/tA42kqEv0inD3BH+FhuiKuC/QhGeH54ADgwjbtxC3LMhjKuCz2WdkJPnyTNLzWyWZ8nlm
-	jftmGU+gP8HI0aPPiiwJxgTEviVbuGn2a4ZnDGE4TGSXmq+IHFx/63gLgMFC0YVQkgmvWJWkVDK
-	fGomJ6XK7LN+AgOWPCgZht3VMQ7sAV4JBh8r2TtlvPOE/6sQafCQWr5PoXac+5m4aGUY2LfXkW/
-	cx0/xDJo/QvqZ/ix9/Ft0DhU+ey9ObgMFpZsT46Io9x1ivL4X70athIEfrW15mtQ657M3aSG1Mu
-	/jodMofNqB9bHAt/wbEAMt95eGAZo8lRRl69eAp1ZmOrNCaS6Y7vG+5jaGkY=
-X-Received: by 2002:a05:6122:288a:b0:5c9:c60e:3a40 with SMTP id 71dfb90a1353d-5ee8af56a83mr5616946e0c.18.1795432570921;
-        Mon, 23 Nov 2026 03:16:10 -0800 (PST)
-Received: from MaquinaLab.. ([2804:1b2:aa42:30d0:88c6:e1ab:a806:9c3d])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ee8b4335e1sm10485066e0c.1.2026.11.23.03.16.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 03:16:10 -0800 (PST)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] arm64: dts: allwinner: add Radxa Cubie A7Z support
-Date: Mon, 23 Nov 2026 08:15:47 -0300
-Message-ID: <20261123111547.24280-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAGb2v66nKWdF3AvXDfb07iYVQE5FC5yDkhuutShp+Z-EgFXEfg@mail.gmail.com>
-References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com> <CAGb2v66nKWdF3AvXDfb07iYVQE5FC5yDkhuutShp+Z-EgFXEfg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bUf3NrwC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF7A71F000C0;
+	Mon, 23 Nov 2026 11:17:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795432660;
+	bh=wRknIvw0cLKTwtOeyMRq4oTgIEAc2aw6LoyAAqqSPKc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bUf3NrwCLmq3AIfOM8M78iR/drgzopuAxa4sfnY8YUB9SYYqVN43asRwyLpy4IxmI
+	 L5kNbrU8B3NVUq+UmV1nKnUlq4oDnzchEcye8BB69MKL/PjarZdSb5Am+lYimh9bOS
+	 S7gXP2wd1VgHQRSQ7o18Bg3W4sqFx4jtYgDABv2bmzpbUScPSqyR+YOkB2cpJ02jsr
+	 oj+Z8kIIJgOdrRTQyyW7YU5ZDvnobD/690NEzUN2aWB+/ri671whZnXftbMGuy2fLK
+	 iLt4ikr5cUYwjv6QllZpH5oCDpi6sRPkbfieLTqwbH3kk+uujhfL8A+EUQZAq4BDfm
+	 ItsxFJlC8b3MA==
+Date: Mon, 23 Nov 2026 12:17:37 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Mahadevan P <mahadevan.p@oss.qualcomm.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: bridge: Add Parade PS195
+Message-ID: <20261123-meek-salamander-of-abracadabra-3cfcbc@quoll>
+References: <20261116-mahua-hdmi-v2-0-0b5af6bf9e70@oss.qualcomm.com>
+ <20261116-mahua-hdmi-v2-1-0b5af6bf9e70@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,41 +66,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261116-mahua-hdmi-v2-1-0b5af6bf9e70@oss.qualcomm.com>
 
-On Sat, Nov 21, 2026 at 12:14 AM Chen-Yu Tsai <wens@kernel.org> wrote:
-> There seem to be 3 revisions of A7Z. Which one are you targeting? Or are
-> there no differences as far as the OS is concerned?
+On Mon, Nov 16, 2026 at 05:04:04PM +0530, Nabige Aala wrote:
+> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> 
+> Add bindings for the Parade PS195 DisplayPort to HDMI bridge, describing
+> its power supplies, optional reset GPIO and display ports.
+> 
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> ---
+>  .../bindings/display/bridge/parade,ps195.yaml      | 111 +++++++++++++++++++++
+>  MAINTAINERS                                        |   6 ++
+>  2 files changed, 117 insertions(+)
 
-I'm targeting V1.11, which is the board I have and tested.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-I compared the published schematics. V1.10 differs from V1.11 in two
-places relevant to this DT:
+Best regards,
+Krzysztof
 
-On V1.10, BLDOIN comes from SWOUT2 and CLDOIN from PS. V1.11 uses a
-separate SY8089 step-down regulator at 2.4 V for both.
-
-V1.11 adds a 10k external pull-up (R59) to the microSD card-detect line,
-which V1.10 doesn't have.
-
-So the power supplies and card-detect configuration would need changes
-for V1.10.
-
-From the V2.00 schematic, the parts covered by this DT (PMIC, microSD,
-LED and UART) appear unchanged from V1.11. V2.00 adds MIPI DSI, a second
-CSI connector and a backlight driver, none of which are described here.
-
-Would you prefer keeping this DT for V1.11 (and V2.00), with a separate
-DT for V1.10 if needed, or splitting the revision-specific parts now?
-
-I also saw Andre's review of Enzo's v4 [1]. I'll apply the relevant
-changes to this DT, including removing the MMC alias and revisiting the
-regulator descriptions and constraints. I'll wait for Enzo's v5, test on
-my V1.11 board and send a v2 with those changes and the LED patch
-squashed into the board DT, as Krzysztof requested.
-
-[1] https://lore.kernel.org/all/20261122003932.568c099c@ryzen.lan/
-
-Thanks,
-Vinicius
