@@ -1,96 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.69.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795468118;
-	b=QpYs8Yx9GZ5whw0OJvax2acbY1HiIsO+aXJdTAsEA0L+7zn1O32J/sGYxWLnx/Q3pfOB
-	 5vXB7FbBHha3sFCb0lTZsxt/fR0pmyjmj7BSp+M/pFS2s0o1JXV7YzkoPfBLmq9kZx0+H
-	 Y6gepIlBe3LmeT0fOIyYSDNtgGz+fcnv1f7heJRnDhD8bEL6rK3AJdR0PcrIHK3ntQoww
-	 EoFBVLhowJKgPkSrPaB4hpHur8ZX6Vd9yqEQks3bvm368ULQxNStd/USl7L5QNpms1JHN
-	 N0cp6KXfnnWVsXvOycUImDvMPSlFP9ZdIfrFtONdu8jhl+nDPoKXL75etbSaQ7r3Uyw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795468118;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mUsk6ga2A0LuLtSKShOo87KUf9jQHqg/us3z4PJcPok=;
-	b=c9Wf3tUCSmEUR6nPdOTLELAhRHqlSBfN5TEkECbF/e//wgGX7JUrZW/oXN4NnitfK255
-	 WDzJu8Spf9Xx6sgnXev6MV2YTy0ePxTOcGJveAWl9OydUWuhFJLdTq1E8HxwCJ+tS4U5u
-	 nVL25gwmbEpGbeP+4i2vOgxPat7KkvppYkscHj/6gAgmagfroy8F71VrAONTGNxatwNqx
-	 K8yO2IugxHrenDuelnHI23rHiNA0bxfxX8Qiy9O/bJpnzBRe36NUyedN5AwRDeyuzyJs0
-	 ngitzQaWnf1dQqcIl37i+Nrea1WF/oJ4kdFdovBqeQAuD501eeWwdt70H4YHRCJyVHg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oUtgq1hw;
-	arc=fail smtp.remote-ip=52.101.69.23
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010023.outbound.protection.outlook.com [52.101.69.23])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795468274;
+	b=5FAwyWVT9YVGrX78RPKrNJKW69/7+qI+/LOMRRHICDG1O/KAbRvZG4jxthUekICpUcFL
+	 0jnkiJkh/GIq1cHVkQMz6tTCFDj/9GeMA473O19gEc3JxKWi1uN2r3EiPnaZ9wVHDldyf
+	 4OYWnEIMTdtJr8PQHWztGVR9YMLriviiswRFQhc4/nlsUtD4boX9cExXynWIdgcQeT5L6
+	 TIrRVbf7Lz+4OKlJN/cT93FUTRXus7+/xQYKJg2bhvk7R7SMIgOwfEOqMsedVYVyt4Zdf
+	 v3L5ZIyRjgGi9H/t6qnCfoHIOuXRmygnfqKDWQEGGWkV3B38Ig7R5aNloc2RRmuv8Gg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795468274;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=mSKk9/8YwoyuItcF4erJygL0vpyQpn5UlZ4I6HOLWxE=;
+	b=k88tojHaGAGqSYjBNRwCo8csUNkXMqmZ0foukw/AfdxgEo9O6G+bB3VvjEYo6/CS8brL
+	 R1Tg7SiK+YdOk1cojBcHe9+hZmq/lzbIACU/hgQWpqCvZiwuonMxkemvdoK6DzDhp5ys0
+	 OhmTsJW5CKj7gyLDLJjIlPyl0jlFivUDZ3v/bT/G3+l8kUowt1Da0NehHmEcCzfpJJAfs
+	 tqPO0GBPs8eoA26AhP00srLvnb8iSnYdVQ2sjqWaXyKxM+cYdyMlhpw3riVoUB/xSwmH+
+	 KgvdC+uWVly8OL0sr2ecfhf9pWz3X5vN3O40FV4Pk6P7ar9xHoVIkNjsNDfSxyH53qQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n04ssT8g;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDD7606A31E
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 21:08:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFDD7606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFCC606A31E;
+	Mon, 23 Nov 2026 21:11:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=oUtgq1hw
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kw7DoMQErzcUnXUgVHgabxX6vpAfc+QA5Owxp5xS2CnNQq4BCCaodvg9qJg8QOThvpgqK6YUEizJy2KDuBBIuOQc2q4qoUVyalYh/alkDoXQhbp6m07BGHJUqP2yiLlFBqSZWEHXPiBJK/ZaJDxQgA4UwfGJAYZRL5WfcWssHz6wKDFZlyQofV1eI1FvZwhD5Z7V8+M1xGURkUZOhnroF7sr15wxbj/i//p9kYnwtPGAA74IDQ33YgP2cDGK7ivoW3dp50PgT6RzsvM3du8I34uRcqRoINVb0rYqw6rR/Q+DzhFZUDBXAQ5g3TvlvOzWAvMLrz0ZHk3hDgL8hV46Yg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mUsk6ga2A0LuLtSKShOo87KUf9jQHqg/us3z4PJcPok=;
- b=y+Z4hbQEvIW7v1leJpCAfQeLW1wSV/dIzptOJsmtRDMuVH75kqhImRqJFREb/gfuuVKz3sFK2VofrroBImJtSmhqS+i13wbrcJcect4RTp4x4+sW9tPTiGqvhOPxfBs2hodKGxDXjPYNuZqzzUUtHQbQqjgD8UJcy+U7akrWxVA56V6mCKiIquYpxGUBST0vzpjMf6SNMp/C18vvCJP4rHB0fn5SwQOxXX33qXSK36W8T0jojOM1ZX7mPBxDrVyFfQcmhhejAWxk4a/ZtWiIHfbZqhG3gOKsSbU/zWl2c1w5GEYPMz5REN7myPKmN1NDa3r9LLdXxhdxZi8iYaAtog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mUsk6ga2A0LuLtSKShOo87KUf9jQHqg/us3z4PJcPok=;
- b=oUtgq1hwfE96ooYNxNb2v44vg45J4zD2vhjdtjfdAXRU2Z+Fyjc6R0T9wHhrOjPL3HERgmFSW0L8j8uTZAjXE4CP3KEnWOBcgcTF5wXKH0Q/TvPbXkZBB6qRJb63TeAnOR22IK0ghIe4AHf5RQUIuKoAb1dYuBKm/0AakDoc8Lp6USGYxXZAGgbSK9xd0xFgEI3x4q6jwIJWkU+v0nLoWZLLFMfw4eydS61dEf7f0sjKxregSpRhdEQRck+boFBt+zeAQ0LtCtKLZdQCM6b8BUwT4s0yXg5ItbGQ+Bw/r6RZYIf2KT6KmXlwSTumq/Zl67hxYZKmsDoD1ee777f8Kg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by VI1PR04MB7136.eurprd04.prod.outlook.com (2603:10a6:800:122::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 21:08:34 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 21:08:34 +0000
-Date: Mon, 23 Nov 2026 16:08:27 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Max Merchel <max.merchel@ew.tq-group.com>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
-	Frank.Li@kernel.org, linux@ew.tq-group.com
-Subject: Re: [PATCH] ARM: dts: imx6qdl-mba6: Add EEPROM nvmem cell for all
- board information
-Message-ID: <awSrS1rX359EgDZu@lizhi-Precision-Tower-5810>
-References: <20261119102531.2995127-1-Max.Merchel@ew.tq-group.com>
- <sashiko-outbox-222965@kernel.org>
- <327196f2-9063-4164-a556-3093a649b5e0@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n04ssT8g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861C91F000CA;
+	Mon, 23 Nov 2026 21:11:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795468273;
+	bh=mSKk9/8YwoyuItcF4erJygL0vpyQpn5UlZ4I6HOLWxE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n04ssT8gwdDgNYAmgXjtGk0AkqadLUG0+0U7dBHSruG9OHzM6oWiwTJw1rQdp0f1Q
+	 pC1hplFhR+0hO/OWq+Kp2n6Ap9gH9uYTj6hU99c4hx4Wv3vrNQVgI6b8k5p2pCIVyg
+	 PZrqsmcrf46nAzgvFNJM0gfHrXlHIPDDZFnN/iC38zGi4BYE0uC8W+p8V9ZNlwjr1n
+	 sH3bje/eFE1Cl7qQMZUtMKS/ry2CV9PNXGvRrAeaf6y923OrPgpdYEXuoS+UeGBzeP
+	 Bl+/kGlPx+dAwOb7S+JpsfsaITXki89L6EVOfigKaYt9+bDZcjVuVnez1gSB3iybxh
+	 8/4/haakMr7EA==
+Message-ID: <sashiko-outbox-230063@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 02/12] hwmon: Add Qualcomm PMIC BCL driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261124-qcom-bcl-hwmon-v5-2-747d5383d538@oss.qualcomm.com>
+References: <20261124-qcom-bcl-hwmon-v5-0-747d5383d538@oss.qualcomm.com>
+ <20261124-qcom-bcl-hwmon-v5-2-747d5383d538@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <327196f2-9063-4164-a556-3093a649b5e0@ew.tq-group.com>
-X-ClientProxiedBy: PH8P221CA0060.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:349::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 21:11:13 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,156 +59,351 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB7136:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71c4fbd1-0882-49c3-6198-08df49a5ef93
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|376014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|261026140227099003|4143699003|10067099003|56012099006|11063799006|261028144727099003|261026121527099003|261021123027099003|261102123227099003|261022075727099003|261021121427099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	mPXayKNhc/oqnednTKZhdY/bZUZXSroKZjZ6DhrAmmQq4OZtdoDcYp5uoVZ8YUWVBIzPAZXH6WIpKBgEq25zmzAXjOMf78acLlVXvU+cLwgp4jCOBFhxblly7uLXpEpws2GFnsZiXgxzPvrYd+uOw+FRbsIFQpRA/v70ZIVnAmQ2FwoaTT5MhinrRqJ5BHm3jaw/zcfZDwl8PmBYxbUfXK4iVUOk+e19nzgx5DlTWPF8BDErN6JyIUKOXN+pc2hggAIhUBCOmkPLnjU62CESxVgn2PlbCEK1QUSVvSzdB89UjZTxmSfUO8+0c9gaYgDtm9vHIbZess4xSj/Yy58V6BGsh07MtB7KI+0eheakfjgmPisErqerIBu6pLoUd0itLrOdUTguTm8MSjWwz0tDSmcdS7lE4blwyKHlhqSOJfy3u/3mFUUYaV7i20+/i2g9wfwd8ADpsdNgUpe5STcyMPOVT1BlxdXW34jaIxc1kGzPTqrn61SXTOw6uyb/6Ta+umdf0s+/o4TR1OlDhvohZcewi3S3/cKZWKO27S3lsyuqPGcf6pTk2A/T+AaZIgC7VZvm8YP1iNRhARSrEANTCVx8LEIH4pP55bsWuNI557k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(261026140227099003)(4143699003)(10067099003)(56012099006)(11063799006)(261028144727099003)(261026121527099003)(261021123027099003)(261102123227099003)(261022075727099003)(261021121427099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OVpyS29CYUlkamZFVXdPMG9rSGk4STFvbmlXME8wY1l5cmRLVzdHdEU5MXNk?=
- =?utf-8?B?UVk4aXJTOUFJUWcyZ1kvVzlPdkFuOTdyVzVCeHVtYnJVZ0kxaEkyZEJKcXdJ?=
- =?utf-8?B?SXlNTHd4OTdYSmhteFN6QkZybFU4eDRMM2lDbjA1WlJOZVNSS2RRYkVOY0Ry?=
- =?utf-8?B?M1pEakFxbUwrM1h3a2dtb0VDZytTR1NJOE52N3M2ODRBUVFKaVFITHRUcnE4?=
- =?utf-8?B?Z0ZNN0hFMzgxZVh5WTRMK2x6UC9FekpXUEdYSEp1dE9VYy9KN2RsVzJnYjJF?=
- =?utf-8?B?VUlTSGF0K2hGWnpFdjhMQTlUb3RQcllmQXl4dk1VU251Wm5hb1RIUnlDTHBZ?=
- =?utf-8?B?RlFQUW42YWlMa3J4QkttcngzL1I1SlovL29ob2FtWHE2RGxQeG9Fc0V1Nk9x?=
- =?utf-8?B?NjBFc2c5Tzg5V2xGOUJvaUlCWDhiamFXTjVtSlNaWmxvQ0c2NmhaTEt6YlBo?=
- =?utf-8?B?UDlDZkJLay9pSTBBZE4vOWxPZktMM1ZSZS9VZExvTHpES1VTMy9FeW9kQ0ov?=
- =?utf-8?B?YUx4VXYvYzMycjdPWXNhTXdibHN5MGlwb1JGcWE1SWxwcUxGRk1HeTBaTXl0?=
- =?utf-8?B?K29DVmZkVCtnTHcwQ2JNSFBzZDNIbXZENjJyL2V0RTBuclFNdTBzbTBlUFZu?=
- =?utf-8?B?Qk1idUd0QWFVMW5uUkpaUDV1MFd2VE40R3NSZkJuTHVnUmNiaHdFbE13T0lQ?=
- =?utf-8?B?SVZYRVdCdDlNaG9KdU9EdHJKNnJjb21NUVBFUC9kK0JOZnp6dklTU1Aydi9P?=
- =?utf-8?B?YlhTWHBVWWxOZ2RZR2E5M2RobnVYY0lXcm4vazBlcTduOUJjMi9LOHF3NHFq?=
- =?utf-8?B?WU54dVRSbkhlRDZrMjhaa0x5aDZObk5KckZiLzNZdmg2T3Z2NGFCVGZ0Mkda?=
- =?utf-8?B?SlQxYmJJWEcrVXoyc2xja2p1V1FDSWk5cEhQOHBFU0JhTDVNMldqcHRsNWxr?=
- =?utf-8?B?c2hLRER6RVNnbk9udUFXa3RHNUE4TFV3cjFsbXZlajNqZllZN0NydWZvZDZL?=
- =?utf-8?B?aTFwcGVGMXIydUl4VnJyM0Rzd1hFR1RjaXluWGJKQWgzWkRGNDZ0VCtYaS9N?=
- =?utf-8?B?OWRPY0RhcldKS3dMZXQ5VEZ1ZkJ3RllwVTllQ2N4Z2dmZkIzNFZaT0p0Tnhs?=
- =?utf-8?B?OGE0MXZSemFJT2M2aHM1cnlqMVZDODZncVluUTdUbndZdzZaTDFBTlNpdHVM?=
- =?utf-8?B?WVVzL1BmVjEvTDFyUEgxeW8waDJFOFFrOWxlRHpNb0lGRXEzVWdzZVZ0Vy9y?=
- =?utf-8?B?U0RJL05ld3pScVp0R1kwcWpaRzhuVGdDMjRabzlxSTB4T0JMOGZxZWEzTHRu?=
- =?utf-8?B?VTlGNE1Ya3J3VG5sN3U0ZDdTQ1JEVHlSVjBDaTNPOFNlMTVpS05NS2JQbXVO?=
- =?utf-8?B?ZXNDVTRVUmNFK1ljK3pUMS9SVGs5d2ROM0w4cDBOM0dvYlI1aloyUGtwREJh?=
- =?utf-8?B?N3RTSHRJQzQ4NHZIT2tyQWdRemYxUEJHa0FrdGUraUhxWVFrWXpTcWpDU29B?=
- =?utf-8?B?WnRWMVR4MTdxdFRlL3FmYzVKNUdHV2xqb1BHeFBRc1EvM0h4NVhmdVo2WTJz?=
- =?utf-8?B?QUFtL3publNKeHNwSUgyN0NkWmNCcG5mbHQ2eExoOGl6eW5ubU8yUFdIb0o5?=
- =?utf-8?B?Q0tzU2R0b1JncmE2Y1ovVThNZFVUVG1YQzRoY2VHeXdaTkZtNVNEUmZiTDk4?=
- =?utf-8?B?alB5bHJlSXUzbk9oeG05R1dJRUVsZE5zWEFXTnBaMUtIS0lLUEVjdTY5dTRD?=
- =?utf-8?B?UENVMjY3a1MweUgxanFtOEh2SFdzekJ1THZCb3NUNjRWaS93aHdqcm44cE1j?=
- =?utf-8?B?azVlRlpWSWZObDhURTAxYjJoNS95aHdQVnpsUndLdHNkNmFyRHEwTXpFRFh2?=
- =?utf-8?B?bGYxUkZDSjFXRFRFU3hiZmNLV0o5dVREU1YyTmNkd2ZCZzR2MWZYU2UxMFhB?=
- =?utf-8?B?U1orK3p3ZXViYmxneFh6eG9zYlhINUxWT0NkRTZ4Rll6YnJEK25ZZDJ3YzNL?=
- =?utf-8?B?RUNZclMyL1paQmRCN1BNMG80d1MwRjhnZys4cG1vU1VpWHpBS2FhdHVnRkg0?=
- =?utf-8?B?d29IV3JIVmR2ZmJEYnhrS1hMaVhMUXpEN294N3kyTGhsV3ZhRm9WTk5tT0Vj?=
- =?utf-8?B?NzhrUjdZdlZpTFNJV2d3VkhLemt0YTd3eXZOUWNOSDZZV3E2M1BoR0lRbDJu?=
- =?utf-8?B?TDBvK3UvWUtqNVVkcGxMc1A2TDVHR2VVQ29kZFZCYVpQQlBJQkNkUFJCRGVT?=
- =?utf-8?B?MGRLUTVRQnA4UFNzQ2ZZYmlqb2xyZmZNQjVrTWZ4cW1sMDZsaHRlZUtVZFlq?=
- =?utf-8?B?aXF6VzVJVXZQQkFlUVY3NFdOUWJtSHBybVpqVVI3UDBoakEwZ1dUNXBQa29n?=
- =?utf-8?Q?J8vfu7cBZyyMatjxePr3x/2WJByBZZFtmX/O4?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71c4fbd1-0882-49c3-6198-08df49a5ef93
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 21:08:34.8522
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wsk16yePn/WBjiUGMwI0aNqW0dnftK/luz3BUKxzRI38eHgl9XsrqcBSyGMwqIT0KHBZnu6PTuqUb6fyGA6fbSTnkC2+m9Gd7lWiL3r1Rsver7lguzH+NpXGoBGlXr3x
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7136
 
-On Thu, Nov 19, 2026 at 01:13:05PM +0100, Max Merchel wrote:
->
-> On 11/19/26 11:37, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue to consider:
-> > - [Low] ARM: dts: imx6qdl-mba6: duplicate @20 unit-address in
-> >    nvmem-layout
-> > --
-> >
-> > commit b5a0ac272fe3356ca3f0ff5cbf739f7f5d760dab
-> > Author: Max Merchel <Max.Merchel@ew.tq-group.com>
-> >
-> > ARM: dts: imx6qdl-mba6: Add EEPROM nvmem cell for all board information
-> >
-> > This commit adds an EEPROM fixed-layout nvmem cell at offset 0x20 covering
-> > board information on MBa6a and MBa6b carrier boards.
-> >
-> > > diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi
-> > > index aca320ee8f476..9b199b277c220 100644
-> > > --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi
-> > > +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6a.dtsi
-> > > @@ -29,6 +29,10 @@ nvmem-layout {
-> > >   			#address-cells = <1>;
-> > >   			#size-cells = <1>;
-> > > +			board_info: board-info@20 {
-> > > +				reg = <0x20 0x60>;
-> > > +			};
-> > > +
-> > >   			mba_mac_address: mac-address@20 {
-> > >   				reg = <0x20 0x6>;
-> > >   			};
-> > > diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi
-> > > index c7bbd6195fef1..517913abbc66d 100644
-> > > --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi
-> > > +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-mba6b.dtsi
-> > > @@ -39,6 +39,10 @@ nvmem-layout {
-> > >   			#address-cells = <1>;
-> > >   			#size-cells = <1>;
-> > > +			board_info: board-info@20 {
-> > > +				reg = <0x20 0x60>;
-> > > +			};
-> > > +
-> > >   			mba_mac_address: mac-address@20 {
-> > >   				reg = <0x20 0x6>;
-> > >   			};
-> > [Severity: Low]
-> > Does adding board-info@20 alongside mac-address@20 under the same
-> > nvmem-layout parent in both dtsi files cause duplicate unit-address dtc
-> > warnings?
-> >
-> > Because both enabled sibling nodes share the @20 unit-address and overlap
-> > at offset 0x20, building the MBa6x DTBs with W=1 or W=2 triggers
-> > unique_unit_address_if_enabled and unique_unit_address warnings.  Could the
-> > fields be defined as non-overlapping cells at their respective offsets, or
-> > exposed through a dedicated nvmem layout?
-> >
-> Hello,
->
-> the MAC address is the first part of the TQ-EEPROM structure for
-> module/board data (MAC, serial number, type).
->
-> The function “nvmem_get_mac_address” in “net/ethernet/eth.c” retrieves an
-> nvmem cell containing the MAC address and compares its length to ETH_ALEN.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [Medium] hwmon: qcom-bcl: infinite poll loop in
+  bcl_alarm_enable_poll() on reassertion
+- [Medium] hwmon: qcom-bcl: max_mu exceeds 6-bit L1/L2 field in
+  bcl_thresh_write()
+- [Medium] hwmon: qcom-bcl: unlocked enable_irq_wake() race in
+  bcl_alarm_irq_init()
+- [Low] hwmon: qcom-bcl: 32-bit jiffies wraparound in
+  bcl_curr_input_read() cache
+- [Low] hwmon: qcom-bcl: redundant private mutex bcl->lock duplicating
+  hwmon_lock()
+--
 
-Can you create patch to >= ETH_ALEN? Adding new warning is not good. and it
-also doesn't make sense to use overlap range.
+commit ad4e95352ce7aa5ad76440eaf33e8bd9c53a0538
+Author: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
 
-Frank
+hwmon: Add Qualcomm PMIC BCL driver
 
-> Therefore, it is not possible to use the same nvmem layout.
->
-> Consequently, two nvmem layouts are required, both starting at the same
-> offset.
->
-> I have not found a way to use only the first part of an “nvmem layout” or to
-> create sub layouts for sections of an existing layout.
->
->
-> --
-> Best regards,
-> Max
->
-> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-> Amtsgericht München, HRB 105018
-> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-> http://www.tq-group.com/
->
+This commit adds a hwmon driver for the Qualcomm SPMI PMIC Battery Current
+Limiting (BCL) peripheral to monitor battery voltage and current and report
+threshold alarms.
+
+> diff --git a/drivers/hwmon/qcom-bcl-hwmon.c b/drivers/hwmon/qcom-bcl-hwmo=
+n.c
+> new file mode 100644
+> index 0000000000000..a5a3a59484571
+> --- /dev/null
+> +++ b/drivers/hwmon/qcom-bcl-hwmon.c
+
+[ ... ]
+
+> +struct bcl_device {
+> +	struct device		*dev;
+> +	struct regmap		*regmap;
+> +	u32			base;
+> +	struct regmap_field	*fields[F_MAX_FIELDS];
+> +	struct bcl_alarm_data	bcl_alarms[BCL_LIMIT_ALARM_MAX];
+> +	/* Protects hardware register access and device state */
+> +	struct mutex		lock;
+
+[Severity: Low]
+This isn't a bug, but the hwmon core already serializes .read and .write
+callbacks under the hwmon device lock, and regmap serializes individual
+register accesses.  Could this use hwmon_lock() and hwmon_unlock() instead
+of a driver-private mutex?
+
+> +	u32			last_in_input;
+> +	s32			last_curr_input;
+> +	unsigned long		last_in_updated;
+> +	unsigned long		last_curr_updated;
+
+[ ... ]
+
+> +static const struct reg_field bcl_smb2360_reg_fields[] =3D {
+> +	[F_V_MAJOR]	=3D REG_FIELD(REVISION2, 0, 7),
+> +	[F_V_MINOR]	=3D REG_FIELD(REVISION1, 0, 7),
+> +	[F_CTL_EN]	=3D REG_FIELD(EN_CTL1, 7, 7),
+> +	[F_LVL0_ALARM]	=3D REG_FIELD(STATUS, 0, 0),
+> +	[F_LVL1_ALARM]	=3D REG_FIELD(STATUS, 1, 1),
+> +	[F_LVL2_ALARM]	=3D REG_FIELD(STATUS, 2, 2),
+> +	[F_IN_L0_THR]	=3D REG_FIELD(VADC_L0_THR, 0, 7),
+> +	[F_IN_L1_THR]	=3D REG_FIELD(VCMP_L1_THR, 0, 5),
+> +	[F_IN_L2_THR]	=3D REG_FIELD(VCMP_L2_THR, 0, 5),
+> +	[F_IN_INPUT]	=3D REG_FIELD(VADC_DATA1, 0, 7),
+> +	[F_CURR_H0_THR]	=3D REG_FIELD(IADC_H0_THR, 0, 7),
+> +	[F_CURR_H1_THR]	=3D REG_FIELD(IADC_H1_THR_GEN3, 0, 7),
+> +	[F_CURR_INPUT]	=3D REG_FIELD(IADC_DATA1, 0, 7),
+> +};
+> +
+> +static const struct reg_field bcl_smb2370_reg_fields[] =3D {
+> +	[F_V_MAJOR]	=3D REG_FIELD(REVISION2, 0, 7),
+> +	[F_V_MINOR]	=3D REG_FIELD(REVISION1, 0, 7),
+> +	[F_CTL_EN]	=3D REG_FIELD(EN_CTL1, 7, 7),
+> +	[F_LVL0_ALARM]	=3D REG_FIELD(STATUS, 0, 0),
+> +	[F_LVL1_ALARM]	=3D REG_FIELD(STATUS, 1, 1),
+> +	[F_LVL2_ALARM]	=3D REG_FIELD(STATUS, 2, 2),
+> +	[F_IN_L0_THR]	=3D REG_FIELD(VADC_L0_THR, 0, 7),
+> +	[F_IN_L1_THR]	=3D REG_FIELD(VCMP_L1_THR, 0, 5),
+> +	[F_IN_L2_THR]	=3D REG_FIELD(VCMP_L2_THR, 0, 5),
+
+[ ... ]
+
+> +/* Register 0x2a50 mapping: 0 -> 2S, 1 -> 3S */
+> +static const struct bcl_desc smb2360_data =3D {
+> +	.reg_fields =3D bcl_smb2360_reg_fields,
+> +	.num_reg_fields =3D F_CURR_INPUT + 1,
+> +	.data_field_bits_size =3D 8,
+> +	.thresh_field_bits_size =3D 8,
+> +	.battery_config_field =3D REG_FIELD(0x2a50, 0, 1),
+> +	.features =3D BCL_IN_MON | BCL_IN_INPUT | BCL_CURR_MON,
+> +	.channel_cfg[BCL_BATT_2S][CHANNEL_IN] =3D {
+> +		.base_mu =3D 4500,
+> +		.max_mu =3D 8400,
+> +		.step_mu =3D 50,
+> +		.default_scale_nu =3D 432918,
+> +		.thresh_type =3D {THRESH_TYPE_ADC, THRESH_TYPE_INDEX, THRESH_TYPE_INDE=
+X},
+> +	},
+> +	.channel_cfg[BCL_BATT_2S][CHANNEL_CURR] =3D {
+> +		.max_mu =3D 17575,
+> +		.default_scale_nu =3D 540679,
+> +		.thresh_type =3D {THRESH_TYPE_ADC, THRESH_TYPE_ADC},
+> +	},
+> +	.channel_cfg[BCL_BATT_3S][CHANNEL_IN] =3D {
+> +		.base_mu =3D 6750,
+> +		.max_mu =3D 12600,
+> +		.step_mu =3D 75,
+> +		.default_scale_nu =3D 648790,
+> +		.thresh_type =3D {THRESH_TYPE_ADC, THRESH_TYPE_INDEX, THRESH_TYPE_INDE=
+X},
+> +	},
+
+[ ... ]
+
+> +static int bcl_thresh_write(struct bcl_device *bcl, long value, enum bcl=
+_limit_alarm lvl,
+> +			    enum bcl_channel channel)
+> +{
+> +	const struct bcl_desc *desc =3D bcl->desc;
+> +	const struct bcl_channel_cfg *cfg =3D &desc->channel_cfg[bcl->batt_conf=
+ig][channel];
+> +	enum bcl_fields base_field =3D channel =3D=3D CHANNEL_IN ? F_IN_L0_THR =
+: F_CURR_H0_THR;
+> +	struct regmap_field *field;
+> +	long thresh =3D clamp_val(value, cfg->base_mu, cfg->max_mu);
+> +	u32 raw_val;
+> +	int ret;
+> +
+> +	if (WARN_ON(channel =3D=3D CHANNEL_CURR && lvl >=3D BCL_LIMIT_ALARM_LVL=
+2))
+> +		return -EINVAL;
+> +
+> +	field =3D bcl->fields[base_field + lvl];
+> +
+> +	if (cfg->thresh_type[lvl] =3D=3D THRESH_TYPE_ADC)
+> +		raw_val =3D bcl_convert_milliunit_to_raw(bcl, thresh, channel,
+> +						       desc->thresh_field_bits_size);
+> +	else
+> +		raw_val =3D bcl_convert_milliunit_to_index(bcl, thresh, channel);
+> +
+> +	ret =3D bcl_validate_threshold_fits(bcl, &desc->reg_fields[base_field +=
+ lvl],
+> +					  raw_val, thresh, channel =3D=3D CHANNEL_IN ? "mV" : "mA");
+> +	if (ret)
+> +		return ret;
+
+[Severity: Medium]
+As reported by Daniel Lezcano on v4 [1], can bcl_thresh_write() reject
+valid clamped thresholds on SMB2360 and SMB2370?
+
+For both chips, F_IN_L1_THR and F_IN_L2_THR are 6-bit fields (max index
+63, which corresponds to 7650 mV on 2S and 11475 mV on 3S), whereas
+channel_cfg sets max_mu to 8400 mV on 2S and 12600 mV on 3S (index 78).
+Writing a value >=3D 7675 mV on 2S or >=3D 11513 mV on 3S to in0_lcrit or
+in0_lemergency clamps to at most index 78, causing
+bcl_validate_threshold_fits() to log a dev_err() and fail with -EINVAL
+instead of clamping to the hardware limit.
+
+[ ... ]
+
+> +static int bcl_curr_input_read(struct bcl_device *bcl, long *out)
+> +{
+> +	int ret;
+> +	u32 raw_val =3D 0;
+> +	s32 signed_val;
+> +	const struct bcl_desc *desc =3D bcl->desc;
+> +
+> +	/* Return cached value if read too soon after last update */
+> +	if (bcl->last_curr_updated &&
+> +	    time_before(jiffies, bcl->last_curr_updated + HZ)) {
+> +		*out =3D bcl->last_curr_input;
+> +		return 0;
+> +	}
+
+[Severity: Low]
+On 32-bit platforms, can time_before(jiffies, bcl->last_curr_updated + HZ)
+wrap around if curr1_input (or in0_input in bcl_in_input_read()) is not
+read for more than LONG_MAX jiffies (~24.8 days at HZ=3D1000)?  During the
+following ~24.8 days, time_before() evaluates to true and returns the
+stale cached reading without updating last_curr_updated.  Using u64
+timestamps with get_jiffies_64() and time_before64() would avoid the wrap.
+
+[ ... ]
+
+> +static void bcl_alarm_enable_poll(struct work_struct *work)
+> +{
+> +	struct bcl_alarm_data *alarm =3D container_of(work, struct bcl_alarm_da=
+ta,
+> +							 alarm_poll_work.work);
+> +	struct bcl_device *bcl =3D (struct bcl_device *)alarm->device;
+> +	long status;
+> +	int ret;
+> +	bool notify =3D false;
+> +
+> +	scoped_guard(mutex, &bcl->lock)
+> +		ret =3D bcl_read_alarm_status(bcl, alarm->type, &status);
+> +
+> +	/* If read failed or shutting down, reschedule */
+> +	if (ret || READ_ONCE(alarm->shutting_down)) {
+> +		if (!READ_ONCE(alarm->shutting_down)) {
+> +			dev_err_ratelimited(bcl->dev,
+> +					    "Failed to read alarm %d status: %d\n",
+> +					    alarm->type, ret);
+> +			schedule_delayed_work(&alarm->alarm_poll_work,
+> +					      msecs_to_jiffies(BCL_ALARM_POLLING_MS));
+> +		}
+> +		return;
+> +	}
+> +
+> +	/* Check if alarm cleared and IRQ needs re-enabling */
+> +	scoped_guard(mutex, &alarm->a_lock) {
+> +		if (alarm->shutting_down)
+> +			return;
+> +
+> +		if (!status && !alarm->irq_enabled) {
+> +			alarm->irq_enabled =3D true;
+> +			enable_irq(alarm->irq);
+> +
+> +			if (!alarm->irq_wake_enabled && !enable_irq_wake(alarm->irq))
+> +				alarm->irq_wake_enabled =3D true;
+> +
+> +			notify =3D true;
+> +		}
+> +	}
+> +
+> +	if (notify) {
+> +		/* Reassertion racing enable_irq() is dropped by the PMIC on unmask; r=
+e-check. */
+> +		scoped_guard(mutex, &bcl->lock)
+> +			ret =3D bcl_read_alarm_status(bcl, alarm->type, &status);
+> +
+> +		if (ret || status) {
+> +			if (!READ_ONCE(alarm->shutting_down))
+> +				schedule_delayed_work(&alarm->alarm_poll_work,
+> +						      msecs_to_jiffies(BCL_ALARM_POLLING_MS));
+> +			return;
+> +		}
+> +
+> +		/* Notify outside a_lock: sysfs_notify()/kobject_uevent_env() may slee=
+p */
+> +		bcl_hwmon_notify_event(bcl, alarm->type);
+> +		return;
+> +	}
+> +
+> +	/* Alarm still active, reschedule polling */
+> +	if (!READ_ONCE(alarm->shutting_down))
+> +		schedule_delayed_work(&alarm->alarm_poll_work,
+> +				      msecs_to_jiffies(BCL_ALARM_POLLING_MS));
+> +}
+
+[Severity: Medium]
+Does bcl_alarm_enable_poll() enter an infinite 50 ms polling loop if the
+post-unmask re-check sees ret !=3D 0 or status !=3D 0?
+
+When the first read observes status =3D=3D 0, bcl_alarm_enable_poll() sets
+alarm->irq_enabled =3D true, enables the IRQ, and sets notify =3D true.  If
+the alarm reasserted before enable_irq() unmasked the line, the PMIC drops
+that edge (so bcl_handle_alarm() will not run to clear
+alarm->irq_enabled), and the re-check under if (notify) reschedules
+alarm_poll_work and returns with alarm->irq_enabled still true.
+
+On all later runs once status clears back to 0, (!status &&
+!alarm->irq_enabled) is false, so notify stays false: the clear
+notification is never sent and the function falls through to reschedule
+alarm_poll_work every 50 ms forever.
+
+[ ... ]
+
+> +static int bcl_alarm_irq_init(struct platform_device *pdev,
+> +			      struct bcl_device *bcl)
+> +{
+> +	int ret, irq_num, i;
+> +	struct bcl_alarm_data *alarm;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(bcl->bcl_alarms); i++) {
+> +		alarm =3D &bcl->bcl_alarms[i];
+> +		alarm->type =3D i;
+> +		alarm->device =3D bcl;
+> +		ret =3D devm_mutex_init(bcl->dev, &alarm->a_lock);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* Initialize work before IRQ request */
+> +		INIT_DELAYED_WORK(&alarm->alarm_poll_work, bcl_alarm_enable_poll);
+> +
+> +		irq_num =3D platform_get_irq_byname(pdev, bcl_lvl_info[i].irq_name);
+> +		if (irq_num < 0)
+> +			return irq_num;
+> +
+> +		alarm->irq =3D irq_num;
+> +		alarm->irq_enabled =3D true;
+> +
+> +		ret =3D devm_request_threaded_irq(&pdev->dev, irq_num, NULL,
+> +						bcl_handle_alarm, IRQF_ONESHOT,
+> +						bcl_lvl_info[i].irq_name, alarm);
+> +		if (ret) {
+> +			alarm->irq_enabled =3D false;
+> +			return ret;
+> +		}
+> +
+> +		/*
+> +		 * Register the cleanup action right after the IRQ is
+> +		 * requested, before any other fallible step in this loop, so
+> +		 * a delayed work scheduled by the IRQ handler is guaranteed
+> +		 * to be canceled on teardown. Keeping it after the IRQ
+> +		 * request also preserves safe devm LIFO teardown order.
+> +		 */
+> +		ret =3D devm_add_action_or_reset(&pdev->dev, bcl_alarm_cleanup_action,
+> +					       alarm);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (!enable_irq_wake(irq_num))
+> +			alarm->irq_wake_enabled =3D true;
+> +	}
+
+[Severity: Medium]
+Can enable_irq_wake() in bcl_alarm_irq_init() race with bcl_handle_alarm()
+once devm_request_threaded_irq() activates the interrupt?
+
+CPU0                              CPU1
+bcl_alarm_irq_init()
+  devm_request_threaded_irq()
+                                  bcl_handle_alarm()
+                                    mutex_lock(&alarm->a_lock)
+                                    alarm->irq_enabled =3D false
+                                    disable_irq_nosync(alarm->irq)
+                                    /* irq_wake_enabled is still false */
+                                    mutex_unlock(&alarm->a_lock)
+  enable_irq_wake(irq_num)
+  alarm->irq_wake_enabled =3D true  <-- wake enabled while IRQ is disabled
+
+If bcl_handle_alarm() also runs between enable_irq_wake() and
+alarm->irq_wake_enabled =3D true (or after bcl_alarm_enable_poll() has
+already enabled wake), enable_irq_wake() can be called twice while
+irq_wake_enabled only tracks a single boolean, leaving wake_depth
+unbalanced on teardown.  Acquiring alarm->a_lock and checking
+alarm->irq_enabled && !alarm->irq_wake_enabled before calling
+enable_irq_wake() would prevent this.
+
+[1] https://lore.kernel.org/r/5598422c-8830-4fcf-be2b-e4486ea64539@oss.qual=
+comm.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-qcom-bcl-h=
+wmon-v5-0-747d5383d538@oss.qualcomm.com?part=3D2
