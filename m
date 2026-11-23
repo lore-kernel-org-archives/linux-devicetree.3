@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795459453;
-	b=f67r4+pk7JiqKJuKXRPprawJFZO9y82JzScUsbnFYORzmSJP4ib1Nxra7pnAdSTPUt+l
-	 x3IBhosenhTORgQSCdU459hRCpJpZKOQS5hNse+kiT8QK0XZb50vT42QuWfLbZp5AJZkk
-	 iGJUpzRRK0UCSrUhqYF/7QrxR1O9bOZ3aY5TVVYNZ+x52yY5N67701JYgpbntWcKS4SEa
-	 tld7wftzDdmCCSTDhodhkNnD4+S5dCTfEWCT2vuq/4DBKAdGRQ+bDkAM4WauTOtvoWnwQ
-	 zPKdGwPRfkWB7jkiETdASXq3lAipTKwSY+OsYSG0nlrEJtu15UB5r78Fyii0okgilIQ==
+	t=1795459465;
+	b=d+YwOYlsthVht+jJ8SHuY47pYOKtGJgJWwPsRw/4Bq3/NxuiOnDHWVIboRpTy13JoZ+v
+	 rhk1axt4ixx16w/i0rWRZsL53qLYT8HCBnabXjqQX4H1l/FdCfeiYP9+Psosc3n2XWK9I
+	 7lpwpeovSEzKijdCckCDwUefaq+Nyvkt/7aSlcYY4dniBS14jtM6uafbYxaj+VlfvJ599
+	 yXgDRrGA3S+fuiYZspvxlLwJe8occppbcKRiH/HxoxPCPeKwQFHU6QpfBu8/wh7agRdVp
+	 fe0Zw2MKrDb5w84e0+vPnUgdGLaO8Zp58v2mquQKKib8yZGSWgQe3VuBxNOqMa17YEw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795459453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795459465;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QnkvwRjxalFfpIWRivbWeaDT7ktUTxee4WzIGdLxdG4=;
-	b=UsQpy1c5+ZBUukzpgRl5LXto+uOaeeO+DmgLSz9jUnaQ6ypgjlbnA+LFQETFJ/Iit/a1
-	 N2tGZNO3Bcgsa8orjr/BKWDP0NnTuYupTrBsX79oCtrLIykUXIWrnkh9OBzzb7n6+qhYG
-	 A+xSdNSzdLQDfFDWWs8HfeQcZ74HQmy5/hhq1MHslUqXMrWtwHy6ZK5ZI+bTe80S4OF6f
-	 G+m52p/TeA0rzlZfOAQUYX8wRrUvADgqgfapw84DKbRT8qI4IfqkoSROFiNvWmmNZI0GB
-	 8rqeF/ykAjXczgCgfszqcl4kldTilUuzhE6tX+TjarITBz1f28T127SrEP4k36aW0bA==
+	bh=o723m0djv4llTVaMLMWyJBdlGd6TGnVmWvYWsA2QBxE=;
+	b=vZgorXH7PCpfrXZAf8ZwxY4dZ+dPpTMxNLuInMhk467W4Rs6OgbCgFophKCjS2pYzgws
+	 wc/txAoDqYn7XesIH4Y4T0hLiOYGRc+9ZyERvOr+Re4ZIUf0EQhQc9Rtff72ejgxlPmYg
+	 RABiBI69TueQDaSqoVkJ9cI7rI2pn5yWXZMNXRaOvAL6pK6IlFdySK0vAB9h9zrVxLK55
+	 4JyX7c0YxsT6oxZDp10eEprgVigSWBIO79Bt2oCKP/52XybSJZd4dIV1YeTY5lViNpqut
+	 SIScK33f1zAVtVdYbHM7ZUFli17euAa5JndTaV94qqpszKGq2awr2JzBhIRcdTWYqOQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajmtnBUJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WjdELp7n;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A12606A680;
-	Mon, 23 Nov 2026 18:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CEA606A32A;
+	Mon, 23 Nov 2026 18:44:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajmtnBUJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WjdELp7n
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795459452;
-	b=iwM1qdrPfmVbcUTXLfzvhiziiK0DWKtP31u1Rb9bkFka84OmxWSe3pXAdGTP1wtUVo+d
-	 uwLq2ZBY1Vee8aEP0J3TkRIkZNZu57V++HyTxX7AmeAKdgow7Zhg5dJznbNMObuGhFGUf
-	 ngdmACrxllxU/rqA4zFQSGELRBTqqi9dcIXUJ3yFGmDhlyZiBypItpVaU72X8I90T9fLM
-	 zJ4aQDUXAh/4wc9/oGhFXxqQy8I1BwCdzFoKUpCKHduZ6yAWiSKAIzbuxf8UTHLOs6vkD
-	 oOkPwDnOsPI/Oim7F18NHjyZJC3DP8UGhCV9Oa7e/nYHOgI6kjuI3G9YXnoCVHmzd0A==
+	t=1795459465;
+	b=FAg3B6bouq3U+ydWXpOhDHsbouVTsvWSLcnpIQS+GTb763yBw1Ii00tuoam7ckyhkpoW
+	 eOJI+1NNlW7wBbdqEmHYJEYE4Hx4M2F6fX/H0rimIbz5Yw8LCxOkJOyTSBqkdQ0Esd19j
+	 ZecO5Wi/9N6FbzVJmryssT7WAWjvxJ+IU4ISFNrw7fN5Es3wNqnGjsuWlbx1n0aNrMnur
+	 QqfGLA2wqww3Ea03E9tV1Sfb8bLrNLHIzmYURgFRCOWXP/zr5YRL5/kMO914MnFuyYMbz
+	 T4OIzm0E6JlI/ngAVuv1TCe/kroOtHzz3f9y2SCsUR0iQ9mHzUSMwv2H4K0w+kX7cfw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795459452;
+	c=relaxed/relaxed; t=1795459465;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QnkvwRjxalFfpIWRivbWeaDT7ktUTxee4WzIGdLxdG4=;
-	b=O9FZxIK7V74wo0ipTWQzJKHEIu2YRkZV+vOEg7v/soVOQTfW6qm3KMnpZF+NHHEOedRJ
-	 JHes5/5MDYY3lfHDwU38KomEdm1DB4A4NZwiu9FDmZBbPpr9A/PhJYhmuZb9YqhTU0f1H
-	 MsVa4/3M2kRvMAxlrDm3jjIn022xJq64uxqq+hNt76g6N7agvo2LB8SCdg1aLHlHsel8v
-	 +Tjb8kiYSC/apwFu7zP3jfzsps2043METs22FSvEOcRwKKZTrJZakaTyK4BzaKwWWQe5T
-	 0sqZTsbcYOA4SdIocdmU3iqV6k1M2mKmzWOIuV3puPUaMspPcrsgso5u22EEbDb2SDg==
+	bh=o723m0djv4llTVaMLMWyJBdlGd6TGnVmWvYWsA2QBxE=;
+	b=aMm/l40pQ6j2r2Vqhnx5Um2h4vZ9DKIQcOybm4IlwdQA+R7Agkw29SoXRlMbVW4MOE3y
+	 m7+3+HAPodjFr+ba35Ky1DM57umnki9VQLF6HegGvragPSImfj13bfAn0l6q2uOkmdthW
+	 dYLUdMqbffSfolqOdQ0/P/q7jRh03UprovQBo4xWm8doWrR8t29WOrP+bDZRAUgyPqBJ6
+	 P3N8d4J98/2H0GGwOrl8XLDonpcpbPD35/X5fSuPlPkc+zgp/q3Dmx2rSNQaCqcZd8FDv
+	 yUShuBSdDyo/wfygNLq+7OQU7ci7S35FKQ0v41OXQkPIvJrdZ2ubsyj2NkWG+5xfyaQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5C6EB1F000E6;
-	Mon, 23 Nov 2026 18:43:41 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id F05881F000ED;
+	Mon, 23 Nov 2026 18:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795459452;
-	bh=QnkvwRjxalFfpIWRivbWeaDT7ktUTxee4WzIGdLxdG4=;
+	s=k20260515; t=1795459465;
+	bh=o723m0djv4llTVaMLMWyJBdlGd6TGnVmWvYWsA2QBxE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ajmtnBUJsEarNGNTrFpLcdUmna3AXEwf3NGNRe69mR9XYhxh4x8sZ7nFxNY27qCAz
-	 0KHyaLRnVZ48Nm+YMKg06IaXDRPENBxux58XEKccw429GoWHL91ySXes0Bd9zvl8dY
-	 SPSyux8wo5TPaS05RWAs+89tU/jWcOQD3QLBmYv7dBi6kZl2o2vXgD2EKkv+NQhs9l
-	 eWg0P42IXU1Mjqi9lQXtzyH5KPxXiJR6XlrLUZdWT8YqVLtESzi+03++rtb7O6nNDP
-	 PXHTsqoh3Tm7X20/7j6uqMAwy+imKr8wXL2J52cnBfbewVQYadwFz3SCwFCO3qkjdh
-	 SHbBUtCSOM6fw==
+	b=WjdELp7nmuH604FdNWK/Lf2muE6pEPhUmUCEAn/9lMtnAObRVyLb/jBf58faUGQE6
+	 kbYFpN8MvaX9+w91K6kQlfG51TcW9AanwRzTkPUxWwneVK/Hy4pGcjiWLkvDf6eDtH
+	 vcrrvPyuxL9ycSXQ2tAz5u8WDeDkx9IMZ+aLyMYjQACurvE5MBq8MRIZfSgOjJVoBi
+	 mDwQL8g+QhOn4vwFRd4Uz6bnvymxJRm8jPVzCOxoyLio9GTreVEM09WJJIDugA+F6Y
+	 ePHGWar9FUhIfInmxUAiLGUt++73yV4AnCZvQ5mjj0kSRVF0sOt2FB7v9M1DvjuTcA
+	 hYaVrTyz0PEtA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7F34D4C60E;
-	Mon, 23 Nov 2026 18:43:34 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 53A454C5F5;
+	Mon, 23 Nov 2026 18:44:13 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Mon, 23 Nov 2026 21:43:34 +0300
-Subject: [PATCH 6/8] dt-bindings: PCI: Describe the CS7542 host controller
+Date: Mon, 23 Nov 2026 21:44:11 +0300
+Subject: [PATCH net-next 2/5] reset: Add Cortina CS7542 network engine
+ domain control
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,29 +84,24 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-b4-cs7542-pcie-v1-6-4cde5201d404@gmail.com>
-References: <20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com>
-In-Reply-To: <20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com>
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>
-Cc: Jingoo Han <jingoohan1@gmail.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Krzysztof Wilczynski <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
+Message-Id: <20261123-b4-cs7542-ethernet-v1-2-fdb5e8c2d508@gmail.com>
+References: <20261123-b4-cs7542-ethernet-v1-0-fdb5e8c2d508@gmail.com>
+In-Reply-To: <20261123-b4-cs7542-ethernet-v1-0-fdb5e8c2d508@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
+ Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459409; l=3852;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459449; l=5565;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=VvGufEimroLNQa6ffIpguLzS7u9g0TkrXCLDyMng0v4=;
- b=JieypMZCDH6u0OxjVZGYNq5tN+RDJuSJisbUr1Op0hPgZa3zMYJsYqEAUt37atyhVE4j2mlKr
- OOdPQkLlypZBhyDxaq9DYII4vS/uhs4vFH9UOn3f+Zi1eNBjOlZ0okt
+ bh=Ad0mfeyBbvzfZar0R5EFFyw87GP4uLfbc0CLfuGkDwY=;
+ b=Y1kLU2a4JK6H4FID7LfLwqIXJMTjXZtgobCgCmdZNXVXcHeu66v8erxtssLMEV41yW1On2LKq
+ lqixskegE8lDwvyNATBw6iPbcMb6q8Dc0iuW5yK27rjhuvNSIg/p89w
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -116,147 +112,169 @@ Content-Transfer-Encoding: 7bit
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Describe the DesignWare host wrapper, clock/reset/PHY consumers, combined
-interrupt and INTx domain. Document the root configuration access limit.
+Expose the NI, FE, TM, scheduler, QM, DMA-LSO/SSP and XRAM resets as one
+exclusive logical domain. Change all owned bits in one masked
+global-regmap update, preserve neighboring resets and require bounded
+hardware readback. Return an error for a partially asserted domain.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- .../bindings/pci/cortina,cs7542-pcie.yaml          | 127 +++++++++++++++++++++
- 1 file changed, 127 insertions(+)
+ drivers/reset/Kconfig           |  10 ++++
+ drivers/reset/Makefile          |   2 +
+ drivers/reset/reset-cs7542-ne.c | 114 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 126 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/pci/cortina,cs7542-pcie.yaml b/Documentation/devicetree/bindings/pci/cortina,cs7542-pcie.yaml
+diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+index eda9c698a..8218d639f 100644
+--- a/drivers/reset/Kconfig
++++ b/drivers/reset/Kconfig
+@@ -15,6 +15,16 @@ menuconfig RESET_CONTROLLER
+ 
+ if RESET_CONTROLLER
+ 
++config RESET_CS7542_NE
++	tristate "Cortina CS7542 network engine reset domain"
++	depends on OF && HAS_IOMEM
++	select MFD_SYSCON
++	help
++	  Control the combined NI/FE/TM/SCH/QM/XRAM and DMA-LSO/SSP domain.
++	  The consumer must exclusively own the entire network and DMA block.
++	  Use this with the network engine driver when no separate SSP DMA
++	  consumer is enabled; the NAND controller may operate through PIO.
++
+ config RESET_A10SR
+ 	tristate "Altera Arria10 System Resource Reset"
+ 	depends on MFD_ALTERA_A10SR || COMPILE_TEST
+diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+index 489fafd6b..c24b8e281 100644
+--- a/drivers/reset/Makefile
++++ b/drivers/reset/Makefile
+@@ -55,3 +55,5 @@ obj-$(CONFIG_RESET_UNIPHIER) += reset-uniphier.o
+ obj-$(CONFIG_RESET_UNIPHIER_GLUE) += reset-uniphier-glue.o
+ obj-$(CONFIG_RESET_ZYNQ) += reset-zynq.o
+ obj-$(CONFIG_RESET_ZYNQMP) += reset-zynqmp.o
++
++obj-$(CONFIG_RESET_CS7542_NE) += reset-cs7542-ne.o
+diff --git a/drivers/reset/reset-cs7542-ne.c b/drivers/reset/reset-cs7542-ne.c
 new file mode 100644
-index 000000000..8883b8d09
+index 000000000..81442c6a9
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/pci/cortina,cs7542-pcie.yaml
-@@ -0,0 +1,127 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pci/cortina,cs7542-pcie.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/reset/reset-cs7542-ne.c
+@@ -0,0 +1,114 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* The network engine and DMA-LSO/SSP reset domain has one exclusive owner. */
++#include <linux/bitfield.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/slab.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/reset-controller.h>
 +
-+title: Cortina Systems CS7542 PCIe host controller
++#define CS7542_GLOBAL_RESET	0x04
++/* NI, FE, TM, SCH, QM, DMA-LSO/SSP, NI XRAM; never reset SDRAM (bit 4). */
++#define CS7542_NE_RESET_MASK	(GENMASK(3, 0) | BIT(5) | BIT(16) | BIT(17))
 +
-+maintainers:
-+  - Fil Dunsky <filipp.dunsky@gmail.com>
++struct cs7542_ne_reset {
++	struct reset_controller_dev rcdev;
++	struct regmap *map;
++};
 +
-+description: |
-+  DesignWare host with a Cortina application wrapper. A single interrupt
-+  multiplexes four INTx lines, the internal MSI receiver and link errors.
-+  Root-port configuration is accessible only below offset 0x200; the
-+  DesignWare private register bank starts at offset 0x700.
++static int cs7542_ne_reset_update(struct reset_controller_dev *rcdev,
++				  unsigned long id, bool asserted)
++{
++	struct cs7542_ne_reset *rst = container_of(rcdev, struct cs7542_ne_reset, rcdev);
++	unsigned int value, target = asserted ? CS7542_NE_RESET_MASK : 0;
++	int ret;
 +
-+allOf:
-+  - $ref: /schemas/pci/snps,dw-pcie.yaml#
++	if (id)
++		return -EINVAL;
++	ret = regmap_update_bits(rst->map, CS7542_GLOBAL_RESET,
++				 CS7542_NE_RESET_MASK, target);
++	if (ret)
++		return ret;
++	return regmap_read_poll_timeout(rst->map, CS7542_GLOBAL_RESET, value,
++				       (value & CS7542_NE_RESET_MASK) == target,
++				       1, 1000);
++}
 +
-+properties:
-+  compatible:
-+    const: cortina,cs7542-pcie
++static int cs7542_ne_reset_assert(struct reset_controller_dev *rcdev, unsigned long id)
++{
++	return cs7542_ne_reset_update(rcdev, id, true);
++}
 +
-+  reg:
-+    items:
-+      - description: DBI registers including the viewport iATU
-+      - description: Downstream configuration window
-+      - description: Application wrapper registers
++static int cs7542_ne_reset_deassert(struct reset_controller_dev *rcdev, unsigned long id)
++{
++	return cs7542_ne_reset_update(rcdev, id, false);
++}
 +
-+  reg-names:
-+    items:
-+      - const: dbi
-+      - const: config
-+      - const: app
++static int cs7542_ne_reset_status(struct reset_controller_dev *rcdev, unsigned long id)
++{
++	struct cs7542_ne_reset *rst = container_of(rcdev, struct cs7542_ne_reset, rcdev);
++	unsigned int value;
++	int ret;
 +
-+  interrupts:
-+    maxItems: 1
++	if (id)
++		return -EINVAL;
++	ret = regmap_read(rst->map, CS7542_GLOBAL_RESET, &value);
++	if (ret)
++		return ret;
++	value &= CS7542_NE_RESET_MASK;
++	if (value && value != CS7542_NE_RESET_MASK)
++		return -EIO;
++	return !!value;
++}
 +
-+  interrupt-names:
-+    const: msi
++static int cs7542_ne_reset_xlate(struct reset_controller_dev *rcdev,
++				 const struct of_phandle_args *spec)
++{
++	return spec->args_count ? -EINVAL : 0;
++}
 +
-+  clocks:
-+    maxItems: 1
++static const struct reset_control_ops cs7542_ne_reset_ops = {
++	.assert = cs7542_ne_reset_assert,
++	.deassert = cs7542_ne_reset_deassert,
++	.status = cs7542_ne_reset_status,
++};
 +
-+  resets:
-+    maxItems: 1
++static int cs7542_ne_reset_probe(struct platform_device *pdev)
++{
++	struct cs7542_ne_reset *rst;
 +
-+  phys:
-+    maxItems: 1
++	rst = devm_kzalloc_obj(&pdev->dev, *rst);
++	if (!rst)
++		return -ENOMEM;
++	rst->map = syscon_node_to_regmap(pdev->dev.of_node->parent);
++	if (IS_ERR(rst->map))
++		return dev_err_probe(&pdev->dev, PTR_ERR(rst->map), "global syscon\n");
++	rst->rcdev.dev = &pdev->dev;
++	rst->rcdev.owner = THIS_MODULE;
++	rst->rcdev.ops = &cs7542_ne_reset_ops;
++	rst->rcdev.nr_resets = 1;
++	rst->rcdev.of_node = pdev->dev.of_node;
++	rst->rcdev.of_reset_n_cells = 0;
++	rst->rcdev.of_xlate = cs7542_ne_reset_xlate;
++	return devm_reset_controller_register(&pdev->dev, &rst->rcdev);
++}
 +
-+  phy-names:
-+    const: pcie
++static const struct of_device_id cs7542_ne_reset_match[] = {
++	{ .compatible = "cortina,cs7542-ne-reset" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, cs7542_ne_reset_match);
 +
-+  num-lanes:
-+    const: 1
++static struct platform_driver cs7542_ne_reset_driver = {
++	.probe = cs7542_ne_reset_probe,
++	.driver = {
++		.name = "cs7542-ne-reset",
++		.of_match_table = cs7542_ne_reset_match,
++	},
++};
++module_platform_driver(cs7542_ne_reset_driver);
 +
-+  reset-gpios:
-+    maxItems: 1
-+    description: Optional active-low endpoint PERST#
-+
-+  interrupt-controller:
-+    type: object
-+    additionalProperties: false
-+    properties:
-+      "#address-cells":
-+        const: 0
-+      "#interrupt-cells":
-+        const: 1
-+      interrupt-controller: true
-+    required:
-+      - "#address-cells"
-+      - "#interrupt-cells"
-+      - interrupt-controller
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - interrupt-names
-+  - clocks
-+  - resets
-+  - phys
-+  - phy-names
-+  - num-lanes
-+  - interrupt-controller
-+  - interrupt-map
-+  - interrupt-map-mask
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    pcie@80000000 {
-+        compatible = "cortina,cs7542-pcie";
-+        reg = <0x80000000 0x1000>, <0x80001000 0x1000>,
-+              <0xf00a0000 0x100>;
-+        reg-names = "dbi", "config", "app";
-+        #address-cells = <3>;
-+        #size-cells = <2>;
-+        device_type = "pci";
-+        bus-range = <0 0xff>;
-+        num-lanes = <1>;
-+        ranges = <0x82000000 0 0x80200000 0x80200000 0 0x1fe00000>;
-+        interrupt-parent = <&gic>;
-+        interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "msi";
-+        clocks = <&pcie_control 0>;
-+        resets = <&pcie_control 0>;
-+        phys = <&serdes 0>;
-+        phy-names = "pcie";
-+        #interrupt-cells = <1>;
-+        interrupt-map-mask = <0 0 0 7>;
-+        interrupt-map = <0 0 0 1 &pcie_intc 1>,
-+                        <0 0 0 2 &pcie_intc 2>,
-+                        <0 0 0 3 &pcie_intc 3>,
-+                        <0 0 0 4 &pcie_intc 4>;
-+
-+        pcie_intc: interrupt-controller {
-+            #address-cells = <0>;
-+            #interrupt-cells = <1>;
-+            interrupt-controller;
-+        };
-+    };
++MODULE_DESCRIPTION("Cortina CS7542 exclusive network engine reset domain");
++MODULE_LICENSE("GPL");
 
 -- 
 2.53.0
