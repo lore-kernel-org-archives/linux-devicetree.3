@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795447874;
-	b=IEqrKkAjks05Oh7r3JXyQ/hawLE1rBksZY9yruUERjCW1j/uhDgOxwAvuO7LMLIpgQqK
-	 u2zlJwl4z9BaAFJsQ7cJdpk8r2lvTAs9PPiWF3kpeGfLrMKNQZQbZtK5BN27eE4oD9WYs
-	 /sdY3KUDezOW0o9yuiMX4IP6aJV4JpiRnKzc4bq/WQDPN7brJpDLFJhW4Z6ZmXav66Ptu
-	 7BYAMrHhPGZ52H1+ITul6oJ02R0EtVijdWp+uPstKikE9eIVqeDWFb06wM08lzxpfSFct
-	 wO8DFOm1nIBv+t6kQwOXkEdjkalnYu7OBBPjaF0beewQvhAR15nAyXuMCXXuvYn67fg==
+	t=1795447957;
+	b=umDnOlTF1yGQMNBYX52e/DhdYRsvZmSjh5DdnfSe/uxgXq3DhuQZjNFX5BrIiIoZal4y
+	 wgfSghQm3zLcfE40z4FLO5+zteGZmpuQX9AZBC9OArvOMi3RK+D4B3Q3MyHS8ynFEEvRm
+	 RMlZt2f86iCnP2lDHdZSNUT4JsTFLtGffxaXME0UosOwM8hs9w6sjcD7LO9o6aKOdyhS6
+	 Guy4aLiE8mdtBrk7h7UsJuz0IgK0hNIuNy+R1FIdV9FVDCzigL8JqMs2l5dKn7wYtYof0
+	 ktQI3CincvmzciFF689F/Ooi8DU2vaMPgd/UxVXDgVlCz+hgDOLtizeVKUIcqPnunHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447874;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5Zmzfenaqe/ABUcz0D1nvMINiY0TPaqXO2ZTdLBhjRU=;
-	b=xCqo165LJM3gk0geMJ4CYUTP8AOsNnZsspW3Ua8CfD5o5hBBfh+1primyZuszvYKHqTu
-	 C2xDSAcFKlSNRKUVUr1M8n5EToU3D1+//3J7dHc4VpNsqWZnd4UUvQ9IICfYX3zpqiBRv
-	 JKOl1L0bwXEBN8+vB5rZQFgVtersEq5kwMLy5pnDr14JPfciuljMf8Nk/g+YPoVuRUXLz
-	 +cDVD4Lu3s3QyezZxq0rFoIzVOj1lYlZe1LtgSqJeBH7yHOIQoP5Dm5LOmUQtzbxT9mft
-	 uoNXM9WqPUj9Pl/A4XsvFFtlIjv0oO9LqZfMAPIKUxYQV7NBMJapHEQ2C9Q/6Ym+kMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447957;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TUoXyOddWAz9fDDOvSA9MQNAlA1i/4mOf8DBtcxzgh8=;
+	b=aiPA9x0Zk1468KqpoT65yuUjVXe8ABZRVBXofYXzt7q0RdPqm8HpmzVVLRQA1ojttzcm
+	 roEJkjg1TPE+AwE4T9j+vKOMfZp/QDSqbO87rwbaeleEogr6XJ9H/XNSDWtQdDmW3jswR
+	 uhdQPOUqXNGy/AppFr3xH9PAAy11mcXjF2P39OSY8ZjRMQEF7i7ZrGEoC6evA4gVt+FwD
+	 uFIXaXn5Mmpidr+cNhuPAWL9lJ1werwpO97+PY1Etp3pWxdjFFLINvCNpb3/TNoaCO2yH
+	 LpYpVfNgEE/ym5VNNTwgHSZOWXdEnWDbVFeH6eTdi9JxVm5AqJ4DQHFAgHOOpeFl3mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OhHvVIeL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=oxpUA6gT;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE85606A321
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89810606A31A;
+	Mon, 23 Nov 2026 15:32:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89810606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OhHvVIeL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6282D1F000EC
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:31:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795447873;
-	bh=5Zmzfenaqe/ABUcz0D1nvMINiY0TPaqXO2ZTdLBhjRU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OhHvVIeLj+E8jjACmZyxOQsE9LLq2TL2ftClvwugpxsJm1tg23lNcFLQd0SGWplHc
-	 TWzlhIBDKuLOhLGZrVly6pVMQ6oWBArpvHDqz5nVxf0svxcdqjylyUoSeyh7z6xyhF
-	 SQRLZ3bux7XcahS8tWzmVdaMc/RcYAbrfHXlzehjfQ3//xvRaSpcALvlJPajTkIdRH
-	 CSmNEyCORb08sPFGiybftPt3O04fBgs9GzWRqKMudgC6VFdJaNPvO400OdzCN1jt/U
-	 c4GOc9ynGtjbcKSXfGhJGFfckZq5SwXYVbgZi5/ymHi48yEFdJXlUmDNBNce7RSqHQ
-	 nDPq2gL7TL3RQ==
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso4302503c88.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:31:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFc1ncAQIci1um/RX2P0EJr6AyZbHTQd35UMZLuW2ro2scwmfqeNoaKpibL+ktoOU+njf/o1VtP5vGA@vger.kernel.org
-X-Gm-Message-State: APuU4Z/HA/c1zBwGv17AnwKabBSfEjCaQxSKQJ7cUGhttSD9Ka69hAg/
-	V78MjdAQbbkRDxJYkj7OmaQV8YMNWw8/f6zsRXLDtqT7UY6qmkyDIwa0REL5kyrkYlooKWQgiGk
-	YZ81mD6jRTMuV1vJlkEcQYGVQ32nN9Q==
-X-Received: by 2002:a05:701b:2810:b0:143:5cb4:30 with SMTP id
- a92af1059eb24-1b5567b3391mr10425170c88.3.1795447872711; Mon, 23 Nov 2026
- 07:31:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=oxpUA6gT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795447955;
+	bh=Xnfpy4WZddREfPMFIPPX8OEnArv8MmFD/FqHyNhM8A4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=oxpUA6gTTlQ1KCGpEDK20y7rEzaVPpHuOF9j38OC1nadLKfNvr6/E0GsI+E4D9XWa
+	 pWpbQl77q8I2HMLzwpeyX1gN4yJVZrBTy1pImc0YfrRIE+ftdOplZBCCjmSNbBCyio
+	 YjrkTPxcrab8wN2YD68HFmOZsNw5881nZAlKZvJAqzeEiWHmd0GK2wN3TUsKZ58EUb
+	 c5/YGgpB6ClcDmH2zfNBRRcJM8zCBOjcTcxGwkSR8DzpfyUwEscAZXyDCZXJwMPZRb
+	 JGYF5QkiRbUK2b5CZVa53+1LnzNlhqZJIt5l5mOl5KtxxaopvCowxOdaqWW4XI7Vcu
+	 WS4z6Fg5M/4ug==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3640F17E031C;
+	Mon, 23 Nov 2026 16:32:34 +0100 (CET)
+Message-ID: <cc4675f9-0923-4918-9867-05db05b5ceb2@collabora.com>
+Date: Mon, 23 Nov 2026 16:32:33 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,49 +61,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261010115539.9237-1-l.scorcia@gmail.com> <20261010115539.9237-6-l.scorcia@gmail.com>
-In-Reply-To: <20261010115539.9237-6-l.scorcia@gmail.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Mon, 23 Nov 2026 15:30:57 +0000
-X-Gmail-Original-Message-ID: <CAAOTY_9N7q8vSOM1R-i0JzidoSnVmf7E99KKi458NGU=WTSnCA@mail.gmail.com>
-X-Gm-Features: Aa3M54qyF59hFKqLYZAT2WpV4wdT_KYkLyV_ony0INzG1Z9OlyFKt_7T9Q9dDAQ
-Message-ID: <CAAOTY_9N7q8vSOM1R-i0JzidoSnVmf7E99KKi458NGU=WTSnCA@mail.gmail.com>
-Subject: Re: [PATCH 5/7] drm/mediatek: mtk_hdmi: Set tz_disabled for mt8167
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
-	Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Chen-Yu Tsai <wenst@chromium.org>, 
-	Fabien Parent <fparent@baylibre.com>, CK Hu <ck.hu@mediatek.com>, 
-	chunhui dai <chunhui.dai@mediatek.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] dt-bindings: serial: mediatek,uart: Add compatible
+ for MT6895
+To: Alexander Letuchiy <asalde.le1@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Sean Wang <sean.wang@mediatek.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Daniel Lezcano
+ <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Mattijs Korpershoek <mkorpershoek@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ phone-devel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20261123-initial-mt6895-v3-0-95c46597e63d@gmail.com>
+ <20261123-initial-mt6895-v3-2-95c46597e63d@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261123-initial-mt6895-v3-2-95c46597e63d@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Luca Leonardo Scorcia <l.scorcia@gmail.com> =E6=96=BC 2026=E5=B9=B410=E6=9C=
-=8810=E6=97=A5=E9=80=B1=E5=85=AD =E4=B8=8A=E5=8D=8811:56=E5=AF=AB=E9=81=93=
-=EF=BC=9A
->
-> Just like mt2701, MediaTek mt8167 does not require an ARM supervisor mode
-> call to toggle HDMI output.
+On 11/23/26 12:18, Alexander Letuchiy wrote:
+> Add a compatible string for the UART of the MediaTek MT6895 (Dimensity
+> 8000/8100) SoC. It works with the existing driver through the
+> mediatek,mt6577-uart fallback.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
 
-Applied to mediatek-drm-fixes [1], thanks.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
-log/?h=3Dmediatek-drm-fixes
-
-Regards,
-Chun-Kuang.
-
->
-> Fixes: 511cf7d12331 ("drm/mediatek: hdmi: Add MT8167 configuration")
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> ---
