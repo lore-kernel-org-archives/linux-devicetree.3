@@ -1,122 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.47
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795470591;
-	b=vYDx1eB+VSSa3zqXDCs0TiOXZ5WXNeJWhZf8Efko9yaG2d3imKxy5MsmIPbj5IXandeL
-	 oByPjPbKfrUkzGvRONxCZ3TlQDMdET5mkwor3ECUL+9IVC0JaORazHyt2Xpg5c7ijyhrU
-	 1h+xvC6FOR+qlBXpNfF14r2/O715J3Ll0riX6RGdXTDr7Rzrw22JWALeb7MyVzcB02bED
-	 XwfyipcinujGQXfXfLfhoYzl7u9GxhUi+qC5+d48NK5N43UIMbwJhSjIYWZsgjft04Nfg
-	 uFEhthMmfJ/q6d3zjtj7Fw8f2zPEd27iyHAo5hbCLRZoUxxg0Z+Bn1jdPK1kiwn11sw==
+	t=1795470670;
+	b=cOxPrho1ClAO0H/EFVt3Ff9qrhZVvMC/nRQ4/U+vq0SYWYkU8NWSbqqhYgF5Fv5FR/ER
+	 mSHqkLXTVStOATJsU0qsoXbAtX/ifsMtObjAqmhsRSOdLsvuVDl2HOrkmeYpdRU3mOCj6
+	 MUP2ntlLUYsiFVuZJVq6A0wpbkgUVd+ovuB/5Cg/uB20g0IHVVZ9bToc0/qxbxZhIvIDW
+	 7L4/sVkUha6tX1FwQLdaAg8UF+siroRWVsGXqUd8uHwTd+JBksCmNqkwonfxi5pyZyys6
+	 ujS4nm2L1/V/x54vDpQ0uku11Ez24nqUAc07QEw96mOKmGFXucvYOW/qJ7MtOBkhxgQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795470591;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+RA1MHgbf9fuw041F/4ZXMg7o0VJdKknmIh3Wp4NPZY=;
-	b=hmzDq6P+wu/2uMXBJRSRvoAcKncTec9sQ/kwuttnw87Osx2XCKISODF38u9gi5t3nAh2
-	 jTe6kM9kFUMaYg7qgz4Rw8NfZDfmM0MGHAmiXvb/kjhIS3xkBosCfUvL2yCBZywZWKFaQ
-	 P4tyasH4QU6Wktzre/VPR/19V76itkhd8p5MHqIUThDc39YVt2jA8mX5y/PNGcBRCH4UB
-	 IreK6Oo/etHTdbEk4Z5CoBcU2/5bahAS5t+9qiFtAQHTgEQwusoIFlfbp0ifu5RZHAhj4
-	 yUcFs24/nB37nVhQYHwlJHJ1DTGXh2sgvtvFK+Dh8GEmTYswHcHxzkkj+B1vYTv6OUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795470670;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=xjXNGYnj7m/BeYzbOpPelNrEBThHGMUhvfbeKCE5olU=;
+	b=tCNH5qg/z2hIzr7ViN/ep2u+pV/2YRaRW6dkSVh/MgZLo8+9cldn+9PBa6sxykI4arL1
+	 CvHLKdNGqs8p/oB8WqTgyOjGnQuCUIoU7VhiUUlMO6/kBgJKFYSYnzqYNZeFI5H0l6QVX
+	 AGoTIMVRQ3yw4wdUJLQuZhJ6ie/PDJAnX54rSiKaK5lQBsZodjZj9tH1nQCkSShnIhqqp
+	 JAA7Zu5U+QusnYNC7PIMapk7gW4I1c17py562h3K755ASP2YHq4agPoXt6wUknce7ciKn
+	 UsVXt5Qep88gHfSL0hCccEMbSmkgQyY9GvpPMF7bhVPB9WLWFjQX4iRbvlCp80U2Wqg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=d+5owdFH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.47
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011047.outbound.protection.outlook.com [40.107.130.47])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bdL5Bah1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E801606A321;
-	Mon, 23 Nov 2026 21:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E801606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7ED606A31E;
+	Mon, 23 Nov 2026 21:51:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=d+5owdFH
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ghdKPEO4nxtc5Uzhp8HOGxAlvs8YHAQjXLOftEul/1UmrgjlSOZsvrJN4oNbiWljtqCmtS7CLJOAtbedqixeL35a9DtsMt/6ZPZwVhcHolp0S22gPB73uoKahuwbknJAYVmiJtkxbDHoSRQ8ZPke2aJnHTcjNf39oSTkbnjDco0JkVUEnL9JkhteUFu5U3evBuLTPNhSbaXKBqK5f6w94sp9rJBvuEvb6KoMZvMUmG52T5Op39U5wGNgTzPR1pFtZGHTc+pYgxNOqBKGEmOQhhOZT+Gky2oJeeWmZiG+gN9s9oUfFY4A8du7Fa9/ElAmzChayw/oeQcyHqwsYRwLRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+RA1MHgbf9fuw041F/4ZXMg7o0VJdKknmIh3Wp4NPZY=;
- b=FZKxuqwQGflsXs7Irb7TyeK7pK3P9GBh9LHa/GsbZGigbBD2dCcmpkrZn0DfigASJ3toJzaNCWLpP2gFqlkk4wx5oNhaPtS6jjdNkO1hvAN2HTJyHJmFDS0itK5xur8hPVIRvG+LSOQUuFpF1qN8NJRue4LrjaLEfbWjgsmGAaH4c7PsKenwYZiPLWIRrN1WheMGXYqqlS5m7b8wBjQhgxwH77XUXM9FgRSunrfFMgepYyYDFUkjauwZEOp39r7sD3eWELhZOiBn0briXVyE4MdqMFLBy34Uw54USyOs1t5ytsv9oEjWeRC+vZETOGztLZJW2Ms8H0/367ZCj1kOyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+RA1MHgbf9fuw041F/4ZXMg7o0VJdKknmIh3Wp4NPZY=;
- b=d+5owdFHzg33SUK+J3Az1gUf0B7NhqN5RcX/NG76YZ47GCRGZaDJgt4DTqhxqeRvKAdyEoiUrbz9Iys6+0Ae2zKpGx4Pt4urWa/W/8u2VrDs7jGBvZuVGppCWA6t8FjJ/S2rAPml2yGuxUjBoqBd9AWFNAIMjXGhH8iTFEey3wU3ViNJIANVQWee/b5uuRryr3ecPfWola7PlrtT/286r0DLJSnwaDEAG8yfalvfwa/O4MjF3Lo5B9fDta+/3BXxmmyyc7TJLsNdQkOb27x5DogA88ggM1YYGonboLpLe5vdKMOvh91AkM3Z1fve8YNM5An1QGtX9Iroic3dJBRizQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by WA4PR04MB080239.eurprd04.prod.outlook.com (2603:10a6:1d0:2a::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
- 2026 21:49:45 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 21:49:45 +0000
-From: Frank.Li@oss.nxp.com
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Guido=20G=C3=BAnther?= <agx@sigxcpu.org>,
-	Robert Chiras <robert.chiras@nxp.com>,
-	Tim Harvey <tharvey@gateworks.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank.Li@oss.nxp.com
-Cc: Frank Li <Frank.Li@nxp.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux@ew.tq-group.com,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>
-Subject: Re: [PATCH v2 0/8] arm64: dts: imx: cleanup some warning with W=1
-Date: Mon, 23 Nov 2026 16:49:37 -0500
-Message-ID: <179547048504.2992787.6427013140216184376.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022-cleanup_dtb_warning-v2-0-e9502fafec59@nxp.com>
-References: <20261022-cleanup_dtb_warning-v2-0-e9502fafec59@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7PR17CA0033.namprd17.prod.outlook.com
- (2603:10b6:510:323::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bdL5Bah1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795470670;
+	b=oPtdlqCuD1HfS+sCE1Ev12MhbcuR9wfespY5sBOqwGrpnPdlncVrIMPAU6zxae5DIn2k
+	 J4h4pyRHc1pG9zGgtlgl3ZgZA0Qfj+lzD5g/adepxPBNGZpTcltUWclpWcFV+O+M8/E8F
+	 lZQuQr8YxkO3HjzJgvCY0qpQEu/oKfH7u8BW1zORnhfXJCwddKRXBi1hDMiUsIU6Qpf2N
+	 YEBX63DPYxODyP9JRh6PgB2IBVcch0cT3kRkGgKSoS34gKJncDDoDajcPR79BYOcgEYl2
+	 Ta85Gl0T1n3Q2s3K0MBQOvsiilWZzgTFZQfslCP+3pwnNfh7X0ZCwWsf260UzipTdDQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795470670;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=xjXNGYnj7m/BeYzbOpPelNrEBThHGMUhvfbeKCE5olU=;
+	b=2vRruO0jVziZtRpJdK75XuQXrfSgIOR1K8fo5g1gmDkgA/RR0sQRbgrOnV13Jlad8fyy
+	 TGbPYNenfWi2D87i+vxntcfX4m1FRjIxCeRD33ieUsOuElGAkyz3NRqIH2k1+sv0PfL7M
+	 w8icK4zzhB/fjdEq8/WCxYJ5d5LyyD9QbH/f83agQeGwlHDTRdZFBenqLH+iyCCXU4uli
+	 snnXvzq7rDXbvq9kewj1GrDcm9sPp0mALOMtE779mt60shbvTNjgS2H0SeywD5SfImmmR
+	 K6X9B3dtpzPU8ywwyax2hJTF0ecVeIc82pUhmMdDFk8MNWswLvMTSH/8CuJ5DgNcSrw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 123311F000D2;
+	Mon, 23 Nov 2026 21:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795470670;
+	bh=xjXNGYnj7m/BeYzbOpPelNrEBThHGMUhvfbeKCE5olU=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=bdL5Bah15ParTBHLRn0eDSWgOmgidA1jRJh7mAn7piHifFS94+KEk3wqF+LTKsI0a
+	 MO8mmfU/58Q0zRHv675xTjU2PmAb3m0bGlq+9ol7ObUoEGEU1NuFeqZaxm5fP1P0Rs
+	 YsbfqsCKPJJzOl21T4hyStcoA/EfZt2pdWYcU1gxZta369/vkoFwtkXWMxSJCEPZGX
+	 Cq4JXGu8lKsbeFWsXaPJjE8sTfDlJA07fXKhMh0fhQPY+pbQTWjq3TBTkn71pExQvG
+	 cjo5lG8GCqPfzzRinIXsHFmoFjq1GNTKZXBvMhRYpQwzWQeZMP3FIDa5FHBh6kyoq2
+	 eKZhxYIqLVw4g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 949084C780;
+	Mon, 23 Nov 2026 21:50:58 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH 0/3] soc: cortina: Add CS7542 shared gates and reset
+ domains
+Date: Tue, 24 Nov 2026 00:50:57 +0300
+Message-Id: <20261124-b4-cs7542-global-controls-v1-0-12548785df2c@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,100 +84,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|WA4PR04MB080239:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8424d8a5-003a-443a-c942-08df49abb049
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|19092799006|921020|10067099003|11063799006|56012099006|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- Lp3jnYgYdy6fGVtlOoyT0Wbvmt+FT33mzr4NYs2TW2/Jane7EuS/ZVecoheRXmovCwAhk4bWqVNehLWDLygweCNoJ/YQ6fihkO9os8E4S2YL3J2T2r7vrPSNgGrtsY2tvD2QgVbzO/wnmQLFCyXP+UjlAzzPNS5eI0rEDuvW+s12c6gFf38Vu2eqPV9nkaE7bif6fKFoQ+zAwjbpvZaakxqhQ0YtxMye1CaPwn/QKbNAPYwgaq7p8SVTj8Nrenq2Y1S66j1ivAQP+uc27Y09aNKNLEzK3ajDXTvtVDoFbcCxcU/aca6vezP6gLzDJ6/blrsdgzw01Cxu4i8JtqVfn4RwNHpmY6trvcVmD96yr+HIAN8w98EfQKhEcrXJ2RQ3dmoTeCWxji6LW5zA8iCwCk8kB9pqQgynwYoe9HX65VeGTNIhWkJQiXNsUmsRh48kKccYRzAegX8CBVa/ki5TtU2ofLD36hX5F/XbrHgOVwT2jR76PfWMmWZFkaGqpvEyoPC+gsEXYcf3edeLkGg1jIVls3x12L88CMlz9AIF3ijdUTT+S/grM13DwSgDWkwyqt6FQNnf1ybIj2XHRl9l6uKIpemCYLu1116JFhCAiCRSZbYsBJTzLWBwsF40xLUwrtLIBMJg1xTQPlKvK41gRehfkbls915KBUz43AbKSihAx4oEVwv6On/c0psVA2rCtMc/ZSGYeR5WzOJ60/Eczw==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(19092799006)(921020)(10067099003)(11063799006)(56012099006)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?TVQ0UlFTSWtsOXlYWXc3Y2FzeWhpSTFWbkQ3L2xNQlBneHA1S2dCMHpMT3lk?=
- =?utf-8?B?Z0hWVDJ2YksvYzFVdmhBRE1COW8xWVdEMUtINWk4dGVsS3hmdTVkZEZLcjNG?=
- =?utf-8?B?cGxyY3ZZOExaTEJ3TzVRSDJpRVZSVUk2YTIveSs0dEJXc3NTTkY1MVNhY0dF?=
- =?utf-8?B?aUNqdERaTWUrd3Z1QktCZlBhUHlRYzkzNmxUVWRadmhTZFVGb0h3Z2JWUk9a?=
- =?utf-8?B?L2VxYlRiRVl2ZWwxMzZCMHI0b3dGR0ZGVll1NW16NmdwdEE0bjFndWdjNGpm?=
- =?utf-8?B?cjdFaXJEWDg1RHhrQTdWL1VCUW15bGZERHYrZVFnb3VQMk5NTFRsMm9SenNM?=
- =?utf-8?B?Q1hESVptVlhYeVBxRzRYcjNkaC92VHFwL1JtVjg4VFRpRndNNDd0WUVNZ0pM?=
- =?utf-8?B?bUVEd2s5ay9ZOE82RnZ1TmV3VzUvMHRJc3pGUk4rTnkvcHNWVDIxMjE3M3Fz?=
- =?utf-8?B?QkM0UGhEUWpoMStJWUZqcXgyTjlhb3RSbHZWQmR5V05ieWdSNml3OG5weW9l?=
- =?utf-8?B?NnI3dFFZTDgzTm5TcEVnSDc0VW43ajRFcGZxUUoyTGRIMWJ3V2tsVGNHdDg0?=
- =?utf-8?B?Wk1NeEpUMytXR1BoMUtJcXhlS2tQQUdUU3ZMS1Rjd3I4anlRNStvWEhrdXZG?=
- =?utf-8?B?Vnhtb0RBNDdBaE9HdXBHZE1rQXRyNlZvNStpcEkzN3FDbWs4L3RncFBaNzdo?=
- =?utf-8?B?WVQ3U1ZVTENXdXlpREFJTFdwc0svTXlNRWVBTVdISjdFUWl4NGMvQ3NDTzQ5?=
- =?utf-8?B?UXhuVVdOc0NqbFVxLzczdWQyVURVNVgwZG1tZ2t0TjJuWmgzTkltd0MxK0Jr?=
- =?utf-8?B?WmFRZ2ZhcUttTzFsK1FTU0Q5RjY5bHFRaXlZcVd1aVljeUNZYk1WOEpzMTRP?=
- =?utf-8?B?cVBaMVBibnM5SkI5d21MSVdCYXRuMmxjMkxyQ0tMYTBkQ3lBWi9FS0JYTWVo?=
- =?utf-8?B?S2x0cDNQanFkZVMzNVpEeXBmUnRGQUhERi91cEpTcnQrS3RJY3hsSTlwWjlO?=
- =?utf-8?B?SlJrTXZBNUk1Ni9YeXpkVDNkYnd5NWNQdlBXMzBLWGZ0WmZta0FuT1l0dEFY?=
- =?utf-8?B?SEdEWjlVU29UMTdoK0l1ZHYwRCsxZTErcWRWQ2R0UTZlU21pR0lsck8yZXNH?=
- =?utf-8?B?eXpodjlDTGtqcE80OS9OaGs4NSsxOUlJZU5iL0dhTHYzRmlxdjhSSjNNU2pT?=
- =?utf-8?B?aFpERGpkOWF0Njl3bXNEQ2pXSkl0ZE1PUUpIWDM5eWplYTlFVlcwMkU5TSsw?=
- =?utf-8?B?cXcyQlF3Z0FpZTUrUGdya2xhRWpoakM1UUNtbGlrMG9IQmZoNmIwbnNRVEJU?=
- =?utf-8?B?N2pUcW03ajdzVGtBT0w5THlSNUdzS1dZNVVxWG9wcGV2RGg3Q05kamdvUnVQ?=
- =?utf-8?B?L1JTc2ViUmtNbG5rQlJDeUhiTXNEamlRdjJDc0I2K0tlNy93QTFkMEU1c21x?=
- =?utf-8?B?WUtzeUpwK1dIblpRd1JMSjI3azVKSWY4dVJYS0lnMW9Lc08xRWQxMWF2Sk4y?=
- =?utf-8?B?Q0ttVHZNNEdoNjM5VzZVVmpPbXBkOTNKdkV5bGxhVSs0Rm9wT1VaSDROeVV3?=
- =?utf-8?B?US9ybTB6S1owQjJPajVlQUFmWk5NeFZMVWZhRFNnRGlicnp3OHE0Y3YzTzEv?=
- =?utf-8?B?MVpmUmZ6WGVqSFdCeW1qT0FERllZTTlrdjFjY1VBS0ZKZmJWdENyNitKTlhJ?=
- =?utf-8?B?dGdvbzh5bzV3MHdabnlzdDM1YkJzT2E1VE9oem5PT0pZS3lLK25YaWZyL0tk?=
- =?utf-8?B?QS9kR0ZCWS95Y3E3TnNGRHpkaFd0bGdya2o2eWFQN1hINWdPckFmdzRkbGxx?=
- =?utf-8?B?Qkh6dmdCWDFUUm5iVllGN0xHcDdQMFNVVVE2d2djZ2tETDVsQVBDLzhVdUdT?=
- =?utf-8?B?QUFzMXNuYzg1MHJyM2xoSm1aL0o3WW9vSExpOXJueG5BZnlVV1p0TjByc1FV?=
- =?utf-8?B?cVgxSUpvMmhlVTJHT3piVDFmL1k5TnovTXZSemZuVGorcmMrQStZcnhLbHRZ?=
- =?utf-8?B?WEY1NjFuaWZ0blg4RU9KMEVmS0tTSmEyVzdVaXNXUXRlakgzSnlrbjlHelhT?=
- =?utf-8?B?T0c4UVBhemlQbjlPZjh4S0hNZEFvSHRnakNhdjM3UkM0RVlyK0daeHM1SjRK?=
- =?utf-8?B?MUpBcTUyUThzSmhrdU9wUU1keE41U0svSjAwazJiMThFNWdMVFVmR3FidlhW?=
- =?utf-8?B?MFRwVWVxczZGZUlMR1c4c2d1Mk91WlBjdlBhc1cxRHJ2TnNIc3BpMmlmUGdD?=
- =?utf-8?B?empoVExLZ2FVQWV3aVdDelpPdXNUMTBvTnQ3djdSTlQxMFNQRFV6WnNUS0hW?=
- =?utf-8?B?TlpCRkZPVUw2bkNLaDZzckVCU09JZVlDRkZIWVlvTTkrdWMrMTdoK3BLeE1j?=
- =?utf-8?Q?3yLpuTSHz6TBJ+2Bk729cXTRGwY2WXGvnud6e?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8424d8a5-003a-443a-c942-08df49abb049
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 21:49:45.6553
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dBR58TiPy5GQ71XHvWuZ0YJUa6/xc9Wd8DQHWmmCkZ/bx6FzWJrXaI1uphYppmjAr78sH95d7hEPQ+NuLC5UX3X6vDMJguWJyntr9xM4Z0RW8XekGYiuHM2Kny/1KQvn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: WA4PR04MB080239
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWOSW7DMBAEvyLwHAbiIonWyf8wfJgZDWUGWhKOb
+ CQw/PfQ27GB7uq6KuGcWFRfXVXmS5K0LiWYj0rRCZaRdRpKVra2rTHWa/SapGu81eO0Ikya1mX
+ L6ySavXeEgJGDVWX/nTmm3wf7cHxmOeMX03YHvhqZf87ldHvWFIJwIc5z2voKW9hFcJ7Ym9ARt
+ rvBURMCeMQYyRniZsAQ76iZReBh21cvV/cWlT8pkvridK2joboD09Uuhv04Q5o+y5063m7/3tA
+ fLgsBAAA=
+X-Change-ID: 20261124-b4-cs7542-global-controls-e443cbabfe82
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795470657; l=3632;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=oWwEGHbvb0LFq8Gwa0S1Oy8KMPiFJPQoiptcl7pgoU4=;
+ b=yIq+dxLdfFEletCfSzHbkgBFAvZw9FdhHtkrme/yaAI1obYfBq3IaTyySKRj2cYNP3GCwjZS9
+ Kx70zwC4m6kDotVXQUXBQ51uUBsdhShNfmYG6yeLT2rhZdTwiGTX/hC
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-From: Frank Li <Frank.Li@nxp.com>
+The CS7542 global block contains PCIe clock gates and controller resets,
+and a composite network engine reset. Publish these controls together
+through the existing early global provider, so PCIe and Ethernet can use
+the same provider without either consumer depending on the other driver.
+This also avoids a resource-less network reset child node.
 
+This series extracts the global controls from PCIe v2 and moves the NE
+reset implementation from Ethernet v1 to that same provider. PCIe reset
+indices 0..2 and clock indices 3..5 remain unchanged; the network engine
+uses reset index 3. The NE domain includes the entire DMA-LSO/SSP block
+and excludes SDRAM. Its consumer must own the domain exclusively.
 
-On Thu, 22 Oct 2026 15:37:03 -0400, Frank.Li@oss.nxp.com wrote:
-> Cleanup some warning when W=1
+The existing NE assert/deassert readback polling and partial-domain error
+handling are retained. The new NE reset index does not support pulse
+reset; its consumer uses assert/deassert/status. PCIe pulse timing and
+registration error cleanup are retained. Clock-only DTs remain valid.
 
-Applied, thanks!
+This is based on the posted clock/pinctrl v3 series:
+https://lore.kernel.org/all/20261123-cs7542-syscon-v3-0-f1c07a1703f8@gmail.com/
 
-[1/8] dt-bindings: display: remove #address-cells and #size-cells off requires
-      commit: 65525397fec4dfa809049dbb49058c33a5da8da8
-[2/8] dt-bindings: embedded-controller: remove #address-cells and #size-cells from required
-      commit: 3b254a764601fcdace42ce8fe439d036c019daac
+The next PCIe and Ethernet revisions will remove their duplicate provider
+patches and use this prerequisite. They do not need a dependency on one
+another. Board DTS changes are prepared separately.
 
-I picked above two binding patches. If have any concern, let me know.
+Validation completed so far: full independent ARM multi_v7 vmlinux and
+modules with W=1, COMPILE_TEST=n and no pending platform series; binding
+examples and complete integrated board DT validation; actual-source
+fault tests covering gates, resets, partial NE masks, polling timeouts,
+regmap errors and registration cleanup (736 cases/106098 assertions).
+On Almond+ with the moved provider in a Linux RAM kernel, checked all
+six clocks, NE assert/deassert/status and unrelated global-register
+preservation, real factory MAC probing and two Ethernet load/unload
+cycles. A second exclusive reset acquisition correctly returned EBUSY
+while the datapath was bound. After unload the entire NE domain was
+held in reset. All six PCIe devices and root-port MSI remained present
+throughout, and MDIO read/write/induced-timeout recovery checks passed.
+The test partitions were read-only; no flash writes were performed.
+The board returned automatically to the installed OpenWrt.
 
-[3/8] arm64: dts: s32n79: add @addr for *-bus node
-      commit: 47a83e13f5b3695fb061e6e5d37e7d4a0bfe0e11
-[4/8] arm64: dts: imx8mq: remove #address-cells and #size-cells in dsi@30a00000
-      commit: 4c2b1a3ad182c38d68bcfb0c466c1e71d9107d48
-[5/8] arm64: dts: fsl-lx216x: remove #address-cells and #size-cells from pinctrl node
-      commit: dcd62a4f6a2d928b2ddaa107f00276f1f3d772d3
-[6/8] arm64: dts: imx: remove unnecessary #address-cells and #size-cells
-      commit: 1c896b0b996a8a9728a61d0d2e187d988254d8db
-[7/8] arm64: dts: imx95: rename bus@4c100000 to hsio-bus
-      commit: 13d10e419e55d25e4a7d0397b16ba00860f509fd
-[8/8] arm64: dts: imx952: rename soc to soc@0
-      commit: 8df26227cc39f7a9102f3823cfe9f65d6e19d89b
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+---
+Fil Dunsky (3):
+      dt-bindings: soc: Describe CS7542 global gates and reset domains
+      clk: cs7542: Add global PCIe controls and network engine reset
+      MAINTAINERS: Track CS7542 global reset specifiers
+
+ .../soc/cortina/cortina,cs7542-syscon.yaml         |  14 +-
+ MAINTAINERS                                        |   1 +
+ drivers/clk/Kconfig                                |   7 +-
+ drivers/clk/clk-cs7542.c                           | 211 +++++++++++++++++++--
+ include/dt-bindings/clock/cortina,cs7542-clock.h   |   4 +
+ include/dt-bindings/reset/cortina,cs7542-reset.h   |  12 ++
+ 6 files changed, 224 insertions(+), 25 deletions(-)
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261124-b4-cs7542-global-controls-e443cbabfe82
+prerequisite-message-id: 20261123-cs7542-syscon-v3-0-f1c07a1703f8@gmail.com
+prerequisite-patch-id: 083c8eb9fa3b09678418ed19c0dd275afd66ae1f
+prerequisite-patch-id: 746951fd830617cad03b52208443a8b6f7e8f440
+prerequisite-patch-id: f8a2ba71717f71ca2bedda986f8b861995cdc586
+prerequisite-patch-id: 7fbe9405265ef3d1ec62811415a46c0061afd7c8
+prerequisite-patch-id: 25220835f5d2506a01ba652d86f9b9ac3ad5121a
 
 Best regards,
---
-Frank Li <Frank.Li@nxp.com>
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
+
+
