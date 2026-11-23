@@ -1,52 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795465935;
-	b=Ksa/CUgz0GQAtXnxmmKeWtaskFAqE/3yfYvV3sYOdpgH0LODctiU8wt2JPGXGrQJykbX
-	 YL7ROmTW9QCMFpDYlTGIRUVwpUwqxRiqbu2kSXfdUb7kiQP+UFnSMiPl3obPatDwm4Tdy
-	 1RyL7tDgDeY3kMMUUQFElZm1wEbH5UY23Fk34TvcRdIs89qKUmlAVQZsPfstUUt7isQTH
-	 3+AW8ykjrNaMRcZqa1rYnFz0d4eLatm0R/SjXwDyGcr4i5Y9ruCnfaejMdQ4GXqVq4vi0
-	 Yc5/7nINFWPc929jVmbiXz1d0T3YHOhAYtKVXzwBgT9fk/PIQflJWpzYsGh8++Iep3w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795465935;
-	h=DMARC-Filter:DKIM-Signature:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=H3n6mAsS5DvYsC96ijuqCARg8ELNAIedKoWS8muN3HQ=;
-	b=rsQZw1ABf19uXJh6pa6nnUfHS1wjPi9lkYJ/m83w0/LuTDgevhMzfNlqz6pkzWFzsBhk
-	 F5FTbWO09wp1uh1s+7pMi0carGevCTQ42t4gLrJMl/mSzc1RyESkNH2noatJI5YK83R5I
-	 B0l3WrfjbN4YmfrWB+srI5yGezntZQH+7gsddSuduOMorNQNZtk87gJtCeyuzOgCGe+qJ
-	 pt5yKdei9D/I0JuZ4fGzJ8LVNb+tcPSQCRF8AY3eb259J2+1vGHAoTMiPF793iQHVlLBE
-	 zlzt3LqK/YVNetjkghuu8TZUGbnXZKBq+gtXOHkiCok09XsKNVyifZMBUAfmWMTELJg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=SS4uHr5e;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795465958;
+	b=fN40pwkYLtKCUTWQoXa8xf3jEvn5EFy2xnE0UTjVi2+/WFYLal/blpqyh2kpKOTJyzcq
+	 1FLAOh0zFwVm4SYhBPD0E2qw5ZbWl0Qb0UhP+ENXYgNmJc/3jlWemFw1KMWpssBI/hxkE
+	 uUJYhAsTmS+XGz+Nfds682gQtLuFq/R2uJJhJhW5MCUYzBPKb3IafGJYYboONkWtKpNje
+	 mXBOL27G3dPHo3HjCou5eyRStuYqpjLmI1rOpmqqpjzNSGvumv1vXbDanDsD7PMr7ryZC
+	 pHuWRwFJsppABSisP+d+XiJ4Vs8JpkkbT/8onweffpCneR5WH8FfSj8COaCe0kZbgsA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795465958;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9tyMkUr9+zYWv3mAdl+/oTYNIcjMUy1JAChBbK6vIio=;
+	b=X94Hs1ghZB0oKrxzTHUY9bia7zYIxTl6j9O5JjCJCUahXP11JgohvUgqTd59pWPRZCEs
+	 dylIX9oPD8g1gBApRmyBkfX529SLvWKsQxhqPSyUVNamdoj9dnjqFqJMkzWPuOYN6vz+I
+	 nQ1FEG4lUls9XxMDD2R40gcqFgsanA713a7SNH9L6TmwkNR+SaCD+UAxAtjC8s3JWqOXA
+	 3q3pg0XBLZ6ISrFFz8r50OKK5IPNZy8jNOm7HNx4YGSnb+/EX3x2tFFUh6eHrjeIMFeWt
+	 Yhz3IfFBLGtWrhT3h0dICAZpE1AKt06Odjti5v2IB1+vCKDfcsukv5WasEG/gf1qQ+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQNLeil0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60812606A684;
-	Mon, 23 Nov 2026 20:32:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60812606A684
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23485606A31E;
+	Mon, 23 Nov 2026 20:32:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=SS4uHr5e
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=H3n6mAsS5DvYsC96ijuqCARg8ELNAIedKoWS8muN3HQ=; t=1795465934; x=1796675534; 
-	b=SS4uHr5e94Izgf+RwhwPWln/unuTem+ZGsp9zhozC7gkUYTahsuVTnqWAGWTNFEr5i1DzYBlchz
-	VJFUEkvXgwyGJSdw282MN+ACX+oN841LPjCLNYkMbOdsk9DX14wtXbKUiRNNtcE8AeiG2sHBGINr3
-	xA5KUt35ywUMIvSGHYH2QYU2bnXKJzEu0c2EZ0exbn4kQxZfWhNbpijBZ85ezFYRKL9ghwnrgSduO
-	GdN1QcHgaYysmZHYJAi3NIOIsHf03CNLZP0YmjIPDgX/5NexcEKWWgTRtsg6I4ADdypMVWhEg1V3F
-	dMBbvV5YhtezNqVjhwtTzzX8yhm/bwMqKIjQ==;
-From: Andreas Kemnade <andreas@kemnade.info>
-Subject: [PATCH RFC 0/3] ARM: imx: Add a more agressive idle mode on
- i.MX6SLL
-Date: Mon, 23 Nov 2026 21:31:18 +0100
-Message-Id: <20261123-imx6-idlestop-v1-0-e32f1f44e46f@kemnade.info>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQNLeil0
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795465957;
+	b=iOtjEsL2Q+i3LzgiE3w+KuJluBjxBbo8EwFX/moGyUba1kn+UbIuLex6pPFm5UeHFvwM
+	 H8ig3agIoHRCwwAunmlZwX97AMxtqOHoGlWKGT1EGb8JqLmM/gMIroTAT2KTR9qDfcueo
+	 zjblP0hyjnZN6ba/DIXf/y6FsZrDJbUxVsUnsWWI6fVbVV+Omq2hvBr2ArRGsAmT/+QWt
+	 vwEnOc5GFFDMiJj7Xyv7r+PX9Gr+UuThajO/M5OI1guQfwEWNqaxut7Nwk/utZLNwWUVV
+	 ejCn1PmvuyXnT2R8yVeixCOr+daR4TqjN6alCpOrKTBNdExupWsQSJeRYemPSd9axEw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795465957;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9tyMkUr9+zYWv3mAdl+/oTYNIcjMUy1JAChBbK6vIio=;
+	b=z9dSqIBGAboFrpQnMo61whta9IURKSojLxc9ri2KnSbBYbMYyOhPLoyTlRc9cNjszCwf
+	 PkH3D2rXPc9XDqbmNukH9j+1AW/VhrhMVJqg0jj9k2AaAk6pUKF+2HcoSD1tao7Bg4OCs
+	 wcb77IF7/QahfMs5CMJKz1IYLdydkkKAaUFzsU3bxM1pFhtofvDcsrTifK3ilV2SeWUWD
+	 JeSOc3wCnMmxC7J1TWE27yZ1irO7Tw3Lwl1j+vQq9Dd49t31mDqIBALGWaFcamQE0DSVM
+	 THM9swcm4VhGHluEQ4Gk3KuAs/dbKkNOy7tB4HT49jlw+dGvf4iPYAUPh7nwilLCDHQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id DC98B1F000D3;
+	Mon, 23 Nov 2026 20:32:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795465957;
+	bh=9tyMkUr9+zYWv3mAdl+/oTYNIcjMUy1JAChBbK6vIio=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=KQNLeil0pnY3SrpZpmzEetia+5h2ujIhwz395ANnl5+CGDA4FJrm6su6cs0RtKQR1
+	 b9qrMND+GQ4PWNWC0tdvTwcrjjFt9HXQV7Scq5uXfnixwVAZ/gdYI6AldMGh94GSpH
+	 aA997h2qIxXWaumeCqUxezbRuMZ0abYn6PlOQkT70461iQS7lz+V4J4kToFJ4UdZFb
+	 WKPJ8G13SlT1HYrc76oYGqBSEe1PqxyAWVw7RtvkurczwjVIPpvvNHaCISMiltdMQs
+	 eTQ/cDaZU3EvFhWcNB9pw7H9cDHSV+ZU2+g0u53vUm0VDHPya55EU9ii81hnS6L49r
+	 kagMxuPPI0wsA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5E1B54C6FF;
+	Mon, 23 Nov 2026 20:32:17 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Date: Mon, 23 Nov 2026 23:32:15 +0300
+Subject: [PATCH v2 1/8] PCI: dwc: Export the multiplexed MSI interrupt
+ handler
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,96 +84,61 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJaiBGsC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQyNj3czcCjOgWE5qcUl+gW6SoYmJqUmipWGqmbkSUE9BUWpaZgXYvOh
- YCL+4NCkrNbkEZIhSbS0AaYt1WnEAAAA=
-X-Change-ID: 20261123-imx6-idlestop-b14454a91e67
-To: Russell King <linux@armlinux.org.uk>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+Message-Id: <20261123-b4-cs7542-pcie-v2-1-f589a9cd0bef@gmail.com>
+References: <20261123-b4-cs7542-pcie-v2-0-f589a9cd0bef@gmail.com>
+In-Reply-To: <20261123-b4-cs7542-pcie-v2-0-f589a9cd0bef@gmail.com>
+To: Manivannan Sadhasivam <mani@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>
+Cc: Jingoo Han <jingoohan1@gmail.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Krzysztof Wilczynski <kwilczynski@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux@yoavmoshe.com, Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2710; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=Hxj0SZ3rC+SPvFigy5m6+QiE4mX53fcOuVFZ5Bi27dY=;
- b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBKKmZbyCj/we5x+baOU/ADXBrxjmg0W4muH6x
- QEQOnJoAb+JAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawSipgAKCRCEYUX6QCjc
- 8WrsD/97uMR+tAVbPbcosjxxdibZzavWR3FLDAHpesQUukjgItYmQ/reMgRGvcD7NmA1/K3ovto
- 82iQEefJnzz/LZdsOWBTfAQczC3Zabne1Str3ZFOXKwTQC8oLVLsnpSeqFh0zM75jDggNui4i4S
- NQQGOUjUYQT4KMeIZY5UYv5Cw7Fnauo9GAy5fmSZtJlCUNKS7cujlTYmwJabY41CtwI4I+vZgtZ
- R14zuNKX1Vn9KTYAzGBIcP6xGoRtOYJwTkC3ewULcLJIhRxMxA5V+HpJGaSiu2BiGLmlfwXNoSN
- zrXze/Ke2VydtJ8SskPhAoaDSqdYKXauzwaL2TX3aQdyHnrXGooriSMmydcGhy0g5rkrIw1UWJC
- ffbd0dba++JZQ1fidQrvw69PENWoGEg2oxbr6HTf7Llh1wKiUHCj0zI551gbQHL6DCPVA8Cs8Np
- Wf9V+uyFUDsLmZ+8S9fXlzCw6Xn14HgD7RpR7pP+u6xk8S1wUSU6AdydmGssVdYaIq+hGDyqr4z
- 4suAH2XsgJlRB+ywfuQDCTnPIh5fcAZw0viEB5Jev3aJW+7C/IBkSlC4gBhdZ282ZIoASPRvSfH
- boY98KXQi2C89iq3RIA8MM5ObaCt7h5AupdBH0k/BdfBOqN7/9d7aj6VTdgSqSWAuFXgtiYiMvW
- bFPk5EimRzpa77Q==
-X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
- fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795465935; l=872;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=Mna9V2FvctfGCov2fj28CrWMP+FmQdEcH5a5uq4pt5U=;
+ b=iPA0bYRf79FFPZCfNmPxcL55dq3dCI1ypOQzRlCncf7ujc4VHkSd+c3JzvJjVekdl6zTVt/SN
+ I53Le0IATu0AVXqUzEOQetC/fcE6WJgt8jFDHqqTTa+3cqZRXGvbTNs
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Ebook readers there are often situations in which the system waits
-only for some GPIO IRQs and no module is active, all the clock system
-is using most of the power, not every clock gets disabled via RPM,
-esp. those are marked as CLK_IS_CRITICAL.
-A usual he situation might be mainly wating for touchscreen input.
-Since nothing needs to be sent to the display continously, clocks
-are not in use. Maybe some frontlight is consuming power, but if it
-is not used in maximum brightness mode, the clock system is still
-using a significant portion of power.
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-In contrast to suspend state, that is not forcefully turning things of
-and wake up only on selected important things when the device is not used.
-E.g. you might still want to have frontlight enabled.
-Vendor kernel work around this by adding an extended suspend mode in
-which more things are disabled, e.g. the touchscreen.
+Allow modular host glue with a combined application interrupt to dispatch
+the internal MSI receiver without installing a second chained handler.
 
-So rather add another idle state, which is only conditionally used
-depending on clock usage.
-
-System timekeeping is currently using a high speed clock, which is a
-major blocker for this idle state.
-The imx-thermal driver currently needs to be disabled, maybe some
-cpuidle notifier block called by cpu_cluster_pm_enter() is the solution.
-PXP driver is missing power management, so it should be disabled, too.
-Also serial console needs to be disabled.
-
-Use 32K clock for the timer and the clock source to avoid that
-dependency and allow the timer to be used in stop mode if that low
-power clock source is used.
-
-With these patches are applied (and the not-yet-upstreamed EPDC driver)
-I can run a loop displaying the current consumption in every 20 seconds
-for about one week. Power saving is around 70% in such
-situations.
-
-Probably patch 1 needs a more clean solution, Patch 2 should be good to
-go, after that patch 3 can go in, too.
-
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
-Andreas Kemnade (3):
-      [RFC] ARM: imx: enable STOP-ON mode in idle if wakeup requirements permit
-      timer-imx-gpt: Allow 32K clock to be used as a clock source
-      ARM: dts: imx: kobo-clarahd: Use 32K clock for the timer
+ drivers/pci/controller/dwc/pcie-designware-host.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- arch/arm/boot/dts/nxp/imx/imx6sll-kobo-clarahd.dts |  5 +++
- arch/arm/mach-imx/common.h                         |  1 +
- arch/arm/mach-imx/cpuidle-imx6sx.c                 | 42 +++++++++++++++++++++-
- arch/arm/mach-imx/pm-imx6.c                        | 23 ++++++++++++
- drivers/clocksource/timer-imx-gpt.c                | 13 +++++--
- 5 files changed, 80 insertions(+), 4 deletions(-)
----
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-change-id: 20261123-imx6-idlestop-b14454a91e67
+diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
+index bbb02458a..1d076bb62 100644
+--- a/drivers/pci/controller/dwc/pcie-designware-host.c
++++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+@@ -85,6 +85,7 @@ void dw_handle_msi_irq(struct dw_pcie_rp *pp)
+ 			generic_handle_demux_domain_irq(pp->msi_irq_domain, irq_off + pos);
+ 	}
+ }
++EXPORT_SYMBOL_GPL(dw_handle_msi_irq);
+ 
+ /* Chained MSI interrupt service routine */
+ static void dw_chained_msi_isr(struct irq_desc *desc)
 
-Best regards,
---  
-Andreas Kemnade <andreas@kemnade.info>
+-- 
+2.53.0
+
 
