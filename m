@@ -1,72 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795446517;
-	b=a1Yks04uL4F3Ke1yqbHhDu0245103Xua2/hLaNnEMCet3dOUK6HRnEOrsQcCluT1hzIh
-	 J9C6UdFlfZcce40qPEfrT74MYoR03x4UMZg4DtxbKdkH+a+XtvK9YoFYcWaMvQMGl30Ov
-	 7HcdCQq3cSIiElk0RYAmGlrnMd0qL0HAGG/XUnruS7fxIux91ck1iXC6qmclCXehUdGK+
-	 ki2aA6/nq8HEnd1URcQUwUa0VrAZ/srQ+labB3JcEu5r8OvUPQ79Glyz2lD8Zkanl4VAn
-	 HOvDRtCd8uds1Z04f0MtIWUamVBmK03Ldq36eFcIqG5uWH+WIsGw4FkDv/1leJAadcA==
+	t=1795446522;
+	b=BZZvkSNBCmJvdMDLWHNYlf0LEjRQuLOifecaAPEmwnAOkl5BCeJ6x7YjC04uIc2bBA/D
+	 j4AA7kjOd62MhPPLnvsDhuto4gkCq/5YzpiuoyMfvkDlgWPyBPUDU7YaoY38zCkU/eMlm
+	 PV+b04T8HUJZBGy3MvJQefICD3Ks0rhrsHQlvCkLV3yo5DNMbsXVFnvebObDJbK6wI74f
+	 hQvk1J91xxNh5iMOouaL+Sg7X9M15HetZ3h6U64hFO2XDiqJYkOr+yYJ6tlprh8JSqjO6
+	 9L20fdtICajGB+iYKBivRyJ+UYXRhCldy0nIhrtTJKhKMR4s5Rn5rUI7mBsdE/o/UNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795446517;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=cjblWQP22DDkX8PQwyqUXo6ncqKIwHv586PCd1qQti4=;
-	b=LBIDzJypqQ4mrnZa3Oj6+5EIE05t3yy0aoPPaREHdxddheyz9UyvAktqevxwOcT9mzk4
-	 ebKyBMp0VJAaBau6ZIHU8D77xRPXWkURRwnSJcon+rpXjc+WqQFt2b2V4ojAV1ymDR9tx
-	 0XJmGUxgAvcvf2h3s2ub6H57MuAiuYHYysAqu+6jvIfqHW/yK/uLW2QYeEOWwyynMi+Tp
-	 MM4CXTf9a9NC7OphZJDTa8BJc1tn0Hma7dtzCS+s6z43OdpFiAxSiBlYYG642NvptBrz3
-	 GAnshAIKlp+gRnwZ30S0nxcXiKZdGy1l+F/4bRySrMaYeykKv2biCpAYnLzKTZfYoTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795446522;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=cBnjnfPrI5GqXOR0gLmz+atrHWpsioGJfdWD9aN4KPs=;
+	b=ddwRHEL09cRXYK9eSD7oxFUrU0BWRa29RlpAWpiH158nk4PNqLrJqaxDztsA99kLwky+
+	 PFClIaGzoH9Ix1zXtSQFGvMl2GheBdCJZCOQcrGcDxf4+7r/Zp6diItFyqvZTL5EiYW2x
+	 /111+Rbr8pUdtoXABeNxUPtuVv7OViNJXhQ+AeddJ4WjiolAMrYQ85wOYcmWNYFBvBf9o
+	 WJsd3FObSbpRMceb5Tk3XYqFKsqIXVwmhlySUQyUxKqbKNrLlcXtFV/nr3RJ4VTg22nKP
+	 TRzWi/AyE65DB0LcGm4TSJ5ZGAqzjQXrOgxXTLgv1uPnNuMKCIHTX7BdMMAJhqfrKyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ooMIwlxg;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kzg52ZXu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDAB606A31A;
-	Mon, 23 Nov 2026 15:08:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DDAB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3577606A31F;
+	Mon, 23 Nov 2026 15:08:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ooMIwlxg
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=cjblWQP22DDkX8PQwyqUXo6ncqKIwHv586PCd1qQti4=; b=ooMIwlxgNI33rP63+Ad3nDuhiS
-	S+S+xP7FY8nMS6Hcz9h2CIDRnqiLbNwX+E1kpoG6nRApr1vLNGYfAgvNTmmXiyiBQSkdZ9mPQE3gU
-	/962kEe+CI852MVoo3PV30dPW/u97302eFEgw85NsSKZGlxkjNLOhmzpe/xv6xk6x6IU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xVVeZ-000obW-B9; Mon, 23 Nov 2026 16:08:23 +0100
-Date: Mon, 23 Nov 2026 16:08:23 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 4/8] net: stmmac: Add glue layer for Synaptics SL2610 SoC
-Message-ID: <c86cfa4a-5738-4b8d-bed5-4dd075f7cbf8@lunn.ch>
-References: <20261116135442.4827-1-jszhang@kernel.org>
- <20261116135442.4827-5-jszhang@kernel.org>
- <4f1c4180-3a00-4b17-a27b-e61b307d3e5f@bootlin.com>
- <awQ5raWYlMBpCqIl@xhacker>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kzg52ZXu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC4D1F000C0;
+	Mon, 23 Nov 2026 15:08:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795446521;
+	bh=cBnjnfPrI5GqXOR0gLmz+atrHWpsioGJfdWD9aN4KPs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kzg52ZXum6sSfq9YhB5+hMGcLkHSK2PSxOUBiSSkYqvjZTOenX1UTFQeOutdwLRVc
+	 PQf1AzoNq1uD60e/uAxuUuc67HkW1sGU9Jn4dZFSNE5+mSqCBPI6hkB9sHn639Ekml
+	 bJIxjqkSBCR5pQF4BSxl4V9fafIG0iq6uVtZZSaUD/TlAqYotlIOAnI/AtUltZHf22
+	 DfrEW5mEfRcSOX3JzdB5yIHasjwP3D5U+54W62AKt/AUJZLTqsztrwL2WnHhg2S7Ys
+	 1BlNvLWNJfFJzty0nK/TCDT5wcx7Rbw218sVjurpeZbp9IeTPUCFBas80XkY5WT4Hf
+	 uAcAkS9jjCDZA==
+Message-ID: <sashiko-outbox-229497@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 05/28] dmaengine: bcm2835: Fixes for dma_abort
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrea della Porta" <andrea.porta@suse.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261123145728.29082-6-andrea.porta@suse.com>
+References: <20261123145728.29082-1-andrea.porta@suse.com>
+ <20261123145728.29082-6-andrea.porta@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 15:08:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,33 +59,111 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awQ5raWYlMBpCqIl@xhacker>
 
-> > > +#define CTL_PHY_INTF_SEL	GENMASK(4, 1)
-> > > +#define CTL_PHY_INTF_RGMII	FIELD_PREP(CTL_PHY_INTF_SEL, 1)
-> > > +#define CTL_PHY_INTF_RMII	FIELD_PREP(CTL_PHY_INTF_SEL, 4)
-> > 
-> > Please use PHY_INTF_SEL_RGMII and PHY_INTF_SEL_RMII from "common.h"
-> 
-> I read this as "use SYNA_PHY_INTF_SEL_RGMII and SYNA_PHY_INTF_SEL_RMII",
-> correct me if there's misunderstanding.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] dmaengine: bcm2835: broken NEXTCB abort and write drain in
+  bcm2835_dma_abort()
+--
 
-https://elixir.bootlin.com/linux/v7.3.1/source/drivers/net/ethernet/stmicro/stmmac/common.h#L316
+commit a058188488f658c2a3df2427a8957114d4f32435
+Author: Dom Cobley <popcornmix@gmail.com>
 
-#define PHY_INTF_SEL_RGMII	1
-#define PHY_INTF_SEL_SGMII	2
-#define PHY_INTF_SEL_TBI	3
-#define PHY_INTF_SEL_RMII	4
+dmaengine: bcm2835: Fixes for dma_abort
 
-Which is easier to understand?
+This commit updates bcm2835_dma_abort() to clear BCM2835_DMA_NEXTCB,
+issue BCM2835_DMA_ABORT with a shorter poll timeout, and suppress the
+timeout error message when DREQ pacing is enabled.
 
-#define CTL_PHY_INTF_RGMII	FIELD_PREP(CTL_PHY_INTF_SEL, 1)
-or
-#define CTL_PHY_INTF_RGMII	FIELD_PREP(CTL_PHY_INTF_SEL, PHY_INTF_SEL_RGMII)
+> diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+> index 063e1b2aabe3c..51e3a40dbaece 100644
+> --- a/drivers/dma/bcm2835-dma.c
+> +++ b/drivers/dma/bcm2835-dma.c
+> @@ -419,7 +419,7 @@ static void bcm2835_dma_fill_cb_chain_with_sg(
+>  static void bcm2835_dma_abort(struct bcm2835_chan *c)
+>  {
+>  	void __iomem *chan_base =3D c->chan_base;
+> -	long timeout =3D 10000;
+> +	long timeout =3D 100;
+> =20
+>  	/*
+>  	 * A zero control block address means the channel is idle.
+> @@ -428,19 +428,33 @@ static void bcm2835_dma_abort(struct bcm2835_chan *=
+c)
+>  	if (!readl(chan_base + BCM2835_DMA_ADDR))
+>  		return;
+> =20
+> -	/* Write 0 to the active bit - Pause the DMA */
+> -	writel(0, chan_base + BCM2835_DMA_CS);
+> +	/* We need to clear the next DMA block pending */
+> +	writel(0, chan_base + BCM2835_DMA_NEXTCB);
+> +
+> +	/* Abort the DMA, which needs to be enabled to complete */
+> +	writel(readl(chan_base + BCM2835_DMA_CS) | BCM2835_DMA_ABORT | BCM2835_=
+DMA_ACTIVE,
+> +	       chan_base + BCM2835_DMA_CS);
+> =20
+> -	/* Wait for any current AXI transfer to complete */
+> -	while ((readl(chan_base + BCM2835_DMA_CS) &
+> -		BCM2835_DMA_WAITING_FOR_WRITES) && --timeout)
+> +	/* wait for DMA to be aborted */
+> +	while ((readl(chan_base + BCM2835_DMA_CS) & BCM2835_DMA_ABORT) && --tim=
+eout)
+>  		cpu_relax();
+> =20
+> -	/* Peripheral might be stuck and fail to signal AXI write responses */
+> -	if (!timeout)
+> +	/* Write 0 to the active bit - Pause the DMA */
+> +	writel(readl(chan_base + BCM2835_DMA_CS) & ~BCM2835_DMA_ACTIVE,
+> +	       chan_base + BCM2835_DMA_CS);
+> +
+> +	/*
+> +	 * Peripheral might be stuck and fail to complete
+> +	 * This is expected when dreqs are enabled but not asserted
+> +	 * so only report error in non dreq case
+> +	 */
+> +	if (!timeout && !(readl(chan_base + BCM2835_DMA_TI) &
+> +	   (BCM2835_DMA_S_DREQ | BCM2835_DMA_D_DREQ)))
+>  		dev_err(c->vc.chan.device->dev,
+> -			"failed to complete outstanding writes\n");
+> +			"failed to complete pause on dma %d (CS:%08x)\n", c->ch,
+> +			readl(chan_base + BCM2835_DMA_CS));
+> =20
+> +	/* Set CS back to default state and reset the DMA */
+>  	writel(BCM2835_DMA_RESET, chan_base + BCM2835_DMA_CS);
+>  }
 
-You should try to avoid magic numbers.
+[Severity: High]
+Does this reintroduce the abort regressions fixed by commit 9e528c799d17
+("dmaengine: bcm2835: Fix abort of transactions")?
 
-	Andrew
+Commit 9e528c799d17 replaced this BCM2835_DMA_NEXTCB and
+BCM2835_DMA_ABORT sequence with pausing the channel, waiting for
+BCM2835_DMA_WAITING_FOR_WRITES to clear, and asserting BCM2835_DMA_RESET.
+When a channel is blocked on an unasserted DREQ, no AXI write is in
+flight, so BCM2835_DMA_WAITING_FOR_WRITES is already clear and the
+existing pause-and-reset path completes immediately without timing out.
+
+Reverting to BCM2835_DMA_ABORT introduces three problems:
+
+1. BCM2835_DMA_NEXTCB is written while BCM2835_DMA_ACTIVE is still set,
+which per the BCM2835 ARM Peripherals specification is only safe when the
+channel is paused; racing with control block completion can cause
+BCM2835_DMA_ABORT to abort only the current control block and start the
+next one.
+
+2. After clearing BCM2835_DMA_ACTIVE, the code writes BCM2835_DMA_RESET
+without waiting for BCM2835_DMA_WAITING_FOR_WRITES to clear, so
+bcm2835_dma_terminate_all() can reset the channel and free descriptors
+while AXI writes are still in flight.
+
+3. Because BCM2835_DMA_ABORT never completes while a channel is held on
+an unasserted DREQ, every termination of a DREQ-blocked channel (such as
+dmaengine_terminate_async() on the companion channel at the end of
+one-way transfers in bcm2835_spi_dma_rx_done() and
+bcm2835_spi_dma_tx_done()) now busy-waits for the full 100-iteration
+(~20 us) timeout with interrupts disabled under c->vc.lock.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123145728.2908=
+2-1-andrea.porta@suse.com?part=3D5
