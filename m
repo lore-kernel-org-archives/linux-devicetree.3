@@ -1,79 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795447544;
-	b=hRcOUB3piov/z2o30wS/1270zC4ksPTYK0Mjb94ZBgf9Fb+AG2R6FlkruZUmIkPYJQfA
-	 X2SzmNwf/6Wgjygl9YNihDbw9e85bRm7XEO4qk95QkB/Kw8HvsT+sOeKuIiTqkh0L0B+V
-	 bm7rLZRA1B+YMox8Bwh6uqz+TClXRL62ByN5RkbHHHErp74mdeOk+UESc7HfXrjOHlCDM
-	 pnqWO1xhMxiTujaYnRmfwkUN+AU+8xj5GDqmcBEXk5tECKPUkjPHkhvW5eKQJK/fYu39F
-	 RsKqIIlZFi9fxSlc4TWniCVYP0FkgrJPyWZidv56mu7eVPtYpmGm3pt2LUADs0p+XOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447544;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=FeWTS8Q48bWPnQCGmjUGgs00u6eCx3a6nfu0+I6v/Og=;
-	b=eZd76h7B+xTZYYNxkVOWPcwPgeOq+/3YNh+yWfodmQ/347Iv8Kr20DYmwACspzfldYuN
-	 pGOSEtqP6ikJnwycfxZl5ToXmfYsY5sHderoGXW5SX+kDT7vodBd4rA0mWecmfUhar6HP
-	 W+JKUpXQSkz+DIZcmSIw43QvTlwdgLEo+EX5vhKIr3QeDnuDADIK1zTsuR7Glrh9fzbIy
-	 O+jCEa/r+Y+9kQWmHrHgmzgMljimsV00W6aF92/OY8rzx+c3YKhX4g2TxSg5kK+jyppaP
-	 5zoljAkG9TzShBaMGNbFqSjqo6ifhr6J5/IKf7oTAfHQtptfwlA5IMvawM1z62f4/Yg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Yn3NtIas;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795447670;
+	b=TbP7Ri+D1hqfA0qHNTvL2AZt4sTUEm5JTadMc79jbw/QWDf0zulXs0/HMOTEEMMGrS5P
+	 hSXtNaevwfq0R9RAwnlzne+GIQVN6JAF3E+6R1FESLrjKOulyvefaMewWkZg0R+owCiYi
+	 lnnJHq0roDh3VpgMMowmWsVhaa2HLWag9MyOP9RCtvp66l4Oy9ZG2YPT1cB8I5usGYMuS
+	 NVUOsADjgVGBVZIbux0ZomsmN6f+FdOJP7TRClDDQjXJE7A8lmrpcvtsFp6UvaJDBDGXn
+	 9xCWfS2w4EmE70Uzw7/OwunhgzwT3W9k5WWw+4HyhC+KZw/1mvB6ELmTLUdvYR4E+ZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447670;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=YLGKNkgR6s9tTheoIvmn8i8Sl0j7xhzXeh52UoqtGho=;
+	b=X8LSMP7BVpTzoJORS4MA0zR/HFIcu68eLHHASfAxhBHeCOLApVd5DvI3n4/2rzD+War6
+	 lwCLUa3HYt2Sbo1pAov/dIdfb8U7mhGhMtoiGeDP808uH3fSNoo/U3/rPNa/muI9p6mKl
+	 zSu+9Nymlz3vZN62pSOS0QOBGvWi/L7mf4Z+NwzO8UyhEkqcUokpR08KzTeIJz28rL6uB
+	 28RMINM6Wbxe8ORGu/KnFlS2yqhMaN0Jts5/EFKoyzJMjzxytJmv8KVNMokyNsaQmSfwj
+	 W13FXNTNOOwIVfoyElmd/66P0l0OGq+ohChp8txb9Nq+NR8nFUqRZxJxfx7t23jaaeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TTcFXTzI;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HKGHrO3b;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44680606A68C;
-	Mon, 23 Nov 2026 15:25:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44680606A68C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5908606A321
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:27:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5908606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Yn3NtIas
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B82AA20228C;
-	Mon, 23 Nov 2026 16:25:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795447538;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FeWTS8Q48bWPnQCGmjUGgs00u6eCx3a6nfu0+I6v/Og=;
-	b=Yn3NtIasFB4bNE7hi+meOpZRKsfmggAyxK/Lt1XQcngGebdL97xbLGrBLYV/S6aru4k9e3
-	8XbLPmmcnjA2ogBJVTSeopfkQU7PFmo+LiAIqEl9WMCVT2HKvYRsKjLl+jzh24MQcfiRU4
-	ORo2OCcDiJwtBdqrHde8xpb7M2LCdz0gwd6m5QxbBRXW+QE4A+sVjqYj6cinz/tbx+f+Ja
-	v7Mv23v70VdvUsQspP6vYE6t40sVCNCPsahgvD+C7vVUWWvUAceekF5v/52i4JAXFJWaLo
-	4K8Jh4pH1YqFLw2AFMnPLMu+MAUbpG0A9Ul5Rl+XdzYfmJuBxjKUO9qcOHe8Yg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795447538;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FeWTS8Q48bWPnQCGmjUGgs00u6eCx3a6nfu0+I6v/Og=;
-	b=daweakudbzmXaAc8BSHk7NvyNlAz6B/bgoBK7LLyaMMRSwXoYFHhhVWS0JnPBhC0R6cU5y
-	CJ1spp/BFcD4GYCFYtiNJU5l/IsSXgXz+dZGU1XD87gDwEtl6KJZVm5h8TvLNMi57wTubJ
-	/RJoX0hr5bAYKH9Vmq5m+6zANy10/rpbQ3aP8PdprW4bT72dVs4grNpE5DnZoGt+odNK0h
-	H1diJYCcULeu7bXD1SnUfZJlslmj4v00wVtGwVsVVAfZseJIy3iFSFRtACLnOuDDkhnqux
-	d2+KZPd55hK54zCt/ekG13KkPr1Xb1UQe8nqkUW9KivuQ+/8LSeU49f6savByg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795447538; a=rsa-sha256;
-	cv=none;
-	b=NVQAQ9R5wm3fVB0ui2uwrt59wxEhUq8rqrmW7s3mFMKBI6Q+wn5KxHJf4/qulzs11qxHMV
-	odSY0DNSvbFMl4XfL6ITdI1lv3J7pT7/H+kvPn0yzQAqJAEPWaRT2cIj1Y6oIMYY2IP93t
-	3PdseBy5yjXotyCo5fblAmgGmB6SuvrnQj6YjXtrrLWkpxdhNVTH0yUxQ3HzLecNZIfcV+
-	jjFb4wSy4OcDgFiu8l/f0Sz726c7MLQJ10H3y3X7TWNnr2l6WcOozK8NywrvZoPnDhfpst
-	6t8MCVXvRIjvjIDHot/E3FLv4jFBZoEb9PAbufCM10J/CazfTM8H1qIXnABKdg==
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Mon, 23 Nov 2026 16:25:23 +0100
-Subject: [PATCH v8 4/4] arm64: dts: rockchip: rk356x: Add JPEG decoder node
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TTcFXTzI;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HKGHrO3b
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANDKwiE1937641
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:27:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YLGKNkgR6s9tTheoIvmn8i8Sl0j7xhzXeh52UoqtGho=; b=TTcFXTzIAnWUeCKx
+	nACMD4ckphZxpj6v9TDEYgV+EOIF32+xjpCqu1nwpwFQfCr2lNBrOsk7rinxA52k
+	zlpLL2CQ8GmnfOw1y9Szsa6cEg0fd5sl4mVMVByL8RHk04UutO/nSnYV+FRBOAAn
+	VsO31AEo4c50WhM+Uw8LJR4MZdiZZjaORGPYHfGWVG2chqiWvF6U8bUYz1hT/t64
+	GAShcZcd02ImNlRE+/ejIVFjYR8/Io6IhS+7KbsMPCsodrKOEXxEzC2srd36L9O0
+	AThOx1ji3Um480miBZt83ZEcnCzwIEw0ODN1CGXxusEgkbiVlXEBuFLF6PtrWhLw
+	1Bki6g==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4exx297y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:27:48 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5ecf0967947so92390e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:27:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795447668; x=1796052468; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YLGKNkgR6s9tTheoIvmn8i8Sl0j7xhzXeh52UoqtGho=;
+        b=HKGHrO3beBF/r0JbF0kNDBwCwajg/L8uZqSoeU69+ZW4oHPggO8555UJqGquLD77Zs
+         ro2bWwmv1ZD7uOkU/SXwdA1ENuZUbOr2HKrQw0eXUvw4WhG2ZA9ToBE+l0LVHdLNZcYg
+         e5TtCmbBKHPeozIMgcSr0ywXG6LwOzUylH8PmuKP8KR1MGCHcFg+IPOYoHf9afRGBMJa
+         D2X4o3typUEKaPugEJPPhQJRYQ0GGoeOUyFEHIMJtMVGsO8QLQN56T2z7Nb46df0dei2
+         lUpHRGTDcZ/8KgPGRveg4du7mr/2dRdTLraaLzH0D35H96Ju/D4WnIYG7kWJaPmZyBPd
+         cEQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795447668; x=1796052468;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YLGKNkgR6s9tTheoIvmn8i8Sl0j7xhzXeh52UoqtGho=;
+        b=cqlBUHMdpXhq95FkcPXmxHlIGrWXOHEvdOXRlpBodrTO7JD5h7ci8yH/o1usvayXSy
+         JYkETCG2sU7sl/S7IJ8W0G52K6+iOQAkHgdYzHWehaPpjt9H1GS/GMsRi3b3HEHEa2Mo
+         6lFWyzzXXdSq+c9SgC8budFYoW97muC7INokdjIraxoHXdHn8afFeC31YEJbmOeCMifm
+         eypuJhuRSRvIBDK+mZmPGBFCtrYdRlAKaMY0W6BWKgGDsi/kRm7Aw4nUuKGw8so5iYb0
+         CpYE+FnUa/x5cinFkVq/+QC+jDl+/QAJacohZOhaijhovVUeLWwih6Nr/RlnCeIVfkGv
+         vuUQ==
+X-Forwarded-Encrypted: i=1; AL+hErHd+wZLuxPH834ETvO/Idfq6HZiOMDd7mOAmeoKNkSjr6A2nGocm6AywnZQ05aJD5EsHYLn337Roqsm@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GvdV0Kwo0+1iD4XlwuWTU0K96+usR3Pn08H7XG+sn/jgv6zU8
+	WIkOSXNPp79O9jm8J9tNnF2nL4ap1u+vDI+NBClnZbEtC83lfd/Fi9Fk2Rgx/CZfUtrcdqzbeS+
+	CudxFBX8sTXEkV+Kx2pMQhW9Sm1+w8eVfw61lfBzl1ZOsiPyhfhW5VHXiD5HVJhni
+X-Gm-Gg: AZFdTZfpRvwnhqwIBpFb6aJQwTaUoERJAApPqzIgiHZCFOFDBlJDbF1Sf9vedwA1wrO
+	KmAG3YkslSjAThxkePKX9jraYYYWREEVAq2CQ2KRkznalOMWTM057j3xXkOaVE8gKcPeeAw2qOZ
+	1SaDWJAy18wpHKukhd/rjfQuZcgGs6bekzBRjBGMZBLuAPfGYECZYc/DUHsSz0HIUnQNe/4+fPh
+	V8dDeGOd4/RFONb0z8o2sWoCWNy9gcBtvKSMQs8TxI+I3WVnQ+s9BwElBxArx4L3Kg/FaLKFtN6
+	QEKRo2gYOA7ijzZ91uN499D9ggsts/9F8wlH6jMoc5crE3/7AUxlcXqJDKhIG2D/ELDbRzrntmz
+	HnZSqwJHaW6kSDOGGOyDuhLrZeIsu4L0MaQcZqAobvGLoPKlChIPSyylhf7QgHru+LvUNnWA=
+X-Received: by 2002:a05:6122:25d0:b0:5ec:2394:ef94 with SMTP id 71dfb90a1353d-5ee8ad0fde5mr6702173e0c.0.1795447667726;
+        Mon, 23 Nov 2026 07:27:47 -0800 (PST)
+X-Received: by 2002:a05:6122:25d0:b0:5ec:2394:ef94 with SMTP id 71dfb90a1353d-5ee8ad0fde5mr6702120e0c.0.1795447667181;
+        Mon, 23 Nov 2026 07:27:47 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afca58asm410577566b.65.2026.11.23.07.27.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 07:27:46 -0800 (PST)
+Message-ID: <c8eaa9bb-951e-4076-be58-7090150b5c90@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 16:27:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,88 +115,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ARM: dts: qcom: msm8974-hammerhead: Fix the IMU mount
+ matrix
+To: emcp@enser.io, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Luca Weiss <luca@lucaweiss.eu>
+References: <20261122-b4-hammerhead-imu-mount-matrix-v1-1-fa38561de9ca@enser.io>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261122-b4-hammerhead-imu-mount-matrix-v1-1-fa38561de9ca@enser.io>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-rockchip-jpegdec-v8-4-3316cd31b043@pengutronix.de>
-References: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
-In-Reply-To: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
-To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795447521; l=2421;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=XKKZeAn83nsSxMgXM9Bvv6Y9OauycMDu579tqOq4OqA=;
- b=jh7bgTelvaHbCA5tQHRb7KpAP9ZtNbAJvWi5fzaI3ndM4ha3PDuG/w1OsEgUkdSFlC2TmWhn4
- HcBgXQRZoWhAIEC53vTjocjrmVx9dq/38iJQZbu1KNr2NdgSuLb0Zrr
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
+X-Authority-Analysis: v=2.4 cv=FKKOVOos c=1 sm=1 tr=0 ts=6b045b74 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=l1nHKxr-XrZQ-B15pWYA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: b5TgSqqOKtoIjTcTXZURvfMpDdy3Qey-
+X-Proofpoint-GUID: b5TgSqqOKtoIjTcTXZURvfMpDdy3Qey-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2MSBTYWx0ZWRfX99jqEDFDKrST
+ NIzuBVPCofN1JJf+bcgDyXR1KPKSxPcYYnn8iMnfdONTegDLHLenaQSBmP30SsDoLzGRikaUdmH
+ wh0lHiVNBkFaARwhtgMiAW7cF3Ppo1I=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2MSBTYWx0ZWRfX4cv7pX0M1WDU
+ g2ABQRKN71l99zjO2j1cV9YWZhvPWFMnBqPNkOJSLgV5MaUWyRY8lkYb65sJCiEtCv+guvhB5sg
+ FfwkmcEjzciy6Ku1+ICub8B26F6zcMlDPFywKJurHxbMUOAlu9ySdxzUxMrpkvg8yJHfjVTWjik
+ LuChtzN8HG3rzmOU6oh9Km3TiyJ8W636d+i11Ngl4STBfvSbc2CMgUjxgj1p3ni3t4PG5KCNn0H
+ hT0+6laeZh/wueilTN3iIkoMKQXok8eHcPuZIRENWAOZwUvelXkRNk5kOqmXNOntOvFlz6m7vUb
+ h3LgrMt5QFzEOVA9zdzjvkfkkTd0Jj1V9kAuUV/e1fSTjbkpFLa5xRa5fDJRS03mpIne4E6MRRl
+ gksqz7uifhM1cQDrH79rFdajMmjVDrzg5+MT1GJQ/gAqhWQ1mQmUFFB0Z7x39tBWgsgGZQN1gH0
+ ZUqdtFZXXJwH3CY7Yjw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_03,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230061
 
-Add device tree nodes for the Rockchip JPEG hardware decoder and its
-IOMMU on the RK356x.
+On 11/22/26 6:12 AM, EMCP333 via B4 Relay wrote:
+> From: EMCP333 <emcp@enser.io>
 
-The decoder is the same block as on the RK3588, here at 0xfded0000 with
-its MMU at 0xfded0480 and the same 0x400 register window.  Only the
-integration differs: ACLK_JDEC and HCLK_JDEC instead of the JPEG decoder
-clocks, SRST_A_JDEC and SRST_H_JDEC for the AXI and AHB resets, and the
-RGA power domain rather than VDPU.
+As mentioned on another patch, I need you to use a well-known identity
+(i.e. generally your real name). I look forward to reviewing v2 of your
+patches!
 
-No rate is assigned to the AXI clock here.  Unlike on the RK3588 it is a
-gate off aclk_rga_pre, shared with the RGA, the IEP and the EBC, so a
-rate set for the decoder would move those too.  Its mux tops out at
-300 MHz, which is also the default rate of the downstream driver.  The
-downstream device tree assigns no rate to it either, and the vepu node
-on the same clock tree already leaves it alone.
-
-The domain needs nothing else, it already lists qos_jpeg_dec.
-
-Both blocks are entirely on-SoC and have no board dependency, so they are
-enabled unconditionally like the other codec blocks in this file.
-
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index a5832895bd392..e6c7ae908a99f 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -619,6 +619,28 @@ rga: rga@fdeb0000 {
- 		power-domains = <&power RK3568_PD_RGA>;
- 	};
- 
-+	jpegd: video-codec@fded0000 {
-+		compatible = "rockchip,rk3568-jpegd";
-+		reg = <0x0 0xfded0000 0x0 0x400>;
-+		interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&cru ACLK_JDEC>, <&cru HCLK_JDEC>;
-+		clock-names = "axi", "ahb";
-+		resets = <&cru SRST_A_JDEC>, <&cru SRST_H_JDEC>;
-+		reset-names = "axi", "ahb";
-+		iommus = <&jpegd_mmu>;
-+		power-domains = <&power RK3568_PD_RGA>;
-+	};
-+
-+	jpegd_mmu: iommu@fded0480 {
-+		compatible = "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfded0480 0x0 0x40>;
-+		interrupts = <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&cru ACLK_JDEC>, <&cru HCLK_JDEC>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3568_PD_RGA>;
-+		#iommu-cells = <0>;
-+	};
-+
- 	vepu: video-codec@fdee0000 {
- 		compatible = "rockchip,rk3568-vepu";
- 		reg = <0x0 0xfdee0000 0x0 0x800>;
-
--- 
-2.47.3
-
+Konrad
