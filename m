@@ -1,89 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795464964;
-	b=dgPKW1jzMQ9mzbJdDlWUMAUzNvFVovcjzhgV7bgmXF0X3LeyA2gCHeNB9HYDFZ0qhTKX
-	 BSNvy4TSKEQZg92R78a7HuZMhB9xSdZHNSEbirEzifTgG15WMrpJbfHgZFQx28HT2U2A4
-	 6z5ETJr7nSySuhPb4jmIVHTTHXAaQ/nFTXtnKDrwxcu4MCoYe3s9T4kXpJgJDJDvjFgVD
-	 U9Ii+1g7RRyhIf2KSBxHKZa+XLYghDcZ2+mt8WEj8JVt7PW7IuMlZcGWw+KGfS5Pigp16
-	 Soy2HxW6Th69+eWij+RyMh6blRnJ1mRgtI2QeQLdaKDFd0K4DrxmN0tcrxSjTe+FoQQ==
+	t=1795465322;
+	b=gQaQz5t4cJ3skT1bbEAMYXxXVRQ1GRCp0a2wdONhQVl0XMKGosotfqiiudMbE3ErdWRI
+	 I6VUl8fFjudcCBg12X0TSTj5qFytbyZlBlmi28ND3pZ9xp1zvVDQJ46l0RKg1i1nqPlpK
+	 jJIk97X5tPeWzFOhE6ZBdxfDjN4qw9DV1QWmW+jvVKW5sxcpggWUORFlQfUHb0PRzHsag
+	 JaEbb5i6mKO0yfdQpK/1vaVFohHGZbcreB0AfTDTuDUu2AVx22tba+qoXh3gOIBSrmTNd
+	 5+4tyUbJvVL1iRKwJC3t6tYDTqUChw/ceO9xKJSGZ733IQjQ19EmWXFwq7PnciJA8kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795464964;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=gGVvVvpLYm7ZFPpfldspKuf2bI8IrYyXtaX6gOidhkQ=;
-	b=RF+YYbEk77rOwDuDlcQGV1VO1hu0NCgPrkuyaRvuFvEzWWLXeZYafN1XixcPCLcG5tR8
-	 5K+2ZnJnFickk7YK5ifilD2Hj55wrsVaJ+N1jVubIa/2wTB0U8iZCWLnfz5jU9U912zTi
-	 0X5nSUPvASSoIYTEkKIkGM/uywLg25jvm89JmqxGBd9rHqpR+AdHcHOwFCflIEJbt2Ezf
-	 Am8mDoj5W+7+8fiDILa82S/sDOglqWkOkXMH6YBnvJxv53kXt86pqFLI1MPeBvr6xAxXw
-	 C+/4+Frz7D8CvgRNL01WPcUmfD3+LenY4Ku9Wc+sknbS+vGpNuh50eWQVG7DkS1bJBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795465322;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4uPGLAnAcPx9aw8ELBEXzJcU/YTR28Mt6fI9wiOkEXk=;
+	b=Uz11/is5a95GxOqBxMP1ZODR26vcniQZShKeGTyQnhuOLiMP0S2vJUBUzc+sr5yoXXiC
+	 s5pOZZfLySkNap2XRenp+EGbwMzjQLZDRPkOfkJc84JWEjHo/bsbBxRcA73MlbdIbNHKc
+	 Dc6pA8KVurX9UQ9Qwx/e0twb1v/MpOeHeKBVMfdiiorGg6qVhTp2hS/yMJe05Qa0jcwji
+	 HqoNEBOWBT0UwIgf3KKRXqhH7mI32gGEHUwtGM7dk97JEl7rT2gJjy1cPOQ1SvQkfFbM9
+	 JRJl0Ztky5KwaZsPZl2u1euhr94dOihM4pzm3AdcI/wOZK6SyiyzvTi4CXutvB++iig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=b8DEk7Uu;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFQzJW4u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB5D606A31E
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 20:16:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AB5D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608AB606A32A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 20:22:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=b8DEk7Uu
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id VXfQxwM4Z4vCDVaSJxDyUK; Mon, 23 Nov 2026 20:16:03 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id VaSIxIOH5uJrPVaSJxSxcj; Mon, 23 Nov 2026 20:16:03 +0000
-X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6b049f03
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=vsWaLUaKAAAA:8
- a=QX4gbG5DAAAA:8 a=CnilkIXYi68h046lorIA:9 a=CjuIK1q_8ugA:10
- a=ZAjiiiQUslnskKx8wA3N:22 a=AbAUZ8qAyYyZVLSsDulk:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=gGVvVvpLYm7ZFPpfldspKuf2bI8IrYyXtaX6gOidhkQ=; b=b8DEk7Uu+idXKc6ft7SaCaQkcK
-	ejSdQ8UJiwxAawFbhfC9PTlB8pw4YnG17z/Epk2zE7dvOa6RGzzraxeFRy5dxUV3MWC4PM48J9xIj
-	cVjAcSxIqjI5Uz9+9KH7o3YKWA5oHqVcIQ7SK2aQykH2T+yVcRi8nx5jlPC9vzdhlrP0N7J9eudmb
-	msoYEA/sY+Mw/+0Tdhu1YgxrDWqZB2c7OPxO1yq0qHRsFmb7i91q5ySWCDZ0RYFIWKtzTOkTjNOL4
-	bYQtXWtlsBM7NOjqK5b4PURzszae0ykfKhBy7q/7HC8Gy+W6R+oU4f/VzfgEWujme9LknjNJrFlNV
-	Z0aknGxA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:36638 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xVaSI-00000001f6j-0DzH;
-	Tue, 24 Nov 2026 01:46:02 +0530
-Date: Mon, 23 Nov 2026 12:16:00 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Rui Cao <i@udp0.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-watchdog@vger.kernel.org,
-	linux-serial@vger.kernel.org, phone-devel@vger.kernel.org,
-	Roman Vivchar <rva333@protonmail.com>
-Subject: Re: [PATCH v2 3/5] watchdog: mediatek: Add MT6833
-Message-ID: <e9033710-6667-449e-a861-cbf3fc65bf43@roeck-us.net>
-References: <20261117-mt6833-base-v2-0-058a0685c40c@udp0.com>
- <20261117-mt6833-base-v2-3-058a0685c40c@udp0.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFQzJW4u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61A161F000C0;
+	Mon, 23 Nov 2026 20:22:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795465321;
+	bh=4uPGLAnAcPx9aw8ELBEXzJcU/YTR28Mt6fI9wiOkEXk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UFQzJW4uga04lxqsn02e+WFFyKwD0SkIuQNMv72T1zd39oTGEoPXUqele811c3DBc
+	 j39Mvz5Kb25qqT0fn60zBv5cXv4SEWr+dnS6vqjhAePNYoL4zhntOxXCLqDKJiI6Oh
+	 g4flffywo+PrrgPS+E5CYC+JP343pbctY1OoeRL6j5bd98ze6cWn7TM4+QsCBspv7Y
+	 TQCRvwbozIWAcFM4u8z8rF4/A2YPWsxO/PxD8YfqV9OZnu4FpE6i7faMoSelOm3Xl8
+	 lMWHY5exkT1f3Ep8079xlIbWKlKTDZ0/oy8Pmz1ahLNNof5i0WrhW/WGOUmHW5A6vy
+	 Xw+zvSOR4VgKg==
+Date: Mon, 23 Nov 2026 14:21:59 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Gerard Marull-Paretas <gerard@teslabs.com>
+Cc: dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+	Maxime Ripard <mripard@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Alex Lanzano <lanzano.alex@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH] dt-bindings: display: sharp,ls010b7dh04: Add LS013B7DH01
+Message-ID: <179546531526.1777962.3727881292046293374.robh@kernel.org>
+References: <20261122093426.72677-1-gerard@teslabs.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,39 +64,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261117-mt6833-base-v2-3-058a0685c40c@udp0.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xVaSI-00000001f6j-0DzH
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:36638
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 56
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfJ2Rmja54a6qFFkFS8pHqviI9G5bSu2z4OKRkAmsU4UnyFZZI51m6nuvAaQX9ScMn/yvBzNJemshmAWOFFlBEEsVha1/fIFEDRVAyIAxBgG3rUNQrn/p
- b1Vyzm5CQeV6z1jzEPxjv/jdYLnkH9fP3Uf7RF2FdtV+IALN4aN8xqdwJL24mL38Wj62ePkStN7Lks72eKMz1LeYDaHC8ud+AXhgwGr3VGfg/LNmSc9OVoVW
+In-Reply-To: <20261122093426.72677-1-gerard@teslabs.com>
 
-On Tue, Nov 17, 2026 at 05:11:33PM +0800, Rui Cao wrote:
-> From: Rui Cao <i@udp0.com>
+
+On Sun, 22 Nov 2026 10:34:26 +0100, Gerard Marull-Paretas wrote:
+> The LS013B7DH01 is the 144x168 Sharp Memory LCD of which the LS013B7DH05
+> is a thinner revision. It is obsolete, but still used in products.
 > 
-> Match MT6833's watchdog. It works as MT6589's, but its TOPRGU reset
-> layout isn't known well enough to describe, so it gets no match data
-> and the driver registers no reset controller for it.
+> Both are electrically the same, taking the same SPI commands and VCOM
+> signal at the same resolution, so the LS013B7DH05 compatible can serve
+> as a fallback and the sharp-memory driver drives it unchanged.
 > 
-> Signed-off-by: Rui Cao <i@udp0.com>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
+> ---
+> 
+> Notes:
+>     Checked with dtschema 2026.9: the steps of dt_binding_check run by hand (host make too old), yamllint and dt-check-style --mode=strict.
+> 
+>  .../bindings/display/sharp,ls010b7dh04.yaml   | 26 +++++++++++--------
+>  1 file changed, 15 insertions(+), 11 deletions(-)
+> 
 
-Applied.
+Applied, thanks!
 
-Thanks,
-Guenter
