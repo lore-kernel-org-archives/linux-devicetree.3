@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795447803;
-	b=pY/l1XwVqDqDor0s3W1rAHt3L9e6kjerPtbcQLL/NXWT5PNXqk1fp0JepVDthkun+jYE
-	 wevwO8e/LrXN0hf9R8ottE0MYV6i3GJMJge+Y4UxU5PbJGFyNZ00nwEj3HX5TTispxknz
-	 4Ctx86PJO9PwXLywwV1rVB/pKHMAv3gEaqNA6v52E12fEhORjz0WKvCu+bsAmm+trvQvd
-	 kNvSZay+fQZ3EwhWLzUDtjrdauV8HZ59p2ce5Smgg/XXV2VttgGerN4l4/NFqGLibasx5
-	 lG5S9Kcu8wgIcIqiiHMRzDUrvs/PkKOnoE8hJR6jrFCNfCNBmlv9+LS3yJlG+NzIJRQ==
+	t=1795447874;
+	b=IEqrKkAjks05Oh7r3JXyQ/hawLE1rBksZY9yruUERjCW1j/uhDgOxwAvuO7LMLIpgQqK
+	 u2zlJwl4z9BaAFJsQ7cJdpk8r2lvTAs9PPiWF3kpeGfLrMKNQZQbZtK5BN27eE4oD9WYs
+	 /sdY3KUDezOW0o9yuiMX4IP6aJV4JpiRnKzc4bq/WQDPN7brJpDLFJhW4Z6ZmXav66Ptu
+	 7BYAMrHhPGZ52H1+ITul6oJ02R0EtVijdWp+uPstKikE9eIVqeDWFb06wM08lzxpfSFct
+	 wO8DFOm1nIBv+t6kQwOXkEdjkalnYu7OBBPjaF0beewQvhAR15nAyXuMCXXuvYn67fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447803;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=QbbOjKPiP7/Giffknf4o2ffv+gF7BckCe7EiFtp3dVo=;
-	b=D2F9ZEn5yGhWgP/ODk0r1RApMzGGB5GEqt0khAfyOKgIP1KIyHNdaOIM6k+MNqp8B2SM
-	 vb4z6LXTfSLb8DlLBwYFcLqFRBotnug+GcL+NlRJg2NmMlIeUtvo4zqu1qDOvrBcPIB8A
-	 Q2u7FX+o19nHiBjjcN/GEV5aA/NDkBQrw8fcN+ig2dsyNkrOyHAxQprlWD4th7r2fPASy
-	 cHROUIbW8cIB/ROYzUQKiIOWcDla0FT8HBgVygGVSbzVwDSiTRPZccAS3U220vixDPlka
-	 1BRZrz4pQExfwb92FH6tF/3XaR8QT8tI1vNVbGpHVfjNifcAdOXKcGteotuIo0rOY1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447874;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5Zmzfenaqe/ABUcz0D1nvMINiY0TPaqXO2ZTdLBhjRU=;
+	b=xCqo165LJM3gk0geMJ4CYUTP8AOsNnZsspW3Ua8CfD5o5hBBfh+1primyZuszvYKHqTu
+	 C2xDSAcFKlSNRKUVUr1M8n5EToU3D1+//3J7dHc4VpNsqWZnd4UUvQ9IICfYX3zpqiBRv
+	 JKOl1L0bwXEBN8+vB5rZQFgVtersEq5kwMLy5pnDr14JPfciuljMf8Nk/g+YPoVuRUXLz
+	 +cDVD4Lu3s3QyezZxq0rFoIzVOj1lYlZe1LtgSqJeBH7yHOIQoP5Dm5LOmUQtzbxT9mft
+	 uoNXM9WqPUj9Pl/A4XsvFFtlIjv0oO9LqZfMAPIKUxYQV7NBMJapHEQ2C9Q/6Ym+kMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eH3RKYAc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OhHvVIeL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17720606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:30:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE85606A321
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eH3RKYAc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EA231F000C4;
-	Mon, 23 Nov 2026 15:30:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OhHvVIeL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6282D1F000EC
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795447802;
-	bh=QbbOjKPiP7/Giffknf4o2ffv+gF7BckCe7EiFtp3dVo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eH3RKYAc5X3Ypc4KYncOwcJtGnkbF+IcN5wRWv5TespUt3jPGymyAyy6zXKbzSPzA
-	 1L9l3nDgGx+6e0P/+oeLyCNwtShuFkZ7UQ7AQ3QJBWTsNMRVCOG52drPSaMYEzZnPh
-	 tEJq8C4DRE/H03R0tftP9yxO0S5R3Ko/YxrOl0C7m3JKhe4OLiAedRQ69Kd5DHRNDH
-	 76fG/uaI9ZOPozdCTHuwATtEWRRCU3n2QwYSrKNTyxH/t4bSFLeE2XzP58vo44qfFd
-	 TlFCqR8tbp9gcrImFxoQ9xCpd0teFOLeRAMu2pYt/yz7K92BEeiaBo1kAsNhSYYlwq
-	 1SBZtedp9c4Wg==
-Message-ID: <sashiko-outbox-229569@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/4] media: dt-bindings: Add Rockchip JPEG decoder
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sascha Hauer" <s.hauer@pengutronix.de>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261123-rockchip-jpegdec-v8-1-3316cd31b043@pengutronix.de>
-References: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
- <20261123-rockchip-jpegdec-v8-1-3316cd31b043@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 15:30:02 +0000
+	s=k20260515; t=1795447873;
+	bh=5Zmzfenaqe/ABUcz0D1nvMINiY0TPaqXO2ZTdLBhjRU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OhHvVIeLj+E8jjACmZyxOQsE9LLq2TL2ftClvwugpxsJm1tg23lNcFLQd0SGWplHc
+	 TWzlhIBDKuLOhLGZrVly6pVMQ6oWBArpvHDqz5nVxf0svxcdqjylyUoSeyh7z6xyhF
+	 SQRLZ3bux7XcahS8tWzmVdaMc/RcYAbrfHXlzehjfQ3//xvRaSpcALvlJPajTkIdRH
+	 CSmNEyCORb08sPFGiybftPt3O04fBgs9GzWRqKMudgC6VFdJaNPvO400OdzCN1jt/U
+	 c4GOc9ynGtjbcKSXfGhJGFfckZq5SwXYVbgZi5/ymHi48yEFdJXlUmDNBNce7RSqHQ
+	 nDPq2gL7TL3RQ==
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso4302503c88.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:31:13 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFc1ncAQIci1um/RX2P0EJr6AyZbHTQd35UMZLuW2ro2scwmfqeNoaKpibL+ktoOU+njf/o1VtP5vGA@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HA/c1zBwGv17AnwKabBSfEjCaQxSKQJ7cUGhttSD9Ka69hAg/
+	V78MjdAQbbkRDxJYkj7OmaQV8YMNWw8/f6zsRXLDtqT7UY6qmkyDIwa0REL5kyrkYlooKWQgiGk
+	YZ81mD6jRTMuV1vJlkEcQYGVQ32nN9Q==
+X-Received: by 2002:a05:701b:2810:b0:143:5cb4:30 with SMTP id
+ a92af1059eb24-1b5567b3391mr10425170c88.3.1795447872711; Mon, 23 Nov 2026
+ 07:31:12 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,83 +58,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261010115539.9237-1-l.scorcia@gmail.com> <20261010115539.9237-6-l.scorcia@gmail.com>
+In-Reply-To: <20261010115539.9237-6-l.scorcia@gmail.com>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Mon, 23 Nov 2026 15:30:57 +0000
+X-Gmail-Original-Message-ID: <CAAOTY_9N7q8vSOM1R-i0JzidoSnVmf7E99KKi458NGU=WTSnCA@mail.gmail.com>
+X-Gm-Features: Aa3M54qyF59hFKqLYZAT2WpV4wdT_KYkLyV_ony0INzG1Z9OlyFKt_7T9Q9dDAQ
+Message-ID: <CAAOTY_9N7q8vSOM1R-i0JzidoSnVmf7E99KKi458NGU=WTSnCA@mail.gmail.com>
+Subject: Re: [PATCH 5/7] drm/mediatek: mtk_hdmi: Set tz_disabled for mt8167
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, 
+	Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Chen-Yu Tsai <wenst@chromium.org>, 
+	Fabien Parent <fparent@baylibre.com>, CK Hu <ck.hu@mediatek.com>, 
+	chunhui dai <chunhui.dai@mediatek.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: media: interrupts listed before clocks in
-  rockchip,rk3568-jpegd
---
+Luca Leonardo Scorcia <l.scorcia@gmail.com> =E6=96=BC 2026=E5=B9=B410=E6=9C=
+=8810=E6=97=A5=E9=80=B1=E5=85=AD =E4=B8=8A=E5=8D=8811:56=E5=AF=AB=E9=81=93=
+=EF=BC=9A
+>
+> Just like mt2701, MediaTek mt8167 does not require an ARM supervisor mode
+> call to toggle HDMI output.
 
-commit 2a31a76d52b3850d44cf64921cfb2c3b8b1937c3
-Author: Sascha Hauer <s.hauer@pengutronix.de>
+Applied to mediatek-drm-fixes [1], thanks.
 
-media: dt-bindings: Add Rockchip JPEG decoder
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
+log/?h=3Dmediatek-drm-fixes
 
-This commit adds a devicetree binding schema and MAINTAINERS entry for the
-Rockchip JPEG hardware decoder on RK3568 and RK3588 SoCs.
+Regards,
+Chun-Kuang.
 
-> diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-jpeg=
-d.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
-> new file mode 100644
-> index 0000000000000..27d85f17922ec
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
-> @@ -0,0 +1,92 @@
-
-[ ... ]
-
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: AXI clock
-> +      - description: AHB clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: axi
-> +      - const: ahb
-
-[ ... ]
-
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - reset-names
-> +  - power-domains
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/power/rk3588-power.h>
-> +    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
-> +
-> +    video-codec@fdb90000 {
-> +        compatible =3D "rockchip,rk3588-jpegd";
-> +        reg =3D <0xfdb90000 0x400>;
-> +        interrupts =3D <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
-> +        clocks =3D <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
-> +        clock-names =3D "axi", "ahb";
-> +        resets =3D <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER=
->;
-> +        reset-names =3D "axi", "ahb";
-> +        iommus =3D <&jpegd_mmu>;
-> +        power-domains =3D <&power RK3588_PD_VDPU>;
-> +    };
-
-[Severity: Low]
-This isn't a bug, but in devicetree binding schemas interrupts should be
-listed after clocks and clock-names in the properties, required, and
-examples sections to follow the canonical property ordering.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-rockchip-j=
-pegdec-v8-0-3316cd31b043@pengutronix.de?part=3D1
+>
+> Fixes: 511cf7d12331 ("drm/mediatek: hdmi: Add MT8167 configuration")
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> ---
