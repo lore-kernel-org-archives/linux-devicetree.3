@@ -1,100 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795451065;
-	b=Im7C7FWS1yLEBI3eaoc/00Grfw19KahYhCkKWbOfZELxumWghiqrmfDf/CjZCBKcBcSN
-	 iYTkldaTZ3p7R3Hin8O6E6VEq59/Rs2DQ3Sf5JDSDfvmkkcKwJ9OYZAF8g9HFkwGYbowl
-	 qTOmaAACgxTvB5Ahq0K7ZDITmddpY5ZziskJo/ebds/R4CBfrSOxngZy3GRWOJgLTLrKV
-	 AG8fX5sGFul5B/RFWTugFSnwvtbNTuXftwH+mHsfCZ9QBmyxWAV4NF0gnZObXoaW0tXXm
-	 jtgtXRB85FZXl0hr7+sJljnfbjBFtkNYMT4xO/dGWlEoNbHCz3+dBz8Vxp8iKpscuFw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795451065;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=CNJ5tMPn49GAcvDTSuAR0rimcoVMJYlaC808t8jK4Ww=;
-	b=itWsip/A601vYfi/192y5n+zhnpsWHeU4OgoFW/doMZSPYEkyb4VptjzmSVj0KVkjFNy
-	 9D5/BEVTyfma+Y5RBWbEDRsJqndF/eOYfj3scmTDFs/BA/+3/l+lFRMC1fH97Ue8fJN9Q
-	 tB6g+pqfqiwTRvGKevqzS9uTyxEYLiwtGznvVO5nv2/mmD9E86d0hzkrq/Mb/WbOshPNC
-	 MceZEYifEEC38JtW/0zVChWQPm63HfhspKOSPmNBbl8HvaNHA5RXYtbSIztERmCEOWklM
-	 UXCc4mES+vc1kZYobV0s/g0kE40NFLCeiha9JgtJ325dlFGuzjrz3P5uXO2wTYMOIZA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kGG61wye;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795451431;
+	b=LgexgW9er4M6Q7ID5VJkI/FXj7WSwpVHToAzwpRoFO9pvOjFZ5dysQwsWhkO4B3F6e0J
+	 vjCOrsdwGLmfaRAWFNHLovGhxNnCWtY/u2azrkby3jnL1bFfIHzDbBWZQQ4F4qS+ExGTr
+	 QMXypMVPWIpeVQ+WM2JtpOXOVBW9o5RP+MZd2LL4KdElDDsdWBIxffEszmgOcSG7NdCM8
+	 XEd8vX1hX6b51OqNBpUghrcZWab3P6Gqsd0gusSfFeFKyixblyrl+fwQL7sNbMwm4rQaf
+	 eriEqj+LSgEY2DhKz2KG/0s/LBkoa7CblO/gSEjuhcIhPcyNMM2uelwNpCHAkTOyg+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795451431;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=wgZfL8OCYcaFEVWVRs6dEMoZxrUulD37lUUHWyqfj9w=;
+	b=bgPWgE48/4MnGVJrwxcbQVa/27iUtsLjT/38n70eDTGLhcM5aT+zHmQLif7LJQPfyHl2
+	 ZG7cvju8WicdrmNSFhO16ojdHW43Enc/YuIcAsz4j9l90jij8vag+3gpJocLym7vl4Jo8
+	 lCTVk4HTkOKmu2jQc4iJCANXKNmLnsJrt1jUJJlzyKthiCiA9HhTpPmszRkQxoVs1y9Cc
+	 INNEjiTvLHdhsxNMuLUlGRjeqE9uGgllEUqzidDxhTToyG6H5zeLhF/COBhniCyIuYJ9p
+	 HRzphgieeGAIN8h2XP4PXjsWXrsI1BYfF0kizogC0uNvXWmEFAxRB7p4h33sQkq+8Ow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mgWnxa2m;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=D3jxMl3s;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87ACF606A327
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 16:24:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87ACF606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEDA606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 16:30:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AEDA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kGG61wye
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c511c0e2826so404212766b.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 08:24:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795451064; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VmfToWotnA9S3FPGeSKGbvLBBSHthTOCe9ToPaAz/zExYMQlZiU/9ESmTJSlfMz6rE
-         eLeyNlYZTIaxaayZBgw+4U+ACROta6cGVkHRQKNo1SrGdQHrMGbEJt5ouPIP/tjNZu6+
-         3dxOz/wRXdVBMc4JWSgiKG9JfGxLB3HQLngCJ3IPPgtP4JS8N9NJW11QNH5EpfGE7Kfq
-         3cQXAxcljk5bGwGVxffa4djR39KeAlUg2507ifr+p8H8kPJRb6vtps2ZcQCwrMb2V0SV
-         hvemVQRo9OYS+ym96eN6qI6OnnG/5r1WM4xZvWs4I8wFw0vH7Pt15zOfC8secdmSS/qa
-         g5cQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CNJ5tMPn49GAcvDTSuAR0rimcoVMJYlaC808t8jK4Ww=;
-        fh=+gFRvA5ClKeT3kVDAHoX0eEnMAah2roo6uqHmEJrdHk=;
-        b=QXSrgdeaR2IhQwqGvA1u8tUauLZ9MoLhgrWM9OHSmg4zrT4vuOHjS2iGWrs5WevgCx
-         rnuQISga201tCNA556GiQd1f/P/ldtS6juze1+UVhspPRgcHZmaULIfwCF2azZsn/H53
-         eKi0uz4Pwzz01JPmwBe4l/6kOll/vgA3ki74vQz+qc5JZzxzL0n3ycv8/QJyfFaWH81B
-         bwOIw7vBMuEUljTWdFTnSbe/lNRK8e7R7CZAJTb7lnUBNoN/vJe6yahf3CVOC0V1v8JZ
-         FoK0bcK/MLJJ543kMyPgXVBRMRPTJPuPLqwbu9JXK01w0oYUQqDysqxG8hfDy7nHHM+1
-         BqaA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mgWnxa2m;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=D3jxMl3s
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANGGrxf2769122
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 16:30:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=wgZfL8OCYcaFEVWVRs6dEMoZ
+	xrUulD37lUUHWyqfj9w=; b=mgWnxa2msZDhh/78aD+5C/N8FOOlsQjvX+EY8RJ8
+	6Ftkx3pL/fuLZ/bX7oZXJsLdaTIEE5gpMfEZJ+U1p2eOriVOWtEeO1PqJF4+eVOD
+	lq7lleRFixoOL0Jze/JpLQpa0YdOUCCJH0BOHlyYNpV61qz961OXFQHkKzzbiU9m
+	7seMcdXqmdfUYW3rc4p99IsbPTDe1dbJ33OCnDCjWmNr1SCpsTEoLZrTjAsiogfx
+	R2ule6o9S8yYkvGfL9UJdoDjdugcOKhRKtHbZkNE7Rjb4TCh9qLQbk8y6RKX1I/1
+	Hgh2HzDsh5/VIC5menYQlMoDcj1QALp85QEe5+IJz9TMAQ==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g1paaru-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 16:30:30 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-386a0f79047so3086769eec.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 08:30:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795451064; x=1796055864; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1795451430; x=1796056230; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=CNJ5tMPn49GAcvDTSuAR0rimcoVMJYlaC808t8jK4Ww=;
-        b=kGG61wye3HV3NP7BQ17KP5dlch87le463+NAUdJ0Azg5wUYimKiAXVX7T+vAKgW4n4
-         USmVJ6ccq1JiCOBFkF238YbF4N9Al3OehytGod9mVZIrZDCu8bHXwPxRDjfQgB/x1z4S
-         dG37hmDbqD1JMdGkG1LnHRi44iWi199K6o3DAbckMhYBQRRZb2X7RzPY1yIFuQ2nrFL+
-         xwLWYkuR8i2t4oLid/D0xml/jOJL9hY+et8bBtzEkPqj9JXq1XxiW3yn4r+SFuAmmJfe
-         thBHf/UcvioFJlCVfIwSXNxW6mzt9E7sOVMxo03V5lZZZh/KAq2Dfgx06TI7XBA0z2Zw
-         G++g==
+        bh=wgZfL8OCYcaFEVWVRs6dEMoZxrUulD37lUUHWyqfj9w=;
+        b=D3jxMl3sbEXg2zXYuGnY///1p+SBPYRbIPuVLFqrZOwZEcizJeGcbhnzvenEwqMsaL
+         zf0moEPIQAGu58rPmtixN4A6Hd5+0it84gsHQComwpk7345JOqZmFwVM35cEuO52pu45
+         cj/mVZcrdrQUSipN935vXMIXiM2I3I/SXePg7zoSmmCMEiuE6qzKVzzrkykeJ//tk90H
+         gf/+LdZNvG33Vi1kAkWCfBF6KyThh9fkniHxEgqtRI4xNDgBVAQQElItWLP/m8BDRkWi
+         PKK8/IfKi4yKZmeU6A7V5WwUWOUPCT/ah+WEpBIcYxMIBeVTRyYuXsNYQVzgXgHv0XFo
+         3dcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795451064; x=1796055864;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1795451430; x=1796056230;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CNJ5tMPn49GAcvDTSuAR0rimcoVMJYlaC808t8jK4Ww=;
-        b=HD5R04SmCv8oDMjaf+RX04B5DT94f6b0fIcljHYyavLXwtl+gnUt5l6Oflweyao4Cz
-         dHtcbqaCvkbqVI5/wl/Di7TPo0xyRV76au5jzZsTmJBbQkGgQnhydXGM6xg4e1+Lv+lJ
-         pbmw9aKpQr6OYG1RDQzT6I1/1MJOEL0X8W0JaegZM4RCD9DyD3IMGhbklrWPvgZwY5rb
-         xjuFeaR6WuhOWmm8F3RPr3LbFwoVHEQRYSujxrUVjQNgQnHLJULyQXGb3X5P8TCCfzzW
-         bDrD3GcTnyLt0HEr3LL7QgQEqZUn4min0F9QHRGZqOLqGmQz1wk+KlbN/P42uXcB8WPZ
-         hJ1Q==
-X-Forwarded-Encrypted: i=1; AL+hErEKexzAalDkDage8mhEPelLGR4JqqUnJxIx1YbDkZWEUGhD0mEuVbjI18MHXLo1kn7djm+7GuJoXyPu@vger.kernel.org
-X-Gm-Message-State: APuU4Z/RnoEVWNJ1S/CjXQcXJu7iQ3KWDivGfadpriuHPvnI1OwKu3ic
-	caeK1JXjcengKbcQmKhjz0E3d/zJIOhwtK6Vk+u9qSjLFBqdpwBqbYIXmikoQACZcJT20FBZgbx
-	4SEpPSBThVglCi2GydK2J+Ym0PlXcie8=
-X-Gm-Gg: AZFdTZeAmgyxrOAa962ATmOqLdFeaUX/5rLOC1JAU/xo6iRGi4cwXzhctVRYG4R7I+u
-	lIzsL+5BZBbLQubCJ2tQOA0JgL8urDtqe0dtgPuljKgQJSx3LdR8JMvefDVAblzTFQXT0xS/l8p
-	vcKrfVDyisDN4iJPPsMkLjakHYf+xi3Mq/aAo5g6jT2oYdFylbpeLptv/LgXuLFVbr025NNgGHq
-	NSjfRCFBwPsIAs7Fkb9vJ6qEGwg98l4J7vAjYluuGk29qi4/3crlmfzSZL6t+HwepIQtQqht0QW
-	qE2cAdXYy9VSslrAtSL1TxKcC+m02TlZ27BWA6Q8A1mWSnaAogN/HEkLri7mCWNtCasL2kFVTsd
-	FYvgv5fzJzWj1yYU0a8tlDC9BQBvrpLYEqjttmw==
-X-Received: by 2002:a17:906:231a:b0:c42:4750:8d49 with SMTP id
- a640c23a62f3a-c513aad2400mr684425566b.25.1795451063824; Mon, 23 Nov 2026
- 08:24:23 -0800 (PST)
+        bh=wgZfL8OCYcaFEVWVRs6dEMoZxrUulD37lUUHWyqfj9w=;
+        b=rMgrvmT2bm4+rNuKjRP7RmqLXe5+sWFZPCPcQVhnaR5IHY6eoL+uSOeCEAGLKGqdLU
+         pA7Zl88vAbcHX3ki707NZrjuJMzdgeuhijiE6/l/WUB+ryCl0osCwXSHBO4qETikBLTo
+         /jtza59KZiqzG3qMi7C3ZQ1DZZGIaUf93mZpw2gUmL3gAZEIezsAIGHJEuETMxmNnDD/
+         Qy+d0owSXAcYz+XCelvKeGYrhFuMRWRLjWwyM15uMyD4XLUtF+r4pO2XfXJgej72ZseW
+         4TAfmNeWsh2eXjcZG2Y6X13tPK2HlP0xvdkeg9CFVsE/odBJZcQA66jXUO67gAJWHEal
+         yWXg==
+X-Forwarded-Encrypted: i=1; AL+hErHE/vdxlU4HoitqD7/t9UjFawtqpCF8C3wvti0CONRFbC+dvfmOzAyv7y8F3g9OpIZMlUKJ03TdW9ib@vger.kernel.org
+X-Gm-Message-State: APuU4Z//C56dVoBvxMabjy5+BxZAhiYwADHQZ4+wQliVYIo3233606Tv
+	0r29mMfRy1jpqoC4aXv9i5MQgTojE7opXEFgLL8A+oeqVMCJtvhkQcFjDaG8tKx+Jt+Scict84c
+	WMADB3Lo+UFbSKhKnkFLnAXvLY2qKGk6fBEkxgxZ3IA6nqiz66ZxXz03ebpLmKyln
+X-Gm-Gg: AZFdTZdRHb4wvZ+TZukUcmQfRNMh6Q6y8vbh6kv4XfnbWSU+tDsQlXJ4tS0bcH09tWv
+	HPVlvKWqeGGcNZfvTqgINWpkDcUfpEHGLIhJ7XiJPyknyRzTUm6k6q5yrB3vw8SIZCuYj1lE3uB
+	wklaO47TIFAiYvRNOIl9du7WS9Qk9WeO+0ZRz7FSlRaJKG8UMaxg3dCwyOvmgPz9RVMJ7xpb9JJ
+	Kl7GBie5pguYI/Vt8v7YirDi76fGYJyNcR2H8BJeAmY3y1aIzJlsHUa5rl4byqPEIW9Q3JHdsy0
+	8ZeNquT4UmSGpHMwmHsFZW3ZB0vmzWBFVpnAbO3wAY/L5jgDGZ6uSIi/Rvc9SRErA2i02RsOaX0
+	myPFsHO+vWOVGin2xglT2HBeQbzTdfZAyCz3WVBaltCD28ZckxbtggS34jS2/7jjTHztnOs2sps
+	JI
+X-Received: by 2002:a05:693c:414b:10b0:386:9e32:a65b with SMTP id 5a478bee46e88-3869e32aac6mr8747291eec.1.1795451429493;
+        Mon, 23 Nov 2026 08:30:29 -0800 (PST)
+X-Received: by 2002:a05:693c:414b:10b0:386:9e32:a65b with SMTP id 5a478bee46e88-3869e32aac6mr8747241eec.1.1795451428755;
+        Mon, 23 Nov 2026 08:30:28 -0800 (PST)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e99fdsm47044806eec.5.2026.11.23.08.30.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 08:30:28 -0800 (PST)
+Date: Mon, 23 Nov 2026 22:00:19 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Xueyao An <xueyao.an@oss.qualcomm.com>,
+        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Monish Chunara <quic_mchunara@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: shikra: Mark RPM message RAM as
+ no-memory-wc
+Message-ID: <20261123163019.msbsccmfzdmfjvei@hu-mojha-hyd.qualcomm.com>
+References: <20261123-rpm-memory-non-wc-v2-0-3e868b4bfa48@oss.qualcomm.com>
+ <20261123-rpm-memory-non-wc-v2-1-3e868b4bfa48@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,147 +135,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122131900.2951586-4-a.shimko.dev@gmail.com> <179543998366.3135.8537500779592480863@kernel.org>
-In-Reply-To: <179543998366.3135.8537500779592480863@kernel.org>
-From: Artem Shimko <a.shimko.dev@gmail.com>
-Date: Mon, 23 Nov 2026 19:24:12 +0300
-X-Gm-Features: Aa3M54pFMGCEqfrknuxTm9QQEvcIIV5arWsj3tZLkp59n888HFnWQSHbf7MxHro
-Message-ID: <CAOPX747Whtrpa-aP=AhtaFfqMpqHHYVMJ7jNZWCdgmMc1_GYag@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 3/3] net: phy: dap8211r: add PHY LED control support
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	maxime.chevallier@bootlin.com, pavel@ucw.cz, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-leds@vger.kernel.org, 
-	netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123-rpm-memory-non-wc-v2-1-3e868b4bfa48@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2NSBTYWx0ZWRfX3oqcJRfPCTVr
+ mwGRsHacvfN6UVLs0y91fje5xjl9MScJ7LOJ3F/tFPg3yxOGWsU0x8dbY/QIPY+xrYcWcZXmmNe
+ WvAGnM4tryczY9qehesFOZi9ucDO6r7SgXPNSEjO1ZzVRCFpXQctAovncjhKmx29+iUaCN4+73b
+ P2qbkoHc2bYPIcrX0wnjF+ZAvrOb924mBgNQDAItsAj43LWs31Dq1c/2f/Zm4FWATsV6F4yTYd0
+ QXtApwemPpQWw4u1Th/9vFn1WJIWS85LwxfJjTlQ7Tyd7KMlVKFrWg4QGozjHXpRrDS+T9raBLP
+ ORMItAkr5H1Cui5pZEjY5MjPLf/3W5Z9g6al7PHAQUEnXMJSFWZf+gaqTj78lwS+XjKu2QHYS4+
+ Y+1WtfDJMvlAPuBIbJqdoSUWbZaEq+9z/Vp/Y4egDCNDGDlob9N1sdl+IhKmn2q4zhrFfvSelTg
+ UFUAUgbOh/5gN3TBi7Q==
+X-Authority-Analysis: v=2.4 cv=AeIkjHXG c=1 sm=1 tr=0 ts=6b046a26 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=I6c21bvp6He-TJasAPkA:9 a=CjuIK1q_8ugA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-GUID: Era7PnZChmCuDVcov1zKQ6tH_4iGK0vJ
+X-Proofpoint-ORIG-GUID: Era7PnZChmCuDVcov1zKQ6tH_4iGK0vJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2NSBTYWx0ZWRfX7RKGsIz1wrwY
+ y/VYXUy531U7hl+pSQEhbPHfz1pf9xkJ8oCignqTGWPuryEpJqRjx3fwk0vO4JiPhhmd0Ab8eAV
+ nt31d+rCvZuP+MY6p67uaW2VtAbgT0E=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611230065
 
-On Mon, Nov 23, 2026 at 4:19=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] In drivers/net/phy/dap8211r.c, dap8211r_led_hw_control_get()
->   (lines 312-351) does not undo what dap8211r_led_hw_control_set()=E2=80=
-=A6
-> - [Low] dap8211r_led_hw_control_set() in drivers/net/phy/dap8211r.c first
->   clears FORCE_EN(index) in LED_COMCON (0xA00B) with=E2=80=A6
->
-> --
->
-> net: phy: dap8211r: add PHY LED control support
->
-> This adds PHY LED support for the three LEDs on the DAP8211R. It adds a
-> dap8211r_write_ext() helper for indirect extended register writes. It als=
-o
-> implements the led_brightness_set, led_hw_is_supported, led_hw_control_se=
-t
-> and led_hw_control_get callbacks, using force mode for brightness and the
-> LED_x_CON registers for hardware triggers.
->
-> > diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-> > index 1fe20efd394d7..b0fb3cf89b55a 100644
-> > --- a/drivers/net/phy/dap8211r.c
-> > +++ b/drivers/net/phy/dap8211r.c
->
-> [ ... ]
->
-> > +static int dap8211r_led_hw_control_set(struct phy_device *phydev, u8 i=
-ndex, unsigned long rules)
-> > +{
-> > +     u16 led_mode =3D 0, led_reg;
-> > +     int ret;
-> > +
-> > +     switch (index) {
-> > +     case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
-> > +             led_reg =3D DAP8211R_LED_0_CON + index;
-> > +             break;
-> > +     default:
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     ret =3D dap8211r_modify_ext(phydev, DAP8211R_LED_COMCON, DAP8211R=
-_LED_FORCE_EN(index), 0);
-> > +     if (ret)
-> > +             return ret;
->
-> [Severity: Low]
->
-> Force mode is cleared in LED_COMCON here, but the new rules are only
-> written to LED_x_CON later by a separate dap8211r_write_ext() call. Each
-> helper takes and drops the MDIO bus lock on its own. In between, won't th=
-e
-> LED follow whatever LED_x_CON held before (power-on, bootloader, or
-> previous trigger rules)?
->
-> If the final dap8211r_write_ext() fails, the function returns an error bu=
-t
-> leaves force mode off and the stale rules active. set_baseline_state() in
-> drivers/leds/trigger/ledtrig-netdev.c ignores the return value:
->
->     led_cdev->hw_control_set(led_cdev, trigger_data->mode);
->
-> so the trigger would assume the new mode is in effect.
->
-> Would it work to write LED_x_CON first and clear FORCE_EN afterwards? The
-> rule register has no visible effect while force mode is on.
+On Mon, Nov 23, 2026 at 11:48:56AM +0530, Vishnu Santhosh wrote:
+> The RPM message RAM is shared with other subsystems, and parts of it
+> are not accessible to the APSS. It is expected to be mapped as Device
+> memory.
+> 
+> The "mmio-sram" compatible makes the SRAM driver map the region as
+> write-combined (Normal Non-cacheable) memory instead, which allows
+> speculative reads into the protected parts and results in XPU
+> violations.
+> 
+> The violations are seen when Linux runs at EL2 (KVM with VHE), where
+> there is no stage-2 translation and the write-combined mapping takes
+> effect. When Linux runs at EL1 under Gunyah, Gunyah maps this region
+> as Device memory at stage-2, and the stricter stage-2 memory type
+> applies.
+> 
+> Add no-memory-wc so the region is mapped as Device memory.
+> 
+> Fixes: 66664b5701da ("arm64: dts: qcom: Introduce Shikra SoC base dtsi")
+> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
-Agreed. mxl86110_led_hw_control_set() does exactly this. I'll reorder the c=
-alls
-in dap8211r_led_hw_control_set() the same way in v5,
-
-> [Severity: Medium]
->
-> Does dap8211r_led_hw_control_get() return the same rules that
-> dap8211r_led_hw_control_set() writes? I see three mismatches.
->
-> First, hw_control_set() turns TRIGGER_NETDEV_LINK into LINK_10 | LINK_100=
- |
-> LINK_1000. This function only reports the three speed bits and never
-> reports TRIGGER_NETDEV_LINK.
-
-i'll add it, thanks
-
-> Second, hw_control_set() always sets DAP8211R_LED_ACT_BLINK along with
-> TX/RX, but bit 13 is never checked here. The kernel-doc on hw_control_set=
-()
-> says the LED does not blink on traffic without ACT_BLINK unless another
-> rule is active. A register with TX/RX set, ACT_BLINK clear and no
-> link/duplex bit would still be reported as tx/rx offload.
-
-i.e., if ACT_BLINK =3D=3D 0 but txrx are active (by some reason), then
--EOPNOTSUPP should be
-returned, because the register state does not correspond to an
-operational state. Oh, that's
-important i think. Yes, it should be fixed.
-
-> Third, any other LED_x_CON bits are silently ignored, and 0 is returned
-> anyway.
->
-
-ok
-
-> rtl8211f_led_hw_control_get() in the realtek driver reports
-> TRIGGER_NETDEV_LINK when all three speed bits are set. Could the same
-> approach be used here?
-
-Yes, i think so
-
---
-Best regards,
-artem
-
-pw-bot: cr
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+-- 
+-Mukesh Ojha
