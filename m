@@ -1,71 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795444026;
-	b=i1cxoIHUAZjkOX22IUVCMFV4yeBazPpwC9OfTCcd8yhcXgaQIYkLSixY8NEIlRqHqRvf
-	 1lYVluLlnu3DfUDkUnaxf3gPVCgy3/ton3CsfnojzZd3QKmxRDNRWw2CEuBU9vPuMXwRL
-	 /GVsupLANvFheQNfY8L1wVDBBxccr+GUt/3N8gV4qEv3opkIQZn1J11Ghwu7q7mMlKZvH
-	 NyVL2K8zx7bqe1i0fdjm6Hnhz4sIMowYtZUH/nu0aBF8/76aHaTen/AFfDQxTpdogxXLQ
-	 mtCDAgNiHwUsd5qFzjY7x1e3ndzx1eiq5Ap97qcbSO1zQuqxxvttJftqkU9rdVncR1w==
+	t=1795444116;
+	b=LiTs630ob0paWMvCkjfEO83S/bbZ8VYqudnamn8Gan618vaQ+97MnrPsig0Z7ngBFcxj
+	 HhvMb47deh+766Sg4kROCitpD4r4fT9oyEdkcPATWJYBJrnWrL+A8VwpqgTgyg6E/J7Qz
+	 QBWzv+CL5tyHEzAdhIZm1jlQViig0ICJT5jPlz+GCUJguVbusQ8ewT49fLRwdEhsAJmE/
+	 5uPBsQ652wHrvYKcIp040uyTYrBhQGFLK42Aw/vk6muHqq4n08iJr4G5rw7z9+CAzYr0i
+	 H/FFzSL1v3SEwvJY8OS7aZHcJvx/FKtXJRqnQ1NHbkozgajc5j5dnEMTD0F0pzA06AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795444026;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2oJdV17KIZUZasV35CEvbX1/9MgA6Fm/bZE/QeZLfdk=;
-	b=OhOJCTdURrZtVmiNpLy8Mvt29H+VzX+RUYHOpkF8LqXUm8vLSTZP+I3BHFOcAt84bQxc
-	 JHYyDFLhzf/1/6p2Ga6W+3U/tBUdoeRi/nntj03MQ2gCh8A2maw2xXAiC6MxJb8wA5i1O
-	 vOXLOcXxPw0fQYWbtV4iftgFqVjI2SOuPLLLgkQjvlXzyCdWR2zHmM40tAWE20f4uDqBL
-	 WqG0EPJtA43uHSXoplCGtfDy3W4A9J43IvvmTeFoTb2ZnBFe7WRaNr92NOgEoaSF+EXb5
-	 cZTWuLj71WXGdNkJxuXJ2+PeGiUzI5BEIN3LAAXKp0rqC8anONQAiDoMA7pdS2TxKyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795444116;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=i+HRgjfbHqWxOklnWxJGQb2C0xrnW6LaMXMeG0b6UMY=;
+	b=KtBiCJTzTi3xabXC0ik8BD9rzoldZAKQxzumqD67dBgi4LpVL+E/dJrGw/yXJKiMasov
+	 9O/rLLLRGHJfv98ES9vJCUTVeq/h979Exw2CacAvYDIXb0n4Wxt/JsZ45rNLRv7e7yY4M
+	 69HgofhE+mwe9n1HMrTJHJ2US0aBqa4VIPitq4Fmcbpa23YSnzEKabMDk/c9ueN0mKW37
+	 qBMLGJKMUki2ZNY6uDdGFD+zhwp7pjL3dcIl5wYW9nD8uOnyEZb1bUEV8gYfA/N5c8hrY
+	 R1JKmsEKE/8TKpMPVDWEvDcjn96gwTo+5cCrsZyEeHT/uR+331tmVx6X+yEuSEQGbmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E7YJwu/t";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q+5g91EH;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E72606A31A;
-	Mon, 23 Nov 2026 14:27:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7FD606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:28:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C7FD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E7YJwu/t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF61B1F000CF;
-	Mon, 23 Nov 2026 14:27:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795444026;
-	bh=2oJdV17KIZUZasV35CEvbX1/9MgA6Fm/bZE/QeZLfdk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E7YJwu/tt5HLoe4Fm1DuHMFT6R/8PllezXlnn2sgTYRc8GbaCMFUtuRDw9aHl2nnf
-	 3SmwP+ULPEU655DZfUriz7QR0arv5Wd/dW5inCUGP+cWKf3QejQKHOyfprTeYV55B3
-	 jlFlGveLiQoN1/MM4yVQBILuWbEPGsfkN/UiaehYLNHuvVTZMlJrbYY4f7Kw6FABma
-	 mdYPsbFnSdvGYBOiFu1FydX73fRdtGRT3+PC5j9LyEBinMJGrZbw3L2OYXx8Qn9XLe
-	 8t9ByqBH1hlkoXFH+nAtgIdXCh73I+0P5qXOdD4Npvnri4p+Fkgu9HJbGB2d6y7YKb
-	 EnJe1mQ5A3jUw==
-Date: Mon, 23 Nov 2026 08:27:03 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Johan Hovold <johan@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-acpi@vger.kernel.org, Daniel Scally <djrscally@gmail.com>,
-	Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Len Brown <lenb@kernel.org>, linux-gpio@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Subject: Re: [PATCH v2 05/10] of: property: implement the
- .property_get_names() fwnode operation
-Message-ID: <179544402303.2319923.12244969864693220730.robh@kernel.org>
-References: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
- <20261113-fwnode-for-each-prop-v2-5-4edc23d5cf50@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q+5g91EH
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso4195598c88.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:28:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795444115; x=1796048915; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i+HRgjfbHqWxOklnWxJGQb2C0xrnW6LaMXMeG0b6UMY=;
+        b=Q+5g91EHgP5jN3hRU83SGtVM/mehEbjlOslcXA0EY9AvstRpqOnccc6nOfINmc0yGp
+         kiFlTy1irqqjr9NeokBILYSk1nGcBsZkFUz9t9camIWb2Cm+CjSqNhyzXGuWXJ/e9WsZ
+         y0BVtDIZ5H4LQliNor2JDt6fzNE0tKMdraD5w/+YunpEV0I+R8zXjo4EGeHJJJ4Ucg7D
+         D7ZG3gkCrqGAHMb+X5ZN0nE8JSG85oHdL5tnSnLvEuEOPmfXj4TkpwpT5u9EmwgSN55q
+         6EzHCWy9AhICjLUmEy4JLezMIHlnXPX95Uolp6P165eM76SVcHFUSEgM/856UySvStpx
+         LMvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795444115; x=1796048915;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=i+HRgjfbHqWxOklnWxJGQb2C0xrnW6LaMXMeG0b6UMY=;
+        b=lq8kz/0LuQAuRGZse80DsRaPXXSaPVaaZsROXZtMMoBlN4JrSarDY9nAxsFzzEeeKv
+         5F/euzdMU16rqa2MO64T9l42qM+6Rq8eklnI9ycrVVSPYiy/H6lmIN3T6NqHtHf800kC
+         XPY6Qlgsw7v4pAeIqhRfl9dQ5h02xuQxom83HDpJi1O5GznadR0NmjUB4CVRnAFmh2L7
+         m5f7W/MfM+36TWT03nE17rBjP2ICWVHqbYJZFgEobB8VCkQK9LCNdc4vlBLR5pgsnXaH
+         26k2k90K6WDNoGTw2zZD83FEIIYoBpGvqYb0/MNsXHHQBPMvOfpt5qZ/odLZiTko/mQ1
+         W3sw==
+X-Forwarded-Encrypted: i=1; AL+hErGseaUB8gcFr5CIn0sWpxohxdq9HCc6HBRTNgqkfGIHkLpfFGtZJ6LhsTU7C3NrvG61it2GbyRQ5xCk@vger.kernel.org
+X-Gm-Message-State: APuU4Z9MqYLjNPQy/hu57BAFrqbIIsJORS9NedlJnWYfk+JivuRIp74L
+	qZ3pPMpX1KHUYDCcNeMDbZ0lFQVxDXhzZBDnsOv1rApnxqYP0dgJfE7Z
+X-Gm-Gg: AZFdTZdd7PchwNxfHPx9/aof3z6/vblpz88uKa5VRf2vsAQKI85UsUkQIjnQroPYwKG
+	o0RQhAi6vmNALjIA9zruvBbt044DVQ8/dwam68f1S6dUzLugm4v/3K7Il1ln0md86gBGNb5akAN
+	mnsWP1pUiaMHYjcwUtoLdkPaAG7VhifvfRWIA+/kVTnMA1NQoLGcyO4XFc/m0U1zR7FUsamFSJ8
+	xi44G1Lni0kiQVNlY8MqVXZt9VCxK0kWz+D3dytB2lwo5DfdNT2KmKNgWNoj2L1qJOSREWBtU3r
+	WDxMbC8yui9OQ3Dzzw+s3Dm40TzBlVD0Uj6RsHpMN1EVrs6Js7OjDvl86NPtDW2HT5Nfz9vBiQn
+	sxTrmwQBMhTnKw9UmqYLtl7nR0F80hgewQw3LzMlHZbuGzl44MxOTQosCjbDBlU4B4qFtpkySxm
+	6bXrXX8NZiQpz1AO2BCJaodIvBFtur7+t2LrS/eh3MkzlFead95MkkLWZ6A0JCxoFU3tIoob8ml
+	fh6jHiC9QJikAoRaQ0xDGVd/wDQ+3VJrQdHU5DRyNGLoUzPBOkzvEABF/r2KaVi20IPWRTriQtq
+	QS4XG8lSGLZ/sbuvfsLYasu8uxrjVs0/02v32evFQDxWnpst+4pwFyaf2CEK2Je+qCQ3eCvs+jc
+	wP+asqiBALFYrcfjtabBDEwgg5Nc5bRJJOmCtG2KczLs=
+X-Received: by 2002:a05:701b:2810:b0:143:5cb4:30 with SMTP id a92af1059eb24-1b5567b3391mr10290148c88.3.1795444115370;
+        Mon, 23 Nov 2026 06:28:35 -0800 (PST)
+Received: from acemagic-m1 ([2401:7400:c804:b668:a7dc:f03c:3f60:caaf])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b55682d301sm28671326c88.10.2026.11.23.06.28.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 06:28:34 -0800 (PST)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Russell King <linux@armlinux.org.uk>,
+	William Zhang <william.zhang@broadcom.com>,
+	Anand Gore <anand.gore@broadcom.com>,
+	Kursad Oney <kursad.oney@broadcom.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 0/2] ARM: bcm: support more than two CPUs on BCMBCA
+Date: Mon, 23 Nov 2026 22:28:25 +0800
+Message-ID: <20261123142203.3860616-1-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,20 +108,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-fwnode-for-each-prop-v2-5-4edc23d5cf50@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+
+This series extends BCMBCA SMP bring-up to SoCs with more than two
+cores, such as:
+- triple-core BCM63178/BCM6855
+- quad-core BCM47622/BCM6755
+
+Tested on BCM6755, a quad-core Cortex-A7 BCMBCA SoC.
+
+Ho Jie Feng (2):
+  dt-bindings: arm: cpus: Require cpu-release-addr on bca-smp
+    secondaries
+  ARM: bcm: support more than two CPUs on BCMBCA
+
+ .../devicetree/bindings/arm/cpus.yaml         |  6 +--
+ arch/arm/mach-bcm/Makefile                    |  1 +
+ arch/arm/mach-bcm/bcmbca_headsmp.S            | 26 +++++++++++
+ arch/arm/mach-bcm/bcmbca_smp.h                |  9 ++++
+ arch/arm/mach-bcm/board_bcmbca.c              | 46 +++++++++++++++----
+ 5 files changed, 76 insertions(+), 12 deletions(-)
+ create mode 100644 arch/arm/mach-bcm/bcmbca_headsmp.S
+ create mode 100644 arch/arm/mach-bcm/bcmbca_smp.h
 
 
-On Fri, 13 Nov 2026 16:47:05 +0100, Bartosz Golaszewski wrote:
-> Implement the property_get_names() callback from the fwnode interface
-> for OF nodes.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/of/property.c | 34 +++++++++++++++++++++++++++++++++-
->  1 file changed, 33 insertions(+), 1 deletion(-)
-> 
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+base-commit: 21f8531821461fa0c05e4605c01d8d56d28b514e
+-- 
+2.53.0
 
