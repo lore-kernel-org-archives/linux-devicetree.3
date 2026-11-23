@@ -1,100 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.17
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.26
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795453873;
-	b=RtvVHfKZVcGHIqpagQDDm9FHtQ+nPz2ZG+/4lDbFHuXNMknwPWNzTlEsBD7B0wKOPwPm
-	 32nbAcEqlhXR3CcFLFJ8H0K08nijfTE6KNG5RDVsg38qHXKP4gfoVLdy1TtoaFniDa8Zc
-	 uZv2vAaxNtdnZIlNN6TUue2xbYpvBAHmZzuoWxZYMSk+xOrtPPx631cR00NdsKoYJXjwB
-	 jhXnB8RhetkANM+gnwv8FbMbuvwGgAFIZrhYzCbUMp/mTVfO8ewTkMuj5PgT13QCbAGFI
-	 rYYdQKQXd0JeMY4IO9TTs602VfWW4AIVeHBHQk48lEP2PFfS1HuQRU1W3k0ZQPi0xOA==
+	t=1795453992;
+	b=I45e4FaChbRVCvrVlPV+zlsrEWFMhlcfCRbKhSw4X4qk1Sz+DIW13SxsvSIDuqA+HEm6
+	 I6KFL5qGCgS69J1BFrAQiGE3XB/JEzYM0csS1VLgFWJReATE95cCoRAjMCu+dvTOWxJX4
+	 s5u04o5tCmrXY9R8VTQJaPVjmBHA3TU100Btly5V2bgRpkA3t14JGOV3whGnrEISeYhIL
+	 AZTxDLZehgVoAXu4CzfaxpbiInF2fuwKjZ+KW2nWCzoeuT+A3mzFBP0LufZPPamGQ02eU
+	 CrYcbX5TfeUJOBW9MOgPZzDohJ3bz4OXnZt67m8raysxVwL9A1AJbE05y//mNY2WGJg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795453873;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795453992;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=NsEPAT8HlD9tcLNZtfAR8scYox7Q2qDPawCwuSzZjmU=;
-	b=qtfUbZsSOyzFMGyDiZ5Ta8GO/QsT+65GCit9TTZtJFb8WUEvs/Hgx8Q1D8We/Ab5XsaW
-	 F3r4dXzCLXFIgXgF3y5RnSa9KDEalMts+lGvb5UH1/kJddEf6P1uDZ10imFAqhEM8tu6h
-	 PIi5B19HIY+MHWZIChkv+7uy2z1sq1pSe9hnDR9PQLmt4JadTC+yFO1+gq0wGO7IpDNbf
-	 2QZhxLQN4XufR1PmnJ0SpREpEgz5Lm+ElxJXWAbXVeaRunRxC8YPDfoSFiB1RPXTFSmK8
-	 g4BRmpRC3XT9k4/FBuXTWa1GW99t9QRkwxYEIZ9IN2Akb50Vrjjtb/h59fyv66Hotlw==
+	bh=ONQNyGo5iY4S3L55kpo9OeUK61Dcern6tImyKMhiyS8=;
+	b=qkiKUW8abcSWtd+Ng9FkDUcRJcLUE/W7M95Lymd3S2bRXf3sldhcAgIu08kKMVso4rYr
+	 DqI0y1Asmg1FmAKRpc+6sjE8bdGtbrBtoWDyQqBhJMe5ah740IkrqsMg7Lm8zsC+oQtWl
+	 QztCl3CvN+/qUDCm4CAs+kxJkq2PjITa4tVuawPWLENs5wPc+vHmak5yRFRLIgTqYhHDh
+	 oZnu7q4lEHeH1SskV95wduzbKstVaUOGBBGhxvPMQVElglxOygZTcO+DxAUGxCMV8No2K
+	 0Hv1MmchY//a3gzEPlengpA9csvxgbqfftyPX1nKiABKwLrbrOf2B69WFxjHeJo/W9g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=ooQL5nTf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.17
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010017.outbound.protection.outlook.com [52.101.84.17])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=nbLhIiZR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.26
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013026.outbound.protection.outlook.com [52.101.83.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF172606A321;
-	Mon, 23 Nov 2026 17:11:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF172606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EAA606A31A;
+	Mon, 23 Nov 2026 17:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5EAA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=ooQL5nTf
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=nbLhIiZR
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eCGtl17NmhieDlzdiXk94Lhy9TK/95aNbUAqm4YaOZ+CU4U5nzwjkDBYVwy66SNVrHHU/6jc37+AJM5y6p7uMPkRsFo2iQY+WuH27lN5SZHgPM8RoMCGL/0cpCNAefjTgFS68IIhXKGA1VjJTDfklG3dqPIAAayXHtp/TtHaPN4pesVkIcCEzcz79iY1Yb2TrLZhg8JQd5/GvdYfb0bJeWoTLjngSRMbUfO3raSvTp3FxLOpOH5NjhWYS1yfwYK087DSUwveMo9ZHnP+ENPx0yE8FzsQhHp97CGaWV/ArJHTogeybPIGBJMq5yCdFx6/rrvZKpVpXfc9YGNLt3J55Q==
+ b=Q4n3n5cH5Cyh2pQ5v7FXzT6RjbcLbkOriMKUNySx1viOfUwyMH5HtccB7T+gTM8mNqqxmXoBmFQvTw3ScLPo7JqNi0TnhfAZIQQ4QQikCoakxy8oJAN7RWZuEdoJhsxO9PNc/q2dOLs2BNNV2aClgyXPxAZcOP5PTIIwIq677xDBRHzP3G8rBMj0v5PJ6NxXXHv05vEnPgg7rnJDbjBET/Vd50fqRZnHoYWPS/49CTogh97YQk4rRVCc67bMp64mU0xYyNfre+zjHQyiacRHXwFmo2pc9fFzAxw18/xzo+elipUlxPs3zEy+ydD7eMK66DSR8A610y7yZ/o1ZIbQ7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NsEPAT8HlD9tcLNZtfAR8scYox7Q2qDPawCwuSzZjmU=;
- b=TPlft9nhHkkxEk760X3blxCXJOw/ONbIxLSkvcrkwelEpolv3fBe9EDT/0lBb2J3MM2SabqcBQrXBdQlI81eXatS4FEAVCqOy0Y3SOvavzz9Svy4TF/GR5rZzAy4xtNR3ZBvrpBMyWpE6WmjO7PsRA987dpLbyyKohOpReS2fg1TZQrI99wcERoGDZd0YVsEIo+WQ4dGPiG6Q38vcK9vnZ/An2LoxBw6/GRX6/SgVLvvxm6BEEeARUyq2qgevj/5Aotr5AdlJQEAJ6Mwqn8Q8pwcz5PFkeuF04CEDLb7xnn0s+6X5tXppe05yRtSpstf7Tuuv63Qx76kka6pj/5fFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=ONQNyGo5iY4S3L55kpo9OeUK61Dcern6tImyKMhiyS8=;
+ b=ybPhRVk78U5dOitOPmDZ/AuNXjuJFB5NPiHXjDMtNMAJuWH9hnOYloOK3H7E/SyhOY3J2xkWoleiJWFT+nt8RtdyXj7cfDk4d5pSgJqRu476OYw0qRhLfroUMwb2mXC9x9cB15TqolmXBhLIV6ESWsp2z+1fvRkebBWNlDgYGHT7CbUMJV7XmjXlJWqD38tNnSfX6FYppP4S+yI7+55ZYng8RVwfVrzpL9pcphZsEwx5qE3UtYt5ZAgG+GtVfwYpyhCo2SalsfN1/HoTOf3DUQqNlxDY3daitGFzIJiXvT7UVGkCkZxnV5CvjhpoD95Kyxf+S4WBoYWnCCBk4W4jJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NsEPAT8HlD9tcLNZtfAR8scYox7Q2qDPawCwuSzZjmU=;
- b=ooQL5nTfVKP2FTu7O3ZNfqEdelLLpO3Wv4VnPX6UEdXCHTyDze/L6jnBs7reK6Iu+67ZWPSzfBej5sqx87Liw1IvLgcQx1SMIseZFGlaoOTll/Ovu3mk++XwrCu+DeM2nE6w7Yny3dnisnmrPcFjoqCk/+CZH4J+m/k0uIh5RtEfVRvgg5rSZkE1ZLXui9ouLQd6bhXc7dC5q/k7TClvE70oM/bd5eSfsCTdu86/IP3DWtpAbw6hYAhHlwjHWxpAk0b0gHASpd2rctdMZ1eNkbQjgrdMqmNBfUZ1DC076mFvcuLrVmMYNP8tuT8WsjmBomJn3/YksUPVISetmOjbjQ==
-Received: from AS9PR06CA0499.eurprd06.prod.outlook.com (2603:10a6:20b:49b::23)
- by PAXPR10MB5256.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:28f::5) with
+ bh=ONQNyGo5iY4S3L55kpo9OeUK61Dcern6tImyKMhiyS8=;
+ b=nbLhIiZRkArv5NeII2wVvHt+spFjfP1ilZggTHdxtk2TZgjjPcs9mpbYsO4Pwu3TjdtsFXKb8sk1BP3hS1hdJkqLB8BzMM3hnTDNJUi2YaonjnaalRI9PS/KMqJ9V4+1WaHHCNJ1911bXfye1estvMRSKKz/XE9j2BwKDv33yBjIv538MnmK0q6L3yR2pW+5w1+BEVYRcALeIT5KW3g4XrLIBvVDBESTPaore57N8aUUYsdeC5PFZUM35visTcvSOyOh1UnQi741LWuVuxKf+khz8qLUqzbU4c0nr7B1CN89ifUOFBq3T3l3HYlAAbsZzfG+e8daQXmcLr6YLEveMQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM9PR04MB8383.eurprd04.prod.outlook.com (2603:10a6:20b:3ed::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.3; Mon, 23 Nov
- 2026 17:11:03 +0000
-Received: from AM1PEPF000C1ADC.eurprd02.prod.outlook.com
- (2603:10a6:20b:49b:cafe::1a) by AS9PR06CA0499.outlook.office365.com
- (2603:10a6:20b:49b::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Mon,
- 23 Nov 2026 17:11:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AM1PEPF000C1ADC.mail.protection.outlook.com (10.167.242.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Mon, 23 Nov 2026 17:11:03 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 23 Nov
- 2026 18:11:51 +0100
-Received: from [10.48.87.64] (10.48.87.64) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 23 Nov
- 2026 18:11:01 +0100
-Message-ID: <512e3dd2-183b-4459-9b3e-f29f0b97250f@foss.st.com>
-Date: Mon, 23 Nov 2026 18:11:00 +0100
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
+ 2026 17:13:07 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
+ 17:13:07 +0000
+Date: Mon, 23 Nov 2026 11:12:56 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 08/11] PCI: qcom-ep: Add Nord PCIe Endpoint controller
+ support
+Message-ID: <awR0GBjnekYKlHzA@SMW015318>
+References: <20261122-nord_ep-v1-0-6d8839ffa9aa@oss.qualcomm.com>
+ <20261122-nord_ep-v1-8-6d8839ffa9aa@oss.qualcomm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122-nord_ep-v1-8-6d8839ffa9aa@oss.qualcomm.com>
+X-ClientProxiedBy: PH8P223CA0024.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:2db::14) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,434 +112,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/11] iio: adc: stm32: add mdf support for stm32mp2
-To: Conor Dooley <conor@kernel.org>
-CC: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
-	"Sumit Semwal" <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
-	<christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, "Arnaud
- Pouliquen" <arnaud.pouliquen@foss.st.com>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Fabrice Gasnier
-	<fabrice.gasnier@foss.st.com>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<linaro-mm-sig@lists.linaro.org>, <linux-sound@vger.kernel.org>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261119-stick-armored-64cd8e1cea62@spud>
-Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20261119-stick-armored-64cd8e1cea62@spud>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM1PEPF000C1ADC:EE_|PAXPR10MB5256:EE_
-X-MS-Office365-Filtering-Correlation-Id: faf60db6-a185-4763-a61b-08df4984c14b
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB8383:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83b851bb-24d4-4003-179f-08df49850ac9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|7416014|376014|23010399003|18002099003|22082099003|6133799003|3023799007|13003099007|56012099006|4143699003|11063799006|5023799004|261102130727099003|261102123227099003|261021121427099003|261028144727099003|261022105027099003|261021123027099003|261021130227099003|261022113327099003|261022075727099003|261021135927099003|261009223027099003|261022115727099003|261026140227099003|261026130827099003|261009221227099003|261026121527099003|10067099003;
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|19092799006|10067099003|261026140227099003|4143699003|5023799004|11063799006|56012099006|261022105027099003|261009223027099003|261021121427099003|261102123227099003|261028144727099003|261022075727099003|22082099003|18002099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	rCjFmWbL/xWBOarKxN6E8WPt4Ecg0xMqciOj9pmPxJD/p9W8HvFxpOpPEts3JIFHw4d/T/iipGcnHqHyeWexfhag/n7Km9/TDURwgM1H4yHxIxCwJGnPxoTPfSKESMPsfphu6nh8tCCNTWcL5S9sq3vMjLQN770eVIdjg2/7czA2S0HTiDvhhfbABpJNlyzGiSDBqhHgkToNqmOvRnC7yWWJIkC2nCHWFU8gIItvCmX/hkOXohCk5a96ZWX8aiydrvcJH7798tFJEtfbSQT2Jj5oxNymKbf5wvqThW0+Z9UJLLxPoJTe9f4jtbbGIQk69u58zjCJT6Q36v2ps2Oz2bvdT75delFPJw0fjpy+3fBXHQ7PUuc6ZMeCRwm23uTr2qEINISTPB9+XmpgG18xwLyiwwDF+a1mcPJHbyd7sh+2CZlgv8r2qLQS5bKam+9aFF5GR0Q/Pdqa8OfcjjKSIXta2RsNi26TbvxPTRj4zzm3uLa5N3024RL+qirt6LAPq69izTdnPZ7+Vt5m/WGE/3+4V9/kGlgC59C8hjh452Do0UlPMWddmmf7dyYx3f/rY5xuNvVSPHqxPbhL0nlCOE2b37NYE9r7ydqiJa5pseMXrNhi7Gi6DIV0xDpXag5JSxyp0vH+zDupWkXf/e6PKw==
+	9WeSFEfqDuQYf1ERcQQj6h4mF+Mgyap3/5x6vCrm6YftJhfIuqDM9tgn0FqUacehtvVWq1HAGy5KS+WonWCgzghN2iz8VUrKkwAmsFodW8+fNBitPnoBhPCVRli2RpnxZxEz4jUsAW1IuiuoxSgkrZxhyYmMKxUs4jtaAb3XCmrhz3LpPbXl3oel88Ii2+yJUSQ56B/IEEnh94XXZDtVL4Ivo703rfvemWQYvy2JKB/7O5Vm7pCm4BWs5zozDc3THM+o2w3OSFoBpnHtUXx6Wti+5sYvmrQSbfOFHXaWXTE2+H1KSP/bPdZcdgdovM2Y/PZVAcGMWiYpSM/dw9ZkPuEB76xi1Wokdmc/97QN3R84J3kbZQ44RZmAoEeorlLC12GGNzgjk3uO53uZZreyEfkpQzXK1q3+QjqPrZOer81eJZa+VZ3tkEnBKvSZOS83ZAK3Lb6zHFaU1+Y32D2SGumuYphxBqlmDgJzuqpD9xQ8VwjjoktBE8jJiHZdy0vtjmbdpUmAKzzbRK7R7Zyf3epZbg6x9ajOL3USBswx37ttG8DqJoZz8c4GnXO/DpBT8DwcdM2joo+Gwa2CL1zToEIK20ZlcW7fTQ/DhrDxav4TFQTwN5AefZ/H4cjGSeaafCllA0sVJpVS+Zdn+S6x04Zh5bgNvvRqTyH1Dlfqmkc=
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(7416014)(376014)(23010399003)(18002099003)(22082099003)(6133799003)(3023799007)(13003099007)(56012099006)(4143699003)(11063799006)(5023799004)(261102130727099003)(261102123227099003)(261021121427099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021130227099003)(261022113327099003)(261022075727099003)(261021135927099003)(261009223027099003)(261022115727099003)(261026140227099003)(261026130827099003)(261009221227099003)(261026121527099003)(10067099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(19092799006)(10067099003)(261026140227099003)(4143699003)(5023799004)(11063799006)(56012099006)(261022105027099003)(261009223027099003)(261021121427099003)(261102123227099003)(261028144727099003)(261022075727099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	l5UGaaDh+uRwydPs1vP2qjNGZCEkxHR4H+ho2eStKLm7x6qhAKWScwPPaY5LRqOVGpYBLR8b2E+dUO9EmG/p/Ch+Jxm986tcSaUMbIxSntmlh2tUEU+krBL5KP4+GmsKWIft2sHZWyvCg4zqsdmT+HAWdbtbW8XE8UFadQeaFmf23OLT+N8tb5VJtxyWaDD6bz3CR/j5/0Ll25G2q7bKQlmTcJWQt/Z9LO+j8xYWRXL0hrLG/9nr1lVTEIIcmkF4pnu3Lj5jOXJ908vRJxAiNiop+yZm6b9PJ/vjAk5Qj/rEMi2ChjIg263IJWjnhOyQMJnCvI5ej2RRlr5+wqmeJ088liNlOGBwAckyVRlaGEPkSrENJ3pxCvJt65DiHlrEXD+IzXMrZUj6KJXVMjSW3r20hHUKY3FEP+8WV2CVyAgiRQukqw287mpruZPj2vC9
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 17:11:03.6137
+	=?us-ascii?Q?wdmD8ZxzEW2Fm8jq/OYvP1HTs8Aa6dTBDrUSh4s507D4rJejqdyVqijMFtEt?=
+ =?us-ascii?Q?/czvr/mOK7W2yavmF2JzVAzRuStA4McCNJ+ZrTbdmtGPbScwg6OBVr/gae5Q?=
+ =?us-ascii?Q?GNApJV2AIJov2MssTgqGz84uASi1ujivYaB16FFwyga+5obLSvbmQmpWDbVR?=
+ =?us-ascii?Q?ahsDiowC5tw103ZLD6kD5FbFc4De/Y6iJRpbC5i+SzELTWzcikyoCWWGhqQ/?=
+ =?us-ascii?Q?Xih2IhHe+DWK3uw2ABfGPdMeR1Sgvt0pvZ4pXmUCAr2hUF2NDHJdSdpv0gQR?=
+ =?us-ascii?Q?1ej8nPBIxGg3Ffv8/znYVX/c9IKND5EDomRUFo4b3kL4wKm4UXSRwnqgm/ax?=
+ =?us-ascii?Q?s9pDFTgVlI5xyh83f9P3mvYEvh9Oq+VvRfZL9XB2djSTF42UrXTmNRiYlxyJ?=
+ =?us-ascii?Q?7X0ulzUPznYhWu7s2QwpD2lBv7FxK6tDbCIJ1NTSfZGBr77FahJfWz5dTETB?=
+ =?us-ascii?Q?vr4MPszM79qEYFpX5RxOwDidAubBkquv+J5YU6gIlO9H9JMf9FiHJnKZWLdN?=
+ =?us-ascii?Q?Jq5Af5I97KypMEmOZ9WcI0UperwUFS1aTDByfB2x9swHhDndZLaZbLlYNFDQ?=
+ =?us-ascii?Q?L07THDbKSL9d5ayc8cwgIomaW5cAJwNSQoXxaQa09NWZcnhcP1RahlkAasc5?=
+ =?us-ascii?Q?iF6Q2EpeMKukpqdzE7WP8cve9F1yZsMmNui7GkDkA3ERCvMLcSPEc6aD3MNd?=
+ =?us-ascii?Q?qXOZkJveGX0ue5wFCzuArMcnDIq0c4M5KHgIJy9xE7b8snVObLDVx5gyvmYu?=
+ =?us-ascii?Q?TRseJgllT351b7Qc68rGEKrJlLdIbaOpVaSvDYAQ2Fn/NmLBh/qssmJb4u/4?=
+ =?us-ascii?Q?idkUW7v7nWg8TEqHTJxLHHy++JwUoGmZELYoE3v+Y3nk66xrDHppEN2k6J46?=
+ =?us-ascii?Q?4ntKevA0XqAn2ovvlZMdwfCsz3ghmpj8/Rk/bxQ9VCWLzfWaAdissJhpf2v3?=
+ =?us-ascii?Q?Qq93rKAWRvijU0AkYsRGWEGPr8X0iRsQwGlqqzACZl8uyNcevVjdPUSVtVVw?=
+ =?us-ascii?Q?baXq+36sj1DX1wHv8NoMTDrXQhlGn3GpLc++e7aAiPBffxD8SIxDbcB72Zvv?=
+ =?us-ascii?Q?PM07MRoyNlz/rGSWovTcha4Jf8JxtFxBrib8enrJHblVKTw/351dvvDSz2X9?=
+ =?us-ascii?Q?SxTxvr3++H8Vod04+YZUgmKgJFRhUPgoRwNOmyQXrVyM7ye11cVHhOc+KLV0?=
+ =?us-ascii?Q?qAEdzb2HCUQpo8+DjRnz7ttEIRrieZJIAq25K+Y0qicaWjHjvLE6bZfIUx2e?=
+ =?us-ascii?Q?46q00zXOMZd6ppuZy77MGSTXdzg+F3eqxg8L6qPsnRZEs8w5XA2IuIHss3Tz?=
+ =?us-ascii?Q?JzOvdBqcYYpTUsdNpIR8KE0/iuP9Di6qFsNJFdW0LqPVBW4l0MvnDqhJB+Fb?=
+ =?us-ascii?Q?LOF4hbmmRTCYNbSi2r4/FHlb1TzSyVvr7Aq6d/pzrjxfARB+jkruZTfU4o41?=
+ =?us-ascii?Q?zllh9DNy+M/DWNSuk5GEQLqQim3lP0dGzZKbYS3BGZq35pwnKgXnhwiEbt/I?=
+ =?us-ascii?Q?U6IXDOIkbVekE3094/njcQGfHy8PjqcCBSIgtmUFBM83mI1FOGcTsUSlLP27?=
+ =?us-ascii?Q?2LwOW4GkRQjarotJXLVU66vw5pbBirpTfPqv3vERhQtd29qOQ4mAIxSCqFXl?=
+ =?us-ascii?Q?cwJRM9kfPLI5RNPYr1TJM6wCxqdGUVPsEk69bFuReQMmO3qF7PxwEccLX9PP?=
+ =?us-ascii?Q?/6l2CE5eDmUShcYhXgQlUvh2yP6+nQ45JbmFNOdWSlfqey/JVgEKdZG2e9kT?=
+ =?us-ascii?Q?W7XnfD8YgpZQJ9Buz4Dx7gjLMsL2ReNNW1k3I8T0w+wh9xcJz9Gw?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83b851bb-24d4-4003-179f-08df49850ac9
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 17:13:07.2425
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: faf60db6-a185-4763-a61b-08df4984c14b
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM1PEPF000C1ADC.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR10MB5256
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l2OOt4otx/9IJB/DYwRm/y/7vGd0FXptr3byUYxzlws/cJ61q62MUU3Fwr+0VkEo2EfNy9lo7T7SPKSBjYP/Adi6PQWt7IOzQlSA/kG1ycVzwfon+y7YTcp6SJD6KZlQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8383
 
-Hi Conor,
+On Sun, Nov 22, 2026 at 08:26:21AM +0530, Krishna Chaitanya Chundru wrote:
+> Add support for the PCIe Endpoint controller found on the Nord platform
+> via the qcom,nord-pcie-ep compatible. It supports HDMA, overrides the
+> NO_SNOOP attribute and disables the MHI RAM parity check, and is MSI-X
+> capable.
+>
+> The Nord HDMA block spaces its per-channel register blocks 4K apart
+> instead of the dw-edma 256-byte default, so program edma.ch_space_sz
+> from the SoC config.
+>
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> ---
 
-On 11/19/26 19:37, Conor Dooley wrote:
-> On Wed, Nov 18, 2026 at 04:17:45PM +0100, Olivier Moysan wrote:
->> This series adds support for the STM32 Multi-function Digital Filter
->> (MDF) found on STM32MP2 SoCs. MDF converts bitstreams from external
->> sigma-delta modulators and PDM microphones into samples for IIO and
->> ASoC consumers.
->>
->> The drivers support direct IIO conversions, cyclic DMA acquisition,
->> CIC configuration and scaling, synchronized and interleaved filters,
->> and external timer triggers. An ASoC DAI provides PDM microphone capture.
->>
->> This revision addresses the v1 review comments listed below and splits
->> the driver patch into smaller functional patches for readability.
->> It retains the existing IIO backend interface for external sigma-delta
->> modulators, pending agreement on the preferred abstraction.
->>
->> These changes do not resolve all v1 review comments. In particular, the
->> frontend/backend architecture, DT child-node model and complete clock
->> topology remain open discussion points.
->>
->> * Open questions: MDF topology (backend/frontend)
->>
->> In Analog Devices use of the IIO backend framework, the AXI ADC is a
->> hardware backend, while the AD9467 is a hardware frontend. The external
->> sigma-delta modulator is actually a hardware frontend in the MDF signal
->> chain. The difference from the AD9467 use case is which driver owns the
->> aggregate IIO device.
-> 
-> My red line here, that I probably made pretty clear on v1, is that what
-> is done needs to make sense when the ADC is feeding the MDF, it cannot
-> only work for the data coming in from sd modulators or w/e you connect
-> to the SITFx inputs.
-> 
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-I understand your concern. Let me first give some context on the use 
-cases. This series only supports external devices connected to the
-serial interfaces (SITF): PDM microphones, which are the main use case,
-and sigma-delta modulators. Still, I think the MDF centered model 
-(option 1 & 2) makes sense for the internal ADC to MDF path as well.
-Here is how it could look:
-
-- The ADC becomes a provider for the MDF filter, like an external
-   modulator: it provides its resolution and vref and runs its
-   conversions in MDF mode, while the filter handles decimation,
-   trigger and DMA.
-
-- The routing is static. On the STM32 ADC, data routing to the MDF is a
-   global setting for the ADC instance, not a per-channel configuration.
-   An ADC instance feeding the MDF is dedicated to this path. It would
-   not be a frontend for some channels and a backend for others at the
-   same time.
-
-- The binding describes the data source of each filter: could be either
-   a stream on a serial interface (the current st,sitf reference) or the
-   ADC interface (reference to the ADC node). The binding can be
-   completed this way without changing the rest of the model.
-
-- The same model also covers interleaved groups that mix filters fed by
-   the ADC and filters fed by serial interfaces, as well as the audio
-   use case described below.
-
-The STM32 ADC driver does not support a backend mode today, but it could
-be added as an exclusive per-instance mode, selected in DT, in which the
-ADC registers an IIO backend instead of an IIO device.
-
-I agree that the IIO device exposing a given analog signal is not the 
-same when the signal is read directly from the ADC and when it goes 
-through the MDF.
-I think this is consistent with the hardware: these are two distinct 
-acquisition chains, with different configurations. As the routing is 
-fixed in DT, userspace sees only one device for a given channel.
-
->> Option 1:
->> One option would be to generalize the existing backend abstraction to
->> represent components contributing to an aggregate IIO device,
->> independently of their position in the signal chain.
->>
->> The existing framework appears to provide the required mechanisms. None
->> of these mechanisms inherently requires the provider to be a hardware backend.
->> A generic component/provider model would support both topologies without
->> duplicating interfaces or requiring reciprocal dependencies. The key
->> point here is to preserve the compatibility of APIs and DT bindings.
->>
->> Option 2:
->> Alternatively, if the backend abstraction should retain its hardware
->> meaning, we could introduce an explicit frontend-provider abstraction
->> sharing the existing infrastructure. Frontend operations would cover
->> analog-side control and conversion parameters.
->>
->> Would generalizing the existing abstraction be acceptable, or would a
->> separate frontend interface built on shared infrastructure be preferred?
-> 
-> For either of these options, do you envisage the data being retrieved
-> from the mdf sysfs files rather than from the modulator?
-> 
-
-Yes, in options 1 & 2, the MDF filter registers the IIO device that
-exposes the data. The modulator, or the ADC in the case above, only 
-provides the analog-side information, such as the reference voltage used 
-to compute the scale.
-This would generalize the IIO backend framework, regardless of where the 
-companion component is placed in the chain.
-
-+---------------------+       +----------------+
-| frontend w/o iio dev| ----> | MDF            |---> IIO dev
-|                     |       |                |
-+---------------------+       +----------------+
-
-This also resembles the way the acquisition chain is described in the 
-ASoC framework, where the device is not attached to the codec. (see below)
-
->>
->> Option 3:
->> An aggregate IIO device based on the component framework, as discussed
->> in previous threads, could also be considered. I currently regard this
->> as a fallback solution:
->> https://lore.kernel.org/all/ec411432-4b77-4410-b0aa-b29f73b82c84@foss.st.com/
-> 
-> You option 2 in the earlier thread had:
-> | 2 - DFSDM managed as a "hardware accelerator"
-> |
-> |
-> |    +-------------+
-> |    | Sysfs       |
-> |    | - Scale     | +---------------+
-> |    | - Raw data  | | IIO char dev  |
-> |    +-------------+ +---------------+
-> |             ^             /\
-> |             |             ||
-> |             |             ||                         Userland
-> |   -----------------------------------------------------------
-> |             |             ||                         IIO fw
-> |             |             ||
-> |             |             ||
-> |   -----------------------------------------------------------
-> |             |             ||
-> |          +--|-------------||--+     +----------------+
-> |          |  |             ||  |     |                | Drivers
-> |          |  |             =======================    |
-> |          |  |                 |     |           ||   |
-> |          |  +-----------------+-----+--+        ||   |
-> |          |          +---------+-----+--+        ||   |
-> |          +----------|---------+     +-----------||---+
-> |                     |                           ||
-> |   -----------------------------------------------------------
-> |                     |                           ||
-> |          +----------|---------+     +-----------||---+
-> |          |                    |     |           ||   | Hardware
-> |          |    sd modulator    |     |  DFSDM    ||   |
-> |      =============================================   |
-> |          |                    |     |                |
-> |          +----------+---------+     +----------------+
-> |                     |
-> |                     |
-> |                    Vref
-> |
-> | The DFSDM is a consumer of the SD modulator.
-> |
-> | In addition to its complexity, the main drawback of this approach is
-> | that it is unsuitable for interleaved mode.
-> 
-> Two mails prior I had theorised a way to deal with the interleaved mode
-> https://lore.kernel.org/all/20261015-attentive-conflict-1a1f538de77d@spud/
-> but I never saw a response from you as to why something like that cannot
-> work. That's twice in that thread you said it was unsuitable without
-> providing the actual explanation for why?
-> 
-
-Sorry, I did not respond to your proposal directly. Here is the explanation.
-
-In interleaved mode, filters 0 to N-1 are grouped, and synchronized by 
-filter 0. The samples of all the filters are transferred through the 
-filter 0 DMA request as a single interleaved stream. Filters 1 to N-1 
-have no DMA transfer and no configuration of their own in this mode.
-Interleaved is used in audio (ex stereo) and analog (scan mode) use cases.
-Interleaved mode is needed in following use cases: multichannel audio
-capture (e.g. stereo microphones), and synchronous multichannel
-acquisition of analog sources (scan mode).
-
-With the MDF as a backend, each modulator would be a frontend 
-registering its own IIO device. I see the following limitations:
-
-- One hardware buffer, several IIO devices.
-   The interleaved stream is a single DMA buffer carrying samples from
-   N modulators. A backend buffer is attached to a single IIO device.
-   There is currently no way to share one hardware buffer between several
-   frontends, or to demux it into several IIO devices.
-   Jonathan described this as the swdemux/swmux concepts, which do not
-   exist yet:
-   https://lore.kernel.org/all/20261019022510.0d554b39@jic23-hlaptop/
-
-- Ownership of the interleaved data.
-   With a dedicated cell value (e.g. -1) for the interleaved data, some
-   node has to reference it. If it is one of the modulators, this
-   modulator becomes in practice the aggregate device (or interleaver)
-   It exposes the N channels and needs the scale and supplies of the
-   other modulators.
-   The choice of this modulator is arbitrary and nothing in the hardware
-   reflects it. If it is a dedicated node, it describes a software
-   construct rather than hardware.
-
-- Shared configuration.
-   Because the configuration is common to the group, writing config
-   (sampling_frequency or oversampling) on one frontend would silently
-   change the other frontends.
-
-- Frontends unusable on their own.
-   Filters 1 to N-1 have no DMA and no config of their own in this mode,
-   so the frontend IIO devices linked to them could not acquire alone.
-   Acquisition can be started through the filter 0 only.
-   The current driver avoids this by only exposing the group, through
-   filter 0.
-
-None of these points is impossible to solve in principle, but they
-require new IIO infrastructure (cross-device buffer demux, coordinated
-buffer enable, arbitration of shared attributes).
-
-
-* Audio use case
-
-Audio is currently the main use case for the MDF.
-The audio chain is modeled as follows in ASoC framework:
-
-Digital Audio Interface link
-+------------------------------------------------------+
-| +--------------------+       +----------------+      |
-| | DMIC               | ----> | MDF            | -----|--> audio device
-| | (Audio codec)      |       | (CPU DAI)      |      |
-| +--------------------+       +----------------+      |
-+------------------------------------------------------+
-
-- The sources are PDM microphones. They are handled on the ASoC side
-   (e.g. the generic dmic codec). They have no IIO representation.
-
-- ALSA expects interleaved PCM frames for multichannel capture. An
-   N-channel capture is exposed as a single audio device fed by the
-   interleaved filter group, whereas N independent mono captures are
-   exposed as N separate audio devices.
-
-- The data goes to the ASoC DAI through an ASoC callback, not to IIO
-   userspace.
-
-So for audio, the interleaved stream is the data itself, not an
-optimisation of DMA resources. It is consumed as one multichannel
-stream whose sources have no IIO frontend. In a model where the MDF is
-only a backend of IIO frontends, there is no frontend to own this
-stream. The MDF would remain the data producer for audio while being a
-backend for the analog sources, i.e. two models in the same driver.
-
-This let me say that MDF as backend is "unsuitable" (complexity & 
-missing IIO infrastructure)
-
-This is why I think the model should be centered on the MDF filter
-as the device producing the data, with the data sources
-(external modulators, or the internal ADC) providing their analog-side
-information. This model covers the serial interface and ADC sources,
-interleaved groups, and audio, with a single approach. Option 1 or 2 
-from the cover letter, or the aggregate device of option 3, would fit it.
-
-Jonathan and Nuno, please let me know if you have an opinion on this.
-In particular on whether a frontend-provider abstraction (option 2) 
-would be acceptable.
-
-If not, it seems to me the that option 3 (aggregate IIO device based on 
-component framework) has less drawbacks than the swmux/demux approach.
-
-Best regards,
-Olivier
-
-
-> Cheers,
-> Conor.
-> 
->>
->> * Driver implementation
->>
->> Serial interfaces (SITF) are shared resources managed directly by the
->> MDF core and no longer have separate platform devices. This revision
->> retains their DT nodes to describe configuration and clock connections,
->> and to allow filters to reference their input bitstreams without
->> duplicating shared settings.
->>
->> This revision also retains a platform device for each MDF filter, as
->> each filter manages its own registers, interrupt, DMA channel and IIO
->> acquisition state, with a separate suspend/resume lifecycle.
->>
->> * Clock management
->>
->> Several clock-management review comments are addressed in this revision:
->> - The provider-side clock-frequency property has been removed. Consumers
->>    request CCK rates through assigned-clocks and assigned-clock-rates.
->> - The clock-names property has been removed. The core acquires its single
->>    input clock by index, and CCK gating uses regmap-based clock operations.
->> - Remove the unused clock-ranges property, as the core now explicitly
->>    shares the kernel clock with the serial interfaces and filters instead
->>    of relying on parent clock lookup.
->>
->> Clock topology point remains open, awaiting clarification of the MDF topology.
->>
->> Changes since v1:
->> - Split the large IIO driver patch into smaller functional patches.
->> - Replace provider-side clock-frequency with consumer-assigned CCK rates
->>    through the common clock framework.
->> - Remove the platform devices for serial interfaces.
->> - Replace the interleave phandle list with a filter count, covering
->>    consecutive filters starting at filter 0.
->> - Simplify clock-output-names, remove clock-names, reset-names and
->>    filter-level clock properties, and move mdf-dai into an explicit
->>    property outside the conditional schema.
->> - Rename the binding to match the STM32MP25 compatible, sort compatible
->>    entries, and simplify the binding patch subject.
->> - Use unsigned long for match data, improve probe error reporting and
->>    wrapping, remove a probe-success debug message, and add kernel-doc for
->>    exported core functions.
->> - Use scoped spinlock guards.
->> - Remove empty serial-interface runtime-PM callbacks.
->> - Remove the redundant ASoC platform module alias.
->>
->> Additional fixes since v1 (following Sashiko review):
->> - Compute the settling-time discard count with 64-bit arithmetic.
->> - Size cyclic DMA periods in complete scans and validate buffer and
->>    period alignment before starting DMA.
->> - Fix backend-enable rollback so backend zero is disabled as well.
->> - Use managed allocation for the conversion buffer and managed IIO
->>    triggered-buffer setup.
->> - Release temporary synchronization and serial-interface firmware-node
->>    references. Replacing interleave phandles also removes the associated
->>    stored node references.
->> - Avoid unregistering secondary interleaved filters that were never
->>    registered as IIO devices.
->> - Use managed acquisition of the optional serial clock.
->> - Replace the GCD-based CCK divider selection with a search for the
->>    largest valid divisor, allowing non-power-of-two divider values.
->> - Remove the selection of the undefined COMMON_CLK_REGMAP symbol.
->>
->> Previous discussion:
->> https://lore.kernel.org/all/20261001145702.2628429-1-olivier.moysan@foss.st.com/
->>
->> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
->> ---
->> Olivier Moysan (11):
->>        dt-bindings: iio: adc: add stm32mp2 mdf filter
->>        iio: adc: stm32-mdf: add core registration
->>        iio: adc: stm32-mdf: add cck clocks provider
->>        iio: adc: stm32-mdf: add serial interfaces support
->>        iio: adc: stm32-mdf: add digital filter device support
->>        iio: adc: stm32-mdf: configure cic filters and sample rates
->>        iio: adc: stm32-mdf: add direct iio conversion support
->>        iio: adc: stm32-mdf: add dma buffered acquisition support
->>        iio: adc: stm32-mdf: add external timer trigger support
->>        iio: adc: stm32-mdf: add dmic audio filter support
->>        ASoC: stm32: add mdf dai support
->>
->>   .../bindings/iio/adc/st,stm32mp25-mdf.yaml         |  341 ++++
->>   drivers/iio/adc/Kconfig                            |   29 +
->>   drivers/iio/adc/Makefile                           |    3 +
->>   drivers/iio/adc/stm32-mdf-adc.c                    | 2080 ++++++++++++++++++++
->>   drivers/iio/adc/stm32-mdf-core.c                   |  899 +++++++++
->>   drivers/iio/adc/stm32-mdf-serial.c                 |  223 +++
->>   drivers/iio/adc/stm32-mdf.h                        |  275 +++
->>   include/linux/iio/adc/stm32-mdf-adc.h              |   19 +
->>   sound/soc/stm/Kconfig                              |   15 +
->>   sound/soc/stm/Makefile                             |    3 +
->>   sound/soc/stm/stm32_amdf.c                         |  375 ++++
->>   11 files changed, 4262 insertions(+)
->> ---
->> base-commit: d922ed738439e1d5b4701df7f4cdd49a09925624
->> change-id: 20261112-upstream_mdf_v2-76040d99138e
->>
->> Best regards,
->> --
->> Olivier Moysan <olivier.moysan@foss.st.com>
->>
-
+>  drivers/pci/controller/dwc/pcie-qcom-ep.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+> index c794a2207df2..661bd8aac7cc 100644
+> --- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
+> +++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+> @@ -171,6 +171,8 @@ enum qcom_pcie_ep_link_status {
+>   * @disable_mhi_ram_parity_check: Disable MHI RAM data parity error check
+>   * @firmware_managed: Set if the controller is firmware managed
+>   * @msix_capable: Set if the controller supports MSI-X
+> + * @ch_space_sz: HDMA per-channel register space size in bytes. 0 selects the
+> + *               dw-edma default (256).
+>   */
+>  struct qcom_pcie_ep_cfg {
+>  	bool hdma_support;
+> @@ -178,6 +180,7 @@ struct qcom_pcie_ep_cfg {
+>  	bool disable_mhi_ram_parity_check;
+>  	bool firmware_managed;
+>  	bool msix_capable;
+> +	u32 ch_space_sz;
+>  };
+>
+>  /**
+> @@ -903,6 +906,7 @@ static int qcom_pcie_ep_probe(struct platform_device *pdev)
+>  		pcie_ep->pci.edma.ll_wr_cnt = 8;
+>  		pcie_ep->pci.edma.ll_rd_cnt = 8;
+>  		pcie_ep->pci.edma.mf = EDMA_MF_HDMA_NATIVE;
+> +		pcie_ep->pci.edma.ch_space_sz = pcie_ep->cfg->ch_space_sz;
+>  	}
+>
+>  	platform_set_drvdata(pdev, pcie_ep);
+> @@ -984,7 +988,16 @@ static const struct qcom_pcie_ep_cfg cfg_1_34_0_fw_managed = {
+>  	.firmware_managed = true,
+>  };
+>
+> +static const struct qcom_pcie_ep_cfg cfg_nord = {
+> +	.hdma_support = true,
+> +	.override_no_snoop = true,
+> +	.disable_mhi_ram_parity_check = true,
+> +	.msix_capable = true,
+> +	.ch_space_sz = SZ_4K,
+> +};
+> +
+>  static const struct of_device_id qcom_pcie_ep_match[] = {
+> +	{ .compatible = "qcom,nord-pcie-ep", .data = &cfg_nord},
+>  	{ .compatible = "qcom,sa8255p-pcie-ep", .data = &cfg_1_34_0_fw_managed},
+>  	{ .compatible = "qcom,sa8775p-pcie-ep", .data = &cfg_1_34_0},
+>  	{ .compatible = "qcom,sdx55-pcie-ep", },
+>
+> --
+> 2.34.1
+>
