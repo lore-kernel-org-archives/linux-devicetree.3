@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795432746;
-	b=PC4ipaczTa0BilJaIo4G2FXKvc4pGQUvJaMKdtOs4UYjsnrfSlJrTjkQqMRqsiWYfkZe
-	 ZgrBcRDRkgmK/mTdqnKHbCbgRKb2qMM4UgGnj1VV39Ffb5T+1yeUUN4bEBo049gUztLMo
-	 kC6+LKX3T5eaMg616ev3Ou2MfoF6fVVtQBK+Mg8AaVSKF1UVf8TWhv9ykPjJYgXPZxFW4
-	 387xvAJLrpTuzNQ/Vm6NxwzP0ezil8GLW+F4avAOddtaYXlDWNy3bIfd+tFGKywWoQW5F
-	 hcr0irOgwjvaFfLwO/rSfexEEJEF/mYRsTgT0uoosufi41dp0FZC0DlNs8/GETbKbyg==
+	t=1795432748;
+	b=lMAh51TsJvAcGbQoF0oJiDilRjbi1YR5nVxEvr3OZU4ofc9BxS+SQg0Auzaqnp3/VU1P
+	 45YdTZIWAj1+e+yEHXEnhHc5B30q3h2TNWDm5VphylU73K8kzpukBG3GyTkPoVDEq1Hah
+	 zb+Wzw9hwM/YUhWGHEf1hu2Sz42h0oXbEznsHV1PMub9vPCrYoTGuYAgw+PGJQ0HqL1XG
+	 Sf63IsbJEmvX0EqcGWLmYhJBfIAPgVdyLmzYDYuNtVU1c0e1IQG++xzA9Pm0HFRl8eZSR
+	 uuJ6Bhmy3ZteXOIb3W8Gb1Y9cUC2GdXQWXfmCgjr7UZSTGuTcyOtpIQMAM/g7+2dIMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795432746;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795432748;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=EtVDEEY+1Q2B+PJRdO/nFO/tm1fJ8wXwnQSpYA2WKh8=;
-	b=g5JBb4vJGaXJ9Td3uFjazbyMFmeJhdKryDi+tjnMThrSvq63m+iDQfCYz6x3iTFt1M6K
-	 4pAVEn5ky3k75EE2fAnqHwrtOlL2klLPvE8ZlZsRbBneGof3xBtDIFSA/27KXdgrM/P7s
-	 2om71CTz8QcW9P507hMcRK3tuOCphkfdDTq3WEJ/4AZX9Xm6OwqIvxtThBnMUFOxHejSa
-	 xOMNNC9T9A2MAFoFGfg9ddO6myPbFgW2JL7q2n5pRXXIUJZj3gCpfdOcDkyCTFvtIMw25
-	 ZfdLbEyLz3ZyBaas6pPeL3hySg1K+/xwzuarU8msJfgIepmokjEuIKKgHoAMdeyjDqw==
+	bh=fhdQyf6FbFbh0WyyBUC7EygAiye6PpyKpdmvafidO2U=;
+	b=LFJ8bEmTo6zah/mHn2vXjMsoarDhKWfLEHoi0V7Z9NPJcvyRcbN8T7YI8iz6/HVU6ES6
+	 hO1DW78YYtjWSYvvZv5ZyywAtEG/szggYGGLmKiqKptAcKIkIdjctSrdDjXi3eyImnrBx
+	 iO50IvzbR0Vii+Y5UfdI2UQL+lI/DoLsxgkmUPs4y9QmXEAsHp1bcRcXcmZwpbOCpWVzi
+	 L9VgHLgB1R4oTMRM4FJTJb65AKUx7WeldD/hJA1Be9PITmEk0IBLpf7HTjluQ2c7E9KtO
+	 yRBxp370d25UPUREQBv8I55F1JAuY3i7SSkSptF+dI33MZBXKoCMPMoYRgPsvNJL4RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VfIg7S0N;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HTqjUcY9;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D54606A683
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:19:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9D54606A683
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBE860A2615
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:19:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EBE860A2615
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VfIg7S0N
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4d28f75d62so522424066b.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 03:19:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HTqjUcY9
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4cdc606b47so530217066b.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 03:19:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795432744; x=1796037544; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795432747; x=1796037547; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EtVDEEY+1Q2B+PJRdO/nFO/tm1fJ8wXwnQSpYA2WKh8=;
-        b=VfIg7S0NyjDFiESdcciLc42EeZNUHkJFW+yGCnS+PA5FOZnFbalkEzBPwAkLuIayTa
-         eRr83rB0tVsFoar4KBae9dFGYMZVX68eI4RjOO0yq+tVzl2VhYKSok73vfwwVjZbSg6H
-         d6ewwLont5tR6xs0d8c2QiD02Y4M2y5Y02DebZ/RuAAl5cc1HPD8id35r3iMfrsLug4z
-         MijCMWgZ2iXwVRvzNp7hJH2BQXLmLsLnSHzmlnWqZq/sjECnDCsociBw6WQ2fZU1z1KX
-         zmfHulnVN2dQYmRqS/w3NZULcuK1a7Ac/Y7lAXMV9j+jf3FA7SbDfrxoGfY3rN+z3yX2
-         SM0g==
+        bh=fhdQyf6FbFbh0WyyBUC7EygAiye6PpyKpdmvafidO2U=;
+        b=HTqjUcY9hLartbQ+wDqUUWh+DYA5uBQlIQNY8L8c0PwQFxlYvRUmqcKq9vBHjiWlIQ
+         ZEUY4IVw5jmJePNOlSkdFejLPzyC/gnES/8A9mJHHXOsB8T5NCrWqcjznvksBUyFj8fX
+         Gdoirno0KXw/7rEQXjyZtluV4Rd+3+z/PNlUakMZEHUQWIAO721PWX1/mvJ6P8xawItb
+         ysROTquAqd3jS2dFl+6sDSphM2xYXtslTN97/hpIFiJOGhGv7AuWUlk/hK1ubkcgPaD+
+         nmyLdRZ7rePh/oqb+a8G6vq0onwln8KbWQTA7ew4HWiVbD2Xc6bis5BHikU2+BPy7iLp
+         b87A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795432744; x=1796037544;
+        d=1e100.net; s=20260707; t=1795432747; x=1796037547;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EtVDEEY+1Q2B+PJRdO/nFO/tm1fJ8wXwnQSpYA2WKh8=;
-        b=OVu6bkm2O2c4wDFRNLN9P0RjgU7vzpr5Fg9oqzTYLV5f1m+TOYKWbqpSaMC4fkox8k
-         EYBEPP2vyo5LqlI322XJsaJNdrzwQkVa/OhqqlkQCZjky7yiR6wi5luz4wTFlW29DUG1
-         EO7amnIZOuO+WMbWAe3k07WmexwcmdhovfW1IGhbuVbnACICiWQFF0kYMdlFNtmxj4kt
-         0HeWEXvwPM1MrUYoUImAeeRf2ssYGqeHmfezSxUfcVC5BVaSmTTGGp+c4YtTK7Pmp6og
-         lki7QIgI4n+3wQOMapoVBNMRNLRifJj8Jn0dn8EXQ2GjhWhcv0fxfnUjBMcAXlf0pTaI
-         u5wg==
-X-Gm-Message-State: APuU4Z879VUjHkXDc4KLJxQfVrNDU6hC+PBDPpbhtu5peZUXUdlPgy42
-	oKucm16b5FUC3m5B5QA54MghAtp2YPwvDT61maEDALwxzG9FCsRZOoQo
-X-Gm-Gg: AZFdTZcvPubLAlAkft7weSmy1TfXNAWb+05VN4VwBvFGVUaJ9yGnLgm+E9sKbSS7XGf
-	avJSTD+iDRvyosbd3EhUnRkjb27LIku1NkVD6YPkTi0FltnU0b01v5iY8MUnCBGgM8FvCX8pzue
-	msySm9FH7uUuMywNKvCKkwZR5Y/FKXUCbvhdqPQBpQgeM165QATeKbxniVTHCctwDoJuQcTVsdd
-	oykilTHPntUz13ewMCyhJ+mAqLTVRJsnFlhy06UmT8/zlYyOqtijv3pNbysssFdByRB3NfijJJN
-	kRBHlscRTBxWv9spheF9AVbv4ksJXE1FsLzRSm7kxiZI2c2OhSF9m54dukI1pDw5+kas0vDB5YZ
-	noziLyi0/moNmfrhYBWaYvrbgTLR4x4ETmvc5R4VC3bVPOTkT0HhlaQHMHDHMSyEhwhxwhhgvzI
-	vDB0GMxqV3tMSCN6cG2Jenc6/OtvFHufcv4S5QN3sqI4fb+4cFuvzG4f/CyK3LXQ3wvkGcAQflc
-	2dw1Ue6/nUOlUJyJXfL9tm7ZId0dfEdOJkfE5mLOE6k9ls/br1fE4sanZpYDTNALmrigXPbWWL9
-	bBspE3wygptaruw6PUQ2DMtQ1Y5L0ipSntIfSM/zTKrr6D2+HdGyqGkgiiemX6uxmA==
-X-Received: by 2002:a17:907:948e:b0:c51:3b09:f7f8 with SMTP id a640c23a62f3a-c513b09f8eamr826376566b.25.1795432744060;
-        Mon, 23 Nov 2026 03:19:04 -0800 (PST)
+        bh=fhdQyf6FbFbh0WyyBUC7EygAiye6PpyKpdmvafidO2U=;
+        b=oRBHwXFzTHI7s1vWt7mZY8GhPRgY1rAtDkDPVnCa6O/e2ErwJxZtw46N2InMXO3Fqj
+         19c1OM5W2SdZjO77pOIuBVL3oVzA9nxmWixjsd5r5oXLlN2QeSJXqn7MlYcOY3ZAI7kZ
+         hy3d2uxADA0AR41RpR7MVXSuD2iK046Onp2cfMJ1wbZHx5QG6h5kgrmc3Yt/UX/Ke6IJ
+         c6INQ6xpDCTY3WfAPsrHKl6PjraHbjUyAIbN/Tl6Cj3aQkhuHWtv6QDZ3KwiEvLyZloR
+         MTkq3ldhJBXQfxDJ2SFzig+FWYn9sQnEiaHrmCVco50a0+Cq7yltsoi9bLuikakXTWUa
+         XezA==
+X-Gm-Message-State: APuU4Z9/09o7F5EcfSOl6krM0TVyDE05DGwmdOmXl7pChLi+kQ/JScYe
+	ek/hxmgixL0LJjD+ZX9CzZGcIPg4L1ok2Bka9CycNbl1mbbD1pJX0Heb
+X-Gm-Gg: AZFdTZekWC9s1F80ipFKWSvWAlqFPrxkr95WJIswCiyZCxeAzL1HJqzpJI4iZIOvn3o
+	0nvvl95IlUSSNJq0uyeHJjvzgiz/FEtIdJBXRD3QouFqgVmzdikDJ7ca6uoAjutGhxpwqYz/0FW
+	EXYprD71oN9fKAHnzKKQEbrtNhf5HVE9PLlP5C8iRZp8vqcVfsRu1cVslI6bdsU05TZeFHLEyGM
+	zy5A9BAQSoiKE0ZGOr/Kqy+KjXGmFI8PR1UhZdheyyyepiIKE7VNk1V1mhRp2amQA223yf7xEKb
+	g3EDxVGVEt+jHTv/DLSBk5BujlK3GFf/YLhElIm+EjomoCd+cxkyR3ZDh9iV9BDqabmmz6BSkic
+	bXWkLEH7RuSqCcJYoCMjAK1Pvkskxjg4nmym0tSkRwctjAlAvo4C7TIKMCKvPzsxaKmJwpsdlC1
+	BeDwhvIKLAJuP93Ylyo3vq5zJvavr2gPBm9c9+OrzVmmZfeOV9SWuSd2OXRtZGv1CHt2vsdiLlS
+	bb4pDHQtKTaU8ORnQ6LxSus3tqIdoojBQ+M0tWXNuEhsj5MS8RVHbYWNMQgyh/YDd9411Qmvzub
+	n9DPlb5HpFl0zIRqPCLtvnp7LxRTYHeIF5BRtox+Ll3nZacnf+4OSesj0OQ/AZOviA==
+X-Received: by 2002:a17:907:1b1a:b0:c46:7ec3:fde2 with SMTP id a640c23a62f3a-c513a5ea1b5mr863152766b.11.1795432746902;
+        Mon, 23 Nov 2026 03:19:06 -0800 (PST)
 Received: from [10.120.183.232] ([50.7.123.82])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc679bsm392442266b.63.2026.11.23.03.19.00
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc679bsm392442266b.63.2026.11.23.03.19.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 03:19:03 -0800 (PST)
+        Mon, 23 Nov 2026 03:19:06 -0800 (PST)
 From: Alexander Letuchiy <asalde.le1@gmail.com>
-Date: Mon, 23 Nov 2026 14:18:35 +0300
-Subject: [PATCH v3 2/7] dt-bindings: serial: mediatek,uart: Add compatible
+Date: Mon, 23 Nov 2026 14:18:36 +0300
+Subject: [PATCH v3 3/7] dt-bindings: timer: mediatek,timer: Add compatible
  for MT6895
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,7 +93,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-initial-mt6895-v3-2-95c46597e63d@gmail.com>
+Message-Id: <20261123-initial-mt6895-v3-3-95c46597e63d@gmail.com>
 References: <20261123-initial-mt6895-v3-0-95c46597e63d@gmail.com>
 In-Reply-To: <20261123-initial-mt6895-v3-0-95c46597e63d@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -112,32 +112,34 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  linux-serial@vger.kernel.org, linux-input@vger.kernel.org, 
- phone-devel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ phone-devel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Alexander Letuchiy <asalde.le1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Add a compatible string for the UART of the MediaTek MT6895 (Dimensity
-8000/8100) SoC. It works with the existing driver through the
-mediatek,mt6577-uart fallback.
+Add a compatible string for the system timer (SYST) of the MediaTek
+MT6895 (Dimensity 8000/8100) SoC. It works with the existing driver
+through the mediatek,mt6765-timer fallback.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
 ---
- Documentation/devicetree/bindings/serial/mediatek,uart.yaml | 1 +
+ Documentation/devicetree/bindings/timer/mediatek,timer.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/serial/mediatek,uart.yaml b/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-index 5bd8a8853ae0..a3969cfdea7e 100644
---- a/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/mediatek,uart.yaml
-@@ -35,6 +35,7 @@ properties:
-               - mediatek,mt6795-uart
-               - mediatek,mt6797-uart
-               - mediatek,mt6893-uart
-+              - mediatek,mt6895-uart
-               - mediatek,mt7622-uart
-               - mediatek,mt7623-uart
-               - mediatek,mt7629-uart
+diff --git a/Documentation/devicetree/bindings/timer/mediatek,timer.yaml b/Documentation/devicetree/bindings/timer/mediatek,timer.yaml
+index 337580dc77d8..ee4af54c29b5 100644
+--- a/Documentation/devicetree/bindings/timer/mediatek,timer.yaml
++++ b/Documentation/devicetree/bindings/timer/mediatek,timer.yaml
+@@ -40,6 +40,7 @@ properties:
+       # SYST Timers
+       - items:
+           - enum:
++              - mediatek,mt6895-timer
+               - mediatek,mt7629-timer
+               - mediatek,mt8183-timer
+               - mediatek,mt8186-timer
 
 -- 
 2.56.0
