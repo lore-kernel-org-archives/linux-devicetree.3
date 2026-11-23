@@ -1,57 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795415918;
-	b=cm4BJFhKf1gXVqZrueupTTodVKppTAiEGlgVovaYVvwaS/f9yT3PaN/wLEdfJwa8oWWd
-	 KE+ge1r2MThrRvcLzWBary3GC+7k0qCKwTx0GV3HfRghm3qPEJ+4hkZ7Z4CxtiIiK+gFu
-	 u7aJovnGJhhJfFH/Nctl+EnVxgLEWxDI2ZKDwiPuu44mSuCYxCvVd2N03st3YXzTqvJyH
-	 JGPy+4zNit7IxBmlXbr3bY9KUBB90Mz9uX5Vf6f/AkfuSVxuuO90hCaxOtAP2p/eCdsPa
-	 Pi+G/oSu8GxhhEucAy89xXItgf8NI8KiMR3mlO4nLUtXJyAovJ1gDGev48N3ci/sdtQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795415918;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fDtgx4VDKn1bbCHyvl2n/PhCW/zEM0917Bl08KMZ0xg=;
-	b=WeKEmq3wugikzPdCn1h5Qqq94TQq8soSzjLILfJ/Xp7F8lYHUvVj3deJOO8mBohWM6KN
-	 cwFC9/MOnDseYKyuvyqLQqYKfWVieoywrF5uzggl6lODwRGcgVOgzMKA9Ih+u6yy3hKcS
-	 ndCH9XCGJ2V1bSphy32voBlY/FXbB89EN5KkH++qpioXt6t96598wGwlcgyC6lQTcReLG
-	 t4OlTjoSxD//qnguU+D0hplEIISvQvpYpQYC+6DaUWGDAuBw9yhc+L/x9LOSIfqu4hSQx
-	 3wZa2ucS/6bADyJgrUjO2DpHM+G11H13WQwNzR3p/wbKghrh69ig+UoIgMKfsOblIsQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hfa66ARy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795416166;
+	b=jd6jH1DEplh7kFeJZe2CdgG8XVtUST2RSKFyQvuLd1dOzf9RqMuCmUka+z7c5jsJdrt/
+	 wg7YkfU4wwshNqIPoWS34T+Xaq3W0qPTteVKQ6NPbHJ/Pki16Xjj5L+n5v1+A71UkySkw
+	 pAcMqGNo8jgQxHf6WN3+6wHBsL4R6kpFp3bW4pIQw0npCKewFAT3vqGj4snGTylUjTTTx
+	 M/MP9ox8MdlM0f8GSkdgLTKc9CXQOaoxEu/PQfeZm4DXURCxPOeZ+uaingkmZf3+gUrOE
+	 6pBFGXtghRXzKuf7bX6CqPUL8z3ew+PA771Sm/WbhWBlZQbGDzCWeWWLij3zVFefQ4g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795416166;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=naTtgcRj/MertQfpVKpr5lkSMEaf2WtEA0kcdQKCaus=;
+	b=qW1n50WNYT03Sf25142lVRrGQQ9oxFE961JE5CdITIQqoT+8sqNrdyhrk+XebRr19Eh6
+	 rH7zqUAHLM/ipMs43YSpIy3fQby0BjbOxIJreyBYYY7x0f7225T0PnN+mjDYmRPJVp+1P
+	 u177iYEShBsRt9+aOmtKznKepYyAWTwhD6xAMd6k/49in8EGyGSWGp/1/C1IRrHaQ+Pco
+	 CdkHdCTmKLanjOZGLjGt/hq/1bz85yzMrSWdICGl0c0oKdevGgN6H4fWX/gfySE5d6oUO
+	 cE+NOXwjJX2ABy50Cm3Z8XUFHc0wi+iZl3XmSKU9Z5BhFNSnT5RhFNlL37Pyclq8q2A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ScVPpVXT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F01606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026AA606A327
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:42:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 026AA606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hfa66ARy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0470B1F00A03;
-	Mon, 23 Nov 2026 06:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795415918;
-	bh=fDtgx4VDKn1bbCHyvl2n/PhCW/zEM0917Bl08KMZ0xg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hfa66ARyqBBjIT1m6ygBJcbtCvdtowE1Z91zcan+S348QidwgTXfI/cQVSeQYz6gV
-	 lAOpwginA0MVFILqIzbfwtsV03UflbbYtqgaLJu7srjEgF66mbd5bC+IojLZpbCPsJ
-	 vSbEcXLFhXvUQ7omQWTzU91Wa1fSp0BtZwCnzVAnCBlpKpPPT9Oai2ousCcB9ugWAt
-	 fj6WyzNyOfmtz4lLFXOFPTmbVgCU5tFur68i5vmzjL10KGlsikA59X0SwRQ/mLR/xy
-	 NM43oceOKctZ4LAsuTwrd4ThCCKYl02inmF/PXx+pzXIQcXxDpiXkw6dqKQDP/84ai
-	 aWFCX6wxSGBRw==
-Message-ID: <sashiko-outbox-228772@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
- DSI to HDMI driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: mohit.dsor@oss.qualcomm.com
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-lt9611c-v7-v19-2-1fbe2b7b5211@oss.qualcomm.com>
-References: <20261123-lt9611c-v7-v19-0-1fbe2b7b5211@oss.qualcomm.com>
- <20261123-lt9611c-v7-v19-2-1fbe2b7b5211@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 06:38:37 +0000
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ScVPpVXT
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b0d126f631so22831157b3.2
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 22:42:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795416164; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SJWTqSzQGOIH1i5qAgL+7TDBdzFUf7nhRP7z62zOoHcY52LvyFvoQWBke2OSm5u5pX
+         PLu7wUsTcaPzLSDYZRw9du6fAcn6knAbMZeqkkHnnUu5OnN6rba2QtfGBu3iPxT//yZa
+         K5ahOVGYjBXdQ4SHSq0wF1EonSJrEl/kIiQfZpxkvOWU/vycfabKTlZbRUWsi9sgsCfS
+         pYiIABRvxXeJJqztjdCtmmYfTmaWLqRDPK7ohB7oUkQof2ZxGbt15jwyaKzsxRt95GxF
+         W0AjSJbtFNFKPNYTz7PTc5PGkylG4CAlxOp+B6u3ayiT0TBBLMaX8RbsvoFcmcAN4yMH
+         V7Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=naTtgcRj/MertQfpVKpr5lkSMEaf2WtEA0kcdQKCaus=;
+        fh=MkhXuAFdnnyywNN6WA5ZY+g2Fnx0wwc7WJY4hPYLcNo=;
+        b=odUlQLbcy7QtPdMa9DebdMNtL7ZS1aEzf/GoTIeTP65AG/jPASa1ier/yVq91RLz3+
+         ZihYeHf0Re/hB2FN5paMqYDytdCwjJ24549bNaIcflg10E7JXwwSUqkAaPVqruqRG/KY
+         SNYnsz0Jh132aEI8AZw4aD3mtdheYffgVH2NmNevzBbcD8l7Riamjsu6enLHVvP5iACB
+         EfwchMzXX1cr3ioU/wjwh9vev8V2lLuOdtzosIfcP6GbvQ/47Khx/rNDKXd5t4cZ5r38
+         jKjk9UDaBgI18PBrxIxEIGDFVip2yHm+W951bRvQwWVl/Y/ZI1R7CV6Fy7wp0c5s9RPZ
+         UTQw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795416164; x=1796020964; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=naTtgcRj/MertQfpVKpr5lkSMEaf2WtEA0kcdQKCaus=;
+        b=ScVPpVXTZPlEkXMOVmOrpFrbcx18M4yy08hKdSrknGePgEsA0KYlK1JTjkk8liiJLi
+         en8EFA/UOSUydUn7tdFUr0OTU53c8TrzHtfc7GJjHfLX4Ohd6yADP8zoasW3nR5u+PZq
+         yi2p9rTbYLEFcbTnKsp7Phu5W6LA/kca/ozPA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795416164; x=1796020964;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=naTtgcRj/MertQfpVKpr5lkSMEaf2WtEA0kcdQKCaus=;
+        b=MNH9BANQ3LnbNj+GEC1judjim+akNCVrUKnk3iqBxDf2WX84TGrGCG/l1Ro9OPL+3f
+         23YT7sRGcDCxxhdGo+W5LUlcpmYt8Ti/c176pzuCTJ90YbOcD0QIee7dH9nzSE62QT83
+         WOC25cD6spejoWWKiR5icazrQ6pbvZoNj9IEVs5WK60xD4CIl4RnP7IZPRoC7Yqllhfa
+         gO/itcf5ansj62Mn2HlQsCW8rEp+Dkr6K7r3O8Z/dsNmsqaUggxgaNJNxsbMbnUqcDUs
+         WEtRQP6e+iGXQplMUeruNY9ExGwFQLybLoM/HO87t9vMjY88DHqAkzGE/x1hhAQM6ipy
+         rkMg==
+X-Forwarded-Encrypted: i=1; AL+hErEaTliHXGzGUSYkTszULLKRtbMxWIIGkiT34DAj277pvrs09aTVf+ZmBfgAzNHpKOJzlJ1+lAuujJhV@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AAvtcHgpftqVOyu9llgCTOyPpZsMu+p8NCIiXm8OXaHYOVuEb
+	Al1bkleqWykS5tMbQ+rTUKQar0mJvSG0s4rxFBOlHmWrgco+vB8RLpm216xLgjhoOyAYlf89fpr
+	zyq6W1fDH2yWLGV+dtAWb+5YAle+ZslrExAyG6GHf
+X-Gm-Gg: AZFdTZdrY+3ugOlSfBMqascX5zylfMwZ6AnyPh6/aWsQSuAqzNuuu7SVnjwbaNc8Wnr
+	9f86nOO7BL+TiyvQOv9uCoWEXzjlGmw8CuOfg8NFIXTYmD7I+0+nmOjCm8IqPWi/4WjBABfxnwg
+	/gie9LFpTIEiwrVM4fuu8MnqW1TRmJyWpMUhHGEHXRwLCLY+WGlXgm+AweYSsysV/VDj7xxR+Lt
+	XOXCKE/OPIl4j1xIRWqq/2MdFZ1FB/AX+iMOT+MYmFvEQILN498pufzOvZzm3ZWdVU/7rSyFM1C
+	GFr0d0ATqmyajCI6wav69tQH0x1BFkiPp69GRDveuxWMbZ/EzKlea3jY5KAmePdGxgYpKQhkPC8
+	b7IxhCaSIPca6Xon+RXLnz155PE1a8sG4qSeUkkeKzD8W9pIIWl7I1m2YcOyi4TbxQbo=
+X-Received: by 2002:a05:690c:9c02:b0:8b2:bb94:8cb2 with SMTP id
+ 00721157ae682-8b5204ac257mr41593057b3.35.1795416164019; Sun, 22 Nov 2026
+ 22:42:44 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,263 +100,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261103043734.2179858-1-wenst@chromium.org> <20261103043734.2179858-5-wenst@chromium.org>
+ <avLw2AiqcnO9Blun@shikoro>
+In-Reply-To: <avLw2AiqcnO9Blun@shikoro>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Mon, 23 Nov 2026 14:42:31 +0800
+X-Gm-Features: Aa3M54qFQQaP0XRNtPCyFnaJIa2pdaKUHFg7uIqYmbd3iYo_i21tDqRJOm5IHRA
+Message-ID: <CAGXv+5F5hf_8U6j6tJ1WcS6gUCiA82ny+6DXPv12g=vUjwYUhw@mail.gmail.com>
+Subject: Re: [PATCH v7 4/8] i2c: of-prober: skip post-power-on delay if
+ powered on sufficiently long
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
+	Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, chrome-platform@lists.linux.dev, 
+	linux-input@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Wolfram Sang <wsa+renesas@sang-engineering.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issues to consider:
-- [Medium] drm/bridge: missing bridge.supported_hdmi_ver init in
-  lt9611c_probe()
-- [Medium] drm/bridge: missing empty-firmware check in
-  lt9611c_firmware_upgrade()
-- [Medium] drm/bridge: lt9611c: unlinked PM suspend/resume loses bridge
-  and HPD state
-- [Low] drm/bridge: unlocked reset recovery in lt9611c_bridge_suspend()
-- [Low] drm/bridge: u8 packet index overflow in lt9611c_get_edid_block()
-- [Low] drm/bridge: missing static qualifier on lt9611c_bridge_pm_ops
-- [Low] drm/bridge: dev_err_probe() used in runtime sysfs firmware
-  upgrade path
-- [Low] drm/bridge: unused write-only hdmi_connected field in struct
-  lt9611c
---
+Hi Andi,
 
-commit e4dc76d7da66404497a0938b0ca6f5f1ea01fe2d
-Author: Sunyun Yang <syyang@lontium.com>
+On Tue, Nov 10, 2026 at 6:24=E2=80=AFPM Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+>
+> On Tue, Nov 03, 2026 at 12:37:28PM +0800, Chen-Yu Tsai wrote:
+> > On some devices the I2C component is powered from an always-on power
+> > rail, or the power rail has been left on by either POR defaults or
+> > the bootloader. By the time the prober probes the device, the device
+> > most certainly has finished initializing and can respond. There is no
+> > need for the delay.
+> >
+> > In such designs, the system integrators tend to work around the delay
+> > to avoid the boot time penalty by simply omitting it from the device
+> > tree and the component prober. This is undesired, as the device tree
+> > is not fully describing the hardware.
+> >
+> > Switch to the new regulator_enable_and_wait() function that makes sure
+> > a certain amount of time has passed since the regulator supply was
+> > actually enabled.
+> >
+> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+>
+> Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+>
+> @Andi: Chen-Yu is the maintainer of the of-prober, so I suggest these
+> changes just go in together with this series.
 
-drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+For this series, you'll need to first merge in a tag from Mark's tree:
 
-This commit adds a DRM bridge driver for the Lontium LT9611C, LT9611EX,
-and LT9611UXD MIPI DSI to HDMI bridge chips, supporting EDID reading, HPD
-handling, I2S HDMI audio, dual-DSI mode, and sysfs firmware upgrades.
+https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git
+    tags/regulator-enable-wait
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
-ridge/lontium-lt9611c.c
-> new file mode 100644
-> index 0000000000000..e7c579cd80d5a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> @@ -0,0 +1,1406 @@
+This tag provides the new regulator_enable_and_wait() function this patch
+depends on.
 
-[ ... ]
 
-> +struct lt9611c {
-> +	struct device *dev;
-> +	struct i2c_client *client;
-> +	struct drm_bridge bridge;
-> +	struct regmap *regmap;
-> +	struct mutex mcu_lock;
-> +	struct work_struct work;
-> +	struct gpio_desc *reset_gpio;
-> +	struct regulator_bulk_data supplies[2];
-> +	int fw_version;
-> +	const struct lt9611c_chip_data *cdata;
-> +	bool hdmi_connected;
-> +	bool dual_dsi;
-> +};
-
-[Severity: Low]
-This isn't a bug, but hdmi_connected is only ever written in
-lt9611c_detect_hpd() and never read.
-
-[ ... ]
-
-> +static int lt9611c_upgrade_result(struct lt9611c *lt9611c, u8 fw_crc)
-> +{
-> +	struct device *dev =3D lt9611c->dev;
-> +	unsigned int crc_result;
-> +	int ret;
-> +
-> +	regmap_write(lt9611c->regmap, LT9611C_MCU_HALT, LT9611C_MCU_HALT_ENABLE=
-);
-> +	ret =3D regmap_read(lt9611c->regmap, LT9611C_FLASH_CRC, &crc_result);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to read firmware crc\n");
-> +
-> +	if (crc_result !=3D fw_crc) {
-> +		dev_err(dev, "lt9611c fw upgrade failed, expected crc=3D0x%02x, read c=
-rc=3D0x%02x\n",
-> +			fw_crc, crc_result);
-> +		return -EIO;
-> +	}
-> +
-> +	dev_info(dev, "lt9611c firmware upgrade success, crc=3D0x%02x\n", crc_r=
-esult);
-> +	return 0;
-> +}
-> +
-> +static int lt9611c_firmware_upgrade(struct lt9611c *lt9611c)
-> +{
-> +	struct device *dev =3D lt9611c->dev;
-> +	const struct firmware *fw;
-> +	const size_t total_size =3D FW_SIZE - 1;
-> +	u8 fw_crc;
-> +	int ret;
-> +
-> +	ret =3D request_firmware(&fw, FW_FILE, dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to load '%s'\n", FW_FILE);
-
-[Severity: Low]
-Should lt9611c_firmware_upgrade() and lt9611c_upgrade_result() use
-dev_err() instead of dev_err_probe()?  Both functions are also called at
-runtime from the sysfs firmware_store() handler.
-
-> +	if (fw->size > total_size) {
-> +		dev_err(dev, "firmware too large (%zu > %zu)\n", fw->size, total_size);
-> +		ret =3D -EINVAL;
-> +		goto out_release_fw;
-> +	}
-
-[Severity: Medium]
-What happens if request_firmware() loads an empty (0-byte) firmware file?
-
-Because fw->size =3D=3D 0 is not rejected here, lt9611c_block_erase() erases
-both flash blocks to 0xff, lt9611c_write_data() computes npages =3D 0 and
-writes nothing, and lt9611c_write_crc() programs the CRC of 65535 bytes of
-0xff at 0xffff.  lt9611c_upgrade_result() then sees a matching CRC and
-reports a successful upgrade with the SPI flash completely erased.
-
-[ ... ]
-
-> +static int lt9611c_get_edid_block(void *data, u8 *buf,
-> +				  unsigned int block, size_t len)
-> +{
-> +	struct lt9611c *lt9611c =3D data;
-> +	struct device *dev =3D lt9611c->dev;
-> +	u8 edid_raw[LT9611C_CMD_Y0_SIZE + LT9611C_EDID_BUF_SIZE];
-> +	u8 y0;
-> +	int ret, i, offset =3D 0;
-> +	struct lt9611c_cmd cmd =3D {
-> +		.hdr =3D { LT9611C_FUNC_READ, LT9611C_TYPE_HDMI, 0x33, LT9611C_CMD_SEP=
- },
-> +	};
-> +	struct lt9611c_rsp rsp =3D {
-> +		.data =3D edid_raw,
-> +		.data_len =3D LT9611C_CMD_Y0_SIZE + LT9611C_EDID_BUF_SIZE,
-> +	};
-> +
-> +	if (len !=3D 128)
-> +		return -EINVAL;
-> +	guard(mutex)(&lt9611c->mcu_lock);
-> +
-> +	for (i =3D 0; i < 4; i++) {
-> +		y0 =3D block * 4 + i;
-> +		cmd.data =3D &y0;
-> +		cmd.data_len =3D 1;
-> +		ret =3D lt9611c_read_write_flow(lt9611c, &cmd, &rsp);
-
-[Severity: Low]
-Can y0 overflow when block >=3D 64?  An EDID can have up to 256 blocks, so
-block * 4 + i wraps around in u8 and reads packet (block % 64) * 4 + i
-instead of returning -EINVAL.
-
-[ ... ]
-
-> +	lt9611c->bridge.of_node =3D client->dev.of_node;
-> +	lt9611c->bridge.ops =3D DRM_BRIDGE_OP_DETECT |
-> +			DRM_BRIDGE_OP_EDID |
-> +			DRM_BRIDGE_OP_HPD |
-> +			DRM_BRIDGE_OP_HDMI |
-> +			DRM_BRIDGE_OP_HDMI_AUDIO;
-> +	lt9611c->bridge.type =3D DRM_MODE_CONNECTOR_HDMIA;
-> +
-> +	lt9611c->bridge.vendor =3D "Lontium";
-> +	lt9611c->bridge.product =3D "LT9611C";
-> +
-> +	lt9611c->bridge.hdmi_audio_dev =3D dev;
-> +	lt9611c->bridge.hdmi_audio_max_i2s_playback_channels =3D 8;
-> +	lt9611c->bridge.hdmi_audio_dai_port =3D 2;
-> +
-> +	drm_bridge_add(&lt9611c->bridge);
-
-[Severity: Medium]
-Should lt9611c_probe() initialize lt9611c->bridge.supported_hdmi_ver before
-calling drm_bridge_add()?
-
-Because DRM_BRIDGE_OP_HDMI is set while supported_hdmi_ver is left at
-HDMI_VERSION_UNKNOWN, drm_bridge_add() triggers DRM_WARN("HDMI bridge
-misses supported HDMI version\n") on every probe, and
-drmm_connector_hdmi_init() leaves connector->hdmi.max_tmds_char_rate at 0
-and skips the HDMI 2.0 scrambler callback check for CHIP_LT9611UXD.
-
-[ ... ]
-
-> +static int lt9611c_bridge_suspend(struct device *dev)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	disable_irq(lt9611c->client->irq);
-> +	cancel_work_sync(&lt9611c->work);
-> +
-> +	mutex_lock(&lt9611c->mcu_lock);
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> +	ret =3D regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->=
-supplies);
-> +	mutex_unlock(&lt9611c->mcu_lock);
-> +
-> +	if (ret) {
-> +		dev_err(lt9611c->dev, "regulator bulk disable failed\n");
-> +		gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> +		msleep(400);
-> +		enable_irq(lt9611c->client->irq);
-> +		return ret;
-> +	}
-
-[Severity: Low]
-If regulator_bulk_disable() fails here, does dropping mcu_lock before
-deasserting reset_gpio and waiting 400 ms allow concurrent mcu_lock holders
-to talk to the MCU while it is still held in reset or booting?
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int lt9611c_bridge_resume(struct device *dev)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(lt9611c->supplies), lt9611c->s=
-upplies);
-> +	if (ret) {
-> +		dev_err(lt9611c->dev, "regulator bulk enable failed\n");
-> +		return ret;
-> +	}
-> +
-> +	mutex_lock(&lt9611c->mcu_lock);
-> +	lt9611c_reset(lt9611c);
-> +	mutex_unlock(&lt9611c->mcu_lock);
-> +
-> +	enable_irq(lt9611c->client->irq);
-> +	return 0;
-> +}
-
-[Severity: Medium]
-As reported by Dmitry Baryshkov on v7 [1], can system suspend and resume
-miss hotplug events or lose the programmed bridge state?
-
-During suspend and resume, the falling-edge client->irq is disabled across
-power-off and the 400 ms lt9611c_reset() delay, and drm_bridge_hpd_disable()
-clears bridge->hpd_cb until drm_kms_helper_poll_enable() runs, so cable
-changes while powered off are never reported unless HPD status is re-read
-after resume.  In addition, because cyclic OF graph links between the DSI
-host and lt9611c are relaxed to DL_FLAG_SYNC_STATE_ONLY and no device link
-orders lt9611c before the DRM device on dpm_list, DRM drivers that call
-drm_mode_config_helper_resume() from their .resume callback can run
-lt9611c_bridge_atomic_enable() while lt9611c is still powered down, after
-which lt9611c_bridge_resume() resets the chip and wipes the video timing,
-dual-DSI, and infoframe state.
-
-> +
-> +DEFINE_SIMPLE_DEV_PM_OPS(lt9611c_bridge_pm_ops,
-> +			 lt9611c_bridge_suspend, lt9611c_bridge_resume);
-
-[Severity: Low]
-Should DEFINE_SIMPLE_DEV_PM_OPS() be prefixed with static so
-lt9611c_bridge_pm_ops is not exported with external linkage?
-
-[1] https://lore.kernel.org/r/4t3bar2svwex4wojumql2t66ivtj6bsxnt7pgmygnc7og=
-4zquh@fs7wdd4k4cjp
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-lt9611c-v7=
--v19-0-1fbe2b7b5211@oss.qualcomm.com?part=3D2
+Thanks
+ChenYu
