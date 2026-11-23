@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795399061;
-	b=ctSVLnGVvzCRdILc1QyGkdbRSZdSJNnsiGVrL5c6dSDt318zymh6nkrS34a4eCjM9iNa
-	 VgZYdMCKmA0vWZU5KK6fNoWZs+PihVQLYoDDTzTo3TXVK9eBs/eZF2UgNMqJ/DsszOqpC
-	 YGwY7hHqXGt6oBDlR0G/dJOJFs1lmFWTguZKOsuvwXATBXeENVYRqrTvMJQuqFejcEn2D
-	 FMHDhDvSGDpF7d+Zo1jGwfc70J9sjK91YTRfcmnF983JACdgTtiLjClXlFm6fDedaAGQg
-	 W6Swg+DenEW2IrDfaJta/TsXemz0vI+qksNsID+eKf9osm0nyFHmd01NCRrxKb5AuyQ==
+	t=1795399386;
+	b=Y/SZQb7KcdDOVYoDkuMcPFCexqGrWBhLtdFAlyaJVk2Ah21XtHenRSU+xbdKhtufwc9e
+	 uDQeLv9GKhTN+Jx2AWLKqxorRbk+H6uhKXuvMqZyxJFuMQy0/qu/ooPehwBHR7qCk0ndQ
+	 7UKLe9fVnmVfva377nLsn/zu5gcXwnUQZpmgRAddTwrhk4GC+Cvdhl8yH+12D8HfkPWwv
+	 logoPtuelCS3pyeq6ck14AqSqvkmpCNpXsUsSGH1si2xVLR6xqDwcJKOc9zmb3zHvmsm6
+	 o2dfvcWLyDK/fByiqB80yUex/1Xdm9O9l9CUni2NUqszkCgN8/sEo50fLrndsHdlTWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795399061;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795399386;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=P8yu7ALgBn94BFGQ10a/jOsyKGGf2b1WAznGMAxwekU=;
-	b=vtUyCPUXmc+1KOL6PhMjQ2SMs6LZXzKPB0+hea4YdhgwLhgMri+RoHl79Efb+Ci/aIYZ
-	 txuW4w6uy9U2/yKmF5HzgMduJVW4QPSpdrCH40FxHBnUMPbExwYtMCg79zwE3aODNgjnR
-	 LW7Hkq+yFgHQNl9yoEYLMUggmxftMV95T3sIN4jSm0XYO2elv/GE7Vay6a/bOqv7JzWGA
-	 +i8bDExjSflpu9m0DOBFvGrsY/2KBtCIUOu6PbqD14CAJ+pHY8YnzuaobyNANdegRL5CP
-	 SsFNBzPIPP0mvYTdWE+3ie/d/VifeYy5BIbA4RK5MsU+ULPb5UPMHyHYnexDtjOlDLw==
+	bh=dS/g95f6ZA8WIoM3BVoKSGa1kqUguo5hr/prKce6FFc=;
+	b=R/oD+uhL6AXtSz6rVkL+pclZW38FvcJsL52CuQ5NEwsZWkFQrERQfquMBQCunr53RndC
+	 qz4MIz+y86n/CorAPDIlnhRX237NRrotKsnt1mC836Xt7G8ucoORklgcNeSU+D16mIyEE
+	 /I+aAfnnphuxRV9jIXCmCEaGFgjZrzClQvy60m8lmKN570V1nmy0QLXrajx5aoz7saFgX
+	 z6ZcbBfbuGZkOpT2b0SSJYPmPKUunV4tWxCHwSV/rmQsEk+x4i7BZ7HIpid1VxSq89Ba6
+	 evRcB+U4B3l/QIt5yD7TjzFdY6s1hbmvf2huC8PHPv7jEK3fqZn2FkzTUQIi36ymRvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="g7ES1l5/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+rUCxNO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE8B606A31A;
-	Mon, 23 Nov 2026 01:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3587F606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 02:03:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7ES1l5/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B4801F000CA;
-	Mon, 23 Nov 2026 01:57:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+rUCxNO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2761F000CA;
+	Mon, 23 Nov 2026 02:03:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795399060;
-	bh=P8yu7ALgBn94BFGQ10a/jOsyKGGf2b1WAznGMAxwekU=;
+	s=k20260515; t=1795399385;
+	bh=dS/g95f6ZA8WIoM3BVoKSGa1kqUguo5hr/prKce6FFc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g7ES1l5/+WuKNvSrLxSLbDOFaO9HLWn10WI6xK1PWMyZVzrSP4u6cTQk+/DR35jgr
-	 B3z/BueZ1Yd7w5nX7JxtSlx4YS1kNpK6vWugoSD0eUlkU75I0PtfBbw+Eth/THJuOW
-	 /8Q8+QZnfzos7h3IhcJILdzMirZGdGFqcLv4xtGd3M9DasUxDy/jv4OoYhJ554EK9T
-	 slxeSwbhOh85/+/2FYfDOFN3zKH+4gxXn5pTMdfXOGLJO4KrOMexgPpjUtOwfZua9s
-	 TaamZWJtPm9CRbzlaHdDUY8ybryprtRTA5XW2h37i67pG3Ws/+ug/ulAfWSCFa4uOd
-	 wkKozR16vUwxw==
-Message-ID: <sashiko-outbox-228538@kernel.org>
+	b=c+rUCxNOj+nF9y/T0bs8c0IuYLVNFjqPc3RADR6eLBYta71sjFuo7mjuAu0jS0xCY
+	 MtoAZyANCJWUTo3T0J71iQCcda5fooGuGSG5tJHqf3CE/Z3CixglsCrk5vD9pQLuQ1
+	 GoLW6fSqsg0qmZYxau5fOklxMyzC8nepbApf/AOfiF7XYOB+8y1rIBGpGcS8FWGbB5
+	 As674qrK8UbMWG4ZHFzJYPO4Qa+G9OfFwwiqlrCx+twISBDL8kE52+/oLpG+fOXbZw
+	 mrylp4kMDRestyaYYoyVBvdlqfv/s/AlsJQBj95efZNVQfbZAqLvf+ApQb5d88JjQv
+	 +hZGfZC7TM2OA==
+Message-ID: <sashiko-outbox-228541@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/4] clk: siflower: Add SF19A2890 clock manager
- driver
+Subject: Re: [PATCH V3 2/3] power: supply: cw2217: Add support for Cellwise
+ cw2217
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joseph Telaak" <joseph@telaak.dev>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261122-sf19a2890-sysm-v4-2-bbfe1c495e2e@telaak.dev>
-References: <20261122-sf19a2890-sysm-v4-0-bbfe1c495e2e@telaak.dev>
- <20261122-sf19a2890-sysm-v4-2-bbfe1c495e2e@telaak.dev>
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123015035.369192-3-macroalpha82@gmail.com>
+References: <20261123015035.369192-1-macroalpha82@gmail.com>
+ <20261123015035.369192-3-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 01:57:39 +0000
+Date: Mon, 23 Nov 2026 02:03:02 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,156 +63,127 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [Medium] clk: siflower: missing provider update in
-  sf19a2890_clk_probe()
-- [Low] clk: siflower: Kconfig depends on undefined MACH_SIFLOWER_MIPS
+- [Low] power: supply: cw2217: cw2217_active() wakes chip before
+  entering shutdown
+- [Low] power: supply: cw2217: inaccurate writable and volatile regmap
+  ranges
 --
 
-commit 9f005e02da5b51c2e50e528140d38bbfbcf12e37
-Author: Chuanhong Guo <gch981213@gmail.com>
+commit 9be66fa8e5df716905efd0c61236d0fe980e4cc9
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-clk: siflower: Add SF19A2890 clock manager driver
+power: supply: cw2217: Add support for Cellwise cw2217
 
-This commit adds a clock manager driver for the Siflower SF19A2890 SoC,
-registering the CPU clock and its PLLs early via CLK_OF_DECLARE_DRIVER
-and the remaining muxdiv clocks from a platform driver.
+This commit adds a power supply driver for the Cellwise CW2215, CW2217, and
+CW2218 I2C battery fuel gauges.
 
-> diff --git a/drivers/clk/siflower/Kconfig b/drivers/clk/siflower/Kconfig
+> diff --git a/drivers/power/supply/cw2217_battery.c b/drivers/power/supply=
+/cw2217_battery.c
 > new file mode 100644
-> index 0000000000000..ad1b04b4bb9b2
+> index 0000000000000..a25803865943e
 > --- /dev/null
-> +++ b/drivers/clk/siflower/Kconfig
-> @@ -0,0 +1,11 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config CLK_SF19A2890
-> +	bool "Clock driver for Siflower SF19A2890"
-> +	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
-> +	default MACH_SIFLOWER_MIPS
-
-[Severity: Low]
-Is MACH_SIFLOWER_MIPS defined in the tree?  Without it, CLK_SF19A2890
-can only be enabled when COMPILE_TEST is set and defaults to n.
-
-> diff --git a/drivers/clk/siflower/clk-sf19a2890.c b/drivers/clk/siflower/=
-clk-sf19a2890.c
-> new file mode 100644
-> index 0000000000000..4dad8f65eb4b9
-> --- /dev/null
-> +++ b/drivers/clk/siflower/clk-sf19a2890.c
+> +++ b/drivers/power/supply/cw2217_battery.c
+> @@ -0,0 +1,878 @@
 
 [ ... ]
 
-> +static void __init sf19a2890_clk_early_init(struct device_node *node)
+> +/*
+> + * The CONFIG register is used for the host MCU to configure the fuel ga=
+uge IC.
+> + * The default value is 0xF0, SLEEP and RESTART bits are set. To power u=
+p the
+> + * IC, the host MCU needs to write 0x30 to exit shutdown mode, and then =
+write
+> + * 0x00 to restart the gauge to enter active mode. To reset the IC, the =
+host
+> + * MCU needs to write 0xF0, 0x30 and 0x00 in sequence to this register to
+> + * complete the restart procedure. The CW2217 will reload relevant param=
+eters
+> + * and settings and restart SOC calculation. Note that the SOC may be a
+> + * different value after reset operation since it is a brand-new calcula=
+tion
+> + * based on the latest battery status. The BSP driver slept 20ms after r=
+estart
+> + * and 10ms after setting active, though no delays are documented in the
+> + * datasheet.
+> + */
+> +static int cw2217_active(struct cw2217_battery *cw_bat, bool active)
 > +{
-> +	struct clk_hw_onecell_data *data;
-> +	void __iomem *base;
-> +	unsigned int i;
 > +	int ret;
 > +
-> +	data =3D kzalloc_flex(*data, hws, CLK_SF19A2890_NR_CLKS);
-> +	if (!data)
-> +		return;
+> +	ret =3D regmap_write(cw_bat->regmap, CW2217_CONFIG,
+> +			   CW2217_CONFIG_RESTART);
+> +	if (ret)
+> +		return ret;
 > +
-> +	data->num =3D CLK_SF19A2890_NR_CLKS;
-> +	/* The clocks registered at probe defer until then */
-> +	for (i =3D 0; i < data->num; i++)
-> +		data->hws[i] =3D ERR_PTR(-EPROBE_DEFER);
+> +	fsleep(20000);
 > +
-> +	base =3D of_iomap(node, 0);
-> +	if (!base) {
-> +		pr_err("failed to map the registers\n");
-> +		goto err_free;
-> +	}
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(sf19a2890_early_clks); i++) {
-> +		unsigned int id =3D sf19a2890_early_clks[i];
-> +		struct clk_hw *hw =3D sf19a2890_hws[id];
-> +
-> +		hw_to_sf_clk_common(hw)->base =3D base;
-> +		ret =3D of_clk_hw_register(node, hw);
-> +		if (ret) {
-> +			pr_err("failed to register clock %u: %d\n", id, ret);
-> +			goto err_unregister;
-> +		}
-> +		data->hws[id] =3D hw;
-> +	}
-> +
-> +	ret =3D of_clk_add_hw_provider(node, of_clk_hw_onecell_get, data);
-> +	if (ret) {
-> +		pr_err("failed to add the clock provider: %d\n", ret);
-> +		goto err_unregister;
-> +	}
-> +
-> +	sf19a2890_clk_data =3D data;
-> +	sf19a2890_clk_base =3D base;
-> +	return;
-> +
-> +err_unregister:
-> +	while (i--)
-> +		clk_hw_unregister(data->hws[sf19a2890_early_clks[i]]);
-> +	iounmap(base);
-> +err_free:
-> +	kfree(data);
-> +}
-> +
-> +CLK_OF_DECLARE_DRIVER(sf19a2890_clk, "siflower,sf19a2890-clk", sf19a2890=
-_clk_early_init);
-> +
-> +static int sf19a2890_clk_probe(struct platform_device *pdev)
-> +{
-> +	struct clk_hw_onecell_data *data =3D sf19a2890_clk_data;
-> +	struct device *dev =3D &pdev->dev;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (!data)
-> +		return -ENODEV;
-> +
-> +	for (i =3D 0; i < data->num; i++) {
-> +		struct clk_hw *hw =3D sf19a2890_hws[i];
-> +
-> +		/* Registered early */
-> +		if (!IS_ERR(data->hws[i]))
-> +			continue;
-> +
-> +		hw_to_sf_clk_common(hw)->base =3D sf19a2890_clk_base;
-> +		ret =3D devm_clk_hw_register(dev, hw);
+> +	if (active) {
+> +		ret =3D regmap_write(cw_bat->regmap, CW2217_CONFIG,
+> +				   CW2217_CONFIG_ACTIVE);
 > +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to register clock %u\n", i);
+> +			return ret;
+> +	} else {
+> +		ret =3D regmap_write(cw_bat->regmap, CW2217_CONFIG,
+> +				   CW2217_CONFIG_SLEEP | CW2217_CONFIG_RESTART);
+> +		if (ret)
+> +			return ret;
 > +	}
 > +
-> +	/* Hand out the clocks only once they are all registered */
-> +	for (i =3D 0; i < data->num; i++)
-> +		data->hws[i] =3D sf19a2890_hws[i];
+> +	fsleep(10000);
 > +
 > +	return 0;
 > +}
 
-[Severity: Medium]
-Can updating data->hws[] after the devm_clk_hw_register() loop leave
-downstream clocks orphaned?
+[Severity: Low]
+Should writing CW2217_CONFIG_RESTART (0x30) only happen when active is
+true?
 
-During each devm_clk_hw_register() call, __clk_core_init() runs
-clk_core_reparent_orphans_nolock(), which queries the OF provider via
-of_clk_hw_onecell_get() while data->hws[i] is still
-ERR_PTR(-EPROBE_DEFER).  Because the second loop populates data->hws[i]
-without re-running orphan reparenting or of_clk_set_defaults(), any
-downstream clock registered earlier that references one of the late
-muxdiv clocks by DT phandle stays orphaned with rate 0.
+Writing 0x30 unconditionally means cw2217_active(cw_bat, false) in
+cw2217_update_config() first wakes the gauge out of shutdown mode for 20ms
+before writing 0xF0 (CW2217_CONFIG_SLEEP | CW2217_CONFIG_RESTART), producing
+a 0x30 -> 0xF0 -> 0x30 -> 0x00 sequence instead of the documented
+0xF0 -> 0x30 -> 0x00 reset sequence.
 
-In addition, of_clk_add_hw_provider() in sf19a2890_clk_early_init() runs
-of_clk_set_defaults(node, true) while the 17 late slots hold
-ERR_PTR(-EPROBE_DEFER), so an assigned-clocks property on the clock
-controller node referencing any late clock causes
-of_clk_add_hw_provider() to fail with -EPROBE_DEFER and unregister the
-early CPU and PLL clocks.
+[ ... ]
 
-Populating data->hws[i] before each devm_clk_hw_register() (or calling
-of_clk_del_provider() and of_clk_add_hw_provider() once all clocks are
-populated) would allow orphan reparenting and default clock assignments
-to complete.
+> +static const struct regmap_range cw2217_ranges_wr_yes[] =3D {
+> +	regmap_reg_range(CW2217_TEMP, CW2217_TEMP),
+> +	regmap_reg_range(CW2217_CONFIG, CW2217_CONFIG),
+> +	regmap_reg_range(CW2217_INT_CONF, CW2217_CURRENT_L),
+> +	regmap_reg_range(CW2217_BAT_PROFILE,
+> +			 CW2217_BAT_PROFILE + CW2217_PROFILE_SZ - 1),
+> +	regmap_reg_range(CW2217_T_HOST_H, CW2217_USER_CONF),
+> +};
+> +
+> +static const struct regmap_access_table cw2217_wr_table =3D {
+> +	.yes_ranges =3D cw2217_ranges_wr_yes,
+> +	.n_yes_ranges =3D ARRAY_SIZE(cw2217_ranges_wr_yes),
+> +};
+> +
+> +static const struct regmap_range cw2217_ranges_vol_yes[] =3D {
+> +	regmap_reg_range(CW2217_VCELL_H, CW2217_TEMP),
+> +	regmap_reg_range(CW2217_INT_CONF, CW2217_SOC_ALERT),
+> +	regmap_reg_range(CW2217_CURRENT_H, CW2217_CURRENT_L),
+> +	regmap_reg_range(CW2217_CYCLECNT_H, CW2217_STB_CUR_L),
+> +};
+
+[Severity: Low]
+Are the writable and volatile regmap ranges for CW2217_TEMP,
+CW2217_CURRENT_H..CW2217_CURRENT_L, and CW2217_FW_VERSION intended?
+
+CW2217_TEMP (0x06) and CW2217_CURRENT_H..CW2217_CURRENT_L (0x0E..0x0F) are
+documented as read-only measurement registers, yet cw2217_ranges_wr_yes
+marks CW2217_TEMP as writable and extends the CW2217_INT_CONF range through
+CW2217_CURRENT_L instead of stopping at CW2217_TEMP_MIN (0x0D).
+
+In addition, CW2217_FW_VERSION (0xAB) changes in hardware between 0x00 in
+shutdown mode and the chip ID / firmware version in active mode, but it is
+missing from cw2217_ranges_vol_yes while REGCACHE_MAPLE is enabled. If
+CW2217_FW_VERSION is read while the chip is in shutdown mode (for example
+via regmap debugfs), 0x00 is cached and subsequent reads in active mode will
+return 0x00, causing cw2217_get_current() to fail with -EIO.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-sf19a2890-=
-sysm-v4-0-bbfe1c495e2e@telaak.dev?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123015035.3691=
+92-1-macroalpha82@gmail.com?part=3D2
