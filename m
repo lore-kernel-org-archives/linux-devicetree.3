@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795465549;
-	b=LT7WQDq63vHJTvAR/F/+f2+PkgUjvGZ2W7pw1FLR/PmR0V+cAyDep5CSir8Jcp9/aq8C
-	 3yTtbVPYa7x7bI/QdiuvByy+WB6Pzhb5X6DZ/n7Ym8/6Oq593nyptdW1amgelxU6NdMud
-	 sklFtoPm3peJEtQzRf+FZWi3JxujtEpvmk9uXojoicONfc7GkGa6wNTk7jY3zM3g+R8Bq
-	 Isq4FHmKEzPq21FjlzYR+SgwMsjvYUwbBka/1Yex418oufWw8nJxAMzuvr/8h0fzmGSFS
-	 Z6ECHspQSr9+v8x4m5HKmfGRabutexg5m82BSFd2/sIHRa+R/rduqAHMmArNY3elUdQ==
+	t=1795465581;
+	b=KC8rJ5KuN4q5Xl/1OCgBiaQz8YFTSi1qIpO23DwUCAwXdG8rG5m49waZ0EfOWdFn3eqy
+	 M5l3UZKqEbtYZc3tBHsRudIdemr6jdtQRQLxH1qSwxU8FCfh7tlgkT03lgSFDFOpwZV4K
+	 DgBWRrlBktxJSNN0swzCBUPm0RZM98cgzjya+1m4SpcBD/btb6DWZlIFxHcNozdUqNTd9
+	 JGLeYzJMZWSpS8EqZCpT4FDTrNVwH9Zju6TLC/otknZQJUEAIUmbeQlfcF9lSxf+fk9fj
+	 T6+Qa5sjI3wreVZkb7ft7GFX5VSvXHEk272AMEs3q4u5YwfVN+wVYsHqWQanLsdY9ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795465549;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=MQ2RrQtG1OM0LiBJp2KbHu85/ogHhtSJ39duNkPwNTM=;
-	b=Ps3qch0rIGPiNMkRDsif/1Ofchh2cpHg9Uzcub6qwkhv/gIyI2aagxUwOG/hWSnXwyeq
-	 Sbnahr3rKD7DGDzZqEeOpUf2jhu95DdWUVoRdD0idbBvBcSeS1bEUsN/RhFIFMWMseQMm
-	 H8gD1JD1u7rl+xr5MDzG6K6XjsdM8/8JcSw1RHPWBiDBRyhc6q3cKf79Z5ktlcmTPfY3D
-	 QOVNkDDzDvuvzVCyrdNdlLo++ttgmaqqBQ2nOk/YpBRsASsl884U4HoQYOd9XVFGwZ/Re
-	 z+TIS4Efiov7DhOrYcKBBmhhe1y7du8pW+PBgkx1Mh3j0gcDOCsM1s/ZIKpYfB0zT/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795465581;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Qmc5lnHTHHHfRq/qfxs84Enao8q8XNbu3+of0yEPf4A=;
+	b=IBMaylbgCJDEtbdeBKHxIlEVCVe4+C1cLbeJACimPpkXg/gxXOchnVVVpRXjs2vhnfTi
+	 bNKtTsusAUfo1wtqsepo67nrnaa+lnLB6Sye1AwhPcjOHSHM41X1Z2UF8zvYca9L9RMAI
+	 Y6A3onX3NY6eovUBPnvE51zgSj9P1wEQ4xaHt1fv18OVz606SX6HBN5deLiDXd0c/jUog
+	 xhDfo2mQXa9/qV6OITLhNwkgaScEcVchiCMuBbmGqItVK0Tme3AVV/S7vmIUZ//2pSLCN
+	 27bLSD6fjozzDKeONKJXDBslDtgLVhaGmFqZ+ReblnHKRD+daGvc2grA7Uqae+eQF4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gKiuorXW;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=teslabs.com;
+	spf=fail smtp.mailfrom=teslabs.com;
+	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=dPYjC6L6;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03110606A31E;
-	Mon, 23 Nov 2026 20:25:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03110606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C58606A326
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 20:26:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2C58606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=teslabs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=teslabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gKiuorXW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795465547;
-	bh=MQ2RrQtG1OM0LiBJp2KbHu85/ogHhtSJ39duNkPwNTM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=gKiuorXWWGlvRFndCd/W8ewTB3EtABWyQ6+hc877mXzlUNbbP4XJIBBMTvCVB+v/d
-	 FFA3cvYHquUuQMM+nwqrclYAoq9XC+3Iov6VT/Xs6wpwBDT1fArFbYFwvhcUri2Mb7
-	 zJBVnBdPSalWeUtd1c/2EPHlNCZSoXBFG5pXjoL3v8rW2fRawmhr9BtkOS89qfT3cb
-	 wKSZbtFmJ+1mdXY4ngtB+hJjWgQsPWdDq6Ziw+qUmUjAgixAray1SiL3Su8RkHoakF
-	 vY/h01988YIziDCHUmmbZVaWxzC6gWIrTLLk2YbStXFwJjNovyEriSgQzDoEDpW56a
-	 FvBZeATeA93/w==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C701217E0CD7;
-	Mon, 23 Nov 2026 21:25:44 +0100 (CET)
-Message-ID: <8624fb6a39e5e13466882f01ea54842252f154af.camel@collabora.com>
-Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performance
- profiling
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>, Frank Li <Frank.li@oss.nxp.com>, 
- Detlev Casanova <detlev.casanova@collabora.com>
-Cc: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@kernel.org"	
- <hverkuil@kernel.org>, "robh@kernel.org" <robh@kernel.org>, 
- "krzk+dt@kernel.org"	 <krzk+dt@kernel.org>, "conor+dt@kernel.org"
- <conor+dt@kernel.org>,  "Frank.Li@nxp.com"	 <Frank.Li@nxp.com>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
- "linux-media@vger.kernel.org"	 <linux-media@vger.kernel.org>,
- "devicetree@vger.kernel.org"	 <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>, 
- "linux-arm-kernel@lists.infradead.org"	
- <linux-arm-kernel@lists.infradead.org>, "festevam@gmail.com"	
- <festevam@gmail.com>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
- "ming.qian@oss.nxp.com"	 <ming.qian@oss.nxp.com>, "marek.vasut@mailbox.org"
- <marek.vasut@mailbox.org>,  "jackson.lee" <jackson.lee@chipsnmedia.com>,
- "lafley.kim" <lafley.kim@chipsnmedia.com>
-Date: Mon, 23 Nov 2026 15:25:43 -0500
-In-Reply-To: <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
-	 <5702baa6ed97eb30dec14bddba2919252ec8f3c8.1795075582.git.nas.chung@chipsnmedia.com>
-	 <av9iadpXveXGb0R0@SMW015318>
-	 <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-hywlTlSbm67gmuaBuGD6"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=dPYjC6L6
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4a9be758734so2297156f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:26:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795465579; x=1796070379; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qmc5lnHTHHHfRq/qfxs84Enao8q8XNbu3+of0yEPf4A=;
+        b=dPYjC6L63YHdLT0szS2CodZQfYWxLhIVXN0cMjEXKLWwlPsR+Y3mkIaQTYFBxZgQXH
+         3Sh0+2WGwFJZ47FfQE0qSj2LDVluDd95tGjR4wxfY+XeiYC/z5gCjFJvoZ+jiykmeyYZ
+         g2nYq/nlEeGoDlB7/D34UbitpIu2o0i4e7y2qjtCbZwXAWgJIY3PX8TQAPPtPNuyaxVh
+         5DI19f0Rhd9EvBEZzjRupMyKb4//SxxSuykmcNJTWxbPGIYhkdo2h0jgELUPVch37Re+
+         fReFv5gGr8e4c2DHih8NF83SVLMzjuc5iAffSO0sQvFf34YZsLEwbPo4FhROIuG+r4Nw
+         EfQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795465579; x=1796070379;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qmc5lnHTHHHfRq/qfxs84Enao8q8XNbu3+of0yEPf4A=;
+        b=PQ8zYLNqp7mqtnjOrl8jTxSy9WrdrJpCmvKjcV3Oo1FfuOZ0kEgTtpnsUpZofTkDtJ
+         /miAuA54s380Vg1ZPdbCP+Fhp113h1FUjAW7ofMsAHLRmUS7Nn2XmBP4qoaglGjYSaxp
+         UmeKXBVDEVl2dFoHzmXbSCzCnhnvdyPqt583tacZ5WS+sA5tfqBHB+KExz8wxXZnLy2L
+         7/cYfnzrbuuVVMOFey3rNjJ1/pnyzxQc5dInVJI/skTew4OI/58Dk8VRDOVRBnnau+0u
+         EJmbn6jeuj0MYjHMuElMgoeLoMzjhEPHHlnByE1TC7ozZuqLbM33HiDPzy2EiWozCWn2
+         lK2g==
+X-Forwarded-Encrypted: i=1; AL+hErEfMfAEr0BtvAnlqMo3DeuRZPtNN03oLSivqwDRjbrxT9owCuSqVwDAQAsBLFvYbGxyzPgAZgkzaK2N@vger.kernel.org
+X-Gm-Message-State: APuU4Z8d88n6hOreyKLHOvpEC4+Lo+vgSWS1dmmsR/p3ailTxmfhDXC6
+	ZTnymFc3Ov3uMytn28HJVKjUKj3v8hzxndKT767EwuC630YxLFtWJYFSamxW61sC5NE=
+X-Gm-Gg: AZFdTZePj1HX8D0PInTHG5CHv4BgE6r5tyYIXVHGB7qaLFofshA9weM3htwul0VyyDg
+	UhT+Es5vIqub9qAAiKjn99Xbo1aWzw0uXZSjHu+dmJz+TmdPSi/NmUGMwaquD32u9tQ8xv31lu9
+	s6nms2cmqy1Yg96aCdgmUnJTrkDPTc5IM1lU1MGw/iXFk8tZE9nBIrxTRMVn6jgIjD2q5bj6gJN
+	m32QZ3qQKTAZlbJBUYe4dqp+OnAztT73VMzFPjMb0PXjIsKuqY8kwVqstqiL1SIief9zcNM6l5O
+	NN5jRg4CzVs1wPAVcmhqAv2pbCuYj9eLkHEasCg9trRQqOYbUkQFjBInehAGQbgwJYyLPGRXoSs
+	7jSXGiPsO//3vNBTMdJSvuvxj5/ZS3Ruo2mhb+VrYjGWe9N2SAUiWMcLSvwfC8yItkn/N8XwX5H
+	BCDcKcotzxOXacGW9csTUrlSgjjWDXtPnSIr5Hm5zRMpEtcYRfLveVZIMOqqlKRCdKg9PHf2lks
+	f+Rmw+DZ6SRgA6UPk2PG19d+dE2LdaXeuwNFr6jg3nEKUimkMm58Id9cMINEjCjMGlZlwm8EX0V
+	NAYnBC5SUbknSAcfL4wSsRTdDuqY2TOyD5VgV7aszj6g3J3xv6LCecP5VeGBZnZayworE7gaxQb
+	1lpKlAc7DCpML
+X-Received: by 2002:a5d:5f51:0:b0:4a5:a777:b5d5 with SMTP id ffacd0b85a97d-4abb4c7aad1mr23466010f8f.55.1795465579053;
+        Mon, 23 Nov 2026 12:26:19 -0800 (PST)
+Received: from localhost.localdomain ([139.47.121.129])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6baa3c4dsm20108713f8f.46.2026.11.23.12.26.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 23 Nov 2026 12:26:18 -0800 (PST)
+From: Gerard Marull-Paretas <gerard@teslabs.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Frank Li <Frank.li@nxp.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/4] iio: magnetometer: mmc5633: Binding, supply and mount matrix
+Date: Mon, 23 Nov 2026 21:26:11 +0100
+Message-ID: <20261123202616.17334-1-gerard@teslabs.com>
+X-Mailer: git-send-email 2.45.2
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,85 +103,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---=-hywlTlSbm67gmuaBuGD6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The MMC5603 and MMC5633 are listed in trivial-devices.yaml, but boards
+need to describe their supply and orientation. Patch 1 gives them a
+binding of their own. These bindings are also used by PebbleOS, which
+is where the need came from.
 
-Hi,
+Patches 2 to 4 add the matching support to the driver. I have no board
+running Linux with these sensors, so they are only compile tested (W=1);
+feel free to take only patch 1 if you prefer.
 
-Le lundi 23 novembre 2026 =C3=A0 09:18 +0000, Nas Chung a =C3=A9crit=C2=A0:
-> Hi, Frank.
->=20
-> > -----Original Message-----
-> > From: Frank Li <Frank.li@oss.nxp.com>
-> > Sent: Friday, November 20, 2026 5:56 AM
-> > To: Nas Chung <nas.chung@chipsnmedia.com>
-> > Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
-> > krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
-> > s.hauer@pengutronix.de; linux-media@vger.kernel.org;
-> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
-> > imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
-> > festevam@gmail.com; kernel@pengutronix.de; nicolas.dufresne@collabora.c=
-om;
-> > ming.qian@oss.nxp.com; marek.vasut@mailbox.org; jackson.lee
-> > <jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>
-> > Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performanc=
-e
-> > profiling
-> >=20
-> > On Thu, Nov 19, 2026 at 06:00:03PM +0900, Nas Chung wrote:
-> > > Add per-instance performance profiling to help identify whether a
-> > > throughput problem comes from the firmware or from the host side.
-> >=20
-> > why not register as perf interface?
->=20
-> The numbers are kept per instance (per open file). Each instance has
-> its own fps, latency and min/max frame time, and they are updated each
-> time one of its frames is done.
->=20
-> As far as I know, perf can only count per CPU or per task, and a device
-> PMU usually counts for the whole system. So perf would only show the
-> total of all instances, and we could not get the min/max frame time
-> from it.
+Changes in v4:
+- Describe tSR and tOp where they are defined, citing both datasheets
+  by revision, page and section, and drop the older tSR comment at its
+  use (Andy)
 
-My preference would then go toward .fdinfo() then instead of custom debug f=
-s. It
-gives the FD owner the right to see the statistics and not just root. Here'=
-s an
-example of in progress attempt. The idea is that some key would be generali=
-zed
-and documented and some other key would be driver specific (e.g. wave6- pre=
-fix).
+Changes in v3:
+- Reference the datasheet timings tOp and tSR in comments, with the
+  tSR one in a new patch 2 (Jonathan)
 
-https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@coll=
-abora.com/
+Changes in v2:
+- Cover the MMC5633 too, including its I3C connection (Jonathan)
+- Add supply and mount matrix support to the driver (Jonathan)
+- Drop the mention of the missing I/O supply (Jonathan)
 
-Then once we've upstream v4l2top, one can track the performance live, and y=
-ou
-can even add driver specific metrics.
+v3: https://lore.kernel.org/all/20261123194943.57601-1-gerard@teslabs.com/
+v2: https://lore.kernel.org/all/20261122190836.66111-1-gerard@teslabs.com/
+v1: https://lore.kernel.org/all/20261122093412.71604-1-gerard@teslabs.com/
 
-Nicolas
+Gerard Marull-Paretas (4):
+  dt-bindings: iio: magnetometer: Add MEMSIC MMC5603 and MMC5633
+  iio: magnetometer: mmc5633: Reference the datasheet for the SET/RESET
+    wait
+  iio: magnetometer: mmc5633: Enable the VDD supply
+  iio: magnetometer: mmc5633: Add mount matrix support
 
->=20
-> Thanks.
-> Nas.
->=20
-> >=20
-> > Frank
-> >=20
+ .../iio/magnetometer/memsic,mmc5633.yaml      | 61 +++++++++++++++++++
+ .../devicetree/bindings/trivial-devices.yaml  |  4 --
+ drivers/iio/magnetometer/mmc5633.c            | 41 +++++++++++--
+ 3 files changed, 98 insertions(+), 8 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5633.yaml
 
---=-hywlTlSbm67gmuaBuGD6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+base-commit: c44104f3642da720164042623e4832836aefdd8e
+-- 
+2.45.2
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawShRwAKCRDZQZRRKWBy
-9PT1APwIoRkl5PprFS3ATJ/OPwAb4iqJR1TdxwP7/noc44qDbAD+N7Yli8uqL8oV
-LEytlo3i71WPvgSfaRViB9O04fQiyQw=
-=qWVx
------END PGP SIGNATURE-----
-
---=-hywlTlSbm67gmuaBuGD6--
