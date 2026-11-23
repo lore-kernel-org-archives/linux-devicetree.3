@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795435477;
-	b=ipN4Zv/M5ogSuzVjWpH/6KV6JEPE5zceh5VZaTKCVqydB0vlAuLnWwhIbBDgwk2gUtrH
-	 asVWq0Jc7290GiHtF25jD5A6N1verJmkuW35C2FZd++CNR4OlV76sYsMGJgLwMs0zDayv
-	 JUw0um2gaYv9WejSFeJKmscaQplzzsd8oAMooIjRqptHpoP1ou4sXpEPFms3yM6m32WbX
-	 /XlJJQBKvPsX1buOoNeldKboNsLByJRaffcITrM2a4vGXJpiTmcrarZ4lM0L355j76dSr
-	 sLZaepxidg79rHLecaFqeeDtOpYsO8xYa3pSe46Yu0F3+Ibkh5VT3C5r3NhFIW48KTA==
+	t=1795435594;
+	b=fSiML7YRvZP4YeQnA/cAHk7sm4i5HUmnAsf5SJNG2h6fqH8m3gC9+EATtfKzpCy0LB5e
+	 HSg4FUdau0eJ5t39ToEJtwRCBpLEPWNonBWT758wMIbu0sZaa2KCyZdgPLHBxjjHuKjDz
+	 XtlTJ4hXpcy2ZpNuRpm/zy3tATehD204Jt9Pu84o9onDYvRmgQjwE8C0Eyiko06EPT4fu
+	 KvCeAkLQm2iY4cUCcmRvIYPsRp0yVbY9VnaRu7NxU8KNXcqUMmElcrlpTu+SPEvxKowx0
+	 mb0SE6MdVgJao1S+QivxeRw4byLqSXERKxdwXQzp0VDNZ6Tk2Oh1nUJNFDcT6+yX+Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435477;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=TicYu1LNyXPUHNb708qeXtsOiE9Mjvg68dH1aSn1fi0=;
-	b=KE2KozXneMh5EPNHtHPwQdLYybhWb1fIBn1D8ebeXgCYcdfBS4s6njRoU/9Cd1WrnqMc
-	 G/QbMHRIyN6Ax6J766k47bFKqtSoRjXuI7XzlZRRtsdaxlFN+2r8fBTx1vhYxslvOoI9T
-	 ydqPC3D3VXgsloeZlUDS5dMv447f1IxMF7CkjxbUnLOGXCS1p+APo6NZXNQoKYV2PGeET
-	 ZkVW+6AbrPoVT4iB1icUt2kNJgBwUIMOK5w4mrW7ZpC1XHUQ+uzmSFWSwWmgLNFD3KGV4
-	 R87s1gKg47dmh53XkV66gsz7EqMyL3y0rSLy9lEb5O0WSezo/wgyOISDhJu8Fuwcnsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435594;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fU0qgGX6rvDQa6Hs2GlCa9ePVhgC0MKqV7droMC1ftE=;
+	b=hZKfc/32o3hm7cNfit/jGXVSAPW701h4rQuHA9iHBlEoedZqlIb6jgvk7HCYA8aWnGJM
+	 bygmsOK1XBf3/eawAUvMqrWOgyu3GFZAQN9fkPr/sfGm0SeNxUhzMSXDKklgauWHNEjDT
+	 qx4hqAaq0WgqQT96Tx0KEaMRncibuteS64wEUxHGB5aMd2dlS3P4qt/KJ358VO2CKhvbr
+	 fHWHwPHugsodc6fBR0ac6+pUcWwREHI9q9k/XYpMi3Kzw+C3LvskWAXIdiowRiKSGduID
+	 mFUvyXII0BZuLujKvUcSjRcLv9HWz0amXQtrgDMIOkPSSgYFAtOaO8SSdn3eQ03231w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=lf6cJxbL;
-	arc=none smtp.remote-ip=109.224.244.121
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jvkOvvVL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2104E606A31A;
-	Mon, 23 Nov 2026 12:04:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2104E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568CE606A31A;
+	Mon, 23 Nov 2026 12:06:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=lf6cJxbL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795435474; x=1795694674;
-	bh=TicYu1LNyXPUHNb708qeXtsOiE9Mjvg68dH1aSn1fi0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=lf6cJxbLe7iiJV12W9PIZ7Z8UkQW3hiHJcmRegufXQUe+h4hul9GeIQY9gNswlbrV
-	 e/YBSR3kSvp/KIzQ3+zblIFRaxxNtVVVN23D2vTLIL/M0SbBr1pn8utflUy/pfLaoJ
-	 ZKPhXZ5uTtT1bWCHXdmKXRTfOEKb6sTzLUCa5vda9ckRNP8z8qlcpNpNFgQOoQhI9y
-	 TzzaFEdTZGjnoiOvzUxYSzHc53VYBCR/86vCV6eQZvo1FLIuSXbxgiKqipKOESU1e4
-	 N1YNKiDtfH5I+C8/bCV2nbXQgl2BSoRL1sH63qNApscHCqbYFJ7Yq5cG8+UFozKQB+
-	 k/+kqGhL8O+PA==
-Date: Mon, 23 Nov 2026 12:04:26 +0000
-To: Alexander Letuchiy <asalde.le1@gmail.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Mattijs Korpershoek <mkorpershoek@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-serial@vger.kernel.org, linux-input@vger.kernel.org, phone-devel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v3 0/7] arm64: mediatek: Add initial MT6895 and Xiaomi Poco X4 GT support
-Message-ID: <OZecqgdcxZrbwT7Ps6SDq9u1Q2EeF9jng68KHoWs8vTEetcTU8GAfC5LYcKzDGEZlr5Rlzh4rgzVh36JelFK1zHk3Dgh3TVGqj_a5Y3hv6Y=@protonmail.com>
-In-Reply-To: <DN2KN6PFHOXG.1EWK1XUHY7IKK@gmail.com>
-References: <20261123-initial-mt6895-v3-0-95c46597e63d@gmail.com> <ckJZtdZ4-fPzsa3vkozNyEYYUbG9qd134hYb0hHEuq2nL8WMAR1PS87OpDfXrkU-E-85rsG1I4V99_M41j6-ewkD_41XPguDel3z8z0lmMk=@protonmail.com> <DN2KN6PFHOXG.1EWK1XUHY7IKK@gmail.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 89375ca8f2e561b9db71121183ab2a32e2685cf8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jvkOvvVL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45951F000C0;
+	Mon, 23 Nov 2026 12:06:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795435594;
+	bh=fU0qgGX6rvDQa6Hs2GlCa9ePVhgC0MKqV7droMC1ftE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jvkOvvVLjNnnARXxCGjXocJep2IHYAS5xr97CekeRfZqkxcyNIittO7p7o5Z2Po2U
+	 j+W0OBWU7/+D1HwZtwzqRhsIc/N0TpXgsv2yRQuf+hid+1mROTjg9REZV7h7UOsCIK
+	 kmTlgo1HhVKzON+bjQ3wy6EuB4QXwfvW5fYM7ZDIDOHXknOGQjn7dF09n8n+3wLUYj
+	 sICuXcCKEaXfQDx9zAg5yrYMDkRg/O/6K9TP26Ac384R5KJ+oTWJuBZ3mtBrDIxU5D
+	 COJ6Jbn5nvsnLGN1eMWRar3a/+FPn2E7T2qBtgLdVWZ8TlKdm7L0/Ltpa+TlaThTy/
+	 8HSdscy6zICEw==
+Date: Mon, 23 Nov 2026 13:06:30 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, linux-usb@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 05/16] dt-bindings: usb: qcom,snps-dwc3: Add Halliday
+Message-ID: <20261123-uptight-zealous-tench-ccfb03@quoll>
+References: <20261116-halliday-dts-v2-0-2c92438c6c46@gmail.com>
+ <20261116-halliday-dts-v2-5-2c92438c6c46@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,43 +77,19 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20261116-halliday-dts-v2-5-2c92438c6c46@gmail.com>
 
-On Monday, November 23rd, 2026 at 1:59 PM, Alexander Letuchiy <asalde.le1@g=
-mail.com> wrote:
+On Mon, Nov 16, 2026 at 09:26:21PM +0000, Stanislav Aleksandrov wrote:
+> Document the DWC3 USB controller on the Qualcomm Halliday SoC.
+> 
+> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
-> Hi Roman,
->=20
-> On Mon Nov 23, 2026 at 2:41 PM MSK, Roman Vivchar wrote:
-> > > Bootloader dependency
-> > > ---------------------
-> > > This was tested with a modified LK bootloader that is not public.
-> >
-> > How are other xaga users supposed to boot the kernel? You might want to
-> > port uniLoader instead, or if you're on an old enough security patch yo=
-u
-> > can even replace stock LK with U-Boot. U-Boot chainloading is also
-> > possible.
->=20
-> Right now I am replacing the stock LK with a modified one that knows
-> how to handle mainline DTs without expecting downstream Android nodes.
-
-LK is known to mess up GPIO and clock state. The earlier you replace LK
-the better.
-
->=20
-> In an ideal world, I would like to replace LK directly with U-Boot as
-> you suggested, though U-Boot chainloading or uniLoader are also valid
-> options. Luckily, the security patch level isn't really a concern here =
-=E2=80=94
-> xaga is already EOL and hasn't received official firmware updates for a
-> while, so LK replacement works across the final stock builds. I
-> definitely plan to look into a proper open bootloader setup for other
-> users in the future.
-
-You can take a look at mt6768. It's not upstream, but we replace U-Boot
-and TF-A with custom forks, as well as provide tooling to prepend
-meditek-specific headers for the latter.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
-Roman
+Krzysztof
+
