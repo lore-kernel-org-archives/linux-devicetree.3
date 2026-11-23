@@ -1,97 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795425316;
-	b=08tWZUWnCksZNFoioReeALsmIBiJuqjmuhleRjqlTjahU5rl4UvBJVFsuvR0tt0GzMrE
-	 o3q5GF9INoTaBGZtcPEhrOvMpKZX2uzTOvkWqXV4ZhgW+O0DMOxLYk7M/R3bHcnUV0Iie
-	 029VQKTERKlkbk1RSkYt105AlaQqiWYVVTmO00gnAOV1Lf393oI2wqGFI1VQxkLqAFtlv
-	 8WJSox5uL/gQBTE1N04GcNfYkxtEYzlJi9ZkrkNQl27v15jK7EovNMD9yzpnLCLxqvVj6
-	 Kj87aJaWAY5BKdqjldIVb/Y5I92KgkjDxHAI2nGUBdh4gfMayWjc8BK6aNT0oPlSoxg==
+	t=1795425421;
+	b=wfU72B7jopvPORrwaOGLRjQR0426rs7IcaPdkPSi0RpeDoNRNHA9fWbErB957VHfyF/d
+	 DIbUgWaHNeXMbEEoLrgazYbuDox0hGRmJCgfPANVs/H0IlTgvcB9XEoakMX+RD8ovweq5
+	 W/MBRdkjjRugwrvraELRJxqbq9EVKm/OBj3jbcIiy6wZklCe9oV9yoHbiRWsDco7XIZAF
+	 x1jmDcO5j9QU4ECsydQ9Jfui8jcu8MYTXU1MbWSd/iGV6UX+EorF/1tru8h0L5DAZtFAW
+	 B2sCuTPkMk2pBF3+32e1uWdXcpSdL6YEFPx2lMNEr/0YVGYnEU9WHqlJUNsp5XgWb/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795425316;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795425421;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=87mz9PA+CW/7E4uRqcEgoSgLyusH584rSyT2Z/HLo8k=;
-	b=MD0mrBdrtLYdGO2cb+ucWOEOmwV00rmCF8WsypqpO94UgxYRmeDqfzHO9Zl2Ym0o6CZJ
-	 Quo9OPC0G82Q11ChrrFDaIdi3scTPzRGn/IfdBAZUVS3ivcnAoEnMl6DpxDlbnh8bMhZo
-	 ZvZr1zY/vxU8vAt/tVggZV+p0xh410A7JcENRTg56MmCniyZFy+/bXajgQgTZazQ0Brv6
-	 y4iINuSsKhs1llZ8Pck5g9rqueZV3mwDDPxASCRMJ4li27WpT5anEybMyY4JScQ0mqoNM
-	 6c56GV4siv2AeR1TaBwqC7FZXJyKTvkXkfHWL2SMGF+ga15DwyKbNsa6ZLbM6ljFA2g==
+	bh=KntknVNj068zKgAq+zdLaDv094kaGVDF9/OJXVQRtwA=;
+	b=pxAlIoRKgw5ExdinZPUdVZvzGZbr87M44BeCc1teNCOsiCkmqP5uTnG714X6NKItqoni
+	 x0lrOCRL7lg6TQ2iwgm9OIvmPS7wmNKWl3aisPscRF0fPVwKGKezFwhdJIUJSX029/yCC
+	 U9OAitArIwuqrA0sufofPuq/ttbq8xnmZgWEn4uvR2mylAa+uduipudDop3VhDMA5fnls
+	 +IB+K0Uyh01rra8wUBLe1hXSbKBPl6zkzTfFHFh/eEcqH2J8XbYhSx491MYqSvkxCsPTr
+	 UxceuGj6awshR1TH3sWPlhM/HCiSX2nUOsjtnO9LR+JFzygHhx3R3cDzDe4Fmpz6eyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="LZ/loZX2";
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=SujOSC3b;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB872606A327
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:15:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB872606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CF4606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60CF4606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LZ/loZX2
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a210470b49so28469165e9.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:15:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=SujOSC3b
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4a9be758734so1788684f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:17:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795425314; x=1796030114; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1795425419; x=1796030219; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=87mz9PA+CW/7E4uRqcEgoSgLyusH584rSyT2Z/HLo8k=;
-        b=LZ/loZX2sGBA1LmOAVWd0NM0Jg/udrTxAoESEXHdSAVToxI9PS4GDnOzF8cew+ac9L
-         8u17WQbFu2KSI1v/6Vq7nAzhJUAZQG1KBK+a/aIo+lO+dIpTaufAFNuLSkh5k41ZQ/Di
-         JJ0QHMCoP935ekri9cDlNpcOjPS+UQhbauqZbL7/0HXWPIEBiyItfVZt3Co7f+oNypJz
-         lai1iKKFLh7mr/HYmtX055V+qR4yKJuRbbeD82cSzFQFaCN9iMhv4EIDdo3v0c3H063Z
-         xgyiU1sxfpt7xk1unZ7VQbIv6bHA8GI0WtqS5mjBxFtGSmvWYqzcnwtOyxqgQYU/ngiA
-         9/CA==
+        bh=KntknVNj068zKgAq+zdLaDv094kaGVDF9/OJXVQRtwA=;
+        b=SujOSC3bJ6T5qZYnGcOUlGfGb/XPzEz/mcEywcTIoGYC/v/096w5zQui8EIrk/p2Cv
+         cKCrDJV3hNKyi4Q+XaH1MbeqOl2FjAJPbqvclju5ti9weuviulXhw7yJ6g9cD8SnB+EY
+         NiRHE6rL1xTY7zHCjnfM8vjPsa+ffWVQI+MXLuMxh6zoIGTMDPrOFTgpO0ErILuJt+pE
+         Eq2bhuFgPdWjpQq+YtoYvEh8QCknNuwPr/4YslboIRW6Tb6Q0WlwOiizJDnAwN30eCzO
+         yJ09eoWNrpIrDwPh1vIqEcRloBzHouFWuo6mGf1X0BK+tC7e3DB6KWGRuwLm+GgwrSnW
+         o16Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795425314; x=1796030114;
+        d=1e100.net; s=20260707; t=1795425419; x=1796030219;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=87mz9PA+CW/7E4uRqcEgoSgLyusH584rSyT2Z/HLo8k=;
-        b=sEfkuTd7LD6Y9TdIOeC592Fy+WqkwnyOHvtPLTkJ/eDPJcsm98ueoOrWEK0aA3I7zI
-         dY0MmKlreiwLjVWjOa7q9Axkkq+RuUyeucuBQSawIa9Z2XZCzDdIzXBd6PFmzTjNLspO
-         OA6Fu/S0Vc1TFsmp2+McfivAQ74iqFSwFeb1/4uoGwBzArdN556Hv2ywM/3YsPlJT5bs
-         7XezpgUvX1Sb4/h69G6YI4xO5CcNXJuM2D4quh+qwOV6QSQKy1Iu6wcsNnaCAsC5iG41
-         Y9dg8tTp1nc7spARdwy801UzhdD+CIZR92azYRZh5WHlVWU+hnqMIUMDq2DlSuxRGgVU
-         AqEg==
-X-Forwarded-Encrypted: i=1; AL+hErGWO3Vd0bw1EgIenhpv7gWsNguZFvyCnIHmKZEZyFO+EZzXMJd9o6INRpne762uj3hZstlbHnuKU8ND@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YZgzRZgjx8J05DIMCZxERB4jSqU9CEVZ+0LBHP8X54/gwxH8Q
-	2+Pf0IopNJ17osrZIuINQ1cAnW8SATbCJgwI9robFkeP0j2SWmivlU3MGpgYxnoqmoA=
-X-Gm-Gg: AZFdTZfQvH5CFf5xyA50I1zX8IF3SmR3/kpoebniFggTXe8eQI/xDyTVsvNDOA8ZvOK
-	grHIo8dfXYLuTVHdPgANzY8Ni6JSofbM1xVuCvnREZXy5ONQMl+MrrMcpRE66Y+F8trvifHFi78
-	/37ztIfHNQ+RTV1tnj57LppQ17RcwugWhsnMe4jLOSyjsax4etsiuMZhVn96EzWsCoRBkSvKpnV
-	fjmaWMz1OMKP3u/02DztdmYPAK/d3aNmoiW3xZeumhV+WRaeK/pP9pdpyGl2rMBQleifcJYVv48
-	ABKktW3ls+z0ePovUcrH/j0QOJEDl396d/0HVFbMJKRM4/6IY0R7ZPscATbgHrvWAxY4wJVooHD
-	ZeEFMM35RgJnbfML3IR7m0kjMR8TfxJrV7qvbL7n8F5AYHZlCtEoeaz/OxRpB2TFCZLVmiuQVDs
-	5qYhzzF7xuAdT1bUoh3czTOTrpeQ1U3yo+VpxWtqqVOo49XMbHYK/Ie6863duFWQEm8k3y2+S2m
-	6Ate88nPTQrptjaqotjQw8BL1WEX+YkcJMy4ELNQa7MrzuNnlTyFLpFDY9b7xzvTKSDCWQVz9Ca
-	oiZwL+ieaxrhalWt/nbsdfTVEwBdiu0Suw0fbeoYpC99PJTCjQKJ+F/Ynd5cEbME95mTrlujBZY
-	UtnNpE3AMiSJgifl1
-X-Received: by 2002:a05:600c:190d:b0:4ba:2bfc:c8b5 with SMTP id 5b1f17b1804b1-4bb888267aemr218391455e9.10.1795425314064;
-        Mon, 23 Nov 2026 01:15:14 -0800 (PST)
+        bh=KntknVNj068zKgAq+zdLaDv094kaGVDF9/OJXVQRtwA=;
+        b=ITlrHD429Zt0Ttx7D6IRHVy9o2MHigIyji1Rl+LfMSiPEEe6TOC3jnsXJjW4vESrqF
+         vrOgivZv+8L5kgrrNWfytY//txX/jZjEDdC6TixTXfd1zJNTzOtot11vzvBqM87HWFhE
+         K0+0/hf3mfLvjnVFWZhM6p0zcsaIrxXtZMr3x4BhC0KXJV79nZ9+K1RUPy8sne9Y8O2J
+         0UkYrAUkFbLZp4kp4phFlPw/4Ka5xZHy7lfOyIZ5uhPLeLz9C1nXXDctXBVmTZ82IdtT
+         IkaNGSIPyQZ3V5trdd7uSidjpV42p6XDYnoOKflMmjEvmQNjvve/JHwf+E6BZ9OsXJfI
+         GNQQ==
+X-Forwarded-Encrypted: i=1; AL+hErG/H6c88lkI9tthgfpi8Q/cs1/xihDKsLFWKdQT9CUxkydYvNuEbJcM0pS9l2F5NS0wtmJNRNerl1cL@vger.kernel.org
+X-Gm-Message-State: APuU4Z9iyFqWpwxKYqmpnCsBjemvIm/Cgj865ci6WN1vTgQNpuvQQXHO
+	EH3dnLQFf2eKn/Meq5UQG7tiu/pCapdHmhTqGxVanqDy9PYZAtmc36CYRvg5SpXVEIE=
+X-Gm-Gg: AZFdTZeGOhI6vfIl7rdqk86cDWUiKNqDIQbOAQq0ah2aS9pZyF3yWVtRON8bbZLZ+A3
+	UfPfN20iliJIDIELrvVdv8oadM/AvWBYrqd+QvmuH66hWHzkGP6hhQ3sfC37DWfJnv8ZRCJRmex
+	BFUVVA3q+O6Be2zdqKTYI7fnBJ5yWvP4RlLOJxfK0mFuWXIQ3Z3/LIoJHCnLkbyCPz4ZiSZ6zTb
+	p6Ck3O6/ebvpa8T3qi3R1L0QWhbdUuh3ViE4stwj+PQVhe1zAYMDspVBfq6fJIyVhb22zmXm842
+	o+Pkx923pXTLm7st+0LR9CACZtaPcVe26rFsl9L2q6kFzEnDczA8YMdFctAcCec0P/GkvGdTXQy
+	xzrGX3CC9/yR2U7P5B1odZn98r5pBeZGLN2vT47baHhuYJR3J0T8ekSKlhrtLE1Gl1wbbkz1Xma
+	zJCwL26QE6NB80V18jVzRSawtPL4/63igWoNe5dD7HS56hIC/BBWHV9gk5xVp0WTq2bJgacTTtO
+	7QRhrILUdOqDmD9aFudX841PAaBveMP+wBXmDb1tBstHb5l6DaTbyPiZjij212s01TgW01u7WPt
+	bobk5I0qpSiSRvmt26J0SQWVMgT/X60zmK8FR4+GUhekyce8tmj/nOUwhm2gGuAnJ4uKB3OQ7/G
+	O5bpHvQpkc09sHJHN/AXvgHhh1K02Yyn4QVS50Q==
+X-Received: by 2002:a5d:64c9:0:b0:4a7:69c3:94d5 with SMTP id ffacd0b85a97d-4abb0e469cfmr20062459f8f.28.1795425418389;
+        Mon, 23 Nov 2026 01:16:58 -0800 (PST)
 Received: from localhost (p200300f65f19a90438645cebc2ee104e.dip0.t-ipconnect.de. [2003:f6:5f19:a904:3864:5ceb:c2ee:104e])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb8538b09bsm626178365e9.4.2026.11.23.01.15.13
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4ab69bf61e8sm22313933f8f.11.2026.11.23.01.16.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 01:15:13 -0800 (PST)
-Date: Mon, 23 Nov 2026 10:15:12 +0100
+        Mon, 23 Nov 2026 01:16:57 -0800 (PST)
+Date: Mon, 23 Nov 2026 10:16:56 +0100
 From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Cc: srini@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, joel@jms.id.au, andrew@codeconstruct.com.au, 
-	ryan_chen@aspeedtech.com, billy_tsai@aspeedtech.com, neal_liu@aspeedtech.com, 
-	tan.siewert@9elements.com, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] nvmem: aspeed: Add read-only AST2600 OTP support
-Message-ID: <awQDxB-09pHSgfJ_@monoceros>
-References: <20261121034053.39878-1-prasanth.padarthi10@gmail.com>
- <20261121034053.39878-3-prasanth.padarthi10@gmail.com>
+To: yogo.0917.sabu@gmail.com
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Russell King <linux@armlinux.org.uk>, 
+	Arnd Bergmann <arnd@arndb.de>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-mmc@vger.kernel.org, linux-doc@vger.kernel.org, 
+	soc@lists.linux.dev
+Subject: Re: [PATCH RFC v2 08/13] Input: add polled SiRF AT550 resistive
+ touchscreen driver
+Message-ID: <awQEP9bHA0RPfRUA@monoceros>
+References: <20261121-at550-rfc-v1-v2-0-b0309d0789b2@gmail.com>
+ <20261121-at550-rfc-v1-v2-8-b0309d0789b2@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,51 +109,57 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="v6s5d2pxosvbykll"
+	protocol="application/pgp-signature"; boundary="o4xfpqjjox3khpoi"
 Content-Disposition: inline
-In-Reply-To: <20261121034053.39878-3-prasanth.padarthi10@gmail.com>
+In-Reply-To: <20261121-at550-rfc-v1-v2-8-b0309d0789b2@gmail.com>
 
 
---v6s5d2pxosvbykll
+--o4xfpqjjox3khpoi
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH v3 2/2] nvmem: aspeed: Add read-only AST2600 OTP support
+Subject: Re: [PATCH RFC v2 08/13] Input: add polled SiRF AT550 resistive
+ touchscreen driver
 MIME-Version: 1.0
 
 Hello,
 
-On Sat, Nov 21, 2026 at 09:10:53AM +0530, Prasanth Kumar Padarthi wrote:
-> +#include <linux/bitfield.h>
-> +#include <linux/cleanup.h>
+On Sat, Nov 21, 2026 at 09:43:18PM +0900, Yuugo Yoneda via B4 Relay wrote:
+> diff --git a/drivers/input/touchscreen/at550-ts.c b/drivers/input/touchscreen/at550-ts.c
+> new file mode 100644
+> index 000000000..89c2d2701
+> --- /dev/null
+> +++ b/drivers/input/touchscreen/at550-ts.c
+> @@ -0,0 +1,124 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/* SiRF AT550 coordinate acquisition. Layout cross-checked with AT551 draft. */
+> +#include <linux/bits.h>
+> +#include <linux/input.h>
+> +#include <linux/input/touchscreen.h>
 > +#include <linux/io.h>
-> +#include <linux/iopoll.h>
 > +#include <linux/mod_devicetable.h>
 > +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/nvmem-provider.h>
 > +#include <linux/platform_device.h>
-> +#include <linux/unaligned.h>
 
-<linux/platform_device.h> already provides of_device_id without all the
-dependencies that are implied by using <linux/mod_devicetable.h>. So
+<linux/platform_device.h> already provides of_device_id without the
+implied dependencies you get by including <linux/mod_devicetable.h>. So
 please drop the latter.
 
 Best regards
 Uwe
 
---v6s5d2pxosvbykll
+--o4xfpqjjox3khpoi
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsEBB0ACgkQj4D7WH0S
-/k7Hxwf9H/8q38Ueri9XT0N4hYnYWo22+INjgZLMlUEbSlxNQBDn1IF2w7mkk8Xv
-BdxmX9P9vtKw5T3eYt0Ay8rnTIvrpCTlqxLAdjeAG35Y9i0teVdHBZ2NoruLywJe
-o+SMd+vKFQGJIaPZpqZ+8l9UVMX7cw2f63hV8DDB/qOQGLOxUp+8+SMlTSh/0vpb
-tdDetsWfXf3zXpUhcdm94FD344QDgGcl4xldzIYrZH3YFr+1yZhRgrSzHEWlg+GK
-LazzxZYuxXq1ViTVixTB1tYWNiQjv/4vl/Vwe8zcAcpBwo1usnJXrObYY1gG+00g
-g80CYxg/efXxv1fI8Yd2zVP5nAVxKQ==
-=C1hc
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsEBIYACgkQj4D7WH0S
+/k6Mogf+I4t6gj7ob8tkta5kHm+YP96+f6rsROw+nYQ5NXBDBTwdaHgtuxTw/3u3
+9TSFi59BI6mt1CJkV2ldOhel8Do0lFyFlVyx1+tlaLGNAjrt3f8m2IWJcvQU4hQK
+qCxr790Ac2+n+6M13QHVHO8E7+V5Kxu109uuNUNUWIsrjawNdIUx+lqOywM9o/JT
+s7dUkwPF41vgxb8gPn3Hr9uAImmkTspc70TUfxqNtGVNmQlizkBCtSCoABv5QCdW
+mXZx4sl+NJUJpqZ/jj0ehbdZ1DT8xVBRF1ZDrDU0AdqO6EAWVEnOx3tb5+7JsaKI
+HSj3Bm7869/tgf+jXQ3QF1Uu7I1vmA==
+=UpFb
 -----END PGP SIGNATURE-----
 
---v6s5d2pxosvbykll--
+--o4xfpqjjox3khpoi--
