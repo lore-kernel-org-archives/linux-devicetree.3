@@ -1,112 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433783;
-	b=mWo1tJH9Yhixh781oWH4qM2yspgh2oVD3qxXkFLLdv/s8KX56pkXwBlLhriqrXwmeaZ5
-	 sO76HVtsLcTytxYW9J7hUZ0fdMWUWgTjXome3cu/i9wse+IYc7Tg6NI2FaA3zo371ykkw
-	 MFXhu41ZxE3pQcQpjtCR7sPzd/jVtUJOL8ER5/tRsdSq/gd2aTyyHAFZAevnXY8hCS7S3
-	 0aKL811+NbtQH24PpTzsc+KHAMDXMhJmaLexXYufLesBiS95QzNiJBISM7uEKJ0n97lmM
-	 rfvWJw/ZoHat/vE2TdVJzlS2Kq8Nj6rf4WfL6zgz0bbtid2ZkNQFZqgqUWfu8Y5vA0g==
+	t=1795433785;
+	b=SKwDaaYw73ZCGop01rxWpLZgcEoY6eyTuQOGMPxscOuIEDDf26aDolNRyDhHiM4ORhDv
+	 ie24bNOPZNExiX7TuILUietr4jiQYs9YhPWLfnbk1arZV//viSdBugC+3Eh3T6CwnF24J
+	 xfpz5E9wT8ce17jyPxfL1+STPxPY1Dx1DzxgceX9MwXO0dH0xMQKzgDE4IcNZc8tUDCvg
+	 ttBR+mqWlGh+55K21FPyDI4dXmU7vvylhwUIQklGtzPmGanRJMfNughLxVJiSNOWcL7nO
+	 A9JCyw6f0QcPsGnuitC2TLqZmhQVKObnMLrBqJM2+sl12t1Pad0J1nOj/fRkqlqy+MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433783;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=EI6JPc1s776YRH357m4QWY+JQIdojiD1eTN8udqAuv8=;
-	b=fbC4fR/X5xJQj5mfWbgVmVwMU17M8ipL8HpgBCVuT/px97MDFEpD4AJLYtwKdaxMbOZ6
-	 0ctof99I+uNsi5nuidkfrUMJlXbR1cLTTt7UBGNvr7WPlqtFg5uwhIqEQKWpcExr1ZYEc
-	 DUUM6nUdXjWQRECDYIXwIpAoS+AIDNbo4oWPtoVYALIL/ljVzQiIYqZxqnT+MZF/jkGcl
-	 aIjhFlJrz9mrP/IRvRVTIcpj1R5sqH4ouKWe6b5EoIja6/Yo2JUiyG5UiAnGcUsv68V/S
-	 vPBbN5dGt4LNhgYMjeu5HtfX3L4iSeswoo7uM0JwCxe+gswytjhXuTePGhq6U6xU8CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433785;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=AqKDkVCc+ma8DfZzvwmYcLwZzBow+0g4RNWtKgVpuno=;
+	b=Pp4DIhswMxhkvZCdbY/lwBomLWZq5XsgFMBmkythcXm07wxV763ZcR6ndCaQAm8lEWFl
+	 UT28za88BaXaeWdcW+8EUx/vGPrQcYVDWksOXWarBM6XLjwa0+YuFQz/VF4WbkHVs6fe3
+	 Or6TwXc1MoDOrFHpv2W7d88zYIRE65jix0hRhqGFZp9PiKlqzD/pCFJ5fqxrOQz3oXFSY
+	 ELfLkVP5zLjWZ46FmC96C9JG6ZiixEPeAYJhbzNbNL6EPiZITT07m6zaXfUFdynjofcEK
+	 JFFIrKMpP6qp1qJQ5RIH2OrqwFDwvg2JeWQhXq0ZvDNgzQ9tt/umUjfWUraDdE3hrsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZRjPo3kN;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aEkxKbe8;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=CPBca2Ww;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9AF606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:36:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF9AF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7246C606A321;
+	Mon, 23 Nov 2026 11:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7246C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZRjPo3kN;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aEkxKbe8
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9IbNm3491003
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:36:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EI6JPc1s776YRH357m4QWY+JQIdojiD1eTN8udqAuv8=; b=ZRjPo3kNYEsuyS99
-	wYBVguEEJFDJOZCZIdztuRb63EC+zsrBpgdQ6Yp9m2KNSeZyTes2lrsrXNnSC1f+
-	8CYcAKqz74yCePbt7aYg4je8g/tEOC4wjTQDDEoVq6C+J8VXqmQy/PUBFU0M3SMS
-	IcYimcSYIsaz/BPsjpukTew4rNyc/wB0wA+gkJQ6iLekMgfN2VMdnYwHpqMkCPTx
-	VJJCSbMolssOGFHnBYwKOSS3zV2amVv1atNxLi+/eMGItp7OlflS1EvT2Z4B4VsW
-	8Eu9iw8mnGuLcxVYtqtV88zSCLlQZ/2bTGZMAAexmXN793fkF6FOa/4giykc8cl1
-	nDF/qA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4evshcw5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:36:21 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b18165dc53so3681680a91.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 03:36:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795433781; x=1796038581; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EI6JPc1s776YRH357m4QWY+JQIdojiD1eTN8udqAuv8=;
-        b=aEkxKbe8etWKgwAda2WqcQobVca95bqd2gP00J9ZGY3t+ALx5dPR6ER786decry8s1
-         uAtcFnWmwnrj0P1pHQfu/t6Su71yUb+maVmq8Mh5HcQnrJEnUFOWypGT/RDhN/8AC/Yc
-         FZoxXlyU8fSWtEGYHGRcfQP+YFjq6uyDWg4rDUQAM2mN+4utU7JAvhDBmH74CZ3XZtFr
-         wDASTpwiuxkIxKEx2Id5HmilinKsOwRulv4oWxwfGX7RdmuOXaIWT0j8kSyq8aoK81hH
-         fcftmYQ7wLJZOOApTYfWnzgmItrQzYEdW+nhnP3RzDfpMRo49SxZOSxAuNi8uj8qG6js
-         UK4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795433781; x=1796038581;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EI6JPc1s776YRH357m4QWY+JQIdojiD1eTN8udqAuv8=;
-        b=ci/EzJ+nNDK3e4s5J3yxXJ1Fc0bQiTiFTOspTdhG9wAV2fKUlYIb1Cx+qNBV929XlU
-         4NObowlwhE9LHjDW5tpw76VQpEfRc2Gndxpe57Ow6azmREDR/Gj1/ZpI4zlwkpXexqDl
-         FhAP/DqgDiKGe5efmJgYwC2IGApTH81yl+MUKDEtBILHAlT54vLN7ZZ6pZg/R8CQMFc+
-         r1Z82Yl7khxgI56Hh1QsQEX1xwPfVjWOYNzRMPfcTxFaeAwmVnKAH/GL5eYoXLGu9xtL
-         2OXZg1Op8tPcoWFFPSbemt+UJ1dgR8m10Yu4MDdHTftXXltgz5fem1vm9+DgKeyEe5M3
-         tlbg==
-X-Forwarded-Encrypted: i=1; AL+hErGWG0FpBZkBGf6t9mZZtaoUee6PHTnfZcFcGO7xVG0lgIOIo6QCcydMuRxmBwGm7p7LZ4gvAYzIzRs5@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LHlsAqOR5ehNvwSbqRUegfxQsHMKiaPeABA33nm8Vr+VdPIdF
-	JMUZQ+/hot4YiFixZGDIqTQD8pW5BnFhxHPYMfReiQ25HPmMxIsGs1NdElX8y31EKdkHwCxlmlI
-	/r8ruC6rgfBGfNxRr+EeOZ/8V+hKGb8wZ9r6vBphw9B5fUeJWMUjQsd13FetWdExo
-X-Gm-Gg: AZFdTZcxg61W3YDoMRZkJOouQywdxUeBajKdvWnfjXicRFiOyee12cH1VM1V7nseYGM
-	d2djHdiFt77WWgnDmjw4r6+FnV4pbEZ7F4pfqjw68EhUR6UQI9zTSzehQvZkWwbh2j4pANt2imt
-	LWrtxp0TPmbAD9st2zaOxfq6dn+6a2oEQqRfHAZDxy7P1h5TdXc+L0YVD4VkSE263b0uCdzgqwW
-	yFaflzF2R16XlY1/XQTyGGokmyU9E92Kr1qtSTjZ35rTsbaL8z7aH8O0y9ydI1o2KgdFVbc1ldS
-	sbkiD+nmfmz5FxX72KZl0JHNsURBcHo7PKFmPc0hBbvsGPlTAHsYuzcuyA9hC2bKyBUX1FPjsLa
-	F6Cri/yy+5ZR9Pc3fid2aG5q0rE78LiieLHAz5/1zOIuVRpPyb/AV+k0jMKH5gST74/cCXACVVT
-	HAXXoz
-X-Received: by 2002:a17:90b:3ecd:b0:3a4:adea:50ad with SMTP id 98e67ed59e1d1-3b41c9e46c6mr10373954a91.27.1795433780532;
-        Mon, 23 Nov 2026 03:36:20 -0800 (PST)
-X-Received: by 2002:a17:90b:3ecd:b0:3a4:adea:50ad with SMTP id 98e67ed59e1d1-3b41c9e46c6mr10373925a91.27.1795433780099;
-        Mon, 23 Nov 2026 03:36:20 -0800 (PST)
-Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad8e93asm17489024a91.11.2026.11.23.03.36.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 03:36:19 -0800 (PST)
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 17:06:00 +0530
-Subject: [PATCH v4 2/2] media: qcom: camss: Add Glymur-specific resources
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=CPBca2Ww
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9137B73E;
+	Mon, 23 Nov 2026 12:33:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795433628;
+	bh=r/VyJRxouv14sVztniDLkuimITGGQSgCIZTM7u5do8Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CPBca2WwY2nKuSdUuPpw/AQcV5NfgQ4l9v8srMvn8cbj7vyWBBoBBCt+bDsscueiP
+	 Eq4SG7wj7md3sQhx936PMh7NIRwAkQVDWdsr1cn9+eMSdHaAfE4e2C4s7lBfr63Zuw
+	 nDYzuSyKmhWK4HBkP8m0sEBa4xK9Y5qna6VK0jeQ=
+Date: Mon, 23 Nov 2026 13:36:19 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Paul Elder <paul.elder+renesas@ideasonboard.com>,
+	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 05/15] clk: renesas: r8a78000: Add SCMI remapping
+ support
+Message-ID: <20261123113619.GG3010398@killaraus.ideasonboard.com>
+References: <cover.1795029012.git.geert+renesas@glider.be>
+ <e01baebc546ed6f1b71a0487a59cda73239ea7f1.1795029012.git.geert+renesas@glider.be>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,148 +80,329 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-glymur_camss-v4-2-d7db74f59e22@oss.qualcomm.com>
-References: <20261123-glymur_camss-v4-0-d7db74f59e22@oss.qualcomm.com>
-In-Reply-To: <20261123-glymur_camss-v4-0-d7db74f59e22@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795433764; l=3050;
- i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
- bh=nyXhP3Ab+JK7/tMc0Dc6RlQW/cBCn+toktGdYLYMpEU=;
- b=+BIYIoCCyGBcMVks1nrKVa1cSnkcz/01IshxM4a8xghh6UQzv8JTPdUVrEr3cPI07EmhfawBk
- LOuj2Armqr5AjyqWN8XhK2gIC/45oDiR6YCmKxxhZcouTwBPksy8d/8
-X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
- pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
-X-Authority-Analysis: v=2.4 cv=AL9GXjHq c=1 sm=1 tr=0 ts=6b042535 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=eFSy-WoeKmqNeFKM-ZoA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: OyI3-vdQvHCHLiSEafRx1uwc8ymoV6EB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA0NiBTYWx0ZWRfX1zQNYlGHT08f
- V14n65/qGSYTguI7aEtPxcdNAdk7gHZM1iygeV55bujph5Qvzs/NO8frSfuL5dT7OHTeQ1hbxxA
- lU/3TJ9RPE4rBF/D562er6kDZZ+eC3OBUJwuKdc/EJDXTj3JbGNW7Qh1Y9jzkFZIORja1GdMh34
- O1SBXoqrCRtLNqvbxd29Y+mJ46Ou47Paq5GbBiYIdleFRYS4C0ASkQc34wADOQh0AlZ7K10SW4a
- bpBuR4QH8Ggx1jB8r06pGqnLv2UoOdrCrwomyG21G7rKWkM5RXSTF/P2SSxGewwo8PvbfKzAkeb
- T6vYcUhxTFb180nFAR2y9qXver77yeb7k5tOrsOa8eSotMvwPXezje16+ea3RfwBXnaFdEsgyGg
- T+Or7PguBg7ROY9adtP/fOoRo2GCjUVo4F8hFublWoH2oz+gXVAWdvjkDXIemuKs+znaMrJ7FaK
- mEcVYbx7UDnZLAGwpMg==
-X-Proofpoint-GUID: OyI3-vdQvHCHLiSEafRx1uwc8ymoV6EB
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA0NiBTYWx0ZWRfX8QElsQlBYZcX
- cfNN9dv4tPYzSo1pGkMa150z+1YHCV3JXC6/mH5DG882kHhIAkQ1iHQpZQxv3ZuvJs6IMUrrBf5
- fkuCzZ3a3GMoMmtfg4If03C9aHMBZZM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_02,2026-11-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 phishscore=0 priorityscore=1501 adultscore=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230046
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <e01baebc546ed6f1b71a0487a59cda73239ea7f1.1795029012.git.geert+renesas@glider.be>
 
-Glymur has three CSIPHY instances while X1E80100 has four. Reusing the
-X1E80100 CSIPHY resources also exposes CSIPHY2, which is not present on
-Glymur.
+On Wed, Nov 18, 2026 at 08:44:53PM +0100, Geert Uytterhoeven wrote:
+> Extend the Clock Pulse Generator driver for R-Car X5H with SCMI support,
+> to remap DT clock IDs to abstractions (clocks) offered by the SCMI
+> firmware when running on a system with SCMI, and SCMI support is
+> enabled.  Take into account some peculiarities of the current SCMI
+> firmware implementations, and fall-back to fixed-rate clocks as
+> replacements for SCMI clocks that are not available.
+> Support for bus clocks used by serial, I2C, and SPI devices is included.
+> 
+> This lets us avoid putting SCMI IDs in DT, and allows us to use the same
+> hardware description in SoC DTS for systems with and without SCMI
+> firmware.
+> 
+> For now, it is assumed SCMI clock IDs are stable, and match SCP FW
+> SDKv4.31.0 and later.
+> 
+> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> ---
+> v5:
+>   - Add Tested-by,
+>   - Rebase,
+>   - Shrink firmware clock IDs to 16 bits,
+>   - Add parentheses to FIXED_CLK() macro definition,
+>   - Extract get_fallback() and simplify fallback code,
+>   - Rework mapping data structures,
+>   - Add missing clk_put() after of_clk_get_from_provider() in get_hws(),
+> 
+> v4:
+>   - Drop unneeded IS_ERR() check after __clk_get_hw(),
+>   - Mark scmi_clk_np __free(device_node),
+>   - Assume all SCMI clock IDs are stable, and drop support for handling
+>     different ID spaces,
+>   - Include initial mapping table for SCP FW SDKv4.31.0 and later,
+>   - Try SCMI clocks first, and fall back to the default fixed-frequency
+>     clocks when not available, as recent firmware versions no longer
+>     restrict access to some bus clocks,
+>   - Drop renesas,scmi-firmware support, just find an arm,scmi node
+>     instead,
+>   - Fall back to the non-SCMI defaults when SCMI clock support is
+>     disabled,
+> 
+> v3:
+>   - Rebase,
+>   - Consistently use /* sentinel */ for zero sentinels,
+>   - s/firmware/renesas,scmi-firmware/,
+>   - Reword,
+> 
+> v2:
+>   - Spin off from "clk: renesas: Add R-Car X5H CPG SCMI remapping
+>     driver",
+>   - Use reverse xmas ordering in r8a78000_cpg_probe(),
+>   - Propagate error codes from scmi_get_base_info() now it can return
+>     -EPROBE_DEFER,
+>   - Improve error message on scmi_get_base_info() failure,
+>   - Check if SCMI firmware node is available,
+>   - Replace the scmi_clk_np member of struct r8a78000_cpg_priv by a
+>     local variable in r8a78000_cpg_probe(), and pass it to
+>     fill_clk_map(),
+>   - Join split short lines,
+>   - Fall back to the default support when SCMI support or firmware is
+>     not available, or when the detected SCMI firmware version is not
+>     supported by the driver,
+>   - Drop mapping tables.
+> ---
+>  drivers/clk/renesas/r8a78000-cpg.c | 138 ++++++++++++++++++++++++++---
+>  1 file changed, 128 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/clk/renesas/r8a78000-cpg.c b/drivers/clk/renesas/r8a78000-cpg.c
+> index fd97e1558d423f95..9a6e4f76581e4c24 100644
+> --- a/drivers/clk/renesas/r8a78000-cpg.c
+> +++ b/drivers/clk/renesas/r8a78000-cpg.c
+> @@ -13,13 +13,14 @@
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/scmi_protocol.h>
+>  #include <linux/slab.h>
+>  
+>  #include <dt-bindings/clock/renesas,r8a78000-cpg.h>
+>  
+>  struct clk_id_map_entry {
+>  	u16 dt_id;		/* DT binding clock ID */
+> -	u16 fw_id;		/* FIXED_CLK() ID */
+> +	u16 fw_id;		/* SCMI firmware clock ID or FIXED_CLK() ID */
+>  };
+>  
+>  struct clk_id_map {
+> @@ -32,6 +33,11 @@ struct clk_id_map {
+>  	.size = ARRAY_SIZE(_entries),			\
+>  }
+>  
+> +struct cpg_data {
+> +	const struct clk_id_map *default_map;
+> +	const struct clk_id_map *fw_map;
+> +};
+> +
+>  enum fixed_clk {
+>  	FIXED_CLK_66M,
+>  	FIXED_CLK_133M,
+> @@ -44,13 +50,14 @@ static const unsigned long fixed_clk_rates[] = {
+>  	[FIXED_CLK_266M] = 266660000,
+>  };
+>  
+> -#define FIXED_CLK(rate)		FIXED_CLK_ ## rate
+> +#define FIXED_CLK_OFFSET	0x8000
+> +#define FIXED_CLK(rate)		(FIXED_CLK_OFFSET + FIXED_CLK_ ## rate)
+>  
+>  /**
+>   * struct r8a78000_cpg_priv - Clock Pulse Generator Private Data
+>   *
+>   * @dev: CPG device
+> - * @map: Mapping from DT clock IDs to fixed-rate clock IDs
+> + * @map: Mapping from DT clock IDs to SCMI or fixed-rate clock IDs
+>   * @hws: Clocks, indexed by @map entry index
+>   */
+>  struct r8a78000_cpg_priv {
+> @@ -89,6 +96,11 @@ static struct clk_hw *r8a78000_clk_get(struct of_phandle_args *spec, void *data)
+>  	}
+>  
+>  	hw = priv->hws[idx];
+> +	if (!hw) {
+> +		/* CLOCK_ATTRIBUTES is not supported */
+> +		dev_err(dev, "Clock %u is not available\n", id);
+> +		return ERR_PTR(-ENOENT);
+> +	}
+>  
+>  	dev_dbg(dev, "Mapping DT clock %u to %s at %lu Hz\n", id,
+>  		clk_hw_get_name(hw), clk_hw_get_rate(hw));
+> @@ -96,6 +108,21 @@ static struct clk_hw *r8a78000_clk_get(struct of_phandle_args *spec, void *data)
+>  	return hw;
+>  }
+>  
+> +static struct device_node *scmi_find_proto(struct device_node *scmi, u32 proto)
 
-Add Glymur-specific CSIPHY resources for the three available PHYs while
-continuing to reuse the common X1E80100 CAMSS resources.
+r8a78000_ prefix. Same below.
 
-Fixes: 09d6c30d3fae ("media: qcom: camss: Add Glymur compatible")
-Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
----
- drivers/media/platform/qcom/camss/camss.c | 42 ++++++++++++++++++++++++++++++-
- 1 file changed, 41 insertions(+), 1 deletion(-)
+> +{
+> +	for_each_available_child_of_node_scoped(scmi, child) {
+> +		u32 reg;
+> +
+> +		if (of_property_read_u32(child, "reg", &reg))
+> +			continue;
+> +
+> +		if (reg == proto)
+> +			return_ptr(child);
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+>  static struct clk_hw **register_fixed_clks(struct device *dev)
+>  {
+>  	unsigned int n = ARRAY_SIZE(fixed_clk_rates);
+> @@ -123,11 +150,26 @@ static struct clk_hw **register_fixed_clks(struct device *dev)
+>  	return_ptr(hws);
+>  }
+>  
+> -static struct clk_hw **get_hws(struct r8a78000_cpg_priv *priv)
+> +static struct clk_hw *get_fallback(const struct clk_id_map *map, u16 dt_id,
+> +				   struct clk_hw **fixed_hws)
+> +{
+> +	for (unsigned int i = 0; i < map->size; i++) {
+> +		if (map->entries[i].dt_id == dt_id)
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index f8e5cf9f3ff09e96d3b48cd5628489715385cc5c..f3cab9ecef04273e09b81ee0cd4e31ca45d1c915 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4103,6 +4103,30 @@ static const struct resources_icc icc_res_sa8775p[] = {
- 	},
- };
- 
-+static const struct camss_subdev_resources csiphy_res_glymur[] = {
-+	/* CSIPHY0 */
-+	{
-+		.csiphy = {
-+			.id = 0,
-+			.formats = &csiphy_formats_sdm845
-+		},
-+	},
-+	/* CSIPHY1 */
-+	{
-+		.csiphy = {
-+			.id = 1,
-+			.formats = &csiphy_formats_sdm845
-+		},
-+	},
-+	/* CSIPHY4 */
-+	{
-+		.csiphy = {
-+			.id = 4,
-+			.formats = &csiphy_formats_sdm845
-+		},
-+	},
-+};
-+
- static const struct camss_subdev_resources csiphy_res_x1e80100[] = {
- 	/* CSIPHY0 */
- 	{
-@@ -5572,6 +5596,22 @@ static void camss_remove(struct platform_device *pdev)
- 	camss_genpd_cleanup(camss);
- }
- 
-+static const struct camss_resources glymur_resources = {
-+	.version = CAMSS_X1E80100,
-+	.pd_name = "top",
-+	.csiphy_res = csiphy_res_glymur,
-+	.tpg_res = tpg_res_x1e80100,
-+	.csid_res = csid_res_x1e80100,
-+	.vfe_res = vfe_res_x1e80100,
-+	.csid_wrapper_res = &csid_wrapper_res_x1e80100,
-+	.icc_res = icc_res_x1e80100,
-+	.icc_path_num = ARRAY_SIZE(icc_res_x1e80100),
-+	.csiphy_num = ARRAY_SIZE(csiphy_res_glymur),
-+	.tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
-+	.csid_num = ARRAY_SIZE(csid_res_x1e80100),
-+	.vfe_num = ARRAY_SIZE(vfe_res_x1e80100),
-+};
-+
- static const struct camss_resources msm8916_resources = {
- 	.version = CAMSS_8x16,
- 	.csiphy_res = csiphy_res_8x16,
-@@ -5806,6 +5846,7 @@ static const struct camss_resources x1e80100_resources = {
- };
- 
- static const struct of_device_id camss_dt_match[] = {
-+	{ .compatible = "qcom,glymur-camss", .data = &glymur_resources },
- 	{ .compatible = "qcom,msm8916-camss", .data = &msm8916_resources },
- 	{ .compatible = "qcom,msm8939-camss", .data = &msm8939_resources },
- 	{ .compatible = "qcom,msm8953-camss", .data = &msm8953_resources },
-@@ -5824,7 +5865,6 @@ static const struct of_device_id camss_dt_match[] = {
- 	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
- 	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
- 	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
--	{ .compatible = "qcom,glymur-camss", .data = &x1e80100_resources },
- 	{ }
- };
- 
+			if (WARN_ON(map->entries[i].fw_id < FIXED_CLK_OFFSET))
+				return NULL;
+
+may make catching future mistakes easier. Up to you.
+
+> +			return fixed_hws[map->entries[i].fw_id - FIXED_CLK_OFFSET];
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static struct clk_hw **get_hws(struct r8a78000_cpg_priv *priv,
+> +			       const struct clk_id_map *fallback,
+> +			       struct device_node *scmi_clk_np)
+>  {
+>  	const struct clk_id_map *map = priv->map;
+> +	struct of_phandle_args scmi_spec;
+>  	struct device *dev = priv->dev;
+> -	struct clk_hw **hws;
+> +	struct clk_hw **hws, *hw;
+> +	struct clk *clk;
+>  	u16 fw_id;
+>  
+>  	struct clk_hw **fixed_hws __free(kfree) = register_fixed_clks(dev);
+> @@ -140,7 +182,35 @@ static struct clk_hw **get_hws(struct r8a78000_cpg_priv *priv)
+>  
+>  	for (unsigned int i = 0; i < map->size; i++) {
+>  		fw_id = map->entries[i].fw_id;
+> -		hws[i] = fixed_hws[fw_id];
+> +		if (fw_id >= FIXED_CLK_OFFSET) {
+> +			hws[i] = fixed_hws[fw_id - FIXED_CLK_OFFSET];
+> +			continue;
+> +		}
+> +
+> +		scmi_spec.np = scmi_clk_np;
+> +		scmi_spec.args_count = 1;
+> +		scmi_spec.args[0] = fw_id;
+> +
+> +		clk = of_clk_get_from_provider(&scmi_spec);
+> +		if (IS_ERR(clk))
+> +			return dev_err_cast_probe(dev, clk,
+> +				"Failed to get SCMI clock %u\n", fw_id);
+> +
+> +		hw = __clk_get_hw(clk);
+> +		clk_put(clk);
+
+Doesn't that leave the hw pointer possibly dangling, shouldn't you keep
+the reference to the clock ?
+
+> +		if (!hw)
+> +			hw = get_fallback(fallback, map->entries[i].dt_id,
+> +					  fixed_hws);
+> +		if (!hw) {
+> +			/* CLOCK_ATTRIBUTES is not supported */
+> +			dev_warn(dev, "SCMI clock %u is NULL\n", fw_id);
+> +			continue;
+> +		}
+> +
+> +		dev_dbg(priv->dev, "SCMI clock %u is %s at %lu Hz\n", fw_id,
+> +			clk_hw_get_name(hw), clk_hw_get_rate(hw));
+> +
+> +		hws[i] = hw;
+>  	}
+>  
+>  	return hws;
+> @@ -148,22 +218,57 @@ static struct clk_hw **get_hws(struct r8a78000_cpg_priv *priv)
+>  
+>  static int r8a78000_cpg_probe(struct platform_device *pdev)
+>  {
+> +	struct device_node *scmi_clk_np __free(device_node) = NULL;
+> +	struct device_node *scmi __free(device_node) = NULL;
+>  	struct device *dev = &pdev->dev;
+> +	const struct cpg_data *cpg_data;
+>  	struct r8a78000_cpg_priv *priv;
+>  	const struct clk_id_map *map;
+>  
+> -	map = of_device_get_match_data(dev);
+> -	if (!map)
+> +	cpg_data = of_device_get_match_data(dev);
+> +	if (!cpg_data)
+>  		return -ENODEV;
+>  
+> +	map = cpg_data->default_map;
+> +
+>  	priv = devm_kzalloc_obj(dev, *priv);
+>  	if (!priv)
+>  		return -ENOMEM;
+>  
+>  	priv->dev = dev;
+> +
+> +	if (!IS_ENABLED(CONFIG_COMMON_CLK_SCMI)) {
+> +		dev_dbg(dev, "SCMI clock support is disabled\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi = of_find_compatible_node(NULL, NULL, "arm,scmi");
+> +	if (!scmi) {
+> +		dev_dbg(dev, "Cannot find SCMI firmware node\n");
+> +		goto fallback;
+> +	}
+> +
+> +	if (!of_device_is_available(scmi)) {
+> +		dev_dbg(dev, "SCMI firmware node is not available\n");
+> +		goto fallback;
+> +	}
+> +
+> +	scmi_clk_np = scmi_find_proto(scmi, SCMI_PROTOCOL_CLOCK);
+> +	if (!scmi_clk_np) {
+> +		dev_dbg(dev, "Cannot find SCMI clock management protocol\n");
+> +		goto fallback;
+> +	}
+> +
+> +	map = cpg_data->fw_map;
+> +
+> +fallback:
+>  	priv->map = map;
+>  
+> -	priv->hws = get_hws(priv);
+> +	/*
+> +	 * We cannot do lazy look-up in r8a78000_clk_get(), as that function is
+> +	 * called with of_clk_mutex already held.
+> +	 */
+> +	priv->hws = get_hws(priv, cpg_data->default_map, scmi_clk_np);
+>  	if (IS_ERR(priv->hws))
+>  		return PTR_ERR(priv->hws);
+>  
+> @@ -176,10 +281,23 @@ static const struct clk_id_map_entry r8a78000_cpg_default[] = {
+>  	{ R8A78000_CPG_SGASYNCD16_PERW_BUS,	FIXED_CLK(66M) },
+>  };
+>  
+> +static const struct clk_id_map_entry r8a78000_cpg_fw[] = {
+> +	{ R8A78000_CPG_SGASYNCD4_PERW_BUS,	1661 },
+> +	{ R8A78000_CPG_SGASYNCD8_PERW_BUS,	1662 },
+> +	{ R8A78000_CPG_SGASYNCD16_PERW_BUS,	1663 },
+> +	{ R8A78000_CPG_MSO_SCP_MAIN,		1459 },
+> +	{ R8A78000_CPG_MSOCK_PERW_BUS,		1667 },
+> +};
+> +
+> +static const struct cpg_data r8a78000_cpg_data = {
+> +	.default_map = CLK_ID_MAP(r8a78000_cpg_default),
+> +	.fw_map = CLK_ID_MAP(r8a78000_cpg_fw),
+> +};
+> +
+>  static const struct of_device_id r8a78000_cpg_match[] = {
+>  	{
+>  		.compatible = "renesas,r8a78000-cpg",
+> -		.data = CLK_ID_MAP(r8a78000_cpg_default),
+> +		.data = &r8a78000_cpg_data,
+>  	},
+>  	{ /* sentinel */ }
+>  };
 
 -- 
-2.34.1
+Regards,
 
+Laurent Pinchart
