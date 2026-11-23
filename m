@@ -1,58 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795435039;
-	b=asClPbH48tA7JZj21VI5ttyBl628c16i+0AVMkW1GKJLu3ltXEzXk8EqDi+ZVi42C12L
-	 Oj6c0T6+Tbs+GaDGAz4iA+OPmDK+PXNY8xX810xfQSXhJvqCC2IeTh/i5YeM4OQxbG+3U
-	 wlKD4iT5Vd6eOMIuAhx+zB0X4DLUeElHf7LEnwdJmnyp4HiZkWCwh8HCgVcm/rXyOCpUZ
-	 yyshOxfnOlFTtuUi7qjcNsuZhd3PpFPgCpEWPGs2na8o5bZUXQ9ePxL4Ohou/qwqz+nV4
-	 N38lzEYsQgiKsF0Fmcbzo3SP+7ZJa1lFZq5R/oQYNJyUWZgttVhVS46Xe2lq7tvMQRQ==
+	t=1795435064;
+	b=Q2d7ZsWnEOweEadkwJ016FQBGDh2W43j972e2ngvcvsM3nZe+ubgtYrSYi33DFDIln+2
+	 cgbxktEJis7hP8wgEWPaVTIpJOpo1Eg1KLxSh50ubLnOgW14muqEiex1mS0Id9A1kFR4Q
+	 EA2dJuclP1APeFy1MYlK4yrmwS4Z2a18rmhObXfWFIpN4h8FzxcHqmNSlKPIjXlbt0ek6
+	 t5P5/lHojonA4RXMX0DdUXu9xlySWY/e5F7dlhYICGYLwDb8T/PFggJhOk+bagaNvBL72
+	 CGYITlT9XtI1F0N8yx4CS9b7SRr71NwiNYx3oytLzm8KYqA4MOc2QA1rkFCqB3Qpjgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435039;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=6fEkPWmHsE1FBTbolVguk9F6xOB/+sWczlTwhCw0V+c=;
-	b=c/YMcC4DlboSSrXXjVJIOOXug36af7KqcNEpbaxOMKnpYOdgLw2z5Cdk1Ozhm4HryRHU
-	 o0/RBXI//m7Gwm8UH9hNL6+6E7z8TwKcgTU1+dLHpi3GegqFgx4B+YnVPYKvn8hZBwa02
-	 QTULjavxpjJRoaysRSyyLscZIpVEULYZvvqPJXlj4QiGkMpa+l7RkpJ0+BOcjyurl5xyz
-	 BuDDDQCHPz0TX6JIICmz2bD68VVCMR9PxQNrnE/NuWQiXJ2Ak+QcR6RgXDqKygcwEgGLe
-	 dpnuvk/sietEed2lTXdEv+akIa+kNDlnJfgmW4ZAZaWeapv4q4zZJ9gITCjamhpdMUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435064;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gryCa6dA+lhICDuTwDc1VEr42gzjx2FjRQqqEL1hpa4=;
+	b=D9tX7Gn7whhmC1ufcuTynHfjxou0LECno4Ey39Y+8304ocwQ7r5at+9JF7WuckErke3i
+	 vS3HX9qrdel3qqgApKm5vaki4i5fwllNNaJZKEnnkx/yFvxMDncagmYAoL+VcW4adNrY/
+	 EWSA3zbIpVEybp5bYt+wsT9uGDyMW9QBOtr4mHuAOPLNYo1z+QqFa/aHeCSVNEMTL3ju+
+	 BliIhGrWVoeiYJT1swbLDq8kNBwU0WW/sQnKwJ9k9VrpV/5NrNQpQbBsRLVAPdbHOz9+F
+	 W5zhWna6eD1PuFbd58zrjsRO/+KqraCkNtpAtkRtkLtplJVcdndcD7mleT8KF1UfBNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QEm8CySf;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E+yze4e0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75741606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:57:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75741606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318E3606A31A;
+	Mon, 23 Nov 2026 11:57:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QEm8CySf
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 24643C69149;
-	Mon, 23 Nov 2026 11:57:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 18B34601E1;
-	Mon, 23 Nov 2026 11:57:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 00D7111E6A292;
-	Mon, 23 Nov 2026 12:57:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795435034; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=6fEkPWmHsE1FBTbolVguk9F6xOB/+sWczlTwhCw0V+c=;
-	b=QEm8CySfaxHG78ZPs8oBzHwLlwWSTKT9teqadOb69wiEzSGroYsFWW6BGoAuCrjEGRoW6p
-	OF/c4eDaLYJhUggLvbvY7mCz5x1++RjNYRGcXi6Je+uHkfVLCUFNVEtjypjc93WtEIZHhN
-	repOzx6fwrb87HU3YNT1e1J752BXvnCRpn2PnlSuDJ0W7sGqDnI7kKWg4x9yHi/4ZsIbPj
-	OWNf8Vc9b8VYDdRVa07v1YPLaSdhcriBWKfpOUoXN6onS9OV9ECW1GttbDpzcUyMPKaIqa
-	DxtBNLUu9TJZ0pl0aZIn9QkrPhcYiY/cDk9zwJ7KJXrJsj0Bsm3Wh8Jr30JZ3Q==
-Message-ID: <4f1c4180-3a00-4b17-a27b-e61b307d3e5f@bootlin.com>
-Date: Mon, 23 Nov 2026 12:57:06 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E+yze4e0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1101F000C0;
+	Mon, 23 Nov 2026 11:57:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795435063;
+	bh=gryCa6dA+lhICDuTwDc1VEr42gzjx2FjRQqqEL1hpa4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E+yze4e0jJwuWCsMCz1b4Ja9PfPFagSriL1nUxhgD8+/fpK4gOHrG2vfUPSpGQiyh
+	 43pXgeIUZ42z5F/tho1NXODnQHOYhu4h2TtuFlNqTbGSauHObK/JFjfma8YvNCA3Qb
+	 QcyFuA4/lyHgyNWauRBCDS01asbsxEpY33fquklAQvy00EOI5mIdoBpbpgia6oLZfz
+	 kr6kWmQ2nzplllGfCtqMvEusPuVZH+XOlgNsu4cyVjM6AX9oNYucOiVHj8mE+V+sTk
+	 WhZ2z7/abVN8Wa2WdxLAUyoVT4kkcdIAcss7HZ7+ioFjqBkDKAFPRh/a2rFKLnLwIp
+	 uILGPkQ4XWQIA==
+Date: Mon, 23 Nov 2026 12:57:39 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chrispine Tinega <dev@chrispinetinega.com>
+Cc: Lee Jones <lee@kernel.org>, lgirdwood@gmail.com, broonie@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, aaro.koskinen@iki.fi, 
+	andreas@kemnade.info, khilman@baylibre.com, rogerq@kernel.org, tony@atomide.com, 
+	jerome.neanne@baylibre.com, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-omap@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v2 2/3] regulator: dt-bindings: ti,tps65219: Add
+ ti,no-warm-shutdown
+Message-ID: <20261123-winged-curious-sunfish-d1b8f7@quoll>
+References: <20261116185811.1907811-1-dev@chrispinetinega.com>
+ <20261116185811.1907811-3-dev@chrispinetinega.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,169 +61,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] net: stmmac: Add glue layer for Synaptics SL2610 SoC
-To: Jisheng Zhang <jszhang@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261116135442.4827-1-jszhang@kernel.org>
- <20261116135442.4827-5-jszhang@kernel.org>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261116135442.4827-5-jszhang@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261116185811.1907811-3-dev@chrispinetinega.com>
 
-Hi,
-
-On 11/16/26 14:54, Jisheng Zhang wrote:
-> Add dwmac glue driver to support the DesignWare-based GMAC controllers
-> in the Synaptics SL2610 SoC.
+On Mon, Nov 16, 2026 at 09:58:10PM +0300, Chrispine Tinega wrote:
 > 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
->  MAINTAINERS                                   |   2 +
->  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
->  drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
->  .../net/ethernet/stmicro/stmmac/dwmac-syna.c  | 116 ++++++++++++++++++
->  4 files changed, 130 insertions(+)
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 430758242906..dba0288bf4da 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -3808,12 +3808,14 @@ M:	Jisheng Zhang <jszhang@kernel.org>
->  M:	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
->  L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
->  S:	Maintained
-> +F:	Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
->  F:	Documentation/devicetree/bindings/soc/synaptics/
->  F:	arch/arm/boot/dts/synaptics/
->  F:	arch/arm/mach-berlin/
->  F:	arch/arm64/boot/dts/synaptics/
->  F:	drivers/clk/berlin/*sl2610*
->  F:	drivers/clk/berlin/sl-*
-> +F:	drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
->  F:	drivers/pinctrl/berlin/pinctrl-sl2610.c
->  F:	drivers/reset/reset-sl2610.c
->  F:	drivers/soc/synaptics/
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index c6559e749c0c..79ffebcaba0e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -310,6 +310,17 @@ config DWMAC_SUN55I
->  	  stmmac device driver. This driver is used for A523/T527
->  	  GMAC200 ethernet controller.
+> diff --git a/Documentation/devicetree/bindings/regulator/ti,tps65219.yaml b/Documentation/devicetree/bindings/regulator/ti,tps65219.yaml
+> index 7c64e588a..22aea7f61 100644
+> --- a/Documentation/devicetree/bindings/regulator/ti,tps65219.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/ti,tps65219.yaml
+> @@ -62,6 +62,15 @@ properties:
+>        where the board has a button wired to the pin and triggers
+>        an interrupt on pressing it.
 >  
-> +config DWMAC_SYNA
-> +	tristate "Synaptics SL2610 DWMAC support"
-> +	depends on OF && HAS_DMA && (ARCH_BERLIN || COMPILE_TEST)
-> +	select MFD_SYSCON
-> +	help
-> +	  Support for the Synaptics SL2610 DesignWare Ethernet MAC glue.
-> +	  This configures the PHY interface through the system controller.
-> +
-> +	  To compile this driver as a module, choose M here. The module
-> +	  will be called dwmac-syna.
-> +
->  config DWMAC_THEAD
->  	tristate "T-HEAD dwmac support"
->  	depends on OF && (ARCH_THEAD || COMPILE_TEST)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> index b16a456b730e..d132353e9403 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> @@ -35,6 +35,7 @@ obj-$(CONFIG_DWMAC_STM32)	+= dwmac-stm32.o
->  obj-$(CONFIG_DWMAC_SUNXI)	+= dwmac-sunxi.o
->  obj-$(CONFIG_DWMAC_SUN8I)	+= dwmac-sun8i.o
->  obj-$(CONFIG_DWMAC_SUN55I)	+= dwmac-sun55i.o
-> +obj-$(CONFIG_DWMAC_SYNA)	+= dwmac-syna.o
->  obj-$(CONFIG_DWMAC_THEAD)	+= dwmac-thead.o
->  obj-$(CONFIG_DWMAC_ULTRARISC)	+= dwmac-ultrarisc.o
->  obj-$(CONFIG_DWMAC_DWC_QOS_ETH)	+= dwmac-dwc-qos-eth.o
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
-> new file mode 100644
-> index 000000000000..c4bc895b29da
-> --- /dev/null
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
-> @@ -0,0 +1,116 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Synaptics DWMAC platform driver
-> + *
-> + * Copyright (C) 2026 Jisheng Zhang <jszhang@kernel.org>
-> + *
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/module.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/of_net.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "stmmac_platform.h"
-> +
-> +#define CTL_PHY_INTF_SEL	GENMASK(4, 1)
-> +#define CTL_PHY_INTF_RGMII	FIELD_PREP(CTL_PHY_INTF_SEL, 1)
-> +#define CTL_PHY_INTF_RMII	FIELD_PREP(CTL_PHY_INTF_SEL, 4)
+> +  ti,no-warm-shutdown:
+> +    type: boolean
+> +    description: |
 
-Please use PHY_INTF_SEL_RGMII and PHY_INTF_SEL_RMII from "common.h"
+Do not need '|' unless you need to preserve formatting.
 
-> +
-> +struct syna_dwmac {
-> +	struct plat_stmmacenet_data *plat;
-> +	struct regmap *regmap;
-> +	u32 rgmii_ctl;
-> +	struct device *dev;
-> +};
-> +
-> +static int syna_dwmac_set_phy_if(struct plat_stmmacenet_data *plat)
-> +{
-> +	struct syna_dwmac *dwmac = plat->bsp_priv;
-> +	u32 phyif;
-> +
-> +	switch (plat->phy_interface) {
-> +	case PHY_INTERFACE_MODE_RMII:
-> +		phyif = CTL_PHY_INTF_RMII;
-> +		break;
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
-> +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> +		phyif = CTL_PHY_INTF_RGMII;
-> +		break;
-> +	default:
-> +		dev_err(dwmac->dev, "unsupported phy interface %s\n",
-> +			phy_modes(plat->phy_interface));
-> +		return -EINVAL;
-> +	}
-> +
-> +	return regmap_update_bits(dwmac->regmap, dwmac->rgmii_ctl, CTL_PHY_INTF_SEL, phyif);
-> +}
-> +
-> +static int syna_dwmac_init(struct device *dev, void *priv)
-> +{
-> +	struct syna_dwmac *dwmac = priv;
-> +
-> +	return syna_dwmac_set_phy_if(dwmac->plat);
-> +}
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Can you implement .set_phy_intf_sel() instead ? that should simplify that quite a lot.
+Best regards,
+Krzysztof
 
-Thanks,
-
-Maxime
