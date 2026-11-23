@@ -1,78 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795471216;
-	b=J0xRSjGQTVGMYleSpMwlL08P6cApzCB+y26WFl/xMuAI59Ujx+SJUdp6UD4W2mr9C+Ku
-	 WfkqwEdskWrw6IvbognyVQAKaZiChmgp97BA49yUmV4FGCqIHwhm6kWphw8YtGmHdgLHj
-	 jPj9GF/+ohQtWSwmEqvTR6dt3disr3iqe/HFwOZQ0uc8wo2yawr5C8OZvo9aLiWmrz7p8
-	 XZIKIDLAwxJUiMrCOlb07sFSLWrizgLNX2/n9Y+7+sx2wcFPFazZcPKzrFbTdQq12TUJV
-	 BM5BlsV7FJ6B3yOTKvYGe29YfqJT8gXdNGzt9uwR22FmZ4gbVTbEHdqAHpsj0GNkh/A==
+	b=PdXcDi/RRwv/vgUiJNTunNM0rYlyNswFwxCwQZyTq/A0G/zOKpxi6K9L5m4uCGamcYeg
+	 TCn1QHM+KlnEoS1Nu4BWziOQMkugGNc6fmdt1PSAEbjV9unfisKrDQ49MSyQ9GyufXmeN
+	 ueqAeE32LtNO86wDjHz5nfoIX2pbLyPvB5T+AthTf2Vjq7wZXE6eVQm/CGY9bjRegVypX
+	 nVYB7tR3wu+r/BZ4DqdM16Q5E29GpNuglUiXp54e4HtbKMdcyHgJPE6HE0s7qonsVMRig
+	 /y57sqJsvHzG/dGjEIBiWh/IepR6RU9yvQWUGWg7XGomaXN16yZ6vV8pcK5Ehxgh7bA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795471216;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YstasX83SpUpR7sJnrgBdW2Exikec0Kt7UwYg9xB36Y=;
-	b=vvzlypsDUDW9GlBxL5ZPjeqj8kMGlk5TBSuJo5gTQ4ScXYGHbC9soHH9vZ2sW9wftBxJ
-	 Z7fuaaUI2cnkf2zFWnFvwHTfL1EW4vqK/rQjETD1u2NNlHVUoZAjCHY6+vpIqxYZT0A2W
-	 BMswDDUG/V8c7DXUysnHhGTGKsw+z9m+QCXDRUugPyuF2DXwkht7+fL60aM+3XYj4hN+j
-	 StCS4DbtTOWAcTrBTl21jPmuSEN/agRNr/ZzFA3W8AeRafhcUC8RT52NzaqdfN2mopAHy
-	 SkIO9lD9oMlwV6ccu3RPUIvhsBl0weycS5v2UfLF1UbN3w1VUAkEzalnQm6g5EpK1gg==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=z8eScH+II4m5GORBY8XJimZQdDZpF3Q3Ois0eTzg3Bg=;
+	b=t1H9G+2AmKqZ71C1rnQwM6LRpNVlJSOD/W5a8kGQu4xZ8NuZybPEpL5gITkT4VVAaGPS
+	 XDzeELewHiUZvz27Kdg2QngV7eCjnDwBSs3VqUFQa9jqZTOr9NO8/1HaWyUSM93dOgdZ+
+	 nWvA0dykp+cyeG1wDxzk3iF5na+DdtZtjcUKovpQ+xfaXLktVF9EdJv5tl24rfyUAxaZf
+	 GxAnhEcQMh0oU1hY14y2NdwbvilYJeMFtbi9+w+Z3vk3o5iSv2XT1gs/Mt0zN0FvA8mGM
+	 1VRTwwI81zSJm7Hr6gmZkWKoVdTS/dnvmmDM3gxMewpe5+dL9iZBEKH4hfdkO3DJpEg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgoFi4+I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiOpFyrG;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03407606A321;
-	Mon, 23 Nov 2026 22:00:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F810606A335;
+	Mon, 23 Nov 2026 22:00:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgoFi4+I
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiOpFyrG
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795471215;
-	b=ihTfVDZ3sEeYoXVDdZ2j75ik70sdR+5iNRFp8zOmBWdbRUde44tLCtGoovC9G+Jw2py7
-	 iSXr+7GixrAt8kondCQb2Sa6ZMo+SKHkv6sNRIb1ShRB/pPCmk43loKMMG50qHjWmufQj
-	 iTLlwydK4P6Xh689kS+X1OTW0H27JeUyIlxPD8Z9PS3F6nRJfNUQpVT6Whe0NckCicIHA
-	 DxP4emaBONNCDj0Onc2SfGoMbu/dlUrpNHxsTduEAC5lzg4WXQGbi4LPilwyJyu+ly47/
-	 XOo4p8Lr3Pa6R17xjDQLzWmmEq6yfpfS5Qn6G/aijGVkP9yyAWMGE2oHcamdYtc+WJA==
+	t=1795471216;
+	b=liznJ65Zqw+05k7NZoLqLtofV4UtEQt3F9b1vg91/Eh2P5pYbSqCtY7oZKaZS6QM6UKZ
+	 bXm2T2DBYcJ2UXj2P6GwwiBbAAZ8EGif6gtfm/ElwBiaZDV27VZUj5hLUo1qPxpfuF6Vh
+	 VYu0oIaMm+HwUcDcv5Duvf1i+gwhLob8v6sKvm+OLVbaJw6nQhOA+LGSrlSIcieTtvcvP
+	 XqRzJjexCHXxz+xc71QJv5HJBXTKl8lBBPJgK225tT6iSTJ6a2VhQiG6iKWl9aUWYxPfH
+	 jKlvYKgcHEWKL6cJLc08w64tfJky6pNjU9XCsXFGAWV7Sf74CeyC/goWrbDxeBDLdeA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795471215;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YstasX83SpUpR7sJnrgBdW2Exikec0Kt7UwYg9xB36Y=;
-	b=XBz32LczNfSSGSGioARdIK/bZFUM34WoO7WOEwWUEBnhHTKuY4FQ0wHubaG4gLDwocIt
-	 3ARGXn+OXV5A9U6+8pl8vLVdL3qWyV/bxKnz+BB7fjuq3DhQcvqFsr4PcZAKqPkuZHMHy
-	 qjZX5/sslwUjR2uKn++MLx+x3ZVw1HKj3BZ2stOpRFvs4+YhkOhsLX1tB+YTVrLBjrDBn
-	 ag9udvmDBV60l3khS5CiBaSrTRJgtB7SrFMkAM5RzDgCTyn8EEW0sNmNqIN98KDUr5OCt
-	 zOwGMqdkrchyZKQWU5b0FN7aK898gvbswtjAReT9Yh+lBDKXBqLM+QgyVwU9VTjfzBw==
+	c=relaxed/relaxed; t=1795471216;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=z8eScH+II4m5GORBY8XJimZQdDZpF3Q3Ois0eTzg3Bg=;
+	b=Se8q0tJsbGybxzC0XeVcucDGmUA/Fy+xLuWe6VHArXMvgDekZGYPVazkj92UvWOpO85r
+	 ZE+1+UOncNdAV2J7oZwixZstc160FCgTzAXidXUT/cLlbv7CHriK7BrX84eamVr04TgyX
+	 2HsZKCKjEIllgbtcegZnqSfqLtcHzT1yBkIq0QmD0N1FMBPceY2lHSOSDLVMuYaB9y9T9
+	 05rViqvrRjt3oJiphNsLKUSMtw0Zz8uoaV/6kMdeKsamBeTNn44+fv8YJ1w82vJ88d7Es
+	 tip+M98AN/WwJOlgtldnV9Kl5p3BLvW1I18SyDhqWabbCfbe6QuWkHMEhq10Snzn90A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9FC571F000CF;
+	by smtp.kernel.org (Postfix) with ESMTPS id 6F90E1F000C6;
 	Mon, 23 Nov 2026 22:00:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795471215;
-	bh=YstasX83SpUpR7sJnrgBdW2Exikec0Kt7UwYg9xB36Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=kgoFi4+IZv25XzK0f+NV0H6tSkFirkabpFvlpjdXWTTSQrl4bBToioWNfM8g6qtjq
-	 zXwfPsC8S4g9qnbpzr32eZ4jpJHE1Wx6cPlLCTdIF5SWLwHRigEynbHcY7rrFOTfh1
-	 NeGSOER0ZTUtIWW4W9qy6Fbcrb/hwMX/uRZq24VcYQrdlAVknUl3+unOn/j/9N0b/O
-	 nLClDYlN8cpu8c8m27AfD3nrKfcg15bvfmq2J9ugKzPEeLOzFw2mz1KUxM26Oz2SyJ
-	 os1+dLcV34R5K6oIeZhv6h3TnrrnwVkdWknhXD2Mm1n4YBncn58bDyHRyeEu1YqPN8
-	 qm4tngmh/ZYAw==
+	s=k20260515; t=1795471216;
+	bh=z8eScH+II4m5GORBY8XJimZQdDZpF3Q3Ois0eTzg3Bg=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=oiOpFyrGG3MLBcS6dkFISGA5mqu8LLOIjQf63YBWWNUDKYXM5aNr1AqaSIE/3ECrg
+	 hyis/UhSeYfFoA5MOEM74A7ja+VzqSrPr7B2QS4K+o9h1uRe7abQqP73IdIJpwrHMA
+	 b63UM34V1ppah14fj0BBl8j1JRwf2IuAL6lF9Qt91ShS5H5Id++v5P6tnswejhidD7
+	 ma8TXDqkSdM6YZpnoZy2cgmchBR42C355h9v4ZD1tNwW3bU2prMkviFW8M6Mr/hUky
+	 DHhvoKBGaSSU0AwJy4LpFbUaFJH+H/vWe7mYq/gCi6wibAHkU6PsCFc9Dke1ImsrOB
+	 SSQ1eVjry2HHQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2F61C4C79B;
-	Mon, 23 Nov 2026 22:00:14 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id C3A724C793;
+	Mon, 23 Nov 2026 22:00:13 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Tue, 24 Nov 2026 01:00:15 +0300
-Subject: [PATCH v3 3/3] MAINTAINERS: Add Cortina Systems CS7542 RTC support
+Subject: [PATCH v3 0/3] rtc: Add Cortina Systems CS7542 calendar clock
+ support
+Date: Tue, 24 Nov 2026 01:00:12 +0300
+Message-Id: <20261124-b4-cs7542-rtc-v3-0-53902bfbe0ae@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,58 +85,108 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-b4-cs7542-rtc-v3-3-53902bfbe0ae@gmail.com>
-References: <20261124-b4-cs7542-rtc-v3-0-53902bfbe0ae@gmail.com>
-In-Reply-To: <20261124-b4-cs7542-rtc-v3-0-53902bfbe0ae@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBAFf4X0bE13C5R48j+Mh7K0UCNiWmw0h
+ H+3xYsXPU7yZt7CgvHOBHYoFuZNdMFNtwRyVzAa9K033HWJGQqsAVDytuQUVFUi9zNxKxpoOqV
+ sp5El5+6Ndc+tdzp/ODzai6E5R/JicGGe/Gs7jJB3v9oRuOA1VVLVYK0W8tiP2l33NI0styP+t
+ THZEnRbSotEjfm213V9AwyMikr6AAAA
+X-Change-ID: 20261123-b4-cs7542-rtc-f0818d77fda2
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795471212; l=864;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795471212; l=3972;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=V966SZMepm42nKofeQHA+zZwJm4nGNGjIsMkGKj6kQA=;
- b=A9V7/mpPv+/bcY+uKssDtaSgc00coIaWRpY0v3mYhojSvOltGnigrmmlCd8lMUXRhVPhtyjN6
- e9XyC1ZUMfEA7n9JxjlYJWWqjC6LEC2EWA725FQ0m4z6nN7cWAEPctG
+ bh=Sj4YCV8Y8oxQ28BgyN0TnodyFRFNZWfHAe8RuVb9Ha4=;
+ b=hZkqQdDvSTSzOy3Ge48RCYLbklX0Q+STk6tS8El0cDwtXsqEWg+iqPMEOPLLS1pR5hv3aluNT
+ jmL/ASdhuXHBNWARdJ/JIYyEuoQz+FDXdRc6XbntLAVpNvmR0rjrTpT
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
  auth_id=1085
 X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
 Reply-To: filipp.dunsky@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Add the memory-mapped calendar clock of the CS7542, based on the GPL
+vendor and OpenWrt implementation. Use an independent OF/HAS_IOMEM
+Kconfig option so the driver can be reviewed without the pending
+platform series.
 
-Route changes to the CS7542 calendar clock driver and binding
-to their subsystem mailing list and the platform maintainer.
+Decode the four-digit BCD year, bound retries across second changes and
+retain RTCEN after programming. Leave a disabled or reset RTC alone at
+probe and report its time as invalid until a known time is set. The RTC
+core validates the decoded calendar and handles absent alarm callbacks.
 
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+The vendor-generated BCDYEAR register definition assigns all bits 15:0
+to year data and reserves bits 31:16. With the century and leap transitions
+below verified, advertise the representable 1970-9999 range. Alarm
+interrupts and suspend wake are not implemented; an earlier alarm
+prototype did not produce the expected IRQ and is not included.
+
+The three patches are the binding, driver/Kconfig/Makefile and a
+MAINTAINERS entry, based on v7.4-rc4 without the pending CS75xx platform
+or clock/pinctrl series.
+
+Validation:
+- strict source checkpatch: no errors, warnings or checks
+- complete minimal ARM vmlinux and modules builds, RTC built in and
+  modular, GCC 14.2, W=1, COMPILE_TEST=n, without the platform
+- actual read/set/probe functions with mocked MMIO and UBSAN: all 256
+  control-byte patterns, disabled/reset rejection, no probe MMIO writes,
+  known-time enable, 8030 BCD-year round trips from 1970 through 9999,
+  future boundary values, core calendar validation and retry/error paths
+
+On Almond+, an exact driver RAM integration run on Linux 7.4-rc4 first
+verified no control changes on reprobe, EINVAL with RTCEN clear or CLKRST
+set, then setting known current UTC, enable/reset handling and counting.
+A second RAM fixture used the same operations with a widened range and
+raw calendar tracing to check these ten cases:
+- 1970 first-second tick; 2000 leap day; 2038 boundary tick
+- 2099 to 2100; 2100 February 28 to March 1
+- 2199 to 2200; 2200 February 28 to March 1
+- 2399 to 2400; 2400 February 28 to February 29
+- 9999 December 31, 23:59:58 to 23:59:59
+All passed. This is hardware evidence for those cases, not a hardware
+sweep of every encoded year. Each run restored current UTC before its
+watchdog return to installed OpenWrt; a fresh host UTC restoration was
+verified again afterwards. Firmware was not flashed. Earlier v1/v2
+RAM evidence is not counted as these v3 review and range tests.
+
 ---
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+Changes in v3:
+- Preserve RTC enable/reset state at probe; report disabled/reset time
+  as invalid and initialise it only when setting a known time.
+- Let the core validate calendar fields and remove redundant ALARM
+  feature clearing and the two noisy probe messages.
+- Advertise 1970-9999 after checking the 16-bit BCD field, critical century
+  carries, Gregorian century leap rules and the 9999 endpoint on hardware.
+- Link to v2: https://patch.msgid.link/20261123-b4-cs7542-rtc-v2-0-31ab43f2cc8e@gmail.com
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 44540a1eb..e7f97fb96 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2949,6 +2949,13 @@ F:	tools/perf/tests/shell/coresight/*
- F:	tools/perf/util/cs-etm-decoder/*
- F:	tools/perf/util/cs-etm.*
- 
-+ARM/CORTINA SYSTEMS CS7542 RTC
-+M:	Fil Dunsky <filipp.dunsky@gmail.com>
-+L:	linux-rtc@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/rtc/cortina,cs7542-rtc.yaml
-+F:	drivers/rtc/rtc-cs75xx.c
-+
- ARM/CORTINA SYSTEMS GEMINI ARM ARCHITECTURE
- M:	Hans Ulli Kroll <ulli.kroll@googlemail.com>
- M:	Linus Walleij <linusw@kernel.org>
+Changes in v2:
+- Place RTC_DRV_CS75XX in the on-CPU RTC section, outside the HID section.
+- Keep the Makefile entry alphabetical. Driver C code is unchanged.
+- Link to v1: https://patch.msgid.link/20261123-b4-cs7542-rtc-v1-0-6c53761ffa03@gmail.com
 
--- 
-2.53.0
+---
+Fil Dunsky (3):
+      dt-bindings: rtc: Add Cortina Systems CS7542 RTC
+      rtc: Add Cortina Systems CS7542 RTC driver
+      MAINTAINERS: Add Cortina Systems CS7542 RTC support
+
+ .../bindings/rtc/cortina,cs7542-rtc.yaml           |  48 +++++++
+ MAINTAINERS                                        |   7 +
+ drivers/rtc/Kconfig                                |   9 ++
+ drivers/rtc/Makefile                               |   1 +
+ drivers/rtc/rtc-cs75xx.c                           | 159 +++++++++++++++++++++
+ 5 files changed, 224 insertions(+)
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-b4-cs7542-rtc-f0818d77fda2
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
 
 
