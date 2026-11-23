@@ -1,56 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795456894;
-	b=kl5sWT/jWTHPYHkhd0dVxyAh0UHdyzYudF//bWw7bozpn+dNFzJqs+6zx7ytEGlNLZfX
-	 lCC/2WtJFnl0O8tZX0i3cBws8L2ftryBvdfxqzJIiD3df/5oxbnJsyNaJ2SMmJ7ayF30Q
-	 FpDZmMEvTLBfgH4AqCf+afR5hE93jHfd3Et+iT+bhO/tSShPGycUCRJs64WLAnl6l9e9/
-	 iHyly0orRattFMDxD/rhBkjgTBbFE+uSblk33VNELLQwtqqAgL3wJiJ/4g5yfc9UExaHZ
-	 uo/rUnDLU8aexXg+1tIfAxSiO0+MaPhOXWROr5jV8AsUhVy5tSeFCG/RNG8S+TU4cOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795456894;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=jgsmFkQcJTRjr+5kofVo4qXbEGT1C/E4F/foxT+ncPA=;
-	b=pKZ6X4sR17B25i0/1wxgdw+kuyjEPSo1DJcAODyoLmZc11s5rHt3csCflmqcxs0JUTIk
-	 l6iuUlCvZAuRC1JGg3NXPrCYZpnZmx+2gNasRP8f5fCmJ6X+JNLAUZ/sUOfIF0K40yghk
-	 MmN1lD05I+oV6eZGU7LyPqh5lPv17g397RsX/pbYKDxjTSRECwT35u/e7fq2jekRDXvVN
-	 1qAc1OZBvTR6sRFIVyaW3KbD3stBzDIWHXeepP1Gg8oj/GlHrrLLxEflbWR+LGRcJJfRh
-	 SWrC2y+s/X+MDgHd+P8x59VZyzJ6bjjnTxHRsS5D04vHDM0vnkpD4XIdxhgl1do4VdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dh+Ph1za;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795456947;
+	b=L45fNkANkxGKazVcEc6ZwVVx4xHCIfYZWgdlthE5uPFJMeo3t5K1TgsbQox8OOnUqDrh
+	 tums7JOF8h8bfQjfPamMXqxPo9EjC3pwRQMK9Xfu4lI2o/dUoS1d1oab1qWVOSNeD1XqX
+	 87twGCvNeuHOUsAe3iqhxzmispJO91acdVS1mgEIfKWAlPTlb6nzQot5QQbROOGD511nT
+	 hmjBmWKxyYe//xHQ3uc74VP7AzEAsJ4+ronHJqDpgJmpTJX36C69fQXG4zSlCV9kwWo0x
+	 8s4Z/o3OirG4EdqL14CVldTNLStqj5RiQmGXzfRCrxUyaYqL+NkcQ5eY8IXmgDVr7SQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795456947;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vDttuoLtThpmrLHDgUDrvKFHZsebodC8mQspl8DHMwU=;
+	b=ac8hCdvEEsbH1LAA9ayxkBsSiU4LvkS+3le7eUfN7CooKpCc8EmGyZcHJYI/5o4Dh/HC
+	 lHWw1b2dbgMiERXmo31ooDu0oKfwrQ5HeEGMd3BuU3jKXYWpa+oKASb48/s3SqyRo08pD
+	 Ih0/YUJ885RwQsFBzOJ/BhkMT7FpdGorSIj2ixMHgNqXw5NRc8SHVt8BKRBlHrQsbdS02
+	 HTNL0T6kKMJRCuNlYugvPS04PS0vSVzy5gDPBigiQl+qq69ufwKOBMSeJ5993qaZh937Y
+	 UgvBkJt6K9DGnk8sGII79ZX0OoeH3731Nwtd4C/KvAuoKUjK4ffOnROqufzVezhT5nQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iav.lv;
+	spf=pass smtp.mailfrom=iav.lv;
+	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Kxg01mX9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F200606A31E;
-	Mon, 23 Nov 2026 18:01:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78751606A31A;
+	Mon, 23 Nov 2026 18:02:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78751606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dh+Ph1za
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78DA31F000D8;
-	Mon, 23 Nov 2026 18:01:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795456893;
-	bh=jgsmFkQcJTRjr+5kofVo4qXbEGT1C/E4F/foxT+ncPA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dh+Ph1za8FiTO93H749j/yXWRKkxs4++oobWaPbkZYvSpqsxvaY1vEFSiwvZzvQnq
-	 ay8O5Joe88JDRHbyp/gmtVSrWKD6hHfqU9OXNi/7JtF3bjYwPkgWVgsYCDk/kGqgIO
-	 QQ1zpiwuMVyn+HgmBIOxAmHMgn9Ptg2IKsDzUvsF9ZO9rpnxYG7IbVItEJ2YAgYInW
-	 qXEIgU0AQD8ePbr+tRanlZcolldqFQWxLEnyz2qQNWy6XE4WVqhFRSkRnFU2/a5cf9
-	 RQyvWqyPFcdHBSJcpykXxcSUl+JRJ/1PIX2YAMtlgPMKF066KkQvhgRHkNrGzaqP5h
-	 TTaH2ICO5Y79w==
-Message-ID: <sashiko-outbox-229789@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] arm64: dts: allwinner: add A733 SoC description
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Enzo Adriano" <enzo.adriano.code@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261121-a733-cubie-a7s-dt-v5-2@gmail.com>
-References: <20261121-a733-cubie-a7s-dt-v5-0@gmail.com>
- <20261121-a733-cubie-a7s-dt-v5-2@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 18:01:33 +0000
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Kxg01mX9
+ARC-Seal: i=1; a=rsa-sha256; t=1795456903; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=PaEyfUHI9/dg2Kik0zoccRrZZeS8oCPNzXKct42xtmbfG1sZf7ENSKszKndKxPpppPLUn9jqDFg1bMH9/oECr2KyOwTObfomSzwWZ4D5sH4318qx8fIWKN8RE6fUo3iDG/W6c4hO46lmxUvgx7NbZQXR3hLJoih8q84cPvfK5Bs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1795456903; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=vDttuoLtThpmrLHDgUDrvKFHZsebodC8mQspl8DHMwU=; 
+	b=T6Q6yKHs69OGVVqU6pq4IQfdJlyAI81yHIBcuFVGB2FzftKh4QkUVkdHQ9z4phc4x2tAABLy+883RnzDGlWi+dHJVMF5gMplguY1xktpz/223/o/HcTEMlRKZz/HokdeKhuptkMZMTPVlxpBUx+gP5LKkpve/z0R/NYEFHO/LS8=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: a=rsa-sha256; b=Kxg01mX9YeAZiV9Qs1JStftSmBv4b9pv3eCwsQZnx6ouWvP6EME1GmujpM84Ok9QbXQ4jTAhqMNTzGJngNoNRimp5oO8GLtL6PioAdtuBLELn2YMO8nFZJCN4ca5kRomt+2K+qdlqw757oHQWVVWso1aOQ2ekav8bMiNO4CGiLY=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=vDttuoLtThpmrLHDgUDrvKFHZsebodC8mQspl8DHMwU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1795456902105430.43361214454706;
+	Mon, 23 Nov 2026 19:01:42 +0100 (CET)
+From: Igor Velkov <iav@iav.lv>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Miroslav Lichvar <mlichvar@redhat.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 6/8] dt-bindings: rtc: Add linux,wakeup-states
+Date: Mon, 23 Nov 2026 20:01:12 +0200
+Message-ID: <20261123-alarmtimer-rtc-priority-v2-krzk-reply-1@iav.lv>
+In-Reply-To: <20261123-literate-significant-wildcat-dcfffa@quoll>
+References: <20261116-b4-alarmtimer-rtc-priority-v2-0-b2c69721e489@iav.lv>
+ <20261116-b4-alarmtimer-rtc-priority-v2-6-b2c69721e489@iav.lv>
+ <20261123-literate-significant-wildcat-dcfffa@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,92 +76,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] arm64: dts: allwinner: missing Port A interrupt in A733 pio
-  node
-- [Low] arm64: dts: allwinner: undocumented allwinner,sun60i-a733-uart
-  compatible
+On Mon, Nov 23, 2026 at 11:48:11AM +0100, Krzysztof Kozlowski wrote:
+> This looks exactly like re-implementing system-idle-states.yaml and wakeup-source.
+
+Right, thanks. v3 will use wakeup-source with phandles to
+system-idle-states.
+
+Two questions before I rework it:
+- alarmtimer needs a suspend state for each phandle. Is mapping
+  standby to s2idle and shallow, and the mem* states to deep, acceptable?
+- linux,wakeup-states = "none" covered an RTC that wakes the system from
+  no state, e.g. meson-vrtc, which enables wakeup unconditionally, on a
+  board whose firmware ignores it. How should a board describe that
+  with wakeup-source?
+
 --
-
-commit e06ab06b491f829b4ed6d875edfe27c2c5015fab
-Author: Enzo Adriano <enzo.adriano.code@gmail.com>
-
-arm64: dts: allwinner: add A733 SoC description
-
-This commit adds the base Devicetree source include for the Allwinner
-A733 SoC, describing the CPUs, GIC, timers, clocks, pin controllers,
-UARTs, I2C controllers, MMC controllers, and RTC.
-
-Link: https://gist.githubusercontent.com/apritzel/60fd7379b9560a15b8b352986=
-b69d39f/raw/efd9cdf8f26ba5b0c7e138f093af44a1cf322469/sun60i-a733.dts
-Link: https://github.com/radxa/allwinner-bsp/blob/2045a3ca2a01f088c0314dc92=
-4bda59d154e363e/drivers/pinctrl/pinctrl-sun60iw2.c#L1591-L1610
-
-> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/=
-boot/dts/allwinner/sun60i-a733.dtsi
-> new file mode 100644
-> index 0000000000000..8a258f16751e6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
-
-[ ... ]
-
-> +		pio: pinctrl@2000000 {
-> +			compatible =3D "allwinner,sun60i-a733-pinctrl";
-> +			reg =3D <0x02000000 0x800>;
-> +			interrupts =3D <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH 0>,
-> +				     <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH 0>;
-
-[Severity: High]
-Is the Port A interrupt (GIC_SPI 67) missing from the first slot of
-pio's interrupts property?
-
-In drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c, prepare_function_table()
-starts with irq_bank =3D 0 and last_bank =3D 0.  Because Port A (bank 0) has
-0 pins, the first pin (PB0, bank 1) increments irq_bank to 1, so Ports B
-through K are assigned irq_bank 1 through 10 and sunxi_irq_base_reg()
-indexes the IRQ registers by that bank number.  Omitting GIC_SPI 67
-at index 0 shifts pctl->irq[] by one bank, so when a GPIO interrupt fires
-on Ports B through K, sunxi_pinctrl_irq_handler() reads the preceding
-bank's status register and leaves the interrupt unhandled.
-
-Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-also requires 11 interrupts for allwinner,sun60i-a733-pinctrl, matching
-6b81aa0c8a4f ("arm64: dts: allwinner: a523: Add missing GPIO interrupt").
-
-[ ... ]
-
-> +		uart0: serial@2500000 {
-> +			compatible =3D "allwinner,sun60i-a733-uart",
-> +				     "snps,dw-apb-uart";
-> +			reg =3D <0x02500000 0x400>;
-> +			interrupts =3D <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH 0>;
-> +			reg-shift =3D <2>;
-> +			reg-io-width =3D <4>;
-> +			clocks =3D <&ccu CLK_BUS_UART0>;
-> +			resets =3D <&ccu RST_BUS_UART0>;
-> +			status =3D "disabled";
-> +		};
-
-[Severity: Low]
-Is "allwinner,sun60i-a733-uart" documented in
-Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml?
-
-Without a binding entry, dtbs_check fails on uart0 through uart6 and
-r_uart0 through r_uart1.  Other Allwinner arm64 SoC device trees (such as
-sun55i-a523.dtsi and sun50i-h616.dtsi) use compatible =3D "snps,dw-apb-uart"
-directly unless the SoC-specific compatible is added to the binding schema.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121-a733-cubie=
--a7s-dt-v5-0@gmail.com?part=3D2
+Igor Velkov
