@@ -1,72 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795435173;
-	b=QqrisjWTNEt0gT56PhoISAoxFkHXN9RkzgdP2Ck7e7zKjm4/QbDW4S4p5obRGCu7ssaF
-	 Q5dgiDpP//SwnxKHLaffPr9mtH1guOr7oOVVqhwBPUchwPhIHNFhRtexLPnY+DXeOGeZ2
-	 8DOrlSmOz8YovtmuYhsOiLyD6yfKlEU5vZ2cgR1UsBCu/AKLFZDSVDDZ7lYFmI41gYB4K
-	 3Rb06JrjSazp3vhvGBs1tR08QF6XDSnyK+RkexxtawuLQyA5xyhcYmpyLcY9HtaMjNX7K
-	 GH+MRrnB0JemBaqFvKpDRoWOITKXPd8lhNaCFfUYs4Gvsn+NtVwZk/uv8/MRBFp1rRg==
+	t=1795435181;
+	b=LssrBb9SWSRCdU/r08TE23SuJux8dgAjf9BBVIqGzv4tyuP6mlkIjv/MquYLj3GSQI+6
+	 y7/qHqNeUZK92bIH7gbAdET/VSE9u0sDnJRm7X8U6lJqpBdIhV99ixmfn993nBzMGcx7/
+	 fnYxDQh+h5r77FJ0o8vme5RD7yxbjKzp7APs4JYrJRT68GCpnXDcczYMaP9/++lSMRKM3
+	 tFIpa2s5An8qvBUgtCzCqkVLtk5pUImlEMuCM3u2AJUb/FL10U8EFu1KMZGBrPWLVswT+
+	 VGjMtmsumLytNsLzhbIsiPkOK9lsn5bJR1VgoQFDIvYbO58LgW0UCT643kLliuYC1cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435173;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WMhEUhdeAFlSicfRRTfApEYeOqXkH8+a1r/iO3xzqW8=;
-	b=uzu1YWQxOoaee+ImEKMVxcz120ThxTGjgiWxH7erjaHkzn3qs4zPj54+xI0/+4L8/GVD
-	 yp5XPb0zdLGKp9REuxHH/bfCu93RgmhqkF91TWvmerPxp9k1/Fhm5+zc8WM1uFpgg8rn1
-	 OpZ5z/fOb4REEabRE3dsm+FJkCl+QYW91MRGWsfMizdffg+t+ospR+mrTrp5+jzHByUHh
-	 Ut1z+PPSMP+aF2D7jzah9rOwHv/1l0wFoV47T5S2OZh4sb8SFVJJOWJljQcFvQTaZg+uU
-	 19ZkmPC2elcxAmdKJ+b5KFT76r679EVSDb6vtHg5letPLqcf/c11NHfJtwCqKyKBFEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435181;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=0Wi9/OMCwAWvC6KeqUukz/wTZ7HBm7SCkx9AIi5AFaI=;
+	b=Rh4XNKwLWFMIlKnbsJq7h3KFVlonTLtGlCZaNLQ+5EOu3AKBiTdu3LzU+e+zxz/FX+Ke
+	 39CFnYCH9uiMrwYY1uma7+bn4gY9r8IgXlAFVxtXC91E2QEMq6gRwObb24u2muzJbMs0+
+	 KJf469rN3BWCZJbCfmCasqvsVgEltEvnvZEycCQJ6RdV3rBxkRGR2WreVIDev3AvUKea5
+	 DS2K4PF0D2SV9OZJxxmrvDAk41Ebw7uuZuFxkKLpARdttIaaygJXKC84FMO6PKoNzueSx
+	 HYg11ywbl9X8fBXiJc2AVKlHyJnzG1227pjO2/MiVhhMumd05aBPmr+6ga/ryV7/yQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DS83tKDB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b="ExaK/N6y";
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=Nj59yOvr;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D3C606A331;
-	Mon, 23 Nov 2026 11:59:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5887606A337;
+	Mon, 23 Nov 2026 11:59:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5887606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DS83tKDB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079911F0093C;
-	Mon, 23 Nov 2026 11:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795435172;
-	bh=WMhEUhdeAFlSicfRRTfApEYeOqXkH8+a1r/iO3xzqW8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DS83tKDBJxjSPlL2eC8e6Zvjmxbn/amPwEVsuRuoWVGcAj/+EuTDbKwA3bOW2fK70
-	 qBqGCvahuU92TARH+7Yl74So5W6LpyDqWxpOwWFjNdWqbZ0RZ6J8Xqhn+6fVP/fDdg
-	 HscngvhevobAt7D0L9U7FFGLfA7n2PvtC6zVqFGCYIZH5WLtvF9Uva9U/GqwZaqfcS
-	 FohksPgsAGr9DldrpFnzXVYBEpDHRxYQW6OZGv6tRoxN7iCOcJClOu9MzOjqDEiEPh
-	 XfFBcD1/Xa9k5mj8H/iGCbri3PqqTuWE1vCNN4+Yo540uCtM67NeFpj2/NDUr0nFCE
-	 GT33q2RHgqNTA==
-Date: Mon, 23 Nov 2026 12:59:30 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, linux-usb@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2 03/16] dt-bindings: mfd: qcom,tcsr: Add Halliday TCSR
-Message-ID: <20261123-bald-sparkling-vicugna-cde8af@quoll>
-References: <20261116-halliday-dts-v2-0-2c92438c6c46@gmail.com>
- <20261116-halliday-dts-v2-3-2c92438c6c46@gmail.com>
+	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ExaK/N6y;
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=Nj59yOvr
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9HeTc261193;
+	Mon, 23 Nov 2026 06:59:18 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=0Wi9/OMCwAWvC6KeqUukz/wTZ7HBm7SCkx9AIi5AFaI=; b=ExaK/N6
+	y0CozAOgsJWOIOowbXZhdZ3u8gmmLVK5sNetWiIORk4yTwLLDqMhTc1u1LlHtaS5
+	zH5m8WIFt/dPIX8HbMB2Is/nHgKDYm1U2xAnYOvuiSr4nLyMjAJfSkFLKQ0QdZ6t
+	/Po5g2NJxJNuGT7HlkYmYvSGc91Ksnyr2iIwaZTt57DgRghUNyi2X67oGnnWAb32
+	D9AbqUEh0wEPt7JtigQrn0+/5dohn8xpRjYGK+/iD2+69yjAJWLJDgNCYA+mxRbt
+	XRCyW99v506DZH05R7IEY5MrLfEMSwePPWK+CFF1n5XlvM8qMhwcQAWdoKxXHkcP
+	/f4nLwO9Pvqm2Ow==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=0Wi9/
+	OMCwAWvC6KeqUukz/wTZ7HBm7SCkx9AIi5AFaI=; b=Nj59yOvrQRiiCprzAoonU
+	rZD+Q6pvF5ORXrFCGwqVyDhBGgrIvxtibEwq7V1iJpiX5St4J53A7Ru+kLo88hcO
+	J1h+Sh3+O+niB9+NygRzBG66NX4SVW49rAf1ghKyuFBhsejwBEVjQa5Yfzu3413M
+	pyU1hZzH0bgdGwrryT3S2ZW+bxct1dNUGkbcF2suqNXXxvcrmgBmkLZTwF0/vsE2
+	DFt88dkhcFHP8zwjJB3RtYSh7iMUGCvdjh1cG1PmF4lZNv9BerbtL5obdSlWtVJZ
+	XiBvm9O8USYUVyVgD9DdkXCG0yXrby5ZXnt+o71TfcyaqhZwL/MNI2MWkYjdkQjX
+	A==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4j3wgm5wpk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 23 Nov 2026 06:59:18 -0500 (EST)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6ANBxH9c026393
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 23 Nov 2026 06:59:17 -0500
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 23 Nov 2026 06:59:16 -0500
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 23 Nov 2026 06:59:16 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Mon, 23 Nov 2026 06:59:16 -0500
+Received: from HYB-6AVb5If9qTU.ad.analog.com (HYB-6AVb5If9qTU.ad.analog.com [10.135.4.40])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6ANBviVZ015057;
+	Mon, 23 Nov 2026 06:59:09 -0500
+From: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+	<davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Parthiban Veerasooran
+	<parthiban.veerasooran@microchip.com>,
+        Heiner Kallweit
+	<hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Marcelo Schmitt
+	<marcelo.schmitt@analog.com>
+CC: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+        Ciprian Regus
+	<ciprian.regus@analog.com>,
+        Selvamani Rajagopal
+	<Selvamani.Rajagopal@onsemi.com>,
+        <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        "Iustin
+ Stolniceanu" <iustin.stolniceanu@analog.com>
+Subject: [PATCH net-next v3 6/7] dt-bindings: net: adi,adin1110: Add adi,spi-oa-tc6
+Date: Mon, 23 Nov 2026 13:57:42 +0200
+Message-ID: <20261123115743.29523-7-iustin.stolniceanu@analog.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261123115743.29523-1-iustin.stolniceanu@analog.com>
+References: <20261123115743.29523-1-iustin.stolniceanu@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,20 +126,103 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116-halliday-dts-v2-3-2c92438c6c46@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA0NyBTYWx0ZWRfX+2U//zhfFprA
+ 2NDAe/4Amk/phpU9P98uI+zekeA+sPK3HfA7GRaECsEAD9AYM8xeH3WervoktsQ+tGA0Eg7zcxf
+ WG3MDg1hSYjDbnbJ0bRioxdzJ0demr5M02YpMgyIbqjK9kc2AiUOA53j1T0PLj0k+Jbo+nczue8
+ FeQvs6F6KfBQoDJ5Kcaj790zarWTJ//nt0MRbJorTRVxC6B7dnDnR118MU4GJMq3+tj2tvt60lM
+ +z/tAiXY/nfTUTo01ah2tESwiAZJNwyVR4S3p7V6aZOpst0IDQvmdbeQJkfaEWtrYWPn7Q53ATj
+ B/39G2hm3RxwTDn9Lr+wTP/337sV/XnXe/l8l3oSiHn+0U9TBImsxsk7zFBchDZXwNBGHI+sgEw
+ UrjMOW0kXNOQX2pHYHd4Dc/Tifp0+fWmHgrOU0ONEZWiiGQCXJsS7nBvECWMXVM95way27uk8nh
+ LZAyhFlH6HPDVp316DQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA0NyBTYWx0ZWRfX78/oQXlSqKl4
+ c5fUcq9jit9KtV971/GIWFlBO/uui1cmn/GEtiabbSYf+S8hfaAN0i92geOK5xC1RumERiMf2m3
+ HS3uUJbJsnaJ9YbOHdH5TdX8wuTSqTTkJdNN4PVPafpMZu9lk6To
+X-Authority-Analysis: v=2.4 cv=FeGiV5+6 c=1 sm=1 tr=0 ts=6b042a96 cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8 a=8A3dPQpsB03echwE1zkA:9
+X-Proofpoint-ORIG-GUID: sYUMJW0yZL4M2EDZ8h8MeMY09HgPZLaL
+X-Proofpoint-GUID: sYUMJW0yZL4M2EDZ8h8MeMY09HgPZLaL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_02,2026-11-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ spamscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230047
 
-On Mon, Nov 16, 2026 at 09:26:19PM +0000, Stanislav Aleksandrov wrote:
-> Document the TCSR block on the Qualcomm Halliday SoC.
-> 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
->  Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml | 1 +
->  1 file changed, 1 insertion(+)
+From: Ciprian Regus <ciprian.regus@analog.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The ADIN1110 and ADIN2111 support two SPI host interface protocols:
+the generic SPI protocol and the OPEN Alliance TC6 protocol. The
+protocol is selected by the state of the SPI_CFG1 pin, which the device
+latches when it comes out of reset, together with SPI_CFG0, which
+selects CRC (generic SPI) or protection (OPEN Alliance) mode.
 
-Best regards,
-Krzysztof
+The protocol is set by the board hardware, so the driver must know it
+in advance. Add a boolean property to describe a device configured for
+the OPEN Alliance TC6 protocol. Without it, the generic SPI protocol is
+assumed, as before.
+
+adi,spi-crc enables the CRC of the generic SPI protocol, so it is not
+allowed together with adi,spi-oa-tc6. The OPEN Alliance protection mode
+needs no property, as the driver reads it from the PROTE bit in CONFIG0.
+
+Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
+Signed-off-by: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+---
+ .../devicetree/bindings/net/adi,adin1110.yaml | 20 +++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/net/adi,adin1110.yaml b/Documentation/devicetree/bindings/net/adi,adin1110.yaml
+index 0a73e01d7f97..f9efa0e614d6 100644
+--- a/Documentation/devicetree/bindings/net/adi,adin1110.yaml
++++ b/Documentation/devicetree/bindings/net/adi,adin1110.yaml
+@@ -25,10 +25,6 @@ description: |
+   The device has a 4-wire SPI interface for communication
+   between the MAC and host processor.
+ 
+-allOf:
+-  - $ref: ethernet-controller.yaml#
+-  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+-
+ properties:
+   compatible:
+     enum:
+@@ -43,6 +39,12 @@ properties:
+       Enable CRC8 checks on SPI read/writes.
+     type: boolean
+ 
++  adi,spi-oa-tc6:
++    description:
++      The device is configured, through the SPI_CFG1 pin, for the
++      OPEN Alliance TC6 protocol instead of the generic SPI one.
++    type: boolean
++
+   interrupts:
+     maxItems: 1
+ 
+@@ -55,6 +57,16 @@ required:
+   - reg
+   - interrupts
+ 
++allOf:
++  - $ref: ethernet-controller.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++  - if:
++      required:
++        - adi,spi-oa-tc6
++    then:
++      properties:
++        adi,spi-crc: false
++
+ unevaluatedProperties: false
+ 
+ examples:
+-- 
+2.43.0
 
