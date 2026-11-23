@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795459328;
-	b=MhRoTdiQ+Hgqdafx4Ob6w5tVmkjUfyycp8p8Vta7M8dsvvZhPc7unZM1x0Xv/lo01MAa
-	 Ek0BmcP1D/2albhh2t8zIHRMf1c6wg9zHLWZLWwJa4nTbuKfQ5vyuxZm/CFWfqaare5SU
-	 bGjFroETfYKuu5ADHOHBFYLYtrF3DN20i7RHiDOS4Oqsdj5qJiQwVvfg4oQrvf0p4+Zqa
-	 39aDdyvoK0WqSFkNZBO5ni/dq9AmtrlCwoiFunx0sW0TxOiTSntI6pDTrHQvHiIxGFMj1
-	 G8LLQuWHLmhVVUJy/nrYeR8z5QfgYhUZpmt92ptFUMTMbnJb7fzJf/1GN4ak0gaKihw==
+	t=1795459325;
+	b=w/8Nls7k49mns9BzDLSciwgBirKkPKz6EvooJeVMHQgr4+k1cXzcyNmg9692LsV4T0u6
+	 cTp3dIIEsh5ZDh6bCWS2IEBhPPECy14CEgFp40zca0bw0+R4k+7zZ16DCGKUNuB4k9w0f
+	 XPzvXkXpizO4QP4BhyWAscEoGvoC5o6WP6jtuiq8MqxucO1A/FL/+FZcjIyA3r1XrQgfj
+	 ceAe6MHZOg5ZvdQNpD6Ar+D1IR7byXSLXVzZ7ioFrGuPviVoWlfxbdsS7Tui1A5yrUiN4
+	 6B6eIjS6Q0DZaCRka3lTRlI3stnnvRDJ2KCKIH2ee2+dXs3Gc8wnjil1gOq1UNXaRNw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795459328;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795459325;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ZdNq6lAzgClGgqAFoM53TspEHeE7nLUWeGd16KM0xa0=;
-	b=IVOMQZ8taoUunDNWBWsLH9/2U0O4eZ7frucnl2zYLSWxFYmn3JMQvWUdafPWmCq5h2fz
-	 3bXHLzMP5Xa0yAcZmJUpZVFN0c5oGhw2zkW586RU+lwmFIQp8OqN5NxXovdGsnBbCF+1r
-	 uq2gykcyC7IYwis4t8DcrerhmvzurK/jUIblO0yVd5c7cmNwshN5pyDClIBEHxwwf7z74
-	 cUc+UghvFw/Lm3zFXfddnO4HxFqZsPfeUzBm5Hz+6WLgaibNKC/5vYr4hdDkqEIHtY+2i
-	 1djjN7HMa3lO9G2cOi81aX8qpt0btvGprKdStYgfx0AJlcFnLlSIXMc9swsKD35GlSg==
+	bh=416ak1oQRdPuENxCEfV4km3e4BlsIrdGLevNZRcfFVg=;
+	b=srkVTtn96/hUFp+4Bq6RXo50Z8LmmjaqA+BoE4TsAUQFZPxFTCJZLniDg27wMnVRNThA
+	 jFrMYP4CupOKyD8nTUTZNn1txtx3Cw+vIJEbQFseOx+0xl13T1dEsptIrXOpqO4hCXxk6
+	 niYJNsKpIwtgsK6OVgkpL+Nk7pT72Gn5nSfWeC+QaRx6sVFXUGRASLh0vQO6vtymq11Go
+	 +haz7V4vTzK1WivEVQMnfozSuaIM6ASO4RlNHJT2jmViqVmxVqR/j6vD7lMcDgyvsH8KP
+	 PXfPsc4h2Dvp4+GSN2x1sb2mtfM9xm7qBUXKa4+5lhnHw/43N9Bm5mbr1BGXVEzom+g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ICbij8cJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AriSI+bo;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E1D606A6BA;
-	Mon, 23 Nov 2026 18:42:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3EC606A686;
+	Mon, 23 Nov 2026 18:42:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ICbij8cJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AriSI+bo
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795459327;
-	b=BKfNu9fEK3Qkt/SjN7DYH2yyEL1OrEtFGOZqfzKwvQg0gNsIDl6MVl3jVJaollHM3ZnP
-	 kWuCAVfqWBfOsjgSqzXn00G0gT+v7AUqfZN4m9g7+tPDCBA4c/3cb+umn+Q1e23ahXiBl
-	 HgzlkcvilFTqL541bZTbFbhYYiM25701N/u0Z86n7LlZJPDnp0oAi45KAMiqXldAR+wCO
-	 zfyFGY9QPH3Gf543iFvP+m0Rw4GAhXPQ2BCa9Em4vvQXmRqVq3U4RI4GPONzI0U4j6hK1
-	 A4+VuYbGIBscoW1xxxnTCrF/5tmmoNN+4OqqrBcYamr2h1AgAo7SxPD9m7wcWT8QGoA==
+	t=1795459325;
+	b=S1nAIkuA6tSRYHQmi/F2BaPIjysseaL5PW3ecDEgnpNVz2FpsPgKjjyt8pcSp5BEHODq
+	 NcJEFD4y6Pdk0udFrAIvSrkZbFK275KmKUzH1d8RsLIPs3HHel2sHpDRh1LwwsDSDDsae
+	 fF6bZBX23iteJJBSETtSNIbaOGRH+V7j1k0RgN4Tysv2pFwMLIwnsQV+DMBRbGCqhwuIm
+	 bqi5skC8NoKV2BlJHuGRUywOyYclF1DHzuBDVqUHs4SBhNzy5PUqgcPTivBr0THWqmoR7
+	 DSjo6nV+rla1mZFp+Kn261sOFeyZaXJ/2PfUXF51FEYDy/u4gJFuy3F/8y64R/RwtjQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795459327;
+	c=relaxed/relaxed; t=1795459325;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ZdNq6lAzgClGgqAFoM53TspEHeE7nLUWeGd16KM0xa0=;
-	b=1864l6z1+u5Odb0WgMpUodeGd3X8kWFQYiqAXUSQg2w4wSBEC8YikODE9DK2+3BDWN3b
-	 yZeHFfWR1gmV3g6FFgtQzSr9mYE2vGLkF5lOI8ZEM0TZh1hhYDpzGvE8FCQQqjFRBnauD
-	 aKW7dCtpZ8OxvKe+u3IupppJhyDNA+ElZTav1ktRV7k6TeiL6az0kpVbjLdjNB+as+4fQ
-	 ZDuu/ueD9anaAxY49z0Lw9QkAhwiwFO18VvDL+n6q0/KImvZjB/X2GNvwrZn/gtG6wRib
-	 RIZ7MtVSqyEmZmXbPE2iZGOl/RlzINbKdgLzzZjYqr/sAcox8Lsy7+tPPUXWpcwXN5g==
+	bh=416ak1oQRdPuENxCEfV4km3e4BlsIrdGLevNZRcfFVg=;
+	b=pvuwWO3+q8Qyq7sLqzdkCUY4OT5zIdhAECWzlIt1ylf6wbxLwho/dqxiz+jTnjfi3Y1H
+	 ryYAbzljd6JhfwOUgwsMFQ6c1qiTvfLus8bbSY8L9l62nf9HmWBmgFQUDi1bu4HSuRe80
+	 9H/OABUM56OlOo8a1PXkPQsGmaSUfOLuuMVcjdEMttwmcPxQuslJoWW0O3tnoEbbmWN4S
+	 6ovDvxACG+pqeMJtSn5RVhkf9Lcwx313Q2ZYFfxPIv0vb7/17GAxDp9y/r8QwNAA5ETYz
+	 1LUqjgsY1q5TG/deiY1Qm8HiNkN7Lh9QNPsVjrd1cfDV0PzsQhZ/GqOGFPw9r3trcAw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C82B91F0156B;
-	Mon, 23 Nov 2026 18:41:57 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id E275D1F01561;
+	Mon, 23 Nov 2026 18:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795459327;
-	bh=ZdNq6lAzgClGgqAFoM53TspEHeE7nLUWeGd16KM0xa0=;
+	s=k20260515; t=1795459325;
+	bh=416ak1oQRdPuENxCEfV4km3e4BlsIrdGLevNZRcfFVg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ICbij8cJ3bUrOxalM9ziNWQ1OQQGvlznAP7BdmVTwy88R/ji/pIpRwrNnf0NHRJKk
-	 dOTD/3Szs5shodVKkd0UoaRmVMHkhwHja5RNl5TtaTmBRU1qmSbzq9ORtPQ4C1V5Da
-	 XiQUhAcqjn6TLb0z4ohe8w4izvEUkBmvICOtZvNeoVdwLlwS5XaGHncXLxilaBbAlL
-	 Z+nJ8tFnCIr84P4+heP5PO38bLgu3JshENUew/tHvtQBzXEYyCaHNU5wcomrmDPnCv
-	 WtGnJFk62CXkAvR7hOkoeJtHl0fPy7jX8qNaXoUDXHtX5BbvLzU78NMUbz/iHV67C6
-	 gX2H5aLPe5YTA==
+	b=AriSI+bol+Yurw1QYrEdYJ0fbBc/HCi6zXjFyHXBlfTUKKEB8CRHKJuzl5cmdTHC7
+	 Y77zuykrdFu4J7NRIPKkPRLeP36iDFs06mfFIIpZfubaqCmhKt2F5AqRgwSPQpGvR2
+	 c8Iv48/mFZ1XMrek5d9zvF1yiieFzsd986Ke855z0gVxwuz2iFgqBjbdtmLC6w9QVt
+	 pm/3jsCN12vtd1b1ERrcxduRH1BIxF2JYlJzzJD+TJc14ohyr1EY2WErdMna4+63F4
+	 f2K6EavCw8xVQ8Y4SS1ZopDTbXQnAVmBEaVMc6IMECAbVdfNiYRwMkQMXoi6Q+rK7p
+	 qgJ5y0EBOLIiw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id ED0E34C5F5;
-	Mon, 23 Nov 2026 18:41:42 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id DD8FB4C5E5;
+	Mon, 23 Nov 2026 18:41:39 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Mon, 23 Nov 2026 21:41:43 +0300
-Subject: [PATCH net-next 2/3] net: mdio: Add Cortina CS7542 bus controller
+Date: Mon, 23 Nov 2026 21:41:39 +0300
+Subject: [PATCH 2/3] mtd: rawnand: Add Cortina CS7542 controller support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,24 +83,21 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-b4-cs7542-mdio-v1-2-626d0a0e3b4d@gmail.com>
-References: <20261123-b4-cs7542-mdio-v1-0-626d0a0e3b4d@gmail.com>
-In-Reply-To: <20261123-b4-cs7542-mdio-v1-0-626d0a0e3b4d@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+Message-Id: <20261123-b4-cs7542-nand-v1-2-7ce179c011e2@gmail.com>
+References: <20261123-b4-cs7542-nand-v1-0-7ce179c011e2@gmail.com>
+In-Reply-To: <20261123-b4-cs7542-nand-v1-0-7ce179c011e2@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459301; l=6021;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459297; l=27651;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=QTUeghqAlQjkR5dMjvBPawoC6AvZAXiYJDZ4pQ7PTHY=;
- b=uUm8vweAlSelipYq3Pfl/Wsa0mjElU5AAfjujs8BRC5T0pJBEwpphNYRJyQxhtN36wjQgRs4g
- NFSgFVopVarDjXjbpuzEVKfYsI5ngeFlNRpxD0N7O07CAejwzGGhzUx
+ bh=jw0gR4NdhyNSMRoUfHRyZvrfaOTU6c1rt2kchi8jIc0=;
+ b=8dfoOqDXFXFgNjO7I50mSF1yjMJ1En5gX7rnY90mWcHD1GIBWefOmwuHz9gjorOKP6vr8NIG3
+ NVItVqwuNbeCjzCD7GhpTgQrSvLg2Cl93gxntZ87RH9ULW6Rdn/V0Lv
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -111,195 +108,891 @@ Content-Transfer-Encoding: 7bit
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Support Clause 22 reads and writes through the CS7542 management
-interface. Retain the firmware-configured prescaler and unrelated
-configuration bits while enabling manual operation.
+Implement exec_op using complete command/address/data transactions
+supported by the controller sequencer. Cache ID, ONFI and page reads for
+the split operations used by NAND core, and reject unsupported sequences
+in check_only. Derive address cycles from the NAND geometry rather than
+inferring them from chip capacity.
 
-Poll short transactions with microsecond delays and a bounded timeout.
-After a timeout, wait for the outstanding frame before programming
-another address so a late completion cannot be mistaken for the next
-transaction. Use managed bus allocation and registration to cover probe
-failures and removal.
+Use programmed I/O with the on-host Hamming engine, preserving the
+256-byte steps and OOB layout required by existing Almond+ firmware.
+Bound register waits, propagate failures without exposing partial cached
+data, and validate ECC error locations before correcting bytes.
+
+Keep DMA and unverified BCH modes out of this initial driver. Bus timing
+is retained from firmware; no architecture-series dependency is needed.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- drivers/net/mdio/Kconfig       |  13 ++++
- drivers/net/mdio/Makefile      |   1 +
- drivers/net/mdio/mdio-cs75xx.c | 136 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 150 insertions(+)
+ drivers/mtd/nand/raw/Kconfig       |  12 +
+ drivers/mtd/nand/raw/Makefile      |   1 +
+ drivers/mtd/nand/raw/cs752x_nand.c | 826 +++++++++++++++++++++++++++++++++++++
+ 3 files changed, 839 insertions(+)
 
-diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
-index d44278f26..a20fec805 100644
---- a/drivers/net/mdio/Kconfig
-+++ b/drivers/net/mdio/Kconfig
-@@ -291,3 +291,16 @@ config MDIO_BUS_MUX_MMIOREG
+diff --git a/drivers/mtd/nand/raw/Kconfig b/drivers/mtd/nand/raw/Kconfig
+index 1f4053e53..3d2373503 100644
+--- a/drivers/mtd/nand/raw/Kconfig
++++ b/drivers/mtd/nand/raw/Kconfig
+@@ -12,6 +12,18 @@ if MTD_RAW_NAND
  
- endmenu
- endmenu
-+
-+config MDIO_CS75XX
-+	tristate "Cortina Systems CS7542 MDIO controller"
-+	depends on OF_MDIO && HAS_IOMEM
+ comment "Raw/parallel NAND flash controllers"
+ 
++config MTD_NAND_CS752X
++	tristate "Cortina Systems CS7542 NAND controller"
++	depends on OF && HAS_IOMEM
 +	help
-+	  Support Clause 22 PHY register access through the CS7542 MDIO
-+	  controller, retaining the prescaler configured by platform firmware.
-+	  Transactions use bounded polling and recover from late completion.
-+	  Device Tree describes the PHYs sharing this management bus.
++	  Support the CS7542 controller with programmed I/O and hardware
++	  Hamming ECC using the layout required by existing Almond+ firmware.
++	  The NAND bus timing is initialized by the platform firmware.
++	  Transfers use bounded polling and the native command sequencer.
 +
 +	  To compile this driver as a module, choose M here: the module
-+	  will be called mdio-cs75xx.
++	  will be called cs752x_nand.
 +
-diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
-index 048586746..2afa6066f 100644
---- a/drivers/net/mdio/Makefile
-+++ b/drivers/net/mdio/Makefile
-@@ -35,3 +35,4 @@ obj-$(CONFIG_MDIO_BUS_MUX_MESON_G12A)	+= mdio-mux-meson-g12a.o
- obj-$(CONFIG_MDIO_BUS_MUX_MESON_GXL)	+= mdio-mux-meson-gxl.o
- obj-$(CONFIG_MDIO_BUS_MUX_MMIOREG) 	+= mdio-mux-mmioreg.o
- obj-$(CONFIG_MDIO_BUS_MUX_MULTIPLEXER) 	+= mdio-mux-multiplexer.o
-+obj-$(CONFIG_MDIO_CS75XX) += mdio-cs75xx.o
-diff --git a/drivers/net/mdio/mdio-cs75xx.c b/drivers/net/mdio/mdio-cs75xx.c
+ config MTD_NAND_DENALI
+ 	tristate
+ 
+diff --git a/drivers/mtd/nand/raw/Makefile b/drivers/mtd/nand/raw/Makefile
+index 619760138..3562f8940 100644
+--- a/drivers/mtd/nand/raw/Makefile
++++ b/drivers/mtd/nand/raw/Makefile
+@@ -71,3 +71,4 @@ nand-objs += nand_micron.o
+ nand-objs += nand_sandisk.o
+ nand-objs += nand_samsung.o
+ nand-objs += nand_toshiba.o
++obj-$(CONFIG_MTD_NAND_CS752X) += cs752x_nand.o
+diff --git a/drivers/mtd/nand/raw/cs752x_nand.c b/drivers/mtd/nand/raw/cs752x_nand.c
 new file mode 100644
-index 000000000..0761d3cef
+index 000000000..7c8f73e6f
 --- /dev/null
-+++ b/drivers/net/mdio/mdio-cs75xx.c
-@@ -0,0 +1,136 @@
++++ b/drivers/mtd/nand/raw/cs752x_nand.c
+@@ -0,0 +1,826 @@
 +// SPDX-License-Identifier: GPL-2.0
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
++#include <linux/kernel.h>
++#include <linux/slab.h>
++#include <linux/module.h>
++#include <linux/sched.h>
++#include <linux/platform_device.h>
++#include <linux/mtd/mtd.h>
++#include <linux/mtd/rawnand.h>
++#include <linux/mtd/partitions.h>
++#include <linux/bitops.h>
++#include <linux/err.h>
++#include <linux/unaligned.h>
 +#include <linux/io.h>
 +#include <linux/iopoll.h>
-+#include <linux/module.h>
++#include <linux/delay.h>
++#include <linux/jiffies.h>
 +#include <linux/of.h>
-+#include <linux/of_mdio.h>
-+#include <linux/phy.h>
-+#include <linux/platform_device.h>
 +
-+#define PER_MDIO_CFG			0x00
-+#define   MDIO_CFG_MANUAL		BIT(0)
-+#define PER_MDIO_ADDR			0x04
-+#define   MDIO_ADDR_PHY			GENMASK(4, 0)
-+#define   MDIO_ADDR_REG			GENMASK(12, 8)
-+#define   MDIO_ADDR_READ		BIT(15)
-+#define PER_MDIO_WRDATA			0x08
-+#define PER_MDIO_RDDATA			0x0c
-+#define PER_MDIO_CTRL			0x10
-+#define   MDIO_CTRL_DONE		BIT(0)
-+#define   MDIO_CTRL_START		BIT(7)
++#define CS75XX_OWN_BUF_SIZE	(SZ_4K + 512)
 +
-+#define CS75XX_MDIO_TIMEOUT_US		10000
++#define FLASH_STATUS		0x08
++#define FLASH_TYPE		0x0c
++#define FLASH_NF_ACCESS		0x28
++#define FLASH_NF_COUNT		0x2c
++#define FLASH_NF_COMMAND	0x30
++#define FLASH_NF_ADDRESS_1	0x34
++#define FLASH_NF_ADDRESS_2	0x38
++#define FLASH_NF_DATA		0x3c
++#define FLASH_NF_ECC_STATUS	0x44
++#define FLASH_NF_ECC_CONTROL	0x48
++#define FLASH_NF_ECC_OOB	0x4c
++#define FLASH_NF_ECC_GEN0	0x50
++#define FLASH_FLASH_ACCESS_START 0xa4
++#define FLASH_NF_ECC_RESET	0xa8
++#define FLASH_FLASH_INTERRUPT	0xac
++#define FLASH_NF_BCH_CONTROL	0xd0
 +
-+struct cs75xx_mdio {
-+	void __iomem *base;
-+	struct mii_bus *bus;
-+	bool pending;
++#define NF_ACCESS_EXTADDR(x)	((x) & 0xff)
++#define NF_ACCESS_WIDTH8	(0x0 << 10)
++#define NF_ACCESS_WIDTH32	(0x2 << 10)
++
++#define NF_CNT_CMD(x)		((x) & 0x3)
++#define NF_CNT_ADDR(x)		(((x) & 0x7) << 4)
++#define NF_CNT_DATA(x)		(((x) & 0x3fff) << 8)
++#define NF_CNT_OOB(x)		(((x) & 0x3ffU) << 22)
++#define NCNT_EMPTY_OOB		0x3ff
++#define NCNT_EMPTY_DATA		0x3fff
++#define NCNT_EMPTY_ADDR		0x7
++#define NCNT_ADDR_4		0x3
++#define NCNT_ADDR_5		0x4
++#define NCNT_CMD_2		0x1
++
++#define FLASH_START_REGREQ	BIT(0)
++#define FLASH_START_CMD(x)	(((x) & 0x3) << 12)
++#define FLASH_RD		0x2
++#define FLASH_WT		0x3
++
++#define ECC_RESET_ECC_CLR	BIT(0)
++#define ECC_RESET_FIFO_CLR	BIT(1)
++#define ECC_RESET_NF_RESET	BIT(2)
++
++#define FLASH_INT_REGIRQ	BIT(0)
++
++#define ECC_CTL_CODESEL(x)	(((x) & 0xf) << 4)
++#define ECC_CTL_EN		BIT(8)
++
++#define ECC_STS_STATUS(v)	((v) & 0x3)
++#define ECC_STS_ERRBIT(v)	(((v) >> 3) & 0xf)
++#define ECC_STS_ERRBYTE(v)	(((v) >> 7) & 0x1ff)
++#define ECC_STS_DONE		BIT(31)
++#define ECC_NO_ERR		0x0
++#define ECC_1BIT_DATA_ERR	0x1
++#define ECC_1BIT_ECC_ERR	0x2
++#define ECC_UNCORRECTABLE	0x3
++
++#define FLASH_STATUS_NSTATE_MASK	(0x0f << 8)
++
++struct cs752x_nand_host {
++	struct nand_controller	controller;
++	struct nand_chip	chip;
++	struct device		*dev;
++
++	void __iomem		*iobase_fl;
++	u8			own_buf[CS75XX_OWN_BUF_SIZE];
++	unsigned int		buf_offs;
++	unsigned int		buf_data_len;
++	unsigned int		cache_column;
++	u8			read_mode;
++
++	u8			*ecc_calc;
++	u8			*ecc_code;
 +};
 +
-+static int cs75xx_mdio_wait(struct cs75xx_mdio *priv)
++static inline struct cs752x_nand_host *to_host(struct nand_chip *chip)
 +{
++	return container_of(chip, struct cs752x_nand_host, chip);
++}
++
++static inline u32 fl_readl(struct cs752x_nand_host *h, u32 reg)
++{
++	return readl(h->iobase_fl + reg);
++}
++
++static inline void fl_writel(struct cs752x_nand_host *h, u32 reg, u32 val)
++{
++	writel(val, h->iobase_fl + reg);
++}
++
++static int check_flash_ctrl_status(struct cs752x_nand_host *h)
++{
++	unsigned long timeo = jiffies + HZ;
 +	u32 val;
++
++	do {
++		val = fl_readl(h, FLASH_STATUS) & FLASH_STATUS_NSTATE_MASK;
++		if (val == 0)
++			return 0;
++		cpu_relax();
++	} while (time_before(jiffies, timeo));
++
++	dev_err(h->dev, "FLASH_STATUS busy: 0x%x\n", val);
++	return -ETIMEDOUT;
++}
++
++static inline u32 mk_nf_command(u8 cmd0, u8 cmd1, u8 cmd2)
++{
++	return ((u32)cmd2 << 16) | ((u32)cmd1 << 8) | cmd0;
++}
++
++static u32 mk_nf_addr(struct nand_chip *chip, u32 page, u32 *addr1,
++		      u32 *addr2, u32 column)
++{
++	*addr1 = ((page & 0xffff) << 16) | column;
++	*addr2 = page >> 16;
++	return chip->options & NAND_ROW_ADDR_3 ? NCNT_ADDR_5 : NCNT_ADDR_4;
++}
++
++static int wait_reg(struct cs752x_nand_host *h, u32 reg, u32 bit, const char *what)
++{
++	unsigned long timeo = jiffies + 2 * HZ;
++
++	while (!(fl_readl(h, reg) & bit)) {
++		if (time_after(jiffies, timeo)) {
++			dev_err(h->dev, "%s timeout\n", what);
++			return -ETIMEDOUT;
++		}
++		udelay(1);
++		cond_resched();
++	}
++	return 0;
++}
++
++static void reset_ecc_bch_registers(struct cs752x_nand_host *h)
++{
++	fl_writel(h, FLASH_NF_ECC_RESET, ECC_RESET_ECC_CLR | ECC_RESET_FIFO_CLR);
++	fl_writel(h, FLASH_FLASH_INTERRUPT, FLASH_INT_REGIRQ);
++	fl_writel(h, FLASH_NF_ECC_RESET, ECC_RESET_ECC_CLR);
++	fl_writel(h, FLASH_NF_BCH_CONTROL, 0);
++	fl_writel(h, FLASH_NF_ECC_CONTROL, 0);
++}
++
++static void configure_hwecc_reg(struct cs752x_nand_host *h, bool is_write)
++{
++	fl_writel(h, FLASH_NF_ECC_CONTROL, ECC_CTL_EN);
++}
++
++static void cs752x_setup_page_regs(struct cs752x_nand_host *h, int page,
++				   bool write, bool oob_required)
++{
++	struct nand_chip *chip = &h->chip;
++	struct mtd_info *mtd = nand_to_mtd(chip);
++	u32 cmd, addr1, addr2, cnt;
++
++	cnt = NF_CNT_DATA(mtd->writesize - 1);
++	cnt |= NF_CNT_OOB(oob_required ? mtd->oobsize - 1 : NCNT_EMPTY_OOB);
++
++	cnt |= NF_CNT_CMD(NCNT_CMD_2);
++	cmd = write ? mk_nf_command(NAND_CMD_SEQIN, NAND_CMD_PAGEPROG, 0) :
++		      mk_nf_command(NAND_CMD_READ0, NAND_CMD_READSTART, 0);
++	cnt |= NF_CNT_ADDR(mk_nf_addr(chip, page, &addr1, &addr2, 0));
++
++	fl_writel(h, FLASH_NF_COUNT, cnt);
++	fl_writel(h, FLASH_NF_COMMAND, cmd);
++	fl_writel(h, FLASH_NF_ADDRESS_1, addr1);
++	fl_writel(h, FLASH_NF_ADDRESS_2, addr2);
++	fl_writel(h, FLASH_NF_ACCESS,
++		  NF_ACCESS_WIDTH32 |
++		  NF_ACCESS_EXTADDR(((u32)page << chip->page_shift) / SZ_128M));
++}
++
++static int cs752x_page_op_begin(struct cs752x_nand_host *h)
++{
++	int ret = check_flash_ctrl_status(h);
++
++	if (ret) {
++		fl_writel(h, FLASH_NF_ECC_RESET,
++			  ECC_RESET_ECC_CLR | ECC_RESET_FIFO_CLR | ECC_RESET_NF_RESET);
++		return ret;
++	}
++	reset_ecc_bch_registers(h);
++	return 0;
++}
++
++static int cs752x_nand_words(struct cs752x_nand_host *h, u8 *buf,
++			     unsigned int len, bool write)
++{
++	u32 value;
++	unsigned int i;
 +	int ret;
 +
-+	ret = readl_poll_timeout_atomic(priv->base + PER_MDIO_CTRL, val,
-+					val & MDIO_CTRL_DONE, 1,
-+				       CS75XX_MDIO_TIMEOUT_US);
-+	if (!ret) {
-+		writel(MDIO_CTRL_DONE, priv->base + PER_MDIO_CTRL);
-+		priv->pending = false;
++	if (len % sizeof(u32))
++		return -EINVAL;
++	for (i = 0; i < len; i += sizeof(u32)) {
++		if (write)
++			fl_writel(h, FLASH_NF_DATA, get_unaligned_le32(buf + i));
++		fl_writel(h, FLASH_FLASH_ACCESS_START,
++			  FLASH_START_REGREQ | FLASH_START_CMD(write ? FLASH_WT : FLASH_RD));
++		ret = readl_poll_timeout_atomic(h->iobase_fl + FLASH_FLASH_ACCESS_START,
++						value, !(value & FLASH_START_REGREQ), 1, 10000);
++		if (ret) {
++			fl_writel(h, FLASH_NF_ECC_RESET,
++				  ECC_RESET_ECC_CLR | ECC_RESET_FIFO_CLR | ECC_RESET_NF_RESET);
++			return ret;
++		}
++		if (!write)
++			put_unaligned_le32(fl_readl(h, FLASH_NF_DATA), buf + i);
 +	}
++	return 0;
++}
++
++static int cs752x_nand_read_page_pio(struct cs752x_nand_host *h, u8 *buf,
++				     bool oob_required, int page)
++{
++	struct mtd_info *mtd = nand_to_mtd(&h->chip);
++	int ret;
++
++	cs752x_setup_page_regs(h, page, false, oob_required);
++	ret = cs752x_nand_words(h, buf, mtd->writesize, false);
++	if (ret || !oob_required)
++		return ret;
++	return cs752x_nand_words(h, h->chip.oob_poi, mtd->oobsize, false);
++}
++
++static int cs752x_nand_write_page_pio(struct cs752x_nand_host *h, const u8 *buf,
++				      bool oob_required, int page,
++				    int (*fill_oob)(struct cs752x_nand_host *))
++{
++	struct mtd_info *mtd = nand_to_mtd(&h->chip);
++	int ret;
++
++	cs752x_setup_page_regs(h, page, true, oob_required);
++	ret = cs752x_nand_words(h, (u8 *)buf, mtd->writesize, true);
++	if (ret || !oob_required)
++		return ret;
++	if (fill_oob) {
++		ret = fill_oob(h);
++		if (ret) {
++			fl_writel(h, FLASH_NF_ECC_RESET,
++				  ECC_RESET_ECC_CLR | ECC_RESET_FIFO_CLR | ECC_RESET_NF_RESET);
++			return ret;
++		}
++	}
++	return cs752x_nand_words(h, h->chip.oob_poi, mtd->oobsize, true);
++}
++
++static int fill_hamming_oob_data(struct cs752x_nand_host *h)
++{
++	struct nand_chip *chip = &h->chip;
++	struct mtd_info *mtd = nand_to_mtd(chip);
++	u8 *ecc_calc = h->ecc_calc;
++	int eccsteps = chip->ecc.steps, eccbytes = chip->ecc.bytes;
++	int i, j, ret;
++
++	ret = wait_reg(h, FLASH_NF_ECC_STATUS, ECC_STS_DONE, "ecc gen");
++	if (ret)
++		return ret;
++	fl_writel(h, FLASH_NF_ECC_CONTROL,
++		  fl_readl(h, FLASH_NF_ECC_CONTROL) & ~ECC_CTL_EN);
++
++	for (i = 0, j = 0; eccsteps; eccsteps--, i++, j += eccbytes) {
++		u32 v = fl_readl(h, FLASH_NF_ECC_GEN0 + 4 * i);
++
++		ecc_calc[j]     = v & 0xff;
++		ecc_calc[j + 1] = (v >> 8) & 0xff;
++		ecc_calc[j + 2] = (v >> 16) & 0xff;
++	}
++	return mtd_ooblayout_set_eccbytes(mtd, ecc_calc, chip->oob_poi, 0,
++					  chip->ecc.total);
++}
++
++static int hamming_correct(struct cs752x_nand_host *h, u8 *buf, int page)
++{
++	struct nand_chip *chip = &h->chip;
++	struct mtd_info *mtd = nand_to_mtd(chip);
++	u8 *ecc_code = h->ecc_code;
++	int eccsteps = chip->ecc.steps, eccbytes = chip->ecc.bytes;
++	int eccsize = chip->ecc.size;
++	int i, max_bitflips = 0, ret;
++	u8 *p = buf;
++
++	ret = wait_reg(h, FLASH_NF_ECC_STATUS, ECC_STS_DONE, "ecc gen");
++	if (ret)
++		return ret;
++	fl_writel(h, FLASH_NF_ECC_CONTROL,
++		  fl_readl(h, FLASH_NF_ECC_CONTROL) & ~ECC_CTL_EN);
++
++	ret = mtd_ooblayout_get_eccbytes(mtd, ecc_code, chip->oob_poi, 0, chip->ecc.total);
++	if (ret)
++		return ret;
++
++	for (i = 0; eccsteps; eccsteps--, i += eccbytes, p += eccsize) {
++		u32 sts, ctl;
++		int step = i / eccbytes;
++
++		fl_writel(h, FLASH_NF_ECC_OOB,
++			  ecc_code[i] | (ecc_code[i + 1] << 8) | (ecc_code[i + 2] << 16));
++		ctl = fl_readl(h, FLASH_NF_ECC_CONTROL) & ~ECC_CTL_CODESEL(0xf);
++		fl_writel(h, FLASH_NF_ECC_CONTROL, ctl | ECC_CTL_CODESEL(step));
++
++		sts = fl_readl(h, FLASH_NF_ECC_STATUS);
++		switch (ECC_STS_STATUS(sts)) {
++		case ECC_NO_ERR:
++			break;
++		case ECC_1BIT_DATA_ERR:
++			if (ECC_STS_ERRBYTE(sts) >= eccsize) {
++				mtd->ecc_stats.failed++;
++				break;
++			}
++			p[ECC_STS_ERRBYTE(sts)] ^= BIT(ECC_STS_ERRBIT(sts));
++			mtd->ecc_stats.corrected++;
++			max_bitflips = max(max_bitflips, 1);
++			dev_dbg(h->dev, "page %d step %d: 1-bit data error corrected\n",
++				page, step);
++			break;
++		case ECC_1BIT_ECC_ERR:
++			mtd->ecc_stats.corrected++;
++			max_bitflips = max(max_bitflips, 1);
++			dev_dbg(h->dev, "page %d step %d: 1-bit ecc error\n", page, step);
++			break;
++		case ECC_UNCORRECTABLE:
++			mtd->ecc_stats.failed++;
++			dev_dbg(h->dev, "page %d step %d: uncorrectable\n", page, step);
++			break;
++		}
++	}
++	return max_bitflips;
++}
++
++/* The controller sequences complete transactions; do not split CMD/ADDR. */
++struct cs752x_nand_op {
++	u32 command;
++	u64 address;
++	unsigned int ncmds;
++	unsigned int naddrs;
++	const struct nand_op_instr *data;
++	unsigned int timeout_ms;
++	unsigned int delay_ns;
++};
++
++static int cs752x_nand_decode(const struct nand_operation *op,
++			      struct cs752x_nand_op *p)
++{
++	unsigned int i, state = 0, nsig = 0, nwait = 0;
++	char sig[7] = {};
++
++	memset(p, 0, sizeof(*p));
++	p->timeout_ms = 100;
++	if (op->cs || !op->ninstrs || op->ninstrs > 6)
++		return -EOPNOTSUPP;
++	for (i = 0; i < op->ninstrs; i++) {
++		const struct nand_op_instr *in = &op->instrs[i];
++		unsigned int j;
++
++		p->delay_ns = max(p->delay_ns, in->delay_ns);
++		if (in->type != NAND_OP_WAITRDY_INSTR) {
++			if (in->type > NAND_OP_DATA_OUT_INSTR)
++				return -EOPNOTSUPP;
++			sig[nsig++] = "CAIO"[in->type];
++		} else if (++nwait > 1 || !i ||
++			   (op->instrs[i - 1].type != NAND_OP_CMD_INSTR &&
++			    op->instrs[i - 1].type != NAND_OP_ADDR_INSTR)) {
++			return -EOPNOTSUPP;
++		}
++		switch (in->type) {
++		case NAND_OP_CMD_INSTR:
++			if (p->ncmds == 2 || state == 4)
++				return -EOPNOTSUPP;
++			p->command |= (u32)in->ctx.cmd.opcode << (p->ncmds++ * 8);
++			state = 1;
++			break;
++		case NAND_OP_ADDR_INSTR:
++			if (state != 1 || p->naddrs || !in->ctx.addr.naddrs ||
++			    in->ctx.addr.naddrs > 5)
++				return -EOPNOTSUPP;
++			p->naddrs = in->ctx.addr.naddrs;
++			for (j = 0; j < p->naddrs; j++)
++				p->address |= (u64)in->ctx.addr.addrs[j] << (j * 8);
++			state = 2;
++			break;
++		case NAND_OP_DATA_IN_INSTR:
++		case NAND_OP_DATA_OUT_INSTR:
++			if (p->data || !in->ctx.data.len ||
++			    in->ctx.data.len > CS75XX_OWN_BUF_SIZE)
++				return -EOPNOTSUPP;
++			p->data = in;
++			state = in->type == NAND_OP_DATA_IN_INSTR ? 4 : 3;
++			break;
++		case NAND_OP_WAITRDY_INSTR:
++			if (!in->ctx.waitrdy.timeout_ms)
++				return -EOPNOTSUPP;
++			p->timeout_ms = in->ctx.waitrdy.timeout_ms;
++			break;
++		default:
++			return -EOPNOTSUPP;
++		}
++	}
++
++	if (!p->ncmds)
++		return p->data && p->data->type == NAND_OP_DATA_IN_INSTR &&
++		       op->ninstrs == 1 ? 0 : -EOPNOTSUPP;
++	/* Validate the whole sequence, not just the available register fields. */
++	if (p->command == NAND_CMD_RESET) {
++		if (strcmp(sig, "C"))
++			return -EOPNOTSUPP;
++	} else if (p->command == NAND_CMD_STATUS) {
++		if (strcmp(sig, "C") && strcmp(sig, "CI"))
++			return -EOPNOTSUPP;
++	} else if (p->command == NAND_CMD_READID || p->command == NAND_CMD_PARAM) {
++		if (strcmp(sig, "CA") && strcmp(sig, "CAI"))
++			return -EOPNOTSUPP;
++	} else if (p->command == (NAND_CMD_SEQIN | (NAND_CMD_PAGEPROG << 8))) {
++		if (strcmp(sig, "CAOC"))
++			return -EOPNOTSUPP;
++	} else if (strcmp(sig, "CAC") && strcmp(sig, "CACI")) {
++		return -EOPNOTSUPP;
++	}
++	switch (p->command) {
++	case NAND_CMD_RESET:
++		return !p->naddrs && !p->data ? 0 : -EOPNOTSUPP;
++	case NAND_CMD_STATUS:
++		return !p->naddrs && (!p->data ||
++		       (p->data->type == NAND_OP_DATA_IN_INSTR &&
++			p->data->ctx.data.len == 1)) ? 0 : -EOPNOTSUPP;
++	case NAND_CMD_READID:
++	case NAND_CMD_PARAM:
++		return p->naddrs == 1 && (!p->data ||
++		       p->data->type == NAND_OP_DATA_IN_INSTR) ? 0 : -EOPNOTSUPP;
++	case NAND_CMD_READ0 | (NAND_CMD_READSTART << 8):
++		return p->naddrs >= 4 && (!p->data ||
++		       p->data->type == NAND_OP_DATA_IN_INSTR) ? 0 : -EOPNOTSUPP;
++	case NAND_CMD_RNDOUT | (NAND_CMD_RNDOUTSTART << 8):
++		return p->naddrs == 2 && (!p->data ||
++		       p->data->type == NAND_OP_DATA_IN_INSTR) ? 0 : -EOPNOTSUPP;
++	case NAND_CMD_SEQIN | (NAND_CMD_PAGEPROG << 8):
++		return p->naddrs >= 4 && p->data &&
++		       p->data->type == NAND_OP_DATA_OUT_INSTR &&
++		       !(p->data->ctx.data.len % sizeof(u32)) &&
++		       !(p->address & 3) && state == 1 ? 0 : -EOPNOTSUPP;
++	case NAND_CMD_ERASE1 | (NAND_CMD_ERASE2 << 8):
++		return p->naddrs >= 2 && p->naddrs <= 3 && !p->data ? 0 : -EOPNOTSUPP;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
++static int cs752x_nand_wait_ready(struct cs752x_nand_host *h,
++				  unsigned int timeout_ms)
++{
++	u32 value;
++
++	/* nflash_rbIn_d is the sampled NAND R/B input, not the FSM state. */
++	return readl_poll_timeout(h->iobase_fl + FLASH_STATUS, value,
++				 value & BIT(26), 1, (u64)timeout_ms * 1000);
++}
++
++static int cs752x_nand_pio(struct cs752x_nand_host *h,
++			   const struct cs752x_nand_op *p, u8 *buf,
++			  unsigned int len, bool write)
++{
++	u32 value;
++	unsigned int i, step = write && len ? sizeof(u32) : 1;
++	int ret;
++
++	ret = check_flash_ctrl_status(h);
++	if (ret)
++		return ret;
++	reset_ecc_bch_registers(h);
++	fl_writel(h, FLASH_NF_COUNT,
++		  NF_CNT_OOB(NCNT_EMPTY_OOB) |
++		  NF_CNT_DATA(len ? len - 1 : NCNT_EMPTY_DATA) |
++		  NF_CNT_ADDR(p->naddrs ? p->naddrs - 1 : NCNT_EMPTY_ADDR) |
++		  NF_CNT_CMD(p->ncmds - 1));
++	fl_writel(h, FLASH_NF_COMMAND, p->command);
++	fl_writel(h, FLASH_NF_ADDRESS_1, lower_32_bits(p->address));
++	fl_writel(h, FLASH_NF_ADDRESS_2, upper_32_bits(p->address));
++	fl_writel(h, FLASH_NF_ACCESS, write && len ? NF_ACCESS_WIDTH32 : NF_ACCESS_WIDTH8);
++
++	for (i = 0; i < max(len, 1U); i += step) {
++		if (write && len)
++			fl_writel(h, FLASH_NF_DATA, get_unaligned_le32(buf + i));
++		fl_writel(h, FLASH_FLASH_ACCESS_START,
++			  FLASH_START_REGREQ | FLASH_START_CMD(write ? FLASH_WT : FLASH_RD));
++		/* Byte PIO completes in microseconds, below scheduler granularity. */
++		ret = readl_poll_timeout_atomic(h->iobase_fl + FLASH_FLASH_ACCESS_START,
++						value, !(value & FLASH_START_REGREQ), 1,
++					(u64)p->timeout_ms * 1000);
++		if (ret)
++			goto out;
++		if (!write && len)
++			buf[i] = fl_readl(h, FLASH_NF_DATA) >> ((i % 4) * 8);
++	}
++	ret = p->command == NAND_CMD_STATUS ? 0 :
++	      cs752x_nand_wait_ready(h, p->timeout_ms);
++	if (p->delay_ns)
++		ndelay(p->delay_ns);
++out:
++	fl_writel(h, FLASH_NF_ECC_RESET,
++		  ECC_RESET_ECC_CLR | ECC_RESET_FIFO_CLR | ECC_RESET_NF_RESET);
 +	return ret;
 +}
 +
-+static int cs75xx_mdio_read(struct mii_bus *bus, int phy, int reg)
++static int cs752x_nand_exec_op(struct nand_chip *chip,
++			       const struct nand_operation *op, bool check_only)
 +{
-+	struct cs75xx_mdio *priv = bus->priv;
++	struct cs752x_nand_host *h = to_host(chip);
++	struct mtd_info *mtd = nand_to_mtd(chip);
++	struct cs752x_nand_op p;
++	unsigned int len = 0, requested, col;
 +	int ret;
 +
-+	/* A timed-out frame must finish before programming another address. */
-+	if (priv->pending) {
-+		ret = cs75xx_mdio_wait(priv);
-+		if (ret)
-+			return ret;
++	ret = cs752x_nand_decode(op, &p);
++	if (ret || check_only)
++		return ret;
++	requested = p.data ? p.data->ctx.data.len : 0;
++	if (!p.ncmds) {
++		if (h->read_mode != NAND_CMD_STATUS)
++			goto cached;
++		if (requested != 1)
++			return -EOPNOTSUPP;
++		p.command = NAND_CMD_STATUS;
++		p.ncmds = 1;
 +	}
-+	writel(MDIO_CTRL_DONE, priv->base + PER_MDIO_CTRL);
-+	writel(MDIO_ADDR_READ | FIELD_PREP(MDIO_ADDR_REG, reg) |
-+	       FIELD_PREP(MDIO_ADDR_PHY, phy), priv->base + PER_MDIO_ADDR);
-+	priv->pending = true;
-+	writel(MDIO_CTRL_START, priv->base + PER_MDIO_CTRL);
-+	ret = cs75xx_mdio_wait(priv);
++	if (p.command == (NAND_CMD_RNDOUT | (NAND_CMD_RNDOUTSTART << 8))) {
++		col = p.address;
++		if (h->read_mode != NAND_CMD_PARAM && h->read_mode != NAND_CMD_READ0)
++			return -EINVAL;
++		if (col < h->cache_column || col - h->cache_column > h->buf_data_len)
++			return -EINVAL;
++		h->buf_offs = col - h->cache_column;
++		goto cached;
++	}
++	h->buf_offs = 0;
++	h->buf_data_len = 0;
++	h->read_mode = p.command & 0xff;
++	h->cache_column = 0;
++	switch (p.command) {
++	case NAND_CMD_READID:
++		len = max(requested, 8U);
++		break;
++	case NAND_CMD_PARAM:
++		/* Keep all standard ONFI copies plus room for extended parameters. */
++		len = sizeof(h->own_buf);
++		break;
++	case NAND_CMD_STATUS:
++		len = 1;
++		break;
++	case NAND_CMD_READ0 | (NAND_CMD_READSTART << 8):
++		col = p.address & 0xffff;
++		if (col >= mtd->writesize + mtd->oobsize)
++			return -EINVAL;
++		h->cache_column = col;
++		len = mtd->writesize + mtd->oobsize - col;
++		break;
++	default:
++		break;
++	}
++	if (len > sizeof(h->own_buf) || (requested > len &&
++					 (!p.data || p.data->type == NAND_OP_DATA_IN_INSTR)))
++		return -EOPNOTSUPP;
++	if (p.data && p.data->type == NAND_OP_DATA_OUT_INSTR)
++		return cs752x_nand_pio(h, &p, (u8 *)p.data->ctx.data.buf.out,
++				      requested, true);
++
++	ret = cs752x_nand_pio(h, &p, h->own_buf, len,
++			      p.command == NAND_CMD_RESET);
 +	if (ret)
 +		return ret;
-+	return readl(priv->base + PER_MDIO_RDDATA) & 0xffff;
++	h->buf_data_len = len;
++cached:
++	if (!requested)
++		return 0;
++	if (h->buf_offs > h->buf_data_len ||
++	    requested > h->buf_data_len - h->buf_offs)
++		return -EOPNOTSUPP;
++	memcpy(p.data->ctx.data.buf.in, h->own_buf + h->buf_offs, requested);
++	h->buf_offs += requested;
++	return 0;
 +}
 +
-+static int cs75xx_mdio_write(struct mii_bus *bus, int phy, int reg, u16 val)
++static int cs752x_nand_program_status(struct nand_chip *chip)
 +{
-+	struct cs75xx_mdio *priv = bus->priv;
++	u8 status;
 +	int ret;
 +
-+	if (priv->pending) {
-+		ret = cs75xx_mdio_wait(priv);
-+		if (ret)
-+			return ret;
-+	}
-+	writel(MDIO_CTRL_DONE, priv->base + PER_MDIO_CTRL);
-+	writel(FIELD_PREP(MDIO_ADDR_REG, reg) | FIELD_PREP(MDIO_ADDR_PHY, phy),
-+	       priv->base + PER_MDIO_ADDR);
-+	writel(val, priv->base + PER_MDIO_WRDATA);
-+	priv->pending = true;
-+	writel(MDIO_CTRL_START, priv->base + PER_MDIO_CTRL);
-+	return cs75xx_mdio_wait(priv);
++	ret = cs752x_nand_wait_ready(to_host(chip), 1000);
++	if (ret)
++		return ret;
++	ret = nand_status_op(chip, &status);
++	if (ret)
++		return ret;
++	return status & NAND_STATUS_FAIL ? -EIO : 0;
 +}
 +
-+static int cs75xx_mdio_probe(struct platform_device *pdev)
++static int cs752x_nand_write_oob_std(struct nand_chip *chip, int page)
 +{
-+	struct device *dev = &pdev->dev;
-+	struct cs75xx_mdio *priv;
-+	struct mii_bus *bus;
-+	u32 cfg;
++	return nand_prog_page_op(chip, page, nand_to_mtd(chip)->writesize,
++				 chip->oob_poi, nand_to_mtd(chip)->oobsize);
++}
 +
-+	bus = devm_mdiobus_alloc_size(dev, sizeof(*priv));
-+	if (!bus)
++static int cs752x_nand_read_page_raw(struct nand_chip *chip, u8 *buf,
++				     int oob_required, int page)
++{
++	struct cs752x_nand_host *h = to_host(chip);
++	int ret;
++
++	ret = cs752x_page_op_begin(h);
++	if (ret)
++		return ret;
++	return cs752x_nand_read_page_pio(h, buf, oob_required, page);
++}
++
++static int cs752x_nand_write_page_raw(struct nand_chip *chip, const u8 *buf,
++				      int oob_required, int page)
++{
++	struct cs752x_nand_host *h = to_host(chip);
++	int ret;
++
++	ret = cs752x_page_op_begin(h);
++	if (ret)
++		return ret;
++	ret = cs752x_nand_write_page_pio(h, buf, oob_required, page, NULL);
++	if (ret)
++		return ret;
++	return cs752x_nand_program_status(chip);
++}
++
++static int cs752x_nand_read_page_hwecc(struct nand_chip *chip, u8 *buf,
++				       int oob_required, int page)
++{
++	struct cs752x_nand_host *h = to_host(chip);
++	int ret;
++
++	ret = cs752x_page_op_begin(h);
++	if (ret)
++		return ret;
++	configure_hwecc_reg(h, false);
++
++	ret = cs752x_nand_read_page_pio(h, buf, true, page);
++	if (ret)
++		return ret;
++
++	ret = hamming_correct(h, buf, page);
++	return ret;
++}
++
++static int cs752x_nand_write_page_hwecc(struct nand_chip *chip, const u8 *buf,
++					int oob_required, int page)
++{
++	struct cs752x_nand_host *h = to_host(chip);
++	int ret;
++
++	ret = cs752x_page_op_begin(h);
++	if (ret)
++		return ret;
++	configure_hwecc_reg(h, true);
++
++	ret = cs752x_nand_write_page_pio(h, buf, true, page, fill_hamming_oob_data);
++	if (ret)
++		return ret;
++	return cs752x_nand_program_status(chip);
++}
++
++static int cs752x_nand_attach_chip(struct nand_chip *chip)
++{
++	struct mtd_info *mtd = nand_to_mtd(chip);
++	struct cs752x_nand_host *h = to_host(chip);
++	int ecc_total;
++
++	if (chip->options & NAND_BUSWIDTH_16 ||
++	    mtd->writesize <= 512 || mtd->oobsize % sizeof(u32) ||
++	    mtd->writesize + mtd->oobsize > sizeof(h->own_buf))
++		return -EOPNOTSUPP;
++	chip->ecc.engine_type = NAND_ECC_ENGINE_TYPE_ON_HOST;
++	chip->ecc.placement = NAND_ECC_PLACEMENT_OOB;
++
++	chip->ecc.algo = NAND_ECC_ALGO_HAMMING;
++	chip->ecc.size = 256;
++	chip->ecc.bytes = 3;
++	chip->ecc.strength = 1;
++
++	if (mtd->writesize < chip->ecc.size) {
++		dev_err(h->dev, "%d byte HW ECC not possible on %d byte page\n",
++			chip->ecc.size, mtd->writesize);
++		return -EINVAL;
++	}
++
++	ecc_total = mtd->writesize / chip->ecc.size * chip->ecc.bytes;
++	if (ecc_total > mtd->oobsize - 2) {
++		dev_err(h->dev, "%d ECC bytes do not fit in %d byte OOB\n",
++			ecc_total, mtd->oobsize);
++		return -EINVAL;
++	}
++
++	h->ecc_calc = devm_kzalloc(h->dev, mtd->oobsize, GFP_KERNEL);
++	h->ecc_code = devm_kzalloc(h->dev, mtd->oobsize, GFP_KERNEL);
++	if (!h->ecc_calc || !h->ecc_code)
 +		return -ENOMEM;
 +
-+	priv = bus->priv;
-+	priv->bus = bus;
-+	priv->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->base))
-+		return PTR_ERR(priv->base);
++	if (mtd->oobsize == 8 || mtd->oobsize == 16)
++		mtd_set_ooblayout(mtd, nand_get_small_page_ooblayout());
++	else
++		mtd_set_ooblayout(mtd, nand_get_large_page_hamming_ooblayout());
 +
-+	cfg = readl(priv->base + PER_MDIO_CFG);
-+	/* The firmware configures the MDC rate; retain its prescaler. */
-+	cfg |= MDIO_CFG_MANUAL;
-+	writel(cfg, priv->base + PER_MDIO_CFG);
-+	writel(MDIO_CTRL_DONE, priv->base + PER_MDIO_CTRL);
++	chip->ecc.read_page	 = cs752x_nand_read_page_hwecc;
++	chip->ecc.write_page	 = cs752x_nand_write_page_hwecc;
++	chip->ecc.read_page_raw	 = cs752x_nand_read_page_raw;
++	chip->ecc.write_page_raw = cs752x_nand_write_page_raw;
++	chip->ecc.write_oob	 = cs752x_nand_write_oob_std;
 +
-+	bus->name = "cs75xx-mdio";
-+	bus->read = cs75xx_mdio_read;
-+	bus->write = cs75xx_mdio_write;
-+	bus->parent = dev;
-+	snprintf(bus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
-+
-+	return devm_of_mdiobus_register(dev, bus, dev->of_node);
++	dev_info(h->dev, "HW ECC %s, %d bytes per %d-byte step, page %u, oob %u\n",
++		 chip->ecc.algo == NAND_ECC_ALGO_BCH ? "BCH" : "Hamming",
++		 chip->ecc.bytes, chip->ecc.size, mtd->writesize, mtd->oobsize);
++	return 0;
 +}
 +
-+static const struct of_device_id cs75xx_mdio_of_match[] = {
-+	{ .compatible = "cortina,cs7542-mdio" },
-+	{ }
++static const struct nand_controller_ops cs752x_nand_controller_ops = {
++	.attach_chip = cs752x_nand_attach_chip,
++	.exec_op = cs752x_nand_exec_op,
 +};
-+MODULE_DEVICE_TABLE(of, cs75xx_mdio_of_match);
 +
-+static struct platform_driver cs75xx_mdio_driver = {
-+	.probe = cs75xx_mdio_probe,
++static int cs752x_nand_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct cs752x_nand_host *h;
++	struct nand_chip *chip;
++	struct mtd_info *mtd;
++	struct device_node *flash;
++	u32 cs;
++	int err;
++
++	h = devm_kzalloc(dev, sizeof(*h), GFP_KERNEL);
++	if (!h)
++		return -ENOMEM;
++	h->dev = dev;
++
++	h->iobase_fl = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(h->iobase_fl))
++		return PTR_ERR(h->iobase_fl);
++
++	nand_controller_init(&h->controller);
++	h->controller.ops = &cs752x_nand_controller_ops;
++
++	chip = &h->chip;
++	mtd = nand_to_mtd(chip);
++	chip->controller = &h->controller;
++	flash = of_get_available_child_by_name(dev->of_node, "nand");
++
++	if (!flash)
++		return dev_err_probe(dev, -ENODEV, "missing NAND chip node\n");
++	err = of_property_read_u32(flash, "reg", &cs);
++	if (err || cs) {
++		of_node_put(flash);
++		return dev_err_probe(dev, -EINVAL, "only chip select 0 is supported\n");
++	}
++	nand_set_flash_node(chip, flash);
++	of_node_put(flash);
++	nand_set_controller_data(chip, h);
++	mtd->dev.parent = dev;
++	mtd->name = "cs752x_nand_flash";
++
++	chip->options |= NAND_NO_SUBPAGE_WRITE;
++
++	dev_info(dev, "flash type 0x%08x\n", fl_readl(h, FLASH_TYPE));
++
++	err = nand_scan(chip, 1);
++	if (err)
++		return dev_err_probe(dev, err, "NAND scan failed\n");
++
++	err = mtd_device_register(mtd, NULL, 0);
++	if (err) {
++		nand_cleanup(chip);
++		return err;
++	}
++
++	platform_set_drvdata(pdev, h);
++	return 0;
++}
++
++static void cs752x_nand_remove(struct platform_device *pdev)
++{
++	struct cs752x_nand_host *h = platform_get_drvdata(pdev);
++	struct nand_chip *chip = &h->chip;
++
++	WARN_ON(mtd_device_unregister(nand_to_mtd(chip)));
++	nand_cleanup(chip);
++}
++
++static const struct of_device_id cs752x_nand_dt_ids[] = {
++	{ .compatible = "cortina,cs7542-nand" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, cs752x_nand_dt_ids);
++
++static struct platform_driver cs752x_nand_driver = {
 +	.driver = {
-+		.name = "cs75xx-mdio",
-+		.of_match_table = cs75xx_mdio_of_match,
++		.name	= "cs752x_nand",
++		.of_match_table = cs752x_nand_dt_ids,
 +	},
++	.probe		= cs752x_nand_probe,
++	.remove		= cs752x_nand_remove,
 +};
-+module_platform_driver(cs75xx_mdio_driver);
++module_platform_driver(cs752x_nand_driver);
 +
-+MODULE_DESCRIPTION("Cortina CS75xx MDIO bus driver");
 +MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("NAND flash driver for Cortina CS7542");
++MODULE_ALIAS("platform:cs752x_nand");
 
 -- 
 2.53.0
