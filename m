@@ -1,73 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795435738;
-	b=oD91+1yU7uY5FiYEVM/yoFofJxChfLPf+biOO2+ZFxcZ3MVAvAsRvv0ie5WXINGPvAEH
-	 9ha6QPm79Jh6JtCJMRWANt9nbQfZDQhjkI3q+w1Y+EFJglclsh8/T9nChAFILhpKfU4Z5
-	 bJfogqkC5aNtlLwpIo/d6KxDoYEVQFm+2F/E9jhXOJS8+3v85r3DRlSFtVs8pVyqdWLVp
-	 F9aygx7y4FtFj6TvH1e3GVTIqfiU2gDXgEqQYudjEkEJfnwoAA4flr0V5ySZs0vjvYAjd
-	 DfY+hj1FMIWDgaRRki0LNowgNqL6fhZdPV97166YvFBj3CsXL2+LoqL1dtT6Ky16gyQ==
+	t=1795435753;
+	b=vKB03CYiI2KKtdAKXKA6jMYhUCNdRjE16EEptH6EnPswTLHtqQzL4wuz6gRJ0B2SKwVO
+	 nI2O9OJ+594c0teN3Xqxv73vT2ulqvwdJQx/dm9RYbSTelMf3PwhoQPsAF6WzfT3X9E42
+	 tb2ShKAQheSnY55bnfRBBHej+nI5q0PNF9/hf8+7jvGrTDev2ER6ldpvr2Y2NfMROWiV4
+	 j6neHwVO/7IXBa+fynKtLZLb74U6oM7Lie90+cQ5Lj0EAPNOUevMunTX2DPyRGeRDMiir
+	 5ueu16MKMu+pjGTymPffjxwPqFjr3rj92Wg/0AUglORxxX++LsMw+GjjuppuDp8DpHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435753;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VRuIav6YHmvsMLh7gooEE44y2XxBVR4YlFmEfHcC8FI=;
-	b=JwDdPKGn6uwIbnKRujucYgdZ5jzIxEveZGd+ZcHOlD54Zte3bEYwKBXiOFJq1PlVxzY7
-	 jBKlE732nSw675OYoz7sMDdFOFRRd7aSIOGHi5QIF/WokRbBMZWvRXpArjw4c6ZF9jhb0
-	 7WQoOB0cxj3FCWXussjhBvK4kVyvWvNa51kvy6FeGg+CPpjiJz1ab7GDc67rvI20LYm9i
-	 QVWrDFbouhjIxe+QSKmWD+ALQKY3JdNaeT0KIxpBGL0LWfaK2/8JAEwKJjsbqNTeKtRzB
-	 pmYVEVKNqqocIml8s9lZ0AvfcOT9aLs7PDZSjUw5Byiy2rgnc8QjF4IjgsjYkWDL0iw==
+	bh=jVlva3tLXdBvj0xTe4FKUpeZOW8lUXKWogIklw4JJwM=;
+	b=2WcoOK1swM24W62TFa4Ansiw/Bm+xVx78WU1+ycAgwjRFt8vDn6x8fX+CQv4ghH+Zml8
+	 SfmhO1SwhhxJ0SFbjj4AtaoPaapj7c1iJfZAwlArAGL1SQjxlg4lYJQUY+vuYzEB6O1YQ
+	 jsR/MZPYBjQDyO+DaXIy9Xw1fT5yq54mYz2JlRMRmgFEI6xOq9Uw16OPfVxg8t+CxxC7w
+	 n9IM6J1yr++8i2G0at+I/M4Iph+blntaBTinXzEeZU023wklGqkKK+vRgO4iwIcW/uKxO
+	 J0ZjXJmOvjQxQT20LupTgvUMDio0VN6dbNRRotaB/CJ5nnJw6pt5ZHkQiXX1Ag+Y5HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cu5iR40U;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dk2QAjiR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B4E606A334;
-	Mon, 23 Nov 2026 12:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689C8606A31E;
+	Mon, 23 Nov 2026 12:09:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cu5iR40U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9EC1F000D0;
-	Mon, 23 Nov 2026 12:08:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dk2QAjiR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82331F000CF;
+	Mon, 23 Nov 2026 12:09:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795435738;
-	bh=VRuIav6YHmvsMLh7gooEE44y2XxBVR4YlFmEfHcC8FI=;
+	s=k20260515; t=1795435752;
+	bh=jVlva3tLXdBvj0xTe4FKUpeZOW8lUXKWogIklw4JJwM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Cu5iR40UMCTAEJ2wd+p/QNZOSHA0mxj629+dI25oJd65SS6aiEUmMtuSP+EfqBpzw
-	 P4bLrKFTX+y+WWgpS+CeXywKXfqZeHWEzvyA5bfU5ZnxkvF+yZwvF+G0+lnZi0a8c9
-	 tIPT2c6albgAONuFapnuKdUFG9SEC6xbweoTze+swOQyd3lctsBOYmzEacZe9CdUMk
-	 YHIg5fEmkMer30U7Cl+qQNqfsvmpbupBrp0Jfu+IqXUOfj8wp6ISR41AL2a27PuMQu
-	 smXmYbXn9HrsGtjA/oFOXfqLbcRWx1prekSdgW57mJpiqDPNjsGwqlYVgE2by/qhRx
-	 fRE4ldhhSfcJA==
-Date: Mon, 23 Nov 2026 13:08:55 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, linux-usb@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2 10/16] dt-bindings: thermal: qcom-tsens: Document the
- Halliday Temperature Sensor
-Message-ID: <20261123-calculating-auspicious-terrier-0bf9fa@quoll>
-References: <20261116-halliday-dts-v2-0-2c92438c6c46@gmail.com>
- <20261116-halliday-dts-v2-10-2c92438c6c46@gmail.com>
+	b=dk2QAjiRAqck4u5mgcf43nHan6L+gOBuX9pht3YrjJTiNTsU9Zp1iVx94SEsBM5wt
+	 ELbvLjdSGKZSLvTL6UAhw9MMMH247X6kI14+OIKt6kBsgbBn4NpNBKRA/AUnwdw9c4
+	 KzCpgReRLOEfXyzQPS0VRCbjaw+RiI62FG5hD9hu/9j0QXNRHDOcyTG5+IyDvN6Upo
+	 HwaP0VL+MyB1O8afnqzeAAPVyFPoOEPVJ6jEJV0BQKfFh1eSBp4ENpoLrrqJKsNU+i
+	 LJp++Z/x/IEO0zTGIZDswSK6OFFbSUlHCGOpQJug7tXCr3Z9UoNWU4g2L1du3qONWK
+	 Xw65fHkoW6bRQ==
+Date: Mon, 23 Nov 2026 17:39:08 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Dominique Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>,
+	Byron Stanoszek <gandalf@winds.org>, OOHehir <oo.hehir@gmail.com>
+Subject: Re: [PATCH v7 0/5] phy: Add the StarFive JH7110 Innosilicon HDMI PHY
+Message-ID: <awQs5JgFZko9rTo9@parshuram>
+References: <CGME20261106135504eucas1p14138c1ce829febb8bcd63c4de1f29ffb@eucas1p1.samsung.com>
+ <20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com>
+ <b6dc6c36-9ce1-49dd-bae5-245d983610bc@samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,20 +73,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261116-halliday-dts-v2-10-2c92438c6c46@gmail.com>
+In-Reply-To: <b6dc6c36-9ce1-49dd-bae5-245d983610bc@samsung.com>
 
-On Mon, Nov 16, 2026 at 09:26:26PM +0000, Stanislav Aleksandrov wrote:
-> Document the Temperature Sensor (TSENS) on the Qualcomm Halliday SoC.
+On 20-11-26, 14:43, Michal Wilczynski wrote:
+
+> Gentle ping on this series.
 > 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
->  Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> Is there anything else needed from my side ?
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Can you please resolve the shasiko issues reported
 
-Best regards,
-Krzysztof
-
+-- 
+~Vinod
