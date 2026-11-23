@@ -1,45 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795452008;
-	b=oCRgdd2sbzqfs2jMJDlyAnYQ5Pq9QhNPFUuhyK3lDpGj1qkXTdKPpgClrK44dP9Ef78O
-	 sNkp3uA5ig7UAt3QOV5ErMVNSpWzbKhuaQzDzNTLzps2Y2YFZCD10FkLrqYA83WlupPJg
-	 JG4leojphZuaUtv1DnKGFGzmzP4jf6vfKx9IVzwihuI+5uV3+MP8eyZNd/5fPHcgxs7oi
-	 nKCcaiibNrmKAcLwzVhHObX7Hjt1CFLIWpotiiwM/air+dz9RxIgc8/fHuX5IQxUG4dPX
-	 KI5DpqkiwRliUlgYl+wdGkxpDpptDfiICAM8a+Uqunelf+2tD8itdeCTk1+LmW46/AA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795452008;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=mK2x9J8DRMq47yHdDKKSaXJTWWVVEzbLr5jIKSSbArc=;
-	b=HrxqHr9se0OrCAWwoz4+w5ygsrnjJi3wcUQdBY/VJIfrM3SkXdkbdyc0cgQjQUWJmnb5
-	 pmBIgFbwBRLlBFDY173ywN0/cHr4VpQazKcmN7TCbRjvumAY1VrdhkpTOZJhkuUYGrJGg
-	 +rLXVr/innI2USyJE73BWwhL6SPaWRT5ZpFQclrbHf2K254+TkbToRgi+XeuRaO8nVZrL
-	 r3ad/gGQ+9ugZJb6h+ATBImaQRiMlvTLl/YWlSMOao+t8Qz2o/dp8zSbPW2EKjypUE9Vw
-	 mVYZeSFsq7m2cqH2rt7vwNDm/1HsPikJDUYGawRsEAgZtkw6TLKXiTCvdLqqE2k1JKw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlVOuSfP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795452115;
+	b=HYOdXO53FUOMA8eVn67plu0CbiTiIOeVmb2vJ2imoGGikrwa0E4doMSLg7Xjb7GWpyBH
+	 kJnJ88+oD7mDsGdPRn9Xt0e/uleRCwkgzXRfe+8erYTuqVrYb33qzCa8XVkrX38FwmQof
+	 1u4FvLnH9FmqEZyFP/P1nNahJ3i2/Nb/vVyAsXPjhviCA2cFUp9dHOajFop/G80kXq+t2
+	 REdzGc1DYHashsU2k9+APl/SaAbXYHpnjhx95kV3uWBuDcllW4XqSL5/9/8jru9NEvkd0
+	 TCy31gnRwyg/8F6wDZ8+vSWQLXGan79PFfvzysgjvep1cHU0Oebqp/rVgGUuHjlETgg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795452115;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=puuyONZqQyvaNTFislAf7tN6e6fdu71bEhr6njjkIp4=;
+	b=aldJ69xa8EEhqxO2mkzKNw2oDKQJwTdOXB3AbbKl9nULaYxojOFYRz6+3Q/WKAH4Dnaa
+	 a5ZDixZPh1AEE0fYc4AwjVcPwUgYcUv5U8TlbRUeuUTZ9zaABQS3rwdjjSeneHWs573kl
+	 GQlK3EgpvVobtpKzBT9l3PkF4jrzo+VijsqWlvRJzXEz6Z22c8XN8tjAgBuZO5x/ao/d/
+	 i/qHJFSeJHqrry5bDq8+vcRwosqUQxqv0gwgYPjFIdyhhcoQFdU8T4PrF1ZHLIdSJxl3a
+	 YWPVRpltrcolDLSYRgU+MsZVR4hwvJQEnUnHExMZutEl51L09vOG5VnuvDwmpTtRmjg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=yINGSTd+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.52
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012052.outbound.protection.outlook.com [52.101.66.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A48606A335;
-	Mon, 23 Nov 2026 16:40:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D2C606A31E;
+	Mon, 23 Nov 2026 16:41:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7D2C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlVOuSfP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1831F000D1;
-	Mon, 23 Nov 2026 16:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795452008;
-	bh=mK2x9J8DRMq47yHdDKKSaXJTWWVVEzbLr5jIKSSbArc=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=BlVOuSfPnOF1qPwAm9fG4jwG4wGmJpVBuusA2i92aNgvxFW6qqIq/l+55FeLBHbtE
-	 nKYN4x9so8tcgzf+Y1L7ox7wqTc9tv2QeNc9M3qNy/HCuCH4E4T/NF4NTpja7+Jl5Z
-	 +mwyUQxDwSatRvSfsxY46jiABmaxGv0MRr6UPvOS90VykRMrrtREvlQLPwuMqWbKE4
-	 lbCItL5t3FbASk8FD2NpNhkpHtZsiBqerMfwhgy/Zvl/GtohsGDp5ufRRrS7sV8Syp
-	 gP/LIvWPQXF072lvuo2+T4/x/wVRqShqGRdcKvN/rLthszVcgb3P+zTZ1tYF8GPLSn
-	 x51Ya/uPwir8Q==
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=yINGSTd+
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mb5HIadZZvGyXgV41uG956oqOF6t89PHFJ2tHjPmM/KRqbe6v1eoqHmOAlz2iEn0SwlQLYF3fFFDuwyiOv/Esw9MzQtbQMRPxcpnZGNLXZagYP8oQwGjz22J3nbD+7JqFigYfFXDiaoiMiHBHQldAPjkAB+uMjqg1aFl6fsKWz6Rx2PnWtBefIEXxDXyQIdUbvIoXQV7grXDZV0qvB9/njUKFsU/30dt6gc3xtV/FuUqlJeVDdwgvQrJUwtwxMg/0h5lHnQlO5/L7WUgkOyIzzaH0pnyeYZ/JweyL4/1w4KRa5PzPOQ2OuhQh1pJoWFQe9L6ol6GpR/7vvZA/MT2Ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=puuyONZqQyvaNTFislAf7tN6e6fdu71bEhr6njjkIp4=;
+ b=WfjcT5/bPaarPkfA2JFpcHqcVQOt8zVMiTC7iEKLGQZc0GpiE5yd3BqXxm9oK8tigyMx7P9t0CE/SGg4rDHIe/oFDFSTWThpsEivhK/rH9MJRYEPQIZhzu77U53tXlobSJkc/o8g4LAkDnXmvAFJYo0L6U+N0ibJHBVYiUBP4+uR16TahGrz4C6L3q/QSkJhYLvvr13fcq7Kfpp4KeywLrvj537H9QeMzNn0lxP6nk9rbxRNfFJtOnOqDezjbG89t/LNe4RE73FFjhcyfNjgcsOjX6zG7z/26VMQBKIua60MZzykk4hBhjS1NHqSKkYexCV6hj+E4Mi10WfiCfEKZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=puuyONZqQyvaNTFislAf7tN6e6fdu71bEhr6njjkIp4=;
+ b=yINGSTd+uRFDyMrZFGx3/MI6ZkIvWvdZ2xUPEsFkbtoGxqtmoh+ypPUBMVm4a6U+xyS6p+xxGkZ+9U/ZSpfnaYLp7rl4KmrixaY5VKv6aLkkdf7acDoNSB1w/AHh1hbP3DAcXwBSJtBghy11pQs5mDWj7PxXJjbL80pEbxoIW3cTjy+PviN5A++T0YAuc/v7asccYGk0ClzvoyAvHQRHIRxIvJRnIEuCNQsDfYMBCXIkMmXgh4eaS4PV+tV3WQzgKZ2gUP6ReG6UJE/sTZCx0y5laDcdOR+uWMrlo0sYvcdSYqk6ghE+nEAhhQirYX3ZWw45YL3BKCuCvsgzzB8Zag==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV2PR04MB11884.eurprd04.prod.outlook.com (2603:10a6:150:2f0::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
+ 2026 16:41:47 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
+ 16:41:47 +0000
+Date: Mon, 23 Nov 2026 10:41:35 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-phy@lists.infradead.org,
+	Anvita T <anvita.t@oss.qualcomm.com>
+Subject: Re: [PATCH 02/11] PCI: qcom-ep: Add MSI-X support
+Message-ID: <awRsv7j4BptoBdD7@SMW015318>
+References: <20261122-nord_ep-v1-0-6d8839ffa9aa@oss.qualcomm.com>
+ <20261122-nord_ep-v1-2-6d8839ffa9aa@oss.qualcomm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122-nord_ep-v1-2-6d8839ffa9aa@oss.qualcomm.com>
+X-ClientProxiedBy: PH8P221CA0037.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:346::8) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,289 +112,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 4/4] clk: siflower: Add SF19A2890 peripheral clock
- and reset manager driver
-From: Brian Masney <masneyb@kernel.org>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Brian Masney <masneyb@kernel.org>
-In-Reply-To: <20261122-sf19a2890-sysm-v4-4-bbfe1c495e2e@telaak.dev>
-References: <20261122-sf19a2890-sysm-v4-0-bbfe1c495e2e@telaak.dev>
- <20261122-sf19a2890-sysm-v4-4-bbfe1c495e2e@telaak.dev>
-Date: Mon, 23 Nov 2026 11:39:57 -0500
-Message-Id: <179545199778.209212.2921325243361338047.b4-review@b4>
-X-Mailer: b4 0.17-dev-8145e
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9478; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=2uVT9SbP2VytXAdgMdFr8rIK+phVKpZnhIuGO3jzqvE=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJZchL9WQPLL36uu+TQYZxR2r1q8X+R7mLfwNKPIQsnX
- jN8HJHUUcrCIMbFICumyLIk16ggInWV7b07miwwc1iZQIYwcHEKwEQ+tjMyvPSXtivInPEmLvd4
- /HuRtVkpCkt5i7KfXueLDN+wxqpJlJFh1Yz1rz14JRwFTLU2TFRfHBIiZvvyecPPPLHvPTdCPc6
- yAgA=
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV2PR04MB11884:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19392fd9-5db2-4019-14ac-08df4980aa28
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|19092799006|10067099003|4143699003|11063799006|5023799004|56012099006|261021121427099003|261022075727099003|261009223027099003|261022105027099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	0I6Fnp69hxm/HCV9R8wuMqKphwGZMjBBtf+czcjGG0F8XMErOqZ6sKUdRWSOKvScNzCa2xQr/rOH4vvieZ6mGHAj9pEyQ/rRw6v9S0m2NfdtvQxROIPFXqvydOhUqXUuuXTwBpHXHfWDVbIeW1Wy7j50KTZhb+3fz/sTDrDIdjBTQnvI7IjBJgmXkPCbSIsa6EwcgRIs/bWsrAQnW6hVA9UgzhobGBvAlbjcgoRPo+K9quKjuh0Z3uBkmlM7HfWbHMN/ojdgf9ApjfWSIXgSlgG8J8AeP/OJOvbAhUmQoXmVK0TANPSHGde9owQ2Scnh6FJ2hRH++0Q+d72p/2n2WGTbrlIeO89pn3voBtA3G1EQqyAsADgkQf9wWmsH2CIoPjpc9CbzzXnWrx+LjqNecEZkgfIGlTA00otkJGs6FslEL1IuJSCzPeLFF4fn81bhcPKgBl/0ROtPYrqzfOYRgxi4As8sEa+WWX2SeLeC3Yjr/ISHV1r4e3sb+v/s39IabebOCILAEER9W3RQcFzAzQqu1ZKL9qU1kGCHTMHLz1BXxaV8d/PYuUGoR8McMvHIleDFd1apfLAM4H1Fwmp4RcyJJcYBrXofIB84u46NVWJT6eR8bsQ88/p8lE98oDwBm0ogjg1AMpo0W7LNw/Nqly+zOGp+RP3iMYBmbXqHid0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(19092799006)(10067099003)(4143699003)(11063799006)(5023799004)(56012099006)(261021121427099003)(261022075727099003)(261009223027099003)(261022105027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/aVQOvCnpQrLrRZia+4E80Dqkd9ftHGSZObCT5/uE4S/YBacxoXcQx6CvuUD?=
+ =?us-ascii?Q?NAHasWeMkGDEqQNEu2w/BbzW+pKMcMIjcPz2RaBWsjV8Ljuw3OGdbxtZdr7/?=
+ =?us-ascii?Q?HUZB2mX9RTgbWzSV/ZT5v5g1K3/znyFzUqTMlddhdarq3FIL9wN3caiZ2o0u?=
+ =?us-ascii?Q?b+2qL4m9rtLHBbkXiAwYknbHuuXpEsNrKlJ9oxerWAQNdk/+l2s4Jw5d2ahb?=
+ =?us-ascii?Q?bzS9L/Y949YGhKq5ATeLUbE3LUIYRlzk+oEVvbbAKT9/b5fAUpUIBgP9zZhE?=
+ =?us-ascii?Q?FPVE5vhLGhuDkcawzmHdIE3EHxjA4eIvdM58VuZjQmIpllrstOA/f1qWVhhD?=
+ =?us-ascii?Q?RorZfoLOPukQgUID3rvKpmOtXC6E954WS63KMB4Cj9x4Z9xemkft93JrO5sE?=
+ =?us-ascii?Q?RASQqmYc/obnuH3jv1r3WjxArPK5R0Y0vTd/yALWrpD4knfK0bYzsISj6wfp?=
+ =?us-ascii?Q?omIuGr9riH12ZyiPTxXeqPWX4foCnnpsiIQ+oNrvLWUefgd5olvlmSNyONvs?=
+ =?us-ascii?Q?LCKwzqSUU/yw/LA1vILSnS3NmZRrYMZ2noEHW4jVWgehHPDM66ird/vbnoGY?=
+ =?us-ascii?Q?+uHDhOfjF0z+JGIWvstBKCiZA6iYQB+bY6hks+JO87IrW+w/2PoXMPXnMXU/?=
+ =?us-ascii?Q?/F1C/sYL8Ar3HgTc8B8I5L+hpgj2uHzwXnHMA8oIiXuKUC9NAbLNoYQLMRo8?=
+ =?us-ascii?Q?Zt29zyd/1C/TpOAUDFn96Q/A0VkAlBOuFwymFBoou4+5kO4rDtR0JNNXXFRp?=
+ =?us-ascii?Q?++JRafg6mZnvu+8zRgY4luEa7lKVx/ALl6nYvdC4iWJJ6ULpgGxCO+X3vUhc?=
+ =?us-ascii?Q?IAIj4JloPiA/Qnb7EFvfADgqu4XaA6oA6WbcqFWbW4DRPhfuXYwc8Hg9RooJ?=
+ =?us-ascii?Q?KaV94uKTjFMij6xTDzney/64WoJBOx4DfOcKsmtbokuYQmhigrkzYVlMcUVS?=
+ =?us-ascii?Q?/Uw8MovN+qLSxhHeSCAW7VQd+IIpXq/r8wiQXphUwEDePod8O50RU6NWRcB/?=
+ =?us-ascii?Q?D1UzyWF9rbU+yUwhF8rBhNa4eYa6uybWmgwBOOaYWgqUFcUfdqXMQC7xZ8bN?=
+ =?us-ascii?Q?FSpV8ryJ7Z39HCctI8SC7iBjf7v5OYxsRGxk5BDqWBLi5Y2udb1Efy1qk5ic?=
+ =?us-ascii?Q?4m3Hgn/4dDxjT/fnFA8dauphmfBuGwxmBE6tY1HTxoYXePBp4zXfiim//D7p?=
+ =?us-ascii?Q?R6hQAocSAaC4l4gl5ZNByolHSYITofCs6qUCD0MV9xiWs/D/VSsa//fDWV3R?=
+ =?us-ascii?Q?8u2Sc/j104ClfHXbaTk2rDvmNL4GFLJ0NSI+yPHwE8VytF4/E+YUKifSKktt?=
+ =?us-ascii?Q?bTCXTyTswm2bnIR1WKyCIAnrQ9ODZrH3LqJIvZeuUpwTwexZH8ia7/8DoJSe?=
+ =?us-ascii?Q?3eVK6rn870p0RecJ9xQ0gWcdQsuohXi1tHn9WCN4i4F+0eRGAsitM6aV/TcA?=
+ =?us-ascii?Q?m0GssqqmxRGGaHHz6K2tgKStrQETIbmrWu9Qup/fP/fcYnCXxjYC7TCDFCWc?=
+ =?us-ascii?Q?nG178XAdJt54DKZypGe2MlNf2cXMrmzICoujTI36hITZyxZ8Xtw8WXn3MCyS?=
+ =?us-ascii?Q?WmlSaU/W1L72McSX6ovpumYrmPh9MSTU3WIljdtNZ6QoD8NtFQCjGTekhzK3?=
+ =?us-ascii?Q?y5KptC0Q6MbZPlI3GYCK9QUYfzskEbYp1FmWNqL0r9aZCp4vT/QHPrDHycQh?=
+ =?us-ascii?Q?dAzbtfVpen5Aavzv3soIUsKpKRG47Qn1ZGpJngpJaML5QM9J/OP6cygQpxlI?=
+ =?us-ascii?Q?ZWKpEbVCcW9pqLTjgbxARuz8mPkMF98UiUliqmsE71HGl4GB1gJc?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19392fd9-5db2-4019-14ac-08df4980aa28
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 16:41:46.9992
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BA25ev++uW/4I9Ae8lynCWAwfiCyH2hAb0XYTjhvuyWDB5iA5iaxdtMZqAFz29v/2dXjt9SIBENsXoV/xUn/oNvsvG8SEYNLaMpLbPyqVFs8SOEgWmjziRxzDriLfnXR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11884
 
-Hi Joseph,
-
-> Add a platform driver for the peripheral clock and reset manager (CRM)
-> block found on Siflower SF19A2890 and compatible SoCs.
-> 
-> Each CRM block manages a group of APB peripherals through three registers:
-> a reset register, a clock gate register, and a shared Bus Output Enable
-> (BOE) register that must be asserted for any peripheral in the block to
-> respond to bus transactions.
-> 
-> The driver registers a clock gate controller and a reset controller from
-> a single DT node. A shared spinlock protects all read-modify-write
-> accesses across both. BOE is managed automatically: asserted when the
-> first clock gate is enabled and deasserted when the last one is disabled.
-> 
-> Some peripherals have more than one reset line, one for each clock
-> domain of the same IP. The driver exposes each such group as one reset,
-> because the lines have to be asserted together:
-> 
->   - GMAC: bits 0-1 are the two sides of an asynchronous AXI bridge, and
->     asserting one alone locks up the bus.
->   - SPI: bits 4-5 are the PL022's PRESETn and nSSPRST, and its TRM
->     requires nSSPRST to be asserted with PRESETn.
->   - UART: bits 0-2 are the PL011s' PRESETn and bits 4-6 their nUARTRST,
->     with the same requirement in the PL011 TRM.
->   - USB: bits 0-2 are the DWC2 controller's clock domains, its AXI
->     master among them.
->   - WLAN: bits 0-2 are the AXI slave, AXI master and platform domains.
-
-There's a lot of low level detail here. Give a more high level overview
-of what's here.
-
-> 
-> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-> [Joseph Telaak:
->   - take it from Chuanhong's siflower-7.1 branch
->   - one compatible per block, with its gate bits, critical gates and
->     reset masks in tables in the driver instead of the
->     siflower,valid-gates, siflower,critical-gates,
->     siflower,reset-masks and siflower,num-resets properties
->   - parent gate N to input clock N by index, not by global name
->   - update the gates under the spinlock too, taken with guard()
->   - drop the separator comments
->   - Kconfig dependencies and help, subject]
-> Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
-> Co-developed-by: Joseph Telaak <joseph@telaak.dev>
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> ---
->  MAINTAINERS                                    |   1 +
->  drivers/clk/siflower/Kconfig                   |  11 +
->  drivers/clk/siflower/Makefile                  |   1 +
->  drivers/clk/siflower/clk-sf19a2890-periphcrm.c | 362 +++++++++++++++++++++++++
->  4 files changed, 375 insertions(+)
+On Sun, Nov 22, 2026 at 08:26:15AM +0530, Krishna Chaitanya Chundru wrote:
+> [You don't often get email from krishna.chundru@oss.qualcomm.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 >
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 47a3a72a5d08..34ff7ec0b60e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25704,6 +25704,7 @@ L:	linux-clk@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-clk.yaml
->  F:	Documentation/devicetree/bindings/clock/siflower,sf19a2890-periph-crm.yaml
-> +F:	drivers/clk/siflower/clk-sf19a2890-periphcrm.c
->  F:	drivers/clk/siflower/clk-sf19a2890.c
->  F:	include/dt-bindings/clock/siflower,sf19a2890-clk.h
->  F:	include/dt-bindings/clock/siflower,sf19a2890-periph-crm.h
-> diff --git a/drivers/clk/siflower/Kconfig b/drivers/clk/siflower/Kconfig
-> index ad1b04b4bb9b..4fa6dd156b8a 100644
-> --- a/drivers/clk/siflower/Kconfig
-> +++ b/drivers/clk/siflower/Kconfig
-> @@ -9,3 +9,14 @@ config CLK_SF19A2890
->  	  and the muxes and dividers that feed the CPU, the buses and the
->  	  peripherals. The GIC timer runs from the CPU clock, so a kernel
->  	  for this SoC needs it built in.
-> +
-> +config CLK_SF19A2890_PERIPHCRM
-> +	bool "Clock and reset driver for Siflower SF19A2890 peripherals"
-> +	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
-> +	default MACH_SIFLOWER_MIPS
-> +	select RESET_CONTROLLER
-> +	help
-> +	  Supports the peripheral clock and reset managers of the Siflower
-> +	  SF19A2890. Each peripheral block has one, with its clock gates,
-> +	  its resets and the bus output enable it needs to answer bus
-> +	  requests.
-> diff --git a/drivers/clk/siflower/Makefile b/drivers/clk/siflower/Makefile
-> index 3f4d689f7d9b..c4f4e0b8820d 100644
-> --- a/drivers/clk/siflower/Makefile
-> +++ b/drivers/clk/siflower/Makefile
-> @@ -1,2 +1,3 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  obj-$(CONFIG_CLK_SF19A2890) += clk-sf19a2890.o
-> +obj-$(CONFIG_CLK_SF19A2890_PERIPHCRM) += clk-sf19a2890-periphcrm.o
-> diff --git a/drivers/clk/siflower/clk-sf19a2890-periphcrm.c b/drivers/clk/siflower/clk-sf19a2890-periphcrm.c
-> new file mode 100644
-> index 000000000000..c3642fb743b4
-> --- /dev/null
-> +++ b/drivers/clk/siflower/clk-sf19a2890-periphcrm.c
-> @@ -0,0 +1,362 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +/*
-> + * Siflower SF19A2890 peripheral clock and reset manager driver.
-> + *
-> + * Each managed block has three registers:
-> + *   RESET    at base + 0x0  - per-peripheral reset bitmasks
-> + *   CLK_GATE at base + 0x4  - one bit per clock gate
-> + *   BOE      at base + 0xc  - shared Bus Output Enable; bits [1:0] must be set
-> + *                             for any APB peripheral in the block to respond
-> + */
-> +
-> +#include <linux/clk-provider.h>
-> +#include <linux/device-id/of.h>
-> +#include <linux/io.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/reset-controller.h>
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> +
-> +#include <dt-bindings/clock/siflower,sf19a2890-periph-crm.h>
-> +
-> +#define REG_RESET	0x0
-> +#define REG_CLK_GATE	0x4
-> +#define REG_BOE		0xc
-> +#define BOE_EN		GENMASK(1, 0)
-> +
-> +struct sf19a2890_periphcrm_gate {
-> +	const char *name;
-> +	u8 bit;
-> +	unsigned long flags;
-> +};
-> +
-> +struct sf19a2890_periphcrm_data {
-> +	const struct sf19a2890_periphcrm_gate *gates;
-> +	unsigned int num_gates;
-> +	const u32 *reset_masks;
-> +	unsigned int num_resets;
-> +};
-> +
-> +struct sf19a2890_periphcrm {
-> +	void __iomem *base;
-> +	spinlock_t lock;	/* serializes all register updates */
-> +	struct reset_controller_dev rcdev;
-> +	const u32 *reset_masks;
-> +	struct clk_hw_onecell_data clk_data;
-> +};
-> +
-> +struct sf19a2890_periphclk {
-> +	struct sf19a2890_periphcrm *crm;
-> +	struct clk_hw hw;
-> +	u32 idx;
-> +};
-> +
-> +static inline struct sf19a2890_periphclk *hw_to_periphclk(struct clk_hw *hw)
-> +{
-> +	return container_of(hw, struct sf19a2890_periphclk, hw);
-> +}
-> +
-> +static int sf19a2890_periphclk_enable(struct clk_hw *hw)
-> +{
-> +	struct sf19a2890_periphclk *gate = hw_to_periphclk(hw);
-> +	struct sf19a2890_periphcrm *crm = gate->crm;
-> +	u32 reg;
-> +
-> +	guard(spinlock_irqsave)(&crm->lock);
-> +	reg = readl(crm->base + REG_CLK_GATE);
-> +	writel(reg | BIT(gate->idx), crm->base + REG_CLK_GATE);
-> +	writel(BOE_EN, crm->base + REG_BOE);
-> +	return 0;
-> +}
-> +
-> +static void sf19a2890_periphclk_disable(struct clk_hw *hw)
-> +{
-> +	struct sf19a2890_periphclk *gate = hw_to_periphclk(hw);
-> +	struct sf19a2890_periphcrm *crm = gate->crm;
-> +	u32 reg;
-> +
-> +	guard(spinlock_irqsave)(&crm->lock);
-> +	reg = readl(crm->base + REG_CLK_GATE);
-> +	reg &= ~BIT(gate->idx);
-> +	writel(reg, crm->base + REG_CLK_GATE);
-> +	if (reg == 0)
-> +		writel(0, crm->base + REG_BOE);
-> +}
-> +
-> +static int sf19a2890_periphclk_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct sf19a2890_periphclk *gate = hw_to_periphclk(hw);
-> +	struct sf19a2890_periphcrm *crm = gate->crm;
-> +
-> +	return !!(readl(crm->base + REG_CLK_GATE) & BIT(gate->idx));
-> +}
-> +
-> +static const struct clk_ops sf19a2890_periphclk_ops = {
-> +	.enable = sf19a2890_periphclk_enable,
-> +	.disable = sf19a2890_periphclk_disable,
-> +	.is_enabled = sf19a2890_periphclk_is_enabled,
-> +};
-> +
-> +static inline struct sf19a2890_periphcrm *
-> +rcdev_to_periphcrm(struct reset_controller_dev *rcdev)
-> +{
-> +	return container_of(rcdev, struct sf19a2890_periphcrm, rcdev);
-> +}
-> +
-> +static int sf19a2890_periphcrm_reset_update(struct reset_controller_dev *rcdev,
-> +					    unsigned long id, bool assert)
-> +{
-> +	struct sf19a2890_periphcrm *crm = rcdev_to_periphcrm(rcdev);
-> +	u32 reg;
-> +
-> +	guard(spinlock_irqsave)(&crm->lock);
-> +	reg = readl(crm->base + REG_RESET);
-> +	if (assert)
-> +		reg |= crm->reset_masks[id];
-> +	else
-> +		reg &= ~crm->reset_masks[id];
-> +	writel(reg, crm->base + REG_RESET);
-> +	return 0;
-> +}
-> +
-> +static int sf19a2890_periphcrm_reset_assert(struct reset_controller_dev *rcdev,
-> +					    unsigned long id)
-> +{
-> +	return sf19a2890_periphcrm_reset_update(rcdev, id, true);
-> +}
-> +
-> +static int
-> +sf19a2890_periphcrm_reset_deassert(struct reset_controller_dev *rcdev,
-> +				   unsigned long id)
-> +{
-> +	return sf19a2890_periphcrm_reset_update(rcdev, id, false);
-> +}
-> +
-> +static int sf19a2890_periphcrm_reset_status(struct reset_controller_dev *rcdev,
-> +					    unsigned long id)
-> +{
-> +	struct sf19a2890_periphcrm *crm = rcdev_to_periphcrm(rcdev);
-> +
-> +	return !!(readl(crm->base + REG_RESET) & crm->reset_masks[id]);
-> +}
-> +
-> +static const struct reset_control_ops sf19a2890_periphcrm_reset_ops = {
-> +	.assert = sf19a2890_periphcrm_reset_assert,
-> +	.deassert = sf19a2890_periphcrm_reset_deassert,
-> +	.status = sf19a2890_periphcrm_reset_status,
-> +};
+> From: Anvita T <anvita.t@oss.qualcomm.com>
+>
+> The controller can signal interrupts using MSI-X in addition to MSI.
+> Add an epc_features variant that advertises msix_capable and select it
+> from ->get_features() for SoC configs that set the new msix_capable
+> flag. Route PCI_IRQ_MSIX requests in ->raise_irq() to
+> dw_pcie_ep_raise_msix_irq_doorbell().
+>
+> No functional change for existing SoCs, which leave msix_capable unset.
+>
+> Signed-off-by: Anvita T <anvita.t@oss.qualcomm.com>
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> ---
+>  drivers/pci/controller/dwc/pcie-qcom-ep.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>
+> diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+> index 2d7ddf8d173f..c794a2207df2 100644
+> --- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
+> +++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+> @@ -170,12 +170,14 @@ enum qcom_pcie_ep_link_status {
+>   * @override_no_snoop: Override NO_SNOOP attribute in TLP to enable cache snooping
+>   * @disable_mhi_ram_parity_check: Disable MHI RAM data parity error check
+>   * @firmware_managed: Set if the controller is firmware managed
+> + * @msix_capable: Set if the controller supports MSI-X
+>   */
+>  struct qcom_pcie_ep_cfg {
+>         bool hdma_support;
+>         bool override_no_snoop;
+>         bool disable_mhi_ram_parity_check;
+>         bool firmware_managed;
+> +       bool msix_capable;
 
-Please move the reset functionality to drivers/reset. You can use either
-the auxiliary device or MFD.
+why not direct put pci_epc_features pointer here.
 
-Brian
+Frank
 
--- 
-Brian Masney <masneyb@kernel.org>
+>  };
+>
+>  /**
+> @@ -806,6 +808,8 @@ static int qcom_pcie_ep_raise_irq(struct dw_pcie_ep *ep, u8 func_no,
+>                 return dw_pcie_ep_raise_intx_irq(ep, func_no);
+>         case PCI_IRQ_MSI:
+>                 return dw_pcie_ep_raise_msi_irq(ep, func_no, interrupt_num);
+> +       case PCI_IRQ_MSIX:
+> +               return dw_pcie_ep_raise_msix_irq_doorbell(ep, func_no, interrupt_num);
+>         default:
+>                 dev_err(pci->dev, "Unknown IRQ type\n");
+>                 return -EINVAL;
+> @@ -852,9 +856,25 @@ static const struct pci_epc_features qcom_pcie_epc_features = {
+>         .bar[BAR_2] = { .only_64bit = true, },
+>  };
+>
+> +static const struct pci_epc_features qcom_pcie_epc_features_msix = {
+> +       DWC_EPC_COMMON_FEATURES,
+> +       .linkup_notifier = true,
+> +       .msi_capable = true,
+> +       .msix_capable = true,
+> +       .align = SZ_4K,
+> +       .bar[BAR_0] = { .only_64bit = true, },
+> +       .bar[BAR_2] = { .only_64bit = true, },
+> +};
+> +
+>  static const struct pci_epc_features *
+>  qcom_pcie_epc_get_features(struct dw_pcie_ep *pci_ep)
+>  {
+> +       struct dw_pcie *pci = to_dw_pcie_from_ep(pci_ep);
+> +       struct qcom_pcie_ep *pcie_ep = to_pcie_ep(pci);
+> +
+> +       if (pcie_ep->cfg && pcie_ep->cfg->msix_capable)
+> +               return &qcom_pcie_epc_features_msix;
+> +
+>         return &qcom_pcie_epc_features;
+>  }
+>
+>
+> --
+> 2.34.1
+>
