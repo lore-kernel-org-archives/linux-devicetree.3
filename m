@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795440123;
-	b=dLTOiFqrMWM/ZtKfLXo6JdK6JKZPOscFmEEskEdGPkO7NX/+BJDzYlze0BnmlJSeoQXh
-	 TCRXicO/x4+SsMD5BvK6Fmteap4s4D6wObO45VbvpFhuffmK/COUlGqwXejl3Vcr0eZCC
-	 YpJoGds3WJ5AV2iu8ldoOP0jhafaYOiQ6GI5BTQKqvZHX+DzXY5ebM/zXK5XVme+lKooO
-	 SfAHPCHm6GexKdDYH8YCjKw+/jQdYwJJxrSD2S0cDi3bwnugS6axliYJcMqzhulXQROuP
-	 mQfi9iiZ3QvrjVYndjQOTpAo2ZGmgtS0fVEWs2NeZMdkQZLhBCPVNZj4YiWPAAf/Fnw==
+	t=1795440248;
+	b=ZX71RPx2rzejcSYCaLVc346sqgAfTo4Kgds8CK8y6IxwRwJQfGgUOQaJ4BEhp9A7x7io
+	 9bsOyEqlEWWMmc5hZovuKLJCTsNWNM8u3YazAyzbrBDMsxe4MjwqvEK5jH+WnPVoOBufQ
+	 KIAtO7W9+4XW9xGw+Djt1cXi52KJlG6HeELkmOb1ia8dw1CLZcp2AH8pncMLL8q31RCo2
+	 uETV26G31a4uT4tIvCiJ4WLoZtxfLqSWjQLnzXqu71U40HEs9wwmphqFAjS437Y2j2RSf
+	 UIEGR2rI4KOTaIxNkRRlw20rhqI682aCSQdwQnrPho4OXDz695QLF5KC8tG12dnEWaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795440123;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795440248;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=KZfX+ZF6d3jxSf9WpYrXx6unSUfJtLVOGgikrC1kH6U=;
-	b=kxP1WuJooXVlqecEBBqWXP23uS+UeNkaHGxPzUvt8kYao2XfKlncETsdUR/kSaEipmOV
-	 oV4Er11Qi2NkmC/DysPW2beusVhmK8h91sMHB9pisSz4GHV+hvEYMsoN38o97k3XOo01e
-	 KDdQmi7KXJZuvOOhmGOp+gJGC21J69ihuav7j5VIsFtv1feslXXz/WbGPB6i4mEU98PNu
-	 x4Ri8+YvffDLeMKUkI9zFd52OhQeDXrLp2xnYs92E/BlClWg2phcsrsTvTEgmYi/tp+C7
-	 4BtBPwHFKVi+v3ssWNZsPK/og09+RS4uBaRZASbDAUnm4rq5/jZYvtYzff56EY8tLMQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mvYDAmTPND065bEyMUQdFya2DyZKAiR6PvyK6Q17Cwk=;
+	b=nYTAp8CXP2xcvoSyOajWEUIBCQuBzwyJpK8PvwiMMqCBz2T0lVjf99OWcQTJr5UyQ8oP
+	 DfmfnvsENrm8gx57txF8NOm3RNo6wGcHsFXCdEg1wv9qOmLKrNGLU5yFcQCEsmgr5OKWz
+	 tDhNoSyfKPBjuTqVjFqP5lh3IgSPJXAuvV9JOsDssATX4A4Sn+fCpKtDklsbZn6gygOkA
+	 NUvI1ZIZP0M/loHDODe3SksM6ImPi4i3PJTr72rmoGOK+ymdOoSroAKOAJxrpNNsdagfs
+	 a0msAKInGP6ZQBIa4f5BWbrYiVZsJ/rm105tPUnFfz384rtnDoRpjaOwsN2ej3HUBtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TMGgafaP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+0djCW7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03DF606A31A;
-	Mon, 23 Nov 2026 13:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E04606A31A;
+	Mon, 23 Nov 2026 13:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TMGgafaP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D687A1F000C0;
-	Mon, 23 Nov 2026 13:21:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+0djCW7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0CE1F000D2;
+	Mon, 23 Nov 2026 13:24:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795440123;
-	bh=KZfX+ZF6d3jxSf9WpYrXx6unSUfJtLVOGgikrC1kH6U=;
+	s=k20260515; t=1795440247;
+	bh=mvYDAmTPND065bEyMUQdFya2DyZKAiR6PvyK6Q17Cwk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TMGgafaPHDfKrZrodW+958mBFtGiFovNSmKRRX3mzyYR+/UORFpEttx/f+kDZn2xd
-	 QjD8bvURHYb75aSBEz3uIb23mWlLOwfcBOnObmFKGvzQMYHVmBG00LBl4CgM/7+z80
-	 Ec//Y1Z4SzUEKwmzZ3zWebqjccK8P++vImIEz8kTys/hyjl86N/SWsE3vvW/A52swj
-	 +dLefTXln+SHLtCt1Oe/jvYTP9poeKBS8aEUz6JHxc3ikl5TgfOdM1R398BjxG7EKx
-	 s1nn8g+AQB5aQo1KEAfEociw01ShjHDkYOiWTZoAaquGWYwqyQ5vzAjJjbpVvYYObu
-	 CEXOexUivKJGw==
-Date: Mon, 23 Nov 2026 21:01:37 +0800
+	b=T+0djCW7dr/ynsSXYMgJn6R5Dl91QlBCh+TcSiMGPYIbXagqvOYKjIC/LqIKJIgVh
+	 2tsRenK8/vfzdGWeHGahRSnb451bLxXc9xXAo/gLuPnnRa/xnoe1EoX54fGV4iXZ9E
+	 kz4VgkOo4cTPP04Vwc32qERrb8x/HKIXnjuN5XHbbIWblFOwTjAqTE07P8bzqrt3YF
+	 EJbq3R8OFhttE2WXN2QcIjmpa2X6erPzeJjtQuIBQW4LY+zme38htbGcGefYQjZedX
+	 UJxBxBd8Mqr6E+S1TX5FgF5sgRMmr84L1JYc4NtQDI1n2RysHzx/G6B+BuWJLQjfDC
+	 1t2Dma2vfEGkQ==
+Date: Mon, 23 Nov 2026 21:03:41 +0800
 From: Jisheng Zhang <jszhang@kernel.org>
-To: Richard GENOUD <richard.genoud@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
 	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 00/13] arm64: add Synaptics SL2610 SoCs and RDK boards
-Message-ID: <awQ5MYARkTBxQpjC@xhacker>
-References: <20261115102401.3520-1-jszhang@kernel.org>
- <avrx2EhgZ10ED40P@xhacker>
- <26aa0b74-e3f8-4405-ab87-743f5f8ef197@bootlin.com>
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 4/8] net: stmmac: Add glue layer for Synaptics SL2610 SoC
+Message-ID: <awQ5raWYlMBpCqIl@xhacker>
+References: <20261116135442.4827-1-jszhang@kernel.org>
+ <20261116135442.4827-5-jszhang@kernel.org>
+ <4f1c4180-3a00-4b17-a27b-e61b307d3e5f@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,161 +71,152 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <26aa0b74-e3f8-4405-ab87-743f5f8ef197@bootlin.com>
+In-Reply-To: <4f1c4180-3a00-4b17-a27b-e61b307d3e5f@bootlin.com>
 
-On Wed, Nov 18, 2026 at 08:54:05AM +0100, Richard GENOUD wrote:
-> Le 16/11/2026 à 13:06, Jisheng Zhang a écrit :
-> > On Sun, Nov 15, 2026 at 06:23:39PM +0800, Jisheng Zhang wrote:
-> > > Add initial support for the Synaptics SL261X SoCs and corresponding
-> > > RDK boards.
-> > > 
-> > > The SL261X SoCs include five pin-to-pin compatible SoCs: SL2611, SL2613,
-> > > SL2615, SL2617, and SL2619.
-> > > 
-> > > Only reset, pinctrl, clk/pll, uart, gpio, i2c, spi, i3c are included in
-> > > this series. The support for Ethernet, USB, SDHCI, CAN, DMAC, XSPI will
-> > > be submitted after this series is merged.
-> > > 
-> > > since v1:
-> > >   - rebase on latest rcN
-> > >   - drop some patches which have been merged
-> > >   - let the "gbl" node export pinctrl/reset/clk devices with
-> > >     MFD_CELL_NAME()
-> > >   - use <linux/platform_device.h> instead of <linux/mod_devicetable.h>
-> > >   - adopt some coding suggestions from Uwe
-> > >   - Use 0 and 1 to select normal and strong pull-up on 10-bit pads
+On Mon, Nov 23, 2026 at 12:57:06PM +0100, Maxime Chevallier wrote:
+> Hi,
+> 
+> On 11/16/26 14:54, Jisheng Zhang wrote:
+> > Add dwmac glue driver to support the DesignWare-based GMAC controllers
+> > in the Synaptics SL2610 SoC.
 > > 
-> > Other SoCs doesn't use this defintion for pull up or strong pull up.
-> > After consulting our HW people, the strong pull up isn't used at
-> > all, so I will remove strong pull up support in newer version. We can
-> > add back its support when it's really needed in the future, nothing
-> > breaks.
-> I've found a similar definition here:
-> https://elixir.bootlin.com/linux/v7.3.1/source/Documentation/devicetree/bindings/pinctrl/spacemit,k1-pinctrl.yaml#L73-L78
-
-This one looks strange, and changes the meaning of bias-pull-up, I.E
-if adding "bias-pull-up" to any pin node, then it means strong pull up
-because the pinctrl subsys framework adds 1 by default. To use normal
-pull up, this binding needs "bias-pull-up = <0>;", which looks ugly
-IMHO.
-
-> But also a plain new property here:
-> https://elixir.bootlin.com/linux/v7.3.1/source/Documentation/devicetree/bindings/pinctrl/starfive,jh7100-pinctrl.yaml#L153-L155
-
-I like this. But I'm not sure whether it's accepted or not.
-
-> And another with the real strong pull-up value:
-> https://elixir.bootlin.com/linux/v7.3.1/source/Documentation/devicetree/bindings/pinctrl/thead,th1520-pinctrl.yaml#L94-L99
-
-This is standard solution.
-
-> As you said, if it's not used, we can skip it and add a property in
-> the future (or the real value if we have it).
-
-skipping it makes sense now.
-
-> 
-> But we won't be able to use 1 for strong and 0 for normal.
-> 
-> Regards,
-> Richard
+> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> > ---
+> >  MAINTAINERS                                   |   2 +
+> >  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
+> >  drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+> >  .../net/ethernet/stmicro/stmmac/dwmac-syna.c  | 116 ++++++++++++++++++
+> >  4 files changed, 130 insertions(+)
+> >  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
 > > 
-> > >   - collect Acked-by tag
-> > > 
-> > > Jisheng Zhang (13):
-> > >    arm64: kconfig: let ARCH_BERLIN cover Synaptics arm64 SoCs
-> > >    pinctrl: berlin: use u16 instead of u8 for the offset
-> > >    pinctrl: berlin: enable module build support
-> > >    pinctrl: berlin: add optional pinconf support
-> > >    dt-bindings: soc: synaptics: add SL2610 system controllers
-> > >    soc: synaptics: add SL2610 system controller support
-> > >    reset: add Synaptics SL2610 reset controller support
-> > >    pinctrl: berlin: add Synaptics SL2610 pin controller support
-> > >    clk: berlin: add Synaptics clock controller helpers
-> > >    clk: berlin: add Synaptics SL2610 clocks and PLLs
-> > >    dt-bindings: arm: berlin: add Synaptics SL2610 SoCs and RDK boards
-> > >    arm64: dts: synaptics: add SL2610 family SoCs
-> > >    arm64: dts: synaptics: add SL2610 family RDK boards
-> > > 
-> > >   .../bindings/arm/marvell,berlin.yaml          |  20 +
-> > >   .../soc/synaptics/syna,sl2610-soc-syscon.yaml | 178 ++++
-> > >   MAINTAINERS                                   |   8 +
-> > >   arch/arm64/Kconfig.platforms                  |   4 +-
-> > >   arch/arm64/boot/dts/synaptics/Makefile        |   5 +
-> > >   arch/arm64/boot/dts/synaptics/sl2611-rdk.dts  |  16 +
-> > >   arch/arm64/boot/dts/synaptics/sl2611.dtsi     | 457 +++++++++++
-> > >   arch/arm64/boot/dts/synaptics/sl2613-rdk.dts  |  16 +
-> > >   arch/arm64/boot/dts/synaptics/sl2613.dtsi     |  12 +
-> > >   arch/arm64/boot/dts/synaptics/sl2615-rdk.dts  |  16 +
-> > >   arch/arm64/boot/dts/synaptics/sl2615.dtsi     |  46 ++
-> > >   arch/arm64/boot/dts/synaptics/sl2617-rdk.dts  |  16 +
-> > >   arch/arm64/boot/dts/synaptics/sl2617.dtsi     |  46 ++
-> > >   arch/arm64/boot/dts/synaptics/sl2619-rdk.dts  |  16 +
-> > >   arch/arm64/boot/dts/synaptics/sl2619.dtsi     |  44 +
-> > >   .../boot/dts/synaptics/sl261x-rdk-common.dtsi | 135 ++++
-> > >   drivers/clk/Kconfig                           |   1 +
-> > >   drivers/clk/berlin/Kconfig                    |  34 +
-> > >   drivers/clk/berlin/Makefile                   |   4 +
-> > >   drivers/clk/berlin/clk-sl2610.c               | 360 +++++++++
-> > >   drivers/clk/berlin/sl-clk.c                   | 279 +++++++
-> > >   drivers/clk/berlin/sl-clk.h                   |  31 +
-> > >   drivers/clk/berlin/sl-sysmgr-clk.c            | 241 ++++++
-> > >   drivers/clk/berlin/sl-sysmgr-clk.h            |  44 +
-> > >   drivers/clk/berlin/sl2610-pll.c               | 145 ++++
-> > >   drivers/clk/berlin/sl2610-pll.h               |  14 +
-> > >   drivers/pinctrl/berlin/Kconfig                |  16 +
-> > >   drivers/pinctrl/berlin/Makefile               |   1 +
-> > >   drivers/pinctrl/berlin/berlin.c               | 259 +++++-
-> > >   drivers/pinctrl/berlin/berlin.h               |  17 +-
-> > >   drivers/pinctrl/berlin/pinctrl-sl2610.c       | 759 ++++++++++++++++++
-> > >   drivers/reset/Kconfig                         |  13 +
-> > >   drivers/reset/Makefile                        |   1 +
-> > >   drivers/reset/reset-sl2610.c                  | 224 ++++++
-> > >   drivers/soc/Kconfig                           |   1 +
-> > >   drivers/soc/Makefile                          |   1 +
-> > >   drivers/soc/synaptics/Kconfig                 |  14 +
-> > >   drivers/soc/synaptics/Makefile                |   2 +
-> > >   drivers/soc/synaptics/sl2610-syscon.c         |  84 ++
-> > >   include/dt-bindings/clock/syna,sl2610.h       | 131 +++
-> > >   include/dt-bindings/reset/syna,sl2610-reset.h |  80 ++
-> > >   41 files changed, 3771 insertions(+), 20 deletions(-)
-> > >   create mode 100644 Documentation/devicetree/bindings/soc/synaptics/syna,sl2610-soc-syscon.yaml
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2611.dtsi
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2613.dtsi
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2615.dtsi
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2617.dtsi
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl2619.dtsi
-> > >   create mode 100644 arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
-> > >   create mode 100644 drivers/clk/berlin/Kconfig
-> > >   create mode 100644 drivers/clk/berlin/clk-sl2610.c
-> > >   create mode 100644 drivers/clk/berlin/sl-clk.c
-> > >   create mode 100644 drivers/clk/berlin/sl-clk.h
-> > >   create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.c
-> > >   create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.h
-> > >   create mode 100644 drivers/clk/berlin/sl2610-pll.c
-> > >   create mode 100644 drivers/clk/berlin/sl2610-pll.h
-> > >   create mode 100644 drivers/pinctrl/berlin/pinctrl-sl2610.c
-> > >   create mode 100644 drivers/reset/reset-sl2610.c
-> > >   create mode 100644 drivers/soc/synaptics/Kconfig
-> > >   create mode 100644 drivers/soc/synaptics/Makefile
-> > >   create mode 100644 drivers/soc/synaptics/sl2610-syscon.c
-> > >   create mode 100644 include/dt-bindings/clock/syna,sl2610.h
-> > >   create mode 100644 include/dt-bindings/reset/syna,sl2610-reset.h
-> > > 
-> > > -- 
-> > > 2.55.0
-> > > 
-> > > 
-> > 
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 430758242906..dba0288bf4da 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -3808,12 +3808,14 @@ M:	Jisheng Zhang <jszhang@kernel.org>
+> >  M:	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+> >  L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+> >  S:	Maintained
+> > +F:	Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
+> >  F:	Documentation/devicetree/bindings/soc/synaptics/
+> >  F:	arch/arm/boot/dts/synaptics/
+> >  F:	arch/arm/mach-berlin/
+> >  F:	arch/arm64/boot/dts/synaptics/
+> >  F:	drivers/clk/berlin/*sl2610*
+> >  F:	drivers/clk/berlin/sl-*
+> > +F:	drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
+> >  F:	drivers/pinctrl/berlin/pinctrl-sl2610.c
+> >  F:	drivers/reset/reset-sl2610.c
+> >  F:	drivers/soc/synaptics/
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> > index c6559e749c0c..79ffebcaba0e 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> > @@ -310,6 +310,17 @@ config DWMAC_SUN55I
+> >  	  stmmac device driver. This driver is used for A523/T527
+> >  	  GMAC200 ethernet controller.
+> >  
+> > +config DWMAC_SYNA
+> > +	tristate "Synaptics SL2610 DWMAC support"
+> > +	depends on OF && HAS_DMA && (ARCH_BERLIN || COMPILE_TEST)
+> > +	select MFD_SYSCON
+> > +	help
+> > +	  Support for the Synaptics SL2610 DesignWare Ethernet MAC glue.
+> > +	  This configures the PHY interface through the system controller.
+> > +
+> > +	  To compile this driver as a module, choose M here. The module
+> > +	  will be called dwmac-syna.
+> > +
+> >  config DWMAC_THEAD
+> >  	tristate "T-HEAD dwmac support"
+> >  	depends on OF && (ARCH_THEAD || COMPILE_TEST)
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> > index b16a456b730e..d132353e9403 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> > @@ -35,6 +35,7 @@ obj-$(CONFIG_DWMAC_STM32)	+= dwmac-stm32.o
+> >  obj-$(CONFIG_DWMAC_SUNXI)	+= dwmac-sunxi.o
+> >  obj-$(CONFIG_DWMAC_SUN8I)	+= dwmac-sun8i.o
+> >  obj-$(CONFIG_DWMAC_SUN55I)	+= dwmac-sun55i.o
+> > +obj-$(CONFIG_DWMAC_SYNA)	+= dwmac-syna.o
+> >  obj-$(CONFIG_DWMAC_THEAD)	+= dwmac-thead.o
+> >  obj-$(CONFIG_DWMAC_ULTRARISC)	+= dwmac-ultrarisc.o
+> >  obj-$(CONFIG_DWMAC_DWC_QOS_ETH)	+= dwmac-dwc-qos-eth.o
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
+> > new file mode 100644
+> > index 000000000000..c4bc895b29da
+> > --- /dev/null
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
+> > @@ -0,0 +1,116 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Synaptics DWMAC platform driver
+> > + *
+> > + * Copyright (C) 2026 Jisheng Zhang <jszhang@kernel.org>
+> > + *
+> > + */
+> > +
+> > +#include <linux/bitfield.h>
+> > +#include <linux/module.h>
+> > +#include <linux/mfd/syscon.h>
+> > +#include <linux/of.h>
+> > +#include <linux/of_device.h>
+> > +#include <linux/of_net.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/regmap.h>
+> > +
+> > +#include "stmmac_platform.h"
+> > +
+> > +#define CTL_PHY_INTF_SEL	GENMASK(4, 1)
+> > +#define CTL_PHY_INTF_RGMII	FIELD_PREP(CTL_PHY_INTF_SEL, 1)
+> > +#define CTL_PHY_INTF_RMII	FIELD_PREP(CTL_PHY_INTF_SEL, 4)
 > 
+> Please use PHY_INTF_SEL_RGMII and PHY_INTF_SEL_RMII from "common.h"
+
+I read this as "use SYNA_PHY_INTF_SEL_RGMII and SYNA_PHY_INTF_SEL_RMII",
+correct me if there's misunderstanding.
+
 > 
-> -- 
-> Richard Genoud, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+> > +
+> > +struct syna_dwmac {
+> > +	struct plat_stmmacenet_data *plat;
+> > +	struct regmap *regmap;
+> > +	u32 rgmii_ctl;
+> > +	struct device *dev;
+> > +};
+> > +
+> > +static int syna_dwmac_set_phy_if(struct plat_stmmacenet_data *plat)
+> > +{
+> > +	struct syna_dwmac *dwmac = plat->bsp_priv;
+> > +	u32 phyif;
+> > +
+> > +	switch (plat->phy_interface) {
+> > +	case PHY_INTERFACE_MODE_RMII:
+> > +		phyif = CTL_PHY_INTF_RMII;
+> > +		break;
+> > +	case PHY_INTERFACE_MODE_RGMII:
+> > +	case PHY_INTERFACE_MODE_RGMII_ID:
+> > +	case PHY_INTERFACE_MODE_RGMII_TXID:
+> > +	case PHY_INTERFACE_MODE_RGMII_RXID:
+> > +		phyif = CTL_PHY_INTF_RGMII;
+> > +		break;
+> > +	default:
+> > +		dev_err(dwmac->dev, "unsupported phy interface %s\n",
+> > +			phy_modes(plat->phy_interface));
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	return regmap_update_bits(dwmac->regmap, dwmac->rgmii_ctl, CTL_PHY_INTF_SEL, phyif);
+> > +}
+> > +
+> > +static int syna_dwmac_init(struct device *dev, void *priv)
+> > +{
+> > +	struct syna_dwmac *dwmac = priv;
+> > +
+> > +	return syna_dwmac_set_phy_if(dwmac->plat);
+> > +}
+> 
+> Can you implement .set_phy_intf_sel() instead ? that should simplify that quite a lot.
+> 
+
+Good idea. Thanks for the suggestion
