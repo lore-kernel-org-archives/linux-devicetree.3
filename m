@@ -1,87 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795407531;
-	b=yuPP0JsK7DAk9iiNS9aDLxwJMHZJOKU6wPt468IoDTve7KHfet+XRKd2btU8qKL8wP5W
-	 LUnrkgxO7rSgxX5wbcYl8YbVB7tw7f8pVVNNh1efjkBnuoc7iL85E8iEKfTHSgV6NtmC+
-	 4v5I1iT9syyOUx/GQVjrJW16D9XIYREehmG3cx0AKIgs2mTb4lS7S9LGDelE8p/u0FyIS
-	 G2V4JvBROTstofrq072GWn7lUk7D9xD0GXYDr/qhxdihknxFWFLsZu+LRa3A8wOd+uNzs
-	 /LdF/ti3QUoaC+xPtEmkIApTO1xqszE/hvXmNwCyBzq/XBM7WK2RQfOQMDDIx/MF5zg==
+	t=1795408929;
+	b=gvpxpbkTnsaE3wPz5oEy7ii0oRpZg4j1qRUHzXnsmuNk2eQAucPnlRYOO0sAzClr54iZ
+	 Xp6c6RZiMbq13ST/R0+eiMgtpI5fKt02FZzSaU6QHX+XYt16FFWMnJqn4p/fUw2T+/kNc
+	 3EcqT8Ls1MQJkdNbEe8yv0B1FeAXzHooCzOA8iGFAJbKFYpDRHgPlJAxdI2BOfrYc803B
+	 tMTB7vLpOv0C5HoWJ9VC9XPyaU9nH1OUP4TXOP4hrx0uiUTx6J2vkKzPoO7gloZkHWqcP
+	 zfDg/0Z0pdDzaW7wBVBoKpz1yBgxpLcaaIoFhFW+4e3jFAHFwG14WM3yknWA+LP9t/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795407531;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=MGZTPWp2i4b94VE9SMcXmz9d4hQmCYdTz5/vft8xoW4=;
-	b=sksfkUfYh7ifQojngkLBCjZK2xXjRzh0n0PgMpn6ntyi7gSZSIk6XX+qu1qDX37AMhpR
-	 XExtqEzVYxrHH2x6ooQWaJnJFMaarvZ103Ob4RDi3hIpTHPHoqoqvPC4pdgM5DcVsTf0K
-	 Wg/RcCgmU8aWYOhU4CGJLJNndHeWrVIkIahO+OQ3ZfB8ZPXdbCgqjC6MhMqqmBp1NMJG7
-	 d0lPzDpnNbIDwTdoEDHEzpvtFl0l9szIBMfsx4GzgxHCbQYuQ7IX86H3sVmH5Tb/C7jSp
-	 5dlNOlosQgULF7cPY8hujfRKh9QPvZRnuZHRvj71O8I3zFPSMgcaqdb0r4oi18TVS3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795408929;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Change-ID:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=YVCntaXptXzPXs2dujESh2ZwQdzejioJ9nbTZWK/igU=;
+	b=Q9ajcki8JN1MU5a9EKPwr0mqR9c8L5rZb0amwjYoZXcxbHAhsPC1hJbQqTDXlVdQGPm7
+	 Fiyu/sCz7FP6LhAq2T85G8U4O+qCi9H5HEy1p+XoJ9kRSMe5rA9+lCiJlPFuuXpO7299Y
+	 GqdvZJCDtZ1T4yqARy4HoXl40w+C51suATk2fYV0n17PTHklI7NHgBdy9hZlsmMS2gPgu
+	 AhmAD6erM/DIplYjGHPp6hqdJeI8bSp3igps9iqxF8TuhEbH2ZGeAckkrX70YU991o9R0
+	 wi3DASni7lRxOfZD35/tR5K3c+yRhuFaHse7hg2lbKKCj2SYJ9IjimV6OyxMQHWAIGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m3oxTjVF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t86VmWUJ;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F9F606A31A;
-	Mon, 23 Nov 2026 04:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27601606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 04:42:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27601606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m3oxTjVF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0721F000CA;
-	Mon, 23 Nov 2026 04:18:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795407531;
-	bh=MGZTPWp2i4b94VE9SMcXmz9d4hQmCYdTz5/vft8xoW4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m3oxTjVF5biHPKVWTSY79juLWKEZ0+RTPYDlJ5CJmY9SGsdu0TOngsvFoxhkls/EP
-	 BnvYHwP1idyvXSmvcGwCoMcH5hrCdQ4+dGxoN4bMBLfluGN9WNgkeFdPdpuRyz65lg
-	 iTo7NEmXEld3M/+IFXsPt58MeIEk3pztNAfEKdKXrUgj69z+rvLSvtvjCkzI7eu2As
-	 zz5kyhXI4Xl4UfrcrDiMlFrzhgpISf/3LqB/eMjEB9bNewn02JTdkNIGibC6HrL2oW
-	 JmvcIXYA8GXMMgdUO+NWqR+sBE9dz1lQ2ETl9VYVjvwXFjRNwt97Op9plcGFNjXQhE
-	 cM97/u1q8+sPw==
-Date: Sun, 22 Nov 2026 20:18:49 -0800
-From: Drew Fustini <fustini@kernel.org>
-To: yunhui cui <cuiyunhui@bytedance.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t86VmWUJ
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-38692f62b22so1192695eec.0
+        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 20:42:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795408927; x=1796013727; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YVCntaXptXzPXs2dujESh2ZwQdzejioJ9nbTZWK/igU=;
+        b=t86VmWUJQrhII/Uf00dc0pqQmRaJ1qtR3husK70yGXr61pGlyOyaHXflkxYhsKkRZf
+         eayGknezuGYZOzUL2T/0OJA0G0F9d84kxNUoSUKuXp62rmE5j9ugf5/B/h5CLqJIp5Ws
+         05N7RTbg/AjXfisvMKcOyKdIMaR2AKFhmeStwflekWPaOlZ07PusV9A4kqrhqtNwV9yE
+         BdjiwG2Y0QOAJAaZexpNUogPk8/YEgts2UNEnmjLVKkm5DXxOIar48lLUPzQ2Yq4CQxv
+         dkWeBt9+AsjtMiG1TuMpghAKVF2JekiQUA0O2m/iiPzu1FHG0bo25oPhDIV9UsqPpEtW
+         GB4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795408927; x=1796013727;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YVCntaXptXzPXs2dujESh2ZwQdzejioJ9nbTZWK/igU=;
+        b=Jz+N1Z8ZW3LrwD4ci58xKrZ5kdzPgk2MSPw4jNZGx88w5Th4nWKRbHUgj3/X9xOLK3
+         AtL2mIbbGyIxg1NmgO6ioRg3c1bUxPYmM31LyCZlCXWH9dPJDOyUQETbXx6fQvZrGlBi
+         ulJzF+rM4p0J+Tiysg0mTNleI1vrwTU37/mhDboKoTROlfvMRyEmCZblspW9v8+oOsmo
+         nRYdCYADRrD9Q2F0c6eJsWODeOWqdXNYMuzyQwrqrkGk2iTn0Uvg8WJXgth8wS7WV/8r
+         nMcJZCNIr1cE3JJvHj4x5Ep8iqCksX7XaBXxmjpQjwGCwWvHBsf854kak2Ufph/v98Zu
+         GMHg==
+X-Forwarded-Encrypted: i=1; AL+hErGqQtjH+ZNrfbiYa1Kv7IeB856Vg5gpVG80Y8KZ9Zo7VduDp9OVSjLg9wNPI1lDIrHTHOKEaNcVlSV7@vger.kernel.org
+X-Gm-Message-State: APuU4Z+X4z7LAePipk+hLQZpB/VE1GKGFfC1Y8zZoP5XA4JCZ0prmXHF
+	AYS/PfY0s8+5QBWIdmXs8bPQ+ckZYYycFHcWso2Vjv6jFuZTW9BKq87q
+X-Gm-Gg: AZFdTZcZcoT3nUtTZpxEnBnB68UEAXUjvpiGOHpcguEHeDmA9A2/ScI7o1DaDg3Gx9m
+	Ao3GG8a9puHm3ZYDOa9J0IwYRul/9VqsbLnrtOpKJo5YMMpPkO3ODaWRZJjzT4bWb1aHfxJzInb
+	bvSYO9JIpegkQTaFQe0rbhkbLe48F55+v7MX3SFn1dY/3Yh73LLZmuZydfS0oj8pd/mJdgRrCjQ
+	sALz6gX2lz/4IA7+ToqvCDdSYrtG7J+YAZ4TKocX+TrkyYaVIYhYr62dBCM+wAFz5RtOEVvHS1N
+	J3CouvE0t1ttLkOmqGrB7NDSoEyyGR4iBkfmRRiRHMUOyGg9bZusybavJPisyrg3/r8Acv64PoW
+	G/i5EZk/pL8aMKk5nGbVW2JlrJ0qHRvN6ExWzkyDsvZZ8FhDKO2P1znOa6N04KnsVoZxKmVe9BN
+	0muPrwwBrQvI5sr4dDUggkG0d7EZUjOQH0zz8dNPik8tb4GTCmowqY4+1i/k4QhzofJUUb7Dfjq
+	LqDpiIcW0n8oV3wi/JjTvQfniKREZnLX2G9O4TjXbbQhy+E83VqEwgIQNHf2O57u9XbGh7PaPY1
+	Ytky+osQc31+IKqb32F+1zDV3V0S7snGFmW8hRUSeOJzGQ==
+X-Received: by 2002:a05:7300:2728:b0:383:c2f0:e753 with SMTP id 5a478bee46e88-3856c0d0a68mr12512979eec.3.1795408926522;
+        Sun, 22 Nov 2026 20:42:06 -0800 (PST)
+Received: from morise.tail.syca.top ([20.89.104.82])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3856456e6c6sm28404929eec.2.2026.11.22.20.42.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 20:42:06 -0800 (PST)
+From: Zixian Zeng <sycamoremoon376@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	Tony Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zeng Heng <zengheng@picoheart.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [External] Re: [PATCH v12 1/5] riscv_cbqri: Add capacity
- controller core
-Message-ID: <awO-qQe0s0Jp-142@thelio>
-References: <20261114-dfustini-atl-sc-cbqri-dt-v12-0-6ef1f627072d@kernel.org>
- <20261114-dfustini-atl-sc-cbqri-dt-v12-1-6ef1f627072d@kernel.org>
- <20261119000846.776930b3@jic23-hlaptop>
- <CAEEQ3w=voZYrfcMuKC_SQG9U8hYN_thcc02nf_PgMu5UyuG32Q@mail.gmail.com>
- <av-WvzoxSv7QpMhQ@thelio>
- <CAEEQ3w=zXTYjAoWcBZB_CSVYKsbOSjGvp4JW63HET_BwLnW1Nw@mail.gmail.com>
+	Yixun Lan <dlan@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	Vivian Wang <wangruikang@iscas.ac.cn>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>
+Cc: Zixian Zeng <sycamoremoon376@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev
+Subject: [PATCH] riscv: dts: spacemit: k1: fix the EEPROM page size
+Date: Mon, 23 Nov 2026 12:41:58 +0800
+Message-ID: <20261123-fix-bpf3-eeprom-v1-1-df8cce6ef2b5@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,118 +110,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20261122-fix-bpf3-eeprom-51ba6e0f110a
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795399932; l=3631; i=sycamoremoon376@gmail.com; s=20250113; h=from:subject:message-id; bh=ZpyjTSTFUIhS0d4tphn4fxfvTbp3zPacKqQQgrGQ+so=; b=RvNnAQ77qPUL5wCgqMI0kl7NMSKeS+xd2E3WmHM8XdDNor4jB0xPQE80VkQtY8z2Q6PBXTRUT 1YOHKj+G7HsB/mXpwQGVEf7btPUIUdiskkCZ3EEir7npCKQCDgS9U+z
+X-Developer-Key: i=sycamoremoon376@gmail.com; a=ed25519; pk=OYfH6Z2Nx3aU1r0UZdvhskmddV6KC6V1nyFjsQQt4J8=
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEEQ3w=zXTYjAoWcBZB_CSVYKsbOSjGvp4JW63HET_BwLnW1Nw@mail.gmail.com>
 
-On Fri, Nov 20, 2026 at 05:30:59PM +0800, yunhui cui wrote:
-> Hi Drew,
-> 
-> On Fri, Nov 20, 2026 at 8:39 AM Drew Fustini <fustini@kernel.org> wrote:
-> >
-> > On Thu, Nov 19, 2026 at 07:00:21PM +0800, yunhui cui wrote:
-> > > Hi Drew,
-> > >
-> > > On Thu, Nov 19, 2026 at 8:09 AM Jonathan Cameron <jic23@kernel.org> wrote:
-> > > >
-> > > > On Sat, 14 Nov 2026 14:06:21 -0800
-> > > > Drew Fustini <fustini@kernel.org> wrote:
-> > > >
-> > > > > Add the core for RISC-V CBQRI capacity controllers: the register
-> > > > > layout, the capability probe, and the allocation operations that
-> > > > > program a capacity block mask for an RCID and read it back.
-> > > > >
-> > > > > A discovery layer maps the register block and describes the controller
-> > > > > in a cbqri_controller_info descriptor. riscv_cbqri_register_cc() probes
-> > > > > the controller from that descriptor and adds it to the controller list,
-> > > > > which stays private to the core. The core owns the controller state
-> > > > > after registration, so nothing in it depends on how the controller was
-> > > > > discovered. The caller keeps the register mapping alive.
-> > > > >
-> > > > > Tested-by: Zeng Heng <zengheng@picoheart.com>
-> > > > > Reviewed-by: Zeng Heng <zengheng@picoheart.com>
-> > > > > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > > > > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > > > > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> > [..]
-> > > > > +     /* The resctrl glue keys its domains on cache_id, one controller each. */
-> > > > > +     list_for_each_entry(other, &cbqri_controllers, list) {
-> > > > > +             if (other->cache.cache_level == info->cache_level &&
-> > > > > +                 other->cache.cache_id == info->cache_id) {
-> > > > > +                     pr_warn("CC at %pa duplicates the L%u cache id %u controller at %pa, skipping\n",
-> > > > > +                             &ctrl->addr, info->cache_level, info->cache_id,
-> > > > > +                             &other->addr);
-> > > > > +                     return -EEXIST;
-> > >
-> > > A controller with the same cache level and Cache ID is not necessarily
-> > > a duplicate. A distributed LLC may have multiple physical controllers
-> > > managing the same logical L3 resource.
-> > >
-> > > Matching controllers should instead be grouped into a logical component
-> > > keyed by (cache_level, cache_id), with the physical controllers kept in
-> > > a linked list. User space would see one logical controller as a single
-> > > resctrl L3 domain, while the update path would iterate the list and
-> > > program every physical controller.
-> >
-> > Good point that it is not a duplicate. However, I would like to keep the
-> > scope of this series from expanding, so I would prefer for that scenario
-> > to be handled in a future series. The domain id is the cache id in both
-> > cases, so it won't be a problem to add later.
-> >
-> > Do you have a platform with such an L3 that it could be tested on?
-> >
-> > For v13, I could change the comment and the warning so that they say a
-> > second controller for a cache is not supported, instead of calling it a
-> > duplicate. The alternative could be to skip the whole group if it is
-> > a problem to just leave the first of the group enabled.
-> 
-> Keeping only the first controller could expose one logical L3 domain to
-> user space while configuring only part of the physical resource. Requests
-> handled by the remaining controllers would not receive the same allocation.
-> 
-> This topology should be testable in QEMU by creating two capacity
-> controllers with different MMIO bases and making both RQSC resource
-> entries reference the same PPTT Cache ID.
+The bananapi-f3 carries an AT24C02 compatible EEPROM GT24C02B [1]:
+256 bytes with an 8-byte write page, which can be found in schematic[2].
+The device tree declares pagesize = <16>, which does not match the
+eeprom chip datasheet which declares pagesize 8 bytes.
+EEPROM pagesize of k1-bananapi-cm6-io[3] and k1-orangepi-rv2[4] changed
+together, based on the chip model shown in the schematic diagram.
 
-The QEMU RQSC series gives each capacity controller its own cache, so I
-could change it to allow two controllers to have the same Cache ID.
+The TLV EEPROM on this board holds the base MAC address and the MAC count,
+so a corrupted write leaves both Ethernet ports without a MAC address,
+which is how this was found.
 
-Is there also a hardware implementation that could be used for testing?
+Link: https://www.giantec-semi.com/uploads/20230414/GT24C02B.pdf [1]
+Link: https://drive.google.com/file/d/19iLJ5xnCB_oK8VeQjkPGjzAn39WYyylv/view?usp=sharing [2]
+Link: https://pan.baidu.com/s/13UTY_qM4gGuVxsZ9U7_Xpw?pwd=8888 [3]
+Link: https://drive.google.com/drive/folders/1pcI_U0C3VJKTCg8A1zj08CwNbohnONSR?usp=sharing [4]
+Fixes: bfce75e2345f ("riscv: dts: spacemit: add 24c02 eeprom on BPI-F3")
+Fixes: 46a8c01700ac ("riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO board")
+Fixes: ac436e6879f5 ("riscv: dts: spacemit: enable onboard eeprom for OrangePi")
+Signed-off-by: Zixian Zeng <sycamoremoon376@gmail.com>
+---
+A TLV write through u-boot's i2c_eeprom driver scrambled the EEPROM
+contents and left both ports without a MAC address on bananapi-f3.
+I checked boards schematic and eeprom chip datasheet of bananapi-f3,
+whose links can be found in commit message. After changing pagesize
+to 8, TLV write and read works as expected.
 
-> One possible grouping model is:
-> 
-> 1. Initialization
-> Group controllers by (cache_level, cache_id). Represent each group
-> as one logical component containing a linked list of its physical controllers.
-> 
-> 2. Set
-> Let the resctrl domain reference the logical component. On a schemata
-> update, iterate over the controller list and program every physical controller.
-> 
-> 3. Get
-> Read the configuration from the first controller and verify that the
-> remaining controllers report the same value.
-> 
-> 4. Monitor
-> When monitoring support is added, read the counter for the same MCID
-> from every physical controller and report the sum for the logical
-> resctrl domain.
-> 
-> User space would continue to see one logical L3 domain, while all
-> physical controllers behind it remain synchronized.
-> 
-> Until this grouping is supported, it would be safer to skip the whole
-> component rather than enable only the first controller. Since this is a
-> valid RQSC topology and can be covered by QEMU, supporting the grouping
-> in the current work would be preferable.
+Other k1 boards which includes k1-bananapi-cm6-io and k1-orangepi-rv2
+changed together. However, I don’t have these two board. Be grateful
+if someone could test it. Schematic of k1-orangepi-r2s not found,
+so keep it as it is, but true knowledge comes from practice.
+---
+ arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts | 2 +-
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts     | 2 +-
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-I would like to keep the scope of this series limited, so in v13 I will
-skip the whole group.
+diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
+index 2c2d78aee98a..23a1323df30d 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
+@@ -101,7 +101,7 @@ eeprom@54 {
+ 		compatible = "atmel,24c08";
+ 		reg = <0x54>;
+ 		vcc-supply = <&buck3_1v8>;
+-		pagesize = <16>;
++		pagesize = <8>;
+ 		size = <1024>;
+ 	};
+ };
+diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+index 58035d886bf6..1db896536256 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+@@ -195,7 +195,7 @@ eeprom@50 {
+ 		compatible = "atmel,24c02";
+ 		reg = <0x50>;
+ 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC1V8 */
+-		pagesize = <16>;
++		pagesize = <8>;
+ 		read-only;
+ 		size = <256>;
+ 
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+index 790234f3550a..8fd95c8f9db2 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+@@ -185,7 +185,7 @@ &i2c2 {
+ 	eeprom@50 {
+ 		compatible = "atmel,24c02";
+ 		reg = <0x50>;
+-		pagesize = <16>;
++		pagesize = <8>;
+ 		size = <256>;
+ 		read-only;
+ 		vcc-supply = <&buck3_1v8>;
 
-I will add support for multiple controllers per cache to the Linux RQSC
-series instead. Your grouping model looks like a good plan for
-implementation.
+---
+base-commit: 4843f6873f7c4835e62f2c73ba0fd538e57a2f22
+change-id: 20261122-fix-bpf3-eeprom-51ba6e0f110a
 
-Thanks,
-Drew
+Best regards,
+--  
+Zixian Zeng <sycamoremoon376@gmail.com>
+
