@@ -1,84 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795462753;
-	b=PulNv+yoZ4Uw9nidSrYMGV3ICNKyn6nHXJ8TgwSxlcu9fGd/8B/jaN60WGoNmo/P4q5O
-	 qflafuHdVydOrtrcBVt9FurWU30i9svtl4kA8TvE7f2Q5AdeR6mksN59rQvvpcm+CSChY
-	 XDfY2E9GtnjCT8ZQBTrZC3vjnGC/cbQn0F4pJ504W5K3IS6ANxon9T5JDIEnH9YLnw0n/
-	 QHpXgTfj1lC8CdJ5dzcUgvONJmrlU5D9m7c5uBvpNaRAFrVp9pu2x1379G1+yEExaWQ+D
-	 4ryPG4Za5PIEopbDeoiJA5XrsW3c6bIQKBuA40HQYU9nAvxlfsI2g6Qsg8sru68TYbg==
+	t=1795462759;
+	b=qny0EYPg30okBaKDRhhPlrjZJPVvdRP/e6r3DnJN3T0sz2HsFefsoklyNr8S/iwuRvot
+	 tGIvkZDgZVxu6CWbOX0XuDNLW4iZ8r+Hpsba9glboiq4W9+feENOjvaVBtfSCq1S+dFfB
+	 lOAGjzb+PZGBjFl8v76vGRz+J3aDwnVhiwTorpRwix7LgXKsYsRiif/FIm7BlqoGsKSS2
+	 X/CM76XK/4fdDcB+yafWydoS/cF8rMbcnTctn5iRpBzjW4e6pd8oXqywe/DAvelBwfGq6
+	 YDzrZTh7pFrYigpknPcvGbdCKnuwBcB1/RWLCoxNfaCW+xxQ90/giYGZZabm3bZo0cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795462753;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=34EGKTnLY/HPChbZIP1a/E1PkPQAWEmn990CfdJx9aY=;
-	b=cBhX4y4ZuQAlGQXXWI20KR4xeicmdycnZ8YiSPfT3PMISTFVmY474/6c7LqHyY9Ztgfo
-	 M86n2Usp5oR8xcudTPUJGHyymA6XrrSAIrzeRV14ZISY2g10GyOaViSunbaFju5m9xLIk
-	 H9wjvcm565GXW4Ghd14lSSjZ8nn5J2vKSDQ5SHripRkh7s6Xmprm/FR8CudAncuoiPG6o
-	 x2MpLP/BcchVpFn9FPPBOG2/U3luW+YqgOwyrrigsXP5UhHX3U1T2v0kFYFk0iGfWsz97
-	 j9/rRyKWv81H8HoR3LUOOUbz33SeNmtjtiueAGiiM/aQIgOy65MefHJHrYcZ5f+aJiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795462759;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=kRPbPFA5UaW8RQT7bD0uzKcSu4cYs79Tdy4dHl7KdtY=;
+	b=VG4gu6lBdLFLszo3co7JKkkAxK/E9oh7SqXa54n/nREsQHIqKk4Lvq6AduRpwu1N5ap/
+	 lUFYWN64QCaYp1KgzmOhsjJUeS2MBxFSHYzwRfJt0mLikDBGiQgqgOyQMohXDTpHYqwrt
+	 Clv0tHDOC0PnDbKwFaiDRLrPVGdynf69tj69dhfLRPhpiDYCkeRxXmltSs8xfL+rzsZT/
+	 Zu7OPGqQGSJeBN67iJnOPewKFz3JYNcv2JgaaFTPz3teQxQbjj+QaFdWrRruUganT6y/p
+	 Xa0SO9ywWls9LU0Vvy0dPRCdnKvlWSDUOKUQR+/41aFWSgZTDLCUp0ykWFuAJQ7++Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Oc0c7b7d;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NWbkcHLj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U+SNEDGJ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E061606A31E;
-	Mon, 23 Nov 2026 19:39:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E061606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA54606A31F
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:39:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBA54606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Oc0c7b7d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795462754; x=1826998754;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=A6ZVYci0gc9CY9yLPxh4/WLRqZrpG0U44J2uCbx7vF0=;
-  b=Oc0c7b7dVO/VGOt2j9dnhWcQ23PRX33QfgtGoyJvmQsnMhhNfGOGnpx2
-   6QkLjjYx3sNOvvOjViL8jfNiGwBz6vcTfF4Nbzs7npV/XcUFoIcd+Ds8+
-   iU1bvXCtowgWY2FiD3RjGXMWTZIoZDMN/NGxJIM6ENaepFUOVTcAOvnF+
-   zvvsMNxdptqm3eJ7kus+ckxe7HyMy0Lxkqb32JoLc2kgJahel5/D63D0x
-   29fC52rt6gAfhUoR/s3AbhmG8BVwNK7wFQrmVHKX8eQKU/o4cs5S0tffX
-   4wm/+cyOMlviSQEUqsvUZFtCCzp4cj4lijKD+G0+E2oUfP5yYsi+cl0ho
-   g==;
-X-CSE-ConnectionGUID: jVt91fXzTm+nxfW/Dyf+xg==
-X-CSE-MsgGUID: s4Ulm2pgQASkEjw31fhOuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4177432"
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="4177432"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:39:12 -0800
-X-CSE-ConnectionGUID: J2UXgM7bSFCGRuiqiCNmbA==
-X-CSE-MsgGUID: 6SwAljXXQHWlUDab4x1lmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="11545568"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 11:39:02 -0800
-Date: Mon, 23 Nov 2026 21:39:00 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux@analog.com
-Subject: Re: [PATCH v7 3/3] iio: adc: add driver for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <awSWVMMYN2xsDH7u@ashevche-desk.local>
-References: <20261123-topic-sm8x50-iio-max34417-adc-v7-0-d8f87edc5086@linaro.org>
- <20261123-topic-sm8x50-iio-max34417-adc-v7-3-d8f87edc5086@linaro.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NWbkcHLj;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U+SNEDGJ
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANGH3fZ2487357
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:39:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=kRPbPFA5UaW8RQT7bD0uzKcS
+	u4cYs79Tdy4dHl7KdtY=; b=NWbkcHLjy/t72kbbZhxphVhgOotRbFVZeU3gmCf7
+	MN8hsmw5vSfH1vrzmSar6UKjUi2kZXsP4XJEtLLIfhEXufqXDoBjseO7zFUYImsa
+	Z18VgkFxTBZdnwTX88duQ+/f+ZqAsJwa+rQFrjqD5T4oY1RBfXKRHbyOLQ1HhUip
+	wxbUSarHXgl+um7Ebg/v0fdx6Ne9OkXeRNMZRxBkzWrOfUvxmuPxPGQv1Zljr4HK
+	dUxXxyTFvIuK2oCAlur7cEHXq6+Bs25PBRpP0X3n8+zHIuluxSePyvqTeTV+emcr
+	lNYGpEWZ9RiPpyXitzqqaBSR1IKk7k0ONubHxyRP5zwjbQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4fy03623-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:39:17 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94975041698so1050965285a.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:39:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795462757; x=1796067557; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kRPbPFA5UaW8RQT7bD0uzKcSu4cYs79Tdy4dHl7KdtY=;
+        b=U+SNEDGJvUHMYbZoi3AfabeiVkhYN5w0ezrHjHFiyySCD2EZ+2mzY7Dmp8RoEz2KuU
+         14L3dazZFtOsb4MYaZnyBfJgcF9vaZErgm3zOB0R9SjZaua4UuW9z/o+FXdnbD17e5oH
+         2X5Npxbna4gec97QnydCFIaDCiAckwVleLBdhF7S0wZMbBOVtyiZdmmu0Ylqxmn/j8gT
+         U7hn16tzZFbol7eYpKBAGi+UFDSJRnHQW9TH7JqTpFybue2Lvc8I7+t7qHxdHME9YAIR
+         sCsimGw5p4cTnfQKX3k8DzziG9CxfGp6LlN2WBJ+P953jUnyXt3QyICqNvnluhGN9cEV
+         8ZIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795462757; x=1796067557;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kRPbPFA5UaW8RQT7bD0uzKcSu4cYs79Tdy4dHl7KdtY=;
+        b=CO5FfDi11TdmL043OwF+JRkGcMvSlR4YpdyT4Spcwrs1Elh+/gL58RMEK3RB3weims
+         Dq1EbBdl8iZiX/NZaWPJ0NGKEeG8bjsg9blNvVtz6p+hHkPyN2CatT9TMhuLB3Y09Egg
+         r0AdJPhFNW3O4RtoIXwxVHiEY5pJ48mD27Mkb0j8wkxUpNP/0CBapQKivRPiTfmYW1fo
+         sTfVw4w7Ys+cxtNEibOuEq86NgZY3bbW+vEcHyVpe8g+6mHdTct3U1nvm0a4rVL+0lAC
+         mcv3lSn8NsdOtaG/PRb6li2ZRMii2CfhsKpq0VjwC/Vh/qm9qvfJN0pfWfg5+/rRO7gT
+         bthA==
+X-Forwarded-Encrypted: i=1; AL+hErEs3D0yMe6h7OgK0AfY3xgljGaQd6IBGAm5odKAnGREc+G0V01rJRNfrwZp7f62L6QMOy15uHVxQrlb@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OCayff5A96I2+FhWbLVtWuXVsBIbumnir3Z4dje57VlOg84tK
+	t1961/sOSTsTwH0aFElYsi/h/E5/kxYuQAg5PDHKEfkYCkWmOacRyPv/oOK6lGtuBB0A+qkOpm9
+	LCQjQ9WG2JPLxorYYQvFpQEJHPnlCg6X/FfLJzMxW1SIUC01MKiSJmbodKNlJLrBS
+X-Gm-Gg: AZFdTZeRjkl0q1NPqDrsIkxtzKaQ7fQGFTIsdu3tDiU5jbKhDMMw1jUe1eYoy6oYwiF
+	1xpaSDoGS1quqQtT+qwnGHxDh9y5EHPNhwZTTCHb6BVpAh280GccGCDAdSOhl69Rzn0pAdcelKb
+	wEZk0N9bap0w6pdCI9qioPNNQLGTGOisi62l1owPNR+eKM3dQ/ei1k0wN8TOOWFpW7oxeYv+5uv
+	ztotc6ruhwa0fRT++KVDPj20vxR02J7u+IaWtb5kckNzq8/sGkm4alLWt/PbXsgxxXnltSt7KaX
+	BBldIqWRrTHbJID4uqvUQxKIcYYQzdkZJYA9eoqSnCDf+dDfie0RlNMZIkAgkPqAiO0//j6iFyi
+	aL31N0mqU9YglLWoi/11Mt6+/WYzxen3iquhNtNVnCpVUX73oQ6b01rq0DsgMfTuM
+X-Received: by 2002:a05:620a:258b:b0:93e:6e6a:b686 with SMTP id af79cd13be357-949b36034f8mr2389700485a.29.1795462757064;
+        Mon, 23 Nov 2026 11:39:17 -0800 (PST)
+X-Received: by 2002:a05:620a:258b:b0:93e:6e6a:b686 with SMTP id af79cd13be357-949b36034f8mr2389694385a.29.1795462756273;
+        Mon, 23 Nov 2026 11:39:16 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853b2437sm550952365e9.13.2026.11.23.11.39.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 11:39:15 -0800 (PST)
+Date: Mon, 23 Nov 2026 21:39:14 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-kernel@lists.infradead.org,
+        iommu@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH RESEND v4 05/20] arm64: dts: qcom: monaco: Add GEM_NOC
+ interconnect for adreno SMMU
+Message-ID: <eyx32yhvf2rk27k74vlordcvqvfzugbq22kjju7mijwccltgkc@jbez65qjij5f>
+References: <20261120-smmu_interconnect_addition-v4-0-be30526391d9@oss.qualcomm.com>
+ <20261120-smmu_interconnect_addition-v4-5-be30526391d9@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,118 +130,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261123-topic-sm8x50-iio-max34417-adc-v7-3-d8f87edc5086@linaro.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261120-smmu_interconnect_addition-v4-5-be30526391d9@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA3OCBTYWx0ZWRfX3VbTpF4ZKoJ+
+ PVHyrn0Go1BW2IKK5OYv85RRl2x2tra49FFgbnTAtxiMzVOpC13JNOLGOT08ME+X7lYqmBPMc3v
+ mkWMAsPKQp5GQq0h+Evseoazr52N/pC+Pym9/k68dKaLnpXoAE7xMJo1fWWN5JfLzX6PUBUQ+23
+ dzONmZWV0yYiucVkS5REy6lQ5cYc2nvAmKx/Az+JcCcfEoWYXZg9xte9NU0oS6EeImpH4lhDMvP
+ vLdPPT7UVXbmzEzR2+Msq16RLwaScdJJYfGIUjdfnjP4zSw2fFkwyyqgjThBRf5NNefLVzr0KLl
+ OuNo877OrcTMjt6lQ6q1jM69M4DBFcIPpZNI5OZPyGs+4q4LgcvgcCheay88ah5jq7OWOAe28Lm
+ vkhhtNqBMpVxHDxrxlgGhDSyurvjIFTehD/Z1RE+SQ/MVd0xfboRBCZTQNxrl3IK437G1u9sAvS
+ Q3nsN/5afZGIYxI1ifg==
+X-Proofpoint-ORIG-GUID: fuMJtAP2NZEX7Mz4aKiQEsIrz0HplrpC
+X-Authority-Analysis: v=2.4 cv=QrXLTlyd c=1 sm=1 tr=0 ts=6b049665 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=LikcBPw_WjS6U_9SOOMA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: fuMJtAP2NZEX7Mz4aKiQEsIrz0HplrpC
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA3OCBTYWx0ZWRfX6CeP6ZGuHf6c
+ fjmCcTghPZTQXokzQ4BRtJolhWWKZga/XHNGaSKFFooIBV+l1m/AGK8pdZXlfEMg0qeEv+sahkA
+ UHrh/bM4K6iJ0ULM6JKlOhZUgQidvpA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 phishscore=0 spamscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230078
 
-On Mon, Nov 23, 2026 at 06:47:46PM +0100, Neil Armstrong wrote:
-> The MAX34417 is a specialized current and voltage monitor used to
-> determine power consumption of portable systems. The driver support
-> getting the channels voltage, average power, accumulated average
-> power and energy over an I2C/SMBUS serial interface.
+On 26-11-20 19:11:36, Bibek Kumar Patro wrote:
+> On Monaco platforms, the Adreno SMMU requires a bandwidth vote on
+> the GEM_NOC path (MASTER_GPU_TCU -> SLAVE_EBI1) before its registers
+> are accessible. Without this vote, the SMMU may become unreachable,
+> leading to intermittent probe failures and runtime issues.
 > 
-> The MAX34417 datasheet only specified on how to calculate the
-> accumulated average power, but with the Sample Per Second rate
-> we can easily get accumulated Energy in Joules.
+> Add the required interconnect to ensure reliable register access.
 > 
-> By default the IIO driver only supports single-shot Voltage
-> and Power sensing, but the accumulation can be enabled by
-> enabling the Energy IIO channel which then enables the
-> Continuous Accumulation Mode.
-> 
-> The counter is common to all channels, so when reading a single
-> channel we will copy all accumulators to registers, so in order
-> to permit reading individual channels we must accumulate the
-> other channels in the driver when Continuous Accumulation Mode
-> is enabled.
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 
-...
-
-> +#define MAX34417_MIN_RSENSE_UOHM		(1 * MILLI)
-> +#define MAX34417_MAX_RSENSE_UOHM		(100 * MILLI)
-> +#define MAX34417_DEFAULT_RSENSE_UOHM		(1 * MILLI)
-
-Oh, it's micro, but you use MILLI. Also even in macros we nowadays want to see
-the unit as defined in SI.
-
-#define MAX34417_MIN_RSENSE_uOhm		(1 * (MICRO / MILLI))
-#define MAX34417_MAX_RSENSE_uOhm		(100 * (MICRO / MILLI))
-#define MAX34417_DEFAULT_RSENSE_uOhm		(1 * (MICRO / MILLI))
-
-Alternatively add another patch to start Ohm multipliers in units.h
-
-#define MICROOHM_PER_MILLIOHM		1000
-
-I will Ack it.
-
-...
-
-> +struct max34417_data {
-> +	struct iio_dev *indio_dev;
-
-Useless. You have it already available when calling the function that uses it.
-
-> +	struct regmap *regmap;
-> +	struct mutex lock;
-> +	u32 input_correction[MAX34417_CHANNEL_COUNT];
-> +	const char *input_label[MAX34417_CHANNEL_COUNT];
-> +	s64 acc_power[MAX34417_CHANNEL_COUNT];
-> +	s64 acc_count;
-> +	bool overflow;
-> +	ktime_t last_update;
-> +	bool cam_mode;
-
-Are the booleans protected by the same lock? If not, just group them, it closes
-the gap, if yes, group and possibly make a bitfield, then they will occupy only
-a single byte.
-
-> +};
-
-...
-
-> +static int max34417_read_energy(struct max34417_data *max34417,
-> +			       const struct iio_chan_spec *chan,
-> +			       int *val, int *val2)
-> +{
-> +	struct regmap *map = max34417->regmap;
-> +	s64 acc_power;
-> +	s64 delta_us;
-> +	int rc;
-> +
-> +	if (max34417->cam_mode && max34417->overflow)
-> +		return -EOVERFLOW;
-> +
-> +	/* Sleep up to 1msec to make sure we have a measurement cycle done */
-
-ms or millisecond
-
-> +	delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
-> +	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
-> +		fsleep((1 * USEC_PER_MSEC) - delta_us);
-> +
-> +	/* Move the data to the SMBus registers */
-> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Save the timestamp for the next read */
-> +	max34417->last_update = ktime_get();
-> +
-> +	/* Retrieve all channels to avoid missing data for other channels */
-> +	rc = max34417_save_accumulators(max34417);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Get current channel power */
-> +	acc_power = max34417->acc_power[chan->channel];
-> +
-> +	iio_val_s64_decompose(acc_power, val, val2);
-> +
-> +	return IIO_VAL_INT_64;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
