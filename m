@@ -1,65 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795440248;
-	b=ZX71RPx2rzejcSYCaLVc346sqgAfTo4Kgds8CK8y6IxwRwJQfGgUOQaJ4BEhp9A7x7io
-	 9bsOyEqlEWWMmc5hZovuKLJCTsNWNM8u3YazAyzbrBDMsxe4MjwqvEK5jH+WnPVoOBufQ
-	 KIAtO7W9+4XW9xGw+Djt1cXi52KJlG6HeELkmOb1ia8dw1CLZcp2AH8pncMLL8q31RCo2
-	 uETV26G31a4uT4tIvCiJ4WLoZtxfLqSWjQLnzXqu71U40HEs9wwmphqFAjS437Y2j2RSf
-	 UIEGR2rI4KOTaIxNkRRlw20rhqI682aCSQdwQnrPho4OXDz695QLF5KC8tG12dnEWaQ==
+	t=1795440341;
+	b=VuCE4aQOUn5sMhnDjfLMDLZQ7dP0CS5BFJGpfthei8NPSikzIA7gs9zv9MGhBzpV33CN
+	 pdUaT2cxGDK2KNpjNkYLCbXgdJera9nnea8YDgs/BMEgiOJ4fPFxYkV2/QeGRwjObjR+K
+	 u61+lOyRMlMlkS/VTHD+5uudLOT5XkHeTaai+X+A/VR/ihCxpSIu5wwn+mMdW3qDkiTCO
+	 VpsJ5KiQd1fmX5NWgytcyAUBHC2XwuLTkpbh+IS/+AA6Gcj9O4fU7OjA+l6TnHr5Eeoad
+	 USeKWxGtgmIwNTC+GUTDTFlRT4DBOdnzDU99eZswR2+02rshD7OxIgDo+Bq6LwgkP8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795440248;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mvYDAmTPND065bEyMUQdFya2DyZKAiR6PvyK6Q17Cwk=;
-	b=nYTAp8CXP2xcvoSyOajWEUIBCQuBzwyJpK8PvwiMMqCBz2T0lVjf99OWcQTJr5UyQ8oP
-	 DfmfnvsENrm8gx57txF8NOm3RNo6wGcHsFXCdEg1wv9qOmLKrNGLU5yFcQCEsmgr5OKWz
-	 tDhNoSyfKPBjuTqVjFqP5lh3IgSPJXAuvV9JOsDssATX4A4Sn+fCpKtDklsbZn6gygOkA
-	 NUvI1ZIZP0M/loHDODe3SksM6ImPi4i3PJTr72rmoGOK+ymdOoSroAKOAJxrpNNsdagfs
-	 a0msAKInGP6ZQBIa4f5BWbrYiVZsJ/rm105tPUnFfz384rtnDoRpjaOwsN2ej3HUBtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795440341;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:To:CC:X-Mailer;
+	bh=Zruk1kJrG0KNFuKlQxpAt1DgMhhrbuqeYBz1BcIwEMM=;
+	b=WkHxX6nEhFro1oYBUB1c8IohDG2DmZhp4pGjpaNHnuw8axPCkEnNFhisoW92nELBZkJF
+	 E3DBbuN5hoAArNEQ/FfTek4NEKFJoZ//MUXmET/JkSleyF/yD2cjoDQ0fLCkvwPzKN9qD
+	 tmCh8jhdUWJwZ83JUYcR3kXWFkcGwD4ar3Wcec8WKwxlvhvxgLiVeumJN0FKZuc2xnCWC
+	 HMuA/jGI10ZMIhEhXmZwIK5bzn8iEJR9r9Qb4N++BRDh0CEhvuaBYLHs1UlrI8TCJlRwZ
+	 YrrhnNwMg3IcWIeFK8SRDNlWgU6QPvQbO1isy5LXtF6E8eRj5T5Qfj84vjABSOIRhLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+0djCW7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=PsovGr3W;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E04606A31A;
-	Mon, 23 Nov 2026 13:24:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91147606A31F;
+	Mon, 23 Nov 2026 13:25:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91147606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+0djCW7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0CE1F000D2;
-	Mon, 23 Nov 2026 13:24:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795440247;
-	bh=mvYDAmTPND065bEyMUQdFya2DyZKAiR6PvyK6Q17Cwk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T+0djCW7dr/ynsSXYMgJn6R5Dl91QlBCh+TcSiMGPYIbXagqvOYKjIC/LqIKJIgVh
-	 2tsRenK8/vfzdGWeHGahRSnb451bLxXc9xXAo/gLuPnnRa/xnoe1EoX54fGV4iXZ9E
-	 kz4VgkOo4cTPP04Vwc32qERrb8x/HKIXnjuN5XHbbIWblFOwTjAqTE07P8bzqrt3YF
-	 EJbq3R8OFhttE2WXN2QcIjmpa2X6erPzeJjtQuIBQW4LY+zme38htbGcGefYQjZedX
-	 UJxBxBd8Mqr6E+S1TX5FgF5sgRMmr84L1JYc4NtQDI1n2RysHzx/G6B+BuWJLQjfDC
-	 1t2Dma2vfEGkQ==
-Date: Mon, 23 Nov 2026 21:03:41 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 4/8] net: stmmac: Add glue layer for Synaptics SL2610 SoC
-Message-ID: <awQ5raWYlMBpCqIl@xhacker>
-References: <20261116135442.4827-1-jszhang@kernel.org>
- <20261116135442.4827-5-jszhang@kernel.org>
- <4f1c4180-3a00-4b17-a27b-e61b307d3e5f@bootlin.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=PsovGr3W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1795440340; x=1826976340;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=b+in/dX32hm/jDF5wRo84HDsEtawHGqccdnfijHYad0=;
+  b=PsovGr3WTDoNHN413GhErmVS333zun6B8zFIfRi+eG66cs+RMSqvFgbH
+   5J9HfL+RBGiMVywsS6YsK4mM9XUDj5UYHLEHsdzZe8fTQ7b4zb3elzd2x
+   frxdFNtk3CJV9HgBbKgTQVMP0X6A36m2oYRKTUtrjx2dd4DLkOQIUZoB1
+   DDo92yCvpnR+JelPQFxqrvZ7zNo260otpGQDNMtc3ndQ7DOOBA5RXras9
+   32wZvaczAL6j5R7RPDWFAnTn7qBYCTXA/j2hiYrdtLOe8/VT8ie5TVmva
+   7agJuoX6aXr0bds7Awyzc+1RaHvgM+iKXewg2w5BqMpDzF6U+9FpxOABM
+   Q==;
+X-CSE-ConnectionGUID: B4FUNwb8QjeG36RMYBLkxQ==
+X-CSE-MsgGUID: Fg0VtAI2RzqOM4svlNVm9g==
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="233969644"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 23 Nov 2026 06:25:39 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Mon, 23 Nov 2026 06:25:39 -0700
+Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Mon, 23 Nov 2026 06:25:37 -0700
+From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+Subject: [PATCH 0/4] mfd: ocelot: Support the LAN9645x switch family
+Date: Mon, 23 Nov 2026 14:25:04 +0100
+Message-ID: <20261123-mfd-ocelot-add-lan9645x-support-v1-0-567d811fe1de@microchip.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,154 +76,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <4f1c4180-3a00-4b17-a27b-e61b307d3e5f@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIALE+BGsC/x3NQQqDMBBA0avIrDtgQtTaqxQXYzLaAZuEJIog3
+ r2hy7f5/4LMSTjDq7kg8SFZgq9Qjwbsh/zKKK4adKt7pdQTv4vDYHkLBck53MiPvelOzHuMIRU
+ cyZrW6JnM0EGtxMSLnP/De7rvH6+330RxAAAA
+To: Colin Foster <colin.foster@in-advantage.com>, Lee Jones <lee@kernel.org>,
+	<UNGLinuxDriver@microchip.com>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Richard
+ Cochran" <richardcochran@gmail.com>
+CC: <mfd@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+X-Mailer: b4 0.15-dev
 
-On Mon, Nov 23, 2026 at 12:57:06PM +0100, Maxime Chevallier wrote:
-> Hi,
-> 
-> On 11/16/26 14:54, Jisheng Zhang wrote:
-> > Add dwmac glue driver to support the DesignWare-based GMAC controllers
-> > in the Synaptics SL2610 SoC.
-> > 
-> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > ---
-> >  MAINTAINERS                                   |   2 +
-> >  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
-> >  drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
-> >  .../net/ethernet/stmicro/stmmac/dwmac-syna.c  | 116 ++++++++++++++++++
-> >  4 files changed, 130 insertions(+)
-> >  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 430758242906..dba0288bf4da 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -3808,12 +3808,14 @@ M:	Jisheng Zhang <jszhang@kernel.org>
-> >  M:	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-> >  L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
-> >  S:	Maintained
-> > +F:	Documentation/devicetree/bindings/net/syna,sl2610-dwmac.yaml
-> >  F:	Documentation/devicetree/bindings/soc/synaptics/
-> >  F:	arch/arm/boot/dts/synaptics/
-> >  F:	arch/arm/mach-berlin/
-> >  F:	arch/arm64/boot/dts/synaptics/
-> >  F:	drivers/clk/berlin/*sl2610*
-> >  F:	drivers/clk/berlin/sl-*
-> > +F:	drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
-> >  F:	drivers/pinctrl/berlin/pinctrl-sl2610.c
-> >  F:	drivers/reset/reset-sl2610.c
-> >  F:	drivers/soc/synaptics/
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> > index c6559e749c0c..79ffebcaba0e 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> > @@ -310,6 +310,17 @@ config DWMAC_SUN55I
-> >  	  stmmac device driver. This driver is used for A523/T527
-> >  	  GMAC200 ethernet controller.
-> >  
-> > +config DWMAC_SYNA
-> > +	tristate "Synaptics SL2610 DWMAC support"
-> > +	depends on OF && HAS_DMA && (ARCH_BERLIN || COMPILE_TEST)
-> > +	select MFD_SYSCON
-> > +	help
-> > +	  Support for the Synaptics SL2610 DesignWare Ethernet MAC glue.
-> > +	  This configures the PHY interface through the system controller.
-> > +
-> > +	  To compile this driver as a module, choose M here. The module
-> > +	  will be called dwmac-syna.
-> > +
-> >  config DWMAC_THEAD
-> >  	tristate "T-HEAD dwmac support"
-> >  	depends on OF && (ARCH_THEAD || COMPILE_TEST)
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> > index b16a456b730e..d132353e9403 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> > @@ -35,6 +35,7 @@ obj-$(CONFIG_DWMAC_STM32)	+= dwmac-stm32.o
-> >  obj-$(CONFIG_DWMAC_SUNXI)	+= dwmac-sunxi.o
-> >  obj-$(CONFIG_DWMAC_SUN8I)	+= dwmac-sun8i.o
-> >  obj-$(CONFIG_DWMAC_SUN55I)	+= dwmac-sun55i.o
-> > +obj-$(CONFIG_DWMAC_SYNA)	+= dwmac-syna.o
-> >  obj-$(CONFIG_DWMAC_THEAD)	+= dwmac-thead.o
-> >  obj-$(CONFIG_DWMAC_ULTRARISC)	+= dwmac-ultrarisc.o
-> >  obj-$(CONFIG_DWMAC_DWC_QOS_ETH)	+= dwmac-dwc-qos-eth.o
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
-> > new file mode 100644
-> > index 000000000000..c4bc895b29da
-> > --- /dev/null
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-syna.c
-> > @@ -0,0 +1,116 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Synaptics DWMAC platform driver
-> > + *
-> > + * Copyright (C) 2026 Jisheng Zhang <jszhang@kernel.org>
-> > + *
-> > + */
-> > +
-> > +#include <linux/bitfield.h>
-> > +#include <linux/module.h>
-> > +#include <linux/mfd/syscon.h>
-> > +#include <linux/of.h>
-> > +#include <linux/of_device.h>
-> > +#include <linux/of_net.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/regmap.h>
-> > +
-> > +#include "stmmac_platform.h"
-> > +
-> > +#define CTL_PHY_INTF_SEL	GENMASK(4, 1)
-> > +#define CTL_PHY_INTF_RGMII	FIELD_PREP(CTL_PHY_INTF_SEL, 1)
-> > +#define CTL_PHY_INTF_RMII	FIELD_PREP(CTL_PHY_INTF_SEL, 4)
-> 
-> Please use PHY_INTF_SEL_RGMII and PHY_INTF_SEL_RMII from "common.h"
+The Microchip LAN9645x is a family of ethernet switch chips without an
+internal CPU. Like the VSC7512, the chips are controlled externally over
+SPI, and the register targets of the chip are distributed as named
+regmaps to child devices. This series extends the ocelot MFD driver to
+the LAN9645x family, with the pin controller, the two MDIO controllers
+and the switch as child devices, served by the existing pinctrl-ocelot,
+mdio-mscc-miim and lan9645x DSA drivers.
 
-I read this as "use SYNA_PHY_INTF_SEL_RGMII and SYNA_PHY_INTF_SEL_RMII",
-correct me if there's misunderstanding.
+Patch 1 moves the VSC7512 specific SPI interface, reset and child device
+setup into match data and per chip tables.
 
-> 
-> > +
-> > +struct syna_dwmac {
-> > +	struct plat_stmmacenet_data *plat;
-> > +	struct regmap *regmap;
-> > +	u32 rgmii_ctl;
-> > +	struct device *dev;
-> > +};
-> > +
-> > +static int syna_dwmac_set_phy_if(struct plat_stmmacenet_data *plat)
-> > +{
-> > +	struct syna_dwmac *dwmac = plat->bsp_priv;
-> > +	u32 phyif;
-> > +
-> > +	switch (plat->phy_interface) {
-> > +	case PHY_INTERFACE_MODE_RMII:
-> > +		phyif = CTL_PHY_INTF_RMII;
-> > +		break;
-> > +	case PHY_INTERFACE_MODE_RGMII:
-> > +	case PHY_INTERFACE_MODE_RGMII_ID:
-> > +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> > +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> > +		phyif = CTL_PHY_INTF_RGMII;
-> > +		break;
-> > +	default:
-> > +		dev_err(dwmac->dev, "unsupported phy interface %s\n",
-> > +			phy_modes(plat->phy_interface));
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	return regmap_update_bits(dwmac->regmap, dwmac->rgmii_ctl, CTL_PHY_INTF_SEL, phyif);
-> > +}
-> > +
-> > +static int syna_dwmac_init(struct device *dev, void *priv)
-> > +{
-> > +	struct syna_dwmac *dwmac = priv;
-> > +
-> > +	return syna_dwmac_set_phy_if(dwmac->plat);
-> > +}
-> 
-> Can you implement .set_phy_intf_sel() instead ? that should simplify that quite a lot.
-> 
+Patch 2 adds a binding for the LAN9645x family.
 
-Good idea. Thanks for the suggestion
+Patch 3 adds the LAN9645x support.
+
+Patch 4 reads LAN9645x registers in a single SPI transfer on full duplex
+controllers.
+
+Dependencies:
+
+This series is based on net-next which includes [1]. The binding in
+patch 2 references the switch binding
+net/dsa/microchip,lan96455s-switch.yaml, and patch 2 adds the new
+binding to the MICROCHIP LAN9645X ETHERNET SWITCH DRIVER entry in
+MAINTAINERS, both added by that series.
+
+The series therefore does not apply to for-mfd-next yet, and
+dt_binding_check of patch 2 fails on a base without the switch binding.
+
+The DSA series is expected in v7.5-rc1. The series is posted now for
+review, and will be resent rebased on v7.5-rc1.
+
+[1] https://lore.kernel.org/r/20261111-dsa_lan9645x_switch_driver_base-v17-0-83a471c5bddb@microchip.com
+
+Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+---
+Jens Emil Schulz Østergaard (4):
+      mfd: ocelot: Select the chip through match data
+      dt-bindings: mfd: Add the Microchip LAN9645x switch family
+      mfd: ocelot: Add support for the LAN9645x switch family
+      mfd: ocelot: Read LAN9645x registers in a single SPI transfer
+
+ .../bindings/mfd/microchip,lan96455s.yaml          | 132 +++++++++++
+ MAINTAINERS                                        |   1 +
+ drivers/mfd/Kconfig                                |   2 +-
+ drivers/mfd/ocelot-core.c                          | 263 ++++++++++++++++++++-
+ drivers/mfd/ocelot-spi.c                           | 242 ++++++++++++++++---
+ drivers/mfd/ocelot.h                               |  25 +-
+ 6 files changed, 617 insertions(+), 48 deletions(-)
+---
+base-commit: eb6d6c80d35449c27471b1874f13066c09a8964d
+change-id: 20261118-mfd-ocelot-add-lan9645x-support-9ac4042ba475
+
+Best regards,
+-- 
+Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+
