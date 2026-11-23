@@ -1,57 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795459951;
-	b=w2zwUbu9r72pF1kbUeSWoqwxGgmlYkqh9w+ItqmxPGOHBs5Rn5RfBls/uA2cdttrknTg
-	 vEQlaeucvwvyAQf1uCg8aFc/z6yRlzj246Kx3m6EFxHZI6fIGjlMa1/Fqu4J61I+POIbf
-	 dpyZ3ccXKMl9jgA3pmX4yb6YrgDw4STbeUuEds3B2Z8BL3A8+CKIch2SQEI4gHc0txYmt
-	 LRG1qZb5/IrgVho5BW+SXuG0bEkkWBJ1HDaI/SR7nLAUItrqD2sAHpD57EKioEGgpdXmG
-	 0AlCMww1b18pv/XEioDye2B7G0DYssVvQVDeUoYPo0LELeDyl7qe1B8le9RPE5QV92A==
+	t=1795460051;
+	b=mhUq7bLPEnS9uqp+peH9r1DcBh2odWy/V3GCCd4XNeOJAsLdgLrkDA/rrC03f6o1Vxi9
+	 J4p6UKGonapeTipAPY0IvJBOfMKA0t/fAdbRz5D/74oRdIO5L4gjAzwaxf9yxpV/so3Qg
+	 9ZDC9/lGEQjEZAfrlf65/zyWNC1013qH5JxseVcoAK6CuKJWuWIAJpnKG+WHD5/qIb10L
+	 FcMj0y7QBcP5qbMKy6/wCJ4yyC5rJD/4C6CrrcMEi+ubD6TGYrdwIgGqzOFcaTA66MY4t
+	 UbiyH1Bdt+R93HorclIYS3IQJv4zlVI6LSqXLjNIoO9KL2eJMqlEP+20BNipS1T+uig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795459951;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=lstZztA1mDrFB9PHgmMDTPXyLU6CoCr0SlAF6QN7mvs=;
-	b=NOHSfLoh5WsG3+Crt8JpBxwQOZaozcaf1uvOsJU+Vm73+Mu3FKAYclW5aWikusCQiq2D
-	 U9tjmF26heAUw2JzOMc9iudzA/GKFf31pPDSLsU3c6UgBgQv0xGiiol2+VZLqtyIvTxdX
-	 TpfOpDC5B6y8q6otFQWb6ag4XCTy4fbWLq6wGrmoC/qccc4hfyvmxV7XoEaJqnwxQAm3P
-	 BGF1uYZJ187kIfEI4tWcrWkEcZZ2eP1v1S9By68MCXbV/il9GDzkbSsKQLwc9EIQbDXKv
-	 kZqx48+46jaWTaRecu1thpfLpzyUxE7mY5x2vEsKD16CermckpNbvA7mk/Mh/Ah6WsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795460051;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=n8eQg2VWTFkHRh6nWKvn0g7mBpUZuTIVj5vM3Ba8/NA=;
+	b=fJnaAmVeXY8P4MVFhgoiFlrAaPlFhmeiBRssm86gpBu8+kTPcEX49AdM8QAq6GwRR0Qp
+	 QpNCkOq//EHhdqUyRjBK6CE/ByMGHpPnc8aBK8ROa1fyOM4NmB9X2JbQV1b9bIgLVPedZ
+	 dG8Pomn0FsbhnZ0EKR8+FU0XIb225Hq5TNfNtcfOoZD0KYEgCz2XwvZ6yAsyU0NxF3BH1
+	 MaVJ8uA+KdesT4w1S7Qs8nBNk1XK3jPf5AFmWTAPmyBwrbfcm18cvi21qTajFUsBPV0Lh
+	 24tNes7fOE/V3spT6JmCAI3fMjqcpUkQqw6PxsCgn9eJRKNH+vx3JK9f0qeCYSkqUlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N5cF+hLo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l4QQaynp;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87FA606A31A;
-	Mon, 23 Nov 2026 18:52:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961B0606A327;
+	Mon, 23 Nov 2026 18:54:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 961B0606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N5cF+hLo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF8E1F000CA;
-	Mon, 23 Nov 2026 18:52:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795459951;
-	bh=lstZztA1mDrFB9PHgmMDTPXyLU6CoCr0SlAF6QN7mvs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N5cF+hLoAXbdEfg9OAUtdpa+W9up/V1euG8ChQytlr0NcTZZCcjHdGaFRU+T4PEOT
-	 uGyPQGU28YUhJqOpSFOFomRWPxccePnFxBTYKIFJkhe7Rb+do1mrKzmdGlECwKhz/S
-	 63Snfrck46LBTbNK3xzuHmcqzPmln7GO7qCdyOYo13o1SCSuYOmj4Ig6BB/rz/ta1n
-	 VRxkL+NEvDN46UHdlgNHI7t0AJS92+det5KvUC1zTNaMmSXrWz7JdxDNJfeRjc1vL1
-	 9A4rjAPpOSfVvU/cO6ppoJmcYbgaQzBW0U0qvXUTgxUvQHmkhSrXkQAt0BhJSDpnzO
-	 N54bVzQdj7o5A==
-Message-ID: <sashiko-outbox-229882@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/8] PCI: dwc: Export the multiplexed MSI interrupt
- handler
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: linux-pci@vger.kernel.org, linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261123-b4-cs7542-pcie-v1-1-4cde5201d404@gmail.com>
-References: <20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com>
- <20261123-b4-cs7542-pcie-v1-1-4cde5201d404@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 18:52:30 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l4QQaynp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795460051; x=1826996051;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AqLoSY+uMHaQijDdZjXL3V2+Q61y+Y4AyaStKFNQjIQ=;
+  b=l4QQaynpElxci8Q/JnGLIJN4bWIecfB0w7xfgyfqtBPI0JXitBEHFxUx
+   zTWT6cNA6AHwhnrhYp1CNA94O0V/RK4XSM+2qdQ7sXtwOfQ0akpV95/yT
+   uGWyIAakBPu0Q5YzmySH53D2XuckGTmeJstOrfua8Ya2inuMQcWh0F2ep
+   PMHS2j4SFiUzIMhuUyFjN1tE3+YlqX2UEQIpxw4ZhW+tWZ7L52442XgrK
+   UGMjGC1KmcDK20GeUPBJ76T4cYYdz5kJZs6NLXkAaCkmTIakviqsiHXQv
+   pka9sJ9TmPq/fF6ntnfvz07/xODfE2tIosodyQ8Rv8ke2/kgV/SsfSwvN
+   g==;
+X-CSE-ConnectionGUID: ExtZO2x1QKCj2fKKJb5GzQ==
+X-CSE-MsgGUID: KcpXUpboRkeY+w2Ly0sj7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4257310"
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="4257310"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 10:54:10 -0800
+X-CSE-ConnectionGUID: XKzp2d0yTnKmegeO65Prmg==
+X-CSE-MsgGUID: 5cslLiyvRKm5/g9Euq76bQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
+   d="scan'208";a="11576350"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 10:54:06 -0800
+Date: Mon, 23 Nov 2026 20:54:04 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v3 2/4] mfd: max8907: Add ADC client support
+Message-ID: <awSLzG6IxXjKLBCx@ashevche-desk.local>
+References: <20261123150725.212836-1-clamor95@gmail.com>
+ <20261123150725.212836-3-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,75 +86,33 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123150725.212836-3-clamor95@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [Critical] PCI: dwc: use-after-free in dw_pcie_free_msi() [1]
---
+On Mon, Nov 23, 2026 at 05:07:23PM +0200, Svyatoslav Ryhel wrote:
+> The Maxim MAX8907 has an 8-channel ADC at a fixed location. Add client
+> support for it along with its regmap and interrupts.
 
-commit 73ef750c2f801a3eaf7bfcf95e0a5bd88aebd4c3
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+...
 
-PCI: dwc: Export the multiplexed MSI interrupt handler
+> +static const struct regmap_irq max8907_adc_irqs[] = {
+> +	{ .reg_offset = 0, .mask = BIT(0), },
+> +	{ .reg_offset = 0, .mask = BIT(1), },
 
-This commit exports dw_handle_msi_irq() so that modular DesignWare PCIe host
-glue drivers can dispatch the internal MSI receiver directly from a combined
-application interrupt handler.
+When {} on the same line, the inner trailing comma is not needed (if we ever
+need to extend this we would need to change a line anyway, so there is no
+benefit of having a trailing comma).
 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/=
-pci/controller/dwc/pcie-designware-host.c
-> index bbb02458af58f..1d076bb62783c 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-> @@ -85,6 +85,7 @@ void dw_handle_msi_irq(struct dw_pcie_rp *pp)
->  			generic_handle_demux_domain_irq(pp->msi_irq_domain, irq_off + pos);
->  	}
->  }
-> +EXPORT_SYMBOL_GPL(dw_handle_msi_irq);
-> =20
->  /* Chained MSI interrupt service routine */
->  static void dw_chained_msi_isr(struct irq_desc *desc)
+If it's just this, no need to resend. Just a hint for the future.
 
-[Severity: Critical]
-This problem wasn't introduced by this patch, but can dw_handle_msi_irq() h=
-it
-a use-after-free on pp->msi_irq_domain when racing with dw_pcie_free_msi()
-[1]?
+> +};
 
-During device unbind or module removal, dw_pcie_free_msi() clears the chain=
-ed
-MSI handlers with irq_set_chained_handler_and_data() and immediately removes
-pp->msi_irq_domain without waiting for in-flight interrupts on other CPUs:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-drivers/pci/controller/dwc/pcie-designware-host.c:dw_pcie_free_msi() {
-	for (ctrl =3D 0; ctrl < MAX_MSI_CTRLS; ctrl++) {
-		if (pp->msi_irq[ctrl] > 0)
-			irq_set_chained_handler_and_data(pp->msi_irq[ctrl],
-							 NULL, NULL);
-	}
 
-	irq_domain_remove(pp->msi_irq_domain);
-}
-
-If dw_chained_msi_isr() is already running on another CPU when teardown
-starts, dw_handle_msi_irq() will pass the freed pp->msi_irq_domain to
-generic_handle_demux_domain_irq():
-
-CPU0                                    CPU1
-dw_pcie_free_msi()                      dw_chained_msi_isr()
-  irq_set_chained_handler_and_data()
-  irq_domain_remove(pp->msi_irq_domain)
-                                          dw_handle_msi_irq(pp)
-                                            generic_handle_demux_domain_irq(
-                                              pp->msi_irq_domain, ...)
-                                              <-- use-after-free
-
-Calling synchronize_irq() for each active pp->msi_irq[ctrl] before
-irq_domain_remove() would ensure no chained handler is still running.
-
-[1] https://sashiko.dev/#/bug/linux-a392f803-d749-417f-bb89-17e283cf6476
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-b4-cs7542-=
-pcie-v1-0-4cde5201d404@gmail.com?part=3D1
