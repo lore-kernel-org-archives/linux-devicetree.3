@@ -1,108 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795437385;
-	b=aDO/9X26zaIVi4am43wi312lXR+szEEIqGY2XNzc24nSLs5VE+G4nwmDWy8NBi/5FpeQ
-	 OYagKPcfUcf0nSDGSuLtvACnHjkcUwLVjeiS6XBBXR4RCJLsYZNm685vy2lxjIq8cZvzm
-	 Lnjj1OKZkewMldcWu9cdf6hxD/oc+PGAvuVpmeWhsp/mlciYVE6mUpYhYZ5qimzgqQ0oQ
-	 wHJwnnlOceZTSDA8LO206CGulG8Ya0zEqE2FovEk63TwnXoDfs57DiOlnZ59ESS1yVYkK
-	 ZxwupxiMsi4SA5/VlYjzM3IvqG8CY/YG3THOrfx2rweH5Z1//qboeWg+j4tm3VfUoaw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795437385;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jBnBwQOU4el9JadIL4Bi1hClAsvLOFOmfyKNGOB/8cA=;
-	b=AcL/a4lEUnVZQPs3Tm+A1gQrL4SaIseRJXAr0r5JUYVu0HmXCZuIDIbGE02eqLzDZJ02
-	 i9M141KfVAP1392gHBoqHP2LQQTuHFGqhEpJVN8wfd0cvxLiTid35FJkjf9P36Fq3TCTF
-	 A5tG/QN3aG2hSSbwjYN/JnvGkFjL8j2cyeqZNU1++4dKyAdL5iUVNcTEubEqKkgCszoIM
-	 rui0JbixnUxXtZouptmaJ+64QbaoYtljuBzU5G22Pa5HL7PNuxEY+bqOgew/1JNx1/noC
-	 BdUkwSMgif1BMkLnefHyw8prGj1lwBa5JcoTPozRfCzWRdq6KgYDAhQEhLZIfiGdR4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rN2BnmeF;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.66.15
+ARC-Seal: i=3; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795437386;
+	b=LYOMa5lAsPBdXAVBTQH39bN6qsBbcekheG1Wee3cTvav7rkfBO2bnSc2oC08W6X0mCRo
+	 kGUoZYKO0wN5AKH9saICLGaY+VjJowhR4zN6p3/50QZ5eSqLqFDimlOGy/pvY1g/lOubp
+	 I2otP9Ay67lhL23URvw53LuYAdCUEOwklXRXwctMIKaDBtggmHAb2VN1k7aoBXjZ/dmfW
+	 iC/cSVQg0Dz5IFa9dLRKOitYda5UbvX7lY9riLTLuluFJNbaQw2jdy4pltoqjBxIi+iCd
+	 L/YUGIzQTNCEOa32eEsO2jcV6RupE837r2q1yYAFK5Slo9/XyNa1phD9bNpCfAhwu7A==
+ARC-Message-Signature: i=3; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795437386;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:
+	 DKIM-Signature:Authentication-Results-Original:Received:Received:
+	 Message-ID:Date:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:x-checkrecipientrouted:
+	 NoDisclaimer:X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Yv6ybAiWCJ7JLIyWK84aqsBP/EYsFSMKlj9kIXF5s4I=;
+	b=njktRRIAI4x/1OxjhmZhGZzkqVR4AFWwmnf3J6fViACH18H43a8x/ZYCFF8JkCx4uOlz
+	 axidoFwJ3yqgFNwrEdaw95Mm5PHaFc9go5EPMl0Q+tKJT6V09rc87arlzLL/Z5WeZDtCq
+	 u0He1xCNTn2EsKOzzBrLMdowzVWhjsxiUF7aFPU+bmmFJEia1g83J6I8FIKTEjdGGlnk8
+	 s/UZpU3RE+Ty2BiH9N97hMYoAwjix8ncBEtARmE3IJ/aWYcBwKWaJI2BTBx1dTniqKNhW
+	 W2i0zdsjaSwFdAeeAD+V7kGsZxrzBKdXkCcX+OerCMVkpK78FhwZ0q61dUXdX24g7OA==
+ARC-Authentication-Results: i=3; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=fI55uv3y;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=fI55uv3y;
+	arc=pass header.oldest-pass=2 smtp.remote-ip=52.101.66.15
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012015.outbound.protection.outlook.com [52.101.66.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BD7606A321
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 12:36:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6BD7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62A1606A687;
+	Mon, 23 Nov 2026 12:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C62A1606A687
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rN2BnmeF
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-38190551625so6719746eec.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 04:36:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795437384; x=1796042184; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jBnBwQOU4el9JadIL4Bi1hClAsvLOFOmfyKNGOB/8cA=;
-        b=rN2BnmeFzoaSxpShJu2CYWpaUq/89njUCR1K/tk3v+pHZnY81Vf13DQkXM/BixYRxf
-         dPgGP7ihgSmmtrqcJUvfR7pxQhXqyOmKfaZ/hNwm7stkG4guy4qmGvRUnyvRb6bwPGyP
-         TviN704O4MMgnj3YxTQ+So7htXw6qsIecpvwFzRuwN9erTvHSawumXd3N/O5cB0+EhvQ
-         7vNxFhbD6sn+5whCnrqiIlciLlXFFO3svLHeoGSuXxcgwBnuZyjVb/Qlyre09ltOvsn8
-         RM//HVLojNw45hN0ZxnjOzlQ2zbeWpmPsQ1gkzV30Rz1fL/MBg+zgwAK2ldbjgMLquoi
-         B6EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795437384; x=1796042184;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jBnBwQOU4el9JadIL4Bi1hClAsvLOFOmfyKNGOB/8cA=;
-        b=hTph3cDwdJDDakdJGFhqFivB2rgFNq177778Hpk1UTLxI/HMMFiezeJ9zkQO5V8+WC
-         z3vjxpMWW5vBPQb4pVN4t99wD6ZDw7Gg3vgA/UfNMN8cC1p0EPuuttzWAzOpCoPhj43O
-         Y6G8DjnQCcTlGlFNbU/a0qA6lclaO9m/CqMnMCb4kwKtWJ8iI7mRE6zNw/W9VsJeS8WD
-         FBKM7N0enpQqKeXCamCxrRsNyJ2CTiGkE+MY16YPpvqXXwxzJjlObSJrz1qR9f3oQNOF
-         rhngKmk+CJmE8GA6e3Wpm59lwYR3PqOgm3baGSQ4Ep4XkdfOOyT5+60KjgaUqzJPJZIJ
-         cBMw==
-X-Forwarded-Encrypted: i=1; AL+hErFqdLNhkS3NAK8G0pNLTk2zySw3rj1ezg4fyc1ZsZmc9u1FluRt0yBNGwkj3oPGd1bJynd5fRGDY14/@vger.kernel.org
-X-Gm-Message-State: APuU4Z88kLlKbVNCWr/3/NnzzRwFplflQboMcOveW22J5vrK/GnF3v6H
-	7A96HXzLmWvfUOh/tDXCSUu4sBRmDvccyU8lVEIpbaGbidLoZgJsjVkw
-X-Gm-Gg: AZFdTZe+QlCdlyxw3As9DC+GhQxtsa3NRWG3az/d0pAIdklrnOQUczR0jKn5tit5ASf
-	mcmkRGfr6/s/y0O+b/iCZLEsAFa/WYtwdIgqDbyD+DltD6N862kkgt/dJrs/PLnKCRAvU0kXp5w
-	OHIt2MjQ52VMdLarftHnykskuplryU0Ei2N+i8xDokqlKXBK9j13yZFkT425CpUsBELLpUJpJ9S
-	J1snz6RFwdHa9QGSeHWUdsGHyJ6GWfHanN02mmXQNzeAiFWASQLZHq4Dz1GNzCq+K4qukqPxeN/
-	PploeX9rzuZuI0fR/av4eG4mdFUkngoLAqBLigrD6p28QsEFsjHjQtPZKFclUUIkicViHvNZ/Uf
-	tWlaMCe1m7DCtg5SDsKladRtD/Ryj6AnDoNk0E8V3Edq/OVM1DKufoqzFi7/EqAMBZ3DnPHp6i5
-	5YvSwKn6Mn7/gbwB8zb++tVJRmebpSUbaDCUVJYJy4Jpdoo9rTIJGc3H8YjJdMy3WU4iXrSbBtz
-	Z5tHHNrdY9RdJyHKDBiArWE1MIcHAPd2LoRT7Rk7b5z+daqWNvOpDazm2aqHnU0iY6cX/sZuSCp
-	K2jG1f3xI/8Mlc6gIRH+0LwrBI2nmERWWPfWa14eLOwsAQ==
-X-Received: by 2002:a05:693c:6010:b0:385:2057:eb95 with SMTP id 5a478bee46e88-3857073f2a3mr15356169eec.31.1795437383753;
-        Mon, 23 Nov 2026 04:36:23 -0800 (PST)
-Received: from localhost.localdomain ([2404:c0:aa07:12b3:e89:dfdd:d14b:d911])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385f68bc0adsm32854353eec.13.2026.11.23.04.36.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 04:36:23 -0800 (PST)
-From: Hikmah Gumelar <hikmahgumelar@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Hikmah Gumelar <hikmahgumelar@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v2 3/7] media: i2c: add s5k5e8 image sensor driver
-Date: Mon, 23 Nov 2026 19:35:42 +0700
-Message-ID: <20261123123546.152162-4-hikmahgumelar@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261123123546.152162-1-hikmahgumelar@gmail.com>
-References: <20261123110805.119610-1-hikmahgumelar@gmail.com>
- <20261123123546.152162-1-hikmahgumelar@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=fI55uv3y;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=fI55uv3y
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=gGJ19SrUhLWJzP98zizMpeViVhuRWS5KK63u5b6WEZjSgCxkqHqKmR+FII8afcUCWSQR8vr4MZ3QEH0kMiyLyAWmfN0KLpsVd92x+mgW0A/SYrKW5YDCUytmz0S3vBxZFSZOfcNHtLjoiABZBZMyJ1PdJFkzXz1xZFh8JpDsfRSiR4aeZVECJrsM+r8gYbYcWHuuxqSh/bz0VmeLWOtPrY4uuDZQkhBADMLDn5fz1CwpCw4dSCvjlPiq5iEm350Rr7PBwtN6mthT3Q0NKzMMy0ZwcQnl8SoEE/MjWBJighTBgRQvthsD52B1bzIjpwrpbFz3b0ydKA/WCk/jS2C+Pw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Yv6ybAiWCJ7JLIyWK84aqsBP/EYsFSMKlj9kIXF5s4I=;
+ b=gUh2pFV33IhERBw9Nl44mYoFMmrlmNQ1jKZS/F5l9xzaIg/SjPxKuZONReN919sexIDUH9On9tDWR4mKw9y8meyyZxe0Cf+LfzKqkiH5d6aKxQ3pSeWwI0yMbwB7AMtRIApXWPVjm+80AaZVQ8NMH2CNidgJy2nQKtr1Pqpjah7yYjgCAl2SKZrGwjpbxCApr9TpsZYeBFgzoo1oFhOPFr80dD3iVahnrbUNH4lTaTZG0hArvFvOCijMfH5QneujDlMgIOL/lBRqAk5REBC5S/334eGuqm5sE3DVo8c8gkgfNmIMcu62E9qg+zpdDL6+x0+FVgcJXB4+uMj6GNZeVQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=gmail.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Yv6ybAiWCJ7JLIyWK84aqsBP/EYsFSMKlj9kIXF5s4I=;
+ b=fI55uv3ySIsglVkD+PKKta4a8CNz11N9eHfX7wK9wujr7mZb91YdL84lE6VYjUwYFACZlU+xX62EfdbUvty/tVP5i0UTgnj7UziCaaVZmrpdlVin4yEYzAGJ/URC8ITieU9n1+n02jgkt+9C+XnvXf5DsQi9h8R+tKrupQ/2z4s=
+Received: from MA3P292CA0040.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250:46::12)
+ by AS8PR08MB6453.eurprd08.prod.outlook.com (2603:10a6:20b:31b::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
+ 2026 12:36:19 +0000
+Received: from MA3PEPF00000407.eurprd04.prod.outlook.com
+ (2603:10a6:250:46:cafe::4c) by MA3P292CA0040.outlook.office365.com
+ (2603:10a6:250:46::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Mon,
+ 23 Nov 2026 12:36:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ MA3PEPF00000407.mail.protection.outlook.com (10.167.241.152) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.5
+ via Frontend Transport; Mon, 23 Nov 2026 12:36:18 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tQFpkzaTlT17Yjz/Ptn7+CoPSHjzT6BAP92at3hsyS1niWYUkTpkdYSKT1F/EyMKajOVYFVkrCBEhMGeWj9RH69drwcw2xzwEwIXjKnxogjWRvHU17hi7PiH1Nt4eoWN1GtRnJAPuEiE3OpskcASQ+R5ElLsbaQ9rJ/sBTsIJ4OgQM9+OLbViPfoTyx5qVfHMN9DJuu5+yzZDqY0GJc3FvtC+boEmLg27glk4kGkn1uIcyvenIHzObftzV0wrIUiQjUZ+2OqtwdxRmS0YWzJjtcNL66S1SBenel/YXUJsYkrRj88mg8MqoDPVSMJzw7DSXzR7PCrH5hs2qlBn2djGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Yv6ybAiWCJ7JLIyWK84aqsBP/EYsFSMKlj9kIXF5s4I=;
+ b=a0LsNGUHzlTLitvtWHUQU9NFrLRewY9174C2oho3etdpu2IHW62oKQrbj2pyjdOkwY7omDp4ie/mdSe1+pO2HlDzlrkXESr+L4shOK7iHYTfzNdiieAI/YhQtG/3GgIEpC42BJlN7e2BkEn5qSlPUz8gjPdY2zYKcg2ddKbTpbTsZBfclYvw9OeXz3fwzi9Envi4zrXFIhEUYVtxHnPI2DOT53qTXFFy2EbN1hPRSbdTErkGg88uyNErwPQy6Xj3ZsWiy82G12jFSVzP+qVuTgl8wXSKhk57yXHUGBufZ3zt54H4+PInVvfkhgWHB6zcmrK8tOCC3a0uLtB/sg6S/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Yv6ybAiWCJ7JLIyWK84aqsBP/EYsFSMKlj9kIXF5s4I=;
+ b=fI55uv3ySIsglVkD+PKKta4a8CNz11N9eHfX7wK9wujr7mZb91YdL84lE6VYjUwYFACZlU+xX62EfdbUvty/tVP5i0UTgnj7UziCaaVZmrpdlVin4yEYzAGJ/URC8ITieU9n1+n02jgkt+9C+XnvXf5DsQi9h8R+tKrupQ/2z4s=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from GV1PR08MB10370.eurprd08.prod.outlook.com (2603:10a6:150:a7::7)
+ by AS2PR08MB10180.eurprd08.prod.outlook.com (2603:10a6:20b:62d::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
+ 2026 12:35:45 +0000
+Received: from GV1PR08MB10370.eurprd08.prod.outlook.com
+ ([fe80::722:98ea:caeb:b988]) by GV1PR08MB10370.eurprd08.prod.outlook.com
+ ([fe80::722:98ea:caeb:b988%6]) with mapi id 15.21.0615.009; Mon, 23 Nov 2026
+ 12:35:44 +0000
+Message-ID: <8f9f9752-4c23-48de-9483-63268627ff3c@arm.com>
+Date: Mon, 23 Nov 2026 13:35:44 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] arm64: dts: allwinner: add Radxa Cubie A7Z board
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: Enzo Adriano <enzo.adriano.code@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261111134919.90264-1-vinicius.eduardo.pedrosa@gmail.com>
+ <20261111134919.90264-3-vinicius.eduardo.pedrosa@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261111134919.90264-3-vinicius.eduardo.pedrosa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BE1P281CA0438.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:81::18) To GV1PR08MB10370.eurprd08.prod.outlook.com
+ (2603:10a6:150:a7::7)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,554 +152,483 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-TrafficTypeDiagnostic:
+	GV1PR08MB10370:EE_|AS2PR08MB10180:EE_|MA3PEPF00000407:EE_|AS8PR08MB6453:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7df7923-3557-4c08-901f-08df495e5f53
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|10070799003|366016|1800799024|7416014|376014|18002099003|22082099003|3023799007|56012099006|4143699003|5023799004|11063799006|261102123227099003|261028144727099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261021135927099003|261026140227099003|261026121527099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ D/XG8NKUhg6z7SDoL+J0egEJc3snJ6TAaWsIQBER8+gKLrFyEecPjyWaT5DfzHkHL6QgrNWXeZ2cQW+2Ux7lMUdFU8VpY3ctCCu67TBu5gU0xnfU1SioeYDhWp02O7+db5A/b9LXxUpvuobA9Cy7F9IKN/fImiQ0SUstxHyO1Hz6EExjVVE+ShVrQSARyoEy/qomZRRMHdfEowZDFUbJk1ewTCTRoQ1ntQ3T4F5Ym/1Fqc0TjwBdSA/BnIvRrUUIGmRS5sCpju0fQgaOXaxooODRWCh38OJ9bX1TGXwb8y2XPUeIdXgyzRjKCpI7we+7Z0pwRHGL7chFoK3vk6HX47TnCHSH/mPMJE3h8nrbKm5H318PQ2kbir/U/eP3Vpy8UMP+VWjxCb9A4LjmRtDOqLwztzkTxkhtNs4cACN42r+gyl4HwAqr7XpJR48j63Z4UT/aTe2tjEmBBG66JHbfmrlkHnIKOQLhvj57qjkpHIQj/v1ufMSkHeYIoEwGkZo8KJR+Efe7Fvr5KbnzatIX1g3CfaQazRQfcrh6PXIrJJiMGZCqAM+R+M+Vqf+v67uDrG7n5Uu1XU1ThugBashjPmcsCXEa7Be8mZzPctGcIBjAHONj25VmEzLUnb/EEcXUoS660YhMBTjVL3xGvBdPQ9dY2N4HKhBrdqWm2I1NYn4=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR08MB10370.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(3023799007)(56012099006)(4143699003)(5023799004)(11063799006)(261102123227099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261021135927099003)(261026140227099003)(261026121527099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ BDDLnOjiU9nwFON9bYNCbpRf5RK64GW2yE8KGkhbdAVrDPDXmFsWq91usozb7iD74rI19Le2W2i8f6mNdYWzqLBsb4e9SENwxxijvyMV+QD5Zv5/EXPF5Egcl1pUShlJoTrZwImPCrv8sZy/DdB+L/xEritX6KRuRB9rZy6Eej/2V8JnF50qSJLfHqVqdKFA6yPxVHKnIHZLVsi0/Ot0XvRK3zuZtn5b2bbVSGEBbH63FQNG4loacV5FEDVkb1p0im94H+Q/jBeehL35bu7e92MucggMTkwSp0g5BQtBp9k3sqjGHMl0EVUabblcpFg4GjiU9yV50LHvNKWQCfKajQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB10180
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ MA3PEPF00000407.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	e77a0588-8c4a-465f-f623-08df495e4b04
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|14060799003|82310400026|1800799024|36860700016|35042699022|376014|7416014|18002099003|22082099003|261009223027099003|3023799007|4143699003|11063799006|5023799004|56012099006|261026121527099003|261028144727099003|261021135927099003|261021121427099003|261021123027099003|261102123227099003|261022075727099003|261022105027099003|261026140227099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	wrXwC1qq1bL7XQrVk6bORaRpFTiSgA6aTtEqnHQgE1755TG+YgcAQGkCF1xla3R/+EPp38FrEQfdla032+JNg2wkBJIpRQnqqi9hEsfFweqCsTTkA+FmkPxitq669RDrxu5qGkYfVH+XQHYEqOLVjS/CtOs6raiw3kMQxk8PcjOXp2W3dUBA79MbZrxW1db7vu4THfs5La+IRvSnEH2+Dwo+NXrsSR+3ht4tx4qN2wqkCZoU10AcuH3z+l2PHQPHr6gSzew1YZrCc8+l2pKLXO8SJJQlSYoyh0jmXh9nA+YvP/+AH/fKGAbN/oPzATwbYWE5AitveHtMPYaKJEbeyp0JrixkdyjOWbg/5mdNTad7xZEG266jb/ydgDEO3EU8MJow6PiVRv8PTHFu94bjs4fniyZZxNVLlKItoYuTE5v3Uvk20fJ5GgF5k6XCyXAPXk5++HIIu4OzLIkMn81MnX+mAo7k7NqPrxqS3RuZKT7uZz40wz4rNbaxhIFMKUemaO2EMmcY/omC/mkEUEaB5Bs7H9roy/nM8kgym2TO7dkSOy5sGMEMxvWHjYEbMZIsGlptPHbahCjNvUyrXUTm6kczJ/k9/MM1BAoR4FUcf5JOhEmkkTPbccZEvRBakxMi1y5XYENYJM8CYnIQLx1epfJmcIkXVsBU5V9kWp392XaAjcg5Gv0Ettp4m6wlUCXyCKUcCfAXbMr35eWfVRgn7A==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(14060799003)(82310400026)(1800799024)(36860700016)(35042699022)(376014)(7416014)(18002099003)(22082099003)(261009223027099003)(3023799007)(4143699003)(11063799006)(5023799004)(56012099006)(261026121527099003)(261028144727099003)(261021135927099003)(261021121427099003)(261021123027099003)(261102123227099003)(261022075727099003)(261022105027099003)(261026140227099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lQFURTOeGp52T5e8dfnc6jwwcHA2y6M13D8PEIpSln/yeLxS5hqpD7uz2X6VYD7t86IebdZ/+tJFPXTjbRJbqTceUxexjGoNZeXDYdZNdEMxzNybMFkfcAq/gED9ZkERpzjUuhkw+ge2oPiOJmv8wnIaev+mPiNrRbp3fyI2c+YNbu4QL1ZuepChaFmvYDyjJ3OVTYYANZsbqojfVu/tqrJeVOPXBgbNTTVTecEPne5MexBELsWaSJ/IiUTTBB6FKPt/gdhww0xLM2qfwTID0KOJtTWo4C6XCJD9qMgDhav74NwnurLwgofEIc0OTixGnLlUUmSgP3fIckPXsNAsXCqHy5TeC7Ls2QBOV9RgMKLcjCgIUdfaHKtC37nhb9uB/3wYN1kZFfB30y6giWTm0YdDpktC/psw/vIMcwSVetXOMI/THIOvXGP4pCkWSVFT
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 12:36:18.3135
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7df7923-3557-4c08-901f-08df495e5f53
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MA3PEPF00000407.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6453
 
-Signed-off-by: Hikmah Gumelar <hikmahgumelar@gmail.com>
----
- drivers/media/i2c/Kconfig  |   9 +
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/s5k5e8.c | 500 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 510 insertions(+)
- create mode 100644 drivers/media/i2c/s5k5e8.c
+Hi Vinicius,
 
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 162b8ea02601..095a911c5043 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -879,6 +879,15 @@ config VIDEO_S5K3M5
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called s5k3m5.
- 
-+config VIDEO_S5K5E8
-+	tristate "Samsung S5K5E8 sensor support"
-+	depends on I2C && VIDEO_DEV
-+	select MEDIA_CONTROLLER
-+	select VIDEO_V4L2_SUBDEV_API
-+	select V4L2_FWNODE
-+	help
-+	  V4L2 sensor driver for Samsung S5K5E8.
-+
- config VIDEO_S5K5BAF
- 	tristate "Samsung S5K5BAF sensor support"
- 	help
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index a750942e9c62..bdcb8f34aca3 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -136,6 +136,7 @@ obj-$(CONFIG_VIDEO_RDACM21) += rdacm21.o
- obj-$(CONFIG_VIDEO_RJ54N1) += rj54n1cb0c.o
- obj-$(CONFIG_VIDEO_S5C73M3) += s5c73m3/
- obj-$(CONFIG_VIDEO_S5K3M5) += s5k3m5.o
-+obj-$(CONFIG_VIDEO_S5K5E8) += s5k5e8.o
- obj-$(CONFIG_VIDEO_S5K5BAF) += s5k5baf.o
- obj-$(CONFIG_VIDEO_S5K6A3) += s5k6a3.o
- obj-$(CONFIG_VIDEO_S5KJN1) += s5kjn1.o
-diff --git a/drivers/media/i2c/s5k5e8.c b/drivers/media/i2c/s5k5e8.c
-new file mode 100644
-index 000000000000..80931e5a1c6b
---- /dev/null
-+++ b/drivers/media/i2c/s5k5e8.c
-@@ -0,0 +1,500 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/unaligned.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-fwnode.h>
-+
-+#define S5K5E8_CHIP_ID_REG		0x0000
-+#define S5K5E8_CHIP_ID			0x5e80
-+#define S5K5E8_REG_MODE_SELECT		0x0100
-+#define S5K5E8_MODE_STANDBY		0x00
-+#define S5K5E8_MODE_STREAMING		0x01
-+#define S5K5E8_REG_VTS			0x0340
-+#define S5K5E8_REG_EXPOSURE		0x0202
-+#define S5K5E8_REG_ANALOG_GAIN		0x0204
-+#define S5K5E8_REG_TEST_PATTERN		0x0600
-+#define S5K5E8_XVCLK_FREQ		24000000
-+#define S5K5E8_LINK_FREQ_418MHZ		418000000ULL
-+#define S5K5E8_PIXEL_RATE		167200000ULL
-+
-+struct s5k5e8_reg { u16 address;
-+u8 val;
-+};
-+struct s5k5e8_mode {
-+	u32 width, height, hts_def, vts_def, vts_min, num_regs;
-+	const struct s5k5e8_reg *regs;
-+};
-+
-+static const char * const s5k5e8_supply_names[] = { "avdd", "dvdd", "dovdd" };
-+#define S5K5E8_NUM_SUPPLIES ARRAY_SIZE(s5k5e8_supply_names)
-+
-+static const struct s5k5e8_reg s5k5e8_common_regs[] = {
-+	{ 0x0100, 0x00 }, { 0x3906, 0x7e }, { 0x3c01, 0x0f }, { 0x3c14, 0x00 },
-+	{ 0x3235, 0x08 }, { 0x3063, 0x2e }, { 0x307a, 0x10 }, { 0x307b, 0x0e },
-+	{ 0x3079, 0x20 }, { 0x3070, 0x05 }, { 0x3067, 0x06 }, { 0x3071, 0x62 },
-+	{ 0x3072, 0x16 }, { 0x3203, 0x43 }, { 0x3205, 0x43 }, { 0x320b, 0x42 },
-+	{ 0x3007, 0x00 }, { 0x3008, 0x14 }, { 0x3020, 0x58 }, { 0x300d, 0x34 },
-+	{ 0x300e, 0x17 }, { 0x3021, 0x02 }, { 0x3010, 0x59 }, { 0x3002, 0x01 },
-+	{ 0x3005, 0x01 }, { 0x3008, 0x04 }, { 0x300f, 0x70 }, { 0x3010, 0x69 },
-+	{ 0x3017, 0x10 }, { 0x3019, 0x19 }, { 0x300c, 0x62 }, { 0x3064, 0x10 },
-+	{ 0x3c08, 0x0e }, { 0x3c09, 0x10 }, { 0x3c31, 0x0d }, { 0x3c32, 0xac },
-+};
-+
-+static const struct s5k5e8_reg s5k5e8_2592x1944_regs[] = {
-+	{ 0x0100, 0x00 }, { 0x0136, 0x18 }, { 0x0137, 0x00 }, { 0x0305, 0x06 },
-+	{ 0x0306, 0x18 }, { 0x0307, 0xa8 }, { 0x0308, 0x34 }, { 0x0309, 0x42 },
-+	{ 0x3c1f, 0x00 }, { 0x3c17, 0x00 }, { 0x3c0b, 0x04 }, { 0x3c1c, 0x47 },
-+	{ 0x3c1d, 0x15 }, { 0x3c14, 0x04 }, { 0x3c16, 0x00 }, { 0x0820, 0x03 },
-+	{ 0x0821, 0x44 }, { 0x0114, 0x01 }, { 0x0344, 0x00 }, { 0x0345, 0x08 },
-+	{ 0x0346, 0x00 }, { 0x0347, 0x08 }, { 0x0348, 0x0a }, { 0x0349, 0x27 },
-+	{ 0x034a, 0x07 }, { 0x034b, 0x9f }, { 0x034c, 0x0a }, { 0x034d, 0x20 },
-+	{ 0x034e, 0x07 }, { 0x034f, 0x98 }, { 0x0900, 0x00 }, { 0x0901, 0x00 },
-+	{ 0x0381, 0x01 }, { 0x0383, 0x01 }, { 0x0385, 0x01 }, { 0x0387, 0x01 },
-+	{ 0x0340, 0x07 }, { 0x0341, 0xb0 }, { 0x0342, 0x0b }, { 0x0343, 0x28 },
-+	{ 0x0200, 0x00 }, { 0x0201, 0x00 }, { 0x0202, 0x03 }, { 0x0203, 0xde },
-+	{ 0x3303, 0x02 }, { 0x3400, 0x00 }, { 0x323b, 0x02 }, { 0x3301, 0x00 },
-+	{ 0x3321, 0x04 }, { 0x3306, 0x00 }, { 0x3307, 0x08 }, { 0x3308, 0x0a },
-+	{ 0x3309, 0x27 }, { 0x330a, 0x01 }, { 0x330b, 0x01 }, { 0x330e, 0x00 },
-+	{ 0x330f, 0x08 }, { 0x3310, 0x07 }, { 0x3311, 0x9f }, { 0x3312, 0x01 },
-+	{ 0x3313, 0x01 },
-+};
-+
-+static const struct s5k5e8_mode supported_modes[] = {
-+	{
-+		.width = 2592, .height = 1944, .hts_def = 2856,
-+		.vts_def = 1968, .vts_min = 1968,
-+		.num_regs = ARRAY_SIZE(s5k5e8_2592x1944_regs),
-+		.regs = s5k5e8_2592x1944_regs,
-+	},
-+};
-+
-+static const s64 link_freq_menu_items[] = { S5K5E8_LINK_FREQ_418MHZ };
-+
-+struct s5k5e8 {
-+	struct device *dev;
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+	struct clk *xvclk;
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data supplies[S5K5E8_NUM_SUPPLIES];
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct v4l2_ctrl *link_freq, *pixel_rate, *vblank, *hblank, *exposure;
-+	const struct s5k5e8_mode *cur_mode;
-+	/* Serialize access to sensor registers and streaming state */
-+	struct mutex mutex;
-+	bool streaming;
-+};
-+
-+static inline struct s5k5e8 *to_s5k5e8(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct s5k5e8, sd);
-+}
-+
-+static int s5k5e8_read_reg(struct s5k5e8 *s5k5e8, u16 reg, u32 len, u32 *val)
-+{
-+	struct i2c_client *client = v4l2_get_subdevdata(&s5k5e8->sd);
-+	struct i2c_msg msgs[2];
-+	u8 addr_buf[2], data_buf[4] = { 0 };
-+	int ret;
-+
-+	put_unaligned_be16(reg, addr_buf);
-+	msgs[0].addr = client->addr;
-+	msgs[0].flags = 0;
-+	msgs[0].len = 2;
-+	msgs[0].buf = addr_buf;
-+	msgs[1].addr = client->addr;
-+	msgs[1].flags = I2C_M_RD;
-+	msgs[1].len = len;
-+	msgs[1].buf = &data_buf[4 - len];
-+	ret = i2c_transfer(client->adapter, msgs, 2);
-+	if (ret != 2)
-+		return ret < 0 ? ret : -EIO;
-+	*val = get_unaligned_be32(data_buf);
-+	return 0;
-+}
-+
-+static int s5k5e8_write_reg(struct s5k5e8 *s5k5e8, u16 reg, u32 len, u32 val)
-+{
-+	struct i2c_client *client = v4l2_get_subdevdata(&s5k5e8->sd);
-+	u8 buf[6];
-+	int ret;
-+
-+	put_unaligned_be16(reg, buf);
-+	put_unaligned_be32(val << (8 * (4 - len)), buf + 2);
-+	ret = i2c_master_send(client, buf, len + 2);
-+	return ret == len + 2 ? 0 : (ret < 0 ? ret : -EIO);
-+}
-+
-+static int s5k5e8_write_regs(struct s5k5e8 *s5k5e8, const struct s5k5e8_reg *regs, u32 len)
-+{
-+	u32 i;
-+	int ret;
-+
-+	for (i = 0; i < len; i++) {
-+		ret = s5k5e8_write_reg(s5k5e8, regs[i].address, 1, regs[i].val);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+static int s5k5e8_power_on(struct device *dev)
-+{
-+	struct s5k5e8 *s5k5e8 = to_s5k5e8(dev_get_drvdata(dev));
-+	int ret = regulator_bulk_enable(S5K5E8_NUM_SUPPLIES, s5k5e8->supplies);
-+
-+	if (ret)
-+		return ret;
-+	ret = clk_prepare_enable(s5k5e8->xvclk);
-+	if (ret) {
-+		regulator_bulk_disable(S5K5E8_NUM_SUPPLIES, s5k5e8->supplies);
-+		return ret;
-+	}
-+	if (s5k5e8->reset_gpio) {
-+		gpiod_set_value_cansleep(s5k5e8->reset_gpio, 1);
-+		usleep_range(1000, 2000);
-+		gpiod_set_value_cansleep(s5k5e8->reset_gpio, 0);
-+		usleep_range(3000, 5000);
-+	}
-+	return 0;
-+}
-+
-+static int s5k5e8_power_off(struct device *dev)
-+{
-+	struct s5k5e8 *s5k5e8 = to_s5k5e8(dev_get_drvdata(dev));
-+
-+	if (s5k5e8->reset_gpio)
-+		gpiod_set_value_cansleep(s5k5e8->reset_gpio, 1);
-+	clk_disable_unprepare(s5k5e8->xvclk);
-+	regulator_bulk_disable(S5K5E8_NUM_SUPPLIES, s5k5e8->supplies);
-+	return 0;
-+}
-+
-+static int s5k5e8_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct s5k5e8 *s5k5e8 = container_of(ctrl->handler, struct s5k5e8, ctrl_handler);
-+	int ret = 0;
-+
-+	if (!pm_runtime_get_if_in_use(s5k5e8->dev))
-+		return 0;
-+	switch (ctrl->id) {
-+	case V4L2_CID_ANALOGUE_GAIN:
-+		ret = s5k5e8_write_reg(s5k5e8, S5K5E8_REG_ANALOG_GAIN, 2, ctrl->val);
-+	break;
-+	case V4L2_CID_EXPOSURE:
-+		ret = s5k5e8_write_reg(s5k5e8, S5K5E8_REG_EXPOSURE, 2, ctrl->val);
-+	break;
-+	case V4L2_CID_VBLANK:
-+		ret = s5k5e8_write_reg(s5k5e8, S5K5E8_REG_VTS, 2,
-+				s5k5e8->cur_mode->height + ctrl->val);
-+	break;
-+	case V4L2_CID_TEST_PATTERN:
-+		ret = s5k5e8_write_reg(s5k5e8, S5K5E8_REG_TEST_PATTERN, 2, ctrl->val);
-+	break;
-+	}
-+	pm_runtime_put(s5k5e8->dev);
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops s5k5e8_ctrl_ops = { .s_ctrl = s5k5e8_set_ctrl };
-+static const char * const s5k5e8_test_pattern_menu[] = {
-+	"Disabled",
-+	"Solid Color",
-+	"100% Color Bars",
-+	"Fade to Grey",
-+	"PN9",
-+};
-+
-+static int s5k5e8_init_controls(struct s5k5e8 *s5k5e8)
-+{
-+	struct v4l2_fwnode_device_properties props;
-+	struct v4l2_ctrl_handler *hdl = &s5k5e8->ctrl_handler;
-+	s64 hblank = s5k5e8->cur_mode->hts_def - s5k5e8->cur_mode->width;
-+	int ret = v4l2_ctrl_handler_init(hdl, 8);
-+
-+	if (ret)
-+		return ret;
-+	hdl->lock = &s5k5e8->mutex;
-+	s5k5e8->link_freq = v4l2_ctrl_new_int_menu(hdl, &s5k5e8_ctrl_ops, V4L2_CID_LINK_FREQ,
-+			0, 0, link_freq_menu_items);
-+	if (s5k5e8->link_freq)
-+		s5k5e8->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	s5k5e8->pixel_rate = v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_PIXEL_RATE,
-+			S5K5E8_PIXEL_RATE, S5K5E8_PIXEL_RATE, 1, S5K5E8_PIXEL_RATE);
-+	s5k5e8->vblank = v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_VBLANK, 24,
-+			0x7fff - s5k5e8->cur_mode->height, 1, 24);
-+	s5k5e8->hblank = v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_HBLANK, hblank,
-+			hblank, 1, hblank);
-+	if (s5k5e8->hblank)
-+		s5k5e8->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_ANALOGUE_GAIN, 0x20, 0x200, 1, 0x60);
-+	s5k5e8->exposure = v4l2_ctrl_new_std(hdl, &s5k5e8_ctrl_ops, V4L2_CID_EXPOSURE, 4, 1964,
-+			1, 1960);
-+	v4l2_ctrl_new_std_menu_items(hdl, &s5k5e8_ctrl_ops, V4L2_CID_TEST_PATTERN, 4, 0, 0,
-+			s5k5e8_test_pattern_menu);
-+	if (hdl->error) {
-+		ret = hdl->error;
-+		goto err;
-+	}
-+	ret = v4l2_fwnode_device_parse(s5k5e8->dev, &props);
-+	if (ret)
-+		goto err;
-+	ret = v4l2_ctrl_new_fwnode_properties(hdl, &s5k5e8_ctrl_ops, &props);
-+	if (ret)
-+		goto err;
-+	s5k5e8->sd.ctrl_handler = hdl;
-+	return 0;
-+err:
-+	v4l2_ctrl_handler_free(hdl);
-+	return ret;
-+}
-+
-+static void s5k5e8_update_pad_format(const struct s5k5e8_mode *mode,
-+		struct v4l2_mbus_framefmt *fmt)
-+{
-+	fmt->width = mode->width;
-+	fmt->height = mode->height;
-+	fmt->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-+	fmt->field = V4L2_FIELD_NONE;
-+	fmt->colorspace = V4L2_COLORSPACE_SRGB;
-+}
-+
-+static int s5k5e8_get_format(struct v4l2_subdev *sd, struct v4l2_subdev_state *sd_state,
-+		struct v4l2_subdev_format *fmt)
-+{
-+	struct s5k5e8 *s5k5e8 = to_s5k5e8(sd);
-+
-+	fmt->format = (fmt->which == V4L2_SUBDEV_FORMAT_TRY) ? *v4l2_subdev_state_get_format(sd_state,
-+			fmt->pad) : fmt->format;
-+	if (fmt->which != V4L2_SUBDEV_FORMAT_TRY)
-+		s5k5e8_update_pad_format(s5k5e8->cur_mode, &fmt->format);
-+	return 0;
-+}
-+
-+static int s5k5e8_set_format(struct v4l2_subdev *sd, const struct v4l2_subdev_client_info *ci, struct v4l2_subdev_state *sd_state,
-+		struct v4l2_subdev_format *fmt)
-+{
-+	struct s5k5e8 *s5k5e8 = to_s5k5e8(sd);
-+
-+	s5k5e8_update_pad_format(&supported_modes[0], &fmt->format);
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
-+		*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
-+	else
-+		s5k5e8->cur_mode = &supported_modes[0];
-+
-+	return 0;
-+}
-+
-+static int s5k5e8_enum_mbus_code(struct v4l2_subdev *sd, struct v4l2_subdev_state *sd_state,
-+		struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index > 0)
-+		return -EINVAL;
-+	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-+	return 0;
-+}
-+
-+static int s5k5e8_enum_frame_size(struct v4l2_subdev *sd, struct v4l2_subdev_state *sd_state,
-+		struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	if (fse->index >= ARRAY_SIZE(supported_modes) ||
-+	    fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
-+		return -EINVAL;
-+	fse->min_width = fse->max_width = supported_modes[fse->index].width;
-+	fse->min_height = fse->max_height = supported_modes[fse->index].height;
-+	return 0;
-+}
-+
-+static int s5k5e8_set_stream(struct v4l2_subdev *sd, int enable)
-+{
-+	struct s5k5e8 *s5k5e8 = to_s5k5e8(sd);
-+	int ret = 0;
-+
-+	mutex_lock(&s5k5e8->mutex);
-+	if (s5k5e8->streaming == enable) {
-+		mutex_unlock(&s5k5e8->mutex);
-+		return 0;
-+	}
-+	if (enable) {
-+		ret = pm_runtime_resume_and_get(s5k5e8->dev);
-+		if (ret < 0)
-+			goto out;
-+		ret = s5k5e8_write_regs(s5k5e8, s5k5e8_common_regs,
-+				ARRAY_SIZE(s5k5e8_common_regs));
-+		if (!ret)
-+			ret = s5k5e8_write_regs(s5k5e8, s5k5e8->cur_mode->regs,
-+					s5k5e8->cur_mode->num_regs);
-+		if (!ret)
-+			ret = __v4l2_ctrl_handler_setup(s5k5e8->sd.ctrl_handler);
-+		if (!ret) {
-+			static const struct s5k5e8_reg stream_on_regs[] = {
-+				{ 0x3c16, 0x00 },
-+				{ 0x3c0d, 0x04 },
-+				{ 0x0100, 0x01 },
-+				{ 0x3c22, 0x00 },
-+				{ 0x3c22, 0x00 },
-+				{ 0x3c0d, 0x00 },
-+			};
-+			msleep(80);
-+			ret = s5k5e8_write_regs(s5k5e8, stream_on_regs,
-+					ARRAY_SIZE(stream_on_regs));
-+		}
-+		if (ret) {
-+			pm_runtime_put(s5k5e8->dev);
-+			goto out;
-+		}
-+	} else {
-+		s5k5e8_write_reg(s5k5e8, S5K5E8_REG_MODE_SELECT, 1, S5K5E8_MODE_STANDBY);
-+		pm_runtime_put(s5k5e8->dev);
-+	}
-+	s5k5e8->streaming = enable;
-+out:
-+	mutex_unlock(&s5k5e8->mutex);
-+	return ret;
-+}
-+
-+static int s5k5e8_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	struct s5k5e8 *s5k5e8 = to_s5k5e8(sd);
-+
-+	mutex_lock(&s5k5e8->mutex);
-+	s5k5e8_update_pad_format(&supported_modes[0], v4l2_subdev_state_get_format(fh->state, 0));
-+	mutex_unlock(&s5k5e8->mutex);
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_video_ops s5k5e8_video_ops = { .s_stream = s5k5e8_set_stream };
-+
-+static int s5k5e8_get_selection(struct v4l2_subdev *sd, const struct v4l2_subdev_client_info *ci,
-+				struct v4l2_subdev_state *sd_state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = 2592;
-+		sel->r.height = 1944;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct v4l2_subdev_pad_ops s5k5e8_pad_ops = {
-+	.get_selection = s5k5e8_get_selection,
-+	.set_fmt = s5k5e8_set_format, .get_fmt = s5k5e8_get_format,
-+	.enum_mbus_code = s5k5e8_enum_mbus_code, .enum_frame_size = s5k5e8_enum_frame_size,
-+};
-+static const struct v4l2_subdev_ops s5k5e8_subdev_ops = {
-+	.video = &s5k5e8_video_ops,
-+	.pad = &s5k5e8_pad_ops,
-+};
-+static const struct media_entity_operations s5k5e8_entity_ops = {
-+	.link_validate = v4l2_subdev_link_validate,
-+};
-+static const struct v4l2_subdev_internal_ops s5k5e8_internal_ops = { .open = s5k5e8_open };
-+
-+static int s5k5e8_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct s5k5e8 *s5k5e8;
-+	u32 val = 0;
-+	unsigned int i;
-+	int ret;
-+
-+	s5k5e8 = devm_kzalloc(dev, sizeof(*s5k5e8), GFP_KERNEL);
-+	if (!s5k5e8)
-+		return -ENOMEM;
-+	s5k5e8->dev = dev;
-+	v4l2_i2c_subdev_init(&s5k5e8->sd, client, &s5k5e8_subdev_ops);
-+	s5k5e8->xvclk = devm_v4l2_sensor_clk_get(dev, NULL);
-+	if (IS_ERR(s5k5e8->xvclk))
-+		return dev_err_probe(dev, PTR_ERR(s5k5e8->xvclk), "xvclk\n");
-+	clk_set_rate(s5k5e8->xvclk, S5K5E8_XVCLK_FREQ);
-+	s5k5e8->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(s5k5e8->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(s5k5e8->reset_gpio), "reset\n");
-+	for (i = 0; i < S5K5E8_NUM_SUPPLIES; i++)
-+		s5k5e8->supplies[i].supply = s5k5e8_supply_names[i];
-+	ret = devm_regulator_bulk_get(dev, S5K5E8_NUM_SUPPLIES, s5k5e8->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "regulators\n");
-+	ret = s5k5e8_power_on(dev);
-+	if (ret)
-+		return ret;
-+	ret = s5k5e8_read_reg(s5k5e8, S5K5E8_CHIP_ID_REG, 2, &val);
-+	if (ret || val != S5K5E8_CHIP_ID) {
-+		dev_err(dev, "failed to identify s5k5e8 (ret=%d, id=0x%x)\n", ret, val);
-+		ret = ret ? ret : -ENXIO;
-+		goto err_power;
-+	}
-+	dev_info(dev, "identified Samsung S5K5E8 sensor (0x%04x)\n", val);
-+	mutex_init(&s5k5e8->mutex);
-+	s5k5e8->cur_mode = &supported_modes[0];
-+	ret = s5k5e8_init_controls(s5k5e8);
-+	if (ret)
-+		goto err_mutex;
-+	s5k5e8->sd.internal_ops = &s5k5e8_internal_ops;
-+	s5k5e8->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	s5k5e8->sd.entity.ops = &s5k5e8_entity_ops;
-+	s5k5e8->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+	s5k5e8->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	ret = media_entity_pads_init(&s5k5e8->sd.entity, 1, &s5k5e8->pad);
-+	if (ret)
-+		goto err_ctrl;
-+	s5k5e8->sd.state_lock = &s5k5e8->mutex;
-+	ret = v4l2_subdev_init_finalize(&s5k5e8->sd);
-+	if (ret)
-+		goto err_media;
-+	ret = v4l2_async_register_subdev_sensor(&s5k5e8->sd);
-+	if (ret)
-+		goto err_media;
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+	pm_runtime_idle(dev);
-+	return 0;
-+err_media: media_entity_cleanup(&s5k5e8->sd.entity);
-+err_ctrl: v4l2_ctrl_handler_free(s5k5e8->sd.ctrl_handler);
-+err_mutex: mutex_destroy(&s5k5e8->mutex);
-+err_power: s5k5e8_power_off(dev);
-+	return ret;
-+}
-+
-+static void s5k5e8_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct s5k5e8 *s5k5e8 = to_s5k5e8(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+	mutex_destroy(&s5k5e8->mutex);
-+	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev))
-+		s5k5e8_power_off(&client->dev);
-+	pm_runtime_set_suspended(&client->dev);
-+}
-+
-+static const struct dev_pm_ops s5k5e8_pm_ops = { SET_RUNTIME_PM_OPS(s5k5e8_power_off,
-+		s5k5e8_power_on, NULL) };
-+static const struct of_device_id s5k5e8_of_match[] = { { .compatible = "samsung,s5k5e8" }, { } };
-+MODULE_DEVICE_TABLE(of, s5k5e8_of_match);
-+static struct i2c_driver s5k5e8_i2c_driver = {
-+	.driver = { .name = "s5k5e8", .pm = &s5k5e8_pm_ops, .of_match_table = s5k5e8_of_match },
-+	.probe = s5k5e8_probe, .remove = s5k5e8_remove,
-+};
-+module_i2c_driver(s5k5e8_i2c_driver);
-+MODULE_DESCRIPTION("Samsung S5K5E8 5MP sensor driver");
-+MODULE_LICENSE("GPL");
--- 
-2.47.3
+sorry, I missed your post earlier, so made my own version of the DT 
+yesterday. So this is more like comparing this to yours ;-)
+As you saw my reply to Enzo's .dtsi and A7S .dts, I will keep the same 
+issues I mentioned there brief.
+
+On 11/11/26 14:49, Vinicius Pedrosa wrote:
+> Add the device tree for the Radxa Cubie A7Z. Describe UART0, the AXP318W
+> PMIC over R-I2C0, MMC0, RTC and the bank supplies. It is based on the
+> Cubie A7S DT.
+> 
+> Unlike the A7S, this board uses BLDO5 for PG and a SY8089 regulator for
+> the PMIC's BLDO and CLDO inputs, and the microSD card-detect line has an
+> external pull-up, so no internal pull-down is used. ELDO1 only supplies
+> VDD2L for LPDDR5 and this board uses LPDDR4, so it is not described.
+> SWOUT1 only feeds ports D and J on the 40-pin header, so it is not kept
+> always-on.
+
+I think this stanza does not belong into the commit message, as 
+comparing to some different board is not relevant here.
+Instead you should briefly list the features/connectors of this board, 
+look at other commit messages for board .dts files.
+
+> 
+> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+> ---
+>   arch/arm64/boot/dts/allwinner/Makefile        |   1 +
+>   .../dts/allwinner/sun60i-a733-cubie-a7z.dts   | 286 ++++++++++++++++++
+>   2 files changed, 287 insertions(+)
+>   create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
+> 
+> diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
+> index 792152525b43..2eee91dcbd77 100644
+> --- a/arch/arm64/boot/dts/allwinner/Makefile
+> +++ b/arch/arm64/boot/dts/allwinner/Makefile
+> @@ -69,3 +69,4 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun55i-h728-x96qpro+.dtb
+>   dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-avaota-a1.dtb
+>   dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-orangepi-4a.dtb
+>   dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7s.dtb
+> +dtb-$(CONFIG_ARCH_SUNXI) += sun60i-a733-cubie-a7z.dtb
+> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
+> new file mode 100644
+> index 000000000000..ab3d3d70f9ff
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733-cubie-a7z.dts
+> @@ -0,0 +1,286 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+
+I think you need a copyright line here.
+
+Also please explain the situation with the v1.10 and v1.11 versions here.
+
+> +/dts-v1/;
+> +
+> +#include "sun60i-a733.dtsi"
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +
+> +/ {
+> +	model = "Radxa Cubie A7Z";
+> +	compatible = "radxa,cubie-a7z", "allwinner,sun60i-a733";
+> +
+> +	aliases {
+> +		mmc0 = &mmc0;
+
+Please remove.
+
+> +		serial0 = &uart0;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	reg_ps: regulator-system-power {
+
+Please add a short comment where this power comes from (USB-C connector).
+
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "ps";
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		regulator-always-on;
+> +	};
+> +
+
+As mentioned in the other mail, please add a comment that this has been 
+added in v1.11, and v1.10 doesn't have it.
+
+> +	reg_ldo_input: regulator-ldo-input {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "ldo2v5-input";
+> +		/* SY8089: 0.6 V * (1 + RP11 / RP6), 30k / 10k. */
+> +		regulator-min-microvolt = <2400000>;
+> +		regulator-max-microvolt = <2400000>;
+> +		regulator-always-on;
+> +		vin-supply = <&reg_ps>;
+> +	};
+> +
+> +	osc32k: osc32k-clk {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <32768>;
+> +	};
+> +};
+> +
+> +&cpu0 {
+> +	cpu-supply = <&reg_dcdc5>;
+> +};
+> +
+> +&cpu1 {
+> +	cpu-supply = <&reg_dcdc5>;
+> +};
+> +
+> +&cpu2 {
+> +	cpu-supply = <&reg_dcdc5>;
+> +};
+> +
+> +&cpu3 {
+> +	cpu-supply = <&reg_dcdc5>;
+> +};
+> +
+> +&cpu4 {
+> +	cpu-supply = <&reg_dcdc5>;
+> +};
+> +
+> +&cpu5 {
+> +	cpu-supply = <&reg_dcdc5>;
+> +};
+> +
+> +&cpu6 {
+> +	cpu-supply = <&reg_dcdc3>;
+> +};
+> +
+> +&cpu7 {
+> +	cpu-supply = <&reg_dcdc3>;
+> +};
+> +
+> +&mmc0 {
+> +	bus-width = <4>;
+> +	cap-sd-highspeed;
+
+Same as the A7S, please add the others.
+
+> +	/* PF6 has an external 10k pull-up and reads high with a card. */
+
+"reads high with a card" is a redundant comment, since this is what 
+GPIO_ACTIVE_HIGH already says.
+Please explain the situation with the v1.10 vs. v1.11 versions here.
+And my v1.10 board needs GPIO_PULL_DOWN
+
+> +	cd-gpios = <&pio 5 6 GPIO_ACTIVE_HIGH>;
+> +	disable-wp;
+> +	max-frequency = <50000000>;
+> +	no-1-8-v;
+
+Please remove both.
+
+> +	vmmc-supply = <&reg_swout2>;
+> +	/* The 3.3 V path uses VCC-IO; no Port F voltage switching yet. */
+> +	vqmmc-supply = <&reg_swout2>;
+
+Please remove those two lines, we will add vqmmc later.
+
+> +	status = "okay";
+> +};
+> +
+> +&osc {
+> +	clock-frequency = <26000000>;
+> +};
+> +
+> +&pio {
+> +	vcc-pb-supply = <&reg_swout2>;
+
+Please add a comment that this comes from VCC-IO. See the Cubie A5E DT.
+
+> +	vcc-pc-supply = <&reg_cldo5>;
+> +	vcc-pd-supply = <&reg_swout1>;
+> +	vcc-pe-supply = <&reg_bldo1>;
+> +	/* CLDO5 feeds VCC18-PF; the 3.3 V path uses VCC-IO. */
+> +	vcc-pf-supply = <&reg_cldo5>;
+
+As it stands this is VCC-IO, so swout2, please change that, plus the 
+VCC-IO comment.
+
+> +	vcc-pg-supply = <&reg_bldo5>;
+> +	vcc-ph-supply = <&reg_swout2>;
+
+VCC-IO comment, please.
+
+> +	vcc-pj-supply = <&reg_swout1>;
+> +	vcc-pk-supply = <&reg_bldo1>;
+> +};
+> +
+> +&r_i2c0 {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&r_i2c0_pl_pins>;
+> +
+> +	axp318w: pmic@36 {
+> +		compatible = "x-powers,axp318w";
+> +		reg = <0x36>;
+> +		interrupt-parent = <&nmi_intc>;
+> +		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
+> +		interrupt-controller;
+> +		#interrupt-cells = <1>;
+> +
+> +		aldo156in-supply = <&reg_ps>;
+> +		aldo234in-supply = <&reg_aldo1>;
+> +		bldoin-supply = <&reg_ldo_input>;
+> +		cldoin-supply = <&reg_ldo_input>;
+
+Please add a comment about v1.10 differing.
+
+> +		dldoin-supply = <&reg_ps>;
+> +		eldoin-supply = <&reg_dcdc9>;
+> +		ips-supply = <&reg_ps>;
+> +		vin19-supply = <&reg_ps>;
+> +		vin23-supply = <&reg_ps>;
+> +		vin45-supply = <&reg_ps>;
+> +		vin678-supply = <&reg_ps>;
+> +
+> +		regulators {
+> +			reg_dcdc1: dcdc1 {
+> +				regulator-name = "vcc-3v3";
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_dcdc2: dcdc2 {
+> +				regulator-name = "vdd-sys";
+
+Please add the voltage: 0.8V.
+
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_dcdc3: dcdc3 {
+> +				regulator-name = "vdd-cpub";
+
+ From the OPP tables I could find in the Radxa repo on github, the range 
+should be 0.8V - 1.05V. We can adjust this later when we add proper DVFS 
+support, if needed.
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_dcdc4: dcdc4 {
+> +				regulator-name = "vdd-gpu";
+> +				regulator-always-on;
+
+Voltage range should be 0.8V - 0.96V, and drop the always-on.
+
+> +			};
+> +
+> +			reg_dcdc5: dcdc5 {
+> +				regulator-name = "vdd-cpul";
+
+Voltage range 0.8V - 1.05V.
+
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_dcdc6: dcdc6 {
+> +				regulator-name = "vcc-draml";
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_dcdc7: dcdc7 {
+> +				regulator-name = "vcc-dram";
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_dcdc8: dcdc8 {
+> +				regulator-name = "vcc-ufs-io";
+
+The voltage is 1.2V, and please drop the always-on.
+
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_dcdc9: dcdc9 {
+> +				regulator-name = "eldo-input";
+
+The schematic says 1.1V/1.25V. Can you check what it is on your board, 
+at runtime? If in doubt, go with 1.1V, this should be enough headroom 
+for the ELDO6 this supplies, with outputs 0.8V.
+
+> +				regulator-always-on;
+
+Please remove.
+
+> +			};
+> +
+> +			reg_swout1: swout1 {
+> +				regulator-name = "vcc33-lcd";
+
+Please use "vcc-pd-pj" as the name.
+
+> +			};
+> +
+> +			reg_swout2: swout2 {
+> +				regulator-name = "vcc-io-card";
+
+I used "vcc-io-ph-usb", "card" does not seem to be used.
+
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_aldo1: aldo1 {
+> +				regulator-name = "vcc-pl";
+
+Also USB it seems, so I used "vcc-pl-usb".
+
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_bldo1: bldo1 {
+> +				regulator-name = "vcc-pe-pk-mcsi";
+
+Voltage is 1.8V.
+
+> +			};
+> +
+> +			reg_bldo2: bldo2 {
+> +				regulator-name = "vcc-lvds0";
+
+1.8V as well.
+
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_bldo4: bldo4 {
+> +				regulator-name = "vcc18-codec";
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +			};
+> +
+> +			reg_bldo5: bldo5 {
+> +				regulator-name = "vcc-pg";
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +			};
+> +
+> +			reg_cldo1: cldo1 {
+> +				regulator-name = "vcc33-18-usb";
+
+That is a confusing name ;-) "vcc-pm-lpddr" should explain the always-on.
+
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_cldo2: cldo2 {
+> +				regulator-name = "vcc18-hdmi";
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +			};
+> +
+> +			reg_cldo3: cldo3 {
+> +				regulator-name = "vcc-pll-dram";
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_cldo5: cldo5 {
+> +				regulator-name = "vcc18-pf-pc";
+
+"pf" is somewhat misleading. I had "vcc-pc-combo".
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_dldo1: dldo1 {
+> +				regulator-name = "vcc-efuse";
+
+Voltage is 1.8V.
+
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_dldo6: dldo6 {
+> +				regulator-name = "vcc-ufs";
+
+Voltage is 2.5V, and no always-on should be needed.
+
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_eldo6: eldo6 {
+> +				regulator-name = "vdd-cpus";
+
+Voltage is 0.8V.
+
+> +				regulator-always-on;
+> +			};
+> +
+> +			reg_rtc_ldo: rtc-ldo {
+> +				regulator-name = "vcc-rtc";
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +				regulator-always-on;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&r_pio {
+> +	/* PL powers the PMIC bus itself; firmware must keep ALDO1 enabled. */
+
+Probably better to copy the comment from the other DTs, and have the 
+"would-be" line inside the comment (vcc-pl-supply = <&reg_aldo1>;)
+
+Cheers,
+Andre
+
+> +	vcc-pm-supply = <&reg_aldo1>;
+> +};
+> +
+> +&rtc {
+> +	clocks = <&r_ccu CLK_BUS_R_RTC>, <&osc>, <&r_ccu CLK_R_AHB>,
+> +		 <&osc32k>;
+> +	clock-names = "bus", "hosc", "ahb", "ext-osc32k";
+> +};
+> +
+> +&uart0 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&uart0_pb_pins>;
+> +	status = "okay";
+> +};
 
