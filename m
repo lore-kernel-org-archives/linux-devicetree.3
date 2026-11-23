@@ -1,73 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795456947;
-	b=L45fNkANkxGKazVcEc6ZwVVx4xHCIfYZWgdlthE5uPFJMeo3t5K1TgsbQox8OOnUqDrh
-	 tums7JOF8h8bfQjfPamMXqxPo9EjC3pwRQMK9Xfu4lI2o/dUoS1d1oab1qWVOSNeD1XqX
-	 87twGCvNeuHOUsAe3iqhxzmispJO91acdVS1mgEIfKWAlPTlb6nzQot5QQbROOGD511nT
-	 hmjBmWKxyYe//xHQ3uc74VP7AzEAsJ4+ronHJqDpgJmpTJX36C69fQXG4zSlCV9kwWo0x
-	 8s4Z/o3OirG4EdqL14CVldTNLStqj5RiQmGXzfRCrxUyaYqL+NkcQ5eY8IXmgDVr7SQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795456947;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vDttuoLtThpmrLHDgUDrvKFHZsebodC8mQspl8DHMwU=;
-	b=ac8hCdvEEsbH1LAA9ayxkBsSiU4LvkS+3le7eUfN7CooKpCc8EmGyZcHJYI/5o4Dh/HC
-	 lHWw1b2dbgMiERXmo31ooDu0oKfwrQ5HeEGMd3BuU3jKXYWpa+oKASb48/s3SqyRo08pD
-	 Ih0/YUJ885RwQsFBzOJ/BhkMT7FpdGorSIj2ixMHgNqXw5NRc8SHVt8BKRBlHrQsbdS02
-	 HTNL0T6kKMJRCuNlYugvPS04PS0vSVzy5gDPBigiQl+qq69ufwKOBMSeJ5993qaZh937Y
-	 UgvBkJt6K9DGnk8sGII79ZX0OoeH3731Nwtd4C/KvAuoKUjK4ffOnROqufzVezhT5nQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Kxg01mX9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795456973;
+	b=1UO7ub6RRA+QWsX57Z2RvPYtgo5PtWV9cqb+NAx+AaJ+E5HEedzr4CkmYXnKQCv1sJU1
+	 vPk1t+ImVjXk5aPDJQEVibjr+wokQeq9iLtlPPYkHMbxoUZbhVG7XKt+cOR5xStaYeRP8
+	 JZ3CpMdqGd1v4H0Ze4PIDABUAgqMTR6bk89npuy6zXY4GijALKDdr/yOQdYWU2GszRCqp
+	 Wj9xZWeZ3SgIIuor4Vzlwj61HMio7v1GWFvyPT2ljnef6iZRPmMtA2lyfg8pzHY4dVhkp
+	 mPTUIIKp+9ROKg8sTqfYrGbuMsyVh1Ktgh419eE9HkQK10UYKF4ajff12GT42f+tXSQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795456973;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=MGV6mw8GSxlCrXQJotxuF7PfSO8uiZc3gB1g6qUnyM0=;
+	b=UiQJNpLMJFGXF++stDHe9xroUUxYcS1sa0K+x6tFgw7E18XUW37dWgvx2UG+mAas55zE
+	 BOdq7H23MJmdGcTiHDkYwFMhOJifr6SoY/FLtKF7muWc1dMAKNs867zZ+o2dQbcGUC56y
+	 87ISPmQvaMJqcKTHtjYRBQXRxmALRda1XZp0XqRdHQp5vNCfc06TWnxgeoyOpd2CmRzoA
+	 ZT/8rwDQvZF6ibniEiYaWiAzmQIFSiqfdNERrgppSCyV9QpjofQpYeFpI8hMZDuz+3Tnx
+	 pnfYWEYhK9Nzg9SvEs2txFf3F/O7CnoyomlIFsfRDTVdCqINGlnHTDmQf4OUQC4vyPQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i7IlbslB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78751606A31A;
-	Mon, 23 Nov 2026 18:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78751606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41F9606A31A;
+	Mon, 23 Nov 2026 18:02:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Kxg01mX9
-ARC-Seal: i=1; a=rsa-sha256; t=1795456903; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=PaEyfUHI9/dg2Kik0zoccRrZZeS8oCPNzXKct42xtmbfG1sZf7ENSKszKndKxPpppPLUn9jqDFg1bMH9/oECr2KyOwTObfomSzwWZ4D5sH4318qx8fIWKN8RE6fUo3iDG/W6c4hO46lmxUvgx7NbZQXR3hLJoih8q84cPvfK5Bs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1795456903; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=vDttuoLtThpmrLHDgUDrvKFHZsebodC8mQspl8DHMwU=; 
-	b=T6Q6yKHs69OGVVqU6pq4IQfdJlyAI81yHIBcuFVGB2FzftKh4QkUVkdHQ9z4phc4x2tAABLy+883RnzDGlWi+dHJVMF5gMplguY1xktpz/223/o/HcTEMlRKZz/HokdeKhuptkMZMTPVlxpBUx+gP5LKkpve/z0R/NYEFHO/LS8=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=Kxg01mX9YeAZiV9Qs1JStftSmBv4b9pv3eCwsQZnx6ouWvP6EME1GmujpM84Ok9QbXQ4jTAhqMNTzGJngNoNRimp5oO8GLtL6PioAdtuBLELn2YMO8nFZJCN4ca5kRomt+2K+qdlqw757oHQWVVWso1aOQ2ekav8bMiNO4CGiLY=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=vDttuoLtThpmrLHDgUDrvKFHZsebodC8mQspl8DHMwU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1795456902105430.43361214454706;
-	Mon, 23 Nov 2026 19:01:42 +0100 (CET)
-From: Igor Velkov <iav@iav.lv>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: John Stultz <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Miroslav Lichvar <mlichvar@redhat.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/8] dt-bindings: rtc: Add linux,wakeup-states
-Date: Mon, 23 Nov 2026 20:01:12 +0200
-Message-ID: <20261123-alarmtimer-rtc-priority-v2-krzk-reply-1@iav.lv>
-In-Reply-To: <20261123-literate-significant-wildcat-dcfffa@quoll>
-References: <20261116-b4-alarmtimer-rtc-priority-v2-0-b2c69721e489@iav.lv>
- <20261116-b4-alarmtimer-rtc-priority-v2-6-b2c69721e489@iav.lv>
- <20261123-literate-significant-wildcat-dcfffa@quoll>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i7IlbslB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 708901F000CA;
+	Mon, 23 Nov 2026 18:02:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795456972;
+	bh=MGV6mw8GSxlCrXQJotxuF7PfSO8uiZc3gB1g6qUnyM0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i7IlbslBSq9fbHF8hfR0XIWrnrzqstOn7Uw7uXFM3xPnzDMz3UOIn2hLxFFJPq5nl
+	 XOqitMmoZcsjJR2Ha1eR2aIWqxeKM1Sx/peONYm+CeBMKShzVyVmgU968lKvUeSYy2
+	 TGup8z4WQl0dmEtZRk0RDpe5FxRhDPeBTTgIzWp2dQ+iaiAi1Qrr2BrV3It3hhPkUY
+	 lB+Y0L0gR/KCoYsnatrKGyoDa9vxtZYdok0i/cCt550U9SdzIgxYbzp6HFR8S8uPho
+	 qCIg3FSLXvT8LmaOnq2b61Ajwyir7XoahDS7992sT38YDAmLefWaE9WGdTT/HAykpx
+	 Tc9UDHIi39SNg==
+Message-ID: <sashiko-outbox-229791@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/3] iio: adc: add driver for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123-topic-sm8x50-iio-max34417-adc-v7-3-d8f87edc5086@linaro.org>
+References: <20261123-topic-sm8x50-iio-max34417-adc-v7-0-d8f87edc5086@linaro.org>
+ <20261123-topic-sm8x50-iio-max34417-adc-v7-3-d8f87edc5086@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 18:02:52 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,23 +60,218 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 11:48:11AM +0100, Krzysztof Kozlowski wrote:
-> This looks exactly like re-implementing system-idle-states.yaml and wakeup-source.
-
-Right, thanks. v3 will use wakeup-source with phandles to
-system-idle-states.
-
-Two questions before I rework it:
-- alarmtimer needs a suspend state for each phandle. Is mapping
-  standby to s2idle and shallow, and the mem* states to deep, acceptable?
-- linux,wakeup-states = "none" covered an RTC that wakes the system from
-  no state, e.g. meson-vrtc, which enables wakeup unconditionally, on a
-  board whose firmware ignores it. How should a board describe that
-  with wakeup-source?
-
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] iio: adc: max34417: voltage read fails on power overflow in
+  CAM mode
+- [Medium] iio: adc: max34417: stale OVF and state desync in
+  max34417_setup_cam_mode()
 --
-Igor Velkov
+
+commit bc8a43ebc9b20a80f36676c2f0db12f5485b7c1d
+Author: Neil Armstrong <neil.armstrong@linaro.org>
+
+iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power=
+ Accumulator
+
+This commit adds an IIO ADC driver for the MAX34417 four-channel voltage and
+power accumulator over I2C/SMBus, supporting single-shot voltage and power
+measurements as well as continuous energy and average power accumulation.
+
+> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
+> new file mode 100644
+> index 0000000000000..241cc9c3c2546
+> --- /dev/null
+> +++ b/drivers/iio/adc/max34417.c
+[ ... ]
+> +static int max34417_check_ovf(struct max34417_data *max34417)
+> +{
+> +	struct regmap *map =3D max34417->regmap;
+> +	u32 control;
+> +	int rc;
+> +
+> +	rc =3D regmap_read(map, MAX34417_CONTROL_REG, &control);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (!(control & MAX34417_CONTROL_OVF))
+> +		return 0;
+> +
+> +	rc =3D regmap_clear_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_OV=
+F);
+> +	if (rc)
+> +		return rc;
+> +
+> +	rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Save the timestamp for the next read */
+> +	max34417->last_update =3D ktime_get();
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int max34417_save_accumulators(struct max34417_data *max34417)
+> +{
+> +	s64 acc_power;
+> +	s32 acc_count;
+> +	int rc;
+> +
+> +	rc =3D max34417_read_acc_count(max34417, &acc_count);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (check_add_overflow(max34417->acc_count, acc_count, &max34417->acc_c=
+ount)) {
+> +		max34417->overflow =3D true;
+> +		goto check_ovf;
+> +	}
+> +
+> +	for (int i =3D 0; i < MAX34417_CHANNEL_COUNT; i++) {
+> +		rc =3D max34417_read_acc_power(max34417, MAX34417_PWR_ACC_1_REG + i,
+> +					     &acc_power);
+> +		if (rc)
+> +			return rc;
+> +
+> +		/* Check for overflow on local accumulators */
+> +		if (check_add_overflow(max34417->acc_power[i], acc_power,
+> +				       &max34417->acc_power[i])) {
+> +			max34417->overflow =3D true;
+> +			goto check_ovf;
+> +		}
+> +	}
+> +
+> +check_ovf:
+> +	rc =3D max34417_check_ovf(max34417);
+> +	if (rc)
+> +		return rc;
+> +
+> +	return max34417->overflow ? -EOVERFLOW : 0;
+> +}
+> +
+> +static int max34417_read_voltage(struct max34417_data *max34417,
+> +				 const struct iio_chan_spec *chan, int *val)
+> +{
+[ ... ]
+> +	rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Save the timestamp for the next read */
+> +	max34417->last_update =3D ktime_get();
+> +
+> +	if (max34417->cam_mode) {
+> +		/* Retrieve all channels to avoid missing data for other channels */
+> +		rc =3D max34417_save_accumulators(max34417);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	rc =3D regmap_noinc_read(map, chan->address, &buf, sizeof(buf));
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Ignore first byte which contains the Byte Count & data starts at Bit=
+ 2 */
+> +	*val =3D get_unaligned_be16(&buf[MAX34417_VOLTAGE_READ_OFFSET]) >> 2;
+> +
+> +	return IIO_VAL_INT;
+> +}
+
+[Severity: Medium]
+Should max34417_read_voltage() fail with -EOVERFLOW when a software power
+accumulator overflows in CAM mode?
+
+Voltage readings from MAX34417_V_CHx_REG are instantaneous 14-bit samples
+that do not depend on max34417->acc_power[] or max34417->acc_count, yet once
+max34417->overflow is set, max34417_save_accumulators() returns -EOVERFLOW
+and aborts every voltage read.
+
+In addition, because neither max34417_read_voltage() nor
+max34417_save_accumulators() checks max34417->overflow before running
+check_add_overflow(), subsequent voltage reads continue adding into the
+wrapped max34417->acc_count and max34417->acc_power[] values.  And if
+MAX34417_CONTROL_OVF is set in hardware, max34417_check_ovf() clears it and
+writes MAX34417_UPDATE_REG before max34417_read_voltage() has read
+chan->address.
+
+[ ... ]
+> +static int max34417_setup_cam_mode(struct max34417_data *max34417, int v=
+al)
+> +{
+> +	struct regmap *map =3D max34417->regmap;
+> +	int rc;
+> +
+> +	if (max34417->cam_mode && !val) {
+> +		/* Reset counters and accumulators */
+> +		for (int i =3D 0; i < MAX34417_CHANNEL_COUNT; i++)
+> +			max34417->acc_power[i] =3D 0;
+> +		max34417->acc_count =3D 0;
+> +		max34417->overflow =3D false;
+> +
+> +		rc =3D regmap_clear_bits(map, MAX34417_CONTROL_REG,
+> +				       MAX34417_CONTROL_CAM);
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +	} else if (!max34417->cam_mode && val) {
+> +		/*
+> +		 * If CAM mode must be set, the Control byte must be set to desired
+> +		 * values with CAM =3D 0, then followed by an UPDATE.
+> +		 */
+> +		rc =3D regmap_clear_bits(map, MAX34417_CONTROL_REG,
+> +				       MAX34417_CONTROL_CAM);
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc =3D regmap_set_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_CAM=
+);
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	/* Save the timestamp for the next read */
+> +	max34417->last_update =3D ktime_get();
+> +
+> +	max34417->cam_mode =3D val;
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does max34417_setup_cam_mode() leave MAX34417_CONTROL_OVF set in
+MAX34417_CONTROL_REG when toggling CAM mode after an accumulator saturation?
+
+When a hardware accumulator saturates, the chip sets MAX34417_CONTROL_OVF
+and stops measuring until MAX34417_CONTROL_OVF is cleared followed by an
+UPDATE command.  And once max34417->overflow is set, max34417_read_power()
+and max34417_read_energy() return -EOVERFLOW before reaching
+max34417_check_ovf(), so disabling and re-enabling CAM mode is the way to
+reset accumulation.  Because both branches here only modify
+MAX34417_CONTROL_CAM via regmap_clear_bits() and regmap_set_bits(),
+MAX34417_CONTROL_OVF stays set in hardware across the reset and keeps
+accumulation halted when CAM mode is re-enabled.
+
+Also, in the disable branch, max34417->acc_power[], max34417->acc_count and
+max34417->overflow are cleared before the I2C writes, so a failed write
+discards the accumulated data while leaving max34417->cam_mode true; in the
+enable branch, if the final regmap_write(map, MAX34417_UPDATE_REG, 1) fails,
+MAX34417_CONTROL_CAM remains set in hardware while max34417->cam_mode stays
+false.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-topic-sm8x=
+50-iio-max34417-adc-v7-0-d8f87edc5086@linaro.org?part=3D3
