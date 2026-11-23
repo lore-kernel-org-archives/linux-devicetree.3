@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795428237;
-	b=B2fZIkZ75wp5KHiS8nZb8lj9eZd5qkrLKpYUD0MkVflSYh3chsdIeaWub/l939v428pw
-	 wS9nEsmfPfE+3LcVtMoLTUQwWp44mq3iJjdY7Y8N/ETNZk/SjKemQx3vRiQRTFThujA3t
-	 IVR7vIifCpa8+NIqYJOQUAN4wANQwdYfnji5gBUF1K1dsaqI3WNnTFd32ScOkAVmu4WMV
-	 yy+uhcFIQVs3PMzDI7GLYZOf8uAqhaRD7snj/Tb52yX6974hzLkSGqV/bvBFDrYkxnhMW
-	 LQ9w7fhGC0Ue82HhBzCMHUtcYr9CTFHabG/HEtqexr5zmSAcl8qT2SDq5AImC9p0InA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795428237;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9uFnVsSuSjwnHdza2PvBe3O79v5OiuiGzGTqkCMEeUs=;
-	b=DSQm/saCmkLmx0mSarcQ7/dSDiSlynIBZ6TTkHhNysw5aeXXGZJAxxACmRdM3qYvjNFT
-	 sABDPPDBHVPvFqeLX6LIAtVMU9aWRF53jwqwaKJV8zky8fub5xs8e/rc3e7uS0jchBq/v
-	 zOMMSfepwls52FxTp3CQKAjfVlivDH8n7A/aG71zppXyHbgYuZcdFl086i5eDh8jJr8l3
-	 hufH8ceL0cYN1UuLJ7g+xXb2ZFxE7HyvWqJ1loGCHvEDuEnRZ8mXq4piQHS6uLR0Fxf0i
-	 L05XLjfv1rCPvVTyvdXfPHEIbIUFUF9F52tY1MlHcEUZlvHyvEWs2FNoZHueYZN1A7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=mva1vmAt;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9961B606A31A;
-	Mon, 23 Nov 2026 10:03:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9961B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=mva1vmAt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795428234;
-	bh=GTPJKfk+Vuy2iJXONi3rgzMkg2upooVyvUQ8sikp9Ko=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mva1vmAt4wiEfY/P6hmAexz+TZmUVwCKqFfC68UosI6UC5iRnTQ/MKVWSlCQaLDkm
-	 srypqWcI8XjD/3X4m/cN9cbhpxeqKTESHIWvyr2kIiDZOO4Ae82RYHGZ1v1T5BVbcs
-	 DDYc4ZSS2GUK8RkLPIB1LKKn/y8hfvrJTLTTKnxjjeeAWHPZ0CePtF6YbhTu2HIZJy
-	 4yE7GaFfatjjgjW7vslx8PHwAFyGwLA/TS5cu7QSq0/hKTo6s/GPqmKJTYszKWOeMJ
-	 OP6+dXPSMniA10R5/pEIMOYrsu2btNPplVo5wAw+353PXjeUzuOYSg2DvsKviI03kt
-	 V6Ny6qwxp2i5w==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795428283;
+	b=eA5zKHJEcPwLEP9tOh5KA7UU+hOtnwDblQxCepefCufvgK8COoj5vQKhdSmmI+8Gm0x0
+	 P5ONSHTG1U6N3OBuE/nGWbXDyzQaNV9lse4XNtkwK2M7DOoVpLRWzFxgsKCQguHDia173
+	 TBMUIswTOJ2wDglNbAb+/1avUHaTw+85Immv7ywX3v1TSqcqK9WgU1FzB9MmEyaiyuOWX
+	 JUPNkAoJzEqfOB1RMJUAhe1eM12rv7AfnP6a4r98/jYfYRIWHampEZUxkD+YNcH2BXI3e
+	 OInwwn2b/2aKJnRhRDRbIv42EmWymbbiMXwCiBR8UuEy8l3HWmIaYU3U1dKKMkHHtUw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795428283;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6UD6d4OR7O5/YFJwC3m/R5TqgdXj9WG+ZTBm269rAHk=;
+	b=Y5/Uj9l9QT4wupffKuJBSHg5CmH+z69B6VD2JlcuVeGX8YUj1n94pws95JKtwl3Ld4ku
+	 e+04aZswltWwk55HAFEIG/rRlCS5n2qKI5JdXqtWjlIqtP7c4WDfXxpaKyDPjmm4epeHD
+	 5wAYGbgMm1vaTjUzwddxMhcRf1XTPZBd/kwrQe8uwOag+an+FY4emxKKPmkD+QbYmR7N2
+	 iNqfIrPsGR4qH5VoXgXq+nIDjuaJSu2/qsj+VWqk6N5qbNj865BwOCcdrdU4NDvsYDiGr
+	 xt9bK1VLOIEBmhPvgVmBnTWV7+SJzQYT4pGNpT+A/r36Wt6ZF0RTrpfsvJ/zPJX5Elw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=fEskxHSQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 348EF17E031C;
-	Mon, 23 Nov 2026 11:03:54 +0100 (CET)
-Message-ID: <b973584f-55c7-4d66-b02a-f253bf774ad7@collabora.com>
-Date: Mon, 23 Nov 2026 11:03:53 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF07F606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 10:04:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF07F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=fEskxHSQ
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso3836838a12.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 02:04:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795428281; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WRTBSWYCi59GWdSTPWUce8XenFWXTIyW4aekZbKYX12qhb1DiMIgaJQX8Dql59V2H3
+         5ib7BU8JaIEm5LijM64aburD3ExhHelFDgVC3nv91VI+Yl6Sji30B/twezOI/InEIWMb
+         y+u/OmcN1aMpj66uedYnR/u1qclLOHItr+r+RvYh7toIJp5jbdxsKMMSdbZdxOHXob7X
+         Ke4Jh2I1RgzbXjjsV20IlGlNDK5eDtnjrhz3FBJEduyD2kewFIN2RmOdkmb4gYNQFl7b
+         rU4AapWnyhLhrYMqXYHKE3VfazfqfPrhvraE/hLIZZoW7MNe43RJumR4PD5m8VNKQSOr
+         Ysrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6UD6d4OR7O5/YFJwC3m/R5TqgdXj9WG+ZTBm269rAHk=;
+        fh=4lL5FRiWnwYM3MLneyqOkh5Z/OeP3xJ7pebKc9jbgZE=;
+        b=QNW/2YLa3Qbv54ut2KQFd5enqS3jluOC6726Lid7qjNUrXEdK7r34GJiEiIHqKW6xf
+         lSqbwiJxGGG7nrOx4ww0tX5CMrUNHSlDsQXIrlPGMHiW4lA3h3F+yf0EcJ5rQ2AP2Q4H
+         aMiTb4YJEz2BxD8fyXFHy4ro+rIkZOxn1B2g7VN9vm2y5kKY/bjU8S5ndJKB+G/0NjUI
+         6Eg2nY1lO6rZ8jfhs/nqpybn9/CoiPNF90WlqkAc63B4hzsgcdBn6m19hTda8ffA5pOP
+         54W1ycPKSBJuSYwa0Iw9vVizRk66cS9Bj7nXvmJQ3iTvj5r/xOI6h03Ysoz7pQLov5nT
+         mZew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1795428281; x=1796033081; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6UD6d4OR7O5/YFJwC3m/R5TqgdXj9WG+ZTBm269rAHk=;
+        b=fEskxHSQrfKjI66o/PpuzFTiLwe24il6dEoMqkWtkIvNllSUSzSOYCuqDTFWkeE2d3
+         bL6W4hf36LVvsVTm0XR+yrXS0JcEqlIaSGiOwRNQpBSfcu1t6xcrV1Z3/pb+x5cwcDuJ
+         zV1kKB/cAfkRSBWWnWPskdwMMxk+5lOuJI8zr+e81cgEv2YjKCI3WfdDWaieCXTmGwfd
+         Dcx4N7LoRSxFEbT4l8ZAwr9XshIOLKpD5yKD6Og/sDqP0N6sgC+0xZz9cHSyjSI8+UuC
+         bOcujU9jTNteuQLRkBak7LasmMi7fRyU2L7ZThR7SVzYnSW067bEEcaWZyxoD5PSpjfk
+         3OHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795428281; x=1796033081;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6UD6d4OR7O5/YFJwC3m/R5TqgdXj9WG+ZTBm269rAHk=;
+        b=qjkxhPNdaIbgU9HwD3c0yQfQ/Zge0SpvppXVTtNfRt5seMZa+2FqoDHSFb6GUt81x3
+         cfyU0cInR+BnX9DgJULuamSv6qbTIo+MhVx/FhRll5wMRrPqJ26+/HeFJrctGLuLdnto
+         4wXpYXcYHPFKbs/QcQpRZQ4eSrCvm+sCXJY7EV52ekzQ/+RLDKaIEP+r0gH/YRRtvNdS
+         rywUnjXBhXjvXFTUt/jfX/RyQcEQcifU3G6L5eGO8mcDsR+FpcSRWWDfr/Rg3/Xx7+LX
+         M2Lm0QLxDdSScaBr5mJm6ShNilnpyO+koprYtN2SHzVKYk1OY1IC0HwlDiSMRgVVcyzw
+         Dm/w==
+X-Forwarded-Encrypted: i=1; AL+hErEpmrCp3+jK4h4AZoYZwBM7EVVwyci5WfIFRIKLGEf+8TkeSAfjdJz5azhK9IIL9Ar/NieBVk9HS6XM@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Qc3aWg3BklWx2fG87NVvLRgQ4ywiTyGKr1A60TlAGW51irLKe
+	O9Ud+hF2dqBW7pe5uT/Q+xzqdWz/xH3w3cOX2ADjtt8XYAywbONtmbST2S+tmuGYsyxGItd0f/q
+	NRxEIk4XMW2Bw9Zk8JHFzBvmXAyAo/VDdu6F+6fFJsw2tCPtyrWe0Aes=
+X-Gm-Gg: AZFdTZero/Z9+BvXMOURXxLR1ej1RF9JKy7cgo/CSLu3IYNgBbPIKa/0wcB7YVuv5kS
+	zJRAmw3jfYX+Wzi29ijKKvMptCAms6s2+SLz82QZrNWT8+XR1LQ0EFg3p8DJkL2/+NY9W45dKB+
+	O4AtvpkmCBrhE5jFSFNxfwmk66hFeVxQWV46sg00ApG2PeqxMOAYAWiILDHvEjvg/JV3hui31pe
+	RBliJJMu8FKUQiaIGJa80/HkXDTh6xr9iYT4UyNMeeG0eL0LkS/4ZqyLbKXrF8NDYJhdOwKEy1F
+	Mg2FbGXSM7Mpy+fkhCYslY0ORWI1+uQDi6LQJIHgYJAmAUU0uYtusCSQM2Dnrdf+64Q2IMAtkyB
+	TA3pBgaAEpRIsYDakMW+P33m8mywVWCvFfGFJKQSDejR6WxmNTK/QhX4=
+X-Received: by 2002:a17:906:2707:b0:c51:2064:1958 with SMTP id
+ a640c23a62f3a-c513a39efe6mr814320766b.2.1795428281172; Mon, 23 Nov 2026
+ 02:04:41 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,286 +104,382 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 28/46] drm/mediatek: Add support for MediaTek Digital
- Video Output (DVO)
-To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
- <mripard@kernel.org>, "kernel@collabora.com" <kernel@collabora.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "airlied@gmail.com" <airlied@gmail.com>,
- =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-29-angelogioacchino.delregno@collabora.com>
- <b7b4c2bf61a88b533e504603c4dcbc79c1de6f06.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <b7b4c2bf61a88b533e504603c4dcbc79c1de6f06.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261122-pcie6_fix-v2-0-2e0fe615d90b@oss.qualcomm.com> <20261122-pcie6_fix-v2-1-2e0fe615d90b@oss.qualcomm.com>
+In-Reply-To: <20261122-pcie6_fix-v2-1-2e0fe615d90b@oss.qualcomm.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Mon, 23 Nov 2026 14:04:29 +0400
+X-Gm-Features: Aa3M54pOZMnCeWnbYXgIXixZWgeLWc5StKGtiBVYf4ZIEkVQkWFUunq1ArlQkOQ
+Message-ID: <CAKTNdwEFSDn4K_15pVK7=ZEWwanHQ284R4=spWWLCB0UspEMow@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: connector: Add PCIe M.2 Mechanical
+ Key B connector
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/20/26 08:42, CK Hu (胡俊光) wrote:
-> On Tue, 2026-07-14 at 13:43 +0200, AngeloGioacchino Del Regno wrote:
->> Add a new driver for the Digital Video Output (DVO) hardware found
->> in the MT8189, MT8196 Kompanio SoCs and their Dimensity and Genio
->> variants.
->>
->> This version currently supports output to Embedded DisplayPort on
->> MT8189 and MT8196, and to DisplayPort on MT8189.
->>
->> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->> ---
-> 
-> [snip]
-> 
->>   static inline struct mtk_dpi *bridge_to_dpi(struct drm_bridge *b)
->> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
->> index f7cbf9b47672..f96f887809c0 100644
->> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
->> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
->> @@ -621,8 +621,12 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
->>   	  .data = (void *)MTK_DISP_DSI },
->>   	{ .compatible = "mediatek,mt8188-dsi",
->>   	  .data = (void *)MTK_DISP_DSI },
->> -	{ .compatible = "mediatek,mt8196-dsi",
-> 
-> Why do you remove "mediatek,mt8196-dsi"? This is not related to this patch.
+Hi Krishna,
 
-That was not supposed to be here and it's a (huge) mistake.
+On Sun, Nov 22, 2026 at 10:46=E2=80=AFAM Krishna Chaitanya Chundru
+<krishna.chundru@oss.qualcomm.com> wrote:
+>
+> Add the devicetree binding for PCIe M.2 Mechanical Key B connector
+> defined in the PCI Express M.2 Specification, r4.2, sec 3.2.19.1. This
+> connector is used to attach WWAN Adapters to the host machine over
+> interfaces such as PCIe, USB3.1 Gen1, SSIC, or USB 2.0. The slot also
+> accepts SATA and PCIe SSD Adapters, which use the same pins.
+>
+> Interfaces that share connector pins are described as one graph port
+> per pin group, with the endpoint number selecting between the mutually
+> exclusive interfaces.
+>
+> The connector provides a primary power supply of 3.3V/VBAT, along with
+> optional GPIO signals: FULL_CARD_POWER_OFF#, RESET#, W_DISABLE1# and DPR
+> for WWAN Adapters, and DEVSLP, PLN# and SMBus ALERT# for SSD Adapters,
+> plus an I2C parent for the SSD SMBus.
+>
+> The function of the GPIO_0..GPIO_11 pins depends on the Port
+> Configuration, so they are described by gpioN-gpios properties with the
+> function of each pin per configuration documented in the binding. The
+> Adapter configuration is either sensed through config-gpios
+> (CONFIG_0..3) or fixed with config-state, which defaults to WWAN PCIe.
+>
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.co=
+m>
+> ---
+>  .../bindings/connector/pcie-m2-b-connector.yaml    | 332 +++++++++++++++=
+++++++
+>  MAINTAINERS                                        |   1 +
+>  2 files changed, 333 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/connector/pcie-m2-b-connec=
+tor.yaml b/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.=
+yaml
+> new file mode 100644
+> index 000000000000..4760863ff4f7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.yam=
+l
+> @@ -0,0 +1,332 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/connector/pcie-m2-b-connector.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: PCIe M.2 Mechanical Key B Connector
+> +
+> +maintainers:
+> +  - Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> +
+> +description:
+> +  A PCIe M.2 B connector node represents a physical PCIe M.2 Mechanical =
+Key B
+> +  connector. Mechanical Key B connectors are used to connect WWAN device=
+s to
+> +  the host machine over interfaces like PCIe, USB3.1 Gen1, SSIC, or USB =
+2.0,
+> +  selected by the Adapter's configuration pins. The slot also accepts SA=
+TA and
+> +  PCIe SSD Adapters, which use the same pins as the WWAN interfaces.
+> +
+> +properties:
+> +  compatible:
+> +    const: pcie-m2-b-connector
+> +
+> +  vpcie3v3-supply:
+> +    description: A phandle to the regulator for the 3.3v/VBAT supply.
 
-Thanks for pointing that out.
+The node name doesn't match what the spec calls it ("pcie" seems
+redundant). Also, can a module have separate supplies for its 3.3v and
+VBAT?
 
-> 
->> -	  .data = (void *)MTK_DISP_DSI },
->> +	{ .compatible = "mediatek,mt8189-dp-dvo",
->> +	  .data = (void *)MTK_DISP_DVO },
->> +	{ .compatible = "mediatek,mt8189-edp-dvo",
->> +	  .data = (void *)MTK_DISP_DVO },
->> +	{ .compatible = "mediatek,mt8196-edp-dvo",
->> +	  .data = (void *)MTK_DISP_DVO },
->>   	{ }
->>   };
->>   
-> 
-> [snip]
-> 
->> +static void mtk_dvo_config_color_format(struct mtk_dpi *dvo,
->> +					enum mtk_dpi_out_color_format format)
->> +{
->> +	mtk_dvo_config_channel_swap(dvo, dvo->channel_swap);
->> +
->> +	dev_err(dvo->dev, "[DPTX] format:%d", format);
-> 
-> I think you should use debug, not err.
-> 
+> +  full-card-power-off-gpios:
+> +    description: GPIO output to FULL_CARD_POWER_OFF# signal. This signal=
+ is
+> +      used by the host system to turn off the entire Adapter. Refer, PCI
+> +      Express M.2 Specification r4.0, sec 3.2.13.1 for more details.
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    description: GPIO output to RESET# signal. This signal is used by th=
+e
+> +      host system to place the WWAN Adapter into a power-on reset condit=
+ion.
+> +      Refer, PCI Express M.2 Specification r4.0, sec 3.2.13.2 for more
+> +      details.
+> +    maxItems: 1
+> +
+> +  w-disable1-gpios:
+> +    description: GPIO output to W_DISABLE1# signal. This signal is used =
+by
+> +      the host system to disable the WWAN radio on the Adapter. Refer, P=
+CI
+> +      Express M.2 Specification r4.0, sec 3.1.12.3 for more details.
+> +    maxItems: 1
 
-Yes.
+Shouldn't we also have w-disable2-gpios? The first one typically
+controls the WWAN radio, and the second one controls GNSS.
 
->> +
->> +	switch (format) {
->> +	case MTK_DPI_COLOR_FORMAT_YCBCR_444:
->> +		mtk_dvo_config_yuv422_enable(dvo, false);
->> +		mtk_dvo_config_csc_enable(dvo, true);
->> +		break;
->> +	case MTK_DPI_COLOR_FORMAT_YCBCR_422:
->> +		mtk_dvo_config_yuv422_enable(dvo, true);
->> +		mtk_dvo_config_csc_enable(dvo, true);
->> +		break;
->> +	case MTK_DPI_COLOR_FORMAT_RGB:
->> +	default:
->> +		mtk_dvo_config_yuv422_enable(dvo, false);
->> +		mtk_dvo_config_csc_enable(dvo, false);
->> +		break;
->> +	}
->> +}
->> +
-> 
-> [snip]
-> 
->> +static void mtk_dvo_config_hw(struct mtk_dpi *dvo,
->> +			      struct videomode *vm, struct mtk_dpi_sync *sync,
->> +			      struct mtk_dpi_polarities *dpi_pol,
->> +			      struct mtk_dpi_yc_limit *limit)
->> +{
->> +	struct drm_display_mode *mode = &dvo->mode;
->> +	u32 vactive = vm->vactive;
->> +
->> +	mtk_dvo_sw_reset(dvo, true);
->> +
->> +	mtk_dvo_irq_enable(dvo);
->> +
->> +	mtk_dpi_config_pol(dvo, dpi_pol);
->> +
->> +	mtk_dvo_config_hsync(dvo, &sync->hsync);
->> +	mtk_dvo_config_vsync(dvo, &sync->vsync_l_odd, DVO_TGEN_V0, DVO_TGEN_V1);
->> +	mtk_dvo_config_vsync(dvo, &sync->vsync_l_even, DVO_TGEN_V_EVEN0, DVO_TGEN_V_EVEN1);
->> +
->> +	mtk_dvo_config_interface(dvo, !!(vm->flags & DISPLAY_FLAGS_INTERLACED));
->> +
->> +	if (vm->flags & DISPLAY_FLAGS_INTERLACED)
->> +		vactive >>= 1;
->> +
->> +	mtk_dvo_config_fb_size(dvo, vm->hactive, vactive);
->> +
->> +	mtk_dvo_config_channel_limit(dvo, limit);
->> +	mtk_dvo_config_channel_swap(dvo, dvo->channel_swap);
->> +	mtk_dvo_config_color_format(dvo, dvo->color_format);
->> +
->> +	mtk_dvo_info_queue_start(dvo);
->> +	mtk_dpi_buffer_ctrl(dvo);
->> +
->> +	mtk_dvo_trailing_blank_setting(dvo);
->> +	mtk_dvo_get_gs_level(dvo);
->> +	mtk_dvo_golden_setting(dvo);
-> 
-> The two register set by mtk_dvo_golden_setting() would immediately set by mtk_dvo_sodi_setting(),
-> so mtk_dvo_golden_setting() is redundant function. Drop it.
-> 
+> +  dpr-gpios:
+> +    description: GPIO output to the Dynamic Power Reduction (DPR) signal=
+.
+> +      This signal is provided by a host system proximity sensor to the
+> +      Adapter to trigger a reduction in the radio transmit output power =
+to
+> +      meet regulatory SAR requirements. Refer, PCI Express M.2 Specifica=
+tion
+> +      r4.0, sec 3.2.13.4 for more details.
+> +    maxItems: 1
+> +
+> +  alert-gpios:
+> +    description: GPIO input to the SMBus ALERT# signal (pin 44, shared w=
+ith
+> +      GPIO_2). SSD Adapters assert this signal to indicate to the host t=
+hat
+> +      the SMBus device requires attention. It is not present on WWAN
+> +      Adapters. Refer, PCI Express M.2 Specification r4.2, sec 3.2.14.2.=
+1
+> +      for more details.
+> +    maxItems: 1
 
-That's right. I'll recheck that part.
+It's also GNSS_IRQ in Port Config_0 and Port Config_1, so that should
+probably be reflected in the description. Or maybe treat all
+multi-function GPIOs (GPIO_0..GPIO_11) uniformly, and either define
+all alt functions for each of them, or none? Otherwise, this one looks
+out of line with the rest.
 
->> +	mtk_dvo_sodi_setting(dvo, mode);
->> +
->> +	mtk_dvo_set_output_pixiter(dvo);
->> +
->> +	mtk_dvo_sw_reset(dvo, false);
->> +}
->> +
-> 
-> [snip]
-> 
->> +
->> +static enum drm_mode_status
->> +mtk_dvo_bridge_mode_valid(struct drm_bridge *bridge,
->> +			  const struct drm_display_info *info,
->> +			  const struct drm_display_mode *mode)
->> +{
-> 
-> In dpi driver, it check mode->clock max_clock_khz, so I think here should also check this.
-> 
+> +  i2c-parent:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Phandle to the host I2C controller connected to the SMB=
+us
+> +      pins SMB_CLK and SMB_DATA (pins 40 and 42, shared with GPIO_0 and
+> +      GPIO_1). The SMBus is only present on SSD Adapters. Refer, PCI Exp=
+ress
+> +      M.2 Specification r4.2, sec 3.2.14.2 for more details.
 
-Yeah, thing is - this was a bit more complicated than just checking max_clock_hz to
-actually be correct, and I was planning to improve that later - but I guess that a
-basic check for max_clock_hz is better than unconditionally and stupidly accepting
-any mode.
+It's also GNSS_SCL/GNSS_SDA in Port Config_0 and Port Config_1, so
+that should probably be reflected in the description.
 
-I'll add a decent check here, thanks for pointing that out.
+On a broader point, I see you've decided to keep the "slow" interfaces
+and GPIOs out of the ports schema - is that intentional? I'm afraid
+that would make referencing e.g. the audio interface provider more
+cumbersome. Maybe we need to define a DAI subnode for it then?
 
->> +	return MODE_OK;
->> +}
->> +
-> 
-> [snip]
-> 
->> --- /dev/null
->> +++ b/drivers/gpu/drm/mediatek/mtk_dvo_regs.h
->> @@ -0,0 +1,192 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * Copyright (c) 2014 MediaTek Inc.
->> + * Author: Jie Qiu <jie.qiu@mediatek.com>
->> + */
->> +#ifndef __MTK_DPI_REGS_H
-> 
-> __MTK_DVO_REGS_H
-> 
->> +#define __MTK_DPI_REGS_H
->> +
-> 
-> [snip]
-> 
->> +#define DVO_TGEN_INFOQ_LATENCY	0x80
->> +#define INFOQ_START_LATENCY		0
->> +#define INFOQ_START_LATENCY_MASK	(0xffff << 0)
->> +#define INFOQ_END_LATENCY		16
->> +#define INFOQ_END_LATENCY_MASK		(0xffff << 16)
->> +
->> +#define DVO_BUF_CON0		0x220
-> 
-> It's better to place register definition in address number order.
-> 
+Also, should pinctrl groups corresponding to different interface
+configurations be part of the binding?
 
-I completely agree. That was my intention, but with all this stuff that I've done
-some things started slipping out of my sight ;-)
+> +  devslp-gpios:
+> +    description: GPIO output to the DEVSLP signal (pin 38). The host ass=
+erts
+> +      this signal to tell a SATA SSD to enter the Device Sleep power sta=
+te.
+> +      It is only present on SATA SSD Adapters. Refer, PCI Express M.2
+> +      Specification r4.2, sec 3.2.10.1 for more details.
+> +    maxItems: 1
+> +
+> +  pln-gpios:
+> +    description: GPIO output to the Power Loss Notification (PLN#) signa=
+l
+> +      (pin 8, shared with W_DISABLE1#). The host asserts this signal to
+> +      notify a PCIe SSD that a power loss event is about to occur. WWAN
+> +      boards use w-disable1-gpios for this pin instead. Refer, PCI Expre=
+ss
+> +      M.2 Specification r4.2, sec 3.2.18.1 for more details.
+> +    maxItems: 1
+> +
+> +  config-gpios:
+> +    description: |
+> +      GPIO inputs sensing the four CONFIG_0..3 pins (pins 21, 69, 75 and=
+ 1
+> +      respectively, listed in that order in this property). The Adapter
+> +      grounds or leaves unconnected (NC) each of these pins to tell the =
+host
+> +      the Adapter type, the host interface in use and, for WWAN Adapters=
+, the
+> +      active GPIO_0..11 Port Configuration. Boards that only ever use on=
+e
+> +      Adapter type should use config-state instead. If both properties a=
+re
+> +      present, config-gpios takes precedence. Refer, PCI Express M.2
+> +      Specification r4.2, sec 3.2.15 and Table 3-18 for more details.
 
+s/only ever use/only support/ ?
 
->> +#define DISP_BUF_EN			BIT(0)
->> +#define FIFO_UNDERFLOW_DONE_BLOCK	BIT(4)
->> +
-> 
-> [snip]
-> 
->> +#define DVO_PATTERN_COLOR		0x104
->> +#define PAT_R					(0x3ff << 0)
->> +#define PAT_G					(0x3ff << 10)
->> +#define PAT_B					(0x3ff << 20)
->> +
->> +#define DVO_Y_LIMIT			0x130
->> +#define Y_LMT_BOT				GENMASK(9, 0)
->> +#define Y_LMT_TOP				GENMASK(21, 12)
->> +
->> +#define DVO_C_LIMIT			0x134
->> +#define C_LMT_BOT				GENMASK(9, 0)
->> +#define C_LMT_TOP				GENMASK(21, 12)
->> +
->> +#define DVO_SHADOW_CTRL			0x190
->> +#define FORCE_COMMIT				BIT(0)
->> +#define BYPASS_SHADOW				BIT(1)
->> +#define READ_WRK_REG				BIT(2)
->> +
->> +#define DVO_SIZE			0x18
-> 
-> Ditto.
-> 
->> +#define DVO_TGEN_VWIDTH			0x28
->> +#define DVO_TGEN_VPORCH			0x2c
->> +#define DVO_TGEN_HPORCH			0x24
->> +#define DVO_TGEN_HWIDTH			0x20
->> +
->> +#define DVO_BUF_SODI_HIGHT		0x230
->> +#define DVO_BUF_SODI_LOW		0x234
->> +#define DVO_BUF_DVFS_HIGHT		0x238
->> +#define DVO_BUF_DVFS_LOW		0x23c
->> +#define DVO_BUF_PREULTRA_HIGHT		0x240
->> +#define DVO_BUF_PREULTRA_LOW		0x244
->> +#define DVO_BUF_ULTRA_HIGHT		0x248
->> +#define DVO_BUF_ULTRA_LOW		0x24c
->> +#define DVO_BUF_URGENT_HIGHT		0x250
->> +#define DVO_BUF_URGENT_LOW		0x254
->> +#define DVO_DISP_BUF_MASK		GENMASK(31 ,0)
-> 
-> GENMASK(31, 0)
+Shall we enforce that only one of `config-gpios` or `config-state` is
+present via the schema, and remove the precedence description from the
+text?
 
-Thanks, will cleanup
+> +      Table 3-18. Socket 2 Add-in Card Configuration:
+> +
+> +        CONFIG_0 CONFIG_1 CONFIG_2 CONFIG_3  Adapter Type / Host Interfa=
+ce   Port Config
+> +        GND      GND      GND      GND       SSD - SATA                 =
+      N/A
+> +        GND      NC       GND      GND       SSD - PCIe                 =
+      N/A
+> +        GND      GND      NC       GND       WWAN - PCIe                =
+      0
+> +        GND      NC       NC       GND       WWAN - PCIe                =
+      1
+> +        GND      GND      GND      NC        WWAN - PCIe, USB3.1 Gen1   =
+      0
+> +        GND      NC       GND      NC        WWAN - PCIe, USB3.1 Gen1   =
+      1
+> +        GND      GND      NC       NC        WWAN - PCIe, USB3.1 Gen1   =
+      2
+> +        GND      NC       NC       NC        WWAN - PCIe, USB3.1 Gen1   =
+      3
+> +        NC       GND      GND      GND       WWAN - SSIC                =
+      0
+> +        NC       NC       GND      GND       WWAN - SSIC                =
+      1
+> +        NC       GND      NC       GND       WWAN - SSIC                =
+      2
+> +        NC       NC       NC       GND       WWAN - SSIC                =
+      3
+> +        NC       GND      GND      NC        WWAN - PCIe                =
+      2
+> +        NC       NC       GND      NC        WWAN - PCIe                =
+      3
+> +        NC       GND      NC       NC        WWAN - PCIe, USB3.1 Gen1   =
+      vendor-defined
+> +        NC       NC       NC       NC        No Add-in Card present     =
+      N/A
+> +    minItems: 4
+> +    maxItems: 4
+> +
+> +  config-state:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Fixed Adapter configuration for boards that do not sense the CONFI=
+G_0..3
+> +      pins, given as the state number (0-14) of Table 3-18 of the PCI Ex=
+press
+> +      M.2 Specification r4.2. It selects the Adapter type, the host inte=
+rface
+> +      and, for WWAN Adapters, the Port Configuration used to interpret t=
+he
+> +      gpioN-gpios properties. Ignored if config-gpios is present. If nei=
+ther
+> +      property is present, state 2 (WWAN - PCIe, Port Config_0) is assum=
+ed.
 
-Cheers,
-Angelo
+Does state 2 follow from the spec? It sounds arbitrary; perhaps
+mandating either config-gpios or config-state via "required" would be
+clearer.
 
-> 
-> Regards,
-> CK
-> 
->> +
->> +#define DVO_MATRIX_SET			0x140
->> +#define DVO_CSC_EN			BIT(0)
->> +#define DVO_INT_MTX_SEL_MASK		GENMASK(8, 4)
->> +
->> +#define DVO_YUV422_SET			0x170
->> +#define DVO_YUV422_EN			BIT(0)
->> +#define DVO_CRYCB_MAP			BIT(8)
->> +
-> 
+> +    minimum: 0
+> +    maximum: 14
+> +    default: 2
+> +
+> +  clocks:
+> +    description: 32.768 KHz Suspend Clock (SUSCLK) input from the host s=
+ystem to
+> +      the M.2 card. Refer, PCI Express M.2 Specification r4.0, sec 3.1.1=
+2.1 for
+> +      more details.
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    description: OF graph bindings modeling the interfaces exposed on th=
+e
+> +      connector. Several interfaces share the same connector pins and ar=
+e
+> +      selected by the CONFIG_0..3 pins, so each port describes one group=
+ of
+> +      pins and its endpoints describe the mutually exclusive interfaces =
+that
+> +      can be present on that group.
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: |
+> +          Pins 41, 43, 47 and 49. The endpoint number selects the interf=
+ace:
+> +            0 - PCIe lane 0
+> +            1 - SATA
+> +        patternProperties:
+> +          '^endpoint(@[0-9a-f]+)?$':
+> +            type: object
+> +            properties:
+> +              reg:
+> +                enum: [0, 1]
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: |
+> +          Pins 29, 31, 35 and 37. The endpoint number selects the interf=
+ace:
+> +            0 - USB3.1 Gen1
+> +            1 - SSIC
+> +            2 - PCIe lane 1
+> +        patternProperties:
+> +          '^endpoint(@[0-9a-f]+)?$':
+> +            type: object
+> +            properties:
+> +              reg:
+> +                enum: [0, 1, 2]
+> +
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: USB 2.0 interface (pins 7 and 9)
+> +
+> +    anyOf:
+> +      - required:
+> +          - port@0
+> +      - required:
+> +          - port@1
+
+Can there be a USB 2.0-only host that provides neither port@0 nor port@1?
+
+> +patternProperties:
+> +  '^gpio([0-9]|1[01])-gpios$':
+> +    description: |
+> +      GPIO connected to the GPIO_<N> pin of the connector, where N is th=
+e
+> +      number in the property name. The function of these pins depends on=
+ the
+> +      Port Configuration selected by config-gpios or config-state (Table=
+ 3-15
+> +      of the PCI Express M.2 Specification r4.2, sec 3.2.13.3):
+> +
+> +        GPIO  Pin  Config_0     Config_1     Config_2     Config_3
+> +        0     40   GNSS_SCL     GNSS_SCL     SIM_DETECT2  IPC_0
+> +        1     42   GNSS_SDA     GNSS_SDA     UIM_DATA2    IPC_1
+> +        2     44   GNSS_IRQ     GNSS_IRQ     UIM_CLK2     IPC_2
+> +        3     46   SYSCLK       GNSS_0       UIM_RESET2   IPC_3
+> +        4     48   TX_BLANKING  GNSS_1       UIM_PWR2     IPC_4
+> +        5     20   AUDIO_0      AUDIO_0      RFU          AUDIO_0
+> +        6     22   AUDIO_1      AUDIO_1      RFU          AUDIO_1
+> +        7     24   AUDIO_2      AUDIO_2      RFU          IPC_5/AUDIO_2
+> +        8     28   AUDIO_3      AUDIO_3      PLA_S2#      IPC_6/AUDIO_3
+> +        9     10   LED_1#       LED_1#       LED_1#       DAS/DSS/IPC_7
+> +        10    26   W_DISABLE2#  W_DISABLE2#  W_DISABLE2#  HSIC_STROBE
+> +        11    23   WoWWAN#      WoWWAN#      WoWWAN#      HSIC_DATA
+> +
+> +      The IPC_0..7 functions of Port Config_3 are vendor defined, as are=
+ all
+> +      functions in CONFIG state 14.
+> +
+> +      On SSD Adapters (CONFIG states 0 and 1) the same pins are SMB_CLK
+> +      (GPIO_0), SMB_DATA (GPIO_1), ALERT# (GPIO_2), PLA_S2# (GPIO_8), an=
+d
+> +      LED_1# or, on SATA, DAS/DSS (GPIO_9).
+> +
+> +      Only list the pins that are wired to a host GPIO. Pins used as a b=
+us
+> +      signal in the selected Port Configuration (I2C, I2S/SLIMbus, HSIC)=
+ are
+> +      not GPIOs and are not described by these properties.
+
+Should those bus signals be reflected in the binding though?
+
+Best regards,
+Alexey
