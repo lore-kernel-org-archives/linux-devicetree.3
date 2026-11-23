@@ -1,79 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795462693;
-	b=Cty9ekH7a5rBuIUQ4d0QvlB+2O9pIRiidvGhR+sRg2i+FN7QP60iXCvkdjRHIhjcs48t
-	 HOgH4B5Ghn3gAIm1XEX0SKv/5J6NP1ibWePDK/Pce5hzuOhalbRJacwl/KljjNUfvk5Xn
-	 gbObBi2HiV5WyeXeYiz1rUcOgdQxrEUP3UEBtvQUNY4nPU9za82wGDUyHZQgyX71sPOA5
-	 ZGRww6OhWM/WDpaavLmzHjA9p8GgNohG+UARvcjQWyfM8vnZyT1tx8wswL7EQI7Utlela
-	 8NWwapH4slBOMHkDovkfkMRbMoaO4N63V3agVoZaDvFrDaKfES7Tr2/KcYWoHEM3zOw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795462693;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NgtfBGZW6JnOX8QXxkHMy03vg6zeloIYXjLXT43yxao=;
-	b=wZqD2XbRdxg3wQ0VftyMSdaBJ9dnfzX7JqhmoftuziTecR/2gSeIzQ1sNtnJG7ORxjI7
-	 RXtOc1KzOYVl1GugLYCn+25Pkaegazwr5TMYF/Kl/HGYAxIt9cGWmvMfOG7TSMfF0S6Yc
-	 NAdYjpAHjKE1X68/1xrdUIiXKGBvKutk9Vz4o3Elzn2G48BwH28+X+TVR4ShxLb3z4GYn
-	 67EUdzL6CRGfgal7Wlm7l4P9iU76FsaSoMBPCWLwpVy4T5ylsRhgRoiFqRpZVN6J7naX4
-	 PbfsNasPi/gppur3/F3WkTawXcJcNGP224qvNhLtbSmuq+T03+uOhRpe0ihidik3XGw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JJAVg+eq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23DF606A6A8;
-	Mon, 23 Nov 2026 19:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JJAVg+eq
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795462693;
-	b=n3+/rrp18FUVCHC6Oh8e9F/y7nbL+KpvK22nmNwjVOwGXjmU13CuFVwzo3lxcnYMDgKF
-	 ridJ2Rk43iVmS/xBIXoCVktpzgD6u5iyZJGxa1y7hwq4o8W1AbN0cokTY8MSNyTfmJMOv
-	 /ur0JDjnUCQ8EtOujglQyuRckjRv3+/A+IHplQ8P2EqGqfL1Ikuf7iElSbCvIVCXu5kw6
-	 EJdbH9r9KGE3FZ9WJCzvqwWGfCnqkqmYLXBY+2JgiuuewOjXc9msBLX7P4m/s1msP8RBX
-	 peY/NnpjflOZFDX64Bz1FOmBBwY4aetOMrlUfAs4U/UB+E4ltiykH1f61tcnPxQM+FA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795462693;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NgtfBGZW6JnOX8QXxkHMy03vg6zeloIYXjLXT43yxao=;
-	b=g5bYXM3emvZ4jKXnzo+SkVg81zeS1YZ5oAtzcw0t4uGtOZBbFK8QfnjmTOZMLk++kbgC
-	 C5GK125BhmSZm/24/vWQTwhNWaADScloZilhqbIQkhC0nu6Pbm5svQWDFVxM6Gd9HP4Nv
-	 FgXNVpC2ha/dovYZyOkReZlog8aiD+OS1b4LtRJr4VF40wR19cyupvrDQ2/DCxa4PXvbP
-	 6DEtRWwrMA0YDX4DLR9q2ld+PWFP9xVwrY87zo7gYIaoa6R8Koml2srO1w3hILXMeNbHe
-	 1mRilUOcUsm1ms7rUQuGOaibhO5WdWQH9c5upL8jR2J06THj/S2lD9TG8ERvYzXDSGw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795462700;
+	b=wN2IbL1YP9sxQKK1z36aO+TsM+9Zxj+3M86SeUvyrgSFWDUXf9XkhIF6SWMyluwrRM1H
+	 qgKWIEoZ+RM8pgkl69zyzyvharsjxf9T8z60OdCbtCkRSdvY3b2vLGPqvM9/hyY4hWfc1
+	 zq+zKKmEqRan1tMI53hMJ+muUclO0bvgkQ2ROqKHqG6ZyDeEg+7nhusaFj1+X5BgbXl8d
+	 ZsiHZs/rvRrLnEaUU8BNjUzEFzsLi26vOEgxQels1R1rt+Q/UXI7nmZ2n8393PZxG9Wgc
+	 p3DFXG7Mz9nwYGoKqHPj7JmvvPFCemki1COKUNwjvODJdqcHvg00MLyaK0SiY5qqtSg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795462700;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=mMQUGbXJMaa86ZgCyPHuQDcNhrKapcPCs2WtP/7YI/A=;
+	b=VQs+EgUA1eeORJil/bvrZPxtM62orRAOy9uqmrJzMZSzcQwmSj3mMTl+SkRkeMNgR2PW
+	 vT5RRBbts9sS8maW2lxOQBBu9sOo9Ic8riHAw28sTrJFtG6ceyRw/fbzSVDIhM1O82i7d
+	 QHhAbrNJaLo+hOxvOAXRR8pfgJK3YrBXFB6Po8pfjMmiW3UrpXOlcqR0TRX8LmLN2u+z5
+	 vY5NMfd5yoZosfuAvyy43eHrEQoFzMBfO6MdZ77132KO01KwHaiHN1KsRNIPnbpaNiFvB
+	 cJgqCGthNV/PwQO8C5yhvTTmGs+s8vA7hfBokbmvC/q1Kgd1fHpMorUFlotDGHN/Qdg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZaT6D2F6;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SRHHFNwe;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5F2BF1F000D2;
-	Mon, 23 Nov 2026 19:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795462693;
-	bh=NgtfBGZW6JnOX8QXxkHMy03vg6zeloIYXjLXT43yxao=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JJAVg+eqK3xuUrAdKlxpECPFojPb9jlpNoroGKqxsoeVGxStdlEW8ocKvJSY1pGNp
-	 DXNDY5I7UiNbchqMyyQsa68D9KhnU4oruQRbRsHK51GcRCJhrTDXlGVR1upsN56QWJ
-	 76UkY2AYkeaWpp+Tb8V6cPoLR1zTI3oMc+WIF8wgu1WqynFBD55LHnio9U/S7Gq2X0
-	 hYjVfT57WvY7s9P8q8PY1Hg6TTquBrL9ma1AoDUizX9OhGelFLF59T/qpNHp4JDKPp
-	 PR33mO0YXEcDXok1UeZalnJxg6fsp8J/f6XcfFGTqkLeLdLVzEuD2tQJZofu9VzIm+
-	 OJhpct1pLqVUg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BA95A4C680;
-	Mon, 23 Nov 2026 19:38:00 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Mon, 23 Nov 2026 20:37:33 +0100
-Subject: [PATCH v4 01/11] dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl:
- Fix compatible matching in conditionals
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC16A606A688
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:38:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC16A606A688
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZaT6D2F6;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SRHHFNwe
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANJNNVk3440505
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:38:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=mMQUGbXJMaa86ZgCyPHuQDcN
+	hrKapcPCs2WtP/7YI/A=; b=ZaT6D2F61c3tpeFzP1M0/Q0nDKwT+BVfrEyV3B5F
+	1j0oxcpR889WG9WT0HCSPPyS2ur7dkrCRaVUW69pD9HmcMBGD7N6dJ6zErYcnVUJ
+	t6RI/rXE0bJ9XX3fzGxAUypVTVjnVNVWHtlubj2KpWWdKC0EOGjvKEJtFvQ9YM8s
+	6kLRQInrOO+of9zzfr6tsdJktDrmAQ+mAP8JhWPC/gsi/fAegyZ9degluqiU/J5m
+	raupWZP6uPhkciD/8WF27njC4+VUfc81VImaGvkLi3ohj3tbVCk/lkne8AH1FQaB
+	b0x2P/XA3VHj8hR/wyauyTPno4FwQLlg8XpPo1OFxImB5A==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4ukr81se-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:38:18 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f3969a2a7so555990285a.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:38:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795462697; x=1796067497; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mMQUGbXJMaa86ZgCyPHuQDcNhrKapcPCs2WtP/7YI/A=;
+        b=SRHHFNweXCLyF8TQh2fUKuCQCNArrakg1mSt4XM60F6ZLtAEk9Ci7v1o8QBmP+emuz
+         I0QzjM0QezEB+7ytuVEir52u/YI54dBfNWzB595CNliWHJiWXw26/jdkRgz3TODrWXLJ
+         uvT46HaFDzToOvqROVtzQiJ5MNbK7euDm2WXSzludoStRsVqyrnjrkpcx9LKbh0qVIyj
+         9M4w1bbC9FYLiq2e3wh0GCuXh8NeWplsKBUTHfdnbScKNzykw/N1+TYUmswl6SZ5YW9M
+         7taVHHD/lxrjffeirbqK3wK45A2OqlfoQ98BUZezO85i0RVh35Wrnvq6LBGAg/QxqzV5
+         H0YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795462697; x=1796067497;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mMQUGbXJMaa86ZgCyPHuQDcNhrKapcPCs2WtP/7YI/A=;
+        b=RcMAGJAAa6TnfaiYXKHWhkx9QSkx/Be/IVA9WAcVcNwTCIpLbwOlOcF04yXb3/dvQ2
+         6Ahgv8znOUkhhporZ349CjYBw8Gu6TnFgy2h2lsn9gESVCwdSIzyQYv2c0p1eI7EsAM8
+         nFoAj1qxVbsFRsLatm/k+Kyx52DCbnGLglnFR6sPHLrkOMEaMXued+MDZhYYCyGdTI7x
+         TNBusmshXDvMSef/7ZshV26ei6B9B1s9wylr6ibukfALvWdD0uFnaZhmp6RXu33Jb3cj
+         ca8ZNPOHFpISRBGadtVMYq7euXEx1iMjeJqtzi81M/kmzz5puWiOuTswdsNup1yWQMkB
+         e1qg==
+X-Forwarded-Encrypted: i=1; AL+hErEOvYNh9tVwGWCUYkB6iedsL6BCZtgiBtPxe6ddKIXA8j7YgdoJ2r5CAkGDJa1dfHA59QI9MnPq/cJy@vger.kernel.org
+X-Gm-Message-State: APuU4Z8M5umTfvdcYIM+fR9a59WVAIwKJBGL3+lGwbwXgG6P8qs9ka67
+	DVBVoPdMHJEY1lAv0XomSWcdOe9xvtdLFByfGm4pKOVtQmNmchdZTg6dG9R2AQxjQtamOI4o0+k
+	erxARyceNMC9+PFHCYaJ4VprogWEbiED0ShrmIRB14A6jTxrOxW+/DZ8FHoqvBMBT
+X-Gm-Gg: AZFdTZf9AquwcfDoOGiJcRMh/Q1eIzPtQxs6nZ+EJRT7LdZRJCaFjW093Lk8O32q9b2
+	xkMyxMkc7hW9fUnK1CCfTgBmH4rRVFtpZjIRd7jBkvepRR0c/1XBrR2hDvWk84NmplKt/erszde
+	lBZ15qxWXVlQecmyB3UeCCPns0pYcpzOxVlGM/xT+pwEVEyBIk18XzZmbVFbx9TnCA6dmmshRaL
+	wKrd/fKfyzn38OxwA1JgK6IbbWfGAjaSqy/1e1MpN6g5S40xkQeR4OI1hRBDUM28DDbMrnrbYUs
+	RES2gnRe0npcr5YqXMBXk6pKGG154plZTmYi6dkw6PLElfGZOo6vDsPriuDX0A5mf3Hl2FmNdPd
+	CuN8elEwCxBeA1uynNUAO1HkvJCfXZKzjpALNAEQ1dZOvZEJdNEWTMz+Uf4gdtp/0
+X-Received: by 2002:a05:620a:700e:b0:949:b8b0:1b11 with SMTP id af79cd13be357-949bab1df30mr2390114285a.44.1795462696957;
+        Mon, 23 Nov 2026 11:38:16 -0800 (PST)
+X-Received: by 2002:a05:620a:700e:b0:949:b8b0:1b11 with SMTP id af79cd13be357-949bab1df30mr2390107885a.44.1795462696430;
+        Mon, 23 Nov 2026 11:38:16 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67fe75sm27067764f8f.24.2026.11.23.11.38.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 11:38:15 -0800 (PST)
+Date: Mon, 23 Nov 2026 21:38:14 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-kernel@lists.infradead.org,
+        iommu@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Val Packett <val@packett.cool>
+Subject: Re: [PATCH RESEND v4 03/20] arm64: dts: qcom: kodiak: Add GEM_NOC
+ interconnect for adreno SMMU
+Message-ID: <ovctaahjwayrio7glzjdtdveo6si6ldiddunokpho6w5ipxrve@ef254zb3n6tx>
+References: <20261120-smmu_interconnect_addition-v4-0-be30526391d9@oss.qualcomm.com>
+ <20261120-smmu_interconnect_addition-v4-3-be30526391d9@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,143 +129,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-meson-drm-create-hdmitx-phy-v4-1-3fb94f5534ca@aliel.fr>
-References: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
-In-Reply-To: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Ulf Hansson <ulfh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-pm@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3283;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=PVKFWIK5TVZ+BrIG2D/sPckomoO1CwEMBpgyzjwKon8=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQzbLNLYmrzWx6xesXXrHp0OJb+JkngevKnfdfl3Qvjdfq
- mz3Z4nDHaUsDGJcDLJiiiz9cy1PvLt89MzXPeopMHNYmUCGMHBxCsBEJnky/OHtWfkk//PzqSd6
- OyeETfyYP/158dq4CnkxkcOCVzsivrIwMiwz7bwht3NXW+43V5HJbY88wr4dW/Dtqpg3+8f1B6u
- OirMAAA==
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261120-smmu_interconnect_addition-v4-3-be30526391d9@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA3OCBTYWx0ZWRfXwdQXVJMI9eJs
+ FCYUSUDpNcBpMuPfs5tw6xuyUMLHr2Ca3HkGYjdlHwSbOkTVUZ9aqxrTkLy5R/evUCMdhYTSiKX
+ O9wa7jxa0tuWjFwllKz/P1569teS5L8=
+X-Proofpoint-ORIG-GUID: hcXvfkdDg3dpnlOXnn-IT5lDs6E2g9s1
+X-Authority-Analysis: v=2.4 cv=M+rYuCws c=1 sm=1 tr=0 ts=6b04962a cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=ukIheBjJDxOVZQT4PtwA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA3OCBTYWx0ZWRfX3iymGKZLAjGH
+ aWWxJXpn+OqbmIhTiLt5y+RIXA+Ew21bDK35SquifZySLrnJbaWUwAb/yJepL67hN7UuqqNMWAu
+ 0TQvVDfgKev4gotkzm99k5WTsKpKRNlOBJZw5s+UQ0OlqdA/1T8gLoUfpLVRnqF6DH+O9aQ4mTW
+ NgOqvXu7htQkL4/5yMkyvYpIpklE1L6eci3Zo1+JS8lrW4w2KuVeAdmMqSC2OWoRAhrPqzA0M3I
+ IVbKcvqAuJNB4/A111+xmAtxx+f8FyPj5PTZpekwOSfPFaNeg3hxfVfvnzyUe+L0djCv4FbKU74
+ dZqG8qSxJli9xqzkwueg48/vVmKYCV+B2Og83m8XcQ8BGQUjCrrtO/Zt1Wr95ZYoAF3OdWsYuNk
+ 52HRevSoOBpJCfTtmWDobxlZdYt0Kso6C7je5rac1vbLDCr0iT3YLGBtc8bOa7nxEHwZ8dvjl42
+ tf+8hVBC6iFBnYJRT9A==
+X-Proofpoint-GUID: hcXvfkdDg3dpnlOXnn-IT5lDs6E2g9s1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 phishscore=0 spamscore=0 adultscore=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230078
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+On 26-11-20 19:11:34, Bibek Kumar Patro wrote:
+> On Kodiak platforms, the Adreno SMMU requires a bandwidth vote on
+> the GEM_NOC path (MASTER_GPU_TCU -> SLAVE_EBI1) before its registers
+> are accessible. Without this vote, the SMMU may become unreachable,
+> leading to intermittent probe failures and runtime issues.
+> 
+> Add the required interconnect to ensure reliable register access.
+> 
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> Tested-by: Val Packett <val@packett.cool> # sm7325-motorola-dubai
 
-The conditional schemas select on "compatible" with a bare enum. On a
-list such as:
-
-  compatible = "amlogic,meson-gx-hhi-sysctrl", "syscon", "simple-mfd";
-
-an enum applied to the whole array only matches single-entry lists, so
-the if: blocks never match as intended and the per-variant constraints
-are not applied reliably.
-
-Wrap the enums in "contains" so that the conditions match on any entry
-of the compatible list.
-
-Doing so exposes the "phy" child node of "amlogic,meson-gx-hhi-sysctrl":
-it was forbidden (phy: false), but some DT legitimately describe an
-"amlogic,g12a-mipi-dphy-analog" PHY node under this system controller,
-which resulted in dtbs_check warnings such as:
-
-  system-controller@0 (amlogic,meson-gx-hhi-sysctrl): False schema does
-  not allow {'compatible': ['amlogic,g12a-mipi-dphy-analog'],
-  '#phy-cells': 0, ...}
-
-Allow the phy child node for amlogic,meson-gx-hhi-sysctrl by referencing
-the amlogic,g12a-mipi-dphy-analog binding instead of rejecting it.
-
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- .../soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml  | 32 +++++++++++++---------
- 1 file changed, 19 insertions(+), 13 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml
-index f3a85c67ce8a..285edac4c082 100644
---- a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml
-+++ b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml
-@@ -40,8 +40,9 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-hhi-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-hhi-sysctrl
-     then:
-       properties:
-         clock-controller:
-@@ -53,9 +54,10 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-gx-hhi-sysctrl
--            - amlogic,meson-axg-hhi-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-gx-hhi-sysctrl
-+              - amlogic,meson-axg-hhi-sysctrl
-     then:
-       properties:
-         clock-controller:
-@@ -67,9 +69,10 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-gx-ao-sysctrl
--            - amlogic,meson-axg-ao-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-gx-ao-sysctrl
-+              - amlogic,meson-axg-ao-sysctrl
-     then:
-       properties:
-         clock-controller:
-@@ -81,17 +84,20 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-gx-hhi-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-gx-hhi-sysctrl
-     then:
-       properties:
--        phy: false
-+        phy:
-+          $ref: /schemas/phy/amlogic,g12a-mipi-dphy-analog.yaml
- 
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-axg-hhi-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-axg-hhi-sysctrl
-     then:
-       properties:
-         phy:
-
--- 
-2.56.1
-
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
