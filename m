@@ -1,64 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795422615;
-	b=zVp7kZgVB19NTXxqaJO9g2RWZndJzR6BbdSDYjapgbaxktG0jp1ZVQHhq4aW2bxWI/ik
-	 RdUB+eRLduI1g8ET/bh9Z181NEeZJ0MjOUdy/pyraC+2NsyDIijbJZVVnoo5U5oi0Mpjf
-	 aD5/vbR+y7btMGfi9lJHPjs3CBkn4ygBAQBzgrTxh476esx+lAAYuBeBb2MJJh548Z6+M
-	 S2ZSdOvdITlVtGBNBr5+IC0k87yX1hBHexqOplh/Lxe6P703gxWNLMolEGxAv24kBPaE4
-	 dKUhs34Qd5hMQyM/4ey8u3wmGXsnAJE58O7WqBoB3ukB//MjUvrjEuxKULCM7n9I7sg==
+	t=1795422775;
+	b=GpmtFYPyTUaK+opAqo56oV0EqeIo3sFHPmzKNKS588nHGzG5zWhJcuMTt0dvf52QrB1m
+	 Upee9Q30n3p/nCB/lqf77YCFhVInXKWXI11/2eRqpWKu1rxV73lDMNLmjCyCnsFXyztxs
+	 WILR6Jbx4KCHM4cfrl3ZkZ4I4ND0UHgHjMsaz3StudJ8LookUTo4Giu4vsnFFzcOOEdKx
+	 E9tEoOogOYok5smO2CqOySctkDSb048uhacQwHx33sjyD0H/7b4dmWDsSebUuYi8xr7RM
+	 3s7sQXLQTnljK9pMj3PCrtaBNHQQorIHXnLsBzOYuYs2VtZMGac6Y24hlEB5zYTGvAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795422615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795422775;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=g90/0bhbxPIHkU4mFDJWsNmnCkTgmCZxPuEg8GPDaE4=;
-	b=regR6M1YLLU0r3ixVnk6f+PXd3EnI89eSUFwWZehr6QXYHwNZbwmq+rHIFb1PhtkrMqS
-	 AvZUrksAAN7J1YwoWx8jI1IrfJp2XoMn+JuwOZclDA8NC160BZMuONdAn0Xasast2KwTw
-	 MTtRlaK++QZ4yX0y5HxSYVTIg2SO975vomidGQxgrHteiHDWJI8AMYNcEWwvQ6nnzlSN6
-	 sBRKkQM8tEQALSnMHMNDKSs4YUDF+phXeBf0vYcFGXLJOjHSsQNRj3S48csinUEYnLgiy
-	 jHkp9gqAtsPBA28ppDVL7aXSm1vAFuEs10L+MJX8i+kVmB89iRegxmBu4x2dgOFCh4A==
+	bh=hK+8Q2rxW3+mXQi4LiySks8WPSozUnGzSojRtXKXJ6k=;
+	b=QngC/Xuj0W+zd+6iMpOX2ID0l73o6m3DB8P6KX+WqO8dFWF0prlZtkSNJi8Pidn5QWhO
+	 ryVdnRDZ0b5k9hKbAL3/roWHfNOd7D1zNcOqbeMl9qCQT3nuvCa41L1lVpwzNUfhYhf9P
+	 ILmLp2RGE0rcgrB8p3ZdPoYlQzi4xhVQA88A5CAyKzH6pkpueinct4GjY4UA1+jRGsMYU
+	 oeyr3bS8uhT3J9tuqng3qAgxUMcLxDjbiG7IDRsfgh64nPkOkUFEqmueAB2i2zCWXqVbG
+	 laKt3AGQp2CJ1TZ4S8sTjux2nmAC37gsKEDyDd5pQtw0DIFF2MxtT4ascm42dhkjX1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXULo1uE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WByc7++y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F9D606A31A;
-	Mon, 23 Nov 2026 08:30:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8DC6606A31A;
+	Mon, 23 Nov 2026 08:32:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXULo1uE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841501F000CA;
-	Mon, 23 Nov 2026 08:30:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WByc7++y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BA11F000CA;
+	Mon, 23 Nov 2026 08:32:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795422615;
-	bh=g90/0bhbxPIHkU4mFDJWsNmnCkTgmCZxPuEg8GPDaE4=;
+	s=k20260515; t=1795422775;
+	bh=hK+8Q2rxW3+mXQi4LiySks8WPSozUnGzSojRtXKXJ6k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PXULo1uEs5gqu1IV55GH6XzrlAMnkg7aML82UaJ7P0OLCy2GmoAv5mYdxL9hUIV7u
-	 jEnaL7Mzr0zmJzdlrh1FTVQpNNcU4E0e9whuo8ZLAWP27aVJY8zIIQxBhRVIW5qtV8
-	 ITHTFckdHDzXFIroyGvBmKet6tLcxgecDClkheY54A8wnhpZm6X3t/G8TpbUd6M28h
-	 FEdGAcxU0Q/gFfgk4219uGFxeYvN//XCAyraN1ZjPfgQ/ifzbksu4GKAmqWV6zm29M
-	 xNB603K1JIdFM5wvMVEheM3ybmTvHLcB1sTMJHQ1a0xvq3I/76jYcSCd8ArO5DHA1I
-	 SqCYOEVQW60QA==
-Date: Mon, 23 Nov 2026 09:30:12 +0100
+	b=WByc7++ygvLRkDheW+2yLC+5gjdqpspTl98UBYEJeKQcwwr1WDtHL67TbgEKJJouy
+	 x4uMtXza5ipbnq3OEq1egoS9+ZypPMyEGGdGD4s4anBUAkMc10VPUotmky/lc9DvJX
+	 tS8+m31iQrZMcT07FtdgOQlg6/8gCVwBhFftrUyF7H3rR5G4wABafD5OmqQ9mXHNWq
+	 ThbSRO75lWHL5sxPbnCNyKniyin1NnX78Wc8h+tHBWJt2DbmJVryhHTQ1H+HNyI1jO
+	 lCtIcG6Xz9lg2N/g3EWSBkQPFjc9XcQglRQ2sTDxJYapGVDbVlKhu96urptr8gDu39
+	 dmJyzEwTQ98/g==
+Date: Mon, 23 Nov 2026 09:32:51 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arun Iyengar <aiyengar1990@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	David Wu <david.wu@rock-chips.com>, Damien Le Moal <dlemoal@kernel.org>, 
-	Niklas Cassel <cassel@kernel.org>, Serge Semin <fancer.lancer@gmail.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org, 
-	Pranjal Shrivastava <praan@google.com>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev, Shawn Lin <shawn.lin@rock-chips.com>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [PATCH 3/9] dt-bindings: soc: rockchip: grf: Allow a clock for
- the RK3588 PHP GRF
-Message-ID: <20261123-wealthy-luminous-skunk-cb5dbb@quoll>
-References: <20261113-mmu600-php-v1-0-231196049a3b@gmail.com>
- <20261113-mmu600-php-v1-3-231196049a3b@gmail.com>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
+	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@sifive.com>, 
+	Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, linux-csky@vger.kernel.org, 
+	linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 08/19] dt-bindings: rtc: sun6i: add the Allwinner V861 RTC
+Message-ID: <20261123-agile-energetic-mouflon-dba749@quoll>
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
+ <20261114-v861-v1-8-eb71ec3ee523@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,39 +73,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261113-mmu600-php-v1-3-231196049a3b@gmail.com>
+In-Reply-To: <20261114-v861-v1-8-eb71ec3ee523@iscas.ac.cn>
 
-On Fri, Nov 13, 2026 at 04:38:49PM +0000, Arun Iyengar wrote:
-> The RK3588 PHP GRF is clocked from pclk_php_root, which is gated when
-> no PHP peripheral holds it. Allow the clock, so the syscon regmap
-> enables it.
+On Sat, Nov 14, 2026 at 06:33:34AM +0800, Han Gao wrote:
+> The V861 RTC is compatible with the R329 one. Add a compatible with the
+> R329 one as fallback.
 > 
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 > ---
->  Documentation/devicetree/bindings/soc/rockchip/grf.yaml | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> index e94c83d7c138..2525eb51f13b 100644
-> --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> @@ -321,8 +321,16 @@ allOf:
->          - clocks
->  
->      else:
-> -      properties:
-> -        clocks: false
-> +      if:
-> +        not:
-> +          properties:
-> +            compatible:
-> +              contains:
-> +                const: rockchip,rk3588-php-grf
-> +
+>  Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-This is not understandable - two nested ifs, one even with negation.
-
-If binding is too complex, it could be split.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
