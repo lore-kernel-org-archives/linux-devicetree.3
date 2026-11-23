@@ -1,106 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795463401;
-	b=a+ORUIrbYkA2z7TQYUGgfwj4Ztk2w6bTqMu0tSjI3byMSJ6Rcue3dsH+egK4QHQvM4lV
-	 pLC9BwqGXLAlQriO0vpVl3FCGXy7ke/T57Im8dT/6shWJMou2FUsgGis2mTNrGJtbxHPl
-	 pfgiDLBu2iFc5A6VJjo/kOopwSV17LiLT1HbdwADSTmSPrRqtNLBBsPwZrmMNfy0hZAbL
-	 Yrv+rItvxMOfjK0i/GwZQp/afU1T3BdaywYLA/MnDCkeCIBLu/8z7I8NbbLOmNuhCJBDn
-	 SyCsI26/BIr9r4N/yoB/PoCTJqoqATi5QXBWH+XBwrKLJszhsC92LnfjbVkPp8jcNnA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795463401;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=p8KtVLNBxWMdVF0wgv2MyChF8SQdarThzta1G7UJ0JE=;
-	b=r8ReMZR7rTqCf5qnb5hbXDdoJg4VDtTVYBqMCnD9ijtvZLiT0gS7b4BNibREUQv5/3jk
-	 KCuObah8AsJUxkvc1ly9RMvfKwDOFdHYN7sO1IXhT4zN3BCwXjwOvN5t/OZpJ2Gl1quW5
-	 gAgdt+EvOonId/B1jpad6F19qhjak4yMkWcOs8ry5qUMt6pSCdJFak3WJB3mIa1WmkhWC
-	 yN38eQPxH5JvfyUxWmehhRT9CNHbtZw5lALg2z8kuf2+DxvHtV5K8IvY9JeXEGocsbVM0
-	 FgICsBmyggPREimq/DABsyHn5sPuqdnfocTzi3AyayogAW9YutA6CxW8ln44w8Gaw8w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=C1emWgBK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.47
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012047.outbound.protection.outlook.com [52.101.66.47])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795463507;
+	b=F18+lY+ymmOAPMqKkJKl+Nhw9pT1l5Cxo2Fk37PmR4Zoo73CynxB1BBTotd5RWZRhpDM
+	 ozKDKGa3Wn8LhlMqTBtln7ORt7kiGWIkv7eKOetfuUixhB3eMLJgd3ePMhf1eT1aMhllI
+	 i9OKvqa6A8VorWIE70Ivcmq26Mn2GJn89uVV3K1rfwVuPI4qW3qnOf0neUCBtgPR4KEWs
+	 8FSQ/QWhjyYTrt36hI2O4rl9jB2G8VxU7QDbg93FsyxFy9iK4n5LYUQzXHNldA/Zrh1HM
+	 1VsDshQGRl9C3a49b2gvSnHW8UmqDVay5fuSyGnxmzzVeqARYSMvSoKKz7zdz/AAaRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795463507;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=n+QKcJBRktTYuBTAHW1qaej8q94iwupCVASXpAxjPkg=;
+	b=qAIGGNX0CHiUFQgjg5kAQiFkceNYBzRmwhV+j/39nkUOFY/4clnOQFmipJecncOAT5bS
+	 YCrlbYx3s7x1v/+6VvFLdq+tipOxVmbfG1PzTcBEPSNBToxA6ZDAWBJ68hkDrjXHOsV6b
+	 hmUEuGw6hb2YIzT1Ft+iJYFJi7xE4XclY6PgbWaL6OC4JyNVWQvR+dSku9w2IiN3ODrPu
+	 AtvT2RZ/3xoV1mML6yuAF3hiQLM/erLp1nxCTB2ghlnIO4Ik6+t2K8mUdl0tIGOQ9RwZl
+	 HGzhDTCsTxMKj74ORzj08odj5/Y/UxuV9CLU9ywyXT2ryUsK/gxRJE1hJzpd5qSzAFQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="g8mejC/+";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Fs207oLo;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FECB606A689;
-	Mon, 23 Nov 2026 19:50:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FECB606A689
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC25D606A326
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:51:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC25D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=C1emWgBK
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rxh77RPZLqeDOL1Ne+vPE6WB8WbJ/rKNostGOmYYTIDB58o648oVTAQp3oOyYq7evncrB2qkVe5tIXHajUBcD01W94JoIlRD469dNx+3CaoXxit2VzIWFsb+PoAySCo+YP6vzBqOoRXpitEksfMr5LxUyoM1C/r6g6qg7KT1HPtGxMT/pxpq/dUfLDrBC3ik38II9zvQcx4T2hWYPXQuQV9wk12Hs3+QbDCi7XY6uCxVHCZZ+Pzqi/zARNSeb6gw1aV1enAJKYezZcL/TgwqMoH8Zf1OH0dDCVPWlNYAomb63Z0Mn30JStcY9nJg01uS7T84KIoxvWiFuoKpMXSO7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p8KtVLNBxWMdVF0wgv2MyChF8SQdarThzta1G7UJ0JE=;
- b=CuXvGyMam2KXn6qHtN3ELqQ+PwhApQupiUulBJgQdQMJ98AIMtmc3AdOnl+sacksNP+FH6bZJJPXnGbr1/joz4oNC3kw2tfQAvCPFu+XCZe6BVCzHFGDhflQ8JlBSa+qR1QrVGknvyPNQsd/G8uAR9FwKOR0CBFWYlGu/Hhi56xhprSc/sgtMmbi5PcTgJKg7omO3VUHcKrZ84a9IZ9GSA/Nb8Y/EQQgF+5vdYhc+qquSMbebD6wfKXzNYGeu6Atm0TShNBjRF7rvKrESGzq0nuWQALngV1BBZsbO07Uxn/T8Jw2MYYmhc5J57blyqC09T2iiMVSF3Spz7Q6e3JOVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p8KtVLNBxWMdVF0wgv2MyChF8SQdarThzta1G7UJ0JE=;
- b=C1emWgBKKwOpc/eVwccTXu1MS7ai4qsWNkXMWk/dgJ5aUt2+fQlQ9FrYl3fPlPDom4jFTKWr9Kl8eBzPmVs+ErX3bUaHYHig+8GlvwtQldJAe2mtfXSguhpfrTxg/WJZPe81BZnBXhwB5tH2SSh8oSwdOwJB9IGmRbQS+NGiCuCQ1WbOYY2BKWGZaBlthbUnF8Xenw4B5IeycER/hOweQI+PnUkedPAc9bb2aNs/7z15OrEzGVTRJZlkGuDZTr9iRLfRVihevOLwfpWj2T+brljHrjcodz9+EB38D09vU7CTGbCALGdRX6ylToWxkH8dzhv4EHSbLj/c1s5gveB8Xg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU2PR04MB8774.eurprd04.prod.outlook.com (2603:10a6:10:2e1::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
- 2026 19:49:57 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 19:49:57 +0000
-Date: Mon, 23 Nov 2026 14:49:47 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Junyi Zhao <junyi.zhao@amlogic.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
-	linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
-	Kelvin.Zhang@amlogic.com
-Subject: Re: [PATCH v5 2/2] i3c: master: svc: Add amlogic a9 support
-Message-ID: <awSY2zq0raAmAGxr@lizhi-Precision-Tower-5810>
-References: <20261119-a9_i3c-v5-0-6ec51f8fb59d@amlogic.com>
- <20261119-a9_i3c-v5-2-6ec51f8fb59d@amlogic.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119-a9_i3c-v5-2-6ec51f8fb59d@amlogic.com>
-X-ClientProxiedBy: PH5P222CA0007.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:34b::13) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g8mejC/+;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Fs207oLo
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANGGxw53730309
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:51:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=n+QKcJBRktTYuBTAHW1qae
+	j8q94iwupCVASXpAxjPkg=; b=g8mejC/+tDNHcOQeZNSHAUEhmaKbu4lCrNQN7D
+	RQvWSFfTuQvVae1Ap00Yv0EL2ZA61atw2aAsrs/eG2nbwP2sV6uADQYhQh1xsIo1
+	cZVRAS1yqArGmbmrgofdMFVmBxkCckzXaC1ChFUg/y+ILQG+wYId6RyezVwn7kVf
+	J932ulVsNocU5AwXarGkaycqzPGZa5kL0EAPvmqagR2DMIsrVfjYN/ABdVncZh8H
+	DeUDqUqTn52eMEJdBKEOs0nxJg0FPt3Xwwwrtj4T3naAM8Tp/ABE5R/4vPpaYwnM
+	r5OFis4cCcTpjqmOppcfXUorWMMd0iVQ4krCb6veOFupVALg==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4fyd37kb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:51:45 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso4123809eec.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:51:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795463505; x=1796068305; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=n+QKcJBRktTYuBTAHW1qaej8q94iwupCVASXpAxjPkg=;
+        b=Fs207oLodzgFUiUpF4f30aKjJ1aGvEj9u4q3LusdQHdqesz84u2YNq6bbCXFfR1Spc
+         uCkFdDMJlCmix7zOSJmpjk20Fv88ztbt4i3NY30Dz9FTr9qNrUs9bnwOU7BeNeh8lzZh
+         J6DhEnysfxrolxNUVNqdQrQyw4OFhM5QdHiDx+jBojeZ0+7/wnIfGMr49usLnFhM7+HS
+         E0Vpuc6VKXLmPgpSAOPFNQhCndoryJuA4PVNrZJzChGh6jkVuLHaJjDkQo6fK3htVksn
+         jI/JdAOTg3wQN4S5PDYJF3xq4zI+N4wQsvLaEZN4/quTaTXAnq6ikB5Sn3bhn8JmJsuT
+         92Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795463505; x=1796068305;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=n+QKcJBRktTYuBTAHW1qaej8q94iwupCVASXpAxjPkg=;
+        b=BzN9fWEgMbETw6dClNuXV4F+D2q07wJdaGgEz6KU7ql/JnJloOkM1pzQjv7V6YoPh4
+         mo+GgGwEmolAz7u8Ka+g7tqgb4mlazSFwVwDWG/I3nwQKCBueaDRjIOXzrNtZQzzQZwS
+         6TFe4DedwfyodbjHjtRyxq2ZPJGhKS75OPfjdrEeNjPWAHJTJ28R1dqKGJnjgrFyzUPx
+         tAh/wc+iPR5HlbU5tc2nbGzITB4ZlnxSj/AqGHM2DiQ6/jTDspV3EAe2PtaAS+C+IW93
+         Qa9hUQ8HF/bJp1nmoQRmZoiF9FH2uAYXjYGuHpuHYxnkx62HOdJsxgiJmPqT3S90rLmP
+         tcDA==
+X-Forwarded-Encrypted: i=1; AL+hErFWEXDkwHTprZBMRIIyXwdgEZFhETo8jkLi7DxoJVfyzByYf9JWLzaAkdOzQWnZx6JxgHITfpeuagn6@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YJcDjxwXlELSx8NJ153kJRSMuC7WCJwsg78BgP477SSdOItx2
+	JvAE8V41JZXxEjOXCjB90ZzPDiwdUQ8HEciclF0972RQEe2l7Zxnn44M2QWCB2roIOTXmwh10mp
+	MRPuRa1kbM4fJQlf1rLih3hPaSkdIK6ngP1XHWFXz2Pc60bMbVWumWdtmcDUzSlpN4e3YqgOr
+X-Gm-Gg: AZFdTZd7ipVeFidrYIAzeI8Zko13xCOSMfVB3lslhcFGvpv/mEBlUk56sY40AjD4XfC
+	+LUEQLIgyeVbQh2ewFQaKAXdHJV+k/SsQY6tJbR0gbepBot/1F3QvASJCX8oT/K2CduQOWGU8sf
+	XNbS3M2M15xC4tTu0oxFvgMPSNXVEpBm6P6SRHkM2d+JZdk72sY6Ztk3a2WvXWgxraWDl8GPciD
+	1GQWksIL7ywMjVS8sxFFOFBN3LKY9gtt2hJaKrPQ8tUIP+JETODmml+8wdMbh2jPCWQGKTjY5WL
+	bXRl3rRGnz2hyPr0Wk3Wy4lbL4SAU+bDHL45qk8Rl9jb6rUUZgK4UJGiPbDFx7G3O2Fat6FIRuN
+	O60AogRwJs1wa5LDyUuqe+ysZNlU52Heyc/2ZQij0/mGBMGtBfIxvB6hW8lIrYI/y7HC7SHV1Ag
+	==
+X-Received: by 2002:a05:7301:241b:b0:386:b526:24d2 with SMTP id 5a478bee46e88-386b52636aemr3280655eec.41.1795463505145;
+        Mon, 23 Nov 2026 11:51:45 -0800 (PST)
+X-Received: by 2002:a05:7301:241b:b0:386:b526:24d2 with SMTP id 5a478bee46e88-386b52636aemr3280605eec.41.1795463504586;
+        Mon, 23 Nov 2026 11:51:44 -0800 (PST)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e96bdsm36363123eec.7.2026.11.23.11.51.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 11:51:44 -0800 (PST)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: [PATCH v3 00/10] clk: qcom: Add PDM GP_MN fractional clock divider
+ driver and DT support
+Date: Tue, 24 Nov 2026 01:21:31 +0530
+Message-Id: <20261124-b4-pdm_clk_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,481 +115,173 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU2PR04MB8774:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49315519-c531-4aca-8c59-08df499af370
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|7416014|23010399003|19092799006|261009220027099003|10067099003|5023799004|11063799006|4143699003|261021133027099003|261021130227099003|261022075727099003|261021135927099003|261021121427099003|261026121527099003|261026130827099003|261021123027099003|261022115727099003|261022113327099003|261022105027099003|261026135527099003|261026140227099003|261028144727099003|261102123227099003|56012099006|261009221227099003|18002099003|261009223327099003|261009223027099003|261009221727099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	NNx1cdwvvCJm+c0pcC25kc9YDJtBtA5EkusOqcqmYfzgEtFXg0GQOmZfwdb+QiLlHXB0NXDhRiblpJG9FlHYMOGR5WFEK7SEHSBfX02kvAIN9framAJXBxUPWWm6xQrSQ1Vr/Twj85/1heVW5o5uEtnkoIBtmJO8uTdewCuP5AtI+0/eUEyOfxIf3J9HD9qcUjO1FZar402+ciQ6nY00aGEaZJmCendlO3u2Va43Z1qHVv/9N6n+7hDpszdCU0w19KwhPGUNCjZnHe9uNbsBe1KtjJeZ3MPcSRJVrntTwwGirrNkEwkvJyk3SLskXA2djhYbQe58rftOnNhBW9FlAIAC7tvzqKSAZpAh7pAl40XL8vgDCnKpnzbveKzuDMGc5MIQfE+2X6BL6E8e1WI2qtEG7Yne9vXGf98FuJkDqoeyzYoiCwAzQUQ+/jdPqcSBt1DBoTd3apP2ST6GBn7AGpk4SqaMDFm2xRaXYn+2vrJom9PH2YbmhoII5ymGnme7EWyB+xf4d7toI2NO9fRvy5ERvMlelPTN4P55nex4+sBVqN/VTxtFfNpO0+vjOwvxoHRn01o3IbLC62uVxFZgpC8xmisizF/u8TICaX6ZYiZCPbLhpkp5EclBFNo+W5GCqc7h1f8kDn6wR9i60CXQjj43wOAhXhRNrjlQr1nguFU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7416014)(23010399003)(19092799006)(261009220027099003)(10067099003)(5023799004)(11063799006)(4143699003)(261021133027099003)(261021130227099003)(261022075727099003)(261021135927099003)(261021121427099003)(261026121527099003)(261026130827099003)(261021123027099003)(261022115727099003)(261022113327099003)(261022105027099003)(261026135527099003)(261026140227099003)(261028144727099003)(261102123227099003)(56012099006)(261009221227099003)(18002099003)(261009223327099003)(261009223027099003)(261009221727099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nX4bTsBS4N2KalEwMjWxy6Go2urw9yih/moVbSkWLGqyuEH/KDX6TdipR3qn?=
- =?us-ascii?Q?JSAuTF9j5DEfCMR98LQqXyUgG5oxXvfSeDY7N4mvjxeCTbmP2+MTWKAw35mB?=
- =?us-ascii?Q?gqvE+lPtH7A2bQABo1oFn+scun/jxf6AfI1Wff43EKVn/JYnJ9FPCFZKh4Gn?=
- =?us-ascii?Q?uK9KCHk8EbO3VW/71FJwmC/91t/e5kKOA3/6NnQiCfrnY5HxfnYwVQeD7Xd7?=
- =?us-ascii?Q?Eq63/P8CIvWaBS1oKXSCGdwbZ9KUfo0kKrRlBC5ZFpQAo03cOWf9k3uDB1W1?=
- =?us-ascii?Q?VuFPwJ1m4xCZIYkvEi4sGTHlFFRSMw1upn7UTrZVGbYfFaG7GA0J9kBRYrtn?=
- =?us-ascii?Q?X1ZGiVMahQ/3eM3ifZaa2iXnLMAv3jX1FQIzKNUL0HnMnBN1ua+xz35NTBjb?=
- =?us-ascii?Q?hXGs7llEWPHzdhzL5r0YvQzfnblMAP3iUJyhsooKE+pIwDacrms4p6wcz5R6?=
- =?us-ascii?Q?c71bvtb9X7zOldMW0/9pJsRhzUNgYeYIrlVA0etHGRoQRffwYn/d5woMUPqg?=
- =?us-ascii?Q?rLJDB8+tORWRRIFyZP8zf6M/SyM1U9PbngdXtHdP0vxi5CBQgsuZ1rN+ZJPG?=
- =?us-ascii?Q?V+xs3vTGAdA/FVx9pn/n6aZ3579iMxDfkpl8t88AwcacXdUCxRoSL9MELgjm?=
- =?us-ascii?Q?FWPp93iLxTvQK/pmpHC7x30YcM/pweW2ET4GXxp7XI/i6epSd8m8+ZAwbQDG?=
- =?us-ascii?Q?Jo2Axrx6PmilgVBDzd1/YvFgx5vju6edT7cJJyxf925GQsNilR1giHup2MyH?=
- =?us-ascii?Q?BfPBzHvENFVQC6WZT0pTnoP3/NhnW6+YA7xDsh5mDVBXZQWKNhEwy+YXTDXH?=
- =?us-ascii?Q?O0eY5ltCnpUxINMAD9dYVGiNGaf6MWeynDycxXoEBwKvvnv2QId1GWQ7xhu0?=
- =?us-ascii?Q?iw/jyLkTpE7ZJoLPSHaMwCDyPwcK5bZQuRSEQd0qkUjy3hll933T8H5HtSuD?=
- =?us-ascii?Q?IRNotUZY8GXfRPTJdJIa6w+wZ4e2FXTqOfDx8zNz4ochM9HXiPZWgr0eAYiw?=
- =?us-ascii?Q?gzwQk0PenyYiKR1V9rS3ZhevbRWqzfa7b5FrpbtaTSXBnsHxojbvNTlT56Ef?=
- =?us-ascii?Q?tfja+fWYe+R+IDT5oCW4Xi5EBSbWtaP2Toh2ihdox4u6GM6VGJ7sjLrTnCnr?=
- =?us-ascii?Q?wvlP4L1dnXJZNusmwCoCYNJJqEbQZlskeCqNUr2kNiQDtyyIDpXvKjavXGce?=
- =?us-ascii?Q?nbtBQwgRylr8CGYani7dQw+4Ggd3XLZG1hwK7seXaApe7ekvB6IipmbL4OEA?=
- =?us-ascii?Q?lrmQ+30Tw0NIw8uw54vAFRzHj6Fl0QTVr76EYfu2bSVW1obN885/arWLSnba?=
- =?us-ascii?Q?tEVp6AfSd3CqgNMKPCZfeylLr3yHUWAIUTauvmMuKhLYSMbHOHlIWRO6PUys?=
- =?us-ascii?Q?c9Px8BqtfcB1yWjgHloaWbz2YUSQo3VnS/PavcBJ9mC/jhkTg1qdbxigwHB1?=
- =?us-ascii?Q?crO92jCbXLJ4PFmvNFChTRfLzxgsZ/XvWv7x7BwKnF1LKCaAmwPAxQqDlYki?=
- =?us-ascii?Q?ulgpXHlKhzB8FZ4Qvj0fba0AKX9h764Ba10rZCfaNTUhPkdDVa7ucmW3NgyR?=
- =?us-ascii?Q?KSxuDkNxi3EeEskGytJPtKF01CUQ2VMD33Lj/RXa00S7OPwRbQSr7uAB50Al?=
- =?us-ascii?Q?q2zqsvAAbyFU80Sv5NiSnrTY4nlVG3ZPSOqTZpFEPKX+0o2aRAP0rCrmeFP0?=
- =?us-ascii?Q?0va6drgMxROmGZeBr2xD4fLzpEloBQXElB6TRQj8Cf/9p1Y0NsV4diP8BDh8?=
- =?us-ascii?Q?AMHuta0IPDrXSvwjjxYG8Pznn0KjT7pqpq6/FWXjgA17Qf1Xyh95?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49315519-c531-4aca-8c59-08df499af370
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 19:49:57.0667
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: snN9FDv2Ng96zTx0TiA206r/MU63dDhjp4zbrPjjB1ztkfychR1TZf3Zs8EAoRL82dCETvv944/J4XufvoLZZ6xMsUpT9rg8rbgoshB0nETHuInMaRz5vs96rn+P5bdZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8774
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEOZBGsC/22N0QqCMBSGX0XOdRPdbGlXvUfI0LNNR26zraQQ3
+ 70lXQaHH74f/u+sEFUwKsI5WyGoxUTjXQJ2yADHzg2KGJkYaEF5WZSM9BWZpRU43cQwC+ukWCh
+ pGsYarpFjh5Cmc1DavHbttU08mvjw4b1/Wei3/Qkp/y9MVxCta1X1WMsjP118jPn92U3orc1TQ
+ Ltt2wei4ErqvwAAAA==
+X-Change-ID: 20261013-b4-pdm_clk_gp_mnd_v2-993396fc6cac
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-gpio@vger.kernel.org, netdev@vger.kernel.org,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-ORIG-GUID: l4DOo6u8xmGvTTN7SPB1VlqssMEZS6px
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA3OSBTYWx0ZWRfX0UzeHT2qHQ+C
+ thGySqSGIvyGBtqq1IQHDhoF8I2zrW9mADVNiW4aazwm5+J3TJ0L4C//fkB2+s7g4uoN4VXHSok
+ 9KsSDE+Hkh/3ZnkkSlxHoUpb5nE3GeY8AgsC5j7Ebuq4EDm1SXNd4usJir7gYMN6FBIa8x/Jfnu
+ H4MopNIGszk5i+xIA0HKB225Ve4JrZk+ZQReArwDsbv3dIvFHHi7Yk8myadGbbKlg7iDrW1kKuP
+ k/QJRhwdQ3tHXuT374oFyZ6rFU0SD9P8Y37HiNzHJJlPQXJ8GyJQTY3QfvLaZzf6rO0kdE6sb/0
+ aboXj6MHaimgWNjtWbkIzOXB3TdmY9Di8572JwC/AuhijW0Qwep+L2Ip39ElTqmCb9q7clRRTjb
+ UnQj4l2JrrfzCowKn4gX5l4RyiqZvQJRgHf0CbUPI4n9L6cIzPI+1OO5jXp7ms6lp3KQBc4GC9c
+ 0+Bn/fe10cvwm5HC9hA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA3OSBTYWx0ZWRfX96zhVl4QX9kR
+ MdHljzezTXOm0W0l+NmTdV4sGQ87Pq25rHvnH0P9lrT8/Nv16kbMqjj66Rd8u6HZdWoYg4ZlE9C
+ 2PIGsMii6b5EP+mjxUefKvM6KFo+I74=
+X-Proofpoint-GUID: l4DOo6u8xmGvTTN7SPB1VlqssMEZS6px
+X-Authority-Analysis: v=2.4 cv=Aol7T+9P c=1 sm=1 tr=0 ts=6b049951 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Qz70-_R-GnIlLF7VpYgA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230079
 
-On Thu, Nov 19, 2026 at 12:22:47PM +0800, Junyi Zhao wrote:
-> Amlogic a9 SoCs integrate the Silvaco I3C IP, and their peripheral
-> clocks vary from the vanilla implementation:
->
->   - The EE-domain controller (amlogic,a9-i3c) takes two clocks,
->     "pclk" and "fast_clk", and the fast clock rate must be programmed
->     before the controller can be used.
->
->   - The AO-domain controller (amlogic,a9-ao-i3c) exposes only "pclk":
->     its bus clock is generated by an internal divider located in the
->     controller's own register space.
->
-> Both variants need setup that the generic driver does not perform:
-> the fast clock rate must be rounded and set at probe time, and on the
-> AO variant the internal divider must be registered with the clock
-> framework so that "fast_clk" even exists. The divider registers sit
-> in the controller's own register space, so they can only be accessed
-> while pclk is running.
->
-> Add a vendor_init callback, invoked from the probe with the clocks
-> enabled, to handle this. On the AO variant it registers the internal
-> divider chain (div_en -> div -> gate) with the common clock framework
-> and appends the resulting clock to the clk bulk array as "fast_clk";
-> for both variants it then rounds and sets the fast clock rate
-> (target 25 MHz). As vendor_init now runs after
-> clk_bulk_prepare_enable(), the probe error paths that follow disable
-> the clocks on failure.
->
-> Extend the quirks bitmask with an Amlogic-specific bit
-> (AML_I3C_QUIRK_AO) marking the AO variant's internal-divider
-> behaviour. Since the driver now registers clocks through the common
-> clock framework, SVC_I3C_MASTER also depends on COMMON_CLK.
->
-> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
-> ---
+The Peripheral Web PDM block on several Qualcomm SoCs contains a GP_MN
+fractional divider that generates a clock output from the PDM XO4 clock.
+The output can be routed to a dedicated GPIO pin for use as an external
+reference clock.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+This series adds the binding, a runtime PM-aware GP_MN divider driver,
+and the GCC and DT support needed on QCS615, QCS8300, SA8775P, SC7280,
+SM8750, and Shikra. GP_MN controller nodes are disabled by default so
+boards must explicitly opt in before the output pin is muxed.
 
->  drivers/i3c/master/Kconfig          |   1 +
->  drivers/i3c/master/svc-i3c-master.c | 301 ++++++++++++++++++++++++++++++++++--
->  2 files changed, 287 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/i3c/master/Kconfig b/drivers/i3c/master/Kconfig
-> index da96d2aaa..ac7d246c2 100644
-> --- a/drivers/i3c/master/Kconfig
-> +++ b/drivers/i3c/master/Kconfig
-> @@ -47,6 +47,7 @@ config AST2600_I3C_MASTER
->
->  config SVC_I3C_MASTER
->  	tristate "Silvaco I3C Dual-Role Master driver"
-> +	depends on COMMON_CLK
->  	depends on HAS_IOMEM
->  	depends on !(ALPHA || PARISC)
->  	help
-> diff --git a/drivers/i3c/master/svc-i3c-master.c b/drivers/i3c/master/svc-i3c-master.c
-> index e700392f0..d73817106 100644
-> --- a/drivers/i3c/master/svc-i3c-master.c
-> +++ b/drivers/i3c/master/svc-i3c-master.c
-> @@ -9,6 +9,7 @@
->
->  #include <linux/bitfield.h>
->  #include <linux/clk.h>
-> +#include <linux/clk-provider.h>
->  #include <linux/completion.h>
->  #include <linux/errno.h>
->  #include <linux/i3c/master.h>
-> @@ -166,6 +167,31 @@
->   */
->  #define SVC_I3C_QUIRK_DAA_CORRUPT	BIT(2)
->
-> +/*
-> + * AML_I3C_QUIRK_AO:
-> + * AO is the Always-On domain on Amlogic SoCs (remains powered in suspend).
-> + * Its clock is generated by an internal divider located in the I3C
-> + * controller's own register space.
-> + */
-> +#define AML_I3C_QUIRK_AO	BIT(3)
-> +
-> +/*
-> + * Quirks shared by all the Amlogic A9 I3C instances.
-> + */
-> +#define AML_A9_I3C_QUIRKS	(SVC_I3C_QUIRK_FIFO_EMPTY | \
-> +				 SVC_I3C_QUIRK_FALSE_SLVSTART | \
-> +				 SVC_I3C_QUIRK_DAA_CORRUPT)
-> +
-> +/* Amlogic specific registers */
-> +#define AML_AO_I3C_FCLK_DIV_CTRL		0x304
-> +#define AML_AO_I3C_FCLK_DIV_EN_SHIFT		8
-> +#define AML_AO_I3C_FCLK_DIV_SHIFT		0
-> +#define AML_AO_I3C_FCLK_DIV_WIDTH		8
-> +#define AML_AO_I3C_FCLK_EN_SHIFT		9
-> +
-> +/* Target fast clock rate of the Amlogic A9 I3C controllers, in Hz */
-> +#define AML_I3C_FAST_CLK_RATE		25000000
-> +
->  struct svc_i3c_cmd {
->  	u8 addr;
->  	union {
-> @@ -195,8 +221,11 @@ struct svc_i3c_regs_save {
->  	u32 mdynaddr;
->  };
->
-> +struct svc_i3c_master;
-> +
->  struct svc_i3c_drvdata {
->  	u32 quirks;
-> +	int (*vendor_init)(struct svc_i3c_master *master);
->  };
->
->  /**
-> @@ -1997,6 +2026,30 @@ static const struct i3c_master_controller_ops svc_i3c_master_ops = {
->  	.set_speed = svc_i3c_master_set_speed,
->  };
->
-> +/**
-> + * svc_i3c_master_find_clk - find a clock by name in the clk bulk array
-> + * @master: I3C master controller
-> + * @id: name of the clock to look up
-> + *
-> + * Guard against clks[i].id being NULL, which can happen when the
-> + * "clock-names" property is missing or shorter than the "clocks" property.
-> + *
-> + * Return: the index of the clock in the bulk array, or -ENOENT if it is
-> + * not present.
-> + */
-> +static int svc_i3c_master_find_clk(struct svc_i3c_master *master,
-> +				   const char *id)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < master->num_clks; i++) {
-> +		if (master->clks[i].id && !strcmp(master->clks[i].id, id))
-> +			return i;
-> +	}
-> +
-> +	return -ENOENT;
-> +}
-> +
->  static int svc_i3c_master_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
-> @@ -2011,6 +2064,7 @@ static int svc_i3c_master_probe(struct platform_device *pdev)
->  	if (!master->drvdata)
->  		return -EINVAL;
->
-> +	master->dev = dev;
->  	master->regs = devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(master->regs))
->  		return PTR_ERR(master->regs);
-> @@ -2019,27 +2073,39 @@ static int svc_i3c_master_probe(struct platform_device *pdev)
->  	if (master->num_clks < 0)
->  		return dev_err_probe(dev, -EINVAL, "can't get I3C clocks\n");
->
-> -	for (i = 0; i < master->num_clks; i++) {
-> -		if (!strcmp(master->clks[i].id, "fast_clk"))
-> -			break;
-> +	ret = clk_bulk_prepare_enable(master->num_clks, master->clks);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "can't enable I3C clocks\n");
-> +
-> +	/*
-> +	 * Vendor specific setup may register additional clocks (e.g. the
-> +	 * internal divider chain of the AO variant) and program clock rates,
-> +	 * so it must run with the clocks enabled.
-> +	 */
-> +	if (master->drvdata->vendor_init) {
-> +		ret = master->drvdata->vendor_init(master);
-> +		if (ret)
-> +			goto err_disable_clks;
->  	}
->
-> -	if (i == master->num_clks)
-> -		return dev_err_probe(dev, -EINVAL,
-> -				     "can't get I3C peripheral clock\n");
-> +	i = svc_i3c_master_find_clk(master, "fast_clk");
-> +	if (i < 0) {
-> +		ret = dev_err_probe(dev, -EINVAL,
-> +				    "can't get I3C peripheral clock\n");
-> +		goto err_disable_clks;
-> +	}
->
->  	master->fclk = master->clks[i].clk;
-> -	if (IS_ERR(master->fclk))
-> -		return PTR_ERR(master->fclk);
-> +	if (IS_ERR(master->fclk)) {
-> +		ret = PTR_ERR(master->fclk);
-> +		goto err_disable_clks;
-> +	}
->
->  	master->irq = platform_get_irq(pdev, 0);
-> -	if (master->irq < 0)
-> -		return master->irq;
-> -
-> -	master->dev = dev;
-> -	ret = clk_bulk_prepare_enable(master->num_clks, master->clks);
-> -	if (ret)
-> -		return dev_err_probe(dev, ret, "can't enable I3C clocks\n");
-> +	if (master->irq < 0) {
-> +		ret = master->irq;
-> +		goto err_disable_clks;
-> +	}
->
->  	mutex_init(&master->lock);
->
-> @@ -2163,9 +2229,214 @@ static const struct svc_i3c_drvdata npcm845_drvdata = {
->
->  static const struct svc_i3c_drvdata svc_default_drvdata = {};
->
-> +/**
-> + * struct aml_i3c_ao_clk - container for the AO variant's internal fast clock
-> + * @div_en: enables the internal divider
-> + * @div: bus clock divider
-> + * @gate: output gate of the generated fast clock
-> + * @lock: spinlock shared by the gate and divider register operations
-> + *
-> + * The clock HW structures are registered with the clock framework and must
-> + * stay alive for the whole driver lifetime, so they are kept along with the
-> + * shared lock used by their gate/divider operations.
-> + */
-> +struct aml_i3c_ao_clk {
-> +	struct clk_gate div_en;
-> +	struct clk_divider div;
-> +	struct clk_gate gate;
-> +	spinlock_t lock;
-> +};
-> +
-> +/**
-> + * aml_ao_i3c_tail_clocks - register the AO variant's internal fast clock
-> + * @master: I3C master controller
-> + * @parent: parent clock of the internal divider chain; must be "pclk", the
-> + *          only clock the AO variant exposes (see silvaco,i3c-master.yaml)
-> + *
-> + * Register the internal divider chain that produces the AO variant's
-> + * fast_clk and append it to the clk bulk array as "fast_clk". The caller
-> + * must run with the clocks enabled since the divider registers are
-> + * accessed during registration. The appended clock is prepared and
-> + * enabled here as well, because clk_bulk_prepare_enable() already ran
-> + * in the probe with the original clock list.
-> + *
-> + * Return: 0 on success, or a negative error code.
-> + */
-> +static int aml_ao_i3c_tail_clocks(struct svc_i3c_master *master, struct clk *parent)
-> +{
-> +	struct device *dev = master->dev;
-> +	struct clk_bulk_data *new_clks;
-> +	struct clk_init_data init = {};
-> +	struct aml_i3c_ao_clk *ao;
-> +	struct clk *fclk;
-> +	char name[64];
-> +	int ret;
-> +
-> +	ao = devm_kzalloc(dev, sizeof(*ao), GFP_KERNEL);
-> +	if (!ao)
-> +		return -ENOMEM;
-> +
-> +	spin_lock_init(&ao->lock);
-> +
-> +	snprintf(name, sizeof(name), "%s#div_en", dev_name(dev));
-> +	init.name = name;
-> +	init.ops = &clk_gate_ops;
-> +	init.flags = CLK_IGNORE_UNUSED | CLK_OPS_PARENT_ENABLE;
-> +	init.parent_data = &(struct clk_parent_data) {
-> +		.index = -1,
-> +		.hw = __clk_get_hw(parent),
-> +	};
-> +	init.num_parents = 1;
-> +
-> +	ao->div_en.reg = master->regs + AML_AO_I3C_FCLK_DIV_CTRL;
-> +	ao->div_en.bit_idx = AML_AO_I3C_FCLK_DIV_EN_SHIFT;
-> +	ao->div_en.hw.init = &init;
-> +	ao->div_en.lock = &ao->lock;
-> +
-> +	ret = devm_clk_hw_register(dev, &ao->div_en.hw);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register %s\n", name);
-> +
-> +	snprintf(name, sizeof(name), "%s#div", dev_name(dev));
-> +	init.name = name;
-> +	init.ops = &clk_divider_ops;
-> +	init.flags = CLK_OPS_PARENT_ENABLE;
-> +	init.parent_data = &(struct clk_parent_data) {
-> +		.index = -1,
-> +		.hw = &ao->div_en.hw,
-> +	};
-> +	init.num_parents = 1;
-> +
-> +	ao->div.reg = master->regs + AML_AO_I3C_FCLK_DIV_CTRL;
-> +	ao->div.shift = AML_AO_I3C_FCLK_DIV_SHIFT;
-> +	ao->div.width = AML_AO_I3C_FCLK_DIV_WIDTH;
-> +	ao->div.hw.init = &init;
-> +	ao->div.lock = &ao->lock;
-> +
-> +	ret = devm_clk_hw_register(dev, &ao->div.hw);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register %s\n", name);
-> +
-> +	snprintf(name, sizeof(name), "%s#gate", dev_name(dev));
-> +	init.name = name;
-> +	init.ops = &clk_gate_ops;
-> +	init.flags = CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED | CLK_OPS_PARENT_ENABLE;
-> +	init.parent_data = &(struct clk_parent_data) {
-> +		.index = -1,
-> +		.hw = &ao->div.hw,
-> +	};
-> +	init.num_parents = 1;
-> +
-> +	ao->gate.reg = master->regs + AML_AO_I3C_FCLK_DIV_CTRL;
-> +	ao->gate.bit_idx = AML_AO_I3C_FCLK_EN_SHIFT;
-> +	ao->gate.hw.init = &init;
-> +	ao->gate.lock = &ao->lock;
-> +
-> +	ret = devm_clk_hw_register(dev, &ao->gate.hw);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register %s\n", name);
-> +
-> +	fclk = devm_clk_hw_get_clk(dev, &ao->gate.hw, NULL);
-> +	if (IS_ERR(fclk))
-> +		return dev_err_probe(dev, PTR_ERR(fclk),
-> +				     "tail i3c fast clock failed\n");
-> +
-> +	/*
-> +	 * Keep the clk bulk state balanced for the following
-> +	 * clk_bulk_disable_unprepare() calls (error paths and runtime PM).
-> +	 */
-> +	ret = clk_prepare_enable(fclk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "can't enable fast_clk\n");
-> +
-> +	new_clks = devm_kcalloc(dev, master->num_clks + 1, sizeof(*new_clks),
-> +				GFP_KERNEL);
-> +	if (!new_clks) {
-> +		clk_disable_unprepare(fclk);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	memcpy(new_clks, master->clks,
-> +	       master->num_clks * sizeof(*master->clks));
-> +	new_clks[master->num_clks].id = "fast_clk";
-> +	new_clks[master->num_clks].clk = fclk;
-> +	master->clks = new_clks;
-> +	master->num_clks++;
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * aml_i3c_init - Amlogic A9 specific init, called with the clocks enabled
-> + * @master: I3C master controller
-> + *
-> + * Register the AO variant's internal divider chain and round/set the fast
-> + * clock rate for both variants.
-> + *
-> + * Return: 0 on success, or a negative error code.
-> + */
-> +static int aml_i3c_init(struct svc_i3c_master *master)
-> +{
-> +	struct device *dev = master->dev;
-> +	struct clk *fclk;
-> +	long fin_freq;
-> +	int ret, i;
-> +
-> +	if (svc_has_quirk(master, AML_I3C_QUIRK_AO)) {
-> +		/*
-> +		 * clk_bulk_get_all() preserves the DT order, and the
-> +		 * binding restricts the AO variant to exactly one clock,
-> +		 * which is always "pclk".  So clks[0] is the input of the
-> +		 * internal divider chain.  Check the clock count and name:
-> +		 * a DT node without clocks or clock-names leaves clks or
-> +		 * clks[0].id NULL.
-> +		 */
-> +		if (master->num_clks != 1 || !master->clks[0].id ||
-> +		    strcmp(master->clks[0].id, "pclk"))
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "invalid AO input clock\n");
-> +
-> +		ret = aml_ao_i3c_tail_clocks(master, master->clks[0].clk);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	i = svc_i3c_master_find_clk(master, "fast_clk");
-> +	if (i < 0)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "can't get I3C fast clock\n");
-> +
-> +	fclk = master->clks[i].clk;
-> +	if (IS_ERR(fclk))
-> +		return PTR_ERR(fclk);
-> +
-> +	fin_freq = clk_round_rate(fclk, AML_I3C_FAST_CLK_RATE);
-> +	if (fin_freq <= 0)
-> +		return dev_err_probe(dev, fin_freq ? fin_freq : -EINVAL,
-> +				     "invalid fast_clk\n");
-> +
-> +	ret = clk_set_rate(fclk, fin_freq);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "setting fast_clk rate failed\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct svc_i3c_drvdata aml_a9_drvdata = {
-> +	.quirks = AML_A9_I3C_QUIRKS,
-> +	.vendor_init = aml_i3c_init,
-> +};
-> +
-> +static const struct svc_i3c_drvdata aml_a9_ao_drvdata = {
-> +	.quirks = AML_A9_I3C_QUIRKS | AML_I3C_QUIRK_AO,
-> +	.vendor_init = aml_i3c_init,
-> +};
-> +
->  static const struct of_device_id svc_i3c_master_of_match_tbl[] = {
->  	{ .compatible = "nuvoton,npcm845-i3c", .data = &npcm845_drvdata },
->  	{ .compatible = "silvaco,i3c-master-v1", .data = &svc_default_drvdata },
-> +	{ .compatible = "amlogic,a9-i3c", .data = &aml_a9_drvdata },
-> +	{ .compatible = "amlogic,a9-ao-i3c", .data = &aml_a9_ao_drvdata },
->  	{ /* sentinel */ },
->  };
->  MODULE_DEVICE_TABLE(of, svc_i3c_master_of_match_tbl);
->
-> --
-> 2.42.0
->
+The DT nodes added here mux the GP_MN output onto a TLMM pin using the
+gp_mn pinmux function. That function is added to the QCS8300, SA8775P,
+SC7280, QCS615, SM8750, and Shikra pin control drivers by a separate pin
+control series, which this series depends on:
+
+  https://lore.kernel.org/all/20261118-gp_mn_tlmm_support-v1-0-703f7badd194@oss.qualcomm.com/
+
+Changes in v3:
+- Add configurable PDM XO4 divider clock, its public clock ID, and a
+  GP_MN controller DT node for SM8750 and Shikra.
+- Set the GP_MN assigned-clock-rate to 4.8 MHz (TCXO4 divided by 4) on
+  all targets.
+- Drop the per-SoC gp_mn pinmux patches; the gp_mn pin control function
+  is now added by the separate pin control series linked above, which
+  this series depends on.
+- Rename the binding to qcom,sc7280-gp-mnd.yaml and its $id to match the
+  fallback compatible. [#Krzysztof Kozlowski]
+- Drop the redundant _clk suffix from clock-names (pdm/ahb).
+  [#Krzysztof Kozlowski]
+- Drop assigned-clocks/assigned-clock-rates from the binding; they
+  describe the parent clock and are out of scope. Document the supported
+  XO4 input rates (19.2 MHz down to 1.2 MHz) on the clocks description
+  instead. [#Krzysztof Kozlowski, #Konrad Dybcio]
+- Sort the fallback-compatible enum and drop the unused label from the
+  binding example. [#sashiko-bot]
+- Treat an unconfigured (power-on M = 0) divider as rate 0 in
+  recalc_rate() so a bogus N is no longer decoded and the default 50%
+  duty cycle stays valid. [#sashiko-bot]
+- Use 64-bit division in set_duty_cycle() to fix the 32-bit build.
+  [#kernel test robot]
+- Order pinctrl-0 before pinctrl-names in the GP_MN DT nodes. [#Abel Vesa]
+- Link to v2: https://lore.kernel.org/r/20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com
+
+Changes in v2:
+- Add SoC-specific compatible strings with a qcom,sc7280-gp-mnd
+  fallback, map the 0x1000-byte register region, and document the PDM
+  source rates. [#Konrad Dybcio]
+- Use runtime PM and pm_clk for AHB register-access clock management,
+  rely on the pinctrl core's default-state selection, and generate the
+  output-clock name. [#Dmitry Baryshkov]
+- Enforce valid GP_MN duty-cycle constraints and report high-phase duty
+  cycles through the common clock framework.
+- Add and register configurable PDM XO4 divider clocks and their public
+  IDs for all supported SoCs, allowing the source rate to be configured.
+- Split the pinctrl changes by SoC, retain Reviewed-by tags, and combine
+  each SoC's pin state and controller node into one DTS patch.
+  [#Konrad Dybcio]
+- Correct the SC7280 output to gpio60 and disable every GP_MN controller
+  node by default. Add QCS615 support as well. [#Luca Weiss]
+- Link[v1]: https://lore.kernel.org/lkml/20260602-pdm_clk_gp_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com/
+
+The series is organized as follows:
+
+  1. DT binding for the PDM GP_MN divider
+  2. GCC PDM XO4 divider clock IDs
+  3. PDM GP_MN divider driver
+  4. GCC PDM XO4 divider clocks
+  5-10. GP_MN DT support for QCS8300, SA8775P, SC7280, QCS615, SM8750,
+        and Shikra
+
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+Taniya Das (10):
+      dt-bindings: clock: qcom: Add bindings for PDM GP_MN clock divider
+      dt-bindings: clock: qcom: Add PDM XO4 divider clock IDs
+      clk: qcom: Add a driver for PDM GP_MN fractional clock divider
+      clk: qcom: gcc: Add configurable PDM XO4 div clocks across targets
+      arm64: dts: qcom: qcs8300: Add GP M/N clock controller
+      arm64: dts: qcom: sa8775p: Add GP M/N clock controller
+      arm64: dts: qcom: sc7280: Add GP M/N clock controller
+      arm64: dts: qcom: qcs615: Add GP M/N clock controller
+      arm64: dts: qcom: sm8750: Add GP M/N clock controller
+      arm64: dts: qcom: shikra: Add GP M/N clock controller
+
+ .../bindings/clock/qcom,sc7280-gp-mnd.yaml         |  92 ++++++
+ arch/arm64/boot/dts/qcom/kodiak.dtsi               |  21 ++
+ arch/arm64/boot/dts/qcom/lemans-embedded.dtsi      |  21 ++
+ arch/arm64/boot/dts/qcom/monaco.dtsi               |  21 ++
+ arch/arm64/boot/dts/qcom/shikra.dtsi               |  21 ++
+ arch/arm64/boot/dts/qcom/sm8750.dtsi               |  21 ++
+ arch/arm64/boot/dts/qcom/talos.dtsi                |  21 ++
+ drivers/clk/qcom/Kconfig                           |  15 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/clk-gp-mnd.c                      | 342 +++++++++++++++++++++
+ drivers/clk/qcom/gcc-qcs615.c                      |  20 ++
+ drivers/clk/qcom/gcc-qcs8300.c                     |  20 ++
+ drivers/clk/qcom/gcc-sa8775p.c                     |  20 ++
+ drivers/clk/qcom/gcc-sc7280.c                      |  20 ++
+ drivers/clk/qcom/gcc-shikra.c                      |  20 ++
+ drivers/clk/qcom/gcc-sm8750.c                      |  20 ++
+ include/dt-bindings/clock/qcom,gcc-sc7280.h        |   1 +
+ include/dt-bindings/clock/qcom,qcs615-gcc.h        |   2 +
+ include/dt-bindings/clock/qcom,qcs8300-gcc.h       |   1 +
+ include/dt-bindings/clock/qcom,sa8775p-gcc.h       |   1 +
+ include/dt-bindings/clock/qcom,shikra-gcc.h        |   1 +
+ include/dt-bindings/clock/qcom,sm8750-gcc.h        |   1 +
+ 22 files changed, 703 insertions(+)
+---
+base-commit: 96d7c30c51c0582a83806abba4c74e2c1344b324
+change-id: 20261013-b4-pdm_clk_gp_mnd_v2-993396fc6cac
+
+Best regards,
+-- 
+Taniya Das <taniya.das@oss.qualcomm.com>
+
