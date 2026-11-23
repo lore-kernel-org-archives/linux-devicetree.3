@@ -1,56 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.21.61.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795429105;
-	b=5pRxliT5eAP9M+4MU6qLopnK+k2KIzGOT8WMx8EqlDrUj0/nddHAvnonJe7LjoYAZ5Cs
-	 tpJJWGpGFbZ755H/rE2Dj9CRrhmf8jxiC5FD71rcsTLHq85lvIx3DS29WPAgmkzT1Ax+1
-	 uhACkENWlnZTf9hUBzJA32VxIVTOb6GVHD8au8UtXiTBy7RLN0sUdmXEH4vI3oZZPrIUZ
-	 FPaj5kgDh4yS2vOB/x1pIdw32hKaJlHePu1I9xpqIOKlGa+qMp/kH0gF4r0pfddMr2BiR
-	 GwGJDQftaMu35OEH5S5/2xNdz91a41rhz2LByt5IxNlvgNnMSkUyYttWUf/xeSHp+PQ==
+	t=1795429283;
+	b=fWovvbfYyu3qsehHRCUjabn3KP//TzSIRlGNWeP3kW2cw/XemKrIzIl/IFhDu1CTsWOV
+	 JM8vxHzusOI7cVUHoVGVMXYiWmacTZdo19vBGa0wEmo0VT06aZbR+HEMth8+k3J6SW4cS
+	 ikJIMiSnlfu4gEyq9lS+zpm7V8aBFY1ZW17hQPGWkhQtSzuGdH6MYk+XFlpOLZv0ha/q/
+	 OgVFGZbSMWD+qnyE1YuHXqZyTRiS/rNJuNttiOwCgKXzblED9ZJFSWhiVzWTp7ol1vRKS
+	 r6W9FHZitK0z96y9Bj5XMAFA8o8tD2G1xJxipJRnXZjWo4T4KXDfqNAXT0FNJlmB4Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795429105;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/sqmnkLt08KA+VXy2kvfCmcu/PPE4EOsE1Wu6qbd410=;
-	b=vcTOttsa63FofXRKOo1jEHV7LSKtwzt7MD4o7gVh39pDx54PPHVx27asuy8Ql0wd+Qtb
-	 +5iqFMLg1d8OIofItTgQUiuulqhzl6zG+p8x6x1zL77qYSiIa0/3FBPiRPP6W0DJrKbBg
-	 aDHsGoqvZpZTXUdYYra6onbWxjOYRdWc/MYB9HvvyFW47wXt0hyscvETk/UJ7AL2U22wX
-	 mtR5cj+mWCj2PU503jGFvyQoutk7Gpf3/zaWx6rF7746G5jghlVpIphZow0pL9mNqmlXj
-	 AknCID7x9iAsIhRIHCaGnQTqxnxZrwb3ofd23xnJyDNQkKoIgN+8rrykcOMY8O63EZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795429283;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:Date:MIME-Version:User-Agent:
+	 From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=If2uBTwUtcsfMKQK/sfG9dFMf3mJdJUXPWloTYU+JZ8=;
+	b=mXoxPj9PAK2NK176jWVGc5nhILwQYyIr1yVoku461JCUF/GUlJ6rgm07E+wS0N8ep0lD
+	 NdTbXILscUps2Zru1jr0HgQJ1KS4hZ3T4C3mt3sf2ieUBwVEze9ccUAqxeO9dpefnrQTU
+	 34yQu190SuuJCWOzc4ffJXCwLZiOHHlCLQWfET4Pz882DTVuVItyOtYubTZDtEJ7m0edo
+	 8ELZb9WlDISNgA17jIIEeSLEpf4aLntvklCWwibcn7OhUSJDjPANmwKzNzjnYbm6Nx/xd
+	 7MVrmbGBzY3J53oxPKEDA62JHgflbZz+hUZ3sBx6A74PqfJWiLxBIjtYckMqHzBLZ1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQZPRV6E;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=aliel.fr;
+	spf=pass smtp.mailfrom=aliel.fr;
+	dkim=pass header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=C2WNYsX2;
+	arc=none smtp.remote-ip=65.21.61.41
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91101606A682;
-	Mon, 23 Nov 2026 10:18:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CD8606A31F
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 10:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19CD8606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQZPRV6E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C231F000C4;
-	Mon, 23 Nov 2026 10:18:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795429105;
-	bh=/sqmnkLt08KA+VXy2kvfCmcu/PPE4EOsE1Wu6qbd410=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hQZPRV6Ej/CreF9EtgmPs2kz4fFI2AgbSrAbqHOpdSl740A1ojcGT83NrU1riV3CH
-	 7LzG4RYKj3M8cTy8EXNg0B8FW6hOVbo4qIqRoOnVAnNmiUCbU/UTewPcC+9YyjcrEG
-	 VtWNq4SffM/JaufBxqV3EWUJXOn7SBi5vVXIxNp1crO2aoFKI6j/fUxAtSI4griTvX
-	 h300wP1J/aCYSUBNwVpTISPR6KTCTJtNC1sJEAb1e/toeV96GPQQt8YaYilIZfqOSV
-	 k5WWVg/9AYqCGXsUJA1PU/OQIQ1xhcqzkxOiWRHR12pNmplBrsQM1EuhauEoXj8Xfy
-	 TXxhoJCbSRjCw==
-Date: Mon, 23 Nov 2026 11:18:21 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: arm: qcom,ids: Add SoC ID for IQ10800MD
-Message-ID: <20261123-elfish-goat-from-tartarus-c13c3d@quoll>
-References: <20261114133304.989635-1-shengchao.guo@oss.qualcomm.com>
- <20261114133304.989635-4-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=C2WNYsX2
+Message-ID: <54fb42e5-42cc-40d2-9e6b-de88c170484a@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1795429273;
+	bh=5ugiLH8lIxJwk2DYuuNikhUFR3FPn+L3PzjLMFkEA3U=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=C2WNYsX2VUK9ubAkdBA8l0eMLilWAxyZlFEc2Qvs2xDobxtWLrufuX3r313vblNTE
+	 eXjlth2bTiE2z/VpKnFsjdzX9O+zQ1LxfA3k3i4FSURIvPLl2qiLg0qZL3ces7qJ2o
+	 HtKSU5feeEJZ5SFK19lakycAhR7lcjrhR43sDd8E=
+Date: Mon, 23 Nov 2026 11:20:42 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,19 +51,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261114133304.989635-4-shengchao.guo@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v3 02/11] dt-bindings: phy: amlogic: Add Meson HDMI TX PHY
+ binding
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, olteanv@gmail.com,
+ sashiko-reviews@lists.linux.dev
+References: <20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr>
+ <20261121-meson-drm-create-hdmitx-phy-v3-2-f8f471788076@aliel.fr>
+ <sashiko-outbox-227302@kernel.org>
+ <2d8dd4ba-26ec-4b01-8361-09e6dfcfa5ed@linaro.org>
+Content-Language: en-US
+In-Reply-To: <2d8dd4ba-26ec-4b01-8361-09e6dfcfa5ed@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026 at 09:33:03PM +0800, Shawn Guo wrote:
-> IQ10800MD is the Dragonwing Robotics SKU of the Qualcomm Nord (NordAU)
-> SoC, which is used on the IQ10 RRD board.
+On 11/23/26 09:06, neil.armstrong@linaro.org wrote:
+> On 11/21/26 20:26, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 1 potential
+>> issue to consider:
+>> - [Low] dt-bindings: phy: amlogic: redundant word binding in commit
+>>    subject
+>> -- 
+>>
+>> commit fbd4563b5cd10db3f75db052197f808e3b36bc55
+>> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>
+>> dt-bindings: phy: amlogic: Add Meson HDMI TX PHY binding
+>>
+>> This commit adds a Device Tree binding schema for the HDMI TX PHY
+>> found on
+>> Amlogic Meson GXBB, GXL, and G12A SoCs.
+>>
+>>> dt-bindings: phy: amlogic: Add Meson HDMI TX PHY binding
+>>
+>> [Severity: Low]
+>> The dt-bindings: prefix already indicates that this patch adds a binding,
+>> so repeating "binding" at the end of the subject is redundant ("dt-
+>> bindings:
+>> phy: amlogic: Add Meson HDMI TX PHY").
+>>
 > 
-> Add SoC ID for IQ10800MD.
+> Use the "dt-bindings: phy: amlogic: document the Amlogic Meson HDMI TX PHY"
 
-That's one paragraph. "Add foo bar, something something". Needs rebasing
-on my cleanup.
+Thanks, I will do that.
 
+-- 
 Best regards,
-Krzysztof
-
+Ronald
