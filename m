@@ -1,91 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795445197;
-	b=E+kyBBSO/h0bu3tMicL4bckwQysyHNJDIjoxsMzfgDRVl+DlHQ6NCg8uvKzmVVu4rPhF
-	 zBahgVxYXe+csGWFbgRwTvF9QhlCvxEqUD2y54iZm9JEf4bWvRhZVKzt8Cr/kh5+IlwFN
-	 h/vx3Fd0FY7qGVreTb5F6tyYtP6GTDKHv8Wo9PCzkH87i+pLs4/8U2OaG5AtP2Z0JTnEK
-	 aCWxiEOPfzNhsHgB8Ede3NH8YlzDd6CBzSAhuYQQbEUg8s4akR9H1QBVWyDBjDMKDE1+L
-	 XlO59wu9VxGLNC3Drm35Vl0ktPckZJv579OEXq1T4elvYrTEX8yg6P6LOGEi0KnNefw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795445197;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=JIXavW+q4rKI5c+QcuTJovpdf6c8pfXOH1QwT1FMHYU=;
-	b=27K2Rkzua8LzJSbLADi4Pox45AhNEgfh3EVt5s1vQUB9DW82d3SWZ3p5cAHh6RvKfA3K
-	 f01TPX3xcPsGVDgu/SWd2ELm6x0GgmEjYgaZJ5vk3yWgnNE619cB7OddZXayj3KurpTOZ
-	 1Fr+NzO5fLOJLZKpRvKDLBKSybRGYQrzVoacqQYF45envtfNoxyaVuq1b6KA4xWLghf1O
-	 lhmMW9fZMgWfFfnsHvAC5c9pmLikF1FEMRi/vzUAJrsaITdGJO0/ttwqk/9fVSFtufRmJ
-	 y32T/ZX/Bn6yv3TUaw1uMxNkw51JIvHRMgYH5ZR8xGM6erA3fkSwu3huQ2MVp2jsogA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=JYv66QP+;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795445263;
+	b=NM9dJqkPZk1lBQDVMCMunWtkYyvXXm6keKv4Ee1+PIHajj+47WFR2T2PC468Oc52UMIe
+	 UH0o1Xc+tJEOjIMMYS+KjvyijoVgMT25dXEME9Tv3+/6BRr1mUrCSi0e4ZKb4hXpfRbGy
+	 n89vryNiiRxhXwRlZJsfkTtfkSN9aDKtus781ghQsbw5uBy8Mi4EeEqAfsXsHgxt6wyHA
+	 DlxyfI6QR7B5qUM+nsm+lp/NXcLe5sV8GwRXX61rrQ+fdJ2vTlRPhgxcyqZPEhy6KqXTq
+	 noogEyho39Y2gmryVI2bChfqMEXuh16tmWzW9WeiS0US+F8RAgf69Y+NTl1ndOFPE2Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795445263;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=nItmIVKm3gLDkwdSrhwxPAd/1rgS2tZ6pNgf/bDdxMs=;
+	b=N6NkJB9VTapreoXxgylAjgHjmfLUzm2lUl6s/fgJ3UWzLDaASAM5bS1kUOocpowkmESj
+	 IySiNYerHGS6gXg2Bi2X+PIcd+SG/MlrQYhjOmHjD+6yOGDX/Q8ARVWL7r/CwL3dXyiH0
+	 Iw4BUg/zKSynlT5tij20DSGYl+ycWC6S4zT/xfaHAWu0wkN+SoaTqtDw2clZHH/AbGdl6
+	 jHKM97AQb2w1K09169Oyh7Yl8KxMOs8cj2Rb4biGAH6csJ2F7wcdPB85dkA3XZ1YK6DbA
+	 07hYVwC4cCjeAcfXL08nF1vRejEww62MshuVsTpXlgKkawkjRifOHX9l15+do3HuDbg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZESrvl2k;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CD3606A31A;
+	Mon, 23 Nov 2026 14:47:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZESrvl2k
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795445263;
+	b=slBpmGh5AYwycvx51taQNDJk2o5lWO0TGaHxDdhemK7DpgBp4v0iYjeUtq1G5AaOsZdd
+	 j8C/MplGMNoxTLq9Xp83tQBhwGbtWjx6O1dXGcPx3nCCGhsMK7L8DGescJrN6t6krX/xs
+	 xbd6+iNBg541bzv4IJxwOVm6MHr67WA5gNxuDLEjtARH+68sAiIbXsVTPXmTCrjuOfZIr
+	 ymp0hDK1hQe4+f5TWR4ueiLZ39Wn3dSubC3rB0JgOIq03Vga9V3CK1jPYZ2bgWAQxynHl
+	 W/2M71lNd9ZDJ+waoGs7E1KEoSg0Li0qo7/8GQ9Z+koaING734Ktg8Y4jSIDDvhm3LQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795445263;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=nItmIVKm3gLDkwdSrhwxPAd/1rgS2tZ6pNgf/bDdxMs=;
+	b=wJ1Ur8AOiNEiL+GEgJ7K0xLPNZgz6tyyHBon1TW1Q67sSdUD2OKK5Vaxq+7MBdYHmHea
+	 IjjOjqyBG6poY/imDCz5oxTgjRNOiOZsLBu23CCy422NHdL0xyKIdUxhmpqu0N/GYP4CG
+	 tIOrg8CrWVD3c4FeRUNRtS+0hUwMp14QoQmY0LCtX/FfMcv2atWf+daTyYctOAMLW0SVm
+	 NKp1Wz3YHHKlvcDTeQ5Okw2S0dw0syMPmkC2bi/Z0Py1RR2uNw5HONGkNoRrClKhnA1dC
+	 wp8Gg7xqG/bXbvSKgi3JHDNS/dn9tJJFopX2aSN2hvCM87Z3wxvRpXEi+I6LnOv4sdQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BF6606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:46:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91BF6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=JYv66QP+
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso482277866b.3
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 06:46:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1795445195; x=1796049995; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JIXavW+q4rKI5c+QcuTJovpdf6c8pfXOH1QwT1FMHYU=;
-        b=JYv66QP+V0uAj5IpLt+P3FOIffffjKyTJZMalhpAE9NsbjlwOvwb+Xl0yIW8XEjjz5
-         +a0q5tS9Gxl8HAbNNCR7xQq0lTCilGyWPPe1/ilHriezJ2xfrL/zXPB4C9X8DMTsIIMp
-         QLeNG6TJ/gF/e2nEPFmRCbbwCKTG/aw8qaF7hlRGSl9+jnhaZgGd8Wvv/ikVT1sLbPyw
-         8lFCevE3tdrMaXBdWGIFwHsIlqngYWY29g54iB5Wt5LZWx72kR80PsLVv2DAGm+6zPbM
-         7roOZuAsBff5h4vEfqoZQpATvnkqgXvjr8WHanDcz72lrivv6gI4XMKtzH3DjCn5uGDI
-         BhPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795445195; x=1796049995;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JIXavW+q4rKI5c+QcuTJovpdf6c8pfXOH1QwT1FMHYU=;
-        b=DAcknOe5reQuj4NdkMg4RW0JuK/QSoP+fl9OpJXG6Vp45R1juzgPOqgegxkm06nj1t
-         qPk9jA4wZ8qOHJv93wzuEslqru720tlpvjykdcHmcq48jVGyBchxn8IhOE9vmlg6bvMv
-         ydTd8sXa6t/CoH0D518tQwR0QVRY+Zt8nqwJiAd5qKSF6DxjsCERAG1Y1M2bj78mttSc
-         06WvmpCJeMPVomcyC2NNtALablfNfKT8cLSdkvCUOyptspdv5U6MHTXtRqSgnIQMDkJH
-         pZXoMd0pKFm3mdCQnXHejAHwFrDagNXI8jQ+tsW0AaIG2es18OF/j/ZcYM6giAsgBkTa
-         VWGw==
-X-Forwarded-Encrypted: i=1; AL+hErGdOW+40fVMoUODSBYjP9CAGpV8Q3j2/Bn8qz0FT26W/MsGyBkLfP0C3KqeaCndSwNErFy0pTYcCeCO@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NJFLCVdq9fHfvbbnbFZ4L4+AGYX+DTiF0qV9Yn+y1KDz32DM2
-	rboG9L2Op71RmpC4IguDX2UkEvd+V9izwfBp6J5uXk0rYnvGCxLtiAx1vKhlHAraaSTNSB0Psbi
-	Ltq4JbSo=
-X-Gm-Gg: AZFdTZcMw4BTDZnVibDLLxE8ZIz6I7iOtLTYT23ZrborOWXo8icRKl+evY2P6amj0rR
-	9YDFqbszwPuKtuiWvDSd7Q4bmmr2QDtx23eDYHuKPF8/O2PnLvkks7CSLN56MDC2laNPOrY8f0F
-	1ZplkRCRt8b75lvk2MHEkN9J9OIRmkjPqfUqJED/wxDQEGMwLGma1suJiC+xDMXetE3StJAA0/M
-	UXp3a9uWGL4m1Dx75RX80Hd98XSjJmKcfe+aPenMMw0jJJ/8OMPM2v6q3qtYzbzBx26Qh1kCTQo
-	YFTlb0qiUfGBdPsxt2uq0Qup9TnCt7mOPcuMLEIAqWPzi8rv2dpT3TbHLt3IDzyDVODEfae1cgZ
-	0HBIDrkMcHddXNU79vV2DntE9sqZa3/YdZjSKIOJ7xBXp/GTxzMskzzZQbcHqbjlXufUdW4hB0J
-	FrY2Gw/YDgn4SOx1ymGUUzKDaf/7ToAIELC6Jwtrnd55/qh9DiwlvGgfjMNsIFgkk0/oUFnmJWo
-	zl593C9t2VvTlLBLFlIZ+L2Ia7lZuxRXEJ9albsRHKFyzpBD7sjG5nyYcM9Fy9bRq+5gxjcauqq
-	4D5VQsh88lFxV2Ra7xYMtr/rUOWTWyLTqf2lO8cGjicdkm9nUSYdAZb51SDgpRV+bfvEmAz6cjH
-	W1rTGZmI=
-X-Received: by 2002:a17:906:3b94:b0:c26:1649:47ad with SMTP id a640c23a62f3a-c513ab209f4mr755332866b.35.1795445195058;
-        Mon, 23 Nov 2026 06:46:35 -0800 (PST)
-Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513aea3701sm433004766b.48.2026.11.23.06.46.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 06:46:34 -0800 (PST)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Mon, 23 Nov 2026 15:46:33 +0100
-Subject: [PATCH 1/2] arm64: dts: qcom: sm6350-lena: Use QCOM_ID_SM6350 from
- qcom,ids,h
+	by smtp.kernel.org (Postfix) with ESMTPS id 924911F00A36;
+	Mon, 23 Nov 2026 14:47:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795445263;
+	bh=nItmIVKm3gLDkwdSrhwxPAd/1rgS2tZ6pNgf/bDdxMs=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=ZESrvl2kFhVtYU59GOdCxWn5RNPOW5ia46bj9HEyWJsoOaoRa0zxI8t7xEAzBV/FC
+	 3pXtQmCK7kncXAMM06VOvaM6fSmGf4VVZv9ZMYrgj933qC/wiCnuAaQfWBv0rAP+BX
+	 IvjQ5QDB7ExarMZpiXK7pufbTZFWIY030i+KXSAGc8cXfmsAGY+XGNe/LK5yRpPH6d
+	 bje9FMyblqjmwXsELSTU7k5gRMicRU840UwobsTxHQRuMH88oSQsPpP3mMPKCY/wfc
+	 da5ATQAzAp94+B8oswSsHrrQcFHqMHxWt2wy9u+gl/GDxFaJgWGYpFAtawyOAub9VT
+	 qzf9ppP/CU69Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E9C744C4FB;
+	Mon, 23 Nov 2026 14:47:23 +0000 (UTC)
+From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
+Subject: [PATCH v4 0/8] Add support for MIPS P8700
+Date: Mon, 23 Nov 2026 15:46:55 +0100
+Message-Id: <20261123-p8700-dts-v4-0-60bb7bf8a7a1@htecgroup.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,59 +85,131 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-sm6350-msm-id-v1-1-99482c9ecc48@fairphone.com>
-References: <20261123-sm6350-msm-id-v1-0-99482c9ecc48@fairphone.com>
-In-Reply-To: <20261123-sm6350-msm-id-v1-0-99482c9ecc48@fairphone.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795445193; l=1314;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=MioatHSL4y0vJqbIZo9adAiprmtkveXc0RY5gOeh64A=;
- b=SV+ZTJHMf9QlBLfDxTsw9zKgSDUnoBlSmgiDdiCbTMyQiO93Oq0oqkW5zNt3bohtXoxhv2sd3
- NWwUb47JMGwARaApwwyU27UXRbHCcqVkEVzBXaLYi/Z49tuxRtwikn3
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-B4-Tracking: v=1; b=H4sIAN9RBGsC/23MQQ6CMBCF4auYrq3pTAsFV97DuIAyhS4E0mKjI
+ dzdgokhxuWbzPfPLJB3FNj5MDNP0QU39Gmo44GZrupb4q5Jm6HAXEjM+FhoIXgzBa5AF4UVoBA
+ 1S/+jJ+ueW+t6S7tzYRr8a0tHWK+fSglqV4nABZeYawuKakNw6SYyrR8e48kMd7aWIn41gJB7j
+ auuTNao0qKR+p+WOw35XsukacW1bkiW9lcvy/IGBU5OKSIBAAA=
+X-Change-ID: 20260325-p8700-dts-41788f014227
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
+ Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Inochi Amaoto <inochiama@outlook.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Joel Stanley <joel@jms.id.au>, 
+ Aleksa Paunovic <aleksa.paunovic@htecgroup.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795445243; l=4767;
+ i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
+ bh=fk2JShQCzrA8OtTZu8VbzvejSAGg+O0BzIRRDTpGEr4=;
+ b=nsH9cdBjPokP8DnwyoNqo9owmGhVw/iboBNhywcntNuIYDvUIDmlbhVx9xQUIzPdDb1F1lDyn
+ 7nDWGmXN+qICLJRh0O0/x4oizwIn9UW6N+lXlFKeckKNa6vve4Mq9Ai
+X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
+ pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
+X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
+ with auth_id=476
+X-Original-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+Reply-To: aleksa.paunovic@htecgroup.com
 
-434 is just the value behind QCOM_ID_SM6350, so use the define to make
-the meaning of the qcom,msm-id property clearer.
+The MIPS P8700 is a multi-core RISC-V microprocessor system, supporting
+both single-cluster and multi-cluster configurations. [1]
+This series adds full description of the platform,
+including the Boston FPGA board configured with a P8700 bitfile.
 
-Also while we're at it, drop 459 (QCOM_ID_SM7225) since the Sony Xperia
-10 III only shipped with a Snapdragon 690 5G, not a Snapdragon 750G 5G,
-therefore the second value of qcom,msm-id is not needed.
+The P8700 cores support the RV64GCZba_Zbb (G = IMAFD) Standard ISA,
+with a caveat: the A extension is only partially supported, and all ZAAMO
+extension instructions are emulated on the SBI level. The device tree
+intentionally does not reflect this fact. Vladimir Kondratiev's series
+improves performance by directly substituting AMO instructions with LR/SC. [4]
+The two patchsets do not depend on one another.
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+The board itself is the same board as 'img,boston', configured with a different
+bitfile [3]. The Boston board has been supported since commit 6e62a888029b
+("MIPS: generic: Support MIPS Boston development boards") (thanks to Maciej for finding the ref).
+
+I tested this series both on QEMU and a Boston board
+configured with a single P8700 CPU,
+after applying the necessary U-Boot changes.
+We are planning on upstreaming these as well.
+
+Following the discussion in [2], I decided to drop the 'gf' prefix for all compatibles
+and to rework the aclint-mtimer binding.
+
+Links:
+[1] https://mips.com/wp-content/uploads/2025/11/P8700-F_Programmers_Reference_Manual-TM.pdf
+[2] https://lore.kernel.org/linux-riscv/20261109051050.105623-5-joel@jms.id.au/
+[3] https://training.mips.com/cps_mips/Examples/MD00901_Boot-MIPS_Example_Boot_Code_for_MIPS_Cores.pdf
+[4] https://lore.kernel.org/all/20261026-lrsc-only-v3-0-ec29c8190fb1@mobileye.com/
+
+Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 ---
- arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v4:
+- Add git tree link to the MAINTAINERS entry.
+- Require the names of mtimer registers to be 'mtime' and 'mtimecmp', as suggested by Sashiko.
+  Update the commit message to reflect the reasoning for changes in v3, suggested by Conor.
+- Link to v3: https://lore.kernel.org/r/20261116-p8700-dts-v3-0-ec5d4b7de39f@htecgroup.com
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 6e2bbf4f060a..a5072496332b 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -4,6 +4,7 @@
-  */
- /dts-v1/;
- 
-+#include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include "sm6350.dtsi"
-@@ -13,7 +14,7 @@ / {
- 	model = "Sony Xperia 10 III";
- 	compatible = "sony,pdx213", "qcom,sm6350";
- 	chassis-type = "handset";
--	qcom,msm-id = <434 0x10000>, <459 0x10000>;
-+	qcom,msm-id = <QCOM_ID_SM6350 0x10000>;
- 	qcom,board-id = <0x1000b 0>;
- 
- 	chosen {
+Changes in v3:
+- Drop the 'gf' vendor prefix patch. The prefix isn't used anywhere.
+- Replace 'gf,mips-p8700-*' compatibles with 'mips,p8700-*'
+  to match those already present in OpenSBI.
+  Other compatibles are also renamed for consistency.
+  Match the directory structure and binding names,
+  by replacing 'gf' with 'mips' everywhere.
+- Add a MAINTAINERS entry.
+- Change the `aclint-mtimer` binding, reversing the decision made in v2
+  and putting 'mtime' first when both 'mtime' and 'mtimecmp' are present.
+- Link to v2: https://lore.kernel.org/r/20261103-p8700-dts-v2-0-3ac5d49f2c37@htecgroup.com
 
+Changes in v2:
+- Patch 1: Replace "MIPS Technology" with "MIPS Technologies".
+- Patch 3: Name the FPGA used and add the versioned bitfile compatible.
+- Patch 5: Drop hart indexes from MSWI.
+- Patch 6: Swap mtimecmp and mtime, require reg-names both for mtime and mtimecmp on P8700.
+- Original patch 7: Dropped.
+- Patch 7 (previously 8): Remove additional harts that are not
+  present in the bitfile I have. Reflect changes made in patches 3, 5 and 6.
+  Remove riscv,cbom-block-size. Drop undocumented compatibles. Other minor changes.
+- Link to v1: https://lore.kernel.org/r/20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com
+
+---
+Aleksa Paunovic (8):
+      dt-bindings: riscv: cpus: add mips,p8700
+      dt-bindings: riscv: Add MIPS Boston board compatible
+      dt-bindings: interrupt-controller: Add MIPS P8700 APLIC
+      dt-bindings: interrupt-controller: Add MIPS P8700 ACLINT MSWI
+      dt-bindings: timer: Add MIPS P8700 ACLINT MTIMER
+      riscv: dts: mips: Initial support for the P8700 Boston board
+      MAINTAINERS: Add entry for MIPS RISC-V SoC support
+      riscv: defconfig: Enable MIPS SoCs
+
+ .../bindings/interrupt-controller/riscv,aplic.yaml |   1 +
+ .../thead,c900-aclint-mswi.yaml                    |  11 ++
+ Documentation/devicetree/bindings/riscv/cpus.yaml  |   1 +
+ Documentation/devicetree/bindings/riscv/mips.yaml  |  33 +++++
+ .../bindings/timer/thead,c900-aclint-mtimer.yaml   |  39 ++++++
+ MAINTAINERS                                        |   8 ++
+ arch/riscv/Kconfig.socs                            |   6 +
+ arch/riscv/boot/dts/Makefile                       |   1 +
+ arch/riscv/boot/dts/mips/Makefile                  |   2 +
+ arch/riscv/boot/dts/mips/p8700-boston.dts          | 135 +++++++++++++++++++++
+ arch/riscv/boot/dts/mips/p8700.dtsi                |  82 +++++++++++++
+ arch/riscv/configs/defconfig                       |   1 +
+ 12 files changed, 320 insertions(+)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260325-p8700-dts-41788f014227
+
+Best regards,
 -- 
-2.56.1
+Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+
 
