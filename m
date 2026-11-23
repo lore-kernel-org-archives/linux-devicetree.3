@@ -1,80 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795465630;
-	b=c5/j2w9xXJONNTX7QS/3fFAZZnUlUe05+4kakMuT27nSttaQ3B/oper92eNfil5+rms2
-	 4wDvfzzAkP67ixO9KSSXq90EgMpx23Hss25HHasrlTISIZXHepeYPBSnyOwQ7TSc8pAPs
-	 9StvpLh7TRl8e355KLq8Nk1r2EqQY52KgiHzogES42wTjK0oP85Ht7JZceWlvG9fWMUcE
-	 3uTjOEGhJ01FTxHQttLu+FdRVtxIEawql0VuliOy+SWgcs2ZujHQvikXN2EfVm11Ko69t
-	 rSVnn3ohv77rv6HzeGj9Hs/RlvJphk4j2Y9AhTL2ergBmOtGCAmygGbhRVlHqhazEgg==
+	t=1795465635;
+	b=OZ4Nli4ZrXED0maZLc93caKWHqNrxiIkKwM4LyTWvx6KCY8ngNCVVXboo0xAnW9jVKwB
+	 o4aUb62OJi8zGI6iV6Gel92G4ihrBnlRmqXVWL7NWipfsOAfzdZloY7nm9qdNVsUfauAt
+	 NZJLWraTbv2zo47XasSBHfg1Cw+fnr0yUvXzO/5QjJ4zsVrliSLHRk8zB+gykVLblPusd
+	 b0bm1xMmpsVYAW3/i9p77o8Gn5TDuiRzY2hPDE1ker0yIW6uCTFBChb0PRcK2lkcachL9
+	 ROzja+/fQp2GaOprv34w21zn91EciwaLOnXi/O+OlnewdK1t+MdW5FHX9wvP8v+H9fQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795465630;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=Nyuzjetp8OWy25Sl7SgxFkcjDXjThI6BWws7UxbNUJw=;
-	b=EJ0l5Ux+BSXtYc2vw3/njfpJbK3vJ7U+8rZuKX7PVOGzEAHrddYic1TFzDd6CkG3vff2
-	 kPY89mzIqbhfzeIbhRkqDw8SHLMRi+31nbsNHKtgcgex+NgNCSoNwwWgMyrc6iCuVg6tC
-	 f+vI/yU7TDwidQnJFRri/o7x2x5G541pHdPGEINxcLGIx5WKh/6recygzKc1O/HC5lpys
-	 rWiqTzuvOIDlfNE5DvCCQqXSiitd6/Sy6RLJv9ctHDupPVGUES7jBg4mGlYxjJ6tSFj03
-	 8ecNWzZ3QJ3kPzw1Rz5cKZ/feduunUB8zFWHt06zZbl3cQj837DtQIQ28cnUoNokd/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795465635;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=OhWmimZIqkg9HQUoRo0vOAuz9vLw0fvzPCSsweRqk10=;
+	b=46nYdHsksEKvzNkT6aOX7Xu6hFI2MUDS/Xch19sF/BVL8qMw4JBkgoYtJDIf97UXyc1w
+	 ZjGqw/JbJMdmqTELJqjXduZIclrlOD2hvyP46f/2KwWk+3Nrc8OSUE8RsS377+VF9GKLf
+	 QQBn/J4S8qzw7NQ4UXdAG0ZF2UK01TLyayV3sOZGSPzs7VYarEMPuJMv0nBfwx4MYQPDM
+	 ZTnt1YQ/Rp63orMH4Bu90jLiafGdVunqPad0q3Y4XKiZ6PXSJvw54eGWGnbaRiQUEUH+z
+	 57rEASZFwktMfNer8IH9NIaZWSzdxjGtjLJYhUelqXpx71/i/2xW56Td9BQWTktmYQg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BRbjGhUQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=leFCaLDt;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831A2606A685;
-	Mon, 23 Nov 2026 20:27:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575E5606A6A3;
+	Mon, 23 Nov 2026 20:27:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BRbjGhUQ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=leFCaLDt
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795465630;
-	b=RsvS/5ZYpEy/3/Rs4snCPu5I/OZpNf9B6IBEmkC5/rfMxycX+ulEEkfqMnUCqhew5SlX
-	 Ipo1sglQzY2RT7yI3wet1hxt1iTKHZ0vr7exoH1UhPOFM9d4U9K4JMXIGVyuMOdbCcfwR
-	 SUtRbFVSZ33Milx3LZgsbWx8HfWXwik2McQ5kAG27BhdQ/Q9UC5rjKvYe4W1+PyeH41uB
-	 Omk9oO+PfkKVHZeBHcXyMk8QJq1qtXov+prbm6BOklu+Xaj8VYI0kAx8tf+YGTg6eTDRd
-	 Z55/miPZFZs/di6U2d0E0XF9bj/7e930UreKFx+qfHaygoMkgrIdjpIxWvZb5kBR11w==
+	t=1795465635;
+	b=mrWEZvkVDCy0nSas3e0IiiCkKD5sqxXHB5qepOqi/iWpnlri1uDEnjfYWR1Dzbp8CggG
+	 LtT4DE8k9QMZC3nx05SJMOnFNPw4VOkB/myPuczm2CscUZD5MFcB5OqvH4Q4UhdBpW1UV
+	 lh7vBrE5Q2GsiwZE0TGaIttJmBVRpj+I1UpkDml/4lHaTjC1jZkQKR2+X4Vp0VZ22Ywkj
+	 69MvDHNND/1TZIJgBUqnAVPpS1p0AiqAEPMRCSNZGGR+4W45n0ITY+dZpCVLIv2yLmsId
+	 /OvWcHUDGNgeu4BqgjTSR4wAg49WhO53cd7SOAJ8cZTTYCVpgiazOsCBrEBYPMtSDrQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795465630;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=Nyuzjetp8OWy25Sl7SgxFkcjDXjThI6BWws7UxbNUJw=;
-	b=l4XRgt9htF+3zPGf1GiCsKvPUP20+/8PX19TWgr+z8hZoZGckVKEFq7AZ7AnOO3cobVf
-	 Yh7SIXtOOn25zU1/uoZbV0+5HSkY8hH8//WUiekqb5igvSY+lbMx/OuH5wElW5gTmxvtB
-	 GcVjAeuouA2J20QNUd6bFjKcAqatkHoDNs91woCx/B5GjZS/FkWgbAYMkhvR7rcmODtft
-	 zNUlIIpp1CtKY873sOI0gcjTd7wOI9PzmOm5bZfSUsy7cw1YTD/4o1MbeO8b6dpdWgJAd
-	 dyiyN0kMfw3nJJaYSYYfZiG6cEFQf9BVWeK/x7j/mFuOVMtLGIR2I72Rwz5XnfLyErA==
+	c=relaxed/relaxed; t=1795465635;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=OhWmimZIqkg9HQUoRo0vOAuz9vLw0fvzPCSsweRqk10=;
+	b=ZC+Mz7tlyVYf9m493eQoHreiLwsCkyUw/OXdVIVK2NZ6fHbV6YGi8mnLW9iRFBGcq2ef
+	 Eg/ZV2RltKQe/cZTQqdnIJVImXau8Sc7IbOE7fc/u027IVdRvRkP4V05y+7E3CMs/eCeS
+	 h21pVLRu7Ul3hh7OwKBTBqEWEWtZKvYAy1YtZoNxwhwtnYjWmAAAy6PPLrvaiaCm5yCkk
+	 B93zA0PVU73im+5DfOAxiYKNKxutk5VIbyN322IJtNb6IzYflFbXHGwMrJa+HPCr0nj75
+	 RtioU/AmGsdrjJndZtRFTIcU23NLAcv162+nmKR/yyCR6oB+gdedgDqtoy2gS4rUtWw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B52731F000C6;
-	Mon, 23 Nov 2026 20:26:58 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 04F4B1F0089E;
+	Mon, 23 Nov 2026 20:27:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795465630;
-	bh=Nyuzjetp8OWy25Sl7SgxFkcjDXjThI6BWws7UxbNUJw=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=BRbjGhUQ7Omd16gkUCme4sE0gTgPqzEoISS7NqDyuAQcATQ6kpOd+sBXdRcEZdWAB
-	 rxPnXGv0o7MRLE/fYTeX8Xb1qXSmURDKfJoAjhym5LgI3CqsSHXERWg16m68HmbemE
-	 geW4aQWL5XXG+0YgoqvS66zUzs9nfOKJUlimAm6zCSG7Zq1CM6dTsXp4CFaOkzsBFo
-	 5HNMEGA2flQeebTO/A30g75FsEayh4Q/9MjV06UcJKCsr51ptA/q/IvvLYkOXCpJQi
-	 IkSN6hmTBRJj4twcr3LXH83OOJ8zBeP9kslueXOv2zMTR1N9yGOwY4ac8yf13It/Sj
-	 C5LpCKsrUYvJg==
+	s=k20260515; t=1795465635;
+	bh=OhWmimZIqkg9HQUoRo0vOAuz9vLw0fvzPCSsweRqk10=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=leFCaLDtWrBorX2xkRC80LPpCoN3fYEAdEnBbSQw3AvuWj6ZoynluE0hVuAbEhCGw
+	 CmouZsnXUjN9zO6YcffUQc/W+fn+QTw4i+GTq0aB6W38A5wSaXKEvasInEp+m0WJ+m
+	 VNZpV0K712HhN57tSRJYdlwEncdnXiKbzfjnMl24nCtgTZbohuxpS5LoyYKM0ZUCY1
+	 7LYP2FZeiXB44vjzxH9/sN2Azz2FjNlRiCkiLGbZQsCiGez4YIhmPhO8r5nCOjs6U0
+	 kwo295EA1Yr847rBuB9Dhxh2CKhIArl719sS2+9tBBTEmY0Fif+YgystjD9fxvXbAc
+	 E4kVRXhkhGWcw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 16DA14C6CD;
-	Mon, 23 Nov 2026 20:26:58 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0ED354C6E9;
+	Mon, 23 Nov 2026 20:27:03 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Subject: [PATCH v2 0/5] soc: cortina: Add CS7542 global clocks and pin
- multiplexer
-Date: Mon, 23 Nov 2026 23:26:54 +0300
-Message-Id: <20261123-cs7542-syscon-v2-0-1cd74b2522f9@gmail.com>
+Date: Mon, 23 Nov 2026 23:27:02 +0300
+Subject: [PATCH v2 2/3] rtc: Add Cortina Systems CS7542 RTC driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,154 +83,258 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2ho6tDxc+R+GBZYBxgg1HSQSw
- r8LuHZ5knPPXUAoMAlcogUCTSzshw3wFIHrqqElxfXGgDGmWmOinGTWoJJZnB8UZkltjXVZ1SB
- sm1eghj9H71b+WN73B7lxj+xGxzL6MB+Hk969f+1Jq1iZIrc5pYk2pri2fcXPs/M9lOu6fgEQe
- veZvAAAAA==
-X-Change-ID: 20261123-cs7542-syscon-273d545c7af2
-To: Linus Walleij <linusw@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+Message-Id: <20261123-b4-cs7542-rtc-v2-2-31ab43f2cc8e@gmail.com>
+References: <20261123-b4-cs7542-rtc-v2-0-31ab43f2cc8e@gmail.com>
+In-Reply-To: <20261123-b4-cs7542-rtc-v2-0-31ab43f2cc8e@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795465614; l=6351;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795465620; l=7105;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=R/yyN0QJVRDc3/y2zCj1gHHS6hPg4w8TiYUJ56D5vBc=;
- b=SZ//oU/Zn/7iNOcxmOTHH0kSckOwmn8LDMhjPwo23SGNWbLWfLH5YawqxNEgvifKmn6tMj/Cw
- c2zmj7oe7GhDe0bXQh6yeo2/WPsXW4FSMUw1VKKuKUNLS0Io2OsZZhS
+ bh=QOCqd+uabd2B7duLw3XAC+zMqn5AZbL/CNFxqJTo8k4=;
+ b=u79vd+3eXY1kOJh1/XZmCXfn9Egrq/vcJpM7YTnZfr5V4do+FaE8wBRljnDyYsIDw5oS+2UqJ
+ 8rXSJuxQ8tmBo7x3xT0avmWNbhxO5jGh/aPcsMV9R9dp/YlBDQ2HX0j
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
  auth_id=1085
 X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
 Reply-To: filipp.dunsky@gmail.com
+Content-Transfer-Encoding: 7bit
 
-The CS7542 global control block contains boot strap status and five
-GPIO/peripheral mux registers, alongside reset and SMP controls. Add a
-shared syscon binding, an early strap-selected clock provider, and a
-pinctrl child using that same regmap.
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-The source material is the GPL vendor kernel and the existing OpenWrt
-port. OpenWrt previously used a board-fixed APB clock and a temporary
-machine initcall to select GPIO37 and the UART1-3 pins. An older port
-read the strap to publish APB, CPU and AXI fixed clocks. This series
-replaces those mechanisms with subsystem drivers, without moving mux
-writes back into the GPIO controller.
+Adapt the vendor-derived OpenWrt calendar implementation to an OF driver
+without a platform Kconfig dependency. Decode the four-digit BCD year,
+retry reads across second changes and preserve RTCEN after programming.
+Expose the verified 2000-2099 calendar read/set operations. Do not
+advertise alarm interrupts or suspend wake until their hardware
+behaviour has been established.
 
-The clock provider only reports the seven known strap configurations;
-it does not program PLLs, dividers or gates, and does not implement
-DVFS. Reserved encoding 7 is rejected. It is initialized before ARM
-timer discovery, while keeping the syscon node available to populate
-the pinctrl child.
-
-The pin mux driver supports GPIO on the five 32-line banks and the six
-UART pins (72-77) used by the OpenWrt workaround. Other peripheral
-functions, pulls and drive strengths are intentionally not exposed.
-A GPIO/peripheral selection updates only its own bit through regmap.
-
-These five patches are based on v7.4-rc4 and do not depend on the
-pending platform, GPIO or INTC series. A separate peripheral DTS series,
-based on platform v9, adds the syscon node, replaces the fixed APB clock,
-connects CPU clocks and selects GPIO37 and UART1-3 on the Almond+. The existing SMP
-release register remains accessed by the platform code.
-
-Validation:
-- full ARM multi_v7_defconfig vmlinux and modules builds with W=1:
-  GCC 14.2 clock=y/pinctrl=y and Clang 21.1.8 clock=y/pinctrl=m,
-  COMPILE_TEST=n, without the pending platform series; both passed
-- final linked kernel symbols and pinctrl module/modpost checked;
-  no warnings in the new drivers (other kernel code emits warnings)
-- dt_binding_check including both examples; positive GPIO/UART cases
-  and rejection of invalid UART37, GPIO160 and unsupported pin config
-- host harnesses running the actual clock init and mux routines with
-  failure-injecting mocked APIs: all strap settings, registration/error
-  cleanup, every mux pin/bank boundary, neighbour preservation
-- component and DTB/schema checks of the separate integration tree
-
-The v1 clock and pinctrl sources booted on a Securifi
-Almond+ in an OpenWrt 6.18.64 RAM kernel. Before entry, GPIO37 and UART72-77
-were deliberately set to the opposite mux state; the default pinctrl
-state restored them. APB/CPU/AXI rates were 150/750/150 MHz. The test
-recorded a physical reset-button press/release with matching IRQ-backed
-hotplug events, opened UART1-3 at 115200, read the I2C device at 0x48,
-received the expected NACK at 0x49, and exercised watchdog calls from CPU1
-and 20-second expiry. All 27 checks passed. Raw I2C checks used a test DTB
-with the touchscreen consumer disabled; production OpenWrt keeps it
-enabled. The device returned to installed OpenWrt 6.18.60 with unchanged
-configuration hashes. This is hardware evidence for these driver sources
-on 6.18.64, not a boot test of the standalone v7.4-rc4 series or of DVFS
-and suspend.
-
-The v1 production OpenWrt 6.18.64 image was also installed, preserving
-configuration. The default mux and clock rates were confirmed after
-boot; GPIO37 press/release and IRQ-backed hotplug events, UART1-3 termios
-configuration and watchdog keepalives/20-second expiry reset passed.
-The protected bootloader/environment, retained UBI volumes and
-configuration hashes were unchanged after the upgrade and reset.
-
-The v1 clock/pinctrl sources additionally booted in a Linux 7.4-rc4
-RAM integration kernel with platform v9, the accepted watchdog and
-local RTC/TRNG drafts. Both CPUs came online; the final RTC calendar,
-TRNG and watchdog harness passed 16 checks and returned to OpenWrt.
-This is an integration boot, not a repeated physical-button or UART1-3
-test on 7.4; those source-level hardware checks above used 6.18.64.
-
-Additional v2 validation: the actual pinctrl core pin_request reproduces
-the old GPIO-hog request failure and passes after the callback is added,
-while a UART-selected pin remains exclusive. The updated source also
-boots in the combined Linux 7.4 Almond+ RAM kernel.
-
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
-Changes in v2:
-- Identify GPIO mux functions with function_is_gpio so strict ownership
-  allows a GPIO consumer after the default GPIO state; UART stays exclusive.
-- Link to v1: https://patch.msgid.link/20261123-cs7542-syscon-v1-0-49858e631449@gmail.com
+ drivers/rtc/Kconfig      |   9 +++
+ drivers/rtc/Makefile     |   1 +
+ drivers/rtc/rtc-cs75xx.c | 174 +++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 184 insertions(+)
 
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>
-To: Brian Masney <bmasney+clk@redhat.com>
-To: Jerome Brunet <jbrunet+clk@baylibre.com>
-To: Linus Walleij <linusw@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-clk@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 73ec9230e..2937f637a 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -1463,6 +1463,15 @@ config RTC_DRV_ASM9260
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called rtc-asm9260.
+ 
++config RTC_DRV_CS75XX
++	tristate "Cortina Systems CS7542 RTC"
++	depends on OF && HAS_IOMEM
++	help
++	  Support the calendar clock of the Cortina Systems CS7542 SoC.
++	  Read and set dates in the 2000-2099 range.
++	  Alarm interrupts are not supported.
++	  The module will be named rtc-cs75xx.
++
+ config RTC_DRV_CV1800
+ 	tristate "Sophgo CV1800 RTC"
+ 	depends on SOPHGO_CV1800_RTCSYS || COMPILE_TEST
+diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
+index 46f1a0fc2..516cc6c9c 100644
+--- a/drivers/rtc/Makefile
++++ b/drivers/rtc/Makefile
+@@ -45,6 +45,7 @@ obj-$(CONFIG_RTC_DRV_CADENCE)	+= rtc-cadence.o
+ obj-$(CONFIG_RTC_DRV_CMOS)	+= rtc-cmos.o
+ obj-$(CONFIG_RTC_DRV_CPCAP)	+= rtc-cpcap.o
+ obj-$(CONFIG_RTC_DRV_CROS_EC)	+= rtc-cros-ec.o
++obj-$(CONFIG_RTC_DRV_CS75XX)	+= rtc-cs75xx.o
+ obj-$(CONFIG_RTC_DRV_CV1800)	+= rtc-cv1800.o
+ obj-$(CONFIG_RTC_DRV_DA9052)	+= rtc-da9052.o
+ obj-$(CONFIG_RTC_DRV_DA9055)	+= rtc-da9055.o
+diff --git a/drivers/rtc/rtc-cs75xx.c b/drivers/rtc/rtc-cs75xx.c
+new file mode 100644
+index 000000000..2ba25ac04
+--- /dev/null
++++ b/drivers/rtc/rtc-cs75xx.c
+@@ -0,0 +1,174 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <linux/module.h>
++#include <linux/bits.h>
++#include <linux/err.h>
++#include <linux/slab.h>
++#include <linux/platform_device.h>
++#include <linux/rtc.h>
++#include <linux/bcd.h>
++#include <linux/io.h>
++#include <linux/of.h>
++
++#define DRV_NAME	"cs75xx-rtc"
++
++#define G2_RTC_RTCCON		0x00
++#define G2_RTC_RTCCON_STARTB	BIT(0)
++#define G2_RTC_RTCCON_RTCEN	BIT(1)
++#define G2_RTC_RTCCON_CLKRST	BIT(2)
++#define G2_RTC_RTCCON_OSCEN	BIT(3)
++
++#define G2_RTC_RTCSEC		0x24
++#define G2_RTC_RTCMIN		0x28
++#define G2_RTC_RTCHOUR		0x2c
++#define G2_RTC_RTCDATE		0x30
++#define G2_RTC_RTCDAY		0x34
++#define G2_RTC_RTCMON		0x38
++#define G2_RTC_RTCYEAR		0x3c
++struct g2_rtc {
++	void __iomem		*base;
++	struct rtc_device	*rtc;
++};
++
++static u32 g2_rtc_readl(struct g2_rtc *p, unsigned int addr)
++{
++	return readl(p->base + addr);
++}
++
++static u8 g2_rtc_readb(struct g2_rtc *p, unsigned int addr)
++{
++	return readl(p->base + addr) & 0xff;
++}
++
++static void g2_rtc_writel(struct g2_rtc *p, unsigned int addr, u32 val, u32 mask)
++{
++	u32 reg = (readl(p->base + addr) & ~mask) | (val & mask);
++
++	writel(reg, p->base + addr);
++}
++
++static void g2_rtc_write_enable(struct g2_rtc *p)
++{
++	u32 tmp = g2_rtc_readb(p, G2_RTC_RTCCON);
++
++	g2_rtc_writel(p, G2_RTC_RTCCON,
++		      tmp | G2_RTC_RTCCON_RTCEN | G2_RTC_RTCCON_STARTB, 0xff);
++}
++
++static void g2_rtc_write_disable(struct g2_rtc *p)
++{
++	u32 tmp = g2_rtc_readb(p, G2_RTC_RTCCON);
++
++	g2_rtc_writel(p, G2_RTC_RTCCON,
++		      tmp & ~G2_RTC_RTCCON_STARTB, 0xff);
++}
++
++static int g2_rtc_gettime(struct device *dev, struct rtc_time *tm)
++{
++	struct g2_rtc *p = dev_get_drvdata(dev);
++	u32 year, sec;
++	int retry;
++
++	for (retry = 0; retry < 3; retry++) {
++		sec = g2_rtc_readb(p, G2_RTC_RTCSEC);
++		tm->tm_min = bcd2bin(g2_rtc_readb(p, G2_RTC_RTCMIN));
++		tm->tm_hour = bcd2bin(g2_rtc_readb(p, G2_RTC_RTCHOUR));
++		tm->tm_mday = bcd2bin(g2_rtc_readb(p, G2_RTC_RTCDATE));
++		tm->tm_mon = bcd2bin(g2_rtc_readb(p, G2_RTC_RTCMON)) - 1;
++		year = g2_rtc_readl(p, G2_RTC_RTCYEAR) & 0xffff;
++		if (sec == g2_rtc_readb(p, G2_RTC_RTCSEC)) {
++			tm->tm_sec = bcd2bin(sec);
++			tm->tm_year = bcd2bin(year & 0xff) +
++				      bcd2bin(year >> 8) * 100 - 1900;
++			return rtc_valid_tm(tm);
++		}
++	}
++
++	return -EAGAIN;
++}
++
++static int g2_rtc_settime(struct device *dev, struct rtc_time *tm)
++{
++	struct g2_rtc *p = dev_get_drvdata(dev);
++	int year = tm->tm_year + 1900;
++
++	g2_rtc_write_enable(p);
++	g2_rtc_writel(p, G2_RTC_RTCSEC,  bin2bcd(tm->tm_sec), 0xffffffff);
++	g2_rtc_writel(p, G2_RTC_RTCMIN,  bin2bcd(tm->tm_min), 0xffffffff);
++	g2_rtc_writel(p, G2_RTC_RTCHOUR, bin2bcd(tm->tm_hour), 0xffffffff);
++	g2_rtc_writel(p, G2_RTC_RTCDATE, bin2bcd(tm->tm_mday), 0xffffffff);
++	g2_rtc_writel(p, G2_RTC_RTCMON,  bin2bcd(tm->tm_mon + 1), 0xffffffff);
++	g2_rtc_writel(p, G2_RTC_RTCYEAR,
++		      (bin2bcd(year / 100) << 8) | bin2bcd(year % 100), 0xffff);
++	g2_rtc_write_disable(p);
++
++	return 0;
++}
++
++static const struct rtc_class_ops g2_rtcops = {
++	.read_time		= g2_rtc_gettime,
++	.set_time		= g2_rtc_settime,
++};
++
++static void g2_rtc_enable(struct device *dev, struct g2_rtc *p)
++{
++	u32 tmp;
++
++	if ((g2_rtc_readb(p, G2_RTC_RTCCON) & G2_RTC_RTCCON_RTCEN) == 0) {
++		dev_info(dev, "rtc disabled, re-enabling\n");
++		tmp = g2_rtc_readb(p, G2_RTC_RTCCON);
++		g2_rtc_writel(p, G2_RTC_RTCCON, tmp | G2_RTC_RTCCON_RTCEN, 0xff);
++	}
++	if (g2_rtc_readb(p, G2_RTC_RTCCON) & G2_RTC_RTCCON_CLKRST) {
++		dev_info(dev, "removing RTCCON_CLKRST\n");
++		tmp = g2_rtc_readb(p, G2_RTC_RTCCON);
++		g2_rtc_writel(p, G2_RTC_RTCCON, tmp & ~G2_RTC_RTCCON_CLKRST, 0xff);
++	}
++}
++
++static int g2_rtc_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct g2_rtc *p;
++
++	p = devm_kzalloc(dev, sizeof(*p), GFP_KERNEL);
++	if (!p)
++		return -ENOMEM;
++
++	p->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(p->base))
++		return PTR_ERR(p->base);
++
++	platform_set_drvdata(pdev, p);
++
++	g2_rtc_enable(dev, p);
++
++	p->rtc = devm_rtc_allocate_device(dev);
++	if (IS_ERR(p->rtc))
++		return PTR_ERR(p->rtc);
++	p->rtc->ops = &g2_rtcops;
++	p->rtc->range_min = RTC_TIMESTAMP_BEGIN_2000;
++	p->rtc->range_max = RTC_TIMESTAMP_END_2099;
++	/* Alarm interrupt generation has not yet been verified. */
++	clear_bit(RTC_FEATURE_ALARM, p->rtc->features);
++
++	return devm_rtc_register_device(p->rtc);
++}
++
++static const struct of_device_id cs75xx_rtc_of_match_table[] = {
++	{ .compatible = "cortina,cs7542-rtc" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, cs75xx_rtc_of_match_table);
++
++static struct platform_driver g2_rtc_driver = {
++	.probe		= g2_rtc_probe,
++	.driver		= {
++		.name	= DRV_NAME,
++		.of_match_table = cs75xx_rtc_of_match_table,
++	},
++};
++module_platform_driver(g2_rtc_driver);
++
++MODULE_DESCRIPTION("Cortina CS75xx RTC driver");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:cs75xx-rtc");
 
----
-Fil Dunsky (5):
-      dt-bindings: soc: Add Cortina Systems CS7542 global control block
-      dt-bindings: pinctrl: Add Cortina Systems CS7542 pin mux
-      clk: Add Cortina Systems CS7542 strap-selected clocks
-      pinctrl: Add Cortina Systems CS7542 pin multiplexer
-      MAINTAINERS: Add CS7542 global control support
-
- .../bindings/pinctrl/cortina,cs7542-pinctrl.yaml   |  84 +++++++++
- .../soc/cortina/cortina,cs7542-syscon.yaml         |  49 ++++++
- MAINTAINERS                                        |  10 ++
- drivers/clk/Kconfig                                |   9 +
- drivers/clk/Makefile                               |   1 +
- drivers/clk/clk-cs7542.c                           |  90 ++++++++++
- drivers/pinctrl/Kconfig                            |  13 ++
- drivers/pinctrl/Makefile                           |   1 +
- drivers/pinctrl/pinctrl-cs7542.c                   | 195 +++++++++++++++++++++
- include/dt-bindings/clock/cortina,cs7542-clock.h   |   9 +
- 10 files changed, 461 insertions(+)
----
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-change-id: 20261123-cs7542-syscon-273d545c7af2
-
-Best regards,
---  
-Fil Dunsky <filipp.dunsky@gmail.com>
+-- 
+2.53.0
 
 
