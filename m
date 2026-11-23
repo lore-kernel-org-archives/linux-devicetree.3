@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795396868;
-	b=mhpD/mUKd0WZaQkbSHXJ+gBeJuKIf+lvHBckBVYo6t6gbqDr96b5ebkVbSD1vj5M4yUU
-	 +b8zULk6l2QWNn83pGkdVWLirfNRDKuKB2AiGMIC7C5dqjqo3Ygl+ladGNrt5dqjlUqwk
-	 qzx0IcDYDkAVcEei+JefIcrj3gCPUn26o21ukI+EEvNpRx9RJbUugcHcB0f8+yqxtthvN
-	 kEocygd2ssPL8ReYZEHV34bjze1MW1+CgH5v+bn3qQ0idWSmifpoWWPXhvvabnFu2QHep
-	 K9R+zNV+1UL3bF9e8EZ8UJ7UEsStzC+W21zFYdB7CKDxzeZdMTlb82P11Emc7eZrF7w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795396868;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mZqHayVGS1xgtvg32Na1JhcmVegYW+rmWEW78/lQ8ms=;
-	b=q8KsjEOnxEbdkgTAq6n3tqz+InVXv72lS9IPtioHdBA6o0rOh5h2Hl8kipYwSanX8tLk
-	 r5+gExqoUVXVzKW+dKvH6B8RMZ1w3fIXLkWEBoqN/xVIXkY/Td9V8TDI/HVsZmaRwIJYF
-	 gquApWQl5NcoHTYa433pkhtEvmLAckQILuVP7oagvAbWC/EhNM0KWDpLHlTKNdnw3vK3J
-	 cZDaOzRMGKz3DJwR3iZiLnQka6tTio/ooHpwuecULph/B1XvpeJ+Hv528jtencoyGUVGZ
-	 w/kAiABOX+AealZXrPPwBBHtTNYgDFpw11BQErO2dsqVZtBGKbfOX8ZmI6IXz7Fy5Zg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZTrlzpYy;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795396914;
+	b=XvNhBRtT1//WfmlQsBJqwpp0nYjKV5kmvLu90+cOdTcdTmMkrcd7cv80a58DzDsB6ptc
+	 yIqp6PRNDf31FvxuSMvpfWHuGQAn9DXWeKykoo0bTxXs767t8MSAV7kIpW7rPGvT9leGS
+	 4Ix6EiELoqiGH8TlrA9NO5KlR53PGC/zN/h1A1W1r4etIu/TvgkmhY2rOu13E9mJ6FGjK
+	 MazTRYF11UbY5YiyAi0k1GM9bmxgw27WJH6bGKj9mExMPswWjWDVPLxxEh+dcC9bJ18rc
+	 fRNLyxpX8abBwHwelkvsMx5Rh8/B0hIZhdJRYuK62m4Rer/Yk6RuAzEwFJIKrl0x5TA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795396914;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Q6bkxdikXUOU091jplOGu0mVELvYreTq+WLXYzThjD0=;
+	b=cECIru2J4IUz6GhdHTediExJHlz7hwoVLV/PSPg/35bFHQz8Wprz6M4miCA1VdmjXO9M
+	 X5zOK9TV9stCJbkizKqobNDVs8rw4ZoS5TlDckYhyAHfZKpPBmscXhBxarXaxDAXTUEc2
+	 trFX3Ctqm4nTvfpnRi1iXDsPB+6lJZR5mFOJrG5NqRmPBIG7evZz7g2SuotQQps19ns7v
+	 uTGh+e23nWURupr/q7uSnDjTa602PLAGsT94LkwpT1OuXTjc1ZoBREKAxQaawQrWnQ/Rr
+	 rJ8mQ/l1YfpntXFAmKRKrpjqQPbtAkHm0T1SAYnROXodLzhOm+eK3aNiKRV11kKHOoA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrkSPiKN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED5F606A334
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:21:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03863606A31E;
+	Mon, 23 Nov 2026 01:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZTrlzpYy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8201F000D3
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:21:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrkSPiKN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795396913;
+	b=AjfeZY49Cj5m7ZxE2+qqKEBkm/YBUHxR7Ez/RSvH8oHoRCfa89acWlp7eGdCKkyCzZ01
+	 uY8CyIk3NCz4U6HYm/gNtV7dpZbBQUd1mmcsy4eSFk2MGaGYaT+V0iTak2l19gBF+EbO2
+	 EV2+k2UFHC1rrDvUhAUuxpWCcCxXaZm6HMVZ3LseYX31K1pFiR/Y1bPRrqL/SUSXIPvpL
+	 YDabMZO37w1GPRLjFcwX0O5sZVA4T2iFIW4PgdQwjysAfny0d9AF54JOn+Zv/L7321ere
+	 Mx4/h8FOkwtkABYzemp1/7yyxNyM9PWjklA+TZf3u5TglLI20Hmdr/mRiAUIbRuNX8g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795396913;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Q6bkxdikXUOU091jplOGu0mVELvYreTq+WLXYzThjD0=;
+	b=Owrcaw9DDhmHYrkXt/VB2Hy8cfZFUxzpSuC0Du2NNmrHFmSlqRleJD4/oM8ljHb3Umn/
+	 oK9PCrPERYGJhQGGjBNKZFvH39b/iWUM4lX/XtKsLeYS7gcXn8oqzuLSr0JWSrNIeDIiK
+	 qZThhPYMUrETn+8Zw5Rh5GHsLWMGtpV8RAykxfJniPbdPng3F4gwvzKgYDCzbF583e1Pm
+	 tc4FLh7mJmPu+uYoAa9Hx/X5iKJ6RJNWH+xbi3GPKYG3fWHVFC3649ZhK9lfy0X22FmFi
+	 bMmZmZPu5g0DPFC38R33ADjCiU8wQJN4vu70T3LCs13m28WkWB1BWcZIHe6L5e/6uWA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 535DC1F000C4;
+	Mon, 23 Nov 2026 01:21:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795396868;
-	bh=mZqHayVGS1xgtvg32Na1JhcmVegYW+rmWEW78/lQ8ms=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ZTrlzpYyHkD37ac14SlODZm26rmfd5P6KaAGLQUT3po3WrrMWL3Jv3BGkIZZLTu41
-	 mjn70k9dY70qj3+oxM/3JRPIXWHdOPXdrV3lGnPqPCPfXkxVa7mUjhBQs3dhp6+WJ3
-	 L0sIY3L0i6zpSk2UjJ7VQmvFQdKGU9KDS36AH9wRMLcTyNZp1nyp63vxF/IiAR0q0/
-	 2nVpXaIMpgoaaqVzrpTOIlrWkVBy7jOFmdIjVMSIwD39fnGFK2ftPthoAFJYtOuGJn
-	 6mpu4YSfLgYUOs0xeUUMS5EUkr9zrcNSH86g820h8nW28DWBGcwVfnyYHDGdjp+ZLh
-	 NvHCMHpjYF0rg==
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4bb6057b333so10844315e9.3
-        for <devicetree@vger.kernel.org>; Sun, 22 Nov 2026 17:21:08 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFjNkTeft9wIoOsfRGuLPomk4HRTK2f+c/gQkCVr76u4eKY1nBf6tpxHDyjA+YTRaDOTN0J4NLf57ot@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GYc5/wgwKBpt08QO42eSvoQmj02iaVBy5u/YDX6BhgBh1EWCK
-	BobYgbJyU+rX5cTaSQRh9yjSF6CjLqlGra84Dw6V98lHHNtbiYrkU0JFj8LI1NMzyhNDaLVDtoP
-	QsegbifA2QDZKVd9hCmp3PssTQ9Qzu2I=
-X-Received: by 2002:a05:600d:600b:b0:4a2:167a:c939 with SMTP id
- 5b1f17b1804b1-4bb88815f1fmr209227025e9.21.1795396866520; Sun, 22 Nov 2026
- 17:21:06 -0800 (PST)
+	s=k20260515; t=1795396913;
+	bh=Q6bkxdikXUOU091jplOGu0mVELvYreTq+WLXYzThjD0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=BrkSPiKNDBMOYrtIYwcJaEb5W7A3baOgF0KzsyajTN2tXoJHcuUevSX0JktuQdTem
+	 +DZQvYpQ3cOF/+FDrPSl01153BjfFoukgmN9Qa/D3OD1caP6xSnNB/kRn+zUg/DyfW
+	 jRrkmSBCMjioRvfnoD//o4G2VHwfMWck+RiOU9HEa6Twlwq8P4Uqz1sm/cffrKB+DU
+	 NG6/l/lLN3xxE2gw7XTmxnRSM88pSbjWDX17pCKi2Af+ql9c33bholOsAlmOptqDFP
+	 upLS7RfpjKDAhMwDoq2Z7SOEM/bVUPMhi+tjPtn0LL9XMmW8n5PbZNzri3jY9o8Q2z
+	 Vn6ymM32nxBdw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CD5A04C2B6;
+	Mon, 23 Nov 2026 01:21:52 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 23 Nov 2026 02:21:46 +0100
+Subject: [PATCH 1/3] media: dt-bindings: mipi-ccs: Allow 90 and 270 deg
+ rotation
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,73 +83,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn> <20261114-v861-v1-6-eb71ec3ee523@iscas.ac.cn>
- <c8OwiyQSR8ivEFULfFWNow@gmail.com>
-In-Reply-To: <c8OwiyQSR8ivEFULfFWNow@gmail.com>
-From: Guo Ren <guoren@kernel.org>
-Date: Mon, 23 Nov 2026 09:20:52 +0800
-X-Gmail-Original-Message-ID: <CAJF2gTRiDrhOTJ77nnHm_v3k52iz2JPk15zZVE0SS_w1KJAVeg@mail.gmail.com>
-X-Gm-Features: Aa3M54ouhks5E3p4QI9taB6w48IYX-BM80EMc8-2bbL7hF7KLogcDmZQZpD8tBk
-Message-ID: <CAJF2gTRiDrhOTJ77nnHm_v3k52iz2JPk15zZVE0SS_w1KJAVeg@mail.gmail.com>
-Subject: Re: [PATCH 06/19] clk: sunxi-ng: add support for the Allwinner V861 CCU
-To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Anup Patel <anup@brainfault.org>, Han Gao <gaohan@iscas.ac.cn>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
-	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, 
-	linux-csky@vger.kernel.org, linux-sunxi@lists.linux.dev, 
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261123-op6-upstream-cameras-v1-1-234fb3b7bb18@ixit.cz>
+References: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
+In-Reply-To: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1238; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=YSUwepiSqoDBtH0gFw4KuC+ySgKsZDWDkOBfiJm5ygk=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrA5UvX/SGAmXo0JT1pG6AU93lHHgkXbdX/cFu1
+ Z/7eHbu23qJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawOVLwAKCRBgAj/E00kg
+ cuauD/957XAku1JmXT8/JIRZ7RCPQLy2QmCNk9ti/ZOfy3pSPdPPKCYGG012UlwuBiHOStfCZBJ
+ 46ZsNjekrayuExMp64gMbhHOduU6iovOu0xv2lcsYCO07xQ4pb7atAnc/tCH/MQaGqhTt+dQMu+
+ fRhL74yNvaWUr5KKWNtM3kjl17e0qDDNrKPYRFMoXpCR7kXkv/pO1YUs7lGbNUy+uFGCNDeAjMy
+ FOjbsb9T8Mje87A2NQn8o5CssOWz4CVJjMrnea5ZuZ6fIUYcrZpfP9znlMaZyqlY4dVl0KoTrIz
+ 6hbdyJXn7aw+d/1BpF9mYpoKgVUazsZ30EeOyM20E1xgWSG1LPNbRW+RCn74x5i40AhHKvA2VLp
+ 99EyqCxDz5YxiBX4K/eFUgP22mgiTb1x6UGyXikZSQBzwqj5LirVdoWihyg5DUQckMdPG1098xH
+ sywlQ5oKa50qSa7HQVSPl9IHnxo9KvIHv9K3jgOQuTmmOBC8HWxLkZD9rTrms82oU0h/3BejZdj
+ OXz1kv43IAHctA1luk13svQNlL0O9U7j7pC07wLVyTVCpleL3w12LIeC7kq0gggq5hesDZjxEqv
+ mM86STPj8YAi8oY3ISg17kq0HbSHWSb/qEwW7aHQf3ynN06tRAA9IrbJF/veLvvAMqTFvxiIjjC
+ Ugh3oCoIFn5Gp2g==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-Some references for v861:
+From: David Heidelberg <david@ixit.cz>
 
-https://www.cnx-software.com/2026/01/04/allwinner-v861-dual-core-64-bit-ris=
-c-v-ai-camera-sip-features-128mb-ddr3l-4k-h-265-h-264-video-encoder/
+Driver works with it without any issue.
+Also allow orientation
 
-https://www.allwinnertech.com/index.php?c=3Dproduct&a=3Dindex&id=3D148
+Fixes: 72aa1c5f1d0f ("media: dt-bindings: mipi-ccs: Refer to video-interface-devices.yaml")
+Fixes: 72051783cd73 ("media: dt-bindings: nokia,smia: Amend SMIA bindings with MIPI CCS support")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-https://docs.allwinnertech.com/docs/soc/v861-tina-linux/en/
+diff --git a/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml b/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
+index 217b08c8cbbd3..44faa2f613f37 100644
+--- a/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
+@@ -59,19 +59,18 @@ properties:
+ 
+   reset-gpios:
+     description: Reset GPIO. Also commonly called XSHUTDOWN in hardware
+       documentation.
+     maxItems: 1
+ 
+   flash-leds: true
+   lens-focus: true
+-
+-  rotation:
+-    enum: [ 0, 180 ]
++  orientation: true
++  rotation: true
+ 
+   port:
+     $ref: /schemas/graph.yaml#/$defs/port-base
+     additionalProperties: false
+ 
+     properties:
+       endpoint:
+         $ref: /schemas/media/video-interfaces.yaml#
 
-Hope these help you.
-
-On Sun, Nov 15, 2026 at 3:31=E2=80=AFPM Jernej =C5=A0krabec <jernej.skrabec=
-@gmail.com> wrote:
->
-> Dne petek, 13. november 2026 ob 23:33:32 Srednjeevropski standardni =C4=
-=8Das je Han Gao via B4 Relay napisal(a):
-> > From: Han Gao <gaohan@iscas.ac.cn>
-> >
-> > Add the main CCU driver for the V861, based on the A523 one. The CPU
-> > PLL, the CPU subsystem clocks and the E907 clocks are left to the
-> > firmware.
-> >
-> > Unlike on the A523, the second divider of the 27 MHz output is a power
-> > of two. pll-audio-4x does not pass rate changes up, as its parent also
-> > feeds the UART clock mux.
-> >
-> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
->
-> Do you have any user manual for it? Or at least BSP code? It's hard to
-> review patches without any of those references.
->
-> Best regards,
-> Jernej
->
->
+-- 
+2.55.0
 
 
---=20
-Best Regards
- Guo Ren
