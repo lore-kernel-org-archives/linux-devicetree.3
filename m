@@ -1,124 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795462858;
-	b=Qhrj8oXg9behh948iDr+afoNLa2i6Y2rPZJlqRlVWQzqeoztJR6LFeQ0+dBwv6/czPED
-	 j81QoBcThz6irNgYl1twPskzIhPzFQXiSEYzzYP3qa53yFfv/w+DzesGtBqDVwfX+n1PS
-	 Wc4LyjA95zNheXJXTU7BvT/DG750gXpH1n9xG/nPjnfSWjeOPVi28sovGxh0nutUJeufw
-	 lLhxFith50aPAfA4CXNzSlOHQvxz6DLVtizHSkud2q8Wu0rlY5unkxKgUaukMpB/kaANt
-	 ge/Wr4/viIYjm8uatQiQwMWl8ZYcXapvVXULKLTcuE/GwZSdXFGJZ0P1WDtkdlMnxYw==
+	t=1795462860;
+	b=OvpK4SmNU1/BKvWpyiIpkMuchGYkpTRE+T4o/VPjoHkJRoPf4qrbfW/EU1KLszfoUW75
+	 fPcVYnIeymZzmUSorqDxRrDccZtV+HB7ramnmh7Dx09SeDiy3WyI+iDRh1ljd7y+NX6Fd
+	 Jeamc2Ik9PcRqF2Pw+/ZJOYYOHNoh62voUQe99PFi5/yhokpfq0MSx2XuHINcWbrF9L1A
+	 hTUNSng5ggYM0nVJsYO3WFuiR8aVYlfUCvHhgKS9c54BUr+e6+n9Cn1cjZ+m9fSaJjYCq
+	 oGigqWZRFqiIHhqVth0LAcBPj9gAkbt4gdAxSpWZUb8a2Lp7IrLRQyZoUsY+e3GiGog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795462858;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=shYVcCkI7WsAel14qoPcI2k2hO7EaXLkaVqcGNDiH2M=;
-	b=h5BwMk/DeImXUr1ZfIa+BfaGFVXmdkmZENec1CTkJXbk+7jWCMcdcastj4fSJuRxteEc
-	 oJs8xO7np+U9i4KQmMJ0oDwMA7Np49jjPwKIPtZt7CsBL1KJMQ4lv6NUZmyS9vL9zoU1n
-	 DdISw/9ZCgnfWUVOnY5WJy5mtlz5Nu+PME1JHpqx0QzJVVyfDn++ummrNlFRVecJmy5x/
-	 Zz59grwnOAo5grBO9RO5zciIxJm1s1ERhCe7yKFIzOnPZSlWm++NiaRMm+PUupcnKkXl8
-	 mB05jxMQgZm3XcWCOol+iceaam40W0QSHV3QA7Wghwz1MhYuXOIgh0Xz0eIgq0ODI5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795462860;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=wcwFeZ3mkqm4Vtr54rYdFLiq+NCKtb/bIgAQfBTTf9Q=;
+	b=lGmv5RnIQFoEqaHHAwcaqIrZXVw9AbbvcaTjPpt+euopvoyRTTScjJ/X+TYIZEP0PGza
+	 7VoniWeoFXwRZVhAEO4DoTX+XqPFO/TRX+43svyJxWu7OeMCoOHp+UgiH92hA1D9kCZNY
+	 IOTQoZd4p13axTstWScDkg87sSHE3G4o2YRZo6VKcYAAnlttByl89TKr0UB5VM6H5Kw6N
+	 FIGlDgGUS+502GzoJBLRcZ5Uc6UQhmXRmrMuOy8bp2dxSOuB79p0h9SEQs1Go60JFVld6
+	 aPJe2zwwFMSVAjVGSKR8vToH1JbEGEIeGU4kziovrgJZvuEoSHQDPoPJsjMxuoO8Sww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Bn/+2yNK";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IXw7mk5P;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=APbzfF6D;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30931606A327
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:40:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30931606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECFA606A33C;
+	Mon, 23 Nov 2026 19:40:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ECFA606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Bn/+2yNK;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IXw7mk5P
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANGGu8X3730280
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:40:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=shYVcCkI7WsAel14qoPcI2k2
-	hO7EaXLkaVqcGNDiH2M=; b=Bn/+2yNKAWCbEFLfimFQervj6gTXuixll8020nAT
-	iotFPwlivvF47lcIPwxH/WlQ+Z08mMI/Z6+PoUKgv/dh6U+T/Ee+dd9bYCPmCfR7
-	kKfncRVAAaMkzYYe5xUW5UkbJ3fyuvZj8QsyEzZPW9lG7yOvhFq5tP69wgj5UvYw
-	wpMhAiscc2j8PSZXoIVLpjE402kbi2lpAjYUHHvRaeO0bMWGH6bfCD1/X3G/dD9R
-	r5NuxTqh+KH2xuY9jyWJvh1Clh9FQGtf4OEKaSLi6v4JEQ04uxTPX8h0YxxlVe+V
-	oPCtpFZHnBp0AR69T1p7QzlVSavOI1V39/uqhLuWxHUQrQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4fyd369n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:40:57 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93909014c85so695910885a.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:40:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795462856; x=1796067656; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=shYVcCkI7WsAel14qoPcI2k2hO7EaXLkaVqcGNDiH2M=;
-        b=IXw7mk5PRNQHqwCrFvHpfFhu8QaVoR2iAfajyoFAG16wZBjFfilZq/fTseNxaeRuv7
-         EVVp6bctaasp0UOBCYfj+NmwwPvofiFeS3lCbDtAuU0TTMzS6t1yHgbWaE4HybiKKTC9
-         os4E1w7amL0RL8sQP8Fu6bv007yM34WuOsyYhfQ5vu/O9ON1LL/TCDJJVKnCizTh8sK+
-         kaZ/iqdY5PLEVT2uo8F5Hzq+3+U/LrlfjYGUrZqTptxRtDlKBwtUsgywnN7zvbBAHsh4
-         KZrMqjrHyBDsTQINQtWwXjvbYK7wc0hDwBRHP3s95l0VZYuUBnwWJGnsme2gr7eNuZr0
-         SGlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795462856; x=1796067656;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=shYVcCkI7WsAel14qoPcI2k2hO7EaXLkaVqcGNDiH2M=;
-        b=Lyl4Ylt8huEz2t59tq8hiKKccBZIlLDC0zjZUDvqGm/txSPmpeu4XCvrm8PoBwS26c
-         eC644lv/aSS1048xQOh3GDh509rtXGxDDVB1UvoKn/RnUrARKy4FP7kVGXpscDrIO3i7
-         QLvQ3QIIESZItXieTMb0EROL7qd2GmvBmkC+3dYHExEWexUkJY3javE2l+seEhFeImTw
-         MVWao/5n/g1a8wfu7sprjD2b3zgnaKJaGiepshZo1IYa+6yqAexI+7E0EbWLvXseUVfA
-         Dxt6wWIVeeLYgrSs/xmwSsO9rNcEpytTSN/56WhGw6k8lq8hXp8f+dIERzz+d0jhupOw
-         R6EQ==
-X-Forwarded-Encrypted: i=1; AL+hErGZ3seJszM465ACwV56xTvEKAExaHxw5Q0C/HWwcg8lQKW6c8380KLhmD7tb7G/7iSB5ILBU9mtgo0k@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RNGwo8MhZQTHZW/gYCRHy71ESp4Strw9JAaOkMPyfz5qR5KOG
-	V77pQtUxxcT0dy4oiy6cwiEneOC7AjyNKhOtsxh2Q0N71zNU8XY3uesWA2C15OMpXYJCzlN0skc
-	HpDUYgI9uDmnDQTZV5zQ4+LFslV4VLdX5fA+rsHoivOTZ0GsAfaGSktwTP/XqYcKv
-X-Gm-Gg: AZFdTZcIeFs7qdzugLYGO5LhbOt5Exr08rcOxlnNu3ZYVJ51XXfS/945agzeW5exQMx
-	o8aVtOFdhbiBlLRbo2iH3kxrnDs8k9bNxsdCWFwBDWpxl3pizudRRRFnWCi1vQIxY9fFBcdzlVD
-	J1Mh5KN5+Mozi6j47MbcqywM9BFxXj2oDLjl2SIlbi4IU+mf5Iavtizn2t4e9ti+IxnQvgoHAzX
-	GoYytA6HZ2BJcz06W3ag7z2o1aq8mYPj5Il+W0yiM3IosK7Y8u87/uNHCxsdzVkTdBC00EV2kuO
-	dZl6dPFnIphZU5+CkDSkg93vNv8JzOyE/hUEfGhD8v19tNppvbOQ9CIT1s1RjGSSm2GHiKhPj7u
-	iX+5tfClNjdGevADZIEBiBt8i02iW0LstFu0qCUenpClWE/4lfF2jzWKi+AYCZkkN
-X-Received: by 2002:a05:620a:4388:b0:946:6:129d with SMTP id af79cd13be357-949ba9e8dfbmr2179926785a.54.1795462856390;
-        Mon, 23 Nov 2026 11:40:56 -0800 (PST)
-X-Received: by 2002:a05:620a:4388:b0:946:6:129d with SMTP id af79cd13be357-949ba9e8dfbmr2179917785a.54.1795462855516;
-        Mon, 23 Nov 2026 11:40:55 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b7515sm511746015e9.13.2026.11.23.11.40.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 11:40:54 -0800 (PST)
-Date: Mon, 23 Nov 2026 21:40:53 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-arm-kernel@lists.infradead.org,
-        iommu@lists.linux.dev, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH RESEND v4 11/20] arm64: dts: qcom: sc8280xp: Add GEM_NOC
- interconnect for adreno SMMU
-Message-ID: <cdf3mpbifvj56nbr54w3yc4ddshsgbbecfox2vp7vsp3bv2v6v@kjedaxblfiou>
-References: <20261120-smmu_interconnect_addition-v4-0-be30526391d9@oss.qualcomm.com>
- <20261120-smmu_interconnect_addition-v4-11-be30526391d9@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=APbzfF6D
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=wcwFeZ3mkqm4Vtr54rYdFLiq+NCKtb/bIgAQfBTTf9Q=; b=APbzfF6DVKkNQddz1KqlVEnvrU
+	0ONShdDNgBKL2KrgVg6s5X8qyDZp3maUhgZaWDzLJa31EY0IcWzj2Ibx3qUQlgiMD1G3TWNkwKPUt
+	C6C8sjGzrSiABVbbVvaHOxDgaO8vsafPw7o1wGQtjo52bYfAB6w0wgiDFivcr9iu1O7Q=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xVZu0-000sYb-5H; Mon, 23 Nov 2026 20:40:36 +0100
+Date: Mon, 23 Nov 2026 20:40:36 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: filipp.dunsky@gmail.com
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 2/3] net: mdio: Add Cortina CS7542 bus controller
+Message-ID: <e55e5103-db9c-43ed-8bcb-406909fe8f5f@lunn.ch>
+References: <20261123-b4-cs7542-mdio-v1-0-626d0a0e3b4d@gmail.com>
+ <20261123-b4-cs7542-mdio-v1-2-626d0a0e3b4d@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -130,44 +72,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261120-smmu_interconnect_addition-v4-11-be30526391d9@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: Yf0svZqDqbIsIPfpZmroOPhY0nK8mFYq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA3OCBTYWx0ZWRfX67Cl7l2glCio
- Fw4B0rxBqGh5NngzAIaMbJpGfRgFCNaXUZCjqFFSKuAojXuyhAJfrpZ7ckIaAB8CqdpMY1Idqsl
- ERN1AV5NbqaDV9ACeBRwH5XcjUOjf7NqPS6gT+8J74PIhi5MJWfbqzFPoVFfRukEpTBUQvuXR23
- 2IMm2j7O8gHlaCUjYhT8t6lhth9Io/VCPKyEq+9Ef1dMH+c6H89RXkWa083enbp4usN85KeAsmN
- zkNpiordKanp6u7FCEJQJi3OD4NNdrSJtDFp3cZI/r8x2DKAbPt7STgkWhghvG+7Pj9aMIEjvdT
- A6PURNLeNiO6z98OcKbD80iYOc4LQjKaA7fodGJa6eIZazbCu113U6Up0pmUDZgx66/ebGTGWAC
- ZHWxo7Vbup5mqM4bXiOdm5f1xhxUClx8Ee3c7ZUZwXOZJwN1cPaNcCqsmZGSdlb1lLT9YnlZBWQ
- UGYC6otjiNMK+V3rvQQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA3OCBTYWx0ZWRfX/tmd5VvA89Eb
- 1ZJR/zsBK99utsu/iOB3SYiGg8g4VkPveCrela/FzyuaxeXvMeaogkQ8VMFkcycq0wnTGQuMW42
- aM4T3C+AAUIU1mcE6uyB9oSHbv76LN4=
-X-Proofpoint-GUID: Yf0svZqDqbIsIPfpZmroOPhY0nK8mFYq
-X-Authority-Analysis: v=2.4 cv=Aol7T+9P c=1 sm=1 tr=0 ts=6b0496c9 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=jAy75CqWmSRsgNc4pWAA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230078
+In-Reply-To: <20261123-b4-cs7542-mdio-v1-2-626d0a0e3b4d@gmail.com>
 
-On 26-11-20 19:11:42, Bibek Kumar Patro wrote:
-> On SC8280xp the Adreno SMMU GPU TCU is a separate hardware block with a
-> dedicated alm_gpu_tcu master port on GEM_NOC. Without an explicit
-> interconnect bandwidth vote, the GEM_NOC path to DDR can be left
-> unvoted during sleep/wakeup transitions, causing intermittent SMMU
-> register access failures.
-> 
-> Add the required interconnect to ensure reliable register access.
-> 
-> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> +++ b/drivers/net/mdio/Kconfig
+> @@ -291,3 +291,16 @@ config MDIO_BUS_MUX_MMIOREG
+>  
+>  endmenu
+>  endmenu
+> +
+> +config MDIO_CS75XX
+> +	tristate "Cortina Systems CS7542 MDIO controller"
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+This file is sorted by tristate string. So this goes between
+
+Broadcom UniMAC MDIO bus controller
+
+and
+
+GPIO lib-based bitbanged MDIO buses
+
+MDIO_CAVIUM is an odd ball. I suggest after it.
+
+
+> +	depends on OF_MDIO && HAS_IOMEM
+> +	help
+> +	  Support Clause 22 PHY register access through the CS7542 MDIO
+> +	  controller, retaining the prescaler configured by platform firmware.
+> +	  Transactions use bounded polling and recover from late completion.
+> +	  Device Tree describes the PHYs sharing this management bus.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called mdio-cs75xx.
+> +
+> diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
+> index 048586746..2afa6066f 100644
+> --- a/drivers/net/mdio/Makefile
+> +++ b/drivers/net/mdio/Makefile
+> @@ -35,3 +35,4 @@ obj-$(CONFIG_MDIO_BUS_MUX_MESON_G12A)	+= mdio-mux-meson-g12a.o
+>  obj-$(CONFIG_MDIO_BUS_MUX_MESON_GXL)	+= mdio-mux-meson-gxl.o
+>  obj-$(CONFIG_MDIO_BUS_MUX_MMIOREG) 	+= mdio-mux-mmioreg.o
+>  obj-$(CONFIG_MDIO_BUS_MUX_MULTIPLEXER) 	+= mdio-mux-multiplexer.o
+> +obj-$(CONFIG_MDIO_CS75XX) += mdio-cs75xx.o
+
+This file is also sorted.
+
+> +struct cs75xx_mdio {
+> +	void __iomem *base;
+> +	struct mii_bus *bus;
+> +	bool pending;
+
+This pending is odd.
+
+> +static int cs75xx_mdio_wait(struct cs75xx_mdio *priv)
+> +{
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret = readl_poll_timeout_atomic(priv->base + PER_MDIO_CTRL, val,
+> +					val & MDIO_CTRL_DONE, 1,
+> +				       CS75XX_MDIO_TIMEOUT_US);
+> +	if (!ret) {
+> +		writel(MDIO_CTRL_DONE, priv->base + PER_MDIO_CTRL);
+> +		priv->pending = false;
+> +	}
+
+Have you seen this fail?
+
+MDIO busses are simple things, it is just a big shift register. They
+pretty much don't fail, except if the clock is not ticking. Any
+failure is generally fatal, and you can expect cascading failures, the
+next operation is going to fail, and the one after that etc.
+
+So i would throw away pending.
+
+    Andrew
+
+---
+pw-bot: cr
