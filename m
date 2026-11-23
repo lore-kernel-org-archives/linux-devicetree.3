@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795446166;
-	b=WvqQ1x/Y7obtIIXiq8LA4+wn8G0X7JmUj4tpmHZKi5IlBrQdQQSN1a+qsvnaIhSKjqcV
-	 t04kCqnMLNiy17VXTLVM7zz94sB5waHYo8uWTHIpPDm6IS4l3RvqZVInjyggaMQBi/pqa
-	 snmYCpZHgKZ3DptLePgG/U5usPu/oMZgQ7DNFCPcbuKMxt9kty6oYZHZZn6IqhT6IufRK
-	 gsZ1G3krETN8UmCb4+gtZIio33rCJy+mNbj/HMhHdNOtpoflkRYSEPdZqoBAeBTc+w2Iw
-	 zM+AWx/zcmBOqXI4t7IeHOhdSQ7lOOcEVQ25JV0PdqOyC5l19FHun0Ge0buGMgum3Gw==
+	t=1795446170;
+	b=DnBEILBdBQVcsBJ0qCikLU261cRz8l/FkeZfO5OyRwNHDiP716UxOaNPMJ/KvFN2j91i
+	 12Zl3Y2cWUallQm1FI0kmLVWrx/Gq3rzaL6egRPQMY/xOKg05YBq+hD5NwSKsG1v/fYFO
+	 eClFRnyFa57hey/f3Ots8Hkq7wPvNsh2o44fHdkaeoOWuhMWSVo8BbePJ441XWoLct3Rh
+	 Qu/pAtbI7DT3wexXzFdHIIIMmV1PsTzwFOT/jH7Zlf9gyA/celaJzHeOdFwr6nyPoWqg4
+	 L/5Dj0RH0XabsZucCTyB1dL7P+IHsZvNmvVrQUhNjApu+gwxRT+NmcNBpz+75wI27nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795446166;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795446170;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=jZk2vXbxzjtX67c5jJifbTQJPrSiWJsANuJuPhZHRHs=;
-	b=uUHJZYy+HE5C9e2jUDJ9CHvvpvAVFdbNzpuDSDcM4uM2Wrn6UH/hXo91BN1Y70LQZZIR
-	 lVc4cRH6UnDAscFBEY4S9lVN6eyRRUhd4PspBXKg6NDnzm2W2A1bChN58dZ65JQriZnex
-	 2XSjpeJSkkuuhu6KS97R/oKIVlLLCO2O8qoWQNIpkpKRaeqeGA/wzKMXpiO4A7+K7dBj8
-	 zrEuYvPC6NvatbHdxjIyH5unNs4SmUFH+s5CqjcuFQ7qQs0NWKt0J1z8olEv7iwfy4iwn
-	 1W5wULnV5CsSrPHEkHabHwd3f2q7BHrEKV7DzUS1bWoQcVgYtVIiSvvQzBwLeSHa+1Q==
+	bh=d1ZJTOlPpkmyEezbE4KbgiuX0pNhZ8GISGXxCw031pI=;
+	b=5JYqaAC9LhS4w5KK2pswrgPM9OZnrmqg/VhYeNTTP1JyNcGJbXOEY/70J3I7CH8EhFgA
+	 YLr9AFrXj54RO8brhs9+VpxOWjClBvoFDDWINlKlJy8kHuQiFkqdjj0E/WaUVUy0194nj
+	 lbKhyvinfV/ZPcrKV6QNPt4xsvt9ZycGvlv61NcxRevP6DNoIK5mek+1fbmOiuGXkjPEr
+	 tQ9pm7YzLdFOdLrQcP9sy0zeA8ZMRkBnvO8VNX+P7PoUZr3UUOdkA5CysAy8GiPV6nrPt
+	 RQi22OQJH3VZ6MGkMKyb59TFt02EML2AQOaBp8PCS4Wxmt21/uUrJckuRMRwoT5ly0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VjBWJvRq;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xgRDaRR6;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46F0606A334
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:02:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D46F0606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDD7606A6A4
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:02:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EDD7606A6A4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VjBWJvRq
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4cdc606b47so576389566b.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:02:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xgRDaRR6
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso705537066b.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 07:02:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795446164; x=1796050964; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795446168; x=1796050968; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jZk2vXbxzjtX67c5jJifbTQJPrSiWJsANuJuPhZHRHs=;
-        b=VjBWJvRq6JBAX1KNpnFciSU5ccYtEAv9smXgNIhC2ouzi7ozh0pB4MdURLS2w45mDy
-         n41GitX8jQsXxH3zeFmMamrErABVoqFwlCW9aoZjQCfDAKiy6MO4Ss8U/4tuOhkfXX9N
-         2PkJl8uv3tIwdqdrrIYOUZ6SU+m8dtro8RqS9cd5yHqhUE51M3Xp04nC+6PeftNy67xr
-         H5uosKcicK5v+FWF1Lrh2HUH4rkiNXTYxS6SkhBSMzADqdZV6DKRRp4f8uBVIJmBie/U
-         ++iFt9RR3HLdv82xajFCv//HmIloRes8NGjrJfe06PB8BQVvD7lCw3n0BdH7ynbLNtxY
-         i1kA==
+        bh=d1ZJTOlPpkmyEezbE4KbgiuX0pNhZ8GISGXxCw031pI=;
+        b=xgRDaRR6AiWu1uvekbWWw56DHIJ+VJTDZSK6uAo+Gi6MFXXP6Xd3HbI2XbKjrP2Try
+         9jHUdy0UnyYxfNwOJNcH+vQ0IpngVnQ0QpX/wS8P7cGYQqQAGub5B6qBJxK4J9t81n0g
+         Md//A8EXWx7kg13Z6EDENTwJvnIU0xoLW2MIi9v5WTTx9PAniKRmwfXg++XVSA7evOJ1
+         bO/iF6LLPa3ltaOYUny6/VhiHHPlsVBWadg4dYebmjEJ49EM/KRIKyWV8KBDBROH97P7
+         2PiVfNGoAtVj2rmNaTN2UVTc8kAPxg2wtKbg2s5Le747DAHibhMTuW8xLxxKOMBY8ZDG
+         TvRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795446164; x=1796050964;
+        d=1e100.net; s=20260707; t=1795446168; x=1796050968;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jZk2vXbxzjtX67c5jJifbTQJPrSiWJsANuJuPhZHRHs=;
-        b=uW4hu05RhQXXo4M3wTatBSBJi3CfWy0ijvTNjUON63zySZv0H0o5gT3JxMu9EDMSzC
-         //5RWHVB1zfiwo6v4xRPwbwN/5lnGjWLCUmiVREY7ZEqm3O3LLmRRyzkCblHwS7juSWZ
-         9gDaYFujuqybVPhRyY49P5RoC2s+odbbUfnFORilvLxUd+KNL9GOzllX+2GdkSNKRK55
-         zX1+VWC2Io4Xs/GkhJzsc+WYdTuvYKaGb99xVs8+L3svF2az1QcjlVXWTKnXR8/WvjGK
-         PUq7K8zKo0cuxPOXLyKclBQEEHJ0dHWM45d4gCQUFVS4WpYReYzp92zqNK+LfnRN7Vkp
-         j1DQ==
-X-Forwarded-Encrypted: i=1; AL+hErHe07xz4XbAWq3ky0WG6KgkzfmC7LJuSC/D89OvTdGbuNGhq9qutRMXpgQtlsWEGMht8rUeC68g/nWl@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZaXFkkbYkdecF7BQ8VAJkyfyYySSH21UJ2YTN/N1mZPh6UjIm
-	/b73oLCOFNAW67/nHmC7ms1ZnGdyxH7EPlM4zL5/zQ1sYL2fEhn4aSI6
-X-Gm-Gg: AZFdTZf3+zFsRGGMmt1qRe6/P2J6P7/e9mrzilSiwOSPR5tx/iVIp5tSYaqQDUxxK3t
-	UANR+0H+aahI+nv09yDSC1SxMpgbug8eyZjGifEHOm+ZzoKTOEYQ3czEOaHCVwWwzGF0WNUUkLX
-	ImheAHYLWcqCpo39VO6RK6BD7lVaTKzPNrTAAUpJSLSEmuzLcOZtrgPKfVlpZdwyofqBQJgckGS
-	girQl95Wg+BWI+BZkeDSFaolOWt4/N8UovnvAJgbZcUQHA96GkgiJh9msmVGyLb3OuFLvPGLPEq
-	EYl7G3xGtCUwjEMEqi2I3/iK18GtHioAMl/ui3Hr7cPpS7PC/73uFLM4TMLCtlligvxySg96VFk
-	6+LNsc2bci7K3WmSG2EN8gmyGdy1DGlMYx9eBDFxAJusZkl3tUlDFTs8eSdoSX4SUcthvf9hNs6
-	bR1PjTyTg5gFrs7UVUbcd4ml5TwWFSugfm2uMD82EuoBRvF/+G4iAFz5pH5QRYQvvb1IjfPK5ql
-	NTjoBVyIXTRQEtBn7CSNW8seiCkSdLf1UABniArzmB1IREvrsg3ynkh7SvOhTg62CcYrhD+MGMI
-	mmuQar1XOcFpbircwgJwjFK+SInvUPKtzzvZ+tJBk6QyShp+kGZwC0kYtYGxMLQSlMnytewo3mi
-	SwwEcff2dFQ==
-X-Received: by 2002:a17:907:3e15:b0:c51:249f:7331 with SMTP id a640c23a62f3a-c513a3aacc8mr999504466b.1.1795446163935;
-        Mon, 23 Nov 2026 07:02:43 -0800 (PST)
+        bh=d1ZJTOlPpkmyEezbE4KbgiuX0pNhZ8GISGXxCw031pI=;
+        b=kUIusVLUl7i5R8APIJWFm5odONqSs+M1Bi59qM/hkl8v3cH7QMrkumgkieNDnNzwvU
+         YJCS1N0YTPnnsspitNU340ZfQixHlBUi45l/u0Vsm3cSDe6CO9OIV1cGqhzonUX7SyaK
+         bBlhnFBV/bbEUYu37pvUYDmVUAvCOIN5fgHWs8PwuSsip/3aBil2fH7Hwdeijh3Hc83g
+         QLX1/XFG5P3qWycJ9oOefoK8nJuvvHTGO2f625Wylxd8zXhyukom2JRqFjCZZ7ijiSa0
+         3kqyvYksH3JDmHOPWzSvnDqkmLw9UuzQUc6ntvFgpwoN+Kzent/1AsvIxiIuDMIA40JZ
+         Y5eA==
+X-Forwarded-Encrypted: i=1; AL+hErHkhEbt3J1UZPm+iWnnvABfsPfQw3M1WeX1knpXnuyIrHr53SI2cPqS/O0brYfcI6AI0TXtzjIW+YGp@vger.kernel.org
+X-Gm-Message-State: APuU4Z+U8S5Qv/TkAo9cn2jK6DP8IJjuRaTdnVGwGbxy0ZM0j01INZkx
+	1zSaQVBW8LX17uMmPdEhrMeNigP3oSySkO0U+Q0UHb7DMPZ+ICSKuGm7
+X-Gm-Gg: AZFdTZdyNX1OVBX1fbIpVZsPe5+V+mNREdU1Sg1/iIvqhYaMqgl+OYMsyy+Cq9lR9jK
+	O2KhQ11UFipxwlfDXi4m69PIDSX8WSvj1rzT2Ozdw40Hq+ejFeYcRrAgEWQSiK/8002FyUrFgFZ
+	43E732hqAVKPfKZbSUhac8B4OfgiXL/rKH2to2cX++gnDqZambnuAtCDccf+T6DMs6yE8M0bmSR
+	vpzdf2HbvBl2Xs2CQZKQnvGsyr9cQ/IK7tnh7DRWnPwlbtftf32O7ypLovPRA2tctQDGb07J86g
+	yJlMBAszuO8KWMd2Y/HqRhKBpQkxZptlDtXMbnQwVvTeqms6EQMMx/tw6Qo7/FYlyFlE/AHd9qL
+	Sg21GMz9RRQ6V/rcRfUplLm+VkH97PBFy21p4s5srZTubPaTICmDV5FyQEMpMSQj80UEqstL787
+	Q+1xZnNww0QRhejMxfpzsYtcYkG0mzuPzHiXXJ9SEM8krXR615z2ARmn8N1l9ZuGbBhsVFJhIZQ
+	5ob3ogFFVfZeOs7HEzfi3wLugM2oSnQFSxLJ9ahyt1pzcxsACxEmFCnU9nP9DfU0JRxjSUF00pi
+	JWTytHhsIS+Qcgbih5dLOInOrXfQmC06eYCbvqGG8hzDGZj6VY1wLoGTAOicVBpCDH9DEFQTZ6I
+	98FikK1tyrg==
+X-Received: by 2002:a17:906:9fca:b0:c51:8690:8265 with SMTP id a640c23a62f3a-c5186908490mr137322066b.24.1795446166955;
+        Mon, 23 Nov 2026 07:02:46 -0800 (PST)
 Received: from xeon ([188.163.112.54])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513acfe3b0sm418484866b.8.2026.11.23.07.02.42
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513acfe3b0sm418484866b.8.2026.11.23.07.02.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 07:02:43 -0800 (PST)
+        Mon, 23 Nov 2026 07:02:46 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -90,9 +90,9 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	mfd@lists.linux.dev
-Subject: [PATCH v6 1/5] regulator: dt-bindings: maxim,max8907: Convert to DT schema
-Date: Mon, 23 Nov 2026 17:02:20 +0200
-Message-ID: <20261123150224.199601-2-clamor95@gmail.com>
+Subject: [PATCH v6 3/5] mfd: max8907: Switch to resource-managed versions of helpers
+Date: Mon, 23 Nov 2026 17:02:22 +0200
+Message-ID: <20261123150224.199601-4-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261123150224.199601-1-clamor95@gmail.com>
 References: <20261123150224.199601-1-clamor95@gmail.com>
@@ -107,383 +107,191 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert Maxim MAX8907 regulator binding from text to DT schema. Reference
-to nvidia,tegra-regulators-coupling in child regulator nodes.
+Switch to resource-managed versions of regmap_add_irq_chip() and
+i2c_new_dummy_device(). This involves probe refactoring in order to
+remove jumps and allows to drop the .remove callback.
 
-Acked-by: Mark Brown <broonie@kernel.org>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../devicetree/bindings/regulator/max8907.txt |  69 -----
- .../bindings/regulator/maxim,max8907.yaml     | 283 ++++++++++++++++++
- 2 files changed, 283 insertions(+), 69 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/regulator/max8907.txt
- create mode 100644 Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
+ drivers/mfd/max8907.c | 140 ++++++++++++++----------------------------
+ 1 file changed, 46 insertions(+), 94 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/regulator/max8907.txt b/Documentation/devicetree/bindings/regulator/max8907.txt
-deleted file mode 100644
-index 371eccd1cd689..0000000000000
---- a/Documentation/devicetree/bindings/regulator/max8907.txt
-+++ /dev/null
-@@ -1,69 +0,0 @@
--MAX8907 regulator
+diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
+index a0e0c480ff43e..f1cabb666d8ed 100644
+--- a/drivers/mfd/max8907.c
++++ b/drivers/mfd/max8907.c
+@@ -186,117 +186,70 @@ static int max8907_power_off(struct sys_off_data *data)
+ 
+ static int max8907_i2c_probe(struct i2c_client *i2c)
+ {
++	struct device *dev = &i2c->dev;
+ 	struct max8907 *max8907;
+ 	int ret;
+-	bool pm_off = of_property_read_bool(i2c->dev.of_node,
++	bool pm_off = of_property_read_bool(dev->of_node,
+ 					"maxim,system-power-controller");
+ 
+-	max8907 = devm_kzalloc_obj(&i2c->dev, struct max8907);
+-	if (!max8907) {
+-		ret = -ENOMEM;
+-		goto err_alloc_drvdata;
+-	}
++	max8907 = devm_kzalloc_obj(dev, struct max8907);
++	if (!max8907)
++		return -ENOMEM;
+ 
+-	max8907->dev = &i2c->dev;
++	max8907->dev = dev;
+ 	max8907->i2c_gen = i2c;
+ 	i2c_set_clientdata(i2c, max8907);
++
+ 	max8907->regmap_gen = devm_regmap_init_i2c(i2c,
+-						&max8907_regmap_gen_config);
+-	if (IS_ERR(max8907->regmap_gen)) {
+-		ret = PTR_ERR(max8907->regmap_gen);
+-		dev_err(&i2c->dev, "gen regmap init failed: %d\n", ret);
+-		goto err_regmap_gen;
+-	}
++						   &max8907_regmap_gen_config);
++	if (IS_ERR(max8907->regmap_gen))
++		return dev_err_probe(dev, PTR_ERR(max8907->regmap_gen),
++				     "GEN regmap init failed\n");
+ 
+-	max8907->i2c_rtc = i2c_new_dummy_device(i2c->adapter, MAX8907_RTC_I2C_ADDR);
+-	if (IS_ERR(max8907->i2c_rtc)) {
+-		ret = PTR_ERR(max8907->i2c_rtc);
+-		goto err_dummy_rtc;
+-	}
+-	i2c_set_clientdata(max8907->i2c_rtc, max8907);
+-	max8907->regmap_rtc = devm_regmap_init_i2c(max8907->i2c_rtc,
+-						&max8907_regmap_rtc_config);
+-	if (IS_ERR(max8907->regmap_rtc)) {
+-		ret = PTR_ERR(max8907->regmap_rtc);
+-		dev_err(&i2c->dev, "rtc regmap init failed: %d\n", ret);
+-		goto err_regmap_rtc;
+-	}
++	max8907->i2c_rtc = devm_i2c_new_dummy_device(dev, i2c->adapter, MAX8907_RTC_I2C_ADDR);
++	if (IS_ERR(max8907->i2c_rtc))
++		return PTR_ERR(max8907->i2c_rtc);
+ 
+-	ret = regmap_add_irq_chip(max8907->regmap_gen, max8907->i2c_gen->irq,
+-				  IRQF_ONESHOT | IRQF_SHARED,
+-				  -1, &max8907_chg_irq_chip,
+-				  &max8907->irqc_chg);
+-	if (ret != 0) {
+-		dev_err(&i2c->dev, "failed to add chg irq chip: %d\n", ret);
+-		goto err_irqc_chg;
+-	}
+-	ret = regmap_add_irq_chip(max8907->regmap_gen, max8907->i2c_gen->irq,
+-				  IRQF_ONESHOT | IRQF_SHARED, -1,
+-				  &max8907_on_off_irq_chip,
+-				  &max8907->irqc_on_off);
+-	if (ret != 0) {
+-		dev_err(&i2c->dev, "failed to add on off irq chip: %d\n", ret);
+-		goto err_irqc_on_off;
+-	}
+-	ret = regmap_add_irq_chip(max8907->regmap_rtc, max8907->i2c_gen->irq,
+-				  IRQF_ONESHOT | IRQF_SHARED, -1,
+-				  &max8907_rtc_irq_chip,
+-				  &max8907->irqc_rtc);
+-	if (ret != 0) {
+-		dev_err(&i2c->dev, "failed to add rtc irq chip: %d\n", ret);
+-		goto err_irqc_rtc;
+-	}
++	i2c_set_clientdata(max8907->i2c_rtc, max8907);
+ 
+-	ret = mfd_add_devices(max8907->dev, -1, max8907_cells,
+-			      ARRAY_SIZE(max8907_cells), NULL, 0, NULL);
+-	if (ret != 0) {
+-		dev_err(&i2c->dev, "failed to add MFD devices %d\n", ret);
+-		goto err_add_devices;
+-	}
++	max8907->regmap_rtc = devm_regmap_init_i2c(max8907->i2c_rtc,
++						   &max8907_regmap_rtc_config);
++	if (IS_ERR(max8907->regmap_rtc))
++		return dev_err_probe(dev, PTR_ERR(max8907->regmap_rtc),
++				     "RTC regmap init failed\n");
++
++	ret = devm_regmap_add_irq_chip(dev, max8907->regmap_gen, max8907->i2c_gen->irq,
++				       IRQF_ONESHOT | IRQF_SHARED, -1, &max8907_chg_irq_chip,
++				       &max8907->irqc_chg);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add chg irq chip\n");
++
++	ret = devm_regmap_add_irq_chip(dev, max8907->regmap_gen, max8907->i2c_gen->irq,
++				       IRQF_ONESHOT | IRQF_SHARED, -1, &max8907_on_off_irq_chip,
++				       &max8907->irqc_on_off);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add on off irq chip\n");
++
++	ret = devm_regmap_add_irq_chip(dev, max8907->regmap_rtc, max8907->i2c_gen->irq,
++				       IRQF_ONESHOT | IRQF_SHARED, -1, &max8907_rtc_irq_chip,
++				       &max8907->irqc_rtc);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add rtc irq chip\n");
++
++	ret = devm_mfd_add_devices(dev, -1, max8907_cells, ARRAY_SIZE(max8907_cells),
++				   NULL, 0, NULL);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add MFD devices\n");
+ 
+ 	if (pm_off) {
+-		ret = devm_register_sys_off_handler(&i2c->dev,
+-						    SYS_OFF_MODE_POWER_OFF,
++		ret = devm_register_sys_off_handler(dev, SYS_OFF_MODE_POWER_OFF,
+ 						    SYS_OFF_PRIO_DEFAULT,
+ 						    max8907_power_off, max8907);
+-		if (ret) {
+-			dev_err(&i2c->dev,
+-				"failed to register sys-off handler: %d\n",
+-				ret);
+-			goto err_sys_off;
+-		}
++		if (ret)
++			return dev_err_probe(dev, ret, "failed to register sys-off handler\n");
+ 	}
+ 
+ 	return 0;
 -
--Required properties:
--- compatible: "maxim,max8907"
--- reg: I2C slave address
--- interrupts: The interrupt output of the controller
--- mbatt-supply: The input supply for MBATT, BBAT, SDBY, VRTC.
--- in-v1-supply: The input supply for SD1.
--- in-v2-supply: The input supply for SD2.
--- in-v3-supply: The input supply for SD3.
--- in1-supply: The input supply for LDO1.
--...
--- in20-supply: The input supply for LDO20.
--- regulators: A node that houses a sub-node for each regulator within the
--  device. Each sub-node is identified using the node's name (or the deprecated
--  regulator-compatible property if present), with valid values listed below.
--  The content of each sub-node is defined by the standard binding for
--  regulators; see regulator.txt.
+-err_sys_off:
+-	mfd_remove_devices(max8907->dev);
+-err_add_devices:
+-	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_rtc);
+-err_irqc_rtc:
+-	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_on_off);
+-err_irqc_on_off:
+-	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_chg);
+-err_irqc_chg:
+-err_regmap_rtc:
+-	i2c_unregister_device(max8907->i2c_rtc);
+-err_dummy_rtc:
+-err_regmap_gen:
+-err_alloc_drvdata:
+-	return ret;
+-}
 -
--Optional properties:
--- maxim,system-power-controller: Boolean property indicating that the PMIC
--  controls the overall system power.
+-static void max8907_i2c_remove(struct i2c_client *i2c)
+-{
+-	struct max8907 *max8907 = i2c_get_clientdata(i2c);
 -
--The valid names for regulators are:
+-	mfd_remove_devices(max8907->dev);
 -
--  sd1, sd2, sd3, ldo1, ldo2, ldo3, ldo4, ldo5, ldo6, ldo7, ldo8, ldo9, ldo10,
--  ldo11, ldo12, ldo13, ldo14, ldo15, ldo16, ldo17, ldo18, ldo19, ldo20, out5v,
--  out33v, bbat, sdby, vrtc.
+-	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_rtc);
+-	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_on_off);
+-	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_chg);
 -
--Example:
--
--		max8907@3c {
--			compatible = "maxim,max8907";
--			reg = <0x3c>;
--			interrupts = <0 86 0x4>;
--
--			maxim,system-power-controller;
--
--			mbatt-supply = <&some_reg>;
--			in-v1-supply = <&mbatt_reg>;
--			...
--			in1-supply = <&mbatt_reg>;
--			...
--
--			regulators {
--				mbatt_reg: mbatt {
--					regulator-name = "vbat_pmu";
--					regulator-min-microvolt = <5000000>;
--					regulator-max-microvolt = <5000000>;
--					regulator-always-on;
--				};
--
--				sd1 {
--					regulator-name = "nvvdd_sv1,vdd_cpu_pmu";
--					regulator-min-microvolt = <1000000>;
--					regulator-max-microvolt = <1000000>;
--					regulator-always-on;
--				};
--
--				sd2 {
--					regulator-name = "nvvdd_sv2,vdd_core";
--					regulator-min-microvolt = <1200000>;
--					regulator-max-microvolt = <1200000>;
--					regulator-always-on;
--				};
--...
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
-new file mode 100644
-index 0000000000000..6cf8e93867e1a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
-@@ -0,0 +1,283 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Maxim Integrated MAX8907 PMIC
-+
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: maxim,max8907
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  maxim,system-power-controller:
-+    type: boolean
-+    deprecated: true
-+    description:
-+      Telling whether or not this PMIC is controlling the system power.
-+
-+  system-power-controller: true
-+
-+  mbatt-supply:
-+    description:
-+      The input supply for MBATT, BBAT, SDBY, VRTC.
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+
-+    patternProperties:
-+      "^(sd[1-3]|ldo([1-9]|1[0-9]|20)|bbat|mbatt|out(5v|33v)|sdby|vrtc)$":
-+        allOf:
-+          - $ref: /schemas/regulator/regulator.yaml#
-+          - $ref: /schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
-+        unevaluatedProperties: false
-+
-+patternProperties:
-+  "^in-v[1-3]-supply$":
-+    description:
-+      The input supply for SD1, SD2 and SD3.
-+
-+  "^in([1-9]|1[0-9]|20)-supply$":
-+    description:
-+      The input supply for LDO1 - LDO20.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - regulators
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@3c {
-+            compatible = "maxim,max8907";
-+            reg = <0x3c>;
-+            interrupts = <0 86 0x4>;
-+
-+            system-power-controller;
-+
-+            mbatt-supply = <&vdd_5v0_sys>;
-+            in-v1-supply = <&vdd_3v3_vbat>;
-+            in-v2-supply = <&vdd_3v3_vbat>;
-+            in-v3-supply = <&vdd_3v3_vbat>;
-+            in1-supply = <&vdd_3v3_vbat>;
-+            in2-supply = <&vdd_1v8_vio>;
-+            in3-supply = <&vdd_3v3_vbat>;
-+            in4-supply = <&vdd_3v3_vbat>;
-+            in5-supply = <&vdd_3v3_vbat>;
-+            in6-supply = <&vdd_3v3_vbat>;
-+            in7-supply = <&vdd_3v3_vbat>;
-+            in8-supply = <&vdd_3v3_vbat>;
-+            in9-supply = <&vdd_3v3_vbat>;
-+            in10-supply = <&vdd_3v3_vbat>;
-+            in11-supply = <&vdd_3v3_vbat>;
-+            in12-supply = <&vdd_3v3_vbat>;
-+            in13-supply = <&vdd_3v3_vbat>;
-+            in14-supply = <&vdd_3v3_vbat>;
-+            in15-supply = <&vdd_3v3_vbat>;
-+            in16-supply = <&vdd_3v3_vbat>;
-+            in17-supply = <&vdd_1v8_vio>;
-+            in18-supply = <&vdd_3v3_vbat>;
-+            in19-supply = <&vdd_3v3_vbat>;
-+            in20-supply = <&vdd_3v3_vbat>;
-+
-+            regulators {
-+                vdd_3v3_vbat: mbatt {
-+                    regulator-name = "v_powerrail";
-+                    regulator-always-on;
-+                };
-+
-+                sd1 {
-+                    regulator-name = "vcc_1v2_ddrio";
-+                    regulator-min-microvolt = <1200000>;
-+                    regulator-max-microvolt = <1200000>;
-+                    regulator-always-on;
-+                    regulator-boot-on;
-+                };
-+
-+                vdd_core: sd2 {
-+                    regulator-name = "vdd_core";
-+                    regulator-min-microvolt = <950000>;
-+                    regulator-max-microvolt = <1300000>;
-+                    regulator-always-on;
-+                    regulator-boot-on;
-+                };
-+
-+                vdd_1v8_vio: sd3 {
-+                    regulator-name = "vcc_1v8_io";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                    regulator-always-on;
-+                    regulator-boot-on;
-+                };
-+
-+                ldo1 {
-+                    regulator-name = "vcc_3v3_ddr";
-+                    regulator-min-microvolt = <3300000>;
-+                    regulator-max-microvolt = <3300000>;
-+                    regulator-always-on;
-+                    regulator-boot-on;
-+                };
-+
-+                ldo2 {
-+                    regulator-name = "vcc_1v1_pll";
-+                    regulator-min-microvolt = <1100000>;
-+                    regulator-max-microvolt = <1100000>;
-+                    regulator-always-on;
-+                    regulator-boot-on;
-+                };
-+
-+                iovcc_1v8_lcd: ldo3 {
-+                    regulator-name = "vcc_1v8_lcd";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                    regulator-boot-on;
-+                };
-+
-+                avdd_3v3_usb: ldo4 {
-+                    regulator-name = "avdd_3v3_usb";
-+                    regulator-min-microvolt = <3300000>;
-+                    regulator-max-microvolt = <3300000>;
-+                    regulator-always-on;
-+                    regulator-boot-on;
-+                };
-+
-+                vcore_emmc: ldo5 {
-+                    regulator-name = "vcc_2v8_emmc";
-+                    regulator-min-microvolt = <2800000>;
-+                    regulator-max-microvolt = <2800000>;
-+                    regulator-boot-on;
-+                };
-+
-+                vcc_hdmi_pll: ldo6 {
-+                    regulator-name = "vcc_hdmi_pll";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+
-+                vcc_3v0_sensor: ldo7 {
-+                    regulator-name = "vcc_3v0_sensor";
-+                    regulator-min-microvolt = <3000000>;
-+                    regulator-max-microvolt = <3000000>;
-+                    regulator-boot-on;
-+                };
-+
-+                vcc_1v8_sensor: ldo8 {
-+                    regulator-name = "vcc_1v8_sensor";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                    regulator-boot-on;
-+                };
-+
-+                ldo9 {
-+                    regulator-name = "vcc_3v3_fuse";
-+                    regulator-min-microvolt = <3300000>;
-+                    regulator-max-microvolt = <3300000>;
-+                };
-+
-+                vcc_3v1_touch: ldo10 {
-+                    regulator-name = "vcc_3v1_touch";
-+                    regulator-min-microvolt = <3100000>;
-+                    regulator-max-microvolt = <3100000>;
-+                    regulator-boot-on;
-+                };
-+
-+                vdd_3v3_hdmi: ldo11 {
-+                    regulator-name = "vdd_3v3_hdmi";
-+                    regulator-min-microvolt = <3300000>;
-+                    regulator-max-microvolt = <3300000>;
-+                };
-+
-+                vdd_usd: ldo12 {
-+                    regulator-name = "vcc_2v8_sdio";
-+                    regulator-min-microvolt = <2800000>;
-+                    regulator-max-microvolt = <2800000>;
-+                    regulator-boot-on;
-+                };
-+
-+                vcc_3v0_motor: ldo13 {
-+                    regulator-name = "vcc_3v0_motor";
-+                    regulator-min-microvolt = <3000000>;
-+                    regulator-max-microvolt = <3000000>;
-+                };
-+
-+                vcc_2v8_lcd: ldo14 {
-+                    regulator-name = "vcc_2v8_lcd";
-+                    regulator-min-microvolt = <2800000>;
-+                    regulator-max-microvolt = <2800000>;
-+                    regulator-boot-on;
-+                };
-+
-+                vcc_3v3_temp: ldo15 {
-+                    regulator-name = "vcc_3v3_temp";
-+                    regulator-min-microvolt = <3300000>;
-+                    regulator-max-microvolt = <3300000>;
-+                    regulator-boot-on;
-+                };
-+
-+                /* LDO16 is not used */
-+
-+                avdd_dsi_csi: ldo17 {
-+                    regulator-name = "vcc_1v2_mipi";
-+                    regulator-min-microvolt = <1200000>;
-+                    regulator-max-microvolt = <1200000>;
-+                };
-+
-+                ldo18 {
-+                    regulator-name = "vcc_1v8_vi";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+
-+                vcc_1v8_touch: ldo19 {
-+                    regulator-name = "vcc_1v8_touch";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                    regulator-boot-on;
-+                };
-+
-+                /* LDO20 is not used */
-+
-+                out5v {
-+                    regulator-name = "usb0_vbus_reg";
-+                    regulator-min-microvolt = <5000000>;
-+                    regulator-max-microvolt = <5000000>;
-+                };
-+
-+                /* OUT33V is not used */
-+
-+                bbat {
-+                    regulator-name = "vcc_bbat";
-+                };
-+
-+                vdd_rtc: sdby {
-+                    regulator-name = "vcc_rtc";
-+                    regulator-min-microvolt = <950000>;
-+                    regulator-max-microvolt = <1300000>;
-+                    regulator-always-on;
-+                    regulator-boot-on;
-+                };
-+
-+                vrtc {
-+                    regulator-name = "vrtc";
-+                };
-+            };
-+        };
-+    };
-+...
+-	i2c_unregister_device(max8907->i2c_rtc);
+ }
+ 
+ #ifdef CONFIG_OF
+@@ -319,7 +272,6 @@ static struct i2c_driver max8907_i2c_driver = {
+ 		.of_match_table = of_match_ptr(max8907_of_match),
+ 	},
+ 	.probe = max8907_i2c_probe,
+-	.remove = max8907_i2c_remove,
+ 	.id_table = max8907_i2c_id,
+ };
+ 
 -- 
 2.53.0
 
