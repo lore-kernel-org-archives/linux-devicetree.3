@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795465961;
-	b=ySue6Yjf8HE+tAPI44ZqDCDXGjVyQ8yYOgS7oEFckrjjvVF4+t3d5ArbGdca67eULg3t
-	 5gwY6YNwrQhhPTKNAQDJ1sqz/ESLKkpNyaoLowwAxipctFr4blF40QdUkSPxxL5x4wNiN
-	 NhBryVaf2q6s/VoXuSqpSAQu2eqgGNX2XSt5dgdN2EnPaFAn4lpCovwAGzIQjqA2IYqrV
-	 a7uIBshsUysazYMycBSlbj2DJdmMX54QYoO3KAi1nrFfgcS2+5HKbnHu3fNVZwQyIMJVO
-	 bBDeypy0K1LRqWurtpMuuZI9Ks2Y+MJR9w8D2933ZBBNYBZHyPd9H/QWtX8G7haC4tg==
+	t=1795465968;
+	b=ZD03VkBTLDYnue1S6lh+igrhvlgZDePreD8SIdccl1ml/qwKIxU3pGwJBMD33VB8R9p7
+	 thJL30cxT9vFZnIEOMwstY0GpgFK7ovFIaHzYAC8XEO3BMBwfFWfLakzXso0X1zpWw/od
+	 eyKqdkr0q9wIObatEkQPAraV7KSD/LAp4TqUuhQAzp7LoM+TrK/nM0+f3x+n2r94n0TQe
+	 L9qK8ageEk0lVGqFh2OJ5bzgj7GXEfeiOkM7oEgNIDvWwBr/vsrr3bWXOx+tst+4aKy9z
+	 D2tDm7wvLXYSMLSJzTl7YP/Jy/dz4jAaEHOOZ+pwAF7HSKifVaCTJq0A5P6HV0GJVRQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795465961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795465968;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zvxd9dARkZhllOfsvOtfG9Epi2HmWipiIYRGTUsDCJw=;
-	b=J/8zpKImX/pYjjhdH89YdfguHhV9dydqEBn3wl2z1Cqy4uTCgRVgtJwvi10jhMh1+0gI
-	 zas07NG1RoNiBgqlZ5hBoehPZi+jnJrU4gjjcJ90tORTlXXYjLDnqj1YkfV4hlIaTPVOX
-	 wSUftaaDbNBH/775GQbg9Q3Nr84UtXgTxVP+EuQaLVDxeuHMMGxZx5ksxZ3Y+KyUx3PTz
-	 3jdmCleQAw0lxf13oE9xFzXfSfp8FmJghzpCcb+Dc9jd6Zv+kuTYcI5r/E3U5QISYxO1y
-	 2PP61HqVDM7fQZGpidUfPwVG7RCDhAUW213EgIwCD3bTdNj5YQQMbNYFqlbVSXtc8gg==
+	bh=Zz6L92ZDSFMnlI2YQdsV7kK/kM96g1+mYDq69MPiFmU=;
+	b=Xlhd9A646ph+BfFKVhd4beQdqyTnl4J52SOtBoW3/0M259AoLopcyS2NmMf2zo5HgfvC
+	 KQ0sttlox8T9b5bAtBJi12jdTB9N5d8oictI3aeCreTFRitzKcYGiVPP2nsjVgD6FcoP5
+	 KjMSmSXQKvP4KNc5thmNeny9sHoS79bLyyGGIl34cdIuwsddGccu8kdsjLEnGvU1rzcL4
+	 1lEjQfqpJLtcDR5d9rq66CiieExy4t3qKkaT2W5iYC1SgiK2LaIYdAV2LzCPG/j8VbmJh
+	 MTGnhbAnf0j3+XnSU7ES47f+kFlJ+nK3PdrhvG6EDKrkZ+F5KAB8YC+sjixIHkui5CA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TQnk4T/g";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HaRtxg2+;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B38A606A690;
-	Mon, 23 Nov 2026 20:32:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E90D60A260A;
+	Mon, 23 Nov 2026 20:32:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQnk4T/g
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HaRtxg2+
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795465960;
-	b=q+/5PvYnFQe60dArcwUXOraV8MnXCMlNdaUTYGSxwQTs/mF/rRIQHq/mrwB+MOjPyWLv
-	 jtZr/pFnSPtPZUdODpUtXS65hA01syzYbI209HyeinrxjPBsD0hdOLsauBD9gQtPteVUW
-	 uc2J51TYJ2riYIJV3NMcdClpmzy/ueTNeSwKJdQDq/zBRI6/d+uF3g9Xv8JASPPPbs3le
-	 QJLvCGITHl+DBOBf18mdI/uVvuE1Xcu8FFJ5fZZCctVdglmi3o3BlGjOIhmEmFQLeBPYS
-	 iqjmDjHvRwHrNVzOrXh0CSEFG8y1cTgOSrsXGnSQA0R+Wg9ckrx7LdT85bHS86CSKKw==
+	t=1795465968;
+	b=qyxoT7WR06Xmz5AwJq/7M6WjYxdFo3zcWDfGw4uvVwLQFrrobBa0+CBUF8KVTr0Asfkf
+	 /YafirODe1oI5NCZ4rXcww35ofdrV8V8b+fazdblhmCmS0rl3+T/puPuM/za+4e1+9ph5
+	 SxGv0k2UaqqDVivrseyaLwjot12CeKV5vEfcvWcivp/UinsztE3W0wix1u3ftJJgF3vmj
+	 Ihkq/6vKUCOUN/pS3h8g4j8zRwc3PtNPqjSphTJQsze+ZO/wzUvut2bzSXFwU+W0Ww24d
+	 ndUBzF2iyK5NGVjPMkj7y8d1ICmkDTr6frFkgoQGfEYI/ksLb77GjWu36uEOMjHpBFw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795465960;
+	c=relaxed/relaxed; t=1795465968;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zvxd9dARkZhllOfsvOtfG9Epi2HmWipiIYRGTUsDCJw=;
-	b=MSVqzgCOfysHAy6HbLWS3xkZ+PjEq+pAQV4dA7N1ba4MFNmMKL/8wf+zeYRjruAm5k+A
-	 49VVqcL1aZSVMx748PRhtNemfB8qLbgcrEXO9UNrZAJzYB735aYYJ8YmDKcFFOvmz3Ld4
-	 EK27wQ8khaXeuDnD3HHxqVkRGDOPhZSpS0x4y0jJ/s9S9xw06hOj68pwcyok9aWzPXfi+
-	 P3Y5bO2ZyjVW26aaRHA1Xc9ud/zaTVpky1aLCad9+YUpuRRIbiO7RJLLJyH7sEx2QE6Ts
-	 eCeAkUy1R74ljSkJ9RS/txzdjn1nGF2cv4ZxfJDK8MEU6D1PwSpgFlfclkMCXWK1Wow==
+	bh=Zz6L92ZDSFMnlI2YQdsV7kK/kM96g1+mYDq69MPiFmU=;
+	b=D+dd9jcU19J+0tAynY+QpY05Y8VC6Xg2O0HhxpQgVYyWELA+/TmyewDpmt2Byzvv+CNR
+	 esw9F9F5UrDrOG1bM1SvrAG+dHqsWfAYa394sKr89C0t2PkKuBiH80khxJasR0GNuYmnN
+	 WArKMRoVLlZ6s6T8tDf30eNnE0ELOv/1VCTjAa31cECk4CsWV9JMXsjeSrrhibPHXp3wX
+	 gz5nGZj+MtROZZWEu6QzDg7aIDUGn5LToMz+0RyUAbBAmdgcVpv109PWlyNRq/CGceqMr
+	 tk1j8+FUngerLuKR6mc5zLMhs8T6G/Bawa+U3RXyGz9XGKdtlW0bBhx0zqdHQiSU1SQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 165561F000EF;
-	Mon, 23 Nov 2026 20:32:18 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1299F1F000ED;
+	Mon, 23 Nov 2026 20:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795465960;
-	bh=zvxd9dARkZhllOfsvOtfG9Epi2HmWipiIYRGTUsDCJw=;
+	s=k20260515; t=1795465968;
+	bh=Zz6L92ZDSFMnlI2YQdsV7kK/kM96g1+mYDq69MPiFmU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TQnk4T/g2M/XspQOYlU6DS3sPuCQd8AjTew4bdpEjy+fPgb8xBTDTzjimHIwaPbhL
-	 xBd3mlI0v9LLnCtWh8WvfYA7IVfGGGm4OqBZEIgo3VCNOIruhCJGNhRpRFkruKh3tP
-	 /Uw4xBJTnzLCw4nUf7lLBH42pbOdkN9sxRBARoOMjnV219k9RPNz2BP1CK0+0DyOun
-	 KwAWzlABcK5KGSGirlEy3/YNghQ6ruoBCwNFZecOEhtOXpGYMTr6P2i6Unzkx0cX0Y
-	 VH+U73T83SqphRSGyzP26OcRLualACzOba/6qUzr8iHKIkxZZzmExhm9zcyN2Raa1f
-	 rF1DPkrNC8mWg==
+	b=HaRtxg2+P/EL8rMR+2MUOMlzr/pT4NIlSF9DGaxGScIICK8lKQ6OBo7WF4DlSer8z
+	 5DYbefu1jHy8MRS68EIoPFDctgawFu+Y2wRNRIkjukdy6bXPbbrVMbEuARf4Yxotqe
+	 gIk8HlHklYeh9Pshn6vaBHSPi740WlDDqzUkeY2hn4M4jvJjFBs1pMh4eZawCKuEad
+	 Q+UnKtSVmitJBPRbY7A+kDCg4shig6g56M3KGdVJLgW7ruGthk7A/r8MDE1sPPgG80
+	 zAKSifi3lmWAe06pGXc0BMu6vZNPsKLQl1M5Lxs+lyOcDJEq5PudlAfEq1/6BVe2iA
+	 ojCCrZum2+Gqw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 949AC4C706;
+	by lkml.kernel.org (Postfix) with ESMTP id CC3D64C70E;
 	Mon, 23 Nov 2026 20:32:17 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Mon, 23 Nov 2026 23:32:17 +0300
-Subject: [PATCH v2 3/8] clk: cs7542: Add PCIe gates and resets to the
- global provider
+Date: Mon, 23 Nov 2026 23:32:19 +0300
+Subject: [PATCH v2 5/8] phy: Add CS7542 PCIe SerDes support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-b4-cs7542-pcie-v2-3-f589a9cd0bef@gmail.com>
+Message-Id: <20261123-b4-cs7542-pcie-v2-5-f589a9cd0bef@gmail.com>
 References: <20261123-b4-cs7542-pcie-v2-0-f589a9cd0bef@gmail.com>
 In-Reply-To: <20261123-b4-cs7542-pcie-v2-0-f589a9cd0bef@gmail.com>
 To: Manivannan Sadhasivam <mani@kernel.org>, 
@@ -102,11 +101,11 @@ Cc: Jingoo Han <jingoohan1@gmail.com>,
  linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795465935; l=8596;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795465935; l=9297;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=wxPmwU/hDwsNVP5PJfG+P4N3ss/7sNIINtDOJjhHa0o=;
- b=ZJTbQ/sULq7QjHr8zIbPK9QgGbx1VxtG9MD1hMnVjq5cTMZvYO9zSuS1nDiBuKu2UAQZuNRgD
- ZrzFvW22cJlA1L8EEBHEvjzyVtQg/5BPOYPWNFcaB2cTTIlt0u9xolY
+ bh=xbqhgVGjORFnQ5gPtfVS3sFJz4weZ5kVBK/LGnXuSak=;
+ b=MUSxUum1MJLt+e2T6Y8GAHpAgGq1H1etG6XJ04YCQDH64a5vh8Z7F1aUXhahMXMbnu7Vb4MxP
+ YFPFk3WpKAlBAWKsJ68EfQfhi8FhtDeIoZHrggR2GGSh3fpLwGV7kgE
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
@@ -117,279 +116,286 @@ Content-Transfer-Encoding: 7bit
 
 From: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Register the three PCIe gate clocks and controller resets from the global
-syscon node. Preserve the early strap clocks used by the ARM timers and
-the shared regmap updates that protect unrelated reset and gate bits.
-
-The driver is built in because APB is needed during timer discovery. The
-PCIe host and PHY consumers remain independently modular. Unwind all
-registered clocks and the reset provider on initialization failures.
+Provide per-lane generic PHYs using the vendor 24 MHz programming table
+and revision-dependent value. Sequence power and reset through the shared
+global regmap and fail on CMU lock timeout with balanced power cleanup.
+Use the shared PHY status bank without overlapping PCIe wrapper resources.
 
 Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 ---
- drivers/clk/Kconfig      |   6 +-
- drivers/clk/clk-cs7542.c | 183 +++++++++++++++++++++++++++++++++++++++++------
- 2 files changed, 166 insertions(+), 23 deletions(-)
+ drivers/phy/Kconfig           |  11 ++
+ drivers/phy/Makefile          |   2 +
+ drivers/phy/phy-cs7542-pcie.c | 232 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 245 insertions(+)
 
-diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index 47b5265fe..4dcc60979 100644
---- a/drivers/clk/Kconfig
-+++ b/drivers/clk/Kconfig
-@@ -59,13 +59,15 @@ config LMK04832
- 	  Low-Noise JESD204B Compliant Clock Jitter Cleaner With Dual Loop PLLs
+diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
+index 105fbe408..77cff94fe 100644
+--- a/drivers/phy/Kconfig
++++ b/drivers/phy/Kconfig
+@@ -204,4 +204,15 @@ source "drivers/phy/tegra/Kconfig"
+ source "drivers/phy/ti/Kconfig"
+ source "drivers/phy/xilinx/Kconfig"
  
- config COMMON_CLK_CS7542
--	bool "Cortina Systems CS7542 strap-selected clocks"
-+	bool "Cortina Systems CS7542 global clocks and resets"
- 	depends on OF && HAS_IOMEM
- 	select MFD_SYSCON
-+	select RESET_CONTROLLER
- 	help
- 	  Read the boot straps of the CS7542 global control block to provide
- 	  its APB, CPU and AXI clocks. This driver does not change PLLs or
--	  dividers. It is built in because the APB clock is needed by timers.
-+	  dividers. It also provides the three PCIe clock gates and resets.
-+	  It is built in because the APB clock is needed by timers.
- 
- config COMMON_CLK_APPLE_NCO
- 	tristate "Clock driver for Apple SoC NCOs"
-diff --git a/drivers/clk/clk-cs7542.c b/drivers/clk/clk-cs7542.c
-index 4e6c1e98a..e4bb1bb70 100644
---- a/drivers/clk/clk-cs7542.c
-+++ b/drivers/clk/clk-cs7542.c
-@@ -1,24 +1,28 @@
- // SPDX-License-Identifier: GPL-2.0-only
--/* Cortina Systems CS7542 strap-selected clocks */
-+/* Cortina Systems CS7542 global clocks and PCIe resets. */
- 
- #include <linux/bitfield.h>
- #include <linux/clk-provider.h>
++config PHY_CS7542_PCIE
++	tristate "Cortina Systems CS7542 PCIe SerDes"
++	depends on OF && HAS_IOMEM && COMMON_CLK
++	select GENERIC_PHY
++	select MFD_SYSCON
++	help
++	  Support the three CS7542 Snow Bush SerDes lanes in PCIe mode
++	  with a 24 MHz reference clock. Lane resets share the global syscon.
++	  SATA mode and other reference frequencies are not supported.
++	  The module is called phy-cs7542-pcie.
++
+ endmenu
+diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
+index c6dd02003..54df29e74 100644
+--- a/drivers/phy/Makefile
++++ b/drivers/phy/Makefile
+@@ -55,3 +55,5 @@ obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
+ 					   tegra/	\
+ 					   ti/		\
+ 					   xilinx/
++
++obj-$(CONFIG_PHY_CS7542_PCIE) += phy-cs7542-pcie.o
+diff --git a/drivers/phy/phy-cs7542-pcie.c b/drivers/phy/phy-cs7542-pcie.c
+new file mode 100644
+index 000000000..d027baa93
+--- /dev/null
++++ b/drivers/phy/phy-cs7542-pcie.c
+@@ -0,0 +1,232 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* CS7542 Snow Bush SerDes, PCIe mode with a 24 MHz reference clock. */
++#include <linux/bitfield.h>
++#include <linux/clk.h>
 +#include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/mfd/syscon.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
++#include <linux/mfd/syscon.h>
 +#include <linux/module.h>
- #include <linux/of.h>
- #include <linux/printk.h>
- #include <linux/regmap.h>
-+#include <linux/reset-controller.h>
- #include <linux/slab.h>
- 
- #include <dt-bindings/clock/cortina,cs7542-clock.h>
- 
- #define CS7542_GLOBAL_STRAP	0x0c
- #define CS7542_STRAP_SPEED	GENMASK(3, 1)
--#define CS7542_NUM_CLKS		3
-+#define CS7542_NUM_FIXED_CLKS	3
-+#define CS7542_NUM_CLKS		6
- 
- /* Rates from the GPL vendor kernel's get_platform_clk(). */
--static const unsigned long cs7542_rates[][CS7542_NUM_CLKS] = {
-+static const unsigned long cs7542_rates[][CS7542_NUM_FIXED_CLKS] = {
- 	/* APB, CPU, AXI */
- 	{ 100000000, 400000000, 133333333 },
- 	{ 100000000, 600000000, 150000000 },
-@@ -33,14 +37,115 @@ static const char * const cs7542_clock_names[] = {
- 	[CS7542_CLK_APB] = "cs7542-apb",
- 	[CS7542_CLK_CPU] = "cs7542-cpu",
- 	[CS7542_CLK_AXI] = "cs7542-axi",
-+	[CS7542_CLK_PCIE0] = "cs7542-pcie0",
-+	[CS7542_CLK_PCIE1] = "cs7542-pcie1",
-+	[CS7542_CLK_PCIE2] = "cs7542-pcie2",
-+};
++#include <linux/of.h>
++#include <linux/phy/phy.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
 +
++#define GLOBAL_JTAG_ID	0x00
++#define GLOBAL_PHY_CONTROL 0x14
++#define PHY_REFCLK_MASK(p) (3U << ((p) * 2))
++#define PHY_REFCLK_24MHZ(p) (2U << ((p) * 2))
++#define PHY_PD(p)	BIT(8 + (p))
++#define PHY_CMU_RESETN(p) BIT(16 + (p) * 4)
++#define PHY_LN0_RESETN(p) BIT(17 + (p) * 4)
++#define PHY_POR_N(p)	BIT(19 + (p) * 4)
++#define PHY_CMU_OK	BIT(18)
++#define PHY_STATUS_STRIDE 0x80
++#define SNOW_COM_REG0	0x00
++#define SNOW_REG0_CFG	0x00090006
++#define SNOW_REG0_AHB_RESETN BIT(0)
++#define SNOW_REV_REG	96
++#define SNOW_REV_REG_A0	0x5e082e00
++#define SNOW_REV_REG_A1	0x5e080600
++#define SNOW_COM_LANE_REG0 0xc8
++#define SNOW_LANE_REG0_CFG 0x400290c0
++#define SNOW_LANE_REG0_MASTER_RESETN BIT(1)
 +#define CS7542_PORTS	3
-+#define GLOBAL_RESET	0x04
-+#define GLOBAL_CONFIG	0x10
 +
-+struct cs7542_gate {
-+	struct clk_hw hw;
-+	struct regmap *map;
-+	u32 mask;
++struct cs7542_serdes;
++struct cs7542_lane {
++	struct cs7542_serdes *serdes;
++	void __iomem *base;
++	struct phy *phy;
++	unsigned int id;
 +};
 +
-+struct cs7542_control {
-+	struct reset_controller_dev rcdev;
-+	struct regmap *map;
-+	struct cs7542_gate gates[CS7542_PORTS];
-+	struct clk_hw_onecell_data *clks;
++struct cs7542_serdes {
++	struct device *dev;
++	struct regmap *global;
++	void __iomem *status;
++	struct clk *ref;
++	struct cs7542_lane lanes[CS7542_PORTS];
++	u32 revision_value;
 +};
 +
-+static int cs7542_gate_prepare(struct clk_hw *hw)
-+{
-+	struct cs7542_gate *gate = container_of(hw, struct cs7542_gate, hw);
-+
-+	return regmap_update_bits(gate->map, GLOBAL_CONFIG, gate->mask, gate->mask);
-+}
-+
-+static void cs7542_gate_unprepare(struct clk_hw *hw)
-+{
-+	struct cs7542_gate *gate = container_of(hw, struct cs7542_gate, hw);
-+
-+	regmap_update_bits(gate->map, GLOBAL_CONFIG, gate->mask, 0);
-+}
-+
-+static int cs7542_gate_is_prepared(struct clk_hw *hw)
-+{
-+	struct cs7542_gate *gate = container_of(hw, struct cs7542_gate, hw);
-+	unsigned int value;
-+	int ret;
-+
-+	ret = regmap_read(gate->map, GLOBAL_CONFIG, &value);
-+	return ret ? ret : !!(value & gate->mask);
-+}
-+
-+static const struct clk_ops cs7542_gate_ops = {
-+	.prepare = cs7542_gate_prepare,
-+	.unprepare = cs7542_gate_unprepare,
-+	.is_prepared = cs7542_gate_is_prepared,
++struct snow_reg {
++	u16 off;
++	u32 val;
 +};
 +
-+static int cs7542_reset_update(struct reset_controller_dev *rcdev,
-+			       unsigned long id, bool assert)
-+{
-+	struct cs7542_control *ctl = container_of(rcdev, struct cs7542_control, rcdev);
-+	u32 mask = BIT(6 + id);
++static const struct snow_reg snow_phy_24mhz[] = {
++	{ 0,   SNOW_REG0_CFG }, { 4,   0x000e0960 }, { 32,  0x68a00000 },
++	{ 44,  0x50040000 }, { 48,  0x40250270 }, { 52,  0x00004001 },
++	{ 100, 0xf0914200 }, { 104, 0x4c0c9048 }, { 108, 0x00000373 },
++	{ 124, 0x04841000 }, { 128, 0x000000e0 }, { 132, 0x04000023 },
++	{ 136, 0x68001038 }, { 140, 0x0d181ea2 }, { 144, 0x0000000c },
++	{ 196, 0x0f600000 }, { 200, SNOW_LANE_REG0_CFG }, { 204, 0x0000003c },
++	{ 208, 0xc68b8300 }, { 212, 0x98280301 }, { 216, 0xe1782819 },
++	{ 220, 0x00f410f0 }, { 232, 0xa0a0a000 }, { 236, 0xa0a0a0a0 },
++	{ 240, 0x9fc00068 }, { 244, 0x00000001 }, { 248, 0x00000000 },
++	{ 252, 0xd07e4130 }, { 256, 0x935285cc }, { 260, 0xb0dd49e0 },
++	{ 264, 0x0000020b }, { 300, 0xd8000000 }, { 304, 0x0001ff1a },
++	{ 308, 0xf0000000 }, { 312, 0xffffffff }, { 316, 0x3fc3c21c },
++	{ 320, 0x0000000a }, { 324, 0x00f80000 },
++};
 +
-+	return regmap_update_bits(ctl->map, GLOBAL_RESET, mask, assert ? mask : 0);
-+}
-+
-+static int cs7542_reset_assert(struct reset_controller_dev *rcdev, unsigned long id)
++static int cs7542_phy_power_off(struct phy *phy)
 +{
-+	return cs7542_reset_update(rcdev, id, true);
-+}
-+
-+static int cs7542_reset_deassert(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	return cs7542_reset_update(rcdev, id, false);
-+}
-+
-+static int cs7542_reset_status(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	struct cs7542_control *ctl = container_of(rcdev, struct cs7542_control, rcdev);
-+	unsigned int value;
++	struct cs7542_lane *lane = phy_get_drvdata(phy);
++	unsigned int p = lane->id;
++	u32 mask = PHY_PD(p) | PHY_CMU_RESETN(p) | PHY_LN0_RESETN(p) | PHY_POR_N(p);
 +	int ret;
 +
-+	ret = regmap_read(ctl->map, GLOBAL_RESET, &value);
-+	return ret ? ret : !!(value & BIT(6 + id));
++	ret = regmap_update_bits(lane->serdes->global, GLOBAL_PHY_CONTROL, mask, PHY_PD(p));
++	clk_disable_unprepare(lane->serdes->ref);
++	return ret;
 +}
 +
-+static int cs7542_reset_pulse(struct reset_controller_dev *rcdev, unsigned long id)
++static int cs7542_phy_power_on(struct phy *phy)
 +{
-+	int ret;
++	struct cs7542_lane *lane = phy_get_drvdata(phy);
++	struct cs7542_serdes *sd = lane->serdes;
++	unsigned int p = lane->id;
++	u32 mask, value;
++	int ret, i;
 +
-+	ret = cs7542_reset_assert(rcdev, id);
++	ret = clk_prepare_enable(sd->ref);
 +	if (ret)
 +		return ret;
-+	usleep_range(10000, 12000);
-+	ret = cs7542_reset_deassert(rcdev, id);
++	mask = PHY_PD(p) | PHY_CMU_RESETN(p) | PHY_LN0_RESETN(p) | PHY_POR_N(p) |
++	       PHY_REFCLK_MASK(p);
++	ret = regmap_update_bits(sd->global, GLOBAL_PHY_CONTROL, mask,
++				 PHY_PD(p) | PHY_REFCLK_24MHZ(p));
 +	if (ret)
-+		return ret;
-+	usleep_range(10000, 12000);
++		goto power_off;
++	msleep(100);
++	ret = regmap_update_bits(sd->global, GLOBAL_PHY_CONTROL, PHY_PD(p) | PHY_POR_N(p),
++				 PHY_POR_N(p));
++	if (ret)
++		goto power_off;
++	usleep_range(10, 20);
++	for (i = 0; i < ARRAY_SIZE(snow_phy_24mhz); i++) {
++		if (snow_phy_24mhz[i].off == SNOW_REV_REG + 4)
++			writel(sd->revision_value, lane->base + SNOW_REV_REG);
++		writel(snow_phy_24mhz[i].val, lane->base + snow_phy_24mhz[i].off);
++	}
++	writel(SNOW_REG0_CFG | SNOW_REG0_AHB_RESETN, lane->base + SNOW_COM_REG0);
++	ret = regmap_update_bits(sd->global, GLOBAL_PHY_CONTROL, PHY_CMU_RESETN(p),
++				 PHY_CMU_RESETN(p));
++	if (ret)
++		goto power_off;
++	ret = readl_poll_timeout(sd->status + p * PHY_STATUS_STRIDE, value,
++				 value & PHY_CMU_OK, 100, 100000);
++	if (ret) {
++		dev_err(sd->dev, "lane %u CMU did not lock\n", p);
++		goto power_off;
++	}
++	writel(SNOW_LANE_REG0_CFG | SNOW_LANE_REG0_MASTER_RESETN,
++	       lane->base + SNOW_COM_LANE_REG0);
++	ret = regmap_update_bits(sd->global, GLOBAL_PHY_CONTROL, PHY_LN0_RESETN(p),
++				 PHY_LN0_RESETN(p));
++	if (ret)
++		goto power_off;
++	msleep(100);
 +	return 0;
++
++power_off:
++	cs7542_phy_power_off(phy);
++	return ret;
 +}
 +
-+static const struct reset_control_ops cs7542_reset_ops = {
-+	.assert = cs7542_reset_assert,
-+	.deassert = cs7542_reset_deassert,
-+	.status = cs7542_reset_status,
-+	.reset = cs7542_reset_pulse,
- };
- 
- static void __init cs7542_clk_init(struct device_node *np)
- {
--	struct clk_hw_onecell_data *data;
-+	struct cs7542_control *ctl;
- 	struct regmap *map;
- 	unsigned int strap, speed;
--	int i, ret;
-+	int i, j, ret;
- 
- 	map = syscon_node_to_regmap(np);
- 	if (IS_ERR(map)) {
-@@ -60,30 +165,66 @@ static void __init cs7542_clk_init(struct device_node *np)
- 		return;
- 	}
- 
--	data = kzalloc_flex(*data, hws, CS7542_NUM_CLKS);
--	if (!data)
-+	ctl = kzalloc(sizeof(*ctl), GFP_KERNEL);
-+	if (!ctl)
-+		return;
-+	ctl->map = map;
-+	ctl->clks = kzalloc_flex(*ctl->clks, hws, CS7542_NUM_CLKS);
-+	if (!ctl->clks) {
-+		kfree(ctl);
- 		return;
--	data->num = CS7542_NUM_CLKS;
--
--	for (i = 0; i < CS7542_NUM_CLKS; i++) {
--		data->hws[i] = clk_hw_register_fixed_rate(NULL,
--							  cs7542_clock_names[i], NULL,
--							  0, cs7542_rates[speed][i]);
--		if (IS_ERR(data->hws[i])) {
--			ret = PTR_ERR(data->hws[i]);
--			goto err_unregister;
-+	}
-+	ctl->clks->num = CS7542_NUM_CLKS;
++static int cs7542_phy_set_mode(struct phy *phy, enum phy_mode mode, int submode)
++{
++	return mode == PHY_MODE_PCIE && !submode ? 0 : -EINVAL;
++}
 +
-+	for (i = 0; i < CS7542_NUM_FIXED_CLKS; i++) {
-+		ctl->clks->hws[i] = clk_hw_register_fixed_rate(NULL,
-+							       cs7542_clock_names[i], NULL,
-+							       0, cs7542_rates[speed][i]);
-+		if (IS_ERR(ctl->clks->hws[i])) {
-+			ret = PTR_ERR(ctl->clks->hws[i]);
-+			goto err_unregister_fixed;
- 		}
- 	}
- 
--	ret = of_clk_add_hw_provider(np, of_clk_hw_onecell_get, data);
-+	for (j = 0; j < CS7542_PORTS; j++) {
-+		struct cs7542_gate *gate = &ctl->gates[j];
-+		struct clk_init_data init = {
-+			.name = cs7542_clock_names[CS7542_CLK_PCIE0 + j],
-+			.ops = &cs7542_gate_ops,
-+		};
++static const struct phy_ops cs7542_phy_ops = {
++	.power_on = cs7542_phy_power_on,
++	.power_off = cs7542_phy_power_off,
++	.set_mode = cs7542_phy_set_mode,
++	.owner = THIS_MODULE,
++};
 +
-+		/* Gate-only controls: no source frequency is assumed. */
-+		gate->map = map;
-+		gate->mask = BIT(10 + 2 * j);
-+		gate->hw.init = &init;
-+		ret = clk_hw_register(NULL, &gate->hw);
-+		if (ret)
-+			goto err_unregister_gates;
-+		ctl->clks->hws[CS7542_CLK_PCIE0 + j] = &gate->hw;
-+	}
++static struct phy *cs7542_phy_xlate(struct device *dev, const struct of_phandle_args *args)
++{
++	struct cs7542_serdes *sd = dev_get_drvdata(dev);
 +
-+	ctl->rcdev.owner = THIS_MODULE;
-+	ctl->rcdev.ops = &cs7542_reset_ops;
-+	ctl->rcdev.of_node = np;
-+	ctl->rcdev.nr_resets = CS7542_PORTS;
-+	ret = reset_controller_register(&ctl->rcdev);
++	if (args->args_count != 1 || args->args[0] >= CS7542_PORTS)
++		return ERR_PTR(-EINVAL);
++	return sd->lanes[args->args[0]].phy;
++}
++
++static int cs7542_phy_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct phy_provider *provider;
++	struct cs7542_serdes *sd;
++	unsigned int id;
++	int ret, i;
++
++	sd = devm_kzalloc(dev, sizeof(*sd), GFP_KERNEL);
++	if (!sd)
++		return -ENOMEM;
++	sd->dev = dev;
++	sd->global = syscon_regmap_lookup_by_phandle(dev->of_node, "cortina,global-syscon");
++	if (IS_ERR(sd->global))
++		return dev_err_probe(dev, PTR_ERR(sd->global), "global register map\n");
++	sd->ref = devm_clk_get(dev, NULL);
++	if (IS_ERR(sd->ref))
++		return dev_err_probe(dev, PTR_ERR(sd->ref), "reference clock\n");
++	if (clk_get_rate(sd->ref) != 24000000)
++		return dev_err_probe(dev, -EINVAL, "only 24 MHz reference supported\n");
++	ret = regmap_read(sd->global, GLOBAL_JTAG_ID, &id);
 +	if (ret)
-+		goto err_unregister_gates;
++		return ret;
++	switch (FIELD_GET(GENMASK(15, 12), id)) {
++	case 0:
++	case 1:
++		sd->revision_value = SNOW_REV_REG_A0;
++		break;
++	case 8:
++	case 9:
++		sd->revision_value = SNOW_REV_REG_A1;
++		break;
++	default:
++		return dev_err_probe(dev, -ENODEV, "unsupported silicon revision %#x\n", id);
++	}
++	sd->status = devm_platform_ioremap_resource(pdev, CS7542_PORTS);
++	if (IS_ERR(sd->status))
++		return PTR_ERR(sd->status);
++	for (i = 0; i < CS7542_PORTS; i++) {
++		struct cs7542_lane *lane = &sd->lanes[i];
 +
-+	ret = of_clk_add_hw_provider(np, of_clk_hw_onecell_get, ctl->clks);
- 	if (!ret)
- 		return;
- 
--err_unregister:
-+	reset_controller_unregister(&ctl->rcdev);
-+err_unregister_gates:
-+	while (j--)
-+		clk_hw_unregister(&ctl->gates[j].hw);
-+err_unregister_fixed:
- 	while (i--)
--		clk_hw_unregister_fixed_rate(data->hws[i]);
--	kfree(data);
--	pr_err("%pOF: cannot register clocks: %d\n", np, ret);
-+		clk_hw_unregister_fixed_rate(ctl->clks->hws[i]);
-+	kfree(ctl->clks);
-+	kfree(ctl);
-+	pr_err("%pOF: cannot register global controls: %d\n", np, ret);
- }
- 
- /* Timers need APB before platform devices, but the pinctrl child must probe. */
++		lane->id = i;
++		lane->serdes = sd;
++		lane->base = devm_platform_ioremap_resource(pdev, i);
++		if (IS_ERR(lane->base))
++			return PTR_ERR(lane->base);
++		lane->phy = devm_phy_create(dev, NULL, &cs7542_phy_ops);
++		if (IS_ERR(lane->phy))
++			return PTR_ERR(lane->phy);
++		phy_set_drvdata(lane->phy, lane);
++	}
++	platform_set_drvdata(pdev, sd);
++	provider = devm_of_phy_provider_register(dev, cs7542_phy_xlate);
++	return PTR_ERR_OR_ZERO(provider);
++}
++
++static const struct of_device_id cs7542_phy_match[] = {
++	{ .compatible = "cortina,cs7542-pcie-phy" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, cs7542_phy_match);
++
++static struct platform_driver cs7542_phy_driver = {
++	.probe = cs7542_phy_probe,
++	.driver = {
++		.name = "cs7542-pcie-phy",
++		.of_match_table = cs7542_phy_match,
++	},
++};
++module_platform_driver(cs7542_phy_driver);
++
++MODULE_DESCRIPTION("Cortina Systems CS7542 PCIe SerDes");
++MODULE_LICENSE("GPL");
 
 -- 
 2.53.0
