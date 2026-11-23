@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795396914;
-	b=sCHBduKK14Kj/BdSIrMl7T0OJzM4YtcJZD0sS9yB/XELMRipbryZk1AJCnErTPA+tM6+
-	 aB2MZ0anAHCPMveE090IDbeI+nKOCQBoZzOZPKfuVBPa1f1XR+i1XStK1DX7o87D/Scr6
-	 TlpT5yA15KWXZSDOU/sZ64I3LwfNxpIE08/yfH1qbeVLW8Zpux4Xze3gZ/7qma9HPGuss
-	 JYbTEAeVN/AjrttIQfXNmbhGg+9A0p7BEO82FwcM88wJA/3veuokqHo/+1OswYeZsNMMi
-	 GEu67zAkhj9nW0z1NdXOg6duCZrujy0+8PvZd3qJda3MtBh2uxboj7itlRemxwj+4nw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795396914;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CWigIpPVsSLso/LPVQlnZ8yKOycJwVSRyTPiWiXdq8g=;
-	b=rZB36vBCdA2c2ujxb0dXQF4IAxIpJZuXG5cnbtPh25QV+dMih6qxbzO9X8kWa6ObeXNg
-	 s1+Rn0ycClepFalQl7K+YWq6VdyIbjACOQ9+mR3Y88uTMMqwtGOdQ0jIOlNhOQwyt0Kzr
-	 LCZ1PvdObPUMf4ZX/VMvcsIdI9YBf3/Pb+wFRPHwViR1ceGBBsCRh6x4XNG9YQMcyfMA/
-	 fF7nU+ST9gec/Xf+/T79+aR433Co/4dXzkK/GHRWqd5A4dN9V/X4Y9I0rt1Qmm5RQybRT
-	 IEzGZJbZFxwBNx+6J82T28nI0arvgI/tmY+L1sEgKaRWvep/qwbBVCzmUsken4mnEHg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9zc+RpN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795397477;
+	b=052sZN/lhaUVLSrvysdSj4PoU7frwnbPCYvjSkoiEQ146S7fBWTXCnWmu/szhbwD8yw+
+	 wSHaNHPQbhiMqTCCH3GGcV5+MPL1eu/xgWEA+GiZZsSrgbalYTHzxSARY99ZsQFl0iyQt
+	 wC6m2+v9/4VdvrsJXmUG7GMm5hjg7aHCsmKaUquXY+d9d5YvZlHzhx/OCP+v9o/IjRWts
+	 +enBIVHZ20ECzmyx6yEu+kl2ZIXlMATfSWnEZqDYLXpGChFQZaDbHJ3kEde8qf1XZ3QhN
+	 Voph1j5lT3Ky484Fb5br4RNrZLWLNGLbRFb1Xf8r1bJGZYDW4wHyUTWzakMihs0Wstw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795397477;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=YJVdS3+lHtbrS3kodDgKvpZML9moom6D07Q8dm2HCCc=;
+	b=OdmrP/aFCsNHX5X4nzTdfD36RzGB2bntsr+mRAJIGW7kVMBniFxbTm23Rr/JU7X+7eDQ
+	 Y6LZrITS/0d8gh+63MdRo0ADJ3oukw+mCkOfJnzbxzUst6TUDSxtRHim5lM69rMjSbSyE
+	 lVxgjA82jrA7B3LfuaWiHcrGbMzAdvmJdrgbPU9q6MuckCXucgpnV+nTSYzKNR9sQlBiI
+	 6nQ8wrfWyWg7uPkOZlL9wWUAkvCbyswK5yHCo2fDU96S0kzN1lTCx2LjWY79BoVTwbG3n
+	 vf1FhFBVKcj2VKB34Plae64BTJl6LszBAN3QnOtAG4QZicykauDuo8nj+9b3pRLAh1g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HdFgEvqe;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E46606A334;
-	Mon, 23 Nov 2026 01:21:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5CF606A31A
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 01:31:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9zc+RpN
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795396914;
-	b=KHRW1GKKb9IK040vukuVyzi0y1yOL7v5NgKbeT7/z+i7ycH/K7Slc0+jCWZgyNHvGgpk
-	 xFq6NyTaNY9Ou4oHgMlbt2SkZ39hR/OQAx0OZ2um3R4MqZFaiyXNs+bzIDLNwDLyHc+6s
-	 eP9xlhaTZDOAVdOpz9uizKVbTHA/XBSctPCl6WXOnrJpsSL497VzE8eb3AIZBusaMpqvP
-	 y6qMms6BLSlI7gpddivkRoNNLp5lj4dWzv0PCA9Cy0vKR1MQ9OM6WehChr8gMqk+gxQWx
-	 6TGF5ie02JBsh4eeeW4DTW5WG22QbVnI4cw3gnXTKQXa5wyHsZEZkvWggld8/aYVw9w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795396914;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CWigIpPVsSLso/LPVQlnZ8yKOycJwVSRyTPiWiXdq8g=;
-	b=fGl84biGzCcuNphPd1dTVJWj5hCnMU8OYCnS8cY1ShY7h1mgiRIu7GrY/FxRDudZNrT+
-	 dUj273QznqBztih060v9sIwz1uHHMGu1tVY2ZIvm67D+s18xd+KlPR4MP59U5uEQVo54o
-	 37TheNNP/enZSR94cQK1fZ08XQxP+qLTu4I3nr4HGi2Rz5qU3EEqwaq9tDupbGLN/bI5R
-	 eEoY09l9Ko5SV88ICKZyUkc2cGkLH3f3ugCyxToio4i0do+LbR3TIzDRfAvIaM/0s2Wnu
-	 kdyyHpLXBGRPAT4cchhQnLiQgl0QrzaTALu34VyGoADF0oULPdl8Igi6HovbriPDsVw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6C3C91F000C6;
-	Mon, 23 Nov 2026 01:21:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HdFgEvqe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A531D1F000C6;
+	Mon, 23 Nov 2026 01:31:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795396914;
-	bh=CWigIpPVsSLso/LPVQlnZ8yKOycJwVSRyTPiWiXdq8g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=T9zc+RpNDrfCMyEjapWz8OvBuBnlBtbO8fzsblCq8Niugev6JsLgkw7BnSZ14Jyfz
-	 u+YfeJyLMK8OdDhLPS+/6kdhuPUWaFRGRBCYDylW4bNHjFMi+od3XKJjwLv0FfqGT5
-	 G/YWlEQzi++TKw2aHM/7n4A0/OhgrBrIvNzkSjZP22PiAtqa7dSL4JC/kNI8rJZZEK
-	 Qy5IE0oxAYBg/vquxn2vAU6jTsL0JrBeZ3Ee+sDiLCm0EuYx/03twone2JelGlbM/1
-	 SMMZ5EIao9i18dzSBRZsZY/Fn8PyuOybrJ6B1LZUSC4c5EA6OuT0i0OvRjfIdWUZbK
-	 pA91HEjUM5JsA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id ECFA44C2B8;
-	Mon, 23 Nov 2026 01:21:52 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 23 Nov 2026 02:21:47 +0100
-Subject: [PATCH 2/3] media: dt-bindings: mipi-ccs: Support IMX371 and
- IMX376K
+	s=k20260515; t=1795397476;
+	bh=YJVdS3+lHtbrS3kodDgKvpZML9moom6D07Q8dm2HCCc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HdFgEvqecnLfR29G4tH/2KmlKl4VuZiP+/CTS+F2mlJFyAzbZUohQ4cbg9T1rXHh9
+	 NxZ1JOiL3ju2u3Ly1UkPUqiO8gl1EzQy/AXbcFXAPoNkLgh7f0aO4lnYAbwrK4Acm5
+	 M0gMm1JYW2LyMNgwP8efUw0ZFTQxtDNoNPquLuo6Xa9ZbWMx7uiz8O3GInclV71hQV
+	 VR6IQTbO5l2OJUIXMfQFUOeG7UrIHL3h787tkeSH9Zd1uUMdPZr+LuKT+D+yDP1zCY
+	 ULn/2Wm4HXl1qRPde8FFZS7sOmBFktHRm9hjPVu8aG1BZ07S35qa0bDN4cr2t7UBoe
+	 1tFQ7EXeR+cUQ==
+Message-ID: <sashiko-outbox-228518@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: sdm845-oneplus: Enable front and
+ back camera
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261123-op6-upstream-cameras-v1-3-234fb3b7bb18@ixit.cz>
+References: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
+ <20261123-op6-upstream-cameras-v1-3-234fb3b7bb18@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 01:31:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,82 +60,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-op6-upstream-cameras-v1-2-234fb3b7bb18@ixit.cz>
-References: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
-In-Reply-To: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, 
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1078; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=WONKLUZwZONG/1eyGGSAmyn63j+1WD61eX0aPYZ8HQ8=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrA5UvO124MmbWZgkQIqSWbuKBfOconQnBGfhXU
- ZTwfcG+M0SJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawOVLwAKCRBgAj/E00kg
- cu5hEAC1mEhErZKfCsK25+A4L7ozBWptF2uhmM9e7vVEplZi7u4q7P5z+YwlKgdqJheZ2DmvVJt
- c3ojF+bKgNZjGaO+1KC7JrG8J6w72Fph2hMXxEcS6CxABoeGoF01joildOyOSbI9i0tHhDIpj3j
- lPupEmXQJmBUmM70WgWGMLd+/LYTWWRou7rItmr/T6Jpqn8DqwWvuKRDM9ygDSs1EoeDYVx0JYZ
- tFz74UvE5m1ZWgmODZ4VV7cZiCjhhGuzKJg9VASZgxoZkUpIe0HdbysxAxzizBuLjkBUCalhdzy
- OaPy90Z6ksC63xNfLnhar3NuqZkznvPIJ5Z8t8h6VfgBuan+8kuBoPnGXQhI/jWYMr8l4vVdbOn
- HlGTtfqHlNmHm5EYwQsKqAQsNBNo8t0tV/xTk+7jHs4qMeAAnXHs7V7p0lnUJ8VxId241auGCQM
- 7seQd2ShCtlXY7pXa0ioCPbUNp+hZ5nCq47ovdNbj3Lim5EPJPG37/GuQBeSbzmnmbLYkzEo5R1
- wvLg0LbU1e4/GCxnnDIfG9eX0SYzmlGSRRoE2coEevfw7ojbgU8C/iwVOmBiQRnCkYZxli1xr8L
- gLZakxtdZVlKqCpizAo5BB9CglYyxkfeG9dFLFkAlpE5P93j8P9z31p4xlgvgYxfcySvHujVpC1
- 77O1SsLbIqVi7fg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
 
-From: David Heidelberg <david@ixit.cz>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: qcom: regulator GPIO pinctrl placed on camera sensor
+  nodes
+--
 
-Extend compatible list with these now supported sensors.
+commit 255c3e91ccc8d6209496c3a95ff032200871681d
+Author: David Heidelberg <david@ixit.cz>
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+arm64: dts: qcom: sdm845-oneplus: Enable front and back camera
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml b/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
-index 44faa2f613f37..049eaee31175a 100644
---- a/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
-@@ -31,16 +31,22 @@ properties:
-     oneOf:
-       - items:
-           - const: mipi-ccs-1.1
-           - const: mipi-ccs
-       - items:
-           - const: mipi-ccs-1.0
-           - const: mipi-ccs
-       - const: nokia,smia
-+      - items:
-+          - const: sony,imx371
-+          - const: mipi-ccs
-+      - items:
-+          - const: sony,imx376k
-+          - const: mipi-ccs
- 
-   reg:
-     maxItems: 1
- 
-   vana-supply:
-     description: Analogue voltage supply (VANA), sensor dependent.
- 
-   vcore-supply:
+This commit adds Devicetree nodes, regulators, and pinctrl configurations
+to enable the front (Sony IMX371) and rear (Sony IMX376k) cameras on
+OnePlus 6 and 6T.
 
--- 
-2.55.0
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/a=
+rm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+> index 1df09da3c4d71..92317f23bdd15 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 
+[ ... ]
 
+> @@ -961,6 +1108,98 @@ &usb_1_hsphy {
+>  &tlmm {
+>  	gpio-reserved-ranges =3D <0 4>, <81 4>;
+> =20
+> +	sub_cam_default: sub-cam-default-state {
+> +		rst-pins {
+> +			pins =3D "gpio23";
+> +			function =3D "gpio";
+> +			bias-disable;
+> +			drive-strength =3D <2>;
+> +		};
+> +
+> +		ana-pins {
+> +			pins =3D "gpio78";
+> +			function =3D "gpio";
+> +			bias-disable;
+> +			drive-strength =3D <2>;
+> +		};
+> +
+> +		dig-pins {
+> +			pins =3D "gpio79";
+> +			function =3D "gpio";
+> +			bias-disable;
+> +			drive-strength =3D <2>;
+> +		};
+> +	};
+> +
+> +	sub_cam_sleep: sub-cam-sleep-state {
+> +		rst-pins {
+> +			pins =3D "gpio23";
+> +			function =3D "gpio";
+> +			bias-disable;
+> +			drive-strength =3D <2>;
+> +		};
+> +
+> +		ana-pins {
+> +			pins =3D "gpio78";
+> +			function =3D "gpio";
+> +			bias-pull-down;
+> +			drive-strength =3D <2>;
+> +		};
+> +
+> +		dig-pins {
+> +			pins =3D "gpio79";
+> +			function =3D "gpio";
+> +			bias-pull-down;
+> +			drive-strength =3D <2>;
+> +		};
+> +	};
+> +
+> +	front_cam_default: front-cam-default-state {
+> +		rst-pins {
+> +			pins =3D "gpio9";
+> +			function =3D "gpio";
+> +			bias-disable;
+> +			drive-strength =3D <2>;
+> +		};
+> +
+> +		ana-pins {
+> +			pins =3D "gpio104";
+> +			function =3D "gpio";
+> +			bias-disable;
+> +			drive-strength =3D <2>;
+> +		};
+> +
+> +		dig-pins {
+> +			pins =3D "gpio117";
+> +			function =3D "gpio";
+> +			bias-disable;
+> +			drive-strength =3D <2>;
+> +		};
+> +	};
+> +
+> +	front_cam_sleep: front-cam-sleep-state {
+> +		rst-pins {
+> +			pins =3D "gpio9";
+> +			function =3D "gpio";
+> +			bias-disable;
+> +			drive-strength =3D <2>;
+> +		};
+> +
+> +		ana-pins {
+> +			pins =3D "gpio104";
+> +			function =3D "gpio";
+> +			bias-pull-down;
+> +			drive-strength =3D <2>;
+> +		};
+> +
+> +		dig-pins {
+> +			pins =3D "gpio117";
+> +			function =3D "gpio";
+> +			bias-pull-down;
+> +			drive-strength =3D <2>;
+> +		};
+> +	};
+
+[Severity: Low]
+Should the pinctrl states for gpio78, gpio79, gpio104, and gpio117 be
+attached to sub_cam_vana, sub_cam_vdig, front_cam_vana, and
+front_cam_vdig instead of the sub_cam and front_cam sensor nodes?
+
+Because the regulator-fixed nodes own those enable GPIOs and have no
+pinctrl-0 properties, reg_fixed_voltage_probe() requests and drives the
+pins before the CCI I2C camera sensors probe (or leaves them unconfigured
+when the mipi-ccs driver is not bound).  Splitting the regulator pinconf
+into separate states on the regulator nodes would also match
+panel_vci_3v3 and panel_vddi_poc_1p8 earlier in this file.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-op6-upstre=
+am-cameras-v1-0-234fb3b7bb18@ixit.cz?part=3D3
