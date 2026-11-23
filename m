@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795460155;
-	b=CyxbMOL9jLq1mTj14EGsLrapn5v1kyxM1W2QrzvfmpOZXfYGvO4M1haYR6UNX0n/mf9M
-	 tO2BPrjI2FU7OMvH3gN2rSx0fSKhA+LNRkP2+j8n+MrqSiuby8p6VXxUmku/gT8W40jli
-	 0wDjoh1bXYi7v0h7kudhdTwadTz1U45CF8ShPPNo4HcYnbBIKIjdnKcQMVTUagWGa5ZeX
-	 Den6tEw10iMzO7nbKshsuCWaYlIFgDBrGXItkiXbj7ZlQl/lxADBoHqU/yaFcPsefL6KP
-	 7VCaAAeDHjwW/YCGq42Dj9wW7fFY4Lp5rOM0MrhlJv1zexDFVsB7CKPYd3n8V/M8MXQ==
+	t=1795460197;
+	b=LjJI6jwsrUa0pwt/hCPJ+ShwuvmkD/Lya/FHQ1WAF5dRi0a4kWY9wrU2GaCXcilyD+De
+	 8ZZKu6g3x3WXvhVWkTZVVIVzC7kAs5rOfJr9RmdgSmg18R1IK8fsTyg9EsVGPprKdkoay
+	 HqCQbfcPsa4GqGYCferTFO7OyF9zsZ1tR3CV5SY3D4XRJJwgtDfmDQY6pvPJGUZRtbJC5
+	 l1dFoRFsYncJYrlklarFLyq8bJSVPsybDlSrKBg+TXcH7pDtwd33ragDGWnIqOyY1BR2u
+	 o50mY2RyhcW4qoOb++7vLwdxh99T1sT01pnSg5GH65IXrrq+KNIWzTpU8/9cokfH0TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795460155;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795460197;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=SZAQqMButyP2tMLf6h4QZvmumV2dcczmMYB0U2+e69Q=;
-	b=FHtT44n4ACjZxwikXoOJmGUNAYvB5pvXapDwh9S1ht0s7TJh1/pB7uMdLyaUqXr3PdC6
-	 8ULh3hqKBfPkGLvtvQfnh0cGCbHmUgnUE8SCvDw0Y99WRkMKcih9s1IuQsYhq6PAiAFr5
-	 4S8o4g6sYR8k3Axx8W5T+k+oipTftvan3svRe83+1sQ0iQ0c0wpNjIdwU8sSVO+mmEYU6
-	 CYeecuN+cbhmI3xTPCQHRyzwUyL8GgYrPxUqMKkGGEymnnfh7etpoAhxIEHTrejZrJup8
-	 7S3djR2cifgLyovJCvjIL/wKUZglA5a/Q4KycrufjYkE19meRh8dJtx4gcXyFPnBpTw==
+	bh=ZIuet0Vvwx04HqR+BS8vY8yTwHqWSF39oooQmKv0ERI=;
+	b=3W13ULtu5qlS9jhjo0ze37kpymxxMRsoA7Zld3XfNJh2MUhTnwVlXnvHkeXY1IyNE9bE
+	 ruCUheo63yJcMHo2lTvmbk6AhmKdhliZoKA37nbQMpl/Oi0+drgPNAG04EHw/eSDXFgsn
+	 xzdWAmc+HvSszH4S2jqexc6wXLIAAN1JJogpo5o7ZfokcFAKP79uoIwS04yhY7F371W9f
+	 xYadqci0Mz7rZT//8cpLjrWU3DgTPbQ1byVScAKvURBkFL5mBJRY940J12r+ICEmZc36n
+	 J+tyCNPGZZWZlmrDgGONDIaJD+ubAI8bYHq17oHxankkpovWfA0dLXe9X0ZRYKETUeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mAsIm9nG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ci0AUH2f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9703A606A31A;
-	Mon, 23 Nov 2026 18:55:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52903606A31A;
+	Mon, 23 Nov 2026 18:56:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mAsIm9nG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0B71F000CA;
-	Mon, 23 Nov 2026 18:55:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ci0AUH2f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31051F000D8;
+	Mon, 23 Nov 2026 18:56:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795460155;
-	bh=SZAQqMButyP2tMLf6h4QZvmumV2dcczmMYB0U2+e69Q=;
+	s=k20260515; t=1795460197;
+	bh=ZIuet0Vvwx04HqR+BS8vY8yTwHqWSF39oooQmKv0ERI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mAsIm9nGek6GGPaW6jwxV8zPptNi7HM+BYX/fLGLZSoF8L+Bw5P34KKF/+AEB03dj
-	 TG+ZYKV6giTYWjCVeu/0EdukJ2ah1OuZ6F34tUV6SMuqtawETDVA4VsutibSMPRpAl
-	 YONUXSZX2AUsTaJfKtdgPeZ02KNibhULeaeS1ff9mBDmlVOTZgac4X2V8mle6BF4bv
-	 qi7HNp1/fw9xpfYVUob62tMbHs8rL7o80Tmw7yHvrcnY4oPAJ0CIc6DCA1S6CTbxhX
-	 K/JVlg2VH2CgriDygq8a1J+6INIHuSlgOH+qoxRSVN9+NyAL9aR2QT8P346Z4kDg6V
-	 JVhZ1cA4hf7Vg==
-Message-ID: <sashiko-outbox-229885@kernel.org>
+	b=Ci0AUH2fMCdeFeYVUQYgJB76f3NGi0C+F206hz38HHXqaWG+VBdzVnrYHtorjEoGR
+	 76dQcLyd8qyUy+4HQnYLJELcTsa+z3+xkR+h0t0YrLEOg7vEED1PQfOGXeXwwjjzAc
+	 l3523vCenEvEGvvCJbo0PL9H8iiMNb7QseN97QNOAw+TkRsgog8dgTD7hMbtHSfTBb
+	 PEKf3Z/vmJDBdxsS7LTMztn42/I8P5v2V1DO/8tGitjv47dtMTvlZ7qAVVB2jbDQBV
+	 RGHtuIl0mu2u+edCG2apj06ipa3bz1JHEojCZJl+sSFOe8ZZa8reuQFIXjd1+4nFWd
+	 KP+hMG1RWgcVg==
+Message-ID: <sashiko-outbox-229887@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] pinctrl: Add Cortina Systems CS7542 pin multiplexer
+Subject: Re: [PATCH v10 4/7] usb: misc: qcom_eud: add per-path role switch
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-cs7542-syscon-v1-4-49858e631449@gmail.com>
-References: <20261123-cs7542-syscon-v1-0-49858e631449@gmail.com>
- <20261123-cs7542-syscon-v1-4-49858e631449@gmail.com>
+To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123182847.143892-5-elson.serrao@oss.qualcomm.com>
+References: <20261123182847.143892-1-elson.serrao@oss.qualcomm.com>
+ <20261123182847.143892-5-elson.serrao@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 18:55:54 +0000
+Date: Mon, 23 Nov 2026 18:56:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,81 +63,112 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] pinctrl: cs7542: missing function_is_gpio() breaks strict
-  GPIO requests
+- [High] usb: misc: qcom_eud: infinite probe deferral and wrong fwnode
+  in eud_init_path()
 --
 
-commit e26847f7ebd3df4b67ad59e0473df47cbaeaa5df
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+commit 9854aac37e71428a22eccd3000ca7589c021cc4d
+Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
 
-pinctrl: Add Cortina Systems CS7542 pin multiplexer
+usb: misc: qcom_eud: add per-path role switch support
 
-This commit adds a pin multiplexer driver for the Cortina Systems CS7542
-SoC supporting GPIO on all 160 lines and six UART pins via the global
-syscon regmap.
+This commit replaces the chip-level USB role switch with per-path role
+switches that relay role changes from each USB connector to its
+corresponding USB controller.
 
-> diff --git a/drivers/pinctrl/pinctrl-cs7542.c b/drivers/pinctrl/pinctrl-c=
-s7542.c
-> new file mode 100644
-> index 0000000000000..977c4ce98100d
-> --- /dev/null
-> +++ b/drivers/pinctrl/pinctrl-cs7542.c
-> @@ -0,0 +1,188 @@
-
+> diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
+> index a3afa3bb93481..48e474bdf818c 100644
+> --- a/drivers/usb/misc/qcom_eud.c
+> +++ b/drivers/usb/misc/qcom_eud.c
 [ ... ]
-
-> +enum cs7542_function {
-> +	CS7542_FUNCTION_GPIO,
-> +	CS7542_FUNCTION_UART,
-> +};
-
-[ ... ]
-
-> +static int cs7542_gpio_request_enable(struct pinctrl_dev *pctldev,
-> +				      struct pinctrl_gpio_range *range,
-> +				      unsigned int pin)
-> +{
-> +	return cs7542_set_mux(pctldev, CS7542_FUNCTION_GPIO, pin);
-> +}
+> @@ -328,14 +359,61 @@ static int eud_init_path(struct eud_chip *chip, str=
+uct device_node *np)
+>  				     "failed to get controller node for path %u\n", path_num);
+> =20
+>  	path->phy =3D devm_of_phy_get_by_index(chip->dev, controller_node, 0);
+> -	of_node_put(controller_node);
+> -
+> -	if (IS_ERR(path->phy))
+> +	if (IS_ERR(path->phy)) {
+> +		of_node_put(controller_node);
+>  		return dev_err_probe(chip->dev, PTR_ERR(path->phy),
+>  				     "failed to get PHY for path %d\n", path_num);
+> +	}
+> =20
+>  	chip->paths[path_num] =3D path;
+> =20
+> +	of_property_read_string(controller_node, "dr_mode", &dr_mode);
 > +
-> +static const struct pinmux_ops cs7542_pinmux_ops =3D {
-> +	.get_functions_count =3D cs7542_get_functions_count,
-> +	.get_function_name =3D cs7542_get_function_name,
-> +	.get_function_groups =3D cs7542_get_function_groups,
-> +	.set_mux =3D cs7542_set_mux,
-> +	.gpio_request_enable =3D cs7542_gpio_request_enable,
-> +	.strict =3D true,
-> +};
+> +	/* No role switch needed for fixed role controllers */
+> +	if (!strcmp(dr_mode, "host")) {
+> +		path->curr_role =3D USB_ROLE_HOST;
+> +		of_node_put(controller_node);
+> +		return 0;
+> +	}
+> +
+> +	if (!strcmp(dr_mode, "peripheral")) {
+> +		path->curr_role =3D USB_ROLE_DEVICE;
+> +		of_node_put(controller_node);
+> +		return 0;
+> +	}
+> +
+> +	path->curr_role =3D USB_ROLE_NONE;
+> +
+> +	sw =3D usb_role_switch_find_by_fwnode(of_fwnode_handle(controller_node)=
+);
+> +	if (!sw) {
+> +		of_node_put(controller_node);
+> +		return dev_err_probe(chip->dev, -EPROBE_DEFER,
+> +				     "Failed to get controller role switch for path %d\n",
+> +				     path_num);
+> +	}
+> +	path->controller_sw =3D sw;
+> +
+> +	of_node_put(controller_node);
+> +
+> +	path->np =3D of_node_get(np);
+> +	role_sw_desc.fwnode =3D of_fwnode_handle(path->np);
+> +	role_sw_desc.set =3D eud_role_switch_set;
+> +	role_sw_desc.driver_data =3D path;
+> +	snprintf(path->name, sizeof(path->name), "eud-path%u", path_num);
+> +	role_sw_desc.name =3D path->name;
+> +
+> +	path->eud_sw =3D usb_role_switch_register(chip->dev, &role_sw_desc);
 
-[Severity: Medium]
-Should cs7542_pinmux_ops implement .function_is_gpio?
+[Severity: High]
+As reported by Konrad Dybcio on v9 [1], will eud_init_path() defer probe
+forever when a controller omits dr_mode (or sets it to "otg") without a
+usb-role-switch property?
 
-Because cs7542_pinmux_ops sets .strict =3D true and exposes "gpio"
-(CS7542_FUNCTION_GPIO) as a pinmux function without providing
-.function_is_gpio, activating a pinctrl state or hog with function =3D "gpi=
-o"
-sets desc->mux_usecount and desc->mux_setting on the pin.  When that pin is
-then requested as a GPIO, pin_request() leaves gpio_ok false and rejects
-the request with -EINVAL:
+When a DWC3 node omits both dr_mode and usb-role-switch (such as
+usb_2_dwc3 on SM8350), dwc3_get_dr_mode() falls back to
+USB_DR_MODE_PERIPHERAL at runtime and dwc3_drd_init() never registers a
+usb_role_switch:
 
-drivers/pinctrl/pinmux.c:pin_request() {
-	...
-		if (mux_setting) {
-			if (ops->function_is_gpio)
-				gpio_ok =3D ops->function_is_gpio(pctldev,
-								mux_setting->func);
-		} else {
-			gpio_ok =3D true;
-		}
-
-		if ((!gpio_range || ops->strict) && !gpio_ok &&
-		    desc->mux_usecount && strcmp(desc->mux_owner, owner)) {
-	...
+drivers/usb/dwc3/core.c:dwc3_get_dr_mode() {
+    ...
+		if (mode =3D=3D USB_DR_MODE_OTG && !dwc->edev &&
+		    (!IS_ENABLED(CONFIG_USB_ROLE_SWITCH) ||
+		     !device_property_read_bool(dwc->dev, "usb-role-switch")) &&
+		    !DWC3_VER_IS_PRIOR(DWC3, 330A))
+			mode =3D USB_DR_MODE_PERIPHERAL;
+    ...
 }
 
-pinmux_can_be_used_for_gpio() likewise returns false for any pin muxed to
-CS7542_FUNCTION_GPIO via pinctrl.
+Because eud_init_path() only checks for explicit "host" and "peripheral"
+strings before calling usb_role_switch_find_by_fwnode(), eud_probe() will
+fail permanently with -EPROBE_DEFER on any board with such a path.
+
+Also, when np is the legacy "ports" child node (handled earlier in
+eud_init_path()), setting role_sw_desc.fwnode to
+of_fwnode_handle(path->np) registers path->eud_sw on the "ports" node,
+which of_fwnode_graph_get_port_parent() skips in favor of the parent EUD
+device node during usb_role_switch_get() lookup, so the connector can
+never resolve path->eud_sw.
+
+[1] https://lore.kernel.org/r/d4907952-60e6-48d9-ad81-1a0401f3207d@oss.qual=
+comm.com
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-cs7542-sys=
-con-v1-0-49858e631449@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123182847.1438=
+92-1-elson.serrao@oss.qualcomm.com?part=3D4
