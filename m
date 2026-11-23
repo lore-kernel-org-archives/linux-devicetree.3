@@ -1,98 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.34
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795450938;
-	b=VS+9VL5dQrKae8RZXNO6cGkuM0cGwVXSrUM41hJsj0CF0XLswMHgCAXM2udHT2Bovy+H
-	 lQ8cfWPkE72cUC19Pf7cVp1uVCHXn9fTUe1xz7dYWkrgFd416HFXbjIqRombLFMx7IEAJ
-	 OeGr8SMpmHXSkxhwfxtgAmZ/eAFmUXsuuiPp4UtYQR8FORYEsiCEUYyd2E9E5m8a39GQV
-	 h226XUsoflLh+uJ/JV9TECYSTiT2W2CKBteG+F4xJAl67NRfMaNF4N4tbBziPXX4Rcq3/
-	 0H6W+aJY+D19OupMKIGb1O8IJUTDfqnio6afSdpeJ/EY5LJWMFGAUttgDObW+aenzOg==
+	t=1795451065;
+	b=Im7C7FWS1yLEBI3eaoc/00Grfw19KahYhCkKWbOfZELxumWghiqrmfDf/CjZCBKcBcSN
+	 iYTkldaTZ3p7R3Hin8O6E6VEq59/Rs2DQ3Sf5JDSDfvmkkcKwJ9OYZAF8g9HFkwGYbowl
+	 qTOmaAACgxTvB5Ahq0K7ZDITmddpY5ZziskJo/ebds/R4CBfrSOxngZy3GRWOJgLTLrKV
+	 AG8fX5sGFul5B/RFWTugFSnwvtbNTuXftwH+mHsfCZ9QBmyxWAV4NF0gnZObXoaW0tXXm
+	 jtgtXRB85FZXl0hr7+sJljnfbjBFtkNYMT4xO/dGWlEoNbHCz3+dBz8Vxp8iKpscuFw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795450938;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ZJIWTTh4jLAJL2YIJISnmsgKKKnYP569dAL2nXkqu3w=;
-	b=CXxjz4OBHv+3SbHf2WZMQwLXt2QS5NggU5Mf8NhoiUPxdq26ZeJtQNJDXxIBoEdTnse1
-	 C8eHGL/wJn3OTjy3yrmkYdMqEW3cso9Aq9m6FVujcRvwXAcOusjwSVtTVsQ5sBSkNpYCC
-	 AeGvIE7lh6TuKcpYmzPLG88hyH5qxc0GdknQuhVTliULAKg+FAHEI6dblO9etsmqtVjTz
-	 yjfo0orPxR3jNNngdAiy0BoN1INOR9cpOmRAyXVa1cK1KeEDNxjVIyFLSVCXoddqd1185
-	 KsUFRiPYJgPN6IUyFWboAn/I0OfRwJ3rPo00xNNma6O9bPdYHpqBu9K9hJamuEUPf4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795451065;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CNJ5tMPn49GAcvDTSuAR0rimcoVMJYlaC808t8jK4Ww=;
+	b=itWsip/A601vYfi/192y5n+zhnpsWHeU4OgoFW/doMZSPYEkyb4VptjzmSVj0KVkjFNy
+	 9D5/BEVTyfma+Y5RBWbEDRsJqndF/eOYfj3scmTDFs/BA/+3/l+lFRMC1fH97Ue8fJN9Q
+	 tB6g+pqfqiwTRvGKevqzS9uTyxEYLiwtGznvVO5nv2/mmD9E86d0hzkrq/Mb/WbOshPNC
+	 MceZEYifEEC38JtW/0zVChWQPm63HfhspKOSPmNBbl8HvaNHA5RXYtbSIztERmCEOWklM
+	 UXCc4mES+vc1kZYobV0s/g0kE40NFLCeiha9JgtJ325dlFGuzjrz3P5uXO2wTYMOIZA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="xbS/kIat";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.34
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011034.outbound.protection.outlook.com [52.101.65.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kGG61wye;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F50606A31A;
-	Mon, 23 Nov 2026 16:22:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2F50606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87ACF606A327
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 16:24:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87ACF606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=xbS/kIat
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xbVVToFU4Y72yaaTL3bg3cPzmMN3zvn5o7AnkbRN7gT/tqKmJOJpSjI7wW7yXzNQKyEFLT7zD2WdpgK60fWIvBfRvd4YXOCKnNDZRWycrAm+OlV7H6S28chgZIx/ikCozAPqbHiUyL1cCvo0oKwG/s/wHqKYWtnTzLYEvU3LTEpa6Da5OdiksAQ7Lr2kglsENXX+wBylsZvKXwW3wUZ25LIQXN5PR1m5AphNJxCUZ7oJp0n7j7UpNdShRdMID2iEvEF4nK/O2ePVMvvE/RRsgpMPJyUOw8bU6hzT+WTQXGcYaRmo+YLmTVt8gt90QVR5Ek5PTC/ZcS2VM+7e2MCCbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZJIWTTh4jLAJL2YIJISnmsgKKKnYP569dAL2nXkqu3w=;
- b=jsbmMw2CtiFIJqL2RFpOFeYw2C2JFwpnXnJoGePjc4QjqXruNV5pVgHIcIyC/kTIEwwSCcOT90Hmsj9CVaONpKFRMb+9OEWB7BBegZGzhRqxk7PAxKypXNbrMRCP+W0t2FdrEbfRlNVfYpnEAMGyyYb5GbIBRcBxOoHs9pgtNgNYUb8DyGNXT/9BgbUCu+fjwZLDLn65TwM2fBwsX7OxAXrNNxoDUu/3goO4TF8S8nKcq+RttZz8DUjNv0G+HUJAREPWEBgGI9IBsUlp3H6uXMe6qibSiE7Ms/91neZuNp6xBaEy+0D0fSifZnobVsUEd8eRNFuQ58J4yFGcQAJ6eA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZJIWTTh4jLAJL2YIJISnmsgKKKnYP569dAL2nXkqu3w=;
- b=xbS/kIatPLk8DfUALE0kcWoJfJCIw8gcA7Yf8IG1H60zPicg0RmHhks27OtDzeV7IBHX64M00uXdXr1qBHQk7jX3T/WiuXhd8HLseDxcEyMq6klSNEcNOojtRKRALQsdTD2q0PC6cZ9vlWSVr/b4RYoakAhYkWMsKSTKL+5H3V2myN59uuLhjPMOaAiV0ScfcEwXcL7n4bVlfPf594TvP+oIxeY9GRvGnWn5yy5fFqZMgTeb66XNPSMNi3kqoAvjkgDZhht+Ie/V9RY3jA8rpbtdbOpZ1GexdqkuZ3ZsUDVLwKjZhG9MU8a8BpmPziXN12tEaCSzrCIIGNgDiC8LQg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by CPHPR04MB660717.eurprd04.prod.outlook.com (2603:10a6:380:102::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 16:22:14 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 16:22:14 +0000
-Date: Mon, 23 Nov 2026 10:22:05 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Freimut Diener <f.diener@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] arm64: dts: freescale: imx91-93-common: Add EL2
- virtual timer interrupt
-Message-ID: <awRoLHZY3ySkU5e0@SMW015318>
-References: <20261123-imx93-frdm-fixes-v2-0-dd97c7fca4b1@pengutronix.de>
- <20261123-imx93-frdm-fixes-v2-4-dd97c7fca4b1@pengutronix.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123-imx93-frdm-fixes-v2-4-dd97c7fca4b1@pengutronix.de>
-X-ClientProxiedBy: PH8PR02CA0030.namprd02.prod.outlook.com
- (2603:10b6:510:2da::34) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kGG61wye
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c511c0e2826so404212766b.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 08:24:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795451064; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VmfToWotnA9S3FPGeSKGbvLBBSHthTOCe9ToPaAz/zExYMQlZiU/9ESmTJSlfMz6rE
+         eLeyNlYZTIaxaayZBgw+4U+ACROta6cGVkHRQKNo1SrGdQHrMGbEJt5ouPIP/tjNZu6+
+         3dxOz/wRXdVBMc4JWSgiKG9JfGxLB3HQLngCJ3IPPgtP4JS8N9NJW11QNH5EpfGE7Kfq
+         3cQXAxcljk5bGwGVxffa4djR39KeAlUg2507ifr+p8H8kPJRb6vtps2ZcQCwrMb2V0SV
+         hvemVQRo9OYS+ym96eN6qI6OnnG/5r1WM4xZvWs4I8wFw0vH7Pt15zOfC8secdmSS/qa
+         g5cQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CNJ5tMPn49GAcvDTSuAR0rimcoVMJYlaC808t8jK4Ww=;
+        fh=+gFRvA5ClKeT3kVDAHoX0eEnMAah2roo6uqHmEJrdHk=;
+        b=QXSrgdeaR2IhQwqGvA1u8tUauLZ9MoLhgrWM9OHSmg4zrT4vuOHjS2iGWrs5WevgCx
+         rnuQISga201tCNA556GiQd1f/P/ldtS6juze1+UVhspPRgcHZmaULIfwCF2azZsn/H53
+         eKi0uz4Pwzz01JPmwBe4l/6kOll/vgA3ki74vQz+qc5JZzxzL0n3ycv8/QJyfFaWH81B
+         bwOIw7vBMuEUljTWdFTnSbe/lNRK8e7R7CZAJTb7lnUBNoN/vJe6yahf3CVOC0V1v8JZ
+         FoK0bcK/MLJJ543kMyPgXVBRMRPTJPuPLqwbu9JXK01w0oYUQqDysqxG8hfDy7nHHM+1
+         BqaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795451064; x=1796055864; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CNJ5tMPn49GAcvDTSuAR0rimcoVMJYlaC808t8jK4Ww=;
+        b=kGG61wye3HV3NP7BQ17KP5dlch87le463+NAUdJ0Azg5wUYimKiAXVX7T+vAKgW4n4
+         USmVJ6ccq1JiCOBFkF238YbF4N9Al3OehytGod9mVZIrZDCu8bHXwPxRDjfQgB/x1z4S
+         dG37hmDbqD1JMdGkG1LnHRi44iWi199K6o3DAbckMhYBQRRZb2X7RzPY1yIFuQ2nrFL+
+         xwLWYkuR8i2t4oLid/D0xml/jOJL9hY+et8bBtzEkPqj9JXq1XxiW3yn4r+SFuAmmJfe
+         thBHf/UcvioFJlCVfIwSXNxW6mzt9E7sOVMxo03V5lZZZh/KAq2Dfgx06TI7XBA0z2Zw
+         G++g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795451064; x=1796055864;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CNJ5tMPn49GAcvDTSuAR0rimcoVMJYlaC808t8jK4Ww=;
+        b=HD5R04SmCv8oDMjaf+RX04B5DT94f6b0fIcljHYyavLXwtl+gnUt5l6Oflweyao4Cz
+         dHtcbqaCvkbqVI5/wl/Di7TPo0xyRV76au5jzZsTmJBbQkGgQnhydXGM6xg4e1+Lv+lJ
+         pbmw9aKpQr6OYG1RDQzT6I1/1MJOEL0X8W0JaegZM4RCD9DyD3IMGhbklrWPvgZwY5rb
+         xjuFeaR6WuhOWmm8F3RPr3LbFwoVHEQRYSujxrUVjQNgQnHLJULyQXGb3X5P8TCCfzzW
+         bDrD3GcTnyLt0HEr3LL7QgQEqZUn4min0F9QHRGZqOLqGmQz1wk+KlbN/P42uXcB8WPZ
+         hJ1Q==
+X-Forwarded-Encrypted: i=1; AL+hErEKexzAalDkDage8mhEPelLGR4JqqUnJxIx1YbDkZWEUGhD0mEuVbjI18MHXLo1kn7djm+7GuJoXyPu@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RnoEVWNJ1S/CjXQcXJu7iQ3KWDivGfadpriuHPvnI1OwKu3ic
+	caeK1JXjcengKbcQmKhjz0E3d/zJIOhwtK6Vk+u9qSjLFBqdpwBqbYIXmikoQACZcJT20FBZgbx
+	4SEpPSBThVglCi2GydK2J+Ym0PlXcie8=
+X-Gm-Gg: AZFdTZeAmgyxrOAa962ATmOqLdFeaUX/5rLOC1JAU/xo6iRGi4cwXzhctVRYG4R7I+u
+	lIzsL+5BZBbLQubCJ2tQOA0JgL8urDtqe0dtgPuljKgQJSx3LdR8JMvefDVAblzTFQXT0xS/l8p
+	vcKrfVDyisDN4iJPPsMkLjakHYf+xi3Mq/aAo5g6jT2oYdFylbpeLptv/LgXuLFVbr025NNgGHq
+	NSjfRCFBwPsIAs7Fkb9vJ6qEGwg98l4J7vAjYluuGk29qi4/3crlmfzSZL6t+HwepIQtQqht0QW
+	qE2cAdXYy9VSslrAtSL1TxKcC+m02TlZ27BWA6Q8A1mWSnaAogN/HEkLri7mCWNtCasL2kFVTsd
+	FYvgv5fzJzWj1yYU0a8tlDC9BQBvrpLYEqjttmw==
+X-Received: by 2002:a17:906:231a:b0:c42:4750:8d49 with SMTP id
+ a640c23a62f3a-c513aad2400mr684425566b.25.1795451063824; Mon, 23 Nov 2026
+ 08:24:23 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,114 +104,147 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|CPHPR04MB660717:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc27e7e0-e00e-41f5-0662-08df497deef6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|7416014|376014|23010399003|366016|22082099003|18002099003|261009223027099003|56012099006|10067099003|5023799004|4143699003|11063799006|261102123227099003|261102124527099003|261021121427099003|261021123027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	19kTdYu/EhZ3mctuVTDTibBOoaUrUSd49JiY/VIS/AGXHMOkevXdM0v7Fhkk8ERh+weJ/a4XSGfxJCHE3e2lZMnAJtngCzqseKD0wzWt8Iaip4zLMSaHTJx/h3mGg3v8BVh/3wpuuelgDUBbjmJyAWSK7ZXnvp72p3/un/opfz+CMs2eAyCo4P+m8NI3drgNOPM8DR81pGz5Hombe4Nl6q1jSXH7SZPMbnXgubu5UFlSXEAT77C/jjXx8wsyEBHTKf2jrmgRd4htG7raEDkE8Y3DyGmwTawOYUxjWaCdi/XPXRr8KdmKUZgLnjyyexgRtxW8ZTeMF69qf6zqM88JOl/uzPKkuh+UT9/nV6Myqb/CNHigl24WRHgTaFZLBR9V2Nf6wEd/5eb3OL8nh8E66efBDInCfuR/PyGJiOhhcVxXjInzcXyjR30WiBFKnyHF+Ww2quBe4UxQ7/H4uMuycEA4H79Q1MEBvBgWsAx4wxBCR4uknIZrIqr5W7bW4CC/jZ+rz2EZd98t4FC6IpHAPxJE8DE3nWX2EjcP2I2+DYZU1IEymUtUsMugcfp7LWYErVNgH27dFIK7V+QVsZgHUBpG8JqxbaUOaw8NgfCnUTAJBMd50GIqT10CXFOAUzbw
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(56012099006)(10067099003)(5023799004)(4143699003)(11063799006)(261102123227099003)(261102124527099003)(261021121427099003)(261021123027099003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HuK2f5a+Qms6/3hOC9ywLTW9c1Ipe9XhkTJj16vtKrJW9GFJUhGpQ93Grtww?=
- =?us-ascii?Q?WU6KDs7jkytKGsO+4YKf/k9mxKF5rG47Q2rBTzjToIe7OXyRYuhUEetHni+S?=
- =?us-ascii?Q?Q2PoN8dovyXzILuE/TJW4LvQasveVjRySByy75S1p7W/Tz2xkx/oZRAcC9eB?=
- =?us-ascii?Q?BDurEBM+Xfdr3IUlDp0779fD/XlZS7qH1qzq/ceydgdoEcf0iDftTXBWiDZG?=
- =?us-ascii?Q?NhFH0IfrWlP5oHqG2G75S5aGaMDQtuKo0LnoPGbxQe1j5qZSX0DEbP60Ogyi?=
- =?us-ascii?Q?LL1W2LygYVoxJCqj8WcUZRgCwXMJM63jAGJ3PxS/s03Z3YnD4LmTG9tDCLZ+?=
- =?us-ascii?Q?dheuXCUogu4AyUaouLIbHqvOFTTc5/pmlMY9K0qxNXqP/DApfgnRyL6kbH3R?=
- =?us-ascii?Q?UPom6JqJGFMPcri83TF2t7c93Eo61TDLSzvETXJ8g4DReMEaQLbx8x8nVu1W?=
- =?us-ascii?Q?vGAuQqQ8Fy4Mwfhi5cPlg1++tW6Ppw/TedNZ1SEqYacn5ofXWY1vbH27JvQs?=
- =?us-ascii?Q?XNFUnDsUXc1w86c+JDXlPw/g2HwiwHTvogGA8/4kAl1blOiCaiKa6Ok6avOB?=
- =?us-ascii?Q?HghdwHcrSpdZTtYCU8eXXDUwipZ1bnAJESmIizdSynz4BkyH3I3QZ5DTiI57?=
- =?us-ascii?Q?j74kM1WF4xKZxh0YhA7D2umk/sGUfSQ4gpZyH3vi3sXlIeh+YOvr8own5avP?=
- =?us-ascii?Q?wvx+wZ6P3pVjvra3Q7/uqDaBig5LKebTqWSV3XjQuKLay7EZBHpEopkDKWtk?=
- =?us-ascii?Q?l73ItZxo188+2EQ7zBuD/Ft/PcxZ4/4NKTkw9PB8AeLbQQRN2hlqURfsc13s?=
- =?us-ascii?Q?aCqdUhplXk9Smq6eL/MNdafW6DtoOh3d0+rD/4LFwx2mMxpXiv6j+EvMwh6f?=
- =?us-ascii?Q?a0NQfYm/KUydJz83ZHInW6sdAQAaTSpKySK8zNiR5DXqT7rwuk66Dlh5Gl+i?=
- =?us-ascii?Q?dTdQN2PQmn9/+9RB8PsT21z4pD0avc5EiatEGlRHm9wZPJer9/XMY8NgFinx?=
- =?us-ascii?Q?6zYGMLAxxWkYc0z6++x8sdLDCtYA2LQCxjGOt5SSJHvYMUdpSoRQZjYP8SnG?=
- =?us-ascii?Q?IVTbux9b844j+2k2IE5JOwHxkRADCpJIX2/WGFMV0YB/wgjDopO1S8Wlk6ed?=
- =?us-ascii?Q?2s1feBHY6mmSLE/GVQKKWlCvvC2xqnVNAmRQ59Y98AoZZQbZtYrrDENBbx6L?=
- =?us-ascii?Q?0KZEGYGM9DIzslKS1wpL2GxQJ2Ra5s/l6HXUvVJZt8fymuDC3PmZGumkPQi+?=
- =?us-ascii?Q?4fb2Og0RADmlvOT1KnD9frfhfaXLZjtPKfTc4+ajAySndoaoYPAdz/DRLbBT?=
- =?us-ascii?Q?aJA8XkXC7i9pYhVimPtH2tbDlVIMVmq2gh23JUoueA0K4ZdKUGp/CudQYncy?=
- =?us-ascii?Q?8byKnxLa52aX/xffHCS/HrAAcMrwtyGQtpINeatoPSEN6GU6S5LY2e+ishdE?=
- =?us-ascii?Q?/cKUOc48hLfTXiuwDqIRQAiWLKncV0xFcqlPAL8CqdBd5G7OCMX1f0WMLXlU?=
- =?us-ascii?Q?aD/WH/g9ocTMxOAYxXzV482m6yAZN4KkSfQB7gwBV03pxkWTsqFJyr3Ke9Rj?=
- =?us-ascii?Q?L1jLaFSqU22YviUCw+2Zru8R9JYa2PZL2V+I55YinI9vOo057MbTGjCMPdQn?=
- =?us-ascii?Q?l733m6DT4v9/10rhhQM4IMG/LFnEghly1Vwyc84mNPyAeItmpcG77lpYpbJo?=
- =?us-ascii?Q?X/Lmr2q1swvTDsPSF1nlaig47gpYHgwu/FqbnDP/hGYVA/JcdP4G4Nz5W+/C?=
- =?us-ascii?Q?VxRpd9/Zfi1E31iTHJ2pcOdDU2ZBcoroyIWjyQB6gCKmQko9LBe1?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc27e7e0-e00e-41f5-0662-08df497deef6
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 16:22:14.0941
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Yg9m5tCgP6J9brSGqyidFUzpTed3m/A06QbXEJBimcX1bM7tqWBHKVqd0M0PtWP73mOL8TjDUgkEMAB6t0n9dC300c8RAnQKybajD2bXC5B/+wYQN5BI4sIfQ7M+ydce
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPHPR04MB660717
+References: <20261122131900.2951586-4-a.shimko.dev@gmail.com> <179543998366.3135.8537500779592480863@kernel.org>
+In-Reply-To: <179543998366.3135.8537500779592480863@kernel.org>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Mon, 23 Nov 2026 19:24:12 +0300
+X-Gm-Features: Aa3M54pFMGCEqfrknuxTm9QQEvcIIV5arWsj3tZLkp59n888HFnWQSHbf7MxHro
+Message-ID: <CAOPX747Whtrpa-aP=AhtaFfqMpqHHYVMJ7jNZWCdgmMc1_GYag@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 3/3] net: phy: dap8211r: add PHY LED control support
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	maxime.chevallier@bootlin.com, pavel@ucw.cz, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-leds@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 23, 2026 at 12:25:18PM +0100, Freimut Diener wrote:
-> The Cortex-A55 CPUs in the i.MX91 and i.MX93 SoCs support Virtual Host
-> Extensions (VHE). When running at EL2 with VHE enabled, Linux prefers
-> the EL2 virtual timer over the EL2 physical timer.
+On Mon, Nov 23, 2026 at 4:19=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
 >
-> The timer node in imx91_93_common.dtsi only describes four architected
-> timer interrupts, omitting the EL2 virtual timer interrupt. As a result,
-> Linux reports:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
 >
->     [Firmware Bug]: VHE-capable CPU without EL2 virtual timer interrupt
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
 >
-> and falls back to the EL2 physical timer.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
 >
-> Add the missing EL2 virtual timer interrupt (PPI 12) to allow Linux to
-> use the EL2 virtual timer.
->
-> Tested on an NXP FRDM-i.MX93 board. Linux selects the EL2 virtual
-> timer (hyp-virt), and interrupt counts increase on both CPUs. Timer
-> operation was also verified across CPU idle transitions.
->
-> Signed-off-by: Freimut Diener <f.diener@pengutronix.de>
->
-> ---
-> While this change fixes a real bug for me, this same change was already
-> previously proposed by Marc Zyngier <maz@kernel.org> in May as part of a
-> larger series.
->
-> Link: https://lore.kernel.org/all/20260523140242.586031-10-maz@kernel.org/
-
-Thanks, I missed this one. I will pick Marc Zyngier's patches.
-
-Frank
-
-> ---
->  arch/arm64/boot/dts/freescale/imx91_93_common.dtsi | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi b/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
-> index a68ffd04ee084..af4c93c128d31 100644
-> --- a/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
-> @@ -82,7 +82,8 @@ timer {
->  		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
->  			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
->  			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
-> -			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
-> +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>,
-> +			     <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW>;
->  		clock-frequency = <24000000>;
->  		arm,no-tick-in-suspend;
->  		interrupt-parent = <&gic>;
+> - [Medium] In drivers/net/phy/dap8211r.c, dap8211r_led_hw_control_get()
+>   (lines 312-351) does not undo what dap8211r_led_hw_control_set()=E2=80=
+=A6
+> - [Low] dap8211r_led_hw_control_set() in drivers/net/phy/dap8211r.c first
+>   clears FORCE_EN(index) in LED_COMCON (0xA00B) with=E2=80=A6
 >
 > --
-> 2.56.0
 >
+> net: phy: dap8211r: add PHY LED control support
 >
+> This adds PHY LED support for the three LEDs on the DAP8211R. It adds a
+> dap8211r_write_ext() helper for indirect extended register writes. It als=
+o
+> implements the led_brightness_set, led_hw_is_supported, led_hw_control_se=
+t
+> and led_hw_control_get callbacks, using force mode for brightness and the
+> LED_x_CON registers for hardware triggers.
+>
+> > diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
+> > index 1fe20efd394d7..b0fb3cf89b55a 100644
+> > --- a/drivers/net/phy/dap8211r.c
+> > +++ b/drivers/net/phy/dap8211r.c
+>
+> [ ... ]
+>
+> > +static int dap8211r_led_hw_control_set(struct phy_device *phydev, u8 i=
+ndex, unsigned long rules)
+> > +{
+> > +     u16 led_mode =3D 0, led_reg;
+> > +     int ret;
+> > +
+> > +     switch (index) {
+> > +     case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
+> > +             led_reg =3D DAP8211R_LED_0_CON + index;
+> > +             break;
+> > +     default:
+> > +             return -EINVAL;
+> > +     }
+> > +
+> > +     ret =3D dap8211r_modify_ext(phydev, DAP8211R_LED_COMCON, DAP8211R=
+_LED_FORCE_EN(index), 0);
+> > +     if (ret)
+> > +             return ret;
+>
+> [Severity: Low]
+>
+> Force mode is cleared in LED_COMCON here, but the new rules are only
+> written to LED_x_CON later by a separate dap8211r_write_ext() call. Each
+> helper takes and drops the MDIO bus lock on its own. In between, won't th=
+e
+> LED follow whatever LED_x_CON held before (power-on, bootloader, or
+> previous trigger rules)?
+>
+> If the final dap8211r_write_ext() fails, the function returns an error bu=
+t
+> leaves force mode off and the stale rules active. set_baseline_state() in
+> drivers/leds/trigger/ledtrig-netdev.c ignores the return value:
+>
+>     led_cdev->hw_control_set(led_cdev, trigger_data->mode);
+>
+> so the trigger would assume the new mode is in effect.
+>
+> Would it work to write LED_x_CON first and clear FORCE_EN afterwards? The
+> rule register has no visible effect while force mode is on.
+
+Agreed. mxl86110_led_hw_control_set() does exactly this. I'll reorder the c=
+alls
+in dap8211r_led_hw_control_set() the same way in v5,
+
+> [Severity: Medium]
+>
+> Does dap8211r_led_hw_control_get() return the same rules that
+> dap8211r_led_hw_control_set() writes? I see three mismatches.
+>
+> First, hw_control_set() turns TRIGGER_NETDEV_LINK into LINK_10 | LINK_100=
+ |
+> LINK_1000. This function only reports the three speed bits and never
+> reports TRIGGER_NETDEV_LINK.
+
+i'll add it, thanks
+
+> Second, hw_control_set() always sets DAP8211R_LED_ACT_BLINK along with
+> TX/RX, but bit 13 is never checked here. The kernel-doc on hw_control_set=
+()
+> says the LED does not blink on traffic without ACT_BLINK unless another
+> rule is active. A register with TX/RX set, ACT_BLINK clear and no
+> link/duplex bit would still be reported as tx/rx offload.
+
+i.e., if ACT_BLINK =3D=3D 0 but txrx are active (by some reason), then
+-EOPNOTSUPP should be
+returned, because the register state does not correspond to an
+operational state. Oh, that's
+important i think. Yes, it should be fixed.
+
+> Third, any other LED_x_CON bits are silently ignored, and 0 is returned
+> anyway.
+>
+
+ok
+
+> rtl8211f_led_hw_control_get() in the realtek driver reports
+> TRIGGER_NETDEV_LINK when all three speed bits are set. Could the same
+> approach be used here?
+
+Yes, i think so
+
+--
+Best regards,
+artem
+
+pw-bot: cr
