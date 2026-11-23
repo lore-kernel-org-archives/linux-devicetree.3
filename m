@@ -1,56 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795455525;
-	b=1Q7ARRa115u2lXtAifj1pk5KCk+QBcez+ViGUvu/XkBAPyPUM6q4G9kB16DYlgE7O0Fw
-	 gCceOL1+RVUuzVbyzbeHywpYH7d17WYtVsMxtRsL3H9IaJbU/LFsqrllAesnonXCVqe/C
-	 E9R9EDm6dG3Lwn+W/L2gZHnnFDBKeSHhZcZMoFyQas2Pqnv/m2OyDQSLG3kpOpHGLsot5
-	 +cTNajU1IgSqLyEb41otfyyTPVCYxZIptC4zv2n2S5F4RhYOK8tSmonbZqoWPyc58tOo8
-	 LxQVS0F8K4k9mQuoADqJiiIKpa31UanlK7ODkrZ60tA7ew4h0tFKHhrLsMNc6yMwmaw==
+	t=1795455743;
+	b=mtP7xfXNUUAm2vfEdmSfQbesNF5fPCOydgej3uRYUDoj8TgvNIVGCAQdoDHYTQmDPvIR
+	 vF/32eZ2XqTaS/ZnP+zaaEl68HkU3virVxt3zB59oP3IJpNX4i/hwP1eHiwBE2G3u2EK7
+	 iPU5mM79LMuGKPtqJTkMvKJDLVUOesOfqMfnVeJNDNxY7FStGO6GP/brnbe4G+YmOHFQ9
+	 CFJ1tednwA06ipF1rmuX+YReQ1TSv6FQdILuzxY/Q5ew4tzJjJQGrSgE/dU+t2sXAFuCT
+	 LR7fzmJwSONw6cjD9B9MNt6ssRjeC/THSvQKwYBOPYxT7XA/NIoL64p2RGWZiJ5kd/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795455525;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=9qc1yKk+s8UvyJspfChBLI/+g2nCbxMm3s3EwGgcNxg=;
-	b=KT1BhPl1LlRNI2W5w3oA06NOC9u/Ivf/1r1f125xCfkVe8o60Uy2RstXzzLikrpelEIv
-	 Hl3tDsX9QGqpY4IjPecuwEtGy0xpX26XEchJjMNA7Sw566107tghuUhFJIy3+VnGKTadc
-	 ByV7QQNqlaKkVG896N1t3pmZUrPEMuD1ZUh4T25fY2C+aZ6TUKvEUAvNK4N7nMt65x490
-	 Qw6eZl+EMd/xAtnpsC91JgRw9G+5wSt4iNrTQIEPSPLkFf+B3U+AOzi2qsezlvoBIF9VV
-	 Mg88jzSCatkb61sV24wAye3YVfXUetJkKi8WiQ7SUam275HvsRK0KnTee1Ihwblo4Ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795455743;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SIbteC45At9e/phHEDZccWeZUiRHWTYBk94KBVq+cmo=;
+	b=xXRqAehq0EXCuJWluJ94BbnHBd1h8mdBZXOX8dvgVI4gwWkj2Fj1EKTL6zvPF+V1X25C
+	 ckYyBBEZgWTKogLZL+wMQGVTqI+Zn7O6j7Yma3BaoST1ao7gVJca8JlhYDTg8f4UyCVTw
+	 gB5b7vojSB8tFJ+0fDnKIrnh8vEVwxPY9KI68YELZBZNnQs6QKWsJvzy1sB3q2xXEe6A4
+	 PJ+1rkN0yh2Oj1Kmu4WXs05S13EKue/VaoS8w10cFGoEPHjZR2D1OuB+OwQFKC8tP//8Y
+	 OP+mDw6Vi/ybIU4GLT0NK32f1wCMoGeo+3sHViweM+GGXV5iE28y2AZi0M3dX/qczsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MepdvLoB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tKpIFAt9;
+	arc=none smtp.remote-ip=209.85.167.177
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A434A606A31F;
-	Mon, 23 Nov 2026 17:38:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CCC606A31F
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 17:42:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2CCC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MepdvLoB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B8C1F000D4;
-	Mon, 23 Nov 2026 17:38:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795455525;
-	bh=9qc1yKk+s8UvyJspfChBLI/+g2nCbxMm3s3EwGgcNxg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MepdvLoBUWtYb0c9aF2qO56z39oFW3ETU/kZmxRBZ5r2wMQ7kMO2mFmke/sHM8BoX
-	 8FMKTK6NaLYqczOjRZa5ufFhT1pXgQ3g3PYsxt2JZlWpVqGe7sI/LfhkQQpceNNjDN
-	 OizIp/vue1jqlFqajJkrbLJmhKI67CLF5HEPDmIy3VvinRtxx4A+sWyyeXFjJJ0fHp
-	 ThxXWD4Zw8DwJKy5O2KHTpYLXN5USm6+OkWbgRVPVc4q2EAnq2eWfEQUU+yW7LfGQ3
-	 dOsHuJKtKy7tRIJ9igEWCKMhBJRBwURazhOvQ89srjM92U8RcLuHT+toQc+Y5iWPmb
-	 1MRIUTi7f1ZhA==
-Message-ID: <sashiko-outbox-229770@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] soundwire: qcom: add multi-master support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123171411.444381-3-srinivas.kandagatla@oss.qualcomm.com>
-References: <20261123171411.444381-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261123171411.444381-3-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 17:38:44 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tKpIFAt9
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-57728d87699so1423795b6e.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:42:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795455742; x=1796060542; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SIbteC45At9e/phHEDZccWeZUiRHWTYBk94KBVq+cmo=;
+        b=tKpIFAt9r/n/Lm3zRG2Fua+r9rf03oSaVg2DYFl8RoxfbeETi+nlZ08m2+z+8x0NPR
+         PXPfezQizR0aMqw2hk812sf81/ImWF5pZ+cN4LTOyIM0eueCXq5lRREwzXChcpLP/m2M
+         bVdLbivyukZRb1n3z6yckW3Lm3cye/vASAHPJBzBiMjfi2slDyrZQ1o2kTpMvA2GMgik
+         b3kbLXTDngePv3Rb2C0h5Oydb+v9iR/lj3ntWKX6hxY35967N0w3pYkf9jXP3qwj0FlS
+         7enY/8iq/EhI+2BoVi0z04PvbSw6CSnPsWXVycSPJMohoVqRAmGB/WEutcwgVStBpe4r
+         S49Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795455742; x=1796060542;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SIbteC45At9e/phHEDZccWeZUiRHWTYBk94KBVq+cmo=;
+        b=Qv204+A44X/HJB0xPiDAE573YXDPeblG/1rfueZRgwf5BIDbgNmdAH4dGJtaJquNqw
+         U+zT4uSyOHowoYhScPBPE1vidpa8EVVvfy8X7Qo23Zag1otSybekorQRbKG7j8eDkE6D
+         TSsg7q67SDoPt8JZFLvFQNjytuYCdwT/73MEhjjB+ffRwqDqCUBjp6j4f7N5DPCJ6rYC
+         SeMK9CQ3qkgfYwwesgGM97rddcYCrIvEhcpQ7cgjGF2IW9qws3mko4yQuKGDG7V8jSQA
+         kPBOYnz3mXL1L56RWB65W3t5auOinWywoOgUm4gqan/stR4LL11EbOTlh5lSM20Tkvet
+         hX8g==
+X-Forwarded-Encrypted: i=1; AL+hErHsc6kYKVpZuiFC2JkuccnIxI4Fyz9SgqlKaZRetY4ehi/AS34xpZYzeRS8ZNSSL1mdVEp8vcce+heG@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VEGp32IdZX5BkF32NmyhxeW20OJYiL46qhBz2s5J2SQpGmDHy
+	+CDbWmBYtCH56xveEH5nkmKA74QdwakVSn2lYdXO7JgvEx0Qs1yXZeVv
+X-Gm-Gg: AZFdTZeVUVP06gkeKzh56o8bNyFdPhA63vGYMVvU6t0xuJRc5LGQbSnE2CD0riYY8ve
+	V0VHMytripn0ZEz96sr3fKit+6EmoC21sRG2oIqAIDTmSRojP/gunLVzGw6uxN8yUKEpLmeG57k
+	kjVyjZVTQP0NGCK9oCJMBtca/XtHXYyReeWWEC4qfjzOOrYfap8gulCs5qyRmHWvBVK1k0pFJ99
+	lu8ZSMfys+9aKQBU7FYhtEFLXhz2xsDKm10PjcX6RPvNzqcNgmddAUL81x5b8BBREphcRi2zfzc
+	tgh+ivrV3bOZQCBGsUHrEa23Vnxw/3/cOgnQEnOnv9qUZmAMuhTZnWW+ev4d1OoOKpWjF1ha5zh
+	IwvxIqsNS6W+h6Ss1LgRakjQnMu+e5MEhdCT/MUhohJ46Gkmj4WnX24S2k8EIOPuUcjWPLzW9V0
+	ijAL6dAgAGIpbBK4KuiGB9mjLT3uP2kE7p3gXNq/uMkpww9h3Tnhr1FlA6aNv+XweN8q0kWlrSz
+	+GjWCdFZYZrIVZq7WQQGBPlEabyLFDgRdV6hhMxabuoCROY87NgmYX4rkkotdz5W2F++vh6A0IU
+	KeueVvf+7MJla2b1EqTD3AIWbD6ckJZZyPrJ1Eg5ATwnMy7aiRagOMKJk9QlZpSiQk6La6Dnymc
+	uWn7uzQ==
+X-Received: by 2002:a05:6808:1908:b0:571:b166:3d76 with SMTP id 5614622812f47-57a0ab2460amr14209938b6e.29.1795455741608;
+        Mon, 23 Nov 2026 09:42:21 -0800 (PST)
+Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4bc5b07d57csm11240123fac.1.2026.11.23.09.42.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 09:42:20 -0800 (PST)
+From: Enzo Adriano <enzo.adriano.code@gmail.com>
+To: andre.przywara@arm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Pablo Mazzini <pmazzini@gmail.com>,
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+	Alexander Sverdlin <alex@sverdlin.org>,
+	Jun Yan <jerrysteve1101@gmail.com>,
+	Lukas Schmid <lukas.schmid@netcube.li>
+Subject: [PATCH v5 0/3] arm64: dts: allwinner: add A733/Cubie A7S support
+Date: Mon, 23 Nov 2026 12:42:18 -0500
+Message-ID: <20261121-a733-cubie-a7s-dt-v5-0@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,126 +110,79 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] soundwire: qcom: missing peer reset and init in
-  swrm_runtime_resume()
-- [Medium] soundwire: qcom: broken peer DPn offset check in
-  qcom_swrm_port_target()
---
+Add initial Allwinner A733 and Radxa Cubie A7S device trees for the
+console, PMIC, microSD, LEDs and EEPROM. The Cubie A7A compatible is
+for Andre Przywara's forthcoming DTS:
+https://lore.kernel.org/r/20261122004008.0ee8e16d@ryzen.lan
 
-commit 246740e00d8bf63dfe08723ccdaf279410a75753
-Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Base: sunxi/for-next (2ba07dfcd45bb6ec414e68213620490548fd5aec).
+Previous version:
+https://lore.kernel.org/r/cover.1795034153.git.enzo.adriano.code@gmail.com
 
-soundwire: qcom: add multi-master support
+Changes in v5:
+- 1/3: Add the Cubie A7A compatible.
+- 2/3: Keep one DynamIQ cluster, rename osc to hosc and add I2C0 pins.
+- 3/3: Add LEDs and EEPROM, simplify MMC0, describe the 3.3 V PF path,
+  and revise the PMIC rail descriptions, bounds and always-on flags.
 
-This commit adds multi-master support for Qualcomm v3.1.0+ SoundWire
-controllers, allowing a primary controller to pair with a dependent
-controller that contributes additional DATA lanes and routes port register
-accesses across the two instances.
+The hosc label also affects Vinicius's A7Z and Alastair's U-Boot import:
+https://lore.kernel.org/r/20261111134919.90264-3-vinicius.eduardo.pedrosa@gmail.com
+https://lore.kernel.org/r/20261113023236.569054-26-alastair@d-silva.org
 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index a4cb62897192e..396b57d8eb0e9 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-[ ... ]
-> @@ -1091,9 +1109,48 @@ static int qcom_swrm_pre_bank_switch(struct sdw_bu=
-s *bus)
->  	u32p_replace_bits(&val, ctrl->cols_index, SWRM_MCP_FRAME_CTRL_BANK_COL_=
-CTRL_BMSK);
->  	u32p_replace_bits(&val, ctrl->rows_index, SWRM_MCP_FRAME_CTRL_BANK_ROW_=
-CTRL_BMSK);
-> =20
-> +	if (ctrl->peer_ctrl)
-> +		ctrl->peer_ctrl->reg_write(ctrl->peer_ctrl, reg, val);
-> +
->  	return ctrl->reg_write(ctrl, reg, val);
->  }
-> =20
-> +static struct qcom_swrm_ctrl *
-> +qcom_swrm_port_target(struct qcom_swrm_ctrl *ctrl, u8 port_num, u32 *reg)
-> +{
-> +	u8 lane;
-> +
-> +	if (WARN_ON_ONCE(!port_num || port_num > ctrl->nports))
-> +		return ctrl;
-> +
-> +	lane =3D ctrl->pconfig[port_num].lane_control;
-> +
-> +	if (ctrl->peer_ctrl && lane >=3D ctrl->peer_first_lane &&
-> +	    lane < ctrl->peer_first_lane + ctrl->num_peer_lanes) {
-> +		if (WARN_ON_ONCE(*reg < ctrl->peer_dpn_offset))
-> +			return ctrl;
-> +		*reg -=3D ctrl->peer_dpn_offset;
-> +		return ctrl->peer_ctrl;
-> +	}
-> +	return ctrl;
-> +}
+Runtime dependencies in application order:
+[1] AXP318W PMIC v8
+https://lore.kernel.org/r/20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com
+[2] Pinctrl IRQ-bank v3
+https://lore.kernel.org/r/20261025142412.112216-1-pmazzini@gmail.com
+[3] A733 8250_dw v2, patches 1-4
+https://lore.kernel.org/r/cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com
+[4] Firmware-clock v2 for vendor-firmware warm reboot
+https://lore.kernel.org/r/20261112-a733-fwclk-v2@gmail.com
+[5] Pinctrl voltage-mode v3
+https://lore.kernel.org/r/20261109-a733-pinctrl-v3@gmail.com
 
-[Severity: Medium]
-Can *reg -=3D ctrl->peer_dpn_offset underflow below the dependent
-controller's DP1 register base when port_num <=3D offset?
+The A7S DTB and schema checks use [1] 3/5, [2] 2/3 and [3] 3/4.
+The runtime build uses context adjustments for [1] 5/5 and [5]
+after the regulator allocation and IRQ-bank changes.
 
-Callers compute *reg with the SWRM_DPn_* macros as base_offset + 0x100 *
-(port_num - 1) (+ 0x40 * bank), where base_offset is 0x1224..0x123c, while
-qcom_swrm_multi_master_setup() sets ctrl->peer_dpn_offset to offset *
-0x100 without that base address.  As a result, *reg < ctrl->peer_dpn_offset
-does not catch port_num <=3D offset, and subtracting ctrl->peer_dpn_offset
-produces an offset below DP1 (0x1224) that reads or writes non-DPn
-registers on ctrl->peer_ctrl.
+Validation: clean application of the mail patches, arm64 defconfig
+Image, arm/sunxi.yaml binding check and warning-free A7S
+W=2 CHECK_DTBS=y.
 
-Also, qcom_swrm_transport_params() subtracts ctrl->peer_first_lane from
-value before calling qcom_swrm_port_reg_write(), so if the WARN_ON_ONCE
-fallback returns ctrl, the peer-shifted lane number is written to the
-primary controller, and qcom_swrm_multi_master_setup() only checks offset
-against ctrl->num_lanes rather than bounding the port offset against
-ctrl->nports.
+On a Cubie A7S, a RAM boot with vendor firmware, this DTB and the runtime
+dependencies above reached a responsive console and probed the PMIC.
+Pre-boot U-Boot selector reads put every bounded rail within its bounds;
+none changed at registration (sysfs at about 1 and 91 seconds, and no
+regulator "Bringing" messages). At about 32 seconds unused-regulator
+cleanup disabled DCDC4, BLDO1, BLDO2 and CLDO2; DCDC9, SWOUT1 and
+CLDO5 stayed enabled through their users, and the console remained
+responsive. MMC0 enumerated the card in High Speed, with a 50 MHz clock
+tree reading, and completed a 4 MiB read; its data was not verified.
+Both LEDs registered: green:power was on with trigger none, blue:status
+was off at sampling with heartbeat selected. AT24 registered the 2 KiB
+EEPROM with its WP GPIO; topology sysfs showed one cluster. A warm
+reboot returned to vendor firmware. Not tested: early and repeatable MMC
+reads, MMC ios, SD writes, hotplug and 1.8 V switching; EEPROM contents,
+writes and write protection; visible LED operation; physical rail voltages
+and CPU/cache topology; PMU counting, EL2 interrupts, ITS/MSI, stimulated
+PMIC/NMI interrupts, suspend, power-off and other boards.
 
-[ ... ]
-> @@ -1795,6 +2028,10 @@ static int __maybe_unused swrm_runtime_resume(stru=
-ct device *dev)
->  	struct qcom_swrm_ctrl *ctrl =3D dev_get_drvdata(dev);
->  	int ret;
-> =20
-> +	/* no bus of its own; the primary restarts the link */
-> +	if (ctrl->mm_role =3D=3D QCOM_SWRM_MM_DEPENDENT)
-> +		return clk_prepare_enable(ctrl->hclk);
-> +
->  	if (ctrl->wake_irq > 0) {
->  		if (!irqd_irq_disabled(irq_get_irq_data(ctrl->wake_irq)))
->  			disable_irq_nosync(ctrl->wake_irq);
+---
+Enzo Adriano (3):
+  dt-bindings: arm: sunxi: document Radxa Cubie A7A and A7S
+  arm64: dts: allwinner: add A733 SoC description
+  arm64: dts: allwinner: add Radxa Cubie A7S board
 
-[Severity: High]
-Does swrm_runtime_resume() leave the dependent controller's audio_cgcr
-unreset and skip re-initializing ctrl->peer_ctrl when
-clock_stop_not_supported is set?
+ Documentation/devicetree/bindings/arm/sunxi.yaml  |  10 +
+ arch/arm64/boot/dts/allwinner/Makefile            |   1 +
+ .../boot/dts/allwinner/sun60i-a733-cubie-a7s.dts  | 331 ++++++++++
+ arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi    | 663 ++++++++++++++++++++
+ 4 files changed, 1005 insertions(+)
 
-For QCOM_SWRM_MM_DEPENDENT, swrm_runtime_resume() enables ctrl->hclk and
-returns without calling reset_control_reset(ctrl->audio_cgcr).  In the
-primary controller's resume path, the clock_stop_not_supported branch soft
-resets and calls qcom_swrm_init(ctrl) on the primary alone:
+base-commit: 2ba07dfcd45bb6ec414e68213620490548fd5aec
+-- 
+2.53.0
 
-drivers/soundwire/qcom.c:swrm_runtime_resume() {
-    ...
-	if (ctrl->clock_stop_not_supported) {
-		reinit_completion(&ctrl->enumeration);
-		ctrl->reg_write(ctrl, SWRM_COMP_SW_RESET, 0x01);
-		usleep_range(100, 105);
-
-		qcom_swrm_init(ctrl);
-    ...
-	} else {
-		reset_control_reset(ctrl->audio_cgcr);
-    ...
-}
-
-Unlike qcom_swrm_probe(), which initializes both ctrl and ctrl->peer_ctrl,
-a runtime suspend and resume leaves the dependent controller without an
-audio_cgcr reset and out of sync with the primary (such as on the old
-frame control bank after a primary reset back to bank 0), breaking data
-transport on the dependent lanes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123171411.4443=
-81-1-srinivas.kandagatla@oss.qualcomm.com?part=3D2
