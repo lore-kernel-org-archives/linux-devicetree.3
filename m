@@ -1,101 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795474301;
-	b=xgNfjWbqowv+YXz/wPFsPKxNUIl+ZkhTItRTitnWktfiLKAnhS9cTw+k59b4mrBhIosO
-	 6e+D5ezzZaF2If8mMNsakP7oP5EscMfPnPQ/xs/lq1SBSH5DGUhpkWakQJvKu2lQuKAZO
-	 4NwqIC1GUabgZU3tNT8JnRD3V7Yl7Pmw3aBttPer1EztYrt25qVWc1bxYjBsA/96/QPKq
-	 JdcrRKsrGyPHOaSKauVFuIUulmSWGv7qKA69hoh+vbQWFD2NLg8MKttzS1h3CiEBNMqVz
-	 8207xp3uQ6ShaNmt/4rQD19zStoeZeqMOcZkQBK+sSvXX7ocxu2W5VuQAB1INQPu7Yw==
+	t=1795474489;
+	b=qnO+flF+uI+JqsiwVCFL5cEOE1g+w1Hgg32uILSylPA2nnGUCC/k7K+bUOD16fyMXRUr
+	 0t1zpcjQUlrgbI4haUN6eDS7HmiwV8/9nsXDw7dXPSRRw9H72Zs6CfiZRGqCaflra8JZP
+	 SW4/r+0r5qYdJ2ebXlS3gSv80Vzi/JjENYtZpbPzsi78bJd0+/DLITAnWtdHAQtuIfKUK
+	 TZlfJlc8h56EhPymymUPEOgiPnEwcUkoS25AflxAD1n0wxfmLGY5tPNvVtaG94NdGug0n
+	 Ia03mQ4JoS9boUrohzRUCOMlHp/EXC7S3zII3gonVeIu1y8I49uJWZ5iCkcw12sP1LA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795474301;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=ahaMej8DG5x+niwqDwGDjqEkplFHIH2ZYDylFYU9oY0=;
-	b=bMvrY2ltfUNDi1hWWuEi+2r6AbI9JsI8/4EsPkXj42q0x4T3DuiYxDVr6WfuMGW3vlc9
-	 T/aO8yGS9lRjw0brvHg/dPGLG+qM46yf00s6d64U3YalDMa3p1zLrTD8Ccsdtb9gS/uYx
-	 jLxGcpDfh0FpXYNDlZQS3W4qKtNkOQK/wbvxR++/sREE1rb1R4+oX0UT9i0Un/FByGLaz
-	 Kf9KDtwh8msJUs/PrEeiQPmPah9o5ZJWW0LQ72l2tXzFcEKRBDbsLJP4jGJ5s9W4qfulk
-	 A77j4j6RFoXC8pNbRf9mLCaNQ7HZAQjYLzqnDmns4pZRh72gOkM83XmFCJefFnlFwTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795474489;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QZY3QEbTazJVBNLfkYhq96DccGik9lwrQlsFGiS8+BM=;
+	b=JIOm4HXLyBJkE/3YWA+KQ50DEw7CMciPt3EpuLy35gISGqN1XI8Q6Py7TaGe10NNrlOX
+	 5/r+BMxdB+Uy8HT1byAAxXNcNOFZGR2jYoEEDi8jx79O0tLh7JpMXdGrtIk9yv0nqwSMk
+	 VfnrjV9CvHukjmMvcZls9FMC12xpJ5aEiFi5uNMrgWuajDNAXO1CDcMok/rcWPotJR6Q6
+	 mzIXWPknZSMRdir/twYfwAXQHzGAVL/6o7zfBMXB+eivy1D9jqxA6Ea+XAw59GBSMqit8
+	 e4jZSgBQOQTfGxHJhz6OfXm4NSVZH7K9oYexxtxQJehgd/spuY1JrsMoIxaocEjKIIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YRbfmsEb;
-	arc=none smtp.remote-ip=209.85.208.176
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kud4b5sK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEF5606A322
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 22:51:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECEF5606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D19606A31E;
+	Mon, 23 Nov 2026 22:54:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YRbfmsEb
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ae0d0b9db2so35357991fa.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 14:51:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795474299; x=1796079099; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ahaMej8DG5x+niwqDwGDjqEkplFHIH2ZYDylFYU9oY0=;
-        b=YRbfmsEb/hQOGAmXBF7R643OZKuSR1qRrsgm7LHHfGRqxf8k8EwaQUaNDaegKDxgeM
-         ZV4ML0hnBAjir8ppobqGrNENghuxdG8FjKejkD1JluhPwmDT7R3RXaKFkCA0e8UTYWTI
-         3WVz8N7nUWxpT2By0hCJRR1sqLwKyVwcVWIgkPPZQOlsxP3/jjJYyzwJkdqlSUdxntAN
-         92TJEQcfjbpud8ss9bN7pb9K6Ht01WVHRuu+++I8niqFgIqrma2h+vwPQyjBe+gpsBcO
-         S4UolxbVHleBsrryCLTiSxVwBcDYdUtVAG6WotTc0lvQUVnfQ9NSB2NmOoM5Qf/eM2Cu
-         GJ/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795474299; x=1796079099;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ahaMej8DG5x+niwqDwGDjqEkplFHIH2ZYDylFYU9oY0=;
-        b=zP3OmHa6QUHcYjgu3uAK/35ujEDl5wE8EIHMzuWJ1nFuiFlrFeDpbFMT7IrlV2Ti3L
-         zcpn63w4b9DzneEiluuSXAa0HS1xcM+Kr7sFib9CQ+pbl6zJA1wsgjnt9zIYWy+B7G7A
-         erauqYLJJX2lZjjjvZF2w8V+nUYAX0AN8QLlJrDXvj6vL4r0bYxgIF8I/cO4m17y2Jq5
-         Ibt2WMNBnikT8NHkoF907HQv9p3/yfVNlld4lkJtFA7DPXayo/7+uC+vL7A5bx1Zrq/V
-         NVZPOjkC07JYxX781R7r6/0ZOyFCkPN+s7lKswb4cZ15eiveIxxtJe5FlQtF33vwLBM4
-         xviA==
-X-Forwarded-Encrypted: i=1; AL+hErHgGyTvOCfGkaDVWULieMZUBwzxUrKVtOhQmjy87KlqOa9GKAr0+BUpyJ3SDa1zclr3GCrP9cy75RrW@vger.kernel.org
-X-Gm-Message-State: APuU4Z9oCkBMcwm6Uxb2UeCv6b53LapeBIjx3KwOkCZIYlmM0laV7Qge
-	TYW5gYc8Uy2BpiFRdnas+qxTBJzTX0FDXS5tr68p8hHX3+DV1Z86XiSs
-X-Gm-Gg: AZFdTZcolNQnuwLa3ZK+9LE0z9oPshraWLNbcOAJ6J/oiKu0bxD2wqGJ3jLJOwSWUCv
-	E4gcRPg7Ea1HTZqVSXce6iNrQS+1x3/R5ZQnsmSBxc+Raqlq1OroG5vlAgsY2XJfCCt8w7IkIi1
-	cfO0G0fjAcShwsD+L6AzLmwSFFyxe/qz/gqd/rohv9PAjIs08Ij5p0lN7HvxgqfmqaW2uM8QYt3
-	Cm4W3nQDxY7fkRL0pmsPC+p3A+qQf16NYwMWbPz/cDo7wOvhNcA7ikOeFDoxquBSgYoywniGZz5
-	aW9AWxZLeVJIlFdvfXSfMVtMW6g0hYjAzohcLvDuPp4K/rDh+7lS4JNpECnRzNpOi77rnTjO1Ki
-	rYHuLRNSPrF4kvMiEz7vvowbglG7OvNfEFaw1x0q+vDLX3N+ZAySo3YzmCHys7EyD+n7vZiPy99
-	+5JvuhCzJ2B3Zzd1+ZqGLg0iV4lkmAmXMgNx7Mxt5qTG1aBEKMu6Ie7u5g9S2sV9yU5OZ32xXRS
-	Ew5DhwjloT4LaLlguZMJqe3qsVdEhqLuciXip6VmZRC4nGI76udYTcLs3hFud2cvJHt8eWZEFno
-	ax0+QL8X1CygHlb6QH3KC/BjwzXBHoymVLgw5cur0n8E3oYKNwh5tyg=
-X-Received: by 2002:a05:651c:a149:b0:3ac:e4fe:49c with SMTP id 38308e7fff4ca-3ae7fa65ademr37338301fa.21.1795474298759;
-        Mon, 23 Nov 2026 14:51:38 -0800 (PST)
-Received: from [127.0.1.1] (ip-024-180.users.dtel.ru. [91.210.24.180])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae8051bfbfsm36143811fa.20.2026.11.23.14.51.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 14:51:38 -0800 (PST)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-rtc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] rtc: Add Cortina Systems CS7542 RTC driver
-Date: Tue, 24 Nov 2026 01:51:35 +0300
-Message-ID: <179547429575.493865.18130205107556064582@gmail.com>
-In-Reply-To: <20261123220804bcab0f99@mail.local>
-References: <20261123-b4-cs7542-rtc-v2-0-31ab43f2cc8e@gmail.com>
- <20261123-b4-cs7542-rtc-v2-2-31ab43f2cc8e@gmail.com>
- <202611232056209fabb078@mail.local>
- <179547125963.75567.6386430167092445665@gmail.com>
- <20261123220804bcab0f99@mail.local>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kud4b5sK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9EA1F000E0;
+	Mon, 23 Nov 2026 22:54:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795474488;
+	bh=QZY3QEbTazJVBNLfkYhq96DccGik9lwrQlsFGiS8+BM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=Kud4b5sK91u5SBmL8lPGIPTN3CP4ATH85EG1moMmnUj+tCyZ0v8511LIpcjMDEoyz
+	 hXY8ps3kX6luSVimz1DL6w/4v5XS3DVwUhuQbkGmU/X2il+gRYmCZtVqR23bFanmSl
+	 Dl8czKObWKjkuDOOoojGPffwA/hzs17niUNQsMcAce/LLJwD1vtNNMvahJFR3lKBo7
+	 91mQ5CLCB3pQclrn2mhzQrNaTb16nOaPOKJcN8Q6chuOiFNmkbvmBcewM9/mdGNKea
+	 bh4CHAmXA8WiB8Y2kO9AEWts847SxOKF65TwM1vfTLxrLZ0khTRsDy48k1r9GPMfkS
+	 kKKZ03sSSQ6nQ==
+Date: Mon, 23 Nov 2026 16:54:47 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczynski <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/8] soc: cortina: Add CS7542 PCIe control, SerDes and
+ host support
+Message-ID: <20261123225447.GA1119216@bhelgaas>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,40 +69,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123-b4-cs7542-pcie-v2-0-f589a9cd0bef@gmail.com>
 
-You are right: I used the core's calendar-validation boundary for the
-minimum, but range_min should describe the physical hardware calendar
-and its offset handling.
+On Mon, Nov 23, 2026 at 11:32:14PM +0300, Fil Dunsky wrote:
+> Add CS7542 PCIe support with global gate/reset controls, a Snow Bush
+> SerDes PHY and DesignWare host glue. The global syscon already provides
+> the APB/CPU/AXI clocks; extend that same provider with three PCIe gates
+> and controller resets. No resource-less pcie-control child is created.
+> The existing clock indices remain unchanged; PCIe gets named specifiers.
+> ...
 
-I checked the lower range on Almond+ with a separate Linux 7.4-rc4 RAM
-fixture calling the driver's set_time/read_time callbacks under ops_lock.
-The normal RTC core rejects pre-1970 dates, so the bypass was confined to
-that test module. These six cases passed:
+> Changes in v2:
+> - Expose PCIe gates/resets on the existing global syscon provider.
+> - Remove the virtual child binding and separate gate/reset driver.
+> - Preserve early strap clocks and unwind partial registration failures.
+> - Put clocks before interrupts in the host binding and example.
+> - Enable root-port MSI after enumeration; dispose INTx mappings on teardown.
+> - Return 0 for lost-link DBI reads to fail iATU polling; serialize quiesce,
+>   config/DBI access and IRQ draining before reset.
+> - Link to v1: https://patch.msgid.link/20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com
 
-- 0000-01-01, 00:00:00 to 00:00:01, with raw BCDYEAR=3D0
-- 0000-02-28 to February 29
-- 0099-12-31 to 0100-01-01
-- 0100-02-28 to March 1
-- 0400-02-28 to February 29
-- 1969-12-31 to 1970-01-01
+v1: Date: Mon, 23 Nov 2026 21:43:28 +0300
+v2: Date: Mon, 23 Nov 2026 23:32:14 +0300
 
-The direct callbacks succeeded for the low years while the unchanged
-core validator returned EINVAL; the 1970 transition became core-valid.
-The module recorded 219 checks with no failures and restored current UTC.
-The RAM supervisor independently restored UTC before watchdog return,
-and fresh host UTC was verified again in installed OpenWrt. No firmware
-was flashed.
-
-V4 uses RTC_TIMESTAMP_BEGIN_0000 through RTC_TIMESTAMP_END_9999. Its
-Kconfig help explicitly describes the hardware's four-digit calendar;
-ordinary core calendar validation is unchanged. The source tests cover
-all 10000 BCD-year round trips, and the ARM built-in/module builds passed.
-The hardware evidence consists of the boundary cases above plus the
-previous upper-century/9999 tests, not a hardware sweep of every year.
-
-V4 is posted here:
-https://lore.kernel.org/all/20261124-b4-cs7542-rtc-v4-0-bceefd844074@gmail.co=
-m/
-
-Thanks,
-Fil
+That's way too fast and wastes reviewers' time.  Please wait at least
+a few days between versions.
