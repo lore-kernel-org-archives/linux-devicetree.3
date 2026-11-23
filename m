@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795459289;
-	b=wO+LyzIpjj2aRJnm53WYheCseeNhOJ3znH4QLMJqeVjAwVYbOAY8to5e78cYNMwCzd9a
-	 UG50v5zXs3oNnLl8hr5fxGupA3C1vl8++tozKmxelk5WvcGfkvHPcVzXYsiRIZDRbxA1g
-	 BIerOOblvUdWxjCk5nSlGZUzqqpmSiaFOCs6+P7sX3VSpx1uHgfyyMIVsvlD3cWfkl1qc
-	 7KF+bmzMrGjO1xvwX//i0xBOfc4AD+Ga6YtspSOMop/p6AxKIOHPwkdwSyrHvDp6xbblN
-	 EHyOF7DvvikqT4h/nSaLdASPjEpmIp2/xsbUcbJFoSS0+7fDGRuK6r7cTHwUamar8Hw==
+	t=1795459304;
+	b=TU7g6QA6fDBfzBH92/MpLjKtb4uGYdrN5/BAHWVZgtdZq7ptPJ3wE0PBp2paX2O8nhGX
+	 H089dhrMjdU0TcIc6XVMu9v2UwiCGZ2YpEyfd2UoKrxjJUh1vIMsgQPZgVWPzj2VwZxnU
+	 V6HU5xO8AsSQtmFQelg61/gMPrferDdY2CRbJ+vwgU6xrcXqid7z6xI/p2A4FBY4kF5oD
+	 S6gVcwOZni0JSFkhD9fnMbHN2bTvX6o2+lUfHk+N2UGd6JUXwq1Atr6f81OWTlkiN9GYT
+	 R6Caoxu6WVHdfLvuAVtgsQXUZenCAdV/NbfRCIG1PlvMHn83xPZnls7DoJ7JlvwylcQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795459289;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=O14BbX1wLIKYJhhhZsc1QX5KnrTbKI8v08Tn9x+QgPI=;
-	b=vsF9OeU45GSU+0AUTfzIEWf49xFvE+kHaSP9ZcQRX9xA38jYzrjAGKxHTx3XA7ZKirQv
-	 s3D8BfhFnXb17BglqkMerwqANI6qptI+/M1wg66R6jvTcd101oxF3LPIA5+U9sfsjwiSx
-	 qAazu244Dtbg4yxA/d9pZom3EFuRgp1tfW6/dmOENzX6Yn2zcUJqxjgRDYS368IUQ1nzj
-	 Sxu2omAsXeTvKsQMCFzeQBudH1t++7MotkcDW9k5+nAqgH6jyAChBOjvuD/NZz+ehOYGO
-	 BA1bOP/cLjmNMMzA/2b89CrcHtTNvn/VBKqBne6o8pgx0XaWrA5DAuyV8siK0dWVUBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795459304;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=F2ZG4WV1JiH9H3Ur9+LrPBFzjYCXIRCQKo41Iqlytpg=;
+	b=FeVh0qZxoohYIyd4yxY3ZcdqWmYM04v2FUhHO+Der3nNzQsGJeb+7Y82+zv3AQiGYDLb
+	 36wdMZZYpuHsz+w2uUptITFygNqdYpaWSluCYVCwhk8mu6AQgG26UmUZ9vATycnEpewod
+	 3q+gvwk7i2V1ETB/It7FfctqSInjEG/t/vQJ9D41lcB5MED1VwxwhT6HRw7XWNudl0Rlo
+	 lxwDtfligKajJyuHGv5m7dR3iulVqytt0d1DH1giMQNImKh4DbJdOqwkq3r/smk1q3QGY
+	 AfuUuie3QXf+3DPH+ADWcp3UVyElybK+Qqo8lx8+i9bV06NSiyDNWmik42MUWl2GluA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QoAQqCrQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTMWcZcn;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08261606A690;
-	Mon, 23 Nov 2026 18:41:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCF8606A332;
+	Mon, 23 Nov 2026 18:41:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QoAQqCrQ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KTMWcZcn
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795459288;
-	b=IeO5z3h8NcHm3Zq3Diy0ZVYuXD++TphEuxMgn+JccK/NhWT/Xj94bBkUoDyc/V2FW/SY
-	 xgScHFKm2OmZ/ss75h4g34BEL2gWAS3aPJG9lbYpdqo5CMq87y5IskvlgTFQvBRJfDtba
-	 fCMqoL7cbOCxj2n3xnH8y5J/4v+ERBEHYHcKIVHrccXKRh+d4AMq6jagMchKqybkdCmae
-	 M0EmrsgQraqa8zhNrV2X8PIMLzkW/5WoYXJ3qnPlCAB4KHaXg2dgM5//fIo/FMOv6+qw3
-	 4l6seBR6ByCkW/BzJ6VE+ul0bDxqF+kLxxPyzgCQW3DrSdjnT2koIih68D1ylx5FVIg==
+	t=1795459303;
+	b=ZWvoF5K2I02Y+jm+ltSkrh9lNQlNBWy4pMNMx/yLl/y2Zjfs+km+N0rUXMOC8jwvUGtE
+	 0PvtwOvANFG5Ard/APFaWpkrB/aX+gTrEQBloc+pVfdDnE2/v8BnpTBPsRwXwqEdQ6ehg
+	 mK4UECkwhqNaCC17Hn0ek+0uQLbDAvMojbJyVdv0hyxF+VpwI0RNc4JyeK2Rs8cJ2VjOa
+	 oRbdH//3hXwclNykcg+tOz9ucZcKkLhLZKYW3+bejnRuIpC6RXox8Qj+A0mYvmm7wDA6l
+	 BZRelnwOp0aroahm+2mBgQ7pDDZSSLEGt422WGNp4qu4tepfXAzTF9GhUMzL7c+Uehw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795459288;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=O14BbX1wLIKYJhhhZsc1QX5KnrTbKI8v08Tn9x+QgPI=;
-	b=V3v6OxhDuSktbdkRePBDYlAqc1Q5rlLtanPQIq8xiD4O1gd74UYDpQYYJ7NEkY6+5Qix
-	 NdwjPw3gvkOC51n9/nl71eEk6Uvseu9a+6Zu0g5jBOO/iNMVbMavHw+Y5GHbrvZwTdKNn
-	 OAnbq/rp8Cd1JEN2QgnVVXXlx+mRWSxB170OzgdcOPqg9m8KAkqWopU3l8v8YS2pKiE3m
-	 SKs5MhiMBqZFt3312osxnID9M06NSlcBf4tnLegqnYqvw5xZPuRe8JXGXKf5FWLWkkuAD
-	 AqPGa+beocfBfQmcSjG/arNWq1aSXiLr1gscB6Fjp7GSwRRNF8Cp4egZDuyvp9tI9Lg==
+	c=relaxed/relaxed; t=1795459303;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=F2ZG4WV1JiH9H3Ur9+LrPBFzjYCXIRCQKo41Iqlytpg=;
+	b=JaEt8NBJoANdmrdlvrrlzq6nM/KWMAQNK3CfSzex8suD9YbzAg//6zlvx7lVMyevEgwX
+	 YHVbgoEOI2yRJ3/Jkjlo4KhKHrmamnSwAcl+rb/rrES6Z2F69iAYG4VgqT4xIF/G+6P5Y
+	 bLlI194hbXEdxCP3U7D+XIDjwaehFTfcCqoberTfAYvhglrBxFpS9c6jMnqe9LAZ0j0s1
+	 ui8a/UCUCYNwJLPw5oJLmE77K7Wh9vKQEAhcV4OsnSbHLR1hyU2TFPkCVQ+bjfAGV+cvP
+	 uYijHaGoLytPHaQgZxh9e1CgOBoxC9Os/ybZYENXwI5xiDsCi6rJG1jTjU3UwHJCbyA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3C34A1F000D8;
-	Mon, 23 Nov 2026 18:41:14 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 743081F000D2;
+	Mon, 23 Nov 2026 18:41:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795459288;
-	bh=O14BbX1wLIKYJhhhZsc1QX5KnrTbKI8v08Tn9x+QgPI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=QoAQqCrQWkMvHImLgV0+zKzlmX78AIEO/c7wbo7ao2mYua2Gbskopn/5S7CgovvhB
-	 Oazb16HQM6nvx+tyPOQknj4R24A0ECiRHxbR2K/BeBQXyAerZ4jWXbMTa9iIacBHH8
-	 jz5wLVijcm6wjWKZ7Z2Y68ul34MXNEo4TwLQh7DGTelKKLPuJbRpMAK/dfTk2pzLJ9
-	 xyoC+bTfZe6hNdkNrdWU7C6PMaDH7lEkmfULBJXdC5ertt6sFzOi5Yav+Bv22ceiqj
-	 SqmSTR3VRkuYKOm8iXHayHiH6zOL4QLrc5sVBAXSkiIRFIeGkR/1mECERptt1mgaHa
-	 U0Jm/5MhYct0A==
+	s=k20260515; t=1795459303;
+	bh=F2ZG4WV1JiH9H3Ur9+LrPBFzjYCXIRCQKo41Iqlytpg=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=KTMWcZcnwd/YS3HyuecHoZBzXDUxaEIO4ljOa7jw9J38bJc9yWVFz39Eb3dCOOL/D
+	 3M/uNgMoKz2Bqqkayc9jfco4xhGzg2zfdPTxchowrpccpJ/XeEQ1VQPxOPsG1CKPdQ
+	 WATL2WxjrgdzpM4v+Ya5oSw/HyjT2f6NhZQ2CnLw9UEZTMSdWW3Sj824MvUcnRNvbc
+	 OHlDm6FFNxHqGlhfBSqhWbzXM32nXrtDucfgMTXr4wgECpaEejVcR+OoXlZ5H/ZlUK
+	 Pj5DztnIPrJZJgNKq9MKvbSPXJeo8IT4RgnyzueMNpMZr1Jr9DS5gjdhbxw6+q72HU
+	 taI3aB0U2quIA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6C1D34C5B7;
-	Mon, 23 Nov 2026 18:41:13 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 049F24C5A7;
+	Mon, 23 Nov 2026 18:41:32 +0000 (UTC)
 From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Mon, 23 Nov 2026 21:41:14 +0300
-Subject: [PATCH 3/5] clk: Add Cortina Systems CS7542 strap-selected clocks
+Subject: [PATCH 0/3] rtc: Add Cortina Systems CS7542 calendar clock support
+Date: Mon, 23 Nov 2026 21:41:30 +0300
+Message-Id: <20261123-b4-cs7542-rtc-v1-0-6c53761ffa03@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,182 +84,85 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-cs7542-syscon-v1-3-49858e631449@gmail.com>
-References: <20261123-cs7542-syscon-v1-0-49858e631449@gmail.com>
-In-Reply-To: <20261123-cs7542-syscon-v1-0-49858e631449@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz1giLiWIqyCGkDhgBopiQJUQd
+ 2/ajm/4/wLlJKzQFRckPkXltWaYsgA/u3VilJANVFFjDD1wrNGrfdaEafcYq9a0wdoYHEFutsR
+ R3r9fP/ytx7iw378TuO8PDXUHv3EAAAA=
+X-Change-ID: 20261123-b4-cs7542-rtc-f0818d77fda2
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459271; l=5002;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795459290; l=2778;
  i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=JEa90SGQ0FgER4S1FcL2NkC7oSwXVNfRbOUFnfhpGuk=;
- b=e0rWIO8xaF7w/JxsQI1xMpXHd7PA0yFu8QyZU0nPuYXJuZbaup7pL+v3doiI2mBjTRi0pqYQ3
- 4w6h8Ukd29VAWNQe8XizC1ikSTIqHkjSXy5cPSfa07jcQ2a0Jt0chie
+ bh=iQVd1OJ/+XSD6K4nQFSIGwUCtR8vm0Wjlv84V073Phc=;
+ b=pwhES3U/M+fGPYj3+weEwzyknhA4SjCI1trHk9wpgqNbTH71lD9WJifK/MOox7DX1nDSVooCs
+ 0H1tD2m1ohzD4esnIKDp3CA1reYz3qLClhRolOc+OFRNpG//s/WLyc1
 X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
  pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
 X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
  auth_id=1085
 X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
 Reply-To: filipp.dunsky@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Add the memory-mapped calendar clock of the CS7542, based on the GPL
+vendor and OpenWrt implementation. Use an independent OF/HAS_IOMEM
+Kconfig option so the driver can be reviewed without the pending
+platform series.
 
-Register APB, CPU and AXI fixed-rate outputs from GLOBAL_STRAP[3:1],
-using the seven configurations recorded in the vendor kernel. Reject
-the reserved encoding instead of publishing a guessed frequency.
+The initial driver supports calendar reads and setting the clock in
+the 2000-2099 range. It decodes the four-digit BCD year, bounds retries
+across second changes and retains RTCEN after programming. The alarm
+and suspend-wakeup features are deliberately not advertised.
 
-Register before timer initialization and leave the syscon platform node
-available for its pinctrl child. Use the shared regmap, only read strap
-status, and unwind all registered clocks if provider setup fails. This
-is intentionally not a DVFS or programmable PLL driver.
+An alarm prototype was investigated on the board, but the expected
+alarm IRQ did not arrive. Time-of-day and calendar comparisons and
+interrupt-mode experiments have not yet established the missing
+hardware behaviour. Those experiments are retained locally and are not
+included as working functionality in this series. This is a calendar
+support submission, not a claim that alarms have been fixed.
 
-AI assistance: Codex prepared this change from the existing OpenWrt port
-and GPL vendor sources.
+The three patches are the binding, the driver/Kconfig/Makefile and a
+MAINTAINERS entry. They apply to Linux v7.4-rc4 without the pending
+CS75xx platform or clock/pinctrl series. 
 
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+Validation:
+- binding schema, example compilation and style checks passed
+- strict source checkpatch with --no-signoff: no errors/warnings/checks
+- complete minimal ARM vmlinux and modules builds with both new
+  drivers built in and modular, COMPILE_TEST=n, without the platform
+- actual driver functions tested with mocked MMIO/regmap and UBSAN
+- exact sources booted in a Linux 7.4-rc4 RAM integration kernel on
+  Almond+, with platform v9, clock/pinctrl and the accepted watchdog
+
+RTC opened, read a valid date, advanced over two seconds, accepted
+setting the current time and kept counting afterwards. The alarm ioctl
+was rejected, matching the advertised support scope.
+The final combined RAM test recorded 16 checks with no failures and
+returned to installed OpenWrt 6.18.64 through the watchdog. Both CPUs
+were online. The firmware was not flashed. Earlier incomplete or
+experimental alarm runs are not counted as this successful test.
+
 ---
- drivers/clk/Kconfig      |  9 +++++
- drivers/clk/Makefile     |  1 +
- drivers/clk/clk-cs7542.c | 90 ++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 100 insertions(+)
+Fil Dunsky (3):
+      dt-bindings: rtc: Add Cortina Systems CS7542 RTC
+      rtc: Add Cortina Systems CS7542 RTC driver
+      MAINTAINERS: Add Cortina Systems CS7542 RTC support
 
-diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index 37a8e35d4..47b5265fe 100644
---- a/drivers/clk/Kconfig
-+++ b/drivers/clk/Kconfig
-@@ -58,6 +58,15 @@ config LMK04832
- 	  Say yes here to build support for Texas Instruments' LMK04832 Ultra
- 	  Low-Noise JESD204B Compliant Clock Jitter Cleaner With Dual Loop PLLs
- 
-+config COMMON_CLK_CS7542
-+	bool "Cortina Systems CS7542 strap-selected clocks"
-+	depends on OF && HAS_IOMEM
-+	select MFD_SYSCON
-+	help
-+	  Read the boot straps of the CS7542 global control block to provide
-+	  its APB, CPU and AXI clocks. This driver does not change PLLs or
-+	  dividers. It is built in because the APB clock is needed by timers.
-+
- config COMMON_CLK_APPLE_NCO
- 	tristate "Clock driver for Apple SoC NCOs"
- 	depends on ARCH_APPLE || COMPILE_TEST
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index 52d138d4f..16b1168c8 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -63,6 +63,7 @@ obj-$(CONFIG_ARCH_AXXIA)		+= clk-axm5516.o
- obj-$(CONFIG_COMMON_CLK_BD718XX)	+= clk-bd718x7.o
- obj-$(CONFIG_COMMON_CLK_BM1880)		+= clk-bm1880.o
- obj-$(CONFIG_COMMON_CLK_CDCE706)	+= clk-cdce706.o
-+obj-$(CONFIG_COMMON_CLK_CS7542)		+= clk-cs7542.o
- obj-$(CONFIG_COMMON_CLK_CDCE925)	+= clk-cdce925.o
- obj-$(CONFIG_ARCH_CLPS711X)		+= clk-clps711x.o
- obj-$(CONFIG_COMMON_CLK_CS2000_CP)	+= clk-cs2000-cp.o
-diff --git a/drivers/clk/clk-cs7542.c b/drivers/clk/clk-cs7542.c
-new file mode 100644
-index 000000000..4e6c1e98a
---- /dev/null
-+++ b/drivers/clk/clk-cs7542.c
-@@ -0,0 +1,90 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Cortina Systems CS7542 strap-selected clocks */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk-provider.h>
-+#include <linux/err.h>
-+#include <linux/init.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/of.h>
-+#include <linux/printk.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+
-+#include <dt-bindings/clock/cortina,cs7542-clock.h>
-+
-+#define CS7542_GLOBAL_STRAP	0x0c
-+#define CS7542_STRAP_SPEED	GENMASK(3, 1)
-+#define CS7542_NUM_CLKS		3
-+
-+/* Rates from the GPL vendor kernel's get_platform_clk(). */
-+static const unsigned long cs7542_rates[][CS7542_NUM_CLKS] = {
-+	/* APB, CPU, AXI */
-+	{ 100000000, 400000000, 133333333 },
-+	{ 100000000, 600000000, 150000000 },
-+	{ 100000000, 700000000, 140000000 },
-+	{ 100000000, 800000000, 160000000 },
-+	{ 100000000, 900000000, 150000000 },
-+	{ 150000000, 750000000, 150000000 },
-+	{ 170000000, 850000000, 141666667 },
-+};
-+
-+static const char * const cs7542_clock_names[] = {
-+	[CS7542_CLK_APB] = "cs7542-apb",
-+	[CS7542_CLK_CPU] = "cs7542-cpu",
-+	[CS7542_CLK_AXI] = "cs7542-axi",
-+};
-+
-+static void __init cs7542_clk_init(struct device_node *np)
-+{
-+	struct clk_hw_onecell_data *data;
-+	struct regmap *map;
-+	unsigned int strap, speed;
-+	int i, ret;
-+
-+	map = syscon_node_to_regmap(np);
-+	if (IS_ERR(map)) {
-+		pr_err("%pOF: cannot get global regmap: %ld\n", np, PTR_ERR(map));
-+		return;
-+	}
-+
-+	ret = regmap_read(map, CS7542_GLOBAL_STRAP, &strap);
-+	if (ret) {
-+		pr_err("%pOF: cannot read clock strap: %d\n", np, ret);
-+		return;
-+	}
-+
-+	speed = FIELD_GET(CS7542_STRAP_SPEED, strap);
-+	if (speed >= ARRAY_SIZE(cs7542_rates)) {
-+		pr_err("%pOF: unsupported clock strap %u\n", np, speed);
-+		return;
-+	}
-+
-+	data = kzalloc_flex(*data, hws, CS7542_NUM_CLKS);
-+	if (!data)
-+		return;
-+	data->num = CS7542_NUM_CLKS;
-+
-+	for (i = 0; i < CS7542_NUM_CLKS; i++) {
-+		data->hws[i] = clk_hw_register_fixed_rate(NULL,
-+							  cs7542_clock_names[i], NULL,
-+							  0, cs7542_rates[speed][i]);
-+		if (IS_ERR(data->hws[i])) {
-+			ret = PTR_ERR(data->hws[i]);
-+			goto err_unregister;
-+		}
-+	}
-+
-+	ret = of_clk_add_hw_provider(np, of_clk_hw_onecell_get, data);
-+	if (!ret)
-+		return;
-+
-+err_unregister:
-+	while (i--)
-+		clk_hw_unregister_fixed_rate(data->hws[i]);
-+	kfree(data);
-+	pr_err("%pOF: cannot register clocks: %d\n", np, ret);
-+}
-+
-+/* Timers need APB before platform devices, but the pinctrl child must probe. */
-+CLK_OF_DECLARE_DRIVER(cs7542_clk, "cortina,cs7542-syscon", cs7542_clk_init);
+ .../bindings/rtc/cortina,cs7542-rtc.yaml           |  48 ++++++
+ MAINTAINERS                                        |   7 +
+ drivers/rtc/Kconfig                                |  10 ++
+ drivers/rtc/Makefile                               |   1 +
+ drivers/rtc/rtc-cs75xx.c                           | 174 +++++++++++++++++++++
+ 5 files changed, 240 insertions(+)
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-b4-cs7542-rtc-f0818d77fda2
 
--- 
-2.53.0
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
 
 
