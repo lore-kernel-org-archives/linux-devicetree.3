@@ -1,65 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795469184;
-	b=W6JySevQQw+gB/qE9wEXdEWHpq3OWRc+KCZjTz2+y42nCDwljNd4Infmh/FIGMLCuwq2
-	 UYB0H8U4EyG1GHxxHYaxGIDGbKS62ckEnzho+Kt7Bz4J1QD6RUwlhCBKxxSh/H02AnemN
-	 w1aBR3zhHOzTGUVXkwwQ4L4e1BEn6SSOaCE/6a7/lhGbaK7Juir07xvTeaCqQiIewei80
-	 xO9zh4p09StKwwifgFmN+MR1i8IKl5DAZI6YMztlXGF8IOv3NQUPQpdv1D2H+Y1R1u3wk
-	 Vs05jU6FBGT8hPlANGvWlgMm997LMG6b/Y4bJvVMNGP+KeVmCM/iQU5vdkPGtM9mYOg==
+	t=1795469212;
+	b=y9hkGhJ5Nqlnzae6uHvtd3MQWJDQs9phYhlDizPswFDYYoAAuyzhwOWCO263nNBAqfqY
+	 Y9eKo8d8kU7sNF1suyVjkRCRqRIK0YGW1m6qfBLMTTCFknDZOnDfk0vQmCrJfj4vnWmer
+	 xbA9eMPqLUl79YQTBQFgTwtZ5BpVL5KGgYRFhK+BysMwkfoPHSbiMNnEcGDdjQoFhrSC1
+	 Mz/S8NlMOkpds4VOcAii/bqwhmFJbUR5BmsifR7+rSr0T/Ip43xEvZfAVXZHVGB094lLI
+	 WPeQCdB1LtEamP7+TRbmqASijFUZdzCllrpbb41eMjgstg86KoUyc8xoY730UCac1Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795469184;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wsF3FcMOWXNGCdyKh3w151th1Q3GCd1mjJvb9cvO8Jg=;
-	b=s5mWmiJQpgVoy67XzDK/ZBGzG3BD0sEpA+8J6JZ/8MPAsen/hBUPh9fABnwCQOtULTRb
-	 z5OjESBzFnKDGQjccjgkeJw4ySCzh+KsQ4BtdnzrfejP8GtF736W3KS6e4jNCZwx0upi1
-	 HmorYNpDCTAbGUOjZzaQtIMh9EG8mlY6MPKBa7mYEckgboe6F55MZc0J+HqLLXSMR4j2g
-	 N7+fxKxITM2agTTTTVWIz81omzmew4U0MZ8XjpYCr7fVi+tEb30B1u2wm26TIEJos8oYU
-	 iHzbiLfz++Ownvge8WELvTR7o7xrFyqLA3PBF0LQ69V/+jhW6qJjHj+JTPdFP9iJuSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795469212;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=v1WDqyjHSGv+T3SvDbv9gdEvyLdDWkrLhjth3cnoJkw=;
+	b=yyMSs5As59qngqN2vt/cjyqduXfcu65XAKR9TyBj9cxe5J2vWw/m/2a1J1UdegBfZcpI
+	 jvA7ATH7x4BFiPm8p0xxhG11XFVUvWBg7LvWzXrRu4Ukyfkdq6nG6WFnjycTToiILIN3m
+	 mkWxnaVtQnj6W2ZX1xs0vArhmrN9FMSY/F0gRXODAtog8QM5k6gL+m9DS6u4mUhDKpOU9
+	 oEjVHKdRJTl3SndfEruhX3BvNNdX4YzqErOgwSCwOfNvuHYrMB1WSgC7bjVAQ5pIvkG/L
+	 FKR8Yqc+NO5b1ElAPop+eCMMYgdsLpit4ybA+qRSinMxOsx9Us7CSCjrQKcxxkKkaUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=6vEAmynK;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=apOqFzWF;
+	arc=none smtp.remote-ip=209.85.208.173
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD5E606A31E
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 21:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFD5E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFBC606A31E
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 21:26:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EFBC606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=6vEAmynK
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=wsF3FcMOWXNGCdyKh3w151th1Q3GCd1mjJvb9cvO8Jg=; t=1795469183; x=1796678783; 
-	b=6vEAmynK8NdH1vZvFU93tf8Yl7LFRr0KCZuxwt1cvFDfGFK2RdFytQ/sxlH2WY1yDNjkRodrd/h
-	3KqDtRyHOHAgC/GxWjuLfcbe5oSv/3L9YyQvc1XluRbKsWR2XscUa+5np3j9xIoRNq4fEktCG46qG
-	u7IyiP1A0JU1tKp0M4uI6iXCoJcotODT59cvZBMlJ0aTELLQGQjh2NbAGyAekLLkTGDlxDyy33RUj
-	grKlqO20AUjHsrJkeWSLEwMZoK6pF5OGxHcxCdOY3cPNjBo94Y0GJpN9zvwHD4+cKLpCN+QSEaIKz
-	8A3zeByqwQPwVmLOAb7ZIoc2+LyL0zyeNo4A==;
-Date: Mon, 23 Nov 2026 22:26:15 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=apOqFzWF
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ae7d1ce1bfso33528091fa.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 13:26:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795469210; x=1796074010; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v1WDqyjHSGv+T3SvDbv9gdEvyLdDWkrLhjth3cnoJkw=;
+        b=apOqFzWF290F43jBoxcQbBmvxO0r0rSVAGiKs3G8UsLt7V/M+jkzLT0w+Xvm3MUQj8
+         hzrdHoA82b1+hCXO4tPqS7EOflRcmDcoy3TP+ptgIJxdOxD9xtgKwnl2wsJEMdjnHxQo
+         yi30pfbuEJmao9thfgmB+k5sBKL2EkPU4jTO34mlGF/IbBHjcdkWRunc4b6u56IYl4KU
+         56ys5Pp2dB6IVzVgPR/r/ShN+Iv4I90v7d4laNsYFYFRTy6kWEVWs3vLfO+XJLPIP8/A
+         FqcGUndhISRbzc6qSCN9MN1w7UcbP/IcHGTgyZ4EW2o1dQ7qWJd9f/zKEPy0LEC9G62P
+         N4Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795469210; x=1796074010;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v1WDqyjHSGv+T3SvDbv9gdEvyLdDWkrLhjth3cnoJkw=;
+        b=S3mNB3dtWM12+BX1Y2W76g9vRUUMYmvu2kdZhNEVGXWY4gre0qy/VgUTSU5rq2x7rG
+         Ge5acwIsNC9ISAQGFnBkKRTRmpUfpRelE2JY0XLQ2n37ZSMC5J0uZU+zvI3SrSYncGRm
+         BvK+Pej8twGzXFMZOX1V9WyFOpBHoOyuifddE4xtKJaJJ0+NjONjdAz5lm3rPcHoQo6a
+         sRTTfM/CBPKKiAdF1X5ptyGh6LzpveA5gZP6Hk0xtIUss5kwxvO+ph7nHobtuD/2EJmj
+         /gvoocgxTyWNrjGlh9Xtg1+KixJkTDN1iYJurB2zcHRqHetsg0tDIiQjI0JwNfpptoCv
+         U6ew==
+X-Forwarded-Encrypted: i=1; AL+hErEfikjccCubOetOu/RdGq72F/MXEsxAEwjOESB4XXEcJSGarLTytLgsZlwZewof/cej3zRsN5UTlORH@vger.kernel.org
+X-Gm-Message-State: APuU4Z8XCTfNA6cJXUnH9p+rQOh9eNniffJMEMWkayokyfMfNACy9sGy
+	A/YuB8Edj1+wF6i+Mbotwt5R5tmuEphlFyWWLh01TyZuR9MfuwQlTZGs
+X-Gm-Gg: AZFdTZcisFTgtvy0fv7BZ/nHCy7BfVrAMmyIJRwHvDAqqB7whoPM6fJm37SWcUSc05p
+	gCkVlmbhcSaBCN3QUi/pyyRqF6H2OWeaKPoZ9QVZppk8zgoYSv1FtVyu8a5+z1OGmgOhxXIabSC
+	V/1z+yx9z1vfVcTVMcqrINNHiZHxGnLai3LoPOwwsVobj+L3zAz3rjTmySdz8yxEuuA9YyKptfG
+	0eTpILIzQUZB9he0wL8npjaSP6t9mWyPrHWIzRf3a+lZsp7cZUU9UZboX8OjSsGpsslG72a20qz
+	3pAS9phPOI/YZd1N/LykoAEr/HSocsH2i4bbERVfQ5XIZAK7J4YK6sxJ5xDK7WCEEK6nrEHIA/r
+	Iw2prXw0iIHm+1T9YCueu8Dt1NvndKPH1gV3IhwfKkpUlWmLBhiuyEg7RUdGdsh+fLntiJJODpA
+	DEbaUmjRyc3Vq0WByTuP2RN4AlQ66t72gdjrnprQb7MpKqWIXeEnPBdpeH9US+Xxh+1g8n6N0vB
+	6thYHQtUj+OEGQKaMYoPixhPBWgeTBJC7d0Qf/CjeH0uo0o6q6ZgJlzTQjg1TcKvniCfyA9SAlY
+	tBUUBckaP9vwmRVMSwVkGlA7PC8DKbELRCAVX0ScBcIPv/MnTIL0rVM=
+X-Received: by 2002:a05:6512:688b:10b0:5bf:d93d:77b9 with SMTP id 2adb3069b0e04-5c1bc7d629bmr2709291e87.30.1795469209627;
+        Mon, 23 Nov 2026 13:26:49 -0800 (PST)
+Received: from [127.0.1.1] (ip-024-180.users.dtel.ru. [91.210.24.180])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd07b270sm3229875e87.80.2026.11.23.13.26.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 13:26:49 -0800 (PST)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
 To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev, imx@lists.linux.dev,
- devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- Frank.Li@kernel.org, Russell King <linux@armlinux.org.uk>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, linux@yoavmoshe.com
-Subject: Re: [PATCH 3/3] ARM: dts: imx: kobo-clarahd: Use 32K clock for the
- timer
-Message-ID: <20261123222615.7ef78105@kemnade.info>
-In-Reply-To: <sashiko-outbox-230043@kernel.org>
-References: <20261123-imx6-idlestop-v1-0-e32f1f44e46f@kemnade.info>
-	<20261123-imx6-idlestop-v1-3-e32f1f44e46f@kemnade.info>
-	<sashiko-outbox-230043@kernel.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard  Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Rob  Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor  Dooley <conor+dt@kernel.org>, linux-mtd@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject:
+ Re: [PATCH v2 2/3] mtd: rawnand: Add Cortina CS7542 controller support
+Date: Tue, 24 Nov 2026 00:26:45 +0300
+Message-ID: <179546920557.4112741.10222765658884997584@gmail.com>
+In-Reply-To: <sashiko-outbox-230010@kernel.org>
+References: <20261123-b4-cs7542-nand-v2-0-9d9f08608534@gmail.com>
+ <20261123-b4-cs7542-nand-v2-2-9d9f08608534@gmail.com>
+ <sashiko-outbox-230010@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,111 +105,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 23 Nov 2026 20:59:52 +0000
-sashiko-bot@kernel.org wrote:
+> Should cs752x_nand_pio() also set NF_ACCESS_EXTADDR() in FLASH_NF_ACCESS for
+> row-addressed operations?
 
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issues to consider:
-> - [High] ARM: dts: imx: kobo-clarahd: missing Signed-off-by trailer in
->   commit message
-> - [High] ARM: dts: imx: overriding gpt1 per clock with 32K CKIL degrades
->   system timer
-> --
->=20
-> commit f6e6f44334678659ba2ecc2406ebe0d33a2e4544
-> Author: Andreas Kemnade <andreas@kemnade.info>
->=20
-> > ARM: dts: imx: kobo-clarahd: Use 32K clock for the timer
-> >
-> > To avoid depending on PLL infrastructure for timekeeping, use 32K timer
-> > for the timer. =20
->=20
-> [Severity: High]
-> The commit message is missing a Signed-off-by: tag.
+I checked the two paths on Almond+ with the 6.18 backport of this v2
+driver, using read-only access to the existing flash.
 
-$ ~/b4/b4.sh prep --check
-Checking patches using:
-  [...]/kernel/scripts/checkpatch.pl -q --terse --no-summary --mailback --s=
-howfile=20
----
-=E2=97=8F 6bea654204f1: ARM: imx: enable STOP-ON mode in idle if wakeup req=
-uirements permit
-=E2=97=8F 3e7a75764adb: timer-imx-gpt: Allow 32K clock to be used as a cloc=
-k source
-=E2=97=8F 54e9ec84fcf0: ARM: dts: imx: kobo-clarahd: Use 32K clock for the =
-timer
----
-Success: 3, Warning: 0, Error: 0
+MEMREAD in MTD_OPS_RAW mode with data and OOB uses read_page_raw() and
+cs752x_setup_page_regs(), which sets the bank. OOB-only MEMREADOOB64
+uses the core read_oob_std/exec_op path and cs752x_nand_pio(), with the
+bank field zero. These are separate reads, not the same software cache.
 
-That is weird. Checkpatch called via b4 does not complain.=20
-but direct call does complain
+At physical offsets 0x08600000, 0x10600000 and 0x18600000 (banks 1, 2 and 3),
+the 64 OOB bytes matched between those two paths. In each case the OOB
+was non-erased and differed from the lower-bank alias at 0x00600000.
+ECC corrected/failed counts remained 0. Thus the generic OOB register
+path does retain the upper row bits on this 512MiB device.
 
- scripts/checkpatch.pl -g HEAD
-ERROR: Missing Signed-off-by: line(s)
+The generic path programs all address cycles in ADDRESS_1/_2. The
+vendor erase path also clears EXTADDR and supplies the full row; its
+register-PIO OOB loops clear EXTADDR before each word as well. This is
+different from selecting the vendor's 128MiB memory/DMA aperture.
 
-total: 1 errors, 0 warnings, 11 lines checked
+I do not think adding an aperture bank to these register transactions
+is required. The read comparison above does not claim a new OOB-write
+test; no flash writes were performed during this check.
 
-NOTE: For some of the reported defects, checkpatch may be able to
-      mechanically convert to the typical style using --fix or --fix-inplac=
-e.
-
-Commit 54e9ec84fcf0 ("ARM: dts: imx: kobo-clarahd: Use 32K clock for the ti=
-mer") has style problems, please review.
-
->=20
-> > diff --git a/arch/arm/boot/dts/nxp/imx/imx6sll-kobo-clarahd.dts b/arch/=
-arm/boot/dts/nxp/imx/imx6sll-kobo-clarahd.dts
-> > index 1000ee8b807aa..2e907c4163629 100644
-> > --- a/arch/arm/boot/dts/nxp/imx/imx6sll-kobo-clarahd.dts
-> > +++ b/arch/arm/boot/dts/nxp/imx/imx6sll-kobo-clarahd.dts
-> > @@ -46,6 +46,11 @@ &gpio_keys {
-> >  	pinctrl-0 =3D <&pinctrl_gpio_keys>;
-> >  };
-> > =20
-> > +&gpt1 {
-> > +	clocks =3D <&clks IMX6SLL_CLK_GPT_BUS>,
-> > +		 <&clks IMX6SLL_CLK_CKIL>;
-> > +};
-> > +
-> >  &i2c1 {
-> >  	pinctrl-names =3D "default","sleep";
-> >  	pinctrl-0 =3D <&pinctrl_i2c1>; =20
->=20
-> [Severity: High]
-> Does overriding gpt1's per clock with the 32.768 kHz IMX6SLL_CLK_CKIL
-> degrade system timekeeping on i.MX6SLL, where gpt1 is the only system
-> timer?
->=20
-> In drivers/clocksource/timer-imx-gpt.c, mxc_clockevent_init() registers
-> the clockevent device with a hardcoded min_delta of 0xff ticks:
->=20
-> drivers/clocksource/timer-imx-gpt.c:mxc_clockevent_init() {
-> 	...
-> 	clockevents_config_and_register(ced, clk_get_rate(imxtm->clk_per),
-> 					0xff, 0xfffffffe);
-> 	...
-> }
->=20
-probably that min_delta should be set to 3 with a 32.768kHz clock as
-other drivers do.
-
-> At 32768 Hz, 255 ticks is ~7.78 ms, so clockevents_program_event() clamps
-> every timer or hrtimer wakeup below 7.78 ms (including scheduler ticks at
-> CONFIG_HZ >=3D 200 and short cpuidle sleeps) to 7.78 ms.
->=20
-> At 32768 Hz, mxc_clocksource_init() also reduces sched_clock and
-> clocksource resolution to ~30.5 us, and register_current_timer_delay()
-> rejects imx_delay_timer because its resolution exceeds 1000 ns, falling
-> back to loop-based udelay() on a board with cpufreq scaling.  In addition,
-> the GPT clock inputs are internal to the i.MX6SLL SoC, so overriding the
-> per clock in the board DTS does not describe board-specific hardware.
->=20
-As stated, using that 32K clock has drawbacks, so it is a tradeoff.
-Only if this additional idle state improves PM, that drawbacks should be
-imposed on boards.=20
-
-Regards,
-Andreas
+Thanks,
+Fil
