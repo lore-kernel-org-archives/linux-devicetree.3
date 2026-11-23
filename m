@@ -1,100 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795428283;
-	b=eA5zKHJEcPwLEP9tOh5KA7UU+hOtnwDblQxCepefCufvgK8COoj5vQKhdSmmI+8Gm0x0
-	 P5ONSHTG1U6N3OBuE/nGWbXDyzQaNV9lse4XNtkwK2M7DOoVpLRWzFxgsKCQguHDia173
-	 TBMUIswTOJ2wDglNbAb+/1avUHaTw+85Immv7ywX3v1TSqcqK9WgU1FzB9MmEyaiyuOWX
-	 JUPNkAoJzEqfOB1RMJUAhe1eM12rv7AfnP6a4r98/jYfYRIWHampEZUxkD+YNcH2BXI3e
-	 OInwwn2b/2aKJnRhRDRbIv42EmWymbbiMXwCiBR8UuEy8l3HWmIaYU3U1dKKMkHHtUw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795428283;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6UD6d4OR7O5/YFJwC3m/R5TqgdXj9WG+ZTBm269rAHk=;
-	b=Y5/Uj9l9QT4wupffKuJBSHg5CmH+z69B6VD2JlcuVeGX8YUj1n94pws95JKtwl3Ld4ku
-	 e+04aZswltWwk55HAFEIG/rRlCS5n2qKI5JdXqtWjlIqtP7c4WDfXxpaKyDPjmm4epeHD
-	 5wAYGbgMm1vaTjUzwddxMhcRf1XTPZBd/kwrQe8uwOag+an+FY4emxKKPmkD+QbYmR7N2
-	 iNqfIrPsGR4qH5VoXgXq+nIDjuaJSu2/qsj+VWqk6N5qbNj865BwOCcdrdU4NDvsYDiGr
-	 xt9bK1VLOIEBmhPvgVmBnTWV7+SJzQYT4pGNpT+A/r36Wt6ZF0RTrpfsvJ/zPJX5Elw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=fEskxHSQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795428329;
+	b=tkmxtTmxy1PNLSzALs7Z47wt8DlUunsKlnW9DFw4GSo39oIDag7IKCYTD/GSqKBT/dBf
+	 gQaakF5mgEFmXBZzTIKmQuAokKDtwfj+JUKSb7SUObiGRTrPHbHDwZPPv0qnphzhaPWSG
+	 PPc0Xo89caAn3LnMf1h1lDt8Xb/KRMBZl8U3VW+1c3V6SNeF6ZJblRxo/zw8YtripByst
+	 HKE1wloH6nA4fMb91TQz4QnWtxTjxmd48jM37RsarJFZUvqWr+cQBUmeAb0L/03h3pMkt
+	 DVUn+EZCkZhml0D9ScoP1mTI1RuqE1NUPV+jZHidHXu1L+ecM0XgIujCLErHl8sGssQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795428329;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=QQZgVkcJ/TANVsFTmZIKMPM1BlK5beIL8SDsM5Ps0CU=;
+	b=5JSTGxvAljyYyF1hnRJ5XrZjyAVa6/yyxNtBH0UMJwJCk5oi7wdxojqljgqJ/n30wqBe
+	 YmDol6fvyGVXzweCiJSU3liTcSUK6HNAUMdIKkAElEPCrdUKixtPrSLbzk5YYAtUrdlp1
+	 e++I4JV+t8Oq1FqgYoIWZw3ZbA3tr2/58V0FCFppzZO6RjtqltkZYwsBE64sDRdh7xgin
+	 HXP75gteHsc7PM0vA+b9JhtKHGH0YI/k9V1wzYug7sQi3wCJ3lOCC0WFg1ussr3L8VB6Y
+	 plXuHCoakSGiXLZ8hGWXgDMOIxukA4jR+3ci6SMWHiLrAfVaSmGQzSRcMlcO3wVr5EA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwtoyoAV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF07F606A31A
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 10:04:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF07F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6615D606A32C
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 10:05:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=fEskxHSQ
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso3836838a12.1
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 02:04:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795428281; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WRTBSWYCi59GWdSTPWUce8XenFWXTIyW4aekZbKYX12qhb1DiMIgaJQX8Dql59V2H3
-         5ib7BU8JaIEm5LijM64aburD3ExhHelFDgVC3nv91VI+Yl6Sji30B/twezOI/InEIWMb
-         y+u/OmcN1aMpj66uedYnR/u1qclLOHItr+r+RvYh7toIJp5jbdxsKMMSdbZdxOHXob7X
-         Ke4Jh2I1RgzbXjjsV20IlGlNDK5eDtnjrhz3FBJEduyD2kewFIN2RmOdkmb4gYNQFl7b
-         rU4AapWnyhLhrYMqXYHKE3VfazfqfPrhvraE/hLIZZoW7MNe43RJumR4PD5m8VNKQSOr
-         Ysrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6UD6d4OR7O5/YFJwC3m/R5TqgdXj9WG+ZTBm269rAHk=;
-        fh=4lL5FRiWnwYM3MLneyqOkh5Z/OeP3xJ7pebKc9jbgZE=;
-        b=QNW/2YLa3Qbv54ut2KQFd5enqS3jluOC6726Lid7qjNUrXEdK7r34GJiEiIHqKW6xf
-         lSqbwiJxGGG7nrOx4ww0tX5CMrUNHSlDsQXIrlPGMHiW4lA3h3F+yf0EcJ5rQ2AP2Q4H
-         aMiTb4YJEz2BxD8fyXFHy4ro+rIkZOxn1B2g7VN9vm2y5kKY/bjU8S5ndJKB+G/0NjUI
-         6Eg2nY1lO6rZ8jfhs/nqpybn9/CoiPNF90WlqkAc63B4hzsgcdBn6m19hTda8ffA5pOP
-         54W1ycPKSBJuSYwa0Iw9vVizRk66cS9Bj7nXvmJQ3iTvj5r/xOI6h03Ysoz7pQLov5nT
-         mZew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1795428281; x=1796033081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6UD6d4OR7O5/YFJwC3m/R5TqgdXj9WG+ZTBm269rAHk=;
-        b=fEskxHSQrfKjI66o/PpuzFTiLwe24il6dEoMqkWtkIvNllSUSzSOYCuqDTFWkeE2d3
-         bL6W4hf36LVvsVTm0XR+yrXS0JcEqlIaSGiOwRNQpBSfcu1t6xcrV1Z3/pb+x5cwcDuJ
-         zV1kKB/cAfkRSBWWnWPskdwMMxk+5lOuJI8zr+e81cgEv2YjKCI3WfdDWaieCXTmGwfd
-         Dcx4N7LoRSxFEbT4l8ZAwr9XshIOLKpD5yKD6Og/sDqP0N6sgC+0xZz9cHSyjSI8+UuC
-         bOcujU9jTNteuQLRkBak7LasmMi7fRyU2L7ZThR7SVzYnSW067bEEcaWZyxoD5PSpjfk
-         3OHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795428281; x=1796033081;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6UD6d4OR7O5/YFJwC3m/R5TqgdXj9WG+ZTBm269rAHk=;
-        b=qjkxhPNdaIbgU9HwD3c0yQfQ/Zge0SpvppXVTtNfRt5seMZa+2FqoDHSFb6GUt81x3
-         cfyU0cInR+BnX9DgJULuamSv6qbTIo+MhVx/FhRll5wMRrPqJ26+/HeFJrctGLuLdnto
-         4wXpYXcYHPFKbs/QcQpRZQ4eSrCvm+sCXJY7EV52ekzQ/+RLDKaIEP+r0gH/YRRtvNdS
-         rywUnjXBhXjvXFTUt/jfX/RyQcEQcifU3G6L5eGO8mcDsR+FpcSRWWDfr/Rg3/Xx7+LX
-         M2Lm0QLxDdSScaBr5mJm6ShNilnpyO+koprYtN2SHzVKYk1OY1IC0HwlDiSMRgVVcyzw
-         Dm/w==
-X-Forwarded-Encrypted: i=1; AL+hErEpmrCp3+jK4h4AZoYZwBM7EVVwyci5WfIFRIKLGEf+8TkeSAfjdJz5azhK9IIL9Ar/NieBVk9HS6XM@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Qc3aWg3BklWx2fG87NVvLRgQ4ywiTyGKr1A60TlAGW51irLKe
-	O9Ud+hF2dqBW7pe5uT/Q+xzqdWz/xH3w3cOX2ADjtt8XYAywbONtmbST2S+tmuGYsyxGItd0f/q
-	NRxEIk4XMW2Bw9Zk8JHFzBvmXAyAo/VDdu6F+6fFJsw2tCPtyrWe0Aes=
-X-Gm-Gg: AZFdTZero/Z9+BvXMOURXxLR1ej1RF9JKy7cgo/CSLu3IYNgBbPIKa/0wcB7YVuv5kS
-	zJRAmw3jfYX+Wzi29ijKKvMptCAms6s2+SLz82QZrNWT8+XR1LQ0EFg3p8DJkL2/+NY9W45dKB+
-	O4AtvpkmCBrhE5jFSFNxfwmk66hFeVxQWV46sg00ApG2PeqxMOAYAWiILDHvEjvg/JV3hui31pe
-	RBliJJMu8FKUQiaIGJa80/HkXDTh6xr9iYT4UyNMeeG0eL0LkS/4ZqyLbKXrF8NDYJhdOwKEy1F
-	Mg2FbGXSM7Mpy+fkhCYslY0ORWI1+uQDi6LQJIHgYJAmAUU0uYtusCSQM2Dnrdf+64Q2IMAtkyB
-	TA3pBgaAEpRIsYDakMW+P33m8mywVWCvFfGFJKQSDejR6WxmNTK/QhX4=
-X-Received: by 2002:a17:906:2707:b0:c51:2064:1958 with SMTP id
- a640c23a62f3a-c513a39efe6mr814320766b.2.1795428281172; Mon, 23 Nov 2026
- 02:04:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwtoyoAV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80EF01F000D0;
+	Mon, 23 Nov 2026 10:05:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795428328;
+	bh=QQZgVkcJ/TANVsFTmZIKMPM1BlK5beIL8SDsM5Ps0CU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RwtoyoAVM+wV9kg4/rl9qhapdfUUw8GT7mtWCuuxLNcDboEUl43sl5z9nd62ACrJW
+	 txoqFd8+Dryemiof/tiShjqwcoFyXRjVTAEt1+b6cwvkUwi++dcUcBE1DvOFjcacUy
+	 83BqiTV6/UAjgrbECYBcpe+z2VYVF1frQzCfQfoOn6ijRIe6cMWjWmw4wvk60NCFY5
+	 2Wnrqievite5qwdNXxC3fnY03gJievPGSJoTH0JwFft6i/bhuYXQsm2QtWWaksY1M4
+	 SAnNG2y8RPGwWpHsjBYrjGSAbWa98d/SxItXiH3XkoGHU+zAV+nm3yqnSj/4TsEt/V
+	 rocjJ3YbeG+NQ==
+Message-ID: <sashiko-outbox-229025@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/5] spi: loongson-io: Add SPI-IO interrupt-driven
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Binbin Zhou" <zhoubinbin@loongson.cn>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <010b8f2cd618854142124c6418f4e9ccb80fb852.1795425389.git.zhoubinbin@loongson.cn>
+References: <cover.1795425389.git.zhoubinbin@loongson.cn>
+ <010b8f2cd618854142124c6418f4e9ccb80fb852.1795425389.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 10:05:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,383 +60,219 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261122-pcie6_fix-v2-0-2e0fe615d90b@oss.qualcomm.com> <20261122-pcie6_fix-v2-1-2e0fe615d90b@oss.qualcomm.com>
-In-Reply-To: <20261122-pcie6_fix-v2-1-2e0fe615d90b@oss.qualcomm.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 23 Nov 2026 14:04:29 +0400
-X-Gm-Features: Aa3M54pOZMnCeWnbYXgIXixZWgeLWc5StKGtiBVYf4ZIEkVQkWFUunq1ArlQkOQ
-Message-ID: <CAKTNdwEFSDn4K_15pVK7=ZEWwanHQ284R4=spWWLCB0UspEMow@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: connector: Add PCIe M.2 Mechanical
- Key B connector
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Krishna,
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] spi: loongson-io: missing error IRQ enables and uncleared SR1
+  in ISR
+- [High] spi: loongson-io: 32-bit divisor truncation in
+  loongson_spi_io_timeout()
+- [Medium] spi: loongson-io: IRQ enabled before hardware and batch init
+  in probe/xfer
+- [Medium] spi: loongson-io: unsynchronized timeout in
+  loongson_spi_io_transfer_one()
+- [Low] spi: loongson-io: inverted @high CS contract in
+  loongson_spi_io_set_cs()
+--
 
-On Sun, Nov 22, 2026 at 10:46=E2=80=AFAM Krishna Chaitanya Chundru
-<krishna.chundru@oss.qualcomm.com> wrote:
->
-> Add the devicetree binding for PCIe M.2 Mechanical Key B connector
-> defined in the PCI Express M.2 Specification, r4.2, sec 3.2.19.1. This
-> connector is used to attach WWAN Adapters to the host machine over
-> interfaces such as PCIe, USB3.1 Gen1, SSIC, or USB 2.0. The slot also
-> accepts SATA and PCIe SSD Adapters, which use the same pins.
->
-> Interfaces that share connector pins are described as one graph port
-> per pin group, with the endpoint number selecting between the mutually
-> exclusive interfaces.
->
-> The connector provides a primary power supply of 3.3V/VBAT, along with
-> optional GPIO signals: FULL_CARD_POWER_OFF#, RESET#, W_DISABLE1# and DPR
-> for WWAN Adapters, and DEVSLP, PLN# and SMBus ALERT# for SSD Adapters,
-> plus an I2C parent for the SSD SMBus.
->
-> The function of the GPIO_0..GPIO_11 pins depends on the Port
-> Configuration, so they are described by gpioN-gpios properties with the
-> function of each pin per configuration documented in the binding. The
-> Adapter configuration is either sensed through config-gpios
-> (CONFIG_0..3) or fixed with config-state, which defaults to WWAN PCIe.
->
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.co=
-m>
-> ---
->  .../bindings/connector/pcie-m2-b-connector.yaml    | 332 +++++++++++++++=
-++++++
->  MAINTAINERS                                        |   1 +
->  2 files changed, 333 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/connector/pcie-m2-b-connec=
-tor.yaml b/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.=
-yaml
+commit 7a2b450ad49a89d82f040f8bc7f2f42d5aadeb60
+Author: Binbin Zhou <zhoubinbin@loongson.cn>
+
+spi: loongson-io: Add SPI-IO interrupt-driven driver
+
+This commit adds an interrupt-driven platform driver for the Loongson-2K0300
+SPI-IO controller (SPI2 and SPI3).
+
+> diff --git a/drivers/spi/spi-loongson-io.c b/drivers/spi/spi-loongson-io.c
 > new file mode 100644
-> index 000000000000..4760863ff4f7
+> index 0000000000000..e273c9f4a9430
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/connector/pcie-m2-b-connector.yam=
-l
-> @@ -0,0 +1,332 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/connector/pcie-m2-b-connector.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: PCIe M.2 Mechanical Key B Connector
-> +
-> +maintainers:
-> +  - Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> +
-> +description:
-> +  A PCIe M.2 B connector node represents a physical PCIe M.2 Mechanical =
-Key B
-> +  connector. Mechanical Key B connectors are used to connect WWAN device=
-s to
-> +  the host machine over interfaces like PCIe, USB3.1 Gen1, SSIC, or USB =
-2.0,
-> +  selected by the Adapter's configuration pins. The slot also accepts SA=
-TA and
-> +  PCIe SSD Adapters, which use the same pins as the WWAN interfaces.
-> +
-> +properties:
-> +  compatible:
-> +    const: pcie-m2-b-connector
-> +
-> +  vpcie3v3-supply:
-> +    description: A phandle to the regulator for the 3.3v/VBAT supply.
+> +++ b/drivers/spi/spi-loongson-io.c
+> @@ -0,0 +1,737 @@
 
-The node name doesn't match what the spec calls it ("pcie" seems
-redundant). Also, can a module have separate supplies for its 3.3v and
-VBAT?
+[ ... ]
 
-> +  full-card-power-off-gpios:
-> +    description: GPIO output to FULL_CARD_POWER_OFF# signal. This signal=
- is
-> +      used by the host system to turn off the entire Adapter. Refer, PCI
-> +      Express M.2 Specification r4.0, sec 3.2.13.1 for more details.
-> +    maxItems: 1
+> +static unsigned long loongson_spi_io_timeout(struct loongson_spi_priv *p=
+riv,
+> +					     struct spi_transfer *xfer)
+> +{
+> +	u64 frames =3D xfer->len / priv->frame_bytes;
+> +	u64 nsec =3D frames * priv->bits_per_word * NSEC_PER_SEC;
+> +	u32 rate =3D priv->hz ? priv->hz : 1000;
+> +	u64 msec =3D DIV_ROUND_UP_ULL(nsec, (u64)rate * NSEC_PER_MSEC);
 > +
-> +  reset-gpios:
-> +    description: GPIO output to RESET# signal. This signal is used by th=
-e
-> +      host system to place the WWAN Adapter into a power-on reset condit=
-ion.
-> +      Refer, PCI Express M.2 Specification r4.0, sec 3.2.13.2 for more
-> +      details.
-> +    maxItems: 1
+> +	return msecs_to_jiffies(max_t(u64, msec * 2, 1000));
+> +}
+
+[Severity: High]
+Does DIV_ROUND_UP_ULL() truncate the 64-bit divisor (u64)rate * NSEC_PER_MS=
+EC
+to 32 bits?
+
+DIV_ROUND_UP_ULL() expands to do_div(), which casts its divisor to uint32_t.
+For any SPI clock rate >=3D 4,295 Hz, (u64)rate * NSEC_PER_MSEC exceeds
+U32_MAX, corrupting the timeout calculation, and when rate is a multiple of
+67,108,864 Hz (2^26 Hz), the truncated 32-bit divisor becomes zero and caus=
+es
+a division-by-zero panic.  In addition, because transfers run in 4-byte IRQ
+batches, computing the timeout from ideal wire speed alone leaves large
+high-speed transfers clamped at the 1000 ms floor despite per-batch interru=
+pt
+and MMIO overhead; using DIV64_U64_ROUND_UP() avoids the divisor truncation.
+
+[ ... ]
+
+> +/**
+> + * loongson_spi_io_set_cs() - Set the hardware chip-select output
+> + * @spi: SPI target device
+> + * @high: true to assert chip select
+> + *
+> + * The SSREV bit controls the hardware chip-select assertion state.
+> + */
+> +static void loongson_spi_io_set_cs(struct spi_device *spi, bool high)
+> +{
+> +	struct loongson_spi_priv *priv =3D spi_controller_get_devdata(spi->cont=
+roller);
+> +	u32 val =3D high ? LOONGSON_SPI_IO_CR1_SSREV : 0;
 > +
-> +  w-disable1-gpios:
-> +    description: GPIO output to W_DISABLE1# signal. This signal is used =
-by
-> +      the host system to disable the WWAN radio on the Adapter. Refer, P=
-CI
-> +      Express M.2 Specification r4.0, sec 3.1.12.3 for more details.
-> +    maxItems: 1
+> +	loongson_spi_update_bits(priv, LOONGSON_SPI_IO_CR1_REG,
+> +				 LOONGSON_SPI_IO_CR1_SSREV, val);
+> +}
 
-Shouldn't we also have w-disable2-gpios? The first one typically
-controls the WWAN radio, and the second one controls GNSS.
+[Severity: Low]
+Is the @high polarity in loongson_spi_io_set_cs() inverted relative to the
+SPI core's set_cs() contract?
 
-> +  dpr-gpios:
-> +    description: GPIO output to the Dynamic Power Reduction (DPR) signal=
-.
-> +      This signal is provided by a host system proximity sensor to the
-> +      Adapter to trigger a reduction in the radio transmit output power =
-to
-> +      meet regulatory SAR requirements. Refer, PCI Express M.2 Specifica=
-tion
-> +      r4.0, sec 3.2.13.4 for more details.
-> +    maxItems: 1
+Because SPI_CS_HIGH is not set in host->mode_bits, spi_set_cs() passes
+high =3D=3D false (logic low) to assert an active-low chip select and
+high =3D=3D true (logic high) to deassert it.  If LOONGSON_SPI_IO_CR1_SSREV
+asserts chip select as the comment states, the ternary condition is inverte=
+d;
+if it drives the CS line high, the kernel-doc comment is inverted.
+
+[ ... ]
+
+> +static irqreturn_t loongson_spi_io_irq_handler(int irq, void *dev_id)
+> +{
+> +	struct loongson_spi_priv *priv =3D dev_id;
+> +	u32 rx_data;
+> +	u32 sr1;
 > +
-> +  alert-gpios:
-> +    description: GPIO input to the SMBus ALERT# signal (pin 44, shared w=
-ith
-> +      GPIO_2). SSD Adapters assert this signal to indicate to the host t=
-hat
-> +      the SMBus device requires attention. It is not present on WWAN
-> +      Adapters. Refer, PCI Express M.2 Specification r4.2, sec 3.2.14.2.=
-1
-> +      for more details.
-> +    maxItems: 1
-
-It's also GNSS_IRQ in Port Config_0 and Port Config_1, so that should
-probably be reflected in the description. Or maybe treat all
-multi-function GPIOs (GPIO_0..GPIO_11) uniformly, and either define
-all alt functions for each of them, or none? Otherwise, this one looks
-out of line with the rest.
-
-> +  i2c-parent:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: Phandle to the host I2C controller connected to the SMB=
-us
-> +      pins SMB_CLK and SMB_DATA (pins 40 and 42, shared with GPIO_0 and
-> +      GPIO_1). The SMBus is only present on SSD Adapters. Refer, PCI Exp=
-ress
-> +      M.2 Specification r4.2, sec 3.2.14.2 for more details.
-
-It's also GNSS_SCL/GNSS_SDA in Port Config_0 and Port Config_1, so
-that should probably be reflected in the description.
-
-On a broader point, I see you've decided to keep the "slow" interfaces
-and GPIOs out of the ports schema - is that intentional? I'm afraid
-that would make referencing e.g. the audio interface provider more
-cumbersome. Maybe we need to define a DAI subnode for it then?
-
-Also, should pinctrl groups corresponding to different interface
-configurations be part of the binding?
-
-> +  devslp-gpios:
-> +    description: GPIO output to the DEVSLP signal (pin 38). The host ass=
-erts
-> +      this signal to tell a SATA SSD to enter the Device Sleep power sta=
-te.
-> +      It is only present on SATA SSD Adapters. Refer, PCI Express M.2
-> +      Specification r4.2, sec 3.2.10.1 for more details.
-> +    maxItems: 1
+> +	sr1 =3D loongson_spi_readl(priv, LOONGSON_SPI_IO_SR1_REG);
 > +
-> +  pln-gpios:
-> +    description: GPIO output to the Power Loss Notification (PLN#) signa=
-l
-> +      (pin 8, shared with W_DISABLE1#). The host asserts this signal to
-> +      notify a PCIe SSD that a power loss event is about to occur. WWAN
-> +      boards use w-disable1-gpios for this pin instead. Refer, PCI Expre=
-ss
-> +      M.2 Specification r4.2, sec 3.2.18.1 for more details.
-> +    maxItems: 1
-> +
-> +  config-gpios:
-> +    description: |
-> +      GPIO inputs sensing the four CONFIG_0..3 pins (pins 21, 69, 75 and=
- 1
-> +      respectively, listed in that order in this property). The Adapter
-> +      grounds or leaves unconnected (NC) each of these pins to tell the =
-host
-> +      the Adapter type, the host interface in use and, for WWAN Adapters=
-, the
-> +      active GPIO_0..11 Port Configuration. Boards that only ever use on=
-e
-> +      Adapter type should use config-state instead. If both properties a=
-re
-> +      present, config-gpios takes precedence. Refer, PCI Express M.2
-> +      Specification r4.2, sec 3.2.15 and Table 3-18 for more details.
+> +	if (sr1 & LOONGSON_SPI_IO_SR1_ERR_MASK) {
+> +		dev_err(&priv->controller->dev, "SPI error: SR1=3D0x%x", sr1);
+> +		loongson_spi_writel(priv, LOONGSON_SPI_IO_IER_REG, 0);
+> +		priv->xfer_ret =3D -EIO;
+> +		complete(&priv->xfer_completion);
+> +		return IRQ_HANDLED;
+> +	}
 
-s/only ever use/only support/ ?
+[Severity: High]
+Does the error path in loongson_spi_io_irq_handler() leave
+LOONGSON_SPI_IO_SR1_ERR_MASK latched in LOONGSON_SPI_IO_SR1_REG while none =
+of
+the error interrupt bits are enabled in LOONGSON_SPI_IO_IER_REG?
 
-Shall we enforce that only one of `config-gpios` or `config-state` is
-present via the schema, and remove the precedence description from the
-text?
+loongson_spi_io_transfer_one() only enables LOONGSON_SPI_IO_IER_EOTIE, so an
+overrun, underrun, mode fault, or CRC error that halts a transfer before EOT
+never raises an interrupt and stalls until the transfer timeout.  Conversel=
+y,
+because loongson_spi_io_irq_handler() does not mask sr1 against
+LOONGSON_SPI_IO_IER_REG and does not write LOONGSON_SPI_IO_SR1_ERR_MASK back
+to LOONGSON_SPI_IO_SR1_REG to clear the status bits, any latched error bit
+causes every subsequent interrupt from another device on the shared IRQ line
+to re-enter this error branch, log an error, and complete
+priv->xfer_completion while idle.
 
-> +      Table 3-18. Socket 2 Add-in Card Configuration:
-> +
-> +        CONFIG_0 CONFIG_1 CONFIG_2 CONFIG_3  Adapter Type / Host Interfa=
-ce   Port Config
-> +        GND      GND      GND      GND       SSD - SATA                 =
-      N/A
-> +        GND      NC       GND      GND       SSD - PCIe                 =
-      N/A
-> +        GND      GND      NC       GND       WWAN - PCIe                =
-      0
-> +        GND      NC       NC       GND       WWAN - PCIe                =
-      1
-> +        GND      GND      GND      NC        WWAN - PCIe, USB3.1 Gen1   =
-      0
-> +        GND      NC       GND      NC        WWAN - PCIe, USB3.1 Gen1   =
-      1
-> +        GND      GND      NC       NC        WWAN - PCIe, USB3.1 Gen1   =
-      2
-> +        GND      NC       NC       NC        WWAN - PCIe, USB3.1 Gen1   =
-      3
-> +        NC       GND      GND      GND       WWAN - SSIC                =
-      0
-> +        NC       NC       GND      GND       WWAN - SSIC                =
-      1
-> +        NC       GND      NC       GND       WWAN - SSIC                =
-      2
-> +        NC       NC       NC       GND       WWAN - SSIC                =
-      3
-> +        NC       GND      GND      NC        WWAN - PCIe                =
-      2
-> +        NC       NC       GND      NC        WWAN - PCIe                =
-      3
-> +        NC       GND      NC       NC        WWAN - PCIe, USB3.1 Gen1   =
-      vendor-defined
-> +        NC       NC       NC       NC        No Add-in Card present     =
-      N/A
-> +    minItems: 4
-> +    maxItems: 4
-> +
-> +  config-state:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Fixed Adapter configuration for boards that do not sense the CONFI=
-G_0..3
-> +      pins, given as the state number (0-14) of Table 3-18 of the PCI Ex=
-press
-> +      M.2 Specification r4.2. It selects the Adapter type, the host inte=
-rface
-> +      and, for WWAN Adapters, the Port Configuration used to interpret t=
-he
-> +      gpioN-gpios properties. Ignored if config-gpios is present. If nei=
-ther
-> +      property is present, state 2 (WWAN - PCIe, Port Config_0) is assum=
-ed.
+[ ... ]
 
-Does state 2 follow from the spec? It sounds arbitrary; perhaps
-mandating either config-gpios or config-state via "required" would be
-clearer.
+> +	reinit_completion(&priv->xfer_completion);
+> +	priv->xfer_mode =3D XFER_INTERRUPT;
+> +
+> +	loongson_spi_update_bits(priv, LOONGSON_SPI_IO_CR1_REG,
+> +				 LOONGSON_SPI_IO_CR1_AUTOSUS,
+> +				 LOONGSON_SPI_IO_CR1_AUTOSUS);
+> +	loongson_spi_update_bits(priv, LOONGSON_SPI_IO_IER_REG,
+> +				 LOONGSON_SPI_IO_IER_EOTIE,
+> +				 LOONGSON_SPI_IO_IER_EOTIE);
+> +
+> +	loongson_spi_io_start_batch(priv);
+> +
+> +	ret =3D wait_for_completion_timeout(&priv->xfer_completion,
+> +					  loongson_spi_io_timeout(priv, xfer));
+> +	priv->xfer_mode =3D XFER_IDLE;
+> +
+> +	if (ret =3D=3D 0) {
+> +		loongson_spi_writel(priv, LOONGSON_SPI_IO_IER_REG, 0);
+> +		dev_err(&spi->dev, "Interrupt transfer timeout");
+> +		return -ETIMEDOUT;
+> +	}
+> +
+> +	return priv->xfer_ret;
+> +}
 
-> +    minimum: 0
-> +    maximum: 14
-> +    default: 2
-> +
-> +  clocks:
-> +    description: 32.768 KHz Suspend Clock (SUSCLK) input from the host s=
-ystem to
-> +      the M.2 card. Refer, PCI Express M.2 Specification r4.0, sec 3.1.1=
-2.1 for
-> +      more details.
-> +    maxItems: 1
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    description: OF graph bindings modeling the interfaces exposed on th=
-e
-> +      connector. Several interfaces share the same connector pins and ar=
-e
-> +      selected by the CONFIG_0..3 pins, so each port describes one group=
- of
-> +      pins and its endpoints describe the mutually exclusive interfaces =
-that
-> +      can be present on that group.
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: |
-> +          Pins 41, 43, 47 and 49. The endpoint number selects the interf=
-ace:
-> +            0 - PCIe lane 0
-> +            1 - SATA
-> +        patternProperties:
-> +          '^endpoint(@[0-9a-f]+)?$':
-> +            type: object
-> +            properties:
-> +              reg:
-> +                enum: [0, 1]
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: |
-> +          Pins 29, 31, 35 and 37. The endpoint number selects the interf=
-ace:
-> +            0 - USB3.1 Gen1
-> +            1 - SSIC
-> +            2 - PCIe lane 1
-> +        patternProperties:
-> +          '^endpoint(@[0-9a-f]+)?$':
-> +            type: object
-> +            properties:
-> +              reg:
-> +                enum: [0, 1, 2]
-> +
-> +      port@2:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: USB 2.0 interface (pins 7 and 9)
-> +
-> +    anyOf:
-> +      - required:
-> +          - port@0
-> +      - required:
-> +          - port@1
+[Severity: Medium]
+Can a timeout in loongson_spi_io_transfer_one() race with an in-flight
+loongson_spi_io_irq_handler() on another CPU?
 
-Can there be a USB 2.0-only host that provides neither port@0 nor port@1?
+CPU0                              CPU1
+loongson_spi_io_transfer_one()
+  wait_for_completion_timeout()
+  /* times out */
+                                  loongson_spi_io_irq_handler()
+                                    switch (priv->xfer_mode)
+                                    case XFER_INTERRUPT:
+  priv->xfer_mode =3D XFER_IDLE;
+  loongson_spi_writel(..., IER_REG, 0);
+  return -ETIMEDOUT;
+spi_transfer_one_message()
+  spi_dma_sync_for_cpu()
+                                      memcpy(priv->rx_buf, ...)
+                                      loongson_spi_io_start_batch()
+                                        loongson_spi_update_bits(CR1_REG)
+  spi_set_cs()
+    loongson_spi_io_set_cs()
+      loongson_spi_update_bits(CR1_REG)  <-- unlocked RMW race
+  loongson_spi_io_handle_err()
+    synchronize_irq(priv->irq)
 
-> +patternProperties:
-> +  '^gpio([0-9]|1[01])-gpios$':
-> +    description: |
-> +      GPIO connected to the GPIO_<N> pin of the connector, where N is th=
-e
-> +      number in the property name. The function of these pins depends on=
- the
-> +      Port Configuration selected by config-gpios or config-state (Table=
- 3-15
-> +      of the PCI Express M.2 Specification r4.2, sec 3.2.13.3):
-> +
-> +        GPIO  Pin  Config_0     Config_1     Config_2     Config_3
-> +        0     40   GNSS_SCL     GNSS_SCL     SIM_DETECT2  IPC_0
-> +        1     42   GNSS_SDA     GNSS_SDA     UIM_DATA2    IPC_1
-> +        2     44   GNSS_IRQ     GNSS_IRQ     UIM_CLK2     IPC_2
-> +        3     46   SYSCLK       GNSS_0       UIM_RESET2   IPC_3
-> +        4     48   TX_BLANKING  GNSS_1       UIM_PWR2     IPC_4
-> +        5     20   AUDIO_0      AUDIO_0      RFU          AUDIO_0
-> +        6     22   AUDIO_1      AUDIO_1      RFU          AUDIO_1
-> +        7     24   AUDIO_2      AUDIO_2      RFU          IPC_5/AUDIO_2
-> +        8     28   AUDIO_3      AUDIO_3      PLA_S2#      IPC_6/AUDIO_3
-> +        9     10   LED_1#       LED_1#       LED_1#       DAS/DSS/IPC_7
-> +        10    26   W_DISABLE2#  W_DISABLE2#  W_DISABLE2#  HSIC_STROBE
-> +        11    23   WoWWAN#      WoWWAN#      WoWWAN#      HSIC_DATA
-> +
-> +      The IPC_0..7 functions of Port Config_3 are vendor defined, as are=
- all
-> +      functions in CONFIG state 14.
-> +
-> +      On SSD Adapters (CONFIG states 0 and 1) the same pins are SMB_CLK
-> +      (GPIO_0), SMB_DATA (GPIO_1), ALERT# (GPIO_2), PLA_S2# (GPIO_8), an=
-d
-> +      LED_1# or, on SATA, DAS/DSS (GPIO_9).
-> +
-> +      Only list the pins that are wired to a host GPIO. Pins used as a b=
-us
-> +      signal in the selected Port Configuration (I2C, I2S/SLIMbus, HSIC)=
- are
-> +      not GPIOs and are not described by these properties.
+Because loongson_spi_io_transfer_one() returns -ETIMEDOUT without a spinlock
+or synchronize_irq(priv->irq), spi_transfer_one_message() runs
+spi_dma_sync_for_cpu() and loongson_spi_io_set_cs() before calling
+loongson_spi_io_handle_err().  A concurrent ISR that already read
+XFER_INTERRUPT can touch priv->rx_buf and priv->tx_buf, start another hardw=
+are
+batch, and perform an unlocked read-modify-write on LOONGSON_SPI_IO_CR1_REG
+concurrently with loongson_spi_io_set_cs(), clobbering
+LOONGSON_SPI_IO_CR1_SSREV or LOONGSON_SPI_IO_CR1_CSTART.
 
-Should those bus signals be reflected in the binding though?
+[ ... ]
 
-Best regards,
-Alexey
+> +	ret =3D devm_request_irq(dev, priv->irq, loongson_spi_io_irq_handler,
+> +			       IRQF_SHARED, dev_name(dev), priv);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to request IRQ");
+> +
+> +	loongson_spi_io_reginit(priv);
+> +	loongson_spi_writel(priv, LOONGSON_SPI_IO_IER_REG, 0);
+
+[Severity: Medium]
+Can an interrupt on the shared IRQ line fire in loongson_spi_io_probe() bef=
+ore
+the controller registers are initialized and LOONGSON_SPI_IO_IER_REG is
+masked?
+
+devm_request_irq() registers the IRQF_SHARED handler before
+loongson_spi_io_reginit() runs and before LOONGSON_SPI_IO_IER_REG is cleared
+(and without clearing stale status flags in LOONGSON_SPI_IO_SR1_REG).
+Similarly, in loongson_spi_io_transfer_one(), priv->xfer_mode =3D XFER_INTE=
+RRUPT
+and LOONGSON_SPI_IO_IER_EOTIE are set before loongson_spi_io_start_batch()
+initializes priv->batch_size and clears LOONGSON_SPI_IO_SR1_EOT, leaving a
+window where a shared or stale IRQ sees the previous transfer's
+priv->batch_size.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795425389.gi=
+t.zhoubinbin@loongson.cn?part=3D3
