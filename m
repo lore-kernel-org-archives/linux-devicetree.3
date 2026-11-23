@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795427651;
-	b=1eEKawgtRjkTEsdUkjsdGsc9eyYjiH4PNDXZnVRGLyIbCVOiA0/2EHYEZwt/cJwPY2U/
-	 Su5za8GdCKU/O6BCBeGff3QeHEZTOaHQxnWd1UjzciYIQj64ayVD7Jp7ePRe2C/rraLVS
-	 ihi3Pa73PbqKtZCggikgh1q8tiBkCK0jYnqBRrfeB5zzZ/2fSlU5OzTu8/Dy0Z8WmnI/0
-	 pso4UsH705quRCtXiXgRUAT6hofc3fKUXGpSkx3ipkGlOcDSP+Emdmu/UQn+yfXRXaiGt
-	 UA6Ot8KKksOyZJP49bkjeT1d9iQVRVN2vfj+ngO5gBocA8ckmvONhan6HT96+pddWqg==
+	t=1795427745;
+	b=tMo2CXihEz5oeuHCfsRMNG7EMi3UaPBc+jw8g932RyfhlDDCFJWoJPPKKs/CHdadZ//r
+	 aQ98+pMVeYWvQavANudU90K1Db+Ug8Z2jZsMkzNB2YVpy4Ziyj5QeYMxbcKtEWTLrctM8
+	 1mIubs9xEx0XZOLwiEIF7QYZeQ5ZNz8VyqWcnO635iKqMIuK0HewSUI4UesBhqR9iH85O
+	 QDWN83H1QQVs7X4L5dXAHsavzeo0rcbyj/fStgeDWfshPJVwrMSGFIV8HIzhct+G3YnCG
+	 X9k7p4tZjKoJvklMMc9H4bhjGoX+OCqFeJOoy8BdB5k+o5bEUrg7h9Kguj/f0rKvrCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795427651;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gVlfHHEUqZRERxmYhHaGuD98Z2SfQm74q1NG7Z4SJtc=;
-	b=C/vD7mXOivSDoKM1PCcenzkytSKO1QskNhLGBhcu6Yk0+Xt7b+7Efb0mve/p+m80qRc6
-	 EKJwcvM3U75cyhuW8VbaAhbJv2NGWz1aCTSjALvyD+Y6UNcldZCu6xSQciz+sENz+TEIN
-	 I5xaginrkflDNxmV9jVcQNS+ylueey0AHCUFiqgMku0EhsDJfkW5ETjoA4hmhKini8QfC
-	 k18/4QN3ulby8naC7yrGY0XhMDcF3jbIh8sHCkf4qO6h+wtXBlPzG3OrEAH7YKnasOMs7
-	 r0YsfPGAkUYeidPwu0m2Jpzc78Qx3fo4Sttx9BudV/+ejpakK5iyE5UchbF2p6PaBOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795427745;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=6la6sExbZf3UDj3whqci5hiXuRTgL2TT0YTzN9W0cA8=;
+	b=aJtXvnSKHafZcx86UT/JLLCOYp0ZmdJN+qfmoRfG3NLFZzJIg1Ei6A99Uz+awhI61TMG
+	 ejDR44SMj+c66o/N6VrElwhZ3TkInyAEzYJTGv0ioS2dBS8DYPU+j1k6/IpUm1gOnh9r6
+	 2UnX4XK0v8WpH+VPhIOqDR3lPPet/qEQrcYuFA+NN1fjFjZRlcLcGSinxTHauMKIlyBG/
+	 VWSafYM17YPPp4FaudBof7umUgEjmrRWJUcdCV4ybodRTeHC7ux60WcYz/4xWIYxZb7MV
+	 2298CJwF37Q9lXcio24mnb1ePH+NyiEzosuChPvOjy4yJjeOYUYaoEbtOyo0KOLIMlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=RrpQHqk6;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q/NPsF1n";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBED606A31E
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:54:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEBED606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B01F606A331
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 09:55:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=RrpQHqk6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=gVlf
-	HHEUqZRERxmYhHaGuD98Z2SfQm74q1NG7Z4SJtc=; b=RrpQHqk6Qzmg9ppdBpLq
-	LiU6chec/SmnwcvFmsItvB0h97GYcOBB6a7qa9arUEUapyI81UcYEG9h0e2u3gAZ
-	oFv4DTk4vysEl4tcRK2KS6PzqvF28qJyz691SVeFegvv5Pt0Tk2s2ioeZukiYA0S
-	9gsMJGnvLGY6FztqHeKLXNIyTCR5YwMnqvwI4gKbQJN3PDRRkbrsylz2w0qAiDL6
-	RSguuUka4iSxDFImlZWbhFkmyGfFRtwRwhMyBY/q2b56XiOLmjs/nFeCkxo6otRv
-	LnxVnO73kNkLm/WRB2oIH08WbAZ/Eei/MrpaFC4bR3GUVAet8OSzRrtRg/Eq9AWS
-	zw==
-Received: (qmail 2646670 invoked from network); 23 Nov 2026 10:54:00 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 23 Nov 2026 10:54:00 +0100
-X-UD-Smtp-Session: l3s3148p1@+Hmyku5gEIwujnsu
-Date: Mon, 23 Nov 2026 10:53:59 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: khendry@reliablecontrols.com
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: r9a06g032-sysctrl: Document
- reset cells
-Message-ID: <awQNNCw9nCyvmY8B@ninjato>
-References: <20261120-rzn1-miic-resets-v2-0-f1cfa678615b@reliablecontrols.com>
- <20261120-rzn1-miic-resets-v2-1-f1cfa678615b@reliablecontrols.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q/NPsF1n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6A641F00A19;
+	Mon, 23 Nov 2026 09:55:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795427745;
+	bh=6la6sExbZf3UDj3whqci5hiXuRTgL2TT0YTzN9W0cA8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Q/NPsF1nXH69Hgh8naikJ3a3tz8VXk1Iaql0SeYWDTTDuUAovwSFMg351X6bE/4ud
+	 KXbdTOH2ifIsGknNzld6eI2USJwn/ECSCvB795lWIO0uR0UXp//bKUdu0hphO76g0C
+	 3nmYbwjCtyMgTK2EiaLJEw9YLYqWJKmYnXllDkdCXFTawd1qxkyuOQKWvRU8dtTKbU
+	 6byz4a6xpz09+3CGzIA6APjhev1naUF8X1A5I9VwaPXybWCLMSRuv0fN7iHzZRphX8
+	 OLECcKTg50W7WTwgVq2cQ8JIEwSvJWx3uXyCocDSXjAxNOA8lquv9sRbpsJoupmNQr
+	 18ZeFNqa4GrBw==
+Message-ID: <sashiko-outbox-229013@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] mailbox: marvell-mhu: add Marvell MHU driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Cercueil" <paul.cercueil@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123094542.44101-3-paul.cercueil@bootlin.com>
+References: <20261123094542.44101-1-paul.cercueil@bootlin.com>
+ <20261123094542.44101-3-paul.cercueil@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 09:55:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,44 +59,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xU2HxjihksT/uuam"
-Content-Disposition: inline
-In-Reply-To: <20261120-rzn1-miic-resets-v2-1-f1cfa678615b@reliablecontrols.com>
 
---xU2HxjihksT/uuam
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] mailbox: marvell-mhu: undeclared ioread64()/iowrite64() under
+  COMPILE_TEST
+--
 
+commit e362a8700ec12375ab4fa67b4954b2473fced942
+Author: George Cherian <gcherian@marvell.com>
 
-> +#define R9A06G032_RST_TS		1
-> +#define R9A06G032_RST_MIIC		2
+mailbox: marvell-mhu: add Marvell MHU driver
 
-Given the Sashiko-review for patch 2, it might be easier to start from 0
-after all.
+This commit adds a mailbox controller driver for the Marvell Message Handli=
+ng
+Unit on OcteonTX and OcteonTX2 platforms.
 
-Other than that, the rest looks good to me.
+> diff --git a/drivers/mailbox/marvell_mhu.c b/drivers/mailbox/marvell_mhu.c
+> new file mode 100644
+> index 0000000000000..de7690897cc99
+> --- /dev/null
+> +++ b/drivers/mailbox/marvell_mhu.c
 
+[ ... ]
 
---xU2HxjihksT/uuam
-Content-Type: application/pgp-signature; name=signature.asc
+> +static int mrvl_mhu_send_data(struct mbox_chan *chan, void *data)
+> +{
+> +	const u64 doorbell =3D 0xff;  /* Arbitrary value, SCP requires a value =
+*/
+> +	struct mrvl_mhu *mhu =3D chan->con_priv;
+> +
+> +	/* signal SCP */
+> +	iowrite64(doorbell, mhu->base + AP0_TO_SCP_MBOX);
+> +
+> +	return 0;
+> +}
+> +
+> +static bool mrvl_mhu_last_tx_done(struct mbox_chan *chan)
+> +{
+> +	struct mrvl_mhu *mhu =3D chan->con_priv;
+> +	u64 status;
+> +
+> +	status =3D ioread64(mhu->base + AP0_TO_SCP_MBOX_LINT);
+> +
+> +	return status =3D=3D 0;
+> +}
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+As reported by kernel test robot on v2 [1], does this fail to build under
+CONFIG_COMPILE_TEST on 64-bit architectures with CONFIG_GENERIC_IOMAP=3Dy
+(such as x86_64 and powerpc64)?
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsEDTQACgkQFA3kzBSg
-Kbbqig/9Epv8XKajU+GJXbYWwmn+xW6rcy824Fm2da0KW5KQk9NTkCiCN8Ec6D+q
-9EzjRPA8Iyk3ny8hCEjrFu926l4mO1drdXGWpGiSdYphYpvZWac1s/rtWy5cidye
-TuO4KRID+MH1WgJmEvxFYHP806WJStAuaqLXgUgLMWr/TL9QXkEL5zY5PX0QPJGi
-0ehY4/Z38at2PWy2vjrY2cmhnNWn6C9UQ2Ps0RFGAGNz5KTAgCSU0La1wx6VIdxe
-GIhvlXNfMc0YPmXFydUwMU5BQ2TdhUe104SvISXBWx8KJ5VflxtXJqPDhnyJZ4Ms
-Xy4GqMJipQJhEk3QTjNChH58ITUQI9hrZgKIH2r6BNbVbwMUrBwrTZWySpnKXo+b
-RdIlVZILFAd+fjGK/mdznzkSgcbXLeMHIOqVcADmQINb/7K2Q14fpFdKK1gXadPs
-1zydOnLEwMCd28d0Tewn+8bsbFNRISnUBJe95DcKtkRkGvwcGYyH8bHZA199aVea
-mZEs2SgtBNycesEaTLnuG/8wOUDMHEyET6K3/T92NvI1ZnnOI/vs/Jr2IRs8RZK9
-pcqlpyvqyDMhEIamspoMfWHGfjaG2PZEHZP4A7ssgaOHv41iPSqTGvLq+di3tIZY
-CJ5KuRpHSCQvNZMMGBO+CFZypkVAjMXi3YgSZTxo4OCWNmAlnDo=
-=We5d
------END PGP SIGNATURE-----
+On CONFIG_GENERIC_IOMAP architectures, ioread64() and iowrite64() are not
+declared unless linux/io-64-nonatomic-lo-hi.h (or hi-lo.h) is included.
+Using readq() and writeq() directly, or including one of the 64-bit
+non-atomic I/O headers, would avoid the implicit function declaration
+error.
 
---xU2HxjihksT/uuam--
+[1] https://lore.kernel.org/r/202611212016.DdozCIS5-lkp@intel.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123094542.4410=
+1-1-paul.cercueil@bootlin.com?part=3D2
