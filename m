@@ -1,56 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795431956;
-	b=jM9aE2psAuQ8ZYueBDcRiJXCsBUrh36idRriipUNkD/eMA7LADdstf43hz+RMO5zVu8l
-	 GwANxx6ZchlQhcA184BHa35kzxk206ttTHTYexc0E0F2gVA0PWTaiqZoyZMuP7Deeq372
-	 eZp+CQoPklnvfIEj3LJg+tHvPbDtaH0YhZxwjw9y6k/5IYhE8Q2CliTgQ/B3V88+tH9PP
-	 rBVbg9q1g1XPNSoTwSDkOhJMuOIIUTDAjid2SNqvt23y1sEj48NXixLJ3gAZrrB+d6Gu9
-	 VgCJIz9R6ESoRkN3gQk8LmwlorL6rix9rQqFbodaiIxAQ+WpoJktHKIzFfh+JVCCZPA==
+	t=1795432100;
+	b=MPOMRrojkcVO6dmqDsP4cFgKHHWcrPSO2nhMjk2zuScMa/uCeVPyv5uPL4HMWBrLXMmt
+	 ADzXvW8xzVlUl5nhp10vZJ5CSRTCmfDjrHJC5iVnE0JnlUUUGw0s+h+0cFfZr8Iyq2QZ1
+	 qSkShXN2ZeOvQg2C12wd036O1mfjx5UcZnXcKpXW+42mSWPjSlWMTR3G2AAUVfskE2KgI
+	 HFc3jHlV717CNhwUJcyjOqqWoM95U23c4+j4+TcBviKuscm90Gwa6mJweMdks1FHOiiQe
+	 wBbdlLvRlrig9PaPm56eWlpJuwF82pZj/zbFi+aY5Z6j1LJZ6GDwp1r+ajLusJBj5qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795431956;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cuMhs9MxlBL0fy/9YlMvcsamK52UjZ9Dphft59nHtEs=;
-	b=zeTQOHxFVdzBJBz51G7yjaJpi8ZHV8u922QtxUFouPHVqg0YxWc9jyU5Qc2fH/3CxGKk
-	 2YRxiTkPYCOSeG64v1zPhVDXNWfnP0Np0VEV/2degY/Isn2mOEaZTWdgUvuuC52n4U83q
-	 XKu4mL/X68FjPGhsd9jZOjTwDeCDbPVAdSK2RvgxVgQEL2xpxQx8/GpCC7XX3nKqfjmXz
-	 6qcVSHD3lvd0OM0ow6GNSOWiGl3x1QFskhvWcRJXQLXZBRKceqMqFxXQ1KUS5rIx2W4Rn
-	 AclMazHiZ34KUlZpJww7aS/Hze7zaQn5a1sv/BZakhh0yhqw7m2OWJDZ8qsogwkwCEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795432100;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IMN0qsksgNIN9kMeTfgWdFSfENva8adgCXhd53cR/YY=;
+	b=d+D6ZSFD63MG70BxFuLvhMW6xi9VSulDLSia4JGb/zeV55esxFLNrgminWg05IikWOvc
+	 Zup7uq3BlcR9auv1mzOApYzrzkj6zJpaXLx0VODLud24QfFAAhYL15vQcLV2Tnn/E/KAA
+	 yrf0dy4T7CxfYP2qPW88yJnNNbCj1ybGKc68LkKaQxnR872P9yZD/cABXNJTawgNOwZUX
+	 p3oKYpx8GkC7NPyQO4K9ooS6EbHBkrc+JWrsqg0hA+sKP5IA9b4alyJMobZ52FQ5bJtw0
+	 eRroK5MrBdqwNBvho25Uqm6NH//DZC4ybhvQ3Jghd40apC0rMCOOztYJn2bXvKBBDVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHNtcvsw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ec3UFjGz;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606DD606A31A;
-	Mon, 23 Nov 2026 11:05:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85887606A327
+	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 11:08:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85887606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHNtcvsw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD22D1F000D4;
-	Mon, 23 Nov 2026 11:05:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795431955;
-	bh=cuMhs9MxlBL0fy/9YlMvcsamK52UjZ9Dphft59nHtEs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DHNtcvswe64wykBGCeW18mWpGkl5J31TaQlJDSYsljjsQSlAlqW4S1kJd/QUBMQ49
-	 aiAOrYJPmKynqnBJllf8+kYBvp9pvVJ/eSkNDASO1PSRMr8lMkcCi5kvJyWBuZAgTB
-	 wA0NxtWGTm/ouxLscqW655BM+hHYNkEDMACxGTDvGBrPc/KMIAZ1KQ9j5TZNto+ClG
-	 DyjpOOjFVEGD56gpCGnk83vrrTxowHEJiAOTEbG8RqcH3PH6SMroHMmcRZSaEGpMay
-	 NB1gWkMYa/ILJklSlZ930outO6MNL49mTQvHMEm4VzFEpeecafoShWZxNhyVoFPzes
-	 GJFPX6jiLyJIg==
-Date: Mon, 23 Nov 2026 12:05:52 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: CL Wang <cl634@andestech.com>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, tim609@andestech.com
-Subject: Re: [PATCH 1/3] dt-bindings: gpio: Add support for ATCGPIO100 GPIO
- controller
-Message-ID: <20261123-precise-funny-wildcat-5bbbf8@quoll>
-References: <20261116040914.368298-1-cl634@andestech.com>
- <20261116040914.368298-2-cl634@andestech.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ec3UFjGz
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1b3ada81853so3510955c88.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 03:08:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795432100; x=1796036900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IMN0qsksgNIN9kMeTfgWdFSfENva8adgCXhd53cR/YY=;
+        b=ec3UFjGzf+Ax+mOyj+jbqDFmxv1s+/ilYTPPCkCGVgYuPO3q35DWB/+HRF/Oz2sLvL
+         3aQyHI6tHe6HhGEfoUlt+RPLm8ZWtFcdQbDy9jO3MlFzg7xTHIVOcfPEQcIPxRIAVWzQ
+         BZ5lRfv4aUhyVlfNm6x6F94Qj4rbgapEOVaNaU+0o+/9/9iRZAOfOBG6MpyGxIQUt3xO
+         ALHIZuvHue22QtQ81fiHVBB+0KkjfYRpS44nsn1Fob4Ikd3/1INTRshst8/sQFb0hzRj
+         MAVu9TNdZwo0izTaUC/5fX2acbHZrF7RzdRbrdJR8h5+MxGc+rwHlVjLyFEt2n4mkv6k
+         t4sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795432100; x=1796036900;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IMN0qsksgNIN9kMeTfgWdFSfENva8adgCXhd53cR/YY=;
+        b=o5R/zeHwqZ3ZVLKWNGqb4I6HfWqWN6iR2Y3MUVcSYLDKd4Pij31uMJj4HV3UtZ59kY
+         W8LXLSB9bp294Mr2DYxniO5FUG+VoGwaQ5uJCvNXHGOI2qfPJJW95XvfFECcmM5Q4j1u
+         LHTeebUhgKm+P/Dnx89HoLu+rLdOrSBBe3EcN1wPLEFvBFJNiCT2rIKbj1ZFwPi4d0ZH
+         Ekw6KGM6MfLeyB79hxYixiz1KaACxhITNJaI1Q7s/CjGevP+NX1iTql7dbBl2LEv7Uli
+         7NUOvLQzYA3pw3mGMv8WD7rQk08KRrtqMCVOcxadhAbX12sLHJq83sM6vMtTXK8ksD/F
+         +eKg==
+X-Forwarded-Encrypted: i=1; AL+hErHXUmkn/NwXC8vtA3WfDRatbRXld9+O+Z4jfQjVamFlEE9DtjqWLWwwI6ry4Rimk8GDLbSAnOfdheTB@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HjZu7ckDxxNgZi18IcRjj5PH8DnAhQ2kPLIT8FOvEL7lFy+/n
+	Vmq16eFfTkTvWqyvEgXkWQP2ZUaJEhHBgOcUb3bhgvu385JqxvC7fw5V
+X-Gm-Gg: AZFdTZdhT8OxGifEyvYdKveAt0VXypq46ZFNoH9YPhZu2nWzq2AHvP45o9wdDWzjp/Q
+	WhIliOS0QEAOmnbe5D2XeDDtxYrhhVHhRdtXOdv48NlFj6d2CPTPHI/hSm8cI2NIbjjbMgfPxh8
+	A3SBjGIhWJhZaOdpf9dIdVjocMYxlOZsoWykcoqZEhZTHenkFIvb9INKkkONRby+iauvF3aiCGW
+	pUdlkT2J1oHIiL16qgxa8MttUKZvL/UHpk+v1BQZ0SCBBAtzz0iI6RtHvBtr/P3oyb/ypfttrgn
+	fNELUQYvSxGjEo+7zPNeBStP8+s5z6HJwFmnmt6PX3RxC/Es+ybPUW80Utr10bzvM6r9vQ4iFd+
+	rYPRqcaxtTKYXneTywddMfk9rOpQASJo0eIrL8f8Fmy4r5nbYcRaHPWU3TWq/cqwD7dt3YuOnDx
+	OLck0kGeBMNGtFbfXevJlymI0vIAK96BdMTW8hOTwzOubu+B2+r7sElTW66kh7SeKx69yyPrk7M
+	MgjuNgnnK3+MOzMZH2MLQQ6OSLzpTWMt6NFHj1AxiwPHbp3TYsyVR3FMFa2naisD0J29KNOcMvU
+	cgYEZHLDoVjzVUWKAnbVRi+gho0HAsQGvxjP8kHkgMH8Sw==
+X-Received: by 2002:a05:701b:4587:b0:1b5:1a7a:2ebc with SMTP id a92af1059eb24-1b56f87ab60mr3863029c88.16.1795432099526;
+        Mon, 23 Nov 2026 03:08:19 -0800 (PST)
+Received: from localhost.localdomain ([2404:c0:aa07:12b3:e89:dfdd:d14b:d911])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5568592adsm27061102c88.15.2026.11.23.03.08.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 03:08:19 -0800 (PST)
+From: Hikmah Gumelar <hikmahgumelar@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Hikmah Gumelar <hikmahgumelar@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH 0/6] arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
+Date: Mon, 23 Nov 2026 18:07:59 +0700
+Message-ID: <20261123110805.119610-1-hikmahgumelar@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,104 +107,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116040914.368298-2-cl634@andestech.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 12:09:12PM +0800, CL Wang wrote:
-> Document devicetree bindings for the Andes ATCGPIO100 GPIO controller.
-> 
-> ATCGPIO100 is the name of the IP, which is integrated in the Andes AE350
-> platform and in SoCs such as Qilai. As in the ATCSPI200 SPI controller
-> binding, the compatibles follow the platform and SoC rather than the IP
-> name: andestech,ae350-gpio is the fallback, and an SoC that integrates
-> the IP adds its own compatible, such as andestech,qilai-gpio, in front
-> of it. Drivers can then match on the fallback and still add SoC-specific
-> handling later.
+This series enables both the front (Samsung S5K5E8) and rear (OmniVision
+OV12A10) MIPI CSI-2 cameras on the Xiaomi Mi A1 (msm8953-xiaomi-tissot):
 
-Do not paste here LLM. LLM should not be used for writing commit msgs,
-because this is a test if you understood what you did here. You explain
-heer basics of DT and driver, which is exactly what LLM would do.
+- Fix the 100 MHz parent entry in ftbl_csi_phytimer_clk_src so
+  gcc_camss_csi0phytimer_clk enables properly on MSM8953.
+- Add Devicetree binding schemas and V4L2 subdev drivers for the Samsung
+  S5K5E8 and OmniVision OV12A10 CMOS image sensors.
+- Wire up CAMSS, CCI, CSIPHY0/CSIPHY2, and both camera sensors in
+  msm8953-xiaomi-tissot.dts.
 
-> 
-> The controller has up to 32 lines, and ngpios gives the number of lines
-> implemented. The debounce logic can run from either of two clocks: pclk,
+Tested on Xiaomi Mi A1 (tissot) using libcamera SimpleISP and GNOME Snapshot.
 
-Are you saying that SoC has multiple controllers with different number
-of GPIOs? Where is the DTS, can you link it?
+Hikmah Gumelar (6):
+  clk: qcom: gcc-msm8953: fix csi_phytimer_clk_src 100MHz parent
+  media: dt-bindings: media: i2c: add Samsung S5K5E8
+  media: i2c: add s5k5e8 image sensor driver
+  media: dt-bindings: media: i2c: add OmniVision OV12A10
+  media: i2c: add ov12a10 image sensor driver
+  arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
 
-> the APB bus clock, which is required, or extclk, an optional external
-> clock that allows longer debounce periods. The interrupt is optional, as
-> the controller also works as a plain GPIO controller without it.
+ .../bindings/media/i2c/ovti,ov12a10.yaml      | 115 +++
+ .../bindings/media/i2c/samsung,s5k5e8.yaml    | 103 +++
+ .../boot/dts/qcom/msm8953-xiaomi-tissot.dts   | 114 +++
+ drivers/clk/qcom/gcc-msm8953.c                |   2 +-
+ drivers/media/i2c/Kconfig                     |  26 +
+ drivers/media/i2c/Makefile                    |   2 +
+ drivers/media/i2c/ov12a10.c                   | 720 ++++++++++++++++++
+ drivers/media/i2c/s5k5e8.c                    | 500 ++++++++++++
+ 8 files changed, 1581 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov12a10.yaml
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
+ create mode 100644 drivers/media/i2c/ov12a10.c
+ create mode 100644 drivers/media/i2c/s5k5e8.c
 
-SoC routing is fixed, no?
-
-> 
-> Signed-off-by: CL Wang <cl634@andestech.com>
-> ---
->  .../bindings/gpio/andestech,ae350-gpio.yaml   | 92 +++++++++++++++++++
->  1 file changed, 92 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml b/Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
-> new file mode 100644
-> index 000000000000..01badd2a1342
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpio/andestech,ae350-gpio.yaml
-> @@ -0,0 +1,92 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/gpio/andestech,ae350-gpio.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Andes ATCGPIO100 GPIO controller on AE350 platform
-> +
-> +maintainers:
-> +  - CL Wang <cl634@andestech.com>
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - andestech,qilai-gpio
-> +          - const: andestech,ae350-gpio
-> +      - const: andestech,ae350-gpio
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  interrupt-controller: true
-> +
-> +  "#interrupt-cells":
-> +    const: 2
-> +
-> +  gpio-controller: true
-> +
-> +  "#gpio-cells":
-> +    const: 2
-> +
-> +  ngpios:
-> +    minimum: 1
-> +    maximum: 32
-> +
-> +  gpio-line-names:
-> +    minItems: 1
-> +    maxItems: 32
-> +
-> +  clocks:
-> +    minItems: 1
-
-Why is this flexible?
-
-> +    items:
-> +      - description: APB bus clock
-> +      - description: External clock for debounce
-
-Best regards,
-Krzysztof
+-- 
+2.47.3
 
