@@ -1,57 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795446389;
-	b=HI1zB8Q3ekffWHcN82658RithF7na7qSq3iBarkwLDD+ElPMYyqTWNbrrLBb+bk6koFm
-	 JMcGbpV205shLAsf4sMrSbU27wzSJtsiNbsgLXbTYJofE631wk2aR34Gzo8+PMb1TLLB4
-	 sdeUdg7w68JiyVS+erzw0KwgyUJlFDAubwcbT6sAx52+qXaZCnahCC99Qu1Ca4aTSZj3t
-	 SDO1bLPudeFT0j9p2JA6zipHF6koEoyNUSGFfRnW1/esIu/G7MASzWKBnGNtj6L+kmcto
-	 DoqJHMJbCo98ZYNiaFTvS74Ff25yhpQbswo5Xtgjhv+e2qM6C/Zk6JvPPvNLhX6lrqg==
+	t=1795446436;
+	b=yCj5KtSXD+ZozdfWcmFmv+P5zagYh+ej/741l3+NzKu7ajRPTHfO6t1W3riFX8O2TM5s
+	 KxUhigoEgJeQiVgriKDjlhc23Yuo/qs8ww+bKvWmRHbY5IkbF6uvX+68XZdhUSxKqH6gW
+	 548/TZz7vkEKTEKsqZIeRlyADLf3tALu0srhMZQzYawvRurVfFCukMNd3qiZWv1pGod0a
+	 yZfvS08reJ3Ko8M5rb61kwfcNvBVJPaVg89VoEQUnzibufo18suhzoQo+AzwhU+/vkZax
+	 z7w5CUfGoNC9DJE7m/MoiBdWPqBMswdV2KnklIG54oHXf/O6sEQGTxjCIV3UyDS/0Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795446389;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fXUUP6mSYsSlBC0R0+O1owxIIRiWDhbDe2LahE22B90=;
-	b=LLGd8Gw8GylvqG8lldZXOHqHgC5FY0Elo2qMnJIFC0MS7ED32+runn7/GueR6HbjsLzZ
-	 xls/wUsnl7qjlh/UwndzKh9AYgGMxUFjaEw5A27wCtXr32xPIxLUkOtobI4n4Id2jhFJ+
-	 eZEr3WFl2L6Y2gCdj9b6ra7o6UVEVnZTA7iVT5ikdJ9oAN2SgVIoTws3CYlrogQaSJlET
-	 IDSTrO1NQd3IJfQMI6G4J00UP+Q/78a37mGh4bF4Ql0MWRIW0DfFtuEpAGTr0KpQ4pNhg
-	 IwUv0NpR2H0HwP6WC96klVd5HnzTrF/PcLBMqFHTGIynEmNNA7kRPl1Ydysuky1Unig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795446436;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=QhwkeRsKW2eU1yR2DBn8OENZbsAgbpApGZdt64vMdFc=;
+	b=5g1MtjCNFPYe1161tCelyDa5nnJO45O2mTgFNHFLSVEcwU7/J2pAk33T2VEUF5APNaAA
+	 +2t9ku948TEMqs55sWBRMQ3hP5ohLGSGD2Oo14cipE6Xa1UYcuEV7Lu+ulmZVtxOEmb7E
+	 5FQXQ9vXwrXo4f8rN6CGdS9l+G6ZxEy0JccSEgrOrdT3nfMO2Xd/aQLh71p9A91pdSJRB
+	 XLuTqVSlnsysoImw4Xm2aWso9nDGmvPoQruIOdI5U4LyjTuVCt+zNX9WsB77/SbxdlcsQ
+	 866NHaZCxYGpaxTDFRko8Xndemjv6oqlKbXMovd1O49jTIm+kSesLZqcBxeKPyLWCzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KKoFA5UE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=tyx9iVUr;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E59606A31E
-	for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 15:06:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9106E606A31A;
+	Mon, 23 Nov 2026 15:07:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9106E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KKoFA5UE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E501F000CF;
-	Mon, 23 Nov 2026 15:06:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795446388;
-	bh=fXUUP6mSYsSlBC0R0+O1owxIIRiWDhbDe2LahE22B90=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KKoFA5UEHyGjywXv94OAnHq1Iwj+owynMrNOpyyKViKDujIlIDctdK0lOFp38yErv
-	 iQAOKqByruYWTLEsAjDao/9nnmIQPmdadVDTNabHJBmnANb28i2Q6X6NWnNC99SNUw
-	 5Mfq170yfonN04ZQxpfZOTBYAGUJJ0Vl278wzxLo6fPmKlWF/kuuZrW7ufyTSwZfJD
-	 B9XlDLBZQLdlWNOX8q6lC1iS3/6MG5YFg/w0VeT3oHWJjSE9YOr/lLzhw6T5RdHulp
-	 G1EaGQqO33MocFvoEjZtWEAwN3g7PoLQzu32NFymMEANR4xB8cbaeQ0EyWbt4CBjNO
-	 RX06nrbsC1XQQ==
-Message-ID: <sashiko-outbox-229489@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 6/8] riscv: dts: mips: Initial support for the P8700
- Boston board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aleksa Paunovic" <aleksa.paunovic@htecgroup.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-p8700-dts-v4-6-60bb7bf8a7a1@htecgroup.com>
-References: <20261123-p8700-dts-v4-0-60bb7bf8a7a1@htecgroup.com>
- <20261123-p8700-dts-v4-6-60bb7bf8a7a1@htecgroup.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 15:06:28 +0000
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=tyx9iVUr
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E20A0177;
+	Mon, 23 Nov 2026 16:04:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795446280;
+	bh=hWpll5jCWlb3p4P0FO1e+zezhAH+oosPgqeDUB2EaBU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tyx9iVUrmGY4LpCqE/MfiTNAFkDFvyz0SFmzDek+lY5RRd76Px++aSNSpfPLdXWKZ
+	 TVcpqSiPaYUFQumgA4os9b+Hwh6xeZtVU0fEHDhmkvEN/vhwnbaJ89aOm/40l2m528
+	 anHmd+DXrdgZC2kgRDJEfzq4FcSmfRw4NtfIiK4Q=
+Date: Mon, 23 Nov 2026 17:07:10 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Paul Elder <paul.elder+renesas@ideasonboard.com>,
+	=?utf-8?Q?Cl=C3=A9ment?= Le Goffic <clegoffic@baylibre.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 05/15] clk: renesas: r8a78000: Add SCMI remapping
+ support
+Message-ID: <20261123150710.GL3010398@killaraus.ideasonboard.com>
+References: <cover.1795029012.git.geert+renesas@glider.be>
+ <e01baebc546ed6f1b71a0487a59cda73239ea7f1.1795029012.git.geert+renesas@glider.be>
+ <20261123113619.GG3010398@killaraus.ideasonboard.com>
+ <23ab561a-c5c5-41ff-a0f4-87a3f5ca2e49@app.fastmail.com>
+ <20261123125410.GK3010398@killaraus.ideasonboard.com>
+ <066fcf7c-e1f6-4186-9874-622dbce18f92@app.fastmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,108 +83,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <066fcf7c-e1f6-4186-9874-622dbce18f92@app.fastmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] riscv: dts: mips: non-generic PCI node names and invalid unit
-  addresses
---
+On Mon, Nov 23, 2026 at 02:02:35PM +0100, Geert Uytterhoeven wrote:
+> On Mon, Nov 23, 2026, at 13:54, Laurent Pinchart wrote:
+> > On Mon, Nov 23, 2026 at 01:34:06PM +0100, Geert Uytterhoeven wrote:
+> >> On Mon, Nov 23, 2026, at 12:36, Laurent Pinchart wrote:
+> >> > On Wed, Nov 18, 2026 at 08:44:53PM +0100, Geert Uytterhoeven wrote:
+> >> >> Extend the Clock Pulse Generator driver for R-Car X5H with SCMI support,
+> >> >> to remap DT clock IDs to abstractions (clocks) offered by the SCMI
+> >> >> firmware when running on a system with SCMI, and SCMI support is
+> >> >> enabled.  Take into account some peculiarities of the current SCMI
+> >> >> firmware implementations, and fall-back to fixed-rate clocks as
+> >> >> replacements for SCMI clocks that are not available.
+> >> >> Support for bus clocks used by serial, I2C, and SPI devices is included.
+> >> >> 
+> >> >> This lets us avoid putting SCMI IDs in DT, and allows us to use the same
+> >> >> hardware description in SoC DTS for systems with and without SCMI
+> >> >> firmware.
+> >> >> 
+> >> >> For now, it is assumed SCMI clock IDs are stable, and match SCP FW
+> >> >> SDKv4.31.0 and later.
+> >> >> 
+> >> >> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> >> >> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> >> >> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> >> 
+> >> >> --- a/drivers/clk/renesas/r8a78000-cpg.c
+> >> >> +++ b/drivers/clk/renesas/r8a78000-cpg.c
+> >> 
+> >> >> @@ -140,7 +182,35 @@ static struct clk_hw **get_hws(struct r8a78000_cpg_priv *priv)
+> >> >>  
+> >> >>  	for (unsigned int i = 0; i < map->size; i++) {
+> >> >>  		fw_id = map->entries[i].fw_id;
+> >> >> -		hws[i] = fixed_hws[fw_id];
+> >> >> +		if (fw_id >= FIXED_CLK_OFFSET) {
+> >> >> +			hws[i] = fixed_hws[fw_id - FIXED_CLK_OFFSET];
+> >> >> +			continue;
+> >> >> +		}
+> >> >> +
+> >> >> +		scmi_spec.np = scmi_clk_np;
+> >> >> +		scmi_spec.args_count = 1;
+> >> >> +		scmi_spec.args[0] = fw_id;
+> >> >> +
+> >> >> +		clk = of_clk_get_from_provider(&scmi_spec);
+> >> >> +		if (IS_ERR(clk))
+> >> >> +			return dev_err_cast_probe(dev, clk,
+> >> >> +				"Failed to get SCMI clock %u\n", fw_id);
+> >> >> +
+> >> >> +		hw = __clk_get_hw(clk);
+> >> >> +		clk_put(clk);
+> >> >
+> >> > Doesn't that leave the hw pointer possibly dangling, shouldn't you keep
+> >> > the reference to the clock ?
+> >> 
+> >> Only struct clk is reference-counted; struct clk_hw is not, and exists as
+> >> long as the clock provider hasn't unregistered it.
+> >
+> > That's what I meant, what prevents clk_hw from being destroyed while you
+> > still hold a pointer ?
+> 
+> If the SCMI clock provider goes away, we're indeed dead...
+> 
+> Note that __clk_get_hw() + clk_put() is a common pattern to avoid
+> leaking the struct clk reference, and fixes were CCed to stable.
 
-commit 79c2f7a61a39f331205c23d7c6c9e68fb0be373c
-Author: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+It's only leaked if you don't store it and release it at remove time. I
+suppose that, in this case, we can rely on the SCMI clocks never going
+away. Hopefully.
 
-riscv: dts: mips: Initial support for the P8700 Boston board
+> "git grep -A1 __clk_get_hw | grep clk_put"
 
-This commit adds the initial device tree for the MIPS P8700 SoC and the
-Boston FPGA development board, along with the corresponding Kconfig and
-Makefile entries.
+-- 
+Regards,
 
-> diff --git a/arch/riscv/boot/dts/mips/p8700-boston.dts b/arch/riscv/boot/=
-dts/mips/p8700-boston.dts
-> new file mode 100644
-> index 0000000000000..4383ef7cec152
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/mips/p8700-boston.dts
-> @@ -0,0 +1,135 @@
-[ ... ]
-> +	pci2: pci@14000000 {
-> +		compatible =3D "xlnx,axi-pcie-host-1.00.a";
-> +		device_type =3D "pci";
-> +		reg =3D <0x14000000 0x2000000>;
-> +
-> +		#address-cells =3D <3>;
-> +		#size-cells =3D <2>;
-> +		#interrupt-cells =3D <1>;
-> +
-> +		interrupt-parent =3D <&aplic_s0>;
-> +		interrupts =3D <7 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +		ranges =3D <0x02000000 0 0x16000000
-> +			  0x16000000 0 0x100000>;
-> +
-> +		bus-range =3D <0x00 0xff>;
-> +
-> +		interrupt-map-mask =3D <0 0 0 7>;
-> +		interrupt-map =3D <0 0 0 1 &pci2_intc 1>,
-> +				<0 0 0 2 &pci2_intc 2>,
-> +				<0 0 0 3 &pci2_intc 3>,
-> +				<0 0 0 4 &pci2_intc 4>;
-> +
-> +		pci2_intc: interrupt-controller {
-> +			interrupt-controller;
-> +			#address-cells =3D <0>;
-> +			#interrupt-cells =3D <1>;
-> +		};
-> +
-> +		pci2_root@0,0 {
-> +			compatible =3D "pci10ee,7021";
-> +			reg =3D <0x00000000 0 0 0 0>;
-> +
-> +			#address-cells =3D <3>;
-> +			#size-cells =3D <2>;
-> +
-> +			eg20t_bridge@1,0,0 {
-> +				compatible =3D "pci8086,8800";
-> +				reg =3D <0x00010000 0 0 0 0>;
-> +
-> +				#address-cells =3D <3>;
-> +				#size-cells =3D <2>;
-> +
-> +				eg20t_mac@2,0,1 {
-> +					compatible =3D "pci8086,8802";
-> +					reg =3D <0x00020100 0 0 0 0>;
-> +					phy-reset-gpios =3D <&eg20t_gpio 6 GPIO_ACTIVE_LOW>;
-> +				};
-> +
-> +				eg20t_gpio: eg20t_gpio@2,0,2 {
-> +					compatible =3D "pci8086,8803";
-> +					reg =3D <0x00020200 0 0 0 0>;
-> +
-> +					gpio-controller;
-> +					#gpio-cells =3D <2>;
-> +				};
-> +
-> +				eg20t_i2c@2,12,2 {
-> +					compatible =3D "pci8086,8817";
-> +					reg =3D <0x00026200 0 0 0 0>;
-
-[Severity: Low]
-Should the PCI child nodes under pci@14000000 use generic node names,
-standard PCI unit addresses, and include device_type =3D "pci" and ranges on
-the PCI bridges?
-
-The underscore-separated names (pci2_root, eg20t_bridge, eg20t_mac,
-eg20t_gpio, eg20t_i2c) trigger dtc W=3D2 warnings, fail dtbs_check against
-xlnx,axi-pcie-host.yaml (which expects generic names such as pci,
-ethernet, gpio, and i2c), and prevent dtc and dtschema from recognizing
-eg20t_i2c as an I2C bus.
-
-In addition, PCI unit addresses take the hex form <dev> or <dev>,<func>
-without the bus number (so @1,0,0, @2,0,1, @2,0,2, and @2,12,2 with
-decimal 12 should be @0, @0,1, @0,2, and @c,2), and the two PCI-to-PCI
-bridge nodes need device_type =3D "pci" and ranges to satisfy
-check_pci_bridge() in dtc and pci-pci-bridge.yaml.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-p8700-dts-=
-v4-0-60bb7bf8a7a1@htecgroup.com?part=3D6
+Laurent Pinchart
