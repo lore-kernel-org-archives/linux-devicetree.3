@@ -1,47 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795536417;
-	b=AndOi5A51TFu338UjgZOdWiOmefIbMNcKQ7Mn9MmngaW2YakXnEXSKXdm4+roOm3Y0kb
-	 L18ueQhwTpIoIdFsPCa2MN5t0apLAzGOroP/g0pKEooPxnMC82dxtWTdQ734Zt1S/Iic6
-	 Di9HoZlLHH3b8qKtbqjUrQQ2RF6avvONOlq10RXWhNR5NfwLwQqEXbxIOHDroCPHOoto/
-	 DpQySO7FaPQSSHoyJ4aLR44UCxYU4oER3Wo2oHsfnzaEOBZOx9/1WPfgIwooZ9s9SufO+
-	 N1/oPtu5IfWCK80TfyHfE0EEixrPHr7+qs7BiFZs0SRgys8O1UTRE4OzRxWycaMe19Q==
+	t=1795536592;
+	b=oZbRZUK5FDxAtT38itK4GqRgNPuInIo6rynmL2c1SqqbDqKuCzpnR2eJmEKAjt+NpF+0
+	 rUq43ht1areuSXEsdebm/K35Lqg75encbXnSlBt5N7zDw00MAAZSK14NyAnHIL+oxCz0R
+	 JnrnBpTyzMJfCq3da6Dxi2rg8XDDvChXQpfEtR+I5YFjJkre1oryAuXj0VTTLVqXUCM9P
+	 HlUeN1vUiWk6WK6Ll0oDqWWfzbDER4mdyc6ZhWL42dAfMhlAhvYfXUaEKRCkEcPvEsigH
+	 2NmnOK79FWiq+QHSVk6JLgyetNbA9jd5LV5aptTA9IgyRcu6b2PhAfW2zSpQVxc5/Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795536417;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rXXjrtFiLnYvPs7xpi14/Y5gRYBhv7epdHU8RemjH7A=;
-	b=k2ha+kaE1HN+hFJiJDeCOYNlf1dtXu+mHLHrl3fqgA69LrK9Yqejp6yUgs1VCiBY5Zh/
-	 jFSu9Cmjqu91N3BxpMgYKL5PhiAEU6J0hEuPGVZY8TfB9QwK6qzRu41KCo0+P09kM3NtF
-	 7bva0FYqNA5wPy6jPym+3OaZOaxJrymaTMz5syQuMuxmuIsGG82/PUyfreEeI9TfQLaXK
-	 0DBvut3Eck6B31c960Hu9GlM8fRoQgGfwU1vGW9CDQkiw4HlWXlvaT78rDbFMojlbiIGr
-	 5BukfrE922Q6y5X5jTGktLtltqsG2iqPE+TjOq53MCqtWgoHDQtCLA1me5RrnR4ZG4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795536592;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=t8ZjfPRSG9HJtipz5fNNGb10T+NLQlGfxzG9Gitm4As=;
+	b=O46CDrMJ1RGvJQgtOskoQT46fxMTlKjkCJpEpMzbAjV4UzX41AmX7Sz7+2V87eqj2cek
+	 iWIPwL5IyVfYuNUb7URuDf/NYADMgwD5Xr9Pg1TqcQAV6jGW27wo+Rk0cBrMGtFkz8Cas
+	 sKwhvfq13xZK8zBOEeHrp0B5/M15MSpymkC59yaPOwSRlnJ+lhv5PUXJ1NNr80oKrNDme
+	 fNaT/elNzJ8Pr5Q6gxxSkGGumUKlZ+8BpmJ6rYSs4H/64EFmHNllWV+DlYqPov+goKe+h
+	 BaE9ucHW6fFRBVvb1jmg6s9QILwA9dIuqfmmmatJHLLixLwN3bVeQglrm5Up8ULyvuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfWiFkc5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgFoEId8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4058E606A31E;
-	Tue, 24 Nov 2026 16:06:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756CD606A331
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:09:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cfWiFkc5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742FE1F000CA;
-	Tue, 24 Nov 2026 16:06:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgFoEId8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28671F000C4;
+	Tue, 24 Nov 2026 16:09:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795536416;
-	bh=rXXjrtFiLnYvPs7xpi14/Y5gRYBhv7epdHU8RemjH7A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cfWiFkc5dCujhCfu7wVvcJI6xXPweke/PQE6QoiecVrMZmUSuq+XbhfQm9enN2+Bo
-	 5Br8ZlgKeOFNGAMyAIHoxH8UZ0XtWGIppbYQRyXd2vdZsUGumlsOHHQX1OXIJGxPTK
-	 ubVEVPjkdARPuz0BiAyYCra1uHEKeUHAaOcF72ijZwYwcJhn9Z172o9smJKZYTB3w5
-	 OuLjlIf/j9BvJE5YxCOZHhtI5Xy7o+OUlEx1uxfItKcC4q6Wruc5nf/qgH6lHSZTNm
-	 0OM+UbaZf2cNOExdVBsuZqut5jo2CTikJEs0MyGIp4lMsdwfQ4KvaccCGOO24ATgJF
-	 dFxO5AJtY69SQ==
-Message-ID: <d70e25d5-f9fc-4939-b325-2502a35d081b@kernel.org>
-Date: Tue, 24 Nov 2026 17:06:50 +0100
+	s=k20260515; t=1795536592;
+	bh=t8ZjfPRSG9HJtipz5fNNGb10T+NLQlGfxzG9Gitm4As=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jgFoEId83C3WMYleqZh7uKZH+Np5kScOZrqBM7QWYD2ZDkVraC6PQ2ARfRgLjW6VN
+	 G32gVqO7ucd9pmgBq1c4Vur9rVLU8YtQrwP23YTutRA/B8mhJIJ8/NHiaZKGcUEWRh
+	 WQ/+pcyx2Q+Xl7J0IHe11O98YBOCu//wBK8uap5zGQ31tjFApELwPGkWLoovLqhHxr
+	 bf3Jw1GNHyL3GByYsw0bhGODWC8hIj7HPeh+hH8gpN58IzMqTlSr9skgkD0O3JoLYz
+	 Bdwic382V0gPhqedjBYLmR34UQNUVmdu8uImOHKdKcRRfVVolAFqMD/XXM9UI5A4vA
+	 ZJVM5q1QRaklQ==
+Message-ID: <sashiko-outbox-231533@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 14/18] soc: starfive: Add jh7110-hdmi-subsystem
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261124-jh7110-clean-send-v8-14-de92635dd857@samsung.com>
+References: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
+ <CGME20261124155425eucas1p2035620902a47a26cb56909c0afda250f@eucas1p2.samsung.com>
+ <20261124-jh7110-clean-send-v8-14-de92635dd857@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 16:09:51 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,80 +61,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] dt-bindings: clock: Add Netrani RPMh clocks
-To: SignKirigami <prcups@krgm.moe>, Bjorn Andersson <andersson@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261124-netrani-clock-v1-v1-0-ce10cedbfa4b@krgm.moe>
- <20261124-netrani-clock-v1-v1-3-ce10cedbfa4b@krgm.moe>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261124-netrani-clock-v1-v1-3-ce10cedbfa4b@krgm.moe>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 24/11/2026 10:48, SignKirigami wrote:
-> Document the Netrani RPMh clock controller. Require its board oscillator
-> input and the xo clock name so the resource clock rates can be derived
-> from the supplied source.
-> 
-> Signed-off-by: SignKirigami <prcups@krgm.moe>
-> ---
->  Documentation/devicetree/bindings/clock/qcom,rpmhcc.yaml | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] soc: starfive: wrong regmap stride and val_bits in
+  jh7110-hdmi-subsystem
+--
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 53f4e237d4154b9fe38d95df3857cd80819078dc
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Best regards,
-Krzysztof
+soc: starfive: Add jh7110-hdmi-subsystem driver
+
+This commit adds the parent platform driver for the StarFive JH7110 HDMI
+subsystem, initializing a shared MMIO regmap and populating its HDMI
+controller and PHY child devices.
+
+> diff --git a/drivers/soc/starfive/jh7110-hdmi-subsystem.c b/drivers/soc/s=
+tarfive/jh7110-hdmi-subsystem.c
+> new file mode 100644
+> index 0000000000000..b01dc66450f51
+> --- /dev/null
+> +++ b/drivers/soc/starfive/jh7110-hdmi-subsystem.c
+> @@ -0,0 +1,72 @@
+[ ... ]
+> +static const struct regmap_config starfive_hdmi_regmap_config =3D {
+> +	.reg_bits =3D 32,
+> +	.val_bits =3D 8,
+> +	.max_register =3D 0x3fff,
+> +};
+
+[Severity: Medium]
+Should starfive_hdmi_regmap_config set .val_bits =3D 32, .reg_stride =3D 4,
+and .max_register =3D 0x3ffc?
+
+Both child drivers that consume this shared regmap address registers at
+4-byte offsets (offset * 4 in drivers/gpu/drm/bridge/inno-hdmi.c and
+reg * 4 in drivers/phy/starfive/phy-jh7110-inno-hdmi.c), and the
+controller's own fallback regmap config uses 32-bit accesses with a
+4-byte stride:
+
+drivers/gpu/drm/bridge/inno-hdmi.c:
+static const struct regmap_config inno_hdmi_regmap_config =3D {
+	.reg_bits =3D 32,
+	.val_bits =3D 32,
+	.reg_stride =3D 4,
+};
+
+With .val_bits =3D 8 and the default 1-byte stride, regmap_mmio uses byte
+accessors (readb/writeb) instead of 32-bit accessors (readl/writel), does
+not check 4-byte alignment, and regmap debugfs dumps step through 0x0000..
+0x3fff by 1 byte, issuing unaligned byte reads to the upper three bytes
+of every 32-bit register slot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-jh7110-cle=
+an-send-v8-0-de92635dd857@samsung.com?part=3D14
