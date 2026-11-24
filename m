@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795548720;
-	b=jbWQYYBHs7Dmpqh6qKhKTofkP2AiQ96Wyepibo7HTIfNt1v1iY7r9zoudLZhFgP8+/gb
-	 6nLmNFMIHqldiBWi3yo1F6S1rd45gz/OE7H2J86KS8E7GxNmlwybJA+nrcplOxKiN0B2B
-	 FvEvsLlKb/2bMuz0hDe+AyHxACpju3mYRVZywdpdE1+jWYjwEDAHa8xNt46+mbnwB9QBK
-	 1Lf7eX9O3vNttrIkh64AVzr8cwn+BkbaDjPIfVMgApZU6INieNKnND9f3ZwLPWFiun4OS
-	 FgeaKC8gRJch5rNpGk8mRqvk7/6wyEtX0QFauKpall7g9Y9i0wo91L+PKhbDGKV+snw==
+	t=1795548748;
+	b=q5BANTyg/ns63MhIzEYxBKStgC5cx4SfVfSYsWjPZgL+wxfnC/axii0FZW0F+tZZ9euy
+	 n6Va5Oh15rmxOnPIzeIDAvLA5xSOoAPZQmx0HvGAWFLaXzS5cXUHyspVaABUDHz7gr9zJ
+	 bnz9pbMssLEpTFjeCXCiOfVoU037lOLUFWDqWHqghCVyVjJznlratoun2qFxu7EbPpuCG
+	 XfSQ6pkMOiwdDqFebKJLNaXADkokPDGrKctPxoTIA+vTPDHVqXyHg+zRWg2Ep4VwpxHob
+	 jFUMVl7dE9LYd2w3SpDaZ6EfYG2GaxHporTtSceEIM3yw3/7hlcQXhRHPSBs2Sn8JIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795548720;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=9Vjg+DO7VU84bQ+x1k4iMQ7LKWoND2JoeaBzPdTz2B8=;
-	b=2bz7+piSxxyTOwNwHlDXaf4ewwLSL13o2qbig+H195GVq1e/VEJzNj6B2ROLgLbZndX1
-	 LvMlXG6H9s8uCd8DngEDpqmXV8iDOeeLDKjPfSD4TqwJXhMoWQTh7g/FD5NEUD2ou/4Qq
-	 IYGoYq2wta+o1LAi8mVpnNJBwfz2u/NKYoSsL/dKfWxirTrIPLwHbpBevnYYnPKTsIZPJ
-	 aqpF+CW2jaZ8IG4Qjau38ljsvfOI1tZytIE37hMxwJ82dLgkXsjuNvT2bi3au9MC/Dehq
-	 ci05Q2vBOkT2WYIkFXRqEYH8zX1Gpf/uGS7c+jwhqS4sPuKWVS+Df5f97vNreLRrJ8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795548748;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=yd/6hanBXf9zEhrdANGKjJeIsJ0EIDRqYpFyzs8Z3FY=;
+	b=BK/YVsInIulHwGIgNVrh5fy40jpZXgv8qIrxus5/JjC9Ox9Krc3rlSIE9wbVNvOiv3o6
+	 l2eCJ4qzamkoCIDNK6koYH74PLcPyFvn0ANk9IqcCrD9lWyMddJnh6Kxm01xKhzM6INrY
+	 Gm8kAFT3T3ZacOPY7R8ME+v7NcAA183+0Ds7OFejvAxwI0WeviZRvq0WzhlmvNv4NhjyM
+	 Ig4HEUVYNKGc+4/vrDeWx7ISlllqEBFJDU4QVvq3ojzrolZIF/6OC66HxSapSg/CsfgB2
+	 aoiilZTz0yQ58yZyYiiVXrF7uJe9a5L8WX8F0ntS9KNFlLl6ox1SYi9GN12/dGdbBug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=GmR0BPrU;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38072606A326;
-	Tue, 24 Nov 2026 19:31:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38072606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=GmR0BPrU
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=9Vjg+DO7VU84bQ+x1k4iMQ7LKWoND2JoeaBzPdTz2B8=; b=GmR0BPrUaux42x8qg67hZWmumE
-	aP0l+JZ5XFB//QHgO/XyC8NouDBm8qslGPXfTf1aMXRNfkJEY0bzjJS9ovyLkRiLkuUz9F0HhK6JS
-	fTtgH5jz6VfXc27uonpeuqT3xI9/hUUFTP93qy9R+ijiJEwfwbqsFOtKTyTWbMD9asBY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xVwF6-0018rp-92; Tue, 24 Nov 2026 20:31:52 +0100
-Date: Tue, 24 Nov 2026 20:31:52 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: netdev-bot+sashiko@kernel.org
-Cc: filipp.dunsky@gmail.com, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 2/3] net: mdio: Add Cortina CS7542 bus controller
-Message-ID: <5cf79810-4a6d-48ae-ab77-3c94b12b75d7@lunn.ch>
-References: <20261123-b4-cs7542-mdio-v1-2-626d0a0e3b4d@gmail.com>
- <179554724805.3135.16586449147336941619@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2EF606A329;
+	Tue, 24 Nov 2026 19:32:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE2EF606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.207])
+	by APP-03 (Coremail) with SMTP id rQCowABHGZo65gVrD7C3AQ--.17886S2;
+	Wed, 25 Nov 2026 03:32:12 +0800 (CST)
+Message-ID: <f818f0facb3af35e31b8346546c1aa23b10bd529.camel@iscas.ac.cn>
+Subject: Re: [PATCH 1/3] dt-bindings: usb: vialab,vl817: use
+ unevaluatedProperties
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Conor Dooley <conor@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Matthias Kaehlcke	
+ <mka@chromium.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Anand Moon	
+ <linux.amoon@gmail.com>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org, Han Gao
+ <rabenda.cn@gmail.com>
+Date: Wed, 25 Nov 2026 03:32:10 +0800
+In-Reply-To: <20261124-rehab-overlord-9b7f44ee7e0f@spud>
+References: <20261124-vl817-uneval-prop-v1-0-137c093fb300@iscas.ac.cn>
+	 <20261124-vl817-uneval-prop-v1-1-137c093fb300@iscas.ac.cn>
+	 <20261124-rehab-overlord-9b7f44ee7e0f@spud>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,16 +62,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179554724805.3135.16586449147336941619@kernel.org>
+X-CM-TRANSID:rQCowABHGZo65gVrD7C3AQ--.17886S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ArWxZr15Zw1DKw4rArWDurg_yoW8uF1rpr
+	WfKF98KF4qgrnxGws2gF4xCw1Fq3Zrtrs8GFyUZryDXFW5u3W5trsxK3s0vF48Cr1xuay2
+	9FWDKa4rtF1vkaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
+	xwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
+	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+	1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
+	IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
+	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
+	DU0xZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-> [Severity: Medium]
-> Can one timeout leave the bus permanently unusable?
+=E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 18:16 +0000=EF=BC=8CConor Dooley=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On Tue, Nov 24, 2026 at 04:31:01PM +0800, Icenowy Zheng wrote:
+> > Currently the VL817 binding has additionalProperties set to false
+> > instead of unevaluatedProperties, which disallows properties documented
+> > in the parent schema.
+>=20
+> This is not quite true though, they're permitted if the binding contains
+> "foo: true" etc - which this one does.
+>=20
+> > Change it to unevaluatedProperties, which is the better practice for
+> > derived schemas.
+>=20
+> Not really, it's fine to do addtionalProps: false + foo: true if only
+> a subset of the inherited properties are valid.
 
-Yes, but that is expected and not recoverable.
+The main meaning here is to allow downstream nodes described in the usb-
+hub.yaml file, especially downstream device nodes (which was a regular
+expression match in usb-hub.yaml).
 
-The LLM often makes comments like this, it does not really have the
-concept of the hardware being dead, there is no recovery.
+I don't think it wise to duplicate that regular expression in all hub
+binding files.
 
-Andrew
+However maybe I should change the commit message?
+
+>=20
+> IMO this series should be two patches, or maybe even just one that
+> changes the ref (as your patch 2 does) and sets the then derived
+> property to true. Otherwise, this should be two patches, with patch 3
+> split into whichever of patch 1 and 2 is relevant.
+
+I'm okay to just drop patch 3; in fact I send it as a split patch just
+because I'm feeling that it's not so needed.
+
+In addtion I'm also okay to squash patch 1 and 2.
+
+Thanks,
+Icenowy
+
+>=20
+> >=20
+> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > ---
+> >  Documentation/devicetree/bindings/usb/vialab,vl817.yaml | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml b/=
+Documentation/devicetree/bindings/usb/vialab,vl817.yaml
+> > index c815010ba9c2e..d0484e48e319c 100644
+> > --- a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
+> > +++ b/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
+> > @@ -40,7 +40,7 @@ required:
+> >    - vdd-supply
+> >    - peer-hub
+> > =20
+> > -additionalProperties: false
+> > +unevaluatedProperties: false
+> > =20
+> >  examples:
+> >    - |
+> >=20
+> > --=20
+> > 2.56.0
+> >=20
+> >=20
+
