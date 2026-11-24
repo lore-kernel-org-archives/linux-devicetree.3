@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795502259;
-	b=v/As6HgfkNiWpzVf/pNDsN65Q7wtXEwBA3WAsTnl8micN0lJquVtXY1F7X9S0YsAzxuh
-	 ToGQd5LdBNtiZ0F53rTMgQLuQNvLgMPDxq/NC179lkL9/17LC2T/L/MtYaJ/Bd/BvQIXk
-	 3HDuT4Vsi8Fgv6DLSqeaaqhCDPszM+akm+WwF0D3E2mNZkIbkLKLsJHNK2xOb7ZS0Mikq
-	 NS4FJANQjM7n8IZRrRziV3b8U16ZAw+xdpbnbEA1r4nEDlBNotQf7i8y26Wbh1lxEgsXL
-	 L4LiSPsD15IOPvrUHBdwQ27A4FUsykhw/4l/z/HBSq2aSZm0NeA6P6+Elle5ZMr+CSA==
+	t=1795502311;
+	b=RmN0IuJiSAE/dsw4VYhxpc/Nb2OXZRllW5OxGbySpyWa1TGMukZEbi0iIOfm58LcbfUE
+	 yZ7O9Re1j64qh/IKzhVK0x3JJZYrepJ/UpS/kci1qG1bGAru3W9R0q2XUshpvpuo1pYuF
+	 f3brpYPmbgN6zld60DBjriCjygAVJ3MPoCtq30k0P8bT9CPJzQQJnOnznyH4S3perQ0+k
+	 1PpO4HreO95u3nhVppWe9fab1OHF4nLUaM+K67joqFsFFI7R3S1/WNWWfb+KHmnSI5vxC
+	 5HIXJpE8nXzpmayWSjlXTkGkldtwzfW5w8VRQvCOrx6WNc0mubKCNrcWIrofavgv2Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795502259;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795502311;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ecDccHcHInTfr1e2yq1yGA/MTbO1JfSkN04XeWsio6g=;
-	b=YGp5Zyy76OnLjSkfpFmWKh5E1sqncgrNWgN6oIUG0PGfjOEEB830N9MWUAFuVOaC5pc/
-	 SGngmPrsiUuIEMXBRG9CzbGu1coibt7FOXn3EUgW4tWwtjIzSNN5F6+iHWX0dpRD0IU8s
-	 yZzeNsV5SZsw91utL/ySd5QNe3gn7x049/Lvi3AtXVOJrneCAnx1dPZojA8R4GtwtEOkf
-	 0hrP7cxrfHyjcrmdK8yfLsshTzjeI6UirerLZYvhdKrgkym8SPSqFfP1HB6xnV0IQJguF
-	 FoSRTM/DjjW078arD7eeNICGa4i6vD29yI2gxytpwTzPUoWTjfenuF+IbEZ7bNP1bFw==
+	bh=G4Jws+luoVJ3BEeYNiEMEcC6CxB49mTq6uZPEZLGGks=;
+	b=N+VE/z3Z3h+sYrVhcLs/RX7fbu2mfOw8yU/pl1ZGDsrIBYM4qvrYZ3a46DVmizL9gwPg
+	 gzbTME1eyYZxbVe8XBnLbbW0wmmUPn3gF6e+VvHMU0x7goh3YTIPWkmAoZvr0akQVZUk6
+	 rJW5f5Mj+TYe+zRNrr0PrmYDCoo3dVWTnH9DDP+kB8Mb4tofIGPPQQsxKvE2L+NfDYYMZ
+	 4ejwUV++E9XFTl43GOcEbwopz6dWv5gJpmSn+R8qI2D+01JKTQvfBtpFZXCLrBqsapVnd
+	 MYB/AC29Vs7fe8SgN071hSIifvqXY7ASwVvfy0ov3ngdiWF8sZroeqgYTHWrxIZyQ9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MS91BF2v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="B/3MInbc";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9025606A31E;
-	Tue, 24 Nov 2026 06:37:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F0F606A31E;
+	Tue, 24 Nov 2026 06:38:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MS91BF2v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CEB71F000C0;
-	Tue, 24 Nov 2026 06:37:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B/3MInbc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD911F000C6;
+	Tue, 24 Nov 2026 06:38:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795502259;
-	bh=ecDccHcHInTfr1e2yq1yGA/MTbO1JfSkN04XeWsio6g=;
+	s=k20260515; t=1795502310;
+	bh=G4Jws+luoVJ3BEeYNiEMEcC6CxB49mTq6uZPEZLGGks=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MS91BF2v6UKb7DiQk6z5LvIu1SLeq9Yk/Qckv7SfRkWN6bs4lvOpu4LJrL6bceOB9
-	 5TjbGHqpvlbiPTD3XL31K1WA2LczmHjnWAB9HudBU34KyXJM5fGva10you/K7CL+Kf
-	 3AnoMv9S30C9hOMbL7ooXKVVkxBWaJc31g92FwaVE5O/7KTyraCNNatCTsQrQbMV7R
-	 c3TFJtvP4zgaqW+fBtFVpX78kIShP4idYChkuRo3pJWAVklH0x3ra1cIvfD6Y+hq/U
-	 8nlpinMNikm0fepzvQxFJVezsUkdpGp471u7u+ybTkCaS7psLuIWYUEbhrhz2smUdi
-	 93eBBtsIwO0Vw==
-Message-ID: <ba76dc4c-f8d7-4d7e-a9d4-c2de88e9a9b3@kernel.org>
-Date: Tue, 24 Nov 2026 07:37:33 +0100
+	b=B/3MInbc+7/0bDMIJBx5IpI7khMruoB3nanB6Qr6Ea1AR/zDoK4FSJ9uzLlLEPqdi
+	 hWQyJlkkVSq57rbY1JorQgZG6eeGCh4/t0gs4SpMfrtxDiZiFm/4jJffnl/d9W2aM9
+	 Yud68vicJZxeyqYsenMLhSgIl5gAyQYsO1qrBEgwSGITXC3Q5F1KhRg61ZkqbT1LVP
+	 bWwS8kQ3NYxHanEI5oTl2ocYbSaxB8BnOl7ctH/7NGWo1opvfAEzc7GnxXsMNckYNU
+	 JcGHalGxDkLnKM/+fccXSeZb/3mj6OJLe1zHuxp4/gvoxpZNA91DeoinsSqX9DbBVT
+	 qkQPr9dj60Jlw==
+Message-ID: <831a6498-9c1a-4829-b47d-52035fe15444@kernel.org>
+Date: Tue, 24 Nov 2026 07:38:22 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,20 +52,24 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: agatti: add the Embedded USB
- Debugger
-To: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>,
- Souradeep Chowdhury <quic_schowdhu@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- Elson Serrao <elson.serrao@oss.qualcomm.com>
-References: <20261123-qcm2290-eud-v2-0-9bfc432dee07@oss.qualcomm.com>
- <20261123-qcm2290-eud-v2-4-9bfc432dee07@oss.qualcomm.com>
+Subject: Re: [PATCH 2/8] dt-bindings: clock: Describe CS7542 PCIe gates and
+ resets
+To: filipp.dunsky@gmail.com, Manivannan Sadhasivam <mani@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof Wilczynski <kwilczynski@kernel.org>, Rob Herring
+ <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261123-b4-cs7542-pcie-v1-0-4cde5201d404@gmail.com>
+ <20261123-b4-cs7542-pcie-v1-2-4cde5201d404@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -111,32 +115,23 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261123-qcm2290-eud-v2-4-9bfc432dee07@oss.qualcomm.com>
+In-Reply-To: <20261123-b4-cs7542-pcie-v1-2-4cde5201d404@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23/11/2026 17:42, Igor Opaniuk wrote:
-> Describe the EUD:
-> 
-> - its CSRs at 0x1610000 and the mode manager register at 0x1612000;
-> - TCSR_APSS_SPARE_REG1 (0x3e5018), as offset 0x25018 into the TCSR
->   syscon;
-> - its interrupt (eud_int[1], GIC SPI 189).
-> 
-> Hook its port to a second endpoint of the dwc3 high-speed port so the
-> driver finds the role switch, while the board keeps the first endpoint
-> for its connector.
-> 
-> Signed-off-by: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
-> ---
+On 23/11/2026 19:43, Fil Dunsky via B4 Relay wrote:
+> +properties:
+> +  compatible:
+> +    const: cortina,cs7542-pcie-control
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +  "#reset-cells":
+> +    const: 1
+> +
 
-USB parts in this patchset grew here, so now DTS must be split:
-
-DTS cannot be combined in this patchset and must be split. Don't mix
-patches from independent subsystems when you send something explicitly
-targeting only one subsystem.
-See also: Documentation/devicetree/bindings/submitting-patches.rst
-
+No resources here, not a separate device. Fold it into the parent.
 
 Best regards,
 Krzysztof
