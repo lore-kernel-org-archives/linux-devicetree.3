@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795507004;
-	b=X7vg5huTOnqRJF4DoESpeGtGpiaN7aW01V5iYJONU+BRRQ8h8HuD+vPJ6qhXkuYEbfKw
-	 wkJfsKmVeKuXRwpPuLUHRaPHFVq3RSxoUIWI6dJl/WIq1pDYrkcutlGz2gKaiD6VJqOfz
-	 Wo6q5QM/rionH/4lTqPKnQONf/Qx+LSk+KA6EHSHX2U3vemhIXWj9XbtsNhL+OfYUxS4f
-	 3UzoQzODIvRvC9WsOhfofFJL7/IVr+fM626FMgfnuwEf/hGZcxznRZiGTZ2Pq3XkSUc1f
-	 OUFjX4U6PdZE19newCUBdAHMRy57gytcToP1l133N07ZRVqY+OZ1ZLdKPxffwa7SYVw==
+	b=04C6AT4612hrNplDiD7F2K1uQWtEr1vZGiuYPq0uTsitiupFHmB98givIAwlVxWUogTq
+	 ut0QpS6NI9ne7qVnaFlFOts+IbOVQf7bD5GJkpBlfxI0pV4BFhAfoQTAK/K2XD8xuVqTP
+	 O0Nou7D+Xjxq1kZkW9dIOntvVIWI9Ja7LsKYflP2S29NEaTZvdVg5B5iD/dBw7Gf3zwar
+	 RU+qGpJ62Dl+ZS9B6JheA4F5Ajpce01fqvIVKkwEOVhRR1wsIhdpJ3FFtFMttDGsEnCDl
+	 fIRryl0wwsz2S22/r+hn4D+XV30YZoxoIOO0faAXsm85YhsPAVtNcmFRP3axqkck+gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795507004;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
 	 X-CM-SenderInfo;
-	bh=3dynjHgtfbU1CoSSdK8YrZUn+Q1ba3Jl6tDbp6cDLlE=;
-	b=QpsoPXFcEaOoTsy3eR2GvWVyB/+NCfvYMEySpwZaI5+BPAUo3I4urnkekKohofBC9T8S
-	 c+M+aMdVCaXe2Xz5FkIqdDpsQsojLCod+QG8of29vr4k4cyegK4JsuW6rcROXfezYhcsu
-	 T+HkNNGX/8ROMWMH2/dTfZr750y+FtBLw1FwKWfZNJOVIi0PmvKXL+XaB3KipRAELb0iN
-	 eV6ByHwlYKQc8GDPfKq9h5fI8WcwxwZQGytB9OpOiK5dp26X9VVAaBmUGK00TlnOWvc5S
-	 pW6MSOjR485IYCujeAsZU4m1f3pQSui3vMlezLLUDG08pagXcxNRi86aBPo4pz3vU6A==
+	bh=oKOwDJTj343bGkC/S0KkQlWHOXWdBRA/eeZF6IM24kU=;
+	b=mfWgyi5iIBpvZU5bg5UNc3ImYkYrPkpRYR44rGGb6gdmEFaVgftIY5bEWoDx/3vnxW+K
+	 eXanW/88nae6hYiQtXfz2ul5lb11UeqK0fqA13LmCRHW8N34NfFY+C2BPBGJKrKm8JRlC
+	 9WOG/qDQmuiqh7vx2OujZIpNAT966oxPMrbbEfvIVGeYgUozlIotHLlwhbWPJEkGGm6ZT
+	 W9ngXos2UiQvKux8FnkrYd3EEicHS34uNSlJWgWMFfhosaUzJe7SWPjTMOQm3hMv0HGfN
+	 xbGbwbeA8AIc5yGt4QxKy6u5GoEYTCfcqgqfy8EmXGE8cPvYkdJ8Iiz19BuGE2s0UuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -26,18 +26,19 @@ Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931CB606A31E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93268606A321;
 	Tue, 24 Nov 2026 07:56:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 931CB606A31E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93268606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.139])
-	by APP-01 (Coremail) with SMTP id qwCowABHbfcVQwVrAUaUAQ--.8758S3;
-	Tue, 24 Nov 2026 15:56:07 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowABHbfcVQwVrAUaUAQ--.8758S2;
+	Tue, 24 Nov 2026 15:56:06 +0800 (CST)
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Date: Tue, 24 Nov 2026 15:56:02 +0800
-Subject: [PATCH v3 1/2] dt-bindings: display: bridge: document TH1520 MIPI
- DSI controller
+Subject: [PATCH v3 0/2] drm/bridge: add glue driver for T-Head TH1520 DW
+ MIPI DSI
+Date: Tue, 24 Nov 2026 15:56:01 +0800
+Message-Id: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,9 +50,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-th1520-dw-mipi-dsi-v3-1-ffcf2d87971b@iscas.ac.cn>
-References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
-In-Reply-To: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NywrCMBQFf0WyNiWPxiau/A9xkeZhr2BbkhqV0
+ n83qQsRxOXAOTMzii6Ai2i/mVFwCSIMfQa+3SDT6f7sMNjMiBG2o4QTPHVUMILtHV9hBGwjYCG
+ JFS1rFPMK5eMYnIfHKj2e3hxv7cWZqZjKooM4DeG5VhMtu7+BRDHBjeCe195yUvsDRKNjpU1le
+ lQSiX0klKqfEpYlSrfCK0mkl823ZFmWF34qUGENAQAA
+X-Change-ID: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -70,146 +73,74 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  Icneowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>, 
  Icenowy Zheng <zhengxingda@iscas.ac.cn>
 X-Mailer: b4 0.15.0
-X-CM-TRANSID:qwCowABHbfcVQwVrAUaUAQ--.8758S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw1DZF4kWF1xur1kKFy7trb_yoW5Cr13pa
-	yfGF4xJF18tFnxuan3Kr10yF43WrsYvFn8Ww17J340yayYg3W2q39IkF1YgFy8JF1xZa43
-	ZF4jvry7Krnavw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmF14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
-	A2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
-	e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
-	8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
-	jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
-	kIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
-	Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
-	AY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
-	cVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
-	AIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2
-	KfnxnUUI43ZEXa7sRiubytUUUUU==
+X-CM-TRANSID:qwCowABHbfcVQwVrAUaUAQ--.8758S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tryfKw1fKr4rAFW7Gw4rKrg_yoW8trWrpa
+	17Gry3JFyDJrZ29F9ayr18XFWfG3Z5JF98KFW5Kw1vvan8u3W8Xr9FkFs5WF1UXrn3uF42
+	vF4jg348WrsFvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
+	nIWIevJa73UjIFyTuYvjTRM6wCDUUUU
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-T-Head TH1520 SoC contains two DesignWare MIPI DSI host controllers.
+T-Head TH1520 contains a DesignWare MIPI DSI host controller paired with
+an internal DesignWare PHY, as a similar design (but with a different
+PHY) with the Rockchip DW MIPI DSI.
 
-Add a binding document for them, referencing the common dw-mipi-dsi
-binding file.
+The functionality to write to the PHY is shared between these two
+implementations of DW MIPI DSI, so it's extracted from the Rockchip
+driver to the common code. (The same sequence could be seen in the
+HiSilicon Kirin DRM driver, but that one hasn't been converted to common
+DW MIPI DSI.)
+
+Tested on a Lichee Console 4A (with a Mingjun MJ070BI30IA2 panel) with
+further pending DT patches.
+
+One question remains: I have to copy the extra lane bandwidth headroom
+from the Rockchip driver, otherwise the Mingjun panel cannot keep sync
+to the display signal; from my testing, changing the hardcoded
+PHY_STOP_WAIT_TIME from 0x20 to 0x2 (which is written by the vendor
+driver) can also make this panel to work w/o the extra headroom. I want
+some advice on whether to keep the extra headroom or changing the common
+code to make the PHY_STOP_WAIT_TIME parameter adjustable.
 
 Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
- .../display/bridge/thead,th1520-dw-mipi-dsi.yaml   | 103 +++++++++++++++++++++
- 1 file changed, 103 insertions(+)
+Changes in v3:
+- Fixed a remaining `syscon` in the DT binding.
+- Link to v2: https://patch.msgid.link/20261119-th1520-dw-mipi-dsi-v2-0-9ab5f9808f87@iscas.ac.cn
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/thead,th1520-dw-mipi-dsi.yaml b/Documentation/devicetree/bindings/display/bridge/thead,th1520-dw-mipi-dsi.yaml
-new file mode 100644
-index 0000000000000..c12afde5fc26b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/bridge/thead,th1520-dw-mipi-dsi.yaml
-@@ -0,0 +1,103 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/bridge/thead,th1520-dw-mipi-dsi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: T-Head TH1520 DesignWare MIPI DSI Host Controller
-+
-+maintainers:
-+  - Icenowy Zheng <zhengxingda@iscas.ac.cn>
-+
-+description:
-+  The MIPI DSI host controller in TH1520 is a Synopsys DesignWare MIPI DSI
-+  host controller paired with an integrated Synopsys MIPI D-PHY.
-+
-+allOf:
-+  - $ref: snps,dw-mipi-dsi.yaml#
-+
-+properties:
-+  compatible:
-+    const: thead,th1520-dw-mipi-dsi
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: DSI controller APB clock
-+      - description: PHY configuration clock
-+      - description: PHY reference clock
-+      - description: DSI controller input pixel clock gate
-+
-+  clock-names:
-+    items:
-+      - const: pclk
-+      - const: phy_cfg
-+      - const: ref
-+      - const: pixel
-+
-+  thead,vo-syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the VO_SUBSYS system controller for accessing D-PHY sideband
-+      signals.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - interrupts
-+  - thead,vo-syscon
-+  - ports
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/thead,th1520-clk-ap.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/reset/thead,th1520-reset.h>
-+
-+    soc {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
-+
-+      dsi0: dsi@ffef500000 {
-+        compatible = "thead,th1520-dw-mipi-dsi";
-+        reg = <0xff 0xef500000 0x0 0x1000>;
-+        interrupts = <119 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&clk_vo CLK_MIPI_DSI0_PCLK>,
-+                 <&clk_vo CLK_MIPI_DSI0_CFG>,
-+                 <&clk_vo CLK_MIPI_DSI0_REFCLK>,
-+                 <&clk_vo CLK_MIPIDSI0_PIXCLK>;
-+        clock-names = "pclk", "phy_cfg", "ref", "pixel";
-+        resets = <&rst TH1520_RESET_ID_DSI0_APB>;
-+        reset-names = "apb";
-+        thead,vo-syscon = <&syscon_vo>;
-+
-+        ports {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+
-+          port@0 {
-+            reg = <0>;
-+
-+            dsi0_in: endpoint {
-+              remote-endpoint = <&dpu_out_dpi0>;
-+            };
-+          };
-+
-+          dsi0_out_port: port@1 {
-+            reg = <1>;
-+
-+            dsi0_out_panel: endpoint {
-+              remote-endpoint = <&panel_in>;
-+            };
-+          };
-+        };
-+      };
-+    };
+Changes in v2:
+- Changed `syscon` to `thead,vo-syscon` in the DT binding.
+- Dropped the patch moving common PHY write routine to dw-mipi-dsi
+  common code.
+- Fixed a few problems pointed out by Sashiko in v1.
+- Link to v1: https://patch.msgid.link/20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn
 
--- 
-2.56.0
+---
+Icenowy Zheng (2):
+      dt-bindings: display: bridge: document TH1520 MIPI DSI controller
+      drm/bridge: add TH1520 DesignWare MIPI DSI host controller
+
+ .../display/bridge/thead,th1520-dw-mipi-dsi.yaml   | 103 ++++
+ drivers/gpu/drm/bridge/Kconfig                     |  12 +
+ drivers/gpu/drm/bridge/Makefile                    |   1 +
+ drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c        | 570 +++++++++++++++++++++
+ 4 files changed, 686 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
+
+Best regards,
+--  
+Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
