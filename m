@@ -1,56 +1,43 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795506467;
-	b=39jxtyPW6DhKUNd0kfy9LBxeu52yLsDHaOM9unlZOcTcXRg1U9dNo49MJR66la+RtNhw
-	 rGnXeaJKVFRSadbGWP1Lh2203YFGQgmbd0jln4EaVexcghH2EPqEsvDZ0auWYdXmMXeIw
-	 1nuiHga5EEwkovBW30dbQFO3Qyj3w4gzd+7cKmL64WEmJ9kh8QiKzJkqjwfdMZI3ExI+3
-	 cgMtvMFnjtv82vVhrZ4FHiT1zHzjzNgLUk1O8q+g1Q2p0zk6uak9QqYuUhktS9/pBcdW5
-	 wgRGZWBRHSrEQ5QXzPPE0V+BMfkMdS+EvOkpE7wH5cqwwaZEGIBFYwhdgiIzoe2FHtQ==
+	t=1795507004;
+	b=X7vg5huTOnqRJF4DoESpeGtGpiaN7aW01V5iYJONU+BRRQ8h8HuD+vPJ6qhXkuYEbfKw
+	 wkJfsKmVeKuXRwpPuLUHRaPHFVq3RSxoUIWI6dJl/WIq1pDYrkcutlGz2gKaiD6VJqOfz
+	 Wo6q5QM/rionH/4lTqPKnQONf/Qx+LSk+KA6EHSHX2U3vemhIXWj9XbtsNhL+OfYUxS4f
+	 3UzoQzODIvRvC9WsOhfofFJL7/IVr+fM626FMgfnuwEf/hGZcxznRZiGTZ2Pq3XkSUc1f
+	 OUFjX4U6PdZE19newCUBdAHMRy57gytcToP1l133N07ZRVqY+OZ1ZLdKPxffwa7SYVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795506467;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=OTP7w9ZiHM/lSydigi/3xg0xnFIH5CNg9KINKRpIhqo=;
-	b=cH+0Nm7dE0idJDvRBpPPyCDj3n6BLI+2z40ITT7H2hFL4/y67s9gt5myFbpS+En0kxdD
-	 F61q0n9Y+SJeCZEpQiBfMqFPEgtHiG/FXlMqUOnzxF4v7c3BEmucVvEGpn4zXR19V0jkH
-	 XAZOrNvzJOk952FBKydtItiV3qL57mU+fFpYKLPDeKQwOCpv43TXIp8BHbJRV5aBYAxll
-	 /ZliZmGqdl0nwrmrLmk59JbVPf6sFqaQI4HeVuob+3HAC2QOp1A3ov1Spcl2HAXa7Wojx
-	 hGRWJIOeFEEv7erAt9OvkaGW6gjiLnmqIqaeBxjyJxH75EAl5YUA+65g640ZXZnE+OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795507004;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=3dynjHgtfbU1CoSSdK8YrZUn+Q1ba3Jl6tDbp6cDLlE=;
+	b=QpsoPXFcEaOoTsy3eR2GvWVyB/+NCfvYMEySpwZaI5+BPAUo3I4urnkekKohofBC9T8S
+	 c+M+aMdVCaXe2Xz5FkIqdDpsQsojLCod+QG8of29vr4k4cyegK4JsuW6rcROXfezYhcsu
+	 T+HkNNGX/8ROMWMH2/dTfZr750y+FtBLw1FwKWfZNJOVIi0PmvKXL+XaB3KipRAELb0iN
+	 eV6ByHwlYKQc8GDPfKq9h5fI8WcwxwZQGytB9OpOiK5dp26X9VVAaBmUGK00TlnOWvc5S
+	 pW6MSOjR485IYCujeAsZU4m1f3pQSui3vMlezLLUDG08pagXcxNRi86aBPo4pz3vU6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8OlA3nJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F917606A31E;
-	Tue, 24 Nov 2026 07:47:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8OlA3nJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715841F000C6;
-	Tue, 24 Nov 2026 07:47:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795506466;
-	bh=OTP7w9ZiHM/lSydigi/3xg0xnFIH5CNg9KINKRpIhqo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C8OlA3nJGgJOPEuTgFE6g3O/1WYphIIs5vWScHSdTx61yTdpw4qYJFTFB1uI7SZJA
-	 MppJLC0/0VIssitZoNqKhk5a+dai8i9qQ+PEIzxiu6mFIIyoQbkEmjXVilaC+sW2Fm
-	 lie1tyUCU0rptJQbhtrPiJKbgKuH5w6UmUUHcVdMYMcoBSBHKEAWmzAZE6Fkg0LR5C
-	 US1V9fA4B/FI2b01o2mRDWO4jglQEullBUnkqvyrj1rpvuO36qXzdPYFeCYblKqS6i
-	 CMs5y5oALaeq3wdjPh/GqppBQpj7IE1PtVDoxDSIa1FMlmjS4uGVRW7GdaCMYaF8N7
-	 9nmDuIFWTRWCQ==
-Message-ID: <sashiko-outbox-230672@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 17/20] ARM: dts: omap3pandora: Describe sound card
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <0269f30c3f766431c0c20a36fd6e2b2dce1b3f2f.1795505160.git.hns@goldelico.com>
-References: <cover.1795505160.git.hns@goldelico.com>
- <0269f30c3f766431c0c20a36fd6e2b2dce1b3f2f.1795505160.git.hns@goldelico.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 07:47:46 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931CB606A31E;
+	Tue, 24 Nov 2026 07:56:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 931CB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.139])
+	by APP-01 (Coremail) with SMTP id qwCowABHbfcVQwVrAUaUAQ--.8758S3;
+	Tue, 24 Nov 2026 15:56:07 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Date: Tue, 24 Nov 2026 15:56:02 +0800
+Subject: [PATCH v3 1/2] dt-bindings: display: bridge: document TH1520 MIPI
+ DSI controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,124 +46,170 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261124-th1520-dw-mipi-dsi-v3-1-ffcf2d87971b@iscas.ac.cn>
+References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
+In-Reply-To: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ Icneowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>
+X-Mailer: b4 0.15.0
+X-CM-TRANSID:qwCowABHbfcVQwVrAUaUAQ--.8758S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxXw1DZF4kWF1xur1kKFy7trb_yoW5Cr13pa
+	yfGF4xJF18tFnxuan3Kr10yF43WrsYvFn8Ww17J340yayYg3W2q39IkF1YgFy8JF1xZa43
+	ZF4jvry7Krnavw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmF14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
+	A2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
+	e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
+	8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
+	jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
+	kIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
+	AY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
+	cVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
+	AIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2
+	KfnxnUUI43ZEXa7sRiubytUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] ARM: dts: omap3pandora: incomplete and unused sound-dai
-  property on sound node
-- [Medium] ASoC: ti: omap3pandora: built-in driver fails to bind DT
-  McBSP DAIs
-- [Low] ARM: dts: omap3pandora: redundant clocks properties on mcbsp2
---
+T-Head TH1520 SoC contains two DesignWare MIPI DSI host controllers.
 
-commit 51a8d5eee5be53980684a82cdf4795c967918b82
-Author: Stefan Leichter <sle85276@gmx.de>
+Add a binding document for them, referencing the common dw-mipi-dsi
+binding file.
 
-ARM: dts: omap3pandora: Describe sound card
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+ .../display/bridge/thead,th1520-dw-mipi-dsi.yaml   | 103 +++++++++++++++++++++
+ 1 file changed, 103 insertions(+)
 
-This commit adds the OpenPandora sound card node and McBSP2 DAI properties
-to omap3-pandora-common.dtsi.
+diff --git a/Documentation/devicetree/bindings/display/bridge/thead,th1520-dw-mipi-dsi.yaml b/Documentation/devicetree/bindings/display/bridge/thead,th1520-dw-mipi-dsi.yaml
+new file mode 100644
+index 0000000000000..c12afde5fc26b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/thead,th1520-dw-mipi-dsi.yaml
+@@ -0,0 +1,103 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/thead,th1520-dw-mipi-dsi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: T-Head TH1520 DesignWare MIPI DSI Host Controller
++
++maintainers:
++  - Icenowy Zheng <zhengxingda@iscas.ac.cn>
++
++description:
++  The MIPI DSI host controller in TH1520 is a Synopsys DesignWare MIPI DSI
++  host controller paired with an integrated Synopsys MIPI D-PHY.
++
++allOf:
++  - $ref: snps,dw-mipi-dsi.yaml#
++
++properties:
++  compatible:
++    const: thead,th1520-dw-mipi-dsi
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: DSI controller APB clock
++      - description: PHY configuration clock
++      - description: PHY reference clock
++      - description: DSI controller input pixel clock gate
++
++  clock-names:
++    items:
++      - const: pclk
++      - const: phy_cfg
++      - const: ref
++      - const: pixel
++
++  thead,vo-syscon:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to the VO_SUBSYS system controller for accessing D-PHY sideband
++      signals.
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - interrupts
++  - thead,vo-syscon
++  - ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/thead,th1520-clk-ap.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/reset/thead,th1520-reset.h>
++
++    soc {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      dsi0: dsi@ffef500000 {
++        compatible = "thead,th1520-dw-mipi-dsi";
++        reg = <0xff 0xef500000 0x0 0x1000>;
++        interrupts = <119 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clk_vo CLK_MIPI_DSI0_PCLK>,
++                 <&clk_vo CLK_MIPI_DSI0_CFG>,
++                 <&clk_vo CLK_MIPI_DSI0_REFCLK>,
++                 <&clk_vo CLK_MIPIDSI0_PIXCLK>;
++        clock-names = "pclk", "phy_cfg", "ref", "pixel";
++        resets = <&rst TH1520_RESET_ID_DSI0_APB>;
++        reset-names = "apb";
++        thead,vo-syscon = <&syscon_vo>;
++
++        ports {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          port@0 {
++            reg = <0>;
++
++            dsi0_in: endpoint {
++              remote-endpoint = <&dpu_out_dpi0>;
++            };
++          };
++
++          dsi0_out_port: port@1 {
++            reg = <1>;
++
++            dsi0_out_panel: endpoint {
++              remote-endpoint = <&panel_in>;
++            };
++          };
++        };
++      };
++    };
 
-> diff --git a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi b/arch/a=
-rm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-> index 6e349f7ae6936..a5633d93547a3 100644
-> --- a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-> @@ -69,6 +69,41 @@ dac: pcm1773-codec {
->  		vcc-supply =3D <&vsim>;
->  		enable-gpios =3D <&gpio4 22 GPIO_ACTIVE_HIGH>; /* GPIO 118 */
->  		status =3D "okay";
-> +		#sound-dai-cells =3D <0>;
-> +	};
-> +
-> +	sound: sound {
-> +		compatible =3D "openpandora,omap3pandora-sound";
-> +		status =3D "okay";
-> +
-> +		label =3D "OpenPandora";
-> +
-> +		amp-gpios =3D <&gpio1 14 GPIO_ACTIVE_HIGH>;
-> +		amp-supply =3D <&aux_5v>;
-> +
-> +		widgets =3D
-> +			"Line", "Line Out",
-> +			"Line", "Line In",
-> +			"Headphone", "Headphone Jack",
-> +			"Microphone", "Mic (internal)",
-> +			"Microphone", "Mic (external)";
-> +
-> +		routing =3D
-> +			"DAC1", "APLL Enable",
-> +			"DAC2", "APLL Enable",
-> +			"Headphone Amplifier", "VOUTL",
-> +			"Headphone Amplifier", "VOUTR",
-> +			"Line Out", "VOUTL",
-> +			"Line Out", "VOUTR",
-> +			"Headphone Jack", "Headphone Amplifier",
-> +			"AUXL", "Line In",
-> +			"AUXR", "Line In",
-> +			"MAINMIC", "Mic (internal)",
-> +			"Mic (internal)", "Mic Bias 1",
-> +			"SUBMIC", "Mic (external)",
-> +			"Mic (external)", "Mic Bias 2";
-> +
-> +		sound-dai =3D <&mcbsp2>, <&dac>;
+-- 
+2.56.0
 
-[Severity: Medium]
-Is sound-dai here both incomplete for the capture link and unused by
-omap3pandora_probe()?
-
-The sound card has both a playback link (McBSP2 to PCM1773) and a capture
-link (McBSP4 to TWL4030), but sound-dai and #sound-dai-cells only cover
-&mcbsp2 and &dac, omitting &mcbsp4 and the TWL4030 codec.  In addition,
-omap3pandora_probe() in sound/soc/ti/omap3pandora.c only parses label,
-widgets and routing, and never reads sound-dai to populate the CPU,
-platform or codec of_node pointers in omap3pandora_dai[].  As a result,
-component matching still relies on hardcoded device names in
-omap3pandora_dai[], including the non-generic pcm1773-codec DT node name.
-
-[Severity: Medium]
-Can this sound card probe when CONFIG_SND_SOC_OMAP3_PANDORA=3Dy?
-
-Because omap3pandora_probe() does not populate dai_link->cpus->of_node or
-dai_link->platforms->of_node from sound-dai, ASoC matches the McBSP DAIs
-using the hardcoded names in omap3pandora_dai[] from commit "ASoC: ti:
-omap3pandora: Convert sound card to DT":
-
-sound/soc/ti/omap3pandora.c:
-#if IS_BUILTIN(CONFIG_SND_SOC_OMAP3_PANDORA)
-SND_SOC_DAILINK_DEFS(out,
-	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.2")),
-	DAILINK_COMP_ARRAY(COMP_CODEC("pcm1773-codec", "pcm1773")),
-	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.2")));
-
-SND_SOC_DAILINK_DEFS(in,
-	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.4")),
-	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
-	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.4")));
-#else /* IS_BUILTIN(CONFIG_SND_SOC_OMAP3_PANDORA) */
-
-On a Device Tree boot, the McBSP devices are always registered as
-49022000.mcbsp and 49026000.mcbsp regardless of whether the sound driver
-is built-in or modular, so a built-in driver will never find omap-mcbsp.2
-or omap-mcbsp.4 and card registration will defer indefinitely.
-
-[ ... ]
-
-> @@ -736,6 +771,9 @@ &mcbsp1 {
->  /* audio DAC */
->  &mcbsp2 {
->  	status =3D "okay";
-> +	#sound-dai-cells =3D <0>;
-> +	clocks =3D <&mcbsp2_fck>, <&mcbsp2_ick>;
-> +	clock-names =3D "fck", "ick";
->  };
-
-[Severity: Low]
-This isn't a bug, but clocks and clock-names on &mcbsp2 duplicate the
- exact same properties already defined in the base mcbsp2 node in
-arch/arm/boot/dts/ti/omap/omap3.dtsi.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795505160.gi=
-t.hns@goldelico.com?part=3D17
