@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795521768;
-	b=yJXzFmL+cIKyfZm62XCjBAy4+gxGQQnn2KQskfi7YzVDrvOStOIK3j7LiFD2eXanzSH2
-	 po7M4gFAOOLzEJevzSwpI7W9v9tZlNVp+hoISRJ4yb1gwLkRlPU/uVTJdNyUH+gF/lwsK
-	 A+JIA9lJPS+5sqUC7g0K/iWAfT3Hho+82M2bCky3/mNbYiTIDTXHqsZpYKPcRWTZDhesK
-	 ZyZw9tP/sGXfN1zJiaznpTTZogIsB5eT58rLNFh3GliJ98DL6vn8ZKqOBlWWH4IBYBSB+
-	 Dv0WZLll+xzIOIeh5muKmQqmy2XCi7Bz+x5UWDbB497pki9/BsJ8lxcghlTS/5ekvKA==
+	t=1795521770;
+	b=AbAwkqm075XM45LHCLsnnQcffPDdmBhQVJrb/1MSU1zY9TVagaea9xkQBCja0klxZbE8
+	 3Et+6edF5jetXsF/qf1rQEql0WxyMuwFF82V/M9GDcvWLhFMF8UqqSWWQUortkqSE31Mk
+	 iXEdfI4zCMQqdOP5ImwbhG69LUiEWGz1sBqM+fMaoiS1bCzhl+crNr7+pVT0sdGuQ3FeE
+	 EOyhkpnXpb+Xy4TevVK0m6idSE9+vXDxuQIkACxlMr/DG33weh01bOdh6cznrhGv8oDGn
+	 I5kUx8LjjG3AG+PSr82qdb0H/oBl/vTOcDU8M1QWBthWe5KOWfHOf6NqE6CYIIPAXaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795521768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795521770;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=njjx8+oQtzyGAC1NugS2WX1liqLqjY/p8JrPnTCC5tw=;
-	b=Ys13w1pLWspoCBZPobVbM6U34pnnzq3dkEfLw6cgDYul55+m17eYN6PQvAVi8aA+1znI
-	 QAS6JP+flmmmkzw0DlDjAEN2BYYnSRpMxyM0ZVM9frbXIubD2v2A3Id2acqkmS0QnWhi1
-	 qmr+0Rjaa+hUkSPvBMW1HmoL33GEZimRt5msvM9U5wgzrrl/tJPcATWzHod00QAbBsgWR
-	 Y75Ayt+zEc/hfrrYDSs3nVmd47J/I5tiK95DtgH9brJUNUPLpmLQloErFLKTRFJSIx3J+
-	 xY9gBfuWrfhVo5XwlYpcihOb7OQ6B9avksFyIDE9tvlkIQSqWuMgTnYQrZbeKqFkA3w==
+	bh=J/hgjS5wptIfTKZPK4+3uy6djn7gSRXd68ZCyUQWT1s=;
+	b=bs9XFgvdI3Gdvl3pMJCmOsHzODNCAhWRm5maTZblgOoywAqGK+MK3fK0WguuKlpac3q3
+	 Q/POUiZpnhbAzLmUhq+kImkmc/zcY08mWiqkNTvV3U7vRtpRWSW3JQY2hs1ryFHfXJYzu
+	 Qgnq+cJJ+YwUo4dQdkqAtliC0ba/zpVoDJQQP10L8NDeyifycBkPUS4kwxoWy9HReVc1L
+	 X68s8DXtGEmr7fE43IqpOR2Sh0CU8Zx24Lgd6cgN6OsoXjdQvdNL+coq7f/7i09ADvfB7
+	 z4vKhfT1ruB0ofVntjFngSnlvU0ZJGa6d6bYlK4cYERMTAIPzyvOnFlefZ19tIToJ2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5sA80UE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioGCE0az;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F83606A31E;
-	Tue, 24 Nov 2026 12:02:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA24606A321;
+	Tue, 24 Nov 2026 12:02:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5sA80UE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 681591F000C0;
-	Tue, 24 Nov 2026 12:02:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioGCE0az
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F871F000C4;
+	Tue, 24 Nov 2026 12:02:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795521768;
-	bh=njjx8+oQtzyGAC1NugS2WX1liqLqjY/p8JrPnTCC5tw=;
+	s=k20260515; t=1795521770;
+	bh=J/hgjS5wptIfTKZPK4+3uy6djn7gSRXd68ZCyUQWT1s=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=T5sA80UElmTUAuIRL5pUw6nY1Si5Bdm8QwlmsCPUJ/48JEa1fPf1cgtnLhmY55jC7
-	 AZvJ44RmX7x40HuogE96i423f6vu34ng8Ak6+7MykRRfxLVWjEZk4/c5/ipxkSlFbe
-	 nVJMjnjHL0GZ+vW36PdD8/RCuT1d86YiG1kP2q/1+nVqQQKiZqKAi8qT1uul7L7z5h
-	 JaLs/x6BNcvWdfLWok5RTLgp4A1J3qYZUOOVtv6K2LeFbbK32YI3op32Y8muACGY7e
-	 hunqr6LsGluVTI4NCdWJ58A4IvvJS86EZWBIHM+N+YaFL2iPUERBSQqqif9PtDSi3T
-	 xnh3yi+1YV9FQ==
-Subject: Re: [PATCH net-next v3 3/7] net: ethernet: oa_tc6: Add support for
- MDIO indirect access
+	b=ioGCE0azlO5MsbLAhAXe/NpXCbQDZ92w4JnRZeMVu3HYXUQ2KNxvTbKgzGIvAaxXY
+	 KTLw3obuzH8WxJLY65CurHw8fBhzCpnGxFUsOKF5rvZcTLXaSJlJg6RYp5B+ReLQko
+	 V7VoH1U5nYGURcrvgDjZacqo9x3mXZxd6tlXKigt0PydZDF1TAOrkjLoS3x9YUEM+R
+	 NGaiQ/aUwST2MrCbHxJ30xOcEmd8EPpyxdJHWFdZZ+NKb+2YUxodn73hXR9xDgWBVW
+	 q/d5bDgwa9m3Vukzx6ab2a+cyd1mMlFxGg4IGDxcPzcrU7Ekfw0QSNQjjVKeQvDMyH
+	 avl9oHLBArTkQ==
+Subject: Re: [PATCH net-next v3 5/7] net: phy: adin1100: Skip the soft reset
+ on ADIN1110/ADIN2111
 From: netdev-bot+sashiko@kernel.org
 To: iustin.stolniceanu@analog.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
@@ -51,11 +51,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  alvin.sipraga@analog.com, ciprian.regus@analog.com,
  Selvamani.Rajagopal@onsemi.com, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 24 Nov 2026 12:02:46 +0000
-Message-ID: <179552176696.3135.1446966801724449711@kernel.org>
-In-Reply-To: <20261123115743.29523-4-iustin.stolniceanu@analog.com>
-References: <20261123115743.29523-4-iustin.stolniceanu@analog.com>
-X-sashiko-severity: Medium
+Date: Tue, 24 Nov 2026 12:02:48 +0000
+Message-ID: <179552176854.3135.14043257413847529020@kernel.org>
+In-Reply-To: <20261123115743.29523-6-iustin.stolniceanu@analog.com>
+References: <20261123115743.29523-6-iustin.stolniceanu@analog.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -68,201 +68,144 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] SPECULATIVE (this depends on MAC-PHY MDIOACC trigger semantics
-  that I could not check against the OA TC6 specification).
-- [Low] In indirect mode, oa_tc6_mdiobus_register()
-  (drivers/net/ethernet/oa_tc6.c:674) installs read_c45/write_c45, which…
+- [Low] The commit message claims the whole-chip reset done by
+  CRSM_SFT_RST "is not an issue with the generic SPI protocol" because…
+- [Low] The patch justifies dropping .soft_reset with "The MAC driver
+  already resets the chip before attaching the PHY".
 
 --
 
-net: ethernet: oa_tc6: Add support for MDIO indirect access
+net: phy: adin1100: Skip the soft reset on ADIN1110/ADIN2111
 
-This patch reads STDCAP when the OA TC6 MDIO bus is registered. If direct
-PHY register access (DPRAC) is not supported but indirect access (IPRAC)
-is, the Clause 22 and Clause 45 MDIO operations go through the MDIOACC
-registers. On a turnaround error, reads return 0xffff so the PHY bus scan
-skips the address, and writes return -EIO.
+This commit removes .soft_reset from the ADIN1110 and ADIN2111 entries
+in the adin1100 PHY driver. On these chips CRSM_SFT_RST resets the whole
+MAC-PHY, not only the PHY. The change prepares for OPEN Alliance TC6
+support, which configures the device before the PHY is attached.
 
-> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
-> index c05480b7920ea..ca33df9f045eb 100644
-> --- a/drivers/net/ethernet/oa_tc6.c
-> +++ b/drivers/net/ethernet/oa_tc6.c
-
-[ ... ]
-
-> @@ -434,24 +435,149 @@ int oa_tc6_write_register_mms(struct oa_tc6 *tc6, u8 mms, u16 address,
->  }
->  EXPORT_SYMBOL_GPL(oa_tc6_write_register_mms);
->  
-> -static int oa_tc6_check_phy_reg_direct_access_capability(struct oa_tc6 *tc6)
-> +static void oa_tc6_handle_link_change(struct net_device *netdev)
->  {
-> -	u32 regval;
-> +	phy_print_status(netdev->phydev);
-> +}
-> +
-> +static int oa_tc6_mdioacc_wait_done(struct oa_tc6 *tc6, u32 *regval)
-> +{
-> +	int ret, err;
-> +
-> +	ret = read_poll_timeout(oa_tc6_read_register, err,
-> +				err || (*regval & OA_TC6_MDIOACC_TRDONE),
-> +				100, 30000, false, tc6, OA_TC6_REG_MDIOACC(1),
-> +				regval);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return err;
-> +}
-
-[ ... ]
-
-> -	return 0;
-> +static int oa_tc6_indirect_mdiobus_read_c45(struct oa_tc6 *tc6, int addr,
-> +					    int devnum, int regnum)
-> +{
-> +	u32 reg_val;
-> +	int ret;
-> +
-> +	reg_val = FIELD_PREP(OA_TC6_MDIOACC_OP, OA_TC6_MDIOACC_OP_ADDR);
-> +	reg_val |= FIELD_PREP(OA_TC6_MDIOACC_ST, OA_TC6_MDIOACC_ST_C45);
-> +	reg_val |= FIELD_PREP(OA_TC6_MDIOACC_PRTAD, addr);
-> +	reg_val |= FIELD_PREP(OA_TC6_MDIOACC_DEVAD, devnum);
-> +	reg_val |= FIELD_PREP(OA_TC6_MDIOACC_DATA, regnum);
-> +
-> +	ret = oa_tc6_write_register(tc6, OA_TC6_REG_MDIOACC(0), reg_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	reg_val = FIELD_PREP(OA_TC6_MDIOACC_OP, OA_TC6_MDIOACC_OP_RD);
-> +	reg_val |= FIELD_PREP(OA_TC6_MDIOACC_ST, OA_TC6_MDIOACC_ST_C45);
-> +	reg_val |= FIELD_PREP(OA_TC6_MDIOACC_PRTAD, addr);
-> +	reg_val |= FIELD_PREP(OA_TC6_MDIOACC_DEVAD, devnum);
-> +
-> +	ret = oa_tc6_write_register(tc6, OA_TC6_REG_MDIOACC(1), reg_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = oa_tc6_mdioacc_wait_done(tc6, &reg_val);
-
-[Severity: Medium]
-This one depends on how a MAC-PHY executes the MDIOACC frames. The code
-doesn't describe that, and I couldn't check it against the OA TC6
-specification, so this may well be fine.
-
-The ADDRESS frame is written to MDIOACC0 and the READ frame to MDIOACC1,
-in two separate SPI control transactions. Nothing waits for TRDONE in
-MDIOACC0, and oa_tc6_mdioacc_wait_done() only polls MDIOACC1.
-oa_tc6_indirect_mdiobus_write_c45() uses the same split sequence.
-
-For Clause 22, oa_tc6_indirect_mdiobus_read() and
-oa_tc6_indirect_mdiobus_write() write their only frame to MDIOACC1:
-
-	ret = oa_tc6_write_register(tc6, OA_TC6_REG_MDIOACC(1), reg_val);
-
-The adin1110.c driver uses the same register layout. It puts its single
-C22 frame in MDIOACC0 (ADIN1110_MDIOACC, 0x20) and polls that register.
-
-Suppose a MAC-PHY starts at MDIOACC0 and stops at the first entry that
-already has TRDONE set. Would a C22 frame written only to MDIOACC1 ever
-run? Would the C45 sequence stop after the ADDRESS frame, because MDIOACC1
-still has TRDONE set from the previous transaction?
-
-In that case oa_tc6_mdioacc_wait_done() would time out after 30ms. The
-error would propagate out of the C22/C45 bus scan, and mdiobus_register()
-and oa_tc6_init() would fail.
-
-On a MAC-PHY that runs one frame per register write, could the MDIOACC1
-write arrive while the ADDRESS frame is still on the wire?
-
-This sequence apparently works on the ADIN1110. The framework, though,
-claims support for any MAC-PHY that reports IPRAC. Would it be more robust
-to write both C45 frames in one burst with
-oa_tc6_write_registers(tc6, OA_TC6_REG_MDIOACC(0), vals, 2), and to use
-MDIOACC0 for C22 as adin1110.c does? That would also save one SPI transfer
-per C45 access.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return oa_tc6_mdioacc_read_data(reg_val);
->  }
-
-[ ... ]
-
-> @@ -533,8 +673,21 @@ EXPORT_SYMBOL_GPL(oa_tc6_mdiobus_write_c45);
->  
->  static int oa_tc6_mdiobus_register(struct oa_tc6 *tc6)
->  {
-> +	u32 regval;
->  	int ret;
->  
-> +	ret = oa_tc6_read_register(tc6, OA_TC6_REG_STDCAP, &regval);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!(regval & OA_TC6_STDCAP_DIRECT_PHY_REG_ACCESS)) {
-> +		if (!(regval & OA_TC6_STDCAP_INDIRECT_PHY_REG_ACCESS)) {
-> +			netdev_err(tc6->netdev, "MDIO direct/indirect access not supported\n");
-> +			return -ENODEV;
-> +		}
-> +		tc6->mdio_indirect_mode = true;
-> +	}
+> This is not an issue with the generic SPI protocol, where the adin1110
+> driver configures the MAC in ndo_open, after phy_connect(). The OPEN
+> Alliance TC6 protocol support, added in a following patch, configures
+> the device in oa_tc6_init() before the PHY is attached, and the
+> configuration would be lost.
 
 [Severity: Low]
-In indirect mode, oa_tc6_mdiobus_register() still installs read_c45 and
-write_c45, and it doesn't set phy_mask. Does this make the phylib C45 bus
-scan very expensive over SPI?
+Is this accurate for the existing generic SPI driver? After ndo_open,
+phylib can still call phy_init_hw() -> drv->soft_reset on at least two
+paths.
 
-In direct mode, oa_tc6_mdiobus_read() ignores addr. The C22 scan fills
-mdio_map[] at every address, and mdiobus_scan_bus_c45() then skips all of
-them because they are already populated.
+The first path is system resume. adin1110 has no PM callbacks and does
+not set phydev->mac_managed_pm, and adin_suspend is set. With WoL off
+this gives:
 
-In indirect mode, PRTAD is encoded, so the integrated PHY answers at only
-one address. __mdiobus_register() then runs the C45 scan over the other 31
-addresses:
+mdio_bus_phy_suspend()
+  ...
+mdio_bus_phy_resume()
+  phy_init_hw()
+    adin_soft_reset()
 
-drivers/net/phy/mdio_bus_provider.c:__mdiobus_register() {
+On ADIN2111 this happens once for each PHY.
+
+The second path is an SIOCSMIIREG write of BMCR_RESET while the
+interface is up:
+
+adin1110_ioctl()          /* only when netif_running() */
+  phy_do_ioctl()
+    phy_mii_ioctl()
+      phy_init_hw()
+        adin_soft_reset()
+
+On both paths the whole-chip reset would wipe the setup done in
+adin1110_net_open():
+
+	ret = adin1110_write_reg(priv, ADIN1110_CONFIG2, ADIN1110_CRC_APPEND);
+
+It would also wipe the IMASK1 interrupt enables and the MAC
+address/filter slots. The interface would stay broken until it is
+reopened.
+
+If that's right, this patch also fixes a runtime problem for current
+generic SPI users. Could the commit message describe that, and add a
+Fixes: tag so the change can be considered for stable? .soft_reset has
+been set for these PHY IDs since the IDs were added.
+
+> diff --git a/drivers/net/phy/adin1100.c b/drivers/net/phy/adin1100.c
+> index a69c3228961e9..bc7214b735057 100644
+> --- a/drivers/net/phy/adin1100.c
+> +++ b/drivers/net/phy/adin1100.c
+> @@ -341,7 +341,6 @@ static struct phy_driver adin_driver[] = {
+>  		PHY_ID_MATCH_EXACT(PHY_ID_ADIN1110),
+>  		.name			= "ADIN1110",
+>  		.get_features		= adin_get_features,
+> -		.soft_reset		= adin_soft_reset,
+>  		.probe			= adin_probe,
+>  		.config_aneg		= adin_config_aneg,
+>  		.read_status		= adin_read_status,
+> @@ -357,7 +356,6 @@ static struct phy_driver adin_driver[] = {
+>  		PHY_ID_MATCH_EXACT(PHY_ID_ADIN2111),
+>  		.name			= "ADIN2111",
+>  		.get_features		= adin_get_features,
+> -		.soft_reset		= adin_soft_reset,
+>  		.probe			= adin_probe,
+>  		.config_aneg		= adin_config_aneg,
+>  		.read_status		= adin_read_status,
+
+[Severity: Low]
+The commit message says "The MAC driver already resets the chip before
+attaching the PHY". On the generic SPI path, does anything wait for that
+reset to finish?
+
+adin1110_probe() checks only the return value of the SPI write, then
+registers the MDIO bus and connects the PHYs:
+
+drivers/net/ethernet/adi/adin1110.c:adin1110_probe() {
     ...
-	prevent_c45_scan = mdiobus_prevent_c45_scan(bus);
+	ret = adin1110_write_reg(priv, ADIN1110_RESET, ADIN1110_SWRESET);
+	if (ret < 0)
+		return ret;
 
-	if (!prevent_c45_scan && bus->read_c45) {
-		err = mdiobus_scan_bus_c45(bus);
+	ret = adin1110_register_mdiobus(priv, dev);
     ...
+	return adin1110_probe_netdevs(priv);
 }
 
-mdiobus_prevent_c45_scan() only blocks the scan for Micrel OUIs.
+There is no STATUS0 RESETC poll and no delay here. The 90 ms fsleep in
+adin1110_check_spi() only runs with the optional reset GPIO, and it runs
+before the SWRESET.
 
-At each empty address, oa_tc6_mdioacc_read_data() returns 0xffff on
-TAERR. get_phy_c45_ids() therefore sees devices-in-package as all ones and
-walks every MMD, which is about 62 indirect C45 reads per address.
+Before this patch, adin_soft_reset() polled ADIN_CRSM_STAT for
+ADIN_CRSM_SYS_RDY, for up to 30 ms, before any PHY register write at
+attach time. With .soft_reset now NULL, the attach path is:
 
-Each of those reads is an MDIOACC0 write, an MDIOACC1 write and at least
-one MDIOACC1 poll read, usually with a 100us sleep in read_poll_timeout().
-That comes to roughly 31 * 62 * 3, or more than 5,700 SPI control
-transactions during probe.
+adin1110_probe_netdevs()
+  phy_connect()
+    phy_attach_direct()
+      phy_init_hw()
+        adin_config_intr()   /* read IRQ status, RMW IRQ mask */
+      phy_resume()
+        adin_resume()        /* writes CRSM_SFT_PD_CNTRL */
 
-adin1140.c sets phy_mask = GENMASK(31, 1) on its OA TC6 MDIO bus, and
-adin1110.c sets phy_mask = ~GENMASK(2, 0). Could the scan be limited with
-phy_mask here as well? Alternatively, could the C45 pass be skipped once
-the C22 scan has found the PHY?
+The commit message itself says MDIO data is stale until the reset
+completes. Could these writes race with the unconfirmed SWRESET and be
+lost?
 
->  	tc6->mdiobus = mdiobus_alloc();
->  	if (!tc6->mdiobus) {
->  		netdev_err(tc6->netdev, "MDIO bus alloc failed\n");
+The impact today looks limited:
 
-[ ... ]
+- phy_start() calls __phy_resume() again at ndo_open, so adin_resume()
+  runs a second time.
+- The adin1110 mii_bus leaves irq[] at PHY_POLL, so the IRQ mask write
+  has no functional effect.
+- Before this patch, the MDIO bus scan and the adin_get_features()
+  reads already ran right after the SWRESET without any wait.
+
+Still, any PHY configuration added at attach time for these IDs could be
+silently lost. Should adin1110_probe() wait for the reset to complete
+before calling adin1110_register_mdiobus()?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123115743.29523-1-iustin.stolniceanu%40analog.com
