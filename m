@@ -1,111 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795518179;
-	b=L8LTwm54yQf6QYeLZAtg1j+F2VLtBAXIS95/r8yuFTGsN1sDvTTlkA2VXFJxEyMWya+0
-	 dUErR4WyWab08dwwenpevPrH7sR5EamI2T5fjl9m8FBGNrRlzkJbIH7Y3+UNZFhPEeErI
-	 DTB0KC7sLDd2AedBPaa+rcQDVC+Vk0x/mu0Fqaz/mOAs7lL0AEiMWuOCOt+Cv2FVj7SA7
-	 JLT6/qQAXiFs3PRVRqR8J0scc3VdElC1KG2zXOSx11wkXTF9Zc+lagk5hn7MEz1tSc62O
-	 QZFCSVzpfylieaTXQua6wAr9ImrfND0zoGVv/VOLn/ExFcnOQ7/v0bD2cwvipkzwC/Q==
+	t=1795518218;
+	b=5X9iBu37j4A89u4a2UltnpzwSqlhOoBkmaINGO3nQWuSpSaz3UgPxhzVPCHguns43Zs7
+	 iVc0KnslGp0ErM+W3ZAXoLj4TOBpJdAk1stqGJI3P1Ogy+Tfrc+kbsAhxsI58VQNIpe1i
+	 s+annofHkoNNzxW3Sgdau+yYBBEKbNoX2P3xcCbeTijJvnxp9whZxKuPnKsrjqmZ+Aeou
+	 o/G+7VL7JJJh0gs8oDQYeRZwmvTzQogwlsOqAJvdi4qDceVZASCbB/KWLvwtGGON7qynZ
+	 LwQuWZYOVOhIlU2oCsuX2GaX4jlee9j4Nw7pXaHPsH1hzs2lai5QOPKe9IR8zdz7KPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795518179;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mkjJrkqN7PSqt35Slo7/CrqzZ7y1RXzaSbB1kKd5fBw=;
-	b=wsY0qcfQ+KZ8DCZIRJ9hdStgahoeojoAUINYKAQOifMm3mGLvAiAa9mCzpc+i/1qlKlp
-	 HTwzY6m93rRO1N78q+9kVOMm4WsiTm77Pgoq+ipGP7JbXolF3FCCHfPDMN0BgO5FGWbjg
-	 0QuLdh2OXSw2Vvhjb0NBwYAftU5houqDhd8tZjzkUR+9vFr3bE8fzl+wNtQ7hUu0oCugd
-	 fUhYJXkj3eVbpV8+NyN0Ir/EbC9jv+KOoOpIeCjm6GCILTgFt/kp5QB25AwL/dzjn8+Y8
-	 UhyuoZGOmmXr6rlut1nsgFO6Oue9w8CJnyFpPsQDxXOls2KCtNbPmJWNVKdtvh/coyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795518218;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=BXeCz3GUcg4MW549eO+mPj/zshtxxmPacaom862S6rI=;
+	b=4jCM/Eou4zA120XWYhrSy9T3gRj9lEo0SgoKAwc5A486O4YIJzlICfg+BCev+/5s/Mfg
+	 jege2XuLxWDFRHfjjNZa0NbANjiLE2BsEoULvLmDNTP/aKuBLQhx0oQr0FZyVY12kflbj
+	 JRLYgL6+pBkcR1wsoy9C/m1Gm/s0wdxwa+hzkrdyFfXFOmYfx890CmV/H6xuP47PK7suB
+	 qxJRLiCLqU3a3oGp9CINWSnVqu9qBdi7fRTCAw7RuQX1n+XI4DC1UvM5QLvGZl16/9k5+
+	 3oS4ikbJ9AxqLniHdqZs3J3w03sAEB91fKzevVZwJIsIZaSJfp4Z9tLyu82wvNNnQ6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Wb8zRea/";
-	arc=none smtp.remote-ip=209.85.217.48
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cORH0G5D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A659606A322
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:02:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A659606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF7B606A31E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:03:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wb8zRea/
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7cc0ccc2fddso1565943137.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 03:02:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795518178; x=1796122978; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mkjJrkqN7PSqt35Slo7/CrqzZ7y1RXzaSbB1kKd5fBw=;
-        b=Wb8zRea/Uk89t4+0eAHLNr3Cr6gX/61QeaQp258Tm7Esv2rsyneDZboZYWCdKpvA/o
-         FrbFbyuQJ//Vmvdo0t9X+XcsS+0ztejEO2er5TkJ46I/8d6w8gRKw6O+YY2ixzEpsTzD
-         WfHOtyzjSLX4LeoBtjXk4sCYQwukz+8SLm5Zs31HoGpKyRyB3EHSG3YI2vw5WyJhlVQS
-         1GB3nm1COkBpJsu5iLGIwL0xl3UNuUz4TgHjJ/CBhd7NYGhNZNH9qMFV1CgdU7rv5tKP
-         whwDkmhQBdtUziwMUDsrK+f3nh07MJ/51ySatl2NTARQaVOBIQ5kmOgod7XcfL0cz+wM
-         S51A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795518178; x=1796122978;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mkjJrkqN7PSqt35Slo7/CrqzZ7y1RXzaSbB1kKd5fBw=;
-        b=jf8xU20BytIfMNyQyyTomI6DBt0MnA7TAWjjpwwvnG8gmzeC99ru3yTTblW4iaaaH3
-         knEtQrJO8SQ4/VN7yonn+o4/L+fqFi7RGQnW4Uhu5l6CA6b/q8NM3vuM9lmC3Rdu/CIH
-         yAk5zMACIXW4spodH2UrSqDbjC/E2afTVXrwpM/2Ul4QPFl3fffbc7YdAw2te2PvnoTD
-         xNAOFWIuaGRBcPZ2h6ARsQwTsQSyQCPAYtY3HObo256q90yuOETonLAUz5Z6gdPkTbCn
-         y+lejbeNRsJhJOojFVINzcEys8bOFwMJa/SrOjT2bsMi5XJZnYQCjP3wuCFUHgEg4eBj
-         Te9w==
-X-Forwarded-Encrypted: i=1; AL+hErG4CmNz4O8Jm8uOVSihrcqS7HFIaDA2IsFHk4P6bCQ794nCvLnIB/QaM8NAI7FSWLxPc7f0YlZyTxAN@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XgCbnTPCLZDOzNn10E3/sSRSfkABI03MidFK+R2MLVY47O5Hr
-	q6nRwV6CUz5zfSeDPYpYjVqzoJ46EHLRLLBivy4PrV+yzhtCO34VMRhw
-X-Gm-Gg: AZFdTZf3fNetb5gu051JNWiDFCgu92qv48audgIckRzIiGyTadct/BopJnu1t5Rnly/
-	E0Vm7Ei77ZbrX1vl3tvyPmpGdsDXb5/3P6ukVGaEQeKElH+JsRbCslcidwlia+LSagb03wGF06i
-	TIMTdgX/m7Z+n9ohe2AJwErl+Gfamyhr3exVuX2WDmi3n89Jki8Ay+Xu6z/DxI+0dAKrSRqkofe
-	BA6I9hK1VbAkyAKQ1vYstIsJZ02IdWjD2FmQ73Y3MBgO+8lV8fv2D+0Vaz1orhdWFVRSmKR6gxM
-	lerVvtXuAaiykpG0xsmN2o6ebGf5cvnQ+Y40ahse5UETJxCKtxBgFSfsHb4+LdECjMIxy+ICwPK
-	obah9I7pPzZRei1Xq366TVxUXgTci+3pPnWjquV5zqIGj6GIdZvxfmHsYJY5PF58ZzrBN9aWEJz
-	frw/nvQSwJKimpNRkJ0QYHXrAXBY+rTX4zofvLytmrpF/8+V0dr5B2Bzr4za+LWVRNLEwldXoNT
-	V57SK697bI94/j0m6slEU+PBZdTCiar+8yLuZ71+EO5D+Acn4U3/j7p2Rp6HMQJE7wVI6fjzqT+
-	ZMNeZ/9hbDTY7Vk1XrJl0RlV2Aac/0XoGWmj2r5sI913Kxtl+UGvf9uAIHD/v3vVf4CtbO+ExI1
-	T1X1YSRHhT0XHJWmTFO90GawzDVDPrTEDTCpAtorYJMJCJKxQ
-X-Received: by 2002:a05:6102:54a8:b0:7d6:56d3:f179 with SMTP id ada2fe7eead31-7d72b361a74mr6083753137.5.1795518177851;
-        Tue, 24 Nov 2026 03:02:57 -0800 (PST)
-Received: from localhost.localdomain ([2804:1b2:aa42:30d0:da53:c2d8:5b4f:38c1])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d6e8265e55sm14978477137.11.2026.11.24.03.02.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 03:02:57 -0800 (PST)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Enzo Adriano <enzo.adriano.code@gmail.com>
-Cc: Andre Przywara <andre.przywara@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Pablo Mazzini <pmazzini@gmail.com>,
-	Alexander Sverdlin <alex@sverdlin.org>,
-	Jun Yan <jerrysteve1101@gmail.com>,
-	Lukas Schmid <lukas.schmid@netcube.li>
-Subject: Re: [PATCH v5 2/3] arm64: dts: allwinner: add A733 SoC description
-Date: Tue, 24 Nov 2026 08:02:31 -0300
-Message-ID: <20261124110231.15528-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261121-a733-cubie-a7s-dt-v5-2@gmail.com>
-References: <20261121-a733-cubie-a7s-dt-v5-0@gmail.com> <20261121-a733-cubie-a7s-dt-v5-2@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cORH0G5D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941AA1F000C0;
+	Tue, 24 Nov 2026 11:03:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795518217;
+	bh=BXeCz3GUcg4MW549eO+mPj/zshtxxmPacaom862S6rI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cORH0G5DT0Dqci66EU3rIBwstPQJNUwprm5g+S4fr1fASokgfCY2yku00eEow+FVV
+	 zbX2BHIggwN9fPM25SC3KpnEKOj3ll96m/RsPcjjuNVL8mN9Le5mmF3n1EyvYW5gqw
+	 aH2ZRoysEztilyt6VtKOqeOb19VPLsGxFoPelZGXPv/n4pbBqnxrMNeqN6vEPoJFJl
+	 kEQZd3zEk/Timjkc3lnav9pE2LNf/3E/QxV/DJIwy2HM2HJwck8Yx7pPtooTbIqM/K
+	 e184Os+96KD2nGjSc9V5On46dmGa5O12HZcqovdw9XFv71ZdrflGmvNI5FTS6z99FF
+	 jUMtHoUcRp4Ag==
+Message-ID: <sashiko-outbox-231015@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] regulator: qcom-rpmh: Add PM6450 LDO support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: SignKirigami <prcups@krgm.moe>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261124-netrani-pm6450-v1-v1-2-1914da758d3d@krgm.moe>
+References: <20261124-netrani-pm6450-v1-v1-0-1914da758d3d@krgm.moe>
+ <20261124-netrani-pm6450-v1-v1-2-1914da758d3d@krgm.moe>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 11:03:37 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,24 +59,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Tested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com> # Radxa Cubie A7Z V1.11
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] regulator: qcom-rpmh: ldo24 n_voltages=3D0 breaks UFS load voting
+  and DT uV
+--
 
-I tested this dtsi with my A7Z board DT on a v7.4-rc1 lab kernel with
-some of the posted dependencies and a local pinctrl fix, not the full
-list from the cover letter.
+commit 9fd0e1480b4f40cc51922b0274d428fec8c1448a
+Author: SignKirigami <prcups@krgm.moe>
 
-All eight CPUs came up, both A55 and A76 PMUs registered, the PPI
-partitions were recognized and sysfs shows one cluster. MMC0 ran at
-3.3 V and 50 MHz, and a read of its first partition matched the
-reference SHA-256. Two card-detect hotplug cycles worked with
-GPIO_PULL_UP and the local EINT-mux fix.
+regulator: qcom-rpmh: Add PM6450 LDO support
 
-I haven't tested the new I2C0 PG8/PG9 pins, PMU counting, EL2
-interrupts, ITS/MSI or the A7S board DTS.
+This commit adds RPMh regulator definitions for the PM6450 PMIC LDOs,
+using a no-voltage VRM configuration for LDO24 to preserve its power-on
+voltage.
 
-Thanks,
-Vinicius
+> diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/=
+qcom-rpmh-regulator.c
+> index da4764ffa6325..c397717dc0d6d 100644
+> --- a/drivers/regulator/qcom-rpmh-regulator.c
+> +++ b/drivers/regulator/qcom-rpmh-regulator.c
+> @@ -475,6 +475,15 @@ static const struct regulator_ops rpmh_regulator_vrm=
+_bypass_ops =3D {
+>  	.get_bypass		=3D rpmh_regulator_vrm_get_bypass,
+>  };
+> =20
+> +static const struct regulator_ops rpmh_regulator_vrm_no_voltage_ops =3D {
+> +	.enable			=3D rpmh_regulator_enable,
+> +	.disable		=3D rpmh_regulator_disable,
+> +	.is_enabled		=3D rpmh_regulator_is_enabled,
+> +	.set_mode		=3D rpmh_regulator_vrm_set_mode,
+> +	.get_mode		=3D rpmh_regulator_vrm_get_mode,
+> +	.get_optimum_mode	=3D rpmh_regulator_vrm_get_optimum_mode,
+> +};
+> +
+>  static const struct regulator_ops rpmh_regulator_xob_ops =3D {
+>  	.enable			=3D rpmh_regulator_enable,
+>  	.disable		=3D rpmh_regulator_disable,
+> @@ -1588,6 +1597,31 @@ static const struct rpmh_vreg_init_data pm6150l_vr=
+eg_data[] =3D {
+>  	{}
+>  };
+> =20
+> +static const struct rpmh_vreg_hw_data pm6450_ldo_10ma_no_voltage =3D {
+> +	.regulator_type =3D VRM,
+> +	.ops =3D &rpmh_regulator_vrm_no_voltage_ops,
+> +	.hpm_min_load_uA =3D 10000,
+> +	.pmic_mode_map =3D pmic_mode_map_pmic5_ldo,
+> +	.of_map_mode =3D rpmh_regulator_pmic4_ldo_of_map_mode,
+> +};
+> +
+> +static const struct rpmh_vreg_init_data pm6450_vreg_data[] =3D {
+> +	RPMH_VREG("ldo5", LDO, 5, &pmic5_nldo, NULL),
+> +	RPMH_VREG("ldo7", LDO, 7, &pmic5_nldo, NULL),
+> +	RPMH_VREG("ldo13", LDO, 13, &pmic5_nldo, NULL),
+> +	RPMH_VREG("ldo16", LDO, 16, &pmic5_nldo, NULL),
+> +	RPMH_VREG("ldo19", LDO, 19, &pmic5_pldo, NULL),
+> +	RPMH_VREG("ldo23", LDO, 23, &pmic5_pldo, NULL),
+> +	/*
+> +	 * UFS VCC is selected at power-on (2.4 V or 2.96 V) according to
+> +	 * the storage configuration. Preserve that selection and only vote
+> +	 * enable and mode.
+> +	 */
+> +	RPMH_VREG("ldo24", LDO, 24, &pm6450_ldo_10ma_no_voltage, NULL),
+
+[Severity: High]
+Does leaving n_voltages unset on pm6450_ldo_10ma_no_voltage break UFS VCC
+load-based mode switching and regulator registration when DT voltage
+constraints are present?
+
+pm6450_ldo_10ma_no_voltage sets hpm_min_load_uA and get_optimum_mode for
+UFS load voting, but because n_voltages is 0, regulator_count_voltages()
+returns -EINVAL and ufshcd_config_vreg() skips regulator_set_load():
+
+drivers/ufs/core/ufshcd.c:ufshcd_config_vreg() {
+	...
+	if (regulator_count_voltages(vreg->reg) <=3D 0)
+		return 0;
+
+	return ufshcd_config_vreg_load(dev, vreg, on ? vreg->max_uA : 0);
+}
+
+In addition, rpmh_regulator_init_vreg() only populates rdesc.fixed_uV and
+rdesc.n_voltages =3D 1 from DT constraints when regulator_type is XOB.  If a
+DT node for ldo24 specifies regulator-min-microvolt and
+regulator-max-microvolt, machine_constraints_voltage() calls
+regulator_get_voltage_rdev(), which returns -EINVAL because
+rpmh_regulator_vrm_no_voltage_ops has no voltage callbacks and fixed_uV is
+0, failing rpmh_regulator_probe().
+
+Using pmic5_pldo for ldo24 avoids both issues while still preserving the
+power-on voltage read back by _rpmh_regulator_vrm_get_voltage() when the
+DT node either omits microvolt constraints or specifies a range covering
+2.4 V to 2.96 V.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-netrani-pm=
+6450-v1-v1-0-1914da758d3d@krgm.moe?part=3D2
