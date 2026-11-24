@@ -1,82 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795490204;
-	b=F/OdVazd65S1vrF4oYzwHUracIfGipdkptwddToneQMezwrK6yK+h4WaLjiQESklX08y
-	 0ZY8jYvT5uwGcoRvBBNk1B+zWu3n15YxYnEMzuUFX4urJaB+nY9k6J5INdYK26knGETrC
-	 Bz6EkqsknBBeIJCLaEIjxIGs+jWY9tB0wmdIFPco2MTDCbXr0nKfBC76GVdGakDS861/B
-	 n/fA9iTgb0G9z5MKymW89PzQLeMZhd0X7V+xJrMys/gTRnQMKkCxEmyKfBUE0KeMN6MmA
-	 /IYI1Lq//y/XaHG0E2C/95Hy3EI8DELsG/7qHr3FJ/AuwDMZRkCodL9KyV4/ScuO3dw==
+	t=1795490296;
+	b=iOU0uP4ZAnTmq3LiCRNroa3HiMDKjfRq0BdqfDQ2XCBV4DdIRE+6TsFOJJr2HxGfMQfg
+	 AduR9TXqWbyxkSql+PTIPhpt1CmaceP/ngOm6x09PnQ6aohf/zCgujbO9Rib6hCLJ1Qjd
+	 Y682HtmdJfp+64RAenVvFhJ5J1kHEnxcURIZKGCLWFvoF7Md33hakMB5VM56Zy91Kjs9a
+	 wy/rK3d2RaxbLQXp8uXha/q3yTh/Fnktym0tY0Yv6hv1VrtcpeMo9LIM8ET2E4CrGelRT
+	 XBn30D/Ag0TIGUx9NHnN7QzoxoArPyr1/FX4jQMkeErzbLe1ZKsR0jbAJE8DguNGBQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795490204;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=RkloPgeYnVworbSxGLqoxyXm4gptRQR8Vz5x7cCV1eE=;
-	b=JVhAvYP6mkB5ULI40WjeK0UmJSvqR1VaXMxS65pxLhJBg0EEPC7WOCotMxrvoTQQepXT
-	 Gt1/pA6W9FoKBzOc1c4JX5IX7C1DErSs6+OzrmbmA9FXjyDcMUVGMPfRmxt4ejLexcbsK
-	 HSAAghCAoW8FvJjo0qnXztlz6aGBLw9dY1LMSVaaFQV6QPSf3UbkLggMKyxdQkL1t/Rzz
-	 OIWSR8AjAeD6dHz8r4Yo4dUarS5e5Z/+BOxVnQE5k/OonwC0P8No76Gju0JN61I7Nb5IY
-	 4u7UX07LdQrEsK+SFtAEkGNE6YFMGLRaiwrZxYLPmHAXs9srM1/Bsus+ELjAbNmOASA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795490296;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=yHuW4jaBnbhA6oBc+UhsCIilp/B6BAsefqLjPeUfGVU=;
+	b=A0UNT4cobpsfrsthuh1GAlXJZFFHN1Kt4ST6vfhK5fe/mqMuA7NaPJJ3kNFLEaD1tdKU
+	 0+KArXG6AtW0uP6hHYCGzWbwd9jR1B/eG8xJmbzfqLt2ymkc7FHilEipv7uTw/lm2QQVm
+	 QhBrV6pkUNnMWwTi4zdW6CgSIHZe0jnFJ4zwIGDiYIIdxbBAB2HlIPilPg2ao5L7KmKrT
+	 wqOP3cm3I3J5rVcXEFX+BXjKgqglskxg48WAytXgqSpdP81c5XkLkleSxPJ2yxG0F3XQA
+	 aJHFyjdqERWdTztaluYRCiW/Uc2yNK3m/7czIto/TU/7tJzxaCUJt5u3e+rmVvmzgdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=aKpHQdFD;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qwf2cdSI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002A5606A31E;
-	Tue, 24 Nov 2026 03:16:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 002A5606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50167606A31E;
+	Tue, 24 Nov 2026 03:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=aKpHQdFD
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D2F8B40E02CD;
-	Tue, 24 Nov 2026 03:16:41 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 24w3iiim0GVx; Tue, 24 Nov 2026 03:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1795490198; bh=RkloPgeYnVworbSxGLqoxyXm4gptRQR8Vz5x7cCV1eE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aKpHQdFDKeGusPE/tOflleC18Z3OLOFKakXGrLfcmVFlY62/veNHO1AAAKn2nAAsm
-	 uMYfGrsCD/E9lP/uMXltUkeb1OPNkxNZgRkN25iBQgG/Jt2gA7mi4QNT6OMemtas/L
-	 PuqGYV1xT/RLV6HlS6ycx1we2CPKQy9fsN9UmwsiFYgm2smm6+nvh8apABlB1pvbbf
-	 vlJUjSaVIROQGNcMXoHxFiNI+stdwmxYL06YBdIXDNA4v0VRhxj+g+88KoFzdAUZwX
-	 rO0TkrnrLtkpvysxSpziIu+oMABwPrEu7lRmC4DqV4D3wcUkTrZcbRU9QcvZyDDSI4
-	 v+nBL2Krkh8hF8u60GTj/x2RMnBwN8z1yzK8vYT2z/q2Nws0BF/EyMBApDbbWk3J46
-	 mcQmZVPGGmXVyPkOwv0dmC7VT7Hf5bhNFPDG8YygU7ErqYUHu3P26fBe/Gt++0evtk
-	 BhmrCCTRgy7CU//eJFpXudqHdshJ7eeLpU3jhAMPJz3XoA6LOhCBTe/Nd3DvzWkXt3
-	 LBVI29jtSaOToLr/O+OuEudMZgMRqAXTZPBT/VCSpxEJm+D45NGQ78qQiEWFc+q3Uw
-	 bOCcFtXBBVMYPZxOqhBmBdj6byw+TEwSiYc2d57I5d+vjnuS7266epc5YBB3D5Ef2X
-	 dsdniRpKDC+vaRjKHlJPoNig=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0949440E02A9;
-	Tue, 24 Nov 2026 03:16:25 +0000 (UTC)
-Date: Mon, 23 Nov 2026 19:16:22 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-Cc: linux-edac@vger.kernel.org, git@amd.com, shubhrajyoti.datta@gmail.com,
-	michal.simek@amd.com,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Tony Luck <tony.luck@intel.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 03/12] EDAC/versalnet: Fix use-after-free in
- remove_one_mc()
-Message-ID: <20261124031622.GKawUBhv2labxD1Gbd@fat_crate.local>
-References: <20261118142213.100581-1-shubhrajyoti.datta@amd.com>
- <20261118142213.100581-4-shubhrajyoti.datta@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qwf2cdSI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16B0D1F000CA;
+	Tue, 24 Nov 2026 03:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795490295;
+	bh=yHuW4jaBnbhA6oBc+UhsCIilp/B6BAsefqLjPeUfGVU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Qwf2cdSIlgZ9+g1ehKY3sU58LKUukKALulPgFjpJNVWR8vEmd0k8Zyxd0g0Zpd5JI
+	 pn6bfgLETKDRjr6uPnJ2PpyrL8LvEomDVzbS2wefNq40hHwXSTNX9auPRXUkKTWBHp
+	 3e22bUmh1pwn0CybckwE34wia+743nAt1mMe+vdOzlFGCPRWOcv99yXg6q+RDN82JW
+	 9fLj/44nOxHeXmVlKJnjL4C7zHDj1CCBpK+460dYWY6E2ZZuEiAjQessPXhHjqorW4
+	 qscOXb0Ahs2n+9vgwqzYFe9tpBrJvgryJ9QRqbK/jIVivnXS9kuuyHdVnbSKNivnjw
+	 hmy5wWUrlL6sA==
+Message-ID: <sashiko-outbox-230449@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/9] media: i2c: it6625: add I2S audio capture DAI
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hermes Wu" <Hermes.wu@ite.com.tw>
+Cc: devicetree@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261124-upstream-it6625-alsa-i2s-v2-6-a154685f6989@ite.com.tw>
+References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
+ <20261124-upstream-it6625-alsa-i2s-v2-6-a154685f6989@ite.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 03:18:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,40 +59,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261118142213.100581-4-shubhrajyoti.datta@amd.com>
 
-On Wed, Nov 18, 2026 at 07:50:27PM +0530, Shubhrajyoti Datta wrote:
-> diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.c
-> index de97b2ac45aa..2d1417135e42 100644
-> --- a/drivers/edac/versalnet_edac.c
-> +++ b/drivers/edac/versalnet_edac.c
-> @@ -765,11 +765,13 @@ static void versal_edac_release(struct device *dev)
->  static void remove_one_mc(struct mc_priv *priv, int i)
->  {
->  	struct mem_ctl_info *mci;
-> +	struct device *dev;
->  
->  	mci = priv->mci[i];
-> -	device_unregister(mci->pdev);
-> -	edac_mc_del_mc(mci->pdev);
-> +	dev = mci->pdev;
-> +	edac_mc_del_mc(dev);
->  	edac_mc_free(mci);
-> +	device_unregister(dev);
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] media: i2c: it6625: work teardown after subdev cleanup in
+  it6625_probe()
+--
 
-Btw, if this is using device_unregister(), you probably should simplify
-init_one_mc() by using device_register() there instead of the two initialize
-and add steps you're using now.
+commit 853245ce8c11b8ab4cad5a6167d0cdd74d9412b2
+Author: Hermes Wu <Hermes.wu@ite.com.tw>
 
-In any case, first three queued.
+media: i2c: it6625: add I2S audio capture DAI
 
-Thx.
+This commit registers an ASoC component with an I2S capture DAI for the
+IT6625/IT6626 HDMI bridge when #sound-dai-cells is present in device tree,
+and updates audio controls and capture state on status changes and
+periodic refreshes.
 
--- 
-Regards/Gruss,
-    Boris.
+> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+> index 6ff5a5574b379..4a6ab00f04013 100644
+> --- a/drivers/media/i2c/it6625.c
+> +++ b/drivers/media/i2c/it6625.c
 
-https://people.kernel.org/tglx/notes-about-netiquette
+[ ... ]
+
+> @@ -2434,6 +3001,13 @@ static int it6625_probe(struct i2c_client *client)
+>  		goto err_clean_debugfs;
+>  	}
+> =20
+> +	/* may bind a waiting sound card, so everything must be set up */
+> +	err =3D it6625_audio_register(it6625);
+> +	if (err) {
+> +		v4l2_async_unregister_subdev(sd);
+> +		goto err_clean_debugfs;
+> +	}
+> +
+>  	if (client->irq)
+>  		enable_irq(client->irq);
+>  	else
+> @@ -2442,6 +3016,12 @@ static int it6625_probe(struct i2c_client *client)
+>  	return 0;
+> =20
+>  err_clean_debugfs:
+> +	/*
+> +	 * Events dispatched by the probe control update or a debugfs reader
+> +	 * may have queued it. Disable rather than cancel it: a reader still
+> +	 * running until the debugfs removal below must not queue it again.
+> +	 */
+> +	disable_delayed_work_sync(&it6625->audio_refresh_work);
+>  	v4l2_debugfs_if_free(it6625->infoframes);
+>  	debugfs_remove_recursive(it6625->debugfs_dir);
+>  	cec_unregister_adapter(it6625->cec_adap);
+
+[Severity: Medium]
+Can polling_work or hpd_delayed_work run after it6625->cec_adap and
+it6625->hdl are torn down when it6625_audio_register() fails?
+
+Before this patch, v4l2_async_register_subdev() was the last fallible step
+in it6625_probe(), so no subdev callback could have queued polling_work or
+hpd_delayed_work on the probe error path.  With it6625_audio_register()
+placed after v4l2_async_register_subdev(), a bound bridge can invoke
+subdev callbacks such as it6625_isr() (which schedules polling_work) or
+it6625_s_edid() (which schedules hpd_delayed_work) before
+v4l2_async_unregister_subdev() runs:
+
+CPU0                              CPU1 (kworker)
+it6625_probe()
+  v4l2_async_register_subdev(sd)
+  /* subdev callback: it6625_isr() */
+    schedule_work(&it6625->polling_work)
+  it6625_audio_register() -> fails
+  v4l2_async_unregister_subdev(sd)
+  goto err_clean_debugfs
+  cec_unregister_adapter(it6625->cec_adap)
+  v4l2_subdev_cleanup(sd)
+  v4l2_ctrl_handler_free(&it6625->hdl)
+                                  it6625_polling_work()
+                                    ...
+                                      it6625_v4l2_sd_ctrl_update()
+                                        <-- use-after-free on controls
+  cancel_work_sync(&it6625->polling_work)
+
+Canceling polling_work and hpd_delayed_work after
+v4l2_async_unregister_subdev() (or at err_clean_debugfs, matching the
+teardown order in it6625_remove()) would drain them before the CEC adapter
+and V4L2 controls are freed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-upstream-i=
+t6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw?part=3D6
