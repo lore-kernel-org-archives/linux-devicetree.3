@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795487186;
-	b=N8mB1Ew4ua6qYg8pKhssnJ0fYwE81TeRZTm3Gq4Wxea70RQzZcQWeDh0uMOxu2u/EQS6
-	 El62Cywj2WMpX7WPsso0lLDqs9CRl+8x6dTDK1JuREN4AUlsGsmA8ZfN6G/zKaVOJwHMj
-	 szfyNK0BoRru6xQ+Xs5XEBDZvIXzOKVjn8tYnUruXLZ2aaWnpWyUwD7zEdzoT6lWLD1L3
-	 h+tgR1cKYrt4OoCT29HjYn+dRmSgVwQTsNOJdz6ABToaXsdxEOKrz8Exutg6p8mmr9I6w
-	 CGtdr0Q6fnQAPf5pnjB9ZBrkxo8a9S44iAUOGFRqbvs9V9rIenkJhfcI37UxMfwda6A==
+	t=1795487194;
+	b=bMDMDKrDoeMsDYxbrnRjtWrJOG0oEsrEvP1PUVRzo06LQzTQmvNmYht9mQ2FXNv5ppvJ
+	 YOaEbgj2f8ahrVUGI5dSovZvLzuHC+29/V4jl6Ri9ABDEmJLhVNBqR33VfVMxs0qaiVoZ
+	 auk6qMWFEXKkF9spp6yga0cNPrv4NE2+Sm12qT9WvTLhYdFxnYI2LlvHInKuCvKZ55BWc
+	 STaN7+atJ+9xRozF+QCEutDUKp5C/1f6rJ1s1bVKEdvfl4rJoTpWabCpth4mFnE+tHbD6
+	 aXvdwrecrZsuVQgH+qOfeqEniF0fJWhoSaz1h1+UBBMzFiIH4/fNnOj4L9RxNIe1y4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795487186;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795487194;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=p9Meye8EdomVgGo7ib0+5Twh3gdkb8XAbFKswpS/dAA=;
-	b=V6L77LxmIW2NaJ8R8aRU8U7quX7aQlW7NFKO52fEcwtr51CvCzPkv45ZNveiiXxbgm/l
-	 l7MfNzvgQjg5yTRcCsfdJK+Aiepl3hRZP1/o94/jnl1zyJFDX4oZrhbXVnRkH3WFA1onL
-	 Q6lqzwMLKpkZc4nVwlkCCQQvuOa0DGRSmdUHLn7/umG2xU6qMGspBUKPGIqV197Qnvp5i
-	 LhdmgAS3ukoA3/4gn/V4RL2Ggc/BhQb72RxikrMEwMp0j+lEfLf9kJaVNmzrvzEvV3FCT
-	 sEMqzMH0PkoTMOV0OirQNcGNstBuGxCuowdT6V2k0+NVy6QFMQ+ya+g1SA/32fcmMeQ==
+	bh=UNc4WxmfbfLgUpSIVGlILF9NYv4ex8h4CwsAajsbkL4=;
+	b=JgllzN3Wli6u4KFFpDullHoLBidWKWXNOyfDJj76fC69bq7U+9KYC2EEiT+Or/DH5Cu1
+	 usRjoJTsp30ToJdGFRXDAMbJFY0BYO5QZkMjaI4adavh5foSi0BDSBKzfaR3auEwvcy0v
+	 cWh88/KUxBl00WZW3dqppuFbzBBT6NkV134ePFyi4zq45DnJAbu7AVHdeXUxiZOPLJgnN
+	 Xhr7mPJomoyyuQx6ju8fDwFFGvVHCyT/LJcWfulZ9PM8tiqAsyRdPlAqR7spMqc2IrKb6
+	 su5iLgsxKi/27VjVGaoIGOZFLFNvSDO8Ik9w8I1NkfZZ46Io8Ta/pJSQsbfamGNREhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKM51Ptb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e74D9ACb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA737606A686;
-	Tue, 24 Nov 2026 02:26:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FA4606A32D;
+	Tue, 24 Nov 2026 02:26:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKM51Ptb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 381431F000C0;
-	Tue, 24 Nov 2026 02:26:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e74D9ACb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA881F000C0;
+	Tue, 24 Nov 2026 02:26:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795487186;
-	bh=p9Meye8EdomVgGo7ib0+5Twh3gdkb8XAbFKswpS/dAA=;
+	s=k20260515; t=1795487193;
+	bh=UNc4WxmfbfLgUpSIVGlILF9NYv4ex8h4CwsAajsbkL4=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QKM51PtbHVOfJUC5lAEw515T3RPXG4Pt/qEsW9pEjw5PEBp3vKBVPV4WBamVWlI3T
-	 kqh74m/0an1nGp0uvEdD5o6qtm6Bx+5UCvn6Mb3vQr5Mnnaf9aZyNiFXCEg1Cc/If0
-	 XsuDH97EU2rtCkPAMPtUXmzN410iOlYjH/F8ivdlENz4edTyQSLQqqxdvYS+PK+ick
-	 KYAUQH2AwbTknmB1S/3PWe30IRD9hsNqXbZaKZLxYLajAPJJqx2ayRROLh9od0HLLh
-	 i0tgtitUSzZ6Th13PMXapWLUjPK28r/X7xGc53fwJpjMHGKc/cRvkWqDPeRSj+GKsz
-	 SEGyDbBIiSmnA==
-Subject: Re: [PATCH net-next v5 08/24] net: dsa: rzn1-a5psw: Fix LK_LEARNCOUNT
- write mode encoding
+	b=e74D9ACbYJZoXJ9sLL93uzDY66JcwoY7btCTeEmPRBCHdSdqroP1VYKuRKIG9sKeZ
+	 RIigLtZDeV9XUxvTlljYqQ8jUuA3uSw514h3RMkyKpJcQjN2WsRQvk0UpkLVauEBqY
+	 b7Wa/SzUBf3I4BIaUOVjGId76BxbFNkAZUKnBmxMLeSdESP1IjOyU77WOZSK3jt1uX
+	 /Ih5YNqN4gSeLRGHqAVr7XlOLMCsggPPheuECbm2DCIvbfgvu2tnD38wyol/X22CyQ
+	 kmUowcvNgwXM9QtuCySaUuOvDx0EkKKaxZZUovTClqEu0T30I9ou18p1mgcMMNR6Wj
+	 x3rYPFOIU8N5w==
+Subject: Re: [PATCH net-next v5 23/24] net: dsa: rzn1-a5psw: Add support for
+ RZ/T2H Ethernet switch
 From: netdev-bot+sashiko@kernel.org
 To: prabhakar.csengg@gmail.com
 Cc: clement.leger@linux.dev, andrew@lunn.ch, olteanv@gmail.com,
@@ -54,10 +54,10 @@ Cc: clement.leger@linux.dev, andrew@lunn.ch, olteanv@gmail.com,
  devicetree@vger.kernel.org, prabhakar.csengg+renesas@gmail.com,
  biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com,
  prabhakar.mahadev-lad.rj@bp.renesas.com
-Date: Tue, 24 Nov 2026 02:26:24 +0000
-Message-ID: <179548718477.3135.6592520355111834808@kernel.org>
-In-Reply-To: <20261120002549.1908299-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261120002549.1908299-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Tue, 24 Nov 2026 02:26:31 +0000
+Message-ID: <179548719178.3135.16247387052615724547@kernel.org>
+In-Reply-To: <20261120002549.1908299-24-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261120002549.1908299-24-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -77,62 +77,72 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message for "net: dsa: rzn1-a5psw: Fix LK_LEARNCOUNT
-  write mode encoding" carries Fixes: and Cc: stable, but it only…
-- [Low] "net: dsa: rzn1-a5psw: Fix LK_LEARNCOUNT write mode encoding"
-  fixes code from 5edf246c6869 ("net: dsa: rzn1-a5psw: add FDB…
+- [Low] The commit message for "net: dsa: rzn1-a5psw: Add support for
+  RZ/T2H Ethernet switch" does not match what the patch does.
 
 --
 
-net: dsa: rzn1-a5psw: Fix LK_LEARNCOUNT write mode encoding
+net: dsa: rzn1-a5psw: Add support for RZ/T2H Ethernet switch
 
-This patch changes the three writes to A5PSW_LK_LEARNCOUNT in
-a5psw_setup(), a5psw_port_fdb_add() and a5psw_port_fdb_del() to use
-FIELD_PREP() with A5PSW_LK_LEARNCOUNT_MODE. Before this change, the raw
-mode values were written into the count field instead of bits [31:30].
+This commit adds OF match data for the RZ/T2H ETHSW, which uses the A5PSW
+IP but has a different port count, tagging protocol, pattern matcher
+offsets, VLAN_RES layout and lookup table size. It also adds the
+renesas,r9a09g077-ethsw compatible, which RZ/N2H uses as a fallback.
 
-> The LK_LEARNCOUNT write mode lives in bits [31:30] of the register, but
-> the driver writes the raw A5PSW_LK_LEARNCOUNT_MODE_* values (0, 1, 2)
-> directly. As a result, adding an FDB entry writes "set LEARNCOUNT to 1"
-> and deleting one writes "set LEARNCOUNT to 2", instead of atomically
-> incrementing/decrementing the counter.
-
-[Severity: Low]
-The FIELD_PREP() conversion looks correct. Could the commit message also
-say what a user sees go wrong because of the bad counter value?
-
-As far as I can tell, the driver never reads A5PSW_LK_LEARNCOUNT back.
-It is also not exposed through ethtool, devlink or debugfs. The only
-accesses are the three writes in a5psw_setup(), a5psw_port_fdb_add() and
-a5psw_port_fdb_del().
-
-That means the bug only matters if the switch hardware itself acts on
-LEARNCOUNT, for example as a learning limit or to decide that the lookup
-table is full.
-
-Since the patch carries Fixes: and Cc: stable, would it help to describe
-that hardware effect? Stable backporters could then tell whether this is
-a functional problem or just a wrong value in a counter nothing uses.
-
-> Fixes: 5edf246c6869 ("net: dsa: rzn1-a5psw: add FDB support")
-> Cc: stable@vger.kernel.org
+> Configure the driver for the RZ/T2H variant with:
+> - 4 ports (3 external and 1 management), with the management port
+>   at port 3.
+> - DSA_TAG_PROTO_RZT2H_ETHSW tagging protocol.
+> - A fixed management port frame length of 0x3fff.
+> - Pattern matcher register offsets of 0x3f00 and 0x3f40.
+> - VLAN_RES fields using VLANID[15:4] and PORTMASK[3:0].
+> - 4096 lookup table entries.
+> - The odd MDIO clock divider formula.
 
 [Severity: Low]
-This isn't a bug, but should this patch go to net as a separate
-submission instead of being part of this series?
+Is this list still accurate after the v4->v5 change to rzt2h_of_data?
 
-The changelog says "v4->v5: New patch", so it was added to the
-RZ/T2H/RZ/N2H ETHSW enablement series. That series looks like net-next
-material: a new DSA tag protocol, DT bindings, PCS SWCTRL speed
-selection and OF data refactoring.
+The last bullet mentions an MDIO clock divider formula. However,
+rzt2h_of_data has no MDIO setting, and struct a5psw_of_data has no member
+for one. a5psw_mdio_config() uses the same formula on every SoC:
 
-This change only touches existing RZ/N1 code in a5psw_port_fdb_add(),
-a5psw_port_fdb_del() and a5psw_setup(). It doesn't depend on any earlier
-patch in the series.
+drivers/net/dsa/rzn1_a5psw.c:a5psw_mdio_config() {
+    ...
+	div = DIV_ROUND_UP(DIV_ROUND_UP(rate, mdio_freq) - 1, 2);
+    ...
+}
 
-The same seems to apply to the other fixes in the series: "Fix
-VLANTransmitted counter offset", "Fix MDIO clock divider calculation"
-and "Set driver data in probe".
+That formula came from the earlier commit in this series, "net: dsa:
+rzn1-a5psw: Fix MDIO clock divider calculation". Its message says the
+formula is the same on RZ/N1, RZ/T2H and RZ/N2H.
+
+The list also leaves out a setting the patch does add:
+
+	.keep_mac_tx_enabled = true,
+
+For the new compatible, this skips CMD_CFG.SW_RESET during setup, keeps
+TX_ENA set, and gates user-port TX through PORT_ENA.
+
+Could the MDIO bullet be dropped and a bullet for keep_mac_tx_enabled be
+added?
+
+> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+> index 86d5b9d52f8db..2b69e92e18533 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.c
+> +++ b/drivers/net/dsa/rzn1_a5psw.c
+> @@ -1411,6 +1411,20 @@ static void a5psw_shutdown(struct platform_device *pdev)
+>  	platform_set_drvdata(pdev, NULL);
+>  }
+>  
+> +static const struct a5psw_of_data rzt2h_of_data = {
+
+[ ... ]
+
+> +	.lk_table_entries = 4096,
+> +	.keep_mac_tx_enabled = true,
+> +};
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261120002549.1908299-1-prabhakar.mahadev-lad.rj%40bp.renesas.com
