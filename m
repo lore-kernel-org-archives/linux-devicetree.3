@@ -1,118 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795557494;
-	b=JjpJeU49i+Ur6En80e7vEI+LsP9T0OAAMEAxvZ6AKq1g2KljFkA5gt3oXvuk+/UGvI4Y
-	 N41YTCspPFx21OKw3iCM02/HAWFje8c6BbHDTAlKeK7hlBEfC4rs5lPJj496jyTsuqM7O
-	 LsDcUgybkVMWfgUOE8dOtdwfF+VoJSSyUW1gc58Aoe1kaiEKjdrk3rtm0ZApuIeTST66E
-	 JxNXfKnzfiolVN9mADaNpVNdDnF55rXSSFdsS3ofP4B+ch6+Vuq9/+zbcgJKjoQflw8qL
-	 O6PcQj8broYE7GOoIXcVbye4vblxTNoIdDd3g57teTu/PSbzDe821Tpy7X+IEAnlb7A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795557494;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795557969;
+	b=q6I0wqpMns/ZLFG8vFaZ0MBJcISPT86wamChB6oY/dwXKwsEC6p7IT0UF7M2OYqU9Yqn
+	 GrTiDh5c+6IQQRRzQljqBfvfyB/cbpTW0ANyJOgJ15FNe0MU+xhddNSF7vlCFgC4FrS3j
+	 btvXMC7Lyoi43pprKXYziRLOJoA1C+HCw2LpVOYmFc16ApRPDUzbuzpuIpd3KnogeB0wP
+	 QbVdJMDebD+v+X8a0bEm3K788N4C4wm/G+tJPRHyaoHJCp6eY6jPwR7xApzf0IMeaALVw
+	 gJRWw761HtEVuTL5Kr+al59gbhe7c/fchYjoT06v1PFI/dBUNpSI6zfxOwRdnT921bg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795557969;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=aa7YPfOROhEx6JieLJ3TSEkUZ7Fh13WAPekCnuIIbKA=;
-	b=0gU7S0qQCXvRCcjlp4IdGXJBs4hHXv1o/NAfr7Pe8u3CIVrFaYliez4QblxaJ5gzWt03
-	 pXFvSHAvsgBv8qUgjDsehfvycrA90OEfFoV4a53ddhvKQGYGlc8/cstSZi+fGlbB/ZMmF
-	 br7+I6Yy/hsdvT0HGnjlTy4qNAIFeNKU8hHrPtYJX72J2DA7VRADyFptmKjoRCtinvHkH
-	 LxIuA/nqClBsoErDumboGVPiAdBVWYUmyYuQgUL2xgDTP4YHGP+4IqwHfREbUqsUszWOA
-	 xjNMaGXq37vX2y3F5LSyiOZ0yFTPydP7z4FBT/KjyzIFlrB2cvzfjgvDGC+0gaUfD4Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="l/S5P4hq";
-	arc=none smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
+	b=U6nXYsJrPIR3Glmm5tZpJYxNXAeYlOPxxdCz6eqpbGtUiApdLdWJQuNz4Ak4Bvrw4n4n
+	 yfb3qc6g6XHz9Ek2Ac9Em7lQFe3tEWsAqJ/q4kbaIFh+KDAYRPlL0tpRsCJ1jT53+O7Kv
+	 0hEk6FFcBNrdY1uHu4AGzN+JIsVyS9CVp2mSwvZXh0/6LgCkh5aD/P0/HoQV0Rv+Iak5V
+	 UIh16EuAjNt65q605mdFp7lZlyln58Zkm0XkRXdJRGYsNUHjH0HMoDqPzs29iaQe8t3HS
+	 6KFTZXwOmmQ7arppT4UXdcYUoDHu4WsMh+8tD3UaZiWIeXlVk8+bVKmsU3rNG3NQh1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=d27cduBR;
+	arc=fail smtp.remote-ip=209.85.128.179
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E8F606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:58:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E8F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2074D606A327
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 22:06:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2074D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=l/S5P4hq
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-55c38cdd5b7so30998011cf.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:58:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=d27cduBR
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b4c685c751so44525747b3.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 14:06:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795557968; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NbQYLEu+lrteir9Ccr5VTLNHtyuETa4p5c3WQoUDklV4gt09qILHvVytBdqdJdqpe9
+         jEmWUX6DqxKyqn3ZixHi9xgWd6h7qYOukx3cJAKmDxO1tBgcOfIwunWeF+WRjSosC4F1
+         EEZfvqoTqVAL3FtJAuCdzHBbob7gz1unFNLIc3fNJYf8aVH1Sud8O7s2AorOx2nDFS5+
+         ezVpVFVAmpPQ2iIRx7jC6sAX0U5zQk5ApF/A0DnTmhozKfQ1GOAJ5l13Lzk2Lhn4M8ha
+         OVClRAa4nJYc8EmodxZErGVJBtNV26WaeVEjV7KFuEOJ/ALO2xi2jWjQn2B8vrXKRDIc
+         YjwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
+        fh=s+nkO0ILZJxX0kQW65wLBHVfGo702tYwZmO+JCi5biY=;
+        b=K8F+eSWPNVXE7fOWMaW6ZD6GD/YkEtHZNE65IORonggHtR/TeXQEGpke4eI6KWwIMy
+         1y9y3B9JfngBtgidBj9LibyFTp51AK9Umsrxm9p4JjdqCyHOHr4rz+WT/k70jcjbgEi6
+         85QNLsXdYPQGtruN8wjMrylViGLn5RrCqEGnml6yDXz3HDJlBhQo9MWccZaVffNDDOfr
+         4iw66qtL362cli26z+gsbGt0CsTo7UW8EVOZ0S1vhPS67UhSNPzzQ7lz2e/mlPQIssYl
+         awCRWvVKUc2+Dxi3NzthP7wCuFSVuyGTyMXQ8ffY2olH5QbFS+qWJnjkx86F0f2+HA9R
+         YqCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795557492; x=1796162292; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+        d=googlemail.com; s=20260707; t=1795557968; x=1796162768; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=aa7YPfOROhEx6JieLJ3TSEkUZ7Fh13WAPekCnuIIbKA=;
-        b=l/S5P4hqCvL94AjUk5b9ne9H1xJd9oho6SRjlcv96sjrcFsyAc3OuboHG3NRfcyEdB
-         OFFkiLRZjiyy/ykt55VenVCHzbpuH431SsYd4RW3mDJJbMCtGzoLNGJzrPzUJ3QNzH+y
-         zNQyQSkclGcE8Z4yTWMNkwllmyc75jcpFC1OTK8er/7hlPqylIvaTUlerQ/6Kuuo7c2t
-         sI3ZjJSDwa424rWn+zMHw3YOZhQ7tYfEVdk9C6UuejjCcnmNQdDwcHZ2qgMniZ9688uv
-         bmQeljcPfVTU2UHO4Q8pCgUDRzWUhSyasb/5/2gGp3atWUG4fTjdFQhad8iUj9pDJPJt
-         7XiA==
+        bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
+        b=d27cduBRSCI4Fx7E8JEwH4YkEnonereNTCPDQf1MqytROJcGGGMvHL3Zr80JbXggHB
+         E0wcnOWFhVTUKUD0qU4PYjj1VflQoE5ZSxKEd+KccQRNVtKdw9S27TVP7NcGTKSV7/KC
+         2oqwPsUkDnZNq1Adzg5tpDhVrgwbH5B3i08sVQv7zGMCmfaxhcJiAAg8b726Rpsr5klY
+         lGfmGJlIEYS/AL74iTCcBG4GzGy14qSYjXFjr17lVGwMVGoX61/OvSCSODiZDouWm5XR
+         fGn7on9CLOGvLFpcz363wjCsxy9b9KK6GE9dxwc6kQlypkH/RvLMRh0ly0GRsC4yElhb
+         ZMJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795557492; x=1796162292;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1795557968; x=1796162768;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aa7YPfOROhEx6JieLJ3TSEkUZ7Fh13WAPekCnuIIbKA=;
-        b=043XBeeH3gL2Hqw2BWfhAOlZyp2guaHiWEuEE+zNCLzYDOKNUWgJyWzc4H7WCvdP4O
-         iWpAFWPcrkE7b72Xr/NtG+xbjrYiYGofv6s4Dr/6TYbBXf49uElppCot9MnzfBu2+AbF
-         idPmtu1xSIXrF2jl4qRf6HTzH/8H6x1xZ78na1mm9QBipsPgDhxZM1iAC8csKeBCcwHU
-         Xe/LGkWHxOFusG0XDs/J+19Cp/2OerZFxPIM5uUCdQcEq3F1MxRB9AYyB0EVKW9FofIj
-         5rdlRvrummYltmdn85eY9vJQDnsaNZUv98PZ0d1580n30km9aQA5uQ06vcTTPiiiaXkN
-         3bPw==
-X-Forwarded-Encrypted: i=1; AL+hErEbdC3qGxOBMXojBwWKDIs5JavqUOeG6OBEGVYr6ig2Y6OD5nvOoLAqMBSwBMb9DgNeOsrfc2jBxEWb@vger.kernel.org
-X-Gm-Message-State: APuU4Z9J/drGV6Kw1J3IEzbIX29osnqtenyAQnYevDihN9L4W2iQIAxo
-	C0AR0WkCK0YHWdC5CmUZABaMXEuUv+m/yZsvI2qV3QvEhisA76Ln+bUzkElolaJI2wU=
-X-Gm-Gg: AZFdTZdunSkzfM2GYdf/NCXeulv/vWGKvYDER8EFk3SAecPL55rQyM6IA00YGEfLOqn
-	tJU3qtUWO0eT0cuujxnvEiMk/KgT0ux6mk1tC7w/5DRjhSS4q8tW62jHcmQpU6f4Vfot29CQH3m
-	Dumg6hkggnHjndYP+TXibfqtZmrQIM7S5SLtoul7xet9I5oN7bTSTbxH0IieN8sDrPTdgnQD0Gx
-	kNA1pF5VJeLuR4hv8lFDuJOK4BB5qZmzwkIP/tfkrhwk6TmpvpdJBqWKdrUuUtUi3rLG9l/DkZZ
-	SqW7HWHCopnk3T8a3MVIQF3B96s3l0+Hwg86iaYI0n/a/V/5qdPVZnUKWfEA0s9l2iQ3gtjRtRn
-	5fNxJxQWhGhRUtKBAzljb/99a3SjLGH901W5nkPjt1gQ9EKAhF7U4KraO2+9fmBkWnzuWboSJ9h
-	9sjyxzQPVkJhCR3cZSIX3wgK+m2iXHdxSvQGi8mSlPj7sKTwD8VBYiODXe9Ivr8FNXAraDiUVRT
-	lC4zPZJ4oNCXCUTYK/Ek3mCdrcTj5BkPUet5vgmybC2TZ498cjPU2VxoG//NjcnE+ltXJA5Dt1a
-	RRIezwYZs1m2yGy4uvCSYd5DkdB1AbPZRyUKlujd+rXk9uMh4D0O0KYFz+e+v3N4PIHEG1CT0cv
-	Z
-X-Received: by 2002:ac8:5e53:0:b0:536:699d:9a22 with SMTP id d75a77b69052e-55d76aa8754mr292073611cf.57.1795557492035;
-        Tue, 24 Nov 2026 13:58:12 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349f2186sm148298976d6.29.2026.11.24.13.58.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 13:58:11 -0800 (PST)
-Message-ID: <79df445f3906ef7147137d991e0fd14f7815d22c.camel@ndufresne.ca>
-Subject: Re: [PATCH v3 03/17] media: v4l2: Add Apple interchange pixel
- formats
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sofus Forstreuter <sofus.c@icloud.com>, Sven Peter <sven@kernel.org>, 
- Janne Grunau
-	 <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
-	 <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Date: Tue, 24 Nov 2026 16:58:10 -0500
-In-Reply-To: <20261020-avd-v3-3-85cbaa2125d8@icloud.com>
-References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
-	 <20261020-avd-v3-3-85cbaa2125d8@icloud.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-0opacj9JZF7JzicRk9mL"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+        bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
+        b=btVwrHc17jgZDgOhJ1xs3bIIggYdqOJDTaFSjMw3OB30ghIfHC/Otil7t3IA9YxUYf
+         ZkRsrZWWeMFLCU+Damvh8ATvIib/8HRM1eq3LHNr1kG36LO5v1b9pi1A/GK4Y9baWmw+
+         Tr5xVBdPjgaEC2aNuSKMAcLnWlDFH0LzpzoXo9izPX6iNPwjTrkHZKOVCe6VKGDeOHHG
+         if6T9xlHSVVMy0ootvbOCjM+DLlkuAWUwUXSzxt37wmGwqDCa05kniwUADy0xTpKLEGu
+         dMhbu0tX/FJ5sE0Vv8PXFz/C+X4UGi3jupk0FvuML7BCdSJiJdfpZlZRR6kZYm4aX6M7
+         j/uw==
+X-Forwarded-Encrypted: i=1; AL+hErFLvig4JDULCtbvY7Tt1ccpWOc7mlTgbM2wD81/WX+dvnkAwV4ac633Xbldp0NX5CZAN/6JEj3Hb++D@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nSkvXnjMy7Ddn8bSzCLBnBpRSBGruiX1jEWMAAhnw9Ty0ljdk
+	WzFIidrRZL43K5c59YgZtPl7S4gQnycfDqpRsETa7Zt7k6mUvW16qfbUdh3l+TfG3ig0ys2m5MF
+	ecuX+9qUxQLH38jNysVzpPL4IxakMqNA=
+X-Gm-Gg: AZFdTZefYCeXUBWi9cKKASuQYy6A/JZD3y+ubcIFX2QHgEpCLKb0jagcZGHqeD9psmC
+	eMKC8lYRJUGorFmKClBMrCBbFYkcwMeOkzrW2ytdwVjN0NjHktLHFGDrJotjO3PfAEuI/Il4QNM
+	u2swo34IYVJ6X26TX319WzxJ5glOW2oZwEg4o0xo/CxNMnj5giT9cxTY8nfdrqNyEBX7s67EYZb
+	+/W/OVLzpAuPzCBvbxUCkw2EZwp+IDXL3j/wZ9e/bUZ/tnaowniS0Y3IbfzDCw1gxTIT0S7gp9y
+	OmEq1cWKkGpvacEEtnixPPsoz4JZX+WxbgVdiARqkiUYWBASN5sfwVgUqWY9NJpQhkhmhqzPVFf
+	4rCN8HwJyErf1O5J32SsO0izMaObCLH8B2iYEcqpJ5pVHJvX/9aqXNQgq7d1YLOozD115mg==
+X-Received: by 2002:a05:690c:4806:b0:8b3:33cf:1ff8 with SMTP id
+ 00721157ae682-8b52047e1abmr62214977b3.51.1795557968035; Tue, 24 Nov 2026
+ 14:06:08 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -122,142 +104,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-0opacj9JZF7JzicRk9mL
+References: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
+In-Reply-To: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 24 Nov 2026 23:05:57 +0100
+X-Gm-Features: Aa3M54obAOudEtwcvYkDuGnJHvL3A4XdBNW-oHonc9K3rZo32rUzvFY7EEi7VPQ
+Message-ID: <CAFBinCD822UPQrrd_8ZbVRUVCVJ-3pGN69vbZBxUE+0yeMcysg@mail.gmail.com>
+Subject: Re: [PATCH v4 00/11] phy/drm: amlogic: Extract Meson HDMI TX PHY into
+ a dedicated driver
+To: linux-kernel-dev@aliel.fr, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Vinod Koul <vkoul@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Ulf Hansson <ulfh@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+	linux-pm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le mardi 20 octobre 2026 =C3=A0 11:37 +0200, Sofus Forstreuter a =C3=A9crit=
-=C2=A0:
-> Apple Interchange is a compressed and tiled format modifier.
->=20
-> Its intended use is for sharing buffers between hardware blocks (GPU,
-> display controller, video codecs) on Apple platforms.
->=20
-> Add it to the v4l2_format_info table to help with calculating sizes.
->=20
-> Reviewed-by: Neal Gompa <neal@gompa.dev>
-> Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
-> ---
->  drivers/media/v4l2-core/v4l2-common.c | 7 +++++++
->  drivers/media/v4l2-core/v4l2-ioctl.c  | 6 ++++++
->  include/uapi/linux/videodev2.h        | 8 ++++++++
->  3 files changed, 21 insertions(+)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-c=
-ore/v4l2-common.c
-> index 43ef12d073a3..896c07d93032 100644
-> --- a/drivers/media/v4l2-core/v4l2-common.c
-> +++ b/drivers/media/v4l2-core/v4l2-common.c
-> @@ -336,6 +336,13 @@ const struct v4l2_format_info *v4l2_format_info(u32 =
-format)
->  =09=09{ .format =3D V4L2_PIX_FMT_GREY,    .pixel_enc =3D V4L2_PIXEL_ENC_=
-YUV, .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 1, 0, 0, 0 }, .bpp_d=
-iv =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
->  =09=09{ .format =3D V4L2_PIX_FMT_Y12,     .pixel_enc =3D V4L2_PIXEL_ENC_=
-YUV, .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 2, 0, 0, 0 }, .bpp_d=
-iv =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
-> =20
-> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX12, .pixel_enc =3D V4L2_PIXEL_E=
-NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bp=
-p_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
-> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX16, .pixel_enc =3D V4L2_PIXEL_E=
-NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bp=
-p_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
-> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX24, .pixel_enc =3D V4L2_PIXEL_E=
-NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bp=
-p_div =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
-> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX03, .pixel_enc =3D V4L2_PIXEL_E=
-NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .b=
-pp_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
-> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX23, .pixel_enc =3D V4L2_PIXEL_E=
-NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .b=
-pp_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
-> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX43, .pixel_enc =3D V4L2_PIXEL_E=
-NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .b=
-pp_div =3D { 4, 4, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
-> +
->  =09=09/* Tiled YUV formats */
->  =09=09{ .format =3D V4L2_PIX_FMT_NV12_4L4, .pixel_enc =3D V4L2_PIXEL_ENC=
-_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_=
-div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
->  =09=09{ .format =3D V4L2_PIX_FMT_NV15_4L4, .pixel_enc =3D V4L2_PIXEL_ENC=
-_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .bpp=
-_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-co=
-re/v4l2-ioctl.c
-> index 1f2519ffeb2b..e40e2ebac241 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -1561,6 +1561,12 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *=
-fmt)
->  =09=09case V4L2_PIX_FMT_PISP_COMP2_GBRG: descr =3D "PiSP 8b GBGB/RGRG mo=
-de2 compr"; break;
->  =09=09case V4L2_PIX_FMT_PISP_COMP2_BGGR: descr =3D "PiSP 8b BGBG/GRGR mo=
-de2 compr"; break;
->  =09=09case V4L2_PIX_FMT_PISP_COMP2_MONO: descr =3D "PiSP 8b monochrome m=
-ode2 compr"; break;
-> +=09=09case V4L2_PIX_FMT_APPLE_AX12:=09descr =3D "Apple Interchange NV12"=
-; break;
-> +=09=09case V4L2_PIX_FMT_APPLE_AX16:=09descr =3D "Apple Interchange NV16"=
-; break;
-> +=09=09case V4L2_PIX_FMT_APPLE_AX24:=09descr =3D "Apple Interchange NV24"=
-; break;
-> +=09=09case V4L2_PIX_FMT_APPLE_AX03:=09descr =3D "Apple Interchange P030"=
-; break;
-> +=09=09case V4L2_PIX_FMT_APPLE_AX23:=09descr =3D "Apple Interchange P230"=
-; break;
-> +=09=09case V4L2_PIX_FMT_APPLE_AX43:=09descr =3D "Apple Interchange P430"=
-; break;
->  =09=09default:
->  =09=09=09if (fmt->description[0])
->  =09=09=09=09return;
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
-2.h
-> index 5472e433ed06..f218f4fb26a4 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -842,6 +842,14 @@ struct v4l2_pix_format {
->  #define V4L2_PIX_FMT_PISP_COMP2_BGGR=09v4l2_fourcc('P', 'C', '2', 'B') /=
-* PiSP 8-bit mode 2 compressed BGGR bayer */
->  #define V4L2_PIX_FMT_PISP_COMP2_MONO=09v4l2_fourcc('P', 'C', '2', 'M') /=
-* PiSP 8-bit mode 2 compressed monochrome */
-> =20
-> +/* Apple Interchange, compressed and tiled formats */
-> +#define V4L2_PIX_FMT_APPLE_AX12=09v4l2_fourcc('A', 'X', '1', '2') /* App=
-le Interchange NV12 */
-> +#define V4L2_PIX_FMT_APPLE_AX16=09v4l2_fourcc('A', 'X', '1', '6') /* App=
-le Interchange NV16 */
-> +#define V4L2_PIX_FMT_APPLE_AX24=09v4l2_fourcc('A', 'X', '2', '4') /* App=
-le Interchange NV24 */
-> +#define V4L2_PIX_FMT_APPLE_AX03=09v4l2_fourcc('A', 'X', '0', '3') /* App=
-le Interchange P030 */
-> +#define V4L2_PIX_FMT_APPLE_AX23=09v4l2_fourcc('A', 'X', '2', '3') /* App=
-le Interchange P230 */
-> +#define V4L2_PIX_FMT_APPLE_AX43=09v4l2_fourcc('A', 'X', '4', '3') /* App=
-le Interchange P430 */
+Hi Ronald, Hi Neil,
 
-These needs to be in Documentation/userspace-api/media/v4l/pixfmt-reserved.=
-rst
+first of all: thanks Ronald for picking this up!
+I like the overall approach. Before I dive deep into this series I
+will finish the code-review of Valerio's AUDIN series.
 
-Nicolas
+Two quick notes below.
 
-> +
->  /* Renesas RZ/V2H CRU packed formats. 64-bit units with contiguous pixel=
-s */
->  #define V4L2_PIX_FMT_RAW_CRU10=09v4l2_fourcc('C', 'R', '1', '0')
->  #define V4L2_PIX_FMT_RAW_CRU12=09v4l2_fourcc('C', 'R', '1', '2')
+On Mon, Nov 23, 2026 at 8:38=E2=80=AFPM Ronald Claveau via B4 Relay
+<devnull+linux-kernel-dev.aliel.fr@kernel.org> wrote:
+[...]
+> Overview of the series:
+> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
+>   add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
+>   "hdmi-phy" child node under the HHI syscon.
+It's been a long time, but I think we've been asked by the devicetree
+maintainers to have reg properties for the nodes within &hhi
+But I can't find the message at the moment.
 
---=-0opacj9JZF7JzicRk9mL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+> - Patch 4: Add the new Meson HDMI TX PHY driver implementing the HDMI
+>   PHY configuration ops, along with the temporary legacy creation
+>   helper.
+At quick glance your PHY approach would also fit phy-meson8-hdmi-tx.c
+There seem to be minor differences:
+- two additional enable bits in HHI_HDMI_PHY_CNTL1 on GXBB and newer:
+HDMI_FIFO_ENABLE=3DBIT(2) and  HDMI_FIFO_WR_ENALBE=3DBIT(3)
+- newer SoCs seem to have HHI_HDMI_PHY_CNTL3..5
 
------BEGIN PGP SIGNATURE-----
+Meson8/8b/8m2 HDMI support is not upstream yet. That's why those SoC's
+won't need the backwards compatibility code. So if you need to tweak
+the driver: feel free, there's not much you can break!
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawYIcgAKCRDZQZRRKWBy
-9LYlAP9eNt64YAYVi+3tdmO2eVOgxAxX3MBInpvFBV83Km5LlQEAva1+LKSeuhBa
-0jv5NXY7twZmCiEmTXSCAQrzfD7RsA8=
-=Z59I
------END PGP SIGNATURE-----
 
---=-0opacj9JZF7JzicRk9mL--
+Best regards,
+Martin
