@@ -1,112 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795508757;
-	b=Ik7JmHIXTbfsfPsqEunU87hgs1eA4dIqlx3U+rU9GkxE4oGEKHgChjgALxPFOC1fuGtK
-	 fo9wau4C1IUasbhNOta11lhTkIwySNVoo9HaJ/FrsI6pu9/N76Vds2UIuXKr5tjG82/qe
-	 3WCMuuNpVmYHoYA1Oj4iG3Fi1HNHgkRHNk3ypXBj90vMHhdE+Hig25iEiisXbytvQvoyt
-	 9HDKgR6nOkNSVY302kRzZIN9GdVQ0BkPYcaP9omlv0Uerf+Y3pWwJc1Q0YFGMKlFi7DCM
-	 qcl/Wjq+w2H7sOlwX254G2scKeVdbegT1C7lQWpgsZspoZzLXY7NJdL7E5LvrYj4pqQ==
+	t=1795508996;
+	b=GyNZCaDBCsdVsgjijoxrwEUkN5KvC/QqL2Kzo+ayAo4i7eiqD9QaM6vcs1wQdDQH+5Xv
+	 zN3oA0HErFieECPAz/DZ3AjhYMVjNUnw6948fl2+P1JNLCu6I8jyrKzO0bKI0j+Kg5I2p
+	 Q+zBTsimKj2E4SLcM0KWbVlrRK3Hp6L9E2Z4IaULbV4Rz7owjNxdoA0xf9ybbKBHPlbdo
+	 rqRpPveTh+3505Innka9CZw5QTScOMXmrb8PElyWEPoPmyVKsQwGkLb+sx1hEkyiXdkIp
+	 okQuWP2rOiPQ87PbTnJGVfQjNUWd2kYBCi+jgWRYdjAe1/78cPQXFGnc9NVxq17zHOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795508757;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=GCTNA9xgCHXdB81WrISHqlua/lWBZnpYRxHVBs5lH/s=;
-	b=QLcCksdHpmdALjp889CAedrj4JGV/5J9GFOOnxYJVL9qFCLTUd+dZKXazGpd0LP/kfAI
-	 3sCXLh8HAMzF9qiagnz6YjJWn+rsdRsTiDCPfGdH/uD8t5yLB90vsVKc/V0z4gLwqltah
-	 /sOv8ZzFVEZ67gNCoDqpLAH80T9NvlYS+AAW48Rbq8tmmkirwniDuJ5DoIOMERuocRSGH
-	 p1LY09zedsCYo2CCvAyn3pTq0TWrRSRS9q6bQw5nTE0BeA3q4opWnVNuP+G4vBGezvOzF
-	 96t4m6fD2NjvW1mW3xsSDPFgoNVruONIXt+nYL+VKYgh30kMI3NdiE97xeqwMhXjBVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795508996;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=445Y3PS/QMfmoRgrMu4TdwvLJuUU9Wg/QShpg3I+Oec=;
+	b=gEp/evmKf0+0+MmsV3eBMBpzuILzksgxcdZMXRN/+pZgq+bMpx3pZV+A21aBmKhQXGBh
+	 M1NL2mV/Hu2KOR4d0yqgR8S/yiKr856CqeQNsjhrafRAhUYQ7ejM/VpPUpzmtDBapPBVL
+	 FKrV8k97cvbOi/uUVN3AADcgmhAjzXO8X1T83GJ1J1MBFbbQI/1RWsn4VWLY/PYoleuAf
+	 5qdj814Ki6f2hqaTCuILmZUQ+zieeW9Ptu08rnFFEiLnpd+dSPobccdjMb7u3hfUeEEI4
+	 e+L4KZUiQ83qSol/an78yGHA0YpEcysd8Gj2cBNj+02kiF5TwGJEduAptHTeFi91wkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gc0jjAbA;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HkCMqgTP;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ZfUwuPv3;
+	arc=none smtp.remote-ip=45.254.49.227
+Received: from mail-m49227.qiye.163.com (mail-m49227.qiye.163.com [45.254.49.227])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E540F606A326
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:25:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E540F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3B4606A321;
+	Tue, 24 Nov 2026 08:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA3B4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gc0jjAbA;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HkCMqgTP
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO8L11r4128993
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:25:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GCTNA9xgCHXdB81WrISHqlua/lWBZnpYRxHVBs5lH/s=; b=gc0jjAbAvL/zSslc
-	utmB9/45kGAqVWnWEKLkVkANHSp+F/eDR8HDF47GBRhaa6P/Zlo1knyDckAZtx22
-	gLFb6QV08z31iLEtSn8/muvnyj5dAvb3vX+oFkBNNdxLCK+QD4izuZ3tz7lD2A55
-	qK1bzWfhLRyQuv1q1/wSIFzU003NDgzv0bsruifBYaXx00dM27jWQSBO+9sSG/eB
-	Tit7+yPMmOQJvFikdlizr0bj5OXy7LKXjGifGlumL5cCj9sNVkw2iziPMWddiQHG
-	JurgFCfgXaVyV4RVkURw51ofjxSgMHaqXayXPect3KxNuZyGwhJO+K4Q1zDa3lbR
-	6sAo2A==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4yyt1mhb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:25:56 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89fb6a45c48so3273252b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 00:25:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795508755; x=1796113555; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GCTNA9xgCHXdB81WrISHqlua/lWBZnpYRxHVBs5lH/s=;
-        b=HkCMqgTPTpd8uWgqkNr6g/4dDJc6GOtZaHQhGKJwC1xfwaSJ+M6l5+yBJ++SbuGtCj
-         jQRA0TlFWSflIc+CsQ+UZTxYaqJNeqtqxD8yD+tfW9BBn/dL1zoBGnYqdPpnTUBto4Ol
-         gmJADUgZk8zfOELRCDWCYD1sbxLkw743YPUYCMunThFYnNfQ+cXY5juC+63JGQWotO3u
-         PmK38Pku8tVqTvH/ja4eHPzV370XdCV29USAY6kTcLwcu591CuSj/se0BKFbmGTDnBzw
-         p6S9uf78mIOKgbU+kdGxUJD/Qa82NlwjpPsbmnuvBYZ7jVTjsnsqx1ufvXyB1xABjjaI
-         cFng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795508755; x=1796113555;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GCTNA9xgCHXdB81WrISHqlua/lWBZnpYRxHVBs5lH/s=;
-        b=K8IXcAua6Ju4vAm82rKs7EYPdydgSe0Zu1bSBV3w5TjYIijTyVOlgK3Z8iAlMeuyPp
-         89ztzcgq8cZyyFd29VY5SyefwlWRRa1Tx94focJcpXGlutZgrbfTotTWBRJgGSqQOimK
-         yPc86mrDFXcUPSi0VHSiBp7qRAB1n545wfUr4JyqTOT82qnyZ6Y0ln7UOw6TXdz8/9vj
-         6hvMRIEOFWNaneVewe/ZFQ+m8Tr+hzrj1QqCNwYlgbAk4TOF9QRrAOREO90/p3hwHXf/
-         yeomFSzfG2UdNDv+pDKLKGDQAJsxEkX5qnROIhIPIatI4C+XKyuZtIe/W58QYtsAQI0I
-         DZ3A==
-X-Forwarded-Encrypted: i=1; AL+hErHU50g5a16X48FfCHaJqaK59G8Dg6Z1aJDmoBtJnMqQC9kp4b6AQ1EJyl5/K0k9Cst9dLaXSlYCQTGf@vger.kernel.org
-X-Gm-Message-State: APuU4Z9aQ5f3zsFjOdq2/YrYMZQ+LhPjdmPV9fHy+yGr0PkgJ9t9hxRE
-	QHhpZyou2dHiwyf7k+UhVkNH4zTz9FtsoV3MU2CVv+zFcEOAYJJ3dIuQKqGhnuBGy6fyblTnonc
-	R0Ty2V58sluuaefONk3NLzQLuMxWG6xVR6TIykb+g7p69IpTsVP6UVHNyuzvYsUcU
-X-Gm-Gg: AZFdTZdePo4QyEBMq6s0tzisNf/tKwa7ER5Yt1VEF0RZFzThBovzNzsHeWXWVFa6Q/J
-	AK+ppDmquRa4nnvhS7/5X0TUFy95FFhKvDw7GNgRn73GKSZz4WROk0hOE8j9WAUkuuS/shpX8zY
-	QEZcUKoUNbVR5SMmG1IswpBf73oBUhEz5/C2eRDiXc2xLIrgPWQHYqZlYvCST9HoaVO8WIDoyJu
-	ipXoVNjI7H4NDlc3oDsFzLviOunnRXvXRz93qlGGCB9VGS7wqSLtouITTPfi4YsQX0UJqywGWdv
-	kEVWgzm+vVK8pmoXt+K2OTRkUke7Uu5phY7IxcW5A8wtzCmoWcDX4D1QrF3+kACxNkR+rM5PDjB
-	but/+tpXfacHiU6y3iouyzwL0HaZn1jynCP21AzJbTAwNMEIEirog49qd936cl9JfUrLdWugo9g
-	VMcFE=
-X-Received: by 2002:a05:6a00:f8a:b0:89f:7a1b:2bf4 with SMTP id d2e1a72fcca58-8c87baccd9dmr12143586b3a.16.1795508755352;
-        Tue, 24 Nov 2026 00:25:55 -0800 (PST)
-X-Received: by 2002:a05:6a00:f8a:b0:89f:7a1b:2bf4 with SMTP id d2e1a72fcca58-8c87baccd9dmr12143555b3a.16.1795508754869;
-        Tue, 24 Nov 2026 00:25:54 -0800 (PST)
-Received: from [10.218.31.125] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87343f726sm7129262b3a.36.2026.11.24.00.25.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 00:25:54 -0800 (PST)
-Message-ID: <f3ee6297-fb83-4b1c-b083-f3b15fa082b5@oss.qualcomm.com>
-Date: Tue, 24 Nov 2026 13:55:47 +0530
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ZfUwuPv3
+Received: from [127.0.0.1] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 55cbe0da5;
+	Tue, 24 Nov 2026 16:29:43 +0800 (GMT+08:00)
+Message-ID: <af27260f-1911-47bb-8fe2-8eaa8bec31b0@rock-chips.com>
+Date: Tue, 24 Nov 2026 16:29:39 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,88 +49,370 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] Shikra: Fix qce configuration
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-References: <20261116-shikra_qce_fix-v3-0-9ae31470ef48@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/2] drm/bridge: add TH1520 DesignWare MIPI DSI host
+ controller
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
+ <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-riscv@lists.infradead.org, Icneowy Zheng <uwu@icenowy.me>,
+ Han Gao <gaohan@iscas.ac.cn>
+References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
+ <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
 Content-Language: en-US
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-In-Reply-To: <20261116-shikra_qce_fix-v3-0-9ae31470ef48@oss.qualcomm.com>
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDAzMiBTYWx0ZWRfX8NuAMhfutZvD
- TsTH9an6hpyIAK1xOW3JDcHgP+xQI344pkmDJPvFhS9AmvyeUMln4qm6F2zuvNp0rQn7DfV3ieE
- vkHUtzv8sq9ZHlt0e5sJqk8Ceqbz4mw=
-X-Proofpoint-GUID: yIbJLmoL5o3PZx2tCkgIy_DVImHGy7E8
-X-Proofpoint-ORIG-GUID: yIbJLmoL5o3PZx2tCkgIy_DVImHGy7E8
-X-Authority-Analysis: v=2.4 cv=W9OtxhWk c=1 sm=1 tr=0 ts=6b054a14 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=4cre8Lmcb22TJlfxBc4A:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDAzMiBTYWx0ZWRfX7xTD7az9xQr6
- MgiG0/Oqwf1GIiCjjhkHnnfcw7vogwIvPouLj2rnPzthjU45rfC3KZZhorG6ECxN8GEne/iz1cF
- pNrssgaFPPKiZwiH6H9028RlChWrWKklAVXErif29zb6EgatXFTpTV6vY81IgsDrWkDXHzRFK2t
- FI7KtUQjQ+FaRgg7L8qW3AlsMKUXZLFNz4ZBxv0HgQNGrzvOCaKw68vL0MdQR99OC4aH15mo5hl
- vsjHXyyXi+BE+MWh+YOcHtWOsPT6qHy2D6d/LXqNg8qpUctMJqoi5zghN8YfDhit/J2vbVHUz0z
- OEXoSVBQlwR8L6DjczjKc73tNFLEFxRMFHuNMoiP2VYpolKE54kmvVsXlPL+wHWIqRvUlM6D/a6
- 5H2e+Cj2dft2cwtN+QtoIm5s53vm4Tt9HpQS/vcXkwU57AiiPBqOv1yvMvWTjZO5tFd+2gi0Yz4
- fdKZi74qPFqr1bQrovA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0
- malwarescore=0 bulkscore=0 adultscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240032
+X-HM-Tid: 0aa20cacd82b03a7kunmd001bf23cd629f
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSh1DVh5MHUNOTk1KHUgaSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=ZfUwuPv3lhY6U0hFr6IwQ8jsYcZF3NMW+UQgUmySH9fZZin0nuUkyL0C1cHeJxE3j862iwb0aNpGBYRlkWCA23nGKKXCJrsM4TpMYUQCTXpy5ZfycZMWuJO5Xeg0kIHaaEUUi4WXJyPvX2YtqK6pWeXw2G79oWgaP+l70+JiyqE=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=445Y3PS/QMfmoRgrMu4TdwvLJuUU9Wg/QShpg3I+Oec=;
+	h=date:mime-version:subject:message-id:from;
 
-On 16-11-2026 14:29, Kuldeep Singh wrote:
-> Herbert/Bjorn,
-> This patch series fixes QCE on Shikra and targetted for v7.4.
-> Shikra crypto qce binding was consumed in v7.3 but DTS node got merged
-> in v7.4-rc1. It's important to merge this fix in v7.4 to avoid breaking
-> backward compatibility.
-> This series updates shikra fallback compatible and hence, both patches
-> should go from same tree to pass make dtbs_check otherwise patches from
-> individual tree will break dtbs_check checker. If dtbs_checker is not
-> blocker, then patches can go from individual tree.
-> 
-> Bjorn, will you be able to pick both?
-> 
-> The patch series fix description as follows:
-> Shikra require explicit clock which is omitted with current binding
-> description.
-> Also, one more reason to update shikra-QCE is, clk-smd-rpm was doing proxy
-> voting and crypto was consuming it. With proxy vote removal, qce need to
-> vote for it's own clocks explicitly which is already being done for
-> agatti target. Adapt same mechanism to Shikra QCE too.
-> 
-> Validations:
-> - Qce probe and kcapi_convenience.sh tests.
-> - Correct clk_summary output as prepare_count and enable_count are 0.
-> 
-> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Hi Icenowy,
 
-Hi Bjorn/Konrad, Can you please review and comment for this series?
-It's important for QCE to vote for it's own clocks as dropping proxy
-clock voting(patch in review) will result in QCE issues further.
-This series fixes that.
+On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
+> The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
+> controller with an internal DesignWare MIPI D-PHY.
+> 
+> Add a glue driver configuring clocks and PHY parameters for it.
+> 
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ---
+>  drivers/gpu/drm/bridge/Kconfig              |  12 +
+>  drivers/gpu/drm/bridge/Makefile             |   1 +
+>  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 570 ++++++++++++++++++++++++++++
+>  3 files changed, 583 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+> index c7da6b02d7b6b..f8987e8946fbb 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -372,6 +372,18 @@ config DRM_THEAD_TH1520_DW_HDMI
+>  	  Choose this to enable support for the internal HDMI bridge found
+>  	  on the T-Head TH1520 SoC.
+>  
+> +config DRM_THEAD_TH1520_DW_MIPI_DSI
+> +	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
+> +	depends on OF
+> +	depends on COMMON_CLK
+> +	depends on ARCH_THEAD || COMPILE_TEST
+> +	select DRM_DW_MIPI_DSI
+> +	select GENERIC_PHY_MIPI_DPHY
+> +	select MFD_SYSCON
+> +	help
+> +	  Choose this to enable support for the internal MIPI DSI bridge
+> +	  found on the T-Head TH1520 SoC.
+> +
+>  config DRM_TOSHIBA_TC358762
+>  	tristate "TC358762 DSI/DPI bridge"
+>  	depends on OF
+> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+> index 15cc821d85b7e..5af871ba5ce77 100644
+> --- a/drivers/gpu/drm/bridge/Makefile
+> +++ b/drivers/gpu/drm/bridge/Makefile
+> @@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) += sii9234.o
+>  obj-$(CONFIG_DRM_SIMPLE_BRIDGE) += simple-bridge.o
+>  obj-$(CONFIG_DRM_SOLOMON_SSD2825) += ssd2825.o
+>  obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) += th1520-dw-hdmi.o
+> +obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) += th1520-dw-mipi-dsi.o
+>  obj-$(CONFIG_DRM_THINE_THC63LVD1024) += thc63lvd1024.o
+>  obj-$(CONFIG_DRM_TOSHIBA_TC358762) += tc358762.o
+>  obj-$(CONFIG_DRM_TOSHIBA_TC358764) += tc358764.o
+> diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
+> new file mode 100644
+> index 0000000000000..8e866b70aec88
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
+> @@ -0,0 +1,570 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
+> + *
+> + * Author:
+> + *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> + *
+> + * Based on dw_mipi_dsi-stm.c, which is:
+> + *   Copyright (C) STMicroelectronics SA 2017
+> + *
+> + * Based on dw-mipi-dsi-rockchip.c, which is:
+> + *   Copyright (C) Rockchip Electronics Co., Ltd.
+> + *
+> + * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
+> + *   Copyright (C) Alibaba Group Holding Limited.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/kernel.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/phy/phy-mipi-dphy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include <drm/bridge/dw_mipi_dsi.h>
+> +#include <drm/drm_mipi_dsi.h>
+> +
+> +/* DSI controller registers for DPHY access */
+> +
+> +#define DSI_PHY_TST_CTRL0		0xb4
+> +#define PHY_TESTCLK			BIT(1)
+> +#define PHY_UNTESTCLK			0
+> +#define PHY_TESTCLR			BIT(0)
+> +#define PHY_UNTESTCLR			0
+> +
+> +#define DSI_PHY_TST_CTRL1		0xb8
+> +#define PHY_TESTEN			BIT(16)
+> +#define PHY_UNTESTEN			0
+> +#define PHY_TESTDOUT(n)			(((n) & 0xff) << 8)
+> +#define PHY_TESTDIN(n)			(((n) & 0xff) << 0)
+> +
+> +/* DPHY registers */
+> +
+> +#define PLL_DELAY_LP_TX_START_LP11	0x02
+> +#define TXDINDLYTIME_9_2		GENMASK(7,  0)
+> +
+> +#define PLL_FSM_CNTRL			0x03
+> +
+> +#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
+> +#define PLL_PROP_CNTRL			GENMASK(5,  0)
+> +
+> +#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
+> +#define PLL_INT_CNTRL			GENMASK(5,  0)
+> +
+> +#define PLL_VCO_CTRL			0x12
+> +#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
+> +#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
+> +
+> +#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
+> +#define PLL_TESTLOCK			BIT(7)
+> +#define PLL_GMP_CNTRL			GENMASK(5,  4)
+> +#define TSTPLLDIG			GENMASK(3,  1)
+> +#define TSTPLLDIG_LOCK			(0x0 << 1)
+> +#define TSTPLLDIG_REFCLK		(0x1 << 1)
+> +#define TSTPLLDIG_FBCLK			(0x2 << 1)
+> +#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
+> +#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
+> +#define TSTPLLDIG_OUTPUT		(0x5 << 1)
+> +#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
+> +#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
+> +
+> +#define PLL_N_DIV_FSM_SIG		0x17
+> +#define PLL_N_OVR			GENMASK(3,  0)
+> +
+> +#define PLL_M_DIV			0x18
+> +#define PLL_M_OVR_4_0			GENMASK(4,  0)
+> +#define PLL_M_OVR_9_5			GENMASK(4,  0)
+> +
+> +#define PLL_N_AND_M_DIV_CTRL		0x19
+> +#define PLL_M_OVR_EN			BIT(5)
+> +#define PLL_N_OVR_EN			BIT(4)
+> +
+> +#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
+> +#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
+> +
+> +#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
+> +#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
+> +#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
+> +#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
+> +
+> +#define HS_FREQ_RANGE_OF_OPERATION	0x44
+> +#define HSFREQRANGE_OVR_EN		BIT(7)
+> +#define HSFREQRANGE_OVR			GENMASK(6,  0)
+> +#define HSFREQRANGE			HSFREQRANGE_OVR
+> +
+> +#define PG_LP_BIAS_LANE0		0x4a
+> +#define PRG_ON_LANE0			BIT(6)
+> +
+> +#define SR_FSM_OVR_CNTRL		0xa0
+> +#define SR_DDL_LOOP_CONF		0xa3
+> +
+> +/* syscon registers */
+> +
+> +#define MIPIDSI0_SYSREG			0x8
+> +#define MIPIDSI1_SYSREG			0xc
+> +#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
+> +#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
+> +#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
+> +
+> +struct pll_hsfreqrange {
+> +	unsigned int max_mbps;
+> +	u8 hsfreqrange;
+> +};
+> +
+> +static const struct pll_hsfreqrange hsfreqrange_table[] = {
+> +	{ 80,  0x00 },
+> +	{ 90,  0x10 },
+> +	{ 100, 0x20 },
+> +	{ 110, 0x30 },
+> +	{ 120, 0x01 },
+> +	{ 130, 0x11 },
+> +	{ 140, 0x21 },
+> +	{ 150, 0x31 },
+> +	{ 160, 0x02 },
+> +	{ 170, 0x12 },
+> +	{ 180, 0x22 },
+> +	{ 190, 0x32 },
+> +	{ 205, 0x03 },
+> +	{ 220, 0x13 },
+> +	{ 235, 0x23 },
+> +	{ 250, 0x33 },
+> +	{ 275, 0x04 },
+> +	{ 300, 0x14 },
+> +	{ 325, 0x25 },
+> +	{ 350, 0x35 },
+> +	{ 400, 0x05 },
+> +	{ 450, 0x16 },
+> +	{ 500, 0x26 },
+> +	{ 550, 0x37 },
+> +	{ 600, 0x07 },
+> +	{ 650, 0x18 },
+> +	{ 700, 0x28 },
+> +	{ 750, 0x39 },
+> +	{ 800, 0x09 },
+> +	{ 850, 0x19 },
+> +	{ 900, 0x29 },
+> +	{ 950, 0x3A },
+> +	{ 1000, 0x0A },
+> +	{ 1050, 0x1A },
+> +	{ 1100, 0x2A },
+> +	{ 1150, 0x3B },
+> +	{ 1200, 0x0B },
+> +	{ 1250, 0x1B },
+> +	{ 1300, 0x2B },
+> +	{ 1350, 0x3C },
+> +	{ 1400, 0x0C },
+> +	{ 1450, 0x1C },
+> +	{ 1500, 0x2C },
+> +	{ 1550, 0x3D },
+> +	{ 1600, 0x0D },
+> +	{ 1650, 0x1D },
+> +	{ 1700, 0x2E },
+> +	{ 1750, 0x3E },
+> +	{ 1800, 0x0E },
+> +	{ 1850, 0x1E },
+> +	{ 1900, 0x2F },
+> +	{ 1950, 0x3F },
+> +	{ 2000, 0x0F },
+> +	{ 2050, 0x40 },
+> +	{ 2100, 0x41 },
+> +	{ 2150, 0x42 },
+> +	{ 2200, 0x43 },
+> +	{ 2250, 0x44 },
+> +	{ 2300, 0x45 },
+> +	{ 2350, 0x46 },
+> +	{ 2400, 0x47 },
+> +	{ 2450, 0x48 },
+> +	{ 2500, 0x49 },
+> +};
+> +
+> +struct hstt {
+> +	unsigned int max_mbps;
+> +	struct dw_mipi_dsi_dphy_timing timing;
+> +};
+> +
+> +#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
+> +{					\
+> +	.max_mbps = _max_mbps,		\
+> +	.timing = {			\
+> +		.clk_lp2hs = _c_lp2hs,	\
+> +		.clk_hs2lp = _c_hs2lp,	\
+> +		.data_lp2hs = _d_lp2hs,	\
+> +		.data_hs2lp = _d_hs2lp,	\
+> +	}				\
+> +}
+> +
+> +static struct hstt hstt_table[] = {
+> +	HSTT(80, 21, 17, 15, 10),
+> +	HSTT(90, 23, 17, 16, 10),
+> +	HSTT(100, 22, 17, 16, 10),
+> +	HSTT(110, 25, 18, 17, 11),
+> +	HSTT(120, 26, 20, 18, 11),
+> +	HSTT(130, 27, 19, 19, 11),
+> +	HSTT(140, 27, 19, 19, 11),
+> +	HSTT(150, 28, 20, 20, 12),
+> +	HSTT(160, 30, 21, 22, 13),
+> +	HSTT(170, 30, 21, 23, 13),
+> +	HSTT(180, 31, 21, 23, 13),
+> +	HSTT(190, 32, 22, 24, 13),
+> +	HSTT(205, 35, 22, 25, 13),
+> +	HSTT(220, 37, 26, 27, 15),
+> +	HSTT(235, 38, 28, 27, 16),
+> +	HSTT(250, 41, 29, 30, 17),
+> +	HSTT(275, 43, 29, 32, 18),
+> +	HSTT(300, 45, 32, 35, 19),
+> +	HSTT(325, 48, 33, 36, 18),
+> +	HSTT(350, 51, 35, 40, 20),
+> +	HSTT(400, 59, 37, 44, 21),
+> +	HSTT(450, 65, 40, 49, 23),
+> +	HSTT(500, 71, 41, 54, 24),
+> +	HSTT(550, 77, 44, 57, 26),
+> +	HSTT(600, 82, 46, 64, 27),
+> +	HSTT(650, 87, 48, 67, 28),
+> +	HSTT(700, 94, 52, 71, 29),
+> +	HSTT(750, 99, 52, 75, 31),
+> +	HSTT(800, 105, 55, 82, 32),
+> +	HSTT(850, 110, 58, 85, 32),
+> +	HSTT(900, 115, 58, 88, 35),
+> +	HSTT(950, 120, 62, 93, 36),
+> +	HSTT(1000, 128, 63, 99, 38),
+> +	HSTT(1050, 132, 65, 102, 38),
+> +	HSTT(1100, 138, 67, 106, 39),
+> +	HSTT(1150, 146, 69, 112, 42),
+> +	HSTT(1200, 151, 71, 117, 43),
+> +	HSTT(1250, 153, 74, 120, 45),
+> +	HSTT(1300, 160, 73, 124, 46),
+> +	HSTT(1350, 165, 76, 130, 47),
+> +	HSTT(1400, 172, 78, 134, 49),
+> +	HSTT(1450, 177, 80, 138, 49),
+> +	HSTT(1500, 183, 81, 143, 52),
+> +	HSTT(1550, 191, 84, 147, 52),
+> +	HSTT(1600, 194, 85, 152, 52),
+> +	HSTT(1650, 201, 86, 155, 53),
+> +	HSTT(1700, 208, 88, 161, 53),
+> +	HSTT(1750, 212, 89, 165, 53),
+> +	HSTT(1800, 220, 90, 171, 54),
+> +	HSTT(1850, 223, 92, 175, 54),
+> +	HSTT(1900, 231, 91, 180, 55),
+> +	HSTT(1950, 236, 95, 185, 56),
+> +	HSTT(2000, 243, 97, 190, 56),
+> +	HSTT(2050, 248, 99, 194, 58),
+> +	HSTT(2100, 252, 100, 199, 59),
+> +	HSTT(2150, 259, 102, 204, 61),
+> +	HSTT(2200, 266, 105, 210, 62),
+> +	HSTT(2250, 269, 109, 213, 63),
+> +	HSTT(2300, 272, 109, 217, 65),
+> +	HSTT(2350, 281, 112, 225, 66),
+> +	HSTT(2400, 283, 115, 226, 66),
+> +	HSTT(2450, 282, 115, 226, 67),
+> +	HSTT(2500, 281, 118, 227, 67),
+> +};
+> +
+
+Where do these data come from?
 
 -- 
-Regards
-Kuldeep
-
+Best, 
+Chaoyi
