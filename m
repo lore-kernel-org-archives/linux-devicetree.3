@@ -1,47 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795547248;
-	b=i0rAIBDH9+CpU8wmz5d4D+KVJrLs9ghftyXs+88LGFxEfyYx+/Ql1qf2KHzF/NgOhVhq
-	 BhLbO8mmY+7i6AyvE2iZlvCGCJeAea4MNxeHJ/n9siBU0D9EM4Mv9g55g8U0ib0ptZJLe
-	 tEAHkQhW/HNHfBOvL0O/DQXubshkvl5ed4o5hPgPsnaT/pxkx5UvjtiTE4SsI3DR8vdrh
-	 Qen1WzTLj8hoygeLxwSo+JKUYXNPfFBlQj3DXrprTHpc1ojQHXgeIljeovSawlsmVdjV+
-	 cwHKCYt7iLFLSrZfSLBpbbTBMxPZ1vxnvkV31Cb8OsAb0WLgFjtft1UUt/DAiIsdI0w==
+	t=1795547249;
+	b=2APqKMlSZUgbi+ityB0uEVLB/pzbCszCj3DyzuTPVcyqdk/xTSaluTteYyAjdhaudXRs
+	 /sLRY3Bdlw8RIToA1iOvhEhdvcg7N0Tan2Fu7VJfo8QW5GKc4Ecxnpt7ek5VTCFrJZQcp
+	 1JD+JrFb6zhA7nyHp1K8ztub8x+MA9bF4L8fX6S36dEKSl4BxJDeJ7i6lXu3ZgqH0idR/
+	 AHRugfvt7zyuQsFkaEqnblnUrjCBkLf/T17IhwN7BfPg3z0+DFrbZyW7YgJHnoPskpi/U
+	 MmZ7dhSNeQK3fr6FFdNeFG9kmQjKSju3u7SsvUD1Spm0Q8gmHqtu1JT7z7HjnUVeNeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795547248;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795547249;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=hcyQ4mkEgZ0lMnjgED6npY7t2QIURd34rU2TnUW9EkY=;
-	b=4aVMq0C6b4u+1HFT29U/svmrdsVP2vuygw8lkNLjmGvXFvOFsehhp3RE8pDvH78IrnCk
-	 /qxr0YIcQxRLjjuIs1lqdH/4mS5uBz8OruRTQCa6jth1lTn7rY1JufckKfPqID7NmVg9e
-	 C/Cte7rfrm9bKUPPr98KXkWicVB/rJcp3MwO24/4aAabxQ8olA3Eiu9AQGvlKaR6e/iVS
-	 rJknP4joqa3+Q9t7T3a4CO6fgYJ+a5ukHe/hRzQY/dpWtRY+xMVlTTffdMQCgtYLLwubJ
-	 b8dtBxRI2BzUbC/DtSljBhWS6zqdmiWwG9e4HmE8vPkFNVY0apVUB8TTfAqB7N7S9rQ==
+	bh=CJanrJs7yvb1YJUtPV1YKZ7EHe5Q1L9dfnGc1BuHClg=;
+	b=C8mnqFNub6ywr5moZXeMhfQJ8fhKeAJo7XQfmQBSX4yj2jKdKBxNIOxWAQaiD4hIZto/
+	 V7swpiyMm0hmXIAiYzjYlqQNqKcTUhvg6KEXEWzl11EzFwVgXLAn9FqwJaPI5u9sBI3HQ
+	 XrBlyp+Vn3seqSYVmfft6fmggjLkk7WuNe7PNvNRui0hG9HBDZkWR7pPRjPq75t4Um78e
+	 hMTOXg9ipwFpaM2R/MKPw3LM/YjCOjnIalVyWckVaMe7B4J3HqjyMmxTAArIdQMugj+2I
+	 NQA6rk4EuUrp2NleIxcZQtrAL8ieWCuykiGGke945NjNRO23OavyGrft5xsMGiroJ9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BU6i5nEy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RxaVxQSJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37B6606A323;
-	Tue, 24 Nov 2026 19:07:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCDB606A33D;
+	Tue, 24 Nov 2026 19:07:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BU6i5nEy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592841F000E6;
-	Tue, 24 Nov 2026 19:07:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RxaVxQSJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ACE61F000D3;
+	Tue, 24 Nov 2026 19:07:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795547247;
-	bh=hcyQ4mkEgZ0lMnjgED6npY7t2QIURd34rU2TnUW9EkY=;
+	s=k20260515; t=1795547249;
+	bh=CJanrJs7yvb1YJUtPV1YKZ7EHe5Q1L9dfnGc1BuHClg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BU6i5nEymqMyRs6doXmJGcRc7OqHkzotGGww5bwY2P65H0kXqa6xFrKcN/1AbnZQS
-	 Eo/ARzo74IfLdE88T4iwa9UU8bM2lSZRuMwvO9IAR/hMhTwJsLYqQaI3Dv9VB9QXgi
-	 YOuqs6+4JtNB5IJtIJhGBiPFTY+3grZ5/xOoNGFMLp2gXOLUEoSK2hQU5mAclw6LKZ
-	 QC26+AIydwDjpV0jYF8ImcQhKyDBm6yJcpQMvjd88lmgaMN2+iqJaKzSXpahcWA1+t
-	 FRx6N6z94hlVUZCfM2+mn9yf7vxv8O+DFtesgbmZavwuB94tkZiw6H2M7xGdttVdR3
-	 jUGOyd46/6Eag==
-Subject:
- Re: [PATCH net-next 1/3] dt-bindings: net: Add Cortina CS7542 MDIO controller
+	b=RxaVxQSJcH6bKP5rkh6k+DOLFTTgJcsY2PWxjpD6tz1wUXzxAJLsDV74+KJ49wu4o
+	 JeXBFzbpq60p2oJA6DqJEfBNYZU2RC4Lt0rQ1yt9RogATf8LkjK3w3p1ZTVhQZjqFw
+	 c1GhKFYPJp3NpsOm+qKWqTbjFhfxVzo7TNOgnT8ba2n2hmsY9FuMojNjvUc8eRwJWW
+	 3E1PbbWdYVThx4fls29o4uE+zASBiF6COJbOa5S5WLb5VPaUGKauptSxBeIQztxyAj
+	 P5EfcfBsTwc2DkduT/YVw7e2K70StKnS/cztH8+xIuvkZEC8S6J7egaIPR5brJjpLG
+	 tl4faJaG5OIrA==
+Subject: Re: [PATCH net-next 2/3] net: mdio: Add Cortina CS7542 bus controller
 From: netdev-bot+sashiko@kernel.org
 To: filipp.dunsky@gmail.com
 Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
@@ -49,10 +48,10 @@ Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
  andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
  andrew+netdev@lunn.ch, netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Date: Tue, 24 Nov 2026 19:07:25 +0000
-Message-ID: <179554724588.3135.13754934088283070222@kernel.org>
-In-Reply-To: <20261123-b4-cs7542-mdio-v1-1-626d0a0e3b4d@gmail.com>
-References: <20261123-b4-cs7542-mdio-v1-1-626d0a0e3b4d@gmail.com>
+Date: Tue, 24 Nov 2026 19:07:28 +0000
+Message-ID: <179554724805.3135.16586449147336941619@kernel.org>
+In-Reply-To: <20261123-b4-cs7542-mdio-v1-2-626d0a0e3b4d@gmail.com>
+References: <20261123-b4-cs7542-mdio-v1-2-626d0a0e3b4d@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -66,10 +65,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Critical: 0 · High: 0 · Medium: 2 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,125 +76,203 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The binding states the CS7542 MDIO block has an MDC prescaler.
-- [Low] The CS7542 MDIO binding
-  (Documentation/devicetree/bindings/net/cortina,cs7542-mdio.yaml)…
+- [Medium] In drivers/net/mdio/mdio-cs75xx.c, a single transaction
+  timeout can leave the MDIO bus permanently unusable.
+- [Medium] cs75xx_mdio_probe() sets MDIO_CFG_MANUAL while keeping all
+  other firmware CFG bits (lines 105-108).
+- [Low] In drivers/net/mdio/mdio-cs75xx.c, cs75xx_mdio_wait() polls with
+  readl_poll_timeout_atomic() (1 us udelay steps, 10 ms timeout).
+- [Low] In drivers/net/mdio/Kconfig, `config MDIO_CS75XX` is added after
+  both `endmenu` lines (lines 292-293).
 
 --
 
-dt-bindings: net: Add Cortina CS7542 MDIO controller
+net: mdio: Add Cortina CS7542 bus controller
 
-This adds a YAML binding for the Cortina CS7542 Clause 22 MDIO controller.
-The binding references mdio.yaml and requires compatible, reg and the cell
-properties. It disallows clock-frequency and suppress-preamble because the
-MDC prescaler set by firmware is kept as is.
+This adds a platform MDIO bus driver for the Cortina CS7542. It does
+Clause 22 reads and writes and keeps the firmware-programmed prescaler
+while it switches the controller to manual mode. Transactions are polled
+with a bounded timeout, and a pending flag makes the driver wait for a
+timed-out frame before it programs the next one.
 
-> diff --git a/Documentation/devicetree/bindings/net/cortina,cs7542-mdio.yaml b/Documentation/devicetree/bindings/net/cortina,cs7542-mdio.yaml
-> new file mode 100644
-> index 0000000000000..77b5e2f09f423
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/cortina,cs7542-mdio.yaml
-> @@ -0,0 +1,48 @@
+> diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
+> index d44278f26fabe..a20fec8058da9 100644
+> --- a/drivers/net/mdio/Kconfig
+> +++ b/drivers/net/mdio/Kconfig
+> @@ -291,3 +291,16 @@ config MDIO_BUS_MUX_MMIOREG
+>  
+>  endmenu
+>  endmenu
+> +
+> +config MDIO_CS75XX
+> +	tristate "Cortina Systems CS7542 MDIO controller"
+> +	depends on OF_MDIO && HAS_IOMEM
+
+[Severity: Low]
+Should this entry go inside the "MDIO controller drivers" menu instead of
+after both endmenu lines?
+
+Where it is now, it falls outside that menu and its "depends on PHYLIB",
+and also outside "MDIO Multiplexers". So it shows up directly under
+"Network device support" in menuconfig. PHYLIB still applies, but only
+indirectly through OF_MDIO.
+
+The Makefile entry is also added after the mux entries rather than with
+the other controllers:
+
+obj-$(CONFIG_MDIO_CS75XX) += mdio-cs75xx.o
+
+This Kconfig hunk also leaves a trailing blank line at the end of the file.
+
+Sibling platform controllers (MDIO_AIROHA, MDIO_SUN4I, MDIO_XGENE,
+MDIO_ASPEED) also use "depends on ARCH_xxx || COMPILE_TEST". No ARCH
+symbol for this SoC exists in the tree yet, so that gate can't be copied
+directly.
 
 [ ... ]
 
-> +description:
-> +  Clause 22 MDIO controller. Firmware configures the MDC prescaler before
-> +  the operating system starts; the driver retains this setting.
+> diff --git a/drivers/net/mdio/mdio-cs75xx.c b/drivers/net/mdio/mdio-cs75xx.c
+> new file mode 100644
+> index 0000000000000..0761d3cefaa4f
+> --- /dev/null
+> +++ b/drivers/net/mdio/mdio-cs75xx.c
+> @@ -0,0 +1,136 @@
+
+[ ... ]
+
+> +static int cs75xx_mdio_wait(struct cs75xx_mdio *priv)
+> +{
+> +	u32 val;
+> +	int ret;
 > +
-> +allOf:
-> +  - $ref: mdio.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: cortina,cs7542-mdio
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clock-frequency: false
-> +  suppress-preamble: false
+> +	ret = readl_poll_timeout_atomic(priv->base + PER_MDIO_CTRL, val,
+> +					val & MDIO_CTRL_DONE, 1,
+> +				       CS75XX_MDIO_TIMEOUT_US);
 
 [Severity: Low]
-Do these two false constraints describe a hardware limit, or only what the
-current driver does?
+Is the atomic poll variant needed here?
 
-The description talks about what "the driver retains". The MDC prescaler
-also looks like a programmable register. cs75xx_mdio_probe() in
-drivers/net/mdio/mdio-cs75xx.c, added later in this series, reads it and
-writes it back:
+The only path to cs75xx_mdio_wait() is through the bus->read and
+bus->write callbacks, called from __mdiobus_read() and __mdiobus_write().
+Those assert that bus->mdio_lock (a mutex) is held and must not be called
+from interrupt context, so sleeping is allowed here.
 
-    cfg = readl(priv->base + PER_MDIO_CFG);
-    /* The firmware configures the MDC rate; retain its prescaler. */
-    cfg |= MDIO_CFG_MANUAL;
-    writel(cfg, priv->base + PER_MDIO_CFG);
+On a timeout this spins in udelay() for the full 10 ms while holding the
+mutex. Because of the pending handling in cs75xx_mdio_read() and
+cs75xx_mdio_write(), every later access spins another 10 ms before it
+returns -ETIMEDOUT. A bus scan or phylib polling repeats that.
 
-So the hardware seems able to set the MDC rate. Rejecting clock-frequency
-then only reflects that the Linux driver doesn't implement it. Nothing in
-the binding says the hardware can't suppress the preamble either.
+Most other drivers in drivers/net/mdio/ (aspeed, hisi-femac, ipq4019,
+bcm-unimac, iproc, pic64hpsc) use readl_poll_timeout() or
+read_poll_timeout() instead.
 
-Documentation/devicetree/bindings/writing-bindings.rst says bindings should
-not refer to Linux or "device driver". It also says they should be based on
-what the hardware has, not on what an OS and driver currently support.
-
-With this binding, a board whose PHYs need a different MDC rate has no
-valid way to say so. dt_binding_check also rejects these standard
-mdio.yaml properties.
-
-The commit message has the same problem:
-
-  clock-frequency and preamble suppression are not supported.
-
-This reads like a hardware limitation.
-
-Could the description be reworded to describe the hardware? And could the
-false entries be dropped unless the hardware really lacks these features?
-
+> +	if (!ret) {
+> +		writel(MDIO_CTRL_DONE, priv->base + PER_MDIO_CTRL);
+> +		priv->pending = false;
+> +	}
+> +	return ret;
+> +}
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#address-cells"
-> +  - "#size-cells"
+> +static int cs75xx_mdio_read(struct mii_bus *bus, int phy, int reg)
+> +{
+> +	struct cs75xx_mdio *priv = bus->priv;
+> +	int ret;
 > +
-> +unevaluatedProperties: false
+> +	/* A timed-out frame must finish before programming another address. */
+> +	if (priv->pending) {
+> +		ret = cs75xx_mdio_wait(priv);
+> +		if (ret)
+> +			return ret;
+> +	}
 
 [Severity: Medium]
-Is this schema missing an input clock, and possibly a reset?
+Can one timeout leave the bus permanently unusable?
 
-The description says the block has an MDC prescaler, which means it
-divides some input clock. The schema only adds compatible and reg on top of
-mdio.yaml. With unevaluatedProperties: false, any DT node that has a clocks
-or resets property fails validation.
+priv->pending is set before MDIO_CTRL_START is written.
+cs75xx_mdio_wait() clears it only when it sees MDIO_CTRL_DONE, so after
+-ETIMEDOUT it stays true.
 
-writing-bindings.rst asks for complete bindings in this case:
+Every later cs75xx_mdio_read() or cs75xx_mdio_write() takes this branch
+first. If that wait also times out, the function returns before it
+touches PER_MDIO_ADDR or PER_MDIO_CTRL, so no new frame is ever started.
 
-  - DO attempt to make bindings complete even if a driver doesn't support
-    some features.
+Nothing else clears pending: there is no bus->reset, no retry limit and
+no controller re-arm. Suppose the controller never reports DONE for the
+timed-out frame (START not latched, frame dropped, MDC stopped). Then every
+access to every PHY on this bus fails with -ETIMEDOUT after a 10 ms spin,
+until the driver is unbound and rebound.
 
-cs75xx_mdio_probe(), added later in the series, never gets or enables a
-clock:
+A Clause 22 frame normally takes tens of microseconds, so a 10 ms timeout
+probably means DONE will never arrive. That is exactly the case where
+this guard turns one failure into a permanent one. The hardware
+documentation doesn't say whether a completion can be lost.
 
-    priv->base = devm_platform_ioremap_resource(pdev, 0);
-    ...
-    return devm_of_mdiobus_register(dev, bus, dev->of_node);
+The Kconfig help text says:
 
-What if a Linux clock driver manages the parent clock? clk_disable_unused()
-could gate it at late_initcall. Every access would then time out in the
-readl_poll_timeout_atomic() call in cs75xx_mdio_wait(), and the attached
-PHYs would be unusable.
+  Transactions use bounded polling and recover from late completion.
 
-A rate change on a shared parent clock would also change MDC without
-notice, since the driver keeps the firmware divider and never recomputes
-it. That could push MDC above the 2.5 MHz Clause 22 limit.
+That covers a completion that arrives late, but there doesn't seem to be
+any recovery when it never arrives. cs75xx_mdio_write() has the same
+pre-wait. The other patches in the series (dt-bindings and MAINTAINERS)
+don't touch the driver, so this is still present at the end of the
+series.
 
-There is no CS7542 clock driver or DTS in the tree yet. So the runtime
-failure depends on whether that clock can actually be gated or changed.
+> +	writel(MDIO_CTRL_DONE, priv->base + PER_MDIO_CTRL);
+> +	writel(MDIO_ADDR_READ | FIELD_PREP(MDIO_ADDR_REG, reg) |
+> +	       FIELD_PREP(MDIO_ADDR_PHY, phy), priv->base + PER_MDIO_ADDR);
+> +	priv->pending = true;
+> +	writel(MDIO_CTRL_START, priv->base + PER_MDIO_CTRL);
+> +	ret = cs75xx_mdio_wait(priv);
+> +	if (ret)
+> +		return ret;
+> +	return readl(priv->base + PER_MDIO_RDDATA) & 0xffff;
+> +}
 
-If a required clocks property is added later, though, existing DTs written
-against this binding would stop validating.
+[ ... ]
 
-Would it be better to describe the clock now?
+> +static int cs75xx_mdio_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	cfg = readl(priv->base + PER_MDIO_CFG);
+> +	/* The firmware configures the MDC rate; retain its prescaler. */
+> +	cfg |= MDIO_CFG_MANUAL;
+> +	writel(cfg, priv->base + PER_MDIO_CFG);
+> +	writel(MDIO_CTRL_DONE, priv->base + PER_MDIO_CTRL);
+
+[Severity: Medium]
+What happens if a frame is still in flight when probe runs?
+
+Probe sets MDIO_CFG_MANUAL and clears DONE once. It leaves priv->pending
+at its zero-initialized false and never checks that the controller is
+idle.
+
+A frame could still be outstanding in two cases:
+
+  - a firmware-driven or non-manual mode, which MDIO_CFG_MANUAL implies
+    exists
+  - a previous driver instance that was unbound after a timeout
+
+The first cs75xx_mdio_read() then skips the drain step. Suppose the old
+frame completes after the DONE clear at the top of cs75xx_mdio_read() but
+before the poll. readl_poll_timeout_atomic() would then see the old
+frame's DONE, and the function would return that frame's PER_MDIO_RDDATA
+as the value for the new phy/reg.
+
+That could give a wrong PHY ID during the of_mdiobus_register() scan, or
+a wrong BMSR value.
+
+The commit message says:
+
+  After a timeout, wait for the outstanding frame before programming
+  another address so a late completion cannot be mistaken for the next
+  transaction.
+
+Should probe also make sure the controller is idle, so the first
+transaction after probe gets the same protection?
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261123-b4-cs7542-mdio-v1-0-626d0a0e3b4d%40gmail.com
