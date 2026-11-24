@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795506033;
-	b=ayEQrXnblYzOp+N465YqoPqXVPD1jWQTh+kUpDrGFbYLEEIYcgsD33XLskEwdyJ5i5ls
-	 bWsAW2LqfTQuOSsSmv28T5Pyt4BCE3H7RxtCigK9715boCZZzWeA+flDTiQ09qQwChzdA
-	 BP5tdvvo2gjiNb21Kmi2nGe3ppqjmMUjGSmoxYBBjXu9xeDzXgCJZxGoY//9yG09BeuMo
-	 exdP14p3fudSGd3ro8I7tHHi4s/6C5e9W8Rvl09TF11L1mReBLDhzDJK0UuYPJvlrGbBY
-	 XCAWbAn54/cZS5aGmtTxtP262QMZTDr+fq3yBs0OIqsBWJE/ThBQdLDyEi9a79JhqMQ==
+	t=1795506115;
+	b=cgdgJLSxIurYDg0AHr5Fz+7+WfUj3KnbTHR5PLU3ZsRNHj4s39hBP/h4JLG/DuNno1Fg
+	 oZnIiwkUNBnTn3/kRoAjKvWnjQjPGVQFpgqDbQE5+AcuheaeIo3Y/rWLcUsF0RyyLFHAT
+	 pPszy/UhYMuv3GFQRnmx0tnlcu8zPCSqIf+MRbiTdI/AHW+C4aXO9DLn3LMzR9SAxoPdX
+	 whCI8llqPZaAKn6UlYPz0hiVwyebaahMyM5NZWGdbwLsdirkrer6Ho5tB4vIR20nwTgPb
+	 WqdeW9X8TK7xqUClecyBalt5TI1G65MA+e3QR5lw++RUFofluUrXINOW67MkO9uoMDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795506033;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=yQnefspdcKZ/GcvyTFC4c6OWRm4U0T/ukYXcetck0+o=;
-	b=0tjLsnfRXVw2nOy/DoQByKrz2t/n8mVWbqs2LcDPmHfdxmIVnyMAii77QcbG4WlaTBtb
-	 8NNvkYYMUI0VgI+pAAvjORbSWtlYrzSdVkh1WxhG8g8bHyCFatElV5/DfNB+ydVKJkMAG
-	 et6TFECLU3CmYad8vJo35ILn43qtwi3E2MpkpVw2zzmEXpub9lLyM8haf2+XL2CQ9uXBK
-	 bHiDaFawQulRGa2czBfPEzr5y40y2PNnl7yPnwAx2Z1xZmHbOuxA60LBH94UvQ4Rl1Pfm
-	 5ggI5wl7ihpv9wX38w7eCgAzHTWFLzF9/Skuu+vqNQt0grcC1RttbFb0Wj+M1F3JXcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795506115;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=WOQ0LSfJ3yzPOJMcGvGReEaGmu9m+T2RW4nTPIrRKy0=;
+	b=lVxKpV6e6TdElQ7Fv3dBKjKFErvEh1brwNFyJrq0iz6/fgS4IwtqgAn6IvRGrGWgFWgs
+	 pVQEQFrde/53mnL3kpUbbZLb8RU7vz9O+CuquWUoePPSyI+e/lxAkLKNCwZGqlJ2Fmg9S
+	 wxT8c7TRARQsGlC3wbAFCUwBxCxAP8Ibl3M36LWXyUE9a95f5aplvCVNTBpvcAS4U4Lvt
+	 nznBxd2uchjniPyhCLOuZwwn7hAm/KRjhnzntzeOxjJ9zEOdmQjUqI5cqLnrXsa7l40DT
+	 HUJSzNxH6aeMMpxkaJMtxJEVhSH4msMxjigi5JCCfeFuh7gVAaCmFPIu9plLSC5lRyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e1LZ1Wpw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhOzS5PB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E74606A321;
-	Tue, 24 Nov 2026 07:40:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8702D606A31E;
+	Tue, 24 Nov 2026 07:41:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e1LZ1Wpw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18A01F000C0;
-	Tue, 24 Nov 2026 07:40:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhOzS5PB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9201F000D0;
+	Tue, 24 Nov 2026 07:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795506033;
-	bh=yQnefspdcKZ/GcvyTFC4c6OWRm4U0T/ukYXcetck0+o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e1LZ1WpwZpis/XkiuDjAePAw8+veOH2wHniJfsT0QZ/i2Pcu9+pY+PZkR7iaABhtC
-	 gEJL6bR27OzqnnRjYJMG7uOKzpj+Po6pn/usFmyOKU3Br/3T56WxYv0dN7YYUGAUwz
-	 8ZPKIcTHP8X4wKEvGzihXUqavN/RVAuvCY8Dm8d9Z8fE6PQdmcZ8OQVmHxctV3tURp
-	 2qnEIKqPxtxg4IPctHlsKV/XJ9Z1sDmh66B+Yll8F05DMNBKX7N3t8oiX0YYvp+aWN
-	 5TSv+D5IBp8GYp4EXl8G9wDpoeJGiVfcOFJNwjFbrk3bfy3BOlLGf3FHlHs4W9ad1K
-	 od244WfuII2sw==
-Message-ID: <sashiko-outbox-230656@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 16/20] ARM: dts: omap3pandora: Describe PCM1773
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <770a015f333c1927fccee2663eb76a7de923dffb.1795505160.git.hns@goldelico.com>
-References: <cover.1795505160.git.hns@goldelico.com>
- <770a015f333c1927fccee2663eb76a7de923dffb.1795505160.git.hns@goldelico.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 07:40:32 +0000
+	s=k20260515; t=1795506114;
+	bh=WOQ0LSfJ3yzPOJMcGvGReEaGmu9m+T2RW4nTPIrRKy0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NhOzS5PBJ+RK83W8/g63XFDH3g+vl8gmtSktDfP/aAO0Ypt2Bq3qjPLGxNHkIDBeS
+	 NL9j8UP0BPkq4mohwgw7c+Etr9hmTwuDHqwYR9Y2h/vzfSvxwsUya8ERU1xLZcCRRb
+	 1TdXFilgVPKxLuLiM4ECNeIBTpVd8apyDnIRgLaUGtbyUR8LAJa32FgGRPHuVpyzXI
+	 cB91V6I0iqfgEqYC3LJyDUA1J1HENHIeOil2YrJ/8bRNO7KbQV/6k4J6WbfI5+i1J+
+	 TMlipHhUGTOtnBz18s1mUNIIf0IUg0yOuL50uLQzOSt+fPnmGHf+zUcVaixKU+h5vw
+	 dvgnlAecGmA0A==
+Date: Tue, 24 Nov 2026 08:41:51 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Nagarjuna Kristam <nkristam@nvidia.com>, JC Kuo <jckuo@nvidia.com>, 
+	Mathias Nyman <mathias.nyman@intel.com>, Thierry Reding <thierry.reding@gmail.com>, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	Thierry Reding <treding@nvidia.com>, Wayne Chang <waynec@nvidia.com>
+Subject: Re: [PATCH v2 02/12] dt-bindings: usb: Add Tegra238 XUSB host
+ controller support
+Message-ID: <20261124-silky-bull-of-democracy-cdbeae@quoll>
+References: <20261116-tegra-usb-v2-0-42efc03a9700@nvidia.com>
+ <20261116-tegra-usb-v2-2-42efc03a9700@nvidia.com>
+ <20261123-sassy-fragrant-markhor-c6fbb3@quoll>
+ <9e84ec1f-2c41-4be8-8ed1-f9350d9f2d67@nvidia.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,55 +64,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9e84ec1f-2c41-4be8-8ed1-f9350d9f2d67@nvidia.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] ARM: dts: omap3pandora: non-generic pcm1773-codec node name used
-  as ABI
---
+On Mon, Nov 23, 2026 at 01:36:36PM +0000, Jon Hunter wrote:
+> >> +  reset-names:
+> >> +    items:
+> >> +      - const: xusb_host
+> >> +      - const: xusb_ss
+> > 
+> > Drop xusb_ prefix, that's the name of this device.
+> 
+> 
+> While I don't disagree, this is consistent with the other naming for
+> things such as ...
+> 
+>   clock-names:
+>     items:
+>       - const: xusb_host
+>       - const: xusb_falcon_src
+>       - const: xusb_ss
+>       - const: xusb_ss_src
+>       - const: xusb_hs_src
+>       - const: xusb_fs_src
+>       - const: pll_u_480m
+>       - const: clk_m
+>       - const: pll_e
+> 
+>   power-domain-names:
+>     items:
+>       - const: xusb_host
+>       - const: xusb_ss
+> 
+> We probably should have dropped the 'xusb_' for all of these. Given the
+> above do you still prefer we drop 'xusb_' for the resets?
 
-commit c8d3624565f86aa716a8f19bdd1dc4e2ff56499b
-Author: H. Nikolaus Schaller <hns@goldelico.com>
+I prefer inconsistency, so resets without xusb, because otherwise we
+will never move from discouraged namings.
 
-ARM: dts: omap3pandora: Describe PCM1773
+Best regards,
+Krzysztof
 
-This commit adds a devicetree node for the PCM1773 playback DAC to the
-common OpenPandora devicetree.
-
-> diff --git a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi b/arch/a=
-rm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-> index 2a5e8ba5714da..6e349f7ae6936 100644
-> --- a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-> @@ -64,6 +64,13 @@ tv_connector_in: endpoint {
->  		};
->  	};
-> =20
-> +	dac: pcm1773-codec {
-> +		compatible =3D "ti,pcm1773";
-> +		vcc-supply =3D <&vsim>;
-> +		enable-gpios =3D <&gpio4 22 GPIO_ACTIVE_HIGH>; /* GPIO 118 */
-> +		status =3D "okay";
-> +	};
-
-[Severity: Low]
-Should this node use a generic name such as audio-codec rather than the
-chip-specific pcm1773-codec?
-
-Because this root-level node has no reg property, of_device_make_bus_id()
-names the platform device directly after the node name, and
-sound/soc/ti/omap3pandora.c relies on that exact name as an ABI:
-
-sound/soc/ti/omap3pandora.c:
-SND_SOC_DAILINK_DEFS(out,
-	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.2")),
-	DAILINK_COMP_ARRAY(COMP_CODEC("pcm1773-codec", "pcm1773")),
-	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.2")));
-
-Matching the codec via a DT phandle in the machine driver would allow a
-generic node name here without breaking codec binding.  Also, status =3D
-"okay" is the default and can be dropped.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795505160.gi=
-t.hns@goldelico.com?part=3D16
