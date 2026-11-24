@@ -1,71 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795531514;
-	b=r5r8D8VPCd6rjR/EY24rd01YH6rg2smkKXEXwdx48jt7TIm9TU8KzzIrrwIw9pBjmXkO
-	 8qLgW9T2aO/u367bwFf7RJt4PSZFLEL4FVFVgLPxdC5HYfX24OkTMTkb4R1dpNIDvXNbc
-	 X2wvEmqucmIm9Xv4lGFDS2FSEt9VEVRXj+GgrG1V+dRECdvh5bjIfFnabn+uoC/F/J555
-	 xIVMP5W/Lxq3LiFzv3xL1VoP3rgqgcs4+BaE26Je4zrEtM8CjIGC6oJVqGQ3iEylUwrJb
-	 FS+xy33S1GMKq6F10bbelQcHA5Kjt/FNcptnXE4A6yW9FfDzMpsE4OFv40QIbqRXHnw==
+	t=1795531538;
+	b=OhRAl0JJE03RkibYFOT5aktR65zyCl3QdFdSPTEneu/FlMs9KSURdC4oAhBDWR38WBrb
+	 fj47hRDDdjpKBP8Lj/KoD0K6xLJHb7elH2l68iWnN5G7De6Ttj5Ayy0Gq9+Nf9as3hEiX
+	 b1Fy0V26ue3Dc1qZYdO69uJ886ZiTUIdTa8PtqH9UhIFs1QH84RU82illK0fm3uFJ43YN
+	 2YITGMtRYiQLBmsnx7VlbU2/9w/EWjQWK7o7SBiJfyGjTTngt0H+n5txvlqVBeYrF8Z7k
+	 SxLwM/IVhp9wa9OYSYqJcCjriP04hC6hYCnfesGNEjtuZHi/NmlF1AYqCkYZ57S+R4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795531514;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4Nv92dxJ4w/rbnjAgaKNTvEaElRmvxU69eClhfhiUIs=;
-	b=lBtwbqoHoqO4GuBEn8eV79LrrU63YM7QzEJ4i316hnFSpAHsPrmYpDNKdn139yA46LBJ
-	 q89tXx94hjjkb/HGJ6g5soj2qpJmsuKXFvLnZsQVk3j0X4QKq6QgaXkF+3/6FZeI2oweP
-	 X817+zfwDAAC03yCduxUUPYt72iv39jJHfMqyufP5rnOkPtPDTuss4w7ZmdQTs1gBX4U8
-	 EVNnCHbRfPdQ1pr2RGrW6iGP0RUE5rptPfuUOE9R4eTnYOf1fEPegWcISHpcHv/vvLl3L
-	 WaKhHOON6YyRaDuWbcC3sxG9kRlNWYetFRqZOqmMosB+Nu8zSn6JJu9KRMfEmiYZTWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795531538;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TUdvVe4K11yxE9evuX/HwtIfhtCx4ySLff82ZWhij0Y=;
+	b=5SwUzcRbHYYCP1w5/3wgCn93XOCkN1BJFCJ5LNRg7wr5woEEDcm3Eib8kO50tSJJqzuY
+	 2mzsVg8R7BZI8Bv5aUOPW7gfabJvZQDG1zDC/I7ucu7SYqGv9S0BINEqmcl1CYVK9GpHx
+	 hsRFkljpup34G7sgjyQQmbiNG/AUG4aurY5GDX1HBnCKaYBmhRpwP1JDFQyeTy8vWNBRL
+	 AwhJx6jjR8md2j2XfiUXhCZeuiXx7OciQdYUl6kqTMo0H7ir2GmQL1XpfCTTLSX1U/6a8
+	 9kDpM76ZijNgXQ2X976kOS/O/KKxtbdppvY23O53aMr/Hbieu4q+JiM70jc5dLk5xtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n1bcvz/q";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VdNM4JMq;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB08606A327;
-	Tue, 24 Nov 2026 14:45:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D587606A321;
+	Tue, 24 Nov 2026 14:45:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D587606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n1bcvz/q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72A91F000CF;
-	Tue, 24 Nov 2026 14:45:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795531513;
-	bh=4Nv92dxJ4w/rbnjAgaKNTvEaElRmvxU69eClhfhiUIs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n1bcvz/qeq9Ha5Q2rYDT/yOsThuugZ60fYPMtesxbQLDUbsqv01PuYYF75cT470VJ
-	 DknZtTatgltJFfhqpA59xGxe3tmnmekjfufDT8/PIWNbvYt5fnZUdoBOgoOegRbjJD
-	 cK6Muxro7N4LY8C2oxuRh3hVMlKzqs5iF6sKZ+C0lKnVseMXqLnPxTTjScAtXNEhro
-	 Aqbdpx0FdkUlqBytLgPc/7RoUbE/U7BVRiGTDPo3zjtG+RYyrb67RMptNA9HG1mbS3
-	 SguyyRHy3DqpNTXQcywxpM/ypGdAnzHjNiyO5COVa8sg6ZbIN2ZikhNVXjboSubZc+
-	 5Sqi1eojYbmBg==
-Date: Tue, 24 Nov 2026 15:45:10 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
-	Pavel Machek <pavel@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
-	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
-	Russell King <linux@armlinux.org.uk>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
-	Helge Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>, 
-	Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	linux-sound@vger.kernel.org, linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-pwm@vger.kernel.org, linux-fbdev@vger.kernel.org, letux-kernel@openphoenux.org, 
-	kernel@pyra-handheld.com
-Subject: Re: [PATCH v2 06/20] dt-bindings: sound: Document OpenPandora sound
- card
-Message-ID: <20261124-crocodile-of-marvelous-essence-ee7b3c@quoll>
-References: <cover.1795505160.git.hns@goldelico.com>
- <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VdNM4JMq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795531535;
+	bh=tHoKvhwF6A9T51xIenBUaT/9sNVdCw5DlAXYhy5j/Jg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=VdNM4JMq1hqbGTjm3zvuGBEqN1rw1I2PzJOMuy8fKLsiFyo+yhp0z+23IIxxvYMmo
+	 9Q72OnZE0XYoWs4phW1UwDX3pAMuNmdvLKZ787eP5IuRx0jfl5inKeoZ0B+zazkaOA
+	 SBQAWWI2hzvlDWAlIwu15W0UK0S/A8akEmqHAWEVxRWJ5SfGIFYmWNAVuJDwcxZ/P4
+	 0lkpCl5qMxP/p5JaCvoeLBat51+osntHgJa1k0KUE04xznza4gxxj6G9ZN+EbtPlTo
+	 g5wlSov76Yg/XZa8ya2rPM6jBIixghlVh2gEYsYPufQ58YEUgaHCb+sapzBsMp6e8S
+	 7YhqhSPfauqCA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F199117E0CA0;
+	Tue, 24 Nov 2026 15:45:34 +0100 (CET)
+Message-ID: <0e279c15-c76f-4068-834f-84c0895f50c6@collabora.com>
+Date: Tue, 24 Nov 2026 15:45:34 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,98 +61,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 31/46] drm/mediatek: Add support for Display Layer
+ Blender component
+To: Daniel Stone <daniel@fooishbar.org>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
+ jason-jh.lin@mediatek.com, kernel@collabora.com
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-32-angelogioacchino.delregno@collabora.com>
+ <CAPj87rMW6c0BMELjn70vsc+mkMxegDbSgQC-8BEDGspFyxzW2Q@mail.gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <CAPj87rMW6c0BMELjn70vsc+mkMxegDbSgQC-8BEDGspFyxzW2Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 24, 2026 at 08:25:46AM +0100, H. Nikolaus Schaller wrote:
-> +description:
-> +  The OpenPandora audio subsystem describes the routing links between the
-> +  OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 audio codec,
-> +  alongside amplifiers and power supplies.
-> +
-> +properties:
-> +  compatible:
-> +    const: openpandora,omap3pandora-sound
+On 11/24/26 15:33, Daniel Stone wrote:
+> Hi Angelo,
+> 
+> On Tue, 14 Jul 2026 at 12:46, AngeloGioacchino Del Regno
+> <angelogioacchino.delregno@collabora.com> wrote:
+>> +#define DISP_REG_OVL_BLD_L0_CLR                        0x20c
+>> +#  define OVL_BLD_BGCLR_BLACK                  0xff000000
+>> +#  define OVL_BLD_BGCLR_RED                    0xffff0000
+> 
+> We probably don't need a #define for every ARGB8888 colour tbh. :)
+> 
+>> +void mtk_blender_config(struct mtk_ddp_comp *comp, unsigned int w,
+>> +                            unsigned int h, unsigned int vrefresh,
+>> +                            unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
+>> +{
+>> +       struct mtk_disp_blender *priv = dev_get_drvdata(comp->dev);
+>> +       u32 val;
+>> +
+>> +       /* Set ROI for this Blender */
+>> +       val = ((h & GENMASK(15, 0)) << 16) | (w & GENMASK(15, 0));
+>> +       writel(val, priv->regs + DISP_REG_OVL_BLD_ROI_SIZE);
+>> +
+>> +       /*
+>> +        * Set both background color and constant layer color to Opaque Black
+>> +        * (ARGB) for eventual Alpha Blending to be effective
+>> +        */
+>> +       writel(OVL_BLD_BGCLR_BLACK, priv->regs + DISP_REG_OVL_BLD_BGCLR_CLR);
+>> +       writel(OVL_BLD_BGCLR_BLACK, priv->regs + DISP_REG_OVL_BLD_L0_CLR);
+> 
+> Would you believe that this does not in fact need to be black, as it's
+> been configurable since 4c684596cde4?
+> 
 
-openpandora,omap3-pandora-sound
+Heh, that's nice - I wrote this code also before the bg color property got
+introduced, thanks! :-D
 
-(add hyphen) to match other style?
-
-> +
-> +  label:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: User-visible name for this sound card.
-> +
-> +  amp-gpios:
-> +    maxItems: 1
-> +    description: GPIO pin controlling the amplifier power state.
-> +
-> +  amp-supply:
-> +    description: Regulator supplying power to the amplifier.
-> +
-> +  sound-dai:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    minItems: 2
-> +    maxItems: 2
-> +    description:
-> +      Phandles to the audio CPU DAI (OMAP3 McBSP) and the codec DAI.
-> +
-> +  routing:
-> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +    description:
-> +      A list of the connections between audio components.
-> +      Each entry is a pair of strings, the first being the connection's sink,
-> +      the second being the connection's source.
-> +
-> +  widgets:
-> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +    description:
-> +      User-specified audio sound widgets.
-> +      Each entry is a pair of strings, the first being the widget type
-> +      (e.g., "Speaker", "Headphone", "Microphone", "Line") and the second being its name.
-> +
-> +required:
-> +  - compatible
-> +  - sound-dai
-> +
-
-allOf with $ref to sound-card-common.yaml and you can drop routing property.
-
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    sound {
-> +        compatible = "openpandora,omap3pandora-sound";
-> +        status = "okay";
-
-Drop
-
-> +
-> +        label = "OpenPandora";
-> +
-> +        amp-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
-> +        amp-supply = <&aux_5v>;
-> +
-> +        widgets =
-> +            "Line", "Line Out",
-
-Join these two lines
-
-> +            "Line", "Line In",
-> +            "Headphone", "Headphone Jack",
-> +            "Microphone", "Mic (internal)",
-> +            "Microphone", "Mic (external)";
-> +
-> +        routing =
-> +            "DAC1", "APLL Enable",
-
-As well
-
-
-Best regards,
-Krzysztof
+Cheers,
+Angelo
 
