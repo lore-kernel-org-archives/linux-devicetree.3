@@ -1,159 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.0
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795524682;
-	b=flpSVa0Hkh5TUbi+ZpnW8LkHm5NAJOL2kxHCcmsI8AwyfFhQHOdJ4TntzSx7AogZ2ph6
-	 aM8sn8g9WyPytgPTlgH+5i2fKcc9MDRNBiTbvk78o8fzy2F+31568Qe0Tcpx4FCqiYGmB
-	 +VjgZ5oHMiixu+DwphBgQEvY6EwMwbmj7fT8YXr910+0I/kzShyD4ewC+hntwSFGL27Km
-	 sPZYU7P3gJANZQJIyjTvdNoZcLXdLVv2NIf3P4EtL8ga3T7VAAjkWDwcxoXAvtfEdH6GY
-	 IwXzKBoyBHTbCGh8W+xDv2X/iSINXnvJQ1Qh8r2aiJKCHKswUVdxnK+430BRzCBP44g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795524682;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Rozjt1/ifSK53gHZpzMdccZ3i4gpOnzll+aS8uOQDGg=;
-	b=R0oYsE/y5QbYciaj8FA6MgjqududyHXxwplw2EvApF7EOKQpcjUiGE22xPXa8OaG85vS
-	 cPySeq+E8lXl0JXZehHpiUKXPmArXpW0JCZOefyOIXYeW8ADMvlvnebU+pIiGdKUbhCrH
-	 8eu/IReBg71PLPcz+Z0oHFJdYQWJewcA9LiUanAgyjD40ajbYlDTKhnXZ937UGqFkdiVA
-	 bPw8kA8j1P0+pTuZtw9o6XTdZ4qzKq+0Sr84qDQhvmt9wAuRtoQyTXvRpxFc+gJf2gwO+
-	 UVOhz9HLl3rjHs3Qwy2t7iif1p62iiet3k48jgGGsADr3+Cz/jWDqDEexkzUgU54kSw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=MsBBygqU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.0
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011000.outbound.protection.outlook.com [40.107.74.0])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795524998;
+	b=GCTIWuPUP0Q5JdTDn78CNKKdTsfD6LzDi9OoA75go/kIqZ6Ub4e3d1UIDrnqo1Z+RXL+
+	 3+SQd1Gyn9l42R6i15TNVDgqzBvbcUoc3y7g5ZmsGZIPtkZ0Y7OepwJv/2uA9JbL4zWdZ
+	 iqYtrIEHORGkjE9ERGWRJ1xwBpJvSQCyDRsCNqiYV4g4Lj+i87Dt97zvihd1d20xGhzyX
+	 CBIkESXtX+LArUtSV+NfiD969TZRm+e3bsqy4IqN1mADYPlkwfkBdKdD9CTFEBARS8gwX
+	 1gAMLdDmhaV31AvH/NzqVCqLoLQq+EZx5wLguH3yv0b/QiTesul1df2cSuL7kso8aSQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795524998;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=9oES+zTBCcykoKXXZVrUciLOTnpuEmEfvSoDUlTPuAk=;
+	b=dK3RL5+IWujmHzD9zuTVUzynAJTXmtVuH8JgBAA/1u6uS7rxuNIdiriajwrm0BU1jxnl
+	 ZIG8bhjq/oFRkn5oQjLMxlTp4jauhygVjHzclGf5i3gyVrjDwSSVSYrZuMSJWptC/qUq1
+	 NQiS/QjS6IleAzfpWrTB+RTZNmYNVlydTx7Mx2JS/WoQSn8UgGfeMiDiWb2T3ogUYNsnx
+	 EkGL4wXODIjrIA06qInB/VFHKa+B6+V7q7lV2tPl2B+OjrRmVWTLnmHgJ7VqvCanbzqFL
+	 XTS7bBVWUNnZbURjLKH76U4MpeLd3OLrYZCg8o5otMZ2Ob24UMsBk6GqapoXCP8ruXQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DF9l6fBh;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U6sVP8mx;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E977606A31E;
-	Tue, 24 Nov 2026 12:51:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E977606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46605606A332
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46605606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=MsBBygqU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t0JgaacK8WUMV0SeZsJInn2IaFJjLtLLkySut7JhaAO+CMQr2CS7BLgz9B1szEX++9BbdfncgAzu+yJe1eyrB4WPDAVbEaK4zhUvBF0Yiy1LrBNKDxMO0pY3bsBhviomtdsMhe323jxYa6pOS2VyPqLiLQbruYoxkqCkKAVDZUb24NTM+jpTek2RBEq/Q9TMmw4irhyZw7E5dBu31XYccyAVrJPKnjiZT4S26MEfxnHGuoWCjcy0fIQerNtdSXU3Z4rIOUrBGp3e1BsXAWOsJTq8hF3J3K13qKI7j3PK+szLp51FkCfxjBcn0e8+Z2w3eH1w2Sxnh7Kz32wB2+S4iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rozjt1/ifSK53gHZpzMdccZ3i4gpOnzll+aS8uOQDGg=;
- b=TulOhLiko3W4f43wTLu0uOW0vGF0Wu3Ao7R6cAT/QF0tfZXnIGb3CLVp9xZcnhSlY7UD+/X9ZHPQJH9NoYNtadsY3ISLTTB2b9fCp+pvjMWaFOwWJQtlIIMMttQBs/bCJOsQLBwbZJR9ye2/VnUOvSxZwBZ9kOf6ot3BI7CKSjAYYAPCbmnc0dinc/Shr2tEMcaDMUx09iclb5ASZHywX+Pbx0HCENozmkQQ5GSuvDIcpbvOmPloL7EWBibqungWzN/RoiXTnHA8ol5zxYJ1+0snXivTCRLdiz+iZ8/igVbiBfWjVcJSGCxa+jXxHV/4OPUWa56rNd41EHXSXp8AWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rozjt1/ifSK53gHZpzMdccZ3i4gpOnzll+aS8uOQDGg=;
- b=MsBBygqU2yxNgUz0htm4YtOw/hwo4ghOEK+2NPkO+3ghsfs4uW1UfOkMAyYXpTo0AUPTalmN4+B3+CEbFdtLnefDBBE4qonVusaZchdFj2ONqYCoY83aXR5ybz13SRHzfYVfctPWpHycC9lpUxVKNByPLpVaOXUUqIXK+VsfkYk=
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
- by TYWPR01MB9885.jpnprd01.prod.outlook.com (2603:1096:400:224::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 12:51:18 +0000
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 12:51:18 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-CC: Tommaso Merciai <tomm.merciai@gmail.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>, Laurent Pinchart
-	<laurent.pinchart+renesas@ideasonboard.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance
- from the DRM device
-Thread-Topic: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance
- from the DRM device
-Thread-Index: AQHdc2mHvfvfxGybKU23d8MzJCmRZbc78H6ggAESzwCAAALngIAAKXaAgAAOCVA=
-Date: Tue, 24 Nov 2026 12:51:18 +0000
-Message-ID:
- <TYYPR01MB6603A1FB28A473A400A2C49386442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <68fcf838eee14c1906f23b2b7c74c560793cd1d4.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <OS3PR01MB65968FEBCB08429F11188CE986452@OS3PR01MB6596.jpnprd01.prod.outlook.com>
- <awVW5B4p06FUfBHw@tom-desktop>
- <TYYPR01MB6603AA1B7A48B7D899604EE586442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
- <awV8G86QIth4GtaA@tom-desktop>
-In-Reply-To: <awV8G86QIth4GtaA@tom-desktop>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TYWPR01MB9885:EE_
-x-ms-office365-filtering-correlation-id: a23f73ef-cd3a-48dd-90a0-08df4a29a244
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|261102123227099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003|261028144727099003|261021123027099003|261021121427099003|11063799006|4143699003|56012099006|10067099003|38070700021|261009223027099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- nrZ1LT7BzGybvkCDfh/CDb+wjUFt6gxyKLuDCv9juqPUtM3I7Zuu57qghg+YCv4DYTJl8xOJVaY6xefqJCAsN7cn3kt6cOa9ZTXNgf7DiSB+djJF6M3Djoq/iRSgjhrkayodAJkWRTm7rB1j8StXOwBvT5VWWgHYwjuUaWLnxWv9Cb7uwMMUFmY2rx86xvmOBvYJNZdBIGgvmRaIBs8nPpMKLHJvp4QulaUXxKunu6wiQEbYyasPXfjeNEPVhzFIC4PyaFROc38ddbyv0atmYJeCfMmVGJqTfZPeGVrcLWM4RGg4UvvI3dwDqYyhliA/9dw/QFZiQa3CfOuLA3Q53GYkiCVibDHdvYK16qYBGVPFgLhFvnNe3iN5ye8SM04eWuh1CRduM36tcsF+V7Uqlh8m8+20JmsbxSZTAVZ8rQd1fB9zbaaegpnsxfBs7jsyEd0rS8q6uW1e4UDSBOz0J+8Uw4ZUMDebjEGCWSHkhwNacxc0SgjzmZqXWqIRzASVZacRsxmxYeYLin/a9whjiK+0S/Qiwg8Efptm5hTkf8oQxpIL/K0CoESNZincxJ/IqrahLCDCU981gmAXAwkMfchWDwxIciZ1bpH9p7+QF6sPDbFw58XULyLgo0GGbLwg2GbvIu3eXUj4R+PB7peimH4bhEb2fxWJbN+FSmRwz/9zjNp6/1JFvGxatR9Q32ptVoks30eYzCMfiiKguclvt3vdzTm2Ez3+W3KcLz6ZbOM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(261102123227099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261028144727099003)(261021123027099003)(261021121427099003)(11063799006)(4143699003)(56012099006)(10067099003)(38070700021)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?9BDcRuyW+3Rj4nta64Nt8ItHSRkYxe8tdPlUW7iUhICHQ9LqqnViOxAogKGm?=
- =?us-ascii?Q?YOBxF0zM61z2j4KIviAeklVCwMEChwCnVVtdjW6KkaiTCeYabQFlgFkd+lqz?=
- =?us-ascii?Q?RJOuMhkbjUnZrL8Gmr4dNqxH7Ji4sWyOSzYQ7dQbTg+kCOp998dBwDaTjdzZ?=
- =?us-ascii?Q?a8mcnl1rSzZkzSmLHiv+WPNfX7WXmIys1Wb6XOIHU+7a1rtt0QRwxY2rqOau?=
- =?us-ascii?Q?OE8qKPeWW2dv1mtKkwAzQ5tcvftjgDldfZyzwqWnAgnc1ha4qTZmiX8vYC1q?=
- =?us-ascii?Q?CCcQUrLC4wCXBmy2Ci9v3cwjNTWb1KeRQKfQO7Fff5hcQAMQ3ifuItHmO8H2?=
- =?us-ascii?Q?ZPaY/+I6GUuvxwZClufhYZ3Bh2kgjCgQnydIAxC0EhyrgI9eGmIrXi92Bmgk?=
- =?us-ascii?Q?DZKE2tORT9iirncdQvdkI9JM132He/NBTt/760ThlbWWNT3IMHtzhu0cr8Yf?=
- =?us-ascii?Q?nPp2FXn+U42/IuLCnkFGQL9rrh90HMtDq7wNzTde26adEPkbd+Ujm3gsJRmk?=
- =?us-ascii?Q?GYDkmPkf9BGt6zwY677vt9OF4L4/M3JufPtOKYSYxxgcxU7q5Ip5uO34FDZ4?=
- =?us-ascii?Q?1YYTHCDk/YUVB4ekrgbpPMpfHZCj1jcBOgHOY0E1v7xnFl/FaIFxVM/dvhUn?=
- =?us-ascii?Q?Rnhn9nac12wxtGNsaIXwkr82lQFXGsKjYZqmh4F95OcbB7yJZrBxhkSzkgeH?=
- =?us-ascii?Q?xgGd7FDHZ3uRkUQ/pV57zRypkYwv9KMpbPg6NPHp10FzSRGIz+Mt6N9H4dRE?=
- =?us-ascii?Q?+lbx6lTuLqnglXDNmJ7hVHp3wyngEqAjy0t+F/JwyqgpNsTofzrMj7zN8ztP?=
- =?us-ascii?Q?xvvCfshMcyqzR4LhlCThZyBJJT0t3GbLRIErMTKUV8wlIDD2XXr9DhCLhEz4?=
- =?us-ascii?Q?JycCGjuY4GdWCvavm3+PmNVJLbN0K+Jt7red2VN5GWn5RlFhZpiYrXtyOhDY?=
- =?us-ascii?Q?/tNy5K/H+Xl9JMK1zSDlU/JHch0dk1fpvGewC0h7s1WFP+96TFRqXLwSekqI?=
- =?us-ascii?Q?/Xqdeic+kO9nejA5SjljPWy0sThHyNDPyNJB4GdGQ67j9VsMpQFiT9Cy6xVT?=
- =?us-ascii?Q?8dchu4AV5RcvzWoRh7nUGM2qiWEf3vps9L2qSffi2ZrRwrJ2R6EPNqiS3jqf?=
- =?us-ascii?Q?qsTYwrgR0JrYzdZlCsJLH8hr0jC3+MR6wGX1Nhs9qLe9qgyfZpuASyJi4r7m?=
- =?us-ascii?Q?lDELtfmgFP56ZZuroyzEDfvJoDA6smdMFODdxvKwiZVi5b5BTqiXWfdy96rq?=
- =?us-ascii?Q?1lBOJ3hc9dDR0i384Sz0BuGzpeZrC4JyI4u2uY+IqWEPSMM83XD4IwIVJt/E?=
- =?us-ascii?Q?qpY+84vBsVSq/7tRB1cWZPk0P1ld7l3JmrjPc1ot8EMjpO3/BbNWu4uQIWjm?=
- =?us-ascii?Q?2nzmQz+CYGkC/Ck/UF3R5AC7KIsH8JGrtIQao27+qMiAGl7PTyn9ofCxzDHn?=
- =?us-ascii?Q?OgU3vV6S/tYZf17WifJGDdUhePriodqxiNFvkBm7/3ckuMmugvZx5NTpP6fs?=
- =?us-ascii?Q?e09eMnUGdAQWd/YjbMxEiD47tj/cOwotDFuokYlSHl3TaPFPjuWAqVhdiPzO?=
- =?us-ascii?Q?fnBJSHNxgAWEa/YW4daCe6vWuTRLyohTP6uusSGCj11Qzeh5IDdfGWeipRmM?=
- =?us-ascii?Q?cgxaFAcwZ07ndfdGGoZtY+hfi5C4entNiOT5VZzAnTxCkgrh7sovHSgAZ0BD?=
- =?us-ascii?Q?ts9Bkg3L5gxBwy+qw0EUTxk397J2h1D8ffXVyDB8TQQZfnPPwI1O6oLvAzjR?=
- =?us-ascii?Q?I9wpwtS1KQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DF9l6fBh;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U6sVP8mx
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AOAuJ3g636648
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:56:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9oES+zTBCcykoKXXZVrUciLOTnpuEmEfvSoDUlTPuAk=; b=DF9l6fBhukovloIC
+	lPAH3FWFLecA/J39y/gmIcTRUZ4Lq6KdDnf7flVguXLxS98olplmggiZUXMdOIB1
+	+JlpZBE+CaOqvVWntozlbjrGn6AftMMOpc8LyhzNuhibzbGLIz0/Zt9nW3v8RW5q
+	w/F/ZoQAYlFQNrSu/yZ8aeWv5iZjgv2EJPhYqJCjy00T79DfpxAfSxSM/SNeXj4M
+	rQcE5pKEZCYXh9LTd81L8LsMXbMw0XKfa5vyEiCfqs64YvY18Y82JnqGBgB2n4Iv
+	GiiS60bcEkckNkgC3aYBeqNE2JmW8vKrZuL4Bv2vZ3Wrm5hTNG1EJJRis2JmeqdY
+	NcTLZA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j54rphrw3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:56:37 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8c5408e418bso3218747b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 04:56:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795524996; x=1796129796; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9oES+zTBCcykoKXXZVrUciLOTnpuEmEfvSoDUlTPuAk=;
+        b=U6sVP8mxSKlvEm/EudUn3ZAej40wOKduQD5NpBGJqkNLRX9WC0UvxxQ2E1Xjep/O2x
+         Idkq77kpvilQ+6Loj8UnNwkOSwR9qp0RmjsPDZgNzXmzvC76q/Tlqt/inVbcIQMFOgNe
+         Eq1beSkFD+isz/6vWfBm5YYBBh8KZsRBvCxSzE+sFXWQJQLuyfedCmfjEyVy1Gteb2Nj
+         K1q9JNsitszecM573L/j4MG2cCjUTDMDid5Ct/LOyS7tIf8eUTVl/RbsoL/w5kMLHTRi
+         CQAGsXsAeEG8xgv1NGvVQ+MJS/4TknMKpwh2p2JPhqqXyaUWKk2Qa3ofPCW/JChA8KnE
+         DYBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795524996; x=1796129796;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9oES+zTBCcykoKXXZVrUciLOTnpuEmEfvSoDUlTPuAk=;
+        b=Txnc4ir1r9xvz8R03+cb0cnaRIWM9+r/9M1cApr+QaGH0UyHn4mrKZIvGlLEFu15Rt
+         SeAoLlras3tvbgGLWnk5gTMLLDdjOdEiZqZMfX1VHp/T/CLzt645MYhS1CJZsJpXLf6O
+         wM9TN8xrHfPYaIXLf7fEVc9UEqpxZ17aYWnkmJdAqKIjXhKxnl0qRtc6MfBZpc12N3dq
+         KpntpzrDjCcW1oRVXj/TnAzqXAnIAtJg7ZVjrtyIoAGpk9Tpdloz9loP2n6lUTkvvRsW
+         kzszbuUfbaWOBa6OtdA00F7+KjGDostdnzAhY7IcSs4yTCfsIYx82bK1hAjtLLXXNwe6
+         SJyA==
+X-Forwarded-Encrypted: i=1; AL+hErEQqXMzno5rn5gCWKkGwSjf5z4P69VyZzpH8X5DD738prrvZvUI3tUZFH1s3h6FtP/mFjOwUvdq0soY@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AdAizENiMtWLw+FwEHwvR19ec4DQ++CG6hM6PzPFfjNw5/3hh
+	8BdKisj7tJJlJrjzcwjkdc3m/pg+y8WoTVDsQbFPrhvDBWaDTgRp9h5JmcTZPN2c6nuDpBWBolZ
+	pyU6qDQKCOOI4bLF5w5rV8Qygb7Ety+W6j1OgukIejNRsPhLoJEiXEWAWuCBU3/SO
+X-Gm-Gg: AZFdTZdLYHJlykAkaQcazHjZd5Joj4D8qd2VI+D6UXXAFdGyIy6nGK19DVMCOUBZgql
+	d4hbj/eVqlHgRIzw4cET4C7YMrIbVaLx+Mh5KJ57gk6HhWpu13RmTfHALZzZCj5VchQilGdqnZz
+	RtpRbiS6gliPHYB5IX5Tew3IyfzuR8kARvlkCJtZE3ltVCxRppyriGerbp0pOaT14jeFF8y7TYE
+	PsC3+6P+waMHmLrnKK30AMiizAJ/HZW+PPgH0dniwfiarQutRXiQU1BQD4oYkFV5F6kx5SvEkjQ
+	luyvHh9IQ8KikS3L+rJghUu3w0uV8uKChSlGU1hsM/dGyYR2ixihh21+BXlwJzum8bErY+W8GnB
+	FcYteCCRJINfzvnwsdkazNxOrqM5WjpSGNV9HkeN6YlPH/WpUEL+k2h5W0rEloU4iof9QETdO3H
+	q+Zg==
+X-Received: by 2002:a05:6a00:4c19:b0:8b5:f313:9f54 with SMTP id d2e1a72fcca58-8c87d32b35cmr12156941b3a.56.1795524996080;
+        Tue, 24 Nov 2026 04:56:36 -0800 (PST)
+X-Received: by 2002:a05:6a00:4c19:b0:8b5:f313:9f54 with SMTP id d2e1a72fcca58-8c87d32b35cmr12156914b3a.56.1795524995577;
+        Tue, 24 Nov 2026 04:56:35 -0800 (PST)
+Received: from [10.204.78.119] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87285c263sm7146216b3a.11.2026.11.24.04.56.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 04:56:34 -0800 (PST)
+Message-ID: <0747efbf-c712-4185-b08a-82c82a49b4a2@oss.qualcomm.com>
+Date: Tue, 24 Nov 2026 18:26:27 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -163,126 +116,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a23f73ef-cd3a-48dd-90a0-08df4a29a244
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2026 12:51:18.5749
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WTb081BNDFNQpchNFFbYxXY5oBViT8hSiZqj94/+R0Gthme/MfHUYbuzvv8TGrpvarIDKefca5x5e7EeI6FRnKEm/XCmJ9Kr1KcvLMOdmhs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB9885
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] Add Parade PS195 bridge support to enable HDMI on
+ Glymur/Mahua/Kalambo CRDs
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20261116-mahua-hdmi-v2-0-0b5af6bf9e70@oss.qualcomm.com>
+ <357f0fcb-792b-4b40-84d2-cdfd05ca05eb@kernel.org>
+Content-Language: en-GB
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+In-Reply-To: <357f0fcb-792b-4b40-84d2-cdfd05ca05eb@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA1MCBTYWx0ZWRfX1YudTQPBdUwE
+ C00hORzHL7zwXGlxzmUypAFtMrXEuAp8xOUNI6V0IwA74dIUehrewPSOtMPCLqeuMQTnhrhgUir
+ 30lycA6pXk+dEK5AtkcQ7GhgdRORgmR74GRUTwQ9l4h2g0XPorbIsVoLRlgumxehoasWuXblkuD
+ qyMKAvEkrsJFlnaG3ERmCoP9mpTDzPFu1Z7jdn+3eWrChjoyIu7XxULk8FbHCpQMN7a6LY3t6GZ
+ wCLJjhs4c6uJ1vAw9a7ogMYjF0IyYUwsfMZtkoUfDgW+xqJImKbuGLM3J7fHsp/qVHOXbnow/nm
+ h0VNc6rjkXKQJwhtOtspB/s5SM6qm70XE9y2XWYpALqy9q8jkfhYgFDGLy3eABNtlWScrUZLLV/
+ NTQ8YlWbCogca1OcBQFBZ6RPF6AFkpgKHoeuZcoBHCli/Wwr+olQ2vn5n6tuMKf3XOtp6bpnhlG
+ j1PlS5WEbBWYvDUzMkg==
+X-Proofpoint-GUID: opR_BUcXpM82ClTcyBTzNSxAtVFq_8mz
+X-Authority-Analysis: v=2.4 cv=MvbHeGae c=1 sm=1 tr=0 ts=6b058985 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=p1ES9sUSU55KWy82zVEA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA1MCBTYWx0ZWRfXw6NTYGLRrs/Y
+ bD3t1wIWpxpFTKUdn/fo7aKKVsJzzXoeRtjLph2Fe634XknpoTpwFZuNIppiaenyJYUHFJeYKEi
+ 8bFlglkPNuwU+9VK8bsYtFM6/vcaMTw=
+X-Proofpoint-ORIG-GUID: opR_BUcXpM82ClTcyBTzNSxAtVFq_8mz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_02,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240050
 
 
-Hi Tommaso,
+On 11/17/2026 3:54 PM, Krzysztof Kozlowski wrote:
+> On 16/11/2026 12:34, Nabige Aala wrote:
+>> This series adds initial Linux support for the Parade PS195 DP-to-HDMI
+>> bridge and uses it to enable HDMI on the Qualcomm Glymur CRD family
+>> (Glymur CoB/SiP, Mahua, and Kalambo).
+>>
+>> The PS195 operates autonomously using firmware loaded from external
+>> SPI flash — it handles link training, EDID access, and hotplug detection
+>> without host register intervention at runtime, so no existing bridge
+>> driver fits its power-sequencing and reset model.
+>>
+>> It introduces:
+>>
+>> - a DT binding for PS195 (supplies, optional reset GPIO, and port graph),
+>> - a DRM bridge driver that implements PS195 power sequencing and PM handling, and
+>> - arm64 integration (defconfig + shared glymur-crd.dtsi wiring) so all three
+>>    variants can route DP over USB2 QMP combo PHY to HDMI through PS195.
+>>
+>> Deps:
+>> PHY PLL change: https://lore.kernel.org/all/20261028-glymur-phy-v3-v6-0-1f1d2e565a66@oss.qualcomm.com/
+>> Glymur commonize change for regulator: https://lore.kernel.org/all/20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com/
+> So this cannot be merged. DTS cannot depend on drivers patchset. We
+> talked about this multiple times already, please do not couple
+> unnecessary dependencies.
+Ack, I'll remove the PHY driver dependency in the next revision.
 
-> -----Original Message-----
-> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> Sent: 24 November 2026 11:59
-> Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU insta=
-nce from the DRM device
->=20
-> Hi Biju,
->=20
-> On Tue, Nov 24, 2026 at 09:33:13AM +0000, Biju Das wrote:
-> > Hi Tommaso,
-> >
-> > > -----Original Message-----
-> > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > Sent: 24 November 2026 09:21
-> > > Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU
-> > > instance from the DRM device
-> > >
-> > > Hi Biju,
-> > > Thanks for your review.
-> > >
-> > > On Mon, Nov 23, 2026 at 04:59:32PM +0000, Biju Das wrote:
-> > > > Hi Tommaso,
-> > > >
-> > > > > -----Original Message-----
-> > > > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > > > Sent: 13 November 2026 12:20
-> > > > > Subject: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU
-> > > > > instance from the DRM device
-> > > > >
-> > > > > On RZ/G3E two DU instances share a DRM device, which can only be
-> > > > > created once both instances have been probed.
-> > > > >
-> > > > > Split the DU device structure: keep the match data and the
-> > > > > registers in a structure allocated with the platform device, and
-> > > > > allocate the KMS objects with the DRM device in a new
-> > > > > rzg2l_du_instance_init() helper, as they are released
-> > > with it.
-> > > > >
-> > > > > No functional change intended.
-> > > > >
-> > > > > Signed-off-by: Tommaso Merciai
-> > > > > <tommaso.merciai.xr@bp.renesas.com>
-> > > > > ---
-> > > > > v9->v10:
-> > > > >  - New patch.
-> > > > >
-> > > > >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c | 61
-> > > > > ++++++++++++++------
-> > > > >  1 file changed, 44 insertions(+), 17 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > > b/drivers/gpu/drm/renesas/rz- du/rzg2l_du_drv.c index
-> > > > > d3cccbdf9012..d102876c07e1 100644
-> > > > > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > > @@ -162,6 +162,27 @@ static int rzg2l_du_pm_resume(struct device
-> > > > > *dev)  static DEFINE_SIMPLE_DEV_PM_OPS(rzg2l_du_pm_ops,
-> > > > >  				rzg2l_du_pm_suspend, rzg2l_du_pm_resume);
-> > > > >
-> > > > > +/*
-> > > > > +---------------------------------------------------------------
-> > > > > +----
-> > > > > +----
-> > > > > +------
-> > > > > + * DU instance
-> > > > > + */
-> > > > > +
-> > > > > +static int rzg2l_du_instance_init(struct rzg2l_du_device *du,
-> > > > > +				  struct drm_device *ddev)
-> > > > > +{
-> > > > > +	struct rzg2l_du_device *rcdu;
-> > > > > +
-> > > > > +	rcdu =3D drmm_kzalloc(ddev, sizeof(*rcdu), GFP_KERNEL);
-> > > > > +	if (!rcdu)
-> > > > > +		return -ENOMEM;
-> > > >
-> > > > Why there is duplicate allocation of rcdu? One in probe() and here
-> > >
-> > > The two allocations have different lifetimes.
-> > >
-> > > The one in rzg2l_du_probe() is tied to the platform device. It holds
-> > > what is needed before the DRM device exists and outside of the
-> > > component bind (dev, info, mmio, and ddev/is_master for the master, P=
-M and remove), as on RZ/G3E
-> the DRM device is only created once both instances have been probed.
-> > >
-> > > The one in rzg2l_du_instance_init() holds the KMS objects (crtcs,
-> > > vsps, lvds, index). Their drmm cleanup handlers point into it and
-> > > run when the DRM device is released, which can happen after the platf=
-orm device has been unbound,
-> so it has to be allocated with the DRM device.
-> >
-> > Then there is an issue right, platform unbound will unmap mmio and
-> > other data structures it allocated in rzg2l_du_probe()and drm driver
-> > is using after that( Use after free Bug)
->=20
-> Mmmm In theory no.
->=20
-> The KMS part keeps its own copy of dev, info and mmio, and its drmm clean=
-up handlers only drop
-> references, they don't access the hardware.
-
-Can you please make sure these variables set to NULL, after
-Platform unbound?
-
-Cheers,
-Biju
-
+Thanks,
+Nabige
+> Best regards,
+> Krzysztof
