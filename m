@@ -1,117 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541955;
-	b=CnDRxoDYqoBtewQj/fynuF+p+oUyxt7dJewPtE1yrQePRsuXU9sezLkv60AoHAIUP4A7
-	 rm6oFStzC+YY4N0dRb7B+8OnxgfdQ0lZRPLJl/hctMM738svabxF0vm7zLdcQrrKapXXt
-	 CcpCreZAnH+0qFmCcU+lNwBj24EZeolxQ90ixRGX+VuynlraMgKpNUGXJ1C2Lj4rwnEWE
-	 VPWOlxa9G1PiK4sMzCGv/u8Wm4+JojjlGI2WNhltzHSD/SkH+1Glu04gcs08wCMeOKeWB
-	 Se4OoqyXSqkWgfHGUDyqecxIUxWLk8jQO6Ng4ueDe6KHFTlt9IDxit/PbatuK71QJWg==
+	t=1795541967;
+	b=YmSRBHRS6sutKPnWNzfSmWMFSLWd0HAxuTp9g1Q5k94jgS6bgwt4xWX7G6uLHBdnZS55
+	 e317DgELRp+2bT+O93skqZYVbzWLFliXf+nFpVXgYmNUe1kI8P50dVS6TyTW60L0MYjjb
+	 v2IAbCE53L7RmAolct/HYmvzjc36zPDaj0S34aFbJI5IMbmWasKN8msizCAYCYXnpdJ2w
+	 7jvysv7chIXIh6Zlk5ZIZPpypoD77PtdmIhZo+z9ERkOFqIkPbfSEt77jJUmD5tRpZvYm
+	 X3P091aUwtmdTmXC98ImWgbomkgl4fnlE3YGR5vgtcENCj5rv2eCSPSFxLwps3MVAYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541955;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=WBc309mYer5H7Xpcaba+ynW+B/78kXK1Bb+NRGqzY3M=;
-	b=C8Q6XD5SF+vPYEMS8kCiL5arFC56QUnd8+WgapUTQtf6+pF/eQtK+oTszL8ZErHki/zt
-	 gowArSGBun+KnusUyGxxnZBHIv98nHmJd58y3tMjIggAzVVsTvTJRCpQBN7Gb+J9OinpE
-	 vHTkSzHvc8WAVBu2L5kpqP4HYacE/M5rUIPH4ZFP2O3T7jTXo7l03CQWTK9yjlAKNqU6w
-	 4VZAJxxH/XiDCsKAYxd6Vr7TbtMkGoNb9ILtYqxHkBggidypH/f6wCKpUxBd5Dfy+d1NQ
-	 qS5ggcMwd7y4dRnS6ZuuiDEOS4Dn+Gh1y2Zw09Gxep0Ury8JDVkgPZt4czkVGCrMhdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541967;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=2DHfqrsqFQgn520F+/RmNDlgDeR7DrAEHvjrpJ2piSI=;
+	b=VB52Z0hnEpb41xfpTp4vgnT5omYOD1nofpVvof5YMgXK9dXrk52hd3ecDxaAiPepy7Na
+	 QV6CtHK2pacShtZA4IW6h5FUWNxR6bgouTHSchZ+dCTuMkv8cC0h0QnfrGwjQK/i5bpi1
+	 bHpg4DH9Nu7XfBxWhnNbwpLB1BX7zfz+Oq2izKwFT9lDGpas05F/fdVkiaLrc953djm1w
+	 s8RwHog91FXU/YnXsFmjbI6rzoghfmR63uhZvdmEm4hDz6UUhff6FkRQ6YJwgsuSLEaGC
+	 OULqEhC6OVvNJRTQB4cjJdsgZlZMYmz9gVlxHCrzK+0sP8M8Y7IkX8TaDwdy8N0QwCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BbBJL9iX;
-	arc=none smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaBjvdZy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA868606A329
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:39:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA868606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E92606A31E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BbBJL9iX
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b4e18369c8so28352147b3.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:39:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795541954; x=1796146754; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WBc309mYer5H7Xpcaba+ynW+B/78kXK1Bb+NRGqzY3M=;
-        b=BbBJL9iX19HFseLAZpNMrqk/cz7C7E4ItEZffQwvgffTsuM2UkPlOcyFFO+hg3yoPU
-         BUaZAoyQvJdVhcLwgpFfY8dI+Y7oT6holR3Hn3ahHvRGxrVlELlG8o7Q4jpq9nds3JZi
-         AEyDvCkLriXUxvZo7EiARVg7iHJsTN87EGyT7cub36IMWAs1LaZcY/JxYp76MWvRTPnA
-         AY6g8pwMQ2V1dd0/t3kXGJFoeuVNqD9EEZC4yzKLY6Y4BpombrpMwyNtGmiecVgsOyNX
-         zQE0g24FH43+nmbvst4iWIPtgaN6zibyjDMGN8AeSJ1FrzyFpd8cSNC5/G+qyhAsorMh
-         lb+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795541954; x=1796146754;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WBc309mYer5H7Xpcaba+ynW+B/78kXK1Bb+NRGqzY3M=;
-        b=yqP6D9S2VGzUr9olbwD6ptYSiB4bbvGp45G7gbLTv9HSP5z+lNznvgov3PYYQ/OmdF
-         2NbgUbHVIqWk0p1Lmq/pQff22bW/HNi2pSlUrd45AIHaqVkzgO0yOwHuSaw0YQ1o/Gij
-         DL/5tzusNcICE32MN0X0ih2wW1kAV3WoJkPPwZPfq7+IjWbeld5NbT7sOHsD+/Qi84+v
-         VLeS5cm7TrdSvfj2RrCgokK15TAsoxaE3+gPT7w1jlxcDWfkR+8ep9QGwis1ollmtG3a
-         XPozqIRL5SMUZqCJetL6nTgJc+TSontTt9s+nxZWeHm6FHhNRIqugJpFif3VXyYmuAdU
-         LabQ==
-X-Forwarded-Encrypted: i=1; AL+hErGFUmc6coj8rkjvLaGu3hlsFnTeOLjjnHpa2am6QKJKmHA8sOhRU5TdKVKZXaBhgYMsJUcMIu6k43T2@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/6bTUKVfnJuaNGe+LyVDnMcTKw6hNXgEP/x6a6AUFbTvJd788
-	srY6FkcPt6uN2YjfbBAJMR1cigQHn5RuPtFUis5hPc7bpbqKev0oloDLb8nq6/P9qus=
-X-Gm-Gg: AZFdTZcMWRTuEW4XjclxzNCBOvr23zKMvpqtXL+ZJfc46FKs/SJSj69VVkctG0Wl4i9
-	d9mqETEama7TUSGbPQ+3yWFXRdUhi00GR3/8LjHTFx5ky7LD4EDL4jG5TxlHsy6G/m4ae0CSLCj
-	x3aXhrl0ndoamLm/969OwQS2TJ8AymtezZdHJdZoRbpkqTUgPYLbpzgVoteq7gGccafM1ZEF449
-	zXk7KyuaaQorFRfhoMAA1Sd1lUlCKx0qHdLv95EE9lmDkAtm6MJfkhMcsW3V689e7a6XN1hgb5j
-	qzXnlSLZ4Zy20JoS5/vaZeTOlDyjKN6x4NtjwNR2DleR5/z8dDdNUIfti6vtKDPcNQflv20+oTC
-	4AmUXUwhttaZ8qPaEbuffe3H/wdWvk3FN6XmoPpKfVU6DhAwBzqjy314hFElt9Jkgd5+ZWCnKFu
-	dUzXZ/juII+PY69vtqMslfkilMXabIZNT3+tWUyE0Ty9gONOR9hjrA4Ll8460Tkqo3BC4Y31eDc
-	zuIbTJlnY/Fy3Z3tEPWNQ4vT09hC6sIZSt6ftaXCVGpcNN1zC67omHMxD61UvKc7zM7391CQ5SH
-	Vu7rvLLYlxVHi+Gw5vNBX1L8fz3S08lIIsqPJWfuLgYLo93FU6oi7l4=
-X-Received: by 2002:a05:690c:990:b0:8b5:6a83:5e0b with SMTP id 00721157ae682-8b56a835f62mr4475197b3.13.1795541953703;
-        Tue, 24 Nov 2026 09:39:13 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b520354be4sm61097717b3.43.2026.11.24.09.39.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 09:39:13 -0800 (PST)
-Message-ID: <87e98f2bca7ceb60fe0b786a2bf63711ada2572c.camel@ndufresne.ca>
-Subject: Re: [RFC PATCH 07/28] media: mali-vpu: implement TRY_FMT and S_FMT
- ioctls
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
- Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
- <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
-Date: Tue, 24 Nov 2026 12:39:11 -0500
-In-Reply-To: <162bf4ec-c23a-49c6-ad7d-7485a5cce2b7@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
-	 <20261119153758.1426673-8-charvi.mehta@arm.com>
-	 <3415e7b52c3d05214ec125b2b4f8612129c53ae0.camel@ndufresne.ca>
-	 <162bf4ec-c23a-49c6-ad7d-7485a5cce2b7@arm.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-EcivsMOo8ZMd140z5HSW"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaBjvdZy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9855E1F000C6;
+	Tue, 24 Nov 2026 17:39:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795541966;
+	bh=2DHfqrsqFQgn520F+/RmNDlgDeR7DrAEHvjrpJ2piSI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TaBjvdZy65NIMNm3QLDp1AP9uCc/MJ+0aJGCjJbQMWW/WBcLLjrSOZ0qOjTC13+lG
+	 JjwbHZQTYFhBmyLoLM8jotdG0/ADkUJvb+2njR/kxCeg4KXwnUhY70MrEhN8XKnFMn
+	 3V3coaBtWMcBhPR4kD44NgAcivk3QSc8NSykpU44VXq8/YY52GmU09XwcdjxM89ByC
+	 V9P2KQ591Nq9PP75/CmxNpjr9azu+y3E7dhtu59wiS589HjRg8mY8ZgHouMzq4Qwkq
+	 Xb54t2NmJuU7pTQqjj34gG+G0ZzbNGwk/Gm7UYTTFVVegfbCis40DAa4C5M0cIBGmV
+	 3osvCZDxiyrKA==
+Message-ID: <sashiko-outbox-231725@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 13/24] media: mali-c720: Add Mali-C720 ISP driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anthony McGivern" <anthony.mcgivern@arm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-13-0cb9bde1bd30@arm.com>
+References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+ <20261124-b4-initial-upstream-candidate-v1-13-0cb9bde1bd30@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 17:39:26 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -120,46 +59,320 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
---=-EcivsMOo8ZMd140z5HSW
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] media: mali-c720: reuse_buffer descriptor lost across runtime
+  PM reset
+- [Medium] media: mali-c720: premature upstream disable in fr_pipe
+  disable_streams()
+- [Medium] media: mali-c720: unbalanced power off on probe error in
+  mali_c720_probe()
+- [Medium] media: mali-c720: race on capture format in
+  mali_c720_s_fmt_vid_cap_mplane()
+- [Low] media: mali-c720: legacy PM ops macros and missing pm_ptr() in
+  mali-c720-core
+--
 
-Le lundi 23 novembre 2026 =C3=A0 17:26 +0000, Charvi Mehta a =C3=A9crit=C2=
-=A0:
-> > This is suspicious, the vb queue already do some locking in most of the=
- vidioc
-> > call.
-> Both queues assign `&sess->vq_lock` to `vb2_queue::lock`, but=20
-> `video_device::lock`
-> is unset. The V4L2 core acquires it for queue-management ioctls marked
-> INFO_FL_QUEUE, but not for G_FMT, TRY_FMT or S_FMT.
->=20
-> video_device::lock is unset, as this driver uses per-session locking and
-> format ioctls are not required to be serialized among different sessions.
-> The explicit locks therefore protect format access against queue operatio=
-ns
-> and asynchronous firmware updates, which use the same mutex. They do not
-> reacquire a lock already held by the ioctl core.
+commit 673cd59feb7192d4abbadb5d84db3f82e14b2c89
+Author: Anthony McGivern <Anthony.McGivern@arm.com>
 
-I missed that in the review, please document carefully your locking somewhe=
-re in
-text.
+media: mali-c720: Add Mali-C720 ISP driver
 
-Nicolas
+This commit integrates the hardware identification, capability discovery,
+context management, V4L2 subdevices, power management, media graph
+registration, frame scheduling, and build configuration for the Mali-C720
+ISP driver.
 
+> diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-capture.c b/d=
+rivers/media/platform/arm/mali-c720/mali-c720-capture.c
+> index 78e9f5aba97d5..ef69901730b4e 100644
+> --- a/drivers/media/platform/arm/mali-c720/mali-c720-capture.c
+> +++ b/drivers/media/platform/arm/mali-c720/mali-c720-capture.c
+> @@ -289,6 +294,7 @@ static int mali_c720_vb2_start_streaming(struct vb2_q=
+ueue *q, unsigned int count
+>  	struct mali_c720_cap_dev *cap_dev =3D q->drv_priv;
+>  	struct mali_c720 *mali_c720 =3D cap_dev->mali_c720;
+>  	struct mali_c720_context *ctx =3D mali_c720_get_active_context(mali_c72=
+0);
+> +	struct v4l2_subdev *isp_sd =3D &mali_c720->isp.mdev.sd;
+>  	int ret;
+> =20
+>  	guard(mutex)(&mali_c720->device_lock);
+> @@ -328,8 +334,30 @@ static int mali_c720_vb2_start_streaming(struct vb2_=
+queue *q, unsigned int count
+>  		goto err_release_buffer_pool;
+>  	}
+> =20
+> +	/*
+> +	 * All ISP source pads use the same start process, so the HV pad can
+> +	 * represent the ISP when starting the pipeline.
+> +	 */
+> +	ret =3D mali_c720_pipeline_ready(mali_c720);
+> +	if (ret && ret !=3D -EAGAIN)
+> +		goto err_disable_src;
+> +
+> +	if (!ret) {
+> +		ret =3D v4l2_subdev_enable_streams(isp_sd,
+> +						 MALI_C720_ISP_PAD_SOURCE_HV,
+> +						 BIT(0));
+> +		if (ret) {
+> +			dev_err(mali_c720->dev, "%s failed to start ISP subdevice\n",
+> +				cap_dev->vdev.name);
+> +			goto err_disable_src;
+> +		}
+> +	}
+> +
+>  	return 0;
+> =20
+> +err_disable_src:
+> +	v4l2_subdev_disable_streams(cap_dev->src_sd, cap_dev->src_pad,
+> +				    BIT(0));
+>  err_release_buffer_pool:
+>  	mali_c720_cap_dev_release_buffer_pool(cap_dev);
 
---=-EcivsMOo8ZMd140z5HSW
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+[Severity: Medium]
+Can a concurrent VIDIOC_S_FMT on one capture device race with
+VIDIOC_STREAMON on the other capture device in the pipeline and bypass link
+validation?
 
------BEGIN PGP SIGNATURE-----
+Each capture node has its own cap_dev->lock (used for vdev->lock and
+vb2q->lock). When both FR0_RGB and FR0_YUV links are enabled:
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawXLvwAKCRDZQZRRKWBy
-9LX2AQDqtWe+/c2doI6o6r2GLVgta+8/CIYTXwIAm9OktAVFEgD+JCsYrreT/btu
-r+NQEKefI1SmP+05yKhjlmTDl1hgKgw=
-=bWwD
------END PGP SIGNATURE-----
+CPU0 (cap_devs[0] VIDIOC_STREAMON)    CPU1 (cap_devs[1] VIDIOC_S_FMT)
+lock(&cap_devs[0].lock)               lock(&cap_devs[1].lock)
+mali_c720_vb2_start_streaming()       mali_c720_s_fmt_vid_cap_mplane()
+  lock(&mali_c720->device_lock)         media_entity_is_streaming() -> false
+  video_device_pipeline_start()
+    __media_pipeline_start()
+      mali_c720_link_validate()
+        reads cap_devs[1].format        mali_c720_set_format()
+      cap_devs[1].pad.pipe =3D pipe         writes cap_devs[1].format  <-- =
+race
 
---=-EcivsMOo8ZMd140z5HSW--
+When VIDIOC_STREAMON is subsequently called on cap_devs[1],
+__media_pipeline_start() sees pipe->start_count > 0 and skips link
+validation, so the buffer pool is configured with an unvalidated
+cap_devs[1].format that may not match the upstream FR pipe pad format.
+Taking mali_c720->device_lock in mali_c720_s_fmt_vid_cap_mplane() would
+serialize format updates against video_device_pipeline_start().
+
+[Severity: Medium]
+When both FR0_RGB and FR0_YUV links on the FR pipe are enabled, does
+disabling one source pad stream here (or in mali_c720_vb2_stop_streaming())
+prematurely disable the upstream vision_pipe subdevice while the other FR
+pipe source pad is still active?
+
+When the second capture device starts streaming,
+mali_c720_fr_pipe_enable_streams() calls v4l2_subdev_enable_streams() on
+pipe->remote_src (which returns -EALREADY without incrementing the upstream
+stream count) and sets the second pad bit in pipe->enabled_crops. However,
+mali_c720_fr_pipe_disable_streams() disables pipe->remote_src
+unconditionally:
+
+drivers/media/platform/arm/mali-c720/mali-c720-fr-pipe.c:mali_c720_fr_pipe_=
+disable_streams() {
+	if (pipe->remote_src) {
+		src_sd =3D media_entity_to_v4l2_subdev(pipe->remote_src->entity);
+		v4l2_subdev_disable_streams(src_sd, pipe->remote_src->index,
+					    BIT(0));
+	}
+	pipe->remote_src =3D NULL;
+
+	guard(spinlock)(&pipe->resizer_lock);
+	pipe->enabled_crops &=3D ~BIT(pad);
+}
+
+If starting the second capture device fails and jumps to err_disable_src,
+or if one of the two capture devices stops streaming first, the upstream
+vision_pipe subdevice is disabled and pipe->remote_src is cleared while the
+remaining FR pipe pad is still enabled.
+
+> diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-core.c b/driv=
+ers/media/platform/arm/mali-c720/mali-c720-core.c
+> new file mode 100644
+> index 0000000000000..2a46e7b348910
+> --- /dev/null
+> +++ b/drivers/media/platform/arm/mali-c720/mali-c720-core.c
+
+[ ... ]
+
+> +static int mali_c720_power_on(struct mali_c720 *mali_c720)
+> +{
+> +	int ret;
+> +
+> +	ret =3D clk_prepare_enable(mali_c720->clk);
+> +	if (ret) {
+> +		dev_err(mali_c720->dev, "failed to enable clocks\n");
+> +		return ret;
+> +	}
+> +
+> +	ret =3D reset_control_deassert(mali_c720->reset);
+> +	if (ret) {
+> +		dev_err(mali_c720->dev, "failed to deassert resets\n");
+> +		goto err_disable_clk;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_disable_clk:
+> +	clk_disable_unprepare(mali_c720->clk);
+> +	return ret;
+> +}
+> +
+> +static void mali_c720_power_off(struct mali_c720 *mali_c720)
+> +{
+> +	reset_control_assert(mali_c720->reset);
+> +	clk_disable_unprepare(mali_c720->clk);
+> +}
+> +
+> +static int __maybe_unused mali_c720_runtime_resume(struct device *dev)
+> +{
+> +	struct mali_c720 *mali_c720 =3D dev_get_drvdata(dev);
+> +
+> +	return mali_c720_power_on(mali_c720);
+> +}
+> +
+> +static int __maybe_unused mali_c720_runtime_suspend(struct device *dev)
+> +{
+> +	struct mali_c720 *mali_c720 =3D dev_get_drvdata(dev);
+> +
+> +	mali_c720_power_off(mali_c720);
+> +	return 0;
+> +}
+
+[Severity: High]
+Does asserting mali_c720->reset in mali_c720_power_off() wipe the
+ctx_mgr->reuse_buffer descriptor registers that were only programmed during
+probe?
+
+In mali_c720_probe(), mali_c720_init_ctx_mgr() calls
+mali_c720_ctx_mgr_init_reuse_buffer() once to program the hardware raw
+buffer descriptor at index ctx_mgr->reuse_buffer (including setting
+buffer->nonsecure to 1) before calling pm_runtime_idle(&pdev->dev):
+
+drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c:mali_c720_ctx_mgr_=
+init_reuse_buffer() {
+    ...
+	buffer_addr =3D mali_c720_group_base(&buffer->raw_group, ctx_mgr->reuse_bu=
+ffer);
+	mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
+					 MALI_C720_BUFFER_STATE_SW_EMPTY);
+	mali_c720_group_write(mali_c720, buffer_addr,
+			      &buffer->nonsecure, 1);
+    ...
+}
+
+When the ISP enters runtime suspend (or system suspend),
+mali_c720_power_off() asserts mali_c720->reset and disables mali_c720->clk,
+resetting the MMIO registers. On runtime resume, mali_c720_power_on() does
+not re-initialize ctx_mgr->reuse_buffer, so when streaming later stops,
+mali_c720_ctx_mgr_stop_input_port() enables the input port with an
+unconfigured reuse_buffer descriptor (nonsecure =3D 0), breaking the
+r0p0/r0p1 input cleanup workaround and timing out waiting for the input
+port to stop.
+
+> +
+> +static int __maybe_unused mali_c720_suspend(struct device *dev)
+> +{
+> +	struct mali_c720 *mali_c720 =3D dev_get_drvdata(dev);
+> +
+> +	guard(mutex)(&mali_c720->device_lock);
+> +
+> +	/* Active pipelines cannot survive the hardware reset during suspend. */
+> +	if (media_entity_is_streaming(&mali_c720->isp.mdev.sd.entity))
+> +		return -EBUSY;
+> +
+> +	return pm_runtime_force_suspend(dev);
+> +}
+> +
+> +static const struct dev_pm_ops mali_c720_pm_ops =3D {
+> +	SET_SYSTEM_SLEEP_PM_OPS(mali_c720_suspend,
+> +				pm_runtime_force_resume)
+> +	SET_RUNTIME_PM_OPS(mali_c720_runtime_suspend, mali_c720_runtime_resume,
+> +			   NULL)
+> +};
+
+[ ... ]
+
+> +	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+> +	pm_runtime_use_autosuspend(&pdev->dev);
+> +	pm_runtime_set_active(&pdev->dev);
+> +	pm_runtime_enable(&pdev->dev);
+> +
+> +	ret =3D platform_get_irq_byname(pdev, "isp");
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to get interrupt\n");
+> +		goto err_pm_runtime_disable;
+> +	}
+> +	irq =3D (unsigned int)ret;
+> +
+> +	spin_lock_init(&mali_c720->irq_lock);
+> +	INIT_KFIFO(mali_c720->irq_fifo);
+> +	ret =3D devm_request_threaded_irq(&pdev->dev, irq,
+> +					mali_c720_isr_top, mali_c720_isr,
+> +					0,
+> +					dev_driver_string(&pdev->dev),
+> +					&pdev->dev);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to request threaded IRQ\n");
+> +		goto err_pm_runtime_disable;
+> +	}
+> +	mali_c720->irq =3D irq;
+> +
+> +	mali_c720->media_dev.dev =3D dev;
+> +	mali_c720->media_dev.ops =3D &mali_c720_media_device_ops;
+> +	ret =3D mali_c720_media_frameworks_init(mali_c720);
+> +	if (ret)
+> +		goto err_free_irq;
+> +
+> +	pm_runtime_idle(&pdev->dev);
+> +
+> +	dev_info(&pdev->dev, "Media frameworks and entities registered successf=
+ully\n");
+> +
+> +	return 0;
+> +
+> +err_free_irq:
+> +	devm_free_irq(dev, mali_c720->irq, dev);
+> +err_pm_runtime_disable:
+> +	pm_runtime_disable(&pdev->dev);
+> +	pm_runtime_set_suspended(&pdev->dev);
+> +err_power_off:
+> +	mali_c720_power_off(mali_c720);
+
+[Severity: Medium]
+Can the err_pm_runtime_disable error path call mali_c720_power_off() a
+second time if the device has already runtime-suspended after
+pm_runtime_enable()?
+
+Runtime PM is enabled with usage_count =3D=3D 0 before IRQ request and
+mali_c720_media_frameworks_init(). If the device runtime-suspends during
+that window and a later step fails, err_pm_runtime_disable falls through to
+err_power_off without checking !pm_runtime_status_suspended(&pdev->dev) the
+way mali_c720_remove() does, causing an unbalanced clk_disable_unprepare().
+Also, neither err_pm_runtime_disable nor mali_c720_remove() calls
+pm_runtime_dont_use_autosuspend(&pdev->dev) to pair with
+pm_runtime_use_autosuspend(&pdev->dev).
+
+[ ... ]
+
+> +static struct platform_driver mali_c720_driver =3D {
+> +	.driver		=3D {
+> +		.name		=3D "mali-c720",
+> +		.of_match_table	=3D mali_c720_of_match,
+> +		.pm =3D &mali_c720_pm_ops,
+> +	},
+> +	.probe		=3D mali_c720_probe,
+> +	.remove		=3D mali_c720_remove,
+> +};
+
+[Severity: Low]
+This isn't a bug, but using SYSTEM_SLEEP_PM_OPS() and RUNTIME_PM_OPS() in
+mali_c720_pm_ops along with .pm =3D pm_ptr(&mali_c720_pm_ops) here would let
+the compiler drop the PM callbacks and drop the __maybe_unused annotations
+when CONFIG_PM or CONFIG_PM_SLEEP is disabled.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-initial=
+-upstream-candidate-v1-0-0cb9bde1bd30@arm.com?part=3D13
