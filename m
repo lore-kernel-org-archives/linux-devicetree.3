@@ -1,87 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795514219;
-	b=lyoqimXQIW6959PGmtFXUcY2cHVp/ZHghHcsVGPri4LWzUspXdUwZeXw5JqXNjjqEqFJ
-	 SY8Ovk2U6oTDeEpVnqfUpjWREvUd64qrARrZE5fXspQoxIl52MUyA+PlSxTnynjwUsHAv
-	 7BAWujz4UX0YjOETuzFEpZBgisfAX+iW4IMh4La1JK3CLrBlCWGHMdpQ3UfwPvHmeUQ2+
-	 /bCj4YArvs5WRkQ/JYqd+1RhDW5lG77PtA1/CJLSWPs93krmyyTZYZlLrM3zI82np4kBx
-	 YUZwyAqlp6dmxd7GGFgB2Nq7aOe/qRD5w+/NzhATxhTuSGAu0Xavqv+aTQzZccWR+oQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514219;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Z7ixIHGB/x6muOCf12bPPxl1sG73TY3AqjMKZ2p7Iqw=;
-	b=lE5ARM02DPd6M2omEm+GPFAjyiLiOUij71F95c3jOIXDW2b4Ne5zUAl08rtU2EPZI+Tf
-	 9YHLC1jEjPyR4OE0FSBIvOUsSSDKmXA56uVBY30qWpuSyJQauQtVj2Hq17cHNiuMidDVD
-	 GhAcdanpUH5Ys1N3Un3XPTy8yX7YjubLc5BY70KBzind+LTz9GuclvI1elQQe+wJ1c/qq
-	 aXV8kb5+4TWSOR5RZNuqmf1xNHqHGuAfo79sCO8T8ybS3ILl9RJcmxc+Ec0nmVDCd9K5Q
-	 ug8Mf0qyCF7zqWjLCk2xYfAWOqXspOvwE31nO4d2kgKbMZj0mQL/HR8BfUj8cR/6kcw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fmCLP9gt;
-	arc=none smtp.remote-ip=209.85.167.51
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795514289;
+	b=LG+8HiamDkNNbDd+hdyVoyAJwij2Uq6ce5vTkTU5GAsHNEYWp9FzvCCUraPu5HuQ7wQV
+	 2w9/ixwUL2RxmhrRAvFAl9xRmy5gYSIlkSf8Gl6rM8R+raoRQ8WaW7X9M/As1mqk/VB2n
+	 9nx1OAnTx3YNKxR3qLNtK/FE2PqbbboR31tOLUI2IvhSOksuytoWB+tno+q1zI1cHD4Am
+	 6Yc79nmXosLK4sypK1LnuMdpOZ8zvyqRJOmlZm484IwaUo+l5IMfMA8qcusAWv7poy6BP
+	 xOOyMFoVvze9l2V+5JL2shYvK9qmtyAZl4vTL7iHCDPO3Fie72LAPvN3UsN8wADNjGg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514289;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=GREhSGUQtC0PX1E2njt5jFgmaOss9pV5WXnxNri1B20=;
+	b=m4K5aFxEP1wUo3nOk4USP9q1zZNzz/kpvFmGTzNoPJMQcshK0bN8snh78X2ybvreYlla
+	 hAXwP8HOa9x/6Q8EKF2sPfOOm/qVDeEh7i2YpeJ+kQch2lmp4VrTct+zlqG0A0ezvCvMW
+	 pkJ3S9x/nBCvKhfnTdMG63egOgq2HbZwH+AReVmXPT1/U892ItUtjMr9WVcRCt6AbjrTP
+	 Md01E6GHzB4BklUPNp4yzAVsGNuOB14U7t35PU9gZgPyDER3TrtBBvNH001z+nng9PJqK
+	 4wIdvyZeS31vK7P51w4vmHz0Os5UKLU5+CPcOw7F45lQkuNcHmhCCif7wHeXc/dyu6Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ghQhe1Fy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C440606A327
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:56:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C440606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34AB606A32C
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F34AB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fmCLP9gt
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c1ad0d0b72so418932e87.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:56:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795514217; x=1796119017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Z7ixIHGB/x6muOCf12bPPxl1sG73TY3AqjMKZ2p7Iqw=;
-        b=fmCLP9gtyFynzPpKhVinxN3fvX0HMhPJbqD1her/p9bj1TkyZMQ3CUW2x1K2iN6Q6x
-         wZ4W5yjzxqt3fzPs1oofjP/eOC6ezr++bplcBpOLgydsEwa/ibvh5ZgR4ciR1XPO9Nun
-         tJP8gaFyKB3uXo1JAq1nJVoyQ3d6zu2DJFMcAnm9FOJt6bYNI5jAISAfNXrcQZLMqqbS
-         XbcOsFJ/qBdpwrj8ya6lkp1s4F/MKwr8F9x6FTOxCEkFzlQMc66c57dzu5b4dZXrAyqU
-         sjyN/lSUSN7rV1QbdPFM53mzZAdsRIXj0FmSSgxsnNdCJIdXXBRN5ZSI4uvoC3MJhezY
-         xrHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795514217; x=1796119017;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z7ixIHGB/x6muOCf12bPPxl1sG73TY3AqjMKZ2p7Iqw=;
-        b=GswwovZht08FSdVQxJPD1VcQrlRg1TQAckDk04t75OB5LKuxx9axG2GvJndNM99Bap
-         oPKBlkVbwyQykeovCOAK8XTwr/zM/HI4gpXsiJwmTHasCpSwQhGY7s4lieAIdI3bYCLi
-         DjOM+fQbmgYUxwPvvnzWUdMPfSx3DFK0GNFakCLkJuvfFI7rnpZTy/vjaBPxb0bLNp7f
-         fL/bCPnXVxM4QFL8WMwd6/tYm2yXcO4rXk1jFy6+quLP6LPHI2izb5DVaWqtIh+7BnWu
-         EUl10i7hT2NHx5TX17hK3iwR0JiMRWmzL2suz0CXOlHv2Qv4SQ9gHa+QF8rAVoQW9Z6g
-         D47Q==
-X-Forwarded-Encrypted: i=1; AL+hErHSkJ3psk0gGAzfCH8a+qVP4XV31iBP7ERVjeffHUbHWQBJwx+PhZMv7m5fgCQ5W/hPX+wrRsEZ5FX5@vger.kernel.org
-X-Gm-Message-State: APuU4Z9S45JYuSuVs8CvN5DEK8Ov7vwWBidkUacWnLxtEEXh/xpJ1nVB
-	EXmsTHDPooR7Zwm/xQbZKolFKdesgp0f9RllYA3Z5R1PCJjON7ipDUviHLC/OIBOAH0=
-X-Gm-Gg: AZFdTZcBtuXlFkCi2y5HHtVxFXAMlC+41XoS2lZHhfQI7UL4f+uCxNM2vmXdTSVqY4P
-	hURTrbTVxp3B8lTADuwtpKc+idWKuqxp2PeeFVQXoSoYruLYUFLC9FZSJm6e9Jx5Hx2vY/OiMAn
-	7YPmw/oVO/sCed608A4HpX4GD6on0rDvskwqxph3CLJ5lOR9E/EkO10aivCj78J6f1xdUtSxLJA
-	Wk7TrasERw7yDadHi0C4RAhQSaroRKV5V57/mCq13UyJ/1+F940tNdAmOOaMTX+6YqvV+voYYZK
-	3Rq1VWElP4wdNzTWzjmKpXgjL4MQavHPkLY3YtxiBT5k/cjjG5FI7oHJoUx9t1p28Rq5+YbLqCU
-	7+cFwlsJ5+snxMDhAudshjmdcLSMgVo4qS46fIX1s8H6cWt5FKnRJI/W869F/oQIio37UmQuJBB
-	wd+UhCAUVVvxpK9arqJKgmA9qGJ4k1zr75e33javijdhpQrW53SNwe7/GKlyKUPGxS9sGhVnHLq
-	4Gixy6BZJoTk4xo/pKVjLUz4SnqKpEbOCV3ViIJ1wKwh5+sCFYjTxnq7HqxzZAkjP6wDdp+zyMp
-	FOoCoL1r1nvDmV8VkNwiGpXRUulfxE9e8PMQogwbzJWKsfwPlIZNbt5okABQRqG7b28H6gosdbH
-	lRHrGuFU=
-X-Received: by 2002:a05:6512:b88:b0:5c1:5488:f57d with SMTP id 2adb3069b0e04-5c1bc85b735mr5132306e87.4.1795514217327;
-        Tue, 24 Nov 2026 01:56:57 -0800 (PST)
-Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bcff86c4sm3570448e87.22.2026.11.24.01.56.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 01:56:57 -0800 (PST)
-Message-ID: <da038528-5b25-4956-a14f-1827ffe2eef8@linaro.org>
-Date: Tue, 24 Nov 2026 11:56:44 +0200
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ghQhe1Fy
+Received: from localhost (unknown [IPv6:2a0a:edc0:0:701:64eb:cd28:15f0:fe7b])
+	(Authenticated sender: fdi@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 057F8201D27;
+	Tue, 24 Nov 2026 10:58:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795514286;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GREhSGUQtC0PX1E2njt5jFgmaOss9pV5WXnxNri1B20=;
+	b=ghQhe1FyRht4fL83/c0m6PtumIAjv+8UJg9/UlC7Vi95eyttHKMGSYroQK4vXx04Rh2O/I
+	SupD6fWikyCrWON/wU8A//xH6Hd/Nd6uNd1rxKR9Wg4il+cSgKaHrfZxJQ6SaE69j+SVP2
+	+zG2O7legrI3p/NQ2LGKy8jIguwOUcdPnXK3c9CqIPfhJEDBJuIep5OYV+EdeqNhBLuHLy
+	BZZKfYeY2e3+EB8PhXK+Ptid2ITkZIQkPZ8zSxjoUojVATgRaH4B6UFyoiNl2H5j+Q6wja
+	5madN61bG7E4RC7QjZj3y0dwvrl/zO/2+ZgoqHDSMQrjYE9prrN4ISGVwWh5Ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795514286;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GREhSGUQtC0PX1E2njt5jFgmaOss9pV5WXnxNri1B20=;
+	b=Ql8IGsCac3BTycRTjQ9oEn0IPGu7BgpjvAVdAIChU32q9ya8i1nzqJyAKcC1Hgasg9jGS2
+	Iqz+wWboX0khDoY4VJ2fdmTALbAjoFJe42cmZJ/hi5ZIuUfk+PskVpzyaKoo+4xUksy6Ry
+	sJhvHnW8J1dSJSmLNJl8c0MylFuQZUX7nXBg8S0ma8xHU/sQHmtR3dogQoK5vLVUHvu4I2
+	F5moon1ohUG4HdbNhZbn+g+UqadyBHDGTYDm3+0B7NvlOQhlXkZWWpOMpZxIYMZgdlBX4M
+	m1JmwRXSa6zvD3iWZQvhB7jwGbun0VhB00EWR2isMh0y6ai8XLUCovqhnVJm2Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=fdi@pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795514286; a=rsa-sha256;
+	cv=none;
+	b=fFihxgeQQOHq6iNTfu0dQZ5X+NqdsWKXc+TI/hg0QWdJC2RBl9fG4ARm52QwMqJ/gM3A0i
+	wOh0vMHZfHuS2NIkvDnQ1V0fw54Q+r9GvFfQklyTpr4IUF9YHxN2kchCuNdcbns2jDC01w
+	J7mdrDpj9b/OtXY0hbqAteWjkjIWzIGItiWQVQaQ/BP5cVKCpZFf1KRl8Q0bIbx73y8bc4
+	MSr7rr9J7GhxJTTUCptFaVxeD1Jwq10a7sl1Owllimok+S2y84+uJfCOfrdYHdYlBLi95y
+	fmvZAcgKB8qPfTmUIhuNQOYcHb8NSyMNAHX7WpVXJdIGC9fHPL7ugNLb4ULajw==
+From: Freimut Diener <f.diener@pengutronix.de>
+To: Frank Li <Frank.li@oss.nxp.com>, sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
+ conor+dt@kernel.org, Frank.Li@kernel.org
+Subject: Re: [PATCH v2 2/5] arm64: dts: freescale: imx93-11x11-frdm-common:
+ Describe PCAL6524 supply
+In-Reply-To: <awRmrCk8tOd_F8MG@SMW015318>
+References: <20261123-imx93-frdm-fixes-v2-0-dd97c7fca4b1@pengutronix.de>
+ <20261123-imx93-frdm-fixes-v2-2-dd97c7fca4b1@pengutronix.de>
+ <sashiko-outbox-229145@kernel.org> <awRmrCk8tOd_F8MG@SMW015318>
+Date: Tue, 24 Nov 2026 10:58:05 +0100
+Message-ID: <87jym2mtzm.fsf@theta.mail-host-address-is-not-set>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,82 +89,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] dt-bindings: media: qcom,sm8150-camss: Add SM8150
- CAMSS
-To: Andrew Gigena <mail@andrewgigena.dev>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org
-References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
- <21be3761-9da9-48c6-aaa1-b56f8625167a@linaro.org>
- <ab79818e-4b4c-4b58-bd2f-57d9ae4cddc3@andrewgigena.dev>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <ab79818e-4b4c-4b58-bd2f-57d9ae4cddc3@andrewgigena.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-Hi Andrew.
+Frank Li <Frank.li@oss.nxp.com> writes:
 
-On 11/11/26 01:46, Andrew Gigena wrote:
-> Hi Vladimir,
-> 
->> That's an intermix of names, and you will get a review comment from
->> Krzysztof about it, I stand aside.
+>> arm64: dts: freescale: imx93-11x11-frdm-common: Describe PCAL6524 supply
 >>
->> Here too.
-> 
-> Krzysztof did comment. I kept the vfe0/csid0/vfe1/csid1 order from
-> sc8280xp-camss.yaml in reg-names and interrupt-names, and asked him if
-> he prefers another grouping.
+>> This commit adds a fixed 3.3 V regulator node as a proxy for PMIC BUCK4
+>> and wires it to the PCAL6524 GPIO expander's vcc-supply to avoid a circular
+>> probe dependency between the PMIC and its interrupt parent.
+>>
+>> > diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
+>> > index b3dfe516b1d55..e81b2342c50dc 100644
+>> > --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
+>> > +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
+>> > @@ -49,6 +49,19 @@ button-k3 {
+>> >  		};
+>> >  	};
+>> >
+>> > +	/*
+>> > +	 * PCAL6524 is powered by PMIC BUCK4, but the PMIC uses PCAL6524
+>> > +	 * as its interrupt controller. Model the supply with a fixed
+>> > +	 * regulator to avoid a circular device dependency.
+>> > +	 */
+>> > +	reg_pcal6524_vcc: regulator-pcal6524-vcc {
+>> > +		compatible = "regulator-fixed";
+>> > +		regulator-name = "VDD_3V3_PCAL6524";
+>> > +		regulator-min-microvolt = <3300000>;
+>> > +		regulator-max-microvolt = <3300000>;
+>> > +		regulator-always-on;
+>> > +	};
+>> > +
+>> >  	reg_usdhc2_vmmc: regulator-usdhc2 {
+>> >  		compatible = "regulator-fixed";
+>> >  		off-on-delay-us = <12000>;
+>> > @@ -207,8 +220,7 @@ pcal6524: gpio@22 {
+>> >  		gpio-controller;
+>> >  		pinctrl-0 = <&pinctrl_pcal6524>;
+>> >  		pinctrl-names = "default";
+>> > -		/* does not boot with supplier set, because it is the bucks interrupt parent */
+>> > -		/* vcc-supply = <&buck4>; */
+>> > +		vcc-supply = <&reg_pcal6524_vcc>;
+>> >  	};
+>>
+>> [Severity: Medium]
+>> Should reg_pcal6524_vcc be added to the Devicetree when no separate
+>> fixed regulator exists on the board?
+>>
+>> Devicetree describes the physical hardware topology rather than encoding
+>> workarounds for Linux driver probe ordering or dummy-regulator log
+>> messages.  Modeling BUCK4 as a standalone always-on regulator-fixed node
+>> misrepresents the board's power tree in the DT ABI and instantiates a
+>> redundant platform device duplicating the regulator core's dummy
+>> regulator.
+>>
+>> In Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml, vcc-supply
+>> is optional, and other i.MX91/i.MX93 boards with the same PCA9451A and
+>> PCAL6524 topology (such as imx93-11x11-evk-common.dtsi and
+>> imx91-11x11-frdm.dts) omit vcc-supply on pcal6524 until the cyclic
+>> dependency between PMIC IRQ resolution and expander supply lookup is
+>> handled in the kernel drivers.
+>
+> Look like you just need remove vcc-supply property.
 
-Exactly.
+This would mean dropping the entire patch and keeping the warning about
+the dummy regulator:
 
->> Drop 'gcc_axi_sf'.
-> 
-> Downstream sm8150-camera.dtsi feeds GCC_CAMERA_SF_AXI_CLK to CPAS and
-> x1e80100-camss.yaml has gcc_axi_sf, so it is used. Can you explain why it
-> should go?
+    pca953x 1-0022: supply vcc not found, using dummy regulator
 
-There is no CPAS in the upstream CAMSS stack, and it makes it irrelevant,
-that's why I asked to remove it.
+Is that preferable?
 
-I believe one day CPAS will be modelled as a separate device tree node and
-device driver, then it gets its SF AXI clock.
-
->> Drop 'cam_' prefix and 'cam_sf_0_mnoc' also.
-> 
-> Prefix dropped. I kept sf_0_mnoc because SM8150 has a CAMNOC SF path.
-> Should I remove it too?
-> 
-
-Yes, please remove the interconnect, it adds nothing for upstream, and
-I believe your tests will show that the image streaming is not broken,
-if there is no 'cam_sf_0_mnoc'.
-
->> Or C-PHY, right?..
->> In fact you shall drop bus-type from here, because the link between
->> CAMSS and PHY's output is not a CSI-2 bus, it makes it inapplicable.
-> 
-> Agreed, bus-type is gone from the CAMSS ports. It only exists on the PHY
-> sensor input now.
-> 
-
-Thank you so much for working on SM8150 CAMSS support, will be glad to
-review the next version of the changes.
-
--- 
-Best wishes,
-Vladimir
+Best,
+Freimut
