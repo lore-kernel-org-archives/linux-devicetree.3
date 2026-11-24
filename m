@@ -1,92 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.251.196.230
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795493069;
-	b=Hj5m4VDlB29AN8fZPCFdV/8S+DMQ24eLE32B1eEVInC22KwNQLh1QhN5Yf9VdpkWUkcw
-	 qWrqrcLBmYf/ufp2IDRjdUkVq/XRZqSeMvCE8/Sa5QPePhIUGwYSBIecLB3jkPqxmtyAO
-	 GRYgdmQ1fm4YiKVaQCCSnLtxMp6XMGJjvGsvpSZNyA+ex2M56r7zBZSZxPukmM1bMWxhk
-	 QV/BGCKxTP5ElWmn0iAv+RNEZ5IYSl5ysB/sQRddtqYFknZx44jINhS9wzJ1UCQaslyee
-	 wyErF6p5/fm/IugKds8Y28DGlt5cWc9zyM1lAaKIqmu65wF6VE0h5h0YLknUxZKKMhA==
+	t=1795493180;
+	b=Khg2qJvLG46jWAmKQOyKgV/NbKbQvYMNpTajTMhIZgrzT7jtqyRKvMfmi6BAJKF+ece0
+	 hL5BSrGekifdb17aaqA7pgAGIPvpkOlDFvogNSGbVOqhWuj0+reOCcCfrMu5umUPM7Rj2
+	 vTlajZFqnqiIPgiFo0rxvs5UCEktaTgp+OKdj9/6UeH/irHEVybzEjlfjig1jFNEaTq4U
+	 bBGLqlFfmHMB7bTlcWBfHGqr8tzXT5tQpvhRjn0pkKnlpmivjYH+vaIQnKeQQTneOcw0a
+	 XejxmijkXCo2T3hJQ+Zaf1As+4bnrtgxdwr6XXfLuSTSCNCa46hB7AbaX7O1z6s3I4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795493069;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-originating-ip:x-tm-snts-smtp:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
-	bh=dEAWrCcLPoqiH1o+NThWPO02RVOnV+Cf+QRng64jUU0=;
-	b=kdVBoYaM8IyupDFIYpMeOJBAy8I+Z7Te9Dr02ZBqqv5dWXIDLm3bSk1Q/tUpcUMGY1rZ
-	 LVNItQIvS+F1o5XpwtNBGf1lW8Gct23b+p7V5z7wAHSrC4g6UN3NgVqlbwEOk6rUhxMML
-	 ufPpgTyJe36o+Pw6zRfxO+NP4uFgLPIPLqk4IgIYDRVQulQVz8TXOUOOIo/n645Wi7BDi
-	 TmbJYmLB2JJattveVm51ZWFkIPk/5Iy22DMHIFereCpci67j1ZZvcxlFmapw4MkYutGO/
-	 J+HzdG38m6Fs94Z0QZuzbit6p+FsoBftMmNeXtSSv9y/DACYYDoa1ZWlFjCJ/Jxc4ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795493180;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=MLyYUj0Pfd5koVb8sNQqwWsa4NkXJ2XNvfGWZKPAGUw=;
+	b=HYzYtj6BKg6sxO4iIA6tYlDvt8deEEnVl6sBqzhqOqwyMd2T4fZNCNkxPA1ZREFmcZYp
+	 X8aZ06KAWxJ6UwyzKxRnNY58L8deite3D0RHee02et3G6d6vzdb+RqFamLWqvdNEo8PT+
+	 MM1f0Hhl2P9bJaVCeystAJix8WsBNcWdgnghdN0iUgxR0a9nJAKyoLQyWDHYQV1nEsdNv
+	 YAeL7PVTI4JEQDfTb+TXI4y6v0RSqeRJ9QDpF81wQVPWLqmxsyB7c3mjM0oO/83+Oer4A
+	 5mbKLd4yfxW7kFw68K3Vw2GsquUw2fcSwrEDVUHST37+DvTKo4/kRpvz0THpNsi6DjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ite.com.tw;
-	spf=pass smtp.mailfrom=ite.com.tw;
-	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=Kks62JO3;
-	arc=none smtp.remote-ip=60.251.196.230
-Received: from ironport.ite.com.tw (itemail.ite.com.tw [60.251.196.230])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TLzc9/JR";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962F1606A326;
-	Tue, 24 Nov 2026 04:04:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 962F1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39A1606A33C;
+	Tue, 24 Nov 2026 04:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=Kks62JO3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=dEAWrCcLPoqiH1o+NThWPO02RVOnV+Cf+QRng64jUU0=;
-  b=Kks62JO3mqnaHK1RIRr3msZb8a4qYt0+vxLqcM8iAa9idpq8hqJdMn1T
-   u0DJIKqVjR/iMhAgLHeAYxsEmGpp+rsa874GLS7FDviTGrBn104ynbUwd
-   AvoNRMYZlmAFj63UImIFm8tzsOvzvPe2Ce7/FYuJUTHwiWt3Lr4SLypa2
-   heVHrsI0ZaAd9ss8T7pj0NFjGLD2YD8MKW5Yzth1za6RYU3u3SPYf7+m1
-   PbZFlILp2IUYoxEIok0L+fPfw8sOsMFfwIGDKUmL/SbGR7l0MqPRemRiN
-   kww/BBrMxyqj5q47mCwlM08OHcuChVZRW8ZL6lTQTKEfhBc2MWyntEl4K
-   A==;
-X-CSE-ConnectionGUID: 7nPmQY9CTQCv5g+SOWqvIQ==
-X-CSE-MsgGUID: HOGjvmW4SJuUrE1xCyuStQ==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 24 Nov 2026 12:04:25 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 6AO44OSh056372;
-	Tue, 24 Nov 2026 12:04:24 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 24 Nov 2026 12:04:24 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Tue, 24 Nov 2026 12:04:24 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <Hermes.Wu@ite.com.tw>, <mchehab@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <hverkuil+cisco@kernel.org>, <hverkuil@kernel.org>
-CC: <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <broonie@kernel.org>,
-        <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>,
-        <linux-api@vger.kernel.org>
-Subject: RE: [PATCH v2 9/9] media: uapi: it6625: remove the driver-specific
- audio controls
-Thread-Topic: [PATCH v2 9/9] media: uapi: it6625: remove the driver-specific
- audio controls
-Thread-Index: AQGjzAf29/U6qc1EEeqYH4GUceBqBQHomNqft6C07ZA=
-Date: Tue, 24 Nov 2026 04:04:24 +0000
-Message-ID: <508a134174154a868ff461aec97000b6@ite.com.tw>
-References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
- <20261124-upstream-it6625-alsa-i2s-v2-9-a154685f6989@ite.com.tw>
-In-Reply-To: <20261124-upstream-it6625-alsa-i2s-v2-9-a154685f6989@ite.com.tw>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: 7847B83CBCD3A8A8D30F669BDF4C6B94F7B0C9E1D7BBCDA02E58564A2202C2982002:8
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TLzc9/JR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14D31F000CF;
+	Tue, 24 Nov 2026 04:06:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795493179;
+	bh=MLyYUj0Pfd5koVb8sNQqwWsa4NkXJ2XNvfGWZKPAGUw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TLzc9/JRUleknlrRPuEsqiVmOYZC5Mo3VEfU9V8ki/EdeDrqhANVKqynj41u8FyxV
+	 2pYxVKHXrYf2YNTfqRA6cvQ5pRH0WlrFpqZuzy5Z0oOIFS2SoBB0T5vIRVaBNMyo4Y
+	 Mk23SkvcKfR4BluLcdFkePur+ZnhkPlnP1wBW1MDCnxza5pipUzm/VqgoNTNwwqE4G
+	 XZof9sXR4s6DM48vTf/VPLwwI3/ySjRSILiSuTh9M3OLati7zFJ+k4e0SVl/O6fVxJ
+	 s9Ifu2RtckshBHiYppkVG8dvvOLAtJ3GCD2nQ9QVpdS/dZgoWd758HUzaynf8D5quA
+	 DhHvCPIECjXvA==
+Message-ID: <sashiko-outbox-230495@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 8/8] clk: clocking-wizard: Use separate
+ notifier_block for each clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shubhrajyoti Datta" <shubhrajyoti.datta@amd.com>, linux-clk@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261124035613.1968260-9-shubhrajyoti.datta@amd.com>
+References: <20261124035613.1968260-1-shubhrajyoti.datta@amd.com>
+ <20261124035613.1968260-9-shubhrajyoti.datta@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 04:06:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,10 +60,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 6AO44OSh056372
 
-VGhlIFNpZ25lZC1vZmYtYnkgaXMgbWlzc2luZyBmcm9tIHRoaXMgcGF0Y2gsIHNvcnJ5IGFib3V0
-IHRoYXQ6DQoNClNpZ25lZC1vZmYtYnk6IEhlcm1lcyBXdSA8SGVybWVzLnd1QGl0ZS5jb20udHc+
-DQoNClRoZSBuZXh0IHZlcnNpb24gd2lsbCBjYXJyeSBpdCBpbiB0aGUgcGF0Y2ggaXRzZWxmLg0K
-DQpCZXN0IHJlZ2FyZHMsDQpIZXJtZXMNCg==
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] clk: clocking-wizard: missing Fixes: trailer for commit
+  812283cd5463
+--
+
+commit 0c67f4b1f8ba075a81a9fa7a79cc2bab19b7b2cc
+Author: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+
+> clk: clocking-wizard: Use separate notifier_block for each clock
+>
+> A struct notifier_block has a single 'next' pointer, so registering the
+> same instance to two different notification chains corrupts the linked
+> lists. Use a dedicated nb_axi for the s_axi_aclk notifier chain.
+>
+> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+
+[Severity: Low]
+This fixes a bug where clk_wzrd->nb was registered to both the clk_in1 and
+s_axi_aclk notifier chains.  Should this include:
+
+  Fixes: 812283cd5463 ("staging: Add Xilinx Clocking Wizard driver")
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124035613.1968=
+260-1-shubhrajyoti.datta@amd.com?part=3D8
