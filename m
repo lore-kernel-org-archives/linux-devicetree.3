@@ -1,62 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795530220;
-	b=HJcoQgZJrZCasD8JlJYzWcFRIUuWItOrOx6jEnwJXW4feCLLZRKrcVN91lXqFZuMuhre
-	 9Li6n9rvQpEfZ8sAy5Fq6Owd/KvB1eMbwE1LWVe81JvibjmrXiWiogOiuVz3R74CpZD8K
-	 6rzlukHf2i5UMX6exQo8dxnXQ9GG3X7mUoDcO0iBS47glq0zEULyq+5mgwvbFMe+loUZE
-	 TUwyCqa4jRoTZwzmg5pGRULBS9/EsPaw7NUebSfaXJuTBikO4enIyiIpRs8xnH+r08U6y
-	 BclklXWJMi7GCKwS407p2wb/T0X7IecoJaP1tKMldfU53Fb0niMb0DcVq+jO3LccvEQ==
+	t=1795530240;
+	b=IHRsSgycMIDLIRU1IebDD3QZRZtNQlDtZQ9yGsFJV9DbPoAZVLzGInUItVtXnjQMcu/E
+	 gJUP60F7fdIT8QznnkL7b47Lnnx3GpVnqOrEpOQPPQdy4FcI8FPDo3OxpXsOripwesiHC
+	 sObrZK4C0gSp5U6Omkdh4h/Zte0TKc//72fEq0cl2K2PpvvcOYEWPC02MjqLVrOAF0daL
+	 CvLCahb8SePAzxaReNNmeGgteThE2/UapFp5DyrdclkwQ3v9Qg0TuQGpYBwzikcg9UVVL
+	 XYgl1Jk1urUgKjHsA2SDNBLFFJzxJi2homoeNVFMTxP+q/h0GbXMIkfa8CEOHnlA2ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795530220;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nKFAQ/eQi2+pKN1nmF1ojcPhRlz5R78v/XFET3w6CA4=;
-	b=v973sjNy6cSP13Kz2WC0yJnZTWT0kFvGCrwPE8xJTdEo1SYePvHNrSqsLnFbufuwE69G
-	 0WuxBSo06RjRYJ6Hs53E2nDfhR+v2HJL0TEELCoLQtTGODJlemPZYkR0y5KT0AQRfsc7g
-	 xOjPrHkHuMyMPmiHPtiWBZcXlhkKCjRqC0EW2rPKj4xq5oXT51d8Rci72Fa+4ayvARFtE
-	 fa4EXXpMz47ctiv/EiZhKDfR7DiE7sqAOZGBg71FuUaqEhuCLd4feuPAfNzRlCY3nG6QC
-	 acFfo1pTND5OBjyfxZXnBBJqQhL7SO44eFXqsX+MC1gX4OSDupfsAHP3AkkfBx9KLWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795530240;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=NrmR7f4NWvJtaGShihv5Oaav7f9YUTikEYvCAM/Zj8A=;
+	b=KugP51xtyj47j8V5yuRr/kF4V7P+d6a3HYLq4A6L48zWCNlx75NCgbZA/8n3iDaIRM4P
+	 F+6vhcUke2SBleQjhsN67aheHrHbnQ+w4QG8BqPq6/d2kh7PRFNuie28IfO1P8WZ6XxJG
+	 tl/wGz6esIJep207tsRb+XrkQkHG8TpU7oJImYEDN66bGCifqIPw8K0j7TRYP0wn5LGn8
+	 fVXa0k7cPvDtJ22yoWBvjudxrutEImQF0ofcgAAr2V2T0mbfTXQX6DLQ+O9jJrzPNfhju
+	 joa7Fcp60zj3iZi41FH95ITe1e7x5/YmPSdzuW4iEWwGQ0S6oOBl56hRzxrbCciwCsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1vZMMFUR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=C8M1+SN+;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3830C606A31E;
-	Tue, 24 Nov 2026 14:23:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E38F606A32A
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 14:24:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E38F606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1vZMMFUR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CD041F000D1;
-	Tue, 24 Nov 2026 14:23:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795530219;
-	bh=nKFAQ/eQi2+pKN1nmF1ojcPhRlz5R78v/XFET3w6CA4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=1vZMMFURAQstEAN6/qM0Pgk2S/TZOWOPkhpVXU0kKW1xIE8Ue4kWLmiRAJhgtRT0N
-	 sOT7euao3S+uLTaQGhgYnKeo8zhdHNUHM59RhT6D+CZZgCt3vIzC2AACBLvpT5l04Q
-	 TEOtMl2ZXhVsQwgLepaW9OJExmWGpEj2lxpnaCKo=
-Date: Tue, 24 Nov 2026 15:24:00 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: Re: [PATCH v8 2/5] include: linux: phy: Add phy attribute "type" and
- associated helpers
-Message-ID: <2026112445-draw-enzyme-628e@gregkh>
-References: <20260913-eusb2-interrupt-v8-v8-0-0f505b9c394b@oss.qualcomm.com>
- <20260913-eusb2-interrupt-v8-v8-2-0f505b9c394b@oss.qualcomm.com>
- <9fa428e0-f685-410c-bcdd-319fd427d2cc@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=C8M1+SN+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=NrmR7f4NWvJtaGShihv5Oaav7f9YUTikEYvCAM/Zj8A=; t=1795530240; x=1796739840; 
+	b=C8M1+SN+SyxPP5AW+s6I/sBL2KqFAW3E3QJGTgSikI7+HnWSU8AznlacoOxzRLiW2AyrxIktkVo
+	L6WpnCmoBr7GySzD70da7goNISGRiyQNBUunTLf3xnSY/wfRcKOORWLBEVJ24P8SGgPj+9OHCkidm
+	ROe8AUj3BCFxJF1rVZBRfssGDXqrLRONs4d6WLhYerxhhCiZPatOzCjZgDYpvd5f3gFabTBBLvJVu
+	jPUmmE5HllI+7BtGER1PavmxWkNdBtvsnmuo3CxgEhDj6LgByj9hwpNot9OI6zsf5iCnOVphcXfi6
+	jlHDd6yIzqeSSzNZ916USVVKcPj24VIxsCxQ==;
+Date: Tue, 24 Nov 2026 15:23:49 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Neil Armstrong
+ <neil.armstrong@linaro.org>, Dmitry Baryshkov <lumag@kernel.org>, Robert
+ Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Christoph Niedermaier
+ <cniedermaier@dh-electronics.com>, Marek Vasut <marex@nabladev.com>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Subject: Re: [PATCH 0/2] drm/bridge: tc358762: fix reset handling
+Message-ID: <20261124152349.6a1b6826@kemnade.info>
+In-Reply-To: <7a94fa5a-ddfc-449e-b014-387d8e868e97@ideasonboard.com>
+References: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
+	<7a94fa5a-ddfc-449e-b014-387d8e868e97@ideasonboard.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,41 +75,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9fa428e0-f685-410c-bcdd-319fd427d2cc@app.fastmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 24, 2026 at 10:18:06AM +0100, Arnd Bergmann wrote:
-> On Sun, Sep 13, 2026, at 16:40, Krishna Kurapati wrote:
+On Tue, 24 Nov 2026 15:44:40 +0200
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+
+> Hi,
 > 
-> > diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-> > index ea47975e288a..038c2b58bbe1 100644
-> > --- a/include/linux/phy/phy.h
-> > +++ b/include/linux/phy/phy.h
-> > @@ -21,6 +21,8 @@
-> >  #include <linux/phy/phy-lvds.h>
-> >  #include <linux/phy/phy-mipi-dphy.h>
+> On 24/11/2026 13:54, Andreas Kemnade wrote:
+> > The bridge driver desserts reset after disable and asserts that
+> > upon enbale. That requires users to workaround that by declaring
+> > the reset gpio wrongfully active high. As an interim solution,
+> > ignore polarity, until things have settled to fix it afterwards.
+> > That will break setups with an additional inverter in the signal
+> > patch but those should be uncommon, at least not seen in in-tree
+> > devicetrees. Fix polarity in the one device tree actually declaring
+> > a reset line. That patch has to go in after the bridge fix.
 > > 
-> > +#include <dt-bindings/phy/phy.h>
-> > +
-> >  struct phy;
+> > The issue came to sight during experiments with reset lines on the
+> > Epson Moverio BT-200.  
+> Indeed, the driver has it the wrong way... But what is the way to fix 
+> this? Fixing it will always break the backward compatibility with dtbs.
 > 
-> This broke the build in linux-next because there are now two conflicting
-> definitions of PHY_TYPE_PCIE visible in drivers/phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c:
+> Is it worth it? Or is it easier to just adjust the bindings doc to 
+> mention about it, and add a note to the driver that the gpio is set the 
+> wrong way "on purpose".
 > 
-> In file included from include/linux/phy/phy.h:25,
->                  from drivers/phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c:15:
-> include/dt-bindings/phy/phy.h:15:33: error: expected identifier before numeric constant
->    15 | #define PHY_TYPE_PCIE           2
->       |                                 ^
-> drivers/phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c:47:9: note: in expansion of macro 'PHY_TYPE_PCIE'
->    47 |         PHY_TYPE_PCIE = 1,
->       |         ^~~~~~~~~~~~~
+I am a bit wondering whether to use the reset-gpio driver as aux device,
+and then we would need correct dts. There are two chips sharing a single
+reset line, so I have to deal with shared gpios. It seems not to work
+that well directly. But first I try to have things working with well-defined
+boot state.
+That reset-gpio stuff was invented exactly for that case, see commit
+cee544a40e4426040946e685988b1489f13e6600.
+
+> Or, if this is to be merged, I think the code around the 
+> gpiod_set_raw_value_cansleep calls should have a comment to highlight 
+> why it's calling raw funcs and what the plan is.
 > 
-> We probably just need to rename the enum values in phy-qcom-uniphy-pcie-28lp.c.
+Yes, the comment should be there.
+Sashiko suggested to add an entry to 
+of_gpio_try_fixup_polarity()
 
-Already fixed in my tree, should be showing up on next linux-next.
+to have fixups.
 
-thanks,
-
-greg k-h
+Regards,
+Andreas
