@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540084;
-	b=VC4hOjYTQ2jmIHBygXYAjOLBn2iI83ED+ccHbDfX8puFrejTRki3ZMsJGEaJUTknyjUF
-	 RGqN9Z0aMqI8b17/mSV0EMPjqTwcKUEFKpwJH5gR0ffwAhtphi8N6DwoSmDAm/xiwUFMn
-	 Pud65E/qiS5y82sh2hF8xlJCOk5GP+vMbAxppfIzb927/9qiDFNmsEsJ6atwjPdSEowGU
-	 Uc1pFknC6jiOxs5bpMbGYYs45myXQTbRLqXY/9bchx6AXetKyVvULm5rpE3YLRxZxft21
-	 otNb5XYctc5RUqZbEMCQAtlVBSSUikvRQEru5Hn0LBlVXptKz0WvtHfXlVL8OpEicnw==
+	t=1795540086;
+	b=pWIO/jFGpQP8xx3y8jbh++MHwbjgV/alZ0YGlAvqqDHy1Rn9+jmn3q7U4oqWh09EFBA/
+	 xP/Scil+aQ3Tar4zijG28r5SfDPl/2KmkYKs65TJzwfmOm4RhnBPKO1edDZ2AvUg7ioYJ
+	 WITSy7j9mWP8JIT7ia1QpIvpl+aKfxvdibLk2mLw1R14G8UQXOFgK0oNrI+1+5b83aqrw
+	 AaEfMyY9BHLm9KoHwE9PlOzNHSZpJjPriA/I6mevV8D6+SfQ0pKhqOAePYSs+avS8WurD
+	 G0nQzLaPCe32McY2IkUbFLHNUQ4i4EBS8rM/umKVoTTdArZO9EXTKe4qCCl856ZHcZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540084;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540086;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=ac4HQgRrh030Q7KsFFIZ7pcRQeZ9l3kHRvjl2f4/5WU=;
-	b=cG5AvPrwpwhmzC01qMIec8OECERr86+Fwa0L+UfCKPy2YvST9gO6THTVOtYWNJpNqZcs
-	 OVXuaZr/Rx1tjcoZr0XMsG9QTdBcfa7LNnSXMnPcf6LVq7Zuw07x4N9FSq42CBAg71cDJ
-	 LC4Mz9UJzD0PNs/Rc4qA02h1fiV+lRWlf1nbja8CU1ka/6JyXgGqDxBmQTIlynqQKDH1E
-	 kJSzXFH3PqBgdo8vfEXB1cBEY0PAub2oDC+aprfuRJ13LB4mlWDQ5NVGCVFpeC9Jmfron
-	 LjPQhwn/GWlWUCzv4apZkV9hRhQ1LJV6AJQ076kK7Vr0w91qZq0VNXm1NyQCZENfyEw==
+	bh=PLAKBBjfWwaZTSxQGEG3u3gLM52RfLn5YnoJBhqd8CM=;
+	b=NKC6hd+rAND0i18KJne3PRY18JDv6Th94Jls7IUgWhK3wPwS1iURpgU20dkpEA21nhYw
+	 Ap1HD9fL7J1r4ZSUL8MZo0KZMISYgN4idsFjYlIKJrMTqE00i9+YMDK0fLo9kZJbUzJXq
+	 29JmleYOIRQHYYXeY0769XS5YnaIrN1yIv0ZBk4V3HkQdpR2vp64e9mHJGY313CWWsdD7
+	 t/KWZbL9L8+NP4hWEV53CjEMPvK6Oy+BzFRorvUH0BysrMw4M3IgGqeG8PrnFkEILB1wu
+	 1gecqVcWWYivN8PV9OHgtkUl1HyChsZ+UDaEkoyJ8V0+NO0h1890azs7W/kDceSsRmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iwyVu0H0;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SWuzB456;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 98054606A31E;
-	Tue, 24 Nov 2026 17:08:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98054606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6130A606A683;
+	Tue, 24 Nov 2026 17:08:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6130A606A683
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iwyVu0H0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SWuzB456
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A454A497;
-	Tue, 24 Nov 2026 09:07:59 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AED60339;
+	Tue, 24 Nov 2026 09:08:02 -0800 (PST)
 Received: from e126453.arm.com (e126453.arm.com [10.33.8.63])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 601F93F763;
-	Tue, 24 Nov 2026 09:07:59 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D43793F763;
+	Tue, 24 Nov 2026 09:08:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795540082; bh=JYHWC9vW7QhzNeim9s022o1djp5tzvYf6V+7U5+LH7Q=;
-	h=From:Subject:Date:To:Cc:From;
-	b=iwyVu0H0d/FWuCUJc/wVHAadzQrVfY2UwcGEQgHdDo80Mu8ZgoYo4WDdKyUDWKSYl
-	 VClBj1LwfcxyTo2dS0MEguFEyxvPFL2tHzJgE1WZ+DJYUTzVarD38gL0fGxVakqlrU
-	 W65xGnaqU9szfd9SQjBJfo7fF7rkRPsQRdqfDIq8=
+	t=1795540085; bh=Ee1uoVS+C8ceA693P5UP5IkBsXFB6FbSUzM+Y1SvUg0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=SWuzB456fR+qplsh3lo8vtTGPCZvp9u96n/f1B4qEmSYCXYgXEtQsHLDcYXbvA/e6
+	 ybntTbyZJCCzD5sjf/xhnq0zq7V5B2zS2TxkOKIx2g2WrBJdjcPhYTX2jH79w/IOyP
+	 ovKpLwGGo6FEJlS/GGjpQ6wzXqzUlQtyj7CWHdeo=
 From: Anthony McGivern <anthony.mcgivern@arm.com>
-Subject: [PATCH 00/24] Add Arm Mali-C720 Image Signal Processor Driver
-Date: Tue, 24 Nov 2026 17:07:28 +0000
-Message-Id: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+Date: Tue, 24 Nov 2026 17:07:29 +0000
+Subject: [PATCH 01/24] media: uapi: Add 24-bit Bayer media bus formats
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,10 +57,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFDEBWsC/x3M0QrCMAyF4VcZuTZoOhnoq4gXaZu5gKsjrSKMv
- btxNwc+OPwrVDGVCtduBZOPVn0VBx06SBOXh6BmN4RTGIiox3hGLdqUn/heajPhGROXrJmb4Ji
- ELoGG3u/gjcVk1O/ev93dkatgNC5p+ldnycrHfWHbfubVDlWNAAAA
-X-Change-ID: 20261113-b4-initial-upstream-candidate-fce192163026
+Message-Id: <20261124-b4-initial-upstream-candidate-v1-1-0cb9bde1bd30@arm.com>
+References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
 To: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Cc: Anthony McGivern <anthony.mcgivern@arm.com>, 
@@ -77,1516 +75,644 @@ Cc: Anthony McGivern <anthony.mcgivern@arm.com>,
  Conor Dooley <conor+dt@kernel.org>, 
  Anthony McGivern <Anthony.McGivern@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=58244;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=14554;
  i=Anthony.McGivern@arm.com; s=20261124; h=from:subject:message-id;
- bh=JYHWC9vW7QhzNeim9s022o1djp5tzvYf6V+7U5+LH7Q=;
- b=saMFNkUW54vIJFABjZRLGnmW1YDyPYwar3Iza0lYfqekOe5vaPGqtKkWVg69IdajqXD0ukoTa
- x7PIbzQvhQeD89oOqJjb0I0GshrNQTC6eAI8nYSG2dIT0zUYzwrSKPH
+ bh=jW1v1LS7b8VuSi9Ac9uZdb1A5tjhReRMElWF2Idbxps=;
+ b=qdr76PomAtxyqkFNIVUVV3J1JBZ09kZtfGVY5UXu/OQelS3MOZFmo1Q2uyO0jWFdSsuxnbgJe
+ Fl8FbQKTWuIAHIHq36P54QUXCVoD/PXRS2cDUxVb7C2wEtY5D+vcHgB
 X-Developer-Key: i=Anthony.McGivern@arm.com; a=ed25519;
  pk=cvw1HHVRuWpdkn55JpnRyCO2oGBkBWaBXcc2S3CmHTU=
 
-This patchset introduces a driver for Arm's Mali-C720 Image Signal Processor.
-The driver uses the V4L2 / media controller API and implements the following
-ISP features:
+From: Anthony McGivern <Anthony.McGivern@arm.com>
 
-- Input and human vision pipelines:
-	The ISP has numerous processing pipelines. We implement support for
-	the input pipeline as well as the human vision processing pipeline.
+The Mali-C720 ISP processes Bayer data on a 24-bit internal bus. Add
+media bus format codes for all four Bayer orders and document their
+data layout.
 
-- Full resolution capture pipeline:
-	This capture pipeline supports both cropping and downscaling, as well
-	as simultaneously outputting RGB and YUV data.
-
-- Basic statistics and parameters blocks:
-	We have implemented a small set of the ISP statistics, covering
-	pixel intensity histograms across both the input and human vision
-	pipelines, as well as color statistics. We also include a small set
-	of parameter blocks for digital gain, white balance, black level, square
-	and square root transforms, and lastly decompanding.
-
-- Basic output format support:
-	Currently we provide support for RGB24 and NV12 output formats.
-
-The ISP supports much more functionality than this which we wish to include
-in future patch series, some of which is possible in the existing framework
-while others will require further development.
-
-Alongside this we also have a series to enable support in libcamera. Both
-branches can be found on our GitLab [1]. We also have branches present for
-features currently in development that are not included in this series [2].
-
-The features we would like to implement in the future include:
-
-- Multi-context:
-	The ISP supports up to 16 contexts, plus 4 additional contexts reserved
-	for functional safety. This series only adds support for a single
-	context, though infrastructure is in place to configure the ISP's
-	context manager unit. Please see our GitLab where we have implemented
-	a temporary solution for enabling multi-context by duplicating the
-	media device [3].
-
-- Additional capture pipelines:
-	The ISP has a number of capture pipelines that can be used in parallel.
-	This can include up to four "full resolution" capture pipelines, a raw
-	pipeline for Bayer data, a "foveated" pipeline for three separate ROIs
-	of the same image, and lastly a Gaussian pyramid pipeline. The latter
-	introduces a challenge with representing the image format since the
-	output data is four levels, each being a quarter the resolution (half
-	the width and height) of the previous level.
-
-- Dual image processing pipelines:
-	In addition to the human vision processing pipeline, the ISP has a
-	separate processing pipeline that targets computer vision applications.
-	This allows the same input frame to be processed for both human and
-	computer vision applications in parallel, and be output simultaneously
-	through separate capture pipelines.
-
-- Multiple input ports:
-	The ISP input frontend supports up to four physical inputs and each
-	of these can carry up to four virtual channels, for a total of 16
-	inputs. This series only enables support for input 0/stream 0 until
-	userspace routing ioctls are enabled to configure a route from the
-	desired input/stream to the input source pad. You may refer to our
-	multi-context implementation where we must split this frontend to
-	provide each context its own input, which limits our flexibility.
-
-- Additional format support:
-	This initial candidate supports a basic set of output formats, with
-	further support planned in a future series.
-
-- Processing modes:
-	The ISP can operate in various modes: Streaming, TDMF fix, TDMF flex,
-	and memory-to-memory (M2M). This series uses TDMF flex mode with a
-	single context. Support for the other modes is planned for future
-	series.
-	- TDMF fix/flex: Frames are written from the input frontend to DMA
-			 buffers. When a buffer is written, that context is
-			 marked as schedulable. For flex mode, contexts are
-			 then scheduled on a first-come, first-served basis.
-			 For fix mode, the processing order is strict and
-			 preconfigured.
-	- Streaming: Used for low-latency operation with a single camera.
-		     Frames are fed directly from the input to the pipeline.
-		     The DMA buffer is only used if internal FIFOs overflow.
-	- M2M: Allows frame buffers to be provided directly, bypassing the
-	       input frontend.
-	The mode of operation is configurable per-context, meaning it is
-	possible to have one context running in TDMF flex, while another is
-	using M2M mode.
-
-- Multiple exposure:
-	The ISP can support up to two exposures, using a pipeline frame
-	stitching module. This also requires input routing support, as well
-	as the ability for sensor subdevices to output multiple streams.
-
-- RGB-IR support:
-	Our ISP can receive a 4x4 RGBIr CFA pattern and internally split this
-	into separate RGB and monochrome images which may be independently
-	processed in the pipeline. Support would require describing the RGB-IR
-	CFA pattern, potentially using the generic raw formats and CFA controls
-	proposed in Sakari's metadata series [4].
-
-- Streaming outputs:
-	Alongside the traditional memory outputs, some capture pipelines have
-	outputs that physically connect to a downstream device. This may
-	already be possible with a downstream video capture device and V4L2
-	async notifier callbacks, but there may also be cases where the ISP is
-	connected to a downstream subdevice that consumes the data directly and
-	thus requires no capture device or any allocated buffers. In such a
-	case, this subdevice should be able to start the media pipeline without
-	a video device that traditionally exposes STREAMON/STREAMOFF ioctls.
-
-Our ISP is also configurable at synthesis time. This means that certain ISP
-features may only be present depending on the customer's implementation. Our
-driver tackles this by parsing the ISP's "capability discovery" table, which
-provides details about available pipelines and the presence of particular
-modules within a given pipeline. Some details are not fully exposed by this
-table, in which case we use hardware identification checks.
-
-Details about the ISP can be found on Arm's support page [5].
-
-The driver exposes 6 V4L2 subdevices:
-
-- mali-c720 tpg X: 2 test pattern generator inputs
-- mali-c720 input: Frontend for receiving sensor inputs
-- mali-c720 isp: Represents the ISP input pipeline
-- mali-c720 hv pipe: Vision pipeline for human vision processing
-- mali-c720 fr 0 pipe: Full resolution pipeline with downscaling and cropping
-
-Along with 4 V4L2 video devices:
-
-- mali-c720 fr0-rgb/yuv: Separate RGB and YUV capture devices for the FR0 pipe
-- mali-c720 3a stats: Capture device for statistics to support 3A algorithms
-- mali-c720 3a params: Output device for parameter buffers to configure the ISP
-
-Support is implemented in the parameters video device code for a few of the
-ISP's hardware blocks, with more support planned in future patch series. The
-buffer format uses the v4l2-isp extensible parameters.
-
-Statistics support follows a similar pattern, in that we currently only
-support the pixel intensity histogram present on the input and human vision
-pipelines, as well as HV's color statistics. We make use of the v4l2-isp
-extensible statistics here, allowing for additional blocks to be supported
-in the future.
-
-The driver exposes custom V4L2 controls to enumerate the supported statistics
-and parameter block IDs. This aims to account for hardware being synthesised
-with or without particular modules, as well as future revisions including new
-modules or updated modules that require a different register set. Userspace
-should query these to determine what algorithms it should enable based on what
-statistics it will receive and what modules are programmable.
-
-Below is the v4l2-compliance report for the driver. The failures reported
-relate to width and height being set to 0 for MEDIA_BUS_FMT_METADATA_FIXED
-in the ISP subdevice. This appears to be a tool limitation as seen in other
-drivers.
-
-[1] Upstream submission branches:
-  - https://gitlab.arm.com/media/isp/linux/-/tree/mali-c720/r0p1/v7.4-rc4/mainline-v1
-  - https://gitlab.arm.com/media/isp/libcamera/-/tree/mali-c720/r0p1/v7.4-rc4/mainline-v1
-[2] Development branches:
-  - https://gitlab.arm.com/media/isp/linux/-/tree/mali-c720/r0p1/v6.18/dev-v1
-  - https://gitlab.arm.com/media/isp/libcamera/-/tree/mali-c720/r0p1/v6.18/dev-v1
-[3] Multi-context temporary implementation:
-  - https://gitlab.arm.com/media/isp/linux/-/tree/mali-c720/r0p1/v6.18/dev-v2-multicontext
-  - https://gitlab.arm.com/media/isp/libcamera/-/tree/mali-c720/r0p1/v6.18/dev-v2-multicontext
-[4] Sakari's metadata series - https://lore.kernel.org/linux-media/20261118132819.213473-1-sakari.ailus@linux.intel.com/T/
-[5] Arm support page - https://support.arm.com/compute-ip/mali-c720ae
-
-v4l2-compliance 1.33.0-5455, 64 bits, 64-bit time_t
-v4l2-compliance SHA: 95ad25f6a77a 2026-03-17 13:08:36
-
-Compliance test for mali-c720 device /dev/media0:
-
-Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-
-Required ioctls:
-	test MEDIA_IOC_DEVICE_INFO: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/media0 open: OK
-	test MEDIA_IOC_DEVICE_INFO: OK
-	test for unlimited opens: OK
-
-Media Controller ioctls:
-	test MEDIA_IOC_G_TOPOLOGY: OK
-	Entities: 12 Interfaces: 12 Pads: 20 Links: 23
-	test MEDIA_IOC_ENUM_ENTITIES/LINKS: OK
-	test MEDIA_IOC_SETUP_LINK: OK
-
-Total for mali-c720 device /dev/media0: 8, Succeeded: 8, Failed: 0, Warnings: 0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/video0:
-
-Driver Info:
-	Driver name      : mali-c720
-	Card type        : ARM Mali-C720 ISP
-	Bus info         : platform:60400000.isp
-	Driver version   : 7.4.0
-	Capabilities     : 0xa4201000
-		Video Capture Multiplanar
-		I/O MC
-		Streaming
-		Extended Pix Format
-		Device Capabilities
-	Device Caps      : 0x24201000
-		Video Capture Multiplanar
-		I/O MC
-		Streaming
-		Extended Pix Format
-Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x03000016
-	Type             : V4L Video
-Entity Info:
-	ID               : 0x00000014 (20)
-	Name             : mali-c720 fr0-rgb
-	Function         : V4L2 I/O
-	Pad 0x01000015   : 0: Sink, Must Connect
-          Link 0x0200002e: from remote pad 0x1000012 of entity 'mali-c720 fr 0
-              pipe' (Image Signal Processor): Data
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/video0 open: OK
-	test VIDIOC_QUERYCAP: OK
-	test VIDIOC_G/S_PRIORITY: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_DBG_G/S_REGISTER: OK
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 1 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Control ioctls (Input 0):
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
-	test VIDIOC_QUERYCTRL: OK (Not Supported)
-	test VIDIOC_G/S_CTRL: OK (Not Supported)
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 0 Private Controls: 0
-
-Format ioctls (Input 0):
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK
-	test VIDIOC_TRY_FMT: OK
-	test VIDIOC_S_FMT: OK
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK
-
-Codec ioctls (Input 0):
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls (Input 0):
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK
-	test Requests: OK
-
-Total for mali-c720 device /dev/video0: 48, Succeeded: 48, Failed: 0, Warnings:
-    0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/video1:
-
-Driver Info:
-	Driver name      : mali-c720
-	Card type        : ARM Mali-C720 ISP
-	Bus info         : platform:60400000.isp
-	Driver version   : 7.4.0
-	Capabilities     : 0xa4201000
-		Video Capture Multiplanar
-		I/O MC
-		Streaming
-		Extended Pix Format
-		Device Capabilities
-	Device Caps      : 0x24201000
-		Video Capture Multiplanar
-		I/O MC
-		Streaming
-		Extended Pix Format
-Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x0300001a
-	Type             : V4L Video
-Entity Info:
-	ID               : 0x00000018 (24)
-	Name             : mali-c720 fr0-yuv
-	Function         : V4L2 I/O
-	Pad 0x01000019   : 0: Sink, Must Connect
-          Link 0x02000030: from remote pad 0x1000013 of entity 'mali-c720 fr 0
-              pipe' (Image Signal Processor): Data, Enabled
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/video1 open: OK
-	test VIDIOC_QUERYCAP: OK
-	test VIDIOC_G/S_PRIORITY: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_DBG_G/S_REGISTER: OK
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 1 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Control ioctls (Input 0):
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
-	test VIDIOC_QUERYCTRL: OK (Not Supported)
-	test VIDIOC_G/S_CTRL: OK (Not Supported)
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 0 Private Controls: 0
-
-Format ioctls (Input 0):
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK
-	test VIDIOC_TRY_FMT: OK
-	test VIDIOC_S_FMT: OK
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK
-
-Codec ioctls (Input 0):
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls (Input 0):
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK
-	test Requests: OK
-
-Total for mali-c720 device /dev/video1: 48, Succeeded: 48, Failed: 0, Warnings:
-    0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/video2:
-
-Driver Info:
-	Driver name      : mali-c720
-	Card type        : ARM Mali-C720 ISP
-	Bus info         : platform:60400000.isp
-	Driver version   : 7.4.0
-	Capabilities     : 0xa4a00000
-		Metadata Capture
-		I/O MC
-		Streaming
-		Extended Pix Format
-		Device Capabilities
-	Device Caps      : 0x24a00000
-		Metadata Capture
-		I/O MC
-		Streaming
-		Extended Pix Format
-Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x0300001e
-	Type             : V4L Video
-Entity Info:
-	ID               : 0x0000001c (28)
-	Name             : mali-c720 3a stats
-	Function         : V4L2 I/O
-	Pad 0x0100001d   : 0: Sink, Must Connect
-          Link 0x02000032: from remote pad 0x100000b of entity 'mali-c720 isp'
-              (Image Signal Processor): Data, Enabled
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/video2 open: OK
-	test VIDIOC_QUERYCAP: OK
-	test VIDIOC_G/S_PRIORITY: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_DBG_G/S_REGISTER: OK
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 1 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Control ioctls (Input 0):
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-	test VIDIOC_QUERYCTRL: OK
-	test VIDIOC_G/S_CTRL: OK
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 0 Private Controls: 0
-	Standard Compound Controls: 0 Private Compound Controls: 1
-
-Format ioctls (Input 0):
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK
-	test VIDIOC_TRY_FMT: OK
-	test VIDIOC_S_FMT: OK
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls (Input 0):
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls (Input 0):
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK
-	test Requests: OK
-
-Total for mali-c720 device /dev/video2: 48, Succeeded: 48, Failed: 0, Warnings:
-    0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/video3:
-
-Driver Info:
-	Driver name      : mali-c720
-	Card type        : ARM Mali-C720 ISP
-	Bus info         : platform:60400000.isp
-	Driver version   : 7.4.0
-	Capabilities     : 0xac200000
-		Metadata Output
-		I/O MC
-		Streaming
-		Extended Pix Format
-		Device Capabilities
-	Device Caps      : 0x2c200000
-		Metadata Output
-		I/O MC
-		Streaming
-		Extended Pix Format
-Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x03000022
-	Type             : V4L Video
-Entity Info:
-	ID               : 0x00000020 (32)
-	Name             : mali-c720 3a params
-	Function         : V4L2 I/O
-	Pad 0x01000021   : 0: Source, Must Connect
-          Link 0x02000034: to remote pad 0x100000c of entity 'mali-c720 isp'
-              (Image Signal Processor): Data, Enabled
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/video3 open: OK
-	test VIDIOC_QUERYCAP: OK
-	test VIDIOC_G/S_PRIORITY: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_DBG_G/S_REGISTER: OK
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 1 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Control ioctls (Output 0):
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-	test VIDIOC_QUERYCTRL: OK
-	test VIDIOC_G/S_CTRL: OK
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 0 Private Controls: 0
-	Standard Compound Controls: 0 Private Compound Controls: 1
-
-Format ioctls (Output 0):
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK
-	test VIDIOC_TRY_FMT: OK
-	test VIDIOC_S_FMT: OK
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls (Output 0):
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls (Output 0):
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK
-	test Requests: OK
-
-Total for mali-c720 device /dev/video3: 48, Succeeded: 48, Failed: 0, Warnings:
-    0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/v4l-subdev0:
-
-Driver Info:
-	Driver version   : 7.4.0
-	Capabilities     : 0x00000000
-	Client Capabilities: 0x0000000000000002
-interval-uses-which Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x0300003f
-	Type             : V4L Sub-Device
-Entity Info:
-	ID               : 0x00000001 (1)
-	Name             : mali-c720 tpg 0
-	Function         : Camera Sensor
-	Pad 0x01000002   : 0: Source
-          Link 0x02000024: to remote pad 0x1000007 of entity 'mali-c720 input'
-              (Image Signal Processor): Data
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_SUDBEV_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/v4l-subdev0 open: OK
-	test VIDIOC_SUBDEV_QUERYCAP: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 0):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Control ioctls:
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-	test VIDIOC_QUERYCTRL: OK
-	test VIDIOC_G/S_CTRL: OK
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 6 Private Controls: 0
-
-Format ioctls:
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK (Not Supported)
-	test VIDIOC_TRY_FMT: OK (Not Supported)
-	test VIDIOC_S_FMT: OK (Not Supported)
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls:
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK (Not Supported)
-	test Requests: OK (Not Supported)
-	test blocking wait: OK (Not Supported)
-
-Total for mali-c720 device /dev/v4l-subdev0: 54, Succeeded: 54, Failed: 0,
-    Warnings: 0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/v4l-subdev1:
-
-Driver Info:
-	Driver version   : 7.4.0
-	Capabilities     : 0x00000000
-	Client Capabilities: 0x0000000000000002
-interval-uses-which Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x03000041
-	Type             : V4L Sub-Device
-Entity Info:
-	ID               : 0x00000003 (3)
-	Name             : mali-c720 tpg 1
-	Function         : Camera Sensor
-	Pad 0x01000004   : 0: Source
-          Link 0x02000026: to remote pad 0x1000007 of entity 'mali-c720 input'
-              (Image Signal Processor): Data
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_SUDBEV_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/v4l-subdev1 open: OK
-	test VIDIOC_SUBDEV_QUERYCAP: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 0):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Control ioctls:
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-	test VIDIOC_QUERYCTRL: OK
-	test VIDIOC_G/S_CTRL: OK
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 6 Private Controls: 0
-
-Format ioctls:
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK (Not Supported)
-	test VIDIOC_TRY_FMT: OK (Not Supported)
-	test VIDIOC_S_FMT: OK (Not Supported)
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls:
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK (Not Supported)
-	test Requests: OK (Not Supported)
-	test blocking wait: OK (Not Supported)
-
-Total for mali-c720 device /dev/v4l-subdev1: 54, Succeeded: 54, Failed: 0,
-    Warnings: 0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/v4l-subdev2:
-
-Driver Info:
-	Driver version   : 7.4.0
-	Capabilities     : 0x00000000
-	Client Capabilities: 0x0000000000000002
-interval-uses-which Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x03000043
-	Type             : V4L Sub-Device
-Entity Info:
-	ID               : 0x00000005 (5)
-	Name             : mali-c720 input
-	Function         : Image Signal Processor
-	Pad 0x01000006   : 0: Source
-          Link 0x02000028: to remote pad 0x1000009 of entity 'mali-c720 isp'
-              (Image Signal Processor): Data, Enabled
-	Pad 0x01000007   : 1: Sink, Must Connect
-          Link 0x02000024: from remote pad 0x1000002 of entity 'mali-c720 tpg 0'
-              (Camera Sensor): Data
-          Link 0x02000026: from remote pad 0x1000004 of entity 'mali-c720 tpg 1'
-              (Camera Sensor): Data
-          Link 0x02000039: from remote pad 0x1000038 of entity 'lte-csi2-rx'
-              (Video Interface Bridge): Data, Enabled
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_SUDBEV_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/v4l-subdev2 open: OK
-	test VIDIOC_SUBDEV_QUERYCAP: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 0):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Sub-Device ioctls (Sink Pad 1):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Control ioctls:
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
-	test VIDIOC_QUERYCTRL: OK (Not Supported)
-	test VIDIOC_G/S_CTRL: OK (Not Supported)
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 0 Private Controls: 0
-
-Format ioctls:
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK (Not Supported)
-	test VIDIOC_TRY_FMT: OK (Not Supported)
-	test VIDIOC_S_FMT: OK (Not Supported)
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls:
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK (Not Supported)
-	test Requests: OK (Not Supported)
-	test blocking wait: OK (Not Supported)
-
-Total for mali-c720 device /dev/v4l-subdev2: 61, Succeeded: 61, Failed: 0,
-    Warnings: 0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/v4l-subdev3:
-
-Driver Info:
-	Driver version   : 7.4.0
-	Capabilities     : 0x00000000
-	Client Capabilities: 0x0000000000000002
-interval-uses-which Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x03000045
-	Type             : V4L Sub-Device
-Entity Info:
-	ID               : 0x00000008 (8)
-	Name             : mali-c720 isp
-	Function         : Image Signal Processor
-	Pad 0x01000009   : 0: Sink, Must Connect
-          Link 0x02000028: from remote pad 0x1000006 of entity 'mali-c720 input'
-              (Image Signal Processor): Data, Enabled
-	Pad 0x0100000a   : 1: Source
-          Link 0x0200002a: to remote pad 0x100000e of entity 'mali-c720 hv pipe'
-              (Image Signal Processor): Data, Enabled
-	Pad 0x0100000b   : 2: Source
-          Link 0x02000032: to remote pad 0x100001d of entity 'mali-c720 3a
-              stats' (V4L2 I/O): Data, Enabled
-	Pad 0x0100000c   : 3: Sink
-          Link 0x02000034: from remote pad 0x1000021 of entity 'mali-c720 3a
-              params' (V4L2 I/O): Data, Enabled
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_SUDBEV_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/v4l-subdev3 open: OK
-	test VIDIOC_SUBDEV_QUERYCAP: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Sub-Device ioctls (Sink Pad 0):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 1):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 2):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-                fail: v4l2-test-subdevs.cpp(369): fmt.width == 0 || fmt.width >
-                    65536
-                fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node,
-                    fmt.format)
-	test Try VIDIOC_SUBDEV_G/S_FMT: FAIL
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-                fail: v4l2-test-subdevs.cpp(369): fmt.width == 0 || fmt.width >
-                    65536
-                fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node,
-                    fmt.format)
-	test Active VIDIOC_SUBDEV_G/S_FMT: FAIL
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Sub-Device ioctls (Sink Pad 3):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-                fail: v4l2-test-subdevs.cpp(369): fmt.width == 0 || fmt.width >
-                    65536
-                fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node,
-                    fmt.format)
-	test Try VIDIOC_SUBDEV_G/S_FMT: FAIL
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-                fail: v4l2-test-subdevs.cpp(369): fmt.width == 0 || fmt.width >
-                    65536
-                fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node,
-                    fmt.format)
-	test Active VIDIOC_SUBDEV_G/S_FMT: FAIL
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Control ioctls:
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
-	test VIDIOC_QUERYCTRL: OK (Not Supported)
-	test VIDIOC_G/S_CTRL: OK (Not Supported)
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 0 Private Controls: 0
-
-Format ioctls:
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK (Not Supported)
-	test VIDIOC_TRY_FMT: OK (Not Supported)
-	test VIDIOC_S_FMT: OK (Not Supported)
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls:
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK (Not Supported)
-	test Requests: OK (Not Supported)
-	test blocking wait: OK (Not Supported)
-
-Total for mali-c720 device /dev/v4l-subdev3: 75, Succeeded: 71, Failed: 4,
-    Warnings: 0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/v4l-subdev4:
-
-Driver Info:
-	Driver version   : 7.4.0
-	Capabilities     : 0x00000000
-	Client Capabilities: 0x0000000000000002
-interval-uses-which Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x03000047
-	Type             : V4L Sub-Device
-Entity Info:
-	ID               : 0x0000000d (13)
-	Name             : mali-c720 hv pipe
-	Function         : Image Signal Processor
-	Pad 0x0100000e   : 0: Sink, Must Connect
-          Link 0x0200002a: from remote pad 0x100000a of entity 'mali-c720 isp'
-              (Image Signal Processor): Data, Enabled
-	Pad 0x0100000f   : 1: Source
-          Link 0x0200002c: to remote pad 0x1000011 of entity 'mali-c720 fr 0
-              pipe' (Image Signal Processor): Data, Enabled
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_SUDBEV_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/v4l-subdev4 open: OK
-	test VIDIOC_SUBDEV_QUERYCAP: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Sub-Device ioctls (Sink Pad 0):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 1):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Control ioctls:
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
-	test VIDIOC_QUERYCTRL: OK (Not Supported)
-	test VIDIOC_G/S_CTRL: OK (Not Supported)
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 0 Private Controls: 0
-
-Format ioctls:
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK (Not Supported)
-	test VIDIOC_TRY_FMT: OK (Not Supported)
-	test VIDIOC_S_FMT: OK (Not Supported)
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls:
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK (Not Supported)
-	test Requests: OK (Not Supported)
-	test blocking wait: OK (Not Supported)
-
-Total for mali-c720 device /dev/v4l-subdev4: 61, Succeeded: 61, Failed: 0,
-    Warnings: 0
---------------------------------------------------------------------------------
-Compliance test for mali-c720 device /dev/v4l-subdev5:
-
-Driver Info:
-	Driver version   : 7.4.0
-	Capabilities     : 0x00000000
-	Client Capabilities: 0x0000000000000002
-interval-uses-which Media Driver Info:
-	Driver name      : mali-c720
-	Model            : ARM Mali-C720 ISP
-	Serial           :
-	Bus info         : platform:60400000.isp
-	Media version    : 7.4.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.4.0
-Interface Info:
-	ID               : 0x03000049
-	Type             : V4L Sub-Device
-Entity Info:
-	ID               : 0x00000010 (16)
-	Name             : mali-c720 fr 0 pipe
-	Function         : Image Signal Processor
-	Pad 0x01000011   : 0: Sink, Must Connect
-          Link 0x0200002c: from remote pad 0x100000f of entity 'mali-c720 hv
-              pipe' (Image Signal Processor): Data, Enabled
-	Pad 0x01000012   : 1: Source
-          Link 0x0200002e: to remote pad 0x1000015 of entity 'mali-c720 fr0-rgb'
-              (V4L2 I/O): Data
-	Pad 0x01000013   : 2: Source
-          Link 0x02000030: to remote pad 0x1000019 of entity 'mali-c720 fr0-yuv'
-              (V4L2 I/O): Data, Enabled
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_SUDBEV_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/v4l-subdev5 open: OK
-	test VIDIOC_SUBDEV_QUERYCAP: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Sub-Device ioctls (Sink Pad 0):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK (Not Supported)
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 1):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 2):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Control ioctls:
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
-	test VIDIOC_QUERYCTRL: OK (Not Supported)
-	test VIDIOC_G/S_CTRL: OK (Not Supported)
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 0 Private Controls: 0
-
-Format ioctls:
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK (Not Supported)
-	test VIDIOC_TRY_FMT: OK (Not Supported)
-	test VIDIOC_S_FMT: OK (Not Supported)
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls:
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK (Not Supported)
-	test Requests: OK (Not Supported)
-	test blocking wait: OK (Not Supported)
-
-Total for mali-c720 device /dev/v4l-subdev5: 68, Succeeded: 68, Failed: 0,
-    Warnings: 0
-
-Grand Total for mali-c720 device /dev/media0: 573, Succeeded: 569, Failed: 4,
-    Warnings: 0
-
+Signed-off-by: Anthony McGivern <Anthony.McGivern@arm.com>
 ---
-Anthony McGivern (24):
-      media: uapi: Add 24-bit Bayer media bus formats
-      dt-bindings: media: Add bindings for Arm Mali-C720
-      media: uapi: Add a control ID base for Mali-C720 ISP
-      media: mali-c720: Add register access helpers
-      media: mali-c720: Add hardware identification
-      media: mali-c720: Add format handling
-      media: mali-c720: Add hardware discovery support
-      media: mali-c720: Add context manager and interrupt handling
-      media: mali-c720: Add input frontend subdevice
-      media: mali-c720: Add ISP and human vision subdevices
-      media: mali-c720: Add full-resolution output subdevice
-      media: mali-c720: Add video capture nodes
-      media: mali-c720: Add Mali-C720 ISP driver
-      media: mali-c720: Add test pattern generator subdevices
-      media: Documentation: Add Mali-C720 ISP documentation
-      media: uapi: Add Mali-C720 statistics meta format
-      media: uapi: Add statistics structs to mali-c720-config.h
-      media: mali-c720: Add 3A statistics video node
-      media: Documentation: Document Mali-C720 statistics capture
-      media: uapi: Add Mali-C720 parameters meta format
-      media: uapi: Add parameter structs to mali-c720-config.h
-      media: mali-c720: Add parameters video node
-      media: Documentation: Document Mali-C720 parameter settings
-      MAINTAINERS: Add entry for mali-c720 driver
+ .../userspace-api/media/v4l/subdev-formats.rst     | 289 ++++++++++++++++++++-
+ include/uapi/linux/media-bus-format.h              |   6 +-
+ 2 files changed, 291 insertions(+), 4 deletions(-)
 
- .../admin-guide/media/mali-c720-graph.dot          |   26 +
- Documentation/admin-guide/media/mali-c720.rst      |  435 +++++
- Documentation/admin-guide/media/v4l-drivers.rst    |    1 +
- .../devicetree/bindings/media/arm,mali-c720.yaml   |  134 ++
- .../userspace-api/media/drivers/index.rst          |    1 +
- .../userspace-api/media/drivers/mali-c720.rst      |   47 +
- .../userspace-api/media/v4l/meta-formats.rst       |    1 +
- .../media/v4l/metafmt-arm-mali-c720.rst            |  112 ++
- .../userspace-api/media/v4l/subdev-formats.rst     |  289 ++-
- MAINTAINERS                                        |   13 +
- drivers/media/platform/arm/Kconfig                 |    1 +
- drivers/media/platform/arm/Makefile                |    1 +
- drivers/media/platform/arm/mali-c720/Kconfig       |   18 +
- drivers/media/platform/arm/mali-c720/Makefile      |   23 +
- .../platform/arm/mali-c720/mali-c720-capture.c     |  775 ++++++++
- .../platform/arm/mali-c720/mali-c720-common.h      |  451 +++++
- .../media/platform/arm/mali-c720/mali-c720-core.c  |  985 ++++++++++
- .../platform/arm/mali-c720/mali-c720-ctx-mgr.c     | 1923 ++++++++++++++++++++
- .../platform/arm/mali-c720/mali-c720-ctx-mgr.h     |  327 ++++
- .../platform/arm/mali-c720/mali-c720-discovery.c   | 1172 ++++++++++++
- .../platform/arm/mali-c720/mali-c720-discovery.h   |  212 +++
- .../platform/arm/mali-c720/mali-c720-formats.c     |  452 +++++
- .../platform/arm/mali-c720/mali-c720-formats.h     |  132 ++
- .../platform/arm/mali-c720/mali-c720-fr-pipe.c     | 1178 ++++++++++++
- .../media/platform/arm/mali-c720/mali-c720-id.c    |  165 ++
- .../media/platform/arm/mali-c720/mali-c720-id.h    |   34 +
- .../media/platform/arm/mali-c720/mali-c720-input.c |  598 ++++++
- .../platform/arm/mali-c720/mali-c720-interrupts.c  |  436 +++++
- .../platform/arm/mali-c720/mali-c720-interrupts.h  |   34 +
- .../media/platform/arm/mali-c720/mali-c720-isp.c   |  456 +++++
- .../platform/arm/mali-c720/mali-c720-params.c      | 1450 +++++++++++++++
- .../arm/mali-c720/mali-c720-register-access.c      |  205 +++
- .../arm/mali-c720/mali-c720-register-access.h      |   55 +
- .../arm/mali-c720/mali-c720-registers-ctx-mgr.c    |  226 +++
- .../arm/mali-c720/mali-c720-registers-ctx-mgr.h    |  207 +++
- .../arm/mali-c720/mali-c720-registers-modules.c    |  148 ++
- .../arm/mali-c720/mali-c720-registers-modules.h    |  136 ++
- .../arm/mali-c720/mali-c720-registers-top.c        |  173 ++
- .../arm/mali-c720/mali-c720-registers-top.h        |  228 +++
- .../platform/arm/mali-c720/mali-c720-registers.c   |   57 +
- .../platform/arm/mali-c720/mali-c720-registers.h   |   84 +
- .../media/platform/arm/mali-c720/mali-c720-stats.c |  730 ++++++++
- .../media/platform/arm/mali-c720/mali-c720-tpg.c   |  581 ++++++
- .../platform/arm/mali-c720/mali-c720-vision-pipe.c |  260 +++
- drivers/media/v4l2-core/v4l2-ioctl.c               |    2 +
- include/uapi/linux/media-bus-format.h              |    6 +-
- include/uapi/linux/media/arm/mali-c720-config.h    |  738 ++++++++
- include/uapi/linux/v4l2-controls.h                 |    6 +
- include/uapi/linux/videodev2.h                     |    4 +
- 49 files changed, 15724 insertions(+), 4 deletions(-)
----
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-change-id: 20261113-b4-initial-upstream-candidate-fce192163026
+diff --git a/Documentation/userspace-api/media/v4l/subdev-formats.rst b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+index c9999b929773b244290b16280b180a9d4f0ff609..6190a1381a4807a7d81d7a9900ea2831606aef30 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-formats.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+@@ -2821,11 +2821,11 @@ organization is given as an example for the first pixel only.
+     \tiny
+     \setlength{\tabcolsep}{2pt}
+ 
+-.. tabularcolumns:: |p{6.0cm}|p{0.7cm}|p{0.3cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|
++.. tabularcolumns:: |p{6.0cm}|p{0.7cm}|p{0.3cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|
+ 
+ .. _v4l2-mbus-pixelcode-bayer:
+ 
+-.. cssclass: longtable
++.. cssclass:: longtable
+ 
+ .. flat-table:: Bayer Formats
+     :header-rows:  2
+@@ -2834,10 +2834,14 @@ organization is given as an example for the first pixel only.
+     * - Identifier
+       - Code
+       -
+-      - :cspan:`19` Data organization
++      - :cspan:`23` Data organization
+     * -
+       -
+       - Bit
++      - 23
++      - 22
++      - 21
++      - 20
+       - 19
+       - 18
+       - 17
+@@ -2875,6 +2879,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -2900,6 +2908,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -2925,6 +2937,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -2950,6 +2966,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - r\ :sub:`7`
+       - r\ :sub:`6`
+       - r\ :sub:`5`
+@@ -2975,6 +2995,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -3000,6 +3024,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -3025,6 +3053,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -3050,6 +3082,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - r\ :sub:`7`
+       - r\ :sub:`6`
+       - r\ :sub:`5`
+@@ -3075,6 +3111,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -3100,6 +3140,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -3125,6 +3169,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -3150,6 +3198,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - r\ :sub:`7`
+       - r\ :sub:`6`
+       - r\ :sub:`5`
+@@ -3175,6 +3227,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - 0
+       - 0
+       - 0
+@@ -3198,6 +3254,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -3223,6 +3283,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -3246,6 +3310,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - 0
+       - 0
+       - 0
+@@ -3271,6 +3339,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`9`
+       - b\ :sub:`8`
+       - b\ :sub:`7`
+@@ -3294,6 +3366,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`1`
+       - b\ :sub:`0`
+       - 0
+@@ -3319,6 +3395,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`1`
+       - b\ :sub:`0`
+       - 0
+@@ -3342,6 +3422,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`9`
+       - b\ :sub:`8`
+       - b\ :sub:`7`
+@@ -3365,6 +3449,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`9`
+       - b\ :sub:`8`
+       - b\ :sub:`7`
+@@ -3390,6 +3478,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`9`
+       - g\ :sub:`8`
+       - g\ :sub:`7`
+@@ -3415,6 +3507,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`9`
+       - g\ :sub:`8`
+       - g\ :sub:`7`
+@@ -3440,6 +3536,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - r\ :sub:`9`
+       - r\ :sub:`8`
+       - r\ :sub:`7`
+@@ -3463,6 +3563,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`11`
+       - b\ :sub:`10`
+       - b\ :sub:`9`
+@@ -3488,6 +3592,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`11`
+       - g\ :sub:`10`
+       - g\ :sub:`9`
+@@ -3513,6 +3621,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`11`
+       - g\ :sub:`10`
+       - g\ :sub:`9`
+@@ -3538,6 +3650,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - r\ :sub:`11`
+       - r\ :sub:`10`
+       - r\ :sub:`9`
+@@ -3561,6 +3677,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`13`
+       - b\ :sub:`12`
+       - b\ :sub:`11`
+@@ -3586,6 +3706,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`13`
+       - g\ :sub:`12`
+       - g\ :sub:`11`
+@@ -3611,6 +3735,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`13`
+       - g\ :sub:`12`
+       - g\ :sub:`11`
+@@ -3636,6 +3764,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - r\ :sub:`13`
+       - r\ :sub:`12`
+       - r\ :sub:`11`
+@@ -3659,6 +3791,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`15`
+       - b\ :sub:`14`
+       - b\ :sub:`13`
+@@ -3684,6 +3820,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`15`
+       - g\ :sub:`14`
+       - g\ :sub:`13`
+@@ -3709,6 +3849,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`15`
+       - g\ :sub:`14`
+       - g\ :sub:`13`
+@@ -3734,6 +3878,10 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
+       - r\ :sub:`15`
+       - r\ :sub:`14`
+       - r\ :sub:`13`
+@@ -3755,6 +3903,10 @@ organization is given as an example for the first pixel only.
+       - MEDIA_BUS_FMT_SBGGR20_1X20
+       - 0x3021
+       -
++      -
++      -
++      -
++      -
+       - b\ :sub:`19`
+       - b\ :sub:`18`
+       - b\ :sub:`17`
+@@ -3780,6 +3932,10 @@ organization is given as an example for the first pixel only.
+       - MEDIA_BUS_FMT_SGBRG20_1X20
+       - 0x3022
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`19`
+       - g\ :sub:`18`
+       - g\ :sub:`17`
+@@ -3805,6 +3961,10 @@ organization is given as an example for the first pixel only.
+       - MEDIA_BUS_FMT_SGRBG20_1X20
+       - 0x3023
+       -
++      -
++      -
++      -
++      -
+       - g\ :sub:`19`
+       - g\ :sub:`18`
+       - g\ :sub:`17`
+@@ -3830,6 +3990,129 @@ organization is given as an example for the first pixel only.
+       - MEDIA_BUS_FMT_SRGGB20_1X20
+       - 0x3024
+       -
++      -
++      -
++      -
++      -
++      - r\ :sub:`19`
++      - r\ :sub:`18`
++      - r\ :sub:`17`
++      - r\ :sub:`16`
++      - r\ :sub:`15`
++      - r\ :sub:`14`
++      - r\ :sub:`13`
++      - r\ :sub:`12`
++      - r\ :sub:`11`
++      - r\ :sub:`10`
++      - r\ :sub:`9`
++      - r\ :sub:`8`
++      - r\ :sub:`7`
++      - r\ :sub:`6`
++      - r\ :sub:`5`
++      - r\ :sub:`4`
++      - r\ :sub:`3`
++      - r\ :sub:`2`
++      - r\ :sub:`1`
++      - r\ :sub:`0`
++    * .. _MEDIA-BUS-FMT-SBGGR24-1X24:
++
++      - MEDIA_BUS_FMT_SBGGR24_1X24
++      - 0x3025
++      -
++      - b\ :sub:`23`
++      - b\ :sub:`22`
++      - b\ :sub:`21`
++      - b\ :sub:`20`
++      - b\ :sub:`19`
++      - b\ :sub:`18`
++      - b\ :sub:`17`
++      - b\ :sub:`16`
++      - b\ :sub:`15`
++      - b\ :sub:`14`
++      - b\ :sub:`13`
++      - b\ :sub:`12`
++      - b\ :sub:`11`
++      - b\ :sub:`10`
++      - b\ :sub:`9`
++      - b\ :sub:`8`
++      - b\ :sub:`7`
++      - b\ :sub:`6`
++      - b\ :sub:`5`
++      - b\ :sub:`4`
++      - b\ :sub:`3`
++      - b\ :sub:`2`
++      - b\ :sub:`1`
++      - b\ :sub:`0`
++
++    * .. _MEDIA-BUS-FMT-SGBRG24-1X24:
++
++      - MEDIA_BUS_FMT_SGBRG24_1X24
++      - 0x3026
++      -
++      - g\ :sub:`23`
++      - g\ :sub:`22`
++      - g\ :sub:`21`
++      - g\ :sub:`20`
++      - g\ :sub:`19`
++      - g\ :sub:`18`
++      - g\ :sub:`17`
++      - g\ :sub:`16`
++      - g\ :sub:`15`
++      - g\ :sub:`14`
++      - g\ :sub:`13`
++      - g\ :sub:`12`
++      - g\ :sub:`11`
++      - g\ :sub:`10`
++      - g\ :sub:`9`
++      - g\ :sub:`8`
++      - g\ :sub:`7`
++      - g\ :sub:`6`
++      - g\ :sub:`5`
++      - g\ :sub:`4`
++      - g\ :sub:`3`
++      - g\ :sub:`2`
++      - g\ :sub:`1`
++      - g\ :sub:`0`
++
++    * .. _MEDIA-BUS-FMT-SGRBG24-1X24:
++
++      - MEDIA_BUS_FMT_SGRBG24_1X24
++      - 0x3027
++      -
++      - g\ :sub:`23`
++      - g\ :sub:`22`
++      - g\ :sub:`21`
++      - g\ :sub:`20`
++      - g\ :sub:`19`
++      - g\ :sub:`18`
++      - g\ :sub:`17`
++      - g\ :sub:`16`
++      - g\ :sub:`15`
++      - g\ :sub:`14`
++      - g\ :sub:`13`
++      - g\ :sub:`12`
++      - g\ :sub:`11`
++      - g\ :sub:`10`
++      - g\ :sub:`9`
++      - g\ :sub:`8`
++      - g\ :sub:`7`
++      - g\ :sub:`6`
++      - g\ :sub:`5`
++      - g\ :sub:`4`
++      - g\ :sub:`3`
++      - g\ :sub:`2`
++      - g\ :sub:`1`
++      - g\ :sub:`0`
++
++    * .. _MEDIA-BUS-FMT-SRGGB24-1X24:
++
++      - MEDIA_BUS_FMT_SRGGB24_1X24
++      - 0x3028
++      -
++      - r\ :sub:`23`
++      - r\ :sub:`22`
++      - r\ :sub:`21`
++      - r\ :sub:`20`
+       - r\ :sub:`19`
+       - r\ :sub:`18`
+       - r\ :sub:`17`
+diff --git a/include/uapi/linux/media-bus-format.h b/include/uapi/linux/media-bus-format.h
+index 6005f033e62c04bdd3dff7ac905f5b921341cd47..892b8c0a945e416c242d97962b99c5673eaa3a50 100644
+--- a/include/uapi/linux/media-bus-format.h
++++ b/include/uapi/linux/media-bus-format.h
+@@ -124,7 +124,7 @@
+ #define MEDIA_BUS_FMT_YUV16_1X48		0x202a
+ #define MEDIA_BUS_FMT_UYYVYY16_0_5X48		0x202b
+ 
+-/* Bayer - next is	0x3025 */
++/* Bayer - next is	0x3029 */
+ #define MEDIA_BUS_FMT_SBGGR8_1X8		0x3001
+ #define MEDIA_BUS_FMT_SGBRG8_1X8		0x3013
+ #define MEDIA_BUS_FMT_SGRBG8_1X8		0x3002
+@@ -161,6 +161,10 @@
+ #define MEDIA_BUS_FMT_SGBRG20_1X20		0x3022
+ #define MEDIA_BUS_FMT_SGRBG20_1X20		0x3023
+ #define MEDIA_BUS_FMT_SRGGB20_1X20		0x3024
++#define MEDIA_BUS_FMT_SBGGR24_1X24		0x3025
++#define MEDIA_BUS_FMT_SGBRG24_1X24		0x3026
++#define MEDIA_BUS_FMT_SGRBG24_1X24		0x3027
++#define MEDIA_BUS_FMT_SRGGB24_1X24		0x3028
+ 
+ /* JPEG compressed formats - next is	0x4002 */
+ #define MEDIA_BUS_FMT_JPEG_1X8			0x4001
 
-Best regards,
 -- 
-Anthony McGivern <Anthony.McGivern@arm.com>
+2.55.0
 
