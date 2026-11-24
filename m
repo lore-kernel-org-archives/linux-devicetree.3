@@ -1,56 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795490296;
-	b=iOU0uP4ZAnTmq3LiCRNroa3HiMDKjfRq0BdqfDQ2XCBV4DdIRE+6TsFOJJr2HxGfMQfg
-	 AduR9TXqWbyxkSql+PTIPhpt1CmaceP/ngOm6x09PnQ6aohf/zCgujbO9Rib6hCLJ1Qjd
-	 Y682HtmdJfp+64RAenVvFhJ5J1kHEnxcURIZKGCLWFvoF7Md33hakMB5VM56Zy91Kjs9a
-	 wy/rK3d2RaxbLQXp8uXha/q3yTh/Fnktym0tY0Yv6hv1VrtcpeMo9LIM8ET2E4CrGelRT
-	 XBn30D/Ag0TIGUx9NHnN7QzoxoArPyr1/FX4jQMkeErzbLe1ZKsR0jbAJE8DguNGBQg==
+	t=1795491110;
+	b=a6ttnBxnaCd6KaaJ1jQ8eG3nE0QRHcsAask34xbgG4cbdL1irL5X36G0Ej2K+hI2iXyG
+	 5aRRdoq+D6AovYO6r15ErY55jRtu1My7YL3e/Y1kzxNI9kT+IGWr6QwPQiQKgZUoRdxr+
+	 /QD3fUoTpCCk5EtKDuwg4DDl/Tc0iqhHQxkNXeoFiWd2d+6SJTYluJng3uoodozsHe9m4
+	 IjtFURFFNLFbJ+XPhbH9+uBJuE/nT1Oy+xAXe/lcQfZaw9bSPsyreK9ozy7qFPyDQ76os
+	 zt4VtFsGsVFWbC4VucDDjEMAbdh4laq15WD/4afxJll0aFeN7v2hUgpptP6MDmtIlaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795490296;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=yHuW4jaBnbhA6oBc+UhsCIilp/B6BAsefqLjPeUfGVU=;
-	b=A0UNT4cobpsfrsthuh1GAlXJZFFHN1Kt4ST6vfhK5fe/mqMuA7NaPJJ3kNFLEaD1tdKU
-	 0+KArXG6AtW0uP6hHYCGzWbwd9jR1B/eG8xJmbzfqLt2ymkc7FHilEipv7uTw/lm2QQVm
-	 QhBrV6pkUNnMWwTi4zdW6CgSIHZe0jnFJ4zwIGDiYIIdxbBAB2HlIPilPg2ao5L7KmKrT
-	 wqOP3cm3I3J5rVcXEFX+BXjKgqglskxg48WAytXgqSpdP81c5XkLkleSxPJ2yxG0F3XQA
-	 aJHFyjdqERWdTztaluYRCiW/Uc2yNK3m/7czIto/TU/7tJzxaCUJt5u3e+rmVvmzgdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795491110;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qKlNSAE1LII8ekZyJm2r7dBRiHTZedE60seDigfXqMg=;
+	b=fxuRti4ph1RBWk8RdLodoilCWo3sIJUf71vElvT7MCjZT3UgkXpaF8v8a3pkNbNyLkrL
+	 YCQoUILJhTOOU3Z2yp/xE+yyJB9JsZy1DmLlt+VOnS7Q2/Dni3tzo8nwjU1XrU3dWXio9
+	 EMppv6gyOab1SaM6m00cjbFYDC6vtTspqx3bXYjhDyeeCqFzcjQ37AdP45x+OYSGtdOLz
+	 Y+uw7EQKb9DPqXbhTPJcsr3lA6BBk6NkadGPv7kwYC0ecawYjHLMkSVmYNdzGtxENyA2q
+	 a9Xjwtsh1UptbJO2Uk6QY55I0jzYpGrlPf1+PC7uZS8AHI3ShWQ9DR76qJQPszbVZQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qwf2cdSI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZJyKBxyw;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50167606A31E;
-	Tue, 24 Nov 2026 03:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E17606A31E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 03:31:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3E17606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qwf2cdSI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16B0D1F000CA;
-	Tue, 24 Nov 2026 03:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795490295;
-	bh=yHuW4jaBnbhA6oBc+UhsCIilp/B6BAsefqLjPeUfGVU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Qwf2cdSIlgZ9+g1ehKY3sU58LKUukKALulPgFjpJNVWR8vEmd0k8Zyxd0g0Zpd5JI
-	 pn6bfgLETKDRjr6uPnJ2PpyrL8LvEomDVzbS2wefNq40hHwXSTNX9auPRXUkKTWBHp
-	 3e22bUmh1pwn0CybckwE34wia+743nAt1mMe+vdOzlFGCPRWOcv99yXg6q+RDN82JW
-	 9fLj/44nOxHeXmVlKJnjL4C7zHDj1CCBpK+460dYWY6E2ZZuEiAjQessPXhHjqorW4
-	 qscOXb0Ahs2n+9vgwqzYFe9tpBrJvgryJ9QRqbK/jIVivnXS9kuuyHdVnbSKNivnjw
-	 hmy5wWUrlL6sA==
-Message-ID: <sashiko-outbox-230449@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/9] media: i2c: it6625: add I2S audio capture DAI
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hermes Wu" <Hermes.wu@ite.com.tw>
-Cc: devicetree@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261124-upstream-it6625-alsa-i2s-v2-6-a154685f6989@ite.com.tw>
-References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
- <20261124-upstream-it6625-alsa-i2s-v2-6-a154685f6989@ite.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 03:18:14 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZJyKBxyw
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cd69954c755so2889551a12.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 19:31:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795491109; x=1796095909; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qKlNSAE1LII8ekZyJm2r7dBRiHTZedE60seDigfXqMg=;
+        b=ZJyKBxywY1jR97SrgWiVjVItdHoMsPvRrkSw1lLWg8kruZiH+mKiYCWUyHUBrL+MC6
+         jMw0BCpBrYwPm1lGTBuQ8S0Nw6lDdW7ZH2MWX8P7qZ4gdtNapm774saai376aW1pWE2/
+         vvnGQlQowtN4WgBtb7Y6DcrNQMy715EZty5zsS2Qw+CECEmN4MPFjt9yURmEQClithkE
+         933ee0+c3KQtK0K552R1cJLqP4wVDj/uQfLuHcqwIe3Pl/PkoJzNzATTD1bXx++xrCwJ
+         dBceWOAAmCTaKWXBSpdodENzjyqoPT0BbdLhwH6Gv4sn4avkB42h2m6zMwuHR7jO76QW
+         r/XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795491109; x=1796095909;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qKlNSAE1LII8ekZyJm2r7dBRiHTZedE60seDigfXqMg=;
+        b=qr8RCHpCvR1gtIH74yYDMZkk7a+30jSjG8QmlhVndjZU9KMjSiC9+zk0Y0KF+ddbt8
+         wZ1sSSSu5Cr/DUoeKzSfiR9szZp0OsSAfz0PM8QHRKMpiv87dJt/anMdDeZET6z8AjUy
+         0VPR4qLW/SmaEH2EU7sj+UWmgVB9fKbwuE5txvDiGaZzE212kKVR/v26H9CgeiC+lnmk
+         nt4sOJgbrMdFMSsEhmr4um6vtbzURYpoDK8ok5EiZbl/fckpJmLefoIrjCUgMGgJ6+04
+         UWnmbKg1racfHCZhJDhmks65fkSKD51Q5X/UIK/EmWziKzoG0/SsY6UPr2DKx3wbsFl0
+         /EjA==
+X-Forwarded-Encrypted: i=1; AL+hErFdhwAzDVK4f2V3Dmkc/I9AzbQaBg/P/QEm1J6WX9choyfSGuDCRSZ8xLYssJqzO9IUazi9hr4/Ise0@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bw1lRnEhaKGRQ4wm7s4UZN3SevQ81QULHOCdPxGEq3j2Am/h7
+	iJPZlr98UJiJhnJdygIadLA2ymd1sV/oozRVi/ojpyok42X8dYCVNfEx
+X-Gm-Gg: AZFdTZdQONofcE9GZ4B225PkVwHxj/w9ErEIUvIc03GNVqZHFRcZcp/PHSVro8MXXJR
+	jpKyAOO6h4Z5sRtJ/1dwLqXLCnamMA5N5xiQXveFjM+0MgLyUjvN1ofaE8likY939Mr6vxwNaLm
+	R1Je14WRifm2wgK5E7XOllSYL6rsPjA6ylqaID7SeezoRIG8sZwZEFj6Z61VeGqbIIg4blnzSu/
+	Z0W1/TLUJ5FYqdvmRyysc5W51R0MpktH8eQ6PXRiTabuJCkxH5YsPdqnFcJ4FknE39Uda1a1s9d
+	ypvhl7PYRkqjUoHw31SiXm3jg4K5tIznX6+5aIyulxIcygz+3XUw0fwWOGgxr2ZTrIT6aOcU9TT
+	tJo5QJ4iH3umwGEc8CKKEN4Qvy/XjrwQqAKZQvN5GRw2aQcwfqc5RyYtjFxj1mn3HE1AcEYUDpy
+	MxTyefbUiXZggua4MniK8vJhqqW4/ltUPbGtyjtENC04iSBBI4R8cLvEi3kc0L0hMeHjhNEhn0I
+	iWvvpDuST3FCy4aycyyWFZ3+t7VQq4IVvU/y0dMybxZ/HRTjuj1bwce2h8GP9ApPIqajTrBkEad
+	VSCRs255IyJn5CK6//FP8k4twJHlNG0=
+X-Received: by 2002:a17:90b:2fd0:b0:3ac:a521:95c with SMTP id 98e67ed59e1d1-3b41cb235aemr14048909a91.58.1795491109076;
+        Mon, 23 Nov 2026 19:31:49 -0800 (PST)
+Received: from [0.0.0.0] ([20.89.104.82])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d639fdsm23890691a91.10.2026.11.23.19.31.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 19:31:48 -0800 (PST)
+Message-ID: <12933da0-9bc8-4f92-96d4-36c5673d3f5e@gmail.com>
+Date: Tue, 24 Nov 2026 11:31:44 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,92 +91,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: dts: spacemit: k1: fix the EEPROM page size
+To: Aurelien Jarno <aurelien@aurel32.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Vivian Wang <wangruikang@iscas.ac.cn>, Junhui Liu
+ <junhui.liu@pigmoral.tech>,
+ Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev
+References: <20261123-fix-bpf3-eeprom-v1-1-df8cce6ef2b5@gmail.com>
+ <awS2-clBenE1r1a1@aurel32.net>
+Content-Language: en-US
+From: Zixian Zeng <sycamoremoon376@gmail.com>
+In-Reply-To: <awS2-clBenE1r1a1@aurel32.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] media: i2c: it6625: work teardown after subdev cleanup in
-  it6625_probe()
---
+Hi Aurelien,
 
-commit 853245ce8c11b8ab4cad5a6167d0cdd74d9412b2
-Author: Hermes Wu <Hermes.wu@ite.com.tw>
+On 2026/11/24 5:58, Aurelien Jarno wrote:
+> Hi,
+> 
+> On 2026-11-23 12:41, Zixian Zeng wrote:
+>> The bananapi-f3 carries an AT24C02 compatible EEPROM GT24C02B [1]:
+>> 256 bytes with an 8-byte write page, which can be found in schematic[2].
+>> The device tree declares pagesize = <16>, which does not match the
+>> eeprom chip datasheet which declares pagesize 8 bytes.
+> 
+> Oops, I am not sure how I got that wrong. Sorry about that.
+> 
+>> EEPROM pagesize of k1-bananapi-cm6-io[3] and k1-orangepi-rv2[4] changed
+>> together, based on the chip model shown in the schematic diagram.
+> 
+> The k1-milkv-jupiter board is also affected with the same issue, despite
+> using a slightly different EEPROM (24C04).
+> 
 
-media: i2c: it6625: add I2S audio capture DAI
+The GT24C04A EEPROM used on k1-milkv-jupiter board doesn't seem to have
+the same issue, which you can find "Page Size: 16 bytes" in datasheet:
+https://www.giantec-semi.com/uploads/20220929/GT24C04A.pdf
 
-This commit registers an ASoC component with an I2S capture DAI for the
-IT6625/IT6626 HDMI bridge when #sound-dai-cells is present in device tree,
-and updates audio controls and capture state on status changes and
-periodic refreshes.
+But I don't have the board, simple test would be appreciated. Perhaps I
+should include test steps in the commit message for the next revision.
 
-> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> index 6ff5a5574b379..4a6ab00f04013 100644
-> --- a/drivers/media/i2c/it6625.c
-> +++ b/drivers/media/i2c/it6625.c
-
-[ ... ]
-
-> @@ -2434,6 +3001,13 @@ static int it6625_probe(struct i2c_client *client)
->  		goto err_clean_debugfs;
->  	}
-> =20
-> +	/* may bind a waiting sound card, so everything must be set up */
-> +	err =3D it6625_audio_register(it6625);
-> +	if (err) {
-> +		v4l2_async_unregister_subdev(sd);
-> +		goto err_clean_debugfs;
-> +	}
-> +
->  	if (client->irq)
->  		enable_irq(client->irq);
->  	else
-> @@ -2442,6 +3016,12 @@ static int it6625_probe(struct i2c_client *client)
->  	return 0;
-> =20
->  err_clean_debugfs:
-> +	/*
-> +	 * Events dispatched by the probe control update or a debugfs reader
-> +	 * may have queued it. Disable rather than cancel it: a reader still
-> +	 * running until the debugfs removal below must not queue it again.
-> +	 */
-> +	disable_delayed_work_sync(&it6625->audio_refresh_work);
->  	v4l2_debugfs_if_free(it6625->infoframes);
->  	debugfs_remove_recursive(it6625->debugfs_dir);
->  	cec_unregister_adapter(it6625->cec_adap);
-
-[Severity: Medium]
-Can polling_work or hpd_delayed_work run after it6625->cec_adap and
-it6625->hdl are torn down when it6625_audio_register() fails?
-
-Before this patch, v4l2_async_register_subdev() was the last fallible step
-in it6625_probe(), so no subdev callback could have queued polling_work or
-hpd_delayed_work on the probe error path.  With it6625_audio_register()
-placed after v4l2_async_register_subdev(), a bound bridge can invoke
-subdev callbacks such as it6625_isr() (which schedules polling_work) or
-it6625_s_edid() (which schedules hpd_delayed_work) before
-v4l2_async_unregister_subdev() runs:
-
-CPU0                              CPU1 (kworker)
-it6625_probe()
-  v4l2_async_register_subdev(sd)
-  /* subdev callback: it6625_isr() */
-    schedule_work(&it6625->polling_work)
-  it6625_audio_register() -> fails
-  v4l2_async_unregister_subdev(sd)
-  goto err_clean_debugfs
-  cec_unregister_adapter(it6625->cec_adap)
-  v4l2_subdev_cleanup(sd)
-  v4l2_ctrl_handler_free(&it6625->hdl)
-                                  it6625_polling_work()
-                                    ...
-                                      it6625_v4l2_sd_ctrl_update()
-                                        <-- use-after-free on controls
-  cancel_work_sync(&it6625->polling_work)
-
-Canceling polling_work and hpd_delayed_work after
-v4l2_async_unregister_subdev() (or at err_clean_debugfs, matching the
-teardown order in it6625_remove()) would drain them before the CEC adapter
-and V4L2 controls are freed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-upstream-i=
-t6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw?part=3D6
+Best regards,
+Zixian
