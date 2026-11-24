@@ -1,55 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795514201;
-	b=vqLGoa2MU8bncTHmnbKh8GFGudL2tduFMhNxCMBWXAL+uJyfbI1f2NnvTfDx+j9ZFG7f
-	 ONskNKfMOl5cUjlYISxgDk0+G46FjtC/yhzL2RYNKpnhMSXvalKbbpIInUaj9j4Tphb9j
-	 z22/1HRST7HHrTjkYCr/Jdj26BOiUuPvonCmLgx7QOdWgKghY4A57mTGE9t1ppSBzmWK9
-	 lk0D8aHUVB142TsK8RvBDhm4blDlIrmF4OLBHFn618zC3WrYZIxFDjC+rdX4Lg72YbDG1
-	 cu5squ4LRtPBY+AEHa26BBO8AyUmeufNIityvbLN864UqUNFiK7W96tC/vH/T25ySYQ==
+	t=1795514204;
+	b=XOmi4x42Sw0lzczWujNacB1DRdTNfk3DQgYco5CA37xON55GCrcV6EmXUcF9caiO9DeM
+	 x5uxM6D4qJAndtw7hKuDpUhL51Jc74B/DAWlu5W3wr/+b0v3IpuEoDM2t4smiJLDCwBuT
+	 ZDDfAA+fCUJKgAxgd6MTc0uhW9Qxd1ZExvqhulDImk3TDVIpHenhgNWPCuBiA26kwTEow
+	 E2GEgRIAvAf+yJp85AW7H8vFvki0FRBpYYBnr10IyL3+YRzF0PXzEWSyPxr67oYDLq/mY
+	 nfEWi4UgRy5XACLrBwtHTXyowQNJozZsKV5iufgiI+b+Zf+nO+7YoU3IIZpmHr7cT2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514201;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6RxDNhcrptkLwm5icpyITA1cARO1T74TvXZeN92Qajg=;
-	b=X35qkOnXkVMvUHBEWISus4jf2eaCRmIVGqHM3yv6Eli5ONgvwinlh4vzi7SPVbBsZ0n3
-	 JkaXX06egMuoPB7nfxZ+l3gLYyjZb3ZphbzbtgItflQ3nh1djXZ4al8YKUnKRASMVe085
-	 3nV2R5LjaLr2uFUSahTNgbmG8qvKpDLejLmG4EFNoWEq09sx1Dz51CapMq6ntK5686kZe
-	 nwGwSFF1PLVy5MO9BB6wUpVL3p/WGvpuyrvCnrJw/mwFW4co6LW+gWTA0pk8ILPoP9Sga
-	 +lfLi6Zbjw58seESuynaaFkCyJ2Y4VkqpmItR9U3P6sQglef99mrQ1fE/HCNUWXGpWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514204;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/ZZne3LQwRaftQD4IyGSW5yitBBqCg3YIkMiN/Js5D0=;
+	b=lvuMw0K28i+dzOLDuq1VIlCAtH3Unav63NZBYMvOfTIISThUlqv7B1LCsozsjlG4l+La
+	 wdMpudKm6VMbGRwycLWVPbCOLgaBmONMexR1W8WUyJ87rjAvopeaF/TnFj7FgowLq2exz
+	 ViKql/8Wc7F/Qh0SjB8y3YkySt81dlB6hfEQsBixmiyrGJ/yJWC+sqBLYaJpBNChly1+k
+	 4JMJDuPvhevpA+1znK+itCn+MMTD6Aqo2fZ6t9vzgjSjh2VKwSQrSH4Zd4Rg19Yi0cBmq
+	 6woXfH0Acwhk7npjhTuWuZom3PQ22ozpkoJ/WVB5outlI//o9/GVRHg6OZanAoCsNMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lf2VEmI1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA1C606A32E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:56:41 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TmPJVihl;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C9C21606A33E;
+	Tue, 24 Nov 2026 09:56:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9C21606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lf2VEmI1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882F61F000F2
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795514200;
-	bh=6RxDNhcrptkLwm5icpyITA1cARO1T74TvXZeN92Qajg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lf2VEmI12JFLEgUGjVFCTv0QjW3DzCel4nyHoZURtSOyTH4f6ATQ1F9160ju0vvcJ
-	 1PxA6UlQXZt13PWLF8DKe4G2fyNtZEfkNquipMkfq4cB4Vyyt9Vb8QLIjeBylBY68V
-	 8fkdXxi2Q/3e9CgZNUHA8x8SIhVN3xZ7Go/+IbWqCEQoBiEztDO1QPeqv+6bOeCBfl
-	 eGtwiPdREEoZEEaGpzvmpTVcOtD31t91A/v5X3KXjPTtvGx+yrS5sJKsvgO+GX4oTb
-	 OlIqX7l7+ISlIVFgCxMWp9ns6b0uSX94naPiT/WMszXh8HjzkH/+81WGhZ75t3GckW
-	 FxW2yjPsT6HCA==
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ab4354db11so41959971fa.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:56:40 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEJNpuNl9YJupo7xcZKizJbrklPvNGVOQEBB/DxlT5G+KhK0rZCeXEeb3fJanNyfBeoxx/Or9yyR4Td@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xtZq7yCgL2cNalMfDtf8jS949VH63qerr6gHQuaRgqyBHNYk7
-	8W/GZuO/TfaIoY9jKJ2/JJaqLJVs7djPqheCb9psvJ9DIYd3gaB5cF6H10LxhyxL6l6Xc4U8YcK
-	JGnhQBiEROnGiyV9UG8moxTb6g1BUvzw=
-X-Received: by 2002:a05:6512:1048:b0:5bf:6c4c:62ce with SMTP id
- 2adb3069b0e04-5c1bc81c49bmr3664194e87.55.1795514199208; Tue, 24 Nov 2026
- 01:56:39 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TmPJVihl
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 67237339;
+	Tue, 24 Nov 2026 01:56:40 -0800 (PST)
+Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B6A413F86F;
+	Tue, 24 Nov 2026 01:56:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795514203; bh=xuCRjMCtyzZFdihFZbSvFStkGFaZ3+s/ycbhJit7JAA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TmPJVihl6gkJNkbhZDHsVpOlC3oY3rgNcWBpjh1tcuLnVUaenYMwpmCrolkSCUezk
+	 BUXaMYQCmUvTFqnIbgcWhxJn65lYV382f/EdMJkBaKu6Xu4aVP4Ss79TQcP+ladIVL
+	 mD28ur3+U5REd/XJLqbPk/N4XJqp9x0rRaX6ZhY8=
+Message-ID: <e085a389-b590-4448-b8ba-1e084fddb815@arm.com>
+Date: Tue, 24 Nov 2026 09:56:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,46 +53,117 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261123-cs7542-syscon-v2-0-1cd74b2522f9@gmail.com> <20261123-cs7542-syscon-v2-4-1cd74b2522f9@gmail.com>
-In-Reply-To: <20261123-cs7542-syscon-v2-4-1cd74b2522f9@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 24 Nov 2026 10:56:26 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=jLDF1mRBp9mai7hFKU21SG8ud-Wf5ebS89BHiUWM9sg@mail.gmail.com>
-X-Gm-Features: Aa3M54pJBPNtS8HBHNO_8ov-NITzhFzIUmDM0dw5V6Dl7sMdZPPnTtRSJZShNYc
-Message-ID: <CAD++jL=jLDF1mRBp9mai7hFKU21SG8ud-Wf5ebS89BHiUWM9sg@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] pinctrl: Add Cortina Systems CS7542 pin multiplexer
-To: filipp.dunsky@gmail.com
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 02/28] media: mali-vpu: add Mali VPU platform driver
+To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
+ Shobhit Pandey <shobhit.pandey@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+ <20261119153758.1426673-3-charvi.mehta@arm.com>
+ <8ad5ec8847859937aef900a09ae8b3eddaa15464.camel@ndufresne.ca>
+Content-Language: en-US
+From: Charvi Mehta <charvi.mehta@arm.com>
+In-Reply-To: <8ad5ec8847859937aef900a09ae8b3eddaa15464.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 9:27=E2=80=AFPM Fil Dunsky via B4 Relay
-<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
 
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->
-> Use the global syscon regmap for the five GPIO mux registers. Each
-> bit selects GPIO when set and a peripheral signal when clear. Support
-> GPIO on all 160 lines and the six UART pins exercised by the OpenWrt
-> port. Do not guess mux settings for the other peripherals.
->
-> Use masked regmap updates so independent pins and users of the shared
-> block retain their settings. No register changes are made merely by
-> probing; only a selected state or a GPIO request changes a pin.
-> Register and initialize the controller before enabling its own hogs.
->
-> AI assistance: Codex prepared this change from the existing OpenWrt port
-> and GPL vendor sources.
->
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+On 11/19/26 20:04, Nicolas Dufresne wrote:
+>> +
+>> +/* VPU register access helpers */
+>> +static u32 mali_vpu_read_reg(void __iomem *regs_base, u32 off)
+>> +{
+>> +	return readl(regs_base + off);
+> That wrapper does nothing other then increasing the code length. Why not take a
+> vpu_dev as parameter?
+Passing the MMIO base keeps the helpers independent of the device structure,
+but taking `struct mali_vpu_dev *` would simplify the callers.
+I’ll make that change in v2.
 
-This looks good to me:
-Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Yours,
-Linus Walleij
+> You're chosen namespace is also very long, worth considering, but not strictly a
+> problem.
+
+I'd prefer to keep the `mali_vpu_` prefix for consistency with the 
+driver name and
+rest of the series.
+
+
+>> +static int mali_vpu_get_clocks(struct mali_vpu_dev *vpu_dev)
+>> +{
+>> +	int ret;
+>> +
+>> +	ret = devm_clk_bulk_get_all(vpu_dev->dev, &vpu_dev->clk_list);
+>> +	if (ret < 0)
+>> +		return dev_err_probe(vpu_dev->dev, ret, "failed to get clocks\n");
+>> +	if (!ret)
+>> +		return dev_err_probe(vpu_dev->dev, -EINVAL, "no clocks found\n");
+> I don't think the second check is required, that would mean you have zero clock
+> in your DT, which is invalid according to your binding.
+The VPU requires a core clock, but `devm_clk_bulk_get_all()` returns zero
+when none are found. Although this violates the binding, schema validation
+is not enabled by default or performed at runtime, and the bootloader can
+supply a separate DTB. I’d prefer to retain the check so probe reports the
+missing clock before attempting register access.
+
+
+>> +static int mali_vpu_enable_clk(struct mali_vpu_dev *vpu_dev)
+>> +{
+>> +	return clk_bulk_prepare_enable(vpu_dev->clk_count, vpu_dev->clk_list);
+>> +}
+>> +
+>> +static void mali_vpu_disable_clk(struct mali_vpu_dev *vpu_dev)
+>> +{
+>> +	clk_bulk_disable_unprepare(vpu_dev->clk_count, vpu_dev->clk_list);
+>> +}
+> The two wrapper above do nothing.
+Fair point. I’ll remove them and call the bulk clock APIs directly.
+
+
+>> +	ret = mali_vpu_get_resources(vpu_dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = mali_vpu_enable_clk(vpu_dev);
+>> +	if (ret) {
+>> +		dev_err(vpu_dev->dev, "failed to enable core clock\n");
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = mali_vpu_deassert_reset(vpu_dev);
+>> +	if (ret) {
+>> +		dev_err(vpu_dev->dev, "failed to deassert reset\n");
+>> +		goto err_clk;
+>> +	}
+> In practice the two above should be inside your PM runtime ops, not sure if
+> that's coming after, in which case just ignore. It best to do this early, PM as
+> after thought would be bad.
+Thanks, runtime PM support will follow in subsequent patches.
+
+
+>> +	mali_vpu_read_version(vpu_dev, &pid, &rev, &patch);
+>> +	dev_info(&pdev->dev, "Mali VPU device product ID: %#x, revision: %#x, patch: %#x\n",
+>> +		 pid, rev, patch);
+>> +
+>> +	if (pid != vpu_dev->variant->expected_hw_pid) {
+>> +		dev_err(vpu_dev->dev, "unexpected hardware product ID: %#x (expected %#x)\n",
+>> +			pid, vpu_dev->variant->expected_hw_pid);
+>> +		ret = -ENODEV;
+>> +		goto err_rst_clk;
+>> +	}
+> Both ways work, but you could also pick the variant based on the version
+> instead, and only depend on DT for the "families" (e.g. the version register
+> layout have changed but you still want this under the same driver).
+Thanks for the suggestion. For V76, I prefer to retain the DT-selected
+variant and use the product ID as a sanity check.
+I'll revisit product-ID-based variant selection when another variant is 
+added.
+
+
+Regards,
+Charvi
