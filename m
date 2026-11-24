@@ -1,39 +1,38 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.47.186.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795517109;
-	b=HKBhKnGb9I+X3ntlNMcgTNsyGdAZddf5PdMXepDjC5cYmnutSwZsGbSWtHMZN3qrW2cf
-	 VhAsvgcQfi7inXnHkeMFOoG27fqljfX2GOkmlEuzLUxTmeqSx8Vf3H/mxP+Se9JpgKcGc
-	 y+S2NBsehgtferevwwLTrClVljh/YysFh/nU2yYu7oWqeoKsRcIFNfw6rWnR25FWdHy7J
-	 NdnugC/6B7rDJhfnsmBH6u0Y4/+vKVYFx1F96t6L6iw3CSjfGaWzL0DW24hVNvqJnnH+g
-	 QBtjhrD7uVA48l7bj5lw97kD/Ryis4uk7vd2w4ilriyXvkAM9LrSxv1C8IKqePrJKzA==
+	t=1795517112;
+	b=CqQNR4qbZuAqIGBMqwQ5NAGQjW1jRwrxpHPiQOA3qm/Dq0pwGpM8sfCjNAO+m93Vzs5E
+	 SZRY+DlFJpvtorT5c656biiU809USJjJWuJjpfMdx9HSrH4bIWhLHVYutnhULTWp9N6QT
+	 IYwsBVDSgZjrKUcjkN2PmILqd8jIHsbvwhpDoyPA0ojW2VNCT68gQokSm426uUS1eS0D2
+	 LWHPpPr7epsASJTn33VXqTbtcFTJXlY307v9p/fpNh/CG50mcH3LHXDgr4044MkGoP5e/
+	 9DkY9YdB2AIIx7RZ6WzgpUwLpKAkAqPH62LOHJJ7d75QL2zZC9jhYaZsjdA3ZLfUOSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795517109;
-	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=QVcpWwBDvLOR3uuhiJ4NpPW4+vnqSVIz1HFeEPmwlOE=;
-	b=ZXctgwAFrn3Z2Tf7Qz1qSGS4SO1qMeeX57PiBymsiUxe/4SvETLpATpVJmu4dmpuPC+7
-	 jtlhh6aqEGK3MvFg5WWdaqNa+3erep+MylcetO6vBnSdXMFARBMd/4AfQ2JyZ0pRSJYV5
-	 WskFn41kEnvCQlBplLoET85TFDUdfNETX5f2sfr1sdCCK3CGFnUOfFn6KkXXwGCmpHbOr
-	 aWkxZJji9edAgtTqxup3m8F+wSgBfP2MpowvNMhwkJSoUc2keS4dK/FA6mKCPizW7EaS+
-	 DtF6Os+G7h+nSnzZBiS0MnsWcjmu1c7vAM27UnAtRWxJze7pDjgQDeZUYMmRlJAy9wA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795517112;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=lwHm2eXGQfsQLxAsDpBUxULj2YCIKJh637GLHu4D0yk=;
+	b=1bTPam4Z1NRj9d/C3Ki0vIXA5zmDkQ+cvxC/bK7nEyvbhTZgQuv0pc0dWHL/fv2rElIi
+	 qJ54r0/dLpnsVNiqnP1t88dbXQliVtnzKzNePX5tQ2OKJv1wwt0e3xuVjrVdfmIjM4swI
+	 6HvyiCSlvfeYTP/r3ZAVA5iGrsEeySdyeGB48WAdGjDZMm1rKP9qUMIGMke+27+vjtIwG
+	 XUl/NDMdJxKs17Lvnxyi7P/CJELz5U64H10kiOEtj2xZ6arkJSlIn1Z9RgHxX5YpA6AJ7
+	 Pi/Ir6XbuFmb16fvebGY9pJKYViwoHDEMcQPQ4+z9dAXXdN03XbQpebCRaOxVG8QDeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=krgm.moe;
 	spf=pass smtp.mailfrom=krgm.moe;
 	arc=none smtp.remote-ip=103.47.186.116
 Received: from krgm.moe (krgm.moe [103.47.186.116])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0EA80606A31E;
-	Tue, 24 Nov 2026 10:45:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EA80606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8392D606A331;
+	Tue, 24 Nov 2026 10:45:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8392D606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krgm.moe
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krgm.moe
 Received: from [10.42.0.96] (unknown [114.242.206.180])
-	by krgm.moe (Postfix) with ESMTPSA id E49F8859;
-	Tue, 24 Nov 2026 16:15:05 +0530 (IST)
+	by krgm.moe (Postfix) with ESMTPSA id F1E3877B7;
+	Tue, 24 Nov 2026 16:15:08 +0530 (IST)
 From: SignKirigami <prcups@krgm.moe>
-Subject: [PATCH 0/2] Add PM6450 RPMh regulator support
-Date: Tue, 24 Nov 2026 18:43:59 +0800
-Message-Id: <20261124-netrani-pm6450-v1-v1-0-1914da758d3d@krgm.moe>
+Date: Tue, 24 Nov 2026 18:44:00 +0800
+Subject: [PATCH 1/2] dt-bindings: regulator: qcom,rpmh: Add PM6450
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -45,49 +44,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1wQhq1VxEXMY46haaSqAji3
- Rt1+Rb/HxA5CEd4ZwcE3iTKzydQnoGbrB8ZpU8GVShDpDR6XoL1gvPX6FeBGyGVllWl61IPFlI
- 3Bx5kv59N+ziu3Yfdco3gPP9FgSQ3dQAAAA==
-X-Change-ID: 20261124-netrani-pm6450-v1-17ae284974fa
+Message-Id: <20261124-netrani-pm6450-v1-v1-1-1914da758d3d@krgm.moe>
+References: <20261124-netrani-pm6450-v1-v1-0-1914da758d3d@krgm.moe>
+In-Reply-To: <20261124-netrani-pm6450-v1-v1-0-1914da758d3d@krgm.moe>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=703; i=prcups@krgm.moe;
- h=from:subject:message-id; bh=eAooSlsInfQK4l+MyiyxovowUFu6Gwzc9fj6jRCv21M=;
- b=owEBCQL2/ZANAwAIAV0dOJt2umJjAcsmYgBrBWqO8IYLm6e0zhyqrsvckvFOII8RLZAIwwxBp
- JH7cmpqdr6JAc8EAAEIADkWIQRSClJ2zjncUdNU0FFdHTibdrpiYwUCawVqjhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwwLDIACgkQXR04m3a6YmMZZQwAqJ+zN+9UcSpdPGPmPaRLdhxiQF3xUAv
- 9g9pBaLY0MNtfXpBXW9AmS+EW+gWMWpDXQ7bO2D7MTq0qbikYVIvPANv24NRE8nJq8cksHRC9OE
- 27sv8ALJVjskQ9g7BT3XNRGj0eOlbqR4nvLZIrhgT6IRgedahOshrNaa5ya2ATxqfYNg3hmK6n3
- 1zzxuOqCdqhaTEB9NNgDW/OhEt/30PdxMUkzKC32tdzDlj7dQGEBd2hlhhXy28JiOZHuUdOe1uh
- B+6IYntsLNeUzKEtF2gloztYrBzsoym8K7rcoofcFtrwKp/U9J9XOBqO3IUvYtQ75HFKRgSdfHe
- xbohoIDSMP8tvdQ0+4A9bsMXdxEnmPyigkqj8aCrbTwHd08mZgsoIan2Vm14XJBe7PjoqlfhM9H
- TFGtiBc5WP8akTFDmxysfPpw4Ti3FeA3YDU5eWOPa99qIP4yff+YmhHJwHmEXzKTuMyJ51Y+FSl
- IiZiqGpWRrxTxdiB7zfvC1weRkUWK1m
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1322; i=prcups@krgm.moe;
+ h=from:subject:message-id; bh=JTcehRhWC5D7m3DhQb5HW5rKAsfVUWSIVzZ4T5udMSM=;
+ b=owEBCQL2/ZANAwAIAV0dOJt2umJjAcsmYgBrBWqOQ+ub8AMXs2bjSnkvhRVMjVr0v1bdXyAxq
+ +Blz9EqTxOJAc8EAAEIADkWIQRSClJ2zjncUdNU0FFdHTibdrpiYwUCawVqjhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDIACgkQXR04m3a6YmOVXwwAmLOwcUeBCkDRpFirR48FVpb4gvkGPwQ
+ UA66Kmi4rhcTp3GyyrVF0Lk2jsEW2b+c2iA/4ekvADZa+svT5pMyTnHnkoRmpVYrhc4Pe7FOAK/
+ C+s8fV3nDGrRLXq3/JbEGlSSnJ9gMPuaTvdoLWZLm/WItJDhui25wqjiYwAzhRBjsAJh2P4vrpg
+ d1jfB6fDYUYh80oMEUxb8abAv91eLDdVYNPCc6CGfn3FNDJKGyPFotMo6okgsKsOFn5pRRqMwc8
+ 6S7ZzwU9GBzYKnxFnwoK7crSuW5D637ffMmWACSK2N98tug2u8jBd6qLUAN2ZAdkOb/9/YmCx/+
+ z71YqgvYW4vMoHyhNlzluru+neahgYE/PktS0hH14k6toDxbpULwnQVgw00KNm8nrcD9UVcNO5v
+ mC6n7yhrXrB5BxnZ3a4uXjnaoQdVXaDAs16C2m7J3h0HmqU2DxMvrsK7rq/xtG6NCrew8kAQfa1
+ KZRPRnt2g4cBP47ZLHK5NCh0zlnIIcU
 X-Developer-Key: i=prcups@krgm.moe; a=openpgp;
  fpr=520A5276CE39DC51D354D0515D1D389B76BA6263
 
-Add PM6450 RPMh regulator resources using the existing PMIC5
-NLDO and PLDO models. LDO24 preserves its power-on-selected voltage and only
-accepts enable, mode and load votes.
+Add the PM6450 compatible and document its supported RPMh LDO
+resources.
 
 Signed-off-by: SignKirigami <prcups@krgm.moe>
 ---
-SignKirigami (2):
-      dt-bindings: regulator: qcom,rpmh: Add PM6450
-      regulator: qcom-rpmh: Add PM6450 LDO support
+ Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
- .../bindings/regulator/qcom,rpmh-regulator.yaml    |  2 ++
- drivers/regulator/qcom-rpmh-regulator.c            | 38 ++++++++++++++++++++++
- 2 files changed, 40 insertions(+)
----
-base-commit: 6eba525f2c14486c1a8cac2320ab202097212f5c
-change-id: 20261124-netrani-pm6450-v1-17ae284974fa
+diff --git a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
+index 9115885e7985b..ba3f50352773c 100644
+--- a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
+@@ -37,6 +37,7 @@ description: |
+       For PM6150, smps1 - smps5, ldo1 - ldo19
+       For PM6150L, smps1 - smps8, ldo1 - ldo11, bob
+       For PM6350, smps1 - smps5, ldo1 - ldo22
++      For PM6450, ldo5, ldo7, ldo13, ldo16, ldo19, ldo23 - ldo25
+       For PM660, smps1 - smps6, ldo1 - ldo3, ldo5 - ldo19
+       For PM660L, smps1 - smps3, smps5, ldo1 - ldo8, bob
+       For PM7325, smps1 - smps8, ldo1 - ldo19
+@@ -72,6 +73,7 @@ properties:
+       - qcom,pm6150-rpmh-regulators
+       - qcom,pm6150l-rpmh-regulators
+       - qcom,pm6350-rpmh-regulators
++      - qcom,pm6450-rpmh-regulators
+       - qcom,pm660-rpmh-regulators
+       - qcom,pm660l-rpmh-regulators
+       - qcom,pm7325-rpmh-regulators
 
-Best regards,
---  
-SignKirigami <prcups@krgm.moe>
+-- 
+2.56.0
 
