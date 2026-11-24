@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795520749;
-	b=EvE1AqPtQ9HPRs/MMaZBoRwhcg1YK7zQD+mpPZNRwbB1Y6h7o7FuIKio4BQlLGJP9HvS
-	 nzAPpmkqePGfsJkrdewX4x5XgjaXXd0acuKwpKyzYEPoYJstRnsYKLa+GhYDwMb9A+x33
-	 bjb51Ye16Csd+9Z8s4zbGWVEAMW9UIKjyOiNDTPgZO53O/1znpk6v4cEjqRkbZd0qEevI
-	 YESyY1PlM22zfqp5kTPyRutPHhyBHuKqNcey7RcV112UDttlnUHe7ZZ0P7lysRVDXg1K3
-	 yjlOkyxBgDR1wzCn4mTopNZzNVKPBFzurnxinz2dC3GKJVI84+ETkP2NkdH5iX6JZ+w==
+	t=1795520751;
+	b=b5m/crbPbDOrUjFiZ9xNqE09Gvvp3+LM68ThxL4nX82akh+z9DkxFSg4DpBu5OZhkU4s
+	 TG4XEvkz5Y2csPIiTkrt0G+1I6B6ksrKoEZFubmRFu3DzGqJ2eoww4YTFp3wFzXqAImdo
+	 LKsq+O1BOHVsrE3zZ9xlE4rkrUqwDS054LtKwZ6WzVsupmoT0o/SfVLzW9H8RDwRDHdn8
+	 kMJ2ozZcjtQHF3u504jOVJeiiLSAtd1diRk71sE37s76V7YmqFsnPD22Cd1i0ZkFMPtEA
+	 AS2g/fEee5dssaYtXAR9VEImZB+088eW1pHIuPz2wjMSQd/Wsrgo2No46l8kjNkFxjQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795520749;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795520751;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=wv8u8ktOF6zrlPKjMXn9Mf18f6YMxUqDbvX5ZSbyaHo=;
-	b=ZnpF8LfkgNWFmEHGP2dcRDerTMODWU3lgoWXVPcbOQJlkhT74tZS9BtAc/n5p3BY/ku6
-	 TS6boD4/7/0b46SpTCjuyVtTtcxk8gKwqyorpxOiff+GZblwUbaVeqDuSJTIL8HNyI92u
-	 qKi16ebyBbnE8zG78gwOVYUmRhEnbYxa6aQHM6BqlXFEGhG5T70/+OdecOh8lQ1PR1xbJ
-	 FnUHhw2ji72cXJ6O4BdINTJxZOC1f0iNWnKG+KYzMgKvVnUB0x8drtA7oOuYn9sJo2h4I
-	 G2uLthokh1+2ZKhj96tSRK+UeQWUUIcWeI1qw2ijuI3a9zQgn0OUdbnrHEOAKRBFZXQ==
+	bh=3M94LzORtCE0UApTx4Yj57voDtgegTWnYHTl4fk8MR8=;
+	b=RFWCan+83G6haPKm6TuTvmaL73SWu2jPw0uWKbumT8AU/8wxp0g+Mzuen33IgCWnKong
+	 KqF7inBdXZHgMRJRDL+dzDjih/rJesOg0ZVlg/KvWt53HUpmQyX9m862GBdb1CBpsd/Ff
+	 H84S7JXzwEJ53O0N5kvHUf3CTzCIzU9QOrHBrV1xxtQZxbB3sDWPNjBChQyQA9Yw4X+nF
+	 yZfDnxNMP27+JKeVW1TTJzBGjpTc7Kj12DHZtaYTZqGgOtKcqa3TQbgtgWEtlNHyghCPk
+	 6h1YPPqkLhk0+I0kA8IfUvHNUeqzBWIj8kaojZbahvtM6b4XiPII0lsflkdp/3Bbwig==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VqdG6rdH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OgqmjGZB;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0C5606A681;
-	Tue, 24 Nov 2026 11:45:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FD0606A689;
+	Tue, 24 Nov 2026 11:45:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VqdG6rdH
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OgqmjGZB
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795520749;
-	b=TKeHgOyKt33FP3F8gUqrrDKc6obr7yO4xJT4N8Ck2JII10G00J6L89aHREbCmwuSVqQu
-	 L7qq2upEqXQS3dv6NQ4skveTf/dZHWLo7jEESJolClfNcacDGl/sll98YGvdQlpPCzo3m
-	 KfDAncDhKye54Zczq4dZev8qNzl3XuSpud5OU2wvYRBP7PGcEsCpP74AqF3g0XNmuN0kA
-	 gkh0/x8ueB4zS7tP4CSBe1Tc/XR9f1LbvgGdz83H31BbDX4FK8Qh3tgBKCoUFy1AUrdJj
-	 OgHpfKLQSrjX7QeTXzP1PaKFKPsrTaZgcAyACvUehR5AdmSKicgcLiqWFcDgvWArzDQ==
+	t=1795520751;
+	b=Txl74xySCPEuiNxAjrIPv/M8gXL/iJPC//CaqQnJ0MtbGhGPyX7qRQP+nNR36s9dn3lU
+	 gfdHgh8EjquI12iWoVXza7QslLKTZy6Uh5P4aWURAmcHPBNwuVdkj0lLG7isaJfkChLB8
+	 xN3SuLkj2sPu5G7ewaXQYGYuW9zPGTvCfJu1CGIBoI7rt8coi/XmaRqTdoVla1inJLIui
+	 MjA9FTnV9mow9GK9J81EzATe+KHuG3f3yCdtxM93jBluMeh67jYpDF+xV2BWVhWSWXSb2
+	 gp9n+noru8bFMF4m+iW3foc8uqtZqISHgMRvtva+RcxkuzhotdWf/i24HWiSoj+qY1A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795520749;
+	c=relaxed/relaxed; t=1795520751;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=wv8u8ktOF6zrlPKjMXn9Mf18f6YMxUqDbvX5ZSbyaHo=;
-	b=FXGm3fqp1xNHEKwjT/WOaMLU9lzdPCtqVdsN+7MrbEKC2W+xNvU+mtxp3NaOEzAjrcm/
-	 S4Hu3s0/j0O082zsTpDSQAqDkYT/VIWyNTbP0296Lo2PtsRu67vtGSj9fSEu9wAH/Ku9x
-	 BDAv/x1uOZYSEfP7YBPPcJsNvpCiYMkjMGvprbx4dqm01GpvcClFQFlg9i/MXNlBda84O
-	 BEfDpQQ+ZmP1wKfgPsYnzjp4YVROqU0S7/Z3uhh4orALz1+MYOojShx8ZKHiviJ87sxzO
-	 SiO9ap0ueUuU9Eio8ORIq6AiSOuAX6uMe9vpnNVBuTzjkUgegS1mHBoWkUoEgQSlosw==
+	bh=3M94LzORtCE0UApTx4Yj57voDtgegTWnYHTl4fk8MR8=;
+	b=cbf7AaY1GV1SyYmDqDwllMMcZftPd6uqNaIM6vC5JOq07n1K4HXrDOSzXpU/L7YKRDid
+	 lFYm3BsNTmTZsdhjX/pki5DBLoBHz9C31Pq9fEB7meuF9+KIBf+Q9nDBc3FUWIKJ5vbGg
+	 wPlI5GD+voUfL7AsvqFacp9Bw+kvcvR6KFZN+LkZQ702gYZsQ23dcin9/sHCUGdcdakpd
+	 2ZNHjMmzN1mkYJL6tjpKeo+mHo3p703zty+dQ8KuU7z/valV2KwNSDRplF6asWPyDEv4/
+	 zKLBPK1rgNTRw15uiE46cMESlrGXH/ztziy/fFMpswwZpdcDVOKD1q+EN4r+LcYuotg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 645611F0093E;
-	Tue, 24 Nov 2026 11:45:32 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 984601F000E1;
+	Tue, 24 Nov 2026 11:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795520749;
-	bh=wv8u8ktOF6zrlPKjMXn9Mf18f6YMxUqDbvX5ZSbyaHo=;
+	s=k20260515; t=1795520751;
+	bh=3M94LzORtCE0UApTx4Yj57voDtgegTWnYHTl4fk8MR8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VqdG6rdH9Zgl7KdqSEguh27a+skj3/eln33h/Gria8fdSDpLjy91Skig/ItGFPvZO
-	 jy2GgxWEhoHAFHvc4KNRAh+CmaLOnRGgjqCtY/aaZyaPqGX7h7wDiaI8IzkigC3pBC
-	 HMlnXcEHQsCGv5oKc9dlwXJB2JqkSPB+NTtgwm0/HVSzyAjEXAicw/UORTQpAzFGoh
-	 WnsBKeHMepqpdAsm/KqCtZA+IR8TCgByyxMCqQLMN14QVBdCI3Qt4rXllMQlfQ2G8C
-	 zhr+3w9aGQHV/rlaa5Qi3m5XtYNNLmL0/VwLQzMMXy9OQUXy3aV87qQVDoIcoddqwU
-	 5SABaWOF80tlQ==
+	b=OgqmjGZBXOf5NfP6RDXoAGpyPEsj1tUNanLli1qCHgj2WFSjIwi2CSo4xj0yIgUNd
+	 qmWtxXHkHNtADtjml08BFCSVXL5FOkePJM14tBMNj/0zUgUBYxjyCr9IdUgZ+MWKjV
+	 wNV/82X+AeTng0Y13YDZTmQj/c8gf5nTJztqY2zlY1GRUMLpyQalMnZvX9z3Iv8CJF
+	 bLEFW5+0mTkCI6cQUq1EW1/12pDnGlrt6NLlqRNlbo18Qf5Ng/3TfqYKbvv1Ler3Uu
+	 b6PwDMu8m2PtnVc32mIO5N7AXgL2hE3/OCzHycNZ0ziTKIVXNkxSEc1MuY6gLyB7QR
+	 dhhlcXWXKv51Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7DA4C4C9FF;
+	by lkml.kernel.org (Postfix) with ESMTP id B5B614CA07;
 	Tue, 24 Nov 2026 11:45:27 +0000 (UTC)
 From: Sai Sree Kartheek Adivi via B4 Relay <devnull+s-adivi.ti.com@kernel.org>
-Date: Tue, 24 Nov 2026 17:15:08 +0530
-Subject: [PATCH v13 06/20] dmaengine: ti: k3-udma: move ring management
+Date: Tue, 24 Nov 2026 17:15:10 +0530
+Subject: [PATCH v13 08/20] dmaengine: ti: k3-udma: move udma utility
  functions to k3-udma-common.c
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-dma-upstream-v13-v13-6-bd4251fdc6d4@ti.com>
+Message-Id: <20261124-dma-upstream-v13-v13-8-bd4251fdc6d4@ti.com>
 References: <20261124-dma-upstream-v13-v13-0-bd4251fdc6d4@ti.com>
 In-Reply-To: <20261124-dma-upstream-v13-v13-0-bd4251fdc6d4@ti.com>
 To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
@@ -94,14 +94,13 @@ To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- sebin.francis@ti.com, Sai Sree Kartheek Adivi <s-adivi@ti.com>, 
- Frank Li <Frank.Li@nxp.com>
+ sebin.francis@ti.com, Sai Sree Kartheek Adivi <s-adivi@ti.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795520723; l=9607;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795520723; l=37422;
  i=s-adivi@ti.com; s=20261124; h=from:subject:message-id;
- bh=GYtjFL2d97JRSvvo0vrQ/LsTe2zrkrtKVBX2YTefwYE=;
- b=t/q52ezPWt7ZxQ+I8wSfN4Z3C5dGF5dv2Z4+V9r3UZQH4OiJZBWJsKH5dVC+xa04gftNE+/Pd
- i14PHFywA9mCSJ0tUqbW4YFQhSF9AA/r5LVfYTi96iUA6qRUH1S8wch
+ bh=/YW6EEhS8jN1IBDSfkByy4e6AH8jRs9IZZpamrneGtQ=;
+ b=U9sRat7M3AesozsqpFEXd8JOgCAmoAvlBLVgDE/aEcMCjRCBvo2L8pHR4qKREiGz3r06S1BQG
+ hqTim7SNxBuDULeE15d24M6RiG5u6IHQJb6knKdnLJlvpI61z9rpTTG
 X-Developer-Key: i=s-adivi@ti.com; a=ed25519;
  pk=EtOwVxmXDuYMgw3DqFtPDBpf8ZvbO89w1fJm4w5yPI8=
 X-Endpoint-Received: by B4 Relay for s-adivi@ti.com/20261124 with
@@ -112,333 +111,1248 @@ Content-Transfer-Encoding: 7bit
 
 From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-Relocate the ring management functions such as push, pop, and reset
-from k3-udma.c to k3-udma-common.c file. These operations are
-common across multiple K3 UDMA variants and will be reused by
-future implementations like K3 UDMA v2.
+Relocate udma utility functions from k3-udma.c to k3-udma-common.c file.
+
+The implementation of these functions is largely shared between K3 UDMA
+and K3 UDMA v2. This refactor improves code reuse and maintainability
+across multiple variants.
 
 No functional changes intended.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 ---
- drivers/dma/ti/k3-udma-common.c | 119 ++++++++++++++++++++++++++++++++++++++--
- drivers/dma/ti/k3-udma.c        | 100 ---------------------------------
- drivers/dma/ti/k3-udma.h        |  11 ++--
- 3 files changed, 118 insertions(+), 112 deletions(-)
+ drivers/dma/ti/k3-udma-common.c | 556 +++++++++++++++++++++++++++++++++++++++-
+ drivers/dma/ti/k3-udma.c        | 531 --------------------------------------
+ drivers/dma/ti/k3-udma.h        |  31 ++-
+ 3 files changed, 580 insertions(+), 538 deletions(-)
 
 diff --git a/drivers/dma/ti/k3-udma-common.c b/drivers/dma/ti/k3-udma-common.c
-index f9060bcab8a5a..c9cbe93f2391d 100644
+index c9cbe93f2391d..54b95490a56a7 100644
 --- a/drivers/dma/ti/k3-udma-common.c
 +++ b/drivers/dma/ti/k3-udma-common.c
-@@ -13,6 +13,13 @@
+@@ -4,6 +4,7 @@
+  *  Author: Peter Ujfalusi <peter.ujfalusi@ti.com>
+  */
  
- #include "k3-udma.h"
- 
-+static int udma_attach_metadata(struct dma_async_tx_descriptor *desc,
-+				 void *data, size_t len);
-+static void *udma_get_metadata_ptr(struct dma_async_tx_descriptor *desc,
-+				    size_t *payload_len, size_t *max_len);
-+static int udma_set_metadata_len(struct dma_async_tx_descriptor *desc,
-+				  size_t payload_len);
-+
- static const struct dma_descriptor_metadata_ops metadata_ops = {
- 	.attach = udma_attach_metadata,
- 	.get_ptr = udma_get_metadata_ptr,
-@@ -121,7 +128,7 @@ void udma_desc_free(struct virt_dma_desc *vd)
++#include <linux/delay.h>
+ #include <linux/dmaengine.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/dmapool.h>
+@@ -54,6 +55,28 @@ struct udma_desc *udma_udma_desc_from_paddr(struct udma_chan *uc,
  }
- EXPORT_SYMBOL_GPL(udma_desc_free);
+ EXPORT_SYMBOL_GPL(udma_udma_desc_from_paddr);
  
--bool udma_desc_is_rx_flush(struct udma_chan *uc, dma_addr_t addr)
-+static bool udma_desc_is_rx_flush(struct udma_chan *uc, dma_addr_t addr)
- {
- 	if (uc->config.dir != DMA_DEV_TO_MEM)
- 		return false;
-@@ -131,7 +138,6 @@ bool udma_desc_is_rx_flush(struct udma_chan *uc, dma_addr_t addr)
- 
- 	return false;
- }
--EXPORT_SYMBOL_GPL(udma_desc_is_rx_flush);
- 
- bool udma_is_desc_really_done(struct udma_chan *uc, struct udma_desc *d)
- {
-@@ -723,7 +729,7 @@ udma_prep_slave_sg_pkt(struct udma_chan *uc, struct scatterlist *sgl,
- 	return d;
- }
- 
--int udma_attach_metadata(struct dma_async_tx_descriptor *desc,
-+static int udma_attach_metadata(struct dma_async_tx_descriptor *desc,
- 			 void *data, size_t len)
- {
- 	struct udma_desc *d = to_udma_desc(desc);
-@@ -759,7 +765,7 @@ int udma_attach_metadata(struct dma_async_tx_descriptor *desc,
- 	return 0;
- }
- 
--void *udma_get_metadata_ptr(struct dma_async_tx_descriptor *desc,
-+static void *udma_get_metadata_ptr(struct dma_async_tx_descriptor *desc,
- 			    size_t *payload_len, size_t *max_len)
- {
- 	struct udma_desc *d = to_udma_desc(desc);
-@@ -780,7 +786,7 @@ void *udma_get_metadata_ptr(struct dma_async_tx_descriptor *desc,
- 	return h_desc->epib;
- }
- 
--int udma_set_metadata_len(struct dma_async_tx_descriptor *desc,
-+static int udma_set_metadata_len(struct dma_async_tx_descriptor *desc,
- 			  size_t payload_len)
- {
- 	struct udma_desc *d = to_udma_desc(desc);
-@@ -1240,5 +1246,108 @@ void udma_desc_pre_callback(struct virt_dma_chan *vc,
- }
- EXPORT_SYMBOL_GPL(udma_desc_pre_callback);
- 
-+int udma_push_to_ring(struct udma_chan *uc, int idx)
++void udma_start_desc(struct udma_chan *uc)
 +{
-+	struct udma_desc *d = uc->desc;
-+	struct k3_ring *ring = NULL;
-+	dma_addr_t paddr;
++	struct udma_chan_config *ucc = &uc->config;
 +
-+	switch (uc->config.dir) {
-+	case DMA_DEV_TO_MEM:
-+		ring = uc->rflow->fd_ring;
-+		break;
-+	case DMA_MEM_TO_DEV:
-+	case DMA_MEM_TO_MEM:
-+		ring = uc->tchan->t_ring;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
++	if (uc->ud->match_data->type == DMA_TYPE_UDMA && ucc->pkt_mode &&
++	    (uc->cyclic || ucc->dir == DMA_DEV_TO_MEM)) {
++		int i;
 +
-+	/* RX flush packet: idx == -1 is only passed in case of DEV_TO_MEM */
-+	if (idx == -1) {
-+		paddr = udma_get_rx_flush_hwdesc_paddr(uc);
++		/*
++		 * UDMA only: Push all descriptors to ring for packet mode
++		 * cyclic or RX
++		 * PKTDMA supports pre-linked descriptor and cyclic is not
++		 * supported
++		 */
++		for (i = 0; i < uc->desc->sglen; i++)
++			udma_push_to_ring(uc, i);
 +	} else {
-+		paddr = udma_curr_cppi5_desc_paddr(d, idx);
-+
-+		wmb(); /* Ensure that writes are not moved over this point */
++		udma_push_to_ring(uc, 0);
 +	}
-+
-+	return k3_ringacc_ring_push(ring, &paddr);
 +}
-+EXPORT_SYMBOL_GPL(udma_push_to_ring);
++EXPORT_SYMBOL_GPL(udma_start_desc);
 +
-+int udma_pop_from_ring(struct udma_chan *uc, dma_addr_t *addr)
+ static void udma_free_hwdesc(struct udma_chan *uc, struct udma_desc *d)
+ {
+ 	if (uc->use_dma_pool) {
+@@ -1205,9 +1228,9 @@ udma_prep_dma_memcpy(struct dma_chan *chan, dma_addr_t dest, dma_addr_t src,
+ }
+ EXPORT_SYMBOL_GPL(udma_prep_dma_memcpy);
+ 
+-void udma_desc_pre_callback(struct virt_dma_chan *vc,
+-			    struct virt_dma_desc *vd,
+-			    struct dmaengine_result *result)
++static void udma_desc_pre_callback(struct virt_dma_chan *vc,
++				   struct virt_dma_desc *vd,
++				   struct dmaengine_result *result)
+ {
+ 	struct udma_chan *uc = to_udma_chan(&vc->chan);
+ 	struct udma_desc *d;
+@@ -1244,7 +1267,6 @@ void udma_desc_pre_callback(struct virt_dma_chan *vc,
+ 		}
+ 	}
+ }
+-EXPORT_SYMBOL_GPL(udma_desc_pre_callback);
+ 
+ int udma_push_to_ring(struct udma_chan *uc, int idx)
+ {
+@@ -1349,5 +1371,531 @@ void udma_reset_rings(struct udma_chan *uc)
+ }
+ EXPORT_SYMBOL_GPL(udma_reset_rings);
+ 
++u8 udma_get_chan_tpl_index(struct udma_tpl *tpl_map, int chan_id)
 +{
-+	struct k3_ring *ring = NULL;
-+	int ret;
++	int i;
 +
-+	switch (uc->config.dir) {
-+	case DMA_DEV_TO_MEM:
-+		ring = uc->rflow->r_ring;
-+		break;
-+	case DMA_MEM_TO_DEV:
-+	case DMA_MEM_TO_MEM:
-+		ring = uc->tchan->tc_ring;
-+		break;
-+	default:
-+		return -ENOENT;
++	for (i = 0; i < tpl_map->levels; i++) {
++		if (chan_id >= tpl_map->start_idx[i])
++			return i;
 +	}
-+
-+	ret = k3_ringacc_ring_pop(ring, addr);
-+	if (ret)
-+		return ret;
-+
-+	rmb(); /* Ensure that reads are not moved before this point */
-+
-+	/* Teardown completion */
-+	if (cppi5_desc_is_tdcm(*addr))
-+		return 0;
-+
-+	/* Check for flush descriptor */
-+	if (udma_desc_is_rx_flush(uc, *addr))
-+		return -ENOENT;
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL_GPL(udma_pop_from_ring);
++EXPORT_SYMBOL_GPL(udma_get_chan_tpl_index);
 +
-+void udma_reset_rings(struct udma_chan *uc)
++void k3_configure_chan_coherency(struct dma_chan *chan, u32 asel)
 +{
-+	struct k3_ring *ring1 = NULL;
-+	struct k3_ring *ring2 = NULL;
++	struct device *chan_dev = dmaengine_chan_dev(chan);
 +
-+	switch (uc->config.dir) {
-+	case DMA_DEV_TO_MEM:
-+		if (uc->rchan) {
-+			ring1 = uc->rflow->fd_ring;
-+			ring2 = uc->rflow->r_ring;
-+		}
-+		break;
-+	case DMA_MEM_TO_DEV:
-+	case DMA_MEM_TO_MEM:
-+		if (uc->tchan) {
-+			ring1 = uc->tchan->t_ring;
-+			ring2 = uc->tchan->tc_ring;
-+		}
-+		break;
-+	default:
-+		break;
-+	}
++	if (asel == 0) {
++		/* No special handling for the channel */
++		chan->chan_dev->chan_dma_dev = false;
 +
-+	if (ring1)
-+		k3_ringacc_ring_reset_dma(ring1,
-+					  k3_ringacc_ring_get_occ(ring1));
-+	if (ring2)
-+		k3_ringacc_ring_reset(ring2);
++		dev_clear_dma_coherent(chan_dev);
++		chan_dev->dma_parms = NULL;
++	} else if (asel == 14 || asel == 15) {
++		chan->chan_dev->chan_dma_dev = true;
 +
-+	/* make sure we are not leaking memory by stalled descriptor */
-+	if (uc->terminated_desc) {
-+		udma_desc_free(&uc->terminated_desc->vd);
-+		uc->terminated_desc = NULL;
++		dev_set_dma_coherent(chan_dev);
++		dma_coerce_mask_and_coherent(chan_dev, DMA_BIT_MASK(48));
++		chan_dev->dma_parms = chan_dev->parent->dma_parms;
++	} else {
++		dev_warn(chan->device->dev, "Invalid ASEL value: %u\n", asel);
++
++		dev_clear_dma_coherent(chan_dev);
++		chan_dev->dma_parms = NULL;
 +	}
 +}
-+EXPORT_SYMBOL_GPL(udma_reset_rings);
++EXPORT_SYMBOL_GPL(k3_configure_chan_coherency);
++
++void udma_reset_uchan(struct udma_chan *uc)
++{
++	memset(&uc->config, 0, sizeof(uc->config));
++	uc->config.remote_thread_id = -1;
++	uc->config.mapped_channel_id = -1;
++	uc->config.default_flow_id = -1;
++	uc->state = UDMA_CHAN_IS_IDLE;
++}
++EXPORT_SYMBOL_GPL(udma_reset_uchan);
++
++void udma_dump_chan_stdata(struct udma_chan *uc)
++{
++	struct device *dev = uc->ud->dev;
++	u32 offset;
++	int i;
++
++	if (uc->config.dir == DMA_MEM_TO_DEV || uc->config.dir == DMA_MEM_TO_MEM) {
++		dev_dbg(dev, "TCHAN State data:\n");
++		for (i = 0; i < 32; i++) {
++			offset = UDMA_CHAN_RT_STDATA_REG + i * 4;
++			dev_dbg(dev, "TRT_STDATA[%02d]: 0x%08x\n", i,
++				udma_tchanrt_read(uc, offset));
++		}
++	}
++
++	if (uc->config.dir == DMA_DEV_TO_MEM || uc->config.dir == DMA_MEM_TO_MEM) {
++		dev_dbg(dev, "RCHAN State data:\n");
++		for (i = 0; i < 32; i++) {
++			offset = UDMA_CHAN_RT_STDATA_REG + i * 4;
++			dev_dbg(dev, "RRT_STDATA[%02d]: 0x%08x\n", i,
++				udma_rchanrt_read(uc, offset));
++		}
++	}
++}
++
++bool udma_is_chan_running(struct udma_chan *uc)
++{
++	u32 trt_ctl = 0;
++	u32 rrt_ctl = 0;
++
++	if (uc->tchan)
++		trt_ctl = udma_tchanrt_read(uc, UDMA_CHAN_RT_CTL_REG);
++	if (uc->rchan)
++		rrt_ctl = udma_rchanrt_read(uc, UDMA_CHAN_RT_CTL_REG);
++
++	if (trt_ctl & UDMA_CHAN_RT_CTL_EN || rrt_ctl & UDMA_CHAN_RT_CTL_EN)
++		return true;
++
++	return false;
++}
++EXPORT_SYMBOL_GPL(udma_is_chan_running);
++
++bool udma_chan_needs_reconfiguration(struct udma_chan *uc)
++{
++	/* Only PDMAs have staticTR */
++	if (uc->config.ep_type == PSIL_EP_NATIVE)
++		return false;
++
++	/* Check if the staticTR configuration has changed for TX */
++	if (memcmp(&uc->static_tr, &uc->desc->static_tr, sizeof(uc->static_tr)))
++		return true;
++
++	return false;
++}
++EXPORT_SYMBOL_GPL(udma_chan_needs_reconfiguration);
++
++void udma_cyclic_packet_elapsed(struct udma_chan *uc)
++{
++	struct udma_desc *d = uc->desc;
++	struct cppi5_host_desc_t *h_desc;
++
++	h_desc = d->hwdesc[d->desc_idx].cppi5_desc_vaddr;
++	cppi5_hdesc_reset_to_original(h_desc);
++	udma_push_to_ring(uc, d->desc_idx);
++	d->desc_idx = (d->desc_idx + 1) % d->sglen;
++}
++EXPORT_SYMBOL_GPL(udma_cyclic_packet_elapsed);
++
++void udma_check_tx_completion(struct work_struct *work)
++{
++	struct udma_chan *uc = container_of(work, typeof(*uc),
++					    tx_drain.work.work);
++	bool desc_done = true;
++	u32 residue_diff;
++	ktime_t time_diff;
++	unsigned long delay;
++	unsigned long flags;
++
++	while (1) {
++		spin_lock_irqsave(&uc->vc.lock, flags);
++
++		if (uc->desc) {
++			/* Get previous residue and time stamp */
++			residue_diff = uc->tx_drain.residue;
++			time_diff = uc->tx_drain.tstamp;
++			/*
++			 * Get current residue and time stamp or see if
++			 * transfer is complete
++			 */
++			desc_done = udma_is_desc_really_done(uc, uc->desc);
++		}
++
++		if (!desc_done) {
++			/*
++			 * Find the time delta and residue delta w.r.t
++			 * previous poll
++			 */
++			time_diff = ktime_sub(uc->tx_drain.tstamp,
++					      time_diff) + 1;
++			residue_diff -= uc->tx_drain.residue;
++			if (residue_diff) {
++				/*
++				 * Try to guess when we should check
++				 * next time by calculating rate at
++				 * which data is being drained at the
++				 * peer device
++				 */
++				delay = (time_diff / residue_diff) *
++					uc->tx_drain.residue;
++			} else {
++				/* No progress, check again in 1 second  */
++				schedule_delayed_work(&uc->tx_drain.work, HZ);
++				break;
++			}
++
++			spin_unlock_irqrestore(&uc->vc.lock, flags);
++
++			usleep_range(ktime_to_us(delay),
++				     ktime_to_us(delay) + 10);
++			continue;
++		}
++
++		if (uc->desc) {
++			struct udma_desc *d = uc->desc;
++
++			uc->ud->decrement_byte_counters(uc, d->residue);
++			uc->ud->start(uc);
++			vchan_cookie_complete(&d->vd);
++			break;
++		}
++
++		break;
++	}
++
++	spin_unlock_irqrestore(&uc->vc.lock, flags);
++}
++EXPORT_SYMBOL_GPL(udma_check_tx_completion);
++
++int udma_slave_config(struct dma_chan *chan,
++		      struct dma_slave_config *cfg)
++{
++	struct udma_chan *uc = to_udma_chan(chan);
++
++	memcpy(&uc->cfg, cfg, sizeof(uc->cfg));
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(udma_slave_config);
++
++void udma_issue_pending(struct dma_chan *chan)
++{
++	struct udma_chan *uc = to_udma_chan(chan);
++	unsigned long flags;
++
++	spin_lock_irqsave(&uc->vc.lock, flags);
++
++	/* If we have something pending and no active descriptor, then */
++	if (vchan_issue_pending(&uc->vc) && !uc->desc) {
++		/*
++		 * start a descriptor if the channel is NOT [marked as
++		 * terminating _and_ it is still running (teardown has not
++		 * completed yet)].
++		 */
++		if (!(uc->state == UDMA_CHAN_IS_TERMINATING &&
++		      udma_is_chan_running(uc)))
++			uc->ud->start(uc);
++	}
++
++	spin_unlock_irqrestore(&uc->vc.lock, flags);
++}
++EXPORT_SYMBOL_GPL(udma_issue_pending);
++
++int udma_terminate_all(struct dma_chan *chan)
++{
++	struct udma_chan *uc = to_udma_chan(chan);
++	unsigned long flags;
++	LIST_HEAD(head);
++
++	spin_lock_irqsave(&uc->vc.lock, flags);
++
++	if (udma_is_chan_running(uc))
++		uc->ud->stop(uc);
++
++	if (uc->desc) {
++		uc->terminated_desc = uc->desc;
++		uc->desc = NULL;
++		uc->terminated_desc->terminated = true;
++		cancel_delayed_work(&uc->tx_drain.work);
++	}
++
++	uc->paused = false;
++
++	vchan_get_all_descriptors(&uc->vc, &head);
++	spin_unlock_irqrestore(&uc->vc.lock, flags);
++	vchan_dma_desc_free_list(&uc->vc, &head);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(udma_terminate_all);
++
++void udma_synchronize(struct dma_chan *chan)
++{
++	struct udma_chan *uc = to_udma_chan(chan);
++	unsigned long timeout = msecs_to_jiffies(1000);
++
++	vchan_synchronize(&uc->vc);
++
++	if (uc->state == UDMA_CHAN_IS_TERMINATING) {
++		timeout = wait_for_completion_timeout(&uc->teardown_completed,
++						      timeout);
++		if (!timeout) {
++			dev_warn(uc->ud->dev, "chan%d teardown timeout!\n",
++				 uc->id);
++			udma_dump_chan_stdata(uc);
++			uc->ud->reset_chan(uc, true);
++		}
++	}
++
++	uc->ud->reset_chan(uc, false);
++	if (udma_is_chan_running(uc))
++		dev_warn(uc->ud->dev, "chan%d refused to stop!\n", uc->id);
++
++	cancel_delayed_work_sync(&uc->tx_drain.work);
++	udma_reset_rings(uc);
++}
++EXPORT_SYMBOL_GPL(udma_synchronize);
++
++/*
++ * This tasklet handles the completion of a DMA descriptor by
++ * calling its callback and freeing it.
++ */
++void udma_vchan_complete(struct tasklet_struct *t)
++{
++	struct virt_dma_chan *vc = from_tasklet(vc, t, task);
++	struct virt_dma_desc *vd, *_vd;
++	struct dmaengine_desc_callback cb;
++	LIST_HEAD(head);
++
++	spin_lock_irq(&vc->lock);
++	list_splice_tail_init(&vc->desc_completed, &head);
++	vd = vc->cyclic;
++	if (vd) {
++		vc->cyclic = NULL;
++		dmaengine_desc_get_callback(&vd->tx, &cb);
++	} else {
++		memset(&cb, 0, sizeof(cb));
++	}
++	spin_unlock_irq(&vc->lock);
++
++	udma_desc_pre_callback(vc, vd, NULL);
++	dmaengine_desc_callback_invoke(&cb, NULL);
++
++	list_for_each_entry_safe(vd, _vd, &head, node) {
++		struct dmaengine_result result;
++
++		dmaengine_desc_get_callback(&vd->tx, &cb);
++
++		list_del(&vd->node);
++
++		udma_desc_pre_callback(vc, vd, &result);
++		dmaengine_desc_callback_invoke(&cb, &result);
++
++		vchan_vdesc_fini(vd);
++	}
++}
++EXPORT_SYMBOL_GPL(udma_vchan_complete);
++
++void udma_mark_resource_ranges(struct udma_dev *ud, unsigned long *map,
++			       struct ti_sci_resource_desc *rm_desc,
++			       char *name)
++{
++	bitmap_clear(map, rm_desc->start, rm_desc->num);
++	bitmap_clear(map, rm_desc->start_sec, rm_desc->num_sec);
++	dev_dbg(ud->dev, "ti_sci resource range for %s: %d:%d | %d:%d\n", name,
++		rm_desc->start, rm_desc->num, rm_desc->start_sec,
++		rm_desc->num_sec);
++}
++EXPORT_SYMBOL_GPL(udma_mark_resource_ranges);
++
++int udma_setup_rx_flush(struct udma_dev *ud)
++{
++	struct udma_rx_flush *rx_flush = &ud->rx_flush;
++	struct cppi5_desc_hdr_t *tr_desc;
++	struct cppi5_tr_type1_t *tr_req;
++	struct cppi5_host_desc_t *desc;
++	struct device *dev = ud->dev;
++	struct udma_hwdesc *hwdesc;
++	size_t tr_size;
++
++	/* Allocate 1K buffer for discarded data on RX channel teardown */
++	rx_flush->buffer_size = SZ_1K;
++	rx_flush->buffer_vaddr = devm_kzalloc(dev, rx_flush->buffer_size,
++					      GFP_KERNEL);
++	if (!rx_flush->buffer_vaddr)
++		return -ENOMEM;
++
++	rx_flush->buffer_paddr = dma_map_single(dev, rx_flush->buffer_vaddr,
++						rx_flush->buffer_size,
++						DMA_TO_DEVICE);
++	if (dma_mapping_error(dev, rx_flush->buffer_paddr))
++		return -ENOMEM;
++
++	/* Set up descriptor to be used for TR mode */
++	hwdesc = &rx_flush->hwdescs[0];
++	tr_size = sizeof(struct cppi5_tr_type1_t);
++	hwdesc->cppi5_desc_size = cppi5_trdesc_calc_size(tr_size, 1);
++	hwdesc->cppi5_desc_size = ALIGN(hwdesc->cppi5_desc_size,
++					ud->desc_align);
++
++	hwdesc->cppi5_desc_vaddr = devm_kzalloc(dev, hwdesc->cppi5_desc_size,
++						GFP_KERNEL);
++	if (!hwdesc->cppi5_desc_vaddr)
++		return -ENOMEM;
++
++	hwdesc->cppi5_desc_paddr = dma_map_single(dev, hwdesc->cppi5_desc_vaddr,
++						  hwdesc->cppi5_desc_size,
++						  DMA_TO_DEVICE);
++	if (dma_mapping_error(dev, hwdesc->cppi5_desc_paddr))
++		return -ENOMEM;
++
++	/* Start of the TR req records */
++	hwdesc->tr_req_base = hwdesc->cppi5_desc_vaddr + tr_size;
++	/* Start address of the TR response array */
++	hwdesc->tr_resp_base = hwdesc->tr_req_base + tr_size;
++
++	tr_desc = hwdesc->cppi5_desc_vaddr;
++	cppi5_trdesc_init(tr_desc, 1, tr_size, 0, 0);
++	cppi5_desc_set_pktids(tr_desc, 0, CPPI5_INFO1_DESC_FLOWID_DEFAULT);
++	cppi5_desc_set_retpolicy(tr_desc, 0, 0);
++
++	tr_req = hwdesc->tr_req_base;
++	cppi5_tr_init(&tr_req->flags, CPPI5_TR_TYPE1, false, false,
++		      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
++	cppi5_tr_csf_set(&tr_req->flags, CPPI5_TR_CSF_SUPR_EVT);
++
++	tr_req->addr = rx_flush->buffer_paddr;
++	tr_req->icnt0 = rx_flush->buffer_size;
++	tr_req->icnt1 = 1;
++
++	dma_sync_single_for_device(dev, hwdesc->cppi5_desc_paddr,
++				   hwdesc->cppi5_desc_size, DMA_TO_DEVICE);
++
++	/* Set up descriptor to be used for packet mode */
++	hwdesc = &rx_flush->hwdescs[1];
++	hwdesc->cppi5_desc_size = ALIGN(sizeof(struct cppi5_host_desc_t) +
++					CPPI5_INFO0_HDESC_EPIB_SIZE +
++					CPPI5_INFO0_HDESC_PSDATA_MAX_SIZE,
++					ud->desc_align);
++
++	hwdesc->cppi5_desc_vaddr = devm_kzalloc(dev, hwdesc->cppi5_desc_size,
++						GFP_KERNEL);
++	if (!hwdesc->cppi5_desc_vaddr)
++		return -ENOMEM;
++
++	hwdesc->cppi5_desc_paddr = dma_map_single(dev, hwdesc->cppi5_desc_vaddr,
++						  hwdesc->cppi5_desc_size,
++						  DMA_TO_DEVICE);
++	if (dma_mapping_error(dev, hwdesc->cppi5_desc_paddr))
++		return -ENOMEM;
++
++	desc = hwdesc->cppi5_desc_vaddr;
++	cppi5_hdesc_init(desc, 0, 0);
++	cppi5_desc_set_pktids(&desc->hdr, 0, CPPI5_INFO1_DESC_FLOWID_DEFAULT);
++	cppi5_desc_set_retpolicy(&desc->hdr, 0, 0);
++
++	cppi5_hdesc_attach_buf(desc,
++			       rx_flush->buffer_paddr, rx_flush->buffer_size,
++			       rx_flush->buffer_paddr, rx_flush->buffer_size);
++
++	dma_sync_single_for_device(dev, hwdesc->cppi5_desc_paddr,
++				   hwdesc->cppi5_desc_size, DMA_TO_DEVICE);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(udma_setup_rx_flush);
++
++#ifdef CONFIG_DEBUG_FS
++void udma_dbg_summary_show_chan(struct seq_file *s,
++				struct dma_chan *chan)
++{
++	struct udma_chan *uc = to_udma_chan(chan);
++	struct udma_chan_config *ucc = &uc->config;
++
++	seq_printf(s, " %-13s| %s", dma_chan_name(chan),
++		   chan->dbg_client_name ?: "in-use");
++	if (ucc->tr_trigger_type)
++		seq_puts(s, " (triggered, ");
++	else
++		seq_printf(s, " (%s, ",
++			   dmaengine_get_direction_text(uc->config.dir));
++
++	switch (uc->config.dir) {
++	case DMA_MEM_TO_MEM:
++		if (uc->ud->match_data->type == DMA_TYPE_BCDMA) {
++			seq_printf(s, "bchan%d)\n", uc->bchan->id);
++			return;
++		}
++
++		seq_printf(s, "chan%d pair [0x%04x -> 0x%04x], ", uc->tchan->id,
++			   ucc->src_thread, ucc->dst_thread);
++		break;
++	case DMA_DEV_TO_MEM:
++		seq_printf(s, "rchan%d [0x%04x -> 0x%04x], ", uc->rchan->id,
++			   ucc->src_thread, ucc->dst_thread);
++		if (uc->ud->match_data->type == DMA_TYPE_PKTDMA)
++			seq_printf(s, "rflow%d, ", uc->rflow->id);
++		break;
++	case DMA_MEM_TO_DEV:
++		seq_printf(s, "tchan%d [0x%04x -> 0x%04x], ", uc->tchan->id,
++			   ucc->src_thread, ucc->dst_thread);
++		if (uc->ud->match_data->type == DMA_TYPE_PKTDMA)
++			seq_printf(s, "tflow%d, ", uc->tchan->tflow_id);
++		break;
++	default:
++		seq_printf(s, ")\n");
++		return;
++	}
++
++	if (ucc->ep_type == PSIL_EP_NATIVE) {
++		seq_printf(s, "PSI-L Native");
++		if (ucc->metadata_size) {
++			seq_printf(s, "[%s", ucc->needs_epib ? " EPIB" : "");
++			if (ucc->psd_size)
++				seq_printf(s, " PSDsize:%u", ucc->psd_size);
++			seq_printf(s, " ]");
++		}
++	} else {
++		seq_printf(s, "PDMA");
++		if (ucc->enable_acc32 || ucc->enable_burst)
++			seq_printf(s, "[%s%s ]",
++				   ucc->enable_acc32 ? " ACC32" : "",
++				   ucc->enable_burst ? " BURST" : "");
++	}
++
++	seq_printf(s, ", %s)\n", ucc->pkt_mode ? "Packet mode" : "TR mode");
++}
++
++void udma_dbg_summary_show(struct seq_file *s,
++			   struct dma_device *dma_dev)
++{
++	struct dma_chan *chan;
++
++	list_for_each_entry(chan, &dma_dev->channels, device_node) {
++		if (chan->client_count)
++			udma_dbg_summary_show_chan(s, chan);
++	}
++}
++EXPORT_SYMBOL_GPL(udma_dbg_summary_show);
++#endif /* CONFIG_DEBUG_FS */
++
++enum dmaengine_alignment udma_get_copy_align(struct udma_dev *ud)
++{
++	const struct udma_match_data *match_data = ud->match_data;
++	u8 tpl;
++
++	if (!match_data->enable_memcpy_support)
++		return DMAENGINE_ALIGN_8_BYTES;
++
++	/* Get the highest TPL level the device supports for memcpy */
++	if (ud->bchan_cnt)
++		tpl = udma_get_chan_tpl_index(&ud->bchan_tpl, 0);
++	else if (ud->tchan_cnt)
++		tpl = udma_get_chan_tpl_index(&ud->tchan_tpl, 0);
++	else
++		return DMAENGINE_ALIGN_8_BYTES;
++
++	switch (match_data->burst_size[tpl]) {
++	case TI_SCI_RM_UDMAP_CHAN_BURST_SIZE_256_BYTES:
++		return DMAENGINE_ALIGN_256_BYTES;
++	case TI_SCI_RM_UDMAP_CHAN_BURST_SIZE_128_BYTES:
++		return DMAENGINE_ALIGN_128_BYTES;
++	case TI_SCI_RM_UDMAP_CHAN_BURST_SIZE_64_BYTES:
++	fallthrough;
++	default:
++		return DMAENGINE_ALIGN_64_BYTES;
++	}
++}
++EXPORT_SYMBOL_GPL(udma_get_copy_align);
 +
  MODULE_DESCRIPTION("Texas Instruments K3 UDMA Common Library");
  MODULE_LICENSE("GPL v2");
 diff --git a/drivers/dma/ti/k3-udma.c b/drivers/dma/ti/k3-udma.c
-index 50c5bca7d9788..2fba734616272 100644
+index fbcf976d7a668..15a3de16f50f6 100644
 --- a/drivers/dma/ti/k3-udma.c
 +++ b/drivers/dma/ti/k3-udma.c
-@@ -174,106 +174,6 @@ static bool udma_is_chan_paused(struct udma_chan *uc)
- 	return false;
+@@ -61,92 +61,6 @@ int navss_psil_unpair(struct udma_dev *ud, u32 src_thread,
+ 						src_thread, dst_thread);
  }
  
--static int udma_push_to_ring(struct udma_chan *uc, int idx)
+-static void k3_configure_chan_coherency(struct dma_chan *chan, u32 asel)
 -{
--	struct udma_desc *d = uc->desc;
--	struct k3_ring *ring = NULL;
--	dma_addr_t paddr;
+-	struct device *chan_dev = dmaengine_chan_dev(chan);
 -
--	switch (uc->config.dir) {
--	case DMA_DEV_TO_MEM:
--		ring = uc->rflow->fd_ring;
--		break;
--	case DMA_MEM_TO_DEV:
--	case DMA_MEM_TO_MEM:
--		ring = uc->tchan->t_ring;
--		break;
--	default:
--		return -EINVAL;
--	}
+-	if (asel == 0) {
+-		/* No special handling for the channel */
+-		chan->chan_dev->chan_dma_dev = false;
 -
--	/* RX flush packet: idx == -1 is only passed in case of DEV_TO_MEM */
--	if (idx == -1) {
--		paddr = udma_get_rx_flush_hwdesc_paddr(uc);
+-		dev_clear_dma_coherent(chan_dev);
+-		chan_dev->dma_parms = NULL;
+-	} else if (asel == 14 || asel == 15) {
+-		chan->chan_dev->chan_dma_dev = true;
+-
+-		dev_set_dma_coherent(chan_dev);
+-		dma_coerce_mask_and_coherent(chan_dev, DMA_BIT_MASK(48));
+-		chan_dev->dma_parms = chan_dev->parent->dma_parms;
 -	} else {
--		paddr = udma_curr_cppi5_desc_paddr(d, idx);
+-		dev_warn(chan->device->dev, "Invalid ASEL value: %u\n", asel);
 -
--		wmb(); /* Ensure that writes are not moved over this point */
+-		dev_clear_dma_coherent(chan_dev);
+-		chan_dev->dma_parms = NULL;
 -	}
--
--	return k3_ringacc_ring_push(ring, &paddr);
 -}
 -
--static int udma_pop_from_ring(struct udma_chan *uc, dma_addr_t *addr)
+-static u8 udma_get_chan_tpl_index(struct udma_tpl *tpl_map, int chan_id)
 -{
--	struct k3_ring *ring = NULL;
--	int ret;
+-	int i;
 -
--	switch (uc->config.dir) {
--	case DMA_DEV_TO_MEM:
--		ring = uc->rflow->r_ring;
--		break;
--	case DMA_MEM_TO_DEV:
--	case DMA_MEM_TO_MEM:
--		ring = uc->tchan->tc_ring;
--		break;
--	default:
--		return -ENOENT;
+-	for (i = 0; i < tpl_map->levels; i++) {
+-		if (chan_id >= tpl_map->start_idx[i])
+-			return i;
 -	}
--
--	ret = k3_ringacc_ring_pop(ring, addr);
--	if (ret)
--		return ret;
--
--	rmb(); /* Ensure that reads are not moved before this point */
--
--	/* Teardown completion */
--	if (cppi5_desc_is_tdcm(*addr))
--		return 0;
--
--	/* Check for flush descriptor */
--	if (udma_desc_is_rx_flush(uc, *addr))
--		return -ENOENT;
 -
 -	return 0;
 -}
 -
--static void udma_reset_rings(struct udma_chan *uc)
+-static void udma_reset_uchan(struct udma_chan *uc)
 -{
--	struct k3_ring *ring1 = NULL;
--	struct k3_ring *ring2 = NULL;
+-	memset(&uc->config, 0, sizeof(uc->config));
+-	uc->config.remote_thread_id = -1;
+-	uc->config.mapped_channel_id = -1;
+-	uc->config.default_flow_id = -1;
+-	uc->state = UDMA_CHAN_IS_IDLE;
+-}
 -
--	switch (uc->config.dir) {
--	case DMA_DEV_TO_MEM:
--		if (uc->rchan) {
--			ring1 = uc->rflow->fd_ring;
--			ring2 = uc->rflow->r_ring;
+-static void udma_dump_chan_stdata(struct udma_chan *uc)
+-{
+-	struct device *dev = uc->ud->dev;
+-	u32 offset;
+-	int i;
+-
+-	if (uc->config.dir == DMA_MEM_TO_DEV || uc->config.dir == DMA_MEM_TO_MEM) {
+-		dev_dbg(dev, "TCHAN State data:\n");
+-		for (i = 0; i < 32; i++) {
+-			offset = UDMA_CHAN_RT_STDATA_REG + i * 4;
+-			dev_dbg(dev, "TRT_STDATA[%02d]: 0x%08x\n", i,
+-				udma_tchanrt_read(uc, offset));
 -		}
--		break;
--	case DMA_MEM_TO_DEV:
--	case DMA_MEM_TO_MEM:
--		if (uc->tchan) {
--			ring1 = uc->tchan->t_ring;
--			ring2 = uc->tchan->tc_ring;
--		}
--		break;
--	default:
--		break;
 -	}
 -
--	if (ring1)
--		k3_ringacc_ring_reset_dma(ring1,
--					  k3_ringacc_ring_get_occ(ring1));
--	if (ring2)
--		k3_ringacc_ring_reset(ring2);
--
--	/* make sure we are not leaking memory by stalled descriptor */
--	if (uc->terminated_desc) {
--		udma_desc_free(&uc->terminated_desc->vd);
--		uc->terminated_desc = NULL;
+-	if (uc->config.dir == DMA_DEV_TO_MEM || uc->config.dir == DMA_MEM_TO_MEM) {
+-		dev_dbg(dev, "RCHAN State data:\n");
+-		for (i = 0; i < 32; i++) {
+-			offset = UDMA_CHAN_RT_STDATA_REG + i * 4;
+-			dev_dbg(dev, "RRT_STDATA[%02d]: 0x%08x\n", i,
+-				udma_rchanrt_read(uc, offset));
+-		}
 -	}
 -}
 -
- static void udma_decrement_byte_counters(struct udma_chan *uc, u32 val)
+-static bool udma_is_chan_running(struct udma_chan *uc)
+-{
+-	u32 trt_ctl = 0;
+-	u32 rrt_ctl = 0;
+-
+-	if (uc->tchan)
+-		trt_ctl = udma_tchanrt_read(uc, UDMA_CHAN_RT_CTL_REG);
+-	if (uc->rchan)
+-		rrt_ctl = udma_rchanrt_read(uc, UDMA_CHAN_RT_CTL_REG);
+-
+-	if (trt_ctl & UDMA_CHAN_RT_CTL_EN || rrt_ctl & UDMA_CHAN_RT_CTL_EN)
+-		return true;
+-
+-	return false;
+-}
+-
+ static bool udma_is_chan_paused(struct udma_chan *uc)
  {
- 	if (uc->desc->dir == DMA_DEV_TO_MEM) {
+ 	u32 val, pause_mask;
+@@ -275,40 +189,6 @@ static int udma_reset_chan(struct udma_chan *uc, bool hard)
+ 	return 0;
+ }
+ 
+-static void udma_start_desc(struct udma_chan *uc)
+-{
+-	struct udma_chan_config *ucc = &uc->config;
+-
+-	if (uc->ud->match_data->type == DMA_TYPE_UDMA && ucc->pkt_mode &&
+-	    (uc->cyclic || ucc->dir == DMA_DEV_TO_MEM)) {
+-		int i;
+-
+-		/*
+-		 * UDMA only: Push all descriptors to ring for packet mode
+-		 * cyclic or RX
+-		 * PKTDMA supports pre-linked descriptor and cyclic is not
+-		 * supported
+-		 */
+-		for (i = 0; i < uc->desc->sglen; i++)
+-			udma_push_to_ring(uc, i);
+-	} else {
+-		udma_push_to_ring(uc, 0);
+-	}
+-}
+-
+-static bool udma_chan_needs_reconfiguration(struct udma_chan *uc)
+-{
+-	/* Only PDMAs have staticTR */
+-	if (uc->config.ep_type == PSIL_EP_NATIVE)
+-		return false;
+-
+-	/* Check if the staticTR configuration has changed for TX */
+-	if (memcmp(&uc->static_tr, &uc->desc->static_tr, sizeof(uc->static_tr)))
+-		return true;
+-
+-	return false;
+-}
+-
+ static int udma_start(struct udma_chan *uc)
+ {
+ 	struct virt_dma_desc *vd = vchan_next_desc(&uc->vc);
+@@ -453,86 +333,6 @@ static int udma_stop(struct udma_chan *uc)
+ 	return 0;
+ }
+ 
+-static void udma_cyclic_packet_elapsed(struct udma_chan *uc)
+-{
+-	struct udma_desc *d = uc->desc;
+-	struct cppi5_host_desc_t *h_desc;
+-
+-	h_desc = d->hwdesc[d->desc_idx].cppi5_desc_vaddr;
+-	cppi5_hdesc_reset_to_original(h_desc);
+-	udma_push_to_ring(uc, d->desc_idx);
+-	d->desc_idx = (d->desc_idx + 1) % d->sglen;
+-}
+-
+-static void udma_check_tx_completion(struct work_struct *work)
+-{
+-	struct udma_chan *uc = container_of(work, typeof(*uc),
+-					    tx_drain.work.work);
+-	bool desc_done = true;
+-	u32 residue_diff;
+-	ktime_t time_diff;
+-	unsigned long delay;
+-	unsigned long flags;
+-
+-	while (1) {
+-		spin_lock_irqsave(&uc->vc.lock, flags);
+-
+-		if (uc->desc) {
+-			/* Get previous residue and time stamp */
+-			residue_diff = uc->tx_drain.residue;
+-			time_diff = uc->tx_drain.tstamp;
+-			/*
+-			 * Get current residue and time stamp or see if
+-			 * transfer is complete
+-			 */
+-			desc_done = udma_is_desc_really_done(uc, uc->desc);
+-		}
+-
+-		if (!desc_done) {
+-			/*
+-			 * Find the time delta and residue delta w.r.t
+-			 * previous poll
+-			 */
+-			time_diff = ktime_sub(uc->tx_drain.tstamp,
+-					      time_diff) + 1;
+-			residue_diff -= uc->tx_drain.residue;
+-			if (residue_diff) {
+-				/*
+-				 * Try to guess when we should check
+-				 * next time by calculating rate at
+-				 * which data is being drained at the
+-				 * peer device
+-				 */
+-				delay = (time_diff / residue_diff) *
+-					uc->tx_drain.residue;
+-			} else {
+-				/* No progress, check again in 1 second  */
+-				schedule_delayed_work(&uc->tx_drain.work, HZ);
+-				break;
+-			}
+-
+-			spin_unlock_irqrestore(&uc->vc.lock, flags);
+-
+-			usleep_range(ktime_to_us(delay),
+-				     ktime_to_us(delay) + 10);
+-			continue;
+-		}
+-
+-		if (uc->desc) {
+-			struct udma_desc *d = uc->desc;
+-
+-			uc->ud->decrement_byte_counters(uc, d->residue);
+-			uc->ud->start(uc);
+-			vchan_cookie_complete(&d->vd);
+-			break;
+-		}
+-
+-		break;
+-	}
+-
+-	spin_unlock_irqrestore(&uc->vc.lock, flags);
+-}
+-
+ static irqreturn_t udma_ring_irq_handler(int irq, void *data)
+ {
+ 	struct udma_chan *uc = data;
+@@ -2097,38 +1897,6 @@ static int pktdma_alloc_chan_resources(struct dma_chan *chan)
+ 	return ret;
+ }
+ 
+-static int udma_slave_config(struct dma_chan *chan,
+-			     struct dma_slave_config *cfg)
+-{
+-	struct udma_chan *uc = to_udma_chan(chan);
+-
+-	memcpy(&uc->cfg, cfg, sizeof(uc->cfg));
+-
+-	return 0;
+-}
+-
+-static void udma_issue_pending(struct dma_chan *chan)
+-{
+-	struct udma_chan *uc = to_udma_chan(chan);
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&uc->vc.lock, flags);
+-
+-	/* If we have something pending and no active descriptor, then */
+-	if (vchan_issue_pending(&uc->vc) && !uc->desc) {
+-		/*
+-		 * start a descriptor if the channel is NOT [marked as
+-		 * terminating _and_ it is still running (teardown has not
+-		 * completed yet)].
+-		 */
+-		if (!(uc->state == UDMA_CHAN_IS_TERMINATING &&
+-		      udma_is_chan_running(uc)))
+-			uc->ud->start(uc);
+-	}
+-
+-	spin_unlock_irqrestore(&uc->vc.lock, flags);
+-}
+-
+ static enum dma_status udma_tx_status(struct dma_chan *chan,
+ 				      dma_cookie_t cookie,
+ 				      struct dma_tx_state *txstate)
+@@ -2256,98 +2024,6 @@ static int udma_resume(struct dma_chan *chan)
+ 	return 0;
+ }
+ 
+-static int udma_terminate_all(struct dma_chan *chan)
+-{
+-	struct udma_chan *uc = to_udma_chan(chan);
+-	unsigned long flags;
+-	LIST_HEAD(head);
+-
+-	spin_lock_irqsave(&uc->vc.lock, flags);
+-
+-	if (udma_is_chan_running(uc))
+-		uc->ud->stop(uc);
+-
+-	if (uc->desc) {
+-		uc->terminated_desc = uc->desc;
+-		uc->desc = NULL;
+-		uc->terminated_desc->terminated = true;
+-		cancel_delayed_work(&uc->tx_drain.work);
+-	}
+-
+-	uc->paused = false;
+-
+-	vchan_get_all_descriptors(&uc->vc, &head);
+-	spin_unlock_irqrestore(&uc->vc.lock, flags);
+-	vchan_dma_desc_free_list(&uc->vc, &head);
+-
+-	return 0;
+-}
+-
+-static void udma_synchronize(struct dma_chan *chan)
+-{
+-	struct udma_chan *uc = to_udma_chan(chan);
+-	unsigned long timeout = msecs_to_jiffies(1000);
+-
+-	vchan_synchronize(&uc->vc);
+-
+-	if (uc->state == UDMA_CHAN_IS_TERMINATING) {
+-		timeout = wait_for_completion_timeout(&uc->teardown_completed,
+-						      timeout);
+-		if (!timeout) {
+-			dev_warn(uc->ud->dev, "chan%d teardown timeout!\n",
+-				 uc->id);
+-			udma_dump_chan_stdata(uc);
+-			uc->ud->reset_chan(uc, true);
+-		}
+-	}
+-
+-	uc->ud->reset_chan(uc, false);
+-	if (udma_is_chan_running(uc))
+-		dev_warn(uc->ud->dev, "chan%d refused to stop!\n", uc->id);
+-
+-	cancel_delayed_work_sync(&uc->tx_drain.work);
+-	udma_reset_rings(uc);
+-}
+-
+-/*
+- * This tasklet handles the completion of a DMA descriptor by
+- * calling its callback and freeing it.
+- */
+-static void udma_vchan_complete(struct tasklet_struct *t)
+-{
+-	struct virt_dma_chan *vc = from_tasklet(vc, t, task);
+-	struct virt_dma_desc *vd, *_vd;
+-	struct dmaengine_desc_callback cb;
+-	LIST_HEAD(head);
+-
+-	spin_lock_irq(&vc->lock);
+-	list_splice_tail_init(&vc->desc_completed, &head);
+-	vd = vc->cyclic;
+-	if (vd) {
+-		vc->cyclic = NULL;
+-		dmaengine_desc_get_callback(&vd->tx, &cb);
+-	} else {
+-		memset(&cb, 0, sizeof(cb));
+-	}
+-	spin_unlock_irq(&vc->lock);
+-
+-	udma_desc_pre_callback(vc, vd, NULL);
+-	dmaengine_desc_callback_invoke(&cb, NULL);
+-
+-	list_for_each_entry_safe(vd, _vd, &head, node) {
+-		struct dmaengine_result result;
+-
+-		dmaengine_desc_get_callback(&vd->tx, &cb);
+-
+-		list_del(&vd->node);
+-
+-		udma_desc_pre_callback(vc, vd, &result);
+-		dmaengine_desc_callback_invoke(&cb, &result);
+-
+-		vchan_vdesc_fini(vd);
+-	}
+-}
+-
+ static void udma_free_chan_resources(struct dma_chan *chan)
+ {
+ 	struct udma_chan *uc = to_udma_chan(chan);
+@@ -2822,17 +2498,6 @@ static int udma_get_mmrs(struct platform_device *pdev, struct udma_dev *ud)
+ 	return 0;
+ }
+ 
+-static void udma_mark_resource_ranges(struct udma_dev *ud, unsigned long *map,
+-				      struct ti_sci_resource_desc *rm_desc,
+-				      char *name)
+-{
+-	bitmap_clear(map, rm_desc->start, rm_desc->num);
+-	bitmap_clear(map, rm_desc->start_sec, rm_desc->num_sec);
+-	dev_dbg(ud->dev, "ti_sci resource range for %s: %d:%d | %d:%d\n", name,
+-		rm_desc->start, rm_desc->num, rm_desc->start_sec,
+-		rm_desc->num_sec);
+-}
+-
+ static const char * const range_names[] = {
+ 	[RM_RANGE_BCHAN] = "ti,sci-rm-range-bchan",
+ 	[RM_RANGE_TCHAN] = "ti,sci-rm-range-tchan",
+@@ -3446,202 +3111,6 @@ static int setup_resources(struct udma_dev *ud)
+ 	return ch_count;
+ }
+ 
+-static int udma_setup_rx_flush(struct udma_dev *ud)
+-{
+-	struct udma_rx_flush *rx_flush = &ud->rx_flush;
+-	struct cppi5_desc_hdr_t *tr_desc;
+-	struct cppi5_tr_type1_t *tr_req;
+-	struct cppi5_host_desc_t *desc;
+-	struct device *dev = ud->dev;
+-	struct udma_hwdesc *hwdesc;
+-	size_t tr_size;
+-
+-	/* Allocate 1K buffer for discarded data on RX channel teardown */
+-	rx_flush->buffer_size = SZ_1K;
+-	rx_flush->buffer_vaddr = devm_kzalloc(dev, rx_flush->buffer_size,
+-					      GFP_KERNEL);
+-	if (!rx_flush->buffer_vaddr)
+-		return -ENOMEM;
+-
+-	rx_flush->buffer_paddr = dma_map_single(dev, rx_flush->buffer_vaddr,
+-						rx_flush->buffer_size,
+-						DMA_TO_DEVICE);
+-	if (dma_mapping_error(dev, rx_flush->buffer_paddr))
+-		return -ENOMEM;
+-
+-	/* Set up descriptor to be used for TR mode */
+-	hwdesc = &rx_flush->hwdescs[0];
+-	tr_size = sizeof(struct cppi5_tr_type1_t);
+-	hwdesc->cppi5_desc_size = cppi5_trdesc_calc_size(tr_size, 1);
+-	hwdesc->cppi5_desc_size = ALIGN(hwdesc->cppi5_desc_size,
+-					ud->desc_align);
+-
+-	hwdesc->cppi5_desc_vaddr = devm_kzalloc(dev, hwdesc->cppi5_desc_size,
+-						GFP_KERNEL);
+-	if (!hwdesc->cppi5_desc_vaddr)
+-		return -ENOMEM;
+-
+-	hwdesc->cppi5_desc_paddr = dma_map_single(dev, hwdesc->cppi5_desc_vaddr,
+-						  hwdesc->cppi5_desc_size,
+-						  DMA_TO_DEVICE);
+-	if (dma_mapping_error(dev, hwdesc->cppi5_desc_paddr))
+-		return -ENOMEM;
+-
+-	/* Start of the TR req records */
+-	hwdesc->tr_req_base = hwdesc->cppi5_desc_vaddr + tr_size;
+-	/* Start address of the TR response array */
+-	hwdesc->tr_resp_base = hwdesc->tr_req_base + tr_size;
+-
+-	tr_desc = hwdesc->cppi5_desc_vaddr;
+-	cppi5_trdesc_init(tr_desc, 1, tr_size, 0, 0);
+-	cppi5_desc_set_pktids(tr_desc, 0, CPPI5_INFO1_DESC_FLOWID_DEFAULT);
+-	cppi5_desc_set_retpolicy(tr_desc, 0, 0);
+-
+-	tr_req = hwdesc->tr_req_base;
+-	cppi5_tr_init(&tr_req->flags, CPPI5_TR_TYPE1, false, false,
+-		      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
+-	cppi5_tr_csf_set(&tr_req->flags, CPPI5_TR_CSF_SUPR_EVT);
+-
+-	tr_req->addr = rx_flush->buffer_paddr;
+-	tr_req->icnt0 = rx_flush->buffer_size;
+-	tr_req->icnt1 = 1;
+-
+-	dma_sync_single_for_device(dev, hwdesc->cppi5_desc_paddr,
+-				   hwdesc->cppi5_desc_size, DMA_TO_DEVICE);
+-
+-	/* Set up descriptor to be used for packet mode */
+-	hwdesc = &rx_flush->hwdescs[1];
+-	hwdesc->cppi5_desc_size = ALIGN(sizeof(struct cppi5_host_desc_t) +
+-					CPPI5_INFO0_HDESC_EPIB_SIZE +
+-					CPPI5_INFO0_HDESC_PSDATA_MAX_SIZE,
+-					ud->desc_align);
+-
+-	hwdesc->cppi5_desc_vaddr = devm_kzalloc(dev, hwdesc->cppi5_desc_size,
+-						GFP_KERNEL);
+-	if (!hwdesc->cppi5_desc_vaddr)
+-		return -ENOMEM;
+-
+-	hwdesc->cppi5_desc_paddr = dma_map_single(dev, hwdesc->cppi5_desc_vaddr,
+-						  hwdesc->cppi5_desc_size,
+-						  DMA_TO_DEVICE);
+-	if (dma_mapping_error(dev, hwdesc->cppi5_desc_paddr))
+-		return -ENOMEM;
+-
+-	desc = hwdesc->cppi5_desc_vaddr;
+-	cppi5_hdesc_init(desc, 0, 0);
+-	cppi5_desc_set_pktids(&desc->hdr, 0, CPPI5_INFO1_DESC_FLOWID_DEFAULT);
+-	cppi5_desc_set_retpolicy(&desc->hdr, 0, 0);
+-
+-	cppi5_hdesc_attach_buf(desc,
+-			       rx_flush->buffer_paddr, rx_flush->buffer_size,
+-			       rx_flush->buffer_paddr, rx_flush->buffer_size);
+-
+-	dma_sync_single_for_device(dev, hwdesc->cppi5_desc_paddr,
+-				   hwdesc->cppi5_desc_size, DMA_TO_DEVICE);
+-	return 0;
+-}
+-
+-#ifdef CONFIG_DEBUG_FS
+-static void udma_dbg_summary_show_chan(struct seq_file *s,
+-				       struct dma_chan *chan)
+-{
+-	struct udma_chan *uc = to_udma_chan(chan);
+-	struct udma_chan_config *ucc = &uc->config;
+-
+-	seq_printf(s, " %-13s| %s", dma_chan_name(chan),
+-		   chan->dbg_client_name ?: "in-use");
+-	if (ucc->tr_trigger_type)
+-		seq_puts(s, " (triggered, ");
+-	else
+-		seq_printf(s, " (%s, ",
+-			   dmaengine_get_direction_text(uc->config.dir));
+-
+-	switch (uc->config.dir) {
+-	case DMA_MEM_TO_MEM:
+-		if (uc->ud->match_data->type == DMA_TYPE_BCDMA) {
+-			seq_printf(s, "bchan%d)\n", uc->bchan->id);
+-			return;
+-		}
+-
+-		seq_printf(s, "chan%d pair [0x%04x -> 0x%04x], ", uc->tchan->id,
+-			   ucc->src_thread, ucc->dst_thread);
+-		break;
+-	case DMA_DEV_TO_MEM:
+-		seq_printf(s, "rchan%d [0x%04x -> 0x%04x], ", uc->rchan->id,
+-			   ucc->src_thread, ucc->dst_thread);
+-		if (uc->ud->match_data->type == DMA_TYPE_PKTDMA)
+-			seq_printf(s, "rflow%d, ", uc->rflow->id);
+-		break;
+-	case DMA_MEM_TO_DEV:
+-		seq_printf(s, "tchan%d [0x%04x -> 0x%04x], ", uc->tchan->id,
+-			   ucc->src_thread, ucc->dst_thread);
+-		if (uc->ud->match_data->type == DMA_TYPE_PKTDMA)
+-			seq_printf(s, "tflow%d, ", uc->tchan->tflow_id);
+-		break;
+-	default:
+-		seq_printf(s, ")\n");
+-		return;
+-	}
+-
+-	if (ucc->ep_type == PSIL_EP_NATIVE) {
+-		seq_printf(s, "PSI-L Native");
+-		if (ucc->metadata_size) {
+-			seq_printf(s, "[%s", ucc->needs_epib ? " EPIB" : "");
+-			if (ucc->psd_size)
+-				seq_printf(s, " PSDsize:%u", ucc->psd_size);
+-			seq_printf(s, " ]");
+-		}
+-	} else {
+-		seq_printf(s, "PDMA");
+-		if (ucc->enable_acc32 || ucc->enable_burst)
+-			seq_printf(s, "[%s%s ]",
+-				   ucc->enable_acc32 ? " ACC32" : "",
+-				   ucc->enable_burst ? " BURST" : "");
+-	}
+-
+-	seq_printf(s, ", %s)\n", ucc->pkt_mode ? "Packet mode" : "TR mode");
+-}
+-
+-static void udma_dbg_summary_show(struct seq_file *s,
+-				  struct dma_device *dma_dev)
+-{
+-	struct dma_chan *chan;
+-
+-	list_for_each_entry(chan, &dma_dev->channels, device_node) {
+-		if (chan->client_count)
+-			udma_dbg_summary_show_chan(s, chan);
+-	}
+-}
+-#endif /* CONFIG_DEBUG_FS */
+-
+-static enum dmaengine_alignment udma_get_copy_align(struct udma_dev *ud)
+-{
+-	const struct udma_match_data *match_data = ud->match_data;
+-	u8 tpl;
+-
+-	if (!match_data->enable_memcpy_support)
+-		return DMAENGINE_ALIGN_8_BYTES;
+-
+-	/* Get the highest TPL level the device supports for memcpy */
+-	if (ud->bchan_cnt)
+-		tpl = udma_get_chan_tpl_index(&ud->bchan_tpl, 0);
+-	else if (ud->tchan_cnt)
+-		tpl = udma_get_chan_tpl_index(&ud->tchan_tpl, 0);
+-	else
+-		return DMAENGINE_ALIGN_8_BYTES;
+-
+-	switch (match_data->burst_size[tpl]) {
+-	case TI_SCI_RM_UDMAP_CHAN_BURST_SIZE_256_BYTES:
+-		return DMAENGINE_ALIGN_256_BYTES;
+-	case TI_SCI_RM_UDMAP_CHAN_BURST_SIZE_128_BYTES:
+-		return DMAENGINE_ALIGN_128_BYTES;
+-	case TI_SCI_RM_UDMAP_CHAN_BURST_SIZE_64_BYTES:
+-	fallthrough;
+-	default:
+-		return DMAENGINE_ALIGN_64_BYTES;
+-	}
+-}
+-
+ static int udma_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *navss_node = pdev->dev.parent->of_node;
 diff --git a/drivers/dma/ti/k3-udma.h b/drivers/dma/ti/k3-udma.h
-index 38a54226836a5..1777f0e1f085e 100644
+index 59170714f53cc..a6d7aba83a09b 100644
 --- a/drivers/dma/ti/k3-udma.h
 +++ b/drivers/dma/ti/k3-udma.h
-@@ -566,14 +566,7 @@ struct udma_desc *udma_udma_desc_from_paddr(struct udma_chan *uc,
- 					    dma_addr_t paddr);
- void udma_purge_desc_work(struct work_struct *work);
- void udma_desc_free(struct virt_dma_desc *vd);
--bool udma_desc_is_rx_flush(struct udma_chan *uc, dma_addr_t addr);
- bool udma_is_desc_really_done(struct udma_chan *uc, struct udma_desc *d);
--int udma_attach_metadata(struct dma_async_tx_descriptor *desc,
--			 void *data, size_t len);
--void *udma_get_metadata_ptr(struct dma_async_tx_descriptor *desc,
--			    size_t *payload_len, size_t *max_len);
--int udma_set_metadata_len(struct dma_async_tx_descriptor *desc,
--			  size_t payload_len);
- struct dma_async_tx_descriptor *udma_prep_slave_sg(struct dma_chan *chan,
- 						   struct scatterlist *sgl, unsigned int sglen,
- 						   enum dma_transfer_direction dir,
-@@ -589,6 +582,10 @@ void udma_desc_pre_callback(struct virt_dma_chan *vc,
- 			    struct virt_dma_desc *vd,
- 			    struct dmaengine_result *result);
+@@ -587,9 +587,6 @@ struct dma_async_tx_descriptor *udma_prep_dma_cyclic(struct dma_chan *chan, dma_
+ struct dma_async_tx_descriptor *udma_prep_dma_memcpy(struct dma_chan *chan,
+ 						     dma_addr_t dest, dma_addr_t src,
+ 						     size_t len, unsigned long tx_flags);
+-void udma_desc_pre_callback(struct virt_dma_chan *vc,
+-			    struct virt_dma_desc *vd,
+-			    struct dmaengine_result *result);
  
-+int udma_push_to_ring(struct udma_chan *uc, int idx);
-+int udma_pop_from_ring(struct udma_chan *uc, dma_addr_t *addr);
-+void udma_reset_rings(struct udma_chan *uc);
+ int udma_push_to_ring(struct udma_chan *uc, int idx);
+ int udma_pop_from_ring(struct udma_chan *uc, dma_addr_t *addr);
+@@ -597,6 +594,34 @@ void udma_reset_rings(struct udma_chan *uc);
+ 
+ int navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread);
+ int navss_psil_unpair(struct udma_dev *ud, u32 src_thread, u32 dst_thread);
++void udma_start_desc(struct udma_chan *uc);
++u8 udma_get_chan_tpl_index(struct udma_tpl *tpl_map, int chan_id);
++void k3_configure_chan_coherency(struct dma_chan *chan, u32 asel);
++void udma_reset_uchan(struct udma_chan *uc);
++void udma_dump_chan_stdata(struct udma_chan *uc);
++bool udma_is_chan_running(struct udma_chan *uc);
 +
++bool udma_chan_needs_reconfiguration(struct udma_chan *uc);
++void udma_cyclic_packet_elapsed(struct udma_chan *uc);
++void udma_check_tx_completion(struct work_struct *work);
++int udma_slave_config(struct dma_chan *chan,
++		      struct dma_slave_config *cfg);
++void udma_issue_pending(struct dma_chan *chan);
++int udma_terminate_all(struct dma_chan *chan);
++void udma_synchronize(struct dma_chan *chan);
++void udma_vchan_complete(struct tasklet_struct *t);
++void udma_mark_resource_ranges(struct udma_dev *ud, unsigned long *map,
++			       struct ti_sci_resource_desc *rm_desc,
++			       char *name);
++int udma_setup_rx_flush(struct udma_dev *ud);
++enum dmaengine_alignment udma_get_copy_align(struct udma_dev *ud);
++
++#ifdef CONFIG_DEBUG_FS
++void udma_dbg_summary_show_chan(struct seq_file *s,
++				struct dma_chan *chan);
++void udma_dbg_summary_show(struct seq_file *s,
++			   struct dma_device *dma_dev);
++#endif /* CONFIG_DEBUG_FS */
+ 
  /* Direct access to UDMA low lever resources for the glue layer */
  int xudma_navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread);
- int xudma_navss_psil_unpair(struct udma_dev *ud, u32 src_thread,
 
 -- 
 2.55.0
