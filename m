@@ -1,38 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.47.186.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795513779;
-	b=eLhQ3sso4YmUtC+P3fdy5XKl6sXprWBkjgy8AwR7lYMtO7Mf0BNTxz5zrf4k2ADZfUT4
-	 BnTfjOYayEopRrJGbYzn5TQDLhrc+Xcm2hKUYvRxr0j3OEQkwmBlhMw3C2SFFl6iXKC1l
-	 doPnm5SLyvi+ave97kDaQrgePjHB/TZfk1oRBsFRU+abFmZWHgOJ4RpHdGJefHFLcWR5y
-	 L1DVRO3F7FcenWcm1vwRUJI7SXL/mtj/HkUjf32IzxvC2eBFvzE6TnXTany/VsvdQBNrP
-	 5vNp15OERTks26YwehSPKHdXIRtGSZibXYHlXXmHxqeEg6EeYBEYLy0AeTHxIYeapNw==
+	t=1795513946;
+	b=1lQ1mSNB/m2MWqyAeEYp2IU8h1tDyVUACj+qDoGS6jWo7NR7VdV893YUetLVLrmqplBh
+	 pfUlfhFCYcK4io3VlRQFtYA645FWLLBCv9FxmpvdDRUQpumSrdzzMRHStRRP11Fkxqc08
+	 /nTSR466xLJZT9mZnzaaKajV38EVV7rg8gCedWFkIU+SWqBhzBbeiWzMjwpwJ3FLVI044
+	 SkTUlF7C8LS0a/HFwtYa22DGrzYtm/J3fWjAOjtCD8PnUCUZ1nfugLZCHvXivDaw5I6LW
+	 bcmvXmY4F2zjkgRG++rxUr1pfIC120ZPj0U6SLOTujxjMVWxWjFK5DbaEK11jRbE+uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795513779;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=0MNLTK0fQhsrYOqNKIOaGGwWA/saDokjTp6WINPbrXU=;
-	b=QIdlFus5Efk5wm1mOTb+VzUTDPLCP6eKZ4alTiMMf/x5qowvml55GF78A2fVV9TWrSo8
-	 cJfRD/ypcy0J37jCtBe8LGOJCDHxstJLW8YJHUg3wialZSwE1ZGHUk2JEidrMq2wOrB43
-	 L3yr1GZ2dZIWcKYuuG8aQX0RsXkY1lD8/mGoT6RqJh+Ofi2AS1WCCvNfTg7KtF3kMHzXA
-	 MJnfls781w7KQxfw2det/438VGpFfSBlFogShxd3QUIM0OafyUHGOskY3FWtgy8ivyAYh
-	 2zxl2B7p+GT+I9mIkH2XFk7OwVzg1DlJg26s+EhUhlAcONnfPZTBbVTwiijP0Evs30g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795513946;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=3gQc90vB9QZyt4nveZxmWV9SB5J6VoCgnuziDCiIcwQ=;
+	b=oKRa1G1U+Y3Nb0fUf0MYAMJWRYtu3M9vSEVDRIxYOu+YVbGc9cgMtYYQ+sEjdaEXBrzY
+	 3VadgGLQ/Q7TclIyofVvHTg1a93UZ4at9mb4zjjvYq5THTW5OtlEL3A71n02Ct+R+MIkj
+	 Z2/Gi8hwZgYVwZSNsiBUOCrBPhIovwpIzA4CmnhN6/5DK6pH6RhPIZ5MviTSlg++vj14K
+	 ++PLuzdy1ttOA/ht3mkyXMB7sMkbh7koUjOb4G+4wsDeYShGuucy12hUrAVV3oGbMOuo/
+	 PcyC7KQvLThM9rZS3p9ilnMNA7otOmLnEBHFLR1TuxcCuohj/wqG1Wf2UqvsIv2xm8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=krgm.moe;
-	spf=pass smtp.mailfrom=krgm.moe;
-	arc=none smtp.remote-ip=103.47.186.116
-Received: from krgm.moe (krgm.moe [103.47.186.116])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 355C7606CF3A;
-	Tue, 24 Nov 2026 09:49:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 355C7606CF3A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krgm.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krgm.moe
-Received: from [10.42.0.96] (unknown [114.242.206.180])
-	by krgm.moe (Postfix) with ESMTPSA id 64EFC7912;
-	Tue, 24 Nov 2026 15:19:32 +0530 (IST)
-From: SignKirigami <prcups@krgm.moe>
-Date: Tue, 24 Nov 2026 17:48:23 +0800
-Subject: [PATCH 4/4] clk: qcom: rpmh: Add Netrani clock resources
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=otexlCIQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C283606A682;
+	Tue, 24 Nov 2026 09:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=otexlCIQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97ECA1F000CF;
+	Tue, 24 Nov 2026 09:52:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795513945;
+	bh=3gQc90vB9QZyt4nveZxmWV9SB5J6VoCgnuziDCiIcwQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=otexlCIQSZ4zA4vlqt8nzeaZYmjBpQxj2NoKM0VgiJsHlI7Qafk+oTnsjpbkgS7Xq
+	 STAVK6/Xo2+owB1ttyDx14YxYfvZcc2th2A+7BjkUYTZAsH6gplxYCsPwwS6FACHPK
+	 54Xyshmyd1XC5qDeOkQTH7pW3Hp8LwCuV89hyLCyW6PGSKYNK++rKQBMaIy2JT7lOm
+	 Pc16K4iFKAzGvS28weFb9ScYKPl0/QOQsgdftXHmB6IT210ILq5FxPJJ740R9o8PQU
+	 eR9rYqfgmriXSTRiz77SuOpXwPk7s6N7ZLwXcxseulyedz12TVz4MeQsvLIh7iyNKD
+	 IG0CVUbAvV+qQ==
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>, 
+ Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>, quic_srivasam@quicinc.com, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+In-Reply-To: <20261123171411.444381-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261123171411.444381-1-srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/3] soundwire: qcom: add multi-master support
+Message-Id: <179551394126.362684.17003372203937315230.b4-ty@kernel.org>
+Date: Tue, 24 Nov 2026 15:22:21 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -44,84 +67,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-netrani-clock-v1-v1-4-ce10cedbfa4b@krgm.moe>
-References: <20261124-netrani-clock-v1-v1-0-ce10cedbfa4b@krgm.moe>
-In-Reply-To: <20261124-netrani-clock-v1-v1-0-ce10cedbfa4b@krgm.moe>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2307; i=prcups@krgm.moe;
- h=from:subject:message-id; bh=M0YLCq6nAE5vu9Uz1AFFKGooJAbkshl6w/NwD8n+T/I=;
- b=owEBCQL2/ZANAwAIAV0dOJt2umJjAcsmYgBrBV13mTkpIaTqCmR0HsS8WBtEtjmSEIjHR21HO
- QRQ4L+QZQ2JAc8EAAEIADkWIQRSClJ2zjncUdNU0FFdHTibdrpiYwUCawVddxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwwLDIACgkQXR04m3a6YmNmuQv/fpq1XBWYb55jhkZtiwFaeDUlkkRy40r
- tl4xTiT9BPV5pRwpfzao+MiEOpduZVBM7adKd3nCvqVJ6YoywLQqsTm0loUJ+NVbrJUJS6trNX+
- 6SCPiXqikaSGYeNS04XBxgux6Brq5nzJyHxULTlE8eCr9kDg+itfxCR8LmT7pkvnX8Q0+Q3MMM8
- PpAzWIL5ZZ4D5efwh8xOoyCeN9HjsYcNSyvWJTBmFCvc12PwxvHaHl2wTj02DMlmAQOXGn7wqGo
- CouY+XI9crFWpOqupYuh7I8bfdcMuGM44Cmqu22W3DGjkmg2qFgBJuo7UuDi87EoA/ExTB4Xiwb
- 32h5b5xdDKTNeXQrY2JR97WE9oaPK2YdFXA77kOAkueiE+/UOgHDHuIHFhW+OiMyxHZZPIW0GBz
- KxhYkfGWd2hc4k9NAuVZ9JouIRtI+I7SqqLzmFz83KDfXqfcSuXZuUXMDwUNORn+lLOW34pXKS2
- 08WL9gI8L38902vJcflNsSkAKoxChjH
-X-Developer-Key: i=prcups@krgm.moe; a=openpgp;
- fpr=520A5276CE39DC51D354D0515D1D389B76BA6263
+X-Mailer: b4 0.14.3
 
-Describe the Netrani XO, line/broadband, RF and IPA resource clocks. The
-76.8 MHz oscillator is divided by four for the 19.2 MHz CXO output.
-Provide both normal and active-only votes for the oscillator and radio
-resources using the existing RPMh clock operations.
 
-Signed-off-by: SignKirigami <prcups@krgm.moe>
----
- drivers/clk/qcom/clk-rpmh.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+On Mon, 23 Nov 2026 17:14:08 +0000, Srinivas Kandagatla wrote:
+> This patch series adds support to the multi-master in existing soundwire
+> controller driver.
+> 
+> On Qualcomm Glymur SoC, both TX and RX soundwire controllers are wired
+> up in multi master mode connecting to an SDCA compliant Tambora codec.
+> 
+> One of the two controllers (tx,rx) act as primary controller in this
+> instance its tx which provides clock and control and some data lines and
+> other controller instance in this case rx act as dependent controller
+> providing extra data lanes to primary controller. This is called multi
+> master mode in Qualcomm Soundwire controller.
+> 
+> [...]
 
-diff --git a/drivers/clk/qcom/clk-rpmh.c b/drivers/clk/qcom/clk-rpmh.c
-index 68640e5904a64..389f9567f2397 100644
---- a/drivers/clk/qcom/clk-rpmh.c
-+++ b/drivers/clk/qcom/clk-rpmh.c
-@@ -499,6 +499,27 @@ static const struct clk_rpmh_desc clk_rpmh_sdx55 = {
- 	.num_clks = ARRAY_SIZE(sdx55_rpmh_clocks),
- };
- 
-+static struct clk_hw *netrani_rpmh_clocks[] = {
-+	[RPMH_CXO_CLK]		= &clk_rpmh_bi_tcxo_div4.hw,
-+	[RPMH_CXO_CLK_A]	= &clk_rpmh_bi_tcxo_div4_ao.hw,
-+	[RPMH_LN_BB_CLK2]	= &clk_rpmh_ln_bb_clk2_a4.hw,
-+	[RPMH_LN_BB_CLK2_A]	= &clk_rpmh_ln_bb_clk2_a4_ao.hw,
-+	[RPMH_LN_BB_CLK3]	= &clk_rpmh_ln_bb_clk3_a2.hw,
-+	[RPMH_LN_BB_CLK3_A]	= &clk_rpmh_ln_bb_clk3_a2_ao.hw,
-+	[RPMH_RF_CLK1]		= &clk_rpmh_rf_clk1_a.hw,
-+	[RPMH_RF_CLK1_A]	= &clk_rpmh_rf_clk1_a_ao.hw,
-+	[RPMH_RF_CLK2]		= &clk_rpmh_rf_clk2_a.hw,
-+	[RPMH_RF_CLK2_A]	= &clk_rpmh_rf_clk2_a_ao.hw,
-+	[RPMH_RF_CLK5]		= &clk_rpmh_rf_clk5_a.hw,
-+	[RPMH_RF_CLK5_A]	= &clk_rpmh_rf_clk5_a_ao.hw,
-+	[RPMH_IPA_CLK]		= &clk_rpmh_ipa.hw,
-+};
-+
-+static const struct clk_rpmh_desc clk_rpmh_netrani = {
-+	.clks = netrani_rpmh_clocks,
-+	.num_clks = ARRAY_SIZE(netrani_rpmh_clocks),
-+};
-+
- static struct clk_hw *sm8150_rpmh_clocks[] = {
- 	[RPMH_CXO_CLK]		= &clk_rpmh_bi_tcxo_div2.hw,
- 	[RPMH_CXO_CLK_A]	= &clk_rpmh_bi_tcxo_div2_ao.hw,
-@@ -1141,6 +1162,7 @@ static const struct of_device_id clk_rpmh_match_table[] = {
- 	{ .compatible = "qcom,kaanapali-rpmh-clk", .data = &clk_rpmh_kaanapali},
- 	{ .compatible = "qcom,kuno-rpmh-clk", .data = &clk_rpmh_kuno},
- 	{ .compatible = "qcom,milos-rpmh-clk", .data = &clk_rpmh_milos},
-+	{ .compatible = "qcom,netrani-rpmh-clk", .data = &clk_rpmh_netrani },
- 	{ .compatible = "qcom,nord-rpmh-clk", .data = &clk_rpmh_nord},
- 	{ .compatible = "qcom,qcs615-rpmh-clk", .data = &clk_rpmh_qcs615},
- 	{ .compatible = "qcom,qdu1000-rpmh-clk", .data = &clk_rpmh_qdu1000},
+Applied, thanks!
 
+[1/3] dt-bindings: soundwire: qcom: describe multi-master
+      commit: 7cbbfda56518bfa9360e2f303654db9f01372dc1
+[2/3] soundwire: qcom: add multi-master support
+      commit: 55207a5b69592e6ec1468baa2524b5a33845ff06
+[3/3] soundwire: qcom: program MM_SYNC for multi-master
+      commit: b6d625cb2a4b02ed8e9ce9251826d8534fb54296
+
+Best regards,
 -- 
-2.56.0
+~Vinod
+
 
