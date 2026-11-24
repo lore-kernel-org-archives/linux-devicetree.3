@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795527319;
-	b=ojLS0grrocbayw7N0WSxOEf3D+QZvbA4O3H8zd0Ew/WQomJLHrQWo1oq0klAY1PPdIpo
-	 Q9ZWT+J8cczk8LAKhyHRWLWM5SL1sPLzA9NEeqVMiPR7x1HAgU52p/nWqg50aP5FIHIIa
-	 qTHslbOtM2VvOy5XPM2mKp3Ve3UxAh/sQ7dDlH1zqjbOcNs1qjyvdlxb1OJOKbEllP/bx
-	 FBr50fHQyKSiUNhhADiy6jDzHdm6x+dll7uvkesj8B7Jj3cFk3ArljUFcMj/C0XxwdVug
-	 aa+yO1T1VHjA9LqDplouJ4iWzkvEzzIBbBcr+9537QiRqzvdveZl21Lo0jqExDprJlQ==
+	t=1795527320;
+	b=ZWfd71wRuN+xmRhupQ5fsSMAHr4I3ieqei83ijccjxRNDOlX2Uo74/g0R9bEgCRFh869
+	 0FtF21l1uV/XlmFzwBmYUoPYhIeXmVEr0Eg92gnBr/+N6QUlqDLj5d75WsvJYY+eR38fe
+	 J3GL2LhP4qkt0a4ascGpgqbwNMaF+Q5wHE1QouXyhrKEvHqBReK1Ircyq+5klvGRXF9Mx
+	 brTl5U6zXD96qlNz8YcnNjBvh3r1YosyI7HLOS12ByWFdpvz+PFkeBkn1vSIpHS506I6D
+	 GdU+CVv3f0ji5+s9HPEBCo/cxZT7fN/PXHCYVFd0ueKKQX+ZsYDwPhVaC/bH2Udjm5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795527319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795527320;
 	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
 	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=brA1TZa4Xw4gj6MGSoKR1QMCPQppauTAeMn4qP0Jvxc=;
-	b=EtxY4gYjBTFwXHw/jg1c67gXLm4/3943WpSnDnHez645HIrzwLwEoZjYEqPkk4ysWRc6
-	 MSVJPgWNi8/VGiXlnrZiehl5ullf28NOaty+qdQ/Ii8/QIwTJETl4qhTzMESy0dUKyEu9
-	 3W2u2MmJGy1t3Q4KU/LBTcbOYeCtyXpkTE6aZogqqQu+GKfcBk0Yud/nA7INbdkyPJa9i
-	 hrOo3w62ijCRkl1M3n/9dFS6QnihO9MyuCVqruXCRZrKFnfJeskfUz2HzTGJlGjI/CI2M
-	 vCeDq5t+BLaXu1bkG9e3sZtp5a5cwy83pVd0Yz4u/IY1BkK0/MaGWIAvkYwBvCxv/Pw==
+	bh=dtrcKHCDOQwC/1Y9pVFvIgO8WKKsGNe4/+JPGrTVGUA=;
+	b=xlCiV/UaiE8HxrQ5wX0aoBeQfowLmR51lJ3eTPPnRZsvt2cYIc2w83isG3SfpJbACcaX
+	 0rVkmk6xOkwVpbXocy0d0roBag8DMiQjP3KNLvWJ27VnbDd/M9AIm9VQ7XWQyUJAXdpDn
+	 cS3Lbm/gCpj5pKYGmO77WK1PmcDrIbJfgX8j93atZpGfELHe+FjPStEntSNm3HrvScOCB
+	 Xw+W3XLOj83I7g0B0nm4kGUXiILYwDrMGYurFhL2Y0w9g5v+g8I0kabH3S6arY4i4UtoX
+	 R7cJ2kDCNmzVtAMWrD9msdtZrQqBqUafZK/pqEJefRKyW3BcbMnW/JzN2tWcAEMfuBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dSbn8Y/N";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbEFYbd7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2596D606A326;
-	Tue, 24 Nov 2026 13:35:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3027C606A33C;
+	Tue, 24 Nov 2026 13:35:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dSbn8Y/N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521941F000CA;
-	Tue, 24 Nov 2026 13:35:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbEFYbd7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A008F1F000D4;
+	Tue, 24 Nov 2026 13:35:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795527318;
-	bh=brA1TZa4Xw4gj6MGSoKR1QMCPQppauTAeMn4qP0Jvxc=;
+	s=k20260515; t=1795527319;
+	bh=dtrcKHCDOQwC/1Y9pVFvIgO8WKKsGNe4/+JPGrTVGUA=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=dSbn8Y/NI1ECMCHeJz8N3SxMgDZHe+m/bc5KiR6zO3arfCHJFGOb54XmBsHndC0+V
-	 vcjb8SFTRbLoKuKNbV/azVrHe6azEoNKNz/qSTWz1i2JRmUpvuK7w2lEaqoxzv0+Ff
-	 oJBlc/Z+RlgnHkujXGg4c35l9BHhWa3dRHlg/0eRsRdPW4yVxkJr7Bx2/zCHRjYjGV
-	 /AH9oZZONTz0rWgy021OWu/lg2Jp4aqTqXj47Gh3Yrpq1bqgYkNZ40zocELH/IhVSR
-	 6uE6wBHJW47Rm+SU89zd0WmBwbgxzcfhPsDGqSYMV0NAigEXW1T6ZERf8FoGh4RB/u
-	 g+o4oxsJZe+3g==
-Date: Tue, 24 Nov 2026 07:35:16 -0600
-Content-Type: text/plain; charset="us-ascii"
+	b=AbEFYbd7lwIf/jyWl/sn/DumUXZrfLlfnTKnyAbeLL5sbmhEOmwCHbOHB7rmeqkDm
+	 ct05xZ508E575N2dRrPz0Eo+/Trzyr3jfF2+d+zR1YnGvrhLoyehmGvVU1fkHXJ7sh
+	 Y8MHJYd15gvlJFHuhkHFAg1XngVpkM8buQRuK9HEHsbZQty61TCiktt6Xc4V5kt+zs
+	 WR0n1idQ5+lETAtwJDiIpwEUCwiROnr0zWJhHkIDqilRv2yABTeBIjf0ahyanhCBY6
+	 TbMOyRcuM+1tyNgr4Cjne5RyBjBcnZoEa3m2HGf3FTW7Th3KXk5K3Q4qSxhzKpXE04
+	 DQpmY9zxRYAkQ==
+Date: Tue, 24 Nov 2026 07:35:18 -0600
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,58 +52,50 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Andreas Kemnade <andreas@kemnade.info>, Mark Brown <broonie@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, Pavel Machek <pavel@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Simona Vetter <simona@ffwll.ch>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- linux-sound@vger.kernel.org, Takashi Iwai <tiwai@suse.com>, 
- Jaroslav Kysela <perex@perex.cz>, linux-omap@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>, 
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-pwm@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>, linux-arm-kernel@lists.infradead.org, 
- linux-fbdev@vger.kernel.org, Peter Ujfalusi <peter.ujfalusi@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Daniel Thompson <danielt@kernel.org>, 
- Jarkko Nikula <jarkko.nikula@bitmer.com>, Roger Quadros <rogerq@kernel.org>, 
- David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org, 
- Jingoo Han <jingoohan1@gmail.com>, letux-kernel@openphoenux.org, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
+Cc: linux-pm@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Rakesh Kota <rakesh.kota@oss.qualcomm.com>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Russell King <linux@armlinux.org.uk>, 
- kernel@pyra-handheld.com, Helge Deller <deller@gmx.de>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
-References: <cover.1795505160.git.hns@goldelico.com>
- <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
-Message-Id: <179552715646.40567.8345105080206889175.robh@kernel.org>
-Subject: Re: [PATCH v2 06/20] dt-bindings: sound: Document OpenPandora
- sound card
+ Sebastian Reichel <sre@kernel.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+To: Raj Aryan <raj.aryan@oss.qualcomm.com>
+In-Reply-To: <20261124-smblite-charger-for-pm4125-v1-1-2132c9f0601f@oss.qualcomm.com>
+References: <20261124-smblite-charger-for-pm4125-v1-0-2132c9f0601f@oss.qualcomm.com>
+ <20261124-smblite-charger-for-pm4125-v1-1-2132c9f0601f@oss.qualcomm.com>
+Message-Id: <179552715903.40664.16651410338735245830.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: power: supply: Add
+ qcom,pm4125-charger binding
 
 
-On Tue, 24 Nov 2026 08:25:46 +0100, H. Nikolaus Schaller wrote:
-> The OpenPandora audio subsystem describes the routing links between the
-> OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 audio
-> codec, alongside amplifiers and power supplies.
+On Tue, 24 Nov 2026 14:45:44 +0530, Raj Aryan wrote:
+> Add YAML devicetree binding for the Qualcomm SMBLite switch-mode
+> battery charger found on the PM4125 PMIC.
 > 
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+> SMBLite is a reduced-feature charger IP sharing a common SPMI
+> interface with the SMB2 family (PMI8998, PM660) but using separate
+> SPMI peripheral bases for CHGR, DCDC, USB, MISC and BATIF blocks.
+> 
+> The binding covers:
+> 
+>   - compatible string: qcom,pm4125-charger
+>   - reg property for the CHGR peripheral base address
+>   - Four interrupts: usb-plugin, bat-ov, wdog-bark and
+>     usbin-icl-change
+>   - Two IIO channels: usbin_v (USB input voltage via ADC5_USB_IN_V_16)
+>     and usbin_i (USB input current via ADC5_USB_IN_I)
+>   - Optional JEITA soft and hard threshold configuration as raw
+>     16-bit ADC comparator values written to BATIF ADC comparator
+>     registers
+>   - Optional monitored-battery phandle for battery parameters such
+>     as float voltage and charge termination current
+> 
+> Signed-off-by: Raj Aryan <raj.aryan@oss.qualcomm.com>
+> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 > ---
-> 
-> Notes:
->     Changes against V1:
->     - Address Krzysztof Kozlowski's V1 request to run the documented
->       DT schema checks and fix the errors reported by Rob Herring's
->       automated DT validation.
->     - Update the binding example and schema during DT consistency review.
->     - Binding and commit-message review assisted by ChatGPT.
-> 
->  .../sound/openpandora,omap3pandora-sound.yaml | 95 +++++++++++++++++++
->  1 file changed, 95 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
+>  .../bindings/power/supply/qcom,pm4125-charger.yaml | 109 +++++++++++++++++++++
+>  1 file changed, 109 insertions(+)
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -111,74 +103,16 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,apq8016-sbc-sndcard): primary-dai-link:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
-Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,apq8016-sbc-sndcard): quaternary-dai-link:cpu:sound-dai: [[4294967295],[3]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
-Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,apq8016-sbc-sndcard): tertiary-dai-link:cpu:sound-dai: [[4294967295],[2]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
-Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,msm8916-qdsp6-sndcard): mm1-dai-link:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
-Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,msm8916-qdsp6-sndcard): primary-dai-link:cpu:sound-dai: [[4294967295],[16]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
-Documentation/devicetree/bindings/sound/samsung,snow.example.dtb: sound (google,snow-audio-max98095): codec:sound-dai: [[4294967295],[0],[4294967295]] has more than 2 items
-	from schema $id: http://devicetree.org/schemas/sound/samsung,snow.yaml
-Documentation/devicetree/bindings/sound/samsung,snow.example.dtb: sound (google,snow-audio-max98095): cpu:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/samsung,snow.yaml
-Documentation/devicetree/bindings/sound/fsl,qmc-audio.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@0:cpu:sound-dai: [[1],[16]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/fsl,qmc-audio.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu:sound-dai: [[1],[17]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/fsl,qmc-audio.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@2:cpu:sound-dai: [[1],[18]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/mediatek,mt8173-rt5650.example.dtb: sound (mediatek,mt8173-rt5650): codec-capture:sound-dai: [[4294967295],[1]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/mediatek,mt8173-rt5650.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,cpu:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,cpu@0:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,cpu@1:sound-dai: [[4294967295],[1]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@0:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:codec:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-0:sound-dai: [[4294967295],[1]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-1:sound-dai: [[4294967295],[2]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-2:sound-dai: [[4294967295],[3]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-3:sound-dai: [[4294967295],[4]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@2:codec:sound-dai: [[4294967295],[1]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@2:cpu:sound-dai: [[4294967295],[5]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
-Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): hdmi-dai-link:cpu:sound-dai: [[4294967295],[20]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
-Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): mm1-dai-link:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
-Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): mm2-dai-link:cpu:sound-dai: [[4294967295],[1]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
-Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): mm3-dai-link:cpu:sound-dai: [[4294967295],[2]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
-Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): usb-dai-link:cpu:sound-dai: [[4294967295],[136]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
-Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): va-dai-link:cpu:sound-dai: [[4294967295],[110]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
-Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): wsa-dai-link:cpu:sound-dai: [[4294967295],[105]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
-Documentation/devicetree/bindings/sound/google,sc7180-trogdor.example.dtb: sound (google,sc7180-trogdor): dai-link@0:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/google,sc7180-trogdor.yaml
-Documentation/devicetree/bindings/sound/google,sc7180-trogdor.example.dtb: sound (google,sc7180-trogdor): dai-link@1:cpu:sound-dai: [[4294967295],[1]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/google,sc7180-trogdor.yaml
-Documentation/devicetree/bindings/sound/google,sc7180-trogdor.example.dtb: sound (google,sc7180-trogdor): dai-link@2:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
-	from schema $id: http://devicetree.org/schemas/sound/google,sc7180-trogdor.yaml
+Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dts:29.13-28: Warning (reg_format): /example-0/charger@1000:reg: property has invalid length (4 bytes) (#address-cells == 1, #size-cells == 1)
+Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (pci_device_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (simple_bus_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (spi_bus_reg): Failed prerequisite 'reg_format'
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com
+See https://patchwork.kernel.org/project/devicetree/patch/20261124-smblite-charger-for-pm4125-v1-1-2132c9f0601f@oss.qualcomm.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
