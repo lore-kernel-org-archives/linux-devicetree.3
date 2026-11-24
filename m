@@ -1,61 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795514167;
-	b=qTDnw16u4aN1dVq2LWrLnV0ixouHPcsJvdnzB1BH2M2doJw2nnn8hp7PbHMdFv5wAO6z
-	 a1mz0qaxBoe8ejrUJiWROXxZIi9Y6Qm7bJsK3f2E35sUWm7sSAcpjJjVFpYAc61tVNDcA
-	 Tm75lm2wsZRt63nEt4fLZj8QR8MSBfHgPAGIobOo+N73LIzOfMj8KF/coy4A7ZKg8oE3Q
-	 UVE5EAjcOXDbgM2xdG+U9idkaI649d3nZ186UL6TYcVdu9RjkznVgkdDg/YWSpGLK3DtN
-	 JpBgy7oRx7NNM8pAtvySNmi5fpAlkDjcj2S0fMKg+ZZ+dSOBc+dO72jvVQG6UHOQdkw==
+	t=1795514163;
+	b=PhYT4x48f056yifIh4K4+bygpfwXmEN719w6ZTU83uEDjftz7Qwa30zBioh1Elmpe1od
+	 rkrB1cVxvhY0i1GNNWwXSeZWCuE4/SQc+Bh6Drdmd69Ov6+3mJkgotEg5vHQ+h8YNsHxf
+	 3iJdhazsk9bQe7M0TvbBoMendjUDVYtcc0O42cKaZT6dHywW3djMYd8pRzz/AnR3UfwP9
+	 eE1an/OczCsO1uLQg/fbifiAv2Lnw/vd3KN7zDje4uN2Mvk6Ak1k1u7Wyitc/C2p54QUW
+	 j3pNL1eacTh9w+x5mxgKmiCa2JWQ6bvC9PheqDgyqa0MVPj/xBjyePRmw/AxIaeDb/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514167;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=WwuB8qxVapYURzlx5EMGuzxWm7fZDeG60bWvz1Cgzsg=;
-	b=y7AXaxW187Xhd2NqbUsORX+olk1A3qsAUwA79SQiW7HZTLqCu9wNlrccrMTsxSqRRDK3
-	 M9Vw8wVpKeKXrqrheshceZCd8E+RdUcafYB61USvxyaPfwdCJFmJYAk4WUY0SgHCH1Hfb
-	 fEMUt7khzwbuZ7lIpGimI7msnGxoK9vw0XMj+idTbzKA5Yrg+nMozLZDyfapIUmVOLbjA
-	 VYJvzvo7wFKJPI087W79T6Vp9AHXbrUkhcmmc2h5Uw7MFexfCzBDdCU+uSJ1kdtTIdpng
-	 jtFLUKm/YhrOoPBrFmq30S3q8SyWbffWd1YNo+gTZXYvElgoNX4B8wilEB8Z3h9d25Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514163;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HBwwx22gdCBZcO+HQC+OiG/e+KY/HmCfnI4aK0bezx0=;
+	b=LYdOBr/FJSe0QkzfLKey6kt15fLGy9ZZiRCte1i/LeqL+IAVR54quWeNel2oUmtJ2mh/
+	 VbeM/FIxfUFErsVnvYd4XYXCmZcOFh1vBn/nxlaMlFs3A9pOrXHhzh41T5rXC9MW8QU+w
+	 Ybap+qcG+YmzPiGJ816CuZK/nNoyjCtapzNpLD0OV+iL93XKTrJn8ZVF+45z0aBmbkwns
+	 cef6MeBz752+9v0rsJ9LDoziEJ3eLAmmLmHM1fkqIHbKcQLsb/+78hsKuOvNhYlRiQ+V3
+	 o7AKlWhW8FJF6YhcnWnLJHPxRaJ/nQ57feLNI+z+t81DreIoLMzb+SCnQu2GiSsW8Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=WMQXUlmI;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgKvT66T;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9EF8606A68E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:56:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9EF8606A68E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7C3606A32A;
+	Tue, 24 Nov 2026 09:56:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=WMQXUlmI
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261124095559euoutp02e795afefebb24e601ead712ad967a309~q8p1mgwgT2627426274euoutp02I
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:55:59 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261124095559euoutp02e795afefebb24e601ead712ad967a309~q8p1mgwgT2627426274euoutp02I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1795514159;
-	bh=WwuB8qxVapYURzlx5EMGuzxWm7fZDeG60bWvz1Cgzsg=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=WMQXUlmIFKNnFuWbfotB/wm24f4Y4gL5G5x2rPLtj1Mj/Oaxqg8v+MwdewM92/K35
-	 NR0Lj+QZbbRO9oYe/o6WcWI/Im/ruN5qLertfgiJwZoRrVvV41AyaHHaWiQR9VivNY
-	 dJDTJqPPkNUoNNK4GncSLfXXbIizG5fGXc19zipQ=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261124095558eucas1p1db26c8f9a467aaeb76446dd73ecaab70~q8p1B08xb1810918109eucas1p1i;
-	Tue, 24 Nov 2026 09:55:58 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261124095557eusmtip215d57f42876de5636e6507b52acb9534~q8p0JwYvg0412504125eusmtip2E;
-	Tue, 24 Nov 2026 09:55:57 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Tue, 24 Nov 2026 10:54:01 +0100
-Subject: [PATCH v8 4/5] phy: starfive: Add jh7110-inno-hdmi-phy driver
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgKvT66T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A121F000EB;
+	Tue, 24 Nov 2026 09:55:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795514162;
+	bh=HBwwx22gdCBZcO+HQC+OiG/e+KY/HmCfnI4aK0bezx0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HgKvT66TjCdo1tP68cBTobK77WEZOs0plGQEzS8YDlxCl0uR4GpJeTTms4vjEJFEQ
+	 XFZ8XAhxZgOGNms6u9xuyZM1+WQ08J/xdo1Tz/4lIAeMmVdqSHwrtZZvNAQ9G5G0RQ
+	 4t1hrQnSv90AYxS0fS5KvUlb79gdT9DrVSpg9F9U+8Lrl9Dmkj7qlu0Yqp9eaPM33A
+	 3FvZljj58ni7EX2g3uu5n9L4k5aBGz4jov5y/cHJ3KdmqA4Mz3EhX0Gi5QBmObXkuu
+	 dIMimcxNuwFX473yI69Bde9fMfX32vg2bv3rJyreFKWU1WtTe5tVLu4QWh1wR6Iqqq
+	 QjidklHUqc3cw==
+Message-ID: <a5f859c1-0779-4ae1-88f0-bfa12268e09c@kernel.org>
+Date: Tue, 24 Nov 2026 10:55:57 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,697 +51,178 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-jh7110-inno-hdmi-phy-v8-4-5e3008122cba@samsung.com>
-In-Reply-To: <20261124-jh7110-inno-hdmi-phy-v8-0-5e3008122cba@samsung.com>
-To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
-	<neil.armstrong@linaro.org>,  Manivannan Sadhasivam <mani@kernel.org>, Rob
-	Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
-	Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,  Emil Renner
-	Berthing <kernel@esmil.dk>,  Hal Feng <hal.feng@starfivetech.com>, Dominique
-	Belhachemi <db@domibel.de>,  Michal Wilczynski <m.wilczynski@samsung.com>,
-	Andy Yan <andyshrk@163.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
-	Szyprowski <m.szyprowski@samsung.com>,  Icenowy Zheng
-	<zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Joshua Peisach <jpeisach@ubuntu.com>, Byron Stanoszek <gandalf@winds.org>, 
-	OOHehir <oo.hehir@gmail.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=24897;
-	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=KkvRm4LJ5fd2vAq+pNAU7AE5++URrx/C6uchR70qXvQ=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWSzxmvaeeoof+vp9TrrvSaz5O7pnbdO3r13XODY50Pds
-	xYe/vKloqOUhUGMg0FWTJHl7MZoI8l/DE/Ljz/+BTOHlQlkCAMXpwBMxN6AkeFI1ucrj3L+Hz7g
-	78SSN8MmJ+LQ9G9PIgR1P0yXkWG9dmgiwx8O/UeZ/BI/TPbGzDjdUb70qf3mCI/GJRte/RFg07z
-	AKM4NAA==
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
-	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261124095558eucas1p1db26c8f9a467aaeb76446dd73ecaab70
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261124095558eucas1p1db26c8f9a467aaeb76446dd73ecaab70
-X-EPHeader: CA
-X-CMS-RootMailID: 20261124095558eucas1p1db26c8f9a467aaeb76446dd73ecaab70
-References: <20261124-jh7110-inno-hdmi-phy-v8-0-5e3008122cba@samsung.com>
-	<CGME20261124095558eucas1p1db26c8f9a467aaeb76446dd73ecaab70@eucas1p1.samsung.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: power: supply: Add qcom,pm4125-charger
+ binding
+To: Raj Aryan <raj.aryan@oss.qualcomm.com>, Sebastian Reichel
+ <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Casey Connolly <casey.connolly@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+References: <20261124-smblite-charger-for-pm4125-v1-0-2132c9f0601f@oss.qualcomm.com>
+ <20261124-smblite-charger-for-pm4125-v1-1-2132c9f0601f@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261124-smblite-charger-for-pm4125-v1-1-2132c9f0601f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add the HDMI PHY driver for the StarFive JH7110.
+On 24/11/2026 10:15, Raj Aryan wrote:
+> Add YAML devicetree binding for the Qualcomm SMBLite switch-mode
 
-This driver binds to the starfive,jh7110-inno-hdmi-phy node and
-gets its regmap from the parent. Its only clock input is the reference
-oscillator (xin24m); it does not depend on voutcrg.
+YAML devicetree binding, you hit combo... Drop YAML.
 
-This driver provides two main functions:
- - Clock Provider: It registers clk_ops to provide the variable pixel
-   clock. The .set_rate operation configures the Pre-PLL registers
-   (0x1a0+) based on the requested rate. The bias and RX blocks feeding
-   the Pre-PLL follow the prepare state of this clock.
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
- - PHY Provider: It registers phy_ops for the controller. The .power_on
-   op configures and enables the Post-PLL and the remaining analog
-   blocks (LDO, serializer, TMDS drivers).
+> battery charger found on the PM4125 PMIC.
+> 
+> SMBLite is a reduced-feature charger IP sharing a common SPMI
+> interface with the SMB2 family (PMI8998, PM660) but using separate
+> SPMI peripheral bases for CHGR, DCDC, USB, MISC and BATIF blocks.
+> 
+> The binding covers:
 
-The clock ops reach registers in the window shared with the HDMI
-controller, and access to that window is gated by the controller's
-system clock, which only the sibling controller driver holds. The clock
-framework walks every registered clock regardless of which drivers have
-bound, so deliberately do not implement .is_prepared, which lets the
-framework fall back to the software prepare count, and return the cached
-rate from .recalc_rate whenever the clock is not prepared. Without this,
-clk_disable_unused() reads a PHY register with that clock gated and the
-resulting stalled bus transaction wedges the CPU hard enough that it
-stops responding to NMIs. It is reproducible by building the bridge
-driver as a module so that the controller has not bound by then.
+Do not explain what the patch is doing. We can read the diff. Please
+read submitting patches or look at other commits to learn what is
+supposed to be here.
 
-The JH7110 instantiates the same Innosilicon IP as the Rockchip RK3328,
-with the PHY register block shifted by 0x100 because it sits behind the
-HDMI controller in the shared register space. The pre-PLL programming
-therefore comes from the common Innosilicon helpers; this driver adds
-the JH7110 pixel clock table, the post-PLL and the analog configuration.
+> 
+>   - compatible string: qcom,pm4125-charger
+>   - reg property for the CHGR peripheral base address
+>   - Four interrupts: usb-plugin, bat-ov, wdog-bark and
+>     usbin-icl-change
+>   - Two IIO channels: usbin_v (USB input voltage via ADC5_USB_IN_V_16)
+>     and usbin_i (USB input current via ADC5_USB_IN_I)
+>   - Optional JEITA soft and hard threshold configuration as raw
+>     16-bit ADC comparator values written to BATIF ADC comparator
+>     registers
+>   - Optional monitored-battery phandle for battery parameters such
+>     as float voltage and charge termination current
 
-Co-developed-by: Dominique Belhachemi <db@domibel.de>
-Signed-off-by: Dominique Belhachemi <db@domibel.de>
-Tested-by: Byron Stanoszek <gandalf@winds.org>
-Tested-by: OOHehir <oo.hehir@gmail.com>
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
- drivers/phy/starfive/Kconfig                |  20 +
- drivers/phy/starfive/Makefile               |   1 +
- drivers/phy/starfive/phy-jh7110-inno-hdmi.c | 561 ++++++++++++++++++++++++++++
- 3 files changed, 582 insertions(+)
+...
 
-diff --git a/drivers/phy/starfive/Kconfig b/drivers/phy/starfive/Kconfig
-index d0cdd7cb4a13de22ff643c89a79d99cce57284d7..1da417ffbf224c13224e42a3ce322e3d0c272824 100644
---- a/drivers/phy/starfive/Kconfig
-+++ b/drivers/phy/starfive/Kconfig
-@@ -25,6 +25,26 @@ config PHY_STARFIVE_JH7110_DPHY_TX
- 	  system. If M is selected, the module will be called
- 	  phy-jh7110-dphy-tx.ko.
- 
-+config PHY_STARFIVE_JH7110_INNO_HDMI
-+	tristate "Starfive JH7110 INNO HDMI PHY"
-+	select PHY_INNO_HDMI
-+	depends on COMMON_CLK
-+	select GENERIC_PHY
-+	help
-+	  This option enables the driver for the analog HDMI PHY (Physical
-+	  Layer) on the StarFive JH7110 SoC.
-+
-+	  This driver binds to a child node of the 'starfive,jh7110-hdmi-subsystem'
-+	  parent driver and gets its register map from that parent.
-+
-+	  It is responsible for two main functions:
-+	  1. PHY Provider: It provides standard PHY operations (.power_on,
-+	     .power_off) for the HDMI controller (bridge) driver. This
-+	     involves configuring the Post-PLL and analog TMDS blocks.
-+	  2. Clock Provider: It registers as a clock provider to supply the
-+	     variable pixel clock (hdmi_pclk) to the HDMI controller and
-+	     the VOUT subsystem, which it generates using the Pre-PLL.
-+
- config PHY_STARFIVE_JH7110_PCIE
- 	tristate "Starfive JH7110 PCIE 2.0/USB 3.0 PHY support"
- 	depends on HAS_IOMEM
-diff --git a/drivers/phy/starfive/Makefile b/drivers/phy/starfive/Makefile
-index eedc4a6fec156320c99ac0a0da609083b6a6a695..e7b13f00880b500f933f21b6037384d5c6884e3e 100644
---- a/drivers/phy/starfive/Makefile
-+++ b/drivers/phy/starfive/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_PHY_STARFIVE_JH7110_DPHY_RX)	+= phy-jh7110-dphy-rx.o
- obj-$(CONFIG_PHY_STARFIVE_JH7110_DPHY_TX)	+= phy-jh7110-dphy-tx.o
-+obj-$(CONFIG_PHY_STARFIVE_JH7110_INNO_HDMI)	+= phy-jh7110-inno-hdmi.o
- obj-$(CONFIG_PHY_STARFIVE_JH7110_PCIE)		+= phy-jh7110-pcie.o
- obj-$(CONFIG_PHY_STARFIVE_JH7110_USB)		+= phy-jh7110-usb.o
-diff --git a/drivers/phy/starfive/phy-jh7110-inno-hdmi.c b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..dced35c5c884b5348c575799f64ec349901ef371
---- /dev/null
-+++ b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-@@ -0,0 +1,561 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2017 Rockchip Electronics Co. Ltd.
-+ * Copyright (c) 2025 Samsung Electronics Co., Ltd.
-+ *
-+ * Author: Zheng Yang <zhengyang@rock-chips.com>
-+ * Author: Michal Wilczynski <m.wilczynski@samsung.com>
-+ *
-+ * The register layout and programming sequence derive from
-+ * drivers/phy/rockchip/phy-rockchip-inno-hdmi.c; the JH7110 places the
-+ * same Innosilicon PHY block at a 0x100 register offset.
-+ *
-+ * This driver handles the PHY portion of the StarFive Innosilicon HDMI IP,
-+ * which is part of a monolithic HDMI block. It provides the variable pixel
-+ * clock (from the Pre-PLL) and the PHY operations (for the Post-PLL/analog).
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/delay.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/phy/inno-hdmi-phy.h>
-+#include <linux/phy/phy.h>
-+#include <linux/slab.h>
-+
-+/*
-+ * StarFive (JH7110) Innosilicon HDMI PHY Register Definitions
-+ */
-+
-+/* REG: 0x1aa */
-+#define STF_INNO_POST_PLL_DIV_1		0x1aa
-+#define STF_INNO_POST_PLL_POST_DIV_ENABLE	GENMASK(3, 2)
-+#define STF_INNO_POST_PLL_REFCLK_SEL_TMDS	BIT(1)
-+#define STF_INNO_POST_PLL_POWER_DOWN		BIT(0)
-+
-+/* REG: 0x1ab */
-+#define STF_INNO_POST_PLL_DIV_2		0x1ab
-+#define STF_INNO_POST_PLL_PRE_DIV(x)		FIELD_PREP(GENMASK(5, 0), x)
-+#define STF_INNO_POST_PLL_FB_DIV_8(x)		FIELD_PREP(BIT(7), (x) >> 8)
-+
-+/* REG: 0x1ac */
-+#define STF_INNO_POST_PLL_DIV_3		0x1ac
-+#define STF_INNO_POST_PLL_FB_DIV_7_0(x)	FIELD_PREP(GENMASK(7, 0), x)
-+
-+/* REG: 0x1ad */
-+#define STF_INNO_POST_PLL_DIV_4		0x1ad
-+
-+/* REG: 0x1af */
-+#define STF_INNO_POST_PLL_LOCK_STATUS		0x1af
-+#define STF_INNO_POST_PLL_LOCK		BIT(0)
-+
-+/* REG: 0x1b0 */
-+#define STF_INNO_BIAS_CONTROL			0x1b0
-+#define STF_INNO_BIAS_ENABLE			BIT(2)
-+
-+/* REG: 0x1b2 */
-+#define STF_INNO_TMDS_CONTROL			0x1b2
-+#define STF_INNO_TMDS_CLK_DRIVER_EN		BIT(3)
-+#define STF_INNO_TMDS_D2_DRIVER_EN		BIT(2)
-+#define STF_INNO_TMDS_D1_DRIVER_EN		BIT(1)
-+#define STF_INNO_TMDS_D0_DRIVER_EN		BIT(0)
-+#define STF_INNO_TMDS_DRIVER_ENABLE		(STF_INNO_TMDS_CLK_DRIVER_EN | \
-+						 STF_INNO_TMDS_D2_DRIVER_EN | \
-+						 STF_INNO_TMDS_D1_DRIVER_EN | \
-+						 STF_INNO_TMDS_D0_DRIVER_EN)
-+
-+/* REG: 0x1b4 */
-+#define STF_INNO_LDO_CONTROL			0x1b4
-+#define STF_INNO_LDO_ENABLE			(BIT(2) | BIT(1) | BIT(0))
-+
-+/* REG: 0x1be */
-+#define STF_INNO_SERIALIER_CONTROL		0x1be
-+#define STF_INNO_SERIALIER_ENABLE		(BIT(6) | BIT(5) | BIT(4) | BIT(0))
-+
-+/* REG: 0x1cc */
-+#define STF_INNO_RX_CONTROL			0x1cc
-+#define STF_INNO_RX_ENABLE			(BIT(3) | BIT(2) | BIT(1) | BIT(0))
-+
-+/*
-+ * These tables are copied from the monolithic driver.
-+ * They match the Rockchip PHY driver tables.
-+ */
-+
-+struct post_pll_config {
-+	unsigned long tmdsclock;
-+	u8 prediv;
-+	u16 fbdiv;
-+	u8 postdiv;
-+	u8 post_div_en;
-+};
-+
-+static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
-+	{ 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xb33333 },
-+	{ 25200000, 25200000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xcccccc },
-+	{ 27000000, 27000000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0 },
-+	{ 27027000, 27027000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0x170a3d },
-+	{ 28320000, 28320000, 1, 28, 2, 1, 1, 3, 0, 3, 4, 0, 0x51eb85 },
-+	{ 30240000, 30240000, 1, 30, 2, 1, 1, 3, 0, 3, 4, 0, 0x3d70a3 },
-+	{ 31500000, 31500000, 1, 31, 2, 1, 1, 3, 0, 3, 4, 0, 0x7fffff },
-+	{ 33750000, 33750000, 1, 33, 2, 1, 1, 3, 0, 3, 4, 0, 0xc00000 },
-+	{ 36000000, 36000000, 1, 36, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 40000000, 40000000, 1, 80, 2, 2, 2, 12, 2, 2, 2, 0, 0 },
-+	{ 46970000, 46970000, 1, 46, 2, 1, 1, 3, 0, 3, 4, 0, 0xf851eb },
-+	{ 49500000, 49500000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0x7fffff },
-+	{ 49000000, 49000000, 1, 49, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 50000000, 50000000, 1, 50, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 54000000, 54000000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 54054000, 54054000, 1, 54, 2, 1, 1, 3, 0, 3, 4, 0, 0x0dd2f1 },
-+	{ 57284000, 57284000, 1, 57, 2, 1, 1, 3, 0, 3, 4, 0, 0x48b439 },
-+	{ 58230000, 58230000, 1, 58, 2, 1, 1, 3, 0, 3, 4, 0, 0x3ae147 },
-+	{ 59341000, 59341000, 1, 59, 2, 1, 1, 3, 0, 3, 4, 0, 0x574bc6 },
-+	{ 59400000, 59400000, 1, 99, 3, 1, 1, 1, 3, 3, 4, 0, 0 },
-+	{ 65000000, 65000000, 1, 130, 2, 2, 2, 12, 0, 2, 2, 0, 0 },
-+	{ 68250000, 68250000, 1, 68, 2, 1, 1, 3, 0, 3, 4, 0, 0x3fffff },
-+	{ 71000000, 71000000, 1, 71, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 74176000, 74176000, 1, 98, 1, 2, 2, 1, 2, 3, 4, 0, 0xe6ae6b },
-+	{ 74250000, 74250000, 1, 99, 1, 2, 2, 1, 2, 3, 4, 0, 0 },
-+	{ 75000000, 75000000, 1, 75, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 78750000, 78750000, 1, 78, 2, 1, 1, 3, 0, 3, 4, 0, 0xc00000 },
-+	{ 79500000, 79500000, 1, 79, 2, 1, 1, 3, 0, 3, 4, 0, 0x7fffff },
-+	{ 83500000, 83500000, 2, 167, 2, 1, 1, 1, 0, 0, 6, 0, 0 },
-+	{ 83500000, 104375000, 1, 104, 2, 1, 1, 1, 1, 0, 5, 0, 0x600000 },
-+	{ 85500000, 85500000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0x7fffff },
-+	{ 85750000, 85750000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xc00000 },
-+	{ 85800000, 85800000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xcccccc },
-+	{ 88750000, 88750000, 1, 88, 2, 1, 1, 3, 0, 3, 4, 0, 0xc00000 },
-+	{ 89910000, 89910000, 1, 89, 2, 1, 1, 3, 0, 3, 4, 0, 0xe8f5c1 },
-+	{ 90000000, 90000000, 1, 90, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 101000000, 101000000, 1, 101, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 102250000, 102250000, 1, 102, 2, 1, 1, 3, 0, 3, 4, 0, 0x3fffff },
-+	{ 106500000, 106500000, 1, 106, 2, 1, 1, 3, 0, 3, 4, 0, 0x7fffff },
-+	{ 108000000, 108000000, 1, 90, 3, 0, 0, 5, 0, 2, 2, 0, 0 },
-+	{ 119000000, 119000000, 1, 119, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 131481000, 131481000, 1, 131, 2, 1, 1, 3, 0, 3, 4, 0, 0x7b22d1 },
-+	{ 135000000, 135000000, 1, 135, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 136750000, 136750000, 1, 136, 2, 1, 1, 3, 0, 3, 4, 0, 0xc00000 },
-+	{ 147180000, 147180000, 1, 147, 2, 1, 1, 3, 0, 3, 4, 0, 0x2e147a },
-+	{ 148352000, 148352000, 1, 98, 1, 1, 1, 1, 2, 2, 2, 0, 0xe6ae6b },
-+	{ 148500000, 148500000, 1, 99, 1, 1, 1, 1, 2, 2, 2, 0, 0 },
-+	{ 154000000, 154000000, 1, 154, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 156000000, 156000000, 1, 156, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 157000000, 157000000, 1, 157, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 162000000, 162000000, 1, 162, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 174250000, 174250000, 1, 145, 3, 0, 0, 5, 0, 2, 2, 0, 0x355555 },
-+	{ 174500000, 174500000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x7fffff },
-+	{ 174570000, 174570000, 1, 174, 2, 1, 1, 3, 0, 3, 4, 0, 0x91eb84 },
-+	{ 175500000, 175500000, 1, 175, 2, 1, 1, 3, 0, 3, 4, 0, 0x7fffff },
-+	{ 185590000, 185590000, 1, 185, 2, 1, 1, 3, 0, 3, 4, 0, 0x970a3c },
-+	{ 187000000, 187000000, 1, 187, 2, 1, 1, 3, 0, 3, 4, 0, 0 },
-+	{ 201000000, 201000000, 1, 134, 1, 1, 1, 1, 2, 2, 2, 0, 0 },
-+	{ 235690000, 235690000, 1, 235, 2, 1, 1, 3, 0, 3, 4, 0, 0xb0a3d6 },
-+	{ 241500000, 241500000, 1, 161, 1, 1, 1, 4, 0, 2, 2, 0, 0 },
-+	{ 241700000, 241700000, 1, 241, 2, 1, 1, 3, 0, 3, 4, 0, 0xb33332 },
-+	{ 262750000, 262750000, 1, 262, 2, 1, 1, 3, 0, 3, 4, 0, 0xc00000 },
-+	{ 296500000, 296500000, 1, 296, 2, 1, 1, 3, 0, 3, 4, 0, 0x7fffff },
-+	{ 296703000, 296703000, 1, 98, 0, 1, 1, 1, 0, 2, 2, 0, 0xe6ae6b },
-+	{ 297000000, 297000000, 1, 99, 0, 1, 1, 1, 0, 2, 2, 0, 0 },
-+	{ 594000000, 594000000, 1, 99, 0, 2, 0, 1, 0, 1, 1, 0, 0 },
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+};
-+
-+static const struct post_pll_config post_pll_cfg_table[] = {
-+	{ 25200000, 1, 80, 13, 3 },
-+	{ 27000000, 1, 40, 11, 3 },
-+	{ 27027000, 1, 40, 11, 3 },
-+	{ 33750000, 1, 40, 11, 3 },
-+	{ 49000000, 1, 20, 1, 3 },
-+	{ 65000000, 1, 20, 1, 3 },
-+	{ 74250000, 1, 20, 1, 3 },
-+	{ 88750000, 1, 20, 1, 3 },
-+	{ 108000000, 1, 20, 1, 3 },
-+	{ 148500000, 1, 20, 1, 3 },
-+	{ 162000000, 1, 20, 1, 3 },
-+	{ 174250000, 1, 20, 1, 3 },
-+	{ 187000000, 1, 20, 1, 3 },
-+	{ 241700000, 1, 20, 1, 3 },
-+	{ 297000000, 4, 20, 0, 0 },
-+	{ 594000000, 4, 20, 0, 0 }, /* postpll_postdiv_en = 0 */
-+};
-+
-+struct starfive_hdmi_phy {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct phy *phy;
-+	struct clk *refoclk;
-+
-+	struct inno_hdmi_phy_pre_pll pre_pll;
-+
-+	struct clk_hw hw;
-+	/* Last rate programmed into the pre-PLL, protected by the clk core. */
-+	unsigned long pixclock;
-+};
-+
-+static inline void inno_write(struct starfive_hdmi_phy *inno, u32 reg, u8 val)
-+{
-+	regmap_write(inno->regmap, reg * 4, val);
-+}
-+
-+static inline void inno_update_bits(struct starfive_hdmi_phy *inno, u16 reg,
-+				    u8 mask, u8 val)
-+{
-+	regmap_update_bits(inno->regmap, reg * 4, mask, val);
-+}
-+
-+#define inno_poll(inno, reg, val, cond, sleep_us, timeout_us) \
-+	regmap_read_poll_timeout((inno)->regmap, (reg) * 4, val, cond, \
-+				 sleep_us, timeout_us)
-+
-+static inline struct starfive_hdmi_phy *to_starfive_hdmi_phy(struct clk_hw *hw)
-+{
-+	return container_of(hw, struct starfive_hdmi_phy, hw);
-+}
-+
-+static int starfive_hdmi_phy_pre_pll_power_up(struct starfive_hdmi_phy *inno)
-+{
-+	int ret;
-+
-+	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false);
-+
-+	if (inno_hdmi_phy_pre_pll_is_locked(&inno->pre_pll))
-+		return 0;
-+
-+	ret = inno_hdmi_phy_pre_pll_wait_locked(&inno->pre_pll, 100000);
-+	if (ret) {
-+		dev_err(inno->dev, "Timeout waiting for pre-PLL lock\n");
-+		inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-+	}
-+
-+	return ret;
-+}
-+
-+/*
-+ * The bias and RX blocks feed the pre-PLL, so they follow the prepare state
-+ * of the pixel clock rather than the PHY power state: the clock can stay
-+ * prepared across a PHY power cycle, and the clk core skips .set_rate when
-+ * the rate does not change.
-+ */
-+static int starfive_hdmi_phy_clk_prepare(struct clk_hw *hw)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+	int ret;
-+
-+	inno_update_bits(inno, STF_INNO_BIAS_CONTROL,
-+			 STF_INNO_BIAS_ENABLE, STF_INNO_BIAS_ENABLE);
-+	inno_write(inno, STF_INNO_RX_CONTROL, STF_INNO_RX_ENABLE);
-+
-+	ret = starfive_hdmi_phy_pre_pll_power_up(inno);
-+	if (ret) {
-+		inno_write(inno, STF_INNO_RX_CONTROL, 0x00);
-+		inno_update_bits(inno, STF_INNO_BIAS_CONTROL,
-+				 STF_INNO_BIAS_ENABLE, 0x00);
-+	}
-+
-+	return ret;
-+}
-+
-+static void starfive_hdmi_phy_clk_unprepare(struct clk_hw *hw)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+
-+	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-+	inno_write(inno, STF_INNO_RX_CONTROL, 0x00);
-+	inno_update_bits(inno, STF_INNO_BIAS_CONTROL, STF_INNO_BIAS_ENABLE, 0x00);
-+}
-+
-+static unsigned long starfive_hdmi_phy_clk_recalc_rate(struct clk_hw *hw,
-+						       unsigned long parent_rate)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+
-+	/*
-+	 * Reading the PLL back requires the HDMI controller's system clock,
-+	 * which the sibling controller driver holds and this driver cannot
-+	 * request without creating a probe cycle with voutcrg. The clock
-+	 * framework walks every registered clock regardless of which drivers
-+	 * have bound, so fall back to the cached rate whenever this clock is
-+	 * not prepared; an unclocked access to the shared register window
-+	 * wedges the bus hard enough that the CPU stops taking NMIs.
-+	 */
-+	if (!clk_hw_is_prepared(hw))
-+		return inno->pixclock;
-+
-+	inno->pixclock = inno_hdmi_phy_pre_pll_recalc_rate(&inno->pre_pll,
-+							   parent_rate);
-+
-+	return inno->pixclock;
-+}
-+
-+static int starfive_hdmi_phy_clk_determine_rate(struct clk_hw *hw,
-+						struct clk_rate_request *req)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+
-+	return inno_hdmi_phy_pre_pll_determine_rate(&inno->pre_pll, req);
-+}
-+
-+static int starfive_hdmi_phy_clk_set_rate(struct clk_hw *hw, unsigned long rate,
-+					  unsigned long parent_rate)
-+{
-+	struct starfive_hdmi_phy *inno = to_starfive_hdmi_phy(hw);
-+	const struct inno_hdmi_phy_pre_pll_config *cfg;
-+
-+	/*
-+	 * The JH7110 only drives 8bpc, so the TMDS clock always matches the
-+	 * pixel clock.
-+	 */
-+	cfg = inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, rate, rate);
-+	if (IS_ERR(cfg))
-+		return PTR_ERR(cfg);
-+
-+	dev_dbg(inno->dev, "%s rate %lu tmdsclk %lu\n",
-+		__func__, rate, cfg->tmdsclock);
-+
-+	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-+	inno_hdmi_phy_pre_pll_configure(&inno->pre_pll, cfg);
-+	inno->pixclock = rate;
-+
-+	/* An unprepared clock stays powered down until .prepare. */
-+	if (!clk_hw_is_prepared(hw))
-+		return 0;
-+
-+	return starfive_hdmi_phy_pre_pll_power_up(inno);
-+}
-+
-+static const struct clk_ops starfive_hdmi_phy_clk_ops = {
-+	.prepare = starfive_hdmi_phy_clk_prepare,
-+	.unprepare = starfive_hdmi_phy_clk_unprepare,
-+	.recalc_rate = starfive_hdmi_phy_clk_recalc_rate,
-+	.determine_rate = starfive_hdmi_phy_clk_determine_rate,
-+	.set_rate = starfive_hdmi_phy_clk_set_rate,
-+};
-+
-+static void starfive_hdmi_phy_power_down(struct starfive_hdmi_phy *inno)
-+{
-+	inno_write(inno, STF_INNO_TMDS_CONTROL, 0x00);
-+	inno_write(inno, STF_INNO_SERIALIER_CONTROL, 0x00);
-+	inno_write(inno, STF_INNO_LDO_CONTROL, 0x00);
-+
-+	/* Power down Post-PLL */
-+	inno_update_bits(inno, STF_INNO_POST_PLL_DIV_1,
-+			 STF_INNO_POST_PLL_POWER_DOWN,
-+			 STF_INNO_POST_PLL_POWER_DOWN);
-+}
-+
-+static int starfive_hdmi_phy_power_on(struct phy *phy)
-+{
-+	struct starfive_hdmi_phy *inno = phy_get_drvdata(phy);
-+	const struct post_pll_config *cfg = NULL;
-+	const struct inno_hdmi_phy_pre_pll_config *pre_cfg;
-+	unsigned long tmdsclock;
-+	u8 reg_1ad_value;
-+	u8 reg_1aa_value;
-+	unsigned int i;
-+
-+	u32 v;
-+	int ret;
-+
-+	tmdsclock = clk_hw_get_rate(&inno->hw);
-+	pre_cfg = inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, tmdsclock,
-+					       tmdsclock);
-+	if (IS_ERR(pre_cfg)) {
-+		dev_err(inno->dev, "no pre-PLL config for current pixel clock\n");
-+		return PTR_ERR(pre_cfg);
-+	}
-+	tmdsclock = pre_cfg->tmdsclock;
-+
-+	/* Find Post-PLL config */
-+	for (i = 0; i < ARRAY_SIZE(post_pll_cfg_table); i++) {
-+		if (tmdsclock <= post_pll_cfg_table[i].tmdsclock) {
-+			cfg = &post_pll_cfg_table[i];
-+			break;
-+		}
-+	}
-+
-+	if (!cfg) {
-+		dev_err(inno->dev, "Failed to find Post-PLL config\n");
-+		ret = -EINVAL;
-+		goto err_power_down;
-+	}
-+	dev_dbg(inno->dev, "Inno HDMI PHY Power On: tmdsclk %lu\n", tmdsclock);
-+
-+	/* The post divider value is written to the register as-is. */
-+	reg_1ad_value = cfg->post_div_en ? cfg->postdiv : 0x00;
-+	reg_1aa_value = STF_INNO_POST_PLL_REFCLK_SEL_TMDS;
-+	if (cfg->post_div_en)
-+		reg_1aa_value |= STF_INNO_POST_PLL_POST_DIV_ENABLE;
-+
-+	/*
-+	 * Pre-PLL is already prepared and running via the clk_set_rate and
-+	 * prepare calls from the controller/bridge. Now, configure and enable
-+	 * the Post-PLL and TMDS outputs, keeping the Post-PLL powered down
-+	 * while its dividers change.
-+	 */
-+	inno_update_bits(inno, STF_INNO_POST_PLL_DIV_1,
-+			 STF_INNO_POST_PLL_POWER_DOWN,
-+			 STF_INNO_POST_PLL_POWER_DOWN);
-+
-+	inno_write(inno, STF_INNO_POST_PLL_DIV_2,
-+		   STF_INNO_POST_PLL_FB_DIV_8(cfg->fbdiv) |
-+		   STF_INNO_POST_PLL_PRE_DIV(cfg->prediv));
-+	inno_write(inno, STF_INNO_POST_PLL_DIV_3,
-+		   STF_INNO_POST_PLL_FB_DIV_7_0(cfg->fbdiv));
-+	inno_write(inno, STF_INNO_POST_PLL_DIV_4, reg_1ad_value);
-+
-+	/* Power up Post-PLL */
-+	inno_write(inno, STF_INNO_POST_PLL_DIV_1, reg_1aa_value);
-+
-+	/* Wait for post PLL lock */
-+	ret = inno_poll(inno, STF_INNO_POST_PLL_LOCK_STATUS, v,
-+			v & STF_INNO_POST_PLL_LOCK, 1000, 100000);
-+	if (ret) {
-+		dev_err(inno->dev, "Post-PLL locking failed\n");
-+		goto err_power_down;
-+	}
-+
-+	inno_write(inno, STF_INNO_LDO_CONTROL, STF_INNO_LDO_ENABLE);
-+	inno_write(inno, STF_INNO_SERIALIER_CONTROL,
-+		   STF_INNO_SERIALIER_ENABLE);
-+	/* Bit 7 is undocumented but set by the vendor sequence. */
-+	inno_write(inno, STF_INNO_TMDS_CONTROL,
-+		   BIT(7) | STF_INNO_TMDS_DRIVER_ENABLE);
-+
-+	return 0;
-+
-+	/*
-+	 * The PHY core leaves power_count at zero when .power_on fails and
-+	 * never calls .power_off, so undo the blocks enabled above here.
-+	 */
-+err_power_down:
-+	starfive_hdmi_phy_power_down(inno);
-+	return ret;
-+}
-+
-+static int starfive_hdmi_phy_power_off(struct phy *phy)
-+{
-+	struct starfive_hdmi_phy *inno = phy_get_drvdata(phy);
-+
-+	dev_dbg(inno->dev, "Inno HDMI PHY Power Off\n");
-+
-+	starfive_hdmi_phy_power_down(inno);
-+
-+	return 0;
-+}
-+
-+static const struct phy_ops starfive_hdmi_phy_ops = {
-+	.owner = THIS_MODULE,
-+	.power_on = starfive_hdmi_phy_power_on,
-+	.power_off = starfive_hdmi_phy_power_off,
-+};
-+
-+static int starfive_hdmi_phy_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device *parent = dev->parent;
-+	struct starfive_hdmi_phy *inno;
-+	struct phy_provider *phy_provider;
-+	struct regmap *regmap;
-+	struct clk_init_data init = {};
-+	const char *refoclk_name;
-+	int ret;
-+
-+	inno = devm_kzalloc(dev, sizeof(*inno), GFP_KERNEL);
-+	if (!inno)
-+		return -ENOMEM;
-+
-+	inno->dev = dev;
-+
-+	/* Get the regmap from the parent device */
-+	regmap = dev_get_regmap(parent, NULL);
-+	if (!regmap) {
-+		dev_err(dev, "Failed to get parent regmap\n");
-+		return -ENODEV;
-+	}
-+	inno->regmap = regmap;
-+
-+	/*
-+	 * The PHY block sits behind the HDMI controller in the shared register
-+	 * space, so the common pre-PLL helpers need a 0x100 register offset.
-+	 */
-+	inno->pre_pll.dev = dev;
-+	inno->pre_pll.regmap = regmap;
-+	inno->pre_pll.offset = 0x100;
-+	inno->pre_pll.table = pre_pll_cfg_table;
-+	inno->pre_pll.table_size = ARRAY_SIZE(pre_pll_cfg_table);
-+
-+	/*
-+	 * The reference clock must run for .set_rate/.recalc_rate to work. Get
-+	 * it enabled through devres so it is released after everything below.
-+	 */
-+	inno->refoclk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(inno->refoclk))
-+		return dev_err_probe(dev, PTR_ERR(inno->refoclk),
-+				     "failed to get oscillator-ref clock\n");
-+
-+	/* Initialize and register the clock provider */
-+	refoclk_name = __clk_get_name(inno->refoclk);
-+	init.parent_names = &refoclk_name;
-+	init.num_parents = 1;
-+	init.flags = 0;
-+	init.name = "hdmi_pclk";
-+	init.ops = &starfive_hdmi_phy_clk_ops;
-+
-+	inno->hw.init = &init;
-+	ret = devm_clk_hw_register(dev, &inno->hw);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to register clock provider\n");
-+
-+	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, &inno->hw);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add clock provider\n");
-+
-+	/*
-+	 * Do not program a default rate here. The PHY registers live in the
-+	 * window gated by the controller's system clock, which this driver
-+	 * cannot hold without creating a probe cycle with voutcrg, and
-+	 * .set_rate writes to them. Leave the hardware alone until the
-+	 * controller drives it from its .enable hook.
-+	 */
-+
-+	/* Create and register the PHY provider */
-+	inno->phy = devm_phy_create(inno->dev, NULL, &starfive_hdmi_phy_ops);
-+	if (IS_ERR(inno->phy))
-+		return dev_err_probe(dev, PTR_ERR(inno->phy),
-+				     "failed to create HDMI PHY\n");
-+
-+	phy_set_drvdata(inno->phy, inno);
-+
-+	phy_provider = devm_of_phy_provider_register(inno->dev,
-+						     of_phy_simple_xlate);
-+
-+	return PTR_ERR_OR_ZERO(phy_provider);
-+}
-+
-+static const struct of_device_id starfive_hdmi_phy_of_match[] = {
-+	{ .compatible = "starfive,jh7110-inno-hdmi-phy", },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, starfive_hdmi_phy_of_match);
-+
-+static struct platform_driver starfive_hdmi_phy_driver = {
-+	.probe = starfive_hdmi_phy_probe,
-+	.driver = {
-+		.name = "starfive-inno-hdmi-phy",
-+		.of_match_table = starfive_hdmi_phy_of_match,
-+	},
-+};
-+module_platform_driver(starfive_hdmi_phy_driver);
-+
-+MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
-+MODULE_DESCRIPTION("StarFive JH7110 Innosilicon HDMI PHY Driver");
-+MODULE_LICENSE("GPL");
+> +
+> +maintainers:
+> +  - Raj Aryan <raj.aryan@oss.qualcomm.com>
+> +  - Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> +
+> +description: |
+> +  The Qualcomm SMBLite is a switch-mode battery charger IP found on
+> +  the entry-level Qualcomm PM4125 PMIC. It exposes five separate
+> +  SPMI peripheral bases for CHGR, DCDC, USB, MISC and BATIF blocks and
+> +  supports USB input current limiting, JEITA temperature protection,
+> +  battery overvoltage detection and a hardware watchdog.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,pm4125-charger
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: Base address of the CHGR SPMI peripheral (e.g. 0x1000).
 
--- 
-2.34.1
+Drop description.
 
+> +
+> +  interrupts:
+> +    maxItems: 4
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: usb-plugin
+> +      - const: bat-ov
+> +      - const: wdog-bark
+> +      - const: usbin-icl-change
+> +
+> +  io-channels:
+> +    minItems: 1
+> +    maxItems: 2
+
+Why is this flexible?
+
+> +    description: |
+> +      IIO ADC channels used by the charger. usbin_v is the USB input
+> +      voltage channel (ADC5_USB_IN_V_16). usbin_i is the USB input
+> +      current channel (ADC5_USB_IN_I).
+> +
+> +  io-channel-names:
+> +    minItems: 1
+> +    items:
+> +      - const: usbin_v
+> +      - const: usbin_i
+> +
+> +  monitored-battery: true
+> +
+> +  qcom,jeita-soft-thresholds:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 2
+> +    maxItems: 2
+> +    description: |
+> +      JEITA soft temperature thresholds (COOL, WARM) as raw 16-bit ADC
+> +      comparator values written to the BATIF ADC comparator registers.
+> +      Example: <0x5314 0x25e3> for COOL=15°C, WARM=45°C.
+> +
+> +  qcom,jeita-hard-thresholds:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 2
+> +    maxItems: 2
+> +    description: |
+> +      JEITA hard temperature thresholds (COLD, HOT) as raw 16-bit ADC
+> +      comparator values written to the BATIF ADC comparator registers.
+> +      Example: <0x58cd 0x20b8> for COLD=0°C, HOT=60°C.
+
+Express temperatures with proper units.
+
+
+
+Best regards,
+Krzysztof
