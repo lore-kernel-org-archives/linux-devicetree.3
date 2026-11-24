@@ -1,56 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541716;
-	b=5KF3BNprMyuLNJbQ10mpqxL4JID68j9BlrxmlN3ljayo7ef9UFM/m7cBSa7dLUz/3dtv
-	 q/5idjxsHO9n4xYAACfZ1Lzuf3RQwj+vh5RDX3ttuCa15iHXJVqLwd0ILGaJwWTVXQ1nI
-	 J+uLHsgJkJ49N86mgWZAYBFer08Z5j1SH0+WO2dnhoRofaeRbCvqfII2u8ydFo9Ybp8QE
-	 25wHcLSSQluTMemNAkB60VWxp46fAPZjx54BQ3NjWHD9e8wpV/w7yEZ++eEftzxtah2tr
-	 aZwhx2dS+drrtk/MzXXUoZiL7N7nYghSRAQ8Pak4WUbZ3UQNFNpj9BxOJpnqh+2PRMw==
+	t=1795541955;
+	b=CnDRxoDYqoBtewQj/fynuF+p+oUyxt7dJewPtE1yrQePRsuXU9sezLkv60AoHAIUP4A7
+	 rm6oFStzC+YY4N0dRb7B+8OnxgfdQ0lZRPLJl/hctMM738svabxF0vm7zLdcQrrKapXXt
+	 CcpCreZAnH+0qFmCcU+lNwBj24EZeolxQ90ixRGX+VuynlraMgKpNUGXJ1C2Lj4rwnEWE
+	 VPWOlxa9G1PiK4sMzCGv/u8Wm4+JojjlGI2WNhltzHSD/SkH+1Glu04gcs08wCMeOKeWB
+	 Se4OoqyXSqkWgfHGUDyqecxIUxWLk8jQO6Ng4ueDe6KHFTlt9IDxit/PbatuK71QJWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541716;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0RbUmn79OBfUaJ6AR+Ug352MYLfPMi2JY/ccLVB8EEA=;
-	b=vXJNlHJ9oDsiMr0D0GGQtRaNSGE+VMAN3s1wEk31dyXIzs6DMnoOmSDYO29O0XE+wV5w
-	 nhZjaR7WVYAWdALa15/1wnlXwvyjrZsgMxHiS668EdpfJOw3vMOQHQTvzs+2ePBHf/egP
-	 OEWiFNrEwWtnTgJ+2rSZM/FfYU6C/AiZO81qkOqz81z7muHjRZGpKg+pJyJ4Px5W+lLpJ
-	 O/ZaZ4qpNKPbyqZd+/wW94CdhYUDp3EmUwLtptaVeGnVFSNkYsNOAuXyh1IqRR+z4yzNm
-	 gBBUkf+QuyGUhLgDUQ+9P7o42z/C8i8O7igbGAwn/fycgsGBYIF9GlEICJR1cs0d9Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541955;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=WBc309mYer5H7Xpcaba+ynW+B/78kXK1Bb+NRGqzY3M=;
+	b=C8Q6XD5SF+vPYEMS8kCiL5arFC56QUnd8+WgapUTQtf6+pF/eQtK+oTszL8ZErHki/zt
+	 gowArSGBun+KnusUyGxxnZBHIv98nHmJd58y3tMjIggAzVVsTvTJRCpQBN7Gb+J9OinpE
+	 vHTkSzHvc8WAVBu2L5kpqP4HYacE/M5rUIPH4ZFP2O3T7jTXo7l03CQWTK9yjlAKNqU6w
+	 4VZAJxxH/XiDCsKAYxd6Vr7TbtMkGoNb9ILtYqxHkBggidypH/f6wCKpUxBd5Dfy+d1NQ
+	 qS5ggcMwd7y4dRnS6ZuuiDEOS4Dn+Gh1y2Zw09Gxep0Ury8JDVkgPZt4czkVGCrMhdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrogm3ET;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BbBJL9iX;
+	arc=none smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93610606A68E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:35:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA868606A329
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:39:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA868606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrogm3ET
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0533F1F000EE;
-	Tue, 24 Nov 2026 17:35:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795541716;
-	bh=0RbUmn79OBfUaJ6AR+Ug352MYLfPMi2JY/ccLVB8EEA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hrogm3ET5Y4iFmKCXZYLAjhs4g8kuV6/RTCg05DDdj3cch0RCIqBldSPyFAvswZMH
-	 u6EWi2F40h7jjvOjOYHndwECGsf8BkgHsWZdleuo3bNBSoVaulqlO9qpvkWnbFgVuO
-	 cdPGAJD4lL+FOEEUA5A8M7C8ZV/HIhsWUvqP4lcz4TZhJlL587NHWucWeB7XQFuXb0
-	 yxknfJoJUKT8vcvVwOpZ6c4w0UhDBPPFZj/vuRhgIt6+CnEma592tv55oov6rifK7V
-	 KgaW1a+aTmEV7c4ZG3PwqSgk1LcFZ60zZPR5SnJ/4pl5GOu8g90HzDJz1DNUYJAIwV
-	 RNP6uG92EfuRg==
-Message-ID: <sashiko-outbox-231709@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/24] media: mali-c720: Add video capture nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anthony McGivern" <anthony.mcgivern@arm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-12-0cb9bde1bd30@arm.com>
-References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
- <20261124-b4-initial-upstream-candidate-v1-12-0cb9bde1bd30@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 17:35:15 +0000
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BbBJL9iX
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b4e18369c8so28352147b3.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:39:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795541954; x=1796146754; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WBc309mYer5H7Xpcaba+ynW+B/78kXK1Bb+NRGqzY3M=;
+        b=BbBJL9iX19HFseLAZpNMrqk/cz7C7E4ItEZffQwvgffTsuM2UkPlOcyFFO+hg3yoPU
+         BUaZAoyQvJdVhcLwgpFfY8dI+Y7oT6holR3Hn3ahHvRGxrVlELlG8o7Q4jpq9nds3JZi
+         AEyDvCkLriXUxvZo7EiARVg7iHJsTN87EGyT7cub36IMWAs1LaZcY/JxYp76MWvRTPnA
+         AY6g8pwMQ2V1dd0/t3kXGJFoeuVNqD9EEZC4yzKLY6Y4BpombrpMwyNtGmiecVgsOyNX
+         zQE0g24FH43+nmbvst4iWIPtgaN6zibyjDMGN8AeSJ1FrzyFpd8cSNC5/G+qyhAsorMh
+         lb+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795541954; x=1796146754;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WBc309mYer5H7Xpcaba+ynW+B/78kXK1Bb+NRGqzY3M=;
+        b=yqP6D9S2VGzUr9olbwD6ptYSiB4bbvGp45G7gbLTv9HSP5z+lNznvgov3PYYQ/OmdF
+         2NbgUbHVIqWk0p1Lmq/pQff22bW/HNi2pSlUrd45AIHaqVkzgO0yOwHuSaw0YQ1o/Gij
+         DL/5tzusNcICE32MN0X0ih2wW1kAV3WoJkPPwZPfq7+IjWbeld5NbT7sOHsD+/Qi84+v
+         VLeS5cm7TrdSvfj2RrCgokK15TAsoxaE3+gPT7w1jlxcDWfkR+8ep9QGwis1ollmtG3a
+         XPozqIRL5SMUZqCJetL6nTgJc+TSontTt9s+nxZWeHm6FHhNRIqugJpFif3VXyYmuAdU
+         LabQ==
+X-Forwarded-Encrypted: i=1; AL+hErGFUmc6coj8rkjvLaGu3hlsFnTeOLjjnHpa2am6QKJKmHA8sOhRU5TdKVKZXaBhgYMsJUcMIu6k43T2@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/6bTUKVfnJuaNGe+LyVDnMcTKw6hNXgEP/x6a6AUFbTvJd788
+	srY6FkcPt6uN2YjfbBAJMR1cigQHn5RuPtFUis5hPc7bpbqKev0oloDLb8nq6/P9qus=
+X-Gm-Gg: AZFdTZcMWRTuEW4XjclxzNCBOvr23zKMvpqtXL+ZJfc46FKs/SJSj69VVkctG0Wl4i9
+	d9mqETEama7TUSGbPQ+3yWFXRdUhi00GR3/8LjHTFx5ky7LD4EDL4jG5TxlHsy6G/m4ae0CSLCj
+	x3aXhrl0ndoamLm/969OwQS2TJ8AymtezZdHJdZoRbpkqTUgPYLbpzgVoteq7gGccafM1ZEF449
+	zXk7KyuaaQorFRfhoMAA1Sd1lUlCKx0qHdLv95EE9lmDkAtm6MJfkhMcsW3V689e7a6XN1hgb5j
+	qzXnlSLZ4Zy20JoS5/vaZeTOlDyjKN6x4NtjwNR2DleR5/z8dDdNUIfti6vtKDPcNQflv20+oTC
+	4AmUXUwhttaZ8qPaEbuffe3H/wdWvk3FN6XmoPpKfVU6DhAwBzqjy314hFElt9Jkgd5+ZWCnKFu
+	dUzXZ/juII+PY69vtqMslfkilMXabIZNT3+tWUyE0Ty9gONOR9hjrA4Ll8460Tkqo3BC4Y31eDc
+	zuIbTJlnY/Fy3Z3tEPWNQ4vT09hC6sIZSt6ftaXCVGpcNN1zC67omHMxD61UvKc7zM7391CQ5SH
+	Vu7rvLLYlxVHi+Gw5vNBX1L8fz3S08lIIsqPJWfuLgYLo93FU6oi7l4=
+X-Received: by 2002:a05:690c:990:b0:8b5:6a83:5e0b with SMTP id 00721157ae682-8b56a835f62mr4475197b3.13.1795541953703;
+        Tue, 24 Nov 2026 09:39:13 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b520354be4sm61097717b3.43.2026.11.24.09.39.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 09:39:13 -0800 (PST)
+Message-ID: <87e98f2bca7ceb60fe0b786a2bf63711ada2572c.camel@ndufresne.ca>
+Subject: Re: [RFC PATCH 07/28] media: mali-vpu: implement TRY_FMT and S_FMT
+ ioctls
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
+ Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
+ <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
+Date: Tue, 24 Nov 2026 12:39:11 -0500
+In-Reply-To: <162bf4ec-c23a-49c6-ad7d-7485a5cce2b7@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+	 <20261119153758.1426673-8-charvi.mehta@arm.com>
+	 <3415e7b52c3d05214ec125b2b4f8612129c53ae0.camel@ndufresne.ca>
+	 <162bf4ec-c23a-49c6-ad7d-7485a5cce2b7@arm.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-EcivsMOo8ZMd140z5HSW"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,173 +120,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] media: mali-c720: unrecovered output buffer state on context
-  stop
-- [Medium] media: mali-c720: race between
-  mali_c720_s_fmt_vid_cap_mplane() and link validation
-- [Low] media: mali-c720: uninitialized vdev.name logged in
-  mali_c720_register_cap_dev()
---
+--=-EcivsMOo8ZMd140z5HSW
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-commit 5de5962e721900ab8951fa2e8cce61caedd37777
-Author: Anthony McGivern <Anthony.McGivern@arm.com>
+Le lundi 23 novembre 2026 =C3=A0 17:26 +0000, Charvi Mehta a =C3=A9crit=C2=
+=A0:
+> > This is suspicious, the vb queue already do some locking in most of the=
+ vidioc
+> > call.
+> Both queues assign `&sess->vq_lock` to `vb2_queue::lock`, but=20
+> `video_device::lock`
+> is unset. The V4L2 core acquires it for queue-management ioctls marked
+> INFO_FL_QUEUE, but not for G_FMT, TRY_FMT or S_FMT.
+>=20
+> video_device::lock is unset, as this driver uses per-session locking and
+> format ioctls are not required to be serialized among different sessions.
+> The explicit locks therefore protect format access against queue operatio=
+ns
+> and asynchronous firmware updates, which use the same mutex. They do not
+> reacquire a lock already held by the ioctl core.
 
-media: mali-c720: Add video capture nodes
+I missed that in the review, please document carefully your locking somewhe=
+re in
+text.
 
-This commit adds RGB and YUV V4L2 video capture nodes for the full-resoluti=
-on
-output 0 (FR0) subdevice and wires up their buffer completion handling.
+Nicolas
 
-> diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-capture.c b/d=
-rivers/media/platform/arm/mali-c720/mali-c720-capture.c
-> new file mode 100644
-> index 0000000000000..78e9f5aba97d5
-> --- /dev/null
-> +++ b/drivers/media/platform/arm/mali-c720/mali-c720-capture.c
-> @@ -0,0 +1,747 @@
-[ ... ]
-> +void mali_c720_cap_dev_buffer_done(struct mali_c720_cap_dev *cap_dev,
-> +				   bool success)
-> +{
-> +	struct mali_c720 *mali_c720 =3D cap_dev->mali_c720;
-> +	struct mali_c720_context *ctx =3D mali_c720_get_active_context(mali_c72=
-0);
-> +	struct mali_c720_cap_buffer *buf;
-> +
-> +	if (!video_is_registered(&cap_dev->vdev))
-> +		return;
-> +
-> +	if (!vb2_is_streaming(&cap_dev->queue))
-> +		return;
-> +
-> +	guard(spinlock)(&cap_dev->buffers.lock);
-> +
-> +	buf =3D list_first_entry_or_null(&cap_dev->buffers.processing,
-> +				       struct mali_c720_cap_buffer, queue);
-> +	if (!buf)
-> +		return;
-> +
-> +	if (mali_c720_ctx_mgr_check_output_buffer_status(ctx, &cap_dev->buffers=
-.pool))
-> +		success =3D false;
-> +
-> +	if (success) {
-> +		buf->vb.vb2_buf.timestamp =3D ctx->timestamp;
-> +		buf->vb.sequence =3D ctx->frame_sequence;
-> +	}
-> +
-> +	vb2_buffer_done(&buf->vb.vb2_buf, success ? VB2_BUF_STATE_DONE : VB2_BU=
-F_STATE_ERROR);
-> +	list_del(&buf->queue);
-> +}
 
-[Severity: Medium]
-When one capture device stops streaming while another capture device is sti=
-ll
-streaming with an in-flight buffer in buffers.processing, does retiring that
-buffer leave the still-streaming device's hardware output buffer descriptor
-in MALI_C720_BUFFER_STATE_HW_EMPTY (or MALI_C720_BUFFER_STATE_HW_ERROR)
-instead of resetting it to MALI_C720_BUFFER_STATE_SW_EMPTY?
+--=-EcivsMOo8ZMd140z5HSW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-mali_c720_vb2_stop_streaming() disables isp_sd, which invokes
-mali_c720_ctx_mgr_stop_context():
+-----BEGIN PGP SIGNATURE-----
 
-drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c:mali_c720_ctx_mgr_=
-stop_context() {
-	...
-	scoped_guard(spinlock_irq, &ctx->state_lock) {
-		ctx->state =3D MALI_C720_SLOT_STATE_STOPPED;
-		...
-		/* Retire in-flight buffers on all queues, including those still streamin=
-g. */
-		mali_c720_ctx_mgr_buffer_done(ctx, false);
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawXLvwAKCRDZQZRRKWBy
+9LX2AQDqtWe+/c2doI6o6r2GLVgta+8/CIYTXwIAm9OktAVFEgD+JCsYrreT/btu
+r+NQEKefI1SmP+05yKhjlmTDl1hgKgw=
+=bWwD
+-----END PGP SIGNATURE-----
 
-Because ctx->state is already MALI_C720_SLOT_STATE_STOPPED when
-mali_c720_cap_dev_buffer_done() runs,
-mali_c720_ctx_mgr_check_output_buffer_status() returns 0 immediately:
-
-drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c:mali_c720_ctx_mgr_=
-check_output_buffer_status() {
-	...
-	if (ctx->state =3D=3D MALI_C720_SLOT_STATE_STOPPED)
-		return 0;
-
-The stopping capture device then releases its buffer pool, which cancels and
-uninitializes its descriptor, but the sibling capture device that remains
-streaming keeps its pool with the hardware descriptor still under hardware
-control and pointing at the retired vb2 buffer's DMA address.
-
-[ ... ]
-
-> +static int mali_c720_s_fmt_vid_cap_mplane(struct file *file, void *fh,
-> +					  struct v4l2_format *f)
-> +{
-> +	struct mali_c720_cap_dev *cap_dev =3D video_drvdata(file);
-> +
-> +	if (media_entity_is_streaming(&cap_dev->vdev.entity))
-> +		return -EBUSY;
-> +
-> +	if (vb2_is_busy(&cap_dev->queue))
-> +		return -EBUSY;
-> +
-> +	mali_c720_set_format(cap_dev, &f->fmt.pix_mp);
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Can mali_c720_s_fmt_vid_cap_mplane() race with mali_c720_link_validate() on=
- a
-sibling capture device sharing the media pipeline?
-
-Each capture device has its own cap_dev->lock, while both FR0 capture nodes
-share mali_c720->pipe when both links from fr_pipe are enabled:
-
-CPU0 (cap_devs[0] STREAMON)       CPU1 (cap_devs[1] S_FMT)
-mali_c720_vb2_start_streaming()
-  lock(&mali_c720->device_lock)
-  video_device_pipeline_start()
-    ...
-    mali_c720_link_validate()
-      /* on cap_devs[1] */
-                                  mali_c720_s_fmt_vid_cap_mplane()
-                                    /* lock(&cap_devs[1].lock) held */
-                                    media_entity_is_streaming() -> false
-      reads cap_devs[1].format
-                                    mali_c720_set_format()
-                                      writes cap_devs[1].format  <-- data r=
-ace
-    sets cap_devs[1].pad.pipe
-
-Because pad->pipe is only assigned after link_validate() succeeds and
-mali_c720_s_fmt_vid_cap_mplane() does not take mali_c720->device_lock, CPU1
-passes media_entity_is_streaming() and can overwrite cap_dev->format with an
-unvalidated resolution or pixel format while or right after
-mali_c720_link_validate() checks it.
-
-[ ... ]
-
-> +static int mali_c720_register_cap_dev(struct mali_c720 *mali_c720,
-> +				      enum mali_c720_cap_devs cap_dev_id)
-> +{
-[ ... ]
-> +	ret =3D vb2_queue_init(vb2q);
-> +	if (ret) {
-> +		dev_err(mali_c720->dev, "%s vb2 queue init failed\n",
-> +			cap_dev->vdev.name);
-> +		goto err_cleanup_media_entity;
-> +	}
-> +
-> +	strscpy(cap_dev->vdev.name, capture_device_names[cap_dev_id],
-> +		sizeof(cap_dev->vdev.name));
-
-[Severity: Low]
-If vb2_queue_init() fails, dev_err() logs cap_dev->vdev.name before strscpy=
-()
-initializes it, printing an empty name.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-initial=
--upstream-candidate-v1-0-0cb9bde1bd30@arm.com?part=3D12
+--=-EcivsMOo8ZMd140z5HSW--
