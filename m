@@ -1,57 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795486638;
-	b=X77IMYiT46bOvYupz34AFutrlfnPLyRzyOplZLUwYLzQqwDMZ0LszHv0uQwb9GBg8JZz
-	 SSssa7hWTDVtMlQTthUurGRpjUoU/RQz79ycWNw5I+PhMavIjjcSPjWk/2FCi1yFJcmNS
-	 fTUuKQLBp/FOzWn3P3k6qA2oZSYIEharir5hjYTxiVMsNsfAb7xyF3N6AueAO1+SX7aKy
-	 yoE3pssmyR53Rjki42lSToGLleDbjqUiiPseoKUoQIa84BMFRJ5MR9MAbRfp6ug141OXb
-	 8c+HqCbjkZ1qrb64dCUaJ3vb9AFNdCD+VguXoVW/mnuE2YjMg54duSEb7Gne0ehbnRA==
+	t=1795486775;
+	b=PZdfoJ8vBLJsIpZkTrVHDd22vwYWiaqfRtV68IhjeFpDZHcPXZdALXxTI8A/kpN8nluB
+	 FBshcROkE0HAHjLUedg3dGUiAtaPs9g34tUcKxWTsjFOd5RLkBnSnqGcRPYjIsZx1M/qy
+	 fArt77Dzv+Iecy1Jsmfz5vnE2G7xAqRG0m8Y/IwVTWmN+0P6vdQu+MEYM37KaEmcxSBmB
+	 Jw94xyuTXfA6D4q60m0dNyvTpKxHsHxi3AnrPDr0tklniiKNCsuX6PTUkLmv5zk1RE05C
+	 59cPJf80auenJ7ogzwac1W/NdPLOf3dy63DI4P1xbdhLxSdr6XnK3skerzK5jFe62lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795486638;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=QATfYSTKsbiQM75HzSIeddOFsSvEGrtGFQrtH/4WUtw=;
-	b=JdJ/UQl+9JV2iZ+Wv1wovJQKBYxqWm+wEugYWLf5BcyeHpYZYjTtx012HOnxB0Ot3txP
-	 8NY+iIghAKpWik0/EaKb6zP9K7Q0mzv1wMMPQwEsaUYUC02c8mioOkJlZZoDmyFIeC0dX
-	 f6ZqO+k6Z8ROr8hx4y8qMWq5x9We50ZcDBVNxRgk70Z2ZRU3vTrN0lfEWBaY0IXnBKkHY
-	 qrhGdSt3wLJop7J/QbOxXrIjbTMT75Jy5ggka7nlBqDkBpcrPBYycs1zQWMOrFBt4ktYr
-	 lizkR8mQsJ/Z68UHt3MmPStHEEIBuE5xXI9OsWclVdHzrpGPItLsINjtsTb4MZvPrxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795486775;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ovE50DcR5YB7E/nO8X0QpKbIy4s1PPSaAbhETQNprMQ=;
+	b=gIlJFKcPCklXi8mU9iJrt0SEMrtkD3iyrT0VZBdt9mZu4EdeFvvYDP5wOGR6PDx+szyx
+	 Ry/10t+aR7k7AkRKYAeYot9WXF/caum3gsc/bk5MIeKRhQ7qoKMC6oF35Bg72o8ej+wqU
+	 d3JpQQbwzX0csZ+n522dwkeNySEfWRFqWbaajALtD4ARhBCnpQRlPhdptFywX//Hf25Vr
+	 ExwhK9KvesJZ0Xi5RrF8Ajxa5uGF1oXXMf/qq6uD5HsEfHfEfnlVa5VcrctLLodQ+1MXT
+	 53pq/p6iu9+UNScvhO0sbMRoG3Q3VXdrzsqriMF6Ztu0iHLO8r0bC3gf2hGFzqDpYVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESletRhE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=S5ewNgag;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438FC606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 02:17:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FE8606A31E;
+	Tue, 24 Nov 2026 02:19:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56FE8606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESletRhE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8151F000CF;
-	Tue, 24 Nov 2026 02:17:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795486637;
-	bh=QATfYSTKsbiQM75HzSIeddOFsSvEGrtGFQrtH/4WUtw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ESletRhEhtV27vuGTYYoZHeoYjMJcPocZI4U+AAmOUgLQj6HlUX4dWafV0314Ibn3
-	 aMMYXcYmzLd7hF1lgnHa4cehmFXXRxKMO+UAmbiD4xPffMTQJ9VvQVDn93c3n4QwY0
-	 WwQHGfLAvw9kGJ/tK+7hrXBhE2eroX8PMAhEAM5sFoiOZbcTA+tVCHGsR4zsk3Sqq/
-	 auCATvGW/WKMOGHTKw07QyhX/6AP/XdyD0gsJNv+w5JuqhDbN0QAJ4269vQrI/a1yh
-	 Q2Ui4/Ivo2a3Pf928CRCg8oRmA4QqySWeNYWPBNwF2xPo3lj88nVfBIR/bmv9CAIca
-	 gmstnDpupq8Cg==
-Message-ID: <sashiko-outbox-230394@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] arm64: dts: qcom: sdm670: add digital audio
- codec
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Richard Acayan" <mailingradian@gmail.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124015611.187024-5-mailingradian@gmail.com>
-References: <20261124015611.187024-1-mailingradian@gmail.com>
- <20261124015611.187024-5-mailingradian@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 02:17:14 +0000
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=S5ewNgag
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BEDBA40E02B4;
+	Tue, 24 Nov 2026 02:19:33 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id QpkJfojVIM6f; Tue, 24 Nov 2026 02:19:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1795486769; bh=ovE50DcR5YB7E/nO8X0QpKbIy4s1PPSaAbhETQNprMQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=S5ewNgagV9kPsk2qV2+oguD8rpXzEbhfqkdv029V6WyquDbKY+TzpgzDxWJYhp6ax
+	 HtENwnjR/u30wQ7VSw73p1UHPLwMvnz27itI0opb80r5o5xKdJ487/t9qfcdzYKNSm
+	 Q4O1vot8dTB+iCPf/+N1CgxOBCS2tTgWSbAF7wiICeVGHFYTxOxFovse4xo925aOxq
+	 8LwIhW7mVaC9iQoNdIK5I97lkxVVYrkMkiNUDJj2S8rJjFSn83vG0LwiNaJb9lCYKp
+	 I1n6rR/8kp17HjHtDH5MoVJmwB34HnU6B0AOfVMNKpxifmFALk62XoHQTxBDTcky5Q
+	 xSxDVbgDAA6VJZkPwvDDg8ugd8ZyaBBJjRb0SdfIgKOd3yoQtsWcUP6WrWkJ4h0FQW
+	 gDIwkCu9GPexst3I0yJGHve+tyB6An2pXQpoHu3Nrxsh7+R/zaHi+IoMFbrZM8OSPX
+	 07VXWUgqTe4we2FwAi1BeXWJpjWYZn0B0tNvR4wpmVNbaPOTgu50dwStnVxuksaK94
+	 MT9cr+21jWsOPm2SPZRfU1UEOdKO0zlhDhWDNjVy+rDA9xY76m3Q1SWBB7O0KmMeo6
+	 YesEeCc4i4w3H0jSDgK/OqpSftHRhPR8RAlvPBRPEnwSNhxOeo1ev5VcVb6xpH6Goz
+	 RbHNZm8O1uspwk33FZq655vU=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 3FBED40E02A9;
+	Tue, 24 Nov 2026 02:19:17 +0000 (UTC)
+Date: Mon, 23 Nov 2026 18:19:14 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+Cc: linux-edac@vger.kernel.org, git@amd.com, shubhrajyoti.datta@gmail.com,
+	michal.simek@amd.com,
+	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Tony Luck <tony.luck@intel.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 02/12] EDAC/versalnet: Use designated initializer for
+ rpmsg_channel_info
+Message-ID: <20261124021914.GJawT0Im6zaLUotIqG@fat_crate.local>
+References: <20261118142213.100581-1-shubhrajyoti.datta@amd.com>
+ <20261118142213.100581-3-shubhrajyoti.datta@amd.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,69 +85,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261118142213.100581-3-shubhrajyoti.datta@amd.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: qcom: sdm670: dummy fixed-clock lpass-cdc-bclk
-  used for ahbix-clk
---
+On Wed, Nov 18, 2026 at 07:50:26PM +0530, Shubhrajyoti Datta wrote:
+> Replace field-by-field assignment of struct rpmsg_channel_info with a
+> designated initializer. The old strscpy() call used strlen() as the
+> destination size, which truncated the channel name. Use the
+> string literal (via EDAC_RPMSG_CHAN_NAME) in the initializer so the
+> full name is passed to rpmsg_create_ept().
+> 
+> Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR controller")
+> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+> ---
+> 
+> Changes in v2:
+> Use a macro for channel name
+> 
+>  drivers/edac/versalnet_edac.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
 
-commit d9e07e74287b546598a2354eda9db9ff7cfc53b3
-Author: Richard Acayan <mailingradian@gmail.com>
+Changes ontop:
 
-arm64: dts: qcom: sdm670: add digital audio codec
+diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.c
+index 3d496c71126a..9dcb38cf3ba9 100644
+--- a/drivers/edac/versalnet_edac.c
++++ b/drivers/edac/versalnet_edac.c
+@@ -70,7 +70,7 @@
+ #define XDDR5_BUS_WIDTH_32		1
+ #define XDDR5_BUS_WIDTH_16		2
+ 
+-#define EDAC_RPMSG_CHAN_NAME	"error_ipc"
++#define RPMSG_CHAN_NAME	"error_ipc"
+ 
+ /**
+  * struct ecc_error_info - ECC error log information.
+@@ -715,7 +715,7 @@ static int rpmsg_cb(struct rpmsg_device *rpdev, void *data,
+ }
+ 
+ static struct rpmsg_device_id amd_rpmsg_id_table[] = {
+-	{ .name = EDAC_RPMSG_CHAN_NAME },
++	{ .name = RPMSG_CHAN_NAME },
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(rpmsg, amd_rpmsg_id_table);
+@@ -723,9 +723,9 @@ MODULE_DEVICE_TABLE(rpmsg, amd_rpmsg_id_table);
+ static int rpmsg_probe(struct rpmsg_device *rpdev)
+ {
+ 	struct rpmsg_channel_info chinfo = {
+-		.src = RPMSG_ADDR_ANY,
+-		.dst = rpdev->dst,
+-		.name = EDAC_RPMSG_CHAN_NAME,
++		.src	= RPMSG_ADDR_ANY,
++		.dst	= rpdev->dst,
++		.name	= RPMSG_CHAN_NAME,
+ 	};
+ 	struct mc_priv *pg;
+ 
+-- 
+Regards/Gruss,
+    Boris.
 
-This commit adds the LPASS digital WCD audio codec node and its clock
-configuration to the SDM670 device tree.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/q=
-com/sdm670.dtsi
-> index 8de8f3f7ea0fb..1df63c38cf876 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-[ ... ]
-> @@ -34,6 +35,12 @@ / {
->  	chosen { };
-> =20
->  	clocks {
-> +		lpass_cdc_bclk: lpass-cdc-bclk {
-> +			compatible =3D "fixed-clock";
-> +			#clock-cells =3D <0>;
-> +			clock-frequency =3D <1536000>;
-> +		};
-> +
->  		sleep_clk: sleep-clk {
->  			compatible =3D "fixed-clock";
->  			#clock-cells =3D <0>;
-> @@ -2831,5 +2838,19 @@ data2-pins {
->  				};
->  			};
->  		};
-> +
-> +		lpass_codec: audio-codec@62ec0000 {
-> +			compatible =3D "qcom,sdm670-wcd-digital-codec",
-> +				     "qcom,msm8916-wcd-digital-codec";
-> +			reg =3D <0 0x62ec0000 0 0x400>;
-> +
-> +			clocks =3D <&lpass_cdc_bclk>,
-> +				 <&q6afecc LPASS_CLK_ID_INT_MCLK_0 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-> +			clock-names =3D "ahbix-clk", "mclk";
-
-[Severity: Medium]
-As reported by Konrad Dybcio on v2 [1], should ahbix-clk on lpass_codec
-be wired to a dummy fixed-clock under /clocks?
-
-In Qualcomm SoC device trees, /clocks is reserved for off-SoC board
-reference clocks, and ahbix-clk represents the LPASS AHB interconnect
-clock for codec register access rather than a 1.536 MHz bit clock.
-Depending on how SDM670 clocks this block, ahbix-clk should either
-reference the Q6AFE clock from q6afecc (such as
-LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE or LPASS_HW_DCODEC_VOTE) or be
-made optional for qcom,sdm670-wcd-digital-codec in the binding and driver.
-
-[1] https://lore.kernel.org/r/87839ad6-c489-40b3-bfcc-60c436cd1a6f@oss.qual=
-comm.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124015611.1870=
-24-1-mailingradian@gmail.com?part=3D4
+https://people.kernel.org/tglx/notes-about-netiquette
