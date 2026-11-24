@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795543276;
-	b=IMRCvs+tYxmwuuKJBBuT7AJwucudQxnHxshuAzyQCPZo69LOtRilWRclWZWob+yrIoIg
-	 k1ZPYxpSs2vR2KQKRnddFvpCn16Dj9nhso+6Prk9hbfnmtpBuo5nPiEUypDgH6GC6C9Fj
-	 g7RAPL2YxnR71la1jjBFUcXfWK20a5rG63uqth8y6Zuii8FnYVwDDHpR/AVkjqePzFlYy
-	 B5z1gi/PXzDW4iLP2M1vS7Vxq/sPG5gxdvNbQx+09gr5ffuWrPXXAGUwhb7N0kCJ7JOpL
-	 zUPcoC/8UH1QqDVLVHTqmcAEiS2deebXame+o/sAnUU/p1GRosAlFtvqyC/d160MmzQ==
+	t=1795543314;
+	b=ZDmSttkJJNs1yf5oL7egC3wdcfGpH67EwNfvC+yWZb99DGD0af2/OyXbIAyZmjO8JHKY
+	 wXsWcwUbUU71NxyvLyQbXbAY8DW7S13jlbfGTrsixw+TymMQ1rkO3rnq7cRibC3CzbEhh
+	 gmGFNiwfVLsXHVWE+7Zk95c8z1oNWixbck3nUHob75LhbfbV9Fbn1pxELa16/htoN8fDQ
+	 Jqcaz4qeSBMCoCyFIyHCJOMW3eAKYTeZqk8syEx+S4FZpDK5zaZ+jHr7Idl9Ri3TmJa8T
+	 iwRfRqpJeO0AN+C7Eix21JB/hE3iAw6lBL++wrjC/pn+uOhHl65WBePYpfijn/hDMlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795543276;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795543314;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=81xq/8PMgUhHzvnkZyzFLQ9ag/AlyDUIYItSKX9Ibqk=;
-	b=Q3/HQ9nMGucJQ4gh+fDGHjuOC7pNwmOFBtjiMy5ipIlssQC9aiIfW7la9pq6m3/WCXyr
-	 AKQ7aPl88Er1aijRpkkWWro0J/Xdc3jL2gzF3a4S+hJyVzpq6CM+LHiZgg67TmwG1FNFT
-	 26/AzEQiFnxtClsxk1mhnAeSPze4QEC4pneluiUJ4kueFzGlu83tj+lLnCKZBIh+aUoDS
-	 aurp+XGMH82xo9CF01FvzMzOa3ayUO/C0wFH+J8zLacKfwNqhZlEbyP27Ma8DheVgE2NA
-	 PpYwR2Vw48v/PTVBZnZcWVdfjTsXzBWM8r86F7jCOlWMBTmm+R2ZB+aiFybBztEgKXQ==
+	bh=Vl4D4TzrMDl5CpRXmkA/SpfEqieMVRmHrivqM5+deBU=;
+	b=Bqix3Ubn11gXaXCr00iHc/ehpdv0gcAJMFuzOmcSZPzQNwJhOybyIw/Nmuk57iRYZvnb
+	 gFgQUrRI+RwDXdk3EOiOKoSEq7HTwh6A8Fjam+obiZzSGO8OL289V1a6uvnTScJ+WoVZV
+	 ubVWsJmWBGvfpiq7DaQnHG75GDGT473r+R3KN/nbaJCnYCZxcUcvrWxuMLfLvnfvFz0KY
+	 w4IDoWyRqevI3B3EfR4ubba9o192+Xf6WbO70vEnvCEK+Do1fKvuB42W9gD5TnqtSfkbO
+	 maSSC136gIPpnI9P5pZrHHKfo6aOfm2PsrDgJdtUWHOdWX0oA47yXchye+gxq56KvKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPXsvCWm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQBEaiR7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB27606A31E;
-	Tue, 24 Nov 2026 18:01:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1AC606A326
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 18:01:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPXsvCWm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE7F1F000C4;
-	Tue, 24 Nov 2026 18:01:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQBEaiR7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF461F000C0;
+	Tue, 24 Nov 2026 18:01:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795543276;
-	bh=81xq/8PMgUhHzvnkZyzFLQ9ag/AlyDUIYItSKX9Ibqk=;
+	s=k20260515; t=1795543313;
+	bh=Vl4D4TzrMDl5CpRXmkA/SpfEqieMVRmHrivqM5+deBU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OPXsvCWm/oIvD5JqJKUwZDVjpQzSPP5No5l4ZmDjbA+n2sGuxbrw8UiYdsWuLiY+G
-	 PzuCFyYSV/7yqRnM07XRhCHK9a3PMoyPlXM+C3kmmRPtd8q+p0a5MWdg91vE7cI7pA
-	 hqpRZjH0GZ/lsb1oT42v9EnKff8KB8d4qxCadoic/ildUjI8zd6/UO2yA+Iwov4Mg3
-	 80OkGD4TZr/3aI7jYMSNfVg7pmR/ywBe24XhzbbXnN7kuDiIfSGz5QgTUHgD1+y4ew
-	 rhNIiNzBzBNUhDIqHbm6RFqF9R2ssawAAK1BRrtBpiOjcLVjYEMc5pqPSeRJcc0NJx
-	 ZVGJMLObWu7cw==
-Message-ID: <sashiko-outbox-231761@kernel.org>
+	b=WQBEaiR76Na3PK2t7r1ESmipOjp9f8iFyVpzvkPlBxMMIZEo4GIGMsSya5V5UFksQ
+	 p7JeOzSoVmkN9F+HSrdXJTqq6qlmgQxLuuMF17En3+kI4/e/me4EjAl+3nLaJ4hMIL
+	 FsAZwekOg1ylaRQtYqwDA/DXbtubHusQ8H7xMHov37XrhQwI+sz9d2qV1ACipiq3Me
+	 MdgRv+rqYFsiul8xKdC+7/LC3Xi1p/aByjbtepanlTLmVxAtFzm5wullA13eYnVC6g
+	 px1xN3PbNAqSAae8seOWXfbVOaUxfTqtMfjBtCSyTxkVHlTty/WGkV8Jn01s+VI886
+	 uhC388KVwJGDw==
+Message-ID: <sashiko-outbox-231762@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 15/19] ASoC: qcom: lpass: allocate LPM buffer memory
- to DAIs
+Subject: Re: [PATCH 4/4] misc: Add FPC1540 fingerprint sensor driver for
+ QSEE apps
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-topic-sm8650-el2-v2-15-174e159f0f69@linaro.org>
-References: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
- <20261124-topic-sm8650-el2-v2-15-174e159f0f69@linaro.org>
+To: "Armandas Kvietkus" <armandas.kvietkus@proton.me>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261124-fpc1540-tee-v1-4-6c6985f05b06@proton.me>
+References: <20261124-fpc1540-tee-v1-0-6c6985f05b06@proton.me>
+ <20261124-fpc1540-tee-v1-4-6c6985f05b06@proton.me>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 18:01:15 +0000
+Date: Tue, 24 Nov 2026 18:01:52 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,256 +61,296 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 5 potential
+Thank you for your contribution! Sashiko AI review found 9 potential
 issues to consider:
-- [High] ASoC: qcom: lpass: unchecked memremap() and invalid free of LPM
-  MI2S buffer
-- [High] ASoC: qcom: lpass: VA and RXTX LPAIF resources not gated when
-  used for MI2S
-- [High] ASoC: qcom: lpass: unchecked memremap() and missing pcm_free
-  memunmap()
-- [Medium] ASoC: qcom: lpass: mi2s_lpm_enable set for disabled LPM
-  LPAIFs in probe
-- [Medium] ASoC: qcom: lpass: LPM buffer offset 0 collision in
-  lpass_platform_allocate_lpm()
+- [High] misc: fpc1540-tee: missing qcom_scm_is_available() check in
+  fpc_tee_probe()
+- [High] misc: fpc1540-tee: fpc_tee_read() returns 0 events instead of
+  -EAGAIN
+- [Medium] misc: fpc1540-tee: unbalanced wakeup and IRQ wake on
+  fpc_tee_probe() error
+- [Medium] misc: fpc1540-tee: unbalanced wakeup and IRQ wake in
+  fpc_tee_remove()
+- [Medium] misc: fpc1540-tee: ELF header overflow in
+  fpc_tee_read_image()
+- [Medium] misc: fpc1540-tee: unhandled GPIO error and race in IRQ
+  handling
+- [Medium] misc: fpc1540-tee: unlocked teardown and UAF race in
+  fpc_tee_remove()
+- [Medium] misc: fpc1540-tee: unverified size in second pass of
+  fpc_tee_read_image()
+- [Low] misc: fpc1540-tee: double firmware load and bounce buffer in
+  fpc_tee_load()
 --
 
-commit 4c2b83ff038eba299bfce68560d0b64cb7efc8a7
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+commit 23089f4b85a359ddf10f0fa7ac60bd5d6f60b0d1
+Author: Armandas Kvietkus <armandas.kvietkus@proton.me>
 
-ASoC: qcom: lpass: allocate LPM buffer memory to DAIs
+misc: Add FPC1540 fingerprint sensor driver for QSEE apps
 
-This commit dynamically assigns LPM SRAM buffer offsets for Codec DMA and
-LPM-backed MI2S DAIs and preallocates LPM DMA buffers for MI2S ports that
-cannot access DDR.
+This commit adds a misc driver for the FPC1540 fingerprint sensor on
+Qualcomm platforms, handling power, reset, interrupt reporting, and QSEE
+trusted application loading and commands via /dev/fpc_tee.
 
-> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-> index a83507c2cd557..8b005a87d4088 100644
-> --- a/sound/soc/qcom/lpass-cpu.c
-> +++ b/sound/soc/qcom/lpass-cpu.c
-> @@ -1169,6 +1169,8 @@ static void of_lpass_cpu_parse_dai_data(struct devi=
-ce *dev,
->  			data->codec_dma_enable =3D 1;
->  			if (is_wsa_cdc_dma_port(id))
->  				data->wsa_enable =3D 1;
-> +			else if (!is_rxtx_cdc_dma_port(id))
-> +				data->va_enable =3D 1;
->  		} else if (is_mi2s_port_id(id)) {
->  			unsigned int port_id =3D mi2s_port_id(id);
-
-[Severity: High]
-Should drvdata->va_enable (and an equivalent rxtx_enable flag) also gate
-claiming the VA and RXTX LPAIF MMIO and IRQ resources when Codec DMA is
-enabled?
-
-When a board uses RXTX or WSA Codec DMA alongside an MI2S port on
-lpass-va-lpaif (with va_enable =3D=3D 0), asoc_qcom_lpass_cpu_platform_prob=
-e()
-still unconditionally claims "lpass-va-lpaif" via
-devm_platform_ioremap_resource_byname() under if (drvdata->codec_dma_enable=
-),
-causing lpass_cpu_init_lpaif() for that MI2S LPAIF to fail with -EBUSY
-(and asoc_qcom_lpass_platform_register() similarly requests
-"lpass-irq-vaif" unconditionally).  Conversely, without an rxtx_enable
-flag, enabling only VA or WSA Codec DMA unconditionally claims
-"lpass-rxtx-lpaif" and reserves 2 * LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE of
-rxtx_cdc_dma_lpm in lpass_platform_allocate_lpm().
-
+> diff --git a/drivers/misc/fpc1540-tee.c b/drivers/misc/fpc1540-tee.c
+> new file mode 100644
+> index 0000000000000..37229190c46af
+> --- /dev/null
+> +++ b/drivers/misc/fpc1540-tee.c
 [ ... ]
-
-> @@ -1380,6 +1366,9 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platf=
-orm_device *pdev)
->  						   variant->mi2s_desc[i].reg_name);
->  			if (ret)
->  				return ret;
+> +static void *fpc_tee_read_image(struct fpc_tee *fpc, const char *name,
+> +				size_t *mdt_len, size_t *img_len,
+> +				size_t *map_len)
+> +{
+[ ... ]
+> +	*map_len =3D 0;
+> +	if (ehdr->e_ident[EI_CLASS] =3D=3D ELFCLASS64) {
+> +		const struct elf64_hdr *eh =3D (const struct elf64_hdr *)fw->data;
+> +		const struct elf64_phdr *ph =3D (const void *)fw->data + eh->e_phoff;
 > +
-> +			if (variant->mi2s_desc[i].lpm_type !=3D LPASS_LPM_NONE)
-> +				drvdata->mi2s_lpm_enable =3D true;
->  		}
->  	} else {
+> +		phnum =3D eh->e_phnum;
+> +		if (eh->e_phoff + phnum * sizeof(*ph) <=3D fw->size)
+> +			for (i =3D 0; i < phnum; i++)
+> +				*map_len =3D max_t(size_t, *map_len,
+> +						 ph[i].p_offset + ph[i].p_filesz);
+> +	} else {
+> +		const struct elf32_phdr *ph =3D (const void *)fw->data + ehdr->e_phoff;
+> +
+> +		phnum =3D ehdr->e_phnum;
+> +		if (ehdr->e_phoff + phnum * sizeof(*ph) <=3D fw->size)
+> +			for (i =3D 0; i < phnum; i++)
+> +				*map_len =3D max_t(size_t, *map_len,
+> +						 ph[i].p_offset + ph[i].p_filesz);
+> +	}
 
 [Severity: Medium]
-Does this set drvdata->mi2s_lpm_enable even when the LPM-backed LPAIF has
-no ports enabled in DT?
+Can a malformed .mdt header wrap eh->e_phoff + phnum * sizeof(*ph) and
+read ph[i] out of bounds?
 
-When no port on variant->mi2s_desc[i] is set in drvdata->lpaif_port_enable,
-lpass_cpu_init_lpaif() returns 0 early with drvdata->lpaif[i].drvdata left
-NULL.  Checking variant->mi2s_desc[i].lpm_type without checking
-drvdata->lpaif[i].drvdata sets mi2s_lpm_enable to true on every variant
-whose static mi2s_desc table contains an LPM LPAIF, forcing probe to
-require the Codec DMA LPM clocks and LPM memory resources even when only
-core-LPAIF MI2S or HDMI/DP DAIs are used.
+In addition, ph[i].p_offset + ph[i].p_filesz can overflow (or produce a
+*map_len that wraps PAGE_ALIGN(map_len) to 0 in fpc_tee_load() before
+memcpy(buf, image, img_len)), and when e_phoff + phnum * sizeof(*ph) >
+fw->size without wrapping, the function continues with *map_len =3D=3D 0
+instead of releasing fw and returning ERR_PTR(-EINVAL).
 
-> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platf=
-orm.c
-> index 16a964e1aec1f..855f1ee193946 100644
-> --- a/sound/soc/qcom/lpass-platform.c
-> +++ b/sound/soc/qcom/lpass-platform.c
-
-[ ... ]
-
-> @@ -1288,6 +1321,41 @@ static irqreturn_t lpass_platform_wsaif_irq(int ir=
-q, void *data)
->  	return IRQ_HANDLED;
->  }
-> =20
-> +static int lpass_platform_prealloc_lpm_mi2s_buffer(struct snd_soc_compon=
-ent *component,
-> +						    struct snd_pcm *pcm, int dai_id)
-> +{
-> +	struct lpass_data *drvdata =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int port_id =3D mi2s_port_id(dai_id);
-> +	struct snd_pcm_substream *substream;
-> +	struct snd_dma_buffer *buf;
-> +	u32 addr;
-> +	int dir;
 > +
-> +	if (drvdata->mi2s_lpm[port_id] =3D=3D LPASS_VA_CDC_LPM)
-> +		addr =3D drvdata->va_cdc_dma_lpm_buf;
-> +	else
-> +		addr =3D drvdata->rxtx_cdc_dma_lpm_buf;
-> +	addr +=3D drvdata->mi2s_lpm_offset[port_id];
+> +	*mdt_len =3D fw->size;
+> +	total =3D fw->size;
+> +	release_firmware(fw);
 > +
-> +	/* Playback and capture buffers are allocated one after the other */
-> +	for (dir =3D SNDRV_PCM_STREAM_PLAYBACK; dir <=3D SNDRV_PCM_STREAM_CAPTU=
-RE; dir++) {
-> +		substream =3D pcm->streams[dir].substream;
-> +		if (!substream)
-> +			continue;
+> +	for (i =3D 0; i < phnum; i++) {
+> +		snprintf(fw_name, sizeof(fw_name), "%s.b%02u", name, i);
+> +		ret =3D request_firmware(&fw, fw_name, fpc->dev);
+> +		if (ret)
+> +			return ERR_PTR(ret);
+> +		total +=3D fw->size;
+> +		release_firmware(fw);
+> +	}
+
+[Severity: Low]
+This isn't a bug, but fpc_tee_read_image() calls request_firmware() and
+release_firmware() on the .mdt and every .bNN segment once just to sum
+their sizes, then loads all of them a second time into a vmalloc() buffer
+that fpc_tee_load() immediately copies into a dma_alloc_coherent() buffer
+and frees.
+
 > +
-> +		buf =3D &substream->dma_buffer;
-> +		buf->dev.dev =3D pcm->card->dev;
-> +		buf->dev.type =3D SNDRV_DMA_TYPE_CONTINUOUS;
-> +		buf->private_data =3D NULL;
-> +		buf->bytes =3D lpass_platform_lpm_mi2s_hardware.buffer_bytes_max;
-> +		buf->addr =3D addr + dir * LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE;
-> +		buf->area =3D (unsigned char * __force)memremap(buf->addr, buf->bytes,
-> +							      MEMREMAP_WC);
+> +	buf =3D vmalloc(total);
+> +	if (!buf)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	off =3D 0;
+> +	for (i =3D 0; i <=3D phnum; i++) {
+> +		if (i)
+> +			snprintf(fw_name, sizeof(fw_name), "%s.b%02u", name, i - 1);
+> +		else
+> +			snprintf(fw_name, sizeof(fw_name), "%s.mdt", name);
+> +		ret =3D request_firmware(&fw, fw_name, fpc->dev);
+> +		if (ret || off + fw->size > total) {
+> +			if (!ret)
+> +				release_firmware(fw);
+> +			vfree(buf);
+> +			return ERR_PTR(ret ?: -EINVAL);
+> +		}
+> +		memcpy(buf + off, fw->data, fw->size);
+> +		off +=3D fw->size;
+> +		release_firmware(fw);
 > +	}
 > +
-> +	return 0;
+> +	*img_len =3D total;
+> +	*map_len =3D max(*map_len, total);
+> +	return buf;
+> +}
+
+[Severity: Medium]
+What happens if any firmware file shrinks between the two
+request_firmware() passes?
+
+The second loop checks off + fw->size > total, but does not verify that
+the reloaded .mdt size still equals *mdt_len or that off =3D=3D total after
+the loop.  If a file is smaller on the second read, buf[off .. total - 1]
+is left with uninitialized vmalloc() memory and copied to TrustZone with
+*img_len =3D total.
+
+[ ... ]
+> +static long fpc_tee_ioctl(struct file *file, unsigned int cmd, unsigned =
+long arg)
+> +{
+[ ... ]
+> +	case FPC_TEE_IOC_IRQ_CLEAR:
+> +		atomic_set(&fpc->irq_events, fpc->irq_gpio &&
+> +			   gpiod_get_value_cansleep(fpc->irq_gpio) ? 1 : 0);
+> +		ret =3D 0;
+> +		break;
+
+[Severity: Medium]
+Does gpiod_get_value_cansleep() returning a negative errno get treated as
+an asserted interrupt line both here and in fpc_tee_irq()?
+
+Also, when FPC_TEE_IOC_IRQ_CLEAR sets fpc->irq_events to 1, it does not
+call wake_up_interruptible(&fpc->irq_wait), and if fpc->irq_gpio reads 0
+right before fpc_tee_irq() runs, atomic_set(&fpc->irq_events, 0) can
+overwrite the new increment and drop the interrupt:
+
+CPU0                              CPU1
+fpc_tee_ioctl()
+  gpiod_get_value_cansleep() -> 0
+                                  fpc_tee_irq()
+                                    atomic_inc(&fpc->irq_events)
+  atomic_set(&fpc->irq_events, 0)  <-- loses interrupt event
+
+> +	default:
+> +		ret =3D -ENOTTY;
+> +	}
+> +	mutex_unlock(&fpc->lock);
+> +
+> +	return ret;
+> +}
+[ ... ]
+> +static ssize_t fpc_tee_read(struct file *file, char __user *buf, size_t =
+len,
+> +			    loff_t *ppos)
+> +{
+> +	struct fpc_tee *fpc =3D fpc_tee_from_file(file);
+> +	u32 events;
+> +	int ret;
+> +
+> +	if (len < sizeof(events))
+> +		return -EINVAL;
+> +
+> +	if (!(file->f_flags & O_NONBLOCK)) {
+> +		ret =3D wait_event_interruptible(fpc->irq_wait,
+> +					       atomic_read(&fpc->irq_events));
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	events =3D atomic_xchg(&fpc->irq_events, 0);
+> +	if (copy_to_user(buf, &events, sizeof(events)))
+> +		return -EFAULT;
+> +
+> +	return sizeof(events);
 > +}
 
 [Severity: High]
-What happens on PCM teardown or if memremap() returns NULL here?
+Does a non-blocking read() return 4 bytes with events =3D=3D 0 instead of
+-EAGAIN when no interrupts are pending?  A userspace poll/read loop
+draining a non-blocking descriptor until -EAGAIN will spin forever.
 
-Because buf->dev.type is set to SNDRV_DMA_TYPE_CONTINUOUS and
-lpass_component_driver has no .pcm_free callback to memunmap(buf->area) and
-clear buf->area, PCM teardown in snd_pcm_free() ->
-snd_pcm_lib_preallocate_free_for_all() -> do_free_pages() passes the
-memremap() I/O virtual address to snd_dma_continuous_free() ->
-free_pages_exact() and leaks the mapping.  In addition, if memremap()
-returns NULL, lpass_platform_prealloc_lpm_mi2s_buffer() still returns 0
-(leaking the playback mapping if capture fails), and a subsequent transfer
-in lpass_platform_copy() dereferences a NULL runtime->dma_area.
+Even for blocking reads, atomic_xchg(&fpc->irq_events, 0) runs outside the
+wait condition, so a concurrent reader or FPC_TEE_IOC_IRQ_CLEAR can consume
+the count first and cause a blocking read() to return events =3D=3D 0.
+Zeroing fpc->irq_events before copy_to_user() also discards the pending
+events if copy_to_user() faults.
 
-> @@ -1412,6 +1482,7 @@ static int lpass_platform_copy(struct snd_soc_compo=
-nent *component,
->  			       unsigned long pos, struct iov_iter *buf,
->  			       unsigned long bytes)
->  {
-> +	struct lpass_data *drvdata =3D snd_soc_component_get_drvdata(component);
->  	struct snd_pcm_runtime *rt =3D substream->runtime;
->  	struct snd_soc_pcm_runtime *soc_runtime =3D snd_soc_substream_to_rtd(su=
-bstream);
->  	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(soc_runtime, 0);
-> @@ -1422,7 +1493,7 @@ static int lpass_platform_copy(struct snd_soc_compo=
-nent *component,
->  				channel * (rt->dma_bytes / rt->channels));
-> =20
->  	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-> -		if (is_cdc_dma_port(dai_id)) {
-> +		if (is_cdc_dma_port(dai_id) || is_lpm_mi2s_port(drvdata, dai_id)) {
->  			if (copy_from_iter_toio(dma_buf, bytes, buf) !=3D bytes)
->  				ret =3D -EFAULT;
->  		} else {
-> @@ -1430,7 +1501,7 @@ static int lpass_platform_copy(struct snd_soc_compo=
-nent *component,
->  				ret =3D -EFAULT;
->  		}
->  	} else if (substream->stream =3D=3D SNDRV_PCM_STREAM_CAPTURE) {
-> -		if (is_cdc_dma_port(dai_id)) {
-> +		if (is_cdc_dma_port(dai_id) || is_lpm_mi2s_port(drvdata, dai_id)) {
->  			if (copy_to_iter_fromio(dma_buf, bytes, buf) !=3D bytes)
->  				ret =3D -EFAULT;
->  		} else {
+[ ... ]
+> +static int fpc_tee_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	ret =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+> +	if (!ret)
+> +		ret =3D qcom_tzmem_shm_bridge_create(rmem->base, rmem->size,
+> +						   &fpc->bridge);
+> +	if (ret) {
+> +		of_reserved_mem_device_release(dev);
+> +		return dev_err_probe(dev, ret, "no shm bridge\n");
+> +	}
 
 [Severity: High]
-Should both lpass_platform_prealloc_lpm_mi2s_buffer() and
-lpass_platform_prealloc_cdc_dma_buffer() return -ENOMEM if memremap()
-fails, and should lpass_component_driver provide a .pcm_free callback to
-memunmap() and zero substream->dma_buffer.area so that lpass_platform_copy()
-cannot hit a NULL rt->dma_area and snd_pcm_free() does not call
-free_pages_exact() on the remapped LPM pointer?
+What happens if fpc_tee_probe() runs before qcom_scm_probe() finishes?
 
-> @@ -1459,6 +1530,66 @@ static const struct snd_soc_component_driver lpass=
-_component_driver =3D {
-> =20
->  };
-> =20
-> +static int lpass_platform_allocate_lpm(struct lpass_data *drvdata)
-> +{
-> +	u32 rxtx_cdc_dma_lpm_remain =3D drvdata->rxtx_cdc_dma_lpm_size;
-> +	u32 va_cdc_dma_lpm_remain =3D drvdata->va_cdc_dma_lpm_size;
-> +	u32 rxtx_cdc_dma_lpm_offset =3D 0;
-> +	u32 va_cdc_dma_lpm_offset =3D 0;
-> +	int port_id;
-> +
-> +	if (drvdata->codec_dma_enable) {
-> +		drvdata->rxtx_lpm_offset =3D rxtx_cdc_dma_lpm_offset;
-> +		rxtx_cdc_dma_lpm_offset +=3D LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-> +		rxtx_cdc_dma_lpm_remain -=3D LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-> +
-> +		if (drvdata->va_enable) {
-> +			drvdata->va_lpm_offset =3D va_cdc_dma_lpm_offset;
-> +			va_cdc_dma_lpm_offset +=3D LPASS_VA_CDC_DMA_LPM_BUFF_SIZE;
-> +			va_cdc_dma_lpm_remain -=3D LPASS_VA_CDC_DMA_LPM_BUFF_SIZE;
-> +		}
-> +
-> +		if (drvdata->wsa_enable) {
-> +			drvdata->wsa_lpm_offset =3D rxtx_cdc_dma_lpm_offset;
-> +			rxtx_cdc_dma_lpm_offset +=3D LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-> +			rxtx_cdc_dma_lpm_remain -=3D LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
-> +		}
-> +	}
-> +
-> +	if (!drvdata->mi2s_lpm_enable)
-> +		return 0;
-> +
-> +	for (port_id =3D 0; port_id < LPASS_MAX_MI2S_PORTS; port_id++) {
-> +		if (!test_bit(port_id, &drvdata->lpaif_port_enable))
-> +			continue;
-> +
-> +		switch (drvdata->mi2s_lpm[port_id]) {
+Without checking qcom_scm_is_available() and returning -EPROBE_DEFER,
+qcom_tzmem_shm_bridge_create() runs while qcom_tzmem_using_shm_bridge is
+still false and silently returns 0 without creating the bridge:
 
-[Severity: Medium]
-Can an MI2S port on an enabled multi-port LPM LPAIF collide at LPM offset 0
-if that port has no child node in DT?
-
-of_lpass_cpu_parse_dai_data() sets a default 8-channel SD-line mode for all
-MI2S ports and only sets drvdata->lpaif_port_enable for ports with an
-explicit child node, while asoc_qcom_lpass_cpu_platform_probe() populates
-drvdata->mi2s_lpaif[port_id] and drvdata->mi2s_lpm[port_id] for all MI2S
-DAIs and lpass_cpu_daiops_probe() only checks that the port's LPAIF was
-initialized:
-
-sound/soc/qcom/lpass-cpu.c:lpass_cpu_daiops_probe() {
-    ...
-	/* The LPAIF is only initialized if one of its ports is described in DT */
-	if (!lpaif || !lpaif->drvdata) {
-		dev_err(dai->dev, "LPAIF of this port is not enabled\n");
-		return -ENODEV;
-	}
-    ...
+drivers/firmware/qcom/qcom_tzmem.c:qcom_tzmem_shm_bridge_create() {
+	if (!qcom_tzmem_using_shm_bridge)
+		return 0;
+	...
 }
 
-If one port on a multi-port LPM LPAIF (such as lpass-aud-lpaif) is listed
-in DT and a sibling port on the same LPAIF relies on the default SD-line
-configuration without a child node, the sibling port still probes and
-is_lpm_mi2s_port() returns true, but lpass_platform_allocate_lpm() skips it
-and leaves drvdata->mi2s_lpm_offset[port_id] at 0, aliasing the buffer of
-whichever DAI was allocated at offset 0.
+If /dev/fpc_tee is also opened before qcom_scm_probe() completes,
+fpc_tee_open() -> ... -> qcom_scm_qseecom_app_start() ->
+__qcom_scm_qseecom_call() dereferences __scm->dev while __scm is NULL.
+
+[ ... ]
+> +	device_init_wakeup(dev, true);
+> +	enable_irq_wake(irq);
+> +
+> +	fpc->misc.minor =3D MISC_DYNAMIC_MINOR;
+> +	fpc->misc.name =3D "fpc_tee";
+> +	fpc->misc.fops =3D &fpc_tee_fops;
+> +	fpc->misc.parent =3D dev;
+> +
+> +	platform_set_drvdata(pdev, fpc);
+> +
+> +	return misc_register(&fpc->misc);
+> +}
+
+[Severity: Medium]
+If misc_register() fails here, does fpc_tee_probe() leave IRQ wake enabled
+and the wakeup source registered on dev?
+
+> +
+> +static void fpc_tee_remove(struct platform_device *pdev)
+> +{
+> +	struct fpc_tee *fpc =3D platform_get_drvdata(pdev);
+> +
+> +	misc_deregister(&fpc->misc);
+> +	if (fpc->loaded)
+> +		qcom_scm_qseecom_app_shutdown(fpc->app_id);
+> +	fpc_tee_power(fpc, false);
+> +}
+
+[Severity: Medium]
+Should fpc_tee_remove() (or a devm action) also call disable_irq_wake()
+and device_init_wakeup(dev, false) to balance fpc_tee_probe()?
+
+[Severity: Medium]
+Can fpc_tee_remove() race with an open file descriptor that is still in
+fpc_tee_ioctl() or sleeping in fpc_tee_read()?
+
+misc_deregister() does not wait for already-open file descriptors to close,
+and fpc_tee_remove() inspects fpc->loaded, shuts down fpc->app_id, and
+calls fpc_tee_power() without taking fpc->lock:
+
+CPU0                              CPU1
+fpc_tee_ioctl(FPC_TEE_IOC_POWER)
+  mutex_lock(&fpc->lock)
+  fpc_tee_power(fpc, true)
+    regulator_enable(fpc->vdd)
+    usleep_range(1000, 1100)
+                                  fpc_tee_remove()
+                                    misc_deregister(&fpc->misc)
+                                    fpc_tee_power(fpc, false)
+                                      if (on =3D=3D fpc->powered)
+                                        return 0;  <-- vdd left enabled
+    fpc->powered =3D true
+
+In addition, any reader still sleeping on fpc->irq_wait or holding an open
+file descriptor can access fpc after fpc_tee_remove() returns and devres
+frees it.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-topic-sm86=
-50-el2-v2-0-174e159f0f69@linaro.org?part=3D15
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-fpc1540-te=
+e-v1-0-6c6985f05b06@proton.me?part=3D4
