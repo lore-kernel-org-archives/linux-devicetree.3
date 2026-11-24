@@ -1,117 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541713;
-	b=0fHys++p1tXbXAQD/RYFSA6wQQqs14yUBcZeRat90K0v5szzf21IAMliCMPHiKgxlp4/
-	 qQXsHQI2R5oOfnUdpmJjFffW6Twey+fjKM9mn6yhQQOTjyPoJQQU4L7OA1zpU9WR9rKVU
-	 v/imTcnC5v7H0Kg4E8MZDSKmZ//x+roYxBFIwmJ0AJs7FTysZPbhh6hnmmrB3BZcT+CBh
-	 8/ujmDY9+/IgnAEPF2+8i8yduswANIQrUdq/9dwKgWdYXdOtAOwhy4S1MQYkqJmJbwHY9
-	 dnMY0G0TgvIpR+3i7YnfHAa9wBWtsEveDjByAUMaO1/LDkMlqNroNXFHNpuAXVGhdng==
+	t=1795541716;
+	b=5KF3BNprMyuLNJbQ10mpqxL4JID68j9BlrxmlN3ljayo7ef9UFM/m7cBSa7dLUz/3dtv
+	 q/5idjxsHO9n4xYAACfZ1Lzuf3RQwj+vh5RDX3ttuCa15iHXJVqLwd0ILGaJwWTVXQ1nI
+	 J+uLHsgJkJ49N86mgWZAYBFer08Z5j1SH0+WO2dnhoRofaeRbCvqfII2u8ydFo9Ybp8QE
+	 25wHcLSSQluTMemNAkB60VWxp46fAPZjx54BQ3NjWHD9e8wpV/w7yEZ++eEftzxtah2tr
+	 aZwhx2dS+drrtk/MzXXUoZiL7N7nYghSRAQ8Pak4WUbZ3UQNFNpj9BxOJpnqh+2PRMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541713;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=rIEikIfePUlYuQtT3faGXOgKua4GiiXoZrCtOyesMsM=;
-	b=UigFWuecPYQcnoesj0EgCT26eJvYd1kKpWoyVjniEopsqrHloBwPz/lQY/OiZPRKUhRw
-	 1QWlZKk1PRDIi5wOjm6YoFZlnh+wlTenKwTlR2IbexSiDhuYXv4ITMUigUSZxcxVZ8jBx
-	 4vIQUYKnV3jsnvPnyg7a2va2KqEN1M+y8Y5X1HL8S2brIS6hJGu4KSKRhI2C3rIjOgSLF
-	 zwQ10F4DpQ8BDv3Lu1Xx514qHsbXMY027WwF54VoXUz8iAjudQ+dnUcrvsNJK1cXXebaw
-	 GUPJK/VSaA/L9m6UAqNvADTZ31YNb0U1J2E6BlalRyS8o0qvhYoIfT6omerbk2zcIbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541716;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=0RbUmn79OBfUaJ6AR+Ug352MYLfPMi2JY/ccLVB8EEA=;
+	b=vXJNlHJ9oDsiMr0D0GGQtRaNSGE+VMAN3s1wEk31dyXIzs6DMnoOmSDYO29O0XE+wV5w
+	 nhZjaR7WVYAWdALa15/1wnlXwvyjrZsgMxHiS668EdpfJOw3vMOQHQTvzs+2ePBHf/egP
+	 OEWiFNrEwWtnTgJ+2rSZM/FfYU6C/AiZO81qkOqz81z7muHjRZGpKg+pJyJ4Px5W+lLpJ
+	 O/ZaZ4qpNKPbyqZd+/wW94CdhYUDp3EmUwLtptaVeGnVFSNkYsNOAuXyh1IqRR+z4yzNm
+	 gBBUkf+QuyGUhLgDUQ+9P7o42z/C8i8O7igbGAwn/fycgsGBYIF9GlEICJR1cs0d9Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Kpz9gGuB;
-	arc=none smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrogm3ET;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76372606A323
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:35:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76372606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93610606A68E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:35:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Kpz9gGuB
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-537548b811aso40169361cf.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:35:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795541712; x=1796146512; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rIEikIfePUlYuQtT3faGXOgKua4GiiXoZrCtOyesMsM=;
-        b=Kpz9gGuBAbhGNRcVfnOThbhWg0E492RYUCMUgfLbykGqoayXLYpeEBkOIQ9KBwt90k
-         OjcfIhqoxPmy5OTa2y+ZjKSzTaCTaRQ4HE+qt/Sxqa1wwKneKylQYJRCxMM4dtkB50Wi
-         jwGPVFHP624fcAjAZ0NI3FP5SEcUVi81jAlhCs/VV6h9kB9e76tHyMhz7Ix+iu4kbUEB
-         Vn4XL73dQA9lxx3MVEz77r6eXIGdEOb6DpUkHQ16gTjxbYdis8tGhATTBDBh2jBbmc3X
-         i0X2HZNbw7ZvKRUMzw5Ew4LA34knTyb4PngMtHiXg7vbq26IEFfNev03Fg3Jay9px1S2
-         zOoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795541712; x=1796146512;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rIEikIfePUlYuQtT3faGXOgKua4GiiXoZrCtOyesMsM=;
-        b=vfqBi+SS+HqVB2AsGJ6nRDxGWlgbLmzRHjj6F998Zrp2SoANK+RCKavqLQNMQ/UdIZ
-         bYN6E+FSdl4Hem4N2wsBTFHtZFs1SOxeewqozrVjNcdqxXFR8t40cd7yOkDqkFr37xgi
-         nGld1HFWCfFe3UblKBdZZuS3K2OYMHFiRP8eRLnPQtGDuOPWGHi2bPDdp9yDgcbEClLN
-         yl65nGNm7RaAhh23ljaDYbanPvqVdJTViX3yfss5WR3n2hWqGwddBHtVBZ59sCcWTCOY
-         s0ADHo5VU1R6j/lccgvr3eVQfc3QvcIT0uYao38VFRcig0Iu5hdwYAnBM8otUpmp0ANI
-         SywA==
-X-Forwarded-Encrypted: i=1; AL+hErEkINGQA5xZ+ebWt2WRhE+bq1cbVpsJ/WqRd+Y9yG6MRuzrU+om1BuEFj9YCe7GE32hX1s6Onie3UGu@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ghs9W4LE3SrTiDZ0R0sN04vCOnDwOMOM1o0lEzRarsra7DmUZ
-	16K3mvwwuLq3bvCiL88dygumZ+yQjYcrIbUiWIi1vDj+4jG6qv2h115WBJrQzzcsAf0=
-X-Gm-Gg: AZFdTZeWbkg+4D8XKoHbVA50joxYHaHWK+B7429QScHcuoW/wR2DR9Z4AGCQHPHvNbk
-	yHwR9RtZzoRkjAskNXgtEODt7o+ex2wXdr8xmYFKWnwGF9gbkzIC6sHAoiGSk3hv+xmZviDkCEW
-	+1muo/InHHE1Tg0ww4vpWedvoI5sruO5VpSrVTH9ogBseQPja92IWj0jikQIChlxztQ/T+zF1fb
-	xX+G0GJzK2ccQ1Td9XJDv1Xui5exqjdrjTd5D+AfxIoNdW8z886mMjNqwmWnJfQxC8wOLFBfVmI
-	pZMfaCJ6E6maewjZFQZm7T335jj2XaDb95DhNCSwEeYdWRJCh6WpFuXmSK7lm7W0mlkoN6ceVzW
-	pxr7n6RxOcWfVT5Bnu8jsoLcM1+vjFZdErzQ6K59TXNnnpe1bTtLiA5HJxlH7zq98lsq61WOFW7
-	2yv4VbQTndEcgQnIBp546sCZXISclWXFXYtaQdHHFj+XWGHKiEyG8AEAvb74lM/eJvvTtrES7Sa
-	FQKttJAIfLEAk80aAxey9m8TepU3vP/CvEIYjrW7Cj+ENPcXtNINaqey5MynnpA4jnLMKBrhNrl
-	gmZAGrN2cPxNNhGvGykQx1+xQhFQVPrTW93AoDbsMuPBkEnQyx95zR0=
-X-Received: by 2002:a05:622a:307:b0:55c:cfd:3bd4 with SMTP id d75a77b69052e-55d76a6bccdmr295490121cf.72.1795541712297;
-        Tue, 24 Nov 2026 09:35:12 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d78811fd5sm134260551cf.8.2026.11.24.09.35.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 09:35:11 -0800 (PST)
-Message-ID: <5d46d320bf3b956bdd3413f8a88beedf07938fc4.camel@ndufresne.ca>
-Subject: Re: [RFC PATCH 04/28] media: mali-vpu: initialize decoder format
- state
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
- Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
- <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
-Date: Tue, 24 Nov 2026 12:35:09 -0500
-In-Reply-To: <b152209e-6117-4a24-aa2d-59be913850b5@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
-	 <20261119153758.1426673-5-charvi.mehta@arm.com>
-	 <d1d53edeb358e1bdcd1c262e48074f7f1be276cf.camel@ndufresne.ca>
-	 <b152209e-6117-4a24-aa2d-59be913850b5@arm.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-BpfK9v6vcqSHzyO28x9C"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrogm3ET
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0533F1F000EE;
+	Tue, 24 Nov 2026 17:35:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795541716;
+	bh=0RbUmn79OBfUaJ6AR+Ug352MYLfPMi2JY/ccLVB8EEA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hrogm3ET5Y4iFmKCXZYLAjhs4g8kuV6/RTCg05DDdj3cch0RCIqBldSPyFAvswZMH
+	 u6EWi2F40h7jjvOjOYHndwECGsf8BkgHsWZdleuo3bNBSoVaulqlO9qpvkWnbFgVuO
+	 cdPGAJD4lL+FOEEUA5A8M7C8ZV/HIhsWUvqP4lcz4TZhJlL587NHWucWeB7XQFuXb0
+	 yxknfJoJUKT8vcvVwOpZ6c4w0UhDBPPFZj/vuRhgIt6+CnEma592tv55oov6rifK7V
+	 KgaW1a+aTmEV7c4ZG3PwqSgk1LcFZ60zZPR5SnJ/4pl5GOu8g90HzDJz1DNUYJAIwV
+	 RNP6uG92EfuRg==
+Message-ID: <sashiko-outbox-231709@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 12/24] media: mali-c720: Add video capture nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anthony McGivern" <anthony.mcgivern@arm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-12-0cb9bde1bd30@arm.com>
+References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+ <20261124-b4-initial-upstream-candidate-v1-12-0cb9bde1bd30@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 17:35:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -120,48 +59,173 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
---=-BpfK9v6vcqSHzyO28x9C
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] media: mali-c720: unrecovered output buffer state on context
+  stop
+- [Medium] media: mali-c720: race between
+  mali_c720_s_fmt_vid_cap_mplane() and link validation
+- [Low] media: mali-c720: uninitialized vdev.name logged in
+  mali_c720_register_cap_dev()
+--
 
-Hi,
+commit 5de5962e721900ab8951fa2e8cce61caedd37777
+Author: Anthony McGivern <Anthony.McGivern@arm.com>
 
-Le mardi 24 novembre 2026 =C3=A0 14:56 +0000, Charvi Mehta a =C3=A9crit=C2=
-=A0:
-> > > =C2=A0=C2=A0 struct mali_vpu_session {
-> > > =C2=A0=C2=A0=C2=A0=09struct mali_vpu_dev=09=09*vpu_dev;
-> > > =C2=A0=C2=A0=C2=A0=09enum mali_vpu_session_role=09role;
-> > > +=09struct mali_vpu_port=09=09port_src;
-> > > +=09struct mali_vpu_port=09=09port_dst;
-> > Ok, its time to comment, src_port and dst_port is a lot easier to read =
-imho.
-> I=E2=80=99ve generally placed the direction last, as in dec_src/dec_dst a=
-nd=20
-> pixmp_src/pixmp_dst.
-> I=E2=80=99d prefer to retain port_src/port_dst to follow that pattern.
+media: mali-c720: Add video capture nodes
 
-I heard your preference, but readability when up-streaming is important, we=
- dont
-say "the port source", we say "the source port" (at least in english, which=
- we
-program in), and so when a human reads your code, having things in reverse =
-makes
-it harder.
+This commit adds RGB and YUV V4L2 video capture nodes for the full-resoluti=
+on
+output 0 (FR0) subdevice and wires up their buffer completion handling.
 
-Nicolas
+> diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-capture.c b/d=
+rivers/media/platform/arm/mali-c720/mali-c720-capture.c
+> new file mode 100644
+> index 0000000000000..78e9f5aba97d5
+> --- /dev/null
+> +++ b/drivers/media/platform/arm/mali-c720/mali-c720-capture.c
+> @@ -0,0 +1,747 @@
+[ ... ]
+> +void mali_c720_cap_dev_buffer_done(struct mali_c720_cap_dev *cap_dev,
+> +				   bool success)
+> +{
+> +	struct mali_c720 *mali_c720 =3D cap_dev->mali_c720;
+> +	struct mali_c720_context *ctx =3D mali_c720_get_active_context(mali_c72=
+0);
+> +	struct mali_c720_cap_buffer *buf;
+> +
+> +	if (!video_is_registered(&cap_dev->vdev))
+> +		return;
+> +
+> +	if (!vb2_is_streaming(&cap_dev->queue))
+> +		return;
+> +
+> +	guard(spinlock)(&cap_dev->buffers.lock);
+> +
+> +	buf =3D list_first_entry_or_null(&cap_dev->buffers.processing,
+> +				       struct mali_c720_cap_buffer, queue);
+> +	if (!buf)
+> +		return;
+> +
+> +	if (mali_c720_ctx_mgr_check_output_buffer_status(ctx, &cap_dev->buffers=
+.pool))
+> +		success =3D false;
+> +
+> +	if (success) {
+> +		buf->vb.vb2_buf.timestamp =3D ctx->timestamp;
+> +		buf->vb.sequence =3D ctx->frame_sequence;
+> +	}
+> +
+> +	vb2_buffer_done(&buf->vb.vb2_buf, success ? VB2_BUF_STATE_DONE : VB2_BU=
+F_STATE_ERROR);
+> +	list_del(&buf->queue);
+> +}
 
---=-BpfK9v6vcqSHzyO28x9C
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+[Severity: Medium]
+When one capture device stops streaming while another capture device is sti=
+ll
+streaming with an in-flight buffer in buffers.processing, does retiring that
+buffer leave the still-streaming device's hardware output buffer descriptor
+in MALI_C720_BUFFER_STATE_HW_EMPTY (or MALI_C720_BUFFER_STATE_HW_ERROR)
+instead of resetting it to MALI_C720_BUFFER_STATE_SW_EMPTY?
 
------BEGIN PGP SIGNATURE-----
+mali_c720_vb2_stop_streaming() disables isp_sd, which invokes
+mali_c720_ctx_mgr_stop_context():
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawXKzQAKCRDZQZRRKWBy
-9NPmAQCw+FqH8tb2NT0kyezcMofs4qS/3wmckKm7M78C7X79vgD/aZhblqvBZYB0
-cgUBoaxShFAf7iLpc3EF1UkY9cuXzAA=
-=F9EK
------END PGP SIGNATURE-----
+drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c:mali_c720_ctx_mgr_=
+stop_context() {
+	...
+	scoped_guard(spinlock_irq, &ctx->state_lock) {
+		ctx->state =3D MALI_C720_SLOT_STATE_STOPPED;
+		...
+		/* Retire in-flight buffers on all queues, including those still streamin=
+g. */
+		mali_c720_ctx_mgr_buffer_done(ctx, false);
 
---=-BpfK9v6vcqSHzyO28x9C--
+Because ctx->state is already MALI_C720_SLOT_STATE_STOPPED when
+mali_c720_cap_dev_buffer_done() runs,
+mali_c720_ctx_mgr_check_output_buffer_status() returns 0 immediately:
+
+drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c:mali_c720_ctx_mgr_=
+check_output_buffer_status() {
+	...
+	if (ctx->state =3D=3D MALI_C720_SLOT_STATE_STOPPED)
+		return 0;
+
+The stopping capture device then releases its buffer pool, which cancels and
+uninitializes its descriptor, but the sibling capture device that remains
+streaming keeps its pool with the hardware descriptor still under hardware
+control and pointing at the retired vb2 buffer's DMA address.
+
+[ ... ]
+
+> +static int mali_c720_s_fmt_vid_cap_mplane(struct file *file, void *fh,
+> +					  struct v4l2_format *f)
+> +{
+> +	struct mali_c720_cap_dev *cap_dev =3D video_drvdata(file);
+> +
+> +	if (media_entity_is_streaming(&cap_dev->vdev.entity))
+> +		return -EBUSY;
+> +
+> +	if (vb2_is_busy(&cap_dev->queue))
+> +		return -EBUSY;
+> +
+> +	mali_c720_set_format(cap_dev, &f->fmt.pix_mp);
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Can mali_c720_s_fmt_vid_cap_mplane() race with mali_c720_link_validate() on=
+ a
+sibling capture device sharing the media pipeline?
+
+Each capture device has its own cap_dev->lock, while both FR0 capture nodes
+share mali_c720->pipe when both links from fr_pipe are enabled:
+
+CPU0 (cap_devs[0] STREAMON)       CPU1 (cap_devs[1] S_FMT)
+mali_c720_vb2_start_streaming()
+  lock(&mali_c720->device_lock)
+  video_device_pipeline_start()
+    ...
+    mali_c720_link_validate()
+      /* on cap_devs[1] */
+                                  mali_c720_s_fmt_vid_cap_mplane()
+                                    /* lock(&cap_devs[1].lock) held */
+                                    media_entity_is_streaming() -> false
+      reads cap_devs[1].format
+                                    mali_c720_set_format()
+                                      writes cap_devs[1].format  <-- data r=
+ace
+    sets cap_devs[1].pad.pipe
+
+Because pad->pipe is only assigned after link_validate() succeeds and
+mali_c720_s_fmt_vid_cap_mplane() does not take mali_c720->device_lock, CPU1
+passes media_entity_is_streaming() and can overwrite cap_dev->format with an
+unvalidated resolution or pixel format while or right after
+mali_c720_link_validate() checks it.
+
+[ ... ]
+
+> +static int mali_c720_register_cap_dev(struct mali_c720 *mali_c720,
+> +				      enum mali_c720_cap_devs cap_dev_id)
+> +{
+[ ... ]
+> +	ret =3D vb2_queue_init(vb2q);
+> +	if (ret) {
+> +		dev_err(mali_c720->dev, "%s vb2 queue init failed\n",
+> +			cap_dev->vdev.name);
+> +		goto err_cleanup_media_entity;
+> +	}
+> +
+> +	strscpy(cap_dev->vdev.name, capture_device_names[cap_dev_id],
+> +		sizeof(cap_dev->vdev.name));
+
+[Severity: Low]
+If vb2_queue_init() fails, dev_err() logs cap_dev->vdev.name before strscpy=
+()
+initializes it, printing an empty name.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-initial=
+-upstream-candidate-v1-0-0cb9bde1bd30@arm.com?part=3D12
