@@ -1,57 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795523155;
-	b=XUWrgSDdwQpbhdzzhS/r9wDCK7S8wxqzzaMbigXVAYHIFPvalB4itF1VPBthoZiJs3eb
-	 hq2sE0t5jMe+6A8ZQcNERyNcYcUZq5uPtJlKPidfjL/Ck6Iwyb+SqJMg1reBlZGTrADZh
-	 KgK4KhKBwllBQ2s59ii3CZSzqCdRoKDjAlPysbtOhf1fp4h7lBd6XD2sHVZqMIPrLp6B7
-	 +KunnA02hv/H4fZqYgG6lw/+R082AHlJEV2msGmEySbfBNPhUEtL3Esf/utayGuClIddg
-	 hUsbhRkDp/tkq/tXHQOmZbQrS9t7bm0a+Gv1OuX4V/ltGLK39xgRGYDq+jt09mXhDqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795523155;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=4lLhFs2t5M9xhN1oaMSM/jExOmlugRqRZD2WX4w/xwU=;
-	b=0RQn3YqvhYmktPUE7PW4B4VTq1Jbw6QLyZFlJMg0EXGrw9SINNh1jLimhOVQJ6QarTQx
-	 HEsZ5vLg1+AvDYhaC4WDx8jKSPZ6i/0FDSF0NMQuL/mjSAwcOFyXg8WOg0f9fWDirbJxE
-	 9klyJ0+UhVKKyaiXBpaNyWZJ2GgafZR5YfKZ9yCRa0rKVnE7RUiuDLcJutFkZnotm9a5m
-	 FHwNBZBJr3Y26bmtHvtilhIjf6OmzWJuYYBbsY+76telFJFHamCUl6vEBLP9RFfxrkA4d
-	 +gO0PNkR3zZiZ1JSHnjYVZ59KetS3vH2MFpaZfSQK4P7BnOZiTAH3zQtCu7okLiQlZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ndw2AIjM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795523318;
+	b=xmTW1em0CZLZetgEih46foYANw1ljhFbbcsRZr4FxzNpRdaTCAgHI+y+yPfz2pl5W9fU
+	 5xpGEG80WLbNTeWBIS1WGzFk/RvGopr2y+TIHj8JTiX+jU9DnPHIlXuJ42E5wox6nFh0P
+	 178PRIDZDGqlnimdZ11jTcOYOZEBa3cD4U0Fl0O0Pt+3inWihVQQYRgzR0O7+4kDp2xdk
+	 L8RlP8z2dXFAgiGUUGhvmhOZ5ICZaulY6Qq7auj10I+uF4kcl7T0qOP5Rm45ifPRKjpg4
+	 UJrSVTqOrWcJPVWPGzucyyL4Ap54lHYw+vFrTk/K+XX78byJIY6Lt3mCJS9saljOfVA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795523318;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=bWdHkD13wMd/Xd77WjepXEVBI/YLkHIIzGDJnSOi/6c=;
+	b=0lTgRqF+JQPe/B2/KTxsTWoNAPoBRhQYN9owOkvkhXHgOf5/36xjFLlicva+KG6TJ+Qp
+	 g6uAI/XlWpaWHBV9pqEUrHxHkabSXi/9t/TgtJtXBuwg70xWBQqxQWeofIGb6WGdzanc2
+	 24wWgdhN6F8H/OsvhjLJ4usbpMonGEOBJXhL3jKxc9xLiMq/tA+XKiP7KHWe8ubrIWUou
+	 Gc4AP5DbJw4M6XMAwQUE2SnApDamfT3V88msa7D9KnUuDmEmAg362TstqiMTqGVEJQIvL
+	 J8UoGtbkQeDGWJE90Rwq4b/1SpdJ0tnB7WcVMFzshjHQoJDMRhdHdBMQ1yW1l2pvfBg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="RMx/Wp5n";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2207C606A321
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:25:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A801D606A326
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:28:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A801D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ndw2AIjM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6BC91F000CF;
-	Tue, 24 Nov 2026 12:25:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795523154;
-	bh=4lLhFs2t5M9xhN1oaMSM/jExOmlugRqRZD2WX4w/xwU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ndw2AIjMTiRRgm8ancwONdsc9m1tf0f1TinUCe0M25VxpMzKvV5zffyhZaOEk1nEz
-	 l0yLti6IwO/bVJGQPcv07ntLCvzxfrL26JUNPDfkjKuAnOY3XGwtiN0Z+UqwGX/kht
-	 3SXqdbhbVjyJgn5n0un7Z4cHUSw7s5LJl/QY8z0e1sXvyxT1A3FhhiUNlL/khwzYtE
-	 zq8wh+sSD1qAI08g6irDJNjO121Z+HsfF0l2OGu7fKJhmT4kHjGnJKUNY1mUfCg9eL
-	 v3OgQhZVrOSEf6N7iHhiXwUD9e2VTNw/x6oGfnkpYAGJYpUCWikbuKC1A4NmeihJZu
-	 Y0gf+fsDiZCDQ==
-Message-ID: <sashiko-outbox-231133@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/5] drm/bridge: trilinear: add the DPTX core and
- build glue
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luo Liu" <Luo.Liu@cixtech.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124120114.3273161-5-Luo.Liu@cixtech.com>
-References: <20261124120114.3273161-1-Luo.Liu@cixtech.com>
- <20261124120114.3273161-5-Luo.Liu@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 12:25:53 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RMx/Wp5n
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b86fcbd647so6979425a12.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 04:28:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795523316; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pBbTVZuYaTHd9UJTk9H2BORETaLRk8y4Qt0Pzgxp6JXWjindNNBvQML4DXeSGkypk+
+         R4Oo7tTjubi0UAZsgZihVDXyQMwedNT2XdYDS3hU4EmW06uholbqxKwfoV18jXh0kogC
+         zE5cWXgrkwumWeb3ucCpo89//ytrKiTCs24Pqtsu7uISbs7CtXojODgm2bxR6RrGOYsx
+         zHnGsTf7/eOGgfqa4SOaZhZ8zVPlFu4r5+FU1+vZoLJzKt252tFTVjFYz9cC2/CAjl6l
+         r7RMblHa2MTefIqO5BlXcLCOwg+MLvdoGtK48VaEp1wHoOgpR/eN0cydAozf0js/CpEA
+         ILUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bWdHkD13wMd/Xd77WjepXEVBI/YLkHIIzGDJnSOi/6c=;
+        fh=bzCXutk0XV2MeSJqAobFkcF0VNnZ2kHIIiAwpB20ifI=;
+        b=oh+EbNHZ+WpUbA5R8wmn9pKRWYuFemeMdAu/2o+qm5xj3BhfstbKITjINZ7FykIDLX
+         sI4MOjvX1Onf3lV7xwSZrgTFJawDwpb/xGYmWiUO3lNKjHnhQNypDxHnoih4k2aDo2mJ
+         zOfK5++yz7Om6wrOBBQA6Pvdjp/teH42+ZzP8d1KEVaFGLgGM8y+JRcMeLfv95sjDHpZ
+         BNtg98ATFubPLMfiTsUQ6bFxIHPxX6vLt8hV6Y9jYG+phV1E9Nzq7lJEI1bKiwHsUfeE
+         R7YiZXo3dcOtYSG8YXbQ5JY3IQfveJZaldHrAEu08zRjWbgJvwTXZSBnSkwXuWpgMNgO
+         sB6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795523316; x=1796128116; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bWdHkD13wMd/Xd77WjepXEVBI/YLkHIIzGDJnSOi/6c=;
+        b=RMx/Wp5nh2hga/5Ka4gbv6FcsmqZUMeY9mBxA7edn2B7jINKD4jjjzT8+5a9jbkxdD
+         IjJG9XwbrMOIYpZgI3NjsSHaVLzTGFArKhI8Zcyah9fdiHrrT5txVZl+RONOVd+wtcvO
+         wkfV29zyPlBX5wIPX/ngyUWhdiEV/njhJ+ahWe2OenTnL2qkZfoJnG/3nRi2PcAIL/bi
+         NlwjsRw9AfAGbmlWoo2czBvq3ouPopxR/bpZCe3EcduRzokf0haHFNnyie/VvgRElRJm
+         z/eoNlqQR0gfeyla2HNqaxw36496VoE1cCbPyZvWPUtxfvfgYmZ9HY/fhmcfrMSWkoR+
+         8Cow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795523316; x=1796128116;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bWdHkD13wMd/Xd77WjepXEVBI/YLkHIIzGDJnSOi/6c=;
+        b=VgWK7AvxoK4t3ADa2Ov8K4W0bH+xvYKIOn/zUrwSDZaUL3YuDvVePXrk3YBfm0eVm/
+         EUvmuzbXq2L+PZ/vBMh9f7yFuKfNZBPdi/ZU8FAffkZiBPo+hKoizkFoKOMWYLUXcuoL
+         irjA794YZpFd3HONnlwTdicG5UxGoC88yxgx/6X29MPzDZKMu9G4/z6RIpmcO73B127d
+         4lhtxDslJGqBkqaV18SJc3w+LV5e2lJKDTTy2rWJU8nIkoiGWpcofbgTzVsLClPgQaVM
+         ukxbty+vmTPJ1/iN7CMKHhzI1XPw8dplyiN8tEa6HXt5YXFyGb42mUXR6C5tvL9KfQXV
+         ciMg==
+X-Forwarded-Encrypted: i=1; AL+hErHSf6ZE+I5gzjZK7rO+x1yYnjcAXGuheiI48Wr7MEbZbbob3VmN543CgiXkK6InYtB9ebTJUKClJcxH@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wKhqQCUOnGmHeQ/Oep0Gb7lGN7lC1RoKqcyj2imCPS6ZdV5xG
+	rE9n8GufWSlAwaN41eIZhleB8IJe0LaOjZO1DtsZAM0OWOzaWavZR6bvbkAWeWYw0HrkZkmu+N1
+	fiiRvgBe6+cw1D51sdS9qNVMWFBc7SeQ8Ze42WAIuhA==
+X-Gm-Gg: AZFdTZfGgU4DBEO0JkomFJTZvVUo+nwzjKP/rMn0aCaytl5nWklSelegAcDS1PduC+/
+	RF5Knb1ihblGdPmkAHf6BJ6ymu0NSAfRi0inC8Tjx0bkMfFNpo2VNyV5bgP69oMilfvn9zUgIia
+	fxJsHc97vwAEgvMbviHjvdLOF7oG1KTk1fklslIJryumfFcWIxP29gRX2Yphvwk1IVsvqPnZUNu
+	eA88ZfX8X42k85sz+c6/zrrw01cj7+SJ3Estc4m1qh8rPKjKMth5F/H90SP4UVsD5OpvNMDkE4G
+	faxNLUlxsqlyGx7FjbXKXyjZVI5j6hOufmBt6GNgFMoJTANAdEs4ZpLbNo5KRCN/+c9uDB06xwb
+	CeCdiCz0L3s3Wrj/n3WAam7INznXGDijz98kNq3i9VAOlOsQQIm0pyKCuUNSdqb4XrqQphYo=
+X-Received: by 2002:a05:6402:1ed4:b0:6ba:6598:1392 with SMTP id
+ 4fb4d7f45d1cf-6ba6598149bmr7679171a12.8.1795523315933; Tue, 24 Nov 2026
+ 04:28:35 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,611 +102,247 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261026214359.3122870-1-briannorris@chromium.org> <20261026144346.3.I7bc547c83b7bf677a62670099f481a91ac737073@changeid>
+In-Reply-To: <20261026144346.3.I7bc547c83b7bf677a62670099f481a91ac737073@changeid>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Tue, 24 Nov 2026 12:28:24 +0000
+X-Gm-Features: Aa3M54o6_q2ze_X5WV0lDS-4k9Z9r9IbiOz5WhjT-SYs0fIiqKLT_L-3r-75L7Q
+Message-ID: <CADrjBPqnRrFeYT9J6NGxy+Xzy1PTZEz+BMs1_u2md7Ra6xPPDQ@mail.gmail.com>
+Subject: Re: [PATCH 3/9] soc: google: Add CPM over MailBox Array driver
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>, 
+	linux-arm-kernel@lists.infradead.org, 
+	Mariano Marciello <mmarciello@google.com>, Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org, 
+	=?UTF-8?Q?Jakub_G=C5=82owacki?= <jglow@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 12 potential
-issues to consider:
-- [High] drm/bridge: trilinear: stale connect state and lost HPD in
-  dptx_detect()
-- [Medium] drm/bridge: trilinear: missing abort return in
-  dptx_hpd_event_work_func()
-- [Medium] drm/bridge: trilinear: unhandled zero of_irq_get() return in
-  dptx_get_irq()
-- [Medium] drm/bridge: trilinear: device-wide poll toggling in
-  dptx_pm_prepare()
-- [Medium] drm/bridge: trilinear: missing host_enable() rollback in
-  dptx_host_reset()
-- [Medium] drm/bridge: trilinear: unlocked AUX access in
-  dptx_replay_deferred_hotplug()
-- [Medium] drm/bridge: trilinear: mixed workqueues used for
-  hpd_event_work
-- [Medium] drm/bridge: trilinear: suspend race with dptx_host_resume()
-  in dptx_core
-- [Medium] drm/bridge: trilinear: unabortable 10s poll in
-  dptx_wait_phy_dp_mode()
-- [Medium] drm/bridge: trilinear: stale force_hpd state across suspend
-  and disconnect
-- [Medium] drm/bridge: trilinear: race on irq_suspended and suspend
-  state in dptx_core
-- [Low] drm/bridge: trilinear: dptx_mode_configure() succeeds at
-  downshift floor
---
+Hi Brian,
 
-commit 47f9a9a601a0b7e7e57799e4fe3c7bc053e417ba
-Author: Luo Liu <Luo.Liu@cixtech.com>
+Thanks for your series; it's great to see more Laguna support being posted.
 
-drm/bridge: trilinear: add the DPTX core and build glue
+On Mon, 26 Oct 2026 at 21:45, Brian Norris <briannorris@chromium.org> wrote:
+>
+> The Central Power Manager (CPM) is a co-processor on the Google Tensor
+> SoCs, as used on Pixel phones. CPM supports power-management and a
+> number of other features.
+>
+> The Application Processor communicates with CPM over a pair of mailbox
+> channels (the "MailBox Array" (MBA)). CPM provides clock, power-domain,
+> reset, interrupt services, and more.
 
-This commit adds the core DisplayPort transmitter state machine, hotplug
-workers, power management, and probe/build glue for the Trilinear DPTX
-DRM bridge driver.
+[..]
 
-> diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_core.c b/drivers/gpu/d=
-rm/bridge/trilinear/dptx_core.c
++++ b/drivers/soc/google/Kconfig
+@@ -0,0 +1,13 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++config GOOGLE_CPM_MBA
++       tristate "Google Tensor CPM MailBox Array Interface"
++       depends on ARCH_GOOGLE || COMPILE_TEST
++       depends on MAILBOX
+
+Should we also have "depends on OF"?
+
++       select AUXILIARY_BUS
++       help
++         Driver for interfacing with the Central Power Manager (CPM) MailBox
++         Array (MBA) found on Google Tensor SoCs. The driver provides APIs for
++         communication between the Application Processor and the CPM, and
++         is required by CPM client drivers such as clock, reset, power
++         domain, and more.
+
+> diff --git a/drivers/soc/google/google-cpm-mba.c b/drivers/soc/google/google-cpm-mba.c
 > new file mode 100644
-> index 0000000000000..cf0f6c13df700
+> index 000000000000..629a071e202c
 > --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/trilinear/dptx_core.c
-[ ... ]
-> +static int dptx_mode_configure(struct dptx_dev *dp, int pclk, u8 bw, u8 =
-bpp,
-> +			       bool downshift)
+> +++ b/drivers/soc/google/google-cpm-mba.c
+> @@ -0,0 +1,964 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Google MailBox Array (MBA) CPM Interface
+> + *
+> + * Copyright 2023-2026 Google LLC
+> + */
+> +
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/completion.h>
+> +#include <linux/device.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/kref.h>
+> +#include <linux/list.h>
+> +#include <linux/lockdep.h>
+> +#include <linux/mailbox/goog-mba-message.h>
+> +#include <linux/mailbox_client.h>
+> +#include <linux/mailbox_controller.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/spinlock.h>
+
+Missing `#include <linux/slab.h>` header here as later it calls
+kfree(), kzalloc_obj().
+This can cause "implicit declaration of function kfree / kzalloc_obj"
+errors with COMPILE_TEST. Also similar issue in clk-cpm.c
+
+> +
+> +#include <soc/google/google-cpm-mba.h>
+> +
+> +#include "google-cpm-mba.h"
+> +
+
+[..]
+> +static bool cpm_iface_is_valid_req(struct cpm_data *cpm,
+> +                                  struct cpm_request *cpm_req)
 > +{
-> +	int max_rate =3D dp->link_max_rate;
-> +	int lane_cnt;
-> +	int bw_code;
-> +	int link_rate;
+> +       struct device *dev = cpm->dev;
 > +
-> +	if (!downshift)
-> +		bw_code =3D bw;
-> +	else
-> +		switch (bw) {
-> +		case DP_LINK_BW_8_1:
-> +			bw_code =3D DP_LINK_BW_5_4;
-> +			break;
-> +		case DP_LINK_BW_5_4:
-> +			bw_code =3D DP_LINK_BW_2_7;
-> +			break;
-> +		case DP_LINK_BW_2_7:
-> +			bw_code =3D DP_LINK_BW_1_62;
-> +			break;
-> +		case DP_LINK_BW_1_62:
-> +			bw_code =3D DP_LINK_BW_1_62;
-> +			break;
+> +       if (!cpm_req) {
+> +               dev_err(dev, "cpm_req is NULL\n");
+> +               return false;
+> +       }
+> +
+> +       if (!cpm_req->req_msg) {
+> +               dev_err(dev, "cpm_req->req_msg is NULL\n");
+> +               return false;
+> +       }
+> +
+> +       if (cpm_req->msg_type > RESPONSE_MSG || cpm_req->msg_type < ONEWAY_MSG) {
+> +               dev_err(dev, "Invalid msg_type: %d\n", cpm_req->msg_type);
+> +               return false;
+> +       }
 
-[Severity: Low]
-Should downshifting from DP_LINK_BW_1_62 return an error instead of
-keeping DP_LINK_BW_1_62 and returning 0?
+Should cpm_req->dst_id also be range checked?
 
-The inner loop in dptx_train_loop() only breaks when
-dptx_mode_configure(..., true) returns a negative error, so when training
-fails at 1.62 Gbps it repeats redundant link-training attempts at the
-same 1.62 Gbps rate and lane count until j > 3.
-
-[ ... ]
-
-> +static int dptx_host_reset(struct dptx_dev *dp)
-> +{
-> +	int ret;
 > +
-> +	dp->hw->ops->reset(dp->hw, true);
-> +	usleep_range(10, 20);
-> +	dp->hw->ops->reset(dp->hw, false);
+> +       if (cpm_is_request_msg(cpm_req) && !cpm_req->resp_msg) {
+> +               dev_err(dev, "cpm_req->resp_msg is NULL when msg_type is REQUEST_MSG\n");
+> +               return false;
+> +       }
 > +
-> +	ret =3D dp->hw->ops->phy_reset(dp->hw);
-> +	if (ret)
-> +		return ret;
+> +       if (cpm_is_response_msg(cpm_req)) {
+> +               if (!goog_mba_q_get_valid(&cpm_req->resp_context)) {
+> +                       dev_err(dev, "Invalid valid bit in resp_context: %#x\n",
+> +                               cpm_req->resp_context);
+> +                       return false;
+> +               }
 > +
-> +	usleep_range(100, 200);
-> +	dp->hw->ops->host_enable(dp->hw, true);
+> +               if (!cpm_is_response_header(&cpm_req->resp_context)) {
+> +                       dev_err(dev, "Invalid response type in resp_context: %#x\n",
+> +                               cpm_req->resp_context);
+> +                       return false;
+> +               }
+> +       }
 > +
-> +	return dp->hw->ops->phy_init(dp->hw);
+> +       return true;
 > +}
 > +
-> +static int dptx_host_init(struct dptx_dev *dp)
+
+[..]
+
+> +
+> +static int cpm_init_q_mode_proto(struct cpm_data *cpm)
 > +{
-> +	int ret;
+> +       struct cpm_payload msg_payload = {};
+> +       struct cpm_request req = {
+> +               .msg_type = ONEWAY_MSG,
+> +               .req_msg = &msg_payload,
+> +       };
 > +
-> +	if (dp->state & DPTX_STATE_INITIALIZED)
-> +		return 0;
-> +
-> +	ret =3D dp->hw->ops->apb_clock(dp->hw, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D dptx_host_reset(dp);
-> +	if (ret) {
-> +		dp->hw->ops->apb_clock(dp->hw, false);
-> +		return ret;
-> +	}
+> +       return __cpm_send_message(cpm, &req, GOOG_MBA_Q_INIT_PROTO_VAL, 0);
 
-[Severity: Medium]
-If phy_init() fails in dptx_host_reset(), does this leave the transmitter
-enabled and hardware HPD interrupts unmasked when dptx_host_init() gates
-the APB clock?
+Do we want this to have an infinite timeout? If the CPM firmware never
+responds, it will hang the boot (as MAX_SCHEDULE_TIMEOUT doesn't arm a
+timer).
+I guess it is game over anyway if the CPM firmware is dead, but it
+would be nice to log an error and return from probe()
 
-host_enable(dp->hw, true) enables the transmitter and unmasks interrupts
-in DPTX_INTERRUPT_MASK.  Without rolling back via
-host_enable(dp->hw, false) before apb_clock(dp->hw, false), an HPD
-interrupt firing while the IRQ is active (for instance during
-dptx_prepare() or dptx_host_resume()) will read MMIO registers in
-dptx_irq_handler() with apb_clk disabled.
 
-[ ... ]
-
-> +static int dptx_handle_connect(struct dptx_dev *dp)
-> +{
-> +	int ret;
-> +
-> +	lockdep_assert_held(&dp->lock);
-> +
-> +	if (dp->state & DPTX_STATE_CONNECTED)
-> +		return 0;
-> +
-> +	if (dp->state & DPTX_STATE_SUSPENDED)
-> +		return 0;
-> +
-> +	ret =3D dptx_read_sink_caps(dp);
-> +	if (!ret)
-> +		dp->state |=3D DPTX_STATE_CONNECTED;
-> +
-> +	return ret;
 > +}
 > +
-> +static int dptx_handle_disconnect(struct dptx_dev *dp)
+> +static int cpm_init_q_mode(struct cpm_data *cpm)
 > +{
-> +	lockdep_assert_held(&dp->lock);
+> +       int ret;
 > +
-> +	dp->state &=3D ~DPTX_STATE_CONNECTED;
+> +       ret = cpm_init_q_mode_proto(cpm);
+> +       if (ret < 0)
+> +               return ret;
 > +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does dptx_handle_disconnect() (and dptx_pm_prepare()) leave dp->force_hpd
-stuck at connector_status_connected?
-
-Once dptx_replay_deferred_hotplug() or dptx_hpd_notify() sets
-dp->force_hpd =3D connector_status_connected on a USB-C port,
-dptx_get_hpd_state() always returns true.  If the USB-C sink is unplugged
-during system sleep, resume schedules hpd_event_work, which sees
-dptx_get_hpd_state() =3D=3D true, fails DPCD reads in dptx_detect_status(),
-and sets dp->status =3D connector_status_disconnected without clearing
-dp->force_hpd.  Because dp->status is already disconnected, later
-dptx_hpd_notify(..., connector_status_disconnected) calls also bail out on
-hpd_state =3D=3D dp->status, so dptx_get_hpd_state() stays permanently true
-and every later dptx_bridge_detect() call stalls on 32 failing AUX retries.
-
+> +       cpm->seq_num = GOOG_MBA_Q_MIN_SEQ_VAL;
 > +
-> +static int dptx_detect(struct dptx_dev *dp)
-> +{
-> +	int ret;
-> +
-> +	dptx_lock(dp);
-> +
-> +	if ((dp->state & DPTX_STATE_SUSPENDED) &&
-> +	    current_work() =3D=3D &dp->hpd_event_work.work) {
-> +		ret =3D -EBUSY;
-> +		goto out;
-> +	}
-> +
-> +	ret =3D dptx_host_resume(dp);
-> +	if (ret)
-> +		goto out;
-> +
-> +	if (!(dp->state & DPTX_STATE_INITIALIZED)) {
-> +		dev_warn_once(dp->dev, "detect with uninitialized host\n");
-> +		ret =3D -ENODEV;
-> +		goto out;
-> +	}
-> +
-> +	if (!dptx_get_hpd_state(dp)) {
-> +		ret =3D -ENODEV;
-> +		goto out;
-> +	}
-> +
-> +	ret =3D dptx_handle_connect(dp);
-> +
-> +out:
-> +	dptx_unlock(dp);
-> +
-> +	return ret;
+> +       return 0;
 > +}
 > +
-> +static enum drm_connector_status dptx_detect_status(struct dptx_dev *dp)
+> +static void cpm_adev_release(struct device *dev)
 > +{
-> +	enum drm_connector_status status;
-> +	int ret;
+> +       struct auxiliary_device *adev = to_auxiliary_dev(dev);
 > +
-> +	ret =3D dptx_detect(dp);
-> +	if (ret =3D=3D -EBUSY)
-> +		status =3D connector_status_unknown;
-> +	else if (ret)
-> +		status =3D connector_status_disconnected;
-> +	else
-> +		status =3D connector_status_connected;
-> +
-> +	dptx_lock(dp);
-> +	dp->status =3D status;
-> +	dptx_unlock(dp);
-> +
-> +	return status;
-> +}
-
-[Severity: High]
-When HPD is deasserted, dptx_detect() returns -ENODEV without calling
-dptx_handle_disconnect(dp) to clear DPTX_STATE_CONNECTED.  Can this leave
-DPTX_STATE_CONNECTED set across an unplug and replug?
-
-If a disconnect is observed through .detect() (or if an unplug/replug
-coalesces before hpd_event_work runs for the disconnect),
-DPTX_STATE_CONNECTED remains set; when a new monitor is plugged in,
-dptx_handle_connect() returns 0 without calling dptx_read_sink_caps(),
-keeping stale link_max_rate, link_max_lanes, and DPCD capabilities from
-the previous sink.
-
-In addition, because dptx_detect_status() updates dp->status in a separate
-lock acquisition even when called from drm_bridge_funcs.detect, any userspa=
-ce
-GETCONNECTOR or poll call that runs before dptx_hpd_event_work_func() (or
-before dptx_hpd_notify() in drm_bridge_connector_detect_ctx()) overwrites
-dp->status early, causing old_status !=3D status (and hpd_state !=3D dp->st=
-atus)
-to evaluate to false and suppressing drm_bridge_hpd_notify().
-
-[ ... ]
-
-> +static void dptx_wait_phy_dp_mode(struct dptx_dev *dp)
-> +{
-> +	enum phy_mode mode;
-> +
-> +	if (read_poll_timeout(dp->hw->ops->phy_mode, mode, mode =3D=3D PHY_MODE=
-_DP,
-> +			      100 * USEC_PER_MSEC,
-> +			      DP_HPD_MAX_TRIES * 100 * USEC_PER_MSEC, false,
-> +			      dp->hw))
-> +		dev_dbg(dp->dev, "PHY did not enter DP mode\n");
+> +       of_node_put(dev->of_node);
+> +       kfree(adev);
 > +}
 > +
-> +static void dptx_hpd_event_work_func(struct work_struct *work)
+> +static void cpm_unregister_adev_action(void *data)
 > +{
-> +	struct dptx_dev *dp =3D container_of(work, struct dptx_dev,
-> +					 hpd_event_work.work);
-> +	enum drm_connector_status old_status;
-> +	enum drm_connector_status status;
-> +	bool hpd;
+> +       struct auxiliary_device *adev = data;
 > +
-> +	dptx_lock(dp);
-> +	old_status =3D dp->status;
-> +	if (dptx_hpd_work_aborted(dp)) {
-> +		dptx_unlock(dp);
-> +		return;
-> +	}
-> +
-> +	hpd =3D dptx_get_hpd_state(dp);
-> +	dptx_unlock(dp);
-> +
-> +	if (hpd && dp->hw->ops->phy_mode(dp->hw) !=3D PHY_MODE_INVALID)
-> +		dptx_wait_phy_dp_mode(dp);
-> +
-> +	dptx_detect_status(dp);
-
-[Severity: Medium]
-Does dptx_wait_phy_dp_mode() block for the full 10 seconds when the USB-C
-PHY stays out of DP mode or when HPD is deasserted, and then proceed into
-dptx_detect_status() anyway?
-
-read_poll_timeout() only checks mode =3D=3D PHY_MODE_DP without checking
-dp->hpd_stopped, DPTX_STATE_SUSPENDED, or !dptx_get_hpd_state(dp), so
-cancel_delayed_work_sync(&dp->hpd_event_work) in suspend, shutdown, or
-bridge detach can stall for 10 seconds.  Because the timeout error is
-discarded, dptx_hpd_event_work_func() also attempts DPCD AUX reads in
-dptx_detect_status() even when the PHY never entered DP mode.
-
-> +
-> +	dptx_lock(dp);
-> +	status =3D dp->status;
-> +	if (!dptx_hpd_work_aborted(dp)) {
-> +		if (status =3D=3D connector_status_connected)
-> +			dptx_handle_connect(dp);
-> +		else
-> +			dptx_handle_disconnect(dp);
-> +	}
-> +
-> +	dptx_unlock(dp);
-> +
-> +	if (old_status !=3D status && dp->bridge.dev)
-> +		drm_bridge_hpd_notify(&dp->bridge, status);
-> +}
-
-[Severity: Medium]
-Should dptx_hpd_event_work_func() return after unlocking when
-dptx_hpd_work_aborted(dp) is true?
-
-If dptx_pm_prepare() suspends the device while dptx_hpd_event_work_func()
-is unlocked in dptx_wait_phy_dp_mode(), dptx_detect() returns -EBUSY and
-dptx_detect_status() sets dp->status =3D connector_status_unknown.  Falling
-through when dptx_hpd_work_aborted(dp) is true calls
-drm_bridge_hpd_notify(&dp->bridge, connector_status_unknown) during
-suspend or bridge detach, which invokes dptx_hpd_notify() while
-DPTX_STATE_SUSPENDED is set and overwrites dp->force_hpd to
-connector_status_disconnected.
-
-[ ... ]
-
-> +static void dptx_replay_deferred_hotplug(struct dptx_dev *dp)
-> +{
-> +	bool hpd;
-> +
-> +	dptx_lock(dp);
-> +	if (!dptx_deferred_hotplug_pending(dp)) {
-> +		dptx_unlock(dp);
-> +		return;
-> +	}
-> +
-> +	hpd =3D dptx_get_hpd_state(dp);
-> +	dptx_unlock(dp);
-> +
-> +	if (hpd) {
-> +		schedule_delayed_work(&dp->hpd_event_work, 0);
-> +		return;
-> +	}
-> +
-> +	if (dp->hw->ops->phy_mode(dp->hw) !=3D PHY_MODE_DP)
-> +		return;
-> +
-> +	dptx_lock(dp);
-> +	if (!dptx_deferred_hotplug_pending(dp)) {
-> +		dptx_unlock(dp);
-> +		return;
-> +	}
-> +
-> +	dptx_unlock(dp);
-> +
-> +	if (!dp->hw->ops->sink_present(dp->hw))
-> +		return;
-> +
-> +	dptx_lock(dp);
-> +	if (!dptx_regs_accessible(dp)) {
-> +		dptx_unlock(dp);
-> +		return;
-> +	}
-> +
-> +	dp->force_hpd =3D connector_status_connected;
-> +	dp->status =3D connector_status_unknown;
-> +	dptx_unlock(dp);
-> +
-> +	schedule_delayed_work(&dp->hpd_event_work, 0);
-> +}
-
-[Severity: Medium]
-Can dropping dp->lock around dp->hw->ops->sink_present(dp->hw) race with
-dptx_host_deinit()?
-
-CPU0                                  CPU1
-dptx_replay_deferred_hotplug()
-  dptx_lock(dp)
-  dptx_deferred_hotplug_pending(dp)
-  dptx_unlock(dp)
-                                      dptx_pm_prepare()
-                                        ...
-                                        dptx_lock(dp)
-                                        dptx_host_deinit(dp)
-                                          apb_clock(dp->hw, false)
-                                        dptx_unlock(dp)
-  dp->hw->ops->sink_present(dp->hw)
-    /* AUX MMIO access with apb_clk off */
-
-In addition, after sink_present() succeeds and dp->lock is re-acquired,
-only dptx_regs_accessible(dp) is checked rather than
-dptx_deferred_hotplug_pending(dp), which can clobber a concurrent
-dp->force_hpd update from dptx_hpd_notify().
-
-> +
-> +static irqreturn_t dptx_irq_handler(int irq, void *data)
-> +{
-> +	struct dptx_dev *dp =3D data;
-> +
-> +	return dp->hw->ops->irq(dp->hw);
+> +       auxiliary_device_delete(adev);
+> +       auxiliary_device_uninit(adev);
 > +}
 > +
-> +static void dptx_queue_hpd_event(void *data)
-> +{
-> +	struct dptx_dev *dp =3D data;
-> +
-> +	if (!READ_ONCE(dp->hpd_stopped))
-> +		queue_delayed_work(system_freezable_wq, &dp->hpd_event_work, 0);
-> +}
 
-[Severity: Medium]
-dptx_queue_hpd_event() queues dp->hpd_event_work onto system_freezable_wq,
-whereas dptx_replay_deferred_hotplug() and dptx_pm_complete() queue the
-same dp->hpd_event_work onto system_wq via schedule_delayed_work().  Can
-queuing the same work item onto two different workqueues allow
-dptx_hpd_event_work_func() to run concurrently on two CPUs and bypass
-workqueue freezing during suspend?
+Can we use devm_auxiliary_device_create() instead of open coding these?
 
-Using dptx_queue_hpd_event() consistently for dp->hpd_event_work would
-keep it on system_freezable_wq.
-
-> +
-> +static void dptx_queue_hpd_irq(void *data)
+> +static int cpm_register_adev(struct cpm_data *cpm, const char *name)
 > +{
-> +	struct dptx_dev *dp =3D data;
+> +       struct auxiliary_device *adev;
+> +       int ret;
 > +
-> +	if (!READ_ONCE(dp->hpd_stopped))
-> +		queue_delayed_work(system_freezable_wq, &dp->hpd_irq_work, 0);
-> +}
+> +       adev = kzalloc_obj(*adev, GFP_KERNEL);
+> +       if (!adev)
+> +               return -ENOMEM;
 > +
-> +static void dptx_irq_off(struct dptx_dev *dp)
-> +{
-> +	if (READ_ONCE(dp->irq_suspended))
-> +		return;
+> +       adev->name = name;
+> +       adev->id = 0;
+> +       adev->dev.parent = cpm->dev;
+> +       adev->dev.release = cpm_adev_release;
+> +       device_set_of_node_from_dev(&adev->dev, cpm->dev);
 > +
-> +	disable_irq(dp->irq);
-> +	WRITE_ONCE(dp->irq_suspended, true);
+> +       ret = auxiliary_device_init(adev);
+> +       if (ret) {
+> +               of_node_put(adev->dev.of_node);
+> +               kfree(adev);
+> +               return ret;
+> +       }
+> +
+> +       ret = auxiliary_device_add(adev);
+> +       if (ret) {
+> +               auxiliary_device_uninit(adev);
+> +               return ret;
+> +       }
+> +
+> +       return devm_add_action_or_reset(cpm->dev, cpm_unregister_adev_action, adev);
 > +}
 > +
-> +static void dptx_cancel_hpd_works(struct dptx_dev *dp)
-> +{
-> +	cancel_delayed_work_sync(&dp->sw_hpd_irq_work);
-> +	cancel_delayed_work_sync(&dp->hpd_irq_work);
-> +	cancel_delayed_work_sync(&dp->hpd_event_work);
-> +}
-> +
-> +static void dptx_quiesce_hpd(struct dptx_dev *dp)
-> +{
-> +	bool irq_off;
-> +
-> +	dptx_lock(dp);
-> +	WRITE_ONCE(dp->hpd_stopped, true);
-> +	dptx_unlock(dp);
-> +
-> +	irq_off =3D READ_ONCE(dp->irq_suspended);
-> +	if (!irq_off)
-> +		disable_irq(dp->irq);
-> +
-> +	dptx_cancel_hpd_works(dp);
-> +
-> +	if (!irq_off)
-> +		enable_irq(dp->irq);
-> +}
 
-[Severity: Medium]
-Can unsynchronized access to dp->irq_suspended in dptx_irq_off() and
-dptx_quiesce_hpd() race with dptx_host_resume()?
-
-CPU0                                  CPU1
-dptx_detect()
-  dptx_lock(dp)
-  dptx_host_resume(dp)
-    if (READ_ONCE(dp->irq_suspended))
-      enable_irq(dp->irq)
-                                      dptx_pm_prepare()
-                                        dptx_irq_off(dp)
-                                          if (READ_ONCE(dp->irq_suspended))
-                                            return;  <-- skips disable_irq()
-      WRITE_ONCE(dp->irq_suspended, false)
-  dptx_unlock(dp)
-
-Because dptx_irq_off() and dptx_quiesce_hpd() inspect and update
-dp->irq_suspended outside dp->lock, dptx_irq_off() can observe
-dp->irq_suspended =3D=3D true right after dptx_host_resume() re-enabled the
-IRQ, leaving dp->irq enabled while dptx_pm_prepare() powers down the host.
+[..]
 
 > +
-> +static int dptx_pm_prepare(struct dptx_dev *dp)
-> +{
-> +	if (dp->bridge.dev && dp->bridge.dev->mode_config.poll_enabled)
-> +		drm_kms_helper_poll_disable(dp->bridge.dev);
-> +
-> +	dptx_irq_off(dp);
-> +
-> +	dptx_lock(dp);
-> +	dp->state |=3D DPTX_STATE_SUSPENDED;
-> +	dptx_unlock(dp);
-> +
-> +	dptx_cancel_hpd_works(dp);
-> +
-> +	dptx_lock(dp);
-> +	if (!dp->active_stream_cnt)
-> +		dptx_host_deinit(dp);
-> +	dp->status =3D connector_status_unknown;
-> +	dp->state &=3D ~DPTX_STATE_CONNECTED;
-> +	dptx_unlock(dp);
-> +
-> +	return 0;
-> +}
-> +
-> +static int dptx_pm_complete(struct dptx_dev *dp)
-> +{
-> +	int ret;
-> +
-> +	dptx_lock(dp);
-> +	ret =3D dptx_host_resume(dp);
-> +	dptx_unlock(dp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (dp->bridge.dev && dp->bridge.dev->mode_config.poll_enabled)
-> +		drm_kms_helper_poll_enable(dp->bridge.dev);
+> +MODULE_DESCRIPTION("Google MBA CPM interface");
+> +MODULE_AUTHOR("Lucas Wei <lucaswei@google.com>");
 
-[Severity: Medium]
-Should an individual bridge's suspend and resume callbacks toggle
-drm_kms_helper_poll_disable() and drm_kms_helper_poll_enable() on the
-parent drm_device?
+I think you should add Lucas Wei's SoB tag to the patch as part of the DCO
 
-Output polling belongs to the KMS device as a whole.  When multiple
-bridges share a drm_device or a bridge resumes before the display
-controller, the first bridge to run dptx_pm_complete() re-enables HPD and
-schedules output_poll_work across all connectors while sibling bridges and
-the KMS driver are still suspended.
+regards,
 
-> +
-> +	if (!READ_ONCE(dp->hpd_stopped) && READ_ONCE(dp->attached))
-> +		schedule_delayed_work(&dp->hpd_event_work, 0);
-> +
-> +	return 0;
-> +}
-> +
-> +static int dptx_prepare(struct dptx_dev *dp)
-> +{
-> +	int ret;
-> +
-> +	dptx_lock(dp);
-> +
-> +	ret =3D dptx_host_resume(dp);
-> +	if (ret)
-> +		goto end;
-
-[Severity: Medium]
-Because dptx_detect() and dptx_prepare() unconditionally call
-dptx_host_resume(dp), can a concurrent detect or modeset undo
-DPTX_STATE_SUSPENDED while dptx_pm_prepare() is in flight or after the
-bridge has suspended?
-
-CPU0                                  CPU1
-dptx_pm_prepare()
-  dptx_irq_off(dp)
-  dptx_lock(dp)
-  dp->state |=3D DPTX_STATE_SUSPENDED
-  dptx_unlock(dp)
-  dptx_cancel_hpd_works(dp)
-                                      dptx_detect() / dptx_prepare()
-                                        dptx_lock(dp)
-                                        dptx_host_resume(dp)
-                                          enable_irq(dp->irq)
-                                          dp->state &=3D ~DPTX_STATE_SUSPEN=
-DED
-                                        dptx_unlock(dp)
-  dptx_lock(dp)
-  dptx_host_deinit(dp)
-    apb_clock(dp->hw, false)          <-- IRQ enabled with apb_clk off
-  dptx_unlock(dp)
-
-Even after dptx_pm_prepare() finishes (including via dptx_shutdown()),
-any later dptx_detect() or dptx_prepare() call will also invoke
-dptx_host_resume() and power the controller, clocks, PHY, and IRQ back on.
-
-[ ... ]
-
-> +static int dptx_get_irq(struct dptx_dev *dp)
-> +{
-> +	int ret;
-> +
-> +	ret =3D of_irq_get(dp->dev->of_node, 0);
-> +	if (ret < 0)
-> +		return dev_err_probe(dp->dev, ret, "failed to get irq\n");
-> +
-> +	dp->irq =3D ret;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-of_irq_get() returns 0 on IRQ mapping failure (and when CONFIG_OF_IRQ is
-disabled).  Should this check ret <=3D 0 so that dp->irq =3D 0 is not passed
-to irq_set_status_flags() in dptx_init()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124120114.3273=
-161-1-Luo.Liu@cixtech.com?part=3D4
+Peter
