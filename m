@@ -1,45 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795547787;
-	b=SoCCkkkX/ebrWuGxZPcqVgKlP0iB6w7omiUrwGiup5fCYImjbMsAQf9mvNPDYlw5rVYr
-	 8wlbTfCgJV9Zt2M1i9GenWjY93+Jej+FyG1gPeKZFXCojD1vihjL/o684ITWNRkycRYYY
-	 P6LaAi2kBY6qaoTAWPCpdeDIQFo+Xo18vzi/ii0DNaeDSVUXTOLV5/EIg+Z3rydFRKkrl
-	 9AoaCrhCLPXsyxcJBf5i+L/maQYZVJCt6l3FFhTcHJvzDicNUdW71ZIg1MhWFvMRhZ38K
-	 WQeVlolGbZ+nYcLqp0WGmvt26hDxz5uQ1uYTgMU0d2at4XK61TtPvY7eq9y9LeG57Vw==
+	t=1795547910;
+	b=l35sD3jhPNeB+kOk0+LzMBXwDXhJvfeIh0/wHnGAYyCQ3Gs1c5OuANrWzSgnwc4rcVQD
+	 WGvp+DBIlMX3ll4pE5U7KdYFHH+vOsjjB9xYpeObokmarzrcm2cZApcbf3E+rCXwJ/iKB
+	 DoGVg70UFHR66BWcHhsKCJss4hz+3ihwp8UQNeTvocObLmVmtzJeSbQu+F+nA0XYal5QQ
+	 r1IzzXHpHa8BUWUVdIYglOuIOoDR3uXP0F2zm6OqjnrGlqxGUmX8d2dNjUguWaMv7neRP
+	 ouRmRleIoFijkgR0A6NXgL5yK8Jq/fMAD5qLmeobXO2em0oxohlT4eA64znoyx2uztQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795547787;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=lXwLpfc4aS4+J/jJs2iTIAGiSEtFcclowGK9/tjyUGk=;
-	b=O+T0pJJXU1PcQbBM1BtCIsz0Jm/snJDXTSLff11Z2yWJ3B6ustCQYdg+I7mGveo0Bg8D
-	 tN2qeFEkeSx8BN5gvCtE2gCiXOTLOivyK2lkwfNEdEOSHHbCtmbldttBm7s7VPFUWSuFt
-	 mjyweaLrFnzjnmK96y0tGWGFSqKKGQRRzYXBpblm7OYzaQM5FZZjFKz6GJups6ibeB+gS
-	 0AT3P1Ey7too5hnbw0WuxmPGSeBDv/38CtKIP3AVG0qu1L7wYyAFypcd5YOaGxTeYZE7z
-	 OrThPBKI/ZfB+e4Zo1Ko4JNWXkoq2Fv/dkdGIrWw4NIk4AM99NklmzVa8v4VQFTKr6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795547910;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yPaStIqUsFXmNLYCrNHs2JQTzK46Sd8vnaUQkzY6azQ=;
+	b=ezeN/jWCSkv/UweryKWR3HolYEBKB4Bt1eUDmwMrS1QvCwroiTU5njkdCz9NpNcu2rBT
+	 hKrs7nY/B17sHGbXHHNs1B2qq/0BKpdtndsOk3e9JMayyLSKqnl/T0x3kbut4uzi39fAQ
+	 xUnxyDSFtPliYf9JksG5HndezpghtDjYN3l829MwLEIJPf2+tyRiK6TCjNkgU4YEHBuv5
+	 Nie8OYOyhzZAJEneMprXbLrERtHOgVyMN3f0yEXIYbqgAtG7DaiFzr4HMQjVmoOXCMHAj
+	 ryZparJUjA5TU4uY2FCLBPbemjNMbCouuAqKBsciJICGpJeYErLtJ1qaXQGNxeYfe7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8xOoZm1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z+vE4Np7;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8186606A31E;
-	Tue, 24 Nov 2026 19:16:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF46A606A31E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 19:18:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF46A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8xOoZm1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333321F000C6;
-	Tue, 24 Nov 2026 19:16:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795547786;
-	bh=lXwLpfc4aS4+J/jJs2iTIAGiSEtFcclowGK9/tjyUGk=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=E8xOoZm1tkyvMNjNixCEnPcZxqSvm7nQHecKeztfjP56GWSvZjYReB7gYKUMnv/w0
-	 Sm3JsLa7BScRVmvAS4iQD2/oBRunDKNEBcW7/bWITGa+2n8302BouwuRDbV60VPuZg
-	 oZD4mrDpCZ1837ckijBp0VEFr+jUN1AjhTzGkgLhtEEqiV2h/rj9UlQWbhuUhiftc3
-	 hJCM24QqfT+wOyzl0fIt8DCweVrvK0lJJ5CWDml25DFhXcZc4D2vJUPPWYy6DpgpaN
-	 JsVYyoyZsZchDF+71Dwm6d7BrOJ9Mko0WLASP4tj/CWY13bXLducdhFzpeREsi4KOj
-	 iyQDhLG7PwCJw==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z+vE4Np7
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4b467581b98so47960305e9.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:18:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795547908; x=1796152708; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yPaStIqUsFXmNLYCrNHs2JQTzK46Sd8vnaUQkzY6azQ=;
+        b=z+vE4Np7heATfeNUbsGa+8Y/j19RZ/ggk1zmUogTT1iTjRESol4zWOwX2BNeXKVzqb
+         S2L+aaS4/WRGjwKeC7PsrUD1IXxRAmepqxC5c4xEFUBjS4SOFxvE5UHvqeEOQfWjkKq1
+         0fkimxO0+Aaz+iznCSSv9Tqnvoi9eCWEYwxZxWjKTPYrxDvjbWS4v7nQiV04ZphDJM4j
+         bGS5LqDUwqXbhREs2KqvuHzV90AJX9LpEY5qj1DOFvNRYgCBtKi28L75UXzKu66gM9xa
+         Btjr2pux4f/NSFpilNuaobGJ5Lw5qSsQDMJIJBSjU+51+h2nICgoZSxhFnEYCiSuDqa8
+         IpoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795547908; x=1796152708;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yPaStIqUsFXmNLYCrNHs2JQTzK46Sd8vnaUQkzY6azQ=;
+        b=24G8fYzDG2C9hgAbavsphnpnhEgVaH512rCbW3xScSWuuyfbIxr+sy08nF6qZKtn0Y
+         bpNEJeRNfhhR4xMkTzqko5BknUtRFkUf2ezmkINbWCpE7xjNnC3DXsIC9FCo92GDgBiF
+         cPp4+ONPE3+9vWt+3iVcy2kTxMdAtn5Jbb+19DPD+yZsyoUIgT+MkE2Ebp2x3H0+jS7R
+         qPl6ve/pr8pbalKeXdePw/NhInIGrwRJZQti5S8fMUZu2rG5VTz4AgUkUVrSXzpBy3au
+         sFllducwxn5iIp/8COy9tAlz1EE21szOHaDzrQfoXU0Fvr/wt2DJixJbTo4e4ut+aGKu
+         VFmg==
+X-Forwarded-Encrypted: i=1; AL+hErEyCpHSPOP/BnhMPAiqStyCxuvAP/ecMPwvul6q+qLCNyBOQlf3tNdGqs7X2RR671sBnnMHJP5isvo1@vger.kernel.org
+X-Gm-Message-State: APuU4Z86NK4nYY4SD6ey9T3+0ZnRnqNESn5zLMae+AHMD5f29Gg+I935
+	Bq8aJW4nZ3j4lL8nfmgB/PWAaRPZiZ8IWtJzFXxUUW6jzCqsQiLtblY=
+X-Gm-Gg: AZFdTZeiCJf5UEjzv8LBP1eEY6Wg5KzaDagWWfXjeqw5cPciZ5oJejGY/Fd7wTGiWEG
+	nPbEPK2UbumdRkk+Tp/VV44qoqzPhzj3NzR6je0BSPh5HGNefd6P5l34XZKw3zL+8A5oceam5tV
+	PxX7m3s1CziYzabLY57asWq7cyW7UK2uayG/1QalLwKMRwOLGHIVI8ZxIW7V/8iXcJNKuin8qBw
+	XJNbLwy2YCED6oyKxO+8+mh5ae1c0L3ZssQM8EQe+nXTECueuX3MU910YzuIS3okDhsAUeUOOM6
+	TTLdvjxpODPg2SA6EcFQKE9FWkSRcHLaF3jNB6dO467wiQttTn1UpRo1tFd9+1sd04t6vAbHQ3V
+	DE28FXIYl+fOSI8z6jEREHOiD/ix98JR1GAixmgEFcii1rMNrAw78u/ioLD85xLTAk8YOKXRVUi
+	kNATDycdmHcMyMDT25DIltFxDEx9xPkrBkxQ6HTUNp3qKVdIm18w8DI1bO5kGEXTh4rDKmlLPWl
+	QSbYiFwsd9SHzMZUmsGJ8utsCFqm9DhzPrdR5cO1DDPDfzxIoi9pBtIq6ri+rmb97Kkye3v47nM
+	bbPFHZ9CNKSktRDrKc3BsYUQcfsVQiPJHYWx15T/fxzTykcHNu0zug==
+X-Received: by 2002:a05:600c:5249:b0:4bb:665c:a078 with SMTP id 5b1f17b1804b1-4bb8893a89bmr317787135e9.28.1795547908057;
+        Tue, 24 Nov 2026 11:18:28 -0800 (PST)
+Received: from localhost.localdomain ([93.145.31.94])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884c3063sm463320985e9.15.2026.11.24.11.18.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 11:18:27 -0800 (PST)
+From: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
+Subject: [PATCH 0/2] drm/bridge: Add Lontium LT9721 HDMI to eDP bridge support
+Date: Tue, 24 Nov 2026 20:18:01 +0100
+Message-Id: <20261124191803.283266-1-gianfranco.mariotti94@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,99 +109,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 3/5] soc: st: stm32mp2-syscfg: register the clock
- device
-From: Brian Masney <masneyb@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Christophe Roullier <christophe.roullier@foss.st.com>, 
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Brian Masney <masneyb@kernel.org>
-In-Reply-To: <20261124-ups_mp25_clk_syscfg-v4-3-894d95dffec4@foss.st.com>
-References: <20261124-ups_mp25_clk_syscfg-v4-0-894d95dffec4@foss.st.com>
- <20261124-ups_mp25_clk_syscfg-v4-3-894d95dffec4@foss.st.com>
-Date: Tue, 24 Nov 2026 14:16:18 -0500
-Message-Id: <179554777875.338124.2443153902372697503.b4-review@b4>
-X-Mailer: b4 0.17-dev-8145e
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1998; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=F1WVQywTa9F2r7TDaCAJztvWfqC8Q7gfotXdlbvqROs=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJZH7W0Czi4fuJvs6oPT7shs7bSP1zXa3Km+xF5bf0jV
- WcZTao7SlkYxLgYZMUUWZbkGhVEpK6yvXdHkwVmDisTyBAGLk4BmIjUKUaGnbHpPgx+ZmUPVnA3
- zjwxl7/CLpDp4EoWvXb912Enmq8kMTI0tLaL5vuELPvwdL0ES9a6wooZclMLAliN9nutq72Wxcs
- PAA==
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Transfer-Encoding: 8bit
 
-Hi Gabriel,
+This series adds Device Tree binding documentation and a DRM bridge driver
+for the Lontium LT9721 HDMI 1.4 to 1/2/4-lane eDP 1.4 bridge chip.
 
-> The STM32MP23x and STM32MP25x SYSCFG provides the LTDC pixel clock mux,
-> whose driver is an auxiliary driver since the SYSCFG node is bound to
-> this driver.
-> 
-> Create the auxiliary device for the clock driver.
-> 
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> [gabriel.fernandez@foss.st.com: create the device on STM32MP23x too]
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
->  drivers/soc/st/Kconfig           |  1 +
->  drivers/soc/st/stm32mp2-syscfg.c | 14 +++++++++++++-
->  2 files changed, 14 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
-> index 2a9d6a77be45..62bbe8c63238 100644
-> --- a/drivers/soc/st/Kconfig
-> +++ b/drivers/soc/st/Kconfig
-> @@ -5,6 +5,7 @@ config SOC_STM32MP2
->  	tristate "STM32MP2 SoC family support"
->  	depends on ARCH_STM32 || COMPILE_TEST
->  	default ARCH_STM32 && ARM64
-> +	select AUXILIARY_BUS
->  	select SOC_BUS
->  	help
->  	  If you say yes here, you get support for the ST STM32MP2 family
-> diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
-> index 770321a4a6f7..1160b65d3dde 100644
-> --- a/drivers/soc/st/stm32mp2-syscfg.c
-> +++ b/drivers/soc/st/stm32mp2-syscfg.c
-> @@ -3,13 +3,25 @@
->   * Copyright 2026 Marek Vasut
->   */
->  
-> +#include <linux/auxiliary_bus.h>
->  #include <linux/module.h>
->  #include <linux/of_platform.h>
->  #include <linux/platform_device.h>
->  
->  static int stm32mp2_syscfg_probe(struct platform_device *pdev)
->  {
-> -	return devm_of_platform_populate(&pdev->dev);
-> +	struct device *dev = &pdev->dev;
-> +	int ret;
-> +
-> +	ret = devm_of_platform_populate(dev);
-> +	if (ret)
-> +		return ret;
-> +
+The LT9721 accepts an HDMI 1.4 TMDS video stream (up to 3.4 Gbps/lane) and
+drives a 1-, 2-, or 4-lane eDP 1.4 output at RBR (1.62 Gbps) or HBR
+(2.7 Gbps) per lane, controlled over a paged I2C register interface.
 
-Looking at the dt binding, I see that the clocks property is optional.
-Should this have the following check?
+Patch 1 documents the "lontium,lt9721" binding, including power supplies,
+reset GPIO, OF graph input/output endpoints with lane/polarity remapping,
+and the DisplayPort AUX bus.
 
-    if (!of_property_present(dev->of_node, "clocks"))
-        return 0;
+Patch 2 implements the atomic DRM bridge driver, registering the DP AUX
+channel (supporting both Native AUX for DPCD and I2C-over-AUX for EDID)
+and populating downstream eDP panels via devm_of_dp_aux_populate_bus().
 
-Brian
+Hardware-tested on an NXP i.MX8MP-based platform on a v5.10 kernel
+(driving a 2-lane 1080p eDP panel with dynamic EDID mode discovery over
+DP AUX), and forward-ported and build-/schema-tested against linux-next.
+
+Gianfranco Mariotti (2):
+  dt-bindings: display: bridge: Add Lontium LT9721 HDMI to eDP bridge
+  drm/bridge: Add Lontium LT9721 HDMI to eDP bridge driver
+
+ .../display/bridge/lontium,lt9721.yaml        |  169 ++
+ MAINTAINERS                                   |    8 +
+ drivers/gpu/drm/bridge/Kconfig                |   16 +
+ drivers/gpu/drm/bridge/Makefile               |    1 +
+ drivers/gpu/drm/bridge/lontium-lt9721.c       | 1640 +++++++++++++++++
+ 5 files changed, 1834 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt9721.yaml
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt9721.c
 
 -- 
-Brian Masney <masneyb@kernel.org>
+2.25.1
+
