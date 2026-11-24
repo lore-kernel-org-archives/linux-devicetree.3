@@ -1,50 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795527887;
-	b=gPkNaAiFrVxaXs9ZU1KH+512dU/Aa8CUekxe385YlCVpzk+gumXoLPP1+j/W/J9fFuwx
-	 JJRlbWsb4bUzUSwIKTCLei6jbaqtyai+DnBbqTDMr4KbvzeE0P/RMhODS4d8ZlbfXZeoU
-	 6iQKP5jzR6UANIhhB+Pr3p8Y5kxzFW4/hxzaehFli+CHqB3jkhf/RUGsJuTFYA7VSWsll
-	 RewSbC6OyZIMxwwPtLlamFpQnMnTlCEeV6ENXOhFtN9ruNwMorLuUJrABQSOkrnjsl8eO
-	 5RtvBCHuudFd7IuXWpJrED6H8mk4J0Jp2kdBtGraBMymgLTBBn2+0uxq4YuHAnkE40Q==
+	t=1795527929;
+	b=YMRrRvx3YFQQiHgW6LTARMg40oyVULAPspBe5MYxS1n5SQJYYibIIksi3wAUtefv8Ya4
+	 AIR6TDqVOAZ4/uI9NOqkzybnNdxpCcqi7UuEArHgQ/P+MVRwbhNtFuibDJjVhRSt27eyE
+	 qnyzReI+PB6oPCk5ySzXg7MTF96nAVM6ib4USoDc08zDtjnEa5VYln0s9YP9H7fJnzPA0
+	 zZrVPw995PvAXffVKtWye5LsDwpdVwie1sGApODqdD6ul/8HgnvCVFyGN+7QKiLGgrZDG
+	 lSr9JDnjubw/+BcwPWMqMoFw2wzT6oreJBBGbr7J9sitWIPFL4aCsT8ECRdFgOhm7Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795527887;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=6wsKLq9kxl5csJ8c/oj+CJg3ej4KmwWP9pDuJWodbxI=;
-	b=i/gyGNR+1zJ8h3BeqQUWWF09uUprLri3udl9LAMZqiX5b7JxHdXDOK9NLFCEaDvaz5Zr
-	 lXghmFW4irb4W47rYPnIEfDDg91mUZpRK5v0xNT7NzC1PKi0l8Uf4YIddE7EKbNysSeUX
-	 o6AfWZuMkGaSqCqwH8ye14H2xaihe6V9opS+QMI7iiaQQf6UhN1n0scCu4cbbAA73Z7F1
-	 MaG6n+iJtCuY1xVFTzxO2cJ9D5swizHr4YjpxRzIt/6RK1DfYjgyxsRBilSe3G09lFOcM
-	 rwO1hL5dKBPY7uwwy86pwfvvvRgWsN2YYG6O9NPmWSoSMmCHjgxsmBtx+izX2j1qsDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795527929;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=hveWDX3wRu+9ZTN3oYj1ZM1AyoIHQ/8kekmLbhh+wKE=;
+	b=VGG+gUMFixd2IX1F0qAY/fQHKUgm1idxnWCavMurTEy6dlR92s4/KvHYEPUx3SjgWHxU
+	 Ho7NnwNJ7yDa/OId8NDfgX6MiX7b1/EeLV8AtYay/Ms9SvnYtqc3njKUhFV/QpYi2b2B5
+	 FJPG0vUHkIv9BSrWHzm1AjI9xgEJv44ApjWGfkQtBIgoC0XuGHhL5attY4W4ktfHWEcld
+	 0/a6vGG0NIFzCODhKshnoFYpACLULZ558BaLP2lEB0C4rkMUiA2eQ7ud1kzBY8+fZYjmu
+	 rUNYhCZ39V0kv6mXe944Qfhp2c+hm0Xag4m9DwvA9bJ1/sTc5bHU+688lbGsX9kdvmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=MF6CPISN;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KcKns4C3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20194606A321
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:44:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20194606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3E8606A31E;
+	Tue, 24 Nov 2026 13:45:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=MF6CPISN
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C00C9BE1;
-	Tue, 24 Nov 2026 14:42:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795527732;
-	bh=Nj3YniFrzVnITRBYaPQKl7wSY/zEuckU+cg5R2aciho=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MF6CPISN2fCrzJXba10MkU3qtJaBi9SZ92H4Wp38+lsUI8RQF25e9/gy5Th8uUSbp
-	 lH6daagHqHo6aRNf9L5kXgereuYX6RWJnhkbqbGjzHw8HeUjCghwSC0T+8hEhhVYRd
-	 ahZGGa+kk0z0noN5r92mmWrWSTbk80Ux1YKeTbJc=
-Message-ID: <7a94fa5a-ddfc-449e-b014-387d8e868e97@ideasonboard.com>
-Date: Tue, 24 Nov 2026 15:44:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KcKns4C3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6A551F000E0;
+	Tue, 24 Nov 2026 13:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795527928;
+	bh=hveWDX3wRu+9ZTN3oYj1ZM1AyoIHQ/8kekmLbhh+wKE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KcKns4C37cDcZREkdVNnQEb8IQFMLSj4V1neI8M9mN6W5wzQUPtiytsIW5fttWDSD
+	 s/slDHx2X60gCjhMGGx+JuhS3edwdlkzy6ThNKo9izuLasqbKzGndgNfqtVMoBsiJY
+	 IVOC6iZ0mHunboaLEW31VMHA+cgWA1jiff+A0GUCLKbLmmiUQxuqVSdamn8dC22Qtp
+	 3I2dC9YX0TIbR4TQJOyJtKT++iFDlsxmHkJ0EXl2SonlJhczMD3CqbiOMJNCeV/8vY
+	 58eswUfYjmvSRWuaHZFFqyTVdrzBSq/TGz8sWZvdgkCnyUFWOF0Usd6+51+J73SM3R
+	 hIsYqVV+350tA==
+Date: Tue, 24 Nov 2026 13:45:22 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, praneeth@ti.com,
+	u-kumar1@ti.com, p-mantena@ti.com, a-dutta@ti.com, s-k6@ti.com,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 00/11] mtd/spi-mem: Enable DQS control
+Message-ID: <73680b0b-2c98-4ebc-bcb8-4ca144b469f7@sirena.org.uk>
+References: <20261120-winbond-nand-next-phy-tuning-v4-0-8c21e1f71f41@bootlin.com>
+ <164905f5-2857-4b8e-8d99-26939b45cde4@sirena.org.uk>
+ <875wxmttj7.fsf@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,56 +69,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/bridge: tc358762: fix reset handling
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- Marek Vasut <marex@nabladev.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mS7vwsVuRtIn6CIJ"
+Content-Disposition: inline
+In-Reply-To: <875wxmttj7.fsf@bootlin.com>
+X-Cookie: Real Users never use the Help key.
 
-Hi,
 
-On 24/11/2026 13:54, Andreas Kemnade wrote:
-> The bridge driver desserts reset after disable and asserts that
-> upon enbale. That requires users to workaround that by declaring
-> the reset gpio wrongfully active high. As an interim solution,
-> ignore polarity, until things have settled to fix it afterwards.
-> That will break setups with an additional inverter in the signal
-> patch but those should be uncommon, at least not seen in in-tree
-> devicetrees. Fix polarity in the one device tree actually declaring
-> a reset line. That patch has to go in after the bridge fix.
-> 
-> The issue came to sight during experiments with reset lines on the
-> Epson Moverio BT-200.
-Indeed, the driver has it the wrong way... But what is the way to fix 
-this? Fixing it will always break the backward compatibility with dtbs.
+--mS7vwsVuRtIn6CIJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Is it worth it? Or is it easier to just adjust the bindings doc to 
-mention about it, and add a note to the driver that the gpio is set the 
-wrong way "on purpose".
+On Tue, Nov 24, 2026 at 11:26:04AM +0100, Miquel Raynal wrote:
 
-Or, if this is to be merged, I think the code around the 
-gpiod_set_raw_value_cansleep calls should have a comment to highlight 
-why it's calling raw funcs and what the plan is.
+> What is your plan with Santhosh's series? If his series will make it
+> this round I will respin once applied. Otherwise I can just respin the
+> independent spi-mem bits.
 
-  Tomi
+I had review comments that he hasn't responded to.
 
+--mS7vwsVuRtIn6CIJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmsFlPEACgkQJNaLcl1U
+h9A7Wwf9G5jpVxn4bfkt4gltGtnYP3Jbkb/TG05RkTtbEqfImQDwFegYXJ2dJF/E
+eg4ewl0Fn8lpXuz42oKqc9x21PJ7sAU/+KWWFI+/6SALErsRfVKOKjofa11tZfRy
+z7Ly2hOHSCyVebl+djzEYzvadmrAF2VEz901fTdeSorM8rfWBX7jqkcJERi9gwYm
+YtDVPa/5N58DSJpjqWBtgToYSJoj0W2BiUgFNyY6uyYPQQywy0xGFJ31qB1nZxxD
+CsB5zVY9w/1Vm1n5mXAOAZE6sqwTQHdRfxrYDzoQGpDnJWQQbkA375Sq3BwR1mcT
+hlN8KyZcJ6B8wH34HmOFGVqpjktcRA==
+=dhJf
+-----END PGP SIGNATURE-----
+
+--mS7vwsVuRtIn6CIJ--
