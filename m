@@ -1,38 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.47.186.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795517116;
-	b=BfyXLGFvqtaQiWs3kx+GiWBH7bqspLaZ+WL28hdNhdBpWX+RFAPLKPYHH7K0F/d8i6xx
-	 kKcoMILri2mb/pBJZnU5UWQQx0IPgI9lxSPrcV5HEoxlHC9PdHiKsUFy0ScGD9ADOZ6H0
-	 KJDT4Lm+kxqrPkmcWzeSDOydHUj8fkiHou8WfGiO775aCPxTQX52kaGQEcgUT5r5SJzHK
-	 dp9ZXD4jnpv42+IOsq3Uk7B+Q3U9Xb4qI3G4mHRCcypjQQnQ++6/kGt7zbTESb5DQ1ClJ
-	 4OtDpEy6F1dpeSO7UCMfJNjDJBcdy8Cg0Pr/gFqqfojJ1Uztbzf5k/pLBukN679vACw==
+	t=1795517152;
+	b=jq+M+Dcb+hnt4taPnl7n0FeSQfAOYLHhYWNmxYsFjEW9+1ITKEush1OB7R+POFc0mU/X
+	 ntNdC2Lkfwrgh/OFzSpTjW0rCYJGhzIwUOyWyDl5keIU8YnmaOCR+oD4c0G13/gauX6TG
+	 f3C5h+bGEeQYb9fYukOCAFFBjQPbBxsFi7M7Gz8Eg6tJp5OC9Ntp+fyQVtxI+ARJFfhSZ
+	 MOi0GYvUv7U2nsG6m8Yvs3rZq0wjMd3+snwUUlH8GpjOWYECGFU/hXSFDwpeG0BHUcJKI
+	 CIyXnRczwEUphZGLeK87mQPJmXWhpZm6dSU0GpNvZbGhGGZEvvIkeV0VSmKYeG9QJZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795517116;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=q7PBzm6IpwoqeUW4SGvSibZ8Ne3iky2jn/TgYiXQpiE=;
-	b=mQ4sbvZilec5QgOVvNZc5Ar/QQTgU5F/EjsFZtQw3tfVfWKwsYW0001qbU7IApl/7hCT
-	 wCB6tU6yK65HUXQ3QmfJi54cBOKvhzV6bJSOOdPkql2a/4yQ9aReT9D7sgXQAL3hxshqN
-	 oFVn7iXKDlp4ihm+SYd2PMM2licETZJqnLrIfQ0ShDW5/25fAtn1WcDPjehBQQubVnMtb
-	 8Bl0EOjqYYWLyOcKngv+0gWbCrxYl1Ma29r3p68vyVf7Q9Ws8uaonB6V6fnIq4bZ2oASx
-	 dZySyUzn6m5OtVrSR7/Pd1rH/K7JwnpfdY+P+VOaDM7BwLdxZaxRRicqDeQM1I5JXtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795517152;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=FXp8Z0G2V0kvTM4Mj2HvVxMO1Z6sLcgFfwPzODn/Tic=;
+	b=5eXhLCmn8ZxsgFh+jBtvc61KFxlNeYA4YCTOSAkCuiwxrUdwap7SaAcpt6BOYUtqPe5b
+	 FX0tGHysKphosU5xBREppwBpCFkRly+cuB8JFkFFWwDe8lZ8j1Fy0HPUG3yAQQATytEi5
+	 u4eOq30n2cS+8RnUDTgQ46F5wLoO6BR8w667rZAhWlWQoGwIvkR5U+EzWOal4U9Y+ux1m
+	 /X0dmeWld4W1nV7tw6iYVRBH5BTQQX5vaLJACAgrS1v+6/wb4XOJIOBXHM6S9JWkyPs7r
+	 SY5u42top7J803VPkY/ptCm3yyAbPKAsae+ZWSCLkLKCcYI2GAae6LSHnRSJjGXMh1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=krgm.moe;
-	spf=pass smtp.mailfrom=krgm.moe;
-	arc=none smtp.remote-ip=103.47.186.116
-Received: from krgm.moe (krgm.moe [103.47.186.116])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46D52606A691;
-	Tue, 24 Nov 2026 10:45:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46D52606A691
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krgm.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krgm.moe
-Received: from [10.42.0.96] (unknown [114.242.206.180])
-	by krgm.moe (Postfix) with ESMTPSA id 78F23859;
-	Tue, 24 Nov 2026 16:15:12 +0530 (IST)
-From: SignKirigami <prcups@krgm.moe>
-Date: Tue, 24 Nov 2026 18:44:01 +0800
-Subject: [PATCH 2/2] regulator: qcom-rpmh: Add PM6450 LDO support
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VkzNCjbc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05ED2606A31E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 10:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VkzNCjbc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B4271F000C4;
+	Tue, 24 Nov 2026 10:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795517151;
+	bh=FXp8Z0G2V0kvTM4Mj2HvVxMO1Z6sLcgFfwPzODn/Tic=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VkzNCjbcNw5GP1PzDcEXKSGirwomD55lmA5v5EUOYvHYnvuaX9Jdja5NUnBi3oYoF
+	 KLjxO9lQimj/ElZthaNDq/ASQIHMAFCD0sSh8zy+V4Mq8RUJJMfPxSrUW4wJ6JrovB
+	 76A57tiHmboY/EEzhN03Gh2L7fV8HbpmnFEKmIUid9Q8Pqw6hFHmO0UEMl0EqSxSHj
+	 iVz2SvYiwQSDO34sTrv8vbBBpjC2Y0k7KnMpqmN/oT0bZ1J1uxtIiVln7cVnO83ApL
+	 YbUhuZ0mXMLNzEgpKrjFkmvtWvHlVn+MUpE/KkC9X5FiEvcRiLAmjXcalONwIoxuWE
+	 qFFBcT9KXDy7w==
+Message-ID: <sashiko-outbox-230979@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: add Monaco Draco AC SoM
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Faruque Ansari" <faruque.ansari@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123-monaco-draco-v2-2-3ee3b2375f16@oss.qualcomm.com>
+References: <20261123-monaco-draco-v2-0-3ee3b2375f16@oss.qualcomm.com>
+ <20261123-monaco-draco-v2-2-3ee3b2375f16@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 10:45:51 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -41,105 +59,160 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-netrani-pm6450-v1-v1-2-1914da758d3d@krgm.moe>
-References: <20261124-netrani-pm6450-v1-v1-0-1914da758d3d@krgm.moe>
-In-Reply-To: <20261124-netrani-pm6450-v1-v1-0-1914da758d3d@krgm.moe>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2797; i=prcups@krgm.moe;
- h=from:subject:message-id; bh=EWTkzmCy47RtwNhgEz6Zivz1+pcrn08EvhrhLiehm3I=;
- b=owEBCQL2/ZANAwAIAV0dOJt2umJjAcsmYgBrBWqOWdNjM3hehXD+I/6kn+3VGMZ/Oe5zU8bFm
- 4l3hrqLbOGJAc8EAAEIADkWIQRSClJ2zjncUdNU0FFdHTibdrpiYwUCawVqjhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwwLDIACgkQXR04m3a6YmNcDwv9EUkkkvMPQJ9/dQ9SCti11uvEl/MIBR6
- N7a1mwZiNrWEpKnjRjcUWQy6ZApw82OAGPihLuuh+B/JYPWq3ssQvYmG8eHID5MVWAzGU2o92kD
- JYkCj/nGxfontAJg8oLHZTMPxMnDNY4inIPNmsE/BWzHZa/gK/1Cz3J0746GkyEqLs0IHnFKLbu
- drULNcjB6/fAv8+OzEazXPIf25uNfFWDoehznFhemvXdmhXBLFLZp7Z/EVFziKFr1bVAjszm4MO
- A+I+5/N70lTudzO/z27Gz14yIb5bl8oqCBe3VBkmEQ7wzKWZDZ/37aEA0mvhiYN5ieUm6P36aT/
- cYgiz9uHy8kgtShI1Q/LIsTy3GChKXZo1Prm6hfDdlLexjjen4g/lYOyla7KV1PeXV5Af/ZuzUa
- KrBEDHN5Gj4qoWOepVSf7IZgLNPiVPI6xTCVEolXQOW5fQIBDclgc4fXeHMxgbvcmHMxCqlLDy5
- lnk+jtbmwdjrvCHFjlaHM8esHkjFtYm
-X-Developer-Key: i=prcups@krgm.moe; a=openpgp;
- fpr=520A5276CE39DC51D354D0515D1D389B76BA6263
 
-Add PM6450 LDO resources using the existing PMIC5 NLDO and PLDO
-voltage models. Preserve the power-on voltage for LDO24.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [Medium] arm64: dts: qcom: invalid supply properties on pcie0_phy and
+  pcie1_phy
+- [Low] arm64: dts: qcom: non-generic deprecated node name vreg-s2s
+- [Low] arm64: dts: qcom: unused qcom,q6afe.h include in
+  monaco-draco-ac-som.dtsi
+- [Low] arm64: dts: qcom: carrier-specific nodes and incomplete usb_2 in
+  Draco SoM
+--
 
-Signed-off-by: SignKirigami <prcups@krgm.moe>
----
- drivers/regulator/qcom-rpmh-regulator.c | 38 +++++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+commit d1bc5b3f248fc85ab6c6aeca044fd1cc52fd4aa5
+Author: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
 
-diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/qcom-rpmh-regulator.c
-index da4764ffa6325..c397717dc0d6d 100644
---- a/drivers/regulator/qcom-rpmh-regulator.c
-+++ b/drivers/regulator/qcom-rpmh-regulator.c
-@@ -475,6 +475,15 @@ static const struct regulator_ops rpmh_regulator_vrm_bypass_ops = {
- 	.get_bypass		= rpmh_regulator_vrm_get_bypass,
- };
- 
-+static const struct regulator_ops rpmh_regulator_vrm_no_voltage_ops = {
-+	.enable			= rpmh_regulator_enable,
-+	.disable		= rpmh_regulator_disable,
-+	.is_enabled		= rpmh_regulator_is_enabled,
-+	.set_mode		= rpmh_regulator_vrm_set_mode,
-+	.get_mode		= rpmh_regulator_vrm_get_mode,
-+	.get_optimum_mode	= rpmh_regulator_vrm_get_optimum_mode,
-+};
-+
- static const struct regulator_ops rpmh_regulator_xob_ops = {
- 	.enable			= rpmh_regulator_enable,
- 	.disable		= rpmh_regulator_disable,
-@@ -1588,6 +1597,31 @@ static const struct rpmh_vreg_init_data pm6150l_vreg_data[] = {
- 	{}
- };
- 
-+static const struct rpmh_vreg_hw_data pm6450_ldo_10ma_no_voltage = {
-+	.regulator_type = VRM,
-+	.ops = &rpmh_regulator_vrm_no_voltage_ops,
-+	.hpm_min_load_uA = 10000,
-+	.pmic_mode_map = pmic_mode_map_pmic5_ldo,
-+	.of_map_mode = rpmh_regulator_pmic4_ldo_of_map_mode,
-+};
-+
-+static const struct rpmh_vreg_init_data pm6450_vreg_data[] = {
-+	RPMH_VREG("ldo5", LDO, 5, &pmic5_nldo, NULL),
-+	RPMH_VREG("ldo7", LDO, 7, &pmic5_nldo, NULL),
-+	RPMH_VREG("ldo13", LDO, 13, &pmic5_nldo, NULL),
-+	RPMH_VREG("ldo16", LDO, 16, &pmic5_nldo, NULL),
-+	RPMH_VREG("ldo19", LDO, 19, &pmic5_pldo, NULL),
-+	RPMH_VREG("ldo23", LDO, 23, &pmic5_pldo, NULL),
-+	/*
-+	 * UFS VCC is selected at power-on (2.4 V or 2.96 V) according to
-+	 * the storage configuration. Preserve that selection and only vote
-+	 * enable and mode.
-+	 */
-+	RPMH_VREG("ldo24", LDO, 24, &pm6450_ldo_10ma_no_voltage, NULL),
-+	RPMH_VREG("ldo25", LDO, 25, &pmic5_pldo, NULL),
-+	{},
-+};
-+
- static const struct rpmh_vreg_init_data pm6350_vreg_data[] = {
- 	RPMH_VREG("smps1",  SMPS, 1,  &pmic5_ftsmps510, "vdd-s1"),
- 	RPMH_VREG("smps2",  SMPS, 2,  &pmic5_hfsmps510, "vdd-s2"),
-@@ -2056,6 +2090,10 @@ static const struct of_device_id __maybe_unused rpmh_regulator_match_table[] = {
- 		.compatible = "qcom,pm6350-rpmh-regulators",
- 		.data = pm6350_vreg_data,
- 	},
-+	{
-+		.compatible = "qcom,pm6450-rpmh-regulators",
-+		.data = pm6450_vreg_data,
-+	},
- 	{
- 		.compatible = "qcom,pmc8180-rpmh-regulators",
- 		.data = pm8150_vreg_data,
+arm64: dts: qcom: add Monaco Draco AC SoM
 
--- 
-2.56.0
+This commit adds the device tree include for the QCS8300-based Monaco Draco
+AC SoM, configuring RPMH regulators, remoteprocs, storage, UART, USB, PCIe
+PHYs, and the Adreno 623 GPU.
 
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-draco-ac-som.dtsi b/arch/arm=
+64/boot/dts/qcom/monaco-draco-ac-som.dtsi
+> new file mode 100644
+> index 0000000000000..85ca83ecfc9e6
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/monaco-draco-ac-som.dtsi
+> @@ -0,0 +1,320 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> +#include <dt-bindings/sound/qcom,q6afe.h>
+
+[Severity: Low]
+Is the dt-bindings/sound/qcom,q6afe.h include needed here?  This file defin=
+es
+no sound nodes or audio macros, and monaco.dtsi already includes
+dt-bindings/sound/qcom,q6dsp-lpass-ports.h.
+
+> +
+> +#include "monaco.dtsi"
+> +#include "monaco-pmics.dtsi"
+> +
+> +/ {
+> +	aliases {
+> +		serial0 =3D &uart7;
+> +		serial2 =3D &uart6;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path =3D "serial0:115200n8";
+> +	};
+> +
+> +	/* This comes from a PMIC handled within the SAIL domain */
+> +	vreg_s2s: vreg-s2s {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "vreg_s2s";
+
+[Severity: Low]
+Should vreg_s2s use a generic regulator-s2s node name instead of vreg-s2s?
+Documentation/devicetree/bindings/regulator/fixed-regulator.yaml marks node
+names that do not match the regulator-* pattern as deprecated.
+
+[ ... ]
+
+> +&pcie0_phy {
+> +	vdda-phy-supply =3D <&vreg_l6a>;
+> +	vdda-pll-supply =3D <&vreg_l5a>;
+> +	vdda-qref-supply =3D <&vreg_l4a>;
+> +	vdda-refgen-supply =3D <&vreg_l7a>;
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&pcie1_phy {
+> +	vdda-phy-supply =3D <&vreg_l6a>;
+> +	vdda-pll-supply =3D <&vreg_l5a>;
+> +	vdda-qref-supply =3D <&vreg_l4a>;
+> +	vdda-refgen-supply =3D <&vreg_l7a>;
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: Medium]
+Should vdda-qref-supply and vdda-refgen-supply be dropped from pcie0_phy and
+pcie1_phy?
+
+In monaco.dtsi, pcie0_phy uses qcom,qcs8300-qmp-gen4x2-pcie-phy and pcie1_p=
+hy
+uses qcom,sa8775p-qmp-gen4x4-pcie-phy.  Both bindings are defined in
+Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml, which
+does not permit vdda-refgen-supply and causes dtbs_check to fail on boards
+including this SoM dtsi.  In drivers/phy/qualcomm/phy-qcom-qmp-pcie.c, both
+qcs8300_qmp_gen4x2_pciephy_cfg and sa8775p_qmp_gen4x4_pciephy_cfg use
+qmp_phy_vreg_l, which only requests vdda-phy and vdda-pll, so neither
+vdda-qref-supply nor vdda-refgen-supply is consumed at runtime.
+
+[ ... ]
+
+> +&uart6 {
+> +	status =3D "okay";
+> +};
+> +
+> +&uart7 {
+> +	status =3D "okay";
+> +};
+
+[ ... ]
+
+> +&usb_1 {
+> +	dr_mode =3D "peripheral";
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&usb_1_hsphy {
+> +	vdda-pll-supply =3D <&vreg_l7a>;
+> +	vdda18-supply =3D <&vreg_l7c>;
+> +	vdda33-supply =3D <&vreg_l9a>;
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&usb_qmpphy {
+> +	vdda-phy-supply =3D <&vreg_l7a>;
+> +	vdda-pll-supply =3D <&vreg_l5a>;
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&usb_2 {
+> +	status =3D "okay";
+> +};
+
+[Severity: Low]
+Is usb_2 intentionally enabled in the SoM dtsi without a dr_mode or connect=
+or
+endpoint, and should the carrier-specific UART and USB controller settings
+live in the carrier board dts instead?
+
+In monaco.dtsi, usb_2 defines usb-role-switch and an unlinked usb_2_dwc3_hs
+port endpoint.  Enabling usb_2 here without setting dr_mode or linking
+usb_2_dwc3_hs to a connector leaves dwc3_setup_role_switch() defaulting to
+device mode with no role-switch provider attached and without the VBUS
+override that dwc3_qcom_probe() configures when dr_mode is explicitly
+peripheral.  In addition, aliases, chosen stdout-path, uart6, uart7, usb_1
+dr_mode, and usb_2 enablement depend on how the carrier board routes those
+interfaces, whereas sibling monaco-monza-som.dtsi keeps only the on-SoM USB
+PHY supply hookups in the SoM dtsi.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-monaco-dra=
+co-v2-0-3ee3b2375f16@oss.qualcomm.com?part=3D2
