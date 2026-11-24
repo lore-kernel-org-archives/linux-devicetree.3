@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795510943;
-	b=n0VAdPbUskuJCj7vrhDxxmUyxKIfGZblrLY86TyzBeYsKSymcR5W02IKIsMLiiCinti8
-	 e4f8mS9omDHuF4TyVj4KDRjnalK4DZ+ZY8DFFo0KvHmSZOLrrzr3EvXLowi+5MKHshoZE
-	 lHTfHQNS3IW6ItBebNHhxiFWlEhxkwO1DBKuH9DE6XkyNk4/4psv/437CKLcL2Gann+kK
-	 qfe8N/466SNNB+8fFs1xW0w0l175N+Jg5+C5VZC03XCqPRZ/NiwAC4mQCjCXe/4ez0iyN
-	 NmRk+FWNiSn5GWLe8pd8ZX98qD7V4v9VfYdaT9NMk6nWcSsZPlEElyQPbd3LejsIkKg==
+	t=1795511080;
+	b=NjBXoPmQbgFc3wZq/ZvqOEzi/ZVVG0B7B1aAX723mJSp/Dgye23bXBRemoOov5IX1VKE
+	 fv4rmBl+7KnQ3dk7P52My5l2bx4qwcpsv+GZhBtJa2q1qJjH8757D1U25EU5JhOo3WnqL
+	 xfM0OFK3QuaBQE/oy2MOXUZYqsD1Z6YqTUn8z1NxNiRPaFMWTw86zpj73Y+frlV2ZXj2Q
+	 e9nyK14yzo6QGZNdGvF1tyUAZXNL5Ud2yGEjwlHHWHO1tdcXAeLyPIERkqS9Int7F8gd+
+	 3qMAR7fiYJ1RJDuQx4UD6tjV8Kezoh10kCniw3BNXfgE3RVLqLZDvd6malPP9QTWCIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795510943;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=J1CkvupvY5Rh2hUSr75gjKe6yzmnp7wN+xOQtuZUjK0=;
-	b=XtkS7F8kpJs131Ia1QMNR3ctCSrNKpuYqbxXfDGTMX5o2V+7NkyXnAWgTdBzdRXJlyqD
-	 rQWxTd5A86RLiwyg7eLroNkQXjqT+cYXRSZiMYUoCifFn83/6prHScMNbqQHcEgKkjLzE
-	 aTK9zdjPekOm8LpUTWjRLqjMfyDP2/99s9IFAqm0SWTAIOPZ3qhrmh898xZeL/j7yt935
-	 BHRjDGypr3o1uLEjQb/eJihMJLXFm43+pKhM1WqlJ/+uhsSq6TH65zAjv1tKk5bHzsEpj
-	 OomziWkn8+UfSoeb8ZyWOBluNzoAYSEHQC9ME1fyfUZlIBLJnL7KhLeLiZt9PwUHYrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795511080;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=9mk3gNLVEkmU4DWyjooeSmgHfnqPfqs+ORX05bgSago=;
+	b=nFrgx7aJzI6RSEEa2bOWCrdS5ycS2QJux7okslkMChiiYyksRv4ioTLc6/z6k8xiQ+kk
+	 dsqiOa1M70zpAnXLyqNn00SWszgPq5cM852lwwEEQmd0UY79Zhcwz07ey1TiQbNcFNg8j
+	 K1OnanenwOSP1x4boO8wpTqieiAa4X690X/wxPuGPDvJudLgSuAhdhjkFQYO5/QV4ZCTS
+	 N+H41j5EEuapoGmNl6K42Yvqr90J93YvEEW18K17YRnH9xcUyvqdTdwURH/7n3GWupoki
+	 i4K+AO7TEzxSnu5S0R66SUQQSv9Z9gfQPng8pNv9WJRnKUmJNqk6muHutl7gw4Jb18w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e3UdJ/Cf";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kC2zqSiF;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626FC606A31E;
-	Tue, 24 Nov 2026 09:02:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072DE606A326;
+	Tue, 24 Nov 2026 09:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 072DE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e3UdJ/Cf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F5A1F000CA;
-	Tue, 24 Nov 2026 09:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795510942;
-	bh=J1CkvupvY5Rh2hUSr75gjKe6yzmnp7wN+xOQtuZUjK0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e3UdJ/CfqaqmOAkuHsmIG6YUNFMmXOZqWr4TnBE54S9kPXVeErYTBixMNDRzR5ITx
-	 ArULVlmRrzFmyrSTzjfgSkOP031/DDAw92/PR9opD4HIks52OVtwyFLXeNESCP6pUK
-	 gMqm/gKkHAHMcf01IW02J6HBiWeaLhjLpdW5R7pS5T5dTZbCUCtCkVeF4mxNcgdGi6
-	 E7bgM7+w+yif3DPNuq60aDcats0sIwDBmA0QZgIZNijCFwLN0s/Ry/jTU1wivWVcqX
-	 j+F9pDSquNW0raR55TtmRC4Ygj1LPm0I0y+5Iy9aNk42Hp4fLk6Sw5FksooQrZdLOW
-	 qqh1wmW8GgjVw==
-Message-ID: <sashiko-outbox-230776@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: usb: cypress,cypd4226: Add
- cypd6129/cypd6229 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akash Kumar" <akash.kumar@oss.qualcomm.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-ucsi-ccg-cc-orientation-v3-1-73cd114e5393@oss.qualcomm.com>
-References: <20261124-ucsi-ccg-cc-orientation-v3-0-73cd114e5393@oss.qualcomm.com>
- <20261124-ucsi-ccg-cc-orientation-v3-1-73cd114e5393@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 09:02:22 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kC2zqSiF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795511081; x=1827047081;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=8jVeRm/EySvKKQCmG6DDh9Db4PXbuccsC2DH8Exg2/8=;
+  b=kC2zqSiFw54h9Ne4eWTMoIH4Wg7bGZ7ypBHeHaueksCxwq7tKjNUds4I
+   vhsgZgn1EX2BvBZPe3/N9bn2vkBlH2KHgr6Y/TsEWQRGJsqIvrmFTID8m
+   0ogeNO3W/HpAMbErweD+VuSHk4QwKgx0NvCgW0vvUWV8810+KwEw0D8q7
+   rw+PqawmCUVpi4Dwe1+3w21za31yQtIniwXBndX2CUCs2394TZOfapI8J
+   26t8zhpJukBzEFTfTThxxHp7amRxhg0HMDadLybBDCwN/sHWZUljSZ8KY
+   mVhYpBh8ZypW/4p5iiI342IGxbArJW0qRnGHDricldAlIAW6U/8UsF2F5
+   Q==;
+X-CSE-ConnectionGUID: 5ea1r8J5QWSMwCvxvgmUAA==
+X-CSE-MsgGUID: 60lF0dHDSl23qZVgMsAXHA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4253950"
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
+   d="scan'208";a="4253950"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 01:02:25 -0800
+X-CSE-ConnectionGUID: 3k7KnAeLR8GDZ4dutIEt/w==
+X-CSE-MsgGUID: DNAuWG6LRN+3OVRuKsVIYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
+   d="scan'208";a="11844040"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.125])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 01:02:20 -0800
+Date: Tue, 24 Nov 2026 11:02:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ilyas NHASSE <ilyas.nhasse@skf.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	"linux@analog.com" <linux@analog.com>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: adc: ad_sigma_delta: support devices without
+ RDY interrupt
+Message-ID: <awVSmqLqQHwT3HGn@ashevche-desk.local>
+References: <20261120-ad7124-no-irq-v1-0-7826c5c3fd25@skf.com>
+ <20261120-ad7124-no-irq-v1-2-7826c5c3fd25@skf.com>
+ <awA769JyWRvSG8PY@ashevche-desk.local>
+ <BR0PR09MB4414408680F908802B0A1A358C89442@BR0PR09MB441440.eurprd09.prod.outlook.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,97 +92,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BR0PR09MB4414408680F908802B0A1A358C89442@BR0PR09MB441440.eurprd09.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] dt-bindings: usb: cypress,cypd4226: forbidding pinctrl breaks
-  dtbs_check
---
+On Tue, Nov 24, 2026 at 08:53:14AM +0000, Ilyas NHASSE wrote:
+> On Fri, Nov 20, 2026, Andy Shevchenko wrote:
+> > On Fri, Nov 20, 2026 at 12:26:48PM +0100, ILYAS NHASSE via B4 Relay wrote:
 
-commit 11119299ad04fdbd9d099cb405886c5e195a210d
-Author: Akash Kumar <akakum@qti.qualcomm.com>
+...
 
-dt-bindings: usb: cypress,cypd4226: Add cypd6129/cypd6229 support
+> The information contained in this email is intended solely for the use of the individual or entity to whom it is addressed and may contain information that is confidential. Please delete and notify the sender if received in error. SKF does not accept liability for any damage arising from this email.
+> 
+> For information on SKF’s processing of your personal data, please visit SKF’s Privacy Policy available via www.skf.com<https://www.skf.com/privacy>.
 
-This commit extends the cypress,cypd4226 device tree binding to support
-the cypd6129 and cypd6229 dual Type-C PD controllers, adds pinctrl and
-wakeup-source properties, and relaxes reg and interrupts constraints.
+You have a problem here. You need to get rid of this footer in order to
+communicate in Linux kernel related mailing lists (and in OSS projects in
+general). Consult with your corporate lawyers on this.
 
-> diff --git a/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml =
-b/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml
-> index 0620d82508c17..d923ef82ecfaa 100644
-> --- a/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml
-> +++ b/Documentation/devicetree/bindings/usb/cypress,cypd4226.yaml
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[ ... ]
 
-> @@ -40,6 +46,19 @@ properties:
->        - "nvidia,gpu" for the NVIDIA RTX product series
->        - "nvidia,jetson-agx-xavier" for the NVIDIA Jetson product series
-> =20
-> +  pinctrl-0: true
-> +  pinctrl-1: true
-> +
-> +  pinctrl-names:
-> +    minItems: 1
-> +    items:
-> +      - const: default
-> +      - const: sleep
-> +
-> +  wakeup-source:
-> +    description: enable IRQ remote wakeup, see power/wakeup-source.txt
-> +    type: boolean
-> +
->  patternProperties:
->    '^connector@[01]$':
->      $ref: /schemas/connector/usb-connector.yaml#
-> @@ -57,6 +76,24 @@ anyOf:
->    - required:
->        - connector@1
-> =20
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: cypress,cypd4226
-> +    then:
-> +      properties:
-> +        reg:
-> +          const: 0x08
-> +        pinctrl-0: false
-> +        pinctrl-1: false
-> +        pinctrl-names: false
-> +        wakeup-source: false
-
-[Severity: Medium]
-Does setting pinctrl-0, pinctrl-1, pinctrl-names, and wakeup-source to
-false for cypress,cypd4226 cause a dtbs_check regression on existing
-boards?
-
-pinctrl-0 through pinctrl-8 and pinctrl-names are standard pin-controller
-consumer properties already allowed on all device nodes by the dtschema
-core without needing to be declared in individual bindings, and
-wakeup-source is a board-level host interrupt property applicable to any
-of these controllers.  In particular, an existing in-tree cypress,cypd4226
-node uses pinctrl-0 and pinctrl-names for its host interrupt GPIO and will
-now fail schema validation:
-
-arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts {
-    ...
-	typec@8 {
-		compatible =3D "cypress,cypd4226";
-		reg =3D <0x08>;
-		pinctrl-0 =3D <&typec_default_state>;
-		pinctrl-names =3D "default";
-		interrupts-extended =3D <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
-    ...
-}
-
-Dropping the top-level pinctrl-* declarations and removing pinctrl-0,
-pinctrl-1, pinctrl-names, and wakeup-source from the cypress,cypd4226
-if/then block would avoid this failure.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-ucsi-ccg-c=
-c-orientation-v3-0-73cd114e5393@oss.qualcomm.com?part=3D1
