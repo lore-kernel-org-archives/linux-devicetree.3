@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540107;
-	b=rAq8ZKOgTW84I+YiALC0bGje/352DyQmMZd31t+DgqQw8A4LBn0MdXYmwr0Y2r7WwmCA
-	 2A+EiP1U2pWmM/LJtcuunEkOSssFOtnNJnM+BDXR1abkF/ZYts4KUngjCX6m0yQH+B2JL
-	 toUwk2AJO7hWdhzDLgYw0vZEe02G1HLzUC+FpLrDPGNMkM1gLMUGdzRdGp7FwzricABp6
-	 8ymcLts+otLz5X8IRQtG25auhrwHYD3KW/Fvw/NWqSjowQIeoskznyElsQduGAWmWB75o
-	 D+ksB2ub2hGKQUJj7Fg84vKN7OhMYDckDe08ETUAJeCpdY6T+TxN/Q2XQg1DWLGs2NQ==
+	t=1795540109;
+	b=A9zxIiOwpd1uJhUWy1NRvGRZPZMn/TY3fAp/SJfGsndBN9ULPMKdE0YHKqJvMNSiTnx6
+	 2XBCO+WpxC8heveFV73Fx3gShgIOCBGk+sQmdsQ8o6Hj9vB39HUI6SEBeEBFKMC3R/uge
+	 zPX0/3Z5mls/fO5b0iGc+c0TNhN43D1VM9L/3Qr2ABtjIL2kHO7jK/qq76JTXOdVy/52G
+	 MJ2HywvgFEjZi+mEouuCUCH8aONmxzv9OHIte3T6Ry6ptVcUqK8qwOUkXKukM7sUMyU3S
+	 xJh/mFyBDLXR8vGQW6yY5dGbBpL2i+5rWjxS0fcUPQhy0IT122/s1sGQGFLnOR0pNKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540109;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=hiYBjCjArpzFgK70PoEzJFOkmbS4lpGeVrHK7K4QBAY=;
-	b=FAlXXvPhdp5P+5CRtQ+zXBbRNfinS2bTXRyifWn4SmS/Kum+9z/goJpua8qdtip0bkUI
-	 49pBxdbuF/812fOX/esc60VbkFQCvZeTuxX65QYYvnV4+blH6zBRmYhqTiwWbB8i3Ekc7
-	 4Tziif0XKFBqkEWyvBuNVtvS9hn2mETVno0qduVFiEcgZpDlTZHV8RalFtRidXh1Hm4RJ
-	 0UcDlunYL0hWtS7ltAoO4QAHh/wZ7H9Mvs1Fp1zd+GT/ES5N6fpx61txQsMfzw9nulnQd
-	 cD+b7dx5dh2sl4YNiqLny+vmY/6SMnKv9FFwURczpp+BwtrQSv4CjQb1+FbSFf4r4Hg==
+	bh=BLmjwqKFtU2k450JQaTlCjHMUw5Jn2rBQvaI7yFNCqk=;
+	b=OHiURH/7+xm+Lj7T8X52yyKsyjfTBNeG61cm1U694T+YTqFvm1snXMiRNFfs1niOgxzL
+	 ex5CPP91JOfLoeRVq/lflwnJIDQkC0tqXPrRQEbZqTBfnck7CMyKs9ah2yR53nyok1p2I
+	 EjVvY4yMQUC+XFhWOqzQgrX3QRqyRBS0ZbODac+sbFAvg/tqYcmw2HhxQAsiD7QzHQ4JK
+	 mi8uNtbEIrKQVGJJt40Y1FT3XTNX5O6hl8DytS7hfdeijIkaYL33jdBjN+JKQakWCLOZ4
+	 Db3EkxeyMEK+/1ltuc41DVDZSIYE000AEEb4Yvy5CnWbnxn8PV4QLaBYAftOXBNdGRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=e8In4UGo;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=rU3nIetv;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D609760A2633;
-	Tue, 24 Nov 2026 17:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D609760A2633
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 183FC606A6AE;
+	Tue, 24 Nov 2026 17:08:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 183FC606A6AE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=e8In4UGo
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=rU3nIetv
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5E12A176B;
-	Tue, 24 Nov 2026 09:08:21 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8761B19F6;
+	Tue, 24 Nov 2026 09:08:24 -0800 (PST)
 Received: from e126453.arm.com (e126453.arm.com [10.33.8.63])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 742A03F763;
-	Tue, 24 Nov 2026 09:08:21 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8EB8C3F763;
+	Tue, 24 Nov 2026 09:08:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795540104; bh=slN2JXMHBSLC+PGa3568y3VUHMRbuj6aFVptBXMtU8w=;
+	t=1795540107; bh=K6VrB30zzPJ2nYTS2GB24ZWRicREK0bRM62FDx6nK9c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=e8In4UGo/pe9WpJBw6DvfAV6K6dsRS4Of6ybtWxw3c16W7IROATY4+rxBoCaoOnfz
-	 DFp14fNg1MByUTgdNIgEKbvcl0WWWbhFLcd4h2XUXkuNxojMsKl5nhWVDiGG70OIr6
-	 Cfgrb8afXC/5imt9aZ8WSZaWrY8v6WPfjIT7fBm4=
+	b=rU3nIetvWInqrkJ4RhDyWolLG5G5jdX/J7C5dibeegp2t0vPtBOl0J1byJKdwO6Mg
+	 qthyfeP1DXQUrG+XghH1FpncHaPKpBhFwEQV5sd9UCD8X0c+4e1rm881SRiw5E5RMt
+	 +gzLaSQQ4kEjrqHdCq9XmJ+BGAXJalhFQ31LM4iU=
 From: Anthony McGivern <anthony.mcgivern@arm.com>
-Date: Tue, 24 Nov 2026 17:07:35 +0000
-Subject: [PATCH 07/24] media: mali-c720: Add hardware discovery support
+Date: Tue, 24 Nov 2026 17:07:36 +0000
+Subject: [PATCH 08/24] media: mali-c720: Add context manager and interrupt
+ handling
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-b4-initial-upstream-candidate-v1-7-0cb9bde1bd30@arm.com>
+Message-Id: <20261124-b4-initial-upstream-candidate-v1-8-0cb9bde1bd30@arm.com>
 References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
 In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
 To: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
@@ -75,57 +76,136 @@ Cc: Anthony McGivern <anthony.mcgivern@arm.com>,
  Conor Dooley <conor+dt@kernel.org>, 
  Anthony McGivern <Anthony.McGivern@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=49859;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=99353;
  i=Anthony.McGivern@arm.com; s=20261124; h=from:subject:message-id;
- bh=V8N8pp7w2I4GJpJNbE1ldVrJnBqxJa6cTN/MSUZ65PI=;
- b=7raMQvpVX4rV0fxBpeV61L/HVdbz01lMaPNTeunlST9xW01VseZWjSv5wQD/XH1hNjDvUVvP7
- l4H3N78M7YpCjvvluLuE7E8q7aNB5/dPDU0Qtc2Vs1wxTBsSf07fsoD
+ bh=c2zLeGCd8wz3cQtQgw2Dn4Uaml9pfys9V/ebGtHx56Q=;
+ b=tUkR9P0Qq/FUZfxu/xCrd7rFzs0amEelEVKRlSBoasuhb3PjhO0lCiPjEu4vf4loiK79mKOOQ
+ Oi/AW89FlYQCdZzBR4Rsbqos1SmJuTiqYysGyW2PZEtADfKk5otkwTQ
 X-Developer-Key: i=Anthony.McGivern@arm.com; a=ed25519;
  pk=cvw1HHVRuWpdkn55JpnRyCO2oGBkBWaBXcc2S3CmHTU=
 
 From: Anthony McGivern <Anthony.McGivern@arm.com>
 
-The Mali-C720 can be configured at synthesis time with different
-pipelines and processing modules. Its discovery table describes the
-resulting hardware configuration.
+Add support for the ISP context manager unit. Once software marks a
+context ready and transfers control to hardware, the unit schedules
+frame processing across hardware contexts. Initial support uses a
+single context.
 
-Parse and validate this table during probe, cache its records and
-provide helpers to locate pipelines, modules, register addresses and
-memory tables.
+Provide API functions for other driver components to configure, start
+and stop contexts, and handle frame-completion events. These include
+programming hardware descriptors for contexts, inputs, the CDMA engine
+and input/output buffers. API calls may reserve resources from hardware
+pools shared across all contexts, such as buffer descriptors.
+
+Add handling for input frame-start and backend frame-completion
+interrupts.
 
 Signed-off-by: Anthony McGivern <Anthony.McGivern@arm.com>
 ---
- .../platform/arm/mali-c720/mali-c720-common.h      |    2 +
- .../platform/arm/mali-c720/mali-c720-discovery.c   | 1172 ++++++++++++++++++++
- .../platform/arm/mali-c720/mali-c720-discovery.h   |  212 ++++
- 3 files changed, 1386 insertions(+)
+ .../platform/arm/mali-c720/mali-c720-common.h      |   45 +
+ .../platform/arm/mali-c720/mali-c720-ctx-mgr.c     | 1754 ++++++++++++++++++++
+ .../platform/arm/mali-c720/mali-c720-ctx-mgr.h     |  303 ++++
+ .../platform/arm/mali-c720/mali-c720-interrupts.c  |  432 +++++
+ .../platform/arm/mali-c720/mali-c720-interrupts.h  |   34 +
+ 5 files changed, 2568 insertions(+)
 
 diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-common.h b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
-index 4f8e2918937c1ca212a11ccc6c4a0edb72dca72c..3efbf7572e5015a57124b6f623ba5e1d757bf22a 100644
+index 3efbf7572e5015a57124b6f623ba5e1d757bf22a..1808fdef149f8035394af122b348232be1ff51dd 100644
 --- a/drivers/media/platform/arm/mali-c720/mali-c720-common.h
 +++ b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
-@@ -14,6 +14,7 @@
+@@ -9,20 +9,25 @@
+ #define MALI_C720_COMMON_H
+ 
+ #include <linux/io.h>
++#include <linux/kfifo.h>
+ #include <linux/mutex.h>
+ #include <linux/refcount.h>
  #include <linux/spinlock.h>
  #include <linux/videodev2.h>
  
-+#include "mali-c720-discovery.h"
++#include "mali-c720-ctx-mgr.h"
+ #include "mali-c720-discovery.h"
  #include "mali-c720-formats.h"
  #include "mali-c720-id.h"
++#include "mali-c720-interrupts.h"
  #include "mali-c720-register-access.h"
-@@ -50,6 +51,7 @@ struct mali_c720 {
+ #include "mali-c720-registers.h"
+ #include "mali-c720-registers-top.h"
+ #include "mali-c720-registers-ctx-mgr.h"
+ #include "mali-c720-registers-modules.h"
  
- 	struct mali_c720_registers registers;
- 
-+	struct mali_c720_discovery discovery;
- 	const struct mali_c720_hw_version *hw_version;
++#define MALI_C720_FRAME_TIMESTAMP_COUNT	256
++
+ enum mali_c720_cap_devs {
+ 	MALI_C720_CAP_DEV_FR0_RGB,
+ 	MALI_C720_CAP_DEV_FR0_YUV,
+@@ -39,20 +44,60 @@ struct mali_c720_context_regs {
+ 	refcount_t users;
  };
  
-diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-discovery.c b/drivers/media/platform/arm/mali-c720/mali-c720-discovery.c
++struct mali_c720_frame_timestamp {
++	u64 timestamp;
++	u32 sequence;
++	bool valid;
++};
++
+ struct mali_c720_context {
++	unsigned int id;
+ 	struct mali_c720 *mali_c720;
+ 	struct mali_c720_context_regs regs;
++	struct mali_c720_cdma_desc cdma_desc;
++	struct mali_c720_slot_desc slot_desc;
++	struct mali_c720_input_cfg input_cfg;
++	unsigned int active_fifos_by_output[MALI_C720_MAX_NUM_CAP_DEVS];
++	bool slot_desc_updated;
++
++	/* Protects request submission */
++	spinlock_t req_lock;
++	unsigned int request_sequence;
++
++	/* Protects context state and input_cfg. */
++	spinlock_t state_lock;
++	int state;
++	bool pipeline_busy;
++
++	unsigned int input_frame_sequence;
++	unsigned int frame_sequence;
++	struct mali_c720_frame_timestamp frame_timestamps[MALI_C720_FRAME_TIMESTAMP_COUNT];
++	u64 timestamp;
+ };
+ 
+ struct mali_c720 {
+ 	struct device *dev;
++	unsigned int irq;
+ 	u8 __iomem *base;
+ 	resource_size_t mmio_size;
++	u32 top_base;
+ 
+ 	struct mali_c720_registers registers;
++	u8 *default_regs;
+ 
+ 	struct mali_c720_discovery discovery;
+ 	const struct mali_c720_hw_version *hw_version;
++	struct mali_c720_context context;
++	struct mali_c720_ctx_mgr ctx_mgr;
++
++	/* Serializes media registration, start/stop and resource allocation. */
++	struct mutex device_lock;
++	u8 num_active_contexts;
++
++	DECLARE_KFIFO(irq_fifo, struct mali_c720_interrupt_data, MALI_C720_IRQ_FIFO_SIZE);
++
++	/* Spinlock to guard IRQ fifo */
++	spinlock_t irq_lock;
+ };
+ 
+ #endif /* MALI_C720_COMMON_H */
+diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c b/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..19d88481763092b5a8d8b8de58cb56f5bdacaaaf
+index 0000000000000000000000000000000000000000..828a993c5da63619f6fbb99d28532846f969d663
 --- /dev/null
-+++ b/drivers/media/platform/arm/mali-c720/mali-c720-discovery.c
-@@ -0,0 +1,1172 @@
++++ b/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c
+@@ -0,0 +1,1754 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * ARM Mali-C720 ISP Driver - Image signal processor
@@ -133,1389 +213,2540 @@ index 0000000000000000000000000000000000000000..19d88481763092b5a8d8b8de58cb56f5
 + * Copyright (C) 2026 Arm Ltd
 + */
 +
-+#include <linux/bitfield.h>
++#include <linux/bitmap.h>
 +#include <linux/bitops.h>
-+#include <linux/crc-itu-t.h>
-+#include <linux/dev_printk.h>
-+#include <linux/kernel.h>
++#include <linux/cleanup.h>
++#include <linux/crc-ccitt.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/dma-mapping.h>
++#include <linux/interrupt.h>
++#include <linux/iopoll.h>
 +#include <linux/slab.h>
 +#include <linux/string.h>
++#include <linux/timekeeping.h>
++#include <linux/wordpart.h>
 +
 +#include "mali-c720-common.h"
 +
-+#define CAPABILITY_DISCOVERY_HEADER_OFFSET		0x0
++#define MALI_C720_CRC16_MCRF4XX_INIT 0xffff
 +
-+#define MALI_C720_DISC_V1_FIELD_ID_MASK			GENMASK(7, 0)
-+#define MALI_C720_DISC_V1_LIST_VERSION_MASK		GENMASK(11, 8)
-+#define MALI_C720_DISC_V1_LIST_DESC_COUNT_MASK		GENMASK(31, 16)
-+#define MALI_C720_DISC_V1_SUBPIPE_INSTANCE_MASK		GENMASK(10, 8)
-+#define MALI_C720_DISC_V1_SUBPIPE_TYPE_MASK		GENMASK(15, 11)
-+#define MALI_C720_DISC_V1_SUBPIPE_DESC_COUNT_MASK	GENMASK(31, 16)
-+#define MALI_C720_DISC_V1_MODULE_INSTANCE_MASK		GENMASK(10, 8)
-+#define MALI_C720_DISC_V1_MODULE_REMOVED_MASK		BIT(14)
-+#define MALI_C720_DISC_V1_MODULE_OFFSET_MASK		GENMASK(31, 16)
-+#define MALI_C720_DISC_V1_MEMORY_TABLE_ID_MASK		GENMASK(9, 8)
-+#define MALI_C720_DISC_V1_MEMORY_SIZE_MASK		GENMASK(13, 10)
-+#define MALI_C720_DISC_V1_MEMORY_SCALAR_SUFFIX_MASK	BIT(14)
-+#define MALI_C720_DISC_V1_MEMORY_OFFSET_MASK		GENMASK(31, 16)
-+#define MALI_C720_DISC_V1_PARAM_ID_MASK			GENMASK(15, 8)
-+#define MALI_C720_DISC_V1_PARAM_VALUE_MASK		GENMASK(31, 16)
-+#define MALI_C720_DISC_V1_VERSION_PATCH_MASK		GENMASK(15, 8)
-+#define MALI_C720_DISC_V1_VERSION_MINOR_MASK		GENMASK(23, 16)
-+#define MALI_C720_DISC_V1_VERSION_MAJOR_MASK		GENMASK(31, 24)
-+#define MALI_C720_DISC_V1_FOOTER_CRC_MASK		GENMASK(31, 16)
++/* Allow for a worst case of 1FPS for input enable/disable timeouts */
++#define INPUT_POLL_TIMEOUT 1000000
++#define INPUT_POLL_INTERVAL 1000
 +
-+#define MALI_C720_DISC_V1_FIELD_LIST_HEADER		0xf0
-+#define MALI_C720_DISC_V1_FIELD_SUBPIPE_HEADER		0xf1
-+#define MALI_C720_DISC_V1_FIELD_SUBPIPE_FOOTER		0xf2
-+#define MALI_C720_DISC_V1_FIELD_EXT_MEMORY		0xf8
-+#define MALI_C720_DISC_V1_FIELD_EXT_VERSION		0xf9
-+#define MALI_C720_DISC_V1_FIELD_EXT_PARAMETER		0xfa
-+#define MALI_C720_DISC_V1_FIELD_LIST_FOOTER		0xff
-+
-+enum mali_c720_disc_v1_subpipe_id {
-+	MALI_C720_DISC_V1_SUBPIPE_ID_INPUT,
-+	MALI_C720_DISC_V1_SUBPIPE_ID_HV,
-+	MALI_C720_DISC_V1_SUBPIPE_ID_CV,
-+	MALI_C720_DISC_V1_SUBPIPE_ID_RAW_OUTPUT,
-+	MALI_C720_DISC_V1_SUBPIPE_ID_FR_OUTPUT,
-+	MALI_C720_DISC_V1_SUBPIPE_ID_PYR_OUTPUT,
-+	MALI_C720_DISC_V1_SUBPIPE_ID_FOV_OUTPUT,
-+	MALI_C720_DISC_V1_SUBPIPE_ID_STATS,
-+	MALI_C720_DISC_V1_SUBPIPE_ID_TPG,
-+	MALI_C720_DISC_V1_SUBPIPE_ID_MAX,
-+};
-+
-+enum mali_c720_disc_v1_module_id {
-+	MALI_C720_DISC_V1_MODULE_ID_CM_FULL = 0x00,
-+	MALI_C720_DISC_V1_MODULE_ID_GLOBAL_ISP_CONTROL = 0x01,
-+	MALI_C720_DISC_V1_MODULE_ID_INTERRUPT_CONTROLLER = 0x02,
-+	MALI_C720_DISC_V1_MODULE_ID_FAULT_COLLECTOR = 0x03,
-+	MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL = 0x04,
-+	MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL = 0x05,
-+	MALI_C720_DISC_V1_MODULE_ID_MODULE_CG_CONTROL = 0x06,
-+	MALI_C720_DISC_V1_MODULE_ID_CM_CONTROL = 0x0f,
-+	MALI_C720_DISC_V1_MODULE_ID_CM_SLOT_LOADABLE = 0x10,
-+	MALI_C720_DISC_V1_MODULE_ID_PIPELINE_GLOBAL_CONTROL = 0x12,
-+	MALI_C720_DISC_V1_MODULE_ID_DIGITAL_GAIN = 0x18,
-+	MALI_C720_DISC_V1_MODULE_ID_GAIN_AND_OFFSET = 0x19,
-+	MALI_C720_DISC_V1_MODULE_ID_BLACK_LEVEL = 0x1c,
-+	MALI_C720_DISC_V1_MODULE_ID_WB_GAIN = 0x1d,
-+	MALI_C720_DISC_V1_MODULE_ID_OFFSET = 0x1e,
-+	MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RAW = 0x20,
-+	MALI_C720_DISC_V1_MODULE_ID_SQUARE_RAW = 0x21,
-+	MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RGB = 0x24,
-+	MALI_C720_DISC_V1_MODULE_ID_SQUARE_RGB = 0x25,
-+	MALI_C720_DISC_V1_MODULE_ID_DECOMPANDER = 0x28,
-+	MALI_C720_DISC_V1_MODULE_ID_FRAME_STITCHING = 0x29,
-+	MALI_C720_DISC_V1_MODULE_ID_DEFECT_PIXEL = 0x30,
-+	MALI_C720_DISC_V1_MODULE_ID_RGBIR_REMOSAIC = 0x31,
-+	MALI_C720_DISC_V1_MODULE_ID_CA_CORRECTION = 0x32,
-+	MALI_C720_DISC_V1_MODULE_ID_TEMPER = 0x33,
-+	MALI_C720_DISC_V1_MODULE_ID_SINTER = 0x34,
-+	MALI_C720_DISC_V1_MODULE_ID_SMART_SHADING = 0x40,
-+	MALI_C720_DISC_V1_MODULE_ID_RAW_TO_INTENSITY = 0x41,
-+	MALI_C720_DISC_V1_MODULE_ID_DEHAZE = 0x42,
-+	MALI_C720_DISC_V1_MODULE_ID_IRIDIX = 0x43,
-+	MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_STD = 0x44,
-+	MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_DFD = 0x45,
-+	MALI_C720_DISC_V1_MODULE_ID_PURPLE_FRINGE = 0x46,
-+	MALI_C720_DISC_V1_MODULE_ID_CCM = 0x47,
-+	MALI_C720_DISC_V1_MODULE_ID_CNR = 0x48,
-+	MALI_C720_DISC_V1_MODULE_ID_SCALER_RGB = 0x50,
-+	MALI_C720_DISC_V1_MODULE_ID_SCALER_RAW = 0x51,
-+	MALI_C720_DISC_V1_MODULE_ID_CROP = 0x54,
-+	MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RGB = 0x58,
-+	MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RAW = 0x59,
-+	MALI_C720_DISC_V1_MODULE_ID_GAMMA = 0x5c,
-+	MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RGB = 0x5d,
-+	MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RAW = 0x5e,
-+	MALI_C720_DISC_V1_MODULE_ID_OUTPUT_FORMATTER = 0x60,
-+	MALI_C720_DISC_V1_MODULE_ID_OUTPUT_MULTIPLEXER = 0x61,
-+	MALI_C720_DISC_V1_MODULE_ID_GAUSSIAN_PYRAMID = 0x62,
-+	MALI_C720_DISC_V1_MODULE_ID_RAW_STREAM_PACKER = 0x63,
-+	MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_MULTI = 0x67,
-+	MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_SINGLE = 0x68,
-+	MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_RGB_SINGLE = 0x69,
-+	MALI_C720_DISC_V1_MODULE_ID_FGM = 0x6a,
-+	MALI_C720_DISC_V1_MODULE_ID_FBIST_BRIDGE = 0x6b,
-+	MALI_C720_DISC_V1_MODULE_ID_PIPELINE_CRC = 0x6c,
-+	MALI_C720_DISC_V1_MODULE_ID_INPUT_CRC = 0x6d,
-+	MALI_C720_DISC_V1_MODULE_ID_INTENSITY_STATS = 0x70,
-+	MALI_C720_DISC_V1_MODULE_ID_HISTOGRAM_STATS = 0x71,
-+	MALI_C720_DISC_V1_MODULE_ID_COLOR_STATS = 0x72,
-+	MALI_C720_DISC_V1_MODULE_ID_AUTO_FOCUS_STATS = 0x73,
-+};
-+
-+enum mali_c720_disc_v1_table_ca_correction_id {
-+	MALI_C720_DISC_V1_TABLE_CA_CORRECTION_COORD_MEM_ID = 0,
-+	MALI_C720_DISC_V1_TABLE_CA_CORRECTION_FILTER_MEM_ID,
-+	MALI_C720_DISC_V1_TABLE_CA_CORRECTION_MAX_ID,
-+};
-+
-+enum mali_c720_disc_v1_table_smart_shading_id {
-+	MALI_C720_DISC_V1_TABLE_SMART_SHADING_MEM_ID = 0,
-+	MALI_C720_DISC_V1_TABLE_SMART_SHADING_MAX_ID,
-+};
-+
-+enum mali_c720_disc_v1_table_dehaze_id {
-+	MALI_C720_DISC_V1_TABLE_DEHAZE_MEM_ID = 0,
-+	MALI_C720_DISC_V1_TABLE_DEHAZE_MAX_ID,
-+};
-+
-+enum mali_c720_disc_v1_table_scaler_rgb_id {
-+	MALI_C720_DISC_V1_TABLE_SCALER_RGB_H_MEM_ID = 0,
-+	MALI_C720_DISC_V1_TABLE_SCALER_RGB_V_MEM_ID,
-+	MALI_C720_DISC_V1_TABLE_SCALER_RGB_MAX_ID,
-+};
-+
-+struct mali_c720_disc_v1_subpipe_header {
-+	u16 desc_count;
-+	u8 type;
-+	u8 instance_id;
-+};
-+
-+static u8 mali_c720_discovery_field_id(u32 record)
++struct mali_c720_context *mali_c720_get_active_context(struct mali_c720 *mali_c720)
 +{
-+	return (u8)FIELD_GET(MALI_C720_DISC_V1_FIELD_ID_MASK, record);
++	return &mali_c720->context;
 +}
 +
-+static bool mali_c720_discovery_is_module_id(u8 field_id)
++static u32 mali_c720_ctx_mgr_buffer_base(const struct mali_c720_registers *regs,
++					 const struct mali_c720_buffer_pool *pool,
++					 unsigned int index)
 +{
-+	switch (field_id) {
-+	case MALI_C720_DISC_V1_MODULE_ID_CM_FULL:
-+	case MALI_C720_DISC_V1_MODULE_ID_GLOBAL_ISP_CONTROL:
-+	case MALI_C720_DISC_V1_MODULE_ID_INTERRUPT_CONTROLLER:
-+	case MALI_C720_DISC_V1_MODULE_ID_FAULT_COLLECTOR:
-+	case MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL:
-+	case MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL:
-+	case MALI_C720_DISC_V1_MODULE_ID_MODULE_CG_CONTROL:
-+	case MALI_C720_DISC_V1_MODULE_ID_CM_CONTROL:
-+	case MALI_C720_DISC_V1_MODULE_ID_CM_SLOT_LOADABLE:
-+	case MALI_C720_DISC_V1_MODULE_ID_PIPELINE_GLOBAL_CONTROL:
-+	case MALI_C720_DISC_V1_MODULE_ID_DIGITAL_GAIN:
-+	case MALI_C720_DISC_V1_MODULE_ID_GAIN_AND_OFFSET:
-+	case MALI_C720_DISC_V1_MODULE_ID_BLACK_LEVEL:
-+	case MALI_C720_DISC_V1_MODULE_ID_WB_GAIN:
-+	case MALI_C720_DISC_V1_MODULE_ID_OFFSET:
-+	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RAW:
-+	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_RAW:
-+	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RGB:
-+	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_RGB:
-+	case MALI_C720_DISC_V1_MODULE_ID_DECOMPANDER:
-+	case MALI_C720_DISC_V1_MODULE_ID_FRAME_STITCHING:
-+	case MALI_C720_DISC_V1_MODULE_ID_DEFECT_PIXEL:
-+	case MALI_C720_DISC_V1_MODULE_ID_RGBIR_REMOSAIC:
-+	case MALI_C720_DISC_V1_MODULE_ID_CA_CORRECTION:
-+	case MALI_C720_DISC_V1_MODULE_ID_TEMPER:
-+	case MALI_C720_DISC_V1_MODULE_ID_SINTER:
-+	case MALI_C720_DISC_V1_MODULE_ID_SMART_SHADING:
-+	case MALI_C720_DISC_V1_MODULE_ID_RAW_TO_INTENSITY:
-+	case MALI_C720_DISC_V1_MODULE_ID_DEHAZE:
-+	case MALI_C720_DISC_V1_MODULE_ID_IRIDIX:
-+	case MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_STD:
-+	case MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_DFD:
-+	case MALI_C720_DISC_V1_MODULE_ID_PURPLE_FRINGE:
-+	case MALI_C720_DISC_V1_MODULE_ID_CCM:
-+	case MALI_C720_DISC_V1_MODULE_ID_CNR:
-+	case MALI_C720_DISC_V1_MODULE_ID_SCALER_RGB:
-+	case MALI_C720_DISC_V1_MODULE_ID_SCALER_RAW:
-+	case MALI_C720_DISC_V1_MODULE_ID_CROP:
-+	case MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RGB:
-+	case MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RAW:
-+	case MALI_C720_DISC_V1_MODULE_ID_GAMMA:
-+	case MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RGB:
-+	case MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RAW:
-+	case MALI_C720_DISC_V1_MODULE_ID_OUTPUT_FORMATTER:
-+	case MALI_C720_DISC_V1_MODULE_ID_OUTPUT_MULTIPLEXER:
-+	case MALI_C720_DISC_V1_MODULE_ID_GAUSSIAN_PYRAMID:
-+	case MALI_C720_DISC_V1_MODULE_ID_RAW_STREAM_PACKER:
-+	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_MULTI:
-+	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_SINGLE:
-+	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_RGB_SINGLE:
-+	case MALI_C720_DISC_V1_MODULE_ID_FGM:
-+	case MALI_C720_DISC_V1_MODULE_ID_FBIST_BRIDGE:
-+	case MALI_C720_DISC_V1_MODULE_ID_PIPELINE_CRC:
-+	case MALI_C720_DISC_V1_MODULE_ID_INPUT_CRC:
-+	case MALI_C720_DISC_V1_MODULE_ID_INTENSITY_STATS:
-+	case MALI_C720_DISC_V1_MODULE_ID_HISTOGRAM_STATS:
-+	case MALI_C720_DISC_V1_MODULE_ID_COLOR_STATS:
-+	case MALI_C720_DISC_V1_MODULE_ID_AUTO_FOCUS_STATS:
-+		return true;
-+	default:
-+		return false;
-+	}
++	const struct mali_c720_cm_buffer_regs *buffer = regs->cm->buffer;
++	unsigned int descriptor_id = pool->pool_id + index;
++
++	if (pool->type == MALI_C720_BUF_TYPE_RAW)
++		return mali_c720_group_base(&buffer->raw_group, descriptor_id);
++
++	return mali_c720_group_base(&buffer->out_group, descriptor_id);
 +}
 +
-+static enum mali_c720_discovery_module_id
-+mali_c720_discovery_module_id_from_v1_id(u8 v1_module_id)
++static void mali_c720_ctx_mgr_input_command(struct mali_c720 *mali_c720, u32 base,
++					    u32 command)
 +{
-+	switch (v1_module_id) {
-+	case MALI_C720_DISC_V1_MODULE_ID_CM_FULL:
-+		return MALI_C720_DISC_MODULE_ID_CM_FULL;
-+	case MALI_C720_DISC_V1_MODULE_ID_GLOBAL_ISP_CONTROL:
-+		return MALI_C720_DISC_MODULE_ID_GLOBAL_ISP_CONTROL;
-+	case MALI_C720_DISC_V1_MODULE_ID_INTERRUPT_CONTROLLER:
-+		return MALI_C720_DISC_MODULE_ID_INTERRUPT_CONTROLLER;
-+	case MALI_C720_DISC_V1_MODULE_ID_FAULT_COLLECTOR:
-+		return MALI_C720_DISC_MODULE_ID_FAULT_COLLECTOR;
-+	case MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL:
-+		return MALI_C720_DISC_MODULE_ID_MODULE_BIST_CONTROL;
-+	case MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL:
-+		return MALI_C720_DISC_MODULE_ID_MODULE_CRC_CONTROL;
-+	case MALI_C720_DISC_V1_MODULE_ID_MODULE_CG_CONTROL:
-+		return MALI_C720_DISC_MODULE_ID_MODULE_CG_CONTROL;
-+	case MALI_C720_DISC_V1_MODULE_ID_CM_CONTROL:
-+		return MALI_C720_DISC_MODULE_ID_CM_CONTROL;
-+	case MALI_C720_DISC_V1_MODULE_ID_CM_SLOT_LOADABLE:
-+		return MALI_C720_DISC_MODULE_ID_CM_SLOT_LOADABLE;
-+	case MALI_C720_DISC_V1_MODULE_ID_PIPELINE_GLOBAL_CONTROL:
-+		return MALI_C720_DISC_MODULE_ID_PIPELINE_GLOBAL_CONTROL;
-+	case MALI_C720_DISC_V1_MODULE_ID_DIGITAL_GAIN:
-+		return MALI_C720_DISC_MODULE_ID_DIGITAL_GAIN;
-+	case MALI_C720_DISC_V1_MODULE_ID_GAIN_AND_OFFSET:
-+		return MALI_C720_DISC_MODULE_ID_GAIN_AND_OFFSET;
-+	case MALI_C720_DISC_V1_MODULE_ID_BLACK_LEVEL:
-+		return MALI_C720_DISC_MODULE_ID_BLACK_LEVEL;
-+	case MALI_C720_DISC_V1_MODULE_ID_WB_GAIN:
-+		return MALI_C720_DISC_MODULE_ID_WB_GAIN;
-+	case MALI_C720_DISC_V1_MODULE_ID_OFFSET:
-+		return MALI_C720_DISC_MODULE_ID_OFFSET;
-+	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RAW:
-+		return MALI_C720_DISC_MODULE_ID_SQUARE_ROOT_RAW;
-+	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_RAW:
-+		return MALI_C720_DISC_MODULE_ID_SQUARE_RAW;
-+	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RGB:
-+		return MALI_C720_DISC_MODULE_ID_SQUARE_ROOT_RGB;
-+	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_RGB:
-+		return MALI_C720_DISC_MODULE_ID_SQUARE_RGB;
-+	case MALI_C720_DISC_V1_MODULE_ID_DECOMPANDER:
-+		return MALI_C720_DISC_MODULE_ID_DECOMPANDER;
-+	case MALI_C720_DISC_V1_MODULE_ID_FRAME_STITCHING:
-+		return MALI_C720_DISC_MODULE_ID_FRAME_STITCHING;
-+	case MALI_C720_DISC_V1_MODULE_ID_DEFECT_PIXEL:
-+		return MALI_C720_DISC_MODULE_ID_DEFECT_PIXEL;
-+	case MALI_C720_DISC_V1_MODULE_ID_RGBIR_REMOSAIC:
-+		return MALI_C720_DISC_MODULE_ID_RGBIR_REMOSAIC;
-+	case MALI_C720_DISC_V1_MODULE_ID_CA_CORRECTION:
-+		return MALI_C720_DISC_MODULE_ID_CA_CORRECTION;
-+	case MALI_C720_DISC_V1_MODULE_ID_TEMPER:
-+		return MALI_C720_DISC_MODULE_ID_TEMPER;
-+	case MALI_C720_DISC_V1_MODULE_ID_SINTER:
-+		return MALI_C720_DISC_MODULE_ID_SINTER;
-+	case MALI_C720_DISC_V1_MODULE_ID_SMART_SHADING:
-+		return MALI_C720_DISC_MODULE_ID_SMART_SHADING;
-+	case MALI_C720_DISC_V1_MODULE_ID_RAW_TO_INTENSITY:
-+		return MALI_C720_DISC_MODULE_ID_RAW_TO_INTENSITY;
-+	case MALI_C720_DISC_V1_MODULE_ID_DEHAZE:
-+		return MALI_C720_DISC_MODULE_ID_DEHAZE;
-+	case MALI_C720_DISC_V1_MODULE_ID_IRIDIX:
-+		return MALI_C720_DISC_MODULE_ID_IRIDIX;
-+	case MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_STD:
-+		return MALI_C720_DISC_MODULE_ID_DEMOSAIC_STD;
-+	case MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_DFD:
-+		return MALI_C720_DISC_MODULE_ID_DEMOSAIC_DFD;
-+	case MALI_C720_DISC_V1_MODULE_ID_PURPLE_FRINGE:
-+		return MALI_C720_DISC_MODULE_ID_PURPLE_FRINGE;
-+	case MALI_C720_DISC_V1_MODULE_ID_CCM:
-+		return MALI_C720_DISC_MODULE_ID_CCM;
-+	case MALI_C720_DISC_V1_MODULE_ID_CNR:
-+		return MALI_C720_DISC_MODULE_ID_CNR;
-+	case MALI_C720_DISC_V1_MODULE_ID_SCALER_RGB:
-+		return MALI_C720_DISC_MODULE_ID_SCALER_RGB;
-+	case MALI_C720_DISC_V1_MODULE_ID_SCALER_RAW:
-+		return MALI_C720_DISC_MODULE_ID_SCALER_RAW;
-+	case MALI_C720_DISC_V1_MODULE_ID_CROP:
-+		return MALI_C720_DISC_MODULE_ID_CROP;
-+	case MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RGB:
-+		return MALI_C720_DISC_MODULE_ID_SHARPENING_RGB;
-+	case MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RAW:
-+		return MALI_C720_DISC_MODULE_ID_SHARPENING_RAW;
-+	case MALI_C720_DISC_V1_MODULE_ID_GAMMA:
-+		return MALI_C720_DISC_MODULE_ID_GAMMA;
-+	case MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RGB:
-+		return MALI_C720_DISC_MODULE_ID_TC_LUT_RGB;
-+	case MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RAW:
-+		return MALI_C720_DISC_MODULE_ID_TC_LUT_RAW;
-+	case MALI_C720_DISC_V1_MODULE_ID_OUTPUT_FORMATTER:
-+		return MALI_C720_DISC_MODULE_ID_OUTPUT_FORMATTER;
-+	case MALI_C720_DISC_V1_MODULE_ID_OUTPUT_MULTIPLEXER:
-+		return MALI_C720_DISC_MODULE_ID_OUTPUT_MULTIPLEXER;
-+	case MALI_C720_DISC_V1_MODULE_ID_GAUSSIAN_PYRAMID:
-+		return MALI_C720_DISC_MODULE_ID_GAUSSIAN_PYRAMID;
-+	case MALI_C720_DISC_V1_MODULE_ID_RAW_STREAM_PACKER:
-+		return MALI_C720_DISC_MODULE_ID_RAW_STREAM_PACKER;
-+	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_MULTI:
-+		return MALI_C720_DISC_MODULE_ID_TPG_RAW_MULTI;
-+	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_SINGLE:
-+		return MALI_C720_DISC_MODULE_ID_TPG_RAW_SINGLE;
-+	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_RGB_SINGLE:
-+		return MALI_C720_DISC_MODULE_ID_TPG_RAW_RGB_SINGLE;
-+	case MALI_C720_DISC_V1_MODULE_ID_FGM:
-+		return MALI_C720_DISC_MODULE_ID_FGM;
-+	case MALI_C720_DISC_V1_MODULE_ID_FBIST_BRIDGE:
-+		return MALI_C720_DISC_MODULE_ID_FBIST_BRIDGE;
-+	case MALI_C720_DISC_V1_MODULE_ID_PIPELINE_CRC:
-+		return MALI_C720_DISC_MODULE_ID_PIPELINE_CRC;
-+	case MALI_C720_DISC_V1_MODULE_ID_INPUT_CRC:
-+		return MALI_C720_DISC_MODULE_ID_INPUT_CRC;
-+	case MALI_C720_DISC_V1_MODULE_ID_INTENSITY_STATS:
-+		return MALI_C720_DISC_MODULE_ID_INTENSITY_STATS;
-+	case MALI_C720_DISC_V1_MODULE_ID_HISTOGRAM_STATS:
-+		return MALI_C720_DISC_MODULE_ID_HISTOGRAM_STATS;
-+	case MALI_C720_DISC_V1_MODULE_ID_COLOR_STATS:
-+		return MALI_C720_DISC_MODULE_ID_COLOR_STATS;
-+	case MALI_C720_DISC_V1_MODULE_ID_AUTO_FOCUS_STATS:
-+		return MALI_C720_DISC_MODULE_ID_AUTO_FOCUS_STATS;
-+	default:
-+		return MALI_C720_DISC_MODULE_ID_NONE;
-+	}
++	const struct mali_c720_cm_input_regs *input = mali_c720->registers.cm->input;
++	u32 val;
++
++	mali_c720_group_write(mali_c720, base, &input->command, command);
++	mali_c720_group_read(mali_c720, base, &input->status_arch);
++	udelay(1);
++
++	if (command != MALI_C720_INPUT_COMMAND_CANCEL)
++		return;
++
++	/* Wait for the input FIFO and writer to drain during cancellation. */
++	(void)poll_timeout_us(val = mali_c720_group_read(mali_c720, base, &input->status_arch),
++			      val == MALI_C720_INPUT_DISABLED, 10, 1000, false);
 +}
 +
-+static enum mali_c720_discovery_pipeline_id
-+mali_c720_discovery_v1_subpipe_id_to_pipeline_id(u8 subpipe_id)
++static void mali_c720_ctx_mgr_buffer_request(struct mali_c720 *mali_c720, u32 base, u32 state)
 +{
-+	switch (subpipe_id) {
-+	case MALI_C720_DISC_V1_SUBPIPE_ID_INPUT:
-+		return MALI_C720_DISC_PIPE_INPUT;
-+	case MALI_C720_DISC_V1_SUBPIPE_ID_HV:
-+		return MALI_C720_DISC_PIPE_HV;
-+	case MALI_C720_DISC_V1_SUBPIPE_ID_CV:
-+		return MALI_C720_DISC_PIPE_CV;
-+	case MALI_C720_DISC_V1_SUBPIPE_ID_RAW_OUTPUT:
-+		return MALI_C720_DISC_PIPE_RAW_OUTPUT;
-+	case MALI_C720_DISC_V1_SUBPIPE_ID_FR_OUTPUT:
-+		return MALI_C720_DISC_PIPE_FR_OUTPUT;
-+	case MALI_C720_DISC_V1_SUBPIPE_ID_PYR_OUTPUT:
-+		return MALI_C720_DISC_PIPE_PYR_OUTPUT;
-+	case MALI_C720_DISC_V1_SUBPIPE_ID_FOV_OUTPUT:
-+		return MALI_C720_DISC_PIPE_FOV_OUTPUT;
-+	case MALI_C720_DISC_V1_SUBPIPE_ID_STATS:
-+		return MALI_C720_DISC_PIPE_STATS;
-+	case MALI_C720_DISC_V1_SUBPIPE_ID_TPG:
-+		return MALI_C720_DISC_PIPE_TPG;
-+	default:
-+		return MALI_C720_DISC_PIPE_MAX;
-+	}
++	const struct mali_c720_cm_buffer_regs *buffer = mali_c720->registers.cm->buffer;
++	u32 val;
++
++	/* Readback and a small delay to ensure state transition completes */
++	mali_c720_group_write(mali_c720, base, &buffer->state_request, state);
++	mali_c720_group_read(mali_c720, base, &buffer->state);
++	udelay(1);
++
++	if (state != MALI_C720_BUFFER_STATE_CANCELLED)
++		return;
++
++	/* Wait for outstanding DMA transactions during cancellation */
++	(void)poll_timeout_us_atomic(val = mali_c720_group_read(mali_c720, base, &buffer->state),
++				     val == MALI_C720_BUFFER_STATE_CANCELLED, 10, 1000, false);
 +}
 +
-+static u16 mali_c720_discovery_crc16_ibm_3740(const __le32 *records, u16 count)
++static void mali_c720_ctx_mgr_set_slot_enabled(struct mali_c720_context *ctx, bool enable)
 +{
-+	u16 crc = 0xffff;
-+	u16 i;
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_job_control_regs *job_control =
++		mali_c720->registers.cm->job_control;
++	const struct mali_c720_cm_slot_regs *slot = mali_c720->registers.cm->slot;
++	u32 val = enable ? MALI_C720_SCH_COMMAND_ENABLE_SLOT :
++		      MALI_C720_SCH_COMMAND_DISABLE_SLOT;
++	val |= ctx->id << mali_c720_reg_shift(&job_control->sch_command_slot);
 +
-+	for (i = 0; i < count; i++) {
-+		u32 v = le32_to_cpu(records[i]);
++	mali_c720_write_raw(mali_c720, &job_control->sch_command, val);
++	mali_c720_group_read(mali_c720, mali_c720_group_base(&slot->group, ctx->id), &slot->status);
++	udelay(1);
++}
 +
-+		crc = crc_itu_t_byte(crc, (u8)(v >> 24));
-+		crc = crc_itu_t_byte(crc, (u8)(v >> 16));
-+		crc = crc_itu_t_byte(crc, (u8)(v >> 8));
-+		crc = crc_itu_t_byte(crc, (u8)v);
++static void mali_c720_ctx_mgr_cancel_slot(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_job_control_regs *job_control =
++		mali_c720->registers.cm->job_control;
++	const struct mali_c720_cm_slot_regs *slot = mali_c720->registers.cm->slot;
++	u32 val = MALI_C720_SCH_COMMAND_CANCEL_SLOT;
++
++	val |= ctx->id << mali_c720_reg_shift(&job_control->sch_command_slot);
++
++	mali_c720_write_raw(mali_c720, &job_control->sch_command, val);
++	mali_c720_group_read(mali_c720, mali_c720_group_base(&slot->group, ctx->id), &slot->status);
++	udelay(1);
++}
++
++static void mali_c720_ctx_mgr_stop_slot(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_slot_regs *slot = mali_c720->registers.cm->slot;
++	u32 slot_addr = mali_c720_group_base(&slot->group, ctx->id);
++	u32 val;
++	int ret;
++
++	mali_c720_ctx_mgr_set_slot_enabled(ctx, false);
++
++	/* Stop arbitration and allow an already selected frame to finish. */
++	ret = poll_timeout_us(val = mali_c720_group_read(mali_c720, slot_addr, &slot->status),
++			      val == MALI_C720_SLOT_DISABLED || val == MALI_C720_SLOT_ERROR,
++			      5000, 1000000, false);
++	if (!ret && val == MALI_C720_SLOT_DISABLED)
++		return;
++
++	dev_warn(mali_c720->dev, "Slot %u failed to disable (state %u), cancelling\n",
++		 ctx->id, val);
++	mali_c720_ctx_mgr_cancel_slot(ctx);
++
++	/* Cancellation must drain the buffer agents and CDMA before cleanup. */
++	(void)poll_timeout_us(val = mali_c720_group_read(mali_c720, slot_addr, &slot->status),
++			      val == MALI_C720_SLOT_DISABLED, 100, 1000, false);
++}
++
++static void mali_c720_ctx_mgr_cdma_request(struct mali_c720 *mali_c720, u32 base, u32 state)
++{
++	const struct mali_c720_cm_cdma_slot_regs *cdma_slot = mali_c720->registers.cm->cdma_slot;
++
++	mali_c720_group_write(mali_c720, base, &cdma_slot->cdma_state_request, state);
++	mali_c720_group_read(mali_c720, base, &cdma_slot->cdma_state);
++	udelay(1);
++}
++
++static void mali_c720_ctx_mgr_set_scheduler_enabled(struct mali_c720 *mali_c720, bool enable)
++{
++	const struct mali_c720_cm_job_control_regs *job_control =
++		mali_c720->registers.cm->job_control;
++	u32 command = enable ? MALI_C720_SCH_COMMAND_ENABLE : MALI_C720_SCH_COMMAND_DISABLE;
++
++	mali_c720_write(mali_c720, &job_control->sch_command, command);
++	mali_c720_read(mali_c720, &job_control->sch_status_arch);
++	udelay(1);
++}
++
++static inline unsigned int mali_c720_reg_width(u32 mask)
++{
++	if (!mask)
++		return 0;
++
++	return __fls(mask) - __ffs(mask) + 1;
++}
++
++static u16 mali_c720_crc16_mcrf4xx_bits(u16 crc, u32 data, unsigned int bits)
++{
++	unsigned int bit;
++
++	for (bit = 0; bit + 8 <= bits; bit += 8)
++		crc = crc_ccitt_byte(crc, (data >> bit) & 0xff);
++
++	for (; bit < bits; bit++) {
++		if ((crc ^ (data >> bit)) & 0x1)
++			crc = (crc >> 1) ^ 0x8408;
++		else
++			crc >>= 1;
 +	}
 +
 +	return crc;
 +}
 +
-+struct mali_c720_disc_v1_module_desc {
-+	enum mali_c720_discovery_module_id id;
-+	u32 offset;
-+	u8 instance_id;
-+	bool removed;
-+};
-+
-+struct mali_c720_disc_v1_memory_desc {
-+	u32 offset;
-+	u32 size;
-+	u8 table_id;
-+};
-+
-+struct mali_c720_disc_v1_version_desc {
-+	u8 major;
-+	u8 minor;
-+	u8 patch;
-+};
-+
-+struct mali_c720_disc_v1_param_desc {
-+	u8 id;
-+	u16 value;
-+};
-+
-+static struct mali_c720_discovery_pipeline *
-+mali_c720_discovery_get_pipeline(struct mali_c720_discovery *discovery,
-+				 enum mali_c720_discovery_pipeline_id pipeline_id,
-+				 unsigned int instance_id)
++static u16 mali_c720_crc16_mcrf4xx_reg(u16 crc, u32 data, u32 mask)
 +{
-+	if (!discovery || pipeline_id >= MALI_C720_DISC_PIPE_MAX ||
-+	    instance_id >= MALI_C720_DISCOVERY_MAX_PIPELINE_INSTANCES)
-+		return NULL;
-+
-+	return &discovery->pipelines[pipeline_id][instance_id];
++	return mali_c720_crc16_mcrf4xx_bits(crc, data,
++					    mali_c720_reg_width(mask));
 +}
 +
-+static struct mali_c720_discovery_module *
-+mali_c720_discovery_alloc_module(struct mali_c720 *mali_c720,
-+				 struct mali_c720_discovery *discovery)
++static u16 mali_c720_ctx_mgr_calc_cdma_desc_crc(struct mali_c720_context *ctx)
 +{
-+	struct mali_c720_discovery_module *module;
++	const struct mali_c720_cm_cdma_slot_regs *cdma_slot =
++		ctx->mali_c720->registers.cm->cdma_slot;
++	struct mali_c720_cdma_desc *desc = &ctx->cdma_desc;
++	u16 crc = MALI_C720_CRC16_MCRF4XX_INIT;
 +
-+	if (discovery->next_module_id >= MALI_C720_DISCOVERY_MAX_MODULES) {
-+		dev_err(mali_c720->dev, "Failed to allocate discovery module\n");
-+		return NULL;
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 4);
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 2);
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 2);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->infinite,
++					  mali_c720_reg_mask(&cdma_slot->infinite));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 1);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->nonsecure,
++					  mali_c720_reg_mask(&cdma_slot->nonsecure));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->stream_id,
++					  mali_c720_reg_mask(&cdma_slot->stream_id));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 16);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->transfer_size,
++					  mali_c720_reg_mask(&cdma_slot->transfer_size));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->units_low,
++					  mali_c720_reg_mask(&cdma_slot->units_low));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->units_high,
++					  mali_c720_reg_mask(&cdma_slot->units_high));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->base_address_low,
++					  mali_c720_reg_mask(&cdma_slot->base_address_low));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->base_address_high,
++					  mali_c720_reg_mask(&cdma_slot->base_address_high));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->ld_sg_count,
++					  mali_c720_reg_mask(&cdma_slot->ld_sg_count));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 2);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->st_sg_count,
++					  mali_c720_reg_mask(&cdma_slot->st_sg_count));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 18);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->alt_transfer_size,
++					  mali_c720_reg_mask(&cdma_slot->alt_transfer_size));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->alt_base_address_low,
++					  mali_c720_reg_mask(&cdma_slot->alt_base_address_low));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->alt_base_address_high,
++					  mali_c720_reg_mask(&cdma_slot->alt_base_address_high));
++
++	return crc;
++}
++
++static u16 mali_c720_ctx_mgr_calc_slot_desc_crc(struct mali_c720_context *ctx)
++{
++	const struct mali_c720_cm_slot_regs *slot = ctx->mali_c720->registers.cm->slot;
++	struct mali_c720_slot_desc *desc = &ctx->slot_desc;
++	u16 crc = MALI_C720_CRC16_MCRF4XX_INIT;
++
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->mode,
++					  mali_c720_reg_mask(&slot->mode));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->timeout_enable,
++					  mali_c720_reg_mask(&slot->timeout_enable));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 4);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->schedule_priority,
++					  mali_c720_reg_mask(&slot->schedule_priority));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 1);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->nonsecure,
++					  mali_c720_reg_mask(&slot->nonsecure));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->stream_id,
++					  mali_c720_reg_mask(&slot->stream_id));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 16);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->delay_mant,
++					  mali_c720_reg_mask(&slot->delay_mant));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->delay_exp,
++					  mali_c720_reg_mask(&slot->delay_exp));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->slot_event,
++					  mali_c720_reg_mask(&slot->slot_event));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 12);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->slot_input_0,
++					  mali_c720_reg_mask(&slot->slot_input_0));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->slot_input_1,
++					  mali_c720_reg_mask(&slot->slot_input_1));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 16);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->timeout_mant,
++					  mali_c720_reg_mask(&slot->timeout_mant));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->timeout_exp,
++					  mali_c720_reg_mask(&slot->timeout_exp));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 16);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_roi0,
++					  mali_c720_reg_mask(&slot->pool_roi0));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_roi1,
++					  mali_c720_reg_mask(&slot->pool_roi1));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_roi2,
++					  mali_c720_reg_mask(&slot->pool_roi2));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_raw,
++					  mali_c720_reg_mask(&slot->pool_raw));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_scaler0_rgb,
++					  mali_c720_reg_mask(&slot->pool_scaler0_rgb));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_scaler0_yuv,
++					  mali_c720_reg_mask(&slot->pool_scaler0_yuv));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_scaler1_rgb,
++					  mali_c720_reg_mask(&slot->pool_scaler1_rgb));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_scaler1_yuv,
++					  mali_c720_reg_mask(&slot->pool_scaler1_yuv));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_scaler2_rgb,
++					  mali_c720_reg_mask(&slot->pool_scaler2_rgb));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_scaler2_yuv,
++					  mali_c720_reg_mask(&slot->pool_scaler2_yuv));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_scaler3_rgb,
++					  mali_c720_reg_mask(&slot->pool_scaler3_rgb));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_scaler3_yuv,
++					  mali_c720_reg_mask(&slot->pool_scaler3_yuv));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_gdc_main,
++					  mali_c720_reg_mask(&slot->pool_gdc_main));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_gdc_roi0,
++					  mali_c720_reg_mask(&slot->pool_gdc_roi0));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_gdc_roi1,
++					  mali_c720_reg_mask(&slot->pool_gdc_roi1));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_gdc_roi2,
++					  mali_c720_reg_mask(&slot->pool_gdc_roi2));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_pyramid,
++					  mali_c720_reg_mask(&slot->pool_pyramid));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool_consistency,
++					  mali_c720_reg_mask(&slot->pool_consistency));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 16);
++
++	return crc;
++}
++
++static u16 mali_c720_ctx_mgr_calc_buffer_desc_crc(const struct mali_c720_registers *regs,
++						  struct mali_c720_buffer_pool *pool,
++						  unsigned int index)
++{
++	const struct mali_c720_cm_buffer_regs *buffer = regs->cm->buffer;
++	struct mali_c720_buffer_desc *desc = &pool->desc[index];
++	u16 crc = MALI_C720_CRC16_MCRF4XX_INIT;
++
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 32);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->data_format,
++					  mali_c720_reg_mask(&buffer->data_format));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->data_align,
++					  mali_c720_reg_mask(&buffer->data_align));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->nonsecure,
++					  mali_c720_reg_mask(&buffer->nonsecure));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->stream_id,
++					  mali_c720_reg_mask(&buffer->stream_id));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->data_layout,
++					  mali_c720_reg_mask(&buffer->data_layout));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->crc_check,
++					  mali_c720_reg_mask(&buffer->crc_check));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->pool,
++					  mali_c720_reg_mask(&buffer->pool));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->mode,
++					  mali_c720_reg_mask(&buffer->mode));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->block_size,
++					  mali_c720_reg_mask(&buffer->block_size));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 8);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->base_address_low,
++					  mali_c720_reg_mask(&buffer->base_address_low));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->base_address_high,
++					  mali_c720_reg_mask(&buffer->base_address_high));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->buffer_size,
++					  mali_c720_reg_mask(&buffer->size));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->plane2_offset,
++					  mali_c720_reg_mask(&buffer->plane2_offset));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->plane3_offset,
++					  mali_c720_reg_mask(&buffer->plane3_offset));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->plane4_offset,
++					  mali_c720_reg_mask(&buffer->plane4_offset));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->line1_offset,
++					  mali_c720_reg_mask(&buffer->line1_offset));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->line2_offset,
++					  mali_c720_reg_mask(&buffer->line2_offset));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->line3_offset,
++					  mali_c720_reg_mask(&buffer->line3_offset));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->line4_offset,
++					  mali_c720_reg_mask(&buffer->line4_offset));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->width,
++					  mali_c720_reg_mask(&buffer->width));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->height,
++					  mali_c720_reg_mask(&buffer->height));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->colorspace,
++					  mali_c720_reg_mask(&buffer->colorspace));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->subsampling,
++					  mali_c720_reg_mask(&buffer->subsampling));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 2);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->component_width,
++					  mali_c720_reg_mask(&buffer->component_width));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->msb_align,
++					  mali_c720_reg_mask(&buffer->msb_align));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->phase,
++					  mali_c720_reg_mask(&buffer->phase));
++	crc = mali_c720_crc16_mcrf4xx_bits(crc, 0, 1);
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->height_modulo,
++					  mali_c720_reg_mask(&buffer->height_modulo));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->compression,
++					  mali_c720_reg_mask(&buffer->compression));
++	crc = mali_c720_crc16_mcrf4xx_reg(crc, desc->compression23,
++					  mali_c720_reg_mask(&buffer->compression23));
++
++	return crc;
++}
++
++static void mali_c720_prepare_input_fifos(struct mali_c720 *mali_c720)
++{
++	const struct mali_c720_cm_fifo_regs *input_fifo = mali_c720->registers.cm->input_fifo;
++	const struct mali_c720_cm_fifo_regs *reader_fifo = mali_c720->registers.cm->reader_fifo;
++	const struct mali_c720_cm_temper_fifo_regs *temper_fifo =
++		mali_c720->registers.cm->temper_fifo;
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	u32 fifo_base_addr, fifo_size;
++	unsigned int fifo_users, i;
++
++	fifo_users = ctx_mgr->num_virtual_inputs + 4; /* +4 for frame reader and temper FIFOs */
++	fifo_size = ctx_mgr->input_fifo_size / fifo_users;
++
++	fifo_base_addr = 0;
++	for (i = 0; i < ctx_mgr->num_virtual_inputs; i++) {
++		mali_c720_group_write(mali_c720, mali_c720_group_base(&input_fifo->group, i),
++				      &input_fifo->base_address, fifo_base_addr);
++		mali_c720_group_write(mali_c720, mali_c720_group_base(&input_fifo->group, i),
++				      &input_fifo->size, fifo_size);
++
++		fifo_base_addr += fifo_size;
 +	}
 +
-+	module = &discovery->modules[discovery->next_module_id++];
-+	INIT_LIST_HEAD(&module->memories);
-+	INIT_LIST_HEAD(&module->fbists);
-+	INIT_LIST_HEAD(&module->mbists);
-+	INIT_LIST_HEAD(&module->config_crcs);
-+	INIT_LIST_HEAD(&module->clock_gating);
-+	INIT_LIST_HEAD(&module->params);
-+	INIT_LIST_HEAD(&module->node);
++	mali_c720_group_write(mali_c720, mali_c720_group_base(&reader_fifo->group, 0),
++			      &reader_fifo->base_address, fifo_base_addr);
++	mali_c720_group_write(mali_c720, mali_c720_group_base(&reader_fifo->group, 0),
++			      &reader_fifo->size, fifo_size);
++	fifo_base_addr += fifo_size;
 +
-+	return module;
++	mali_c720_group_write(mali_c720, mali_c720_group_base(&reader_fifo->group, 1),
++			      &reader_fifo->base_address, fifo_base_addr);
++	mali_c720_group_write(mali_c720, mali_c720_group_base(&reader_fifo->group, 1),
++			      &reader_fifo->size, fifo_size);
++	fifo_base_addr += fifo_size;
++
++	mali_c720_write(mali_c720, &temper_fifo->w_fifo_base_address, fifo_base_addr);
++	mali_c720_write(mali_c720, &temper_fifo->w_fifo_size, fifo_size);
++	fifo_base_addr += fifo_size;
++
++	mali_c720_write(mali_c720, &temper_fifo->r_fifo_base_address, fifo_base_addr);
++	mali_c720_write(mali_c720, &temper_fifo->r_fifo_size, fifo_size);
 +}
 +
-+static struct mali_c720_discovery_table *
-+mali_c720_discovery_alloc_memory(struct mali_c720 *mali_c720,
-+				 struct mali_c720_discovery *discovery)
++static unsigned int mali_c720_ctx_mgr_get_output_max_fifos(unsigned int output)
 +{
-+	struct mali_c720_discovery_table *memory;
++	return output < MALI_C720_MAX_NUM_CAP_DEVS ? 3 : 0;
++}
 +
-+	if (discovery->next_memory_id >= MALI_C720_DISCOVERY_MAX_MEMORIES) {
-+		dev_err(mali_c720->dev, "Failed to allocate discovery memory\n");
-+		return NULL;
++static u32 mali_c720_ctx_mgr_get_output_fifo_base(const struct mali_c720_registers *regs,
++						  unsigned int output, unsigned int fifo)
++{
++	const struct mali_c720_cm_load_out_fifo_regs *load_out_fifo = regs->cm->load_out_fifo;
++
++	switch (output) {
++	case MALI_C720_CAP_DEV_FR0_RGB:
++		return mali_c720_group_base(&load_out_fifo->scaler_group, fifo);
++	case MALI_C720_CAP_DEV_FR0_YUV:
++		return mali_c720_group_base(&load_out_fifo->scaler_group, 3 + fifo);
++	default:
++		WARN_ON_ONCE(1);
++		return 0;
++	}
++}
++
++static void mali_c720_ctx_mgr_prepare_output_fifos(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	const struct mali_c720_cm_load_out_fifo_regs *load_out_fifo = regs->cm->load_out_fifo;
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	unsigned int i, j;
++	u32 fifo_base_addr = 0;
++	u32 fifo_size;
++	unsigned int active_fifos[MALI_C720_MAX_NUM_CAP_DEVS];
++	unsigned int total_fifos = 0;
++
++	/*
++	 * Distribute the output FIFO size among the active outputs,
++	 * depending on FIFOs required by each output.
++	 */
++
++	memcpy(active_fifos, ctx->active_fifos_by_output, sizeof(active_fifos));
++
++	for (i = 0; i < MALI_C720_MAX_NUM_CAP_DEVS; i++) {
++		unsigned int max_fifos = mali_c720_ctx_mgr_get_output_max_fifos(i);
++
++		if (WARN_ON_ONCE(active_fifos[i] > max_fifos))
++			active_fifos[i] = max_fifos;
++
++		total_fifos += active_fifos[i];
 +	}
 +
-+	memory = &discovery->memories[discovery->next_memory_id++];
-+	INIT_LIST_HEAD(&memory->node);
++	fifo_size = total_fifos ? ctx_mgr->output_fifo_size / total_fifos : 0;
 +
-+	return memory;
-+}
++	for (i = 0; i < MALI_C720_MAX_NUM_CAP_DEVS; i++) {
++		unsigned int max_fifos = mali_c720_ctx_mgr_get_output_max_fifos(i);
 +
-+static struct mali_c720_discovery_param *
-+mali_c720_discovery_alloc_param(struct mali_c720 *mali_c720,
-+				struct mali_c720_discovery *discovery)
-+{
-+	struct mali_c720_discovery_param *param;
++		for (j = 0; j < max_fifos; j++) {
++			u32 fifo_base = mali_c720_ctx_mgr_get_output_fifo_base(regs, i, j);
++			u32 base_addr = 0;
++			u32 size = 0;
 +
-+	if (discovery->next_param_id >= MALI_C720_DISCOVERY_MAX_PARAMS) {
-+		dev_err(mali_c720->dev, "Failed to allocate discovery param\n");
-+		return NULL;
-+	}
++			if (!fifo_base)
++				continue;
 +
-+	param = &discovery->params[discovery->next_param_id++];
-+	INIT_LIST_HEAD(&param->node);
-+
-+	return param;
-+}
-+
-+static void
-+mali_c720_discovery_link_pipeline_module(struct mali_c720_discovery_pipeline *pipeline,
-+					 struct mali_c720_discovery_module *module)
-+{
-+	list_add_tail(&module->node, &pipeline->modules);
-+}
-+
-+static void
-+mali_c720_discovery_link_memory(struct mali_c720_discovery_module *module,
-+				struct mali_c720_discovery_table *memory)
-+{
-+	list_add_tail(&memory->node, &module->memories);
-+	module->num_memories++;
-+}
-+
-+static void
-+mali_c720_discovery_link_param(struct mali_c720_discovery_module *module,
-+			       struct mali_c720_discovery_param *param)
-+{
-+	list_add_tail(&param->node, &module->params);
-+	module->num_params++;
-+}
-+
-+static void
-+mali_c720_discovery_link_fbist(struct mali_c720_discovery_module *module,
-+			       struct mali_c720_discovery_module *fbist)
-+{
-+	list_add_tail(&fbist->node, &module->fbists);
-+	fbist->fbist_instance_id = module->num_fbists;
-+	module->num_fbists++;
-+}
-+
-+static void
-+mali_c720_discovery_link_mbist(struct mali_c720_discovery_module *module,
-+			       struct mali_c720_discovery_module *mbist)
-+{
-+	list_add_tail(&mbist->node, &module->mbists);
-+	mbist->mbist_instance_id = module->num_mbists;
-+	module->num_mbists++;
-+}
-+
-+static void
-+mali_c720_discovery_link_config_crc(struct mali_c720_discovery_module *module,
-+				    struct mali_c720_discovery_module *config_crc)
-+{
-+	list_add_tail(&config_crc->node, &module->config_crcs);
-+	config_crc->config_crc_instance_id = module->num_config_crcs;
-+	module->num_config_crcs++;
-+}
-+
-+static void
-+mali_c720_discovery_link_clock_gating(struct mali_c720_discovery_module *module,
-+				      struct mali_c720_discovery_module *clock_gating)
-+{
-+	list_add_tail(&clock_gating->node, &module->clock_gating);
-+	clock_gating->clock_gating_instance_id = module->num_clock_gating;
-+	module->num_clock_gating++;
-+}
-+
-+static struct mali_c720_discovery_module *
-+mali_c720_discovery_find_module(struct mali_c720_discovery_pipeline *pipeline,
-+				enum mali_c720_discovery_module_id module_id,
-+				unsigned int module_instance)
-+{
-+	struct mali_c720_discovery_module *module;
-+
-+	if (!pipeline)
-+		return NULL;
-+
-+	list_for_each_entry(module, &pipeline->modules, node) {
-+		if (module->id == module_id &&
-+		    module->instance_id == module_instance)
-+			return module;
-+	}
-+
-+	return NULL;
-+}
-+
-+static struct mali_c720_discovery_module *
-+mali_c720_discovery_get_module(struct mali_c720_discovery *discovery,
-+			       const struct mali_c720_discovery_target *target)
-+{
-+	struct mali_c720_discovery_pipeline *pipeline;
-+
-+	if (target->module_id <= MALI_C720_DISC_MODULE_ID_NONE ||
-+	    target->module_id >= MALI_C720_DISC_MODULE_ID_MAX ||
-+	    target->module_instance >= MALI_C720_DISCOVERY_MAX_MODULE_INSTANCES)
-+		return NULL;
-+
-+	pipeline = mali_c720_discovery_get_pipeline(discovery, target->pipeline_id,
-+						    target->pipeline_instance);
-+	if (!pipeline || !pipeline->present)
-+		return NULL;
-+
-+	return mali_c720_discovery_find_module(pipeline, target->module_id,
-+					       target->module_instance);
-+}
-+
-+static const struct mali_c720_discovery_table *
-+mali_c720_discovery_find_memory(const struct mali_c720_discovery_module *module,
-+				unsigned int table_id)
-+{
-+	const struct mali_c720_discovery_table *memory;
-+
-+	list_for_each_entry(memory, &module->memories, node) {
-+		if (memory->id == table_id)
-+			return memory;
-+	}
-+
-+	return NULL;
-+}
-+
-+static int mali_c720_discovery_parse_module_record(struct mali_c720 *mali_c720,
-+						   u32 record,
-+						   struct mali_c720_disc_v1_module_desc *module)
-+{
-+	module->id =
-+		mali_c720_discovery_module_id_from_v1_id(mali_c720_discovery_field_id(record));
-+	module->instance_id =
-+		FIELD_GET(MALI_C720_DISC_V1_MODULE_INSTANCE_MASK, record);
-+	module->removed = !!(record & MALI_C720_DISC_V1_MODULE_REMOVED_MASK);
-+	module->offset =
-+		FIELD_GET(MALI_C720_DISC_V1_MODULE_OFFSET_MASK, record) << 4;
-+
-+	if ((u64)module->offset + sizeof(u32) > mali_c720->registers.context_size)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static int mali_c720_discovery_parse_memory_record(struct mali_c720 *mali_c720,
-+						   u32 record,
-+						   struct mali_c720_disc_v1_memory_desc *memory)
-+{
-+	u32 log2_size;
-+	u64 end;
-+
-+	memory->table_id =
-+		FIELD_GET(MALI_C720_DISC_V1_MEMORY_TABLE_ID_MASK, record);
-+	memory->offset =
-+		FIELD_GET(MALI_C720_DISC_V1_MEMORY_OFFSET_MASK, record) << 4;
-+
-+	log2_size = FIELD_GET(MALI_C720_DISC_V1_MEMORY_SIZE_MASK, record);
-+	if (log2_size > 10)
-+		return -EINVAL;
-+
-+	memory->size = 16U << log2_size;
-+	if (record & MALI_C720_DISC_V1_MEMORY_SCALAR_SUFFIX_MASK)
-+		memory->size += 32;
-+
-+	end = (u64)memory->offset + memory->size;
-+	if (end > mali_c720->registers.context_size)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static void mali_c720_discovery_parse_version_record(u32 record,
-+						     struct mali_c720_disc_v1_version_desc *version)
-+{
-+	version->patch = FIELD_GET(MALI_C720_DISC_V1_VERSION_PATCH_MASK, record);
-+	version->minor = FIELD_GET(MALI_C720_DISC_V1_VERSION_MINOR_MASK, record);
-+	version->major = FIELD_GET(MALI_C720_DISC_V1_VERSION_MAJOR_MASK, record);
-+}
-+
-+static void mali_c720_discovery_parse_param_record(u32 record,
-+						   struct mali_c720_disc_v1_param_desc *param)
-+{
-+	param->id = FIELD_GET(MALI_C720_DISC_V1_PARAM_ID_MASK, record);
-+	param->value = FIELD_GET(MALI_C720_DISC_V1_PARAM_VALUE_MASK, record);
-+}
-+
-+static int mali_c720_discovery_parse_subpipe_header(u32 record,
-+						    struct mali_c720_disc_v1_subpipe_header *header)
-+{
-+	header->type = FIELD_GET(MALI_C720_DISC_V1_SUBPIPE_TYPE_MASK, record);
-+	header->instance_id =
-+		FIELD_GET(MALI_C720_DISC_V1_SUBPIPE_INSTANCE_MASK, record);
-+	header->desc_count =
-+		FIELD_GET(MALI_C720_DISC_V1_SUBPIPE_DESC_COUNT_MASK, record);
-+
-+	if (header->type >= MALI_C720_DISC_V1_SUBPIPE_ID_MAX)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static int mali_c720_discovery_parse_v1(struct mali_c720 *mali_c720,
-+					struct mali_c720_discovery *discovery,
-+					const __le32 *records,
-+					u16 desc_count)
-+{
-+	struct mali_c720_discovery_pipeline *pipeline;
-+	struct mali_c720_discovery_pipeline *current_subpipe = NULL;
-+	struct mali_c720_discovery_module *current_module = NULL;
-+	struct mali_c720_discovery_module *last_module = NULL;
-+	enum mali_c720_discovery_pipeline_id current_pipeline_id =
-+		MALI_C720_DISC_PIPE_MAX;
-+	unsigned int current_pipeline_instance = 0;
-+	u16 subpipe_desc_count = 0;
-+	unsigned int i;
-+
-+	pipeline = NULL;
-+
-+	for (i = 0; i <= desc_count; i++) {
-+		struct mali_c720_discovery_module *module;
-+		struct mali_c720_disc_v1_subpipe_header subpipe;
-+		u32 record = le32_to_cpu(records[i]);
-+		u8 field_id = mali_c720_discovery_field_id(record);
-+		bool in_subpipe = current_subpipe;
-+
-+		switch (field_id) {
-+		case MALI_C720_DISC_V1_FIELD_LIST_HEADER:
-+			if (i) {
-+				dev_err(mali_c720->dev,
-+					"unexpected discovery list header at record %u\n", i);
-+				return -EINVAL;
++			if (j < active_fifos[i]) {
++				base_addr = fifo_base_addr;
++				size = fifo_size;
++				fifo_base_addr += fifo_size;
 +			}
 +
-+			pipeline = mali_c720_discovery_get_pipeline(discovery,
-+								    MALI_C720_DISC_PIPE_GLOBAL, 0);
-+			if (!pipeline) {
-+				dev_err(mali_c720->dev,
-+					"Failed to fetch global pipeline\n");
-+				return -EINVAL;
-+			}
-+
-+			pipeline->present = true;
-+			pipeline->id = MALI_C720_DISC_PIPE_GLOBAL;
-+			pipeline->instance_id = 0;
-+			current_module = NULL;
-+			last_module = NULL;
-+			current_pipeline_id = MALI_C720_DISC_PIPE_GLOBAL;
-+			current_pipeline_instance = 0;
-+			break;
-+		case MALI_C720_DISC_V1_FIELD_LIST_FOOTER:
-+			if (i != desc_count || current_subpipe) {
-+				dev_err(mali_c720->dev,
-+					"unexpected discovery list footer at record %u\n", i);
-+				return -EINVAL;
-+			}
-+			break;
-+		case MALI_C720_DISC_V1_FIELD_SUBPIPE_HEADER:
-+		{
-+			enum mali_c720_discovery_pipeline_id pipeline_id;
-+
-+			if (current_subpipe) {
-+				dev_err(mali_c720->dev,
-+					"nested sub-pipeline header at record %u\n", i);
-+				return -EINVAL;
-+			}
-+
-+			if (mali_c720_discovery_parse_subpipe_header(record, &subpipe)) {
-+				dev_err(mali_c720->dev,
-+					"invalid sub-pipeline header at record %u\n", i);
-+					return -EINVAL;
-+			}
-+
-+			if (!subpipe.desc_count) {
-+				dev_err(mali_c720->dev,
-+					"sub-pipeline descriptor count is zero at record %u\n", i);
-+				return -EINVAL;
-+			}
-+
-+			pipeline_id =
-+				mali_c720_discovery_v1_subpipe_id_to_pipeline_id(subpipe.type);
-+			if (pipeline_id >= MALI_C720_DISC_PIPE_MAX) {
-+				dev_err(mali_c720->dev,
-+					"unsupported v1 sub-pipeline type %u at record %u\n",
-+					subpipe.type, i);
-+				return -EINVAL;
-+			}
-+
-+			pipeline = mali_c720_discovery_get_pipeline(discovery, pipeline_id,
-+								    subpipe.instance_id);
-+			if (!pipeline) {
-+				dev_err(mali_c720->dev,
-+					"Failed to fetch sub-pipeline type %u instance %u\n",
-+					pipeline_id, subpipe.instance_id);
-+				return -EINVAL;
-+			}
-+
-+			pipeline->present = true;
-+			pipeline->id = pipeline_id;
-+			pipeline->instance_id = subpipe.instance_id;
-+			subpipe_desc_count = subpipe.desc_count;
-+			current_subpipe = pipeline;
-+			current_module = NULL;
-+			last_module = NULL;
-+			current_pipeline_id = pipeline_id;
-+			current_pipeline_instance = subpipe.instance_id;
-+			break;
-+		}
-+		case MALI_C720_DISC_V1_FIELD_SUBPIPE_FOOTER:
-+			if (!current_subpipe) {
-+				dev_err(mali_c720->dev,
-+					"sub-pipeline footer without matching header at record %u\n",
-+					i);
-+				return -EINVAL;
-+			}
-+
-+			if (subpipe_desc_count - 1 != 0) {
-+				dev_err(mali_c720->dev,
-+					"sub-pipeline descriptor count mismatch at record %u\n",
-+					i);
-+				return -EINVAL;
-+			}
-+
-+			current_subpipe = NULL;
-+			pipeline = NULL;
-+			current_module = NULL;
-+			last_module = NULL;
-+			current_pipeline_id = MALI_C720_DISC_PIPE_MAX;
-+			current_pipeline_instance = 0;
-+			break;
-+		case MALI_C720_DISC_V1_FIELD_EXT_MEMORY:
-+		{
-+			struct mali_c720_discovery_table *memory_entry;
-+			struct mali_c720_disc_v1_memory_desc memory;
-+
-+			if (!current_module) {
-+				dev_err(mali_c720->dev,
-+					"memory descriptor without active module at record %u\n",
-+					i);
-+				return -EINVAL;
-+			}
-+
-+			if (mali_c720_discovery_parse_memory_record(mali_c720, record,
-+								    &memory)) {
-+				dev_err(mali_c720->dev,
-+					"invalid memory descriptor at record %u\n", i);
-+				return -EINVAL;
-+			}
-+
-+			memory_entry = mali_c720_discovery_alloc_memory(mali_c720,
-+									discovery);
-+			if (!memory_entry)
-+				return -ENOMEM;
-+
-+			memory_entry->id = memory.table_id;
-+			memory_entry->base = memory.offset;
-+			memory_entry->size = memory.size;
-+			mali_c720_discovery_link_memory(current_module, memory_entry);
-+
-+			break;
-+		}
-+		case MALI_C720_DISC_V1_FIELD_EXT_VERSION:
-+		{
-+			struct mali_c720_disc_v1_version_desc version_desc;
-+
-+			if (!last_module) {
-+				dev_err(mali_c720->dev,
-+					"version descriptor without preceding module at record %u\n",
-+					i);
-+				return -EINVAL;
-+			}
-+
-+			mali_c720_discovery_parse_version_record(record,
-+								 &version_desc);
-+
-+			last_module->version.present = true;
-+			last_module->version.major = version_desc.major;
-+			last_module->version.minor = version_desc.minor;
-+			last_module->version.patch = version_desc.patch;
-+
-+			break;
-+		}
-+		case MALI_C720_DISC_V1_FIELD_EXT_PARAMETER:
-+		{
-+			struct mali_c720_discovery_param *param_entry;
-+			struct mali_c720_disc_v1_param_desc param_desc;
-+
-+			if (!last_module) {
-+				dev_err(mali_c720->dev,
-+					"parameter descriptor without preceding module at record %u\n",
-+					i);
-+				return -EINVAL;
-+			}
-+
-+			param_entry = mali_c720_discovery_alloc_param(mali_c720,
-+								      discovery);
-+			if (!param_entry)
-+				return -ENOMEM;
-+
-+			mali_c720_discovery_parse_param_record(record, &param_desc);
-+			param_entry->id = param_desc.id;
-+			param_entry->value = param_desc.value;
-+			mali_c720_discovery_link_param(last_module, param_entry);
-+
-+			break;
-+		}
-+		case MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL:
-+		case MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL:
-+		case MALI_C720_DISC_V1_MODULE_ID_MODULE_CG_CONTROL:
-+		{
-+			struct mali_c720_disc_v1_module_desc module_desc;
-+			struct mali_c720_discovery_module *control_module;
-+
-+			if (!current_module) {
-+				dev_err(mali_c720->dev,
-+					"control descriptor without active module at record %u\n",
-+					i);
-+				return -EINVAL;
-+			}
-+
-+			if (mali_c720_discovery_parse_module_record(mali_c720, record,
-+								    &module_desc)) {
-+				dev_err(mali_c720->dev,
-+					"invalid control module descriptor at record %u\n", i);
-+				return -EINVAL;
-+			}
-+
-+			control_module = mali_c720_discovery_alloc_module(mali_c720,
-+									  discovery);
-+			if (!control_module)
-+				return -ENOMEM;
-+
-+			control_module->id = module_desc.id;
-+			control_module->instance_id = module_desc.instance_id;
-+			control_module->found = true;
-+			control_module->present = !module_desc.removed;
-+			control_module->base = module_desc.offset;
-+
-+			switch (field_id) {
-+			case MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL:
-+				mali_c720_discovery_link_mbist(current_module,
-+							       control_module);
-+				break;
-+			case MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL:
-+				mali_c720_discovery_link_config_crc(current_module,
-+								    control_module);
-+				break;
-+			default:
-+				mali_c720_discovery_link_clock_gating(current_module,
-+								      control_module);
-+				break;
-+			}
-+
-+			last_module = control_module;
-+
-+			break;
-+		}
-+		default:
-+		{
-+			struct mali_c720_disc_v1_module_desc module_desc;
-+
-+			if (!mali_c720_discovery_is_module_id(field_id)) {
-+				dev_err(mali_c720->dev,
-+					"unknown discovery field id %u at record %u\n",
-+					field_id, i);
-+				return -EINVAL;
-+			}
-+			if (!pipeline) {
-+				dev_err(mali_c720->dev,
-+					"module descriptor without active pipeline at record %u\n",
-+					i);
-+				return -EINVAL;
-+			}
-+
-+			if (mali_c720_discovery_parse_module_record(mali_c720, record,
-+								    &module_desc)) {
-+				dev_err(mali_c720->dev,
-+					"invalid module descriptor at record %u\n", i);
-+				return -EINVAL;
-+			}
-+			if (module_desc.id == MALI_C720_DISC_MODULE_ID_NONE) {
-+				dev_err(mali_c720->dev,
-+					"unsupported module id %u at record %u\n",
-+					field_id, i);
-+				return -EINVAL;
-+			}
-+
-+			if (module_desc.instance_id >=
-+			    MALI_C720_DISCOVERY_MAX_MODULE_INSTANCES) {
-+				dev_err(mali_c720->dev,
-+					"module %u instance %u exceeds supported limit %u at record %u\n",
-+					module_desc.id,
-+					module_desc.instance_id,
-+					MALI_C720_DISCOVERY_MAX_MODULE_INSTANCES, i);
-+				return -EINVAL;
-+			}
-+
-+			module = mali_c720_discovery_alloc_module(mali_c720, discovery);
-+			if (!module)
-+				return -ENOMEM;
-+
-+			module->id = module_desc.id;
-+			module->instance_id = module_desc.instance_id;
-+			module->found = true;
-+			module->present = !module_desc.removed;
-+			module->base = module_desc.offset;
-+
-+			if (current_module) {
-+				if (module_desc.id == MALI_C720_DISC_MODULE_ID_FBIST_BRIDGE &&
-+				    current_module->id != MALI_C720_DISC_MODULE_ID_FBIST_BRIDGE) {
-+					mali_c720_discovery_link_fbist(current_module,
-+								       module);
-+				} else {
-+					mali_c720_discovery_link_pipeline_module(pipeline, module);
-+					current_module = module;
-+				}
-+			} else if (list_empty(&pipeline->modules)) {
-+				mali_c720_discovery_link_pipeline_module(pipeline, module);
-+				current_module = module;
-+			} else {
-+				dev_err(mali_c720->dev,
-+					"failed to link module id %u instance %u in pipeline %u instance %u\n",
-+					module_desc.id, module_desc.instance_id,
-+					current_pipeline_id, current_pipeline_instance);
-+				return -EINVAL;
-+			}
-+
-+			last_module = module;
-+
-+			break;
-+		}
-+		}
-+
-+		if (in_subpipe) {
-+			if (!subpipe_desc_count) {
-+				dev_err(mali_c720->dev,
-+					"sub-pipeline descriptor count exhausted at record %u\n",
-+					i);
-+				return -EINVAL;
-+			}
-+
-+			subpipe_desc_count--;
++			mali_c720_ctx_group_write(ctx, fifo_base,
++						  &load_out_fifo->base_address,
++						  base_addr);
++			mali_c720_ctx_group_write(ctx, fifo_base,
++						  &load_out_fifo->size,
++						  size);
 +		}
 +	}
-+
-+	return 0;
 +}
 +
-+int mali_c720_discovery_init(struct mali_c720 *mali_c720, resource_size_t reg_size)
++static void mali_c720_ctx_mgr_write_buffer_desc(struct mali_c720_context *ctx,
++						struct mali_c720_buffer_pool *pool,
++						unsigned int index)
 +{
-+	struct mali_c720_discovery *discovery = &mali_c720->discovery;
-+	__le32 *records;
-+	u32 header;
-+	u32 footer;
-+	u16 desc_count;
-+	u16 version;
-+	u16 footer_crc;
-+	u16 computed_crc;
-+	unsigned int pipeline_id;
-+	unsigned int instance_id;
-+	size_t word_count;
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	const struct mali_c720_cm_buffer_regs *buffer = regs->cm->buffer;
++	struct mali_c720_buffer_desc *desc;
++	u32 buffer_addr = mali_c720_ctx_mgr_buffer_base(regs, pool, index);
++
++	desc = &pool->desc[index];
++	desc->crc = mali_c720_ctx_mgr_calc_buffer_desc_crc(regs, pool, index);
++
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->nonsecure, desc->nonsecure);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->stream_id, desc->stream_id);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->crc_check, desc->crc_check);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->pool, desc->pool);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->mode, desc->mode);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->block_size, desc->block_size);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->base_address_low, desc->base_address_low);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->base_address_high, desc->base_address_high);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->size, desc->buffer_size);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->plane2_offset, desc->plane2_offset);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->plane3_offset, desc->plane3_offset);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->plane4_offset, desc->plane4_offset);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->line1_offset, desc->line1_offset);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->line2_offset, desc->line2_offset);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->line3_offset, desc->line3_offset);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->line4_offset, desc->line4_offset);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->data_format, desc->data_format);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->data_align, desc->data_align);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->data_layout, desc->data_layout);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->width, desc->width);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->height, desc->height);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->colorspace, desc->colorspace);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->subsampling, desc->subsampling);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->component_width, desc->component_width);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->msb_align, desc->msb_align);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->phase, desc->phase);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->height_modulo, desc->height_modulo);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->compression, desc->compression);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->compression23, desc->compression23);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->descriptor_crc, desc->crc);
++}
++
++static void mali_c720_ctx_mgr_update_buffer_desc(struct mali_c720_context *ctx,
++						 struct mali_c720_buffer_pool *pool,
++						 unsigned int index)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	const struct mali_c720_cm_buffer_regs *buffer = regs->cm->buffer;
++	struct mali_c720_buffer_desc *desc;
++	u32 buffer_addr = mali_c720_ctx_mgr_buffer_base(regs, pool, index);
++
++	desc = &pool->desc[index];
++	desc->crc = mali_c720_ctx_mgr_calc_buffer_desc_crc(regs, pool, index);
++
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->base_address_low,
++			      desc->base_address_low);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->base_address_high,
++			      desc->base_address_high);
++
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->descriptor_crc, desc->crc);
++}
++
++static void mali_c720_ctx_mgr_write_cdma_desc(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_cdma_slot_regs *cdma_slot = mali_c720->registers.cm->cdma_slot;
++	struct mali_c720_cdma_desc *desc = &ctx->cdma_desc;
++	u32 cdma_slot_addr = mali_c720_group_base(&cdma_slot->group, ctx->id);
++
++	desc->crc = mali_c720_ctx_mgr_calc_cdma_desc_crc(ctx);
++
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->infinite, desc->infinite);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->nonsecure, desc->nonsecure);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->stream_id, desc->stream_id);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->units_low, desc->units_low);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->units_high, desc->units_high);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->ld_sg_count, desc->ld_sg_count);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->transfer_size, desc->transfer_size);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->alt_transfer_size, desc->alt_transfer_size);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->base_address_low, desc->base_address_low);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->base_address_high, desc->base_address_high);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->alt_base_address_low, desc->alt_base_address_low);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->alt_base_address_high, desc->alt_base_address_high);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->st_sg_count, desc->st_sg_count);
++	mali_c720_group_write(mali_c720, cdma_slot_addr,
++			      &cdma_slot->crc, desc->crc);
++}
++
++static void mali_c720_ctx_mgr_write_slot_desc(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_slot_regs *slot = mali_c720->registers.cm->slot;
++	u32 slot_addr = mali_c720_group_base(&slot->group, ctx->id);
++
++	ctx->slot_desc.crc = mali_c720_ctx_mgr_calc_slot_desc_crc(ctx);
++
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->mode, ctx->slot_desc.mode);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->timeout_enable, ctx->slot_desc.timeout_enable);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->timeout_mant, ctx->slot_desc.timeout_mant);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->timeout_exp, ctx->slot_desc.timeout_exp);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->schedule_priority, ctx->slot_desc.schedule_priority);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->nonsecure, ctx->slot_desc.nonsecure);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->stream_id, ctx->slot_desc.stream_id);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->delay_mant, ctx->slot_desc.delay_mant);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->delay_exp, ctx->slot_desc.delay_exp);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->slot_event, ctx->slot_desc.slot_event);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->slot_input_0, ctx->slot_desc.slot_input_0);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->slot_input_1, ctx->slot_desc.slot_input_1);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_roi0, ctx->slot_desc.pool_roi0);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_roi1, ctx->slot_desc.pool_roi1);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_roi2, ctx->slot_desc.pool_roi2);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_raw, ctx->slot_desc.pool_raw);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler0_rgb, ctx->slot_desc.pool_scaler0_rgb);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler0_yuv, ctx->slot_desc.pool_scaler0_yuv);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler1_rgb, ctx->slot_desc.pool_scaler1_rgb);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler1_yuv, ctx->slot_desc.pool_scaler1_yuv);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler2_rgb, ctx->slot_desc.pool_scaler2_rgb);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler2_yuv, ctx->slot_desc.pool_scaler2_yuv);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler3_rgb, ctx->slot_desc.pool_scaler3_rgb);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler3_yuv, ctx->slot_desc.pool_scaler3_yuv);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_gdc_main, ctx->slot_desc.pool_gdc_main);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_gdc_roi0, ctx->slot_desc.pool_gdc_roi0);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_gdc_roi1, ctx->slot_desc.pool_gdc_roi1);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_gdc_roi2, ctx->slot_desc.pool_gdc_roi2);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_pyramid, ctx->slot_desc.pool_pyramid);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_consistency, ctx->slot_desc.pool_consistency);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->crc, ctx->slot_desc.crc);
++}
++
++static void mali_c720_ctx_mgr_update_slot_desc(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_slot_regs *slot = mali_c720->registers.cm->slot;
++	u32 slot_addr = mali_c720_group_base(&slot->group, ctx->id);
++
++	ctx->slot_desc.crc = mali_c720_ctx_mgr_calc_slot_desc_crc(ctx);
++
++	/*
++	 * A running slot must be stopped before modifying descriptor fields
++	 * to prevent CRC mismatch faults from being raised.
++	 */
++	mali_c720_ctx_mgr_set_slot_enabled(ctx, false);
++
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_roi0, ctx->slot_desc.pool_roi0);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_roi1, ctx->slot_desc.pool_roi1);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_roi2, ctx->slot_desc.pool_roi2);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_raw, ctx->slot_desc.pool_raw);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler0_rgb, ctx->slot_desc.pool_scaler0_rgb);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler0_yuv, ctx->slot_desc.pool_scaler0_yuv);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler1_rgb, ctx->slot_desc.pool_scaler1_rgb);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler1_yuv, ctx->slot_desc.pool_scaler1_yuv);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler2_rgb, ctx->slot_desc.pool_scaler2_rgb);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler2_yuv, ctx->slot_desc.pool_scaler2_yuv);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler3_rgb, ctx->slot_desc.pool_scaler3_rgb);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_scaler3_yuv, ctx->slot_desc.pool_scaler3_yuv);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_gdc_main, ctx->slot_desc.pool_gdc_main);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_gdc_roi0, ctx->slot_desc.pool_gdc_roi0);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_gdc_roi1, ctx->slot_desc.pool_gdc_roi1);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_gdc_roi2, ctx->slot_desc.pool_gdc_roi2);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_pyramid, ctx->slot_desc.pool_pyramid);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->pool_consistency, ctx->slot_desc.pool_consistency);
++	mali_c720_group_write(mali_c720, slot_addr,
++			      &slot->crc, ctx->slot_desc.crc);
++
++	mali_c720_ctx_mgr_set_slot_enabled(ctx, true);
++}
++
++static int mali_c720_ctx_mgr_start_input_port(struct mali_c720 *mali_c720,
++					      struct mali_c720_input_cfg *info)
++{
++	const struct mali_c720_cm_input_regs *input = mali_c720->registers.cm->input;
++	u32 input_addr = mali_c720_group_base(&input->group, info->id);
++	u32 val;
 +	int ret;
 +
-+	header = mali_c720_read_raw(mali_c720, CAPABILITY_DISCOVERY_HEADER_OFFSET);
-+	if (mali_c720_discovery_field_id(header) !=
-+	    MALI_C720_DISC_V1_FIELD_LIST_HEADER) {
-+		dev_err(mali_c720->dev, "discovery header missing\n");
-+		return -EINVAL;
-+	}
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->pixel_size, info->bit_depth);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->data_format, 1);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->nonsecure, 1);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->stream_id, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->data_type1_enable, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->data_type2_enable, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->crop_enable, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->drop_oldest, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->flow_control, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->drop_if_error, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->check_parity, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->buffer_pool, info->pool_id);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->data_type1, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->data_type2, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->start_x, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->start_y, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->size_x, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->size_y, 0);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->write_threshold, 65535);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->write_threshold_sec, 65535);
 +
-+	version = FIELD_GET(MALI_C720_DISC_V1_LIST_VERSION_MASK, header);
-+	if (version != 1) {
-+		dev_err(mali_c720->dev, "unsupported discovery version %u\n",
-+			version);
-+		return -EINVAL;
-+	}
++	mali_c720_ctx_mgr_input_command(mali_c720, input_addr,
++					MALI_C720_INPUT_COMMAND_RESET_COUNTER);
++	mali_c720_ctx_mgr_input_command(mali_c720, input_addr, MALI_C720_INPUT_COMMAND_ENABLE);
 +
-+	desc_count = FIELD_GET(MALI_C720_DISC_V1_LIST_DESC_COUNT_MASK, header);
-+	if (desc_count < 2) {
-+		dev_err(mali_c720->dev, "discovery descriptor count %u is invalid\n",
-+			desc_count);
-+		return -EINVAL;
-+	}
++	ret = poll_timeout_us(val = mali_c720_group_read(mali_c720, input_addr,
++							 &input->status_arch),
++			      val == MALI_C720_INPUT_ENABLED,
++			      INPUT_POLL_INTERVAL, INPUT_POLL_TIMEOUT, false);
++	if (ret)
++		goto err_timeout;
 +
-+	word_count = (size_t)desc_count + 1;
-+	if (word_count > reg_size / sizeof(u32)) {
-+		dev_err(mali_c720->dev,
-+			"discovery table exceeds mapped register space (%zu words > %pa bytes)\n",
-+			word_count, &reg_size);
-+		return -EINVAL;
-+	}
++	info->started = true;
 +
-+	records = kvcalloc(word_count, sizeof(*records), GFP_KERNEL);
-+	if (!records)
-+		return -ENOMEM;
++	return 0;
 +
-+	memcpy_fromio(records, mali_c720->base, word_count * sizeof(*records));
++err_timeout:
++	dev_err(mali_c720->dev, "Timed out enabling input %u (state %u)\n", info->id, val);
++	mali_c720_ctx_mgr_input_command(mali_c720, input_addr, MALI_C720_INPUT_COMMAND_CANCEL);
++	mali_c720_ctx_mgr_input_command(mali_c720, input_addr, MALI_C720_INPUT_COMMAND_FLUSH);
++	mali_c720_group_write(mali_c720, input_addr,
++			      &input->buffer_pool, 0xff);
 +
-+	footer = le32_to_cpu(records[desc_count]);
-+	if (mali_c720_discovery_field_id(footer) !=
-+	    MALI_C720_DISC_V1_FIELD_LIST_FOOTER) {
-+		dev_err(mali_c720->dev, "discovery footer missing\n");
-+		ret = -EINVAL;
-+		goto out_free_records;
-+	}
-+
-+	footer_crc = FIELD_GET(MALI_C720_DISC_V1_FOOTER_CRC_MASK, footer);
-+	computed_crc = mali_c720_discovery_crc16_ibm_3740(records, desc_count);
-+	if (computed_crc != footer_crc) {
-+		dev_err(mali_c720->dev,
-+			"discovery CRC mismatch: computed 0x%04x expected 0x%04x\n",
-+			computed_crc, footer_crc);
-+		ret = -EINVAL;
-+		goto out_free_records;
-+	}
-+
-+	memset(discovery, 0, sizeof(*discovery));
-+	discovery->version = MALI_C720_DISCOVERY_VERSION_1;
-+	for (pipeline_id = 0; pipeline_id < MALI_C720_DISC_PIPE_MAX; pipeline_id++)
-+		for (instance_id = 0;
-+		     instance_id < MALI_C720_DISCOVERY_MAX_PIPELINE_INSTANCES;
-+		     instance_id++)
-+			INIT_LIST_HEAD(&discovery->pipelines[pipeline_id][instance_id].modules);
-+
-+	ret = mali_c720_discovery_parse_v1(mali_c720, discovery, records,
-+					   desc_count);
-+
-+out_free_records:
-+	kvfree(records);
 +	return ret;
 +}
 +
-+int mali_c720_discovery_get_module_base(struct mali_c720 *mali_c720,
-+					const struct mali_c720_discovery_target *target,
-+					u32 *base)
++static void mali_c720_ctx_mgr_stop_input_port(struct mali_c720 *mali_c720,
++					      struct mali_c720_input_cfg *info)
 +{
-+	const struct mali_c720_discovery_module *module;
++	const struct mali_c720_cm_buffer_regs *buffer = mali_c720->registers.cm->buffer;
++	const struct mali_c720_cm_input_regs *input = mali_c720->registers.cm->input;
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	u32 buffer_addr = mali_c720_group_base(&buffer->raw_group, ctx_mgr->reuse_buffer);
++	u32 input_addr = mali_c720_group_base(&input->group, info->id);
++	u32 val;
++	int ret;
 +
-+	module = mali_c720_discovery_get_module(&mali_c720->discovery, target);
-+	if (!module || !module->found) {
-+		dev_warn_once(mali_c720->dev,
-+			      "No module found for module id %u instance %u in pipeline %u instance %u\n",
-+			      target->module_id, target->module_instance,
-+			      target->pipeline_id, target->pipeline_instance);
-+		return -ENOENT;
++	if (!info->started)
++		return;
++
++	mali_c720_ctx_mgr_input_command(mali_c720, input_addr, MALI_C720_INPUT_COMMAND_DISABLE);
++	ret = poll_timeout_us(val = mali_c720_group_read(mali_c720, input_addr,
++							 &input->status_arch),
++			      val == MALI_C720_INPUT_DISABLED,
++			      INPUT_POLL_INTERVAL, INPUT_POLL_TIMEOUT, false);
++	if (ret) {
++		/* Force the input gate closed if the source does not reach vertical blank. */
++		mali_c720_ctx_mgr_input_command(mali_c720, input_addr,
++						MALI_C720_INPUT_COMMAND_CANCEL);
 +	}
 +
-+	if (!module->present) {
++	mali_c720_ctx_mgr_input_command(mali_c720, input_addr, MALI_C720_INPUT_COMMAND_FLUSH);
++
++	/*
++	 * The following is a workaround for a hardware bug that prevents
++	 * safe reuse of raw buffer descriptors. It applies to HW versions
++	 * r0p0 and r0p1.
++	 */
++	mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++					 MALI_C720_BUFFER_STATE_HW_EMPTY);
++
++	mali_c720_group_write(mali_c720, input_addr, &input->buffer_pool, ctx_mgr->reuse_buffer);
++	mali_c720_ctx_mgr_input_command(mali_c720, input_addr, MALI_C720_INPUT_COMMAND_ENABLE);
++
++	/*
++	 * We require the input to fully enable to ensure proper reuse. Enablement
++	 * completes once it sees vertical blanking on its source. Upon reaching
++	 * this state, the reuse buffer will enter an error state which we will reset
++	 * during the buffer cancel operation.
++	 */
++	ret = poll_timeout_us(val = mali_c720_group_read(mali_c720, buffer_addr, &buffer->state),
++			      val == MALI_C720_BUFFER_STATE_HW_ERROR,
++			      INPUT_POLL_INTERVAL, INPUT_POLL_TIMEOUT, false);
++	if (ret)
++		dev_warn(mali_c720->dev,
++			 "Input %u descriptor reuse workaround timed out (buffer state %u)\n",
++			 info->id, val);
++
++	mali_c720_ctx_mgr_input_command(mali_c720, input_addr, MALI_C720_INPUT_COMMAND_CANCEL);
++	mali_c720_ctx_mgr_input_command(mali_c720, input_addr, MALI_C720_INPUT_COMMAND_FLUSH);
++
++	mali_c720_group_write(mali_c720, input_addr, &input->buffer_pool, 0xff);
++
++	mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++					 MALI_C720_BUFFER_STATE_CANCELLED);
++	mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++					 MALI_C720_BUFFER_STATE_UNINITIALIZED);
++
++	info->started = false;
++}
++
++int mali_c720_ctx_mgr_start_context_inputs(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++
++	lockdep_assert_held(&mali_c720->device_lock);
++
++	return mali_c720_ctx_mgr_start_input_port(mali_c720, &ctx->input_cfg);
++}
++
++void mali_c720_ctx_mgr_stop_context_inputs(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	struct mali_c720_input_cfg *input_cfg = &ctx->input_cfg;
++
++	lockdep_assert_held(&mali_c720->device_lock);
++
++	mali_c720_ctx_mgr_stop_input_port(mali_c720, input_cfg);
++
++	guard(spinlock)(&ctx_mgr->input_lock);
++	guard(spinlock)(&ctx->state_lock);
++
++	ctx_mgr->input_context_map[input_cfg->id] = 0xff;
++	memset(&ctx->input_cfg, 0, sizeof(ctx->input_cfg));
++	ctx->slot_desc.slot_input_0 = 255;
++	ctx->slot_desc.slot_input_1 = 255;
++}
++
++static void mali_c720_ctx_mgr_assign_context_output(struct mali_c720_context *ctx,
++						    struct mali_c720_buffer_pool *pool,
++						    int enable)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	unsigned int pool_id = enable ? pool->pool_id : 255;
++	u8 *slot_output = NULL;
++
++	switch (pool->sub_type) {
++	case MALI_C720_CAP_DEV_FR0_RGB:
++		slot_output = &ctx->slot_desc.pool_scaler0_rgb;
++		break;
++	case MALI_C720_CAP_DEV_FR0_YUV:
++		slot_output = &ctx->slot_desc.pool_scaler0_yuv;
++		break;
++	default:
 +		dev_warn_once(mali_c720->dev,
-+			      "module id %u instance %u in pipeline %u instance %u is not present\n",
-+			      target->module_id, target->module_instance,
-+			      target->pipeline_id, target->pipeline_instance);
-+		return -ENODEV;
++			      "Invalid output pool subtype %u\n", pool->sub_type);
++		return;
 +	}
 +
-+	*base = module->base;
++	if (slot_output && *slot_output != pool_id) {
++		*slot_output = (u8)pool_id;
++		ctx->active_fifos_by_output[pool->sub_type] =
++			enable ? pool->buffer_cfg->num_fifos : 0;
++		ctx->slot_desc_updated = true;
++	}
++}
++
++static void
++mali_c720_ctx_mgr_relinquish_buffer_control(struct mali_c720_context *ctx,
++					    struct mali_c720_buffer_pool *pool,
++					    unsigned int index)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	u32 buffer_addr = mali_c720_ctx_mgr_buffer_base(regs, pool, index);
++	u32 buffer_state;
++
++	/* Return control of the buffer back to HW */
++	buffer_state = MALI_C720_BUFFER_STATE_HW_EMPTY;
++
++	mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr, buffer_state);
++}
++
++static int mali_c720_ctx_mgr_alloc_buffer_pool(unsigned long *buffers,
++					       unsigned int num_buffers,
++					       unsigned int num_required)
++{
++	unsigned long start;
++
++	if (num_required == 0 || num_required > num_buffers)
++		return -EINVAL;
++
++	start = bitmap_find_next_zero_area(buffers,
++					   num_buffers,
++					   0,
++					   num_required,
++					   0);
++
++	if (start >= num_buffers)
++		return -ENOSPC;
++
++	bitmap_set(buffers, (unsigned int)start, num_required);
++
++	return (int)start;
++}
++
++static int
++mali_c720_ctx_mgr_release_buffer_descriptors(struct mali_c720 *mali_c720,
++					     struct mali_c720_buffer_pool *pool)
++{
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	unsigned int num_descriptors;
++	unsigned long *descriptors;
++
++	switch (pool->type) {
++	case MALI_C720_BUF_TYPE_RAW:
++		descriptors = ctx_mgr->raw_buffer_descriptors;
++		num_descriptors = ctx_mgr->num_raw_buffer_descriptors;
++		break;
++	case MALI_C720_BUF_TYPE_OUT:
++		descriptors = ctx_mgr->out_buffer_descriptors;
++		num_descriptors = ctx_mgr->num_out_buffer_descriptors;
++		break;
++	default:
++		WARN_ON_ONCE(1);
++		return -EINVAL;
++	}
++
++	if (pool->pool_id >= num_descriptors ||
++	    pool->num_buffers > num_descriptors - pool->pool_id) {
++		WARN_ON_ONCE(1);
++		return -EINVAL;
++	}
++
++	bitmap_clear(descriptors, pool->pool_id, pool->num_buffers);
++
 +	return 0;
 +}
 +
-+int mali_c720_discovery_get_module_table_base(struct mali_c720 *mali_c720,
-+					      const struct mali_c720_discovery_target *target,
-+					      unsigned int table_id,
-+					      u32 *base)
++int mali_c720_ctx_mgr_request_buffer_pool(struct mali_c720_context *ctx,
++					  const struct mali_c720_buffer_request_info *info,
++					  struct mali_c720_buffer_pool *pool)
 +{
-+	const struct mali_c720_discovery_module *module;
-+	const struct mali_c720_discovery_table *memory;
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	const struct mali_c720_buffer_cfg *cfg = info->buffer_cfg;
++	size_t plane_offset[MALI_C720_MAX_BUFFER_PLANES] = {0};
++	u32 buffer_addr, buffer_mode;
++	unsigned int i;
++	int ret;
 +
-+	module = mali_c720_discovery_get_module(&mali_c720->discovery, target);
-+	if (!module || !module->found) {
-+		dev_warn_once(mali_c720->dev,
-+			      "No module found for module id %u instance %u in pipeline %u instance %u\n",
-+			      target->module_id, target->module_instance,
-+			      target->pipeline_id, target->pipeline_instance);
-+		return -ENOENT;
++	lockdep_assert_held(&mali_c720->device_lock);
++
++	switch (info->type) {
++	case MALI_C720_BUF_TYPE_RAW:
++		if (WARN_ONCE(info->num_raw_buffers > ARRAY_SIZE(pool->desc),
++			      "Invalid raw buffer count %u\n",
++			      info->num_raw_buffers))
++			return -EINVAL;
++
++		ret = mali_c720_ctx_mgr_alloc_buffer_pool(ctx_mgr->raw_buffer_descriptors,
++							  ctx_mgr->num_raw_buffer_descriptors,
++							  info->num_raw_buffers);
++		if (ret < 0)
++			return ret;
++
++		pool->width = info->width;
++		pool->height = info->height;
++		pool->type = info->type;
++		pool->sub_type = info->sub_type;
++		pool->num_buffers = info->num_raw_buffers;
++		pool->pool_id = (u8)ret;
++
++		buffer_mode = MALI_C720_RAW_BUFFER_MODE_NORMAL;
++
++		break;
++	case MALI_C720_BUF_TYPE_OUT:
++		if (WARN_ONCE(info->num_out_planes > ARRAY_SIZE(plane_offset),
++			      "Invalid output plane count %u\n",
++			      info->num_out_planes))
++			return -EINVAL;
++
++		ret = mali_c720_ctx_mgr_alloc_buffer_pool(ctx_mgr->out_buffer_descriptors,
++							  ctx_mgr->num_out_buffer_descriptors,
++							  1);
++		if (ret < 0)
++			return ret;
++
++		pool->width = info->width;
++		pool->height = info->height;
++		pool->type = info->type;
++		pool->sub_type = info->sub_type;
++		pool->num_buffers = 1;
++		pool->pool_id = (u8)ret;
++
++		buffer_mode = MALI_C720_OUT_BUFFER_MODE_NORMAL;
++
++		break;
++	default:
++		WARN_ON_ONCE(1);
++		return -EINVAL;
 +	}
 +
-+	if (!module->present) {
-+		dev_warn_once(mali_c720->dev,
-+			      "module id %u instance %u in pipeline %u instance %u is not present\n",
-+			      target->module_id, target->module_instance,
-+			      target->pipeline_id, target->pipeline_instance);
-+		return -ENODEV;
++	pool->buffer_size = 0;
++	pool->buffer_cfg = cfg;
++	memset(pool->desc, 0, sizeof(pool->desc));
++
++	if (pool->type == MALI_C720_BUF_TYPE_OUT) {
++		for (i = 0; i < info->num_out_planes; i++) {
++			plane_offset[i] = pool->buffer_size;
++			pool->buffer_size += info->plane_size[i];
++		}
++	} else {
++		pool->buffer_size = info->plane_size[0];
 +	}
 +
-+	memory = mali_c720_discovery_find_memory(module, table_id);
-+	if (!memory)
-+		return -ENOENT;
++	for (i = 0; i < pool->num_buffers; i++) {
++		buffer_addr = mali_c720_ctx_mgr_buffer_base(regs, pool, i);
 +
-+	*base = memory->base;
++		/* Initialize all buffers under SW control */
++		mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++						 MALI_C720_BUFFER_STATE_SW_EMPTY);
++
++		pool->desc[i].nonsecure = 1;
++		pool->desc[i].stream_id = 0;
++		pool->desc[i].crc_check = 0;
++		pool->desc[i].pool = (i + 1 < pool->num_buffers) ? 1 : 0;
++		pool->desc[i].mode = (u8)buffer_mode;
++		pool->desc[i].block_size = 0;
++		pool->desc[i].buffer_size = (u32)pool->buffer_size;
++		pool->desc[i].plane2_offset = (u32)plane_offset[1];
++		pool->desc[i].plane3_offset = (u32)plane_offset[2];
++		pool->desc[i].plane4_offset = (u32)plane_offset[3];
++		pool->desc[i].line1_offset = (u32)info->line_offset[0];
++		pool->desc[i].line2_offset = (u32)info->line_offset[1];
++		pool->desc[i].line3_offset = (u32)info->line_offset[2];
++		pool->desc[i].line4_offset = (u32)info->line_offset[3];
++		pool->desc[i].data_format = (u8)cfg->data_format;
++		pool->desc[i].data_align = (u8)cfg->data_align;
++		pool->desc[i].data_layout = (u8)cfg->data_layout;
++		pool->desc[i].width = (u16)info->width;
++		pool->desc[i].height = (u16)info->height;
++		pool->desc[i].height_modulo = 0;
++		pool->desc[i].compression = 0;
++		pool->desc[i].compression23 = 0;
++
++		mali_c720_ctx_mgr_write_buffer_desc(ctx, pool, i);
++	}
 +
 +	return 0;
 +}
 +
-+bool mali_c720_discovery_module_present(struct mali_c720 *mali_c720,
-+					const struct mali_c720_discovery_target *target)
++void mali_c720_ctx_mgr_release_buffer_pool(struct mali_c720_context *ctx,
++					   struct mali_c720_buffer_pool *pool)
 +{
-+	const struct mali_c720_discovery_module *module;
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	u32 buffer_addr;
++	unsigned int i;
 +
-+	module = mali_c720_discovery_get_module(&mali_c720->discovery, target);
-+	if (!module || !module->found)
-+		return false;
++	lockdep_assert_held(&mali_c720->device_lock);
 +
-+	return module->present;
++	/*
++	 * Raw buffers must be explicitly cancelled to return them to SW control
++	 * before being unassigned. Output buffers should typically be under SW
++	 * control at this point already, but it is safe to cancel them here as well.
++	 */
++	for (i = 0; i < pool->num_buffers; i++) {
++		buffer_addr = mali_c720_ctx_mgr_buffer_base(regs, pool, i);
++
++		mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++						 MALI_C720_BUFFER_STATE_CANCELLED);
++		mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++						 MALI_C720_BUFFER_STATE_UNINITIALIZED);
++	}
++
++	mali_c720_ctx_mgr_release_buffer_descriptors(mali_c720, pool);
 +}
-diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-discovery.h b/drivers/media/platform/arm/mali-c720/mali-c720-discovery.h
++
++int mali_c720_ctx_mgr_check_output_buffer_status(struct mali_c720_context *ctx,
++						 struct mali_c720_buffer_pool *pool)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	const struct mali_c720_cm_buffer_regs *buffer = regs->cm->buffer;
++	u32 buffer_addr = mali_c720_ctx_mgr_buffer_base(regs, pool, 0);
++	u32 state;
++
++	lockdep_assert_held(&ctx->state_lock);
++
++	if (ctx->state == MALI_C720_SLOT_STATE_STOPPED)
++		return 0;
++
++	state = mali_c720_group_read(mali_c720, buffer_addr, &buffer->state);
++	if (state == MALI_C720_BUFFER_STATE_SW_FULL)
++		return 0;
++
++	dev_warn_ratelimited(mali_c720->dev, "Output buffer %u failed (state %u), recovering\n",
++			     pool->pool_id, state);
++
++	mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++					 MALI_C720_BUFFER_STATE_CANCELLED);
++	mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++					 MALI_C720_BUFFER_STATE_SW_EMPTY);
++
++	return -EIO;
++}
++
++void mali_c720_ctx_mgr_update_buffer(struct mali_c720_context *ctx,
++				     struct mali_c720_buffer_pool *pool,
++				     dma_addr_t *addr,
++				     unsigned int index)
++{
++	/*
++	 * If we don't have a new address, clear the descriptor and leave it
++	 * under SW control to ensure HW cannot write to an invalid address.
++	 * For output buffers we will disable that particular output.
++	 */
++	if (!addr) {
++		if (WARN_ONCE(pool->type != MALI_C720_BUF_TYPE_OUT,
++			      "Cannot clear non-output buffer type %u\n",
++			      pool->type))
++			return;
++
++		mali_c720_ctx_mgr_assign_context_output(ctx, pool, 0);
++
++		pool->desc[index].base_address_low = 0;
++		pool->desc[index].base_address_high = 0;
++
++		mali_c720_ctx_mgr_update_buffer_desc(ctx, pool, index);
++
++		return;
++	}
++
++	/* Once the buffer is updated, return control of it to the HW */
++	if (pool->type == MALI_C720_BUF_TYPE_OUT)
++		mali_c720_ctx_mgr_assign_context_output(ctx, pool, 1);
++
++	pool->desc[index].base_address_low = lower_32_bits(*addr);
++	pool->desc[index].base_address_high = upper_32_bits(*addr);
++
++	mali_c720_ctx_mgr_update_buffer_desc(ctx, pool, index);
++	mali_c720_ctx_mgr_relinquish_buffer_control(ctx, pool, index);
++}
++
++void mali_c720_ctx_mgr_prepare_frame(struct mali_c720_context *ctx)
++{
++	lockdep_assert_held(&ctx->state_lock);
++	WARN_ON(ctx->state != MALI_C720_SLOT_STATE_STARTING &&
++		ctx->state != MALI_C720_SLOT_STATE_STARTED);
++
++	if (ctx->state == MALI_C720_SLOT_STATE_STARTING) {
++		mali_c720_ctx_mgr_prepare_output_fifos(ctx);
++		mali_c720_ctx_mgr_write_slot_desc(ctx);
++		mali_c720_ctx_mgr_set_slot_enabled(ctx, true);
++
++		ctx->state = MALI_C720_SLOT_STATE_STARTED;
++	} else if (ctx->slot_desc_updated) {
++		mali_c720_ctx_mgr_prepare_output_fifos(ctx);
++		mali_c720_ctx_mgr_update_slot_desc(ctx);
++	}
++	ctx->slot_desc_updated = false;
++}
++
++void mali_c720_ctx_mgr_buffer_done(struct mali_c720_context *ctx, bool success)
++{
++	lockdep_assert_held(&ctx->state_lock);
++}
++
++void mali_c720_ctx_mgr_handle_sw_ready(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_cdma_slot_regs *cdma_slot = mali_c720->registers.cm->cdma_slot;
++
++	mali_c720_ctx_mgr_cdma_request(mali_c720, mali_c720_group_base(&cdma_slot->group, ctx->id),
++				       MALI_C720_SLOT_CDMA_STATE_HW_CONTROL);
++}
++
++void mali_c720_ctx_mgr_configure_context(struct mali_c720_context *ctx,
++					 const struct mali_c720_top_cfg *cfg)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	const struct mali_c720_pipeline_regs *pipeline = regs->top->pipeline;
++	dma_addr_t ctx_regs_addr = ctx->regs.dma_handle;
++
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->active_width, cfg->width);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->active_height, cfg->height);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->rggb_start, cfg->rggb_start);
++
++	ctx->cdma_desc.infinite = 0;
++	ctx->cdma_desc.nonsecure = 1;
++	ctx->cdma_desc.stream_id = 0;
++	ctx->cdma_desc.transfer_size = regs->context_size;
++	ctx->cdma_desc.units_low = 0xfff03;
++	ctx->cdma_desc.units_high = 0;
++	ctx->cdma_desc.base_address_low = lower_32_bits(ctx_regs_addr);
++	ctx->cdma_desc.base_address_high = upper_32_bits(ctx_regs_addr);
++	ctx->cdma_desc.ld_sg_count = 0;
++	ctx->cdma_desc.st_sg_count = 0;
++	ctx->cdma_desc.alt_transfer_size = 0;
++	ctx->cdma_desc.alt_base_address_low = 0;
++	ctx->cdma_desc.alt_base_address_high = 0;
++
++	ctx->slot_desc.mode = MALI_C720_SLOT_MODE_DISABLED;
++	ctx->slot_desc.timeout_enable = 0;
++	ctx->slot_desc.schedule_priority = 0;
++	ctx->slot_desc.nonsecure = 1;
++	ctx->slot_desc.stream_id = 0;
++	ctx->slot_desc.delay_mant = 0;
++	ctx->slot_desc.delay_exp = 0;
++	ctx->slot_desc.slot_event = 0;
++	ctx->slot_desc.slot_input_0 = 255;
++	ctx->slot_desc.slot_input_1 = 255;
++	ctx->slot_desc.timeout_mant = 0;
++	ctx->slot_desc.timeout_exp = 0;
++	ctx->slot_desc.pool_roi0 = 255;
++	ctx->slot_desc.pool_roi1 = 255;
++	ctx->slot_desc.pool_roi2 = 255;
++	ctx->slot_desc.pool_raw = 255;
++	ctx->slot_desc.pool_scaler0_rgb = 255;
++	ctx->slot_desc.pool_scaler0_yuv = 255;
++	ctx->slot_desc.pool_scaler1_rgb = 255;
++	ctx->slot_desc.pool_scaler1_yuv = 255;
++	ctx->slot_desc.pool_scaler2_rgb = 255;
++	ctx->slot_desc.pool_scaler2_yuv = 255;
++	ctx->slot_desc.pool_scaler3_rgb = 255;
++	ctx->slot_desc.pool_scaler3_yuv = 255;
++	ctx->slot_desc.pool_gdc_main = 255;
++	ctx->slot_desc.pool_gdc_roi0 = 255;
++	ctx->slot_desc.pool_gdc_roi1 = 255;
++	ctx->slot_desc.pool_gdc_roi2 = 255;
++	ctx->slot_desc.pool_pyramid = 255;
++	ctx->slot_desc.pool_consistency = 255;
++	memset(ctx->active_fifos_by_output, 0, sizeof(ctx->active_fifos_by_output));
++	ctx->slot_desc_updated = false;
++
++	mali_c720_ctx_mgr_write_cdma_desc(ctx);
++}
++
++void mali_c720_ctx_mgr_prepare_context(struct mali_c720_context *ctx,
++				       const struct mali_c720_input_cfg *input_cfg)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_cdma_slot_regs *cdma_slot = mali_c720->registers.cm->cdma_slot;
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	u32 cdma_slot_addr = mali_c720_group_base(&cdma_slot->group, ctx->id);
++
++	lockdep_assert_held(&mali_c720->device_lock);
++
++	guard(spinlock)(&ctx_mgr->input_lock);
++	guard(spinlock)(&ctx->state_lock);
++
++	memset(ctx->frame_timestamps, 0, sizeof(ctx->frame_timestamps));
++	ctx->input_frame_sequence = 0;
++	ctx->frame_sequence = 0;
++	ctx->timestamp = ktime_get_ns();
++
++	ctx->input_cfg = *input_cfg;
++	ctx->slot_desc.slot_input_0 = (u8)input_cfg->id;
++	ctx->slot_desc.slot_input_1 = 255;
++
++	ctx->input_cfg.started = false;
++	ctx_mgr->input_context_map[input_cfg->id] = (u8)ctx->id;
++
++	ctx->slot_desc.mode = MALI_C720_SLOT_MODE_TDMF_FLEX;
++	ctx->slot_desc_updated = false;
++
++	/* Defer frame scheduling until all video devices are started. */
++	ctx->state = MALI_C720_SLOT_STATE_PREPARED;
++	ctx->pipeline_busy = false;
++
++	if (mali_c720->num_active_contexts++ == 0) {
++		mali_c720_prepare_input_fifos(mali_c720);
++
++		mali_c720_ctx_mgr_set_scheduler_enabled(mali_c720, true);
++	}
++
++	mali_c720_set_slot_interrupt(mali_c720, ctx->id, true);
++	mali_c720_set_frontend_interrupts(ctx, true);
++
++	mali_c720_ctx_mgr_cdma_request(mali_c720, cdma_slot_addr,
++				       MALI_C720_SLOT_CDMA_STATE_CANCELLED);
++}
++
++void mali_c720_ctx_mgr_start_context(struct mali_c720_context *ctx)
++{
++	lockdep_assert_held(&ctx->mali_c720->device_lock);
++	lockdep_assert_held(&ctx->state_lock);
++
++	ctx->state = MALI_C720_SLOT_STATE_STARTING;
++}
++
++int mali_c720_ctx_mgr_check_context_status(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_slot_regs *slot = mali_c720->registers.cm->slot;
++	const struct mali_c720_cm_buffer_regs *buffer = mali_c720->registers.cm->buffer;
++	const struct mali_c720_cm_cdma_slot_regs *cdma_slot = mali_c720->registers.cm->cdma_slot;
++	u32 slot_addr = mali_c720_group_base(&slot->group, ctx->id);
++	u32 temper_addr = mali_c720_group_base(&buffer->temper_group, ctx->id);
++	u32 state;
++
++	lockdep_assert_held(&ctx->state_lock);
++
++	state = mali_c720_group_read(mali_c720, slot_addr, &slot->status);
++	if (state == MALI_C720_SLOT_ENABLED)
++		return 0;
++
++	dev_warn_ratelimited(mali_c720->dev, "Slot %u failed (state %u), recovering\n",
++			     ctx->id, state);
++
++	/* Slot error state can only be cleared by cancelling the slot. */
++	mali_c720_ctx_mgr_cancel_slot(ctx);
++
++	mali_c720_ctx_mgr_cdma_request(mali_c720, mali_c720_group_base(&cdma_slot->group, ctx->id),
++				       MALI_C720_SLOT_CDMA_STATE_CANCELLED);
++
++	if (mali_c720_group_read(mali_c720, temper_addr, &buffer->state) ==
++	    MALI_C720_BUFFER_STATE_HW_ERROR) {
++		mali_c720_ctx_mgr_buffer_request(mali_c720, temper_addr,
++						 MALI_C720_BUFFER_STATE_CANCELLED);
++		mali_c720_ctx_mgr_buffer_request(mali_c720, temper_addr,
++						 MALI_C720_BUFFER_STATE_HW_EMPTY);
++	}
++
++	mali_c720_ctx_mgr_set_slot_enabled(ctx, true);
++
++	/* Recovery prepares the next job; the failed frame must still be returned as an error. */
++	return -EIO;
++}
++
++void mali_c720_ctx_mgr_stop_context(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_cm_cdma_slot_regs *cdma_slot = mali_c720->registers.cm->cdma_slot;
++	u32 cdma_slot_addr = mali_c720_group_base(&cdma_slot->group, ctx->id);
++
++	lockdep_assert_held(&mali_c720->device_lock);
++
++	scoped_guard(spinlock_irq, &ctx->state_lock)
++		ctx->state = MALI_C720_SLOT_STATE_STOPPING;
++
++	mali_c720_ctx_mgr_stop_slot(ctx);
++
++	scoped_guard(spinlock_irq, &ctx->state_lock) {
++		ctx->state = MALI_C720_SLOT_STATE_STOPPED;
++		ctx->pipeline_busy = false;
++
++		mali_c720_ctx_mgr_cdma_request(mali_c720, cdma_slot_addr,
++					       MALI_C720_SLOT_CDMA_STATE_DISABLED);
++
++		mali_c720_set_slot_interrupt(mali_c720, ctx->id, false);
++		mali_c720_set_frontend_interrupts(ctx, false);
++
++		if (--mali_c720->num_active_contexts == 0)
++			mali_c720_ctx_mgr_set_scheduler_enabled(mali_c720, false);
++
++		/* Retire in-flight buffers on all queues, including those still streaming. */
++		mali_c720_ctx_mgr_buffer_done(ctx, false);
++
++		ctx->slot_desc.mode = 0;
++		ctx->slot_desc.slot_input_0 = 255;
++		ctx->slot_desc.slot_input_1 = 255;
++		ctx->slot_desc.pool_scaler0_rgb = 255;
++		ctx->slot_desc.pool_scaler0_yuv = 255;
++		ctx->slot_desc.pool_scaler1_rgb = 255;
++		ctx->slot_desc.pool_scaler1_yuv = 255;
++		ctx->slot_desc.pool_scaler2_rgb = 255;
++		ctx->slot_desc.pool_scaler2_yuv = 255;
++		ctx->slot_desc.pool_scaler3_rgb = 255;
++		ctx->slot_desc.pool_scaler3_yuv = 255;
++		ctx->slot_desc.pool_roi0 = 255;
++		ctx->slot_desc.pool_roi1 = 255;
++		ctx->slot_desc.pool_roi2 = 255;
++		ctx->slot_desc.pool_raw = 255;
++		ctx->slot_desc.pool_gdc_main = 255;
++		ctx->slot_desc.pool_gdc_roi0 = 255;
++		ctx->slot_desc.pool_gdc_roi1 = 255;
++		ctx->slot_desc.pool_gdc_roi2 = 255;
++		ctx->slot_desc.pool_pyramid = 255;
++		ctx->slot_desc.pool_consistency = 255;
++		memset(ctx->active_fifos_by_output, 0, sizeof(ctx->active_fifos_by_output));
++		ctx->slot_desc_updated = false;
++		mali_c720_ctx_mgr_write_slot_desc(ctx);
++	}
++
++	/* Drain queued IRQ events before the context can be restarted. */
++	synchronize_irq(mali_c720->irq);
++}
++
++int mali_c720_alloc_context(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	const struct mali_c720_pipeline_regs *pipeline = regs->top->pipeline;
++
++	guard(mutex)(&ctx->regs.allocation_lock);
++
++	if (refcount_inc_not_zero(&ctx->regs.users))
++		return 0;
++
++	ctx->regs.size = regs->context_size;
++	ctx->regs.base = dma_alloc_coherent(mali_c720->dev,
++					    ctx->regs.size,
++					    &ctx->regs.dma_handle,
++					    GFP_KERNEL);
++	if (!ctx->regs.base)
++		return -ENOMEM;
++
++	memcpy(ctx->regs.base,
++	       mali_c720->default_regs,
++	       ctx->regs.size);
++
++	/*
++	 * Provide a default usecase for a reasonable ISP output without
++	 * issuing any parameters buffers.
++	 */
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_inp_frame_stitch, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_inp_decompander, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_inp_dgain, 0);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_inp_square_root_a, 0);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_inp_dpc, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_inp_remosaic, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_inp_cac, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_inp_temper, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_inp_sinter, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_black_level, 0);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_wb_gain, 0);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_smart_shading, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_raw_to_intensity, 0);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_dehaze, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_dgain_iridix, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_iridix, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_square_a, 0);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_demosaic, 0);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_pf_correction, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_square_b, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_ccm, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_square_root_b, 0);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_hv_cnr, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_fr0_rgb_sharpening, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_fr0_gain_and_offset, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_fr0_gamma, 1);
++
++	/*
++	 * Bypass the FR0 crop and scaler by default. The FR0 subdevice
++	 * will re-enable these as required.
++	 */
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_fr0_rgb_scaler, 1);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_fr0_crop, 1);
++
++	refcount_set(&ctx->regs.users, 1);
++
++	return 0;
++}
++
++void mali_c720_free_context(struct mali_c720_context *ctx)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++
++	guard(mutex)(&ctx->regs.allocation_lock);
++
++	if (!refcount_dec_and_test(&ctx->regs.users))
++		return;
++
++	dma_free_coherent(mali_c720->dev, ctx->regs.size, ctx->regs.base,
++			  ctx->regs.dma_handle);
++	ctx->regs.base = NULL;
++	ctx->regs.dma_handle = 0;
++}
++
++int mali_c720_init_contexts(struct mali_c720 *mali_c720)
++{
++	const struct mali_c720_registers *regs = &mali_c720->registers;
++	struct mali_c720_context *ctx;
++
++	/* Allocate a region to store ISP default registers.
++	 * These will be copied into each context upon stream start.
++	 */
++
++	mali_c720->default_regs = kvzalloc(regs->context_size, GFP_KERNEL);
++	if (!mali_c720->default_regs)
++		return -ENOMEM;
++
++	memcpy_fromio(mali_c720->default_regs,
++		      mali_c720->base,
++		      regs->context_size);
++
++	ctx = &mali_c720->context;
++	ctx->mali_c720 = mali_c720;
++	ctx->id = 0;
++	ctx->state = MALI_C720_SLOT_STATE_STOPPED;
++
++	spin_lock_init(&ctx->state_lock);
++	spin_lock_init(&ctx->req_lock);
++	mutex_init(&ctx->regs.allocation_lock);
++	ctx->request_sequence = 0;
++	refcount_set(&ctx->regs.users, 0);
++
++	return 0;
++}
++
++static void mali_c720_ctx_mgr_init_reuse_buffer(struct mali_c720 *mali_c720)
++{
++	const struct mali_c720_cm_buffer_regs *buffer = mali_c720->registers.cm->buffer;
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	u32 buffer_addr;
++
++	ctx_mgr->reuse_buffer = ctx_mgr->num_raw_buffer_descriptors - 1;
++	__set_bit(ctx_mgr->reuse_buffer, ctx_mgr->raw_buffer_descriptors);
++
++	/*
++	 * Keep a standalone, zero-sized descriptor for input cleanup.
++	 * This is required for the workaround for a hardware bug on
++	 * r0p0 and r0p1 versions.
++	 */
++	buffer_addr = mali_c720_group_base(&buffer->raw_group, ctx_mgr->reuse_buffer);
++	mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++					 MALI_C720_BUFFER_STATE_SW_EMPTY);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->nonsecure, 1);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->stream_id, 0);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->crc_check, 0);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->pool, 0);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->mode, MALI_C720_RAW_BUFFER_MODE_NORMAL);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->width, 0);
++	mali_c720_group_write(mali_c720, buffer_addr,
++			      &buffer->height, 0);
++	mali_c720_ctx_mgr_buffer_request(mali_c720, buffer_addr,
++					 MALI_C720_BUFFER_STATE_UNINITIALIZED);
++}
++
++int mali_c720_init_ctx_mgr(struct mali_c720 *mali_c720)
++{
++	const struct mali_c720_cm_capabilities *caps = mali_c720->registers.cm->caps;
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	unsigned int num_slots;
++
++	ctx_mgr->num_raw_buffer_descriptors = caps->num_raw_buffers;
++	ctx_mgr->num_out_buffer_descriptors = caps->num_out_buffers;
++	ctx_mgr->num_inputs = caps->num_inputs;
++	ctx_mgr->num_input_streams = caps->num_input_streams;
++	ctx_mgr->num_virtual_inputs =
++		ctx_mgr->num_inputs * ctx_mgr->num_input_streams;
++	ctx_mgr->input_fifo_size = caps->input_fifo_size;
++	ctx_mgr->output_fifo_size = caps->output_fifo_size;
++
++	if (!ctx_mgr->num_raw_buffer_descriptors) {
++		dev_err(mali_c720->dev, "No raw buffer descriptors available\n");
++		return -EINVAL;
++	}
++
++	if (ctx_mgr->num_raw_buffer_descriptors > MALI_C720_MAX_RAW_BUFFERS) {
++		dev_dbg(mali_c720->dev, "RAW buffer count %u exceeds driver limit, truncating\n",
++			ctx_mgr->num_raw_buffer_descriptors);
++		ctx_mgr->num_raw_buffer_descriptors = MALI_C720_MAX_RAW_BUFFERS;
++	}
++
++	if (!ctx_mgr->num_out_buffer_descriptors) {
++		dev_err(mali_c720->dev, "No output buffer descriptors available\n");
++		return -EINVAL;
++	}
++
++	if (ctx_mgr->num_out_buffer_descriptors > MALI_C720_MAX_OUT_BUFFERS) {
++		dev_dbg(mali_c720->dev, "Output buffer count %u exceeds driver limit, truncating\n",
++			ctx_mgr->num_out_buffer_descriptors);
++		ctx_mgr->num_out_buffer_descriptors = MALI_C720_MAX_OUT_BUFFERS;
++	}
++
++	if (!ctx_mgr->num_inputs) {
++		dev_err(mali_c720->dev, "No input ports available\n");
++		return -EINVAL;
++	}
++
++	if (!ctx_mgr->num_input_streams) {
++		dev_err(mali_c720->dev, "No input streams available\n");
++		return -EINVAL;
++	}
++
++	if (ctx_mgr->num_inputs > MALI_C720_MAX_INPUTS ||
++	    ctx_mgr->num_input_streams > MALI_C720_MAX_STREAMS_PER_INPUT ||
++	    ctx_mgr->num_virtual_inputs > MALI_C720_MAX_VIRTUAL_INPUTS) {
++		dev_err(mali_c720->dev,
++			"Input topology exceeds driver limits: %u inputs, %u streams per input\n",
++			ctx_mgr->num_inputs, ctx_mgr->num_input_streams);
++		return -EINVAL;
++	}
++
++	num_slots = caps->num_slots;
++	if (num_slots <= MALI_C720_NUM_SAFETY_SLOTS) {
++		dev_err(mali_c720->dev,
++			"No non-safety slots available: %u slots, %u reserved\n",
++			num_slots, MALI_C720_NUM_SAFETY_SLOTS);
++		return -EINVAL;
++	}
++
++	/* Safety slots are not available for video contexts. */
++	ctx_mgr->num_contexts = num_slots - MALI_C720_NUM_SAFETY_SLOTS;
++	if (ctx_mgr->num_contexts > MALI_C720_MAX_CONTEXTS) {
++		dev_err(mali_c720->dev,
++			"Non-safety slot count %u exceeds driver limit %u\n",
++			ctx_mgr->num_contexts, MALI_C720_MAX_CONTEXTS);
++		return -EINVAL;
++	}
++
++	bitmap_zero(ctx_mgr->raw_buffer_descriptors, ctx_mgr->num_raw_buffer_descriptors);
++	bitmap_zero(ctx_mgr->out_buffer_descriptors, ctx_mgr->num_out_buffer_descriptors);
++
++	mali_c720_ctx_mgr_init_reuse_buffer(mali_c720);
++
++	spin_lock_init(&ctx_mgr->input_lock);
++	memset(ctx_mgr->input_context_map, 0xff, sizeof(ctx_mgr->input_context_map));
++
++	return 0;
++}
+diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.h b/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.h
 new file mode 100644
-index 0000000000000000000000000000000000000000..de52553876681feda4176682772b1432358b2bb7
+index 0000000000000000000000000000000000000000..d5af820cc5527523dd42f00e849466b71871fa8b
 --- /dev/null
-+++ b/drivers/media/platform/arm/mali-c720/mali-c720-discovery.h
-@@ -0,0 +1,212 @@
++++ b/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.h
+@@ -0,0 +1,303 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * ARM Mali-C720 ISP Driver - Capability discovery
++ * ARM Mali-C720 ISP Driver - Image signal processor
 + *
 + * Copyright (C) 2026 Arm Ltd
 + */
 +
-+#ifndef MALI_C720_DISCOVERY_H
-+#define MALI_C720_DISCOVERY_H
++#ifndef MALI_C720_CTX_MGR_H
++#define MALI_C720_CTX_MGR_H
 +
 +#include <linux/bitops.h>
-+#include <linux/list.h>
++#include <linux/spinlock.h>
 +#include <linux/types.h>
 +
++struct mali_c720;
++struct mali_c720_buffer_cfg;
++struct mali_c720_context;
++
++#define MALI_C720_MAX_BUFFER_POOL_SIZE	2
++#define MALI_C720_MAX_RAW_BUFFERS	64
++#define MALI_C720_MAX_OUT_BUFFERS	208
++#define MALI_C720_MAX_BUFFER_PLANES	4
++#define MALI_C720_MAX_INPUTS		4
++#define MALI_C720_MAX_STREAMS_PER_INPUT	4
++#define MALI_C720_MAX_VIRTUAL_INPUTS	(MALI_C720_MAX_INPUTS * MALI_C720_MAX_STREAMS_PER_INPUT)
++#define MALI_C720_MAX_CONTEXTS		16
++#define MALI_C720_NUM_SAFETY_SLOTS	4
++
++enum mali_c720_input_command {
++	MALI_C720_INPUT_COMMAND_DISABLE = 1,
++	MALI_C720_INPUT_COMMAND_ENABLE,
++	MALI_C720_INPUT_COMMAND_CANCEL,
++	MALI_C720_INPUT_COMMAND_FLUSH,
++	MALI_C720_INPUT_COMMAND_RESET_COUNTER,
++};
++
++enum mali_c720_input_state {
++	MALI_C720_INPUT_DISABLED = 1,
++	MALI_C720_INPUT_ENABLED,
++	MALI_C720_INPUT_CANCELLING,
++	MALI_C720_INPUT_DISABLING = 5,
++	MALI_C720_INPUT_ENABLING = 6,
++};
++
++enum mali_c720_scheduler_command_ids {
++	MALI_C720_SCH_COMMAND_ENABLE = 0x1,
++	MALI_C720_SCH_COMMAND_DISABLE,
++	MALI_C720_SCH_COMMAND_CANCEL,
++	MALI_C720_SCH_COMMAND_BYPASS_SLOT,
++	MALI_C720_SCH_COMMAND_ENABLE_SLOT,
++	MALI_C720_SCH_COMMAND_DISABLE_SLOT,
++	MALI_C720_SCH_COMMAND_CANCEL_SLOT,
++};
++
++enum mali_c720_slot_state {
++	MALI_C720_SLOT_STATE_PREPARED,
++	MALI_C720_SLOT_STATE_STARTING,
++	MALI_C720_SLOT_STATE_STARTED,
++	MALI_C720_SLOT_STATE_STOPPING,
++	MALI_C720_SLOT_STATE_STOPPED,
++};
++
++enum mali_c720_slot_status {
++	MALI_C720_SLOT_DISABLED,
++	MALI_C720_SLOT_ENABLED,
++	MALI_C720_SLOT_CANCELLING,
++	MALI_C720_SLOT_BYPASSED,
++	MALI_C720_SLOT_ERROR,
++	MALI_C720_SLOT_DISABLING,
++};
++
++enum mali_c720_slot_mode {
++	MALI_C720_SLOT_MODE_DISABLED,
++	MALI_C720_SLOT_MODE_STREAMING,
++	MALI_C720_SLOT_MODE_TDMF_FLEX,
++	MALI_C720_SLOT_MODE_TDMF_FIX,
++	MALI_C720_SLOT_MODE_M2M,
++};
++
++enum mali_c720_slot_cdma_state {
++	MALI_C720_SLOT_CDMA_STATE_DISABLED,
++	MALI_C720_SLOT_CDMA_STATE_CANCELLED,
++	MALI_C720_SLOT_CDMA_STATE_SW_CONTROL,
++	MALI_C720_SLOT_CDMA_STATE_HW_CONTROL,
++};
++
++enum mali_c720_buffer_type_ids {
++	MALI_C720_BUF_TYPE_RAW,
++	MALI_C720_BUF_TYPE_OUT,
++	MALI_C720_BUF_NUM_TYPES,
++};
++
++enum mali_c720_buffer_state {
++	MALI_C720_BUFFER_STATE_UNINITIALIZED,
++	MALI_C720_BUFFER_STATE_CANCELLED,
++	MALI_C720_BUFFER_STATE_SW_EMPTY,
++	MALI_C720_BUFFER_STATE_SW_FULL,
++	MALI_C720_BUFFER_STATE_HW_EMPTY,
++	MALI_C720_BUFFER_STATE_HW_FULL,
++	MALI_C720_BUFFER_STATE_HW_ERROR,
++	MALI_C720_BUFFER_STATE_CANCELLING,
++	MALI_C720_BUFFER_STATE_HW_WRITING,
++	MALI_C720_BUFFER_STATE_HW_READING,
++	MALI_C720_BUFFER_STATE_HW_READING_WRITING,
++};
++
++enum mali_c720_raw_buffer_subtype {
++	MALI_C720_RAW_BUF_SUBTYPE_NORMAL,
++};
++
++enum mali_c720_raw_buffer_mode {
++	MALI_C720_RAW_BUFFER_MODE_NORMAL,
++	MALI_C720_RAW_BUFFER_MODE_INFINITE,
++	MALI_C720_RAW_BUFFER_MODE_SOFTWARE,
++	MALI_C720_RAW_BUFFER_MODE_HW_CLONED,
++	MALI_C720_RAW_BUFFER_MODE_SW_CLONED,
++};
++
++enum mali_c720_out_buffer_mode {
++	MALI_C720_OUT_BUFFER_MODE_NORMAL,
++	MALI_C720_OUT_BUFFER_MODE_INFINITE,
++};
++
++struct mali_c720_input_cfg {
++	unsigned int id;
++	unsigned int pool_id;
++	unsigned int bit_depth;
++	bool started;
++};
++
++struct mali_c720_top_cfg {
++	u32 width;
++	u32 height;
++	u32 rggb_start;
++};
++
++struct mali_c720_slot_desc {
++	u16 crc;
++	u8 mode;
++	u8 timeout_enable;
++	u8 schedule_priority;
++	u8 nonsecure;
++	u8 stream_id;
++	u16 delay_mant;
++	u8 delay_exp;
++	u8 slot_event;
++	u8 slot_input_0;
++	u8 slot_input_1;
++	u16 timeout_mant;
++	u8 timeout_exp;
++	u8 pool_roi0;
++	u8 pool_roi1;
++	u8 pool_roi2;
++	u8 pool_raw;
++	u8 pool_scaler0_rgb;
++	u8 pool_scaler0_yuv;
++	u8 pool_scaler1_rgb;
++	u8 pool_scaler1_yuv;
++	u8 pool_scaler2_rgb;
++	u8 pool_scaler2_yuv;
++	u8 pool_scaler3_rgb;
++	u8 pool_scaler3_yuv;
++	u8 pool_gdc_main;
++	u8 pool_gdc_roi0;
++	u8 pool_gdc_roi1;
++	u8 pool_gdc_roi2;
++	u8 pool_pyramid;
++	u8 pool_consistency;
++};
++
++struct mali_c720_cdma_desc {
++	u16 crc;
++	u8 infinite;
++	u8 nonsecure;
++	u8 stream_id;
++	u32 transfer_size;
++	u32 units_low;
++	u32 units_high;
++	u32 base_address_low;
++	u32 base_address_high;
++	u8 ld_sg_count;
++	u8 st_sg_count;
++	u32 alt_transfer_size;
++	u32 alt_base_address_low;
++	u32 alt_base_address_high;
++};
++
++struct mali_c720_buffer_desc {
++	u16 crc;
++	u8 data_format;
++	u8 data_align;
++	u8 nonsecure;
++	u8 stream_id;
++	u8 data_layout;
++	u8 crc_check;
++	u8 pool;
++	u8 mode;
++	u8 block_size;
++	u32 base_address_low;
++	u32 base_address_high;
++	u32 buffer_size;
++	u32 plane2_offset;
++	u32 plane3_offset;
++	u32 plane4_offset;
++	u32 line1_offset;
++	u32 line2_offset;
++	u32 line3_offset;
++	u32 line4_offset;
++	u16 width;
++	u16 height;
++	u8 colorspace;
++	u8 subsampling;
++	u8 component_width;
++	u8 msb_align;
++	u8 phase;
++	u16 height_modulo;
++	u32 compression;
++	u32 compression23;
++};
++
++struct mali_c720_buffer_request_info {
++	const struct mali_c720_buffer_cfg *buffer_cfg;
++	size_t plane_size[MALI_C720_MAX_BUFFER_PLANES];
++	unsigned int line_offset[MALI_C720_MAX_BUFFER_PLANES];
++	unsigned int width;
++	unsigned int height;
++	unsigned int type;
++	unsigned int sub_type;
++	unsigned int num_out_planes;
++	unsigned int num_raw_buffers;
++};
++
++struct mali_c720_buffer_pool {
++	struct {
++		dma_addr_t addr;
++		void *base;
++	} mem[MALI_C720_MAX_BUFFER_POOL_SIZE];
++	struct mali_c720_buffer_desc desc[MALI_C720_MAX_BUFFER_POOL_SIZE];
++	const struct mali_c720_buffer_cfg *buffer_cfg;
++
++	unsigned int width;
++	unsigned int height;
++	unsigned int type;
++	unsigned int sub_type;
++	unsigned int pool_id;
++	unsigned int num_buffers;
++	size_t buffer_size;
++};
++
++struct mali_c720_ctx_mgr {
++	/* Protects input_context_map; acquire before a context's state_lock. */
++	spinlock_t input_lock;
++	u8 input_context_map[MALI_C720_MAX_VIRTUAL_INPUTS];
++	unsigned long raw_buffer_descriptors[BITS_TO_LONGS(MALI_C720_MAX_RAW_BUFFERS)];
++	unsigned long out_buffer_descriptors[BITS_TO_LONGS(MALI_C720_MAX_OUT_BUFFERS)];
++	unsigned int num_raw_buffer_descriptors;
++	unsigned int reuse_buffer;
++	unsigned int num_out_buffer_descriptors;
++	unsigned int num_inputs;
++	unsigned int num_input_streams;
++	unsigned int num_virtual_inputs;
++	unsigned int num_contexts;
++	unsigned int input_fifo_size;
++	unsigned int output_fifo_size;
++};
++
++struct mali_c720_context *mali_c720_get_active_context(struct mali_c720 *mali_c720);
++
++int mali_c720_init_contexts(struct mali_c720 *mali_c720);
++int mali_c720_alloc_context(struct mali_c720_context *ctx);
++void mali_c720_free_context(struct mali_c720_context *ctx);
++
++int mali_c720_init_ctx_mgr(struct mali_c720 *mali_c720);
++
++int mali_c720_ctx_mgr_start_context_inputs(struct mali_c720_context *ctx);
++void mali_c720_ctx_mgr_stop_context_inputs(struct mali_c720_context *ctx);
++
++int mali_c720_ctx_mgr_request_buffer_pool(struct mali_c720_context *ctx,
++					  const struct mali_c720_buffer_request_info *info,
++					  struct mali_c720_buffer_pool *pool);
++void mali_c720_ctx_mgr_release_buffer_pool(struct mali_c720_context *ctx,
++					   struct mali_c720_buffer_pool *pool);
++int mali_c720_ctx_mgr_check_output_buffer_status(struct mali_c720_context *ctx,
++						 struct mali_c720_buffer_pool *pool);
++
++void mali_c720_ctx_mgr_update_buffer(struct mali_c720_context *ctx,
++				     struct mali_c720_buffer_pool *pool,
++				     dma_addr_t *addr,
++				     unsigned int index);
++
++void mali_c720_ctx_mgr_configure_context(struct mali_c720_context *ctx,
++					 const struct mali_c720_top_cfg *cfg);
++void mali_c720_ctx_mgr_prepare_context(struct mali_c720_context *ctx,
++				       const struct mali_c720_input_cfg *input_cfg);
++void mali_c720_ctx_mgr_start_context(struct mali_c720_context *ctx);
++void mali_c720_ctx_mgr_stop_context(struct mali_c720_context *ctx);
++int mali_c720_ctx_mgr_check_context_status(struct mali_c720_context *ctx);
++
++void mali_c720_ctx_mgr_prepare_frame(struct mali_c720_context *ctx);
++void mali_c720_ctx_mgr_buffer_done(struct mali_c720_context *ctx, bool success);
++void mali_c720_ctx_mgr_handle_sw_ready(struct mali_c720_context *ctx);
++
++#endif /* MALI_C720_CTX_MGR_H */
+diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.c b/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..63589989478650f65c3cc06bee0a48a53b92b051
+--- /dev/null
++++ b/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.c
+@@ -0,0 +1,432 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Capability discovery describes the ISP configuration selected at hardware
-+ * synthesis time, including module presence, instances, register addresses
-+ * and memory tables. The driver parses it during probe and caches the
-+ * configuration for runtime lookups. The hardware topology remains fixed
-+ * at runtime.
++ * ARM Mali-C720 ISP Driver - Image signal processor
 + *
-+ * The discovery version refers to the format of the table. Future hardware
-+ * revisions may introduce a new version.
++ * Copyright (C) 2026 Arm Ltd
 + */
 +
++#include <linux/cleanup.h>
++#include <linux/device.h>
++#include <linux/timekeeping.h>
++
++#include "mali-c720-common.h"
++
++static void mali_c720_isr_set_frontend_bits(struct mali_c720 *mali_c720,
++					    struct mali_c720_interrupt_data *irq_data)
++{
++	const struct mali_c720_irq_regs *irq = mali_c720->registers.top->irq;
++	const struct mali_c720_reg_field * const
++		fields[MALI_C720_MAX_INPUTS][MALI_C720_MAX_STREAMS_PER_INPUT] = {
++		{
++			&irq->cm_input_0_stream_0_cmsi_active_video,
++			&irq->cm_input_0_stream_1_cmsi_active_video,
++			&irq->cm_input_0_stream_2_cmsi_active_video,
++			&irq->cm_input_0_stream_3_cmsi_active_video,
++		},
++		{
++			&irq->cm_input_1_stream_0_cmsi_active_video,
++			&irq->cm_input_1_stream_1_cmsi_active_video,
++			&irq->cm_input_1_stream_2_cmsi_active_video,
++			&irq->cm_input_1_stream_3_cmsi_active_video,
++		},
++		{
++			&irq->cm_input_2_stream_0_cmsi_active_video,
++			&irq->cm_input_2_stream_1_cmsi_active_video,
++			&irq->cm_input_2_stream_2_cmsi_active_video,
++			&irq->cm_input_2_stream_3_cmsi_active_video,
++		},
++		{
++			&irq->cm_input_3_stream_0_cmsi_active_video,
++			&irq->cm_input_3_stream_1_cmsi_active_video,
++			&irq->cm_input_3_stream_2_cmsi_active_video,
++			&irq->cm_input_3_stream_3_cmsi_active_video,
++		},
++	};
++	unsigned int num_streams = mali_c720->ctx_mgr.num_input_streams;
++	unsigned int virtual_input_id;
++
++	/* Virtual input ID = physical input * num_streams + stream. */
++	for (virtual_input_id = 0; virtual_input_id < mali_c720->ctx_mgr.num_virtual_inputs;
++	     virtual_input_id++) {
++		unsigned int input = virtual_input_id / num_streams;
++		unsigned int stream = virtual_input_id % num_streams;
++		const struct mali_c720_reg_field *field = fields[input][stream];
++
++		if (!mali_c720_irq_read(mali_c720, field, MALI_C720_IRQ_STATUS))
++			continue;
++
++		set_bit(virtual_input_id, &irq_data->input_frame_start);
++		mali_c720_irq_write(mali_c720, field, MALI_C720_IRQ_RAWSTAT, 1);
++	}
++}
++
++static void mali_c720_isr_set_backend_bits(struct mali_c720 *mali_c720,
++					   struct mali_c720_interrupt_data *irq_data)
++{
++	const struct mali_c720_irq_regs *irq = mali_c720->registers.top->irq;
++	const struct mali_c720_reg_field * const fields[MALI_C720_MAX_CONTEXTS] = {
++		&irq->cm_status_slot_0,
++		&irq->cm_status_slot_1,
++		&irq->cm_status_slot_2,
++		&irq->cm_status_slot_3,
++		&irq->cm_status_slot_4,
++		&irq->cm_status_slot_5,
++		&irq->cm_status_slot_6,
++		&irq->cm_status_slot_7,
++		&irq->cm_status_slot_8,
++		&irq->cm_status_slot_9,
++		&irq->cm_status_slot_10,
++		&irq->cm_status_slot_11,
++		&irq->cm_status_slot_12,
++		&irq->cm_status_slot_13,
++		&irq->cm_status_slot_14,
++		&irq->cm_status_slot_15,
++	};
++	unsigned int slot;
++
++	for (slot = 0; slot < mali_c720->ctx_mgr.num_contexts; slot++) {
++		if (!mali_c720_irq_read(mali_c720, fields[slot], MALI_C720_IRQ_STATUS))
++			continue;
++
++		set_bit(slot, &irq_data->frame_end);
++		mali_c720_irq_write(mali_c720, fields[slot], MALI_C720_IRQ_RAWSTAT, 1);
++	}
++}
++
++irqreturn_t mali_c720_isr_top(int irq, void *dev_id)
++{
++	struct device *dev = dev_id;
++	struct mali_c720 *mali_c720 = dev_get_drvdata(dev);
++	struct mali_c720_interrupt_data irq_data = {
++		.timestamp = ktime_get_ns(),
++	};
++
++	mali_c720_isr_set_frontend_bits(mali_c720, &irq_data);
++
++	/* Preserve all slots which completed before the interrupt was serviced. */
++	mali_c720_isr_set_backend_bits(mali_c720, &irq_data);
++
++	if (!irq_data.input_frame_start && !irq_data.frame_end)
++		return IRQ_NONE;
++
++	if (!kfifo_in_spinlocked(&mali_c720->irq_fifo, &irq_data, 1,
++				 &mali_c720->irq_lock))
++		dev_err_ratelimited(mali_c720->dev, "IRQ FIFO overflow\n");
++
++	return IRQ_WAKE_THREAD;
++}
++
++static void mali_c720_handle_input_frame_start(struct mali_c720 *mali_c720,
++					       unsigned int virtual_input_id,
++					       u64 timestamp)
++{
++	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
++	const struct mali_c720_input_cfg *input_cfg = &ctx->input_cfg;
++	struct mali_c720_ctx_mgr *ctx_mgr = &mali_c720->ctx_mgr;
++	struct mali_c720_frame_timestamp *entry;
++	unsigned int ctx_id;
++	u32 sequence;
++
++	guard(spinlock)(&ctx_mgr->input_lock);
++
++	ctx_id = ctx_mgr->input_context_map[virtual_input_id];
++	if (ctx_id == 0xFF)
++		return;
++
++	/* Only context 0 is currently supported. */
++	if (WARN_ON_ONCE(ctx_id != ctx->id))
++		return;
++
++	guard(spinlock)(&ctx->state_lock);
++
++	if (ctx->state == MALI_C720_SLOT_STATE_STOPPING ||
++	    ctx->state == MALI_C720_SLOT_STATE_STOPPED)
++		return;
++
++	if (input_cfg->id != virtual_input_id) {
++		dev_err(mali_c720->dev,
++			"Received unexpected frame start for virtual input %u, expected %u\n",
++			virtual_input_id, input_cfg->id);
++		return;
++	}
++
++	sequence = ctx->input_frame_sequence++;
++
++	entry = &ctx->frame_timestamps[sequence % MALI_C720_FRAME_TIMESTAMP_COUNT];
++	entry->sequence = sequence;
++	entry->timestamp = timestamp;
++	entry->valid = true;
++}
++
++static void mali_c720_update_frame_timestamp(struct mali_c720_context *ctx)
++{
++	const struct mali_c720_frame_timestamp *entry =
++		&ctx->frame_timestamps[ctx->frame_sequence % MALI_C720_FRAME_TIMESTAMP_COUNT];
++
++	if (entry->valid && entry->sequence == ctx->frame_sequence) {
++		ctx->timestamp = entry->timestamp;
++	} else {
++		dev_warn_ratelimited(ctx->mali_c720->dev,
++				     "Missing frontend timestamp for frame %u\n",
++				     ctx->frame_sequence);
++	}
++}
++
++static void mali_c720_handle_frame_end(struct mali_c720 *mali_c720,
++				       unsigned int ctx_id)
++{
++	const struct mali_c720_pipeline_regs *pipeline = mali_c720->registers.top->pipeline;
++	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
++	int ret;
++
++	/* Only context 0 is currently supported. */
++	if (WARN_ON_ONCE(ctx_id != 0))
++		return;
++
++	scoped_guard(spinlock, &ctx->state_lock) {
++		if (ctx->state != MALI_C720_SLOT_STATE_STARTED)
++			return;
++
++		ret = mali_c720_ctx_mgr_check_context_status(ctx);
++		if (!ret) {
++			ctx->frame_sequence =
++				mali_c720_ctx_group_read(ctx, mali_c720->top_base,
++							 &pipeline->frame_count) - 1;
++
++			mali_c720_update_frame_timestamp(ctx);
++		}
++
++		mali_c720_ctx_mgr_buffer_done(ctx, !ret);
++
++		ctx->pipeline_busy = false;
++	}
++}
++
++irqreturn_t mali_c720_isr(int irq, void *dev_id)
++{
++	struct device *dev = dev_id;
++	struct mali_c720 *mali_c720 = dev_get_drvdata(dev);
++	struct mali_c720_interrupt_data irq_data;
++	unsigned int bit;
++
++	while (kfifo_out_spinlocked(&mali_c720->irq_fifo, &irq_data, 1,
++				    &mali_c720->irq_lock)) {
++		for_each_set_bit(bit, &irq_data.input_frame_start,
++				 mali_c720->ctx_mgr.num_virtual_inputs)
++			mali_c720_handle_input_frame_start(mali_c720, bit, irq_data.timestamp);
++
++		for_each_set_bit(bit, &irq_data.frame_end, MALI_C720_MAX_CONTEXTS)
++			mali_c720_handle_frame_end(mali_c720, bit);
++	}
++
++	return IRQ_HANDLED;
++}
++
++static void mali_c720_set_input_interrupt(struct mali_c720 *mali_c720,
++					  unsigned int virtual_input_id, bool enable)
++{
++	const struct mali_c720_irq_regs *irq = mali_c720->registers.top->irq;
++	unsigned int input = virtual_input_id / mali_c720->ctx_mgr.num_input_streams;
++	unsigned int stream = virtual_input_id % mali_c720->ctx_mgr.num_input_streams;
++
++	/*
++	 * When enabling an interrupt, we should clear any pending interrupts
++	 * before enabling the mask.
++	 * When disabling an interrupt, we should disable the mask, then
++	 * clear any pending interrupts.
++	 * Interrupts are cleared by writing a 1 to the RAWSTAT bit.
++	 */
++	enum mali_c720_irq_type type0 = enable ? MALI_C720_IRQ_RAWSTAT : MALI_C720_IRQ_MASK;
++	enum mali_c720_irq_type type1 = enable ? MALI_C720_IRQ_MASK : MALI_C720_IRQ_RAWSTAT;
++
++	switch (input * MALI_C720_MAX_STREAMS_PER_INPUT + stream) {
++	case 0:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_0_stream_0_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_0_stream_0_cmsi_active_video, type1,
++				    1);
++		break;
++	case 1:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_0_stream_1_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_0_stream_1_cmsi_active_video, type1,
++				    1);
++		break;
++	case 2:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_0_stream_2_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_0_stream_2_cmsi_active_video, type1,
++				    1);
++		break;
++	case 3:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_0_stream_3_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_0_stream_3_cmsi_active_video, type1,
++				    1);
++		break;
++	case 4:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_1_stream_0_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_1_stream_0_cmsi_active_video, type1,
++				    1);
++		break;
++	case 5:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_1_stream_1_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_1_stream_1_cmsi_active_video, type1,
++				    1);
++		break;
++	case 6:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_1_stream_2_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_1_stream_2_cmsi_active_video, type1,
++				    1);
++		break;
++	case 7:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_1_stream_3_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_1_stream_3_cmsi_active_video, type1,
++				    1);
++		break;
++	case 8:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_2_stream_0_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_2_stream_0_cmsi_active_video, type1,
++				    1);
++		break;
++	case 9:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_2_stream_1_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_2_stream_1_cmsi_active_video, type1,
++				    1);
++		break;
++	case 10:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_2_stream_2_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_2_stream_2_cmsi_active_video, type1,
++				    1);
++		break;
++	case 11:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_2_stream_3_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_2_stream_3_cmsi_active_video, type1,
++				    1);
++		break;
++	case 12:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_3_stream_0_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_3_stream_0_cmsi_active_video, type1,
++				    1);
++		break;
++	case 13:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_3_stream_1_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_3_stream_1_cmsi_active_video, type1,
++				    1);
++		break;
++	case 14:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_3_stream_2_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_3_stream_2_cmsi_active_video, type1,
++				    1);
++		break;
++	case 15:
++		mali_c720_irq_write(mali_c720, &irq->cm_input_3_stream_3_cmsi_active_video, type0,
++				    enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_input_3_stream_3_cmsi_active_video, type1,
++				    1);
++		break;
++	default:
++		dev_warn_once(mali_c720->dev,
++			      "Invalid virtual input interrupt id %u\n",
++			      virtual_input_id);
++		return;
++	}
++}
++
++void mali_c720_set_slot_interrupt(struct mali_c720 *mali_c720,
++				  unsigned int slot_id, bool enable)
++{
++	const struct mali_c720_irq_regs *irq = mali_c720->registers.top->irq;
++	enum mali_c720_irq_type type0 = enable ? MALI_C720_IRQ_RAWSTAT : MALI_C720_IRQ_MASK;
++	enum mali_c720_irq_type type1 = enable ? MALI_C720_IRQ_MASK : MALI_C720_IRQ_RAWSTAT;
++
++	switch (slot_id) {
++	case 0:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_0, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_0, type1, 1);
++		break;
++	case 1:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_1, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_1, type1, 1);
++		break;
++	case 2:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_2, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_2, type1, 1);
++		break;
++	case 3:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_3, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_3, type1, 1);
++		break;
++	case 4:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_4, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_4, type1, 1);
++		break;
++	case 5:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_5, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_5, type1, 1);
++		break;
++	case 6:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_6, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_6, type1, 1);
++		break;
++	case 7:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_7, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_7, type1, 1);
++		break;
++	case 8:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_8, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_8, type1, 1);
++		break;
++	case 9:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_9, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_9, type1, 1);
++		break;
++	case 10:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_10, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_10, type1, 1);
++		break;
++	case 11:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_11, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_11, type1, 1);
++		break;
++	case 12:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_12, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_12, type1, 1);
++		break;
++	case 13:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_13, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_13, type1, 1);
++		break;
++	case 14:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_14, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_14, type1, 1);
++		break;
++	case 15:
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_15, type0, enable);
++		mali_c720_irq_write(mali_c720, &irq->cm_status_slot_15, type1, 1);
++		break;
++	default:
++		dev_warn_once(mali_c720->dev,
++			      "Invalid slot interrupt id %u\n", slot_id);
++		return;
++	}
++}
++
++void mali_c720_set_frontend_interrupts(struct mali_c720_context *ctx, bool enable)
++{
++	const struct mali_c720_input_cfg *input_cfg = &ctx->input_cfg;
++
++	mali_c720_set_input_interrupt(ctx->mali_c720, input_cfg->id,
++				      enable);
++}
+diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.h b/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..5d1b14c3e897768fd49d05b193b926e0bb71afd0
+--- /dev/null
++++ b/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.h
+@@ -0,0 +1,34 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * ARM Mali-C720 ISP Driver - Image signal processor
++ *
++ * Copyright (C) 2026 Arm Ltd
++ */
++
++#ifndef MALI_C720_INTERRUPTS_H
++#define MALI_C720_INTERRUPTS_H
++
++#include <linux/interrupt.h>
++#include <linux/types.h>
++
 +struct mali_c720;
++struct mali_c720_context;
 +
-+#define MALI_C720_DISCOVERY_MAX_MODULES		384
-+#define MALI_C720_DISCOVERY_MAX_MEMORIES	32
-+#define MALI_C720_DISCOVERY_MAX_PARAMS		32
-+#define MALI_C720_DISCOVERY_MAX_PIPELINE_INSTANCES	4
-+#define MALI_C720_DISCOVERY_MAX_MODULE_INSTANCES	8
-+#define MALI_C720_DISCOVERY_MAX_TABLE_INSTANCES		4
++#define MALI_C720_IRQ_FIFO_SIZE		256
 +
-+enum mali_c720_discovery_version_id {
-+	MALI_C720_DISCOVERY_VERSION_INVALID,
-+	MALI_C720_DISCOVERY_VERSION_1,
++struct mali_c720_interrupt_data {
++	u64 timestamp;
++
++	unsigned long input_frame_start;
++
++	unsigned long frame_end;
 +};
 +
-+enum mali_c720_discovery_pipeline_id {
-+	MALI_C720_DISC_PIPE_GLOBAL,
-+	MALI_C720_DISC_PIPE_INPUT,
-+	MALI_C720_DISC_PIPE_HV,
-+	MALI_C720_DISC_PIPE_CV,
-+	MALI_C720_DISC_PIPE_RAW_OUTPUT,
-+	MALI_C720_DISC_PIPE_FR_OUTPUT,
-+	MALI_C720_DISC_PIPE_PYR_OUTPUT,
-+	MALI_C720_DISC_PIPE_FOV_OUTPUT,
-+	MALI_C720_DISC_PIPE_STATS,
-+	MALI_C720_DISC_PIPE_TPG,
-+	MALI_C720_DISC_PIPE_MAX,
-+};
++irqreturn_t mali_c720_isr_top(int irq, void *dev_id);
++irqreturn_t mali_c720_isr(int irq, void *dev_id);
 +
-+enum mali_c720_discovery_module_id {
-+	MALI_C720_DISC_MODULE_ID_NONE = 0,
-+	MALI_C720_DISC_MODULE_ID_CM_FULL,
-+	MALI_C720_DISC_MODULE_ID_GLOBAL_ISP_CONTROL,
-+	MALI_C720_DISC_MODULE_ID_INTERRUPT_CONTROLLER,
-+	MALI_C720_DISC_MODULE_ID_FAULT_COLLECTOR,
-+	MALI_C720_DISC_MODULE_ID_MODULE_BIST_CONTROL,
-+	MALI_C720_DISC_MODULE_ID_MODULE_CRC_CONTROL,
-+	MALI_C720_DISC_MODULE_ID_MODULE_CG_CONTROL,
-+	MALI_C720_DISC_MODULE_ID_CM_CONTROL,
-+	MALI_C720_DISC_MODULE_ID_CM_SLOT_LOADABLE,
-+	MALI_C720_DISC_MODULE_ID_PIPELINE_GLOBAL_CONTROL,
-+	MALI_C720_DISC_MODULE_ID_DIGITAL_GAIN,
-+	MALI_C720_DISC_MODULE_ID_GAIN_AND_OFFSET,
-+	MALI_C720_DISC_MODULE_ID_BLACK_LEVEL,
-+	MALI_C720_DISC_MODULE_ID_WB_GAIN,
-+	MALI_C720_DISC_MODULE_ID_OFFSET,
-+	MALI_C720_DISC_MODULE_ID_SQUARE_ROOT_RAW,
-+	MALI_C720_DISC_MODULE_ID_SQUARE_RAW,
-+	MALI_C720_DISC_MODULE_ID_SQUARE_ROOT_RGB,
-+	MALI_C720_DISC_MODULE_ID_SQUARE_RGB,
-+	MALI_C720_DISC_MODULE_ID_DECOMPANDER,
-+	MALI_C720_DISC_MODULE_ID_FRAME_STITCHING,
-+	MALI_C720_DISC_MODULE_ID_DEFECT_PIXEL,
-+	MALI_C720_DISC_MODULE_ID_RGBIR_REMOSAIC,
-+	MALI_C720_DISC_MODULE_ID_CA_CORRECTION,
-+	MALI_C720_DISC_MODULE_ID_TEMPER,
-+	MALI_C720_DISC_MODULE_ID_SINTER,
-+	MALI_C720_DISC_MODULE_ID_SMART_SHADING,
-+	MALI_C720_DISC_MODULE_ID_RAW_TO_INTENSITY,
-+	MALI_C720_DISC_MODULE_ID_DEHAZE,
-+	MALI_C720_DISC_MODULE_ID_IRIDIX,
-+	MALI_C720_DISC_MODULE_ID_DEMOSAIC_STD,
-+	MALI_C720_DISC_MODULE_ID_DEMOSAIC_DFD,
-+	MALI_C720_DISC_MODULE_ID_PURPLE_FRINGE,
-+	MALI_C720_DISC_MODULE_ID_CCM,
-+	MALI_C720_DISC_MODULE_ID_CNR,
-+	MALI_C720_DISC_MODULE_ID_SCALER_RGB,
-+	MALI_C720_DISC_MODULE_ID_SCALER_RAW,
-+	MALI_C720_DISC_MODULE_ID_CROP,
-+	MALI_C720_DISC_MODULE_ID_SHARPENING_RGB,
-+	MALI_C720_DISC_MODULE_ID_SHARPENING_RAW,
-+	MALI_C720_DISC_MODULE_ID_GAMMA,
-+	MALI_C720_DISC_MODULE_ID_TC_LUT_RGB,
-+	MALI_C720_DISC_MODULE_ID_TC_LUT_RAW,
-+	MALI_C720_DISC_MODULE_ID_OUTPUT_FORMATTER,
-+	MALI_C720_DISC_MODULE_ID_OUTPUT_MULTIPLEXER,
-+	MALI_C720_DISC_MODULE_ID_GAUSSIAN_PYRAMID,
-+	MALI_C720_DISC_MODULE_ID_RAW_STREAM_PACKER,
-+	MALI_C720_DISC_MODULE_ID_TPG_RAW_MULTI,
-+	MALI_C720_DISC_MODULE_ID_TPG_RAW_SINGLE,
-+	MALI_C720_DISC_MODULE_ID_TPG_RAW_RGB_SINGLE,
-+	MALI_C720_DISC_MODULE_ID_FGM,
-+	MALI_C720_DISC_MODULE_ID_FBIST_BRIDGE,
-+	MALI_C720_DISC_MODULE_ID_PIPELINE_CRC,
-+	MALI_C720_DISC_MODULE_ID_INPUT_CRC,
-+	MALI_C720_DISC_MODULE_ID_INTENSITY_STATS,
-+	MALI_C720_DISC_MODULE_ID_HISTOGRAM_STATS,
-+	MALI_C720_DISC_MODULE_ID_COLOR_STATS,
-+	MALI_C720_DISC_MODULE_ID_AUTO_FOCUS_STATS,
-+	MALI_C720_DISC_MODULE_ID_MAX,
-+};
++void mali_c720_set_slot_interrupt(struct mali_c720 *mali_c720,
++				  unsigned int slot_id, bool enable);
++void mali_c720_set_frontend_interrupts(struct mali_c720_context *ctx, bool enable);
 +
-+struct mali_c720_discovery_target {
-+	enum mali_c720_discovery_module_id module_id;
-+	u8 module_instance;
-+	enum mali_c720_discovery_pipeline_id pipeline_id;
-+	u8 pipeline_instance;
-+};
-+
-+enum mali_c720_discovery_table_scaler_rgb_id {
-+	MALI_C720_DISC_TABLE_SCALER_RGB_H_MEM_ID = 0,
-+	MALI_C720_DISC_TABLE_SCALER_RGB_V_MEM_ID,
-+	MALI_C720_DISC_TABLE_SCALER_RGB_MAX_ID,
-+};
-+
-+struct mali_c720_discovery_table {
-+	u32 base;
-+	u32 size;
-+	unsigned int id;
-+	struct list_head node;
-+};
-+
-+struct mali_c720_discovery_version {
-+	bool present;
-+	u8 major;
-+	u8 minor;
-+	u8 patch;
-+};
-+
-+struct mali_c720_discovery_param {
-+	u8 id;
-+	u16 value;
-+	struct list_head node;
-+};
-+
-+struct mali_c720_discovery_module {
-+	enum mali_c720_discovery_module_id id;
-+	unsigned int instance_id;
-+	bool found;
-+	bool present;
-+	u32 base;
-+	struct mali_c720_discovery_version version;
-+	struct list_head memories;
-+	struct list_head fbists;
-+	struct list_head mbists;
-+	struct list_head config_crcs;
-+	struct list_head clock_gating;
-+	struct list_head params;
-+	struct list_head node;
-+	unsigned int num_memories;
-+	unsigned int num_params;
-+	unsigned int num_fbists;
-+	unsigned int num_mbists;
-+	unsigned int num_config_crcs;
-+	unsigned int num_clock_gating;
-+	unsigned int fbist_instance_id;
-+	unsigned int mbist_instance_id;
-+	unsigned int config_crc_instance_id;
-+	unsigned int clock_gating_instance_id;
-+};
-+
-+struct mali_c720_discovery_pipeline {
-+	bool present;
-+	unsigned int instance_id;
-+	enum mali_c720_discovery_pipeline_id id;
-+	struct list_head modules;
-+};
-+
-+struct mali_c720_discovery {
-+	enum mali_c720_discovery_version_id version;
-+	unsigned int next_module_id;
-+	unsigned int next_memory_id;
-+	unsigned int next_param_id;
-+	struct mali_c720_discovery_module
-+		modules[MALI_C720_DISCOVERY_MAX_MODULES];
-+	struct mali_c720_discovery_table
-+		memories[MALI_C720_DISCOVERY_MAX_MEMORIES];
-+	struct mali_c720_discovery_param
-+		params[MALI_C720_DISCOVERY_MAX_PARAMS];
-+	struct mali_c720_discovery_pipeline
-+		pipelines[MALI_C720_DISC_PIPE_MAX][MALI_C720_DISCOVERY_MAX_PIPELINE_INSTANCES];
-+};
-+
-+int mali_c720_discovery_init(struct mali_c720 *mali_c720, resource_size_t reg_size);
-+
-+int mali_c720_discovery_get_module_base(struct mali_c720 *mali_c720,
-+					const struct mali_c720_discovery_target *target,
-+					u32 *base);
-+
-+int mali_c720_discovery_get_module_table_base(struct mali_c720 *mali_c720,
-+					      const struct mali_c720_discovery_target *target,
-+					      unsigned int table_id,
-+					      u32 *base);
-+
-+bool mali_c720_discovery_module_present(struct mali_c720 *mali_c720,
-+					const struct mali_c720_discovery_target *target);
-+
-+#endif /* MALI_C720_DISCOVERY_H */
++#endif /* MALI_C720_INTERRUPTS_H */
 
 -- 
 2.55.0
