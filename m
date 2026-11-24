@@ -1,104 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795557108;
-	b=uQflWdFbuZSMT+hfwTQvpzTD/7O3P8R7Kq6O4gwT3k+yvl3htoUdBQhHRn40qA/kWUhp
-	 LfNOtzJIAfV9jC0l6pzmpEiu0WGuTv8FDFy1FmyGm307PDEfFZjN3Tyy3G+AErsDW8MTy
-	 tKsyEQxccoLkWXx7Hcx4vH2g75SC/FNj4k2fkB00qb+N7SjMu9t4n71RPFTHA25k7kHvp
-	 meMm0qGPYgWJQmpXZQcqjM/3B01EZHN/rQQGcLA1Q+V+n694JjNMZ7B0c2yFwb3tlZamP
-	 ta/yBiZ9APyUul9dHO9NXTgalhqcI4rAT11nR+o8zMUwN4H1786U3BE7z9vPpeSR3gA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795557108;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/+lzNuUt8nH42DBcwcZOHfmA1SLSshDnrkcQ11wbKfI=;
-	b=El8EFU/OOz+9LQCzK6F9RNuIpoNi1EpSudiWU7fOsURrIW2adKUzNuwJR8H+XA1sqJO/
-	 sWl/Zxu65a4eXu3f0Z6mugMd3jZkxgNlcBtnsCGahrwpZMYE7nXqFloeFai6TxBdEmLaj
-	 rWv9s0pF85B5W+CRy4Rvaw5mwNv13H7scmXWa/oEyq4i+OSdR3I2iMHqIYhRJ6MQamAoK
-	 4EeT4dDJ7T9+PHY976rLPIHqJ3cGnyA9Sk+Zn54SFcfcxoPKDvzLUFLAx/nzq453+Isqo
-	 KMjcj3DmSef+HjOZKAD112A6aXR8a2Aoy8EIWa7gAjeIMtZzP84zzvMFSugWtMnx03g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AXnDnFGO;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795557110;
+	b=YTA/sQlEUF2kuzv5KSqB/cb73c13MU7lmuPQMZMJAJ4xijT/BJSkNBArJ8zFx4bzBYZP
+	 H+lPmKlZDG+w8+t+kNiAOS8NZwXdxTF9m1Yhvjkzit1IERya1LMPVnBhuTQnf2tx5YCym
+	 4V+BXoFywYziXiorKKiypeEsB9Up0mF32M81ONhGHvHzZQ+sjZY3RToQj30/WkduTIpsU
+	 +xAKdKWrQSm04XAbu5zQ0XamRkqGz3upo9riK0LqWgm9Od94V6I1Dhm6v6aLhAJIt8yqC
+	 bEzhvNTrB9UQZRf15OcREL6IUObwsCognb4o2k6plhggv0zBT2WKHdu37EEFiYxbX+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795557110;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tBKQzB+z4+QnWb3LLc/EgXm4e6h4b0wS2AMJFav0mKE=;
+	b=kpuTwN2XsZY7Fy5+5opmPsz4QCbRGkQgn36YtiH+qEs98x137qbJf9VtJZ53CXwjXyjf
+	 xWMNJVkT/9lhH0QgXk+boekhrx7DCrlvAoWZ88YnWtnrXmB8CED8hIOPAgzrbrgDlWJj/
+	 u6epx+X9RrPlqVg+8G6P04A3qj3JC54v0j0zYWN9akXQmdcC7C1vxUK5BOjwl2CAvj3wO
+	 52qbejzwJL8nv8HF3Aw/qSM2/WNaJySl0d5IwOFod7EmhRqWvXXSE0bi+/7wN11aA8uLE
+	 ahpgFCxdAo0ThRa5VdYGTpl1rDXuKsCtdd5+XM4sQ7t5ea1ruJYdLgFLaVkwwhEET3w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PS/0myul";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297DE606A697;
+	Tue, 24 Nov 2026 21:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PS/0myul
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795557109;
+	b=xP/rREDzYs9kntyPSCZvJxKuIXAXD0JWuKDOUt0pyIByH7rqyUIS+ge8CLNNxBkKaa6f
+	 9mN4i9eBveJ/vXsbQLIwO+eo7D+NKyHv26UynMzdNm0ZekXc6gKWrXRT2Zmn60ucOD3fc
+	 lv37W5475Pim/cKtQIp9AyrZq6OUayFz0VwBFtw4wlfOME1hxf3ta02Kg8gEHT2R7pGmT
+	 0/XRVR9Uvkus5M8Mgi84kZE3Z5t7Ld8rE6uYwlGR2wrGCy0YRm1eNV77DYLf9OvXsNgFq
+	 cZPWmDacTCzwUlxVfyReMx4ZjkqJgi1rY0ZHHLvk/VHsmrg3EC7CW7dPH8jD/DTCOKQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795557109;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tBKQzB+z4+QnWb3LLc/EgXm4e6h4b0wS2AMJFav0mKE=;
+	b=zNSCLNo1h128kRAM2+dXiw3BqOy5SZh1AylB4IlgY4mNoSM8fSva6nBuk2PdSPO6KLvC
+	 ZO/4P7i2knAIR5fc5rli8TJo7jcmOuub9tLwcVNjQ8FeHZMh9chbPsdMxzVd9VzFxyTh9
+	 9hoW30U4WczZ9+H9VmWeDDBmEy5BP3bRa89L8uS1lGBixXLGS949DCQT3TcxysZ01C1m+
+	 92pQ7t5N5JvwVtdZ6UReKF16dQwFYxBd+0GsDxhfvp4A4zONJJbHqlss0PkKmFEFNPpzz
+	 YJMsQ3Dz75sZ13rju2Xg9mCyNjHJswLHQW5+kqbPKwFZVrPaJ0N3I3FKoTVqZM2W/gQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3B0606A68B
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:51:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC3B0606A68B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AXnDnFGO
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so4750041f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:51:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795557106; x=1796161906; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/+lzNuUt8nH42DBcwcZOHfmA1SLSshDnrkcQ11wbKfI=;
-        b=AXnDnFGOBfQJb/4LS7OK+fGiXnmCp4COMdessyhleS1PvjJAfCVdKnNXxPDj1onRsM
-         U1TjzEtBSkDNIJNqX5h9xLOHa0M9B+aZqkzO3uGlP789vCwldkYGSYjSA8R6JVIcqtaH
-         0bqr06MnbbqGOb8gW7cq4f4VdqRiQDnq3RfZSjAWVT3SiwSJDFYh/JyODpglJDLo/bH6
-         8nOSJZtc6tgjdoPIqrdJrrtjcCuJmgVZ7RH0iDVQDvziKrANGoqYAZhf4Oe+fJKa5NwI
-         p5hzcB7bJZEIO52kP4OgEnppdA8XZy/AExuMSx4trEax/68pxeufD6qJFXgVdzqHCQOP
-         VKtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795557106; x=1796161906;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/+lzNuUt8nH42DBcwcZOHfmA1SLSshDnrkcQ11wbKfI=;
-        b=li+7z6jcH0ZDl3twNQWFzyO/b95Y+6xz13imXlg2qV6hS8iTTz3go/nZDb9Jz6EsiE
-         1hGtIrwpnYKwOrUqsFpyX5wBeOt+JEmXbqAykVYsGOxCqtyENccS7H657jGfGgSqhNY4
-         +Rpx/cxl9l6xWjFFUVKYuJ2gbYuyjefuMfcDWOO9Yn2CR1x+kukajG5NGCiZaFG28EMR
-         a9GV86VSaVgxBYA8u5nkQDRJVc77lDq9skSCAkL4JS5+IjlyjvezUOR0w/4v+6IVBs6z
-         pL0tJ0WCD/V7zIJGRMv0lc9lhmCSWDvO4rfHjxfeEMCJ5CTfw4tNixnVKh7J42GNXMvP
-         U6kA==
-X-Forwarded-Encrypted: i=1; AL+hErHClB7a+q2mgL9ypcjLBZzRSTW+J28ZuSzVOleUpE1sBPp6UX99zgSS9lArLem1zlHsjZEvrHTV9CVG@vger.kernel.org
-X-Gm-Message-State: APuU4Z8MvOH27oCbqtC92/fx/HWmJl6dEB/J1UsbqdbP7t1HB5bNGUNw
-	M44UJ/N1rlpLME194wUUyvb6dfdoCilFcSzDJCbjtsLYY57S2RKgwFzz
-X-Gm-Gg: AZFdTZdXfqzNQruuXLcOvxoRfenY5UnSHFe7gqUCT18Nfzx/xy8sTOBCIy5a4rJLCcY
-	RLxwaBllwt5X36IB4wUflWSBM9m/0Ou5QR8WNg10mPskEVJYQjcaizQ4xUeHdXPRY4iAXIHNLZ5
-	cnN849X4hBZEwf+MN1yPduEEon9UQd3weHHGbi+WznP//jDzmA7L0I9XPXm4sKL87lyvoB32CXd
-	z/rXtGAVuXjLBA50T7EQbHDty81N8ytCXvlgEQK/eGZFfC1NFn0vCzq/2U+EeOxuEMb9tRmwU+9
-	xhjLnebWqoutez9eIqxDb9PpCz89EwWVZjZ/SM5NjpLgztgFazmajhR6ZTjDviC+ohBvbyuui9P
-	WbOApv6hn1v/F6UXl9LXIzOkP9zUX5rkC2rsuvRFWCHeixFrLBzK0I1VZQclyAYP08rxSbb+0MG
-	j0hxhtiUKSPP4xbD8ySJBzJYGvNb2cV5GzZaX2dd8sTY0u/FgTumCQPPdFXX7z1ZzmsSfiNUeKj
-	tmObiVAje09t2A+x9K+yATdoKdo38fzuF+MFFurS36f4GauvHelmeZSbxbRwjD6yTKfPKTlwXG6
-	841d7XAOdZDAXtgLcY5i
-X-Received: by 2002:a05:6000:4a14:b0:4a6:9f2f:414b with SMTP id ffacd0b85a97d-4abb71cbc15mr29539105f8f.32.1795557106230;
-        Tue, 24 Nov 2026 13:51:46 -0800 (PST)
-Received: from debian ([185.57.100.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab5ffcad11sm29194685f8f.0.2026.11.24.13.51.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 13:51:45 -0800 (PST)
-From: Pablo Mazzini <pmazzini@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH RESEND v3 2/3] dt-bindings: pinctrl: sun55i-a523: one interrupt per implemented bank
-Date: Tue, 24 Nov 2026 21:50:47 +0000
-Message-ID: <20261124215048.42074-3-pmazzini@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124215048.42074-1-pmazzini@gmail.com>
-References: <20261124215048.42074-1-pmazzini@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id CDD0C1F000CA;
+	Tue, 24 Nov 2026 21:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795557109;
+	bh=tBKQzB+z4+QnWb3LLc/EgXm4e6h4b0wS2AMJFav0mKE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=PS/0myulyLguQjcwseh1djR2xBDE4cr4nTXiB2vmhlugJsqz89IWsj3PLV3zT92Td
+	 VstuZC1xRRf7ElDqxxSsTCfdbVyRDSDOT+r1mDUE87NutUMjVXTVVj91Fu1nG5g+/B
+	 lK+6WFud0sfAjK4M6pF7hPebnEA8IsvNUD4fCPDHDXe+jMgw0hhlosOynef4ot3hd7
+	 84r0IolDooUR9Dllbgd08ThSccFqYC/pcsBn/JzG/j5Ov4fnXwUQ42CsBEqtRenPoW
+	 QAjyoRMsVd2u06rHdoLYeC1BWRM7MW0OlBDng8l5fh2v5uTN16MI1wAcP/j6nysDYH
+	 ILe/1J4t1J9RQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2FDE14CBB5;
+	Tue, 24 Nov 2026 21:51:39 +0000 (UTC)
+From: Marko Zidaric via B4 Relay <devnull+darkobas.gmail.com@kernel.org>
+Date: Tue, 24 Nov 2026 22:51:11 +0100
+Subject: [PATCH] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: Enable
+ SMB2370_2
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,54 +83,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261124-yoga-slim7x-smb2370-v1-1-2656ec0226e7@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAM4GBmsC/yXMTQ6CMBBA4auQWTtJW5CKVzEsShlgDH/pCIEQ7
+ k7V5bd47wChwCTwTA4ItLLwNEboWwK+c2NLyHU0GGVyrU2G+9Q6lJ4Hu6EMlUmtQu9qm94fhcq
+ dhljOgRreftdX+bcs1Zv857uC87wAFoP3JHcAAAA=
+X-Change-ID: 20261124-yoga-slim7x-smb2370-cad7358906a1
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ Marko Zidaric <darkobas@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1376; i=darkobas@gmail.com;
+ h=from:subject:message-id;
+ bh=PTLVAGVNPZeF9esS9Acb6R6hiwos8Jxkhf5ea1o2p+4=;
+ b=owGbwMvMwMGYxdFjFCjQw8R4Wi2JIZuN7dWEV9GreKrVaxiz9ULVUrwudAWmh2761+bvKDn9b
+ nrXpoRORn8WBkYOBksxRRa9w2tSrfhZA5uuRUyCGcTKBDJFWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
+ gQwdIwYuTgGY6mOq7H/4HvyNtTpgd3hvPrNz5d9HHku2sgm1vdv2Tz7BRTmH8azTl3nz7vno9K9
+ UfDf/uCbfk6+Bk/udN/zRXCzF6ndL+kW4idlh97KDuvNkandl9BYYepXuc63Pn7n402d1S0k3Bp
+ GvcaLFNxed9/3FvzqwWXLBpxdla4/0Xig88PjJwqmpbh4doqUHVla9M0tV2TDVfmeG5YOFCUoTJ
+ Z6fnjLjxo70BLkDmnpJZqFZW/IX9wpc1VVQW3zEPEtI4iHvbZvyOWq6rn0XQwWkr2yUS7SSNRYO
+ KVXVKgjY9m6y+eMvpZ73N3xTemDyYIbHWknFJGP+QHun44muhecmHWk+uXm1DKOvx4vc0GdiVx4
+ L+gAA
+X-Developer-Key: i=darkobas@gmail.com; a=openpgp;
+ fpr=2EC3AC653A0F055182D658926A088C3251108C02
+X-Endpoint-Received: by B4 Relay for darkobas@gmail.com/default with
+ auth_id=1633
+X-Original-From: Marko Zidaric <darkobas@gmail.com>
+Reply-To: darkobas@gmail.com
+Content-Transfer-Encoding: 7bit
 
-The A523 and A733 have no PA pins, the A523's PA IRQ bank is not
-implemented, and the driver no longer counts it. Go back to one
-interrupt, and one debounce period, per implemented bank: 10 for both.
+From: Marko Zidaric <darkobas@gmail.com>
 
-This reverts commit 11f25ac56372 ("dt-bindings: pinctrl: sun55i-a523:
-increase IRQ banks number").
+The eUSB2 repeater of the third Type-C port sits on SMB2370_2, which is
+disabled by default. The board file only set status on the repeater
+child node, so usb_2 never probes.
 
-Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Enable the PMIC node instead.
+
+Fixes: a741ecde8949 ("arm64: dts: qcom: glymur: Add Lenovo Yoga Slim 7x Gen11")
+Signed-off-by: Marko Zidaric <darkobas@gmail.com>
 ---
- .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Tested on a Yoga Slim 7x Gen11 (83QR) on 7.4-rc3 only, by applying the
+equivalent change to the DTB; the affected lines are unchanged in
+current mainline.
+---
+ arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-index d7d0ba32ced4..c04b04acf6e4 100644
---- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
-@@ -36,7 +36,7 @@ properties:
+diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+index 769f195c9..c6012e162 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+@@ -870,11 +870,13 @@ &smb2370_k_e2_eusb2_repeater {
+ 	vdd3-supply = <&vreg_l7b_e0>;
+ };
  
-   interrupts:
-     minItems: 2
--    maxItems: 11
-+    maxItems: 10
-     description:
-       One interrupt per external interrupt bank supported on the
-       controller, sorted by bank number ascending order.
-@@ -63,7 +63,7 @@ properties:
-       bank found in the controller
-     $ref: /schemas/types.yaml#/definitions/uint32-array
-     minItems: 2
--    maxItems: 11
-+    maxItems: 10
++&smb2370_l_e2 {
++	status = "okay";
++};
++
+ &smb2370_l_e2_eusb2_repeater {
+ 	vdd18-supply = <&vreg_l15b_e0>;
+ 	vdd3-supply = <&vreg_l7b_e0>;
+-
+-	status = "okay";
+ };
  
- patternProperties:
-   # It's pretty scary, but the basic idea is that:
-@@ -133,8 +133,8 @@ allOf:
-     then:
-       properties:
-         interrupts:
--          minItems: 11
--          maxItems: 11
-+          minItems: 10
-+          maxItems: 10
- 
-   - if:
-       properties:
--- 
-2.52.1
+ &swr0 {
+
+---
+base-commit: 8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
+change-id: 20261124-yoga-slim7x-smb2370-cad7358906a1
+
+Best regards,
+--  
+Marko Zidaric <darkobas@gmail.com>
+
 
