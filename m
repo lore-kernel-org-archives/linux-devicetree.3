@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795553133;
-	b=4laIC+EvIO99tIFcjI7cIx+RZaE9MKYVpqBpPM9FRnk+ZhZGbiDjNlplr/64Y3Tpz0cJ
-	 USc1U/2FllawaIy6PTlX4h0VHOhb9+W7T9/y29wUpNjb4KnYjSJebU627XtVzt99EzGqe
-	 HJM3dgIgDtYoPe+6zSjKIkm9O5nzU74KNtFvKhcOvbQQR+q0V/1oGaV1eJNTQKGxroNk2
-	 LLZEiMJDJQIqyEHB/iNMcdL6iLHsoIRupaKRyn7jC80tyfhDPRXJL2R9vUQdZsCnQZ+3r
-	 9bGTXMnila7iq5eQfJzbLUQ/Fv2hbsNpPP2iaX0rTGbN+xnxQAPpMo7wpgiDuelRaQw==
+	t=1795553211;
+	b=hka6ZEa6uEbdt+mpMJntp6NDYaj461v+1rlHRdXOe/82u0Vi3yvhYAbPyYhsbekX+675
+	 Tpz827Tf4wAwSiOQoELSQlo0wOnhl28mNbIYb0++FFi/EWlRpyEoBu08EvVFTe2Q6fTtk
+	 ZnWl+tKX2/YnlRWZJXMyYKQezHxfPdeQpNnQnrEI23e+tOllMsBQXFySj4Ag9hQJqH3L1
+	 JLyZATwU0eCOfEKAFdyDujrozEBuCs5TdCvlRvvjOuZNX7n7CRzYNFNfQgheAvHx9GVjE
+	 tYzX37SzPljzmVjRmwo2cz49z1ju3wBolw/hdRi5uvHtjZczW4ZvW/KBMACwXUnE7lg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795553133;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795553211;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KFzLi3vzdDSPGhuH40A8wZRyinBPu8g/pRL5DsdlYi8=;
-	b=z5vsny50cU2kXuq9xcDYqH8jfPUVZe4yXKY91zkxasjejxXQ9Q2Q//T/cUjOgJaaEmgn
-	 kUmmp8GFEN2n/9TNimxiMXbkqVrWDko21j15rABVUPUaVxWnbJXgrkczEM8kN5bmr0n86
-	 07QWb2qp8eoTHCstvM0r62cRaqktu4c1VxCBoSMPltbSCjQR3a1c6DoYEZSOjw5iVuydS
-	 LVQJbuFLtczJ9NoH0JfkuESZhKYxkaFP64KDw7VrZe1KSrOsDJJvw8KzktI1lXKwo4DP5
-	 y5RxxLFpBuVpTjTQJa9UmVyzM+efKdlJho5rriKbb//Jtbgsdna4Xa5hZzFCN4z6Oow==
+	bh=zDNVDfs2PwxqSj0Kee0hW9NffVRwrghNSp33hY60Ag0=;
+	b=S1wmHOs61cWkSVE+c1MzNEfnv+FXxg2+TKh4AVY0RM0kgBYePgrdrD61lOVb7WT22TrF
+	 ZSgtxsWmZ4XQVXYPOH+t2Ry7QjkZ1GsPata6pmRAFNHpsE+7ZaSfRpnro1dc8BnNTx+8B
+	 9BtdjEPofeFQHpnccP3cJ3pZuAepywxMpcOGFDGPu1/VdYaPbqxOktn5OmqYdkJe+jwYv
+	 S5XF5CwWqN4AmTT8QnPC8JQO7Mlpv3LRJ2vuM5bgAQi8P48iOzy0ipEBQlJSO0yG2RuCl
+	 xkOLjAag1ioAJysGWh34aYa59QpW/tCAVrLobuSWq9Yse88Dvr2M1pkMGstT2+8OO8A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=googlemail.com;
 	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=fWkfI7g7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=GLPxPbid;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BA1606A336
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 20:45:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8BA1606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D200B606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 20:46:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D200B606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=fWkfI7g7
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b315dd057bso31755577b3.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:45:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795553132; cv=none;
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=GLPxPbid
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b4e246acc2so35893017b3.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:46:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795553210; cv=none;
         d=google.com; s=arc-20260327;
-        b=DHyoMOjXKh5vldLTalYvvt31K/DJxyyfFusgOjKkdBY9ums2OWrweLY7a3CyCyko5X
-         mYU5q466j2Oz3VRkV5zUtbb0jcAFcl+Ox2cPI0HL0pSKwQTfo3eK7Vs1vVMgrYjS4h9a
-         CENfFy66nNu3iAOZc8BXCL8KP1yaZf7GQZHAYQKKPTrfBy5pjwT8K7KbpO+D7aGUwlm0
-         aOW0bhKVL+K/k0xW/3bTYeVjqxDhqXdp7h1NHpPT+Hrri0np0ydX8XMhMJhnklaPOEAb
-         vq+sSFRqQTilSny0yQ3l7IjdDbYKXbaxM/ZaTImxN7HPwhjEXJAUQjo+kBgzKg351XOJ
-         CU2Q==
+        b=H2f2KYfF2VYPFQqaal/iBUIxhSIOQ6AIT8imzC73VzOzyYDWw6EmvB6si8w0v0mxIH
+         Lz1xG5461fpm6Q0KDwnFrLLGOthwD85y0QPmLoDNuDBSqliJluhY3eqwcLahzprfknFK
+         WuuJr4wMiqn7kB8qsUQMM5KrMPXUO26r6vnMG3fyxQR/Lnq4uuGyHz63zXQNnE7qD/ND
+         xOzKImZiaXqnDYhKiH4N9pS1A2OewPrQ0Z+k1Qg/ORJsErUFalFfVVj0P1Mx4zxJMtnT
+         egJ4aVw2GOrKybRyReB9pbya6TAMQmMGStrsUhX35pFMRkaV0joP3Pafh3d6Y7+0CjHr
+         3Nqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=KFzLi3vzdDSPGhuH40A8wZRyinBPu8g/pRL5DsdlYi8=;
-        fh=8PCFQnTnO3qF6FrGl+WncVFfNGX0eTQpt9hW4uG3du8=;
-        b=kLePWzIfNZRMtKoXC0BD/SkkPY/nsdXHhveV98z2wLqqEr/1d4u9ldHAFC0m9sPQyr
-         B8MtFNaiw03COcIGTvczPNzJWudffq6ibFyvj6o/64T83TbZr/jNxcS9olQhLxyZr+w4
-         IG3o14a7nTSIH+OSsRJfTbo1YkHQKRvSduZqDCrT7byfUtRVZPZHuy5kAaHjkr9PmH8O
-         iSJIJZUO92t2ffcuJcEf6Lk6DKU8GDkpHnRaWdQABWUMswEAnkpkRZnpuZ+KD9j+/7yQ
-         lLHfNFXO29CuTHBfxupp/LXZTIh7pmOdDyfKMfWkmPOwPl5NIn3wnsf78r1pLiLZT4f7
-         1kIw==;
+        bh=zDNVDfs2PwxqSj0Kee0hW9NffVRwrghNSp33hY60Ag0=;
+        fh=mb5PRr441zvvfdP0iCndce9hjm1lwj85XnpH/HI59/8=;
+        b=BWLosWZVhrRqUV8SxIJyQyUznPc89pXIeV0i3s/SxsTyhBhUVdEeI0nSgrXaPbIUm1
+         Uho1AO363PrHCyHHceGJYk+s+xp6/CbKwj/zxuxlv5TGrG5Wj6HBYJ35nLXMRX4wTHcI
+         rCoP9my21X0gY3fbgF3rYnOyOkXCdPZRsYNTpTcYLfhSPlstC8zC06Su5x+VkuhbWQ1c
+         pigEKFmPiKsIx5PHkgI8KUI+1WFsbmnjOKXWfcEMqmiGigtwERKgv6S8bUoxrXyXqewG
+         c8JzpGGq22WgU6YFvrLaFMe1Qmdx3Sau5YOSJAgSYkrugDo7QTZ1yh6a+c0vVTnxFUtZ
+         2qfw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1795553132; x=1796157932; darn=vger.kernel.org;
+        d=googlemail.com; s=20260707; t=1795553210; x=1796158010; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KFzLi3vzdDSPGhuH40A8wZRyinBPu8g/pRL5DsdlYi8=;
-        b=fWkfI7g7PrLQ7bt+0UAil+Zy7J/2gPJX50pDHayXK+EpqLlR20gEcua4dazCanX3T5
-         E53HaM4usZB+CE/EUBt9WWedRTs2GcLHHZMNdI9HL+DQWjWIvORceM10ZdjtTOKgBdL6
-         aJMzVftA/pPwii3PvCGJApDKR1SH7WIDniYyN/fnUEkj9dyewvH9yCmNioPAwUhpdzIh
-         hPaq2LbyV86n5UydtCwC0x2FWZIn2eZHLO4E1bGxrFsWWM8scZG0+Hh28SugR8pD9uh4
-         98xRtzbCiLQjlnMY7czZmvRaYZUmtvYPyalncM69vRhfNSfPjPAVyEUYLYPyxyOx3xpZ
-         PRPw==
+        bh=zDNVDfs2PwxqSj0Kee0hW9NffVRwrghNSp33hY60Ag0=;
+        b=GLPxPbidss3ZjxqoA6dUrBKQsf6QpS4A2gR1m9gojSDw7SVtAKuSRUwYNvCRMEs+jG
+         nBN0jqNDCwGYL7QqFGSylE2ayToGE1ORhbUOCm6a8i1C3iIJX8KgTq9pJiskUczU333B
+         BU6N40yrS5xt1XSBSBbQLP2l/3m8StLo9HWeN3gqCubW3UnRJk+hNKuOFM0GlakhrQtd
+         BD4j7uB1FL2ShtAp4PRnUXM6qL6yU0gIvZi/maIVBzDAymOKR2yU1xEIuuyt+1JS8alU
+         nZkm2owPG/I9tRpSND59PntDJO2DqiQtU6o2hnlg6zV5MsaKXB9z3kBxjkJnTz4MdlJU
+         r4Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795553132; x=1796157932;
+        d=1e100.net; s=20260707; t=1795553210; x=1796158010;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KFzLi3vzdDSPGhuH40A8wZRyinBPu8g/pRL5DsdlYi8=;
-        b=e8j7jHCnWFThWHKXgcN+V0rV+fX6OKJ952tYwNXEkwGsuua1gU/RS8ALCO18r6IyGZ
-         qfPdB0tb7mQun7NPnLAa4dPk+zAUsjR9WcfrhuxQ6lwLE6VHWZwOjzxqkQ8khrEv1EbA
-         W1OQQCdE4rk9iS+zas2T4OCOhYZUcWH90l3c0Mmo+OfCEDA2tnwzl3SN6WeuMaSAgfSf
-         OnMBmFg/otgmlnoOK15OjI3qDjDIu7J3FnU7JaB+kQyDdXWsk72qHzyzYDz7UCa1kBnE
-         Ms83Xjbxlua0v9XRvvp1cwlA09tXNUVXA26pn5Axzbxc/pWn9UF5mpBeWIVx8QWuLgdr
-         AL5g==
-X-Forwarded-Encrypted: i=1; AL+hErH0I94tA9ATIlCtAtJmwwVD+E+XtUKH8NHkz1Sw2YKhw74G05NujrBoavaNoYG2Zu859Tyws1SwwBnN@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gWu1U/9f11OpLTrrMxkXqx+vrX18lsPulXY2I7B7AcZD/5jEk
-	iaGIvPlBNR+J0EJ8XndkguaEwx7RFNK0/V03yviGZ5ovrLT901WjjwMB4kFAWXrwlS8SUeAgT4H
-	oB3hbtR1Nqx21z3ltF/xU0VgMasCmECE=
-X-Gm-Gg: AZFdTZf7VKgyE6t4sLREx7jKrSU3P5k7EY/HbPUVWW564SFSzh3zULupr3K+4AcowXk
-	6epA2ZoUU0jb+zMrPLt1KlIu8M74qMK3M9Lq0PEKAGFd4+27xIi1G/GHRUDeLADj3iUAFlTrXZ2
-	/cVpaq0k3rtyfCtFp9yIXMXvXMpkzYkH/35OLuctAfWkuUBLw63NDlfOV+TymXuqDlehJpCFYYw
-	STA5iZQ7wVFT0fd/syGm8Dr17US62kVHvckZ9Rmc8q9r2xh3ahhr5Bl00z0rSh/OqS2GUi+bGZI
-	13hbTe3DKNR6F7aLpYJ5HTDr+o+GGiEsljV3xNIRCkuxhlbZmiKlEYUFykzDP8oQv2uf1TFeJLm
-	yi4wavoHcGKQQEjPJMBKILfAar8pLbT5Ye5BLCVeVwuePBK06voY4Jbuq+NT3C4BM6iebyjzKkf
-	XveqGTYTOapsRYw9aK
-X-Received: by 2002:a05:690c:799:b0:8b4:d584:6165 with SMTP id
- 00721157ae682-8b52043ff55mr69264227b3.21.1795553131511; Tue, 24 Nov 2026
- 12:45:31 -0800 (PST)
+        bh=zDNVDfs2PwxqSj0Kee0hW9NffVRwrghNSp33hY60Ag0=;
+        b=ImIxYJKYlNaUD7JLR+bXM7C5b8sLDNRYnnLD+F/2sjnhaN1t79KfvRz8/x9R6VHSjO
+         2H+MyUokFvP8eBWAjKxRz+m5pqUwubfZbdJXslwbaYj2JlFsO11bM48c5PvWQH53TT8D
+         QWWh9258my+57qYTWZHe1ecTcXgiREc8jUN/MYuPALSHwWMuPeWaBKscaZFT9vND2GFR
+         aESzRpYyfqNkafn/yYtyO+6IwEyBxhUn8/P6uN5BrEkfngysMZSqatzg8ncQJw8nRlTn
+         kg1mQV1dpbecjN0jz1+BlRir3sSNKb+H4fhUZJN9Rpa5RI+BpWXQWZJx4/ig3fSMCd+S
+         HpeQ==
+X-Forwarded-Encrypted: i=1; AL+hErEVdD/2U8K76gVSd6R2Udp1sbB0JskY6HPFG9oX6pHXQEPxEq91Xtvn2HKd1bAVZIOJFgNo27M9+D1b@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aw7d/vJIpp7ZALpJzqdv/NwTfxc2TpKkvqoZPovWLWsq0e84W
+	7zkilJkOACRJH0KbrvOql8hTdu2Mf17DxQgWGd/zmCl9zCHHvg7OaIcSzsnIq5dssRdDMfdtdS7
+	vqqdwgcc6pUWcAfjPtovrEyy+wCwnd2Q=
+X-Gm-Gg: AZFdTZe8d7RxldXYDVsn01U4bZ1UJ11QX731CHzqXL8TuSoHOqt2I3bEu6KeLQFEC0/
+	Zr2ejmHJ0CFKz5GFS1+01aiKXfVVFARa4I7SwGskmKHHGCVD3KvubvYJvyaKEDMzdm2VmoksgV/
+	QuBCzaoCuqSEb30qKbFjS+cxTFxVawUUq9AkdQms350kLqfskSXloI4UFrSjuYDdoah4CzoDll1
+	GMg6ig8WIq1UgoVkSTwaFKdmkjigZRlJApXnEG1DHA9/HXQq2XlN+B56f1IgphEMPKlqdZCXooe
+	e+BUH0hPF+QhgofJnhrGJDyjFlY73afXInbhOwlR/asKG62HapJmo1cGZzyeV0IHMb2c7J7gnkq
+	GpLgh0hhyZlKCRYA+XDrI0I5L5v0u71bYsAAVCOSMKyaQN0VP6NZNOz5vBv3+4XqXScmY/w==
+X-Received: by 2002:a05:690c:4a02:b0:8b4:c1ef:7a62 with SMTP id
+ 00721157ae682-8b5204e0b7cmr63699017b3.49.1795553209755; Tue, 24 Nov 2026
+ 12:46:49 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,14 +104,13 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261121213102.143130-1-tanure@linux.com> <20261121213102.143130-2-tanure@linux.com>
-In-Reply-To: <20261121213102.143130-2-tanure@linux.com>
+References: <20261121213102.143130-1-tanure@linux.com> <20261121213102.143130-4-tanure@linux.com>
+In-Reply-To: <20261121213102.143130-4-tanure@linux.com>
 From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 24 Nov 2026 21:45:20 +0100
-X-Gm-Features: Aa3M54pybnp1CQPsafQYDf0P2DptibC917JzUwMw-x18aat2wfvVMhiMsv1rR3s
-Message-ID: <CAFBinCDPGYpR6rmtJvN5pT1OdSN-ne=YJVeT0kk4Ff2SB2vraA@mail.gmail.com>
-Subject: Re: [PATCH v8 1/4] dt-bindings: net: amlogic,g12a-mdio-mux: add the
- T7 compatible
+Date: Tue, 24 Nov 2026 21:46:39 +0100
+X-Gm-Features: Aa3M54p-q6D_8aoLALfJ3nd02LBvNVydTGTGPe-SwdQ6NHwkSXTzPSzZ9Fj7tMI
+Message-ID: <CAFBinCAB+CdP7ypZ3kZKKqFTqoAA5bdA9nUKkWX3fVit5LBNGw@mail.gmail.com>
+Subject: Re: [PATCH v8 3/4] arm64: dts: amlogic: t7: add the ethernet controller
 To: Lucas Tanure <tanure@linux.com>
 Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
 	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -129,16 +127,23 @@ Content-Transfer-Encoding: quoted-printable
 On Sat, Nov 21, 2026 at 10:31=E2=80=AFPM Lucas Tanure <tanure@linux.com> wr=
 ote:
 >
-> The T7 has the same management bus multiplexer as the G12A, in front
-> of the same on-chip 100M PHY, and the G12A driver runs it unchanged.
-> But a device tree that names only the G12A string leaves no way to
-> tell the two apart later: if a difference between the two blocks
-> turns up, every T7 board would have to change its compatible to get
-> the fix.
+> The SoC has a Synopsys gigabit MAC, glue registers for the interface
+> type and clock timing, and a multiplexer that points the management bus
+> at the on-chip 100M PHY or the external pins. None of it was described.
 >
-> Give the T7 a compatible of its own with the G12A one as fallback, so
-> the existing driver keeps binding and a T7-specific match can be added
-> without touching the boards.
+> The controller reaches memory through a pipeline stage with a gate
+> nothing else claims, so it is switched off as unused. The
+> glue registers share a clock with the multiplexer, which probes after
+> the controller has programmed them: unless the controller holds that
+> clock, the writes are lost and the port keeps the
+> bootloader's delays.
+>
+> The multiplexer and the on-chip PHY bus start disabled: a board enables
+> the multiplexer with the controller, and the on-chip bus only when it
+> uses that PHY.
 >
 > Signed-off-by: Lucas Tanure <tanure@linux.com>
 Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+
+Also I checked sashiko's comments: those seem to show up because it
+didn't see the patches in net-next (not sure if/how it should know)
