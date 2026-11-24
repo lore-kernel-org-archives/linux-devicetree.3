@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795551748;
-	b=iP2ywRCLH9+rdgYrhgX1Z920Z4usoxR1LelQo9pwqJC7FIaGD9CZM5n0Q1MqkQe0zSko
-	 Vk5jcF4OqasYSP+vXfcvUMHmYy6EC1xGw06pOKIFW2JDaSpsKwE+U2qmQv1Lc1FcFI4d8
-	 KAYkj0/fbeqBA8ngY4awtuD5HHJTKQiTMAbcFtn9BNpXdoEI8eiDLaamojGwUID50mRKJ
-	 pFzJDs9qXsHq08gFjq2T4pyiuMV+zvi1NX2EyhgYQFPMVuUyl6wn2QDH9iJkbnJTlqKQR
-	 dpp/1NMdZoSViqh/KyucMoVHSWfRHgtv559gOpICGXEgEat8YI1CZXzH0UTT34nzkRg==
+	t=1795551750;
+	b=IZgrW17Zt0YCf4ZmFqoylsbqOItT4WfvSrXp0Zyfjlyh8xCm0VNj/hQpl/RWDG4VtDCr
+	 4lYGsDmRHeUHPb80ZvGlHP74uEnOjjsMmEUFYK4USTTrETpykPL2EGqrN2G1pouUOqMIv
+	 det8UoSLABJbFu9dx7BUNKxFQ3mjYIemG43kfYK5cycTmC6NvcpPWPLJlRSNWURneov+l
+	 Mcsup5uM1YYca26Grqr0aU40bXUcG0o2IAL/hSN0i9cql/Y81t+ly/QVTLGPe7MhCuK2h
+	 1XVM1h/fOGyd3FUk23v2eQL1o75dGvwULEdteoF24t/qfEMQhOuggBD+yytsoweTq9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795551748;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795551750;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+e9UoPHz2Rclxvw+oydXmBdhJXKaRdS1Zd9q7gn1BEQ=;
-	b=4RRNQ+Jsz6GOz4b7ZAlkMSmaw71T9PDFPR+CaYcVa/HX6jFZocf7lqoaTCw3TzAcy+Rz
-	 9Xnl+AM75hhxfcN2o/4YsxsODBKdzlik3wuvlFuWin9ZhFMFmGFwyEpkAlz+6JwE+DmQB
-	 nNKW8VPu7fbgjfN5s7C4b5Js7U0He3s5+DTK/JkjqUToRFFddu6o2WFThF+jYf/DAVm06
-	 vd9/20FJccS/JxOAE6896jKbPBgxk9PseAN0y11xTEixdu2RuIXg3bgQERIvLbfgmhDJc
-	 VptsMww/sKUr7dV3cYw1NdgF9Tkh8iEHNi/UdlUipVKJZZVu9mb58uaM1OVAy/gZLFg==
+	bh=LkNrwFCbU7RrRsMUzm/3wayhycT9k1ANM19ohVyL78M=;
+	b=lUZJy86deKFKBygkHWvVNMOwhhjXLN0u2m8bfHQzEVmSsFztt21t3x8xvADn3LlqodO9
+	 9RW+fLVQWAbh2TcarsEipGsmNVvu/6/Od9cJsObbPi9jl6J2bpVjJQieHalDo3t4MwYWz
+	 UxyfSOt/yfYccearJbke4uA/w4r34pPFvtFH98+ziWhzEGK8RONfcO2CuldKbqvD/cHBq
+	 JlvRBeBNdu5Nd6miUh95jYGSSUOeQ1tvKv1KQVK6/9CjL3v2cwQ7ml3LUzTt+sBEzKkOE
+	 sTCEkOWJ8gg0BYfhzZXydhyATX/DNg14y/1kfo40szO2TgDeUhbuvk99w9flbU8fBbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=teslabs.com;
 	spf=fail smtp.mailfrom=teslabs.com;
-	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QkmzviiU;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jpihGz7J;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E55606A321
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 20:22:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08E55606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A777606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 20:22:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A777606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=teslabs.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=teslabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QkmzviiU
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e3b22e971so2623106f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:22:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=teslabs-com.20260707.gappssmtp.com header.i=@teslabs-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jpihGz7J
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb702a7548so43227935e9.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:22:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795551746; x=1796156546; darn=vger.kernel.org;
+        d=teslabs-com.20260707.gappssmtp.com; s=20260707; t=1795551748; x=1796156548; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+e9UoPHz2Rclxvw+oydXmBdhJXKaRdS1Zd9q7gn1BEQ=;
-        b=QkmzviiUMzmxjYNjShvRooQEisS3oaHHl7hmfxHKjsnewD+4ZnAEqLC77hPlZlwRxp
-         kxd2lGnqF8Nvt5vc0rLYQA4teDKlmqVUlCNgSw0ceoPpNuwUC5xnIraz2sRE54q8TUHu
-         URyX9bngJa5Ng1KQDzK/Fp0xro4FJYHDI2FNgQdGRvXELVMuuy/4KwDXQzrLcgOYARYT
-         qEaQVNKKPvoCs2rz3RemC+U6A1VJKoaebI0zMuZJc3pGF2IIWUnmlFQ1QWzp2AlfM4q+
-         33Ju/ldqUrtVj26BJ9GFJtHhGmCBlSuEFJ9q7k4mSzd77o15PgyY0kfwY72NNTPp0Pfu
-         oxjA==
+        bh=LkNrwFCbU7RrRsMUzm/3wayhycT9k1ANM19ohVyL78M=;
+        b=jpihGz7JRlpV8tsAAy8CKNKDq7hkZiDyVYqQNwoLCPSdb4ev2rvGCevESt4CGvU6E0
+         U0MPcr+aXgKbhxXKMRxzs+dEcExjsq9chGoERlKpQW+JeHyhbV772JKUYg7K5QAlFhWK
+         nYoxekOISw0CUeutsCbiLanTX77nXTZQKuLhfXVbn+DFJxyuphFOKptoOd5k0Qqw48hr
+         G7qX20SuS6l/vOLPHEsNW72sLjP5mc/NxmVdNGGUodKnDW+A8BVIcOvZkZpDHpMmD86f
+         ia8G0poBnd+6uZbpq3vMRLWA5DIYuDKJcUNtQqDdGixC7B9fmoeC9TZPPrLGUfNB93kW
+         jKpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795551746; x=1796156546;
+        d=1e100.net; s=20260707; t=1795551748; x=1796156548;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+e9UoPHz2Rclxvw+oydXmBdhJXKaRdS1Zd9q7gn1BEQ=;
-        b=XaLhpBRe7n/pB6EXPMeEfwHX7Mr7le6lnf+p8M4vL7Aywl+bGtJ7cVI1GdfF5Gle3A
-         /kiQdMAHVikobd9ccXt+UQU9dPDst3KUgs5oHGTSAr6nPaWz1DNavbY+q1aBfb55P3hc
-         RIPdWYZk51KCHMvQEfKLYGhqQVk0kLrqZr6vMKkOfYdr/HDI2XNYg6wUrRcec7TIWyAM
-         2OKsB2xqsXm9/M6QjYGoLpvOfXROtkJtEJ+EZPUqWSvW6AHmvmEIMy5TPTv2mOS7s2zj
-         07CfTmRQQKI8cCE3yMwJ9Z6PdL20VHOAXbmVKRTKaLfzhF8HZZwUcsm+Xn7gmgXpfxJi
-         COEg==
-X-Forwarded-Encrypted: i=1; AL+hErHykbmzTiSf1qrAdB+0Kiljd1MkipoZmEXb3PBo6tAW6+vDTAP6uv0T60pc1A8MpEhCaV5rzduaNY74@vger.kernel.org
-X-Gm-Message-State: APuU4Z9x322PRSGEAB49m3PBKdE4OD8Py4rkS6jKCnPfFrh/PpGcJPA5
-	FhRi7x0aoJjsakkn+/lAo5NwY7ffSRThJhRNpX1mR9gxxAFzBnainvjnkKhnI/iC/lw=
-X-Gm-Gg: AZFdTZfHUndluOHstmuaT5KdmEldMZOOMW7jMubPzbTDXlxJ5BHmacpFBezJKS3uw/N
-	SLbbqol3ntrBmp3FvS7bNbMvCsmTIY6c9AZ9U+kgIoun0kgMslWAA43Z4F/He6p4GvzLDxm4kIO
-	W3v5A/3Qb4Gmw43K9YzBIaoExJkCHRC7Qvq1/MMCdS/gPGpuqDoL/OLJ6sYUXg9yXRQ5wo49r+e
-	/PJ8FM6/Sm5yN7fSODfd+5PT1zfSeDVjXO1VY2tYdRgPnFt/kfcilgZCSXz0VnBIsBfGZ1Gr5vz
-	Bc2z2xmp9nQxGkfVJNOIHGNa7fr9ZnTg8+Zy8KskDT5IgbSkntdH5Yl0SpBoYB60q7f+5iiPPSA
-	TwtO+OYRvYjj9QNjR8BBb5Lg76HKSHpu9cntwCBAQ6qTV33TSCAJtfRvQccQ/llQBydlWkZG+3s
-	HrMnwPy8X11Cl2dsPzOf1nzLJtjyQ/4mEMIWmAPQe9ugJrjI01fX+rAYMrACTvwMInR2Zc1nQzz
-	RiMxeJdgTPCM9NTFeO7+wg2CizhBBno23xBkrAIe1tL+J0M3EYOQ7IaysaL6zSny+UFUmtrwNK/
-	uw+HHFkG6UdUkNgHuHBghN3yZkdqXKZEIevfXQbv1U+Rhs6OW6p+ylfr33NOc3qeNJtUQezEPLr
-	kGkTINY6KATM=
-X-Received: by 2002:a05:6000:299c:20b0:4aa:2bf2:4d98 with SMTP id ffacd0b85a97d-4abb0f3b4b0mr23117524f8f.29.1795551746271;
-        Tue, 24 Nov 2026 12:22:26 -0800 (PST)
+        bh=LkNrwFCbU7RrRsMUzm/3wayhycT9k1ANM19ohVyL78M=;
+        b=gIFZafzXm8YCoW30ADZkHR1PWH30CzwnbuUxD6jiySRbQBS1pPNwCXRGyJIV4IuSxP
+         vuZbv0GzXP4JhZjyOfmFlTEglgcNRCtJZXpuiqhHjGLIzlw/KoGA9PGJEasaVyRDwsTQ
+         iJtZkMTtKdSSkjZFKv5pQ45XzOfSYH/4+coEDCO/CWXjH6dCHgSaZ80kDFmaZr4dvn50
+         FIWnhi5LWkbBoJz0aeGYmOZP1nb6CUIp7EdZrTHFTTR2hW5fx0GFiXWKXNTm8oEo/5mc
+         exNsadAYY7p4dvPcTx0CavUqXH4YVEbHMunfLrAzO+9+tJj9k4MoHahTfkezThfIB1c0
+         kYpQ==
+X-Forwarded-Encrypted: i=1; AL+hErHoag5RDFU3h8oE/xii5yP1XTEQWZQkMASnf/CxTmd1IwMdUQyONLvz7WgpJ4XRKGZRzQ+PqdEgCc79@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gzH7BQybShYEUFJD+JVq/2bGUuQh9c1qXsuOJV/PVRqkDUfnp
+	7fS9BhA2+5TWbIY8lVmmGj50ViEeKVOY13+CK/bOw3UQ4htnNkwc+yVtnqs8OHLVQ3Q=
+X-Gm-Gg: AZFdTZc6deEfLfJhw6zj6vNGM5zYxKXaKYWvHXbyslawHD1yz+PGMundASP3rpWROrR
+	5IbW3zUCiGHFgA41aiSbY50eUzu5J7ou02jWIy0FVedv8ZepeU1sScVNgdCOR0G4dxa5nzfwEgU
+	npEz/QKDLtzd8yPJ9YYGbWqtzL7MzF//HTYp+jGEZfaVFD/eLpmkUzlkSu264FFQYMstbtjxoIs
+	5G0DYqmsPmTm+2IwKWXjJf8F0UHv1NTiE6wDhGBFKnmjardH3+Lws/DQFCpI+3VEwtIqQUJWamD
+	fgHGfKmhsS3nqD0shyKhDrquYyTr+qyGkGr92W4GDSpY5y5TCzU1n0IY2yTzKJXajogfb8+S6CF
+	Gg5EmLtMWoX0aJ4foJVarEScWf7oAfk2pk+7gL3K+RMLc4i3nMbukZJGuG37wEmniI6E139vG56
+	2OM53uQk5AMfHOgYFDDipK6LkYo95E79NHiH/4iVmKMMplKqlAn7dDHAZNA1ZTaxTM43BPKWj+U
+	lIENZPa0e6YI+qxqzXK0k6KiYHk7zgqzEcjWy5JPglJzQ4RlNULALZsUEnoRA7UfCGS6cFerLAU
+	PNUaLIPGL/XP5h2OOZclcvK2YJZLpuekNR/zWGQZV1sWXYSpQsyS2uNA8HQMnTc9vO/uvWtbpH2
+	s6zOTv3e9DF0=
+X-Received: by 2002:a05:600c:840d:b0:4bb:6814:738c with SMTP id 5b1f17b1804b1-4bb88820cedmr326668745e9.22.1795551748576;
+        Tue, 24 Nov 2026 12:22:28 -0800 (PST)
 Received: from localhost.localdomain ([139.47.121.129])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67f204sm35130525f8f.21.2026.11.24.12.22.23
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6a67f204sm35130525f8f.21.2026.11.24.12.22.26
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 24 Nov 2026 12:22:26 -0800 (PST)
+        Tue, 24 Nov 2026 12:22:28 -0800 (PST)
 From: Gerard Marull-Paretas <gerard@teslabs.com>
 To: jic23@kernel.org,
 	robh@kernel.org,
@@ -94,9 +94,9 @@ Cc: fabrice.gasnier@foss.st.com,
 	devicetree@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 1/2] dt-bindings: iio: adc: st,stm32-adc: add temperature sensor calibration cells
-Date: Tue, 24 Nov 2026 21:22:19 +0100
-Message-ID: <20261124202220.23721-2-gerard@teslabs.com>
+Subject: [PATCH 2/2] ARM: dts: stm32: add the factory calibration data to stm32h743
+Date: Tue, 24 Nov 2026 21:22:20 +0100
+Message-ID: <20261124202220.23721-3-gerard@teslabs.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20261124202220.23721-1-gerard@teslabs.com>
 References: <20261124202220.23721-1-gerard@teslabs.com>
@@ -111,49 +111,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The internal temperature sensor of STM32 ADCs is calibrated in the
-factory at two temperatures, and its calibration data (TS_CAL1 and
-TS_CAL2) is stored in a read-only area, along with the internal voltage
-reference calibration (VREFINT_CAL). On STM32H7, the temperature sensor
-is connected to ADC3.
+The temperature sensor and internal voltage reference calibration data
+of the STM32H7 are stored in system memory, at 0x1ff1e820 (TS_CAL1),
+0x1ff1e840 (TS_CAL2) and 0x1ff1e860 (VREFINT_CAL).
 
-Only the vrefint calibration can be passed to an ADC today. Allow the
-two temperature sensor calibration points to be passed as nvmem cells as
-well, so the ADC the temperature sensor is connected to can convert its
-readings.
+Describe this area as STM32 factory-programmed data, and pass the
+calibration cells to ADC3, which the temperature sensor and VREFINT are
+connected to.
 
 Signed-off-by: Gerard Marull-Paretas <gerard@teslabs.com>
 ---
- .../devicetree/bindings/iio/adc/st,stm32-adc.yaml      | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ arch/arm/boot/dts/st/stm32h743.dtsi | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-index c4c4575d3fa9..9fe41b89982e 100644
---- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-@@ -337,12 +337,22 @@ patternProperties:
-         deprecated: true
+diff --git a/arch/arm/boot/dts/st/stm32h743.dtsi b/arch/arm/boot/dts/st/stm32h743.dtsi
+index 2f19cfbc57ad..ecb6aba3b0db 100644
+--- a/arch/arm/boot/dts/st/stm32h743.dtsi
++++ b/arch/arm/boot/dts/st/stm32h743.dtsi
+@@ -70,6 +70,25 @@ clk_i2s: i2s_ckin {
+ 	};
  
-       nvmem-cells:
-+        minItems: 1
-         items:
-           - description: Phandle to the calibration vrefint data provided by otp
-+          - description:
-+              Temperature sensor calibration data at the first calibration
-+              temperature (TS_CAL1)
-+          - description:
-+              Temperature sensor calibration data at the second calibration
-+              temperature (TS_CAL2)
- 
-       nvmem-cell-names:
-+        minItems: 1
-         items:
-           - const: vrefint
-+          - const: ts-cal1
-+          - const: ts-cal2
- 
-     patternProperties:
-       "^channel@([0-9]|1[0-9])$":
+ 	soc {
++		romem: efuse@1ff1e800 {
++			compatible = "st,stm32f4-otp";
++			reg = <0x1ff1e800 0x100>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			ts_cal1: calib@20 {
++				reg = <0x20 0x2>;
++			};
++
++			ts_cal2: calib@40 {
++				reg = <0x40 0x2>;
++			};
++
++			vrefint: calib@60 {
++				reg = <0x60 0x2>;
++			};
++		};
++
+ 		timer5: timer@40000c00 {
+ 			compatible = "st,stm32-timer";
+ 			reg = <0x40000c00 0x400>;
+@@ -572,6 +591,8 @@ adc3: adc@0 {
+ 				reg = <0x0>;
+ 				interrupt-parent = <&adc_3>;
+ 				interrupts = <0>;
++				nvmem-cells = <&vrefint>, <&ts_cal1>, <&ts_cal2>;
++				nvmem-cell-names = "vrefint", "ts-cal1", "ts-cal2";
+ 				status = "disabled";
+ 			};
+ 		};
 -- 
 2.45.2
 
