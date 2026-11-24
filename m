@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.64
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795538908;
-	b=CQBYsbDBL8lH3IToV+OotOn+IaicAM/5vhbG2x1YGgaSd2Xe2ug16Q9tuFLcVf/d3G9z
-	 qydPh1SlXs6JLMPfHJ0kBBvVC6wT13260znFqr17BDJ/WB2uNdbXyLnNUmpnyYiv102Ag
-	 iTAXAY4y/KabEGpvSrMEh3Cg+eYYa70GMyOI+BcEydKkz1eXQEIRrVmldxIBrleOrcodA
-	 Me9dVPd62rNFahqQ3jfVKI4f0EjPtGklUpAdBb6uLP2GOZPhzd+AxYm3kXs8bFyBCqpLS
-	 hwJTqkS05pbL8Rr2DjNuQoZwyf11+7vg+V/nYfJaShs5fVnw+TI2jBtwnT2RwBzh5KQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795538908;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=FR0QvdtaC9dmgh3wIUU5cAMRTBkJfDCReJjI8Jmg8KE=;
-	b=JAehJ49qXU6CZhVIITXmQgvvsu3yUNReWGaj6dje6IhZjBmkZDrITufm70AqLK76YyaW
-	 IOAXe5L6reD896YXn36S12UYTQ3GZwQl2QD4L2vPpYYUGJ0rOkEJbAtTlcDiukUNU9vFe
-	 sO4DX88djjG7TVl6KXdQ/lzK15j3AU+bzlbJJA/9PSIfvkYQEFRcGcSk6X+hmLv6HRkZZ
-	 ux/waB1AKQcvsTAvL1E4qI4AWzBcMSEKGoj1AtUsB9dNxww6oQCLeWuPN1bfBVMp2aHu5
-	 Hu1QT0LiaEtliCpdPIQrCcRCIGTMa2iNxtjsMfJnb2BMGk1HgZiG/0koFqAcu4u0uqw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=bS1EoJm3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.64
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012064.outbound.protection.outlook.com [52.101.66.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795538909;
+	b=MIVTEfYOs5c3J2+cgjQGPsgSAZiTRth/hvImHjU+Gy7WT1/3GA2twn0rgXFL3QXlXES/
+	 zx65fsUzu/SyCiBxGWrYmSFBRvOaOLMe1dhQFc6NytxW0z3TIvRztXyofobNJFjW5bYwc
+	 9+NiZpXxf/g24Dn4T/SiHNp0wHj5QpsYNVcnv23vTqqjTGp0NNI2aWBIhkYmgy3BkSYYi
+	 tmD/oNx6f66F8goGwvy+M2GottTNYzDjQ/dzAGjDl9xjVNc4gnL/WVB0TJYxypiLAu835
+	 tD3TRCchsNHcndhJl/iSFIO50G7voOBzP8SvVdaM5LeGoC/g0ZLgtJPiA+xIyp5ndSw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795538909;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ADIRuleOP-NewSCL:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=0ciIMHEO6Tw9DykCCDloXXqHwvT6j+8iSiYW9SEd6Io=;
+	b=otpXTYIK/LZJfCKoHkiWjZorxg/Tn3t8oI4UWerHEyK24pPdWSC1/smGIIZfNRgL4L4Y
+	 70moiRN1Uo4HJEtb3kdXoV2T4Rq+L2WYnZs2O1s9ZzP67nNk3F7iE+NGGB10C90a61ymx
+	 MWJe1N5WVQ4uKKd/nw8Z5/KmMZeUt+cxuaP+DywHPqKgaf7athnRxSMrT9WiSFomPCDXf
+	 UFwjd+wfk06BKHD57sNntxwSoaCxOmcxDXZJp8leWimVgZraeu9fF3WdPd/wLVESUh6iW
+	 XuJlcMEmh23iSpg1Gs4xBDRcC85ydCGDoF07VA71tfcm/8I5ZuEcaQxFf0sZ85Vl0vQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b="TEjSxr/5";
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=zBOvZxp3;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081EB606A68E;
-	Tue, 24 Nov 2026 16:48:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 081EB606A68E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9D760A262C;
+	Tue, 24 Nov 2026 16:48:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB9D760A262C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=bS1EoJm3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BDnO5wezNsR/gkpKDRmBeI52MtskLbNtoitKanVrgDfZU9x+mzlDT0/8YRlIhQyCoTaeLx2KTy1rBRCQhwV2uJT1niwgl+vI6zi3A2Q7Zgs0roXvgQNSlyRAhIWql5mMd68i6SbSN5NqyfWAq1WnDw0x68Z24uYVXaeyYgE4q+XUbs5hSxu7OzuiFC6Jcelm3E/Sa+MPkXgbHfZsxBggTD+GT2CVYtj9nSIjO1Nwx5r4kWuV22uEcBwSidZi7NPrXJPB858aRVukXPfVczvB6xtH3NMrJRctJQf6fBDFvlvUYaD76zrnc6t97cP+LtYMT0ZgdjorwyLQ8NSVCo+B/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FR0QvdtaC9dmgh3wIUU5cAMRTBkJfDCReJjI8Jmg8KE=;
- b=rYry45OkMi+GdY3t/02Eqz/ukoG+pm4J3fO+fme+FsMkcva8fRscf/lq35S2FxxsM3H5UyIBqizDsXWKIyiVzkj6Gkwx2J4oKQ/qmOMgel9OyKpCF5r+d2dldGZ7xfpKxp/BoWSAQiUEqnXvY+xOmexwCnNiE313Gcf1OJ3e/HKz6+apUGSSC91eALVdhMjti50CXTutb9LqMrW0mL/k6RLrsvyvj2H+NGdIux3Ww3mCOkPeYaeFFiv5rcE+qI/5MoEFT1uaBFQZxjFwGqvQHtfN3StSMsyaQtSwU+mqZEdM2/gLmBP25UDcyuGdfHcRF1F9wRLaiNWzz/hANL6hXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FR0QvdtaC9dmgh3wIUU5cAMRTBkJfDCReJjI8Jmg8KE=;
- b=bS1EoJm36btF1m2VWeCup8LvFq/CdSh88kcTpzJevnIwmMrsjuq+NPkirJ9LHaHwTHs9GI06yapJpDD4/i/zctmjHqbrEgk7uCtrnp19CW3/EB7cJZcTZ1gG/XCON9X3WFyZ9R6bWTyawMxrXcWFvvAbZ4ncgsvM3to12+qq82Uj4N99Ed2QRrqyndXCQI0YqHc70gz9vAnEhA3e5007XhoHzNP3LteeAIrwltWn31/EequzELWPfRGhR0DNmC4ojAYutNidnZty6+F8rGAR8mFyv7g/D4weWr2cmhKxIQ4EJZhk7up9919q132lilBpyRytFKkf5evHHX8aC7v0pQ==
-Received: from DU2P250CA0009.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::14)
- by GVXPR10MB8082.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:114::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Tue, 24 Nov
- 2026 16:48:16 +0000
-Received: from DB1PEPF000509FA.eurprd03.prod.outlook.com
- (2603:10a6:10:231:cafe::5d) by DU2P250CA0009.outlook.office365.com
- (2603:10a6:10:231::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.15 via Frontend Transport; Tue,
- 24 Nov 2026 16:48:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509FA.mail.protection.outlook.com (10.167.242.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 16:48:16 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=TEjSxr/5;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=zBOvZxp3
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AOFXmGt3728106;
+	Tue, 24 Nov 2026 11:48:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=0ciIMHEO6Tw9DykC
+	CDloXXqHwvT6j+8iSiYW9SEd6Io=; b=TEjSxr/5w3TEMrZbyS10pIpZIhR88JxB
+	dPQuDVSv6eNv5RBIGc0ZiiKA0uBRSBEdl01FEnfOk4Y/EQtxXb2EGgxy28bNC+gE
+	J/1tn8n81DtEHjTChmq0IF4xtF/vbh4WP+dOnz6BXuFj0TNfufM+ZGpwJMoJn2fS
+	68V1iIMxdOHNoAYLFq1O4beHYDxqAxEm3LiPAo8glfw/YbSMZmrFLwAFnwRqIC3j
+	gr0uM7FdCyTS92yAiNr4cQxyfkUGMB8m4wW/mLEmEDSe6vkz6GgMbOMs7EYE8p02
+	UFhLQSNfVyJOPvbqKqZXMSU/o6NyGQRBUqPH8a7N0cPGhk6FCmoWwQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=0ciIMHEO6Tw9DykCCDloXXqHwvT
+	6j+8iSiYW9SEd6Io=; b=zBOvZxp3lewQ7ww60yZCRr1/1jX3oT1LcrI+IdOP1pE
+	TK6D+Tqkr1w8nin9mvAVrWu/3MZEzJIITlSQZeqYRT8m7yWF+Qnj9AYaemRtS4aJ
+	ahdlGdB6QlbXYuF0J2mkQhaN6akNVuuVPUecXft+SchhrSmRvnLSHEyU6sGDg7Oy
+	t9OyG2nFD25fvdD9pEWjSvYSwttQ4ch9tnJx2pmAszXoKeiQMReWAuTWtn781q8a
+	yLwpUSKkgcqyrrRiheZluSbie782YDFZkqIKnyoJfEdWQXdH7/0HOrijG9iruqth
+	DhBQ23uV/ZMWjnC/OB+/RPTEBJQ0AjY1ni6JHCRWi7Q==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4j5db68fvx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 24 Nov 2026 11:48:02 -0500 (EST)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6AOGm1Yq035737
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 24 Nov 2026 11:48:01 -0500
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 24 Nov
- 2026 17:48:44 +0100
-Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 24 Nov
- 2026 17:47:43 +0100
-From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Tue, 24 Nov 2026 17:47:40 +0100
-Subject: [PATCH v6 07/10] arm64: dts: st: add TAMP backup register in
- stm32mp231.dtsi
+ 2026 11:48:01 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Tue, 24 Nov 2026 11:48:01 -0500
+Received: from HYB-GHaNx595DZ2.ad.analog.com ([10.66.6.191])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6AOGlfXd028468;
+	Tue, 24 Nov 2026 11:47:46 -0500
+From: Christopher de Guzman <christopher.deguzman@analog.com>
+Subject: [PATCH 0/3] hwmon: (pmbus/ltc2978) Add support for LT7170L and
+ LT7171L
+Date: Wed, 25 Nov 2026 00:47:34 +0800
+Message-ID: <20261125-ltc2978-lt7170l-lt7171l-v1-0-7b8d0d5f4266@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,100 +94,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261124-upstream_nvram_reworked-v6-7-ea0cfccc20b0@foss.st.com>
-References: <20261124-upstream_nvram_reworked-v6-0-ea0cfccc20b0@foss.st.com>
-In-Reply-To: <20261124-upstream_nvram_reworked-v6-0-ea0cfccc20b0@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla
-	<srini@kernel.org>, Russell King <linux@armlinux.org.uk>
-CC: Simeon Marijon <simeon.marijon@foss.st.com>,
-	<linux-stm32@st-md-mailman.stormreply.com>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAKa/BWsC/yWMQQqDMBAAvyJ7biAbsUn8SvFg4rZdCSqJiiD+3
+ ainYQ4zOySKTAnqYodIKycehyz4KsD/2+FHgrvsoKR6I6pKhNkrq02mRi3DQwzCdNZZY2zZOgm
+ 5niJ9ebvPn+bxtLie/Hzt4DhOT5bvRHsAAAA=
+X-Change-ID: 20261125-ltc2978-lt7170l-lt7171l-8d9b98893ab0
+To: Guenter Roeck <linux@sinkhole.paloaltonetworks.com>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Jonathan Corbet
+	<corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+	<rdunlap@infradead.org>
+CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>,
+        Christopher de Guzman
+	<christopher.deguzman@analog.com>
 X-Mailer: b4 0.16.0
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509FA:EE_|GVXPR10MB8082:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fe19158-a908-4874-d330-08df4a4abca7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|7416014|376014|36860700016|18002099003|22082099003|56012099006|11063799006|261021121427099003|261102123227099003|261009223027099003|261022075727099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	KVLt/eOooi3memLQZmnyqdH8kSacXjWb705D58uH+wpzgmKblonh0MFUrubMYK2/UlME4IAKg6FkOiw4RZ28piYNx6jG3Xj/6CsM0xPCtEgu/GCjU2qd0hXSaH5xhp5M0EB5XyvCZegTC+lYWk5W7yjlTHOi+XrW6V2uQWXcUNIpDMNZo/VaL/SaQyIKPXoW6krY6J4QcJzRGt7SMjXtrxO89zUsT2MogcLos0Ohs2CAkPb74tpyIr6jOeE4k/7mnOVOXCxlwEPmrM97ykorR5Qcu0CSHLJq56DZgIzTso9JvX+zP2/pRjxSdyBa/GWpbAv+B7BcCBlMf1bxWYWZ8e8Z4zEhQi/bq7vlZfEa1T9l3PDeK2BpjOM/vL4b5fpMUT5DMRkHB9cN9ts785MKjKWFQbEWdh9avNvhXTpAk89b3uoTZmt7wVHmHDGXzODsTsxBaDXjqsgmCF/oRrq458idLT9OU4O3YOQMpCF7x8lTBAyq7EM3rKjt7A20zN4VxZbjc17XXC5SjC2HN9sEnQjkrhnslq7keU80rwrNs/OGALX2acb/kOBFacYHK56D1p4wy8z3L7RmKKwX6ROXkHoYOnCEaD1BZjeDMt5fibD0JQvbFdQapJGDzKUFU2RACqStj3+d9HUHiTCQdb2tKYsXhYfkuqriqbUSQMgIY3toFvKPmaxV2Ucumh2FBK81E6lPQwB5WK1y++E6vl29tw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(7416014)(376014)(36860700016)(18002099003)(22082099003)(56012099006)(11063799006)(261021121427099003)(261102123227099003)(261009223027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	MKJPsIiLRrWORHti+a3ThaakPNBG+lo/CPwp4v5pOnpAHKSv6QC/g4OPc2TnpaxYNIzhHUuRA0IDiE1lX6f+eofHdXmAZTx3ykoOxoMX6LhzfMDY3H/2hCuLvsy7ahFPKoSoLjQQleRkdnD0rIMFOms6X1j1xUVEHGEIK9+n7BuHYS95fx3Hm/MCGZFteVzWycVDpX+C0M8yBog8iKMKtTnkNwm5qw+D1+2CEQj8zdAu8lkJeYufshYmrpOMgfUfoWkAS13rQAGiM4uEvQ3ZA1jtdcqnh9u9AJqk+RdkyLKYUU1D9kFi1Me3M2BUY+P2XQn4seNQckNbGuwJ5kt+3kRpRexTF9nbbUPTnbLAaj1eo1IWnDjaxg38uWjroLd213zgWnlkUR89J4L7NDHRe04JXbCpu/sKdUJizwJKR4VPSNQer1Q0bTPqTxUE/nqP
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 16:48:16.1364
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fe19158-a908-4874-d330-08df4a4abca7
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509FA.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR10MB8082
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795538862; l=1481;
+ i=christopher.deguzman@analog.com; s=20261020; h=from:subject:message-id;
+ bh=LeuZTB1tBYg7gNH8DknGYXXwc1iOhAxWegHIe0mOWJg=;
+ b=R9J03aWyWwy6hVPEoz1Nba/DsFrHpu+GgUKehvGqvbs+BujNB6RNMuiAZ3tKqacQWaS0dHRBM
+ 5le9tTBvXvFCGORLd4ZQWbXwVvZqHtVx5W2wY8P0WP1P/oLsb7yL9Il
+X-Developer-Key: i=christopher.deguzman@analog.com; a=ed25519;
+ pk=nSwfp91RWULY/zCnrDkBvXulgnpfKy+5C6/Gh3ecLwo=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: fbC8jfd0M0M4u4Zdn94OpqQQHldsujsB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA2NSBTYWx0ZWRfXxv21OkoaUVK4
+ e+QhOsAmk5yk40dbh2OCDKRVrtOEGdlj4J8FND/TARTNFmnG/+2PSTHK2C6z51ptXoKhMRnmKlH
+ LZjNPOCdfcSNxhiofl9b6Me4+SvjO+V6yW+AcCWt+tSO809ir7lrrUeLFOpy6RinNRwiC1XUbvv
+ uCc87ssZX3QqaDDKE7QiW7qcH5JzGedtmQebV3vo1cUs4EzXx+scNBMory2uTtqUGr30NMKbd6x
+ TJkicCka6EPtQxCSmfDM62692vV6Ovfq6PMC7RERJRYnpsY1TqkZPZgEnv7W2JjHbame6/bgeMf
+ tS14d7SzfkORcmC64KXEM5DKZ9KPFhD6SUxWuOjwn3HOELFz0GMPXoqduuNb8fekXOaCDLtnM1s
+ Z1L56skOCFfcxb56sAuWMnkRwoFCWc3UkkjMSopOL1/S2CSLilA1AEcznZ2a/HRMAEKyOUu8vG8
+ 4JXlzjfjDQ/xBUOKiJw==
+X-Proofpoint-ORIG-GUID: fbC8jfd0M0M4u4Zdn94OpqQQHldsujsB
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA2NSBTYWx0ZWRfX+/7nJLs8Gsn+
+ ZxIDEm/JdioFQyD0Xx4un9twR/cevffd1MxJm38HHEwvmRuBKRTmReNpJi2Cce+7Sa0hK/vsXX+
+ BELoMx4m/zN/KuEAieX8mdlvbz8LIaeaupf/KCQRnfnqu5etRpX4
+X-Authority-Analysis: v=2.4 cv=H99OUOYi c=1 sm=1 tr=0 ts=6b05bfc2 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
+ a=RV0HS6Ou6FJYiY6bC4oA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1011
+ impostorscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240065
 
-TAMP backup registers allow information sharing between different
-software components/execution levels.
-They are described individually as nvmem cells.
+LT7170L and LT7171L are pin-compatible variants of LT7170 and LT7171
+that add a pulse-skipping mode for improved light-load efficiency.
+Telemetry is identical, and they report the same MFR_SPECIAL_ID and
+IC_DEVICE_ID as the base parts, so this series only adds the names:
+i2c device IDs, OF compatibles with lltc,lt7170/lltc,lt7171 as
+fallbacks, and documentation.
 
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+Tested on an LT7171-1 board on a Raspberry Pi, instantiated both with
+new_device (lt7171l) and from DT ("lltc,lt7171l", "lltc,lt7171").
+LT7170L was not tested on hardware.
+
+This series is based on hwmon-next, on top of the LT7175/LT7176P
+support and the IEEE-754 peak comparison fix.
+
+Signed-off-by: Christopher de Guzman <christopher.deguzman@analog.com>
 ---
- arch/arm64/boot/dts/st/stm32mp231.dtsi | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+Christopher de Guzman (3):
+      dt-bindings: hwmon: ltc2978: Add LT7170L and LT7171L
+      hwmon: (pmbus/ltc2978) Add support for LT7170L and LT7171L
+      hwmon: ltc2978: Document LT7170L and LT7171L support
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-index fefbf6f4f153..a1392aa9cab6 100644
---- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-@@ -1265,6 +1265,37 @@ rtc: rtc@46000000 {
- 			status = "disabled";
- 		};
- 
-+		tamp: tamp@46010000 {
-+			compatible = "st,stm32-tamp", "syscon", "simple-mfd";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			reg = <0x46010000 0x400>;
-+			ranges;
-+
-+			nvram: nvram@46010100 {
-+				compatible = "st,stm32mp25-tamp-nvram";
-+				reg = <0x46010100 0x200>;
-+
-+				nvmem-layout {
-+					compatible = "fixed-layout";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+
-+					boot_mode: tamp-bkp@180 {
-+						reg = <0x180 0x4>;
-+					};
-+
-+					rsc_tbl_addr: tamp-bkp@184 {
-+						reg = <0x184 0x4>;
-+					};
-+
-+					rsc_tbl_size: tamp-bkp@188 {
-+						reg = <0x188 0x4>;
-+					};
-+				};
-+			};
-+		};
-+
- 		pinctrl_z: pinctrl@46200000 {
- 			compatible = "st,stm32mp257-z-pinctrl";
- 			ranges = <0 0x46200000 0x400>;
+ .../devicetree/bindings/hwmon/lltc,ltc2978.yaml    | 73 ++++++++++++----------
+ Documentation/hwmon/ltc2978.rst                    | 29 +++++++--
+ drivers/hwmon/pmbus/Kconfig                        |  7 ++-
+ drivers/hwmon/pmbus/ltc2978.c                      |  4 ++
+ 4 files changed, 73 insertions(+), 40 deletions(-)
+---
+base-commit: 12c53b6b6e5ac3723b49de3e4ea0742200d06d05
+change-id: 20261125-ltc2978-lt7170l-lt7171l-8d9b98893ab0
 
--- 
-2.43.0
+Best regards,
+--  
+Christopher de Guzman <christopher.deguzman@analog.com>
 
