@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795496066;
-	b=l6VtvfwWh6Pmc+HbNXWYhXJ/eV5u0i5+F87JiBIpUl7eg61aGYx5LWrUo++2OFy/VRJi
-	 GVgn/04JGer10bm8Auuouoy4llVmyQEDBQcA85OoC7KLv4JZW2Ke7dCaTi9YN6qxY4Nns
-	 m5yq48zmDFdPknnTSJja7Usgr9Kh3z6BWkuvP2LlsmSXIiM/4GDFk2Nppl2jV2pOXHwWS
-	 XbuGFmdH47VpboQS3VGSakiLhZDQ4DNvsFKHfa8PyBKMTiNJkbOSUa9Io+LC7v9zFklip
-	 xHThtCnNorygEU03XaTbPNdcTb/ZF0gvTG1mmsCV0CqXR+MadI9gJmGEdvAzzRQepoA==
+	t=1795496284;
+	b=Z40DWN7CT06hgUV5KUH50fcAfymfcXGIhLyI9hF8rFYwDYtZjYuD4GTKZiZTyot42Pn5
+	 lP+I1ONK3ozm9RWCA8biZ8TVmu/iFfjq9q07y9Oc1rWdNXJYue+E/VW/nihvr3B+YKcFC
+	 ybEUSS0v2/aZfU+U4bgcKDW58vPLX+pq6GesOYHuBkqRGRohB9ZuM3XfqEgSeKiZCuCdc
+	 h1SnMmn2b984iooPJrINlBP7wZzlKhdzaueV5XPdAFLO9pIZZNAJHXNKP8TpbPKNPR0bY
+	 gxNv9TlXo6/jm+b5Wvw4UbU5ASf1Qk2w01+ffI8oNVWX2d81boFBGQrqLszntKx+btQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795496066;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=lmcKUpb35ZyL107tc2LlJIvptvkEIXtUu3NUrpkThDY=;
-	b=IslOzzUd9ka2NEUSvm0nV5I1u1YSzl74xnJxVoiWZ4D65ZizXSAEs/k9QZehOnJiVhKb
-	 LI3wgjDrla93wB4OtsI5tdZuZuMJrmzFVg0PjGxd5JlxRMQiF+R/TIXQuQHnEJw2UDRgO
-	 DhS4vtSmNX7JJIMMPI2A8eR0nqZTaseUMVu22JaXmOKicreIeYwjGSIQFGkFHYDzb5iKi
-	 TQZZ4Eexn4nqSLVn87VxPdP+GFupxO1GZQm5YHVm3UpoPN/ANqqXDCCTEyO82hWu33jBu
-	 WTjHnQqQxq+SuBda6ZmOsHWpO+dAR74ezZJ8zUcZ7tMZ9B2JsdyViM3397bl/N07aYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795496284;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=kA6UbIS07ItcGWE42HPyzRVwC8ngtxMZtR/wbCOP8gU=;
+	b=rm665ekn4pF69ys4DY8we2YY6IOGpR3uNr5UINcMophoOhywlwLrbN/AaGCP/Y38QXcJ
+	 AYEYQqUJUhsFJFRcM3owshyKSujgDMGFXixNl7ujKjTD2a3eTkwTCRJVD10A7qrAXdkv3
+	 08iBPBFe9vSqyu+VnDsvy3gWWucyyYzvHdKH/weONVdGNuJ0yNP8HqLeWQmX5saIL1/p4
+	 GN+V9tnMMl8QvzDl+j3S3OfX467msaXx/tUBPiwCJZJ2tkAgUK7qTtV1YNv+XufcHVNYB
+	 l42PVUhqCB+X1ATMFJh+OFdKcwQpZfS+j/e0PN38Gc7dARAG9FHF2m/sLiiIp8kxnfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ikRd7CHy;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DCA2606A327;
-	Tue, 24 Nov 2026 04:54:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DCA2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fd2fhLOR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F58606A321;
+	Tue, 24 Nov 2026 04:58:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ikRd7CHy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=lmcKUpb35ZyL107tc2LlJIvptvkEIXtUu3
-	NUrpkThDY=; b=ikRd7CHyQYXmn2JpWHFb38Fjxm1V+SDMnmb4Dc6J+KY06ZA/q0
-	0YYpTj6dC/qRcal63RHmevCwUwm0QV/UKxNd2sdx+ve8uFHQ5mbryonK/iT4UncC
-	X4y5APlgbYJ1m6G6BsVqg1rR9GoMrTySK8FKZWJ+nUqLr+LiM5hr+WDkE=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.185.179])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgDHU0h8GAVr1xrwAA--.388S2;
-	Tue, 24 Nov 2026 12:54:20 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: dmitry.torokhov@gmail.com
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v14 0/3] usb: dwc3: support two connectors sharing one HS data bus
-Date: Tue, 24 Nov 2026 12:54:20 +0800
-Message-ID: <duplicate-notice-1@local>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124045220.595001-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261124045220.595001-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fd2fhLOR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC6FB1F000D1;
+	Tue, 24 Nov 2026 04:58:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795496283;
+	bh=kA6UbIS07ItcGWE42HPyzRVwC8ngtxMZtR/wbCOP8gU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Fd2fhLORdPeA3P5ctUw850YgVfE83EF3+7miiPmnsSKC/02QEPH4QiDX/9mebmZdT
+	 zPqaFFVGd0Xfss5ulVa2dmp/nV5QZcJCDMT38P3PCAvE7KEw9SzAVnucCh7V3H2uK0
+	 LZfirg74uUlEIxTqGFKwfwswy2aFe2y/8TYCcCK5kVEVt31l9OVJCuXz2kLSR3yAKZ
+	 C08ScxkDrNEUXAgsFf6g+uBr0++TlplOg2XapGvf+1Gr52RgclIusH6cwvHEqbDwpM
+	 cTkfzCxbMa7zXVoVSFUPDZRhJKtasISk9EkscluT6NMbxVzmET4qVd/6YKOurYbM1I
+	 ez6XMdErMTbiw==
+Message-ID: <sashiko-outbox-230534@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/6] clk: siflower: Add SF19A2890 clock manager
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joseph Telaak" <joseph@telaak.dev>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123-sf19a2890-sysm-v5-3-4ba44a0db17d@telaak.dev>
+References: <20261123-sf19a2890-sysm-v5-0-4ba44a0db17d@telaak.dev>
+ <20261123-sf19a2890-sysm-v5-3-4ba44a0db17d@telaak.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 04:58:02 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,42 +60,143 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgDHU0h8GAVr1xrwAA--.388S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrAryfWr1Duw4xAF43JrWxtFb_yoWxGFg_Wr
-	W8AryDCw1DJFsFkanFyr12vanrCw4jkFyYqr92yr12qryxZ393XwnFkw45tr93t3y8WrZa
-	kF1DZayUury7ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbIAYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
-	c2xSY4AK67AK6r45MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWU
-	tVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
-	14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyT
-	uYvjxU45rcDUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREBB2sElFst2AA7s4
 
-Hi all,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] clk: siflower: broken late clock publication and defaults in
+  sf19a2890
+--
 
-Please ignore this thread.  v14 was already posted earlier today
-(cover <20261124015002.1426767-1-xiaqinghuan@mail.ustc.edu.cn>,
-archived on lore); the copies under
-<20261124045220.595001-1-xiaqinghuan@mail.ustc.edu.cn> are a byte-identical
-accidental re-send caused by an automated local session that misread the
-posting state.  Nothing differs between the two postings; treat the
-earlier thread as the series of record and review that one.
+commit 99941c15178fb0fa3ccc19a6c27f477a30815152
+Author: Joseph Telaak <joseph@telaak.dev>
 
-Sorry for the noise.
+clk: siflower: Add SF19A2890 clock manager driver
 
-Best regards,
-Qianhui Xu
+This commit adds a clock driver for the Siflower SF19A2890 SoC, registering
+the CPU clock and its parent PLLs early via CLK_OF_DECLARE_DRIVER and the
+remaining mux/divider clocks from a platform driver.
 
-(Prepared with the help of an LLM coding assistant; the author takes
-responsibility for the content.)
+Link: https://github.com/981213/linux/commit/0466d6303c25
 
+> diff --git a/drivers/clk/siflower/clk-sf19a2890.c b/drivers/clk/siflower/=
+clk-sf19a2890.c
+> new file mode 100644
+> index 0000000000000..3ccb768331ad3
+> --- /dev/null
+> +++ b/drivers/clk/siflower/clk-sf19a2890.c
+
+[ ... ]
+
+> +static void __init sf19a2890_clk_early_init(struct device_node *node)
+> +{
+> +	struct clk_hw_onecell_data *data;
+> +	void __iomem *base;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	data =3D kzalloc_flex(*data, hws, CLK_SF19A2890_NR_CLKS);
+> +	if (!data)
+> +		return;
+> +
+> +	data->num =3D CLK_SF19A2890_NR_CLKS;
+> +	/* The clocks registered at probe defer until then */
+> +	for (i =3D 0; i < data->num; i++)
+> +		data->hws[i] =3D ERR_PTR(-EPROBE_DEFER);
+> +
+> +	base =3D of_iomap(node, 0);
+> +	if (!base) {
+> +		pr_err("failed to map the registers\n");
+> +		goto err_free;
+> +	}
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(sf19a2890_early_clks); i++) {
+> +		unsigned int id =3D sf19a2890_early_clks[i];
+> +		struct clk_hw *hw =3D sf19a2890_hws[id];
+> +
+> +		hw_to_sf_clk_common(hw)->base =3D base;
+> +		ret =3D of_clk_hw_register(node, hw);
+> +		if (ret) {
+> +			pr_err("failed to register clock %u: %d\n", id, ret);
+> +			goto err_unregister;
+> +		}
+> +		data->hws[id] =3D hw;
+> +	}
+> +
+> +	ret =3D of_clk_add_hw_provider(node, of_clk_hw_onecell_get, data);
+> +	if (ret) {
+> +		pr_err("failed to add the clock provider: %d\n", ret);
+> +		goto err_unregister;
+> +	}
+> +
+> +	sf19a2890_clk_data =3D data;
+> +	sf19a2890_clk_base =3D base;
+> +	return;
+> +
+> +err_unregister:
+> +	while (i--)
+> +		clk_hw_unregister(data->hws[sf19a2890_early_clks[i]]);
+> +	iounmap(base);
+> +err_free:
+> +	kfree(data);
+> +}
+> +
+> +CLK_OF_DECLARE_DRIVER(sf19a2890_clk, "siflower,sf19a2890-clk", sf19a2890=
+_clk_early_init);
+> +
+> +static void sf19a2890_clk_unpublish(void *data)
+> +{
+> +	struct clk_hw **hw =3D data;
+> +
+> +	*hw =3D ERR_PTR(-EPROBE_DEFER);
+> +}
+> +
+> +static int sf19a2890_clk_probe(struct platform_device *pdev)
+> +{
+> +	struct clk_hw_onecell_data *data =3D sf19a2890_clk_data;
+> +	struct device *dev =3D &pdev->dev;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	if (!data)
+> +		return -ENODEV;
+> +
+> +	for (i =3D 0; i < data->num; i++) {
+> +		struct clk_hw *hw =3D sf19a2890_hws[i];
+> +
+> +		/* Registered early */
+> +		if (!IS_ERR(data->hws[i]))
+> +			continue;
+> +
+> +		hw_to_sf_clk_common(hw)->base =3D sf19a2890_clk_base;
+> +		ret =3D devm_clk_hw_register(dev, hw);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "failed to register clock %u\n", i);
+> +
+> +		data->hws[i] =3D hw;
+
+[Severity: Medium]
+As reported by Brian Masney on v4 [1], can setting data->hws[i] =3D hw after
+devm_clk_hw_register() and registering the OF provider while late clocks
+are still ERR_PTR(-EPROBE_DEFER) break orphan reparenting and
+assigned-clocks defaults?
+
+devm_clk_hw_register() runs clk_core_reparent_orphans_nolock() before
+returning.  Because data->hws[i] is still ERR_PTR(-EPROBE_DEFER) during
+that call, any already-registered orphan clock parented by the last clock
+(CLK_MUXDIV_NPU_PE) cannot resolve its parent via the OF provider and
+remains orphaned.
+
+In addition, of_clk_add_hw_provider() in sf19a2890_clk_early_init() calls
+of_clk_set_defaults(node, true) while the 17 late clocks are still
+ERR_PTR(-EPROBE_DEFER).  If the clock controller DT node specifies
+assigned-clocks for any late clock, of_clk_add_hw_provider() fails with
+-EPROBE_DEFER and tears down all early clocks including the CPU clock;
+even when early init succeeds, sf19a2890_clk_probe() never re-runs
+of_clk_set_defaults() after registering the late clocks.
+
+[1] https://lore.kernel.org/r/179545199778.209212.13754058672210050271.b4-r=
+eview@b4
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-sf19a2890-=
+sysm-v5-0-4ba44a0db17d@telaak.dev?part=3D3
