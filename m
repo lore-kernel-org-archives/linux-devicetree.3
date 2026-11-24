@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540802;
-	b=wnT7KD8UtylWMUlLcNvoSRa7PINs5+HYBQxTghdry0nwWr5QWQof4q/NqQHatk5dNWwP
-	 RltKLA1dcB+9GfZKMZXKs1hE22o7LOivz4VWGa0KUkT4JPo0H/FJNnVQH5F1iCf839XHS
-	 VYQvENiPW8gpJM7ANU/+6GvAge/C2QqIOZqqRliVp/lQtgjnWrrp2dgApuI8Z4xKm+9cE
-	 puiRZ1rkZxDf4trOzvwbr+QMl9lG6RPte3YJ3g7T1AeSXVDKLEGPAJOFYWUIPJ2eM67u1
-	 w5uzocqvhy+OtDeAkjNDGlTV+soIILw9GjFIC6oNclPFdeEx9RiS7nOIGnD7n5Dhw/g==
+	t=1795540807;
+	b=UeKLrpVXHPA/1Oj4ena5YOfdrswNwtPtBlFgce5sYUtk/SbmT+zbiDERxhN2SmGD7qIC
+	 Bkw6dQLaLdHkH1XwkRIWeM+orD/bLKl43BdOIT2A5eyAHJHcEAQ+gm250YYYLlACYHng+
+	 kW4o4XoS9myfMMa0z56evJoa2kLKvulmfZU1lZXRIilfQGXQPHqK9A0OiYsGuAxmNvLxD
+	 rRk+hYjrfA8aV2DO0QmOxf1j72kA4NzSIN6InQpQtz9SFOJCIEzXNAKaj+9DdzkY23wgb
+	 b3BOTAyjPOSEIdFFPs+uWcqIYF++A0/9s/nNefL75c8JHDRAdCi7cmT7gNWjl75aWiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540802;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540807;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=yJXaOTLPADS0eHWQhkP2EKhKD6OL+acnlix42B9TF2o=;
-	b=KOwNaqS3DSDLpEfiFPXBiveEfLM6vC50Lv1JNLdw+Gz5MSgjVfYIEMZu8A+bXyEiKNP2
-	 rbNUwIq7YuOJCYownqF6qB3tGr3byL2nW33TYx7E9VGa1nB5behjS4oAgrwpiS2ee4UQJ
-	 aa6MJ/LVbcDBLQvDU5/hDJw3n47By8WYCOfMh2qQKvLEaj2hctHESeQZDQGpdEqRoWb8x
-	 H99iyYa1FIMAF3YsC5AKJjBIAgvmHvMub10a3/h2cUuP6lnS2TBZ+rNZCVKW2kBfpfnr7
-	 a87YAacrCV3Di08/6TXTxi7RJFeGnAZB23ygavvB73QFjoj+pMpEkHHqX5IiIRljPDQ==
+	bh=D4xZGfl4dCrhY50PM6LNuVrmjcxNmbtxKMhQspfS93I=;
+	b=BhOlv2CrCvVC+D7xUtEqzfp4kn1SOSyRprDvZ5jl1HYTl9igYPMtuDLJswoXMx10RjA7
+	 shoBxkQwebissGDF3kniCc7XOgaEH17XmHozMk48NmUSt3pBKF3HBShrZs2HYROjeEHAz
+	 SSzmAJdxCNCGgJf8o4j37BqoAQSme94Vl9v4nYpRBHKHFj4ieCs8eOM+gvvob8BuPRL7a
+	 6beNNquDhU60v2efD9LQGTpMDt//+40D5WI05rldJnfGPAbADB9LMsdPGGFu1XXXgoy3Y
+	 oIYzyKwVq5WclmGhPKN/1TmVbtCh42hTWW69vMNBf27nFtWwM2Fx4zdyh0tjnLpBMeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X4JOfDNB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OR6NF2Iq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B025606A33F;
-	Tue, 24 Nov 2026 17:20:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A41B606A32D
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:20:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X4JOfDNB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C824F1F000CF;
-	Tue, 24 Nov 2026 17:20:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OR6NF2Iq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3FD1F000F4;
+	Tue, 24 Nov 2026 17:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795540801;
-	bh=yJXaOTLPADS0eHWQhkP2EKhKD6OL+acnlix42B9TF2o=;
+	s=k20260515; t=1795540807;
+	bh=D4xZGfl4dCrhY50PM6LNuVrmjcxNmbtxKMhQspfS93I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X4JOfDNB1H27N6Mt7lKKxUI3ebOzh/iGospMnEIkX0luEqvDHXdTunpGrieWu4C4F
-	 wvqFzqM/V4zVBP4NRZSpVdFjO5I1owRODUbTlkzTAzGKGK6TtMhz0F0JrGygMh61+7
-	 i20hdscuJiohYi905ZGFBmaCka4GqXK078P3r4I+A8Nfm+53qRIskX1Ii0ybLCY4VL
-	 Av/RKrThl8K2SP0DfDP0H4lWG9XqOng3Qos6KB2/907UvQmAq66nYl4iUT7jdsmaLg
-	 pYGH8jsMqfq0Z9tIkmXu5TTE0RXI0KicE0JH1D6GrgiqnOeh7V97Dv5mNTeZu956+/
-	 7BRV+YxK/F9Ig==
-Message-ID: <sashiko-outbox-231687@kernel.org>
+	b=OR6NF2IqNkgqSYn4LbL+xvRiOaHqroOQ38ctOQw7cgbFWfQiwdBMcfxYvxbW4rTAd
+	 0MMzo0bJJLe4Mgm9YeDdhPZGJPB95zOH5km6Ebduf9dlro8GW1sXw4/n+i9TjbAtCh
+	 RyAumQQMgU+jju805q9LpU8yIzK2n9MdaKEjIE8A7qIwo6N3DPpBM34AqM9HZK4buY
+	 ukmTd2WxzE/0rOJMc5cH7WnWWOVMp99XCmmm9cXyuLkpGBDU/rwGTvtiHuS/BLWfYQ
+	 AFuqxzzkzzrjuRvbonK+7fVx1Hm3WPb382SgBt51l1+G0JdDxKv/p2N55ZyxyVD7iy
+	 wBC2+cTdZeieQ==
+Message-ID: <sashiko-outbox-231688@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] arm64: dts: exynos: exynos7885-gta3xllte: Enable
- USB support
+Subject: Re: [PATCH 15/24] media: Documentation: Add Mali-C720 ISP
+ documentation
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Umer Uddin" <umer.uddin@mentallysanemainliners.org>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-usb@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261124-gta3xllte-usb-battery-v2-1-80bdcb1753bb@mentallysanemainliners.org>
-References: <20261124-gta3xllte-usb-battery-v2-0-80bdcb1753bb@mentallysanemainliners.org>
- <20261124-gta3xllte-usb-battery-v2-1-80bdcb1753bb@mentallysanemainliners.org>
+To: "Anthony McGivern" <anthony.mcgivern@arm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-15-0cb9bde1bd30@arm.com>
+References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+ <20261124-b4-initial-upstream-candidate-v1-15-0cb9bde1bd30@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 17:20:00 +0000
+Date: Tue, 24 Nov 2026 17:20:06 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,54 +61,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] arm64: dts: exynos: undefined usbdrd labels break
-  exynos7885-gta3xllte.dtb build
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] media: Documentation: short title underline in mali-c720.rst
+- [Low] media: Documentation: unreferenced footnote [3] in mali-c720.rst
 --
 
-commit 24934dd2a8cdf511d5db081b71441ee2a295b40b
-Author: Umer Uddin <umer.uddin@mentallysanemainliners.org>
+commit c4c33a88cca59317f92c1365b5db2c5c6579612d
+Author: Anthony McGivern <Anthony.McGivern@arm.com>
 
-arm64: dts: exynos: exynos7885-gta3xllte: Enable USB support
+media: Documentation: Add Mali-C720 ISP documentation
 
-This commit adds a fixed dummy regulator and enables the USB controller and
-PHY in peripheral mode for the Samsung Galaxy Tab A 10.1 (2019).
+This commit adds admin-guide documentation and a media graph topology
+diagram for the Arm Mali-C720 ISP driver.
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos7885-gta3xllte.dts b/arch/a=
-rm64/boot/dts/exynos/exynos7885-gta3xllte.dts
-> index 03476f8b1200b..57df878cb5633 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos7885-gta3xllte.dts
-> +++ b/arch/arm64/boot/dts/exynos/exynos7885-gta3xllte.dts
+> diff --git a/Documentation/admin-guide/media/mali-c720.rst b/Documentatio=
+n/admin-guide/media/mali-c720.rst
+> new file mode 100644
+> index 0000000000000..3ff2cb3170f25
+> --- /dev/null
+> +++ b/Documentation/admin-guide/media/mali-c720.rst
+> @@ -0,0 +1,370 @@
+
 [ ... ]
-> @@ -127,3 +133,19 @@ key_volup: key-volup-pins {
->  		samsung,pin-drv =3D <EXYNOS5420_PIN_DRV_LV1>;
->  	};
->  };
-> +
-> +&usbdrd {
-> +	vdd10-supply =3D <&reg_dummy>;
-> +	vdd33-supply =3D <&reg_dummy>;
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&usbdrd_dwc3 {
-> +	/* Force to peripheral until we have Type-C working */
-> +	dr_mode =3D "peripheral";
-> +};
-> +
-> +&usbdrd_phy {
-> +	status =3D "okay";
-> +};
 
-[Severity: High]
-Are the usbdrd, usbdrd_dwc3, and usbdrd_phy labels defined in
-arch/arm64/boot/dts/exynos/exynos7885.dtsi?  Neither exynos7885.dtsi nor
-the files it includes define these nodes, so building
-exynos7885-gta3xllte.dtb with CONFIG_ARCH_EXYNOS enabled fails in dtc with
-missing label errors.
+> +Capturing Bayer data and processing it to RGB
+> +--------------------------------------------
+
+[Severity: Low]
+The hyphen underline here is 44 characters long for a 45-character title,
+which triggers a "Title underline too short" warning during make htmldocs.
+
+[ ... ]
+
+> +References
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +.. [1] https://git.linuxtv.org/v4l-utils.git/
+> +.. [2] https://git.ideasonboard.org/yavta.git/
+> +.. [3] https://support.arm.com/compute-ip/mali-c720ae
+
+[Severity: Low]
+Is footnote [3] supposed to be referenced in the text above?  Without a
+corresponding [3]_ reference, Sphinx emits a "Footnote [3] is not
+referenced" warning when building the documentation.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-gta3xllte-=
-usb-battery-v2-0-80bdcb1753bb@mentallysanemainliners.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-initial=
+-upstream-candidate-v1-0-0cb9bde1bd30@arm.com?part=3D15
