@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795520764;
-	b=JxOJe33ozulqYFFrkTBJ8aUWu9fkQIYSfj3VEZ8JCbXxWcB6WLX99N0adTlOobHkqke9
-	 ohjtHdf1SvX3UDO7yvCwsaCyFpRiyCBPvXZdhXSxu5ue9XmM0uRar3CueAg8cMpxiMs/H
-	 85CbuWz5babT31kWQHzZ2rn3IpKW9/cNQrh9K+rohzjdrZq8kq2JH7fS/VH8RSOUyp6tC
-	 1dMb7MXbBzAE1I40iY5zLX0+8GlTclMkSyj/4sUcidY2YTsblFK3PKtqlQ6JvsSB/faX0
-	 vJHE6KltgIBGCCu0buxpgJ6fMCsOyzyX4Gm7bEcr1kb3y2j3PHyCO45giaI3Ftpv/0Q==
+	b=k5c/Jd2yhG9+6wL7J7paY1RVjLuQFeFtKCFOtnruAUG2+LTFH/52grcpdL3fX32F+XHp
+	 s7z9CfE6ApACUdIy0Ba14J1ZJsZk1y4+6QNS2XEnftRSxa1UGUpN2LSh33tHswB6sJ76V
+	 eVhqDo74jQiF/HwiP40FtBZ9V0Xa2jdRAcjiGefWGnUUefjO5w94PfloU04hvqmP1Q+WI
+	 KjOsKMk6cdwgvOMKSd84P07VPuc97TWBx8nghIcs0uLBI5A9COgCFnUGc8CCH30pwDX05
+	 tMcbvlM1qsefZKHBBs8y+VqI837+s+HwqIvpc7ORX10GGSXVPaFS5q49lcy6RlKJuVA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795520764;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gGYGuSuaVpODQQ3es/+vsxFr8tOJptjHSxqFWklmGrU=;
-	b=CgXof4zXVa58UlvX3d5PJu+Gws9db22XgvVZJ1/Pz1Yi8RiEGLgWYaUZ4nK5jgwVEv8m
-	 leeXosrifjiIIOUcUCxhQ093vc4RwWRdgVSHU2gDAmvmXapr4HZV00XjPjYTvbfI7hxhq
-	 TSwhg9wb+hrHzwTC00p8YY4n/7JGIrrhE1tmcGJt0MyzeDPOTtfSAwv8kjk9N6Q0amJHM
-	 uGSeN6S3fPH3mtv+by7/J18Nd1TcqxZuQw3pN0EAHbkKVuwwUg0cmJvWURD9UUvnbp3YZ
-	 WLit5TAmgKVPTARpiKVLcxCu/r07LKjfgGqXsVGmYVDkxXqGUcEE9dWVbpGi1tecyxw==
+	bh=ctESXlsj/tQw78qKccyyw41rHk8mwJdvFvJzwqXjKrE=;
+	b=G9b0wvMWHPMStue6jFIp82eJENP5vx+wd5CUsfiso60rupy6dRPx6he2nJDp710fwd8N
+	 P25RZb9vhPCN7UgroS6I8FzpCsZO3wExioY8PhEkBempdw9K4WzCzFT8BLfcfW3QxDstI
+	 k9cV+NUnqPYORiqbenhclUJmLrKDB+84m56YiAlDTNxLGSvjZiVSyDyGMxOh4zsQuNCZQ
+	 IM6SMC8C1Bu2eEVWOoBRjd5mtvFT1IjkNI2CSLS0D6bP55Lf1hBHnJf6M51g2B/55wCaZ
+	 bOw7kY+w997Oj6CDXRk2ZvDWkwO6+xvPfs2krCBTnvk+JYNLw9MHqIX+q9I+4mbJ5PA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AjEW+11E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lFnFI/f4";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC5860A2621;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3D7606A69C;
 	Tue, 24 Nov 2026 11:46:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AjEW+11E
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFnFI/f4
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795520763;
-	b=gFcu6ai6ZKCnIMea6xFMGK9bnLcqmgh5nMkTu8BjiLvgtXuQyxH/bA5LfNie4TGQgXqb
-	 uYgCDwv5YY0njYRFOqJ9CmxvGYRV5AzZP4cqwK/mAK2OQetLGpW5ttnKq/9+7wTNgb+0M
-	 jWtjt/XmS9+I4Nk+qQ3R0A0uSIphmdyVH9WL0spARBWn6e9dsCjz0YNT+RWXdj4LTg3Dr
-	 BTFqK2mIuinyxnEYhRLkJvk9qOQrkmNew/hCmsgtewkKj9mDmzWHIfY1gn2BcRnXYihM5
-	 YngXWmxqomhj4TTZKQ4mrYMTx90QDaY6FppGK5HBPYsA6ftoI0KhYEE/KF2eaEm0QVA==
+	b=ZzBUmKydJIIC2TtVxvAyU6jzLRpeS7t/qUumDxj3EaLOdodIyzvX5oYKj/Ijox0MH0SA
+	 hFzl4ptVm/lheWDIEqRrKWl1NRs33j0Rc9OwogOYcrWVpYijc3lVoDj/lnwurJwDTKI9c
+	 VF/QxWcu1SmCeDxOkxBCS6esrh1oh+7jYF+jQa43kTCeXLhPlR34oBLY1ke2ckpU9IdPp
+	 9lC+BxrafevgtnQQQPm0IsOLHVX9k5mt6P6o4SL/sTQi49OL/1K8tMR2c/1rZCCJ5LoDx
+	 0opTmTBNBX4rfnSN+/Qugah3hnNWwUeASE648TOxjadaatvz+V3OYOueRrYsyOhV3BA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795520763;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gGYGuSuaVpODQQ3es/+vsxFr8tOJptjHSxqFWklmGrU=;
-	b=A+FpvkwkD9KG71YEMgmA7lvF8BB5FtdEMChXJwhV2Oya0jrdPhYDowmz4c3HCMREwELQ
-	 eaRkJe0viR/m5+DOOmQ3E78bPqSuro89cIHTy4+6DglPLGY6hlH9u6rOc3C/n4P9a6T5n
-	 Ref6aIlQJi6I0iFKByHDC36OQlJCfkm9dn+sehLUdTVvIqK7aNQbYfaFJg1aHYdPOM+vs
-	 yqZHfbfEV2nZ3LysffqfNid6UGl1UdXar0kkb4vLVMGuAZhqIjf+G3RJRHkHXS3faKHR6
-	 dU6dvEhOhi9x0TTK7FCBaE46xZwbIE3NdcqxYi3OIiBEG+1C83ZhWTIg05hte+RbdMQ==
+	bh=ctESXlsj/tQw78qKccyyw41rHk8mwJdvFvJzwqXjKrE=;
+	b=3bTsBMurO3ZsTWSah0PzrAHHBEySeu5Zt5q2S+ZD10TGKDY67IjBU7XpjRIwZmVVEdW/
+	 2oY5OSxMxsuQE/X0KjKs+LOkmDsTMQkq8MdsvAz2n10+V8y3BuANP7U2/wAxeCe65NtkR
+	 k3K1MI5OH6NBdzC7LWmlwU/VXaS30nHoJW8fzB4u8lAGSSkUZCGW0sdRNOhtfdCf/PV3S
+	 OacmVbQGITN2mwSDWdOpmxzCuf8r6HRccp66ScQgXv1MYInRdDMxb5xmxZ2Ya975EqsRl
+	 5BImWCaqiVUGLy14Tvd5BIWh1AU7ENEOBym3K87rheAvE9ZD8O1qiYy4ll7gnBFAl4w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 34C671F00A19;
-	Tue, 24 Nov 2026 11:45:52 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 55F421F00ADE;
+	Tue, 24 Nov 2026 11:45:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795520763;
-	bh=gGYGuSuaVpODQQ3es/+vsxFr8tOJptjHSxqFWklmGrU=;
+	bh=ctESXlsj/tQw78qKccyyw41rHk8mwJdvFvJzwqXjKrE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=AjEW+11EgQHxLLmnt/T6Ow7jncLIz6+lM6wjotL9RC9iVv6ayQrfz/b+eJZsNtD2c
-	 jvwSoChy25IMfKMw3Wcez4K/2/XhK+cQ4QSJytHCxWqRSxiWrsQbJ6ZKvj+7QbU8p9
-	 pth/uao5zcjaeD6HbJ5S5cILBngEZY6pfI8QqrCsl8LTIOGFt+aUOVblBh0DIA8zAG
-	 6e8ijuA0NJBwDMmPqAz1KOF/vVmUmsLfVL+mXJMosgBzx7hWcqfrm9CyNc/ECsS46q
-	 hHeM82VspGeYl1RWiNg4mdh8Wu+moM5mM2pQ/HcWHs1cEJVajzR1lwQH+8KlA/yacd
-	 e8YZE1wfrI8Zg==
+	b=lFnFI/f4uKiKl+AVsL4Iz391DBjrLVnFaq6k+AZ8HiXQlzLtAqI19AEVLonVxFx9P
+	 mH9cuEB3FoTkO6b44fNEA17t3ImpvkTdhFyNHlR4bSJhhoLOYeeWkL72b5MYQ40VGI
+	 ySZltxQFcaihX7Kbn96/S1ozwqkocCxWiHFmccyJQnv70ysFQ/8GupdI3ZiU4dyPJC
+	 VpQ2/BWtrTjv+Q3j02p68F5F2CLjeJZYJa6Luz71XjwO7wXUjExdW6G828Xj7Cv0ry
+	 Rxgf81JlrjCByLE22OOmSFUt6dU7JX7jiE4PSSlpPbHTm2Ht9vHhjok3mBh2y/Lpc+
+	 PCpEwIlt9KR8g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id ED38E4CA33;
+	by lkml.kernel.org (Postfix) with ESMTP id 9A97F4CA27;
 	Tue, 24 Nov 2026 11:45:28 +0000 (UTC)
 From: Sai Sree Kartheek Adivi via B4 Relay <devnull+s-adivi.ti.com@kernel.org>
-Date: Tue, 24 Nov 2026 17:15:21 +0530
-Subject: [PATCH v13 19/20] dmaengine: ti: k3-udma-v2: Update glue layer to
- support PKTDMA V2
+Date: Tue, 24 Nov 2026 17:15:18 +0530
+Subject: [PATCH v13 16/20] dmaengine: ti: k3-psil-am62l: Add AM62Lx PSIL
+ and PDMA data
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-dma-upstream-v13-v13-19-bd4251fdc6d4@ti.com>
+Message-Id: <20261124-dma-upstream-v13-v13-16-bd4251fdc6d4@ti.com>
 References: <20261124-dma-upstream-v13-v13-0-bd4251fdc6d4@ti.com>
 In-Reply-To: <20261124-dma-upstream-v13-v13-0-bd4251fdc6d4@ti.com>
 To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
@@ -96,11 +96,11 @@ Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
  sebin.francis@ti.com, Sai Sree Kartheek Adivi <s-adivi@ti.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795520724; l=13872;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795520724; l=11940;
  i=s-adivi@ti.com; s=20261124; h=from:subject:message-id;
- bh=bHxeE83uSDmZeHn0L8pix2/hfsPaG6sGhBnO0c0WLdE=;
- b=Kb3TzvxYfrzhwNArKvVjbRWFzKleChurSdQGhnenuFi18wFkpraQHaK0T+9On/xk4+1hgeBox
- AAbZDf96yBQA1Z3Wlf85PpiPuRkaXvO3Gw9BpaJYQKr9NauD7PTn4tl
+ bh=VyGrMmqCqqj/ee2mdMD1vovMjeoRhnoVUUNwnIxNK/E=;
+ b=6cHF+0aBGaaBh092EmL4SLdh8BoXwinVti8SQGja+FB/tyXa7SNtwqzJn0yzwZOuDL0LnnQph
+ p8s9FmTvt+EDgv52kWjIn0cvBL+X2JGmGyUcjHM/Cplcx3o1Gom+UcA
 X-Developer-Key: i=s-adivi@ti.com; a=ed25519;
  pk=EtOwVxmXDuYMgw3DqFtPDBpf8ZvbO89w1fJm4w5yPI8=
 X-Endpoint-Received: by B4 Relay for s-adivi@ti.com/20261124 with
@@ -111,391 +111,395 @@ Content-Transfer-Encoding: 7bit
 
 From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-Update glue layer to support PKTDMA V2 for non DMAengine users.
+Add PSIL and PDMA data for AM62Lx SoC.
 
-The updates include
-- Handling absence of TISCI
-- Direct IRQs
-- Autopair: Lack of PSIL pair.
+Introduce new PSIL_EP_PDMA_XYMF type for channels that have multiple
+selectable fifos. Also add a new fifo_id field to psil_endpoint_config
+to specify the selectable fifo_id.
 
 Reviewed-by: Vignesh Raghavendra <vigneshr@ti.com>
 Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 ---
- drivers/dma/ti/Kconfig           |   2 +-
- drivers/dma/ti/k3-udma-glue.c    | 190 ++++++++++++++++++++++++++++++---------
- drivers/dma/ti/k3-udma-private.c |   5 ++
- drivers/dma/ti/k3-udma.h         |  13 +++
- 4 files changed, 169 insertions(+), 41 deletions(-)
+ drivers/dma/ti/Makefile        |   3 +-
+ drivers/dma/ti/k3-psil-am62l.c | 169 +++++++++++++++++++++++++++++++++++++++++
+ drivers/dma/ti/k3-psil-priv.h  |   5 ++
+ drivers/dma/ti/k3-psil.c       | 106 ++++++++++++++++++++++++--
+ include/linux/dma/k3-psil.h    |   3 +
+ 5 files changed, 279 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/dma/ti/Kconfig b/drivers/dma/ti/Kconfig
-index e6a2cf37062e7..e7a579f42b584 100644
---- a/drivers/dma/ti/Kconfig
-+++ b/drivers/dma/ti/Kconfig
-@@ -68,7 +68,7 @@ config TI_K3_UDMA_COMMON
- config TI_K3_UDMA_GLUE_LAYER
- 	tristate "Texas Instruments UDMA Glue layer for non DMAengine users"
- 	depends on ARCH_K3 || COMPILE_TEST
--	depends on TI_K3_UDMA
-+	depends on TI_K3_UDMA || TI_K3_UDMA_V2
- 	help
- 	  Say y here to support the K3 NAVSS DMA glue interface
- 	  If unsure, say N.
-diff --git a/drivers/dma/ti/k3-udma-glue.c b/drivers/dma/ti/k3-udma-glue.c
-index d25f8f46a4301..681e084f8893e 100644
---- a/drivers/dma/ti/k3-udma-glue.c
-+++ b/drivers/dma/ti/k3-udma-glue.c
-@@ -12,6 +12,7 @@
- #include <linux/dma-mapping.h>
- #include <linux/io.h>
- #include <linux/init.h>
-+#include <linux/iopoll.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/soc/ti/k3-ringacc.h>
-@@ -267,6 +268,23 @@ static int k3_udma_glue_cfg_tx_chn(struct k3_udma_glue_tx_channel *tx_chn)
- 	const struct udma_tisci_rm *tisci_rm = tx_chn->common.tisci_rm;
- 	struct ti_sci_msg_rm_udmap_tx_ch_cfg req;
- 
-+	if (!tisci_rm->tisci) {
-+		u32 val = 0;
+diff --git a/drivers/dma/ti/Makefile b/drivers/dma/ti/Makefile
+index 3b91c02e55eaf..41bfba944dc6c 100644
+--- a/drivers/dma/ti/Makefile
++++ b/drivers/dma/ti/Makefile
+@@ -14,6 +14,7 @@ k3-psil-lib-objs := k3-psil.o \
+ 		    k3-psil-am62.o \
+ 		    k3-psil-am62a.o \
+ 		    k3-psil-j784s4.o \
+-		    k3-psil-am62p.o
++		    k3-psil-am62p.o \
++		    k3-psil-am62l.o
+ obj-$(CONFIG_TI_K3_PSIL) += k3-psil-lib.o
+ obj-$(CONFIG_TI_DMA_CROSSBAR) += dma-crossbar.o
+diff --git a/drivers/dma/ti/k3-psil-am62l.c b/drivers/dma/ti/k3-psil-am62l.c
+new file mode 100644
+index 0000000000000..ee77fae3787a4
+--- /dev/null
++++ b/drivers/dma/ti/k3-psil-am62l.c
+@@ -0,0 +1,169 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ *  Copyright (C) 2024-2025 Texas Instruments Incorporated - https://www.ti.com
++ */
 +
-+		if (tx_chn->tx_pause_on_err)
-+			val |= UDMA_CHAN_CFG_PAUSE_ON_ERR;
-+		if (tx_chn->tx_filt_einfo)
-+			val |= UDMA_CHAN_CFG_FILT_EINFO;
-+		if (tx_chn->tx_filt_pswords)
-+			val |= UDMA_CHAN_CFG_FILT_PSWORDS;
-+		if (tx_chn->tx_supr_tdpkt)
-+			val |= UDMA_CHAN_CFG_TX_SUPR_TDPKT;
++#include <linux/kernel.h>
 +
-+		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CFG_REG, val);
++#include "k3-psil-priv.h"
 +
-+		return 0;
++#define PSIL_PDMA_XY_TR(x, ch)					\
++	{							\
++		.thread_id = x,					\
++		.ep_config = {					\
++			.ep_type = PSIL_EP_PDMA_XY,		\
++			.mapped_channel_id = ch,		\
++			.default_flow_id = -1,			\
++		},						\
 +	}
 +
- 	memset(&req, 0, sizeof(req));
++#define PSIL_PDMA_XYMF_TR(x, ch, fifo)				\
++	{							\
++		.thread_id = x,					\
++		.ep_config = {					\
++			.ep_type = PSIL_EP_PDMA_XYMF,		\
++			.mapped_channel_id = ch,		\
++			.default_flow_id = -1,			\
++			.fifo_id = fifo,			\
++		},						\
++	}
++
++#define PSIL_PDMA_XY_PKT(x, ch)					\
++	{							\
++		.thread_id = x,					\
++		.ep_config = {					\
++			.ep_type = PSIL_EP_PDMA_XY,		\
++			.mapped_channel_id = ch,		\
++			.pkt_mode = 1,				\
++			.default_flow_id = -1			\
++		},						\
++	}
++
++#define PSIL_ETHERNET(x, ch, flow_base, flow_cnt)		\
++	{							\
++		.thread_id = x,					\
++		.ep_config = {					\
++			.ep_type = PSIL_EP_NATIVE,		\
++			.pkt_mode = 1,				\
++			.needs_epib = 1,			\
++			.psd_size = 16,				\
++			.mapped_channel_id = ch,		\
++			.flow_start = flow_base,		\
++			.flow_num = flow_cnt,			\
++			.default_flow_id = flow_base,		\
++		},						\
++	}
++
++#define PSIL_PDMA_MCASP(x, ch)				\
++	{						\
++		.thread_id = x,				\
++		.ep_config = {				\
++			.ep_type = PSIL_EP_PDMA_XY,	\
++			.pdma_acc32 = 1,		\
++			.pdma_burst = 1,		\
++			.mapped_channel_id = ch,	\
++			.default_flow_id = -1		\
++		},					\
++	}
++
++/* PSI-L source thread IDs, used for RX (DMA_DEV_TO_MEM) */
++static struct psil_ep am62l_src_ep_map[] = {
++	/* PDMA_MAIN1 - UART0-6 */
++	PSIL_PDMA_XY_PKT(0x4400, 0),
++	PSIL_PDMA_XY_PKT(0x4401, 2),
++	PSIL_PDMA_XY_PKT(0x4402, 4),
++	PSIL_PDMA_XY_PKT(0x4403, 6),
++	PSIL_PDMA_XY_PKT(0x4404, 8),
++	PSIL_PDMA_XY_PKT(0x4405, 10),
++	PSIL_PDMA_XY_PKT(0x4406, 12),
++	/* PDMA_MAIN0 - SPI0 - CH0-3 */
++	PSIL_PDMA_XYMF_TR(0x4300, 16, 0),
++	PSIL_PDMA_XYMF_TR(0x4300, 18, 1),
++	PSIL_PDMA_XYMF_TR(0x4300, 20, 2),
++	PSIL_PDMA_XYMF_TR(0x4300, 22, 3),
++	/* PDMA_MAIN0 - SPI1 - CH0-3 */
++	PSIL_PDMA_XYMF_TR(0x4301, 24, 0),
++	PSIL_PDMA_XYMF_TR(0x4301, 26, 1),
++	PSIL_PDMA_XYMF_TR(0x4301, 28, 2),
++	PSIL_PDMA_XYMF_TR(0x4301, 30, 3),
++	/* PDMA_MAIN0 - SPI2 - CH0-3 */
++	PSIL_PDMA_XYMF_TR(0x4302, 32, 0),
++	PSIL_PDMA_XYMF_TR(0x4302, 34, 1),
++	PSIL_PDMA_XYMF_TR(0x4302, 36, 2),
++	PSIL_PDMA_XYMF_TR(0x4302, 38, 3),
++	/* PDMA_MAIN0 - SPI3 - CH0-3 */
++	PSIL_PDMA_XYMF_TR(0x4303, 40, 0),
++	PSIL_PDMA_XYMF_TR(0x4303, 42, 1),
++	PSIL_PDMA_XYMF_TR(0x4303, 44, 2),
++	PSIL_PDMA_XYMF_TR(0x4303, 46, 3),
++	/* PDMA_MAIN2 - MCASP0-2 */
++	PSIL_PDMA_MCASP(0x4500, 48),
++	PSIL_PDMA_MCASP(0x4501, 50),
++	PSIL_PDMA_MCASP(0x4502, 52),
++	/* PDMA_MAIN0 - AES */
++	PSIL_PDMA_XY_TR(0x4700, 65),
++	/* PDMA_MAIN0 - ADC */
++	PSIL_PDMA_XY_TR(0x4503, 80),
++	PSIL_PDMA_XY_TR(0x4504, 81),
++	PSIL_ETHERNET(0x4600, 96, 96, 16),
++};
++
++/* PSI-L destination thread IDs, used for TX (DMA_MEM_TO_DEV) */
++static struct psil_ep am62l_dst_ep_map[] = {
++	/* PDMA_MAIN1 - UART0-6 */
++	PSIL_PDMA_XY_PKT(0xC400, 1),
++	PSIL_PDMA_XY_PKT(0xC401, 3),
++	PSIL_PDMA_XY_PKT(0xC402, 5),
++	PSIL_PDMA_XY_PKT(0xC403, 7),
++	PSIL_PDMA_XY_PKT(0xC404, 9),
++	PSIL_PDMA_XY_PKT(0xC405, 11),
++	PSIL_PDMA_XY_PKT(0xC406, 13),
++	/* PDMA_MAIN0 - SPI0 - CH0-3 */
++	PSIL_PDMA_XYMF_TR(0xC300, 17, 0),
++	PSIL_PDMA_XYMF_TR(0xC300, 19, 1),
++	PSIL_PDMA_XYMF_TR(0xC300, 21, 2),
++	PSIL_PDMA_XYMF_TR(0xC300, 23, 3),
++	/* PDMA_MAIN0 - SPI1 - CH0-3 */
++	PSIL_PDMA_XYMF_TR(0xC301, 25, 0),
++	PSIL_PDMA_XYMF_TR(0xC301, 27, 1),
++	PSIL_PDMA_XYMF_TR(0xC301, 29, 2),
++	PSIL_PDMA_XYMF_TR(0xC301, 31, 3),
++	/* PDMA_MAIN0 - SPI2 - CH0-3 */
++	PSIL_PDMA_XYMF_TR(0xC302, 33, 0),
++	PSIL_PDMA_XYMF_TR(0xC302, 35, 1),
++	PSIL_PDMA_XYMF_TR(0xC302, 37, 2),
++	PSIL_PDMA_XYMF_TR(0xC302, 39, 3),
++	/* PDMA_MAIN0 - SPI3 - CH0-3 */
++	PSIL_PDMA_XYMF_TR(0xC303, 41, 0),
++	PSIL_PDMA_XYMF_TR(0xC303, 43, 1),
++	PSIL_PDMA_XYMF_TR(0xC303, 45, 2),
++	PSIL_PDMA_XYMF_TR(0xC303, 47, 3),
++	/* PDMA_MAIN2 - MCASP0-2 */
++	PSIL_PDMA_MCASP(0xC500, 49),
++	PSIL_PDMA_MCASP(0xC501, 51),
++	PSIL_PDMA_MCASP(0xC502, 53),
++	/* PDMA_MAIN0 - SHA */
++	PSIL_PDMA_XY_TR(0xC700, 64),
++	/* PDMA_MAIN0 - AES */
++	PSIL_PDMA_XY_TR(0xC701, 66),
++	/* PDMA_MAIN0 - CRC32 - CH0-1 */
++	PSIL_PDMA_XYMF_TR(0xC702, 67, 0),
++	PSIL_PDMA_XYMF_TR(0xC702, 68, 1),
++	/* CPSW3G */
++	PSIL_ETHERNET(0xc600, 64, 64, 2),
++	PSIL_ETHERNET(0xc601, 66, 66, 2),
++	PSIL_ETHERNET(0xc602, 68, 68, 2),
++	PSIL_ETHERNET(0xc603, 70, 70, 2),
++	PSIL_ETHERNET(0xc604, 72, 72, 2),
++	PSIL_ETHERNET(0xc605, 74, 74, 2),
++	PSIL_ETHERNET(0xc606, 76, 76, 2),
++	PSIL_ETHERNET(0xc607, 78, 78, 2),
++};
++
++struct psil_ep_map am62l_ep_map = {
++	.name = "am62l",
++	.src = am62l_src_ep_map,
++	.src_count = ARRAY_SIZE(am62l_src_ep_map),
++	.dst = am62l_dst_ep_map,
++	.dst_count = ARRAY_SIZE(am62l_dst_ep_map),
++};
+diff --git a/drivers/dma/ti/k3-psil-priv.h b/drivers/dma/ti/k3-psil-priv.h
+index a577be97e3447..970afd46a79e6 100644
+--- a/drivers/dma/ti/k3-psil-priv.h
++++ b/drivers/dma/ti/k3-psil-priv.h
+@@ -35,6 +35,10 @@ struct psil_ep_map {
+ };
  
- 	req.valid_params = TI_SCI_MSG_VALUE_RM_UDMAP_CH_PAUSE_ON_ERR_VALID |
-@@ -528,21 +546,39 @@ int k3_udma_glue_enable_tx_chn(struct k3_udma_glue_tx_channel *tx_chn)
+ struct psil_endpoint_config *psil_get_ep_config(u32 thread_id);
++struct psil_endpoint_config *psil_get_ep_config_by_id(u32 channel_id,
++						      bool is_pktdma,
++						      u32 *thread_id,
++						      bool *dev_to_mem);
+ 
+ /* SoC PSI-L endpoint maps */
+ extern struct psil_ep_map am654_ep_map;
+@@ -46,5 +50,6 @@ extern struct psil_ep_map am62_ep_map;
+ extern struct psil_ep_map am62a_ep_map;
+ extern struct psil_ep_map j784s4_ep_map;
+ extern struct psil_ep_map am62p_ep_map;
++extern struct psil_ep_map am62l_ep_map;
+ 
+ #endif /* K3_PSIL_PRIV_H_ */
+diff --git a/drivers/dma/ti/k3-psil.c b/drivers/dma/ti/k3-psil.c
+index c4b6f0df46861..1c4ae124d172d 100644
+--- a/drivers/dma/ti/k3-psil.c
++++ b/drivers/dma/ti/k3-psil.c
+@@ -28,6 +28,7 @@ static const struct soc_device_attribute k3_soc_devices[] = {
+ 	{ .family = "J784S4", .data = &j784s4_ep_map },
+ 	{ .family = "AM62PX", .data = &am62p_ep_map },
+ 	{ .family = "J722S", .data = &am62p_ep_map },
++	{ .family = "AM62LX", .data = &am62l_ep_map },
+ 	{ /* sentinel */ }
+ };
+ 
+@@ -71,12 +72,70 @@ struct psil_endpoint_config *psil_get_ep_config(u32 thread_id)
+ }
+ EXPORT_SYMBOL_GPL(psil_get_ep_config);
+ 
++struct psil_endpoint_config *psil_get_ep_config_by_id(u32 channel_id,
++						       bool is_pktdma,
++						       u32 *thread_id,
++						       bool *dev_to_mem)
++{
++	int i;
++
++	mutex_lock(&ep_map_mutex);
++	if (!soc_ep_map) {
++		const struct soc_device_attribute *soc;
++
++		soc = soc_device_match(k3_soc_devices);
++		if (soc) {
++			soc_ep_map = soc->data;
++		} else {
++			pr_err("PSIL: No compatible machine found for map\n");
++			mutex_unlock(&ep_map_mutex);
++			return ERR_PTR(-ENOTSUPP);
++		}
++	}
++
++	if (soc_ep_map->src) {
++		for (i = 0; i < soc_ep_map->src_count; i++) {
++			struct psil_ep *ep = &soc_ep_map->src[i];
++
++			if (ep->ep_config.mapped_channel_id != (s16)channel_id)
++				continue;
++			if ((bool)ep->ep_config.pkt_mode != is_pktdma)
++				continue;
++			*thread_id = ep->thread_id;
++			*dev_to_mem = true;
++			mutex_unlock(&ep_map_mutex);
++			return &ep->ep_config;
++		}
++	}
++
++	if (soc_ep_map->dst) {
++		for (i = 0; i < soc_ep_map->dst_count; i++) {
++			struct psil_ep *ep = &soc_ep_map->dst[i];
++
++			if (ep->ep_config.mapped_channel_id != (s16)channel_id)
++				continue;
++			if ((bool)ep->ep_config.pkt_mode != is_pktdma)
++				continue;
++			*thread_id = ep->thread_id;
++			*dev_to_mem = false;
++			mutex_unlock(&ep_map_mutex);
++			return &ep->ep_config;
++		}
++	}
++
++	mutex_unlock(&ep_map_mutex);
++	return ERR_PTR(-ENOENT);
++}
++EXPORT_SYMBOL_GPL(psil_get_ep_config_by_id);
++
+ int psil_set_new_ep_config(struct device *dev, const char *name,
+ 			   struct psil_endpoint_config *ep_config)
  {
- 	int ret;
+ 	struct psil_endpoint_config *dst_ep_config;
+-	struct of_phandle_args dma_spec;
+-	u32 thread_id;
++	struct of_phandle_args dma_spec = { 0 };
++	u32 thread_id = 0;
++	u32 channel_id = 0;
++	bool by_channel_id = false;
+ 	int index;
  
--	ret = xudma_navss_psil_pair(tx_chn->common.udmax,
--				    tx_chn->common.src_thread,
--				    tx_chn->common.dst_thread);
--	if (ret) {
--		dev_err(tx_chn->common.dev, "PSI-L request err %d\n", ret);
--		return ret;
--	}
-+	if (tx_chn->common.udmax->match_data->version == K3_UDMA_V1) {
-+		ret = xudma_navss_psil_pair(tx_chn->common.udmax,
-+					    tx_chn->common.src_thread,
-+					    tx_chn->common.dst_thread);
-+		if (ret) {
-+			dev_err(tx_chn->common.dev, "PSI-L request err %d\n", ret);
-+			return ret;
+ 	if (!dev || !dev->of_node)
+@@ -90,17 +149,52 @@ int psil_set_new_ep_config(struct device *dev, const char *name,
+ 				       index, &dma_spec))
+ 		return -ENOENT;
+ 
+-	thread_id = dma_spec.args[0];
++	if (of_device_is_compatible(dma_spec.np, "ti,am62l-dmss-pktdma")) {
++		bool dev_to_mem;
+ 
+-	dst_ep_config = psil_get_ep_config(thread_id);
++		if (dma_spec.args_count < 1) {
++			of_node_put(dma_spec.np);
++			return -EINVAL;
 +		}
- 
--	tx_chn->psil_paired = true;
-+		tx_chn->psil_paired = true;
- 
--	xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_PEER_RT_EN_REG,
--			    UDMA_PEER_RT_EN_ENABLE);
-+		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_PEER_RT_EN_REG,
-+				    UDMA_PEER_RT_EN_ENABLE);
- 
--	xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
--			    UDMA_CHAN_RT_CTL_EN);
-+		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
-+				    UDMA_CHAN_RT_CTL_EN);
-+	} else {
-+		u32 val;
 +
-+		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
-+				    UDMA_CHAN_RT_CTL_AUTOPAIR | UDMA_CHAN_RT_CTL_EN);
++		by_channel_id = true;
++		channel_id = dma_spec.args[0];
++		thread_id = dma_spec.args[0];
++		dst_ep_config = psil_get_ep_config_by_id(dma_spec.args[0],
++							  true,
++							  &thread_id, &dev_to_mem);
++	} else if (of_device_is_compatible(dma_spec.np, "ti,am62l-dmss-bcdma")) {
++		bool dev_to_mem;
 +
-+		ret = read_poll_timeout(xudma_tchanrt_read, val,
-+					val & (UDMA_CHAN_RT_CTL_PAIR_COMPLETE |
-+					       UDMA_CHAN_RT_CTL_PAIR_TIMEOUT),
-+					100, 500, false,
-+					tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG);
-+		if (ret || (val & UDMA_CHAN_RT_CTL_PAIR_TIMEOUT)) {
-+			dev_err(tx_chn->common.dev, "TX channel autopair timeout\n");
-+			xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG, 0);
-+			return -ETIMEDOUT;
++		if (dma_spec.args_count < 3) {
++			of_node_put(dma_spec.np);
++			return -EINVAL;
 +		}
-+	}
- 
- 	k3_udma_glue_dump_tx_rt_chn(tx_chn, "txchn en");
- 	return 0;
-@@ -576,8 +612,16 @@ void k3_udma_glue_tdown_tx_chn(struct k3_udma_glue_tx_channel *tx_chn,
- 
- 	k3_udma_glue_dump_tx_rt_chn(tx_chn, "txchn tdown1");
- 
--	xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
--			    UDMA_CHAN_RT_CTL_EN | UDMA_CHAN_RT_CTL_TDOWN);
-+	if (tx_chn->common.udmax->match_data->version == K3_UDMA_V1) {
-+		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
-+				    UDMA_CHAN_RT_CTL_EN | UDMA_CHAN_RT_CTL_TDOWN);
++
++		by_channel_id = true;
++		channel_id = dma_spec.args[2];
++		thread_id = dma_spec.args[2];
++		dst_ep_config = psil_get_ep_config_by_id(dma_spec.args[2],
++							  false,
++							  &thread_id, &dev_to_mem);
 +	} else {
-+		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_PEER_REG(8),
-+				    UDMA_CHAN_RT_PEER_REG8_FLUSH);
-+		val = xudma_tchanrt_read(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG);
-+		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
-+				    val | UDMA_CHAN_RT_CTL_TDOWN);
++		thread_id = dma_spec.args[0];
++		dst_ep_config = psil_get_ep_config(thread_id);
 +	}
- 
- 	val = xudma_tchanrt_read(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG);
- 
-@@ -592,10 +636,12 @@ void k3_udma_glue_tdown_tx_chn(struct k3_udma_glue_tx_channel *tx_chn,
- 		i++;
- 	}
- 
--	val = xudma_tchanrt_read(tx_chn->udma_tchanx,
--				 UDMA_CHAN_RT_PEER_RT_EN_REG);
--	if (sync && (val & UDMA_PEER_RT_EN_ENABLE))
--		dev_err(tx_chn->common.dev, "TX tdown peer not stopped\n");
-+	if (tx_chn->common.udmax->match_data->version == K3_UDMA_V1) {
-+		val = xudma_tchanrt_read(tx_chn->udma_tchanx,
-+					 UDMA_CHAN_RT_PEER_RT_EN_REG);
-+		if (sync && (val & UDMA_PEER_RT_EN_ENABLE))
-+			dev_err(tx_chn->common.dev, "TX tdown peer not stopped\n");
-+	}
- 	k3_udma_glue_dump_tx_rt_chn(tx_chn, "txchn tdown2");
- }
- EXPORT_SYMBOL_GPL(k3_udma_glue_tdown_tx_chn);
-@@ -708,7 +754,6 @@ static int k3_udma_glue_cfg_rx_chn(struct k3_udma_glue_rx_channel *rx_chn)
- 			   TI_SCI_MSG_VALUE_RM_UDMAP_CH_CHAN_TYPE_VALID |
- 			   TI_SCI_MSG_VALUE_RM_UDMAP_CH_ATYPE_VALID;
- 
--	req.nav_id = tisci_rm->tisci_dev_id;
- 	req.index = rx_chn->udma_rchan_id;
- 	req.rx_fetch_size = rx_chn->common.hdesc_size >> 2;
- 	/*
-@@ -728,11 +773,24 @@ static int k3_udma_glue_cfg_rx_chn(struct k3_udma_glue_rx_channel *rx_chn)
- 	req.rx_chan_type = TI_SCI_RM_UDMAP_CHAN_TYPE_PKT_PBRR;
- 	req.rx_atype = rx_chn->common.atype_asel;
- 
-+	if (!tisci_rm->tisci) {
-+		u32 val = 0;
-+
-+		if (!rx_chn->common.epib)
-+			val |= UDMA_CHAN_CFG_FILT_EINFO;
-+		if (!rx_chn->common.psdata_size)
-+			val |= UDMA_CHAN_CFG_FILT_PSWORDS;
-+
-+		xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_CFG_REG, val);
-+
-+		return 0;
-+	}
-+
-+	req.nav_id = tisci_rm->tisci_dev_id;
- 	ret = tisci_rm->tisci_udmap_ops->rx_ch_cfg(tisci_rm->tisci, &req);
- 	if (ret)
- 		dev_err(rx_chn->common.dev, "rchan%d cfg failed %d\n",
--			rx_chn->udma_rchan_id, ret);
--
-+				rx_chn->udma_rchan_id, ret);
- 	return ret;
- }
- 
-@@ -781,8 +839,11 @@ static int k3_udma_glue_cfg_rx_flow(struct k3_udma_glue_rx_channel *rx_chn,
- 	}
- 
- 	if (xudma_is_pktdma(rx_chn->common.udmax)) {
--		rx_ringfdq_id = flow->udma_rflow_id +
-+		if (tisci_rm->tisci)
-+			rx_ringfdq_id = flow->udma_rflow_id +
- 				xudma_get_rflow_ring_offset(rx_chn->common.udmax);
+ 	if (IS_ERR(dst_ep_config)) {
+-		pr_err("PSIL: thread ID 0x%04x not defined in map\n",
+-		       thread_id);
++		if (by_channel_id)
++			pr_err("PSIL: channel ID 0x%04x not defined in map\n",
++			       channel_id);
 +		else
-+			rx_ringfdq_id = flow->udma_rflow_id;
- 		rx_ring_id = 0;
- 	} else {
- 		rx_ring_id = flow_cfg->ring_rxq_id;
-@@ -829,6 +890,21 @@ static int k3_udma_glue_cfg_rx_flow(struct k3_udma_glue_rx_channel *rx_chn,
- 		rx_ringfdq_id = k3_ringacc_get_ring_id(flow->ringrxfdq);
++			pr_err("PSIL: thread ID 0x%04x not defined in map\n",
++			       thread_id);
+ 		of_node_put(dma_spec.np);
+ 		return PTR_ERR(dst_ep_config);
  	}
  
-+	if (!tisci_rm->tisci) {
-+		u32 val = 0;
-+
-+		if (rx_chn->common.epib)
-+			val |= UDMA_FLOWRT_RFA_RX_EINFO_PRESENT;
-+		if (rx_chn->common.psdata_size)
-+			val |= UDMA_FLOWRT_RFA_RX_PSINFO_PRESENT;
-+		if (flow_cfg->rx_error_handling)
-+			val |= UDMA_FLOWRT_RFA_RX_ERROR_HANDLING;
-+
-+		xudma_rflowrt_write(flow->udma_rflow, UDMA_RX_FLOWRT_RFA, val);
-+		rx_chn->flows_ready++;
-+		return 0;
-+	}
-+
- 	memset(&req, 0, sizeof(req));
++	mutex_lock(&ep_map_mutex);
+ 	memcpy(dst_ep_config, ep_config, sizeof(*dst_ep_config));
++	mutex_unlock(&ep_map_mutex);
  
- 	req.valid_params =
-@@ -1334,6 +1410,9 @@ int k3_udma_glue_rx_flow_enable(struct k3_udma_glue_rx_channel *rx_chn,
- 	if (!rx_chn->remote)
- 		return -EINVAL;
- 
-+	if (!tisci_rm->tisci)
-+		return 0;
-+
- 	rx_ring_id = k3_ringacc_get_ring_id(flow->ringrx);
- 	rx_ringfdq_id = k3_ringacc_get_ring_id(flow->ringrxfdq);
- 
-@@ -1375,6 +1454,9 @@ int k3_udma_glue_rx_flow_disable(struct k3_udma_glue_rx_channel *rx_chn,
- 	if (!rx_chn->remote)
- 		return -EINVAL;
- 
-+	if (!tisci_rm->tisci)
-+		return 0;
-+
- 	memset(&req, 0, sizeof(req));
- 	req.valid_params =
- 			TI_SCI_MSG_VALUE_RM_UDMAP_FLOW_DEST_QNUM_VALID |
-@@ -1410,21 +1492,39 @@ int k3_udma_glue_enable_rx_chn(struct k3_udma_glue_rx_channel *rx_chn)
- 	if (rx_chn->flows_ready < rx_chn->flow_num)
- 		return -EINVAL;
- 
--	ret = xudma_navss_psil_pair(rx_chn->common.udmax,
--				    rx_chn->common.src_thread,
--				    rx_chn->common.dst_thread);
--	if (ret) {
--		dev_err(rx_chn->common.dev, "PSI-L request err %d\n", ret);
--		return ret;
--	}
-+	if (rx_chn->common.udmax->match_data->version == K3_UDMA_V1) {
-+		ret = xudma_navss_psil_pair(rx_chn->common.udmax,
-+					    rx_chn->common.src_thread,
-+					    rx_chn->common.dst_thread);
-+		if (ret) {
-+			dev_err(rx_chn->common.dev, "PSI-L request err %d\n", ret);
-+			return ret;
-+		}
- 
--	rx_chn->psil_paired = true;
-+		rx_chn->psil_paired = true;
- 
--	xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG,
--			    UDMA_CHAN_RT_CTL_EN);
-+		xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG,
-+				    UDMA_CHAN_RT_CTL_EN);
- 
--	xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_PEER_RT_EN_REG,
--			    UDMA_PEER_RT_EN_ENABLE);
-+		xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_PEER_RT_EN_REG,
-+				    UDMA_PEER_RT_EN_ENABLE);
-+	} else {
-+		u32 val;
-+
-+		xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG,
-+				    UDMA_CHAN_RT_CTL_AUTOPAIR | UDMA_CHAN_RT_CTL_EN);
-+
-+		ret = read_poll_timeout(xudma_rchanrt_read, val,
-+					val & (UDMA_CHAN_RT_CTL_PAIR_COMPLETE |
-+					       UDMA_CHAN_RT_CTL_PAIR_TIMEOUT),
-+					100, 500, false,
-+					rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG);
-+		if (ret || (val & UDMA_CHAN_RT_CTL_PAIR_TIMEOUT)) {
-+			dev_err(rx_chn->common.dev, "RX channel autopair timeout\n");
-+			xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG, 0);
-+			return -ETIMEDOUT;
-+		}
-+	}
- 
- 	k3_udma_glue_dump_rx_rt_chn(rx_chn, "rxrt en");
+ 	of_node_put(dma_spec.np);
  	return 0;
-@@ -1461,8 +1561,16 @@ void k3_udma_glue_tdown_rx_chn(struct k3_udma_glue_rx_channel *rx_chn,
+diff --git a/include/linux/dma/k3-psil.h b/include/linux/dma/k3-psil.h
+index 5f106d852f1cf..36e347311f8b2 100644
+--- a/include/linux/dma/k3-psil.h
++++ b/include/linux/dma/k3-psil.h
+@@ -35,6 +35,7 @@ enum udma_tp_level {
+ enum psil_endpoint_type {
+ 	PSIL_EP_NATIVE = 0,
+ 	PSIL_EP_PDMA_XY,
++	PSIL_EP_PDMA_XYMF,
+ 	PSIL_EP_PDMA_MCAN,
+ 	PSIL_EP_PDMA_AASRC,
+ };
+@@ -78,6 +79,8 @@ struct psil_endpoint_config {
+ 	u16 flow_start;
+ 	u16 flow_num;
+ 	s16 default_flow_id;
++	/* XYMF FIFO index (0-3 for CS0-CS3), Only for PSIL_EP_PDMA_XYMF */
++	u8 fifo_id;
+ };
  
- 	k3_udma_glue_dump_rx_rt_chn(rx_chn, "rxrt tdown1");
- 
--	xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_PEER_RT_EN_REG,
--			    UDMA_PEER_RT_EN_ENABLE | UDMA_PEER_RT_EN_TEARDOWN);
-+	if (rx_chn->common.udmax->match_data->version == K3_UDMA_V1) {
-+		xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_PEER_RT_EN_REG,
-+				    UDMA_PEER_RT_EN_ENABLE | UDMA_PEER_RT_EN_TEARDOWN);
-+	} else {
-+		xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_PEER_REG(8),
-+				    UDMA_CHAN_RT_PEER_REG8_FLUSH);
-+		val = xudma_rchanrt_read(rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG);
-+		xudma_rchanrt_write(rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG,
-+				    val | UDMA_CHAN_RT_CTL_TDOWN);
-+	}
- 
- 	val = xudma_rchanrt_read(rx_chn->udma_rchanx, UDMA_CHAN_RT_CTL_REG);
- 
-@@ -1477,10 +1585,12 @@ void k3_udma_glue_tdown_rx_chn(struct k3_udma_glue_rx_channel *rx_chn,
- 		i++;
- 	}
- 
--	val = xudma_rchanrt_read(rx_chn->udma_rchanx,
--				 UDMA_CHAN_RT_PEER_RT_EN_REG);
--	if (sync && (val & UDMA_PEER_RT_EN_ENABLE))
--		dev_err(rx_chn->common.dev, "TX tdown peer not stopped\n");
-+	if (rx_chn->common.udmax->match_data->version == K3_UDMA_V1) {
-+		val = xudma_rchanrt_read(rx_chn->udma_rchanx,
-+					 UDMA_CHAN_RT_PEER_RT_EN_REG);
-+		if (sync && (val & UDMA_PEER_RT_EN_ENABLE))
-+			dev_err(rx_chn->common.dev, "TX tdown peer not stopped\n");
-+	}
- 	k3_udma_glue_dump_rx_rt_chn(rx_chn, "rxrt tdown2");
- }
- EXPORT_SYMBOL_GPL(k3_udma_glue_tdown_rx_chn);
-diff --git a/drivers/dma/ti/k3-udma-private.c b/drivers/dma/ti/k3-udma-private.c
-index 3f6235cd4d72a..1acab00bbd5a9 100644
---- a/drivers/dma/ti/k3-udma-private.c
-+++ b/drivers/dma/ti/k3-udma-private.c
-@@ -3,6 +3,10 @@
-  *  Copyright (C) 2019 Texas Instruments Incorporated - http://www.ti.com
-  *  Author: Peter Ujfalusi <peter.ujfalusi@ti.com>
-  */
-+#include <linux/irq.h>
-+#include <linux/irqchip.h>
-+#include <linux/irqdomain.h>
-+#include <linux/interrupt.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
- 
-@@ -181,6 +185,7 @@ void xudma_##res##rt_write(struct udma_##res *p, int reg, u32 val)	\
- EXPORT_SYMBOL(xudma_##res##rt_write)
- XUDMA_RT_IO_FUNCTIONS(tchan);
- XUDMA_RT_IO_FUNCTIONS(rchan);
-+XUDMA_RT_IO_FUNCTIONS(rflow);
- 
- int xudma_is_pktdma(struct udma_dev *ud)
- {
-diff --git a/drivers/dma/ti/k3-udma.h b/drivers/dma/ti/k3-udma.h
-index cd705fcc94f08..b71e8129459c4 100644
---- a/drivers/dma/ti/k3-udma.h
-+++ b/drivers/dma/ti/k3-udma.h
-@@ -86,6 +86,17 @@
- #define UDMA_CHAN_RT_CTL_PAIR_COMPLETE BIT(16)
- #define UDMA_CHAN_RT_CTL_ERROR		BIT(0)
- 
-+/* UDMA_CHAN_CFG_REG */
-+#define UDMA_CHAN_CFG_PAUSE_ON_ERR	BIT(31)
-+#define UDMA_CHAN_CFG_FILT_EINFO	BIT(30)
-+#define UDMA_CHAN_CFG_FILT_PSWORDS	BIT(29)
-+#define UDMA_CHAN_CFG_TX_SUPR_TDPKT	BIT(8)
-+
-+/* UDMA_RX_FLOWRT_RFA */
-+#define UDMA_FLOWRT_RFA_RX_EINFO_PRESENT	BIT(30)
-+#define UDMA_FLOWRT_RFA_RX_PSINFO_PRESENT	BIT(29)
-+#define UDMA_FLOWRT_RFA_RX_ERROR_HANDLING	BIT(28)
-+
- /* UDMA_CHAN_RT_PDMA_STATE_REG */
- #define UDMA_CHAN_RT_PDMA_STATE_IN_EVT		BIT(31)
- #define UDMA_CHAN_RT_PDMA_STATE_TDOWN		BIT(30)
-@@ -714,6 +725,8 @@ u32 xudma_rchanrt_read(struct udma_rchan *rchan, int reg);
- void xudma_rchanrt_write(struct udma_rchan *rchan, int reg, u32 val);
- bool xudma_rflow_is_gp(struct udma_dev *ud, int id);
- int xudma_get_rflow_ring_offset(struct udma_dev *ud);
-+u32 xudma_rflowrt_read(struct udma_rflow *rflow, int reg);
-+void xudma_rflowrt_write(struct udma_rflow *rflow, int reg, u32 val);
- 
- int xudma_is_pktdma(struct udma_dev *ud);
- 
+ int psil_set_new_ep_config(struct device *dev, const char *name,
 
 -- 
 2.55.0
