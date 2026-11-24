@@ -1,58 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795516540;
-	b=mIFmyL2oy8vSqIAyCPvAUYhHo16gQO1T5+CwoOfC18ANcWSMmjhihSFTb0lpCntsfOSb
-	 0H4WlAwqt1sgPgQdYtrDFur2S44jliAdqsgyW3kdZDfHOyKDZ9Y056CrPyPF3o3kGkpAJ
-	 t7G6rMHpnfPlrPS/5xo/Os6HvUMjtPKZ0bkcFPvXAB8/A/15jy4g+hsMg2t9bVDfzEZZn
-	 GiMhIqLnDTgtwPlW+XSNdObKRKObJ76YD179qr5H+QilsMNrB7bXJBjhO3c+Z/XjkMCy1
-	 VhTegbp3MK8KCra0ftnIdL9ezs99n2PnFkVk32SL5eO//Kgivp+Eeb0irXSzKxj2eLg==
+	t=1795516553;
+	b=13RVp04TPIqxC577izYGpuTzb1FFEQkR+MozC5LF6uxhdI8TVRxzotXRbd7ZiTZqFj6g
+	 8Xfc2qdOMXIl0HNw6gvlFeETFCZ874Oj2tdV/EoCS/Xubm7wGznBZv9ivHaV70UH55qY9
+	 HvT+MoGuJzGdJips25OsXidZk3J8j7rGdNnhlyAju0hN5BKoqQFklGFqq1F4wuGNcl84B
+	 bJ+uecWIpEGDI6x8NXTl7urQULbnKCBHIntlvwyFpwNjbbVQbK7iW9NM0XalSATBZoiBo
+	 sRq5Er9KjaoPfnU7MdDHgNtNz5s69zluSUvBxYe5wo3OwD2neSqhA23Y5NkGpD3YkCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795516540;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gcHnGr+EWKizS1GumnjfLSnWqHQiWDkKEJikRlAsFBE=;
-	b=DvDjr4NvWnzdWVW5nFv/5yY/zHw19DRaMG9RVdjeINGJcxTPypmNXbc8+0AaIAnWw48C
-	 SYLozFqFXCy0s5/vF/Zk5MJ1v8P0RXiaTvcs90WxboCYzkc88RPHhgMZE+WX6aQVWBJ/3
-	 +dKiBVfMXD3laI4YDbmtE8O40bJdY/gUILxxbubesEVHqj9Dr5HkyhjZzO0i5RIa/BRiJ
-	 3YDz1Fzrm+IdHh8IG+UZrgNLRF1CB6RsVetQjzWR7blnXI01RkJgVov7Iiwh3lQl8Ls3I
-	 xrIO768JsN+zglYxn+fAx8xLIc5IbZ9IRxbEmhUDaI8qelBmP7v8E/MWxSkdW62/Eng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795516553;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=JX2/SMoV7CGstyBTRaz7NuWaIewG3wQxjXWL82vlo1o=;
+	b=FxBImnznE3Cd+rQEJ8/UXPlVHEH+cj9hFKi5Y8SAqBDoPk+tcnoD90ZVzqMTInCNIjyF
+	 gQqWMRJNarIrnN6Vr1WPe9cux73GXmpbMblJg30C9X2+TXTOJ/7WJ2PnfovAI/WZ4ovVZ
+	 8dSOnGGe6jhYQwz6m+boTNKg6ni5iq6TF0qMzX1ncxzUMc1yTQHUbonL7R665QltDfDWu
+	 6LoVLAcTCwKw2Y7UUeimzD6XYc7zdcJ2yTI0jAC8vscuJ8cVLkQsAOdPWT0Q37k4IcsM2
+	 bdFH6M/ZseRVD9inJ4AtUC00h8xTM8Dnga6LroeOhrMMqpyfyKEJwYYZLpKgMOfJhiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m1SCu11l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MAvuoFEx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hz+vTyh8;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 96113606A33D;
-	Tue, 24 Nov 2026 10:35:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1ADF606A32D
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 10:35:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1ADF606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m1SCu11l
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 461791F000D2;
-	Tue, 24 Nov 2026 10:35:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795516540;
-	bh=gcHnGr+EWKizS1GumnjfLSnWqHQiWDkKEJikRlAsFBE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m1SCu11lXCgrtQndFUuPQa4nAIzHdYxzjW3lJmjEapArRv7DjKd6q0cbjurhr6qqw
-	 y16D76hCdK/a1p0UnCLyqJJde8yq6IfsH/Oz+hcOfCl3KfhD3Ng5fJb6pSrIGCUP+w
-	 LJ0DdK4Cp8ovArbl8QLLOH8UE2zvoSalKn2VRdPg5nlwSl49m+AR86fpzsYaGXiujd
-	 fg9kyFPvVx7uhqICg9POg/CoKuNr+GkAQa9HdsRLXzjP1DU/O/ETsz8VXE1U+jj9oD
-	 ZtOMkA1fa0P3VQz1G+Z+047Kjc4lXFgEQSw35oh83KM1vy7mF5OcsDH2yZAFzlcSOZ
-	 r+zdSoUFySF4w==
-Date: Tue, 24 Nov 2026 11:35:32 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] pinctrl: qcom: Add Halliday pinctrl driver
-Message-ID: <wkceygbndcdv2ldsemla27mn5dnzdeijowvxpjozee73wyze6r@mlmymb7cehm4>
-References: <20261116-halliday-tlmm-v2-0-b4dd502ca142@gmail.com>
- <20261116-halliday-tlmm-v2-2-b4dd502ca142@gmail.com>
- <su7onpn56wd2dtsn63qwbv5v65kci54rhqjndh6qjpb6gwlwnj@m2kxvcdrpjws>
- <20261123195935.1046144-1-lightofmysoul@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MAvuoFEx;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hz+vTyh8
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO8Vqrm1598147
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 10:35:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=JX2/SMoV7CGstyBTRaz7Nu
+	WaIewG3wQxjXWL82vlo1o=; b=MAvuoFExTcMl671fRb/MStE2z57S8cVHT89bHR
+	Mvt1r1C+i5hM5F55J4PLNpo0wWCGumwGM/UA43XabE0e/0dg6S7SHdTstIZsvnYh
+	oXnS28KYv9//XyN3Glij6uhQbEoaeyLEFc5DztX+2gyYgz42xL/SmX0h5jfToi/3
+	a/+vHhsfRe9Qdv6oDrILXAseA6YNPNLyoPrq8ID+8VY+MklqF1x/ipCFQVd8IFel
+	xpF6yggCgqkHh3Z4dXumB0V9inU2ZD9pM2Q0KgqLteNEfOYZRdzzEgSfA4Z2BDcw
+	JEkdexgQeRQ3GTTLhtpeepDew4OqUpICllEW5idGaKSYTuHQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4ukqk5n1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 10:35:51 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b421417c3cso3884313a91.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 02:35:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795516551; x=1796121351; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JX2/SMoV7CGstyBTRaz7NuWaIewG3wQxjXWL82vlo1o=;
+        b=hz+vTyh8tZbYDetIN+ZqneMPHWVHLXNFTnsRhXhaA6oa0sNpFkZhjJYVsz7u+FZVGK
+         L8xaCLtWpzIkHg7XdoLrRv6R5mZUQ8qPUebxsPAxaVA6b1dgGBeX3PuPiKhj//DRxNNs
+         IAV7OvId97pLtjLxMFdfFA3RpiW1TfNaZYi5tqbGw43hgHHdivn6al3e30HHag5RgIHL
+         xghJ6DE1hEhvdxEtw8ZBQ/BjAgLRBg7IXgXf/6rvdM/SY6vq+j5S2/jo1S5lv8YmEE0I
+         F9qNMHqdommAUkQMC78LiaykySJwCqhNYy1w5nej6w9E5t8dv1WVRxj6qStl8GZaIUVs
+         nOCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795516551; x=1796121351;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JX2/SMoV7CGstyBTRaz7NuWaIewG3wQxjXWL82vlo1o=;
+        b=Cpnpmdk2j4qVP8czP7gt+CxbCS9BEnM8zLgViyFArY7/fGne5djA1/DetHdv8LVZ0O
+         9g1W5Bf2hwkJFFYDVeJ0L+r5kTGtLAhugiFGKyWujmUQvTFARkK8unoFYSCVK4u3NxI0
+         vnZs/9XxmCCR1U099RGlUeuF+5sJLppGw4/08rm5ZMt/ciS07USo+W38VKPAwpYb2Dnn
+         9i0Tavbma4Eaj23TU9fu0y+wkrhUYdsW/AC8dcWUYoDJp/D0uPjvo2skf5EAhNjIsgz8
+         cl2L4IBkZQ+VBSIvLkJ+MoFYL0QqnUtBhwQX2l9xbwB4ObhtzC+GYDrgjzTu8UeIs2dM
+         OOJg==
+X-Forwarded-Encrypted: i=1; AL+hErH6sdZyiAlD2wQQ5dRsUG7QeXED/Hu3+mjzXs8trkYA3RhqWMzpmtUHr0ppk/Eaj7rH2QkcQBFnPaaV@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ErfhicIVuYqxyToEkhDUajRUOu7O+okoanlSn5ZrAIXZiYXaF
+	E0LUOg3vA73t7aLtfrRo2CF2Ehtp3r4Kb9GnxANV75X4i4LVds5yslfGIdzABbUfuLzc2HlVgeU
+	ynrXT5X09N7cyAxDIv1bvYGuBv6Hb6MzDsKxmxrGSjzxg8vJscHUe6Bc3JUtv/foC
+X-Gm-Gg: AZFdTZfddpBBdAbdULTP96PmhFZdXcnQUwdRxPIXPkGP0+rQL9hkCNL0swsVUafoJOg
+	MuZRJynzVpsnRTcVxK2G9oyX9vGtQwRP2+7ASAC0YU3MOOVErqi3+lksDXEbl/25wO0QhoyTrzr
+	K3pZjFzkNaZzIFkpwFUCmvCFKNE2ZPuZoF4ksX+HCbATWDbPAdyBUVSxBbOgFS0Ryst2vDiPfaj
+	VIfOmIYDa6TekOUeBy6WLGNEPxJ0DHkMiiOhRXmDW520QzlYNaWWnROjaC/C4feR440u/BcFv2M
+	B23Jrm7Vw6u07+q8awN3iaw9h1PHcECAdrS37PhHUi4nY5Cdorshm3/PEcimFdvQcYzFBCFF8CY
+	GaFcZHdfgX5mQ1WYsuXycqd8tV//Rpn9byHz3kamUENKSxkLc+hq11vsomUdcPhrO7uFQMwb9in
+	CNrg3bDG83DVfqUgFJhooRtNPRHyRa6rmpJc+u
+X-Received: by 2002:a17:90b:268f:b0:3b3:a421:7e00 with SMTP id 98e67ed59e1d1-3b41c8d4831mr12491422a91.16.1795516550808;
+        Tue, 24 Nov 2026 02:35:50 -0800 (PST)
+X-Received: by 2002:a17:90b:268f:b0:3b3:a421:7e00 with SMTP id 98e67ed59e1d1-3b41c8d4831mr12491399a91.16.1795516550317;
+        Tue, 24 Nov 2026 02:35:50 -0800 (PST)
+Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b75f2a4sm9162295a91.2.2026.11.24.02.35.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 02:35:49 -0800 (PST)
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Add coresight nodes for the QCOM Eliza SoC
+Date: Tue, 24 Nov 2026 18:35:30 +0800
+Message-Id: <20261124-add-coresight-nodes-for-eliza-v2-0-48926f5a97ed@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,72 +115,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123195935.1046144-1-lightofmysoul@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHRoBWsC/4WPzY7CMAyEX6XKeY2SUEjpad9jxcFNXBoJEkhCx
+ Y/67rgUieNeLI2tmc/zFJmSpyza6ikSjT77GFjon0rYAcOBwDvWQku9lTupAZ0DGxNlfxgKhOg
+ oQx8T0NE/EOoatXRmLdE0gjPOiXp/e+f/7Red6HJlTFmWXwpDmaGUaoAtUBJaCtHCOcWOoOsbq
+ TcWnbbYjmrO7jATv3I6+dJWgW4FlgAtxYwafC4x3d/N2DCzPvf6nxKjAgmktmZnyTSb2vzGnFe
+ XKx5n2oqH2E/T9AIs4FP+PAEAAA==
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+        James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+        Mao Jinlong <jinlong.mao@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        Jie Gan <jie.gan@oss.qualcomm.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795516545; l=1479;
+ i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
+ bh=yrh3sL/QUEYo03QCJzG/nErshFwj89d3SRtuzzGr/dk=;
+ b=/p3Yubc0pnVhgBpawj2oSxA8/3gluheRkdoxzs2DmdoqgS0b0Y5cIVIgJSllmDMAwIhKr2fv6
+ 1QTj23HrgWYCYKsu/iQymgpbPu/Br4ojoJBDyUxQA481/x6USnl7RBF
+X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
+ pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
+X-Authority-Analysis: v=2.4 cv=Wu++otfv c=1 sm=1 tr=0 ts=6b056887 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Pitd1UQUPAqnyXy6cy8A:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA0MSBTYWx0ZWRfX8ijVW1G/fsoH
+ FBrL9U3Ez6S8DDdbTGsLqdVYT90hyyfgf5yKD0sPW+6BW1ZKedsjMErmRqzoFsR1eXdXwTsJhvT
+ aBrWp2/U49ZhHD7g9+U8I4cFtRTLHMquuOpM+3vIl/Br9EO+WY7kJxNPhPtwYh4GwIicONzR5fO
+ 7cOsZhGAk9A3gorbihMmxkuTrHS0CuOJmglKO6sL8t3hH6K0H0sOMlSmcoMX7JQbIpn+DMWjQX+
+ dqkjlWPDcqP7giDQ+Hb7oR0q41ubO+mwB5byH0f8u9waFJihiBvxz4beHKe8BcD4Zz4QQQNx6E8
+ epvEBnh9Up4B+eqif9/n/aZjO7Uxg9dgwdE2rq3Tykz/RucBo2tngTzW0o4BCOiw/frNQMUkfeZ
+ 3L9O7NWILyiq7PtgpTX8hnc+FIqQv8DeFfSlALw5IfJAUwCQOGZ5Sk+LoygHHTznCTY88yTtwZd
+ 8p0Y3P2fg6YTJH9UB+w==
+X-Proofpoint-GUID: W691Y9X6v53CntIHzr84i-eiwCVA1NZF
+X-Proofpoint-ORIG-GUID: W691Y9X6v53CntIHzr84i-eiwCVA1NZF
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA0MSBTYWx0ZWRfX4tWDXQo92wc1
+ ZMlGnpvo+zr29tkZJnfY/h43ASKrE+0oDcx1pH04DVLzg9nqSrsscsJkCcl+BQhrgZ/Orqv+Gnh
+ AQWws+q2Z8GGCW1Fo8ZH/q8e3+hndKs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 spamscore=0 adultscore=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240041
 
-On Mon, Nov 23, 2026 at 07:59:34PM +0000, Stanislav Aleksandrov wrote:
-> On Mon, Nov 23, 2026 at 05:16:55PM +0100, Bartosz Golaszewski wrote:
-> > Can you verify the pdc map against the interrupt map? It looks incomplete to
-> > me, there should be more wake GPIOs. Unless you have a reason to not
-> > include all of them?
-> 
-> I do not have the interrupt map. The PDC map is from the pinctrl-anorak
-> driver in Samsung's kernel source. There are 93 GPIOs with a wakeup
-> enable bit, but its PDC map contains only 76.
-> 
-> I did a test: set an interrupt handler on every unused PDC pin on
-> my headset and then I toggled each GPIO to see which pin fires.
-> 
-> 1. Out of existing 76 entries 42 PDC pins got triggered. 26 are used
->    by devices on the headset and 8 do not change their level,
->    so these 34 are not tested.
-> 
-> 2. 17 missing GPIOs: only 14 give a result:
-> 
->      GPIO 42 -> PDC 105, 48 -> 87, 63 -> 122, 80 -> 42, 97 -> 96,
->      105 -> 55, 143 -> 72, 151 -> 118, 168 -> 94, 205 -> 130,
->      218 -> 124, 219 -> 68, 221 -> 133, 223 -> 134
-> 
->    I am not sure about 151 and 168, their lines are not quiet on the
->    headset. GPIOs 114, 125 and 162 do not change their level.
-> 
-> I think it is not a good idea to add these pins without documentation.
-> If someone can confirm these pins are correct then I will add them in
-> the next version.
-> 
+Add DT nodes to enable
+ETE/TPDM/TPDA/CTI/Funnel/STM/Replicator/ETF/ETR/dummy_source/dummy_sink/CTCU
+devices on QCOM Eliza Soc.
 
-Here, use this:
+dt-binding dependency for fixing the probe issue of the TraceNoC device.
+https://lore.kernel.org/all/20261118-fix-tracenoc-probe-v1-0-0298dc5f05ac@oss.qualcomm.com/
 
-static const struct msm_gpio_wakeirq_map halliday_pdc_map[] = {
-	{ 18, 99 },   { 31, 120 },  { 37, 101 },  { 40, 103 },  { 41, 104 },
-	{ 42, 105 },  { 43, 106 },  { 44, 107 },  { 45, 92 },   { 46, 83 },
-	{ 47, 86 },   { 48, 87 },   { 53, 111 },  { 57, 121 },  { 60, 56 },
-	{ 61, 108 },  { 62, 109 },  { 63, 122 },  { 66, 110 },  { 68, 57 },
-	{ 72, 112 },  { 74, 43 },   { 78, 114 },  { 80, 42 },   { 84, 67 },
-	{ 86, 66 },   { 87, 100 },  { 91, 102 },  { 94, 93 },   { 97, 96 },
-	{ 98, 123 },  { 100, 44 },  { 101, 97 },  { 103, 75 },  { 104, 52 },
-	{ 105, 55 },  { 106, 48 },  { 110, 53 },  { 111, 76 },  { 112, 49 },
-	{ 113, 50 },  { 114, 51 },  { 115, 54 },  { 118, 58 },  { 119, 77 },
-	{ 122, 62 },  { 123, 63 },  { 125, 59 },  { 129, 61 },  { 133, 65 },
-	{ 137, 69 },  { 139, 70 },  { 142, 71 },  { 143, 72 },  { 145, 74 },
-	{ 146, 45 },  { 147, 78 },  { 148, 60 },  { 150, 119 }, { 151, 118 },
-	{ 152, 85 },  { 153, 79 },  { 154, 80 },  { 155, 81 },  { 157, 84 },
-	{ 162, 64 },  { 163, 88 },  { 164, 89 },  { 165, 73 },  { 166, 90 },
-	{ 167, 91 },  { 168, 94 },  { 169, 82 },  { 170, 95 },  { 171, 98 },
-	{ 172, 47 },  { 175, 46 },  { 186, 129 }, { 189, 131 }, { 194, 116 },
-	{ 196, 117 }, { 199, 113 }, { 201, 128 }, { 205, 130 }, { 207, 115 },
-	{ 208, 132 }, { 210, 135 }, { 212, 136 }, { 215, 137 }, { 218, 124 },
-	{ 219, 68 },  { 221, 133 }, { 223, 134 },
-};
+Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+---
+Changes in v2:
+- add qcom,cmb-element-bits property for modem static tpdm devices
+- drop port2 of the wpss_replicator device as the dt-binding only allows
+  port0 and port1.
+- Link to v1: https://lore.kernel.org/r/20261124-add-coresight-nodes-for-eliza-v1-0-e1679ce78547@oss.qualcomm.com
 
+---
+Jie Gan (2):
+      dt-bindings: arm: qcom,coresight-ctcu: Add Eliza
+      arm64: dts: qcom: eliza: Add CoreSight debug nodes
 
-> > There's no egpio function. I assume you copied it from sm8550 but I
-> > think you should do something similar to commit a326b0523fc1 ("pinctrl:
-> > qcom: sa8775p: Enable egpio function") here.
-> 
-> I'll add this in v3. EGPIO_PRESENT is set on GPIOs 185 to 223.
->
+ .../bindings/arm/qcom,coresight-ctcu.yaml          |    1 +
+ arch/arm64/boot/dts/qcom/eliza.dtsi                | 2137 ++++++++++++++++++++
+ 2 files changed, 2138 insertions(+)
+---
+base-commit: 2c0da72bad5631bda9c70dcfbe3497a0ebd9f936
+change-id: 20260902-add-coresight-nodes-for-eliza-44a20d730a78
+prerequisite-change-id: 20261118-fix-tracenoc-probe-bf8025cad2ca:v1
+prerequisite-patch-id: 1a8b6c3c6cbeffe85cf7e9ba18047b9e7f93a059
+prerequisite-patch-id: 3e735b506605c095cd5145cbbf6d05e52865b923
+prerequisite-patch-id: 54676cd3a27d629eae2579b3f806765d2d2f4596
+prerequisite-patch-id: 90f74c034275c8673d6c5b44692297a4899e4bfb
 
-Thanks,
-Bartosz
+Best regards,
+-- 
+Jie Gan <jie.gan@oss.qualcomm.com>
+
