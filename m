@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795549993;
-	b=JHv3ObREPEpuVMX+nY9TwYjppnR5hkX69uhXeUO7Y3z+qFuobcHj944x/I4zkutDHc/2
-	 dLzmeBV4fdg2yZqfWScoBDU185+JBjMaEdNScdQtNDV2WJFTQ798tw3ah2peFdp39ZGwC
-	 bffGJErQZDTYLZtYEVT9XF4DSdbtWE4NnB+NoYVqlAJF9A8JqMOfFG9acg8ezN35WlMBd
-	 6gyszNAsKz2kM7zawWbN44MfNfUVWJIt9wB3Si8KMHhZGv//Zhjlp9oTptzJ46FiUy4Ml
-	 mOhCODYF8MwPy7QI/iISlTwf6EBayYWycIu1UP4d4GSgEMtX9tnIN1Y9y1a1kE1FD/Q==
+	t=1795550111;
+	b=HsoXyp0wfRiMlmN9dDeMz/uv59O/DkiJPNWDip2MKZEFs1W+Jp4jwzUUQISyNZRRBobK
+	 1zL+Ov6H2ft81OVje1xZc//MPcsz7Y75LIk8Nxpzb5yo2S/1PxKqrntM8FbbuhaNbxGJ9
+	 zN0e4XWL+LDzZB0gIWnJwlkQNsOcESD9vbTjdy37vf1hKYXKtIgx7qpynQwced9HbnXEA
+	 Eax6kp5iPamT+/F5QNkGVjGqGbNfbqsFhSBXh/JkQnDzKp+RzGFhr5M/H+5sFccHXSu7S
+	 3MIMiiRSkHRikHxkcQjMg3Z0uvFOooBuT2VMwGnh60AQsbPRHRPHwjU+fmlFdrZi4FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795549993;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=YW/+6/w0vkzA0mZi6tXKisnSsrAfx2YkPceqac221Cs=;
-	b=Kj3A2usXdOEODLDsfXbxl6hlFURHeUErbh1iXu5BVjPx4DIKWfD091T3OQZoZSGHPPph
-	 A1ItsTVCk0s+jEKlJeXKdvuVjv/risuDupK5ZuEF98nbJCLcxq32dQclInZH3vKYT7FZH
-	 p8pR9HfLJofrxxvgriiitiQ/aMtyy/MvbXzNG+QdzQMAKT1hNqaR1Meb6dvpObxFdJMar
-	 Wb2/cfG/oZoE1Aev/V3dBePrZ+qQmW1bByOUzFLWcF5P+9loVxhDR2jEo1wXWLEGEq2uH
-	 nWWMB+rF/Xb8+LBflncsNqvDxksFtpvyW9x7wVDCrQ0Tjn/8daPOOEBVOyJ2uHFRlDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795550111;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=grUnuBcgp8t+MSOi+H3ID6xVrMhx8VhnciDCacLxfxs=;
+	b=o9nDmtsBAD6U4MC80D3Kr1y8YEloMjPfEHi244XR7XiPOwlhhU3bXz43rLFZPdJeDVKm
+	 MFOwrpksUkxXnjKuHJ5J205qaYVq7d3PI/PSc3Y+4aGQy8tMXgyVhhzGBcN9mrPHb/uct
+	 YqJCqN271nzi95ueZ0CFAf03vNfvtGwlhxAf31jpiJpKNbJV/hNruO/3TmJGPVdtgsWPk
+	 cmAupNUyfnJsl3WV7Cs3bULumqdNHL900l6933XVbPVHWO0/+cMinI3li1BdZXJKH4JJ7
+	 grCJlv9Iw1dQP/xAlkHKkgmSF2YtobNxCYNCPsuHIBZpXxvmrgmX3RyQuwB4MVvh2UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lid+xWiF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NqzBwZIr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE41606A321;
-	Tue, 24 Nov 2026 19:53:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586F2606A321;
+	Tue, 24 Nov 2026 19:55:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lid+xWiF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A537E1F000CF;
-	Tue, 24 Nov 2026 19:53:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NqzBwZIr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F54A1F000D0;
+	Tue, 24 Nov 2026 19:55:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795549991;
-	bh=YW/+6/w0vkzA0mZi6tXKisnSsrAfx2YkPceqac221Cs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lid+xWiFp3q++kwXexC1A24zp0skeYUzc1vada6Z8f5VnRxGkCBtlyBYDfnSqEozk
-	 pp99lSp+GqLzHF9UTfKZ4r2kTDrifS27SSZzmBDOue+qZJrk/u0h8Sa/hcToDWJaLF
-	 xw5jU/Frm1cY159jC3Omf3sKW6fHm0axjEwrRpkYMTzdcQZ9DhXh4lPC7vy9v/TUVW
-	 ikP1v5eXyuDsCkjwMiIH17RYhhEp+ieM0ifAuiFAdOEYgteOjQ/TJ1ShV6106aLs0U
-	 Cngdk4elbajsoiy/fS5Qp7dMU0eG9I3GG6BA6XF2M4GnM2HepbRD9IA3r8bLqNwzrq
-	 S2XptuCyNcICw==
-Message-ID: <sashiko-outbox-231915@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/10] arm64: dts: qcom: sa8775p: Add GP M/N clock
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-b4-pdm_clk_gp_mnd_v2-v3-6-98db26a87500@oss.qualcomm.com>
-References: <20261124-b4-pdm_clk_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com>
- <20261124-b4-pdm_clk_gp_mnd_v2-v3-6-98db26a87500@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 19:53:11 +0000
+	s=k20260515; t=1795550110;
+	bh=grUnuBcgp8t+MSOi+H3ID6xVrMhx8VhnciDCacLxfxs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NqzBwZIr1Pg6A41nBWqgIzK4e+hizMaKakN+ommcoqE8FSgoJSIdIy26TcQJkhjhD
+	 CTbByepXplY6cFG0WrpRRsegDFzkug4NrSWMurNVoJojlOzKvhgUAIQ2TVmw4lNrIB
+	 9WBvC6wpwtrnxzthS4Ju5xSO9ASxGNKlPrMQTMBl0z3aTaWMwXVf4yLT6NG/xqxJtc
+	 gkt4jnzHDNJHKOvIdniIQvdxbcda3qnaSnItVe4gn4GAbb8Dq+piBD7thPqQXGI1O2
+	 hInqTW8J0LYat7sAtWVe7dNkTOw3bS/vUEY951EC8/+A1wV510CCCRXKDjwb3VSlwE
+	 qYpJbQ1HmNmhg==
+Date: Tue, 24 Nov 2026 11:55:09 -0800
+From: Drew Fustini <fustini@kernel.org>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Wei Fu <wefu@redhat.com>,
+	Drew Fustini <dfustini@tenstorrent.com>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Icenowy Zheng <uwu@icenowy.me>, Han Gao <rabenda.cn@gmail.com>
+Subject: Re: [PATCH v4 2/2] phy: add a driver for T-Head TH1520 USB PHY
+Message-ID: <awXrnQVKZBXKsV2c@thelio>
+References: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
+ <20261103081444.1983071-3-zhengxingda@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,78 +65,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103081444.1983071-3-zhengxingda@iscas.ac.cn>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] arm64: dts: qcom: sa8775p: undefined gp_mn pinmux function on
-  gpio35
---
+On Tue, Nov 03, 2026 at 04:14:44PM +0800, Icenowy Zheng wrote:
+> The USB PHY on T-Head TH1520 SoC is a Synopsys USB 3.0 FemtoPHY, with
+> some PHY parameters exported as another system controller along with it.
+> 
+> A few PHY parameters have unusable defaults. Add a driver that programs
+> them before releasing the PHY from reset in addition to
+> clock/reset/regulator management.
+> 
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ---
+> Changes in v4:
+> - Make exit callback always success to prevent PHY state machine desync
+>   with clk/rst state as suggested by Sashiko.
+> - Re-wrap some comments targetting full 80 columns.
+> - Use dev_err_probe for PHY creation error handling, to prevent spamming
+>   the kernel log with -EPROBE_DEFER.
+> Changes in v3:
+> - Use fsleep() to replace udelay(), and add proper inclusion of
+>   linux/delay.h for this function. (fsleep() suggested by Drew and
+>   inclusion suggested by Sashiko)
+> - Adapt Drew's suggestion on the wording of the commit message's 2nd
+>   paragraph.
+> Changes in v2:
+> - Removed unreferenced register names.
+> - Changed the behavior to leaving bus clock on instead of binding it to
+>   the regmap.
+> - Removed early return for reset deassert failure in phy exit callback.
+> - Tweaked the Kconfig item (removed default value and added "select
+>   REGMAP_MMIO).
+> 
+>  drivers/phy/Kconfig                |   1 +
+>  drivers/phy/Makefile               |   1 +
+>  drivers/phy/thead/Kconfig          |  12 ++
+>  drivers/phy/thead/Makefile         |   2 +
+>  drivers/phy/thead/phy-th1520-usb.c | 179 +++++++++++++++++++++++++++++
+>  5 files changed, 195 insertions(+)
+>  create mode 100644 drivers/phy/thead/Kconfig
+>  create mode 100644 drivers/phy/thead/Makefile
+>  create mode 100644 drivers/phy/thead/phy-th1520-usb.c
 
-commit 2bb0f9c69aa222be884a221ac0040d31c8953968
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+Sorry for the delay in review. I think binding and driver dir should be
+added under thead soc support in MAINTAINERS, right?
 
-arm64: dts: qcom: sa8775p: Add GP M/N clock controller
+> +struct th1520_usb_phy {
+> +	struct platform_device *pdev;
 
-This commit adds the GP M/N clock controller node and its gp_mn_active
-pinctrl configuration on gpio35 for SA8775P.
+It seems that pdev is only assigned in th1520_usb_phy_probe() and never
+read. I think it can be dropped.
 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-embedded.dtsi b/arch/arm64/b=
-oot/dts/qcom/lemans-embedded.dtsi
-> index 0be39bb9de1e1..4bba23df8a95d 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans-embedded.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans-embedded.dtsi
-> @@ -1849,6 +1849,20 @@ lpass_ag_noc: interconnect@3c40000 {
->  		qcom,bcm-voters =3D <&apps_bcm_voter>;
->  	};
-> =20
-> +	gp_mn: clock-controller@88d3000 {
-> +		compatible =3D "qcom,sa8775p-gp-mnd", "qcom,sc7280-gp-mnd";
-> +		reg =3D <0x0 0x088d3000 0x0 0x1000>;
-> +		clocks =3D <&gcc GCC_PDM_XO4_CLK>,
-> +			 <&gcc GCC_PDM_AHB_CLK>;
-> +		clock-names =3D "pdm", "ahb";
-> +		#clock-cells =3D <0>;
-> +		pinctrl-0 =3D <&gp_mn_active>;
-> +		pinctrl-names =3D "default";
-> +		assigned-clocks =3D <&gcc GCC_PDM_XO4_CLK>;
-> +		assigned-clock-rates =3D <4800000>;
-> +		status =3D "disabled";
-> +	};
-> +
->  	usb_0_hsphy: phy@88e4000 {
->  		compatible =3D "qcom,sa8775p-usb-hs-phy",
->  			     "qcom,usb-snps-hs-5nm-phy";
-> @@ -2515,6 +2529,13 @@ dp1_hot_plug_det: dp1-hot-plug-det-state {
->  		bias-disable;
->  	};
-> =20
-> +	gp_mn_active: gp-mn-active-state {
-> +		pins =3D "gpio35";
-> +		function =3D "gp_mn";
-> +		drive-strength =3D <2>;
-> +		bias-disable;
-> +	};
+With those addressed:
 
-[Severity: Medium]
-Is the "gp_mn" pinmux function missing from the SA8775P TLMM driver and
-binding?
+Reviewed-by: Drew Fustini <fustini@kernel.org>
 
-In drivers/pinctrl/qcom/pinctrl-sa8775p.c, sa8775p_functions[] does not
-define a gp_mn function and sa8775p_groups[35] has no gp_mn mux entry:
+BTW, I see that I never applied the MISC clock patches (1 to 3) from the
+v1 series [1] like I said I would. Do you still want me to apply them?
+If so, I will fix up the platform data check for usb_suspend_div_clk in
+patch 2 when applying.
 
-drivers/pinctrl/qcom/pinctrl-sa8775p.c:sa8775p_groups[] {
-    ...
-	[35] =3D PINGROUP(35, qup0_se4, phase_flag, _, _, _, _, _, _, _),
-    ...
-}
+Thanks,
+Drew
 
-When gp_mn is enabled, pinctrl_bind_pins() -> pinmux_func_name_to_selector()
-rejects "gp_mn" with -EINVAL and aborts probing before clk_gp_mnd_probe()
-runs.  "gp_mn" is also absent from the function enum in
-Documentation/devicetree/bindings/pinctrl/qcom,sa8775p-tlmm.yaml, which
-causes dtbs_check validation to fail on boards including
-lemans-embedded.dtsi.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-pdm_clk=
-_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com?part=3D6
+[1] https://lore.kernel.org/r/20260507081710.4090814-1-zhengxingda@iscas.ac.cn/
