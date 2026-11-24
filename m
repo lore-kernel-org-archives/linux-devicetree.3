@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540024;
-	b=fGEw32BvOTsuajC8durFWiHKeMdV84iluAh0QIbCVooSY74pIpA+spgCSoqQJRFl8n1S
-	 tN4wZyOmJhff28U5xThsQtb1vtAe/WjOWvk0k3RJyAbxDsfEvrkz+Co63HjU9660F+PO5
-	 +4NybbeYigOl0zAFTYltTajY2EPjo0iqDrvNKjHLdgpc0CX5QQUqkCAqGR5BVsobkZMz1
-	 boC7ZYS9Ew0cjcXxWbO86Z+NDvHSEbtO9cIlHlNbNaAbCJmefMg9nYPYe97ZjTKi9UGt4
-	 WrlVwjnAMMPiN626gKbVD210TT9DZ+lLcLN21byGvTee2druFtTiauEeFvRvbPppucw==
+	t=1795540079;
+	b=dAOyIf/Yy6LhZ8EjoouZKEAOlwJPpI7veIWukR/dBe4tkLtQK/qhLhEjlFIaa939x+xD
+	 PC2kWC/3IS8noD+eYmoniKfa0JOATaoqZboKp5QXxUG/lFyzdBO5gsRn3yJdRPzzF0r4Y
+	 T4fxACf5IcQvYqWcUJ6qPjhGnxHfliPOA3EPL2437Q/G9pW3xMEGzZS8Zb0BsZjzEKGC0
+	 4u6Zh/e/4N7YqFfrgYDDohbpCreCC6B/31X5yXcyIi9X9+i9nppi4ERbL/fokMuKQxj2v
+	 4YV/MtKikVjjlO2IslZ8C72EY7s1vugAp0L6WCLH5mADnvXihpbUfMH+n40p6WdyKaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540024;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=nwJhaD7hsHvajmc5rbX+89FnjO13FGDBeDfX0HlW70A=;
-	b=IHWqAKrunn4YBli/FxAxu7bmI1BA1U1vWC3M3UdCZiEsyRz12m4baqAAcTX4Ke+wUejo
-	 UKRVyPLF2Z3ylNyiPdV4cw5vDQ60Zp4+woIAsA30DGAD/gPUwPIsYSogBkFsHlzJnWxu8
-	 i7ivCbH4BZT1mR31fsDVcDlhAWQl63xPRTtSyrQqe1FLpNmvwe7alZiJcOj7ki8XyeW5o
-	 PZVAjuo7h4Xi2NKv7gB7CB715kUYSzbFYNNHWDCq69ES/XIhcGJCqK523Xkg4RDA77yKO
-	 cHVEm9udRhD3VqBqid2i4rWdr91wYo1tmsa7UdX48uZdz4317cO7YhkHgBXAYqrnmPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540079;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=YuIrq2dA/h1Re098M2B97wM63OaK+lYvl9rfL1gmPt4=;
+	b=cMpcg0WEWZ65uQ+YwP4SU8u1LQAZ3jNHECYbvXtxGMJfKV1ytHnU6pyVN7ISzCaZ4RSV
+	 ZKoSGR6qL6OLtgVFxjHfq3wtjImyFYyH99dB0l55witXcd6UAgqS8pWkpiqhKBGPgRlkf
+	 C9UizjvJu9Rhr6JacC/h1r8wSjc40O6UXvMi6/u3JD5ObSxyEoXY7yWGEyaToztpFTLSt
+	 6fBHSaiDaasz64rZQnn8Kpy/mXCWiZb9UejkYnBADkiGIqzu0FiVW6TLZS/927Ke519rL
+	 9j8FDpMgnWsTWp9xuw11mcBr2VIym3rWVo20Hi5wi6Y1OZNQeUK10cYZD1T+D6pwl4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Megi8c9q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fx80eIXN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00536606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:07:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1592606A31E;
+	Tue, 24 Nov 2026 17:07:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Megi8c9q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DF511F000CA;
-	Tue, 24 Nov 2026 17:07:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fx80eIXN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B061F000CA;
+	Tue, 24 Nov 2026 17:07:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795540023;
-	bh=nwJhaD7hsHvajmc5rbX+89FnjO13FGDBeDfX0HlW70A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Megi8c9q3FX0YhDQFoohmQKdMePyfxCVivfvxuPFAjktx0OV0PqtTpj5aCxUByIm2
-	 n0LeBnCG37EC2zK6yywfVM7KM0OLi9MOhtYkppiSs0UJuCVUcfhwnwcV0KMk12bIZ/
-	 x1g9U4N7Nc6sVErZ0NFNnNnpNgBo7uHvrtAoPBHHUjbKHX4t3bIVDAmlOIO6qw8gP0
-	 1PYw5FYyklhIDfmRykv+ub05cBnRFKcuLIAlVHYUVCgdPFzS7KkZCvCXwKeEdlZ5aV
-	 Fgl+Sdfup/8WNC8r8KzvkDXecpgsLotadAsmCZ5DbvaRWa3wJn2IzyBaeoio098g3h
-	 UA25NFSRCpS8g==
-Message-ID: <sashiko-outbox-231655@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sdm630: fix ADSP FastRPC heap
- assignment
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nickolay Goppen" <setotau@mainlining.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-qcom-adsp-shared-vmid-fixes-v1-2-f1a808dc41a5@mainlining.org>
-References: <20261124-qcom-adsp-shared-vmid-fixes-v1-0-f1a808dc41a5@mainlining.org>
- <20261124-qcom-adsp-shared-vmid-fixes-v1-2-f1a808dc41a5@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 17:07:02 +0000
+	s=k20260515; t=1795540079;
+	bh=YuIrq2dA/h1Re098M2B97wM63OaK+lYvl9rfL1gmPt4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Fx80eIXNIkmzTrunY/15lbwja2FHWZpZPkgC5LBbIkUFlF/QfgQRlbnP4MJlb57m2
+	 ceOu8yfCF820LUqrKG7rwZ+T6or2kaqatl4Ceqw9048YllP2k4lwtN0QhgEtNoZrJ2
+	 ROYSDAqVsoU2ptvKUrixlDYNGy3ekWHilUKjIGTV2uTcsbJTLiQCLvaYTK1ONc3/KQ
+	 XthGG96xjne3XqZKTxH6hQwpBef3amGNn2KZzcZMf15meZO/0MKM6Nr4PKus4v8J2v
+	 cyMeZoH6TlSRFs7JEXfTdLhmS4ELbmUzbcZ7zBgxbsfDV1dPEUxuoNKK4QVxkk6Gug
+	 KIEl0APBVMKCw==
+Date: Tue, 24 Nov 2026 17:07:54 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Paul Cercueil <paul@crapouillou.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] ASoC: jz4740-i2s: Add support for the X1600
+Message-ID: <67b465f9-a848-4ce9-b151-40216ab729e5@sirena.org.uk>
+References: <20261024214438.33342-1-olivier@mgcrea.io>
+ <179495557744.2707353.8222109296948133350.b4-review@b4>
+ <20261122120251.2083-1-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,59 +63,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Ake2uQqVv5+1uf/x"
+Content-Disposition: inline
+In-Reply-To: <20261122120251.2083-1-olivier@mgcrea.io>
+X-Cookie: Real Users never use the Help key.
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] arm64: dts: qcom: sdm630: adsp_mem left reusable after revoking
-  HLOS VMID
---
 
-commit 4c51ed0e779228db4d03e3924b592519e72060d8
-Author: Gianluca Boiano <morf3089@gmail.com>
+--Ake2uQqVv5+1uf/x
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-arm64: dts: qcom: sdm630: fix ADSP FastRPC heap assignment
+On Sun, Nov 22, 2026 at 01:02:51PM +0100, Olivier Louvignes wrote:
+> On Tue, Nov 17, 2026 at 10:46:17PM +0000, Mark Brown wrote:
 
-This commit removes QCOM_SCM_VMID_HLOS from the ADSP FastRPC node's
-qcom,vmids property in sdm630.dtsi so that qcom_scm_assign_mem() succeeds
-when assigning the adsp_mem heap to QCOM_SCM_VMID_CP_ADSP_SHARED.
+> > > +	.field_i2sdiv_capture	= REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 8),
 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/q=
-com/sdm630.dtsi
-> index 20225732e4a80..327a8049f7072 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-> @@ -2477,8 +2477,7 @@ fastrpc {
->  					qcom,glink-channels =3D "fastrpcglink-apps-dsp";
->  					label =3D "adsp";
->  					memory-region =3D <&adsp_mem>;
-> -					qcom,vmids =3D <QCOM_SCM_VMID_HLOS
-> -						      QCOM_SCM_VMID_CP_ADSP_SHARED>;
-> +					qcom,vmids =3D <QCOM_SCM_VMID_CP_ADSP_SHARED>;
+> > In the v2 thread Nikolaus said that there are separate TX and RX
+> > dividers, is that the case?
 
-[Severity: High]
-Should adsp_mem in sdm630.dtsi be changed from reusable to no-map now
-that QCOM_SCM_VMID_HLOS is removed here?
+> Yes, I2SDIV has TDIV in bits 8:0 and RDIV in bits 24:16 (X1600
+> programming manual, 9.7.2.6). RDIV is only used in independent clock
+> mode though (AICFR.DMODE set, the "6line-mode" with its own RX_BCLK and
+> RX_LRCLK).
 
-arch/arm64/boot/dts/qcom/sdm630.dtsi:
-    ...
-		adsp_mem: adsp-region {
-			compatible =3D "shared-dma-pool";
-			alloc-ranges =3D <0x0 0x80000000 0x0 0x80000000>;
-			alignment =3D <0x0 0x400000>;
-			size =3D <0x0 0x800000>;
-			reusable;
-		};
-    ...
+> The driver writes AICFR in probe without that bit, so the AIC stays in
+> share clock mode, where capture runs from the transmit clocks and so
+> from TDIV. That is why both fields point at 8:0, as in the X1000 entry.
 
-During fastrpc_rpmsg_probe(), fastrpc_init_reserved_mem() calls
-qcom_scm_assign_mem() on the raw adsp_mem resource range without
-allocating its pages from CMA, revoking HLOS stage-2 permissions across
-the 8 MiB region.  Because adsp_mem is marked reusable, it remains in the
-kernel linear map and CMA continues lending its pages to the buddy
-allocator for movable allocations, causing a stage-2 access fault or
-memory corruption between Linux and the ADSP remote heap when those pages
-are accessed.
+> I could not test capture, the R1 has no capture path.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-qcom-adsp-=
-shared-vmid-fixes-v1-0-f1a808dc41a5@mainlining.org?part=3D2
+> Would you like a comment in x1600_i2s_soc_info saying so, or is it fine
+> as is?
+
+Please add a comment.
+
+--Ake2uQqVv5+1uf/x
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmsFxGkACgkQJNaLcl1U
+h9CkTQf+IsQ8pG7LCX+8SD3EK8zdJL4KFLjttrGF6B3p/R1mux9NddBHXgn9Pzcf
+2HHXv3ZSp+nEqwvCdxiLXGI0f82IUVaq0d8te44bLDfXyJcnwSGjz9/BIcX89RWX
+PS/PnRJ8lOd2oWI140irWy0KquVbkr3xBx0tH1aMXwRImGbv9ush2NfqHqHY4eMC
+9D+YUjx+TpMr9aLRe6XWrm5b0c96vQUM4ehUTSfuCJZZvElydNBOEB3AFnrHFwZZ
+9a0t0fkji6C840khsO6BR81fXgKvXrL1+3QJ84UVF8mrPq2WSNPhKCpvlUrfy5sq
+XE8mtP3UQvTS9l9ZYjSqFSn6XpkhxA==
+=tFvJ
+-----END PGP SIGNATURE-----
+
+--Ake2uQqVv5+1uf/x--
