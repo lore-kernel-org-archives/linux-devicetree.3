@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795549993;
-	b=Kcap2g5MiHtlHBG4sHnqeLjMq8qbMcfxSX3rxHplkVLliiIaTjBK/KEapjt56Xirr7UK
-	 eaNiG62wP+p47XKgCYiiopq/GhSJFOPFpe8XJaQjyn8eNQaCvBv3tKtVToe+uYfNh2qj/
-	 I92gAO6WbMvhxz1Ts32MGWPSLXrkFlxaKY6GWPuC7+z2RmMJurOfl5+fRUHB+y0rdehAC
-	 ECppE5CiAuuRnbTmX3acW0HnNFuTj7iQuACNPjSWFaCChStpGM2or1vaoQpPjVlLd19NC
-	 fRnI9X6mCpzcMRQBMKjelpECQ7V9v88STygwTmM9Yz9dC+vNZHvCQUaFwFf8MOEij7w==
+	t=1795549990;
+	b=0nKuVRrJobGdNChWd8B25CIm8gKOe7mLYZzcUajB4DnFZBR2MHGBhrXhn7n2jPg78WKM
+	 3ZctsVXzONvYdA5SK5fj+FKLw+Tc8TPjci115233jqFjblH5Oyy3GxKg8S52APoPeaWRR
+	 xHdJ9lqYC4lZwRH/YUtT4hwUW5yfp12dBvZiMxVMctq/yqz9zrScIjPYlILMZR5uTR6pN
+	 gIjeehZP3GGD2RrKf6OMxc7l2g/CxZQAin2S402TctYZ8RJY/Y6eaoZknYaMD/44TMTjH
+	 alHgLUA/Av/kr81BrQYcK+l3Tqr6vR8IyKwMWCQ7odFXOlefPl7fV0sjqJp7bwtYI+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795549993;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795549990;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=YIYFWuRLWL0vTPCOaOdnGUnLsgG8UlXiWPpjWyhViFM=;
-	b=1+XYI8+Zu15I01JMLq5J0xAzV0xazEbiydYbM8zjcELhB/volmPBTN3cBCJmoGcnb7ef
-	 QJdL2LO0KAtKaX1FMipVzbZfi0oDVcGsNAqt8gddQqE3lT+M8soKHCF4r8EiAhZ1bmHL2
-	 NSpUifRn7Yh16lWRxNG4jMJuDQdeaOGxzmN2dgFA2SSmqOvIIPJHvfUnyuVdVtQcv8WGR
-	 rm8LGU5ZMXe/S+V+rFrZjn3aDRux+Q5PPa4SuNQc4hFdsqs+DtN6QqOj6ziFJdSaKjejQ
-	 qJI7TD41LgXgUd/e9k7XT/D1rgMPyKxO3FgS5EjCFvjN5YHzntaobyYd2tBNy/PX3ZA==
+	bh=RumJVU2fyeIBgsPQcKKCaCPpS/w2DrR8cb6jiXDvUqQ=;
+	b=qz4dtjobpty1WDA31hhEJsE973CAi9+Rni+1T3DyZECDzJ5d45Fi/SEHq8LmAEptJgFq
+	 OhVcUkCxgi0INoiiHXcKznUPObCCewaILW7p1+KLYdB10KrW2I5HO45nwnV0O777sxuZi
+	 w67EBytOKanZPKKvCiLj0z6jV7q7liwCUVnNKA/5dXtrEw1PKOQ3W5tCL9kGC/ZYq4Dkj
+	 1FV/j5m1DoUM38sJkadyAUqMhHsf/ljAT+gC6AuoiL2P7B9zzFZEh0gM7bXRoAkozg902
+	 Yjq8YE+chL1mZ00l0WWbWoWazIwPxcrF1bHF2eqN5IkFg//79MJyb68Mo1swXUncqYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YZ/dikqb";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TpapYsxX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEE0606A334;
-	Tue, 24 Nov 2026 19:53:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C429606A31E;
+	Tue, 24 Nov 2026 19:53:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZ/dikqb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24F01F000F0;
-	Tue, 24 Nov 2026 19:53:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TpapYsxX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D9E51F000CA;
+	Tue, 24 Nov 2026 19:53:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795549993;
-	bh=YIYFWuRLWL0vTPCOaOdnGUnLsgG8UlXiWPpjWyhViFM=;
+	s=k20260515; t=1795549989;
+	bh=RumJVU2fyeIBgsPQcKKCaCPpS/w2DrR8cb6jiXDvUqQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YZ/dikqbSGGdR+C6+Rq+pT88Qh1Ww80djz6Ec2HXycXqromXF8b730Ec9Q4KAB1Cs
-	 oo+VcSAv1afQWXWALAlK1snLpxhrddVr8zjCuHC9FjFWI5pnLJT2nWqKDNL04B0KpR
-	 JTEiUtLtqGz31CfRwSSt8ABigu3xvPlXEzk1dOmSo6o8dGPvGO02zn1fobrO7tJ+Ai
-	 7PzgdpK5Q4kxEcMqUkd5mIPSEeV69C+1xQdiOdkVWcQ/DR7nbQ+L5NJHOpvAb/Rs/S
-	 Flyzdc3ScduVVCqFgfKE3wvKw7Ag8DcTzJlez/nD1oAM2heSP2L3yIUUp1Kad4Xqju
-	 77ISCmv3SFy/A==
-Message-ID: <sashiko-outbox-231916@kernel.org>
+	b=TpapYsxXs0e/Mhxv9ycjbdYGMdhMy+TA8GsFxkKtYoHva2Pk7Z5iql5+Tp6jhEQ/Y
+	 qNpcpD/IXuBD4Jg3KucVvZwgAwkglbqRI9TmX1wAtPCGrTLazhDD7izyOJ+QfFjMiA
+	 nauXAy8HA2TVAJaw7neFNg4vZMosP+XjJSUnbxlY99RsnEVOb6RplIlHDROUU7mA9/
+	 D2cXwNRPoPbXlfZQhVIflB6lBQPppTIvkNARiVD1xL682Njp+i0fDLsOlNSNuWA61N
+	 YP5Y6Pw9E97CxE4r3WEL3SUf8fuxy15iIzgw5fzt8+VAqsw5FrROhlC1Nshup0T81S
+	 x7q4p9XspGodQ==
+Message-ID: <sashiko-outbox-231910@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/10] arm64: dts: qcom: sc7280: Add GP M/N clock
- controller
+Subject: Re: [PATCH v3 01/10] dt-bindings: clock: qcom: Add bindings for PDM
+ GP_MN clock divider
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Taniya Das" <taniya.das@oss.qualcomm.com>
 Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-b4-pdm_clk_gp_mnd_v2-v3-7-98db26a87500@oss.qualcomm.com>
+In-Reply-To: <20261124-b4-pdm_clk_gp_mnd_v2-v3-1-98db26a87500@oss.qualcomm.com>
 References: <20261124-b4-pdm_clk_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com>
- <20261124-b4-pdm_clk_gp_mnd_v2-v3-7-98db26a87500@oss.qualcomm.com>
+ <20261124-b4-pdm_clk_gp_mnd_v2-v3-1-98db26a87500@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 19:53:12 +0000
+Date: Tue, 24 Nov 2026 19:53:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,71 +61,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: sc7280: undefined gp_mn pinmux function in
-  kodiak.dtsi
-- [Low] arm64: dts: qcom: sc7280: unsorted gp_mn_active pinctrl subnode
-  in kodiak.dtsi
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: clock: qcom: redundant word bindings in commit
+  subject
 --
 
-commit b17b6968e213c74fa5ead791ea18018b1292f1e0
+commit 014c9445d6141d97936e8971e3c43aff457ee953
 Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-arm64: dts: qcom: sc7280: Add GP M/N clock controller
+dt-bindings: clock: qcom: Add bindings for PDM GP_MN clock divider
 
-This commit adds the GP M/N clock controller node and its default TLMM pin
-configuration on gpio60 for SC7280.
+This commit adds the device tree binding schema for the Qualcomm Peripheral
+Web's PDM GP_MN clock divider.
 
-> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/q=
-com/kodiak.dtsi
-> index 10e9a5279ed60..773f4487d7830 100644
-> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-
-[ ... ]
-
-> @@ -6683,6 +6697,13 @@ mi2s0_ws: mi2s0-ws-state {
->  				function =3D "mi2s0_ws";
->  			};
-> =20
-> +			gp_mn_active: gp-mn-active-state {
-> +				pins =3D "gpio60";
-> +				function =3D "gp_mn";
-
-[Severity: Medium]
-Is a patch adding the "gp_mn" function to the SC7280 pinctrl driver and
-binding missing?
-
-Neither Documentation/devicetree/bindings/pinctrl/qcom,sc7280-pinctrl.yaml
-nor drivers/pinctrl/qcom/pinctrl-sc7280.c defines "gp_mn" (and
-sc7280_groups[60] only lists qup17, edp_hot and phase_flag):
-
-drivers/pinctrl/qcom/pinctrl-sc7280.c:sc7280_groups[] {
-    ...
-	[60] =3D PINGROUP(60, qup17, edp_hot, _, phase_flag, _, _, _, _, _),
-    ...
-}
-
-Because tlmm is enabled in kodiak.dtsi, this causes dtbs_check schema
-validation failures on SC7280 boards, and enabling gp_mn will fail to
-probe at runtime with -EINVAL when pinctrl_bind_pins() looks up "gp_mn".
-
-> +				drive-strength =3D <2>;
-> +				bias-disable;
-> +			};
-> +
->  			mi2s1_sclk: mi2s1-sclk-state {
->  				pins =3D "gpio106";
->  				function =3D "mi2s1_sck";
+> dt-bindings: clock: qcom: Add bindings for PDM GP_MN clock divider
 
 [Severity: Low]
-This isn't a bug, but the tlmm subnodes in kodiak.dtsi were sorted by pin
-number in commit a732b12f1fcc ("arm64: dts: qcom: kodiak: Sort pinctrl
-subnodes by pins").  Should gp_mn_active (gpio60) be placed alongside the
-existing gpio60 states (such as edp_hot_plug_det) rather than between
-gpio100 and gpio106?
+This isn't a bug, but the dt-bindings: prefix already indicates that the
+patch adds a binding, so "bindings for" in the subject line is redundant
+and can be dropped (for example, "dt-bindings: clock: qcom: Add PDM GP_MN
+clock divider").
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-pdm_clk=
-_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com?part=3D7
+_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com?part=3D1
