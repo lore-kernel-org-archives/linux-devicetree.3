@@ -1,56 +1,38 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.47.186.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795517152;
-	b=15OAhBTksSFvzYx7nNTnBNMU3nGqCfP7APKFlmm7gBwk5OnQL8sRXyvVVrTyvDBFa998
-	 +uc/X1Y+3zMp/kks3Lng0zrngkfZNB7B4Zp+ue+CSYSgLn2DlygxuFxpLwfjXflbeBJ18
-	 cghIr54KXTxvJL6ema92rE/P0oh8l/hKutOLMmtmWw823u4hm+Ua9Twc6Wtpa51pUD4XT
-	 UB6q0N7YYfDXb3MuhxNK2yDLaqjvl5TUuiYddJg/jJ7wrAlfAf0rQLibyCRwIfb1sxmU2
-	 n4wMlOvx8nxKRLnsox2SndYB9qLd5q9RxnrhTQc4eK4KfQKXdwx/aVkSZT+j1qJVTew==
+	t=1795517326;
+	b=b6zwY7h1qBJBXzGyfCnvQGSa9RzStcM/RcarqYKRT7de1mnY4O7394rr+DN0X409SC1G
+	 Z2122H4e2ASH0aILcJtM7x5Mb4WRLqJN1drORvcjOjcJ0RlXjYSmqGs5KuhPNZ9BgP8eU
+	 96zeJ+aUbBtBrDUCWqfjlktqP5/lBfpmkAmmiP5qvrw9J6rmZHAa7W0arPtLWpi8fYSSe
+	 CI7UHyGmPtBddAZtlKRKkZVt4qyPYALfTh1Wi1jHXPzWPZGyHwAN92DlJIvQ5a7AXvquR
+	 Lr0wbhXId0Zv49WajV7A1aBYKOwik2XkOAq7xLWae5yiFGm7mg0ewNRFrPxodrxcYjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795517152;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iZkf/Lzmu7P++n2nxDMb0FBX+3fJaD3822HH8l9H4NA=;
-	b=DfFYOoVFeYOsDB4QrKrqFusa0r1/HtAD+6fhcDyUEZRE3dqY1t6wRlceOpb77OBNKjYv
-	 Yy7gWhFK1GFX7lg+CULWXOVt/VmHw/lFeQzi917H/IWuhtlpHujvNsQJJGPVUKJnFvELP
-	 RmSTMwcnpVxxiPvrCPHWfe2Wc+auaytgaeCKta/vmBLG+idflkbBiaqoeiZ94lnmXvbl/
-	 5X3P+WBIDlSjglKO9doC8rdP0YMa/3x49gca7A16Qn5ZUNqhU+EfF6QwaS2xcQvjgIY47
-	 NP20RaN2eGJpFEHrb9KcWu80So9eOFw1PGPKUxJYjCVxvqUOzq+TD7eEZTXowze+WRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795517326;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=/1tG4STTQoH7uTO0OmAB8N007N+woS6zsOPKJkrbVYE=;
+	b=3DTj7vBDhvjPhBV0pu8oxpcmTjHpGD49/NHv6XOjPoEvCGCzDOupWAu3JBS+CuP7Gvrg
+	 KAqQ11FRwD8ALygZtpm6npNjegfT04Tham60geXsiSIHisEW96eXjR1GG8ZJl4ZjZkFnj
+	 2OS6SnvjPcjKZp9sUQNLLMtXzeemfUQltzdoDxzYPxaP5vnUruHZp25DBg0/tO4/D2jBu
+	 oEeept4EoRprVxWA+uyxSg25PnHai88EDidKtx81Z5w41RxEgEOgESR1Dn16tiq2cHfkO
+	 p6veOGaPfeO2pIrDwY0M3AGCSSBlhls3ffpUW3AGTtN/ASJ4wrrxZyFsQDrhNdYZRKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tgwtsa7y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42B2606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 10:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tgwtsa7y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E911F000C0;
-	Tue, 24 Nov 2026 10:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795517152;
-	bh=iZkf/Lzmu7P++n2nxDMb0FBX+3fJaD3822HH8l9H4NA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Tgwtsa7yN7zl6nde7iXoxck8+mFlv3HRZIPCkmH8ecTqmJ3PSgLH/1rEZFL/Ylf9E
-	 LvviEGPv5UX/Ie2WD88i9pXDpOC+CvVYkeUotCglDTl32+pRk9SkXfEKmv3q9wS5cw
-	 Ej9Kj4dNvs4aW7Is+g4+N9Nctgn+W/FBrnnhaLvlrl2PszEZrmgYy8l39G4qUW27LN
-	 HAVJYyT9Jevh4W8NJXlCr1Ra4L5QFCMWaRewVRlOTDLGxRJvT8mLoE1SU1tuEzHC6D
-	 +sAHUa0McTB58WzYf13DvzP5NU5/Vn/fhUul7DBCitL3jKJPIPE7ZDEgL3RCZ1IZwn
-	 cIhQTUsU8z+8A==
-Message-ID: <sashiko-outbox-230980@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: add Monaco Draco EVK board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Faruque Ansari" <faruque.ansari@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-monaco-draco-v2-3-3ee3b2375f16@oss.qualcomm.com>
-References: <20261123-monaco-draco-v2-0-3ee3b2375f16@oss.qualcomm.com>
- <20261123-monaco-draco-v2-3-3ee3b2375f16@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 10:45:51 +0000
+	dmarc=pass header.from=krgm.moe;
+	spf=pass smtp.mailfrom=krgm.moe;
+	arc=none smtp.remote-ip=103.47.186.116
+Received: from krgm.moe (krgm.moe [103.47.186.116])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E125B606A322;
+	Tue, 24 Nov 2026 10:48:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E125B606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krgm.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krgm.moe
+Received: from [10.42.0.96] (unknown [114.242.206.180])
+	by krgm.moe (Postfix) with ESMTPSA id 010FB77B7;
+	Tue, 24 Nov 2026 16:18:41 +0530 (IST)
+From: SignKirigami <prcups@krgm.moe>
+Date: Tue, 24 Nov 2026 18:47:44 +0800
+Subject: [PATCH 1/2] dt-bindings: pinctrl: Add Qualcomm Netrani TLMM
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,263 +41,239 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261124-netrani-tlmm-v1-v1-1-0f84fa251b89@krgm.moe>
+References: <20261124-netrani-tlmm-v1-v1-0-0f84fa251b89@krgm.moe>
+In-Reply-To: <20261124-netrani-tlmm-v1-v1-0-0f84fa251b89@krgm.moe>
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8382; i=prcups@krgm.moe;
+ h=from:subject:message-id; bh=Jkg+tqQD3cxB46jiRaUp05pv98axYJCWXnM8tDnILUY=;
+ b=owEBCQL2/ZANAwAIAV0dOJt2umJjAcsmYgBrBWthUy7tI7BbINj2c0x288USP4gf1wPPE5YOL
+ lMk0l5SljmJAc8EAAEIADkWIQRSClJ2zjncUdNU0FFdHTibdrpiYwUCawVrYRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDIACgkQXR04m3a6YmMiTgwAo4l6pHJdZQf1ZvJiv/GKAR0mal2/5Em
+ m9zqDaiUgn6+Gqz8Gk29K5N+GQRbfulmlIziEqlEjsk0htUjd6hxmzl8b4wa1aA+Dt5G9D3B0FR
+ zcFn0Y9V8DiCR84rJbqSCO7KfV+ZIxlf+iGStyylxi5kXqM3jY5AjOlWfr2iEnw7ODjFJ5f3kul
+ njWcxc8ON4Qh+2tlll7zZU9Slk0S5FMNT0CDBvC+fnVLBi0MFHr7qRTybASUju6xo7sVXGnkLSd
+ +cQCAvdQWPSavTfIukxKcauf2F3g13onSFftbnGVXE4UXce1Ziyq+Ph9T6uoc8Yy+pJ2iXokZIp
+ qIOVIpsoV/duwW6mc4lTs5tbQUuEh6uO9LZhL/9g6tO1AfpMxIGTvcp7Y8ng4E/E5bZphujNP/h
+ 1sxQrQIqknVqgS3NfBkKHNmvSfU3W7Eryor08e2KraDhoYQnJUBlGTronIjZ/WqUzGQ8qAAO9kI
+ dUBRVOY9qcbKv76uvwoNaWRqt/DcFut
+X-Developer-Key: i=prcups@krgm.moe; a=openpgp;
+ fpr=520A5276CE39DC51D354D0515D1D389B76BA6263
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issues to consider:
-- [High] arm64: dts: qcom: unmatched compatible and missing routing on
-  sound node
-- [High] arm64: dts: qcom: missing enable-active-high on vreg_dp0_pwr
-  regulator
-- [High] arm64: dts: qcom: non-routable hostname email in Signed-off-by
-  trailer
-- [Medium] arm64: dts: qcom: lpass_tlmm redefinition and uppercase
-  codec@33F0000
-- [Medium] arm64: dts: qcom: TC9563 Ethernet endpoints modeled as PCI
-  bridges
-- [Low] arm64: dts: qcom: non-generic max98091@10 node name and
-  IRQ_TYPE_NONE
-- [Low] arm64: dts: qcom: commit message mismatch for uart2 and pcie1
-  topology
---
+Describe the Netrani top-level pin controller, including GPIO,
+peripheral mux functions, eGPIO selection and dedicated SD/UFS pins.
 
-commit 3fa9beb477beb817044281e8e657768127392121
-Author: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Signed-off-by: SignKirigami <prcups@krgm.moe>
+---
+ .../bindings/pinctrl/qcom,netrani-tlmm.yaml        | 190 +++++++++++++++++++++
+ 1 file changed, 190 insertions(+)
 
-> arm64: dts: qcom: add Monaco Draco EVK board
->=20
-> The Monaco Draco EVK pairs the Monaco Draco AC SoM with the Draco
-> carrier board. Add its device tree, describing the board-specific
-> peripherals layered on top of the SoM:
->=20
->  - I2C GPIO expanders: 4x KTS1622 on i2c14 and 2x TCA9538 on i2c15
->  - EEPROM with a MAC-address nvmem layout on i2c15
->  - Native DisplayPort output (DP0)
->  - Gigabit Ethernet (ethernet0, 2500base-x) over an HSGMII PHY, with
->    the MAC address sourced from the EEPROM
->  - Dual PCIe (pcie0/pcie1) behind an on-board TC9563 PCIe switch
->  - ST33HTPM TPM over spi10
->  - AMC6821 fan controller on i2c13
->  - M.2 E-key slot connector and carrier debug UART (uart2)
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,netrani-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,netrani-tlmm.yaml
+new file mode 100644
+index 0000000000000..f9af05dc86aea
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,netrani-tlmm.yaml
+@@ -0,0 +1,190 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/qcom,netrani-tlmm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm Technologies, Inc. Netrani TLMM block
++
++maintainers:
++  - SignKirigami <prcups@krgm.moe>
++
++description:
++  Top Level Mode Multiplexer pin controller in Qualcomm Netrani SoC.
++
++allOf:
++  - $ref: /schemas/pinctrl/qcom,tlmm-common.yaml#
++
++properties:
++  compatible:
++    const: qcom,netrani-tlmm
++
++  reg:
++    maxItems: 1
++
++  interrupts: true
++  interrupt-controller: true
++  "#interrupt-cells": true
++  gpio-controller: true
++
++  gpio-reserved-ranges:
++    minItems: 1
++    maxItems: 68
++
++  gpio-line-names:
++    maxItems: 142
++
++  "#gpio-cells": true
++  gpio-ranges: true
++  wakeup-parent: true
++
++patternProperties:
++  "-state$":
++    oneOf:
++      - $ref: "#/$defs/qcom-netrani-tlmm-state"
++      - patternProperties:
++          "-pins$":
++            $ref: "#/$defs/qcom-netrani-tlmm-state"
++        additionalProperties: false
++
++$defs:
++  qcom-netrani-tlmm-state:
++    type: object
++    description:
++      Pinctrl node's client devices use subnodes for desired pin configuration.
++      Client device subnodes use below standard properties.
++    $ref: qcom,tlmm-common.yaml#/$defs/qcom-tlmm-state
++    unevaluatedProperties: false
++
++    properties:
++      pins:
++        description:
++          List of gpio pins affected by the properties specified in this
++          subnode.
++        items:
++          oneOf:
++            - pattern: "^gpio([0-9]|[1-9][0-9]|1[0-3][0-9]|140)$"
++            - enum: [ sdc1_clk, sdc1_cmd, sdc1_data, sdc1_rclk, sdc2_clk, sdc2_cmd, sdc2_data, ufs_reset ]
++          minItems: 1
++          maxItems: 36
++
++      function:
++        description:
++          Specify the alternative function to be configured for the specified
++          pins.
++        enum: [ gpio, egpio,
++                atest_char_start, atest_char_status0, atest_char_status1,
++                atest_char_status2, atest_char_status3, atest_usb0_atereset,
++                atest_usb0_testdataout00, atest_usb0_testdataout01, atest_usb0_testdataout02,
++                atest_usb0_testdataout03, audio_ref_clk, cam_mclk,
++                cci_async_in0, cci_i2c_scl0, cci_i2c_scl1,
++                cci_i2c_scl2, cci_i2c_scl3, cci_i2c_sda0,
++                cci_i2c_sda1, cci_i2c_sda2, cci_i2c_sda3,
++                cci_timer0, cci_timer1, cci_timer2,
++                cci_timer3, cmu_rng_entropy0, cmu_rng_entropy1,
++                cmu_rng_entropy2, cmu_rng_entropy3, coex_uart1_rx,
++                coex_uart1_tx, cri_trng_rosc, cri_trng_rosc0,
++                cri_trng_rosc1, dbg_out_clk, ddr_bist_complete,
++                ddr_bist_fail, ddr_bist_start, ddr_bist_stop,
++                ddr_pxi0_test, ddr_pxi1_test, dp0_hot_plug,
++                gcc_gp1_clk, gcc_gp2_clk, gcc_gp3_clk,
++                host2wlan_sol_mira, host2wlan_sol_mirb, i2s0_data0,
++                i2s0_data1, i2s0_sck, i2s0_ws,
++                ibi_i3c_qup0, ibi_i3c_qup1, jitter_bist_ref,
++                mdp_vsync0_out, mdp_vsync1_out, mdp_vsync2_out,
++                mdp_vsync3_out, mdp_vsync_e, mdp_vsync_p,
++                mdp_vsync_s, nav_gpio0, nav_gpio1,
++                nav_gpio2, pcie0_clk_req, phase_flag_status0,
++                phase_flag_status1, phase_flag_status10, phase_flag_status11,
++                phase_flag_status12, phase_flag_status13, phase_flag_status14,
++                phase_flag_status15, phase_flag_status16, phase_flag_status17,
++                phase_flag_status18, phase_flag_status19, phase_flag_status2,
++                phase_flag_status20, phase_flag_status21, phase_flag_status22,
++                phase_flag_status23, phase_flag_status24, phase_flag_status25,
++                phase_flag_status26, phase_flag_status27, phase_flag_status28,
++                phase_flag_status29, phase_flag_status3, phase_flag_status30,
++                phase_flag_status31, phase_flag_status4, phase_flag_status5,
++                phase_flag_status6, phase_flag_status7, phase_flag_status8,
++                phase_flag_status9, pll_bist_sync, pll_clk_aux,
++                prng_rosc_test0, prng_rosc_test1, prng_rosc_test2,
++                prng_rosc_test3, qdss_cti_trig0, qdss_cti_trig1,
++                qdss_gpio_traceclk, qdss_gpio_tracectl, qdss_gpio_tracedata0,
++                qdss_gpio_tracedata1, qdss_gpio_tracedata10, qdss_gpio_tracedata11,
++                qdss_gpio_tracedata12, qdss_gpio_tracedata13, qdss_gpio_tracedata14,
++                qdss_gpio_tracedata15, qdss_gpio_tracedata2, qdss_gpio_tracedata3,
++                qdss_gpio_tracedata4, qdss_gpio_tracedata5, qdss_gpio_tracedata6,
++                qdss_gpio_tracedata7, qdss_gpio_tracedata8, qdss_gpio_tracedata9,
++                qlink0_enable, qlink0_request, qlink0_wmss_reset,
++                qlink1_enable, qlink1_request, qlink1_wmss_reset,
++                qspi0, qspi1, qspi2,
++                qspi3, qspi_clk, qspi_cs_n,
++                qup0_se0_l0, qup0_se0_l1, qup0_se0_l2,
++                qup0_se0_l3, qup0_se1_l0, qup0_se1_l1,
++                qup0_se1_l2, qup0_se1_l3, qup0_se1_l4,
++                qup0_se2_l0, qup0_se2_l1, qup0_se2_l2,
++                qup0_se2_l3, qup0_se3_l0, qup0_se3_l1,
++                qup0_se3_l2, qup0_se3_l3, qup0_se4_l0,
++                qup0_se4_l1, qup0_se4_l2, qup0_se4_l3,
++                qup0_se5_l0, qup0_se5_l1, qup0_se5_l2,
++                qup0_se5_l3, qup0_se5_l4, qup0_se5_l5,
++                qup0_se5_l6, qup1_se0_l0, qup1_se0_l1,
++                qup1_se0_l2, qup1_se0_l3, qup1_se1_l0,
++                qup1_se1_l1, qup1_se1_l2, qup1_se1_l3,
++                qup1_se2_l0, qup1_se2_l1, qup1_se2_l2,
++                qup1_se2_l3, qup1_se2_l4, qup1_se3_l0,
++                qup1_se3_l1, qup1_se3_l2, qup1_se3_l3,
++                qup1_se5_l0, qup1_se5_l1, qup1_se5_l2,
++                qup1_se5_l3, sd_write_protect, tb_trig_sdc1,
++                tb_trig_sdc2, tgu_ch0_trigout, tgu_ch1_trigout,
++                tgu_ch2_trigout, tgu_ch3_trigout, tmess_prng_rosc0,
++                tmess_prng_rosc1, tmess_prng_rosc2, tmess_prng_rosc3,
++                tsense_pwm1_out, tsense_pwm2_out, uim0_clk,
++                uim0_data, uim0_present, uim0_reset,
++                uim1_clk, uim1_data, uim1_present,
++                uim1_reset, usb0_hs_ac, usb0_phy_ps,
++                vfr_0_mira, vfr_0_mirb, vfr_1,
++                vsense_trigger_mirnat, wlan1_adc_dtest0, wlan1_adc_dtest1,
++                wlan2_adc_dtest0, wlan2_adc_dtest1 ]
++
++    required:
++      - pins
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    tlmm: pinctrl@f000000 {
++        compatible = "qcom,netrani-tlmm";
++        reg = <0x0f000000 0x1000000>;
++        gpio-controller;
++        #gpio-cells = <2>;
++        gpio-ranges = <&tlmm 0 0 142>;
++        interrupt-controller;
++        #interrupt-cells = <2>;
++        interrupts = <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
++
++        gpio-wo-state {
++            pins = "gpio1";
++            function = "gpio";
++        };
++
++        uart-w-state {
++            rx-pins {
++                pins = "gpio23";
++                function = "qup1_se2_l0";
++                bias-pull-up;
++            };
++
++            tx-pins {
++                pins = "gpio22";
++                function = "qup1_se2_l0";
++                bias-disable;
++            };
++        };
++    };
++...
 
-[Severity: Low]
-Are these descriptions of pcie1 and uart2 accurate?  In the devicetree
-below, only pcie0 (pcieport0) sits behind the TC9563 PCIe switch while
-pcie1 (pcieport1) is an independent root complex, and uart2 is wired via
-an OF graph endpoint to port@3 (the Bluetooth UART interface) of
-wifi-bt-connector rather than serving as a debug UART.
+-- 
+2.56.0
 
->  - Audio Playback and Capture over max98091, Audio Capture over
->    va_macro codec DMA.
->=20
-> Also hook the board dtb into the Makefile, together with an EL2
-> overlay variant that boots the kernel at EL2 for KVM.
->=20
-> Co-developed-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> Co-developed-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-> Co-developed-by: Dipa Mantre <dipa.mantre@oss.qualcomm.com>
-> Signed-off-by: Dipa Mantre <dipa.mantre@oss.qualcomm.com>
-> Co-developed-by: Sravani Tella <tella@hu-tella-hyd.qualcomm.com>
-> Signed-off-by: Sravani Tella <tella@hu-tella-hyd.qualcomm.com>
-
-[Severity: High]
-The Co-developed-by and Signed-off-by trailers for Sravani Tella use an
-internal workstation hostname (tella@hu-tella-hyd.qualcomm.com) rather
-than a valid routable email address.
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-draco-evk.dts b/arch/arm64/b=
-oot/dts/qcom/monaco-draco-evk.dts
-> new file mode 100644
-> index 0000000000000..ae34538e6fd34
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/monaco-draco-evk.dts
-> @@ -0,0 +1,755 @@
-
-[ ... ]
-
-> +	vreg_dp0_pwr: regulator-dp0-pwr {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VREG_DP0_PWR_3P3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		gpio =3D <&expander1 7 GPIO_ACTIVE_HIGH>;
-> +	};
-
-[Severity: High]
-Is vreg_dp0_pwr missing enable-active-high?  For regulator-fixed nodes,
-of_gpio_quirk_polarity() ignores GPIO_ACTIVE_HIGH in the gpio specifier
-and forces active-low polarity unless enable-active-high is present,
-which inverts the DP0 3.3V connector power supply enable line.
-
-[ ... ]
-
-> +	sound {
-> +		compatible =3D "qcom,qcs8300-draco-sndcard";
-> +		model =3D "MONACO_DRACO_EVK";
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&mi2s_mclk_a>, <&mi2s2_data0>, <&mi2s2_data1>,
-> +			    <&mi2s2_sck>, <&mi2s2_ws>;
-> +		mi2s2-capture-dai-link {
-> +			link-name =3D "Tertiary MI2S Capture";
-> +			codec {
-> +				sound-dai =3D <&max98091>;
-> +			};
-> +			cpu {
-> +				sound-dai =3D <&q6apmbedai TERTIARY_MI2S_TX>;
-> +			};
-> +			platform {
-> +				sound-dai =3D <&q6apm>;
-> +			};
-> +		};
-> +		mi2s2-playback-dai-link {
-> +			link-name =3D "Tertiary MI2S Playback";
-> +			codec {
-> +				sound-dai =3D <&max98091>;
-> +			};
-> +			cpu {
-> +				sound-dai =3D <&q6apmbedai TERTIARY_MI2S_RX>;
-> +			};
-> +			platform {
-> +				sound-dai =3D <&q6apm>;
-> +			};
-> +		};
-> +		va-dai-link {
-> +			link-name =3D "Codec DMA Capture";
-> +
-> +			codec {
-> +				sound-dai =3D <&lpass_va_macro 0>;
-> +			};
-> +
-> +			cpu {
-> +				sound-dai =3D <&q6apmbedai VA_CODEC_DMA_TX_0>;
-> +			};
-> +
-> +			platform {
-> +				sound-dai =3D <&q6apm>;
-> +			};
-> +		};
-> +	};
-
-[Severity: High]
-Will the sound node bind to a driver or power the DMIC bias supply?
-"qcom,qcs8300-draco-sndcard" is neither documented in the bindings nor
-matched by any ASoC driver (other QCS8300 boards with MAX98091 use
-"qcom,qcs8275-sndcard" in sound/soc/qcom/sc8280xp.c).
-
-The sound node also omits audio-routing, so the MAX98091 codec widgets
-and the lpass_va_macro "vdd-micb" DAPM regulator supply widget (backed by
-the GPIO-controlled vreg_va_micb_1p8 and vreg_va_micb_en regulators) are
-never routed and enabled during capture.
-
-[ ... ]
-
-> +&i2c12 {
-> +	status =3D "okay";
-> +
-> +	max98091: max98091@10 {
-> +		compatible =3D "maxim,max98091";
-> +		reg =3D <0x10>;
-> +		#sound-dai-cells =3D <0>;
-> +		clock-names =3D "mclk";
-> +		clocks =3D <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO=
->;
-> +		assigned-clocks =3D <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_=
-COUPLE_NO>;
-> +		assigned-clock-rates =3D <12288000>;
-> +		interrupt-parent =3D <&tlmm>;
-> +		interrupts =3D <51 IRQ_TYPE_NONE>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&int_codec>;
-> +	};
-> +};
-
-[Severity: Low]
-Should max98091@10 use the generic node name audio-codec@10 and specify
-the actual interrupt trigger type instead of IRQ_TYPE_NONE?
-
-[ ... ]
-
-> +		pcie@2,0 {
-> +			reg =3D <0x21000 0x0 0x0 0x0 0x0>;
-> +			#address-cells =3D <3>;
-> +			#size-cells =3D <2>;
-> +			device_type =3D "pci";
-> +			ranges;
-> +			bus-range =3D <0x4 0xff>;
-> +		};
-> +
-> +		pcie@3,0 {
-> +			reg =3D <0x21800 0x0 0x0 0x0 0x0>;
-> +			#address-cells =3D <3>;
-> +			#size-cells =3D <2>;
-> +			device_type =3D "pci";
-> +			ranges;
-> +			bus-range =3D <0x5 0xff>;
-> +
-> +			pcie@0,0 {
-> +				reg =3D <0x50000 0x0 0x0 0x0 0x0>;
-> +				#address-cells =3D <3>;
-> +				#size-cells =3D <2>;
-> +				device_type =3D "pci";
-> +				ranges;
-> +			};
-> +
-> +			pcie@0,1 {
-> +				reg =3D <0x50100 0x0 0x0 0x0 0x0>;
-> +				#address-cells =3D <3>;
-> +				#size-cells =3D <2>;
-> +				device_type =3D "pci";
-> +				ranges;
-> +			};
-> +		};
-
-[Severity: Medium]
-Should the two integrated TC9563 Ethernet MAC endpoints under pcie@3,0 be
-ethernet@0,0 and ethernet@0,1 without PCI bridge properties?  Modeling
-them as pcie@0,0 and pcie@0,1 with device_type =3D "pci", #address-cells,
-#size-cells, and ranges violates toshiba,tc9563.yaml and causes PCI
-bridge walkers such as qcom_pcie_parse_perst() to treat the endpoints as
-PCI-to-PCI bridges.  The downstream bridge nodes pcie@2,0 and pcie@3,0
-also omit compatible =3D "pciclass,0604".
-
-[ ... ]
-
-> +&soc {
-> +	lpass_tlmm: pinctrl@3440000 {
-> +		compatible =3D "qcom,sm8450-lpass-lpi-pinctrl";
-> +		reg =3D <0x0 0x03440000 0x0 0x20000>,
-> +		      <0x0 0x034d0000 0x0 0x10000>;
-> +		clocks =3D <&q6prmcc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO=
->,
-> +			 <&q6prmcc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-> +		clock-names =3D "core", "audio";
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		gpio-ranges =3D <&lpass_tlmm 0 0 23>;
-
-[ ... ]
-
-> +	};
-> +
-> +	lpass_va_macro: codec@33F0000 {
-> +		compatible =3D "qcom,sc7280-lpass-va-macro";
-> +		reg =3D <0 0x33F0000 0 0x1000>;
-
-[Severity: Medium]
-Why are lpass_tlmm and lpass_va_macro defined under &soc in the board
-DTS?  monaco.dtsi already defines lpass_tlmm with compatible =3D
-"qcom,qcs8300-lpass-lpi-pinctrl", "qcom,sm8450-lpass-lpi-pinctrl", so
-redefining pinctrl@3440000 here overwrites compatible and drops
-"qcom,qcs8300-lpass-lpi-pinctrl" instead of referencing &lpass_tlmm to
-add pin configuration nodes.
-
-Also, lpass_va_macro is an SoC-internal LPASS block that belongs in
-monaco.dtsi, and its uppercase hex unit-address in codec@33F0000 triggers
-a dtc simple_bus_reg warning (it should be lowercase codec@33f0000).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-monaco-dra=
-co-v2-0-3ee3b2375f16@oss.qualcomm.com?part=3D3
