@@ -1,69 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795508361;
-	b=OuvQbikY0X8J0dEc/AhH5JqSrKrh1d6LQ16jp630LnTOcCn7Tv1h9GMqdqOCRwLbz0Sk
-	 28VNKih+VYZHV9bMea759x7oBQ3c8aW/MIoCFFkXMb/mu7rN6qYPqeUdUI2EEdoE+P6Fs
-	 AawTv1euNmuT3U+ggj6qvkHB2lpp1NZEXyeV4qb2lJFit+WYqBjp3MEmupOFnPNLqMV57
-	 S5hIdZuAZdT26jpzfuzHXVlXy8HKF81H7+XCHkiBgnbcXQcVHA2uNKuFO39TsDtZmJm8K
-	 VgqicblpuS+osaAmG/oeVZ1dwE599szzaUHZieSASngxfvgdgNXFZGk7c7ox9ixG2yA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795508361;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=8oyzW5Xhq7U02BOQUFs8WVt9Q7wuDOt/dl3tR8yBzUc=;
-	b=NRljvb1StSviINMCjyPXqg2xZ8UnPcZJZ2spo6ks6IY7+eva/5EB66eZnKir1vpWoSom
-	 mUOxx2Ep1LJ2iwjJSYXJKBqSdID65vZ/SqxvcdT+O3sbTndbgtdLB1wN0QwqTnHiRw5Vl
-	 0O5G55RENEfX9eFWmYiSx8IcEffiYT8ejioToR0TzhcI88Jz9y8Ld16W8c0SuhzYPA4n3
-	 VtBY0ppxLEjyD/BrKH0CLceSahBnEgxMsUgj4oyHqzCctdyNa4iQPT24VYUoojxhz/5/4
-	 DYoK0WBf+8rBRvtmGqPjU6VgRjrmeEx9NkQfCPRoEvGRuVW5xEg66A/bhynW64mofFw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=l2m8Ztvs;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795508427;
+	b=mO1Amdvx6Rzv90iRAXvm9ZI5hVPP1YXRt+jT1A6w+wXyVn+JO8x8zZscNRPEtmrbt5R4
+	 9iMSiWLaC7Cg49mnTvUI7Wl/vfn51BPYnWTpC8urIefP/UGgMcTmKqZM9d7/i+Xk9QryX
+	 qBEkmkn/62lBkgxyNWjaHBdHF6UJ6zpcC/AmbWZjFxYvWXDKtDIJyhVFzTL9jVs4Ky2zp
+	 f9TI3UqtiUMj4OIcJSbY33XRNiT6uomwAQUMTcCJUIJ9+l9YQNnAP9a13VCka0GE0G72q
+	 m2dB9jRZuGLMLRgU0cjhAT7CIUbQ/J0GTIGjyOU0rG5xFkdmJAdXCQNjZwRmn35sPHA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795508427;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=vHAwwH0nrw1kWkp/3uuQPolxLVo5Vn3FF3b+N7bJNoo=;
+	b=chcFvWnxVNkowBYdGN5zmKBcuIVn0441WeA7u2Q0bx1y5Z2qMQTplaIfE/P+hzlj011X
+	 TJXu4rNtiRbxHGEqAbLf7FUlFq2aJltdRSrv6ksJ+8Dw5eXhVedVjtNxp+csqo1bWzTIG
+	 NfYVsUgTC7FYBVmp9tKgpZhh3qz4FfHNobuwV4+IqNu2XxISXG6B1SaWHiXLS93oKnx1v
+	 NqFmSeBI3KiP0PBBWzEQlKbKPVapK1gh5lffA5k/ODigVBofj1ReUUv5cfmPYiJ9D/Tsm
+	 zS5a84I7WvFv5xH2/adbVUjQCr+9PQAYUJ28vcXce4siL9Kj1VEzA2WeN6nQ1xQ6kdw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oem4yEc1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360B7606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 360B7606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3642606A31E;
+	Tue, 24 Nov 2026 08:20:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=l2m8Ztvs
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
-	From:Subject:Message-ID:From:Reply-To;
-	bh=8oyzW5Xhq7U02BOQUFs8WVt9Q7wuDOt/dl3tR8yBzUc=; t=1795508359; x=2110868359; 
-	b=l2m8ZtvskeLJKWROZIXVNSDPHAAjpJTlQsqz9jTM1AXTiBfsyXpom+4nig4w7RYdS5WjzGXCRix
-	7zIVN2zamJ6vSiYRq5ugw4DJR0Rdbohyx4+bVM3MWhXzdsTqI2U3U7SwtzaMzRQOShKc3ln/b06Kv
-	b2fEYNHPGQEiBckHkCNFQCHcihvjUXiQKMqXZEP7ssdK3sFSOxHGEwThQRBUJoJwn9ukEvTIjRLWc
-	uGgUHlyAz8CDt9nXi9SJ+ITW0MKS9a6gFn9rDfrw2yOfvxuLn+l+Qrdd2CH7WPPJz8xfSySDmebdz
-	kdHFuAFi4EGZGNw7O1JwRzkcGvz2U0BF4+TA==;
-Received: from [137.101.48.64] (helo=[192.168.0.17])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xVlk5-00000003FWX-32K0;
-	Tue, 24 Nov 2026 09:19:09 +0100
-Message-ID: <164b646734156ec16171abdb0de4ce1f3a723b6b.camel@igalia.com>
-Subject: Re: [PATCH 2/2] drm/v3d: Remove V3D 3.3 and 4.1 support
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Melissa Wen <mwen@igalia.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nicolas Saenz Julienne <nsaenz@kernel.org>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org
-Date: Tue, 24 Nov 2026 09:18:59 +0100
-In-Reply-To: <20261122-v3d-remove-33-41-v1-2-52152b454ad8@igalia.com>
-References: <20261122-v3d-remove-33-41-v1-0-52152b454ad8@igalia.com>
-	 <20261122-v3d-remove-33-41-v1-2-52152b454ad8@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oem4yEc1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795508427;
+	b=nYuT1h+wPIovyujRPxP3EWJ/4IDwiRWTCh6dJvnp6hQ+OICyCyqHN1O9jzhjczd5hORN
+	 9Ghda3m5TBeA4gD3yPFB1jSXe4oeJLLZ3yvNuzZHiqKExvNCz4ZkM1rHH/L+ZvMkRdxIO
+	 BvlFus+/1xdXIFST9y+122TMruFbDSqUv3lq/WVnRe8AW747nInTysdnYCxpOq38D6Ma/
+	 olhnUDDEj4EmBJOWMwZIZNxmAb7OWfzSFlIWzuUCY+590wh6aqon1jqtQtaS2G8bzmzdO
+	 Va7k+jtz4rq6jgD+jAPeN2vLTICWRzoKFVR4tgAYqHcNEx2nueOnaTNgq8z6mqOL8FQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795508427;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=vHAwwH0nrw1kWkp/3uuQPolxLVo5Vn3FF3b+N7bJNoo=;
+	b=hQIJ9tUXsRDME+jZFnHbhbw+oFLkfRB/2IgWzb9TJH3zCB1O8EA5lBbCgIaNE0Ysw1rT
+	 GId3fTql8C8aNQwRru6bIrOfr3mrCp4B0fapr1l8lukLdOczUYopc2WLFEx43AMokuLwM
+	 qNstODrF8jkscIh1s5U4q7Sy+VkdmyZmcmSr04yNOC+LeUQWMiJmZvEWr8FPda5HJds7d
+	 3iqxq+0gwzDKVXZt92LXemKqTULGHWrFN16TWz6W9UJvJpQkEZHgUgrKNNo8QmKgdESOa
+	 w7bea+zXuES6to+ArWgNNGWMiUSZ8VeNvR+12MGQKvgz3sUH+swb1akrJvbHY8CUWqA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6A0641F000CA;
+	Tue, 24 Nov 2026 08:20:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795508426;
+	bh=vHAwwH0nrw1kWkp/3uuQPolxLVo5Vn3FF3b+N7bJNoo=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=oem4yEc17cD03osCxkd03IdOaJl52/AFXRqwpi8QHEFGSrHFHuObc5ExsFnGREACS
+	 c3Hbif08Jhnke8u7NOa6Jo+cBvZlG/zMPzWFT0dUUMlYW9e84AicGee01Eg5ijUpRC
+	 njygloo0XXOD8g367mWyubwA85UjlSfZ3/+QoY/+fW5f8wmjqifx9SpkzpH06LiVTh
+	 mCeFzY77J+hfDj9rA055xTQop/rWwizziBvPB938jCudid9dCINkki8ick5z2WjvQ2
+	 x0FxnyyHB1t5bm9xJFWEE6tWGP/VXEs1qbUIZeHWNYHOFl14IlBwZiE/lnGvuDrA7K
+	 DiJz3li5z99Vg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C27F44C936;
+	Tue, 24 Nov 2026 08:20:20 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH v2 0/3] hwrng: Add Cortina Systems CS7542 random number
+ generator
+Date: Tue, 24 Nov 2026 11:20:18 +0300
+Message-Id: <20261124-b4-cs7542-trng-v2-0-0192937b44be@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,33 +84,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CQAxFr0K6toYW0Iwr72FYwNCBGmHMDBIN4
+ e4Crl2+5P33Z4gSVCJckhmCTBrVDyvwIQHbVUMrqM3KwCmfiDjDOkcbz0XOOIahRaqoNo5skxm
+ GdfQM4vS9B2/lj+Orvosdt8pmdBpHHz7740Sb9zc+EaZouDHOWZEio2vbV/o4Wt9DuSzLF42tz
+ Ue+AAAA
+X-Change-ID: 20261123-b4-cs7542-trng-1a1b9f1cd392
+To: Olivia Mackall <olivia@selenic.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795508418; l=3072;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=cxbkSaTDthKEwcdkWgVbloUCaiiY0AcMv8pFTjp9QIY=;
+ b=53TlVVtccxEE5Rny7rrzitIWySScAbfYdvVN7aGSCRuTe/5xfYgQIYtLG3Y1kv4pLedC+Kun+
+ xn2+1/utxFuCpHLs4nFGqyItpLVt+eLQie7bqurJ7vgqJXOInDPxtSY
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-El dom, 22-11-2026 a las 12:47 -0300, Ma=C3=ADra Canal escribi=C3=B3:
->=20
-(...)
-> @@ -210,8 +194,6 @@ static int v3d_v3d_debugfs_ident(struct seq_file
-> *m, void *unused)
-> =C2=A0		if (v3d->ver <=3D V3D_GEN_42) {
-> =C2=A0			seq_printf(m, "=C2=A0 BCG int:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %d\=
-n",
-> =C2=A0				=C2=A0=C2=A0 (ident2 & V3D_IDENT2_BCG_INT) !=3D
-> 0);
-> -		}
-> -		if (v3d->ver < V3D_GEN_41) {
-> =C2=A0			seq_printf(m, "=C2=A0 Override TMU: %d\n",
-> =C2=A0				=C2=A0=C2=A0 (misccfg & V3D_MISCCFG_OVRTMUOUT)
-> !=3D 0);
-> =C2=A0		}
+Add the Elliptic random number generator integrated in the CS7542,
+based on the GPL vendor and OpenWrt implementations. Use a syscon
+regmap for its shared global scratch bit and provide bounded polling,
+nonblocking pending requests and partial output through the hwrng core.
 
+Hardware ring reseeding is limited to the documented CS7542 A1 path.
+The vendor driver avoids it on A0 for erratum 28891 and substitutes a
+RTC/timer-derived nonce. Reject unsupported revisions using the global
+syscon identification register instead of adopting that workaround.
+The saved Almond+ capture identifies the tested board as CS7542 A1.
 
-This looks like a bugfix, since MISCCFG_OVRTMUOUT seems to exist in V3D
-4.2 as well, maybe split out to a separate patch? Or at least mention
-the small fix in the commit log.
+The binding, driver and MAINTAINERS entry apply to Linux v7.4-rc4
+without the pending CS75xx platform or clock/pinctrl series.
 
-Otherwise, pending feedback from Floarian and DT maintainers on your
-question about removing compatibles, this patch is:
+The existing OpenWrt entropy quality setting of 512 is retained for
+review. The output smoke tests do not establish an entropy estimate.
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+The v1 sources passed binding/example checks, ARM built-in and module
+builds and RAM hardware smoke tests on Almond+. The hardware test
+returned EAGAIN for the first nonblocking read, then provided 4096
+bytes without all-zero or repeated-block output.
 
+No additional hardware run is claimed for v2. The generating path on
+A1 is unchanged; revision checks and their error paths were tested
+with the actual C code and mocked resource/regmap/hwrng interfaces.
+Full ARM W=1 built-in and module builds were repeated for v2.
+
+---
+Changes in v2:
+- Drop the redundant linux/mod_devicetable.h include as suggested by
+  Uwe Kleine-König. The existing linux/of.h provides the OF device ID.
+- Restrict hardware reseeding to CS7542 A1 after inspecting the vendor
+  erratum 28891 workaround. Propagate revision-read failures and reject
+  unsupported silicon before registering the hwrng.
+- Describe the hardware revision restriction and identification register
+  in the binding.
+- Link to v1: https://lore.kernel.org/all/20261123-b4-cs7542-trng-v1-0-92d9ffcee531@gmail.com/
+
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Olivia Mackall <olivia@selenic.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-crypto@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Fil Dunsky (3):
+      dt-bindings: rng: Add Cortina Systems CS7542 TRNG
+      hwrng: Add Cortina Systems CS7542 TRNG driver
+      MAINTAINERS: Add Cortina Systems CS7542 TRNG support
+
+ .../bindings/rng/cortina,cs7542-trng.yaml          |  43 +++++
+ MAINTAINERS                                        |   7 +
+ drivers/char/hw_random/Kconfig                     |  11 ++
+ drivers/char/hw_random/Makefile                    |   1 +
+ drivers/char/hw_random/cs75xx-trng.c               | 187 +++++++++++++++++++++
+ 5 files changed, 249 insertions(+)
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-b4-cs7542-trng-1a1b9f1cd392
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
 
 
