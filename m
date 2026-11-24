@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795557969;
-	b=q6I0wqpMns/ZLFG8vFaZ0MBJcISPT86wamChB6oY/dwXKwsEC6p7IT0UF7M2OYqU9Yqn
-	 GrTiDh5c+6IQQRRzQljqBfvfyB/cbpTW0ANyJOgJ15FNe0MU+xhddNSF7vlCFgC4FrS3j
-	 btvXMC7Lyoi43pprKXYziRLOJoA1C+HCw2LpVOYmFc16ApRPDUzbuzpuIpd3KnogeB0wP
-	 QbVdJMDebD+v+X8a0bEm3K788N4C4wm/G+tJPRHyaoHJCp6eY6jPwR7xApzf0IMeaALVw
-	 gJRWw761HtEVuTL5Kr+al59gbhe7c/fchYjoT06v1PFI/dBUNpSI6zfxOwRdnT921bg==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795558203;
+	b=5lzxW0BF+K2diAi49Yov7m1sZV2yy97F50toSAR96VLLZ6duM/Al+LeTbeiEPY16fNiw
+	 xU0GmfLstSEc+eGnkX48Mf22s0m7A/K+ACFsSVxqJt2jaLnkHcMvstgJr6FT9k45S0l/g
+	 IXGkPj6bCz8uimw58E3nTIebyL0jBXNQelPQs5ysXY8Q1c5JXBeE7MVkLY6XmPKOKg06F
+	 zuYmMGrbwNj92CaBWY1lkYw8bj/eU0KH5JdKo7cvsKZYSphprE+MB+nLqjeMQiAmA20Dj
+	 I3xSfo/fJEBscShX7pi/ObPjotOuTe4yaFPLEVQPbUl4Mf/ihL+ZaiF1H2+eoZErG5A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795557969;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
-	b=U6nXYsJrPIR3Glmm5tZpJYxNXAeYlOPxxdCz6eqpbGtUiApdLdWJQuNz4Ak4Bvrw4n4n
-	 yfb3qc6g6XHz9Ek2Ac9Em7lQFe3tEWsAqJ/q4kbaIFh+KDAYRPlL0tpRsCJ1jT53+O7Kv
-	 0hEk6FFcBNrdY1uHu4AGzN+JIsVyS9CVp2mSwvZXh0/6LgCkh5aD/P0/HoQV0Rv+Iak5V
-	 UIh16EuAjNt65q605mdFp7lZlyln58Zkm0XkRXdJRGYsNUHjH0HMoDqPzs29iaQe8t3HS
-	 6KFTZXwOmmQ7arppT4UXdcYUoDHu4WsMh+8tD3UaZiWIeXlVk8+bVKmsU3rNG3NQh1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795558203;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MQluB+rCmoSqcxT7VMK5v52BeO5XQh+YYMA/T2P3rzc=;
+	b=4NkV/buDRxpqsZxXDoE/oYHk8z7yEVOvhI+lkrlO8ex0H2Zcw7dkE4TrHfXgrvUntgTv
+	 q8Tuq0JJeBPUZS3I0Iy164pwcMlROAKPOA63I38Cyb7cloWNM7Jm5x5m1jmUrORROhIrm
+	 5kxosFkGlyxAhOOQ61lP+4DdmpcrG4xyOb+bBCprDyRreCrVQjMX2BoK/qT/6MJavXKnf
+	 UcpLN7Y26ffpEDp96/7lpHKDPnIv9dWLklEZM2zDvWJAmNfuwtuZ/YGP/NelcKjdkc2XZ
+	 V5id1vjNC1UFU1pBeH3KZzBKM0C3eK18jmAuXJ0FKm4cJrIxZcgpZZieELJQ+swTj7w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=d27cduBR;
-	arc=fail smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZOpGpi3Y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417AA606A31E;
+	Tue, 24 Nov 2026 22:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZOpGpi3Y
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795558203;
+	b=bi5CDkhdu93RRAz/7pHDVjhoblRHgwRqdy+HDp9ekTSXMQIMrZDKuz/359JqKtuurpp+
+	 JRm4R2OeRoEQkZcX8cdKk/vbSDTjuX4mmyfsHzMiZqUmOfTv/XrNyWHnkUVBd+pPlxmSO
+	 4+lEeyD2Xyp74ocpPcp8+x2+JRwWvvv03USNw+/WoI2Fi1sMA6ZMw3bOi6jaD8FKwg+zZ
+	 p66RzoF89nl0ptZqQbobXO1tEa7YTEdhMg4Vv5MIIfO6GrEvaFfNjEeicV339VywiIxfa
+	 U8fMtxoF8gCdUar5dljnQv6egqfKE5sjfnrECp19I3tpvxKMCyhvMYAGZTW7epL3P1A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795558203;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=MQluB+rCmoSqcxT7VMK5v52BeO5XQh+YYMA/T2P3rzc=;
+	b=aFmtw77Np9wW4Sy9My3eCtPM+2rHg/2ofxGy7zEARtGmWaUmir1k5resW+0APYzbFymU
+	 ZjD/Qw8v1Zz3tiDXfss8Fjmplj771uzrvauxH6kV4zSJJOKhyzBBLw14kX0xzj4KwWYjN
+	 L5BkV5BhSWp3oB6ILqSgTY0MFSgRL88Ml/7y6cxIbKmUaYBopg0mIGAiLmLdi863mr5LU
+	 j3dXFXJdovOClo9FqurrBumCmkHmM5SsmyUk9dAJYYIA7UR8xlHtL8LgGwVVsAhJ6QDwz
+	 PgCjsrzjeSYtC7pDxdzNowai4iAnoTbTxqxI6YG1YmoGlC1pNM5urMF24q8MKrBi4lQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2074D606A327
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 22:06:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2074D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=d27cduBR
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b4c685c751so44525747b3.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 14:06:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795557968; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NbQYLEu+lrteir9Ccr5VTLNHtyuETa4p5c3WQoUDklV4gt09qILHvVytBdqdJdqpe9
-         jEmWUX6DqxKyqn3ZixHi9xgWd6h7qYOukx3cJAKmDxO1tBgcOfIwunWeF+WRjSosC4F1
-         EEZfvqoTqVAL3FtJAuCdzHBbob7gz1unFNLIc3fNJYf8aVH1Sud8O7s2AorOx2nDFS5+
-         ezVpVFVAmpPQ2iIRx7jC6sAX0U5zQk5ApF/A0DnTmhozKfQ1GOAJ5l13Lzk2Lhn4M8ha
-         OVClRAa4nJYc8EmodxZErGVJBtNV26WaeVEjV7KFuEOJ/ALO2xi2jWjQn2B8vrXKRDIc
-         YjwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
-        fh=s+nkO0ILZJxX0kQW65wLBHVfGo702tYwZmO+JCi5biY=;
-        b=K8F+eSWPNVXE7fOWMaW6ZD6GD/YkEtHZNE65IORonggHtR/TeXQEGpke4eI6KWwIMy
-         1y9y3B9JfngBtgidBj9LibyFTp51AK9Umsrxm9p4JjdqCyHOHr4rz+WT/k70jcjbgEi6
-         85QNLsXdYPQGtruN8wjMrylViGLn5RrCqEGnml6yDXz3HDJlBhQo9MWccZaVffNDDOfr
-         4iw66qtL362cli26z+gsbGt0CsTo7UW8EVOZ0S1vhPS67UhSNPzzQ7lz2e/mlPQIssYl
-         awCRWvVKUc2+Dxi3NzthP7wCuFSVuyGTyMXQ8ffY2olH5QbFS+qWJnjkx86F0f2+HA9R
-         YqCQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1795557968; x=1796162768; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
-        b=d27cduBRSCI4Fx7E8JEwH4YkEnonereNTCPDQf1MqytROJcGGGMvHL3Zr80JbXggHB
-         E0wcnOWFhVTUKUD0qU4PYjj1VflQoE5ZSxKEd+KccQRNVtKdw9S27TVP7NcGTKSV7/KC
-         2oqwPsUkDnZNq1Adzg5tpDhVrgwbH5B3i08sVQv7zGMCmfaxhcJiAAg8b726Rpsr5klY
-         lGfmGJlIEYS/AL74iTCcBG4GzGy14qSYjXFjr17lVGwMVGoX61/OvSCSODiZDouWm5XR
-         fGn7on9CLOGvLFpcz363wjCsxy9b9KK6GE9dxwc6kQlypkH/RvLMRh0ly0GRsC4yElhb
-         ZMJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795557968; x=1796162768;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
-        b=btVwrHc17jgZDgOhJ1xs3bIIggYdqOJDTaFSjMw3OB30ghIfHC/Otil7t3IA9YxUYf
-         ZkRsrZWWeMFLCU+Damvh8ATvIib/8HRM1eq3LHNr1kG36LO5v1b9pi1A/GK4Y9baWmw+
-         Tr5xVBdPjgaEC2aNuSKMAcLnWlDFH0LzpzoXo9izPX6iNPwjTrkHZKOVCe6VKGDeOHHG
-         if6T9xlHSVVMy0ootvbOCjM+DLlkuAWUwUXSzxt37wmGwqDCa05kniwUADy0xTpKLEGu
-         dMhbu0tX/FJ5sE0Vv8PXFz/C+X4UGi3jupk0FvuML7BCdSJiJdfpZlZRR6kZYm4aX6M7
-         j/uw==
-X-Forwarded-Encrypted: i=1; AL+hErFLvig4JDULCtbvY7Tt1ccpWOc7mlTgbM2wD81/WX+dvnkAwV4ac633Xbldp0NX5CZAN/6JEj3Hb++D@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nSkvXnjMy7Ddn8bSzCLBnBpRSBGruiX1jEWMAAhnw9Ty0ljdk
-	WzFIidrRZL43K5c59YgZtPl7S4gQnycfDqpRsETa7Zt7k6mUvW16qfbUdh3l+TfG3ig0ys2m5MF
-	ecuX+9qUxQLH38jNysVzpPL4IxakMqNA=
-X-Gm-Gg: AZFdTZefYCeXUBWi9cKKASuQYy6A/JZD3y+ubcIFX2QHgEpCLKb0jagcZGHqeD9psmC
-	eMKC8lYRJUGorFmKClBMrCBbFYkcwMeOkzrW2ytdwVjN0NjHktLHFGDrJotjO3PfAEuI/Il4QNM
-	u2swo34IYVJ6X26TX319WzxJ5glOW2oZwEg4o0xo/CxNMnj5giT9cxTY8nfdrqNyEBX7s67EYZb
-	+/W/OVLzpAuPzCBvbxUCkw2EZwp+IDXL3j/wZ9e/bUZ/tnaowniS0Y3IbfzDCw1gxTIT0S7gp9y
-	OmEq1cWKkGpvacEEtnixPPsoz4JZX+WxbgVdiARqkiUYWBASN5sfwVgUqWY9NJpQhkhmhqzPVFf
-	4rCN8HwJyErf1O5J32SsO0izMaObCLH8B2iYEcqpJ5pVHJvX/9aqXNQgq7d1YLOozD115mg==
-X-Received: by 2002:a05:690c:4806:b0:8b3:33cf:1ff8 with SMTP id
- 00721157ae682-8b52047e1abmr62214977b3.51.1795557968035; Tue, 24 Nov 2026
- 14:06:08 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 184451F000CF;
+	Tue, 24 Nov 2026 22:09:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795558203;
+	bh=MQluB+rCmoSqcxT7VMK5v52BeO5XQh+YYMA/T2P3rzc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ZOpGpi3YvZfkrBzxTGD9IqlNquHGvbjK+ebxVla3WRmsChoX7KjG3Lx8JCzuuymgg
+	 1YsK7wKWy8vdySm3uIQRYNS18kG++dx0sZ42lTF//5+AvB+tOjuAw/iMSdeXwHfDsp
+	 PXdEnCRbreYjcaD5khaBBWsrx5z3EHZ5VbxPLmWLLOk3XziWNTJV3LkpG2FdDuyO2j
+	 TSxIUqMopZAcZysxs9CtEOpQAqq5r2wCrQQV14yyGaC6SZsHjvIxWkQMQXFnONbMMu
+	 28+efBrJN9alPiF77NwFgurDTzOLG2GNFRwMXgfHjyt7SEvYuXX5nlY9Yol8u6OuE1
+	 JQkT3HgZoQTDg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9207C4CBC5;
+	Tue, 24 Nov 2026 22:09:56 +0000 (UTC)
+From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
+Date: Tue, 24 Nov 2026 14:09:49 -0800
+Subject: [PATCH net-next v12 01/15] dt-bindings: net: add onsemi's S2500
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,60 +82,187 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
-In-Reply-To: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 24 Nov 2026 23:05:57 +0100
-X-Gm-Features: Aa3M54obAOudEtwcvYkDuGnJHvL3A4XdBNW-oHonc9K3rZo32rUzvFY7EEi7VPQ
-Message-ID: <CAFBinCD822UPQrrd_8ZbVRUVCVJ-3pGN69vbZBxUE+0yeMcysg@mail.gmail.com>
-Subject: Re: [PATCH v4 00/11] phy/drm: amlogic: Extract Meson HDMI TX PHY into
- a dedicated driver
-To: linux-kernel-dev@aliel.fr, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Vinod Koul <vkoul@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Ulf Hansson <ulfh@kernel.org>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261124-s2500-mac-phy-support-v12-1-3575855d99f9@onsemi.com>
+References: <20261124-s2500-mac-phy-support-v12-0-3575855d99f9@onsemi.com>
+In-Reply-To: <20261124-s2500-mac-phy-support-v12-0-3575855d99f9@onsemi.com>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
+ Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Eric Dumazet <edumazet@kernel.org>, 
+ Piergiorgio Beruto <piergiorgio.beruto@gmail.com>, 
+ Eric Dumazet <edumazet@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Jerry Ray <jerry.ray@microchip.com>, 
+ Ciprian Regus <ciprian.regus@analog.com>, 
+ Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795558193; l=4355;
+ i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
+ bh=q9t30XlaBbVJWQqOwwkV/4rV3HxPdwscHINleug1/ps=;
+ b=DoflO4W97N0DLp24MOr8F3nlFrPVWOM/S1cPMdAV4jXE3boHNHWb/cQ/C/PWYOts7N57MEEo8
+ Dn4Q3rYzvJ0ArSMggKXkrWBF9u/6g9ZCjMK4nkaWjTtpirua5aoOor+
+X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
+ pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
+X-Endpoint-Received: by B4 Relay for
+ Selvamani.Rajagopal@onsemi.com/20260531 with auth_id=803
+X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Reply-To: Selvamani.Rajagopal@onsemi.com
+Content-Transfer-Encoding: 7bit
 
-Hi Ronald, Hi Neil,
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-first of all: thanks Ronald for picking this up!
-I like the overall approach. Before I dive deep into this series I
-will finish the code-review of Valerio's AUDIN series.
+Add device tree binding for the onsemi S2500 IEEE 802.3cg
+compliant Ethernet transceiver device.
 
-Two quick notes below.
+S2500 has both Media Access Controller (MAC) and 10BASE-T1S
+Ethernet PHY. MAC implements 10 Mbps half duplex Ethernet
+MAC. Communication between the host and MAC-PHY is defined in
+OPEN Alliance 10BASE-T1x MACPHY Serial Interface document.
 
-On Mon, Nov 23, 2026 at 8:38=E2=80=AFPM Ronald Claveau via B4 Relay
-<devnull+linux-kernel-dev.aliel.fr@kernel.org> wrote:
-[...]
-> Overview of the series:
-> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
->   add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
->   "hdmi-phy" child node under the HHI syscon.
-It's been a long time, but I think we've been asked by the devicetree
-maintainers to have reg properties for the nodes within &hhi
-But I can't find the message at the moment.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-> - Patch 4: Add the new Meson HDMI TX PHY driver implementing the HDMI
->   PHY configuration ops, along with the temporary legacy creation
->   helper.
-At quick glance your PHY approach would also fit phy-meson8-hdmi-tx.c
-There seem to be minor differences:
-- two additional enable bits in HHI_HDMI_PHY_CNTL1 on GXBB and newer:
-HDMI_FIFO_ENABLE=3DBIT(2) and  HDMI_FIFO_WR_ENALBE=3DBIT(3)
-- newer SoCs seem to have HHI_HDMI_PHY_CNTL3..5
+---
+changes in v12
+  - No change
+changes in v11
+  - No change
+changes in v10
+  - No change
+changes in v9
+  - No changes
+changes in v8
+  - Changed the interrupt type to level triggered
+  - Added reset-gpios entry that was recently supported.
+changes in v7
+  - Added the missing review tag
+  - Removed the word YAML from the commit message
+changes in v6
+  - Moved the signed off information to the right place.
+changes in v5
+  - no changes
+changes in v4:
+  - added spi-max-frequency as suggested by AI review
+  - changed interrupt to IRQ_TYPE_EDGE_FALLING as it is
+    being taken care in net (stable) branch
+changes in v3
+  - Removed URL link that failed verification
+changes in v2
+  - removed spi-max-frequency entry
+  - changed the compatible string to s2500
+changes in v1
+  - Added the first version of YAML file for onsemi MAC-PHY
+---
+ .../devicetree/bindings/net/onnn,s2500.yaml        | 71 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++
+ 2 files changed, 77 insertions(+)
 
-Meson8/8b/8m2 HDMI support is not upstream yet. That's why those SoC's
-won't need the backwards compatibility code. So if you need to tweak
-the driver: feel free, there's not much you can break!
+diff --git a/Documentation/devicetree/bindings/net/onnn,s2500.yaml b/Documentation/devicetree/bindings/net/onnn,s2500.yaml
+new file mode 100644
+index 000000000000..e1df674c0f1e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/onnn,s2500.yaml
+@@ -0,0 +1,71 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/onnn,s2500.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: onsemi S2500 10BASE-T1S MACPHY Ethernet Controllers
++
++maintainers:
++  - Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
++
++description:
++  The S2500 combines a Media Access Controller (MAC) and an
++  Ethernet PHY to enable 10BASE-T1S networks. The Ethernet Media Access
++  Controller (MAC) module implements a 10 Mbps half duplex Ethernet MAC,
++  compatible with the IEEE 802.3 standard and a 10BASE-T1S physical layer
++  transceiver integrated into the S2500. The communication between
++  the host and the MAC-PHY is specified in the OPEN Alliance 10BASE-T1x
++  MACPHY Serial Interface (TC6).
++
++allOf:
++  - $ref: /schemas/net/ethernet-controller.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    const: onnn,s2500
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    description:
++      Interrupt from MAC-PHY asserted in the event of Receive Chunks
++      Available, Transmit Chunk Credits Available and Extended Status
++      Event.
++    maxItems: 1
++
++  reset-gpios:
++    description:
++      GPIO connected to the active-low RST_N pin of the MAC-PHY.
++    maxItems: 1
++
++  spi-max-frequency:
++    maximum: 25000000
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - spi-max-frequency
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    spi {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      ethernet@0 {
++        compatible = "onnn,s2500";
++        reg = <0>;
++        pinctrl-names = "default";
++        pinctrl-0 = <&eth0_pins>;
++        interrupt-parent = <&gpio>;
++        interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
++        spi-max-frequency = <15000000>;
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 97308edec53d..679b3b9565a1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -21033,6 +21033,12 @@ S:	Supported
+ W:	http://www.onsemi.com
+ F:	drivers/net/phy/ncn*
+ 
++ONSEMI S2500 10BASE-T1S MACPHY ETHERNET DRIVER
++M:	Selvamani Rajagopal <selvamani.rajagopal@onsemi.com>
++L:	netdev@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/net/onnn,s2500.yaml
++
+ OP-TEE DRIVER
+ M:	Jens Wiklander <jenswi@kernel.org>
+ L:	op-tee@lists.trustedfirmware.org (moderated for non-subscribers)
+
+-- 
+2.43.0
 
 
-Best regards,
-Martin
