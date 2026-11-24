@@ -1,90 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.120
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795534092;
-	b=IydP0PlU91y2zxssr2Mj+8eHghLDahp7Jrvpb/kL1VDPeNwW7kybs/3/V9sLZ7pL4mnB
-	 bKdB1fWvN0n7W2y0SMAAc330P9053GJtf39lS8pSO8DgYRrBxVALjcKZAFXR4krMVsrJ5
-	 ueO5S6I28tbbOmWZy7rKX/wh6sRpEDmHmWJfEXJu04Y7SeYDaBETHqQQG4h8GdCajHpu1
-	 RjBj22Vzx66i3jdiBnQJZm+ge8Gv1Hj1p5ly6tlwbwJt0X7UBZ9N1D+Cxfo7MAzXEU7Zk
-	 R1HY7LYq9+9uWUJHSa4h9tJtHnlNWQS1eLPH0RmBqtzJKWu6koDiSjMXApY5qucoUgw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534092;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=Do5FkKgMlCI/D8/8uPVacdPZ+m4QTTZgla0npUPWih8=;
-	b=vp929ZQ9AJPcCZjMx1LtkTH4vgOnvvtT4CahG3rLMmJlmTCT5ZCX7UBDPMcV6gw9vioW
-	 Wz8hOOH8Z/gK/gyie7xPwoHwNPNhXjrxAyyh1JxKhLeIx6FkZU4WO8fEgECWA/WT6Ck3n
-	 2YXWobhqrdd/FSa/iWYvRrJkweKUr9UFi/+XiyBgJwf3vWe7nuq+H1Z+wSRvBlQTnE+0S
-	 9WR06Ezg5yhWBAvJHKOB4y1SuxdnAVMmmmbpKXqBLFlzHt1SvsY541cKyTCHUqq13wJcY
-	 VNoQp6C2sM1ueOQoePMv0RyUthkU47aiLdy8ZbeXl5ifPO6R36Xb//dwOE4TKmvrRkQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=WHotxxso;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=PpFLp6ZM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.120
-Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de [85.215.255.120])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795534135;
+	b=tqQCnl3peu1j4GDYJ7wGTlh/4FQSu/poBhle7K5o6f4is+Pppzcke7YAC0gEEu+USGW2
+	 iwObk30f++BkHVC+SSZ9KyWYLdoQ4cT+bSqOGGzS7U0my6fePB807/0ZjHdJGhrk6nbuE
+	 NAuOuZRyR16xyIKTta8rnIoUD6ddTvFB7YrqDVrJlvuJ7kgrCTub8LpmFxaieq4wXtW1l
+	 wqIidBHFceq6lhfs6eWeE8fVk1gbzXwMj9YDjfVShHGtVDzTqwG24v8RNUi13snG2+9bR
+	 bE25zHA0XOqUQMIl9N5MLqk0fJ47h1O066O9H7mg9uaHs1wkJOYgEV9mwuB1eV1YwxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534135;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=woN7dX42/QEfdHkXNoIkI+sOdH5SgWjgz+68nCPxUF0=;
+	b=4ObbJG1t9dKvUHmGolqFrGQL7oQeQpvNS94yL0PgZorSZJS2MRLk+s3Q19rQBnZvsyVR
+	 vfdlGvXIMlOfEVRknlWzxrWAn3rwaxNGNWrb57Rzl2sa0Cv+dM0U95K8VK/8y6EGMC4Nd
+	 wAmJYGXiBkhV2wcW3iqzrBQRI4VW9rrOuOEUNz8XFvA9qom27v2NX1Cgt+OMtl8Kkfcdw
+	 IzF8tQSyMNukY8lwxPhVlLm1LhI19b1yWsxz6eGD6u/7DvaGDnNTp2J9R3fdWyHX+DXU9
+	 VjQ1+LmGpx2jxIBw/ZU8csSC+S2t6eEhbeD2kwr/aTt4fCRs/RpjQ8RJdJPtFFdvoxw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N23fKN+U;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBB0606A334;
-	Tue, 24 Nov 2026 15:28:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DBB0606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58657606A323;
+	Tue, 24 Nov 2026 15:28:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=WHotxxso;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=PpFLp6ZM
-ARC-Seal: i=1; a=rsa-sha256; t=1795534069; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=ZOdacTezD0/O1W8pWgGGy3eS+6bUkGPBr3WXwIkf/Uo3ue55cxbtyUnn0eAB5jFYW8
-    4m7kfhwGw/tPfp6BTHByjdH4SzMgyMXJ4QP/eLhBM8g1mSQLOVBwEeOoWWiTZWcd6XPj
-    qm9qD9E56JyE5v4mUHvuTqh6hONosle/8fRe8YrIxADLZhaB/i3ouJjAN5dQ6K+y+93u
-    NiOeIRpLldwX5q0Nql4uhWNeOX9nnZMTp3b0Rb+sMuprOD2ic9HjmtSPqWbrHO0Wi55d
-    ioPA+P0KDLg/EAQME5rNFLtRiVyVNsaAv32eq9x4PeMajpbUPhT9FEaa7zP4rlfUHdmo
-    kn6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795534069;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=Do5FkKgMlCI/D8/8uPVacdPZ+m4QTTZgla0npUPWih8=;
-    b=DzOJdFExQ63HcAPaB5bp+F6rlFv20cAjKPGXiTfD3ARPuLTFO8jxpFwlSJZaWJIVS6
-    m3/aVAzoMGk+cb/s4DRe2uQXAHAi7sV81QuhX5dsk82IWIxkiD8ntWoAHWdOfJmLX99I
-    vO3aF0X8VF5A5zzs/MwPSIM9ZfYiiInqOyvh8+TZAuEz9vZbLnoPQ3niI0lkhQ10ZYG3
-    9aTKQ0xZzJIL1LNVwg5LQa8dZHQjXHqCzeW1DA0BthvG+Q7XqOVTVUgofJjE/GJuVUIv
-    nvhWN931wYMWxqUA8dqBMPOpBMaFwUe1zbDOs9oV0ybZsfXQ71Vz0oaZCrP2qvzi7MPT
-    KtDA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo04
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795534069;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=Do5FkKgMlCI/D8/8uPVacdPZ+m4QTTZgla0npUPWih8=;
-    b=WHotxxso2lz+TYmIbQErxcF/C0jaH5fk+rAzl09i1EJ6wcRKkm6Rp70aAoaN6b6nji
-    UdyCX+9DHv4snG435rBPWmHUTzNVtgQB3lLKwO7AezmXNY0Jv7KQlDh6+m4Xo3du70js
-    20jBe/Q2Ry0MDGVPYiOwowvnxZnxSxlbf9Mqohd3eWcb4SXJQH9qAWcKzU2jT7fZE9F3
-    qrHZtuWxBLw4/CTqb2mfzlQNR6HktXKQW8oFO4XEldybnDjjsiJMMRWuXaqm7KwftVKf
-    IRzlHlSoj2LbePLwzmHToIsZj3yGACdQ/Fd/dJXa8kf9J1hM2nB5RJpIU90YoD0YxRcu
-    lOHg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795534069;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=Do5FkKgMlCI/D8/8uPVacdPZ+m4QTTZgla0npUPWih8=;
-    b=PpFLp6ZMiP3xDVaWjY4phl3aiPj4zX8gQ/xc9v/XvwYLJ173GZ65l0e91P3FhNaxTc
-    sdF6rCGB33CQHIoNxyCw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV3poLlciNVWUgMvoVkTTR2P7jtjQyY2AeEP/F"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22AOFRl3rJ
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Tue, 24 Nov 2026 16:27:47 +0100 (CET)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N23fKN+U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD241F000D8;
+	Tue, 24 Nov 2026 15:28:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795534134;
+	bh=woN7dX42/QEfdHkXNoIkI+sOdH5SgWjgz+68nCPxUF0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N23fKN+UzfLec8SkLRYPloYVrCpUpgQDmrteL/rHwsXMg5ePevTG9rFJAyCjzpJdM
+	 ko34az+IIQKOPrrg4I3XddletoDrTQzOto5FdKS1kBVNhoNHWVZS030hkgAAL6skOA
+	 ceN8wsSb+BWU+go6T79jTVaWh48TL6gzi5L3Ht7N0Ah7exHeFj6yIFTf+QVbb0OBhy
+	 8+9zgucJBvBS9vFoqR2pwq12Ue6dLM4mcrEIvCUlvvzt52/nVz0WyXfsuXyElU/szH
+	 D7YUqECRpg2opFv0dMkxhc9o19DYqiSeshFpJ6FxuI+nZC3C06NPzuxpRllTHWfxaI
+	 d70nKxM/yk9+A==
+Date: Tue, 24 Nov 2026 15:28:48 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, praneeth@ti.com,
+	u-kumar1@ti.com, p-mantena@ti.com, a-dutta@ti.com, s-k6@ti.com,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 3/6] dt-bindings: spi: Document the spi-dqs-not-wired
+ property
+Message-ID: <815ecaec-7bf6-4ba4-9869-f54f1c85a7e1@sirena.org.uk>
+References: <20261124-winbond-nand-next-phy-tuning-v5-0-261e0e712857@bootlin.com>
+ <20261124-winbond-nand-next-phy-tuning-v5-3-261e0e712857@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,277 +68,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.11\))
-Subject: Re: [PATCH v2 00/20] ARM: omap3: pandora: Modernize audio and
- backlight to use Device Tree to finally remove pdata-quirks
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261124151318.GA536798-robh@kernel.org>
-Date: Tue, 24 Nov 2026 16:27:16 +0100
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Lee Jones <lee@kernel.org>,
- Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>,
- Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>,
- Tony Lindgren <tony@atomide.com>,
- Russell King <linux@armlinux.org.uk>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Helge Deller <deller@gmx.de>,
- Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org,
- linux-sound@vger.kernel.org,
- linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-pwm@vger.kernel.org,
- linux-fbdev@vger.kernel.org,
- letux-kernel@openphoenux.org,
- kernel@pyra-handheld.com
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <1DCFB59E-E5EA-4470-997E-EAA4ED35D906@goldelico.com>
-References: <cover.1795505160.git.hns@goldelico.com>
- <20261124151318.GA536798-robh@kernel.org>
-To: Rob Herring <robh@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.11)
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="axoJEjM2GoVi6XeC"
+Content-Disposition: inline
+In-Reply-To: <20261124-winbond-nand-next-phy-tuning-v5-3-261e0e712857@bootlin.com>
+X-Cookie: If you can read this, you're too close.
 
 
+--axoJEjM2GoVi6XeC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> Am 24.11.2026 um 16:13 schrieb Rob Herring <robh@kernel.org>:
->=20
-> On Tue, Nov 24, 2026 at 08:25:40AM +0100, H. Nikolaus Schaller wrote:
->> PATCH V2 2026-11-24 08:26:00:
->> Changes in V2:
->> The series has been reworked and expanded from 16 to 20 patches,
->> addressing review feedback and issues identified during hardware =
-testing.
->>=20
->> Audio and power management:
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
->> * Replace the TWL4030 REGEN regulator implementation with an optional
->>  GPIO and a fixed regulator described in Device Tree.
->> * Extend the existing PCM1754 codec driver to support the PCM1773
->>  instead of introducing a separate codec driver.
->> * Add power supply and power-down GPIO support to the codec driver.
->> * Improve error handling, resource management and power sequencing
->>  in the codec and sound card drivers.
->> * Update the sound card and codec bindings and Device Tree nodes.
->>=20
->> PWM and backlight:
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> * Add optional 64-cycle frame support to the TWL4030 PWM driver.
->> * Add an optional enable guard period to the generic pwm-backlight
->>  driver to prevent the TPS61161 from inadvertently entering
->>  EasyScale mode.
->> * Adjust the Pandora PWM backlight configuration accordingly.
->> * Remove the obsolete CONFIG_BACKLIGHT_PANDORA option from
->>  omap2plus_defconfig.
->>=20
->> Device Tree and general cleanup:
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
->> * Correct and validate the affected Device Tree bindings.
->> * Reorder the series so that bindings and supporting drivers
->>  precede their Device Tree users.
->> * Improve commit messages and fix coding style issues.
->> * Clarify the original authorship and take responsibility for
->>  contributions previously signed off under a pseudonym.
->>=20
->> Review feedback addressed:
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
->> * Mark Brown suggested representing TWL4030 REGEN as a GPIO rather
->>  than a regulator and reviewed the original standalone PCM1773
->>  driver, which has been replaced by extending the PCM1754 driver.
->> * Krzysztof Kozlowski requested corrections to the Device Tree
->>  bindings, proper schema validation, improved commit messages and
->>  clarification of the original contributor's authorship.
->> * Andreas Kemnade suggested handling the TPS61161 initialization
->>  in the backlight layer. V2 implements this through a generic
->>  pwm-backlight enable guard period. His comments on clock modeling
->>  and patch bisectability were also considered.
->> * Daniel Thompson provided Reviewed-by for the original removal
->>  of the Pandora backlight driver.
->> * Issues identified by Sashiko and Rob Herring's automated DT
->> validation were reviewed and addressed as applicable.
->>=20
->> Many thanks to everyone who reviewed V1.
->>=20
->> Validation and testing:
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> * Based on Linux v7.4-rc4.
->> * All 20 patches checked with checkpatch.pl.
->> * Remaining checkpatch warnings and intentional deviations have
->>  been reviewed. In particular, ENOTSUPP must be retained in the
->>  GPIO set_config callback because gpiolib handles it differently
->>  from EOPNOTSUPP.
->> * dt_binding_check and dtbs_check passed for all five affected
->>  Device Tree bindings.
->> * The complete series has been successfully built and tested on
->>  real OpenPandora hardware.
->> * LCD operation, PWM backlight brightness control including
->>  brightness zero and power-down, and audio playback through the
->>  internal speakers and headset have been verified.
->> * Audio capture was not tested.
->>=20
->> PATCH V1 2026-07-11 08:02:02:
->> This series modernizes the OpenPandora handheld support by converting =
-the=20
->> sound subsystem and backlight control to proper platform drivers and =
-Device=20
->> Tree definitions.
->>=20
->> The primary goal is the complete removal of =
-omap3_pandora_legacy_init()=20
->> and the elimination of the last remaining user of =
-machine_is_omap3_pandora().
->>=20
->> History and Context
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> The necessity of this cleanup was highlighted in several recent =
-discussions:
->>=20
->> 1. Tony Lindgren noted that machine_is_omap3_pandora() checks never =
-succeed=20
->>   on Device Tree-booted machines, leaving the audio subsystem =
-functionally=20
->>   broken since the DT conversion years ago:
->>   https://marc.info/?l=3Dalsa-devel&m=3D165632351319716&w=3D2
->>=20
->> 2. Ethan Nelson-Moore submitted a patch to replace the macro with DT=20=
+On Tue, Nov 24, 2026 at 03:43:04PM +0100, Miquel Raynal wrote:
+> The DQS line is a data strobe line that is typically driven by flash
+> memories (NOR and NAND) when the data flows from the peripheral to the
+> host controller when running at high frequencies in order for the data
+> bits to be sampled by the host at the right moment. The SPI bus already
+> features a clock but this clock is driven by the host, which means it is
+> not accounting for any chip internal delay.
 
->>   compatibility checks (accepted as commit 45efb8fbdae3 in v7.2-rc1):
->>   https://marc.info/?l=3Dlinux-omap&m=3D177841578110704&w=3D2
->>=20
->> 3. Sascha Hauer pointed out that the entire omap3pandora driver =
-fundamentally=20
->>   depended on this broken machine ID check:
->>   https://marc.info/?l=3Dlinux-omap&m=3D178048982272252&w=3D2
->>=20
->> Design Choices and Implementation
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> Based on these discussions and a long-standing and working =
-out-of-tree solution,
->> we initially attempted a migration to generic frameworks like =
-simple-audio-card=20
->> or audio-graph-card. However, the hardware routing peculiarities of =
-the=20
->> OpenPandora introduced too many functional gaps. Replacing =
-omap3pandora.c=20
->> entirely with pure DT definitions proved unfeasible.=20
->>=20
->> Therefore, we opted to base a new proposal on the out-of-tree rewrite =
-of
->> the old-style sound board file kernel driver =
-(sound/soc/ti/omap3pandora.c)
->> into a proper platform driver that cleanly fetches its resources from =
-the
->> Device Tree, while adding specific handling for the twl4030-regen =
-output
->> and adapting the pandora device tree files.
->>=20
->> Series Structure
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> * Patches 01=E2=80=9306 (Preparation): Move highly specific legacy =
-code to its proper=20
->>  infrastructure (TWL4030 regulator regeneration and codec handling).
->> * Patch 07-08 (New Driver): Introduce a dedicated platform driver for =
-the=20
->>  PCM1773 audio DAC.
->> * Patches 09-14 (Audio Core): Rewrite the omap3pandora ASoC fabric =
-driver=20
->>  and update the respective Device Tree nodes.
->> * Patches 14=E2=80=9315 (Backlight): Remove the custom, legacy =
-Pandora backlight driver,
->>  convert it to generic Device Tree nodes
->> * Patch 16: (Cleanup) safely delete the obsolete =
-omap3_pandora_legacy_init().
->>=20
->> Notes & Testing
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> * Testing: This series has been tested on real OpenPandora hardware.
->>=20
->> Credits
->> =3D=3D=3D=3D=3D=3D=3D
->> This work is a collaborative effort by multiple authors over several =
-years:
->> * Grond <grond66@riseup.net>
->> * Stefan Leichter <sle85276@gmx.de>
->> * H. Nikolaus Schaller <hns@goldelico.com>
->>=20
->>=20
->> H. Nikolaus Schaller (17):
->>  dt-bindings: gpio: twl4030: Document REGEN GPIO
->>  gpio: twl4030: Support REGEN GPIO
->>  ASoC: twl4030: Allow APLL rate selection through set_sysclk()
->>  dt-bindings: sound: pcm1754: Describe PCM1773
->>  ASoC: codecs: pcm1754: Add PCM1773 support
->>  dt-bindings: sound: Document OpenPandora sound card
->>  dt-bindings: mfd: twl4030: Document 64-cycle PWM
->>  pwm: twl: Support 64-cycle PWM frame
->>  dt-bindings: backlight: pwm: Document enable guard
->>  backlight: pwm: Support enable guard period
->>  drm/panel: td043mtea1: Attach DT backlight
->>  ARM: dts: omap3pandora: Disable unused DMA channels
->>  ARM: dts: omap3-pandora: Model LCD power enable dependencies
->>  ARM: dts: omap3pandora: Describe PCM1773
->>  ARM: dts: omap3pandora: Switch backlight to PWM
->>  backlight: Remove legacy Pandora driver
->>  ARM: OMAP2+: Remove Pandora platform-data quirks
->>=20
->> Stefan Leichter (3):
->>  ASoC: ti: omap3pandora: Convert sound card to DT
->>  ARM: dts: omap3pandora: Enable audio interfaces
->>  ARM: dts: omap3pandora: Describe sound card
->=20
-> Which of the 7 maintainers do you expect to take this series?
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-Well, as a contributor for a specific device one is not regularily =
-thinking
-in maintainers work split but about a series to get a device fixed. =
-Which is
-obviously orthogonal.
+--axoJEjM2GoVi6XeC
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I didn't even recognize that this involves 7 maintainers.
+-----BEGIN PGP SIGNATURE-----
 
-Maybe an extension of checkpatch (which already looks into the =
-MAINTAINER
-list) could help here?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmsFrS8ACgkQJNaLcl1U
+h9AAwgf9HaTs4e2f/UrGLH8UQ9/Led6UPT1G6vWCeWG/AZe7BGOlHv50yqXp63CB
+Js0Xzt0NyXgDTeAcRxJpZxb/p452QHyO+WMdkt6rBpvj96wgdCOjzNSDoGmVl4fL
+CYom+nMAVJOtZhcanmuPCjgVoDAosfm/WIc04Io6XXfp248irSd/bhABH5pSRIrf
+UN3n/BZILy5VaG7rFcb2RRC/IYETPnNZ3fFFeurH5j6XXi21IQwpibLxcF7yAMag
+DWKaEElYsF7cTHqu+zmbvRpaj3kOsMschPqwNPoGxxM3QxZl1p0CkTwBEwrr/HSq
+s3Q8w87hREg8NskKRUEl/d0EIzEg4w==
+=el/G
+-----END PGP SIGNATURE-----
 
-> Surely=20
-> this can be broken up into smaller series?
-
-Yes it (we?) can. It is just a question how to do it and properly =
-describe
-the dependencies to avoid bisectability problems and avoid that the =
-final
-goal is lost.
-
-I'll wait a little if there are other comments on individual patches and
-then start working on the split.
-
-BR and thanks,
-Nikolaus
-
+--axoJEjM2GoVi6XeC--
