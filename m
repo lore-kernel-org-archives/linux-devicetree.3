@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795535179;
-	b=UC7mF+DSJ3ujxNvI/1Bt58wMc/tKkjFF4aaWuM0dZBU8YwQdHZGM1ZlVhLSyDxQZwg7e
-	 J74VYmwLPcTUMocCFVlyf0nULnGX8s4ouv+TCwvvgFXpVfMPZOQHlHpx+b9wDBRzonbNw
-	 7N3V1npH493a2EZ1La4i0iVPkRIXVgHmJKzqs5ruYbfMt7RhdmqjnyklXoitrcA9j68fl
-	 NN2o56gGvbxXoZZZLGrBFeT6KN0hk6Mmdc0S5EJg8LcwjaMDNX2fWgXx+zN80dgUkrbJp
-	 NJ8oG23vIPey1VXo5hnqJVBOkMENFPJRFX60anCUEUrKQmBWT/BhMFDnrNp4ewohJeQ==
+	t=1795535221;
+	b=AFVwPplkD1CKOtZQPZLUOIq3Hjjv192D+hYkh7vsKcLCzPYBPrBVvkA70UhSADj9c7/X
+	 mG6f1lu8ntra4RroUjFURhTHbf9D1hDOvDeU/s0c1CWS+13Mgv7M0JzzltC2MhLOF5oPv
+	 YLNe8UT+QHnRZmqU6MX4P5l62lMeBNyeqdXZEpDEZhlneieOom7m3bdpTbf+JQ6c5UbE8
+	 p/waN+ssr783FWLQwWeG37dkGTO4fbzCjLc6tdk6PHzfKrqy8ZfKuCGZmzAfqifsciFiL
+	 YN+ZIuK3DJJlpnrCPQVRJEglwqBXdNDIepdggBH7S4H63+QyBNhH6jwiTrUQYjvUyLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795535179;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795535221;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=5dorDvhYxo514PV7QkKB/c/TU1DuN+ChShgeJ7Vdgg0=;
-	b=ZASfatEYx/oHkSyWsVOlogrV48we6SssUCV5sFBP1Ij5EtQDHDWOXnDbGijoh32mScNI
-	 /y3T4xmOBhJeidiHyJbNkCS//JCw64HCBNIdcfyirVfLu2akDQ5py2hubo9LYyG1bBWPW
-	 PiYF00X6mUqIBHxaM1oz+z3ms2HRFfzMAcOGh+XIfZvgRANza/T2w4gcAqyTL4X+sKIsZ
-	 TtsiD6Ulu5/4+dpTAQ2TV+5j5QTgzRCD2gjE7gBIhXPIOvGw/kOjikugqxSvQPgGtZ4hV
-	 QG5SoonM347a/GuKAkHwycmT3BqW7VpvCD48uuIVzHtJ3BsQPRRu4L3QuLqMoFzarOQ==
+	bh=HExStFKU+yesXM5jZRGUg6OOdPqU1Rp9r6cjv9ysj9I=;
+	b=Ab78TQ4M3p6TRI2KeY16KGVFHox3hXay7IlEUu4pXfd+DyefCgLPxAIQoRAi1ra3E5Mz
+	 bC6xvNU+JXAaMsrODp/CLYmdjX1iyiewxPjq7Ux8G6iaUC5iKr2O9tP4uutHSnr08ZZwX
+	 zoD6ITbphs+ZDVnsgnC1mxN6k4czoE+9YCuSs5YeSr5PBjF3ap3zOk2wtqd3gS68LWEcq
+	 b9eA7S7N/louvlS0TGsgxPNo1QCf4W/ee5JdVg9qJZXj2uxUwbGCsqIAbyq8mPS/rWXOK
+	 THtjJybdxJ02NIfMZdykmrmv31wnuQKMleQ4p/TFijFk9q4DKGf/mmnUIesIGWm387Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZWTBhxc7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P9NCGl3G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF00F606A32A;
-	Tue, 24 Nov 2026 15:46:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB64B606A31E;
+	Tue, 24 Nov 2026 15:47:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZWTBhxc7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC051F000D0;
-	Tue, 24 Nov 2026 15:46:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P9NCGl3G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788151F000C6;
+	Tue, 24 Nov 2026 15:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795535179;
-	bh=5dorDvhYxo514PV7QkKB/c/TU1DuN+ChShgeJ7Vdgg0=;
+	s=k20260515; t=1795535221;
+	bh=HExStFKU+yesXM5jZRGUg6OOdPqU1Rp9r6cjv9ysj9I=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZWTBhxc7ukXgiTrXr2tZjCs98i2THNcoe1bGOEpf4kLwuiGR1thKBpjrm0WocYZVh
-	 pY4zsl0ZCZHZboACIt+0953zsW5gUJOSp2rwaO2Xpi7Scj4tdykE4RXDJQ0YMoMaoo
-	 3XbL+YapItuxhTRT1n8NiWkuU4x3IS61VEVXnJs8V3zgQYYhwAOKWsWl+uMA8rhh0T
-	 xd8wQjXe9mEhxfAyWLS4WNqhQtnF1HToKFqDsLkhTAF/ry/WycgFSZhNKEMjNaDbbz
-	 7ZxVtDpUh3H8kpmDYtWymvtyx8JxYmJPCW3UU3j8esIKJX3cK3nHwpEAeUxziIJ875
-	 820ktyxxkjckg==
-Message-ID: <8407f7d3-94cc-4ee2-932b-7a46e9d195d8@kernel.org>
-Date: Tue, 24 Nov 2026 16:46:14 +0100
+	b=P9NCGl3G3Hl3Fv/VfqKAuWFxw3KqTiSNo4r6PPYrSKjXyBUXL8EXO5rIfc/7ySlmJ
+	 z7vQaKJKh8EsmQdgDIdvKOWD9knpVov9MCiXR4WbXEjb3UNhFZxvR+CDnMynVwnikT
+	 25Rs3a3tTr/2ckjyEvMsOEI6ehlNtrcQEL8fQIMaqot6P5OpdEyo7aEc9GeWGtGbY2
+	 dliIvUYs6T2XdGZWT/GuS/7QRasL+uurzl7kiC4Rj1Xx/d6RL17EhaEMqDpxJ2qcok
+	 L9xNu9kedrQ3F9YMfHb4UfysVH56E2+zy4lVsf/pAjC68tf/11CzwWR3NNe7vJmAwg
+	 X+jRQ+9a3CwuA==
+Message-ID: <6835fb3e-5f05-4f32-bf5e-85c5c5803459@kernel.org>
+Date: Tue, 24 Nov 2026 16:46:57 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,16 +52,14 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: qcom: geni-se-qup: Add compatible for Seca
- SoC
-To: Yadu M G <yadu.mg@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+Subject: Re: [PATCH] dt-bindings: i2c: Add compatible for Seca SoC
+To: Yadu M G <yadu.mg@oss.qualcomm.com>, Andi Shyti <andi.shyti@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Praveen Talari <praveen.talari@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <6e09e1ce0d9250af78da72e464b7f99f942e1d7d.1795517657.git.yadu.mg@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <0439e03884c02c9edbec89132b526aaf8f54ae23.1795517696.git.yadu.mg@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -107,21 +105,43 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <6e09e1ce0d9250af78da72e464b7f99f942e1d7d.1795517657.git.yadu.mg@oss.qualcomm.com>
+In-Reply-To: <0439e03884c02c9edbec89132b526aaf8f54ae23.1795517696.git.yadu.mg@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24/11/2026 11:54, Yadu M G wrote:
-> Document GENI Serial Engine QUP Wrapper Controller on Qualcomm Seca
-> SoC which is compatible with the SA8255P one.
+> Document QUP GENI I2C controller on Qualcomm Seca SoC which is
+> compatible with the SA8255P controller.
 > 
 > Signed-off-by: Yadu M G <yadu.mg@oss.qualcomm.com>
 > ---
 > The Seca SoC device tree using this compatible will be posted as a
 > separate series.
+> 
+> This series was prepared with help from an AI coding assistant
+> (Claude). It assisted with review on the device tree, bindings and
+> driver (formatting and alignment fixes), rewording commit messages,
+> and running the validation steps (checkpatch, dt_binding_check,
+> dtbs_check and W=1 builds). All changes were reviewed and tested on the
+> Seca Ride board.
+> ---
+>  .../devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml         | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml b/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
+> index 04caf622b3ba..63895fdb51e2 100644
+> --- a/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
+> @@ -16,6 +16,9 @@ properties:
+>        - items:
+>            - const: qcom,sa8797p-geni-i2c
+>            - const: qcom,sa8255p-geni-i2c
+> +      - items:
+> +          - const: qcom,secaau-geni-i2c
+> +          - const: qcom,sa8255p-geni-i2c
 
-Why are you sending EVERY patch separately? Organize your work in proper
-subsystem-targetting patchsets. Internal docs explain it well.
+That's enum with previous entry. I am dropping all your patches from DT
+patchwork, to avoid repeated feedback.
 
 Best regards,
 Krzysztof
