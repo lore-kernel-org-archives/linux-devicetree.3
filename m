@@ -1,47 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795527320;
-	b=ZWfd71wRuN+xmRhupQ5fsSMAHr4I3ieqei83ijccjxRNDOlX2Uo74/g0R9bEgCRFh869
-	 0FtF21l1uV/XlmFzwBmYUoPYhIeXmVEr0Eg92gnBr/+N6QUlqDLj5d75WsvJYY+eR38fe
-	 J3GL2LhP4qkt0a4ascGpgqbwNMaF+Q5wHE1QouXyhrKEvHqBReK1Ircyq+5klvGRXF9Mx
-	 brTl5U6zXD96qlNz8YcnNjBvh3r1YosyI7HLOS12ByWFdpvz+PFkeBkn1vSIpHS506I6D
-	 GdU+CVv3f0ji5+s9HPEBCo/cxZT7fN/PXHCYVFd0ueKKQX+ZsYDwPhVaC/bH2Udjm5A==
+	t=1795527502;
+	b=TgHV/IPKgeWqZIzA3z9UnJi7Fafh5kCkWImENc4/iyoUBpYVW4jm3LRDjzP0mcFbyc63
+	 DJSa3b9XYkuvcX+G0VvStnNO8ULoCWTWeOzve7cHcqiVmA/2U8rzFW8VEykFSWTUfx8U8
+	 0OyY8h5kdo3jvpEZdc7v8kQ4IJImyqSykd1kv2VduR9Zre1XaiujlxMGbQ31wbowijlUZ
+	 dkyvVbdX7K/OdWwYpfn4DEcqse6d6jTLVO3qihhy/UXGx7FSyqWK5CEeFVKvET96JyIKu
+	 zuzxoGdiDOXTY6Oo/4dEUq5Ozv+oadE8Q6f6l6gb7tyVt25qEp+zpTYzXykCVzuleyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795527320;
-	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=dtrcKHCDOQwC/1Y9pVFvIgO8WKKsGNe4/+JPGrTVGUA=;
-	b=xlCiV/UaiE8HxrQ5wX0aoBeQfowLmR51lJ3eTPPnRZsvt2cYIc2w83isG3SfpJbACcaX
-	 0rVkmk6xOkwVpbXocy0d0roBag8DMiQjP3KNLvWJ27VnbDd/M9AIm9VQ7XWQyUJAXdpDn
-	 cS3Lbm/gCpj5pKYGmO77WK1PmcDrIbJfgX8j93atZpGfELHe+FjPStEntSNm3HrvScOCB
-	 Xw+W3XLOj83I7g0B0nm4kGUXiILYwDrMGYurFhL2Y0w9g5v+g8I0kabH3S6arY4i4UtoX
-	 R7cJ2kDCNmzVtAMWrD9msdtZrQqBqUafZK/pqEJefRKyW3BcbMnW/JzN2tWcAEMfuBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795527502;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Cookie;
+	bh=hBb7CziwmaEve0HjYdLhPP8A5dGN2yZ/4+i68vOpPLA=;
+	b=vJuqxpx/TtiGo1GNlwXIoKnW47ZGRw8Sqd2uXwbCVuJbBERu+3bOJxqeJr/J1uocHSuw
+	 Da6yHVEGPOjcCdtyBUhYJenLG2t4RN/ANWGiVK4NtMT5+3M8hPM+5G74o9e1rvC9tUd6w
+	 f3vqd1mv/lq0h7By4s2Ez6AATF3szGhqeDeRNAQ0hHrspD5G1h6A3+18ZjEKoQ5LdVk3s
+	 oX/uY6mZk1nXXVUwnbnmRduWRa+EVOdkWscfywwgNXz5gDvWQZNpn8sAia1sj7g+9oKYQ
+	 NlRZLF9+H3b9yHDl1h36ENYDE/gN0YZ1lbOkU+B7KhXwqPZ/vjYCLuAGCNK0cdqhkCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbEFYbd7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEvA9JlK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3027C606A33C;
-	Tue, 24 Nov 2026 13:35:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100E1606A321;
+	Tue, 24 Nov 2026 13:38:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbEFYbd7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A008F1F000D4;
-	Tue, 24 Nov 2026 13:35:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEvA9JlK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48451F000C0;
+	Tue, 24 Nov 2026 13:38:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795527319;
-	bh=dtrcKHCDOQwC/1Y9pVFvIgO8WKKsGNe4/+JPGrTVGUA=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=AbEFYbd7lwIf/jyWl/sn/DumUXZrfLlfnTKnyAbeLL5sbmhEOmwCHbOHB7rmeqkDm
-	 ct05xZ508E575N2dRrPz0Eo+/Trzyr3jfF2+d+zR1YnGvrhLoyehmGvVU1fkHXJ7sh
-	 Y8MHJYd15gvlJFHuhkHFAg1XngVpkM8buQRuK9HEHsbZQty61TCiktt6Xc4V5kt+zs
-	 WR0n1idQ5+lETAtwJDiIpwEUCwiROnr0zWJhHkIDqilRv2yABTeBIjf0ahyanhCBY6
-	 TbMOyRcuM+1tyNgr4Cjne5RyBjBcnZoEa3m2HGf3FTW7Th3KXk5K3Q4qSxhzKpXE04
-	 DQpmY9zxRYAkQ==
-Date: Tue, 24 Nov 2026 07:35:18 -0600
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1795527501;
+	bh=hBb7CziwmaEve0HjYdLhPP8A5dGN2yZ/4+i68vOpPLA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oEvA9JlKinpj4CLa0YM6Nnu6QLmPew7urXHJpo4ZY1RapqnGsMeZoiTJ7ejlAh1wB
+	 z/4fG12dJSX006iBcFfaePI0M82vQ/1lbBDsYhXFPYLKOy6787YEbjgE2NTsh2LOnd
+	 YYS8P8FaEZ84WtS/L5EnxkSVgHxjjzXXJgJzz7UaNIBflVYxmWx/jPSoJ67DFMin7B
+	 48FH10YLDBmkTcl4sT4odtP5IxcWGp7FR81EE+8XK88PyG8uKCTLcwZHYiH8ilxH3V
+	 D8dFdk3x8iZiHSxDB1qrRh2eAI+U+TXTP3MiPubiQm0VUBtbo99xI2tQapnHz6R5jC
+	 CTkpyiMWVUWdg==
+Date: Tue, 24 Nov 2026 13:38:09 +0000
+From: Mark Brown <broonie@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Helge Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+	Jarkko Nikula <jarkko.nikula@bitmer.com>,
+	Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, linux-sound@vger.kernel.org,
+	linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pwm@vger.kernel.org, linux-fbdev@vger.kernel.org,
+	letux-kernel@openphoenux.org, kernel@pyra-handheld.com
+Subject: Re: [PATCH v2 00/20] ARM: omap3: pandora: Modernize audio and
+ backlight to use Device Tree to finally remove pdata-quirks
+Message-ID: <f31b5adb-f6e8-4cab-8d92-17645bf1b69a@sirena.org.uk>
+Mail-Followup-To: "H. Nikolaus Schaller" <hns@goldelico.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Helge Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+	Jarkko Nikula <jarkko.nikula@bitmer.com>,
+	Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, linux-sound@vger.kernel.org,
+	linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pwm@vger.kernel.org, linux-fbdev@vger.kernel.org,
+	letux-kernel@openphoenux.org, kernel@pyra-handheld.com
+References: <cover.1795505160.git.hns@goldelico.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,79 +117,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-pm@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, linux-arm-msm@vger.kernel.org, 
- Conor Dooley <conor+dt@kernel.org>, 
- Rakesh Kota <rakesh.kota@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Sebastian Reichel <sre@kernel.org>, 
- Casey Connolly <casey.connolly@linaro.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org
-To: Raj Aryan <raj.aryan@oss.qualcomm.com>
-In-Reply-To: <20261124-smblite-charger-for-pm4125-v1-1-2132c9f0601f@oss.qualcomm.com>
-References: <20261124-smblite-charger-for-pm4125-v1-0-2132c9f0601f@oss.qualcomm.com>
- <20261124-smblite-charger-for-pm4125-v1-1-2132c9f0601f@oss.qualcomm.com>
-Message-Id: <179552715903.40664.16651410338735245830.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: power: supply: Add
- qcom,pm4125-charger binding
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nSbMoxGlmoiutN4J"
+Content-Disposition: inline
+In-Reply-To: <cover.1795505160.git.hns@goldelico.com>
+X-Cookie: Real Users never use the Help key.
 
 
-On Tue, 24 Nov 2026 14:45:44 +0530, Raj Aryan wrote:
-> Add YAML devicetree binding for the Qualcomm SMBLite switch-mode
-> battery charger found on the PM4125 PMIC.
-> 
-> SMBLite is a reduced-feature charger IP sharing a common SPMI
-> interface with the SMB2 family (PMI8998, PM660) but using separate
-> SPMI peripheral bases for CHGR, DCDC, USB, MISC and BATIF blocks.
-> 
-> The binding covers:
-> 
->   - compatible string: qcom,pm4125-charger
->   - reg property for the CHGR peripheral base address
->   - Four interrupts: usb-plugin, bat-ov, wdog-bark and
->     usbin-icl-change
->   - Two IIO channels: usbin_v (USB input voltage via ADC5_USB_IN_V_16)
->     and usbin_i (USB input current via ADC5_USB_IN_I)
->   - Optional JEITA soft and hard threshold configuration as raw
->     16-bit ADC comparator values written to BATIF ADC comparator
->     registers
->   - Optional monitored-battery phandle for battery parameters such
->     as float voltage and charge termination current
-> 
-> Signed-off-by: Raj Aryan <raj.aryan@oss.qualcomm.com>
-> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> ---
->  .../bindings/power/supply/qcom,pm4125-charger.yaml | 109 +++++++++++++++++++++
->  1 file changed, 109 insertions(+)
-> 
+--nSbMoxGlmoiutN4J
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-My bot found errors running 'make dt_binding_check' on your patch:
+On Tue, Nov 24, 2026 at 08:25:40AM +0100, H. Nikolaus Schaller wrote:
+> PATCH V2 2026-11-24 08:26:00:
+> Changes in V2:
+> The series has been reworked and expanded from 16 to 20 patches,
+> addressing review feedback and issues identified during hardware testing.
 
-yamllint warnings/errors:
+> Audio and power management:
+> ===========================
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dts:29.13-28: Warning (reg_format): /example-0/charger@1000:reg: property has invalid length (4 bytes) (#address-cells == 1, #size-cells == 1)
-Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (pci_device_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (simple_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'
-Documentation/devicetree/bindings/power/supply/qcom,pm4125-charger.example.dtb: Warning (spi_bus_reg): Failed prerequisite 'reg_format'
+> PWM and backlight:
+> ==================
 
-doc reference errors (make refcheckdocs):
+> Device Tree and general cleanup:
+> ================================
 
-See https://patchwork.kernel.org/project/devicetree/patch/20261124-smblite-charger-for-pm4125-v1-1-2132c9f0601f@oss.qualcomm.com
+This is dealing with several tangentially related topics over multiple
+subsystems in a single series, this makes it a lot less digestable and
+results in a huge series with an extremely large CC list and murky merge
+strategy.  Please split things out into separate serieses, even within
+the various subsystems there are batches of independent work which
+really do not need to be in the same series.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+--nSbMoxGlmoiutN4J
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+-----BEGIN PGP SIGNATURE-----
 
-pip3 install dtschema --upgrade
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmsFk0AACgkQJNaLcl1U
+h9C5/gf8Cm0A5yFYJVQeo/T7StRW0pHrKh1EmIz06r7u8NK09DP+BhXT8qRk1I41
+F7QT+nveX8OD+3Wz+Zyw7iAN7DdNLpIpci7jqzm/9hHAIeCU9h5mbXgGLRZXlLLy
+MJ/MIEGdSDswMSbHdd1qbOAph080P7loJJrXcVFvWHRwH6+Gc6umpSBfu7uLM+D0
+W+mM6fRvvz0Ou0YBcV+gvdp/18n0MiQ11v7dn3UsQaFHkJfTZzKZh6WOuUZ3JdKr
+H1DtRqRYCJooQcaZpUWdRGDHEAMHXgW1+o7r3gEfGTklbsyY+xeOhXEBbU7jQLjd
+SS7bE1b2Y0pMX5XKGAjMXMyqtG/2dg==
+=LtHo
+-----END PGP SIGNATURE-----
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+--nSbMoxGlmoiutN4J--
