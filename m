@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795549997;
-	b=B8PSU/G2BOm2ffdQypDIcGcw6+hezzK+0YNgJI9h2Upvz+psa6Kh86Fav/V5iFGNxbTw
-	 ah15CxNIm1uJbV57C8x05ka71jemECaDjlicE2EY6555QWsBbe3lD1p0+8ZGlzvkRePEB
-	 U4Hw6QaRtVX1RWx3CIR+Hnzt5HQyiaRpfthhFaFbm0JPtcm2z8p0XuO3Jk7nsaf2CCRYz
-	 apQVe4R0KrgumBEwfRW4L2tLeMc/rv680YaeZLgz8nG1jzaQfXWMZa1HMG7hTO398DZXu
-	 93p61U+a46FN8WGQsuGRlPe5DVZrgwsjpMim1UgHw1AG/m6M9lmRoMkCoK8T9O0ehsQ==
+	t=1795549993;
+	b=JHv3ObREPEpuVMX+nY9TwYjppnR5hkX69uhXeUO7Y3z+qFuobcHj944x/I4zkutDHc/2
+	 dLzmeBV4fdg2yZqfWScoBDU185+JBjMaEdNScdQtNDV2WJFTQ798tw3ah2peFdp39ZGwC
+	 bffGJErQZDTYLZtYEVT9XF4DSdbtWE4NnB+NoYVqlAJF9A8JqMOfFG9acg8ezN35WlMBd
+	 6gyszNAsKz2kM7zawWbN44MfNfUVWJIt9wB3Si8KMHhZGv//Zhjlp9oTptzJ46FiUy4Ml
+	 mOhCODYF8MwPy7QI/iISlTwf6EBayYWycIu1UP4d4GSgEMtX9tnIN1Y9y1a1kE1FD/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795549997;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795549993;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JhNA9vcA4rjyGrnZFcrxcZhj96TM96Lx7f9sptF3ReY=;
-	b=LmVPuYeHRW15VG5Abeapfe11XojwWVxszOvsOgjku5MxGajyAToEqNlctatb08/InLe2
-	 lOklEOZF0pjNVp3SbNPJtLqlDiFjMw/ugOWuzkWRrvLuqdIIdyTQOQscfTbrrHHbcxQQv
-	 5NJgaM4cmG9xb7jfjFZbOkvG1Ay9tuqNeCQmbDRw9A4Zz10Y/QUw5Yb3n9hrAd9PaC6NT
-	 zdL5/EDR2hdvj6/2EPe7NvdpM0vup0+VMB96R08xDMtEL4F050lwtVfHrpfcVcPWtp0my
-	 iJaWThrm46jmPb8P00BLvVQNfCBqZUDdcahMsusXX71FLIQ3sxh4rGigTA960kDQvHg==
+	bh=YW/+6/w0vkzA0mZi6tXKisnSsrAfx2YkPceqac221Cs=;
+	b=Kj3A2usXdOEODLDsfXbxl6hlFURHeUErbh1iXu5BVjPx4DIKWfD091T3OQZoZSGHPPph
+	 A1ItsTVCk0s+jEKlJeXKdvuVjv/risuDupK5ZuEF98nbJCLcxq32dQclInZH3vKYT7FZH
+	 p8pR9HfLJofrxxvgriiitiQ/aMtyy/MvbXzNG+QdzQMAKT1hNqaR1Meb6dvpObxFdJMar
+	 Wb2/cfG/oZoE1Aev/V3dBePrZ+qQmW1bByOUzFLWcF5P+9loVxhDR2jEo1wXWLEGEq2uH
+	 nWWMB+rF/Xb8+LBflncsNqvDxksFtpvyW9x7wVDCrQ0Tjn/8daPOOEBVOyJ2uHFRlDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRY0MjsB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lid+xWiF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC08C606A326;
-	Tue, 24 Nov 2026 19:53:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE41606A321;
+	Tue, 24 Nov 2026 19:53:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRY0MjsB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6CA61F000F0;
-	Tue, 24 Nov 2026 19:53:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lid+xWiF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A537E1F000CF;
+	Tue, 24 Nov 2026 19:53:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795549997;
-	bh=JhNA9vcA4rjyGrnZFcrxcZhj96TM96Lx7f9sptF3ReY=;
+	s=k20260515; t=1795549991;
+	bh=YW/+6/w0vkzA0mZi6tXKisnSsrAfx2YkPceqac221Cs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eRY0MjsBrArzHKyXsm1BuNSgFg+ZMkgkLxftb7A4ZpLHl02nhC4wqnk0Nk0hUzJWs
-	 swZ0IAZr6pHKHA+Wz7lfk7OSTQZCERr8yXwHOIWhjdYZVRw++Ke/30ulKV9z7L1aGy
-	 qG9CRsJaS5B3qvPLZfTxPKDePXfFXYnlvXsuTZKi4dnBB/T2wNmHBiGzKAonf2rTdb
-	 61IQIezeaCFjYcogo4gUWncanvuF6OXsDyh3rt5lQSJQ8GmPX1CSTwLUHk8zy/YWPF
-	 mVcON6oRbpaRs/AuWe31XF/kHr4yRBrphtNO4wRMQ+5/a1p/u++1PcEwYwI1J6QAqQ
-	 tmsal42zsTz8w==
-Message-ID: <sashiko-outbox-231919@kernel.org>
+	b=lid+xWiFp3q++kwXexC1A24zp0skeYUzc1vada6Z8f5VnRxGkCBtlyBYDfnSqEozk
+	 pp99lSp+GqLzHF9UTfKZ4r2kTDrifS27SSZzmBDOue+qZJrk/u0h8Sa/hcToDWJaLF
+	 xw5jU/Frm1cY159jC3Omf3sKW6fHm0axjEwrRpkYMTzdcQZ9DhXh4lPC7vy9v/TUVW
+	 ikP1v5eXyuDsCkjwMiIH17RYhhEp+ieM0ifAuiFAdOEYgteOjQ/TJ1ShV6106aLs0U
+	 Cngdk4elbajsoiy/fS5Qp7dMU0eG9I3GG6BA6XF2M4GnM2HepbRD9IA3r8bLqNwzrq
+	 S2XptuCyNcICw==
+Message-ID: <sashiko-outbox-231915@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/10] arm64: dts: qcom: shikra: Add GP M/N clock
+Subject: Re: [PATCH v3 06/10] arm64: dts: qcom: sa8775p: Add GP M/N clock
  controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Taniya Das" <taniya.das@oss.qualcomm.com>
 Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-b4-pdm_clk_gp_mnd_v2-v3-10-98db26a87500@oss.qualcomm.com>
+In-Reply-To: <20261124-b4-pdm_clk_gp_mnd_v2-v3-6-98db26a87500@oss.qualcomm.com>
 References: <20261124-b4-pdm_clk_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com>
- <20261124-b4-pdm_clk_gp_mnd_v2-v3-10-98db26a87500@oss.qualcomm.com>
+ <20261124-b4-pdm_clk_gp_mnd_v2-v3-6-98db26a87500@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 19:53:16 +0000
+Date: Tue, 24 Nov 2026 19:53:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,53 +63,75 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] arm64: dts: qcom: shikra: undefined gp_mn pinmux function on
-  gpio87
+- [Medium] arm64: dts: qcom: sa8775p: undefined gp_mn pinmux function on
+  gpio35
 --
 
-commit 21f238a4776648cda5ae0104384fa487d48ca02b
+commit 2bb0f9c69aa222be884a221ac0040d31c8953968
 Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-arm64: dts: qcom: shikra: Add GP M/N clock controller
+arm64: dts: qcom: sa8775p: Add GP M/N clock controller
 
-This commit adds the GP M/N clock controller node and its gpio87 pin
-configuration to the Shikra SoC devicetree.
+This commit adds the GP M/N clock controller node and its gp_mn_active
+pinctrl configuration on gpio35 for SA8775P.
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
-com/shikra.dtsi
-> index 0a95ad5a5582c..a5079b82f22f5 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> @@ -992,6 +992,13 @@ sdc2_card_det_n: sd-card-det-n-state {
->  				drive-strength =3D <2>;
->  				bias-pull-up;
->  			};
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-embedded.dtsi b/arch/arm64/b=
+oot/dts/qcom/lemans-embedded.dtsi
+> index 0be39bb9de1e1..4bba23df8a95d 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans-embedded.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans-embedded.dtsi
+> @@ -1849,6 +1849,20 @@ lpass_ag_noc: interconnect@3c40000 {
+>  		qcom,bcm-voters =3D <&apps_bcm_voter>;
+>  	};
+> =20
+> +	gp_mn: clock-controller@88d3000 {
+> +		compatible =3D "qcom,sa8775p-gp-mnd", "qcom,sc7280-gp-mnd";
+> +		reg =3D <0x0 0x088d3000 0x0 0x1000>;
+> +		clocks =3D <&gcc GCC_PDM_XO4_CLK>,
+> +			 <&gcc GCC_PDM_AHB_CLK>;
+> +		clock-names =3D "pdm", "ahb";
+> +		#clock-cells =3D <0>;
+> +		pinctrl-0 =3D <&gp_mn_active>;
+> +		pinctrl-names =3D "default";
+> +		assigned-clocks =3D <&gcc GCC_PDM_XO4_CLK>;
+> +		assigned-clock-rates =3D <4800000>;
+> +		status =3D "disabled";
+> +	};
 > +
-> +			gp_mn_active: gp-mn-active-state {
-> +				pins =3D "gpio87";
-> +				function =3D "gp_mn";
-> +				drive-strength =3D <2>;
-> +				bias-disable;
-> +			};
->  		};
+>  	usb_0_hsphy: phy@88e4000 {
+>  		compatible =3D "qcom,sa8775p-usb-hs-phy",
+>  			     "qcom,usb-snps-hs-5nm-phy";
+> @@ -2515,6 +2529,13 @@ dp1_hot_plug_det: dp1-hot-plug-det-state {
+>  		bias-disable;
+>  	};
+> =20
+> +	gp_mn_active: gp-mn-active-state {
+> +		pins =3D "gpio35";
+> +		function =3D "gp_mn";
+> +		drive-strength =3D <2>;
+> +		bias-disable;
+> +	};
 
-[Severity: High]
-Is "gp_mn" a valid function for gpio87 on Shikra?
+[Severity: Medium]
+Is the "gp_mn" pinmux function missing from the SA8775P TLMM driver and
+binding?
 
-Neither Documentation/devicetree/bindings/pinctrl/qcom,shikra-tlmm.yaml
-nor drivers/pinctrl/qcom/pinctrl-shikra.c defines a "gp_mn" function, and
-pin 87 only defines "pwm":
+In drivers/pinctrl/qcom/pinctrl-sa8775p.c, sa8775p_functions[] does not
+define a gp_mn function and sa8775p_groups[35] has no gp_mn mux entry:
 
-drivers/pinctrl/qcom/pinctrl-shikra.c:shikra_groups[] {
+drivers/pinctrl/qcom/pinctrl-sa8775p.c:sa8775p_groups[] {
     ...
-	[87] =3D PINGROUP(87, _, pwm, _, _, _, _, _, _, _, _, _),
+	[35] =3D PINGROUP(35, qup0_se4, phase_flag, _, _, _, _, _, _, _),
     ...
 }
 
-When a board enables gp_mn, pinctrl_bind_pins() fails to resolve "gp_mn"
-with -EINVAL and prevents clock-controller@4713000 from probing, and
-dtbs_check fails schema validation on gp-mn-active-state.
+When gp_mn is enabled, pinctrl_bind_pins() -> pinmux_func_name_to_selector()
+rejects "gp_mn" with -EINVAL and aborts probing before clk_gp_mnd_probe()
+runs.  "gp_mn" is also absent from the function enum in
+Documentation/devicetree/bindings/pinctrl/qcom,sa8775p-tlmm.yaml, which
+causes dtbs_check validation to fail on boards including
+lemans-embedded.dtsi.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-pdm_clk=
-_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com?part=3D10
+_gp_mnd_v2-v3-0-98db26a87500@oss.qualcomm.com?part=3D6
