@@ -1,108 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795547914;
-	b=S6VIP5cl46+BLvoun0Fzsw+99UcYKY7U4RKVVjeBCf7tuth7+mBaCL2aMogyfmDntm2h
-	 JcJraW95Ap5zv0VgDXfIqBMbfv+QDYPeZNItI23u9eaKGxVzhYiWJV8TBF/32Q5yr3ypL
-	 h2yuHEiTyVJrZYfc+KCwYF3jet1cu26e5RsDzk5xxdNfdmXdxxtG6P7BuexAW2l25ss9F
-	 yeNerm3k76DnAx4Bzow4mWZnvhOw4+79JtOMr2Zvfp4tv9HTauFmEnzw+PnOrOJdIJEtw
-	 +lkDQkLz/Upr4gpSavzdpHLIBUYa/N9/p6deEWPFrGBpt7quTs2mXCyjMGjrkRIEWaQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795547914;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=btIIoQSK3yJVM75CjWoJylr23lyCewWzNYbOJNHPOoM=;
-	b=M4yzceUFIih9GP30KVnNlFHMpiWMdjnY+RWIQjjJeTbJKJePFHejqyceMsodMhu+POlA
-	 eDQywI4YvB748CfXRMWlyJX2OLMWqBXUSsNVC0K0KVnJvePQoe2aclfp5Xzad5KbIls9L
-	 puoMdxQVA6ikLekGET5y+M6WYMQ9ZJXz27u6mofFZOUf0Cbh/oMvRve7jpnY6xI0YAfyG
-	 XOZ2jyUDUUuDzLutr0MY19U0evGdU6yMDsloX06AYayXBLseKDuXtcvANfjeJ7NvA5Ea+
-	 bfXxAIY93+6yUN04AGzjAPx+KuAag+QaVGiLgiij2uarfuQ0Bm7dltc3woL8erljDjA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d8ng69Xd;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.24
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795548049;
+	b=Lk4tnRIk/P+X0m3NEbgkaxif+vca2Xcnkd7Ea2mRCdceVUJsaFNQWYS7KS3JTRCKU0rh
+	 68t36cXUz8o7xGBJ5gGUKwsVkuEx28h7Hf6+KvezoFNRNvpLTy008GfGqYSUgiW1k73eU
+	 FsOCkOhPBu3n++H8N6zi8kIdPMLDxHKjJ1cYieiQ+4oVr7dRlcNYmEZXgPxZ/7w2YeWUR
+	 VUiLoj0vf4UFTcH59jS4HcN1ZVZjZMadtEZXH6N+OWoIA/lASNxm3NhIvJvFUGWQQaPm1
+	 bFGKC+WJVNmWiV/RhZ47cy0vir6kapXxG7DQJe3LsUn/6kDKHLCT+pojJoOUciVpOwg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795548049;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UUX283FTJ3Eit9xaeTKCL9fIV7FQ1ssXq/6S784oV/U=;
+	b=jop16zcCkGhOi5YbdoOPzTV9LMHWkOBSZt0WPBqkZdcXhUYuCYKPmSwd4OuJD++0fXjQ
+	 +ZxjcVlP1MeJvHiy/wpTdPuDIsWQOexsugLhheMQAHIWz2B43HQQwvQ7Mt5fPGMCJce4B
+	 kltkxr1SRW+5+ytjCSsXcpgO0i1EWa+p80hCXXI5iSoP7GB8eqlu9E0Zp1qqRsuBYFMur
+	 CuK+//1sjy8iuXNVn8sxrL76rK7YeSQDmTlP33Z+RHGxFkjCxcECgwkY18z8FNAf2SbfM
+	 NS+T9ZL9G2R6ASx9Hk113wOF3iY/u3BXa7slagKa+XxKViXgpzyXCYwMj6nwB3ATzqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jxoOJYul;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.24
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012024.outbound.protection.outlook.com [52.101.66.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D735606A33B
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 19:18:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D735606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56FC606A31E;
+	Tue, 24 Nov 2026 19:20:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E56FC606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d8ng69Xd
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4b467581b98so47961295e9.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:18:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795547911; x=1796152711; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=btIIoQSK3yJVM75CjWoJylr23lyCewWzNYbOJNHPOoM=;
-        b=d8ng69XdJ0EqN6MCCkF+pKHsOyJaUej2TCyw8cQFvFzWVXSqvROBe7Bxwo/yi74H2L
-         9lBMuQumD6qrInexOuCjpp+GpBnlZ/XOSqu8UXz3hfuMKuNHyZ4pybd5YBj5eSJEFh5x
-         CWH7HC9KVJUnFTHdWv/BiQ4uvPAKF7XozpgOSdut9c0Yg8HWe+pJhW6m+IwFuM7SDMA3
-         tGrKEpf+Hz8mZx4DM0P1CCqpA6hLYSrRq85uOUegUd+YLEyzakRHLattIdRS0P0jEjXq
-         nAFQvsQacTVzo8TOy+GVzM8ni95NeHX01eoUDOzcPEhrds9Izy1Ab92aFdEkM1o1gxuJ
-         mkdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795547911; x=1796152711;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=btIIoQSK3yJVM75CjWoJylr23lyCewWzNYbOJNHPOoM=;
-        b=G1Rtq2nUxEmc/mdqy7qfJoCQglU6xT2oQVnkEm4UnxjzJ0tTHIl3h1CNkAA/XKIlxo
-         lC7h5wZExan0L4yXq4mTOWSoqB2kVDaDu+hivhf6TiL2xP/xPhbLRGe7LoGU4tCNY6mv
-         HJVbMEnetID2Q0ZzW5NjGlNK8+tciTRI28sQgmVXa3CRy+92Wx5+ZOGulaX3IQBZdgOW
-         4QTwfvJOsScd4F6jUeC9nPquiK1GYq9boPh3oj6CQU7zjrWxw25YdHgX+sYfccqIOu7W
-         d76DnqX+W/VqQM1/Px1P9vLBQpFGB+nldrxpolwPMBGQQRJeKYwJKHgB+NF6Zu/6Unlf
-         aPYQ==
-X-Forwarded-Encrypted: i=1; AL+hErE6ntoyY6OCUHWyuYrYzdNbdO5saTxrWhXDK9cm4d+/UiinFwgxQfheXWaSJBOLmn6y6qMPRwgPTJdM@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BPcgW+q/P9r8UknO+LHY8SxjhM/pHRRnpatn8uQ73whvBtsqN
-	SChTKyBVSylyZLzwnYrLXdoFtCutiqOemRloTPPYbuGhxs52CzOpN48=
-X-Gm-Gg: AZFdTZeEc68zfH7DI4fg1RWp1Ocvq2zX8+HdmGZ0MvIy27BeVEPHlWbTVyG7EfK9Twb
-	UZB/j75j9ajLhn3003sel9dVLMdrKbWrq/1NNpGYpMu/dov6RXF6iXmi+Sy5dXH0O1Ngcy5q8Pb
-	hiWjNzgR7wbbMIrzNEC97MWp8qEf2qxtLCxv/2gqBh4Thk02y64ayEMjfDXdvybc7Sx27PsIHVz
-	KXTZTvr9ijCD+FjdaCIeiMIfcXYfQ4e2FGlyehwdsKURN3dGPJPuRJFeSeHUC2eZwQwYscFvhYC
-	SLx92lRGyd2IHPN6JAID5maGR+Inlr33l5YkVMacjEnTYs5/6864rJo2BPQkPB6G6hpRHGUChnj
-	KiQbqG18g1g2UQAKfIilQVQ/12CE6RSth4aVgeTc9NUofpNbUPhqmwDTQckFIYInDZEalzBzdF5
-	TRnBkxd/vmz17kf2mBUZO6iyvLH55aMWx0auEwzC8qOJcGSWAsbIhvLvIzefnTTabgO7XLUf0Kh
-	g02Ri7DyginBXXFrPRkOkNPDpTQwjnmeLohsbiy3qONdCd8xy1QI++It7MzDKOHKmdkZE5dGiq8
-	o9IB8MJvUR8xgpdpSBJ1XTU40uXoChplqGKkL+tgywfhXdnb03I1
-X-Received: by 2002:a05:600c:a08b:b0:4bb:6651:9eda with SMTP id 5b1f17b1804b1-4bb88922ca4mr301151895e9.14.1795547911130;
-        Tue, 24 Nov 2026 11:18:31 -0800 (PST)
-Received: from localhost.localdomain ([93.145.31.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884c3063sm463320985e9.15.2026.11.24.11.18.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 11:18:30 -0800 (PST)
-From: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jxoOJYul
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RR1YM9OGV4GcbpqppUnwCcFKKbnh5hENBNQ1iwwkr1GYjMC5soN4FLy1TPZN8iNyoS8ofFMANjRNiB5Ga6cegDHr0OVo54h6vRJSKi4YlQn9er20FXS3BcXVwvDFQwjCAlT0FjDerZUfQ6/NqxREagFhzygn7IasVqhAy/NhO3uM502uLBxZ7M2dWPpTBvKuEFN5JFm4IiEdex2mOnjkBETF5qudTG/QIbaJhFCbSW8QPwfnmIMqFSPwZRj/sHRSvLJdtSf7bVikXGJN2/8z8jML0rJabJluJxHDFKNGmz1MzM2K8sXPps1GpP2QetD+al6HR7+O/YSeB/r8vSwoow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UUX283FTJ3Eit9xaeTKCL9fIV7FQ1ssXq/6S784oV/U=;
+ b=VqN5wsn1YWwr+5IswyO7GigDPwvvkSAbASEBNGxlptDjS0ARpoq6eecSGRHHKCPUImW23h59kZleY6Vb+ItUNl/3gcqU7rS/6i1wPgNNEaLR4oYfBt8wsbC7WwzBHOaIyjRES1XaH7L+TKtSC8KESuoOBj8+bGibXDCvX9HCeP0IOUoyTXWMJZvtihrinGXlxFfqLLeokD3zVT7udi38JDZ22GFOWzunmU+5on3FXqSpCxVbdCKV+/uuqUCOAQFR1bae6B0fBrOKwGtQq6SIrw5kI/D7INsAqs0KLRHPKc9uKmGvmdoSrmTxXZOc/liO3CkCKp8G/QckSU2wcsIbCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UUX283FTJ3Eit9xaeTKCL9fIV7FQ1ssXq/6S784oV/U=;
+ b=jxoOJYulTLaQ+9U0jwsVIhHAmk08YP4rxgv5o/YOuEQ23WFSidCM+6rZI9rhgEsrhzp5i6YBkJ3EHNAxRUOtXq1wORnPP/plFSu/RM4fDzvb0DWEPCVMhq4K+42i/uUMyn9NHWEHPh2S8Nn8+6Sjg4N6/aRtphxB0cItld4mMd31ZBdZu2UNFuQq9M3wkWZgVYamBaWX96WnzE+rtqI9C0MQlkS4m63TgpsA7ED8mSwYEB24XdaNNtRdtgRHF15f7xMBpOpLw74gBKj3OnSFk/VnY5J8+wVEZFO38UtIhAt8n+EAmAjg1ONU4iUESUgOtT6sw7zMlx223P8oZNh0fQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS8PR04MB8755.eurprd04.prod.outlook.com (2603:10a6:20b:42e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 19:20:42 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Tue, 24 Nov 2026
+ 19:20:42 +0000
+Date: Tue, 24 Nov 2026 14:20:32 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
-Subject: [PATCH 2/2] drm/bridge: Add Lontium LT9721 HDMI to eDP bridge driver
-Date: Tue, 24 Nov 2026 20:18:03 +0100
-Message-Id: <20261124191803.283266-3-gianfranco.mariotti94@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261124191803.283266-1-gianfranco.mariotti94@gmail.com>
-References: <20261124191803.283266-1-gianfranco.mariotti94@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Saenz Julienne <nsaenz@kernel.org>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Dom Cobley <popcornmix@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 02/28] dmaengine: bcm2835: Add support for per-channel
+ flags
+Message-ID: <awXjgCtgR5wtadnb@lizhi-Precision-Tower-5810>
+References: <20261123145728.29082-1-andrea.porta@suse.com>
+ <20261123145728.29082-3-andrea.porta@suse.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123145728.29082-3-andrea.porta@suse.com>
+X-ClientProxiedBy: PH7PR10CA0008.namprd10.prod.outlook.com
+ (2603:10b6:510:23d::14) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,1729 +111,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS8PR04MB8755:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f753dbd-6d10-4087-201d-08df4a60083a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|19092799006|7416014|376014|1800799024|261102123227099003|4143699003|10067099003|56012099006|11063799006|261022105027099003|261028144727099003|261021121427099003|261021135927099003|261026140227099003|261021123027099003|261009223027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	f5V2EE16bLA9d+R1tNgyqSxUuwQXAynyebp206IuWvg5LERIdSwM26EhDc4kBrwfB39W9JXj67cns1ROu6Gk9RDxg2G88yIm88xg8YnCXzzQTd6EKmIfi+ybySiGh3pFttENcH9EDYpHB2qLXiBE1QO/bDGAeqjy4hJM2krtXgOCIAVEOkkuEECCPGl5id1lmVNAvuZES1oMZTyJAGrShdR3l3rhgI6AGNl7ARu+ebY3gcG4MBTN+18RNU9OKZXU19nrHh0xXiQL1+lTN6+JtyP7FaN/TKN7utDlYC/q2Q00vRCu4KuY5Xv/vYblVLfiMZei0YisJNrIL4MyCEd3gBYdDzW2aWdFNL2PCmMovW2P0wUO3hqyv+gQB6sI0KIPmiMeM/eP3nLddgI7Go3aZeNXdZF8u0pGlHyjjySYLJfs1/T4z5zUJWsuve4yWTT74l2OlV+clV/UAn43QrOCPydNqrIQTZj/xkOKqQmo4ouQ22d5bgrlG/jiH7p7eMXzz5L6SHtBohT7HWMCPfVrtHicEjXCBc6jelU+aFsqoFAmiJ0Q5lLSvXQC8HzbooToWj7yfIXnzaxQDi62x3XmT3O0VMSyWp57AZJ5qniUCsJraWwOHd4mm0nt1w4M1gG5fGy83rI/HHILstXMmp6NZJr0cPYJgWjR/7WwBwvN35E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(19092799006)(7416014)(376014)(1800799024)(261102123227099003)(4143699003)(10067099003)(56012099006)(11063799006)(261022105027099003)(261028144727099003)(261021121427099003)(261021135927099003)(261026140227099003)(261021123027099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NiYTwTZw6fVmdh91Nt2mZsp1clUFllVAAMkGi6gXFlqiVIbJP5dxJwrOyW5t?=
+ =?us-ascii?Q?9Psyv+Q3EQeDtQUbySfxNUVH+1rQ8YNnGRsL+Xdr5ZZhBmNWusGfO8ademhX?=
+ =?us-ascii?Q?KAdujNJ0zQ05RDvo138rOiAt9KtdWi31HM6CIy9H91oQw8STBwR/M7CRd3LJ?=
+ =?us-ascii?Q?W41jJBIUHeV8I5vnJmn+SpqttEvwwehlwdFqxQOwtTT02Kcjgq9qvH4PDITm?=
+ =?us-ascii?Q?2GpTAmu8jI3+wkc9J+2o3diu3IaKoN/L65wnlOXHpYSQ5OLtj8I/RdsxGDcP?=
+ =?us-ascii?Q?kA6xf9Z6g3QSOBW/irddjsBgliV0gBglCMCbwFJW1QlGIBxfb7K3zX5wk+k7?=
+ =?us-ascii?Q?rLIhfE0FkVt2ln1euaXo83UpoB/OV5ta7nxzW78YRwjSrLWC9XMRkFxrebv8?=
+ =?us-ascii?Q?r60RwSb5gHm7f7ncx9xRflDjEgCYnybO7a/VZuPHBJjqH+TIUc3rPoCRL6Q3?=
+ =?us-ascii?Q?syPUQemuqqHZd49VC1TUHIDU/rYu0C+cfT1ufry3AexuMSdrxKHYCpVyvTtV?=
+ =?us-ascii?Q?NEns8NJ1wRaChp3R05t7u6cDJWPjS87I0IYB9cX72EuFZ1YuVFwrXac1zYoO?=
+ =?us-ascii?Q?Lz72RhhHih5UsXl37tALEhRo2a85vXN8ZHdOirjCFcLjdPsSUy9wSftwTJbN?=
+ =?us-ascii?Q?XnEn8HHjsSDqT/UeL/z2/x85jDRYElVu7bKBufXtOf7pVNc7Sv/JOwilNuxn?=
+ =?us-ascii?Q?0ATc/u0IlHhIpwY8fD0jg/2jNTUHbvGa2K9FEWD26TQzzs3yjT32JsbyzTL2?=
+ =?us-ascii?Q?tEm5L+dxlPYzNKfVeFnJByY5h9HGijfArHJcZ/fJGttxdqKlANe/KqB5dilD?=
+ =?us-ascii?Q?YeNH1rSztiHTRQBexltiUYn/PMCUWL+Lv1n/A8csacODXiKyQEjka6NoccUm?=
+ =?us-ascii?Q?PnjF1x7V9ax5GZ/G11OuhEVj070RbKiAj1HtaCeKO1I+o9MA04vvS5PJS62k?=
+ =?us-ascii?Q?j3egRcRmsTPM6kDwFZSD9xhpgVAmQwoixzPlsu4zBZU4mZUdopaaBp6hpqxb?=
+ =?us-ascii?Q?BrUs+dBwbqmLB7SK19VJIWN+nLK+WQNo6QZLQq7an8UHg3tIBcgzopQ/zu+X?=
+ =?us-ascii?Q?wDbv9ymstRlWNtQBzdOz/CKnL7TKWqfmR17c9lV5nFtsEHMKixRleqjt+Woa?=
+ =?us-ascii?Q?vYMxwgbMl8AydHfzHzrUhS1/4y5JsAzjOnxSVxEYjs+vKQdELfq5AGKQqvao?=
+ =?us-ascii?Q?sdCroVeHoa2yMSYo7418bu83vZTX6kAdjvIJkefzkl9Vs0nmD1j87DCgxIoR?=
+ =?us-ascii?Q?+3mckZg8yncMYppaNZ/ztANzTkQMVea3vnHtkhUDfb4UC8T09fMh2KTV058X?=
+ =?us-ascii?Q?6pf8bcgZVljUB8gxjqwSx12hteUiqhLkBi+LYjyv8/qspA7AKKeyABA0whcK?=
+ =?us-ascii?Q?Pp07VQtTeIVBQSx51j+C+mqgRR+m0xhlmocU2SVnU4i3eM4R6Z1XQ2/Z1yQz?=
+ =?us-ascii?Q?fTUK1xsCNmZKsIOfLLmphywwNfyOy5GUXZDq2viKZVq6w6aAZcXvzLbVohwk?=
+ =?us-ascii?Q?iiguqvx38sfUe+3yMtycWHNQGLEaidm/n3nlm2gGk42aj70tWE021RRWUgxs?=
+ =?us-ascii?Q?A0akN7iZY1tSfW+04S58OASgaVZSADR0IqLh8Zwnq5RcI7uvO5V7Y+vzmWIE?=
+ =?us-ascii?Q?kk3XATfSHzUyst7UCqe3ttJ7s2tU4LuJ0fvXZXiQtoGuoDQ9U5cGfpJsy9LC?=
+ =?us-ascii?Q?mof9gczx1n+G0J9D+M3QuZ6rAdhHMezonvxYeqPYDYMxSWJVJEMpceShs+vU?=
+ =?us-ascii?Q?tP6MiFCSu9br57lTWoFxbw8XLUBr1O73mKiquJQjOFOwppiFYorC?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f753dbd-6d10-4087-201d-08df4a60083a
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 19:20:42.6032
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XKxIROcJvepVlAJNVFD29uHYclBhhGvYIGh5gCOmviEerItFm6Edg59sBOCeKRKM+sWTQGda86IKJdC241fGo4725g3/jLX3gH5Vn/a2f8yLAekiL51w1hB8JmeDwOIx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8755
 
-Add a DRM bridge driver for the Lontium LT9721 HDMI 1.4 to 1/2/4-lane
-eDP 1.4 bridge chip.
+On Mon, Nov 23, 2026 at 03:56:40PM +0100, Andrea della Porta wrote:
+> From: Phil Elwell <phil@raspberrypi.org>
+>
+> Add the ability to interpret the high bits of the dreq specifier as
+> flags to be included in the DMA_CS register. The motivation for this
+> change is the ability to set the DISDEBUG flag for SD card transfers
+> to avoid corruption when using the VPU debugger.
+>
+> Signed-off-by: Phil Elwell <phil@raspberrypi.org>
+> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+> ---
+>  drivers/dma/bcm2835-dma.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+> index b19182c6e3df..690f5ba1c439 100644
+> --- a/drivers/dma/bcm2835-dma.c
+> +++ b/drivers/dma/bcm2835-dma.c
+> @@ -137,6 +137,10 @@ struct bcm2835_desc {
+>  #define BCM2835_DMA_S_DREQ	BIT(10) /* enable SREQ for source */
+>  #define BCM2835_DMA_S_IGNORE	BIT(11) /* ignore source reads - read 0 */
+>  #define BCM2835_DMA_BURST_LENGTH(x) (((x) & 15) << 12)
+> +#define BCM2835_DMA_CS_FLAGS(x) ((x) & (BCM2835_DMA_PRIORITY(15) | \
+> +				      BCM2835_DMA_PANIC_PRIORITY(15) | \
+> +				      BCM2835_DMA_WAIT_FOR_WRITES | \
 
-The driver supports:
-- Atomic DRM bridge chain integration (DRM_BRIDGE_ATTACH_NO_CONNECTOR)
-- DP AUX channel registration (Native AUX for DPCD and I2C-over-AUX for
-  EDID) with DP AUX bus panel population via
-  devm_of_dp_aux_populate_bus()
-- 1-, 2-, and 4-lane eDP 1.4 link training at RBR (1.62 Gbps) and HBR
-  (2.7 Gbps) with per-lane voltage swing and pre-emphasis adjustment
-- HDMI 1.4 RX CDR, adaptive equalization, PLL lock, and RGB/YCbCr
-  format handling
-- Standard OF graph data-lanes and lane-polarities remapping on RX and
-  TX ports, plus power supply and reset sequencing
+Your commit message said "ability to set the DISDEBUG flag", why need
+other flags here?
 
-Signed-off-by: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
----
- MAINTAINERS                             |    1 +
- drivers/gpu/drm/bridge/Kconfig          |   16 +
- drivers/gpu/drm/bridge/Makefile         |    1 +
- drivers/gpu/drm/bridge/lontium-lt9721.c | 1640 +++++++++++++++++++++++
- 4 files changed, 1658 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt9721.c
+Frank
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 707cd862d4fc4..02c09f82ef829 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15796,6 +15796,7 @@ L:	dri-devel@lists.freedesktop.org
- S:	Maintained
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/bridge/lontium,lt9721.yaml
-+F:	drivers/gpu/drm/bridge/lontium-lt9721.c
- 
- LOONGARCH
- M:	Huacai Chen <chenhuacai@kernel.org>
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c7da6b02d7b6b..ed35dacbb740b 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -191,6 +191,22 @@ config DRM_LONTIUM_LT9611UXC
- 	  HDMI signals
- 	  Please say Y if you have such hardware.
- 
-+config DRM_LONTIUM_LT9721
-+	tristate "Lontium LT9721 HDMI/eDP bridge"
-+	depends on OF
-+	select DRM_DISPLAY_DP_AUX_BUS
-+	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_HELPER
-+	select DRM_KMS_HELPER
-+	select DRM_PANEL_BRIDGE
-+	select REGMAP_I2C
-+	help
-+	  Driver for Lontium LT9721 HDMI 1.4 to eDP 1.4 bridge chip.
-+	  Please say Y if you have such hardware.
-+
-+	  Say M here if you want to support this hardware as a module.
-+	  The module will be named "lontium-lt9721".
-+
- config DRM_LONTIUM_LT8713SX
- 	tristate "Lontium LT8713SX DP MST bridge"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index 15cc821d85b7e..b23d6e3c76fa0 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -17,6 +17,7 @@ obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
- obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) += lontium-lt9611uxc.o
-+obj-$(CONFIG_DRM_LONTIUM_LT9721) += lontium-lt9721.o
- obj-$(CONFIG_DRM_LONTIUM_LT8713SX) += lontium-lt8713sx.o
- obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o
- obj-$(CONFIG_DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW) += megachips-stdpxxxx-ge-b850v3-fw.o
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9721.c b/drivers/gpu/drm/bridge/lontium-lt9721.c
-new file mode 100644
-index 0000000000000..582e9e59dfb4d
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/lontium-lt9721.c
-@@ -0,0 +1,1640 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 SECO S.p.A.
-+ *
-+ * Lontium LT9721 HDMI 1.4 to eDP 1.4 bridge driver
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/iopoll.h>
-+#include <linux/media-bus-format.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/slab.h>
-+
-+#include <drm/display/drm_dp_aux_bus.h>
-+#include <drm/display/drm_dp_helper.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_atomic_state_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_probe_helper.h>
-+
-+#define LT9721_REG_PAGE_CONTROL		0xff
-+
-+/* Page 0x60: Chip ID, Clock Gating & Soft Resets */
-+#define LT9721_REG_CHIP_ID0		0x6000
-+#define LT9721_CHIP_ID0			0x16
-+#define LT9721_REG_CHIP_ID1		0x6001
-+#define LT9721_CHIP_ID1			0x06
-+#define LT9721_REG_CLK_EN3		0x6007
-+#define LT9721_REG_SW_RST_RX0		0x601b
-+#define LT9721_REG_SW_RST_RX1		0x601c
-+#define LT9721_REG_SW_RST_RX2		0x601d
-+#define LT9721_REG_SW_RST_TXPLL		0x601e
-+#define LT9721_REG_SW_RST_FIFO		0x601f
-+
-+/* Page 0x70: Analog HDMI RX PHY, TX PLL, DP TX PHY & AUX PHY */
-+#define LT9721_REG_RXPLL_CTRL0		0x7016
-+#define LT9721_REG_RXPLL_CTRL2		0x7018
-+#define LT9721_REG_RXPLL_CTRL3		0x7019
-+#define LT9721_REG_RXPLL_CTRL4		0x701a
-+
-+#define LT9721_REG_TXPLL_ANA0		0x701c
-+#define LT9721_REG_TXPLL_ANA1		0x701d
-+#define LT9721_REG_TXPLL_ANA2		0x701e
-+#define LT9721_REG_TXPLL_ANA3		0x701f
-+
-+#define LT9721_REG_DPTX_PHY_EN		0x7021
-+#define LT9721_REG_DPTX_LANE01_CTRL	0x7022
-+#define LT9721_REG_DPTX_LANE23_CTRL	0x7023
-+#define LT9721_REG_DPTX_SWING(phy)	(0x7024 + 2 * (phy))
-+#define LT9721_REG_DPTX_PREEMPH(phy)	(0x7025 + 2 * (phy))
-+#define LT9721_REG_DPTX_RTERM_CAL	0x702c
-+
-+#define LT9721_REG_DPAUX_PHY0		0x702f
-+#define LT9721_REG_DPAUX_PHY1		0x7030
-+#define LT9721_REG_DPAUX_PHY2		0x7031
-+#define LT9721_REG_GPIO_PU_PD		0x7042
-+#define LT9721_REG_GPIO_MODE		0x7044
-+#define LT9721_GPIO7_MODE_BIT		BIT(7)
-+#define LT9721_REG_TYPEC_PHY_MODE	0x7048
-+
-+/* Page 0x80: Link Config, Interrupts, DP AUX & GPIO */
-+#define LT9721_REG_LINK_BW		0x8002
-+#define LT9721_REG_LINK_LANE_CNT	0x8003
-+#define LT9721_LINK_SCRAMBLER_DIS	BIT(7)
-+#define LT9721_LINK_TRAIN_SOFT_EN	BIT(6)
-+#define LT9721_REG_LINK_ENHANCED	0x8004
-+#define LT9721_LINK_ENHANCED_FRAME	BIT(4)
-+#define LT9721_REG_LINK_PTN_TYPE	0x8005
-+
-+#define LT9721_REG_INT_FLAG0		0x8008
-+#define LT9721_INT0_AUX_NAT_DONE	BIT(7)
-+#define LT9721_INT0_AUX_TIMEOUT		BIT(4)
-+#define LT9721_REG_INT_MSK0		0x8010
-+#define LT9721_REG_INT_CLR0		0x8018
-+
-+#define LT9721_REG_AUX_STATUS		0x8025
-+#define LT9721_AUX_REPLY_DET		BIT(3)
-+#define LT9721_AUX_REP_NAT_ACK		BIT(2)
-+#define LT9721_AUX_REP_NAT_NACK		BIT(1)
-+#define LT9721_AUX_REP_NAT_DEFER	BIT(0)
-+#define LT9721_REG_AUX_TIMEOUT		0x8026
-+#define LT9721_AUX_TIMEOUT_FLAG		BIT(7)
-+#define LT9721_REG_AUX_SOFT_MODE	0x802a
-+#define LT9721_AUX_SOFT_EN		BIT(0)
-+#define LT9721_REG_AUX_SOFT_FIFO	0x802b
-+#define LT9721_REG_AUX_SOFT_SEND	0x802c
-+#define LT9721_REG_AUX_NAT_RDATA	0x802d
-+#define LT9721_REG_AUX_RX_CNT		0x802f
-+#define LT9721_AUX_RX_BUF_CNT_MASK	GENMASK(4, 0)
-+#define LT9721_REG_AUX_CLK_DIV		0x8030
-+#define LT9721_REG_AUX_NAT_ADDR_L	0x8033
-+#define LT9721_REG_AUX_NAT_ADDR_M	0x8034
-+#define LT9721_REG_AUX_NAT_ADDR_H	0x8035
-+#define LT9721_REG_AUX_NAT_CTRL		0x8036
-+#define LT9721_AUX_NAT_READ		BIT(7)
-+#define LT9721_AUX_NAT_WRBUF_CLR	BIT(5)
-+#define LT9721_REG_AUX_NAT_WDATA	0x8037
-+#define LT9721_REG_AUX_NAT_SEND		0x8038
-+
-+#define LT9721_REG_TXPLL_DIG0		0x8040
-+#define LT9721_REG_TXPLL_DIG1		0x8041
-+#define LT9721_REG_TXPLL_DIG2		0x8042
-+#define LT9721_REG_TXPLL_DIG3		0x8043
-+#define LT9721_REG_TXPLL_DIG4		0x8044
-+#define LT9721_REG_TXPLL_DIG5		0x8045
-+#define LT9721_REG_TXPLL_DIG6		0x8046
-+#define LT9721_REG_TXPLL_DIG8		0x8048
-+#define LT9721_REG_TXPLL_DIG10		0x804a
-+#define LT9721_REG_TXPLL_DIG11		0x804b
-+
-+#define LT9721_REG_HPD_STATUS		0x80b0
-+#define LT9721_EDP_HPD_STATUS		BIT(3)
-+#define LT9721_REG_GPIO_OUT		0x80d1
-+#define LT9721_GPIO7_OUT_BIT		BIT(7)
-+#define LT9721_REG_GPIO2_MUX		0x80d3
-+#define LT9721_REG_CSC_Y2R		0x80eb
-+
-+/* Page 0x84: DP Main Link Control */
-+#define LT9721_REG_ML_CTRL0		0x8400
-+#define LT9721_REG_ML_TRAIN_CTRL	0x8414
-+#define LT9721_ML_RDISP_RST_N		BIT(7)
-+#define LT9721_ML_NORMAL_TRANS_EN	BIT(6)
-+#define LT9721_ML_TPS2_TRANS_EN		BIT(2)
-+#define LT9721_ML_TPS1_TRANS_EN		BIT(0)
-+#define LT9721_REG_ML_LANE_SWAP		0x8415
-+#define LT9721_REG_ML_POL_FIFO		0x8416
-+#define LT9721_ML_FIFO_SOFT_RSTZ	GENMASK(3, 0)
-+
-+/* Page 0x88: Video Processor, MSA & Video Check */
-+#define LT9721_REG_VID_PROC0		0x8800
-+#define LT9721_REG_VID_HTOTAL_H		0x8805
-+#define LT9721_REG_VID_HSTART_H		0x8807
-+#define LT9721_REG_VID_HSW_H		0x8809
-+#define LT9721_VID_SYNC_ACTIVE_LOW	BIT(15)
-+#define LT9721_REG_VID_HWIDTH_H		0x880b
-+#define LT9721_REG_VID_VTOTAL_H		0x880d
-+#define LT9721_REG_VID_VSTART_H		0x8811
-+#define LT9721_REG_VID_VSW_H		0x8813
-+#define LT9721_REG_VID_VHEIGHT_H	0x8815
-+#define LT9721_REG_VID_PIX_FMT		0x8817
-+#define LT9721_REG_VID_MISC0		0x8818
-+#define LT9721_REG_VID_MISC1		0x8819
-+#define LT9721_REG_VID_MSA_POL_B19	0x881a
-+#define LT9721_MSA_SDP_SOFT		BIT(7)
-+#define LT9721_MSA_VSPOL_LOW		BIT(5)
-+#define LT9721_MSA_HSPOL_LOW		BIT(4)
-+#define LT9721_REG_VID_BYTE_LINE_M	0x881b
-+#define LT9721_REG_VID_BYTE_LINE_L	0x881c
-+#define LT9721_REG_VID_RD_PIXELS	0x881d
-+#define LT9721_REG_VID_READY_CTRL	0x881e
-+#define LT9721_VID_RDY_SOFT		BIT(5)
-+#define LT9721_VID_READY		BIT(4)
-+#define LT9721_REG_VID_FIFO_THRESH	0x881f
-+#define LT9721_REG_VID_OUT_BYTES	0x8820
-+#define LT9721_REG_VID_TU_SIZE		0x8821
-+#define LT9721_REG_VID_IDLE_VBID	0x8822
-+#define LT9721_REG_VID_TEST_MUX		0x8823
-+#define LT9721_REG_CHK_HS_ACT_H		0x8833
-+#define LT9721_REG_CHK_SYNC_POL		0x8845
-+#define LT9721_CHK_HS_POL_HIGH		BIT(1)
-+#define LT9721_CHK_VS_POL_HIGH		BIT(0)
-+#define LT9721_REG_VID_SRC_CTRL		0x884b
-+#define LT9721_VID_VSYNC_POL_HIGH	BIT(1)
-+#define LT9721_REG_VID_BOT_VTOTAL_H	0x884c
-+#define LT9721_REG_VID_BOT_VTOTAL_L	0x884d
-+
-+/* Page 0x90: HDMI RX Digital, CDR, EQ & Packet Status */
-+#define LT9721_REG_HMRX_CDR_CFG		0x9005
-+#define LT9721_HMRX_CDR_PN_SWAP		BIT(7)
-+#define LT9721_REG_HMRX_HPD_CTRL	0x9006
-+#define LT9721_HMRX_SOFT_RX_HPD		BIT(3)
-+#define LT9721_REG_HMRX_SIG_STAT	0x9013
-+#define LT9721_HMRX_HSYNC_DET		BIT(0)
-+#define LT9721_REG_HMRX_TMDS_DET	0x9043
-+#define LT9721_HMRX_TMDS_CLK_DET	BIT(7)
-+#define LT9721_REG_HMRX_TMDS_FREQ_H	0x9044
-+#define LT9721_REG_HMRX_AVI_FMT		0x9071
-+#define LT9721_HMRX_COLORSPACE_MASK	GENMASK(6, 5)
-+#define LT9721_HMRX_CS_RGB		0x00
-+#define LT9721_HMRX_CS_YCBCR422		0x20
-+#define LT9721_HMRX_CS_YCBCR444		0x40
-+
-+#define LT9721_MAX_HDMI_CLOCK_KHZ	340000U
-+#define LT9721_MIN_HDMI_CLOCK_KHZ	20000U
-+#define LT9721_MAX_LANES		4U
-+#define LT9721_MAX_CR_TRIES		10
-+#define LT9721_MAX_EQ_TRIES		5
-+
-+/*
-+ * On the QFN64 LT9721 package, physical output pins D0..D3 map to internal
-+ * DP TX die PHYs {2, 0, 3, 1}.
-+ */
-+static const u8 lt9721_qfn64_pin_to_phy[LT9721_MAX_LANES] = { 2, 0, 3, 1 };
-+
-+struct lt9721_drive_cfg {
-+	u8 swing;
-+	u8 pre_emph;
-+};
-+
-+/* Indexed by [voltage_swing_level 0..3][pre_emphasis_level 0..3] */
-+static const struct lt9721_drive_cfg lt9721_drive_table[4][4] = {
-+	/* 400 mV */
-+	{ { 0x36, 0x00 }, { 0x44, 0x11 }, { 0x51, 0x22 }, { 0x6c, 0x44 } },
-+	/* 600 mV */
-+	{ { 0x51, 0x00 }, { 0x66, 0x19 }, { 0x7a, 0x33 }, { 0x7a, 0x33 } },
-+	/* 800 mV */
-+	{ { 0x6c, 0x00 }, { 0x88, 0x22 }, { 0xff, 0x6a }, { 0xff, 0x6a } },
-+	/* 1200 mV */
-+	{ { 0xa3, 0x00 }, { 0xa3, 0x00 }, { 0xa3, 0x00 }, { 0xa3, 0x00 } },
-+};
-+
-+struct lt9721 {
-+	struct device *dev;
-+	struct i2c_client *client;
-+	struct regmap *regmap;
-+
-+	struct regulator *vcc;
-+	struct regulator *vdd;
-+	struct gpio_desc *reset_gpio;
-+
-+	struct mutex aux_lock; /* Serializes paged AUX register access */
-+	struct drm_dp_aux aux;
-+
-+	struct drm_bridge bridge;
-+	bool is_panel;
-+
-+	u8 data_lanes;
-+	u8 active_lanes;
-+	u8 link_bw;
-+	u8 tx_lane_swap;
-+	u8 tx_pol_swap;
-+	bool rx_pn_swap;
-+};
-+
-+static const struct regmap_range lt9721_rd_ranges[] = {
-+	regmap_reg_range(0xff, 0xff),
-+	regmap_reg_range(0x6000, 0x600b),
-+	regmap_reg_range(0x6010, 0x6012),
-+	regmap_reg_range(0x6019, 0x6020),
-+	regmap_reg_range(0x7000, 0x7045),
-+	regmap_reg_range(0x7048, 0x7048),
-+	regmap_reg_range(0x8002, 0x801f),
-+	regmap_reg_range(0x8024, 0x804b),
-+	regmap_reg_range(0x8050, 0x806f),
-+	regmap_reg_range(0x8074, 0x8089),
-+	regmap_reg_range(0x808b, 0x80a5),
-+	regmap_reg_range(0x80ab, 0x80c3),
-+	regmap_reg_range(0x80c8, 0x80da),
-+	regmap_reg_range(0x80e9, 0x80ef),
-+	regmap_reg_range(0x8400, 0x8424),
-+	regmap_reg_range(0x8500, 0x8509),
-+	regmap_reg_range(0x850f, 0x8532),
-+	regmap_reg_range(0x8800, 0x8827),
-+	regmap_reg_range(0x882c, 0x8845),
-+	regmap_reg_range(0x884a, 0x884d),
-+	regmap_reg_range(0x8c00, 0x8c0f),
-+	regmap_reg_range(0x8c15, 0x8c32),
-+	regmap_reg_range(0x8c34, 0x8c34),
-+	regmap_reg_range(0x8c36, 0x8c3a),
-+	regmap_reg_range(0x8c3e, 0x8c5b),
-+	regmap_reg_range(0x8c60, 0x8c65),
-+	regmap_reg_range(0x8c67, 0x8c68),
-+	regmap_reg_range(0x8c6e, 0x8c6e),
-+	regmap_reg_range(0x8c70, 0x8c7b),
-+	regmap_reg_range(0x8c80, 0x8c8c),
-+	regmap_reg_range(0x8c90, 0x8c90),
-+	regmap_reg_range(0x8c94, 0x8c95),
-+	regmap_reg_range(0x8ca0, 0x8cbf),
-+	regmap_reg_range(0x9000, 0x905a),
-+	regmap_reg_range(0x905c, 0x907b),
-+	regmap_reg_range(0x907e, 0x908d),
-+	regmap_reg_range(0x90a0, 0x90bd),
-+	regmap_reg_range(0x90c0, 0x90cf),
-+	regmap_reg_range(0x90d2, 0x90fe),
-+	regmap_reg_range(0xa001, 0xa005),
-+	regmap_reg_range(0xa007, 0xa00c),
-+	regmap_reg_range(0xa00e, 0xa00f),
-+	regmap_reg_range(0xa016, 0xa017),
-+	regmap_reg_range(0xa01a, 0xa02a),
-+	regmap_reg_range(0xa02c, 0xa02c),
-+	regmap_reg_range(0xa02f, 0xa036),
-+	regmap_reg_range(0xa039, 0xa055),
-+	regmap_reg_range(0xa060, 0xa078),
-+	regmap_reg_range(0xa080, 0xa098),
-+};
-+
-+static const struct regmap_range lt9721_rw_ranges[] = {
-+	regmap_reg_range(0xff, 0xff),
-+	regmap_reg_range(0x6003, 0x600b),
-+	regmap_reg_range(0x6010, 0x6012),
-+	regmap_reg_range(0x6019, 0x6020),
-+	regmap_reg_range(0x7000, 0x7014),
-+	regmap_reg_range(0x7016, 0x702d),
-+	regmap_reg_range(0x702f, 0x7045),
-+	regmap_reg_range(0x7048, 0x7048),
-+	regmap_reg_range(0x8002, 0x8007),
-+	regmap_reg_range(0x8010, 0x801f),
-+	regmap_reg_range(0x8024, 0x8024),
-+	regmap_reg_range(0x8027, 0x802c),
-+	regmap_reg_range(0x8030, 0x8038),
-+	regmap_reg_range(0x803a, 0x804b),
-+	regmap_reg_range(0x8051, 0x806f),
-+	regmap_reg_range(0x8074, 0x8076),
-+	regmap_reg_range(0x8078, 0x8089),
-+	regmap_reg_range(0x808f, 0x8092),
-+	regmap_reg_range(0x8094, 0x809f),
-+	regmap_reg_range(0x80a1, 0x80a5),
-+	regmap_reg_range(0x80ab, 0x80af),
-+	regmap_reg_range(0x80c8, 0x80ce),
-+	regmap_reg_range(0x80d0, 0x80d4),
-+	regmap_reg_range(0x80ea, 0x80ef),
-+	regmap_reg_range(0x8400, 0x8424),
-+	regmap_reg_range(0x8800, 0x8823),
-+	regmap_reg_range(0x8825, 0x8827),
-+	regmap_reg_range(0x882c, 0x882d),
-+	regmap_reg_range(0x883a, 0x883d),
-+	regmap_reg_range(0x884a, 0x884d),
-+	regmap_reg_range(0x8c00, 0x8c0f),
-+	regmap_reg_range(0x8c15, 0x8c32),
-+	regmap_reg_range(0x8c34, 0x8c34),
-+	regmap_reg_range(0x8c36, 0x8c3a),
-+	regmap_reg_range(0x8c3e, 0x8c5b),
-+	regmap_reg_range(0x8ca0, 0x8cbf),
-+	regmap_reg_range(0x9005, 0x900e),
-+	regmap_reg_range(0x901b, 0x902f),
-+	regmap_reg_range(0x9047, 0x905a),
-+	regmap_reg_range(0x905c, 0x9062),
-+	regmap_reg_range(0x9080, 0x9086),
-+	regmap_reg_range(0x90a0, 0x90bd),
-+	regmap_reg_range(0x90e4, 0x90fe),
-+	regmap_reg_range(0xa001, 0xa005),
-+	regmap_reg_range(0xa007, 0xa00c),
-+	regmap_reg_range(0xa00e, 0xa00f),
-+	regmap_reg_range(0xa016, 0xa017),
-+	regmap_reg_range(0xa01a, 0xa02a),
-+	regmap_reg_range(0xa02c, 0xa02c),
-+	regmap_reg_range(0xa02f, 0xa036),
-+	regmap_reg_range(0xa039, 0xa055),
-+	regmap_reg_range(0xa060, 0xa078),
-+};
-+
-+static const struct regmap_access_table lt9721_rd_table = {
-+	.yes_ranges = lt9721_rd_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(lt9721_rd_ranges),
-+};
-+
-+static const struct regmap_access_table lt9721_rw_table = {
-+	.yes_ranges = lt9721_rw_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(lt9721_rw_ranges),
-+};
-+
-+static const struct regmap_range_cfg lt9721_ranges[] = {
-+	{
-+		.name = "lt9721-pages",
-+		.range_min = 0x0000,
-+		.range_max = 0xa098,
-+		.selector_reg = LT9721_REG_PAGE_CONTROL,
-+		.selector_mask = 0xff,
-+		.selector_shift = 0,
-+		.window_start = 0x00,
-+		.window_len = 0x100,
-+	},
-+};
-+
-+static const struct regmap_config lt9721_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.rd_table = &lt9721_rd_table,
-+	.wr_table = &lt9721_rw_table,
-+	.ranges = lt9721_ranges,
-+	.num_ranges = ARRAY_SIZE(lt9721_ranges),
-+	.max_register = 0xa098,
-+	.cache_type = REGCACHE_NONE,
-+};
-+
-+static inline struct lt9721 *bridge_to_lt9721(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct lt9721, bridge);
-+}
-+
-+static inline struct lt9721 *aux_to_lt9721(struct drm_dp_aux *aux)
-+{
-+	return container_of(aux, struct lt9721, aux);
-+}
-+
-+static int lt9721_write_u16(struct lt9721 *lt9721, unsigned int reg, u16 val)
-+{
-+	u8 buf[2] = { val >> 8, val & 0xff };
-+
-+	return regmap_bulk_write(lt9721->regmap, reg, buf, sizeof(buf));
-+}
-+
-+static void lt9721_hpd_ctrl(struct lt9721 *lt9721, bool assert_hpd)
-+{
-+	regmap_update_bits(lt9721->regmap, LT9721_REG_GPIO_MODE,
-+			   LT9721_GPIO7_MODE_BIT, LT9721_GPIO7_MODE_BIT);
-+	regmap_write(lt9721->regmap, LT9721_REG_GPIO_PU_PD, 0x71);
-+
-+	regmap_update_bits(lt9721->regmap, LT9721_REG_HMRX_HPD_CTRL,
-+			   LT9721_HMRX_SOFT_RX_HPD,
-+			   assert_hpd ? LT9721_HMRX_SOFT_RX_HPD : 0);
-+	regmap_update_bits(lt9721->regmap, LT9721_REG_GPIO_OUT,
-+			   LT9721_GPIO7_OUT_BIT,
-+			   assert_hpd ? LT9721_GPIO7_OUT_BIT : 0);
-+}
-+
-+static int lt9721_aux_phy_init(struct lt9721 *lt9721)
-+{
-+	static const struct reg_sequence aux_init_seq[] = {
-+		{ LT9721_REG_TYPEC_PHY_MODE, 0x00 },
-+		{ LT9721_REG_GPIO2_MUX, 0x00 },
-+		{ LT9721_REG_DPAUX_PHY0, 0x70 },
-+		{ LT9721_REG_DPAUX_PHY1, 0x24 },
-+		{ LT9721_REG_DPAUX_PHY2, 0xfc },
-+		{ LT9721_REG_AUX_CLK_DIV, 0x0e },
-+		{ LT9721_REG_INT_MSK0, 0x0f },
-+	};
-+
-+	return regmap_multi_reg_write(lt9721->regmap, aux_init_seq,
-+				      ARRAY_SIZE(aux_init_seq));
-+}
-+
-+static ssize_t lt9721_aux_transfer_native(struct lt9721 *lt9721,
-+					  struct drm_dp_aux_msg *msg)
-+{
-+	bool is_read = (msg->request & ~DP_AUX_I2C_MOT) == DP_AUX_NATIVE_READ;
-+	unsigned int status = 0, timeout = 0, irq_flag = 0, val;
-+	u8 *buf = msg->buffer;
-+	size_t i;
-+	int ret;
-+
-+	if (msg->size == 0) {
-+		msg->reply = DP_AUX_NATIVE_REPLY_ACK;
-+		return 0;
-+	}
-+
-+	ret = regmap_write(lt9721->regmap, LT9721_REG_AUX_SOFT_MODE, 0x00);
-+	if (ret)
-+		return ret;
-+
-+	/* Clear interrupt latches for Native AUX done / timeout */
-+	regmap_write(lt9721->regmap, LT9721_REG_INT_CLR0, 0x0f);
-+	regmap_write(lt9721->regmap, LT9721_REG_INT_CLR0, 0xff);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_AUX_NAT_ADDR_L,
-+		     msg->address & 0xff);
-+	regmap_write(lt9721->regmap, LT9721_REG_AUX_NAT_ADDR_M,
-+		     (msg->address >> 8) & 0xff);
-+	regmap_write(lt9721->regmap, LT9721_REG_AUX_NAT_ADDR_H,
-+		     (msg->address >> 16) & 0x0f);
-+
-+	if (is_read) {
-+		regmap_write(lt9721->regmap, LT9721_REG_AUX_NAT_CTRL,
-+			     LT9721_AUX_NAT_READ | ((msg->size - 1) & 0x0f));
-+	} else {
-+		regmap_write(lt9721->regmap, LT9721_REG_AUX_NAT_CTRL,
-+			     LT9721_AUX_NAT_WRBUF_CLR);
-+		regmap_write(lt9721->regmap, LT9721_REG_AUX_NAT_CTRL,
-+			     (msg->size - 1) & 0x0f);
-+		for (i = 0; i < msg->size; i++)
-+			regmap_write(lt9721->regmap, LT9721_REG_AUX_NAT_WDATA,
-+				     buf[i]);
-+	}
-+
-+	ret = regmap_write(lt9721->regmap, LT9721_REG_AUX_NAT_SEND, 0x00);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(400);
-+
-+	for (i = 0; i < 25; i++) {
-+		regmap_read(lt9721->regmap, LT9721_REG_INT_FLAG0, &irq_flag);
-+		regmap_read(lt9721->regmap, LT9721_REG_AUX_STATUS, &status);
-+		regmap_read(lt9721->regmap, LT9721_REG_AUX_TIMEOUT, &timeout);
-+
-+		if ((irq_flag & (LT9721_INT0_AUX_NAT_DONE |
-+				 LT9721_INT0_AUX_TIMEOUT)) ||
-+		    (status & LT9721_AUX_REPLY_DET) ||
-+		    (timeout & LT9721_AUX_TIMEOUT_FLAG))
-+			break;
-+
-+		fsleep(250);
-+	}
-+
-+	if ((timeout & LT9721_AUX_TIMEOUT_FLAG) ||
-+	    (irq_flag & LT9721_INT0_AUX_TIMEOUT))
-+		return -ETIMEDOUT;
-+
-+	if (!(status & LT9721_AUX_REPLY_DET) &&
-+	    !(irq_flag & LT9721_INT0_AUX_NAT_DONE))
-+		return -ETIMEDOUT;
-+
-+	if (status & LT9721_AUX_REP_NAT_NACK) {
-+		msg->reply = DP_AUX_NATIVE_REPLY_NACK;
-+		return 0;
-+	}
-+
-+	if (status & LT9721_AUX_REP_NAT_DEFER) {
-+		msg->reply = DP_AUX_NATIVE_REPLY_DEFER;
-+		return 0;
-+	}
-+
-+	msg->reply = DP_AUX_NATIVE_REPLY_ACK;
-+
-+	if (is_read) {
-+		for (i = 0; i < msg->size; i++) {
-+			ret = regmap_read(lt9721->regmap,
-+					  LT9721_REG_AUX_NAT_RDATA, &val);
-+			if (ret)
-+				return ret;
-+			buf[i] = val;
-+		}
-+	}
-+
-+	return msg->size;
-+}
-+
-+static void lt9721_aux_drain_soft_fifo(struct lt9721 *lt9721)
-+{
-+	unsigned int cnt = 0, dummy;
-+	int guard = 32;
-+
-+	while (guard-- > 0) {
-+		if (regmap_read(lt9721->regmap, LT9721_REG_AUX_RX_CNT, &cnt))
-+			break;
-+		cnt &= LT9721_AUX_RX_BUF_CNT_MASK;
-+		if (!cnt)
-+			break;
-+		regmap_read(lt9721->regmap, LT9721_REG_AUX_SOFT_FIFO, &dummy);
-+	}
-+}
-+
-+static ssize_t lt9721_aux_transfer_i2c(struct lt9721 *lt9721,
-+				       struct drm_dp_aux_msg *msg)
-+{
-+	bool is_read = (msg->request & ~DP_AUX_I2C_MOT) == DP_AUX_I2C_READ;
-+	unsigned int rx_cnt = 0, timeout = 0, val;
-+	u8 *buf = msg->buffer;
-+	u8 hdr[4];
-+	size_t hdr_len, i, data_len;
-+	ssize_t ret;
-+
-+	ret = regmap_write(lt9721->regmap, LT9721_REG_AUX_SOFT_MODE,
-+			   LT9721_AUX_SOFT_EN);
-+	if (ret)
-+		return ret;
-+
-+	lt9721_aux_drain_soft_fifo(lt9721);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_INT_CLR0, 0x0f);
-+	regmap_write(lt9721->regmap, LT9721_REG_INT_CLR0, 0xff);
-+
-+	hdr[0] = (msg->request << 4) | ((msg->address >> 16) & 0x0f);
-+	hdr[1] = (msg->address >> 8) & 0xff;
-+	hdr[2] = msg->address & 0xff;
-+	if (msg->size > 0) {
-+		hdr[3] = (msg->size - 1) & 0x0f;
-+		hdr_len = 4;
-+	} else {
-+		hdr_len = 3;
-+	}
-+
-+	for (i = 0; i < hdr_len; i++)
-+		regmap_write(lt9721->regmap, LT9721_REG_AUX_SOFT_FIFO, hdr[i]);
-+
-+	if (!is_read) {
-+		for (i = 0; i < msg->size; i++)
-+			regmap_write(lt9721->regmap, LT9721_REG_AUX_SOFT_FIFO,
-+				     buf[i]);
-+	}
-+
-+	ret = regmap_write(lt9721->regmap, LT9721_REG_AUX_SOFT_SEND, 0x00);
-+	if (ret)
-+		goto out_disable_soft;
-+
-+	/* Allow full 1 Mbps Manchester packet + reply turnaround time */
-+	fsleep(600);
-+
-+	for (i = 0; i < 30; i++) {
-+		regmap_read(lt9721->regmap, LT9721_REG_AUX_RX_CNT, &rx_cnt);
-+		rx_cnt &= LT9721_AUX_RX_BUF_CNT_MASK;
-+		regmap_read(lt9721->regmap, LT9721_REG_AUX_TIMEOUT, &timeout);
-+
-+		if (timeout & LT9721_AUX_TIMEOUT_FLAG)
-+			break;
-+
-+		if (rx_cnt > 0) {
-+			if (is_read && msg->size > 0 &&
-+			    rx_cnt < msg->size + 1) {
-+				fsleep(250);
-+				regmap_read(lt9721->regmap,
-+					    LT9721_REG_AUX_RX_CNT, &rx_cnt);
-+				rx_cnt &= LT9721_AUX_RX_BUF_CNT_MASK;
-+			}
-+			break;
-+		}
-+
-+		fsleep(300);
-+	}
-+
-+	if ((timeout & LT9721_AUX_TIMEOUT_FLAG) || rx_cnt == 0) {
-+		ret = -ETIMEDOUT;
-+		goto out_drain;
-+	}
-+
-+	ret = regmap_read(lt9721->regmap, LT9721_REG_AUX_SOFT_FIFO, &val);
-+	if (ret)
-+		goto out_drain;
-+
-+	msg->reply = (val >> 4) & 0x0f;
-+	if (msg->reply != (DP_AUX_NATIVE_REPLY_ACK | DP_AUX_I2C_REPLY_ACK)) {
-+		ret = 0;
-+		goto out_drain;
-+	}
-+
-+	if (is_read) {
-+		data_len = min_t(size_t, msg->size, rx_cnt - 1);
-+		for (i = 0; i < data_len; i++) {
-+			ret = regmap_read(lt9721->regmap,
-+					  LT9721_REG_AUX_SOFT_FIFO, &val);
-+			if (ret)
-+				goto out_drain;
-+			buf[i] = val;
-+		}
-+		ret = data_len;
-+	} else if (rx_cnt > 1) {
-+		/* Partial write: sink returned count M (M + 1 bytes written) */
-+		ret = regmap_read(lt9721->regmap, LT9721_REG_AUX_SOFT_FIFO,
-+				  &val);
-+		if (ret == 0)
-+			ret = min_t(size_t, msg->size, val + 1);
-+	} else {
-+		ret = msg->size;
-+	}
-+
-+out_drain:
-+	lt9721_aux_drain_soft_fifo(lt9721);
-+out_disable_soft:
-+	regmap_write(lt9721->regmap, LT9721_REG_AUX_SOFT_MODE, 0x00);
-+	return ret;
-+}
-+
-+static ssize_t lt9721_aux_transfer(struct drm_dp_aux *aux,
-+				   struct drm_dp_aux_msg *msg)
-+{
-+	struct lt9721 *lt9721 = aux_to_lt9721(aux);
-+	ssize_t ret;
-+
-+	if (msg->size > DP_AUX_MAX_PAYLOAD_BYTES)
-+		return -EINVAL;
-+
-+	mutex_lock(&lt9721->aux_lock);
-+
-+	switch (msg->request & ~DP_AUX_I2C_MOT) {
-+	case DP_AUX_NATIVE_WRITE:
-+	case DP_AUX_NATIVE_READ:
-+		ret = lt9721_aux_transfer_native(lt9721, msg);
-+		break;
-+	case DP_AUX_I2C_WRITE:
-+	case DP_AUX_I2C_READ:
-+	case DP_AUX_I2C_WRITE_STATUS_UPDATE:
-+		ret = lt9721_aux_transfer_i2c(lt9721, msg);
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	mutex_unlock(&lt9721->aux_lock);
-+
-+	return ret;
-+}
-+
-+static int lt9721_power_on(struct lt9721 *lt9721)
-+{
-+	int ret;
-+
-+	gpiod_set_value_cansleep(lt9721->reset_gpio, 1);
-+
-+	/* Datasheet Fig. 8.6.1: VCC (3.3V) -> >1ms -> VDD (1.8V) -> RST_N */
-+	ret = regulator_enable(lt9721->vcc);
-+	if (ret)
-+		return dev_err_probe(lt9721->dev, ret,
-+				     "failed to enable vcc supply\n");
-+
-+	fsleep(2000);
-+
-+	ret = regulator_enable(lt9721->vdd);
-+	if (ret) {
-+		regulator_disable(lt9721->vcc);
-+		return dev_err_probe(lt9721->dev, ret,
-+				     "failed to enable vdd supply\n");
-+	}
-+
-+	fsleep(20000);
-+	gpiod_set_value_cansleep(lt9721->reset_gpio, 0);
-+	msleep(100);
-+
-+	return 0;
-+}
-+
-+static void lt9721_power_off(void *data)
-+{
-+	struct lt9721 *lt9721 = data;
-+
-+	lt9721_hpd_ctrl(lt9721, false);
-+	gpiod_set_value_cansleep(lt9721->reset_gpio, 1);
-+	regulator_disable(lt9721->vdd);
-+	fsleep(2000);
-+	regulator_disable(lt9721->vcc);
-+}
-+
-+static int lt9721_read_chipid(struct lt9721 *lt9721)
-+{
-+	u8 chipid[2];
-+	int ret;
-+
-+	ret = regmap_bulk_read(lt9721->regmap, LT9721_REG_CHIP_ID0,
-+			       chipid, sizeof(chipid));
-+	if (ret < 0)
-+		return dev_err_probe(lt9721->dev, ret,
-+				     "failed to read Chip ID\n");
-+
-+	if (chipid[0] != LT9721_CHIP_ID0 || chipid[1] != LT9721_CHIP_ID1) {
-+		dev_err(lt9721->dev, "unexpected Chip ID: 0x%02x 0x%02x\n",
-+			chipid[0], chipid[1]);
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+
-+static void lt9721_tx_pll_setup(struct lt9721 *lt9721, u8 link_bw)
-+{
-+	bool is_rbr = (link_bw == DP_LINK_BW_1_62);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG0, 0x22);
-+
-+	if (is_rbr) {
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG1, 0x20);
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG2, 0x99);
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG3, 0x99);
-+	} else {
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG1, 0x36);
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG2, 0x00);
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG3, 0x80);
-+	}
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_ANA0, 0x18);
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_ANA1, 0x42);
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_ANA2, 0x00);
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_ANA2, 0x01);
-+	if (!is_rbr)
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_ANA3, 0x3b);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG10, 0x0e);
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG11, 0x10);
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG5, 0x83);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_TXPLL, 0xbf);
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_TXPLL, 0xff);
-+
-+	if (is_rbr) {
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_ANA3, 0x19);
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_ANA3, 0x1b);
-+	} else {
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_ANA3, 0x3b);
-+	}
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG4, 0x41);
-+	if (is_rbr) {
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG5, 0x83);
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG6, 0x06);
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG8, 0x06);
-+	} else {
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG5, 0x03);
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG6, 0x0a);
-+		regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG8, 0x0a);
-+	}
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_TXPLL_DIG0, 0x22);
-+}
-+
-+static void lt9721_tx_phy_setup(struct lt9721 *lt9721)
-+{
-+	static const struct reg_sequence txphy_seq[] = {
-+		{ LT9721_REG_TYPEC_PHY_MODE, 0x00 },
-+		{ LT9721_REG_DPTX_PHY_EN, 0x0d },
-+		{ LT9721_REG_DPTX_PHY_EN, 0x0f },
-+		{ LT9721_REG_DPTX_LANE01_CTRL, 0x77 },
-+		{ LT9721_REG_DPTX_LANE23_CTRL, 0x77 },
-+		{ LT9721_REG_DPTX_SWING(0), 0x80 },
-+		{ LT9721_REG_DPTX_PREEMPH(0), 0x00 },
-+		{ LT9721_REG_DPTX_SWING(1), 0x80 },
-+		{ LT9721_REG_DPTX_PREEMPH(1), 0x00 },
-+		{ LT9721_REG_DPTX_SWING(2), 0x80 },
-+		{ LT9721_REG_DPTX_PREEMPH(2), 0x00 },
-+		{ LT9721_REG_DPTX_SWING(3), 0x80 },
-+		{ LT9721_REG_DPTX_PREEMPH(3), 0x00 },
-+		{ LT9721_REG_DPTX_RTERM_CAL, 0xb0 },
-+		{ LT9721_REG_DPTX_RTERM_CAL, 0xf0 },
-+	};
-+
-+	regmap_multi_reg_write(lt9721->regmap, txphy_seq, ARRAY_SIZE(txphy_seq));
-+	lt9721_aux_phy_init(lt9721);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_ML_CTRL0, 0x00);
-+	regmap_write(lt9721->regmap, LT9721_REG_ML_LANE_SWAP,
-+		     lt9721->tx_lane_swap);
-+	regmap_write(lt9721->regmap, LT9721_REG_ML_POL_FIFO,
-+		     (lt9721->tx_pol_swap << 4) | LT9721_ML_FIFO_SOFT_RSTZ);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_DPTX_PHY_EN, 0x0d);
-+	regmap_write(lt9721->regmap, LT9721_REG_DPTX_PHY_EN, 0x0f);
-+}
-+
-+static void lt9721_video_processor_setup(struct lt9721 *lt9721,
-+					 const struct drm_display_mode *mode)
-+{
-+	u16 hstart = mode->htotal - mode->hsync_start;
-+	u16 hsw = mode->hsync_end - mode->hsync_start;
-+	u16 vstart = mode->vtotal - mode->vsync_start;
-+	u16 vsw = mode->vsync_end - mode->vsync_start;
-+	u32 total_byte_line;
-+
-+	if (!(mode->flags & DRM_MODE_FLAG_PHSYNC))
-+		hsw |= LT9721_VID_SYNC_ACTIVE_LOW;
-+	if (!(mode->flags & DRM_MODE_FLAG_PVSYNC))
-+		vsw |= LT9721_VID_SYNC_ACTIVE_LOW;
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_PROC0, 0x4a);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_PROC0 + 1, 0x02);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_PROC0 + 2, 0x10);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_PROC0 + 3, 0x01);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_PROC0 + 4, 0xff);
-+
-+	lt9721_write_u16(lt9721, LT9721_REG_VID_HTOTAL_H, mode->htotal);
-+	lt9721_write_u16(lt9721, LT9721_REG_VID_HSTART_H, hstart);
-+	lt9721_write_u16(lt9721, LT9721_REG_VID_HSW_H, hsw);
-+	lt9721_write_u16(lt9721, LT9721_REG_VID_HWIDTH_H, mode->hdisplay);
-+
-+	lt9721_write_u16(lt9721, LT9721_REG_VID_VTOTAL_H, mode->vtotal);
-+	lt9721_write_u16(lt9721, LT9721_REG_VID_VSTART_H, vstart);
-+	lt9721_write_u16(lt9721, LT9721_REG_VID_VSW_H, vsw);
-+	lt9721_write_u16(lt9721, LT9721_REG_VID_VHEIGHT_H, mode->vdisplay);
-+
-+	/* Default to 8bpc RGB888; refined after HDMI RX packet check */
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_PIX_FMT, 0x08);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_MISC0, 0x20);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_MISC1, 0x00);
-+
-+	total_byte_line = DIV_ROUND_UP(mode->hdisplay * 3U,
-+				       lt9721->active_lanes);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_MSA_POL_B19,
-+		     LT9721_MSA_SDP_SOFT | ((total_byte_line >> 16) & 0x0f));
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_BYTE_LINE_M,
-+		     (total_byte_line >> 8) & 0xff);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_BYTE_LINE_L,
-+		     total_byte_line & 0xff);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_RD_PIXELS, 0x36);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_FIFO_THRESH, 0x4e);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_OUT_BYTES, 0x66);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_TU_SIZE, 0x1b);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_IDLE_VBID, 0x09);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_TEST_MUX, 0xff);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_BOT_VTOTAL_H, 0x00);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_BOT_VTOTAL_L, 0x00);
-+}
-+
-+static int lt9721_apply_adjust_request(struct lt9721 *lt9721,
-+				       const u8 link_status[DP_LINK_STATUS_SIZE],
-+				       u8 train_set[LT9721_MAX_LANES])
-+{
-+	unsigned int lane;
-+
-+	for (lane = 0; lane < lt9721->active_lanes; lane++) {
-+		u8 v = drm_dp_get_adjust_request_voltage(link_status, lane) >>
-+		       DP_TRAIN_VOLTAGE_SWING_SHIFT;
-+		u8 p = drm_dp_get_adjust_request_pre_emphasis(link_status, lane) >>
-+		       DP_TRAIN_PRE_EMPHASIS_SHIFT;
-+		const struct lt9721_drive_cfg *cfg = &lt9721_drive_table[v & 3][p & 3];
-+		unsigned int phy;
-+
-+		for (phy = 0; phy < LT9721_MAX_LANES; phy++) {
-+			if (((lt9721->tx_lane_swap >> (2 * phy)) & 0x3) == lane) {
-+				regmap_write(lt9721->regmap,
-+					     LT9721_REG_DPTX_SWING(phy),
-+					     cfg->swing);
-+				regmap_write(lt9721->regmap,
-+					     LT9721_REG_DPTX_PREEMPH(phy),
-+					     cfg->pre_emph);
-+			}
-+		}
-+
-+		train_set[lane] = (v << DP_TRAIN_VOLTAGE_SWING_SHIFT) |
-+				  (p << DP_TRAIN_PRE_EMPHASIS_SHIFT);
-+		if (v >= 3)
-+			train_set[lane] |= DP_TRAIN_MAX_SWING_REACHED;
-+		if (p >= 3)
-+			train_set[lane] |= DP_TRAIN_MAX_PRE_EMPHASIS_REACHED;
-+	}
-+
-+	return drm_dp_dpcd_write(&lt9721->aux, DP_TRAINING_LANE0_SET,
-+				 train_set, lt9721->active_lanes);
-+}
-+
-+static int lt9721_dp_link_train(struct lt9721 *lt9721)
-+{
-+	u8 link_status[DP_LINK_STATUS_SIZE] = { 0 };
-+	u8 train_set[LT9721_MAX_LANES] = { 0 };
-+	u8 dpcd[DP_RECEIVER_CAP_SIZE] = { 0 };
-+	u8 link_cfg[2];
-+	int tries, ret;
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_CLK_EN3, 0xc7);
-+
-+	lt9721->link_bw = DP_LINK_BW_2_7;
-+	lt9721->active_lanes = lt9721->data_lanes;
-+
-+	ret = drm_dp_read_dpcd_caps(&lt9721->aux, dpcd);
-+	if (!ret) {
-+		int max_rate = drm_dp_max_link_rate(dpcd);
-+		int max_lanes = drm_dp_max_lane_count(dpcd);
-+
-+		if (max_rate > 0 && max_rate < 270000)
-+			lt9721->link_bw = DP_LINK_BW_1_62;
-+		if (max_lanes == 1 || max_lanes == 2 || max_lanes == 4)
-+			lt9721->active_lanes = min_t(u8, lt9721->data_lanes,
-+						     max_lanes);
-+	}
-+
-+	lt9721_tx_pll_setup(lt9721, lt9721->link_bw);
-+
-+	/* Internal link configuration */
-+	regmap_write(lt9721->regmap, LT9721_REG_LINK_BW, lt9721->link_bw);
-+	regmap_write(lt9721->regmap, LT9721_REG_LINK_LANE_CNT,
-+		     LT9721_LINK_SCRAMBLER_DIS | LT9721_LINK_TRAIN_SOFT_EN |
-+		     lt9721->active_lanes);
-+	regmap_write(lt9721->regmap, LT9721_REG_LINK_ENHANCED,
-+		     LT9721_LINK_ENHANCED_FRAME);
-+	regmap_write(lt9721->regmap, LT9721_REG_LINK_PTN_TYPE, 0x00);
-+
-+	/* Wake sink and configure link BW, lane count, downspread & coding */
-+	drm_dp_dpcd_writeb(&lt9721->aux, DP_SET_POWER, DP_SET_POWER_D0);
-+	fsleep(1500);
-+
-+	link_cfg[0] = lt9721->link_bw;
-+	link_cfg[1] = lt9721->active_lanes | DP_LANE_COUNT_ENHANCED_FRAME_EN;
-+	drm_dp_dpcd_write(&lt9721->aux, DP_LINK_BW_SET, link_cfg,
-+			  sizeof(link_cfg));
-+	drm_dp_dpcd_writeb(&lt9721->aux, DP_DOWNSPREAD_CTRL, 0x00);
-+	drm_dp_dpcd_writeb(&lt9721->aux, DP_MAIN_LINK_CHANNEL_CODING_SET,
-+			   DP_SET_ANSI_8B10B);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_FIFO, 0xf0);
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_FIFO, 0xff);
-+
-+	/* Phase 1: Clock Recovery (TPS1) */
-+	regmap_write(lt9721->regmap, LT9721_REG_ML_TRAIN_CTRL,
-+		     LT9721_ML_RDISP_RST_N | LT9721_ML_TPS1_TRANS_EN);
-+	drm_dp_dpcd_writeb(&lt9721->aux, DP_TRAINING_PATTERN_SET,
-+			   DP_TRAINING_PATTERN_1 | DP_LINK_SCRAMBLING_DISABLE);
-+	drm_dp_dpcd_write(&lt9721->aux, DP_TRAINING_LANE0_SET, train_set,
-+			  lt9721->active_lanes);
-+
-+	for (tries = 0; tries < LT9721_MAX_CR_TRIES; tries++) {
-+		drm_dp_link_train_clock_recovery_delay(&lt9721->aux, dpcd);
-+
-+		ret = drm_dp_dpcd_read_link_status(&lt9721->aux, link_status);
-+		if (ret < 0)
-+			break;
-+
-+		if (drm_dp_clock_recovery_ok(link_status, lt9721->active_lanes))
-+			break;
-+
-+		lt9721_apply_adjust_request(lt9721, link_status, train_set);
-+	}
-+
-+	if (!drm_dp_clock_recovery_ok(link_status, lt9721->active_lanes))
-+		dev_warn(lt9721->dev, "DP clock recovery incomplete (0x%02x 0x%02x)\n",
-+			 link_status[0], link_status[1]);
-+
-+	/* Phase 2: Channel Equalization (TPS2) */
-+	regmap_write(lt9721->regmap, LT9721_REG_LINK_LANE_CNT,
-+		     LT9721_LINK_TRAIN_SOFT_EN | lt9721->active_lanes);
-+	regmap_write(lt9721->regmap, LT9721_REG_ML_TRAIN_CTRL,
-+		     LT9721_ML_RDISP_RST_N | LT9721_ML_TPS2_TRANS_EN);
-+	drm_dp_dpcd_writeb(&lt9721->aux, DP_TRAINING_PATTERN_SET,
-+			   DP_TRAINING_PATTERN_2 | DP_LINK_SCRAMBLING_DISABLE);
-+
-+	for (tries = 0; tries < LT9721_MAX_EQ_TRIES; tries++) {
-+		drm_dp_link_train_channel_eq_delay(&lt9721->aux, dpcd);
-+
-+		ret = drm_dp_dpcd_read_link_status(&lt9721->aux, link_status);
-+		if (ret < 0)
-+			break;
-+
-+		if (drm_dp_channel_eq_ok(link_status, lt9721->active_lanes))
-+			break;
-+
-+		lt9721_apply_adjust_request(lt9721, link_status, train_set);
-+	}
-+
-+	if (!drm_dp_channel_eq_ok(link_status, lt9721->active_lanes))
-+		dev_warn(lt9721->dev, "DP channel EQ incomplete (0x%02x 0x%02x)\n",
-+			 link_status[0], link_status[1]);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_CLK_EN3, 0xff);
-+	fsleep(5000);
-+
-+	/* End training and enable main video stream */
-+	drm_dp_dpcd_writeb(&lt9721->aux, DP_TRAINING_PATTERN_SET,
-+			   DP_TRAINING_PATTERN_DISABLE);
-+	fsleep(5000);
-+	regmap_write(lt9721->regmap, LT9721_REG_ML_TRAIN_CTRL,
-+		     LT9721_ML_RDISP_RST_N);
-+	regmap_write(lt9721->regmap, LT9721_REG_ML_TRAIN_CTRL,
-+		     LT9721_ML_RDISP_RST_N | LT9721_ML_NORMAL_TRANS_EN);
-+
-+	return 0;
-+}
-+
-+static void lt9721_hdmi_rx_cdr_eq_setup(struct lt9721 *lt9721)
-+{
-+	static const struct reg_sequence cdr_eq_seq[] = {
-+		{ 0x901d, 0x04 }, { 0x901e, 0x1f }, { 0x901f, 0x20 },
-+		{ 0x9024, 0xe0 }, { 0x9025, 0xf0 }, { 0x9027, 0x01 },
-+		{ 0x902b, 0x40 }, { 0x902c, 0x65 },
-+		/* Adaptive EQ calibration table */
-+		{ 0x902a, 0x0f }, { 0x9028, 0x14 },
-+		{ 0x9028, 0xf4 }, { 0x9029, 0x00 }, { 0x902b, 0xf1 },
-+		{ 0x9028, 0xf7 }, { 0x9029, 0x00 }, { 0x902b, 0xf2 },
-+		{ 0x9028, 0xf0 }, { 0x9029, 0x70 }, { 0x902b, 0xf3 },
-+		{ 0x9028, 0xf3 }, { 0x9029, 0x70 }, { 0x902b, 0xf4 },
-+		{ 0x9028, 0xf6 }, { 0x9029, 0x70 }, { 0x902b, 0xf5 },
-+		{ 0x9028, 0xf0 }, { 0x9029, 0xa0 }, { 0x902b, 0xf6 },
-+		{ 0x9028, 0xf3 }, { 0x9029, 0xa0 }, { 0x902b, 0xf7 },
-+		{ 0x9028, 0xf7 }, { 0x9029, 0xa0 }, { 0x902b, 0xf8 },
-+		{ 0x9028, 0xf0 }, { 0x9029, 0xaa }, { 0x902b, 0xf9 },
-+		{ 0x9028, 0xf4 }, { 0x9029, 0xaa }, { 0x902b, 0xfa },
-+		{ 0x9028, 0xff }, { 0x9029, 0xaa }, { 0x902b, 0xfb },
-+		{ 0x9028, 0xff }, { 0x9029, 0x00 }, { 0x902b, 0xfc },
-+		{ 0x9028, 0xf1 }, { 0x9029, 0x70 }, { 0x902b, 0xfd },
-+		{ 0x9028, 0xf4 }, { 0x9029, 0x70 }, { 0x902b, 0xfe },
-+		{ 0x9028, 0xf5 }, { 0x9029, 0x70 }, { 0x902b, 0xff },
-+		{ 0x9028, 0xf0 }, { 0x9029, 0x00 }, { 0x902b, 0xf0 },
-+		{ 0x901d, 0x04 }, { 0x901e, 0x1f }, { 0x901f, 0x20 },
-+		{ 0x9024, 0xe0 }, { 0x9025, 0xf0 }, { 0x9027, 0x01 },
-+		{ 0x902b, 0x40 }, { 0x902c, 0x25 },
-+		{ 0x902d, 0x01 }, { 0x902e, 0x01 }, { 0x902f, 0x01 },
-+		{ 0x9047, 0x24 },
-+		/* HDMI RX PLL from TMDS clock */
-+		{ LT9721_REG_RXPLL_CTRL0, 0x30 },
-+		{ LT9721_REG_RXPLL_CTRL2, 0x03 },
-+		{ LT9721_REG_RXPLL_CTRL3, 0x1e },
-+		{ LT9721_REG_RXPLL_CTRL4, 0x24 },
-+	};
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_HMRX_CDR_CFG,
-+		     lt9721->rx_pn_swap ? LT9721_HMRX_CDR_PN_SWAP : 0x00);
-+	regmap_multi_reg_write(lt9721->regmap, cdr_eq_seq,
-+			       ARRAY_SIZE(cdr_eq_seq));
-+}
-+
-+static void lt9721_hdmi_format_setup(struct lt9721 *lt9721,
-+				     const struct drm_display_mode *mode)
-+{
-+	unsigned int avi_val = 0, pol_val = 0;
-+	u8 hs_act_buf[2] = { 0 };
-+	u8 msa_pol = 0, vid_src = 0xe0;
-+	u32 hact, total_byte_line;
-+	u8 colorspace;
-+
-+	regmap_read(lt9721->regmap, LT9721_REG_HMRX_AVI_FMT, &avi_val);
-+	colorspace = avi_val & LT9721_HMRX_COLORSPACE_MASK;
-+
-+	regmap_read(lt9721->regmap, LT9721_REG_CHK_SYNC_POL, &pol_val);
-+	if (!(pol_val & LT9721_CHK_VS_POL_HIGH))
-+		msa_pol |= LT9721_MSA_VSPOL_LOW;
-+	else
-+		vid_src |= LT9721_VID_VSYNC_POL_HIGH;
-+
-+	if (!(pol_val & LT9721_CHK_HS_POL_HIGH))
-+		msa_pol |= LT9721_MSA_HSPOL_LOW;
-+
-+	regmap_bulk_read(lt9721->regmap, LT9721_REG_CHK_HS_ACT_H,
-+			 hs_act_buf, sizeof(hs_act_buf));
-+	hact = (hs_act_buf[0] << 8) | hs_act_buf[1];
-+	if (!hact)
-+		hact = mode->hdisplay;
-+
-+	total_byte_line = DIV_ROUND_UP(hact * 3U, lt9721->active_lanes);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_MSA_POL_B19,
-+		     msa_pol | ((total_byte_line >> 16) & 0x0f));
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_SRC_CTRL, vid_src);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_BYTE_LINE_M,
-+		     (total_byte_line >> 8) & 0xff);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_BYTE_LINE_L,
-+		     total_byte_line & 0xff);
-+
-+	switch (colorspace) {
-+	case LT9721_HMRX_CS_YCBCR422:
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_PIX_FMT, 0x48);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_MISC0, 0x22);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_RD_PIXELS, 0x34);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_FIFO_THRESH, 0x2e);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_OUT_BYTES, 0x44);
-+		break;
-+	case LT9721_HMRX_CS_YCBCR444:
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_PIX_FMT, 0x88);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_MISC0, 0x24);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_RD_PIXELS, 0x36);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_FIFO_THRESH, 0x4e);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_OUT_BYTES, 0x66);
-+		regmap_write(lt9721->regmap, LT9721_REG_CSC_Y2R, 0x40);
-+		break;
-+	case LT9721_HMRX_CS_RGB:
-+	default:
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_PIX_FMT, 0x08);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_MISC0, 0x20);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_RD_PIXELS, 0x36);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_FIFO_THRESH, 0x4e);
-+		regmap_write(lt9721->regmap, LT9721_REG_VID_OUT_BYTES, 0x66);
-+		regmap_write(lt9721->regmap, LT9721_REG_CSC_Y2R, 0x00);
-+		break;
-+	}
-+}
-+
-+static const struct drm_display_mode *
-+lt9721_get_adjusted_mode(struct drm_bridge *bridge,
-+			 const struct drm_atomic_commit *state)
-+{
-+	const struct drm_connector_state *conn_state;
-+	const struct drm_crtc_state *crtc_state;
-+	struct drm_connector *connector;
-+
-+	connector = drm_atomic_get_new_connector_for_encoder(state,
-+							     bridge->encoder);
-+	if (!connector)
-+		return NULL;
-+
-+	conn_state = drm_atomic_get_new_connector_state(state, connector);
-+	if (!conn_state || !conn_state->crtc)
-+		return NULL;
-+
-+	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	if (!crtc_state)
-+		return NULL;
-+
-+	return &crtc_state->adjusted_mode;
-+}
-+
-+static int lt9721_bridge_attach(struct drm_bridge *bridge,
-+				struct drm_encoder *encoder,
-+				enum drm_bridge_attach_flags flags)
-+{
-+	struct lt9721 *lt9721 = bridge_to_lt9721(bridge);
-+	int ret;
-+
-+	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
-+		dev_err(lt9721->dev, "connector creation is not supported\n");
-+		return -EINVAL;
-+	}
-+
-+	lt9721->aux.drm_dev = bridge->dev;
-+	ret = drm_dp_aux_register(&lt9721->aux);
-+	if (ret) {
-+		dev_err(lt9721->dev, "failed to register DP AUX channel: %d\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	ret = drm_bridge_attach(encoder, lt9721->bridge.next_bridge,
-+				bridge, flags);
-+	if (ret) {
-+		drm_dp_aux_unregister(&lt9721->aux);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void lt9721_bridge_detach(struct drm_bridge *bridge)
-+{
-+	struct lt9721 *lt9721 = bridge_to_lt9721(bridge);
-+
-+	drm_dp_aux_unregister(&lt9721->aux);
-+}
-+
-+static enum drm_mode_status
-+lt9721_bridge_mode_valid(struct drm_bridge *bridge,
-+			 const struct drm_display_info *info,
-+			 const struct drm_display_mode *mode)
-+{
-+	struct lt9721 *lt9721 = bridge_to_lt9721(bridge);
-+	unsigned int max_clock_khz;
-+
-+	if (mode->flags & (DRM_MODE_FLAG_INTERLACE | DRM_MODE_FLAG_DBLCLK))
-+		return MODE_BAD;
-+
-+	if (mode->clock < LT9721_MIN_HDMI_CLOCK_KHZ)
-+		return MODE_CLOCK_LOW;
-+
-+	/* Max 24bpp pixel clock bounded by HDMI 1.4 RX (340 MHz) and DP HBR */
-+	max_clock_khz = min(LT9721_MAX_HDMI_CLOCK_KHZ,
-+			    lt9721->data_lanes * 270000U / 3U);
-+	if (mode->clock > max_clock_khz)
-+		return MODE_CLOCK_HIGH;
-+
-+	return MODE_OK;
-+}
-+
-+static u32 *
-+lt9721_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
-+					struct drm_bridge_state *bridge_state,
-+					struct drm_crtc_state *crtc_state,
-+					struct drm_connector_state *conn_state,
-+					u32 output_fmt,
-+					unsigned int *num_input_fmts)
-+{
-+	u32 *input_fmts;
-+
-+	*num_input_fmts = 0;
-+
-+	input_fmts = kmalloc_obj(*input_fmts);
-+	if (!input_fmts)
-+		return NULL;
-+
-+	input_fmts[0] = MEDIA_BUS_FMT_RGB888_1X24;
-+	*num_input_fmts = 1;
-+
-+	return input_fmts;
-+}
-+
-+static void lt9721_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-+					    struct drm_atomic_commit *state)
-+{
-+	const struct drm_display_mode *mode = lt9721_get_adjusted_mode(bridge,
-+								       state);
-+	struct lt9721 *lt9721 = bridge_to_lt9721(bridge);
-+
-+	if (!mode)
-+		return;
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_READY_CTRL,
-+		     LT9721_VID_RDY_SOFT);
-+
-+	lt9721_tx_phy_setup(lt9721);
-+	lt9721_dp_link_train(lt9721);
-+	lt9721_video_processor_setup(lt9721, mode);
-+	lt9721_hpd_ctrl(lt9721, true);
-+}
-+
-+static void lt9721_bridge_atomic_enable(struct drm_bridge *bridge,
-+					struct drm_atomic_commit *state)
-+{
-+	const struct drm_display_mode *mode = lt9721_get_adjusted_mode(bridge,
-+								       state);
-+	struct lt9721 *lt9721 = bridge_to_lt9721(bridge);
-+	unsigned int val = 0;
-+	u8 tmds_freq[3] = { 0 };
-+	u8 hs_act_buf[2];
-+	int i, ret;
-+
-+	if (!mode)
-+		return;
-+
-+	/* Wait for upstream HDMI TX TMDS clock */
-+	ret = regmap_read_poll_timeout(lt9721->regmap, LT9721_REG_HMRX_TMDS_DET,
-+				       val, val & LT9721_HMRX_TMDS_CLK_DET,
-+				       5000, 100000);
-+	if (ret)
-+		dev_warn(lt9721->dev, "timed out waiting for HDMI TMDS clock\n");
-+
-+	if (!regmap_bulk_read(lt9721->regmap, LT9721_REG_HMRX_TMDS_FREQ_H,
-+			      tmds_freq, sizeof(tmds_freq))) {
-+		u32 khz = ((tmds_freq[0] & 0x07) << 16) |
-+			  (tmds_freq[1] << 8) | tmds_freq[2];
-+		dev_dbg(lt9721->dev, "HDMI TMDS clock: %u kHz\n", khz);
-+	}
-+
-+	lt9721_hdmi_rx_cdr_eq_setup(lt9721);
-+
-+	/* Reset HDMI RX digital / video check blocks after PLL/EQ setup */
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_RX1, 0x00);
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_RX0, 0x00);
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_RX2, 0x00);
-+	fsleep(4000);
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_RX1, 0xff);
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_RX0, 0xff);
-+	regmap_write(lt9721->regmap, LT9721_REG_SW_RST_RX2, 0xff);
-+
-+	/* Poll until HDMI RX video check locks onto active horizontal width */
-+	for (i = 0; i < 20; i++) {
-+		msleep(20);
-+		regmap_read(lt9721->regmap, LT9721_REG_HMRX_SIG_STAT, &val);
-+		if (!(val & LT9721_HMRX_HSYNC_DET))
-+			continue;
-+
-+		if (!regmap_bulk_read(lt9721->regmap, LT9721_REG_CHK_HS_ACT_H,
-+				      hs_act_buf, sizeof(hs_act_buf))) {
-+			u16 hact = (hs_act_buf[0] << 8) | hs_act_buf[1];
-+
-+			if (hact == mode->hdisplay)
-+				break;
-+		}
-+	}
-+
-+	/* Allow AVI infoframe / sync polarity detectors one frame to settle */
-+	msleep(20);
-+
-+	lt9721_hdmi_format_setup(lt9721, mode);
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_READY_CTRL,
-+		     LT9721_VID_RDY_SOFT | LT9721_VID_READY);
-+}
-+
-+static void lt9721_bridge_atomic_disable(struct drm_bridge *bridge,
-+					 struct drm_atomic_commit *state)
-+{
-+	struct lt9721 *lt9721 = bridge_to_lt9721(bridge);
-+
-+	regmap_write(lt9721->regmap, LT9721_REG_VID_READY_CTRL,
-+		     LT9721_VID_RDY_SOFT);
-+	regmap_write(lt9721->regmap, LT9721_REG_ML_TRAIN_CTRL,
-+		     LT9721_ML_RDISP_RST_N);
-+}
-+
-+static void lt9721_bridge_atomic_post_disable(struct drm_bridge *bridge,
-+					      struct drm_atomic_commit *state)
-+{
-+	struct lt9721 *lt9721 = bridge_to_lt9721(bridge);
-+
-+	drm_dp_dpcd_writeb(&lt9721->aux, DP_SET_POWER, DP_SET_POWER_D3);
-+	regmap_write(lt9721->regmap, LT9721_REG_DPTX_LANE01_CTRL, 0x00);
-+	regmap_write(lt9721->regmap, LT9721_REG_DPTX_LANE23_CTRL, 0x00);
-+	regmap_write(lt9721->regmap, LT9721_REG_DPTX_PHY_EN, 0x00);
-+}
-+
-+static enum drm_connector_status
-+lt9721_bridge_detect(struct drm_bridge *bridge,
-+		     struct drm_connector *connector)
-+{
-+	struct lt9721 *lt9721 = bridge_to_lt9721(bridge);
-+	unsigned int val = 0;
-+
-+	if (lt9721->is_panel)
-+		return connector_status_connected;
-+
-+	if (regmap_read(lt9721->regmap, LT9721_REG_HPD_STATUS, &val))
-+		return connector_status_unknown;
-+
-+	return (val & LT9721_EDP_HPD_STATUS) ?
-+		connector_status_connected : connector_status_disconnected;
-+}
-+
-+static const struct drm_edid *
-+lt9721_bridge_edid_read(struct drm_bridge *bridge,
-+			struct drm_connector *connector)
-+{
-+	struct lt9721 *lt9721 = bridge_to_lt9721(bridge);
-+
-+	return drm_edid_read_ddc(connector, &lt9721->aux.ddc);
-+}
-+
-+static const struct drm_bridge_funcs lt9721_bridge_funcs = {
-+	.attach = lt9721_bridge_attach,
-+	.detach = lt9721_bridge_detach,
-+	.mode_valid = lt9721_bridge_mode_valid,
-+	.atomic_pre_enable = lt9721_bridge_atomic_pre_enable,
-+	.atomic_enable = lt9721_bridge_atomic_enable,
-+	.atomic_disable = lt9721_bridge_atomic_disable,
-+	.atomic_post_disable = lt9721_bridge_atomic_post_disable,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-+	.atomic_get_input_bus_fmts = lt9721_bridge_atomic_get_input_bus_fmts,
-+	.detect = lt9721_bridge_detect,
-+	.edid_read = lt9721_bridge_edid_read,
-+};
-+
-+static int lt9721_parse_rx_ep(struct lt9721 *lt9721)
-+{
-+	u32 polarities[LT9721_MAX_LANES];
-+	struct device_node *ep;
-+	int count, i;
-+
-+	ep = of_graph_get_endpoint_by_regs(lt9721->dev->of_node, 0, -1);
-+	if (!ep)
-+		return 0;
-+
-+	count = of_property_count_u32_elems(ep, "lane-polarities");
-+	if (count > 0) {
-+		if (count > LT9721_MAX_LANES) {
-+			of_node_put(ep);
-+			return -EINVAL;
-+		}
-+
-+		of_property_read_u32_array(ep, "lane-polarities", polarities,
-+					   count);
-+		for (i = 1; i < count; i++) {
-+			if (!!polarities[i] != !!polarities[0]) {
-+				dev_err(lt9721->dev,
-+					"HDMI RX lane-polarities must match across all pairs\n");
-+				of_node_put(ep);
-+				return -EINVAL;
-+			}
-+		}
-+
-+		lt9721->rx_pn_swap = !!polarities[0];
-+	}
-+
-+	of_node_put(ep);
-+	return 0;
-+}
-+
-+static int lt9721_parse_tx_ep(struct lt9721 *lt9721)
-+{
-+	u32 lanes[LT9721_MAX_LANES] = { 0, 1, 2, 3 };
-+	u32 polarities[LT9721_MAX_LANES] = { 0 };
-+	bool pin_used[LT9721_MAX_LANES] = { false };
-+	struct device_node *ep;
-+	unsigned int next_pin = 0;
-+	int count, pol_cnt, i;
-+
-+	lt9721->data_lanes = LT9721_MAX_LANES;
-+
-+	ep = of_graph_get_endpoint_by_regs(lt9721->dev->of_node, 1, -1);
-+	if (ep) {
-+		count = of_property_count_u32_elems(ep, "data-lanes");
-+		if (count > 0) {
-+			if (count != 1 && count != 2 && count != 4) {
-+				dev_err(lt9721->dev,
-+					"unsupported eDP data-lanes count: %d\n",
-+					count);
-+				of_node_put(ep);
-+				return -EINVAL;
-+			}
-+
-+			of_property_read_u32_array(ep, "data-lanes", lanes,
-+						   count);
-+			lt9721->data_lanes = count;
-+		}
-+
-+		pol_cnt = of_property_count_u32_elems(ep, "lane-polarities");
-+		if (pol_cnt > 0) {
-+			if (pol_cnt > lt9721->data_lanes) {
-+				of_node_put(ep);
-+				return -EINVAL;
-+			}
-+			of_property_read_u32_array(ep, "lane-polarities",
-+						   polarities, pol_cnt);
-+		}
-+
-+		of_node_put(ep);
-+	}
-+
-+	lt9721->tx_lane_swap = 0;
-+	lt9721->tx_pol_swap = 0;
-+
-+	for (i = 0; i < lt9721->data_lanes; i++) {
-+		u32 pin = lanes[i];
-+		u8 phy;
-+
-+		if (pin >= LT9721_MAX_LANES || pin_used[pin]) {
-+			dev_err(lt9721->dev, "invalid eDP data-lanes entry %u\n",
-+				pin);
-+			return -EINVAL;
-+		}
-+
-+		pin_used[pin] = true;
-+		phy = lt9721_qfn64_pin_to_phy[pin];
-+		lt9721->tx_lane_swap |= (i & 0x3) << (2 * phy);
-+		if (polarities[i])
-+			lt9721->tx_pol_swap |= BIT(i);
-+	}
-+
-+	/* Assign remaining unused logical lanes to unused die PHYs */
-+	for (i = lt9721->data_lanes; i < LT9721_MAX_LANES; i++) {
-+		u8 phy;
-+
-+		while (next_pin < LT9721_MAX_LANES && pin_used[next_pin])
-+			next_pin++;
-+		if (next_pin >= LT9721_MAX_LANES)
-+			break;
-+
-+		pin_used[next_pin] = true;
-+		phy = lt9721_qfn64_pin_to_phy[next_pin];
-+		lt9721->tx_lane_swap |= (i & 0x3) << (2 * phy);
-+	}
-+
-+	lt9721->active_lanes = lt9721->data_lanes;
-+
-+	return 0;
-+}
-+
-+static int lt9721_link_panel(struct drm_dp_aux *aux)
-+{
-+	struct lt9721 *lt9721 = aux_to_lt9721(aux);
-+	struct device *dev = lt9721->dev;
-+	struct drm_bridge *next_bridge;
-+
-+	next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
-+	if (IS_ERR(next_bridge))
-+		return PTR_ERR(next_bridge);
-+
-+	if (drm_bridge_is_panel(next_bridge))
-+		lt9721->is_panel = true;
-+	else
-+		lt9721->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
-+
-+	lt9721->bridge.next_bridge = next_bridge;
-+
-+	return devm_drm_bridge_add(dev, &lt9721->bridge);
-+}
-+
-+static int lt9721_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct lt9721 *lt9721;
-+	int ret;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return -ENODEV;
-+
-+	lt9721 = devm_drm_bridge_alloc(dev, struct lt9721, bridge,
-+				       &lt9721_bridge_funcs);
-+	if (IS_ERR(lt9721))
-+		return PTR_ERR(lt9721);
-+
-+	lt9721->dev = dev;
-+	lt9721->client = client;
-+	mutex_init(&lt9721->aux_lock);
-+	i2c_set_clientdata(client, lt9721);
-+
-+	ret = lt9721_parse_rx_ep(lt9721);
-+	if (ret)
-+		return ret;
-+
-+	ret = lt9721_parse_tx_ep(lt9721);
-+	if (ret)
-+		return ret;
-+
-+	lt9721->vcc = devm_regulator_get(dev, "vcc");
-+	if (IS_ERR(lt9721->vcc))
-+		return dev_err_probe(dev, PTR_ERR(lt9721->vcc),
-+				     "failed to get vcc regulator\n");
-+
-+	lt9721->vdd = devm_regulator_get(dev, "vdd");
-+	if (IS_ERR(lt9721->vdd))
-+		return dev_err_probe(dev, PTR_ERR(lt9721->vdd),
-+				     "failed to get vdd regulator\n");
-+
-+	lt9721->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-+						     GPIOD_OUT_HIGH);
-+	if (IS_ERR(lt9721->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(lt9721->reset_gpio),
-+				     "failed to acquire reset gpio\n");
-+
-+	lt9721->regmap = devm_regmap_init_i2c(client, &lt9721_regmap_config);
-+	if (IS_ERR(lt9721->regmap))
-+		return dev_err_probe(dev, PTR_ERR(lt9721->regmap),
-+				     "failed to initialize regmap\n");
-+
-+	ret = lt9721_power_on(lt9721);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(dev, lt9721_power_off, lt9721);
-+	if (ret)
-+		return ret;
-+
-+	ret = lt9721_read_chipid(lt9721);
-+	if (ret)
-+		return ret;
-+
-+	ret = lt9721_aux_phy_init(lt9721);
-+	if (ret)
-+		return ret;
-+
-+	lt9721_hpd_ctrl(lt9721, true);
-+
-+	lt9721->bridge.of_node = dev->of_node;
-+	lt9721->bridge.type = DRM_MODE_CONNECTOR_eDP;
-+	lt9721->bridge.vendor = "Lontium";
-+	lt9721->bridge.product = "LT9721";
-+
-+	lt9721->aux.name = "lt9721-dp-aux";
-+	lt9721->aux.dev = dev;
-+	lt9721->aux.transfer = lt9721_aux_transfer;
-+	drm_dp_aux_init(&lt9721->aux);
-+
-+	ret = devm_of_dp_aux_populate_bus(&lt9721->aux, lt9721_link_panel);
-+	if (ret == -ENODEV)
-+		return lt9721_link_panel(&lt9721->aux);
-+
-+	return ret;
-+}
-+
-+static const struct i2c_device_id lt9721_i2c_ids[] = {
-+	{ "lt9721" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, lt9721_i2c_ids);
-+
-+static const struct of_device_id lt9721_of_ids[] = {
-+	{ .compatible = "lontium,lt9721" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, lt9721_of_ids);
-+
-+static struct i2c_driver lt9721_driver = {
-+	.driver = {
-+		.name = "lontium-lt9721",
-+		.of_match_table = lt9721_of_ids,
-+	},
-+	.id_table = lt9721_i2c_ids,
-+	.probe = lt9721_probe,
-+};
-+module_i2c_driver(lt9721_driver);
-+
-+MODULE_AUTHOR("Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>");
-+MODULE_DESCRIPTION("Lontium LT9721 HDMI to eDP bridge driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
-
+> +				      BCM2835_DMA_DIS_DEBUG))
+>  #define BCM2835_DMA_PER_MAP(x)	(((x) & 31) << 16) /* REQ source */
+>  #define BCM2835_DMA_WAIT(x)	(((x) & 31) << 21) /* add DMA-wait cycles */
+>  #define BCM2835_DMA_NO_WIDE_BURSTS BIT(26) /* no 2 beat write bursts */
+> @@ -433,7 +437,8 @@ static void bcm2835_dma_start_desc(struct bcm2835_chan *c)
+>  	c->desc = to_bcm2835_dma_desc(&vd->tx);
+>
+>  	writel(c->desc->cb_list[0].paddr, c->chan_base + BCM2835_DMA_ADDR);
+> -	writel(BCM2835_DMA_ACTIVE, c->chan_base + BCM2835_DMA_CS);
+> +	writel(BCM2835_DMA_ACTIVE | BCM2835_DMA_CS_FLAGS(c->dreq),
+> +	       c->chan_base + BCM2835_DMA_CS);
+>  }
+>
+>  static irqreturn_t bcm2835_dma_callback(int irq, void *data)
+> @@ -460,7 +465,8 @@ static irqreturn_t bcm2835_dma_callback(int irq, void *data)
+>  	 * if this IRQ handler is threaded.) If the channel is finished, it
+>  	 * will remain idle despite the ACTIVE flag being set.
+>  	 */
+> -	writel(BCM2835_DMA_INT | BCM2835_DMA_ACTIVE,
+> +	writel(BCM2835_DMA_INT | BCM2835_DMA_ACTIVE |
+> +	       BCM2835_DMA_CS_FLAGS(c->dreq),
+>  	       c->chan_base + BCM2835_DMA_CS);
+>
+>  	d = c->desc;
+> --
+> 2.51.0
+>
