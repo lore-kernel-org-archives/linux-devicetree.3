@@ -1,85 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795514289;
-	b=LG+8HiamDkNNbDd+hdyVoyAJwij2Uq6ce5vTkTU5GAsHNEYWp9FzvCCUraPu5HuQ7wQV
-	 2w9/ixwUL2RxmhrRAvFAl9xRmy5gYSIlkSf8Gl6rM8R+raoRQ8WaW7X9M/As1mqk/VB2n
-	 9nx1OAnTx3YNKxR3qLNtK/FE2PqbbboR31tOLUI2IvhSOksuytoWB+tno+q1zI1cHD4Am
-	 6Yc79nmXosLK4sypK1LnuMdpOZ8zvyqRJOmlZm484IwaUo+l5IMfMA8qcusAWv7poy6BP
-	 xOOyMFoVvze9l2V+5JL2shYvK9qmtyAZl4vTL7iHCDPO3Fie72LAPvN3UsN8wADNjGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514289;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=GREhSGUQtC0PX1E2njt5jFgmaOss9pV5WXnxNri1B20=;
-	b=m4K5aFxEP1wUo3nOk4USP9q1zZNzz/kpvFmGTzNoPJMQcshK0bN8snh78X2ybvreYlla
-	 hAXwP8HOa9x/6Q8EKF2sPfOOm/qVDeEh7i2YpeJ+kQch2lmp4VrTct+zlqG0A0ezvCvMW
-	 pkJ3S9x/nBCvKhfnTdMG63egOgq2HbZwH+AReVmXPT1/U892ItUtjMr9WVcRCt6AbjrTP
-	 Md01E6GHzB4BklUPNp4yzAVsGNuOB14U7t35PU9gZgPyDER3TrtBBvNH001z+nng9PJqK
-	 4wIdvyZeS31vK7P51w4vmHz0Os5UKLU5+CPcOw7F45lQkuNcHmhCCif7wHeXc/dyu6Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ghQhe1Fy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795514344;
+	b=068akNsjelSxAxdF5UnbPizjzti0RjK2V8XYNhTz6d9tR8WSFUcJZ0MvNZsZ7AYJiYxl
+	 U4eogufbnCUkHaq2/RjAxtaXAi4VI+DH2xpqDY2u6aP7omqIT4M+k2D1SPW2i/mvK9De+
+	 ECG6rq8nWORUwOjEHHnqc64sfZH2PzoxdlCw3gEhfmyFqPkHIjNL1hnDm/0RO9Zt3hDtn
+	 DJHzgOAdsWHMGk//4xEI7/W8yWo/4577/BfZxZSB4a7UbhacqWoWnpFdTo/qD/T0e3CQ3
+	 9qtfqqlHPJ0p5yFZkCUooN6PVL4MMQnfrN4tTsBhywVF2cwfiqpYbjos3PWC8S7x9rQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514344;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=LM4WQJMgPgmGAQPx49J43+L3+FifhB+APgkJWZ64wOc=;
+	b=0UrU92GC6aYL8gmMABR8LqhjV+J3DL9EaUl/Ra0BuPkQRZCPZoVjDhMSCy1+USd90Oec
+	 oAQ3fLddZskpe5tOoI2RonQjUYq1OTy2dJG/zEmpthXVguPVCxjOToWM1erSTgMHbrMX4
+	 lvCgHX0HGqib55gnnuyteRVn+49uyN/qqv4sPMiUqqUM9RKmjKjNxMmIbxiLainUeW+tt
+	 L7xc1nghSHwmh9gaZkrRBaBJ1UXIKR3Tjfsuvtu07b7o1eKyU1XGDIjt9EAb0Ijhxg1IM
+	 NdGrWWt50p5q/4GA/A5HP0gOHFyBhjlYxyTxHElEtI6yDRJlEOUIBIQHvYSlAAR/EaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X3kXZyp/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34AB606A32C
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:58:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F34AB606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4B3606A32A;
+	Tue, 24 Nov 2026 09:59:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ghQhe1Fy
-Received: from localhost (unknown [IPv6:2a0a:edc0:0:701:64eb:cd28:15f0:fe7b])
-	(Authenticated sender: fdi@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 057F8201D27;
-	Tue, 24 Nov 2026 10:58:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795514286;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GREhSGUQtC0PX1E2njt5jFgmaOss9pV5WXnxNri1B20=;
-	b=ghQhe1FyRht4fL83/c0m6PtumIAjv+8UJg9/UlC7Vi95eyttHKMGSYroQK4vXx04Rh2O/I
-	SupD6fWikyCrWON/wU8A//xH6Hd/Nd6uNd1rxKR9Wg4il+cSgKaHrfZxJQ6SaE69j+SVP2
-	+zG2O7legrI3p/NQ2LGKy8jIguwOUcdPnXK3c9CqIPfhJEDBJuIep5OYV+EdeqNhBLuHLy
-	BZZKfYeY2e3+EB8PhXK+Ptid2ITkZIQkPZ8zSxjoUojVATgRaH4B6UFyoiNl2H5j+Q6wja
-	5madN61bG7E4RC7QjZj3y0dwvrl/zO/2+ZgoqHDSMQrjYE9prrN4ISGVwWh5Ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795514286;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GREhSGUQtC0PX1E2njt5jFgmaOss9pV5WXnxNri1B20=;
-	b=Ql8IGsCac3BTycRTjQ9oEn0IPGu7BgpjvAVdAIChU32q9ya8i1nzqJyAKcC1Hgasg9jGS2
-	Iqz+wWboX0khDoY4VJ2fdmTALbAjoFJe42cmZJ/hi5ZIuUfk+PskVpzyaKoo+4xUksy6Ry
-	sJhvHnW8J1dSJSmLNJl8c0MylFuQZUX7nXBg8S0ma8xHU/sQHmtR3dogQoK5vLVUHvu4I2
-	F5moon1ohUG4HdbNhZbn+g+UqadyBHDGTYDm3+0B7NvlOQhlXkZWWpOMpZxIYMZgdlBX4M
-	m1JmwRXSa6zvD3iWZQvhB7jwGbun0VhB00EWR2isMh0y6ai8XLUCovqhnVJm2Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=fdi@pengutronix.de smtp.mailfrom=f.diener@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795514286; a=rsa-sha256;
-	cv=none;
-	b=fFihxgeQQOHq6iNTfu0dQZ5X+NqdsWKXc+TI/hg0QWdJC2RBl9fG4ARm52QwMqJ/gM3A0i
-	wOh0vMHZfHuS2NIkvDnQ1V0fw54Q+r9GvFfQklyTpr4IUF9YHxN2kchCuNdcbns2jDC01w
-	J7mdrDpj9b/OtXY0hbqAteWjkjIWzIGItiWQVQaQ/BP5cVKCpZFf1KRl8Q0bIbx73y8bc4
-	MSr7rr9J7GhxJTTUCptFaVxeD1Jwq10a7sl1Owllimok+S2y84+uJfCOfrdYHdYlBLi95y
-	fmvZAcgKB8qPfTmUIhuNQOYcHb8NSyMNAHX7WpVXJdIGC9fHPL7ugNLb4ULajw==
-From: Freimut Diener <f.diener@pengutronix.de>
-To: Frank Li <Frank.li@oss.nxp.com>, sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
- conor+dt@kernel.org, Frank.Li@kernel.org
-Subject: Re: [PATCH v2 2/5] arm64: dts: freescale: imx93-11x11-frdm-common:
- Describe PCAL6524 supply
-In-Reply-To: <awRmrCk8tOd_F8MG@SMW015318>
-References: <20261123-imx93-frdm-fixes-v2-0-dd97c7fca4b1@pengutronix.de>
- <20261123-imx93-frdm-fixes-v2-2-dd97c7fca4b1@pengutronix.de>
- <sashiko-outbox-229145@kernel.org> <awRmrCk8tOd_F8MG@SMW015318>
-Date: Tue, 24 Nov 2026 10:58:05 +0100
-Message-ID: <87jym2mtzm.fsf@theta.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X3kXZyp/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9372D1F000C4;
+	Tue, 24 Nov 2026 09:58:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795514343;
+	bh=LM4WQJMgPgmGAQPx49J43+L3+FifhB+APgkJWZ64wOc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=X3kXZyp/cmAewdv4SURvUj5FEpk7h3J5q/nGKn39RncyygRymn4LMGBCfC6lTDrS/
+	 ONC1sBd3cTy0jWZlYNPy5dD1MPDRYDPbtJafj4d3YAehOczt/UUHfqspAyh+X8FYjE
+	 MU3RcqajXhrDtNZI1gbRJVjhGVez2aiQJO/kWoE46KnE49/BjjVUx1qjc/VsbPMQO8
+	 Q9Skbbr8yYkUA5/+yMAZazPrtADdc9+/YxngG75yyISY+ExUwAJXiyFgdTh9zzycuo
+	 UXxXGPRTM8I7rfw0hQF+K7o2tDWFZF95IU5b6gxfg+XO+M1jpUsmN3272btTlxsI7W
+	 K1F3XlpgKbyDQ==
+Message-ID: <e2e7f13e-faa1-428b-9691-3e8842054e6f@kernel.org>
+Date: Tue, 24 Nov 2026 10:58:57 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,75 +51,103 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/13] soc: synaptics: add SL2610 system controller
+ support
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <20261115102401.3520-1-jszhang@kernel.org>
+ <20261115102401.3520-7-jszhang@kernel.org>
+ <20261123-knowing-eggplant-buffalo-fddfc3@quoll> <awQyw9fp8qTj3kbU@xhacker>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <awQyw9fp8qTj3kbU@xhacker>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Frank Li <Frank.li@oss.nxp.com> writes:
-
->> arm64: dts: freescale: imx93-11x11-frdm-common: Describe PCAL6524 supply
+On 23/11/2026 13:34, Jisheng Zhang wrote:
+> On Mon, Nov 23, 2026 at 11:31:42AM +0100, Krzysztof Kozlowski wrote:
+>> On Sun, Nov 15, 2026 at 06:23:45PM +0800, Jisheng Zhang wrote:
 >>
->> This commit adds a fixed 3.3 V regulator node as a proxy for PMIC BUCK4
->> and wires it to the PCAL6524 GPIO expander's vcc-supply to avoid a circular
->> probe dependency between the PMIC and its interrupt parent.
+>>> +static const struct sl2610_syscon_data sl2610_mcu_data = {
+>>> +	.cells = sl2610_mcu_cells,
+>>> +	.num_cells = ARRAY_SIZE(sl2610_mcu_cells),
+>>> +};
+>>> +
+>>> +static const struct sl2610_syscon_data sl2610_avio_data = {
+>>> +	.cells = sl2610_avio_cells,
+>>> +	.num_cells = ARRAY_SIZE(sl2610_avio_cells),
+>>> +};
+>>> +
+>>> +static const struct sl2610_syscon_data sl2610_cpu_data = {
+>>> +	.cells = sl2610_cpu_cells,
+>>> +	.num_cells = ARRAY_SIZE(sl2610_cpu_cells),
 >>
->> > diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
->> > index b3dfe516b1d55..e81b2342c50dc 100644
->> > --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
->> > +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm-common.dtsi
->> > @@ -49,6 +49,19 @@ button-k3 {
->> >  		};
->> >  	};
->> >
->> > +	/*
->> > +	 * PCAL6524 is powered by PMIC BUCK4, but the PMIC uses PCAL6524
->> > +	 * as its interrupt controller. Model the supply with a fixed
->> > +	 * regulator to avoid a circular device dependency.
->> > +	 */
->> > +	reg_pcal6524_vcc: regulator-pcal6524-vcc {
->> > +		compatible = "regulator-fixed";
->> > +		regulator-name = "VDD_3V3_PCAL6524";
->> > +		regulator-min-microvolt = <3300000>;
->> > +		regulator-max-microvolt = <3300000>;
->> > +		regulator-always-on;
->> > +	};
->> > +
->> >  	reg_usdhc2_vmmc: regulator-usdhc2 {
->> >  		compatible = "regulator-fixed";
->> >  		off-on-delay-us = <12000>;
->> > @@ -207,8 +220,7 @@ pcal6524: gpio@22 {
->> >  		gpio-controller;
->> >  		pinctrl-0 = <&pinctrl_pcal6524>;
->> >  		pinctrl-names = "default";
->> > -		/* does not boot with supplier set, because it is the bucks interrupt parent */
->> > -		/* vcc-supply = <&buck4>; */
->> > +		vcc-supply = <&reg_pcal6524_vcc>;
->> >  	};
->>
->> [Severity: Medium]
->> Should reg_pcal6524_vcc be added to the Devicetree when no separate
->> fixed regulator exists on the board?
->>
->> Devicetree describes the physical hardware topology rather than encoding
->> workarounds for Linux driver probe ordering or dummy-regulator log
->> messages.  Modeling BUCK4 as a standalone always-on regulator-fixed node
->> misrepresents the board's power tree in the DT ABI and instantiates a
->> redundant platform device duplicating the regulator core's dummy
->> regulator.
->>
->> In Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml, vcc-supply
->> is optional, and other i.MX91/i.MX93 boards with the same PCA9451A and
->> PCAL6524 topology (such as imx93-11x11-evk-common.dtsi and
->> imx91-11x11-frdm.dts) omit vcc-supply on pcal6524 until the cyclic
->> dependency between PMIC IRQ resolution and expander supply lookup is
->> handled in the kernel drivers.
->
-> Look like you just need remove vcc-supply property.
+>> That's just MFD driver, so should be in MFD, no? Why placing standard
+>> MFD code - nothing soc specific - in the soc directory?
+> 
+> I'm not sure which is better. But FWICT, sophgo, samsung, microchip put
+> mfd drivers in soc directory. So I guess the reason behind this is these
+> drivers are soc specific?
 
-This would mean dropping the entire patch and keeping the warning about
-the dummy regulator:
+Samsung has no MFD driver in SoC. Samsung has FULL SoC driver there.
 
-    pca953x 1-0022: supply vcc not found, using dummy regulator
+Others, dunno, but just like you they could be making random decisions.
+That's MFD driver. MFD drivers go to mfd.
 
-Is that preferable?
 
-Best,
-Freimut
+
+Best regards,
+Krzysztof
