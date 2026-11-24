@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795521285;
-	b=uwA8IhgkmHrOReEMANRVIiYyTKzLYVvDvKFjtMHCOsYIu+FKptFY3AsE1kNDCXxEYAeZ
-	 LNkLeRbQA0t8Xv/Alf4V5w0Z+8c6eq+3upkZt4J6XZIXYa1jjNGgVfhmysIEgOkOprm2X
-	 cBpXCLEnYD45j2GWWWSF89jZYU95XjS+S3go4txAZmNKH2heOXOiBf9Xj0XzM3NGFBHIW
-	 xDmY/LAvDDGt1TlbOHDtiZfH1YhAmZITTAhJed/4lcpqaSq5LsiBLSzTFJlvqtu7mxy/4
-	 jNNKKA0BmcbTer0DsimdFSMzAW4thj82kilhdAWKB0t/68nR1+lVpSE35FCq9GsxXlA==
+	b=KmpiA5tBOCPCE0rX5VK5pwgJUVrySPk3ErAMB2AaHpyL2lTx4E05NAZ6KK2mtkgRcs5o
+	 +0av4cP14jGPNCcagq28FW+okXDgFAqD9XWXMNHJZ6QL4hJOvTI+zFYQoOeO6eSdYUKeb
+	 VJtI1uxQlwMsjw05H7Z34TDfSzCgZ70siMXs9OxI8L4Dy7TRW5nN841QrHCUTErp9x29W
+	 LRI4KswCF0SyJ+g0ElAht/+9unDzBMT9eiVTWtFByeU2c8P4P5O2McnQqwWPcqj7FKM4g
+	 JFRUOm7OzVSD6Ave2pYQsXU24UVPDYVc9S92HFVu1pgJ1dA8B0AwepGXcumr3P6u/kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795521285;
-	h=DMARC-Filter:DKIM-Signature:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=0Y95CVSolsT2eGxG3UukQw1bCthTI5uoGuBQNKMmygQ=;
-	b=vs+dO4FvrVqoyXDk4zfUkM6sx93A1LrvpmdDVzd8IyVheN3+Tmt30V5ow/C1v288uOxT
-	 SWhnlAZ8PHKhvfX566MxUIies0ijlW8CSSK7SsqrPGVrF5teRzeLL4PDIAw3dU1HCo7jY
-	 5YzGrTM5IC1sEpmtH+XGglDnZmLSP6zOmqkleX3PeWnSvEwiSgbJHyo3dchLrw3dTjIzv
-	 hRnqnYVOTx8Yp+jWUbl7tphyXe4NzeL+uzl8SWvNE4cgbvkWntCbYNbjR9NsCsJqLdMs7
-	 aTF+UI5QZ2WC7+kuXrOmSkETdNEi6f/21xqunom1RryERg2sgsdw0dTzYLvFy8TIoIw==
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ZfR/6lnsUE/pnRQi/PbCLWIsXUsmgZSZZiyw7HHwysA=;
+	b=PCPHSIGrk+WTxJdDpiayy/NZ6N/ljp2kdq2Nv/OPBoeXsMh919uM/r3JHuCk9n1BnMWT
+	 2NnQ81xEPZhTWzA/3rvVlirJ9quzH3Gc3F4WqFlnJzRne7isZWF/GYBXIp0aOa8ydpvQS
+	 UyM65rW36VAlahuI3itsohs17pji2KjvTlQZ9WVD0sJfiDLXsNpeq5w6+F2kV+ZODZl5w
+	 RzBxnfmbZwqP0zBmJz2QeEumbpS3JcoZIsndWw6RK0MEqfsimE2fiRkxnFd8LbSuljiTl
+	 3NLVG4qnegdFo8j4a+5h5KaoJW9wuI2qozI1dWqOdWCpbCMHty2LsmX8bObtJ4sR2sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kemnade.info;
 	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=9UyQfe3C;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=79k3dNqo;
 	arc=none smtp.remote-ip=178.238.236.174
 Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9134D606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91265606A327
 	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9134D606A32C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91265606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=9UyQfe3C
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=79k3dNqo
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=0Y95CVSolsT2eGxG3UukQw1bCthTI5uoGuBQNKMmygQ=; t=1795521284; x=1796730884; 
-	b=9UyQfe3Ca70uX2e7TW+P2u7kHXTqniX3cBLN3BpAMpS1M0b4queHxGV6tcK31nwRpTm7CXqZ384
-	Yorb1Pft3Hs0C++aEbRsFSyu/ypFwohHNHpyDzv7knyeZoqcEQuPF7Not2XzYMEYWUQwIT4zt989s
-	ETqfgezdTUCHi4GvqmCthJ+wyXQQEfzAx13YW37L6/k+CNmsp2HbIcrGfkqYQU5kDDO7X9NB+N5+P
-	E43LsKPw1+bgBHawf5JKr3x62gm9J+INr9uP7ZFnLNs3Leuqj/MkV+3TGTHa8cwBvh2rE8PrVN4WZ
-	Bd9xbizcUD8W/DoIfUjwMgCYV+32fCuVqhzw==;
+	d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=ZfR/6lnsUE/pnRQi/PbCLWIsXUsmgZSZZiyw7HHwysA=; t=1795521284; x=1796730884; 
+	b=79k3dNqo102LFk8pK61THrTFr2ofWfd6mgYCTy/iTFxdD9ENwDVXLezkbOOwEGcXjIShMPfNH0C
+	wjx15BYnGiV4dJLFGdYmGNN+iAG09mCjCqFFr+SE9oWyScN1vziFUvEwl+dUwok3ahi85QW+X4nMt
+	z7ItO4tNLZ/ywj13iVFXB06ynnKRUFv+Y56lD7VVJu7Z1ze3bJC4G+Pp+pqIvcOErmiYI0+p6Mmsc
+	CnTd9lX2589Io2TzhUm+UHchnFlfOlvHlcKlsDrUe4csk/NXdDv6DGFFPFgVnh7YAVFGIFarg4QTX
+	007HMvsH2lSEl33/OCsXTvNhEEiMrPaw7/HQ==;
 From: Andreas Kemnade <andreas@kemnade.info>
-Subject: [PATCH 0/2] drm/bridge: tc358762: fix reset handling
-Date: Tue, 24 Nov 2026 12:54:16 +0100
-Message-Id: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
+Date: Tue, 24 Nov 2026 12:54:18 +0100
+Subject: [PATCH 2/2] ARM: dts: st: stm32mp15xx-dhsom: fix bridge reset
+ polarity
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,10 +57,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOl6BWsC/yXMQQqDMBBG4avIrA10EgnqVcRFjX/b6UIlE6Ug3
- t1olx883k6KKFBqi50iNlGZpwwuCwqf5/SGkTGb7MN6ZluZFJyJUCQDX6PhIbB3NeV+iXjJ735
- 1/d+6Dl+EdA3oOE4KrFXFbQAAAA==
-X-Change-ID: 20261124-tc3-reset-e68e91bc1638
+Message-Id: <20261124-tc3-reset-v1-2-a5d27fe4b5de@kemnade.info>
+References: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
+In-Reply-To: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Dmitry Baryshkov <lumag@kernel.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -81,52 +80,46 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, 
  Andreas Kemnade <andreas@kemnade.info>
 X-Mailer: b4 0.17-dev-1b309
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1333; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=95cBuEgKomvG0irQdxNTBuaiupy4Qd3iS5bglnLUJhs=;
- b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBXruLghhWGCP2n4Puk1XpXU37hzRrYl2i1OZw
- kUEEF+1+8CJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawV67gAKCRCEYUX6QCjc
- 8WRxD/9XWVI6846UBss/bGrlWSl5D3+8GAd9mXpfozjJcnq0eVwaSoDae/UUQFbDwUM0dZksnXI
- EWH2IIi+7vAWkAH/BkbyEX6uNx4Q70vuox+t+oLc5LpgBZiu90qZ4jCb6C0dtJJyqHm8/KvOxJo
- VzJm7Jh0maBv55xM1LQB7yuYYn2tuRqDPpeGQj1XL+zpZASxekjwjYW8EMunYTfiL1Oy8MeAfhu
- tgZ9k2IXoECcAikVBat1s0y20gxji1MdSybvuHJcJP8G6FpzHBeSkBwct1CvSm10R3OaIm1VOyF
- hKcRCWcjTAuKNyvRt3nJsjnzPpmLH3OGVtv1bfDeKta+lnc58nHHCT9GH+cPdR+G6bcDuKkYHs2
- ZScR8QRbDPHzMD1bnInUBt+61b30L4HfBm1UUrK+PFiZizUdrqwNYbH9LZfLad5gqsEpZComJ8h
- C0tmBRd6LSabeG62iuKXqGnbOgITA2MTTrUQRYdg+ooyHOdyVQ0IS8VrNYDMS/xsRpS/0+p5UKB
- YWIOx84WDDFMZhalwukyMQcUXzDYdW5aO1ScrzfAcK2pXgh66WlUzcClrXKUvUePGQS2TroxxDA
- QBD6NAYaGyJNQD++WTj/7jentSzQg0yxHmPkaRYm5m5dyNvztBEd+0Mzqiy1cJ30v+ZiJZ4cW1f
- WgNtWEqE9yA+RNA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=987; i=andreas@kemnade.info;
+ h=from:subject:message-id; bh=GLBUHsrqFLUlRWZt8GXXwr1nDsTd3sjuIa8AxQT8QUI=;
+ b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBXr1CRJh/k3SF9zhnM67HN2W2PpCGKtwoj8rs
+ m16MvjwmDqJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawV69QAKCRCEYUX6QCjc
+ 8ca2D/oDzZqBbg9Q6EtTMYB9aOdp8ZoNadLZJTOgTpzJyL2LzN9+ByFR/egZ410Qg7AVj2SB56P
+ hZaJ+H/QyPO2Dx5opg154a4TR94MtYM2Q/1FpSRV68fE1HmNPVApLgZR6GM8BsB0wGd4a0O9nd9
+ fm1cdr+PmQU42qZXM9Z5fs9vvqyNj+bXFycpwr5Rq3EBGdhRRf6UMq+jjnXrKtN+O2UekTpC2cM
+ Epo+k5CGn6CLhbuMqUCsTizWdxBkpfHBxEVpcyO1/DuPeyxv/H+aH2VwuHHYYeoFCSWs0+FAcmg
+ 5DOB8uU01m7RdkQIbJjm6HhO61RR7e6F5tSa2TNOzbwxCCjWhzp1KXXe09VoIKjE0xYfNcfy2WZ
+ 32ZoKTCABmz7Yh3scDhhB+LIrEX4r6DfSRIMxCzF7ztjkalnufW7nxCfvLdeVKil7TAWweKzoZP
+ py+vB95lER6nvtaZS6Ie4N3nuTccqCqAU9utFpW1MhibUlFNq4j4fGQyQrl96iInIds2t0GsD6k
+ BI+NNo1R0cToaZSjgXerjfDefiH4Dc2Qhp6QVmf0P6dHswP8VE1lj+xm+QbcXg76BHs666QdzKD
+ TI4Q4zEpf4PR1ddQCM43HmVM5GhWvPkVcZ5/y+nR4KwbyusEBicryFiVy/LjSmN3WcvkRNxNqXc
+ IQDAUPDi3mgPpUw==
 X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
  fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
-The bridge driver desserts reset after disable and asserts that 
-upon enbale. That requires users to workaround that by declaring
-the reset gpio wrongfully active high. As an interim solution,
-ignore polarity, until things have settled to fix it afterwards.
-That will break setups with an additional inverter in the signal
-patch but those should be uncommon, at least not seen in in-tree
-devicetrees. Fix polarity in the one device tree actually declaring
-a reset line. That patch has to go in after the bridge fix.
-
-The issue came to sight during experiments with reset lines on the
-Epson Moverio BT-200.
-
-The devicetree change is only compile tested.
+Reset is active low. It is apparently set to active high to work around
+a driver bug but not to indicate an additional inverter in the signal
+path. Correcly describe the hardware.
 
 Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 ---
-Andreas Kemnade (2):
-      drm/bridge: tc358762: fix reset gpio handling
-      ARM: dts: st: stm32mp15xx-dhsom: fix bridge reset polarity
+ arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- .../arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi | 2 +-
- drivers/gpu/drm/bridge/tc358762.c                                     | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
----
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-change-id: 20261124-tc3-reset-e68e91bc1638
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
+index 518c269a1dba1..6342a6e757c12 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
+@@ -35,7 +35,7 @@ &dsi {
+ 	bridge@0 {
+ 		compatible = "toshiba,tc358762";
+ 		reg = <0>;
+-		reset-gpios = <&attiny 0 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&attiny 0 GPIO_ACTIVE_LOW>;
+ 		vddc-supply = <&attiny>;
+ 		status = "okay";
+ 
 
-Best regards,
---  
-Andreas Kemnade <andreas@kemnade.info>
+-- 
+2.47.3
 
