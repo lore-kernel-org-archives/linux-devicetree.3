@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534961;
-	b=E1edi5qS1in0W2Y9Cs1T/Riji1K84IJo2k6VoTm/ulQPjmMK3D62coNjFEkm0s/PQyFm
-	 hl08irDkF7KXgojJNXmci80QexD5EiSEhcVEb4UMy4W5wvMlaXUXcBq6nbMzrbXlwhDgV
-	 Pf3Q9HvVR1ZzRxLODehwzU9bVDxVh15xp70SqPkhCw5WegvllRuK5k8ppLn78pMNdPQa3
-	 /2w+7Gpbddd7IqqPSIhhRP8RJIC8LahBKfVRh1cQIX5RgEm0XTaSdnXfg/oMRV1uR8H1l
-	 4Wocg+b4B3zXLoqVM+hdbjEXf3dl/Uk0zawa1u8E5Z0RZSNo6orZIdbGKRxMEan1Mpg==
+	t=1795534969;
+	b=kOe10I+KeH9WeXTCWqudP2GNHvNNwP9rrrmATQDO5FZUjxnCKXJjIrdkFTYSYOEyrb4z
+	 eG2vnpmVyvfQRt+DDy1N7j/+51g/HYoGfCSzAFxEJJmahjSpbvEl3XchHuGvZs/Hi2016
+	 IktJktrQhWeLNEv9vwLv+uozJZfpQpJh1Y6lfpHmDPic+ogfQv6JkvXBwi0O1P3OZ7+B3
+	 CSdGhBnsA/30D/64EroG55/xAroLWD7WbVAh+O9P+/wDmywyYgF555CoX9xdlFfMeeuNn
+	 M/RI+1msUDB/OaQdKWMrgc/bRnQEroQNi7SZ5G9Njs2bTlAL6yI6YQ+Q8Uk/T2UtN4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534969;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=mxhOZAYkWjiUVCEs7lYi5uQ2vyidYwZzsDUgb1c1k6g=;
-	b=QHzYSwwPubiFvCMARkEWEUnNVtLhJlgMcf/2yGoyKApRO7hKuLyDTPcQNaC+0eAexwQQ
-	 f4HhEaTGjRQ++EHAW88C0rgBklGZYyVebKrOV8abjiYlgke/YWXb7ED/mcC2J6aOSO/zG
-	 0OzMCRcPato1qlXJxwwtaG1gTDzC+vbuQY0X2y17kyBVZE+rZW0vCuhT0nzT8s256JjGB
-	 OXc7TjHkIIxbrAW/ePJAVoRPBhG13XcIV3OL33VID7mcR8nY2Q55StllWeM6U3Ol2Exqi
-	 BClxVZxVGf0McSmPsD4gu6SMZk6VBfsIezJwu3O3mFEcRlVr0x9DoHXKJXU2y7yOthA==
+	bh=UGhK0QrMPxXRtKp897cYCLvU5E9xWo/VhywbzffDG+s=;
+	b=CwB4H6+vTbxqsKN9Zl3UaE8zjePWadLSNNrX3tOStIXtpku1iOxOFBcj1+cC7xlWHjVd
+	 +57eFPn8GbSlmCXxtJ7ZggbeER8ZdEvR5Gp5QeMg5ZgofMyaSyMYvLZud8sPMPvrsgL9l
+	 lWW98Xv7d0CUcxkzJCERW3DzN9H8vNtNtDsLjVHXJYWO7l861ZdZ1bTthyJwFA0Qn/hqB
+	 0jgSxbBhBtzqUhwjuy0rUK9zV7XtFPPxrQ3RKv+MsUD+wr+TlFifacHaMfDSmbEX6U6H2
+	 +LpIR6UZyZ2PEcUvDZ6WCZDKH61o08aRgv2wPvpgcoqzj2zTyy1e3nogMfvHetBegUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjrRzAub;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJrJFn1+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604A9606A327;
-	Tue, 24 Nov 2026 15:42:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B668606A32D;
+	Tue, 24 Nov 2026 15:42:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjrRzAub
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232441F000CA;
-	Tue, 24 Nov 2026 15:42:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJrJFn1+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B6C21F000CF;
+	Tue, 24 Nov 2026 15:42:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795534960;
-	bh=mxhOZAYkWjiUVCEs7lYi5uQ2vyidYwZzsDUgb1c1k6g=;
+	s=k20260515; t=1795534968;
+	bh=UGhK0QrMPxXRtKp897cYCLvU5E9xWo/VhywbzffDG+s=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZjrRzAubspoUH/6lwbalXHTO11d8e/DyOYyTGbdXaDbZhKxpaucX9Vg4hBv2NVHpk
-	 Lp2IaJmDZwW8rxGKob5cvq9n2+GwShFTu8LLuxkEl4pha17J8VorSk8qCl/gLudfQa
-	 kopfQOshiLZtm3vuZkeJ7Q8aqZG94QhYxT/MTLHbFwKmaCQz4FILwF7/5tV5I56Eti
-	 Hbvx8FqnvuQ7j7GvHvO8CBSeC5kwnUztXZOx+VGDWZseyVFYLAfVEcPvveXV55p2r0
-	 /0QnZ/E7GPwQyzk9oCJO9AlFuvhSvlo0ZhdEl9X6PKhqA+WsVng6votW0v8MjLz01v
-	 6tL2NmJ+Fc/ZQ==
-Message-ID: <e6c6be85-0378-4ade-8e31-337a85890efc@kernel.org>
-Date: Tue, 24 Nov 2026 16:42:35 +0100
+	b=RJrJFn1+wsU7egRz4Z9X+g5EGIWLaISk6BJUuTwrVvFQIjWrQDowVAkWPbX3MpfpJ
+	 m3Nul+MRsN0uhDQeZhJ1E2XU97wQwiIJcSJoOf/9bsMKaaUI8t9wJeBGkXixzKyZuu
+	 15rHeLpR+K9C72QiTGb+AT5Pk61TUgqD/Fi56MmKmoXzMd7x/uCG2VaOUAMKbnj3/M
+	 AH17Y4yOW8Qubssr2sZs0vQsYaDdIp3NursiIFY6Smgb1XD4dmaJFu7xKsd7mhv3nw
+	 bSJseYYylvAtXv6XxSPrzlEfmmItLJQSl6gpVY4E5GVuLTNfJRhTX3lWQEn1w5fb7O
+	 9C+datB35uDGg==
+Message-ID: <35262943-a161-4e31-b213-5c3d51b81f90@kernel.org>
+Date: Tue, 24 Nov 2026 16:42:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,16 +52,15 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: phy: rockchip: add RK3506 USB2 PHY
-To: ZhuXiangyu <1194781887@qq.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-phy@lists.infradead.org,
+Subject: Re: [PATCH 2/2] dt-bindings: pwm: rockchip: add RK3506 and RK3576 PWM
+To: ZhuXiangyu <1194781887@qq.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261121074753.1262819-1-1194781887@qq.com>
- <tencent_1A5C41E9DE4754C0A639FE4A64B1B23AC305@qq.com>
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261121065936.1125919-1-1194781887@qq.com>
+ <tencent_85AFCE164FAAD1CCAB95DC7CD804CA9BB309@qq.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -107,18 +106,19 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <tencent_1A5C41E9DE4754C0A639FE4A64B1B23AC305@qq.com>
+In-Reply-To: <tencent_85AFCE164FAAD1CCAB95DC7CD804CA9BB309@qq.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/11/2026 08:47, ZhuXiangyu wrote:
-> Document the RK3506 USB2 PHY, which uses the phyclk and apb_pclk
-> clocks and requires the PMU GRF phandle.
+On 21/11/2026 07:59, ZhuXiangyu wrote:
+> Document the PWM v4 controllers found on RK3506 and RK3576. They use
+> the pwm/pclk clocks and may additionally provide the osc and rc
+> clocks used by the extended features.
 > 
 > Signed-off-by: ZhuXiangyu <1194781887@qq.com>
 > ---
->  .../bindings/phy/rockchip,inno-usb2phy.yaml     | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
+>  .../devicetree/bindings/pwm/pwm-rockchip.yaml | 54 +++++++++++++++----
+>  1 file changed, 45 insertions(+), 9 deletions(-)
 
 I will mark everything you as changes requested. This is all half
 broken, b4 review cannot even fetch for review.
