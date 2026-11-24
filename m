@@ -1,69 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795510388;
-	b=IXF67+PYljuY4GjeBAWG/7NU6W3YP/LgOyN0avbS3TRdus9DcT1vmNpRc7kltgNyyRWt
-	 yrlSM6e0lpoRFV74cv64+Of4kh0AasZkcM+u1Zttz0ZiK5abQHt3ce5vs2Hyx1yudXokk
-	 nbuEyy1jFXp7CLSX7nqhRUEeCb40ToGqAuV5J/H0UncgXkY2+BbqYVrYx5pGgiVlaTty3
-	 Cj0I+tVdTxyDGqtHJucFEys/anZ2nUneHxkm76aP67GLd/evE5JrpA7hO3SC7mJSFsJKH
-	 qhAXhEGQI2NCfONjcaEXwmpzKfKAz5lKqYtow4gtbdTX5o2t1oOxdFp7ZsstZSR7KLA==
+	t=1795510394;
+	b=AX6jdo52ERIRE/9pBgONM4ZDpS7DTtmHY0zU5Q9L5jfH9gdU/1Fn6/P0DZBt3Gyk/Rp4
+	 8pGCfWisRjlLNd5zz0p2fGws1iddwE8zILZFnjblJap6KKk04/GCAGljN+w/i15mhXmYe
+	 zvWHwmEQim8PvJ2bcGwMPpMyHAQ264YTurvTU3W+gYgivr7DS2WI6JyUUJYFV/zwrNKSq
+	 D1Uv5sShU6AhwBz3tocDzFmyRFITjXzgSrW4eh2byXqbDA9C8Q2zue1tXVHTLVnT4Yzhw
+	 X65dhrRtRthj8j78Pqd+0keaQ/5x96T/13D5aCXZx5uhnR2rVYHCuVp5M+FiRhpy4hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795510388;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=sN4T3kqadp5DrOu+d5wg1v/BG4XDBfzoUMdw3JCJwlI=;
-	b=j0VEigbEzW5vCUNrHjo7LW9bArWS4KTN55sYkzdLumHHT2Q7B4Etm1FoQT5kVHByX6SJ
-	 SmL//Wqaqi70LYFb0pyXXklDdckfMEBrjnzz62GHdLZTiUYc2ApP+nobVSCLKOjd5tsj2
-	 qfepGyiFzKitww/A6ymUXdFleOxUj+vNYubslj0PXZ4b989WvcjJ9Hh2fzZ1au+lhBAPE
-	 QrM1u00oqLG29cdmLWSVH5u+tp1WgoM/P+Z+1kuE1oMhZHEwDLNPDC3exC6OhBxdFd9bu
-	 3ArqF0rgHh5higD5f7FKis7P66QKXQ847hC5fTsae0tOkvS1oUj04vb2sGs29IywfKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795510394;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=pPB/pY1wBFYHBoSZtQOu6aF2n7Jg61R8iKYjc9ctqQY=;
+	b=q8HLCHjvgCmVzPNjhuwZ5iwV4Va9LdkEQemSJySgGw6FO8/jg+uhIVx0LuQGrkRZoKD1
+	 9NbL9lsEZVLFCHMCvDSfQYKsBbAF5TD5zA+hLA6vKy8M0/TZaaS6D+mF6XU38vYtzjGKX
+	 uOtLOSjVamCfSdMfz381DQ7zvYlXfJMuAJbSO0vkXiqD/04R0tk8ZMKTq4MVekztdHGzM
+	 SXo3F6FpX7PWrPVOiqhZfv/jO/EcF8FaiSOaxsN9bRLdEFonn01CjGeB96/2aAAygp6X8
+	 y+E6Ep75qs4zoFjz9ePrh34SkZ+d0ZV1Brw7c5L4mzM3KSH7GR9nJO9R7vNfNZk2Pcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="bJ6o/gTn";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RpCN+Uaw;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D84606A32D;
-	Tue, 24 Nov 2026 08:53:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39D84606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.139])
-	by APP-01 (Coremail) with SMTP id qwCowADX_vhXUAVreBqVAQ--.9183S2;
-	Tue, 24 Nov 2026 16:52:40 +0800 (CST)
-Message-ID: <b763d766c886dbcf733e4ab65046448b67973426.camel@iscas.ac.cn>
-Subject: Re: [PATCH v3 2/2] drm/bridge: add TH1520 DesignWare MIPI DSI host
- controller
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Sandy
- Huang <hjc@rock-chips.com>, Heiko =?ISO-8859-1?Q?St=FCbner?=	
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, 	linux-riscv@lists.infradead.org, Han
- Gao <gaohan@iscas.ac.cn>
-Date: Tue, 24 Nov 2026 16:52:39 +0800
-In-Reply-To: <a797b2da-ea60-4b81-8fbf-e027afc89cc6@rock-chips.com>
-References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
-	 <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
-	 <af27260f-1911-47bb-8fe2-8eaa8bec31b0@rock-chips.com>
-	 <561b5dc1b3a87ebc78f2357d253df4676395fb10.camel@iscas.ac.cn>
-	 <a797b2da-ea60-4b81-8fbf-e027afc89cc6@rock-chips.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B74606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:53:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73B74606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bJ6o/gTn;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RpCN+Uaw
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO5lxTS2848259
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:53:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=pPB/pY1wBFYHBoSZtQOu6a
+	F2n7Jg61R8iKYjc9ctqQY=; b=bJ6o/gTnyN1WGmqBTB39xjNeMfyaiToNWmvP0J
+	YE6zAJFpWAVftPrcZw6bTvSQR7CoV6SEELsYiI+LwU4BKIV1wQBCyus6hxL12ipN
+	O7G0Oz2bC0wdbXq8wDd77LrLrhfk3RLAJi8KQHH6mZCUO+iLXwmKIY6HD5VhAxYm
+	ex5Jg3N15qv3HAR3oxYQgfsmwx8wep+3NjjL50nrgQ74C8j06+1Tj5ILK318rs/n
+	GMTAbu+7IPi4LVQGBn6BfywtSrQMjXLM/FcCDOmTN1Fb/TxGHOq8ObM5LU4T3cOr
+	la/2pZSX1mX3p9VkuM0rgPepZ6Pbc8gkInEUBbRR74H5F56Q==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j54rh8p7d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:53:12 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1b55f4f3bb8so2256989c88.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 00:53:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795510392; x=1796115192; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pPB/pY1wBFYHBoSZtQOu6aF2n7Jg61R8iKYjc9ctqQY=;
+        b=RpCN+Uaw07VKnBSsoGVpPtYvNnlJVG/MiPxocXCFODm063iEE43ngJ2pa5dg6NS4lr
+         VT4nzn4l+877/cQide/fZE58LAu3AXQjJzQQbLsqQ+lm6ndWxKmJLH+5Afn82Yetf1oo
+         7pjdYjAq+DAU8gxqtGETwkwND1WKZWpXpifqmi/NbiGBMZWGWb8GUmoBPEmp5HysPark
+         B0KixO18I/0zHK+rgdCx/VY1A6sXsJiVb9fHvKFY0p7Mo94o/GHiSTnZttSGZGkXcXkK
+         Uh2MDyOHAB5nVz4S0azrKAdi1ISLKEv64/+0un/L93e7/hUZYQ+xVAYJNiBrbQ2Jj3EJ
+         KotA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795510392; x=1796115192;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pPB/pY1wBFYHBoSZtQOu6aF2n7Jg61R8iKYjc9ctqQY=;
+        b=ludxEGUARfnKsIBO/9bBMZspd38kN6Roh3od6pbE9oKbl7W5RvaLB9bU1jlDuBAvm5
+         O/y9Fy3npvEIVuVhPKTVFskkEiifqhG5GW1lwUu+kEm5H1AmMKqcDh1jQy0UMSOGPj/x
+         9OBles88rUDhj1cg9+0HeFmHQ65XroJIAr7+v+tAog3RHcd2Sf3HC6TPSvPf+XsIaL6U
+         NxL/mV3VijKA3QG16r9Ze+32iKtDlIuODKMkoYrEFszh/uq924l6O92hZGHNdAbtUEOe
+         b1F/h+ktrQRNzumN3VmS7Fr/I8wHMTrZ7K1cUkalf46DnfHFrXYeHrJYg0FU624sUtrt
+         J2Hw==
+X-Forwarded-Encrypted: i=1; AL+hErHY7XbHEMDu/u1Q/fCoyn9KCT5D9BRIUWz2PBAxwuZ9mr40XUvqq4pgLm1f9xl70fh8KSC9TQkafQ5Z@vger.kernel.org
+X-Gm-Message-State: APuU4Z8piKA9XzK3nl7JvuUuHwVJKkDZJEVG2zY04EoOURkDaroMP7Sk
+	DavHrRXdCIzUxdORxatyXaxKW1JeOps2R0W/b+qCrb7bqPFBmKzJDbr2yKl1nBfeC/Rnzz7muDd
+	XUnMQu5fHdZrHYwC5zb6Wz0MeIvFqVCLeosxE8n9chkk2OP1/qcfwq5Rleg/o1uzG
+X-Gm-Gg: AZFdTZdMOMq7WfrfVmJxEdgPOvOAw/rlRI5HKoiUYJFoYgVTGc76s9HDhX1on2nSNjx
+	HGWaqxwK5dn+bRZvBrZC/8FmjiqIq1xkGIG/2kb7ecgUzTSDZWm3UMsK1KBHw41BEQTegONnUPU
+	PJHJYmMZJUmgcCBvDtOTq0EGpzFqVYvlhtQQUdwVvuN4kOOedA6Xu6lM9bFZqwRjZ44O72EOqZ+
+	kJsKXAdeFXxYd0+vrsrzpzPMb0o0dw/gJnY0BzmCNJoI79xRWxknWw7yFtb6SdXkD0021tYTXW9
+	D522+Y1aD6EkoYwSlWa2//U68TfJvHkOmfef6FUIIt6BK4CytaJs5febH7+Q9pSoAxyKXoMG19I
+	sthvAc0bQ7QZZThe6exRB13LYceRDHkrHpMj3B73/yf7RGCSCqrSc2S2m32OOxSpcWMeQ3a81k8
+	q9JQ==
+X-Received: by 2002:a05:7022:295:10b0:183:e993:7901 with SMTP id a92af1059eb24-1b556898be9mr13386990c88.17.1795510391808;
+        Tue, 24 Nov 2026 00:53:11 -0800 (PST)
+X-Received: by 2002:a05:7022:295:10b0:183:e993:7901 with SMTP id a92af1059eb24-1b556898be9mr13386962c88.17.1795510391060;
+        Tue, 24 Nov 2026 00:53:11 -0800 (PST)
+Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b56ef9fd16sm21748199c88.4.2026.11.24.00.53.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 00:53:10 -0800 (PST)
+From: Akash Kumar <akash.kumar@oss.qualcomm.com>
+Subject: [PATCH v3 0/4] usb: typec: ucsi_ccg: Add cypd6129/cypd6229 support
+ and CC orientation sensing via GPIO
+Date: Tue, 24 Nov 2026 14:23:04 +0530
+Message-Id: <20261124-ucsi-ccg-cc-orientation-v3-0-73cd114e5393@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,396 +115,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowADX_vhXUAVreBqVAQ--.9183S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3uw15tF1fuw17tw4rXr4ktFb_yoWkuFWkpr
-	1UAF4UtFW5ArsrGwnYv3Z0qrnxta15tr13Ww1xJr48tF9YvrnrGr1kZr15GFy8ur4rXFyY
-	v3WDW3WfK34SyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
-	DU0xZFpf9x07b4oGdUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHBQBWsC/42NwQrDIAxAf2V4nkUjrbDT/mPsYDVthbWuamWj9
+ N+X9jzYDgm8wHtZWcLoMbHLaWURi08+TATqfGJ2MFOP3DtiBgIaKaXmi02eW9vT8EDqlE0mh1u
+ nEECia1TNyH5G7PzrKN/uxINPOcT38ajI/fq7WSQX3IiuFTVY3Vl3nbOv5sU8bBjHihbb0wX+z
+ AHlAFWtGyMltvpLbtu2DyXf0uUUAQAA
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Wayne Chang <waynec@nvidia.com>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Akash Kumar <akash.kumar@oss.qualcomm.com>,
+        Akash Kumar <akakum@qti.qualcomm.com>,
+        Conor Dooley <conor.dooley@microchip.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Authority-Analysis: v=2.4 cv=BKkmP1QG c=1 sm=1 tr=0 ts=6b055078 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ag1SF4gXAAAA:8 a=Ikd4Dj_1AAAA:8
+ a=QyXUC8HyAAAA:8 a=dyAbrUdNo5FzdgMbFM0A:9 a=QEXdDO2ut3YA:10
+ a=vBUdepa8ALXHeOFLBtFW:22 a=Yupwre4RP9_Eg_Bd0iYG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDAzNCBTYWx0ZWRfX+biH0OXDoyW4
+ bW84Hj3jq2JgvhDQhAklJYeReyqBpPiVyNuVQSAxefSz2wO13IgL65KBT5bI3GW9mEVwDYSiG+Q
+ 3Muth1GDjbIYBLYr4K87c6P6VB2txMA=
+X-Proofpoint-GUID: 3hPv4N6f8qZCDs5NLBLj1D-dSaSE1h8q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDAzNCBTYWx0ZWRfX/xZe6ThN+Ncv
+ xOSurCi/tFLVNwOhjBYycGC6qmDEHVmKTuIp3q/UgcNbi8dyU2dXXwr1NTgTg6UL1J2TIIdWTWc
+ N4Fda3ewjCXe7M3te8oYkm2c8BU9v6KFhqHto3G0eRsBrFRlolDxDudIm0rw9mM2MBJAJpTyrr0
+ qo2POe89RGPnEylBFOZ/pylA0+N0x/hWOAby6PTd7NFeRYenZmhbvr17IpAOQzL31R2zhkTEsUA
+ Nm6PtzjCU3vLrqWls5e2iOUlpn7Nues1e9+kH5CbqdXmLmMbq3dQ5s9YqeNMVaJ11rYdo5saYF0
+ h43KHWh9TzDwousYuFZIVLHoq/k1N+h3FNs4XSjDe0xCLSDmNaO0Tj6O8DahTdQjBzlNicsaN7E
+ Jq8DIZgpHqK+I8LeQZxe3eH7Yz6iWKL7K3vrKtvC7F+O3iSpOZ45wO3ogcmn+E2XNKdYMYgqXo0
+ /KkF/7ytP99hpbbk1ew==
+X-Proofpoint-ORIG-GUID: 3hPv4N6f8qZCDs5NLBLj1D-dSaSE1h8q
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 adultscore=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240034
 
-=E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 16:44 +0800=EF=BC=8CChaoyi Chen=E5=
-=86=99=E9=81=93=EF=BC=9A
-> Hi Icenowy,
->=20
-> On 11/24/2026 4:34 PM, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 16:29 +0800=EF=BC=8CChaoyi Chen=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > Hi Icenowy,
-> > >=20
-> > > On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
-> > > > The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
-> > > > controller with an internal DesignWare MIPI D-PHY.
-> > > >=20
-> > > > Add a glue driver configuring clocks and PHY parameters for it.
-> > > >=20
-> > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > > ---
-> > > >  drivers/gpu/drm/bridge/Kconfig              |  12 +
-> > > >  drivers/gpu/drm/bridge/Makefile             |   1 +
-> > > >  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 570 ++++++++++++++++=
-++++++++++++
-> > > >  3 files changed, 583 insertions(+)
-> > > >=20
-> > > > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridg=
-e/Kconfig
-> > > > index c7da6b02d7b6b..f8987e8946fbb 100644
-> > > > --- a/drivers/gpu/drm/bridge/Kconfig
-> > > > +++ b/drivers/gpu/drm/bridge/Kconfig
-> > > > @@ -372,6 +372,18 @@ config DRM_THEAD_TH1520_DW_HDMI
-> > > >  	  Choose this to enable support for the internal HDMI bridge foun=
-d
-> > > >  	  on the T-Head TH1520 SoC.
-> > > > =20
-> > > > +config DRM_THEAD_TH1520_DW_MIPI_DSI
-> > > > +	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
-> > > > +	depends on OF
-> > > > +	depends on COMMON_CLK
-> > > > +	depends on ARCH_THEAD || COMPILE_TEST
-> > > > +	select DRM_DW_MIPI_DSI
-> > > > +	select GENERIC_PHY_MIPI_DPHY
-> > > > +	select MFD_SYSCON
-> > > > +	help
-> > > > +	  Choose this to enable support for the internal MIPI DSI bridge
-> > > > +	  found on the T-Head TH1520 SoC.
-> > > > +
-> > > >  config DRM_TOSHIBA_TC358762
-> > > >  	tristate "TC358762 DSI/DPI bridge"
-> > > >  	depends on OF
-> > > > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/brid=
-ge/Makefile
-> > > > index 15cc821d85b7e..5af871ba5ce77 100644
-> > > > --- a/drivers/gpu/drm/bridge/Makefile
-> > > > +++ b/drivers/gpu/drm/bridge/Makefile
-> > > > @@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) +=3D sii9234.o
-> > > >  obj-$(CONFIG_DRM_SIMPLE_BRIDGE) +=3D simple-bridge.o
-> > > >  obj-$(CONFIG_DRM_SOLOMON_SSD2825) +=3D ssd2825.o
-> > > >  obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) +=3D th1520-dw-hdmi.o
-> > > > +obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) +=3D th1520-dw-mipi-dsi=
-.o
-> > > >  obj-$(CONFIG_DRM_THINE_THC63LVD1024) +=3D thc63lvd1024.o
-> > > >  obj-$(CONFIG_DRM_TOSHIBA_TC358762) +=3D tc358762.o
-> > > >  obj-$(CONFIG_DRM_TOSHIBA_TC358764) +=3D tc358764.o
-> > > > diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/=
-gpu/drm/bridge/th1520-dw-mipi-dsi.c
-> > > > new file mode 100644
-> > > > index 0000000000000..8e866b70aec88
-> > > > --- /dev/null
-> > > > +++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
-> > > > @@ -0,0 +1,570 @@
-> > > > +// SPDX-License-Identifier: GPL-2.0
-> > > > +/*
-> > > > + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sc=
-iences (ISCAS)
-> > > > + *
-> > > > + * Author:
-> > > > + *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > > + *
-> > > > + * Based on dw_mipi_dsi-stm.c, which is:
-> > > > + *   Copyright (C) STMicroelectronics SA 2017
-> > > > + *
-> > > > + * Based on dw-mipi-dsi-rockchip.c, which is:
-> > > > + *   Copyright (C) Rockchip Electronics Co., Ltd.
-> > > > + *
-> > > > + * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
-> > > > + *   Copyright (C) Alibaba Group Holding Limited.
-> > > > + */
-> > > > +
-> > > > +#include <linux/bitfield.h>
-> > > > +#include <linux/clk.h>
-> > > > +#include <linux/kernel.h>
-> > > > +#include <linux/mfd/syscon.h>
-> > > > +#include <linux/module.h>
-> > > > +#include <linux/phy/phy.h>
-> > > > +#include <linux/phy/phy-mipi-dphy.h>
-> > > > +#include <linux/platform_device.h>
-> > > > +#include <linux/regmap.h>
-> > > > +#include <linux/regulator/consumer.h>
-> > > > +
-> > > > +#include <video/mipi_display.h>
-> > > > +
-> > > > +#include <drm/bridge/dw_mipi_dsi.h>
-> > > > +#include <drm/drm_mipi_dsi.h>
-> > > > +
-> > > > +/* DSI controller registers for DPHY access */
-> > > > +
-> > > > +#define DSI_PHY_TST_CTRL0		0xb4
-> > > > +#define PHY_TESTCLK			BIT(1)
-> > > > +#define PHY_UNTESTCLK			0
-> > > > +#define PHY_TESTCLR			BIT(0)
-> > > > +#define PHY_UNTESTCLR			0
-> > > > +
-> > > > +#define DSI_PHY_TST_CTRL1		0xb8
-> > > > +#define PHY_TESTEN			BIT(16)
-> > > > +#define PHY_UNTESTEN			0
-> > > > +#define PHY_TESTDOUT(n)			(((n) & 0xff) << 8)
-> > > > +#define PHY_TESTDIN(n)			(((n) & 0xff) << 0)
-> > > > +
-> > > > +/* DPHY registers */
-> > > > +
-> > > > +#define PLL_DELAY_LP_TX_START_LP11	0x02
-> > > > +#define TXDINDLYTIME_9_2		GENMASK(7,  0)
-> > > > +
-> > > > +#define PLL_FSM_CNTRL			0x03
-> > > > +
-> > > > +#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
-> > > > +#define PLL_PROP_CNTRL			GENMASK(5,  0)
-> > > > +
-> > > > +#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
-> > > > +#define PLL_INT_CNTRL			GENMASK(5,  0)
-> > > > +
-> > > > +#define PLL_VCO_CTRL			0x12
-> > > > +#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
-> > > > +#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
-> > > > +
-> > > > +#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
-> > > > +#define PLL_TESTLOCK			BIT(7)
-> > > > +#define PLL_GMP_CNTRL			GENMASK(5,  4)
-> > > > +#define TSTPLLDIG			GENMASK(3,  1)
-> > > > +#define TSTPLLDIG_LOCK			(0x0 << 1)
-> > > > +#define TSTPLLDIG_REFCLK		(0x1 << 1)
-> > > > +#define TSTPLLDIG_FBCLK			(0x2 << 1)
-> > > > +#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
-> > > > +#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
-> > > > +#define TSTPLLDIG_OUTPUT		(0x5 << 1)
-> > > > +#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
-> > > > +#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
-> > > > +
-> > > > +#define PLL_N_DIV_FSM_SIG		0x17
-> > > > +#define PLL_N_OVR			GENMASK(3,  0)
-> > > > +
-> > > > +#define PLL_M_DIV			0x18
-> > > > +#define PLL_M_OVR_4_0			GENMASK(4,  0)
-> > > > +#define PLL_M_OVR_9_5			GENMASK(4,  0)
-> > > > +
-> > > > +#define PLL_N_AND_M_DIV_CTRL		0x19
-> > > > +#define PLL_M_OVR_EN			BIT(5)
-> > > > +#define PLL_N_OVR_EN			BIT(4)
-> > > > +
-> > > > +#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
-> > > > +#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
-> > > > +
-> > > > +#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
-> > > > +#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
-> > > > +#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
-> > > > +#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
-> > > > +
-> > > > +#define HS_FREQ_RANGE_OF_OPERATION	0x44
-> > > > +#define HSFREQRANGE_OVR_EN		BIT(7)
-> > > > +#define HSFREQRANGE_OVR			GENMASK(6,  0)
-> > > > +#define HSFREQRANGE			HSFREQRANGE_OVR
-> > > > +
-> > > > +#define PG_LP_BIAS_LANE0		0x4a
-> > > > +#define PRG_ON_LANE0			BIT(6)
-> > > > +
-> > > > +#define SR_FSM_OVR_CNTRL		0xa0
-> > > > +#define SR_DDL_LOOP_CONF		0xa3
-> > > > +
-> > > > +/* syscon registers */
-> > > > +
-> > > > +#define MIPIDSI0_SYSREG			0x8
-> > > > +#define MIPIDSI1_SYSREG			0xc
-> > > > +#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
-> > > > +#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
-> > > > +#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
-> > > > +
-> > > > +struct pll_hsfreqrange {
-> > > > +	unsigned int max_mbps;
-> > > > +	u8 hsfreqrange;
-> > > > +};
-> > > > +
-> > > > +static const struct pll_hsfreqrange hsfreqrange_table[] =3D {
-> > > > +	{ 80,  0x00 },
-> > > > +	{ 90,  0x10 },
-> > > > +	{ 100, 0x20 },
-> > > > +	{ 110, 0x30 },
-> > > > +	{ 120, 0x01 },
-> > > > +	{ 130, 0x11 },
-> > > > +	{ 140, 0x21 },
-> > > > +	{ 150, 0x31 },
-> > > > +	{ 160, 0x02 },
-> > > > +	{ 170, 0x12 },
-> > > > +	{ 180, 0x22 },
-> > > > +	{ 190, 0x32 },
-> > > > +	{ 205, 0x03 },
-> > > > +	{ 220, 0x13 },
-> > > > +	{ 235, 0x23 },
-> > > > +	{ 250, 0x33 },
-> > > > +	{ 275, 0x04 },
-> > > > +	{ 300, 0x14 },
-> > > > +	{ 325, 0x25 },
-> > > > +	{ 350, 0x35 },
-> > > > +	{ 400, 0x05 },
-> > > > +	{ 450, 0x16 },
-> > > > +	{ 500, 0x26 },
-> > > > +	{ 550, 0x37 },
-> > > > +	{ 600, 0x07 },
-> > > > +	{ 650, 0x18 },
-> > > > +	{ 700, 0x28 },
-> > > > +	{ 750, 0x39 },
-> > > > +	{ 800, 0x09 },
-> > > > +	{ 850, 0x19 },
-> > > > +	{ 900, 0x29 },
-> > > > +	{ 950, 0x3A },
-> > > > +	{ 1000, 0x0A },
-> > > > +	{ 1050, 0x1A },
-> > > > +	{ 1100, 0x2A },
-> > > > +	{ 1150, 0x3B },
-> > > > +	{ 1200, 0x0B },
-> > > > +	{ 1250, 0x1B },
-> > > > +	{ 1300, 0x2B },
-> > > > +	{ 1350, 0x3C },
-> > > > +	{ 1400, 0x0C },
-> > > > +	{ 1450, 0x1C },
-> > > > +	{ 1500, 0x2C },
-> > > > +	{ 1550, 0x3D },
-> > > > +	{ 1600, 0x0D },
-> > > > +	{ 1650, 0x1D },
-> > > > +	{ 1700, 0x2E },
-> > > > +	{ 1750, 0x3E },
-> > > > +	{ 1800, 0x0E },
-> > > > +	{ 1850, 0x1E },
-> > > > +	{ 1900, 0x2F },
-> > > > +	{ 1950, 0x3F },
-> > > > +	{ 2000, 0x0F },
-> > > > +	{ 2050, 0x40 },
-> > > > +	{ 2100, 0x41 },
-> > > > +	{ 2150, 0x42 },
-> > > > +	{ 2200, 0x43 },
-> > > > +	{ 2250, 0x44 },
-> > > > +	{ 2300, 0x45 },
-> > > > +	{ 2350, 0x46 },
-> > > > +	{ 2400, 0x47 },
-> > > > +	{ 2450, 0x48 },
-> > > > +	{ 2500, 0x49 },
-> > > > +};
-> > > > +
-> > > > +struct hstt {
-> > > > +	unsigned int max_mbps;
-> > > > +	struct dw_mipi_dsi_dphy_timing timing;
-> > > > +};
-> > > > +
-> > > > +#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
-> > > > +{					\
-> > > > +	.max_mbps =3D _max_mbps,		\
-> > > > +	.timing =3D {			\
-> > > > +		.clk_lp2hs =3D _c_lp2hs,	\
-> > > > +		.clk_hs2lp =3D _c_hs2lp,	\
-> > > > +		.data_lp2hs =3D _d_lp2hs,	\
-> > > > +		.data_hs2lp =3D _d_hs2lp,	\
-> > > > +	}				\
-> > > > +}
-> > > > +
-> > > > +static struct hstt hstt_table[] =3D {
-> > > > +	HSTT(80, 21, 17, 15, 10),
-> > > > +	HSTT(90, 23, 17, 16, 10),
-> > > > +	HSTT(100, 22, 17, 16, 10),
-> > > > +	HSTT(110, 25, 18, 17, 11),
-> > > > +	HSTT(120, 26, 20, 18, 11),
-> > > > +	HSTT(130, 27, 19, 19, 11),
-> > > > +	HSTT(140, 27, 19, 19, 11),
-> > > > +	HSTT(150, 28, 20, 20, 12),
-> > > > +	HSTT(160, 30, 21, 22, 13),
-> > > > +	HSTT(170, 30, 21, 23, 13),
-> > > > +	HSTT(180, 31, 21, 23, 13),
-> > > > +	HSTT(190, 32, 22, 24, 13),
-> > > > +	HSTT(205, 35, 22, 25, 13),
-> > > > +	HSTT(220, 37, 26, 27, 15),
-> > > > +	HSTT(235, 38, 28, 27, 16),
-> > > > +	HSTT(250, 41, 29, 30, 17),
-> > > > +	HSTT(275, 43, 29, 32, 18),
-> > > > +	HSTT(300, 45, 32, 35, 19),
-> > > > +	HSTT(325, 48, 33, 36, 18),
-> > > > +	HSTT(350, 51, 35, 40, 20),
-> > > > +	HSTT(400, 59, 37, 44, 21),
-> > > > +	HSTT(450, 65, 40, 49, 23),
-> > > > +	HSTT(500, 71, 41, 54, 24),
-> > > > +	HSTT(550, 77, 44, 57, 26),
-> > > > +	HSTT(600, 82, 46, 64, 27),
-> > > > +	HSTT(650, 87, 48, 67, 28),
-> > > > +	HSTT(700, 94, 52, 71, 29),
-> > > > +	HSTT(750, 99, 52, 75, 31),
-> > > > +	HSTT(800, 105, 55, 82, 32),
-> > > > +	HSTT(850, 110, 58, 85, 32),
-> > > > +	HSTT(900, 115, 58, 88, 35),
-> > > > +	HSTT(950, 120, 62, 93, 36),
-> > > > +	HSTT(1000, 128, 63, 99, 38),
-> > > > +	HSTT(1050, 132, 65, 102, 38),
-> > > > +	HSTT(1100, 138, 67, 106, 39),
-> > > > +	HSTT(1150, 146, 69, 112, 42),
-> > > > +	HSTT(1200, 151, 71, 117, 43),
-> > > > +	HSTT(1250, 153, 74, 120, 45),
-> > > > +	HSTT(1300, 160, 73, 124, 46),
-> > > > +	HSTT(1350, 165, 76, 130, 47),
-> > > > +	HSTT(1400, 172, 78, 134, 49),
-> > > > +	HSTT(1450, 177, 80, 138, 49),
-> > > > +	HSTT(1500, 183, 81, 143, 52),
-> > > > +	HSTT(1550, 191, 84, 147, 52),
-> > > > +	HSTT(1600, 194, 85, 152, 52),
-> > > > +	HSTT(1650, 201, 86, 155, 53),
-> > > > +	HSTT(1700, 208, 88, 161, 53),
-> > > > +	HSTT(1750, 212, 89, 165, 53),
-> > > > +	HSTT(1800, 220, 90, 171, 54),
-> > > > +	HSTT(1850, 223, 92, 175, 54),
-> > > > +	HSTT(1900, 231, 91, 180, 55),
-> > > > +	HSTT(1950, 236, 95, 185, 56),
-> > > > +	HSTT(2000, 243, 97, 190, 56),
-> > > > +	HSTT(2050, 248, 99, 194, 58),
-> > > > +	HSTT(2100, 252, 100, 199, 59),
-> > > > +	HSTT(2150, 259, 102, 204, 61),
-> > > > +	HSTT(2200, 266, 105, 210, 62),
-> > > > +	HSTT(2250, 269, 109, 213, 63),
-> > > > +	HSTT(2300, 272, 109, 217, 65),
-> > > > +	HSTT(2350, 281, 112, 225, 66),
-> > > > +	HSTT(2400, 283, 115, 226, 66),
-> > > > +	HSTT(2450, 282, 115, 226, 67),
-> > > > +	HSTT(2500, 281, 118, 227, 67),
-> > > > +};
-> > > > +
-> > >=20
-> > > Where do these data come from?
-> >=20
-> > This is part of the vendor DPHY driver, see [1].
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > [1]
-> > https://github.com/revyos/th1520-linux-kernel/blob/th1520-lts/drivers/p=
-hy/synopsys/phy-dw-mipi-dphy.c#L185
->=20
-> This looks consistent with imx93-mipi-dsi.c, but the TH1520 does not
-> use the same TSMC 16nm process as the IMX93. As far as I know, they
-> are usually different.=20
+This series adds support for the Cypress cypd6129/cypd6229 dual
+Type-C PD controllers (same I2C-controlled interface as cypd4226) to
+the dt-bindings and ucsi_ccg driver, plus an optional
+orientation-gpios property so boards without an HPI CC-polarity
+register can still report Type-C connector orientation to the typec
+class through typec_set_orientation().
 
-Well, I did some Internet investigation, and the result seems interesting:
+Patches 1-2 (cypd6129/cypd6229 support) were previously reviewed and
+carried as a standalone dependency for this series; folding them in
+here so the whole stack goes out together.
 
-TSMC 16nm and 12nm are siblings, they share a page at TSMC's website [1],
-and there're rumors saying that they just branded refined 16nm as 12nm
-[2][3].
+Patch 1 extends the cypd4226 binding to cover cypd6129/cypd6229.
 
->=20
-> Could you confirm this from the DesignWare PHY databook?
-Unfortunately I don't have it...
+Patch 2 adds the corresponding of_device_id entries in ucsi_ccg.
 
-Thanks,
-Icenowy
+Patch 3 documents the new orientation-gpios property on
+cypress,cypd4226.yaml, ordered by connector number (an entry may be
+left as <0> for connectors with no sense line).
 
-[1]
-https://www.tsmc.com/english/dedicatedFoundry/technology/logic/l_16_12nm
-[2] https://www.eenewseurope.com/en/report-tsmc-to-relabel-process-as-12nm/
-[3]
-https://www.fool.com/investing/2017/01/18/taiwan-semiconductor-mfg-co-ltd-c=
-onfirms-12nm-tech.aspx
+Patch 4 wires it up in ucsi_ccg: acquire an optional GPIO per
+connector in probe(), indexed by the connector's reg property, and
+use it from new update_connector/connector_status UCSI ops to set
+typec_cap.orientation_aware and drive typec_set_orientation().
+
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Wayne Chang <waynec@nvidia.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-usb@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Akash Kumar <akash.kumar@oss.qualcomm.com>
+
+Changes in v3:
+- Folded the previously-separate cypd6129/cypd6229 dt-bindings and
+  ucsi_ccg of_device_id patches into this series (now 4 patches
+  instead of 2), so the whole stack is reviewed and merged together.
+- Fixed the orientation-gpios example in cypress,cypd4226.yaml: the
+  GPIO specifier used a literal placeholder pin number ("XX")
+  instead of a real pin number, which broke 'make dt_binding_check'
+  (dtc lexer error parsing the example dts).
+- Link to v2: https://lore.kernel.org/r/20261117-ucsi-ccg-cc-orientation-v2-0-2e3576a11eb7@qti.qualcomm.com
+
+Changes in v2:
+- Correct sender/author identity to akash.kumar@oss.qualcomm.com
+  (no functional changes)
+- Link to v1: https://lore.kernel.org/r/20261117-ucsi-ccg-cc-orientation-v1-0-a0fb052c7fcd@qti.qualcomm.com
+
+---
+Akash Kumar (4):
+      dt-bindings: usb: cypress,cypd4226: Add cypd6129/cypd6229 support
+      usb: typec: ucsi_ccg: Add cypd6129/cypd6229 OF device IDs
+      dt-bindings: usb: cypress,cypd4226: Add orientation-gpios property
+      usb: typec: ucsi_ccg: Add CC orientation sensing via GPIO
+
+---
+Akash Kumar (4):
+      dt-bindings: usb: cypress,cypd4226: Add cypd6129/cypd6229 support
+      usb: typec: ucsi_ccg: Add cypd6129/cypd6229 OF device IDs
+      dt-bindings: usb: cypress,cypd4226: Add orientation-gpios property
+      usb: typec: ucsi_ccg: Add CC orientation sensing via GPIO
+
+ .../devicetree/bindings/usb/cypress,cypd4226.yaml  | 100 +++++++++++++++++++--
+ drivers/usb/typec/ucsi/ucsi_ccg.c                  |  79 +++++++++++++++-
+ 2 files changed, 171 insertions(+), 8 deletions(-)
+---
+base-commit: 8e31dedb9ad496ea7dd7064d77d6f7d459c1c90f
+change-id: 20261117-ucsi-ccg-cc-orientation-cd3e221ed635
+
+Best regards,
+-- 
+Akash Kumar <akash.kumar@oss.qualcomm.com>
 
