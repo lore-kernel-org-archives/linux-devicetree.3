@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795483712;
-	b=MRCanGkv91zgl3x32PgYjNUzG7Mx9K7iW+t99Of2f8PrC6Xi6lZ6qy/gWJS9ckxtt7bT
-	 pa5AKnADAWAKs8b7ROrkAzt0nE1B7pio449besrNE8VTSL/L8CxwI+QH2ZE0cqynELWda
-	 N2an+3SMYjMzPzn51dYB7JD8ZxExR59qbwuaVlq1NwOgb8xAJUzxHBkAxsxuVaEWKdVq/
-	 +xNU1Tcgg99twSmqD287E0ErpDwKVsMOmQeLkHwPM9Azk9oL11AR6yehA/wlE8RPBojSq
-	 K15DoL+5RPgeHogXpmeJOWFZgoOzgT81GFSaB4tXFnT3x9J7+tY0ayhocAS+58rkQ/Q==
+	t=1795483715;
+	b=yvtkRSh4ZbY1KWaZEdmF6UctLc3i8nmoWy/yU2jUw6QFdNPna1NBaf/HrEkqzCuIJJQf
+	 FSb6gqIja0MaEPRE1Cx0vM/waDomF9HhCSXPWXAYT3riKa/50g4wtHYyNDh1UvxOdrDfg
+	 rLW7QS4+lEMpHhH6eTW8FMrORSIm7mEIauH3JYwYE8L5Z/cczi+cc68z66cJSlIegzACZ
+	 pEUicQ6U1zuAagTaGj+QBOimStjc1bJFKyp2KI5CFzGMaHAb3TG4yrW+cwWpI3L6zl0Zf
+	 kEU0IviQhB/pjWAvi0hxk7JhAV1XEjJIZQWBKfkIT+tvzADBio9QC+pt8RC7Uc5AvTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795483712;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795483715;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=k1hUmWFG5GUv5dEmsxSMypms0FRXPv0dsfB0/VoVKS8=;
-	b=5jMiRP6P8EjVtimo9+H2oylNJxVjxm5fR5eg/Qf6Qe6TlB27bgSH36VFFIJH42zIHZto
-	 79rrBuZeZ0+eMsGcw5PYqBN+q1nWtb8Wg+bl2ZxRIk5iNIrOEgDgsbBsZPfPbbaGg8cOk
-	 ClXGcVi67XVlHz6dp4IQG2y2qFqu5VgQYhGiRX9UGj13ooY0Unboz9mtDanpdEWLREnu+
-	 PIaFG6KGOD9U5rkkintSKLY0V0ePg1H8Wb/6+/J/1jujs7rFX6ZkwiXO6P5m3qEAUEuii
-	 3lSMl32OgLp1B7JFY2mMWlDdKle6dViojA+ooLowlvpyqrhNqQcW+fxO6f5kAd2vVgA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vdOLga9Vo4Xp9js0CC/DhzZs7tFM2odH8QHKwA4/WTk=;
+	b=kYw3ku5DfOZbpggkna+7/NnEvdkEzJUgDNzA48BVBOy4EJWaIJ+B/RKGqITJIR+qcN39
+	 q+jvV3q8abOgXvTfw3gj2Y4krEpTzgPyU9zPADWZtWhzhukPqpKuz3VuOtH/ZC1NUGZt+
+	 WuqsR+0UGO+mb10tjGwI4l1cQcsmqkLKYJZe0F6+BNY0hZEo+cepyUqE1gTNfZpyiKM58
+	 pBzKOpDX8QtEk8HfMxKvHlG/KGd36bbwyAFj1S8P1cZYlAnsF3DRg5aH9NRlataieVIzi
+	 lZ5zRdrkGkeLxdoxi/sRI4TFjDrqzcleK2olsZBlTAkVj7vnPv0fHpfrZ0P9hynVyKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dSW+NJmz;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lg0Vprb4;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3DC606A326
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:28:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C3DC606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E25606A338
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:28:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2E25606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dSW+NJmz
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so1834615b3a.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 17:28:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lg0Vprb4
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a60f90a924so1461186b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 17:28:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795483711; x=1796088511; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k1hUmWFG5GUv5dEmsxSMypms0FRXPv0dsfB0/VoVKS8=;
-        b=dSW+NJmzISfK/j5aHCTR6DFklJgcWC+dMJDQYKMwBVBVcNFTqNsk1m0Pge9sSadbP/
-         xM+ai5CJVbyqjyg8gowTYXCN9EKeJOKDjJjF9cIcMgqh5rjYSJ5YDGoCL0p4ax2HsyfR
-         PQlR4Cc6rfPIDvJeSG+t6IQy2ZqE4B7tDxR7vd3Y2/Min2ckJcQsUjx2nwarvSqGA73g
-         m55dOWlDqOZwsvKg5v53Z8p+jzyDv+k9sJHv7E/SPCQwPzZRYan3RG+cHoCulGsPTmVa
-         XInkezb1+2a+/LVMpHOCB8D62PyngqclyqSIDOdPgGoEvoPs6+PB+fkwmA/Lizi4fQZU
-         T2GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795483711; x=1796088511;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795483714; x=1796088514; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k1hUmWFG5GUv5dEmsxSMypms0FRXPv0dsfB0/VoVKS8=;
-        b=PT5MawgwG7upaz3OVnpbDzrCAMKNU87ma2PrnltNO0QqL0p/H44gwjOzBlAgjKALTf
-         iT7RUKeup3ByMymZEqaNxhetGBy8nEj5s/YhAeNSybdfWrlad2P2jH/NnTpioHlwJ+gI
-         xa7AMPC2Chw9xD3Q81YoygO6pbqJgWvWSMvhe0XQrz8pwO0WckdNaYCbKq9tBnDnfJQZ
-         HVqOY+F2PI+J9gZ7jZg/5qubLkw9TxaUD3pTMaodt1vXDaeknVxZAj/BpHE3lc0pusUa
-         yv+bPAQqJSt3bfzqemuNVlOcDvOx7aY0l+hQ1ZmM9x6+ApwLBlV5btbE/V59pM68YUFw
-         x/+w==
-X-Forwarded-Encrypted: i=1; AL+hErHrWCF1jWBvE0lgLkLrI8IU3S5Uge6BqmSJVHKmvB9RBhH5PTZVeN2DzgjGGQEL0wt0dV3OsCfP+Tyi@vger.kernel.org
-X-Gm-Message-State: APuU4Z9U2kzx1vfQQKyGbk/TkBk2LWjCaY6+Wy1CyPKVZ3NQKHbSPsgz
-	rvHgpwnPtoPc3N2lFNEhHzB27KfEl5pMVR7XHH2hX563NiYTH7Cw6eX0+t2hY94D
-X-Gm-Gg: AZFdTZe1SwetKOwujwWsCB6R3mIdtxmNtDyOBXE5a6r/ifwdUGQI/Xp3UfEKUAlw/7T
-	bGC/24icXReQmwbTEjCdTy1PP0BWSz+vWbm0UrNoBWNQRcZabjZA0HCdzx6Q7qtI9iLF/2JdTGc
-	R7u4iHvqFFaIF4lqUjQYZt6vxjRDd0VnYuBQ4XQZik1rypdgnEvIAE91Jtmh6xaOlX2FlVtK4XK
-	pzJtFwKJz55Xaul3DiUv40JXgjP/9P8EilG+jt86E5yxucsmk4x+kln/xj4dOVT6h4dKMNOtbvV
-	ZgM3Dxt+WVEThXy+TmR+6xMweb3MazctUl6rLGWa6d4WWgbkFsJ1Pgywvhy/0mLyeZuKnOFyRj7
-	XJJGopff4vjDyStkxD6MJVl9Od9SJS0cK6IEV8lA7to2yfkYQTyWLv+DK/ITBu/1ovjwktI1ikh
-	4L3+Qqunq/jhMc5MSLvhwHF6FLkM53SDmhDwYbxSMGwCdMyLzFV+aootzIFdDQP5ioJKEpprbej
-	n9YqaJlcW1Pjn9FaB6CIGDbY5G7nf/3gBi1lZWbH4Os8awFpqZY4Ft0iZZU/Ah1nCDXYMyr5MZh
-	yZ78KS8wLZfNWRuIXyKf4lSBhKUlIph6WuleMPp5NLwSbQmN1hboyLgtnZZLAhnn6ECYdtidrcm
-	4
-X-Received: by 2002:a05:6a00:1788:b0:88c:fa50:1a86 with SMTP id d2e1a72fcca58-8c87c09ec5fmr11915415b3a.25.1795483710678;
-        Mon, 23 Nov 2026 17:28:30 -0800 (PST)
+        bh=vdOLga9Vo4Xp9js0CC/DhzZs7tFM2odH8QHKwA4/WTk=;
+        b=lg0Vprb4kIAFuRBvNSY84P66mAbVUF4MdzhoJEatmAcGWTe6aVLq3UppqjGFNRNnDc
+         tuZUASr3B7ypno172TT9ZXiWdrL/+H83Z4TPYoBg+2bgsKXBX8uV74Sntdj0Aq/zsKet
+         XsEzDUuul4qEYvPSw8fgbD6qM9XlF8Y7vE8suEmPpcJX1d29uPQFTmrVcRXCrKo+5hp8
+         zAT4TfmVT3GI4sIl63vtD+tPTL3Q+mlZsiGvpbpVIlM0mSaV3beH0tmP5IP9ai0gwLma
+         7Z1iqB6qu4lUJIJNEEQssKFlWpi6YlBZ3sGC5/FnfsaSroIFgkRmlXXp8MHY1CD46W/P
+         ImNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795483714; x=1796088514;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vdOLga9Vo4Xp9js0CC/DhzZs7tFM2odH8QHKwA4/WTk=;
+        b=KU5WJrapo13WcM3Sgj70v1Tfx7/aJIOmGzVetqexT5ju3MKDslFCMsu75ibpZN2ARA
+         fdlO3p34t+Vxbaq/frFXvtM+mEsoy0npGHomlz8eP0yEKYQPtMVD6AexO1SRdWAZAS18
+         l4ZHt8Ubz4VfSNOCkUqaspbB+gEkWM/Na4lVMRaSutRDRAbfJXaigczRJnkaKxPfoHSc
+         0pqfMR146w4AdFKP/YiufxXBcsKPyNNHf5di2n7V9Qpm0SyljKdyCohiWFa3a9tOveWi
+         SnAvZkYroIQR2XJeFICVbXuHoqJ47kbQcnDM0pIWYLY5LibodAFZWhJDJVuEs50nlP/O
+         +nlw==
+X-Forwarded-Encrypted: i=1; AL+hErGhlNmBZAqn4byUS/UUf+oyHR1DmegvzOKjShEnKIDon0K6XI6xiFNRmiQZcBkliJoG4KBaQW/zhuql@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WbBvcvl+yzVaKkVaTHMlXfg1tmbTdQ3qhrRoNxJqaE3Ard+KM
+	I+G6CFWE7SO0/gHAlDxS6d8QJhocLLO/ZD4vYLnrEEG4ydn+/jnLwwKM
+X-Gm-Gg: AZFdTZcsrhDsTJHeO9HNFIZpZuFlVRdT5iv8IMfhEeOA2LxgbfPJRoQcHSJ23qR5cM2
+	8ohjZ/eob2d4O6VtI40GZmyoyHy1FaCeRNvlHhZeUlYK4lxnE/T+c1YwzMjA/kwr3w57ugq9w+g
+	SJn4fPMTNH7l+nQTDIS7h4kInZ4dz3KiRZWSPu8VyS1ri1zqRxZPM/njoOselJ3EP5c6a3pKSQA
+	oMwsCDA7SlKly3sbnid/CFduxYgR5hXTbfkSW7M435oqVxyJ5jkNLtifznHUtlnB3GUBlTuP8c5
+	picvQqE9JGrTUVOsLP4jSaG41Q2ZoX06nd9a5txKzRH5RtJS8q2suzZTC+1lVPdukqO3bTPtNqL
+	i7dTGjxDsdJnZV/8mfaUAB+C57Fz0Qrson7XkP7ZpV5O+CM4xlYQM0mJD0/1ucQO5rgryCbGdMt
+	+adFx3rYZq0cdPvrUFrvUD7Av2lj7dYHksgIQKj4YGt6fGndRw381x9wJs2KGu8PnJxOlLgHv0R
+	f5PSsndkbj37i15eBRKx6zzpP52YdFtfrHGFjjE9vKY42Qaf9KlvXJ2IRCzgGWAePw954fa8412
+	xQ3xZe4utsJ1XkUK2bpKeiYCf/YJA/1IyAyUAF/W5knHe/qfLGlRfTY=
+X-Received: by 2002:a05:6a20:1bc6:b0:3f4:79fa:414 with SMTP id adf61e73a8af0-401bb21187fmr9289912637.13.1795483713931;
+        Mon, 23 Nov 2026 17:28:33 -0800 (PST)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:d30::4d0:8e])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c872e457d1sm6115243b3a.30.2026.11.23.17.28.27
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c872e457d1sm6115243b3a.30.2026.11.23.17.28.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 17:28:30 -0800 (PST)
+        Mon, 23 Nov 2026 17:28:33 -0800 (PST)
 From: David Yang <mmyangfl@gmail.com>
 To: linux-watchdog@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -90,10 +90,12 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 0/4] watchdog: histb: Add HiSilicon STB watchdog driver
-Date: Tue, 24 Nov 2026 09:27:34 +0800
-Message-ID: <20261124012755.328774-1-mmyangfl@gmail.com>
+Subject: [PATCH v2 1/4] dt-bindings: watchdog: hisilicon,histb-wdt: Add HiSilicon STB watchdog
+Date: Tue, 24 Nov 2026 09:27:35 +0800
+Message-ID: <20261124012755.328774-2-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261124012755.328774-1-mmyangfl@gmail.com>
+References: <20261124012755.328774-1-mmyangfl@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,32 +107,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The watchdog integrated on HiSilicon STB SoCs reuses the register layout
-of sp805, but deviates from the standard sp805 in several ways that make
-the existing sp805 driver unusable on these SoCs. Add a dedicated
-platform driver to handle these SoC-specific semantics natively without
-regressing generic SP805 users.
+Add Device Tree binding schema for the watchdog controller found on
+HiSilicon STB SoCs.
 
-v2:
- - fix issues reported by sashiko
-v1: https://lore.kernel.org/r/20261122065549.3265519-1-mmyangfl@gmail.com
-
-David Yang (4):
-  dt-bindings: watchdog: hisilicon,histb-wdt: Add HiSilicon STB watchdog
-  watchdog: histb: Add HiSilicon STB watchdog driver
-  arm64: dts: hisilicon: hi3798cv200: Add watchdog node
-  MAINTAINERS: Add HiSilicon STB drivers entry
-
- .../watchdog/hisilicon,histb-wdt.yaml         |  56 ++++
- MAINTAINERS                                   |   8 +
- .../arm64/boot/dts/hisilicon/hi3798cv200.dtsi |   8 +
- drivers/watchdog/Kconfig                      |   8 +
- drivers/watchdog/Makefile                     |   1 +
- drivers/watchdog/histb_wdt.c                  | 305 ++++++++++++++++++
- 6 files changed, 386 insertions(+)
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+---
+ .../watchdog/hisilicon,histb-wdt.yaml         | 56 +++++++++++++++++++
+ 1 file changed, 56 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/watchdog/hisilicon,histb-wdt.yaml
- create mode 100644 drivers/watchdog/histb_wdt.c
 
+diff --git a/Documentation/devicetree/bindings/watchdog/hisilicon,histb-wdt.yaml b/Documentation/devicetree/bindings/watchdog/hisilicon,histb-wdt.yaml
+new file mode 100644
+index 000000000000..427225c9aa46
+--- /dev/null
++++ b/Documentation/devicetree/bindings/watchdog/hisilicon,histb-wdt.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/watchdog/hisilicon,histb-wdt.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: HiSilicon STB SoC Watchdog
++
++maintainers:
++  - David Yang <mmyangfl@gmail.com>
++
++description:
++  HiSilicon STB SoCs (Hi3716, Hi3796, Hi3798, etc.) integrate a watchdog device,
++  which triggers an interrupt after a configurable time period. If that
++  interrupt has not been serviced when the next interrupt would be triggered,
++  the reset signal is asserted.
++
++allOf:
++  - $ref: watchdog.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - hisilicon,hi3798cv200-wdt
++      - const: hisilicon,histb-wdt
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-frequency:
++    description: Frequency of clock in Hz
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/histb-clock.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    watchdog@8a2c000 {
++        compatible = "hisilicon,hi3798cv200-wdt", "hisilicon,histb-wdt";
++        reg = <0x8a2c000 0x1000>;
++        interrupts = <GIC_SPI 29 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&crg HISTB_OSC_CLK>;
++    };
 -- 
 2.53.0
 
