@@ -1,49 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795531368;
-	b=ykvSKr2MPcLbGpifLXVIC8xzfGK5Pus/SOfwg0F4YYH7/yqvbj7dyjePonRzuYKRrZjg
-	 gE88XbEth4O82+07AiKCXj/nGx/q0zHp4JuA3KpLRacuk6ak0yV7M7QyyqUV/mst3SsO0
-	 4OIj/4Aq4TpOhYhuRYoTE+Wx8UzPMoYAbCQRqWkDUGJNhHKGaoZ9/0FVndVyTH5MroDvL
-	 HfjEphBvtUsVGA7EyQbB6zC91bfd+YypRJW3ZFHzID7fiB+7nqfnb95YVKy5PhvDq/VsY
-	 HJYnkZjH5jCTGdQkU1r7hwKGeFrWDmJ9Jgsn3sPFAHStAFRKH9zKhrajGuuty6hqZuw==
+	t=1795531408;
+	b=P7wAFCsGEhqr6cH/OjtFGsyik1606q9O560B2xxkv5ggIuJeQ4YI0tQsTXmcHxH3ydyC
+	 VZe1j/OXSiIB8W2KgerhIjPdT3X5wPql45duHUO5r7tyIfUAHLRX45rUQMPb+bguCZ/yk
+	 sLvJzlBGw50iljDxHRmoTbuC9Ygit5GeOozbh7RLhiEXUeBInUYZ58UhJ2ZHLjPcSD+Pq
+	 YXr8YDiUtMUyXxR8/I2FIxIfBir6V15r5wXVQ6GmG13lPK+LW2+zMG4ynns7dJ/4+31U1
+	 hu/3CyjaY+z+1DjiqM42t7ZdWjJtAc8sQ6EkAkoVyPV/YemHCHvWVslde3ryjQlKvvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795531368;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=whpdiooOdtf0fQpB9RYBhngBI1Ig6SjjoowNuFUHFpk=;
-	b=nU7fNx0ipYPPYjH9iKwrPkQCRg0bHaWTiibfkryAJE/VaV4QGCsCagQW2wth440WLG/y
-	 hnunGbtYeqK/QFZIvBHaNX2PE7+KN4zHfpfylNYx82phh3F51jIY60D93O5Tbka4u3T54
-	 VP1CAosZ2u9u3xoGbmxnAH3aEKjVbSHYKJjsbMeUJkWIWc0oYfmAfDrp8JsyNv/tLP1np
-	 tsyhe/iiOdjjfJ11l7rKIKaEmTfy87a53Di7mTJJnqYzUnZ4nMtltGhUVFXXyKHG2Vntc
-	 odgbjVwl9hxBxfWI16d12oTT738GM8MnbklVJ8Ac3iNiuyUoosBaNM4ZBv5lJh4IM5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795531408;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Mbpbveztx44WinZd0OoXNduwiZpW+0sT5m096jfRZC0=;
+	b=qVVQ4M1bdvCLIHniIFSR0SxSqQ0gVezfOxe4lItd9FTb/j8vnb5siMYGq1htU3K3lfXp
+	 jbU0Lac9nXKZtWp8lRRAEUWNAJxGkcdyCNrpb/rmO6BdbJkSV6ags6cYrGAVD8xkABI4g
+	 I8ec7N3oElhfV4WIht7Ke9ImwQvGNTmIUVz1Z5VMgzHgR1BEXW8ZBmunVTN0JhsuE5jhO
+	 frsfA+YqSwzYSjs2bZYzVNCEyBwHAVpNH1VRMjiF7FXaTyTEKG+64HEFiRHSrhuvs9/zd
+	 VLloubVOf4yWh3hrmoEjhWjsjZ82IOx+iDnKfzCbk4mjjG7cDPudQ/oUER43U3ifQ3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UDdLoFoN;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4C40606A327;
-	Tue, 24 Nov 2026 14:42:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4C40606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=B2KRURmV;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E269D606A31E;
+	Tue, 24 Nov 2026 14:43:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E269D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UDdLoFoN
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BB703339;
-	Tue, 24 Nov 2026 06:42:43 -0800 (PST)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B19953F86C;
-	Tue, 24 Nov 2026 06:42:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795531366; bh=HSwH1G2ztI4XVuIpxGm5jCaIGdOBrcPPn6I/LiR0ErE=;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=B2KRURmV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795531406;
+	bh=+xcAFVyfZjCXw78iH5eaRb7q+NmVOvWAJooUbJ43vpY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UDdLoFoNOCRh4wx8Dt+N0YAX48rS5yofCSHP4YgowGgAqupRoB1XUFyiOgWSAXjsv
-	 R9Ll5zo15TJAAAsFh8bp2IPsU6g5wRm60IFIFHPh/w9efiojqahBFW30REqhMEKzVw
-	 xry7Tl9F7uRVevJe2tDZJ9cBuK4Joj+DAPL5HUjM=
-Message-ID: <ebf2d6db-8260-4ac3-8316-ae9a0e5ee1b7@arm.com>
-Date: Tue, 24 Nov 2026 15:42:42 +0100
+	b=B2KRURmVMnzlSfh/3guyYTv0j1AWRjCGZuabqe/B3OntHxn9B6dKAJlHu3SsD0SmX
+	 LVx7ce9h7L/4YDDzakQDdcWAV5/SuxSmQdgV9W4q9R3Q/+FadUwYCgwbpDXfwx/tTL
+	 YDOcAga1u2SeU8oIAoUCrt+yi1oenovqKr0WL994FrkADzRCCR7p1TGPJ3rSPs7lhg
+	 DohKMBp6gc3i+Tye2dAgBd45g8euDbjJaI5s2Yrds/IbAWjjsiKDXGXkqveYe/14NK
+	 idOJPckaCha8mz4XAFBjFkKfjPJgAsyYB5ypR+h02NteusfcQz7da1fm/ePzS4rn08
+	 aAf3b6kdgfguw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4C90117E09ED;
+	Tue, 24 Nov 2026 15:43:25 +0100 (CET)
+Message-ID: <05cb7522-7894-43b1-8bf5-96a1a3792289@collabora.com>
+Date: Tue, 24 Nov 2026 15:43:24 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,69 +62,57 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: arm: sunxi: document Radxa Cubie A7S
-To: Enzo Adriano <enzo.adriano.code@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
- Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
- Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>,
- Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
- Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
- Lukas Schmid <lukas.schmid@netcube.li>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <cover.1795034153.git.enzo.adriano.code@gmail.com>
- <428efa99fdd0182e8bc9a2ed88b78d2cbd36fa45.1795034153.git.enzo.adriano.code@gmail.com>
- <20261122004008.0ee8e16d@ryzen.lan> <20261121-a733-dt-v4-1-reply@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261121-a733-dt-v4-1-reply@gmail.com>
+Subject: Re: [PATCH v2 03/46] drm/mediatek: Export OVL Blend function
+To: Daniel Stone <daniel@fooishbar.org>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
+ jason-jh.lin@mediatek.com, kernel@collabora.com,
+ Paul-pl Chen <paul-pl.chen@mediatek.com>, Nancy Lin <nancy.lin@mediatek.com>
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-4-angelogioacchino.delregno@collabora.com>
+ <CAPj87rOEtG9JqJsEZkatqrWUkerO9Xx93MBUrXXChJwCokE0Vw@mail.gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <CAPj87rOEtG9JqJsEZkatqrWUkerO9Xx93MBUrXXChJwCokE0Vw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
-
-On 11/23/26 18:42, Enzo Adriano wrote:
->> Can you please add the A7A and name as well? I will send the .dts
->> patch shortly, but having the name ready would reduce the churn and
->> avoid conflicts.
+On 11/24/26 15:30, Daniel Stone wrote:
+> Hi Angelo,
 > 
-> I added "radxa,cubie-a7a", "allwinner,sun60i-a733". Both strings
-
-Many thanks! I just see that I messed up my sentence above, as I wanted 
-to have the Cubie A7Z added as well, to reduce the churn and stupid 
-conflicts between series.
-If you respin, can you please add this one as well?
-
-> are in Radxa's Linux 5.15 Cubie A7A board DTS.
-
-Please note that copying from a BSP is typically not a good idea (though 
-fine in this case). The devicetree as (somewhat) published by Allwinner 
-is quite non-standard, to put it nicely. There are large conceptual 
-differences even, so it's not just about naming or such. You can use 
-their DT to figure out how peripherals are connected, or to learn about 
-some IP in general, but it's not a good template to copy from for 
-mainlining.
-I would always look at other DTs in the mainline repo for reference.
-
-> Please let me know if
-> your DTS uses a different compatible.
-
-Why would it do this? It's the very same SoC ;-)
-But yes, "radxa,cubie-a7a", "allwinner,sun60i-a733" is the right string 
-list. And just replace a7a with a7z for the other board, if you add this.
-
-Thanks,
-Andre.
-
-P.S. I would like to post my A7A DT patch, with the hope that you could 
-include that in your next post, shall you update your series again? So 
-could you wait with a potential v6 post until I got that one tested and 
-posted? Then you could ideally also include Vinicius' A7Z patch, so that 
-we have all in one series, and just need to deal with the dependencies once.
-
-> https://github.com/radxa/allwinner-device/blob/6d911d1582dcccdb5a4c38be8d3c1ee851019795/configs/cubie_a7a/linux-5.15/board.dts#L5-L9
+> On Tue, 14 Jul 2026 at 12:44, AngeloGioacchino Del Regno
+> <angelogioacchino.delregno@collabora.com> wrote:
+>> +unsigned int mtk_ovl_get_blend_mode(struct mtk_plane_state *state, unsigned int blend_modes)
+>> +{
+>> +       unsigned int blend_mode = DRM_MODE_BLEND_COVERAGE;
+>> +
+>> +       /*
+>> +        * For the platforms where OVL_CON_CLRFMT_MAN is defined in the hardware data sheet
+>> +        * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB888
+>> +        * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB8888.
+>> +        *
+>> +        * Check blend_modes in the driver data to see if premultiplied mode is supported.
+>> +        * If not, use coverage mode instead to set it to the supported color formats.
+>> +        *
+>> +        * Current DRM assumption is that alpha is default premultiplied, so the bitmask of
+>> +        * blend_modes must include BIT(DRM_MODE_BLEND_PREMULTI). Otherwise, mtk_plane_init()
+>> +        * will get an error return from drm_plane_create_blend_mode_property() and
+>> +        * state->base.pixel_blend_mode should not be used.
+>> +        */
 > 
-> Enzo
+> This hasn't been true since 9813e158d13d. I know this series predates
+> that, and this is just existing code, but it's another instance of
+> 'lie to userspace and fix stuff up behind its back' which we should
+> get rid of ASAP please.
 
+Hey Daniel,
+
+thanks for that - it's coming just at the right moment, I think. :-)
+
+Cheers,
+Angelo
