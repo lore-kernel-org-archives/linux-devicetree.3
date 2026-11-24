@@ -1,57 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.251.196.230
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795493035;
-	b=S4r4ED1nCcFDf6PWlVa8ACobM00t3qPIBJ1bwHGumBLT8zX2mGaeD2kfyPeWmkWOnIKF
-	 jD7nCZ9tubk8//m1HvojEr49MPCyxX2fzq9AAe+XcYM4ORp528vf1S6+3f1B0d8uODp9r
-	 qEr2YwwakqwhWxgsDGwQ1+gvBR4duniY/GupCe3mVplZs+I4TFUf4qw8LO4ApQD6bBV6y
-	 wFkKXkb0pAqwCbcz+pMoj6lKbJDJw79Rey9SPyF+eaT7QNDLRiiXT/6oilgYQMjW0Avy7
-	 altFsivZx6lE9tzYTjk++dofu7Lco7C4+Gx3n5ErgZATofqPRL04ImhVmWzwJh+1D0g==
+	t=1795493048;
+	b=fdVfF0ZrfnQaRwAXCUl1OIb7xOo/NXM6foB0j0qAMwN2aF+byfh/OvvJtpdmvzoNelG1
+	 ep3faVt6FOAwxCaVBEjXun62ji4N7fE30PUdKYVqiUgEe8LXif/a8iroWip8zn7jBHcUh
+	 Ouusm/EWpJAPNSdJAGi8CZRhsRK1Rdt4ljPbdX1M6IpdcTXC7irNHHGjjWylGWp1DhuI2
+	 zk4C6WdZXHDk8uI95dM5UASDfz/ZKp7BMNOO+I+iWM2JCLeamdt6WGbBkDeZ3LlV9PDyI
+	 thxPiIw7SpxPYHYnoXc8Sr1Lh1s8Zflu8yttN2KyDrwtP4ky+RLfm4UdEQC5/hUnlvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795493035;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=PT+ZEg/+iwCSWPz8v+jCmHqnkyC/Y0GywwY0Sd2hm1g=;
-	b=kwn5pIXW184Pj1T2lDEzTjBrKNBbjuZCfA3/RVnCCtC1XF136jSFNMl5ORV7inG9nlXn
-	 HAvPH67eGCsnuL/F/1KFEIx9PnDfqi8xujCMOscHMMuLJYKAqRsO8Gzyj0UOcUBpZ0fpt
-	 w5sOLyLu62UzpoXGW4AvUsQyPvXD+6N8n4TUbdKHHPhyx914LKBCSBL3BRfmtxDuGmXja
-	 UdN0SD9XFEchiR7koPhaiUudJXNrcDf1J+ccPKto5l5VE5BzH7k6rgt4hHtYsNIBMGEQe
-	 91YVIJImDKrzj+h+JTtYP8DfqnWA2e6DqQKrhjw1lObm+VQDG0qB6SMw/sgPc0TGthQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795493048;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:x-tm-snts-smtp:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
+	bh=dEAWrCcLPoqiH1o+NThWPO02RVOnV+Cf+QRng64jUU0=;
+	b=KueGPe+rp9OzVfIbxDohu0ygXm2UA5vRgk+Fa33cDdwz156esgE9egp9gVkuUma7IAB0
+	 240hF1fnq3AIUslltzNAHVyilZm2XxzHDyK2aiN2mK237evBwIKFkiTp6A7fnGoml1igI
+	 hsQh68dyHsTpAhR1Pn9RAGG38Uyogtmu96ERGXzKI+ITxq30SNri4191Sj9JuRuZRHHIp
+	 vpuJKv1sgztrLnk9m9zVLuVQN3xso56emDyymv7/Qb2VjIM7B3bSrLWlhM9Xk2dJYWvw1
+	 uCaxJ72A0TDhBGPjMTFQ1c9KKK+EslXIBp3ELmjh6fFqJZ6Ix2zoHZS/+qorfMmo0kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DpqBrKxG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=ite.com.tw;
+	spf=pass smtp.mailfrom=ite.com.tw;
+	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=ruVeF+1m;
+	arc=none smtp.remote-ip=60.251.196.230
+Received: from ironport.ite.com.tw (itemail.ite.com.tw [60.251.196.230])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89587606A31E;
-	Tue, 24 Nov 2026 04:03:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E32606A32A;
+	Tue, 24 Nov 2026 04:04:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10E32606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DpqBrKxG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B051F000C6;
-	Tue, 24 Nov 2026 04:03:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795493035;
-	bh=PT+ZEg/+iwCSWPz8v+jCmHqnkyC/Y0GywwY0Sd2hm1g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DpqBrKxGIppXePF/ZxLpPaYj21Nap0TdhCb4IeGkYGl+2HSOD37s3SzkfeTOPJvxq
-	 P71w7m3pRNOFHoWjTpn5fV1jWxh4EIBefHrCbZq3vUROHSYyxrXUUCyi6dx+Trco67
-	 2JEZrOcZK/rRHFO0gE1NzP7MJv+Muqlh7wgVsLYk0k060GkSYhpUdPZaffnat1UQDn
-	 dMWctxFYvut71Ng3rd2aixwsFhX6GSVwWZMZWK1GWxhexzobQ86XrJo7ISeDeEZszZ
-	 1nn7cp8x0e9O9EVFQxUOnbICBjwPqvOigZgM5s18A0wkx9W+bXdenU1iG//UEsKgJV
-	 MQmTxt1HoY7wQ==
-Message-ID: <sashiko-outbox-230492@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 6/8] clk: clocking-wizard: Use dev_err_probe() when
- mapping registers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shubhrajyoti Datta" <shubhrajyoti.datta@amd.com>, linux-clk@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124035613.1968260-7-shubhrajyoti.datta@amd.com>
-References: <20261124035613.1968260-1-shubhrajyoti.datta@amd.com>
- <20261124035613.1968260-7-shubhrajyoti.datta@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 04:03:54 +0000
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=ruVeF+1m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=dEAWrCcLPoqiH1o+NThWPO02RVOnV+Cf+QRng64jUU0=;
+  b=ruVeF+1miRr2dPDPZNEAtu6VNZS26XMmnOWzp4sZ2hkOA1z9DpVAU/A/
+   kHH/VLqhC8KYBlf7m435XqR/eKCFwWGLcIEJgELC2cSw+mmFhrrcj5CbG
+   KYFBoOibCu+8W+qOz/FUEy2/NoZ6y3LRnrDeuzWP6fpQlZaTF7kfdEqf/
+   KQVUjBN/5y3ytO3cYHZJxkbTc59bdATMdQ3aVpx0hzGpmkNQG9AR6gm93
+   8IjnjbzQO2CTr3QCs9r9m/7g6SeF2IOYjdRemR/gmzhcm+amgM45FQ1n8
+   hF927TfzoySGf85qV4jmbE1xLaMv40OcJ34nospbUU/LvbRts1GewyhQu
+   w==;
+X-CSE-ConnectionGUID: JDGp/ue2TcaEJrZn3/qw3Q==
+X-CSE-MsgGUID: HMyMYaAHS2KQP21f5OgXxA==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 24 Nov 2026 12:04:05 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 6AO440Rp055979;
+	Tue, 24 Nov 2026 12:04:00 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 24 Nov 2026 12:03:58 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.046; Tue, 24 Nov 2026 12:03:58 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <Hermes.Wu@ite.com.tw>, <mchehab@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <hverkuil+cisco@kernel.org>, <hverkuil@kernel.org>
+CC: <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <broonie@kernel.org>,
+        <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>,
+        <linux-api@vger.kernel.org>
+Subject: RE: [PATCH v2 2/9] media: v4l2-ctrls: add the DV RX audio type
+ control
+Thread-Topic: [PATCH v2 2/9] media: v4l2-ctrls: add the DV RX audio type
+ control
+Thread-Index: AQGjzAf29/U6qc1EEeqYH4GUceBqBQGCvzP8t6PjmnA=
+Date: Tue, 24 Nov 2026 04:03:58 +0000
+Message-ID: <cde968fe7a98464b87c5efb15b37fc3d@ite.com.tw>
+References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
+ <20261124-upstream-it6625-alsa-i2s-v2-2-a154685f6989@ite.com.tw>
+In-Reply-To: <20261124-upstream-it6625-alsa-i2s-v2-2-a154685f6989@ite.com.tw>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: 711EE0A529B6DACA1E71D2D7090B0AE7E7046030CE5E3622A42CA86EBE14D4332002:8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,41 +95,10 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MAIL:mse.ite.com.tw 6AO440Rp055979
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] clk: clocking-wizard: redundant dev_err_probe() in
-  clk_wzrd_probe()
---
-
-commit 9f920055133db8d3ece4b65c488f3b559414daaf
-Author: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-
-clk: clocking-wizard: Use dev_err_probe() when mapping registers
-
-This commit wraps the error return from devm_platform_ioremap_resource()
-in clk_wzrd_probe() with dev_err_probe().
-
-> diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xil=
-inx/clk-xlnx-clock-wizard.c
-> index a3f4c5d6495e5..7fe8d0d4cfba2 100644
-> --- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-> +++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-> @@ -1414,7 +1414,8 @@ static int clk_wzrd_probe(struct platform_device *p=
-dev)
-> =20
->  		clk_wzrd->base =3D devm_platform_ioremap_resource(pdev, 0);
->  		if (IS_ERR(clk_wzrd->base))
-> -			return PTR_ERR(clk_wzrd->base);
-> +			return dev_err_probe(&pdev->dev, PTR_ERR(clk_wzrd->base),
-> +					     "failed to map registers\n");
-
-[Severity: Low]
-Does this emit a duplicate error message when mapping the resource fails?
-devm_platform_ioremap_resource() calls __devm_ioremap_resource(), which
-already logs an error via dev_err_probe() on every failure path and never
-returns -EPROBE_DEFER.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124035613.1968=
-260-1-shubhrajyoti.datta@amd.com?part=3D6
+VGhlIFNpZ25lZC1vZmYtYnkgaXMgbWlzc2luZyBmcm9tIHRoaXMgcGF0Y2gsIHNvcnJ5IGFib3V0
+IHRoYXQ6DQoNClNpZ25lZC1vZmYtYnk6IEhlcm1lcyBXdSA8SGVybWVzLnd1QGl0ZS5jb20udHc+
+DQoNClRoZSBuZXh0IHZlcnNpb24gd2lsbCBjYXJyeSBpdCBpbiB0aGUgcGF0Y2ggaXRzZWxmLg0K
+DQpCZXN0IHJlZ2FyZHMsDQpIZXJtZXMNCg==
