@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795517950;
-	b=Em05gniOIfhDdDzwynwIXeKdhTWFTCsLxAGl/veXz2+NvLDRKo+wf/0eHiWaxqrr7Dpl
-	 sQb16uRqlyfTZHyU72PRdZaxLjdxXIYrqhIV/C8IvCiMVISVfeYEfD//cKG54U9BtuI0R
-	 yv37YO3rhzlm5r4zBhSHJzZzUTr7M+phdt8mAzoOI9KWZ7ZsvcLKNpK+qVSm0HERXVdF3
-	 i9MseFoeazjTCRGxH4vz4gPC7nIRwz+kU6+pEjvPQUMWSVWm6ABmyuwwpDI9ptts6/oHv
-	 nNjomtpXJgmPN5o4M0cWhHt2iKFkzEO0DuEfOywSixtE6Gz0K8zZ3FVydyWyanvmlwQ==
+	t=1795518025;
+	b=wM5J1kZA/jTquAQRjE0pMY3/N+SjXIG6oy+BOQG/d76ODgezFIgYePeWyz8c3x/tCci3
+	 L6/PxwZlfIET7tBoc0yF7RZrHNwuP2eb21fgod7tQ46akejzu/EXgNJZTn/hxbpgEZAhL
+	 spGvSRF3G8U3qXpBczBWbUKTxtJpxXInYuwj7AST6U6JcDvYb2ZTh6GUkyv458+fbbqy8
+	 zawIcXv+hUmVD07fKBeBos02izEBo9mVJoL4WPKKL2WRakl1WsKgJsiTGtvWb80alWvPQ
+	 ZFFnMuB/yDaQfzDBXXE3gzRHMuxzmE2WkeLUmVkMwMZtfXY2QrNCKtKVD1EGAJXA8TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795517950;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795518025;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ZiYc4MVZJSgk8bMEiYNjJrxtCdIqqTXjPmHiIj6dvrg=;
-	b=dZ33p/1ZePKwaQyl1GsEnPjev9OoDP32lmOPkYreC8SMi6QzjHfneIeIXWCuUGhKNXMA
-	 4xCXniZ2mtVseB0l0L30K5EqnDxjM5bEwaumXQEYtZaNhNTEQKRk6Tw7iNcdDe+259TO1
-	 GYSmG67wqsc8LQVtyzS67wtlGB5gRPRBOKnXGlC31LzL4f18iSz0V+XlV8GQu8HUz+f6q
-	 zqwM+QVUUmVnN/RpnHRdHNfrsOr00cU50RRXXObIPHCQDTWLaJ7lmtIPne1YoYK0nSvo2
-	 qLPmfHyh12rshbNw4OXniWIdansEbJ4UAF8RPqxixOki5TmxUetoUVqc1yOM17xYPmA==
+	bh=qly1zGeHTqk/5sm2o7gs7J8sPM4vT5mFwRKuNLE1UIk=;
+	b=WkRCL4GWJAdyrx1ZtoYCwbzaXkQEOu4IaYGsUNpL9xq/60l74aAh+wG1hgK73Ly66TpQ
+	 fB9zrBuClcTUTZigOv2ES8b8oSkyThWcZ+6VV3VLqA4Q+qt4a5snzTv0ycSHF2pFUGEaA
+	 0pWxs6NDri7MCJ01WDSFUtWY/gu/8OISCvrT/yXNI5XCrzUeiVQQ9Q6dla36HTg9+kwSv
+	 DJhE/rfO1d0NCuY0lxP1lLOC0adAEUGeNcOW3jVZKJiNE2OoLzuUCUZY+jXH0NOVvMYWG
+	 oEI4bNANzo0ueXmb62nwZ+z6PQhPXsEon8ckn5NOOyOMJpt21t8K46tIba8mhvGTRKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J96NcSkJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOWZ8Oae;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D67E606A31E;
-	Tue, 24 Nov 2026 10:59:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E40C606A327
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:00:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J96NcSkJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB9B71F000CA;
-	Tue, 24 Nov 2026 10:59:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOWZ8Oae
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF851F000D1;
+	Tue, 24 Nov 2026 11:00:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795517950;
-	bh=ZiYc4MVZJSgk8bMEiYNjJrxtCdIqqTXjPmHiIj6dvrg=;
+	s=k20260515; t=1795518024;
+	bh=qly1zGeHTqk/5sm2o7gs7J8sPM4vT5mFwRKuNLE1UIk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J96NcSkJKAbfv3cHfD7A2+ecCKKAPYjCmqo2kqv47Xx3E5lDpr3PoIl6JCy8MvTsE
-	 oWoI+OqV95O3z9ZAwChpBNOuKFn0QlPRQoSkOSpBV2XLsyKEmYqrrzlzmkN5KPIBYB
-	 ECJl6uv9kBGGwddnJnxqjh8g+JmZ1u5XMnJzRJ/DPKy9T2MfeGuhOOSJIVVzsgkYad
-	 aP/bveaDx0/6tYedwmXRJ+cj7pNQgwAIUqUBGR4y38bo4xaA34Lspt0F8IUl8WPE1s
-	 ILPyMYfGt1+zqinOdXO+IvKlAFIYMxyBmKwcu2+1Qpa+KuDNWJo5pryrcSPj5wsFvX
-	 RI6CoKy1Lj47A==
-Message-ID: <sashiko-outbox-231002@kernel.org>
+	b=XOWZ8OaeNrTp6PRzr/zHoelDsO/NmdybreEnTe23kkhBuh4YmgP0yb7RlROAtBmad
+	 m8X3rLGrHIpiCZZF/bFWKaM6nTxUyCDlYje+Q/qKl8cHlaaz7p0/Lcxt5vt7/FDDkk
+	 K/v3FlNX1Dsk11f/wZ/0mDV0UMlvqUc/3FlKhK/6qtmIR2NhLBKNu+/Dk7yjqlO/Py
+	 nNCRAw64cSPMiqd+Bpjxxh5ginzqRPR8zRFd1ZXXtNSo0iGe85kHt7nskIsvxabZjy
+	 TW4dTC0/93RDtVHey3msOpXJUY+IDP0D00pNzabOpBz6r167u8z8rWiw/3hXq2r2+I
+	 hP1dtMfy+5RwQ==
+Message-ID: <sashiko-outbox-231005@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: qcom: Add Seca TLMM bindings
+Subject: Re: [PATCH] dt-bindings: iommu: Add Seca SMMU compatible
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Yadu M G" <yadu.mg@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <7489ef6eb166f6292841030d299e72e5b27231f1.1795517583.git.yadu.mg@oss.qualcomm.com>
-References: <cover.1795517583.git.yadu.mg@oss.qualcomm.com>
- <7489ef6eb166f6292841030d299e72e5b27231f1.1795517583.git.yadu.mg@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <27f6e560a71f770078ef26137207905870c6ce58.1795517644.git.yadu.mg@oss.qualcomm.com>
+References: <27f6e560a71f770078ef26137207905870c6ce58.1795517644.git.yadu.mg@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 10:59:09 +0000
+Date: Tue, 24 Nov 2026 11:00:23 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,25 +61,39 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] dt-bindings: pinctrl: qcom: redundant word bindings in commit
-  subject
+- [Low] dt-bindings: iommu: missing allOf clock constraint for
+  qcom,seca-smmu-500
 --
 
-commit 5a47c8885c12a8f81d5c670407ee64752fc387c1
+commit a50417b889a5516165666393140d7c411dac19de
 Author: Yadu M G <yadu.mg@oss.qualcomm.com>
 
-dt-bindings: pinctrl: qcom: Add Seca TLMM bindings
+dt-bindings: iommu: Add Seca SMMU compatible
 
-This commit adds the Device Tree binding schema for the Top Level Mode
-Multiplexer (TLMM) pin controller on the Qualcomm Seca SoC.
+This commit adds the qcom,seca-smmu-500 compatible string to the ARM
+SMMU device tree binding schema.
 
-> dt-bindings: pinctrl: qcom: Add Seca TLMM bindings
+> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Docu=
+mentation/devicetree/bindings/iommu/arm,smmu.yaml
+> index 6748351c78122..6700d31517834 100644
+> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> @@ -59,6 +59,7 @@ properties:
+>                - qcom,sdx55-smmu-500
+>                - qcom,sdx65-smmu-500
+>                - qcom,sdx75-smmu-500
+> +              - qcom,seca-smmu-500
+>                - qcom,shikra-smmu-500
+>                - qcom,sm6115-smmu-500
+>                - qcom,sm6125-smmu-500
 
 [Severity: Low]
-This isn't a bug, but the word "bindings" in the commit subject is
-redundant with the "dt-bindings:" prefix and can be dropped (for example,
-"dt-bindings: pinctrl: qcom: Add Seca TLMM").
+Should qcom,seca-smmu-500 also be added to the allOf clock constraint
+blocks at the bottom of the schema (for example, the block setting
+clock-names: false and clocks: false)?  Without an entry there, clocks
+and clock-names remain unconstrained and allow up to 7 arbitrary clocks
+from the top-level property definitions.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795517583.gi=
-t.yadu.mg@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/27f6e560a71f770078e=
+f26137207905870c6ce58.1795517644.git.yadu.mg@oss.qualcomm.com?part=3D1
