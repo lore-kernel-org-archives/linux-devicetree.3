@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795534956;
-	b=QomIHN47Mkk0LCJoxQMPD7Vt7N1Xt0eo5D6LA47RVJ6yxpYDOLJHwXkAqTabSC+bIaB7
-	 ohY2rodmXu9vlxMpsF2OKgj114KnYSvCwHEdNdDC7yRrApWoWOZmMAeOPQMe/Gli7yIqG
-	 YU/2qmgNVEFA4e4RXivm4LXTWfAKvh8ocmGFya6N24JzkOc5odyIiOHDLcxSIGvRBpGSy
-	 hdCF1RhmB/vRzW0FEuPZFarPuNkAawUXN9tsIdV6ZpfvJkKA8eQZO65GVhgaYomXNsu1m
-	 azQTAgfbKVQpMaHUvJNo7DjC+ot2iilXSyzEiTIVU0lxabe2lQa16GWkjOEy13lpa/w==
+	t=1795534961;
+	b=E1edi5qS1in0W2Y9Cs1T/Riji1K84IJo2k6VoTm/ulQPjmMK3D62coNjFEkm0s/PQyFm
+	 hl08irDkF7KXgojJNXmci80QexD5EiSEhcVEb4UMy4W5wvMlaXUXcBq6nbMzrbXlwhDgV
+	 Pf3Q9HvVR1ZzRxLODehwzU9bVDxVh15xp70SqPkhCw5WegvllRuK5k8ppLn78pMNdPQa3
+	 /2w+7Gpbddd7IqqPSIhhRP8RJIC8LahBKfVRh1cQIX5RgEm0XTaSdnXfg/oMRV1uR8H1l
+	 4Wocg+b4B3zXLoqVM+hdbjEXf3dl/Uk0zawa1u8E5Z0RZSNo6orZIdbGKRxMEan1Mpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795534956;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534961;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Pbb0lUo4dfFedZvgM3ZKbqsv5rUYDPqVpOgYx3sCIio=;
-	b=ZdHY/MfCTvChogC9qPKRF/NXRGHDtLb9+K+R2n2bwDC+TYbFJC9jHnNHmmd7eg2dS7DR
-	 UQtRH2/jmoSH88SR7n88srJJ02Y9zoJvtA5RWJ4+ecBvUwQLXUhPYyaiUGYCsKWiQaeDQ
-	 hxHGRHzOV17QEAOFNFI167V+Pz9UikTb9NreXBF+u5rWu/q1Txu9ZD+5PBLAeub/hlQeE
-	 Qa5Zjie4yylqxSNm2mbwZu9P3B1AO8NlSlyNnR6wx3EAl+caFvv5h2z96qdx68adthJ8U
-	 Jzq7mEFoHmqmdR2PmaghEUvzYqBwcubvJhs/hFgJcaj9E7e9HOzwBfJSFuaM6CaUfIg==
+	bh=mxhOZAYkWjiUVCEs7lYi5uQ2vyidYwZzsDUgb1c1k6g=;
+	b=QHzYSwwPubiFvCMARkEWEUnNVtLhJlgMcf/2yGoyKApRO7hKuLyDTPcQNaC+0eAexwQQ
+	 f4HhEaTGjRQ++EHAW88C0rgBklGZYyVebKrOV8abjiYlgke/YWXb7ED/mcC2J6aOSO/zG
+	 0OzMCRcPato1qlXJxwwtaG1gTDzC+vbuQY0X2y17kyBVZE+rZW0vCuhT0nzT8s256JjGB
+	 OXc7TjHkIIxbrAW/ePJAVoRPBhG13XcIV3OL33VID7mcR8nY2Q55StllWeM6U3Ol2Exqi
+	 BClxVZxVGf0McSmPsD4gu6SMZk6VBfsIezJwu3O3mFEcRlVr0x9DoHXKJXU2y7yOthA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFI2GO4f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjrRzAub;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787E3606A323;
-	Tue, 24 Nov 2026 15:42:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604A9606A327;
+	Tue, 24 Nov 2026 15:42:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFI2GO4f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 311951F000D0;
-	Tue, 24 Nov 2026 15:42:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjrRzAub
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232441F000CA;
+	Tue, 24 Nov 2026 15:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795534956;
-	bh=Pbb0lUo4dfFedZvgM3ZKbqsv5rUYDPqVpOgYx3sCIio=;
+	s=k20260515; t=1795534960;
+	bh=mxhOZAYkWjiUVCEs7lYi5uQ2vyidYwZzsDUgb1c1k6g=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WFI2GO4fI7cf0Fet9UCV/8MIavKwD6ePmgMl79GdOwUC6zL1sCmIshpZnJ7UXtYjm
-	 RYaOIRm62h6e0iwz3BGtnC7BJ30o3MUbK9yMRWivJf6r3CaYOLXckG7sYjTsJzr3xe
-	 Nv+mHmi4SK13lTBFQKXdZOQCEQSguEvu/EAkIZQIQIQptyx+nE+x1ch90s1yh3MOnT
-	 TkR+bWk23k0TmPYiXi20lFnIbOS/vJ1LOo4JbcMSvDPuhpE+pX6wwI6orp2W3Rvac0
-	 Zc45Lu1aOxmx37sc+v4GlYtGyiKg287C1aqhUanhXlqBUtwRxvd8IE6ZO11qygSPor
-	 ftLYdEFdfXE8Q==
-Message-ID: <3443494f-f04c-46c7-9e61-5143f05da404@kernel.org>
-Date: Tue, 24 Nov 2026 16:42:28 +0100
+	b=ZjrRzAubspoUH/6lwbalXHTO11d8e/DyOYyTGbdXaDbZhKxpaucX9Vg4hBv2NVHpk
+	 Lp2IaJmDZwW8rxGKob5cvq9n2+GwShFTu8LLuxkEl4pha17J8VorSk8qCl/gLudfQa
+	 kopfQOshiLZtm3vuZkeJ7Q8aqZG94QhYxT/MTLHbFwKmaCQz4FILwF7/5tV5I56Eti
+	 Hbvx8FqnvuQ7j7GvHvO8CBSeC5kwnUztXZOx+VGDWZseyVFYLAfVEcPvveXV55p2r0
+	 /0QnZ/E7GPwQyzk9oCJO9AlFuvhSvlo0ZhdEl9X6PKhqA+WsVng6votW0v8MjLz01v
+	 6tL2NmJ+Fc/ZQ==
+Message-ID: <e6c6be85-0378-4ade-8e31-337a85890efc@kernel.org>
+Date: Tue, 24 Nov 2026 16:42:35 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,16 +52,16 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: thermal: rockchip: add RK3506 TSADC
-To: ZhuXiangyu <1194781887@qq.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+Subject: Re: [PATCH 2/2] dt-bindings: phy: rockchip: add RK3506 USB2 PHY
+To: ZhuXiangyu <1194781887@qq.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-phy@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261121063330.1094548-1-1194781887@qq.com>
- <tencent_362D76566799132999F95C09AC34775D0D0A@qq.com>
+References: <20261121074753.1262819-1-1194781887@qq.com>
+ <tencent_1A5C41E9DE4754C0A639FE4A64B1B23AC305@qq.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -107,18 +107,18 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <tencent_362D76566799132999F95C09AC34775D0D0A@qq.com>
+In-Reply-To: <tencent_1A5C41E9DE4754C0A639FE4A64B1B23AC305@qq.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/11/2026 07:33, ZhuXiangyu wrote:
-> Document the RK3506 TSADC, which uses the TSADCV13 register layout
-> and requires the TSEN clock in addition to the controller and APB
-> clocks. Like the other newer Rockchip TSADCs it needs the GRF to
-> enable the sensor analog front-end.
+On 21/11/2026 08:47, ZhuXiangyu wrote:
+> Document the RK3506 USB2 PHY, which uses the phyclk and apb_pclk
+> clocks and requires the PMU GRF phandle.
 > 
 > Signed-off-by: ZhuXiangyu <1194781887@qq.com>
 > ---
+>  .../bindings/phy/rockchip,inno-usb2phy.yaml     | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
 
 I will mark everything you as changes requested. This is all half
 broken, b4 review cannot even fetch for review.
