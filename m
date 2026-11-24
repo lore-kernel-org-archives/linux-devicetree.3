@@ -1,112 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.228.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795528782;
-	b=zo+UkfNejX7QuT1dHrcqGR9wc+ON/STdgptorTFHvx5bWerhMqEJ23mGgDnTHurlBT4F
-	 p1v0VazQ0Bg/Q88Wzn443PN8atKrVb3ZKskCTIa+sv/CcbmI9Ptd8HLZH14Ewj784XzsS
-	 y/OcRi9hfl388xbjT/K1J6c2ax2yx4NIyLTDQ6AXg110EHWD3AsZOpLj9vxs9qVvmgwTc
-	 2WYtimBeiZTs8C35QVQBXpFBnwjAAHzKqsgHMY7diqFOdP5Y2sanRjdk8I9J0qxcwrP3y
-	 Lw1oRz0ZPnep6xjWd/OjS+gL01cSAIgyRN+audpVcXO5SxCX4M7g0aatNTHslFqdlvQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795528877;
+	b=dsZeBD2kreDZo8g3YOa0QMkAKBmeHKholWCLV78GQFCcSrarMEDDIENJOHd9Pp5UQMAD
+	 JpR04Zk9Em0QlviaZh63JYx/OkG0TkJPB6XcZ9okAi2YsS79SCM0T2dMcfuEO0sJrbry0
+	 o5RYxYL7bcNmrTt0F9U2Myj0IryrM7KKZc/20Cs5x/2tqgSNcpwHnDOj2lshmEblZhgeU
+	 I7qoIdORljEOx34EZjb85SaO6Q41RtI4k9xMfsc5VQ1DKGevUky3/FawAykeYGZSbLlQd
+	 o/9LoA9UPtvkRUU7/JkbdTw+nOO82Q6hjPQkhWBxxicdihlrpRBO8sAVF/T9jlmjNRQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795528782;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8nyvschqXTbLJougVczykKez+ePj3b5CSnY8Z6No6nU=;
-	b=mwrABrpOfNcsfgwZvSkLs1kAFpiE3JH1o5ZEXrKBdZih4l0Mhfg0G5ivCNLEUZvNkJSA
-	 QPOyd7Uv+QEquIxEOOXj7mzvHb4DGJU4nPIVW8SpGswr34L9TdtjcYIxaF8Efu3lnh2GU
-	 rSdSY1APCmjIrpuLURvkrtB9pl8MmORDJeoeIdWuRyJgq5JmXT2f5pN25zX9VT8OgebRm
-	 /rqOfyJ23Rvb55qOaIme/vav3X83qtG3oI6a7syXaXYnIDYr8rTiEikY2cxC7EoT0Y49O
-	 MLQY6U7sofLHipyIvnTgjhjXpE7qQiGufMuLu6wSiAZzuzQmH+JB3c04GU9zZoCaBpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795528877;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bOCOQuk/Yd7z6Fhvfc4YdcVatSmsmrYRAVs685pqp2o=;
+	b=fcxxgLEgDfj6B+vVtOMy6WY4Q7DrFZSjhTLc9mj1xG0s+eKgN08lvxrJZgbR9H6tqxkU
+	 SoBX/NdghTmiM8IZqPTzbgFEia27sqcjp5ZRdjbX/QOgNHjZZuAhnoRh3KjZXHA8cIdpG
+	 wVwDIVLGhtIN3lnM/dTbLON8tlVEt6fJM+kRQWEDdHRI6apPbhDZ0cCqNWiMgm8wRjm0f
+	 80c8LhGSzujrJfd7vs8IzKjgPSNfDQuUKvSAwng2nxiKZK+Q+OISXbFIw7ImZzMpBgWpe
+	 IcOAroS1OgZRY/vfppp17XOXTyEMajVK6y+W/2uzHqC0zNgG/Us2yxStoiZ/HDG5nlQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=fail reason="signature verification failed" header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=c2VnzLuC;
-	arc=fail smtp.remote-ip=52.101.228.8
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010008.outbound.protection.outlook.com [52.101.228.8])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxPjG6LZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501CE606A331;
-	Tue, 24 Nov 2026 13:59:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 501CE606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A82606A336;
+	Tue, 24 Nov 2026 14:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=c2VnzLuC
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UNdVvqMlqDATnSfjXqz5stmq8kbIr5dIe2QMW+z8kLzm6LeVJgTGUFb1maPztBSdQOI//0mn5MUtVsMVw834EGDGZVqefHVkzvahQofMNEFDoXYqAOeqMwSK53vUWFpOOpmOGWHVs169jN1qOswQ8D1ZiaUQwlUa75AA0ikCYbvk/ujT8xMNIjLYux4W6QG6ks2ps8oRYpKk37fkPJTmvIf9QGqF9mAWLdDj72mvH6x/bU7JbloYKVZHbXy5r+Z/Hp2xumXBnLPpsylRF6vVa9MqT1Ekzc55MVu09WboUD/TPslsSCV1UC3oxScQwNU7cLi2il2hLu2n5c9dbaDlrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eCPrJExvRzTL+syjRTsslIWGjW+UwfS7cJ/Bttv7R0c=;
- b=fbh0RrsqM8MhppooFqkDWyw3vRxIHvydW0+ZWBbl2tqLbdqXZ6InNEKyW6VubolBdA/sUpC8wUyoD+oR9Zoz7XjzBpFsUr6CUTKV/UXR0K3/h1cULEvwKABM4+WHCT3YGuK7toRNfEFaelAdEhlNU9XeWlhyPnX97gJ9Q+T2AZp8cIl6JeaA6TCkqboVtnar4d/TolBqRSPVoch1Q7mX2uxjqli4FAX6jCOskZZRPd5J63wed3FAeQGKi3W7of54Q9XmOtqrGuJe6hF9ktAmRJEmSdMRLl/Hay2/RyCG6KAsYkUaebFODPQ4D5vrKMoEVO6BRY3fSLXUjn1TDUFHYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eCPrJExvRzTL+syjRTsslIWGjW+UwfS7cJ/Bttv7R0c=;
- b=c2VnzLuCNmiaUIBPeQkYWClRvyA4bD4DP0+BJrSRUxLoVOlPKA9EK+ovOPp6Pw1ug6F1CEKXPmsfJe8sd28WIECesPWUNiQ3Q8yaZ+VPh1qucajKbZo9jirAxJEoGaQTGeEn5+RleaIx9BIao2xjgsziVlBqqjs+5P8aBg+RpVk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15) by TYWPR01MB8853.jpnprd01.prod.outlook.com
- (2603:1096:400:168::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
- 2026 13:59:37 +0000
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 13:59:37 +0000
-Date: Tue, 24 Nov 2026 14:59:19 +0100
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Tommaso Merciai <tomm.merciai@gmail.com>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v10 10/12] drm: renesas: rz-du: Support several DU
- instances in one DRM device
-Message-ID: <awWXLFAbDd_35Q-l@tom-desktop>
-References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <e22a176720a38df652c7f7eabe27219da50f217d.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <TYYPR01MB660397C3B66F6EED53656B2086442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
- <awV6pAtcSz8e9Q74@tom-desktop>
- <TYYPR01MB660334463EC01FCF06F7A9E586442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <TYYPR01MB660334463EC01FCF06F7A9E586442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-X-ClientProxiedBy: FR4P281CA0270.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e8::20) To OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxPjG6LZ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795528876;
+	b=EKW1w2WOzfp6K3Op9ojlOZkqNdIqtcwyKRyHhtfa39My1tqz/fKKhEysk97SrQooCu92
+	 rPVtDE4D0BgCp14dKGOntin2QwJ44LNJhkHy78v9z2fQ4vH1J1UQhP4N7htw7RGoNjuv7
+	 T5OpCEcWdo9zCv0SbbzH0QzZrro+ft5kvQhblIpM7ijg+xR4Ixv6jCnCSmxFHCxdUf8wb
+	 M0UBJUDuTR3z/8dje84VHpk6wwNNa3A7dAayMU7PBbGuoaMcLxSuhyp4YxBMkuhhTGklB
+	 nZKQhBVmwwz+HMvuyFhlbGC+OyyzSJVE7k0Eq/n/75kDsP+jym6AWmyMZLkOcKxzBHg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795528876;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bOCOQuk/Yd7z6Fhvfc4YdcVatSmsmrYRAVs685pqp2o=;
+	b=f8QvN7Xiwg0ysZv7UEKZla6k0ugEtiLULjOSJf7cLZ/CpFgvWDO+BxjyGqQcBQjZzEYq
+	 nsqeKAyWrOtpqousnMslrvo+7FSW3JGoBukaJ4Rw/W8YEWZciCoOebA8PLO+QsHRpJx88
+	 PVB3vvaNm5FhZX9hmbNvwagO+E94RR09nh+ZUS8JiY69Kp1fWtFR8t7tx3uKgg0XBlqBp
+	 bpyX8uBnv3rXByVuMTs59ffX4WyB+gfHszq4c7t5biH1QJz3nBtOB0G9Cmfft5Zsu8Ksv
+	 F9NS/q1KS/yeH5V2cWyBbAjDBShcU8dwah9alcZuRjy8S7XzfK9Lm/qAxB5443rPjoA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1AC981F000ED;
+	Tue, 24 Nov 2026 14:00:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795528876;
+	bh=bOCOQuk/Yd7z6Fhvfc4YdcVatSmsmrYRAVs685pqp2o=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=GxPjG6LZKa4JuVWu60wKt9Ea9b/xBYAmG57nUb4cW/RytL0S01dCmMhMnplcdS5tL
+	 k5xM3/sz5MrAGWgu1HgNc7hJvfYFIic4bJWTS9ZaOZ530u2Ae+PUIlx9UtNSzxbyYx
+	 s81hHBvjd2oYIfJxmVa2qLqbZCc8bo3aNDNFAEFyWp147hDx7k6+NrQ0fueOyc2yIp
+	 N74roeblECyx6ftUCFrQWjDZRh0aVoQQBc1I98N/IHopmGRyuhN8ou5IXsN+T3GCHq
+	 xR+lJWGuuu4SKeYdgiq5IEdQBxz/DT8wTwNglst7s/QOHsvU4P5EG76TsEqiCEksL2
+	 GrEpM0PO7YoLQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9A2724CA63;
+	Tue, 24 Nov 2026 14:00:56 +0000 (UTC)
+From: Sai Sree Kartheek Adivi via B4 Relay <devnull+s-adivi.ti.com@kernel.org>
+Date: Tue, 24 Nov 2026 19:30:48 +0530
+Subject: [PATCH] arm64: dts: ti: k3-am625-sk-common: Add TPIC2810 LED
+ expander support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,328 +83,175 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|TYWPR01MB8853:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2d84b70-dcb1-452a-849b-08df4a332d54
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|52116014|366016|1800799024|23010399003|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003|261028144727099003|261009221727099003|261102123227099003|261009221227099003|261009223027099003|261009220027099003|261026121527099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261009223327099003|261026140227099003|38350700014|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	kj1itGLat09og/8Q3IFB9YxbD4QQhhoOb5rHbb+9mueLbzEdGwQZH7zLDAwAaULl9ljCD4Xd/YwUKoeM3oQAzaTY9UfeePPlJqqZnAm1GdCb1memCTzOvlcJpN+Q1OGI9lx+0XcH3zioGRH64d6Q4BC29AOxEQsPREyI0O/fUjLCW9ABF9oKjOqUbJFmhaC9OUZk0V0ZvcowFEHpjgQUJJjx0CKiSgE/12fq95sXmAsvPZIrjrKP4vPbB//Jh6rg4JBplfwS4tnnk8YE/zXVZyoE5emGOlWS/zCDDZg/+sxABTW3znPVY1fO8txEpfCsQwe1ufhIzYZ+eBdNLaqLShOshoig/cLapokifYbtfXkCJ+vY8Tg8+suD3Nfn7j1KNq3ExY/cv9wx+Gi1nZYXkiEENfWHEJZ1YJilqA0EBrFtpRrHPsr4v2RHfqDcvk2sLTN3wqnXRAtGvcmcXIhlxIMy7dwuZBpFb7EzrKwmh20km+3bKoDxORSeqyzV/VIydXxRQrJ+ctlMQIWePXcgXI/sQeLN5fZUlojB7M1/XdZ40uL+opn3oA5+bBuyEXSYPDC7LA27fv6FplAdjalp3viyBao/cP+OtUioexuQWihnGN9pkDJl0IHl9qBpclx25MH8X2+b7MWOEtEAO31V7YURqYnAUnTqpuLnHAgO7r8/lUog7qVIAWYYjX94oj1xIYm9Qv9XNbUL4LYmrg5xsA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(52116014)(366016)(1800799024)(23010399003)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261028144727099003)(261009221727099003)(261102123227099003)(261009221227099003)(261009223027099003)(261009220027099003)(261026121527099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261009223327099003)(261026140227099003)(38350700014)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?4ICeDFtPAF/8G+0W+9mE56QEeCqO4Kb8cjnhnZh9kBHzfy88hjg3Jfk4Dy?=
- =?iso-8859-1?Q?x1i/ltoABM+UO412slBEJr0fLgmKZlsemYkLFwmJ31qIXywEkS0HcN9G1K?=
- =?iso-8859-1?Q?nyrCd82U1N6AjGmaGklfbwguu11Tl4+eIeFfUVV9XN8gkNY508ZyJImLKS?=
- =?iso-8859-1?Q?7CleBRRxmBKMBGtWZA6cJYmN+zS1Rq3Ed4ANhe3Ezzm/eT3N55DRMh4XgS?=
- =?iso-8859-1?Q?64nd7v7SnestzUR+/fVUwILzL/xVIfWB5YrkNEDnvebA1EyCIa+VIojdeT?=
- =?iso-8859-1?Q?b3mS5CVgEHqZEAM5tiu7UAgezZFZlSMITjDxxEl2/Q6JK0XvBiqv7CDtZb?=
- =?iso-8859-1?Q?Mzwd+mKfQmjWiV7xxNL1ibdMhA/QK9CN0EJphQE+yM7Y5MiZbdGpD2xEm2?=
- =?iso-8859-1?Q?woS0uVQ/dTMqa5mk7UZZ9TRKw+QuD5Re5me2+gBgJDzAsu1yC1/h34AW2S?=
- =?iso-8859-1?Q?8NOsx54+UX3BkgHjMZVdvOg2OhnVQKpWSxrqTZjvRdNcgDCNHYnF4zbeF/?=
- =?iso-8859-1?Q?LRQHuhMuBDgaqkVN4sURpq4Tf1Ece7JeiR/W8rX4Vz6GpHnf3ElIrVFhu2?=
- =?iso-8859-1?Q?PREERPEVee6F17I2PxPJ1oYtkmQJRu7qI3C0GTOG08AMmcpRupK/W26wOQ?=
- =?iso-8859-1?Q?9TZLDywXX0f979XciWiouYeYZYb1JEHwGzOsN6OBWI3LKBq4AINcE2l5cJ?=
- =?iso-8859-1?Q?HdrryfIDnDCWxKCHUpt9iGRaiLHVVAJlgth1sxPKIetwgvFNBW2cttelwX?=
- =?iso-8859-1?Q?UuMWigFeK/Hu7cKzTSJpar6M8nM5OUOw+gFWenRVe4QHYoRmTqdwDP7pyz?=
- =?iso-8859-1?Q?QL7lbA20DiafhsmAWRlU76rUbaj1ctstr6QOaz4bl/F0upzD5nDUmr6IYo?=
- =?iso-8859-1?Q?Pkmi863PrmHJ6rIR0crRm6OIoGC1DmItFKprGIQPCUDkBSeosDsR6brGZM?=
- =?iso-8859-1?Q?oOjTkFWrklK6pk2GYVTgOduLLSg8L1v4izeoNe0GeHWw0P6kq6biZ/JutT?=
- =?iso-8859-1?Q?3hHixJfOGrXGXkp1n4G/9vwri2qYBZoNDdWewPQoNi3NgPsTh2AHVzyR4n?=
- =?iso-8859-1?Q?ojX+EbvSMWZdWtPqbOvvbFjGC0c9IGSLI0oZzpVb7TLiF6hdEfgY9b/8qb?=
- =?iso-8859-1?Q?m8cyT34k8jr9JN6jj38Y2R0JfabAOLOEmuQROLAOhwgQkJKBfVgvofa1b4?=
- =?iso-8859-1?Q?nbTLJoWWzgpv4xg8YCMaJCymoA114D6VyfABjm7q1ttH3a5j1q3jYErn0+?=
- =?iso-8859-1?Q?UIIhynS+tjqLrOPoI/cPdE8ey419RFV3HDhGsmJ0qV3eylOqsbga218aPP?=
- =?iso-8859-1?Q?aU7i9pl8nXrvc1sL7PipvnnsSnE/IbxqdH4xMwLPk8R0uT7wXbCFZpto3X?=
- =?iso-8859-1?Q?GFpKYInfAJbtx3N6zTJwLH7wvVfDi5HlgxmJMDk2EMSN/LsDrP76M/kCVH?=
- =?iso-8859-1?Q?drbhZnsEAiYCfdfX6cCCSWHJui13fojaBgGD9gBWZ/c0wFd4A8ZLzPBW8x?=
- =?iso-8859-1?Q?gmrD18Q2dhl59PcXv0MFMsmi3Mznlzy/Xo9sBsT77Ja2kZnfy8DuPmvZSe?=
- =?iso-8859-1?Q?F4Le6P5yrTfORlbeJoC/khR8qJonwUSU4Tj/OowWra4miltMlU2ggYKBGL?=
- =?iso-8859-1?Q?xiw3Xlz2DeHZIsv3LqgTS1NcGnQL0088UFsWn/J6ZTmg6HNPgpJMNQ2ve3?=
- =?iso-8859-1?Q?1IqxB6wjA0z4KKXDGXCfurDzgV158ixSJk0FDCKfSVrsDf/gWRHnN/LeVf?=
- =?iso-8859-1?Q?UWGExHqaZeee6Sm94H4mkctcD8+DUJil6DRKLlnqVaCo9+dFoZUjd/vrx1?=
- =?iso-8859-1?Q?s2xksjAfHophhutIcTSlZdJIfv1Mbi9+wG/g1uOw0PIk4ZFT/etv?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2d84b70-dcb1-452a-849b-08df4a332d54
-X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 13:59:37.7577
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CLP0CpPTzFeYyIH5e0RtVmnwfLsjZ/EwtziS75PynyH6sWzcBFk1u9+F829YmRnK9QqBII7iMwtOXFPPmI5LwCPkBMtTQTeq4X2JA0weiGEWCDg/cZNZySKqUz/HWJc6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB8853
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261124-am62x-tpic2810-v1-1-2b9fcb76a3c3@ti.com>
+X-B4-Tracking: v=1; b=H4sIAI+YBWsC/x3MQQqAIBBA0avErBNyKJGuEi1Gm2oWWWiEIN09a
+ fkW/xdIHIUTjE2ByI8kOUOFbhvwO4WNlSzVgB0arbFXdBjM6r7Eo9WdGsg6dotxZA3U6Iq8Sv6
+ H0/y+HwQaJ2BgAAAA
+X-Change-ID: 20261124-am62x-tpic2810-5a8bebd6ba86
+To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sebin Francis <sebin.francis@ti.com>, 
+ Sai Sree Kartheek Adivi <s-adivi@ti.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795528855; l=3619;
+ i=s-adivi@ti.com; s=20261124; h=from:subject:message-id;
+ bh=/kJ/e4Uy/UPyHeMJ7jIEfjC0cSg4x5LGcObEFevGZNY=;
+ b=x5aVq+vkKXct/6HmiNcrxjs/5fzPvK2EOk+DZo8nFvXPs7JJ/RuAYk/0Iwy/C5sEYPgxl4Zgs
+ 6CFUCTX+ilgAyO5ophtdXnr7bJF+E4SVU7I0B3PVNpTRNYoku0M5nfE
+X-Developer-Key: i=s-adivi@ti.com; a=ed25519;
+ pk=EtOwVxmXDuYMgw3DqFtPDBpf8ZvbO89w1fJm4w5yPI8=
+X-Endpoint-Received: by B4 Relay for s-adivi@ti.com/20261124 with
+ auth_id=1627
+X-Original-From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+Reply-To: s-adivi@ti.com
+Content-Transfer-Encoding: 7bit
 
-Hi Biju,
+From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-On Tue, Nov 24, 2026 at 01:18:43PM +0000, Biju Das wrote:
-> Hi Tommaso,
-> 
-> > -----Original Message-----
-> > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > Sent: 24 November 2026 11:53
-> > Subject: Re: [PATCH v10 10/12] drm: renesas: rz-du: Support several DU instances in one DRM device
-> > 
-> > Hi Biju,
-> > Thanks for your review.
-> > 
-> > On Tue, Nov 24, 2026 at 07:47:04AM +0000, Biju Das wrote:
-> > > Hi Tommaso,
-> > >
-> > > > -----Original Message-----
-> > > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > > Sent: 13 November 2026 12:20
-> > > > Subject: [PATCH v10 10/12] drm: renesas: rz-du: Support several DU instances in one DRM device
-> > > >
-> > > > RZ/G3E has two DU instances that share a single DRM device.
-> > > >
-> > > > Add an RZG2L_DU_FEATURE_COMPONENT flag and use the component framework for it. The first available
-> > DU
-> > > > instance is the master and creates the DRM device, the other one binds to it as a component.
-> > > >
-> > > > If only one DU instance is available, it creates the DRM device directly at probe time, as on SoCs
-> > > > without the flag.
-> > > >
-> > > > Set the index of each instance to the number of CRTCs already created.
-> > > >
-> > > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > > ---
-> > > > v9->v10:
-> > > >  - New patch.
-> > > >
-> > > >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c | 118 ++++++++++++++++++-
-> > > >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h |   2 +
-> > > >  2 files changed, 115 insertions(+), 5 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-
-> > > > du/rzg2l_du_drv.c
-> > > > index 93d59e2cf8a4..873586f2ef28 100644
-> > > > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > @@ -7,6 +7,7 @@
-> > > >   * Based on rcar_du_drv.c
-> > > >   */
-> > > >
-> > > > +#include <linux/component.h>
-> > > >  #include <linux/dma-mapping.h>
-> > > >  #include <linux/module.h>
-> > > >  #include <linux/of.h>
-> > > > @@ -14,10 +15,12 @@
-> > > >
-> > > >  #include <drm/clients/drm_client_setup.h>  #include <drm/drm_atomic_helper.h>
-> > > > +#include <drm/drm_crtc.h>
-> > > >  #include <drm/drm_drv.h>
-> > > >  #include <drm/drm_fbdev_dma.h>
-> > > >  #include <drm/drm_gem_dma_helper.h>
-> > > >  #include <drm/drm_managed.h>
-> > > > +#include <drm/drm_of.h>
-> > > >  #include <drm/drm_print.h>
-> > > >  #include <drm/drm_probe_helper.h>
-> > > >
-> > > > @@ -170,6 +173,7 @@ static int rzg2l_du_instance_init(struct rzg2l_du_device *du,
-> > > >  				  struct drm_device *ddev)
-> > > >  {
-> > > >  	struct rzg2l_du_device *rcdu;
-> > > > +	int ret;
-> > > >
-> > > >  	rcdu = drmm_kzalloc(ddev, sizeof(*rcdu), GFP_KERNEL);
-> > > >  	if (!rcdu)
-> > > > @@ -180,9 +184,28 @@ static int rzg2l_du_instance_init(struct rzg2l_du_device *du,
-> > > >  	rcdu->mmio = du->mmio;
-> > > >  	rcdu->ddev = ddev;
-> > > >
-> > > > -	return rzg2l_du_modeset_init_du(rcdu);
-> > > > +	rcdu->index = ddev->mode_config.num_crtc;
-> > > > +
-> > > > +	ret = rzg2l_du_modeset_init_du(rcdu);
-> > > > +	if (ret < 0)
-> > > > +		return ret;
-> > > > +
-> > > > +	if (WARN_ON(drm_crtc_index(&rcdu->crtcs[0].crtc) != rcdu->index))
-> > > > +		return -EINVAL;
-> > > > +
-> > > > +	return 0;
-> > > >  }
-> > > >
-> > > > +static int rzg2l_du_instance_bind(struct device *dev, struct device *master,
-> > > > +				  void *data)
-> > > > +{
-> > > > +	return rzg2l_du_instance_init(dev_get_drvdata(dev), data); }
-> > > > +
-> > > > +static const struct component_ops rzg2l_du_instance_ops = {
-> > > > +	.bind = rzg2l_du_instance_bind,
-> > > > +};
-> > > > +
-> > > >  /* -----------------------------------------------------------------------------
-> > > >   * DRM device
-> > > >   */
-> > > > @@ -191,7 +214,7 @@ struct rzg2l_du_drm {
-> > > >  	struct drm_device ddev;
-> > > >  };
-> > > >
-> > > > -static int rzg2l_du_drm_init(struct device *dev)
-> > > > +static int rzg2l_du_drm_init(struct device *dev, bool has_components)
-> > > >  {
-> > > >  	struct rzg2l_du_device *du = dev_get_drvdata(dev);
-> > > >  	struct rzg2l_du_drm *rzgdrm;
-> > > > @@ -213,6 +236,12 @@ static int rzg2l_du_drm_init(struct device *dev)
-> > > >  	if (ret < 0)
-> > > >  		goto error;
-> > > >
-> > > > +	if (has_components) {
-> > > > +		ret = component_bind_all(dev, ddev);
-> > > > +		if (ret < 0)
-> > > > +			goto error;
-> > > > +	}
-> > > > +
-> > > >  	ret = rzg2l_du_modeset_init_finish(ddev);
-> > > >  	if (ret < 0)
-> > > >  		goto error_fini;
-> > > > @@ -235,6 +264,8 @@ static int rzg2l_du_drm_init(struct device *dev)
-> > > >
-> > > >  error_fini:
-> > > >  	drm_kms_helper_poll_fini(ddev);
-> > > > +	if (has_components)
-> > > > +		component_unbind_all(dev, ddev);
-> > > >  error:
-> > > >  	/*
-> > > >  	 * Don't use dev_err_probe(), as it would overwrite the probe deferral @@ -246,7 +277,7 @@
-> > > > static int rzg2l_du_drm_init(struct device *dev)
-> > > >  	return ret;
-> > > >  }
-> > > >
-> > > > -static void rzg2l_du_drm_fini(struct device *dev)
-> > > > +static void rzg2l_du_drm_fini(struct device *dev, bool has_components)
-> > > >  {
-> > > >  	struct rzg2l_du_device *du = dev_get_drvdata(dev);
-> > > >  	struct drm_device *ddev = du->ddev;
-> > > > @@ -254,6 +285,83 @@ static void rzg2l_du_drm_fini(struct device *dev)
-> > > >  	drm_dev_unregister(ddev);
-> > > >  	drm_atomic_helper_shutdown(ddev);
-> > > >  	drm_kms_helper_poll_fini(ddev);
-> > > > +
-> > > > +	if (has_components)
-> > > > +		component_unbind_all(dev, ddev);
-> > > > +
-> > > > +	du->ddev = NULL;
-> > > > +}
-> > > > +
-> > > > +/*
-> > > > +-----------------------------------------------------------------------
-> > > > +------
-> > > > + * Component master
-> > > > + */
-> > > > +
-> > > > +static int rzg2l_du_master_bind(struct device *dev) {
-> > > > +	return rzg2l_du_drm_init(dev, true);
-> > > > +}
-> > > > +
-> > > > +static void rzg2l_du_master_unbind(struct device *dev) {
-> > > > +	rzg2l_du_drm_fini(dev, true);
-> > > > +}
-> > > > +
-> > > > +static const struct component_master_ops rzg2l_du_master_ops = {
-> > > > +	.bind = rzg2l_du_master_bind,
-> > > > +	.unbind = rzg2l_du_master_unbind,
-> > > > +};
-> > > > +
-> > > > +static int rzg2l_du_instance_probe(struct rzg2l_du_device *du) {
-> > > > +	struct component_match *match = NULL;
-> > > > +	const struct of_device_id *of_id;
-> > > > +	struct device *dev = du->dev;
-> > > > +
-> > > > +	if (!rzg2l_du_has(du, RZG2L_DU_FEATURE_COMPONENT))
-> > > > +		return rzg2l_du_drm_init(dev, false);
-> > > > +
-> > > > +	for_each_available_child_of_node_scoped(dev->of_node->parent, np) {
-> > > > +		of_id = of_match_node(dev->driver->of_match_table, np);
-> > > > +		if (!of_id || of_id->data != du->info)
-> > > > +			continue;
-> > > > +
-> > > > +		/* The first available DU instance is the component master. */
-> > > > +		if (!du->is_master) {
-> > > > +			if (np != dev->of_node)
-> > > > +				return component_add(dev, &rzg2l_du_instance_ops);
-> > > > +
-> > > > +			du->is_master = true;
-> > > > +			continue;
-> > > > +		}
-> > > > +
-> > > > +		drm_of_component_match_add(dev, &match, component_compare_of, np);
-> > >
-> > >
-> > > The master is chosen purely by DT order. If the first available DU never probes,
-> > > the second never gets a DRM device. How do you handle this case?
-> > 
-> > All available instances are part of the component match, so the DRM
-> > device is only created once all of them have probed, whichever one is
-> > the master.
-> > 
-> > This is how the component framework works.
-> > 
-> > To use a single DU, the other one can be disabled in DT, in this case
-> > the remaining instance becomes the master and initializes the DRM
-> > device on its own.
-> 
-> 
-> Assume both DU's available and run time
-> 
-> second DU is probed first and master never probed at all.
-> What is the state of second DU as bind never calls?
+The AM625 SK and AM62x SIP SK EVMs both have a TPIC2810 I2C GPIO
+expander at address 0x60 on WKUP_I2C0, driving 8 user LEDs. Describe it
+in the shared k3-am625-sk-common.dtsi, mirroring the AM642 SK support:
+
+- add the WKUP_I2C0 pinmux
+- enable wkup_i2c0 with the TPIC2810 node
+- add a gpio-leds node for the 8 outputs
+
+CONFIG_GPIO_TPIC2810 is already enabled in the arm64 defconfig.
+
+Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+---
+ arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi | 93 ++++++++++++++++++++++++++
+ 1 file changed, 93 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi b/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi
+index 8e07d2c2e62fd..7d5b16568aa9c 100644
+--- a/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi
+@@ -91,6 +91,74 @@ vcc_1v8: regulator-5 {
+ 		regulator-always-on;
+ 		regulator-boot-on;
+ 	};
++
++	led-controller {
++		compatible = "gpio-leds";
++
++		led-0 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <1>;
++			gpios = <&exp2 0 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-1 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <2>;
++			gpios = <&exp2 1 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-2 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <3>;
++			gpios = <&exp2 2 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-3 {
++			color = <LED_COLOR_ID_AMBER>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <4>;
++			gpios = <&exp2 3 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-4 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <5>;
++			gpios = <&exp2 4 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-5 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <6>;
++			gpios = <&exp2 5 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-6 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <7>;
++			gpios = <&exp2 6 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-7 {
++			color = <LED_COLOR_ID_AMBER>;
++			function = LED_FUNCTION_HEARTBEAT;
++			function-enumerator = <8>;
++			linux,default-trigger = "heartbeat";
++			gpios = <&exp2 7 GPIO_ACTIVE_HIGH>;
++		};
++	};
+ };
+ 
+ &main_pmx0 {
+@@ -160,6 +228,15 @@ AM62X_IOPAD(0x01d4, PIN_INPUT, 7) /* (B15) UART0_RTSn.GPIO1_23 */
+ 	};
+ };
+ 
++&mcu_pmx0 {
++	tpic_pins_default: tpic-default-pins {
++		pinctrl-single,pins = <
++			AM62X_MCU_IOPAD(0x004c, PIN_INPUT, 0) /* (B9) WKUP_I2C0_SCL */
++			AM62X_MCU_IOPAD(0x0050, PIN_INPUT, 0) /* (A9) WKUP_I2C0_SDA */
++		>;
++	};
++};
++
+ &main_gpio0 {
+ 	bootph-all;
+ };
+@@ -196,6 +273,22 @@ exp1: gpio@22 {
+ 	};
+ };
+ 
++&wkup_i2c0 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&tpic_pins_default>;
++	clock-frequency = <400000>;
++
++	exp2: gpio@60 {
++		compatible = "ti,tpic2810";
++		reg = <0x60>;
++		gpio-controller;
++		#gpio-cells = <2>;
++		gpio-line-names = "LED0", "LED1", "LED2", "LED3",
++				   "LED4", "LED5", "LED6", "LED7";
++	};
++};
++
+ &sdhci0 {
+ 	bootph-all;
+ 	non-removable;
+
+---
+base-commit: 566085204d669ed4bd0d8d230b10f94f963e2481
+change-id: 20261124-am62x-tpic2810-5a8bebd6ba86
+
+Best regards,
+--  
+Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
 
-The second DU probes, registers itself with component_add() and stays
-idle, without touching the hardware. 
-
-When the master probes, both instances are bound and the DRM device is
-created.
-
-If the master never probes, there is no DRM device, because the bind is
-only triggered once the master has registered the aggregate device with
-component_master_add_with_match()
-
-Kind regards,
-Tommaso
-
-> 
-> 
-> 
-> 
-> > >
-> > > > +	}
-> > > > +
-> > > > +	if (IS_ERR(match))
-> > > > +		return PTR_ERR(match);
-> > >
-> > > Why this error path cannot be inside loop?
-> > 
-> > component_match_add_release() ignores further calls once the match is an
-> > error pointer, so a single check after the loop is enough.
-> 
-> If there is an error, you can do early return, instead of keep looping.
-
-Then we will have:
-
-		drm_of_component_match_add(dev, &match, component_compare_of, np);
-		if (IS_ERR(match))
-			return PTR_ERR(match);
-	}
-
-	if (!match)
-		return rzg2l_du_drm_init(dev, false);
-
-Ok for me, thanks.
-
-Kind regards,
-Tommaso
-
-
-> 
-> Cheers,
-> Biju
-> 
