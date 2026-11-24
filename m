@@ -1,57 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795493887;
-	b=GkcgfndMHTpUP3RMpOPYKkuicDEDmnqSBeTzJpW21xuyyf8UzjscJWTR6/faAFRrfMdl
-	 v3S3tgdIECdi/42Y1QzU+nFJXdateZXkelswOedFdL1eCDdAbKgex7h8OVGUHjoJIblCe
-	 Fk4ZQWm0hwMiZg4Rtvnc2iGkywa15cSdmx4+C40M3HlF0v7SCPpcWB89D6lnk93G2unRL
-	 sactcZzgvAFBXDAYXAdS3xLas7+X9TkFopj1Ejhm2qi+cnDaxD4sYmf9T4eAkpzgVL/ay
-	 XUOwMD4mLdU40jYJqAGkb+OSrOab4xPO3tiRrUPmGPiAZh+DxYKa/veHwe8yvJv4GeQ==
+	t=1795494142;
+	b=2ugwzRZgA0IQhnIhFy9MQ08Pa1ZOmarecNroFYs67WJrc0m1zqlwm/0stH4iLmjy3rxp
+	 TsskJRrvK5EPqAm7pAqfpQx80x701bvKD7AJJZS4pFHYM2px0pj/k8wEhADlx0xpDgmZf
+	 pv/b142WFQXMxQ9v8981skIYJkNaP/z7OryMO7P10gmmcdP8tCMRFzbD8DUGhFL8aweEN
+	 pGklNiht2c5xh47bH7fugASyLm2fvf0ARLyeCs/su1P/OGH+tnIPr2G7Bmn9nT/akt0Ov
+	 e6YpbS6m1P/5/kxILVqT6zKYfVILI1wa71FtNhLk1v9z3IT4zY8u3rCnQ+/mx33Y8PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795493887;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JHHc7ykJ5Gwbre6os/vaASFU6vE6CK+VU8ZUZ08YX5g=;
-	b=wS74pknYk2upqZIivM8fFw+MFVZ/YZV5VUo3Aa0pNltK/BGtllqeb5nKIw3/HsjCAUex
-	 tyvkooyBDofBGAIrEG0Wrh3oKLCVmSIEzMJ5vEQmxQyJ2OTgcmPT1OfaHlDyqM4TG1pKK
-	 CbWI6wSTP+/jxaAkPY1lq59VNdYVewDxh5UwPnpLlRqwn4kt//uf1DoFJoQnEet8p9Soo
-	 IvUwLdZWnZtKEWw0VnGK8oH/A16nMAGKqXNRsVdjhrTel5HHHbIb6rrXr/ZRZSB6hoEbJ
-	 sgqe+pEYS0F0324PKm8kxBTfGtH2W07RWs681z4+c1aVtdAGKW1t+wbIPdp6+dx6hjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795494142;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=2hYgJTGOVG3PmfpKBaoS4qDAQowoVvAH2GzSLtrNeFo=;
+	b=EbiEwP+qaEMMs8Lk7GECNnWRIswLkGY4Oa3z0UgygXXcLc6GeFgR1wUsb2seLSi1lj1l
+	 d0PIL95Y5xTDqEHo1j5h9q3djjptS44AQGk6LIp3fUvHHaSUDX2A1sY127qjJYCnrGNsx
+	 8GeXE8cy6HzUHy6gQhxv+RwMKI4vOmxEWlOJY+0dHTrZReOgs1x+tqkDH7sf3epXg1I9s
+	 /iMv1zkIP2Hg1XTiFHQjiWo9j3mQQcxHRBXR0sVrz4Q4fUUAnQaSrcXytNn9epILsXEi4
+	 mF+mquuQXUPUygwOxMduoS3+owKFvA95oJjvqh2MXAqRQLe1Rt2W/lVZAy8qHS9yoBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eesOFzCj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=UQbkwpeb;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4965606A31E;
-	Tue, 24 Nov 2026 04:18:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A67606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 04:22:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4A67606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eesOFzCj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411801F000C0;
-	Tue, 24 Nov 2026 04:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795493886;
-	bh=JHHc7ykJ5Gwbre6os/vaASFU6vE6CK+VU8ZUZ08YX5g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eesOFzCj39Qc63cmaWrC2EcsQ3Iaaxntw0pfFL8M5OhOooRhfXf4gMCPl0wbw06YP
-	 AghODOYDRU4hNC0CpQNCbTfrFuy2BMlAOj1geJ2b5Bf+R7RhkaXXxFQVxfM+ES7lmX
-	 Gupozh43gLa3gjxEQ/pxWaBg1ds2sZ1yWpHfBrgHgRpqbWJjgxEq4gw6Xy5DOGKK/s
-	 yJdSlGxPNGE2mRYCy6WcYlIvh2Ww1ewGrSat7/dIubi/sPS60WEOmOE/kKMJAOTSlD
-	 Hgc6oXBUpud65ZTgFtAI6U2fy+RMTm1GRbp86/OL+z6DrEZ2LGUalAwp7im/7DEF5L
-	 wqG4zzc8po2Og==
-Message-ID: <sashiko-outbox-230500@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/8] clk: clocking-wizard: Fix division by zero and
- unbounded register write
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shubhrajyoti Datta" <shubhrajyoti.datta@amd.com>, linux-clk@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124035613.1968260-8-shubhrajyoti.datta@amd.com>
-References: <20261124035613.1968260-1-shubhrajyoti.datta@amd.com>
- <20261124035613.1968260-8-shubhrajyoti.datta@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 04:18:05 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=UQbkwpeb
+Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	by cmsmtp with ESMTPS
+	id Vdx5xW9t4AR1iVi2vxeTUW; Tue, 24 Nov 2026 04:22:21 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Vi2uxU3g1SeuLVi2uxrxt6; Tue, 24 Nov 2026 04:22:21 +0000
+X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6b0510fd
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=AbtGE6NwjiPdwgDzpaUA:9 a=QEXdDO2ut3YA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=2hYgJTGOVG3PmfpKBaoS4qDAQowoVvAH2GzSLtrNeFo=; b=UQbkwpebRpfS
+	Cr9b0kn5ydmVBmPyDTOfkX/qVTUwlgi4KeeFpytXRw5D51YTduzNuJIFjVkcK00jrcfmK5z0xA49d
+	uK0mO6trUmCGNL73SZgU57j4BBZHVST4vmhZDbHPUuLMTXsiiquXO2kRXF162qXB3dzpQ+ajErjUe
+	LWoR29tGYZ65OATHiYJ63x9h6w3zdyJ2pPSEDv4Cd1mVtfh4QIb0LgZnwC9DRJtWMAfxy1ry7kzJ1
+	+LkDZYhQRfEGQGo87wClVhmNekB7IUWd6rbfhd5+OtNRfpSYC8uT1Xd/cSgWnc6wJQjKRyJwXmmWa
+	JzRpZlOzZqCEa2NpGkYhPw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44576)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xVi2u-00000000cfP-0pyg;
+	Tue, 24 Nov 2026 09:52:20 +0530
+Message-ID: <f1e825ef-f81d-4ed5-bd18-a04ad210f112@roeck-us.net>
+Date: Mon, 23 Nov 2026 20:22:18 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,126 +75,116 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] watchdog: histb: Add HiSilicon STB watchdog driver
+To: David Yang <mmyangfl@gmail.com>, linux-watchdog@vger.kernel.org
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wei Xu <xuwei5@hisilicon.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20261124012755.328774-1-mmyangfl@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261124012755.328774-1-mmyangfl@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xVi2u-00000000cfP-0pyg
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:44576
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 3
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLen+QyUSUITp5575KQvkYfSMYbxQv8bKLISieXLl56mZwGAlPMLGSzOxuxxJT05C5HqA5W8yYuJp31r7L0yN3bqn3Ih4EuQO7/wdWm4lydQX8nALBX2
+ svV5y/RH9DrDDpfV8Gszp7DaT2HeC7dz2qoTX7i57pN4UHYLvNjvUbmfclBFVCM2AFB+FWJ+kLBv8ijeB/k8ZP+UOTQcZRrWkskGiuFpvqIHtUF9rkla65Xt
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] clk: clocking-wizard: u8 truncation of div in
-  clk_wzrd_determine_rate()
-- [Medium] clk: clocking-wizard: missing zero rate checks in
-  multi-output rate callbacks
-- [Low] clk: clocking-wizard: missing Fixes trailers for bug fixes
---
+On 11/23/26 17:27, David Yang wrote:
+> The watchdog integrated on HiSilicon STB SoCs reuses the register layout
+> of sp805, but deviates from the standard sp805 in several ways that make
+> the existing sp805 driver unusable on these SoCs. Add a dedicated
+> platform driver to handle these SoC-specific semantics natively without
+> regressing generic SP805 users.
+> 
+> v2:
+>   - fix issues reported by sashiko
 
-commit 7829b1929b443e35dccbe8d3e7ecd82961ac4d4c
-Author: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+Please spell those out in future revisions.
 
-> clk: clocking-wizard: Fix division by zero and unbounded register write
->
-> 1. clk_wzrd_determine_rate(): DIV_ROUND_CLOSEST() can return 0 when
->    the requested rate greatly exceeds the parent rate, causing a
->    division by zero on the subsequent parent_rate / div. Clamp div
->    to a minimum of 1.
->
-> 2. clk_wzrd_dynamic_reconfig(): min_t() result was not assigned back
->    to value, so the cap to WZRD_DR_MAX_INT_DIV_VALUE was never applied
->    before the register write.
->
-> 3. clk_wzrd_get_divisors() and clk_wzrd_get_divisors_ver(): If rate is
->    0, DIV_ROUND_CLOSEST_ULL divides by zero. Return -EINVAL early.
->
-> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+Thanks,
+Guenter
 
-[Severity: Low]
-Should this include Fixes: tags for the commits that introduced these bugs?
+> v1: https://lore.kernel.org/r/20261122065549.3265519-1-mmyangfl@gmail.com
+> 
+> David Yang (4):
+>    dt-bindings: watchdog: hisilicon,histb-wdt: Add HiSilicon STB watchdog
+>    watchdog: histb: Add HiSilicon STB watchdog driver
+>    arm64: dts: hisilicon: hi3798cv200: Add watchdog node
+>    MAINTAINERS: Add HiSilicon STB drivers entry
+> 
+>   .../watchdog/hisilicon,histb-wdt.yaml         |  56 ++++
+>   MAINTAINERS                                   |   8 +
+>   .../arm64/boot/dts/hisilicon/hi3798cv200.dtsi |   8 +
+>   drivers/watchdog/Kconfig                      |   8 +
+>   drivers/watchdog/Makefile                     |   1 +
+>   drivers/watchdog/histb_wdt.c                  | 305 ++++++++++++++++++
+>   6 files changed, 386 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/watchdog/hisilicon,histb-wdt.yaml
+>   create mode 100644 drivers/watchdog/histb_wdt.c
+> 
 
-  Fixes: 5a853722eb32 ("staging: clocking-wizard: Add support for dynamic r=
-econfiguration")
-  Fixes: 7681f64e6404 ("clk: clocking-wizard: calculate dividers fractional=
- parts")
-  Fixes: e0a94c6bb5b4 ("clk: xilinx: Optimize divisor search in clk_wzrd_ge=
-t_divisors_ver()")
-
-> diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xil=
-inx/clk-xlnx-clock-wizard.c
-> index 7fe8d0d4cfba2..046efa5c77c98 100644
-> --- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-> +++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-> @@ -303,7 +303,7 @@ static int clk_wzrd_dynamic_reconfig(struct clk_hw *h=
-w, unsigned long rate,
->  	value =3D DIV_ROUND_CLOSEST(parent_rate, rate);
-> =20
->  	/* Cap the value to max */
-> -	min_t(u32, value, WZRD_DR_MAX_INT_DIV_VALUE);
-> +	value =3D min_t(u32, value, WZRD_DR_MAX_INT_DIV_VALUE);
-> =20
->  	/* Set divisor and clear phase offset */
->  	writel(value, div_addr);
-> @@ -341,6 +341,8 @@ static int clk_wzrd_determine_rate(struct clk_hw *hw,
->  	 * achievable
->  	 */
->  	div =3D DIV_ROUND_CLOSEST(req->best_parent_rate, req->rate);
-> +	if (!div)
-> +		div =3D 1;
-> =20
->  	req->rate =3D req->best_parent_rate / div;
-
-[Severity: Medium]
-Can storing DIV_ROUND_CLOSEST() into u8 div in clk_wzrd_determine_rate()
-truncate dividers above WZRD_DR_MAX_INT_DIV_VALUE (255) instead of clamping
-them?
-
-In clk_wzrd_determine_rate(), div is declared as u8.  When a low rate is
-requested such that DIV_ROUND_CLOSEST(req->best_parent_rate, req->rate) is
-256 or greater, the quotient wraps modulo 256.  If the quotient is a
-multiple of 256 (for example, 256 MHz parent and 1 MHz requested rate),
-div wraps to 0 and the new "if (!div) div =3D 1;" check forces req->rate to
-req->best_parent_rate instead of the minimum frequency.  Because
-clk_set_rate() passes the rounded req->rate from clk_wzrd_determine_rate()
-into clk_wzrd_dynamic_reconfig(), the recomputed value in
-clk_wzrd_dynamic_reconfig() is already wrapped to 1..255, bypassing the
-min_t(u32, value, WZRD_DR_MAX_INT_DIV_VALUE) cap above.  Widen div to u32
-(or unsigned long) and clamp it to [1, WZRD_DR_MAX_INT_DIV_VALUE] in
-clk_wzrd_determine_rate().
-
-> @@ -355,6 +357,9 @@ static int clk_wzrd_get_divisors_ver(struct clk_hw *h=
-w, unsigned long rate,
->  	u32 m, d, o;
->  	u32 mmin, mmax, dmin, dmax, omin, omax;
-> =20
-> +	if (!rate)
-> +		return -EINVAL;
-> +
->  	mmin =3D VER_WZRD_M_MIN;
->  	mmax =3D VER_WZRD_M_MAX;
->  	dmin =3D VER_WZRD_D_MIN;
-> @@ -397,6 +402,9 @@ static int clk_wzrd_get_divisors(struct clk_hw *hw, u=
-nsigned long rate,
->  	u64 m, d, o;
->  	u64 mmin, mmax, dmin, dmax, omin, omax, mdmin, mdmax;
-> =20
-> +	if (!rate)
-> +		return -EINVAL;
-> +
->  	mmin =3D WZRD_M_MIN << 3;
->  	mmax =3D WZRD_M_MAX << 3;
->  	dmin =3D WZRD_D_MIN;
-
-[Severity: Medium]
-Can a rate of 0 still trigger a division by zero in the multi-output rate
-callbacks?
-
-clk_wzrd_get_divisors() and clk_wzrd_get_divisors_ver() are only used when
-nr_outputs =3D=3D 1.  For multi-output instances, the driver does not set a
-minimum rate via clk_hw_set_rate_range(), so req->rate =3D=3D 0 can reach
-clk_wzrd_determine_rate() and divide by zero in
-DIV_ROUND_CLOSEST(req->best_parent_rate, req->rate) before the new !div
-check.  Likewise, clk_wzrd_determine_rate_f() returns 0 without rejecting
-req->rate =3D=3D 0, allowing clk_wzrd_dynamic_reconfig_f() to divide by rat=
-e =3D=3D
-0 in DIV_ROUND_DOWN_ULL() and DIV_ROUND_CLOSEST_ULL(), and
-clk_wzrd_dynamic_reconfig() and clk_wzrd_ver_dynamic_reconfig() also divide
-by rate without checking for 0.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124035613.1968=
-260-1-shubhrajyoti.datta@amd.com?part=3D7
