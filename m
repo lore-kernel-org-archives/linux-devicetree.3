@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795521890;
-	b=xaWidzATb0uy9bIMgOmtOd8RnuSfoEMS614OZv4szkf+3UYkHA7b5Bn7Dx7b8b067lp3
-	 2zQBZT3UoCUBRdejxY4rR8zS3EsJZjQ2vdDuVe4YZ+ppVimHncaGlrNLhDtallnjDDU6E
-	 /nZsT4PoNUrXBlpjG57SwcmZpsoZE059cybX7rKjC7OmlecrsmO0F/LqfA+fIHqHEv+t1
-	 T23iCfJxmyjfDW04tuxAuWRkYuP/J83NRzDRPR8NhoG7zu1lP7e5PIFo59qpXIH9Hvclz
-	 EXwIayFgSYHniylLrsUdNsialIOLIqa98aKVIOUAu8/FBabeg3CPNX1NqhudPxZMkog==
+	t=1795521894;
+	b=nWfIt1kvgLM9hOvFxzoCQfArbYJkX4bRQ5QRbPvSv45ybnEZUpZBEfyj3OaKeysMm+JG
+	 N2pPlMfP8VkhuAngRCsh9k5h7I8lpvdgarPGCELHsr/NXX3Mb3K7SO4Tw1RJTCnw7oeZ1
+	 7vN+SOltuE4ezCg4Y2hb2DaKyV6bBLOK7Q41wuv4a+HrTjh/snSJCfu+7W+3X08Ybjg7m
+	 bAyX/j2UqnBv/RqDAtoQFn4FzAZ3qh/lM6Tpol6EHSqbWRjZRjrBbUro6UNzNu4Z2kRN9
+	 3P8vJ4vyRg2jnlslUoJEDScDuFpu/H4heI2N+WuHtgwpcKSUnz0GYymy1RuwXlYmbnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795521890;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795521894;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=U5vpypoSKp4E8dfxVFDQ4mbg6cBO9LFnQEcbGDqjzgg=;
-	b=NM7ukXFD8z2Cpobe+2opmEbPKnPDptoi9C4wEJ1pXw7LivsG715FefOs7o0VGFHmUV87
-	 rjuOGlZaPeJi8N/Fb518mygEdx04PsbY6OIHynVqIaEYx1C7ORKvUjnNnyUwceiUOfemv
-	 rMALivQD93WMrDqjlirEhUWF4JSAZYrvrk7PSNLh1avmgULfm2WE1qVqYpdVHFf6K1xNN
-	 RH4RlLsnN3wArzmrDGtVf5fOCqVCqDZbSUKLUwm6i5YabzM6e6+jlPRZlmW0sZtxnODce
-	 JBgy80f7FRmei4QJwtjaezGxQGhcRi8g1OI+4IuMMRE0x8D6v6h8B5D/zulgvsyIevg==
+	bh=tGbWQrDEFsG+CrBMh67TvMJoiGyHK1BPF8UtKJdVMz0=;
+	b=4A83fiX9Mi+/Thu5JARMBqs7tU6nwMrfOaCs9IWbmNTU5huH33HSvgT53o1wWZydabRa
+	 imYC4bN8+zi4WMg7ZP9ex30ca0zsD6QwtwiGsRDz05NEHFVa8A9oVFj9miAaaxn8L+QRs
+	 yL7rDtXRqhFz7OqWRzlfLWyz/+SyxepvOUacF4e4POiN5sqrk1LK2L6OFMZuagJ8wGRYn
+	 aEnS/VDKaSJGvoQTzW9fScH5kX2gmJTKovBr54+D9hGbHKQsZVOeu3zHx6qyCPAC8N56X
+	 eGn9oO6bUGB5X+95EGXhvrT9nFOzSU+mRZRLCfAZfpic/9fEyVYvUMw6sMnQ3bXWUag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=flipper.net;
 	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=mtdcb6Y4;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=ztCxAWJc;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20F5606A32C
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F20F5606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD319606A326
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:04:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD319606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=mtdcb6Y4
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so34151195e9.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 04:04:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=ztCxAWJc
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so2842707f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 04:04:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1795521888; x=1796126688; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1795521892; x=1796126692; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U5vpypoSKp4E8dfxVFDQ4mbg6cBO9LFnQEcbGDqjzgg=;
-        b=mtdcb6Y4DTd6/bcxrnqy1cCsLId4/s+OwY1EJeDc5eF6fgF2z770B4GhTMuP6tTPa0
-         uPUrumxuX48iNUfYgxqWsP0giSWZI0hVIgJhdN5eQwKtpJLi8AgAvhbzpUyHBH+09IyZ
-         tycB14h1Xub69zj26kiPWYiJ/PJVmmmW7JMeNX3Y/6tdhTjsCL++j6G5GYScK+DTjwCP
-         rzYCwCY2+uVj6SFZuAvuxIYPqOMfGRwchGa9oUvo38tYXgcrRH8wMYSMeo57eScaVs54
-         N2isRl7ocmckRI9IMSjo9B+3UxjNLg2vm6Kdc0KzXHW1VA8pklxMeGMf+eihP7p2d6JN
-         RnwQ==
+        bh=tGbWQrDEFsG+CrBMh67TvMJoiGyHK1BPF8UtKJdVMz0=;
+        b=ztCxAWJc1VAJUL+s946mNlM8AQeOvHWKnVcsbgNxSNGCvdyV1EFBs8mAn8XL+ZORVd
+         sdWFEyucK751/D2uMke2PzypxyR7mhA+JNg20NX14tgmi16Go5mPBNKLmD2iZ2F+tO7s
+         HRV5B29lda7/fF8BzbP8VBI1WfioyI43Jw7LU0DEUqsBseOBWbLVQm2fMAquAqR/UpTv
+         VQzu5c4yorYOibgSj5n18Zjsd0Z1hBY1qjgtbS7XUbcj4My6Ryy3SzNQUcErDiqsj7Ui
+         L0rxBhHJKNC6XJKw4lY3ILXNXW+W/gMjQgtOAAlJNlIfdsDZK4+QciwtR7LrkOF4ipAm
+         Tc6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795521888; x=1796126688;
+        d=1e100.net; s=20260707; t=1795521892; x=1796126692;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=U5vpypoSKp4E8dfxVFDQ4mbg6cBO9LFnQEcbGDqjzgg=;
-        b=AJgwmqkQIKaJwijz+ejI8GhCttMhVW02ENf49baNz0fH/wjhA5VpipbFpc87SK77cF
-         s3rqSE91gYj0wb3FyBsHyJ1JOa9MFfuilK1PyZxqVU+DPQkc0KL4O17QlDTkRut39XQ3
-         0jLHWtWNPyI+IAv0t/v9KmAIHFeelBuWFGU5TUZMc3/eh7fvfcY39Q1AXiUVayu7RGaG
-         NrI8kzvucuCZ+vbc3zj9qGjyiQfyB+dA6f5we7kgEiSnDydndCJEliED9fmRIRPRyeB/
-         Md/dmJ5CRz0Tpp7OTm6dXtGQtVcdSiT4e+730PPN95f8DTkWzXpOxTw9EM4tm5hQMaOV
-         0y1g==
-X-Forwarded-Encrypted: i=1; AL+hErFYNYH3QCbWXELdo5lReYojirLpXR4kS6dpDqiFBcVN4z18M/7eMZw6XRvZnQ2R2s2g546Td9ClHs/v@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lSOyDUvvCpvbDgcASDgSO9LmyJXn/cPejLfYtkpMby6vi5sVt
-	wMAVoPd5SG+pagQmyZyTwFVzyW0y+oT7tqEDnE8fw45vyrm3SL+4yv5rk46pj3lX0JM=
-X-Gm-Gg: AZFdTZcHwHr2zqbrqWcSZ7TkouExJhEkxHLM+EgjI5Y2S7beGUkfoevPpJ1xH8OfyG5
-	rHcXGCWVHsY/4+qZwEItc+oK1trmWW7EppgtayzfY9NlM3DVcbsRLPmoHeGBLkulW9Uj3FQA+vJ
-	rEFlIXR3HV7mJcH1+tdbA6ntixvPHIs5O9YZzV6MVpGSdToAmFH2aG+b7qv+0gkmgQIfju3CxSM
-	QF/xosJadbDyjsRnlQnFOKvILbGM3etVGF1Oh1E0SR/JtCjFC9aJB9kjoIOygGlPmLzsJ00vUVZ
-	IT/Sc4ZNq0JZRhnw3JLn/USut43cg0nok+HtNr9kkXObFOhDLS6tH6UOa9bNZvy0OAXjufIlq7t
-	e8yc1MgK34T71BcCBGifpmyAvvArgJurr7T71+EzKwGwBjdGwp6hhVIjG4ui0BmJs08vr1eiJCR
-	UUct3v5BATo9qvHiRAI9s2SZIu+irf6dSaEy7lQ0B+8ULdK9gggBUWy8nwJr9NH3cP/cLugwDea
-	f+4SD5R2VO9fJrdkd3pJaMajSXUFKienOuYGM3J3XUVNiX/c99PtYfYif0ja4NlEpAQAaDBjwBs
-	6kaiyKJOCwZO5XUFO32xC4u5jeLNS2o0gOyxPtaqEdYElJrRg/T0BSmf4zG6JkPnhcXEnDiQa8W
-	3XEHBtDU/dgEhE1h6h4ZMyP1PaJxPKw==
-X-Received: by 2002:a05:600c:4f10:b0:4a1:88de:9e8b with SMTP id 5b1f17b1804b1-4bb88807909mr320380315e9.5.1795521888248;
-        Tue, 24 Nov 2026 04:04:48 -0800 (PST)
+        bh=tGbWQrDEFsG+CrBMh67TvMJoiGyHK1BPF8UtKJdVMz0=;
+        b=HQKGp3de6j11mmiAyCXa9L7uAKhNiweGIc+wNMr2NEb40KvplRVwq8KQVSu5Mc5hOy
+         sqoFcmfPG2nrshsEIW8DC5ZJNdgAGsFbDj0cX46TlE3W1prusmIBXcYuGv4+p/R+s52u
+         aMGNP5SCnOTQjMKAJryUsNWyGlCD+46SFIO06qaONNyYON6w7Am8U+bFMcdDE7Sw6+9I
+         Bp7hFULvwyFXcDgYWQMgvaFHmw0J7PJDW8hDKrsvmVLQsGioZlVXgG4qn5OqXe4yuySb
+         IFvfYfvU9ADlc7KnEQE1JYtoesgQ6zpJtHMfDWE0XDJwOdU34r2CaEtA08uB8DzUKYJk
+         Oh1w==
+X-Forwarded-Encrypted: i=1; AL+hErG+hH/PNOA/ikIGsBqUBCCen5RRuzdd63aFfVJuD8IrnnW7usog2FIAhPQvr7i8jwIjMCRbPWBtcocH@vger.kernel.org
+X-Gm-Message-State: APuU4Z88isYCfbBPHUOhPvfLxwlfPN7g4i0S1OJKwuXfzsg/JP4I9jYw
+	bJ9ehEDK4uAP2SRayV0/ZKoukEij7gGeJE7OzRkbm1iNLnu61SSPjizgPTCTm1OqSN4=
+X-Gm-Gg: AZFdTZfgAQWa8YF0zj/3bO03W7QXtxLdgUxMPVCo2xDnP5TKjxJ2N6viiQrrPHgdNA4
+	xTgICJWICniYjpcth2nfunn53w6ERxLWMKlO/IDZELV2m5+ByXk0PjCaz3LUDpjSHcyEFqxqLxk
+	tQt/1ogrQe7pg+TsCa7UHwhMEkNFWPNKUmedMLSNTyMa7q2uHI5jyiCktxYUt6V4X1sc483LZhs
+	U9PU28OO8i9ibg+LrluzupXh0VVPjuptlRHCep52ubQcwhy+txNKwmLRmS2xAQZuI/rHsPGYXRS
+	RUcc6V8pRyCMGvaf+L7VMHSK+sf0NVcB5PAGHHTorWiy4kQic4Tpp8y1K4NOtN3QEZYi30lM/Up
+	ojoH4S07EsVg1ggEwayKPT1XBgOdH/g3ReZOT2T25cV5xjuS4Ubr8sbe7yx0RZaPK6EcZe5nqbL
+	EXKgwicZZldCyFfLEUMiYyIvx6QEeaSwwwrbO77Wm8XOAJioefLsXOBYuROpYryl0LNTgWK49dB
+	FAF1CyXfjgi0zfFS23XiPWLrqSM84076OBDdfMgsEG6jnYgUxvv8tpXppB/mV8OU5cry2hj9Vbb
+	vF54e+VmAfAyAomyN3pkmChZkLZCJwiOzc7UM1DSQmWKCbY/Uj23wbwOj2Vw748j2QqdbavZ6ao
+	IFa+hICN3
+X-Received: by 2002:a05:600d:1c:b0:4a4:fc8c:cfd9 with SMTP id 5b1f17b1804b1-4bb9de0d5ffmr64185675e9.25.1795521892212;
+        Tue, 24 Nov 2026 04:04:52 -0800 (PST)
 Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906635c7sm242405235e9.2.2026.11.24.04.04.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906635c7sm242405235e9.2.2026.11.24.04.04.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 04:04:47 -0800 (PST)
+        Tue, 24 Nov 2026 04:04:51 -0800 (PST)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Tue, 24 Nov 2026 16:04:31 +0400
-Subject: [PATCH v4 1/5] dt-bindings: nvmem: fixed-cell: Add Rockchip CPU ID
+Date: Tue, 24 Nov 2026 16:04:32 +0400
+Subject: [PATCH v4 2/5] net: Accept MAC addresses from longer NVMEM cells
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-rk3576-otp-cpuid-mac-v4-1-d403b8a25113@flipper.net>
+Message-Id: <20261124-rk3576-otp-cpuid-mac-v4-2-d403b8a25113@flipper.net>
 References: <20261124-rk3576-otp-cpuid-mac-v4-0-d403b8a25113@flipper.net>
 In-Reply-To: <20261124-rk3576-otp-cpuid-mac-v4-0-d403b8a25113@flipper.net>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -113,107 +113,74 @@ Cc: Ryan Leung <untilscour@protonmail.com>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4080; i=alchark@flipper.net;
- h=from:subject:message-id; bh=CS20fXFVzcjdeDfFRS8feA1q6Da6FDy2IYeGw5SpswI=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWSz1gb/cTkkOnU6z7Mg8WvBWxZIC6dIne6/+bxhV4vEh
- O9ytk88OiayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
- QyMdYx0jBi5OAZjqE0sZ/gev0w9uPyqSnpO85MoFybvMdlLvja7sNeW/kFZ8OW6jvxQjw0v7PSl
- rmeY7e3f86W24O/N148I+y9L0na53zs3TaN7Aww4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2474; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=niDymIQqvfRIIXXdqI/TGZmfY9YHOucl+/lAZoeizp4=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWSz1gZXZqQ0/bSZxXNP9Hn06upbPoGeitm9n4su2avFi
+ 86+E17aMZGFQYyLwVJMkWXutyW2U434Zu3y8PgKM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
+ GukY6xgxcHEKwFR/ucTIcCVAYtO/Sf5nGx6silzcJuR58W9xqaVavUtavJ/e4iPFrxkZNi0sLzY
+ 7q6F4e63J1AW801YtWhkh7MP7zerfD2eOxefuswIA
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Rockchip SoCs ship with a unique CPU ID programmed into their OTP memory,
-and compatible bootloaders derive Ethernet MAC addresses from it, so that
-boards with no dedicated storage for one still get a stable address.
-Whether a board ends up with those addresses then depends on the
-bootloader patching them into the device tree.
+A "mac-address" NVMEM cell may contain a longer unique hardware ID,
+beginning with valid MAC address bytes. Both NVMEM MAC address helpers
+reject such a cell, as they insist on exactly ETH_ALEN bytes, and then
+discard any tail regardless by doing a copy.
 
-Describe the CPU ID cell with a compatible which also defines that
-derivation, so that the addresses are available to anything which reads
-the device tree, whatever the boot flow. Referencing the cell as a
-"mac-address" selects the derived address, keeping the raw CPU ID
-available to any other consumer from the same cell. Keep the compatible
-vendor-wide, as only the location of the CPU ID differs between SoCs,
-and that is given by the reg property already.
-
-Plain "mac-base" does not fit: the CPU ID is not a MAC address in either
-of the formats it allows, and its offset argument is added to the base,
-whereas the bootloaders XOR the index into the last octet.
+Accept a cell of at least ETH_ALEN bytes and use the first ETH_ALEN of
+them, leaving it to is_valid_ether_addr() to reject unusable content.
 
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- .../bindings/nvmem/layouts/fixed-cell.yaml         | 33 ++++++++++++++++++++++
- .../bindings/nvmem/layouts/fixed-layout.yaml       |  6 ++++
- 2 files changed, 39 insertions(+)
+ net/core/of_net.c  | 4 ++--
+ net/ethernet/eth.c | 5 +++--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-index 38e3ad50ff4f..ad38954cfb59 100644
---- a/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/layouts/fixed-cell.yaml
-@@ -19,6 +19,18 @@ properties:
-           addresses.
-           It can be stored in a plain binary format (cell length 6) or as an
-           ASCII text like "00:11:22:33:44:55" (cell length 17).
-+      - const: rockchip,cpuid
-+        description: >
-+          Cell with the unique CPU ID of a Rockchip SoC (cell length 16).
-+          A consumer referencing it as its "mac-address" NVMEM cell, as
-+          Ethernet controllers do, refers to a stable MAC address derived from
-+          the CPU ID rather than to the CPU ID itself. The base of such
-+          addresses consists of the first six octets of the SHA-256 digest of
-+          the 32-character string of lowercase hexadecimal digits representing
-+          the 16 CPU ID bytes in stored order, without separators or a
-+          terminator. In the first octet, the multicast bit (bit 0) is then
-+          cleared and the locally administered bit (bit 1) set. Any other
-+          reference to the cell refers to the CPU ID as stored.
+diff --git a/net/core/of_net.c b/net/core/of_net.c
+index 93ea425b9248..d4a256521954 100644
+--- a/net/core/of_net.c
++++ b/net/core/of_net.c
+@@ -85,7 +85,7 @@ int of_get_mac_address_nvmem(struct device_node *np, u8 *addr)
+ 	if (IS_ERR(mac))
+ 		return PTR_ERR(mac);
  
-   reg:
-     maxItems: 1
-@@ -48,6 +60,27 @@ allOf:
-           const: 1
-       required:
-         - "#nvmem-cell-cells"
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,cpuid
-+      required: [ compatible ]
-+    then:
-+      properties:
-+        reg:
-+          items:
-+            - items:
-+                - description: Offset of the CPU ID
-+                - const: 16
-+        "#nvmem-cell-cells":
-+          description:
-+            For a "mac-address" reference, the first argument is the index of
-+            the MAC address, which is XORed into the last octet of the base
-+            address. It is ignored for any other reference.
-+          const: 1
-+      required:
-+        - "#nvmem-cell-cells"
+-	if (len != ETH_ALEN || !is_valid_ether_addr(mac)) {
++	if (len < ETH_ALEN || !is_valid_ether_addr(mac)) {
+ 		kfree(mac);
+ 		return -EINVAL;
+ 	}
+@@ -108,7 +108,7 @@ EXPORT_SYMBOL(of_get_mac_address_nvmem);
+  * because that is the default address. If that isn't set, then the obsolete
+  * 'address' is checked, just in case we're using an old device tree. If any
+  * of the above isn't set, then try to get MAC address from nvmem cell named
+- * 'mac-address'.
++ * 'mac-address', using its first six bytes if the cell is longer.
+  *
+  * Note that the 'address' property is supposed to contain a virtual address of
+  * the register set, but some DTS files have redefined that property to be the
+diff --git a/net/ethernet/eth.c b/net/ethernet/eth.c
+index 39aab0f8035a..b69ef0eb16f8 100644
+--- a/net/ethernet/eth.c
++++ b/net/ethernet/eth.c
+@@ -508,7 +508,8 @@ EXPORT_SYMBOL(platform_get_ethdev_address);
  
- required:
-   - reg
-diff --git a/Documentation/devicetree/bindings/nvmem/layouts/fixed-layout.yaml b/Documentation/devicetree/bindings/nvmem/layouts/fixed-layout.yaml
-index b01567f99284..f30166109a7f 100644
---- a/Documentation/devicetree/bindings/nvmem/layouts/fixed-layout.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/layouts/fixed-layout.yaml
-@@ -56,6 +56,12 @@ examples:
-             #nvmem-cell-cells = <1>;
-         };
+ /**
+  * nvmem_get_mac_address - Obtain the MAC address from an nvmem cell named
+- * 'mac-address' associated with given device.
++ * 'mac-address' associated with given device. If the cell is longer than a MAC
++ * address, its first ETH_ALEN bytes are used.
+  *
+  * @dev:	Device with which the mac-address cell is associated.
+  * @addrbuf:	Buffer to which the MAC address will be copied on success.
+@@ -531,7 +532,7 @@ int nvmem_get_mac_address(struct device *dev, void *addrbuf)
+ 	if (IS_ERR(mac))
+ 		return PTR_ERR(mac);
  
-+        id@200 {
-+            compatible = "rockchip,cpuid";
-+            reg = <0x200 0x10>;
-+            #nvmem-cell-cells = <1>;
-+        };
-+
-         calibration@4000 {
-             reg = <0x4000 0x100>;
-         };
+-	if (len != ETH_ALEN || !is_valid_ether_addr(mac)) {
++	if (len < ETH_ALEN || !is_valid_ether_addr(mac)) {
+ 		kfree(mac);
+ 		return -EINVAL;
+ 	}
 
 -- 
 2.56.0
