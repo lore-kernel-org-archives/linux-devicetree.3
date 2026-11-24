@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795539236;
-	b=QW4Eyj3zzFQbFKXggFRgvypMp8bZNOV7t7j3Mzr23GD7h30pwvzSAXvDoi1mkf+Hoacf
-	 92QQPOe5pwsATGziOYmAoXHN3OKG0M7zTKW8rTahOac/nMod6QsySjg6WY/mapnVg5MOW
-	 CYjLU8cYZEraxA7SG+tvrGXXJIsq/mhRTs5NtVzb1++cRB7hK6H18DUtugGyddSzzgfX4
-	 csTB4/RKgERrqpNG8UQsU17ygNijRW108CfpgwbRiBoDHU4+a4QtFeQnMIvtxoVej5he7
-	 0xdCdAsEfmWw/3A6/q5f7CTKolSBxdBd1ahePofvXreZdBz+tfV8yzQqIUFi9G/XL8Q==
+	t=1795539327;
+	b=odb4hbAK8FRDLlVNDP8kVnj+x3Af4MZUvJfUpvF+6h6I/88h2u5URtRxSRJMCAhHTN8N
+	 JCmCL95jUCe64/bgwheI9gg2MaBGcygodMv0Ci6KayK+CbEeNbWtYIvQi3TfT/euysHJK
+	 1n3gezc73AfA3HWYGWIi/3Ow8Z2JBCrER20JZLNxECRRCjMR3kAGvmBL5DsSKw1hvHY2K
+	 6mRkvQrMWyoY6bp/9tY1F4jwGARRhSzild/kj+RmM/5GVuYJu0lw7TP3n8zEKZZwhpvzw
+	 kORa8GgTUDtItCl5uHV+LtHGtQTRxPSWTLZgv/s6PZzVC+8O3JWG3n+PynMyE4/zI2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795539236;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795539327;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=WNuj6dOrgLgvgihBTl8o7RNRY0uK99ZqNVYE2wNfBas=;
-	b=xZ7Hg4aEo/5jmnCIri29rFFdm5TuOFjeFIZWJFGydLqSu9SydM453WTs1E3Rtan2U8Lh
-	 N7hXmJ2udq5PMDRZmMwAuiR1B4qjyC/5C6ZS9mKtLTasQqLxLYJsVF1o1CMlfYOkGZacA
-	 xFVrJeYu9O6zEwQavuYRdIm2Q2yOBH7ZQfJ8aSXjyCxUXDHkFiJc1ASGBvabeq7zf6zRJ
-	 VjFiriuOxB4Gl63IdzTFnJ127wjdRnMTN4WbCOyLE4aX6L8W0j+4MTehFFGCWoqzhlMt4
-	 6AB26Xqq9Tokzfes6PIsaR1EYI1wrfQ4PiPRXgDxF+mWVIFCUFTCOlEK99U5LN4NhXQ==
+	bh=Yaa1ucdiXu2ZqlR8D2y7IV3Ou24KRSFVhewvBEmrXX8=;
+	b=X/nAYifFdS07doYdUq0PidbGT0cJPj+qA6PFg3LC+rMtmwmwxAZ9V2mIpYxI8GaOqLHO
+	 eJG1bRsS36i2+yccFGAOKywqZRtijeC+ny9HUhbmHnBJWyKmvTE4DNVKozdH+tU+DX9kL
+	 bbxGEfzEK3X3gbG2ff2nJobEJYLGFeBlM2rOQqdOJGbZrLWPAH/IGTC2dlf4H6PHcyrGz
+	 av6mm1nHovyl4Rj+OtggrqOn1TbHOjsRLkT0m51xki4zAK3eoTGO3gIGQZAhj5WhjSPrA
+	 vk6qrL8FKIRsebZyxQaXJ/0M953rGwmWdEtnS6g+psq2CITUPaa+Bd1CE2PNiZtPIFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fZ6/Vumy";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G5NREgNL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2C9606A33C
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:53:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C323C606A33B
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:55:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fZ6/Vumy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00EB51F00A36;
-	Tue, 24 Nov 2026 16:53:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G5NREgNL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1456D1F000D1;
+	Tue, 24 Nov 2026 16:55:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795539236;
-	bh=WNuj6dOrgLgvgihBTl8o7RNRY0uK99ZqNVYE2wNfBas=;
+	s=k20260515; t=1795539327;
+	bh=Yaa1ucdiXu2ZqlR8D2y7IV3Ou24KRSFVhewvBEmrXX8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fZ6/VumyDGOpCN3akKIsc7j1sJD5xruvPNDFtpRljxaz7oLMT50uZQt7nw2ddv6mz
-	 ngVC0dNpQQsLN352zkOi2liV70YsybKhscjPo4VUB1XePKnsGv+PKPyuGkmOYHHWZI
-	 nOLz061ndA0oHvBr1BaFjnOaRdtXavonCVuOu2/ahTUlrdJtFXrYcxtH/QCUhfAFZR
-	 znHtfQzBDUerOQsajEIMC7o0egauwXHY+yWlPsor+TpwPAjbA0RYH8xQYCgdLeINCp
-	 eveortzG3ZY2X7xLmKRfpozAtnNF3zyNPvxn65oR0p3MYS1nlYfQuQYUcYNpy1D/r0
-	 bdhOzAyEmdZQA==
-Message-ID: <sashiko-outbox-231613@kernel.org>
+	b=G5NREgNLl46AvfrClHRsbAvQRT8ucW6IauusXsAuxbxyhB2//MB80ZM7ln87uBfUC
+	 AZ0jdlrg9noetu8esn7ot1Ntv9l76+YKTUKl0eps8ejWdNMLQL7brmfaC48LqYLAoX
+	 IQjJpG6409OI1feI7Xm86F9haow5NA63qM61dHPaisJhZ5YD5NBez/sYTa1A/s6N3w
+	 8qY5yd9zr5YkPqzCIyptPS1178QT3lN78UqLmZFdY8OV6kCS8n0lzi31VsYt6ZmK46
+	 op9A8Ok361l79WW8E7xq+Bt07pNFBacYbDhgHumSC7v8HGcvM+rONmMaYndRxE4iy2
+	 nN8vPMDWJFwaw==
+Message-ID: <sashiko-outbox-231620@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next v4 07/14] wifi: ath12k: add Wi-Fi 8 HAL ops and
- descriptor definitions for QCN9575
+Subject: Re: [PATCH v6 02/10] dt-bindings: arm: stm32: allow TAMP nvram
+ child node for syscon
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Madhavan Ganesan" <madhavan.ganesan@oss.qualcomm.com>
+To: "Patrice Chotard" <patrice.chotard@foss.st.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-wifi8_qcn9575_bringup-v4-7-1f5b87ece6a3@oss.qualcomm.com>
-References: <20261124-wifi8_qcn9575_bringup-v4-0-1f5b87ece6a3@oss.qualcomm.com>
- <20261124-wifi8_qcn9575_bringup-v4-7-1f5b87ece6a3@oss.qualcomm.com>
+In-Reply-To: <20261124-upstream_nvram_reworked-v6-2-ea0cfccc20b0@foss.st.com>
+References: <20261124-upstream_nvram_reworked-v6-0-ea0cfccc20b0@foss.st.com>
+ <20261124-upstream_nvram_reworked-v6-2-ea0cfccc20b0@foss.st.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 16:53:55 +0000
+Date: Tue, 24 Nov 2026 16:55:26 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,86 +63,98 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] wifi: ath12k: undersized srng_config in
-  ath12k_hal_srng_create_config_qcn9575()
+- [Medium] dt-bindings: arm: stm32: requiring address/size cells breaks
+  childless tamp
 --
 
-commit af3e649dba7ae61709248892f1ca2ef731afbb24
-Author: Madhavan Ganesan <madhavan.ganesan@oss.qualcomm.com>
+commit ecaee20f976bb2eae8b98a614ee17d74f8f0700e
+Author: Patrice Chotard <patrice.chotard@foss.st.com>
 
-wifi: ath12k: add Wi-Fi 8 HAL ops and descriptor definitions for QCN9575
+dt-bindings: arm: stm32: allow TAMP nvram child node for syscon
 
-This commit adds Wi-Fi 8 HAL operation callbacks, CE descriptor definitions,
-and SRNG configuration for QCN9575.
+This commit updates the st,stm32-syscon binding to allow #address-cells,
+#size-cells, ranges, and an nvram child node on st,stm32-tamp nodes.
 
-> diff --git a/drivers/net/wireless/ath/ath12k/wifi8/hal_qcn9575.c b/driver=
-s/net/wireless/ath/ath12k/wifi8/hal_qcn9575.c
-> index 56d45785ecd44..076a5a609f8b6 100644
-> --- a/drivers/net/wireless/ath/ath12k/wifi8/hal_qcn9575.c
-> +++ b/drivers/net/wireless/ath/ath12k/wifi8/hal_qcn9575.c
-> @@ -2,8 +2,37 @@
->  /*
->   * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->   */
-> +#include "hal.h"
-> +#include "hal_desc.h"
->  #include "hal_qcn9575.h"
-> =20
-> +static const struct hal_srng_config hw_srng_config_template[] =3D {
-> +	[HAL_CE_SRC] =3D {
-> +		.start_ring_id =3D HAL_SRNG_RING_ID_CE0_SRC,
-> +		.max_rings =3D 16,
-> +		.entry_size =3D sizeof(struct hal_ce_srng_src_desc) >> 2,
-> +		.mac_type =3D ATH12K_HAL_SRNG_UMAC,
-> +		.ring_dir =3D HAL_SRNG_DIR_SRC,
-> +		.max_size =3D HAL_CE_SRC_RING_BASE_MSB_RING_SIZE,
-> +	},
-> +	[HAL_CE_DST] =3D {
-> +		.start_ring_id =3D HAL_SRNG_RING_ID_CE0_DST,
-> +		.max_rings =3D 16,
-> +		.entry_size =3D sizeof(struct hal_ce_srng_dest_desc) >> 2,
-> +		.mac_type =3D ATH12K_HAL_SRNG_UMAC,
-> +		.ring_dir =3D HAL_SRNG_DIR_SRC,
-> +		.max_size =3D HAL_CE_DST_RING_BASE_MSB_RING_SIZE,
-> +	},
-> +	[HAL_CE_DST_STATUS] =3D {
-> +		.start_ring_id =3D HAL_SRNG_RING_ID_CE0_DST_STATUS,
-> +		.max_rings =3D 16,
-> +		.entry_size =3D sizeof(struct hal_ce_srng_dst_status_desc) >> 2,
-> +		.mac_type =3D ATH12K_HAL_SRNG_UMAC,
-> +		.ring_dir =3D HAL_SRNG_DIR_DST,
-> +		.max_size =3D HAL_CE_DST_STATUS_RING_BASE_MSB_RING_SIZE,
-> +	},
-> +};
-> +
->  const struct ath12k_hw_regs qcn9575_regs =3D {
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.=
+yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> index a559f8b03b842..70266070c57ba 100644
+> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
 
 [ ... ]
 
-> @@ -40,3 +69,55 @@ const struct ath12k_hw_regs qcn9575_regs =3D {
+> @@ -76,6 +82,9 @@ allOf:
+>                - st,stm32mp23-syscfg
+>                - st,stm32mp25-syscfg
+>      then:
+> +      properties:
+> +        "#size-cells":
+> +          const: 1
+>        required:
+>          - "#address-cells"
+>          - "#clock-cells"
+> @@ -84,11 +93,39 @@ allOf:
+>          - phy@2800
+>      else:
+>        properties:
+> -        '#address-cells': false
+>          '#clock-cells': false
+> -        '#size-cells': false
+>          phy@2400: false
+>          phy@2800: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: st,stm32-tamp
+> +    then:
+> +      properties:
+> +        "#size-cells":
+> +          enum: [1, 2]
+> +    else:
+> +      properties:
+> +        ranges: false
+> +      patternProperties:
+> +        "^nvram@[0-9a-f]+$": false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - st,stm32-tamp
+> +              - st,stm32mp23-syscfg
+> +              - st,stm32mp25-syscfg
+> +    then:
+> +      required:
+> +        - "#address-cells"
+> +        - "#size-cells"
+> +    else:
+> +      properties:
+> +        '#address-cells': false
+> +        '#size-cells': false
 > =20
->  	.qrtr_node_id =3D 0x01e03300,
->  };
-> +
-> +static int ath12k_hal_srng_create_config_qcn9575(struct ath12k_hal *hal)
-> +{
-> +	struct hal_srng_config *s;
-> +
-> +	hal->srng_config =3D kmemdup(hw_srng_config_template,
-> +				   sizeof(hw_srng_config_template),
-> +				   GFP_KERNEL);
+>  additionalProperties: false
+> =20
 
-[Severity: High]
-Should hw_srng_config_template[] be explicitly sized to
-HAL_MAX_RING_TYPES?
+[Severity: Medium]
+As reported by Krzysztof Kozlowski on v4 [1], does requiring
+#address-cells and #size-cells for st,stm32-tamp break validation for
+childless TAMP nodes?
 
-Because the highest designated initializer here is [HAL_CE_DST_STATUS]
-(10), kmemdup() allocates only 11 entries for hal->srng_config instead of
-HAL_MAX_RING_TYPES (25).  Callers such as ath12k_hal_srng_shadow_config()
-iterate from 0 to HAL_MAX_RING_TYPES - 1 and index
-hal->srng_config[ring_type], reading past the end of the allocation for
-ring types above HAL_CE_DST_STATUS.
+The nvram child node is optional and the schema also permits
+st,stm32-tamp with only syscon (without simple-mfd or subnodes), so
+existing device trees with a childless tamp node (such as tamp@5c00a000
+in arch/arm/boot/dts/st/stm32mp151.dtsi) fail dtbs_check when these
+properties are required unconditionally.  Since st,stm32mp23-syscfg and
+st,stm32mp25-syscfg already require #address-cells and #size-cells in
+their own if/then block above, dropping this then branch while keeping
+the else branch allows the properties on st,stm32-tamp without making
+them mandatory.  Also, the then branch in the st,stm32-tamp block above
+repeats the top-level #size-cells enum: [1, 2] definition.
+
+[1] https://lore.kernel.org/r/20261106-tireless-cobra-of-passion-1fca1d@quo=
+ll
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-wifi8_qcn9=
-575_bringup-v4-0-1f5b87ece6a3@oss.qualcomm.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-upstream_n=
+vram_reworked-v6-0-ea0cfccc20b0@foss.st.com?part=3D2
