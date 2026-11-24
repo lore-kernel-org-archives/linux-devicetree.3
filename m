@@ -1,43 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795507004;
-	b=W4wZOxJbJ9V7KXA7/PuokdgpOBt8Amd0P1i6LH2ponLRXCCSHOae08XQ/htSyum6sqj6
-	 /Rh6kraqSyQ2s6Wa4irOW63+Vp8+5/NlQLUk49AmjMU4dEV8o0c7rPzZO+Os8THKbfSlS
-	 WKFFxaUJqP5Lbr79cnrXw8UdNp4jAZHivD4C7Fnus7F1b34XVUvuTtyuF27DVyYdnAj8S
-	 tJNeaIFRHMLvsrv+5y6AsMGqxGsNqlGzXFqfL88RE0yLKnaIVg/pSrSFzAhDOdkA3HEGG
-	 87OPv8LsKgcTPC/5G2KgMY+4/8oaILCi47MmBWxFsz6wezGXCkLJLBNt8RpKz/EjrCw==
+	t=1795507338;
+	b=kkub6Pc/sd01P41yRH+zeaQ1EegV8FXTgPV3/utcTx8DZtDl7qTVeAamnLH+7AJq9EmT
+	 9+leEPOFHkgkDrjvGu620NqGrig1i/LsPPC3kziQWArsZ7rXlG2k5MtLsNNQHAbJ7C+TS
+	 PguDbJTmAlTWfQIl0+b0Abo+6DxLCaJ4yk6mC1ILoRZeNIrYmK6FaTdMfdaXUzs3F44hi
+	 FrU1emHWB+wcOVehs8p5hgtozhXgiJ/+FcQggcoEfoSE+RnV2rxbwzTYaGKtNsanKx0GP
+	 0nlrR0LY62KfzG30l6WKHoN5TTQCVTj+18olzFIVOUu3Mco/nEOrvockDz0rkKdTiWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795507004;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=cxg+fax2SVzr7BNRQUhDBiHBF2LpI92EISCVBMuEcGU=;
-	b=xNIAb0yFLc5LzlrBh2o5lMQjpesKGr4ER+e6LZ2EpUDVmXDnw0TcuWVhR6M+SQBkyZyp
-	 +jCrThctrD41R1lwCB1sgs9eFk32AgTS6lx3I2Z6hMyTrgzrHuqRhm4DSajg7O4ayyaqV
-	 T/CxECxY5XN4auxr3rUEHELhSaSIyi/EjpuMRe6po9dIyIU5Qa9seTvjAcqn+AixwUkUn
-	 1Wo44Ru2ikMFJrQrGf4pBt+RG1x4Xe05sdSF0XY9JQi6Ev0AB777f1FPD9MafMwLnEVYi
-	 D/862XxfOKfiC49fwKIQ1NuiG2ErSvSmu/Cq0/KXpCnEAku1cH3nKd1Mte9QCzh7meA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795507338;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=iNF8vqJ/5ROf+iwizzo0WHfuQJMXjmgqANoV1I9erPo=;
+	b=LMazV191Tfs98FRCHCq2vzSmdi4Ri52tk2Q26L3BTScvJecw1emZsoMIxg0tie0FHCAP
+	 fdakcZoeoYPd0qDARZQzKa4b7tP3is7XJSrEv/ddM0q838rXIEeDDZ3eeQeBYBDihTw30
+	 MXI95MQa/Vd3GykPMlzgkUz5nBk8UbMbc8IKudO7ZZdT5AwMtKFRG8CQo2kfPoIXTZPS1
+	 u+KwXpmNqYJ+Z4GF0Dcyn21fUK22p9Zbgk5DMJa7JkWg8qVmCPF3RG+WUjYLUbtRenlQn
+	 51VjA+lxuDsj8K2f9pAdwepfAg8GXei2559ggy4Y0ZtN0uyZTnkZpF+E3YgOhutZeyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RbMOHzuS;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Sj54s8dQ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE8F606A322;
-	Tue, 24 Nov 2026 07:56:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBE8F606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.139])
-	by APP-01 (Coremail) with SMTP id qwCowABHbfcVQwVrAUaUAQ--.8758S4;
-	Tue, 24 Nov 2026 15:56:08 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Date: Tue, 24 Nov 2026 15:56:03 +0800
-Subject: [PATCH v3 2/2] drm/bridge: add TH1520 DesignWare MIPI DSI host
- controller
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD630606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:02:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD630606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RbMOHzuS;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Sj54s8dQ
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO2kCma646415
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:02:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=iNF8vqJ/5ROf+iwizzo0WHfu
+	QJMXjmgqANoV1I9erPo=; b=RbMOHzuSF4FF0iOx9riFqu+D7O0nztByayyUsTJB
+	8FBW5tanuFcTlzgNymchw72/fn+0eQ2VVtPjm7lNykaWFu+5mkkADCrWkD+dk7qU
+	32rmtfIbkOX6XEQqMNKR7tgaTiUlmWqbL+N0SJxbsqHMjwpiDCWCA8ji7xwGzsF8
+	ctnE0hQQz9OKwHGimI4jE37J6bSFam2+86DhzWaMKhwt/UtUFb9fSo7/zS3RBFaS
+	LN+fr8OISKx3pu0ROqUkD4zrNaH/9nxNhaps79GTZ8Nj9aryNFBA3tAngDmmxRCg
+	hvtJNHT/h8wIz7SozEX4SdfYVif6vXZh7wUTGMa1y98faQ==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4yvd1hnn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:02:15 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3846d5f54c1so5297707eec.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 00:02:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795507335; x=1796112135; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iNF8vqJ/5ROf+iwizzo0WHfuQJMXjmgqANoV1I9erPo=;
+        b=Sj54s8dQNJUD56p1jcBPS9SWgWAnwfGVb3SHx2k4g9CLK8el18Dy3OhWXa6G5GJwbO
+         TKYyup8W/RwtoouLBigUVdKdjQoMNqkCyK827ncp4JBivdIiYxX4EbkmpBZiw2j5ywOg
+         elHdM3Kjr0y3rnh9MJTAwsDP+XpwdghxziNKf/oD6doDGfzVI0rJQa4ut1q09V83Lolf
+         oAVIVzedl2YAL3U60SQExs3gxR1yaEgwRmOqFvvW3FeXc7Yjisg3f9yHfQfiE1tw1hBk
+         ym/QpsbCmk5FMdeOHfiDXkFzEW8FfVncQdA2hVLx5ICoevq7aIfCpRcPUaLp3Iagr4V0
+         Gfrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795507335; x=1796112135;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iNF8vqJ/5ROf+iwizzo0WHfuQJMXjmgqANoV1I9erPo=;
+        b=BZefD4ZWlBWZDseXvxJYyBqC4vDj+xu0Pjrfh4rZO2FhiVuft/I+HZkXabQPzPtCXn
+         S74v7HW7goMAcU+8FhXEYn5CdqlHSfzvuXj1zgLeslUbd4qKbi8kKfCwGtF/dLRlDvyr
+         twBbPVJaTd2nVKBT2OxvoRmQvr/pVlyVvJTLlPSigr4xOu1rzkvbYSm9wRYv5/Y1FlEc
+         HDJubUdFW968XC68zuVvu2HP3T0XWL97NxaRA/OYQEiqHJyp663Yxr8sYf/vENNJHRvH
+         8zVJLVi9688hsj8KYjx1Eh3p6W0Dkwi9pJLKCERIFtaraYiDOkOWeuD0qwfJmUOFpE93
+         nhCA==
+X-Forwarded-Encrypted: i=1; AL+hErFu9iDf6E2lKrbtipg7Ou16MZrL+MIGkX/Il18jXwM5QhCaabQ+W/rwgHxXoifuHRM3AE41Q5tyygiU@vger.kernel.org
+X-Gm-Message-State: APuU4Z/01bpe0FqZXGN9fRSg3Ftq8ZcCppNf/05tNadqzw6M4XYftdJd
+	0HIovRjVMB0OzAEzOK7Sc+UvWcSktDXzjLvJvYyLb40u6BWp7iflf6IEqRb3MpaJFQXNAXLR/9Z
+	Gvzr5d2J0tQDacVduaxOais+h9kYT61O++Eo5Nln6KMdYKlvvqmhTL8z7jqwFJlfTelqqQ3pG
+X-Gm-Gg: AZFdTZeaxseLhETKqOaOEDAugz4WMM61tpWONNXJ+VfeMyeol1TAUBOJZYBHV21gNIQ
+	2nM8YzfpLR6jNZwmftZdAaapx5aBHWfIxaI2Y/7oa2aoQUfZUVzJBVI5SYK76klxC9QJdwrGxT6
+	rTCYZZr6aulkhvdHjPqxK9wBPFLRrMc6DRY01s7nnfEWKio4uB8Upw586nIdaF89sRr6SX19QZB
+	T5QQW9QWmyo+BSLMBuXaz5TitBrqxwTqZYuyGJ9bdlHs2Q5/f5auIXrkjhN7atHo72rGrxhW+He
+	I0l96ISOyrSp92eSZGZCdI7akvADeIKo7GDJBLgpZdkIJ8/PjB4xPq1bI/BOY5uo+iI5uX/NTdN
+	0/y1dujIDaUG0p1PzdQOd3bT/YhEZLEHqlmCfiD0XOJx+8JE1B3n81mNqWTUlTTpFmCfVifaSxA
+	UEmsnDcMoqC0izDOc=
+X-Received: by 2002:a05:7300:f68e:b0:386:240c:19d6 with SMTP id 5a478bee46e88-386241b6d72mr12165665eec.6.1795507334818;
+        Tue, 24 Nov 2026 00:02:14 -0800 (PST)
+X-Received: by 2002:a05:7300:f68e:b0:386:240c:19d6 with SMTP id 5a478bee46e88-386241b6d72mr12165646eec.6.1795507334283;
+        Tue, 24 Nov 2026 00:02:14 -0800 (PST)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566cd40c5sm50432771eec.10.2026.11.24.00.02.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 00:02:13 -0800 (PST)
+Date: Tue, 24 Nov 2026 16:02:09 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] arm64: dts: qcom: sm6350-lena: Use QCOM_ID_SM6350
+ from qcom,ids,h
+Message-ID: <awVEgbFXWII8HtSr@QCOM-aGQu4IUr3Y>
+References: <20261123-sm6350-msm-id-v1-0-99482c9ecc48@fairphone.com>
+ <20261123-sm6350-msm-id-v1-1-99482c9ecc48@fairphone.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -47,673 +125,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
-References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
-In-Reply-To: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
- Icneowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-X-Mailer: b4 0.15.0
-X-CM-TRANSID:qwCowABHbfcVQwVrAUaUAQ--.8758S4
-X-Coremail-Antispam: 1UD129KBjvAXoW3CryxCryxKFyfWFyUtw43Jrb_yoW8Ar48Zo
-	WfWFn3Jw1rWw1fA39Ykr1fWFyUXrsru347W3s8Zr48CrnxWasxJry5tw4SvrW3Wr18Kry8
-	Z3ZIvrZxJ3yYkFyUn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUO47AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20EY4v20xva
-	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r15M28IrcIa0x
-	kI8VCY1x0267AKxVW5JVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84AC
-	jcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr
-	1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0D
-	M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
-	v20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
-	F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2
-	IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
-	6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
-	CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF
-	0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMI
-	IF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVF
-	xhVjvjDU0xZFpf9x0pRHKZLUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123-sm6350-msm-id-v1-1-99482c9ecc48@fairphone.com>
+X-Authority-Analysis: v=2.4 cv=ZYeIpcVA c=1 sm=1 tr=0 ts=6b054487 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=ecAgE6h4Pg4Z-y-LirQA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDAzMSBTYWx0ZWRfX/xsjNosNXQVC
+ PzJxsA9txky9/JlN3kifdVYZPEAnK/wGAo88SwZDaJmwkjW8NenM7MH+oKWtmFgZi1uPOwKvlAG
+ DNhUIeegLyWx1o01RsuzxwkEiOw/LuKaxXlYgbbAul5Ra59+cCqodJXhHKBL3FpPSHNM7FC0auc
+ FBsXvv2zkHhPJyVIddx3p6nfK4Om+UZExS7BUFJQhDAn5UlHaoXVGm7QoYUTPHHM8GR0Jn+tyPL
+ 3T8VZBK+1NYVcsARm0Wq/SCfvSeekkqnYb2na/HyxmMrM0akShUxKU10hgBeTKs5Jds1G4CL7eu
+ A8ZQw4faVcc6Eu4INX0yia7PTtfXGPsX8xblF63kldvCJGuhtmv/XpmcmT/iOpZhEHnJ8PPtqD4
+ 4+RPHOXxDHqt2M7jMNDHnl2tBqwdO33Sk+8wRiMjAlZZsZi7ML/DVEH9Gjrefb/Xp+DHkAVg5t0
+ VgB5aJyTTG7MNtA9srA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDAzMSBTYWx0ZWRfX5b10ibzfzixB
+ tRKMbohcR2JurCMmnqjShNkrM213Gfulzp4W5dU7HNVWQVBM0GTpbLnb6gpkkeAUzygI9w8aMZl
+ ScmdLTd0XSXLBWfwdWqL9aDYFWwNnCM=
+X-Proofpoint-ORIG-GUID: E9tS6OUlULiQe5LD7zI-99Ok29hzSf-_
+X-Proofpoint-GUID: E9tS6OUlULiQe5LD7zI-99Ok29hzSf-_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 suspectscore=0 adultscore=0 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240031
 
-The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
-controller with an internal DesignWare MIPI D-PHY.
+On Mon, Nov 23, 2026 at 03:46:33PM +0100, Luca Weiss wrote:
+> 434 is just the value behind QCOM_ID_SM6350, so use the define to make
+> the meaning of the qcom,msm-id property clearer.
+> 
+> Also while we're at it, drop 459 (QCOM_ID_SM7225) since the Sony Xperia
+> 10 III only shipped with a Snapdragon 690 5G, not a Snapdragon 750G 5G,
+> therefore the second value of qcom,msm-id is not needed.
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
-Add a glue driver configuring clocks and PHY parameters for it.
-
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/bridge/Kconfig              |  12 +
- drivers/gpu/drm/bridge/Makefile             |   1 +
- drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 570 ++++++++++++++++++++++++++++
- 3 files changed, 583 insertions(+)
-
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c7da6b02d7b6b..f8987e8946fbb 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -372,6 +372,18 @@ config DRM_THEAD_TH1520_DW_HDMI
- 	  Choose this to enable support for the internal HDMI bridge found
- 	  on the T-Head TH1520 SoC.
- 
-+config DRM_THEAD_TH1520_DW_MIPI_DSI
-+	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
-+	depends on OF
-+	depends on COMMON_CLK
-+	depends on ARCH_THEAD || COMPILE_TEST
-+	select DRM_DW_MIPI_DSI
-+	select GENERIC_PHY_MIPI_DPHY
-+	select MFD_SYSCON
-+	help
-+	  Choose this to enable support for the internal MIPI DSI bridge
-+	  found on the T-Head TH1520 SoC.
-+
- config DRM_TOSHIBA_TC358762
- 	tristate "TC358762 DSI/DPI bridge"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index 15cc821d85b7e..5af871ba5ce77 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) += sii9234.o
- obj-$(CONFIG_DRM_SIMPLE_BRIDGE) += simple-bridge.o
- obj-$(CONFIG_DRM_SOLOMON_SSD2825) += ssd2825.o
- obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) += th1520-dw-hdmi.o
-+obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) += th1520-dw-mipi-dsi.o
- obj-$(CONFIG_DRM_THINE_THC63LVD1024) += thc63lvd1024.o
- obj-$(CONFIG_DRM_TOSHIBA_TC358762) += tc358762.o
- obj-$(CONFIG_DRM_TOSHIBA_TC358764) += tc358764.o
-diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
-new file mode 100644
-index 0000000000000..8e866b70aec88
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
-@@ -0,0 +1,570 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
-+ *
-+ * Author:
-+ *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
-+ *
-+ * Based on dw_mipi_dsi-stm.c, which is:
-+ *   Copyright (C) STMicroelectronics SA 2017
-+ *
-+ * Based on dw-mipi-dsi-rockchip.c, which is:
-+ *   Copyright (C) Rockchip Electronics Co., Ltd.
-+ *
-+ * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
-+ *   Copyright (C) Alibaba Group Holding Limited.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/kernel.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/phy/phy.h>
-+#include <linux/phy/phy-mipi-dphy.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/bridge/dw_mipi_dsi.h>
-+#include <drm/drm_mipi_dsi.h>
-+
-+/* DSI controller registers for DPHY access */
-+
-+#define DSI_PHY_TST_CTRL0		0xb4
-+#define PHY_TESTCLK			BIT(1)
-+#define PHY_UNTESTCLK			0
-+#define PHY_TESTCLR			BIT(0)
-+#define PHY_UNTESTCLR			0
-+
-+#define DSI_PHY_TST_CTRL1		0xb8
-+#define PHY_TESTEN			BIT(16)
-+#define PHY_UNTESTEN			0
-+#define PHY_TESTDOUT(n)			(((n) & 0xff) << 8)
-+#define PHY_TESTDIN(n)			(((n) & 0xff) << 0)
-+
-+/* DPHY registers */
-+
-+#define PLL_DELAY_LP_TX_START_LP11	0x02
-+#define TXDINDLYTIME_9_2		GENMASK(7,  0)
-+
-+#define PLL_FSM_CNTRL			0x03
-+
-+#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
-+#define PLL_PROP_CNTRL			GENMASK(5,  0)
-+
-+#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
-+#define PLL_INT_CNTRL			GENMASK(5,  0)
-+
-+#define PLL_VCO_CTRL			0x12
-+#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
-+#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
-+
-+#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
-+#define PLL_TESTLOCK			BIT(7)
-+#define PLL_GMP_CNTRL			GENMASK(5,  4)
-+#define TSTPLLDIG			GENMASK(3,  1)
-+#define TSTPLLDIG_LOCK			(0x0 << 1)
-+#define TSTPLLDIG_REFCLK		(0x1 << 1)
-+#define TSTPLLDIG_FBCLK			(0x2 << 1)
-+#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
-+#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
-+#define TSTPLLDIG_OUTPUT		(0x5 << 1)
-+#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
-+#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
-+
-+#define PLL_N_DIV_FSM_SIG		0x17
-+#define PLL_N_OVR			GENMASK(3,  0)
-+
-+#define PLL_M_DIV			0x18
-+#define PLL_M_OVR_4_0			GENMASK(4,  0)
-+#define PLL_M_OVR_9_5			GENMASK(4,  0)
-+
-+#define PLL_N_AND_M_DIV_CTRL		0x19
-+#define PLL_M_OVR_EN			BIT(5)
-+#define PLL_N_OVR_EN			BIT(4)
-+
-+#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
-+#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
-+
-+#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
-+#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
-+#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
-+#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
-+
-+#define HS_FREQ_RANGE_OF_OPERATION	0x44
-+#define HSFREQRANGE_OVR_EN		BIT(7)
-+#define HSFREQRANGE_OVR			GENMASK(6,  0)
-+#define HSFREQRANGE			HSFREQRANGE_OVR
-+
-+#define PG_LP_BIAS_LANE0		0x4a
-+#define PRG_ON_LANE0			BIT(6)
-+
-+#define SR_FSM_OVR_CNTRL		0xa0
-+#define SR_DDL_LOOP_CONF		0xa3
-+
-+/* syscon registers */
-+
-+#define MIPIDSI0_SYSREG			0x8
-+#define MIPIDSI1_SYSREG			0xc
-+#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
-+#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
-+#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
-+
-+struct pll_hsfreqrange {
-+	unsigned int max_mbps;
-+	u8 hsfreqrange;
-+};
-+
-+static const struct pll_hsfreqrange hsfreqrange_table[] = {
-+	{ 80,  0x00 },
-+	{ 90,  0x10 },
-+	{ 100, 0x20 },
-+	{ 110, 0x30 },
-+	{ 120, 0x01 },
-+	{ 130, 0x11 },
-+	{ 140, 0x21 },
-+	{ 150, 0x31 },
-+	{ 160, 0x02 },
-+	{ 170, 0x12 },
-+	{ 180, 0x22 },
-+	{ 190, 0x32 },
-+	{ 205, 0x03 },
-+	{ 220, 0x13 },
-+	{ 235, 0x23 },
-+	{ 250, 0x33 },
-+	{ 275, 0x04 },
-+	{ 300, 0x14 },
-+	{ 325, 0x25 },
-+	{ 350, 0x35 },
-+	{ 400, 0x05 },
-+	{ 450, 0x16 },
-+	{ 500, 0x26 },
-+	{ 550, 0x37 },
-+	{ 600, 0x07 },
-+	{ 650, 0x18 },
-+	{ 700, 0x28 },
-+	{ 750, 0x39 },
-+	{ 800, 0x09 },
-+	{ 850, 0x19 },
-+	{ 900, 0x29 },
-+	{ 950, 0x3A },
-+	{ 1000, 0x0A },
-+	{ 1050, 0x1A },
-+	{ 1100, 0x2A },
-+	{ 1150, 0x3B },
-+	{ 1200, 0x0B },
-+	{ 1250, 0x1B },
-+	{ 1300, 0x2B },
-+	{ 1350, 0x3C },
-+	{ 1400, 0x0C },
-+	{ 1450, 0x1C },
-+	{ 1500, 0x2C },
-+	{ 1550, 0x3D },
-+	{ 1600, 0x0D },
-+	{ 1650, 0x1D },
-+	{ 1700, 0x2E },
-+	{ 1750, 0x3E },
-+	{ 1800, 0x0E },
-+	{ 1850, 0x1E },
-+	{ 1900, 0x2F },
-+	{ 1950, 0x3F },
-+	{ 2000, 0x0F },
-+	{ 2050, 0x40 },
-+	{ 2100, 0x41 },
-+	{ 2150, 0x42 },
-+	{ 2200, 0x43 },
-+	{ 2250, 0x44 },
-+	{ 2300, 0x45 },
-+	{ 2350, 0x46 },
-+	{ 2400, 0x47 },
-+	{ 2450, 0x48 },
-+	{ 2500, 0x49 },
-+};
-+
-+struct hstt {
-+	unsigned int max_mbps;
-+	struct dw_mipi_dsi_dphy_timing timing;
-+};
-+
-+#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
-+{					\
-+	.max_mbps = _max_mbps,		\
-+	.timing = {			\
-+		.clk_lp2hs = _c_lp2hs,	\
-+		.clk_hs2lp = _c_hs2lp,	\
-+		.data_lp2hs = _d_lp2hs,	\
-+		.data_hs2lp = _d_hs2lp,	\
-+	}				\
-+}
-+
-+static struct hstt hstt_table[] = {
-+	HSTT(80, 21, 17, 15, 10),
-+	HSTT(90, 23, 17, 16, 10),
-+	HSTT(100, 22, 17, 16, 10),
-+	HSTT(110, 25, 18, 17, 11),
-+	HSTT(120, 26, 20, 18, 11),
-+	HSTT(130, 27, 19, 19, 11),
-+	HSTT(140, 27, 19, 19, 11),
-+	HSTT(150, 28, 20, 20, 12),
-+	HSTT(160, 30, 21, 22, 13),
-+	HSTT(170, 30, 21, 23, 13),
-+	HSTT(180, 31, 21, 23, 13),
-+	HSTT(190, 32, 22, 24, 13),
-+	HSTT(205, 35, 22, 25, 13),
-+	HSTT(220, 37, 26, 27, 15),
-+	HSTT(235, 38, 28, 27, 16),
-+	HSTT(250, 41, 29, 30, 17),
-+	HSTT(275, 43, 29, 32, 18),
-+	HSTT(300, 45, 32, 35, 19),
-+	HSTT(325, 48, 33, 36, 18),
-+	HSTT(350, 51, 35, 40, 20),
-+	HSTT(400, 59, 37, 44, 21),
-+	HSTT(450, 65, 40, 49, 23),
-+	HSTT(500, 71, 41, 54, 24),
-+	HSTT(550, 77, 44, 57, 26),
-+	HSTT(600, 82, 46, 64, 27),
-+	HSTT(650, 87, 48, 67, 28),
-+	HSTT(700, 94, 52, 71, 29),
-+	HSTT(750, 99, 52, 75, 31),
-+	HSTT(800, 105, 55, 82, 32),
-+	HSTT(850, 110, 58, 85, 32),
-+	HSTT(900, 115, 58, 88, 35),
-+	HSTT(950, 120, 62, 93, 36),
-+	HSTT(1000, 128, 63, 99, 38),
-+	HSTT(1050, 132, 65, 102, 38),
-+	HSTT(1100, 138, 67, 106, 39),
-+	HSTT(1150, 146, 69, 112, 42),
-+	HSTT(1200, 151, 71, 117, 43),
-+	HSTT(1250, 153, 74, 120, 45),
-+	HSTT(1300, 160, 73, 124, 46),
-+	HSTT(1350, 165, 76, 130, 47),
-+	HSTT(1400, 172, 78, 134, 49),
-+	HSTT(1450, 177, 80, 138, 49),
-+	HSTT(1500, 183, 81, 143, 52),
-+	HSTT(1550, 191, 84, 147, 52),
-+	HSTT(1600, 194, 85, 152, 52),
-+	HSTT(1650, 201, 86, 155, 53),
-+	HSTT(1700, 208, 88, 161, 53),
-+	HSTT(1750, 212, 89, 165, 53),
-+	HSTT(1800, 220, 90, 171, 54),
-+	HSTT(1850, 223, 92, 175, 54),
-+	HSTT(1900, 231, 91, 180, 55),
-+	HSTT(1950, 236, 95, 185, 56),
-+	HSTT(2000, 243, 97, 190, 56),
-+	HSTT(2050, 248, 99, 194, 58),
-+	HSTT(2100, 252, 100, 199, 59),
-+	HSTT(2150, 259, 102, 204, 61),
-+	HSTT(2200, 266, 105, 210, 62),
-+	HSTT(2250, 269, 109, 213, 63),
-+	HSTT(2300, 272, 109, 217, 65),
-+	HSTT(2350, 281, 112, 225, 66),
-+	HSTT(2400, 283, 115, 226, 66),
-+	HSTT(2450, 282, 115, 226, 67),
-+	HSTT(2500, 281, 118, 227, 67),
-+};
-+
-+struct dsi_chip_data {
-+	u64 reg;
-+
-+	u32 sysreg;
-+};
-+
-+struct th1520_dw_mipi_dsi {
-+	struct device *dev;
-+
-+	struct dw_mipi_dsi *dmd;
-+	struct dw_mipi_dsi_plat_data pdata;
-+	const struct dsi_chip_data *cdata;
-+
-+	void __iomem *base;
-+	struct regmap *syscon;
-+	struct clk *clk_pix;
-+	struct clk *clk_ref;
-+	struct clk *clk_cfg;
-+
-+	unsigned int lane_mbps;
-+	u8 hsfreqrange;
-+};
-+
-+static inline void dsi_write(struct th1520_dw_mipi_dsi *dsi, u32 reg, u32 val)
-+{
-+	writel(val, dsi->base + reg);
-+}
-+
-+static void dw_mipi_dsi_phy_write(struct th1520_dw_mipi_dsi *dsi, u8 test_code, u8 test_data)
-+{
-+	/*
-+	 * With the falling edge on TESTCLK, the TESTDIN[7:0] signal content
-+	 * is latched internally as the current test code. Test data is
-+	 * programmed internally by rising edge on TESTCLK.
-+	 */
-+	dsi_write(dsi, DSI_PHY_TST_CTRL0, PHY_TESTCLK | PHY_UNTESTCLR);
-+
-+	dsi_write(dsi, DSI_PHY_TST_CTRL1, PHY_TESTEN | PHY_TESTDOUT(0) |
-+					  PHY_TESTDIN(test_code));
-+
-+	dsi_write(dsi, DSI_PHY_TST_CTRL0, PHY_UNTESTCLK | PHY_UNTESTCLR);
-+
-+	dsi_write(dsi, DSI_PHY_TST_CTRL1, PHY_UNTESTEN | PHY_TESTDOUT(0) |
-+					  PHY_TESTDIN(test_data));
-+
-+	dsi_write(dsi, DSI_PHY_TST_CTRL0, PHY_TESTCLK | PHY_UNTESTCLR);
-+}
-+
-+static int dsi_phy_init(void *priv_data)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = priv_data;
-+	u32 val;
-+
-+	val = FIELD_PREP(MIPIDSI_HSFREQRANGE, dsi->hsfreqrange) |
-+	      MIPIDSI_CFGCLKFREQRANGE_DEF;
-+
-+	regmap_update_bits(dsi->syscon, dsi->cdata->sysreg,
-+			   MIPIDSI_HSFREQRANGE | MIPIDSI_CFGCLKFREQRANGE, val);
-+
-+	/* disable slew rate calibration */
-+	dw_mipi_dsi_phy_write(dsi, SR_DDL_LOOP_CONF, 0);
-+	dw_mipi_dsi_phy_write(dsi, SR_FSM_OVR_CNTRL, 1);
-+
-+	/* configure prg_on_lane0 */
-+	dw_mipi_dsi_phy_write(dsi, PG_LP_BIAS_LANE0, PRG_ON_LANE0);
-+
-+	/* configure PLL charge pump */
-+	if (dsi->lane_mbps >= 1150)
-+		dw_mipi_dsi_phy_write(dsi, PLL_PROP_CHARGE_PUMP_CTRL, 0xE);
-+	else
-+		dw_mipi_dsi_phy_write(dsi, PLL_PROP_CHARGE_PUMP_CTRL, 0x8);
-+	dw_mipi_dsi_phy_write(dsi, PLL_CHARGE_PUMP_BIAS_CTRL, 0x10);
-+
-+	return 0;
-+}
-+
-+static void dsi_phy_power_on(void *priv_data)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = priv_data;
-+
-+	clk_prepare_enable(dsi->clk_pix);
-+}
-+
-+static void dsi_phy_power_off(void *priv_data)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = priv_data;
-+
-+	clk_disable_unprepare(dsi->clk_pix);
-+}
-+
-+static unsigned int
-+calculate_lane_mbps(const struct drm_display_mode *mode,
-+		    unsigned long mode_flags,
-+		    u32 lanes, u32 format)
-+{
-+	int bpp = mipi_dsi_pixel_format_to_bpp(format);
-+	union phy_configure_opts phy_opts;
-+
-+	/*
-+	 * FIXME: the extra bandwidth headroom logic mimics what the Rockchip
-+	 * driver does, and test shows that it's necessary for the hardware
-+	 * to work with the mainline dw-mipi-dsi common code.
-+	 */
-+	phy_mipi_dphy_get_default_config(mode->clock * 1000UL * 10 / 8,
-+					 bpp, lanes,
-+					 &phy_opts.mipi_dphy);
-+
-+	return DIV_ROUND_UP(phy_opts.mipi_dphy.hs_clk_rate, USEC_PER_SEC);
-+}
-+
-+static int
-+dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
-+		  unsigned long mode_flags, u32 lanes, u32 format,
-+		  unsigned int *lane_mbps)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = priv_data;
-+	int i;
-+
-+	*lane_mbps = calculate_lane_mbps(mode, mode_flags, lanes, format);
-+
-+	for (i = 0; i < ARRAY_SIZE(hsfreqrange_table); i++)
-+		if (*lane_mbps <= hsfreqrange_table[i].max_mbps)
-+			break;
-+
-+	if (i == ARRAY_SIZE(hsfreqrange_table))
-+		return -EINVAL;
-+
-+	*lane_mbps = hsfreqrange_table[i].max_mbps;
-+	dsi->lane_mbps = *lane_mbps;
-+	dsi->hsfreqrange = hsfreqrange_table[i].hsfreqrange;
-+
-+	return 0;
-+}
-+
-+static int
-+dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
-+		   struct dw_mipi_dsi_dphy_timing *timing)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(hstt_table); i++)
-+		if (lane_mbps <= hstt_table[i].max_mbps)
-+			break;
-+
-+	if (i == ARRAY_SIZE(hstt_table))
-+		return -EINVAL;
-+
-+	*timing = hstt_table[i].timing;
-+
-+	return 0;
-+}
-+
-+static const struct dw_mipi_dsi_phy_ops th1520_dw_mipi_dsi_phy_ops = {
-+	.init = dsi_phy_init,
-+	.power_on = dsi_phy_power_on,
-+	.power_off = dsi_phy_power_off,
-+	.get_lane_mbps = dsi_get_lane_mbps,
-+	.get_timing = dsi_phy_get_timing,
-+};
-+
-+static enum drm_mode_status
-+dsi_mode_valid(void *priv_data, const struct drm_display_mode *mode,
-+	       unsigned long mode_flags, u32 lanes, u32 format)
-+{
-+	unsigned int lane_mbps, max_mbps;
-+
-+	lane_mbps = calculate_lane_mbps(mode, mode_flags, lanes, format);
-+	max_mbps = hsfreqrange_table[ARRAY_SIZE(hsfreqrange_table) - 1].max_mbps;
-+
-+	if (lane_mbps > max_mbps)
-+		return MODE_NOCLOCK;
-+
-+	return MODE_OK;
-+}
-+
-+static struct dsi_chip_data th1520_chip_data[] = {
-+	{
-+		.reg = 0xffef500000,
-+		.sysreg = MIPIDSI0_SYSREG,
-+
-+		/*
-+		 * TODO: The user manual shows a mux register for DSI0 but the
-+		 * vendor driver doesn't touch it either.
-+		 */
-+	},
-+	{
-+		.reg = 0xffef510000,
-+		.sysreg = MIPIDSI1_SYSREG,
-+	},
-+	{ /* sentinel */ },
-+};
-+
-+static int th1520_dw_mipi_dsi_probe(struct platform_device *pdev)
-+{
-+	const struct dsi_chip_data *cdata;
-+	struct device *dev = &pdev->dev;
-+	struct th1520_dw_mipi_dsi *dsi;
-+	struct resource *res;
-+	int i, ret;
-+
-+	dsi = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
-+	if (!dsi)
-+		return -ENOMEM;
-+
-+	dsi->dev = dev;
-+
-+	dsi->syscon = syscon_regmap_lookup_by_phandle(dev->of_node, "thead,vo-syscon");
-+	if (IS_ERR(dsi->syscon)) {
-+		ret = PTR_ERR(dsi->syscon);
-+		dev_err_probe(dev, ret, "Unable to get VO system controller regmap\n");
-+		return ret;
-+	}
-+
-+	dsi->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-+	if (IS_ERR(dsi->base)) {
-+		ret = PTR_ERR(dsi->base);
-+		dev_err_probe(dev, ret, "Unable to get DSI registers\n");
-+		return ret;
-+	}
-+
-+	cdata = of_device_get_match_data(dev);
-+	i = 0;
-+	while (cdata[i].reg) {
-+		if (cdata[i].reg == res->start) {
-+			dsi->cdata = &cdata[i];
-+			break;
-+		}
-+
-+		i++;
-+	}
-+
-+	if (!dsi->cdata) {
-+		dev_err(dev, "Failed to find chip data for this controller\n");
-+		return -EINVAL;
-+	}
-+
-+	dsi->clk_ref = devm_clk_get_enabled(dev, "ref");
-+	if (IS_ERR(dsi->clk_ref)) {
-+		ret = PTR_ERR(dsi->clk_ref);
-+		dev_err_probe(dev, ret, "Unable to get PHY reference clock\n");
-+		return ret;
-+	}
-+
-+	dsi->clk_cfg = devm_clk_get_enabled(dev, "phy_cfg");
-+	if (IS_ERR(dsi->clk_cfg)) {
-+		ret = PTR_ERR(dsi->clk_cfg);
-+		dev_err_probe(dev, ret, "Unable to get PHY configuration clock\n");
-+		return ret;
-+	}
-+
-+	dsi->clk_pix = devm_clk_get(dev, "pixel");
-+	if (IS_ERR(dsi->clk_pix)) {
-+		ret = PTR_ERR(dsi->clk_pix);
-+		dev_err_probe(dev, ret, "Unable to get PHY pixel clock\n");
-+		return ret;
-+	}
-+
-+	dsi->pdata.base = dsi->base;
-+	dsi->pdata.priv_data = dsi;
-+	dsi->pdata.max_data_lanes = 4;
-+	dsi->pdata.phy_ops = &th1520_dw_mipi_dsi_phy_ops;
-+	dsi->pdata.mode_valid = dsi_mode_valid;
-+
-+	platform_set_drvdata(pdev, dsi);
-+
-+	dsi->dmd = dw_mipi_dsi_probe(pdev, &dsi->pdata);
-+	if (IS_ERR(dsi->dmd)) {
-+		ret = PTR_ERR(dsi->dmd);
-+		dev_err_probe(dev, ret, "Failed to initialize mipi dsi host\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void th1520_dw_mipi_dsi_remove(struct platform_device *pdev)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = platform_get_drvdata(pdev);
-+
-+	dw_mipi_dsi_remove(dsi->dmd);
-+}
-+
-+static const struct of_device_id th1520_dw_mipi_dsi_dt_ids[] = {
-+	{ .compatible = "thead,th1520-dw-mipi-dsi", .data = &th1520_chip_data },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, th1520_dw_mipi_dsi_dt_ids);
-+
-+static struct platform_driver th1520_dw_mipi_dsi_driver = {
-+	.probe		= th1520_dw_mipi_dsi_probe,
-+	.remove		= th1520_dw_mipi_dsi_remove,
-+	.driver		= {
-+		.of_match_table = th1520_dw_mipi_dsi_dt_ids,
-+		.name	= "th1520-dw-mipi-dsi",
-+	},
-+};
-+
-+module_platform_driver(th1520_dw_mipi_dsi_driver);
-+
-+MODULE_AUTHOR("Icenowy Zheng <zhengxingda@iscas.ac.cn>");
-+MODULE_DESCRIPTION("T-Head TH1520 MIPI DSI host controller driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.56.0
-
+Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
