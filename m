@@ -1,82 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795485398;
-	b=MIlwXF4Gx0BE7ydhWA0JalrX7zgyZN7cYofdPipOYSaObTUWFfQ1R3N/06Lpl4GRyQL7
-	 sfYg5/GqfuqIPMUoekFPEMGCrs/hgJN8rOacDoCam/JEnxm21GVDEVIrbOw63RiLLOaK9
-	 A5iCddNupfEEBnB4DcJA7KG2zZJErYXZzBZnlicX7MkHZenG/8u+sN3dXWY4kQlpM92hX
-	 0BawynjVI5EhkEirsoHkojMEtHxU+jSiZ2KJrj7UD6LZ7TZBapXigaxv54g3VRHCdkR4z
-	 T4m+jM+ZmnSvxJpnoL4VLPHew4kgJcwY0yWU1HJCoVL446HI3Dj62jQFdsPcOqEUmYw==
+	t=1795485407;
+	b=33R3GUX4YPRMe/BjRmF0J1dfKJwNF9e/u41tM8G78u4Xi77yNIXs9mwLxD+C4yPhurdU
+	 9NY03oHlnPewjQeFUyOVyQAJCVu1kD+nM+p9JkXIshfkYKdjK/ZMiMhNdeRDKq1u5Z9i/
+	 8//caXV00K8JCOu+EE0U2NVhyztrAnGCzTbgfNEEvLZ0o8EKXIHzL9ODS4RxptdMmg3BH
+	 o8ScK1UBvvNYfLmm2yPPJicgr6Xc6rkJFN/SqPv85MPUouVkdOnPwPSqoROuTIDBiU7fA
+	 jqHFovLyvAR1tMd77unY+2poANWAuP4b1Go5M8NRGc3x4dHvAe/2Pv+a4fgLqHKerlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795485398;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/BV4gF9anlp/vhEs1eSoZiwvaB/0YNfFV5KJA/y6dt4=;
-	b=VD1lvs0dM4bYLC9RnfRPnSBPcJeGtzALiVmM16utCgkVVC5S3jGTQSwFP+pahv4HfIcY
-	 pAWk6mqGHNA4WNMlo1ZfwIanCljWYZW3b0PucukvNZR18hTCIaZXPW4l5K/w5/fRF6wb5
-	 6UqffDmLF5iIpwoQn/qoz0kJn3Z2C2HUve5bZGbl5mA6X7J1ab8OF8Lw+Hu5G10h4MXz0
-	 7GyJ+C370pqu9sib9627VE292fPqRLR9tQ/ugUp+3jDEpBC86w1XdZFlrb6WNyarfOJ5E
-	 HIyp29vZumo6usHxZCZBDrKRWyfORQO/FK87ToW8njKOl+fyF8WkJyQfwwsGWngsI0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795485407;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6VsuKwlRwWJYLAsfMzykziZnzXbEyU4vNFoxq6pdzj4=;
+	b=wD0glu8FHc8bjNozWCHwyJOO6a9ntIfrVWdxPYbGCfd6LMa2FD+kQeB9Zwfugcj5aXHP
+	 1bjo4dilWsAIW08cevSnSge8B62EwjaMoD5Oj1WBq9Irio1XqDhKG6oaO39/SU6FQLqYs
+	 7lypqob5/hS3nUUsLbLs7VrhKDmDOI3Vn++vGfnBTTsnJYnNcM9P45209nTnbrQLCG478
+	 DcKcGqHlq03COZ0jfZPpSO37IpJbfwPH9FobfC8LfZ/YYXHzBtBCFnAbZtEuTXxGWGRng
+	 I+MUWPQu7G2exQA2VMYWW5xO/lnlTMUddyBBGrWqeXoPCy3SgYpbpq0FxR6n6H4v5DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=AT7UDWR1;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TAXscRkF;
+	arc=none smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B989606A32A;
-	Tue, 24 Nov 2026 01:56:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B989606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483B5606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:56:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 483B5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=AT7UDWR1
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1E3E640E02CC;
-	Tue, 24 Nov 2026 01:56:35 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id LTomsy0WpWZY; Tue, 24 Nov 2026 01:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1795485391; bh=/BV4gF9anlp/vhEs1eSoZiwvaB/0YNfFV5KJA/y6dt4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AT7UDWR1BsBBUbdi5SPK82sY8fd3U7cC58aKVHi5V5Pq7rc8Fh4fY/TbK7CqCH5H8
-	 MIrnM1coeZgEG70Y7Lr3GYPzUqCrKT76t/KqtKHy18OXDU7HhmPbGSd6kJ4kPXbcZs
-	 WQ9mHiB5og6GVLkdZLP9vnUTL0DWRnYlPRUL15skNCy7djC91Xy4nRYQT8C9Hgww2/
-	 dbqAbNVJ+FrmC0IdGKNhhHZ2P2UPbxj2zSj+IuZQL3h8kELmgvxAZHYepD0UaRSkrh
-	 LPKl5BveYI5rfWtm89QT2LFXKbGuU4kpbvayfyyBO8xlrwrW5+vKlgZ+fBNEMXGjER
-	 G2k5kQ2F5Xr/lg6kjx7+hmqiKYaLgFCIPTenWo+jAE68nJYy3p5v1de5FMPOQB380F
-	 4dcAlrOQNYoT9f/QIdJ0Nkc5JrGfgm7WxsGZIk6FovUhRFFveEQ4RD3/D4+7S20IsE
-	 2aWosI1GRRHN/NPit4qNNQ5jjos22AUO2HlIFzum/SAgqZdpJp33Jp3NYFaY2VMMYT
-	 Ij6cQ1jLaYShd8UntELLnrMqgIdB7GSwOqQWeGgdSsmeoLZgQFQWmmO+3Jsj5ZItJE
-	 BwTDnPUNS/atubrUiT6Ahzo7UhlIScqS/aY7ZcTzDKgkvcB5ngt72SIjkvcMotXFgx
-	 jmcIctZQtr843g99IzROsb4M=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id AE4DB40E0240;
-	Tue, 24 Nov 2026 01:56:18 +0000 (UTC)
-Date: Mon, 23 Nov 2026 17:56:15 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-Cc: linux-edac@vger.kernel.org, git@amd.com, shubhrajyoti.datta@gmail.com,
-	michal.simek@amd.com,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Tony Luck <tony.luck@intel.com>, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TAXscRkF
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5365d26ccbdso48740451cf.0
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 17:56:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795485406; x=1796090206; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6VsuKwlRwWJYLAsfMzykziZnzXbEyU4vNFoxq6pdzj4=;
+        b=TAXscRkF9Yx9KLcAv8IGhP0/4x+zy+9DS5x9iUu9ZnB+ZIpOGR1w+22i1Z0iRAJgFy
+         lVOMbiosBEvTShCgO7uRDgbDCGlQgDLwpUlSQboBYkyVgjnNrWRL6w47e8EaN+KSge7c
+         +WgICzH1CPR4j/Wa+SFtFGDoMgAGYsoKjzRYiksOGL37i02modDX1lXUL58Qnw0XbZqw
+         dhNH/Tl96iERGNyVq9aiHLibJUtEvA3NQEJCEZeGIcxvh7LMrOQsiGx+h9pxivCcwpq+
+         4isibU9ICG+cKhwsyqr4oFdZeCNBlt9zknV9zVZ+C23weE76xqvbKtkZFTaYyXP9DZay
+         m+3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795485406; x=1796090206;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6VsuKwlRwWJYLAsfMzykziZnzXbEyU4vNFoxq6pdzj4=;
+        b=FOmkBhMcRf89CQQ/lzcWFRGFp+KdDDzdujhLJAE+0Va9ZydCzmOrtApi7NHEYTCA/1
+         e77IrDuvjKuAqhO5xD+9ZWvQK4gjznO0aZszAdSgDd4wXHm55nLvrvjwUDLRIXl7tA2/
+         Kr9CDG+bqKaHbkWpSi/1yvER0BT3tx6UrZagRWJ1Q5bv1J9Jzqlewh1Re7fPDokiTIFo
+         xv6rmfBC7tCkz7Er3u/Cxml9hTY5rzHqMBAQ1Q1gvUqE99GsBlcahZZz/uGAl27euElK
+         DEcYeiq8f07mw61OsMqydQ2DXEtwRcLFzmYR5tH4f4Nt2jn1qnO65PAdymwq7SPrqPk1
+         W9SA==
+X-Forwarded-Encrypted: i=1; AL+hErFhaWpvaauD6Y7mwDCAhovUUhLZ6xxYL4zrRJLhtiQCOdr+VBwPB585BWzUZNPIBicE8rOyEXx+ytGr@vger.kernel.org
+X-Gm-Message-State: APuU4Z+C7F81f3tnkHshxNYDAAfSivEFB0CzzewMCx9j1zewmZwnCwfn
+	A4MpG3HdZ2ZYwY39WCAao9jpccRjZuz+ntsHZfF3wehpRP+QmvAmKOUr
+X-Gm-Gg: AZFdTZeQomP+gFzHh8YWgWb7UkT0gAOEYmONUlgAx9RbjuN7rLUkATtExiU4c4EHpM4
+	BmVzqloF6NUGz7GJaMBLiKueFEKilPquCeID3ZBRcdw0JJDtCuW7QE5Br0gTA1hzYu6685C6KRV
+	Hvah98JCmJsnNwXLU0pHjFlAcr20huEHLvvI19gFWox4T/H60dUusRiuN6NcEcn6Djdeq1Y4uJl
+	/dg7zN1wzKIjXWSLH1A3mzOXWNCwYfOhfIk9goHMkzEkMH4o6xfrCrUL+yrjHIbRCoHQhCWl48C
+	cEEZHGJOYC4OvDECWSaXdcq1yv9w2eTrqJQnTLyj0XDmNIZAx3Y39qbq0sG4lpxatybbEGpvP8b
+	tGHnUpDf0O7fhe7U2wo2vonm9PsNwCn3wr4lqM3fv8awCzXdrus8a/nS1jnfSH7LUh510KOigMd
+	bPEns/QEhXlHebVDwiXG5vqLKUW7hXPl0UbvlY30kzpL35sun3CKCBb20ppTzqaDIcaY5xYmLtg
+	Ur7vr+Nr6L1vhp7dS2+Z13l8MYFjsjeudDA7/YJ0wgG7nhu8hoJPVm6cjsckQEIe6XtF2xs5QiE
+	jqojOGSwiIc0WjddkkCXr09oXRhW
+X-Received: by 2002:a05:622a:2609:b0:55d:6ac2:ceef with SMTP id d75a77b69052e-55d768a3013mr248411801cf.2.1795485406231;
+        Mon, 23 Nov 2026 17:56:46 -0800 (PST)
+Received: from localhost ([174.93.36.89])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d788116c9sm115098901cf.4.2026.11.23.17.56.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 17:56:45 -0800 (PST)
+From: Richard Acayan <mailingradian@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 01/12] EDAC/versalnet: Fix device_register() error
- handling in init_one_mc()
-Message-ID: <20261124015615.GIawTuv3nR0SJ0ZsjR@fat_crate.local>
-References: <20261118142213.100581-1-shubhrajyoti.datta@amd.com>
- <20261118142213.100581-2-shubhrajyoti.datta@amd.com>
+Cc: phone-devel@vger.kernel.org,
+	Richard Acayan <mailingradian@gmail.com>
+Subject: [PATCH v4 2/5] arm64: dts: qcom: sdm670-google: enable adsp
+Date: Mon, 23 Nov 2026 20:56:08 -0500
+Message-ID: <20261124015611.187024-3-mailingradian@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261124015611.187024-1-mailingradian@gmail.com>
+References: <20261124015611.187024-1-mailingradian@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,41 +104,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261118142213.100581-2-shubhrajyoti.datta@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2026 at 07:50:25PM +0530, Shubhrajyoti Datta wrote:
-> From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
-> 
-> When device_register() fails, it must be followed by put_device()
-> rather than kfree(), because device_register() calls
-> device_initialize() which sets up the device refcount. The matching
-> release function versal_edac_release() handles the actual kfree().
-> 
-> To simplify error handling and avoid complex unwinding, split
-> device_register() into device_initialize() and device_add().
-> Initialize the device early so put_device() can be used in all
-> error paths.
-> 
-> Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
-> Co-developed-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-> ---
-> 
-> Changes in v2:
-> Add the codeveloped tag and remove the non standard signature
-> fix the name stack warning
-> 
->  drivers/edac/versalnet_edac.c | 36 +++++++++++++++++------------------
->  1 file changed, 18 insertions(+), 18 deletions(-)
+Enable the ADSP on the Pixel 3a in anticipation of audio support.
 
-Applied, thanks.
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+index 4ce9b62abe53..2044593c22f3 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+@@ -199,6 +199,12 @@ cam_vio_ldo: cam-vio-ldo-regulator {
+ 	};
+ };
+ 
++&adsp_pas {
++	firmware-name = "qcom/sdm670/sargo/adsp.mbn";
++
++	status = "okay";
++};
++
+ &apps_rsc {
+ 	regulators-0 {
+ 		compatible = "qcom,pm660-rpmh-regulators";
 -- 
-Regards/Gruss,
-    Boris.
+2.56.1
 
-https://people.kernel.org/tglx/notes-about-netiquette
