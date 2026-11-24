@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795527283;
-	b=AZ2D01BLhFGOoDa2WTtmGeCIkbA6J7SlbU2eTIwAWf39UFzCx4MwxSVM+0FhDpy8b0s/
-	 16QJkR5286LwC/XezyIU/X5M5yIjju/5z/aS8xe9u6cEaAivJS0MOPwg0TgOY6tTC2wOF
-	 +Xk/wCADQqCwHP52Ol7cO7pu2k4H68Uiqdpb1RnnKyQlizWGyKihZc7rraLAsQatVLFAh
-	 1c6FThkMIk2b2WXZcxEXwjGWSCatOo/a9G/hFxIS9z1KIPLthmI+m+vYsrV0gY+JXRrEu
-	 ulp9fBeXBO2+6VUbkpvt03pZCGxsE8k1D3fk9DGj6DIuDaK3YtAbDqH6/ohCmFSFEdg==
+	t=1795527319;
+	b=ojLS0grrocbayw7N0WSxOEf3D+QZvbA4O3H8zd0Ew/WQomJLHrQWo1oq0klAY1PPdIpo
+	 Q9ZWT+J8cczk8LAKhyHRWLWM5SL1sPLzA9NEeqVMiPR7x1HAgU52p/nWqg50aP5FIHIIa
+	 qTHslbOtM2VvOy5XPM2mKp3Ve3UxAh/sQ7dDlH1zqjbOcNs1qjyvdlxb1OJOKbEllP/bx
+	 FBr50fHQyKSiUNhhADiy6jDzHdm6x+dll7uvkesj8B7Jj3cFk3ArljUFcMj/C0XxwdVug
+	 aa+yO1T1VHjA9LqDplouJ4iWzkvEzzIBbBcr+9537QiRqzvdveZl21Lo0jqExDprJlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795527283;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=qzRr83t2l8gwBhcS4PCTDkEzvbq1+EXVlNFdmk4KAQQ=;
-	b=3cFcyMBJeVsb3z1vCRHY1Y+QhZjmudcH4cLvKboRpUm1Rk6CEiMkLfdwmKNdeJvPPdvp
-	 MXO33Dk9vXstVi/Q9/5uV/IM/PfQuzuE593OfnLepW8B61rR4dgldN4KlGnf2xPn+lST1
-	 M/Fr3axtuLEmV9NncrBvJM7aWkLERcQwHfIKYo+72iiBKQk0gq1usZPbr35AJvbOxfthj
-	 iJgx+WOZVXJqcmxCyY0q2VUa/uNQ28dLlo33ZCk/NpPhu3ReyRtIirVFdwxMvzEJo0Wjn
-	 G2vlhsZEkpkkvK1pESmdVuxrwMNB2Njn0RFGSzWYnmHkgPmehOy0MBVOYEN0ZQXmkgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795527319;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=brA1TZa4Xw4gj6MGSoKR1QMCPQppauTAeMn4qP0Jvxc=;
+	b=EtxY4gYjBTFwXHw/jg1c67gXLm4/3943WpSnDnHez645HIrzwLwEoZjYEqPkk4ysWRc6
+	 MSVJPgWNi8/VGiXlnrZiehl5ullf28NOaty+qdQ/Ii8/QIwTJETl4qhTzMESy0dUKyEu9
+	 3W2u2MmJGy1t3Q4KU/LBTcbOYeCtyXpkTE6aZogqqQu+GKfcBk0Yud/nA7INbdkyPJa9i
+	 hrOo3w62ijCRkl1M3n/9dFS6QnihO9MyuCVqruXCRZrKFnfJeskfUz2HzTGJlGjI/CI2M
+	 vCeDq5t+BLaXu1bkG9e3sZtp5a5cwy83pVd0Yz4u/IY1BkK0/MaGWIAvkYwBvCxv/Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XDV1UJl6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dSbn8Y/N";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C12606A31E;
-	Tue, 24 Nov 2026 13:34:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2596D606A326;
+	Tue, 24 Nov 2026 13:35:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XDV1UJl6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB4F1F000CF;
-	Tue, 24 Nov 2026 13:34:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dSbn8Y/N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521941F000CA;
+	Tue, 24 Nov 2026 13:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795527283;
-	bh=qzRr83t2l8gwBhcS4PCTDkEzvbq1+EXVlNFdmk4KAQQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XDV1UJl6iaGv9ibizQMoOm3pWhEOpFvNpa0DCA5cuAU3N9zWUfArZUc3exlDe9ixA
-	 6VpM9JSDsZ7T9klWYpi8Z5wzFfaKaZtb2+KHFUR4ZIb7p8TaFr9a4HEeEdY3FVKh9+
-	 X3X+b0aIUD3x86dzn+uGU2m44NoZzfkgW6ggTD6YVsNgB62t8OPwoXmhXR4lgU8/8m
-	 fBjCXVLNYBws1aNSVycoIBC+PNpOHlguHOVeb2Tf9DpziSlr/cKjdvQUye5J8b7LAf
-	 Ofg9TFlNA8A0uidaQo5dtUdOqtu178D7XBeDntGEsu2Ugcsl6+3z6/Swwmo/VK/KA7
-	 BNUCHNr3axkxg==
-Message-ID: <sashiko-outbox-231224@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 6/6] usb: gadget: udc: crg: Add core driver and build
- integration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petar Stepanovic" <pstepanovic@axiado.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-axiado-ax3000-usb-device-controller-v6-6-b991f9b27111@axiado.com>
-References: <20261124-axiado-ax3000-usb-device-controller-v6-0-b991f9b27111@axiado.com>
- <20261124-axiado-ax3000-usb-device-controller-v6-6-b991f9b27111@axiado.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 13:34:42 +0000
+	s=k20260515; t=1795527318;
+	bh=brA1TZa4Xw4gj6MGSoKR1QMCPQppauTAeMn4qP0Jvxc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=dSbn8Y/NI1ECMCHeJz8N3SxMgDZHe+m/bc5KiR6zO3arfCHJFGOb54XmBsHndC0+V
+	 vcjb8SFTRbLoKuKNbV/azVrHe6azEoNKNz/qSTWz1i2JRmUpvuK7w2lEaqoxzv0+Ff
+	 oJBlc/Z+RlgnHkujXGg4c35l9BHhWa3dRHlg/0eRsRdPW4yVxkJr7Bx2/zCHRjYjGV
+	 /AH9oZZONTz0rWgy021OWu/lg2Jp4aqTqXj47Gh3Yrpq1bqgYkNZ40zocELH/IhVSR
+	 6uE6wBHJW47Rm+SU89zd0WmBwbgxzcfhPsDGqSYMV0NAigEXW1T6ZERf8FoGh4RB/u
+	 g+o4oxsJZe+3g==
+Date: Tue, 24 Nov 2026 07:35:16 -0600
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,98 +50,146 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Andreas Kemnade <andreas@kemnade.info>, Mark Brown <broonie@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Tony Lindgren <tony@atomide.com>, Pavel Machek <pavel@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ linux-sound@vger.kernel.org, Takashi Iwai <tiwai@suse.com>, 
+ Jaroslav Kysela <perex@perex.cz>, linux-omap@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-pwm@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+ linux-fbdev@vger.kernel.org, Peter Ujfalusi <peter.ujfalusi@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Daniel Thompson <danielt@kernel.org>, 
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, Roger Quadros <rogerq@kernel.org>, 
+ David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org, 
+ Jingoo Han <jingoohan1@gmail.com>, letux-kernel@openphoenux.org, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+ kernel@pyra-handheld.com, Helge Deller <deller@gmx.de>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
+References: <cover.1795505160.git.hns@goldelico.com>
+ <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
+Message-Id: <179552715646.40567.8345105080206889175.robh@kernel.org>
+Subject: Re: [PATCH v2 06/20] dt-bindings: sound: Document OpenPandora
+ sound card
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] usb: gadget: udc: crg: premature suspend during stop in
-  crg_udc_suspend()
---
 
-commit b4599496ea6732d81644faa7d639b33738f4ec72
-Author: Petar Stepanovic <pstepanovic@axiado.com>
+On Tue, 24 Nov 2026 08:25:46 +0100, H. Nikolaus Schaller wrote:
+> The OpenPandora audio subsystem describes the routing links between the
+> OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 audio
+> codec, alongside amplifiers and power supplies.
+> 
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+> ---
+> 
+> Notes:
+>     Changes against V1:
+>     - Address Krzysztof Kozlowski's V1 request to run the documented
+>       DT schema checks and fix the errors reported by Rob Herring's
+>       automated DT validation.
+>     - Update the binding example and schema during DT consistency review.
+>     - Binding and commit-message review assisted by ChatGPT.
+> 
+>  .../sound/openpandora,omap3pandora-sound.yaml | 95 +++++++++++++++++++
+>  1 file changed, 95 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
+> 
 
-usb: gadget: udc: crg: Add core driver and build integration
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This commit adds the core probe, remove, power management, interrupt, and
-controller recovery paths for the Axiado AX3000/AX3005 UDC driver, and
-integrates it into Kconfig and Makefile.
+yamllint warnings/errors:
 
-> diff --git a/drivers/usb/gadget/udc/crg/crg-udc-core.c b/drivers/usb/gadg=
-et/udc/crg/crg-udc-core.c
-> new file mode 100644
-> index 0000000000000..4b5c28da74975
-> --- /dev/null
-> +++ b/drivers/usb/gadget/udc/crg/crg-udc-core.c
-[ ... ]
-> +static int crg_udc_suspend(struct device *dev)
-> +{
-> +	struct crg_gadget_dev *crg_udc =3D dev_get_drvdata(dev);
-> +	unsigned long flags;
-> +	bool notify_disconnect;
-> +	int i, ret;
-> +
-> +	spin_lock_irqsave(&crg_udc->udc_lock, flags);
-> +	if (crg_udc->controller_recovering || crg_udc->shutting_down ||
-> +	    crg_udc->external_reset_pending ||
-> +	    crg_udc->endpoint_recovery_pending ||
-> +	    (crg_udc->hw_reset_asserted && !crg_udc->gadget_stopping)) {
-> +		ret =3D -EBUSY;
-> +		goto unlock;
-> +	}
-> +	if (crg_udc->gadget_stopping) {
-> +		ret =3D crg_udc->hw_dma_armed ? -EBUSY : 0;
-> +		if (!ret)
-> +			crg_udc->suspended =3D true;
-> +		goto unlock;
-> +	}
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,apq8016-sbc-sndcard): primary-dai-link:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,apq8016-sbc-sndcard): quaternary-dai-link:cpu:sound-dai: [[4294967295],[3]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,apq8016-sbc-sndcard): tertiary-dai-link:cpu:sound-dai: [[4294967295],[2]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,msm8916-qdsp6-sndcard): mm1-dai-link:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,msm8916-qdsp6-sndcard): primary-dai-link:cpu:sound-dai: [[4294967295],[16]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/samsung,snow.example.dtb: sound (google,snow-audio-max98095): codec:sound-dai: [[4294967295],[0],[4294967295]] has more than 2 items
+	from schema $id: http://devicetree.org/schemas/sound/samsung,snow.yaml
+Documentation/devicetree/bindings/sound/samsung,snow.example.dtb: sound (google,snow-audio-max98095): cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/samsung,snow.yaml
+Documentation/devicetree/bindings/sound/fsl,qmc-audio.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@0:cpu:sound-dai: [[1],[16]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/fsl,qmc-audio.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu:sound-dai: [[1],[17]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/fsl,qmc-audio.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@2:cpu:sound-dai: [[1],[18]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/mediatek,mt8173-rt5650.example.dtb: sound (mediatek,mt8173-rt5650): codec-capture:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/mediatek,mt8173-rt5650.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,cpu@0:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,cpu@1:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@0:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:codec:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-0:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-1:sound-dai: [[4294967295],[2]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-2:sound-dai: [[4294967295],[3]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-3:sound-dai: [[4294967295],[4]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@2:codec:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@2:cpu:sound-dai: [[4294967295],[5]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): hdmi-dai-link:cpu:sound-dai: [[4294967295],[20]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): mm1-dai-link:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): mm2-dai-link:cpu:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): mm3-dai-link:cpu:sound-dai: [[4294967295],[2]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): usb-dai-link:cpu:sound-dai: [[4294967295],[136]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): va-dai-link:cpu:sound-dai: [[4294967295],[110]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): wsa-dai-link:cpu:sound-dai: [[4294967295],[105]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/google,sc7180-trogdor.example.dtb: sound (google,sc7180-trogdor): dai-link@0:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/google,sc7180-trogdor.yaml
+Documentation/devicetree/bindings/sound/google,sc7180-trogdor.example.dtb: sound (google,sc7180-trogdor): dai-link@1:cpu:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/google,sc7180-trogdor.yaml
+Documentation/devicetree/bindings/sound/google,sc7180-trogdor.example.dtb: sound (google,sc7180-trogdor): dai-link@2:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/google,sc7180-trogdor.yaml
 
-[Severity: Medium]
-Can crg_udc_suspend() mark the device suspended and return 0 while
-crg_udc_stop_gadget(), request DMA mapping, or completion callbacks are
-still in progress?
+doc reference errors (make refcheckdocs):
 
-When crg_udc->gadget_stopping is true, this fast path only checks
-crg_udc->hw_dma_armed before setting crg_udc->suspended and
-crg_udc->suspend_complete.  If crg_udc_stop_gadget() sets
-crg_udc->gadget_stopping while crg_udc_recover() -> crg_udc_reset() has
-dropped udc_lock, crg_udc_recover() clears hw_dma_armed and
-controller_recovering and sets controller_faulted =3D true before
-crg_udc_stop_gadget() finishes draining IRQ, workers, queueing, and
-gadget_callbacks_active:
+See https://patchwork.kernel.org/project/devicetree/patch/5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com
 
-CPU0                              CPU1
-crg_udc_recover()
-  crg_udc_reset()
-    unlock(&crg_udc->udc_lock)
-                                  crg_udc_stop_gadget()
-                                    crg_udc->gadget_stopping =3D true
-                                    unlock(&crg_udc->udc_lock)
-                                    synchronize_irq() / cancel_work
-    lock(&crg_udc->udc_lock)
-    crg_udc->hw_dma_armed =3D false
-  crg_udc->controller_faulted =3D true
-  crg_udc_recovery_end()
-  unlock(&crg_udc->udc_lock)
-                                  crg_udc_suspend() (on CPU2)
-                                    /* gadget_stopping && !hw_dma_armed */
-                                    crg_udc->suspended =3D true
-                                    crg_udc->suspend_complete =3D true
-                                    return 0;  <-- premature suspend
-                                  lock(&crg_udc->udc_lock)
-                                  /* sees suspend_complete, skips
-                                     crg_udc_finish_gadget_stop() */
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-Because suspend_complete is set and hw_dma_armed is already false, both
-crg_udc_stop_gadget() and crg_udc_resume() skip
-crg_udc_finish_gadget_stop(), leaving controller_faulted set and VBUS
-detection enabled.  The same fast path can also run after
-crg_udc_finish_gadget_stop() while crg_udc_stop_gadget() is still waiting
-for crg_udc->gadget_callbacks_active to drain.
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Returning -EBUSY from crg_udc_suspend() while crg_udc_stop_gadget() is
-active (or whenever gadget_callbacks_active, queueing, or
-controller_faulted is set) would avoid completing suspend mid-teardown.
+pip3 install dtschema --upgrade
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-axiado-ax3=
-000-usb-device-controller-v6-0-b991f9b27111@axiado.com?part=3D6
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
