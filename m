@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795485041;
-	b=nO54LwUylRklc6f1cQ4FrIGuzm+xRpya5CPNh3VZ5in3GDKRgbUXSYcZAQ66ZD4SlMAj
-	 9tAIzrZdYukyt91uSVsFtQSKLXU3gjUzJsG04Xw89Er5tWocv1Nxw8MqMcIyWFvRXkR+9
-	 lF5O5WwrohcESO8LiY5etGtQDksFn+CjHZCap1Hfwc7NRExQY3bV7qm8nitgZiKT0bhUw
-	 lb0a3ymP+6jmtwKzX84VzTZ54/iYk24uU9YGnajM0lY9XxuMtT52lu91gMJVk84zQWmCX
-	 AJIPaQ6ApKBaXGElHCqGrpeES4OSL8PG55ebNsvQNvB/1T69SRUWufnA7UVZADPTFBA==
+	t=1795485039;
+	b=MyyqGpVU8XEMlO+WcBmskCcxNY1TLLdUYfDudOXstU3RTumYGrfovKXtkUSV83DaPwyS
+	 Fp6yTgCOfwhr8k4OcK2uH+ybjJnZ9gvdc8JJ6GVN4JGP64UV1nZot07acuvT4cKoiJ2ot
+	 IzCjjz72xrZtQw4zPh7pLA1XwtBG7gwSzhfvbLcLI3TNomdXv3WkfJx74W1CcH55+nnf6
+	 i+TE9JfyIAOn9e8PIe6hUt47ldkwfr3qdZN8Pi++TVTNiQLOErNg1m7N3wo4n7pX1djvB
+	 jWvs3+KXO1W6Xk5KMOeW+hKExbiNRWL9VpJV38enN8F5xQWEphMCcbxmNg+ReC1IcmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795485041;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795485039;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=PcQulF7J6rkUPYH+4J2iV1ojxJYQy0CNMdIGhii5Yrg=;
-	b=Jga1sCs5WOdZ8ILcLwsJ2LQ9WqKFJSaDkwmw5luk6qFJwlXpRU+g3Japs7SDpwtjO5s8
-	 ixVZg5UZAXFcGiMMbC28qDShevgZgcBzOM7xxdJPHt9V3WaSw5lODRO2SG3vGf2xiFy8e
-	 TKuqMyM5ut8JhL+V6FUst+tRVstiffHfkBtL0IqRF4M+QgX/Xm2z+DaCKHx0xupiOd9si
-	 SFyMUDKoeQRr/TP0UEaLsTd1h4Ww4frVBg4JII0aeLj2P4Or4tRwLlEyqo+S6mCb2xs0W
-	 R6r3Ypnx07i0aIPy47D7SI2gz2Pd+l0nj6ybonlEbpI2+Pz///6PcHBXdZQNRGNaoGw==
+	bh=0v6SacVxJF8vWHkgyLmi9nYNQ9TUMeNxVSHsYTdV6sg=;
+	b=zzmX5F/54bILtS+2ykZepcJUeshSUFhwJKae68okjNK02w1bXA7CJ/VISelNLP02rLWk
+	 cZQHHjGuaDHmynTwoffuhV795Ebc000WlahowCIHHroNWHI+s+WVMiRQ8ucHgPWpLTUBA
+	 38puuflRYpmVPCQ/Fin5CDTgFZD5ka8OYS2XhhPJmaBBWdyEDGT7QMjNQBebZT+e/du4A
+	 qzqrUTJZC5WxyXuW+bkIt9fbIrBrux3GpScqWdpgsnwoFR6wC1qBE6UnPk7XHsOL1TQH7
+	 fIAjDwL5nfXoCh5nDcHcgajuuJ5LkyoRKm5/4psBmFmxstQa1+lqtNF1JM6hyAbTaHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=yD7HIg4d;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=MUkMHptM;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0ABB8606A680;
-	Tue, 24 Nov 2026 01:50:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ABB8606A680
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5946C606A33D;
+	Tue, 24 Nov 2026 01:50:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5946C606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=yD7HIg4d
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=MUkMHptM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=PcQulF7J6rkUPYH+4J2iV1ojxJYQy0CNMd
-	IGhii5Yrg=; b=yD7HIg4dZdgMmxQ5jJ4kwzAZW0W+xlooKxmkQ3+qmbHWG3iA6B
-	huLGUHo2ZGacC3+KfaZE1w0tvAGp4K+qFbfJ8zcmNaAGXHAanf6r5aWFhJ/79747
-	PGKfRpweMyrrj2qIo70AorMmVWXBwIWhm+adskIR7zu3Jy+a3UkVMCW0s=
+	Content-Transfer-Encoding; bh=0v6SacVxJF8vWHkgyLmi9nYNQ9TUMeNxVS
+	HsYTdV6sg=; b=MUkMHptMGF5ugiNmuemPcCie79bA0WhEJE0RckaiaHZ8r0Nn5d
+	CUat6B+HR1Is3WpWpUO91hOUwQoh9EqQf4x5JRt7CLh3PcZsDs7O1MM/gbID1bG0
+	RXOh0qbGrAa/M2f2ZizbYQEdxuRJrPdDCk0sK41C35/mr+KJYYY1GVIrc=
 Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.185.179])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgDHPDFk7QRrHDHvAA--.1941S7;
-	Tue, 24 Nov 2026 09:50:38 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgDHPDFk7QRrHDHvAA--.1941S4;
+	Tue, 24 Nov 2026 09:50:33 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: dmitry.torokhov@gmail.com
 Cc: robh@kernel.org,
@@ -49,9 +49,9 @@ Cc: robh@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/6] Input: aw86927 - handle the AW8693X play and boost register layout
-Date: Tue, 24 Nov 2026 09:50:27 +0800
-Message-ID: <20261124015028.1427420-6-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v3 2/6] Input: aw86927 - widen the AW86938 boost mode mask
+Date: Tue, 24 Nov 2026 09:50:24 +0800
+Message-ID: <20261124015028.1427420-3-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124015028.1427420-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261124015028.1427420-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -65,165 +65,52 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgDHPDFk7QRrHDHvAA--.1941S7
-X-Coremail-Antispam: 1UD129KBjvJXoWxZrW5Cr18Cr15JF4rXryfCrg_yoW7Jr1xpF
-	15CFyUtrW2grWxK3WvyF1vvF1furnIgF47Xr9Fg343J3W7Xw48KFn7tw40yFyjyFyUKw15
-	Ja1vvFyq9rsrWFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
-	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI
-	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2
-	z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0V
-	AKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1l
-	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMx
-	kIecxEwVAFwVWkMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAV
-	WUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x
-	07beD7fUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREAB2sElFsCDQA1sN
+X-CM-TRANSID:3pYKCgDHPDFk7QRrHDHvAA--.1941S4
+X-Coremail-Antispam: 1UD129KBjvdXoW7JrWfur48trW5JrW3CFyfJFb_yoWktrg_Zr
+	yrZw1kZ340k3Wkta1DJwn3ZFZxtr1rC34UZwnavr15tFyIkFsrta1vqFWUXwnayrWDGw1v
+	vw4UAas3ua4FkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbqxYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Xr0_Wr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
+	IE14v26r15M28IrcIa0xkI8VCY1x0267AKxVW8JVW5JwA2ocxC64kIII0Yj41l84x0c7CE
+	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6x
+	kF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4
+	AK67AK6w4l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
+	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU01a
+	0DUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREAB2sElFsCDQAysK
 
-AW86937 and AW86938 keep the same register map as the AW86927 but move
-two bits and invert the stop handshake:
+The boost mode of the AW86938 and AW86937 is a two-bit field at bits 6:5
+of PLAYCFG1, but the mask is defined as GENMASK(5, 5).  When the driver
+selects bypass mode it only clears bit 5 and leaves bit 6 at whatever the
+bootloader left in the register, so the part may keep a boost mode that
+the driver did not ask for.  Widen the mask so that both bits are
+programmed.
 
-  - auto boost lives in bit 2 of PLAYCFG3 instead of bit 4, and the boost
-    mode in PLAYCFG1 is a two-bit field at bit 5 instead of bit 7;
-  - the VBAT mode bit taps the battery voltage instead of the software
-    tracked value;
-  - stopping is a two-step sequence: select PLAY_MODE_STOP in PLAYCFG3 and
-    then issue GO in PLAYCFG4, as the dedicated STOP bit does not exist
-    for these parts.  A standby timeout after that is a real failure, so
-    return it instead of forcing the state machine.
-
+Fixes: df53055c540f ("Input: aw86927 - add support for Awinic AW86938")
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- drivers/input/misc/aw86927.c | 65 +++++++++++++++++++++++++++---------
- 1 file changed, 49 insertions(+), 16 deletions(-)
+ drivers/input/misc/aw86927.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/input/misc/aw86927.c b/drivers/input/misc/aw86927.c
-index 699c92a1ce8c..1dbcba798831 100644
+index 6d09e5e96b2a..b9b7315a5dbe 100644
 --- a/drivers/input/misc/aw86927.c
 +++ b/drivers/input/misc/aw86927.c
-@@ -49,6 +49,14 @@
+@@ -44,7 +44,7 @@
+ #define AW86927_PLAYCFG1_BST_8500MV		0x50
+ 
+ #define AW86938_PLAYCFG1_REG			0x06
+-#define AW86938_PLAYCFG1_BST_MODE_MASK		GENMASK(5, 5)
++#define AW86938_PLAYCFG1_BST_MODE_MASK		GENMASK(6, 5)
+ #define AW86938_PLAYCFG1_BST_MODE_BYPASS	0
  #define AW86938_PLAYCFG1_BST_VOUT_VREFSET_MASK	GENMASK(4, 0)
  #define AW86938_PLAYCFG1_BST_7000MV		0x09
- 
-+/*
-+ * The AW8693x parts move auto-boost to bit 2 of PLAYCFG3 and stop playback
-+ * by selecting the dedicated stop mode and then issuing a GO, unlike the
-+ * AW86927 which has an explicit STOP bit in PLAYCFG4.
-+ */
-+#define AW8693X_PLAYCFG3_AUTO_BST_MASK		BIT(2)
-+#define AW8693X_PLAYCFG3_PLAY_MODE_STOP		3
-+
- #define AW86927_PLAYCFG2_REG			0x07
- 
- #define AW86927_PLAYCFG3_REG			0x08
-@@ -290,9 +298,14 @@ static int aw86927_play_mode(struct aw86927_data *haptics, u8 play_mode)
- 
- 		err = regmap_update_bits(haptics->regmap,
- 					 AW86927_PLAYCFG1_REG,
--					 AW86927_PLAYCFG1_BST_MODE_MASK,
-+					 haptics->model == AW86927 ?
-+					 AW86927_PLAYCFG1_BST_MODE_MASK :
-+					 AW86938_PLAYCFG1_BST_MODE_MASK,
-+					 haptics->model == AW86927 ?
- 					 FIELD_PREP(AW86927_PLAYCFG1_BST_MODE_MASK,
--						    AW86927_PLAYCFG1_BST_MODE_BYPASS));
-+						    AW86927_PLAYCFG1_BST_MODE_BYPASS) :
-+					 FIELD_PREP(AW86938_PLAYCFG1_BST_MODE_MASK,
-+						    AW86938_PLAYCFG1_BST_MODE_BYPASS));
- 		if (err)
- 			return err;
- 
-@@ -300,7 +313,8 @@ static int aw86927_play_mode(struct aw86927_data *haptics, u8 play_mode)
- 					 AW86927_VBATCTRL_REG,
- 					 AW86927_VBATCTRL_VBAT_MODE_MASK,
- 					 FIELD_PREP(AW86927_VBATCTRL_VBAT_MODE_MASK,
--						    AW86927_VBATCTRL_VBAT_MODE_SW));
-+						    haptics->model == AW86927 ?
-+						    AW86927_VBATCTRL_VBAT_MODE_SW : 1));
- 		if (err)
- 			return err;
- 
-@@ -312,23 +326,38 @@ static int aw86927_play_mode(struct aw86927_data *haptics, u8 play_mode)
- 
- static int aw86927_stop(struct aw86927_data *haptics)
- {
-+	bool aw8693x = haptics->model != AW86927;
- 	int err;
- 
--	err = regmap_write(haptics->regmap, AW86927_PLAYCFG4_REG, AW86927_PLAYCFG4_STOP);
-+	if (aw8693x) {
-+		err = regmap_update_bits(haptics->regmap, AW86927_PLAYCFG3_REG,
-+					 AW86927_PLAYCFG3_PLAY_MODE_MASK,
-+					 AW8693X_PLAYCFG3_PLAY_MODE_STOP);
-+		if (err)
-+			return err;
-+	}
-+
-+	err = regmap_write(haptics->regmap, AW86927_PLAYCFG4_REG,
-+			   aw8693x ? AW86927_PLAYCFG4_GO : AW86927_PLAYCFG4_STOP);
- 	if (err) {
- 		dev_err(haptics->dev, "Failed to stop playback: %d\n", err);
- 		return err;
- 	}
- 
- 	err = aw86927_wait_enter_standby(haptics);
--	if (err) {
--		dev_err(haptics->dev, "Failed to enter standby, trying to force it\n");
--		err = aw86927_play_mode(haptics, AW86927_STANDBY_MODE);
--		if (err)
--			return err;
--	}
-+	if (!err)
-+		return 0;
- 
--	return 0;
-+	/*
-+	 * The AW8693x reliably reaches standby through the stop mode above, so a
-+	 * timeout there is fatal; the AW86927 sometimes needs the nudge.
-+	 */
-+	if (aw8693x)
-+		return err;
-+
-+	dev_err(haptics->dev, "Failed to enter standby, trying to force it\n");
-+
-+	return aw86927_play_mode(haptics, AW86927_STANDBY_MODE);
- }
- 
- static int aw86927_haptics_play(struct input_dev *dev, void *data, struct ff_effect *effect)
-@@ -364,9 +393,13 @@ static int aw86927_play_sine(struct aw86927_data *haptics)
- 		return err;
- 
- 	err = regmap_update_bits(haptics->regmap, AW86927_PLAYCFG3_REG,
--				 AW86927_PLAYCFG3_AUTO_BST_MASK,
-+				 haptics->model == AW86927 ?
-+				 AW86927_PLAYCFG3_AUTO_BST_MASK :
-+				 AW8693X_PLAYCFG3_AUTO_BST_MASK,
-+				 haptics->model == AW86927 ?
- 				 FIELD_PREP(AW86927_PLAYCFG3_AUTO_BST_MASK,
--					    AW86927_PLAYCFG3_AUTO_BST_ENABLE));
-+					    AW86927_PLAYCFG3_AUTO_BST_ENABLE) :
-+				 AW8693X_PLAYCFG3_AUTO_BST_MASK);
- 	if (err)
- 		return err;
- 
-@@ -604,9 +637,9 @@ static int aw86927_haptic_init(struct aw86927_data *haptics)
- 
- 	err = regmap_update_bits(haptics->regmap,
- 				 AW86927_PLAYCFG3_REG,
--				 AW86927_PLAYCFG3_AUTO_BST_MASK,
--				 FIELD_PREP(AW86927_PLAYCFG3_AUTO_BST_MASK,
--					    AW86927_PLAYCFG3_AUTO_BST_DISABLE));
-+				 haptics->model == AW86927 ?
-+				 AW86927_PLAYCFG3_AUTO_BST_MASK :
-+				 AW8693X_PLAYCFG3_AUTO_BST_MASK, 0);
- 	if (err)
- 		return err;
- 
 -- 
 2.53.0
 
