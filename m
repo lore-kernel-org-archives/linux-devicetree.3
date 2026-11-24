@@ -1,70 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.128.198.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795513280;
-	b=sS/Lu76yx5bCG0fVNRx4WEgMWZOzOcxgjx4QXZSoqKLsLcVIHaZJau/bKvzrxTCAGwGZ
-	 hwxQ87ovRfMT7yALDQTQv3crkM/YLPYlNapdgQpGuTjQplMxMHhOGMgpPvewyQWN+v9/W
-	 Z3NzLJoMDuikWYKWblCuZuR7TiekY0GscoudZgyaeHWPrRxei+izFVYgYjEHKJcXJ7LXu
-	 zaua6Sz4Qzq+aZmMmWP2X8mQMWJNcXlveKuwrgc8xJvhgiBSGNniEIgL6Z/IzbrhX9yYK
-	 hsfiB0bT0fJ3W84iqHasU0KftP6j3JdyvcIB0BXuk14Npn3JJQE/WGWLhUXH1It0I0Q==
+	t=1795513308;
+	b=S/iTbv2rtUI2UsQIad6cZxxDn1jSpKPXiqQkYVBxVQhK64rUgVL0lQtZpYgCdnvGUeH2
+	 qjoT4x3OzlvizmHrriqbECyZax3NIwnbrY+TFRlMas7RnWhxYYnYZOeOgA4fLfIu9l4ft
+	 8hWgCGktoU6i2vUBMcsDvOwu0HnZ73+aT5L1ZecnJ7Ge21d62olufqcRIWnDJhWuEYsca
+	 xsliR/r+ni9C8L/k2AdVN51WXysOwRcHa9JAxB1p3Z/LfVNoUiXZ8pXw7wUq3CRvf4mHf
+	 +CyJBFUZ/gZ/s2Cgm1il7elX1PattGxNI3FFoHzSbw87Rr6GgJNQ/7zRhrwyxk7TMaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795513280;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nQiUts7mTWd7FNT4qvqNZ1vMEkZwawFBIwwo6WGDSL4=;
-	b=2Knj7jozCUXXJ9WauTWwEu+DbtKzcM3ETnKiAc/SMaDBBDPo5NYnbSkEONeBDJC29oKx
-	 LRAAO/ecXr42BnKr4c6Sl53mr64NZTtHL/qq8JeBhA5xZ8LicRWXel9fDn1CpUmjuW4Bs
-	 Vpwig522PBqqvHhuuZH6osKCEGU0U32rccPsfSR9ycktUT+6AFniGEMk31hbc20YF2WUR
-	 tJCPr0ZvyqkHQjlVlAsQgoPzIJFgMjQOcfdz4GrmH0u2oQaQC/0jDCozGZYANavUX4TB4
-	 wbRyNXdyJ8eDrlcTJkJjiY8XHyj8wIYeuhiRtyTQadv6GqHmmqHTnbz64IZ/MRjMMkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795513308;
+	h=DMARC-Filter:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-DKIM-Results:X-DNSRBL:X-SPAM-SOURCE-CHECK:X-MAIL;
+	bh=VMBd4xkuw3NSAtFhnVutsYxwqi+FzOy6A3ghZIUQyqw=;
+	b=5DL/LEkDPsH+n1Bo+CWmvFuMnWyNGTP6kq9EbsXS3XyHFPoBPMVmL00XWdP9kNKBer4Q
+	 yf63LuexWZOh9Fay2FD7qwrZhJg9ebsyhap0YEm++kShAjtkVBwv0C1lVXF2VbggCLjIU
+	 TvC5IPdd0htWG4V+SOrw5I0zQoVtXkFroX0xE0AZ0OLImZn3r9WIRD6QQF85ORi5EusdX
+	 2Si2yqHVFIBK5Q65uHBDMEXGFOEC0KCOvmJBEE96kJznUOI/4ezm9bMKf+FvkoCJwOFxI
+	 Gn2Zugvx0HdikpQiXNn6d7B2D4fETZBlZXY6GeN2W4Jgs0G9c7T8ifGxhWL/StRB6YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phrozen.org;
-	spf=pass smtp.mailfrom=phrozen.org;
-	arc=none smtp.remote-ip=46.4.11.11
-Received: from nbd.name (nbd.name [46.4.11.11])
+	dmarc=none header.from=andestech.com;
+	spf=pass smtp.mailfrom=andestech.com;
+	arc=none smtp.remote-ip=220.128.198.184
+Received: from Atcsqr.andestech.com (unknown [220.128.198.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3CC606A682;
-	Tue, 24 Nov 2026 09:41:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A3CC606A682
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
-Received: from [2a04:4540:1403:dffc:4a09:a431:737f:f29f] (helo=bertha10..)
-	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <john@phrozen.org>)
-	id 1xVn1O-007e57-0E;
-	Tue, 24 Nov 2026 10:41:06 +0100
-From: John Crispin <john@phrozen.org>
-To: Lorenzo Bianconi <lorenzo@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Ahmed Naseef <naseefkm@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	devicetree@vger.kernel.org,
-	lei.dong@airoha.com,
-	Linqi.zhang@airoha.com,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	mfd@lists.linux.dev,
-	Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
-	Rajeev.kumar@airoha.com,
-	upstream@airoha.com,
-	Weifeng.xu@airoha.com,
-	zhengping.zhang@airoha.com,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v4 5/9] dt-bindings: mfd: syscon: add airoha,an7589-iomux
-Date: Tue, 24 Nov 2026 10:40:55 +0100
-Message-Id: <20261124094059.3882014-6-john@phrozen.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA57606A333
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:41:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BA57606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (atcpcs54.andestech.com [10.0.1.154])
+	by Atcsqr.andestech.com with ESMTPS id 6AO9fYVB049395
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 24 Nov 2026 17:41:34 +0800 (+08)
+	(envelope-from cl634@andestech.com)
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs54.andestech.com
+ (10.0.1.154) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 24 Nov
+ 2026 17:41:34 +0800
+Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 24 Nov
+ 2026 17:41:34 +0800
+From: CL Wang <cl634@andestech.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+CC: CL Wang <cl634@andestech.com>,
+        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>,
+        Linus Walleij <linusw@kernel.org>, "Rob
+ Herring" <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        "Conor
+ Dooley" <conor+dt@kernel.org>, <linux-gpio@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <tim609@andestech.com>
+Subject: Re: [PATCH 2/3] gpio: atcgpio100: Add ATCGPIO100 GPIO driver
+Date: Tue, 24 Nov 2026 17:41:27 +0800
+Message-ID: <20261124094127.1988037-1-cl634@andestech.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261124094059.3882014-1-john@phrozen.org>
-References: <20261124094059.3882014-1-john@phrozen.org>
+In-Reply-To: <22ifazqg6afr6rcybqg6foah3v554xu4px2c4et35y5xzpg74h@kesthgcvnlgk>
+References: <20261116040914.368298-3-cl634@andestech.com> <22ifazqg6afr6rcybqg6foah3v554xu4px2c4et35y5xzpg74h@kesthgcvnlgk>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,36 +71,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs54.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 6AO9fYVB049395
 
-The Airoha AN7589 IOMUX block holds the 4 bit mode field of each pin.
-The pin controller reaches it through the airoha,iomux phandle. Add it
-to the syscon compatibles.
+Hi Bartosz,
 
-Signed-off-by: John Crispin <john@phrozen.org>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
----
-Changes in v4:
-- Add the Acked-by of Conor.
+Thanks for the review.
 
-Changes in v3:
-- New patch, split out of the pinctrl binding (Lee, Conor).
+On Tue, Nov 17, 2026 at 02:54:06PM +0100, Bartosz Golaszewski wrote:
+> > +#include <linux/mod_devicetable.h>
+>
+> Uwe would probably say you should only pull in the individual headers
+> that you require from include/linux/device-id/.
 
- Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
- 1 file changed, 1 insertion(+)
+As Uwe pointed out, <linux/platform_device.h> already provides
+of_device_id, so I will drop <linux/mod_devicetable.h> in v2.
 
-diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
-index 4d0cf16fa820..8bd9e8b8a8a8 100644
---- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-+++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-@@ -24,6 +24,7 @@ properties:
-     oneOf:
-       - items:
-           - enum:
-+              - airoha,an7589-iomux
-               - airoha,en7581-pbus-csr
-               - al,alpine-sysfabric-service
-               - allwinner,sun8i-a83t-system-controller
--- 
-2.34.1
+> > +	config = (struct gpio_generic_chip_config) {
+> > +		.dev = &priv->pdev->dev,
+> > +		.sz = 4,
+> > +		.dat = priv->base + REG_DATA_IN,
+> > +		.set = priv->base + REG_DATA_OUT,
+> > +		.dirout = priv->base + REG_CHAN_DIR,
+> > +		.flags = GPIO_GENERIC_READ_OUTPUT_REG_SET,
+> > +	};
+>
+> I think you could save even more code by using the gpio-regmap helper
+> here instead. Could you see if that's possible here?
 
+I tried it. The conversion is doable, but the driver grows from 641 to
+721 lines. The extra code comes from:
+
+ - IRQ handling: gpio-regmap only accepts an external irq_domain, so the
+   driver has to create the domain and duplicate what GPIOLIB_IRQCHIP
+   provides today (map/xlate ops, lockdep classes, resource
+   request/release callbacks, and removing the chained handler and
+   disposing of the mappings on unbind). This accounts for most of the
+   growth. Using regmap-irq instead would turn the chained hardirq
+   handler into a threaded one, and the 3-bit trigger mode fields (one
+   per line, spread across four registers) would still need a custom
+   set_type_config() callback.
+
+ - Output readback: the datasheet documents DATA_IN for input lines
+   only, so output lines are read back from DATA_OUT. With gpio-mmio
+   this is handled by GPIO_GENERIC_READ_OUTPUT_REG_SET; with gpio-regmap
+   it requires a reg_mask_xlate() callback that reads the direction
+   register on every get.
+
+ - Shared debounce cleanup: the debounce period is shared by all lines,
+   and the driver clears a line's debounce enable bit in .free() so that
+   a released line does not block a different period on another line.
+   gpio-regmap does not let the driver provide .free(), so the enable
+   bit stays set after release and the conflict check has to skip lines
+   that are no longer requested.
+
+Given that, I would prefer to keep gpio-mmio for v2. If you still
+prefer gpio-regmap, I can send that version instead.
+
+> > +	if (priv->chan_num > ATCGPIO_CHAN_NUM_MAX || !priv->chan_num) {
+> > +		dev_warn(&priv->pdev->dev,
+>
+> Use a local variable to store the adress of dev for better readability.
+
+Will do in v2, both here in atcgpio_init_controller() and in
+atcgpio_init_resources().
+
+> > +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>
+> Use devm_kzalloc_obj(). Same elsewhere.
+
+Will do in v2. I will also convert the parents array to
+devm_kzalloc_objs().
+
+Thanks,
+CL
