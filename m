@@ -1,56 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795515062;
-	b=PidhscQw2QSf7jzs8bwqIG9I+0feYBQk4k4bRLu+sOTldL2Fsve/T0pKJ7nmiKeSwM0j
-	 xPhBEkQ035YiN3KSbCNHqWphpvFZiyfsVYv4G8PETd/eflsgmtrtfWvQ7STox6QymIP5y
-	 OCk4aEB/8MrQVSBfLSGtgYzP8YfE09Sgz3w3UUjTjc2TJ43vO5YvtZ8aP34TWLoghSVj1
-	 jUtB2g/3hGyRYzemnEw6GiYnOn7alqWEMhSrlObFxuF5uSYL1S53qJoDfgmI1V1dwVPI/
-	 OXHiP/xJ8yN8EFAM31ws89UNU/z3LMA3EtC8d2gGVs8nUlxAahtttgojTxrKc7OIIJg==
+	t=1795515082;
+	b=1paFX1CS0vj4wqojiV7b9IMATtWe5bwKSQoFJpqq5HW2lacDr0tdfPQSANqjSA9kzkdy
+	 kmrYSBWzAsabH6NLx9vJsHIB9mN/D9Z64i1NOVbSip/U+Vqnk9iDqBfMChFoJ+SkoHyv6
+	 mt3dI5brAy1qeyjqeWj009FX+UHrkB+WcR2ZEpMsXAqyYIfj0peFq6eStfIbBWJIDdjmj
+	 g9Ei+Gg8Vj9lPAnwUBG9X1+9kLzvHy7yHZmzZAUHi2XMoXuQz+pnsh0rJwON7GDCmAXc3
+	 UqebG/bhJI0Oo7Br9P7Rzg9WUnHwOsTf1bNnO0gWOdXbBY5usXjekK2cVREavL2pt5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795515062;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=bn66p4czJlIsFN3fgxrVGg4Pt3dHttr6GRisYnhTJJU=;
-	b=toWgW5E0FB0G/SLFdgRunjbvEdv8IPzOPhTPpK1rWX1E84ghgjxvHfDyLfcjOo033GMU
-	 vhKGQNsRy4sKkp+Hessq/w/ed1RmPSb/IIOhnxyeNTzG3VaM01QmHTMR4cKXp4xq7Qfdz
-	 ZYCQS34cqySXDCWQso9U0sPBdZ2yZbyAotLZbQL0TzXPjWusgco5be5fpQgpE804MvBo1
-	 qpJEsItVCCzowJt0MmstoaCYSt0DpMc76p8awIsomScRGYDbUhYQGA8+iyu4qZ8gSUTLq
-	 9sQ4oUjwM0hT6PvPZmS+3ePyfXKRgiL1CKSph9JRlRSu2gGbquPO1D9KX6feGn+vgKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795515082;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PWk3Tf1GjB784piIzDladAPUgmBwYfKuUyQjQkV3yIY=;
+	b=dlGW9t72jbHW0fWub/+IBYl3kpYpI06AleFNiFz6n8sjeCPYQ0BQHwO791M+xup2nFFd
+	 U2G1DEI/Lfvf7/UxpCDnXkzqTwxCMr+bi+BqUgqZqonJcrO8yn0zZnBLx26hhPQcxk/au
+	 RSIKjHH1wvSwxzP9EMsnXFPTCHLRUhiu8QMnIEju8dFYKGKtpcijF7VHzhnVqO9YOD2Uk
+	 vNfjk3u11AEkZHsNrZVjvRFFqma048ViItgSIxUdvX6B8nji3k1HjknOfSA/c6DoqgQqa
+	 K4SQkvcpaWmr5QxWrSJqywqHJSGnwKf+xZP6J9ySapGf5U+gqVTw3u1RwJUtuUPjefg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A2yBDoP3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=HlAKYFmf;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42E5606A31E;
-	Tue, 24 Nov 2026 10:11:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D68606A31E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 10:11:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42D68606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A2yBDoP3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB121F000C6;
-	Tue, 24 Nov 2026 10:11:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795515061;
-	bh=bn66p4czJlIsFN3fgxrVGg4Pt3dHttr6GRisYnhTJJU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A2yBDoP3NWBiE1HM/s9zQ66YeWifwZUpQjqtKiBuVK0zi15NR2FBhWw4kexUTjdgP
-	 lw8McPjk4IaHqqbvcJSlYwzWoc+4EppkcdSGFcx/EbF/ZKKJDrFiJXzIFKaP40T8HH
-	 Ps2F0z3/Ph4UdSuJ+woO0ITGe+KSy9cgZsaVo0lHhhRuF5UufdvzW8ua98EeFf6FO+
-	 k2PKzlJLoXjlsrwdRtivJ7F68kcbNjbaeBvNO3+gLsH6Kxm521jvabkHqzt2DKVgK5
-	 ZMVl3qqGs/ArIGPYbi2FUcNF2uOW/Apz++DpZWuUldSECI120xvc5n4Jptxm6nuAIw
-	 nGNsRFmSmFadQ==
-Message-ID: <sashiko-outbox-230920@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: clock: Add Qualcomm Netrani GCC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: SignKirigami <prcups@krgm.moe>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-netrani-clock-v1-v1-1-ce10cedbfa4b@krgm.moe>
-References: <20261124-netrani-clock-v1-v1-0-ce10cedbfa4b@krgm.moe>
- <20261124-netrani-clock-v1-v1-1-ce10cedbfa4b@krgm.moe>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 10:11:01 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=HlAKYFmf
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdb75699c7cso1645979a12.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 02:11:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795515081; x=1796119881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PWk3Tf1GjB784piIzDladAPUgmBwYfKuUyQjQkV3yIY=;
+        b=HlAKYFmfPCoYFTCLTHQDZ5gmfaO/86bVI9JR8zSi6iX5pEaHJ6KC85vWGnSoE6W+xZ
+         SBsmUsMhSOiM5F/96TztP7GqUP7MBeZmi6u4trfRa9IhF2/V+iPNHLis/ydSVGEDAr3S
+         R+nkYpQDXWfxho58J5CYyt8FbpQg98Ic6S7uA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795515081; x=1796119881;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PWk3Tf1GjB784piIzDladAPUgmBwYfKuUyQjQkV3yIY=;
+        b=j51fUyzKz8yZjXicJPAXZ2sT5JuScPZkUzzyGmwNst6Xbpjvaj8vFfpVTpHh8DgogU
+         PuLTSMGzTEgzbHf+dmPi80vqxvPwrEG8Qg0sNdBCLaHdDOmk25T4fO1pvsC6XnlYx+qv
+         4Q8Tlfrq7hD4WAoK/yD9xutf7lauzacug+HDMztQ710KDfJkKDYG6bIZmCqG4R2AhCPK
+         oczNgE4qCsdgaRWBd6AmJLhTAomT5qpoo9dFUwPt+UAz2EW6Qt18hNvTjrzCUlh6hrhW
+         5aCongWHCzdPTrQDNqCKp+7RNr+FANwjyiEZ7k+cU4c8bHB9Mx4z0nZQYqw+4Bz/22uL
+         n8zg==
+X-Forwarded-Encrypted: i=1; AL+hErGwQbVrl1mZQCH3bGPHr57zdS+AZ18zeMWftWD45CqSzVy0Zb8KXVTO3ksSSaB/+msUJcdAy54cdIlo@vger.kernel.org
+X-Gm-Message-State: APuU4Z/j1UcH/FWiLQcUSA/5oI4HSjW+NpiTWuBk+UTMLdxYKBBQzS7N
+	LKM50SGdFY5nD+I87FNJeE9GKK/tCyB1RH3TTmcxMUw4MN71N67Pc9rjUThT7ABGcw==
+X-Gm-Gg: AZFdTZcsv/WaWDbwN6P1+Rx257nUHygVkbzu8ZdU254rWhfsPls000lmnCeXsXkHtST
+	SkDcb8n2r0Lytlbq8pb4bevBr+o96U3x6BQeYqBnDXXoFVK1gjESdpa8sK7IIc/abp0jcXXT2rg
+	9K6Il9SNfEcy7GsCoPtm/ZhimT8mB5vt5uLUPkg0D99VRQvqZsL8b5RwKyPqVuyR0HNqx2p/zla
+	va57Ax02J9W/EZ6vENVu/7UdH2fMAM80HcG4nBDs1I5FK+tcty7WF3ZbUAhryjVzz2Rh4j/4Trz
+	7C/0lD/2WuYn94+X1GdnuX3W56CEH+Ujd6UyMulnVEgo5ux4DiRch9VXFln0GX7khnywhqkXz3j
+	4yHOfmnywO+3IEYpj41pQSRcS7IzXxnrrDU6n5b0G2lgXM8JaCpzTNHd3NqvtSEVYs1bdyPSdAv
+	v4grzYQg4iU+M+gC3BxALK2i5Iud47/RogIFWl1qlsEqLi1+rNChLdUDVxSuNQCQrw/yRbubJkG
+	r8vGe0wX3184nds0TiJX2PIqIaoRu0zlNagR8biIcoi/Utjukeklr0ti89YuZeWvRXTiCbifpRt
+	rghdMj6Iz2bC/9mde2cBablECTGBwE6hLzuvGbI3/pp+viW9e8QO2y0s1vxJ
+X-Received: by 2002:a17:90b:3f0f:b0:3b4:1b37:ac89 with SMTP id 98e67ed59e1d1-3b41c8ff71dmr19777589a91.34.1795515081507;
+        Tue, 24 Nov 2026 02:11:21 -0800 (PST)
+Received: from localhost ([2a00:79e0:203d:7:8f32:8910:4727:ea03])
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3b41abb1b66sm23171867a91.1.2026.11.24.02.11.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 02:11:21 -0800 (PST)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] arm64: dts: mediatek: mt8192-asurada: Fix swapped regulator ramp delays
+Date: Tue, 24 Nov 2026 18:04:19 +0800
+Message-ID: <20261124100420.613422-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.56.1.809.ga0b61035b5-goog
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,93 +93,44 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] dt-bindings: clock: netrani-gcc: GDSC IDs continue reset
-  numbering at 27
-- [Low] dt-bindings: clock: qcom,netrani-gcc: missing power-domains
-  property
---
+When the ramp delays were added for the MT6315 regulators, the patch
+had mismatching context (due to unmerged patches in between), and thus
+was applied incorrectly. The result was that the ramp delays ended up
+swapped between vbuck1 and vbuck3.
 
-commit 0e3fa161746caedb31f6d1ea2fcad4a06d7279ab
-Author: SignKirigami <prcups@krgm.moe>
+Fix them and swap them to the correct regulators.
 
-dt-bindings: clock: Add Qualcomm Netrani GCC
+Fixes: 9c9f83e3368d ("arm64: dts: mediatek: mt8192-asurada: Add ramp-delay for MT6315 regulators")
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-This commit adds the Device Tree binding schema and clock, reset, and
-power-domain identifier header for the Qualcomm Netrani global clock
-controller.
+diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+index 91da89eda13a..6cd93d2d4da7 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+@@ -1505,7 +1505,7 @@ mt6315_6_vbuck1: vbuck1 {
+ 				regulator-min-microvolt = <400000>;
+ 				regulator-max-microvolt = <1193750>;
+ 				regulator-enable-ramp-delay = <256>;
+-				regulator-ramp-delay = <4500>;
++				regulator-ramp-delay = <8000>;
+ 				regulator-allowed-modes = <0 1 2>;
+ 				regulator-always-on;
+ 			};
+@@ -1515,7 +1515,7 @@ mt6315_6_vbuck3: vbuck3 {
+ 				regulator-min-microvolt = <400000>;
+ 				regulator-max-microvolt = <1193750>;
+ 				regulator-enable-ramp-delay = <256>;
+-				regulator-ramp-delay = <8000>;
++				regulator-ramp-delay = <4500>;
+ 				regulator-allowed-modes = <0 1 2>;
+ 				regulator-always-on;
+ 			};
+-- 
+2.56.1.809.ga0b61035b5-goog
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,netrani-gcc.yam=
-l b/Documentation/devicetree/bindings/clock/qcom,netrani-gcc.yaml
-> new file mode 100644
-> index 0000000000000..f05e0ca78cb94
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/qcom,netrani-gcc.yaml
-> @@ -0,0 +1,77 @@
-[ ... ]
-> +  clock-names:
-> +    items:
-> +      - const: bi_tcxo
-> +      - const: sleep_clk
-> +      - const: pcie_0_pipe_clk
-> +      - const: ufs_phy_rx_symbol_0_clk
-> +      - const: ufs_phy_rx_symbol_1_clk
-> +      - const: ufs_phy_tx_symbol_0_clk
-> +      - const: usb3_phy_wrapper_gcc_usb30_pipe_clk
-> +
-> +required:
-> +  - compatible
-> +  - clocks
-> +  - clock-names
-> +  - '#power-domain-cells'
-> +
-> +allOf:
-> +  - $ref: qcom,gcc.yaml#
-> +
-> +unevaluatedProperties: false
-
-[Severity: Low]
-Should this binding define and require power-domains for the parent CX power
-domain, like the register-compatible qcom,sm4450-gcc.yaml?
-
-Because qcom,gcc.yaml does not declare power-domains and this schema sets
-unevaluatedProperties: false, a devicetree node cannot specify the parent CX
-power domain without failing schema validation.  Without power-domains on
-the GCC node, gdsc_register() cannot attach GCC_UFS_PHY_GDSC and
-GCC_USB30_PRIM_GDSC as subdomains of the CX domain.
-
-> diff --git a/include/dt-bindings/clock/qcom,netrani-gcc.h b/include/dt-bi=
-ndings/clock/qcom,netrani-gcc.h
-> new file mode 100644
-> index 0000000000000..b4d4a39d4d690
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/qcom,netrani-gcc.h
-> @@ -0,0 +1,184 @@
-[ ... ]
-> +#define GCC_VIDEO_AXI0_CLK_ARES					25
-> +#define GCC_VIDEO_BCR						26
-> +
-> +/* GCC power domains */
-> +#define GCC_UFS_PHY_GDSC					27
-> +#define GCC_USB30_PRIM_GDSC					28
-> +
-> +#endif
-
-[Severity: Medium]
-Should the GCC power domain IDs start at 0 instead of continuing the reset
-numbering from GCC_VIDEO_BCR (26)?
-
-qcom_cc_really_probe() and gdsc_register() register GDSCs as a separate
-onecell genpd provider indexed from 0 to desc->num_gdscs - 1, independent
-of the reset controller array.  Using 27 and 28 in the ABI header differs
-from other Qualcomm GCC bindings (including qcom,sm4450-gcc.h) and either
-forces the driver's GDSC table to carry 27 unused leading NULL entries or
-causes out-of-bounds lookups when indexing by GDSC count.  Also, since this
-controller is register-compatible with SM4450 GCC and defines the
-GCC_PCIE_0_* clocks and resets, is GCC_PCIE_0_GDSC intentionally omitted?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-netrani-cl=
-ock-v1-v1-0-ce10cedbfa4b@krgm.moe?part=3D1
