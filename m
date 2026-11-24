@@ -1,112 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.34
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.120
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795533866;
-	b=1jVe4HDoj0FbE47HeCKta0aZjMKICCVWWyYil/X2cRqABO0ZQUcAXb9JErH51wUDxsrf
-	 x4R2yUvHM4fBQsy4XMZQNDaB+qpQzc0ISDBHG900qEDTpjkQ+1R+4l7DjF/w42Sw+BgRi
-	 or32A9+I77xeJUp6yukJae059GTYpfocMFSF4wkVFSietwwjkrjDUKQ3M7rnrIlNBGju/
-	 xtaySZrCjDWD3gPj2J1pij16c//vzeneClNoPKhiAdLz6FIQC0EZA9QKPCpYc8+hpys+I
-	 zFXpyf1j+IIm0uvJD/3bWf4pdcKQP01S2jGyHkQUeTQzX2uk9pedZYjahH1ZBN7mAxg==
+	t=1795534092;
+	b=IydP0PlU91y2zxssr2Mj+8eHghLDahp7Jrvpb/kL1VDPeNwW7kybs/3/V9sLZ7pL4mnB
+	 bKdB1fWvN0n7W2y0SMAAc330P9053GJtf39lS8pSO8DgYRrBxVALjcKZAFXR4krMVsrJ5
+	 ueO5S6I28tbbOmWZy7rKX/wh6sRpEDmHmWJfEXJu04Y7SeYDaBETHqQQG4h8GdCajHpu1
+	 RjBj22Vzx66i3jdiBnQJZm+ge8Gv1Hj1p5ly6tlwbwJt0X7UBZ9N1D+Cxfo7MAzXEU7Zk
+	 R1HY7LYq9+9uWUJHSa4h9tJtHnlNWQS1eLPH0RmBqtzJKWu6koDiSjMXApY5qucoUgw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533866;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=s2W1pOpQit+waCD2jihvc9+lVRg8k1Lgvuv+GDE8PdM=;
-	b=P4hM8rY6Uc5dlmv0xjEcQGnI/H++YMoTDVJrsnFEsVau4lj9lDSSgtZYzRQ58LE4LyIZ
-	 U5r2p8A2Qz3hl249S5j6iVHWJukn+psWhKnySbnfEzZEkd8M+ycCU+mjKU8AsvodQhwA8
-	 xpt13qC57a+XxQf0VucBbIzc4pvm1VTOtiucjrtbyObcHJ5mlCnrAXMtHoR3WjN3D6KyH
-	 yJ2ZCDwIWeoYsq9TLfDi+DcIJS3+A07JH0kG+joT07T8FPzvTJSSnlhIOXyBRHyLI0RKK
-	 wL2Hv51SjmKE1RjavdWPUm91OwY4mtOsFz4k7B9xlHERRGmQnd72DfKGwIT9eIZyfWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795534092;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=Do5FkKgMlCI/D8/8uPVacdPZ+m4QTTZgla0npUPWih8=;
+	b=vp929ZQ9AJPcCZjMx1LtkTH4vgOnvvtT4CahG3rLMmJlmTCT5ZCX7UBDPMcV6gw9vioW
+	 Wz8hOOH8Z/gK/gyie7xPwoHwNPNhXjrxAyyh1JxKhLeIx6FkZU4WO8fEgECWA/WT6Ck3n
+	 2YXWobhqrdd/FSa/iWYvRrJkweKUr9UFi/+XiyBgJwf3vWe7nuq+H1Z+wSRvBlQTnE+0S
+	 9WR06Ezg5yhWBAvJHKOB4y1SuxdnAVMmmmbpKXqBLFlzHt1SvsY541cKyTCHUqq13wJcY
+	 VNoQp6C2sM1ueOQoePMv0RyUthkU47aiLdy8ZbeXl5ifPO6R36Xb//dwOE4TKmvrRkQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=u8B88wbs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.34
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011034.outbound.protection.outlook.com [40.107.74.34])
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=WHotxxso;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=PpFLp6ZM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.120
+Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de [85.215.255.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C87606A31E;
-	Tue, 24 Nov 2026 15:24:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C87606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBB0606A334;
+	Tue, 24 Nov 2026 15:28:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DBB0606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=u8B88wbs
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YFo7HY3l7Ox/QKOXXA1E45PwgbOT9iQWeqN1Iho+Zlm+fYXzkjtpfaRiCVTfdZTPbJujT4HmyG44bLK13vRwkfLexRbO6Q6GquOtDc15YWVgLatCkKEhjiF2E8JIrZBjoVjA4tfVW87QjrC4A8ZEMeLbEpNH+1RcdHZbh6NqXKY7n7btVWdH8rUTSQdTfCLFslPH9GiQwk0bpQoeIJ8kzrF/9SKxJzdBRXou7loY6d0KOcm6zpT6YLxtLeQzEi4v3HIgXRCMQd6edqlcSKHgeWG6mOOvc5eRsbpIzDa2DugmoHCQlraxZ91AxBlnfan4nRfdKsWI7xK0fk1Y8fvOgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s2W1pOpQit+waCD2jihvc9+lVRg8k1Lgvuv+GDE8PdM=;
- b=xvguYv55HW9LIgpyghsouWg6RPi/nT2nAQCKfDB86jTJX15ynZWvSgqCnhgLHWXqeGMldLxS9mUx8ZB1gr98LcSL7pHnTej5CNI1hNgpjCfcWabsJDrifd8lzfdcVcVcEUIGnWotwfVeWd1kKsC/PF4YBDarRQs0d/UX9ZSF2AZox4rs4PqUi801Scz720HM+Gz0QMIQUfzMRvyPUK3i+Go+GBkFC/SBuEiIOyXhxxbmgm+nCiLk6sgLYIRWnf62UTgE54y85uhRnAocVssRmLSvmv6Byci07sfSCMW8Jve9MBeA0Ob8Gabaduun0bRVk9J+QJCpdIBR2qw7M7AmQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s2W1pOpQit+waCD2jihvc9+lVRg8k1Lgvuv+GDE8PdM=;
- b=u8B88wbs0EpnGYNg+MqHgHWsgLIV0l/yVqqRIiyrfUGdQ0s4WQSEV8Wf0zYV3fShLbOB0IJwj11dwDJsUkJtIqr0+MBXYVYPIqWKhmmX7OBCxEMq45g0828j5aMKCcLO/vZmqkzkvFPWDVYmklnfbjIlWm4Pi6BtL3MdrgZKA1M=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15) by OS7PR01MB13650.jpnprd01.prod.outlook.com
- (2603:1096:604:359::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Tue, 24 Nov
- 2026 15:24:23 +0000
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 15:24:22 +0000
-Date: Tue, 24 Nov 2026 16:24:10 +0100
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Tommaso Merciai <tomm.merciai@gmail.com>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance
- from the DRM device
-Message-ID: <awWsGjt6cW_CSoMH@tom-desktop>
-References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <68fcf838eee14c1906f23b2b7c74c560793cd1d4.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <OS3PR01MB65968FEBCB08429F11188CE986452@OS3PR01MB6596.jpnprd01.prod.outlook.com>
- <awVW5B4p06FUfBHw@tom-desktop>
- <TYYPR01MB6603AA1B7A48B7D899604EE586442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
- <awV8G86QIth4GtaA@tom-desktop>
- <TYYPR01MB6603A1FB28A473A400A2C49386442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <TYYPR01MB6603A1FB28A473A400A2C49386442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-X-ClientProxiedBy: FR2P281CA0065.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::11) To OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15)
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=WHotxxso;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=PpFLp6ZM
+ARC-Seal: i=1; a=rsa-sha256; t=1795534069; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=ZOdacTezD0/O1W8pWgGGy3eS+6bUkGPBr3WXwIkf/Uo3ue55cxbtyUnn0eAB5jFYW8
+    4m7kfhwGw/tPfp6BTHByjdH4SzMgyMXJ4QP/eLhBM8g1mSQLOVBwEeOoWWiTZWcd6XPj
+    qm9qD9E56JyE5v4mUHvuTqh6hONosle/8fRe8YrIxADLZhaB/i3ouJjAN5dQ6K+y+93u
+    NiOeIRpLldwX5q0Nql4uhWNeOX9nnZMTp3b0Rb+sMuprOD2ic9HjmtSPqWbrHO0Wi55d
+    ioPA+P0KDLg/EAQME5rNFLtRiVyVNsaAv32eq9x4PeMajpbUPhT9FEaa7zP4rlfUHdmo
+    kn6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795534069;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Do5FkKgMlCI/D8/8uPVacdPZ+m4QTTZgla0npUPWih8=;
+    b=DzOJdFExQ63HcAPaB5bp+F6rlFv20cAjKPGXiTfD3ARPuLTFO8jxpFwlSJZaWJIVS6
+    m3/aVAzoMGk+cb/s4DRe2uQXAHAi7sV81QuhX5dsk82IWIxkiD8ntWoAHWdOfJmLX99I
+    vO3aF0X8VF5A5zzs/MwPSIM9ZfYiiInqOyvh8+TZAuEz9vZbLnoPQ3niI0lkhQ10ZYG3
+    9aTKQ0xZzJIL1LNVwg5LQa8dZHQjXHqCzeW1DA0BthvG+Q7XqOVTVUgofJjE/GJuVUIv
+    nvhWN931wYMWxqUA8dqBMPOpBMaFwUe1zbDOs9oV0ybZsfXQ71Vz0oaZCrP2qvzi7MPT
+    KtDA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo04
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795534069;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Do5FkKgMlCI/D8/8uPVacdPZ+m4QTTZgla0npUPWih8=;
+    b=WHotxxso2lz+TYmIbQErxcF/C0jaH5fk+rAzl09i1EJ6wcRKkm6Rp70aAoaN6b6nji
+    UdyCX+9DHv4snG435rBPWmHUTzNVtgQB3lLKwO7AezmXNY0Jv7KQlDh6+m4Xo3du70js
+    20jBe/Q2Ry0MDGVPYiOwowvnxZnxSxlbf9Mqohd3eWcb4SXJQH9qAWcKzU2jT7fZE9F3
+    qrHZtuWxBLw4/CTqb2mfzlQNR6HktXKQW8oFO4XEldybnDjjsiJMMRWuXaqm7KwftVKf
+    IRzlHlSoj2LbePLwzmHToIsZj3yGACdQ/Fd/dJXa8kf9J1hM2nB5RJpIU90YoD0YxRcu
+    lOHg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795534069;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Do5FkKgMlCI/D8/8uPVacdPZ+m4QTTZgla0npUPWih8=;
+    b=PpFLp6ZMiP3xDVaWjY4phl3aiPj4zX8gQ/xc9v/XvwYLJ173GZ65l0e91P3FhNaxTc
+    sdF6rCGB33CQHIoNxyCw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV3poLlciNVWUgMvoVkTTR2P7jtjQyY2AeEP/F"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AOFRl3rJ
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Tue, 24 Nov 2026 16:27:47 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,182 +93,277 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|OS7PR01MB13650:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa18593c-8b0b-4b16-bde9-08df4a3f043f
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|52116014|23010399003|366016|18002099003|22082099003|261009223027099003|4143699003|261028144727099003|56012099006|11063799006|261022075727099003|261102123227099003|261026121527099003|261021121427099003|261022105027099003|261021123027099003|261026140227099003|38350700014|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	Aepn4M0xooXvDu6ZpnXG9ZdAbIzpx0zD1+e6Ztx+oYc/RpMrKC0jLdapHVVXs73l13xI2dSoHPqut4qpD4BD0ZbMicW9mJFm5HoBDstufEicyJUXTaJm8f38+CKddqKafT0+T/WfX+u/Eb1Rs3nCJRStsQIxsGqseSk2qfJVoioY+e2kVSpV/va0cBUhEsUGaPTHeTiguCfIJdEFmWppQ9GgVfjTWNZm1g176gXvdAzMAGujT/uk58gRhMFj6N+7K635uy7NXgrsGRYNTR9gkAC8K0rYyvGRCKZ/H5thkX7v7a568UekNMC5wQqdevAj/gPYtiZmMt1La48N/CpCYCxKG5byRiLSQXXBUVBkh/T5jaUbNvRIJ+hOjoMzHSNDiDi5e1PTU4vNFFh25R/YPuUqsld0zn4oL0OOowny3TaxfKFJ53//Ps6yKFeI9KMJAyq2Zwiz+hkq+sCXGCgaqskjXi88cHnLFRXJJrVGrxPW94Z6IvDbGNaZsoAGCJ1+B2QyucTi9Yv5ZGYXGs03axKPQb7fyVarA7to9E7FyMvPv3y8cYRz/5KkwIYzD3zL0mXv3HrJREdg8EMyHx1y3MKAYOnmOWA96uieDlNPZ5HDjThJMoCIyjMBLqecf6phnhlIWqS233A1UsAHdlgT4F1bT/uLhwdv9td3XFlCQCzWwqCoKDRTGsjvntrxqnj3kb/Mx2Y/y8saT4uMG1aI04fyxdyMgd3V1EJcQLIs35k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(52116014)(23010399003)(366016)(18002099003)(22082099003)(261009223027099003)(4143699003)(261028144727099003)(56012099006)(11063799006)(261022075727099003)(261102123227099003)(261026121527099003)(261021121427099003)(261022105027099003)(261021123027099003)(261026140227099003)(38350700014)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sVJU3UAsNzq/oqd3e4xTlxCSzaoL6+7voURWSA4DDBpkVlCMpQJW3ZHOVFAq?=
- =?us-ascii?Q?Zc6vOgyWWNcWOQQYSBiIb8QX9KQdf6jmoAv/bgU8n+irIX3H6BFnbTNJIhGG?=
- =?us-ascii?Q?GmOsWgPQA6aMmHgRJ70sFWEJAd435pj5S5yTbmdEBGg79PGM90hLUiix6K9l?=
- =?us-ascii?Q?LzZCK1bYrdG3wpm2atYq46KkSebeK7uc/TZBfX5V9w9mS7WObybn/R9excne?=
- =?us-ascii?Q?iET6daU8gaznvTn3IVoflAc192lwF5p4DRd8VMiY+1ShEcOeDueRkYvMWp3L?=
- =?us-ascii?Q?RN813D2/kSm8XftW9nscMySlL3oArllkONzaFl8wRSZRrMnYcXefRAAT2R3W?=
- =?us-ascii?Q?nPA/gGiz7Zx4H/rOxXZKJ/wwZvLFsMcrlokj0DDESohQoyx7kgdMQt6eg28a?=
- =?us-ascii?Q?RfddgTpv7zicV+opI+2zE2AJ8fZC80ulhVtsuHEAu9GhuWoY4q2k5ACOe7J9?=
- =?us-ascii?Q?VnsqJQkQ/lSfPIjMGTVq2/1/msI6IsySOMPloUk5bnZ/CTodefX6RNdMznYC?=
- =?us-ascii?Q?4434QLR/Q9hidCdReYl4k/nfFZv7eb7sOdbtP/cb4HMqtOwYUtbHgdkeUDxR?=
- =?us-ascii?Q?T7vE+Hbftop5rtbAzFYur2iLLSDdAi4cwj4D+GVaRMXr67vF2U+mAemb2rWY?=
- =?us-ascii?Q?TQOrYDrwE8LfrNVZBTXBoH11dV+nySXosWXlfBa4IdDAwdZ55peFoaz1UT7+?=
- =?us-ascii?Q?lUtszTNO6I4gPSntApy8PIvnLa3U+7UhPbwk9kL8h16v4YFV8cOxqHVKAsd/?=
- =?us-ascii?Q?OXQViu8no6U04OK0dt4bDzceEjUDOGhhiktlWT9G0yvXQyOssKnvGSNcpuiS?=
- =?us-ascii?Q?l5NIbuHYnbV5bkg243QRhCnYcOSoFXNONFYZo344MPkoL5o5CeM4NR13Xhq/?=
- =?us-ascii?Q?tPIExrRHKzQqhqYdUQjWUFEy1N9BxxJ/f1/5ZnCrezKsahY7VdWg70h+2ME/?=
- =?us-ascii?Q?Q++IczDPJ/vH3D5akOro6viBQ9Dg3pATvKHXMPE4ZbUcBiNFPLuSHVYS49sG?=
- =?us-ascii?Q?qK9OHL7vWcKRX3ILLm/m18ikJ1XkpEmTaNztqGbItQtm0Q3oOxORvrIipAbX?=
- =?us-ascii?Q?WhlZ9pegEkQMDyTyrCQu5HgHCo6E/PZxv+Wwvg/x+iRp/FjKgnxEui60RxjA?=
- =?us-ascii?Q?eNsYSjDwLp/Q+nz5LCGC7EHf8HYW9xPkzy+51nvTjU5P6ha8KbVOgbyiG7jf?=
- =?us-ascii?Q?nwSEIK54r0TP6LTIAFDvAph9+kFXfBeD2E5qqs2WXomAupsi4EXw8HQ0sVOJ?=
- =?us-ascii?Q?acP368YH6F2OkuKcB8u7RAmncm+MbdC3bj5a2QNK0tFpO+fdTmv312thIxJP?=
- =?us-ascii?Q?B9mYzTm1Q7Gc0YGcdhmi0KK2J5KIGmcJgWF5fDxQaQWuEm4R78qgmx3TGVxN?=
- =?us-ascii?Q?jINdjhPeui1mP3SeV8V2sBY+/cmyJkh2UjB69wgmwqbAxBTDWanuEVRf9QLS?=
- =?us-ascii?Q?hkCwV9XnHlAQXa735NPV6y9Y/9t53oidIC8Q+taNJ2uM+kB3IOq3FXEK3GTt?=
- =?us-ascii?Q?RDVQ+iZT1/K07+W70ldtazfn3Z1EYZr44c2xNiP0h1HrMzpm851mAPzZ5ogY?=
- =?us-ascii?Q?91ciP8+KD1F1WWYgcurkDM6pXiQp4rSNcWISRy9gcKmIArxTYUXxr+KDbIIJ?=
- =?us-ascii?Q?63ZMp0HjjqyQGKrv6ZIXo+mKCKufpZKEdvYnWdbpaLK17D6uGpeDHv571O+O?=
- =?us-ascii?Q?ZrDkMYjEC52D2ER7PWQS4DFLMtNRw3AdcClOuxRq2p53rmK1By5jQBuJrBft?=
- =?us-ascii?Q?hnK8YSPWJH82sLw1cWGgdFBJmX+f/6/syRO5NU1Ht3iW7M5gqmfz?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa18593c-8b0b-4b16-bde9-08df4a3f043f
-X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 15:24:22.8228
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wgp5IHvoDaAjdh6/Nt5Pc1OLo0IGEvMTENV4saML9eYb1lwhlzlqQY9qIsRFBDQHNjYQEOQH5x5BvRkV4IClgD6wCEymwyu1NKvjtekX7jeXCO1oKcWj5EbLTsv5U6L2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB13650
-
-Hi Biju,
-
-On Tue, Nov 24, 2026 at 12:51:18PM +0000, Biju Das wrote:
-> 
-> Hi Tommaso,
-> 
-> > -----Original Message-----
-> > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > Sent: 24 November 2026 11:59
-> > Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance from the DRM device
-> > 
-> > Hi Biju,
-> > 
-> > On Tue, Nov 24, 2026 at 09:33:13AM +0000, Biju Das wrote:
-> > > Hi Tommaso,
-> > >
-> > > > -----Original Message-----
-> > > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > > Sent: 24 November 2026 09:21
-> > > > Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU
-> > > > instance from the DRM device
-> > > >
-> > > > Hi Biju,
-> > > > Thanks for your review.
-> > > >
-> > > > On Mon, Nov 23, 2026 at 04:59:32PM +0000, Biju Das wrote:
-> > > > > Hi Tommaso,
-> > > > >
-> > > > > > -----Original Message-----
-> > > > > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > > > > Sent: 13 November 2026 12:20
-> > > > > > Subject: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU
-> > > > > > instance from the DRM device
-> > > > > >
-> > > > > > On RZ/G3E two DU instances share a DRM device, which can only be
-> > > > > > created once both instances have been probed.
-> > > > > >
-> > > > > > Split the DU device structure: keep the match data and the
-> > > > > > registers in a structure allocated with the platform device, and
-> > > > > > allocate the KMS objects with the DRM device in a new
-> > > > > > rzg2l_du_instance_init() helper, as they are released
-> > > > with it.
-> > > > > >
-> > > > > > No functional change intended.
-> > > > > >
-> > > > > > Signed-off-by: Tommaso Merciai
-> > > > > > <tommaso.merciai.xr@bp.renesas.com>
-> > > > > > ---
-> > > > > > v9->v10:
-> > > > > >  - New patch.
-> > > > > >
-> > > > > >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c | 61
-> > > > > > ++++++++++++++------
-> > > > > >  1 file changed, 44 insertions(+), 17 deletions(-)
-> > > > > >
-> > > > > > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > > > b/drivers/gpu/drm/renesas/rz- du/rzg2l_du_drv.c index
-> > > > > > d3cccbdf9012..d102876c07e1 100644
-> > > > > > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > > > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > > > > > @@ -162,6 +162,27 @@ static int rzg2l_du_pm_resume(struct device
-> > > > > > *dev)  static DEFINE_SIMPLE_DEV_PM_OPS(rzg2l_du_pm_ops,
-> > > > > >  				rzg2l_du_pm_suspend, rzg2l_du_pm_resume);
-> > > > > >
-> > > > > > +/*
-> > > > > > +---------------------------------------------------------------
-> > > > > > +----
-> > > > > > +----
-> > > > > > +------
-> > > > > > + * DU instance
-> > > > > > + */
-> > > > > > +
-> > > > > > +static int rzg2l_du_instance_init(struct rzg2l_du_device *du,
-> > > > > > +				  struct drm_device *ddev)
-> > > > > > +{
-> > > > > > +	struct rzg2l_du_device *rcdu;
-> > > > > > +
-> > > > > > +	rcdu = drmm_kzalloc(ddev, sizeof(*rcdu), GFP_KERNEL);
-> > > > > > +	if (!rcdu)
-> > > > > > +		return -ENOMEM;
-> > > > >
-> > > > > Why there is duplicate allocation of rcdu? One in probe() and here
-> > > >
-> > > > The two allocations have different lifetimes.
-> > > >
-> > > > The one in rzg2l_du_probe() is tied to the platform device. It holds
-> > > > what is needed before the DRM device exists and outside of the
-> > > > component bind (dev, info, mmio, and ddev/is_master for the master, PM and remove), as on RZ/G3E
-> > the DRM device is only created once both instances have been probed.
-> > > >
-> > > > The one in rzg2l_du_instance_init() holds the KMS objects (crtcs,
-> > > > vsps, lvds, index). Their drmm cleanup handlers point into it and
-> > > > run when the DRM device is released, which can happen after the platform device has been unbound,
-> > so it has to be allocated with the DRM device.
-> > >
-> > > Then there is an issue right, platform unbound will unmap mmio and
-> > > other data structures it allocated in rzg2l_du_probe()and drm driver
-> > > is using after that( Use after free Bug)
-> > 
-> > Mmmm In theory no.
-> > 
-> > The KMS part keeps its own copy of dev, info and mmio, and its drmm cleanup handlers only drop
-> > references, they don't access the hardware.
-> 
-> Can you please make sure these variables set to NULL, after
-> Platform unbound?
-
-Please correct me if I'm wrong but IMHO this patch keeps the same behaviour
-as the driver before this series.
-
-Where rcdu is embedded in the DRM device (devm_drm_dev_alloc()) and mmio
-is devm managed. Setting the pointers to NULL would only turn an invalid
-access into a NULL dereference no?
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.11\))
+Subject: Re: [PATCH v2 00/20] ARM: omap3: pandora: Modernize audio and
+ backlight to use Device Tree to finally remove pdata-quirks
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261124151318.GA536798-robh@kernel.org>
+Date: Tue, 24 Nov 2026 16:27:16 +0100
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Lee Jones <lee@kernel.org>,
+ Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>,
+ Tony Lindgren <tony@atomide.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Helge Deller <deller@gmx.de>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org,
+ linux-sound@vger.kernel.org,
+ linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-pwm@vger.kernel.org,
+ linux-fbdev@vger.kernel.org,
+ letux-kernel@openphoenux.org,
+ kernel@pyra-handheld.com
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1DCFB59E-E5EA-4470-997E-EAA4ED35D906@goldelico.com>
+References: <cover.1795505160.git.hns@goldelico.com>
+ <20261124151318.GA536798-robh@kernel.org>
+To: Rob Herring <robh@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.11)
 
 
-Kind regards,
-Tommaso
 
-> 
-> Cheers,
-> Biju
-> 
+> Am 24.11.2026 um 16:13 schrieb Rob Herring <robh@kernel.org>:
+>=20
+> On Tue, Nov 24, 2026 at 08:25:40AM +0100, H. Nikolaus Schaller wrote:
+>> PATCH V2 2026-11-24 08:26:00:
+>> Changes in V2:
+>> The series has been reworked and expanded from 16 to 20 patches,
+>> addressing review feedback and issues identified during hardware =
+testing.
+>>=20
+>> Audio and power management:
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+>> * Replace the TWL4030 REGEN regulator implementation with an optional
+>>  GPIO and a fixed regulator described in Device Tree.
+>> * Extend the existing PCM1754 codec driver to support the PCM1773
+>>  instead of introducing a separate codec driver.
+>> * Add power supply and power-down GPIO support to the codec driver.
+>> * Improve error handling, resource management and power sequencing
+>>  in the codec and sound card drivers.
+>> * Update the sound card and codec bindings and Device Tree nodes.
+>>=20
+>> PWM and backlight:
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> * Add optional 64-cycle frame support to the TWL4030 PWM driver.
+>> * Add an optional enable guard period to the generic pwm-backlight
+>>  driver to prevent the TPS61161 from inadvertently entering
+>>  EasyScale mode.
+>> * Adjust the Pandora PWM backlight configuration accordingly.
+>> * Remove the obsolete CONFIG_BACKLIGHT_PANDORA option from
+>>  omap2plus_defconfig.
+>>=20
+>> Device Tree and general cleanup:
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+>> * Correct and validate the affected Device Tree bindings.
+>> * Reorder the series so that bindings and supporting drivers
+>>  precede their Device Tree users.
+>> * Improve commit messages and fix coding style issues.
+>> * Clarify the original authorship and take responsibility for
+>>  contributions previously signed off under a pseudonym.
+>>=20
+>> Review feedback addressed:
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+>> * Mark Brown suggested representing TWL4030 REGEN as a GPIO rather
+>>  than a regulator and reviewed the original standalone PCM1773
+>>  driver, which has been replaced by extending the PCM1754 driver.
+>> * Krzysztof Kozlowski requested corrections to the Device Tree
+>>  bindings, proper schema validation, improved commit messages and
+>>  clarification of the original contributor's authorship.
+>> * Andreas Kemnade suggested handling the TPS61161 initialization
+>>  in the backlight layer. V2 implements this through a generic
+>>  pwm-backlight enable guard period. His comments on clock modeling
+>>  and patch bisectability were also considered.
+>> * Daniel Thompson provided Reviewed-by for the original removal
+>>  of the Pandora backlight driver.
+>> * Issues identified by Sashiko and Rob Herring's automated DT
+>> validation were reviewed and addressed as applicable.
+>>=20
+>> Many thanks to everyone who reviewed V1.
+>>=20
+>> Validation and testing:
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> * Based on Linux v7.4-rc4.
+>> * All 20 patches checked with checkpatch.pl.
+>> * Remaining checkpatch warnings and intentional deviations have
+>>  been reviewed. In particular, ENOTSUPP must be retained in the
+>>  GPIO set_config callback because gpiolib handles it differently
+>>  from EOPNOTSUPP.
+>> * dt_binding_check and dtbs_check passed for all five affected
+>>  Device Tree bindings.
+>> * The complete series has been successfully built and tested on
+>>  real OpenPandora hardware.
+>> * LCD operation, PWM backlight brightness control including
+>>  brightness zero and power-down, and audio playback through the
+>>  internal speakers and headset have been verified.
+>> * Audio capture was not tested.
+>>=20
+>> PATCH V1 2026-07-11 08:02:02:
+>> This series modernizes the OpenPandora handheld support by converting =
+the=20
+>> sound subsystem and backlight control to proper platform drivers and =
+Device=20
+>> Tree definitions.
+>>=20
+>> The primary goal is the complete removal of =
+omap3_pandora_legacy_init()=20
+>> and the elimination of the last remaining user of =
+machine_is_omap3_pandora().
+>>=20
+>> History and Context
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> The necessity of this cleanup was highlighted in several recent =
+discussions:
+>>=20
+>> 1. Tony Lindgren noted that machine_is_omap3_pandora() checks never =
+succeed=20
+>>   on Device Tree-booted machines, leaving the audio subsystem =
+functionally=20
+>>   broken since the DT conversion years ago:
+>>   https://marc.info/?l=3Dalsa-devel&m=3D165632351319716&w=3D2
+>>=20
+>> 2. Ethan Nelson-Moore submitted a patch to replace the macro with DT=20=
+
+>>   compatibility checks (accepted as commit 45efb8fbdae3 in v7.2-rc1):
+>>   https://marc.info/?l=3Dlinux-omap&m=3D177841578110704&w=3D2
+>>=20
+>> 3. Sascha Hauer pointed out that the entire omap3pandora driver =
+fundamentally=20
+>>   depended on this broken machine ID check:
+>>   https://marc.info/?l=3Dlinux-omap&m=3D178048982272252&w=3D2
+>>=20
+>> Design Choices and Implementation
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> Based on these discussions and a long-standing and working =
+out-of-tree solution,
+>> we initially attempted a migration to generic frameworks like =
+simple-audio-card=20
+>> or audio-graph-card. However, the hardware routing peculiarities of =
+the=20
+>> OpenPandora introduced too many functional gaps. Replacing =
+omap3pandora.c=20
+>> entirely with pure DT definitions proved unfeasible.=20
+>>=20
+>> Therefore, we opted to base a new proposal on the out-of-tree rewrite =
+of
+>> the old-style sound board file kernel driver =
+(sound/soc/ti/omap3pandora.c)
+>> into a proper platform driver that cleanly fetches its resources from =
+the
+>> Device Tree, while adding specific handling for the twl4030-regen =
+output
+>> and adapting the pandora device tree files.
+>>=20
+>> Series Structure
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> * Patches 01=E2=80=9306 (Preparation): Move highly specific legacy =
+code to its proper=20
+>>  infrastructure (TWL4030 regulator regeneration and codec handling).
+>> * Patch 07-08 (New Driver): Introduce a dedicated platform driver for =
+the=20
+>>  PCM1773 audio DAC.
+>> * Patches 09-14 (Audio Core): Rewrite the omap3pandora ASoC fabric =
+driver=20
+>>  and update the respective Device Tree nodes.
+>> * Patches 14=E2=80=9315 (Backlight): Remove the custom, legacy =
+Pandora backlight driver,
+>>  convert it to generic Device Tree nodes
+>> * Patch 16: (Cleanup) safely delete the obsolete =
+omap3_pandora_legacy_init().
+>>=20
+>> Notes & Testing
+>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> * Testing: This series has been tested on real OpenPandora hardware.
+>>=20
+>> Credits
+>> =3D=3D=3D=3D=3D=3D=3D
+>> This work is a collaborative effort by multiple authors over several =
+years:
+>> * Grond <grond66@riseup.net>
+>> * Stefan Leichter <sle85276@gmx.de>
+>> * H. Nikolaus Schaller <hns@goldelico.com>
+>>=20
+>>=20
+>> H. Nikolaus Schaller (17):
+>>  dt-bindings: gpio: twl4030: Document REGEN GPIO
+>>  gpio: twl4030: Support REGEN GPIO
+>>  ASoC: twl4030: Allow APLL rate selection through set_sysclk()
+>>  dt-bindings: sound: pcm1754: Describe PCM1773
+>>  ASoC: codecs: pcm1754: Add PCM1773 support
+>>  dt-bindings: sound: Document OpenPandora sound card
+>>  dt-bindings: mfd: twl4030: Document 64-cycle PWM
+>>  pwm: twl: Support 64-cycle PWM frame
+>>  dt-bindings: backlight: pwm: Document enable guard
+>>  backlight: pwm: Support enable guard period
+>>  drm/panel: td043mtea1: Attach DT backlight
+>>  ARM: dts: omap3pandora: Disable unused DMA channels
+>>  ARM: dts: omap3-pandora: Model LCD power enable dependencies
+>>  ARM: dts: omap3pandora: Describe PCM1773
+>>  ARM: dts: omap3pandora: Switch backlight to PWM
+>>  backlight: Remove legacy Pandora driver
+>>  ARM: OMAP2+: Remove Pandora platform-data quirks
+>>=20
+>> Stefan Leichter (3):
+>>  ASoC: ti: omap3pandora: Convert sound card to DT
+>>  ARM: dts: omap3pandora: Enable audio interfaces
+>>  ARM: dts: omap3pandora: Describe sound card
+>=20
+> Which of the 7 maintainers do you expect to take this series?
+
+Well, as a contributor for a specific device one is not regularily =
+thinking
+in maintainers work split but about a series to get a device fixed. =
+Which is
+obviously orthogonal.
+
+I didn't even recognize that this involves 7 maintainers.
+
+Maybe an extension of checkpatch (which already looks into the =
+MAINTAINER
+list) could help here?
+
+> Surely=20
+> this can be broken up into smaller series?
+
+Yes it (we?) can. It is just a question how to do it and properly =
+describe
+the dependencies to avoid bisectability problems and avoid that the =
+final
+goal is lost.
+
+I'll wait a little if there are other comments on individual patches and
+then start working on the split.
+
+BR and thanks,
+Nikolaus
+
