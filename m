@@ -1,49 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795537661;
-	b=HJYN387PDSlAMhtGoeHzXjk1CmCwPAXf2E8cwsp5nxFraU0tH8/FawJ/Twk/VupkZb0T
-	 dncI8eo5qM3AsSyqgLUItvrFgGQjbVC9dG0rL+y9nz72zNjS+jIfcw7O4w7gz++DDY5cY
-	 Pgk/lNtyXce7HcmosuGUYJA15vvSPtfli6El4uLdfl496kNIy9lVWAakiUReLKz7A3WmV
-	 jOaGqxGqHzo1bDlR8frfaN4NSfOiekOjiWdP8NqtT2v3qzB4ovonSG1tL5LKjajdkMJPc
-	 7EInsTDqh3BAbj9ILEL22m/LiYFsJxYtUGv1zcFvnax5PqSfyLGDwD2zS2h/16CWXiA==
+	t=1795537683;
+	b=Djb8cU83vxypLWIo/qDnMIf3iinaZNQXxGNy4jZkUJNRA7StCPi9QXjXKUPmNkAVgJes
+	 GHLWhlfN5xQ7r6D3OOgVOO7JYGtpftW9d0ej2PaFgS9Wl2OVrGlQusLeFur20ZlUWHnDw
+	 tecnYHaoglIO0vZuQOq9o0IA4ZUSdHjE88K5c2tyiaW2Aw2kK2njzqDy7DejBY4codq/W
+	 WbnJG5XZzCFaSjTuC2RuJ96I+tlxISBqxnp4QLDnn0EOJFmSwYLKe2a7ELC0mv4TfvnUR
+	 VTBuQoo/XPGGBWzeRTrvLWqTnGuzQvqAFnKHq4ae24+2p1dIgdYW4c8PYxeJfXKxO7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795537661;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=/4b+hKquXnrPxas17sH/CIlTC3nyBbdzPmcmTJtv4jk=;
-	b=ErBl2HyP+4nFsAvNHYIQk5EbnPeSaAF+dpG+KMg8F/DQ2YAI2KuX0S83EA7DqMUw/9e6
-	 Z4w1TAcZcXYhzFNk4xC08dZGgMlu0Y0g1vOo9G2sSJxUu+jD4Yt4VLq47UtWMEe3SRvcj
-	 35CmdES5vziIgpyTmRqy9QcvGRgLfvYhq7w/O5siofV4Q7Sus5UPddXn6Lo/UfIEJxjXb
-	 F1uNynGGNtNkxrIo+7tGJybe7vFukkPfee3JLYIfo5o/qD8TDrJewFCjGN1DlZqj4OtHR
-	 jUZV79IxOkhAOMSer5ad/l1a5OMsaazYoYhRe+LIx6E++WUvZbnNI2TXuTRHxOk9vTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795537683;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
+	bh=DkZ1ABuSs0XqFw9KTioPWKhCAj31GhHamAleqCJ6xL4=;
+	b=2oJvgcgaJwdDbFGHXSV0VB82paaiyzzZjNNyQrFWPoQCKPZoPrL0MKOBVmS5U6a7l20e
+	 qCMV1aozFKN/v5eM7V+acyh+f8UeqwepxJ/wbbecNnwr9+ywsjANqbE296vTSlIFFWF3/
+	 4I7Q19S8oe33AkBxa1rTSTxG4w1tlwYVchw8VT3I7a/x+Ox57mfSlDWa3W05XtDNVGOQs
+	 irju+2eII1s0igJHfdZwQYfUaNlB5YZ3kwUNw1J7BtTqaW6EJFmP0SIFxpw+isolw1lWp
+	 YXFDEP6RMcl55hNw8XWcFJrySocnpYCscyLiKcquwl+YAKup3adpApT9LExlLMBc4Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=r1eEUBLV;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5621606A33C;
-	Tue, 24 Nov 2026 16:27:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5621606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VX3JpSiO;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB0C606A327
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCB0C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=r1eEUBLV
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 959A9339;
-	Tue, 24 Nov 2026 08:27:36 -0800 (PST)
-Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7B003F86C;
-	Tue, 24 Nov 2026 08:27:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795537659; bh=821rJ0g9HtpMoMuetVK6Nxwg+cBpAnfGyZshLAd+HLM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=r1eEUBLVzAo6010E4T6rWWsxESRfD92OZBhJIp5NCx2BdeNsW2kmJibj4aqGo2iTM
-	 fsTQiEQJHxUyYo52JNvhaBnNMmgw4NiYJJ/n+ncK2uKuYE60Tre1P7wjL9eHR4zIun
-	 msKtL5KKkIJxVH9DP7XBJidE/wsduMfxNcMgKcBQ=
-Message-ID: <39619b6c-7330-459b-aed3-9e8bf303f7dc@arm.com>
-Date: Tue, 24 Nov 2026 16:27:36 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VX3JpSiO
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id DD449C2C65F;
+	Tue, 24 Nov 2026 16:28:07 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4031D601E1;
+	Tue, 24 Nov 2026 16:28:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5E60F11E685A3;
+	Tue, 24 Nov 2026 17:27:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795537674; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=DkZ1ABuSs0XqFw9KTioPWKhCAj31GhHamAleqCJ6xL4=;
+	b=VX3JpSiO8UcsPsmc75P4wD4phG8vOx1B3MRJNmTyfC7zJb50+OJmlJSmktDpqTssYXTRYN
+	WtnjgCsJtxVUkuwCv1935gtQllbTQllpi7dDfBel5QJxh598glIlMV3QxVubhw4K9jK5bc
+	NH92hMlCnISr9WG1VAfTqLNbx541kJOPeLyrENcQq+zjNnKBpT1pFT/IFFncSSjkWJkhgV
+	srDTCwPjFpYvNGTtZNFEOYJf4aDfR8Y6tnoocc+w02VBnzwCWplkU/2Y4d8ujgEavS3sOh
+	4SnPKaLdxWZaKdFxLtcuSiWa7Bc65AmwjNLxFrlalOLO55EJvTad63tEZLqz7Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Andrew Jeffery
+ <andrew@codeconstruct.com.au>,  Avi Fishman <avifishman70@gmail.com>,
+  Tomer Maimon <tmaimon77@gmail.com>,  Tali Perry <tali.perry1@gmail.com>,
+  Patrick Venture <venture@google.com>,  Nancy Yuen <yuenn@google.com>,
+  Benjamin Fair <benjaminfair@google.com>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v12 10/10] MAINTAINERS: Add myself as Nuvoton MA35D1
+ clock controller
+In-Reply-To: <179519171774.3795820.3121589367853881174.b4-review@b4> (Jerome
+	Brunet's message of "Fri, 20 Nov 2026 17:21:57 +0100")
+References: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
+	<20261118-perso-ma35d1-upstream-clk-v12-10-bee2c8dad4e1@bootlin.com>
+	<179519171774.3795820.3121589367853881174.b4-review@b4>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 24 Nov 2026 17:27:43 +0100
+Message-ID: <874id6ry80.fsf@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,132 +85,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 08/28] media: mali-vpu: register V76 decoder controls
- and introduce UAPI controls
-To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
- Shobhit Pandey <shobhit.pandey@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
- <20261119153758.1426673-9-charvi.mehta@arm.com>
- <0cb2cae4075d3854ebb9c051d169ca121a8a360d.camel@ndufresne.ca>
-Content-Language: en-US
-From: Charvi Mehta <charvi.mehta@arm.com>
-In-Reply-To: <0cb2cae4075d3854ebb9c051d169ca121a8a360d.camel@ndufresne.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
+On 20/11/2026 at 17:21:57 +01, Jerome Brunet <jbrunet@baylibre.com> wrote:
 
-On 11/19/26 21:06, Nicolas Dufresne wrote:
->> Add Mali VPU userspace controls for NALU layout, stream escaping,
->> intermediate buffer size, stream-header handling, frame reordering and
->> firmware debug output. Also expose the standard read-only
->> V4L2_CID_MIN_BUFFERS_FOR_CAPTURE control.
-> I would strongly recommend to keep each vendor control in its own patch. These
-> are API, and they need documentation. In practice, you'll prefer to not
-> introduce vendor control as a first introduction of your driver, its just a bad
-> idea. You completely missed Documentation/
-I had planned to add the documentation for these subsequently, but, I agree,
-it should accompany the controls. The initial driver series may not be 
-the right
-place for these vendor controls, so I’ll remove them and their UAPI 
-definitions
-from this patchset.
-
-
->> +		.cid = V4L2_CID_MALI_VPU_NALU_FORMAT,
->> +		.type = V4L2_CTRL_TYPE_MENU,
->> +		.name = "NALU format",
->> +		.qmenu = mali_v76_nalu_format_qmenu,
->> +		.min_val = MALI_VPU_NALU_FORMAT_START_CODES,
->> +		.max_val = MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD,
->> +		.default_val = MALI_VPU_NALU_FORMAT_START_CODES,
->> +		.step_or_mask = BIT(MALI_VPU_NALU_FORMAT_START_CODES) |
->> +				BIT(MALI_VPU_NALU_FORMAT_ONE_NALU_PER_BUFFER) |
->> +				BIT(MALI_VPU_NALU_FORMAT_ONE_BYTE_LENGTH_FIELD) |
->> +				BIT(MALI_VPU_NALU_FORMAT_TWO_BYTE_LENGTH_FIELD) |
->> +				BIT(MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD),
-> This mixes alignment and NAL format. Its historical, but the format is bound to
-> V4L2_PIX_FMT_H264 and is documented as Annex B. If you want to add something
-> such as AVCc formata instead, you'd need a new pixel format. There is
-> V4L2_PIX_FMT_H264_SC, but its hill define, nobody knows what it was originally
-> suppose to do. Venus (Qualcomm) maps it as if it was the same, perhaps they have
-> a clue, but I would stay away.
+>> I have the platform, I currently use it for my developpements and
+>> therefore I care about the clock controller driver and the SPI
+>> controller driver not being constantly broken. I would like to step up
+>> to help the Nuvoton team (not visible in the diff since they created
+>> an MA35D1 catch-all entry) in the maintaince of this driver.
+>> 
+>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 >
-> For the alignment, V4L2_CID_MPEG_VIDEO_HEADER_MODE does not cover your 1 buffer
-> per nalue case, it only does the split header like OMX IL was doing (sometimes,
-> interoperanility killed OMX).
-The firmware defaults to Annex B, which matches V4L2_PIX_FMT_H264, so
-this control is not needed for that input format. I'll drop this completely.
+> Acked-by: Jerome Brunet <jbrunet@baylibre.com>
+>
+> Commit log nits:
+> - The subject is missing a word: "Add myself as Nuvoton MA35D1 clock
+>   controller maintainer".
 
+:-)
 
->> +		.cid = V4L2_CID_MALI_VPU_INTBUF_SIZE,
->> +		.type = V4L2_CTRL_TYPE_INTEGER,
->> +		.name = "Internal buffer size",
-> No general equivalent, and to be fair, that seems like something the driver
-> should get correctly by itself, I'd say drop.
-The firmware already calculates the intermediate working-buffer size when
-no override is supplied. I’ll remove this control completely.
+> - developpements -> developments
+> - maintaince -> maintenance
 
-
->> +	},
->> +	{
->> +		.cid = V4L2_CID_MALI_VPU_STREAM_ESCAPING,
-> No doc, I suppose it was about emulation bytes. Nobody needs that drop.
-Yes, this controls emulation-prevention byte handling.
-Agreed that this can be dropped.
-
-
->> +	{
->> +		.cid = V4L2_CID_MALI_VPU_HOST_PRINT_ENABLE,
-> Debugging goes into sysfs or debugfs, drop.
-Ack. I’ll use an appropriate interface as suggested when I reintroduce this.
-
-
->> +	},
->> +	{
->> +		.cid = V4L2_CID_MALI_VPU_IGNORE_STREAM_HEADERS,
-> If userspace want that, it can just strip the headers itself. Its not like a
-> stateful decoder can work without headers according to the spec. It will always
-> break one way or another.
-This does not skip the initial headers; it retains existing SPS/PPS 
-entries rather
-than accepting replacements with the same ID. It was intended to prevent 
-a heavily
-corrupted stream from replacing valid settings, but it would also ignore 
-legitimate
-changes. Agreed to drop it.
-
-
->> +	},
->> +	{
->> +		.cid = V4L2_CID_MALI_VPU_FRAME_REORDERING,
-> You can thank Samsung, instead you need
-> V4L2_CID_MPEG_VIDEO_DEC_DISPLAY_DELAY_ENABLE and add support for
-> V4L2_CID_MPEG_VIDEO_DEC_DISPLAY_DELAY 0. That will effectively disable
-> reordering. Some vendors calls this the thumbnail mode to add to the fun.
-Agreed, I’ll drop the vendor control. I’ll use the suggested standard 
-controls with a
-delay of zero, when I reintroduce this in subsequent patches.
-
-
->> +/*
->> + * The base for Arm Mali-VPU driver controls.
->> + * We reserve 64 controls for this driver.
->> + */
->> +#define V4L2_CID_USER_MALI_VPU_BASE		(V4L2_CID_USER_BASE + 0x1260)
->> +
->>   /* MPEG-class control IDs */
->>   /* The MPEG controls are applicable to all codec controls
->>    * and the 'MPEG' part of the define is historical */
-> My recommendation, drop all the vendor controls, legacy users can use your
-> downstream kernels.
-I’ll drop the vendor controls from this series.
-
-Regards,
-Charvi
+Will fix!
