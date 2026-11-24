@@ -1,138 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.223
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795505232;
-	b=xtHhK0ETZydUne0DDdqtZELSP4iFpWs3Soge9H2DkMCMpSbs/pYENKJcJ3CRthOB4CA9
-	 hfnPqhfYdFok909TF//F0MkUQ+TbFiowzmf+v2zkR9JmvKLK4Hxv2e56WQgSx+pMzLaMY
-	 KieObqDJfFRyDFCehj++VUS9q/E4xMw37TiVN0hvY8GaClx1CjmFkOqlpSGAf0RSXBB8a
-	 WIzvJfAtGGmgjh2zdFl6Mgp0RwaiOOFQMUkGPhwEVVVt6DXmrvh8g9x/NY3PvdcI2wMzB
-	 opnfxrikbfyd4NEuATNMKvvgP+vRyzRmNGkWuA4iqoU/QVMxeXa8UMxcWk1l4ipY86A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795505232;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=i8cGKfwirIdnWIRedml65mOcQqDHKaJXaOcj56+0XVs=;
-	b=ZFUs1tZPg/T9hmjvv70nbecyWrACY0RiGETa9xn0aNxFowHXM5AJblMO1WNZaWf1ZTFu
-	 IcSX4sR0kdigYOaY7UAtXJL8o35JUV4a3rUhAHuO/wYZCwF4cInOiqZvP30l+aO+vy8/u
-	 JKdr4DO2TtFuVN30OQa0sJNwcBFm+0hll8iMGtR323Rr1yXpM1XCSAM07ZGhxdYFePGY0
-	 LbUAXuB2TFHP3odJqybw1SEMXTzUeH2s50Q/BokUUpLVZoaLRwbub+OZa0BYks22kwT0O
-	 XEm+k8c3j+2l8BFf5QizxQ38iEN9HfNwpPj3RatJtJ8/mvRfd/0F8tGjftyVfjGkE5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=L3Niw39x;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=+hiMkp7w;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.223
-Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de [81.169.146.223])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795505375;
+	b=iN5cFO8DMEHCvyQsITjnCgdZdAir3ZAE2Jfb2HZObzbTEXjafSkkAxqPC2zbVasb3OkK
+	 rEpJeajCEfqWNtNd3lfdSG5RkxVKRACmnxetUqQ4E7xlIJ6c1OxQTRdMKI5a452p55bPS
+	 ccbdL9JG/jn7ajH9HLImx5dklf89ICxWU/qBQzaKV2JLtfHqxzHIgCSBcQrG3vBififzO
+	 /jEnamCBKj1rUhBjVbbmUrXDOIoiz9vtbK4EV1JZi4b+gLkDTBlgBlJZFbOCduXUFwjOl
+	 aTT1p5Tw1iNfaFbvUEd5x84/6d30Wq01SDFlVZc4zwK2tZVYJLZclXOF0PiZr0c2yVQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795505375;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+ZuDPiNOEfTjl2w559867HRmVev7pbLSM2ATwOtUNZA=;
+	b=mT+ipL7533jdo8IqHVvtyjO922ekMGaCcHXXRRX1nMvb0qtMtiC9c8jA/O1OU2FcPP2x
+	 HmnIz0HXNHNfpnT///G16dEue9AEGKaWDuRDv9ovlQUR0o1jYX9QQ5jzYtL4eG/urcT4K
+	 QkBtd/Osx8DfHMP2Vf6oCvOFFxQhiT470voxdixz9Cf0m8VdV+k8xRimUEccPnX3GPz74
+	 KnTF70nGVe7u6kq9qzf9xlSqbxNJ8ZYXF60gwu1Y01mXzHR0dGFPZ0DMkfhFuF9xNa+6b
+	 Yn/1PESlkmo0V1VEu22hoR30BLvMNhDISxDou8nEJrJ1mKiXAUw1QQ8nDs5tW32XayA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EmJH+tlV;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB9860A3837;
-	Tue, 24 Nov 2026 07:27:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AB9860A3837
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE0E606A331
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 07:29:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CE0E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=L3Niw39x;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=+hiMkp7w
-ARC-Seal: i=1; a=rsa-sha256; t=1795505176; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=B63WbdFNGCmMJ5fYDIKq4qliWQMpsYyvtu5yuJjR/4bKsyO2CxLncFaEsehECM38on
-    fDKossw+8Twl1iOf6e4Bv+iDGCL5pa3g/UDfGFskNeF85A9vDTVozzw3ByfmsAxctM/y
-    U7XrE8geitJEfY4kjSAgK4XqyU42Gphhk87EOVysT+O7+RUC3fw4orcfwz+56d6UMRSW
-    7IgI1zKwbIIEhpl/GGt3rSjBqP0Km1pL1IE/YrrGYv1ioAJL7GvTJpMw4DYyA3TktcGF
-    4tI74GmwPwqOtlS5jVaGg895zt4V+AycadOqaH3UWIFHfmKmdf0E7sQIPlOFRVAWCu7U
-    JBzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505176;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=i8cGKfwirIdnWIRedml65mOcQqDHKaJXaOcj56+0XVs=;
-    b=kDlL9Ci3SozMRDpsS1YdbRkyz9AJkqyOKi0XnLxcP/nnUWCYuKrHNXv71/BGDKX9Fc
-    BASCDdmk+pF2cfjNNSIT0Vq5Zu/G4VNkXBn9K6OL8FMisElM4uzKzO5wt5nuUjENW6OL
-    G2df8pCLe0MxiHt+lxRXLC1fm7lCY9QFKdqszDE1Jc+sH2Y7Y7n/Zsg3AK5AcZZg5Q1g
-    K+yabSsSrUjB2CXmioP1ckGJnlKJ0bpTz8+T1CLOLOgb/Fl9S2bzcbFh7fAg7gkqAV5X
-    goh6HkydDA60J8IYW5JrbAPXwUeE5ZuUaA0Pxf/QFfRaLupsTr8cYjFNfVPg1ICPVUgV
-    pEaQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo04
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505176;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=i8cGKfwirIdnWIRedml65mOcQqDHKaJXaOcj56+0XVs=;
-    b=L3Niw39x7Hs+bBaEq67DxNoePKZ+gmp8oE//dLuWEpXD3a7+mO/IzBJybpSimE/0AA
-    dHPHZH4kZGsy0OWerw/PEaz0M3oH1S3DTTpcXLbvE1RQMbA87sgG9N90+Q6KiGIiZBzT
-    rXeg6lrfpwldN5a3ze6YwHUSfqnoqT+55SAtl+1FFZeoko3c6WtQHyJgEaDr94JEn07C
-    TJ+T8l02VgpGzHfLyoa81zGf0IshdTXI5DROAcJ2xB7psWfjCHPpzpuuTaRsFQCzRvTN
-    4xj07ZJ1n0z9co9ajwlufo6x9ueGLALmXQN+xlkWNB62z2Tfi9JKhgppvm5vYo47R+8Z
-    QuGQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505176;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=i8cGKfwirIdnWIRedml65mOcQqDHKaJXaOcj56+0XVs=;
-    b=+hiMkp7wubEabCTvcsLKLCOYaH2Cak+kIHtjH9k93zcQKYGvyW/kKAIQOAzxPmbm8W
-    f/WrhVZ9g1ZQfjj2BzDA==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV3poLlciNVTQoM6kVxzKyrKzkpjcAwdDfiN49"
-Received: from iMac.fritz.box
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22AO7QF1HM
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 24 Nov 2026 08:26:15 +0100 (CET)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Linus Walleij <linus.walleij@linaro.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EmJH+tlV
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b44bdcea8aso1930109a91.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 23:29:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795505374; x=1796110174; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+ZuDPiNOEfTjl2w559867HRmVev7pbLSM2ATwOtUNZA=;
+        b=EmJH+tlVZK1LsNPWfFtvfDQRHW9875Cvy2+LpAGhSKF/UW5Ul7DVuQGke9zI2N0EL/
+         xCpTUDfa2rLqSClt+IhND/C5kpdRpxd+HEFK5HF8Im5vabKUIs+ewpNc/fkBulTj3uN7
+         orQFCQvdETNvxubYS2GSKxDRlg19aVA6BwzAOT5UM58Y3bdymlQJKYmKkmKXATlmv4io
+         bd0ayc5DHPdNT8Lgc+YMp4a34wBqS1onoYJEBtvNIlklOFlABTiEL05CvSi8slaC/NI6
+         XD5UfaLI6kNx2p2xvdwuWGv8k+QorqBc0sXxcalYQei8NkbQC+pg+AfQapNiS4VbaQck
+         QOvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795505374; x=1796110174;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+ZuDPiNOEfTjl2w559867HRmVev7pbLSM2ATwOtUNZA=;
+        b=kszqIqcLDz9QI2DfgBNPWU9XiNo3Ja+hQmf7seduCrsiQSfZnkGi6jtR2/5gTPYaol
+         nxX46shMR26+/N0rhf44xGuXfoAljYKMUe2Asat6uTZYjFAzDTSXAbch4m3fAzSCU2LV
+         8mge6whz78TASqTz0gWsDNNfIS3xzPd2NaFGQUfkOF/Ibf6lpt9LRmFxsqyI/vK37X9T
+         5MoB/cepvkd3Dii6jKfISnD/DXbFmkt2RoaK9RGL4/HPSA6ShhR/B1B2G9RpsY/wn/lx
+         I2TFwCmUPHgQblV2KrrzSNqvJ42jJn+xp+VVnRRcXiA9Sg1EhyKjlQtcEG1Q1X1AvmQj
+         idHg==
+X-Gm-Message-State: APuU4Z+B5wonBZ+cBBbIdFjJ+scsqA5dktXBPw9C6Wz/sqhRhZG76XAZ
+	X6bfpfmbJBlxKj6pNMlDvP3AbDacowZQtYUOHRNAiUKWbBLwG08L86Sl
+X-Gm-Gg: AZFdTZeR8n2qtpqrpKt6Pb8qhY48nXGK0HBZDHnCYn1s08zfZ5ied0RTApFEyJKDvNv
+	iHc0lnE6PIWszO2hIa4AFtm9ubck21dVhM3BnTAT3BHxfXtlvA8hJetLBVEe4vfg7BPzNnlT2gL
+	1rYrUvQjy5yuYV6ApvmtFRlTfE3W8PQ0oTgtaTtl9ED+bMmcYfJ5uvT2++/faTF8yIWmdRLhKXf
+	MN6SGum8bZLPP8gKuKbsfOBPDkFAgOLrkTf+/Kb1Q1/HEX7FRf4tR8u9Qv/ZfkwbUnCwEbCzgwp
+	9lptzZUql0Hju/d3ZoUcOnlx+9U7fRuyYfks9pE+9ihK96ybyA1AqFHrbvs6mGU4Xs8/9GHRQqJ
+	pyZnn5Hta7v77e3jgzjT7kb27drTnO6wtvdUR6Kbn+14/9hCQ47LD3ncvXCFMPYn6KgXG1UFuoq
+	HBqhTGXPOaF8AOZJs3rd3rz7I+THZuWBNIwFVAkdatgJAUOR6av/591XOyLlKJ9EY8czN2jgqvE
+	EbhbkZrRvJ6neK+C14pUe8W3JIrsJSnNj7/tdllTwroX+xLdPPIFf3Xok6z7HxPz7Ret0BAESzj
+	wkIksHdUe1SOGcfGqWomKQEPvbY=
+X-Received: by 2002:a17:90b:3f8e:b0:3aa:412f:b0a7 with SMTP id 98e67ed59e1d1-3b41c7bc85emr8885243a91.5.1795505374392;
+        Mon, 23 Nov 2026 23:29:34 -0800 (PST)
+Received: from localhost ([2001:19f0:8000:4ce8:5400:7ff:fe0e:e6b2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b495035339sm8759683a91.0.2026.11.23.23.29.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 23:29:34 -0800 (PST)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Helge Deller <deller@gmx.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
-	Jarkko Nikula <jarkko.nikula@bitmer.com>
-Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	Chen Wang <chen.wang@linux.dev>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Han Gao <gaohan@iscas.ac.cn>,
+	Hangfan Li <lihangfan@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org,
+	sophgo@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-pwm@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	letux-kernel@openphoenux.org,
-	kernel@pyra-handheld.com,
-	"H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v2 10/20] dt-bindings: backlight: pwm: Document enable guard
-Date: Tue, 24 Nov 2026 08:25:50 +0100
-Message-ID: <9279d3995ae4f81c19afeaa07b32204f16611ac8.1795505160.git.hns@goldelico.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1795505160.git.hns@goldelico.com>
-References: <cover.1795505160.git.hns@goldelico.com>
+	linux-riscv@lists.infradead.org,
+	Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: [PATCH v2 1/3] dt-bindings: nvmem: Add SG2044 eFuse controller
+Date: Tue, 24 Nov 2026 15:29:21 +0800
+Message-ID: <20261124072924.556678-2-inochiama@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261124072924.556678-1-inochiama@gmail.com>
+References: <20261124072924.556678-1-inochiama@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -143,63 +112,81 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
 
-Add support for a new device tree property
-"pwm-enable-guard-period-us". If set, the driver applies a full
-duty cycle (duty_cycle == period) for the given duration whenever
-the PWM was disabled or had zero duty cycle (e.g. power-up, resume,
-brightness 0). This covers the
-requirements of such devices generically, without introducing a
-chip specific backlight driver.
+Sophgo SG2044 uses eFuses used to store factory-programmed data
+such as ROM patch, public keys and other factory information.
 
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
 ---
+ .../bindings/nvmem/sophgo,sg2044-efuse.yaml   | 59 +++++++++++++++++++
+ 1 file changed, 59 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/nvmem/sophgo,sg2044-efuse.yaml
 
-Notes:
-    Changes against V1:
-    - Describe the guard trigger using the PWM state actually tested
-      by the implementation (disabled or zero duty cycle).
-    - Remove the requirement that a disabled provider report zero duty-cycle.
-    - Remove the redundant uint32 $ref for the standard -us suffix
-      after dt_binding_check reported a schema error.
-    - Binding semantics and code-consistency review assisted by ChatGPT;
-      clarify that full duty is requested, not guaranteed at the output.
-
- .../leds/backlight/pwm-backlight.yaml         | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/leds/backlight/pwm-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/pwm-backlight.yaml
-index b71f6454a4ac2..9172f14bfb76f 100644
---- a/Documentation/devicetree/bindings/leds/backlight/pwm-backlight.yaml
-+++ b/Documentation/devicetree/bindings/leds/backlight/pwm-backlight.yaml
-@@ -49,6 +49,26 @@ properties:
-       having to list out every possible value in the brightness-level array.
-     $ref: /schemas/types.yaml#/definitions/uint32
- 
-+  pwm-enable-guard-period-us:
-+    description: >
-+      Duration in microseconds for which the PWM consumer requests
-+      full duty (duty_cycle == period) before applying the requested
-+      brightness. The guard is issued if the previous PWM state was
-+      disabled or had zero duty cycle, e.g. after power-up or resume.
+diff --git a/Documentation/devicetree/bindings/nvmem/sophgo,sg2044-efuse.yaml b/Documentation/devicetree/bindings/nvmem/sophgo,sg2044-efuse.yaml
+new file mode 100644
+index 000000000000..c87e028dc557
+--- /dev/null
++++ b/Documentation/devicetree/bindings/nvmem/sophgo,sg2044-efuse.yaml
+@@ -0,0 +1,59 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/nvmem/sophgo,sg2044-efuse.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+      This can allow LED drivers with startup mode detection to settle
-+      before normal PWM dimming begins. For example, TI TPS61160/61
-+      distinguish PWM dimming from EasyScale by the duration of low
-+      intervals on CTRL during an initial detection window. The guard
-+      duration must cover that window according to the LED driver
-+      datasheet.
++title: Sophgo SG2044 SoC eFuse-based NVMEM
 +
-+      The PWM provider may approximate full duty if the hardware
-+      cannot represent it exactly. The board must ensure that the
-+      resulting waveform meets the LED driver startup requirements
-+      and that the input has a defined inactive state while off.
-+    default: 0
++description:
++  Sophgo SoCs contain factory-programmed eFuses used to store ROM patch,
++  public key and other factory information.
 +
- dependencies:
-   default-brightness-level: [brightness-levels]
-   num-interpolated-steps: [brightness-levels]
++maintainers:
++  - Inochi Amaoto <inochiama@gmail.com>
++
++allOf:
++  - $ref: nvmem.yaml#
++
++properties:
++  compatible:
++    enum:
++      - sophgo,sg2044-efuse
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Core clock
++      - description: APB clock
++
++  clock-names:
++    items:
++      - const: core
++      - const: apb
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    efuse@40000000 {
++        compatible = "sophgo,sg2044-efuse";
++        reg = <0x40000000 0x1000>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        clocks = <&clk 0>,
++                 <&clk 1>;
++        clock-names = "core", "apb";
++    };
++
++...
 -- 
-2.56.0
+2.56.1
 
