@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795522011;
-	b=ZuNe0c43yg+adm9CojktK4dz+353a8zRifUyW2m+uD5crn0gPe5hVnfDCokOPDTnejq5
-	 6Fo/q37jTOxeJGOKNMrnvVQZDmBDeBDJn/bDLpPUd/Hgb/VMO2z2cXPBZSzFZhUXeFjJT
-	 9+iMib3qEkQvsnMNVwMVZgIdo6S7lzBsTPwFiyN5dTtEoOefY14g6MbaBGUs2cXGRXrtx
-	 ymL1KGD6g58SA5A4YHCionkepKrDkCmZTu6y0BC/YjqTkBWfE00VBIcFqTsVT+0PDcO+D
-	 XiQyGdF1qyOyBq+9m1MS2C74XVl2CH8wsYiOu+kg7QFPEqVwofBMEEaxskRwqdqSmiA==
+	t=1795522369;
+	b=Ck7gqWDnO1zPv2XWL/yAT6kNXxMaRAq9cGpeHD5lcXuAbc2gJ7/mMMTiJUAckinLTHYu
+	 btVataUgpWIO29bPh3cRJyaIgAMWnaSf1DZp5LhCwsZxEmXImIIYtrC45GuCVJqE8DNwo
+	 KWIBKbmXJba/nH6iY7kWndhyUf11UQI9sKXIvtiIxGPVAobYfn9wwKVFKWy7wOzhlm+Y4
+	 37HprXjvbXx7Een2qUVSiuwkmufN0omcK662v0/BnAiwDJNT1NqqRgW0NJ2PJfmJLy+Ko
+	 OCrLE0yAgaVRMSQgDKgoce/42nMmofaJXYwvvviU+N6e1QjTcGK5I/8ja/1uBw35wLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795522011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795522369;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JKT+SrwlQG14Zxpxl2Pk5goSaHfcBqsRsszCkqpUgdg=;
-	b=vMSOwhjMQEvOOHtGw+GN6MMr/l1Pky+tbbR3e5FbtMQa0FMpScNfZPsSqGdxAhRv43o8
-	 lOkLh8/D5wLAQGULQe62OfZQlFsIWn3P7OVHxCIdeKtgj1fNnahr64g9guarxaDps05Yj
-	 7z+4UUELP6nHYIcOg29TpblOlrniIWUkBGueTv4ZqzaiJ3Jw1seXH5gJpanDy0Dhiq4JG
-	 GxUTXDshWjovtQ8hpxv2y6V/yThDn1P8ctrwx32fkHOuCLEkb9DPRKfORUT4ph4wvanEo
-	 5ja+Uv2qdNptPHdLU0cVcVhSEHcUyXC/OzzaK7H29NnxUSvbfMO7gvlqiLTKaOYvGsQ==
+	bh=kvjsFKNMRk1R6P9mTGBQSEAArukq0alOKle00+2lcpg=;
+	b=MS8iKsFAwMbfIqd0zlgoBkUPSfFeMkGn2fCm3GmyzqO99MKhwYCg25PP4F9NgupgsahM
+	 Z3WT129tMXenptuCAHx6uT7nKVoYNBBZ9/V1W1EP7Pk4iGmC7JVaw0jlTgcH9jLS0vAY6
+	 ZpBFKFQ68Fub1c4jSVJVDeT5uEmCbL0q1i8LagvQ1TmGrK7eOuWlIUh0Iu/D1+N5x8y6D
+	 w8Sk/wRq9lbSPeF5n9ptv5/Nb0sGf6fcYicgKk/e1qUrCM5ecc6XS3D+XOpMM/BrdK8tu
+	 L8rjP3Zl4W9IzZHoVzy7ILEeHU7d6e8FfOxWHOczqoTKEC92FzN/XcQtokJo8gXHg0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qf8KrlDZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isNZcOWZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A258606A321
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:06:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36318606A31E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:12:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qf8KrlDZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E9C41F000C0;
-	Tue, 24 Nov 2026 12:06:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isNZcOWZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FA81F000C6;
+	Tue, 24 Nov 2026 12:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795522010;
-	bh=JKT+SrwlQG14Zxpxl2Pk5goSaHfcBqsRsszCkqpUgdg=;
+	s=k20260515; t=1795522368;
+	bh=kvjsFKNMRk1R6P9mTGBQSEAArukq0alOKle00+2lcpg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Qf8KrlDZKu5phSh0vpugB3ZZ5CmCJ+oEK4dgg/TKS1keGsRqTzom8h59FF8vQlefi
-	 80RQ6bshK3r3L4yn/9F70dwDuEW2PVnX1BSRgH5VobOEf5ROeh07uwup9WMOlAPvwb
-	 +xd3tSyFbLV448aJF2v7MLh9p3eXBCWVE200DutXlUOYscdFHPgEIDOVsJM9pSvcOr
-	 N2FjWn3tePtpvko1vkZSE9YJEbFsZxnny+d9QThJ8b91YcvNl/BaYGlVD9RK5LkOM2
-	 2WG4PRK6sNsN2El+rrmsWVOr0slpqV81pphpNLSP9g/xibxY6yR/cjCkYPwk89hodj
-	 1fC/ySsmb3s6A==
-Message-ID: <sashiko-outbox-231098@kernel.org>
+	b=isNZcOWZulJfGmd3DuxMYjUqTDm/Pt8X7+6FAekuENf+Rc5uQeQXUm5Td7QHxG6EJ
+	 eBXxD8vkGXiRNfJTTf7PJutWd7ptyjcfQokxCgq+hx3+DkzUwKIag6cg03TvZq4NJ2
+	 3xoiKBc6ljfPaeb8RWyCUkvYMhd419dPc9rr5cmvwFujcmiL6LlxScgN2YrrIL4Plz
+	 GbIF8HZF2N8a7ndrYONVoIuGJAlns+lM1800w0PNXZdNev5vFdNuuMDi4xFiC0UBNn
+	 Ib9KXoOyJQWMuHCRvXE/XdLlvDuXaAFtDfRt3h4VpQzhHbATJrRDDZ1AUWS2O34VPj
+	 tJuYeRghoCPdQ==
+Message-ID: <sashiko-outbox-231105@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/bridge: tc358762: fix reset gpio handling
+Subject: Re: [PATCH v3 1/5] dt-bindings: display: add CIX Sky1 DisplayPort
+ transmitter
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andreas Kemnade" <andreas@kemnade.info>
+To: "Luo Liu" <Luo.Liu@cixtech.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-tc3-reset-v1-1-a5d27fe4b5de@kemnade.info>
-References: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
- <20261124-tc3-reset-v1-1-a5d27fe4b5de@kemnade.info>
+In-Reply-To: <20261124120114.3273161-2-Luo.Liu@cixtech.com>
+References: <20261124120114.3273161-1-Luo.Liu@cixtech.com>
+ <20261124120114.3273161-2-Luo.Liu@cixtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 12:06:49 +0000
+Date: Tue, 24 Nov 2026 12:12:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,89 +63,139 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [High] drm/bridge: tc358762: logical GPIOD_OUT_LOW in
-  tc358762_parse_dt() breaks reset
-- [Low] drm/bridge: tc358762: missing Fixes trailer and unclear commit
-  message wording
+- [Medium] dt-bindings: display: YAML syntax error in cix,sky1-dp.yaml
+  description
+- [Low] dt-bindings: display: non-canonical interrupts order in
+  cix,sky1-dp.yaml
 --
 
-commit 9028d6282d51dd304edf7f4805b90948cbd05227
-Author: Andreas Kemnade <andreas@kemnade.info>
+commit b6de90c771aaece1d4e8eb9c4dd01a00555577c3
+Author: Luo Liu <Luo.Liu@cixtech.com>
 
-> drm/bridge: tc358762: fix reset gpio handling
->
-> Reset gpio is asserted when the chip should be active, deasserted when
-> the chip is enabled. That is the wrong way. Apparently users are working
-> around this by using GPIO_ACTIVE_HIGH to compensate for that bug but that
-> is not correcly describing the hardware. Ignore GPIO polarity for now
-> to ease transition hoping that nobody has an inverter in the signal path.
->
-> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+dt-bindings: display: add CIX Sky1 DisplayPort transmitter
+
+This commit adds the Device Tree binding schema for the Trilinear
+DisplayPort transmitter integrated on CIX Sky1 and its MAINTAINERS entry.
+
+> diff --git a/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml b=
+/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+> new file mode 100644
+> index 0000000000000..bc3c0a3a815f8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+> @@ -0,0 +1,102 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/cix,sky1-dp.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CIX Sky1 Trilinear DisplayPort Transmitter
+> +
+> +maintainers:
+> +  - Luo Liu <Luo.Liu@cixtech.com>
+> +
+> +description:
+> +  Trilinear DisplayPort transmitter on CIX Sky1. The transmitter takes i=
+ts
+> +  video stream from the display pipeline through a single graph port and
+> +  drives the link through a generic PHY.
+> +
+> +  The USB-C transmitters and the native DP/eDP transmitter use different
+> +  RCSU video-adapter register offsets and bit layouts, so each has its o=
+wn
+> +  compatible: "cix,sky1-usbdp" for the USB-C transmitters and "cix,sky1-=
+dp"
+> +  for the native DP/eDP one.
+
+[Severity: Medium]
+Should description: use a block scalar indicator (description: |)?  Without
+it, the multi-line text is parsed as a plain YAML scalar, and the colon-spa=
+ce
+in 'compatible: "cix,sky1-usbdp"' causes dt_binding_check to fail with a YA=
+ML
+syntax error.
+
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - cix,sky1-usbdp
+> +      - cix,sky1-dp
+> +
+> +  reg:
+> +    items:
+> +      - description: DisplayPort transmitter registers.
+> +      - description: RCSU video adapter registers used for link setup.
+> +
+> +  reg-names:
+> +    items:
+> +      - const: dp
+> +      - const: rcsu
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: APB clock of the controller.
+> +      - description: Video clock of stream 0.
+> +      - description: Video clock of stream 1.
+> +
+> +  clock-names:
+> +    items:
+> +      - const: apb
+> +      - const: vid0
+> +      - const: vid1
+> +
+> +  resets:
+> +    maxItems: 1
+> +    description: DisplayPort controller reset.
+> +
+> +  phys:
+> +    maxItems: 1
+> +    description: DisplayPort PHY the controller transmits through.
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/properties/port
+> +    description:
+> +      Video input from the Mali D71 display pipeline (Komeda) that drives
+> +      this controller. The link to the sink is through phys (USB-C combo=
+ PHY
+> +      or the native DP PHY), not a second OF graph port on the DPTX.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - phys
+> +  - port
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    dp0: dp@14064000 {
+> +        compatible =3D "cix,sky1-usbdp";
+> +        reg =3D <0x14064000 0x4000>,
+> +              <0x14050000 0x400>;
+> +        reg-names =3D "dp", "rcsu";
+> +        interrupts =3D <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks =3D <&dpc0_apb>, <&dpc0_vid0>, <&dpc0_vid1>;
+> +        clock-names =3D "apb", "vid0", "vid1";
 
 [Severity: Low]
-Should this bug fix include a Fixes tag:
-
-  Fixes: 3355f4ee561d ("drm/bridge: tc358762: Add reset GPIO support")
-
-Also, the first sentence says "asserted when the chip should be active,
-deasserted when the chip is enabled", where both clauses describe the
-active/enabled state rather than enabling vs. disabling the chip.
-
-> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/t=
-c358762.c
-> index 76564d5e4f69f..404420c7b517e 100644
-> --- a/drivers/gpu/drm/bridge/tc358762.c
-> +++ b/drivers/gpu/drm/bridge/tc358762.c
-> @@ -164,7 +164,7 @@ static void tc358762_post_disable(struct drm_bridge *=
-bridge,
->  	ctx->pre_enabled =3D false;
-> =20
->  	if (ctx->reset_gpio)
-> -		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +		gpiod_set_raw_value_cansleep(ctx->reset_gpio, 0);
-> =20
->  	ret =3D regulator_disable(ctx->regulator);
->  	if (ret < 0)
-> @@ -182,7 +182,7 @@ static void tc358762_pre_enable(struct drm_bridge *br=
-idge,
->  		dev_err(ctx->dev, "error enabling regulators (%d)\n", ret);
-> =20
->  	if (ctx->reset_gpio) {
-> -		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		gpiod_set_raw_value_cansleep(ctx->reset_gpio, 1);
->  		usleep_range(5000, 10000);
->  	}
-
-[Severity: High]
-Does requesting ctx->reset_gpio with logical GPIOD_OUT_LOW in
-tc358762_parse_dt() drive the physical reset pin high during probe when the
-Device Tree specifies GPIO_ACTIVE_LOW?
-
-drivers/gpu/drm/bridge/tc358762.c:tc358762_parse_dt() {
-	...
-	/* Reset GPIO is optional */
-	ctx->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
-	if (IS_ERR(ctx->reset_gpio))
-		return PTR_ERR(ctx->reset_gpio);
-	...
-}
-
-With GPIO_ACTIVE_LOW in Device Tree, GPIOD_OUT_LOW (logical 0) is inverted
-by gpiolib to physical 1 at probe time while vddc-supply is still disabled.
-On standalone reset GPIOs, the bridge is not held in reset during power-up
-and gpiod_set_raw_value_cansleep(ctx->reset_gpio, 1) in
-tc358762_pre_enable() becomes a 1-to-1 no-op.  On the Raspberry Pi 7-inch
-panel unit (drivers/regulator/rpi-panel-attiny-regulator.c), driving the
-reset line to physical 1 at probe sets PC_RST_BRIDGE_N in REG_PORTC, which
-causes attiny_lcd_power_is_enabled() to report the regulator as already
-enabled so regulator_enable(ctx->regulator) in tc358762_pre_enable() skips
-enabling panel and bridge power.
-
-Instead of using raw GPIO accessors, should tc358762 use logical active-low
-reset values (GPIOD_OUT_HIGH at probe, 0 in tc358762_pre_enable(), and 1 in
-tc358762_post_disable()) and add a polarity quirk for "toshiba,tc358762"
-"reset-gpios" in of_gpio_try_fixup_polarity() to handle older Device Trees?
+This isn't a bug, but in canonical DT binding property ordering, interrupts
+is placed after clocks and clock-names in properties, required, and example=
+s.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-tc3-reset-=
-v1-0-a5d27fe4b5de@kemnade.info?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124120114.3273=
+161-1-Luo.Liu@cixtech.com?part=3D1
