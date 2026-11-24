@@ -1,56 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795516132;
-	b=piDpQ7xM3fG560+1ZQsoXv95dj2f43cx8VQl0lzm4AiJo5iODdxOUNRaOoC/qgqPCK1b
-	 sCqoMlbpmkQ62FUjKd/0FHN7BpUMwhDlnj5aEgWSxnl0RKGbyNw/G7IPrviC2tNzRYM7d
-	 WEQbhI6bntPVLshGw8jWld0tsB3nHZsfL4EnMMoYvxKXAseBGlwetGG/5uyEkpRp1qz1P
-	 ujkKkFwdDMgIZ+ONpARnr+bwQEgzaOPSAEUvXhVIu+SpoeLnfi3XI3Oik8hGzoXtSZeok
-	 F/dQhyxPi19Wj+DGeb7eVb9Qr1FbJqliIwaWOilyXYmNwO5vd5rnm+5ou6z02nhMISg==
+	t=1795516152;
+	b=H1Rhs4OD4sWcaiokwc875eZxujq1vQL6IQKUFDlbajvAj0JE7Vsupgi8VPD4vgDhZy3l
+	 kHwsTid3mHVqiMzvp9fO4V5kUA57I93sUzk4wp9fGZFqwfMCW7JkJdupl0F1jHZYul/4B
+	 A/ivbedlnbEAwxf49OudK2szFmtYl0B9R5PwByMOmoA0ASF1igVVr+3jgSIIVHXl86SH9
+	 Ck1csSOtCEIYgrX8Eeuervxi5jbC7dy72m7SWNZUQGeG/gpTuTtVGwxQTssPVq1tZRds7
+	 9ruif/8eD15FspDKXpZLFUo+rNgqyGB5TtqoVpf7+6nTU5x011Gbia6CnjiynHnC8tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795516132;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0xMlouJrypYx/yImtpjHEvUuMDrtLk3A8nlTJrmuU3A=;
-	b=WwDaklA0QhpZk4Y/CcrooUkYDPkIl25Um1R973oOaZpbI5nfOoMp/KDzpa4JwkSVebNp
-	 Ym0QDTDWKTDF4q5g5yTUJUD4zavOcmvUnT9NV7aNyb7YKN6bgCeMgcUfbLz1CuOH1H0S3
-	 aaHl7PYZaLLNp9mtoGmSD/ckiOuUHt5sA/uVVlFOpKOAce6+r84FyZLoYIMVOmoPfvpCQ
-	 Z6k9ieNR6c7daFmxlyCSt1toZ1gmB/DSThcy33qZIzah9m3RL0yVVyGiPPFyoFWSaLVNk
-	 KjyTAM8UIywulGPRBdxe/CLlMr0nVY2GL1Aq0Wuw/BYoFJRBEDKWDOxkzBXDA7UzM1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795516152;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=isq1BtOcwaV6k1B+5U1NnLpldAIjmTJ+TO6ciHLOLmM=;
+	b=IiZ18uRmU+hJcb93Pj0VM/Bx7ofRgse1UEiCFlVMsMzJNUkF00VP3fniQVoZ4z7cEjjM
+	 QK7SiLqoh5vY2U2+9DQpfoJmkgNw8H4bu95IKoODuVPx62eeOftaGMsXCqyi/tT+SAlLe
+	 8sxitunXr5Djlyjd5UWHrNlxHSYRlk+F6Cv39EKeSzMGwE98ohwvar15wZRAY0npgO/oZ
+	 FffJOP2iyrEsvcXtcdmteAjbRwykXVRcaJEW3lY3k7s74myU6IeYcCfnxLdvyZRG4znrZ
+	 6oET8kkDI8UYdxyUb3vRQbmThDQlOQdh0HKZtx9gpFOyfNL3FRUQtb4VQxMSpeaseqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CdiunMw5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N8ZdrZYR;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hNjrsOkr;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32499606A31E;
-	Tue, 24 Nov 2026 10:28:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F13F606A32E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 10:29:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F13F606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CdiunMw5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E7581F000CA;
-	Tue, 24 Nov 2026 10:28:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795516131;
-	bh=0xMlouJrypYx/yImtpjHEvUuMDrtLk3A8nlTJrmuU3A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CdiunMw5H2E/puEF1nMlJcWqWzLJipi06O9cofA/4yJTWcA0obERovtCMznwSLX+g
-	 RJ/m37VKfPlUb6iHSwft0ceHQOi1KHTfX9byKVrRBAbCD+9F/n4Ce3nNQKqW0h5TnI
-	 mOICiv/YlNGBx8YDWfPvhVdlfgZgfAoY7eNceNyCRvj6gLd7m9ASlVVEOGntHzn7GX
-	 fwKvD1eZ9vL67p6hG5scp2F/8vOkYQQfdpNJUiTdQGbOqWKKH/q/z0sa38+i6aW5d8
-	 5x3tSqWmqO8Kh2aO4TyTAAWkZD3IbiFN3EQ7WePI+pghZnzUmDLUEyDy9GnVf/FIfC
-	 FrNmVgseXGAkw==
-Message-ID: <sashiko-outbox-230964@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] clk: qcom: Add the Netrani global clock controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: SignKirigami <prcups@krgm.moe>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-netrani-clock-v1-v1-2-ce10cedbfa4b@krgm.moe>
-References: <20261124-netrani-clock-v1-v1-0-ce10cedbfa4b@krgm.moe>
- <20261124-netrani-clock-v1-v1-2-ce10cedbfa4b@krgm.moe>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 10:28:51 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N8ZdrZYR;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hNjrsOkr
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO5m2Td2848324
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 10:29:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=isq1BtOcwaV6k1B+5U1NnLpl
+	dAIjmTJ+TO6ciHLOLmM=; b=N8ZdrZYRTl7zB7gP1LKPgniw4ZznMWPBcr9GFT0b
+	Fe7H8LGIZ2nxbS2jaRVVul26B1IIWYrp1UDJnoMDfToiE8DB6f7Ru0XuZdlDvUfI
+	qmyIoHdn1WpjbECp4HFRlQTpu6qPZzQvZjUspEg55oIbpQE6bCjagm+1/STBLkjL
+	MwDHhiS552nWzqet2sREks0dEbIHSqN96XgBjLfoSQfLsuta94wTN5rXAE6Zyz9d
+	YloTWHdLEz5J0KSBPpFxtjs95IM09Snf95YNf9grOlz0Qheo5v399rIP/qQXFXpa
+	gCSILi3XOSXEmgV/uhNLO8rBshCJc6mr2HBxa1hKRN0k3Q==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j54rh953r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 10:29:09 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3869865a304so3452484eec.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 02:29:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795516149; x=1796120949; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=isq1BtOcwaV6k1B+5U1NnLpldAIjmTJ+TO6ciHLOLmM=;
+        b=hNjrsOkrhyg8w6IsDeNIS4R2yEAEn0IfJDnenSIHrM4MxqZ/y8mRnvqpMx7Co2bMr+
+         rjm57sGk0W2Nd3FDGHM5fMnLMi12PtZx6iWww7R3OEj+uV0QcVhTCKmTr+9YT6DBzvEg
+         /AzEpEU6M2fSp8I7wx5HKnIbYDJQ2n2flN7pvM47+8mVvVYQQoG7muxxaauW3KEF+uKV
+         ca7X43dQN972Aa81jinX//IQnhbKT/VltLv6If4QP5DpUnDVxaEeVNV3RHKDMXhSfI2n
+         M+7MsKI5yEj+xcHX6Q2oZtHUpp/wOoaPjndFTkCU4xabPU4XAgAw5eY0cTGbOvjkbQRj
+         wxWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795516149; x=1796120949;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=isq1BtOcwaV6k1B+5U1NnLpldAIjmTJ+TO6ciHLOLmM=;
+        b=FlQpeZd98+Iu+NL4SnzKnVrk7YxEVMFcuIzwc/qA3kR7AiMaTZPrwK5Ut/0/fU8TMS
+         cRwTcCcDhX2KcC9BAC8EVM7ofR2WFh00kwzawepWhAywYK0e+R2MentLMCdibyLWNP2z
+         jB3lveZrYZwk1941lZi/EQmchg5E4qVftxNGFCwr5VM2/kW+8Yo1YzptOSOZNTJMdCmQ
+         gov/QR0/97GPWBthkiQIOPKxkTEOfPSXI22GyOSV8zsJu8gi7gJOPhxBTH1N+5jJCG8h
+         2ulgBkJqROrq+gDN3owBM36kjBdtJjWo9h/i/qXTWOb2i4a6onfOVcd3p1YLQlT9Gass
+         2zkg==
+X-Forwarded-Encrypted: i=1; AL+hErH1w4oAAuK4ZoUKqCokGwhUcJnbuRzEACJmh2ZvJ310f1g6xu2pvrnSbUMHaQ+gH6WnWz3M1K+2uupt@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PgOP9mDz/lu8qO3i6s1j7WduYlzva0fkWknaOWw1v5/A+H1P1
+	ianBAQ6fZeO0Mgij53WobGSKSEUbzEPysmldn9mpiVnvMJXCsUAzfegEPTKzr0rxkHbqhywXttA
+	3b/FAVwRf4HMVxEN+/AlE3mZM/Cv8ZE6lne6q2a4OyqY2eHhaOazICTIi8Lc92NVF
+X-Gm-Gg: AZFdTZeQLkQVxjSKXlMue1LlI0GDgGn8MVdvcU2gNBGbIdvUGEbQ2U7yXA8UZBqFQcL
+	cyVMxiPjk8NhJmfEL43Xzz2Kv7OI2G/hNf62hh8/mSf1IPvqzJhRFXSVyXVoz3L8oCVWJ8bISrF
+	JAMhv0j3pojrWTx283NEoHsp6dozH1QBrVjpcHePEjO6MA2c7YxPzHgzlAdZJkXlWec+5GxlLJL
+	u44x5MzXEkQyv0S0SOW0Vi3hvx0EIZWXBfNwpg555uSD5ULK7gfJdYyS19HeQ6f3ZgrWvo7I3dy
+	vboBV2GcTVxZQ2eqJdsaa/QMp9QpSj7zUsT0lVnyzRLJCZYjQfXw8OhxnjSGDGp0ZUUtQq4w5ry
+	s1VsYDfQ30dv0+wTsEwTstOF+JWyW0dZSYQ6RgkNIPYbbTO1S0KMD7AFIwlhCjfMOKskF/gPsqS
+	nL
+X-Received: by 2002:a05:7301:c005:b0:386:a0c0:5e59 with SMTP id 5a478bee46e88-386a0c0757fmr11227802eec.20.1795516149081;
+        Tue, 24 Nov 2026 02:29:09 -0800 (PST)
+X-Received: by 2002:a05:7301:c005:b0:386:a0c0:5e59 with SMTP id 5a478bee46e88-386a0c0757fmr11227771eec.20.1795516148444;
+        Tue, 24 Nov 2026 02:29:08 -0800 (PST)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e7f59sm46045074eec.6.2026.11.24.02.29.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 02:29:07 -0800 (PST)
+Date: Tue, 24 Nov 2026 15:58:59 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v7 4/5] arm64: dts: qcom: shikra: Add EL2 overlay for EVK
+ variants
+Message-ID: <20261124102859.s6wr5l2ta3sne7ci@hu-mojha-hyd.qualcomm.com>
+References: <20261120-shikra-el2-v7-0-9d9000eb50d4@oss.qualcomm.com>
+ <20261120-shikra-el2-v7-4-9d9000eb50d4@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,539 +134,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261120-shikra-el2-v7-4-9d9000eb50d4@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=BKkmP1QG c=1 sm=1 tr=0 ts=6b0566f5 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=wRyLKtKWvOkyam-9G8YA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA0MCBTYWx0ZWRfX95d9ULUhdp5a
+ iF15wpITeX8bAsLIyDp+RpuWFwAiEvWJooIOoW8YFeRRHJJiSNH4nFyTKyUZLQMuSniJtVk/7S2
+ iyMTVPvpMUeg/40Z6wi/U27o4qyLSWw=
+X-Proofpoint-GUID: RrNaV6aC4bvfQLC7XmlShLn7n0oqZIDD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA0MCBTYWx0ZWRfX+yD49yNn7whQ
+ TX3/Dl2trn3H0ED6in/DWSZZKOnSlulsr6TDX4mg23u9CNv/6kTuvn7Zex11Ep5fmf3V1KZsd5G
+ Hh81Q6yR8cnw6sWvFoxbLxzNM1rsSNx0x3Fy/sbqcjP+JdHCo1lRcAxRgswRQdpE8aOTwhTwXLT
+ LzA7W41780LQo3aZj+5MgM1Yl0ftNjeT/CTi47CflLCKWqaj5+0fDSDpJt3cXQCc+UP2kpBswen
+ ozstftjZFOvyOVLijHDKRyAIueU+0WJ8+tDXUVV1tHbr8973CSCe58Jd2v231aXm4Q3wQU8Owrf
+ QYcSyFLLIB9f9X9dTqYvFsog0LSITry400BFFFpgmQpozj2MS0JWOeeuySuK1qWMFaYOm/7eT9y
+ aMK1PhiBQ3AR0GBXRu5WeY0ZELYA7dZ2lZi2yEZ9/w0ot08tdOPBjEE534SvcaUx0ZXniWTdt/7
+ yNnptSfKbSTV5MOtutQ==
+X-Proofpoint-ORIG-GUID: RrNaV6aC4bvfQLC7XmlShLn7n0oqZIDD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 adultscore=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240040
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issues to consider:
-- [High] clk: qcom: mismatched parent arrays and num_parents in six
-  Netrani RCGs
-- [High] clk: qcom: missing reset entries in gcc_netrani_resets clobber
-  GPLL0 at 0x0
-- [Medium] clk: qcom: QUPv3 SE5 RCGs omitted from gcc_dfs_clocks[] in
-  gcc-netrani
-- [Medium] clk: qcom: inconsistent QUPv3 SE5 divider and QSPI0 offsets
-  across wrappers
-- [Medium] clk: qcom: critical gcc_camera_sleep_clk registered as
-  gateable branch clock
-- [Medium] clk: qcom: gcc_netrani_prepare_required_clocks() writes video
-  AXI bit to 0x4201c
-- [Low] clk: qcom: open-coded probe and init boilerplate in gcc-netrani
---
+On Fri, Nov 20, 2026 at 06:50:52PM +0530, Komal Bajaj wrote:
+> All existing Shikra board variants boot Linux under the Gunyah
+> hypervisor, with Linux running at EL1. Linux can also be booted
+> directly at EL2 on these devices.
+> 
+> For EL2 boot, describe the IOMMU streams used by the remote
+> processor firmware in the DeviceTree consumed by Linux. Also
+> disable GPU zap shader and Iris video codec.
+> 
+> Add an EL2-specific DT overlay and apply it to the Shikra CQM, CQS and
+> IQS EVK variants to produce -el2.dtb artifacts alongside the standard
+> DTBs.
+> 
+> Co-developed-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
-commit 391c2be97d7837927f3384c23157765a1781b299
-Author: SignKirigami <prcups@krgm.moe>
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-clk: qcom: Add the Netrani global clock controller
-
-This commit adds the global clock controller (GCC) driver for Qualcomm
-Netrani, providing clocks, resets, power domains, and QUPv3 DFS roots.
-
-> diff --git a/drivers/clk/qcom/gcc-netrani.c b/drivers/clk/qcom/gcc-netran=
-i.c
-> new file mode 100644
-> index 0000000000000..f8bbd0edd528c
-> --- /dev/null
-> +++ b/drivers/clk/qcom/gcc-netrani.c
-> @@ -0,0 +1,2833 @@
-
-[ ... ]
-
-> +static const struct parent_map gcc_parent_map_0[] =3D {
-> +	{ P_BI_TCXO, 0 },
-> +	{ P_GCC_GPLL0_OUT_MAIN, 1 },
-> +	{ P_GCC_GPLL0_OUT_EVEN, 6 },
-> +};
-> +
-> +static const struct clk_parent_data gcc_parent_data_0[] =3D {
-> +	{ .fw_name =3D "bi_tcxo" },
-> +	{ .hw =3D &gcc_gpll0.clkr.hw },
-> +	{ .hw =3D &gcc_gpll0_out_even.clkr.hw },
-> +};
-
-[ ... ]
-
-> +static const struct parent_map gcc_parent_map_2[] =3D {
-> +	{ P_BI_TCXO, 0 },
-> +	{ P_SLEEP_CLK, 5 },
-> +};
-> +
-> +static const struct clk_parent_data gcc_parent_data_2[] =3D {
-> +	{ .fw_name =3D "bi_tcxo" },
-> +	{ .fw_name =3D "sleep_clk" },
-> +};
-> +
-> +static const struct parent_map gcc_parent_map_3[] =3D {
-> +	{ P_BI_TCXO, 0 },
-> +	{ P_GCC_GPLL0_OUT_MAIN, 1 },
-> +	{ P_GCC_GPLL0_OUT_ODD, 2 },
-> +	{ P_GCC_GPLL10_OUT_MAIN, 3 },
-> +	{ P_GCC_GPLL0_OUT_EVEN, 6 },
-> +};
-> +
-> +static const struct clk_parent_data gcc_parent_data_3[] =3D {
-> +	{ .fw_name =3D "bi_tcxo" },
-> +	{ .hw =3D &gcc_gpll0.clkr.hw },
-> +	{ .hw =3D &gcc_gpll0_out_odd.clkr.hw },
-> +	{ .hw =3D &gcc_gpll10.clkr.hw },
-> +	{ .hw =3D &gcc_gpll0_out_even.clkr.hw },
-> +};
-> +
-> +static const struct parent_map gcc_parent_map_4[] =3D {
-> +	{ P_BI_TCXO, 0 },
-> +};
-> +
-> +static const struct clk_parent_data gcc_parent_data_4[] =3D {
-> +	{ .fw_name =3D "bi_tcxo" },
-> +};
-> +
-> +static const struct parent_map gcc_parent_map_5[] =3D {
-> +	{ P_PCIE_0_PIPE_CLK, 0 },
-> +	{ P_BI_TCXO, 2 },
-> +};
-> +
-> +static const struct clk_parent_data gcc_parent_data_5[] =3D {
-> +	{ .fw_name =3D "pcie_0_pipe_clk" },
-> +	{ .fw_name =3D "bi_tcxo" },
-> +};
-
-[ ... ]
-
-> +static struct clk_rcg2 gcc_pcie_0_aux_clk_src =3D {
-> +	.cmd_rcgr =3D 0x7b064,
-> +	.mnd_width =3D 16,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D gcc_parent_map_2,
-> +	.freq_tbl =3D ftbl_gcc_pcie_0_aux_clk_src,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_pcie_0_aux_clk_src",
-> +		.parent_data =3D gcc_parent_data_2,
-> +		.num_parents =3D ARRAY_SIZE(gcc_parent_data_3),
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_rcg2_shared_ops,
-> +	},
-> +};
-
-[ ... ]
-
-> +static struct clk_rcg2 gcc_sdcc1_apps_clk_src =3D {
-> +	.cmd_rcgr =3D 0xb3010,
-> +	.mnd_width =3D 8,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D gcc_parent_map_3,
-> +	.freq_tbl =3D ftbl_gcc_sdcc1_apps_clk_src,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_sdcc1_apps_clk_src",
-> +		.parent_data =3D gcc_parent_data_3,
-> +		.num_parents =3D ARRAY_SIZE(gcc_parent_data_4),
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_rcg2_shared_floor_ops,
-> +	},
-> +};
-> +
-> +static const struct freq_tbl ftbl_gcc_sdcc1_ice_core_clk_src[] =3D {
-> +	F(100000000, P_GCC_GPLL0_OUT_ODD, 2, 0, 0),
-> +	F(150000000, P_GCC_GPLL0_OUT_EVEN, 2, 0, 0),
-> +	F(300000000, P_GCC_GPLL0_OUT_EVEN, 1, 0, 0),
-> +	{ }
-> +};
-> +
-> +static struct clk_rcg2 gcc_sdcc1_ice_core_clk_src =3D {
-> +	.cmd_rcgr =3D 0xb3030,
-> +	.mnd_width =3D 0,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D gcc_parent_map_3,
-> +	.freq_tbl =3D ftbl_gcc_sdcc1_ice_core_clk_src,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_sdcc1_ice_core_clk_src",
-> +		.parent_data =3D gcc_parent_data_3,
-> +		.num_parents =3D ARRAY_SIZE(gcc_parent_data_4),
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_rcg2_shared_floor_ops,
-> +	},
-> +};
-
-[ ... ]
-
-> +static const struct freq_tbl ftbl_gcc_ufs_phy_ice_core_clk_src[] =3D {
-> +	F(100000000, P_GCC_GPLL0_OUT_MAIN, 6, 0, 0),
-> +	F(200000000, P_GCC_GPLL0_OUT_MAIN, 3, 0, 0),
-> +	F(403000000, P_GCC_GPLL4_OUT_MAIN, 2, 0, 0),
-> +	{ }
-> +};
-> +
-> +static struct clk_rcg2 gcc_ufs_phy_ice_core_clk_src =3D {
-> +	.cmd_rcgr =3D 0x87074,
-> +	.mnd_width =3D 0,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D gcc_parent_map_0,
-> +	.freq_tbl =3D ftbl_gcc_ufs_phy_ice_core_clk_src,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_ufs_phy_ice_core_clk_src",
-> +		.parent_data =3D gcc_parent_data_0,
-> +		.num_parents =3D ARRAY_SIZE(gcc_parent_data_2),
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_rcg2_shared_ops,
-> +	},
-> +};
-> +
-> +static struct clk_rcg2 gcc_ufs_phy_phy_aux_clk_src =3D {
-> +	.cmd_rcgr =3D 0x870a8,
-> +	.mnd_width =3D 0,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D gcc_parent_map_4,
-> +	.freq_tbl =3D ftbl_gcc_pcie_0_aux_clk_src,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_ufs_phy_phy_aux_clk_src",
-> +		.parent_data =3D gcc_parent_data_4,
-> +		.num_parents =3D ARRAY_SIZE(gcc_parent_data_5),
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_rcg2_shared_ops,
-> +	},
-> +};
-
-[ ... ]
-
-> +static struct clk_rcg2 gcc_usb3_prim_phy_aux_clk_src =3D {
-> +	.cmd_rcgr =3D 0x4906c,
-> +	.mnd_width =3D 0,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D gcc_parent_map_2,
-> +	.freq_tbl =3D ftbl_gcc_usb30_prim_mock_utmi_clk_src,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_usb3_prim_phy_aux_clk_src",
-> +		.parent_data =3D gcc_parent_data_2,
-> +		.num_parents =3D ARRAY_SIZE(gcc_parent_data_3),
-> +		.ops =3D &clk_rcg2_ops,
-> +	},
-> +};
-
-[Severity: High]
-Do these six RCGs pass a mismatched ARRAY_SIZE() for .num_parents?
-
-In gcc_pcie_0_aux_clk_src, gcc_ufs_phy_phy_aux_clk_src, and
-gcc_usb3_prim_phy_aux_clk_src, .num_parents is larger than the assigned
-parent_data and parent_map arrays, so clk_core_populate_parent_map() and
-qcom_find_src_index() read past the end of those tables.
-
-In gcc_sdcc1_apps_clk_src and gcc_sdcc1_ice_core_clk_src,
-ARRAY_SIZE(gcc_parent_data_4) truncates the 5-entry gcc_parent_data_3 table
-to 1 entry (P_BI_TCXO), causing qcom_find_src_index() to fail with -ENOENT
-for every PLL-backed rate in their frequency tables.
-
-In gcc_ufs_phy_ice_core_clk_src, .num_parents uses gcc_parent_data_2 while
-.parent_data and .parent_map use gcc_parent_data_0 and gcc_parent_map_0,
-which also lack the P_GCC_GPLL4_OUT_MAIN parent required for the 403 MHz
-entry in ftbl_gcc_ufs_phy_ice_core_clk_src.
-
-[ ... ]
-
-> +static struct clk_branch gcc_camera_sleep_clk =3D {
-> +	.halt_reg =3D 0x36018,
-> +	.halt_check =3D BRANCH_HALT,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x36018,
-> +		.enable_mask =3D BIT(0),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gcc_camera_sleep_clk",
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
-> +};
-> +
-> +static struct clk_branch gcc_video_axi0_clk =3D {
-> +	.halt_reg =3D 0x4200c,
-> +	.halt_check =3D BRANCH_HALT_SKIP,
-> +	.hwcg_reg =3D 0x4200c,
-> +	.hwcg_bit =3D 1,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x4200c,
-> +		.enable_mask =3D BIT(0),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gcc_video_axi0_clk",
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
-> +};
-
-[ ... ]
-
-> +static struct clk_init_data gcc_qupv3_wrap0_s5_clk_src_init =3D {
-> +	.name =3D "gcc_qupv3_wrap0_s5_clk_src",
-> +	.parent_data =3D gcc_parent_data_0,
-> +	.num_parents =3D ARRAY_SIZE(gcc_parent_data_0),
-> +	.flags =3D CLK_SET_RATE_PARENT,
-> +	.ops =3D &clk_rcg2_shared_ops,
-> +};
-> +
-> +static struct clk_rcg2 gcc_qupv3_wrap0_s5_clk_src =3D {
-> +	.cmd_rcgr =3D 0x27618,
-> +	.mnd_width =3D 16,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D gcc_parent_map_0,
-> +	.freq_tbl =3D ftbl_gcc_qupv3_wrap0_s5_clk_src,
-> +	.clkr.hw.init =3D &gcc_qupv3_wrap0_s5_clk_src_init,
-> +};
-> +
-> +static struct clk_regmap_div gcc_qupv3_wrap0_s5_div_clk_src =3D {
-> +	.reg =3D 0x2774c,
-> +	.shift =3D 0,
-> +	.width =3D 4,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_qupv3_wrap0_s5_div_clk_src",
-> +		.parent_hws =3D (const struct clk_hw*[]) {
-> +			&gcc_qupv3_wrap0_s5_clk_src.clkr.hw,
-> +		},
-> +		.num_parents =3D 1,
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_regmap_div_ro_ops,
-> +	},
-> +};
-
-[ ... ]
-
-> +static struct clk_branch gcc_qupv3_wrap0_qspi0_clk =3D {
-> +	.halt_reg =3D 0x27744,
-> +	.halt_check =3D BRANCH_HALT_VOTED,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x62010,
-> +		.enable_mask =3D BIT(24),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gcc_qupv3_wrap0_qspi0_clk",
-> +			.parent_hws =3D (const struct clk_hw*[]) {
-> +				&gcc_qupv3_wrap0_s5_clk_src.clkr.hw,
-> +			},
-> +			.num_parents =3D 1,
-> +			.flags =3D CLK_SET_RATE_PARENT,
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
-> +};
-
-[ ... ]
-
-> +static struct clk_init_data gcc_qupv3_wrap1_s5_clk_src_init =3D {
-> +	.name =3D "gcc_qupv3_wrap1_s5_clk_src",
-> +	.parent_data =3D gcc_parent_data_0,
-> +	.num_parents =3D ARRAY_SIZE(gcc_parent_data_0),
-> +	.flags =3D CLK_SET_RATE_PARENT,
-> +	.ops =3D &clk_rcg2_shared_ops,
-> +};
-> +
-> +static struct clk_rcg2 gcc_qupv3_wrap1_s5_clk_src =3D {
-> +	.cmd_rcgr =3D 0x28618,
-> +	.mnd_width =3D 16,
-> +	.hid_width =3D 5,
-> +	.parent_map =3D gcc_parent_map_0,
-> +	.freq_tbl =3D ftbl_gcc_qupv3_wrap1_s5_clk_src,
-> +	.clkr.hw.init =3D &gcc_qupv3_wrap1_s5_clk_src_init,
-> +};
-> +
-> +static struct clk_regmap_div gcc_qupv3_wrap1_s5_div_clk_src =3D {
-> +	.reg =3D 0x28744,
-> +	.shift =3D 0,
-> +	.width =3D 4,
-> +	.clkr.hw.init =3D &(const struct clk_init_data) {
-> +		.name =3D "gcc_qupv3_wrap1_s5_div_clk_src",
-> +		.parent_hws =3D (const struct clk_hw*[]) {
-> +			&gcc_qupv3_wrap1_s5_clk_src.clkr.hw,
-> +		},
-> +		.num_parents =3D 1,
-> +		.flags =3D CLK_SET_RATE_PARENT,
-> +		.ops =3D &clk_regmap_div_ro_ops,
-> +	},
-> +};
-
-[ ... ]
-
-> +static struct clk_branch gcc_qupv3_wrap1_qspi0_clk =3D {
-> +	.halt_reg =3D 0x28748,
-> +	.halt_check =3D BRANCH_HALT_VOTED,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x62010,
-> +		.enable_mask =3D BIT(25),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gcc_qupv3_wrap1_qspi0_clk",
-> +			.parent_hws =3D (const struct clk_hw*[]) {
-> +				&gcc_qupv3_wrap1_s5_clk_src.clkr.hw,
-> +			},
-> +			.num_parents =3D 1,
-> +			.flags =3D CLK_SET_RATE_PARENT,
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
-> +};
-
-[Severity: Medium]
-Are the SE5 divider and QSPI0 CBCR offsets swapped between QUPv3 wrapper 0
-and wrapper 1?
-
-Both wrappers have identical relative offsets up to +0x618, but wrapper 0
-places gcc_qupv3_wrap0_qspi0_clk.halt_reg at +0x744 (0x27744) and
-gcc_qupv3_wrap0_s5_div_clk_src.reg at +0x74c (0x2774c), whereas wrapper 1
-places gcc_qupv3_wrap1_s5_div_clk_src.reg at +0x744 (0x28744) and
-gcc_qupv3_wrap1_qspi0_clk.halt_reg at +0x748 (0x28748).  One of the two
-wrappers will read the CBCR as a clock divider and poll the divider register
-for branch halt status.
-
-[ ... ]
-
-> +static const struct qcom_reset_map gcc_netrani_resets[] =3D {
-> +	[GCC_CAMERA_BCR] =3D { 0x36000 },
-> +	[GCC_DISPLAY_BCR] =3D { 0x37000 },
-> +	[GCC_GPU_BCR] =3D { 0x81000 },
-
-[ ... ]
-
-> +	[GCC_USB3PHY_PHY_SEC_BCR] =3D { 0x60010 },
-> +	[GCC_VIDEO_BCR] =3D { 0x42000 },
-> +};
-
-[Severity: High]
-Are GCC_EMMC_BCR and GCC_VIDEO_AXI0_CLK_ARES missing from
-gcc_netrani_resets[]?
-
-Both IDs are defined in include/dt-bindings/clock/qcom,netrani-gcc.h below
-GCC_VIDEO_BCR, so their slots in gcc_netrani_resets[] are zero-initialized.
-Because qcom_reset_set_assert() does not check for unpopulated entries,
-asserting or deasserting either reset writes BIT(0) to register 0x0, which =
-is
-the mode register for gcc_gpll0, toggling GPLL0 output control instead of
-resetting the peripheral.
-
-> +
-> +static const struct clk_rcg_dfs_data gcc_dfs_clocks[] =3D {
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap0_s0_clk_src),
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap0_s1_clk_src),
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap0_s2_clk_src),
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap0_s3_clk_src),
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap0_s4_clk_src),
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap1_s0_clk_src),
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap1_s1_clk_src),
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap1_s2_clk_src),
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap1_s3_clk_src),
-> +	DEFINE_RCG_DFS(gcc_qupv3_wrap1_s4_clk_src),
-> +};
-
-[Severity: Medium]
-Should gcc_dfs_clocks[] also include gcc_qupv3_wrap0_s5_clk_src and
-gcc_qupv3_wrap1_s5_clk_src?
-
-Both SE5 RCGs define standalone mutable struct clk_init_data structs
-(gcc_qupv3_wrap0_s5_clk_src_init and gcc_qupv3_wrap1_s5_clk_src_init) for
-DEFINE_RCG_DFS(), but omitting them from gcc_dfs_clocks[] means
-qcom_cc_register_rcg_dfs() never checks or enables DFS on QUPv3 SE5.
-
-[ ... ]
-
-> +static int gcc_netrani_prepare_required_clocks(struct device *dev,
-> +					     struct regmap *regmap)
-> +{
-> +	static const u32 keep_enabled[] =3D {
-> +		0x36004, /* GCC_CAMERA_AHB_CLK */
-> +		0x36018, /* GCC_CAMERA_SLEEP_CLK */
-> +		0x3601c, /* GCC_CAMERA_XO_CLK */
-> +		0x37004, /* GCC_DISP_AHB_CLK */
-> +		0x37014, /* GCC_DISP_XO_CLK */
-> +		0x81004, /* GCC_GPU_CFG_AHB_CLK */
-> +		0x42004, /* GCC_VIDEO_AHB_CLK */
-> +		0x42018, /* GCC_VIDEO_XO_CLK */
-> +	};
-> +	int ret;
-> +	unsigned int i;
-> +
-> +	ret =3D regmap_update_bits(regmap, gcc_ufs_phy_ice_core_clk.halt_reg,
-> +				 CBCR_FORCE_MEM_CORE_ON, CBCR_FORCE_MEM_CORE_ON);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to retain UFS ICE memory\n");
-> +
-> +	/* Do not disable already-enabled critical clocks when a later write fa=
-ils. */
-> +	for (i =3D 0; i < ARRAY_SIZE(keep_enabled); i++) {
-> +		ret =3D regmap_update_bits(regmap, keep_enabled[i],
-> +					 CBCR_CLOCK_ENABLE, CBCR_CLOCK_ENABLE);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to enable clock at %#x\n",
-> +					     keep_enabled[i]);
-> +	}
-
-[Severity: Medium]
-Won't clk_disable_unused() turn gcc_camera_sleep_clk (0x36018) back off at
-late_initcall?
-
-Unlike the other clocks in keep_enabled[], 0x36018 is also registered in
-gcc_netrani_clocks[GCC_CAMERA_SLEEP_CLK] with clk_branch2_ops instead of
-clk_branch2_aon_ops (and without CLK_IS_CRITICAL), so clk_disable_unused()
-will clear CBCR_CLOCK_ENABLE when no consumer holds it enabled.  In additio=
-n,
-GCC_VIDEO_XO_CLK (139, 0x42018) is the highest ID in the binding header,
-above the last entry in gcc_netrani_clocks[] (GCC_VIDEO_THROTTLE_CORE_CLK,
-138), so requesting GCC_VIDEO_XO_CLK fails the bounds check in
-qcom_cc_clk_hw_get() with -EINVAL instead of returning a NULL dummy clock.
-
-> +
-> +	ret =3D regmap_update_bits(regmap, 0x4201c, BIT(21), BIT(21));
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to configure video AXI clock\n"=
-);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should this regmap_update_bits() target 0x4200c (gcc_video_axi0_clk) instead
-of 0x4201c?
-
-Offset 0x4201c is gcc_venus_ctl_axi_clk on SM4450, whereas Netrani's video
-AXI clock (gcc_video_axi0_clk) is at 0x4200c.
-
-> +
-> +static int gcc_netrani_probe(struct platform_device *pdev)
-> +{
-> +	struct regmap *regmap;
-> +	int ret;
-> +
-> +	regmap =3D qcom_cc_map(pdev, &gcc_netrani_desc);
-> +	if (IS_ERR(regmap))
-> +		return PTR_ERR(regmap);
-> +
-> +	ret =3D qcom_cc_register_rcg_dfs(regmap, gcc_dfs_clocks,
-> +				       ARRAY_SIZE(gcc_dfs_clocks));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D gcc_netrani_prepare_required_clocks(&pdev->dev, regmap);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return qcom_cc_really_probe(&pdev->dev, &gcc_netrani_desc, regmap);
-> +}
-> +
-> +static struct platform_driver gcc_netrani_driver =3D {
-> +	.probe =3D gcc_netrani_probe,
-> +	.driver =3D {
-> +		.name =3D "gcc-netrani",
-> +		.of_match_table =3D gcc_netrani_match_table,
-> +	},
-> +};
-> +
-> +static int __init gcc_netrani_init(void)
-> +{
-> +	return platform_driver_register(&gcc_netrani_driver);
-> +}
-> +subsys_initcall(gcc_netrani_init);
-> +
-> +static void __exit gcc_netrani_exit(void)
-> +{
-> +	platform_driver_unregister(&gcc_netrani_driver);
-> +}
-> +module_exit(gcc_netrani_exit);
-
-[Severity: Low]
-This isn't a bug, but struct qcom_cc_driver_data (.clk_cbcrs, .dfs_rcgs, and
-.clk_regs_configure with qcom_branch_set_force_mem_core()), qcom_cc_probe(),
-and subsys_platform_driver() could replace the open-coded probe and init
-boilerplate here, matching gcc-sm4450.c.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-netrani-cl=
-ock-v1-v1-0-ce10cedbfa4b@krgm.moe?part=3D2
+-- 
+-Mukesh Ojha
