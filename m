@@ -1,49 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795532210;
-	b=YoG/32CSMGR3PRRZ61fecSPnE9JZ2D7Lvu8I6o7ZxkTMOQuxWcc0/DlYAR4rlUfs+7gv
-	 vr6ztRBehaMxvOekLWGBCqU+DNbR6hrEfNr1sgUcu1MsnRN3VfA6oHx25pX6pSObkb5dw
-	 3WCjJe1YYZDRJfKPzIYT9s9S7JQNN22AzwLZFxCrvoTogJfDpwYLEMeErZp3mCIh2CEzV
-	 JnLzYgb/BdXAn9+57D3f/C5VsKDWE0hvJ4XJ6jOcQyhCvRoEeTaZCeor1q19fCUOZIFnE
-	 1CUm7fpadVWFh7m2I23UxDM6JVKzaWP895AOH55yLKNOY1NtcDQGREaPfc1O8xlaO6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795532210;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=MNeRqyRLNEInMXVEh5fr7Fiyd3zVkFC9dr39TesQaxg=;
-	b=z1SnEejdeO+Ft/nkTmal8s5ZVxP2DASS+mUMy/Ti9R7innLyQdvNJcYPjxXKVODu8hOi
-	 npA9yeHdS1Oh1AlbpFQA4PrbSRkUAarmqSuqjXidcMUZ9XDZA46vEpTM3beUh/ftWBWGQ
-	 Itdw21877RQIirrIhLX/iCm7hYyozyO1QwmP5LaDG1vALm1yyssM3oIubsMoXqMpF8/G6
-	 1MUjXh5GOIdEhfPm9fCo+BZxj6h1VyDH4NB/wWXCOx/nL4xkMya0SSFVe3i7UIc1kJz6l
-	 XqNxrMQlY/u2Rx0w/iN7U8LXeC27SAZkE8j/eIKRmUMCkUzLdBpXGGh6g1A9whyQkTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AJZpwZz7;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31CA0606A338;
-	Tue, 24 Nov 2026 14:56:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CA0606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795532206;
+	b=iBQ3rlU9XVNooQzJKwFlZhIS6iP2tz/2omvb0+HIa4cUgAkFG/01Uz4XkH4HTtZVLeIa
+	 O2+J6MyCBJH8J97ZagfSIjGYQaejNoeRhiokcc7U0b0ehcxpDoWM2BZ3Q/xLJmHC5WL9u
+	 kHUiMy1nBV0kg7y3TrC3JbhoOmOMvPylRUafmNeK0sHgq+mqIpJmAR6vqMsGdMw88tUtj
+	 OJzR+DWhPMP0p2ugQnA/KzgNkMFRysze+HlWc+EZ5F9vr+MTYS3nKC/3oxAcMkKHYiU/i
+	 ItO2jDMmVfXxYvboWXBgchk7MMVrIky5I1DsPf6c9wczlkdyk5TtFUvzKVj4dSv+LdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532206;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=kD1GNiqGMLXsLwN0Ufm7bvf0nYrTqG7Gyun272V+FBQ=;
+	b=v9z+0Zhd+k4+LCilwozNjyrZeF3skfzKdWy6Dro387RVtimsRP+l/LQL/DPO6sGK0Q9q
+	 qzLvsjy2Vwk0McvLV5uqxoFIW3Dmz13e1cHthSMTLaJtTr+3sSlPB4m1KeYdeeXYmlYGN
+	 dYdFNFPMx3PiUOhGlSlRoDODh6SGDQWbKDWg0B8ymICuidiId4Fr8twnXFWAJumMmLMhU
+	 XYkh0ygyGyvsq9p+wYEYB/c4abICYNQRUI3mHcN1FuBxZkmdMV/Z7wHlb43Q40hIDsUDE
+	 89V65wVD1nvzx7N2636XEuErCUWHTvfIi1vuBJ17RYFAVtti5c7EEGN//jXXr0N0uQQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=g78qi7dm;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=b3NjsCJW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.178
+Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de [81.169.146.178])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171B3606A31E;
+	Tue, 24 Nov 2026 14:56:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 171B3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AJZpwZz7
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A97AB339;
-	Tue, 24 Nov 2026 06:56:46 -0800 (PST)
-Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D01913F86C;
-	Tue, 24 Nov 2026 06:56:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795532209; bh=4/9nuLvHnv3HcCAvlF76Jnxm0bbYbkUtZm8PyQOh+Ks=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=AJZpwZz7bbtae+8Jy7ybd1Hwbx+tx38HccI4agjaJRXdLLGjIFPZnReJaQwKgvFZb
-	 iEi7LgYPnGZcA2HuxqQshQ0pNEgtVVfVDFzdKfcUJicTNOmirBsn2lB2ZFjyilriCz
-	 1NePzND053BJVFO1gpYhUupLUJYsgpFeS9w63MSg=
-Message-ID: <b152209e-6117-4a24-aa2d-59be913850b5@arm.com>
-Date: Tue, 24 Nov 2026 14:56:46 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=g78qi7dm;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=b3NjsCJW
+ARC-Seal: i=1; a=rsa-sha256; t=1795532163; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=mXrrTdkIxFBikSs2buuExLGImnsss5asFyDblSFa7hvcQpzrTygM97Mmtkp/+JfIIg
+    lPtNgIbXi6iNJHfbxDM2tGPrvNob4kg59IUcaqNoHOxEcaGJovd+Q8ah6gRwS+tjATHR
+    J3F6sQwarR0yWNKI82jo+GLPppvMqdXu3NTffBIO0m6vpZPYB4PqyAsib2GMmAmcvCLc
+    /YfumcPpcPU5K/fwK7kcsCPn1eyLGpwLn/iKFuWjsd2TcglmHak2Re0ijjZWIridB/am
+    yBxH+fc0vGn7iidGwE47kY6yo86pOua8y4isPOgWFuw8s5XQmO8ZOBSxkoO9SHuOVeu3
+    8ByA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795532163;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=kD1GNiqGMLXsLwN0Ufm7bvf0nYrTqG7Gyun272V+FBQ=;
+    b=ZM5w3Jfk9ANqD0Ti5o+IA0ULSYlRb9etAC/UedIyafx7XEVA5d2Vwgy8rW+f/KRMLu
+    U6lew/Roh2InlnuduzLJoGupp9DeJs790mJ9rThUGdLHQbibdwVVD0QTBjrJYbweBCSK
+    /TJzULbiP+IItbBhNwoDjFrHC5uqXyyZcfV9qui8rmpN729XZShEg9RCC3EyhVXk727V
+    vQvVbkoIKSXWnAx4WSTrcjlilWu9Ztpsqict22NaYpsnUCtCXOMf11Ua+SwUBi1c0JfC
+    CO662K5J6akvKzdRJzdzqupOl+qc11DOuudWqIElvQOXxWeND+vX4xpLcFTAwJH3rfbB
+    0Qkw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo04
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795532163;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=kD1GNiqGMLXsLwN0Ufm7bvf0nYrTqG7Gyun272V+FBQ=;
+    b=g78qi7dmmOKb50cPH/PtIvPHRVAKJ5YEB0z6uIoMX4OFugwvpdjjpdIVAGsex5nEf2
+    +WpReOFlNGHjZgArPnEtlF0u8GuMMd//SD2AwxcVCQkb6Yhf2izb2FvgJX4HQrg7LPKZ
+    vg0h91GAJ5dM40C2WYH/fzAlpMKyaz2pye7aSMZz1PrhDPOz5jncJCkb535i2oDzZKg1
+    Co+6i1vMtP1U+lmZBJUZqEbJ+VZPje5+thfAkN6GhlxiOpoWh04i91Svi4+SElcEmBmk
+    1MACSgbbn3Fh23YAbr3ZKxF072Fkqt8FHodVGyN14Hf5WYNCFv0gKSuTBJb2nrsDYC5P
+    /X+A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795532163;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=kD1GNiqGMLXsLwN0Ufm7bvf0nYrTqG7Gyun272V+FBQ=;
+    b=b3NjsCJWVhfoMdjRGQC49ub7BeVSemOzYBPiCh/kZv/VLtpY/Mk0kV8s8RDbMvlWrA
+    HZJa8lp54imBSto8izBg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV3poLlciNVWUgMvoVkTTR2P7jtjQyY2AeEP/F"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AOEu13hT
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Tue, 24 Nov 2026 15:56:01 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,126 +93,78 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 04/28] media: mali-vpu: initialize decoder format
- state
-To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
- Shobhit Pandey <shobhit.pandey@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
- <20261119153758.1426673-5-charvi.mehta@arm.com>
- <d1d53edeb358e1bdcd1c262e48074f7f1be276cf.camel@ndufresne.ca>
-Content-Language: en-US
-From: Charvi Mehta <charvi.mehta@arm.com>
-In-Reply-To: <d1d53edeb358e1bdcd1c262e48074f7f1be276cf.camel@ndufresne.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.11\))
+Subject: Re: [PATCH v2 07/20] ASoC: ti: omap3pandora: Convert sound card to DT
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <179553168323.264265.7045861860225672057.b4-review@b4>
+Date: Tue, 24 Nov 2026 15:55:30 +0100
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Lee Jones <lee@kernel.org>,
+ Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>,
+ Tony Lindgren <tony@atomide.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Helge Deller <deller@gmx.de>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org,
+ linux-sound@vger.kernel.org,
+ linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-pwm@vger.kernel.org,
+ linux-fbdev@vger.kernel.org,
+ letux-kernel@openphoenux.org,
+ kernel@pyra-handheld.com,
+ Stefan Leichter <sle85276@gmx.de>,
+ Grond <grond66@riseup.net>
+Content-Transfer-Encoding: 7bit
+Message-Id: <F6716339-FDD9-4F23-B4BB-9C99A13C8875@goldelico.com>
+References: <cover.1795505160.git.hns@goldelico.com>
+ <57d9a8b26bd2282deb9188d6913976cfee41aee9.1795505160.git.hns@goldelico.com>
+ <179553168323.264265.7045861860225672057.b4-review@b4>
+To: Mark Brown <broonie@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.11)
 
 
-On 11/19/26 20:30, Nicolas Dufresne wrote:
->> +void mali_vpu_session_init_dec(struct mali_vpu_session *sess)
->> +{
->> +	const struct mali_vpu_format_caps *variant_fmts = &sess->vpu_dev->variant->fmt_caps;
->> +
->> +	sess->port_src.supported_fmts = variant_fmts->dec_src;
->> +	sess->port_dst.supported_fmts = variant_fmts->dec_dst;
-> Why? the variant are constant, you can just read the information from the
-> variant. Make a getter or point to it.
-The format arrays are already static const and shared; only the list 
-descriptor
-(the pointer and count) is copied. However, you’re right that each port 
-could
-simply point to the const list in the variant, avoiding that copy too.
-I’ll make that change.
 
+> Am 24.11.2026 um 15:48 schrieb Mark Brown <broonie@kernel.org>:
+> 
+>> Convert the OpenPandora ASoC machine driver to bind through a Device
+>> Tree sound-card node instead of creating a platform device from board-
+>> specific setup code. Describe the CPU and codec DAIs and audio routes
+>> through DT, including the external PCM1773 playback DAC.
+> 
+>> + DAILINK_COMP_ARRAY(COMP_CODEC("pcm1773-codec", "pcm1773")),
+> 
+> You've added the external CODEC but not updated the Kconfig dependencies
+> for that.
 
-> p.s. is that "port" like in OMX IL?
-Here, “port” just groups the format and streaming state for a V4L2 OUTPUT
-or CAPTURE queue.
+Yes, I remember it was discussed but slipped through.
 
+BR and thanks,
+Nikolaus
 
->> +static int mali_vpu_set_port_fmt(struct mali_vpu_port *port,
->> +				 enum v4l2_buf_type type,
->> +				 u32 width, u32 height)
->> +{
->> +	struct v4l2_pix_format_mplane *pix_mp = &port->curr_fmt.fmt.pix_mp;
->> +	const struct mali_vpu_format_desc *fmt_default;
->> +	int ret;
->> +
->> +	if (!port->supported_fmts.fmts || !port->supported_fmts.num_fmts)
->> +		return -EINVAL;
->> +
->> +	fmt_default = &port->supported_fmts.fmts[0];
->> +
->> +	memset(&port->curr_fmt, 0, sizeof(port->curr_fmt));
->> +	port->curr_fmt.type = type;
->> +
->> +	if (fmt_default->flags & V4L2_FMT_FLAG_COMPRESSED) {
->> +		pix_mp->pixelformat = fmt_default->fourcc;
->> +		pix_mp->num_planes = 1;
->> +		pix_mp->width = width;
->> +		pix_mp->height = height;
->> +		pix_mp->plane_fmt[0].bytesperline = 0;
->> +
->> +		/*
->> +		 * Use one byte per pixel as the default compressed sizeimage,
->> +		 * with a minimum of one page, aligned to a page boundary.
->> +		 */
->> +		pix_mp->plane_fmt[0].sizeimage = PAGE_ALIGN(max_t(u32, PAGE_SIZE, width * height));
->> +	} else {
->> +		ret = v4l2_fill_pixfmt_mp(pix_mp, fmt_default->fourcc, width, height);
->> +		if (ret)
->> +			return ret;
-> I might have to come back to this code once we have TRY/SET_FMT in place,
-> meanwhile it seems more like a default setting helper then something that will
-> be part of the ioctl interface.
-
-Thanks, yes, this helper initializes the queue’s default format.
-I’ll rename it to `mali_vpu_init_port_fmt()` to make that clear.
-Patch 7 extracts the format-filling logic into `mali_vpu_fill_pixmp_fmt()`,
-shared by initialization and TRY_FMT/S_FMT.
-
-
->>   struct mali_vpu_session {
->>   	struct mali_vpu_dev		*vpu_dev;
->>   	enum mali_vpu_session_role	role;
->> +	struct mali_vpu_port		port_src;
->> +	struct mali_vpu_port		port_dst;
-> Ok, its time to comment, src_port and dst_port is a lot easier to read imho.
-I’ve generally placed the direction last, as in dec_src/dec_dst and 
-pixmp_src/pixmp_dst.
-I’d prefer to retain port_src/port_dst to follow that pattern.
-
-
->> +	},
->> +	.frmsz_caps = {
->> +		.stepwise = {
->> +			.min_width = MALI_V76_MIN_FRAME_WIDTH,
->> +			.max_width = MALI_V76_MAX_FRAME_WIDTH,
->> +			.step_width = 2,
->> +			.min_height = MALI_V76_MIN_FRAME_HEIGHT,
->> +			.max_height = MALI_V76_MAX_FRAME_HEIGHT,
->> +			.step_height = 2,
->> +		},
-> Are you sure this will be the same for all codecs and all formats?
-These limits apply to H.264 and the three 8-bit YUV420 capture formats
-currently exposed by the driver. The plan is to introduce separate ranges
-when adding a codec or format that needs different limits.
-
-
->> +struct mali_vpu_format_caps {
->> +	const struct mali_vpu_format_list dec_src;
->> +	const struct mali_vpu_format_list dec_dst;
-> Strange naming, perhaps src_formats/dst_formats?
-Here, dec identifies the decoder role and src/dst the queue direction;
-fmt_caps already provides the format context. I’d prefer to retain it.
-
-
-Regards,
-Charvi
