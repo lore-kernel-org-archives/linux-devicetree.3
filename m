@@ -1,79 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795509233;
-	b=0m0fpEvZsZxppi0qbEYZxwj5JmiNI8cQ8GfjVas+EXLsvsTAzRBzBtM0sVVpqB125nrK
-	 SgzNFgOoNZyNPxIzZ8CokF1nv9oZOUo6rclc+9Ko+EQ0IIgtnHlUzoArVqqglwc6CQexr
-	 lfEDPCoh6uDN/sPo9orUKUtnD1tnOcBm8uiwOJ/04BC9ujTquM0JvB5m6cEB7Ii6gzEzj
-	 Ip75KWbtdxt1JaII0gwopznrtxdhf4Bp9Xl/9F4pwdGHiv8dNb63uq8eOj/CFCSihmO0K
-	 SFWU28bdTqJO5eQ8aNMHP+Rp6O56Eqm0fI6ztFae/TVSPF4UzJ6JgwRAmhBYdHNA4/w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795509233;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iesDrvecprqj1brWwbrs25SuyK5gHClIHsr42f7gvQs=;
-	b=oKFLYor+9ZrhaShgXfGI+Fj70+sAbzDfMGPpIn45EySQWWsptn+xiHKoe/TYUSZD0ubJ
-	 DXhd5qgOwwqwY18l8G/5SdfE08dc3li06nku82ZSlvGs6KRkvrXfEn8AC5JD2B6aUffVD
-	 YVKNoS8RzXPkg1UALbagMVL2JBsA2v0BIZrbcT/3zrhWpwfH1wq6RfgJPMCe10hfMYP7t
-	 w+qwpZ69NjtyEPX2B4z0sUflpmpRgC31Gau6crDyJhXhp2Xb2A7WWE26bK69WFz1x/bgj
-	 5mruoMb1+lTf7aVG7MSEzfbBNDIMZKJervtFo9vS4tnKmabjWzHyCgOE4Awwf/d/Zew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U/9z5nEq";
-	arc=fail smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAB3606A33C;
-	Tue, 24 Nov 2026 08:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U/9z5nEq
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795509233;
-	b=Ds9SRDgSd5m5URYxUz+M6ypinE9wET3ioIOECpFVt3wnV4q9XiLpCPng3c8qYk9fb01x
-	 zxLBGl4dXg+65pWibK1XjD2Dr6T/QrHvThkVXdZ9JoT7NrUq8kT3fOSDSK4L+KyMqeL//
-	 +qX6RGCjNZc0hlLLmosU0aFTn4X+VBKN6peOj5PiROwtPpMHdqkTLP/yvDEMuwnPuysw1
-	 s15WRXFjd5HvkicpIkluwEq73x7tlNaZih/QRV18dP4Faxhditnsm4/dkrm+kikY5jL5F
-	 yC7//Oi+bpIdokBeDnyBlXByzHUNsnu7U87m14SfmtPEXFSMhGk7OcDDYKxjvW+B36A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795509233;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iesDrvecprqj1brWwbrs25SuyK5gHClIHsr42f7gvQs=;
-	b=PYVRYiznC8iFxoMowl1MeQTyma0PUEZ8yeYJ7OT7iaTjokyNxIsbSmfOjxmN0h3XyyPS
-	 5qPJG1j9ksp3DvcAHCSs9x+5LAMReg+u7vqYtTNg3YjYDysvyT+px/IX54LAr2MtprNpK
-	 rtrTwI0H/APcjV3yQq6Ll040sPMloKQ4xMVmmSCCeaB8+mPa/MwnSjzakI3GxYDsesCRa
-	 2ey6L3VkUm2OIId0RXH5Un/8JASZMX0IbDIbYiXk1VW0UjlFBJ45ZiSTbmYCfTSmKJTKA
-	 IOXRalMoB/l3uwnlI3MtIAFNjwCWSIfSOk14inQKRlhvJSw6NzUv6l1/aqRR/mjFstw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795509312;
+	b=2SDI/8ualdhgLF0s4UbbNlMFw3nnazvZUltUogshVNwOSVoAa4RdhNpiID+wElzVp4Rv
+	 UbXc1cwKc8I7JQHkJdpllzaUvgQ5jCdchXzTW2aiv4k3sDLoeo8OzBTgWARvJAGaLMgxV
+	 D1a7yYhBkqRV5y7vjsK+hGHpWj4OV3zMylkQ3t6SayXpbgyGHNU+cAIMO4mfH733E7C87
+	 466JS8T2OfXBGfQynJJCzqaZzFU4cMxDE+3eSOS9UoEH/u5+Ggr7JnZPf65pIYURw5C1j
+	 is6Wo3Io0O+Z+GIdBeKyGij/AVaZHgDNREPWjwy2Va5KZqK+Ra+t8B6KV/7RfoPxcdw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795509312;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=w8v0C2bmmyd3xrWEYjQ9lhSNkSAa9ZzscDC6rLUEtzQ=;
+	b=bmlgtljE4cjc+SKMXK3M1HO7MTXGgOCzaBAXBKcWLWAYziX6J6DFbZ55HhSBCgnZwvBG
+	 40wF4VQR87ObcyJswsL+RD61zXWjAcRwrpUcuF/g6VoUcKLM55JD08Iu2A0beNnBjE1oc
+	 zRJKflUMpvAVoF3rydcLd7IXMsdeVF8hJR9kwz5Halg3KNE5ZGabNkqYw0DR/WQnHqG5c
+	 Ecr2FMDLj4mxcxwdJvVJX4WBmSqHsTIvZX5kwca6NwUiAlduSkNk9D/N1vAFs4Bk9YcrO
+	 4RFi5J1KSJqy4FrFWLblnEODvRl7FXB/bqMqYLUvVbZ42T3OnjgzkWXpcboGrn/5mHA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 30E871F000C6;
-	Tue, 24 Nov 2026 08:33:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795509233;
-	bh=iesDrvecprqj1brWwbrs25SuyK5gHClIHsr42f7gvQs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=U/9z5nEqtLv3wy+sA92RkVC8I7ovn8vYYCiJ11Q4pZeI20SgdvB1GoGU+5dF40ey8
-	 6hgfwL09QY5lG5/DItt5LCx6QeYjSReyLUyeohBbJx6w8mP39n8lTaCXBLhUirRqn9
-	 310ZyiYmSVGWryruYjVI/m8I+qPNfrsey6+X36QZuczPVzK8EYxMtZv9rISEgZmufJ
-	 VAmntv3ZLBpBM1PkzVcErxfYQTBq65Wp1wDq77MVyZhDzQAWlRPMWYG2ay5XgsFUno
-	 edKsfElbunDbPWxo0Zt/LDFXXT250ap88Ymdr2unPwsqAA/sWRtumE7/lPeIVAKD9q
-	 Yk1NZu+t0/koA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B44704C955;
-	Tue, 24 Nov 2026 08:33:42 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Tue, 24 Nov 2026 11:33:42 +0300
-Subject: [PATCH v8 1/2] dt-bindings: i2c: Add Cortina Systems CS7542 I2C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BE5606A338;
+	Tue, 24 Nov 2026 08:35:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98BE5606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.139])
+	by APP-01 (Coremail) with SMTP id qwCowAAHMvwiTAVro9qUAQ--.44326S2;
+	Tue, 24 Nov 2026 16:34:43 +0800 (CST)
+Message-ID: <561b5dc1b3a87ebc78f2357d253df4676395fb10.camel@iscas.ac.cn>
+Subject: Re: [PATCH v3 2/2] drm/bridge: add TH1520 DesignWare MIPI DSI host
  controller
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Sandy
+ Huang <hjc@rock-chips.com>, Heiko =?ISO-8859-1?Q?St=FCbner?=	
+ <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
+ dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-riscv@lists.infradead.org, Han
+ Gao <gaohan@iscas.ac.cn>
+Date: Tue, 24 Nov 2026 16:34:42 +0800
+In-Reply-To: <af27260f-1911-47bb-8fe2-8eaa8bec31b0@rock-chips.com>
+References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
+	 <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
+	 <af27260f-1911-47bb-8fe2-8eaa8bec31b0@rock-chips.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,104 +71,365 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-cs75xx-i2c-v8-1-d0800b967886@gmail.com>
-References: <20261124-cs75xx-i2c-v8-0-d0800b967886@gmail.com>
-In-Reply-To: <20261124-cs75xx-i2c-v8-0-d0800b967886@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795509221; l=1877;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=Mzt932NWHbMP6cNTGXOVF/25Jv1slV/2vvPLoA2toCU=;
- b=PTWJcxCX9zi3Rsxe6/EDc6NUx7zfYiCnBUQXEiRBJAgW9lUoCz8OY+KXJYvKPug2pCZoOfm78
- crfxOkclq5VCE8H8qPXAhAP9NQjPId7M9iEU9YkXfLwFiYLfTtfmwCh
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:qwCowAAHMvwiTAVro9qUAQ--.44326S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Cw4rWr1xXFWrZw48uFWDCFg_yoWDWF18pF
+	1xAFWUtFW5JFs7Wwnav3Z5trnxJw1rtr1rW3yxtr48tFyFvr93Gr4q9r9xJFy8ZFs5Xr4S
+	ya98ua13K34ftrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
+	DU0xZFpf9x07b4oGdUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-From: Fil Dunsky <filipp.dunsky@gmail.com>
+=E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 16:29 +0800=EF=BC=8CChaoyi Chen=E5=
+=86=99=E9=81=93=EF=BC=9A
+> Hi Icenowy,
+>=20
+> On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
+> > The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
+> > controller with an internal DesignWare MIPI D-PHY.
+> >=20
+> > Add a glue driver configuring clocks and PHY parameters for it.
+> >=20
+> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > ---
+> >  drivers/gpu/drm/bridge/Kconfig              |  12 +
+> >  drivers/gpu/drm/bridge/Makefile             |   1 +
+> >  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 570 ++++++++++++++++++++=
+++++++++
+> >  3 files changed, 583 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kc=
+onfig
+> > index c7da6b02d7b6b..f8987e8946fbb 100644
+> > --- a/drivers/gpu/drm/bridge/Kconfig
+> > +++ b/drivers/gpu/drm/bridge/Kconfig
+> > @@ -372,6 +372,18 @@ config DRM_THEAD_TH1520_DW_HDMI
+> >  	  Choose this to enable support for the internal HDMI bridge found
+> >  	  on the T-Head TH1520 SoC.
+> > =20
+> > +config DRM_THEAD_TH1520_DW_MIPI_DSI
+> > +	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
+> > +	depends on OF
+> > +	depends on COMMON_CLK
+> > +	depends on ARCH_THEAD || COMPILE_TEST
+> > +	select DRM_DW_MIPI_DSI
+> > +	select GENERIC_PHY_MIPI_DPHY
+> > +	select MFD_SYSCON
+> > +	help
+> > +	  Choose this to enable support for the internal MIPI DSI bridge
+> > +	  found on the T-Head TH1520 SoC.
+> > +
+> >  config DRM_TOSHIBA_TC358762
+> >  	tristate "TC358762 DSI/DPI bridge"
+> >  	depends on OF
+> > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/M=
+akefile
+> > index 15cc821d85b7e..5af871ba5ce77 100644
+> > --- a/drivers/gpu/drm/bridge/Makefile
+> > +++ b/drivers/gpu/drm/bridge/Makefile
+> > @@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) +=3D sii9234.o
+> >  obj-$(CONFIG_DRM_SIMPLE_BRIDGE) +=3D simple-bridge.o
+> >  obj-$(CONFIG_DRM_SOLOMON_SSD2825) +=3D ssd2825.o
+> >  obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) +=3D th1520-dw-hdmi.o
+> > +obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) +=3D th1520-dw-mipi-dsi.o
+> >  obj-$(CONFIG_DRM_THINE_THC63LVD1024) +=3D thc63lvd1024.o
+> >  obj-$(CONFIG_DRM_TOSHIBA_TC358762) +=3D tc358762.o
+> >  obj-$(CONFIG_DRM_TOSHIBA_TC358764) +=3D tc358764.o
+> > diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/gpu/=
+drm/bridge/th1520-dw-mipi-dsi.c
+> > new file mode 100644
+> > index 0000000000000..8e866b70aec88
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
+> > @@ -0,0 +1,570 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright (C) 2026 Institute of Software, Chinese Academy of Scienc=
+es (ISCAS)
+> > + *
+> > + * Author:
+> > + *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > + *
+> > + * Based on dw_mipi_dsi-stm.c, which is:
+> > + *   Copyright (C) STMicroelectronics SA 2017
+> > + *
+> > + * Based on dw-mipi-dsi-rockchip.c, which is:
+> > + *   Copyright (C) Rockchip Electronics Co., Ltd.
+> > + *
+> > + * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
+> > + *   Copyright (C) Alibaba Group Holding Limited.
+> > + */
+> > +
+> > +#include <linux/bitfield.h>
+> > +#include <linux/clk.h>
+> > +#include <linux/kernel.h>
+> > +#include <linux/mfd/syscon.h>
+> > +#include <linux/module.h>
+> > +#include <linux/phy/phy.h>
+> > +#include <linux/phy/phy-mipi-dphy.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/regulator/consumer.h>
+> > +
+> > +#include <video/mipi_display.h>
+> > +
+> > +#include <drm/bridge/dw_mipi_dsi.h>
+> > +#include <drm/drm_mipi_dsi.h>
+> > +
+> > +/* DSI controller registers for DPHY access */
+> > +
+> > +#define DSI_PHY_TST_CTRL0		0xb4
+> > +#define PHY_TESTCLK			BIT(1)
+> > +#define PHY_UNTESTCLK			0
+> > +#define PHY_TESTCLR			BIT(0)
+> > +#define PHY_UNTESTCLR			0
+> > +
+> > +#define DSI_PHY_TST_CTRL1		0xb8
+> > +#define PHY_TESTEN			BIT(16)
+> > +#define PHY_UNTESTEN			0
+> > +#define PHY_TESTDOUT(n)			(((n) & 0xff) << 8)
+> > +#define PHY_TESTDIN(n)			(((n) & 0xff) << 0)
+> > +
+> > +/* DPHY registers */
+> > +
+> > +#define PLL_DELAY_LP_TX_START_LP11	0x02
+> > +#define TXDINDLYTIME_9_2		GENMASK(7,  0)
+> > +
+> > +#define PLL_FSM_CNTRL			0x03
+> > +
+> > +#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
+> > +#define PLL_PROP_CNTRL			GENMASK(5,  0)
+> > +
+> > +#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
+> > +#define PLL_INT_CNTRL			GENMASK(5,  0)
+> > +
+> > +#define PLL_VCO_CTRL			0x12
+> > +#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
+> > +#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
+> > +
+> > +#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
+> > +#define PLL_TESTLOCK			BIT(7)
+> > +#define PLL_GMP_CNTRL			GENMASK(5,  4)
+> > +#define TSTPLLDIG			GENMASK(3,  1)
+> > +#define TSTPLLDIG_LOCK			(0x0 << 1)
+> > +#define TSTPLLDIG_REFCLK		(0x1 << 1)
+> > +#define TSTPLLDIG_FBCLK			(0x2 << 1)
+> > +#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
+> > +#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
+> > +#define TSTPLLDIG_OUTPUT		(0x5 << 1)
+> > +#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
+> > +#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
+> > +
+> > +#define PLL_N_DIV_FSM_SIG		0x17
+> > +#define PLL_N_OVR			GENMASK(3,  0)
+> > +
+> > +#define PLL_M_DIV			0x18
+> > +#define PLL_M_OVR_4_0			GENMASK(4,  0)
+> > +#define PLL_M_OVR_9_5			GENMASK(4,  0)
+> > +
+> > +#define PLL_N_AND_M_DIV_CTRL		0x19
+> > +#define PLL_M_OVR_EN			BIT(5)
+> > +#define PLL_N_OVR_EN			BIT(4)
+> > +
+> > +#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
+> > +#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
+> > +
+> > +#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
+> > +#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
+> > +#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
+> > +#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
+> > +
+> > +#define HS_FREQ_RANGE_OF_OPERATION	0x44
+> > +#define HSFREQRANGE_OVR_EN		BIT(7)
+> > +#define HSFREQRANGE_OVR			GENMASK(6,  0)
+> > +#define HSFREQRANGE			HSFREQRANGE_OVR
+> > +
+> > +#define PG_LP_BIAS_LANE0		0x4a
+> > +#define PRG_ON_LANE0			BIT(6)
+> > +
+> > +#define SR_FSM_OVR_CNTRL		0xa0
+> > +#define SR_DDL_LOOP_CONF		0xa3
+> > +
+> > +/* syscon registers */
+> > +
+> > +#define MIPIDSI0_SYSREG			0x8
+> > +#define MIPIDSI1_SYSREG			0xc
+> > +#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
+> > +#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
+> > +#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
+> > +
+> > +struct pll_hsfreqrange {
+> > +	unsigned int max_mbps;
+> > +	u8 hsfreqrange;
+> > +};
+> > +
+> > +static const struct pll_hsfreqrange hsfreqrange_table[] =3D {
+> > +	{ 80,  0x00 },
+> > +	{ 90,  0x10 },
+> > +	{ 100, 0x20 },
+> > +	{ 110, 0x30 },
+> > +	{ 120, 0x01 },
+> > +	{ 130, 0x11 },
+> > +	{ 140, 0x21 },
+> > +	{ 150, 0x31 },
+> > +	{ 160, 0x02 },
+> > +	{ 170, 0x12 },
+> > +	{ 180, 0x22 },
+> > +	{ 190, 0x32 },
+> > +	{ 205, 0x03 },
+> > +	{ 220, 0x13 },
+> > +	{ 235, 0x23 },
+> > +	{ 250, 0x33 },
+> > +	{ 275, 0x04 },
+> > +	{ 300, 0x14 },
+> > +	{ 325, 0x25 },
+> > +	{ 350, 0x35 },
+> > +	{ 400, 0x05 },
+> > +	{ 450, 0x16 },
+> > +	{ 500, 0x26 },
+> > +	{ 550, 0x37 },
+> > +	{ 600, 0x07 },
+> > +	{ 650, 0x18 },
+> > +	{ 700, 0x28 },
+> > +	{ 750, 0x39 },
+> > +	{ 800, 0x09 },
+> > +	{ 850, 0x19 },
+> > +	{ 900, 0x29 },
+> > +	{ 950, 0x3A },
+> > +	{ 1000, 0x0A },
+> > +	{ 1050, 0x1A },
+> > +	{ 1100, 0x2A },
+> > +	{ 1150, 0x3B },
+> > +	{ 1200, 0x0B },
+> > +	{ 1250, 0x1B },
+> > +	{ 1300, 0x2B },
+> > +	{ 1350, 0x3C },
+> > +	{ 1400, 0x0C },
+> > +	{ 1450, 0x1C },
+> > +	{ 1500, 0x2C },
+> > +	{ 1550, 0x3D },
+> > +	{ 1600, 0x0D },
+> > +	{ 1650, 0x1D },
+> > +	{ 1700, 0x2E },
+> > +	{ 1750, 0x3E },
+> > +	{ 1800, 0x0E },
+> > +	{ 1850, 0x1E },
+> > +	{ 1900, 0x2F },
+> > +	{ 1950, 0x3F },
+> > +	{ 2000, 0x0F },
+> > +	{ 2050, 0x40 },
+> > +	{ 2100, 0x41 },
+> > +	{ 2150, 0x42 },
+> > +	{ 2200, 0x43 },
+> > +	{ 2250, 0x44 },
+> > +	{ 2300, 0x45 },
+> > +	{ 2350, 0x46 },
+> > +	{ 2400, 0x47 },
+> > +	{ 2450, 0x48 },
+> > +	{ 2500, 0x49 },
+> > +};
+> > +
+> > +struct hstt {
+> > +	unsigned int max_mbps;
+> > +	struct dw_mipi_dsi_dphy_timing timing;
+> > +};
+> > +
+> > +#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
+> > +{					\
+> > +	.max_mbps =3D _max_mbps,		\
+> > +	.timing =3D {			\
+> > +		.clk_lp2hs =3D _c_lp2hs,	\
+> > +		.clk_hs2lp =3D _c_hs2lp,	\
+> > +		.data_lp2hs =3D _d_lp2hs,	\
+> > +		.data_hs2lp =3D _d_hs2lp,	\
+> > +	}				\
+> > +}
+> > +
+> > +static struct hstt hstt_table[] =3D {
+> > +	HSTT(80, 21, 17, 15, 10),
+> > +	HSTT(90, 23, 17, 16, 10),
+> > +	HSTT(100, 22, 17, 16, 10),
+> > +	HSTT(110, 25, 18, 17, 11),
+> > +	HSTT(120, 26, 20, 18, 11),
+> > +	HSTT(130, 27, 19, 19, 11),
+> > +	HSTT(140, 27, 19, 19, 11),
+> > +	HSTT(150, 28, 20, 20, 12),
+> > +	HSTT(160, 30, 21, 22, 13),
+> > +	HSTT(170, 30, 21, 23, 13),
+> > +	HSTT(180, 31, 21, 23, 13),
+> > +	HSTT(190, 32, 22, 24, 13),
+> > +	HSTT(205, 35, 22, 25, 13),
+> > +	HSTT(220, 37, 26, 27, 15),
+> > +	HSTT(235, 38, 28, 27, 16),
+> > +	HSTT(250, 41, 29, 30, 17),
+> > +	HSTT(275, 43, 29, 32, 18),
+> > +	HSTT(300, 45, 32, 35, 19),
+> > +	HSTT(325, 48, 33, 36, 18),
+> > +	HSTT(350, 51, 35, 40, 20),
+> > +	HSTT(400, 59, 37, 44, 21),
+> > +	HSTT(450, 65, 40, 49, 23),
+> > +	HSTT(500, 71, 41, 54, 24),
+> > +	HSTT(550, 77, 44, 57, 26),
+> > +	HSTT(600, 82, 46, 64, 27),
+> > +	HSTT(650, 87, 48, 67, 28),
+> > +	HSTT(700, 94, 52, 71, 29),
+> > +	HSTT(750, 99, 52, 75, 31),
+> > +	HSTT(800, 105, 55, 82, 32),
+> > +	HSTT(850, 110, 58, 85, 32),
+> > +	HSTT(900, 115, 58, 88, 35),
+> > +	HSTT(950, 120, 62, 93, 36),
+> > +	HSTT(1000, 128, 63, 99, 38),
+> > +	HSTT(1050, 132, 65, 102, 38),
+> > +	HSTT(1100, 138, 67, 106, 39),
+> > +	HSTT(1150, 146, 69, 112, 42),
+> > +	HSTT(1200, 151, 71, 117, 43),
+> > +	HSTT(1250, 153, 74, 120, 45),
+> > +	HSTT(1300, 160, 73, 124, 46),
+> > +	HSTT(1350, 165, 76, 130, 47),
+> > +	HSTT(1400, 172, 78, 134, 49),
+> > +	HSTT(1450, 177, 80, 138, 49),
+> > +	HSTT(1500, 183, 81, 143, 52),
+> > +	HSTT(1550, 191, 84, 147, 52),
+> > +	HSTT(1600, 194, 85, 152, 52),
+> > +	HSTT(1650, 201, 86, 155, 53),
+> > +	HSTT(1700, 208, 88, 161, 53),
+> > +	HSTT(1750, 212, 89, 165, 53),
+> > +	HSTT(1800, 220, 90, 171, 54),
+> > +	HSTT(1850, 223, 92, 175, 54),
+> > +	HSTT(1900, 231, 91, 180, 55),
+> > +	HSTT(1950, 236, 95, 185, 56),
+> > +	HSTT(2000, 243, 97, 190, 56),
+> > +	HSTT(2050, 248, 99, 194, 58),
+> > +	HSTT(2100, 252, 100, 199, 59),
+> > +	HSTT(2150, 259, 102, 204, 61),
+> > +	HSTT(2200, 266, 105, 210, 62),
+> > +	HSTT(2250, 269, 109, 213, 63),
+> > +	HSTT(2300, 272, 109, 217, 65),
+> > +	HSTT(2350, 281, 112, 225, 66),
+> > +	HSTT(2400, 283, 115, 226, 66),
+> > +	HSTT(2450, 282, 115, 226, 67),
+> > +	HSTT(2500, 281, 118, 227, 67),
+> > +};
+> > +
+>=20
+> Where do these data come from?
 
-Add a binding for the I2C ("Bi-Wire") controller of the Cortina Systems
-CS75xx SoCs.
+This is part of the vendor DPHY driver, see [1].
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
----
- .../bindings/i2c/cortina,cs7542-i2c.yaml           | 56 ++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+Thanks,
+Icenowy
 
-diff --git a/Documentation/devicetree/bindings/i2c/cortina,cs7542-i2c.yaml b/Documentation/devicetree/bindings/i2c/cortina,cs7542-i2c.yaml
-new file mode 100644
-index 000000000..ef31284c1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/cortina,cs7542-i2c.yaml
-@@ -0,0 +1,56 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/cortina,cs7542-i2c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cortina Systems CS7542 I2C controller
-+
-+maintainers:
-+  - Fil Dunsky <filipp.dunsky@gmail.com>
-+
-+description:
-+  The I2C ("Bi-Wire") controller of the Cortina Systems CS75xx (Goldengate
-+  G2) SoCs. It transfers one byte per command and runs from the peripheral
-+  (APB) clock through a 16-bit prescaler.
-+
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: cortina,cs7542-i2c
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-frequency:
-+    maximum: 400000
-+    default: 100000
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c@f00700e8 {
-+        compatible = "cortina,cs7542-i2c";
-+        reg = <0xf00700e8 0x28>;
-+        clocks = <&apb_clk>;
-+        clock-frequency = <400000>;
-+        interrupt-parent = <&intc>;
-+        interrupts = <11>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+    };
-
--- 
-2.53.0
-
+[1]
+https://github.com/revyos/th1520-linux-kernel/blob/th1520-lts/drivers/phy/s=
+ynopsys/phy-dw-mipi-dphy.c#L185
 
