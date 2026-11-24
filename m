@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795537615;
-	b=aqPeVHkP48JjpyHEbKt7sispZsxTnT19cq3DfuIR3FlJJKOKgWAUupDDGHCFTOYC//24
-	 Hxn9wXEgLklPAjb3xUPp0uIz4Po+mCRg4W5FD/u+mxKEw2HOv88GzPy9H7LETxh9seboU
-	 KJgnJuJRpFdQ/hyTBf3skl37fTcYN8Wdrfx3XuHIHkIjZH1NeUvNUGQZwgP6jWN8PSPeo
-	 iAlo/8ZpYZ6FyPBMIA1d5QUedOsZ3bZ1wmny7O9baANm81RIOnSlA9fo0bV/ThN3sENCB
-	 0weg1Lfq/PqHJkquMa8mx9Tu53z5gjuvETHE1pQM+E58e/y0c1PrlcTL8VQmnxurG2g==
+	t=1795537661;
+	b=HJYN387PDSlAMhtGoeHzXjk1CmCwPAXf2E8cwsp5nxFraU0tH8/FawJ/Twk/VupkZb0T
+	 dncI8eo5qM3AsSyqgLUItvrFgGQjbVC9dG0rL+y9nz72zNjS+jIfcw7O4w7gz++DDY5cY
+	 Pgk/lNtyXce7HcmosuGUYJA15vvSPtfli6El4uLdfl496kNIy9lVWAakiUReLKz7A3WmV
+	 jOaGqxGqHzo1bDlR8frfaN4NSfOiekOjiWdP8NqtT2v3qzB4ovonSG1tL5LKjajdkMJPc
+	 7EInsTDqh3BAbj9ILEL22m/LiYFsJxYtUGv1zcFvnax5PqSfyLGDwD2zS2h/16CWXiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795537615;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=i49qnlqz0zXgF28dxkTVJ61k0bJxWhQuZY0QF8cqeEA=;
-	b=20thtG6XMV8m4kCVEeYtWtGGSznT3OA0zl/LVbQxY6LmQG0ExrzYVS671FuzHVkD3cnP
-	 gemNu7RF1JR1aqz6IKmglzKV7VbO91TIBsfKidkUGIGX/pGtCy+UeCoPqPucjOBHFeCgi
-	 BabZ8QNsX7fYjiGqUiuWqy60EduKypEdkzLhmkQGWyXRpjmYBEk52dS5+D3LFhR1KvP/z
-	 Wfu0jmhLmPWnUgKLWpskEPIw0FUfE85I0ebxx3gXdbkdK6q2G9jQjldo+98QUrapXRHnZ
-	 FcLFprgjn/mG4jNYXgopndV46TEE9R8XLK/8UQpKTAxSXKqp8KYZj27I8evd5v0pBSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795537661;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/4b+hKquXnrPxas17sH/CIlTC3nyBbdzPmcmTJtv4jk=;
+	b=ErBl2HyP+4nFsAvNHYIQk5EbnPeSaAF+dpG+KMg8F/DQ2YAI2KuX0S83EA7DqMUw/9e6
+	 Z4w1TAcZcXYhzFNk4xC08dZGgMlu0Y0g1vOo9G2sSJxUu+jD4Yt4VLq47UtWMEe3SRvcj
+	 35CmdES5vziIgpyTmRqy9QcvGRgLfvYhq7w/O5siofV4Q7Sus5UPddXn6Lo/UfIEJxjXb
+	 F1uNynGGNtNkxrIo+7tGJybe7vFukkPfee3JLYIfo5o/qD8TDrJewFCjGN1DlZqj4OtHR
+	 jUZV79IxOkhAOMSer5ad/l1a5OMsaazYoYhRe+LIx6E++WUvZbnNI2TXuTRHxOk9vTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vuni9J1x;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C1D606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:26:55 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=r1eEUBLV;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5621606A33C;
+	Tue, 24 Nov 2026 16:27:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5621606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vuni9J1x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 034921F000C4;
-	Tue, 24 Nov 2026 16:26:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795537615;
-	bh=i49qnlqz0zXgF28dxkTVJ61k0bJxWhQuZY0QF8cqeEA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Vuni9J1xAT4mRWJWnqAORmy8xE2SywaIkxOeIdp6TMfrnIS3yWIit33pEz/WfVvby
-	 S7fjwg3fxsvWPocu5SQDs6s0q2qrwLhMP/7KzW7QXaRR+HqHm8+iBF7Bh7LiWXZrDw
-	 gcvzxWT52TQHqt8SXfLFkT+hzcAF5vNbINsDREqNxeQCIK4iDqzNmXKjfYYginIOWK
-	 c/m6/KPRXdD+uK6FiiHtSenwlmpaTL9xmZuEMzpIB82Z8OdEZ3dc8s7A23GuvihJDm
-	 ObSqW8JJf9D0s3erM60gnCRQn6+x4dcsl2AWFZW37HfD8sK6IwAhFepW/zReIH1/vU
-	 x9rWRJzbShfWw==
-Message-ID: <sashiko-outbox-231557@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 8/9] dt-bindings: gpu: mali-gen5-am: Add Mali 5th-Gen
- AM schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Karunika Choo" <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124161952.1053586-9-karunika.choo@arm.com>
-References: <20261124161952.1053586-1-karunika.choo@arm.com>
- <20261124161952.1053586-9-karunika.choo@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 16:26:54 +0000
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=r1eEUBLV
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 959A9339;
+	Tue, 24 Nov 2026 08:27:36 -0800 (PST)
+Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7B003F86C;
+	Tue, 24 Nov 2026 08:27:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795537659; bh=821rJ0g9HtpMoMuetVK6Nxwg+cBpAnfGyZshLAd+HLM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=r1eEUBLVzAo6010E4T6rWWsxESRfD92OZBhJIp5NCx2BdeNsW2kmJibj4aqGo2iTM
+	 fsTQiEQJHxUyYo52JNvhaBnNMmgw4NiYJJ/n+ncK2uKuYE60Tre1P7wjL9eHR4zIun
+	 msKtL5KKkIJxVH9DP7XBJidE/wsduMfxNcMgKcBQ=
+Message-ID: <39619b6c-7330-459b-aed3-9e8bf303f7dc@arm.com>
+Date: Tue, 24 Nov 2026 16:27:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,81 +52,133 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 08/28] media: mali-vpu: register V76 decoder controls
+ and introduce UAPI controls
+To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
+ Shobhit Pandey <shobhit.pandey@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+ <20261119153758.1426673-9-charvi.mehta@arm.com>
+ <0cb2cae4075d3854ebb9c051d169ca121a8a360d.camel@ndufresne.ca>
+Content-Language: en-US
+From: Charvi Mehta <charvi.mehta@arm.com>
+In-Reply-To: <0cb2cae4075d3854ebb9c051d169ca121a8a360d.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: gpu: arm,mali-gen5-am: interrupts listed before
-  clocks
---
 
-commit 8146e86e1cef7b5ce16835f2b37c463e5fa71384
-Author: Karunika Choo <karunika.choo@arm.com>
+On 11/19/26 21:06, Nicolas Dufresne wrote:
+>> Add Mali VPU userspace controls for NALU layout, stream escaping,
+>> intermediate buffer size, stream-header handling, frame reordering and
+>> firmware debug output. Also expose the standard read-only
+>> V4L2_CID_MIN_BUFFERS_FOR_CAPTURE control.
+> I would strongly recommend to keep each vendor control in its own patch. These
+> are API, and they need documentation. In practice, you'll prefer to not
+> introduce vendor control as a first introduction of your driver, its just a bad
+> idea. You completely missed Documentation/
+I had planned to add the documentation for these subsequently, but, I agree,
+it should accompany the controls. The initial driver series may not be 
+the right
+place for these vendor controls, so I’ll remove them and their UAPI 
+definitions
+from this patchset.
 
-dt-bindings: gpu: mali-gen5-am: Add Mali 5th-Gen AM schema
 
-This commit adds a Device Tree binding schema for ARM Mali 5th-Gen AM GPUs
-and updates MAINTAINERS.
+>> +		.cid = V4L2_CID_MALI_VPU_NALU_FORMAT,
+>> +		.type = V4L2_CTRL_TYPE_MENU,
+>> +		.name = "NALU format",
+>> +		.qmenu = mali_v76_nalu_format_qmenu,
+>> +		.min_val = MALI_VPU_NALU_FORMAT_START_CODES,
+>> +		.max_val = MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD,
+>> +		.default_val = MALI_VPU_NALU_FORMAT_START_CODES,
+>> +		.step_or_mask = BIT(MALI_VPU_NALU_FORMAT_START_CODES) |
+>> +				BIT(MALI_VPU_NALU_FORMAT_ONE_NALU_PER_BUFFER) |
+>> +				BIT(MALI_VPU_NALU_FORMAT_ONE_BYTE_LENGTH_FIELD) |
+>> +				BIT(MALI_VPU_NALU_FORMAT_TWO_BYTE_LENGTH_FIELD) |
+>> +				BIT(MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD),
+> This mixes alignment and NAL format. Its historical, but the format is bound to
+> V4L2_PIX_FMT_H264 and is documented as Annex B. If you want to add something
+> such as AVCc formata instead, you'd need a new pixel format. There is
+> V4L2_PIX_FMT_H264_SC, but its hill define, nobody knows what it was originally
+> suppose to do. Venus (Qualcomm) maps it as if it was the same, perhaps they have
+> a clue, but I would stay away.
+>
+> For the alignment, V4L2_CID_MPEG_VIDEO_HEADER_MODE does not cover your 1 buffer
+> per nalue case, it only does the split header like OMX IL was doing (sometimes,
+> interoperanility killed OMX).
+The firmware defaults to Annex B, which matches V4L2_PIX_FMT_H264, so
+this control is not needed for that input format. I'll drop this completely.
 
-> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml =
-b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
-> new file mode 100644
-> index 0000000000000..d955476c99774
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
-> @@ -0,0 +1,63 @@
 
-[ ... ]
+>> +		.cid = V4L2_CID_MALI_VPU_INTBUF_SIZE,
+>> +		.type = V4L2_CTRL_TYPE_INTEGER,
+>> +		.name = "Internal buffer size",
+> No general equivalent, and to be fair, that seems like something the driver
+> should get correctly by itself, I'd say drop.
+The firmware already calculates the intermediate working-buffer size when
+no override is supplied. I’ll remove this control completely.
 
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    items:
-> +      - description: Job interrupt
-> +      - description: MMU interrupt
-> +      - description: GPU interrupt
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: job
-> +      - const: mmu
-> +      - const: gpu
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  dma-coherent: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-names
-> +  - clocks
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    gpu@100000 {
-> +        compatible =3D "arm,zena-css-mali", "arm,mali-gen5-am";
-> +        reg =3D <0x100000 0x480000>;
-> +        interrupts =3D <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
-> +        interrupt-names =3D "job", "mmu", "gpu";
-> +        clocks =3D <&gpu_clk>;
-> +    };
 
-[Severity: Low]
-This isn't a bug, but in Device Tree binding schemas and example nodes the
-canonical property order places clocks before interrupts and
-interrupt-names (after reg), in properties, required, and the gpu@100000
-example node.
+>> +	},
+>> +	{
+>> +		.cid = V4L2_CID_MALI_VPU_STREAM_ESCAPING,
+> No doc, I suppose it was about emulation bytes. Nobody needs that drop.
+Yes, this controls emulation-prevention byte handling.
+Agreed that this can be dropped.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124161952.1053=
-586-1-karunika.choo@arm.com?part=3D8
+
+>> +	{
+>> +		.cid = V4L2_CID_MALI_VPU_HOST_PRINT_ENABLE,
+> Debugging goes into sysfs or debugfs, drop.
+Ack. I’ll use an appropriate interface as suggested when I reintroduce this.
+
+
+>> +	},
+>> +	{
+>> +		.cid = V4L2_CID_MALI_VPU_IGNORE_STREAM_HEADERS,
+> If userspace want that, it can just strip the headers itself. Its not like a
+> stateful decoder can work without headers according to the spec. It will always
+> break one way or another.
+This does not skip the initial headers; it retains existing SPS/PPS 
+entries rather
+than accepting replacements with the same ID. It was intended to prevent 
+a heavily
+corrupted stream from replacing valid settings, but it would also ignore 
+legitimate
+changes. Agreed to drop it.
+
+
+>> +	},
+>> +	{
+>> +		.cid = V4L2_CID_MALI_VPU_FRAME_REORDERING,
+> You can thank Samsung, instead you need
+> V4L2_CID_MPEG_VIDEO_DEC_DISPLAY_DELAY_ENABLE and add support for
+> V4L2_CID_MPEG_VIDEO_DEC_DISPLAY_DELAY 0. That will effectively disable
+> reordering. Some vendors calls this the thumbnail mode to add to the fun.
+Agreed, I’ll drop the vendor control. I’ll use the suggested standard 
+controls with a
+delay of zero, when I reintroduce this in subsequent patches.
+
+
+>> +/*
+>> + * The base for Arm Mali-VPU driver controls.
+>> + * We reserve 64 controls for this driver.
+>> + */
+>> +#define V4L2_CID_USER_MALI_VPU_BASE		(V4L2_CID_USER_BASE + 0x1260)
+>> +
+>>   /* MPEG-class control IDs */
+>>   /* The MPEG controls are applicable to all codec controls
+>>    * and the 'MPEG' part of the define is historical */
+> My recommendation, drop all the vendor controls, legacy users can use your
+> downstream kernels.
+I’ll drop the vendor controls from this series.
+
+Regards,
+Charvi
