@@ -1,89 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541559;
-	b=eBjNwqKQruyhv4Rq1MELyxc+KiQYtn7pL5C8gGk9vKtVij8eMxSF5KDrG4as40+EDcnc
-	 L/pQGPhjgn+e1X+fDLPqy2dpvhQsTGozoLMuwzQ10V03K8dVblkRLPtnEdUEHoakMp0vW
-	 k8FTqyC9oiHlUtwgzZfppYjXqyHMg/Sq/4aV0knLv62Ls/e3MuytR0/j3kNRHgYhDPn0K
-	 IrhWtIXtbK/uxFvCasN7p3MP//QSmmxyQGuCurc4yHBAs8q/dC63aV5sIuvAEKVFNYv+v
-	 1RhN4t5FmU+6DGkHQ584C3/z8/iG/LQAqSqQvc5tgyHehCWfhuIi7bRXESY/td/S+AQ==
+	t=1795541583;
+	b=g/NL9ogxIg2oeqp9605Iqrn6CHi6qOeA4mGe1bIEO2v8oyCxdyLNxrSnkF8yVOLHkYLK
+	 8VWn9zcoVk115SYF0MwEd2v9RLAu/jAXVZf93Txx/FhIgXFb68uLlEDEIIZ1K3eCbig85
+	 p3waN3jMvCfxHcW59bvZqs7oz9Z8sROWZk0aLacKPN6zDBMiF1iD1BselURscSj6B/l6G
+	 X8iva6PcRCmxzL1oCka4HhkGK60b6mKucz5x/QVLqoRba09o8e1Os717vcoYkDWhYOaRs
+	 fY96xeIkrPlpWr3rhOX7XoEtI8XNYD8NniO+/Aqq5TqNz/Boc1IPis+TBBoGJ1WIPiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541559;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541583;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=aGnxrE9p9zHRNsEciXyE5jXeXqOzlxMaO7gUWGze/Mk=;
-	b=OP+qnVJNlQCFkcBKCaTBpjhiHDubz872XZYkZ+0IHhPTqsTIsKYe2s30zi0+IUITywRr
-	 Xvb40rqTpESQzJNMr1YtTUJBgk1Ag6UWvob23hnlfMcuPxDj0vUfAXzVkEjlVpkO+UJjw
-	 xm4hbs+oTclwEPjKC3m0EPb+bhLbFwnk3XDez5OZUTRN4hcq4naCgwTiEzkFGEJ4cIlCq
-	 le44Lp1v1zqAAoxanY3I1SDCzMqWNVtcx57DlHW/lzX6dpdS43mC/0VJuWmEdSnBamkUG
-	 5zcRJU4gyOTo0Rt6ZdaStUpQQTckNbBB6YNp9nmZ86yXzlBxz3J0Bdw0cGdJHC83UUA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SGN0CE6hboOJyWQIpluS979Wc6QFsvjzK1IJ9fJlXFk=;
+	b=ug9oTBib0UgUnigp3t2AdPTc8ZYnR9TC/uS8AZqZ5NW4/izWSvW+mxImN6AgGS8KfsOq
+	 Ax9t1oOT/h5DmZoERws5aELatRzRuXmBSASnU4iVD12EruzZf7fM4Qduq2DCeijpMvzGJ
+	 fDnklKGts++wXOIyWacMj0FACrRcde2ZIQX1gKu7jdOMDaO9oIhWMikBCU0v78vSD/kfF
+	 6D4035eVTjhe+Jlsq43DsJpe9Kd5K5sBXRewhblg9DhUvN65y3KLWi3Euf0VNXjPhX3WZ
+	 kCK280elf8/U/NE09+O/INkvYQ5h4wvwx9ljCF/1L7NsUUQw+5ueULOnN+HRmRaqj8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MkY39iiw;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RXwJn5AG;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C198E606A330
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:32:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C198E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62CA60A2603
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:33:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C62CA60A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MkY39iiw
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so3028362f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:32:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=RXwJn5AG
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4a357b1c649so2842820f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:33:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795541557; x=1796146357; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aGnxrE9p9zHRNsEciXyE5jXeXqOzlxMaO7gUWGze/Mk=;
-        b=MkY39iiwV1cr4k4iONAPcT86nVYaRcmTicW4sWKh2feM8v+PJ90pK3fM+7wyoTaDDd
-         e8paW1DK2LjWmLFnx/WvPQrUNLJvTSM2QVLeBcBDFS214tQVb5yxvG0WTMN/9+isS7c8
-         YvJr1J6mAJ0m9NlmFDoZ+X/rNViXMlxEXvqtNJ7KrsCDSu/vDQw9NdRCY0xqvi4Ocr04
-         Y8PhMEEltxo9oeGplPzV9+q6B8HaB633NyN+kRQS/RDDYNFng0+y5DYxBjX7D+EaRPD6
-         i3OsBbyH4ZdfgkaGLRclml6/VULm3IjhT8Y23NtN8R75W1qRAflHkTzVRvz+Y1DCeHAi
-         dOTQ==
+        d=suse.com; s=google; t=1795541581; x=1796146381; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SGN0CE6hboOJyWQIpluS979Wc6QFsvjzK1IJ9fJlXFk=;
+        b=RXwJn5AGyO6dganRr8aighjFMZJNJh4XjfhOO2zFgOYt7YFmihqlkoSNP/Sd2qk7mR
+         FfbpIqRpuaBVKaT+fMr4hUegmk8cVx6CP0R2/cm5K41diZ5crRoq0LTYsfsSc0xlGEis
+         4wTTWUI8MViemNC3LrHUXWWpCCIvfPI8YHfyVz7VNAJKkQIJeYbgJKBnhRpzIckcSeSl
+         /l/kI7mn0mx36m4fmMzXi9hpGqVByRsyhWGpUAtHxlchwVQGBJ73cKW/3E0pMSVOeJO+
+         6oSjyXnQidug3UWD3+bGNMTRkr5z1+35e6FlZZ9XnGhhqoRHAfbz48Q6kOUeMZGbDIzP
+         ARIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795541557; x=1796146357;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aGnxrE9p9zHRNsEciXyE5jXeXqOzlxMaO7gUWGze/Mk=;
-        b=RDW9Im7xaNt0eb5vPS4m/RFxEIfZEm8VZ+LiI6x+1a06DlNGI0ORfgRonp798SbcI4
-         o1EWeyOAf/648ef+r7xNbu4zyOju7ZtjTj8fwFYpgUbmWkftqM47DQ5ePX1YaIQzdOCN
-         Jqu8m3AXPiRybtLl6mKFoOfPbTn8j4c9HSVPPJwJKQIiJt7Maa2r0k/iyCiNhIjDRS+I
-         reOUjws16rhVeE1xyvXn3QA71ZgSoZtUS6oFN2cdqTrKOHQPLR5HvRf3Bmn0V3Fi/wrO
-         sbFZbbPj3zhAJgqLNq4J8qJPGnVsz95GndtXnGXTIInd3eTrSbRhUWO9DTu3PwarHJpO
-         /Vjg==
-X-Forwarded-Encrypted: i=1; AL+hErGhtQ4ESOGs5g1dpmdlGHdCCr11we+udi+2tNF7SrXJPP5ThanWNSZJfgrK+ialbMjV2KRgft6kXdf0@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Uvt6jrVvLfIVGl7ezOAkPiYmxmBCnPQI59RoMWZdb9A8+I/7S
-	dFl7oDbQWZO05Xl3OYuu+EAfDAnS1RtjRLLbe07+aoKnl6Vkz1D00vpvgbs68gwLa/A=
-X-Gm-Gg: AZFdTZf1klKZM40MzkveLzk87dC3c97wMfNs2VfyhZj0LC8ZJE6RU6J3CCbOWj3+7JU
-	BRZS94vSj5wRrynrSt73yjuAASYY0eScT2COQEic635JaYwEXd5jurzStGnbVatyFJRSs2QwoBU
-	/iV9LG8Eb171Lyh+qMM64NUMuyW+QncJm8MOZb/UGwO2IbnklQaqruykhKkp+FFm69ERcapcEp4
-	ENAz8UtalsvRht3yPivfNBgNVCHLLdf9AUvl0pAEhMsEpMGN+FiQEzkBu6Q13fvMu+PpKFFwoAZ
-	iRJoqLPv9FLQfpWJwRWGKdYUj9RKxUoijy1uf/R1KxfVZi+9Hmo9MLAzNk/ldbnrlKzI7R95il9
-	ny+sMqoxQyx1q39EOZm+fIxlyF96NXImWbBCtw4g1qKZnus7x5NuR3LZfHxz/Svb/5cw5gpP70r
-	iDXJHuPERYLk/6AC+3mWFN77W+RKgUcL1iZ6iIKumkEmXX8jFDswgNJP9VD90suQTbyUxVyq3xM
-	qa5BZ2qXpN5uShvIBZAXq5EsUOVPELodE6D62ign66lCifBtVBKAaUHGh5rijtYBWoqua5WIkub
-	rZtp3orrO0lBmvym70XBIjPP1AF8Pn9w8kIsE3INZ25CWvs7qw==
-X-Received: by 2002:adf:e014:0:20b0:4a6:b87:d77f with SMTP id ffacd0b85a97d-4abb0f3b5a5mr23020018f8f.12.1795541556971;
-        Tue, 24 Nov 2026 09:32:36 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b9add26sm29560057f8f.44.2026.11.24.09.32.36
+        d=1e100.net; s=20260707; t=1795541581; x=1796146381;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SGN0CE6hboOJyWQIpluS979Wc6QFsvjzK1IJ9fJlXFk=;
+        b=eObweSIUbvhpLbRi1c1ALYhUm1hwudJDwOqIpBvLaL+MfxzLTs6YirzZe355RNCRTp
+         4ZIiWRrRAcNRKjoVa2ZC271mwWVSyBazYD3fJ7lxvkLDMcgW1sb80MfSRcrKOzQszRwR
+         2zJkDPmCwriPoSlaZCMX40kD7/IRTCHTA6SXE1/MIeUYbPsR+Nj8pjkZBOuktKClJ8Qe
+         yI7kUbvkJgc6yax7z3zO3NvPmiN6xcl5VvEwcNNdazdB3sjdMCfhaJy/bVH8jmAHb7hZ
+         vVoT0sZIesifOxQDVPv7fgSujb5bU1B7bvZtzPahyYOoq2oawHzqKKQRq4llUXcUmME/
+         9Spg==
+X-Forwarded-Encrypted: i=1; AL+hErEwLNECel5YMIuts43D/ROFlz2tRFoWeF2Dwv0dYW884ePT85WjLqOMcOgfa8x7N9XM8WNW8oH/UaFj@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GdMQ41PZLy2drBisGe8ZsH4cDLOAS/u+jGN7i4AT5aGOWFHzW
+	sIigdfHEgL+/dqbB4T5WEZziRna5KGpa6KyBY98PQohAqIjXmfGRuxIXORXzpWa38bI=
+X-Gm-Gg: AZFdTZcVx8PkjmdGTeRf+8mTRjBfTcxnBT7JmEFJcHoDcNDThF1tPqjaXoi20JJsNde
+	J4z4y+cC6NCRf6uuUEGTli+XJF3zVFoOw3W6WQref/sORe0EnDsGfRHws+8Vcy0bL7tgIQ/Wb+g
+	q9RHadD/UMcLSxRdV6EY9yF2fe9K1NeqPy2IAc9Yna8vga8hH2VC8cfaPpGNojApqJURPiNSKhD
+	Ji4vRaB61xgxN5ezBFDXmy5OMzZzDjxOCumW+/ZT0olLy8mV2+XKl3RAjkYuMBrZAbcEq3QPZXo
+	U6k/VFwmWB//r9SrB3B+KFr27Y0hn3hmXcSFUym6B5CqfEy6zbIJnF0lFxuX7lyXRaYti8V2kQ/
+	cm1zql9d2GADcW9KZkD0k8Y8EOMGDplvlbvNSdlMHMXE1XBMxC1C0FX1V5W7q/b2tHO/UkulgZl
+	oJ7q7jJZCq9Ml48xCh6F5PScjXXgwyzXfhgWh9gJf/oHYW8onCr0aKFMXPDGQ1YZHxVnUTk2t0n
+	2UUwEnZhM8VJVRaMCelm3ZrR1B/cdh8pl2aaKHL6mh0/45Irr2fs4qX/uyqzMCdQ4To6hJzYGuR
+	vbZlb2unS0L6ksUbYkfr4VxKMBY=
+X-Received: by 2002:a5d:5d87:0:b0:499:9f62:d64c with SMTP id ffacd0b85a97d-4abaf64be07mr33775504f8f.10.1795541581121;
+        Tue, 24 Nov 2026 09:33:01 -0800 (PST)
+Received: from localhost ([82.192.120.76])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6bb989e3sm29248480f8f.52.2026.11.24.09.33.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 09:32:36 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 24 Nov 2026 18:32:26 +0100
-Subject: [PATCH v2 19/19] ASoC: qcom: sc8280xp: allow using the sc8280xp
- card with lpass-cpu
+        Tue, 24 Nov 2026 09:33:00 -0800 (PST)
+From: Andrea della Porta <andrea.porta@suse.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	linux-pwm@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	florian.fainelli@broadcom.com,
+	rjui@broadcom.com,
+	sbranden@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: naush@raspberrypi.com,
+	svarbanov@suse.de,
+	gary@garyguo.net,
+	linux@roeck-us.net,
+	linux-hwmon@vger.kernel.org,
+	krzysztof.kozlowski@oss.qualcomm.com,
+	Andrea della Porta <andrea.porta@suse.com>
+Subject: [PATCH v13 0/3] Add RP1 PWM controller support
+Date: Tue, 24 Nov 2026 18:36:54 +0100
+Message-ID: <20261124173658.31030-1-andrea.porta@suse.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,242 +111,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-topic-sm8650-el2-v2-19-174e159f0f69@linaro.org>
-References: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
-In-Reply-To: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>, 
- Venkata Prasad Potturu <quic_potturu@quicinc.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Rohit kumar <quic_rohkumar@quicinc.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6410;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=6KOjMX1wUY70p+TGT4KMTCpDJ5tl7/ySb9BcH/nsQ4U=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBrBcoj7RB3F2HyuJE0Mv65D3VmbKTIEFpkOranB++6
- gTK5bhmJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCawXKIwAKCRB33NvayMhJ0QcWEA
- CwIgTuDCa6XHOyFrf1uRIIx0q8nDuYS3SftAW8vG9CsuWeuzEdD29umb1iQ7cHCqyODqQ8AV0GkdQE
- HvJNKb2Nb3f7bumzzg0d2FPMIPKsP2liMHoyKREnkAQnSAFlrLaJ/lKs94z/IOCcmJgfUyx3P4Qsdq
- awSW9XSNTeYdVpgLYv+xV60Q0nOa4cPzA7WbZefdK1KKsgmieNhDa8QYAtSkHj2n7wWo4oO0VwOw1t
- 0y7WfUIQALmVUt6W1bujh4Fwp2mZ0TVu6ApXqodnCuQ3VoNuUyOE2dNqRUs6GEdIC4nWBjaKrwX4YW
- vwOfcsRpH4cfcoaPx4fAro7psr87oSduHUKJdHL7ZemTrhJ0Gvti/Z7GO2/7KTAAlumaZbi7beRywV
- YbnG1Xl1EZAV8xitxSI1XAkcwzXXyzGuI/TdUW7KFom0zIdb3T1b9Kbdw5xnkbHmoOmgRVRcrweGdL
- rYmgQK/XNqc/xx1/E8+pu9npu6bfZz6ewz/8MDennI3WZJ1SZgVRomxcn9HELwamSLQIyySLqsQfjd
- 3+oRqXv2ReFpF4pEWS16va/9Qq6YIZJcOClKO3nj6vy/aQSz6tMPHtWnAZrqYswQGOgJAKXVBhlx5a
- M+GwfpAU6Em8BWLs4KkROXY5efQ5ihSGtoPOf0M0c/MQMAq1wwQww29M7XwQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Content-Transfer-Encoding: 8bit
 
-When the ADSP is not used, the sound card links use the LPASS CPU dais
-directly, those links are neither DPCM frontends nor backends.
+Hi,
 
-The LPASS CPU dai ids from qcom,lpass.h overlap with the DSP dai ids
-from qcom,q6dsp-lpass-ports.h, so add separate init and ops callbacks
-for those DSP Bypass links and keep the DSP backends handling unchanged,
-allowing the sm8650 sound card bindings to work with either the
-Audioreach or the lpass-cpu interfaces.
+This patchset adds support for the PWM controller found in the
+Raspberry Pi RP1 southbridge, used on the Raspberry Pi 5 to drive the
+cooling fan.
 
-Also attach the WCD jack to the LPASS CPU TX codec DMA dais on the
-DSP Bypass links in qcom_snd_wcd_jack_setup().
+Compared to v12, the driver now also registers a "fan" auxiliary device
+(pwm_rp1.fan.<id>). On the Raspberry Pi 5 the RP1 firmware measures the
+fan tachometer pulses and writes the RPM value in the phase register of
+PWM channel 2; the companion hwmon driver, sent as a separate series to
+the hwmon list, binds to that auxiliary device and reads the value
+through rp1_pwm_read_tachometer(), exported in the 'RP1_PWM' symbol
+namespace. This is the approach agreed in [1], and it removes the need
+for any dedicated DT node or binding for the fan.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- sound/soc/qcom/common.c   | 43 ++++++++++++++---------
- sound/soc/qcom/sc8280xp.c | 88 +++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 115 insertions(+), 16 deletions(-)
+The DTS node for the controller is already in v7.4-rc1 [2]. The DT binding
+has been applied by Rob [3] for consistency to v7.4 and is part of v7.4-rc2: as
+a consequence, patch 1 is included only to make this series apply 'logically'
+on top of v7.4-rc1 and can be dropped when rebasing.
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index af5cacddf67d..65f0db493642 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2018, Linaro Limited.
- // Copyright (c) 2018, The Linux Foundation. All rights reserved.
- 
-+#include <dt-bindings/sound/qcom,lpass.h>
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/module.h>
- #include <sound/jack.h>
-@@ -420,25 +421,35 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
- 	if (rval)
- 		return rval;
- 
--	switch (cpu_dai->id) {
--	case LPI_MI2S_RX_0:
--	case TX_CODEC_DMA_TX_0:
--	case TX_CODEC_DMA_TX_1:
--	case TX_CODEC_DMA_TX_2:
--	case TX_CODEC_DMA_TX_3:
--		for_each_rtd_codec_dais(rtd, i, codec_dai) {
--			rval = snd_soc_component_set_jack(codec_dai->component,
--							  jack, NULL);
--			if (rval != 0 && rval != -ENOTSUPP) {
--				dev_warn(card->dev, "Failed to set jack: %d\n", rval);
--				return rval;
--			}
-+	if (qcom_snd_is_dsp_bypass_link(rtd)) {
-+		switch (cpu_dai->id) {
-+		case LPASS_CDC_DMA_TX0 ... LPASS_CDC_DMA_TX3:
-+			break;
-+		default:
-+			return 0;
-+		}
-+	} else {
-+		switch (cpu_dai->id) {
-+		case LPI_MI2S_RX_0:
-+		case TX_CODEC_DMA_TX_0:
-+		case TX_CODEC_DMA_TX_1:
-+		case TX_CODEC_DMA_TX_2:
-+		case TX_CODEC_DMA_TX_3:
-+			break;
-+		default:
-+			return 0;
- 		}
-+	}
- 
--		break;
--	default:
--		break;
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+		rval = snd_soc_component_set_jack(codec_dai->component,
-+						  jack, NULL);
-+		if (rval != 0 && rval != -ENOTSUPP) {
-+			dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-+			return rval;
-+		}
- 	}
-+
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(qcom_snd_wcd_jack_setup);
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index ac4dfb2c2182..4fcccf7ec496 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2022, Linaro Limited
- 
-+#include <dt-bindings/sound/qcom,lpass.h>
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-@@ -377,6 +378,37 @@ static int nord_snd_init(struct snd_soc_pcm_runtime *rtd)
- 	return 0;
- }
- 
-+static int sc8280xp_lpass_snd_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_card *card = rtd->card;
-+
-+	switch (cpu_dai->id) {
-+	case LPASS_CDC_DMA_WSA_RX0:
-+	case LPASS_CDC_DMA_WSA_RX1:
-+		/*
-+		 * Set limit of -3 dB on Digital Volume and 0 dB on PA Volume
-+		 * to reduce the risk of speaker damage until we have active
-+		 * speaker protection in place.
-+		 */
-+		snd_soc_limit_volume(card, "WSA_RX0 Digital Volume", 81);
-+		snd_soc_limit_volume(card, "WSA_RX1 Digital Volume", 81);
-+		snd_soc_limit_volume(card, "SpkrLeft PA Volume", 17);
-+		snd_soc_limit_volume(card, "SpkrRight PA Volume", 17);
-+		break;
-+	case LPASS_DP_RX:
-+		return qcom_snd_dp_jack_setup(rtd, &data->dp_jack[0], 0);
-+	default:
-+		break;
-+	}
-+
-+	if (data->priv->wcd_jack)
-+		return qcom_snd_wcd_jack_setup(rtd, &data->jack, &data->jack_setup);
-+
-+	return 0;
-+}
-+
- static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
- 				  struct snd_pcm_hw_params *params)
- {
-@@ -538,6 +570,58 @@ static const struct snd_soc_ops sc8280xp_be_ops = {
- 	.prepare = sc8280xp_snd_prepare,
- };
- 
-+static int sc8280xp_lpass_snd_hw_params(struct snd_pcm_substream *substream,
-+					struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	int mclk_freq = sc8280xp_get_mclk_freq(params);
-+	struct snd_soc_dai *codec_dai;
-+	int ret, i;
-+
-+	switch (cpu_dai->id) {
-+	case MI2S_PRIMARY ... MI2S_QUINARY:
-+	case MI2S_SENARY ... MI2S_SEPTENARY:
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+			if (data->priv->codec_dai_fmt) {
-+				ret = snd_soc_dai_set_fmt(codec_dai,
-+							  data->priv->codec_dai_fmt);
-+				if (ret && ret != -ENOTSUPP)
-+					return ret;
-+			}
-+
-+			if (data->priv->codec_sysclk_set) {
-+				ret = snd_soc_dai_set_sysclk(codec_dai, 0, mclk_freq,
-+							     SND_SOC_CLOCK_IN);
-+				if (ret && ret != -ENOTSUPP)
-+					return ret;
-+			}
-+		}
-+
-+		/* The LPASS CPU dai sets its bit clock from the hw params */
-+		if (data->priv->mi2s_mclk_enable) {
-+			ret = snd_soc_dai_set_sysclk(cpu_dai, LPASS_MCLK0, mclk_freq,
-+						     SND_SOC_CLOCK_OUT);
-+			if (ret)
-+				return ret;
-+		}
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops sc8280xp_lpass_ops = {
-+	.startup = qcom_snd_sdw_startup,
-+	.shutdown = qcom_snd_sdw_shutdown,
-+	.hw_params = sc8280xp_lpass_snd_hw_params,
-+	.hw_free = sc8280xp_snd_hw_free,
-+	.prepare = sc8280xp_snd_prepare,
-+};
-+
- static void sc8280xp_add_be_ops(struct snd_soc_card *card)
- {
- 	struct snd_soc_dai_link *link;
-@@ -549,6 +633,10 @@ static void sc8280xp_add_be_ops(struct snd_soc_card *card)
- 			link->exit = sc8280xp_snd_exit;
- 			link->be_hw_params_fixup = sc8280xp_be_hw_params_fixup;
- 			link->ops = &sc8280xp_be_ops;
-+		} else if (!link->dynamic) {
-+			/* DSP Bypass link, neither a DPCM frontend nor a backend */
-+			link->init = sc8280xp_lpass_snd_init;
-+			link->ops = &sc8280xp_lpass_ops;
- 		}
- 	}
- }
+Changes in v13:
+- dropped the DTS patch, already merged.
+- add patch 3, registering the auxiliary device for the fan tachometer
+  and exporting the accessor used by the hwmon auxiliary driver. The
+  exported function was originally part of the fan patchset. Since it
+  is really part of the pwm driver to be be taken by Uwe, I moved it in
+  this patchset.
+- Kconfig: pwm module now depends on AUXILIARY_BUS.
+- added a macro to define the phase channel number from which to read
+  the fan speed.
+- removed the 'Tested-by' tag from Gary (see V12) since the patchset
+  has been significally changed and need to be tested again.
+- the controller private data is passed to the auxiliary device as
+  platform data, so the exported accessor no longer depends on how the
+  parent platform device stores its driver data.
+- dropped the unused 'pwm' argument from rp1_pwm_apply_config().
+- added a MAINTAINERS entry for the driver, its DT binding and header.
 
+[1] - https://lore.kernel.org/all/ae9a4df9-b1f2-4f00-ab86-d9cf8d9bc387@roeck-us.net/
+[2] - https://lore.kernel.org/all/7c437a10-985b-402c-b3ac-cfa97c53d014@broadcom.com/
+[3] - https://lore.kernel.org/all/20261102192302.GA882027-robh@kernel.org/
+
+Thanks,
+Andrea
+
+This version has been prepared with the help of an AI coding assistant
+(Claude Opus 5.5).
+
+Andrea della Porta (1):
+  pwm: rp1: Register auxiliary device for the fan tachometer
+
+Naushir Patuck (2):
+  dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
+  pwm: rp1: Add RP1 PWM controller driver
+
+ .../bindings/pwm/raspberrypi,rp1-pwm.yaml     |  66 +++
+ MAINTAINERS                                   |   8 +
+ drivers/pwm/Kconfig                           |  12 +
+ drivers/pwm/Makefile                          |   1 +
+ drivers/pwm/pwm-rp1.c                         | 477 ++++++++++++++++++
+ include/soc/bcm2835/raspberrypi-pwm-rp1.h     |  12 +
+ 6 files changed, 576 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+ create mode 100644 drivers/pwm/pwm-rp1.c
+ create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.34.1
+2.51.0
 
