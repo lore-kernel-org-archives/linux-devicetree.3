@@ -1,57 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795542254;
-	b=QLTCikP1GRY/gRzhSCt7eS7BaU2TFzMPniMnR/q+MdoK9g5UjeE8l4yKRRFdBfLNPg3v
-	 8UNDDewg7f9ikQFT6Gxth+GnsyC0tEHcLi0HkOQqDQP0MlLg1kj5hv3MjH7pPywY84sj6
-	 T94bVmt02ULNv6tdQxgNYctEZrMIwe/h3Q1u0PcebNnAtMJLsJtgbbK2Iz21CG0DcF1Hp
-	 40rnROclvXhmJGHcFtcEZTZtcM8CEybd/VKn+rhtS3chs4SsyjHQpyQvFowGZ2nZthVry
-	 Fe4GAT5MHGKGH6omTW8qVMg2ytSxY6Woy5mjciyKQy4/A4a+jn0l+jtNdPrMznjHNvA==
+	t=1795542265;
+	b=lgKfaY7Mc/Gk83DdoPvRj/zcJZaPoquJGjBeg3xiH2PXsLtT+Pp75NCKNlnDnXa98sBq
+	 COClI75YVfZU8qDYdK+P+DZQEuoufMFhANVgwAaq0sYT8qKgu5vDfUaUdM7YjlVhK13mC
+	 9tje7FhD1pN/sup+HwcvpWft7wtXKK9+EynJhWPbQBN0H6rS2Tl1jY7Q5W1sKuuQ9ozLb
+	 N9s22LhUj4g1TjOaRVs86RSImteJ0o1ZbCrwgkz/CD8Nlps+ZvHykpQbibIlIRaBxVUtX
+	 bQwG1kF2GaSVReRNBkSTclr+Exyucr3qguCg5cqPQnutcWxxFgguyey+YCo3+/zwK3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795542254;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=HKhR6OHiklx1bX+p3KGyuPjKjODk61dLp6EanlfmzcE=;
-	b=l591FawwbQWXHE7fMCL3XGSOU1e57Fcc1/7G1y1JgOsp0gHqRuz8AdMM9sycVH+doS0+
-	 KNqIXGZFQqfUkxhqvfEm0W4NsiB3bamP5xm/VggU9Gji25LPSrtQIM4eLNGWza+DXTUFy
-	 BRs8RQ/yAyb4f7Fr/4hx2wCt+HJNP1YCmbLt6xAJo1UsEgLaM/qgIw0ICcustIvTWYqdC
-	 W//p7hFefAto1B5VMZw9PYarqJvvaphHsUXaSQamClZnMmD7YUCoeNOvU/prso2KU8AsU
-	 v4gdUH8Whs0Znqek76WhJbOMp8ROkIdrN3S1nZp1Q4YqIGn82MyWFZClyMzZvanBCTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795542265;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=1yEuTAuD9qF7B4gfMwaFCShGKrw0bpyd/m1S3g6b6xQ=;
+	b=l6WYYxcE49sDCtMaawIzOMvvbqWhKR1MYP4oXkCBGyxtLDaxHSpbwAWOw6JTmBkCAFXS
+	 FtVjDZqxtXi/SjYPe9yq43VeVrri5a0HnNJwetDeQemzT6FN2R4uVx5O1zA5rvaG9tW5y
+	 TVRLhTBEtLoJhWA7iXuwWU3MKnrf0BRzxm4Dov9IAweCc8rZwU0Dt8iNM6uaYcP5CX7jT
+	 DhJp4Grr5yQHrtXK00yeonqF1XMBVtiz9tefVZhcXN8SBfkyvvShoT1mwRpn1q83q//bQ
+	 iD/mHID8Ql9Ml832khFcmZqOPkJMUScrwTBOA6tI+6a5v5YjtL0BaNmafvDVpDtC0xQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NJ29cXaY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=E3Xk13R5;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443D6606A339;
-	Tue, 24 Nov 2026 17:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F9E606A31E;
+	Tue, 24 Nov 2026 17:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57F9E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NJ29cXaY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6D61F000C0;
-	Tue, 24 Nov 2026 17:44:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795542253;
-	bh=HKhR6OHiklx1bX+p3KGyuPjKjODk61dLp6EanlfmzcE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NJ29cXaYv6HUliyjiizrk23flhFKv4V1ZKP9Qv+KxAlkx6hkDeO6wja/roc+Z0eD9
-	 HI71wQ0tVYL/v2nQ9MVdP/TLhnQjj7ZW+M6tTe4Nl0sUutKDLE4is7Ik+suHSPoRR9
-	 wsJK//vBZ2RP2x/8UdJhNP1ruxqAWt+ET22Efr8PjIDJOZEKLwjypvYmahfIlaKHIP
-	 4q/gcafpsoomrEod6DTpCRKgThrLFXVUd20pcambSXhKB4nqM/MR6wdoClYQa0/zBN
-	 D/AGI7amPhsVuMkBDD/UcRZtwb8T81iIRqbNUNPPA1tmdknPBjRhpwbxvMiAPuj3I8
-	 F3HIHhfj75CBQ==
-Message-ID: <sashiko-outbox-231736@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/19] ASoC: qcom: lpass-cdc-dma: add support for WSA
- codec DMA
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-topic-sm8650-el2-v2-10-174e159f0f69@linaro.org>
-References: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
- <20261124-topic-sm8650-el2-v2-10-174e159f0f69@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 17:44:13 +0000
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=E3Xk13R5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=1yEuTAuD9qF7B4gfMwaFCShGKrw0bpyd/m1S3g6b6xQ=; b=E3Xk13R5AsgssUSrEF+rQGaRp1
+	weGo5SgBnasTLKPGoLd1sL2QkiSCkfcjqyUYkD8IW7Tl2gaZmKuMQf7w171YbiKR2EaNRTHP/Z+3j
+	SvbTgoJq53v8856Uj6dnYLxPlVGozp6fwac6x76Sae28kt8GdLhle5Hh5ZwaUM8PdLmU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xVuZ3-0017RL-2s; Tue, 24 Nov 2026 18:44:21 +0100
+Date: Tue, 24 Nov 2026 18:44:21 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+	Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
+	Ajinkya Inchure <ainchure@qti.qualcomm.com>,
+	Anuj Tripathi <anuj.tripathi@oss.qualcomm.com>,
+	Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>,
+	Wei Deng <wei.deng@oss.qualcomm.com>,
+	Karthik S <karthik.s@oss.qualcomm.com>
+Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: lemans: Add LeMans Draco EVK
+ board
+Message-ID: <fef9f0c1-10d7-4718-9c45-74132ecdd1fe@lunn.ch>
+References: <20261123-lemans-draco-final-changes-bringup-v4-0-dbfc15cd0883@oss.qualcomm.com>
+ <20261123-lemans-draco-final-changes-bringup-v4-3-dbfc15cd0883@oss.qualcomm.com>
+ <609ea06d-10c5-4727-a9db-8d42e526befb@lunn.ch>
+ <awW1G1Aou/65UZ89@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,68 +78,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awW1G1Aou/65UZ89@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] ASoC: qcom: unchecked clk_prepare_enable() in
-  lpass_cdc_dma_daiops_startup()
---
+On Tue, Nov 24, 2026 at 09:32:35PM +0530, Mohd Ayaan Anwar wrote:
+> On Mon, Nov 23, 2026 at 09:29:49PM +0100, Andrew Lunn wrote:
+> > > +&ethernet0 {
+> > > +	phy-handle = <&hsgmii_phy0>;
+> > > +	phy-mode = "2500base-x";
+> > 
+> > > +		hsgmii_phy0: ethernet-phy@1c {
+> > 
+> > Same here. Broken 2500BaseX? Or properly functioning 2500baseX?
+> > 
+> 
+> Based on my previous experience with Lemans based boards, I think its
+> the former: overclocked SGMII / broken 2500base-x.
 
-commit b77682a3d9ba3fc802985eb7a7f2cb05c5db3350
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+I don't even think you need the prefix. There is only one PHY. The
+prefix would be useful if there were many PHYs using different link
+modes, RGMII, SGMII and a 2500BaseX.
 
-ASoC: qcom: lpass-cdc-dma: add support for WSA codec DMA
-
-This commit adds WSA codec DMA interface handling to the LPASS codec DMA
-driver, wiring up the WSA DMA control handles, interface types, and
-codec_mem1 clock in DAI startup and shutdown.
-
-> diff --git a/sound/soc/qcom/lpass-cdc-dma.c b/sound/soc/qcom/lpass-cdc-dm=
-a.c
-> index 2dc8c75c4bf08..d7f85a4f9d999 100644
-> --- a/sound/soc/qcom/lpass-cdc-dma.c
-> +++ b/sound/soc/qcom/lpass-cdc-dma.c
-
-[ ... ]
-
-> @@ -184,6 +211,11 @@ static int lpass_cdc_dma_daiops_startup(struct snd_p=
-cm_substream *substream,
->  		clk_set_rate(drvdata->va_mem0, CODEC_MEM_HZ_NORMAL);
->  		clk_prepare_enable(drvdata->va_mem0);
->  		break;
-> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
-> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
-> +		clk_set_rate(drvdata->codec_mem1, CODEC_MEM_HZ_NORMAL);
-> +		clk_prepare_enable(drvdata->codec_mem1);
-> +		break;
->  	default:
->  		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, da=
-i->id);
->  		break;
-> @@ -205,6 +237,10 @@ static void lpass_cdc_dma_daiops_shutdown(struct snd=
-_pcm_substream *substream,
->  	case LPASS_CDC_DMA_VA_TX0 ... LPASS_CDC_DMA_VA_TX0:
->  		clk_disable_unprepare(drvdata->va_mem0);
->  		break;
-> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
-> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
-> +		clk_disable_unprepare(drvdata->codec_mem1);
-> +		break;
->  	default:
->  		dev_err(soc_runtime->dev, "%s: invalid  interface: %d\n", __func__, da=
-i->id);
->  		break;
-
-[Severity: Medium]
-Should lpass_cdc_dma_daiops_startup() check and return errors from
-clk_set_rate() and clk_prepare_enable() on drvdata->codec_mem1?
-
-If clk_prepare_enable() fails and startup returns 0, the substream opens
-with an unclocked LPM memory bank, and lpass_cdc_dma_daiops_shutdown() will
-later call clk_disable_unprepare(drvdata->codec_mem1) on close, either
-underflowing the clock refcounts or disabling the shared clock while
-another WSA stream is using it.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-topic-sm86=
-50-el2-v2-0-174e159f0f69@linaro.org?part=3D10
+	Andrew
