@@ -1,55 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540463;
-	b=tpjAyLTEmgatHJ9l5FJGkegH9cLcTLlGYhthufJy5N7O55JNkgsgW7rZKu9n6YuL7fWO
-	 jE1qLvljh+o5wXQ5BfCT5EQQ3yeAez1a2YleCRZzI8iMPBJlAbRunyjYs4zt/Yi24s/dk
-	 ldbUqUafyUwpQC4uwYTsUUWzjvbi+cThBQDSp5+gk9NyrLF6UM7j+m7TtmSlqb7mLpsXT
-	 8IZ6R987Bts6V4Ufx0u4vz2WP5cdUKSnn7Q+Aoflsnq3j0LP33sXD1/hhfhZinQzODP8K
-	 UiFk77EuL+XjCfJKF/ooXkR/cPaowQTMs0xOaAoz4LqKp6sRrQjLJYgJJhvTuYWmtOA==
+	t=1795540468;
+	b=MSo2eg9CXTh/wckyBX02fOrWwoT4BSM+C7+2zgDmaykYWbc7vUf7HT+8aqUUb46z0iz4
+	 swvGvgZfk/o5LOrirwXfe934Mo6lo8qzEqy0GryGKgRrXJGJS3AVhcMIvBIucQpahodKi
+	 TeTGrSAcvlVIE8CHrkQhkITt6HjrLnBFfxLcGUvdpGToP9gUkhzOIzMWEjaT6MSh/jvQ9
+	 fJCdMxRxKCqH5GWVZ6XMMupAT4p6Z1vKBkg3NCOvK0yetT3yPMP4QRnDZHYk0iR5dWCjl
+	 mHwwmXwjukMq3inI50I6M4SLFLF0DKM4jkMPWb6afwzUP18mPq9xIVbewhLX9O3kH6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540463;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Bz1TOGQk9OrEAL8dqA13Na4ogVtzNLDckzVpSqCxF5o=;
-	b=Gc2a27NWJEo7IsI80wECPZZrY9YMFr9M/6wWJWLjZ2lvUQ7JZLmw/XAi1jlo0ycQoZYz
-	 p24Lk27X59SQkgbS1rVT4InHRZeNkyH9euJIFmDjs4LxI3q+rnmCHDYdE2efND5YRCVtb
-	 3QpZsg4IPufr/Bf+7DZS9WUWMZxQ2u++RYfoY2xE/NRymuE8Rdx46dVUoyrfvqnk9PggP
-	 9JDAk5eBN/7eUjdBCiuHAYh87sN7eEjabIFpHouTUhQjeX3Vnh5Bxlk0m+K9c9BEGxgJP
-	 chVqeFXjhn/0es3BlCAu/UOz1JbQ83b81PpRMNo4xFQbrQxZSljfMB+WIH4yH0jzVoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540468;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=7uTzZjFbfwiCl5CZePRaHtIXwUWPwQMotNCrGINBjVY=;
+	b=4EHDbQrUjCsmDKP840/nGe1bInyyFxFKFQ4blMfS5JT+XXStV3+6ODHJDXrFq0l9FM+H
+	 zkD8/IAastPT49ySOZLpepRdswJuEvb52rrrIoUTEiM7UUSRJqdfyeur2sd/mO3QqvLdI
+	 Em17FpaWUWzICzhXBndimMUvb+fN2YexBTCBg0fcb3b3Gz3AGxfyBbXj0gCrW5svCvJ9K
+	 TZF4irpjwaqwX69vBY5cTCUhjMw7njLgb5ziNkVYPyKCBPNReqEm7fwDlkP9yapREl7KN
+	 kFsUhP8y+OSATtDsDhwmyCrYUd6wpoAlk+jKW7r+kPERu24AAzP4E7u03Ctruc70SvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSR7bf+i;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Q+K15bUt;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FC5606A321
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:14:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE314606A326
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:14:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE314606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSR7bf+i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0941F000CA;
-	Tue, 24 Nov 2026 17:14:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795540463;
-	bh=Bz1TOGQk9OrEAL8dqA13Na4ogVtzNLDckzVpSqCxF5o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MSR7bf+ikM+G0rbaJOzigyhj2LyUcseLdMW7D+o+wsDWdB9Nb5l3v1jZGTcd6f17i
-	 WLVMCfXrrxI6FlzMR8/MxZDMaI65AkzdCnxh32M1SDZNPV0oKm7FpL0H8WdXM6jGUV
-	 kB85nsrFJHzF5I5GYy4AuYbrt64XhcGFb0w5Q6fk00yk7mXz2N1CfmKzD5WHNWPUhh
-	 eU/dbVueFVltXUA8Q/nYI9GJ/9OgpG4PQpd+3oTV9mZUvd7Yq4rypA18AOvEgvup8O
-	 WIRXCuS+mO80WuJ6tPAE1NzVxp5Nquwt+iGH1cyRhFV3QnAcgB1S18mf9t2MOjUiNf
-	 idBIgxqGr30Aw==
-Date: Tue, 24 Nov 2026 11:14:21 -0600
-From: Rob Herring <robh@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3] of: property: Create devlink between PCI Host bridge
- and Root Port supplies
-Message-ID: <20261124171421.GD3404231-robh@kernel.org>
-References: <20261123-topic-pcie_hb_rp_link-v3-1-f90191217c74@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Q+K15bUt
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4bb68c197c7so61271505e9.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:14:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795540466; x=1796145266; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7uTzZjFbfwiCl5CZePRaHtIXwUWPwQMotNCrGINBjVY=;
+        b=Q+K15bUto5aLPWj8V4Iau5HxYR2cBzQG64tQ8DJxpyyhoHEWxgYsh5Y0cCWK+lM6BL
+         P2/7iDemph38FoCEL/UtjY5F0JPq/INEmw5kkmChS5Vw7b3r/jXNd6Pa25VgfPufoXpU
+         rAbOwLjiKnjJ9r+rZDoV0uoec5kNdau+iCD08XoZ9NtZfS9mx3TpvckITJvv8eoHy2j3
+         I4BInlDKrlIt/mvyDGH0pSjPNK59Y0UQS8Sm1cyaIB0jOfll/8RrUrBLwa03YyW6OFuY
+         oSckjxzLehJvgYm7LtcBgMoZOBRDil8Cu1u2aE3e8u231/Tr1CdTwTMlI/g4Wk1uTq10
+         SWdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795540466; x=1796145266;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7uTzZjFbfwiCl5CZePRaHtIXwUWPwQMotNCrGINBjVY=;
+        b=kRT6JfCE+0LkcFWOGs4NL6qGq65shEEzzybN9Br6jYEFNVNdISTQccaV6aLAOqQAyI
+         qMUmcLYBdpPcby48271ZiRI2+VpfptmACUMZpyR5GaGOJ0pMhH0ciXiB+4JErpiP9zvK
+         MIyoCDP+783UfUpnl1ZBl6XxNv20HdFLL46soFmN5icfOakFwqnDVquTlsvRwYKUXpCS
+         VaNO/U1+9cfMmuePS3XCIY8Z8spT1Q8vQpYSoMlhq1ltd/NSN4EBSF+Tb5+T19n8iy4W
+         UzWZNsOdeXuHjWl+GgTR3ySMx7PnUz4bLnJWfmGGkhf1IA6o//j2lb/09IFDIWIEqeks
+         gyaw==
+X-Forwarded-Encrypted: i=1; AL+hErHqFPcLip3RN/2N2oFJmB7lX3AWOOvakki6bYXJgbteOCxUWPN8XBYxfFa65vjSOvw4jDEmUt7S5WvQ@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3O93gkFFc2wmQfwyO2P4U5QNY+t81mjPUGV5wyT2C3wyj3E18
+	srydYaMlN+VLtYe1TmXB4jL9uZe9OumQwWP4zz1aa+lFtwgD+i9PBqClDw9te2jVJGc=
+X-Gm-Gg: AZFdTZeYdGVYzjsOtfCgskcuPnFQCvAf8JGfuI6+DIoXdQrHa8Mj80PZLk9F6UsG9m8
+	0L4Mywv8VAljBw7QEL2jvrg+jnnpcI76RxVRTDhhocNdBkS8MPaBXaQS1gNmHp7JmYV/thof0TB
+	nfhduQ8iY8jgcBK7rfpfeaUo33eQnacz54z9Jqt1F7ghXN44icaegsgGFwyrHPaBwE2TuKGoYlm
+	p+rMXsUPSXMgl0v5mwKjVh2Ah50X8LDyi6Itud4IaGLgVdQm41s4W7aMiYU8gTYNGyvroemxx/B
+	HkavBog84XIPMMdnzQDVrkY+e6Se8fLZQ98cGhMmD8mkaGG5gtl0oU4hm+/Tx5PhOTAKCJiFPJR
+	MPvvCkxYWGtClCXM391o+ky3STUcNQB6t7dF3VuiNpPlgTkLD8FUm8Tfqh5RA0FFgs9fF5ZaUTA
+	2bm5eir0L8FHf7g/HfmdEfY54NfZI6Qf5NZrIPvwiUpC1nc4pSZbZtwkPUwuISivDv+6tPTgXgd
+	OijibrW4LvQY/FH79/t+FcHckQamDX+tFljNqE+3GaMXwVdiT+WETDbYsVgDTrjeLLDwsP6ryOq
+	TrOsEprcTCfsEjht97OEnH0dSmn8rz4vX5Y/gz24F+ESJYzoNiw=
+X-Received: by 2002:a05:600c:8210:b0:4a2:1a:a116 with SMTP id 5b1f17b1804b1-4bb887865b5mr307426055e9.0.1795540466090;
+        Tue, 24 Nov 2026 09:14:26 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8849e598sm410592735e9.8.2026.11.24.09.14.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 09:14:25 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Tue, 24 Nov 2026 18:14:22 +0100
+Subject: [PATCH v2 1/2] dt-bindings: pinctrl:
+ qcom,sm8650-lpass-lpi-pinctrl: document clocks and power domaines when
+ ADSP is not used
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,50 +94,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261123-topic-pcie_hb_rp_link-v3-1-f90191217c74@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261124-topic-sm8650-el2-pinctrl-v2-1-fd05c8378a08@linaro.org>
+References: <20261124-topic-sm8650-el2-pinctrl-v2-0-fd05c8378a08@linaro.org>
+In-Reply-To: <20261124-topic-sm8650-el2-pinctrl-v2-0-fd05c8378a08@linaro.org>
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1364;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=vqNo3GM+A7DfxIT/hVIqFbnwUFqt7CTExTLyNqE/XHE=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBrBcXvWM97daWaPFipwES2SGc0Ov/oFxGUwx9p+vQz
+ LbQ1apyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCawXF7wAKCRB33NvayMhJ0TgREA
+ CiQBZ/P2rFgLNgGP2YHvKZe+aKwVt3K54uoN7CMU6R1nl5OIeK9BB+oURuIHh003E7DX3eNpQWJvId
+ C51cdB9AY37m9GtbAt75UyTxrVRpDYYX8VC2n7U8mO5kRWWOSLaLhelp19mcMixNVP65MPGmnkKpCp
+ 3cikncHfuFNpO4fHGJ+u1geYj4ZeHWAfU9L7b3+CZm/FLs3dYf1+x2UO5kNnXFWzO0+0wwb0MPN47x
+ Lv3UP7KXWWj1jMoXnMI0JoHFN8RwwVTC1jH9SYhMstU97ECO+MKTnkqu3x7EvvxIRsvoVxAE/2w74g
+ 5PJJFMA7mfI1COwDLVsXJLpJ3Wefc2UjURbUJIU0Ql+7zRUe5afQwyARxySQrVE+m1ES6kkMfARvdm
+ z3f4hBjErLptCz4INcXU+/cGWg6ZAoscQ4ZShZUSqp7NAbP2P9/W7QhcSFkR2H7aSZhrYh6dxnWps7
+ dQRT15yig4XtUNAEBqy8OrabwAoKGSx6UG9XuDuCrgjNzMp3agzwTtO2DCfkB6Q9Yqljy4dluit66u
+ J0CVLVSHhWdOAROT8tbpRU/x1SndjApe5tNFQPLzoiGhPiysqzyaMN28mlUQHEci61CcSeVU9jTN/4
+ vc/YXRze6ci/ayes2idqo7oVZkl24BftEdcYZCZ7isJBWbBWSpNLzQTVgqxA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On Mon, Nov 23, 2026 at 07:59:16PM +0100, Konrad Dybcio wrote:
-> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> 
-> Recently, devicetree started to represent the PCI Host bridge supplies like
-> PHY in the Root Port nodes as seen in commit 38fcbfbd4207
-> ("dt-bindings: PCI: qcom: Move PHY & reset GPIO to Root Port node"). But
-> the Host bridge drivers still control the Root Port supplies as a part of
-> their controller initialization/deinitialization sequence.
-> 
-> So the Host bridge drivers end up parsing the Root Port supplies in their
-> probe() and control them. A downside to this approach is that the devlink
-> dependency between the suppliers and Host bridge is completely broken. Due
-> to this, the driver core probes the Host bridge drivers even if the
-> supplies are not ready, causing probe deferrals and setup teardowns in
-> Host bridge probe().
-> 
-> These probe deferrals sometime happen over 1000 times (as reported in Qcom
-> Glymur platform) leading to a waste of CPU resources and increase in boot
-> time. So to fix these unnecessary deferrals, create devlink between the
-> Host bridge and Root Port supplies in of_fwnode_add_links(). This will
-> allow the driver core to probe the Host bridge drivers only when all Root
-> Port supplies are available.
-> 
-> Reported-by: Bjorn Andersson <andersson@kernel.org>
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Resubmit as-is (bump the version as I added my sob at the end since
->   the submitter is different) - there was no activity and no response
->   to a bump for quite a while, but this patch is still useful.
->   I dropped the tags I left at v2, as it would look a bit silly.
-> 
-> Link to v2: https://lore.kernel.org/linux-arm-msm/20260506075625.8490-1-manivannan.sadhasivam@oss.qualcomm.com/
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
->  drivers/of/property.c | 29 +++++++++++++++++++++++++++--
->  1 file changed, 27 insertions(+), 2 deletions(-)
+On platforms where the ADSP is not used and the LPASS TLMM
+is entirely handled by the OS, the LPASS TLMM block requires
+a different set of clocks and power-domains to replace the
+clocks exposed by the ADSP firmware interface.
 
-Applied, thanks.
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+ .../bindings/pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml      | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-Rob
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml
+index 1bf08860a4ba..7ca09c2c2dea 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,sm8650-lpass-lpi-pinctrl.yaml
+@@ -29,11 +29,21 @@ properties:
+       - description: LPASS LPI TLMM Control and Status registers
+ 
+   clocks:
++    minItems: 1
+     items:
+       - description: LPASS Core voting clock
+-      - description: LPASS Audio voting clock
++      - description: LPASS Audio voting clock, only for ADSP based platforms
+ 
+   clock-names:
++    minItems: 1
++    items:
++      - const: core
++      - const: audio
++
++  power-domains:
++    maxItems: 2
++
++  power-domain-names:
+     items:
+       - const: core
+       - const: audio
+
+-- 
+2.34.1
+
