@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795523385;
-	b=hngF7AE6CklSr8Y+Mo3/aZqiMQUmYDQOUChTrD5pWEnC5eGIycF5gNNxGh6Xp03Swd+m
-	 fYqPxr8g2GheqSgvSqO1RWQsAtXfFnf6Os+w287GHfuhBH/TV8OpVPICrH2SR5s4uKpnm
-	 HNTz0lLQpf/iOxUV82izmV6LMkMENUdDYDRUqR18oiZIL/P3Og7TJaFBi8UQHK8FvISGq
-	 hlVuzifHKMRnk+R0NUwFQswzmyj6pHUjQRIKyBymlRi4REQPdqNtMqOpjixHYXGo4ryrH
-	 F3+OTS79DZ4npIi00LWviEgsIhcuw4aq4PJPtf9Z3dlZurJjiFY2DFghKxVCq7/2dkw==
+	t=1795523443;
+	b=3hZm6fBJgOO6PPX2Q7307mP/JS3Fg5dlrEcSKw92zHaYimLEjOVuvJoaXdz6BQbHz9ae
+	 1X/AG1+lSIW1uD5PumqaJZJTasCDNuv1w+vjFIU5GP4OsVDWdQXn4dOBaZVsxtK8g0HBd
+	 oRGrwYmckbyBoA6LT1R4sf+5ZlIBn4hfIjyc0VnaWWzOZDpCfJ7u6Fw8JtkD24PhrFnSX
+	 ZI0aqr9nGHLN32urEi7WVDDD92w2LYS3YUMNTs5sRNX1dyDDS+IO0qQh7chYzunu/nY7z
+	 taRRj/7Z8Mbh4b1t3HTjeHJFd5lWG5ZfaQcmw5LRLX65dS99Th6QreH1Wjnhpz2uGaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795523385;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Aa9xIw16gVy0GcSyhGDzNe0nCFeciud8dQ7Mcn7z3mU=;
-	b=k4qym3pOhuvLnq5ImGeQMbNbBiqO5Phoj1kSQupiHJfThPJ1b6j2h4bZ/9t9q2WyUOAw
-	 EGG/G+hzJOx2jQuNDEWR4WS1wXDeR/ptiDkhOtTQ2+Sl/VTdK/1nGrwHFIiQa4ZP56I/e
-	 s2ghecToWq8iMOu8qoUMqITqpp7A44LlDPDoDYJ3yO1b2WL59xD7VDaLDbq9LKnP1IqZJ
-	 GztEi+egM4Njpm2QJB+IAkWkDtw8UT8A67Sa0oXSa8TEYPOTLzaLZW0asgaTIJ0pbr9+T
-	 8Le/3yG1ATdPPjUgPAkRY2m+RMUe1SxWdPCyFSW5zaeWKzOJZDSEZ3ggEZntQA25nvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795523443;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=LK1P7uDPd4RtQ5QpN+qBWe67//ohCfK5v8N49ign+j8=;
+	b=stzwPgkpNDj23J9Ax2m+9whG7fgJ7kxQWN12sVbNfOYukBSQYdMGlVdO8I61/RkUWDtI
+	 F1MnyTmhO9UJCWdfYYtrQ+Zh20m+ZnytvCqLjS9J/xG82LEcCH7xuzLnFXmJMfTn2ZJgJ
+	 yiGaVUbpCUvzMBfPWtC7PsqYG9V6SfMknpW7Rjv0C4GwwgusgLig5SS+VmGoHxoPONLFR
+	 3V96VB7h11YQ02KYeFe+sRDS9tDcCl4Y5A6kqBAKPrlaiWP1c7elftJsm5wi2tYAo6ChV
+	 kKW8dv1LXnbBoqL6nAtRUio2E7WSRG0pCB/fFRGiYgR6JeB7NubqdsS6KVUH09qbjpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irQ3zDUz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9spHILw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD30606A32D;
-	Tue, 24 Nov 2026 12:29:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157A6606A69D;
+	Tue, 24 Nov 2026 12:30:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irQ3zDUz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A4B1F000D2;
-	Tue, 24 Nov 2026 12:29:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9spHILw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26F001F000E0;
+	Tue, 24 Nov 2026 12:30:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795523385;
-	bh=Aa9xIw16gVy0GcSyhGDzNe0nCFeciud8dQ7Mcn7z3mU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=irQ3zDUzKESe/ZV6XYKciROknj8NLqJh8Jmr6ZNbIWMDJlrX8/Iv407ZyDyzuQyn6
-	 MWEtLELQZHi0zpu16KYdA0H/aAHk5PbIp70lq/++v59KQARknxUuYMG2Bw3x/rWt7g
-	 X69zfj0DVMXoLvpaLJKQxtX7pba4IE+EogZxYz7E13p6SWCF7AV8pl4D99ySmtT4vB
-	 6t7KrvfjVx2iYObdEJa61AlJrwawOtTfxN1iO500NUjuF3c7tLrLWSjxUsYPOGFK3/
-	 w9yDWese3yG3rgB04QeuxpSBqjefMfx4FcCghzeyqUlL9YwSl/Tvk4f5DOt3r4Rjiq
-	 3QUAuxoOEgyIw==
-Date: Tue, 24 Nov 2026 12:29:42 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] riscv: dts: spacemit: k3-com260: Set Ethernet MAC
- from EEPROM
-Message-ID: <20261124122942-GKM100890@kernel.org>
-References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
- <20261105-k3-com260-module-sd-nor-mac-v1-5-138b39d74602@linux.spacemit.com>
+	s=k20260515; t=1795523442;
+	bh=LK1P7uDPd4RtQ5QpN+qBWe67//ohCfK5v8N49ign+j8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=m9spHILwdNTBL5f9kgoq/rhmAwvL3uEUkVSeOjGkRWWFFFZxLKe659QtkpTntaqY2
+	 khHYBswdPlfq2dct1lDUzQ8pJ5F2fAu+EzoZBfO5a8IhjmHeXKR1QGdYLWwAMG8Bmc
+	 i8iDxXfcef6/a4IRA3u2rj38WSyjrBszWmMi2sTinM9uV14DsyD7Apay5ct74+dZyu
+	 jsGH+v/8vhSupMzd27N34FdNpsmL9Z6inpN/NkKkQUbyJTzgvi5d4NTwRW0txZ76co
+	 JvUTU5XcgkqD+PNDq7r+56H65TSgXUxsBZ3xPqew8MPgU5YptuVViEPzZHBez/+KE3
+	 Q8hmWNhSlDHVA==
+Message-ID: <sashiko-outbox-231139@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/6] spi: spi-geni-qcom: Add transfer_one_message()
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jyothi Kumar Seerapu" <jyothi.seerapu@oss.qualcomm.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261124-qspi_qup_upstream-v2-1-cd69894107c8@oss.qualcomm.com>
+References: <20261124-qspi_qup_upstream-v2-0-cd69894107c8@oss.qualcomm.com>
+ <20261124-qspi_qup_upstream-v2-1-cd69894107c8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 12:30:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,52 +60,144 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105-k3-com260-module-sd-nor-mac-v1-5-138b39d74602@linux.spacemit.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] spi: spi-geni-qcom: unreset started flag in
+  spi_geni_transfer_one_message()
+- [Medium] spi: spi-geni-qcom: double handle_se_timeout() call on target
+  abort
+--
 
-On 08:23 Thu 05 Nov     , Troy Mitchell wrote:
-> The EEPROM on the K3 CoM260 module stores the board MAC address in its
-> ONIE TLV data. Assign it to the module's Ethernet controller, so that
-> every carrier board using the module gets a stable MAC address instead
-> of a random one.
-> 
-> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+commit 6aec5a29fbc76295782ba681ed33e86a4939fdbf
+Author: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
 
-Reviewed-by: Yixun Lan <dlan@kernel.org>
+spi: spi-geni-qcom: Add transfer_one_message() support
 
-> ---
->  arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-> index f94607cb2eeb..1f5c958c9d6d 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-> @@ -42,7 +42,7 @@ eeprom@50 {
->  		nvmem-layout {
->  			compatible = "onie,tlv-layout";
->  
-> -			mac-address {
-> +			mac_address: mac-address {
->  				#nvmem-cell-cells = <1>;
->  			};
->  
-> @@ -216,6 +216,8 @@ dldo7: dldo7 {
->  };
->  
->  &eth1 {
-> +	nvmem-cells = <&mac_address 0>;
-> +	nvmem-cell-names = "mac-address";
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&gmac1_rgmii_0_cfg>, <&gmac1_phy_0_cfg>;
->  	phy-mode = "rgmii-id";
-> 
-> -- 
-> 2.56.0
-> 
+This commit introduces a custom transfer_one_message() callback to manage
+SPI message sequencing, transfer completion, DMA buffer synchronization,
+and GPIO chip-select handling directly in the GENI SPI driver.
 
--- 
-Yixun Lan (dlan)
+> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
+> index e239c4333055b..0a15e75051d86 100644
+> --- a/drivers/spi/spi-geni-qcom.c
+> +++ b/drivers/spi/spi-geni-qcom.c
+[ ... ]
+> @@ -939,18 +945,209 @@ static int spi_geni_transfer_one(struct spi_contro=
+ller *spi,
+[ ... ]
+> +static int spi_geni_transfer_one_message(struct spi_controller *spi,
+> +					 struct spi_message *msg)
+> +{
+> +	struct spi_geni_master *mas =3D spi_controller_get_devdata(spi);
+> +	struct spi_device *spi_slv =3D msg->spi;
+> +	struct spi_transfer *xfer, *next_xfer;
+> +	bool keep_cs =3D false;
+> +	bool dma_synced =3D false;
+> +	bool started =3D false;
+> +	int ret =3D 0;
+> +
+> +	xfer =3D list_first_entry(&msg->transfers, struct spi_transfer, transfe=
+r_list);
+> +	spi_geni_set_cs(spi_slv, !xfer->cs_off);
+> +
+> +	list_for_each_entry(xfer, &msg->transfers, transfer_list) {
+> +		if ((xfer->tx_buf || xfer->rx_buf) && xfer->len) {
+> +			reinit_completion(&mas->xfer_done);
+> +
+> +			/* Synchronize buffers only for DMA; the SE FIFO path uses CPU access=
+. */
+> +			dma_synced =3D mas->cur_xfer_mode =3D=3D GENI_GPI_DMA ||
+> +				     ((xfer->tx_sg.nents || xfer->rx_sg.nents) &&
+> +				      xfer->tx_sg.nents <=3D 1 && xfer->rx_sg.nents <=3D 1);
+> +			if (dma_synced)
+> +				spi_geni_dma_sync(spi, xfer, true);
+> +
+> +			ret =3D spi_geni_transfer_one(spi, spi_slv, xfer);
+> +			if (ret < 0) {
+> +				dev_err(mas->dev, "Transfer failed: %d\n", ret);
+> +				goto out_err;
+> +			}
+> +			started =3D true;
+> +
+> +			ret =3D spi_geni_wait_for_xfer(spi, xfer);
+> +			if (ret)
+> +				goto out_err;
+> +
+> +			/* DMA errors and target aborts are reported through msg->status. */
+> +			if (msg->status !=3D -EINPROGRESS) {
+> +				ret =3D msg->status;
+> +				goto out_err;
+> +			}
+> +			if (dma_synced) {
+> +				spi_geni_dma_sync(spi, xfer, false);
+> +				dma_synced =3D false;
+> +			}
+> +		} else if (xfer->len) {
+> +			dev_err(&spi_slv->dev,
+> +				"Bufferless transfer has length %u\n", xfer->len);
+> +			ret =3D -EINVAL;
+> +			goto out_err;
+> +		}
+[ ... ]
+> +out_err:
+> +	if (!ret && msg->status !=3D -EINPROGRESS)
+> +		ret =3D msg->status;
+> +
+> +	if (ret && started)
+> +		spi_geni_handle_err(spi, msg);
+
+[Severity: Medium]
+Should started be reset to false once a transfer completes?
+
+Unlike dma_synced, started stays true across iterations of
+msg->transfers.  If one transfer finishes normally and a subsequent
+transfer in the same message fails before starting hardware (for example,
+failing the bufferless transfer check or clk set_rate() in
+setup_se_xfer()), out_err runs spi_geni_handle_err() on an idle
+controller.  In GENI_SE_FIFO or GENI_SE_DMA mode, handle_se_timeout()
+then issues cancel and abort commands with no active command, waiting up
+to 2 seconds for completion timeouts and setting mas->abort_failed =3D true,
+which causes future transfers to fail with -EBUSY.
+
+[ ... ]
+
+> @@ -1065,11 +1263,14 @@ static irqreturn_t geni_spi_isr(int irq, void *da=
+ta)
+> =20
+>  static int spi_geni_target_abort(struct spi_controller *spi)
+>  {
+> +	struct spi_geni_master *mas =3D spi_controller_get_devdata(spi);
+> +
+>  	if (!spi->cur_msg)
+>  		return 0;
+> =20
+> +	spi->cur_msg->status =3D -ECANCELED;
+>  	handle_se_timeout(spi);
+> -	spi_finalize_current_transfer(spi);
+> +	complete(&mas->xfer_done);
+> =20
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Does setting spi->cur_msg->status =3D -ECANCELED here cause
+handle_se_timeout() to run twice on a target abort?
+
+After complete(&mas->xfer_done) wakes spi_geni_wait_for_xfer(),
+spi_geni_transfer_one_message() sees msg->status !=3D -EINPROGRESS, sets
+ret =3D -ECANCELED, and jumps to out_err with started =3D=3D true.  That ca=
+lls
+spi_geni_handle_err() -> handle_se_timeout() a second time on an already
+aborted and idle serial engine, timing out after 1 second on
+mas->abort_done and setting mas->abort_failed =3D true.
+
+In addition, because spi_target_abort() runs without spi->io_mutex, if
+wait_for_completion_interruptible() in spi_geni_wait_for_xfer() is
+interrupted by a signal at the same time as spi_geni_target_abort(), both
+threads call handle_se_timeout() concurrently without serialization on
+mas->abort_done, mas->tx_reset_done, and mas->rx_reset_done.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-qspi_qup_u=
+pstream-v2-0-cd69894107c8@oss.qualcomm.com?part=3D1
