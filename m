@@ -1,57 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795543314;
-	b=ZDmSttkJJNs1yf5oL7egC3wdcfGpH67EwNfvC+yWZb99DGD0af2/OyXbIAyZmjO8JHKY
-	 wXsWcwUbUU71NxyvLyQbXbAY8DW7S13jlbfGTrsixw+TymMQ1rkO3rnq7cRibC3CzbEhh
-	 gmGFNiwfVLsXHVWE+7Zk95c8z1oNWixbck3nUHob75LhbfbV9Fbn1pxELa16/htoN8fDQ
-	 Jqcaz4qeSBMCoCyFIyHCJOMW3eAKYTeZqk8syEx+S4FZpDK5zaZ+jHr7Idl9Ri3TmJa8T
-	 iwRfRqpJeO0AN+C7Eix21JB/hE3iAw6lBL++wrjC/pn+uOhHl65WBePYpfijn/hDMlQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795543314;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Vl4D4TzrMDl5CpRXmkA/SpfEqieMVRmHrivqM5+deBU=;
-	b=Bqix3Ubn11gXaXCr00iHc/ehpdv0gcAJMFuzOmcSZPzQNwJhOybyIw/Nmuk57iRYZvnb
-	 gFgQUrRI+RwDXdk3EOiOKoSEq7HTwh6A8Fjam+obiZzSGO8OL289V1a6uvnTScJ+WoVZV
-	 ubVWsJmWBGvfpiq7DaQnHG75GDGT473r+R3KN/nbaJCnYCZxcUcvrWxuMLfLvnfvFz0KY
-	 w4IDoWyRqevI3B3EfR4ubba9o192+Xf6WbO70vEnvCEK+Do1fKvuB42W9gD5TnqtSfkbO
-	 maSSC136gIPpnI9P5pZrHHKfo6aOfm2PsrDgJdtUWHOdWX0oA47yXchye+gxq56KvKQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQBEaiR7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.57
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795543473;
+	b=FgDB9JxppXQnj7tKhJmdf+WSvA9fKyDLm3UlYJjPf0/pRMs19c3Il8Ow1sGGHU1DAF94
+	 hMLpcQH+3Y4vsHFW2sz6+/0HuSLM0dtFhh5irT0pblPVijRskm2Q6cWXE0z9ry3Q9ftbD
+	 QfN5KUW7NdzR2uzHNrHOfANY0tCzPplMKwj0kxaDywW4Du5zoA6BBcUqYGW/xjh0Y2Bqd
+	 dEs1t8qllNS9JpemKW3N5kPPJAi/Wnt3SN9Q+a8TScdVeWKRse2UIzpr6TN6i0otpp/Zn
+	 3vK1O/vVigK4bUsRyf55qckHWEYmaOzp4SwTM1XIF/tXwJC93IQqc1GAaqgbaEoRh/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795543473;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=k5/B6PL75UGMNVTJq2uCNOwBZ/px3x/G0GnSVP138YI=;
+	b=S6SiucKtEAADK/YluYdhYbNj93xpd51zCpdreX6PHDCCcMlnGkynqb9/XM81lQlBlJd/
+	 E0p+3lH7uIgcdeJoeElkIBM/6JP3S/oN3X4dI2xjZnciyyVoLbEEk4L+eaIhKxFkLKIL+
+	 RGg1q8mwB41QUpncYV/XqQ1e9GZpkbaIHWQt3bkScpo7t0n0NxKoL/1Q04viNBOiYsFn5
+	 II972EBXvLxNi/Gj4vlycEaW+X/oj3xte/GegBbDkgXrLUZ8Qt4ojEYY9Te/EQtPLlPkR
+	 CU2mPVp5Y90+nlpjW23BigUBsgoOqrZAO2VbJoo8ZJjnoYpLVuCB9YVLj+0H+QLIbeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GRoown+W;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.57
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012057.outbound.protection.outlook.com [52.101.66.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1AC606A326
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 18:01:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33A5606A338;
+	Tue, 24 Nov 2026 18:04:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C33A5606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQBEaiR7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF461F000C0;
-	Tue, 24 Nov 2026 18:01:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795543313;
-	bh=Vl4D4TzrMDl5CpRXmkA/SpfEqieMVRmHrivqM5+deBU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WQBEaiR76Na3PK2t7r1ESmipOjp9f8iFyVpzvkPlBxMMIZEo4GIGMsSya5V5UFksQ
-	 p7JeOzSoVmkN9F+HSrdXJTqq6qlmgQxLuuMF17En3+kI4/e/me4EjAl+3nLaJ4hMIL
-	 FsAZwekOg1ylaRQtYqwDA/DXbtubHusQ8H7xMHov37XrhQwI+sz9d2qV1ACipiq3Me
-	 MdgRv+rqYFsiul8xKdC+7/LC3Xi1p/aByjbtepanlTLmVxAtFzm5wullA13eYnVC6g
-	 px1xN3PbNAqSAae8seOWXfbVOaUxfTqtMfjBtCSyTxkVHlTty/WGkV8Jn01s+VI886
-	 uhC388KVwJGDw==
-Message-ID: <sashiko-outbox-231762@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] misc: Add FPC1540 fingerprint sensor driver for
- QSEE apps
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Armandas Kvietkus" <armandas.kvietkus@proton.me>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-fpc1540-tee-v1-4-6c6985f05b06@proton.me>
-References: <20261124-fpc1540-tee-v1-0-6c6985f05b06@proton.me>
- <20261124-fpc1540-tee-v1-4-6c6985f05b06@proton.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 18:01:52 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GRoown+W
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W7n7zorw9duUoxwXbXNw1ofSz7pFyOldzaYxgnEEorNpSXpzSoXcT0l6z/GA/15siknXV7do9dkoh/apgfS9lBVHmWjuuYQFBNNhKF+5mjR/1gb9bIa/vVyTcl0rXjWWIo2eG2fTnXzDbqsnE0OPycCY4qsa4dk8asBp20SyFjk7hR4G7iyEt7r7kCBTf4+nk6luY42tvHMdswJKY9kiNlup3Goj+55++ByF0REWa8CXi6fsF2xZqLXOPnO+jVcQfpls4ogHYtkt3R6EVHnesaOG76x09vBvNoYvuG9tGOdY2fqIHmge+ntTfdi3j/+zL/MjLJ0XKqNDMgCgRs6dbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k5/B6PL75UGMNVTJq2uCNOwBZ/px3x/G0GnSVP138YI=;
+ b=hgg25yHPIbyvCStrH/RMl4EUW1GTImM0lq5RZ5ZWi5a/n4vGO1DJU1JmGX0R2DnXwQMecVUfqXwnxovo/xYhfsgF+WVepOaYvYF1TOm2sxupYX0ctsDpWe2fZ0QBosLrnY+tveHyyqszb3HEgO9y3PwOg8ycWSu/76/aV4bZc3+9JZcKQ9p8wJrthEIDk+OqZYETkH7DrTPSLsHsirViKYDOppcdC9Dyo0y8SI362qMGzq+Ebl7/G1H3qgHZu8ji5UnKb5+Zj7R1oJoSRRm93DXwNxVro+I+hW/p+VowpPLhj6+tz34nkNsImtJS9o+k7VcADBvDthXthfxd2N4iOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k5/B6PL75UGMNVTJq2uCNOwBZ/px3x/G0GnSVP138YI=;
+ b=GRoown+WrddWyu4QLAPSq0DjS3hVks7hU2hxWiQpS3kargzGDyE1bQV2lSLm1/G0BYP32ArPXhj8LstRikaISEXL86M3vluxoeVwJakI6YaQ5BnKJjAZgIokFrmmMs9UAfkmC7I7FNnHafLAyFfhxbk44pqPopGG2Pjb1VDC8UDlGTfAnW/91XzCGlw22sIXiA001//ByPkByH74bJoak4A5pQ0tQ+8pcOxhNiYHcOwxkY8D+eRyvyPZkEAy5+y9odFyA6XUisPbKEAZPF8KvSMaVGePAf65OjC7Yfb89UB1Gu2zJCThXEsmDvaOJ3xJyo8tUMmZspAP9lIfwdDdiQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM0PR04MB7075.eurprd04.prod.outlook.com (2603:10a6:208:19e::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 18:04:29 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Tue, 24 Nov 2026
+ 18:04:29 +0000
+Date: Tue, 24 Nov 2026 12:04:17 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: Frank Li <Frank.Li@nxp.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, kernel@pengutronix.de,
+	Fabio Estevam <festevam@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+	Manivannan Sadhasivam <mani@kernel.org>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org, linux-can@vger.kernel.org,
+	linux-phy@lists.infradead.org
+Subject: Re: [PATCH V2 0/6] ARM: mxs: add EVAchargeSE board support
+Message-ID: <awXRoV4Ldg8XJ9BP@SMW015318>
+References: <20261112130506.12823-1-wahrenst@gmx.net>
+ <5e2563fb-bc32-45e0-88e9-71ddd1d8b1d2@gmx.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5e2563fb-bc32-45e0-88e9-71ddd1d8b1d2@gmx.net>
+X-ClientProxiedBy: PH7PR03CA0010.namprd03.prod.outlook.com
+ (2603:10b6:510:339::27) To AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,297 +107,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM0PR04MB7075:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3158a5f2-ab67-4f1c-a2aa-08df4a556201
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|366016|376014|1800799024|7416014|18002099003|22082099003|261009223027099003|10067099003|56012099006|4143699003|11063799006|261102123227099003|261026121527099003|261021121427099003|261026140227099003|261028144727099003|261026130827099003|261026135527099003|261021133027099003|261022105027099003|261021130227099003|261022075727099003|261022113327099003|261022115727099003|261021135927099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	cjITTcA+3wO5MHTjJsE/WtLwKpTBp4iglS5c/p9XffmnMLxAZ1luM7M4tQljd3Hwp122Y4BWP7X8tCLqTiBdn7uRkWvQAI1bLhUK8swZyPJUcIBo40ud4KsE1peMUwNm/e8dOn3gS9cV7iZijBVfR/nbusrdhcpPZ9C5y1ExJZIl59kO0YwdTRJFwLzEZlwknOK5FemlcloV+pJOxzcfqKjr23974Friy+nclqfIrPYi+BXxUHHzeqOv5SAvngGWFOLE1LzFJ1BpKWgn4kE6fNPsuln4qstxUqn9oTttG5CyvT5QNP9mVTcGpS23aKOKqlMeMtohoYC1Xv4f0Et1YLwRauo3EZNPDCXA99GBiXdZGstQgn6cMGRxjV/yuvnPeK1w+1gIpfYFeRaqqdWewGiS+XHm/wlyp74T9DWIHea/h2E0e3ggbz2SA865t/RMcQCmrRl25MNatW+0k4FFACdbIOq19LPmiUjcHAQudenW+Hbem4N9B/5Sgngr7Sltja971ctZ805xLC7ib87c6gfk1D3b1TdUcRsZbI45t3oWDSOUtkrQg59yF7xThdh54yV5pOT7HoXj0LSpqGo1SamWABnTlit3loVTQQYT5YW+KSwDU4rVT6SLyPMpIBYEpC2RvF5f4hKy87LzzvE/HmAp/f/C3srdoNrBLUZRFAM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(376014)(1800799024)(7416014)(18002099003)(22082099003)(261009223027099003)(10067099003)(56012099006)(4143699003)(11063799006)(261102123227099003)(261026121527099003)(261021121427099003)(261026140227099003)(261028144727099003)(261026130827099003)(261026135527099003)(261021133027099003)(261022105027099003)(261021130227099003)(261022075727099003)(261022113327099003)(261022115727099003)(261021135927099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qGt4qsZyZ/H6oVRpXmNbTnjPQWmuRShRnQwvM7cEFRHJpfrjT4RvE/XoXQIF?=
+ =?us-ascii?Q?MEA8uXOyDeN472E5hkpNTqL6FFjFKjPddo6vbm7tWi6zM3JW7GTEkycusBet?=
+ =?us-ascii?Q?EQwHLnPUssxuAOiQ5THpkv3tRt2lHDK6PSJX4bGy0EEzDnxLQpVeLcibGtEA?=
+ =?us-ascii?Q?egQ6aPMvi+bzYGRnE50PauRj4cO1PSZohd5eFTRNfArIJLvdgo5HUjCnkxYU?=
+ =?us-ascii?Q?+e35oIPMxX0sI+/1OwExKmv3b7Pb63mOAKXS42/Mf/QCJp0nvLPp+GeqH9A0?=
+ =?us-ascii?Q?4GBYzzp1f1nRFyVKHcZ1kf7FANLJHuAZMmgH1A+z19vsyG4dyVggB1OLwuvD?=
+ =?us-ascii?Q?a3uZh6z5ayb3/8Ohn+ZyJ5PlXurRjIb5jS9IReZnqhIcB+osbFoyRdv/YN8V?=
+ =?us-ascii?Q?6WHQ4x7R+7jGSaoj+v0brNbjL4t8icQJTEJqaQpvPzPB2F+AIItYbSgmc7mb?=
+ =?us-ascii?Q?++cTQHyEkvm1/N/HGGsoDFAg8r0TlLoXj6NrQeXyBdk2oxevpgcKb9mJn2DK?=
+ =?us-ascii?Q?4q30yxpxlrKwUfRNHSDzvOpBJS8csfpa1RUFc1FLv+V9c3g0OFErun+chMEt?=
+ =?us-ascii?Q?NrBRZ6QTvu1kfPJNYYcFjjbHj49UfwGizuDTwxgs4uVAT93EZVij1QZ+YEy8?=
+ =?us-ascii?Q?5jThV8TMMeu1seayAPuuGyFP22rzrmKRwoTCTTqbhTJKJi6sjepquGZKTXUQ?=
+ =?us-ascii?Q?YWBzAtbJ5pKAH50hKQWW1RGrtEtGefedfMGbSikt5dfA0k8MosysJbXkhPRl?=
+ =?us-ascii?Q?3APNRTleqSRYTUxM38s3v7ijUg6BxTlNTOLuK48bksU3v+tpC7eknWRApSH9?=
+ =?us-ascii?Q?J/KqisEACmxOSkQH+5dHoM9LBsUJT9Nhd/b0wuOHO07+rtPyD2qDIGvRq7zJ?=
+ =?us-ascii?Q?De5r2ktwjPo7l62AOrUPAmWW8OYEdY3cHpxHNTyj26wvtO4MHFDYOwFURYXU?=
+ =?us-ascii?Q?xg3Q22fRQwTDoxb2N++fmzRRTQJU2x9bKGxwdYByTFdJOScfehYjxYgIxG84?=
+ =?us-ascii?Q?H+i78fx0ClLtqyYN+2CqqWjwMYebZ9ckkWjYlvy8DHFz9GF8aTb4mcBMk0Dh?=
+ =?us-ascii?Q?FkSUW4t4hEGpXaUp/INGAEyL/7j7YfjUU7CWsXBZisRK2eHYbXgqA38ST34o?=
+ =?us-ascii?Q?SMnpuMeF6zJYltUsb2L7RrYVmES2i7zIC00gieOTi4EKjYTvtBwK/HvIgES9?=
+ =?us-ascii?Q?4+SvmjD1cEbGK5G74UXoOCEFhOIOft7r76UPEimsakPMBLWhc2sPeLw36owQ?=
+ =?us-ascii?Q?jbyvWZKXxhzYJ1+Rv296VzEsY/zrKci8FdCXFNwnCAlrQbnoSdA0xY+pUFZf?=
+ =?us-ascii?Q?G2SG7Z0GVKegfy+DJqVZpZB4qEHJmeYa4+Js3FENE8N/SkDyg93jSXyml7Fy?=
+ =?us-ascii?Q?4qouq+PNRoxTaU5g+1cm9VReNrOQOJj7eYmnrCY9Kg2BF+oiwOSuFLihnOnZ?=
+ =?us-ascii?Q?CXeq8Qa2odokk91Xsp1yt4+RIVleaaYncSRj7zy5lLKrG4dc6hrX3YHVYyNY?=
+ =?us-ascii?Q?xA/oj2QmrI5Qxa8RL/faBbjf8uom7oqyNak7G8x6Jl/4tA8H9GZNEnKzxF/6?=
+ =?us-ascii?Q?/ja0vmirrEoef44fIxAZoGZiiLtpGjKEWWG2YFP68bEw1yJ4DlSeXfL4ICnB?=
+ =?us-ascii?Q?cKBUuxyERVhtWXuPpvmZHeITBniFWVo/Sp82VWADLGyg8xNAS8DiSSzERCmX?=
+ =?us-ascii?Q?CDILIKmuHp8ybE3U8SqDJeQ/fUGaZgeIBN8f6T5COWoRChOkb0xFhMpedqb6?=
+ =?us-ascii?Q?vWOgenofvnv+SqlFNkIAeTw8AeEHq6DttVjKE6jEH3cD9MTKw+xg?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3158a5f2-ab67-4f1c-a2aa-08df4a556201
+X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 18:04:29.3067
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FQnIveVkpcDf+I03SibYDSLM679unuas6I7v10RrOf2Xqu8aDsXCBPKHAzYjf0Gd1CwZkkc5ZmU1w2PRNbs+3jgpiEixtimpBYuPSg+thEaZ9ztNJkJMJn7UvaKj0w1u
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7075
 
-Thank you for your contribution! Sashiko AI review found 9 potential
-issues to consider:
-- [High] misc: fpc1540-tee: missing qcom_scm_is_available() check in
-  fpc_tee_probe()
-- [High] misc: fpc1540-tee: fpc_tee_read() returns 0 events instead of
-  -EAGAIN
-- [Medium] misc: fpc1540-tee: unbalanced wakeup and IRQ wake on
-  fpc_tee_probe() error
-- [Medium] misc: fpc1540-tee: unbalanced wakeup and IRQ wake in
-  fpc_tee_remove()
-- [Medium] misc: fpc1540-tee: ELF header overflow in
-  fpc_tee_read_image()
-- [Medium] misc: fpc1540-tee: unhandled GPIO error and race in IRQ
-  handling
-- [Medium] misc: fpc1540-tee: unlocked teardown and UAF race in
-  fpc_tee_remove()
-- [Medium] misc: fpc1540-tee: unverified size in second pass of
-  fpc_tee_read_image()
-- [Low] misc: fpc1540-tee: double firmware load and bounce buffer in
-  fpc_tee_load()
---
+On Mon, Nov 23, 2026 at 07:22:47PM +0100, Stefan Wahren wrote:
+> Hi Frank,
+>
+> Am 12.11.26 um 14:04 schrieb Stefan Wahren:
+> > This series adds support for the chargebyte EVAcharge SE, which is a
+> > ISO 15118 compliant controller for electric vehicle & charging stations.
+> >
+> > Changes in V2:
+> > - add Krzysztof's Acked-by to Patches 1-3
+> > - align writing of EVAcharge SE (reported by sashiko)
+> > - add "dts:" to subject of Patch 5 (reported by Andrew)
+> > - add PHY ID of LAN8720Ai (reported by sashiko)
+> > - move enet_out clock to MAC node as in imx28-btt3.dtsi
+> > - adjust IRQ type of PHY (reported by Andrew)
+> > - add new patch to enable EVAcharge SE peripherals in mxs_defconfig
+> any remarks to this series? Vinod already applied Patch 2
 
-commit 23089f4b85a359ddf10f0fa7ac60bd5d6f60b0d1
-Author: Armandas Kvietkus <armandas.kvietkus@proton.me>
+Does gpio-mxs.yaml applied? Or Linus Walleij agree go through dts tree?
 
-misc: Add FPC1540 fingerprint sensor driver for QSEE apps
+Frank
 
-This commit adds a misc driver for the FPC1540 fingerprint sensor on
-Qualcomm platforms, handling power, reset, interrupt reporting, and QSEE
-trusted application loading and commands via /dev/fpc_tee.
-
-> diff --git a/drivers/misc/fpc1540-tee.c b/drivers/misc/fpc1540-tee.c
-> new file mode 100644
-> index 0000000000000..37229190c46af
-> --- /dev/null
-> +++ b/drivers/misc/fpc1540-tee.c
-[ ... ]
-> +static void *fpc_tee_read_image(struct fpc_tee *fpc, const char *name,
-> +				size_t *mdt_len, size_t *img_len,
-> +				size_t *map_len)
-> +{
-[ ... ]
-> +	*map_len =3D 0;
-> +	if (ehdr->e_ident[EI_CLASS] =3D=3D ELFCLASS64) {
-> +		const struct elf64_hdr *eh =3D (const struct elf64_hdr *)fw->data;
-> +		const struct elf64_phdr *ph =3D (const void *)fw->data + eh->e_phoff;
-> +
-> +		phnum =3D eh->e_phnum;
-> +		if (eh->e_phoff + phnum * sizeof(*ph) <=3D fw->size)
-> +			for (i =3D 0; i < phnum; i++)
-> +				*map_len =3D max_t(size_t, *map_len,
-> +						 ph[i].p_offset + ph[i].p_filesz);
-> +	} else {
-> +		const struct elf32_phdr *ph =3D (const void *)fw->data + ehdr->e_phoff;
-> +
-> +		phnum =3D ehdr->e_phnum;
-> +		if (ehdr->e_phoff + phnum * sizeof(*ph) <=3D fw->size)
-> +			for (i =3D 0; i < phnum; i++)
-> +				*map_len =3D max_t(size_t, *map_len,
-> +						 ph[i].p_offset + ph[i].p_filesz);
-> +	}
-
-[Severity: Medium]
-Can a malformed .mdt header wrap eh->e_phoff + phnum * sizeof(*ph) and
-read ph[i] out of bounds?
-
-In addition, ph[i].p_offset + ph[i].p_filesz can overflow (or produce a
-*map_len that wraps PAGE_ALIGN(map_len) to 0 in fpc_tee_load() before
-memcpy(buf, image, img_len)), and when e_phoff + phnum * sizeof(*ph) >
-fw->size without wrapping, the function continues with *map_len =3D=3D 0
-instead of releasing fw and returning ERR_PTR(-EINVAL).
-
-> +
-> +	*mdt_len =3D fw->size;
-> +	total =3D fw->size;
-> +	release_firmware(fw);
-> +
-> +	for (i =3D 0; i < phnum; i++) {
-> +		snprintf(fw_name, sizeof(fw_name), "%s.b%02u", name, i);
-> +		ret =3D request_firmware(&fw, fw_name, fpc->dev);
-> +		if (ret)
-> +			return ERR_PTR(ret);
-> +		total +=3D fw->size;
-> +		release_firmware(fw);
-> +	}
-
-[Severity: Low]
-This isn't a bug, but fpc_tee_read_image() calls request_firmware() and
-release_firmware() on the .mdt and every .bNN segment once just to sum
-their sizes, then loads all of them a second time into a vmalloc() buffer
-that fpc_tee_load() immediately copies into a dma_alloc_coherent() buffer
-and frees.
-
-> +
-> +	buf =3D vmalloc(total);
-> +	if (!buf)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	off =3D 0;
-> +	for (i =3D 0; i <=3D phnum; i++) {
-> +		if (i)
-> +			snprintf(fw_name, sizeof(fw_name), "%s.b%02u", name, i - 1);
-> +		else
-> +			snprintf(fw_name, sizeof(fw_name), "%s.mdt", name);
-> +		ret =3D request_firmware(&fw, fw_name, fpc->dev);
-> +		if (ret || off + fw->size > total) {
-> +			if (!ret)
-> +				release_firmware(fw);
-> +			vfree(buf);
-> +			return ERR_PTR(ret ?: -EINVAL);
-> +		}
-> +		memcpy(buf + off, fw->data, fw->size);
-> +		off +=3D fw->size;
-> +		release_firmware(fw);
-> +	}
-> +
-> +	*img_len =3D total;
-> +	*map_len =3D max(*map_len, total);
-> +	return buf;
-> +}
-
-[Severity: Medium]
-What happens if any firmware file shrinks between the two
-request_firmware() passes?
-
-The second loop checks off + fw->size > total, but does not verify that
-the reloaded .mdt size still equals *mdt_len or that off =3D=3D total after
-the loop.  If a file is smaller on the second read, buf[off .. total - 1]
-is left with uninitialized vmalloc() memory and copied to TrustZone with
-*img_len =3D total.
-
-[ ... ]
-> +static long fpc_tee_ioctl(struct file *file, unsigned int cmd, unsigned =
-long arg)
-> +{
-[ ... ]
-> +	case FPC_TEE_IOC_IRQ_CLEAR:
-> +		atomic_set(&fpc->irq_events, fpc->irq_gpio &&
-> +			   gpiod_get_value_cansleep(fpc->irq_gpio) ? 1 : 0);
-> +		ret =3D 0;
-> +		break;
-
-[Severity: Medium]
-Does gpiod_get_value_cansleep() returning a negative errno get treated as
-an asserted interrupt line both here and in fpc_tee_irq()?
-
-Also, when FPC_TEE_IOC_IRQ_CLEAR sets fpc->irq_events to 1, it does not
-call wake_up_interruptible(&fpc->irq_wait), and if fpc->irq_gpio reads 0
-right before fpc_tee_irq() runs, atomic_set(&fpc->irq_events, 0) can
-overwrite the new increment and drop the interrupt:
-
-CPU0                              CPU1
-fpc_tee_ioctl()
-  gpiod_get_value_cansleep() -> 0
-                                  fpc_tee_irq()
-                                    atomic_inc(&fpc->irq_events)
-  atomic_set(&fpc->irq_events, 0)  <-- loses interrupt event
-
-> +	default:
-> +		ret =3D -ENOTTY;
-> +	}
-> +	mutex_unlock(&fpc->lock);
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static ssize_t fpc_tee_read(struct file *file, char __user *buf, size_t =
-len,
-> +			    loff_t *ppos)
-> +{
-> +	struct fpc_tee *fpc =3D fpc_tee_from_file(file);
-> +	u32 events;
-> +	int ret;
-> +
-> +	if (len < sizeof(events))
-> +		return -EINVAL;
-> +
-> +	if (!(file->f_flags & O_NONBLOCK)) {
-> +		ret =3D wait_event_interruptible(fpc->irq_wait,
-> +					       atomic_read(&fpc->irq_events));
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	events =3D atomic_xchg(&fpc->irq_events, 0);
-> +	if (copy_to_user(buf, &events, sizeof(events)))
-> +		return -EFAULT;
-> +
-> +	return sizeof(events);
-> +}
-
-[Severity: High]
-Does a non-blocking read() return 4 bytes with events =3D=3D 0 instead of
--EAGAIN when no interrupts are pending?  A userspace poll/read loop
-draining a non-blocking descriptor until -EAGAIN will spin forever.
-
-Even for blocking reads, atomic_xchg(&fpc->irq_events, 0) runs outside the
-wait condition, so a concurrent reader or FPC_TEE_IOC_IRQ_CLEAR can consume
-the count first and cause a blocking read() to return events =3D=3D 0.
-Zeroing fpc->irq_events before copy_to_user() also discards the pending
-events if copy_to_user() faults.
-
-[ ... ]
-> +static int fpc_tee_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-> +	if (!ret)
-> +		ret =3D qcom_tzmem_shm_bridge_create(rmem->base, rmem->size,
-> +						   &fpc->bridge);
-> +	if (ret) {
-> +		of_reserved_mem_device_release(dev);
-> +		return dev_err_probe(dev, ret, "no shm bridge\n");
-> +	}
-
-[Severity: High]
-What happens if fpc_tee_probe() runs before qcom_scm_probe() finishes?
-
-Without checking qcom_scm_is_available() and returning -EPROBE_DEFER,
-qcom_tzmem_shm_bridge_create() runs while qcom_tzmem_using_shm_bridge is
-still false and silently returns 0 without creating the bridge:
-
-drivers/firmware/qcom/qcom_tzmem.c:qcom_tzmem_shm_bridge_create() {
-	if (!qcom_tzmem_using_shm_bridge)
-		return 0;
-	...
-}
-
-If /dev/fpc_tee is also opened before qcom_scm_probe() completes,
-fpc_tee_open() -> ... -> qcom_scm_qseecom_app_start() ->
-__qcom_scm_qseecom_call() dereferences __scm->dev while __scm is NULL.
-
-[ ... ]
-> +	device_init_wakeup(dev, true);
-> +	enable_irq_wake(irq);
-> +
-> +	fpc->misc.minor =3D MISC_DYNAMIC_MINOR;
-> +	fpc->misc.name =3D "fpc_tee";
-> +	fpc->misc.fops =3D &fpc_tee_fops;
-> +	fpc->misc.parent =3D dev;
-> +
-> +	platform_set_drvdata(pdev, fpc);
-> +
-> +	return misc_register(&fpc->misc);
-> +}
-
-[Severity: Medium]
-If misc_register() fails here, does fpc_tee_probe() leave IRQ wake enabled
-and the wakeup source registered on dev?
-
-> +
-> +static void fpc_tee_remove(struct platform_device *pdev)
-> +{
-> +	struct fpc_tee *fpc =3D platform_get_drvdata(pdev);
-> +
-> +	misc_deregister(&fpc->misc);
-> +	if (fpc->loaded)
-> +		qcom_scm_qseecom_app_shutdown(fpc->app_id);
-> +	fpc_tee_power(fpc, false);
-> +}
-
-[Severity: Medium]
-Should fpc_tee_remove() (or a devm action) also call disable_irq_wake()
-and device_init_wakeup(dev, false) to balance fpc_tee_probe()?
-
-[Severity: Medium]
-Can fpc_tee_remove() race with an open file descriptor that is still in
-fpc_tee_ioctl() or sleeping in fpc_tee_read()?
-
-misc_deregister() does not wait for already-open file descriptors to close,
-and fpc_tee_remove() inspects fpc->loaded, shuts down fpc->app_id, and
-calls fpc_tee_power() without taking fpc->lock:
-
-CPU0                              CPU1
-fpc_tee_ioctl(FPC_TEE_IOC_POWER)
-  mutex_lock(&fpc->lock)
-  fpc_tee_power(fpc, true)
-    regulator_enable(fpc->vdd)
-    usleep_range(1000, 1100)
-                                  fpc_tee_remove()
-                                    misc_deregister(&fpc->misc)
-                                    fpc_tee_power(fpc, false)
-                                      if (on =3D=3D fpc->powered)
-                                        return 0;  <-- vdd left enabled
-    fpc->powered =3D true
-
-In addition, any reader still sleeping on fpc->irq_wait or holding an open
-file descriptor can access fpc after fpc_tee_remove() returns and devres
-frees it.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-fpc1540-te=
-e-v1-0-6c6985f05b06@proton.me?part=3D4
+>
+> Best regards
+> >
+> > Stefan Wahren (6):
+> >    dt-bindings: arm: fsl: support chargebyte EVAcharge SE
+> >    dt-bindings: phy: ti,tcan104x-can: Document Microchip MCP2562
+> >    dt-bindings: gpio: mxs: Allow gpio-line-names to be set
+> >    ARM: dts: imx28: add alternative pinmux for CAN1
+> >    ARM: dts: mxs: add EVAchargeSE board support
+> >    ARM: mxs_defconfig: Enable EVAcharge SE peripherals
+> >
+> >   .../devicetree/bindings/arm/fsl.yaml          |   1 +
+> >   .../devicetree/bindings/gpio/gpio-mxs.yaml    |   4 +
+> >   .../bindings/phy/ti,tcan104x-can.yaml         |   1 +
+> >   arch/arm/boot/dts/nxp/mxs/Makefile            |   1 +
+> >   .../boot/dts/nxp/mxs/imx28-evachargese.dts    | 295 ++++++++++++++++++
+> >   arch/arm/boot/dts/nxp/mxs/imx28.dtsi          |  11 +
+> >   arch/arm/configs/mxs_defconfig                |   2 +
+> >   7 files changed, 315 insertions(+)
+> >   create mode 100644 arch/arm/boot/dts/nxp/mxs/imx28-evachargese.dts
+> >
+>
+>
