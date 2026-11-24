@@ -1,107 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795505382;
-	b=Jkz+BNRXp0XTG9jfLeWlDRRpPRhYXH1pAAFTVtdc9fWQqKnlg0MVAblYrKwtTo3JlxAf
-	 NvUlXdT6fUFpNcMbdY21FnmJxsO51TwkZHTbSa4KvCP75LamJmiX8kj4SM5B+n+EDIyVR
-	 2mgd2qXdPBVp95AFRk9lDT7yB688ItE784Y+W0oB3gbjfATumBH3VxwoG1/10rOSqOzp3
-	 31LU5h87oJXt8y/Bv4eleA47HOK+LWpJQFl6A6nxaRJmaUoQeCyacRk6/JdqRFDZfPdoj
-	 30ZPeDDTw8+Gq3fZXB+7KRXaw8uv6QURTRNB4l5v8j9U56LiO1XrKQKEB7JGF3WResQ==
+	t=1795505806;
+	b=pGPoObpoY/u0tqtIz2AsBpMVvwi+Gr4JboVba2/9ozfXX17/xA3Hp972Jbk5tITrpKR0
+	 /61nyuIh3s8dbZLalMLsgEQMhXU2OFiGPVuIbQ12kE9DOT/rMBVatklf0jCO8Q+SM1+g5
+	 4fZBQ+EDtKOiEmZJNEx03atmlzft39TtjTnu5fiFSAUAHeBzsZ0j8nHeklikT+3cGBwWh
+	 NHJbBZboao5ihaFgBcvUIxQrwbl8UwHlX+9IqhYXE8Te2PURCQZW/3wsRr6xV/+HKXn3+
+	 s/VgixBU5tPVMBhBUcqG90o6GZVefg0wOm8ATP7e2+4Oz6Q1EaL26K0XXTJJM5dGrXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795505382;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JGeRZHEsszBCgxvyCdNDeob7nkbYjLxhNWjrFkp+2Dk=;
-	b=xNwp38W0/0SrSlZ2WSqy5k9VcLWxUSQxvGxk3yqtyWxS+o9SJZpA/s897X8dSi376QPm
-	 W/40s2/ZABLOhHVn70ePh4xJuw+eWESfHKV26LCsMwpnuMQqEuQLr8RDEAWstnAW2Q8F9
-	 KotGV0HvI67zye7P/UGpM5WfG3BmqT4kRFaUPr1HbunBMrPAnEUO6JRDbt1TCCt1Xzy14
-	 hONHXp2+kfuq8DQEVpHvKlLOnfCQA43n0WFKZpa5VeVcTe1byea9o4oOWiPWFGHHirXKS
-	 6tBQo3zU4dcmSg5Mwj5dqiL/+eh5+ymgEC4bFCUaOvyPow998eoOICnEN+p6kafB2JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795505806;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=UkC6d8LQvYCXp6JvOpSE1KNiAQORA3CVE3wuU2r+r8c=;
+	b=MTRYMU7wHYQTWVT4tRblD5jVs764GxBffK/WllWqwadOEkV5x1dHNLt9B57zmAbZUPQy
+	 6SEePs8TVYkUfSL98dQbKux4eCXpXopRCn1h7RaKp9OHi4KiqrrJtCPzFwYN7koR8zIBI
+	 r2yowWfHNt70gL9k0chbrRcnjOpuD/UZXAIY640A+823/GKJatYHobg+mwDz2Pvutz4xA
+	 1KRg/fh/eaAGxVNJMRGp8IIpipAMlLSBj16Uzhb6mReoae8i9wPe64Q/z2dUasRIIGdMu
+	 2hFyj9+wmxMRxorRfQL5HWYwXaT1VsYAsXCshMPP0uh1pk53OLFP4LZSiYTqnpg7N4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rq1oP962;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgxgwg3W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE73606A32D
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 07:29:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBE73606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DF8606A335;
+	Tue, 24 Nov 2026 07:36:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rq1oP962
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2f04e3bf46dso29282745ad.2
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 23:29:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795505381; x=1796110181; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JGeRZHEsszBCgxvyCdNDeob7nkbYjLxhNWjrFkp+2Dk=;
-        b=rq1oP962qlaJLZXcCqedaZtAYzK5COV2KcwuKR6KrCes8aShaceZV0w0djk0nUTrMU
-         0sJMf3lH8qAsOEkzyiBfKICVEBuJIpLF1JM0kCHbxy5b9NqNy32AGVtFT//zAZAKc22u
-         8CL3NnIfthfDYqNVskTGMsUAQwL4tt9Sb/O+s3y5CIVJco0UPaKqvrQ8/IKbUJmEjSD0
-         REoUcLYfJFpa/tAcxMEt8M5e4+eEh06QkC09JSobaAnMfZSKo4ChwigQa3SelnyhQna4
-         0gw08L2Re3foS7TsfaeY3zevnazSMu3RHhDgXvMTvbw/fF2nstvPuG0T5LpyZOMSCMpJ
-         tDrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795505381; x=1796110181;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JGeRZHEsszBCgxvyCdNDeob7nkbYjLxhNWjrFkp+2Dk=;
-        b=Gz+VBr6VcfGkYqVJDUkJDrm1NX2qi3W2KOI7HQ5Teyn6oGaiEqKpr0a717S/Y1NUoJ
-         Lf4JipRoIqin+v5sGLzupof0XwqTjt6OaQ6bvb1tvzZezNyhG2iuJb8SwwlgEWCnBTBA
-         adi7D3HUAP01eAtVGHK8yVkLjQdUTflfgbxwNNwPSWfK9j3D46TpyMyjraYfb5VnqSbt
-         yvSPGsyVzGR/Th8bdnMXSjozjtLKWHU3iL7YMHuzmo9/+P/hi558q/UItq9qIznsP6uf
-         nf2C0ZOUQGEsEYRNE38/NUIkD3X2TlKslpgi0MD7YfPeNta/Y8jzzYRZGDR+IRi86K1a
-         tEww==
-X-Gm-Message-State: APuU4Z92oEgZaKVhba2g6yAg68OCY8pjbLTKU2458VV+l12RjqVq1l2h
-	qT1h2pVS4/ZU5KwPfxbvot2V2XxXYBu6A7saH3AxAWCm0tPA1CBJMNb+
-X-Gm-Gg: AZFdTZc94TaGd9r59fkksvg7ySrMMD/5IGyV3foCVHw3OXrgESpZWdlxGoHmMgv6/sX
-	uAhSQmFKDl7FV93q4QXDMJ00N27UtmpkhWY8XkMDmadrcHON5/nkc1wE9N03eoDOFxFimJQukP+
-	/6pSGByeG+6/4CsRMrfKa5woSlvSX+c2ocOvhEsxbnSbKUFsmq7Ii6V6MhPVN5GPQ0fO0GmiVna
-	MWRTGy1MVBvF3WLxuUqhqzY/Xo3A8Y0J+80HObenuV0UTCoS4FMek8igVno0LphbhNFno/cHkqf
-	PfvFdIdBMR6WG+qnJqybpSjpr9o0GOMkJfuR04diyyoaqIOpUyQvArN2KW6/Z84vTwHUp4oQuLA
-	Er/PtjEiy7ml++pWuHn2rs5z3Ng3iHG4rd2x6Oj3O2avAHa5TNFcXqssviMpsPoIqG5N7ESRIlv
-	P9HsmuSbxl1KjYqWiX4rqDJBSnzwMGvuin2bpXZ9tWQ2w4dcVY67ARKBKHgqA+5v/6qFrZzMQRl
-	J57smnAMnLrh/8MgE756WpbZ7zmd0o1r+YIKyoqto/kwRzRQatRk3p4Vq4wxXzaiR18rPSr5uCL
-	aDIS8QdZQTlJJC1mkpe5GduvmDg=
-X-Received: by 2002:a17:90b:5346:b0:3b3:ab74:74f7 with SMTP id 98e67ed59e1d1-3b41c955bc5mr12961867a91.39.1795505381135;
-        Mon, 23 Nov 2026 23:29:41 -0800 (PST)
-Received: from localhost ([2001:19f0:8000:4ce8:5400:7ff:fe0e:e6b2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b457a58d04sm8262361a91.0.2026.11.23.23.29.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 23:29:40 -0800 (PST)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen Wang <chen.wang@linux.dev>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Han Gao <gaohan@iscas.ac.cn>,
-	Hangfan Li <lihangfan@iscas.ac.cn>
-Cc: devicetree@vger.kernel.org,
-	sophgo@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v2 3/3] riscv: dts: sophgo: sg2044: Add eFUSE device
-Date: Tue, 24 Nov 2026 15:29:23 +0800
-Message-ID: <20261124072924.556678-4-inochiama@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261124072924.556678-1-inochiama@gmail.com>
-References: <20261124072924.556678-1-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgxgwg3W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB04C1F000D0;
+	Tue, 24 Nov 2026 07:36:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795505806;
+	bh=UkC6d8LQvYCXp6JvOpSE1KNiAQORA3CVE3wuU2r+r8c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jgxgwg3Wu5m7//WOYuhcwg2+XPfay2l5D2YNixMJofy+oN4XjJMw7IMrCRx0lZdHP
+	 qfaHm+EN5uu74F4/OTuScHePTRzZ0cEUeoFOB3Rq8q4+O4oAlWkwJRJEHU7iTQ6xv8
+	 wwqWjKdLplKfra5JEkODdWFfX7LkshqU+UOPpXF7bbb6ZZKAJ3Kb3oADfW+SVa2c2E
+	 vqhoB3HB8ZMN0USP317bU3RppYCchCMyL86P3UIUGSM52IwoD/78Av/5mQl+e7S4ZQ
+	 8UA92xxVMNKIDUECS4mJ+cSng+XWJp0ZEjJvYYOjCua9Kk7beJ6ZdjN+JWsaorCAym
+	 1N8Gc2+CJqOnQ==
+Message-ID: <sashiko-outbox-230649@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 11/20] backlight: pwm: Support enable guard period
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <54477b4e31e35af14677172088f94770ca5b9755.1795505160.git.hns@goldelico.com>
+References: <cover.1795505160.git.hns@goldelico.com>
+ <54477b4e31e35af14677172088f94770ca5b9755.1795505160.git.hns@goldelico.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 07:36:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,55 +59,135 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add eFUSE controller node for SG2044.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [Medium] backlight: pwm_bl: guard period runs before
+  pwm_backlight_power_on()
+- [Medium] backlight: pwm_bl: guard pulse triggers before
+  compute_duty_cycle()
+- [Medium] backlight: pwm_bl: unchecked post-guard
+  pwm_apply_might_sleep()
+- [Low] backlight: pwm_bl: unused linux/minmax.h include added
+--
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts |  4 ++++
- arch/riscv/boot/dts/sophgo/sg2044.dtsi               | 12 ++++++++++++
- 2 files changed, 16 insertions(+)
+commit e05803a769b6dbbf7722b07888a63c3cd2737641
+Author: H. Nikolaus Schaller <hns@goldelico.com>
 
-diff --git a/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts b/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts
-index 88ddc8e793f6..2f9fca6bd110 100644
---- a/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts
-+++ b/arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts
-@@ -36,6 +36,10 @@ &emmc {
- 	status = "okay";
- };
- 
-+&efuse0 {
-+	status = "okay";
-+};
-+
- &gmac0 {
- 	phy-handle = <&phy0>;
- 	phy-mode = "rgmii-id";
-diff --git a/arch/riscv/boot/dts/sophgo/sg2044.dtsi b/arch/riscv/boot/dts/sophgo/sg2044.dtsi
-index 320c4d1d08e6..9577aae08f7f 100644
---- a/arch/riscv/boot/dts/sophgo/sg2044.dtsi
-+++ b/arch/riscv/boot/dts/sophgo/sg2044.dtsi
-@@ -408,6 +408,18 @@ sd: mmc@703000b000 {
- 			status = "disabled";
- 		};
- 
-+		efuse0: efuse@7040000000 {
-+			compatible = "sophgo,sg2044-efuse";
-+			reg = <0x70 0x40000000 0x0 0x1000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			clocks = <&clk CLK_GATE_EFUSE>,
-+				 <&clk CLK_GATE_APB_EFUSE>;
-+			clock-names = "core", "apb";
-+			resets = <&rst RST_EFUSE0>;
-+			status = "disabled";
-+		};
-+
- 		i2c0: i2c@7040005000 {
- 			compatible = "sophgo,sg2044-i2c", "snps,designware-i2c";
- 			reg = <0x70 0x40005000 0x0 0x1000>;
--- 
-2.56.1
+backlight: pwm: Support enable guard period
 
+This commit adds support for a pwm-enable-guard-period-us device tree
+property to apply a full duty cycle for a guard interval when enabling the
+PWM from a disabled or zero-duty state.
+
+Link: https://patchwork.kernel.org/project/linux-omap/patch/f897f695c0e1e12=
+8d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com/#27124981
+
+> diff --git a/drivers/video/backlight/pwm_bl.c b/drivers/video/backlight/p=
+wm_bl.c
+> index 3ad71ee3657af..1d0a463710926 100644
+> --- a/drivers/video/backlight/pwm_bl.c
+> +++ b/drivers/video/backlight/pwm_bl.c
+> @@ -7,6 +7,7 @@
+> =20
+>  #include <linux/delay.h>
+>  #include <linux/gpio/consumer.h>
+> +#include <linux/minmax.h>
+
+[Severity: Low]
+This isn't a bug, but linux/minmax.h does not appear to be used by anything
+in this change.
+
+[ ... ]
+
+> @@ -93,11 +98,39 @@ static int pwm_backlight_update_status(struct backlig=
+ht_device *bl)
+>  	struct pwm_bl_data *pb =3D bl_get_data(bl);
+>  	int brightness =3D backlight_get_brightness(bl);
+>  	struct pwm_state state;
+> +	int ret;
+> =20
+>  	if (pb->notify)
+>  		brightness =3D pb->notify(pb->dev, brightness);
+> =20
+>  	if (brightness > 0) {
+> +		pwm_get_state(pb->pwm, &state);
+> +
+> +		/*
+> +		 * Some LED drivers detect a one-wire control mode during
+> +		 * a startup window (e.g. TI TPS61160/TPS61161, using
+> +		 * the duration of low intervals on CTRL). Request full
+> +		 * duty for the guard interval before normal dimming.
+> +		 * The PWM provider may approximate full duty.
+> +		 *
+> +		 * Apply the guard if the previous PWM state was disabled
+> +		 * or had zero duty cycle.
+> +		 */
+> +		if (pb->enable_guard_period_us &&
+> +		    (!state.enabled || !state.duty_cycle)) {
+> +			struct pwm_state guard =3D state;
+> +
+> +			guard.duty_cycle =3D guard.period;
+> +			guard.enabled =3D true;
+> +			ret =3D pwm_apply_might_sleep(pb->pwm, &guard);
+> +			if (ret)
+> +				return ret;
+> +
+> +			usleep_range(pb->enable_guard_period_us,
+> +				     pb->enable_guard_period_us +
+> +				     PWM_BL_GUARD_SLACK_US);
+> +		}
+
+[Severity: Medium]
+Does checking brightness > 0 before calling compute_duty_cycle() cause a
+full-brightness flash when a non-zero brightness level maps to a duty cycle
+of 0?
+
+When pb->lth_brightness is 0 and a low non-zero brightness index maps to 0
+in pb->levels[] (or truncates to 0 in compute_duty_cycle()), the guard block
+drives the PWM at 100% duty cycle for pb->enable_guard_period_us before
+programming state.duty_cycle =3D 0.  Because state.duty_cycle remains 0,
+subsequent updates at low brightness repeat the full-duty flash and delay.
+In addition, if the target duty cycle is already equal to state.period,
+the guard block sleeps and then applies the same full duty cycle a second
+time.
+
+> +
+>  		pwm_get_state(pb->pwm, &state);
+>  		state.duty_cycle =3D compute_duty_cycle(pb, brightness, &state);
+>  		state.enabled =3D true;
+
+[Severity: Medium]
+Does running the guard interval before pwm_backlight_power_on(pb) leave the
+LED driver unpowered or disabled while the guard pulse is on the line?
+
+drivers/video/backlight/pwm_bl.c:pwm_backlight_update_status() {
+    ...
+		pwm_get_state(pb->pwm, &state);
+		state.duty_cycle =3D compute_duty_cycle(pb, brightness, &state);
+		state.enabled =3D true;
+		pwm_apply_might_sleep(pb->pwm, &state);
+
+		pwm_backlight_power_on(pb);
+    ...
+}
+
+When a board also uses power-supply or enable-gpios, the full-duty guard
+waveform and its usleep_range() delay finish and the PWM is already switched
+to the dimmed duty cycle before pwm_backlight_power_on() enables
+pb->power_supply or asserts pb->enable_gpio.  The LED driver IC powers up
+only after normal PWM dimming has begun, bypassing the startup guard window.
+
+[Severity: Medium]
+What happens if the guard pwm_apply_might_sleep() succeeds, but the post-gu=
+ard
+pwm_apply_might_sleep() that sets the dimmed duty cycle fails?
+
+Because the second call's return value is ignored, a transient failure on
+that update leaves the PWM hardware running at 100% duty cycle from the
+guard step while pwm_backlight_power_on() turns the backlight on and
+pwm_backlight_update_status() returns 0.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795505160.gi=
+t.hns@goldelico.com?part=3D11
