@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795544218;
-	b=D831dJ27ugXNVaxm2hwRJaHLuOYi4/xJ+NQlVADc4ef+47JYz37RYAyqpwBKGBQVRXMe
-	 RviQpsN0hQGqKN6PERYfX9QX/3DyEyD1JuMtljzGUBFN7iHR17mRoxGP+s1oISwJcp6V0
-	 3QahU2XnN4uipYTmUYb9nLZHfsiEvPQwL02TD6TOx3f1Z0BhsRqFwsZy6BGKwQIoUYAke
-	 aoNG8h48LIf9iW7z0BreZuGHeDsADAOj1tj5J6VmS9xqvcoulhieQ+9qJTC71iONwT2aZ
-	 3dWhS6o7PaiIbHO8yiqAxf3X0nQoW/MfvZ/yaWPF/zv3Rkrm/zzeyCHkiLeEvcZu5Zg==
+	t=1795545257;
+	b=xqW1yH8PTtrPr2qbYGvKpvJuKKm5sEUhzYOz3pimzGKRiS1eujTcHNM9ZILR6w0KTqIl
+	 7ScUAb79rl5rJKry4F50OFb7PTw3elCFPMcklDIbuNjO+GslFT/b40b7yfQel9QBICszd
+	 5qcngS6i8/beAC4k7+DF6ZsBey4DoLauRXPfXu4M1mex052CIKsAW/erndsIKNMz0Ntfy
+	 ik7WgLaw9+DcYaqdqxsTXXV9AZTmelIDA1RwUSGgkksX7+E9GoxTmLSg2Kh4sx6v+M8xP
+	 5sPiVNFCuKDyhKSa1pfwtPW/PsU8+awbnd0WJh6E5pIwMorQb2VLYGJ+jpuAIeUMbsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795544218;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795545257;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iGCDQxlSZyNbpjb8HmmAXDh7kjSdNds3Y7zGFjiw20U=;
-	b=u+OAP9hFkXUbKHZgq/cH27RqEu41p7o7J39OUOeC76793qpwqSDiY2SPgtojIappqCcM
-	 F5RXuTiJ29YrB5IBCRycFjyj+//OFxnEiiWDn/GnVx/Frmp0vjn6A9JOXe0+4skiTy0rV
-	 4dzVdfzlEdmTBcSCrlJmjocD+xpVi2u4AT4FBlHtiXDQ6S9YyCYxkPrr/MmzL0M6Vb1tG
-	 Aeyu/+iiSYQ47GG6TJxmP04PmVcqdM2Q1ah/6M0Gxf96W3UTMHRZhjUiXsp5HarxDjXlr
-	 X5DMKpQBlZcX1Hdw8q3q7acrDyuFIX3LSyUlbhuwgEPZjwwAke6XKMaR4Phme2FWSFg==
+	bh=acZycD1lQv56qwrusDLB08XyZ4Og2aZ5TDtWj5mWP+c=;
+	b=421K5Bu3CWor9ZUQMZ19T2BsMllQVDMjsch+ygojwby6gny2gTXyFfrE+OnaEhXG5x9K
+	 NAUGs/BGIu0oBOuBPEVk8MeYBnFhMZIyam49vmAa7u3r3bIigcnCn9BwBuf5heZ944IYh
+	 Gvsz6b2XlGN21QvqTpPq7bg6r1SGncGEHjdAkqE0aZ5qMTGqgbQF+B4lQzegFt08ukh/7
+	 WuAYcOBogS0+ZEadj1F1h3W7dbY0v1KjuyZeYqzOIyeTXZUvvxYMxwCi2Kdsfb6QjLLKH
+	 NHz2Km14YDWRII/V1cxw5FziK4HNZ1WWB+ULwYqwlwGhHVucZwO8+mFfIO0mR0BFStg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SD/W5C0A";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nHC7JFsx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D60606A326;
-	Tue, 24 Nov 2026 18:16:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D089606A31E;
+	Tue, 24 Nov 2026 18:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SD/W5C0A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E43B1F000CA;
-	Tue, 24 Nov 2026 18:16:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nHC7JFsx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 539DD1F000C4;
+	Tue, 24 Nov 2026 18:34:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795544217;
-	bh=iGCDQxlSZyNbpjb8HmmAXDh7kjSdNds3Y7zGFjiw20U=;
+	s=k20260515; t=1795545257;
+	bh=acZycD1lQv56qwrusDLB08XyZ4Og2aZ5TDtWj5mWP+c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SD/W5C0ASolH9COBd9wxlzS8OhjBSOpB4GDhjPjv+hFUBmlFcx4gwAT655N1S2vZj
-	 bHdogH/ywDxgK04aCxjYYb+n/0QrIDu4uoDoG5RAtbJYy+VUvGhkAEzPZJ/y6LHlBq
-	 N5e5bMiy+ufbs0SdlC6LEUGUqpOH8LZVOgvlxRHYWQiMxVA3XYyqoACZwPfTOo0H6b
-	 XKb0PGwAuBSU0SQjIkNXw9hthB0lPIRyZjd49KoGOo7brkRA4NvwKiDA3d2PNYH2rz
-	 +YOuidcDP7JidcTZkYvit+ptJw4lH70khjbXvJA4oYfRkRPjcShYkxBU4MX6yH9Q+j
-	 XC32QrDvrHVjw==
-Date: Tue, 24 Nov 2026 18:16:53 +0000
+	b=nHC7JFsxX39tcr2Q1+y5Fda1d1WTW8BOf44q37v8vE7f+HCnUQtNd4gxwu8YaC0q8
+	 tO4fapH5cAFwU5Rzs+bpi2DNuhZuM+MhaFfKE9wjXv948TuRYuh2lwYuPxReqE1561
+	 ugMpXahAcMtaUuzBbPkVimq4sydICIsSLj9cLN7EozGW+RXtaeCDzaKVUIG8gx7Cup
+	 qA/L4io7E6ii4Twy1aoNrlmi9zcwv9PnUUzG/Fh91xUEe4aDYJfSazLI1a5cyOox38
+	 NPFHnMaV5w9BE3ZuUK5iyBlQLtZCds0mFqz1vxn1qVQC8stIavDSx4zzp4gJCOekTJ
+	 EI/dDvLKPNwqQ==
+Date: Tue, 24 Nov 2026 18:34:13 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Matthias Kaehlcke <mka@chromium.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Anand Moon <linux.amoon@gmail.com>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Icenowy Zheng <uwu@icenowy.me>, Han Gao <rabenda.cn@gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: usb: vialab,vl817: use
- unevaluatedProperties
-Message-ID: <20261124-rehab-overlord-9b7f44ee7e0f@spud>
-References: <20261124-vl817-uneval-prop-v1-0-137c093fb300@iscas.ac.cn>
- <20261124-vl817-uneval-prop-v1-1-137c093fb300@iscas.ac.cn>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <michael.hennerich@analog.com>,
+	Trevor Gamblin <tgamblin@baylibre.com>,
+	David Lechner <dlechner@baylibre.com>, linux-pwm@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 1/6] pwm: core: add pwm_get_waveform_step_might_sleep()
+Message-ID: <20261124-bath-runaround-dccb788f14e3@spud>
+References: <awVki6lC3SxGfqSl@monoceros>
+ <20261124114714.611570-1-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,69 +63,46 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="h5SN1Pgh8t8ElQFR"
+	protocol="application/pgp-signature"; boundary="c6BBEsVoccdwpXSY"
 Content-Disposition: inline
-In-Reply-To: <20261124-vl817-uneval-prop-v1-1-137c093fb300@iscas.ac.cn>
+In-Reply-To: <20261124114714.611570-1-Nicolae-daniel.Deaconescu@analog.com>
 
---h5SN1Pgh8t8ElQFR
+--c6BBEsVoccdwpXSY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 24, 2026 at 04:31:01PM +0800, Icenowy Zheng wrote:
-> Currently the VL817 binding has additionalProperties set to false
-> instead of unevaluatedProperties, which disallows properties documented
-> in the parent schema.
-
-This is not quite true though, they're permitted if the binding contains
-"foo: true" etc - which this one does.
-
-> Change it to unevaluatedProperties, which is the better practice for
-> derived schemas.
-
-Not really, it's fine to do addtionalProps: false + foo: true if only
-a subset of the inherited properties are valid.
-
-IMO this series should be two patches, or maybe even just one that
-changes the ref (as your patch 2 does) and sets the then derived
-property to true. Otherwise, this should be two patches, with patch 3
-split into whichever of patch 1 and 2 is relevant.
-
+On Tue, Nov 24, 2026 at 01:47:13PM +0200, Nicolae-Daniel Deaconescu wrote:
+> Hi Uwe,
 >=20
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->  Documentation/devicetree/bindings/usb/vialab,vl817.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Yes, that works. It is how the gate duty was set before, in ad7625.c, with
+> DIV_ROUND_UP(NSEC_PER_SEC * pulses, rate), which gives 34 ns for 4 pulses
+> at 120 MHz. I'd drop the step API (patches 1 and 2) and do the same for t=
+he
+> new parts, but i don't have the clock rate, and without a clocks property
+> I don't know how I should get it. The PWM core has no way to report it.
 >=20
-> diff --git a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml b/Do=
-cumentation/devicetree/bindings/usb/vialab,vl817.yaml
-> index c815010ba9c2e..d0484e48e319c 100644
-> --- a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
-> +++ b/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
-> @@ -40,7 +40,7 @@ required:
->    - vdd-supply
->    - peer-hub
-> =20
-> -additionalProperties: false
-> +unevaluatedProperties: false
-> =20
->  examples:
->    - |
->=20
-> --=20
-> 2.56.0
->=20
->=20
+> Conor, Uwe: is a clocks property on adi,ltc2387 acceptable,?
+> If not, how should the driver get the rate?
 
---h5SN1Pgh8t8ElQFR
+My opinion here has not changed. The clock is an input to the pwm
+generator, not the iio device.
+
+Using the pwm generator input clock in this way is also inherently tied
+to one implementation, since assumes a particular relationship between
+input clock and output waveforms. Were a different pwm generator to be
+used that had a /2 divider between input and output to be used, the
+logic here would break?
+
+--c6BBEsVoccdwpXSY
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawXUlQAKCRB4tDGHoIJi
-0nO+AQCJAJQTo53plhDVm7UVgErvHVFbl7zCVtc+zoFcZcdSxwD/cwcY0/X1MXWN
-jqxraemeI6fTwrwLeoYGLbzdaaRxYAw=
-=fGFb
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawXYpQAKCRB4tDGHoIJi
+0lRRAQCIoKJv2Wmk0cmmDwKqfXrHgKUa5XKzWALicDBX8KoUKQD/UkM7ygos5j1K
+Ot/QmgjKEsFwU2NJFvwcSxcUJtZ5xA0=
+=wr0Q
 -----END PGP SIGNATURE-----
 
---h5SN1Pgh8t8ElQFR--
+--c6BBEsVoccdwpXSY--
