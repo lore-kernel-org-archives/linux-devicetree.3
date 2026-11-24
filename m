@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795619971;
-	b=QLg6ijqCsLmq/IW4q15pYozZuaOCVWjqLf26FJUkD2cRfWnakSStGXTOByNHmcoM4et5
-	 ItNuvucZFoO2U7SP/PoOCRPdTfXginimGnXAbIieQLhtbNAR1PAXdTe5T6BQjsZh9pZaZ
-	 T9AhV8gR6TK2EZAbLnoWxyb5CFDan6HeGK05Zz1UH9XAb9hp6LPYbdve0alie/owUe8Yl
-	 Oz/tytwoZ6bF/EccdM84YBvS8Wiof9LBGshw7Pp8JXpoM+mzicB6l/SXi9C/R9IIhFLZn
-	 bSTI3OtOMpqJbyHqT2j+eBvB0EUC+69G7RX1+ydkrGu4cy0YNSNw/gOPTQ0RhHI3ZeQ==
+	t=1795620157;
+	b=0VvrfTti0LLEUTMfc6T4FToUEg5vvO6VG35yY17wD+mFguWBDFXGROVMAOuIe8l7wmt4
+	 +o+vk4wIvyNx53QfKM3bHSZkCfMQzmt7oyIygYbegucejgsKwpcw8YtROejhyvt3WkItL
+	 AJoTrYgibkD6iReTFPSn3iv0BxoRl1Kl2Txpup/MBSk+GNM54OPmp0RpDVYb4YK0lUFA5
+	 QkDGtHV2pMGE7tJ8TQoPZrATakMlFa6t2F2mujugBCP/M1DqHizYoPa5eG/mwz+NEqrwK
+	 ye+16iJxrxhVpyZvJ0MIlGIZvJuDdGc/znFvAFBn27lIBHyFwq8hcMAlrlxFx+ZRRKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619971;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=W+bKe5Uvyv/Fe2ZzY1j52AWgnUVUsCe8caXkT555J9g=;
-	b=C+dsqIOOtnIBpFd7LKOKAIUuCXeNsIukbM8XUY6SCPuBtUn6kN+ZB0pIRwRYg3bgKVYC
-	 YYoRAcDIVGNhnOzbnbDWNmR/WyzYjsYj5sGkStN/1RgQefE5zLI9icv+fQQ3G5fBeO0Uc
-	 PG9aY201PihiCFgh4Tej3bkZYCMF8eZDh3BC0KiTz8n8eqMegZMGtNncZMARUR1QCca6J
-	 abWyFZhqEvjrcqkKILKCOs7wY2oDu6ScwAzTdMar59/9/h5xgR0Nm3WdzmLAxUUFm/Qm3
-	 PvyRWaaLwqeCJfPJxOxWjm2cbS+0/XgKc9wyVS/gM5y+/iUvs0aSM0AniCaux9QG7rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795620157;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=j1K5ewHys/5t3EL0s+jWiptRbODzjRlYhbYqEXH+Sgo=;
+	b=yUJyiNeIn3z9zenYroJZKY+0WJ0kaEPgbDpnDhgd4V2ieLb8YSAmHaQm5tMfN4l2aTqy
+	 v56TGlAPwMSPb77NajG9vDxwQB9/5XAHi0/zNeJY6Xf2gel5VWzqJGwOXQf16cbz70eb5
+	 XrMk8nzV1qloxcnnKVDf/+QgFzK+czAwHWXWS2MyTynI+VV3SaKNgXGfz6G2DTCOdVoHw
+	 3CVFJL4u0eb08qNgDcXyT/vNJxgbwW5pEh1rgUPRg6D+EMgAk+wipa0tGIDGMK1pPUSP1
+	 xoTwjRnhPBtiMGSkAzzWKXCKO5txFLw6ZTO3O5IVdWCutSLB+X6O7L8E2nZ/2/WMlEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EpBuUu8m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPM+OkcG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F0D606A321
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 15:19:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44ED8606A33D;
+	Wed, 25 Nov 2026 15:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EpBuUu8m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 476041F000C4;
-	Wed, 25 Nov 2026 15:19:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPM+OkcG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A4C41F000F4;
+	Wed, 25 Nov 2026 15:22:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795619970;
-	bh=W+bKe5Uvyv/Fe2ZzY1j52AWgnUVUsCe8caXkT555J9g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EpBuUu8mJwbTLlgxEenbJctcxF8f/47L3x8cBL2pfYKkd8l8h5ayRZHnxXaWgLmuR
-	 zMDvXEI+s4VRb+zvnZ7phGoEjU4mU/N/LHLLStznjmA02Y1Gv+Atz8Pbx1SoRDF08Z
-	 ETziuDWM9/Q4hKcS6xA17eFkFbcR+kl1hajpCCOj2Ksmu2V40eybhsHp1CzCCbUZsL
-	 0WZYuKvA4FUD8GaKfcBi9DRv4kpOW27vPS5v0yU1wBDiQ7WwJBDY/xS+f1AGMyPh5m
-	 SXcOkC8C1buLppxoaMKNOcY3rIOr2a3nEsfIJu8frcm+PMX/CoawLc1UzgFUnM7xAt
-	 dkmi0GcP8MZHA==
-Message-ID: <sashiko-outbox-233646@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] interconnect: qcom: Add Netrani RPMh
- interconnect support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: SignKirigami <prcups@krgm.moe>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125-netrani-interconnect-v2-v2-2-4eab92854137@krgm.moe>
-References: <20261125-netrani-interconnect-v2-v2-0-4eab92854137@krgm.moe>
- <20261125-netrani-interconnect-v2-v2-2-4eab92854137@krgm.moe>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 15:19:29 +0000
+	s=k20260515; t=1795620156;
+	bh=j1K5ewHys/5t3EL0s+jWiptRbODzjRlYhbYqEXH+Sgo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hPM+OkcG1sXtgx5Wxj2RH5GbNjqJRQ550/a+wBrK3G9XY6yMjBY76ZtGQk6nX8irV
+	 26GH8FV4g5dyFgq/QUooRTE5Jr24+cS5FV6ukbU6bz3+2e5JLy4sizWgeRuVWd5duq
+	 +/ESX0cGjcNitwMHfG/ozGCkXFsb06hD6NiRz5fbLacFOjrWwokjNASQvBnlPpDtK9
+	 uzLvreSsTHC3eFN1Nht1Mn7cVpP3cMGOHgNzMycD0XYGTZWhwjz+dMgdM7xIV24WlY
+	 Zbp0szHBAYX7CLl5GDB9S4LZwkKA9TE4ndGEA37annqDwjJ9ExE29svoRbB6zQddxl
+	 +mtqqg5LIXVgw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org, 
+ Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
+Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Michal Simek <michal.simek@amd.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, git@amd.com
+In-Reply-To: <20261117085739.3807943-1-katta.dhanunjanrao@amd.com>
+References: <20261117085739.3807943-1-katta.dhanunjanrao@amd.com>
+Subject: Re: [PATCH 0/3] ASoC: xlnx: spdif: switch to the common clock
+ framework
+Message-Id: <179554501801.947306.5510285230833292211.b4-ty@b4>
+Date: Tue, 24 Nov 2026 18:30:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,65 +63,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1764; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=m1Bh2olESyCCYp8JXYIX86p20sRKXCcRHfKKlZvkiQg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLZ/lqE+fZyTU0IXabp8PtKTOx2f2O7bSEbdz68fEjw6
+ 0TJ4BL7jlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzkVx3D//qy3y/5z1R/+/B4
+ wkyej48VtnR7Kl5NvhERGXXz0ZbvXdcYGbbceur/rYRj7ZUT6+sPXev2XRAwmbmwIcyd7XHQiks
+ tfqwA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] interconnect: qcom: redundant defconfig change in Netrani driver
-  commit
---
+On Tue, 17 Nov 2026 14:27:36 +0530, Dhanunjanrao Katta wrote:
+> ASoC: xlnx: spdif: switch to the common clock framework
+> 
+> The Xilinx SPDIF/AES3 IP is fed by three clocks, but the binding
+> described only two of them and the driver requested only one. The audio
+> clock frequency was instead passed as a plain number in the custom
+> "xlnx,aud_clk_i" property, and the driver relied on the firmware to
+> leave the audio and AXI4-Stream clocks running.
+> 
+> [...]
 
-commit 44f45c0d3fd1f7986edabf6617707a9e7339a9db
-Author: SignKirigami <prcups@krgm.moe>
+Applied to
 
-interconnect: qcom: Add Netrani RPMh interconnect support
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-This commit adds an RPMh interconnect provider driver for the Qualcomm
-Netrani platform.
+Thanks!
 
-> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-> index 6ec8d3a69c98e..ff46c6915ef4c 100644
-> --- a/arch/arm64/configs/defconfig
-> +++ b/arch/arm64/configs/defconfig
-> @@ -1875,6 +1875,7 @@ CONFIG_INTERCONNECT_QCOM_KAANAPALI=3Dy
->  CONFIG_INTERCONNECT_QCOM_MSM8916=3Dm
->  CONFIG_INTERCONNECT_QCOM_MSM8953=3Dy
->  CONFIG_INTERCONNECT_QCOM_MSM8996=3Dy
-> +CONFIG_INTERCONNECT_QCOM_NETRANI=3Dy
->  CONFIG_INTERCONNECT_QCOM_OSM_L3=3Dm
->  CONFIG_INTERCONNECT_QCOM_QCM2290=3Dy
->  CONFIG_INTERCONNECT_QCOM_QCS404=3Dm
-> diff --git a/drivers/interconnect/qcom/Kconfig b/drivers/interconnect/qco=
-m/Kconfig
-> index 7f3a977e8f10b..73b4e8285a0a0 100644
-> --- a/drivers/interconnect/qcom/Kconfig
-> +++ b/drivers/interconnect/qcom/Kconfig
-> @@ -158,6 +158,19 @@ config INTERCONNECT_QCOM_MSM8996
->  	  This is a driver for the Qualcomm Network-on-Chip on msm8996-based
->  	  platforms.
-> =20
-> +config INTERCONNECT_QCOM_NETRANI
-> +	tristate "Qualcomm Netrani interconnect driver"
-> +	depends on INTERCONNECT_QCOM_RPMH_POSSIBLE
-> +	depends on ARM64 || COMPILE_TEST
-> +	select INTERCONNECT_QCOM_RPMH
-> +	select INTERCONNECT_QCOM_BCM_VOTER
-> +	default ARCH_QCOM
-> +	help
-> +	  Support for the RPMh interconnect fabrics on Qualcomm Netrani.
-> +	  This driver describes the paths between bus masters and memory
-> +	  and applies bandwidth votes through RPMh as clients request them.
-> +	  Enable it for peripherals that use these interconnect paths.
-> +
+[1/3] ASoC: dt-bindings: xlnx,spdif: describe AXI4-Stream and audio clocks
+      https://git.kernel.org/broonie/sound/c/8a2e765cec00
+[2/3] ASoC: xlnx: spdif: namespace register macros and use a divider enum
+      https://git.kernel.org/broonie/sound/c/8090aeadf3a0
+[3/3] ASoC: xlnx: spdif: get clocks through the common clock framework
+      https://git.kernel.org/broonie/sound/c/91c90b881e55
 
-[Severity: Low]
-Is the arch/arm64/configs/defconfig change needed here?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-INTERCONNECT_QCOM_NETRANI has "default ARCH_QCOM", and CONFIG_ARCH_QCOM=3Dy
-is already enabled in arm64 defconfig, so savedefconfig will drop
-CONFIG_INTERCONNECT_QCOM_NETRANI=3Dy.  Arm64 defconfig updates are also
-normally sent as separate patches through the SoC tree to avoid cross-tree
-merge conflicts with subsystem trees.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-netrani-in=
-terconnect-v2-v2-0-4eab92854137@krgm.moe?part=3D2
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
