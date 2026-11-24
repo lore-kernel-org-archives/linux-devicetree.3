@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795514191;
-	b=AbNlXsF1AKk5++t2K1hN0/MHh9Byf8eDCY9P9qWE7x41HBYnWNEBB9aErYnSOEayIr4T
-	 T9s3T8/bu0qNu9DML5UIhXy95uaXfyuMZn7lnlv6acxT4PU5E027ckD2Km2GsaUrDAeLk
-	 l6p1jFLXDLswWUP1FKFxfdMSv2U7w3Xt/3LhmVRs/xah+y4U15erQwyge/HiPOU35VLQQ
-	 F94NM4P3OdOjE0E5u6RbXKpV1TRqglE4EMdYMCfvY1viK1Dvp80QuvvG8LDp/OCbKj/MK
-	 Mws9LoHbo4vobRLXnjrShmU4aEKAs6fQi+3p9/DKW7YCaDgSc/EDomGACHOPWdRoIhQ==
+	t=1795514201;
+	b=vqLGoa2MU8bncTHmnbKh8GFGudL2tduFMhNxCMBWXAL+uJyfbI1f2NnvTfDx+j9ZFG7f
+	 ONskNKfMOl5cUjlYISxgDk0+G46FjtC/yhzL2RYNKpnhMSXvalKbbpIInUaj9j4Tphb9j
+	 z22/1HRST7HHrTjkYCr/Jdj26BOiUuPvonCmLgx7QOdWgKghY4A57mTGE9t1ppSBzmWK9
+	 lk0D8aHUVB142TsK8RvBDhm4blDlIrmF4OLBHFn618zC3WrYZIxFDjC+rdX4Lg72YbDG1
+	 cu5squ4LRtPBY+AEHa26BBO8AyUmeufNIityvbLN864UqUNFiK7W96tC/vH/T25ySYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514191;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=bwHwYbEcRVz5ir8sDVfhgSO4b5sdvLUfauPb0g9K57E=;
-	b=ZKnaU00EtcMOsbLYzTNHF2cgzLvQUJHgBVCH4cLn5scNkcgdATdymws7CNOuM9bOAEHG
-	 XK+Dp+SzJ4Hi6l/NDj7jtFB/6mTMVxG5c+IGpqlICZSPPMgj7SIOegNfjBTKaL2qOkzcF
-	 0yk3QWNaHVDZO3BcIYz1klNpt63ooQefXyXWO2tzWM7N94SUzbPNMNB1b3LTEYtwMwE86
-	 hQ4yP28cpubpe3rorfUkqAsn8P0/f43BM3Ha0DwlNvpqTpTQLXqF4zeVgKrugsM7qmTmV
-	 OCx4lge+6pRBwKhOuwR+aCZ04eePwC37rYckB4DMIvHpUah2Dz2ia8S9HMx/KSLXaCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514201;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6RxDNhcrptkLwm5icpyITA1cARO1T74TvXZeN92Qajg=;
+	b=X35qkOnXkVMvUHBEWISus4jf2eaCRmIVGqHM3yv6Eli5ONgvwinlh4vzi7SPVbBsZ0n3
+	 JkaXX06egMuoPB7nfxZ+l3gLYyjZb3ZphbzbtgItflQ3nh1djXZ4al8YKUnKRASMVe085
+	 3nV2R5LjaLr2uFUSahTNgbmG8qvKpDLejLmG4EFNoWEq09sx1Dz51CapMq6ntK5686kZe
+	 nwGwSFF1PLVy5MO9BB6wUpVL3p/WGvpuyrvCnrJw/mwFW4co6LW+gWTA0pk8ILPoP9Sga
+	 +lfLi6Zbjw58seESuynaaFkCyJ2Y4VkqpmItR9U3P6sQglef99mrQ1fE/HCNUWXGpWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ROvVMQCD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lf2VEmI1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45EF606A32A
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:56:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA1C606A32E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:56:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ROvVMQCD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352081F000C0;
-	Tue, 24 Nov 2026 09:56:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lf2VEmI1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882F61F000F2
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:56:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795514191;
-	bh=bwHwYbEcRVz5ir8sDVfhgSO4b5sdvLUfauPb0g9K57E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ROvVMQCDv1Iv09wEEBtDt/vmq8L11p0koDzv5OMgdhWu1JlapWPNnzvPyIZ9gsE3h
-	 cQCGPYDyXOp71pY4hw8jJd6clx+iMG6fXqzNz8VJAYHPTHnlDi2D9Rs43ZmhWTBwI8
-	 qvxmRNPjDAYdFP9dH9tt4dw5Q6TvZ8h4dTzDVlaHpCKtk0qJkfYV/0QQMgxo4+j3xI
-	 kfsRAcjd+iGx1xmEK7NwszbBnpI0avktz+u0E/7Quio7Rb9oV9ZjlCG0RZPI4lWiC9
-	 GPWUdIly0PL2ylOW6nQpF54V00AzPwG3hqPKklGFV0H6GgIu41cW0DFbTHttl2m2QJ
-	 3ynvi0eZPXdmw==
-Message-ID: <sashiko-outbox-230893@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: eliza: Add CoreSight debug nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-add-coresight-nodes-for-eliza-v1-2-e1679ce78547@oss.qualcomm.com>
-References: <20261124-add-coresight-nodes-for-eliza-v1-0-e1679ce78547@oss.qualcomm.com>
- <20261124-add-coresight-nodes-for-eliza-v1-2-e1679ce78547@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 09:56:30 +0000
+	s=k20260515; t=1795514200;
+	bh=6RxDNhcrptkLwm5icpyITA1cARO1T74TvXZeN92Qajg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lf2VEmI12JFLEgUGjVFCTv0QjW3DzCel4nyHoZURtSOyTH4f6ATQ1F9160ju0vvcJ
+	 1PxA6UlQXZt13PWLF8DKe4G2fyNtZEfkNquipMkfq4cB4Vyyt9Vb8QLIjeBylBY68V
+	 8fkdXxi2Q/3e9CgZNUHA8x8SIhVN3xZ7Go/+IbWqCEQoBiEztDO1QPeqv+6bOeCBfl
+	 eGtwiPdREEoZEEaGpzvmpTVcOtD31t91A/v5X3KXjPTtvGx+yrS5sJKsvgO+GX4oTb
+	 OlIqX7l7+ISlIVFgCxMWp9ns6b0uSX94naPiT/WMszXh8HjzkH/+81WGhZ75t3GckW
+	 FxW2yjPsT6HCA==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ab4354db11so41959971fa.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:56:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEJNpuNl9YJupo7xcZKizJbrklPvNGVOQEBB/DxlT5G+KhK0rZCeXEeb3fJanNyfBeoxx/Or9yyR4Td@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xtZq7yCgL2cNalMfDtf8jS949VH63qerr6gHQuaRgqyBHNYk7
+	8W/GZuO/TfaIoY9jKJ2/JJaqLJVs7djPqheCb9psvJ9DIYd3gaB5cF6H10LxhyxL6l6Xc4U8YcK
+	JGnhQBiEROnGiyV9UG8moxTb6g1BUvzw=
+X-Received: by 2002:a05:6512:1048:b0:5bf:6c4c:62ce with SMTP id
+ 2adb3069b0e04-5c1bc81c49bmr3664194e87.55.1795514199208; Tue, 24 Nov 2026
+ 01:56:39 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,178 +58,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261123-cs7542-syscon-v2-0-1cd74b2522f9@gmail.com> <20261123-cs7542-syscon-v2-4-1cd74b2522f9@gmail.com>
+In-Reply-To: <20261123-cs7542-syscon-v2-4-1cd74b2522f9@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 24 Nov 2026 10:56:26 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=jLDF1mRBp9mai7hFKU21SG8ud-Wf5ebS89BHiUWM9sg@mail.gmail.com>
+X-Gm-Features: Aa3M54pJBPNtS8HBHNO_8ov-NITzhFzIUmDM0dw5V6Dl7sMdZPPnTtRSJZShNYc
+Message-ID: <CAD++jL=jLDF1mRBp9mai7hFKU21SG8ud-Wf5ebS89BHiUWM9sg@mail.gmail.com>
+Subject: Re: [PATCH v2 4/5] pinctrl: Add Cortina Systems CS7542 pin multiplexer
+To: filipp.dunsky@gmail.com
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, linux-gpio@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: eliza: missing element-bits on static TPDM
-  nodes
-- [Low] arm64: dts: qcom: eliza: wpss-replicator port@2 violates DT
-  binding schema
---
+On Mon, Nov 23, 2026 at 9:27=E2=80=AFPM Fil Dunsky via B4 Relay
+<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
 
-commit 54f1938fd654d770e58cbcb66d2760184479af8c
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+>
+> Use the global syscon regmap for the five GPIO mux registers. Each
+> bit selects GPIO when set and a peripheral signal when clear. Support
+> GPIO on all 160 lines and the six UART pins exercised by the OpenWrt
+> port. Do not guess mux settings for the other peripherals.
+>
+> Use masked regmap updates so independent pins and users of the shared
+> block retain their settings. No register changes are made merely by
+> probing; only a selected state or a GPIO request changes a pin.
+> Register and initialize the controller before enabling its own hogs.
+>
+> AI assistance: Codex prepared this change from the existing OpenWrt port
+> and GPL vendor sources.
+>
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 
-arm64: dts: qcom: eliza: Add CoreSight debug nodes
+This looks good to me:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-This commit adds Devicetree nodes for the CoreSight debug and trace
-subsystem on the Qualcomm Eliza SoC.
-
-> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
-om/eliza.dtsi
-> index 4a125ef386c02..7bf58daace9c9 100644
-> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-
-[ ... ]
-
-> @@ -5430,4 +7484,127 @@ timer {
->  			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
->  			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
->  	};
-> +
-> +	tpdm-ddr-lpicc {
-> +		compatible =3D "arm,coresight-dummy-source";
-> +		label =3D "tpdm_ddr_lpicc";
-> +
-> +		out-ports {
-> +			port {
-> +				tpdm_ddr_lpicc_out: endpoint {
-> +					remote-endpoint =3D <&funnel_aoss_in3>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +
-> +	tpdm-lpass-lpi {
-> +		compatible =3D "arm,coresight-dummy-source";
-> +		label =3D "tpdm_lpass_lpi";
-> +
-> +		out-ports {
-> +			port {
-> +				tpdm_lpass_lpi_out: endpoint {
-> +					remote-endpoint =3D <&funnel_lpass_lpi_1_in1>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +
-> +	tpdm-lpass-rscc {
-> +		compatible =3D "arm,coresight-dummy-source";
-> +		label =3D "tpdm_lpass_rscc";
-> +
-> +		out-ports {
-> +			port {
-> +				tpdm_lpass_rscc_out: endpoint {
-> +					remote-endpoint =3D <&funnel_lpass_lpi_1_in4>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +
-> +	tpdm-modem-rscc {
-> +		compatible =3D "qcom,coresight-static-tpdm";
-> +		label =3D "tpdm_modem_rscc";
-> +
-> +		out-ports {
-> +			port {
-> +				tpdm_modem_rscc_out: endpoint {
-> +					remote-endpoint =3D <&tpda_modem_crm_in0>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +
-> +	tpdm-modem1 {
-> +		compatible =3D "qcom,coresight-static-tpdm";
-> +		label =3D "tpdm_modem_1";
-> +
-> +		out-ports {
-> +			port {
-> +				tpdm_modem_1_out: endpoint {
-> +					remote-endpoint =3D <&tpda_modem_in1>;
-> +				};
-> +			};
-> +		};
-> +	};
-
-[Severity: Medium]
-Should tpdm-modem-rscc and tpdm-modem1 specify qcom,dsb-element-bits or
-qcom,cmb-element-bits?
-
-In static_tpdm_datasets_setup(), drvdata->dsb and drvdata->cmb are only
-allocated when the corresponding element-bits property is present.  Without
-either property, enabling a trace path through their connected TPDAs
-(tpda@1080e000 and tpda@10803000) fails with -EINVAL in tpda_enable_port()
--> tpda_get_element_size() -> tpdm_read_element_size().
-
-> +
-> +	wpss_etm0: wpss-etm0 {
-> +		compatible =3D "arm,coresight-dummy-source";
-> +		label =3D "wpss_etm0";
-> +		arm,static-trace-id =3D <44>;
-> +
-> +		out-ports {
-> +			port {
-> +				wpss_etm0_out: endpoint {
-> +					remote-endpoint =3D <&funnel_wpss_in2>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +
-> +	wpss-replicator {
-> +		compatible =3D "arm,coresight-static-replicator";
-> +
-> +		in-ports {
-> +			port {
-> +				rep_wpss_in: endpoint {
-> +					remote-endpoint =3D <&funnel_wpss_out>;
-> +				};
-> +			};
-> +		};
-> +
-> +		out-ports {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			port@0 {
-> +				reg =3D <0>;
-> +
-> +				rep_wpss_out0: endpoint {
-> +					remote-endpoint =3D <&tpda_dlct_in5>;
-> +					filter-source =3D <&tpdm_wpss_dsb>;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg =3D <1>;
-> +
-> +				rep_wpss_out1: endpoint {
-> +					remote-endpoint =3D <&tpda_dlct_in6>;
-> +					filter-source =3D <&tpdm_wpss_cmb>;
-> +				};
-> +			};
-> +
-> +			port@2 {
-> +				reg =3D <2>;
-> +
-> +				rep_wpss_out2: endpoint {
-> +					remote-endpoint =3D <&funnel_dlct_in4>;
-> +					filter-source =3D <&wpss_etm0>;
-> +				};
-> +			};
-> +		};
-> +	};
-
-[Severity: Low]
-Does port@2 in wpss-replicator pass dtbs_check?
-
-Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml
-only matches '^port@[01]$' under out-ports for endpoints that carry
-filter-source, so port@2 falls back to the base graph schema where
-unevaluatedProperties: false rejects filter-source.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-add-coresi=
-ght-nodes-for-eliza-v1-0-e1679ce78547@oss.qualcomm.com?part=3D2
+Yours,
+Linus Walleij
