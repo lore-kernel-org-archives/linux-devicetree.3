@@ -1,104 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795559112;
-	b=kpsgs/cIawF4RPM8ge8/DoBtZTL8EH9sOTWlcpdZt0Nw2oo691BJ5ks9TPiw2o5JhZ1/
-	 Q5R8+By/DTkMOz/y5S1aD4B5ZK0fK8aUU1d7wPHcy9S+puISUFU5N07sOniZjXUMxUg6B
-	 RTavS1tf+VfUqffg/P/hhpDTRJPGBQ272wtODY3k/qwiya3h30OgXos8unMZg8c2MWUuM
-	 VENY6/t/W5ZFX+a8q3WWDi4K/+9Sq1qVcNzinubkOTGPtlJHgCZr8BqqkMdClW+Q3RTT8
-	 D+uCAMoN4ahuE+/ZHZSLq0DfWxHt/hSOtWTjBwWGcf01zcTUOjM0k4FZS7fH7J16XRg==
+	t=1795559222;
+	b=AVB+QOxiM4NpHSrOeG+Ol1tsxL4XN50BUe18uCTg2zU0LphTo/i84RTg7t8hlJX5gm44
+	 i8FOhC0YOJSxmA32OU7C8HmLJ5zXeiU5ILWKsV2INuOqfqxtOU7lkB2um7HsvvshURNtV
+	 S2Dg+8rLJ/Cc/afzlmaNZsTV8JDnyZIB0z7IZLzMkiDRWpU+qc42aNVtmg6S7/RFG72YK
+	 Kn5Nq9klcJgslGQcUbvF7g+Jx9KcA7oRVOnFEom/tKnL4CO9/lw7XPaPoMQI0rpjW+Tsx
+	 4S1Tn/HIQret+Ib1I1RK1SqmWlAon9+A5lMP2NS3WJNCJuCrrtTQGRxO2R0YXSs5rnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795559112;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795559222;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Gi0xuzUoQlodvU6m17She+ET/Fqb9+6zhNqTDJRS8SM=;
-	b=xnY1a8Tk7Aur5oKut4mAXMmiO8jBVCLO6qAVI8l66xzZ3q/dAI71vCUvplmH2YpJuNtE
-	 kraSlz8AZ/9NBQEYQ0uxZCI2mqIkbo+avGYun91DyssabM/0jarEncV8//HA6GXIlPyS5
-	 +pQIZ47i/lFgGRaE06NHK81xJ3QlxuBKzD/kX1nOnf1DTwHZtxTXB4/QrlABGcJGHbOEr
-	 oXg40FZh1Nj5aKKX6pl5ZQRRm+T9MdbJ1C963OCSajHMWyIFtjcC33DtNLRulzxv31YZC
-	 hLjgx13XB61/6kzMbQQAiOVgtLxKIznCO35BJIt8N/SJU7UWkzu8SG3aDhNbnTBsWAQ==
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=U55uaK+8eYLNG9cZIt46oPZS2SF8ZBVO1Bjlq4aivhw=;
+	b=0N5e37Istdm2OiOD92ik048u2Zf7pMI7H9OKOhesdan8SLfWiAIsdgcdTeyJFPdNsNMz
+	 EuQTbwCxU7Ioi/wtAf3uwKh8Rv3WECY9DFDGKBXpWSRvjw+pA/Kf3SP8065fwDNovL+GH
+	 7nFjibty5w9UWYBrlPtTIY7CjcjvPLnZMMMWXKV8NMfX9pmAuxa9bM6ZcO5hNwH/J8Mm1
+	 GEakPNTnuOqJIVh2Azx/MN9ceG52HR8ubmlI4LXXKaidM4fzlUyegOtg/b89T/oIblawe
+	 XaCcZ2nFe6Bftj4yJzEzKGDJ4D4nMG+ggD6kn9FxoU6gOVoPhLtXK2+ktiuvpYHqYAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yk+MYiiz;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=o79F+oqh;
+	arc=none smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75BF606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 22:25:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A75BF606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23980606A323
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 22:27:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23980606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yk+MYiiz
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4ad6219f7d8so4406043f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 14:25:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=o79F+oqh
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-55c35262674so39313081cf.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 14:27:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795559109; x=1796163909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gi0xuzUoQlodvU6m17She+ET/Fqb9+6zhNqTDJRS8SM=;
-        b=Yk+MYiizEI0d/nDrkCctZAhMQF67BbOdKgQO3hWQ6UpcZEp6kOSoFn9s0uYIC/IYJo
-         8B9NrCipEvDtJ1TZgDRAJung0aMyjK+3Df9ePXclW7sCTWcrK2XZKJYvLzmWf8o96yUu
-         25HJuimymWJBkCvgfL4/pfrrjeHyVLXePS/jUGrF/BC2Uv+ogmwZppxJ9F6O+66CF1Mr
-         7cbiJ/ngzTnhW6EXY6S7kM8tJSrslGGVbfGPfWO5Q50CWFWUWVJ9EB+D0uIi9jFtja8e
-         STgJ4WezE2LcbKVF5CIpH7Pd/0A+3+3+63HI1bsqmCY3CpUzrXQMablgQs3RQvkOA/wa
-         EV2A==
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795559220; x=1796164020; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U55uaK+8eYLNG9cZIt46oPZS2SF8ZBVO1Bjlq4aivhw=;
+        b=o79F+oqhE+K/vjVCGMQytqSZ2FTbLme0fw/taPsQRBvwX8ogKV8G1Xymu0jlZnxaPe
+         06b4duuE+HnE3LJOxTxoeoN4HA7Lt6gnfFjIN9jx952Gk7U8NW0Hq26naGuhpf1Q1rHk
+         0Yxy93lBDvjeutyeK3U7r1hXkRrKkMcNpt019VHUVd8m6kxxBW4T0ISpweSO5ZkFYfXk
+         LEIBiGE+OwtyGOqF5KZoOeZVN1731C8URcKDbpUhOzdYSdYs5OHUvKBparTn0uDhzzmQ
+         E/0JBGHfgFtvjbj70Y90ux9QeUq/LoGQtZNHPUNQlZIz12XFGDFpOfhJApXJiIrIiQ15
+         D8aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795559109; x=1796163909;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gi0xuzUoQlodvU6m17She+ET/Fqb9+6zhNqTDJRS8SM=;
-        b=JMmCpYL2tkiJ8IKcmOJYcdb9ybl9u2RFkLEzP2SFpVdNBcZEjxBFXv4yLVaOP8qa+r
-         PMF7SNjSQVPaiZ5JwLADxu9hyOMxUAnkrJ/gFg6zMk9C8NLA5dEhQVfIxY5qKkaswI7P
-         p8tayBcNT9eCZRUyV/eo4K2Pnq3Cd/XL6bQzXpEfv1cHYcuhU+pke5t4yxNuZpXo1mld
-         3BzbHhoCZX1qE/+byPF6+pNrlX6L8gyb3kW2mJdsPqhMZX6yB5uPtK8tgfjMVVeQlJuM
-         AwVzmsboGqWCw3BNhhopnDACCoOLG19LxRGnqvSHqzJ+1s/JcO5ousXrzWue/VTtQ4ca
-         4pFQ==
-X-Forwarded-Encrypted: i=1; AL+hErEaN8xi6vzLrKr2YJTeXqm61Yz289hSjsK7QPjp2lxMEA+SIpQFetAOgcpN88SeDlQ1+PuOX6mJhaM3@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wFVtzjopEiAlfd4NEiU33mkTzDRrL2l8Ee3nMU2e3X9qtzi+h
-	hJcQGzkL+mixXJlGUW+0bEow2JPVgd38fdDu5YWa6K44fKU+sGn817HePv83Zw==
-X-Gm-Gg: AZFdTZcVl938E+02PvgASDShQx70QTAogfziyHM9I27hwPj7gjgH1Zyzn6pK/SIeDH2
-	XOsv99xA67np+VhBzD7RAr8T1yLkGUQpzaYW6bminBfJpnEOYZeZ2zEPAA9B6ttchRNcImyvpdh
-	QSVmy3R8cXvCYGt88zgSeGCLGU+LE+q8YaOMWZh9R/nVG2WElGXdn8Y+cU8dP3c2BaeAgihdAvu
-	R6ZWLsOjfG7SUd8WqzNRDiJewDsHfa90/mxunUHWBjB/b1cmbsziXqTx9CqJFcVABAlKSJYV+vY
-	jRI4X5+BptsT2JmjX2S3qaHt2EUQnyex+HBJKphf9XqaJ5LEGqIVNKVo4Ozk0lERGQcHQu3QEMs
-	jRorFnxG1hmxFmrltND3Mrj7VCaggvtHkSYahRetyAkBr49NMs9ihus9T/zREjNJD+C/crI0AMG
-	urs9AOxVFwapXcTeiYKA9ET5Ptmyrzueo4AMv48SBWHCna6zOZihncKA5i8kh6HmC5BkI1T+vND
-	PTgfeUbMxuvFKmbq6Wt0DtGSdj9pfzITMUFRwWbOq/zxkbd166k4x0LU9SXZLTImxaMr4eu0m30
-	oTxWPdFTIOQ4n08Gv+J3lsR4KFdTPeeWCbaColy55p0+egnhz8gkQpjGXF6Uq/yzDgg+VbRZMMI
-	lpXc=
-X-Received: by 2002:a05:6000:22c5:b0:4a6:5a2a:f4c4 with SMTP id ffacd0b85a97d-4b9aa3c6189mr256064f8f.37.1795559108543;
-        Tue, 24 Nov 2026 14:25:08 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain ([87.13.246.159])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4ab69bf630esm31125711f8f.16.2026.11.24.14.25.05
+        d=1e100.net; s=20260707; t=1795559220; x=1796164020;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U55uaK+8eYLNG9cZIt46oPZS2SF8ZBVO1Bjlq4aivhw=;
+        b=GtJjtFnuY8pJymxUuar9fo6DnX2sidBJrXwjp8HuQjWSfqY7Hb/MH4G25XhutWzh57
+         cjZ51XNsuYp6jMwvJaY2e9Ps2twL7kizllyqGiaZ1d+v5ofem4gbpw11zmfYwYtrTttT
+         pqFOLcId3mDdNO2Gy12DzkYwyfjSF28LgVcXZwwg56l26Qaa76NO5qf/ELY0l+d6VgWr
+         Ze5tCdR7vLBwT3b11AvTvql6fQuPlN7HiA5MvYZ+jHTWUv2xUzA7nkbhMKfy32I3AQ9h
+         nMIac2V10tqetf+wKAC+3AHtAk7HScrU+ZH3QXLkUOVvOScGbrhBU+18FgPkhPDf2Kwa
+         UpzA==
+X-Forwarded-Encrypted: i=1; AL+hErFd6YXCml9mtkXWx/77XcYcfFq8/xRmDUPviRgxKAusO54AvcXs6jNa3rD5jZZQIZwg0ejAAEv8Tdbq@vger.kernel.org
+X-Gm-Message-State: APuU4Z+kzD6qXKK/kCWB7zVhjdNzjE4WAZe9ntt886/JSC75FhINGdaC
+	+NOp8Hqr1MR33+CcvcZh+8NFVdhP6t4+2G7ooLK/psAlosYXDTp5vFUZn4u0qB4xpzQ=
+X-Gm-Gg: AZFdTZctjTUm+zvemBvXTvdDFoNdXbodYDwkHej1g/tyaeHG+Zff9HHj3QxWP0Igxf5
+	68HoNs4xk12RHyIPhhi0L4ECQBEFT79Vh5ZELSmY86kkDjf7kOrfXjB36kJFdwatW25R9gRwQUK
+	dsuWDsVAZuNHR8WbkmhG35LMvXSGnBNPvX7blv1U8x7X3i1udV4RoApGLLwwXwuoYSJ5/vbpev+
+	1+RmxQ3peth80XN1Y6f+0sgCn31Bx/1BmYPYfnR54rF97g5O3zGVJKXK6gUWXQ0LB4Ta5FXeRti
+	0bArr5++1Va/+MAMKo9dvfCXjb+180oUI309Sl183O4h6emSHUcAfZMpcpzAqZAn7Fv1J+soUNQ
+	5xDeXnYmNnffAH5+E4Ch7M7U24XnRxX6keTMzlt/cLMy/a5DizBKC42z8dxSpBFKeOr+Is1aFgk
+	VQZopnKHVMa4o5+3jFLeQqZJ6PumJgAAl1ZOjywA9obwzvwqeUQR1orESDL8EuIZPQiBcrK6pqw
+	4UgLWlwCessHB94+xyjPfzn1WwSuwh1RmFUjZMW9zF2unXvKv5MS9i0pJEBuySfeDT0lwx1B3N/
+	xaXSnEm+toCbMX8fCn09OClmXmwYdvYurA8Mn9/Hm9L+bmsXjPanjmyY
+X-Received: by 2002:a05:622a:5508:b0:55d:33f4:1073 with SMTP id d75a77b69052e-55d76889c98mr329174321cf.3.1795559219613;
+        Tue, 24 Nov 2026 14:26:59 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d784517casm137926961cf.3.2026.11.24.14.26.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 14:25:07 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	John Crispin <john@phrozen.org>
-Cc: Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH v5 3/3] phy: airoha: Add support for Airoha AN7583 USB PHY
-Date: Tue, 24 Nov 2026 23:24:33 +0100
-Message-ID: <20261124222452.219832-4-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261124222452.219832-1-ansuelsmth@gmail.com>
-References: <20261124222452.219832-1-ansuelsmth@gmail.com>
+        Tue, 24 Nov 2026 14:26:58 -0800 (PST)
+Message-ID: <4bf91d773c7c2bd8c3b04210eff7869169f1f382.camel@ndufresne.ca>
+Subject: Re: [PATCH v3 06/17] media: apple: add avd driver
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sofus Forstreuter <sofus.c@icloud.com>, Sven Peter <sven@kernel.org>, 
+ Janne Grunau
+	 <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
+	 <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Date: Tue, 24 Nov 2026 17:26:56 -0500
+In-Reply-To: <20261020-avd-v3-6-85cbaa2125d8@icloud.com>
+References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
+	 <20261020-avd-v3-6-85cbaa2125d8@icloud.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-x08Y6vppfz4ikL2auF+x"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,2083 +120,2283 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add support for USB PHY for Airoha AN7583 SoC, this share some U2 init
-from AN7581 but use a totally different init phase for PLL and
-calibration for U3. Also on AN7583 there is a single USB PHY that init 2
-U2 port and one U3 port. (the USB controller expose 2 hub, one with 2
-usb 2.0 port and one with one 3.0 port)
+--=-x08Y6vppfz4ikL2auF+x
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A second USB PHY is used for PCIe Gen2 controller and follow the same
-calibration and setup logic of USB.
+Le mardi 20 octobre 2026 =C3=A0 11:37 +0200, Sofus Forstreuter a =C3=A9crit=
+=C2=A0:
+> Add the AVD (Apple Video Decoder) driver with V4L2 M2M stateless
+> support based largely on rockchips implementation.
+>=20
+> Reviewed-by: Neal Gompa <neal@gompa.dev>
+> Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
 
-Tested-by: Robert Marko <robert.marko@sartura.hr>
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/phy/airoha/Kconfig          |   11 +
- drivers/phy/airoha/Makefile         |    1 +
- drivers/phy/airoha/phy-an7583-usb.c | 2023 +++++++++++++++++++++++++++
- 3 files changed, 2035 insertions(+)
- create mode 100644 drivers/phy/airoha/phy-an7583-usb.c
+Check you Sashiko report, and below...
 
-diff --git a/drivers/phy/airoha/Kconfig b/drivers/phy/airoha/Kconfig
-index 634448ee39b5..3e613730e43f 100644
---- a/drivers/phy/airoha/Kconfig
-+++ b/drivers/phy/airoha/Kconfig
-@@ -22,3 +22,14 @@ config PHY_AIROHA_AN7581_USB
- 	  Say 'Y' here to add support for Airoha AN7581 USB PHY driver.
- 	  This driver create the basic PHY instance and provides initialize
- 	  callback for USB port.
-+
-+config PHY_AIROHA_AN7583_USB
-+	tristate "Airoha AN7583 USB PHY Driver"
-+	depends on ARCH_AIROHA || COMPILE_TEST
-+	depends on OF
-+	select GENERIC_PHY
-+	select REGMAP_MMIO
-+	help
-+	  Say 'Y' here to add support for Airoha AN7583 USB PHY driver.
-+ 	  This driver create the basic PHY instance and provides initialize
-+ 	  callback for USB port.
-diff --git a/drivers/phy/airoha/Makefile b/drivers/phy/airoha/Makefile
-index 944bf842deba..cbfa5bca98c9 100644
---- a/drivers/phy/airoha/Makefile
-+++ b/drivers/phy/airoha/Makefile
-@@ -2,3 +2,4 @@
- 
- obj-$(CONFIG_PHY_AIROHA_AN7581_PCIE)	+= phy-an7581-pcie.o
- obj-$(CONFIG_PHY_AIROHA_AN7581_USB)	+= phy-an7581-usb.o
-+obj-$(CONFIG_PHY_AIROHA_AN7583_USB)	+= phy-an7583-usb.o
-diff --git a/drivers/phy/airoha/phy-an7583-usb.c b/drivers/phy/airoha/phy-an7583-usb.c
-new file mode 100644
-index 000000000000..46b5f09582cf
---- /dev/null
-+++ b/drivers/phy/airoha/phy-an7583-usb.c
-@@ -0,0 +1,2023 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Author: Christian Marangi <ansuelsmth@gmail.com>
-+ */
-+
-+#include <dt-bindings/phy/phy.h>
-+#include <linux/bitfield.h>
-+#include <linux/math.h>
-+#include <linux/module.h>
-+#include <linux/phy.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/mfd/syscon.h>
-+
-+/* PHY */
-+#define AIROHA_USB_PHY_FMCR0			0x100
-+#define   AIROHA_USB_PHY_MONCLK_SEL		GENMASK(27, 26)
-+#define   AIROHA_USB_PHY_MONCLK_SEL0		FIELD_PREP_CONST(AIROHA_USB_PHY_MONCLK_SEL, 0x0)
-+#define   AIROHA_USB_PHY_MONCLK_SEL1		FIELD_PREP_CONST(AIROHA_USB_PHY_MONCLK_SEL, 0x1)
-+#define   AIROHA_USB_PHY_MONCLK_SEL2		FIELD_PREP_CONST(AIROHA_USB_PHY_MONCLK_SEL, 0x2)
-+#define   AIROHA_USB_PHY_MONCLK_SEL3		FIELD_PREP_CONST(AIROHA_USB_PHY_MONCLK_SEL, 0x3)
-+#define   AIROHA_USB_PHY_FREQDET_EN		BIT(24)
-+#define   AIROHA_USB_PHY_CYCLECNT		GENMASK(23, 0)
-+#define AIROHA_USB_PHY_FMMONR0			0x10c
-+#define   AIROHA_USB_PHY_USB_FM_OUT		GENMASK(31, 0)
-+#define AIROHA_USB_PHY_FMMONR1			0x110
-+#define   AIROHA_USB_PHY_FRCK_EN		BIT(8)
-+
-+#define AIROHA_USB_PHY_USBPHYACR2		0x308
-+#define   AIROHA_USB_PHY_SIFSLV_MAC_BANDGAP_EN	BIT(17)
-+#define AIROHA_USB_PHY_USBPHYACR4		0x310
-+#define   AIROHA_USB_PHY_USB20_FS_CR		GENMASK(10, 8)
-+#define   AIROHA_USB_PHY_USB20_FS_CR_MAX	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_CR, 0x0)
-+#define   AIROHA_USB_PHY_USB20_FS_CR_NORMAL	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_CR, 0x2)
-+#define   AIROHA_USB_PHY_USB20_FS_CR_SMALLER	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_CR, 0x4)
-+#define   AIROHA_USB_PHY_USB20_FS_CR_MIN	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_CR, 0x6)
-+#define   AIROHA_USB_PHY_USB20_FS_SR		GENMASK(2, 0)
-+#define   AIROHA_USB_PHY_USB20_FS_SR_MAX	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_SR, 0x0)
-+#define   AIROHA_USB_PHY_USB20_FS_SR_NORMAL	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_SR, 0x2)
-+#define   AIROHA_USB_PHY_USB20_FS_SR_SMALLER	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_SR, 0x4)
-+#define   AIROHA_USB_PHY_USB20_FS_SR_MIN	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_SR, 0x6)
-+#define AIROHA_USB_PHY_USBPHYACR5		0x314
-+#define   AIROHA_USB_PHY_USB20_DISC_FIT_EN	BIT(28)
-+#define   AIROHA_USB_PHY_USB20_HSTX_SRCAL_EN	BIT(15)
-+#define   AIROHA_USB_PHY_USB20_HSTX_SRCTRL	GENMASK(14, 12)
-+#define AIROHA_USB_PHY_USBPHYACR6		0x318
-+#define   AIROHA_USB_PHY_USB20_BC11_SW_EN	BIT(23)
-+#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL	 GENMASK(10, 9)
-+#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_ENPLL \
-+	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL, 0x0)
-+#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_IDLEB_RCV_EN \
-+	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL, 0x1)
-+#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_NO_ENPLL_FS_BIAS_EN \
-+	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL, 0x2)
-+#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_USB20_HSRX_TMODE_EN \
-+	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL, 0x3)
-+#define   AIROHA_USB_PHY_USB20_DISCTH		GENMASK(7, 4)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_400	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x0)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_420	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x1)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_440	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x2)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_460	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x3)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_480	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x4)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_500	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x5)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_520	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x6)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_540	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x7)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_560	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x8)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_580	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x9)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_600	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xa)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_620	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xb)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_640	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xc)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_660	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xd)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_680	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xe)
-+#define   AIROHA_USB_PHY_USB20_DISCTH_700	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xf)
-+#define   AIROHA_USB_PHY_USB20_SQTH		GENMASK(3, 0)
-+#define   AIROHA_USB_PHY_USB20_SQTH_85		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x0)
-+#define   AIROHA_USB_PHY_USB20_SQTH_90		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x1)
-+#define   AIROHA_USB_PHY_USB20_SQTH_95		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x2)
-+#define   AIROHA_USB_PHY_USB20_SQTH_100		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x3)
-+#define   AIROHA_USB_PHY_USB20_SQTH_105		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x4)
-+#define   AIROHA_USB_PHY_USB20_SQTH_110		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x5)
-+#define   AIROHA_USB_PHY_USB20_SQTH_115		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x6)
-+#define   AIROHA_USB_PHY_USB20_SQTH_120		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x7)
-+#define   AIROHA_USB_PHY_USB20_SQTH_125		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x8)
-+#define   AIROHA_USB_PHY_USB20_SQTH_130		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x9)
-+#define   AIROHA_USB_PHY_USB20_SQTH_135		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xa)
-+#define   AIROHA_USB_PHY_USB20_SQTH_140		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xb)
-+#define   AIROHA_USB_PHY_USB20_SQTH_145		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xc)
-+#define   AIROHA_USB_PHY_USB20_SQTH_150		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xd)
-+#define   AIROHA_USB_PHY_USB20_SQTH_155		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xe)
-+#define   AIROHA_USB_PHY_USB20_SQTH_160		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xf)
-+
-+#define AIROHA_USB_PHY_U2PHYACR3		0x31c
-+#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE	GENMASK(25, 24)
-+#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_TOGGLE FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE, 0x0)
-+#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_HS_TERM FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE, 0x1)
-+#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_FORCE_DISABLE FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE, 0x2)
-+#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_FORCE_ENABLE FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE, 0x3)
-+#define   AIROHA_USB_PHY_USB20_USB11_TMODE_EN	BIT(19)
-+#define   AIROHA_USB_PHY_USB20_TMODE_FS_LS_TX_EN BIT(18)
-+#define   AIROHA_USB_PHY_USB20_PUPD_BIST_EN	BIT(12)
-+#define AIROHA_USB_PHY_U2PHYDTM0		0x368
-+#define   AIROHA_USB_PHY_FORCE_XCVRSEL		BIT(19)
-+#define   AIROHA_USB_PHY_FORCE_SUSPENDDM	BIT(18)
-+#define   AIROHA_USB_PHY_FORCE_TERMSEL		BIT(17)
-+#define   AIROHA_USB_PHY_XCVRSEL		GENMASK(5, 4)
-+#define   AIROHA_USB_PHY_TERMSEL		BIT(2)
-+#define AIROHA_USB_PHY_U2PHYDTM1		0x36c
-+#define   AIROHA_USB_PHY_FORCE_IDDIG		BIT(9)
-+#define   AIROHA_USB_PHY_IDDIG			BIT(1)
-+
-+#define AIROHA_USB_PHY_GPIO_CTLD		0x80c
-+#define   AIROHA_USB_PHY_C60802_GPIO_CTLD	GENMASK(31, 0)
-+#define     AIROHA_USB_PHY_SSUSB_IP_SW_RST	BIT(31)
-+#define     AIROHA_USB_PHY_MCU_BUS_CK_GATE_EN	BIT(30)
-+#define     AIROHA_USB_PHY_FORCE_SSUSB_IP_SW_RST BIT(29)
-+#define     AIROHA_USB_PHY_SSUSB_SW_RST		BIT(28)
-+
-+#define AIROHA_USB_PHY_U3_PHYA_REG0		0xb00
-+#define   AIROHA_USB_PHY_SSUSB_BG_DIV		GENMASK(29, 28)
-+#define   AIROHA_USB_PHY_SSUSB_BG_DIV_2		FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_BG_DIV, 0x0)
-+#define   AIROHA_USB_PHY_SSUSB_BG_DIV_4		FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_BG_DIV, 0x1)
-+#define   AIROHA_USB_PHY_SSUSB_BG_DIV_8		FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_BG_DIV, 0x2)
-+#define   AIROHA_USB_PHY_SSUSB_BG_DIV_16	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_BG_DIV, 0x3)
-+#define AIROHA_USB_PHY_U3_PHYA_REG1		0xb04
-+#define   AIROHA_USB_PHY_SSUSB_XTAL_TOP_RESERVE	GENMASK(25, 10)
-+#define AIROHA_USB_PHY_U3_PHYA_REG6		0xb18
-+#define   AIROHA_USB_PHY_SSUSB_CDR_RESERVE	GENMASK(31, 24)
-+#define AIROHA_USB_PHY_U3_PHYA_REG8		0xb20
-+#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY	GENMASK(7, 6)
-+#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY_32	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_CDR_RST_DLY, 0x0)
-+#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY_64	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_CDR_RST_DLY, 0x1)
-+#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY_128	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_CDR_RST_DLY, 0x2)
-+#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY_216	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_CDR_RST_DLY, 0x3)
-+
-+#define AIROHA_USB_PHY_U3_PHYA_DA_REG19		0xc38
-+#define   AIROHA_USB_PHY_SSUSB_PLL_SSC_DELTA1_U3 GENMASK(15, 0)
-+
-+/* ANA */
-+#define AIROHA_USB_ANA_RXAFE_RESERVE		0x4
-+#define   AIROHA_USB_ANA_CDR_PD_10B_EN		BIT(11)
-+#define   AIROHA_USB_ANA_CDR_PD_EDGE_DIS	BIT(10)
-+#define AIROHA_USB_ANA_CDR_LPF_BOT_LIM		0x8
-+#define   AIROHA_USB_ANA_CDR_LPF_KP_GAIN	GENMASK(26, 24)
-+#define   AIROHA_USB_ANA_CDR_LPF_KI_GAIN	GENMASK(22, 20)
-+#define AIROHA_USB_ANA_CDR_LPF_MJV_LIM		0xc
-+#define   AIROHA_USB_ANA_CDR_LPF_RATIO		GENMASK(5, 4)
-+#define AIROHA_USB_ANA_CDR_PR_CKREF_DIV1	0x18
-+#define   AIROHA_USB_ANA_CDR_PR_KBAND_DIV	GENMASK(26, 24)
-+#define   AIROHA_USB_ANA_CDR_PR_DAC_BAND	GENMASK(12, 8)
-+#define AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG 0x1c
-+#define   AIROHA_USB_ANA_CDR_PR_XFICK_EN	BIT(30)
-+#define   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE	BIT(6)
-+#define   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE	GENMASK(5, 0)
-+#define AIROHA_USB_ANA_CDR_FORCE_IBANDLPF_R_OFF	0x20
-+#define   AIROHA_USB_ANA_CDR_PHYCK_RSTB		BIT(13)
-+#define AIROHA_USB_ANA_QP_TX_MODE_16B_EN	0x28
-+#define   AIROHA_USB_QP_TX_RESERVE		GENMASK(31, 16)
-+#define     AIROHA_USB_ANA_TX_VLMON_EN		BIT(2)
-+#define     AIROHA_USB_ANA_TX_RESERVE_8		BIT(8)
-+#define AIROHA_USB_ANA_RXLBTX_EN		0x2c
-+#define   AIROHA_USB_ANA_TX_DMEDGEGEN_EN	BIT(27)
-+#define   AIROHA_USB_ANA_TX_RXDET_METHOD	BIT(25)
-+#define AIROHA_USB_ANA_SSUSB_BGR_EN		0x30
-+#define   AIROHA_USB_ANA_BIAS_V2V_CAL		GENMASK(26, 21)
-+#define   AIROHA_USB_ANA_SSUSB_BG_DIV		GENMASK(3, 2)
-+#define   AIROHA_USB_ANA_SSUSB_CHPEN		BIT(1)
-+#define AIROHA_USB_ANA_CLKDRV_IMPSEL		0x34
-+#define   AIROHA_USB_ANA_PCIE_CLKDRV_AMP	GENMASK(27, 25)
-+#define   AIROHA_USB_ANA_PCIE_CLKDRV_FORCEIN	GENMASK(24, 23)
-+#define   AIROHA_USB_ANA_PCIE_CLKDRV_HZ		BIT(14)
-+#define   AIROHA_USB_ANA_PCIE_CLKDRV_RP		GENMASK(13, 9)
-+#define   AIROHA_USB_ANA_PCIE_CLKDRV_IMPSEL	GENMASK(4, 0)
-+#define AIROHA_USB_ANA_TDC_FT_CK_EN		0x38
-+#define   AIROHA_USB_ANA_PLL_DEBUG_SEL		BIT(19)
-+#define   AIROHA_USB_ANA_VUSB10_ON		BIT(8)
-+#define AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL	0x3c
-+#define   AIROHA_USB_ANA_PLL_PREDIV		GENMASK(26, 25)
-+#define   AIROHA_USB_ANA_PLL_OSCAL_ENB		BIT(19)
-+#define   AIROHA_USB_ANA_PLL_MON_LDO_SEL	GENMASK(18, 16)
-+#define   AIROHA_USB_ANA_PLL_MONVC_EN		BIT(14)
-+#define   AIROHA_USB_ANA_PLL_LDOLPF_VSEL	GENMASK(6, 5)
-+#define AIROHA_USB_ANA_PLL_SDM_ORD		0x40
-+#define   AIROHA_USB_ANA_PLL_SSC_TRI_EN		BIT(4)
-+#define   AIROHA_USB_ANA_PLL_SSC_PHASE_INI	BIT(3)
-+
-+/* PMA */
-+#define AIROHA_USB_PMA_TX_DA_CTRL_0		0x0
-+#define   AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER	GENMASK(15, 12)
-+#define   AIROHA_USB_PMA_RXDET_EN_WINDOW	GENMASK(9, 4)
-+#define AIROHA_USB_PMA_TX_DA_CTRL_1		0x4
-+#define   AIROHA_USB_PMA_FORCE_TX_BIT_INVERSE	BIT(7)
-+#define AIROHA_USB_PMA_TX_DA_CTRL_2		0x8
-+#define   AIROHA_USB_PMA_FORCE_TX_DEM_SEL	BIT(27)
-+#define AIROHA_USB_PMA_TX_DA_CTRL_3		0xc
-+#define   AIROHA_USB_PMA_TX_DATA_RATE_SEL	GENMASK(30, 28)
-+#define AIROHA_USB_PMA_PON_RXFEDIG_CTRL_0	0x100
-+#define   AIROHA_USB_PMA_EQ_RX500M_CK_SEL	BIT(12)
-+#define AIROHA_USB_PMA_PON_RXFEDIG_CTRL_8	0x120
-+#define   AIROHA_USB_PMA_QP_EQ_EYE_MASK		GENMASK(9, 0)
-+#define AIROHA_USB_PMA_PON_RXFEDIG_CTRL_10	0x128
-+#define   AIROHA_USB_PMA_QP_EQ_PIEYE_INI	GENMASK(22, 16)
-+#define AIROHA_USB_PMA_SS_LCPLL_PWCTL_SETTING_2	0x208
-+#define   AIROHA_USB_PMA_NCPO_ANA_MSB		GENMASK(17, 16)
-+#define AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2	0x230
-+#define   AIROHA_USB_PMA_LCPLL_NCPO_VALUE	GENMASK(30, 0)
-+#define AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_5	0x23c
-+#define   AIROHA_USB_PMA_LCPLL_NCPO_CHG		BIT(24)
-+#define AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1	0x248
-+#define   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON GENMASK(30, 0)
-+#define AIROHA_USB_PMA_INTF_CTRL_5		0x314
-+#define   AIROHA_USB_PMA_RX_HZ_SEL		BIT(5)
-+#define   AIROHA_USB_PMA_RX_HZ_FORCE		BIT(4)
-+#define AIROHA_USB_PMA_INTF_CTRL_6		0x318
-+#define   AIROHA_USB_PMA_TX_DATA_EN_SEL		BIT(13)
-+#define   AIROHA_USB_PMA_TX_DATA_EN_FORCE	BIT(12)
-+#define AIROHA_USB_PMA_INTF_CTRL_7		0x31c
-+#define   AIROHA_USB_PMA_PLL_EN_SEL		BIT(5)
-+#define   AIROHA_USB_PMA_PLL_EN_FORCE		BIT(4)
-+#define AIROHA_USB_PMA_INTF_CTRL_8		0x320
-+#define   AIROHA_USB_PMA_XTAL_EXT_EN_SEL	BIT(13)
-+#define   AIROHA_USB_PMA_XTAL_EXT_EN_FORCE	GENMASK(12, 11)
-+#define   AIROHA_USB_PMA_TX_TERM_SEL_SEL	BIT(7)
-+#define   AIROHA_USB_PMA_TX_TERM_SEL_FORCE	GENMASK(6, 5)
-+#define AIROHA_USB_PMA_INTF_STS_9		0x364
-+#define   AIROHA_USB_PMA_RX_IMP_SEL_SEL		BIT(31)
-+#define   AIROHA_USB_PMA_RX_IMP_SEL_FORCE	GENMASK(30, 26)
-+#define   AIROHA_USB_PMA_ADDR_INTF_STS_PLL_VCOCAL GENMASK(23, 16)
-+#define AIROHA_USB_PMA_PLL_CTRL_0		0x400
-+#define   AIROHA_USB_PMA_AUTO_INIT		BIT(0)
-+#define AIROHA_USB_PMA_PLL_CTRL_1		0x404
-+#define   AIROHA_USB_PMA_PLL_SSC_EN		BIT(30)
-+#define AIROHA_USB_PMA_PLL_CTRL_2		0x408
-+#define   AIROHA_USB_PMA_PLL_SDM_IFM_INTF	BIT(30)
-+#define   AIROHA_USB_PMA_PLL_RICO_SEL_INTF	BIT(29)
-+#define   AIROHA_USB_PMA_PLL_PHY_CK_EN_INTF	BIT(27)
-+#define   AIROHA_USB_PMA_PLL_PCK_SEL_INTF	BIT(22)
-+#define   AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF	GENMASK(21, 20)
-+#define   AIROHA_USB_PMA_PLL_IR_INTF		GENMASK(19, 16)
-+#define   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF	BIT(14)
-+#define   AIROHA_USB_PMA_PLL_FBKSEL_INTF	GENMASK(13, 12)
-+#define   AIROHA_USB_PMA_PLL_BR_INTF		GENMASK(10, 8)
-+#define   AIROHA_USB_PMA_PLL_BPB_INTF		GENMASK(7, 6)
-+#define   AIROHA_USB_PMA_PLL_BPA_INTF		GENMASK(4, 2)
-+#define   AIROHA_USB_PMA_PLL_BC_INTF		GENMASK(1, 0)
-+#define AIROHA_USB_PMA_PLL_CTRL_3		0x40c
-+#define   AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF	GENMASK(31, 16)
-+#define   AIROHA_USB_PMA_PLL_SSC_DELTA_INTF	GENMASK(15, 0)
-+#define AIROHA_USB_PMA_PLL_CTRL_4		0x410
-+#define   AIROHA_USB_PMA_PLL_SDM_HREN_INTF	GENMASK(4, 3)
-+#define   AIROHA_USB_PMA_PLL_ICOLP_EN_INTF	BIT(2)
-+#define AIROHA_USB_PMA_PLL_CK_CTRL_0		0x414
-+#define   AIROHA_USB_PMA_PCIE_CLKTX_EN_INTF	BIT(5)
-+#define   AIROHA_USB_PMA_PCIE_CLKRX_EN_INTF	BIT(4)
-+#define AIROHA_USB_PMA_PLL_CK_CTRL_1		0x418
-+#define   AIROHA_USB_PMA_PLL_FORCE_UNSTABLE	BIT(19)
-+#define   AIROHA_USB_PMA_PLL_FORCE_STABLE	BIT(18)
-+#define AIROHA_USB_PMA_PLL_CK_CTRL_2		0x41c
-+#define   AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_OFF_EN BIT(2)
-+#define   AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_ON_EN BIT(1)
-+#define   AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_EN	BIT(0)
-+#define AIROHA_USB_PMA_RX_SYS_CTRL_0		0x600
-+#define   AIROHA_USB_PMA_ROC_CK_EN		BIT(1)
-+#define AIROHA_USB_PMA_RX_DLY_0			0x614
-+#define   AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY	GENMASK(7, 0)
-+#define AIROHA_USB_PMA_RX_CTRL_2		0x630
-+#define   AIROHA_USB_PMA_RX_EQ_EN_H_DLY		GENMASK(28, 16)
-+#define AIROHA_USB_PMA_RX_CTRL_5		0x63c
-+#define   AIROHA_USB_PMA_FREDET_CHK_CYCLE	GENMASK(29, 10)
-+#define AIROHA_USB_PMA_RX_CTRL_6		0x640
-+#define   AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE	GENMASK(19, 0)
-+#define AIROHA_USB_PMA_RX_CTRL_7		0x644
-+#define   AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE	GENMASK(19, 0)
-+#define AIROHA_USB_PMA_RX_CTRL_10		0x650
-+#define   AIROHA_USB_PMA_CRSDET_RSTB		BIT(1)
-+#define AIROHA_USB_PMA_RX_CTRL_11		0x654
-+#define   AIROHA_USB_PMA_FORCE_SIGDET_5G	BIT(19)
-+#define AIROHA_USB_PMA_RX_CTRL_26		0x690
-+#define   AIROHA_USB_PMA_QP_EQ_RETRAIN_ONLY_EN	BIT(26)
-+#define   AIROHA_USB_PMA_LINK_ERRO_EN		BIT(23)
-+#define AIROHA_USB_PMA_RX_CTRL_27		0x694
-+#define   AIROHA_USB_PMA_QP_LINK_ERRO_CNT	GENMASK(31, 0)
-+#define AIROHA_USB_PMA_RX_CTRL_36		0x6b8
-+#define   AIROHA_USB_PMA_PCIE_USB_SYSTEM	BIT(26)
-+#define   AIROHA_USB_PMA_LCK2DATA_DLY_TIME	GENMASK(23, 16)
-+#define AIROHA_USB_PMA_RX_CTRL_38		0x6C0
-+#define   AIROHA_USB_PMA_RESERVE_3		GENMASK(31, 24)
-+#define AIROHA_USB_PMA_RX_CTRL_45		0x6dc
-+#define   AIROHA_USB_PMA_EQ_EN_DLY		GENMASK(12, 0)
-+#define AIROHA_USB_PMA_RX_CTRL_46		0x6e0
-+#define   AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P3_TO_P0_EN	BIT(29)
-+#define   AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P2_TO_P0_EN	BIT(28)
-+#define   AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P1_TO_P0_EN	BIT(27)
-+#define   AIROHA_USB_PMA_REBACK_P0_LCK2REF_EN	BIT(26)
-+#define AIROHA_USB_PMA_RX_CTRL_49		0x6ec
-+#define   AIROHA_USB_PMA_LFPS_FINISH_TIME	GENMASK(31, 21)
-+#define AIROHA_USB_PMA_RX_CTRL_50		0x6f0
-+#define   AIROHA_USB_PMA_P3_TO_P0_DO_EQ_USB	BIT(28)
-+#define   AIROHA_USB_PMA_P2_TO_P0_DO_EQ_USB	BIT(27)
-+#define   AIROHA_USB_PMA_P1_TO_P0_DO_EQ_USB	BIT(26)
-+#define   AIROHA_USB_PMA_EQ_EN_DLY_SHORT	GENMASK(25, 13)
-+#define   AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT	GENMASK(12, 0)
-+
-+/* DIG */
-+#define AIROHA_USB_DIG_CK_RST_CTRL_3		0x30c
-+#define   AIROHA_USB_DIG_NS_CK_DIV_SEL		BIT(25)
-+#define   AIROHA_USB_DIG_US_CK_DIV_SEL		BIT(24)
-+#define AIROHA_USB_DIG_MODE_CTRL_0		0x324
-+#define   AIROHA_USB_DIG_SGMII_AN_EN		BIT(0)
-+#define AIROHA_USB_DIG_MODE_CTRL_1		0x330
-+#define   AIROHA_USB_DIG_TPHY_SPEED		GENMASK(3, 2)
-+#define AIROHA_USB_DIG_CK_RST_CTRL_7		0x340
-+#define   AIROHA_USB_DIG_MULTI_USB2P5_EN	BIT(26)
-+#define   AIROHA_USB_DIG_MULTI_USB5_EN		BIT(25)
-+#define   AIROHA_USB_DIG_MULTI_PHY_USB_EN	BIT(24)
-+
-+#define AIROHA_USB_PHY_U2_FM_DET_CYCLE_CNT	1024
-+#define AIROHA_USB_PHY_REF_CK			20
-+#define AIROHA_USB_PHY_U2_SR_COEF		28
-+#define AIROHA_USB_PHY_U2_SR_COEF_DIVISOR	1000
-+
-+#define AIROHA_USB_PHY_FREQDET_SLEEP		1000 /* 1ms */
-+#define AIROHA_USB_PHY_FREQDET_TIMEOUT		(AIROHA_USB_PHY_FREQDET_SLEEP * 10)
-+
-+#define AIROHA_USB_PHY_U3_MAX_CALIB_TRY		50
-+#define AIROHA_USB_PHY_MAX_INSTANCE		3
-+#define AIROHA_PCIE_PHY_MAX_INSTANCE		1
-+
-+struct an7583_usb_phy_instance {
-+	struct device_node *node;
-+	u32 type;
-+
-+	u32 offset;
-+	unsigned int monclk_sel;
-+	struct phy *serdes_phy;
-+};
-+
-+enum an7583_usb_phy_regs {
-+	AIROHA_USB_PHY_PHY,
-+	AIROHA_USB_PHY_ANA,
-+	AIROHA_USB_PHY_PMA,
-+	AIROHA_USB_PHY_DIG,
-+
-+	AIROHA_USB_PHY_REGS_MAX,
-+};
-+
-+struct an7583_usb_phy_priv {
-+	struct regmap *regs[AIROHA_USB_PHY_REGS_MAX];
-+
-+	struct phy *phys[AIROHA_USB_PHY_MAX_INSTANCE];
-+};
-+
-+struct an7583_usb_phy_match_data {
-+	int max_instance;
-+	const char * const *regs_name;
-+	int regs_num;
-+	int (*parse_ports)(struct device *dev,
-+			   struct an7583_usb_phy_priv *priv,
-+			   int index, struct device_node *subnode);
-+};
-+
-+static int an7583_usb_phy_u2_slew_rate_calibration(struct phy *phy)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev;
-+	u32 offset, srctrl;
-+	u32 fm_out = 0;
-+
-+	dev = phy->dev.parent;
-+	priv = dev_get_drvdata(dev);
-+	offset = instance->offset;
-+
-+	/* Enable HS TX SR calibration */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_USBPHYACR5 + offset,
-+			AIROHA_USB_PHY_USB20_HSTX_SRCAL_EN);
-+
-+	usleep_range(1000, 1500);
-+
-+	/* Enable Free run clock */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_FMMONR1 + offset,
-+			AIROHA_USB_PHY_FRCK_EN);
-+
-+	/* Select Monitor Clock */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_FMCR0 + offset,
-+			   AIROHA_USB_PHY_MONCLK_SEL,
-+			   FIELD_PREP(AIROHA_USB_PHY_MONCLK_SEL,
-+				      instance->monclk_sel));
-+
-+	/* Set cyclecnt */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_FMCR0 + offset,
-+			   AIROHA_USB_PHY_CYCLECNT,
-+			   FIELD_PREP(AIROHA_USB_PHY_CYCLECNT,
-+				      AIROHA_USB_PHY_U2_FM_DET_CYCLE_CNT));
-+
-+	/* Enable Frequency meter */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_FMCR0 + offset,
-+			AIROHA_USB_PHY_FREQDET_EN);
-+
-+	/* Timeout can happen and we will apply workaround at the end */
-+	regmap_read_poll_timeout(priv->regs[AIROHA_USB_PHY_PHY],
-+				 AIROHA_USB_PHY_FMMONR0 + offset,
-+				 fm_out, fm_out, AIROHA_USB_PHY_FREQDET_SLEEP,
-+				 AIROHA_USB_PHY_FREQDET_TIMEOUT);
-+
-+	/* Disable Frequency meter */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_FMCR0 + offset,
-+			  AIROHA_USB_PHY_FREQDET_EN);
-+
-+	/* Disable Free run clock */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_FMMONR1 + offset,
-+			  AIROHA_USB_PHY_FRCK_EN);
-+
-+	/* Disable HS TX SR calibration */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_USBPHYACR5 + offset,
-+			  AIROHA_USB_PHY_USB20_HSTX_SRCAL_EN);
-+
-+	usleep_range(1000, 1500);
-+
-+	/* Frequency was not detected, use default SR calibration value */
-+	if (!fm_out) {
-+		srctrl = 0x5;
-+		dev_err(dev, "Frequency not detected, using default SR calibration.\n");
-+	/* (1024 / FM_OUT) * REF_CK * U2_SR_COEF (round to the nearest digits) */
-+	} else {
-+		srctrl = AIROHA_USB_PHY_REF_CK * AIROHA_USB_PHY_U2_SR_COEF;
-+		srctrl = (srctrl * AIROHA_USB_PHY_U2_FM_DET_CYCLE_CNT) / fm_out;
-+		srctrl = DIV_ROUND_CLOSEST(srctrl, AIROHA_USB_PHY_U2_SR_COEF_DIVISOR);
-+		dev_dbg(dev, "SR calibration applied: %x\n", srctrl);
-+	}
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_USBPHYACR5 + offset,
-+			   AIROHA_USB_PHY_USB20_HSTX_SRCTRL,
-+			   FIELD_PREP(AIROHA_USB_PHY_USB20_HSTX_SRCTRL, srctrl));
-+
-+	return 0;
-+}
-+
-+static bool an7583_usb_phy_u3_kband_is_calibrated(struct an7583_usb_phy_priv *priv)
-+{
-+	u32 val, res;
-+
-+	/* Default ICO setting */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			  AIROHA_USB_PMA_PLL_CTRL_4,
-+			  AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_SSUSB_BGR_EN,
-+			   AIROHA_USB_ANA_BIAS_V2V_CAL,
-+			   FIELD_PREP(AIROHA_USB_ANA_BIAS_V2V_CAL, 0x15));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
-+			   AIROHA_USB_ANA_PLL_OSCAL_ENB |
-+			   AIROHA_USB_ANA_PLL_LDOLPF_VSEL,
-+			   AIROHA_USB_ANA_PLL_OSCAL_ENB |
-+			   FIELD_PREP(AIROHA_USB_ANA_PLL_LDOLPF_VSEL, 0x1));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			AIROHA_USB_PMA_PLL_CTRL_2,
-+			AIROHA_USB_PMA_PLL_RICO_SEL_INTF);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			  AIROHA_USB_PMA_INTF_CTRL_8,
-+			  AIROHA_USB_PMA_XTAL_EXT_EN_SEL |
-+			  AIROHA_USB_PMA_XTAL_EXT_EN_FORCE);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			AIROHA_USB_PMA_PLL_CTRL_2,
-+			AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF);
-+
-+	/* Read KBand */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			  AIROHA_USB_ANA_TDC_FT_CK_EN,
-+			  AIROHA_USB_ANA_PLL_DEBUG_SEL);
-+
-+	usleep_range(5000, 6000);
-+
-+	regmap_read(priv->regs[AIROHA_USB_PHY_PMA],
-+		    AIROHA_USB_PMA_INTF_STS_9, &val);
-+	res = FIELD_GET(AIROHA_USB_PMA_ADDR_INTF_STS_PLL_VCOCAL, val) << 4;
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			AIROHA_USB_ANA_TDC_FT_CK_EN,
-+			AIROHA_USB_ANA_PLL_DEBUG_SEL);
-+
-+	usleep_range(5000, 6000);
-+
-+	regmap_read(priv->regs[AIROHA_USB_PHY_PMA],
-+		    AIROHA_USB_PMA_INTF_STS_9, &val);
-+	res |= FIELD_GET(AIROHA_USB_PMA_ADDR_INTF_STS_PLL_VCOCAL, val);
-+
-+	/*
-+	 * KBand is calibrated if KBand Code is NOT 0xfff and
-+	 * KBand Done is set.
-+	 */
-+	return res != 0xfff && res & 0x800;
-+}
-+
-+static int an7583_usb_phy_u2_init(struct phy *phy)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev;
-+	u32 offset;
-+
-+	dev = phy->dev.parent;
-+	priv = dev_get_drvdata(dev);
-+	offset = instance->offset;
-+
-+	mdelay(1);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_USBPHYACR4 + offset,
-+			   AIROHA_USB_PHY_USB20_FS_CR,
-+			   AIROHA_USB_PHY_USB20_FS_CR_MIN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_USBPHYACR4 + offset,
-+			   AIROHA_USB_PHY_USB20_FS_SR,
-+			   AIROHA_USB_PHY_USB20_FS_SR_NORMAL);
-+
-+	/* FIXME: evaluate if needed */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_USBPHYACR6 + offset,
-+			   AIROHA_USB_PHY_USB20_SQTH,
-+			   AIROHA_USB_PHY_USB20_SQTH_125);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_USBPHYACR6 + offset,
-+			   AIROHA_USB_PHY_USB20_DISCTH,
-+			   AIROHA_USB_PHY_USB20_DISCTH_580);
-+
-+	/* Enable the USB port and then disable after calibration */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_USBPHYACR6 + offset,
-+			  AIROHA_USB_PHY_USB20_BC11_SW_EN);
-+
-+	an7583_usb_phy_u2_slew_rate_calibration(phy);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_USBPHYACR6 + offset,
-+			AIROHA_USB_PHY_USB20_BC11_SW_EN);
-+
-+	usleep_range(1000, 1500);
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_eth_init_sgmii(struct an7583_usb_phy_priv *priv)
-+{
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_27,
-+			   AIROHA_USB_PMA_QP_LINK_ERRO_CNT,
-+			   FIELD_PREP(AIROHA_USB_PMA_QP_LINK_ERRO_CNT, 0x100000));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1,
-+			   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
-+				      0x48000000));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_DIG],
-+			   AIROHA_USB_DIG_MODE_CTRL_1,
-+			   AIROHA_USB_DIG_TPHY_SPEED,
-+			   FIELD_PREP(AIROHA_USB_DIG_TPHY_SPEED, 0x0));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
-+			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
-+			   AIROHA_USB_PMA_PLL_IR_INTF,
-+			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_IR_INTF, 0x4));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2,
-+			   AIROHA_USB_PMA_LCPLL_NCPO_VALUE,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_NCPO_VALUE, 0x48000000));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_LPF_MJV_LIM,
-+			   AIROHA_USB_ANA_CDR_LPF_RATIO,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_RATIO, 0x2));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
-+			   AIROHA_USB_ANA_CDR_PR_DAC_BAND,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_DAC_BAND, 0xc));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_LPF_BOT_LIM,
-+			   AIROHA_USB_ANA_CDR_LPF_KP_GAIN |
-+			   AIROHA_USB_ANA_CDR_LPF_KI_GAIN,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_KP_GAIN, 0x6) |
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_KI_GAIN, 0x6));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_5,
-+			   AIROHA_USB_PMA_FREDET_CHK_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_CHK_CYCLE, 0x28));
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_eth_init_hsgmii(struct an7583_usb_phy_priv *priv)
-+{
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1,
-+			   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
-+				      0x7a000000));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_DIG],
-+			   AIROHA_USB_DIG_MODE_CTRL_1,
-+			   AIROHA_USB_DIG_TPHY_SPEED,
-+			   FIELD_PREP(AIROHA_USB_DIG_TPHY_SPEED, 0x1));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
-+			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
-+			   AIROHA_USB_PMA_PLL_IR_INTF,
-+			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_IR_INTF, 0x6));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2,
-+			   AIROHA_USB_PMA_LCPLL_NCPO_VALUE,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_NCPO_VALUE, 0x7a000000));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_LPF_MJV_LIM,
-+			   AIROHA_USB_ANA_CDR_LPF_RATIO,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_RATIO, 0x1));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
-+			   AIROHA_USB_ANA_CDR_PR_DAC_BAND,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_DAC_BAND, 0xf));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_LPF_BOT_LIM,
-+			   AIROHA_USB_ANA_CDR_LPF_KP_GAIN |
-+			   AIROHA_USB_ANA_CDR_LPF_KI_GAIN,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_KP_GAIN, 0x5) |
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_KI_GAIN, 0x5));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_5,
-+			   AIROHA_USB_PMA_FREDET_CHK_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_CHK_CYCLE, 0x10));
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_set_mode_eth(struct phy *phy, int submode)
-+{
-+	struct an7583_usb_phy_priv *priv = dev_get_drvdata(phy->dev.parent);
-+
-+	/* TODO handle efuse */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_8,
-+			   AIROHA_USB_PMA_TX_TERM_SEL_SEL |
-+			   AIROHA_USB_PMA_TX_TERM_SEL_FORCE,
-+			   AIROHA_USB_PMA_TX_TERM_SEL_SEL |
-+			   FIELD_PREP(AIROHA_USB_PMA_TX_TERM_SEL_FORCE, 0x1));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_STS_9,
-+			   AIROHA_USB_PMA_RX_IMP_SEL_SEL |
-+			   AIROHA_USB_PMA_RX_IMP_SEL_FORCE,
-+			   AIROHA_USB_PMA_RX_IMP_SEL_SEL |
-+			   FIELD_PREP(AIROHA_USB_PMA_RX_IMP_SEL_FORCE, 0x1));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_26,
-+			AIROHA_USB_PMA_QP_EQ_RETRAIN_ONLY_EN |
-+			AIROHA_USB_PMA_LINK_ERRO_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_SSUSB_BGR_EN,
-+			   AIROHA_USB_ANA_SSUSB_BG_DIV,
-+			   FIELD_PREP(AIROHA_USB_ANA_SSUSB_BG_DIV, 0x1));
-+
-+	/* Digital CLK trigger reverse */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PON_RXFEDIG_CTRL_0,
-+			  AIROHA_USB_PMA_EQ_RX500M_CK_SEL);
-+
-+	/* Common Setting */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_3,
-+			AIROHA_USB_DIG_NS_CK_DIV_SEL |
-+			AIROHA_USB_DIG_US_CK_DIV_SEL);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_1,
-+			  AIROHA_USB_PMA_FORCE_TX_BIT_INVERSE);
-+
-+	/* TODO check they report 0x8400000 */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_2,
-+			AIROHA_USB_PMA_FORCE_TX_DEM_SEL);
-+
-+	/* PLL */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
-+			   AIROHA_USB_PMA_PLL_BR_INTF |
-+			   AIROHA_USB_PMA_PLL_BPB_INTF |
-+			   AIROHA_USB_PMA_PLL_BPA_INTF |
-+			   AIROHA_USB_PMA_PLL_BC_INTF,
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BR_INTF, 0x3) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPB_INTF, 0x0) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPA_INTF, 0x5) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BC_INTF, 0x1));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
-+			   AIROHA_USB_ANA_PLL_PREDIV,
-+			   FIELD_PREP(AIROHA_USB_ANA_PLL_PREDIV, 0x1));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
-+			AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_MODE_CTRL_0,
-+			  AIROHA_USB_DIG_SGMII_AN_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXLBTX_EN,
-+			AIROHA_USB_ANA_TX_DMEDGEGEN_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_QP_TX_MODE_16B_EN,
-+			FIELD_PREP(AIROHA_USB_QP_TX_RESERVE,
-+				   AIROHA_USB_ANA_TX_RESERVE_8 |
-+				   AIROHA_USB_ANA_TX_VLMON_EN));
-+
-+	if (submode == PHY_INTERFACE_MODE_2500BASEX)
-+		an7583_usb_phy_eth_init_hsgmii(priv);
-+	else
-+		an7583_usb_phy_eth_init_sgmii(priv);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_5,
-+			  AIROHA_USB_PMA_LCPLL_NCPO_CHG);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_5,
-+			AIROHA_USB_PMA_LCPLL_NCPO_CHG);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_PWCTL_SETTING_2,
-+			   AIROHA_USB_PMA_NCPO_ANA_MSB,
-+			   FIELD_PREP(AIROHA_USB_PMA_NCPO_ANA_MSB, 0x1));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			AIROHA_USB_ANA_RXAFE_RESERVE,
-+			AIROHA_USB_ANA_CDR_PD_10B_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_PON_RXFEDIG_CTRL_10,
-+			   AIROHA_USB_PMA_QP_EQ_PIEYE_INI,
-+			   FIELD_PREP(AIROHA_USB_PMA_QP_EQ_PIEYE_INI, 0x0));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_PON_RXFEDIG_CTRL_8,
-+			   AIROHA_USB_PMA_QP_EQ_EYE_MASK,
-+			   FIELD_PREP(AIROHA_USB_PMA_QP_EQ_EYE_MASK, 0x2aa));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_6,
-+			   AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE, 0x64));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_7,
-+			   AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE, 0x2710));
-+
-+	/* PLL auto init */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
-+			  AIROHA_USB_PMA_AUTO_INIT);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
-+			AIROHA_USB_PMA_AUTO_INIT);
-+
-+	usleep_range(100, 200);
-+
-+	return 0;
-+}
-+
-+static void an7583_usb_phy_tx_pll_enable(struct an7583_usb_phy_priv *priv)
-+{
-+	/* PLL Reset to default */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			  AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
-+			  AIROHA_USB_ANA_PLL_MON_LDO_SEL |
-+			  AIROHA_USB_ANA_PLL_MONVC_EN);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			  AIROHA_USB_PMA_INTF_CTRL_7,
-+			  AIROHA_USB_PMA_PLL_EN_SEL |
-+			  AIROHA_USB_PMA_PLL_EN_FORCE);
-+
-+	/* PLL Auto Mode (For PMA) */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			AIROHA_USB_PMA_PLL_CK_CTRL_1,
-+			AIROHA_USB_PMA_PLL_FORCE_UNSTABLE);
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			AIROHA_USB_PMA_PLL_CK_CTRL_1,
-+			AIROHA_USB_PMA_PLL_FORCE_STABLE);
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			  AIROHA_USB_PMA_PLL_CK_CTRL_1,
-+			  AIROHA_USB_PMA_PLL_FORCE_UNSTABLE);
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			  AIROHA_USB_PMA_PLL_CK_CTRL_1,
-+			  AIROHA_USB_PMA_PLL_FORCE_STABLE);
-+
-+	/* TX Auto Mode */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_6,
-+			AIROHA_USB_PMA_TX_DATA_EN_FORCE);
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_6,
-+			  AIROHA_USB_PMA_TX_DATA_EN_SEL);
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_6,
-+			  AIROHA_USB_PMA_TX_DATA_EN_FORCE);
-+}
-+
-+static void an7583_usb_phy_kband_calibrate(struct an7583_usb_phy_priv *priv)
-+{
-+	/* PLL Disable */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_INTF_CTRL_8,
-+			   AIROHA_USB_PMA_XTAL_EXT_EN_SEL |
-+			   AIROHA_USB_PMA_XTAL_EXT_EN_FORCE,
-+			   AIROHA_USB_PMA_XTAL_EXT_EN_SEL |
-+			   FIELD_PREP(AIROHA_USB_PMA_XTAL_EXT_EN_FORCE, 0x3));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_INTF_CTRL_7,
-+			   AIROHA_USB_PMA_PLL_EN_SEL |
-+			   AIROHA_USB_PMA_PLL_EN_FORCE,
-+			   AIROHA_USB_PMA_PLL_EN_SEL);
-+
-+	/* PLL Config for CPR */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			AIROHA_USB_PMA_PLL_CTRL_4,
-+			AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_SSUSB_BGR_EN,
-+			   AIROHA_USB_ANA_BIAS_V2V_CAL,
-+			   FIELD_PREP(AIROHA_USB_ANA_BIAS_V2V_CAL, 0x0));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
-+			   AIROHA_USB_ANA_PLL_OSCAL_ENB |
-+			   AIROHA_USB_ANA_PLL_LDOLPF_VSEL,
-+			   FIELD_PREP(AIROHA_USB_ANA_PLL_LDOLPF_VSEL, 0x3));
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			  AIROHA_USB_PMA_PLL_CTRL_2,
-+			  AIROHA_USB_PMA_PLL_RICO_SEL_INTF |
-+			  AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
-+			   AIROHA_USB_ANA_PLL_MON_LDO_SEL |
-+			   AIROHA_USB_ANA_PLL_MONVC_EN,
-+			   FIELD_PREP(AIROHA_USB_ANA_PLL_MON_LDO_SEL, 0x3) |
-+			   AIROHA_USB_ANA_PLL_MONVC_EN);
-+
-+	/* PLL Enable */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			AIROHA_USB_PMA_INTF_CTRL_7,
-+			AIROHA_USB_PMA_PLL_EN_SEL |
-+			AIROHA_USB_PMA_PLL_EN_FORCE);
-+}
-+
-+static int an7583_usb_phy_u3_init(struct phy *phy)
-+{
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev;
-+
-+	dev = phy->dev.parent;
-+	priv = dev_get_drvdata(dev);
-+
-+	/* Digital CLK trigger reverse */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PON_RXFEDIG_CTRL_0,
-+			  AIROHA_USB_PMA_EQ_RX500M_CK_SEL);
-+
-+	/* RX USB PCIE enable */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_36,
-+			AIROHA_USB_PMA_PCIE_USB_SYSTEM);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_SYS_CTRL_0,
-+			  AIROHA_USB_PMA_ROC_CK_EN);
-+
-+	/* 50MHz XTAL */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_SSUSB_BGR_EN,
-+			   AIROHA_USB_ANA_SSUSB_BG_DIV |
-+			   AIROHA_USB_ANA_SSUSB_CHPEN,
-+			   FIELD_PREP(AIROHA_USB_ANA_SSUSB_BG_DIV, 0x1) |
-+			   AIROHA_USB_ANA_SSUSB_CHPEN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
-+			   AIROHA_USB_ANA_PLL_PREDIV,
-+			   FIELD_PREP(AIROHA_USB_ANA_PLL_PREDIV, 0x1));
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
-+			  AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_7,
-+			  AIROHA_USB_DIG_MULTI_USB2P5_EN |
-+			  AIROHA_USB_DIG_MULTI_USB5_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_7,
-+			AIROHA_USB_DIG_MULTI_USB2P5_EN |
-+			AIROHA_USB_DIG_MULTI_USB5_EN |
-+			AIROHA_USB_DIG_MULTI_PHY_USB_EN);
-+
-+	/* PLL */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
-+			   AIROHA_USB_PMA_PLL_PHY_CK_EN_INTF |
-+			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
-+			   AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF |
-+			   AIROHA_USB_PMA_PLL_IR_INTF |
-+			   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF |
-+			   AIROHA_USB_PMA_PLL_FBKSEL_INTF |
-+			   AIROHA_USB_PMA_PLL_BPB_INTF |
-+			   AIROHA_USB_PMA_PLL_BPA_INTF |
-+			   AIROHA_USB_PMA_PLL_BC_INTF,
-+			   AIROHA_USB_PMA_PLL_PHY_CK_EN_INTF |
-+			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF, 0x0) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_IR_INTF, 0x4) |
-+			   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_FBKSEL_INTF, 0x0) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPB_INTF, 0x1) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPA_INTF, 0x5) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BC_INTF, 0x3));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
-+			   AIROHA_USB_PMA_PLL_SDM_HREN_INTF,
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_SDM_HREN_INTF, 0x1));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
-+			AIROHA_USB_PMA_PLL_SDM_IFM_INTF);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_3,
-+			   AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF |
-+			   AIROHA_USB_PMA_PLL_SSC_DELTA_INTF,
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF, 0x18c) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_SSC_DELTA_INTF, 0x21e));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_1,
-+			AIROHA_USB_PMA_PLL_SSC_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1,
-+			   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
-+				      0x48000000));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_PWCTL_SETTING_2,
-+			   AIROHA_USB_PMA_NCPO_ANA_MSB,
-+			   FIELD_PREP(AIROHA_USB_PMA_NCPO_ANA_MSB, 0x1));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2,
-+			   AIROHA_USB_PMA_LCPLL_NCPO_VALUE,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_NCPO_VALUE, 0x48000000));
-+
-+	/* RX 5G */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_LPF_MJV_LIM,
-+			   AIROHA_USB_ANA_CDR_LPF_RATIO,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_RATIO, 0x0));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			AIROHA_USB_ANA_RXAFE_RESERVE,
-+			AIROHA_USB_ANA_CDR_PD_10B_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
-+			   AIROHA_USB_ANA_CDR_PR_DAC_BAND,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_DAC_BAND, 0xc));
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			  AIROHA_USB_ANA_CDR_FORCE_IBANDLPF_R_OFF,
-+			  AIROHA_USB_ANA_CDR_PHYCK_RSTB);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG,
-+			   AIROHA_USB_ANA_CDR_PR_XFICK_EN |
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE,
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_KBAND_DIV, 0x3));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG,
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE, 0x19));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_46,
-+			AIROHA_USB_PMA_REBACK_P0_LCK2REF_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_49,
-+			   AIROHA_USB_PMA_LFPS_FINISH_TIME,
-+			   FIELD_PREP(AIROHA_USB_PMA_LFPS_FINISH_TIME, 0x1f0));
-+
-+	/* EQ all */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_50,
-+			  AIROHA_USB_PMA_P3_TO_P0_DO_EQ_USB |
-+			  AIROHA_USB_PMA_P2_TO_P0_DO_EQ_USB |
-+			  AIROHA_USB_PMA_P1_TO_P0_DO_EQ_USB);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_46,
-+			AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P3_TO_P0_EN |
-+			AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P2_TO_P0_EN |
-+			AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P1_TO_P0_EN);
-+
-+	/* FIXME: ask Airoha why reserve7 is at 6c4 NOT 6c0 */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_38,
-+			  FIELD_PREP(AIROHA_USB_PMA_RESERVE_3, BIT(7)));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_11,
-+			AIROHA_USB_PMA_FORCE_SIGDET_5G);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_36,
-+			   AIROHA_USB_PMA_LCK2DATA_DLY_TIME,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCK2DATA_DLY_TIME, 0x2));
-+
-+	/* PI Cal */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_DLY_0,
-+			   AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY,
-+			   FIELD_PREP(AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY, 0x10));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_PLL_SDM_ORD,
-+			AIROHA_USB_ANA_PLL_SSC_TRI_EN |
-+			AIROHA_USB_ANA_PLL_SSC_PHASE_INI);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_3,
-+			  AIROHA_USB_PMA_TX_DATA_RATE_SEL);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXAFE_RESERVE,
-+			  AIROHA_USB_ANA_CDR_PD_EDGE_DIS);
-+
-+	/* Common Setting */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_3,
-+			AIROHA_USB_DIG_NS_CK_DIV_SEL |
-+			AIROHA_USB_DIG_US_CK_DIV_SEL);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_0,
-+			   AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER |
-+			   AIROHA_USB_PMA_RXDET_EN_WINDOW,
-+			   FIELD_PREP(AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER, 0x4) |
-+			   FIELD_PREP(AIROHA_USB_PMA_RXDET_EN_WINDOW, 0xa));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXLBTX_EN,
-+			   AIROHA_USB_ANA_TX_DMEDGEGEN_EN |
-+			   AIROHA_USB_ANA_TX_RXDET_METHOD,
-+			   AIROHA_USB_ANA_TX_DMEDGEGEN_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CK_CTRL_2,
-+			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_OFF_EN |
-+			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_ON_EN |
-+			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_EN);
-+
-+	/* RX Speed Up */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_5,
-+			   AIROHA_USB_PMA_FREDET_CHK_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_CHK_CYCLE, 0x28));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_6,
-+			   AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE, 0x64));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_7,
-+			   AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE, 0x2710));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_2,
-+			   AIROHA_USB_PMA_RX_EQ_EN_H_DLY,
-+			   FIELD_PREP(AIROHA_USB_PMA_RX_EQ_EN_H_DLY, 0x9c4));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_45,
-+			   AIROHA_USB_PMA_EQ_EN_DLY,
-+			   FIELD_PREP(AIROHA_USB_PMA_EQ_EN_DLY, 0x9c4));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_50,
-+			   AIROHA_USB_PMA_EQ_EN_DLY_SHORT |
-+			   AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT,
-+			   FIELD_PREP(AIROHA_USB_PMA_EQ_EN_DLY_SHORT, 0x9c4) |
-+			   FIELD_PREP(AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT, 0x9c4));
-+
-+	/* TCL avoid LT noice impact */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_QP_TX_MODE_16B_EN,
-+			AIROHA_USB_ANA_TX_RESERVE_8);
-+
-+	/* PLL auto init */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
-+			AIROHA_USB_PMA_AUTO_INIT);
-+
-+	usleep_range(100, 300);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CK_CTRL_2,
-+			  AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_EN);
-+
-+	if (!an7583_usb_phy_u3_kband_is_calibrated(priv)) {
-+		int i;
-+
-+		/* TX Force Disable */
-+		regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+				   AIROHA_USB_PMA_INTF_CTRL_6,
-+				   AIROHA_USB_PMA_TX_DATA_EN_SEL |
-+				   AIROHA_USB_PMA_TX_DATA_EN_FORCE,
-+				   AIROHA_USB_PMA_TX_DATA_EN_SEL);
-+
-+		/* PLL Force Unstable */
-+		regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+				AIROHA_USB_PMA_PLL_CK_CTRL_1,
-+				AIROHA_USB_PMA_PLL_FORCE_UNSTABLE);
-+
-+		for (i = 0; i < AIROHA_USB_PHY_U3_MAX_CALIB_TRY; i++) {
-+			an7583_usb_phy_kband_calibrate(priv);
-+
-+			/* Exit as soon as we manage to calibrate */
-+			if (an7583_usb_phy_u3_kband_is_calibrated(priv))
-+				break;
-+		}
-+	}
-+
-+	an7583_usb_phy_tx_pll_enable(priv);
-+
-+	return !an7583_usb_phy_u3_kband_is_calibrated(priv) ? -EINVAL : 0;
-+}
-+
-+static int an7583_usb_phy_pcie_init(struct phy *phy)
-+{
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev;
-+	int i;
-+
-+	dev = phy->dev.parent;
-+	priv = dev_get_drvdata(dev);
-+
-+	/* TX Force Disable */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_INTF_CTRL_6,
-+			   AIROHA_USB_PMA_TX_DATA_EN_SEL |
-+			   AIROHA_USB_PMA_TX_DATA_EN_FORCE,
-+			   AIROHA_USB_PMA_TX_DATA_EN_SEL);
-+
-+	/* PLL Force Unstable */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			AIROHA_USB_PMA_PLL_CK_CTRL_1,
-+			AIROHA_USB_PMA_PLL_FORCE_UNSTABLE);
-+
-+	/* PLL Disable */
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
-+			  AIROHA_USB_PMA_AUTO_INIT);
-+
-+	usleep_range(1000, 1500);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
-+			AIROHA_USB_PMA_AUTO_INIT);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_INTF_CTRL_7,
-+			   AIROHA_USB_PMA_PLL_EN_SEL |
-+			   AIROHA_USB_PMA_PLL_EN_FORCE,
-+			   AIROHA_USB_PMA_PLL_EN_SEL);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_36,
-+			AIROHA_USB_PMA_PCIE_USB_SYSTEM);
-+
-+	/* 50MHz XTAL */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_SSUSB_BGR_EN,
-+			   AIROHA_USB_ANA_SSUSB_BG_DIV,
-+			   FIELD_PREP(AIROHA_USB_ANA_SSUSB_BG_DIV, 0x1));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
-+			   AIROHA_USB_ANA_PLL_PREDIV,
-+			   FIELD_PREP(AIROHA_USB_ANA_PLL_PREDIV, 0x1));
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
-+			  AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_7,
-+			  AIROHA_USB_DIG_MULTI_USB2P5_EN |
-+			  AIROHA_USB_DIG_MULTI_USB5_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_7,
-+			AIROHA_USB_DIG_MULTI_USB2P5_EN |
-+			AIROHA_USB_DIG_MULTI_USB5_EN |
-+			AIROHA_USB_DIG_MULTI_PHY_USB_EN);
-+
-+	/* PLL RG */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
-+			   AIROHA_USB_PMA_PLL_PHY_CK_EN_INTF |
-+			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
-+			   AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF |
-+			   AIROHA_USB_PMA_PLL_IR_INTF |
-+			   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF |
-+			   AIROHA_USB_PMA_PLL_FBKSEL_INTF |
-+			   AIROHA_USB_PMA_PLL_BPB_INTF |
-+			   AIROHA_USB_PMA_PLL_BPA_INTF |
-+			   AIROHA_USB_PMA_PLL_BC_INTF,
-+			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF, 0x0) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_IR_INTF, 0x4) |
-+			   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_FBKSEL_INTF, 0x0) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPB_INTF, 0x1) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPA_INTF, 0x5) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_BC_INTF, 0x3));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
-+			   AIROHA_USB_PMA_PLL_SDM_HREN_INTF,
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_SDM_HREN_INTF, 0x1));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
-+			AIROHA_USB_PMA_PLL_SDM_IFM_INTF);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_3,
-+			   AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF |
-+			   AIROHA_USB_PMA_PLL_SSC_DELTA_INTF,
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF, 0x91c) |
-+			   FIELD_PREP(AIROHA_USB_PMA_PLL_SSC_DELTA_INTF, 0x1fd));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_1,
-+			AIROHA_USB_PMA_PLL_SSC_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1,
-+			   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
-+				      0x48000000));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_PWCTL_SETTING_2,
-+			   AIROHA_USB_PMA_NCPO_ANA_MSB,
-+			   FIELD_PREP(AIROHA_USB_PMA_NCPO_ANA_MSB, 0x1));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			   AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2,
-+			   AIROHA_USB_PMA_LCPLL_NCPO_VALUE,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_NCPO_VALUE, 0x48000000));
-+
-+	/* RX RG */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_LPF_MJV_LIM,
-+			   AIROHA_USB_ANA_CDR_LPF_RATIO,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_RATIO, 0x1));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			AIROHA_USB_ANA_RXAFE_RESERVE,
-+			AIROHA_USB_ANA_CDR_PD_10B_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
-+			   AIROHA_USB_ANA_CDR_PR_DAC_BAND,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_DAC_BAND, 0xc));
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			  AIROHA_USB_ANA_CDR_FORCE_IBANDLPF_R_OFF,
-+			  AIROHA_USB_ANA_CDR_PHYCK_RSTB);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG,
-+			   AIROHA_USB_ANA_CDR_PR_XFICK_EN |
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE,
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_KBAND_DIV, 0x3));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG,
-+			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE,
-+			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE, 0x19));
-+
-+	/* Init L0/L0S U0/U1 */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_46,
-+			AIROHA_USB_PMA_REBACK_P0_LCK2REF_EN |
-+			AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P1_TO_P0_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_11,
-+			AIROHA_USB_PMA_FORCE_SIGDET_5G);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_36,
-+			   AIROHA_USB_PMA_LCK2DATA_DLY_TIME,
-+			   FIELD_PREP(AIROHA_USB_PMA_LCK2DATA_DLY_TIME, 0x2));
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXAFE_RESERVE,
-+			  AIROHA_USB_ANA_CDR_PD_EDGE_DIS);
-+
-+	/* PI Calibration */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_DLY_0,
-+			   AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY,
-+			   FIELD_PREP(AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY, 0x10));
-+
-+	/* CRS detect and CLK TRX Control */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_10,
-+			AIROHA_USB_PMA_CRSDET_RSTB);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_PLL_SDM_ORD,
-+			AIROHA_USB_ANA_PLL_SSC_TRI_EN |
-+			AIROHA_USB_ANA_PLL_SSC_PHASE_INI);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CK_CTRL_0,
-+			   AIROHA_USB_PMA_PCIE_CLKTX_EN_INTF |
-+			   AIROHA_USB_PMA_PCIE_CLKRX_EN_INTF,
-+			   AIROHA_USB_PMA_PCIE_CLKTX_EN_INTF);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_CLKDRV_IMPSEL,
-+			   AIROHA_USB_ANA_PCIE_CLKDRV_AMP |
-+			   AIROHA_USB_ANA_PCIE_CLKDRV_FORCEIN |
-+			   AIROHA_USB_ANA_PCIE_CLKDRV_HZ |
-+			   AIROHA_USB_ANA_PCIE_CLKDRV_RP |
-+			   AIROHA_USB_ANA_PCIE_CLKDRV_IMPSEL,
-+			   FIELD_PREP(AIROHA_USB_ANA_PCIE_CLKDRV_AMP, 0x4) |
-+			   FIELD_PREP(AIROHA_USB_ANA_PCIE_CLKDRV_FORCEIN, 0x1) |
-+			   FIELD_PREP(AIROHA_USB_ANA_PCIE_CLKDRV_RP, 0xc) |
-+			   FIELD_PREP(AIROHA_USB_ANA_PCIE_CLKDRV_IMPSEL, 0x12));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_3,
-+			   AIROHA_USB_PMA_TX_DATA_RATE_SEL,
-+			   FIELD_PREP(AIROHA_USB_PMA_TX_DATA_RATE_SEL, 0x1));
-+
-+	/* Common Setting */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_3,
-+			AIROHA_USB_DIG_NS_CK_DIV_SEL |
-+			AIROHA_USB_DIG_US_CK_DIV_SEL);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_0,
-+			   AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER |
-+			   AIROHA_USB_PMA_RXDET_EN_WINDOW,
-+			   FIELD_PREP(AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER, 0x4) |
-+			   FIELD_PREP(AIROHA_USB_PMA_RXDET_EN_WINDOW, 0xa));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXLBTX_EN,
-+			   AIROHA_USB_ANA_TX_DMEDGEGEN_EN |
-+			   AIROHA_USB_ANA_TX_RXDET_METHOD,
-+			   AIROHA_USB_ANA_TX_DMEDGEGEN_EN);
-+
-+	/* PLL auto ON/OFF at L2/U3 state */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CK_CTRL_2,
-+			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_OFF_EN |
-+			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_ON_EN |
-+			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_EN);
-+
-+	/* RX speed up */
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_5,
-+			   AIROHA_USB_PMA_FREDET_CHK_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_CHK_CYCLE, 0x28));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_6,
-+			   AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE, 0x64));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_7,
-+			   AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE,
-+			   FIELD_PREP(AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE, 0x2710));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_2,
-+			   AIROHA_USB_PMA_RX_EQ_EN_H_DLY,
-+			   FIELD_PREP(AIROHA_USB_PMA_RX_EQ_EN_H_DLY, 0x9c4));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_45,
-+			   AIROHA_USB_PMA_EQ_EN_DLY,
-+			   FIELD_PREP(AIROHA_USB_PMA_EQ_EN_DLY, 0x9c4));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_50,
-+			   AIROHA_USB_PMA_EQ_EN_DLY_SHORT |
-+			   AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT,
-+			   FIELD_PREP(AIROHA_USB_PMA_EQ_EN_DLY_SHORT, 0x9c4) |
-+			   FIELD_PREP(AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT, 0x9c4));
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_QP_TX_MODE_16B_EN,
-+			AIROHA_USB_ANA_TX_RESERVE_8);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PON_RXFEDIG_CTRL_0,
-+			  AIROHA_USB_PMA_EQ_RX500M_CK_SEL);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
-+			AIROHA_USB_PMA_AUTO_INIT);
-+
-+	/* Select PLL_EN to Force mode */
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
-+			AIROHA_USB_PMA_INTF_CTRL_7,
-+			AIROHA_USB_PMA_PLL_EN_SEL |
-+			AIROHA_USB_PMA_PLL_EN_FORCE);
-+
-+	/* Try to calibrate KBand up to AIROHA_USB_PHY_U3_MAX_CALIB_TRY times */
-+	for (i = 0; i < AIROHA_USB_PHY_U3_MAX_CALIB_TRY; i++) {
-+		/* Check if KBand is calibrated */
-+		if (an7583_usb_phy_u3_kband_is_calibrated(priv))
-+			break;
-+
-+		/* Trigger KBand calibration */
-+		an7583_usb_phy_kband_calibrate(priv);
-+	}
-+
-+	an7583_usb_phy_tx_pll_enable(priv);
-+
-+	return !an7583_usb_phy_u3_kband_is_calibrated(priv) ? -EINVAL : 0;
-+}
-+
-+static int an7583_usb_phy_init(struct phy *phy)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+
-+	switch (instance->type) {
-+	case PHY_TYPE_USB2:
-+		return an7583_usb_phy_u2_init(phy);
-+	case PHY_TYPE_USB3:
-+		if (phy_get_mode(phy) == PHY_MODE_ETHERNET)
-+			return 0;
-+
-+		return an7583_usb_phy_u3_init(phy);
-+	case PHY_TYPE_PCIE:
-+		if (phy_get_mode(phy) == PHY_MODE_ETHERNET)
-+			return 0;
-+
-+		return an7583_usb_phy_pcie_init(phy);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int an7583_usb_phy_exit(struct phy *phy)
-+{
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_u2_power_on(struct phy *phy)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev;
-+	u32 offset;
-+
-+	dev = phy->dev.parent;
-+	priv = dev_get_drvdata(dev);
-+	offset = instance->offset;
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_USBPHYACR6 + offset,
-+			  AIROHA_USB_PHY_USB20_BC11_SW_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_USBPHYACR2 + offset,
-+			AIROHA_USB_PHY_SIFSLV_MAC_BANDGAP_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_U2PHYACR3 + offset,
-+			   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE,
-+			   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_TOGGLE);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_U2PHYDTM0 + offset,
-+			  AIROHA_USB_PHY_FORCE_XCVRSEL |
-+			  AIROHA_USB_PHY_XCVRSEL);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_USBPHYACR6 + offset,
-+			   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL,
-+			   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_NO_ENPLL_FS_BIAS_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_USBPHYACR5 + offset,
-+			AIROHA_USB_PHY_USB20_DISC_FIT_EN);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_U2PHYDTM0 + offset,
-+			  AIROHA_USB_PHY_FORCE_SUSPENDDM);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_U2PHYACR3 + offset,
-+			  AIROHA_USB_PHY_USB20_USB11_TMODE_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_U2PHYACR3 + offset,
-+			AIROHA_USB_PHY_USB20_TMODE_FS_LS_TX_EN);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_U2PHYDTM0 + offset,
-+			  AIROHA_USB_PHY_FORCE_TERMSEL |
-+			  AIROHA_USB_PHY_TERMSEL);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_U2PHYACR3 + offset,
-+			  AIROHA_USB_PHY_USB20_PUPD_BIST_EN);
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_u3_power_on(struct phy *phy)
-+{
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev;
-+
-+	dev = phy->dev.parent;
-+	priv = dev_get_drvdata(dev);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_TDC_FT_CK_EN,
-+			AIROHA_USB_ANA_VUSB10_ON);
-+
-+	usleep_range(1000, 1500);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY], AIROHA_USB_PHY_GPIO_CTLD,
-+			  AIROHA_USB_PHY_SSUSB_IP_SW_RST);
-+
-+	usleep_range(1000, 1500);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY], AIROHA_USB_PHY_GPIO_CTLD,
-+			  AIROHA_USB_PHY_FORCE_SSUSB_IP_SW_RST);
-+
-+	usleep_range(1000, 1500);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_5,
-+			  AIROHA_USB_PMA_RX_HZ_FORCE);
-+
-+	usleep_range(1000, 1500);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_5,
-+			  AIROHA_USB_PMA_RX_HZ_SEL);
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_power_on(struct phy *phy)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+
-+	switch (instance->type) {
-+	case PHY_TYPE_USB2:
-+		return an7583_usb_phy_u2_power_on(phy);
-+	case PHY_TYPE_USB3:
-+		return an7583_usb_phy_u3_power_on(phy);
-+	case PHY_TYPE_PCIE:
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int an7583_usb_phy_u2_power_off(struct phy *phy)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev;
-+	u32 offset;
-+
-+	dev = phy->dev.parent;
-+	priv = dev_get_drvdata(dev);
-+	offset = instance->offset;
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_U2PHYACR3 + offset,
-+			AIROHA_USB_PHY_USB20_PUPD_BIST_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_U2PHYDTM0 + offset,
-+			AIROHA_USB_PHY_FORCE_TERMSEL |
-+			AIROHA_USB_PHY_TERMSEL);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_U2PHYACR3 + offset,
-+			  AIROHA_USB_PHY_USB20_TMODE_FS_LS_TX_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_U2PHYACR3 + offset,
-+			AIROHA_USB_PHY_USB20_USB11_TMODE_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_U2PHYDTM0 + offset,
-+			AIROHA_USB_PHY_FORCE_SUSPENDDM);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_USBPHYACR5 + offset,
-+			  AIROHA_USB_PHY_USB20_DISC_FIT_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_USBPHYACR6 + offset,
-+			   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL,
-+			   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_USB20_HSRX_TMODE_EN);
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_U2PHYDTM0 + offset,
-+			   AIROHA_USB_PHY_FORCE_XCVRSEL |
-+			   AIROHA_USB_PHY_XCVRSEL,
-+			   AIROHA_USB_PHY_FORCE_XCVRSEL |
-+			   FIELD_PREP(AIROHA_USB_PHY_XCVRSEL, 0x1));
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_U2PHYACR3 + offset,
-+			   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE,
-+			   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_FORCE_DISABLE);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			  AIROHA_USB_PHY_USBPHYACR2 + offset,
-+			  AIROHA_USB_PHY_SIFSLV_MAC_BANDGAP_EN);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			AIROHA_USB_PHY_USBPHYACR6 + offset,
-+			AIROHA_USB_PHY_USB20_BC11_SW_EN);
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_u3_power_off(struct phy *phy)
-+{
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev;
-+
-+	dev = phy->dev.parent;
-+	priv = dev_get_drvdata(dev);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY], AIROHA_USB_PHY_GPIO_CTLD,
-+			AIROHA_USB_PHY_FORCE_SSUSB_IP_SW_RST);
-+
-+	usleep_range(1000, 1500);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY], AIROHA_USB_PHY_GPIO_CTLD,
-+			AIROHA_USB_PHY_SSUSB_IP_SW_RST);
-+
-+	usleep_range(1000, 1500);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_5,
-+			AIROHA_USB_PMA_RX_HZ_FORCE);
-+
-+	usleep_range(1000, 1500);
-+
-+	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_5,
-+			AIROHA_USB_PMA_RX_HZ_SEL);
-+
-+	usleep_range(1000, 1500);
-+
-+	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_TDC_FT_CK_EN,
-+			  AIROHA_USB_ANA_VUSB10_ON);
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_power_off(struct phy *phy)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+
-+	switch (instance->type) {
-+	case PHY_TYPE_USB2:
-+		return an7583_usb_phy_u2_power_off(phy);
-+	case PHY_TYPE_USB3:
-+		return an7583_usb_phy_u3_power_off(phy);
-+	case PHY_TYPE_PCIE:
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int an7583_usb_phy_u2_set_mode(struct phy *phy, enum phy_mode mode)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev;
-+	u32 val = 0;
-+	u32 offset;
-+
-+	dev = phy->dev.parent;
-+	priv = dev_get_drvdata(dev);
-+	offset = instance->offset;
-+
-+	/*
-+	 * For Device and Host mode, enable force IDDIG.
-+	 * For Device set IDDIG, for Host clear IDDIG.
-+	 * For OTG disable force and clear IDDIG bit while at it.
-+	 */
-+	switch (mode) {
-+	case PHY_MODE_USB_DEVICE:
-+		val |= AIROHA_USB_PHY_IDDIG;
-+		fallthrough;
-+	case PHY_MODE_USB_HOST:
-+		val |= AIROHA_USB_PHY_FORCE_IDDIG;
-+		break;
-+	case PHY_MODE_USB_OTG:
-+		break;
-+	default:
-+		return 0;
-+	}
-+
-+	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
-+			   AIROHA_USB_PHY_U2PHYDTM1 + offset,
-+			   AIROHA_USB_PHY_FORCE_IDDIG |
-+			   AIROHA_USB_PHY_IDDIG, val);
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_u3_set_mode(struct phy *phy, enum phy_mode mode,
-+				      int submode)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+	int ret;
-+
-+	switch (mode) {
-+	case PHY_MODE_ETHERNET:
-+		if (submode != PHY_INTERFACE_MODE_SGMII &&
-+		    submode != PHY_INTERFACE_MODE_1000BASEX &&
-+		    submode != PHY_INTERFACE_MODE_2500BASEX)
-+			return -EOPNOTSUPP;
-+
-+		break;
-+	case PHY_MODE_USB_DEVICE_SS:
-+		break;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+
-+	ret = phy_set_mode_ext(instance->serdes_phy, mode, submode);
-+	if (ret)
-+		return ret;
-+
-+	if (mode == PHY_MODE_ETHERNET)
-+		an7583_usb_phy_set_mode_eth(phy, submode);
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_pcie_set_mode(struct phy *phy, enum phy_mode mode,
-+					int submode)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+	int ret;
-+
-+	switch (mode) {
-+	case PHY_MODE_ETHERNET:
-+		if (submode != PHY_INTERFACE_MODE_SGMII &&
-+		    submode != PHY_INTERFACE_MODE_1000BASEX &&
-+		    submode != PHY_INTERFACE_MODE_2500BASEX)
-+			return -EOPNOTSUPP;
-+
-+		break;
-+	case PHY_MODE_PCIE:
-+		break;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+
-+	ret = phy_set_mode_ext(instance->serdes_phy, mode, submode);
-+	if (ret)
-+		return ret;
-+
-+	if (mode == PHY_MODE_ETHERNET)
-+		an7583_usb_phy_set_mode_eth(phy, submode);
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_set_mode(struct phy *phy, enum phy_mode mode, int submode)
-+{
-+	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
-+
-+	switch (instance->type) {
-+	case PHY_TYPE_USB2:
-+		return an7583_usb_phy_u2_set_mode(phy, mode);
-+	case PHY_TYPE_USB3:
-+		return an7583_usb_phy_u3_set_mode(phy, mode, submode);
-+	case PHY_TYPE_PCIE:
-+		return an7583_usb_phy_pcie_set_mode(phy, mode, submode);
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static struct phy *an7583_usb_phy_xlate(struct device *dev,
-+					const struct of_phandle_args *args)
-+{
-+	struct an7583_usb_phy_priv *priv = dev_get_drvdata(dev);
-+	const struct an7583_usb_phy_match_data *data;
-+	struct device_node *phy_np = args->np;
-+	struct phy *phy = NULL;
-+	int type, index;
-+
-+	data = of_device_get_match_data(dev);
-+
-+	if (args->args_count != 1) {
-+		dev_err(dev, "invalid number of cells in 'phy' property\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	for (index = 0; index < data->max_instance; index++) {
-+		if (!priv->phys[index])
-+			continue;
-+
-+		if (phy_np == priv->phys[index]->dev.of_node) {
-+			phy = priv->phys[index];
-+			break;
-+		}
-+	}
-+
-+	if (!phy) {
-+		dev_err(dev, "failed to find appropriate phy\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	type = args->args[0];
-+	if (!(type == PHY_TYPE_USB2 || type == PHY_TYPE_USB3 ||
-+	      type == PHY_TYPE_PCIE)) {
-+		dev_err(dev, "unsupported device type: %d\n", type);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	return phy;
-+}
-+
-+static const struct phy_ops airoha_phy = {
-+	.init		= an7583_usb_phy_init,
-+	.exit		= an7583_usb_phy_exit,
-+	.power_on	= an7583_usb_phy_power_on,
-+	.power_off	= an7583_usb_phy_power_off,
-+	.set_mode	= an7583_usb_phy_set_mode,
-+	.owner		= THIS_MODULE,
-+};
-+
-+static const char * const an7583_usb_phy_regs_name[AIROHA_USB_PHY_REGS_MAX] = {
-+	[AIROHA_USB_PHY_PHY] = "phy",
-+	[AIROHA_USB_PHY_ANA] = "ana",
-+	[AIROHA_USB_PHY_PMA] = "pma",
-+	[AIROHA_USB_PHY_DIG] = "dig",
-+};
-+
-+static const char * const airoha_pcie_phy_regs_name[AIROHA_USB_PHY_REGS_MAX] = {
-+	[AIROHA_USB_PHY_ANA] = "ana",
-+	[AIROHA_USB_PHY_PMA] = "pma",
-+	[AIROHA_USB_PHY_DIG] = "dig",
-+};
-+
-+static int an7583_usb_phy_parse_ports(struct device *dev,
-+				      struct an7583_usb_phy_priv *priv,
-+				      int index, struct device_node *subnode)
-+{
-+	const struct an7583_usb_phy_match_data *data;
-+	struct an7583_usb_phy_instance  *instance;
-+	struct phy *phy;
-+	int ret;
-+
-+	data = of_device_get_match_data(dev);
-+
-+	if (index >= data->max_instance)
-+		return -EINVAL;
-+
-+	if (!of_device_is_available(subnode))
-+		return 0;
-+
-+	instance = devm_kzalloc(dev, sizeof(*instance), GFP_KERNEL);
-+	if (!instance)
-+		return -ENOMEM;
-+
-+	instance->serdes_phy = devm_of_phy_optional_get(dev, subnode, NULL);
-+	if (IS_ERR(instance->serdes_phy))
-+		return dev_err_probe(dev, PTR_ERR(instance->serdes_phy), "error on serdes phy for USB 3.0\n");
-+
-+	if (!instance->serdes_phy &&
-+	    !of_property_present(subnode, "airoha,usb2-monitor-clk-sel"))
-+		return dev_err_probe(dev, -EINVAL, "monitor clock selection or serdes PHY is mandatory for USB PHY\n");
-+
-+	if (instance->serdes_phy) {
-+		instance->type = PHY_TYPE_USB3;
-+	} else {
-+		ret = of_property_read_u32(subnode, "airoha,usb2-monitor-clk-sel",
-+					   &instance->monclk_sel);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to parse Monitor clock selection\n");
-+
-+		ret = of_property_read_u32(subnode, "reg",
-+					   &instance->offset);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "missing reg for U2 PHY\n");
-+
-+		instance->type = PHY_TYPE_USB2;
-+	}
-+
-+	phy = devm_phy_create(dev, subnode, &airoha_phy);
-+	if (IS_ERR(phy))
-+		return dev_err_probe(dev, PTR_ERR(phy), "failed to create phy\n");
-+
-+	priv->phys[index] = phy;
-+	phy_set_drvdata(phy, instance);
-+
-+	return 0;
-+}
-+
-+static int airoha_pcie_phy_parse_ports(struct device *dev,
-+				       struct an7583_usb_phy_priv *priv,
-+				       int index, struct device_node *subnode)
-+{
-+	const struct an7583_usb_phy_match_data *data;
-+	struct an7583_usb_phy_instance  *instance;
-+	struct phy *phy;
-+
-+	data = of_device_get_match_data(dev);
-+
-+	if (index >= data->max_instance)
-+		return -EINVAL;
-+
-+	if (!of_device_is_available(subnode))
-+		return 0;
-+
-+	instance = devm_kzalloc(dev, sizeof(*instance), GFP_KERNEL);
-+	if (!instance)
-+		return -ENOMEM;
-+
-+	instance->serdes_phy = devm_phy_get(dev, NULL);
-+	if (IS_ERR(instance->serdes_phy))
-+		return dev_err_probe(dev, PTR_ERR(instance->serdes_phy), "error on serdes phy for PCIe PHY\n");
-+
-+	instance->type = PHY_TYPE_PCIE;
-+
-+	phy = devm_phy_create(dev, subnode, &airoha_phy);
-+	if (IS_ERR(phy))
-+		return dev_err_probe(dev, PTR_ERR(phy), "failed to create phy\n");
-+
-+	priv->phys[index] = phy;
-+	phy_set_drvdata(phy, instance);
-+
-+	return 0;
-+}
-+
-+static int an7583_usb_phy_probe(struct platform_device *pdev)
-+{
-+	const struct an7583_usb_phy_match_data *data;
-+	struct phy_provider *phy_provider;
-+	struct an7583_usb_phy_priv *priv;
-+	struct device *dev = &pdev->dev;
-+	struct device_node *child_np;
-+	int i, ret;
-+
-+	data = of_device_get_match_data(dev);
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < AIROHA_USB_PHY_REGS_MAX; i++) {
-+		struct regmap_config conf = {
-+			.reg_bits = 32,
-+			.val_bits = 32,
-+			.reg_stride = 4,
-+		};
-+		void *base;
-+
-+		if (!data->regs_name[i])
-+			continue;
-+
-+		conf.name = data->regs_name[i];
-+		base = devm_platform_ioremap_resource_byname(pdev,
-+							     data->regs_name[i]);
-+		if (IS_ERR(base))
-+			return PTR_ERR(base);
-+
-+		priv->regs[i] = devm_regmap_init_mmio(dev, base, &conf);
-+		if (IS_ERR(priv->regs[i]))
-+			return PTR_ERR(priv->regs[i]);
-+	}
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	if (device_is_compatible(dev, "airoha,an7583-usb-phy")) {
-+		u8 port;
-+
-+		port = 0;
-+		for_each_child_of_node(dev->of_node, child_np) {
-+			ret = data->parse_ports(dev, priv, port, child_np);
-+			if (ret) {
-+				of_node_put(child_np);
-+				return ret;
-+			}
-+
-+			port++;
-+		}
-+	} else {
-+		ret = data->parse_ports(dev, priv, 0, dev->of_node);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	phy_provider = devm_of_phy_provider_register(dev, an7583_usb_phy_xlate);
-+
-+	return PTR_ERR_OR_ZERO(phy_provider);
-+}
-+
-+static const struct an7583_usb_phy_match_data an7583_usb_phy = {
-+	.max_instance = AIROHA_USB_PHY_MAX_INSTANCE,
-+	.regs_name = an7583_usb_phy_regs_name,
-+	.parse_ports = an7583_usb_phy_parse_ports,
-+};
-+
-+static const struct an7583_usb_phy_match_data an7583_pcie_phy = {
-+	.max_instance = AIROHA_PCIE_PHY_MAX_INSTANCE,
-+	.regs_name = airoha_pcie_phy_regs_name,
-+	.parse_ports = airoha_pcie_phy_parse_ports,
-+};
-+
-+static const struct of_device_id airoha_phy_id_table[] = {
-+	{ .compatible = "airoha,an7583-usb-phy", .data = &an7583_usb_phy },
-+	{ .compatible = "airoha,an7583-pcie-gen2-phy", .data = &an7583_pcie_phy },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, airoha_phy_id_table);
-+
-+static struct platform_driver an7583_usb_driver = {
-+	.probe		= an7583_usb_phy_probe,
-+	.driver		= {
-+		.name	= "airoha-an7583-usb-phy",
-+		.of_match_table = airoha_phy_id_table,
-+	},
-+};
-+
-+module_platform_driver(an7583_usb_driver);
-+
-+MODULE_DESCRIPTION("Airoha AN7583 USB PHY driver");
-+MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.55.0
+> ---
+>  MAINTAINERS                                 |   1 +
+>  drivers/media/platform/Kconfig              |   1 +
+>  drivers/media/platform/Makefile             |   1 +
+>  drivers/media/platform/apple/Kconfig        |   5 +
+>  drivers/media/platform/apple/Makefile       |   3 +
+>  drivers/media/platform/apple/avd/Kconfig    |  16 +
+>  drivers/media/platform/apple/avd/Makefile   |   4 +
+>  drivers/media/platform/apple/avd/avd-drv.c  | 782 ++++++++++++++++++++++=
++++++
+>  drivers/media/platform/apple/avd/avd-inst.h | 210 ++++++++
+>  drivers/media/platform/apple/avd/avd-v4l2.c | 783 ++++++++++++++++++++++=
+++++++
+>  drivers/media/platform/apple/avd/avd.h      | 267 ++++++++++
+>  11 files changed, 2073 insertions(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 4fabca992fd4..3c919f7986bd 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -2676,6 +2676,7 @@ F:=09drivers/input/touchscreen/apple_z2.c
+>  F:=09drivers/iommu/apple-dart.c
+>  F:=09drivers/iommu/io-pgtable-dart.c
+>  F:=09drivers/irqchip/irq-apple-aic.c
+> +F:=09drivers/media/platform/apple/*
+>  F:=09drivers/mfd/macsmc.c
+>  F:=09drivers/nvme/host/apple.c
+>  F:=09drivers/nvmem/apple-efuses.c
+> diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kcon=
+fig
+> index 2c7699b6610b..280a9db25935 100644
+> --- a/drivers/media/platform/Kconfig
+> +++ b/drivers/media/platform/Kconfig
+> @@ -66,6 +66,7 @@ source "drivers/media/platform/allegro-dvt/Kconfig"
+>  source "drivers/media/platform/amd/Kconfig"
+>  source "drivers/media/platform/amlogic/Kconfig"
+>  source "drivers/media/platform/amphion/Kconfig"
+> +source "drivers/media/platform/apple/Kconfig"
+>  source "drivers/media/platform/arm/Kconfig"
+>  source "drivers/media/platform/aspeed/Kconfig"
+>  source "drivers/media/platform/atmel/Kconfig"
+> diff --git a/drivers/media/platform/Makefile b/drivers/media/platform/Mak=
+efile
+> index d47c47d817da..aa82e189936b 100644
+> --- a/drivers/media/platform/Makefile
+> +++ b/drivers/media/platform/Makefile
+> @@ -9,6 +9,7 @@ obj-y +=3D allegro-dvt/
+>  obj-y +=3D amd/
+>  obj-y +=3D amlogic/
+>  obj-y +=3D amphion/
+> +obj-y +=3D apple/
+>  obj-y +=3D arm/
+>  obj-y +=3D aspeed/
+>  obj-y +=3D atmel/
+> diff --git a/drivers/media/platform/apple/Kconfig b/drivers/media/platfor=
+m/apple/Kconfig
+> new file mode 100644
+> index 000000000000..43c0a56c36a8
+> --- /dev/null
+> +++ b/drivers/media/platform/apple/Kconfig
+> @@ -0,0 +1,5 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +comment "Apple media platform drivers"
+> +
+> +source "drivers/media/platform/apple/avd/Kconfig"
+> diff --git a/drivers/media/platform/apple/Makefile b/drivers/media/platfo=
+rm/apple/Makefile
+> new file mode 100644
+> index 000000000000..d502cab93970
+> --- /dev/null
+> +++ b/drivers/media/platform/apple/Makefile
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +obj-y +=3D avd/
+> diff --git a/drivers/media/platform/apple/avd/Kconfig b/drivers/media/pla=
+tform/apple/avd/Kconfig
+> new file mode 100644
+> index 000000000000..68efa2df368a
+> --- /dev/null
+> +++ b/drivers/media/platform/apple/avd/Kconfig
+> @@ -0,0 +1,16 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +config VIDEO_APPLE_AVD
+> +=09tristate "Apple Silicon Video Decoding driver"
+> +=09depends on VIDEO_DEV
+> +=09depends on MEDIA_CONTROLLER
+> +=09depends on ARCH_APPLE || COMPILE_TEST
+> +=09depends on OF_ADDRESS
+> +=09depends on V4L_PLATFORM_DRIVERS
+> +=09select V4L2_MEM2MEM_DEV
+> +=09select VIDEOBUF2_DMA_CONTIG
+> +=09help
+> +=09  Support for hardware video decoding on Apple Silicon devices using
+> +=09  the Apple Video Decoder (AVD).
+> +=09  To compile this driver as a module, choose M here: the module will
+> +=09  be called apple-avd.
+> diff --git a/drivers/media/platform/apple/avd/Makefile b/drivers/media/pl=
+atform/apple/avd/Makefile
+> new file mode 100644
+> index 000000000000..b2f6736a790e
+> --- /dev/null
+> +++ b/drivers/media/platform/apple/avd/Makefile
+> @@ -0,0 +1,4 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +apple-avd-y :=3D avd-drv.o avd-v4l2.o
+> +obj-$(CONFIG_VIDEO_APPLE_AVD) +=3D apple-avd.o
+> diff --git a/drivers/media/platform/apple/avd/avd-drv.c b/drivers/media/p=
+latform/apple/avd/avd-drv.c
+> new file mode 100644
+> index 000000000000..ddbf18cd3329
+> --- /dev/null
+> +++ b/drivers/media/platform/apple/avd/avd-drv.c
+> @@ -0,0 +1,782 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Apple Video Decoder driver
+> + *
+> + * Copyright (C) 2026 The Asahi Linux Contributors
+> + * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
+> + *
+> + * Based on rkvdec driver by Collabora, Ltd.
+> + * Copyright (C) 2019 Collabora, Ltd.
+> + * Based on rkvdec driver by Google LLC. (Tomasz Figa <tfiga@chromium.or=
+g>)
+> + * Based on s5p-mfc driver by Samsung Electronics Co., Ltd.
+> + * Copyright (C) 2011 Samsung Electronics Co., Ltd.
+> + */
+> +
+> +#include <linux/pm_runtime.h>
+> +#include <linux/iommu.h>
+> +#include <linux/reset.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/iopoll.h>
+> +
+> +#include <media/videobuf2-dma-contig.h>
+> +#include <media/videobuf2-v4l2.h>
+> +
+> +#include "avd.h"
+> +#include "avd-inst.h"
+> +
+> +static void calc_tile_meta(u32 w, u32 h, u32 bpb, u32 tile_dim,
+> +=09=09=09   u32 meta_hdr_bytes, u32 *tile, u32 *meta)
+> +{
+> +=09u32 tiles_width, tiles_height, meta_tile_w, meta_tile_h, tile_bytes;
+> +
+> +=09tiles_width =3D DIV_ROUND_UP(w, tile_dim);
+> +=09tiles_height =3D DIV_ROUND_UP(h, tile_dim);
+> +=09tile_bytes =3D DIV_ROUND_UP(tile_dim * tile_dim * bpb, 8);
+> +=09*tile =3D ALIGN(tiles_width * tiles_height * tile_bytes, 16);
+> +
+> +=09meta_tile_w =3D roundup_pow_of_two(tiles_width);
+> +=09meta_tile_h =3D roundup_pow_of_two(tiles_height);
+> +
+> +=09*meta =3D ALIGN(meta_tile_w * meta_tile_h * meta_hdr_bytes, 16);
+> +}
+> +
+> +static inline u8 v4l2_format_info_bpp(const struct v4l2_format_info *inf=
+o,
+> +=09=09=09=09      int plane)
+> +{
+> +=09return 8 * info->bpp[plane] / info->bpp_div[plane];
+> +}
+> +
+> +void fill_comp(struct avd_comp *comp, enum avd_image_fmt fmt, u32 width,
+> +=09       u32 height)
+> +{
+> +=09u32 y_meta, y, uv_meta, uv, fourcc;
+> +=09const struct v4l2_format_info *info;
+> +
+> +=09switch (fmt) {
+> +=09case AVD_IMG_FMT_420_8BIT:
+> +=09=09fourcc =3D V4L2_PIX_FMT_APPLE_AX12;
+> +=09=09break;
+> +=09case AVD_IMG_FMT_420_10BIT:
+> +=09=09fourcc =3D V4L2_PIX_FMT_APPLE_AX03;
+> +=09=09break;
+> +=09case AVD_IMG_FMT_422_8BIT:
+> +=09=09fourcc =3D V4L2_PIX_FMT_APPLE_AX16;
+> +=09=09break;
+> +=09case AVD_IMG_FMT_ANY: /* use the largest one */
+> +=09case AVD_IMG_FMT_422_10BIT:
+> +=09=09fourcc =3D V4L2_PIX_FMT_APPLE_AX23;
+> +=09=09break;
+> +=09}
+> +=09info =3D v4l2_format_info(fourcc);
+> +
+> +=09/* y has 32x32 tiles and 32 bytes of metadata per tile */
+> +=09calc_tile_meta(width, height, v4l2_format_info_bpp(info, 0), 32, 32,
+> +=09=09       &y, &y_meta);
+> +=09/* uv has 16x16 tiles and 8 bytes of metadata per tile */
+> +=09calc_tile_meta(width / info->vdiv, height / info->hdiv,
+> +=09=09       v4l2_format_info_bpp(info, 1), 16, 8, &uv,
+> +=09=09       &uv_meta);
+> +
+> +=09/* output like DCP/AGX expect */
+> +=09comp->offsets[0] =3D y;
+> +=09comp->offsets[1] =3D 0;
+> +=09comp->offsets[2] =3D y + y_meta + uv;
+> +=09comp->offsets[3] =3D y + y_meta;
+> +
+> +=09comp->size =3D y_meta + y + uv_meta + uv;
+> +}
+> +
+> +int avd_buf_alloc(struct avd_dev *avd, struct avd_buf *buf, size_t size)
+> +{
+> +=09if (buf->cpu && size < buf->size)
+> +=09=09return 0;
+> +=09else if (buf->cpu)
+> +=09=09avd_buf_free(avd, buf);
+> +
+> +=09if (size <=3D 0)
+> +=09=09return -ENOMEM;
+> +
+> +=09buf->size =3D size;
+> +=09buf->cpu =3D
+> +=09=09dma_alloc_coherent(avd->dev, buf->size, &buf->addr, GFP_KERNEL);
+> +=09return buf->cpu ? 0 : -ENOMEM;
+> +}
+> +
+> +void avd_buf_free(struct avd_dev *avd, struct avd_buf *buf)
+> +{
+> +=09if (buf->cpu)
+> +=09=09dma_free_coherent(avd->dev, buf->size, buf->cpu, buf->addr);
+> +=09memset(buf, 0, sizeof(*buf));
+> +}
+> +
+> +struct avd_decoded_buffer *
+> +avd_get_ref_buf(struct avd_ctx *ctx, struct vb2_v4l2_buffer *dst, u64 ti=
+mestamp)
+> +{
+> +=09struct v4l2_m2m_ctx *m2m_ctx =3D ctx->fh.m2m_ctx;
+> +=09struct vb2_queue *cap_q =3D &m2m_ctx->cap_q_ctx.q;
+> +=09struct vb2_buffer *buf;
+> +
+> +=09/*
+> +=09 * If a ref is unused or invalid, address of current destination
+> +=09 * buffer is returned.
+> +=09 */
+> +=09buf =3D vb2_find_buffer(cap_q, timestamp);
+> +=09if (!buf)
+> +=09=09buf =3D &dst->vb2_buf;
+> +
+> +=09return vb2_to_avd_decoded_buf(buf);
+> +}
+> +
+> +int avd_end_segment(struct avd_ctx *ctx, bool update_submit)
+> +{
+> +=09struct avd_job *job =3D &ctx->job;
+> +=09struct avd_segment *seg =3D &job->segments[job->num];
+> +
+> +=09/* avd_segment includes piodma_cmd which is not transferred */
+> +=09seg->piodma_cmd =3D
+> +=09=09AVD_PIODMA_CMD_SIZE((sizeof(struct avd_segment) - 8) / 4);
+> +=09seg->piodma_cmd |=3D AVD_PIODMA_CMD_DEST(job->dest);
+> +=09seg->piodma_cmd |=3D AVD_PIODMA_CMD_CONST;
+> +
+> +=09job->num++;
+> +=09if (update_submit)
+> +=09=09job->num_submit++;
+> +=09return job->num >=3D job->num_alloc;
+> +}
+> +
+> +int avd_init_job(struct avd_ctx *ctx, enum avd_codec codec, size_t segme=
+nts)
+> +{
+> +=09int ret =3D 0;
+> +=09struct avd_job *job =3D &ctx->job;
+> +
+> +=09job->codec =3D codec;
+> +=09job->dest =3D 0x1000;
 
+Maybe give this a name with a #define?
+
+> +=09job->num =3D 0;
+> +=09job->num_submit =3D 0;
+> +=09job->num_alloc =3D segments;
+> +=09ret =3D avd_buf_alloc(ctx->dev, &job->buf,
+> +=09=09=09    job->num_alloc * sizeof(*job->segments));
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09job->segments =3D job->buf.cpu;
+> +=09memset(job->buf.cpu, 0, job->buf.size);
+> +=09return 0;
+> +}
+> +
+> +struct avd_cm3_job {
+> +=09enum avd_codec codec;
+> +=09u32 dest;
+> +=09u32 num;
+> +=09u32 num_submit;
+> +=09u64 iova;
+> +=09u64 insn;
+> +};
+> +
+> +int avd_submit_job(struct avd_ctx *ctx)
+> +{
+> +=09struct avd_dev *avd =3D ctx->dev;
+> +=09struct avd_job *job =3D &ctx->job;
+> +=09int submit_off =3D 0x100;
+
+Same.
+
+> +=09struct avd_cm3_job submit =3D (struct avd_cm3_job) {
+> +=09=09.codec =3D job->codec,
+> +=09=09.dest =3D job->dest,
+> +=09=09.num =3D job->num,
+> +=09=09.num_submit =3D job->num_submit,
+> +=09=09.iova =3D job->buf.addr,
+> +=09=09.insn =3D ctx->inst.addr,
+> +=09};
+> +
+> +=09schedule_delayed_work(&ctx->watchdog_work, msecs_to_jiffies(2000));
+> +=09memcpy_toio(avd->sram + submit_off, &submit, sizeof(submit));
+> +=09writel(submit_off, avd->mbox + AVD_REG_MBOX1_SUBMIT);
+> +
+> +=09return 0;
+> +}
+> +
+> +static int avd_boot(struct avd_dev *avd)
+> +{
+> +=09u32 val;
+> +=09int ret;
+> +=09char version[64];
+> +
+> +=09if (avd->variant->revision !=3D 3)
+> +=09=09dev_info_once(avd->dev, "booting hw version: %04x",
+> +=09=09=09      readl_relaxed(avd->ctrl));
+> +
+> +=09writel(avd->sram_start, avd->piodma + 0x24);
+> +=09dev_info_once(avd->dev, "piodma version: %04x base: %08x",
+> +=09=09      readl_relaxed(avd->piodma + 0xb4),
+> +=09=09      readl_relaxed(avd->piodma + 0x24));
+> +
+> +=09memcpy_toio(avd->code, avd->fw->data, avd->fw->size);
+> +
+> +=09writel_relaxed(AVD_MBOX_ENABLE, avd->mbox + AVD_REG_MBOX1_STATUS);
+> +=09writel_relaxed(AVD_MBOX_ENABLE, avd->mbox + AVD_REG_MBOX0_STATUS);
+> +=09writel_relaxed(AVD_MBOX0_NOT_EMPTY,
+> +=09=09       avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
+> +=09writel_relaxed(AVD_RUN_CTRL_UNK_RUN, avd->mbox + AVD_REG_RUN_CTRL);
+> +
+> +=09/* wait for cm3 to boot */
+> +=09ret =3D readl_poll_timeout(avd->mbox + AVD_REG_FLAG0_SET, val, val =
+=3D=3D 1,
+> +=09=09=09=09 10, 10000);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09memcpy_fromio(version, avd->sram, sizeof(version));
+> +=09dev_info_once(avd->dev, "fw version: %s\n", version);
+> +
+> +=09return 0;
+> +}
+> +
+> +static void avd_shutdown(struct avd_dev *avd)
+> +{
+> +=09writel_relaxed(AVD_RUN_CTRL_UNK_STOP, avd->mbox + AVD_REG_RUN_CTRL);
+> +=09writel_relaxed(1, avd->mbox + AVD_REG_FLAG0_CLR);
+> +=09writel_relaxed(0, avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
+> +}
+> +
+> +static int avd_reset(struct avd_dev *avd)
+> +{
+> +=09int ret =3D 0;
+> +
+> +=09ret =3D pm_runtime_resume_and_get(avd->dev);
+> +=09if (ret < 0)
+> +=09=09return ret;
+> +
+> +=09ret =3D reset_control_reset(avd->rstc);
+> +=09if (ret)
+> +=09=09dev_err(avd->dev, "reset: failed: %d", ret);
+> +
+> +=09iommu_attach_device(avd->empty_domain, avd->dev);
+> +=09iommu_detach_device(avd->empty_domain, avd->dev);
+> +
+> +=09ret =3D avd_boot(avd);
+> +=09if (ret)
+> +=09=09dev_err(avd->dev, "reset: failed to boot");
+> +
+> +=09pm_runtime_put_autosuspend(avd->dev);
+> +
+> +=09return ret;
+> +}
+> +
+> +static void avd_watchdog_func(struct work_struct *work)
+> +{
+> +=09struct avd_dev *avd;
+> +=09struct avd_ctx *ctx;
+> +=09int ret;
+> +
+> +=09ctx =3D container_of(to_delayed_work(work), struct avd_ctx,
+> +=09=09=09   watchdog_work);
+> +=09if (!ctx)
+> +=09=09return;
+> +
+> +=09avd =3D ctx->dev;
+> +
+> +=09dev_err(avd->dev, "Frame processing timed out!");
+> +
+> +=09writel(0, avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
+> +=09ret =3D avd_reset(avd);
+> +=09if (ret)
+> +=09=09dev_err(avd->dev, "failed to reset: %d", ret);
+> +
+> +=09avd_job_finish(ctx, VB2_BUF_STATE_ERROR);
+> +}
+> +
+> +static irqreturn_t avd_irq_handler(int irq, void *data)
+> +{
+> +=09struct avd_dev *avd =3D data;
+> +=09struct avd_ctx *ctx =3D v4l2_m2m_get_curr_priv(avd->m2m_dev);
+> +=09enum vb2_buffer_state state;
+> +=09u32 status;
+> +
+> +=09status =3D readl(avd->mbox + AVD_REG_MBOX0_RETRIEVE);
+> +=09writel(AVD_MBOX0_NOT_EMPTY, avd->mbox + AVD_REG_MBOX_IRQ_CLR);
+> +
+> +=09if (status & 0x10000) { /* dbg */
+
+A define for this bit would be nice (#define BIT(N))
+
+> +=09=09dev_warn(avd->dev, "no handler for IRQ: %3d",
+> +=09=09=09 status & ~0x10000);
+
+And so you don't have to duplicate.
+
+> +=09=09writel_relaxed(0, avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
+> +=09=09return IRQ_HANDLED;
+> +=09}
+> +
+> +=09if (!ctx)
+> +=09=09return IRQ_HANDLED;
+> +
+> +=09if (status & 0x1000) {
+
+same, and any occurrence I may have missed.
+
+> +=09=09state =3D VB2_BUF_STATE_DONE;
+> +=09} else {
+> +=09=09dev_err(avd->dev, "error: fw says: %x", status);
+> +=09=09/* let watchdog handle */
+> +=09=09goto done;
+> +=09}
+> +
+> +=09/* if the watchdog_work has run the work has already been submitted *=
+/
+> +=09if (cancel_delayed_work(&ctx->watchdog_work))
+> +=09=09avd_job_finish(ctx, state);
+> +
+> +done:
+> +=09return IRQ_HANDLED;
+> +}
+> +
+> +static void avd_device_run(void *priv)
+> +{
+> +=09struct avd_ctx *ctx =3D priv;
+> +=09struct avd_dev *avd =3D ctx->dev;
+> +=09const struct avd_coded_fmt_desc *desc =3D ctx->coded_fmt_desc;
+> +=09int ret;
+> +
+> +=09if (WARN_ON(!desc))
+> +=09=09return;
+> +
+> +=09ret =3D pm_runtime_resume_and_get(avd->dev);
+> +=09if (ret < 0) {
+> +=09=09avd_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
+> +=09=09return;
+> +=09}
+> +
+> +=09ret =3D desc->ops->run(ctx);
+> +=09if (ret)
+> +=09=09avd_job_finish(ctx, VB2_BUF_STATE_ERROR);
+> +}
+> +
+> +static int avd_queue_init(void *priv, struct vb2_queue *src_vq,
+> +=09=09=09  struct vb2_queue *dst_vq)
+> +{
+> +=09struct avd_ctx *ctx =3D priv;
+> +=09int ret;
+> +
+> +=09src_vq->type =3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
+> +=09src_vq->io_modes =3D VB2_MMAP | VB2_DMABUF;
+> +=09src_vq->drv_priv =3D ctx;
+> +=09src_vq->ops =3D &avd_queue_ops;
+> +=09src_vq->mem_ops =3D &vb2_dma_contig_memops;
+> +
+> +=09src_vq->dma_attrs =3D 0;
+> +=09src_vq->buf_struct_size =3D sizeof(struct v4l2_m2m_buffer);
+> +=09src_vq->timestamp_flags =3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
+> +=09src_vq->lock =3D &ctx->dev->vdev_lock;
+> +=09src_vq->dev =3D ctx->dev->v4l2_dev.dev;
+> +=09src_vq->supports_requests =3D true;
+> +
+> +=09ret =3D vb2_queue_init(src_vq);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09dst_vq->bidirectional =3D true;
+> +=09dst_vq->mem_ops =3D &vb2_dma_contig_memops;
+> +=09dst_vq->dma_attrs =3D 0;
+> +=09dst_vq->type =3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+> +=09dst_vq->io_modes =3D VB2_MMAP | VB2_DMABUF;
+> +=09dst_vq->drv_priv =3D ctx;
+> +=09dst_vq->ops =3D &avd_queue_ops;
+> +=09dst_vq->buf_struct_size =3D sizeof(struct avd_decoded_buffer);
+> +=09dst_vq->timestamp_flags =3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
+> +=09dst_vq->lock =3D &ctx->dev->vdev_lock;
+> +=09dst_vq->dev =3D ctx->dev->v4l2_dev.dev;
+> +
+> +=09return vb2_queue_init(dst_vq);
+> +}
+> +
+> +static int avd_open(struct file *filp)
+> +{
+> +=09struct avd_dev *avd =3D video_drvdata(filp);
+> +=09struct avd_ctx *ctx;
+> +=09int ret;
+> +
+> +=09ctx =3D kzalloc_obj(*ctx, GFP_KERNEL);
+> +=09if (!ctx)
+> +=09=09return -ENOMEM;
+> +
+> +=09ctx->dev =3D avd;
+> +
+> +=09ret =3D avd_buf_alloc(avd, &ctx->inst, AVD_FIFO_SIZE);
+> +=09if (ret)
+> +=09=09goto err_free_ctx;
+> +
+> +=09ret =3D avd_buf_alloc(avd, &ctx->pipe_state, 512);
+> +=09if (ret)
+> +=09=09goto err_free_ctx;
+> +
+> +=09INIT_DELAYED_WORK(&ctx->watchdog_work, avd_watchdog_func);
+> +
+> +=09avd_reset_coded_fmt(ctx);
+> +=09avd_reset_decoded_fmt(ctx);
+> +
+> +=09v4l2_fh_init(&ctx->fh, video_devdata(filp));
+> +
+> +=09ctx->fh.m2m_ctx =3D v4l2_m2m_ctx_init(avd->m2m_dev, ctx, avd_queue_in=
+it);
+> +=09if (IS_ERR(ctx->fh.m2m_ctx)) {
+> +=09=09ret =3D PTR_ERR(ctx->fh.m2m_ctx);
+> +=09=09goto err_free_ctx;
+> +=09}
+> +
+> +=09ret =3D avd_init_ctrls(ctx);
+> +=09if (ret)
+> +=09=09goto err_cleanup_m2m_ctx;
+> +
+> +=09v4l2_fh_add(&ctx->fh, filp);
+> +
+> +=09return 0;
+> +
+> +err_cleanup_m2m_ctx:
+> +=09v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
+> +
+> +err_free_ctx:
+> +=09avd_buf_free(avd, &ctx->pipe_state);
+> +=09avd_buf_free(avd, &ctx->inst);
+> +=09kfree(ctx);
+> +=09return ret;
+> +}
+> +
+> +static int avd_release(struct file *filp)
+> +{
+> +=09struct avd_ctx *ctx =3D file_to_ctx(filp);
+> +
+> +
+
+Style: drop the extra empty line.
+
+> +=09v4l2_fh_del(&ctx->fh, filp);
+> +=09v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
+> +=09cancel_delayed_work_sync(&ctx->watchdog_work);
+> +=09v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
+> +=09v4l2_fh_exit(&ctx->fh);
+> +=09avd_buf_free(ctx->dev, &ctx->inst);
+> +=09avd_buf_free(ctx->dev, &ctx->pipe_state);
+> +=09avd_buf_free(ctx->dev, &ctx->job.buf);
+> +=09kfree(ctx);
+> +
+> +=09return 0;
+> +}
+> +
+> +static const struct v4l2_file_operations avd_fops =3D {
+> +=09.owner =3D THIS_MODULE,
+> +=09.open =3D avd_open,
+> +=09.release =3D avd_release,
+> +=09.poll =3D v4l2_m2m_fop_poll,
+> +=09.unlocked_ioctl =3D video_ioctl2,
+> +=09.mmap =3D v4l2_m2m_fop_mmap,
+> +};
+> +
+> +static const struct v4l2_m2m_ops avd_m2m_ops =3D {
+> +=09.device_run =3D avd_device_run,
+> +};
+> +
+> +static const struct media_device_ops avd_media_ops =3D {
+> +=09.req_validate =3D vb2_request_validate,
+> +=09.req_queue =3D v4l2_m2m_request_queue,
+> +};
+> +
+> +static int avd_v4l2_init(struct avd_dev *avd)
+> +{
+> +=09int ret;
+> +
+> +=09ret =3D v4l2_device_register(avd->dev, &avd->v4l2_dev);
+> +=09if (ret) {
+> +=09=09dev_err(avd->dev, "Failed to register V4L2 device\n");
+> +=09=09return ret;
+> +=09}
+> +
+> +=09avd->m2m_dev =3D v4l2_m2m_init(&avd_m2m_ops);
+> +=09if (IS_ERR(avd->m2m_dev)) {
+> +=09=09v4l2_err(&avd->v4l2_dev, "Failed to init mem2mem device\n");
+> +=09=09ret =3D PTR_ERR(avd->m2m_dev);
+> +=09=09goto err_unregister_v4l2;
+> +=09}
+> +
+> +=09avd->mdev.dev =3D avd->dev;
+> +=09strscpy(avd->mdev.model, "avd", sizeof(avd->mdev.model));
+> +=09strscpy(avd->mdev.bus_info, "platform:avd", sizeof(avd->mdev.bus_info=
+));
+> +=09media_device_init(&avd->mdev);
+> +=09avd->mdev.ops =3D &avd_media_ops;
+> +=09avd->v4l2_dev.mdev =3D &avd->mdev;
+> +
+> +=09avd->vdev.lock =3D &avd->vdev_lock;
+> +=09avd->vdev.v4l2_dev =3D &avd->v4l2_dev;
+> +=09avd->vdev.fops =3D &avd_fops;
+> +=09avd->vdev.release =3D video_device_release_empty;
+> +=09avd->vdev.vfl_dir =3D VFL_DIR_M2M;
+> +=09avd->vdev.device_caps =3D V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_M2M_MPL=
+ANE;
+> +=09avd->vdev.ioctl_ops =3D &avd_ioctl_ops;
+> +=09video_set_drvdata(&avd->vdev, avd);
+> +=09strscpy(avd->vdev.name, "avd", sizeof(avd->vdev.name));
+> +
+> +=09ret =3D video_register_device(&avd->vdev, VFL_TYPE_VIDEO, -1);
+> +=09if (ret) {
+> +=09=09v4l2_err(&avd->v4l2_dev, "Failed to register video device\n");
+> +=09=09goto err_cleanup_mc;
+> +=09}
+> +
+> +=09ret =3D v4l2_m2m_register_media_controller(avd->m2m_dev, &avd->vdev,
+> +=09=09=09=09=09=09 MEDIA_ENT_F_PROC_VIDEO_DECODER);
+> +=09if (ret) {
+> +=09=09v4l2_err(&avd->v4l2_dev,
+> +=09=09=09 "Failed to initialize V4L2 M2M media controller\n");
+> +=09=09goto err_unregister_vdev;
+> +=09}
+> +
+> +=09ret =3D media_device_register(&avd->mdev);
+> +=09if (ret) {
+> +=09=09v4l2_err(&avd->v4l2_dev, "Failed to register media device\n");
+> +=09=09goto err_unregister_mc;
+> +=09}
+> +
+> +=09return 0;
+> +
+> +err_unregister_mc:
+> +=09v4l2_m2m_unregister_media_controller(avd->m2m_dev);
+> +
+> +err_unregister_vdev:
+> +=09video_unregister_device(&avd->vdev);
+> +
+> +err_cleanup_mc:
+> +=09media_device_cleanup(&avd->mdev);
+> +=09v4l2_m2m_release(avd->m2m_dev);
+> +
+> +err_unregister_v4l2:
+> +=09v4l2_device_unregister(&avd->v4l2_dev);
+> +=09return ret;
+> +}
+> +
+> +static void avd_v4l2_cleanup(struct avd_dev *avd)
+> +{
+> +=09media_device_unregister(&avd->mdev);
+> +=09v4l2_m2m_unregister_media_controller(avd->m2m_dev);
+> +=09video_unregister_device(&avd->vdev);
+> +=09media_device_cleanup(&avd->mdev);
+> +=09v4l2_m2m_release(avd->m2m_dev);
+> +=09v4l2_device_unregister(&avd->v4l2_dev);
+> +}
+> +
+> +static const struct avd_variant avd_t8103_variant =3D {
+> +=09.capabilities =3D AVD_CAPABILITY_HEVC |
+> +=09=09=09AVD_CAPABILITY_H264 |
+> +=09=09=09AVD_CAPABILITY_VP9,
+> +=09.fw_name =3D "apple/avd-fw-v2-t0.bin",
+> +=09.revision =3D 3,
+> +=09.quirks =3D AVD_QUIRK_LSR | AVD_QUIRK_NO_PIPE_STATE,
+> +};
+> +
+> +static const struct avd_variant avd_t6000_variant =3D {
+> +=09.capabilities =3D AVD_CAPABILITY_HEVC |
+> +=09=09=09AVD_CAPABILITY_H264 |
+> +=09=09=09AVD_CAPABILITY_VP9,
+> +=09.fw_name =3D "apple/avd-fw-v3-t0.bin",
+> +=09.revision =3D 4,
+> +=09.quirks =3D AVD_QUIRK_LSR | AVD_QUIRK_NO_PIPE_STATE,
+> +};
+> +
+> +static const struct avd_variant avd_t8112_variant =3D {
+> +=09.capabilities =3D AVD_CAPABILITY_HEVC |
+> +=09=09=09AVD_CAPABILITY_H264 |
+> +=09=09=09AVD_CAPABILITY_VP9,
+> +=09.fw_name =3D "apple/avd-fw-v3-t1.bin",
+> +=09.revision =3D 4,
+> +=09.quirks =3D AVD_QUIRK_LSR,
+> +};
+> +
+> +static const struct avd_variant avd_t6020_variant =3D {
+> +=09.capabilities =3D AVD_CAPABILITY_HEVC |
+> +=09=09=09AVD_CAPABILITY_H264 |
+> +=09=09=09AVD_CAPABILITY_VP9,
+> +=09.fw_name =3D "apple/avd-fw-v3-t2.bin",
+> +=09.revision =3D 4,
+> +};
+> +
+> +static const struct avd_variant avd_t8122_variant =3D {
+> +=09.capabilities =3D AVD_CAPABILITY_HEVC |
+> +=09=09=09AVD_CAPABILITY_H264 |
+> +=09=09=09AVD_CAPABILITY_VP9 |
+> +=09=09=09AVD_CAPABILITY_AV1,
+> +=09.fw_name =3D "apple/avd-fw-v4-t0.bin",
+> +=09.revision =3D 4,
+> +};
+> +
+> +static const struct avd_variant avd_t8140_variant =3D {
+> +=09.capabilities =3D AVD_CAPABILITY_HEVC |
+> +=09=09=09AVD_CAPABILITY_H264 |
+> +=09=09=09AVD_CAPABILITY_VP9 |
+> +=09=09=09AVD_CAPABILITY_AV1,
+> +=09.fw_name =3D "apple/avd-fw-v5-t0.bin",
+> +=09.revision =3D 4,
+> +};
+> +
+> +static const struct avd_variant avd_t8132_variant =3D {
+> +=09.capabilities =3D AVD_CAPABILITY_HEVC |
+> +=09=09=09AVD_CAPABILITY_H264 |
+> +=09=09=09AVD_CAPABILITY_VP9 |
+> +=09=09=09AVD_CAPABILITY_AV1,
+> +=09.fw_name =3D "apple/avd-fw-v5-t1.bin",
+> +=09.revision =3D 4,
+> +};
+> +
+> +/* can also be derived from a version register */
+> +static const struct of_device_id avd_of_match[] =3D {
+> +=09{ .compatible =3D "apple,t8103-avd", .data =3D &avd_t8103_variant },
+> +=09{ .compatible =3D "apple,t6000-avd", .data =3D &avd_t6000_variant },
+> +=09{ .compatible =3D "apple,t8112-avd", .data =3D &avd_t8112_variant },
+> +=09{ .compatible =3D "apple,t6020-avd", .data =3D &avd_t6020_variant },
+> +=09{ .compatible =3D "apple,t8122-avd", .data =3D &avd_t8122_variant },
+> +=09{ .compatible =3D "apple,t8132-avd", .data =3D &avd_t8132_variant },
+> +=09{ .compatible =3D "apple,t8140-avd", .data =3D &avd_t8140_variant },
+> +=09{},
+> +};
+> +
+> +MODULE_DEVICE_TABLE(of, avd_of_match);
+> +
+> +static int avd_probe(struct platform_device *pdev)
+> +{
+> +=09struct avd_dev *avd;
+> +=09int ret, irq;
+> +
+> +=09avd =3D devm_kzalloc(&pdev->dev, sizeof(*avd), GFP_KERNEL);
+> +=09if (!avd)
+> +=09=09return -ENOMEM;
+> +
+> +=09platform_set_drvdata(pdev, avd);
+> +=09avd->dev =3D &pdev->dev;
+> +=09avd->pdev =3D pdev;
+> +
+> +=09mutex_init(&avd->vdev_lock);
+> +
+> +=09avd->variant =3D of_device_get_match_data(&pdev->dev);
+> +
+> +=09avd->rstc =3D devm_reset_control_get_exclusive(avd->dev, NULL);
+> +
+> +=09if (IS_ERR(avd->rstc))
+> +=09=09return PTR_ERR(avd->rstc);
+> +
+> +=09avd->piodma =3D devm_platform_ioremap_resource_byname(pdev, "piodma")=
+;
+> +=09if (IS_ERR(avd->piodma))
+> +=09=09return PTR_ERR(avd->piodma);
+> +
+> +=09avd->code =3D devm_platform_ioremap_resource_byname(pdev, "code");
+> +=09if (IS_ERR(avd->code))
+> +=09=09return PTR_ERR(avd->code);
+> +
+> +=09avd->sram =3D devm_platform_ioremap_resource_byname(pdev, "sram");
+> +=09if (IS_ERR(avd->sram))
+> +=09=09return PTR_ERR(avd->sram);
+> +
+> +=09avd->mbox =3D devm_platform_ioremap_resource_byname(pdev, "mbox");
+> +=09if (IS_ERR(avd->mbox))
+> +=09=09return PTR_ERR(avd->mbox);
+> +
+> +=09avd->ctrl =3D devm_platform_ioremap_resource_byname(pdev, "ctrl");
+> +=09if (IS_ERR(avd->ctrl))
+> +=09=09return PTR_ERR(avd->ctrl);
+> +
+> +=09avd->sram_start =3D platform_get_resource_byname(pdev, IORESOURCE_MEM=
+,
+> +=09=09=09=09=09=09       "sram")->start >> 4;
+> +
+> +=09ret =3D dma_set_mask_and_coherent(avd->dev,
+> +=09=09=09=09=09DMA_BIT_MASK((avd->variant->quirks &
+> +=09=09=09=09=09=09     AVD_QUIRK_LSR) ? 38 : 64));
+> +=09if (ret) {
+> +=09=09dev_err(avd->dev, "Failed to set DMA mask");
+> +=09=09return ret;
+> +=09}
+> +
+> +=09irq =3D platform_get_irq_byname(pdev, "mbox0");
+> +=09if (irq < 0)
+> +=09=09return irq;
+> +=09ret =3D devm_request_threaded_irq(&pdev->dev, irq, NULL, avd_irq_hand=
+ler,
+> +=09=09=09=09=09IRQF_ONESHOT, dev_name(&pdev->dev),
+> +=09=09=09=09=09avd);
+> +=09if (ret) {
+> +=09=09dev_err(avd->dev, "Could not request IRQ 0");
+> +=09=09return ret;
+> +=09}
+> +
+> +=09avd->domain =3D iommu_get_domain_for_dev(avd->dev);
+> +=09if (!avd->domain)
+> +=09=09return -EINVAL;
+> +
+> +=09avd->empty_domain =3D iommu_paging_domain_alloc(avd->dev);
+> +=09if (IS_ERR(avd->empty_domain)) {
+> +=09=09dev_err(avd->dev, "cannot alloc new empty domain");
+> +=09=09return PTR_ERR(avd->empty_domain);
+> +=09}
+> +
+> +=09ret =3D request_firmware(&avd->fw, avd->variant->fw_name, avd->dev);
+> +=09if (ret) {
+> +=09=09dev_err(avd->dev, "failed to load firmware: %d", ret);
+> +=09=09iommu_domain_free(avd->empty_domain);
+> +=09=09return ret;
+> +=09}
+> +
+> +=09pm_runtime_set_autosuspend_delay(avd->dev, 100);
+> +=09pm_runtime_use_autosuspend(avd->dev);
+> +=09pm_runtime_enable(avd->dev);
+> +
+> +=09ret =3D avd_v4l2_init(avd);
+> +=09if (ret)
+> +=09=09goto err_disable_runtime_pm;
+> +
+> +=09return 0;
+> +
+> +err_disable_runtime_pm:
+> +=09pm_runtime_dont_use_autosuspend(&pdev->dev);
+> +=09pm_runtime_disable(&pdev->dev);
+> +=09release_firmware(avd->fw);
+> +=09iommu_domain_free(avd->empty_domain);
+> +=09return ret;
+> +}
+> +
+> +static void avd_remove(struct platform_device *pdev)
+> +{
+> +=09struct avd_dev *avd =3D platform_get_drvdata(pdev);
+> +
+> +=09avd_v4l2_cleanup(avd);
+> +
+> +=09iommu_domain_free(avd->empty_domain);
+> +
+> +=09release_firmware(avd->fw);
+> +
+> +=09pm_runtime_disable(avd->dev);
+> +=09pm_runtime_dont_use_autosuspend(avd->dev);
+> +}
+> +
+> +static __maybe_unused int avd_runtime_resume(struct device *dev)
+> +{
+> +=09int ret;
+> +=09struct avd_dev *avd =3D platform_get_drvdata(to_platform_device(dev))=
+;
+> +
+> +=09ret =3D avd_boot(avd);
+> +=09if (ret)
+> +=09=09dev_err(dev, "failed to boot");
+> +=09return ret;
+> +}
+> +
+> +static __maybe_unused int avd_runtime_suspend(struct device *dev)
+> +{
+> +=09struct avd_dev *avd =3D platform_get_drvdata(to_platform_device(dev))=
+;
+> +
+> +=09avd_shutdown(avd);
+> +=09return 0;
+> +}
+> +
+> +static const struct dev_pm_ops avd_pm_ops =3D {
+> +=09SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> +=09=09=09=09pm_runtime_force_resume)
+> +=09SET_RUNTIME_PM_OPS(avd_runtime_suspend, avd_runtime_resume, NULL)
+> +};
+> +
+> +static struct platform_driver avd_driver =3D {
+> +=09.probe =3D avd_probe,
+> +=09.remove =3D avd_remove,
+> +=09.driver =3D {
+> +=09=09.name =3D "avd",
+> +=09=09.of_match_table =3D avd_of_match,
+> +=09=09.pm =3D pm_ptr(&avd_pm_ops),
+> +=09},
+> +};
+> +module_platform_driver(avd_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("Apple Video Decoder driver");
+> +MODULE_FIRMWARE("apple/avd-fw-v2-t0.bin");
+> +MODULE_FIRMWARE("apple/avd-fw-v3-t0.bin");
+> +MODULE_FIRMWARE("apple/avd-fw-v3-t1.bin");
+> +MODULE_FIRMWARE("apple/avd-fw-v3-t2.bin");
+> +MODULE_FIRMWARE("apple/avd-fw-v4-t0.bin");
+> +MODULE_FIRMWARE("apple/avd-fw-v5-t0.bin");
+> +MODULE_FIRMWARE("apple/avd-fw-v5-t1.bin");
+
+I believe these are made by you, did you publish them into linux-framework?=
+ or
+do you expect them to be built from source ? Should be part of the cover.
+
+> diff --git a/drivers/media/platform/apple/avd/avd-inst.h b/drivers/media/=
+platform/apple/avd/avd-inst.h
+> new file mode 100644
+> index 000000000000..baa783d00f18
+> --- /dev/null
+> +++ b/drivers/media/platform/apple/avd/avd-inst.h
+> @@ -0,0 +1,210 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Apple Video Decoder instruction stream definitions
+> + *
+> + * Copyright (C) 2026 The Asahi Linux Contributors
+> + * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
+> + * Copyright (C) 2023 Eileen Yoon <eyn@gmx.com>
+> + *
+> + * The AVD block consists of one to four processors for each codecs
+> + * called "VP". Its the VP's job to prepare codecs specifik syntax into
+> + * something the shared processor(s?) (called PP, Pipeline?) understands=
+. PP
+> + * implements different DSP routines: QT, IPMC, LF, MV, TP, PC, SW, LR.
+> + *
+> + * When VP processes a u32, if the value has the two upper bits set and =
+unset
+> + * respectively, it will execute the opcode function stored in the next =
+8
+> + * bits.
+> + *
+> + * Please refer to
+> + * https://web.archive.org/web/20240105073842/https://eiln.net/avd-notes=
+2.html
+> + * for an excellent write-up by Eileen.
+> + */
+> +
+> +#ifndef AVD_INST_H_
+> +#define AVD_INST_H_
+> +
+> +#include <linux/types.h>
+> +#include <linux/bitfield.h>
+> +
+> +#include "avd.h"
+> +
+> +#define AVD_OP_HDR=09=09=09FIELD_PREP(GENMASK(31, 20), 0x2db)
+> +#define AVD_OP_HDR_CONST=09=09FIELD_PREP(GENMASK(10, 0), 0x2e0)
+> +
+> +/*
+> + * output in packed PX30
+> + * 10 bits per component. With groups of tree packed into 4 bytes (littl=
+e
+> + * endian order)
+> + *  P  3  2  1
+> + * [2:10:10:10]
+> + *
+> + * additionally, av1 and vp9 need an extra scratch buffer if this is set
+> + */
+> +#define AVD_OP_HDR_FLAG_PACKED(v)=09FIELD_PREP(BIT(10), !!(v))
+> +/* decompress pixel data */
+> +#define AVD_OP_HDR_FLAG_DECOMP(v)=09FIELD_PREP(BIT(12), !!(v))
+> +#define AVD_OP_HDR_FLAG_INTRA(v)=09FIELD_PREP(BIT(13), !!(v))
+> +#define AVD_OP_HDR_FLAG_PIPE_STATE(v)=09FIELD_PREP(BIT(19), !!(v))
+> +
+> +#define AVD_OP_WEIGHTS_HDR=09=09FIELD_PREP(GENMASK(31, 20), 0x2dd)
+> +#define AVD_OP_WEIGHTS_HDR_CHROMA(v)=09FIELD_PREP(GENMASK(2, 0), v)
+> +#define AVD_OP_WEIGHTS_HDR_LUMA(v)=09FIELD_PREP(GENMASK(5, 3), v)
+> +#define AVD_OP_WEIGHTS_HDR_FLAG0(v)=09FIELD_PREP(BIT(6), !!(v))
+> +#define AVD_OP_WEIGHTS_HDR_FLAG1(v)=09FIELD_PREP(BIT(7), !!(v))
+> +
+> +#define AVD_OP_WEIGHTS=09=09=09FIELD_PREP(GENMASK(31, 20), 0x2de)
+> +#define AVD_OP_WEIGHTS_WEIGHT(v)=09FIELD_PREP(GENMASK(8, 0), v)
+> +#define AVD_OP_WEIGHTS_INDEX(v)=09=09FIELD_PREP(GENMASK(12, 9), v)
+> +#define AVD_OP_WEIGHTS_LIST_IDX(v)=09FIELD_PREP(BIT(13), v)
+> +/* 1 =3D luma, 2,3 =3D chroma[{0,1}] */
+> +#define AVD_OP_WEIGHTS_IDENT(v)=09=09FIELD_PREP(GENMASK(16, 14), v)
+> +
+> +#define AVD_OP_OFFSETS=09=09=09FIELD_PREP(GENMASK(31, 20), 0x2df)
+> +#define AVD_OP_OFFSETS_OFFSET(v)=09FIELD_PREP(GENMASK(15, 0), v)
+> +
+> +#define AVD_OP_CODED_DATA=09=09FIELD_PREP(GENMASK(31, 20), 0x2d8)
+> +#define AVD_OP_CODED_IN_HI(v)=09=09FIELD_PREP(GENMASK(12, 0), (u64)(v) >=
+> 32)
+> +#define AVD_OP_CODED_IN_LO(v)=09=09((u32)(v) & 0xffffffff)
+> +#define AVD_OP_CODED_DATA_FLAG0(v)=09FIELD_PREP(BIT(13), !!(v))
+> +#define AVD_OP_CODED_DATA_FLAG1(v)=09FIELD_PREP(BIT(14), !!(v))
+> +#define AVD_OP_CODED_DATA_BIT_OFF(v)=09FIELD_PREP(GENMASK(18, 15), v)
+> +
+> +#define AVD_OP_SL_LOC=09=09=09FIELD_PREP(GENMASK(31, 24), 0x2c)
+> +#define AVD_OP_SL_LOC_X(v)=09=09FIELD_PREP(GENMASK(11, 0), v)
+> +#define AVD_OP_SL_LOC_Y(v)=09=09FIELD_PREP(GENMASK(23, 12), v)
+> +
+> +#define AVD_OP_SL_DIM_START=09=09FIELD_PREP(GENMASK(31, 24), 0x2a)
+> +#define AVD_OP_SL_DIM_START_X(v)=09FIELD_PREP(GENMASK(11, 0), v)
+> +#define AVD_OP_SL_DIM_START_Y(v)=09FIELD_PREP(GENMASK(23, 12), v)
+> +
+> +/* end is not an op */
+> +#define AVD_SL_DIM_END_X(v)=09=09FIELD_PREP(GENMASK(11, 0), v)
+> +#define AVD_SL_DIM_END_Y(v)=09=09FIELD_PREP(GENMASK(23, 12), v)
+> +#define AVD_SL_DIM_END_COL(v)=09=09FIELD_PREP(GENMASK(27, 24), v)
+> +#define AVD_SL_DIM_END_ROW(v)=09=09FIELD_PREP(GENMASK(31, 28), v)
+> +
+> +#define AVD_OP_SL_REF=09=09=09FIELD_PREP(GENMASK(31, 24), 0x2d)
+> +#define AVD_OP_SL_REF_MAX_MERGE(v)=09FIELD_PREP(GENMASK(3, 1), v)
+> +
+> +#define AVD_OP_SL_REF_FLAG0(v)=09=09FIELD_PREP(BIT(4), !!(v))
+> +#define AVD_OP_SL_REF_FLAG_CABAC(v)=09FIELD_PREP(BIT(5), !!(v))
+> +#define AVD_OP_SL_REF_FLAG1(v)=09=09FIELD_PREP(BIT(6), !!(v))
+> +#define AVD_OP_SL_REF_NUM_L0(v)=09=09FIELD_PREP(GENMASK(14, 11), v)
+> +#define AVD_OP_SL_REF_NUM_L1(v)=09=09FIELD_PREP(GENMASK(10, 7), v)
+> +#define AVD_OP_SL_REF_FLAG2(v)=09=09FIELD_PREP(BIT(15), !!(v))
+> +#define AVD_OP_SL_REF_SLICE_P(v)=09FIELD_PREP(BIT(16), !!(v))
+> +#define AVD_OP_SL_REF_SLICE_I(v)=09FIELD_PREP(BIT(17), !!(v))
+> +/* not really kinda more like has_ref_and_ref_is_valid_ref */
+> +#define AVD_OP_SL_REF_SLICE_B(v)=09FIELD_PREP(BIT(18), !!(v))
+> +
+> +#define AVD_OP_QP=09=09=09FIELD_PREP(GENMASK(31, 20), 0x2d9)
+> +#define AVD_OP_QP_CR_OFF(v)=09=09FIELD_PREP(GENMASK(4, 0), v)
+> +#define AVD_OP_QP_CB_OFF(v)=09=09FIELD_PREP(GENMASK(9, 5), v)
+> +#define AVD_OP_QP_VAL(v)=09=09FIELD_PREP(GENMASK(16, 10), v)
+> +
+> +#define AVD_OP_DBLK=09=09=09FIELD_PREP(GENMASK(31, 20), 0x2da)
+> +#define AVD_OP_DBLK_FLAG_SAO_CHROMA(v)=09FIELD_PREP(BIT(6), !!(v))
+> +#define AVD_OP_DBLK_FLAG_SAO_LUMA(v)=09FIELD_PREP(BIT(7), !!(v))
+> +#define AVD_OP_DBLK_OFF0(v)=09=09FIELD_PREP(GENMASK(11, 8), v)
+> +#define AVD_OP_DBLK_OFF1(v)=09=09FIELD_PREP(GENMASK(15, 12), v)
+> +#define AVD_OP_DBLK_FLAG_EN(v)=09=09FIELD_PREP(BIT(16), !!(v))
+> +#define AVD_OP_DBLK_FLAG_FULL_EN(v)=09FIELD_PREP(BIT(17), !!(v))
+> +#define AVD_OP_DBLK_FLAG_TILES_EN(v)=09FIELD_PREP(BIT(18), !!(v))
+> +#define AVD_OP_DBLK_FLAG_PCM_EN(v)=09FIELD_PREP(BIT(19), !!(v))
+> +
+> +#define AVD_OP_REF=09=09=09FIELD_PREP(GENMASK(31, 20), 0x2dc)
+> +/* same order as they where submitted */
+> +#define AVD_OP_REF_DBP_IDX(v)=09=09FIELD_PREP(GENMASK(3, 0), v)
+> +#define AVD_OP_REF_LOOP_IDX(v)=09=09FIELD_PREP(GENMASK(7, 4), v)
+> +#define AVD_OP_REF_LIST_IDX(v)=09=09FIELD_PREP(GENMASK(11, 8), v)
+> +
+> +#define AVD_HDR_CODEC_MODE(v)=09=09FIELD_PREP(GENMASK(28, 24), v)
+> +#define AVD_HDR_WIDTH(v)=09=09FIELD_PREP(GENMASK(15, 0), v)
+> +#define AVD_HDR_HEIGHT(v)=09=09FIELD_PREP(GENMASK(31, 16), v)
+> +
+> +#define AVD_HDR_FEAT_H264=09=09FIELD_PREP(GENMASK(3, 0), 10)
+> +#define AVD_HDR_FEAT_PIPE_STATE_EN(v)=09FIELD_PREP(GENMASK(7, 4), (v) ? =
+3 : 0)
+> +#define AVD_HDR_FEAT_H26X=09=09FIELD_PREP(BIT(20), 1)
+> +#define AVD_HDR_FEAT_COMMON=09=09FIELD_PREP(BIT(21), 1)
+> +#define AVD_HDR_FEAT_VP9=09=09FIELD_PREP(BIT(17), 1)
+> +
+> +#define AVD_HDR_COMMON_FLAG0(v)=09=09FIELD_PREP(BIT(0), !!(v))
+> +#define AVD_HDR_COMMON_LUMA_TBS(v)=09FIELD_PREP(GENMASK(8, 7), v)
+> +#define AVD_HDR_COMMON_MIN_LUMA_TBS(v)=09FIELD_PREP(GENMASK(10, 9), v)
+> +#define AVD_HDR_COMMON_LUMA_CBS(v)=09FIELD_PREP(GENMASK(12, 11), v)
+> +#define AVD_HDR_COMMON_MIN_LUMA_CBS(v)=09FIELD_PREP(GENMASK(14, 13), v)
+> +#define AVD_HDR_COMMON_BIT_DEPTH_L(v)=09FIELD_PREP(GENMASK(18, 15), v)
+> +#define AVD_HDR_COMMON_BIT_DEPTH_C(v)=09FIELD_PREP(GENMASK(23, 19), v)
+> +#define AVD_HDR_COMMON_CHROMA_FORMAT(v)=09FIELD_PREP(GENMASK(26, 24), v)
+> +
+> +#define AVD_HDR_H26X_QP_OFFSET_CR(v)=09FIELD_PREP(GENMASK(4, 0), v)
+> +#define AVD_HDR_H26X_QP_OFFSET_CB(v)=09FIELD_PREP(GENMASK(9, 5), v)
+> +
+> +#define AVD_SCALING_I0(v)=09=09FIELD_PREP(GENMASK(7, 0), v)
+> +#define AVD_SCALING_I1(v)=09=09FIELD_PREP(GENMASK(15, 8), v)
+> +#define AVD_SCALING_I2(v)=09=09FIELD_PREP(GENMASK(23, 16), v)
+> +#define AVD_SCALING_I3(v)=09=09FIELD_PREP(GENMASK(31, 24), v)
+> +
+> +#define AVD_REF_NUM(v)=09=09=09FIELD_PREP(GENMASK(31, 28), v)
+> +#define AVD_REF_FLAG_CONST=09=09FIELD_PREP(BIT(24), 1)
+> +#define AVD_REF_FLAG_LONG(v)=09=09FIELD_PREP(BIT(17), !!(v))
+> +#define AVD_REF_DELTA_POC(v)=09=09FIELD_PREP(GENMASK(16, 0), v)
+> +
+> +#define AVD_FIFO_SIZE=09=09=09(0x100000 * 12)
+> +
+> +static inline void push(struct avd_ctx *ctx, u32 inst)
+> +{
+> +=09struct avd_job *job =3D &ctx->job;
+> +=09struct avd_segment *seg =3D &job->segments[job->num];
+> +
+> +=09seg->instructions[seg->num++] =3D inst;
+> +}
+> +
+> +static inline void push_address(struct avd_ctx *ctx, dma_addr_t addr)
+> +{
+> +=09if (ctx->dev->variant->quirks & AVD_QUIRK_LSR) {
+> +=09=09push(ctx, addr >> 8);
+> +=09} else {
+> +=09=09push(ctx, (u32)(addr & 0xffffffff));
+> +=09=09push(ctx, (u32)((u64)addr >> 32));
+> +=09}
+> +}
+> +
+> +static inline void push_comp(struct avd_ctx *ctx, dma_addr_t addr,
+> +=09=09=09     u32 offsets[4])
+> +{
+> +=09if (ctx->dev->variant->quirks & AVD_QUIRK_LSR) {
+> +=09=09for (int i =3D 0; i < 4; i++)
+> +=09=09=09push(ctx, (addr + offsets[i]) >> 7);
+> +=09} else {
+> +=09=09for (int i =3D 0; i < 4; i++)
+> +=09=09=09push_address(ctx, (addr + offsets[i]));
+> +=09}
+> +}
+> +
+> +#ifdef DEBUG_INST
+> +#define push(inst, name)                                           \
+> +=09do {                                                       \
+> +=09=09dev_info(ctx->dev->dev, "%8x | %s", (inst), name); \
+> +=09=09push(ctx, inst);                                   \
+> +=09} while (0)
+> +
+> +#else
+> +#define push(inst, name) push(ctx, inst)
+> +#endif
+> +
+> +#ifdef DEBUG_INST_ADDR
+> +#define pusha(inst, name, i)                                            =
+       \
+> +=09do {                                                                 =
+  \
+> +=09=09dev_info(ctx->dev->dev, "%8llx | %s[%d]", (inst) & 0xffffffff, \
+> +=09=09=09 name, i);                                             \
+> +=09=09dev_info(ctx->dev->dev, "%8llx | %s[%d] (high)", (inst) >> 32, \
+> +=09=09=09 name, i);                                             \
+> +=09=09push_address(ctx, inst);                                       \
+> +=09} while (0)
+> +
+> +#else
+> +#define pusha(inst, name, i) push_address(ctx, inst)
+> +#endif
+> +
+> +#endif /* AVD_INST_H_ */
+> diff --git a/drivers/media/platform/apple/avd/avd-v4l2.c b/drivers/media/=
+platform/apple/avd/avd-v4l2.c
+> new file mode 100644
+> index 000000000000..838f6e348a49
+> --- /dev/null
+> +++ b/drivers/media/platform/apple/avd/avd-v4l2.c
+> @@ -0,0 +1,783 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Apple Video Decoder V4L2 M2M api functions
+> + *
+> + * Copyright (C) 2026 The Asahi Linux Contributors
+> + * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
+> + *
+> + * Based on rkvdec driver by Collabora, Ltd.
+> + * Copyright (C) 2019 Collabora, Ltd.
+> + * Based on rkvdec driver by Google LLC. (Tomasz Figa <tfiga@chromium.or=
+g>)
+> + * Based on s5p-mfc driver by Samsung Electronics Co., Ltd.
+> + * Copyright (C) 2011 Samsung Electronics Co., Ltd.
+> + */
+> +
+> +#include <linux/pm_runtime.h>
+> +
+> +#include <media/v4l2-event.h>
+> +#include <media/v4l2-mem2mem.h>
+> +#include <media/videobuf2-dma-contig.h>
+> +
+> +#include "avd.h"
+> +
+> +static const struct avd_decoded_fmt_desc avd_decoded_fmts[] =3D {
+> +=09{
+> +=09=09.fourcc =3D V4L2_PIX_FMT_NV12,
+> +=09=09.image_fmt =3D AVD_IMG_FMT_420_8BIT,
+> +=09},
+> +=09{
+> +=09=09.fourcc =3D V4L2_PIX_FMT_P010,
+> +=09=09.image_fmt =3D AVD_IMG_FMT_420_10BIT,
+> +=09},
+> +=09{
+> +=09=09.fourcc =3D V4L2_PIX_FMT_NV16,
+> +=09=09.image_fmt =3D AVD_IMG_FMT_422_8BIT,
+> +=09},
+> +=09{
+> +=09=09.fourcc =3D V4L2_PIX_FMT_P210,
+> +=09=09.image_fmt =3D AVD_IMG_FMT_422_10BIT,
+> +=09},
+> +=09{
+> +=09=09.fourcc =3D V4L2_PIX_FMT_APPLE_AX12,
+> +=09=09.image_fmt =3D AVD_IMG_FMT_420_8BIT,
+> +=09},
+> +=09{
+> +=09=09.fourcc =3D V4L2_PIX_FMT_APPLE_AX03,
+> +=09=09.image_fmt =3D AVD_IMG_FMT_420_10BIT,
+> +=09},
+> +=09{
+> +=09=09.fourcc =3D V4L2_PIX_FMT_APPLE_AX16,
+> +=09=09.image_fmt =3D AVD_IMG_FMT_422_8BIT,
+> +=09},
+> +=09{
+> +=09=09.fourcc =3D V4L2_PIX_FMT_APPLE_AX23,
+> +=09=09.image_fmt =3D AVD_IMG_FMT_422_10BIT,
+> +=09},
+> +};
+> +
+> +static bool is_interchange(u32 fourcc)
+> +{
+> +=09return fourcc =3D=3D V4L2_PIX_FMT_APPLE_AX12 ||
+> +=09=09fourcc =3D=3D V4L2_PIX_FMT_APPLE_AX16 ||
+> +=09=09fourcc =3D=3D V4L2_PIX_FMT_APPLE_AX03 ||
+> +=09=09fourcc =3D=3D V4L2_PIX_FMT_APPLE_AX23;
+> +}
+> +
+> +static bool avd_image_fmt_match(enum avd_image_fmt fmt1,
+> +=09=09=09=09enum avd_image_fmt fmt2)
+> +{
+> +=09return fmt1 =3D=3D fmt2 || fmt2 =3D=3D AVD_IMG_FMT_ANY ||
+> +=09       fmt1 =3D=3D AVD_IMG_FMT_ANY;
+> +}
+> +
+> +static bool avd_image_fmt_changed(struct avd_ctx *ctx,
+> +=09=09=09=09  enum avd_image_fmt image_fmt)
+> +{
+> +=09if (image_fmt =3D=3D AVD_IMG_FMT_ANY)
+> +=09=09return false;
+> +
+> +=09return ctx->image_fmt !=3D image_fmt;
+> +}
+> +
+> +static u32 avd_enum_decoded_fmt(struct avd_ctx *ctx, int index,
+> +=09=09=09=09enum avd_image_fmt image_fmt)
+> +{
+> +=09const struct avd_coded_fmt_desc *desc =3D ctx->coded_fmt_desc;
+> +=09int fmt_idx =3D -1;
+> +=09unsigned int i;
+> +
+> +=09if (WARN_ON(!desc))
+> +=09=09return 0;
+> +
+> +=09for (i =3D 0; i < ARRAY_SIZE(avd_decoded_fmts); i++) {
+> +=09=09if (!avd_image_fmt_match(avd_decoded_fmts[i].image_fmt,
+> +=09=09=09=09=09 image_fmt))
+> +=09=09=09continue;
+> +=09=09fmt_idx++;
+> +=09=09if (index =3D=3D fmt_idx)
+> +=09=09=09return avd_decoded_fmts[i].fourcc;
+> +=09}
+> +
+> +=09return 0;
+> +}
+> +
+> +static bool avd_is_valid_fmt(struct avd_ctx *ctx, u32 fourcc,
+> +=09=09=09     enum avd_image_fmt image_fmt)
+> +{
+> +=09unsigned int i;
+> +
+> +=09for (i =3D 0; i < ARRAY_SIZE(avd_decoded_fmts); i++) {
+> +=09=09if (avd_image_fmt_match(avd_decoded_fmts[i].image_fmt,
+> +=09=09=09=09=09image_fmt) &&
+> +=09=09    avd_decoded_fmts[i].fourcc =3D=3D fourcc)
+> +=09=09=09return true;
+> +=09}
+> +
+> +=09return false;
+> +}
+> +
+> +static void avd_fill_decoded_pixfmt(struct avd_ctx *ctx,
+> +=09=09=09=09    struct v4l2_pix_format_mplane *pix_mp)
+> +{
+> +=09v4l2_fill_pixfmt_mp(pix_mp, pix_mp->pixelformat, pix_mp->width,
+> +=09=09=09    pix_mp->height);
+> +
+> +=09if (is_interchange(pix_mp->pixelformat))
+> +=09=09pix_mp->plane_fmt[0].sizeimage =3D 0;
+> +=09ctx->comp.start_offset =3D pix_mp->plane_fmt[0].sizeimage;
+> +
+> +=09fill_comp(&ctx->comp, ctx->image_fmt, pix_mp->width, pix_mp->height);
+> +=09pix_mp->plane_fmt[0].sizeimage +=3D ctx->comp.size;
+> +
+> +=09if (ctx->coded_fmt_desc->ops->adjust_decoded_fmt)
+> +=09=09ctx->coded_fmt_desc->ops->adjust_decoded_fmt(ctx, pix_mp);
+> +
+> +=09pix_mp->plane_fmt[0].sizeimage =3D ALIGN(pix_mp->plane_fmt[0].sizeima=
+ge,
+> +=09=09=09=09=09       AVD_ALIGN);
+> +}
+> +
+> +static void avd_reset_fmt(struct avd_ctx *ctx, struct v4l2_format *f,
+> +=09=09=09  u32 fourcc)
+> +{
+> +=09memset(f, 0, sizeof(*f));
+> +=09f->fmt.pix_mp.pixelformat =3D fourcc;
+> +=09f->fmt.pix_mp.field =3D V4L2_FIELD_NONE;
+> +=09f->fmt.pix_mp.colorspace =3D V4L2_COLORSPACE_REC709;
+> +=09f->fmt.pix_mp.ycbcr_enc =3D V4L2_YCBCR_ENC_DEFAULT;
+> +=09f->fmt.pix_mp.quantization =3D V4L2_QUANTIZATION_DEFAULT;
+> +=09f->fmt.pix_mp.xfer_func =3D V4L2_XFER_FUNC_DEFAULT;
+> +}
+> +
+> +void avd_reset_decoded_fmt(struct avd_ctx *ctx)
+> +{
+> +=09struct v4l2_format *f =3D &ctx->decoded_fmt;
+> +=09u32 fourcc;
+> +
+> +=09fourcc =3D avd_enum_decoded_fmt(ctx, 0, ctx->image_fmt);
+> +=09avd_reset_fmt(ctx, f, fourcc);
+> +=09f->type =3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+> +=09f->fmt.pix_mp.width =3D ctx->coded_fmt.fmt.pix_mp.width;
+> +=09f->fmt.pix_mp.height =3D ctx->coded_fmt.fmt.pix_mp.height;
+> +=09avd_fill_decoded_pixfmt(ctx, &f->fmt.pix_mp);
+> +}
+> +
+> +static int avd_try_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +=09struct avd_ctx *ctx =3D
+> +=09=09container_of(ctrl->handler, struct avd_ctx, ctrl_hdl);
+> +=09const struct avd_coded_fmt_desc *desc =3D ctx->coded_fmt_desc;
+> +
+> +=09if (desc->ops->try_ctrl)
+> +=09=09return desc->ops->try_ctrl(ctx, ctrl);
+> +
+> +=09return 0;
+> +}
+> +
+> +static int avd_s_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +=09struct avd_ctx *ctx =3D
+> +=09=09container_of(ctrl->handler, struct avd_ctx, ctrl_hdl);
+> +=09const struct avd_coded_fmt_desc *desc =3D ctx->coded_fmt_desc;
+> +=09enum avd_image_fmt image_fmt;
+> +=09struct vb2_queue *vq;
+> +
+> +=09/* Check if this change requires a capture format reset */
+> +=09if (!desc->ops->get_image_fmt)
+> +=09=09return 0;
+> +
+> +=09image_fmt =3D desc->ops->get_image_fmt(ctx, ctrl);
+> +=09if (avd_image_fmt_changed(ctx, image_fmt)) {
+> +=09=09vq =3D v4l2_m2m_get_vq(ctx->fh.m2m_ctx,
+> +=09=09=09=09     V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+> +=09=09if (vb2_is_busy(vq))
+> +=09=09=09return -EBUSY;
+> +
+> +=09=09ctx->image_fmt =3D image_fmt;
+> +=09=09avd_reset_decoded_fmt(ctx);
+> +=09}
+> +
+> +=09return 0;
+> +}
+> +
+> +const struct v4l2_ctrl_ops avd_ctrl_ops =3D {
+> +=09.try_ctrl =3D avd_try_ctrl,
+> +=09.s_ctrl =3D avd_s_ctrl,
+> +};
+> +
+> +static const struct avd_coded_fmt_desc avd_coded_fmts[] =3D {};
+> +
+> +static bool avd_is_capable(struct avd_ctx *ctx, unsigned int capability)
+> +{
+> +=09return (ctx->dev->variant->capabilities & capability) =3D=3D capabili=
+ty;
+> +}
+> +
+> +static const struct avd_coded_fmt_desc *
+> +avd_enum_coded_fmt_desc(struct avd_ctx *ctx, int index)
+> +{
+> +=09int fmt_idx =3D -1;
+> +=09unsigned int i;
+> +
+> +=09for (i =3D 0; i < ARRAY_SIZE(avd_coded_fmts); i++) {
+> +=09=09if (!avd_is_capable(ctx, avd_coded_fmts[i].capability))
+> +=09=09=09continue;
+> +=09=09fmt_idx++;
+> +=09=09if (index =3D=3D fmt_idx)
+> +=09=09=09return &avd_coded_fmts[i];
+> +=09}
+> +
+> +=09return NULL;
+> +}
+> +
+> +static const struct avd_coded_fmt_desc *
+> +avd_find_coded_fmt_desc(struct avd_ctx *ctx, u32 fourcc)
+> +{
+> +=09unsigned int i;
+> +
+> +=09for (i =3D 0; i < ARRAY_SIZE(avd_coded_fmts); i++) {
+> +=09=09if (avd_is_capable(ctx, avd_coded_fmts[i].capability) &&
+> +=09=09    avd_coded_fmts[i].fourcc =3D=3D fourcc)
+> +=09=09=09return &avd_coded_fmts[i];
+> +=09}
+> +
+> +=09return NULL;
+> +}
+> +
+> +void avd_reset_coded_fmt(struct avd_ctx *ctx)
+> +{
+> +=09struct v4l2_format *f =3D &ctx->coded_fmt;
+> +
+> +=09ctx->coded_fmt_desc =3D avd_enum_coded_fmt_desc(ctx, 0);
+> +=09avd_reset_fmt(ctx, f, ctx->coded_fmt_desc->fourcc);
+> +
+> +=09f->type =3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
+> +=09f->fmt.pix_mp.width =3D ctx->coded_fmt_desc->frmsize.min_width;
+> +=09f->fmt.pix_mp.height =3D ctx->coded_fmt_desc->frmsize.min_height;
+> +
+> +=09f->fmt.pix_mp.num_planes =3D 1;
+> +=09if (!f->fmt.pix_mp.plane_fmt[0].sizeimage)
+> +=09=09f->fmt.pix_mp.plane_fmt[0].sizeimage =3D
+> +=09=09=09f->fmt.pix_mp.width * f->fmt.pix_mp.height;
+> +}
+> +
+> +static int avd_enum_framesizes(struct file *file, void *priv,
+> +=09=09=09       struct v4l2_frmsizeenum *fsize)
+> +{
+> +=09struct avd_ctx *ctx =3D file_to_ctx(file);
+> +=09const struct avd_coded_fmt_desc *desc;
+> +
+> +=09if (fsize->index !=3D 0)
+> +=09=09return -EINVAL;
+> +
+> +=09desc =3D avd_find_coded_fmt_desc(ctx, fsize->pixel_format);
+> +=09if (!desc)
+> +=09=09return -EINVAL;
+> +
+> +=09fsize->type =3D V4L2_FRMSIZE_TYPE_CONTINUOUS;
+> +=09fsize->stepwise.min_width =3D 1;
+> +=09fsize->stepwise.max_width =3D desc->frmsize.max_width;
+> +=09fsize->stepwise.step_width =3D 1;
+> +=09fsize->stepwise.min_height =3D 1;
+> +=09fsize->stepwise.max_height =3D desc->frmsize.max_height;
+> +=09fsize->stepwise.step_height =3D 1;
+> +
+> +=09return 0;
+> +}
+> +
+> +static int avd_querycap(struct file *file, void *priv,
+> +=09=09=09struct v4l2_capability *cap)
+> +{
+> +=09struct avd_dev *avd =3D video_drvdata(file);
+> +=09struct video_device *vdev =3D video_devdata(file);
+> +
+> +=09strscpy(cap->driver, avd->dev->driver->name, sizeof(cap->driver));
+> +=09strscpy(cap->card, vdev->name, sizeof(cap->card));
+> +=09snprintf(cap->bus_info, sizeof(cap->bus_info), "platform:%s",
+> +=09=09 avd->dev->driver->name);
+> +=09return 0;
+> +}
+> +
+> +static int avd_try_capture_fmt(struct file *file, void *priv,
+> +=09=09=09       struct v4l2_format *f)
+> +{
+> +=09struct v4l2_pix_format_mplane *pix_mp =3D &f->fmt.pix_mp;
+> +=09struct avd_ctx *ctx =3D file_to_ctx(file);
+> +=09const struct avd_coded_fmt_desc *coded_desc;
+> +
+> +=09/*
+> +=09 * The codec context should point to a coded format desc, if the form=
+at
+> +=09 * on the coded end has not been set yet, it should point to the
+> +=09 * default value.
+> +=09 */
+> +=09coded_desc =3D ctx->coded_fmt_desc;
+> +=09if (WARN_ON(!coded_desc)) {
+> +=09=09dev_err(ctx->dev->dev, "no coded desc!");
+> +=09=09return -EINVAL;
+> +=09}
+> +
+> +=09if (!avd_is_valid_fmt(ctx, pix_mp->pixelformat, ctx->image_fmt))
+> +=09=09pix_mp->pixelformat =3D
+> +=09=09=09avd_enum_decoded_fmt(ctx, 0, ctx->image_fmt);
+> +
+> +=09/* Always apply the frmsize constraint of the coded end. */
+> +=09pix_mp->width =3D max(pix_mp->width, ctx->coded_fmt.fmt.pix_mp.width)=
+;
+> +=09pix_mp->height =3D max(pix_mp->height, ctx->coded_fmt.fmt.pix_mp.heig=
+ht);
+> +=09v4l2_apply_frmsize_constraints(&pix_mp->width, &pix_mp->height,
+> +=09=09=09=09       &coded_desc->frmsize);
+> +
+> +=09avd_fill_decoded_pixfmt(ctx, pix_mp);
+> +=09pix_mp->field =3D V4L2_FIELD_NONE;
+> +
+> +=09return 0;
+> +}
+> +
+> +static int avd_try_output_fmt(struct file *file, void *priv,
+> +=09=09=09      struct v4l2_format *f)
+> +{
+> +=09struct v4l2_pix_format_mplane *pix_mp =3D &f->fmt.pix_mp;
+> +=09struct avd_ctx *ctx =3D file_to_ctx(file);
+> +=09const struct avd_coded_fmt_desc *desc;
+> +
+> +=09desc =3D avd_find_coded_fmt_desc(ctx, pix_mp->pixelformat);
+> +=09if (!desc) {
+> +=09=09desc =3D avd_enum_coded_fmt_desc(ctx, 0);
+> +=09=09pix_mp->pixelformat =3D desc->fourcc;
+> +=09}
+> +
+> +=09v4l2_apply_frmsize_constraints(&pix_mp->width, &pix_mp->height,
+> +=09=09=09=09       &desc->frmsize);
+> +
+> +=09pix_mp->field =3D V4L2_FIELD_NONE;
+> +=09/* All coded formats are considered single planar for now. */
+> +=09pix_mp->num_planes =3D 1;
+> +
+> +=09if (!pix_mp->plane_fmt[0].sizeimage)
+> +=09=09pix_mp->plane_fmt[0].sizeimage =3D
+> +=09=09=09pix_mp->width * f->fmt.pix_mp.height;
+> +
+> +=09return 0;
+> +}
+> +
+> +static int avd_s_capture_fmt(struct file *file, void *priv,
+> +=09=09=09     struct v4l2_format *f)
+> +{
+> +=09struct avd_ctx *ctx =3D file_to_ctx(file);
+> +=09struct vb2_queue *vq;
+> +=09int ret;
+> +
+> +=09/* Change not allowed if queue is busy */
+> +=09vq =3D v4l2_m2m_get_vq(ctx->fh.m2m_ctx,
+> +=09=09=09     V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+> +=09if (vb2_is_busy(vq))
+> +=09=09return -EBUSY;
+> +
+> +=09ret =3D avd_try_capture_fmt(file, priv, f);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09ctx->decoded_fmt =3D *f;
+> +=09return 0;
+> +}
+> +
+> +static int avd_s_output_fmt(struct file *file, void *priv,
+> +=09=09=09    struct v4l2_format *f)
+> +{
+> +=09struct avd_ctx *ctx =3D file_to_ctx(file);
+> +=09struct v4l2_m2m_ctx *m2m_ctx =3D ctx->fh.m2m_ctx;
+> +=09const struct avd_coded_fmt_desc *desc;
+> +=09struct v4l2_format *cap_fmt;
+> +=09struct vb2_queue *peer_vq, *vq;
+> +=09int ret;
+> +
+> +=09/*
+> +=09 * In order to support dynamic resolution change, the decoder admits
+> +=09 * a resolution change, as long as the pixelformat remains. Can't be
+> +=09 * done if streaming.
+> +=09 */
+> +=09vq =3D v4l2_m2m_get_vq(m2m_ctx, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
+> +=09if (vb2_is_streaming(vq) ||
+> +=09    (vb2_is_busy(vq) && f->fmt.pix_mp.pixelformat !=3D
+> +=09=09=09=09=09ctx->coded_fmt.fmt.pix_mp.pixelformat))
+> +=09=09return -EBUSY;
+> +
+> +=09/*
+> +=09 * Since format change on the OUTPUT queue will reset the CAPTURE
+> +=09 * queue, we can't allow doing so when the CAPTURE queue has buffers
+> +=09 * allocated.
+> +=09 */
+> +=09peer_vq =3D v4l2_m2m_get_vq(m2m_ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLA=
+NE);
+> +=09if (vb2_is_busy(peer_vq))
+> +=09=09return -EBUSY;
+> +
+> +=09ret =3D avd_try_output_fmt(file, priv, f);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09desc =3D avd_find_coded_fmt_desc(ctx, f->fmt.pix_mp.pixelformat);
+> +=09if (!desc)
+> +=09=09return -EINVAL;
+> +=09ctx->coded_fmt_desc =3D desc;
+> +=09ctx->coded_fmt =3D *f;
+> +
+> +=09/*
+> +=09 * Current decoded format might have become invalid with newly
+> +=09 * selected codec, so reset it to default just to be safe and
+> +=09 * keep internal driver state sane. User is mandated to set
+> +=09 * the decoded format again after we return, so we don't need
+> +=09 * anything smarter.
+> +=09 *
+> +=09 * Note that this will propagates any size changes to the decoded
+> +=09 * format.
+> +=09 */
+> +=09ctx->image_fmt =3D AVD_IMG_FMT_ANY;
+> +=09avd_reset_decoded_fmt(ctx);
+> +
+> +=09/* Propagate colorspace information to capture. */
+> +=09cap_fmt =3D &ctx->decoded_fmt;
+> +=09cap_fmt->fmt.pix_mp.colorspace =3D f->fmt.pix_mp.colorspace;
+> +=09cap_fmt->fmt.pix_mp.xfer_func =3D f->fmt.pix_mp.xfer_func;
+> +=09cap_fmt->fmt.pix_mp.ycbcr_enc =3D f->fmt.pix_mp.ycbcr_enc;
+> +=09cap_fmt->fmt.pix_mp.quantization =3D f->fmt.pix_mp.quantization;
+> +
+> +=09/* Enable format specific queue features */
+> +=09vq->subsystem_flags |=3D desc->subsystem_flags;
+> +
+> +=09return 0;
+> +}
+> +
+> +static int avd_g_output_fmt(struct file *file, void *priv,
+> +=09=09=09    struct v4l2_format *f)
+> +{
+> +=09struct avd_ctx *ctx =3D file_to_ctx(file);
+> +
+> +=09*f =3D ctx->coded_fmt;
+> +=09return 0;
+> +}
+> +
+> +static int avd_g_capture_fmt(struct file *file, void *priv,
+> +=09=09=09     struct v4l2_format *f)
+> +{
+> +=09struct avd_ctx *ctx =3D file_to_ctx(file);
+> +
+> +=09*f =3D ctx->decoded_fmt;
+> +=09return 0;
+> +}
+> +
+> +static int avd_enum_output_fmt(struct file *file, void *priv,
+> +=09=09=09       struct v4l2_fmtdesc *f)
+> +{
+> +=09struct avd_ctx *ctx =3D file_to_ctx(file);
+> +=09const struct avd_coded_fmt_desc *desc;
+> +
+> +=09desc =3D avd_enum_coded_fmt_desc(ctx, f->index);
+> +=09if (!desc)
+> +=09=09return -EINVAL;
+> +
+> +=09f->pixelformat =3D desc->fourcc;
+> +=09return 0;
+> +}
+> +
+> +static int avd_enum_capture_fmt(struct file *file, void *priv,
+> +=09=09=09=09struct v4l2_fmtdesc *f)
+> +{
+> +=09struct avd_ctx *ctx =3D file_to_ctx(file);
+> +=09u32 fourcc;
+> +
+> +=09fourcc =3D avd_enum_decoded_fmt(ctx, f->index, ctx->image_fmt);
+> +=09if (!fourcc)
+> +=09=09return -EINVAL;
+> +
+> +=09f->pixelformat =3D fourcc;
+> +=09return 0;
+> +}
+> +
+> +const struct v4l2_ioctl_ops avd_ioctl_ops =3D {
+> +=09.vidioc_querycap =3D avd_querycap,
+> +=09.vidioc_enum_framesizes =3D avd_enum_framesizes,
+> +
+> +=09.vidioc_try_fmt_vid_cap_mplane =3D avd_try_capture_fmt,
+> +=09.vidioc_try_fmt_vid_out_mplane =3D avd_try_output_fmt,
+> +=09.vidioc_s_fmt_vid_out_mplane =3D avd_s_output_fmt,
+> +=09.vidioc_s_fmt_vid_cap_mplane =3D avd_s_capture_fmt,
+> +=09.vidioc_g_fmt_vid_out_mplane =3D avd_g_output_fmt,
+> +=09.vidioc_g_fmt_vid_cap_mplane =3D avd_g_capture_fmt,
+> +=09.vidioc_enum_fmt_vid_out =3D avd_enum_output_fmt,
+> +=09.vidioc_enum_fmt_vid_cap =3D avd_enum_capture_fmt,
+> +
+> +=09.vidioc_reqbufs =3D v4l2_m2m_ioctl_reqbufs,
+> +=09.vidioc_querybuf =3D v4l2_m2m_ioctl_querybuf,
+> +=09.vidioc_qbuf =3D v4l2_m2m_ioctl_qbuf,
+> +=09.vidioc_dqbuf =3D v4l2_m2m_ioctl_dqbuf,
+> +=09.vidioc_prepare_buf =3D v4l2_m2m_ioctl_prepare_buf,
+> +=09.vidioc_create_bufs =3D v4l2_m2m_ioctl_create_bufs,
+> +=09.vidioc_expbuf =3D v4l2_m2m_ioctl_expbuf,
+> +
+> +=09.vidioc_subscribe_event =3D v4l2_ctrl_subscribe_event,
+> +=09.vidioc_unsubscribe_event =3D v4l2_event_unsubscribe,
+> +
+> +=09.vidioc_streamon =3D v4l2_m2m_ioctl_streamon,
+> +=09.vidioc_streamoff =3D v4l2_m2m_ioctl_streamoff,
+> +
+> +=09.vidioc_decoder_cmd =3D v4l2_m2m_ioctl_stateless_decoder_cmd,
+> +=09.vidioc_try_decoder_cmd =3D v4l2_m2m_ioctl_stateless_try_decoder_cmd,
+> +};
+> +
+> +static int avd_queue_setup(struct vb2_queue *vq, unsigned int *num_buffe=
+rs,
+> +=09=09=09   unsigned int *num_planes, unsigned int sizes[],
+> +=09=09=09   struct device *alloc_devs[])
+> +{
+> +=09struct avd_ctx *ctx =3D vb2_get_drv_priv(vq);
+> +=09struct v4l2_format *f;
+> +=09unsigned int i;
+> +
+> +=09if (V4L2_TYPE_IS_OUTPUT(vq->type))
+> +=09=09f =3D &ctx->coded_fmt;
+> +=09else
+> +=09=09f =3D &ctx->decoded_fmt;
+> +
+> +=09if (*num_planes) {
+> +=09=09if (*num_planes !=3D f->fmt.pix_mp.num_planes)
+> +=09=09=09return -EINVAL;
+> +
+> +=09=09for (i =3D 0; i < f->fmt.pix_mp.num_planes; i++) {
+> +=09=09=09if (sizes[i] < f->fmt.pix_mp.plane_fmt[i].sizeimage)
+> +=09=09=09=09return -EINVAL;
+> +=09=09}
+> +=09} else {
+> +=09=09*num_planes =3D f->fmt.pix_mp.num_planes;
+> +=09=09for (i =3D 0; i < f->fmt.pix_mp.num_planes; i++)
+> +=09=09=09sizes[i] =3D f->fmt.pix_mp.plane_fmt[i].sizeimage;
+> +=09}
+> +
+> +=09return 0;
+> +}
+> +
+> +static int avd_buf_prepare(struct vb2_buffer *vb)
+> +{
+> +=09struct vb2_queue *vq =3D vb->vb2_queue;
+> +=09struct avd_ctx *ctx =3D vb2_get_drv_priv(vq);
+> +=09struct v4l2_format *f;
+> +=09unsigned int i;
+> +
+> +=09if (V4L2_TYPE_IS_OUTPUT(vq->type))
+> +=09=09f =3D &ctx->coded_fmt;
+> +=09else
+> +=09=09f =3D &ctx->decoded_fmt;
+> +
+> +=09for (i =3D 0; i < f->fmt.pix_mp.num_planes; ++i) {
+> +=09=09u32 sizeimage =3D f->fmt.pix_mp.plane_fmt[i].sizeimage;
+> +
+> +=09=09if (vb2_plane_size(vb, i) < sizeimage)
+> +=09=09=09return -EINVAL;
+> +=09}
+> +
+> +=09/*
+> +=09 * Buffer's bytesused must be written by driver for CAPTURE buffers.
+> +=09 * (for OUTPUT buffers, if userspace passes 0 bytesused, v4l2-core se=
+ts
+> +=09 * it to buffer length).
+> +=09 */
+> +=09if (V4L2_TYPE_IS_CAPTURE(vq->type))
+> +=09=09vb2_set_plane_payload(vb, 0,
+> +=09=09=09=09      f->fmt.pix_mp.plane_fmt[0].sizeimage);
+> +
+> +=09return 0;
+> +}
+> +
+> +static void avd_buf_queue(struct vb2_buffer *vb)
+> +{
+> +=09struct avd_ctx *ctx =3D vb2_get_drv_priv(vb->vb2_queue);
+> +=09struct vb2_v4l2_buffer *vbuf =3D to_vb2_v4l2_buffer(vb);
+> +
+> +=09v4l2_m2m_buf_queue(ctx->fh.m2m_ctx, vbuf);
+> +}
+> +
+> +static int avd_buf_out_validate(struct vb2_buffer *vb)
+> +{
+> +=09struct vb2_v4l2_buffer *vbuf =3D to_vb2_v4l2_buffer(vb);
+> +
+> +=09vbuf->field =3D V4L2_FIELD_NONE;
+> +=09return 0;
+> +}
+> +
+> +static void avd_buf_request_complete(struct vb2_buffer *vb)
+> +{
+> +=09struct avd_ctx *ctx =3D vb2_get_drv_priv(vb->vb2_queue);
+> +
+> +=09v4l2_ctrl_request_complete(vb->req_obj.req, &ctx->ctrl_hdl);
+> +}
+> +
+> +static int avd_start_streaming(struct vb2_queue *q, unsigned int count)
+> +{
+> +=09struct avd_ctx *ctx =3D vb2_get_drv_priv(q);
+> +=09const struct avd_coded_fmt_desc *desc;
+> +=09int ret;
+> +
+> +=09if (V4L2_TYPE_IS_CAPTURE(q->type))
+> +=09=09return 0;
+> +
+> +=09desc =3D ctx->coded_fmt_desc;
+> +=09if (WARN_ON(!desc))
+> +=09=09return -EINVAL;
+> +
+> +=09if (desc->ops->start) {
+> +=09=09ret =3D desc->ops->start(ctx);
+> +=09=09if (ret)
+> +=09=09=09return ret;
+> +=09}
+> +
+> +=09return 0;
+> +}
+> +
+> +static void avd_queue_cleanup(struct vb2_queue *vq, u32 state)
+> +{
+> +=09struct avd_ctx *ctx =3D vb2_get_drv_priv(vq);
+> +
+> +=09while (true) {
+> +=09=09struct vb2_v4l2_buffer *vbuf;
+> +
+> +=09=09if (V4L2_TYPE_IS_OUTPUT(vq->type))
+> +=09=09=09vbuf =3D v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
+> +=09=09else
+> +=09=09=09vbuf =3D v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
+> +
+> +=09=09if (!vbuf)
+> +=09=09=09break;
+> +
+> +=09=09v4l2_ctrl_request_complete(vbuf->vb2_buf.req_obj.req,
+> +=09=09=09=09=09   &ctx->ctrl_hdl);
+> +=09=09v4l2_m2m_buf_done(vbuf, state);
+> +=09}
+> +}
+> +
+> +static void avd_stop_streaming(struct vb2_queue *q)
+> +{
+> +=09struct avd_ctx *ctx =3D vb2_get_drv_priv(q);
+> +
+> +=09if (V4L2_TYPE_IS_OUTPUT(q->type)) {
+> +=09=09const struct avd_coded_fmt_desc *desc =3D ctx->coded_fmt_desc;
+> +
+> +=09=09if (WARN_ON(!desc))
+> +=09=09=09return;
+> +
+> +=09=09if (desc->ops->stop)
+> +=09=09=09desc->ops->stop(ctx);
+> +=09}
+> +
+> +=09avd_queue_cleanup(q, VB2_BUF_STATE_ERROR);
+> +}
+> +
+> +const struct vb2_ops avd_queue_ops =3D {
+> +=09.queue_setup =3D avd_queue_setup,
+> +=09.buf_prepare =3D avd_buf_prepare,
+> +=09.buf_queue =3D avd_buf_queue,
+> +=09.buf_out_validate =3D avd_buf_out_validate,
+> +=09.buf_request_complete =3D avd_buf_request_complete,
+> +=09.start_streaming =3D avd_start_streaming,
+> +=09.stop_streaming =3D avd_stop_streaming,
+> +};
+> +
+> +void avd_job_finish_no_pm(struct avd_ctx *ctx, enum vb2_buffer_state res=
+ult)
+> +{
+> +=09if (ctx->coded_fmt_desc->ops->done) {
+> +=09=09struct vb2_v4l2_buffer *src_buf, *dst_buf;
+> +
+> +=09=09src_buf =3D v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
+> +=09=09dst_buf =3D v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
+> +=09=09ctx->coded_fmt_desc->ops->done(ctx, src_buf, dst_buf, result);
+> +=09}
+> +
+> +=09v4l2_m2m_buf_done_and_job_finish(ctx->dev->m2m_dev, ctx->fh.m2m_ctx,
+> +=09=09=09=09=09 result);
+> +}
+> +
+> +void avd_job_finish(struct avd_ctx *ctx, enum vb2_buffer_state result)
+> +{
+> +=09struct avd_dev *avd =3D ctx->dev;
+> +
+> +=09pm_runtime_put_autosuspend(avd->dev);
+> +=09avd_job_finish_no_pm(ctx, result);
+> +}
+> +
+> +void avd_run_preamble(struct avd_ctx *ctx, struct avd_run *run)
+> +{
+> +=09struct media_request *src_req;
+> +=09struct avd_decoded_buffer *dst;
+> +
+> +=09memset(run, 0, sizeof(*run));
+> +
+> +=09run->bufs.src =3D v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
+> +=09run->bufs.dst =3D v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
+> +
+> +=09run->coded_in =3D
+> +=09=09vb2_dma_contig_plane_dma_addr(&run->bufs.src->vb2_buf, 0);
+> +=09run->y_out =3D vb2_dma_contig_plane_dma_addr(&run->bufs.dst->vb2_buf,=
+ 0);
+> +=09run->uv_out =3D run->y_out +
+> +=09=09      ctx->decoded_fmt.fmt.pix_mp.plane_fmt[0].bytesperline *
+> +=09=09=09      ctx->decoded_fmt.fmt.pix_mp.height;
+> +
+> +=09run->comp_out =3D run->y_out + ctx->comp.start_offset;
+> +=09ctx->decomp =3D !is_interchange(ctx->decoded_fmt.fmt.pix_mp.pixelform=
+at);
+> +
+> +=09dst =3D vb2_to_avd_decoded_buf(&run->bufs.dst->vb2_buf);
+> +=09memcpy(&dst->comp, &ctx->comp, sizeof(ctx->comp));
+> +
+> +=09/* Apply request(s) controls if needed. */
+> +=09src_req =3D run->bufs.src->vb2_buf.req_obj.req;
+> +=09if (src_req)
+> +=09=09v4l2_ctrl_request_setup(src_req, &ctx->ctrl_hdl);
+> +
+> +=09v4l2_m2m_buf_copy_metadata(run->bufs.src, run->bufs.dst);
+> +}
+> +
+> +void avd_run_postamble(struct avd_ctx *ctx, struct avd_run *run)
+> +{
+> +=09struct media_request *src_req =3D run->bufs.src->vb2_buf.req_obj.req;
+> +
+> +=09if (src_req)
+> +=09=09v4l2_ctrl_request_complete(src_req, &ctx->ctrl_hdl);
+> +}
+> +
+> +static int avd_add_ctrls(struct avd_ctx *ctx, const struct avd_ctrls *ct=
+rls)
+> +{
+> +=09unsigned int i;
+> +
+> +=09for (i =3D 0; i < ctrls->num_ctrls; i++) {
+> +=09=09const struct v4l2_ctrl_config *cfg =3D &ctrls->ctrls[i].cfg;
+> +
+> +=09=09v4l2_ctrl_new_custom(&ctx->ctrl_hdl, cfg, ctx);
+> +=09=09if (ctx->ctrl_hdl.error)
+> +=09=09=09return ctx->ctrl_hdl.error;
+> +=09}
+> +
+> +=09return 0;
+> +}
+> +
+> +int avd_init_ctrls(struct avd_ctx *ctx)
+> +{
+> +=09unsigned int i, nctrls =3D 0;
+> +=09int ret;
+> +
+> +=09for (i =3D 0; i < ARRAY_SIZE(avd_coded_fmts); i++)
+> +=09=09if (avd_is_capable(ctx, avd_coded_fmts[i].capability))
+> +=09=09=09nctrls +=3D avd_coded_fmts[i].ctrls->num_ctrls;
+> +
+> +=09v4l2_ctrl_handler_init(&ctx->ctrl_hdl, nctrls);
+> +
+> +=09for (i =3D 0; i < ARRAY_SIZE(avd_coded_fmts); i++) {
+> +=09=09if (avd_is_capable(ctx, avd_coded_fmts[i].capability)) {
+> +=09=09=09ret =3D avd_add_ctrls(ctx, avd_coded_fmts[i].ctrls);
+> +=09=09=09if (ret)
+> +=09=09=09=09goto err_free_handler;
+> +=09=09}
+> +=09}
+> +
+> +=09ret =3D v4l2_ctrl_handler_setup(&ctx->ctrl_hdl);
+> +=09if (ret)
+> +=09=09goto err_free_handler;
+> +
+> +=09ctx->fh.ctrl_handler =3D &ctx->ctrl_hdl;
+> +=09return 0;
+> +
+> +err_free_handler:
+> +=09v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
+> +=09return ret;
+> +}
+> diff --git a/drivers/media/platform/apple/avd/avd.h b/drivers/media/platf=
+orm/apple/avd/avd.h
+> new file mode 100644
+> index 000000000000..980ecce4f3df
+> --- /dev/null
+> +++ b/drivers/media/platform/apple/avd/avd.h
+> @@ -0,0 +1,267 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Apple Video Decoder driver
+> + *
+> + * Copyright (C) 2026 The Asahi Linux Contributors
+> + * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
+> + *
+> + * Based on rkvdec driver by Collabora, Ltd.
+> + * Copyright (C) 2019 Collabora, Ltd.
+> + * Based on rkvdec driver by Google LLC. (Tomasz Figa <tfiga@chromium.or=
+g>)
+> + * Based on s5p-mfc driver by Samsung Electronics Co., Ltd.
+> + * Copyright (C) 2011 Samsung Electronics Co., Ltd.
+> + */
+> +
+> +#ifndef AVD_H_
+> +#define AVD_H_
+> +
+> +#include <linux/platform_device.h>
+> +#include <linux/firmware.h>
+> +#include <linux/iommu.h>
+> +#include <linux/slab.h>
+> +
+> +#include <media/v4l2-ctrls.h>
+> +#include <media/v4l2-device.h>
+> +#include <media/v4l2-mem2mem.h>
+> +#include <media/v4l2-ioctl.h>
+> +
+> +#define AVD_CAPABILITY_HEVC=09BIT(0)
+> +#define AVD_CAPABILITY_H264=09BIT(1)
+> +#define AVD_CAPABILITY_VP9=09BIT(2)
+> +#define AVD_CAPABILITY_AV1=09BIT(3)
+> +
+> +/* Shifts addresses right and bytesperline?? */
+> +#define AVD_QUIRK_LSR=09=09BIT(0)
+> +#define AVD_QUIRK_NO_PIPE_STATE=09BIT(1)
+> +
+> +#define AVD_REG_RUN_CTRL=090x08
+> +#define AVD_RUN_CTRL_UNK_RUN=09BIT(0)
+> +#define AVD_RUN_CTRL_UNK_STOP=09(BIT(1) | BIT(2) | BIT(3))
+> +
+> +#define AVD_REG_MBOX_IRQ_ENABLE=090x48
+> +#define AVD_REG_MBOX_IRQ_CLR=090x4c
+> +#define AVD_MBOX0_EMPTY=09=09BIT(0)
+> +#define AVD_MBOX0_NOT_EMPTY=09BIT(1)
+> +
+> +#define AVD_REG_MBOX0_STATUS=090x50
+> +#define AVD_REG_MBOX0_RETRIEVE=090x58
+> +#define AVD_REG_MBOX1_STATUS=090x5c
+> +#define AVD_REG_MBOX1_SUBMIT=090x60
+> +#define AVD_MBOX_ENABLE=09=09BIT(0)
+> +
+> +#define AVD_REG_FLAG0_SET=090x90
+> +#define AVD_REG_FLAG0_CLR=090x98
+> +
+> +/* size in number of words (u32) minus one */
+> +#define AVD_PIODMA_CMD_SIZE(v)=09FIELD_PREP(GENMASK(31, 18), v)
+> +#define AVD_PIODMA_CMD_DEST(v)=09(GENMASK(17, 2) & (v))
+> +#define AVD_PIODMA_CMD_CONST=09BIT(0)
+> +
+> +/*
+> + * AVD needs most addresses to be aligned to 256
+> + * the only exception are the compressed buffers, they are aligned to 12=
+8
+> + * instead
+> + */
+> +#define AVD_ALIGN=09256
+> +/* hevc, with a b slice where all references are active and weights are =
+sent */
+> +#define AVD_MAX_INST=09512
+> +
+> +struct avd_ctx;
+> +struct avd_dev;
+> +
+> +/* Matches hdr mode (inst stream) and register layout */
+> +enum avd_codec {
+> +=09AVD_CODEC_HEVC =3D 0,
+> +=09AVD_CODEC_H264 =3D 1,
+> +=09AVD_CODEC_VP9 =3D 2,
+> +=09AVD_CODEC_AV1 =3D 3
+> +};
+> +
+> +struct avd_run {
+> +=09struct {
+> +=09=09struct vb2_v4l2_buffer *src; /* OUTPUT coded */
+> +=09=09struct vb2_v4l2_buffer *dst; /* CAPTURE decoded */
+> +=09} bufs;
+> +
+> +=09dma_addr_t coded_in;
+> +=09dma_addr_t y_out;
+> +=09dma_addr_t uv_out;
+> +=09dma_addr_t comp_out;
+> +};
+> +
+> +struct avd_ctrl_desc {
+> +=09struct v4l2_ctrl_config cfg;
+> +};
+> +
+> +struct avd_ctrls {
+> +=09const struct avd_ctrl_desc *ctrls;
+> +=09unsigned int num_ctrls;
+> +};
+> +
+> +struct avd_comp {
+> +=09u32 size;
+> +=09/* offset to start of compressed data */
+> +=09size_t start_offset;
+> +=09/* relative offsets to start */
+> +=09u32 offsets[4];
+> +};
+> +
+> +struct avd_decoded_buffer {
+> +=09/* Must be the first field in this struct. */
+> +=09struct v4l2_m2m_buffer base;
+> +=09struct avd_comp comp;
+> +};
+> +
+> +static inline struct avd_decoded_buffer *
+> +vb2_to_avd_decoded_buf(struct vb2_buffer *buf)
+> +{
+> +=09return container_of(buf, struct avd_decoded_buffer, base.vb.vb2_buf);
+> +}
+> +
+> +struct avd_decoded_buffer *avd_get_ref_buf(struct avd_ctx *ctx,
+> +=09=09=09=09=09   struct vb2_v4l2_buffer *dst,
+> +=09=09=09=09=09   u64 timestamp);
+> +
+> +struct avd_coded_fmt_ops {
+> +=09void (*adjust_decoded_fmt)(struct avd_ctx *ctx,
+> +=09=09=09=09   struct v4l2_pix_format_mplane *pix_mp);
+> +=09int (*start)(struct avd_ctx *ctx);
+> +=09void (*stop)(struct avd_ctx *ctx);
+> +=09int (*run)(struct avd_ctx *ctx);
+> +=09void (*done)(struct avd_ctx *ctx, struct vb2_v4l2_buffer *src_buf,
+> +=09=09     struct vb2_v4l2_buffer *dst_buf,
+> +=09=09     enum vb2_buffer_state result);
+> +=09int (*try_ctrl)(struct avd_ctx *ctx, struct v4l2_ctrl *ctrl);
+> +=09enum avd_image_fmt (*get_image_fmt)(struct avd_ctx *ctx,
+> +=09=09=09=09=09    struct v4l2_ctrl *ctrl);
+> +};
+> +
+> +enum avd_image_fmt {
+> +=09AVD_IMG_FMT_ANY =3D 0,
+> +=09AVD_IMG_FMT_420_8BIT,
+> +=09AVD_IMG_FMT_420_10BIT,
+> +=09AVD_IMG_FMT_422_8BIT,
+> +=09AVD_IMG_FMT_422_10BIT,
+> +};
+> +
+> +struct avd_decoded_fmt_desc {
+> +=09u32 fourcc;
+> +=09enum avd_image_fmt image_fmt;
+> +};
+> +
+> +struct avd_coded_fmt_desc {
+> +=09u32 fourcc;
+> +=09struct v4l2_frmsize_stepwise frmsize;
+> +=09const struct avd_ctrls *ctrls;
+> +=09const struct avd_coded_fmt_ops *ops;
+> +=09u32 subsystem_flags;
+> +=09unsigned int capability;
+> +};
+> +
+> +struct avd_variant {
+> +=09unsigned int capabilities;
+> +=09const char *fw_name;
+> +=09unsigned char revision; /* the same as the device tree */
+> +=09unsigned int quirks;
+> +};
+> +
+> +struct avd_dev {
+> +=09struct device *dev;
+> +=09struct v4l2_device v4l2_dev;
+> +=09struct media_device mdev;
+> +=09struct video_device vdev;
+> +=09struct v4l2_m2m_dev *m2m_dev;
+> +=09struct platform_device *pdev;
+> +=09const struct firmware *fw; /* fw is lost on suspend */
+> +=09void __iomem *piodma;
+> +=09void __iomem *code;
+> +=09void __iomem *sram;
+> +=09void __iomem *mbox;
+> +=09void __iomem *ctrl;
+> +=09u32 sram_start;
+> +=09struct iommu_domain *domain;
+> +=09struct iommu_domain *empty_domain;
+> +=09struct mutex vdev_lock; /* serializes ioctls */
+> +=09struct reset_control *rstc;
+> +=09const struct avd_variant *variant;
+> +};
+> +
+> +struct avd_segment {
+> +=09u32 piodma_cmd;
+> +=09u32 num;
+> +=09u32 instructions[AVD_MAX_INST];
+> +};
+> +
+> +struct avd_buf {
+> +=09void *cpu;
+> +=09dma_addr_t addr;
+> +=09size_t size;
+> +};
+> +
+> +struct avd_job {
+> +=09enum avd_codec codec;
+> +=09int dest;
+> +=09size_t num;
+> +=09size_t num_alloc;
+> +=09size_t num_submit;
+> +=09struct avd_segment *segments;
+> +=09struct avd_buf buf;
+> +};
+> +
+> +struct avd_ctx {
+> +=09struct v4l2_fh fh;
+> +=09struct avd_dev *dev;
+> +=09struct v4l2_format coded_fmt;
+> +=09struct v4l2_format decoded_fmt;
+> +=09const struct avd_coded_fmt_desc *coded_fmt_desc;
+> +=09struct v4l2_ctrl_handler ctrl_hdl;
+> +=09enum avd_image_fmt image_fmt;
+> +=09bool decomp;
+> +=09struct delayed_work watchdog_work;
+> +=09void *priv;
+> +=09struct avd_comp comp;
+> +=09struct avd_job job;
+> +=09struct avd_buf inst;
+> +=09struct avd_buf pipe_state;
+> +};
+> +
+> +int avd_end_segment(struct avd_ctx *ctx, bool update_submit);
+> +int avd_init_job(struct avd_ctx *ctx, enum avd_codec codec, size_t segme=
+nts);
+> +int avd_submit_job(struct avd_ctx *ctx);
+> +
+> +int avd_buf_alloc(struct avd_dev *avd, struct avd_buf *buf, size_t size)=
+;
+> +void avd_buf_free(struct avd_dev *avd, struct avd_buf *buf);
+> +
+> +void avd_reset_coded_fmt(struct avd_ctx *ctx);
+> +void avd_reset_decoded_fmt(struct avd_ctx *ctx);
+> +int avd_init_ctrls(struct avd_ctx *ctx);
+> +
+> +void avd_job_finish_no_pm(struct avd_ctx *ctx, enum vb2_buffer_state res=
+ult);
+> +void avd_job_finish(struct avd_ctx *ctx, enum vb2_buffer_state result);
+> +
+> +void avd_run_preamble(struct avd_ctx *ctx, struct avd_run *run);
+> +void avd_run_postamble(struct avd_ctx *ctx, struct avd_run *run);
+> +
+> +extern const struct v4l2_ctrl_ops avd_ctrl_ops;
+> +extern const struct v4l2_ioctl_ops avd_ioctl_ops;
+> +extern const struct vb2_ops avd_queue_ops;
+> +
+> +static inline u32 fmt_height(struct avd_ctx *ctx)
+> +{
+> +=09return ctx->coded_fmt.fmt.pix_mp.height;
+> +}
+> +
+> +static inline u32 fmt_width(struct avd_ctx *ctx)
+> +{
+> +=09return ctx->coded_fmt.fmt.pix_mp.width;
+> +}
+> +
+> +void fill_comp(struct avd_comp *comp, enum avd_image_fmt image_fmt, u32 =
+width,
+> +=09       u32 height);
+> +
+> +static inline struct avd_ctx *file_to_ctx(struct file *filp)
+> +{
+> +=09return container_of(file_to_v4l2_fh(filp), struct avd_ctx, fh);
+> +}
+> +
+> +#endif /* AVD_H_ */
+
+
+Did a light pass for now.
+
+Nicolas
+
+--=-x08Y6vppfz4ikL2auF+x
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawYPMQAKCRDZQZRRKWBy
+9ILkAQCB7UHs7fBWF23/pLO7IPdZfP1GyadZ4l2XEs5sXgflJAEAnU+dxAfecvSY
+AWo5TDPQjZ3nTHFz9nnMvtd/poAPlAQ=
+=3zfm
+-----END PGP SIGNATURE-----
+
+--=-x08Y6vppfz4ikL2auF+x--
