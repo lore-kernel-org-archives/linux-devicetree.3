@@ -1,62 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795535661;
-	b=s78Ir4ldasK/cF3juJv2DZ/0uEiLuI+F2kcd8U62lLUzez34kveipuvAZBn2mPpOOqmj
-	 sYQJhjQiNr38ukX8KKv3GDXBm71sdFW6pU6L0FtDh9ZqG7CdXg3GVwv0fuQCDlgU+LPBx
-	 YlQjPYtI7Dvo2SvmsRg3N/cbSwqaniWOf2IxTDSlxcGnhHC5epX0PvklXOnGhHlOsAbOv
-	 gMLSBjgO1Td/PSS2FravfpPfIoWbqnIjmiRUY7xKiATHsTE5TU/DS9FEGcekDMaTo9+zf
-	 PCk+STu1C5+DtjeA+5Y9pyJkk2xyWUiFL0mWGlB9/6HVDTuPHMEjkNDiKqtY/O8HwIg==
+	t=1795535670;
+	b=iJEj6Zhkt4iSZvyNh522SEJRYujUNNo0K2oXIigX5ZeEaNJByr7dkZe0gV98iG8ItXnn
+	 b81Cz3H1H+e+JdLugTOtBhrri4Q+jPkK7ybcQsIFNQ3+DJZGk7bMF2u66kOWdZ0SN667A
+	 MM+C17sfecwQVkHgwVOKsCRuVQ7LXvYmu2c7gyveYRAB+k72Ds6m4+AjU6KHd+5t2c4ZC
+	 NGaAwXyN/cDTQHhnJQQXo03lGZylNXI1o9sElcW6Cejwvvy6tyvuY28FoAkIspwjM60rS
+	 1UrBbpXeI5nzIGB76pMQnosxH5yefUn9yRPvEkSFriOcriciBIg2ZusQhD7TOF2rSww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795535661;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795535670;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
 	 X-CMS-RootMailID:References;
-	bh=3xC+a99k3KLxCGCz6GQtG/cV2weTA5KsOBj2sQt9ibA=;
-	b=4LNKpseNoqfmufZHeksOz8bUWOP6YqFfEzEk121++YOI5fGA3IFh0fqIm1R/dAELjFHd
-	 t6gsaq0Z5g6T/F4vS4NUjk7ny1ENjpTMR7zr1Y64rXtn9cNJk6IgN3RYIZfAPcXSHeOns
-	 dfeTW+M9J5ixyl5OzwPigyCpdsqncvQWIpCjyb3SQ7Qctefcs8xI0gSPoapeBxaoARk3n
-	 jrZVcrrHxN0Q+VqEXN5NLJr/CPNrRWoGGfNd57iJYhNmVO8wIlgb2riGPJpuSIjM+XvXW
-	 FN4Q/yLBQ5kJ35TwkqEx7zfgUKaxGZVwaDBG3CQl81OS44qWKoSMaC5lQeUG7L4fc9g==
+	bh=Hwn+KozTjqbKLEcXpvaSk85eL6QS1Y+pGx+rClS7K7k=;
+	b=udla5iQPhxaDOe8HXKlVmG/p6Nluryd7v+E4l5iVLSsEB5QwKWuqqARLqT3anbSgBqjL
+	 dVClG+K1kF2EQYkC1TKcwfzciJVwY2NctN/0acOC1f3qqZF7iqz+LTqX8oPHqGX7CocuO
+	 M1iQQxkC18HpvSybndvP7MFyTQ4mj5XBBI3yI0TensYp2ZePsI4dvbKivtLhNdXNzlocZ
+	 uONpHPhSapFNkhKvYV5Ic/KqyYzvxd3+m1aSyXy2HqGyoyh8+TKlW7KdReqLu8o8o3chS
+	 lSBDMozgGJNpemQ3qkVE8kCqXrYs32Cn/L7j64sLolpZATrnuuF+9ifS9hwByXbh+qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=samsung.com;
 	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Ani2iViC;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=K9xeBwDE;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2F0606A331;
-	Tue, 24 Nov 2026 15:54:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F2F0606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9DA606A327;
+	Tue, 24 Nov 2026 15:54:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE9DA606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Ani2iViC
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=K9xeBwDE
 Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261124155418euoutp01744baf3629c75c025d7b0d0908430145~rBisK2bIi1642116421euoutp01u;
-	Tue, 24 Nov 2026 15:54:18 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261124155418euoutp01744baf3629c75c025d7b0d0908430145~rBisK2bIi1642116421euoutp01u
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261124155427euoutp0216c8c779138caa0a985af1805797e4f6~rBi1Flxhc0430504305euoutp02N;
+	Tue, 24 Nov 2026 15:54:27 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261124155427euoutp0216c8c779138caa0a985af1805797e4f6~rBi1Flxhc0430504305euoutp02N
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1795535658;
-	bh=3xC+a99k3KLxCGCz6GQtG/cV2weTA5KsOBj2sQt9ibA=;
+	s=mail20170921; t=1795535668;
+	bh=Hwn+KozTjqbKLEcXpvaSk85eL6QS1Y+pGx+rClS7K7k=;
 	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=Ani2iViCeVNMTsPUjxE865nzrbWIWqJy0dPLAfr80sIAjkGTG09OU1AavjGVIpz3g
-	 IU7+mlPURYeTbQd/zian5y/AHYQTU39Qw565muwEFsYQIIX4uxK9qJiDntF1wOYrwe
-	 QcIRdohVBxcinmCY1gZ1Wq+k/RHyybuDptQIgdc0=
+	b=K9xeBwDEqowx4qW2j7Kt07frwW/eklfERs4HcCh8UOGPPrbk55JlGUsN7qB32a9VP
+	 EJ9xf+QMGT+v1mKc/iDBIQ9izwv4eXuYQzkXgNSLjqqMlz7VaVIzrSlRsjvCVrmJVe
+	 CXUp6nYfAREZExmAM1jSI7yHW7CVBJLUBF1lsK6w=
 Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
 	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261124155417eucas1p1800c657fb3f28861a7bd0e01018d936c~rBirygIeu0891808918eucas1p1Q;
-	Tue, 24 Nov 2026 15:54:17 +0000 (GMT)
+	20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f~rBi0p4yan0067000670eucas1p1i;
+	Tue, 24 Nov 2026 15:54:27 +0000 (GMT)
 Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
 	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261124155416eusmtip10eb384b5f0c568df3d702f259d19a797~rBiqIUCgA2656326563eusmtip1P;
-	Tue, 24 Nov 2026 15:54:16 +0000 (GMT)
+	20261124155425eusmtip181296fb98900453b0e6688616dc8f751~rBiy5MXny3070630706eusmtip1j;
+	Tue, 24 Nov 2026 15:54:25 +0000 (GMT)
 From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Tue, 24 Nov 2026 16:52:46 +0100
-Subject: [PATCH v8 10/18] drm/bridge: inno-hdmi: Add .mode_valid platform
- operation
+Date: Tue, 24 Nov 2026 16:52:51 +0100
+Subject: [PATCH v8 15/18] soc: starfive: Add jh7110-vout-subsystem driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,7 +66,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-jh7110-clean-send-v8-10-de92635dd857@samsung.com>
+Message-Id: <20261124-jh7110-clean-send-v8-15-de92635dd857@samsung.com>
 In-Reply-To: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
 	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Robert Foss
@@ -96,100 +95,171 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
 	<u.kleine-koenig@baylibre.com>,  Cristian Ciocaltea
 	<cristian.ciocaltea@collabora.com>,  Byron Stanoszek <gandalf@winds.org>,
-	Owen O'Hehir <oo.hehir@gmail.com>
+	Owen O'Hehir <oo.hehir@gmail.com>,  Conor Dooley
+	<conor.dooley@microchip.com>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2977;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5686;
 	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=3KsxRO8muOzOEIJS6mFAxq1DI1dhlkKQcwO0KZFVV5c=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWSzbhb9cWGGjz3DlmDGQ6G6r+rPV/C8MPXnVsna4jZj0
-	n7fmbYTOkpZGMQ4GGTFFFnObow2kvzH8LT8+ONfMHNYmUCGMHBxCsBF3jIybDootkNzrctcax0B
-	hr9yudNZcqfPvJYakbLDvCfE2fmkDMN/5xsfXOQtOIo9b2UYH2GaanE1XarP+c7pnasZ2ZVqulf
-	yAgA=
+	bh=1hgfOIYoTQ5Ija5HE+RRppVXAzt2wlD596t2L8iUqQI=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWSzbhbd+Pe+s122SniLcsnCDOfEdtWsJgnL0qTqm0tE5
+	W+Zdat2lLIwiHEwyIopspzdGG0k+Y/hafnxx79g5rAygQxh4OIUgIlEajEyLJz9U7Jeq/PLqpKT
+	ko178/7u4Praf3/jW+0dLwxl63f7ODD8Uz/THpvOZBESsDO3+vDWp5oSApkHrjg9XhgwL8Xe2Po
+	oOwA=
 X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
 	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261124155417eucas1p1800c657fb3f28861a7bd0e01018d936c
+X-CMS-MailID: 20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261124155417eucas1p1800c657fb3f28861a7bd0e01018d936c
+X-RootMTR: 20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f
 X-EPHeader: CA
-X-CMS-RootMailID: 20261124155417eucas1p1800c657fb3f28861a7bd0e01018d936c
+X-CMS-RootMailID: 20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f
 References: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
-	<CGME20261124155417eucas1p1800c657fb3f28861a7bd0e01018d936c@eucas1p1.samsung.com>
+	<CGME20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f@eucas1p1.samsung.com>
 
-inno_hdmi_bridge_mode_valid() validates the pixel clock against
-hdmi->refclk, but that clock is optional and is only present on
-platforms that describe a "ref" clock. Platforms where the pixel clock
-is produced by a separate device - such as the StarFive JH7110, whose
-PHY is both the clock and the PHY provider - have no "ref" clock, so
-the check is skipped entirely and every mode is reported as valid.
+Nothing in the video output subsystem can reach its own registers until
+the NoC display bus clock and reset are up and PD_VOUT is powered, and
+those are shared by every device in the region. Leaving them to whichever
+consumer probes first works by accident and stops working as soon as the
+probe order changes.
 
-A mode the platform cannot generate is then advertised to userspace.
-The subsequent modeset appears to succeed, since the atomic enable path
-cannot fail, and the display silently stays blank.
+Add a driver for the subsystem node that takes the bus clock and reset,
+holds a runtime PM reference so genpd keeps PD_VOUT powered, and then
+populates its children. All three are released only once the last child
+is gone.
 
-Add a .mode_valid platform operation so platforms can reject modes they
-are unable to drive. Platforms that do not implement it are unaffected.
-
-Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 Tested-by: Byron Stanoszek <gandalf@winds.org>
 Tested-by: Owen O'Hehir <oo.hehir@gmail.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 ---
- drivers/gpu/drm/bridge/inno-hdmi.c | 9 +++++++++
- include/drm/bridge/inno_hdmi.h     | 5 ++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ drivers/soc/starfive/Kconfig                 | 16 ++++++
+ drivers/soc/starfive/Makefile                |  1 +
+ drivers/soc/starfive/jh7110-vout-subsystem.c | 82 ++++++++++++++++++++++++++++
+ 3 files changed, 99 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-index 2b1e2d61e4433ead684b9de41610000fb11e07e9..0932ec47f151b531f63e7c42c715a6ae7fe252fd 100644
---- a/drivers/gpu/drm/bridge/inno-hdmi.c
-+++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-@@ -818,6 +818,7 @@ static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridg
- 							const struct drm_display_mode *mode)
- {
- 	struct inno_hdmi *hdmi = bridge_to_inno_hdmi(bridge);
-+	const struct inno_hdmi_plat_ops *plat_ops = hdmi->plat_data->ops;
- 	unsigned long mpixelclk, max_tolerance;
- 	long rounded_refclk;
+diff --git a/drivers/soc/starfive/Kconfig b/drivers/soc/starfive/Kconfig
+index e19994a212d4af49eaed595bab6fecc19677b2b3..d57480c42f2b6b06142b591e6ccef4909aced978 100644
+--- a/drivers/soc/starfive/Kconfig
++++ b/drivers/soc/starfive/Kconfig
+@@ -21,4 +21,20 @@ config SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM
+ 	  for the "PHY" and the "controller", which have their own clocks
+ 	  and roles but share the register space.
  
-@@ -833,6 +834,14 @@ static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridg
- 	if (inno_hdmi_find_phy_config(hdmi, mpixelclk) < 0)
- 		return MODE_CLOCK_HIGH;
- 
-+	if (plat_ops && plat_ops->mode_valid) {
-+		enum drm_mode_status status;
++config SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM
++	tristate "StarFive JH7110 video output subsystem driver"
++	depends on ARCH_STARFIVE || COMPILE_TEST
++	depends on OF
++	select PM
++	help
++	  This option enables the parent driver for the StarFive JH7110
++	  video output subsystem, which the documentation calls dom_vout_top.
 +
-+		status = plat_ops->mode_valid(hdmi->dev, mode);
-+		if (status != MODE_OK)
-+			return status;
-+	}
++	  The subsystem covers the DC8200 display controller, the HDMI
++	  transmitter, the video output clock generator and the video output
++	  system controller. They share one NoC port whose clock and reset
++	  gate access to the whole register region, and the region sits in
++	  the PD_VOUT power domain. This driver owns those resources and
++	  holds them for as long as any of its children exist.
 +
- 	if (hdmi->refclk) {
- 		rounded_refclk = clk_round_rate(hdmi->refclk, mpixelclk);
- 		if (rounded_refclk < 0)
-diff --git a/include/drm/bridge/inno_hdmi.h b/include/drm/bridge/inno_hdmi.h
-index 0864f0d8862a4325821a84db6d04f14011d9aa78..790633fcea97a6b9840da7b19a0c0b0d7271fb83 100644
---- a/include/drm/bridge/inno_hdmi.h
-+++ b/include/drm/bridge/inno_hdmi.h
-@@ -8,15 +8,18 @@
- 
- #include <linux/types.h>
- 
-+#include <drm/drm_modes.h>
+ endmenu
+diff --git a/drivers/soc/starfive/Makefile b/drivers/soc/starfive/Makefile
+index 36fbb6f984986e4794ffb2c6c1485b6644efc4eb..3b8b8a6847f9021920a9af7296c49e1c45114c34 100644
+--- a/drivers/soc/starfive/Makefile
++++ b/drivers/soc/starfive/Makefile
+@@ -1,3 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ obj-y += socinfo/
+ obj-$(CONFIG_SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM) += jh7110-hdmi-subsystem.o
++obj-$(CONFIG_SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM) += jh7110-vout-subsystem.o
+diff --git a/drivers/soc/starfive/jh7110-vout-subsystem.c b/drivers/soc/starfive/jh7110-vout-subsystem.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..af632692e2139d9d07edd478a299b170ad1b7104
+--- /dev/null
++++ b/drivers/soc/starfive/jh7110-vout-subsystem.c
+@@ -0,0 +1,82 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Driver for the StarFive JH7110 video output subsystem
++ *
++ * Copyright (c) 2025 Samsung Electronics Co., Ltd.
++ * Author: Michal Wilczynski <m.wilczynski@samsung.com>
++ *
++ * The display hardware sits behind a single NoC port whose clock and reset
++ * gate access to every register in the region, inside the PD_VOUT power
++ * domain. Nothing below this node can reach its own registers until all three
++ * are up, so bring them up here and hold them for as long as any child device
++ * exists, rather than leaving them to whichever consumer happens to probe
++ * first.
++ */
 +
- struct device;
- struct drm_encoder;
--struct drm_display_mode;
- struct inno_hdmi;
- struct platform_device;
- 
- struct inno_hdmi_plat_ops {
- 	void (*enable)(struct device *pdev, struct drm_display_mode *mode);
- 	void (*disable)(struct device *pdev);
-+	enum drm_mode_status (*mode_valid)(struct device *pdev,
-+					   const struct drm_display_mode *mode);
- };
- 
- struct inno_hdmi_phy_config {
++#include <linux/clk.h>
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/reset.h>
++
++static void jh7110_vout_subsys_pm_put(void *data)
++{
++	pm_runtime_put_sync(data);
++}
++
++static int jh7110_vout_subsys_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct reset_control *bus_rst;
++	struct clk *bus_clk;
++	int ret;
++
++	/*
++	 * Take a runtime PM reference for the lifetime of this device. genpd
++	 * only keeps PD_VOUT powered while something actually holds it, and
++	 * an unclocked or unpowered access to this region wedges the bus.
++	 */
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
++
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to power on PD_VOUT\n");
++
++	ret = devm_add_action_or_reset(dev, jh7110_vout_subsys_pm_put, dev);
++	if (ret)
++		return ret;
++
++	bus_clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(bus_clk))
++		return dev_err_probe(dev, PTR_ERR(bus_clk),
++				     "Failed to enable NoC bus clock\n");
++
++	bus_rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
++	if (IS_ERR(bus_rst))
++		return dev_err_probe(dev, PTR_ERR(bus_rst),
++				     "Failed to deassert NoC bus reset\n");
++
++	return devm_of_platform_populate(dev);
++}
++
++static const struct of_device_id jh7110_vout_subsys_of_match[] = {
++	{ .compatible = "starfive,jh7110-vout-subsystem", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, jh7110_vout_subsys_of_match);
++
++static struct platform_driver jh7110_vout_subsys_driver = {
++	.probe = jh7110_vout_subsys_probe,
++	.driver = {
++		.name = "jh7110-vout-subsystem",
++		.of_match_table = jh7110_vout_subsys_of_match,
++	},
++};
++module_platform_driver(jh7110_vout_subsys_driver);
++
++MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
++MODULE_DESCRIPTION("StarFive JH7110 video output subsystem driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
