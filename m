@@ -1,73 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795524145;
-	b=DxzMMziyhCPLsp9ggRYUCSRlw3zPMapxrBQ1Twl/nyYL97ZrQIXJelemelwUrhfMWvh8
-	 Laarw1e0GHmBZ3EZ6a4DCSaDsP+qH5WTHvZx5m/wJvnHmuiImM2qeaq+AZTl96S5F4aEW
-	 8ql6dd4cIPWGaE/T1i4xlM8SEO+YzkbpkpNXbzrO2V7xL6AiOU3HMcilrCYJyKwZgyYnT
-	 gqQv4QsR0HJIWGKP7ti/LHJcxFqimFToXyiRSAfqCi3oVVX0San8TGS/sQzrzIEQ4WsWe
-	 6DHF1z4wSWkbS782Oup9C6C5kuke/pYew/LM9tzJzBVtZetK6eDVsXFXpKvVCUXmDXw==
+	t=1795524298;
+	b=15WGxntz67Vo+eMYKP8Yhf+EkgoWV4hccViOGARajHKacfm2T1nd8d6kk65sW/I7yJCV
+	 IIS0vQHhaAkHY/pGgI+6Jr6YRxgREUlaUwz9LnUMWNQyNPA/EuBonlqRRGVrbQbpPiOxr
+	 1sKzT0px1ZoR/9l/hdnhueqpIcMoqq5fkMJdY6sonjGXcuox7ozx/vmOWrUO0PMmRB6Qg
+	 XmlYZGzR6XugqnCTDFn2Y/bFMtTGIlQihFafP8eN6rSP81KSvzYym4+Onz72VuKtZCGOt
+	 X8/LC2ZF7hpPIbhij/Gf+9iA/XBNTalGAPHi8iOMYajpGJ4p1X0guhZVZwk5lngKEPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795524145;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wr7RkffnYvOl3FhNLiB/TEwApGzEcSL4fP61HijSYoE=;
-	b=faakCXV0mvtgIZW6xasNK9KIEq9ULP6CjGmrbNNQLnztGFoF6bmckr+fpXHq/KGCeenN
-	 cLI6pZ88ErSfxLzDMb6VU/E1mIH3TS8EgNwcQK8nDnqCdl/VeeGuhNL4F5sjeGYdrux2n
-	 yuqV4QQlT8NGWFkqbh3QZSCQLTox2ruzLWA3RENmpAx3pyGmdzPBBEiwJUZcwS8n6CMkL
-	 5Yclzy22Tyd8i/z2lGsBmJu+OYNjeFhBjSZdTgYab+DAV8ruNE7qR5FNiP+oFMdzfPn3F
-	 Pnc+E82+1f7jxTfQEdsovdAuBTUTxl0GgZo5DnDcnSbN9wtnLl5f8hN2pJM4rbEds4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795524298;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=sGnf5ECwK2CMfucMR8upkwpozMGoDZCEz/Q+VSQ1gIc=;
+	b=cMTQaRB3vXcpTHRlCCY+e0TyPkM8XGNAo07UuhEcmwV1ZwhJUkJPmPgTfNwb6xl17lWz
+	 69MLZq6TF4HofrABJGmzgv25kErXW+/enI6GZZHMldCURDoV2bK/eXUWbyoup41BlKlm4
+	 UtSGEoPqrJJcZJfUVruziOZjS6We9l02d4e0cVaMrVbk8Yb+uXdBENxNmShWCD2v0UPye
+	 A2mXKLWLk07mRm33sSqlx7Pyvn+mzqR9dqgEKE5lGbF1FRdd3GcrQXKdfP7opAyy5R3t4
+	 1HQVK4ePX81igg0lld17G7B70cBS/v3PRSrVMqSgus64Vtp37P25rWx0tS/M2i8dYMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=vTcb4DeJ;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWeN5yoe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB58B606A322;
-	Tue, 24 Nov 2026 12:42:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB58B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EAA606A32A
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:44:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=vTcb4DeJ
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id D7B861FB20;
-	Tue, 24 Nov 2026 13:42:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1795524136;
-	bh=wr7RkffnYvOl3FhNLiB/TEwApGzEcSL4fP61HijSYoE=; h=From:To:Subject;
-	b=vTcb4DeJttwb6sp4bEBQAEbPu/MiFi5AHxbBpKY3L6mdbNBqNO0mew4K2YU6hCdw0
-	 2/x3MchUb+iUG7J/0eFO42Kw5RSrU5oAtB+3RPpCtlicbMRUOz3EepOBQANwKxX8mx
-	 UniYikXtukgDhmg6oeiZ9eAsPZjtFFDST3KbSrGc8Tv4AwKDmxhyvPUeVnRDgRQCoL
-	 yjiiy9YNGRaqy+rYg8ubzQYMpdv8cVttHHVjOE2ODLKcVx0G9izqNirZ/+RdF8Nqh8
-	 gZlDBz3OvVX6y2HGdm/WydtMoDeNwkm0JJNgLR5k50yk2rgQJzd7LoBrngpdmZl+vK
-	 NJe8logeqaTtw==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org
-Subject: [PATCH v1 2/2] arm64: dts: ti: k3-am69-aquila: Add tdx vendor prefix to display overlays
-Date: Tue, 24 Nov 2026 13:42:05 +0100
-Message-ID: <20261124124207.199382-3-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261124124207.199382-1-francesco@dolcini.it>
-References: <20261124124207.199382-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWeN5yoe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF5E1F000C0;
+	Tue, 24 Nov 2026 12:44:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795524297;
+	bh=sGnf5ECwK2CMfucMR8upkwpozMGoDZCEz/Q+VSQ1gIc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JWeN5yoenJFeGftAg9qcF/maJ0LPX7ahKvH88ZYMRLdUcC3KBPVolKX+F4iSERmR5
+	 AFdhT0CQ/R9Tyi/3Y6eX30JBO8B2/4MfYDtb2LW+XK2+2SmQer7xtJjDoeS8pUZ/ii
+	 +CPOBmlf4kgvYab1ymDEcZGYyk7nS0nunDP6hzEMMJMFmfMYnf8DnIc9BLHfbpvlFI
+	 Y8l8WUICvgh+MBEiDDGrmfJKTh/auUBkZC9c5Au28BQX7p7BLYWnjpPbCl2koA5dmC
+	 ofamxw3drYTQz1DBxmfDRrlOe28TU+2wvlTrSiSkAGZkpzZxDiJPFmQbT2cJEmtt7v
+	 brt6REVEyDzmQ==
+Message-ID: <sashiko-outbox-231171@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 2/2] block: implement NVMEM provider
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123-block-as-nvmem-v13-2-96ffe1f59332@oss.qualcomm.com>
+References: <20261123-block-as-nvmem-v13-0-96ffe1f59332@oss.qualcomm.com>
+ <20261123-block-as-nvmem-v13-2-96ffe1f59332@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 12:44:56 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,159 +59,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] block: async blk_nvmem_wq work races with synchronous parent
+  device_del()
+- [High] block: bdev claiming fwnode->dev on fixed-layout node blocks
+  nvmem consumers
+--
 
-The Toradex display overlays are named after the accessory product name,
-which on its own reads as a generic panel description. Prefix them with
-the vendor, "tdx", as already done for third-party accessories (e.g.
-"rpi-display-2-7in") and for the Toradex overlays in the NXP i.MX
-directories, to have a consistent naming across all Toradex DT files.
+commit 0e36d62b71ee050cb34dcd10f5cbdc451589e7c4
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-The 10.1" LVDS display exists in a V1 and a V2 version, encode it as a
-"-v1"/"-v2" suffix. The combined DTBs are renamed accordingly.
+block: implement NVMEM provider
 
-Link: https://lore.kernel.org/all/20261026111149.GA46946@francesco-nb/
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/ti/Makefile               | 48 +++++++++----------
- ...apter-tdx-panel-cap-touch-10inch-dsi.dtso} |  0
- ...dapter-tdx-panel-cap-touch-7inch-dsi.dtso} |  0
- ...o-lvds-tdx-panel-cap-touch-10inch-v1.dtso} |  0
- ...o-lvds-tdx-panel-cap-touch-10inch-v2.dtso} |  0
- ...quila-tdx-panel-cap-touch-10inch-dsi.dtso} |  0
- ...aquila-tdx-panel-cap-touch-7inch-dsi.dtso} |  0
- 7 files changed, 24 insertions(+), 24 deletions(-)
- rename arch/arm64/boot/dts/ti/{k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtso => k3-am69-aquila-adapter-tdx-panel-cap-touch-10inch-dsi.dtso} (100%)
- rename arch/arm64/boot/dts/ti/{k3-am69-aquila-adapter-panel-cap-touch-7inch-dsi.dtso => k3-am69-aquila-adapter-tdx-panel-cap-touch-7inch-dsi.dtso} (100%)
- rename arch/arm64/boot/dts/ti/{k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtso => k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso} (100%)
- rename arch/arm64/boot/dts/ti/{k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso => k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtso} (100%)
- rename arch/arm64/boot/dts/ti/{k3-am69-aquila-panel-cap-touch-10inch-dsi.dtso => k3-am69-aquila-tdx-panel-cap-touch-10inch-dsi.dtso} (100%)
- rename arch/arm64/boot/dts/ti/{k3-am69-aquila-panel-cap-touch-7inch-dsi.dtso => k3-am69-aquila-tdx-panel-cap-touch-7inch-dsi.dtso} (100%)
+This commit adds an NVMEM provider for block devices and partitions whose
+device tree node describes an NVMEM layout, deferring NVMEM registration
+and unregistration to an ordered workqueue.
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 4c31fceb6497..7061e28719f1 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -212,14 +212,14 @@ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-rpi-cam-imx219.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-tevi-ov5640.dtbo
- 
- # Boards with J784s4 SoC
--k3-am69-aquila-clover-panel-cap-touch-10inch-dsi-dtbs := \
-+k3-am69-aquila-clover-tdx-panel-cap-touch-10inch-dsi-dtbs := \
- 	k3-am69-aquila-clover.dtb \
--	k3-am69-aquila-panel-cap-touch-10inch-dsi.dtbo
-+	k3-am69-aquila-tdx-panel-cap-touch-10inch-dsi.dtbo
- k3-am69-aquila-dev-dsi-to-hdmi-dtbs := k3-am69-aquila-dev.dtb \
- 	k3-am69-aquila-dsi-to-hdmi.dtbo
--dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtbo
--dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-adapter-panel-cap-touch-7inch-dsi.dtbo
--dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-clover-panel-cap-touch-10inch-dsi.dtb
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-adapter-tdx-panel-cap-touch-10inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-adapter-tdx-panel-cap-touch-7inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-clover-tdx-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-clover.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-csi1-ov5640-24mhz.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-csi1-ov5640.dtbo
-@@ -228,10 +228,10 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-csi2-ov5640.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-hdmi.dtbo
--dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtbo
--dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtbo
--dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-panel-cap-touch-10inch-dsi.dtbo
--dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-panel-cap-touch-7inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-tdx-panel-cap-touch-10inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-tdx-panel-cap-touch-7inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-sk-pcie0-ep.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm.dtb
-@@ -374,15 +374,15 @@ k3-am68-sk-base-board-csi2-dual-imx219-dtbs := k3-am68-sk-base-board.dtb \
- 	k3-j721e-sk-csi2-dual-imx219.dtbo
- k3-am68-sk-base-board-pcie1-ep-dtbs := k3-am68-sk-base-board.dtb \
- 	k3-am68-sk-base-board-pcie1-ep.dtbo
--k3-am69-aquila-clover-panel-cap-touch-7inch-dsi-dtbs := \
-+k3-am69-aquila-clover-tdx-panel-cap-touch-7inch-dsi-dtbs := \
- 	k3-am69-aquila-clover.dtb \
--	k3-am69-aquila-panel-cap-touch-7inch-dsi.dtbo
--k3-am69-aquila-dev-adapter-panel-cap-touch-10inch-dsi-dtbs := \
-+	k3-am69-aquila-tdx-panel-cap-touch-7inch-dsi.dtbo
-+k3-am69-aquila-dev-adapter-tdx-panel-cap-touch-10inch-dsi-dtbs := \
- 	k3-am69-aquila-dev.dtb \
--	k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtbo
--k3-am69-aquila-dev-adapter-panel-cap-touch-7inch-dsi-dtbs := \
-+	k3-am69-aquila-adapter-tdx-panel-cap-touch-10inch-dsi.dtbo
-+k3-am69-aquila-dev-adapter-tdx-panel-cap-touch-7inch-dsi-dtbs := \
- 	k3-am69-aquila-dev.dtb \
--	k3-am69-aquila-adapter-panel-cap-touch-7inch-dsi.dtbo
-+	k3-am69-aquila-adapter-tdx-panel-cap-touch-7inch-dsi.dtbo
- k3-am69-aquila-dev-csi-ov5640-24mhz-dtbs := \
- 	k3-am69-aquila-dev.dtb \
- 	k3-am69-aquila-csi1-ov5640-24mhz.dtbo \
-@@ -391,12 +391,12 @@ k3-am69-aquila-dev-csi-ov5640-dtbs := \
- 	k3-am69-aquila-dev.dtb \
- 	k3-am69-aquila-csi1-ov5640.dtbo \
- 	k3-am69-aquila-csi2-ov5640.dtbo
--k3-am69-aquila-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
-+k3-am69-aquila-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1-dtbs := \
- 	k3-am69-aquila-dev.dtb \
--	k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtbo
--k3-am69-aquila-dev-dsi-to-lvds-v2-panel-cap-touch-10inch-dtbs := \
-+	k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtbo
-+k3-am69-aquila-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2-dtbs := \
- 	k3-am69-aquila-dev.dtb \
--	k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtbo
-+	k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtbo
- k3-am69-sk-csi2-dual-imx219-dtbs := k3-am69-sk.dtb \
- 	k3-j721e-sk-csi2-dual-imx219.dtbo
- k3-am69-sk-pcie0-ep-dtbs := k3-am69-sk.dtb \
-@@ -495,13 +495,13 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am68-phyboard-izar-pwm-fan.dtb \
- 	k3-am68-sk-base-board-csi2-dual-imx219.dtb \
- 	k3-am68-sk-base-board-pcie1-ep.dtb \
--	k3-am69-aquila-clover-panel-cap-touch-7inch-dsi.dtb \
--	k3-am69-aquila-dev-adapter-panel-cap-touch-10inch-dsi.dtb \
--	k3-am69-aquila-dev-adapter-panel-cap-touch-7inch-dsi.dtb \
-+	k3-am69-aquila-clover-tdx-panel-cap-touch-7inch-dsi.dtb \
-+	k3-am69-aquila-dev-adapter-tdx-panel-cap-touch-10inch-dsi.dtb \
-+	k3-am69-aquila-dev-adapter-tdx-panel-cap-touch-7inch-dsi.dtb \
- 	k3-am69-aquila-dev-csi-ov5640-24mhz.dtb \
- 	k3-am69-aquila-dev-csi-ov5640.dtb \
--	k3-am69-aquila-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
--	k3-am69-aquila-dev-dsi-to-lvds-v2-panel-cap-touch-10inch.dtb \
-+	k3-am69-aquila-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtb \
-+	k3-am69-aquila-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtb \
- 	k3-am69-sk-csi2-dual-imx219.dtb \
- 	k3-am69-sk-pcie0-ep.dtb \
- 	k3-j7200-evm-pcie1-ep.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-tdx-panel-cap-touch-10inch-dsi.dtso
-similarity index 100%
-rename from arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtso
-rename to arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-tdx-panel-cap-touch-10inch-dsi.dtso
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-7inch-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-tdx-panel-cap-touch-7inch-dsi.dtso
-similarity index 100%
-rename from arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-7inch-dsi.dtso
-rename to arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-tdx-panel-cap-touch-7inch-dsi.dtso
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso
-similarity index 100%
-rename from arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtso
-rename to arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtso
-similarity index 100%
-rename from arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
-rename to arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtso
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-tdx-panel-cap-touch-10inch-dsi.dtso
-similarity index 100%
-rename from arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch-dsi.dtso
-rename to arch/arm64/boot/dts/ti/k3-am69-aquila-tdx-panel-cap-touch-10inch-dsi.dtso
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-7inch-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-tdx-panel-cap-touch-7inch-dsi.dtso
-similarity index 100%
-rename from arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-7inch-dsi.dtso
-rename to arch/arm64/boot/dts/ti/k3-am69-aquila-tdx-panel-cap-touch-7inch-dsi.dtso
--- 
-2.47.3
+> diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
+> new file mode 100644
+> index 0000000000000..628681f6b747b
+> --- /dev/null
+> +++ b/block/blk-nvmem.c
+[ ... ]
+> +void blk_nvmem_add(struct block_device *bdev)
+> +{
+> +	struct device *dev =3D &bdev->bd_device;
+> +	struct device_node *np =3D dev_of_node(dev);
+> +	struct blk_nvmem *bn;
+> +	struct device_node *child;
+> +	loff_t size;
+> +
+> +	/* skip devices which do not have a device tree node */
+> +	if (!np)
+> +		return;
+> +
+> +	/*
+> +	 * The layout is described either by an "nvmem-layout" child node or
+> +	 * by the device node itself being a "fixed-layout" container.
+> +	 */
+> +	child =3D of_get_child_by_name(np, "nvmem-layout");
+> +	if (child)
+> +		of_node_put(child);
+> +	else if (!of_device_is_compatible(np, "fixed-layout"))
+> +		return;
 
+[Severity: High]
+When np is a "fixed-layout" node itself, does &bdev->bd_device claiming
+np->fwnode.dev prevent consumers of its NVMEM cells from probing under
+fw_devlink?
+
+__add_disk() and add_partition() call device_set_node() and device_add()
+on &bdev->bd_device before blk_nvmem_add(), so device_add() sets
+np->fwnode.dev =3D &bdev->bd_device.  Because &bdev->bd_device has no bus
+and never binds to a driver, device_links_driver_bound() never runs on it.
+
+When nvmem_register() later creates layout->dev with the same OF node np,
+device_add(&layout->dev) leaves np->fwnode.dev pointing at
+&bdev->bd_device.  When layout->dev binds to fixed_layout_layout,
+device_links_driver_bound(&layout->dev) skips
+fw_devlink_pickup_dangling_consumers():
+
+drivers/base/core.c:device_links_driver_bound() {
+	...
+	if (dev->fwnode && dev->fwnode->dev =3D=3D dev) {
+		fwnode_links_purge_suppliers(dev->fwnode);
+		fw_devlink_pickup_dangling_consumers(dev);
+	}
+	...
+}
+
+The child NVMEM cell fwnodes never get FWNODE_FLAG_NOT_DEVICE set and
+their consumer fwnode_links are never converted to available device links,
+leaving consumers stuck in -EPROBE_DEFER.
+
+[ ... ]
+> +void blk_nvmem_del(struct block_device *bdev)
+> +{
+> +	struct blk_nvmem *bn =3D bdev->bd_nvmem;
+> +
+> +	if (!bn)
+> +		return;
+> +
+> +	bdev->bd_nvmem =3D NULL;
+> +
+> +	queue_work(blk_nvmem_wq, &bn->del_work);
+> +}
+
+[Severity: High]
+Can deferring nvmem_register() and nvmem_unregister() to blk_nvmem_wq race
+with the synchronous device_del(&bdev->bd_device) in drop_partition() and
+__del_gendisk()?
+
+drop_partition() and __del_gendisk() call blk_nvmem_del() and then
+synchronously run device_del(&bdev->bd_device) while bn->add_work and
+bn->del_work are still queued or running on blk_nvmem_wq:
+
+CPU0                              kworker (blk_nvmem_wq)
+drop_partition(part)
+  blk_nvmem_del(part)
+    queue_work(..., &bn->del_work)
+                                  blk_nvmem_add_work()
+                                    nvmem_register()
+                                      device_add(&nvmem->dev)
+                                        kobject_add_internal()
+                                          sysfs_create_dir_ns()
+                                            parent =3D kobj->parent->sd;
+  device_del(&part->bd_device)
+    kobject_del(&part->bd_device.kobj)
+      __kobject_del()
+        sysfs_remove_dir()
+        sysfs_put(sd)  <-- frees parent sd
+                                            kernfs_create_dir_ns(parent, ..=
+.)
+                                              <-- use-after-free on parent
+
+sysfs_create_dir_ns() reads kobj->parent->sd without a reference before
+sleeping in __kernfs_new_node(), so concurrent __kobject_del() on
+&bdev->bd_device can drop the parent kernfs_node refcount to 0 and free it
+via RCU while nvmem_register() is still using it.
+
+Even when blk_nvmem_add_work() finishes before removal starts,
+device_del(&bdev->bd_device) runs before blk_nvmem_del_work() calls
+nvmem_unregister(), deleting the parent device while its child nvmem->dev
+(and grandchild layout->dev) is still registered.  That removes the parent
+from dpm_list ahead of its children and clears bdev->bd_device.kobj.parent
+before nvmem_unregister() emits KOBJ_REMOVE uevents.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-block-as-n=
+vmem-v13-0-96ffe1f59332@oss.qualcomm.com?part=3D2
