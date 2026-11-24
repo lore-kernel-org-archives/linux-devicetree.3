@@ -1,44 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.95
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795512177;
-	b=oDuevVAKPERPLGZuqYqaRpHBLfikYV21MRUkcZeMQ6o5SQ+LFIB4jB0lt6aPz80N/64J
-	 wtkttveyWwVjajZJQJzpP0FeyQtKFfh0/XfAhhafdIc/9Nj8W4XgTzpMF/VaoyLZ0TXpe
-	 DjpP1yflMXSgu5UobQ4AKxN9MCs98cgXp8wTNhKxD6DxowQN2NTGWgYt4rE/20wjF1seO
-	 87jbICAKT8quKo2b1WlizMitYrRdtrieaTKIwtwcAHqNImubmuKtcIMuGutRNloGf4iZU
-	 5zH1+RKnp9zqd2Lhhb5QHf6xM3tJzj2csKrY6xHMpEYZxRd2/VtOA5Ht6xgicJCmJkQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795512177;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=VlQ85A/9vnWvT0qz71pyfTUKRPX62xg1Ulm/5rstCSE=;
-	b=xCnUg6serhY3W2SN2A0A44dtAkUuWsM7RHWMq335rCZBsWMD3zcgu1R/vGA62/xESQoX
-	 Z2eIFmDlnlbMFjm1Fir90FABrg738DmdK/q+ObtNaVUtwoS8bSsmxjVRodrw7z9MtIVsy
-	 HG6YiXlSElh5+tVEvloYuRYHqW311kTN70v12Q8aZ/9Mu5ISNXwid4MXrN6hIgNJ52pvZ
-	 e2SZs/00ErsjW+CkKEX/hkx6xVHtbZiZom1MNs+zwnB0D/z8h6G9B/5e20TVXpV/yL8wZ
-	 YZlem1Y4zROaepIpj2Mk6ljVyIwlYFmJC1OeIAo/XCMZ3cRr2n6FM5Bl3+hrmmPqk6Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Wdf5YjgG;
-	arc=none smtp.remote-ip=160.236.53.95
-Received: from mail-m1602365395.xmail.ntesmail.com (mail-m1602365395.xmail.ntesmail.com [160.236.53.95])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795512258;
+	b=ThSA5xn1OX8DManZ6xLeuqwIqAp+8SU3rohwiTXYQaw48bQ8GRl6aU8GgYVdJUBhFBAQ
+	 m9u+foOqBzcd8vvIIQSA5lFO4B3CmC7S98V4kOMxs6jIQ552sLS6eHX/qrjgJg20O2BHe
+	 4BDhXi9CoTsg66/nEJImauz2rJ2VJxrov6saeGfMT6lNnS1hhK0NtDnxxj5/TfcskaABz
+	 5kAG5Jt8KTLX/tlA2Sgf00hPbLV17+nlwjtfFWimZnwFMt4GxZvnkcloQctxG0mL4LwNq
+	 UdhYwO3deiTIz++s03nz79u0aS1kiWNf0k83OTSTgQiihzi1ckkUllnGkRMHEgFdXnQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795512258;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=vzpnFzwjfWEsLLsPnJugbzKL0q33uuBU4HJObMKkBHI=;
+	b=P9U6FagMSPdCseWg6vKc/bSOOY0Dq7FnlJUI5fqFFwGobT9YTOtiNvmTeRX2xa3/B8qD
+	 PFmKI71bRizMbOglDXc5hp6oDo/RKHij8KiwyYi5/zX2OkTt0vs9S6dWpka5n80BOueDJ
+	 ZDuOfyyI0epAqaAdvnIoRNSvhbIb30tWO4iL3s2yACxqJRAslC64yxC/wwhs2XCP/ImED
+	 0EdsBfNtWmEGP1NClpz5Lr98xwMnJqpFtCXPFrXt/aHv9jNz4MSXVY5PPJM8ZBVHLW8Yn
+	 wg2lEe8TtQGO6dhXGBRcX/R5UMq6GTYGGdyRjPiYIXtENbL7R3wMPtvvsd0w1sz/6nw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PSoFoPap;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.64
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013064.outbound.protection.outlook.com [40.107.201.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996A8606A698;
-	Tue, 24 Nov 2026 09:22:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 996A8606A698
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C31606A33C;
+	Tue, 24 Nov 2026 09:24:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89C31606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Wdf5YjgG
-Received: from [127.0.0.1] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 55ce35fd7;
-	Tue, 24 Nov 2026 17:22:41 +0800 (GMT+08:00)
-Message-ID: <a6acdf27-b681-4a3d-928d-3e72a8992238@rock-chips.com>
-Date: Tue, 24 Nov 2026 17:22:36 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PSoFoPap
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rqrw/RHE3mrY1Gh2i5za5osZkYU4sTXYcUlb15ehVPcyiOLHywbytMDYSyBEQlHLFeBUSPPl7myp96DkzfnUINOonhafPphqKn+eM0jbOTrrvKqfvJwoebhYcfJvQw2nwhHN/iRmTbwRVlYHJzlMIlUzj69EkmHiS7CJV/uy6f87qd5RM6sH2eMyIcPgkXeDHQEhTsbiau075WXCEP7OJzqV90zodxr+SJZjjj8k12E3Bkxr6jiD5FkdIq/YIlV47/AcflvO8Ma7cRPkMODJ/KQDoXOgizPz3fBm7KCFUElUc/tI9/jW453QTc6Y6tneddciGbxzIMiEjVAaROwbFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vzpnFzwjfWEsLLsPnJugbzKL0q33uuBU4HJObMKkBHI=;
+ b=SGQX1rQDugIGaMA97JrVxd4e5V9nruu2yt0r3qIFffDhDKDd2FyWvzDulfPOM2e7fT4A2BPw0QnwL5Dl0aucI4Xbe85f2W7ppUYzajCNVbMhOzthTpa0JkW39JOVreO8NSlOqGoC8tnmKWEim1x2j4obrsSNwiDfb2k2EFeB9WfGI+AVNY1z1MmbdcMZFrdX0o+WH8CMurjFZ6UYUhEbth4AJ87mKQewnDHOOj12epo2ndnmD/XCVRw9xoCrQ8H3KHLePE5QM0/nzEH2EPpigKTzYLvBUjzgs43aF9ZLmGmwyKpxZ3kSHi3iNTfCPcAE1NWmMHeERwc6h1qWG829rA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vzpnFzwjfWEsLLsPnJugbzKL0q33uuBU4HJObMKkBHI=;
+ b=PSoFoPapL+xV73hBuvQWKZsCCEPM+WAXwiwRUiVofJ8hlZdO3WS4d/MDjH5mkJ/OnOvsM4Ff9V59iI2qRoRsdrIljiN4UWkVKxv18HLOgbcJvjuIK8rcJdkbOMruY5ZUrjP0tkB+yajMOuxSh/CRM9usZB2jQWU5et+w2aaCrWE=
+Received: from CH0PR03CA0349.namprd03.prod.outlook.com (2603:10b6:610:11a::33)
+ by IA0PR12MB8349.namprd12.prod.outlook.com (2603:10b6:208:407::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
+ 2026 09:24:12 +0000
+Received: from DM3PEPF000265B0.namprd02.prod.outlook.com
+ (2603:10b6:610:11a:cafe::86) by CH0PR03CA0349.outlook.office365.com
+ (2603:10b6:610:11a::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 24
+ Nov 2026 09:24:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DM3PEPF000265B0.mail.protection.outlook.com (10.167.23.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 09:24:11 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 24 Nov
+ 2026 03:24:09 -0600
+Received: from localhost (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57 via Frontend
+ Transport; Tue, 24 Nov 2026 03:24:09 -0600
+From: Michal Simek <michal.simek@amd.com>
+To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
+	<michal.simek@amd.com>, <git@amd.com>
+CC: Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, "open list:OPEN FIRMWARE
+ AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated
+ list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH] ARM: zynq: zc706: Reset board on watchdog timeout
+Date: Tue, 24 Nov 2026 10:23:56 +0100
+Message-ID: <0fbccd782427bca181c2f563aa4a91c973d397ca.1795512234.git.michal.simek@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,424 +111,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/bridge: add TH1520 DesignWare MIPI DSI host
- controller
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-riscv@lists.infradead.org, Han Gao <gaohan@iscas.ac.cn>
-References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
- <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
- <af27260f-1911-47bb-8fe2-8eaa8bec31b0@rock-chips.com>
- <561b5dc1b3a87ebc78f2357d253df4676395fb10.camel@iscas.ac.cn>
- <a797b2da-ea60-4b81-8fbf-e027afc89cc6@rock-chips.com>
- <b763d766c886dbcf733e4ab65046448b67973426.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <b763d766c886dbcf733e4ab65046448b67973426.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=798; i=michal.simek@amd.com; h=from:subject:message-id; bh=wZyowtHRwKutzupiSIeG4pzLqLeftCOBRPVQjR/Blbg=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWSzhm9aUqvzdpbuyYVa6bMUt0/nktj/Tujtjg4X83MmV /JT65m8OkpZGMQ4GGTFFFmmM+k4rPl2banY8sh8mDmsTCBDGLg4BWAiBs0M/0tmib/at72a90Cz Z6tE5WebyC0Moddr50zaFdHu1Lvu8CFGhpcxO3eWTf4fv6Lm/NbTIu1XH6etynlvHL02iNvl9of ZDdwA
+X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa20cdd52db03a7kunmbc41ab46ce3d87
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTkgYVh9CHUsdSB5NTE5MS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Wdf5YjgGeP43SVwS3+h5ltmwIke/Z/hfTIhKnStAEwF1CL4Jd1K/P6VMei3uRGwgBBX9KiX/VCo+pD1v4IzmG45OqHI3DGWM8BI47YonaAnjmDmhu/e+BCzbjfvYgUGICDjih569on0j0V+ojMXI6svtVUtD2swgRsAL4jTytxs=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=VlQ85A/9vnWvT0qz71pyfTUKRPX62xg1Ulm/5rstCSE=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265B0:EE_|IA0PR12MB8349:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ad27ef6-784e-41e4-fed3-08df4a0cb35f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|10067099003|11063799006|56012099006|261021121427099003|261102123227099003|261009223027099003|261026121527099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	sZEGrU6TqFYPuP/BPxfrkLr6S0G5bVAz15kqnG2EOcYI1FqvAEMz8cvSVcbcBbgrPcaGR68YXszXQSdcLnPptcE8nUW0b15gcxt4Iap5EAKpc741rRUTahxD6agUzFvdLrbdZsiNqNi+4jrVrUuQkaUIu192CtuS9zrM9DUWk3hjBI+IJflHEReSF1IbQhRW7AW504sNkJQ++UcDvvaj0Niy4MAXK+HhpurEbKsKW3riHTXEnKN3qwXokDlkGD7RDRCw8ELHmRzyLWgUyzH4cnh4VH0aU9kM4OCUKlr/bWch1XXKJeG8OQE+nxw6mygshtFkd9kHSfwq9GO7Gvf/DtpCXWchl819/3ikT4SKXwSE0t0Z0XFIxYpd1F7gC3QWi/sSV+T810KFk9SzomIDveRGzw4NUKKPG35RcYKenC3TYY1MvBSQVCngVc/rKxypmbWWgKiU0pSktq2HjjJUrz7VZqRcDVYHdYSmZLk7BCw9/8ak0IZ0/jOulFokz36uO2zNvnW9t28J3oGxeI7A3xfG3fBR0mwUBqCCP45ZW7f30sUk5DzqcAIeBHzmDSRwpXYcfMylSvAun1wRY6g7abQ4LtDMCNP1dsgXXHY2MrEbfmefJVRJGHQuDDwk4Qt5eSGoKr3ksnNWBtfH9R3aX31pXZmw+S4yolW5Ie+7x+RLKerjgo0RSqgYJzVVjvp1PIZf1xhIdRn6G+u0esR33A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(261021121427099003)(261102123227099003)(261009223027099003)(261026121527099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Jc247t/sNvSF0jYfvnEMYjiddCZuvV+nWiNowYEpbO54JlKxByqBXrN6MOcyjMSxYn2jLLSvD2/Vy6Uu/gwio3nrzHXvlPf4s3GrqGkU5yLR3e9D8cRPJGUGFRAHSLmcCeM2TuVhkaSbFVLgwqHo63v1OG6bOkcyO/R48HVdpcYXq5pUNsigzeI/vZcDbVpiBrkmOzja250/wvdpfiq/fIsRok28aq0Rn69JUWZ35EMjRlKAQu3zVB7gEl/X3sTMpPV2WV2lUw1nczbvwWeRWB8Hd/ZKkXl/abLKM8K99qh9BAa4ARSNDp4nXcWRXsdap0RaKYocIg10B60mAKjezTJq+Z0BCfklsCrGIFB5hMJsVvmVCZgEc26G3xEz4OdmJuS0ih4Jhk893wuehzp73bbokHui7pOjaM/g6z8w5GCCfrfq4wT6J//3SBjI8wCb
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 09:24:11.8950
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ad27ef6-784e-41e4-fed3-08df4a0cb35f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM3PEPF000265B0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8349
 
-On 11/24/2026 4:52 PM, Icenowy Zheng wrote:
-> 在 2026-11-24二的 16:44 +0800，Chaoyi Chen写道：
->> Hi Icenowy,
->>
->> On 11/24/2026 4:34 PM, Icenowy Zheng wrote:
->>> 在 2026-11-24二的 16:29 +0800，Chaoyi Chen写道：
->>>> Hi Icenowy,
->>>>
->>>> On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
->>>>> The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
->>>>> controller with an internal DesignWare MIPI D-PHY.
->>>>>
->>>>> Add a glue driver configuring clocks and PHY parameters for it.
->>>>>
->>>>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->>>>> ---
->>>>>  drivers/gpu/drm/bridge/Kconfig              |  12 +
->>>>>  drivers/gpu/drm/bridge/Makefile             |   1 +
->>>>>  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 570 ++++++++++++++++++++++++++++
->>>>>  3 files changed, 583 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
->>>>> index c7da6b02d7b6b..f8987e8946fbb 100644
->>>>> --- a/drivers/gpu/drm/bridge/Kconfig
->>>>> +++ b/drivers/gpu/drm/bridge/Kconfig
->>>>> @@ -372,6 +372,18 @@ config DRM_THEAD_TH1520_DW_HDMI
->>>>>  	  Choose this to enable support for the internal HDMI bridge found
->>>>>  	  on the T-Head TH1520 SoC.
->>>>>  
->>>>> +config DRM_THEAD_TH1520_DW_MIPI_DSI
->>>>> +	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
->>>>> +	depends on OF
->>>>> +	depends on COMMON_CLK
->>>>> +	depends on ARCH_THEAD || COMPILE_TEST
->>>>> +	select DRM_DW_MIPI_DSI
->>>>> +	select GENERIC_PHY_MIPI_DPHY
->>>>> +	select MFD_SYSCON
->>>>> +	help
->>>>> +	  Choose this to enable support for the internal MIPI DSI bridge
->>>>> +	  found on the T-Head TH1520 SoC.
->>>>> +
->>>>>  config DRM_TOSHIBA_TC358762
->>>>>  	tristate "TC358762 DSI/DPI bridge"
->>>>>  	depends on OF
->>>>> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
->>>>> index 15cc821d85b7e..5af871ba5ce77 100644
->>>>> --- a/drivers/gpu/drm/bridge/Makefile
->>>>> +++ b/drivers/gpu/drm/bridge/Makefile
->>>>> @@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) += sii9234.o
->>>>>  obj-$(CONFIG_DRM_SIMPLE_BRIDGE) += simple-bridge.o
->>>>>  obj-$(CONFIG_DRM_SOLOMON_SSD2825) += ssd2825.o
->>>>>  obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) += th1520-dw-hdmi.o
->>>>> +obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) += th1520-dw-mipi-dsi.o
->>>>>  obj-$(CONFIG_DRM_THINE_THC63LVD1024) += thc63lvd1024.o
->>>>>  obj-$(CONFIG_DRM_TOSHIBA_TC358762) += tc358762.o
->>>>>  obj-$(CONFIG_DRM_TOSHIBA_TC358764) += tc358764.o
->>>>> diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
->>>>> new file mode 100644
->>>>> index 0000000000000..8e866b70aec88
->>>>> --- /dev/null
->>>>> +++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
->>>>> @@ -0,0 +1,570 @@
->>>>> +// SPDX-License-Identifier: GPL-2.0
->>>>> +/*
->>>>> + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
->>>>> + *
->>>>> + * Author:
->>>>> + *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
->>>>> + *
->>>>> + * Based on dw_mipi_dsi-stm.c, which is:
->>>>> + *   Copyright (C) STMicroelectronics SA 2017
->>>>> + *
->>>>> + * Based on dw-mipi-dsi-rockchip.c, which is:
->>>>> + *   Copyright (C) Rockchip Electronics Co., Ltd.
->>>>> + *
->>>>> + * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
->>>>> + *   Copyright (C) Alibaba Group Holding Limited.
->>>>> + */
->>>>> +
->>>>> +#include <linux/bitfield.h>
->>>>> +#include <linux/clk.h>
->>>>> +#include <linux/kernel.h>
->>>>> +#include <linux/mfd/syscon.h>
->>>>> +#include <linux/module.h>
->>>>> +#include <linux/phy/phy.h>
->>>>> +#include <linux/phy/phy-mipi-dphy.h>
->>>>> +#include <linux/platform_device.h>
->>>>> +#include <linux/regmap.h>
->>>>> +#include <linux/regulator/consumer.h>
->>>>> +
->>>>> +#include <video/mipi_display.h>
->>>>> +
->>>>> +#include <drm/bridge/dw_mipi_dsi.h>
->>>>> +#include <drm/drm_mipi_dsi.h>
->>>>> +
->>>>> +/* DSI controller registers for DPHY access */
->>>>> +
->>>>> +#define DSI_PHY_TST_CTRL0		0xb4
->>>>> +#define PHY_TESTCLK			BIT(1)
->>>>> +#define PHY_UNTESTCLK			0
->>>>> +#define PHY_TESTCLR			BIT(0)
->>>>> +#define PHY_UNTESTCLR			0
->>>>> +
->>>>> +#define DSI_PHY_TST_CTRL1		0xb8
->>>>> +#define PHY_TESTEN			BIT(16)
->>>>> +#define PHY_UNTESTEN			0
->>>>> +#define PHY_TESTDOUT(n)			(((n) & 0xff) << 8)
->>>>> +#define PHY_TESTDIN(n)			(((n) & 0xff) << 0)
->>>>> +
->>>>> +/* DPHY registers */
->>>>> +
->>>>> +#define PLL_DELAY_LP_TX_START_LP11	0x02
->>>>> +#define TXDINDLYTIME_9_2		GENMASK(7,  0)
->>>>> +
->>>>> +#define PLL_FSM_CNTRL			0x03
->>>>> +
->>>>> +#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
->>>>> +#define PLL_PROP_CNTRL			GENMASK(5,  0)
->>>>> +
->>>>> +#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
->>>>> +#define PLL_INT_CNTRL			GENMASK(5,  0)
->>>>> +
->>>>> +#define PLL_VCO_CTRL			0x12
->>>>> +#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
->>>>> +#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
->>>>> +
->>>>> +#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
->>>>> +#define PLL_TESTLOCK			BIT(7)
->>>>> +#define PLL_GMP_CNTRL			GENMASK(5,  4)
->>>>> +#define TSTPLLDIG			GENMASK(3,  1)
->>>>> +#define TSTPLLDIG_LOCK			(0x0 << 1)
->>>>> +#define TSTPLLDIG_REFCLK		(0x1 << 1)
->>>>> +#define TSTPLLDIG_FBCLK			(0x2 << 1)
->>>>> +#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
->>>>> +#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
->>>>> +#define TSTPLLDIG_OUTPUT		(0x5 << 1)
->>>>> +#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
->>>>> +#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
->>>>> +
->>>>> +#define PLL_N_DIV_FSM_SIG		0x17
->>>>> +#define PLL_N_OVR			GENMASK(3,  0)
->>>>> +
->>>>> +#define PLL_M_DIV			0x18
->>>>> +#define PLL_M_OVR_4_0			GENMASK(4,  0)
->>>>> +#define PLL_M_OVR_9_5			GENMASK(4,  0)
->>>>> +
->>>>> +#define PLL_N_AND_M_DIV_CTRL		0x19
->>>>> +#define PLL_M_OVR_EN			BIT(5)
->>>>> +#define PLL_N_OVR_EN			BIT(4)
->>>>> +
->>>>> +#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
->>>>> +#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
->>>>> +
->>>>> +#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
->>>>> +#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
->>>>> +#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
->>>>> +#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
->>>>> +
->>>>> +#define HS_FREQ_RANGE_OF_OPERATION	0x44
->>>>> +#define HSFREQRANGE_OVR_EN		BIT(7)
->>>>> +#define HSFREQRANGE_OVR			GENMASK(6,  0)
->>>>> +#define HSFREQRANGE			HSFREQRANGE_OVR
->>>>> +
->>>>> +#define PG_LP_BIAS_LANE0		0x4a
->>>>> +#define PRG_ON_LANE0			BIT(6)
->>>>> +
->>>>> +#define SR_FSM_OVR_CNTRL		0xa0
->>>>> +#define SR_DDL_LOOP_CONF		0xa3
->>>>> +
->>>>> +/* syscon registers */
->>>>> +
->>>>> +#define MIPIDSI0_SYSREG			0x8
->>>>> +#define MIPIDSI1_SYSREG			0xc
->>>>> +#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
->>>>> +#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
->>>>> +#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
->>>>> +
->>>>> +struct pll_hsfreqrange {
->>>>> +	unsigned int max_mbps;
->>>>> +	u8 hsfreqrange;
->>>>> +};
->>>>> +
->>>>> +static const struct pll_hsfreqrange hsfreqrange_table[] = {
->>>>> +	{ 80,  0x00 },
->>>>> +	{ 90,  0x10 },
->>>>> +	{ 100, 0x20 },
->>>>> +	{ 110, 0x30 },
->>>>> +	{ 120, 0x01 },
->>>>> +	{ 130, 0x11 },
->>>>> +	{ 140, 0x21 },
->>>>> +	{ 150, 0x31 },
->>>>> +	{ 160, 0x02 },
->>>>> +	{ 170, 0x12 },
->>>>> +	{ 180, 0x22 },
->>>>> +	{ 190, 0x32 },
->>>>> +	{ 205, 0x03 },
->>>>> +	{ 220, 0x13 },
->>>>> +	{ 235, 0x23 },
->>>>> +	{ 250, 0x33 },
->>>>> +	{ 275, 0x04 },
->>>>> +	{ 300, 0x14 },
->>>>> +	{ 325, 0x25 },
->>>>> +	{ 350, 0x35 },
->>>>> +	{ 400, 0x05 },
->>>>> +	{ 450, 0x16 },
->>>>> +	{ 500, 0x26 },
->>>>> +	{ 550, 0x37 },
->>>>> +	{ 600, 0x07 },
->>>>> +	{ 650, 0x18 },
->>>>> +	{ 700, 0x28 },
->>>>> +	{ 750, 0x39 },
->>>>> +	{ 800, 0x09 },
->>>>> +	{ 850, 0x19 },
->>>>> +	{ 900, 0x29 },
->>>>> +	{ 950, 0x3A },
->>>>> +	{ 1000, 0x0A },
->>>>> +	{ 1050, 0x1A },
->>>>> +	{ 1100, 0x2A },
->>>>> +	{ 1150, 0x3B },
->>>>> +	{ 1200, 0x0B },
->>>>> +	{ 1250, 0x1B },
->>>>> +	{ 1300, 0x2B },
->>>>> +	{ 1350, 0x3C },
->>>>> +	{ 1400, 0x0C },
->>>>> +	{ 1450, 0x1C },
->>>>> +	{ 1500, 0x2C },
->>>>> +	{ 1550, 0x3D },
->>>>> +	{ 1600, 0x0D },
->>>>> +	{ 1650, 0x1D },
->>>>> +	{ 1700, 0x2E },
->>>>> +	{ 1750, 0x3E },
->>>>> +	{ 1800, 0x0E },
->>>>> +	{ 1850, 0x1E },
->>>>> +	{ 1900, 0x2F },
->>>>> +	{ 1950, 0x3F },
->>>>> +	{ 2000, 0x0F },
->>>>> +	{ 2050, 0x40 },
->>>>> +	{ 2100, 0x41 },
->>>>> +	{ 2150, 0x42 },
->>>>> +	{ 2200, 0x43 },
->>>>> +	{ 2250, 0x44 },
->>>>> +	{ 2300, 0x45 },
->>>>> +	{ 2350, 0x46 },
->>>>> +	{ 2400, 0x47 },
->>>>> +	{ 2450, 0x48 },
->>>>> +	{ 2500, 0x49 },
->>>>> +};
->>>>> +
->>>>> +struct hstt {
->>>>> +	unsigned int max_mbps;
->>>>> +	struct dw_mipi_dsi_dphy_timing timing;
->>>>> +};
->>>>> +
->>>>> +#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
->>>>> +{					\
->>>>> +	.max_mbps = _max_mbps,		\
->>>>> +	.timing = {			\
->>>>> +		.clk_lp2hs = _c_lp2hs,	\
->>>>> +		.clk_hs2lp = _c_hs2lp,	\
->>>>> +		.data_lp2hs = _d_lp2hs,	\
->>>>> +		.data_hs2lp = _d_hs2lp,	\
->>>>> +	}				\
->>>>> +}
->>>>> +
->>>>> +static struct hstt hstt_table[] = {
->>>>> +	HSTT(80, 21, 17, 15, 10),
->>>>> +	HSTT(90, 23, 17, 16, 10),
->>>>> +	HSTT(100, 22, 17, 16, 10),
->>>>> +	HSTT(110, 25, 18, 17, 11),
->>>>> +	HSTT(120, 26, 20, 18, 11),
->>>>> +	HSTT(130, 27, 19, 19, 11),
->>>>> +	HSTT(140, 27, 19, 19, 11),
->>>>> +	HSTT(150, 28, 20, 20, 12),
->>>>> +	HSTT(160, 30, 21, 22, 13),
->>>>> +	HSTT(170, 30, 21, 23, 13),
->>>>> +	HSTT(180, 31, 21, 23, 13),
->>>>> +	HSTT(190, 32, 22, 24, 13),
->>>>> +	HSTT(205, 35, 22, 25, 13),
->>>>> +	HSTT(220, 37, 26, 27, 15),
->>>>> +	HSTT(235, 38, 28, 27, 16),
->>>>> +	HSTT(250, 41, 29, 30, 17),
->>>>> +	HSTT(275, 43, 29, 32, 18),
->>>>> +	HSTT(300, 45, 32, 35, 19),
->>>>> +	HSTT(325, 48, 33, 36, 18),
->>>>> +	HSTT(350, 51, 35, 40, 20),
->>>>> +	HSTT(400, 59, 37, 44, 21),
->>>>> +	HSTT(450, 65, 40, 49, 23),
->>>>> +	HSTT(500, 71, 41, 54, 24),
->>>>> +	HSTT(550, 77, 44, 57, 26),
->>>>> +	HSTT(600, 82, 46, 64, 27),
->>>>> +	HSTT(650, 87, 48, 67, 28),
->>>>> +	HSTT(700, 94, 52, 71, 29),
->>>>> +	HSTT(750, 99, 52, 75, 31),
->>>>> +	HSTT(800, 105, 55, 82, 32),
->>>>> +	HSTT(850, 110, 58, 85, 32),
->>>>> +	HSTT(900, 115, 58, 88, 35),
->>>>> +	HSTT(950, 120, 62, 93, 36),
->>>>> +	HSTT(1000, 128, 63, 99, 38),
->>>>> +	HSTT(1050, 132, 65, 102, 38),
->>>>> +	HSTT(1100, 138, 67, 106, 39),
->>>>> +	HSTT(1150, 146, 69, 112, 42),
->>>>> +	HSTT(1200, 151, 71, 117, 43),
->>>>> +	HSTT(1250, 153, 74, 120, 45),
->>>>> +	HSTT(1300, 160, 73, 124, 46),
->>>>> +	HSTT(1350, 165, 76, 130, 47),
->>>>> +	HSTT(1400, 172, 78, 134, 49),
->>>>> +	HSTT(1450, 177, 80, 138, 49),
->>>>> +	HSTT(1500, 183, 81, 143, 52),
->>>>> +	HSTT(1550, 191, 84, 147, 52),
->>>>> +	HSTT(1600, 194, 85, 152, 52),
->>>>> +	HSTT(1650, 201, 86, 155, 53),
->>>>> +	HSTT(1700, 208, 88, 161, 53),
->>>>> +	HSTT(1750, 212, 89, 165, 53),
->>>>> +	HSTT(1800, 220, 90, 171, 54),
->>>>> +	HSTT(1850, 223, 92, 175, 54),
->>>>> +	HSTT(1900, 231, 91, 180, 55),
->>>>> +	HSTT(1950, 236, 95, 185, 56),
->>>>> +	HSTT(2000, 243, 97, 190, 56),
->>>>> +	HSTT(2050, 248, 99, 194, 58),
->>>>> +	HSTT(2100, 252, 100, 199, 59),
->>>>> +	HSTT(2150, 259, 102, 204, 61),
->>>>> +	HSTT(2200, 266, 105, 210, 62),
->>>>> +	HSTT(2250, 269, 109, 213, 63),
->>>>> +	HSTT(2300, 272, 109, 217, 65),
->>>>> +	HSTT(2350, 281, 112, 225, 66),
->>>>> +	HSTT(2400, 283, 115, 226, 66),
->>>>> +	HSTT(2450, 282, 115, 226, 67),
->>>>> +	HSTT(2500, 281, 118, 227, 67),
->>>>> +};
->>>>> +
->>>>
->>>> Where do these data come from?
->>>
->>> This is part of the vendor DPHY driver, see [1].
->>>
->>> Thanks,
->>> Icenowy
->>>
->>> [1]
->>> https://github.com/revyos/th1520-linux-kernel/blob/th1520-lts/drivers/phy/synopsys/phy-dw-mipi-dphy.c#L185
->>
->> This looks consistent with imx93-mipi-dsi.c, but the TH1520 does not
->> use the same TSMC 16nm process as the IMX93. As far as I know, they
->> are usually different. 
-> 
-> Well, I did some Internet investigation, and the result seems interesting:
-> 
-> TSMC 16nm and 12nm are siblings, they share a page at TSMC's website [1],
-> and there're rumors saying that they just branded refined 16nm as 12nm
-> [2][3].
-> 
+The watchdog resets the board when it expires, instead of only logging it.
+This lets the board recover from a hung system without a manual power
+cycle.
 
-Interesting.
+Signed-off-by: Michal Simek <michal.simek@amd.com>
+---
 
->>
->> Could you confirm this from the DesignWare PHY databook?
-> Unfortunately I don't have it...
-> 
+There is no any other Zynq board with it that's why enable it to have this
+mode covered.
+---
+ arch/arm/boot/dts/xilinx/zynq-zc706.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Perhaps adding a plat_data to modify PHY_STOP_WAIT_TIME would be a
-good idea. It looks like a TODO item, and Hisilicon also sets it. 
-
-And what I am curious about is PHY_WAIT_MODE. This looks like the tLPX
-time in DPHY, which has a minimum time requirement, but I don't
-understand why reducing this value made it work normally instead. 
-
-Perhaps I got something wrong somewhere. :)
-
-> Thanks,
-> Icenowy
-> 
-> [1]
-> https://www.tsmc.com/english/dedicatedFoundry/technology/logic/l_16_12nm
-> [2] https://www.eenewseurope.com/en/report-tsmc-to-relabel-process-as-12nm/
-> [3]
-> https://www.fool.com/investing/2017/01/18/taiwan-semiconductor-mfg-co-ltd-confirms-12nm-tech.aspx
+diff --git a/arch/arm/boot/dts/xilinx/zynq-zc706.dts b/arch/arm/boot/dts/xilinx/zynq-zc706.dts
+index 1ce35eaa607b..93b603df346d 100644
+--- a/arch/arm/boot/dts/xilinx/zynq-zc706.dts
++++ b/arch/arm/boot/dts/xilinx/zynq-zc706.dts
+@@ -363,3 +363,7 @@ &usb0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_usb0_default>;
+ };
++
++&watchdog0 {
++	reset-on-timeout;
++};
+---
 
 -- 
-Best, 
-Chaoyi
+2.43.0
+
