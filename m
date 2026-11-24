@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795555305;
-	b=PaKa+bUnzgv5hps8AMDQYtZ8C01djLG0kOb25SSaWqRVL+nSUbqV1pcryTqd+CjetlsO
-	 caXI9Xehcq+yQh+YhQfFhefTu9cUFomJrkQMCSPxNn1eLePkxR48fZaBrnQmSe9AlHdan
-	 r2KN9FJLGo9B946yFumZsjyZ4IHqjX3lR480Mw4xmeLu81okZWm1+p/DW/Pvn+hyA8xde
-	 UpbhXjsSLwVrPcJ2Z7Np9yj7XmuwWLxCVkHUcK3zZIuuRj7rDshK4+Z6CqiBchrZwtzRU
-	 ueT+npXco3gO0OG9grGpGFVTwKTJBDEcaASPE7z+7A6fCrYFYjIFXOjxB+9on6CxkQg==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795556258;
+	b=Ka41bop2Xq8T/mTfRatJUyzwRiqdNwDVGeoYV+qljVNLvvjUIdiKvWAklPj/S/zMxTr1
+	 brwHHRYzTSaC2nEPoKDtc1wDRkVrnEwNZiv8ybUDYjtKqi+23280BFn5FNtiPCw8A6YDR
+	 pGghlr/pQ649/v8gYuadUC+EHLGIclFN57lc43eQkbRqQ/yjgMotFTZchVBpbohoVO8+v
+	 igCE7Sh6YgZ9RE9tQbCM80TN+bg1eN3W4qIuQKOkI714RACpKGnnW07ZgJzj0bl1Ak+YF
+	 hjQJvdZlgKgRkn4o88/Z7S/s8A/edFB/tZ5Y07OlE4VM8VKKMUtZPuHe9VBsZXxrlaA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795555305;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795556258;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Kz0XauTGdOgnd6tw9kPNk/ldh50fDY3LEXEPBQT0ngw=;
-	b=HFDCAv4hU21912L+dQqefdvw66MSi9d5WNgg2qlMEhpQqRMEzJ35XTuWFdxW8gGqGU6Q
-	 nLfRXYCXNQ7CkF7KNfNPji3eQJ52mZa8wB3vDenAInawe8cUeyqiF1RWx4zFZ30pe1tWg
-	 sLn4HeYn06ejmWMTHGE4+gdWGGy/eH/lxygujGJLmhjX3xgVA2kMZXgTkBSY1IqDh/57a
-	 FNEnv1q/zu8kQGb03IWtZQSK0gvfzxA1nneDphgYxfUtFngRqlVUKjR8tXfzj7YXSxm5m
-	 ihzDKZRphjRnK6Q4IGoF0AOzGH7k7UGul2pypvXlSl1Vn+Oqs+m7mVQ9CQeos2Ixw+w==
+	bh=Fg3L3deHSkuexlMXiL0IKxngCsihbg1MRnR96egwqJQ=;
+	b=LnVYc3A2PbC6CLoKy1eM1ILaZitCy0WxUEwN68fY7xysnzjUWi5Q0ZZP4oTkBUJMoGN8
+	 fpco49NmqO2y5YUwnDj9IYHiUZF7okfIH0rPdlWjX9FSoQkw12lAVfXfdyu4BzcgcBiqu
+	 ZlvnW4dBhCWnV1DkPUNFicXcdXEMpk/IKTlhSFMzPdsibPPWaUvUFi51h5H5vAZwEbS0M
+	 gODA2+q3NWZYD3SoiwTSnHNE+0Vk/gA7LKWOPAri2vBv403stcFikm8KNLoStMs36bl94
+	 7bZhGzNWyW+3J3F14oDUVCbUa/jI6yfzBn+s7ERAv7N2rw10Tn7VHDlj0rOULzb5wTQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=googlemail.com;
 	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=YI+KcRB8;
-	arc=fail smtp.remote-ip=209.85.128.175
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b="sYJc/seu";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE058606A321
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:21:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE058606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F5A606A331
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:37:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53F5A606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=YI+KcRB8
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b335ef6441so36334787b3.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:21:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795555304; cv=none;
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=sYJc/seu
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b503e2a87bso53929477b3.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:37:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795556257; cv=none;
         d=google.com; s=arc-20260327;
-        b=GZ83eZ2b+ry1rxhkU9mT+AnAzj5VdCo64rqbGd3q80LbS5QZNK9hyOWR3ougCYt646
-         rpmSOYCICSTlF/y4RXMiVfcrkv75VC3V7v46uFhIkm3UA6sHU20FOyWkQ6iIOJLjhfrz
-         HoVH2k0/5o5khQS4fgH8fXE7wpPjYz9OU+yv+ck5su7jD5/dHE5IepV9VlacTEqQ8lJZ
-         eOQrFd7Xjb2eRM93OVRirQt+EJGG1YeObPjXMR2avxs9kl9wFNnmbX12lucVUz/tNZ/1
-         FNCVVEE9Hyw/jt1hLa85buz5EG34Ne5vg41rIi9YGexbcV0B0DUrFxThZXD4IGq1b0Ic
-         ijsA==
+        b=iIQ7cVUGcDHf/NYxKNYT4hNUFJIpQViDlVIsyglTWcyCOV3284F9hZbSFOms+EZ0XY
+         sv6UDP+Y1TJ1xPqIXJMMwRWo8h4UaaehIoePtMmsSEPHsGCYhPIqwQVL20puO/lFaPA9
+         zXwJyKSbxG2DRFyapVZiU9lfgD0UtU+LFqq2hcHAZo2J47CEKDbfP0vxYWEXLcGQ6aVu
+         4gr7SVlCOZe/qFy9Qy0IYDdpRo7FEWYNCMveauB9LEry4so2t1+7pe7RZjN1CJV4qaa1
+         wVwRE78YVWIPvQtYDpGkwkBtRSgySXseSrdcb5EOGOhzmiVDUEgIfPn4EJF+Z7Vad3ey
+         GJ2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Kz0XauTGdOgnd6tw9kPNk/ldh50fDY3LEXEPBQT0ngw=;
-        fh=71zR9vwAGa6CEdWncJQmIiYLZyJ8Ur7JcOBhp9S2BxI=;
-        b=VY0cGs1SbeV6on8iFCsFDIVtsl1pBhEhNw9gRmU21FYNWcp6sXvd7pfBrnflGa9En4
-         gwuUbPsnaS+GT0n5QZZW9LldClaqeMSuTRFpMx3Dwa2tSY97kmivpIpIZ3ra2m2iwkdH
-         ict7wHGSFcHNuXuGE9nfP6UgP+LJXBgi6D6uNDprqNPDqggCFfTloWf4xFZh5xED0a5n
-         ULDkpv+zL3SCgtGZs4A9QFYC7iqXI/WdUrxADwMEF/OBmqGgmxBmhyWolB1FWWDOqis1
-         uagZr9y7QXd4f0IKQKFggRsW8TXm1GirZJTU+fMEqJd7RU3l8JYtsJa/oanST7kOyXzM
-         yWGw==;
+        bh=Fg3L3deHSkuexlMXiL0IKxngCsihbg1MRnR96egwqJQ=;
+        fh=aR7mvcNVwi2b4f5L1AMfXSsjj4JW0guShgAu3WvHiJo=;
+        b=XqwYmmmbgiC688T6xjdkrHcvPLy/XjAZj8wFcYzq7D45VqGHk4eNiTMpbNu7Eb2SiA
+         AagwvX6dRy/bCgmgoLj7uR10LS8LQ72w5qjFoSmrLD+fiwsUKq2lWazpdj38RIcx2xWp
+         9m0kS1TQ1VkgcqnHX6RRc3CI493RIewxb7ZMgq/rL2jfZU7XsVfx264RzaPd36Ip4rxo
+         FJ1QdteC/8GLjOxVaAb+iqlkEC1TzLKUfmRhqDZR8cSAWVCKYhNY9sbt1im+0MFp9x9q
+         PA0dtGrsVQhStSWF7UuQYI5MrKk7jhwMI0XEnCDWM1W/keua3hpAgrJQHvnAf9rT5xz6
+         cQ7Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1795555304; x=1796160104; darn=vger.kernel.org;
+        d=googlemail.com; s=20260707; t=1795556257; x=1796161057; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Kz0XauTGdOgnd6tw9kPNk/ldh50fDY3LEXEPBQT0ngw=;
-        b=YI+KcRB8+lAE9AY5pSod3xhKPrtxh2vzQXySdKNHgIsa/d5VW56FCDTYBIXj4Yd+vf
-         XtPdVN4LsEWfC0NcrPhBRyn8Zs/EHBcZuDttbTCGszkcRGZIBfnuwTiNwLF88AuUZwsK
-         WM4X4BboEaxjz/5rvZIfiY1YuivEiVlvsPjsxcqN2ljh62EKE/MzIuXiUEJz0U8Qb6bv
-         yZtl8Q8TJ+Kd25h+TvhE7cPrN7htZZMDtHLRw6VpWyYBbBCh4Bi+H1VH5oSZQHANrxNv
-         NZVvkw79EUuHYxMmw8Fd7BjHdqAliEIsrVaWpUaUm3dGS8wJI9spy8UVJjh5QnnZBv0Z
-         qTSw==
+        bh=Fg3L3deHSkuexlMXiL0IKxngCsihbg1MRnR96egwqJQ=;
+        b=sYJc/seuZAL5BO9cN9PEaJyyxuoxlHALCrc+VVOvetQXWeFw4ODR8D2TQ74t6c6+xD
+         svNpcZ+X0cW0uHsPShiHJTaHRNuYtgUD1tBB+seV9uBUvkSE3sDkBF5eOIlEXUdDXM6f
+         8zzcMRcWlNRWnzLJJpQYYRmqekd+YjguL8ZwQQQyDAPZZvF8yEMgKxuLVvocW1sUoE6Y
+         UFFUI3ywaLLPmjOHdnIir+mUH+F7ShRNJ2QYb5HGE21mdde+5G8Y+nZS9oFOU7gRk9Yk
+         qlz6rq4tOrhJeI3WQTkV2SAJJVkKbHGTTEnnWRv1YJlsTqee5TbYJNG/kPp/1nEKjAKu
+         kWpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795555304; x=1796160104;
+        d=1e100.net; s=20260707; t=1795556257; x=1796161057;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Kz0XauTGdOgnd6tw9kPNk/ldh50fDY3LEXEPBQT0ngw=;
-        b=oxmQ1IhR/xMqjN4/SpZkz58uG0QEWpzXb7ceNrkBX0uCcyqJt0t6cPuqCyI58+pz1I
-         c227COyxLVtAMJGC0U1Avi3Z62vEbYEMSp4Y219c9NWlG7JMZFrB5vYp8aGS5aS5KRue
-         Gienm0UJ2TztjLGukS76Hiilz3bMnLSRYuNI0X8jBPx8Bc79Ot6Csakj9+1bxu46egp3
-         kyt186+oK5q9+D2ggWl8KWV6caE5jzle0pJnkmBuyKAouuWEHUfZEku+n4yG+Bdmtra1
-         oty6rGpEaN0W00iHwRMBVYOdeg6yKPH0rv1UH60CnoZJr8o2OJMYdNFizIVcjsByye+K
-         SytA==
-X-Forwarded-Encrypted: i=1; AL+hErGGjuPFvSbd2tQMOwmqrcQtVO9DykzKHCzCEGya8eIrZghUCyj8CrIoL86cH8KA2BiwME27ern2/z12@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uymIoppPWDauqVXjYJsQygMa7Imp3omtjID+t2RG7BwSjH+V5
-	G7hQNNJq8YzU9Fbp0I/DuQzk7suPuOTwTbarJ3f8K6Gs6B7ST+a3XH4auhi8bArcsCroD9H0md3
-	eYisuAtqcNX1F53YpoSTC8KX+C3vx8DY=
-X-Gm-Gg: AZFdTZeGMhTTuP8yBOnwmDp9aG4VnLyB/0PNkqn+F4NOSdbHnpzJ3pPbeTUgabcsJIk
-	vibLpi0u1EEYAPUqLKlMd4yvmnP2UXJJstjCZpqplMLTBwLhKPKxebVNbcZsdQhrVbhvmW3JN8W
-	C7/q1gj3JOkP5SXKRSVIZlAX+Uv3gHeu/MRvFnHLUMgjQRwofJnHapN7s6frhQfqPWXqIfMnujz
-	zptwpKqpBSLQHf2TdQZ/ZmuqX4dZK5nuH0aZEOyVeMfKnLH9T8nYDFSPbK9Tjrii3JSdJPvqIRC
-	4NIvvu3jlFH0S/A9acFOiJcqqBbDsDjkIeGzI1yXHvr5l2Hj5ZiVVCUi7fDYyUZRz0u3Hx1J0wV
-	TumLISR2j/1qRlGLhRjDeBkOlay2a3FGQ9XcPks3oSjCdK3OXMvy1z+G3iYh/y5GPj8dmaw==
-X-Received: by 2002:a05:690c:6213:b0:8b4:dd2b:10dd with SMTP id
- 00721157ae682-8b52050f0demr45322637b3.64.1795555303828; Tue, 24 Nov 2026
- 13:21:43 -0800 (PST)
+        bh=Fg3L3deHSkuexlMXiL0IKxngCsihbg1MRnR96egwqJQ=;
+        b=Qo6Exp2TttgxYBXGq3GnogsqdqOiEL/n+ZP4hbMXyoWkBLhsVQtfxga0SNCoS3Gk3z
+         EXj2mUrgvvlgmuzhISTYuABw/Ep09d5UJkd2b88xDphcZiWV6GmDx/4BBND063swyAkd
+         nv/RmMZpCk3dpMd/ZUXiTVCUxof6VJ6NDayRG3Aq8WZZUEv+ZpL99T4MdIremI+mHpya
+         WwTvCgrQc+QGCoCmSBdRc7zAzkBolOTSahe+OBOppV2XkvbUZFRID1c1IlVH9Nhzy4GI
+         pIxbFbxQ6KTXGS/63ZZ+qVjYOOPySRI1YMznSv12eTQgOMlWj14dPbhE/brle+3GxEAq
+         nAoA==
+X-Forwarded-Encrypted: i=1; AL+hErExtiByOpGMXHRE8Vd9g7uHSX/S3WlCJ4WqYdkwEp4zVJVu0Q5k1VTPQV1d8OZnt3ULojZgDp+zXWGs@vger.kernel.org
+X-Gm-Message-State: APuU4Z/x9e9x5uL4wEsu/ghAAf5Nc7RHEfoDBBK/OTLdScX3zn9qukYd
+	UeCOwRYahohBKwRCUhhi3x8BgxT9s7eVunuFs+/OpUkT6jHZ52ifpB7vRV9QJ01ogcmmVJmazEP
+	pxhK5g2DdaIbplYTlQENorw/UrQeDQGY=
+X-Gm-Gg: AZFdTZeU99nbUNms0f8ZQ0l7Ngh7GGqhw+AXXeMufeoDDLcoK3SydLNgMwKqLlOjETo
+	+a48GmNoBMU5VSnyfVuq6TaTrsK4LZsLIUMs9LlOVClUNiW2EIebZwPOBHw+xyu3HJgnQc9Ecai
+	NTSmAGDuw07oRvSeg+8f1L1Ap8Sw/Pp+UELhXrBT4b4bAuuwaaaKDWOhDKbwWy57wGhMw6vgiNa
+	W/4tqIgQI+3kkx6IKs2Gf8MaP68cB8ph0q85wSxmt/Y4chEu2oqABwfheGsBwaAaGZJnkRZxgVW
+	cyCnZ0U/FNgC9THYSdUFyfvnwbKNN9WpXP1+nartSFj7dILFu7a15/9SP/6IKEjQ1Bw72dybx8u
+	L1QNW5dDy7zH9mS/kqtz3DUacP9RkJFCsCE/a0K+6h/IegGf5knhbWjZNFNIXlhETczfTcQ==
+X-Received: by 2002:a05:690c:3749:b0:8b4:d6de:975a with SMTP id
+ 00721157ae682-8b520442f78mr75631547b3.17.1795556257259; Tue, 24 Nov 2026
+ 13:37:37 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,61 +104,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com>
- <20261018-audin-v5-6-4b8cc13a1b22@baylibre.com> <CAFBinCA12FvOi=9gB1xj3MDvNWstx1N4TtyyrrndJ_JT5eLX=Q@mail.gmail.com>
- <0949591a-63cb-4bb3-a7de-cf59ddbaafb7@baylibre.com>
-In-Reply-To: <0949591a-63cb-4bb3-a7de-cf59ddbaafb7@baylibre.com>
+References: <20261121213102.143130-1-tanure@linux.com> <20261121213102.143130-4-tanure@linux.com>
+In-Reply-To: <20261121213102.143130-4-tanure@linux.com>
 From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 24 Nov 2026 22:21:33 +0100
-X-Gm-Features: Aa3M54qIikBwR4PI-ZQunVxuxoqfwLNl1dfjIK5NjVa_KqUN1kcswl51cnQYi_s
-Message-ID: <CAFBinCAjFb7yS4VQp+BqLw2dG61To+iU4aiBvaVE9B9bWe=oUQ@mail.gmail.com>
-Subject: Re: [PATCH v5 6/7] ASoC: meson: gx-card: add support for audin FIFO
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+Date: Tue, 24 Nov 2026 22:37:26 +0100
+X-Gm-Features: Aa3M54raaw5cpHc_7i460xpAtUuQL2U6TjCh0nslZW-bSHKd5TU4q_42SX4Pzaw
+Message-ID: <CAFBinCAzSgCGfXb_Q3FuwEmPAEiHSxzVR_ceyqMNp+LEZ18u1g@mail.gmail.com>
+Subject: Re: [PATCH v8 3/4] arm64: dts: amlogic: t7: add the ethernet controller
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 17, 2026 at 12:06=E2=80=AFAM Valerio Setti <vsetti@baylibre.com=
-> wrote:
->
-> On 11/15/26 10:28 PM, Martin Blumenstingl wrote:
-> > On Sun, Oct 18, 2026 at 12:18=E2=80=AFPM Valerio Setti <vsetti@baylibre=
-.com> wrote:
-> > [...]
-> >> +       if (gx_card_cpu_identify(dai_link->cpus, DT_PREFIX "gxbb-audin=
-", "FIFO"))
-> >> +               return meson_card_set_fe_link(card, dai_link, np, fals=
-e);
-> > I suggest using the "audin" prefix. AIU / audin seem close enough on
-> > all supported SoCs that we don't need a SoC generation prefix  in
-> > there to handle this differently.
->
-> Do you mean using "meson,audin" instead of "meson,gxbb-audin" for the
-> compatible?
-> If so I'm not sure this is allowed nowadays. As far as I understood
-> "meson,aiu" is a sort of legacy naming. 'writing-binidings.rst' says
->
->    "DO use a SoC-specific compatible for all SoC devices [...]"
-Let me use an example as I realize that I wasn't very clear:
-  compatible =3D "amlogic,gxbb-audin", "amlogic,audin";
-Does fulfill the criteria (as far as I understand it).
-What doesn't work is "amlogic,audin" alone.
-
-The GXL example then would be:
-  compatible =3D "amlogic,gxl-audin", "amlogic,gxbb-audin", "amlogic,audin"=
-;
-
-And for Meson8/8b (sorry, I didn't get around to testing) I would then use:
-  compatible =3D "amlogic,meson8-audin", "amlogic,audin";
-  compatible =3D "amlogic,meson8b-audin", "amlogic,meson8-audin", "amlogic,=
-audin";
+On Sat, Nov 21, 2026 at 10:31=E2=80=AFPM Lucas Tanure <tanure@linux.com> wr=
+ote:
+[...]
+> +                               int_mdio: mdio@1 {
+> +                                       reg =3D <1>;
+> +                                       #address-cells =3D <1>;
+> +                                       #size-cells =3D <0>;
+> +                                       status =3D "disabled";
+Lucas, Igor (+Cc) has taken a closer look at the MDIO mux, see [0]
+What he's saying is that (in my own words):
+- status =3D "disabled" is unnecessary
+- if you had problems without status =3D "disabled": Igor's patch should
+fix it, can you please test it?
 
 
-Best regards,
-Martin
+[0] https://lore.kernel.org/linux-amlogic/20261124-re-martin-g12a-mux-t7@ia=
+v.lv/T/#m240f885979c7c3a84af26ee8b60d38f3092f0c0a
