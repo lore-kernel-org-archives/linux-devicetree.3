@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795487194;
-	b=bMDMDKrDoeMsDYxbrnRjtWrJOG0oEsrEvP1PUVRzo06LQzTQmvNmYht9mQ2FXNv5ppvJ
-	 YOaEbgj2f8ahrVUGI5dSovZvLzuHC+29/V4jl6Ri9ABDEmJLhVNBqR33VfVMxs0qaiVoZ
-	 auk6qMWFEXKkF9spp6yga0cNPrv4NE2+Sm12qT9WvTLhYdFxnYI2LlvHInKuCvKZ55BWc
-	 STaN7+atJ+9xRozF+QCEutDUKp5C/1f6rJ1s1bVKEdvfl4rJoTpWabCpth4mFnE+tHbD6
-	 aXvdwrecrZsuVQgH+qOfeqEniF0fJWhoSaz1h1+UBBMzFiIH4/fNnOj4L9RxNIe1y4w==
+	t=1795487189;
+	b=eA96x0RzCTBst7y4UuyTrTp68xcd51eKJKbQw0hEpG9B6OL3Gb6dNTZGGlzo75xQHdXI
+	 ionUb/l2cZ0uNcUjyY+8p4wUlJkzLvTrvvTe9VtN3x9UmtbIPMVE9qH6f4u8GUkFqQbQm
+	 lPt8N/aHXmt2UnrrGHpX/lMr7h7Lh74iLt4wxJ111SqQNW81BztjGrqrQ4Vkic/Ep3Vs7
+	 NPnOn4lgDN+HOnDkM51xcmkpKn4yU3v0P6r7t4wLAh8NcSR+A7So5cbNQ+5oE2D3Bv8a8
+	 TyebaD4+EFBhOCBOMi5AQ95fh/B68mEu5zuA8AsrWR0E/7ZkR9WWGaraFyFDbDYY3sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795487194;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795487189;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=UNc4WxmfbfLgUpSIVGlILF9NYv4ex8h4CwsAajsbkL4=;
-	b=JgllzN3Wli6u4KFFpDullHoLBidWKWXNOyfDJj76fC69bq7U+9KYC2EEiT+Or/DH5Cu1
-	 usRjoJTsp30ToJdGFRXDAMbJFY0BYO5QZkMjaI4adavh5foSi0BDSBKzfaR3auEwvcy0v
-	 cWh88/KUxBl00WZW3dqppuFbzBBT6NkV134ePFyi4zq45DnJAbu7AVHdeXUxiZOPLJgnN
-	 Xhr7mPJomoyyuQx6ju8fDwFFGvVHCyT/LJcWfulZ9PM8tiqAsyRdPlAqR7spMqc2IrKb6
-	 su5iLgsxKi/27VjVGaoIGOZFLFNvSDO8Ik9w8I1NkfZZ46Io8Ta/pJSQsbfamGNREhw==
+	bh=XRLMwQm9cSwnCXwLWzr19EeC/TeAhie3XNROKNH+2Bs=;
+	b=zMoyzTChZ9649HAFqYNCLl/t+Lt0VibnyT0boP7ohyfhhKjFsMh/xsaiIloxW21CmLxz
+	 97kwYG1lgSSLNyErYbJVSgVyqd69iPTerVEx3pYQC5EK5ODbqlQdIgewMf759kRx+jlAY
+	 jvUdDNVV5EvRhi0/s8GaHjyD2tccLJOgZPtR1gMXFs15q34KEastIcIQx4wANYB69MauA
+	 j8qJQV6g1D82smy/wmYp9oRbW7mWJmaE6TRYtgWvOGLeKT+5adj9vG9V4hE3ybbRUtACA
+	 HRdZp0p7ojlw2IQbYvyMn2fy89MjHa20VjOks3g8MFct/8X5sywvQ0ll8q5+m8JeIDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e74D9ACb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chbPH5HR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FA4606A32D;
-	Tue, 24 Nov 2026 02:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E20F606A33C;
+	Tue, 24 Nov 2026 02:26:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e74D9ACb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA881F000C0;
-	Tue, 24 Nov 2026 02:26:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chbPH5HR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432F81F000D8;
+	Tue, 24 Nov 2026 02:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795487193;
-	bh=UNc4WxmfbfLgUpSIVGlILF9NYv4ex8h4CwsAajsbkL4=;
+	s=k20260515; t=1795487188;
+	bh=XRLMwQm9cSwnCXwLWzr19EeC/TeAhie3XNROKNH+2Bs=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=e74D9ACbYJZoXJ9sLL93uzDY66JcwoY7btCTeEmPRBCHdSdqroP1VYKuRKIG9sKeZ
-	 RIigLtZDeV9XUxvTlljYqQ8jUuA3uSw514h3RMkyKpJcQjN2WsRQvk0UpkLVauEBqY
-	 b7Wa/SzUBf3I4BIaUOVjGId76BxbFNkAZUKnBmxMLeSdESP1IjOyU77WOZSK3jt1uX
-	 /Ih5YNqN4gSeLRGHqAVr7XlOLMCsggPPheuECbm2DCIvbfgvu2tnD38wyol/X22CyQ
-	 kmUowcvNgwXM9QtuCySaUuOvDx0EkKKaxZZUovTClqEu0T30I9ou18p1mgcMMNR6Wj
-	 x3rYPFOIU8N5w==
-Subject: Re: [PATCH net-next v5 23/24] net: dsa: rzn1-a5psw: Add support for
- RZ/T2H Ethernet switch
+	b=chbPH5HRokEWNzPzf+J9gMRNiokhjFcZ9PsFwIVZX1A9XK8IzkLtix7bOKMLtpi+Z
+	 p82NHvdTL9zSWwU3m4jOxK2REdt97jmcLnroquUSwhs0GFRF9c8SpZ+0qq/FNL5BVv
+	 Rf89FKdSofDVBZSJ9tHEtBPx8XNOy5cezAag5QtDB0NFdFN2TZVpGF8H8m9dF3XR+Q
+	 4XzdN4YR7SpPcf+HBrG1eaOGUbgh/L9xZtPZ1ozMAdsGpX2bwgjC4BxeG4f0bl8eDQ
+	 WpQg2iGj4GuuQdCS7nHx7oGMDzfPzTlj6sQx68fL9gQBVVeWjY0ADv/I0QG5woTeqJ
+	 sDu3n3AzBbtLA==
+Subject: Re: [PATCH net-next v5 18/24] net: dsa: rzn1-a5psw: Get pattern
+ matcher register offsets from OF data
 From: netdev-bot+sashiko@kernel.org
 To: prabhakar.csengg@gmail.com
 Cc: clement.leger@linux.dev, andrew@lunn.ch, olteanv@gmail.com,
@@ -54,10 +54,10 @@ Cc: clement.leger@linux.dev, andrew@lunn.ch, olteanv@gmail.com,
  devicetree@vger.kernel.org, prabhakar.csengg+renesas@gmail.com,
  biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com,
  prabhakar.mahadev-lad.rj@bp.renesas.com
-Date: Tue, 24 Nov 2026 02:26:31 +0000
-Message-ID: <179548719178.3135.16247387052615724547@kernel.org>
-In-Reply-To: <20261120002549.1908299-24-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261120002549.1908299-24-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Tue, 24 Nov 2026 02:26:26 +0000
+Message-ID: <179548718681.3135.5483552869953704216@kernel.org>
+In-Reply-To: <20261120002549.1908299-19-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261120002549.1908299-19-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -77,72 +77,48 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message for "net: dsa: rzn1-a5psw: Add support for
-  RZ/T2H Ethernet switch" does not match what the patch does.
+- [Low] The commit message says the patch will "use the correct values
+  for each SoC" and quotes the RZ/T2H/RZ/N2H offsets (0x3f00 / 0x3f40).
 
 --
 
-net: dsa: rzn1-a5psw: Add support for RZ/T2H Ethernet switch
+net: dsa: rzn1-a5psw: Get pattern matcher register offsets from OF data
 
-This commit adds OF match data for the RZ/T2H ETHSW, which uses the A5PSW
-IP but has a different port count, tagging protocol, pattern matcher
-offsets, VLAN_RES layout and lookup table size. It also adds the
-renesas,r9a09g077-ethsw compatible, which RZ/N2H uses as a fallback.
+This commit moves the RXMATCH_CONFIG and PATTERN_CTRL base offsets out of
+the A5PSW_RXMATCH_CONFIG() and A5PSW_PATTERN_CTRL() macros in rzn1_a5psw.h
+and into struct a5psw_of_data. The RZ/N1 entry, rzn1_of_data, keeps the old
+values 0x3e80 and 0x3eb0.
 
-> Configure the driver for the RZ/T2H variant with:
-> - 4 ports (3 external and 1 management), with the management port
->   at port 3.
-> - DSA_TAG_PROTO_RZT2H_ETHSW tagging protocol.
-> - A fixed management port frame length of 0x3fff.
-> - Pattern matcher register offsets of 0x3f00 and 0x3f40.
-> - VLAN_RES fields using VLANID[15:4] and PORTMASK[3:0].
-> - 4096 lookup table entries.
-> - The odd MDIO clock divider formula.
+> The RX pattern matcher registers are located at different offsets on
+> RZ/N1 and RZ/T2H/RZ/N2H. While RZ/N1 uses 0x3e80 for RXMATCH_CONFIG
+> and 0x3eb0 for PATTERN_CTRL, RZ/T2H and RZ/N2H use 0x3f00 and 0x3f40,
+> respectively.
+>
+> Move the base offsets of both register arrays into struct a5psw_of_data
+> and use the correct values for each SoC.
 
 [Severity: Low]
-Is this list still accurate after the v4->v5 change to rzt2h_of_data?
+This isn't a bug, but is the last sentence accurate for this patch alone?
 
-The last bullet mentions an MDIO clock divider formula. However,
-rzt2h_of_data has no MDIO setting, and struct a5psw_of_data has no member
-for one. a5psw_mdio_config() uses the same formula on every SoC:
+At this commit, rzn1_of_data in drivers/net/dsa/rzn1_a5psw.c is the only
+a5psw_of_data instance:
 
-drivers/net/dsa/rzn1_a5psw.c:a5psw_mdio_config() {
-    ...
-	div = DIV_ROUND_UP(DIV_ROUND_UP(rate, mdio_freq) - 1, 2);
-    ...
-}
+static const struct a5psw_of_data rzn1_of_data = {
+	...
+	.rxmatch_config_base = 0x3e80,
+	.pattern_ctrl_base = 0x3eb0,
+};
 
-That formula came from the earlier commit in this series, "net: dsa:
-rzn1-a5psw: Fix MDIO clock divider calculation". Its message says the
-formula is the same on RZ/N1, RZ/T2H and RZ/N2H.
+Also, a5psw_of_mtable only lists "renesas,rzn1-a5psw". These values are the
+same as the old hard-coded constants, so the RZ/N1 register addresses do not
+change and this patch is a refactor with no functional change.
 
-The list also leaves out a setting the patch does add:
+The 0x3f00 and 0x3f40 values for RZ/T2H and RZ/N2H are only added later in
+the series, in "net: dsa: rzn1-a5psw: Add support for RZ/T2H Ethernet
+switch".
 
-	.keep_mac_tx_enabled = true,
-
-For the new compatible, this skips CMD_CFG.SW_RESET during setup, keeps
-TX_ENA set, and gates user-port TX through PORT_ENA.
-
-Could the MDIO bullet be dropped and a bullet for keep_mac_tx_enabled be
-added?
-
-> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
-> index 86d5b9d52f8db..2b69e92e18533 100644
-> --- a/drivers/net/dsa/rzn1_a5psw.c
-> +++ b/drivers/net/dsa/rzn1_a5psw.c
-> @@ -1411,6 +1411,20 @@ static void a5psw_shutdown(struct platform_device *pdev)
->  	platform_set_drvdata(pdev, NULL);
->  }
->  
-> +static const struct a5psw_of_data rzt2h_of_data = {
-
-[ ... ]
-
-> +	.lk_table_entries = 4096,
-> +	.keep_mac_tx_enabled = true,
-> +};
-
-[ ... ]
+Could the commit message say that this patch makes no functional change, and
+that the RZ/T2H and RZ/N2H offsets come in a later patch?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261120002549.1908299-1-prabhakar.mahadev-lad.rj%40bp.renesas.com
