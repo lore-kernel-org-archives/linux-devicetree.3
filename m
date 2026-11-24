@@ -1,85 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.47.186.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795516857;
-	b=VnPfmhTykEUn9Czn9Ff9xib7ZK/3FO9s61IH3AtcSzU9n4fTe4rhQPWvOtwYslRUeLxV
-	 5YMs4GIDwttGzRkxPLZUGylOJBAnVSDa4BF87wZVjQZT6jSgG9yRADdICPU511Ig3PpFk
-	 MMcUpUgexcL4QfvBxVUtjG+QvOsb5eJTCYoupXGgPpf1zlC0qDa7UU21CKZL97G6sLIc8
-	 JMR2kObSF/k/3Mlsbjao3hYnPxLifoQmjgab/HkcrdX4HVsPlnVqyFJOzWMq/aA1r2Yw1
-	 ixGSGNQ/JhJBDrLkKcSYbjT/6NOciLqzmzU7XYHgI0DwKOYTUGSczGXnIP0A/JvjYww==
+	t=1795517109;
+	b=HKBhKnGb9I+X3ntlNMcgTNsyGdAZddf5PdMXepDjC5cYmnutSwZsGbSWtHMZN3qrW2cf
+	 VhAsvgcQfi7inXnHkeMFOoG27fqljfX2GOkmlEuzLUxTmeqSx8Vf3H/mxP+Se9JpgKcGc
+	 y+S2NBsehgtferevwwLTrClVljh/YysFh/nU2yYu7oWqeoKsRcIFNfw6rWnR25FWdHy7J
+	 NdnugC/6B7rDJhfnsmBH6u0Y4/+vKVYFx1F96t6L6iw3CSjfGaWzL0DW24hVNvqJnnH+g
+	 QBtjhrD7uVA48l7bj5lw97kD/Ryis4uk7vd2w4ilriyXvkAM9LrSxv1C8IKqePrJKzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795516857;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:DKIM-Signature:Subject:From:
-	 To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Rb9J0hSRc+mSsT0T6DiOfhg76UjavfvENEi0jQslYHY=;
-	b=ym9jD7Z/UlIajMLDO7Ly0fvDB/fizCZKDRCg+KxVIvhc/aVp3mvGwJSlIjESjKCh5rqP
-	 QXIBvj4EA7VHHd03SJIqT/4zmHy4v+sh5tsi0X/+FpY5JX/owUeoHk05rfdMR2A95GZ8l
-	 QyMRrAJ9tKLQbcOeTsdun3mIeVhxlPFBTm8GI1viM+MTDo2iUEEQf3EsXMzNjSpxpSEJW
-	 r352RuYvKxcKarYuI8pQzHFWWOKSUNyUpZQd8W1+fpFPHhbKlxD+k+4OClYd5nUK3sZhW
-	 qufnze2B+Lufnmtxcbz8gPVCopAO1YinrMZVXUCwPr96iiI5N74oz/BLkdeSTFrza8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795517109;
+	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=QVcpWwBDvLOR3uuhiJ4NpPW4+vnqSVIz1HFeEPmwlOE=;
+	b=ZXctgwAFrn3Z2Tf7Qz1qSGS4SO1qMeeX57PiBymsiUxe/4SvETLpATpVJmu4dmpuPC+7
+	 jtlhh6aqEGK3MvFg5WWdaqNa+3erep+MylcetO6vBnSdXMFARBMd/4AfQ2JyZ0pRSJYV5
+	 WskFn41kEnvCQlBplLoET85TFDUdfNETX5f2sfr1sdCCK3CGFnUOfFn6KkXXwGCmpHbOr
+	 aWkxZJji9edAgtTqxup3m8F+wSgBfP2MpowvNMhwkJSoUc2keS4dK/FA6mKCPizW7EaS+
+	 DtF6Os+G7h+nSnzZBiS0MnsWcjmu1c7vAM27UnAtRWxJze7pDjgQDeZUYMmRlJAy9wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HfngUNTA;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Axiv8UFE;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C61606A321;
-	Tue, 24 Nov 2026 10:40:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61C61606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HfngUNTA;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Axiv8UFE
-Message-ID: <fd998850d10838b97a3627ac7f9eafea6752846e.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1795516855;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rb9J0hSRc+mSsT0T6DiOfhg76UjavfvENEi0jQslYHY=;
-	b=HfngUNTA+8qnIMWJ74QOqK1c2HJEfoD/qO4IzC3JDW/2tIHlXQXhHOgTqN+xXYJIvM3c5/
-	4O1NvveekJqzqBU/Y06WKA+o9dw8gcCfej164dJNWyHfYgwBUD+b52FStHhdPrz9xUWGZ+
-	y9Ou/CsqameWQnrbnhD1lfFPp1Jg+93juKOK50jwSuaW4nesCGt5zwq5QSAPI/v1Myz0Nt
-	PwbDEEQ7smN6VCih1I9mvDg/a3d0c9FYeGaC+iUCi6Q+EUGM+eVW/YbLRcMttrf8T7o1ze
-	8c50gZwaIIRlYK32XpWisI6AkSvaegWtgKplSLm8bhz9EaNxkjj5060qE6SUWw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1795516855;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rb9J0hSRc+mSsT0T6DiOfhg76UjavfvENEi0jQslYHY=;
-	b=Axiv8UFEAkx0LUy5zK8nNlC5Fu/MLL+V2QMS0NLB7kh/BQL16vXNMFOw55zcFMXv5wWH72
-	9qys7gGcmKmUOYAA==
-Subject: Re: [PATCH net-next v5 3/9] dt-bindings: net: dsa: Add SoC-e SWIP
- switch function
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Vladimir
- Oltean <olteanv@gmail.com>,  "David S. Miller" <davem@davemloft.net>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Eric
- Dumazet <edumazet@kernel.org>, Lee Jones <lee@kernel.org>,
- devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, mfd@lists.linux.dev,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Tue, 24 Nov 2026 11:40:52 +0100
-In-Reply-To: <20261122-camouflaged-pretty-camel-79f370@quoll>
-References: 
-	<20261120-devel-vstrassheim-soce-dsa-ml-v5-0-5de9225715e6@linutronix.de>
-	 <20261120-devel-vstrassheim-soce-dsa-ml-v5-3-5de9225715e6@linutronix.de>
-	 <20261122-camouflaged-pretty-camel-79f370@quoll>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dmarc=pass header.from=krgm.moe;
+	spf=pass smtp.mailfrom=krgm.moe;
+	arc=none smtp.remote-ip=103.47.186.116
+Received: from krgm.moe (krgm.moe [103.47.186.116])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0EA80606A31E;
+	Tue, 24 Nov 2026 10:45:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EA80606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krgm.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krgm.moe
+Received: from [10.42.0.96] (unknown [114.242.206.180])
+	by krgm.moe (Postfix) with ESMTPSA id E49F8859;
+	Tue, 24 Nov 2026 16:15:05 +0530 (IST)
+From: SignKirigami <prcups@krgm.moe>
+Subject: [PATCH 0/2] Add PM6450 RPMh regulator support
+Date: Tue, 24 Nov 2026 18:43:59 +0800
+Message-Id: <20261124-netrani-pm6450-v1-v1-0-1914da758d3d@krgm.moe>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,53 +43,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1wQhq1VxEXMY46haaSqAji3
+ Rt1+Rb/HxA5CEd4ZwcE3iTKzydQnoGbrB8ZpU8GVShDpDR6XoL1gvPX6FeBGyGVllWl61IPFlI
+ 3Bx5kv59N+ziu3Yfdco3gPP9FgSQ3dQAAAA==
+X-Change-ID: 20261124-netrani-pm6450-v1-17ae284974fa
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=703; i=prcups@krgm.moe;
+ h=from:subject:message-id; bh=eAooSlsInfQK4l+MyiyxovowUFu6Gwzc9fj6jRCv21M=;
+ b=owEBCQL2/ZANAwAIAV0dOJt2umJjAcsmYgBrBWqO8IYLm6e0zhyqrsvckvFOII8RLZAIwwxBp
+ JH7cmpqdr6JAc8EAAEIADkWIQRSClJ2zjncUdNU0FFdHTibdrpiYwUCawVqjhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDIACgkQXR04m3a6YmMZZQwAqJ+zN+9UcSpdPGPmPaRLdhxiQF3xUAv
+ 9g9pBaLY0MNtfXpBXW9AmS+EW+gWMWpDXQ7bO2D7MTq0qbikYVIvPANv24NRE8nJq8cksHRC9OE
+ 27sv8ALJVjskQ9g7BT3XNRGj0eOlbqR4nvLZIrhgT6IRgedahOshrNaa5ya2ATxqfYNg3hmK6n3
+ 1zzxuOqCdqhaTEB9NNgDW/OhEt/30PdxMUkzKC32tdzDlj7dQGEBd2hlhhXy28JiOZHuUdOe1uh
+ B+6IYntsLNeUzKEtF2gloztYrBzsoym8K7rcoofcFtrwKp/U9J9XOBqO3IUvYtQ75HFKRgSdfHe
+ xbohoIDSMP8tvdQ0+4A9bsMXdxEnmPyigkqj8aCrbTwHd08mZgsoIan2Vm14XJBe7PjoqlfhM9H
+ TFGtiBc5WP8akTFDmxysfPpw4Ti3FeA3YDU5eWOPa99qIP4yff+YmhHJwHmEXzKTuMyJ51Y+FSl
+ IiZiqGpWRrxTxdiB7zfvC1weRkUWK1m
+X-Developer-Key: i=prcups@krgm.moe; a=openpgp;
+ fpr=520A5276CE39DC51D354D0515D1D389B76BA6263
 
-On Sun, 2026-11-22 at 15:54 +0100, Krzysztof Kozlowski wrote:
-> On Fri, Nov 20, 2026 at 03:52:20PM +0100, Vasilij Strassheim wrote:
-> > +$ref: dsa.yaml#/$defs/ethernet-ports
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: soce,swip-switch-00-04-0c-10
-> > +    description:
-> > +      This compatible identifies the register layout; its suffix gives
-> > +      the offsets of the core version and feature identification
-> > +      registers (0x00, 0x04, 0x0c, and 0x10). Port counts and optional
-> > +      features depend on the FPGA synthesis configuration and are
-> > +      detected at runtime using this register layout.
-> > +
-> > +  reg:
-> > +    description:
-> > +      Register window of the IP core. Switch register blocks are locat=
-ed at
-> > +      offsets defined by the compatible. The MDIO controller and bus
-> > +      multiplexer occupy separate subregions described by sibling node=
-s.
-> > +    maxItems: 1
-> > +
-> > +  ethernet-ports:
-> > +    type: object
->=20
-> I guess this should follow:
-> https://lore.kernel.org/r/20261120002549.1908299-7-prabhakar.mahadev-lad.=
-rj@bp.renesas.com/
->=20
-> so: additionalProperties: true
->=20
-> > +    patternProperties:
-> > +      '^ethernet-port@[0-9a-f]+$':
->=20
-> and:
-> '^ethernet-port@':
->=20
-> > +        type: object
->=20
+Add PM6450 RPMh regulator resources using the existing PMIC5
+NLDO and PLDO models. LDO24 preserves its power-on-selected voltage and only
+accepts enable, mode and load votes.
 
-Yes, that looks good. I will do that.
+Signed-off-by: SignKirigami <prcups@krgm.moe>
+---
+SignKirigami (2):
+      dt-bindings: regulator: qcom,rpmh: Add PM6450
+      regulator: qcom-rpmh: Add PM6450 LDO support
 
-> Best regards,
-> Krzysztof
->=20
-Thanks for the tip!
-Vasilij
+ .../bindings/regulator/qcom,rpmh-regulator.yaml    |  2 ++
+ drivers/regulator/qcom-rpmh-regulator.c            | 38 ++++++++++++++++++++++
+ 2 files changed, 40 insertions(+)
+---
+base-commit: 6eba525f2c14486c1a8cac2320ab202097212f5c
+change-id: 20261124-netrani-pm6450-v1-17ae284974fa
+
+Best regards,
+--  
+SignKirigami <prcups@krgm.moe>
 
