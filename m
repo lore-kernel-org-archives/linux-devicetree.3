@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795519511;
-	b=0zbRvKalemX0Wbpejf/90DivMXOyThjMjZ/vb+0VSeAqCpwGlYdZU91Kj0zHFpm2KlK/
-	 4bDo86PQ9MCJ8rdBi2ekoTLxugp6i2GYfBDlpUAI/EeKuNQe1hyBHKSmNZ+MoK0FhQt3Z
-	 CPZ2WlWHSS/VCmvOW1XHU52KTM+aPca2Gbqaqzay38TKXv709ikxZmcs5WZMVdvDUq5uv
-	 FRZrhNd/SNfTC5JbrThkbfOXpXlaiE738DIn551enskVyO1BVvct0xTe1QJDH1IKREdKh
-	 Kk8Pyn4d+2BjG24u65/wn4v/BW+Fd845Ei7sPc89Dv10W0hOILewOoHjbAWgAORboXw==
+	t=1795519674;
+	b=aK6XDzYh+xnHDzHuDpMYPNhOGTzHwenLDhjYivA/EL9HDXv8qB9dQYZ7iXFuwrS0z3t9
+	 7pdrlaBSBtgh+ILbFu7J1xeKmBo9kqWe1JFE9C6qb5e3cJmWKFk9c5FDSo1rFFxafb0mQ
+	 aGU8Ag6dyO28L9ZxBHdEmDWRSlV/0gGDWtnIbJDIcZsrSKHgdOen8j2b+n7mWgvRO66B5
+	 Gmm2FANMChcBev+uj544kgm5RLfHIDJ5L4nlOTD9E1rWOToj75Nfb+kF2Xs3Shz2ZtUWW
+	 kLEwVxa7Knqx3FsPoYaciByYyOHvD/tBGiedG9XyMh1OImNCESsOK14ycXQ5Ll3WIxQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795519511;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795519674;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=niLnhqEojIQkgFRmg5OZWjZ1ZFoo3q8YeUc29rlN20M=;
-	b=HMGwL4mBkh1cU6YwQTeQt4SJVqTrNZejVLEJIbuZlaw1qNpGocdx/8iSyzVQ/SWPVj1p
-	 1REwqhpc6eNZKRp0NJd0A0QOqGu7wNMjgxuWqO0lMGJaeqDH83X09BbFznzN91G8+9z71
-	 tMzSqwgzlD4ScuGRS8feQieSOHtF5YULjiniEApm89RVM0sEo9yVhKbaXFONlBwJCdszp
-	 CO7Ne1pe4uL2mqfL7IysZroAXdP0Xk4yymDkBz74G/CXE/gdwXoj0pTDe3S8i+kR6a7bs
-	 RyIhQpsXnRarCD+mHEb2CpV2kqSJfyaGawVPr7FxZw/7BDi50WjGfgxtTRBKr0OAlUw==
+	bh=xXCcl+kw2rM9Ke0wegquMdzWVHFbfKtLcutpVWvmQvM=;
+	b=pnoKgYb9DxwxbFzZLdOGFsOG3scy8dR5UA58YKULvHjoRSMZldKt6dKyL3lzTlvZeWLj
+	 Xs+mdPkHjV8lzzHUYF3GXJ/I/HaLdOCd1uW47NfqvnRuGr+s1800DC+hJLPFs3rvsRUHE
+	 EpsuEZa++JlDM710FKXTRO66BA4sCHUWR6YyW1JiR1/IEZVz6yKlkdaFJTrn4pQGC7HQ0
+	 /YnrgEfPvlB4l5jgaX6S9/u/9zn0Nih31BvD+K/HrE0BsNoAEeNuMFt+RSIwYRm7ltuB6
+	 mnQknxWi7kpH2DX+8iLqnG7gOUVQJTphdVKiphj+36ix5rszN49LXb2Hr+EfhgsxEgw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Puheq1Mm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aoPCykak;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A290606A321
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:25:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A290606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A042C606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:27:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A042C606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Puheq1Mm
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-55c304f7031so57670471cf.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 03:25:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795519509; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aoPCykak
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-55c4e670fc6so35870961cf.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 03:27:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795519672; cv=none;
         d=google.com; s=arc-20260327;
-        b=oZ0XcwelUxsYXPkQORjeBrrt56AJ5vrKvmNWoarObyhzyZ/M1n942LN8nOxloQBkh3
-         fKndLOAwnGsDCajSqS6T9nHJ/kp+pD43YMIKOETcdkPCTdeGnizMYwx65+KDePs8tNYa
-         QJFl708NNOPX0iqAxCMoy2NMHGLfqvogEEFUQaCEAmOvK2P8qacz5BRRnquhbqvdKf2T
-         v8wAv6SN7RGKWl+zo5eZ0mKiMhpMp3gzwPbsR7c15LrGEKEd8LuzFf4nw/L5e2DceUu0
-         s5JJ/cfMrrr3sP5xh4eOzBIgVTs43rFZTdjcJCE0J3ZBcwqWsvZGaQ0Y+X76kQouO/vz
-         pPXQ==
+        b=a0U4B/ON3qkw+5T/GXMbVgxRSWiYEu74s6N/Qz1LYhNl4900p8JwXEUFoKXFrItuO0
+         dVxM+YloNh3mncfXlr8pjWva/eTtQ1+nUxuPK7Ry61bqHxYozDcObza9PN30+HmE7AmG
+         99HZjxLKBB823lGX+PMg3T5RduO3NvTmLl0pYPoyXBTfSeVFhH29uNluiokPumTKz2/x
+         MJ9270GhgLpcpHguTOMF1uuFcSstH7ioBgV7YrCRIvEylU0AUXskyK/msMrOhAt1XjAK
+         gA5vyFxPbWN23WSCTAdA+mJXsz6RyePSBBtJRcvs8ZOJ4mfQT4uLPmSTHHNb/j9zubHf
+         CQVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=niLnhqEojIQkgFRmg5OZWjZ1ZFoo3q8YeUc29rlN20M=;
+        bh=xXCcl+kw2rM9Ke0wegquMdzWVHFbfKtLcutpVWvmQvM=;
         fh=RU8nSI2EijC2y8B6rypEW77WbkjZMPjN4LQs4UIPXKo=;
-        b=IK3a58Io/K8r1T8bQ/LlhwmhJvf0tr7Ph8UrNmFFUYZAxmS2UBj6etDnoa0sh1wpbJ
-         nSBrP166VSYSTQSS7fUbi20LD1l7lK/RSaq+ubomy99uVNfkZFAPpcbz3dIAUCY6lFna
-         3odUxnT+Ol7npi0w43wKn1IyiExh2mwz4P6ICPoIfZylsCQncbOpIUaVeSej8SRpC8GQ
-         p5xpPL8wODzBB8Qspgw59Z5ZapqTp5rOZdTx+f/2qQbwk5QAfkuVuCYgyq7ufi2/qrF5
-         EqjV6qTam58JOlfMCX39r4VPimYJBh9Vcwj2+cHHe0cuq5ZyC/NNee40pA0Ec+ihTOcX
-         C2UQ==;
+        b=CBX0iielXtBrqNL7Vx4OkbbFaVPGMPUnU/RssD8bGgP0+6DUiYKwlpaFi54nylYzoo
+         jQkPdfcpUeyYkXX5QWiFojx9bYgmohugPd5aK3NAFxJnjDF4htjOFlzW3O6J+lIr5jMU
+         /0wIDxAeO6d9J5f/DO4ucN76211Vxno3/vqj1GPMnLXeTIEO2oq9t9iEETWQZSzh2oIM
+         zLhKRUrYUJf4HmDKuKedVYue8eL7j2+gGyuDYGlTkE6X1zUgbaklsfAuNY+FVHv5IvBy
+         j/7qN8o124L/ANTrfqWdBx8HrjyVygkmU8lFNaD2RgnYNQKV+wUZknLys0L4BGdfqOjb
+         iHzw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795519509; x=1796124309; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795519672; x=1796124472; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=niLnhqEojIQkgFRmg5OZWjZ1ZFoo3q8YeUc29rlN20M=;
-        b=Puheq1MmOxPb7jy0x5azII39IK7nkvvYMQvJF/5Pv5ueBptITjltbE76YzwFgEMz+U
-         V8mVkgKtXZhz5GNvyCXXgydH8Nl7AeHIyE/RlIydvLBiUTEbjzZ7fC7XWozR6URmDobu
-         yGtBARn8697KQNmf4AUSo1QxFH40th00C0GdsANc64bn7G2fZAdWYeU0RruEByGz0nfC
-         eVKTUL7prp8IFWsQ0OPFWCu0dnLnd0V50stmsFivERMhW2Sr0siecSI+rR2LZ8rOF9Hb
-         Qmta/I1POPDovcKIvcnTIsVuuwh/vHkSIixSZ4z8bEGcjJ2AGKl3cRWi+yAoBC6GFpFm
-         woUw==
+        bh=xXCcl+kw2rM9Ke0wegquMdzWVHFbfKtLcutpVWvmQvM=;
+        b=aoPCykakhkysIhqkhsYsf4/MY7O1fYq5P3QRAL95eDzpufNu8T9G8l23vrUIGD5HBg
+         FzV+452Pexub1nrf9UMIC5oHl25WJg6NMTC6PioSZq3zMyb78kRwjwx6qYsunCGHO/FL
+         gHA2CJD8lSlunBUksCcZKQ+vjNh9SPvj0KiGyadaTTFVuo+7h1/7f9aId6XY99w/I2rA
+         a9KBfL9ILlibnB8nBzDS30wycgvlyJe2VelVuRDuoLvmArbQHl3Das9raTxQNyW6PjAD
+         hMj2O8TohQAUskX6xZSNDZpljMvY6u/vrZiaq960sfeuqCrVmEVMp6SYWUyiV1+LNpyt
+         S84w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795519509; x=1796124309;
+        d=1e100.net; s=20260707; t=1795519672; x=1796124472;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=niLnhqEojIQkgFRmg5OZWjZ1ZFoo3q8YeUc29rlN20M=;
-        b=X1exy3o46C3fAbPbweFknuh0NJ+QJ8j4rbs6vdgbVPMdk6vAdmwFoKuWm0/S52MtyU
-         ep5HV3rd+aAf+McjpPF8tzN3pdMGWIzyKWlGKlo/lVBT6LVHxkjbvpnmcIAOMaZKR2m+
-         4Q6aEsRp/lBhhnza/mYytZZksVsiyETm/5yNs+Rnsp5IxGi7cRTP3WMmxebWwx8AV/oL
-         mGMbATKeSwvdbX+k64iOybEsjVxKv+eyGUFZxLx0vzYD5HpEHWSRy/gf1z6t2sSmSz8p
-         HH/GXXCZm9jJQ8oATVdyZ/EGx658xpYiHfMmN/p2DuUWQSEROHuOze1mOXZMgzJYCcQZ
-         2C0g==
-X-Gm-Message-State: APuU4Z/nJifZ3L2FgwL8Q5uOjXkJySgPk2F4eiOiWjP/+5ftmL3XhDdK
-	RiCaDfIH1TN1TXKKFr/ane2oe0dCHBrSbRdSFgG64cUVF6vFyVebYIDu3JdNDY9+1TuUVl0+PZK
-	oq0+L26UX5/KCeJbXIo4AbNtJWvv405Y=
-X-Gm-Gg: AZFdTZckc2moBJiK/XDQqIx5fwzyZ2z1MwOkeyN3dq0bDvBp1RAuQbKDzbxqOdMSTkg
-	r5eR/4umfxedpKGXuO1Iy0VMcCK2ftX5/Fddy7UwsffVxLoUk+xIp9cqAaG0wrtQ0BJF+QYe+9D
-	iXi78orDy4tl18dSoGamYzv5gDSk5vyWtFroaATWGPzUSotlfqUUhsFDl+gbOBSfjXUb4sEFCLa
-	KQ2ZTytCHqo97VCBa3K1BucrZqnfULtAFDugRkvWXAofdpaOqRamFxMY7VsB+64xrA408aBs+9y
-	ctYyWuOxyrWmDQDdJzpUH2L4tMtElg2B2Ub38xVTfxjU50OmR7Ek0Eq3mRMl98pDcTfTz0r8bUY
-	JK15khOHzgBV0d9gIReRF1znOakBTLNaMGV6Q24YPd7T6Hd1b1CVTnbUCmAY0f7G2EEzX4w==
-X-Received: by 2002:a05:622a:652:b0:536:64ee:73e8 with SMTP id
- d75a77b69052e-55d769c8a8bmr247880221cf.8.1795519509553; Tue, 24 Nov 2026
- 03:25:09 -0800 (PST)
+        bh=xXCcl+kw2rM9Ke0wegquMdzWVHFbfKtLcutpVWvmQvM=;
+        b=MCUJA2nNp5VGlEUGHB/JmUvAu3hKb4R47OdtcNPXZIECBv6Lkk2hMRHgBRZTitEYGm
+         UPleWCTBkh8BLhlRhNLgL5t1aWgyQ6l6GclV1gKLIIo41x4r2XbrgLqquAn37C/c1pFW
+         WIEGZpq8Iy7FcTEwDbX2kDT/QatSpaqA+nAXlYDSkX0aeoHgS4YkahnSlDUu6KwZHdur
+         Hm11/7P8IIyEJvXz6SppMlmbpFC+yDXcSiejsQRXXPGbiF+X17YKHIrDLK0i83guqMgt
+         GhX+I9dQ73AIhkGfA6Rjse3Xbz5itATYQmUWxcuMuGd3CicPl/yV+T3SM7nsAUHmqtLB
+         zAMw==
+X-Gm-Message-State: APuU4Z+LzkKSvzn2JqTB2ZRfQ2Fi7mtjLrN3hfh1qNiRtNvkOyKKJaY5
+	dGrAnuiORKt2QSTisLD0hZ2xlhjKXUPHiUZnRF8WToZGCdCxEHAeG8gWZMvUQ7o905vqq4kClcV
+	XJTegIYR0Mdc7JDuK0Cjh6iNJIu9HZ0s=
+X-Gm-Gg: AZFdTZcF9Rz+isbIivGTocJELClv6Z5L4nh+b/9J9ap2WMY9GT6H+v0BqXzOZQ1nsOa
+	q0ChLH10dYxGwrV3YhpeTjyPBdnXYVAjEKvUDLJUlXyShnuWgXlTGRXotZKA+vxeezpwlQEfkjy
+	H6O4busHKhXkFCFsu8tb8d+n7v/YNS0zL9oNrR6K1cXC00G++Ev3gqoTdSsf54p5gY5Aa7Fc187
+	JEU/sqAcAvo3cN+p9jrK7P5n7q5Z8ey8Cu/H26JQuS6adfvhnOuxM+ZxHWUi+QDDd9X28o8Nyvf
+	WmWF1gOrrRcMczEoN4WFM6as+CMaJdf4teiHWfI0InqEKFuhN8J2NXg+dvzTnYhyHXACb0yAbRd
+	9pmqlCSS3KnNpHjXBaTcgvJRVya0rirZGMeqVXQqg7yAovsHhEVuoiIFM8L5Lxgf3SkvlZA==
+X-Received: by 2002:ac8:6906:0:b0:535:2283:20a3 with SMTP id
+ d75a77b69052e-55d76a1f731mr241074461cf.33.1795519672518; Tue, 24 Nov 2026
+ 03:27:52 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,179 +104,119 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261123-sdhi_rzg3l-v2-0-bad3a6358849@bp.renesas.com>
- <20261123-sdhi_rzg3l-v2-1-bad3a6358849@bp.renesas.com> <sashiko-outbox-229381@kernel.org>
-In-Reply-To: <sashiko-outbox-229381@kernel.org>
+ <20261123-sdhi_rzg3l-v2-2-bad3a6358849@bp.renesas.com> <sashiko-outbox-229391@kernel.org>
+In-Reply-To: <sashiko-outbox-229391@kernel.org>
 From: Biju Das <biju.das.au@gmail.com>
-Date: Tue, 24 Nov 2026 11:24:58 +0000
-X-Gm-Features: Aa3M54pDTkymqBGURe3Pj6U5WPV5YSKg8Nl2GM3dC_SaLCa0n-aneKX6oiqXn5I
-Message-ID: <CADT+UeBxPq-HDLNNgEWObK=CpwJaHh3ss7FyOHQ3b3r5AiWk3g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] arm64: dts: renesas: r9a08g046: Add SDHI nodes for
- RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK
+Date: Tue, 24 Nov 2026 11:27:41 +0000
+X-Gm-Features: Aa3M54ppbsJLM4wVbJ_c7D0B6fZzE35d4EIHnXGoFNEoMK2kWDjqihyiCCRU6Sk
+Message-ID: <CADT+UeBih2phy7qy_DeUtCdhj0QJQjfRco8AKWZn9NbRWPgM=Q@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] arm64: dts: renesas: rzg3l-smarc-som: Enable
+ SD/eMMC on SDHI0
 To: sashiko-reviews@lists.linux.dev
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
 	wsa+renesas@sang-engineering.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 23, 2026 at 2:12=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+On Mon, Nov 23, 2026 at 2:22=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 >
 > Thank you for your contribution! Sashiko AI review found 2 potential
 > issues to consider:
-> - [High] arm64: dts: renesas: r9a08g046: undocumented SDHI compatible,
->   clocks, and resets
-> - [Medium] arm64: dts: renesas: r9a08g046l48-smarc: syntax error in
->   sdhi1 #else branch
+> - [Low] arm64: dts: renesas: non-generic node name vqmmc-sd0-pvdd for
+>   GPIO regulator
+> - [Low] arm64: dts: renesas: misplaced closing brace in #if
+>   RZ_BOOT_MODE3 around &sdhi1
 > --
 >
-> commit 527fb6eb84a5c0b07ad82e70e9460e0c1834eaeb
+> commit ef8324be968fe270658aa5eec8f4516a9acb1022
 > Author: Biju Das <biju.das.jz@bp.renesas.com>
 >
-> arm64: dts: renesas: r9a08g046: Add SDHI nodes for RZ/G3L SoC and SDHI1 p=
-incontrol on SMARC EVK
+> arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
 >
-> This commit adds the SDHI0, SDHI1, and SDHI2 controller nodes to the
-> RZ/G3L SoC dtsi and configures SDHI1 pin control and regulators on the
-> RZ/G3L SMARC EVK board.
->
-> > diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/bo=
-ot/dts/renesas/r9a08g046.dtsi
-> > index bb69e5e3528d0..b710f47d3f030 100644
-> > --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> > +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> > @@ -1068,9 +1068,80 @@ dmac: dma-controller@11820000 {
-> >                       dma-channels =3D <16>;
-> >               };
-> >
-> > +             sdhi0: mmc@11c00000 {
-> > +                     compatible =3D "renesas,sdhi-r9a08g046";
-> > +                     reg =3D <0x0 0x11c00000 0 0x10000>;
-> > +                     interrupts =3D <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
-> > +                                  <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
-> > +                     clocks =3D <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI0_CLK_HS>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK2>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI0_IACLKM>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI0_IACLKS>;
-> > +                     clock-names =3D "core", "clkh", "cd", "aclkm", "a=
-clks";
-> > +                     max-frequency =3D <150000000>;
-> > +                     resets =3D <&cpg R9A08G046_SDHI0_IXRST>,
-> > +                              <&cpg R9A08G046_SDHI0_IXRSTAXIM>,
-> > +                              <&cpg R9A08G046_SDHI0_IXRSTAXIS>;
-> > +                     reset-names =3D "rst", "axim", "axis";
-> > +                     power-domains =3D <&cpg>;
-> > +                     status =3D "disabled";
-> > +             };
-> > +
-> >               sdhi1: mmc@11c10000 {
-> > +                     compatible =3D "renesas,sdhi-r9a08g046";
-> >                       reg =3D <0x0 0x11c10000 0 0x10000>;
-> > -                     /* placeholder */
-> > +                     interrupts =3D <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
-> > +                                  <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
-> > +                     clocks =3D <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI1_CLK_HS>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK2>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI1_IACLKM>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI1_IACLKS>;
-> > +                     clock-names =3D "core", "clkh", "cd", "aclkm", "a=
-clks";
-> > +                     max-frequency =3D <150000000>;
-> > +                     resets =3D <&cpg R9A08G046_SDHI1_IXRST>,
-> > +                              <&cpg R9A08G046_SDHI1_IXRSTAXIM>,
-> > +                              <&cpg R9A08G046_SDHI1_IXRSTAXIS>;
-> > +                     reset-names =3D "rst", "axim", "axis";
-> > +                     power-domains =3D <&cpg>;
-> > +                     status =3D "disabled";
-> > +
-> > +                     sdhi1_vqmmc: vqmmc-regulator {
-> > +                             regulator-name =3D "SDHI1-VQMMC";
-> > +                             regulator-min-microvolt =3D <1800000>;
-> > +                             regulator-max-microvolt =3D <3300000>;
-> > +                             regulator-ramp-delay =3D <1200>;
-> > +                             status =3D "disabled";
-> > +                     };
-> > +             };
-> > +
-> > +             sdhi2: mmc@11c20000 {
-> > +                     compatible =3D "renesas,sdhi-r9a08g046";
-> > +                     reg =3D <0x0 0x11c20000 0 0x10000>;
-> > +                     interrupts =3D <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-> > +                                  <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
-> > +                     clocks =3D <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI2_CLK_HS>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK2>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI2_IACLKM>,
-> > +                              <&cpg CPG_MOD R9A08G046_SDHI2_IACLKS>;
-> > +                     clock-names =3D "core", "clkh", "cd", "aclkm", "a=
-clks";
-> > +                     max-frequency =3D <150000000>;
-> > +                     resets =3D <&cpg R9A08G046_SDHI2_IXRST>,
-> > +                              <&cpg R9A08G046_SDHI2_IXRSTAXIM>,
-> > +                              <&cpg R9A08G046_SDHI2_IXRSTAXIS>;
-> > +                     reset-names =3D "rst", "axim", "axis";
-> > +                     power-domains =3D <&cpg>;
-> > +                     status =3D "disabled";
-> > +
-> > +                     sdhi2_vqmmc: vqmmc-regulator {
-> > +                             regulator-name =3D "SDHI2-VQMMC";
-> > +                             regulator-min-microvolt =3D <1800000>;
-> > +                             regulator-max-microvolt =3D <3300000>;
-> > +                             regulator-ramp-delay =3D <1200>;
-> > +                             status =3D "disabled";
-> > +                     };
-> >               };
->
-> [Severity: High]
-> Are the prerequisite binding and driver changes for "renesas,sdhi-r9a08g0=
-46"
-> missing from this tree?
->
-> Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml does not list
-> "renesas,sdhi-r9a08g046", limits clocks to 4 items and resets to 1 item
-> without reset-names, and only allows vqmmc-regulator for
-> "renesas,sdhi-r9a09g057", so dtbs_check fails on these nodes.  In additio=
-n,
-> renesas_sdhi_internal_dmac_of_match[] has no entry for
-> "renesas,sdhi-r9a08g046" (and the nodes have no fallback compatible), and
-> renesas_sdhi_probe() only requests a single unnamed reset, leaving the
-> controllers unbound and their axim and axis resets unmanaged.
+> This commit adds pin control, regulator, and SDHI0 device tree nodes to
+> support either eMMC or an SD card on the RZ/G3L SMARC SoM depending on th=
+e
+> SW_SD0_DEV_SEL macro.
 >
 > > diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/=
 arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> > index 517747aef36ef..e9b7b3280615c 100644
+> > index e9b7b3280615c..3699712d8bf1d 100644
 > > --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
 > > +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> [ ... ]
-> > @@ -312,6 +389,19 @@ &scif0 {
-> >       pinctrl-names =3D "default";
-> >  };
+> > @@ -9,6 +9,7 @@
 > >
-> > +#if RZ_BOOT_MODE3
-> > +&sdhi1 {
-> > +     pinctrl-0 =3D <&sdhi1_pins>;
-> > +     pinctrl-1 =3D <&sdhi1_uhs_pins>;
-> > +     pinctrl-names =3D "default", "state_uhs";
-> > +
-> > +     vmmc-supply =3D <&reg_3p3v>;
-> > +     vqmmc-supply =3D <&vqmmc_sd1_pvdd>;
-> > +};
-> > +#else
-> > +     status =3D "disabled";
+> >  /* Switch selection settings */
+> >  #define RZ_BOOT_MODE3                1
+> > +#define SW_SD0_DEV_SEL               0
+> >  #define SW_SD2_EN            0
+> >  #define SW_DPI_EN            0
+> >  #define SW_GPIO4             1
+>
+> [Severity: Low]
+> In commit "arm64: dts: renesas: r9a08g046: Add SDHI nodes for RZ/G3L SoC =
+and
+> SDHI1 pincontrol on SMARC EVK" earlier in this series, does closing &sdhi=
+1
+> before #else break DT compilation when RZ_BOOT_MODE3 is set to 0?
+>
+> arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts:
+> #if RZ_BOOT_MODE3
+> &sdhi1 {
+>         pinctrl-0 =3D <&sdhi1_pins>;
+>         pinctrl-1 =3D <&sdhi1_uhs_pins>;
+>         pinctrl-names =3D "default", "state_uhs";
+>
+>         vmmc-supply =3D <&reg_3p3v>;
+>         vqmmc-supply =3D <&vqmmc_sd1_pvdd>;
+> };
+> #else
+>         status =3D "disabled";
+> #endif
+>
+> When RZ_BOOT_MODE3 is 0, status =3D "disabled"; is emitted at top-level f=
+ile
+> scope outside any node, causing a DTC syntax error instead of overriding
+> status =3D "okay"; from renesas-smarc2.dtsi.  &sdhi1 { ... }; should encl=
+ose
+> the #if RZ_BOOT_MODE3 / #else / #endif block.
+>
+> > diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/ar=
+m64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+> > index 91b2d0d431045..e64a611aebecd 100644
+> > --- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+> > +++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+>
+> [ ... ]
+>
+> > @@ -78,6 +83,19 @@ reg_3p3v: regulator-3p3v {
+> >               regulator-always-on;
+> >       };
+> >
+> > +#if SW_SD0_DEV_SEL
+> > +     vqmmc_sd0_pvdd: vqmmc-sd0-pvdd {
+> > +             compatible =3D "regulator-gpio";
+> > +             regulator-name =3D "SD0_PVDD";
+> > +             regulator-min-microvolt =3D <1800000>;
+> > +             regulator-max-microvolt =3D <3300000>;
+> > +             gpios =3D <&pinctrl RZG3L_GPIO(L, 4) GPIO_ACTIVE_HIGH>;
+> > +             gpios-states =3D <0>;
+> > +             states =3D <3300000 0>, <1800000 1>;
+> > +             regulator-ramp-delay =3D <1200>;
+> > +     };
 > > +#endif
 >
-> [Severity: Medium]
-> Does building with RZ_BOOT_MODE3 set to 0 fail with a dtc syntax error?
-> Both "&sdhi1 {" and its closing "};" are inside the #if RZ_BOOT_MODE3
-> branch, which leaves "status =3D "disabled";" in the #else branch outside=
- of
-> any node block.
+> [Severity: Low]
+> Should vqmmc_sd0_pvdd use the generic regulator-vqmmc-sd0-pvdd node name
+> instead of vqmmc-sd0-pvdd to match the Devicetree generic node naming rul=
+es
+> and vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd in r9a08g046l48-smarc.dts?
 
-Will fix this in next version.
+Will fix this.
 
 Cheers,
 Biju
+
 >
 > --
 > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-sdhi_rzg=
-3l-v2-0-bad3a6358849@bp.renesas.com?part=3D1
+3l-v2-0-bad3a6358849@bp.renesas.com?part=3D2
