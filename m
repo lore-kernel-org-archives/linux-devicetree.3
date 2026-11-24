@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795542190;
-	b=2QaORj1Pu/kqvE9MREvQ+5zCVbNPF4eqLXPn16BH8SPf5P9GEl1uM48+fT8e1ShRbJKu
-	 ldOCmZTj5h39jRSVQz2sorr0bU0sALhPT0VGxIAqc01kOjhDFPP+xM51zck+6k5NmP0YO
-	 hw5Nol0ol7Mui8aOcQI9pxL/PgMd6iRhqnU90i3CJaYik66hJog6cTEjukKHNWJkyqLgQ
-	 Zgg6W8om2ha6SkGL+lK7PD+3nA1oOaZJUjx5uLaYYhinxTqe0vs7XEAc4GQmJYRtyTnxw
-	 6bSQOiJ2PYh3Om4GMdq/k3n0JMosX/G0XjBiruiegUNuGNGfJSXd6aI0JymH5UB8ZyA==
+	t=1795542186;
+	b=p3pn95ktGLJumrdFjX0U9uipah92kqsmJgvc5dh9xGhFPiQFTobGtf+M3QXgKrbmpmEA
+	 ZnrHdNurPFGmFl9pByhuZGRn+b/axvzZ+br7p9bxPRAO+vUoYEdhEj7uGHjf0ELQDJL1e
+	 nGZtMFEy1OTuACTu6PKuoqQadLxmGlGejzfwLNK0XTofUAyvmxpgYW9GBEageer4yooxN
+	 tutwuiBbLN0R+jZgpUX1OjT4qptEeZFe7hiB2nmGxNJiPOAPnEesTPvTWQDe+ixa5k169
+	 2Bv5G88w7RlyQOI+gHzzj5tT5q+dH+w/o3a8ppFsEUbp5UwHiELfFXEvA437Pxrg+rQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795542190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795542186;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yS20vV3nK7x1IYanLSn1Cp+mOl1KPhIWpaQIakns+H0=;
-	b=12610AsvGw8ISdgJ8QGKmmVzlr7JApFk3lE1tEBIJwfhY0SZv8bB1R09UGhnP005Y/PE
-	 0ObsELLTwV3CahoPrmmwnE/kZBBaouDVos1kkdCt/O7URSbWq4lsBkDHKWsaZtpxk7i8B
-	 z3XobktaCe0kKsNv21fTzezPZoi5Aka0BIbLy9OkuIXNZwHYBxD/vpmHZ3JU54AweMpEG
-	 Kl41kCSPWey9P7Rl5IvdpWXJhW99NHZOJ69h8KP+nce7ZirFcmAeBUy9hqOhZkqH7f10/
-	 Cp7Baj6aVq/AbDdSTrBHkK/7rXANVwJcC+A10EyKLactAIt5N6bFZ7Km3R8q7L70/hA==
+	bh=BmeSP8HjYQ5cRDtQ/CR1hWVAr3pmfYIadN9wiyMqhmA=;
+	b=5NHKTXIRHhSX3gk99rihH/eJuH4+uOotIW/3S8qAK6YvWy0P57bImoPXkXgV4UGPPXny
+	 K/BhBwwHjFpGxi35zI93P0ko3h+8asu67kmzziTSn6+kp3lEcphScHyHsXhRsHFaMDv8P
+	 AkU/8GAtqxvyjPyWfLg3LCwf2wnp7fs00kNmB+pAtaSqIG6QnAUZNr5xg2NyBnDiQMZxI
+	 pjgrFLss8i6TOORBG+WiaiKdaJBJNSEgNc+4xFxa4bY+9eucu/HZM8EHybW69lvKWs4Jo
+	 L0cFfzS2oNxzoGyAzWJaZDptH14ZLn9O0fQU84GTvl7SVINm2ixqh7QBTF5JyFAQCNA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YGdOYHQB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFvQ2bAV;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BF8606A321;
-	Tue, 24 Nov 2026 17:43:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A46B606A329;
+	Tue, 24 Nov 2026 17:43:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YGdOYHQB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFvQ2bAV
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795542189;
-	b=BeYwPP70vZLqbtYN6C7PtlOnCjYYTdUsIFLuntWol2KiUHOWcRaMHd4i+bGURG4bqLvp
-	 xIcMLdKX3251UIssXE6ntqA14ke7HHu3Uj7QaNKKBDYPRQvxGnb8Glg1TlGQiyw8KQbsf
-	 dLOirJOSc2+JzRfK8psqz+EX9qW2p9RCHU5YaBwz56l4sjr65k1ULmhJNmDpkaurvlFvH
-	 Y1BrCWzPn3zkNG6UjUnheIIf8DXMzoFzluooOSxG5YVxt7jJJ20jMhFWnNIr0OKZ2f43A
-	 StDXhR1BSdjQiB+9G58arjlmSZcytNGFazeyHisIUNe7tXStomrzv+0vBsGHsqfqD3A==
+	t=1795542185;
+	b=RINpyr8yd4hQ9KgU5l/nGIukTvOjXkEeuzW+OroX+tzeX5yQTL1m4VEHXr0q7oEqX6DV
+	 gW4F+A4R1tsr+F4jjm+M9E76azMeQVNcMbgTsBRJ1xU/Kr994YOEJqzuqv8qvXL5x+ysR
+	 oim7L+JVDXCPLDRAWVm7XIrAGMkyavAccaxlQ0DY3FUrN6gB5qken3OyuIzitN21a4jf0
+	 jGbxAqAekCGrj3m0a2bouIIVrDDn7Jpt7qENE3/xXDDLl6l3MrfSpUK1gO2IrKBn1z5Hb
+	 Ytvr5IhcSmT69bpIDRRTjljb+ZkCiPQ98Acd1UB5mC7TZBBo+pO4q018+NZmIBQ3PHQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795542189;
+	c=relaxed/relaxed; t=1795542185;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yS20vV3nK7x1IYanLSn1Cp+mOl1KPhIWpaQIakns+H0=;
-	b=OSxU0EMVBZvl9dLAkoAI6Zg/EnBQdrXZ1rl/PDbtg3XVPocBQOGu4PiqU6X+QpRulVUp
-	 yqrg5usJZPJM2y83p7XsmKLysUWCwYwOM0foxT1DsqWC4S55AiD15mTechSTNJK8iEib8
-	 ec3oFtH042YSirxiF3bRHJy6KAURIspJx9sd+2PN94T4wHIiNq8rAxDkHhuaDUkOIdWzn
-	 96q1sUF4ZGDRUK+v7E+jpwZ7owH7qwaIFf774hgLb14QwKwOZ8dxOvpmMH/Ge+xxfZL9y
-	 HXbSlFR7x27khEkbwsElEFWNYJPAQhmIazl6ayclaaWWCkJ6BTJEmxHscy7tm7kmzaw==
+	bh=BmeSP8HjYQ5cRDtQ/CR1hWVAr3pmfYIadN9wiyMqhmA=;
+	b=OEiq7KtG/Xt2J0kupC9nyzYReHdBqPJMmqm53Bdev6yxBQlcSNPqijdS00C/N1qwZlR5
+	 jPvY60qfETQmn9KmzV1CqBWZCTxnjOF870toetsuWWffPLiQDEpVPquvBV5bcIu8+qm/j
+	 SjSAT0QbhNuVtn4NIdenf0h3on/Ifj4Tr54omHIenmXwwTaTI2MGBFI8cRrPaWt3BiUBd
+	 7Zd1d4IS8vy0bYiVkwm3bv4s6tsMohFMF4LHCqxeaqiW7MFGBlLrX1ziaOOjRTq7fgeK+
+	 Mu/TAYxjVBIsZ2T94GL0Ibb3iaRF6DbzdQ4+UrTUps29Y9kqWepBzlar2maZzVl+p+Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8EBEC1F000D1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5F5C31F000CA;
 	Tue, 24 Nov 2026 17:43:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795542189;
-	bh=yS20vV3nK7x1IYanLSn1Cp+mOl1KPhIWpaQIakns+H0=;
+	s=k20260515; t=1795542185;
+	bh=BmeSP8HjYQ5cRDtQ/CR1hWVAr3pmfYIadN9wiyMqhmA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YGdOYHQBH1EBC18YtoQWKusqirrg/e0qUEqpTsaDmSa8MlvBLhHTEa4u1XAMBYjfo
-	 HEhxL/UeuIBkVVkvEYhilsZsu5tRiH1jmcETBDliZTKlcVLZk/ewCM69mN7SbrrCF6
-	 3GT64Ogb/S59kjW0o6+GQvFuvq7HbslzdWiSY1nwJtGhqTf1SWtR6dDafGVnA0ZHk+
-	 CWc7//oFrBJ+eLEqPanjTrLVzISl3uF7Nms2qVuRKi0MfNS7pJ1pmuWrdonAts/2jU
-	 p54OMzYWMDRU1l9kkMaHbJ7qewc5yDaNOyyJqk/82Jo21FDCG4sIIqNckOKczvCjuA
-	 9Z7TocXHTBJuQ==
+	b=fFvQ2bAVAF3MKnHzqR9W6Vp/N3LJUbEcNKj70Chd5j/L1jHRMyDJBhQxlcQ9O4dva
+	 xSSPawI4DpdmczlGkE5V1ML1vLWN/mU5e0EGCNV4sU5VSAuJxan3hn5aI1DM/HyDVN
+	 jR96aIhqMLzJ+25+RBNYbHZFOISf6O+Dfv2GCuvieSLQ1rftVtV2QDxT8W/25wvejP
+	 /hBBTXQKQclXJ2Vok7y2cxPyIo3dXxnOQO1mqlY/Kkw48xeFtnr+hguWWYt5JcednF
+	 k4lInRWFJU+jfyki/frlI7xg9foqhM6kHSfFh5BdoTJ1RSDGf2lzG9xIdr4+YhXwSN
+	 8sDMR8bU00oEA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1DF4A4CB20;
-	Tue, 24 Nov 2026 17:43:01 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id D92FF4CB13;
+	Tue, 24 Nov 2026 17:43:00 +0000 (UTC)
 From: Armandas Kvietkus via B4 Relay <devnull+armandas.kvietkus.proton.me@kernel.org>
-Date: Tue, 24 Nov 2026 18:43:02 +0100
-Subject: [PATCH 3/4] dt-bindings: misc: Add FPC1540 fingerprint sensor
- driven by a QSEE app
+Date: Tue, 24 Nov 2026 18:43:00 +0100
+Subject: [PATCH 1/4] firmware: qcom: scm: Add QSEE app start, shutdown and
+ services image load
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-fpc1540-tee-v1-3-6c6985f05b06@proton.me>
+Message-Id: <20261124-fpc1540-tee-v1-1-6c6985f05b06@proton.me>
 References: <20261124-fpc1540-tee-v1-0-6c6985f05b06@proton.me>
 In-Reply-To: <20261124-fpc1540-tee-v1-0-6c6985f05b06@proton.me>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -98,11 +98,11 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
  Armandas Kvietkus <armandas.kvietkus@proton.me>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795542180; l=2873;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795542180; l=4679;
  i=armandas.kvietkus@proton.me; h=from:subject:message-id;
- bh=r+50ATdWgwMvyyU3S4K6ZQcnyzT6AuxDtEZt9y0AbfU=;
- b=fJH/tEfkZk9mLQMLKJcMuRw42M4pDgfk61eaJPpnbpTy2RODsXCpkaF6GfE6TD9RrmCm/15p3
- vvqFRRYO8xrAsQcW6rr2OckeP+bLxi6uAp9C1nkvRDG6ElpmgbRUiRs
+ bh=kiEq95ST1or3ds4W0ln0vId1q7/z6qUKlXQN7xs7Bnw=;
+ b=mibjb2GFW5pUbiegvhXEERwzhRGEtTzhh30gjZSjZIUx33OnOAhq/S1LNjdcEGM5APLCKpsvZ
+ 3wo/0RLRLKwAlWq74G8V9CsmoPGYABt6T3ZEQgVfypJzz1yzUN4O9pY
 X-Developer-Key: i=armandas.kvietkus@proton.me; a=ed25519;
  pk=wuqmImJ9sKlDVcwALOvfGhjj7G8EBjjM4TpCdmlrAf8=
 X-Endpoint-Received: by B4 Relay for armandas.kvietkus@proton.me/default
@@ -113,95 +113,158 @@ Content-Transfer-Encoding: 7bit
 
 From: Armandas Kvietkus <armandas.kvietkus@proton.me>
 
-On some Qualcomm phones the FPC1540 sits on a QUP owned by the secure
-world and a QSEE app drives it. Linux only powers and resets it, takes
-the interrupt and loads the app.
+qseecom can only talk to apps that are already running in QSEE. Add
+the app manager calls to start an app from an image, shut it down and
+load a services image such as cmnlib64.
 
 Signed-off-by: Armandas Kvietkus <armandas.kvietkus@proton.me>
 ---
- .../devicetree/bindings/misc/fpc,fpc1540-tee.yaml  | 74 ++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+ drivers/firmware/qcom/qcom_scm.c       | 83 ++++++++++++++++++++++++++++++++++
+ include/linux/firmware/qcom/qcom_scm.h | 23 ++++++++++
+ 2 files changed, 106 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/misc/fpc,fpc1540-tee.yaml b/Documentation/devicetree/bindings/misc/fpc,fpc1540-tee.yaml
-new file mode 100644
-index 000000000000..0c2ec847c2d7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/fpc,fpc1540-tee.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/misc/fpc,fpc1540-tee.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+index fcb04441dd52..979e101280b6 100644
+--- a/drivers/firmware/qcom/qcom_scm.c
++++ b/drivers/firmware/qcom/qcom_scm.c
+@@ -119,6 +119,12 @@ enum qcom_scm_qseecom_tz_cmd_app {
+ 	QSEECOM_TZ_CMD_APP_LOOKUP		= 3,
+ };
+ 
++enum qcom_scm_qseecom_tz_cmd_app_mgr {
++	QSEECOM_TZ_CMD_APP_START		= 1,
++	QSEECOM_TZ_CMD_APP_SHUTDOWN		= 2,
++	QSEECOM_TZ_CMD_SERVICES_IMAGE_LOAD	= 7,
++};
 +
-+title: FPC1540 fingerprint sensor driven by a QSEE trusted application
+ enum qcom_scm_qseecom_tz_cmd_info {
+ 	QSEECOM_TZ_CMD_INFO_VERSION		= 3,
+ };
+@@ -2220,6 +2226,83 @@ int qcom_scm_qseecom_app_send(u32 app_id, void *req, size_t req_size,
+ }
+ EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_send);
+ 
++static int qcom_scm_qseecom_image_call(u32 cmd, phys_addr_t image,
++				       size_t mdt_len, size_t img_len,
++				       struct qcom_scm_qseecom_resp *res)
++{
++	struct qcom_scm_desc desc = {};
++	int status;
 +
-+maintainers:
-+  - Armandas Kvietkus <armandas.kvietkus@proton.me>
++	desc.owner = QSEECOM_TZ_OWNER_QSEE_OS;
++	desc.svc = QSEECOM_TZ_SVC_APP_MGR;
++	desc.cmd = cmd;
++	desc.arginfo = QCOM_SCM_ARGS(3);
++	desc.args[0] = mdt_len;
++	desc.args[1] = img_len;
++	desc.args[2] = image;
 +
-+description:
-+  The FPC1540 is connected to a QUP serial engine that the secure world owns.
-+  A QSEE trusted application drives the sensor. Linux powers and resets the
-+  sensor, receives the finger interrupt and loads the trusted application.
++	status = qcom_scm_qseecom_call(&desc, res);
++	if (status)
++		return status;
 +
-+properties:
-+  compatible:
-+    const: fpc,fpc1540-tee
++	if (res->result != QSEECOM_RESULT_SUCCESS)
++		return -EIO;
 +
-+  firmware-name:
-+    minItems: 1
-+    items:
-+      - description: Path of the trusted application, without the .mdt suffix.
-+      - description:
-+          Path of the QSEE common library the trusted application needs,
-+          without the .mdt suffix.
++	return 0;
++}
 +
-+  vdd-supply: true
++int qcom_scm_qseecom_app_start(phys_addr_t image, size_t mdt_len,
++			       size_t img_len, u32 *app_id)
++{
++	struct qcom_scm_qseecom_resp res = {};
++	int status;
 +
-+  reset-gpios:
-+    maxItems: 1
++	status = qcom_scm_qseecom_image_call(QSEECOM_TZ_CMD_APP_START, image,
++					     mdt_len, img_len, &res);
++	if (status)
++		return status;
 +
-+  interrupts:
-+    maxItems: 1
++	if (res.resp_type != QSEECOM_SCM_RES_APP_ID)
++		return -EIO;
 +
-+  irq-gpios:
-+    maxItems: 1
-+    description:
-+      The interrupt line read as a GPIO, so that edges where the line is
-+      already low again are not reported as a finger.
++	*app_id = res.data;
++	return 0;
++}
++EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_start);
 +
-+  memory-region:
-+    maxItems: 1
-+    description:
-+      Region used to pass the trusted application image to QSEE. The whole
-+      region is shared with QSEE because QSEE reads past the end of the image
-+      while it starts the application.
++int qcom_scm_qseecom_app_shutdown(u32 app_id)
++{
++	struct qcom_scm_desc desc = {};
++	struct qcom_scm_qseecom_resp res = {};
++	int status;
 +
-+required:
-+  - compatible
-+  - firmware-name
-+  - vdd-supply
-+  - reset-gpios
-+  - interrupts
-+  - memory-region
++	desc.owner = QSEECOM_TZ_OWNER_QSEE_OS;
++	desc.svc = QSEECOM_TZ_SVC_APP_MGR;
++	desc.cmd = QSEECOM_TZ_CMD_APP_SHUTDOWN;
++	desc.arginfo = QCOM_SCM_ARGS(1);
++	desc.args[0] = app_id;
 +
-+additionalProperties: false
++	status = qcom_scm_qseecom_call(&desc, &res);
++	if (status)
++		return status;
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
++	if (res.result != QSEECOM_RESULT_SUCCESS)
++		return -EIO;
 +
-+    fingerprint {
-+        compatible = "fpc,fpc1540-tee";
-+        firmware-name = "qcom/sm8250/xiaomi/alioth/fpcali",
-+                        "qcom/sm8250/xiaomi/alioth/cmnlib64";
-+        vdd-supply = <&vreg_l13a_3p3>;
-+        reset-gpios = <&tlmm 24 GPIO_ACTIVE_LOW>;
-+        interrupts-extended = <&tlmm 23 IRQ_TYPE_EDGE_RISING>;
-+        irq-gpios = <&tlmm 23 GPIO_ACTIVE_HIGH>;
-+        memory-region = <&fpc_ta_mem>;
-+    };
++	return 0;
++}
++EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_shutdown);
++
++int qcom_scm_qseecom_services_image_load(phys_addr_t image, size_t mdt_len,
++					 size_t img_len)
++{
++	struct qcom_scm_qseecom_resp res = {};
++
++	return qcom_scm_qseecom_image_call(QSEECOM_TZ_CMD_SERVICES_IMAGE_LOAD,
++					   image, mdt_len, img_len, &res);
++}
++EXPORT_SYMBOL_GPL(qcom_scm_qseecom_services_image_load);
++
+ /*
+  * We do not yet support re-entrant calls via the qseecom interface. To prevent
+  + any potential issues with this, only allow validated machines for now.
+diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
+index a0a6bc0229c4..1027907e27b0 100644
+--- a/include/linux/firmware/qcom/qcom_scm.h
++++ b/include/linux/firmware/qcom/qcom_scm.h
+@@ -143,6 +143,11 @@ int qcom_scm_shm_bridge_delete(u64 handle);
+ int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id);
+ int qcom_scm_qseecom_app_send(u32 app_id, void *req, size_t req_size,
+ 			      void *rsp, size_t rsp_size);
++int qcom_scm_qseecom_app_start(phys_addr_t image, size_t mdt_len,
++			       size_t img_len, u32 *app_id);
++int qcom_scm_qseecom_app_shutdown(u32 app_id);
++int qcom_scm_qseecom_services_image_load(phys_addr_t image, size_t mdt_len,
++					 size_t img_len);
+ 
+ #else /* CONFIG_QCOM_QSEECOM */
+ 
+@@ -158,6 +163,24 @@ static inline int qcom_scm_qseecom_app_send(u32 app_id,
+ 	return -EINVAL;
+ }
+ 
++static inline int qcom_scm_qseecom_app_start(phys_addr_t image, size_t mdt_len,
++					     size_t img_len, u32 *app_id)
++{
++	return -EINVAL;
++}
++
++static inline int qcom_scm_qseecom_app_shutdown(u32 app_id)
++{
++	return -EINVAL;
++}
++
++static inline int qcom_scm_qseecom_services_image_load(phys_addr_t image,
++						       size_t mdt_len,
++						       size_t img_len)
++{
++	return -EINVAL;
++}
++
+ #endif /* CONFIG_QCOM_QSEECOM */
+ 
+ int qcom_scm_qtee_invoke_smc(phys_addr_t inbuf, size_t inbuf_size,
 
 -- 
 2.56.0
