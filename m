@@ -1,107 +1,38 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.47.186.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795513775;
-	b=uuTKb36AVA3EFcIANiCngW7xyGtrLqTAlMHyX/RXsUSoQ1omlt/L901uVZaQebqHXzzk
-	 pI50eu7qL5tTJ55aDzqqzaomsJ5rud/vlNd/Wis2kAknzIUI6j5CoGYRorlp1ozxdojSj
-	 Qo/+lwLmv3fVMlKh1dl+773OaRukZ+FsaFSW0K9oaEwOSjjxq5uvuNS5qic/Ot333jVgR
-	 crFGvzZAx5lPieKzoGnug+3Tsm0fkaOq1pOuVvGXQnGEnsuV8dOoAbf4AIuuTKduE69xO
-	 AIdqQQmOhS61Ob8+ahCCxt+UCOSpGZ/S8JD5e6b1GyK6A2DWsAlPo0WRhUs85BzRY5A==
+	t=1795513771;
+	b=GkNeXgNMcDmSae9ZSO9l3S6xN03a69qXY7gZ0qJ7IDnLPISCxPpAI1WcY7MrJ//zBr+D
+	 hpJxRauprLZXELQ2FhtgAtJlKerR/SuiiUq757XGAJLPwt2rib7pF3NUQzWtKZoMpWk3C
+	 3SUyDyLDtD+HuygxiVbQlzIxBGswkZPY+chXn5fIwpzgakxHm22sGy7uITMWObL6nfgDM
+	 wP7fOQtUiSTHmcXAeu8iCargB3LGLQc7Xx0csY2fJbcoJxR4naWlj7v4hwhtO2bUpMaUl
+	 5UP5p+FZAQZXQxXFua9qU8FQdpr48o230wD6hOOVYvCFQdDi7NzVmFkaJtvddWbdzPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795513775;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DkUdx+bUwo5qwgK+grdLsM2d8mplreNkxSaC5tCB7g0=;
-	b=tyWnLbu0mJ5+NY+WawcgxbqvGcuBWhJ0yezTemmQMWoHMG4XVvKz3kfep1I/B5znuBji
-	 VWyEUazmI8Qq/pW5YkVfjzUuRqS88UqFISF1XLTWMjiI7BVyCIgth6CnaCoZT8BQrdQGr
-	 IdAXGYxK6RH+iL0DhvTAXom6wJwmaR03JpuRwTkHgC6Kew8UYfQ6orHGL9ctGF2FkwS/A
-	 2bv+gW0kgfmzzt1csVGeviFcssYWt30DQGL9rsEIXBYt/xmz3l0hZ5NoBXirSXnGNW3s5
-	 KkQLGYSqP2BKoPDEuHH0vaLT+YfiZc/bpp7IFKRIVqzvOMH78C47OK7Hi0R08dcvLnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795513771;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=KYuKjnnUkCd7r3z1adYLdeJzKI49YAI50FABByBSQ5c=;
+	b=EmUrz2KYOB5+MnzZnYfM2jDRMPVrFhfrMvm0Uo36SsmoJ/3pxEp5oLeXfBR//J8U2Faj
+	 Fkg6Q77hOBY1jmIentkuFq3OEYbg3N/isQ7t/l2d1P9dXfz5Oqa80WOI4Bu8LYd2txxqg
+	 W0isy3RuOTWhdnV8xYB/QX8fbbHF/uT1Wb1j7u9aiAJO1fLNbxHrjuT2b/I8CnRZy1Jjb
+	 JLmPLanOvmbIjsI1mk0O6hyQxwM9TU+d4iIRxZxWw5twILydUKn2WZPUXjFzqsjqJOg50
+	 PLYE3WtsVsp8t9yAnLgLz8VHfEjU5dNO3UEI9IhtkeSocX5crI/89ks+m/39MM98PgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYJAci2j;
-	arc=none smtp.remote-ip=209.85.167.42
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB532606B795
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:49:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB532606B795
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYJAci2j
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5c126f80426so4288856e87.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:49:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795513764; x=1796118564; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DkUdx+bUwo5qwgK+grdLsM2d8mplreNkxSaC5tCB7g0=;
-        b=yYJAci2jncSbB3eMAO+ZfTDnDvTAIyPIHDsxC5GjgnSTypk3xWtuzAiv4OjJEsw18+
-         lA8OTpNafy/tj+w/wr4ViXH29dWJqr/sPSw3NLc/T7j3OJA5xSoFHINvFCW1nzQ/wbU2
-         s/sfuA/zMkEUjzv8yWdnX2ryelXbVuCqAQXJVOjN0T27jWpeG3eQAdvBpuFSYd2iCs5D
-         cxR1o7O365eiqRHMXjWT+jZwoeA8Nyn7bxALiC0ILDvaChGrqYNxf3U3uwWJieUIMh7t
-         pz3fiqfY0UARduOHqJWji4AcVee0soyaEmkNe7Odv+JcbEb+UG04sNKQsm57TJvgBuVF
-         n71w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795513764; x=1796118564;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DkUdx+bUwo5qwgK+grdLsM2d8mplreNkxSaC5tCB7g0=;
-        b=HMzoW7eiaiN6gqNFsJH8kfDUOaA2Wo7E5lNfrCVOSJROQRJMqUAwZd+TYbgDan3ScK
-         p7X144w6uKVR0+bj115OjoN7ojHD0Nf8Um76eJ8stu1VXyTOVvzZ/qldSsS2zeSXAu8p
-         5LTR9mwjoYXhvqaE3DAj/qbJuqDhwR2yHrfhQs/Og28vGIfJv46U4+7yerhzD5W3BESl
-         rRpfudUM53Jj4ojYRHzm+9chikReKzNmaGw/a4ikMp9DbPxHq0UUwOIdNEbYdwC9nhMU
-         G5UiEu1xLAjSP5ptETW532X3jb8J7eAxmZrXDgzr15wzFrZjp4FjxDdR7Ij0+oiTpOkh
-         8/KQ==
-X-Forwarded-Encrypted: i=1; AL+hErGR3wyvCY+vR/VqLYCh3YtS5k9QHKIwUCGt0SNrZof7gu5Dc2JYYUsgHGFmxxQx2jamJZznCFgW2Mm9@vger.kernel.org
-X-Gm-Message-State: APuU4Z9T/7ENwwZ68PBx5ygQoSqGS6OuPWRSgtR2MRbVyZtRzek4o/4p
-	fIV/c55/WUUE3DPRG+EI5o7lSF5qfqg8pADPlP1DhJEMWuB4BpTkRYdD
-X-Gm-Gg: AZFdTZcnlSJ5DZF7jFkrxpLHAXiW7hVTTy3i19OtydACz7+v7T4WHJz/8wJp2rXO9Pt
-	kSKYgvQuUjUzlT3QhQ/qyDaFO0DEm4nciIOrUSi9jA9U1nBchXq1azfuwz5OhSDB5gnyHb26ulV
-	8Sv2Olo7NWvv4TCUeS+/97n16t+z1s2/Mvu6igBoUTWgUcekjQ0UrT2/OA+OdgyoUteXSwvYdZP
-	I915Dsxe+Tmtpbnz4CUROwsgCYqjV01SkcyF02/b8mNfqwfPdNCvxtHQsMVEZ/fqri8c1mWYH9g
-	rs2iO7OJT7OHhaVcnbJOXKBw80+jt+4WgURFcPh0iSQhjDWG0QNDHPUH1J6XT6pYQEqLlTJjqe5
-	/xX/nIxY81MusCtcpjbORcYPxOzydybQIFZW+iTyMrG/8oUw1O6tpy6GEWU/r6mL16iuSirNyjf
-	7LVwKUM1Ddk66oW0V+a7r/PmHpX1KcB4/nNz2maInCHolp+xjGPzrr3iGugL+4O1Hdu74zonjvx
-	pNb0uG1KOfEAbTMCLvalXP7nwisPNNGDeqbvO6kxu3GkYq030WADUU8m2OxaIDELjYWBGmlD7wN
-	UYEIomiU0c3CHkd+c9doTtKXgrTqIwtZBnwuHu7gB6Qdbu0=
-X-Received: by 2002:a05:6512:ba5:b0:5bf:cabe:23b5 with SMTP id 2adb3069b0e04-5c1bc8a1668mr3757642e87.60.1795513763924;
-        Tue, 24 Nov 2026 01:49:23 -0800 (PST)
-Received: from NB-6746.corp.yadro.com ([188.243.183.76])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae8051bfbfsm38756431fa.20.2026.11.24.01.49.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 01:49:23 -0800 (PST)
-From: Artem Shimko <a.shimko.dev@gmail.com>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	maxime.chevallier@bootlin.com,
-	pavel@ucw.cz
-Cc: Artem Shimko <a.shimko.dev@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v5 3/3] net: phy: dap8211r: add PHY LED control support
-Date: Tue, 24 Nov 2026 12:49:12 +0300
-Message-ID: <20261124094914.2993988-4-a.shimko.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261124094914.2993988-1-a.shimko.dev@gmail.com>
-References: <20261124094914.2993988-1-a.shimko.dev@gmail.com>
+	dmarc=pass header.from=krgm.moe;
+	spf=pass smtp.mailfrom=krgm.moe;
+	arc=none smtp.remote-ip=103.47.186.116
+Received: from krgm.moe (krgm.moe [103.47.186.116])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46819606CC26;
+	Tue, 24 Nov 2026 09:49:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46819606CC26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krgm.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krgm.moe
+Received: from [10.42.0.96] (unknown [114.242.206.180])
+	by krgm.moe (Postfix) with ESMTPSA id 7019E77B7;
+	Tue, 24 Nov 2026 15:19:18 +0530 (IST)
+From: SignKirigami <prcups@krgm.moe>
+Date: Tue, 24 Nov 2026 17:48:20 +0800
+Subject: [PATCH 1/4] dt-bindings: clock: Add Qualcomm Netrani GCC
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,320 +42,318 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261124-netrani-clock-v1-v1-1-ce10cedbfa4b@krgm.moe>
+References: <20261124-netrani-clock-v1-v1-0-ce10cedbfa4b@krgm.moe>
+In-Reply-To: <20261124-netrani-clock-v1-v1-0-ce10cedbfa4b@krgm.moe>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10587; i=prcups@krgm.moe;
+ h=from:subject:message-id; bh=ge4J2DvDBPXWTTRkFNBcznpelw4poGX/XIwYAFoDuXE=;
+ b=owEBCQL2/ZANAwAIAV0dOJt2umJjAcsmYgBrBV13hlYgQwWKtkTDYfgOOO+x9sD9+4JsqcxS3
+ DJLurl8CQmJAc8EAAEIADkWIQRSClJ2zjncUdNU0FFdHTibdrpiYwUCawVddxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDIACgkQXR04m3a6YmOTygv/TnNbw1CL1flMn/GU/uqxt9ZBf6wpl/F
+ x6iAHzPPPZF6ymGTAn9WQ7413Z7hgCkISaKtT/hZ88e1sdWZ45P2Jw60fRbQGpeyi2XtWW+ZZlt
+ 7NVykW7IYsNUvglHDEaQsaMEh6oEnsNx4SO86jOYbCFoWnbarOEOvXbj0Yb2WqLwydBbvOqCDJi
+ N2aJkeQtXoblI8UT0FIg6AtgJtvk4A6iyiFT/BJupoBxXudiPEeApozU7rdcai4jNRVlO3B+fv8
+ 06ZS6QPcdr8rQ6bD8We8gM1uTBGPv44DI+NnXFi0u0dNLBMjsLKAsWsmDxrfzGQ327Tz6LfDVa+
+ K2Chr5y8ANCdjV3kFJU+m54qFO1JaLMc+Plc2OezWpaZ1WxnuDJHrDwyE+GcDcfAerIFz1b7wLK
+ +q7070ncXyDZlkLSfeoIsAsCyWqBcyn3ZjBSSf7YNnoJOVFPJeIzMbbvzLYwcaDXB/8+ab8JNw0
+ t62Pi6aotRz5QVC+Zjn1P624QupFyjv
+X-Developer-Key: i=prcups@krgm.moe; a=openpgp;
+ fpr=520A5276CE39DC51D354D0515D1D389B76BA6263
 
-Add support for hardware-controlled LEDs and brightness on the DAP8211R
-PHY. The chip exposes three LEDs that can be programmed to react to link,
-speed, duplex, and TX/RX activity or be driven via the force mode.
+Add the Netrani global clock, reset and power-domain controller.
+Describe its seven input clocks and provide clock and reset identifiers.
 
-Add the dap8211r_write_ext() helper to access extended registers via the
-PHY indirect access registers, and implement callbacks for:
-led_brightness_set(), led_hw_is_supported(), led_hw_control_set(),
-led_hw_control_get().
-
-Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
+Signed-off-by: SignKirigami <prcups@krgm.moe>
 ---
- drivers/net/phy/dap8211r.c | 259 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 259 insertions(+)
+ .../bindings/clock/qcom,netrani-gcc.yaml           |  77 +++++++++
+ include/dt-bindings/clock/qcom,netrani-gcc.h       | 184 +++++++++++++++++++++
+ 2 files changed, 261 insertions(+)
 
-diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-index 1fe20efd394d..9b65b5c57de8 100644
---- a/drivers/net/phy/dap8211r.c
-+++ b/drivers/net/phy/dap8211r.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/bitops.h>
- #include <linux/errno.h>
- #include <linux/ethtool.h>
- #include <linux/kernel.h>
-@@ -57,6 +58,56 @@
-  */
- #define DAP8211R_DEFAULT_DEL_SEL	0xD
- 
-+#define DAP8211R_LED_ID_0		0
-+#define DAP8211R_LED_ID_1		1
-+#define DAP8211R_LED_ID_2		2
+diff --git a/Documentation/devicetree/bindings/clock/qcom,netrani-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,netrani-gcc.yaml
+new file mode 100644
+index 0000000000000..f05e0ca78cb94
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/qcom,netrani-gcc.yaml
+@@ -0,0 +1,77 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/qcom,netrani-gcc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
++title: Qualcomm Global Clock & Reset Controller on Netrani
++
++maintainers:
++  - SignKirigami <prcups@krgm.moe>
++
++description: |
++  Qualcomm global clock control module provides the clocks, resets and power
++  domains on Netrani (Qualcomm codename parrot).
++
++  The controller is register compatible with the SM4450 one, but its clock
++  tree is not: it has no GPLL3, no HLOS1 vote clocks and no video/vcodec
++  clocks, and it adds the QUPV3 SE5/QSPI0 clocks of both wrappers, the camera
++  sleep clock and the video AXI0 clock.  Clock IDs therefore come from
++  qcom,netrani-gcc.h and are not interchangeable with SM4450's.
++
++  See also: include/dt-bindings/clock/qcom,netrani-gcc.h
++
++properties:
++  compatible:
++    const: qcom,netrani-gcc
++
++  clocks:
++    items:
++      - description: Board XO source
++      - description: Sleep clock source
++      - description: PCIe 0 pipe clock source
++      - description: UFS Phy Rx symbol 0 clock source
++      - description: UFS Phy Rx symbol 1 clock source
++      - description: UFS Phy Tx symbol 0 clock source
++      - description: USB3 Phy wrapper pipe clock source
++
++  clock-names:
++    items:
++      - const: bi_tcxo
++      - const: sleep_clk
++      - const: pcie_0_pipe_clk
++      - const: ufs_phy_rx_symbol_0_clk
++      - const: ufs_phy_rx_symbol_1_clk
++      - const: ufs_phy_tx_symbol_0_clk
++      - const: usb3_phy_wrapper_gcc_usb30_pipe_clk
++
++required:
++  - compatible
++  - clocks
++  - clock-names
++  - '#power-domain-cells'
++
++allOf:
++  - $ref: qcom,gcc.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,rpmh.h>
++    clock-controller@100000 {
++      compatible = "qcom,netrani-gcc";
++      reg = <0x00100000 0x001f4200>;
++      clocks = <&rpmhcc RPMH_CXO_CLK>, <&sleep_clk>,
++               <&pcie_0_pipe_clk>, <&ufs_mem_phy 0>, <&ufs_mem_phy 1>,
++               <&ufs_mem_phy 2>, <&usb_1_qmpphy>;
++      clock-names = "bi_tcxo", "sleep_clk", "pcie_0_pipe_clk",
++                    "ufs_phy_rx_symbol_0_clk", "ufs_phy_rx_symbol_1_clk",
++                    "ufs_phy_tx_symbol_0_clk",
++                    "usb3_phy_wrapper_gcc_usb30_pipe_clk";
++      #clock-cells = <1>;
++      #reset-cells = <1>;
++      #power-domain-cells = <1>;
++    };
++
++...
+diff --git a/include/dt-bindings/clock/qcom,netrani-gcc.h b/include/dt-bindings/clock/qcom,netrani-gcc.h
+new file mode 100644
+index 0000000000000..b4d4a39d4d690
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,netrani-gcc.h
+@@ -0,0 +1,184 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
 +/*
-+ * LED_COMCON force mode bits, per LED:
-+ * bit 2 - FORCE_EN (enable force mode for this LED)
-+ * bit 1:0 - FORCE_MODE: 00 = OFF, 01 = ON, 10 = blink mode1, 11 = blink mode2
-+ *
-+ * Only ON/OFF is supported.
++ * Copyright (c) 2021, 2024, Qualcomm Innovation Center, Inc. All rights reserved.
 + */
-+#define DAP8211R_LED_COMCON		0xA00B
-+#define DAP8211R_LED_FORCE_MODE_EN	BIT(2)
-+#define DAP8211R_LED_FORCE_MODE_MASK	GENMASK(1, 0)
-+#define DAP8211R_LED_FORCE_MODE_ON	FIELD_PREP(DAP8211R_LED_FORCE_MODE_MASK, 1)
 +
-+#define DAP8211R_LED_FORCE_EN(idx)	(DAP8211R_LED_FORCE_MODE_EN << 3 * (idx))
-+#define DAP8211R_LED_FORCE_ON(idx)	(DAP8211R_LED_FORCE_MODE_ON << 3 * (idx))
-+#define DAP8211R_LED_FORCE_MASK(idx)	(DAP8211R_LED_FORCE_MODE_MASK << 3 * (idx))
++#ifndef _DT_BINDINGS_CLK_QCOM_NETRANI_GCC_H
++#define _DT_BINDINGS_CLK_QCOM_NETRANI_GCC_H
 +
-+#define DAP8211R_LED_0_CON		0xA00C
-+#define DAP8211R_LED_ACT_BLINK		BIT(13)
-+#define DAP8211R_LED_FULL_DUPLEX	BIT(12)
-+#define DAP8211R_LED_HALF_DUPLEX	BIT(11)
-+#define DAP8211R_LED_TX			BIT(10)
-+#define DAP8211R_LED_RX			BIT(9)
-+#define DAP8211R_LED_LINK_1000		BIT(6)
-+#define DAP8211R_LED_LINK_100		BIT(5)
-+#define DAP8211R_LED_LINK_10		BIT(4)
++/* GCC clocks */
++#define GCC_GPLL0						0
++#define GCC_GPLL0_OUT_EVEN					1
++#define GCC_GPLL0_OUT_ODD					2
++#define GCC_GPLL1						3
++#define GCC_GPLL10						4
++#define GCC_GPLL4						5
++#define GCC_GPLL9						6
++#define GCC_AGGRE_NOC_PCIE_0_AXI_CLK				7
++#define GCC_AGGRE_UFS_PHY_AXI_CLK				8
++#define GCC_AGGRE_UFS_PHY_AXI_HW_CTL_CLK			9
++#define GCC_AGGRE_USB3_PRIM_AXI_CLK				10
++#define GCC_BOOT_ROM_AHB_CLK					11
++#define GCC_CAMERA_AHB_CLK					12
++#define GCC_CAMERA_HF_AXI_CLK					13
++#define GCC_CAMERA_SF_AXI_CLK					14
++#define GCC_CAMERA_SLEEP_CLK					15
++#define GCC_CAMERA_XO_CLK					16
++#define GCC_CFG_NOC_PCIE_ANOC_AHB_CLK				17
++#define GCC_CFG_NOC_USB3_PRIM_AXI_CLK				18
++#define GCC_DDRSS_GPU_AXI_CLK					19
++#define GCC_DDRSS_PCIE_SF_TBU_CLK				20
++#define GCC_DISP_AHB_CLK					21
++#define GCC_DISP_HF_AXI_CLK					22
++#define GCC_DISP_XO_CLK						23
++#define GCC_EUSB3_0_CLKREF_EN					24
++#define GCC_GP1_CLK						25
++#define GCC_GP1_CLK_SRC						26
++#define GCC_GP2_CLK						27
++#define GCC_GP2_CLK_SRC						28
++#define GCC_GP3_CLK						29
++#define GCC_GP3_CLK_SRC						30
++#define GCC_GPU_CFG_AHB_CLK					31
++#define GCC_GPU_GPLL0_CLK_SRC					32
++#define GCC_GPU_GPLL0_DIV_CLK_SRC				33
++#define GCC_GPU_MEMNOC_GFX_CLK					34
++#define GCC_GPU_SNOC_DVM_GFX_CLK				35
++#define GCC_PCIE_0_AUX_CLK					36
++#define GCC_PCIE_0_AUX_CLK_SRC					37
++#define GCC_PCIE_0_CFG_AHB_CLK					38
++#define GCC_PCIE_0_CLKREF_EN					39
++#define GCC_PCIE_0_MSTR_AXI_CLK					40
++#define GCC_PCIE_0_PHY_RCHNG_CLK				41
++#define GCC_PCIE_0_PHY_RCHNG_CLK_SRC				42
++#define GCC_PCIE_0_PIPE_CLK					43
++#define GCC_PCIE_0_PIPE_CLK_SRC					44
++#define GCC_PCIE_0_PIPE_DIV2_CLK				45
++#define GCC_PCIE_0_PIPE_DIV2_CLK_SRC				46
++#define GCC_PCIE_0_SLV_AXI_CLK					47
++#define GCC_PCIE_0_SLV_Q2A_AXI_CLK				48
++#define GCC_PDM2_CLK						49
++#define GCC_PDM2_CLK_SRC					50
++#define GCC_PDM_AHB_CLK						51
++#define GCC_PDM_XO4_CLK						52
++#define GCC_QMIP_CAMERA_NRT_AHB_CLK				53
++#define GCC_QMIP_CAMERA_RT_AHB_CLK				54
++#define GCC_QMIP_DISP_AHB_CLK					55
++#define GCC_QMIP_GPU_AHB_CLK					56
++#define GCC_QMIP_PCIE_AHB_CLK					57
++#define GCC_QMIP_VIDEO_VCODEC_AHB_CLK				58
++#define GCC_QUPV3_WRAP0_CORE_2X_CLK				59
++#define GCC_QUPV3_WRAP0_CORE_CLK				60
++#define GCC_QUPV3_WRAP0_QSPI0_CLK				61
++#define GCC_QUPV3_WRAP0_S0_CLK					62
++#define GCC_QUPV3_WRAP0_S0_CLK_SRC				63
++#define GCC_QUPV3_WRAP0_S1_CLK					64
++#define GCC_QUPV3_WRAP0_S1_CLK_SRC				65
++#define GCC_QUPV3_WRAP0_S2_CLK					66
++#define GCC_QUPV3_WRAP0_S2_CLK_SRC				67
++#define GCC_QUPV3_WRAP0_S3_CLK					68
++#define GCC_QUPV3_WRAP0_S3_CLK_SRC				69
++#define GCC_QUPV3_WRAP0_S4_CLK					70
++#define GCC_QUPV3_WRAP0_S4_CLK_SRC				71
++#define GCC_QUPV3_WRAP0_S5_CLK					72
++#define GCC_QUPV3_WRAP0_S5_CLK_SRC				73
++#define GCC_QUPV3_WRAP0_S5_DIV_CLK_SRC				74
++#define GCC_QUPV3_WRAP1_CORE_2X_CLK				75
++#define GCC_QUPV3_WRAP1_CORE_CLK				76
++#define GCC_QUPV3_WRAP1_QSPI0_CLK				77
++#define GCC_QUPV3_WRAP1_S0_CLK					78
++#define GCC_QUPV3_WRAP1_S0_CLK_SRC				79
++#define GCC_QUPV3_WRAP1_S1_CLK					80
++#define GCC_QUPV3_WRAP1_S1_CLK_SRC				81
++#define GCC_QUPV3_WRAP1_S2_CLK					82
++#define GCC_QUPV3_WRAP1_S2_CLK_SRC				83
++#define GCC_QUPV3_WRAP1_S3_CLK					84
++#define GCC_QUPV3_WRAP1_S3_CLK_SRC				85
++#define GCC_QUPV3_WRAP1_S4_CLK					86
++#define GCC_QUPV3_WRAP1_S4_CLK_SRC				87
++#define GCC_QUPV3_WRAP1_S5_CLK					88
++#define GCC_QUPV3_WRAP1_S5_CLK_SRC				89
++#define GCC_QUPV3_WRAP1_S5_DIV_CLK_SRC				90
++#define GCC_QUPV3_WRAP_0_M_AHB_CLK				91
++#define GCC_QUPV3_WRAP_0_S_AHB_CLK				92
++#define GCC_QUPV3_WRAP_1_M_AHB_CLK				93
++#define GCC_QUPV3_WRAP_1_S_AHB_CLK				94
++#define GCC_SDCC1_AHB_CLK					95
++#define GCC_SDCC1_APPS_CLK					96
++#define GCC_SDCC1_APPS_CLK_SRC					97
++#define GCC_SDCC1_ICE_CORE_CLK					98
++#define GCC_SDCC1_ICE_CORE_CLK_SRC				99
++#define GCC_SDCC2_AHB_CLK					100
++#define GCC_SDCC2_APPS_CLK					101
++#define GCC_SDCC2_APPS_CLK_SRC					102
++#define GCC_UFS_0_CLKREF_EN					103
++#define GCC_UFS_PAD_CLKREF_EN					104
++#define GCC_UFS_PHY_AHB_CLK					105
++#define GCC_UFS_PHY_AXI_CLK					106
++#define GCC_UFS_PHY_AXI_CLK_SRC					107
++#define GCC_UFS_PHY_ICE_CORE_CLK				108
++#define GCC_UFS_PHY_ICE_CORE_CLK_SRC				109
++#define GCC_UFS_PHY_PHY_AUX_CLK					110
++#define GCC_UFS_PHY_PHY_AUX_CLK_SRC				111
++#define GCC_UFS_PHY_RX_SYMBOL_0_CLK				112
++#define GCC_UFS_PHY_RX_SYMBOL_0_CLK_SRC				113
++#define GCC_UFS_PHY_RX_SYMBOL_1_CLK				114
++#define GCC_UFS_PHY_RX_SYMBOL_1_CLK_SRC				115
++#define GCC_UFS_PHY_TX_SYMBOL_0_CLK				116
++#define GCC_UFS_PHY_TX_SYMBOL_0_CLK_SRC				117
++#define GCC_UFS_PHY_UNIPRO_CORE_CLK				118
++#define GCC_UFS_PHY_UNIPRO_CORE_CLK_SRC				119
++#define GCC_USB30_PRIM_MASTER_CLK				120
++#define GCC_USB30_PRIM_MASTER_CLK_SRC				121
++#define GCC_USB30_PRIM_MOCK_UTMI_CLK				122
++#define GCC_USB30_PRIM_MOCK_UTMI_CLK_SRC			123
++#define GCC_USB30_PRIM_MOCK_UTMI_POSTDIV_CLK_SRC		124
++#define GCC_USB30_PRIM_SLEEP_CLK				125
++#define GCC_USB3_0_CLKREF_EN					126
++#define GCC_USB3_PRIM_PHY_AUX_CLK				127
++#define GCC_USB3_PRIM_PHY_AUX_CLK_SRC				128
++#define GCC_USB3_PRIM_PHY_COM_AUX_CLK				129
++#define GCC_USB3_PRIM_PHY_PIPE_CLK				130
++#define GCC_USB3_PRIM_PHY_PIPE_CLK_SRC				131
++#define GCC_UFS_PHY_AXI_HW_CTL_CLK				132
++#define GCC_UFS_PHY_ICE_CORE_HW_CTL_CLK				133
++#define GCC_UFS_PHY_PHY_AUX_HW_CTL_CLK				134
++#define GCC_UFS_PHY_UNIPRO_CORE_HW_CTL_CLK			135
++#define GCC_VIDEO_AHB_CLK					136
++#define GCC_VIDEO_AXI0_CLK					137
++#define GCC_VIDEO_THROTTLE_CORE_CLK				138
++#define GCC_VIDEO_XO_CLK					139
 +
-+#define DAP8211R_LED_LINK		(DAP8211R_LED_LINK_10	| \
-+					DAP8211R_LED_LINK_100	| \
-+					DAP8211R_LED_LINK_1000)
++/* GCC resets */
++#define GCC_CAMERA_BCR						0
++#define GCC_DISPLAY_BCR						1
++#define GCC_EMMC_BCR						2
++#define GCC_GPU_BCR						3
++#define GCC_PCIE_0_BCR						4
++#define GCC_PCIE_0_LINK_DOWN_BCR				5
++#define GCC_PCIE_0_NOCSR_COM_PHY_BCR				6
++#define GCC_PCIE_0_PHY_BCR					7
++#define GCC_PCIE_0_PHY_NOCSR_COM_PHY_BCR			8
++#define GCC_PCIE_PHY_CFG_AHB_BCR				9
++#define GCC_PCIE_PHY_COM_BCR					10
++#define GCC_PDM_BCR						11
++#define GCC_QUPV3_WRAPPER_0_BCR					12
++#define GCC_QUPV3_WRAPPER_1_BCR					13
++#define GCC_QUSB2PHY_PRIM_BCR					14
++#define GCC_QUSB2PHY_SEC_BCR					15
++#define GCC_SDCC2_BCR						16
++#define GCC_UFS_PHY_BCR						17
++#define GCC_USB30_PRIM_BCR					18
++#define GCC_USB3_DP_PHY_PRIM_BCR				19
++#define GCC_USB3_DP_PHY_SEC_BCR					20
++#define GCC_USB3_PHY_PRIM_BCR					21
++#define GCC_USB3_PHY_SEC_BCR					22
++#define GCC_USB3PHY_PHY_PRIM_BCR				23
++#define GCC_USB3PHY_PHY_SEC_BCR					24
++#define GCC_VIDEO_AXI0_CLK_ARES					25
++#define GCC_VIDEO_BCR						26
 +
-+#define DAP8211R_LED_SUPPORTED_TRG	(BIT(TRIGGER_NETDEV_LINK)	| \
-+					BIT(TRIGGER_NETDEV_LINK_10)	| \
-+					BIT(TRIGGER_NETDEV_LINK_100)	| \
-+					BIT(TRIGGER_NETDEV_LINK_1000)	| \
-+					BIT(TRIGGER_NETDEV_TX)		| \
-+					BIT(TRIGGER_NETDEV_RX)		| \
-+					BIT(TRIGGER_NETDEV_HALF_DUPLEX)	| \
-+					BIT(TRIGGER_NETDEV_FULL_DUPLEX))
++/* GCC power domains */
++#define GCC_UFS_PHY_GDSC					27
++#define GCC_USB30_PRIM_GDSC					28
 +
-+#define DAP8211R_LED_SUPPORTED_MASK	(DAP8211R_LED_ACT_BLINK		| \
-+					DAP8211R_LED_FULL_DUPLEX	| \
-+					DAP8211R_LED_HALF_DUPLEX	| \
-+					DAP8211R_LED_TX			| \
-+					DAP8211R_LED_RX			| \
-+					DAP8211R_LED_LINK)
-+
- static const int dap8211r_internal_delay[] = {0, 150, 300, 450, 600, 750, 900,
- 					      1050, 1200, 1350, 1500, 1650, 1800,
- 					      1950, 2100, 2250};
-@@ -87,6 +138,31 @@ static int dap8211r_read_ext(struct phy_device *phydev, u16 reg)
- 	return ret;
- }
- 
-+/**
-+ * dap8211r_write_ext() - Write extended register
-+ * @phydev: PHY device structure
-+ * @reg: Extended register address
-+ * @data: Data to write
-+ *
-+ * Writes a PHY extended register using the indirect access method.
-+ *
-+ * Return: 0 on success, or negative error code
-+ */
-+static int dap8211r_write_ext(struct phy_device *phydev, u16 reg, u16 data)
-+{
-+	int ret;
-+
-+	phy_lock_mdio_bus(phydev);
-+	ret = __phy_write(phydev, DAP8211R_EXT_ADD, reg);
-+	if (ret < 0)
-+		goto out;
-+
-+	ret = __phy_write(phydev, DAP8211R_EXT_DATA, data);
-+out:
-+	phy_unlock_mdio_bus(phydev);
-+	return ret;
-+}
-+
- /**
-  * dap8211r_modify_ext() - Modify extended register bits
-  * @phydev: PHY device structure
-@@ -114,6 +190,185 @@ static int dap8211r_modify_ext(struct phy_device *phydev, u16 reg, u16 mask, u16
- 	return ret;
- }
- 
-+/**
-+ * dap8211r_led_brightness_set() - Modify the LEDs common control register
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @value: ON/OFF value for force mode of the LED
-+ *
-+ * Enables force mode and sets the LED to ON/OFF state.
-+ * It will be disabled when hardware LED control is requested.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index, or a negative error code
-+ */
-+static int dap8211r_led_brightness_set(struct phy_device *phydev, u8 index,
-+				       enum led_brightness value)
-+{
-+	u16 set, mask;
-+
-+	switch (index) {
-+	case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
-+		mask = DAP8211R_LED_FORCE_MASK(index);
-+		set = DAP8211R_LED_FORCE_EN(index);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (value != LED_OFF)
-+		set |= DAP8211R_LED_FORCE_ON(index);
-+
-+	return dap8211r_modify_ext(phydev, DAP8211R_LED_COMCON, mask, set);
-+}
-+
-+/**
-+ * dap8211r_led_hw_is_supported() - Check if the requested LED rules are supported
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @rules: Bitmask of requested netdev trigger rules
-+ *
-+ * Validates the requested combination of rules which can be represented in the
-+ * hardware register.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index,
-+ *         or -EOPNOTSUPP if any requested rule is not supported by the PHY
-+ */
-+static int dap8211r_led_hw_is_supported(struct phy_device *phydev, u8 index, unsigned long rules)
-+{
-+	switch (index) {
-+	case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return (rules & ~DAP8211R_LED_SUPPORTED_TRG) ? -EOPNOTSUPP : 0;
-+}
-+
-+/**
-+ * dap8211r_led_hw_control_set() - Write the LED control register
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @rules: Bitmask of requested netdev trigger rules
-+ *
-+ * Disables force mode and translates the requested trigger rules into
-+ * the corresponding bit positions of the LED control register and writes
-+ * the resulting value to the PHY.
-+ *
-+ * Note that the ACT_BLINK bit (13) must be set together with TX/RX rules,
-+ * otherwise the LED will not blink on traffic if no other rule (such as
-+ * link or duplex) is active.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index, or a negative error code
-+ */
-+static int dap8211r_led_hw_control_set(struct phy_device *phydev, u8 index, unsigned long rules)
-+{
-+	u16 led_mode = 0, led_reg;
-+	int ret;
-+
-+	switch (index) {
-+	case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
-+		led_reg = DAP8211R_LED_0_CON + index;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules))
-+		led_mode |= DAP8211R_LED_LINK;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_10, &rules))
-+		led_mode |= DAP8211R_LED_LINK_10;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_100, &rules))
-+		led_mode |= DAP8211R_LED_LINK_100;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_1000, &rules))
-+		led_mode |= DAP8211R_LED_LINK_1000;
-+
-+	if (test_bit(TRIGGER_NETDEV_RX, &rules))
-+		led_mode |= DAP8211R_LED_RX | DAP8211R_LED_ACT_BLINK;
-+
-+	if (test_bit(TRIGGER_NETDEV_TX, &rules))
-+		led_mode |= DAP8211R_LED_TX | DAP8211R_LED_ACT_BLINK;
-+
-+	if (test_bit(TRIGGER_NETDEV_HALF_DUPLEX, &rules))
-+		led_mode |= DAP8211R_LED_HALF_DUPLEX;
-+
-+	if (test_bit(TRIGGER_NETDEV_FULL_DUPLEX, &rules))
-+		led_mode |= DAP8211R_LED_FULL_DUPLEX;
-+
-+	ret = dap8211r_write_ext(phydev, led_reg, led_mode);
-+	if (ret)
-+		return ret;
-+
-+	return dap8211r_modify_ext(phydev, DAP8211R_LED_COMCON,
-+				   DAP8211R_LED_FORCE_EN(index), 0);
-+}
-+
-+/**
-+ * dap8211r_led_hw_control_get() - Read the current LED configuration
-+ * @phydev: PHY device structure
-+ * @index: LED index
-+ * @rules: Pointer to a bitmask where the current rules will be stored
-+ *
-+ * Reads the LED control register and translates the hardware bit
-+ * positions back into the corresponding netdev trigger rules bitmask.
-+ *
-+ * Return: 0 on success, -EINVAL for an invalid LED index, -EOPNOTSUPP if the
-+ *         current hardware configuration cannot be represented in rules, or a
-+ *         negative error code
-+ */
-+static int dap8211r_led_hw_control_get(struct phy_device *phydev, u8 index, unsigned long *rules)
-+{
-+	u16 led_reg;
-+	int led_mode = 0;
-+
-+	switch (index) {
-+	case DAP8211R_LED_ID_0 ... DAP8211R_LED_ID_2:
-+		led_reg = DAP8211R_LED_0_CON + index;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	led_mode = dap8211r_read_ext(phydev, led_reg);
-+	if (led_mode < 0)
-+		return led_mode;
-+
-+	if (led_mode & ~DAP8211R_LED_SUPPORTED_MASK)
-+		return -EOPNOTSUPP;
-+
-+	if ((led_mode & DAP8211R_LED_LINK) == DAP8211R_LED_LINK) {
-+		__set_bit(TRIGGER_NETDEV_LINK, rules);
-+	} else {
-+		if (led_mode & DAP8211R_LED_LINK_10)
-+			__set_bit(TRIGGER_NETDEV_LINK_10, rules);
-+
-+		if (led_mode & DAP8211R_LED_LINK_100)
-+			__set_bit(TRIGGER_NETDEV_LINK_100, rules);
-+
-+		if (led_mode & DAP8211R_LED_LINK_1000)
-+			__set_bit(TRIGGER_NETDEV_LINK_1000, rules);
-+	}
-+
-+	if ((led_mode & DAP8211R_LED_RX) &&
-+	    (led_mode & DAP8211R_LED_ACT_BLINK))
-+		__set_bit(TRIGGER_NETDEV_RX, rules);
-+
-+	if ((led_mode & DAP8211R_LED_TX) &&
-+	    (led_mode & DAP8211R_LED_ACT_BLINK))
-+		__set_bit(TRIGGER_NETDEV_TX, rules);
-+
-+	if (led_mode & DAP8211R_LED_HALF_DUPLEX)
-+		__set_bit(TRIGGER_NETDEV_HALF_DUPLEX, rules);
-+
-+	if (led_mode & DAP8211R_LED_FULL_DUPLEX)
-+		__set_bit(TRIGGER_NETDEV_FULL_DUPLEX, rules);
-+
-+	return 0;
-+}
-+
- /**
-  * dap8211r_config_init() - Initialize PHY
-  * @phydev: PHY device structure
-@@ -202,6 +457,10 @@ static struct phy_driver dap8211r_driver[] = {
- 		.config_aneg	= genphy_config_aneg,
- 		.suspend	= genphy_suspend,
- 		.resume		= genphy_resume,
-+		.led_brightness_set	= dap8211r_led_brightness_set,
-+		.led_hw_is_supported	= dap8211r_led_hw_is_supported,
-+		.led_hw_control_set	= dap8211r_led_hw_control_set,
-+		.led_hw_control_get	= dap8211r_led_hw_control_get,
- 	},
- };
- module_phy_driver(dap8211r_driver);
++#endif
+
 -- 
-2.43.0
+2.56.0
 
