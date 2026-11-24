@@ -1,70 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795531251;
-	b=IHsz29Vt100PkqTWK3vXY1dKzqQz+ZqAiWAn6eblbmGdvF2xfhiCafGsQZI0F4sWD/Xf
-	 0C3v/E3kkgjfX6vRAOgph3TisB1px+FGDUNlPuOu1eP9baMZP0QEIIHPOPhcSFpZ4kBut
-	 k4V9JnMeYm+rhW2VdKgBc9ajmy3lVWjZCnxldoNHHvYoMxOPTOBNzzyr4atJdL7/8aeFW
-	 SKEpxPXn801XNixGbaa1poRTIlv6HYm9R6eLTMKxRxfxH7vM2d/MJrPhdfug4xt+7jcgP
-	 2LN9v1TlLgWT/TSVxSY5abLD6JMbBaCV4UVARs0f87PD/f44deyjtm9WNbdGORrAN2A==
+	t=1795531368;
+	b=ykvSKr2MPcLbGpifLXVIC8xzfGK5Pus/SOfwg0F4YYH7/yqvbj7dyjePonRzuYKRrZjg
+	 gE88XbEth4O82+07AiKCXj/nGx/q0zHp4JuA3KpLRacuk6ak0yV7M7QyyqUV/mst3SsO0
+	 4OIj/4Aq4TpOhYhuRYoTE+Wx8UzPMoYAbCQRqWkDUGJNhHKGaoZ9/0FVndVyTH5MroDvL
+	 HfjEphBvtUsVGA7EyQbB6zC91bfd+YypRJW3ZFHzID7fiB+7nqfnb95YVKy5PhvDq/VsY
+	 HJYnkZjH5jCTGdQkU1r7hwKGeFrWDmJ9Jgsn3sPFAHStAFRKH9zKhrajGuuty6hqZuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795531251;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=unbcf7IxetKvCKK1oK9oQ5fvh2u9DJnAEwqwMUBWQOo=;
-	b=2t9qM2h2mfqUCw/mRISP5eaeBdQfcCj64QdQJjnfCLlcKAR+/DFbx8+0tpd6PTv/66oc
-	 sNnOLa75YqdxinPfl8XkJswCsqpN5JFJK8yUXN9kRdbRgG3ivkef65Di1jtLF5d0YT+Oy
-	 G8vZ5sS6FL9CI/tHqJj6LSMDODPMheR9YKuSDGgJDHBMj67P+t+Z8GxbduzQrr3pNCwUk
-	 LS/03AOVK+B7ctcqmPQHwz10Bu776shOgaCfwDXiqAYwj5sM1rMIHsEN4g/zaVdKGsTB3
-	 q22X5p5ObWbveSYJWQOXPgE6LhQPZWJ30ab24ptwhldaifVjIpXG0sA3zt3kuMyookg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795531368;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=whpdiooOdtf0fQpB9RYBhngBI1Ig6SjjoowNuFUHFpk=;
+	b=nU7fNx0ipYPPYjH9iKwrPkQCRg0bHaWTiibfkryAJE/VaV4QGCsCagQW2wth440WLG/y
+	 hnunGbtYeqK/QFZIvBHaNX2PE7+KN4zHfpfylNYx82phh3F51jIY60D93O5Tbka4u3T54
+	 VP1CAosZ2u9u3xoGbmxnAH3aEKjVbSHYKJjsbMeUJkWIWc0oYfmAfDrp8JsyNv/tLP1np
+	 tsyhe/iiOdjjfJ11l7rKIKaEmTfy87a53Di7mTJJnqYzUnZ4nMtltGhUVFXXyKHG2Vntc
+	 odgbjVwl9hxBxfWI16d12oTT738GM8MnbklVJ8Ac3iNiuyUoosBaNM4ZBv5lJh4IM5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=io9tgaHH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB02606A332;
-	Tue, 24 Nov 2026 14:40:51 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UDdLoFoN;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4C40606A327;
+	Tue, 24 Nov 2026 14:42:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4C40606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=io9tgaHH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572071F000D0;
-	Tue, 24 Nov 2026 14:40:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795531251;
-	bh=unbcf7IxetKvCKK1oK9oQ5fvh2u9DJnAEwqwMUBWQOo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=io9tgaHHOyo0Z5zikV7SPV2Mwg+94HMNGbKiAM6qeawvECgjSx8Wwf/4yH3FweP+3
-	 TL7qQJAZMBWzCIlZak4Iy94oXDyTDm8kfC54GyWgMQaSBTQa9kkC8/F2r893oDxpwc
-	 tlvIxnIdjAa8rhJn38qfedqiDhY2U4aFH4mg7hs2IJuSxAOxVT0VBEZithvdBqfqN+
-	 xyFKXxxrBo5rneon0rgD37tzMv9xzSn6QyMSDl2YTyqXHgch9BVeQUItNuW3Ye4hUC
-	 qGKaO8UhXh8/zqil67p9RbC3e68sJ/7wZHtumE4lq/eECPNerHkHhoYWSFOvQQcGGF
-	 Dbl+rs4tjDHhw==
-Date: Tue, 24 Nov 2026 15:40:47 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
-	Pavel Machek <pavel@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
-	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
-	Russell King <linux@armlinux.org.uk>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
-	Helge Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>, 
-	Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	linux-sound@vger.kernel.org, linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-pwm@vger.kernel.org, linux-fbdev@vger.kernel.org, letux-kernel@openphoenux.org, 
-	kernel@pyra-handheld.com
-Subject: Re: [PATCH v2 08/20] dt-bindings: mfd: twl4030: Document 64-cycle PWM
-Message-ID: <20261124-neon-noble-seagull-df2d40@quoll>
-References: <cover.1795505160.git.hns@goldelico.com>
- <8e0c47487add0fa1bc0dad9b1bceef5ebf8071d4.1795505160.git.hns@goldelico.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UDdLoFoN
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BB703339;
+	Tue, 24 Nov 2026 06:42:43 -0800 (PST)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B19953F86C;
+	Tue, 24 Nov 2026 06:42:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795531366; bh=HSwH1G2ztI4XVuIpxGm5jCaIGdOBrcPPn6I/LiR0ErE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UDdLoFoNOCRh4wx8Dt+N0YAX48rS5yofCSHP4YgowGgAqupRoB1XUFyiOgWSAXjsv
+	 R9Ll5zo15TJAAAsFh8bp2IPsU6g5wRm60IFIFHPh/w9efiojqahBFW30REqhMEKzVw
+	 xry7Tl9F7uRVevJe2tDZJ9cBuK4Joj+DAPL5HUjM=
+Message-ID: <ebf2d6db-8260-4ac3-8316-ae9a0e5ee1b7@arm.com>
+Date: Tue, 24 Nov 2026 15:42:42 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,66 +53,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8e0c47487add0fa1bc0dad9b1bceef5ebf8071d4.1795505160.git.hns@goldelico.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] dt-bindings: arm: sunxi: document Radxa Cubie A7S
+To: Enzo Adriano <enzo.adriano.code@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
+ Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
+ Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>,
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
+ Lukas Schmid <lukas.schmid@netcube.li>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <cover.1795034153.git.enzo.adriano.code@gmail.com>
+ <428efa99fdd0182e8bc9a2ed88b78d2cbd36fa45.1795034153.git.enzo.adriano.code@gmail.com>
+ <20261122004008.0ee8e16d@ryzen.lan> <20261121-a733-dt-v4-1-reply@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261121-a733-dt-v4-1-reply@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 24, 2026 at 08:25:48AM +0100, H. Nikolaus Schaller wrote:
-> Document the optional ti,twl4030-pwm-frame-64 property for the
-> TWL4030 PWM controller. It selects the 64-clock-cycle frame instead
-> of the default 128-cycle frame, doubling the output frequency and
-> reducing duty-cycle resolution.
+Hi,
+
+On 11/23/26 18:42, Enzo Adriano wrote:
+>> Can you please add the A7A and name as well? I will send the .dts
+>> patch shortly, but having the name ready would reduce the churn and
+>> avoid conflicts.
 > 
-> The selection is explicit because the driver does not know the PWM
-> input clock rate and cannot derive the hardware frame length from a
-> consumer-requested period. The shorter frame can reduce PWM LOW
-> intervals during startup mode detection of LED drivers such as the
-> TI TPS61160/61.
+> I added "radxa,cubie-a7a", "allwinner,sun60i-a733". Both strings
+
+Many thanks! I just see that I messed up my sentence above, as I wanted 
+to have the Cubie A7Z added as well, to reduce the churn and stupid 
+conflicts between series.
+If you respin, can you please add this one as well?
+
+> are in Radxa's Linux 5.15 Cubie A7A board DTS.
+
+Please note that copying from a BSP is typically not a good idea (though 
+fine in this case). The devicetree as (somewhat) published by Allwinner 
+is quite non-standard, to put it nicely. There are large conceptual 
+differences even, so it's not just about naming or such. You can use 
+their DT to figure out how peripherals are connected, or to learn about 
+some IP in general, but it's not a good template to copy from for 
+mainlining.
+I would always look at other DTs in the mainline repo for reference.
+
+> Please let me know if
+> your DTS uses a different compatible.
+
+Why would it do this? It's the very same SoC ;-)
+But yes, "radxa,cubie-a7a", "allwinner,sun60i-a733" is the right string 
+list. And just replace a7a with a7z for the other board, if you add this.
+
+Thanks,
+Andre.
+
+P.S. I would like to post my A7A DT patch, with the hope that you could 
+include that in your next post, shall you update your series again? So 
+could you wait with a potential v6 post until I got that one tested and 
+posted? Then you could ideally also include Vinicius' A7Z patch, so that 
+we have all in one series, and just need to deal with the dependencies once.
+
+> https://github.com/radxa/allwinner-device/blob/6d911d1582dcccdb5a4c38be8d3c1ee851019795/configs/cubie_a7a/linux-5.15/board.dts#L5-L9
 > 
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> ---
-> 
-> Notes:
->     Changes against V1:
->     - Revised commit message to focus on the binding and the reason
->       for explicit 64-cycle frame selection.
->     - Commit-message review assisted by ChatGPT.
-> 
->  Documentation/devicetree/bindings/mfd/ti,twl.yaml | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,twl.yaml b/Documentation/devicetree/bindings/mfd/ti,twl.yaml
-> index 9cc3e4721612e..f458f0d80f2cd 100644
-> --- a/Documentation/devicetree/bindings/mfd/ti,twl.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/ti,twl.yaml
-> @@ -396,6 +396,15 @@ properties:
->        '#pwm-cells':
->          const: 2
->  
-> +      ti,twl4030-pwm-frame-64:
-
-Drop twl4030. Properties are not model specific, but should be re-usable
-among all of devices from that vendor (when applicable).
-
-> +        type: boolean
-> +        description:
-> +          TWL4030 only; not supported by TWL6030 PWM.
-
-Don't repeat constraints in free form text. Implement proper dt-schema
-for this.
-
-> +          Select the short 64-clock-cycle PWM frame instead of the
-> +          default 128-cycle frame, doubling the PWM frequency. Required
-> +          for dimming inputs requiring short PWM low intervals during
-> +          startup mode detection (e.g. TI TPS61160/61).
-
-I don't get how TPS is related here, but if you mention other specific
-device then I wonder - why isn't this deducible from the compatible? Or
-you mean that PWM consumers might need it, depending on  the consumer?
-
-But isn't this then dynamic choice - depending on PWM frequency the
-consumer wants?
-
-Best regards,
-Krzysztof
+> Enzo
 
