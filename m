@@ -1,47 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795508309;
-	b=BMvhvJcfxEeSBIYzDoxldqYpNn0GTk/QnWn9xT5j2+ekIGzC+zf5u1aLTsq/SRXuz5hO
-	 1GoEPDTMEynnap9QpzYyRwLC9wbHg4ZN2iTgfOxCm0HrqOslBLbzxSdyGjN9hWkLkKNYU
-	 xdGrzMAqMJE+oXGT5wYCVOPFuu9lm5hJgvSAZDSozMM9hgd1jGLJTqoLursjGFmBd9E5N
-	 LOQMXnmKhO4JN5N+Wu3evtuK5PJmvLq903FTcAKfsg2GWgGLOTH2SoX8ol5L2u87H+NRc
-	 R5yi3dzfKT80tg/6rVurqdSZpjrtar3DmC8SLU5B8rpUIaFNVoM/ibPLOGhQPBamc4g==
+	t=1795508361;
+	b=OuvQbikY0X8J0dEc/AhH5JqSrKrh1d6LQ16jp630LnTOcCn7Tv1h9GMqdqOCRwLbz0Sk
+	 28VNKih+VYZHV9bMea759x7oBQ3c8aW/MIoCFFkXMb/mu7rN6qYPqeUdUI2EEdoE+P6Fs
+	 AawTv1euNmuT3U+ggj6qvkHB2lpp1NZEXyeV4qb2lJFit+WYqBjp3MEmupOFnPNLqMV57
+	 S5hIdZuAZdT26jpzfuzHXVlXy8HKF81H7+XCHkiBgnbcXQcVHA2uNKuFO39TsDtZmJm8K
+	 VgqicblpuS+osaAmG/oeVZ1dwE599szzaUHZieSASngxfvgdgNXFZGk7c7ox9ixG2yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795508309;
-	h=DMARC-Filter:Received:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Virus-Scanned;
-	bh=hqRSb0ylNLV6vD4z5XoIrPEgClP+9sq7dQZHqPqG42s=;
-	b=jY9wVOr4ELu39NCZOBFgxBoFiu1Sk0vxR6x4YPzRE+gLgaT4ucjn8xRib+esC5v3/7Fc
-	 jGKaMNkUBcqt+d4LnV6htZ6swDcsIXyNjegAPLy8i28JbNwojGxrG06wmdV2sjzDa9jWe
-	 BQiFiMp7OMg71ycn0MhnKdaKFuQoHCYrNsPmNZ/eGJvnjcDGx8v3RZUM/x/auQKifsgHk
-	 lteutkrxT4UGxgvI37do6tXd8jtAzp2lStM56Jz7hcUhWaWLnNhq+noutUpUGqbU3tP+t
-	 z/lIBh6FlkDXCy8Jsq0XERHq3sUusJD+u8cYddl57jx26dd91ABXvWHyc0YecpltpgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795508361;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=8oyzW5Xhq7U02BOQUFs8WVt9Q7wuDOt/dl3tR8yBzUc=;
+	b=NRljvb1StSviINMCjyPXqg2xZ8UnPcZJZ2spo6ks6IY7+eva/5EB66eZnKir1vpWoSom
+	 mUOxx2Ep1LJ2iwjJSYXJKBqSdID65vZ/SqxvcdT+O3sbTndbgtdLB1wN0QwqTnHiRw5Vl
+	 0O5G55RENEfX9eFWmYiSx8IcEffiYT8ejioToR0TzhcI88Jz9y8Ld16W8c0SuhzYPA4n3
+	 VtBY0ppxLEjyD/BrKH0CLceSahBnEgxMsUgj4oyHqzCctdyNa4iQPT24VYUoojxhz/5/4
+	 DYoK0WBf+8rBRvtmGqPjU6VgRjrmeEx9NkQfCPRoEvGRuVW5xEg66A/bhynW64mofFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	arc=none smtp.remote-ip=92.121.34.21
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=l2m8Ztvs;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB794606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:18:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB794606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 5140320002A;
-	Tue, 24 Nov 2026 09:18:21 +0100 (CET)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1C83E200006;
-	Tue, 24 Nov 2026 09:18:21 +0100 (CET)
-Received: from lsvm11u0000395.swis.ap-northeast-2.aws.nxp.com (lsvm11u0000395.swis.ap-northeast-2.aws.nxp.com [10.52.9.99])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 410751800088;
-	Tue, 24 Nov 2026 16:18:19 +0800 (+08)
-From: Joseph Guo <qijian.guo@nxp.com>
-Date: Tue, 24 Nov 2026 17:18:17 +0900
-Subject: [PATCH] arm64: dts: imx8mp-frdm: Remove unused realtek properties
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360B7606A31E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 08:19:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 360B7606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=l2m8Ztvs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
+	From:Subject:Message-ID:From:Reply-To;
+	bh=8oyzW5Xhq7U02BOQUFs8WVt9Q7wuDOt/dl3tR8yBzUc=; t=1795508359; x=2110868359; 
+	b=l2m8ZtvskeLJKWROZIXVNSDPHAAjpJTlQsqz9jTM1AXTiBfsyXpom+4nig4w7RYdS5WjzGXCRix
+	7zIVN2zamJ6vSiYRq5ugw4DJR0Rdbohyx4+bVM3MWhXzdsTqI2U3U7SwtzaMzRQOShKc3ln/b06Kv
+	b2fEYNHPGQEiBckHkCNFQCHcihvjUXiQKMqXZEP7ssdK3sFSOxHGEwThQRBUJoJwn9ukEvTIjRLWc
+	uGgUHlyAz8CDt9nXi9SJ+ITW0MKS9a6gFn9rDfrw2yOfvxuLn+l+Qrdd2CH7WPPJz8xfSySDmebdz
+	kdHFuAFi4EGZGNw7O1JwRzkcGvz2U0BF4+TA==;
+Received: from [137.101.48.64] (helo=[192.168.0.17])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xVlk5-00000003FWX-32K0;
+	Tue, 24 Nov 2026 09:19:09 +0100
+Message-ID: <164b646734156ec16171abdb0de4ce1f3a723b6b.camel@igalia.com>
+Subject: Re: [PATCH 2/2] drm/v3d: Remove V3D 3.3 and 4.1 support
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Melissa Wen <mwen@igalia.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nicolas Saenz Julienne <nsaenz@kernel.org>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org
+Date: Tue, 24 Nov 2026 09:18:59 +0100
+In-Reply-To: <20261122-v3d-remove-33-41-v1-2-52152b454ad8@igalia.com>
+References: <20261122-v3d-remove-33-41-v1-0-52152b454ad8@igalia.com>
+	 <20261122-v3d-remove-33-41-v1-2-52152b454ad8@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,60 +73,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-8mp_realtek-v1-1-3da734007eff@nxp.com>
-X-B4-Tracking: v=1; b=H4sIAEhIBWsC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQyMTXYvcgvii1MScktRs3TRjc9PkVLPURMukVCWgjoKi1LTMCrBp0bG
- 1tQC3X75iXQAAAA==
-X-Change-ID: 20261124-8mp_realtek-f375ce6ea9be
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Fabian Pfitzner <f.pfitzner@pengutronix.de>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Joseph Guo <qijian.guo@nxp.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795508299; l=1058;
- i=qijian.guo@nxp.com; s=20250519; h=from:subject:message-id;
- bh=rgm1aRFFWQrRE+f1gbnVp8iVbSLtNQiOlcAcqDGTNSo=;
- b=huXENi4J/NRcZn+qh5ZNfDIYqfwdL1TrFbkTbT7+Enlszgg2W075eII+8gJVXzB8nAH2isvE9
- GBfijoG8qgBA3hAP6xdbst13yNT/N45SI9Ejc81GNSpKYsXw9LE/4Tq
-X-Developer-Key: i=qijian.guo@nxp.com; a=ed25519;
- pk=VRjOOFhVecTRwBzK4mt/k3JBnHoYfuXKCm9FM+hHQhs=
-X-Virus-Scanned: ClamAV using ClamSMTP
 
-FRDM-IMX8MP use Motorcomm phy instead of Realtek PHY.
-Remove realtek specific properties as it is unused.
+El dom, 22-11-2026 a las 12:47 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+>=20
+(...)
+> @@ -210,8 +194,6 @@ static int v3d_v3d_debugfs_ident(struct seq_file
+> *m, void *unused)
+> =C2=A0		if (v3d->ver <=3D V3D_GEN_42) {
+> =C2=A0			seq_printf(m, "=C2=A0 BCG int:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 %d\=
+n",
+> =C2=A0				=C2=A0=C2=A0 (ident2 & V3D_IDENT2_BCG_INT) !=3D
+> 0);
+> -		}
+> -		if (v3d->ver < V3D_GEN_41) {
+> =C2=A0			seq_printf(m, "=C2=A0 Override TMU: %d\n",
+> =C2=A0				=C2=A0=C2=A0 (misccfg & V3D_MISCCFG_OVRTMUOUT)
+> !=3D 0);
+> =C2=A0		}
 
-Fixes: 95d7d7d2ad27 ("arm64: dts: imx8mp-frdm: add sd, ethernet, wifi, usb and hdmi support")
 
-Signed-off-by: Joseph Guo <qijian.guo@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx8mp-frdm.dts | 2 --
- 1 file changed, 2 deletions(-)
+This looks like a bugfix, since MISCCFG_OVRTMUOUT seems to exist in V3D
+4.2 as well, maybe split out to a separate patch? Or at least mention
+the small fix in the commit log.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-frdm.dts b/arch/arm64/boot/dts/freescale/imx8mp-frdm.dts
-index f43330d1ff8b63a86d84bb6e5cbba72b313eb634..e621b6fdaa77996b0837a3545e1d92e0cb44015f 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-frdm.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-frdm.dts
-@@ -233,8 +233,6 @@ ethphy1: ethernet-phy@1 {
- 			reset-gpios = <&gpio4 2 GPIO_ACTIVE_LOW>;
- 			reset-assert-us = <10000>;
- 			reset-deassert-us = <80000>;
--			realtek,aldps-enable;
--			realtek,clkout-disable;
- 		};
- 	};
- };
+Otherwise, pending feedback from Floarian and DT maintainers on your
+question about removing compatibles, this patch is:
 
----
-base-commit: 3191063649dbf7c0d0b768e1f3655e4c5fc6edb5
-change-id: 20261124-8mp_realtek-f375ce6ea9be
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
 
-Best regards,
--- 
-Joseph Guo <qijian.guo@nxp.com>
+
 
