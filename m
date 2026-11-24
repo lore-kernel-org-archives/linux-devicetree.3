@@ -1,116 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795558611;
-	b=Xwer0yAj894UuHcWYyWVo8bZsfd/rr5HSMxKB6/hnf5BNsDS1vqHLrptTcrIjPqhdZYm
-	 f4R0wWQvwfgTwhMYrVhjlhjklnxLsB/BIQB1QAkVsLD0w6DHJp8YFIPJ8l80n7JcyUYq7
-	 W2hqRX9r0N3dLpItzNyPCgU0kofebEdA8n5/qIcHMJxilzuUkWmfqpXDhTAtYQsNOENne
-	 608GOBSC+1684zGCcVgtJGYsz8caadrJx1LmF86/2+HkQh6UfDi3z0iKWhKCeUSC95HRq
-	 377St23xHgyN6JD5t2omdB1Jpm6fRNClPYECBkzfjwpVmJJokWWb2gRn3H7I3RlaGSA==
+	t=1795559103;
+	b=t3e+LP9uyoi0Et1krbcx0Lhi4l6jVC1HKw7OPwR7OXGpjjTsds8ybgmPaD0JLdWbeaLr
+	 NF+4QmlWe4yfg//Pac+yadchTmV6qFx/8qYNjbG1Rcqe6IHSmHlUFKX8I8gf85cPIPCPz
+	 GTMxdFTNazEa5Dmc4e/MdvuzbH0s/AI5yzRrJomQ0EKqNbmgC/CUhzfYi3u2HBPwfRuRD
+	 qEnD5SE/2ROpzTtrxiNzN5jRWsh1mLwsr8rVUmV+9B6B7NfoFAOyiHCu52dqhoJvNruie
+	 G1/hN9oM9yp/U48TKfwCDzZYvtMlq/YlWi4I2yRTw3Lge3d5g+cPQEaPrnZf2GeM5pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795558611;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795559103;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=Uhmi7vdLdSTBTBfiyTnnA5vkStcVEY8sN0rPcbiafRM=;
-	b=wd1bWYaajlE21ufjqT08KIK7dneETi7YsWzay6kwLYLae01L+BTPk6n2rRazN5mjOtNV
-	 ZOerLuFNnXvtAmSvMd95oNdQA+U7Jzsc5vb0BrWzdWVJN/iiipurZmSFNBPYOvk+mePY/
-	 Hd4/LgE2/yajlC5muYkBsVsDCBicv6Pa8LL4h9h0Cc3fYuOa6TcbL+ALIPOPZX/uIwvtg
-	 POeNZlMg2EpHEYRlLUGvZLSHXI60eIybHooHPDVvbS7f+D77vDxBwZ+l2O/JT98Y2N06+
-	 jTcOIgOZ6A1FbSiWm9acsTwIjyMbC330YHW7YAqfoSfV179Nn5eU1P2BncvCwqWmocA==
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=s9MWtiGisD5ffcST4k+rFV/a48cpzRUFIKFiLqtSd0Q=;
+	b=gUeqG2C2GaUOP+4w6QKky4tH5oId7mpLREcHRUCnHvWeFy1anQGYNxbkv8e+/lbyUHx8
+	 Mp89aL7mdDqdWxRx4c0T9ZjULv3uD1WfLbqP7yXKw/8tC5r2qIQLoOIxsTwHP2Nb3vGw5
+	 EOpZhCtN2alMUuZDQjQQHC+h5UaHxCYK00ykBK/RfwtqJJq2BOjWLbTArdeYEr9TBQxs8
+	 /PZtBqG3eew5Ft2kQRoV8auA/T843USC11+lkmOwG4tH5XXBzdIWN3nT/V2tix4IV2Iex
+	 lSwC6KjCLnrdOrlhHi3jiJWX325T3ss06cgV1iJmIYrC0AtcZIL4xvBrcawtj4t2Y7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=a3EZvP5O;
-	arc=none smtp.remote-ip=209.85.219.42
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pWDz3CVg;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40C9606A32A
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 22:16:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B40C9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64440606A33E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 22:25:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64440606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=a3EZvP5O
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-92123f02faeso52395756d6.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 14:16:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pWDz3CVg
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb69f5b161so33181145e9.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 14:25:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795558610; x=1796163410; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Uhmi7vdLdSTBTBfiyTnnA5vkStcVEY8sN0rPcbiafRM=;
-        b=a3EZvP5OyowAiMtFRNJn08m3NhjGNxRg7uIjCQJAiDLOLA+8FctfDs3jn2KLTG+h1O
-         2hDthh3ZjlvAk0RGTcTC7DFsEWzWATomdIit+FsIi5a8lP3BJ0PiEjpUbRwvm1u9Ea6S
-         QtpdcQviakqrDzRYu8t6CWRkrkR0o2598OBWpj8ZgHBJO7dKmLYA0IruhH4qS1IYIXOp
-         1IVyIO4zOvm4AsUA6rrt2DcZrqrs0xejEK8QQg0+oR8XV8tgXNST0WG8AhBKHnpHNFXa
-         v5AdSj0L3dC6fYZDxTcFgI3VsAwlkLG47ZbE0YQ1fsu7HmnF416hH/35MvXcf9Q0G5FQ
-         pLuw==
+        d=gmail.com; s=20260707; t=1795559102; x=1796163902; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s9MWtiGisD5ffcST4k+rFV/a48cpzRUFIKFiLqtSd0Q=;
+        b=pWDz3CVg5d+nfg4CruOyXugT00Ckw32IGIGSY6UI3c6vndOGC1/B5sZ66UL3xNthsA
+         vA3miDdy2C2/QAx6+/Ac+8GWz74BJ4RpMvu4PlUXKNfR8+5V1STKMWlQj42FoDAdiyK3
+         cYi3wm/iYhdGplXXLHQlIE/doc+UoPyrcRf0uDv/jJwOFJLLvarQaP+futDgXujRsFy8
+         2lGyeU5mTekqvMCtJAoLkQahXsMsPgJ+sLcA3j9SDRiNxACQiP3YCjH7UDvQAsopFomI
+         tIAcqoJRak947FzVg5Kv6LpNmyWE0FDJGJE1AbHIn/WuHcEm6OBKjbq85zgrfanKXVkx
+         2u9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795558610; x=1796163410;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uhmi7vdLdSTBTBfiyTnnA5vkStcVEY8sN0rPcbiafRM=;
-        b=1zz8BoZRqvRbtWAczFXHomthWPLNHRi/Y23w1faFM0ImDYqYwnCXUi2vjgYx70OA6Q
-         qo7tjiBozJQjhRq/dIYJDjpQ6y0Tq6skdbdwhLP6oHnZsO0pQJ20evKSvmwW5DUlXSER
-         QlmZPAg3Ltvddh0cmw4FL2sYPHv2fhDuvZUD3L39fjWS28Borim7ahEDeafN3mrN7ONe
-         uVhXGhqt04+XDI1f9CJFBR+WybgGds+XkkJRuSbagjxlMG6kjkx48Z6EO8Le8k8ZTOtR
-         cRquqQBLyJssRQ2eBpxD0oeM8wE7fGsloBCU8A2DwYejWkr8Rsh0HiH7WQaTeFVUlnIz
-         9l8A==
-X-Forwarded-Encrypted: i=1; AL+hErHa5MjNI951QYsl+dUy8YVcoXr9y0u2s+pQyIJ0S7XWkMzJfi0VKeKsSB3sFPYK6w2v1wOswOr947vh@vger.kernel.org
-X-Gm-Message-State: APuU4Z+z0B4iy5OupfY3B8nP6M0ki1DrC2hFvQtIYWaBJlFKcM6Cv/Fu
-	R9vwQCC23ICVqZEkdrALkKdnnXyCGFBGM/4HXwxpXI6vFdRiMbNrnwSGQR18eZPtSMM=
-X-Gm-Gg: AZFdTZeU6djPcYS4qRWMMvqvSLvc7KNSlicUrElM+om/MoCh0sGcL2FlYjWi5PnnI4c
-	p65OO/yqgUHYe+lgyQ7w8xOGe6OSua3Syqzc4Pj9kauGmF8dYoRAtgUT7e9wgyN1v+iQimMebjG
-	V3zrFqItK6MaIbJ0Vke6b3HLn9AUc1QaUIQlScfiEYC/E9F2yphaEmHCRuBZqNv7HQ0f4wfsp9n
-	Wvu1zKJZzlYXmca/pM6NfEIFeCKQ9B+rP/bSHnqPN6OOoekwiDYlHadrAceTay6QtHDVxU4ZtGa
-	mqTqu/nS4EjFa943DxT//Po0cMqbwMYb9G5QhpcaPbXFlXTfzbZzTk8MD8qsQBz7IljZE3tFH6z
-	k3YhV3Y2xeF3GmYQlNm9VQpG1heTopKaK7yTCzZq2kLGGiSZfuO6AqBQNS2GR+fDmTE2wK3/c++
-	c/J20RWJpOVjVI2i6tkXjxRzbfPQOOKR676MnHo3UwrSeXMBZyag/GK0NVEaM1ql6+zGYXeqWwS
-	NZ+9gArldnoQIqDpIwq0cC3mBusu3zihz/KOP95XF8fHYcPo7+xZ0vTo3EyvQxxhOkGZ1n0PR5/
-	97nTXg01LbEeukMSKC20AvvxIh/v48YVmH+6r0M8NF0NFxCGPaI25GC9
-X-Received: by 2002:a05:6214:1d01:b0:91e:f8bb:bfff with SMTP id 6a1803df08f44-92134a695bemr295012926d6.10.1795558609635;
-        Tue, 24 Nov 2026 14:16:49 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-92134bfe82dsm143924506d6.0.2026.11.24.14.16.48
+        d=1e100.net; s=20260707; t=1795559102; x=1796163902;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=s9MWtiGisD5ffcST4k+rFV/a48cpzRUFIKFiLqtSd0Q=;
+        b=rx28gJhtdvFrx1gRSc7LIt9BbLApfI8S/pU0yAUmtrObdOxiWo4HC0Wvz052Zqy/tc
+         U7eQMf+grI4DcpvgSbimJOzdKmi6QkX2KM0hKnB51z3s+SW9p+JVZKZuebF+S0bE5UpU
+         qsUmyxe3vAq9CC4iTVWRCcCQeoc4eBK0xEAIpIc81CAKYVFz+TH1jJnV5S1FljCT0zVL
+         6BrtXuF47vd6lM9sFQ0Y7ob26GLxQ34uk76P3mWXxs1bfZtJ5A469vTr9A0FCnV4Txv5
+         4avKnuMUG5oVWWsKvZ29Wwa849C64NLb2fXQFCk2q3SfA4enD8RhmYOiS0eY+jaorn79
+         61bg==
+X-Forwarded-Encrypted: i=1; AL+hErGHK86rngIszQE5ah/x4H6xFbKKidf8C6xm1aJ+4WUfFCYcNR5ZTlTxkuvksVJ7NhsWFLoY8T2CFITg@vger.kernel.org
+X-Gm-Message-State: APuU4Z/LYEkO2tnY/wvGOwtqXq+wLQ5n81fpEGYdMSeK3DFBhjsS8WY9
+	aFjCCmZ35KCOQEL/MXQM27eXrDJwlTZkO9gbOjDSFnzRPB3aKm4M7r5o
+X-Gm-Gg: AZFdTZfTfBxcqHA+nLFvDXp2TZokBuHOxnjflyNgkocSb4CrJ2EiKSiLhRFRuMJihNx
+	HC0SdEYG892DgPDYVv2YZ9+wJiDiBd89TpDIpGHEurLEq2vud6nhJEaAl8L7vNQhWJq9zjjZ+A9
+	olYdUc77sVvwZo2ENZfF4yCVl4eYZtQvu2Uk7FOwgykoAe++Ouj3NIQaN2lpRdAtjB2GDulEVB0
+	KiDN5I8Rmi1qZG8VvpHg4RG+exjk4XWBma0Y9eb84XzHy+aMyiGJyPWt/LbgV2IAiwnidMNVMOF
+	yhl/7qBn0RFfg22pJYWtyhUXZIHusBXxAqiDm1SVdwp98457+8eGxhCtldVIyfLGbyeJmuISq8+
+	X/qcEHeiZsumorh2Dd/KaXUhqtx1W0HZ8RJCS6dH6WTLfL4BOeFMZLdIFK44vTSZrr58qI7NHKd
+	yYbI5Dea3M/+DEI0kx1Rd0fb4Z/jaoi2d/Cf6SAWnxX0UgRPhbLyxuck0PaMQi0v8+i5qRiuirN
+	Ryq84QeVl+dLK75aKfxLaGIABKB5XsPS6Vsn7vvDCFpyLiOd4Bnv8/omFNbQKq0H+1vL5YAlV6Q
+	T9OE8JcpisoqiMNn1sZqksvPAkXN73wxkMU/rSgcWU3j20ihAL+AJv53oIlJsIIHjjVfLHU8+JT
+	9UmY=
+X-Received: by 2002:a05:600c:1d09:b0:4bb:6fd3:5ac0 with SMTP id 5b1f17b1804b1-4bb88816c7emr352097065e9.28.1795559101478;
+        Tue, 24 Nov 2026 14:25:01 -0800 (PST)
+Received: from Ansuel-XPS24.localdomain ([87.13.246.159])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4ab69bf630esm31125711f8f.16.2026.11.24.14.25.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 14:16:48 -0800 (PST)
-Message-ID: <4c54e652e8fb714600852a3028b892c6a292c6cd.camel@ndufresne.ca>
-Subject: Re: [PATCH v3 05/17] media: v4l2-ctrls: validate vp9 tile_rows_log2
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sofus Forstreuter <sofus.c@icloud.com>, Sven Peter <sven@kernel.org>, 
- Janne Grunau
-	 <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
-	 <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Date: Tue, 24 Nov 2026 17:16:47 -0500
-In-Reply-To: <20261020-avd-v3-5-85cbaa2125d8@icloud.com>
-References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
-	 <20261020-avd-v3-5-85cbaa2125d8@icloud.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-fZhiUwItIuN4elZmSsKu"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+        Tue, 24 Nov 2026 14:25:01 -0800 (PST)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	John Crispin <john@phrozen.org>
+Subject: [PATCH v5 0/3] phy: Add support for Airoha AN7583 USB PHY
+Date: Tue, 24 Nov 2026 23:24:30 +0100
+Message-ID: <20261124222452.219832-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -120,50 +104,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---=-fZhiUwItIuN4elZmSsKu
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This small series add support for Airoha USB PHY and Gen2 PCIe
+PHY.
 
-Le mardi 20 octobre 2026 =C3=A0 11:37 +0200, Sofus Forstreuter a =C3=A9crit=
-=C2=A0:
-> Reviewed-by: Neal Gompa <neal@gompa.dev>
-> Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
-> ---
->  drivers/media/v4l2-core/v4l2-ctrls-core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4=
-l2-core/v4l2-ctrls-core.c
-> index 922cf74c4eb8..384ff77771ea 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> @@ -638,7 +638,7 @@ validate_vp9_frame(struct v4l2_ctrl_vp9_frame *frame)
->  =09 * According to the spec, tile_cols_log2 shall be less than or equal
->  =09 * to 6.
->  =09 */
-> -=09if (frame->tile_cols_log2 > 6)
-> +=09if (frame->tile_cols_log2 > 6 || frame->tile_rows_log2 > 2)
+Changes v5:
+- Rebase on top of phy/next
+- Add Tested-by tag
 
-Shouldn't this be 6 too? (log2(64)).
+Changes v4:
+- Fix typo for Documentation patch
+- Fix wrong regex for usb subnode for Documentation patch
+- Improve register example for Documentation patch
+- Address bugs reported by bot (off-by one and xlate function)
+  Link: https://lore.kernel.org/all/20260901123933.15388-1-ansuelsmth@gmail.com
 
-Nicolas
+Changes v3:
+- Fix broken patch for YAML patch
+- Split the YAML for USB and PCIe
+- Rework driver to direct node for PCIe PHY
+  Link: https://lore.kernel.org/all/20260827131551.26725-1-ansuelsmth@gmail.com/
 
->  =09=09return -EINVAL;
+Changes v2:
+- Add Documentation
+- Out of RFC
+- Rework to Serdes PHY instead of SCU (following
+  for consistency AN7581 implementation)
+  Link: https://lore.kernel.org/all/20260811124724.702467-1-ansuelsmth@gmail.com/
 
-> =20
->  =09if (frame->reference_mode > V4L2_VP9_REFERENCE_MODE_SELECT)
+Christian Marangi (3):
+  dt-bindings: phy: airoha: Document support for AN7583 USB PHY
+  dt-bindings: phy: airoha: Document support for AN7583 Gen2 PCIe PHY
+  phy: airoha: Add support for Airoha AN7583 USB PHY
 
---=-fZhiUwItIuN4elZmSsKu
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+ .../phy/airoha,an7583-pcie-gen2-phy.yaml      |   63 +
+ .../bindings/phy/airoha,an7583-usb-phy.yaml   |  133 ++
+ drivers/phy/airoha/Kconfig                    |   11 +
+ drivers/phy/airoha/Makefile                   |    1 +
+ drivers/phy/airoha/phy-an7583-usb.c           | 2023 +++++++++++++++++
+ 5 files changed, 2231 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen2-phy.yaml
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+ create mode 100644 drivers/phy/airoha/phy-an7583-usb.c
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.55.0
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawYMzwAKCRDZQZRRKWBy
-9BA6AP9PS5poldHn0LERh5sldYW2P73wx+zTyuozNl+3ELVLUQD/aj0MPvIwO2sj
-O8VuT9IjLVqFj9L0GOL8uRcAYapAAAk=
-=/mpK
------END PGP SIGNATURE-----
-
---=-fZhiUwItIuN4elZmSsKu--
