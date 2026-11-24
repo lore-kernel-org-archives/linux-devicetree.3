@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795558222;
-	b=Ti+QHM5d2fuwB9DOH2IrKayEkhiClnOB+chEvkDYYFy88s0YzC1aQWyePjBMXaKNIN7V
-	 Xb0ajdxYQREJNKMgZRa6QpWd03yxD3nUFkQ/gzZ1EsJi0R5NlTa4KIfGyuWnaAJIagAUc
-	 yrcGIZT5C7p9eHQKAcmnxMOPf1dNANTh/TGXCOiNbwZmUQDQtGavwO88Ny1yxqHVbehX/
-	 0+rPD0JcPKjvzLwAKlciWEu01DnijrxI9U6WKg8mjrnwXblnC7OGi8T0Hhqd/F6C4rLdN
-	 a2iZHwinYiS9eDD2zeYFND9m8FC5fV41VVboWN6dQf5F8RAhcAjVkigY3wdOJypEZEQ==
+	t=1795558223;
+	b=rAtiwHiUab4WbErUufaWXL4YD5W5ZG0J1ni3ULS3pFrojdiXpK1Q9nXv1oZgrzihQuwc
+	 dNSOoPoy3qxZfV5fdwOybQDeZERjmIcmozErqUqRF2GlxCso7Kr9ZypKaYS5VJpdiG+NL
+	 NTslkIuR5TKNrNNZz8SPsNrMNSsOw9IZFyXYXRUIvFqwHB8XbmkfFHEmwrecxtLXMA0Fg
+	 1fIpCLFOxGQffA126KzYWEVKRv6vhTSW3blEPhKTtZX1QJEV7pg/QagjiwtOko6BPBlEQ
+	 4c68ZM2hbuogNGVvtRqfjGZ9XLlcCcXBCCjFzKJHY884hTCipVXxrL7onWtkgqRg3YQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795558222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795558223;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1pspu/1j0VfO+MpxjeItr0EX3K7hNHhPnXhNqflS3og=;
-	b=tTLFW/kTEfzAD34pmyCTz6+YA7f7JTR9q6yFTbu37tOqNsN+WcVRDBtPj7Y0UuuJZbe9
-	 DRL496I6MpKRdjdknTn3pjingvVoVdivfMRbzu+0rdZmQqEBHeLXO1AU6i8nUiJ8I3yt5
-	 KOezVvMtZwZ2OFiHljR/1/G3mjR60WDmIMUqSPXpCEGZs+dazMfGl/6hUVxYcypouOrrM
-	 yUYKB+E3DS0ckYmfEPVDJPQxT1dv5qWJ7CjBRN3mA5I5GxWXKhC/o8HtzeeGa9Z5Bee04
-	 OJXGnlVlJStxmMJ2NJ00UEVZMFVhrRYvDe2R2OWv0qVJy96zvzCDjQo6ohRKWCmAwKA==
+	bh=N4KkSHKKVFwpR90cNe57A/tGYh93ruXixpyOWVsNOdY=;
+	b=G0VXeXkPtWAQ+/vykZuxQMciyVJVi8DIk44Cei4rmHzIxJPbpUXlxYZ36ss1NCkK3BS7
+	 D3XlFxP+hrjFfO7RVxbHZ6rCQoeS0qmqiJGPIOVMW78m9G2ry7GomAb00oKnP3sra9sDE
+	 zVMYKi+CRSUE8OXn6tkOELCkbaPCXAb3zDPbLY/nTO71fUae9YEynZ52R74I4vTSe/52f
+	 9oX1NsWXCemykpTgKdF4BGFH56aq4i7U4UyhBir44mxtTjR39uQfHWP5KdAuxA8fJ2SIU
+	 4zq7DEKGd47fzuKBMlQx36jZ8GyDiniiNO/l4wHpgUI1R5JAif1NzTlkdk7KfECQcUQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekazWHYy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aLmQHOq+;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F37F60A380E;
-	Tue, 24 Nov 2026 22:10:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261F760A2601;
+	Tue, 24 Nov 2026 22:10:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekazWHYy
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aLmQHOq+
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795558222;
-	b=uyMnAx2sTEYpLk9iZGnJFRu1nqq0vUISUYdLuuoYDyVCAnv6zeprgWurY34IHLHlcNXp
-	 FSyz/o7pObWBikvD3oxIx36aggHVtdzZEV5iSRPF+oneITZhHp0eF0dKTAnI3RT6k9Riq
-	 1EBrbWtTyVAlDYWSOnv/MswhQDMXfrDBqeqz1cilRjmMBp+DB2akHP7QfjU6Z+VSuICaV
-	 su+OvMKueDdxqWrl2mtjG86U+ZbAPgBJZr4m7Y95nmqR3LCb6l4/2PdjSdoFHKXpowgf4
-	 WdjSeWpLU3kaLTvX0a3Uc/qq6wlSRS6Ds5XHQR0zuSUcbFJ5mz6syNRI3wkohFPf61A==
+	b=N95NtSQtx61TFnulvkWmAiJwCziC1gPjcDii/IZCpVmAULBBD0t+hlVw0sIBlHSS4q08
+	 wkME3uGo4c5jDUKQ8TBxiTy4eXvCfRfsROcoU7dGEYysOTJPipQJWLCDVIONbUPMqJqxm
+	 1UI4pT8nK3Tn7EZ3BBzrB607UhlBBg9a5HEz7U5LyYe9PPYTAs2qzVJCvMJL0RqFbOw/1
+	 e+770yMZVZhFktugE5OHGnI5UQ31KfYezhotkSCTG3Ve5P2u+a+QYtVAvUViOFYUS19r3
+	 ysufIusssKKy+6jZGr/+7D06ylkSDOh5PKGM+GIWNCnyOxJrpi9ov2PBjzs06QxKD5Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795558222;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1pspu/1j0VfO+MpxjeItr0EX3K7hNHhPnXhNqflS3og=;
-	b=0oU4s5FiPtw3zMt2DLYcJa9dcdTwaYWL8F3luwtfpNjfahECv4B97GzQuXAlUmiqWgQo
-	 2XHupGS6A25MtJ6VGa0t6t4eqrZmG36hfi01XTXxAXGqmQWTtDtynggGWfHTfBTcaIE3w
-	 HM8vqw6uLjye4vHUM+1C8P9tiyQE/e9F6Ro/TiJUA74WBIhKqG5YlI2ZzFsvKSlmGS9Xn
-	 pZtBklAkF/XidqTOfOC5Sf8D2t/bn2XvksCHWq2Wj+OvBjePJiT5gKHm0sC52Wxsc9F8D
-	 biuOfI3djG7ktK1BtKCHYiyse0dTN3DM+4bD0sOwwfWlek1XYU8HYP39VvGvV6+UxWw==
+	bh=N4KkSHKKVFwpR90cNe57A/tGYh93ruXixpyOWVsNOdY=;
+	b=eYxV2vVBR79AYZpV/POEchbUr9NC+wfJHbPYcaJbffZS1Bh8tVF70gKjlUTCvptUVS4y
+	 lYFKKtZ6Luh34Qh3uFrtI/z+VV0TZ2R9dGuyVokZ080aYONMaqEPvR11hv9V+wPRXDtGS
+	 2GHp6gDllTuitf4YF2O8ITkE9QyYGjYjmmEDHM+axUZYrb7+xWVeH51Z67nfk4zR4+gyv
+	 M/pToV4K26UrYZg+o0JClHZ11mG0CLrGCpyYbQdH83F3ooZA7ZmNBUcvyI7nCYIhCmOQ9
+	 xmA715IluBPCgkoFejZLUFPq8OtavbMSYPfEvG3Y1NzQIxX6jZIJ8Jo1TPu3we5SxKQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5D7531F000EB;
-	Tue, 24 Nov 2026 22:10:08 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 301BA1F000CF;
+	Tue, 24 Nov 2026 22:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795558222;
-	bh=1pspu/1j0VfO+MpxjeItr0EX3K7hNHhPnXhNqflS3og=;
+	bh=N4KkSHKKVFwpR90cNe57A/tGYh93ruXixpyOWVsNOdY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ekazWHYyFc59pXp+kon4GfNXsq4FZ2stsajqT7G2hayo5QKBDsElr4sLtL5NQ+Rq6
-	 t9zYWfMN9t5gno63Xz7ZjTvoXXaVvTevYjhgHlui7zoy6rihUW/BV3vqhgPi3lU/Ru
-	 hyoI30JRfSXquN7mF5mGBRWdxT8fcuw41w+E6M8ku5ngrlKn371T5Ls2wXRPflZNOJ
-	 uJODzV51IvAtvUc6enlk8+dn86p3QFyvkDMK/ooQYyu0XVmZdkHiUw6xDdK0BDx5ir
-	 PmkkL3iluzBdlmnlR7kktcCqNZo0NRnOgB1CpFZ3boUdwyw449qnE69wcrySeNTN//
-	 8APBaMtqP3IBA==
+	b=aLmQHOq+KyINv1KjvF2lbgI+vbGJ3H5k1dk4PqkIb8/iYaK0Qin3ZmvVrRZ2QCLMr
+	 mGeqFsa3g4hHctdnUYiExzIodBU06RdsPAkeCFsWh5f9DaB8PY/7GPk3S+WcWW87xN
+	 TenLgjQ7QF+QNJegfCANZn2Ecj47/fBtXmTCJRslwandqgV+sR18OqHayEaiqtOHyw
+	 Z77dC+922rb07tfJUYO9HtI0SVMcOxAXHxlZjrSVQ82LQI1BPlE/Yolj2iBwxL370n
+	 8sxvukmRKVvHlkvCg8wI54D2I+cEBeNIJ4/SjQPM0KHV7Z0lpKEo+dnjbJ4D1zIJxs
+	 46JV60IZg8cVA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8F85E4CBE5;
-	Tue, 24 Nov 2026 22:09:57 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 2E37F4CBF9;
+	Tue, 24 Nov 2026 22:09:58 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Tue, 24 Nov 2026 14:09:57 -0800
-Subject: [PATCH net-next v12 09/15] net: ethernet: oa_tc6: Support for
- vendor specific MMS
+Date: Tue, 24 Nov 2026 14:10:02 -0800
+Subject: [PATCH net-next v12 14/15] net: phy: dp83867: Use
+ genphy_loopback_no_speed()
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-s2500-mac-phy-support-v12-9-3575855d99f9@onsemi.com>
+Message-Id: <20261124-s2500-mac-phy-support-v12-14-3575855d99f9@onsemi.com>
 References: <20261124-s2500-mac-phy-support-v12-0-3575855d99f9@onsemi.com>
 In-Reply-To: <20261124-s2500-mac-phy-support-v12-0-3575855d99f9@onsemi.com>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
@@ -106,11 +106,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Ciprian Regus <ciprian.regus@analog.com>, 
  Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795558193; l=6195;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795558193; l=1403;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=1MjkVLzuAaXBWXeuv00U8/V6OxD8o95U9vnwuGPge64=;
- b=FcqtpJ+3NRkXbSM9r/N2qDysZnvI1/tbj89cQiQvYctPz8CGCZDj3s6BHH+Hl79/RQ1x3weiD
- 7H406ZSmjnrC29rwzFRx/xHc2/DoGa4cvmf2WkVAgx0jJqXYEd5FqaR
+ bh=716BHQOO0McnTi+YuriATnpGPNHeavbXCK5inp0Y6DU=;
+ b=OX8oScDkrSZjp078fFX/AW0h4iTU6a2TNE2ojPL6SoyAE2ACL6VUB6hrlVlAtv/dC6LGEEQAs
+ 8InTuFwxUuFBlkIma2gVXcx2NMDOSU8kJ2GfRdONkl9D8b63ZfYxqp+
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -121,186 +121,50 @@ Content-Transfer-Encoding: 7bit
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-Add vend1_mms to struct oa_tc6_quirks to let a vendor driver
-map MDIO_MMD_VEND1 to one of the vendor specific MMS values,
-10 to 15, in table 6 of the OPEN Alliance 10BASE-T1x MAC-PHY
-Serial Interface specification.
-
-The mapping must be known when oa_tc6_init() scans for the PHY,
-which can access MMD VEND1.
-
-A zero vend1_mms keeps the current behavior. A value outside 10 to 15
-makes oa_tc6_init() fail with -EINVAL.
+Replace dp83867_loopback() with genphy_loopback_no_speed(), which
+does the same. No functional change.
 
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
 ---
-
 changes in v12
-  - Dropped Reviewed-by from Andrew Lunn as the code has changed.
-  - MMD VEND1 mapping is now part of the quirks, not an API.
+  - No change
 changes in v11
-  - Accidentally patch got removed
-changes in v10
-  - No change
-changes in v9
-  - No change
-changes in v8
-  - No change
-changes in v7
-  - No change
-changes in v6
-  - No change
-changes in v5
-  - no change
-changes in v4
-  - no change
-changes in v3
-  - no change
-changes in v2
-  - Moved the handling of vendor specific MMS mapping to separate patch
-  - new patch
+  - Moved the vendor changes into its own patch.
+  - New patch in v11.
 ---
- Documentation/networking/oa-tc6-framework.rst | 12 +++++++++++-
- drivers/net/ethernet/oa_tc6/oa_tc6_main.c     | 22 ++++++++++++++++------
- drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h  |  6 +++++-
- include/linux/oa_tc6.h                        |  1 +
- 4 files changed, 33 insertions(+), 8 deletions(-)
+ drivers/net/phy/dp83867.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
-diff --git a/Documentation/networking/oa-tc6-framework.rst b/Documentation/networking/oa-tc6-framework.rst
-index 390529419133..558dc25038d3 100644
---- a/Documentation/networking/oa-tc6-framework.rst
-+++ b/Documentation/networking/oa-tc6-framework.rst
-@@ -469,7 +469,17 @@ The include/linux/oa_tc6.h defines the following functions:
-                                            struct net_device *netdev, \
-                                            struct oa_tc6_quirks *quirks)
- 
--Initialize OA TC6 lib.
-+Initialize the OA TC6 lib. Pass ``NULL`` for quirks if no device-specific
-+settings are needed.
-+
-+The quirk_flags field supports:
-+
-+- OA_TC6_BROKEN_PHY: Leave MDIO bus registration and PHY connection to the
-+  vendor driver instead of the framework.
-+
-+A zero value for vend1_mms means no Clause 45 ``MDIO_MMD_VEND1``
-+mapping is requested; it does not select MMS 0. For any nonzero value
-+outside the range 10 through 15, ``oa_tc6_init()`` fails with ``-EINVAL``.
- 
- .. c:function:: void oa_tc6_exit(struct oa_tc6 *tc6)
- 
-diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-index c69ed576b41d..228cc2a3dc2d 100644
---- a/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-+++ b/drivers/net/ethernet/oa_tc6/oa_tc6_main.c
-@@ -619,7 +619,7 @@ static int oa_tc6_mdiobus_write(struct mii_bus *bus, int addr, int regnum,
- 				     val);
+diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
+index b4b4931c6f8c..dc00484c6c7a 100644
+--- a/drivers/net/phy/dp83867.c
++++ b/drivers/net/phy/dp83867.c
+@@ -1057,15 +1057,6 @@ static void dp83867_link_change_notify(struct phy_device *phydev)
+ 	}
  }
  
--static int oa_tc6_get_phy_c45_mms(int devnum)
-+static int oa_tc6_get_phy_c45_mms(struct oa_tc6 *tc6, int devnum)
- {
- 	switch (devnum) {
- 	case MDIO_MMD_PCS:
-@@ -632,6 +632,8 @@ static int oa_tc6_get_phy_c45_mms(int devnum)
- 		return OA_TC6_PHY_C45_AUTO_NEG_MMS5;
- 	case MDIO_MMD_POWER_UNIT:
- 		return OA_TC6_PHY_C45_POWER_UNIT_MMS6;
-+	case MDIO_MMD_VEND1:
-+		return tc6->quirks.vend1_mms;
- 	default:
- 		return -EOPNOTSUPP;
- 	}
-@@ -645,7 +647,7 @@ int oa_tc6_mdiobus_read_c45(struct mii_bus *bus, int addr, int devnum,
- 	int mms;
- 	int ret;
+-static int dp83867_loopback(struct phy_device *phydev, bool enable, int speed)
+-{
+-	if (enable && speed)
+-		return -EOPNOTSUPP;
+-
+-	return phy_modify(phydev, MII_BMCR, BMCR_LOOPBACK,
+-			  enable ? BMCR_LOOPBACK : 0);
+-}
+-
+ static int
+ dp83867_led_brightness_set(struct phy_device *phydev,
+ 			   u8 index, enum led_brightness brightness)
+@@ -1291,7 +1282,7 @@ static struct phy_driver dp83867_driver[] = {
+ 		.resume		= dp83867_resume,
  
--	mms = oa_tc6_get_phy_c45_mms(devnum);
-+	mms = oa_tc6_get_phy_c45_mms(tc6, devnum);
- 	if (mms < 0)
- 		return mms;
+ 		.link_change_notify = dp83867_link_change_notify,
+-		.set_loopback	= dp83867_loopback,
++		.set_loopback	= genphy_loopback_no_speed,
  
-@@ -663,7 +665,7 @@ int oa_tc6_mdiobus_write_c45(struct mii_bus *bus, int addr, int devnum,
- 	struct oa_tc6 *tc6 = bus->priv;
- 	int mms;
- 
--	mms = oa_tc6_get_phy_c45_mms(devnum);
-+	mms = oa_tc6_get_phy_c45_mms(tc6, devnum);
- 	if (mms < 0)
- 		return mms;
- 
-@@ -722,7 +724,7 @@ static int oa_tc6_phy_init(struct oa_tc6 *tc6)
- {
- 	int ret;
- 
--	if (tc6->quirk_flags & OA_TC6_BROKEN_PHY)
-+	if (tc6->quirks.quirk_flags & OA_TC6_BROKEN_PHY)
- 		return 0;
- 
- 	ret = oa_tc6_check_phy_reg_direct_access_capability(tc6);
-@@ -761,7 +763,7 @@ static int oa_tc6_phy_init(struct oa_tc6 *tc6)
- 
- static void oa_tc6_phy_exit(struct oa_tc6 *tc6)
- {
--	if (tc6->quirk_flags & OA_TC6_BROKEN_PHY)
-+	if (tc6->quirks.quirk_flags & OA_TC6_BROKEN_PHY)
- 		return;
- 
- 	phy_disconnect(tc6->phydev);
-@@ -1700,7 +1702,15 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev,
- 	init_completion(&tc6->ts_cfg_done);
- 
- 	if (quirks)
--		tc6->quirk_flags = quirks->quirk_flags;
-+		tc6->quirks = *quirks;
-+
-+	if (!tc6->quirks.vend1_mms)
-+		tc6->quirks.vend1_mms = -EOPNOTSUPP;
-+	else if (tc6->quirks.vend1_mms < OA_TC6_VENDOR_MMS_MIN ||
-+		 tc6->quirks.vend1_mms > OA_TC6_VENDOR_MMS_MAX)
-+		return ERR_PTR(dev_err_probe(&spi->dev, -EINVAL,
-+					     "Invalid VEND1 MMS: %d\n",
-+					     tc6->quirks.vend1_mms));
- 
- 	/* Set the SPI controller to pump at realtime priority */
- 	tc6->spi->rt = true;
-diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
-index 014b48e7e27d..cc7cda673f1b 100644
---- a/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
-+++ b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
-@@ -32,6 +32,10 @@
- #define OA_TC6_CTRL_HEADER_LENGTH		GENMASK(7, 1)
- #define OA_TC6_CTRL_HEADER_PARITY		BIT(0)
- 
-+/* Vendor-specific MMS range from Table 6 of OA TC6 specification. */
-+#define OA_TC6_VENDOR_MMS_MIN			10
-+#define OA_TC6_VENDOR_MMS_MAX			15
-+
- /* Data header */
- #define OA_TC6_DATA_HEADER_DATA_NOT_CTRL	BIT(31)
- #define OA_TC6_DATA_HEADER_DATA_VALID		BIT(21)
-@@ -131,7 +135,7 @@ struct oa_tc6 {
- 	bool int_flag;
- 	bool disable_traffic;
- 	bool prot_ctrl;
--	enum oa_tc6_quirk_flag quirk_flags;
-+	struct oa_tc6_quirks quirks;
- 	struct gpio_desc *reset_gpio;
- 	struct list_head ttsc_skb_list;
- 	struct ptp_clock *ptp_clock;
-diff --git a/include/linux/oa_tc6.h b/include/linux/oa_tc6.h
-index 32c25b5e2aa3..f34ed8218a7c 100644
---- a/include/linux/oa_tc6.h
-+++ b/include/linux/oa_tc6.h
-@@ -86,6 +86,7 @@ enum oa_tc6_quirk_flag {
- 
- struct oa_tc6_quirks {
- 	enum oa_tc6_quirk_flag quirk_flags;
-+	int vend1_mms;
- };
- 
- struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev,
+ 		.led_brightness_set = dp83867_led_brightness_set,
+ 		.led_hw_is_supported = dp83867_led_hw_is_supported,
 
 -- 
 2.43.0
