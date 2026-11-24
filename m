@@ -1,87 +1,159 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.0
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795524396;
-	b=CPbnkXZs6D7EwlF/QC/VFTXyv5qM9suaXsJ4ctiP8552VKuAwkEVc0/ccS0X4tq39Ua4
-	 LSBsbgUg+M+CoTJqRUHbIba2IMmztO/yLfsmQe/wpcJxBTdhEGnO5dWSXOJvEt91JC4j6
-	 ticXRCp5wvqFWyJOZlyaQYcg35NlwyRgtdo1XQFzDgVu5blWpoWweFY7P0QQRu9CPlpeW
-	 vANEYW+Wyn704bHcf0HaKqDsy+v5k2oMRhm5n6v5zLjASjFh199ug79UpFvXqBuV3hLGm
-	 OPZYkttO4nFIFl3cN7YD5ORDzQaqgZO59nTZT41zFuXIKCp9f31FX+M71pcJRjQ762g==
+	t=1795524682;
+	b=flpSVa0Hkh5TUbi+ZpnW8LkHm5NAJOL2kxHCcmsI8AwyfFhQHOdJ4TntzSx7AogZ2ph6
+	 aM8sn8g9WyPytgPTlgH+5i2fKcc9MDRNBiTbvk78o8fzy2F+31568Qe0Tcpx4FCqiYGmB
+	 +VjgZ5oHMiixu+DwphBgQEvY6EwMwbmj7fT8YXr910+0I/kzShyD4ewC+hntwSFGL27Km
+	 sPZYU7P3gJANZQJIyjTvdNoZcLXdLVv2NIf3P4EtL8ga3T7VAAjkWDwcxoXAvtfEdH6GY
+	 IwXzKBoyBHTbCGh8W+xDv2X/iSINXnvJQ1Qh8r2aiJKCHKswUVdxnK+430BRzCBP44g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795524396;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=PrE/2EutqnuvtKyH9pmay9A73YFzmvHWuTlKzL38kgM=;
-	b=doNE7vrh75OaSCL+XtWwdRIXik9yp0HNwZIw8Kif+EYBM5KOwloKL5GrOHxb+yswj49D
-	 Rh3f9BlDBENKceB+RJzaAUg/qyHFASkQu4hixB86uwqBOms5Gb958AY1JndYZel2vC/1w
-	 6376nPHfe7OlC3tXFuWhWELq2fehVqaRri6RcM/1hcZcBVFwlgysZjyq+RFqjLR8xtj9v
-	 m++YcJw3utxpPDsHNhA15XsV/5FFDJp7KYqKEAiI+ZOIa8vSlp1KZV1DkQBZpbj7gvjcv
-	 KOku5WSBAelBLM1O6HLmCRZ3Q5oQ2OWa+uwYUqZDJIk3rQ56eSu7/AB2MuxLJOoJDHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795524682;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ld-processed:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Rozjt1/ifSK53gHZpzMdccZ3i4gpOnzll+aS8uOQDGg=;
+	b=R0oYsE/y5QbYciaj8FA6MgjqududyHXxwplw2EvApF7EOKQpcjUiGE22xPXa8OaG85vS
+	 cPySeq+E8lXl0JXZehHpiUKXPmArXpW0JCZOefyOIXYeW8ADMvlvnebU+pIiGdKUbhCrH
+	 8eu/IReBg71PLPcz+Z0oHFJdYQWJewcA9LiUanAgyjD40ajbYlDTKhnXZ937UGqFkdiVA
+	 bPw8kA8j1P0+pTuZtw9o6XTdZ4qzKq+0Sr84qDQhvmt9wAuRtoQyTXvRpxFc+gJf2gwO+
+	 UVOhz9HLl3rjHs3Qwy2t7iif1p62iiet3k48jgGGsADr3+Cz/jWDqDEexkzUgU54kSw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HvVwzEGz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	dmarc=pass header.from=bp.renesas.com;
+	spf=pass smtp.mailfrom=bp.renesas.com;
+	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=MsBBygqU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.0
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011000.outbound.protection.outlook.com [40.107.74.0])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D41606A322;
-	Tue, 24 Nov 2026 12:46:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49D41606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E977606A31E;
+	Tue, 24 Nov 2026 12:51:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E977606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HvVwzEGz
-Received: from pengutronix.de (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: mkl@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1591B2001A0;
-	Tue, 24 Nov 2026 13:46:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795524393;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PrE/2EutqnuvtKyH9pmay9A73YFzmvHWuTlKzL38kgM=;
-	b=HvVwzEGzR/eV4scS6pIaYOYgBpz3BCQzFz3h6F/bBN4U2Jv1QXzOSCdGcfH9abrnXJQCxq
-	uXP9N9V5srusRQrV8zK6zp0eLbba9G6yHMSMj8OcVe+vKcouxwJ/ltAWV2IdUSlP+MG/0p
-	qtVHa/eLKbsWbAIXYM+xDRZ4cz3wW7yb2TAV9IvXwog67OZEvis7WKy0JDpb3kCwiCSsoK
-	2YERZfUax4hsMZdMBxJFuxqn6o1UTYIA2rE7YIFwso80zyYlfAwRqvTpR9mfLA/n6NAOsh
-	6AbDWCn11P3+Ql49TRdTufBBlhPwP5pC20YVtn+E/BdNL4hKEaWMUv1ZA6I3OQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795524393;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PrE/2EutqnuvtKyH9pmay9A73YFzmvHWuTlKzL38kgM=;
-	b=HWF1Ob8DVxs2rp1O7E5VktcBufJAdmiaJRVd07LMOkPPCGpTC3hANMs6TeQUvYKJPu0D1C
-	Fh6J0bAEZF7wNdfXSiKBJxV0KTbhjHRHmAaC+iNE433STyvTMV9Oq30EmiIMbCMf0jHmRi
-	58Qnk8wwEEdLj27tfKY0vXTEhTeGMo4zQ3HO135Ip2Kix73Lr4mZy39pVuGVUUf4VmxL5V
-	NGOxr23BJvLZzFRtdaN+MG5k823P09Px6X7nQOkFTamXOLTQJ7lTa4JoHykPgBvdzzqqsr
-	fLMLfbTL/7R2ENsn3XHnURmhmJK3nhh3tLh95q10YtT2KcY7YlwYq+TydobGRQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795524393; a=rsa-sha256;
-	cv=none;
-	b=N5ctTLONOLEapJFTG4NHceOG7MGQi8v0fsk6Myu2CvORGIRBj1owFEVd8Woi6IRtymbaim
-	SubjJHrFXzJQmWEDDZgBkJV1AtnB5OKlc6NI89E+gC7knEiXgnNk0Kv9W+MBCfpaLfdXHz
-	ssgQtSAP+gjsjkrR1XDywvzcx4VhMC/+vQkPeZmh+8TEIC7g21HapChAdB6nSJF2amguaE
-	KyCpRisO2eB/tSJE78/kd8rQMreZPLaeWAO4V0r4Q9suQYh4mas7Wet9qD0W918YvgeqOv
-	u3O4ZZDpd2rasU9EYJcIzpbdw2bsrlhWaj0woSkFltDxDu2/7/40zEsdGEDGXw==
-Date: Tue, 24 Nov 2026 13:46:32 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Kendall Willis <k-willis@ti.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>, 
-	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chandrasekar Ramakrishnan <rcsekar@samsung.com>, s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com, 
-	vishalm@ti.com, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v9 0/2] can: m_can: introduce ti,am62-mcan compatible for
- out-of-band wakeup
-Message-ID: <20261124-maroon-taipan-of-cookies-2d9113-mkl@pengutronix.de>
-References: <20261117-temp-v9-0-1d094ff918c6@ti.com>
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=MsBBygqU
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t0JgaacK8WUMV0SeZsJInn2IaFJjLtLLkySut7JhaAO+CMQr2CS7BLgz9B1szEX++9BbdfncgAzu+yJe1eyrB4WPDAVbEaK4zhUvBF0Yiy1LrBNKDxMO0pY3bsBhviomtdsMhe323jxYa6pOS2VyPqLiLQbruYoxkqCkKAVDZUb24NTM+jpTek2RBEq/Q9TMmw4irhyZw7E5dBu31XYccyAVrJPKnjiZT4S26MEfxnHGuoWCjcy0fIQerNtdSXU3Z4rIOUrBGp3e1BsXAWOsJTq8hF3J3K13qKI7j3PK+szLp51FkCfxjBcn0e8+Z2w3eH1w2Sxnh7Kz32wB2+S4iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rozjt1/ifSK53gHZpzMdccZ3i4gpOnzll+aS8uOQDGg=;
+ b=TulOhLiko3W4f43wTLu0uOW0vGF0Wu3Ao7R6cAT/QF0tfZXnIGb3CLVp9xZcnhSlY7UD+/X9ZHPQJH9NoYNtadsY3ISLTTB2b9fCp+pvjMWaFOwWJQtlIIMMttQBs/bCJOsQLBwbZJR9ye2/VnUOvSxZwBZ9kOf6ot3BI7CKSjAYYAPCbmnc0dinc/Shr2tEMcaDMUx09iclb5ASZHywX+Pbx0HCENozmkQQ5GSuvDIcpbvOmPloL7EWBibqungWzN/RoiXTnHA8ol5zxYJ1+0snXivTCRLdiz+iZ8/igVbiBfWjVcJSGCxa+jXxHV/4OPUWa56rNd41EHXSXp8AWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rozjt1/ifSK53gHZpzMdccZ3i4gpOnzll+aS8uOQDGg=;
+ b=MsBBygqU2yxNgUz0htm4YtOw/hwo4ghOEK+2NPkO+3ghsfs4uW1UfOkMAyYXpTo0AUPTalmN4+B3+CEbFdtLnefDBBE4qonVusaZchdFj2ONqYCoY83aXR5ybz13SRHzfYVfctPWpHycC9lpUxVKNByPLpVaOXUUqIXK+VsfkYk=
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
+ by TYWPR01MB9885.jpnprd01.prod.outlook.com (2603:1096:400:224::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
+ 2026 12:51:18 +0000
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 12:51:18 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+CC: Tommaso Merciai <tomm.merciai@gmail.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	"magnus.damm" <magnus.damm@gmail.com>, Laurent Pinchart
+	<laurent.pinchart+renesas@ideasonboard.com>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance
+ from the DRM device
+Thread-Topic: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance
+ from the DRM device
+Thread-Index: AQHdc2mHvfvfxGybKU23d8MzJCmRZbc78H6ggAESzwCAAALngIAAKXaAgAAOCVA=
+Date: Tue, 24 Nov 2026 12:51:18 +0000
+Message-ID:
+ <TYYPR01MB6603A1FB28A473A400A2C49386442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
+ <68fcf838eee14c1906f23b2b7c74c560793cd1d4.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
+ <OS3PR01MB65968FEBCB08429F11188CE986452@OS3PR01MB6596.jpnprd01.prod.outlook.com>
+ <awVW5B4p06FUfBHw@tom-desktop>
+ <TYYPR01MB6603AA1B7A48B7D899604EE586442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+ <awV8G86QIth4GtaA@tom-desktop>
+In-Reply-To: <awV8G86QIth4GtaA@tom-desktop>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TYWPR01MB9885:EE_
+x-ms-office365-filtering-correlation-id: a23f73ef-cd3a-48dd-90a0-08df4a29a244
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|261102123227099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003|261028144727099003|261021123027099003|261021121427099003|11063799006|4143699003|56012099006|10067099003|38070700021|261009223027099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ nrZ1LT7BzGybvkCDfh/CDb+wjUFt6gxyKLuDCv9juqPUtM3I7Zuu57qghg+YCv4DYTJl8xOJVaY6xefqJCAsN7cn3kt6cOa9ZTXNgf7DiSB+djJF6M3Djoq/iRSgjhrkayodAJkWRTm7rB1j8StXOwBvT5VWWgHYwjuUaWLnxWv9Cb7uwMMUFmY2rx86xvmOBvYJNZdBIGgvmRaIBs8nPpMKLHJvp4QulaUXxKunu6wiQEbYyasPXfjeNEPVhzFIC4PyaFROc38ddbyv0atmYJeCfMmVGJqTfZPeGVrcLWM4RGg4UvvI3dwDqYyhliA/9dw/QFZiQa3CfOuLA3Q53GYkiCVibDHdvYK16qYBGVPFgLhFvnNe3iN5ye8SM04eWuh1CRduM36tcsF+V7Uqlh8m8+20JmsbxSZTAVZ8rQd1fB9zbaaegpnsxfBs7jsyEd0rS8q6uW1e4UDSBOz0J+8Uw4ZUMDebjEGCWSHkhwNacxc0SgjzmZqXWqIRzASVZacRsxmxYeYLin/a9whjiK+0S/Qiwg8Efptm5hTkf8oQxpIL/K0CoESNZincxJ/IqrahLCDCU981gmAXAwkMfchWDwxIciZ1bpH9p7+QF6sPDbFw58XULyLgo0GGbLwg2GbvIu3eXUj4R+PB7peimH4bhEb2fxWJbN+FSmRwz/9zjNp6/1JFvGxatR9Q32ptVoks30eYzCMfiiKguclvt3vdzTm2Ez3+W3KcLz6ZbOM=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB6603.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(261102123227099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261028144727099003)(261021123027099003)(261021121427099003)(11063799006)(4143699003)(56012099006)(10067099003)(38070700021)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?9BDcRuyW+3Rj4nta64Nt8ItHSRkYxe8tdPlUW7iUhICHQ9LqqnViOxAogKGm?=
+ =?us-ascii?Q?YOBxF0zM61z2j4KIviAeklVCwMEChwCnVVtdjW6KkaiTCeYabQFlgFkd+lqz?=
+ =?us-ascii?Q?RJOuMhkbjUnZrL8Gmr4dNqxH7Ji4sWyOSzYQ7dQbTg+kCOp998dBwDaTjdzZ?=
+ =?us-ascii?Q?a8mcnl1rSzZkzSmLHiv+WPNfX7WXmIys1Wb6XOIHU+7a1rtt0QRwxY2rqOau?=
+ =?us-ascii?Q?OE8qKPeWW2dv1mtKkwAzQ5tcvftjgDldfZyzwqWnAgnc1ha4qTZmiX8vYC1q?=
+ =?us-ascii?Q?CCcQUrLC4wCXBmy2Ci9v3cwjNTWb1KeRQKfQO7Fff5hcQAMQ3ifuItHmO8H2?=
+ =?us-ascii?Q?ZPaY/+I6GUuvxwZClufhYZ3Bh2kgjCgQnydIAxC0EhyrgI9eGmIrXi92Bmgk?=
+ =?us-ascii?Q?DZKE2tORT9iirncdQvdkI9JM132He/NBTt/760ThlbWWNT3IMHtzhu0cr8Yf?=
+ =?us-ascii?Q?nPp2FXn+U42/IuLCnkFGQL9rrh90HMtDq7wNzTde26adEPkbd+Ujm3gsJRmk?=
+ =?us-ascii?Q?GYDkmPkf9BGt6zwY677vt9OF4L4/M3JufPtOKYSYxxgcxU7q5Ip5uO34FDZ4?=
+ =?us-ascii?Q?1YYTHCDk/YUVB4ekrgbpPMpfHZCj1jcBOgHOY0E1v7xnFl/FaIFxVM/dvhUn?=
+ =?us-ascii?Q?Rnhn9nac12wxtGNsaIXwkr82lQFXGsKjYZqmh4F95OcbB7yJZrBxhkSzkgeH?=
+ =?us-ascii?Q?xgGd7FDHZ3uRkUQ/pV57zRypkYwv9KMpbPg6NPHp10FzSRGIz+Mt6N9H4dRE?=
+ =?us-ascii?Q?+lbx6lTuLqnglXDNmJ7hVHp3wyngEqAjy0t+F/JwyqgpNsTofzrMj7zN8ztP?=
+ =?us-ascii?Q?xvvCfshMcyqzR4LhlCThZyBJJT0t3GbLRIErMTKUV8wlIDD2XXr9DhCLhEz4?=
+ =?us-ascii?Q?JycCGjuY4GdWCvavm3+PmNVJLbN0K+Jt7red2VN5GWn5RlFhZpiYrXtyOhDY?=
+ =?us-ascii?Q?/tNy5K/H+Xl9JMK1zSDlU/JHch0dk1fpvGewC0h7s1WFP+96TFRqXLwSekqI?=
+ =?us-ascii?Q?/Xqdeic+kO9nejA5SjljPWy0sThHyNDPyNJB4GdGQ67j9VsMpQFiT9Cy6xVT?=
+ =?us-ascii?Q?8dchu4AV5RcvzWoRh7nUGM2qiWEf3vps9L2qSffi2ZrRwrJ2R6EPNqiS3jqf?=
+ =?us-ascii?Q?qsTYwrgR0JrYzdZlCsJLH8hr0jC3+MR6wGX1Nhs9qLe9qgyfZpuASyJi4r7m?=
+ =?us-ascii?Q?lDELtfmgFP56ZZuroyzEDfvJoDA6smdMFODdxvKwiZVi5b5BTqiXWfdy96rq?=
+ =?us-ascii?Q?1lBOJ3hc9dDR0i384Sz0BuGzpeZrC4JyI4u2uY+IqWEPSMM83XD4IwIVJt/E?=
+ =?us-ascii?Q?qpY+84vBsVSq/7tRB1cWZPk0P1ld7l3JmrjPc1ot8EMjpO3/BbNWu4uQIWjm?=
+ =?us-ascii?Q?2nzmQz+CYGkC/Ck/UF3R5AC7KIsH8JGrtIQao27+qMiAGl7PTyn9ofCxzDHn?=
+ =?us-ascii?Q?OgU3vV6S/tYZf17WifJGDdUhePriodqxiNFvkBm7/3ckuMmugvZx5NTpP6fs?=
+ =?us-ascii?Q?e09eMnUGdAQWd/YjbMxEiD47tj/cOwotDFuokYlSHl3TaPFPjuWAqVhdiPzO?=
+ =?us-ascii?Q?fnBJSHNxgAWEa/YW4daCe6vWuTRLyohTP6uusSGCj11Qzeh5IDdfGWeipRmM?=
+ =?us-ascii?Q?cgxaFAcwZ07ndfdGGoZtY+hfi5C4entNiOT5VZzAnTxCkgrh7sovHSgAZ0BD?=
+ =?us-ascii?Q?ts9Bkg3L5gxBwy+qw0EUTxk397J2h1D8ffXVyDB8TQQZfnPPwI1O6oLvAzjR?=
+ =?us-ascii?Q?I9wpwtS1KQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,57 +163,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ygwwdgt7z67h2i6w"
-Content-Disposition: inline
-In-Reply-To: <20261117-temp-v9-0-1d094ff918c6@ti.com>
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a23f73ef-cd3a-48dd-90a0-08df4a29a244
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2026 12:51:18.5749
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: WTb081BNDFNQpchNFFbYxXY5oBViT8hSiZqj94/+R0Gthme/MfHUYbuzvv8TGrpvarIDKefca5x5e7EeI6FRnKEm/XCmJ9Kr1KcvLMOdmhs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB9885
 
 
---ygwwdgt7z67h2i6w
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v9 0/2] can: m_can: introduce ti,am62-mcan compatible for
- out-of-band wakeup
-MIME-Version: 1.0
+Hi Tommaso,
 
-On 17.11.2026 15:22:13, Kendall Willis wrote:
-> This series introduces the "ti,am62-mcan" compatible which adds support
-> for out-of-band wakeup capability in m_can devices.
->
-> A corresponding DTS series enabling this feature on TI K3 AM62 family
-> of devices has been submitted separately:
-> "arm64: dts: ti: use ti,am62-mcan compatible for m_can devices" [1]
+> -----Original Message-----
+> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Sent: 24 November 2026 11:59
+> Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU insta=
+nce from the DRM device
+>=20
+> Hi Biju,
+>=20
+> On Tue, Nov 24, 2026 at 09:33:13AM +0000, Biju Das wrote:
+> > Hi Tommaso,
+> >
+> > > -----Original Message-----
+> > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > > Sent: 24 November 2026 09:21
+> > > Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU
+> > > instance from the DRM device
+> > >
+> > > Hi Biju,
+> > > Thanks for your review.
+> > >
+> > > On Mon, Nov 23, 2026 at 04:59:32PM +0000, Biju Das wrote:
+> > > > Hi Tommaso,
+> > > >
+> > > > > -----Original Message-----
+> > > > > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > > > > Sent: 13 November 2026 12:20
+> > > > > Subject: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU
+> > > > > instance from the DRM device
+> > > > >
+> > > > > On RZ/G3E two DU instances share a DRM device, which can only be
+> > > > > created once both instances have been probed.
+> > > > >
+> > > > > Split the DU device structure: keep the match data and the
+> > > > > registers in a structure allocated with the platform device, and
+> > > > > allocate the KMS objects with the DRM device in a new
+> > > > > rzg2l_du_instance_init() helper, as they are released
+> > > with it.
+> > > > >
+> > > > > No functional change intended.
+> > > > >
+> > > > > Signed-off-by: Tommaso Merciai
+> > > > > <tommaso.merciai.xr@bp.renesas.com>
+> > > > > ---
+> > > > > v9->v10:
+> > > > >  - New patch.
+> > > > >
+> > > > >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c | 61
+> > > > > ++++++++++++++------
+> > > > >  1 file changed, 44 insertions(+), 17 deletions(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > > > > b/drivers/gpu/drm/renesas/rz- du/rzg2l_du_drv.c index
+> > > > > d3cccbdf9012..d102876c07e1 100644
+> > > > > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > > > > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > > > > @@ -162,6 +162,27 @@ static int rzg2l_du_pm_resume(struct device
+> > > > > *dev)  static DEFINE_SIMPLE_DEV_PM_OPS(rzg2l_du_pm_ops,
+> > > > >  				rzg2l_du_pm_suspend, rzg2l_du_pm_resume);
+> > > > >
+> > > > > +/*
+> > > > > +---------------------------------------------------------------
+> > > > > +----
+> > > > > +----
+> > > > > +------
+> > > > > + * DU instance
+> > > > > + */
+> > > > > +
+> > > > > +static int rzg2l_du_instance_init(struct rzg2l_du_device *du,
+> > > > > +				  struct drm_device *ddev)
+> > > > > +{
+> > > > > +	struct rzg2l_du_device *rcdu;
+> > > > > +
+> > > > > +	rcdu =3D drmm_kzalloc(ddev, sizeof(*rcdu), GFP_KERNEL);
+> > > > > +	if (!rcdu)
+> > > > > +		return -ENOMEM;
+> > > >
+> > > > Why there is duplicate allocation of rcdu? One in probe() and here
+> > >
+> > > The two allocations have different lifetimes.
+> > >
+> > > The one in rzg2l_du_probe() is tied to the platform device. It holds
+> > > what is needed before the DRM device exists and outside of the
+> > > component bind (dev, info, mmio, and ddev/is_master for the master, P=
+M and remove), as on RZ/G3E
+> the DRM device is only created once both instances have been probed.
+> > >
+> > > The one in rzg2l_du_instance_init() holds the KMS objects (crtcs,
+> > > vsps, lvds, index). Their drmm cleanup handlers point into it and
+> > > run when the DRM device is released, which can happen after the platf=
+orm device has been unbound,
+> so it has to be allocated with the DRM device.
+> >
+> > Then there is an issue right, platform unbound will unmap mmio and
+> > other data structures it allocated in rzg2l_du_probe()and drm driver
+> > is using after that( Use after free Bug)
+>=20
+> Mmmm In theory no.
+>=20
+> The KMS part keeps its own copy of dev, info and mmio, and its drmm clean=
+up handlers only drop
+> references, they don't access the hardware.
 
-This series looks good, but it depends on Markus' work. But LLM based
-review has found some issues ranked medium.
+Can you please make sure these variables set to NULL, after
+Platform unbound?
 
-| https://sashiko.dev/#/patchset/20261016-v7-3-topic-mcan-suspend-fix-fix-v=
-2-0-7efa2b172cce@baylibre.com
-| https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-v7-3-topic-m=
-can-suspend-fix-fix-v2-0-7efa2b172cce@baylibre.com
+Cheers,
+Biju
 
-Without any comments by the author, Upstream will not take any patches
-with "medium" open issues.
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---ygwwdgt7z67h2i6w
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCawWHJgAKCRDMOmT6rpmt
-0mZDAP4+xP661BQH3gc8cnY01JgJSp7Gu4QLt4YaenIUCqmWEAEAhwDjEIyQY/Zl
-5udjh/5pvJWBiQYFlAp2vKaX6ZzDkgU=
-=gMnn
------END PGP SIGNATURE-----
-
---ygwwdgt7z67h2i6w--
