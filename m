@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795479923;
-	b=ijz7XXbFpa/0hst5JXeZsIxL5wpH8jiFHDNSaUwrumsOqzocdg3lMtrLzpUrVxDj3fa6
-	 UFKH0hA+wrzK+Xd07DdSBsgxV0B4Sj7mqF43jHTyWIBirsDj9cT9CbVkqLVnoVFtk8PpL
-	 +b7OV7ZybETlkMOsWax/zc8I01Rn6Un+tvTNwxDOfODM2Mahs2iqvddBcCQygQp3P/5nn
-	 PDWL7Eora/cOiHoE9Wpk6whg3Lg9kvH/eEQeZQLld6URMkGj6fClD36EAHs32TlnLIr5x
-	 yT9/f9qexLtjncln3wJUpCuxGJEOEhCI8lWj8t79F/cQR2BuVWntTpTfU9LYOqVbvCA==
+	t=1795479927;
+	b=xOX7xG9Ax0S7Qalfie1viHfC4+2F81lk2pi1HjJhfuSnCY1YGmXspSOHQ7ltZ70wbUVI
+	 kn/DEtMm/qxOcLM/C8dZxVunrlWTToCa9/vgspNOM8gL7qHs8bM5drXFuDdpHQIF/FFf/
+	 ewrw2IjGrIe6dCW8BfzCB6nl3AIF2ZYJj9djYRMoPJSMCev6jRJb1gv2I7LsMLXZkVYvu
+	 Kg8ygfJQoVZICrBcUV7Qs2RRSVUSjyDtbtw2aIQ5jj89mUVzZvhna++jgxmyunBjCZ1Ev
+	 YB1VXIN77cxpDj0AHZQ3zCgtpNbi7LJ/I8xapa/by94SEAlhj76RkMkyzRZUJi+bQKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795479923;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795479927;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VkojyYriic4Da497QN7cYASwpTnjHM3O/vAEejM2Syo=;
-	b=AinEDD/aniXL6L8efx2hFlNXL2+jAjNZbKGT80NSmVpmRY/Q5CUNDMzwiwRzWhGd8trP
-	 j+EI/OOxv869Djt279nK10MXJYQehGuwlfVhBhm3lCkQYD65DcnPuw6DOuwY50j3FIKxI
-	 2qCZVo6eSpW0CmkoVVsuq0W912AUAjlpP3y4LESFDHwDBVlr0PT/tYDPKsEAjWZ83VM26
-	 +jAzKKwLQ47QrkGy2VU+U/MPokFak/ksYlAsDjrsWIe/OHN6yRkhOc/3TyNIRed+rOF3K
-	 dlF1qNlcvpfxJB20dh85HN8TisnDr5i+NWc+Wtc263B0vEYG0zM2jNzh9vZbLf58ovw==
+	bh=g/olSOUiAdwLPWk2t+WKBg+xKoNXxwfZMz12DJzrXtc=;
+	b=o/dAdxsHSzu6BrhgYX3ABoEXl5gUD7SZB4RcTo3RUPLgi0S2YTaHkL7JPSVveaLpozm+
+	 EtT6QsjHl8HZE1u1pxglMkmc5kBdO+Xwf5MBIJ1+ebmx350GTlEIqNfv5ZS5MCtjW55nO
+	 G640hvarxymMZwCA6BlrxfoFHPBWQVXlwubjogT96i6c7773MlIIhwjfMf4s9VSf85UGJ
+	 jSYrPWBBCZ3N0RX9HEqo+KIRZb86w+cizvD2wgDQZ6WwqoP+WHfhvhAf2IlAH0hjZmANo
+	 BV1tnI5bIYFSd/1yJvppYCCezyL18iaxW6v1pCrOvltB+EaJ84cJ3fThGSKTIfHJ9kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OALplhhG;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pQ3V+p7X;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EACF606A32A
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 00:25:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EACF606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C432A606A322
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 00:25:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C432A606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OALplhhG
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b10ca4e3f9so1993153a91.0
-        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 16:25:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pQ3V+p7X
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdba1bbde0bso1505049a12.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 16:25:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795479922; x=1796084722; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795479926; x=1796084726; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VkojyYriic4Da497QN7cYASwpTnjHM3O/vAEejM2Syo=;
-        b=OALplhhG/xDso0JO0f8MAMqx0CTpmUMkDF1pnd4Hx3sVIAeieDtsDFoa7EgEuWXLGY
-         3+/psVPtRA6DfueT+fsG9eTHHMh4bczcHkjf79xhiE6TtdOnYbwZ+/AJP1U2NQ/UNL2K
-         2OmWR/8/OkEDeOyn7r6LOPqijwp+rqfC75eY8ZDI4plUwxiNDZqgEw09n4ZiISzgJ8p9
-         bIFj0dn9IwK5GY5XovCaTIB1Kcu4TsJsdtkUEewC594cGJvRpVKk0ZZyluwCzJlN26z0
-         Oh0iEe8Ih3O7vaL6DRHFYWjSx5y+HS0z7ggjokcRfEqLZB2ozD3loU3JYJsEgebGUG9W
-         kZdg==
+        bh=g/olSOUiAdwLPWk2t+WKBg+xKoNXxwfZMz12DJzrXtc=;
+        b=pQ3V+p7XpFz3L0RiRxfOe37LEftFwnjJUfheHE2GQc9FloqVmSLlnjNFBuSQnRkt55
+         d4OVcCXroIDwhyQ/QfsLtL4VNLknHrKwvxExMnKmz6oFePLyWTlcBef3jR5RGl94puzP
+         OWSEtIlNmluO4A9Z3GSrJiWRlh3NBqG2ApxvdnsU0TunOR9qbmgitaOxT6n/Qm4TQn0T
+         Nx7rILM6sRVAr5tbrgQLSSQe5UgpNaUpEws6P0xOUleaS8sSn9VPvFEblyValYI72JuY
+         cRH8+rJh/TH4CoROwSNtgTpoVQJq88RwWAU2ZfNqoWa736OvWSRFcZmhoKuxWPS376rj
+         JTHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795479922; x=1796084722;
+        d=1e100.net; s=20260707; t=1795479926; x=1796084726;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VkojyYriic4Da497QN7cYASwpTnjHM3O/vAEejM2Syo=;
-        b=vpDOm9O7wb5rKoj55uVYCZPt2E2lumwR4lmnCKAJZEBPoDfP9F9NS3YrWqMol5LOCD
-         0acN2e/eyqqN4Py2GgOpDQEEF9sEXULYRinuCruxus/tENLo/e+muPWl41acNTJr0Xxi
-         TUjyD4ny3sDouuDrAaE/OXLDJN7ZDfLoQGh4XguzhsmhMhyU7K9iHNOrPVh9+aE40nLy
-         qT8aTr9lvgpruh8rhPotkrRn04LNtV232lCu2kr98RwLlxhiVauWEylmjz7AzeBgZPjY
-         UxKLSJM+Gdcxxx8OIl2xTMvsIS8TQICKIHuSSSbPpJzOy+4pLL1xVhhOspLxKqh36Ey1
-         eypA==
-X-Forwarded-Encrypted: i=1; AL+hErHjNOxp/MGBPnNgDw9corF0cxwv9b11un74bLq+OQRA0Eb6f3SICxYos7PuZMSkZ4aV9yCgKc4AVMkL@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dixhSVq7Gew8wPPglaQ82HqplV14im5XoHkta+SQhjfh5UBMV
-	97hUyRyI6t7Ll3SnU7WZbJlpLXeFJJct0h+8qm7OwfQ4KWrOKTTOj3tI
-X-Gm-Gg: AZFdTZcWHpcQQlfLBziHm+SUwX/sG2M5DLTDVmVrqDF9BZ8yZn7ageVlGSXTLm8OPO2
-	ub887F/AVav0Hga9dfI57KV3/864QObnosI3+2Q8A0GBtOy3pyM6o8kD0p9hjPJHKQA2RrrP195
-	yxSw2nng6FsRb5zSxLApvJKQNA9eNDhIbUZA0WZKS3jMWMzNKi6C+mfGelef5V1BnqkY8R9X4Rx
-	El/95xSLpYFyFC45Hcj5KoDzW3A9qTiWbsaZ58CFtLnnWhNuxx76DIlUtZClS+3nqEvN4QU9R0F
-	LrqG7UAHbSeuKQpoycPyr/cA7YFE9pAUH+jGKGDYfJSe2rp2eLdiVAKbxqyP4HahAZwrA0qcW72
-	iJbD5f1VwcEzkiOvXz0SdGM1PytefrywxX9btDBdgbbumqha4mQS17LKYH3+ZSjVblcSUliwBfV
-	N1xiSnkY0sLdO1GnTgjosKHkuF+bGMHhh75IwNF5kW1OlQBwyJGXDzHEh3F5iRpxHbGhgsp25Wu
-	lEkElkSL6UayLUhciDG/cOtTHgS6FtKaFJp13t38Tcpu73doxGqM147CCgqZN1updE3/GaKCxyz
-	+OjibASHfcXf0WN5ghsbm1U+STgOlcICYkLy4JiI0nr89lb2cQWldV656ZEfcc7BCXPk5k/tKG1
-	kEYzQAO5fCgf+
-X-Received: by 2002:a17:90b:1dcd:b0:3b0:bd53:8e5d with SMTP id 98e67ed59e1d1-3b41cb3e4b9mr9742816a91.58.1795479921884;
-        Mon, 23 Nov 2026 16:25:21 -0800 (PST)
+        bh=g/olSOUiAdwLPWk2t+WKBg+xKoNXxwfZMz12DJzrXtc=;
+        b=raRnxUtAWmUr7eivXJh043UjaubJr6pRDayIVBOV32bEEKyHDdWSPCHg868qn2wPGW
+         8MMlv6QRrqxp339vasVmgzSpdQxIKc+7ehKjpmXAwA51ZP3NOLsldoAogN2PTNX2OVNn
+         pWowI4TaC3bAUV779PwcRDSM3F8vHsTtLUq/goFPNPb9lRlekB9VsuPvsGLaaZ+7MP2q
+         1qYdETTwCGSXVZlOmrAYdyoSt2mTV4zzd1r3bh+MMXM1oe5IQ+tygWxe9XkKbMOMdntS
+         e5KB/O//DGz3fEdWXkRlPrF1JVCHlhdV6BXB/AzLUD2ACOG/NnCB3r27duGtdcgsswVZ
+         mThg==
+X-Forwarded-Encrypted: i=1; AL+hErHzHaqHw4oSmBwO4uVrm95MRUJJIanVfY13DcET01+y9UE5jYF0eCb5E7zUGy3ogqoohu4lydJwK22G@vger.kernel.org
+X-Gm-Message-State: APuU4Z9iYafpaijOT84ow95Z/2Ic+BAmVFsuhsul5igDm2DOiqYp3x6r
+	8GutvcbEpiL8EyyD52MzsVaKCHuCj4nMQMtOtsjzymEcPWU1R38FkEvS
+X-Gm-Gg: AZFdTZethLtmz5AXm1eI3/v3C1m3uuQQCl759zZ5Wb/JCKgfe/m2wNxSxivXq+UHg20
+	R53ZKrmOeaAfXFCAf7m0DnoRe+GF0SYde8YiTgZCWkQKszWveeR0jJn1z3OYQDEjPJWr5id3uBj
+	4CmVAJ9QKmsRLIp3x87Z71Q8HHP31ObWaQFtd3pJd2sicuD0SJN+u33E6Kul9snYD/mZfW1eKvA
+	PIzJGLEwW8b3lZJmDGDeh3aaznohnD3V1yiDvA/4v93y5Ym2yY7GRWaR6Pxe0Fki+uJvMKKrI32
+	sb1+kmmGnOrwbRkbt8hNraSCYsy2JwwBkeb8QIBiNNccPadEBldOMaGPtJ5E4hX6Co+Hb6x0dSD
+	QpCDrTrVpIT/2jhiz/pC5u6lzKSMqATg7tx0HmfC8iC3JfpebsBuxkMNuXDmrmFm2JR6b2ngsX/
+	G7H6Uho8MNFRpEq47pD2wQ2MR9t4TCZSnBVfA8I/NRyi6qg9rQNDPdwVJFyNd4iZYF8DCB6+e1u
+	e7hkZ5Y3kiKusWLhWdatMhjL7QkZOBFj7S4osarJT03w68sQjsfK/bYyCxCc1dAk9MtvQ1YRbbN
+	X0DHPTOq/t9yH9iZSCTkHE/GAyWzXeoMnloWrikueG8JnzoMPrsI5qSfXP7bNptK5wA=
+X-Received: by 2002:a17:90b:5847:b0:3b4:6094:2fad with SMTP id 98e67ed59e1d1-3b4609432acmr6528704a91.48.1795479925874;
+        Mon, 23 Nov 2026 16:25:25 -0800 (PST)
 Received: from d.home.yangfl.dn42 ([104.28.201.73])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b495035339sm7302480a91.0.2026.11.23.16.25.18
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b495035339sm7302480a91.0.2026.11.23.16.25.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 16:25:21 -0800 (PST)
+        Mon, 23 Nov 2026 16:25:25 -0800 (PST)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -93,9 +92,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Jian Shen <shenjian15@huawei.com>,
 	Jijie Shao <shaojijie@huawei.com>,
 	devicetree@vger.kernel.org
-Subject: [PATCH net-next v3 3/5] net: hix5hd2_gmac: Use mdio child node for MDIO bus if it exists
-Date: Tue, 24 Nov 2026 08:24:37 +0800
-Message-ID: <20261124002442.19414-4-mmyangfl@gmail.com>
+Subject: [PATCH net-next v3 4/5] dt-bindings: net: hisilicon,hisi-gmac-v1: Allow fixed-link
+Date: Tue, 24 Nov 2026 08:24:38 +0800
+Message-ID: <20261124002442.19414-5-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124002442.19414-1-mmyangfl@gmail.com>
 References: <20261124002442.19414-1-mmyangfl@gmail.com>
@@ -110,37 +109,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This allows explicitly specifying which children are present on the mdio
-bus, like commit 4d98bb0d7ec2 ("net: macb: Use mdio child node for MDIO
-bus if it exists").
+With a fixed link there is no phy-handle, make phy-handle required only
+when no fixed-link is declared.
+
+A fixed link without an "mdio" child node gets no MDIO bus, so devices
+attached to the controller's MDIO lines must be described under the
+"mdio" child node.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/net/ethernet/hisilicon/hix5hd2_gmac.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ .../bindings/net/hisilicon,hisi-gmac-v1.yaml          | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-index d129aeceb641..a176870079e9 100644
---- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-+++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-@@ -1101,6 +1101,7 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct device_node *node = dev->of_node;
-+	struct device_node *mdio_np;
- 	struct net_device *ndev;
- 	struct hix5hd2_priv *priv;
- 	struct mii_bus *bus;
-@@ -1189,7 +1190,9 @@ static int hix5hd2_dev_probe(struct platform_device *pdev)
- 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(&pdev->dev));
- 	priv->bus = bus;
+diff --git a/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml b/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml
+index a71529825955..c283c1b6ac72 100644
+--- a/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml
++++ b/Documentation/devicetree/bindings/net/hisilicon,hisi-gmac-v1.yaml
+@@ -13,6 +13,13 @@ maintainers:
+ allOf:
+   - $ref: /schemas/net/ethernet-controller.yaml#
+   - $ref: /schemas/net/mdio.yaml#
++  - if:
++      not:
++        required:
++          - fixed-link
++    then:
++      required:
++        - phy-handle
  
--	ret = devm_of_mdiobus_register(dev, bus, node);
-+	mdio_np = of_get_child_by_name(node, "mdio");
-+	ret = devm_of_mdiobus_register(dev, bus, mdio_np ?: node);
-+	of_node_put(mdio_np);
- 	if (ret)
- 		goto out_disable_clk;
+ properties:
+   compatible:
+@@ -58,7 +65,8 @@ properties:
+     unevaluatedProperties: false
+     description:
+       Node containing PHY children. If this node is not present, then PHYs will
+-      be direct children.
++      be direct children. With a fixed link, the MDIO bus is not registered
++      unless this node is present.
+ 
+   hisilicon,phy-reset-delays-us:
+     description: Triplet of PHY reset delays in microseconds.
+@@ -74,7 +82,6 @@ required:
+   - clocks
+   - clock-names
+   - phy-mode
+-  - phy-handle
+ 
+ unevaluatedProperties: false
  
 -- 
 2.53.0
