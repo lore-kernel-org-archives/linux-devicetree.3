@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795520738;
-	b=5NYyy7p/MUG6R8AEXvUHTUgdC47i3JykShWDigLK6FB4jRy79phDFBfBPUlewrW4G2Bb
-	 GaIbJwaqhl+j8uy4/Ge+A/Zk5wGYf5BWxqqwqoNWhUjRHm0wskt2xdCYmDj/gnivi7wgw
-	 MAGL4esIaHoQ5u5zcgOLWW27h299SjHbPP0NJ70A9rDRcrdYKJmC5AvQmgpoQnBaZiDrd
-	 E3/ooyyFJq6RAMz1miyxbgbqcLWsM2qbQdnitHqvgCPJTFRhEfUDTuCtDuv8Pm8FPOaY/
-	 cKktxN2wrvSfnNgbadwbQ3uGyc7cgyV0y3ZyN90yrpi8stjAhEkVrfmhvEwWiROnfwg==
+	t=1795520747;
+	b=1dN0LhCAP5u1eWyaNvGbY2wwcLRWb0VT/KhEL6qRRrQUHyeDmaz2XUU3nv8PyoziuRqL
+	 LWiDfAQ7ZaKl2RmcwTbCmWOe+SZYjqXgnaCpP3rvz/5QEKMC83/9GuX44f41rInoeAS35
+	 fiWJ+ZMiB1b/H9hA97ICzFuxpwO/4UFw7J6katl+yg1pyavG6i2h8WmbLHlsUtwTcz80S
+	 E4vA+9BJ3nK8bALR7Y/rR/A8YRLUfdhvFEBrMV/lpTLxLbzkkP6Rrsa5tJUlgNsyI4blp
+	 uBI9qwVk+n/o5R0/p3svrU4xhLsh9CxkgeWIwlHGihah4BYl1F50ygvV6rMbH9mGa0w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795520738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795520747;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=W0eSK13iDTJWh5IQeLAJAkvY2uib2vHpLgObunMRvg8=;
-	b=41w6EHUXDmLK2Ee87TDJPX901gOXP1VBNwLsnia9Lqtr+b3H1u/AUXziKggDm0kQAFYh
-	 R/bXbS/iN15CpAFB0mwDv9xlf530mpB+2OrvV2+pCLx7rnB4v2YszOxEUsH9/JQNNq1fB
-	 +QHzR8COvTOzroXutpt3AQElHE7ReslA0ns9TBicwpmr6FsdZok3IcL8hDBduE3MREXSa
-	 Dq6/uO0mt6FuEj1WpI1kd7Mk/tAzgc4y2xpTDlCtX7xwu/ZHqGlmRK9oOP6g/32LDPJDM
-	 hHFFCdt4jEWsn/O3CY9UHSxJnlL0MaQn9KdocBcI1y8uObhPqHYhMjly/QPqjL0cHag==
+	bh=Ots3WAFDPR2PYg+mjIwzB9jpyCmnpV1ZAB8Z4JBu2L8=;
+	b=1gZiCk9RLyTgBVIHx9NgMSIHlWr9NeVE9QUy2bmAhkEav/m4F8n9GRV7lWNHbHAlVzw4
+	 ch/LzU6pJ2MKyIvMAWyal4lDZF58awBME12Iiozl7013koWT/6ALEKgfTbUPyNVIG6qpx
+	 xXPH+5uvsIcv91YhpIhWllHP1gHmgWqeJbbGcMg4xMj+7APCxzhL+rD5XCjshM4yMA2XI
+	 oLcy+W9P7yxXaG+5jz7XiCAPeZFWJ9eMdesi8i5bMIpF/G6qwlKdZPtKCNXPjLYMWhZKB
+	 KM5l5g8UZu0rEmtCYh4UAHPg306AjaM3Q3itjkAI0HYlqKzLoEzKCRYIHccAuc/CRBA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDjwD2uT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0zksxXp;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938D5606A686;
-	Tue, 24 Nov 2026 11:45:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74936606A689;
+	Tue, 24 Nov 2026 11:45:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDjwD2uT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0zksxXp
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795520738;
-	b=UdH91GS8n1k5oFIJBjyadXuRPcRgZ4tyNeJ9DcF2n3VpwAgg0CFRUoZ6TeZ2hU8deYIH
-	 pfPQ/PUnqTAZuD7LUJzroPm6B+FMVDN7eYEbTfIxGkdd0027UIS7UnjVGTGmU1ai6kKTc
-	 8po8brephpjltIeGi+Z0A4Je+eiv0BRsYoDVzmYIMPawelFsS4ZfA6/IrxOEpmb8P5TpI
-	 9EmDDjw9pN5VXxCxWQyP5SPGux07N/hwLvjvLgOyy1bPUhs82wTH+cwNSi1uwaDbuSfmW
-	 O7Z4HHPNOT5dZjNpEkVxGylXyxKoDiDctrtbPbSn5P1fhUiocRjeEkOn7IFzMCS9JeA==
+	t=1795520747;
+	b=Oold0Sxq7Ud0IZHMV8lZNaNBmmHS310TqdDuf/8Tkoc/M6tbe6xVZsf/fWfDShyFmvI6
+	 CHCGeFgVkyq6GRMKzffq7nn6zhryxxHgcbUDarno9rRH8My1x44p5UhpkKmmlB8a/lwkq
+	 FKPurIRC32sXN9sbgmAdXLCYcmY+sFedyYqXOZpspWS/REe/akn6ydGMz1GQ6SdpA6YiK
+	 3MWlOJacxWgofVhrGRxre7O2NaEa7xOe2D9lBYW1olLwyo0Mahv+w/Xw05idoENtgOqgh
+	 kF2UvLTmDniKf6fd4VvZJX9h/A9xg1za7Kp3x49C7zzqdma9egQMZgcv1KlN5mglh2A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795520738;
+	c=relaxed/relaxed; t=1795520747;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=W0eSK13iDTJWh5IQeLAJAkvY2uib2vHpLgObunMRvg8=;
-	b=Dtd9G9dqN7DYF3ZpzIR3ESKAmktbozJnljyMQ/Nn7V9jrFL6bMfFMmj2pY/F+W4y5sZA
-	 ob+Ev75R3027pliPuwH0fgsl2Og5ehk8Kiyn1a9luoeJoO+DtO4fqF0xn0euyAcD9z+oJ
-	 W0Hn6ijqn/Um+C7JhFAsr7Ib9vV+FdV1LubAVd1s3lhWM+Enu6tkewmRfbHVTYjiwgnua
-	 1Z4ET3/Cxdwu8jmh5fWpsjxuA9bY0P7lN1gOwKwHGD+rw4OtcRcYfcAQH51KnRw/5Paeg
-	 0FpnF1sCCkqvqopanGWwqC1YOC3Zjg3snG7J4lkkIjjKB1DqUOZ8m4NlHcsiZcSZAtw==
+	bh=Ots3WAFDPR2PYg+mjIwzB9jpyCmnpV1ZAB8Z4JBu2L8=;
+	b=OB58gbjWJ9BG5IPm0NYxXTFdYR858AaUcu+yE/MEYYlbIKL6apk3FwGBuTieRKP+ul87
+	 c5LIl73myk9X4IrsrwKc6sly4Y9xVMpni1kXhnurrvJdiwDgeCKxTTWs4bLYd7bXwOKEm
+	 jXcQf94E4Y6LaDcPfumGFA7te51KoyiaMlA8rhA7N8gET85Ggy3xu6V1ILrIdoX9K5LWe
+	 QS87VhOqiBaLpPNgTEsqbNAz2TxqUjNDy3aYF0EoiyzPk9ELnqkxVWl2BiINDUT2zPPfu
+	 OxB4TETqjLxRj9d4gclObvvBUKC9Ic0fQ+O4K4FEVVjgFcG/3ht8Nopx58Gz9LI2QLQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B90221F000CF;
-	Tue, 24 Nov 2026 11:45:27 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 952221F000D3;
+	Tue, 24 Nov 2026 11:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795520738;
-	bh=W0eSK13iDTJWh5IQeLAJAkvY2uib2vHpLgObunMRvg8=;
+	s=k20260515; t=1795520747;
+	bh=Ots3WAFDPR2PYg+mjIwzB9jpyCmnpV1ZAB8Z4JBu2L8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=EDjwD2uTpWPVi0bn5MljLFClwfQb0QXbud9FGfEBIi1PQmQcqG82OhHQcdURYKrCU
-	 Oz/aBqryqU0kjs5QHeZWplHVF7EgfJgD1e1RJ0t5zkqRgg8bI8dqUQOW1NU87h2JpM
-	 G4vUIBnkg/WPD8Kx9XrQ18734DOg99ro+gwxFUnSsMzm7njtdTAiZT8Pg1wpB5qRv9
-	 dK0UHCFF0kKWa5wEN+6zrog9xRw/OGDvbi0NOsDrUGPCTk80QAHnVkj/4dwiM5VEiv
-	 E1f/WpReJ+qhlc6sMH+Hy4fTp+ROXBJ+X9OLsaeyeOByvksPKB6ewraNIz7GJOVBvM
-	 r94V71FzupjdQ==
+	b=e0zksxXpJOPwkjxsQEorcZAvvbK6FBu2ER4NCfS9GNjqHRlTjAWvK9JbMkqNfBFbx
+	 n3xAvAG1x3TeSqn59TAzm3bI/PONmnlWhy+FjAH0JVl8O8oHrnVcV2/2PYBBAi+gye
+	 /1yMw31QDeaBQWuD+kfg5Dm0OQbOtJqC3UKfJkGu+uEOSQmuxcRP2Fgxltm06bmEnq
+	 bte2dZ9CNgYuKoIDAusNPImFpV1Esf2p/Up0dUbMGoMju+0QgDCIyAEN5lduTAnA06
+	 jSYXexQZ903NEqcf3/xMyRLJxSeDmPvbD9cGdGuiViKdHsnzoR31Sl5PdIR6pE1uPG
+	 409ZNhohOWQ1w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 44ADC4C9F7;
+	by lkml.kernel.org (Postfix) with ESMTP id 99A8F4CA03;
 	Tue, 24 Nov 2026 11:45:27 +0000 (UTC)
 From: Sai Sree Kartheek Adivi via B4 Relay <devnull+s-adivi.ti.com@kernel.org>
-Date: Tue, 24 Nov 2026 17:15:06 +0530
-Subject: [PATCH v13 04/20] dmaengine: ti: k3-udma: move static inline
- helper functions to header file
+Date: Tue, 24 Nov 2026 17:15:09 +0530
+Subject: [PATCH v13 07/20] dmaengine: ti: k3-udma: Add variant-specific
+ function pointers to udma_dev
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-dma-upstream-v13-v13-4-bd4251fdc6d4@ti.com>
+Message-Id: <20261124-dma-upstream-v13-v13-7-bd4251fdc6d4@ti.com>
 References: <20261124-dma-upstream-v13-v13-0-bd4251fdc6d4@ti.com>
 In-Reply-To: <20261124-dma-upstream-v13-v13-0-bd4251fdc6d4@ti.com>
 To: Vignesh Raghavendra <vigneshr@ti.com>, Vinod Koul <vkoul@kernel.org>, 
@@ -97,11 +97,11 @@ Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
  sebin.francis@ti.com, Sai Sree Kartheek Adivi <s-adivi@ti.com>, 
  Frank Li <Frank.Li@nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795520723; l=7514;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795520723; l=10558;
  i=s-adivi@ti.com; s=20261124; h=from:subject:message-id;
- bh=vQM+8bNzZKfeGyDpWHks8cboRQtNQ2yWUgntyrqEfsc=;
- b=rxBPZf0nfDPDN7A354YwntXzKPPDZWMxdDEckEtYYfCzMgibm444Kp8Ty019Hsr48nXMKh64t
- AMoHxP66HGiBRuPNL7ZbSp2IhAaHTVjt69UyU+3+wZVyZlirGKO4Koa
+ bh=4M8T7KkPXsvWkJD69g3DX42CQArerjghpVbY6qtdGd4=;
+ b=RAFS4XmRc0vojszchHsL5bVx5o7VZTz9ERaO3bRssmW9kwE3KMDrCUhpv/7auXxMlpVav3eSn
+ Bju7zI3uCrVDiAAAmQ9/ucCZ6SOC9pwcu1fSnFFe9fg6zvqhFJbyCRq
 X-Developer-Key: i=s-adivi@ti.com; a=ed25519;
  pk=EtOwVxmXDuYMgw3DqFtPDBpf8ZvbO89w1fJm4w5yPI8=
 X-Endpoint-Received: by B4 Relay for s-adivi@ti.com/20261124 with
@@ -112,280 +112,300 @@ Content-Transfer-Encoding: 7bit
 
 From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-Move static inline helper functions in k3-udma.c to k3-udma.h header
-file for better separation and reuse.
+Introduce function pointers in the udma_dev structure to allow
+variant-specific implementations for certain operations.
+This prepares the driver for supporting multiple K3 UDMA variants,
+such as UDMA v2, with minimal code duplication.
+
+No functional changes intended in this commit.
 
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 ---
- drivers/dma/ti/k3-udma.c | 108 ----------------------------------------------
- drivers/dma/ti/k3-udma.h | 110 +++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 110 insertions(+), 108 deletions(-)
+ drivers/dma/ti/k3-udma-private.c | 10 ++++--
+ drivers/dma/ti/k3-udma.c         | 66 ++++++++++++++++++++++------------------
+ drivers/dma/ti/k3-udma.h         | 12 ++++++++
+ 3 files changed, 57 insertions(+), 31 deletions(-)
 
+diff --git a/drivers/dma/ti/k3-udma-private.c b/drivers/dma/ti/k3-udma-private.c
+index 624360423ef17..44c097fff5ee6 100644
+--- a/drivers/dma/ti/k3-udma-private.c
++++ b/drivers/dma/ti/k3-udma-private.c
+@@ -8,13 +8,19 @@
+ 
+ int xudma_navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread)
+ {
+-	return navss_psil_pair(ud, src_thread, dst_thread);
++	if (ud->psil_pair)
++		return ud->psil_pair(ud, src_thread, dst_thread);
++
++	return 0;
+ }
+ EXPORT_SYMBOL(xudma_navss_psil_pair);
+ 
+ int xudma_navss_psil_unpair(struct udma_dev *ud, u32 src_thread, u32 dst_thread)
+ {
+-	return navss_psil_unpair(ud, src_thread, dst_thread);
++	if (ud->psil_unpair)
++		return ud->psil_unpair(ud, src_thread, dst_thread);
++
++	return 0;
+ }
+ EXPORT_SYMBOL(xudma_navss_psil_unpair);
+ 
 diff --git a/drivers/dma/ti/k3-udma.c b/drivers/dma/ti/k3-udma.c
-index 7a9c861efc07c..a14cd9270c8cb 100644
+index 2fba734616272..fbcf976d7a668 100644
 --- a/drivers/dma/ti/k3-udma.c
 +++ b/drivers/dma/ti/k3-udma.c
-@@ -40,91 +40,6 @@ static const char * const mmr_names[] = {
+@@ -40,7 +40,7 @@ static const char * const mmr_names[] = {
  	[MMR_TCHANRT] = "tchanrt",
  };
  
--static inline struct udma_dev *to_udma_dev(struct dma_device *d)
--{
--	return container_of(d, struct udma_dev, ddev);
--}
--
--static inline struct udma_chan *to_udma_chan(struct dma_chan *c)
--{
--	return container_of(c, struct udma_chan, vc.chan);
--}
--
--static inline struct udma_desc *to_udma_desc(struct dma_async_tx_descriptor *t)
--{
--	return container_of(t, struct udma_desc, vd.tx);
--}
--
--/* Generic register access functions */
--static inline u32 udma_read(void __iomem *base, int reg)
--{
--	return readl(base + reg);
--}
--
--static inline void udma_write(void __iomem *base, int reg, u32 val)
--{
--	writel(val, base + reg);
--}
--
--static inline void udma_update_bits(void __iomem *base, int reg,
--				    u32 mask, u32 val)
--{
--	u32 tmp, orig;
--
--	orig = readl(base + reg);
--	tmp = orig & ~mask;
--	tmp |= (val & mask);
--
--	if (tmp != orig)
--		writel(tmp, base + reg);
--}
--
--/* TCHANRT */
--static inline u32 udma_tchanrt_read(struct udma_chan *uc, int reg)
--{
--	if (!uc->tchan)
--		return 0;
--	return udma_read(uc->tchan->reg_rt, reg);
--}
--
--static inline void udma_tchanrt_write(struct udma_chan *uc, int reg, u32 val)
--{
--	if (!uc->tchan)
--		return;
--	udma_write(uc->tchan->reg_rt, reg, val);
--}
--
--static inline void udma_tchanrt_update_bits(struct udma_chan *uc, int reg,
--					    u32 mask, u32 val)
--{
--	if (!uc->tchan)
--		return;
--	udma_update_bits(uc->tchan->reg_rt, reg, mask, val);
--}
--
--/* RCHANRT */
--static inline u32 udma_rchanrt_read(struct udma_chan *uc, int reg)
--{
--	if (!uc->rchan)
--		return 0;
--	return udma_read(uc->rchan->reg_rt, reg);
--}
--
--static inline void udma_rchanrt_write(struct udma_chan *uc, int reg, u32 val)
--{
--	if (!uc->rchan)
--		return;
--	udma_write(uc->rchan->reg_rt, reg, val);
--}
--
--static inline void udma_rchanrt_update_bits(struct udma_chan *uc, int reg,
--					    u32 mask, u32 val)
--{
--	if (!uc->rchan)
--		return;
--	udma_update_bits(uc->rchan->reg_rt, reg, mask, val);
--}
--
- static int navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread)
+-static int navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread)
++int navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread)
  {
  	struct udma_tisci_rm *tisci_rm = &ud->tisci_rm;
-@@ -216,17 +131,6 @@ static void udma_dump_chan_stdata(struct udma_chan *uc)
+ 
+@@ -50,8 +50,8 @@ static int navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread)
+ 					      src_thread, dst_thread);
+ }
+ 
+-static int navss_psil_unpair(struct udma_dev *ud, u32 src_thread,
+-			     u32 dst_thread)
++int navss_psil_unpair(struct udma_dev *ud, u32 src_thread,
++		      u32 dst_thread)
+ {
+ 	struct udma_tisci_rm *tisci_rm = &ud->tisci_rm;
+ 
+@@ -329,7 +329,7 @@ static int udma_start(struct udma_chan *uc)
  	}
- }
  
--static inline dma_addr_t udma_curr_cppi5_desc_paddr(struct udma_desc *d,
--						    int idx)
--{
--	return d->hwdesc[idx].cppi5_desc_paddr;
--}
--
--static inline void *udma_curr_cppi5_desc_vaddr(struct udma_desc *d, int idx)
--{
--	return d->hwdesc[idx].cppi5_desc_vaddr;
--}
--
- static struct udma_desc *udma_udma_desc_from_paddr(struct udma_chan *uc,
- 						   dma_addr_t paddr)
- {
-@@ -369,11 +273,6 @@ static bool udma_is_chan_paused(struct udma_chan *uc)
- 	return false;
- }
+ 	/* Make sure that we clear the teardown bit, if it is set */
+-	udma_reset_chan(uc, false);
++	uc->ud->reset_chan(uc, false);
  
--static inline dma_addr_t udma_get_rx_flush_hwdesc_paddr(struct udma_chan *uc)
--{
--	return uc->ud->rx_flush.hwdescs[uc->config.pkt_mode].cppi5_desc_paddr;
--}
--
- static int udma_push_to_ring(struct udma_chan *uc, int idx)
- {
- 	struct udma_desc *d = uc->desc;
-@@ -775,13 +674,6 @@ static void udma_cyclic_packet_elapsed(struct udma_chan *uc)
- 	d->desc_idx = (d->desc_idx + 1) % d->sglen;
- }
+ 	/* Push descriptors before we start the channel */
+ 	udma_start_desc(uc);
+@@ -521,8 +521,8 @@ static void udma_check_tx_completion(struct work_struct *work)
+ 		if (uc->desc) {
+ 			struct udma_desc *d = uc->desc;
  
--static inline void udma_fetch_epib(struct udma_chan *uc, struct udma_desc *d)
--{
--	struct cppi5_host_desc_t *h_desc = d->hwdesc[0].cppi5_desc_vaddr;
--
--	memcpy(d->metadata, h_desc->epib, d->metadata_size);
--}
--
- static bool udma_is_desc_really_done(struct udma_chan *uc, struct udma_desc *d)
- {
- 	u32 peer_bcnt, bcnt;
+-			udma_decrement_byte_counters(uc, d->residue);
+-			udma_start(uc);
++			uc->ud->decrement_byte_counters(uc, d->residue);
++			uc->ud->start(uc);
+ 			vchan_cookie_complete(&d->vd);
+ 			break;
+ 		}
+@@ -554,7 +554,7 @@ static irqreturn_t udma_ring_irq_handler(int irq, void *data)
+ 		}
+ 
+ 		if (!uc->desc)
+-			udma_start(uc);
++			uc->ud->start(uc);
+ 
+ 		goto out;
+ 	}
+@@ -576,8 +576,8 @@ static irqreturn_t udma_ring_irq_handler(int irq, void *data)
+ 				vchan_cyclic_callback(&d->vd);
+ 			} else {
+ 				if (udma_is_desc_really_done(uc, d)) {
+-					udma_decrement_byte_counters(uc, d->residue);
+-					udma_start(uc);
++					uc->ud->decrement_byte_counters(uc, d->residue);
++					uc->ud->start(uc);
+ 					vchan_cookie_complete(&d->vd);
+ 				} else {
+ 					schedule_delayed_work(&uc->tx_drain.work,
+@@ -612,8 +612,8 @@ static irqreturn_t udma_udma_irq_handler(int irq, void *data)
+ 			vchan_cyclic_callback(&d->vd);
+ 		} else {
+ 			/* TODO: figure out the real amount of data */
+-			udma_decrement_byte_counters(uc, d->residue);
+-			udma_start(uc);
++			uc->ud->decrement_byte_counters(uc, d->residue);
++			uc->ud->start(uc);
+ 			vchan_cookie_complete(&d->vd);
+ 		}
+ 	}
+@@ -1654,7 +1654,7 @@ static int udma_alloc_chan_resources(struct dma_chan *chan)
+ 
+ 	if (udma_is_chan_running(uc)) {
+ 		dev_warn(ud->dev, "chan%d: is running!\n", uc->id);
+-		udma_reset_chan(uc, false);
++		ud->reset_chan(uc, false);
+ 		if (udma_is_chan_running(uc)) {
+ 			dev_err(ud->dev, "chan%d: won't stop!\n", uc->id);
+ 			ret = -EBUSY;
+@@ -1663,7 +1663,7 @@ static int udma_alloc_chan_resources(struct dma_chan *chan)
+ 	}
+ 
+ 	/* PSI-L pairing */
+-	ret = navss_psil_pair(ud, uc->config.src_thread, uc->config.dst_thread);
++	ret = ud->psil_pair(ud, uc->config.src_thread, uc->config.dst_thread);
+ 	if (ret) {
+ 		dev_err(ud->dev, "PSI-L pairing failed: 0x%04x -> 0x%04x\n",
+ 			uc->config.src_thread, uc->config.dst_thread);
+@@ -1718,7 +1718,7 @@ static int udma_alloc_chan_resources(struct dma_chan *chan)
+ 	uc->irq_num_ring = 0;
+ 	uc->irq_num_udma = 0;
+ err_psi_free:
+-	navss_psil_unpair(ud, uc->config.src_thread, uc->config.dst_thread);
++	ud->psil_unpair(ud, uc->config.src_thread, uc->config.dst_thread);
+ 	uc->psil_paired = false;
+ err_res_free:
+ 	udma_free_tx_resources(uc);
+@@ -1821,7 +1821,7 @@ static int bcdma_alloc_chan_resources(struct dma_chan *chan)
+ 
+ 	if (udma_is_chan_running(uc)) {
+ 		dev_warn(ud->dev, "chan%d: is running!\n", uc->id);
+-		udma_reset_chan(uc, false);
++		ud->reset_chan(uc, false);
+ 		if (udma_is_chan_running(uc)) {
+ 			dev_err(ud->dev, "chan%d: won't stop!\n", uc->id);
+ 			ret = -EBUSY;
+@@ -1849,8 +1849,8 @@ static int bcdma_alloc_chan_resources(struct dma_chan *chan)
+ 		uc->use_dma_pool = true;
+ 	} else if (uc->config.dir != DMA_MEM_TO_MEM) {
+ 		/* PSI-L pairing */
+-		ret = navss_psil_pair(ud, uc->config.src_thread,
+-				      uc->config.dst_thread);
++		ret = ud->psil_pair(ud, uc->config.src_thread,
++				    uc->config.dst_thread);
+ 		if (ret) {
+ 			dev_err(ud->dev,
+ 				"PSI-L pairing failed: 0x%04x -> 0x%04x\n",
+@@ -1910,8 +1910,8 @@ static int bcdma_alloc_chan_resources(struct dma_chan *chan)
+ 	uc->irq_num_udma = 0;
+ err_psi_free:
+ 	if (uc->psil_paired)
+-		navss_psil_unpair(ud, uc->config.src_thread,
+-				  uc->config.dst_thread);
++		ud->psil_unpair(ud, uc->config.src_thread,
++				uc->config.dst_thread);
+ 	uc->psil_paired = false;
+ err_res_free:
+ 	bcdma_free_bchan_resources(uc);
+@@ -2014,7 +2014,7 @@ static int pktdma_alloc_chan_resources(struct dma_chan *chan)
+ 
+ 	if (udma_is_chan_running(uc)) {
+ 		dev_warn(ud->dev, "chan%d: is running!\n", uc->id);
+-		udma_reset_chan(uc, false);
++		ud->reset_chan(uc, false);
+ 		if (udma_is_chan_running(uc)) {
+ 			dev_err(ud->dev, "chan%d: won't stop!\n", uc->id);
+ 			ret = -EBUSY;
+@@ -2037,7 +2037,7 @@ static int pktdma_alloc_chan_resources(struct dma_chan *chan)
+ 	uc->use_dma_pool = true;
+ 
+ 	/* PSI-L pairing */
+-	ret = navss_psil_pair(ud, uc->config.src_thread, uc->config.dst_thread);
++	ret = ud->psil_pair(ud, uc->config.src_thread, uc->config.dst_thread);
+ 	if (ret) {
+ 		dev_err(ud->dev, "PSI-L pairing failed: 0x%04x -> 0x%04x\n",
+ 			uc->config.src_thread, uc->config.dst_thread);
+@@ -2083,7 +2083,7 @@ static int pktdma_alloc_chan_resources(struct dma_chan *chan)
+ err_irq_free:
+ 	uc->irq_num_ring = 0;
+ err_psi_free:
+-	navss_psil_unpair(ud, uc->config.src_thread, uc->config.dst_thread);
++	ud->psil_unpair(ud, uc->config.src_thread, uc->config.dst_thread);
+ 	uc->psil_paired = false;
+ err_res_free:
+ 	udma_free_tx_resources(uc);
+@@ -2123,7 +2123,7 @@ static void udma_issue_pending(struct dma_chan *chan)
+ 		 */
+ 		if (!(uc->state == UDMA_CHAN_IS_TERMINATING &&
+ 		      udma_is_chan_running(uc)))
+-			udma_start(uc);
++			uc->ud->start(uc);
+ 	}
+ 
+ 	spin_unlock_irqrestore(&uc->vc.lock, flags);
+@@ -2265,7 +2265,7 @@ static int udma_terminate_all(struct dma_chan *chan)
+ 	spin_lock_irqsave(&uc->vc.lock, flags);
+ 
+ 	if (udma_is_chan_running(uc))
+-		udma_stop(uc);
++		uc->ud->stop(uc);
+ 
+ 	if (uc->desc) {
+ 		uc->terminated_desc = uc->desc;
+@@ -2297,11 +2297,11 @@ static void udma_synchronize(struct dma_chan *chan)
+ 			dev_warn(uc->ud->dev, "chan%d teardown timeout!\n",
+ 				 uc->id);
+ 			udma_dump_chan_stdata(uc);
+-			udma_reset_chan(uc, true);
++			uc->ud->reset_chan(uc, true);
+ 		}
+ 	}
+ 
+-	udma_reset_chan(uc, false);
++	uc->ud->reset_chan(uc, false);
+ 	if (udma_is_chan_running(uc))
+ 		dev_warn(uc->ud->dev, "chan%d refused to stop!\n", uc->id);
+ 
+@@ -2355,7 +2355,7 @@ static void udma_free_chan_resources(struct dma_chan *chan)
+ 
+ 	udma_terminate_all(chan);
+ 	if (uc->terminated_desc) {
+-		udma_reset_chan(uc, false);
++		ud->reset_chan(uc, false);
+ 		udma_reset_rings(uc);
+ 	}
+ 
+@@ -2374,8 +2374,8 @@ static void udma_free_chan_resources(struct dma_chan *chan)
+ 
+ 	/* Release PSI-L pairing */
+ 	if (uc->psil_paired) {
+-		navss_psil_unpair(ud, uc->config.src_thread,
+-				  uc->config.dst_thread);
++		ud->psil_unpair(ud, uc->config.src_thread,
++				uc->config.dst_thread);
+ 		uc->psil_paired = false;
+ 	}
+ 
+@@ -3677,6 +3677,14 @@ static int udma_probe(struct platform_device *pdev)
+ 		ud->soc_data = soc->data;
+ 	}
+ 
++	// Setup function pointers
++	ud->start = udma_start;
++	ud->stop = udma_stop;
++	ud->reset_chan = udma_reset_chan;
++	ud->decrement_byte_counters = udma_decrement_byte_counters;
++	ud->psil_pair = navss_psil_pair;
++	ud->psil_unpair = navss_psil_unpair;
++
+ 	ret = udma_get_mmrs(pdev, ud);
+ 	if (ret)
+ 		return ret;
 diff --git a/drivers/dma/ti/k3-udma.h b/drivers/dma/ti/k3-udma.h
-index 11d08adb0d69f..e65dacb68c19f 100644
+index 1777f0e1f085e..59170714f53cc 100644
 --- a/drivers/dma/ti/k3-udma.h
 +++ b/drivers/dma/ti/k3-udma.h
-@@ -13,6 +13,7 @@
- #include <linux/workqueue.h>
- #include <linux/spinlock.h>
- #include <linux/ktime.h>
-+#include <linux/io.h>
- 
- #include "../virt-dma.h"
- #include "k3-psil-priv.h"
-@@ -451,6 +452,115 @@ struct udma_chan {
- 	u32 id;
+@@ -349,6 +349,15 @@ struct udma_dev {
+ 	u32 psil_base;
+ 	u32 atype;
+ 	u32 asel;
++
++	int (*start)(struct udma_chan *uc);
++	int (*stop)(struct udma_chan *uc);
++	int (*reset_chan)(struct udma_chan *uc, bool hard);
++	void (*decrement_byte_counters)(struct udma_chan *uc, u32 val);
++	int (*psil_pair)(struct udma_dev *ud, u32 src_thread,
++			 u32 dst_thread);
++	int (*psil_unpair)(struct udma_dev *ud, u32 src_thread,
++			   u32 dst_thread);
  };
  
-+/* K3 UDMA helper functions */
-+static inline struct udma_dev *to_udma_dev(struct dma_device *d)
-+{
-+	return container_of(d, struct udma_dev, ddev);
-+}
-+
-+static inline struct udma_chan *to_udma_chan(struct dma_chan *c)
-+{
-+	return container_of(c, struct udma_chan, vc.chan);
-+}
-+
-+static inline struct udma_desc *to_udma_desc(struct dma_async_tx_descriptor *t)
-+{
-+	return container_of(t, struct udma_desc, vd.tx);
-+}
-+
-+/* Generic register access functions */
-+static inline u32 udma_read(void __iomem *base, int reg)
-+{
-+	return readl(base + reg);
-+}
-+
-+static inline void udma_write(void __iomem *base, int reg, u32 val)
-+{
-+	writel(val, base + reg);
-+}
-+
-+static inline void udma_update_bits(void __iomem *base, int reg,
-+				    u32 mask, u32 val)
-+{
-+	u32 tmp, orig;
-+
-+	orig = readl(base + reg);
-+	tmp = orig & ~mask;
-+	tmp |= (val & mask);
-+
-+	if (tmp != orig)
-+		writel(tmp, base + reg);
-+}
-+
-+/* TCHANRT */
-+static inline u32 udma_tchanrt_read(struct udma_chan *uc, int reg)
-+{
-+	if (!uc->tchan)
-+		return 0;
-+	return udma_read(uc->tchan->reg_rt, reg);
-+}
-+
-+static inline void udma_tchanrt_write(struct udma_chan *uc, int reg, u32 val)
-+{
-+	if (!uc->tchan)
-+		return;
-+	udma_write(uc->tchan->reg_rt, reg, val);
-+}
-+
-+static inline void udma_tchanrt_update_bits(struct udma_chan *uc, int reg,
-+					    u32 mask, u32 val)
-+{
-+	if (!uc->tchan)
-+		return;
-+	udma_update_bits(uc->tchan->reg_rt, reg, mask, val);
-+}
-+
-+/* RCHANRT */
-+static inline u32 udma_rchanrt_read(struct udma_chan *uc, int reg)
-+{
-+	if (!uc->rchan)
-+		return 0;
-+	return udma_read(uc->rchan->reg_rt, reg);
-+}
-+
-+static inline void udma_rchanrt_write(struct udma_chan *uc, int reg, u32 val)
-+{
-+	if (!uc->rchan)
-+		return;
-+	udma_write(uc->rchan->reg_rt, reg, val);
-+}
-+
-+static inline void udma_rchanrt_update_bits(struct udma_chan *uc, int reg,
-+					    u32 mask, u32 val)
-+{
-+	if (!uc->rchan)
-+		return;
-+	udma_update_bits(uc->rchan->reg_rt, reg, mask, val);
-+}
-+
-+static inline dma_addr_t udma_curr_cppi5_desc_paddr(struct udma_desc *d,
-+						    int idx)
-+{
-+	return d->hwdesc[idx].cppi5_desc_paddr;
-+}
-+
-+static inline void *udma_curr_cppi5_desc_vaddr(struct udma_desc *d, int idx)
-+{
-+	return d->hwdesc[idx].cppi5_desc_vaddr;
-+}
-+
-+static inline dma_addr_t udma_get_rx_flush_hwdesc_paddr(struct udma_chan *uc)
-+{
-+	return uc->ud->rx_flush.hwdescs[uc->config.pkt_mode].cppi5_desc_paddr;
-+}
-+
-+static inline void udma_fetch_epib(struct udma_chan *uc, struct udma_desc *d)
-+{
-+	struct cppi5_host_desc_t *h_desc = d->hwdesc[0].cppi5_desc_vaddr;
-+
-+	memcpy(d->metadata, h_desc->epib, d->metadata_size);
-+}
+ struct udma_desc {
+@@ -586,6 +595,9 @@ int udma_push_to_ring(struct udma_chan *uc, int idx);
+ int udma_pop_from_ring(struct udma_chan *uc, dma_addr_t *addr);
+ void udma_reset_rings(struct udma_chan *uc);
+ 
++int navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread);
++int navss_psil_unpair(struct udma_dev *ud, u32 src_thread, u32 dst_thread);
 +
  /* Direct access to UDMA low lever resources for the glue layer */
  int xudma_navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread);
