@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795553272;
-	b=QIhoma/NuueNdI0slzfpDW2WwEIrN7OmdhEcI4MTQXs7xvredPksQ30HCJkJu1xEptGQ
-	 emvK1qYniR3SIpwM8PAsVL7vR3yst/R48V1uYeH4V2EZBQD4KPOsXtPMZaUquCkx4vgob
-	 nx7xXIMCwtVnn5rLniRAGPrAV3AzaaoeW6J/5j0wEWv60119uVRm1KkvfL0eLVlD5mDoZ
-	 HhtlKS8LNlwz3Rvde88bYo27n21GJFDMlrEGQZ94RW2nBBSlruD5ge9Mr1yRmfpd0SKut
-	 QSxpjsgQa1RwZfh9NWigBkxQgw40MzGIndXoaDsTIo8Em05iKx1NzhOtAPW2oGocT/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795553272;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=72w/uy+f5wWGqnSM2pK+VaVIFbQMfx9mKsgX5oNVoEs=;
-	b=5eZ0zEFBWluFZBxCHkgADJ72qbvl85njxYUYDR67WhxtszVce85hoXidATgw75AOyYBI
-	 gWsG9QGlNKl7wxwabJfC+wl6IqmZ1QDRUhLJwIHxHwiIencrJp0aO3EeQuQUWgd+WpaN5
-	 6bHOW1iMww0kDhkKrOaaqUrFr3VrwM5mlf3nXzaGtZk4qz1MrL0GngppC+6VA7CYjBpIJ
-	 7oCERP056vmU1NgobUcCRKnNNhHV0kNLlqXJSu/6n/cRHyMSjXObDNGjaHRjq8oVvz9OM
-	 ZpWzu7QKpl+RBU79ySOBx2iAmGDdPhBkjtkHSS2T7dTGMREu2rTQhXMInHCDXeUmgaQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyrsCgOj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795554891;
+	b=zNnr+Dt4ayNFlhARH/b1eYlcyruJxeJv0+rOA6VPQnWP2o+aHOx8JGsDkKwvpJW6rdRe
+	 H5jwSOLvgl+qGwumQndF2Zty6KXjnD+qrNQRMszAqiMQavl1jqaGWkHAjewsS80qLU1JY
+	 DB2SjYlxECAlQET6uvJdREKs/T6/iBYcGN7kgmCfFWMIwuL4rlZ9jhVFtzjYvhbhDTpgS
+	 CngI7yCkZwV6FNraXyzBsf2nK4AGXYczt1le1rw5N/dyf08m06TjkxgNV3fg7ECz95o1M
+	 4xIZdHA1v3SjdCT4pBJYhC7t6uQs9zvVoiKiHq8xjYbCPLQBA0TMfiLEJ+lCGcXGazQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795554891;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CdUdyJ+8j1hb94uckgP1slGM98Pz+Lnjg+RuI+nwn9I=;
+	b=c8SXlRbo/iyh+EpCsKSvPvNGkqKb8HM76TudaTYpXBGou3oMFBkzQXi4KHGV2EvtHTvy
+	 JL/WbWKrtlL6k7QpT2u1tRPQ/wjBSs1Kg31N94hLiKlSA+BZoEkt72w8DWmD+xOvXb8E0
+	 asuuFkCzDllGRbtZhRS6qXRHayZDapGKWmteGYKe/Jf4Z52P+LVjk8idZgVCpUC81vDVU
+	 mEWaX2/GNCtlGPOI8EnFDIAisuPuelzmCLEhmBVYe3908IjK/gQWP1blyVqryx5s5HWnW
+	 9hQLqVDDgTfVR40YJZAEZ17iECHk9T0OPXARsGEK7bYiVECudQIbMznL3yBjeCEN66w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=IWBxgdqF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.181
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087A5606A333;
-	Tue, 24 Nov 2026 20:47:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB17606A32E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:14:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AB17606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyrsCgOj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58B601F000D1;
-	Tue, 24 Nov 2026 20:47:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795553271;
-	bh=72w/uy+f5wWGqnSM2pK+VaVIFbQMfx9mKsgX5oNVoEs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=dyrsCgOjmuEKWyjNNGk3LuLWLYWbDf6F0GSPWima2dkrHzNmxhnrTCh0zMlI0D79h
-	 j5RuiiJDjxUqBbZs5Xzohl4GI8kAyV0O2AJ+N8ztR2QpgGwyVRcxL7bV1PIsBL8Luu
-	 r2UrtfEZ2BAwIvVO3sKaaJP1dY01M1h0rcZB5v3baUJrn1bdN7zRKgLBn9TiwC9H9s
-	 jFoIGlZs7TtPrfTIhcemvmYJYGwgyHJ3TLxv3j/0epfqHcexFyYc+rrqHjy6xwrL8a
-	 tlvibwVgVXirGb4ttTgMSIfAavEV0jHdv1AzN/nGktyKiUWm6a3aqgZCmaLD3SnR1n
-	 K5AN8iB4CoOgw==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Tue, 24 Nov 2026 14:46:42 -0600
-Subject: [PATCH v2 9/9] arm64: dts: marvell: ac5-98dx25xx: Rework
- 'behind-32bit-controller' bus
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=IWBxgdqF
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b531cd9bbaso40723467b3.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:14:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795554889; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SEjIqrkwOi0rhAZVwP/7nWtzp2S/y+uCctqJDRE3Kt2WcwVMmHsHCPajntkVg3mbqa
+         eLJjuX+OpEJMc6GwWgDu86z287Z0hkeajYWo2BZ7fpKFTO6sZrIF7zE0LlwxqE2GDdA8
+         QSuoDnHpaL0VwJonAUlcDiBTyKXsEn3UPulLw2cqYl6usSbmTs1fUOEe2PGsROkoEgx7
+         odFLoE1HZiIAtEWdJ+wyfDSjNbyTnO8ozNyS2sdEyAT83K76o+PUt8OT5z/V1oen/Gij
+         kFaswnsAb1fgx7HtVaIkIJLQRkVBKeF8YnAVJtd4qeSacCEq44lfvHKktT8RM2v8FxSA
+         /m7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CdUdyJ+8j1hb94uckgP1slGM98Pz+Lnjg+RuI+nwn9I=;
+        fh=Chm9rqCX8OJo7ZMTtPRgQorlIr1w+MM/vQg+B/oMmb8=;
+        b=e7oUz32qztnBmF2zmp0xtFJeQrqOmC5ELMuZIlEJ2qD5LDZpqmJsEMIhj/9+mW4/rX
+         1+b5HIKd2W3eHHLl/3GNG7sHMyK6L+7iiHe0mnQD7HpHYGiuw1N2g0vpLz8k2b04pqUL
+         smZw/G5MoHM+ZOwWzUa7u2o/jw4PKW0MYyqDGV2H3UBbbbMD54p6N+l8Ce5bL1RTShEC
+         1BrA3PfyKawzpwB0eg1XmmiWq5UamonGTk69HZZPFGy9esGYY3Ti9VrbzqerXAk2XAJU
+         jRqYpZIxcuIVdGC/wI1aPVPH92+Ve3fRy8+TV2rfQO0LW2Hx2MZspvlG9Yxm83B3OVU7
+         98UQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1795554889; x=1796159689; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CdUdyJ+8j1hb94uckgP1slGM98Pz+Lnjg+RuI+nwn9I=;
+        b=IWBxgdqFp2x9XfPCnso0A2FH/xCUErU25ylGd9luJVJO+mW9jwjDcUc6j56Jo7eMZn
+         UjDsGcxdVnO+JPKHL86/tNrDP03a9uOsvyZWaE09Ja/x4zZcuAJZBx6g1lS521mwQm1u
+         1t1xtyQ5Xc/UIv2Iwa35nCEWMfwoQOZ6v93+xvRe7lQgBGjqkjpkS3QMmJFMP0J1KUt6
+         U3jD4FvtgG1wLixarS6ha+vluA8fPBD8j9xI93MGiiJw3J/1B06xQFmp6aKwiJ3g3wHT
+         VDaJ8YFqJ0riQg7jkTA3zaSONIcRhkwO0GSFsrd1WFKF1j/sGlGYViwaJL3wGcoyle0W
+         01+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795554889; x=1796159689;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CdUdyJ+8j1hb94uckgP1slGM98Pz+Lnjg+RuI+nwn9I=;
+        b=QQodexn0WmQZu2Y5dexegGUATJTdAxWoab0vt+yzg1CBZFDKNh5pdMfpuVbVODk2y+
+         oYR9U6Vgq6FNNU96G/a2o2LyjMBvOqYHhW5bRIcapjZBYznRL2PnSPhu/Tas8bkpCgob
+         1mm7FbQnTMSzFa5Y60iWlD/gw61ZZlBBj36LF3ovmNrPxI4PGwG9c8EaJnQqFX9iPntB
+         WUW5s44QddHrTyEw6ivX825GnRo5msQJHIr5Df6ZoJMiscvHQm3rimOVlxhQ0pZn/T0Y
+         r1eoe8eaESuWqefU6+XA2RO1p+S5lH/eWBVS5JJtElal5+HOHdH2xWyigOQWuYaTQ7E5
+         8qAQ==
+X-Forwarded-Encrypted: i=1; AL+hErF01akQzzl9GuFhvBXPWML1l9NxDzfLnS/cf1npnaoeyvPqoy3f5Yy66+aCGzg0qbvR18DgrWOxr3q9@vger.kernel.org
+X-Gm-Message-State: APuU4Z9loR2am33zOJpfvDR0W12joA++lCmAkysSZcDwhsCrWuEYbGG1
+	ZLLLyN2wlrYHxqiNr8NFiQdYlDMqXXLqvATqpXi+P1qjARpAeTSo5dcaIWYtJtjY8BtlSByoJok
+	ReNfqGpY6X1Q4KHKH1fL0JwMNZ9P8gMs=
+X-Gm-Gg: AZFdTZdunkXy34V02D3LJO2R8HFHAYvenUjQGjkRR0z99UZ5CeYFE64ExoA2J5hM/5t
+	Se0pz+UWnJx56Mlk95cfOT8QKEvalSnV6O6kpJgw+9yMAdedT/VAKuKhJiwY4iLKM2WwPqT7GRe
+	2mRSeir4l3Qj9oI8qV7wsUFNna+zHsa/JvGr/oehf8g9I6AnXoTR18l6CHacDu+0dEvernZ/GBq
+	UCdzvJ3tqnj5dT4kXzJv1VQpm3JWe5pq04YxR0xjcUNAuhBCeZgQ8daqfzdioNVxss7J6svStVr
+	xTFtfx3h1E1WSkfqTME5GPR3FNxoYaX/WMMgf+7LUoEWfBVydV+RnF61VkkolHCk+BPZloMsvBT
+	u3s+ArCbe7F3xye+OIqd/8AiCGyuS7iERjkX07IaAE9ZPCIoX9cLgm7btWieyQv9Fb+OBCA==
+X-Received: by 2002:a05:690e:4090:b0:67d:a5bf:ac89 with SMTP id
+ 956f58d0204a3-67df42b4d7dmr8236792d50.10.1795554889394; Tue, 24 Nov 2026
+ 13:14:49 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,226 +104,106 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-dtbs-marvell-v2-9-663009a769da@kernel.org>
-References: <20261124-dtbs-marvell-v2-0-663009a769da@kernel.org>
-In-Reply-To: <20261124-dtbs-marvell-v2-0-663009a769da@kernel.org>
-To: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.16-dev
+References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com>
+ <20261018-audin-v5-1-4b8cc13a1b22@baylibre.com> <CAFBinCC+-N8LvoXZwMhoxjOzXgoYUfDKCcvmD7Uuph5=hTSg7g@mail.gmail.com>
+ <71ede0e6-7f8f-4594-ae56-5be10f9159a3@baylibre.com>
+In-Reply-To: <71ede0e6-7f8f-4594-ae56-5be10f9159a3@baylibre.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 24 Nov 2026 22:14:38 +0100
+X-Gm-Features: Aa3M54rEVwCpdz6_8gjaGQEhKA7ZqL-_05evb2pOjFxPbafFazCrzB2je-Od50w
+Message-ID: <CAFBinCCd==1Vf7jMCHP0VuWTNa7A5FvRfPYdk2zUaZ8eR54Z+A@mail.gmail.com>
+Subject: Re: [PATCH v5 1/7] ASoC: dt-bindings: add amlogic,gxbb-audin
+To: Valerio Setti <vsetti@baylibre.com>, xianwei.zhao@amlogic.com
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The 'behind-32bit-controller@7f000000' node doesn't follow
-standard naming and overlaps with the 'bus@7f000000' node address. The
-reason for the 2 buses was separating the DMA capable blocks which need
-'dma-ranges' translation, but there's no reason that needs to be a
-separate bus. Merge the nodes in 'behind-32bit-controller@7f000000' to
-the 'bus@7f000000' node. Doing this requires increasing the
-'#address-cells' and '#size-cells'.
+Hi Valerio,
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
-v2:
- - New patch
----
- arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi | 101 +++++++++++---------------
- 1 file changed, 44 insertions(+), 57 deletions(-)
++Cc Xianwei Zhao, I would appreciate it if you could take some time to
+help us clarify the questions below (or refer us to a colleague).
 
-diff --git a/arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi b/arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi
-index 4878773883c9..13aa557c8571 100644
---- a/arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi
-+++ b/arch/arm64/boot/dts/marvell/ac5-98dx25xx.dtsi
-@@ -79,16 +79,17 @@ soc {
- 		ranges;
- 
- 		bus@7f000000 {
--			#address-cells = <1>;
--			#size-cells = <1>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
- 			compatible = "simple-bus";
- 			/* 16M internal register @ 0x7f00_0000 */
--			ranges = <0x0 0x0 0x7f000000 0x1000000>;
-+			ranges = <0x0 0x0 0x0 0x7f000000 0x0 0x1000000>;
-+			dma-ranges = <0x0 0x0 0x2 0x0 0x1 0x0>;
- 			dma-coherent;
- 
- 			uart0: serial@12000 {
- 				compatible = "snps,dw-apb-uart";
--				reg = <0x12000 0x100>;
-+				reg = <0x0 0x12000 0x0 0x100>;
- 				reg-shift = <2>;
- 				interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
- 				reg-io-width = <1>;
-@@ -98,7 +99,7 @@ uart0: serial@12000 {
- 
- 			uart1: serial@12100 {
- 				compatible = "snps,dw-apb-uart";
--				reg = <0x12100 0x100>;
-+				reg = <0x0 0x12100 0x0 0x100>;
- 				reg-shift = <2>;
- 				interrupts = <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
- 				reg-io-width = <1>;
-@@ -108,7 +109,7 @@ uart1: serial@12100 {
- 
- 			uart2: serial@12200 {
- 				compatible = "snps,dw-apb-uart";
--				reg = <0x12200 0x100>;
-+				reg = <0x0 0x12200 0x0 0x100>;
- 				reg-shift = <2>;
- 				interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
- 				reg-io-width = <1>;
-@@ -118,7 +119,7 @@ uart2: serial@12200 {
- 
- 			uart3: serial@12300 {
- 				compatible = "snps,dw-apb-uart";
--				reg = <0x12300 0x100>;
-+				reg = <0x0 0x12300 0x0 0x100>;
- 				reg-shift = <2>;
- 				interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
- 				reg-io-width = <1>;
-@@ -126,17 +127,9 @@ uart3: serial@12300 {
- 				status = "disabled";
- 			};
- 
--			mdio: mdio@22004 {
--				#address-cells = <1>;
--				#size-cells = <0>;
--				compatible = "marvell,orion-mdio";
--				reg = <0x22004 0x4>;
--				clocks = <&cnm_clock>;
--			};
--
- 			i2c0: i2c@11000 {
- 				compatible = "marvell,mv78230-i2c";
--				reg = <0x11000 0x20>;
-+				reg = <0x0 0x11000 0x0 0x20>;
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -155,7 +148,7 @@ i2c0: i2c@11000 {
- 
- 			i2c1: i2c@11100 {
- 				compatible = "marvell,mv78230-i2c";
--				reg = <0x11100 0x20>;
-+				reg = <0x0 0x11100 0x0 0x20>;
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -174,7 +167,7 @@ i2c1: i2c@11100 {
- 
- 			gpio0: gpio@18100 {
- 				compatible = "marvell,orion-gpio";
--				reg = <0x18100 0x40>;
-+				reg = <0x0 0x18100 0x0 0x40>;
- 				ngpios = <32>;
- 				gpio-controller;
- 				#gpio-cells = <2>;
-@@ -189,7 +182,7 @@ gpio0: gpio@18100 {
- 			};
- 
- 			gpio1: gpio@18140 {
--				reg = <0x18140 0x40>;
-+				reg = <0x0 0x18140 0x0 0x40>;
- 				compatible = "marvell,orion-gpio";
- 				ngpios = <14>;
- 				gpio-controller;
-@@ -201,44 +194,6 @@ gpio1: gpio@18140 {
- 				interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>,
- 					     <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
- 			};
--		};
--
--		mmc_dma: bus@80500000 {
--				compatible = "simple-bus";
--				ranges;
--				#address-cells = <0x2>;
--				#size-cells = <0x2>;
--				reg = <0x0 0x80500000 0x0 0x100000>;
--				dma-ranges = <0x0 0x0 0x2 0x0 0x0 0x80000000>;
--				dma-coherent;
--
--				sdhci: mmc@805c0000 {
--					compatible = "marvell,ac5-sdhci",
--						     "marvell,armada-ap806-sdhci";
--					reg = <0x0 0x805c0000 0x0 0x1000>;
--					interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
--					clocks = <&emmc_clock>, <&cnm_clock>;
--					clock-names = "core", "axi";
--					bus-width = <8>;
--					non-removable;
--					mmc-ddr-1_8v;
--					mmc-hs200-1_8v;
--					mmc-hs400-1_8v;
--				};
--		};
--
--		/*
--		 * Dedicated section for devices behind 32bit controllers so we
--		 * can configure specific DMA mapping for them
--		 */
--		behind-32bit-controller@7f000000 {
--			compatible = "simple-bus";
--			#address-cells = <0x2>;
--			#size-cells = <0x2>;
--			ranges = <0x0 0x0 0x0 0x7f000000 0x0 0x1000000>;
--			/* Host phy ram starts at 0x200M */
--			dma-ranges = <0x0 0x0 0x2 0x0 0x1 0x0>;
--			dma-coherent;
- 
- 			eth0: ethernet@20000 {
- 				compatible = "marvell,armada-ac5-neta";
-@@ -249,6 +204,14 @@ eth0: ethernet@20000 {
- 				status = "disabled";
- 			};
- 
-+			mdio: mdio@22004 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				compatible = "marvell,orion-mdio";
-+				reg = <0x0 0x22004 0x0 0x4>;
-+				clocks = <&cnm_clock>;
-+			};
-+
- 			eth1: ethernet@24000 {
- 				compatible = "marvell,armada-ac5-neta";
- 				reg = <0x0 0x24000 0x0 0x4000>;
-@@ -273,6 +236,30 @@ usb1: usb@a0000 {
- 			};
- 		};
- 
-+		mmc_dma: bus@80500000 {
-+				compatible = "simple-bus";
-+				ranges;
-+				#address-cells = <0x2>;
-+				#size-cells = <0x2>;
-+				reg = <0x0 0x80500000 0x0 0x100000>;
-+				dma-ranges = <0x0 0x0 0x2 0x0 0x0 0x80000000>;
-+				dma-coherent;
-+
-+				sdhci: mmc@805c0000 {
-+					compatible = "marvell,ac5-sdhci",
-+						     "marvell,armada-ap806-sdhci";
-+					reg = <0x0 0x805c0000 0x0 0x1000>;
-+					interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
-+					clocks = <&emmc_clock>, <&cnm_clock>;
-+					clock-names = "core", "axi";
-+					bus-width = <8>;
-+					non-removable;
-+					mmc-ddr-1_8v;
-+					mmc-hs200-1_8v;
-+					mmc-hs400-1_8v;
-+				};
-+		};
-+
- 		pinctrl0: pinctrl@80020100 {
- 			compatible = "marvell,ac5-pinctrl";
- 			reg = <0 0x80020100 0 0x20>;
+On Mon, Nov 16, 2026 at 11:24=E2=80=AFPM Valerio Setti <vsetti@baylibre.com=
+> wrote:
+>
+> Hi Martin
+>
+>  >> +properties:
+>  >> +  compatible:
+>  >> +    oneOf:
+>  >> +      - const: amlogic,gxbb-audin
+>  >> +      - items:
+>  >> +          - const: amlogic,gxl-audin
+>  >> +          - const: amlogic,gxbb-audin
+>  >  From what I can tell it's even amlogic,meson8-audin compatible.
+>  > Although I didn't have the time to test in on hardware yet.
+>  >
+>
+> Thanks for catching it!
+> Any testing is more than welcome. I don't have that board at home and,
+> based on my quick search, it seems not super easy to find one these days.
+>
+>  > [...]
+>  >> +    audio-controller@a000 {
+>  >> +      compatible =3D "amlogic,gxbb-audin";
+>  >> +      reg =3D <0xa000 0x148>;
+>  > I believe the audin registers are 0x300 wide.
+>  > Both, GXL datasheet [0] page 43 and GXM datasheet [1] page 48 claim
+>  > that the register area is 0x100 wide.
+>  > The last documented register with AUDIN_ prefix is AUDIN_FIFO2_PIO_RDH
+>  > =3D 0xb8. The datasheet [0] (page 395) lists register numbers divided =
+by
+>  > 4, so to get the actual address in the memory map we need to multiply
+>  > it by 4, which gives 0x2e0.
+>  > The 32-bit SoC vendor kernel [2] has a header that states: #define
+>  > AUDIN_ADDR_END 0x28bf (same as in datasheet, we need to multiply this
+>  > by 4).
+>
+> I know that the register layout in these SoC is a bit messy, so let me
+> explain how I got to the 0x148 that I wrote above.
+>
+> When working at this driver I used the S095 and S905X manuals that I
+> found online, but based on the link you shared for the S912, I would say
+> it's the same when it comes to AUDIN.
+>
+> Using [0] as reference, the highest register being mentioned in the
+> AUDIN chapter is AUD_RESAMPLE_STATUS whose offset is 0x304 (i.e. 0xc1 *
+> 4). However I noticed that before that there are a lot of registers
+> whose name doesn't start with AUDIN_, but rather with AUDOUT_, PCMOUT_,
+> PCMIN_.
+> The first contiguous block of AUDIN_ stops at AUDIN_FIFO_INT which is
+> 0x148 (=3D 0x52 * 4). The other AUDIN_ block you mentioned is between
+> AUDIN_FIFO0_PIO_STS (at 0x2c0) and AUDIN_FIFO2_PIO_RDH (at 0x2e0).
+Your approach is logical. And I have no way of proving my theory.
+So the question for someone with access to better documentation or the
+actual hardware description is:
+- how big is the AUDIN IP block register space?
+- what inputs are routed to the AUDIN IP block that neither Valerio
+nor I identified so far (one reset line, one clock input, one
+interrupt)?
 
--- 
-2.53.0
+>  > I'm bringing this up because dt-bindings are supposed to be complete.
+>  > So even if the driver doesn't use a resource yet we're supposed to
+>  > still describe it.
+>
+> I perfectly agree with this, but at the same time I thought that
+> including registers which potentially do not belong to AUDIN was
+> dangerous in the other direction, i.e. we cover a too large area that
+> will be hard to use in the future if/when we want to use it and we
+> realize it's really not part of AUDIN.
+My concern is actually that the AUDIN hardware block spans 0x300 (or
+close to it) and we'll find out later that there's a bit that we need
+to toggle which is outside of the 0x148 area covered already.
+Even worse: what if we put another register area after AUDIN and then
+find out that this theoretical bit sits in the second register area.
 
+
+Best regards,
+Martin
