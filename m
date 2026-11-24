@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795496437;
-	b=OGATSBGxN7YeaBQdPI/gIOnfQtCJgXgOns8Ydwanf1WqpOAtIkn8wPgwT4H2BV0NcOwM
-	 wbpOJ2KZW283avTpuWKTGySh/ReSgg4yHoQ4mEI1NO/jtK2p5ZQh4WlBXfAEnsUoHD00j
-	 /E2AvKCgskW4jl00cGh50vARltJ/0CF8/sos0xVqMgsjAT/20IP4F7P6nAYACOen5AWWE
-	 /Wf/1uJ4AS6xuFPDiicY0Rek7349ekfUE1aYmOeZT2BZLra61I+yTqGcmsS9fLoGTWg/t
-	 lQ2bYY3y8A+T5qWMQFo7ADOVRzzivj7DA0txftvfELHF4E3+wGQyHba8aGgP61b32aA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795496437;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IZzEFG6U0cIAXVND2raef8JeJPc6t+cD7MVgE4d4FY4=;
-	b=IuEdxLggLXKTAD53588H4ts/qC+eb/imL6CUurjqczR+vEt4RbFgJmO6Yre7Rc1K84/h
-	 BLTeIyug1PGLD71LspjOmTGIStFa4wvMY+IqBFY6gPDweK7WjK76raF4qvCVev9BkPh7u
-	 u7QTWHXWeePFktAH/7I4rDj2QTb9+kLaKVf0+/jBNtoSK6yUD41yo58q1mOOOOpZKe9aC
-	 IFetM/uPAU5RMl5rZXII4LrUDvt0KGIMj18irQsSITXx9LgAlE0jpYu6n7BjYxK2/ze9w
-	 ibnYAIU0701wRZ4Ux0wwOxnp+J1VfYDrt/8YEZUc8T+MtYd5ncT3+SI6fh/6lXWY0Pw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sRYMfm1L;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.4
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010004.outbound.protection.outlook.com [52.101.193.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795496482;
+	b=AOFjuokKv7LNitxn1sjsQ9oxDBSlTQ5KlI71xvgnTYhCw1fYcjNsQUhBX86BuZlinaFw
+	 uynnhkFLpFZGv/vcOs8R0GdnLpjdv4jwxugvli1+7U/yb0VWe+WHXuSaSpiWciOegkoTK
+	 kI8+wZ4nDjs8T+o9A5AJp6fQUZ+qmlozpaWBu8aD/D2Tub6R7PkmxN0H/ycTGG18w3I/5
+	 9dXP4ZoMKONYtEMKkAXnuYgTIUcgRkL/7oDZtWTVzmwjG0xngDz3/RjwU9jfFD7yB7co0
+	 vrPZKLg2h3tYWe5PVbLyVg3LXad5vOnvypkjGjUy9NlSZLNKRC7nba5rl1u9WKhLVqg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795496482;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sITgWxD5iXuRoxacaW1y/ZEl91KWtEOEir54BjnX2Ms=;
+	b=4ZdRm7VEulhjEZfyUlYw0JRKytzoEl2+x52F8CJbZ7Mu0HVVi7QvyHR1CvHmzSZ2TymX
+	 So0VaXugMh3g4z009tm2y0tgV8uXysJ1wTChmRzvNNBpzTWK05nQWdYUKVYkY+6LxsAVz
+	 DbeHeAYHfpZgan5nIxLcbBO4LjMzEoEVYFskqnAuEnbDFJyg3yDOY/OXxCdYUeM6NKyit
+	 cVvlE73VX1XFl0JugaG0Nk1i+1tAjNds6UA6gx6Lo2Euu2/dgsuJCp4K1quJlfQIQLZN7
+	 uuswPqo3UCFvNrwhRBgFxr8srVmxm76oAKw9QwL45LbIYJ90nxnV65rcv68srk/rXIg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u5UXp9OA;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E3E606A31E;
-	Tue, 24 Nov 2026 05:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30E3E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5421D606A31E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 05:01:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5421D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sRYMfm1L
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JCafA+/bv6+zOjqmiiu16KUorGmWF5+V+Qq3kaVDABB0DSqA93NRXFwPQNKaPiUfCJ0GnAkaFSRCbi4Pz/gcaZI/rWXi/4n3kMiTfUWXB2GHl/FI+fIKYBZXU/PZdnskY9MnIgG+zJAayWgWhpzl/5FA4NRTg5iYikLlvkBjUl9C27GoXR6uctBgdnYdtzfg5+9CA+EpY6CfbhPnEX2DRSVdFEQw3/VlhezG+lytye8MQaeEyIBGwfl6GofkDdtrtaIYuP+7E47zodWOaYwomn8nvcfRn9qcdXJDhN3J3egxzvYwUyRuh020vx3EM9hMYa/QIS7C81icWom/yDaWUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IZzEFG6U0cIAXVND2raef8JeJPc6t+cD7MVgE4d4FY4=;
- b=shguaMtKmQ6OlVqviFceICKoit1FMWPoVzm3R1Q7fOZEgyDytNiOr/f2Ckf1K2zxJO5GCGGJocLZCodD2CjGwhMA7lquJgWhi3SX5D0keBN0N0VrBogYdwNdUnrpqPZXHgV3OA0QYk4phnvP1oRKaWqqofuulpkRB4d5JZJozcA3gsJIFrohI9XNUaQKiWtdYKEBHIt7IVzASd7y6s6VEuSQqNUem9UJ+6r6tYIjpQGYoCgqQ+6JfIKJxBvAb3ze+yAwaup9kOENGkghOs4DD8HxbbuVK4zrcUJjEDCXuRAMVHHIQ6XxcHMK9AwTMDMKCD+EPPicTZQ58qR8GeF4TQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IZzEFG6U0cIAXVND2raef8JeJPc6t+cD7MVgE4d4FY4=;
- b=sRYMfm1LcRFBum42ZPSPnk5B9UsjTAJlLHLCIUOH06IBVtI4MG9NLUAG5wfiVKmsVFQlV3w9dcMTESa+EIuKW11quiSADKASLSmq5CkqJCEIqggiX9brIzO6wXiBAYbvhGdB4b7S/XGenLsYdMeqAnPXM9ytms/z1oZQ9j81/EU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
- by LV2PR12MB5751.namprd12.prod.outlook.com (2603:10b6:408:17d::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 05:00:30 +0000
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d%4]) with mapi id 15.21.0639.011; Tue, 24 Nov 2026
- 05:00:30 +0000
-Message-ID: <d30df635-8afc-4d02-ac9a-04d26640dfbc@amd.com>
-Date: Tue, 24 Nov 2026 10:30:21 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/12] dt-bindings: memory: xlnx,versal-net-ddrmc5: Add
- amd,num-ctrl property
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
- linux-edac@vger.kernel.org
-Cc: git@amd.com, shubhrajyoti.datta@gmail.com, michal.simek@amd.com,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Tony Luck <tony.luck@intel.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20261118142213.100581-1-shubhrajyoti.datta@amd.com>
- <20261118142213.100581-11-shubhrajyoti.datta@amd.com>
-Content-Language: en-US
-From: "Pandey, Radhey Shyam" <radheys@amd.com>
-In-Reply-To: <20261118142213.100581-11-shubhrajyoti.datta@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0152.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:c8::16) To CY1PR12MB9697.namprd12.prod.outlook.com
- (2603:10b6:930:107::6)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u5UXp9OA
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so38918325e9.2
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 21:01:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795496481; x=1796101281; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sITgWxD5iXuRoxacaW1y/ZEl91KWtEOEir54BjnX2Ms=;
+        b=u5UXp9OAtY9R3Tu6ra8aHem5hACKbhfVHyr+QcpVIcfTulfIjIIzKI3QaoiClWmPoW
+         FpG0syLG8TjSSP7rM5t8vrccjmWkOr9w9vjDC0O5356VGLiKFPUt9I5egRVsA44W7gqo
+         pJxJpgFTfESSsUyh7bXZP8MKapKCgG0PjUJ6LnrURI6wGJw5VccVeqEGSgh6Y+0GWpdM
+         s6nvWH6C1uicnnNJQRwQAxjmsKiPLQZqR1s1Toyrh4dYWmkb9NwrUu+NkhSxPlLz57U8
+         w4PeWxBiDapMjnc8GtiFvYsCthY6rjoI77d4v9/JVDqOrub8uZ/8vl26E8NXSZztiAR/
+         3WjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795496481; x=1796101281;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sITgWxD5iXuRoxacaW1y/ZEl91KWtEOEir54BjnX2Ms=;
+        b=iYDuibaOzkv6PEZhZXX09zWJcKlJZi4vOHl4lrzmy/GsHIJgu34dVNIKR23+qm520Y
+         3NKkaIKnIsPv4QsyWMOZueLcpkAkDJd0y45NVFGPNd3T7I1xPCyJmIG+GseCt4o0Gwhj
+         yWTULyda2xIEuLMDRwrg+z7uvr4vtzrPzou4FM4TZA+3FV3eoPFpWstAYWP5J6ATttHP
+         vBJMPkgGc8YylnCC4pdDcN7OrG6B3CN3lxnNO08vh8RBrQb4gchPHye9LH8UB3eJnnXH
+         kTml+2A1FiDK8OXoKIrqVvEV68RQm1f28oMRST3QJOgttvmN4/G68aCDofvr0mZNKlAW
+         t+cg==
+X-Forwarded-Encrypted: i=1; AL+hErEwHvdQCeaAOKDBXjqNd4TOpwDXnQS3MZJ4SQyM2Ulj+mm04xeB93ue65dVSdAd06kSG7zC+G9SCqqC@vger.kernel.org
+X-Gm-Message-State: APuU4Z/45J825J48Gt/VSD9mACLgIwnK1d949bpOnUUPfIdAZLN7Vryx
+	zR7fyz8qJnSCaQtHPOpcKFebkkghYO1LIyCIxeHqinK+jfd+P+QqEJpP
+X-Gm-Gg: AZFdTZdhqs6fNvjfcji+9oY7aD4VhvJKnPt092A+6t6aCAmF1TfzdxPtRiZPq7l5Y3z
+	99uR73xrVISGJGzNg0fF4Zp2ANyND4oSCRCUcCl8RYC6nhJ6M1XIeTLddlwt2MAkJWf1icILRkq
+	UFp2k6T/1gSxTJ3L8wzb/PvJboLUiG4jiumwbEicxngjAsM5Bi7stSpfkava3he8fnd9KovQoAg
+	54XIc9l8n7/vGzJ8a7cmLFbpUujV7Omb8oG9bERY02QnPPdWMJKYnl+erXYkDiamzF2YSH3H0LX
+	za4KNwXNik9SE96NPlfhq2Nj0jW/mQbhYrxUEwH1hHp5Kq658qJW61YqAf6IWUWxKHzUD5HcmM0
+	m7DHRUOeVsJYLGiUweqjgLrjkU2gfqnC29o/AqDaeRxwp7tcZqPO/te80gxzGTkbNBFNICxlzRq
+	kkq+qLksETH83VqO07KUdUhYlyBa8JIJ9DmUEH5aYny9RPHTxMq9PM0/kOlEKxZCWNZBqEIr/c4
+	4e5kzwA8YQ3ttoMUuxY4Bz7tnf/KPtyAQ/VWPQ+xmT9tuKPRDPd7uZ/tNfCiPEZUIE5U0eknTiR
+	a0PvLU/0OjA1QEwOLvYYRmGRDLmWhan35r0X9epJLuLVOKm+2uPKu2CusHT00kNkt/7u2SG2wW8
+	ELUhrRYbevm7/AV7Cmrkg3Kg1HsF+09iZ8vIOqfw3ZBWWtK42WGIJVQjOjP0v89cDreYgLXUHH3
+	oB+o4hzVmJYvYlBk9Ttl7PkauKQ/m61YJYom+5CVgbTYJu/Wfk1v2oVEqmnWu/mE/GMV6Capw1i
+	Q==
+X-Received: by 2002:a05:600c:3113:b0:4bb:5f45:c97f with SMTP id 5b1f17b1804b1-4bb88816b2bmr291844445e9.27.1795496480513;
+        Mon, 23 Nov 2026 21:01:20 -0800 (PST)
+Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-f512-85ee-fdbe-0621.ipv6.o2.cz. [2a00:1028:8388:a84e:f512:85ee:fdbe:621])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442693sm353489155e9.1.2026.11.23.21.01.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 23 Nov 2026 21:01:20 -0800 (PST)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] watchdog: max63xx_wdt: Support a WDI pin connected to a GPIO
+Date: Tue, 24 Nov 2026 06:01:15 +0100
+Message-ID: <20261124050118.87944-1-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,116 +115,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|LV2PR12MB5751:EE_
-X-MS-Office365-Filtering-Correlation-Id: cab1bed4-6e92-4ab3-788e-08df49e7dcc7
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|10067099003|11063799006|261028144727099003|261021121427099003|4143699003|261009223027099003|56012099006|261022105027099003|261021135927099003|261026140227099003|261026121527099003|261102123227099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	HTmiCYeSooYs7fQbBWouqNSxIasYBJV5OI958LBUp4GckAsUNzO1rARk/bJyWWjs8a7jkBrOj0vkHtdIPtv7V3Eua3D7Nu032JdjmUzWAnkwQgivjDYn8GXZRlFqVWA7veoSHdX1KxRH20JFA0vgkJGKVHGXojBVb+kyirxQFu3Q2exUDXjmSXJjB5xi1P9P2YoL3CZGhvZASWuBN3y5fIY8t+611Gnwi+DT3JWW6hRShaL43cgLSI2a0xMmPv/DWazpmfWWee00uGg7sg2muJ9+t41WAeFAAXErI4HJ89NUyaP4UZSFgDoHSZHXg/aOolnKawSiTv6NGXtM3RL71S481iyi1Ixzd3uLg1NCAzFkeOYt02AsHhSQ8ShDaSAn+HNk1ZzRpRk+LHGFmvOozne89g67Lacsyi9aB2RT6HrTURbr5nXLmmHjJlEuv4XZHsyZZzbtv11cbAzRdGf59+tn2TR2dIig4kmDLf0mzVXfH9YWMqnclol5D0486bf18Z64mpa+jI0V04/y0sjAw42CIEi014HvPdV7i/PuzG1hwuQs14peXPCPdSRs0wD9iTHSHsmlP+0idLB9gwNiOpHpPLUTziHn+txKQGFXgkmXPyIX0e8X+FX4Z3VMKEv3
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(261028144727099003)(261021121427099003)(4143699003)(261009223027099003)(56012099006)(261022105027099003)(261021135927099003)(261026140227099003)(261026121527099003)(261102123227099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c1p5RUFDOU9ZTTVybkpuc1pHUFUyUG9yMTZhZEplczFNRlVqRDJpSWxtdktk?=
- =?utf-8?B?MFYwYWR0ditoczVTT0JnQmVCUmg3WkMwUTVrc3dmbk5seVV4VHJQNGw4cW1z?=
- =?utf-8?B?dzVpLy9RM3lQamozZGdLZFRtN3JFRkU3dXo5UnpON0I1cXBGNUloMThoakxB?=
- =?utf-8?B?bXlrL1k1YnB4R1lpMGtkWXcwWUxJcjlwcDRVT3B1ZjZ5NFBTSEFhZlRScHpi?=
- =?utf-8?B?bFgzbFdqclp1bnpNR3NETFNIcFZuZnc3Q2hUSUF4WnFKOGFDZDBMU0h5NHhJ?=
- =?utf-8?B?aEZLazU1RXozcGRpT2NmQnh5RFA1NGJadmlYMmx4WW92TndkelNzZFJ1VTB0?=
- =?utf-8?B?N0N2QXhWUUJQR2paelV3SGQwOG5tQUhJcnlDRGgzemJnV2R2SlJPOUZvaWw4?=
- =?utf-8?B?TWtiYWExSnQrSXZhOFgxU2QrQml3RGQ1elg5TTUvMWs3Mkd3SzNwOXlNUWpB?=
- =?utf-8?B?TmpWdnNhajYxL3gwL2NlZVpyK3h1WXIzSFVkWlZCS1RMV0o2LzFJTXB5OWdN?=
- =?utf-8?B?N1lmZ2VyK1NheFg1QUhtRnA0OGVuVjFhMmllSTlRYytMY3BxbDlXejd2ak01?=
- =?utf-8?B?TFVrQk5Md3grZkFyenN0STQreHlJL3RKUVYxT2dDS2M1ZjBtQnlmeWxMK3FT?=
- =?utf-8?B?NUswbTVqdHNEUkVWQlFKdi80UnF6NmpjZEY3bWlUN0JwaEdETzJBdXpIOHYw?=
- =?utf-8?B?VHV5VGNZTlVmR3hGUHphejA1ZkttMHRkUkc2ZTMzUTBDamhtWXZZM21PK0Jw?=
- =?utf-8?B?aGd2WUJjVHQ2Y0RBSUlHaFh2UEkvOXNJQkdvRFdyYkJpVXZTYzVpYk82WUZ1?=
- =?utf-8?B?Q0ppdE5qcmYwZmhHVFAxaWxZcUdORldFSTZKVEZGUnZYZXpPc3lqMnlBL0xF?=
- =?utf-8?B?VmhqekQ4aVF4bDFpK29vUVNVckdrY3gvaENPRU00YnAySHlWYnQrdGtwRHlU?=
- =?utf-8?B?U3ZLcGM1SkttbkJ5aXZnbXh0OTMySVNvalVrQ1FBVGRnQ3I1bWJ4YTRIaXcr?=
- =?utf-8?B?azlpVEx6RVpMTVJRT05JNCswcnFFT2Q1d2NyNnhGekUvUUlBWDVGMHVHWFYz?=
- =?utf-8?B?anpWSWM2emZUSHU3OEZKcWZVbjc3SkVSZEhsdXRPRnYvMzZLYjF6R044Y2N0?=
- =?utf-8?B?RWlScSt3aWN0bWxBUFZla1BOaTNGSlNNNE5FVm90cHBiOVpPQkp0Z2x3TmZq?=
- =?utf-8?B?bUNlK09RNjMrZUQ1Z2R2ZCtsVVVBU1JiMTV2SGxoQmlKM2hUaThKOWNQWStE?=
- =?utf-8?B?eDNoeXZ2TjFvamRjdnpEVXNoRms1NXM2OFRBaFA4c1pOdlRiSVJhdThpV3or?=
- =?utf-8?B?VFFNR1cvK3FuUE9OTXBTVnFCQ1FFaVNOS0czUnZLWG1Pb0oxM1h2WkpMOHdr?=
- =?utf-8?B?WjZWMHc3dXNzTjFCeEo3RDhldVpXUEdZOWFtSWJNMzBiaHhpMjBzVFdLYmxz?=
- =?utf-8?B?MnpRc3ZwVVZrY3VmSHI1UjEzRk1sUC8rMlFpVWZQUDhjNXE2VHdpT2t0eml4?=
- =?utf-8?B?bTNnUnB2ajZNcVZhSHJmdjZsQ3J0TFR3OUZhWTVDSmpST1UyKy9PZHZyL0pZ?=
- =?utf-8?B?NFR5d1ltcHNsa0MxV3JMM0ZoR2oySHltdEN3MjRnMm1CZkNZZ0YxTGUwcmkr?=
- =?utf-8?B?cGc0ckVDM1FsaUZRZWpqM3VlenQ1azdjanlKS21ZYmpOMDlWdUsyUHg0cDZQ?=
- =?utf-8?B?VUl4a3REN1A4VlhUeFdMeUZjNXhobXZ2T29ncUJjYzltakg5VTRpZjF1bzhm?=
- =?utf-8?B?dUhva2FyaTJML2c3dGovdG1hS2doRHJmYU1iRTF2T2Frc2VlZHV2ZlJkQU1F?=
- =?utf-8?B?SDNkbElETXlLT1VCclZVd1lZQ3ZyckRQTEpWeTV2SmQ4TmhtVjJRbVpleFF6?=
- =?utf-8?B?UHYrVVlHdmlTRzZwRkhjYkZaQ0hGME1oZjFiTDZZaDBOK1l6YUFIWTNsN1h1?=
- =?utf-8?B?MS8yOU1qQVRwaTFlQVA5eXJnaC9MSisrT2dWZHN0S2hhM0hMN2MydXVjTG5x?=
- =?utf-8?B?a2FVWmtDQkJaSTZaUjBTUGxmeFpsNkFQWTNkR3BTNVMyMHhDREtGN0FwUytT?=
- =?utf-8?B?N1ZrY25zR1N4bkIrYzl4aEFOSWV3ZlV1dlE5RzgrcGtBamFZZ2l6UW1SbEJo?=
- =?utf-8?B?Q0tsM0plNVRxSGVkTHgyV09hQURlcmg4UmM5aWNKQ0VHVHhUdjhmK29JRkdr?=
- =?utf-8?B?eVVHa3BjNzZiUW56QTcwR2tBNzM1Q0ptN2dIL1F1NXQxTkdBWjB1OHhGRW1K?=
- =?utf-8?B?YUgzYVFaK0ZlYlRwV3JmZ2cvblNrejljQmFmRFYxZGhDNnRPNnJJdUUydGFE?=
- =?utf-8?Q?+TClyN21S2qlyhOJ3x?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cab1bed4-6e92-4ab3-788e-08df49e7dcc7
-X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 05:00:30.1567
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RmK06fjxZNNkz3OCKexeq+DjoYdx2upecLC/1rfdMs+s0kzqzwgfCHHseJSM57rY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5751
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 11/18/2026 7:50 PM, Shubhrajyoti Datta wrote:
-> Add the amd,num-ctrl property to describe the number of DDR memory
-> controllers enabled in the design. Valid range is 1 to 8.
-> The driver then can enumerate only the enabled controllers.
+This series picks up Pali's patches [1], which stopped at v3 in July
+2022. Pali is on Cc.
 
-Nit - avoid "driver" usage in binding commit description.
+The MAX6370 on CZ.NIC Turris 1.x routers has its SET pins connected
+through a CPLD, but its WDI pin is connected to a SoC GPIO. The driver
+currently cannot use this GPIO, despite turris1x.dts already describing
+it.
+
+This series adds GPIO support to the driver and binding, and updates
+turris1x.dts to use the new wdi-gpios property.
+
+Changes in v4:
+
+- Address review feedback from Rob, Tzung-Bi and Guenter.
+- Fix GPIO direction handling and remove unnecessary locking.
+- Rename the property in turris1x.dts.
+
+Tested on a Turris 1.1 running the Turris OS build of Linux 6.6.142
+with patches 2 and 3 backported. The watchdog works with periodic GPIO
+pings and resets the board after the pings stop. On v7.4-rc3, also
+tested the binding with dt_binding_check and dtbs_check, and built the
+driver for powerpc, and for arm64 with and without GPIOLIB. GPIO
+behaviour was additionally tested under QEMU.
+
+Patch 3 can go through the powerpc tree once the binding is in.
+
+[1] https://lore.kernel.org/r/20220705001023.14660-1-pali@kernel.org/
+
+Josef Schlehofer (1):
+  powerpc: dts: turris1x.dts: Use wdi-gpios for the watchdog
+
+Pali Rohár (2):
+  dt-bindings: watchdog: maxim,max63xx: Add wdi-gpios
+  watchdog: max63xx_wdt: Add support for specifying WDI logic via GPIO
+
+ .../bindings/watchdog/maxim,max63xx.yaml      |  6 +++++
+ arch/powerpc/boot/dts/turris1x.dts            |  2 +-
+ drivers/watchdog/max63xx_wdt.c                | 24 +++++++++++++++++--
+ 3 files changed, 29 insertions(+), 3 deletions(-)
 
 
-> 
-> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-> ---
-
-we should also explain why it need to be a DT property
-and can't be queried/derived from firmware response.
-
-> 
-> Changes in v2:
-> Add amd,num-ctrl property to device tree
-> The property was requested in the discussion below
-> https://lore.kernel.org/all/34ffba5a-8e9a-49b9-9e36-c31d0e4369f8@amd.com/
-> 
->   .../memory-controllers/xlnx,versal-net-ddrmc5.yaml       | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-net-ddrmc5.yaml b/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-net-ddrmc5.yaml
-> index 479288567d0b..65feacd007a1 100644
-> --- a/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-net-ddrmc5.yaml
-> +++ b/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-net-ddrmc5.yaml
-> @@ -27,6 +27,15 @@ properties:
->         with remote processor. APU primarily communicates with the RPU for
->         accessing the DDRMC address space and getting error notification.
->   
-> +  amd,num-ctrl:
-> +    description:
-> +      Number of DDR memory controller (DDRMC) instances enabled in the
-> +      design.
-
-Mention that : The enabled instances are contiguous.
-
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 1
-> +    maximum: 8
-> +    default: 8
-> +
->   required:
->     - compatible
->     - amd,rproc
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+-- 
+2.54.0 (Apple Git-157)
 
