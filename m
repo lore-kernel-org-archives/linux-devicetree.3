@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540898;
-	b=LyCSu0WJ7OG2yS3Q/TNT5Dlg67aE8ycunabRFRbSSlaYdwRENC1agB59Q4BX+I4nTSKo
-	 3xJUKhIKdLX/h0oFMF9YU5mI3k7WiVTYVcNdBgkmVwZovxYw/uwInbkwKKwq+CKldLXAv
-	 0UMk/FP8f8BEH8y1KZxYqgJOtJlthjJ/eC/NI2A6Q81cSpoyKbc07l9wIW5m5tgxw+jGC
-	 DX6BTniWOnm2up8aZFuFFm7Q4V4B910EgX7I93s9mQHtaUNKLre/0NRP22w97jMS2c/Yc
-	 7eQRz47SQ1RMPA2tHx3UwGD50pNUo8UtJhdUFKwmdcKNMvgb2pqhlJ8uiqEixoXyoLA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540898;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=QOE9tLv8iBUPXviQlcW4ty3xl5blRuHsSayLmoDU4qQ=;
-	b=wVaDe1AVJxUYAeE6ObuKUWkMk1JjmjkVGaLMtV6w6cgPUz9z9ygIH5KMxWyoeDGQp2lL
-	 r17chy7GkKLAp/kF3DHNsPrdgmh+FH6D9ke10uwTXBTwtk0AIF/1q+ePPP4V85B9qF6pG
-	 NWponNX13NOSVq48WH+B8/KZJO2m7gNnaUrq5QPiyB4nUHehb6LEmfAss+2CCMX7S/ui7
-	 SyqpvZX/Y/mirBwiMStSJ3BFUjsi4apNzVEuXfJwEWaSzZtOs3OTgKqKN8qkgB98/qb1T
-	 2JPIyXLAtKuTYpLO5Y9EV2E5RBJramS9rD5sioyu1ZySFmeIKbQ4OiB9ssMyPK7Y55Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ICyJa1fP;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795540980;
+	b=1di0upwxuCs764Mh501ixuXIqd/4ePRWkf1F2QyygsmD7Ph12wVi00kLHYIxJRRDqxYY
+	 KkUCyVHRARhK4AcpF+7gANSyRgz5uG7PzehbHj4ArvoQbXJtQSZvOdSAiE5XoxQIbTcL5
+	 pqv0ql+4/NNrwk6UDIi/nP9FXwBxshm52PmR65YstiKL6Z1DzNAoKq4ySMZqpKAyy+5dZ
+	 gR/1yTe8n1Oiemmsk2QlIfCwQRjad1SSKF4gHDzpb+svj3xvNa9AT0NtG8wIKWfJ6/jFK
+	 swlrt/dU8EcZ1M+jhnTqYf8uVYOhxF6Fqu6NFwaswJjt+6fGV2fHqFsLYfl1h9u783A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540980;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=b8ZLLnYaqHLGaBzaZoD6higfVTAqlS3NyUpOKVoiu/Q=;
+	b=YXqVEpoa8mfI/iaToEXTtr0L8KrQsl/KqhOimUCm6o7eGIA2G2KPG6uncQepaQYN9Szc
+	 OXakj5Iyix2tUIXoNh+JOhW0FVEduC2qvOSyr20ib90I0RxPoyznqhBJ6Y0W14VcQnbBe
+	 K5niJPcaGxGcoTon5+YOZFKXdled7ZMfPE/Sxx5M4Sffxhb6cK/hp0cs3AqwO0YkWO+LL
+	 XKj239pad3oZZebQRuoiJecbfNE/jFN2kT19gpgME8Aw5Offh/0BZODPUP/U4LcEZfqOl
+	 BySsZgNl2Pv4QRIP8r3aQj80LZDcnqdXGxWFkMaJsgUylOwOMkuSuqbu/hydJjL6GbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIjntsdD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EBF606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE68E606A31E;
+	Tue, 24 Nov 2026 17:22:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ICyJa1fP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0B721F000CA;
-	Tue, 24 Nov 2026 17:21:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIjntsdD
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795540979;
+	b=SPfhxD7kDzjKdbnESFF1zgHGnR9A8TZCY/D5u0faWuADKb+n4otJ9GC7twSbGf6qNjrz
+	 SZt8u2dELYKa129seNz32Fg8TVEYrpc++wDv81DkLKLFBPZvX8WzsNPo4d76mfpH1OxjZ
+	 k73rT0DnuSKRWX3IWwyR9Hg527eRgbW6PNne6jxs+/++OFvBr4NtYvqXLHhKxmZRP6xRO
+	 nlnsiBjfGsKHmeWzpn1Gccv30Js/BRQO0JlaT3UiQz85KB3hA0dpnYPdHxo/klDk2nyPL
+	 8u2p/U2W79ykESb82Rw7mOO0+Xf/AaSaTHaeO9PLLQaAa6IAkWjRtenpi+/ggzlyWxQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795540979;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=b8ZLLnYaqHLGaBzaZoD6higfVTAqlS3NyUpOKVoiu/Q=;
+	b=VdH+CTsgLGTxZxhX8gTqAmzOQKw/gZkQMsDYVR6Tpf8ENiPDTKS14C0C6CuEHs650p+W
+	 WK4XGpUaIpGFepIhVVvTlOjs9mT43AnbeRHVylRouuqARwW3E1de9fp/f2OIaI1+DpoR3
+	 HQpPXifX8sycyxabwSlVHEXUAbPlAh4RM7sdHDH2dsV8wvcklc8b73iU1vuZt7sxEIrhy
+	 zXCeSyKO0AIezzCZDOZifQDHqoLrj+uV7qIOhVHGrRdyOOIoXaJwKLQIiXHVm6QOc6NN/
+	 HflXjN8by8KjHVlfv1iEwcmRS3yZ+TKgar5Mw0Gt2TchfyIwypVGG1ZeVwZlgNODXLA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 774301F000C4;
+	Tue, 24 Nov 2026 17:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795540898;
-	bh=QOE9tLv8iBUPXviQlcW4ty3xl5blRuHsSayLmoDU4qQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ICyJa1fPj7nHng8oHiOaGfZryOM/CD3tT9Ew1yGZzb5DfycHLTthy0hF3FR6NWpXb
-	 780ahlvzzdWbWF/6PpxaeVtmPitSNQz4kNxsW1mG2ht2PGM75fG7kF4sONKF5ogMkz
-	 pVqK+fm6P3NXxZFXDz09O5ukmC8hy0BOvC+nc3HriRob3LdbvdYaFflAGj8V3LVo41
-	 1toXdZLnPdwGCGqIajZVd9rvt0Nhpp1N8Q4OTm/9Y9TcAuMEs4Fi2uymPUn8x6foeB
-	 swjZ+Wnohal7iyvagMwQ0XM0+jOmzDUGv2Uz77IVEBy9vwqN03yZw4Fz4vtnR8arfl
-	 51QFy6sIKEanw==
-Message-ID: <sashiko-outbox-231696@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/24] media: mali-c720: Add full-resolution output
- subdevice
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anthony McGivern" <anthony.mcgivern@arm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-11-0cb9bde1bd30@arm.com>
-References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
- <20261124-b4-initial-upstream-candidate-v1-11-0cb9bde1bd30@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 17:21:37 +0000
+	s=k20260515; t=1795540979;
+	bh=b8ZLLnYaqHLGaBzaZoD6higfVTAqlS3NyUpOKVoiu/Q=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=NIjntsdDG/Snd2rrZiIOGvftQVgvfDAjkWKKCbLwS2J6udDPvvUZAalBLjBbiEKjR
+	 zsdX0K9si0H9rSJ4ki5giVxoIv0p3k9P3Za+ppka2gGz1lfgNSPBxlsFLk3Mx3sj2K
+	 QBnoKE2ieEbmFZq0btVajMF4bjHr9rjBnsCIk19O6j/vHUKdxrWMba242tjnLvoZra
+	 +zDzpyLeQpwo3ywkW4O5m085eufBe1QJ9wxpKOYkaPMw/nnswg1VhcGWeBw6hs4pT1
+	 FxmpyFQAOrHcTK7QZiczU+Yq0JsSfIvqVcFkCH3Z8iim4C6yX6Bcfp1hyCiMQS/faO
+	 seLufbq6FMiIA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CF3424CAFE;
+	Tue, 24 Nov 2026 17:22:51 +0000 (UTC)
+From: Sai Sree Kartheek Adivi via B4 Relay <devnull+s-adivi.ti.com@kernel.org>
+Date: Tue, 24 Nov 2026 22:52:40 +0530
+Subject: [PATCH v2] arm64: dts: ti: k3-am625-sk-common: Add TPIC2810 LED
+ expander support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,115 +82,194 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261124-am62x-tpic2810-v2-1-91115ba8e2dd@ti.com>
+X-B4-Tracking: v=1; b=H4sIAN/HBWsC/3XMQQ7CIBCF4as0s3ZMmSqiK+9hugBK7SxaGiCkp
+ uHuYvcu/5e8b4foArsIj2aH4DJH9ksNOjVgJ728HfJQG6glKQRdUM+SNkwrW1KixatWxplBGq0
+ k1NMa3MjbAb762hPH5MPn8LP4rX+pLFAgmftozU3qznbPxGfrZ+hLKV8nbhlFqQAAAA==
+X-Change-ID: 20261124-am62x-tpic2810-5a8bebd6ba86
+To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sebin Francis <sebin.francis@ti.com>, 
+ Sai Sree Kartheek Adivi <s-adivi@ti.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540969; l=4368;
+ i=s-adivi@ti.com; s=20261124; h=from:subject:message-id;
+ bh=ehVtq9ntD1a3UcuBE08CQeJf9PzsTkL2oMpSs6MAAtc=;
+ b=tBbLfdDuHaobWR9sYvDmPJd8Y0sruMmEsKnGSRj8AH65Ihz+nauwVaoUUMNTGZFUQQ9JIYtpa
+ tpTkypliMtoBqF47rJgMoM2WVdVm6nxrVC1vaP7NCsByHSaOXW5a29G
+X-Developer-Key: i=s-adivi@ti.com; a=ed25519;
+ pk=EtOwVxmXDuYMgw3DqFtPDBpf8ZvbO89w1fJm4w5yPI8=
+X-Endpoint-Received: by B4 Relay for s-adivi@ti.com/20261124 with
+ auth_id=1627
+X-Original-From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+Reply-To: s-adivi@ti.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] media: mali-c720: premature stream disable in
-  mali_c720_fr_pipe_disable_streams()
---
+From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-commit e9291c2295f3f6641b25d61f1e2d851fc6eecc95
-Author: Anthony McGivern <Anthony.McGivern@arm.com>
+The AM625 SK and AM62x SIP SK EVMs both have a TPIC2810 I2C GPIO
+expander at address 0x60 on WKUP_I2C0, driving 8 user LEDs. Describe it
+in the shared k3-am625-sk-common.dtsi, mirroring the AM642 SK support:
 
-media: mali-c720: Add full-resolution output subdevice
+- add the WKUP_I2C0 pinmux
+- enable wkup_i2c0 with the TPIC2810 node
+- add a gpio-leds node for the 8 outputs
 
-This commit adds the full-resolution output 0 (FR0) V4L2 subdevice with RGB
-and YUV source pads, including scaler and crop configuration.
+CONFIG_GPIO_TPIC2810 is already enabled in the arm64 defconfig.
 
-> diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-fr-pipe.c b/d=
-rivers/media/platform/arm/mali-c720/mali-c720-fr-pipe.c
-> new file mode 100644
-> index 0000000000000..a2f97ebce609b
-> --- /dev/null
-> +++ b/drivers/media/platform/arm/mali-c720/mali-c720-fr-pipe.c
-> @@ -0,0 +1,1178 @@
+Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+---
+Changes in v2:
+- Fix dt-check-style warnings: move led-controller before opp-table,
+  reorder properties, fix alignment
+- Pinmux alignment/line-length warning left as is, to match the existing
+  style of the file
+- Link to v1: https://serenity.dal.design.ti.com/lore/linux-patch-review/20261124-am62x-tpic2810-v1-1-2b9fcb76a3c3@ti.com
 
-[ ... ]
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+To: Nishanth Menon <nm@ti.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>
+To: Tero Kristo <kristo@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+---
+ arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi | 94 ++++++++++++++++++++++++++
+ 1 file changed, 94 insertions(+)
 
-> +static int mali_c720_fr_pipe_enable_streams(struct v4l2_subdev *sd,
-> +					    struct v4l2_subdev_state *state, u32 pad,
-> +					    u64 streams_mask)
-> +{
-> +	struct mali_c720_subdev *mdev =3D v4l2_sd_to_mali_c720_sd(sd);
-> +	struct mali_c720 *mali_c720 =3D mdev->mali_c720;
-> +	const struct mali_c720_pipeline_regs *pipeline =3D mali_c720->registers=
-.top->pipeline;
-> +	struct mali_c720_fr_pipe *pipe =3D
-> +		mali_c720_sd_to_sd(mdev, struct mali_c720_fr_pipe);
-> +	struct mali_c720_context *ctx =3D mali_c720_get_active_context(mali_c72=
-0);
-> +	struct v4l2_subdev *src_sd;
-> +	struct media_pad *sink_pad;
-> +	int ret;
-> +
-> +	sink_pad =3D &pipe->pads[MALI_C720_FR_PIPE_PAD_SINK_VIDEO];
-> +	pipe->remote_src =3D media_pad_remote_pad_unique(sink_pad);
-> +	if (IS_ERR(pipe->remote_src)) {
-> +		dev_err(mali_c720->dev,
-> +			"No remote source for fr 0 pipe\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	src_sd =3D media_entity_to_v4l2_subdev(pipe->remote_src->entity);
-> +	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
-> +				  &pipeline->fr0_hv_cv_mux_sel,
-> +				  ISP_TOP_FR0_HV_CV_MUX_SEL_HV);
-> +
-> +	/* Enable the upstream subdevice unless another output already enabled =
-it. */
-> +	ret =3D v4l2_subdev_enable_streams(src_sd, pipe->remote_src->index, BIT=
-(0));
-> +	if (ret && ret !=3D -EALREADY)
-> +		return ret;
-> +
-> +	mali_c720_fr_pipe_update_resizer_config(pipe, state);
-> +	if (pad =3D=3D MALI_C720_FR_PIPE_PAD_SOURCE_YUV)
-> +		mali_c720_fr_pipe_program_output_formatter(pipe);
-> +
-> +	guard(spinlock)(&pipe->resizer_lock);
-> +	pipe->enabled_crops |=3D BIT(pad);
-> +
-> +	return 0;
-> +}
-> +
-> +static int mali_c720_fr_pipe_disable_streams(struct v4l2_subdev *sd,
-> +					     struct v4l2_subdev_state *state, u32 pad,
-> +					     u64 streams_mask)
-> +{
-> +	struct mali_c720_subdev *mdev =3D v4l2_sd_to_mali_c720_sd(sd);
-> +	struct mali_c720_fr_pipe *pipe =3D
-> +		mali_c720_sd_to_sd(mdev, struct mali_c720_fr_pipe);
-> +	struct v4l2_subdev *src_sd;
-> +
-> +	if (pipe->remote_src) {
-> +		src_sd =3D media_entity_to_v4l2_subdev(pipe->remote_src->entity);
-> +		v4l2_subdev_disable_streams(src_sd, pipe->remote_src->index,
-> +					    BIT(0));
-> +	}
-> +	pipe->remote_src =3D NULL;
-> +
-> +	guard(spinlock)(&pipe->resizer_lock);
-> +	pipe->enabled_crops &=3D ~BIT(pad);
-> +
-> +	return 0;
-> +}
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi b/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi
+index 8e07d2c2e62fd..2d2b82b0de8ad 100644
+--- a/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi
+@@ -8,6 +8,74 @@
+ #include "k3-am62x-sk-common.dtsi"
+ 
+ / {
++	led-controller {
++		compatible = "gpio-leds";
++
++		led-0 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <1>;
++			gpios = <&exp2 0 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-1 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <2>;
++			gpios = <&exp2 1 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-2 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <3>;
++			gpios = <&exp2 2 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-3 {
++			color = <LED_COLOR_ID_AMBER>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <4>;
++			gpios = <&exp2 3 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-4 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <5>;
++			gpios = <&exp2 4 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-5 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <6>;
++			gpios = <&exp2 5 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-6 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_INDICATOR;
++			function-enumerator = <7>;
++			gpios = <&exp2 6 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-7 {
++			color = <LED_COLOR_ID_AMBER>;
++			function = LED_FUNCTION_HEARTBEAT;
++			function-enumerator = <8>;
++			gpios = <&exp2 7 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "heartbeat";
++		};
++	};
++
+ 	opp-table {
+ 		/* Add 1.4GHz OPP for am625-sk board. Requires VDD_CORE to be at 0.85V */
+ 		opp-1400000000 {
+@@ -160,6 +228,15 @@ AM62X_IOPAD(0x01d4, PIN_INPUT, 7) /* (B15) UART0_RTSn.GPIO1_23 */
+ 	};
+ };
+ 
++&mcu_pmx0 {
++	tpic_pins_default: tpic-default-pins {
++		pinctrl-single,pins = <
++			AM62X_MCU_IOPAD(0x004c, PIN_INPUT, 0) /* (B9) WKUP_I2C0_SCL */
++			AM62X_MCU_IOPAD(0x0050, PIN_INPUT, 0) /* (A9) WKUP_I2C0_SDA */
++		>;
++	};
++};
++
+ &main_gpio0 {
+ 	bootph-all;
+ };
+@@ -196,6 +273,23 @@ exp1: gpio@22 {
+ 	};
+ };
+ 
++&wkup_i2c0 {
++	clock-frequency = <400000>;
++	pinctrl-0 = <&tpic_pins_default>;
++	pinctrl-names = "default";
++
++	status = "okay";
++
++	exp2: gpio@60 {
++		compatible = "ti,tpic2810";
++		reg = <0x60>;
++		gpio-controller;
++		#gpio-cells = <2>;
++		gpio-line-names = "LED0", "LED1", "LED2", "LED3",
++				  "LED4", "LED5", "LED6", "LED7";
++	};
++};
++
+ &sdhci0 {
+ 	bootph-all;
+ 	non-removable;
 
-[Severity: Medium]
-Does mali_c720_fr_pipe_disable_streams() stop the upstream subdevice while
-the other source pad is still streaming?
+---
+base-commit: 566085204d669ed4bd0d8d230b10f94f963e2481
+change-id: 20261124-am62x-tpic2810-5a8bebd6ba86
 
-mali_c720_fr_pipe_enable_streams() allows both the RGB and YUV source pads
-to share the upstream stream by ignoring -EALREADY, and records each active
-pad in pipe->enabled_crops.  However, mali_c720_fr_pipe_disable_streams()
-unconditionally disables the upstream stream and clears pipe->remote_src
-without checking whether the other pad bit is still set in
-pipe->enabled_crops.
+Best regards,
+--  
+Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-Also, if media_pad_remote_pad_unique() fails in
-mali_c720_fr_pipe_enable_streams(), pipe->remote_src is left holding an
-ERR_PTR, which the truthiness check in mali_c720_fr_pipe_disable_streams()
-would treat as a valid pointer.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-initial=
--upstream-candidate-v1-0-0cb9bde1bd30@arm.com?part=3D11
