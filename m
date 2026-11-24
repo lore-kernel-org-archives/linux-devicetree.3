@@ -1,57 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795546401;
-	b=12ks4u9bhL/NI4WLaXeCvz8e3RnPJh98VfeYuxocpc5DfsVHKEvdjC/OfDNd7biC5Ujh
-	 rjnxADc+6Cmkn8BtGzUKrl5e/qlwjIk9Werzzrb/Y16mCZg46OR7BnVi9QLRdRa5rqjjt
-	 Zl8TFNzyKRpDhDNlwi4fENqFeN1JGvenFgy2HzBixYho47vuzBvpQIRbs05STM+WnCIL1
-	 qw1NzcWvMnidVEKR46WKqBsuCHaNxPAV5ts9Pb8iImf7mVOiuqhPhWH20TLWMVzLwMAxQ
-	 h5rPdJpGtMiEJ4kVbFo0Y9P+BstwJQ+MQKyXHgQXlHudQyEPFUc2QrCh8/bPLqoPVzQ==
+	t=1795547128;
+	b=39/G+uXuRgcL7oR67U+QeJnkla0ORpVebVsWKfttoro7dnPz0a9su1sh768tvTcE7sfV
+	 5APyw1ecw9w/zNzLwvjhY7koss/K7nEn6QqwPuDIAZIQluoiZf0zmKNlI17bSd4+cPnNU
+	 pEUBhIyGZOgDIwXJbU7umeRxDHlFT5cXR+jxQx97cqwg47Zwi5tfjtFKsek4Yr66f1LC4
+	 HgMEZOaL2XSNB+KSLiBmwJnJ0iRkh1T0DhY0FTRCeSgmmTvOKXwmjhoqOD3J7zjS948J+
+	 VgjNr5zDUISRSClDz+/HXusZOuHJSrxB5pMV9gH4pcs6R1Ehg95XSVUOIHw9ixqqm6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795546401;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=z91gPIWU03oHradzfsGgymcWPE/E/jUuuZGawInZ83s=;
-	b=glx0l9B1qy28ykUj+ruETxiF5k9zDkv6NIMb0ePE73QsY8loJ5A1QNN6OKSz+BYgurQO
-	 UPbvsXW5fDjuskVEAJnQzKbetn++FBCFIvdN/NuFJy4bgZvNh4QpiBm2GoqshJI1LSZfq
-	 uOQuXuj1ijQfTvLZF99nF0ic4TxEKSuPt5WO/FNuhcPAqYBkVy/xNlyyZDAuJ7sW6byRo
-	 BSswdCWWIQAqBwiGANST05icGuIRFkbnDBXoBGPNbj2PZThp75fDCJVzPpnE890aQd6qY
-	 OKr/PavDEF5ZpyTGbpFa/G7+rPTpysbCo/tc3q+60ZVnqKs4AtPXwAuKDg5dkd83KyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795547128;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=oRymF9g7Ou6E84Fcm6RvQE44N4Aj97+O2QyjNvisAjA=;
+	b=lcY3yV95KM+YEaiGmuPgdALN6MFqwxZ997i+biZh/Oqrt3vIWh2zrg6kPxhpIFezid+F
+	 B6cnNBDXgTUMP0AdwuFddq3DxUnrIwLekoBRqHcOY9VawiWf33aIKfh/K7ibs6c6tjS/n
+	 Kvma3EqbTR2j0cgcjhI89HuI3fBolIAKBXSfoDb1lePRODRpfIaecrrSipWFklWultAYM
+	 Vcj77TCUjGJ6/JzhyOR4yJSJUi2qIOX5FywSBPMCnsvYt1PFUWHTJLGI5GDJwyV0eIBjl
+	 3mANei1OyT0HSCBSHf8YMgSLqnPRO+orvUQ7e8bVY/zld5PSvb3asygQ5ks3FIE8WUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDKupR4B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="LaQ/DrsS";
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBA8606A326
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 18:53:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782DF606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 19:05:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 782DF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDKupR4B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EB6B1F000C6;
-	Tue, 24 Nov 2026 18:53:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795546401;
-	bh=z91gPIWU03oHradzfsGgymcWPE/E/jUuuZGawInZ83s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YDKupR4BgKLiVkRUPpVGMR/P+d2R8mIVDGOxPzaNhaXyZ71PRJ/IiMVswrBeWKF48
-	 9V05r6k19aLRloHPtCGFTHYVcdYDUmlpTnQVh+QLil3n1lEOJwTkV56xQAihpdFbWQ
-	 oLAxSKwX2BAinCsEinjXldsS5aYyZeOHRi7wiU/lHderbFKscyVd54b+4LuPiFC5Al
-	 cIAx9iMgiafP7Y5lZpmZ2Y04+ERdRmUkVDvK7W0J+bv3DE01qsVMeSYLg8E64TWPUl
-	 V+eUmJFf/J5Wk9M8rd8kLMa4v/1ffJ8ROqNmZmbVkbdGxECes2/LDnADRxgkdTV2J9
-	 FXYqg0fpnMNAw==
-Message-ID: <sashiko-outbox-231860@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 4/5] net: cortina: Add CS7542 CPU network
- datapath
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-b4-cs7542-ethernet-v1-4-fdb5e8c2d508@gmail.com>
-References: <20261123-b4-cs7542-ethernet-v1-0-fdb5e8c2d508@gmail.com>
- <20261123-b4-cs7542-ethernet-v1-4-fdb5e8c2d508@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 18:53:21 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=LaQ/DrsS
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1b3ada81853so5679187c88.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:05:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795547127; x=1796151927; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oRymF9g7Ou6E84Fcm6RvQE44N4Aj97+O2QyjNvisAjA=;
+        b=LaQ/DrsSf/lTSKvebzDUDO0d/SHlG21H7sH+cy2n5Opuq5APd2coUYIy+qQpQcVw4R
+         0BV9TbeCVyo44f/hbGV92P3ImsMclWWCBp/vJiP8cse/parjod0QWq640h6Itmt7KGot
+         KhUQc+NJfF+SZ6jCEIuWmdYI0PlW4M6xWEVe8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795547127; x=1796151927;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oRymF9g7Ou6E84Fcm6RvQE44N4Aj97+O2QyjNvisAjA=;
+        b=kpzSwtEGKhI6RQjLDR4yAbUz0cjlPFZhTYJPhTWwk3iO6pjc4jL2FtgNPvCLotIcz2
+         qYGYYGN/PhkCPMAUGDKbyqrvCZWpXo9Om0knX2GJVbbLDlA4MB0E/P9xFrOEgJ6QvhEX
+         qVPF4ftiPw/h3mcVZD0wdpLN2JRfQgtBHs+Q0YjQEvgx98W8UNp6AJbuvFVOzCDUx+ey
+         CqtbqSWnFbewxfB2hvSZq/tRAWr2iUAMouNTHdDd2iO+chnz2USr0kmfpoRB5bGUHTsk
+         PWMwHfIaUkgHA0WaWjGsb2CaLJ5eXr/iHH2ObGZWqCOlO65fpQJZyM5GU/jOvZaE+wgf
+         5itw==
+X-Forwarded-Encrypted: i=1; AL+hErFvtEbMhCpdLMrdA5mqb3iI8Pl/29gbalJes4vowvkz0FSRQ0bM5czR05FSJKiJcBDD7AfkC7xQBdIS@vger.kernel.org
+X-Gm-Message-State: APuU4Z/K4M+JKWY+0tsquj/3VxCQ6wgBLd1G5VlehOZ4J2PEYSa6OBlV
+	c/krTN9gx1LVvINrHJPzCNvvdH2hh+U2sFMua7fhGLFDkL6UcTTH/+hUPkItxCFkPA==
+X-Gm-Gg: AZFdTZdkDmq0yKJy4PvHsZYqXEy/7CpZu+IyMr38OOIGGp5gksb851lk5PF6ZzWzk4h
+	P+noj7TW8iNt/GqIHNcCg1j3G1gLMEH5ScRVnNMESZyi5MKgrrtjllXBNlLMXTzMJDbJgXB7zgZ
+	y8V8A/MKAm2F0ozV1q0E1KAOrU4ShK7NFd3C7lPsO4Zsk8YJLgL25brv4ubkdWZckm4V/GE9OSC
+	HvI4i+572Txw2BhNgMxn68ONuHmB7P3R2ddAn3ZILYFc9oLA3kCQzl/QKpj1e3dg31VElTBl7hl
+	si5kF2Srxn71qu+yLtlUGRvlXp0V4v5McXtFc8clO7lAbIwiUIV2ha6O12JQLi6OpWry5WvMxWU
+	lhzW/+NYcdM+8roE7D+K9Ktmgca5Z2WOPs+E4THnHVyNWW8oUtqpIDv4c3TV9y07APYzYyX6yat
+	yAPW0l0SH1Fft0jPaIpAw+ydYjzQCqGBGBvLsHb5RQWmEH7LGfn5t0fKtthHDPIFdViMJ+mOISs
+	v8ounKcxelUsG0AvIDDpkyP5xgbMHcBuSI/stgfexP2oXrDJOAZAmO/DBNp8btaoLTrJyeD8aLi
+	wXL6flcJStehiqcGJdbBJVtbfGJ3Z5vCNwtmM/TVQG7hasyCihh43jei1DavQxq60Dkb
+X-Received: by 2002:a05:7023:a41:b0:1b5:4b48:b9ee with SMTP id a92af1059eb24-1b5568c0ec9mr15438832c88.26.1795547127198;
+        Tue, 24 Nov 2026 11:05:27 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:ea9b:d8a3:ba44:2d0a])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3866f299d0bsm39337143eec.19.2026.11.24.11.05.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 11:05:26 -0800 (PST)
+Date: Tue, 24 Nov 2026 11:05:23 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Peter Griffin <peter.griffin@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 3/9] soc: google: Add CPM over MailBox Array driver
+Message-ID: <awXf86suGgKeazZx@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.3.I7bc547c83b7bf677a62670099f481a91ac737073@changeid>
+ <CADrjBPqnRrFeYT9J6NGxy+Xzy1PTZEz+BMs1_u2md7Ra6xPPDQ@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,355 +106,260 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CADrjBPqnRrFeYT9J6NGxy+Xzy1PTZEz+BMs1_u2md7Ra6xPPDQ@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issues to consider:
-- [High] net: cortina: RX DMA buffer leak on oversized frames in
-  cs_ne_rx_poll()
-- [Medium] net: cortina: shared MAC prefix registers clobbered in
-  cs_ne_set_hw_addr()
-- [Medium] net: cortina: unlocked RMW on shared NI registers in
-  cs_ne_mac_link_up()
-- [Medium] net: cortina: unvalidated napi_budget parameter in
-  cs_ne_probe_port()
-- [Medium] net: cortina: lost RX interrupt for queued XRAM packets in
-  cs_ne_open()
-- [Medium] net: cortina: unchecked command errors in cs752x_sch_init()
-- [Medium] net: cortina: BM bypass bits cleared after init in
-  cs752x_tm_bm_init()
-- [Medium] net: cortina: unreaped TX SKBs left in ring by cs_ne_stop()
---
-
-commit 82b05afd45239de80ea534b48d615861a3fd0a56
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
-
-net: cortina: Add CS7542 CPU network datapath
-
-This commit adds an Ethernet driver for the Cortina CS7542 network engine
-GMACs, including CPU XRAM RX queues, QM buffer management, a shared TX
-descriptor ring, and FE/SCH/TM hardware initialization.
-
-> diff --git a/drivers/net/ethernet/cortina/cs752x_ne.c b/drivers/net/ether=
-net/cortina/cs752x_ne.c
-> new file mode 100644
-> index 0000000000000..126dcdd6c5c54
-> --- /dev/null
-> +++ b/drivers/net/ethernet/cortina/cs752x_ne.c
-
-[ ... ]
-
-> +		pkt_size =3D FIELD_GET(HDRE_PKT_SIZE, hdre_lo);
-> +		off =3D CS_NE_BUF_HDR_OFF + 8 + 16 + 2;
-> +		total =3D pkt_size > 20 ? pkt_size - 20 : 0;
-> +		valid =3D total >=3D ETH_HLEN && total <=3D CS_NE_MAX_PKT_LEN;
-> +		nbufs =3D 1;
-> +		if (valid && total > CS_NE_BUF_DATA_MAX - (off & 0xff))
-> +			nbufs +=3D DIV_ROUND_UP(total - (CS_NE_BUF_DATA_MAX - (off & 0xff)),
-> +					      CS_NE_BUF_DATA_MAX);
-> +		if (nbufs > CS_NE_RX_MAX_BUFS) {
-> +			valid =3D false;
-> +			nbufs =3D CS_NE_RX_MAX_BUFS;
-> +		}
-> +		for (i =3D 0; i < nbufs; i++)
-> +			dma[i] =3D readl(desc + 40 + i * 4) & XRAM_BUF_MASK;
-> +		valid =3D cs_ne_rx_claim(ne, dma, bufs, nbufs) && valid;
-
-[Severity: High]
-Does gating the nbufs calculation on valid leak trailing RX DMA buffers
-when total > CS_NE_MAX_PKT_LEN?
-
-cs_ne_qm_cpu_path_init() configures QM_MAX_CPU_PKT_LEN to
-CS_NE_MAX_PKT_LEN + 16, so hardware can deliver oversized multi-buffer
-frames to XRAM.  When total > CS_NE_MAX_PKT_LEN, valid is false and nbufs
-stays 1 (which also makes the nbufs > CS_NE_RX_MAX_BUFS check unreachable).
-Only dma[0] is claimed and recycled, while the remaining buffers in the
-descriptor stay in CS_NE_RX_HW state permanently, depleting the fixed RX
-pool allocated at probe time until reception stalls.  Also, if the 4-byte
-FCS subtracted from pkt_size is stored in buffer memory and crosses a
-CS_NE_BUF_DATA_MAX boundary, computing nbufs from total rather than the
-stored byte count will undercount nbufs by one and leak that final buffer
-as well.
-
-[ ... ]
-
-> +static void cs_ne_set_hw_addr(struct cs_ne_port *port)
-> +{
-> +	struct cs_ne *ne =3D port->ne;
-> +	const u8 *a =3D port->ndev->dev_addr;
+On Tue, Nov 24, 2026 at 12:28:24PM +0000, Peter Griffin wrote:
+> Hi Brian,
+> 
+> Thanks for your series; it's great to see more Laguna support being posted.
+> 
+> On Mon, 26 Oct 2026 at 21:45, Brian Norris <briannorris@chromium.org> wrote:
+> >
+> > The Central Power Manager (CPM) is a co-processor on the Google Tensor
+> > SoCs, as used on Pixel phones. CPM supports power-management and a
+> > number of other features.
+> >
+> > The Application Processor communicates with CPM over a pair of mailbox
+> > channels (the "MailBox Array" (MBA)). CPM provides clock, power-domain,
+> > reset, interrupt services, and more.
+> 
+> [..]
+> 
+> +++ b/drivers/soc/google/Kconfig
+> @@ -0,0 +1,13 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
 > +
-> +	ni_wr(ne, NI_MAC_ADDR0, a[0] | (a[1] << 8) | (a[2] << 16) | (a[3] << 24=
-));
-> +	ni_rmw(ne, NI_MAC_ADDR1, 0xff, a[4]);
-> +	ni_rmw(ne, NI_ETH_MAC_CONFIG2(port->id), 0xff, a[5]);
-> +}
+> +config GOOGLE_CPM_MBA
+> +       tristate "Google Tensor CPM MailBox Array Interface"
+> +       depends on ARCH_GOOGLE || COMPILE_TEST
+> +       depends on MAILBOX
+> 
+> Should we also have "depends on OF"?
 
-[Severity: Medium]
-Does cs_ne_set_hw_addr() overwrite the upper five MAC address bytes for
-all sibling ports?
+Why, precisely? It's not actually a compilation dependency (I tested),
+although it's needed at runtime. It doesn't seem like this is
+consistently done simply for runtime dependencies, and instead work has
+generally been done to ensure everything builds fine and fails closed
+without CONFIG_OF.
 
-NI_MAC_ADDR0 and NI_MAC_ADDR1 are controller-wide registers shared by all
-three GMACs, while only NI_ETH_MAC_CONFIG2(port->id) is per-port.  Probing
-multiple ports with different 5-byte prefixes (such as when
-cs_ne_probe_port() falls back to eth_hw_addr_random()) or changing one
-port's MAC address via cs_ne_set_mac_address() silently clobbers the
-hardware MAC prefix of the other ports, desynchronizing them from their
-ndev->dev_addr.
+Anyway, it's a bit academic, since ARCH_GOOGLE (ARM64) selects OF.
 
-[ ... ]
+> +       select AUXILIARY_BUS
+> +       help
+> +         Driver for interfacing with the Central Power Manager (CPM) MailBox
+> +         Array (MBA) found on Google Tensor SoCs. The driver provides APIs for
+> +         communication between the Application Processor and the CPM, and
+> +         is required by CPM client drivers such as clock, reset, power
+> +         domain, and more.
+> 
+> > diff --git a/drivers/soc/google/google-cpm-mba.c b/drivers/soc/google/google-cpm-mba.c
+> > new file mode 100644
+> > index 000000000000..629a071e202c
+> > --- /dev/null
+> > +++ b/drivers/soc/google/google-cpm-mba.c
+> > @@ -0,0 +1,964 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Google MailBox Array (MBA) CPM Interface
+> > + *
+> > + * Copyright 2023-2026 Google LLC
+> > + */
+> > +
+> > +#include <linux/auxiliary_bus.h>
+> > +#include <linux/bitfield.h>
+> > +#include <linux/bits.h>
+> > +#include <linux/cleanup.h>
+> > +#include <linux/completion.h>
+> > +#include <linux/device.h>
+> > +#include <linux/jiffies.h>
+> > +#include <linux/kref.h>
+> > +#include <linux/list.h>
+> > +#include <linux/lockdep.h>
+> > +#include <linux/mailbox/goog-mba-message.h>
+> > +#include <linux/mailbox_client.h>
+> > +#include <linux/mailbox_controller.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/of_platform.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/spinlock.h>
+> 
+> Missing `#include <linux/slab.h>` header here as later it calls
+> kfree(), kzalloc_obj().
+> This can cause "implicit declaration of function kfree / kzalloc_obj"
+> errors with COMPILE_TEST. Also similar issue in clk-cpm.c
 
-> +static void cs_ne_mac_link_up(struct phylink_config *config,
-> +			      struct phy_device *phy, unsigned int mode,
-> +			      phy_interface_t interface, int speed, int duplex,
-> +			      bool tx_pause, bool rx_pause)
-> +{
-> +	struct cs_ne_port *port =3D container_of(config, struct cs_ne_port,
-> +					       phylink_config);
-> +	struct cs_ne *ne =3D port->ne;
-> +	int p =3D port->id;
-> +	u32 val =3D 0;
-> +
-> +	cs_ne_mac_enable(port, false);
-> +	if (speed =3D=3D SPEED_10)
-> +		val |=3D NI_MAC_SPEED_10;
-> +	if (duplex !=3D DUPLEX_FULL)
-> +		val |=3D NI_MAC_HALF_DUPLEX;
-> +	if (!rx_pause)
-> +		val |=3D NI_MAC_RX_FLOW_DISABLE;
-> +	if (!tx_pause)
-> +		val |=3D NI_MAC_TX_FLOW_DISABLE;
-> +	ni_rmw(ne, NI_ETH_MAC_CONFIG0(p),
-> +	       NI_MAC_SPEED_10 | NI_MAC_HALF_DUPLEX | NI_MAC_RX_FLOW_DISABLE |
-> +	       NI_MAC_TX_FLOW_DISABLE, val);
-> +	ni_rmw(ne, NI_ETH_INT_CONFIG1, NI_INT_CFG_GE_MASK(p),
-> +	       NI_INT_CFG_GE(p, speed =3D=3D SPEED_1000 ? NI_INT_CFG_RGMII_1000=
- :
-> +			     NI_INT_CFG_RGMII_100));
-> +	ni_rmw(ne, NI_ETH_INT_CONFIG2, NI_INT_CONFIG2_GE_MASK(p),
-> +	       NI_TX_INTF_LP_TIME_GE(p));
-> +	cs_ne_mac_enable(port, true);
-> +}
+Ack, will fix.
 
-[Severity: Medium]
-Can concurrent cs_ne_mac_link_up() calls race on NI_ETH_INT_CONFIG1 and
-NI_ETH_INT_CONFIG2?
+> > +
+> > +#include <soc/google/google-cpm-mba.h>
+> > +
+> > +#include "google-cpm-mba.h"
+> > +
+> 
+> [..]
+> > +static bool cpm_iface_is_valid_req(struct cpm_data *cpm,
+> > +                                  struct cpm_request *cpm_req)
+> > +{
+> > +       struct device *dev = cpm->dev;
+> > +
+> > +       if (!cpm_req) {
+> > +               dev_err(dev, "cpm_req is NULL\n");
+> > +               return false;
+> > +       }
+> > +
+> > +       if (!cpm_req->req_msg) {
+> > +               dev_err(dev, "cpm_req->req_msg is NULL\n");
+> > +               return false;
+> > +       }
+> > +
+> > +       if (cpm_req->msg_type > RESPONSE_MSG || cpm_req->msg_type < ONEWAY_MSG) {
+> > +               dev_err(dev, "Invalid msg_type: %d\n", cpm_req->msg_type);
+> > +               return false;
+> > +       }
+> 
+> Should cpm_req->dst_id also be range checked?
 
-Each port has its own phylink instance whose resolve work runs without
-rtnl_lock or a shared controller lock.  Because NI_ETH_INT_CONFIG1 and
-NI_ETH_INT_CONFIG2 pack per-port fields for all three ports into shared
-registers, unlocked read-modify-write updates in ni_rmw() when two links
-come up at the same time can overwrite one port's RGMII speed or timing
-configuration.
+This will be refactored on v2, where dst_id will be u8 and so will
+always be in-bounds.
 
-> +
-> +static const struct phylink_mac_ops cs_ne_phylink_ops =3D {
-> +	.mac_config =3D cs_ne_mac_config,
-> +	.mac_link_down =3D cs_ne_mac_link_down,
-> +	.mac_link_up =3D cs_ne_mac_link_up,
-> +};
-> +
-> +static int cs_ne_open(struct net_device *ndev)
-> +{
-> +	struct cs_ne_port *port =3D netdev_priv(ndev);
-> +	struct cs_ne *ne =3D port->ne;
-> +	unsigned long flags;
-> +	int ret;
-> +
-> +	/* RTNL also protects the final probe activation. */
-> +	if (ne->rx_stopping)
-> +		return -ENODEV;
-> +	if (READ_ONCE(ne->txq.fault))
-> +		return -EIO;
-> +
-> +	ret =3D phylink_of_phy_connect(port->phylink, port->np, 0);
-> +	if (ret) {
-> +		netdev_err(ndev, "phylink connect failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	port->rd =3D ni_rd(ne, NI_CPUXRAM_CPU_CFG_RX(port->id)) & NI_XRAM_PTR_M=
-ASK;
-> +	napi_enable(&port->napi);
-> +	ret =3D request_irq(port->irq, cs_ne_rx_irq, 0, ndev->name, port);
-> +	if (ret) {
-> +		napi_disable(&port->napi);
-> +		phylink_disconnect_phy(port->phylink);
-> +		return ret;
-> +	}
-> +	spin_lock_bh(&ne->txq.lock);
-> +	if (ne->txq.fault) {
-> +		spin_unlock_bh(&ne->txq.lock);
-> +		free_irq(port->irq, port);
-> +		napi_disable(&port->napi);
-> +		phylink_disconnect_phy(port->phylink);
-> +		return -EIO;
-> +	}
-> +	WRITE_ONCE(port->opened, true);
-> +	ne->txq.stopping =3D false;
-> +	cs_ne_tx_arm_timer(&ne->txq);
-> +	/* A concurrent TX fault must be able to stop this queue permanently. */
-> +	netif_start_queue(ndev);
-> +	spin_unlock_bh(&ne->txq.lock);
-> +	spin_lock_irqsave(&ne->rx_lock, flags);
-> +	ni_wr(ne, NI_CPUXRAM_RXPKT_INTERRUPT(port->id), 1);
-> +	ni_wr(ne, NI_CPUXRAM_RXPKT_INTENABLE(port->id), 1);
-> +	spin_unlock_irqrestore(&ne->rx_lock, flags);
-> +	phylink_start(port->phylink);
-> +	return 0;
-> +}
+> > +
+> > +       if (cpm_is_request_msg(cpm_req) && !cpm_req->resp_msg) {
+> > +               dev_err(dev, "cpm_req->resp_msg is NULL when msg_type is REQUEST_MSG\n");
+> > +               return false;
+> > +       }
+> > +
+> > +       if (cpm_is_response_msg(cpm_req)) {
+> > +               if (!goog_mba_q_get_valid(&cpm_req->resp_context)) {
+> > +                       dev_err(dev, "Invalid valid bit in resp_context: %#x\n",
+> > +                               cpm_req->resp_context);
+> > +                       return false;
+> > +               }
+> > +
+> > +               if (!cpm_is_response_header(&cpm_req->resp_context)) {
+> > +                       dev_err(dev, "Invalid response type in resp_context: %#x\n",
+> > +                               cpm_req->resp_context);
+> > +                       return false;
+> > +               }
+> > +       }
+> > +
+> > +       return true;
+> > +}
+> > +
+> 
+> [..]
+> 
+> > +
+> > +static int cpm_init_q_mode_proto(struct cpm_data *cpm)
+> > +{
+> > +       struct cpm_payload msg_payload = {};
+> > +       struct cpm_request req = {
+> > +               .msg_type = ONEWAY_MSG,
+> > +               .req_msg = &msg_payload,
+> > +       };
+> > +
+> > +       return __cpm_send_message(cpm, &req, GOOG_MBA_Q_INIT_PROTO_VAL, 0);
+> 
+> Do we want this to have an infinite timeout? If the CPM firmware never
+> responds, it will hang the boot (as MAX_SCHEDULE_TIMEOUT doesn't arm a
+> timer).
+> I guess it is game over anyway if the CPM firmware is dead, but it
+> would be nice to log an error and return from probe()
 
-[Severity: Medium]
-Can clearing NI_CPUXRAM_RXPKT_INTERRUPT in cs_ne_open() strand unread RX
-packets in XRAM?
+Hmm, I suppose a timeout would be OK, although definitely fatal to any
+useful purpose of the system.
 
-cs_ne_stop() disables NAPI without draining descriptors remaining in the
-XRAM ring (and port 0 can also receive frames via the FE catch-all rule
-while down).  When the port is reopened, cs_ne_open() clears the pending
-interrupt bit without checking whether NI_CPUXRAM_CPU_STA_RX is ahead of
-port->rd or scheduling NAPI.  Queued packets stay unread until a new frame
-arrives, or forever if the XRAM ring is already full or at its
-backpressure threshold and cannot accept another frame to trigger an
-interrupt.
+> > +}
+> > +
+> > +static int cpm_init_q_mode(struct cpm_data *cpm)
+> > +{
+> > +       int ret;
+> > +
+> > +       ret = cpm_init_q_mode_proto(cpm);
+> > +       if (ret < 0)
+> > +               return ret;
+> > +
+> > +       cpm->seq_num = GOOG_MBA_Q_MIN_SEQ_VAL;
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +static void cpm_adev_release(struct device *dev)
+> > +{
+> > +       struct auxiliary_device *adev = to_auxiliary_dev(dev);
+> > +
+> > +       of_node_put(dev->of_node);
+> > +       kfree(adev);
+> > +}
+> > +
+> > +static void cpm_unregister_adev_action(void *data)
+> > +{
+> > +       struct auxiliary_device *adev = data;
+> > +
+> > +       auxiliary_device_delete(adev);
+> > +       auxiliary_device_uninit(adev);
+> > +}
+> > +
+> 
+> Can we use devm_auxiliary_device_create() instead of open coding these?
 
-> +
-> +static int cs_ne_stop(struct net_device *ndev)
-> +{
-> +	struct cs_ne_port *port =3D netdev_priv(ndev);
-> +	struct cs_ne *ne =3D port->ne;
-> +	unsigned long flags;
-> +	bool last =3D true;
-> +	int i;
-> +
-> +	/* Serialize queue wakeups before waiting for ndo_start_xmit to finish.=
- */
-> +	spin_lock_bh(&ne->txq.lock);
-> +	WRITE_ONCE(port->opened, false);
-> +	for (i =3D 0; i < CS_NE_PORTS; i++)
-> +		if (ne->ports[i] && READ_ONCE(ne->ports[i]->opened))
-> +			last =3D false;
-> +	if (last)
-> +		ne->txq.stopping =3D true;
-> +	spin_unlock_bh(&ne->txq.lock);
-> +	netif_tx_disable(ndev);
-> +	phylink_stop(port->phylink);
-> +	spin_lock_irqsave(&ne->rx_lock, flags);
-> +	ni_wr(ne, NI_CPUXRAM_RXPKT_INTENABLE(port->id), 0);
-> +	spin_unlock_irqrestore(&ne->rx_lock, flags);
-> +	free_irq(port->irq, port);
-> +	napi_disable(&port->napi);
-> +	phylink_disconnect_phy(port->phylink);
-> +	if (last)
-> +		cs_ne_tx_cancel_timer(&ne->txq);
-> +	return 0;
-> +}
+Yes.
 
-[Severity: Medium]
-Does stopping the last open port leave transmitted SKBs pinned in
-ne->txq.bufs[]?
+I think this (and some planned subsequent changes) have morphed a bit
+over my development time, as there were some cases where we could not
+reuse the same of_node. But this current patch can use it, and I also
+think future changes will likely just use mfd / of_platform_populate()
+if they require subnodes, so my initial concern is probably invalid.
 
-TX completions are only reaped from cs_ne_rx_poll(), cs_ne_tx_timer(), and
-cs_ne_start_xmit().  When the last open port stops, cs_ne_stop() disables
-NAPI and cancels ne->txq.timer without a final cs_ne_tx_complete() pass,
-so any SKBs and DMA mappings still in the TX ring remain held (pinning
-socket sk_wmem_alloc accounting) until a port is opened again or the
-driver is unbound.
+> > +static int cpm_register_adev(struct cpm_data *cpm, const char *name)
+> > +{
+> > +       struct auxiliary_device *adev;
+> > +       int ret;
+> > +
+> > +       adev = kzalloc_obj(*adev, GFP_KERNEL);
+> > +       if (!adev)
+> > +               return -ENOMEM;
+> > +
+> > +       adev->name = name;
+> > +       adev->id = 0;
+> > +       adev->dev.parent = cpm->dev;
+> > +       adev->dev.release = cpm_adev_release;
+> > +       device_set_of_node_from_dev(&adev->dev, cpm->dev);
+> > +
+> > +       ret = auxiliary_device_init(adev);
+> > +       if (ret) {
+> > +               of_node_put(adev->dev.of_node);
+> > +               kfree(adev);
+> > +               return ret;
+> > +       }
+> > +
+> > +       ret = auxiliary_device_add(adev);
+> > +       if (ret) {
+> > +               auxiliary_device_uninit(adev);
+> > +               return ret;
+> > +       }
+> > +
+> > +       return devm_add_action_or_reset(cpm->dev, cpm_unregister_adev_action, adev);
+> > +}
+> > +
+> 
+> [..]
+> 
+> > +
+> > +MODULE_DESCRIPTION("Google MBA CPM interface");
+> > +MODULE_AUTHOR("Lucas Wei <lucaswei@google.com>");
+> 
+> I think you should add Lucas Wei's SoB tag to the patch as part of the DCO
 
-[ ... ]
+I keep going back and forth in my head on this one, since these drivers
+did indeed start from the same source with the professed MODULE_AUTHOR.
+But they've been massively rewritten, so they're similar in a sort of
+Ship of Theseus way.
 
-> +	ndev->dev.of_node =3D np;
-> +	ndev->netdev_ops =3D &cs_ne_netdev_ops;
-> +	ndev->ethtool_ops =3D &cs_ne_ethtool_ops;
-> +	ndev->hw_features =3D NETIF_F_SG;
-> +	ndev->features =3D NETIF_F_SG;
-> +	ndev->vlan_features =3D NETIF_F_SG;
-> +	ndev->min_mtu =3D ETH_MIN_MTU;
-> +	ndev->max_mtu =3D CS_NE_MAX_PKT_LEN - ETH_HLEN - ETH_FCS_LEN - 16;
-> +	netif_napi_add_weight(ndev, &port->napi, cs_ne_rx_poll, napi_budget);
+I suppose I'll retain the MODULE_AUTHOR() and update the SoB.
 
-[Severity: Medium]
-What happens if the napi_budget module parameter is set to 0 or a negative
-value?
-
-napi_budget is a signed int passed directly to netif_napi_add_weight()
-without validation.  If napi_budget <=3D 0, cs_ne_rx_poll() returns 0
-without draining packets or calling napi_complete_done() (since done <
-budget is false), and __napi_poll() sees work >=3D weight and repolls
-forever in softirq context.
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/cortina/cs752x_sch_tm.c b/drivers/net/e=
-thernet/cortina/cs752x_sch_tm.c
-> new file mode 100644
-> index 0000000000000..e0213c7999cef
-> --- /dev/null
-> +++ b/drivers/net/ethernet/cortina/cs752x_sch_tm.c
-
-[ ... ]
-
-> +	for (port =3D 0; port < SCH_PORT_NO; port++) {
-> +		cpu_port =3D port >=3D SCH_CPU_PORT0 ? port - SCH_CPU_PORT0 : 0;
-> +
-> +		cs752x_sch_enable_port(dev, sch, port);
-> +		cs752x_sch_set_port_burst(dev, sch, port, 0);
-> +		cs752x_sch_bypass_shaper(dev, sch, port + SCH_LT_BASE_ID, 0);
-> +		cs752x_sch_bypass_shaper(dev, sch, port + SCH_ST_BASE_ID, 0);
-> +
-> +		for (q =3D 0; q < SCH_MAX_PORT_QUEUE; q++) {
-> +			cs752x_sch_enable_voq_drr(dev, sch,
-> +						  port * SCH_MAX_PORT_QUEUE + q,
-> +						  SCH_DEFAULT_QUANTA, cpu_port);
-> +			cs752x_sch_bypass_shaper(dev, sch,\n+						 port + SCH_DRR_BASE_ID,
-> +						 cpu_port);
-> +		}
-> +	}
-
-[Severity: Medium]
-Should cs752x_sch_init() check and propagate the error returns from the
-scheduler command helpers?
-
-cs752x_sch_enable_port(), cs752x_sch_set_port_burst(),
-cs752x_sch_bypass_shaper(), and cs752x_sch_enable_voq_drr() all return the
-status from cs752x_sch_cmd(), which can fail with -ETIMEDOUT or -EIO, but
-their return values are ignored here and probe succeeds with an
-incompletely configured scheduler.  Also, cs752x_sch_bypass_shaper() for
-port + SCH_DRR_BASE_ID does not depend on q and is re-issued on every
-iteration of the inner queue loop.
-
-[ ... ]
-
-> +	cfg =3D readl(tm + TM_BM_CONFIG_0);
-> +	cfg &=3D ~(TM_BM_CONFIG_0_DISABLE |
-> +		 TM_BM_CONFIG_0_RECALCULATE_GLOBAL_BUFFERS_USED |
-> +		 TM_BM_CONFIG_0_BM2_BYPASS_CA_PROCESS |
-> +		 TM_BM_CONFIG_0_BM2_BYPASS_DEST_PORT_PROCESS |
-> +		 TM_BM_CONFIG_0_BM2_BYPASS_VOQ_PROCESS |
-> +		 TM_BM_CONFIG_0_BM1_BYPASS_CA_PROCESS |
-> +		 TM_BM_CONFIG_0_BM1_BYPASS_DEST_PORT_PROCESS |
-> +		 TM_BM_CONFIG_0_BM1_BYPASS_VOQ_PROCESS |
-> +		 TM_BM_CONFIG_0_ENQUE_HDR_ADJUST |
-> +		 TM_BM_CONFIG_0_INIT);
-> +
-> +	writel(cfg | TM_BM_CONFIG_0_BM1_BYPASS_CA_PROCESS |
-> +	       TM_BM_CONFIG_0_BM2_BYPASS_DEST_PORT_PROCESS |
-> +	       TM_BM_CONFIG_0_BM2_BYPASS_VOQ_PROCESS |
-> +	       TM_BM_CONFIG_0_INIT, tm + TM_BM_CONFIG_0);
-> +	ret =3D cs752x_tm_wait_init_done(dev, tm, TM_BM_STATUS_0,
-> +				       TM_BM_STATUS_0_INIT_DONE, "bm");
-> +	if (ret)
-> +		return ret;
-> +
-> +	writel(cfg, tm + TM_BM_CONFIG_0);
-
-[Severity: Medium]
-Does writing cfg back to TM_BM_CONFIG_0 clear the BM1/BM2 bypass bits that
-were just set?
-
-The three bypass flags (TM_BM_CONFIG_0_BM1_BYPASS_CA_PROCESS,
-TM_BM_CONFIG_0_BM2_BYPASS_DEST_PORT_PROCESS, and
-TM_BM_CONFIG_0_BM2_BYPASS_VOQ_PROCESS) are masked out of cfg and only ORed
-into the writel() that asserts TM_BM_CONFIG_0_INIT, so the final
-writel(cfg, ...) that clears INIT also disables those bypasses.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-b4-cs7542-=
-ethernet-v1-0-fdb5e8c2d508@gmail.com?part=3D4
+Regards,
+Brian
