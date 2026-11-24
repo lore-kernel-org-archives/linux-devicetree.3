@@ -1,71 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795530240;
-	b=IHRsSgycMIDLIRU1IebDD3QZRZtNQlDtZQ9yGsFJV9DbPoAZVLzGInUItVtXnjQMcu/E
-	 gJUP60F7fdIT8QznnkL7b47Lnnx3GpVnqOrEpOQPPQdy4FcI8FPDo3OxpXsOripwesiHC
-	 sObrZK4C0gSp5U6Omkdh4h/Zte0TKc//72fEq0cl2K2PpvvcOYEWPC02MjqLVrOAF0daL
-	 CvLCahb8SePAzxaReNNmeGgteThE2/UapFp5DyrdclkwQ3v9Qg0TuQGpYBwzikcg9UVVL
-	 XYgl1Jk1urUgKjHsA2SDNBLFFJzxJi2homoeNVFMTxP+q/h0GbXMIkfa8CEOHnlA2ng==
+	t=1795530246;
+	b=vXAth1fAWCD5itKkl3noE+Yj+V9aNBOxSAVgM9jGK8sKz3A9pNb7okIn+WjZZ6ICbeCm
+	 uUUrT8GcShu8oOuiBMgT4tlUTyviO285v8dO80zWfoorDGr8Lh16AnnzD1O1/bFdWw4QQ
+	 1rTJ0UtW2SJqb3vUaPG1Voseto2pQrE3w/VN4te9fLQFasAUMy2DNJ/BfflTPY5BELnZr
+	 O1CNNABtvQ88jpXqswmcvgFSlT5CMB/jTafexhJNvRawDWZocQMsDZ0aEWoVZPCXi4tPN
+	 cnVPW3I+KEJkM1ILOal49qTnx8W1UnZdSLF3b06XM3Kv5y83q36qbHd/Q048G3osxeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795530240;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NrmR7f4NWvJtaGShihv5Oaav7f9YUTikEYvCAM/Zj8A=;
-	b=KugP51xtyj47j8V5yuRr/kF4V7P+d6a3HYLq4A6L48zWCNlx75NCgbZA/8n3iDaIRM4P
-	 F+6vhcUke2SBleQjhsN67aheHrHbnQ+w4QG8BqPq6/d2kh7PRFNuie28IfO1P8WZ6XxJG
-	 tl/wGz6esIJep207tsRb+XrkQkHG8TpU7oJImYEDN66bGCifqIPw8K0j7TRYP0wn5LGn8
-	 fVXa0k7cPvDtJ22yoWBvjudxrutEImQF0ofcgAAr2V2T0mbfTXQX6DLQ+O9jJrzPNfhju
-	 joa7Fcp60zj3iZi41FH95ITe1e7x5/YmPSdzuW4iEWwGQ0S6oOBl56hRzxrbCciwCsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795530246;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Qouj6PmBBATp6eG5/0yJB37SakrvOb+iDg04r5I9jhU=;
+	b=5ghYgqPHx5+SpUCaCjPjXuOIW2F0hQMCNQRxi1uNKsB+3dCxoXYrjfrWa+32dEcB2NU6
+	 fZmeozbxltrF6Rw+QgEDE5iH6QhC9t5a/ir4KHWJGQUxoxcfrCMEu0DGy5TAZcyWBRbem
+	 EVaRpudAdK0tn/Ta3moBMCg/EHRoTe7qIkmcKR1X63geYxhvc2bfJL9hSQ5niiIINSQFo
+	 foGl7pzD00lZz4jKAzVzBRqqbQi/Edvmq0wol+v6KrCWXwrB2aeYr9zbC+YEQ+KMKYZfm
+	 vD5JOste9CglRO8b6hfUcko2+AHcLRUBP+YVhK/YQwFyKKkn3ebEJzNQFwWl4o355bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=C8M1+SN+;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mJXpwd15;
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E38F606A32A
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 14:24:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E38F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C73F606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 14:24:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C73F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=C8M1+SN+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=NrmR7f4NWvJtaGShihv5Oaav7f9YUTikEYvCAM/Zj8A=; t=1795530240; x=1796739840; 
-	b=C8M1+SN+SyxPP5AW+s6I/sBL2KqFAW3E3QJGTgSikI7+HnWSU8AznlacoOxzRLiW2AyrxIktkVo
-	L6WpnCmoBr7GySzD70da7goNISGRiyQNBUunTLf3xnSY/wfRcKOORWLBEVJ24P8SGgPj+9OHCkidm
-	ROe8AUj3BCFxJF1rVZBRfssGDXqrLRONs4d6WLhYerxhhCiZPatOzCjZgDYpvd5f3gFabTBBLvJVu
-	jPUmmE5HllI+7BtGER1PavmxWkNdBtvsnmuo3CxgEhDj6LgByj9hwpNot9OI6zsf5iCnOVphcXfi6
-	jlHDd6yIzqeSSzNZ916USVVKcPj24VIxsCxQ==;
-Date: Tue, 24 Nov 2026 15:23:49 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Neil Armstrong
- <neil.armstrong@linaro.org>, Dmitry Baryshkov <lumag@kernel.org>, Robert
- Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Christoph Niedermaier
- <cniedermaier@dh-electronics.com>, Marek Vasut <marex@nabladev.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Subject: Re: [PATCH 0/2] drm/bridge: tc358762: fix reset handling
-Message-ID: <20261124152349.6a1b6826@kemnade.info>
-In-Reply-To: <7a94fa5a-ddfc-449e-b014-387d8e868e97@ideasonboard.com>
-References: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
-	<7a94fa5a-ddfc-449e-b014-387d8e868e97@ideasonboard.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mJXpwd15
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso907471866b.0
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 06:24:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795530245; x=1796135045; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qouj6PmBBATp6eG5/0yJB37SakrvOb+iDg04r5I9jhU=;
+        b=mJXpwd15LM06NObvBG25I4p6y8dwPNFq5cNkKyqHfA8ddIlk1uVMaZcsVBLcfRtCqZ
+         Yx+WmXrCx+fx/N4DpX1uWPcHsrX9WVlNyigMDuhn7uAMsJ/CSmqaBilO7c4ANdKhz3SL
+         pwx87MGelSHlPrBUv/UTDsdqWt8KEwVP3NHe6HNkqV5HUMIp4aDFM0Rh7e/ZaFvr5bX7
+         sjls1tUx/QmTcMxXjq2DCD1gMVDgel03IVZBUII2r0ZXBUkCv0DYhfsoLjmJMTaeiKZg
+         DPKlzQg7XgG7Kf6rd9E5DHo8oIJVx6HkM86xdZjzwydyO36mbWJRyIbyvvOum+Oakzqc
+         RgAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795530245; x=1796135045;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qouj6PmBBATp6eG5/0yJB37SakrvOb+iDg04r5I9jhU=;
+        b=ZWRTAu4W7bhQcjzHC9q8X7XEao/C2oZ9MYHSu6o9DOF4Yz9EMSKYgjkVfaAM9Y9QXw
+         ROlcIBpDFyMOsAXbOH6YWRn2ST21I52jcVmuoXlEajqBIhJ2pPjVgf/WF32IQ6U5YbIX
+         orEDmkeMYQfUvPeY7QhJcw6IP9ag4Ah3f78RHzmu39RWrNFbFLzS95kOqQNNcyEvh4t4
+         mQSahSXATQ0lIfEC7gcC1keTWcV2qEar6gQct5dGKMd2ylFrD6JgyVL+q9HH3C0Wo5Po
+         JOQMZmtFsohV22UeE4qSCbJc1XJDiTzXS+t88ufdwxk+ZxnoOpXE2R7P67+9qnVtpMfj
+         gZ8A==
+X-Forwarded-Encrypted: i=1; AL+hErGg5TGsRj6IpCWwH5UBeYmA0QJq5z5DOAf/S+Cr5ig0ZeaU7qC4AMSB1SKdKTws7by65cUkFjhjTQGF@vger.kernel.org
+X-Gm-Message-State: APuU4Z8uuFtbi0NUK+6g8nmqsR3tCQdEUm76fowZ0SRhY5IIlMTEN2s6
+	SZuS5jTD1Ctq9dhU8/Ciih4LuQJ0VF6iZkcIZcNvjyZ1h0RxzVTXfIoN
+X-Gm-Gg: AZFdTZdNcBfpXZOy3kjZivhy/vlnP0l1O5FC12KArMCj0ammltBxBRvBWtM5i/TdWZA
+	xdhnbAPELaRXQVdWM8czfYRZXWUhBDDJnfx7rZkSJujTgTrmhNNnq/3Fxy00dLwOdtHzVbIY+5w
+	TQzEfeWiL8vKDey0QwpqtMXhfPNmxFg7fflH72WCvCGNIxuG5mO5ArhASXzOz2DapD5v5+VDbDr
+	8P8XpcxtdOc6gR4g62R43UZP/GGo2i+eO1AQ5VElzZQS89uzK3gsQvmk3UiM1IYTIhYX771uXoC
+	vjKMx2FVvTpOBt9XZQ2xnCITfIhnZuc4m4q4PilFFUoy3ANSnzF64K9RjDqkSBkUSiCFJHytBvI
+	VKUzfJ8KhcrKs+vxOqCOXidfmCRwlfuA+0e09JszUdj6Is5uNw5jR1g6M1t1daYmxQxDTzmZ/Cs
+	BtqlwGvnD3mvNohPoZsKOona/V+K5hpVbjquhr5yVfNlZ3M1Yoc15wjDjiy5tGtR3OxRjVROtu1
+	tRLANWd4n8/C/3IBUepZqJWyMR5k7vGgWJSBFRFB4K5dQjHRg7BfCp2oPiyq0p+TPu8OS7cO+gq
+	CWiasCNBf4hPZMo7l2UmBDzkmE0=
+X-Received: by 2002:a17:906:c53:b0:c4c:c62a:b9b3 with SMTP id a640c23a62f3a-c513aaacfccmr893924566b.22.1795530244720;
+        Tue, 24 Nov 2026 06:24:04 -0800 (PST)
+Received: from flare5 ([212.58.121.92])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513acfe25asm525653466b.11.2026.11.24.06.24.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 06:24:04 -0800 (PST)
+From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] pinctrl: qcom: Add Halliday pinctrl driver
+Date: Tue, 24 Nov 2026 14:23:51 +0000
+Message-ID: <20261124142351.2137556-1-lightofmysoul@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <wkceygbndcdv2ldsemla27mn5dnzdeijowvxpjozee73wyze6r@mlmymb7cehm4>
+References: <20261116-halliday-tlmm-v2-0-b4dd502ca142@gmail.com> <20261116-halliday-tlmm-v2-2-b4dd502ca142@gmail.com> <su7onpn56wd2dtsn63qwbv5v65kci54rhqjndh6qjpb6gwlwnj@m2kxvcdrpjws> <20261123195935.1046144-1-lightofmysoul@gmail.com> <wkceygbndcdv2ldsemla27mn5dnzdeijowvxpjozee73wyze6r@mlmymb7cehm4>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,50 +105,15 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 24 Nov 2026 15:44:40 +0200
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+On Tue, Nov 24, 2026 at 11:35:32AM +0100, Bartosz Golaszewski wrote:
+> Here, use this:
+>
+> static const struct msm_gpio_wakeirq_map halliday_pdc_map[] = {
+[...]
 
-> Hi,
-> 
-> On 24/11/2026 13:54, Andreas Kemnade wrote:
-> > The bridge driver desserts reset after disable and asserts that
-> > upon enbale. That requires users to workaround that by declaring
-> > the reset gpio wrongfully active high. As an interim solution,
-> > ignore polarity, until things have settled to fix it afterwards.
-> > That will break setups with an additional inverter in the signal
-> > patch but those should be uncommon, at least not seen in in-tree
-> > devicetrees. Fix polarity in the one device tree actually declaring
-> > a reset line. That patch has to go in after the bridge fix.
-> > 
-> > The issue came to sight during experiments with reset lines on the
-> > Epson Moverio BT-200.  
-> Indeed, the driver has it the wrong way... But what is the way to fix 
-> this? Fixing it will always break the backward compatibility with dtbs.
-> 
-> Is it worth it? Or is it easier to just adjust the bindings doc to 
-> mention about it, and add a note to the driver that the gpio is set the 
-> wrong way "on purpose".
-> 
-I am a bit wondering whether to use the reset-gpio driver as aux device,
-and then we would need correct dts. There are two chips sharing a single
-reset line, so I have to deal with shared gpios. It seems not to work
-that well directly. But first I try to have things working with well-defined
-boot state.
-That reset-gpio stuff was invented exactly for that case, see commit
-cee544a40e4426040946e685988b1489f13e6600.
+Thanks for the map! I have added it in v3:
+https://lore.kernel.org/r/20261124-halliday-tlmm-v3-0-6b516e5f269c@gmail.com
 
-> Or, if this is to be merged, I think the code around the 
-> gpiod_set_raw_value_cansleep calls should have a comment to highlight 
-> why it's calling raw funcs and what the plan is.
-> 
-Yes, the comment should be there.
-Sashiko suggested to add an entry to 
-of_gpio_try_fixup_polarity()
-
-to have fixups.
-
-Regards,
-Andreas
+Stanislav
