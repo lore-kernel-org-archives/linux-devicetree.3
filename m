@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795480837;
-	b=2eXBEtsJUK9a8w+kwP6qR/eW8oTFJFd4NE0y1jyKdkAgqInF84Ydy5PVgSeQqkGgqAPK
-	 S9cpy1ptOo5KBlccwRfbxloHmgbI65rwcBv2EfSXpFmjAJ7+rx4MPQm1STnbAyRc31LeP
-	 A+XHAb+oZThhwbo4t0d7weJzKEjQoqL8Ps6VoSCBJ9M35zwWNxY+VeuTEWUxN+84S3Kdq
-	 PlnWdGQcXNL+HmGetjCS89sFNvu1e0Zma5Fw3pGHKJ6GJiZYZBIQ1hBGjbvgVqGeZ9EKg
-	 jppu5O+9bc6cO/pIf56U1UF/gTxms88RCXT1Kcs9iW0siIWWiqqYJV57ievC/COo+Tg==
+	t=1795480841;
+	b=tPFNhv7JkZYCxV3II3j7idMSjXftalJ88f3grLXEUWwDUWGGLaiPze9JesOfN8oq5jiY
+	 bbk+uu8baYWHLLFuegZaCJAvjJxuHqlYvIyxJmOzNBqXhS7vYooir/CvhvCxc38NLduCj
+	 QPAkExJ/62BnNWBRHh7qJRJuOvUQIWNPR5FAgcU5tmWTwD7KUSxjrWOer0dFr/NsBzy1l
+	 swXH/qCR6IKCMA58ecTERrTJBmXosNRlqk059d0sR/TOtMF03OOcuOfzlmJtuaiy2Snxu
+	 Yu8ijdbOB4Gh0fVCaeW0aBoOIHBAngOmJ0sxENlYk1kQ+2d/sXecjAHzd5vDuukJ+ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795480837;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795480841;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=1mdTC7iCer+TQwL4f4nmNkxrgPoCgiJ3UcEX3hsjGJM=;
-	b=ngDPf6Y+wH0ycJQdMN48EMJPaSf/2eZTObAes3XDpD/GY6JrE1zLGs1AOgLyL0uEh4hl
-	 1qHirt9G/taL5/LpzolVZEBpDAk20NwNqTrWY6kadfIpRUSgEka7qtHUh+p25s1zbThsv
-	 XQXUAf5/VCqD59BG7V2WZu7aMCR5Vvgqji3yCD7kYLcTtB+2HMNIkLGQwjYeSXVdfkusz
-	 Ei75H6B3PqK7Fyzk9namUTGJerar2j2WyOjJ82TB7fBlQG6N2HnJkky9zTUg722ixezuW
-	 +fAsbDKH8NJ2CmCa1c6a73FNN1ZGnnL3rtlfDsQdMBZv9+brCgtkSK6zdNW25oP2UeA==
+	bh=WczDa/DdtekPr78ZQiSSWKxGrLszSJ6wbNBUvaiGJIE=;
+	b=rRDQ2h4yjE0xzPWIerSJu4lFYSiOG4xvXrhDmK3ds3L6HFcXQB0T0L08EKP3AT077N8M
+	 Zuh38ORTIxA1x3xKw1biWa0B/gN2W1XeMmE7UU4bo245Q+evYku2oOTuVa5Gu2UClhSCL
+	 6mLoI5KOk+ewXJL7VYeh70lNa+AnvxLMewInIClUmhhmvf73OeypDd72NG0hZrMnaRpdX
+	 vtJ6ODX1htFm5pufKPhMToX368p8WWDETC5vaXcvQg7UFXOcm++epD3jJ4CA23sBOMvwR
+	 Ue/t/UyI8TwZahTkh8F0CUh8Kxd5nYYPnc8Kb5UukqvR+fb5S3X5qGAeMAA7UlOArOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D168XNdn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oNIF6j/L";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7B1606A32E;
-	Tue, 24 Nov 2026 00:40:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA2B606A331;
+	Tue, 24 Nov 2026 00:40:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D168XNdn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8864E1F000E0;
-	Tue, 24 Nov 2026 00:40:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNIF6j/L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616B11F00A19;
+	Tue, 24 Nov 2026 00:40:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795480837;
-	bh=1mdTC7iCer+TQwL4f4nmNkxrgPoCgiJ3UcEX3hsjGJM=;
+	s=k20260515; t=1795480841;
+	bh=WczDa/DdtekPr78ZQiSSWKxGrLszSJ6wbNBUvaiGJIE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=D168XNdnUFYwPmlq3CzrrPtL9YvOPrQ9tdaSOXPGBjSEaNz+PQOhdErK1dmEQt70s
-	 PspexX1gF4tiQzxGCkYQnUUYO/nWD8upTgT+fKW/Rv2t5K8uKttQIxrazDQ3mLaU38
-	 K5p/t5r3kH4k6wZhQyhJf6PyuJD97IHjwYvY6MgxtTJMkHN4GYxyxT1N6+hPXgI+rc
-	 W6/LkjJaIJ9xxo0znFYZaypF1rtIJfynp2ZrVu9n8UUuDk/h0AEXLBbPYHUlYjl/1g
-	 B8Fv1y6VVLaNPKchGtUuFtL6PkNPs3PZYf0tVbuFIHSO1KrAeoNSH1tj4cVyjxIz+i
-	 MT8SaWKhEnAiQ==
-Subject:
- Re: [PATCH net-next v16 04/13] dpll: add basic SiTime SiT9531x support
+	b=oNIF6j/Lee/Zcnwk7Sjl9pCHorv2aOJqMT+aUhYBs2TsKEX1Aw57nSyDUYC4l/bLh
+	 ReKbufuA7HuXVw3ldkX9n+TwqTm31y8uuK4mqkWVQlcTzZnRKNRenVIpP2RCVLih2w
+	 A1Zh3o/J+grtwySfk079x6Whqs5lJMjCpsgPGJwWkVaxAsaC7hk4hxAR/O5JMtKIkG
+	 sfu7davvAqFbXdP3ezHF7thm6izLNE+Xt+bmsVlcCNhJ0jj9fhavgbjPdQIeqKQI5d
+	 5UtVRaqf+GduTFeezFKBRUZRwcxiXAUzep+oe0YN03ppOkk02Ab9qsQ1QSrGF50DaW
+	 tERv3KmBI6G9Q==
+Subject: Re: [PATCH net-next v16 05/13] dpll: sit9531x: read DPLL types and
+ pin properties from system firmware
 From: netdev-bot+sashiko@kernel.org
 To: arouhi@sitime.com
 Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
@@ -50,11 +50,11 @@ Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
  cjubran@nvidia.com, Oleg.Zadorozhnyi@devoxsoftware.com,
  prabhakar.mahadev-lad.rj@bp.renesas.com, devicetree@vger.kernel.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 24 Nov 2026 00:40:36 +0000
-Message-ID: <179548083614.3135.11915403348553233279@kernel.org>
-In-Reply-To: <20261119225752.41846-5-arouhi@sitime.com>
-References: <20261119225752.41846-5-arouhi@sitime.com>
-X-sashiko-severity: Medium
+Date: Tue, 24 Nov 2026 00:40:39 +0000
+Message-ID: <179548083991.3135.257746872384905150@kernel.org>
+In-Reply-To: <20261119225752.41846-6-arouhi@sitime.com>
+References: <20261119225752.41846-6-arouhi@sitime.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -67,203 +67,148 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 2
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] sit9531x_dev_probe() (drivers/dpll/sit9531x/core.c) never gets
-  or enables any supply that the series' binding defines: vdd-supply…
-- [Medium] sit9531x_dev_probe() enables the XO with
-  devm_clk_get_optional_enabled().
-- [Low] The commit message rejects a regmap paged range partly because 'a
-  debugfs access would move the page under the driver'.
-- [Low] All three new files (core.c, core.h, regs.h) name Ali Rouhi as
-  Author in their headers, listed first, and MODULE_AUTHOR lists him…
+- [Low] At this commit nothing writes ref[].sig_mode, so it stays
+  SIT9531X_MODE_SE from devm_kzalloc().
+- [Low] When an output has no supported-frequencies-hz,
+  sit9531x_pin_props_get() advertises a hard-coded continuous range,…
 
 --
 
-dpll: add basic SiTime SiT9531x support
+dpll: sit9531x: read DPLL types and pin properties from system firmware
 
-This adds the I2C probe for the SiTime SiT9531x DPLL family. It uses a
-flat 256-byte regmap window, and the driver selects the page under a lock.
-Probe requests the optional reset line, enables the XO, releases reset and
-identifies the variant from the ID register.
+This adds prop.c. It reads the DPLL type from the firmware node, plus
+each pin's label, connection type and supported frequencies, and uses
+defaults when the node doesn't provide them. An output with no
+supported-frequencies-hz is advertised as one continuous frequency
+range.
 
-> The register space is 32 pages of 256 registers, selected through offset
-> 0xFF of any page. The regmap is the flat 256-byte window, and the
-> accessors select the page under a lock. A regmap paged range is not
-> used: it reads the selector back on each access, which doubles the bus
-> traffic, and a debugfs access would move the page under the driver.
+> diff --git a/drivers/dpll/sit9531x/core.h b/drivers/dpll/sit9531x/core.h
+> index 0f826313eff8c..7a81c9b14b7fd 100644
+> --- a/drivers/dpll/sit9531x/core.h
+> +++ b/drivers/dpll/sit9531x/core.h
 
-[Severity: Low]
+[ ... ]
 
-Does the debugfs part of this rationale hold for regmap ranges?
+> @@ -41,6 +49,35 @@ struct sit9531x_chip_info {
+>  	const u8	*clkout_map;
+>  };
+>  
 
-As far as I can tell, _regmap_select_page() in drivers/base/regmap/regmap.c
-selects the page again on every access through the range, under the
-regmap lock:
+[ ... ]
 
-    ret = _regmap_update_bits(map, range->selector_reg,
-                              range->selector_mask,
-                              win_page << range->selector_shift,
-                              NULL, false);
-
-So a debugfs access should not leave a range-based driver with a stale
-page.
-
-The flat window chosen here looks like the design that has the
-page-tracking hazard. sit9531x_page_select() trusts the cached value and
-skips the selector write:
-
-    if (sitdev->page == page)
-        return 0;
-
-The regmap debugfs registers file for sit9531x_regmap_config dumps offsets
-0x00-0xFF of whatever page the driver last selected. It does this without
-taking page_lock, and the dump does not say which page it shows.
-
-Debugfs writes to 0xFF are compiled out by default
-(REGMAP_ALLOW_WRITE_DEBUGFS is undefined), so hitting the stale cache case
-needs a source change.
-
-Could the commit message describe this tradeoff more precisely?
-
-> Suggested-by: Ivan Vecera <ivecera@redhat.com>
-> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> +/*
+> + * struct sit9531x_ref - input reference state
+> + * @freq: configured frequency in Hz
+> + * @sig_mode: signal mode of the input pair, read from CLKINx_INPUT_MODE at
+> + *   probe
+> + */
+> +struct sit9531x_ref {
+> +	u64		freq;
+> +	enum sit9531x_signal_mode	sig_mode;
+> +};
 
 [Severity: Low]
+This isn't a bug, but is this kernel-doc accurate at this point in the
+series?
 
-This isn't a bug, but core.c, core.h and regs.h all name Ali Rouhi first
-as Author in their headers, and MODULE_AUTHOR() lists him first too. If
-he co-developed the patch, should there be a Co-developed-by: tag right
-before his Signed-off-by:, as Documentation/process/submitting-patches.rst
-describes?
+Nothing in this commit writes ref[].sig_mode, so it stays at
+SIT9531X_MODE_SE from the zeroed allocation. That means the differential
+branch in sit9531x_input_pin_label() can't run yet:
 
-> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+    if (sitdev->ref[id].sig_mode == SIT9531X_MODE_DE)
+        snprintf(props->package_label,
+                 sizeof(props->package_label), "IN%u", pair);
+
+The binding's pin numbering text ("A pair the loaded configuration runs
+differential is one input, described at 2k") also has no effect until
+then.
+
+A later patch in the series fixes this. In "dpll: sit9531x: register
+DPLL devices and pins", sit9531x_input_mode_fetch() reads
+CLKINx_INPUT_MODE for every pair at probe and sets both lanes:
+
+    sitdev->ref[pair * 2].sig_mode = sig_mode;
+    sitdev->ref[pair * 2 + 1].sig_mode = sig_mode;
+
+So the per-lane ref[id] lookup here gets the right value. Also, nothing
+calls sit9531x_pin_props_get() at this commit, so no wrong label can be
+registered in the meantime.
+
+Would it be clearer to add this kernel-doc text in the same patch as
+sit9531x_input_mode_fetch()?
+
+> diff --git a/drivers/dpll/sit9531x/prop.c b/drivers/dpll/sit9531x/prop.c
 > new file mode 100644
-> index 0000000000000..99dd5e70dc5e6
+> index 0000000000000..b9405eba49a39
 > --- /dev/null
-> +++ b/drivers/dpll/sit9531x/core.c
-> @@ -0,0 +1,318 @@
+> +++ b/drivers/dpll/sit9531x/prop.c
+> @@ -0,0 +1,327 @@
 
 [ ... ]
 
-> +static int sit9531x_dev_probe(struct sit9531x_dev *sitdev)
-> +{
-> +	struct clk *xtal_clk;
-> +	u8 variant_id;
-> +	int rc;
+> +skip_fwnode_props:
+> +	if (sync_in || sync_out)
+> +		return props;
 > +
 > +	/*
-> +	 * Request before enabling the XO: a probe deferral would gate the XO
-> +	 * and remove the reference of a running part.
+> +	 * An output with no listed rates gets one wide range, as the setter
+> +	 * checks Fvco/N; the XO gets its one rate.
 > +	 */
-> +	sitdev->reset_gpio = devm_gpiod_get_optional(sitdev->dev, "reset",
-> +						     GPIOD_ASIS);
-> +	if (IS_ERR(sitdev->reset_gpio))
-> +		return dev_err_probe(sitdev->dev, PTR_ERR(sitdev->reset_gpio),
-> +				     "Failed to request reset gpio\n");
-> +
-> +	/*
-> +	 * Fvco = Fref * (DIVN + frac/2^32); Fref is the rate of the XO feeding
-> +	 * XIN/XO_CLK.
-> +	 */
-> +	xtal_clk = devm_clk_get_optional_enabled(sitdev->dev, "xtal");
-
-[Severity: Medium]
-
-The comment above says the goal is to avoid gating the XO of a running
-part. Doesn't devm_clk_get_optional_enabled() still gate it on every
-failure path after this point?
-
-drivers/clk/clk-devres.c implements it as:
-
-    return __devm_clk_get(dev, id, clk_get_optional,
-                          clk_prepare_enable, clk_disable_unprepare);
-
-So devres calls clk_disable_unprepare() on any probe failure after this
-point, while the part stays out of reset and configured. That includes:
-
-  - the "no xtal rate" -EINVAL return
-  - a gpiod_direction_output() failure
-  - a transient I2C error from sit9531x_read_variant_id()
-  - the "Unknown variant ID" -ENODEV return
-  - a devm_mutex_init() failure
-
-The driver has no .remove and is fully devm-managed, so a sysfs unbind or
-rmmod gates the XO as well.
-
-Later patches in the series add more failure points after the XO enable
-(sit9531x_devm_dpll_init(), devm_request_threaded_irq()), and the XO is
-still devm-enabled.
-
-If the XO is gateable and this driver is its only consumer, won't this
-stop the reference of a chip running from its efuse/NVM configuration?
-
-> +	if (IS_ERR(xtal_clk))
-> +		return dev_err_probe(sitdev->dev, PTR_ERR(xtal_clk),
-> +				     "Failed to get xtal clock\n");
+> +	ranges = kcalloc(num_freqs + 1, sizeof(*ranges), GFP_KERNEL);
 
 [ ... ]
 
-> +	if (sitdev->reset_gpio) {
-> +		rc = gpiod_direction_output(sitdev->reset_gpio, 0);
-> +		if (rc)
-> +			return dev_err_probe(sitdev->dev, rc,
-> +					     "Failed to release the reset line\n");
-> +		fsleep(10000);	/* internal boot after release */
-> +	}
-> +
-> +	rc = sit9531x_read_variant_id(sitdev, &variant_id);
+> +	if (!num_freqs && dir == DPLL_PIN_DIRECTION_OUTPUT) {
+> +		ranges[j].min = 1;
+> +		ranges[j].max = 1000000000ULL; /* 1 GHz */
+> +		j++;
 
-[Severity: Medium]
+[Severity: Low]
+Where does the 1 GHz upper bound in sit9531x_pin_props_get() come from?
+It isn't derived from the part's limits, and it doesn't match the
+setter added later in the series.
 
-Should probe get and enable the supplies defined in the binding before
-this first I2C access?
+In "dpll: sit9531x: add support to get and set frequency on pins",
+sit9531x_output_freq_set() accepts any exact Fvco/N up to U32_MAX:
 
-The binding in this series (sitime,sit95316.yaml) documents vdd-supply,
-vddin-supply, vdds-supply and the vddoN-supply rails. It says they are
-there so that "a board with switchable rails" can describe them, and its
-example points vdd-supply/vddin-supply at &reg_1v8/&reg_3v3.
+    if (frequency > U32_MAX)
+        return -EINVAL;
+    ...
+    if (divo > SIT9531X_DIVO_MAX)
+        return -EINVAL;
 
-The binding commit does note "The driver does not enable them", and
-sit9531x_dev_probe() makes no regulator call.
+Fvco is at least 4.9152 GHz, so dividers from 2 to 7 give about 1.1 to
+3.9 GHz across the VCO bands. However, dpll_pin_freq_set() in
+drivers/dpll/dpll_netlink.c checks the advertised ranges before it calls
+the driver:
 
-If the rail is off at probe on such a board, this read goes to an
-unpowered part. Probe then fails with an I2C error or a misleading
-"Unknown variant ID", and nothing points at the missing supply.
+    if (!dpll_pin_is_freq_supported(pin, freq)) {
+        NL_SET_ERR_MSG_ATTR(extack, a, "frequency is not supported by the device");
+        return -EINVAL;
+    }
 
-If the bootloader left the rail on, no consumer claims it. Wouldn't
-regulator_late_cleanup() then turn it off? It only skips regulators that
-are always_on or have a nonzero use_count. That would cut power to a
-running DPLL and drop the efuse/NVM configuration this patch tries to
-keep.
+On a board with no supported-frequencies-hz in DT, can a DPLL_CMD_PIN_SET
+above 1 GHz ever reach sit9531x_output_freq_set()? It looks like the
+core would always return -EINVAL for those divider values. The uAPI
+would then report a ceiling that doesn't come from the hardware. I
+couldn't confirm from the tree whether the output buffers can actually
+drive more than 1 GHz.
 
-A separate point: when reset-gpios is absent, nothing waits before this
-read, because the fsleep() only runs when the reset GPIO exists. Does the
-part need time after the XO is enabled before it answers on I2C?
+The 1 Hz lower bound is fine. SIT9531X_DIVO_MAX is GENMASK_ULL(33, 0),
+so 1 Hz is an exact Fvco/N.
 
-At the end of the series, drivers/dpll/sit9531x/ still has no regulator
-handling.
+Also, the comment says "as the setter checks Fvco/N", but that setter
+only arrives in the later commit mentioned above.
 
-> +	if (rc)
-> +		return rc;
-> +
-> +	sitdev->info = sit9531x_match_variant(variant_id);
-> +	if (!sitdev->info)
-> +		return dev_err_probe(sitdev->dev, -ENODEV,
-> +				     "Unknown variant ID: 0x%02x\n",
-> +				     variant_id);
-
-[ ... ]
+Could the upper bound come from the VCO and divider limits, or from a
+documented output maximum, so the advertised range and the setter
+agree?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261119225752.41846-1-arouhi%40sitime.com
