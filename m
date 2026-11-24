@@ -1,57 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541592;
-	b=gsLjEjxgureqvhTQ5Q+Zc7FndRnf/felwqlT0pHSngweaYVxvDdgNB5s5kVzmsjVmCeN
-	 yYim4kr3KNfqaU46n35I6jY7NKl7YXDQtg4/UKFEH38SSs3oqayDqWbW/OxxxsXFkOfpM
-	 xibJEwJP57hUw6RPgHARt83dxdtyzQKlQbq1mnGVvxTDBFdW0xkLKZIt0VnBbi0sxWetU
-	 sDSOQjGRufvRoFnw+Vxb9eZf6rX6LZWvEW0aLZHaY3rgu8NNhT7q4XBPrgft1j7I95Cku
-	 AiVWg6HHKE008qqToiO35kfHlCewx4Rx43bkUoYv4ARPA452moo15Cl9bdefcIkfE8g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541592;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=o5U2eMZXMEGvf8tATsUAjiB+YYaG3+LXXehgfMHJpQo=;
-	b=YFnqgqBSqbVqYPvWUhd+QVTTJPHfCVEJAFUZ5tP+N/T3CV2mAnNxui+2Ye1acLNlkUkf
-	 t7b4qCrhSnIJwa3TakH40vAc9Otz86lm2UiDXzDH+CSm+X/0avoW4ho6uhS2Sewc6OtRH
-	 41itgL6wKj6KstdZpo377KL/qm/a9gPltTlRAuy9KyGSscG6YYG2wWnNXIWoTlyW0KdwF
-	 h/LDBmKs4w63+ioGIwckT9LtT85L4FRvHJk4cz7ZNKeKJbZoy6pO4j1z/iYEamcEk5/y8
-	 6/xXexPoYu/WoJVHZfAtWK9YLoI3MQI5a8mYtdS9bPjUA/NG62MzPZzOHi9IGer/2Fg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JR7ECrpC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795541624;
+	b=i5xU+4WVIRTOhN5PLQNvIIykkxmugSMGverHVx88vxkoyrABzThn6svIHoElGH/nO9Cn
+	 ntmrjxdPTkpELp1Xa2DITDG16FGfq6+uDmSDw8NQJ99wWuEy6UBAsRua7/2pyxbtUdc3f
+	 tGqNAJKohbo5A7ofFJwQyLVVwbDMoHA2cPT7ZfKTyuP9ZPPe82PaD1E9+PPOoXfUu8efb
+	 j8mVX9BxwPx63/aET4mM48f4ePK9cvxB1kC41DO8wos3QWmBPbWKYJLThXGaZbkI+Gcm3
+	 X5w4ggr7W+YgQ8PjuVEJEWle0OzMXxTcOnYquW3eCdqWZd1vuOLoIJNN7/47ZBxtFPA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541624;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=2nBOcYDVlBCq3k3GnRFRQzics4lAz6ltQQZsOzvjPgI=;
+	b=4NedNfwC70HNC37+g8jnLUovcDEX0MuPwFLqUAC79JYYFtkecoUe7y6M99X5TS7ER1Mt
+	 Pi84zih6J1vVZRjE3ldryLHrmY07+3NTfND94AZWVRm5bzCvGRkVRl8EUBFpTw4Xg4CR/
+	 4Nf1WZx0q2Kk45xAxcCOyUmmPbvutLG12mUQVCVRzFrYW7u/GgDIsjFejXbBLp6E7SXql
+	 UzRSV+hbV4NvWJD0Uh2ZYcZEiWPfKDQPiUcN7B/WUR+VOrJ5HGZmGSw59k58QXDIflsjO
+	 3xRdkK+p4xwuoNmVnIL6bMvZb5ZtPc11dVzYAYLgZ7Z2WUNiCUUn0F6oVqkTnB0p6og==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JcinFEPs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.15
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013015.outbound.protection.outlook.com [52.101.83.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15912606A329
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:33:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9732606A321;
+	Tue, 24 Nov 2026 17:33:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9732606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JR7ECrpC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0B11F000EE;
-	Tue, 24 Nov 2026 17:33:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795541591;
-	bh=o5U2eMZXMEGvf8tATsUAjiB+YYaG3+LXXehgfMHJpQo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JR7ECrpCCFHlY3IebZPG9mB066oJJLdQ8lraEa+PjfdZZD/S33edUiPWsNp+sPSab
-	 1AOntl4oMB3TZCb+SIgXwP0j/udowVR72vWLVEvUBHzZn5gStCv6hd65cvUwA5l7y8
-	 hqLAI+GJvIi6MJ1ROCGsbK7d9TLpaQZGIVNn4Q851xRGN2e6+xACUhsq2/+fxbc6Zu
-	 /dCRmiWOjWqKp2ec3gQW1w5fFe9awTew7uYQfKKA5syS0ZQYXwH5jJvNqumC+R8UUG
-	 fpv7nHF27cl8DwAeFDa50rfO/jMH3SCP8lMt8jotiest4FuKCFyykUROD1oaRLniSn
-	 ++YPx8gilpbFg==
-Message-ID: <sashiko-outbox-231707@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 21/24] media: uapi: Add parameter structs to
- mali-c720-config.h
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anthony McGivern" <anthony.mcgivern@arm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-21-0cb9bde1bd30@arm.com>
-References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
- <20261124-b4-initial-upstream-candidate-v1-21-0cb9bde1bd30@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 17:33:10 +0000
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JcinFEPs
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rguT2zLA2TnWN3bTwxnR3ge4Olm9VmhN2ov/iTS4DDLC0x0EDlaIaynQfFPTx8f6h1CuDZ+TRRRrjJ0Xx3LadGtanbsFKyTVIvG/2/A+fDN3A4ocWtFjgYDo3KT8XP5dbJzg85psA3xg9yF9FOEQj4EfL4w4Py67utlAOP0GbBVt9NV8EXtS4sMrk8yO9a8bcqo8WxWF7LD2wcxDqf/Kc3DstDrNNQrIYRg0k3um4xQztE5wIirdQhC9YLIcKF38nou/FfGxr2Ba5fVhq20Rrr3DYaY8e+LFChD1zAsyMtZnjJ2PbXUuS+MW/PaK4Mv32ZWvGZMun2qR165XJads3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2nBOcYDVlBCq3k3GnRFRQzics4lAz6ltQQZsOzvjPgI=;
+ b=gd6b/RG6g0yo/f3+Ag3mTBVCXlwb3N5nA8lQcpXzl4V0zuY0y/ifEM5T86rcVcA1OV8OoeR8ksYdutxcXr9yWQ8qCT0Iey3X18aEuRB8Ltthi0q7+h64a1s9ByenSzN30L+vCBTMoMIrxuM62q3drv82JC4sir9TQRElZgdvTwY5ddKRbVhxwrfsAs/qL8qVeeJu1GX7cPkUPSyVds26515d4RWKQwciRPGxKYoApqmOENdJoDpo2gSqgEM5tlLykD60W0ObtVWIRFqAFjHLkZ6nvAr7I4gKw62EUsZXI7ezneCzvje8m/EDWkB9EUGmSjuxUNBOdM2Emmk0ViCHZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2nBOcYDVlBCq3k3GnRFRQzics4lAz6ltQQZsOzvjPgI=;
+ b=JcinFEPsNZ6BWZ+cayqii1M4xpxzLvW6wXGuV/C8KJOIV5tCyxRnu7HtBG7F1bmAA+GYYoHcIBaOa4SvTjZ9wuJc4MMp1sKaXvqJgWc18ChByIwTtyUyeS322r14IBGs3L6IVeTMYah+uz/8HAqn6xb8vX9g6qQ3F56LtOH+tHco1gh9aeQUk8b9/B/2OLE3BGCR+p2DM6NzkG3wZWPJQJ2V/DBvWRrBCe//MGjRzEXj3HT3oWbxK8yWHFwEIY21R6mFkAJjztJL5FXbyQPJ5Jd+/yc63PEbANbZ4BiwOgwfmSJsGBQ6kL3O3MxtcaPkUiY6YYK2bt/vdfLqYnP4ig==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21) by AM8PR04MB7732.eurprd04.prod.outlook.com
+ (2603:10a6:20b:237::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 17:33:39 +0000
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 17:33:39 +0000
+From: Frank.Li@oss.nxp.com
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Leonardo Costa <leoreis.costa@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH v2 0/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS V1 and V2
+Date: Tue, 24 Nov 2026 12:33:32 -0500
+Message-ID: <179554160079.743679.2171491534837812558.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-0-59c45f0a0d8e@toradex.com>
+References: <20261113-v2-arm-dts-freescale-imx8mp-verdin-add-lvds-displays-overlays-v2-0-59c45f0a0d8e@toradex.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CPBP307CA0019.DNKP307.PROD.OUTLOOK.COM (2603:10a6:380:2::7)
+ To AMBPR04MB12445.eurprd04.prod.outlook.com (2603:10a6:20b:75e::21)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,186 +104,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|AM8PR04MB7732:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a8d4c78-76dc-4c77-a0d7-08df4a511388
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|19092799006|10067099003|11063799006|260925022911599003|56012099006|260925021911599003|260925021311599003|261026121527099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	JcbiEYqh06Szi+5AZbp0pEY4MpIL06nfGacrXr2qHMNoHWtSXcvWJQAEC33nZSsq7EmrDP31724aLEP27gMWtZb4inY5H6sw2SRg6NC8Aj7Wjq3jdSoVoFIXaDcJEXkKlI2QjbDBgkRWO6Daurx51OKvJpPs77v553yya+KIy6SkHbIZ3WpGZzgPILI7VSKdyckFpoaLcvR6MuiTsGkJCUrOeUX2WKe98b5HgGSPxzyJuqFr3cfq1EvAYJFw3teXMd7tAb1QVi2qAgQBLj+gQvy9WiC5htyPZT2t1pSrc+IPSA3FyMouJS7fID8lCZKpLN2/RqGABH9dP6MrLmTN+YzkVUNnBSaylxLVMDVPQIE1j+bvMLfhKtLt0ai13Qvlz3/IUmGvBz4kJlJT/MdvbRawuOyAIsOMm2M0YoryY5mRHarH4h5h1QPywaddkurB7FrfDltuweGFY1NUBVirsRQAj40RdNBGCH1ypCamJdHlD76wAP8olWl2pou+0SaydCAZuPSmDuA7ihaW9C4EeZqxz4ts9skJngU6G8tWZZvNXnPYI6MXbfUqKUEoqGkxkzeBfdVdBHgLYrru2cf6sebNPhI5z8tMAXlz2BaPs1w/7pR6n1X4n9HHah2WsFjTNldpQoh8sGjqZMAsKkaHSmWFJ7a5b+1ZRXmcj9FYKeM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(19092799006)(10067099003)(11063799006)(260925022911599003)(56012099006)(260925021911599003)(260925021311599003)(261026121527099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R2V3b2pyUWdTbVROb0FtS3JOUFlNVjZ0UWdkNVN1ZWVFZlBsVVVaN2NoMUVz?=
+ =?utf-8?B?RnYyWjJSL3dpL0pDYzdOdlNsY0dOb012WjMvR24wRlBaRVpMekhjQ0xXUFpS?=
+ =?utf-8?B?c0dDMUFJVUVrR3JHZEFyL3ViMnFKUGRUajRwdTZ1VHFybGRCaVRGbmgvQ0ZY?=
+ =?utf-8?B?S2RJVmdyb3FZN0w3eGdEMWFKOXJzeDIrZlVRRW11bEh0WXBFcnBwcTllaHlU?=
+ =?utf-8?B?RXVEVVA1V3gwdk4rVGtUV1lUc1ozc2xnbk5BcmpuRFp6SW9Ed051SWsrcGM4?=
+ =?utf-8?B?b2NheDY3WnFsV3d4ZUpSYW8zZkEzOHJiQ0REOHVxWXc4bitRUkgzZ1NvN0ZD?=
+ =?utf-8?B?M0hxRGZUNTlqNW5iZnBJVDAvTVBWdTdMQ21VWUhMOTV4VlZzdGpiUGYzTVZJ?=
+ =?utf-8?B?TDhLZkF4bURPc3hsNjVvc1FkeXpWQ25MMXhqSHkraCt3YlJJaDlCcS9GNm41?=
+ =?utf-8?B?ZUpkcWZKOTlIY2JTcUlidVk4Z1E1bldmbjJ4cm5DZnZ3bW9sZmdjbzlXMkg5?=
+ =?utf-8?B?ZHBrNXVDR0xpL280Zk1SK0hndFFHWWRuQ3BvNEl6OTlpSzhiZDJ3MnV2cGJa?=
+ =?utf-8?B?dUEvUVJvYWg3amhSbU1Wb3F1UGM5WEQydmt0WlhsakxqU1dtRk5abXBhNG5p?=
+ =?utf-8?B?TjZZNzAzUmdHbE5iV0U3OVRFbHlsdExZeTNxdVVtUmU2TWFjS2FuNWJ5YzNo?=
+ =?utf-8?B?eDRXK1dZQTMzSmJXeDdEN3BQdlhsS29zT2tQYVZtWitNM2w4dGJDMFhwNm1p?=
+ =?utf-8?B?RG9EMzZkQlhXbmp2VDdqZFQ3NFBnR3ZPWDVJZWQxV3AveW5vZ1hZWnIxYUE4?=
+ =?utf-8?B?RnhzTFFtQVEwMisvV3JscWpXWW83WHk2RFUyR0EzeFFDc1NTaDBsU0ZnQ0da?=
+ =?utf-8?B?TVg5d2JiNGJhOSt2c0lsRFVXQ090alA2WFBqSmlTWG1QQ2dGT05iWFhNRU1F?=
+ =?utf-8?B?VHdnUVNTa1l0U25rUEZhVGhlU2lnYVB0WEtSRHhZd3RoVjl2VmdpdzI1a3Jt?=
+ =?utf-8?B?ckZycjFFMUh0R1d1TSt3MlVVL1RCckZPd1gzVis5ZGcrT2lSTnNMQURIN3c0?=
+ =?utf-8?B?a1hNUnVLcDRBa0Y3dEU3MGFCVFJLb1hBc2l1VFRaOGM3dzlhVFdlS3h0NmJn?=
+ =?utf-8?B?SThmMU1YMGtOMDNnTVVKUklYR2JnbzlGR1ZHZnJxejA0N1JKdTRJZFlmSjky?=
+ =?utf-8?B?Tzlyc1psL2dhSURiZ09GQXNzTlArcTgwUGU1SEZmYmFnNk4xaklicFplQ1hI?=
+ =?utf-8?B?dFp2a3RKclVYK053c29LbVFCbkZnSW5mQnJNSGw0djArWXVrQ2tDaktyc3Nm?=
+ =?utf-8?B?TlRjTXZMSGhVanFocWFkWW12d1BhV2U1VFNQZ1RYUlhtK3c1eW9hRWpmem1r?=
+ =?utf-8?B?bWxXN2kzOWtUU004dFd5NlVDUVRpMkFMakhzTUx0RGZtRDhLZWFsKzYvYmZ6?=
+ =?utf-8?B?cERZaUU2UExpVDZXME1kWU9McDhhLysvOXptMndnNy9CZXRMMGJmNXRWU3Fa?=
+ =?utf-8?B?b2lOZk0vY0d4QTFLMWlQeDFhM1BGdmt6Q3NEOEJoRDNLRys3YVBMMi9VaDBT?=
+ =?utf-8?B?STVGLzNHM2x0bzFNc0l0ZWNIT09WUlZqQzhVQ1NxTmFnLzhHRktVUDc5R3VB?=
+ =?utf-8?B?UmpzTm9vbDlWbGZpZG52dktzd1FtWm5PUkZTVVdMQU9jQkc1ODJYTEJNSHha?=
+ =?utf-8?B?KzNWK0ZGbVlGdTltSnhUMXZ1MHVGdDc5ZE9uRlNQRkk5Rm13L0V4ZHJlblo4?=
+ =?utf-8?B?Vk1lUVcvZjJybHFVeStjdkxpQTVqOTdlTm0rWmwzZC9zck1MSEtnTnpudk8r?=
+ =?utf-8?B?TlhCOHlWN1NuR0FXS2NLOTZ0VmU5bG1vL1h1MHlaalJnZThtbHY3dkhNQnZi?=
+ =?utf-8?B?SGxJWm9SNVZNNGpSN2xhYkNOZjVUME15UHV2djkvM0pCaWVvZ0dVbitBalh3?=
+ =?utf-8?B?anVOMWhxaENMTGQ1VTRodkh1d0NqRm5jWFVOUFZwVmpLTUt3N0d5VHhSYkJa?=
+ =?utf-8?B?eFdjY0VwczVuVTQ1djJBUGNrdDgvM1pOL0JwcmZ5VFRWaTM2d0s0UVZNYlAx?=
+ =?utf-8?B?Zm1GZEdpSVkwZFpmTGJXNXprT2FYczU0Z3FNM1Y4azlnY2JPaWlra1d2ZmRF?=
+ =?utf-8?B?aE9hQzhNUnh2ZUJ2SklQa0RCeXNLWDBZMUNvaXFoQ3FMZWpQRWlBeEpldXJj?=
+ =?utf-8?B?N28wa1BRdDFWZ3MxL3NQZFlHTVd2VFlJa25xYkNBM1FpT1VkZlAzM2s0KytF?=
+ =?utf-8?B?aXo1NjExK2ptNEUyOGFwdk9GWUovK1Q5VWRMYkNLVjB4ZmlseFZXT29lNjhO?=
+ =?utf-8?B?V2kvWGZld1hZbFA2azYvQWplVlZaMGozOVR5MUhBWGY4ZEhsL1h6Q1pyZU4v?=
+ =?utf-8?Q?M2BfaHSvHr72DGE4YiT3K37FxIow0SjaY/mTZ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a8d4c78-76dc-4c77-a0d7-08df4a511388
+X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 17:33:39.1320
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sY/b06YbMrVoGLYjmnB0rcY4keXz6ucZrx/hGZ3+C6LIAn8cgNfe+i1OPgSyRXk9ykr2TRDOUJd6/78V6IXkNZqeUHLkM4utP97vcvjyZGvcEAj7s/177HNfdD755KR2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7732
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Low] media: uapi: implicit trailing padding in mali-c720 parameter
-  structs
-- [Low] media: uapi: undocumented MALI_C720_PARAM_BLOCK_MAX in
-  kernel-doc
-- [Low] media: uapi: missing kernel-doc on mali_c720_params_*_mask enums
---
+From: Frank Li <Frank.Li@nxp.com>
 
-commit e1aa4f73c1087846692d06506ff1d937ae9e0835
-Author: Anthony McGivern <Anthony.McGivern@arm.com>
 
-media: uapi: Add parameter structs to mali-c720-config.h
+On Fri, 13 Nov 2026 12:44:06 -0300, Leonardo Costa wrote:
+> This series adds device tree overlays for the Toradex Capacitive Touch
+> Display 10.1" LVDS V1 and V2 with the Verdin iMX8M Plus SoM.
+> 
+> The display addition covers two interface types:
+> 
+> - Native LCDIF (LVDS)
+> - DSI-to-LVDS adapter based on the SN65DSI84
+> 
+> [...]
 
-This commit adds the UAPI parameter block structures, mask enums, and
-V4L2_CID_MALI_C720_PARAM_CAPABILITIES control ID to mali-c720-config.h.
+Applied, thanks!
 
-> diff --git a/include/uapi/linux/media/arm/mali-c720-config.h b/include/ua=
-pi/linux/media/arm/mali-c720-config.h
-> index 445cae09a84cc..f200380f3c2c8 100644
-> --- a/include/uapi/linux/media/arm/mali-c720-config.h
-> +++ b/include/uapi/linux/media/arm/mali-c720-config.h
+[1/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS
+      commit: 381ce41405bd45a524f2ee5019370559cac5b9f5
+[2/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex DSI to LVDS adapter with 10.1" display
+      commit: c6e3b5a4b2c80d05b784f36b93a59014aba337f9
+[3/6] arm64: dts: freescale: imx8mp-verdin: Add Mezzanine with Toradex Display 10.1" LVDS
+      commit: 6c75303841894535383bee9f4e86bb1c9435cd7b
+[4/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS V2
+      commit: 6065336d0a71d3e57480cdf66ccbf44a4825e720
+[5/6] arm64: dts: freescale: imx8mp-verdin: Add Toradex DSI to LVDS adapter with the 10.1" V2 display
+      commit: d35038cd6ec29a429a972f73e93492772589190f
+[6/6] arm64: dts: freescale: imx8mp-verdin: Add Mezzanine with Toradex Display 10.1" LVDS V2
+      commit: d24c92e1c1bdfbe2d3a998659c2a4bf544a7f69b
 
-[ ... ]
-
-> @@ -179,6 +181,558 @@ struct mali_c720_stats_histogram {
->  	 sizeof(struct mali_c720_stats_histogram) +		\
->  	 sizeof(struct mali_c720_stats_histogram))
-> =20
-> +/**
-> + * enum mali_c720_param_block_type - Mali-C720 parameter block targets
-> + *
-> + * @MALI_C720_PARAM_BLOCK_DIGITAL_GAIN_INP: Digital gain for the input p=
-ipeline.
-> + * @MALI_C720_PARAM_BLOCK_HISTOGRAM_INP: Histogram configuration for the=
- input pipeline.
-> + * @MALI_C720_PARAM_BLOCK_AWB_GAINS_HV: Auto-white balance gains for the=
- HV pipeline.
-> + * @MALI_C720_PARAM_BLOCK_HISTOGRAM_HV: HV histogram configuration (pre-=
-Iridix).
-> + * @MALI_C720_PARAM_BLOCK_HISTOGRAM_HV_IRIDIX: HV histogram configuratio=
-n (post-Iridix).
-> + * @MALI_C720_PARAM_BLOCK_COLOR_STATS_HV: Color stats configuration for =
-the HV pipeline.
-> + * @MALI_C720_PARAM_BLOCK_BLACK_LEVEL_HV: Black level offsets for the HV=
- pipeline.
-> + * @MALI_C720_PARAM_BLOCK_SQRT_INP: Square root configuration for the in=
-put pipeline.
-> + * @MALI_C720_PARAM_BLOCK_SQUARE_A_HV: Square A configuration for the HV=
- pipeline.
-> + * @MALI_C720_PARAM_BLOCK_SQUARE_B_HV: Square B configuration for the HV=
- pipeline.
-> + * @MALI_C720_PARAM_BLOCK_SQRT_HV: Square root configuration for the HV =
-pipeline.
-> + * @MALI_C720_PARAM_BLOCK_DECOMPANDER_INP: Decompander configuration.
-> + *
-> + * Each identifier selects one logical module and instance. Applications=
- can
-> + * query V4L2_CID_MALI_C720_PARAM_CAPABILITIES for the targets present o=
-n the
-> + * device. The control returns a read-only U16 array of supported identi=
-fiers.
-> + */
-> +enum mali_c720_param_block_type {
-> +	MALI_C720_PARAM_BLOCK_DIGITAL_GAIN_INP,
-> +	MALI_C720_PARAM_BLOCK_HISTOGRAM_INP,
-> +	MALI_C720_PARAM_BLOCK_AWB_GAINS_HV,
-> +	MALI_C720_PARAM_BLOCK_HISTOGRAM_HV,
-> +	MALI_C720_PARAM_BLOCK_HISTOGRAM_HV_IRIDIX,
-> +	MALI_C720_PARAM_BLOCK_COLOR_STATS_HV,
-> +	MALI_C720_PARAM_BLOCK_BLACK_LEVEL_HV,
-> +	MALI_C720_PARAM_BLOCK_SQRT_INP,
-> +	MALI_C720_PARAM_BLOCK_SQUARE_A_HV,
-> +	MALI_C720_PARAM_BLOCK_SQUARE_B_HV,
-> +	MALI_C720_PARAM_BLOCK_SQRT_HV,
-> +	MALI_C720_PARAM_BLOCK_DECOMPANDER_INP,
-> +	MALI_C720_PARAM_BLOCK_MAX,
-> +};
-
-[Severity: Low]
-Should MALI_C720_PARAM_BLOCK_MAX either be documented in the kernel-doc
-comment or marked with /* private: */?  Without one of those, kernel-doc
-emits a warning that MALI_C720_PARAM_BLOCK_MAX is not described in
-enum mali_c720_param_block_type.
-
-> +
->  #define V4L2_CID_MALI_C720_STATS_CAPABILITIES		(V4L2_CID_USER_MALI_C720_=
-BASE + 0)
-> +#define V4L2_CID_MALI_C720_PARAM_CAPABILITIES		(V4L2_CID_USER_MALI_C720_=
-BASE + 1)
-> +
-> +enum mali_c720_params_digital_gain_mask {
-> +	MALI_C720_PARAMS_DIGITAL_GAIN_MASK_GAIN,
-> +	MALI_C720_PARAMS_DIGITAL_GAIN_MASK_OFFSET,
-> +};
-> +
-> +/**
-> + * struct mali_c720_params_digital_gain - Digital gain settings
-> + *
-> + * This struct configures the digital gain and a common black level for =
-all
-> + * color channels.
-> + *
-> + * Set header.type to the target from &enum mali_c720_param_block_type.
-> + * See &enum mali_c720_params_digital_gain_mask for the @updated_mask bi=
-t positions.
-
-[Severity: Low]
-Should enum mali_c720_params_digital_gain_mask and the other six
-mali_c720_params_*_mask enums in this header have kernel-doc comments?
-Each parameter struct's kernel-doc links to its mask enum via
-&enum mali_c720_params_*_mask, so without kernel-doc on the enums they are
-omitted from the generated UAPI documentation and those Sphinx
-cross-references remain unresolved.
-
-[ ... ]
-
-> +struct mali_c720_params_sqrt {
-> +	struct v4l2_isp_block_header header;
-> +	__u64 updated_mask;
-> +	__u32 normalization;
-> +	__u32 black_level_linear;
-> +	__u16 black_level_sqrt;
-> +};
-
-[ ... ]
-
-> +struct mali_c720_params_square {
-> +	struct v4l2_isp_block_header header;
-> +	__u64 updated_mask;
-> +	__u32 black_level_linear;
-> +	__u32 black_level_sqrt;
-> +	__u32 normalization;
-> +};
-
-[ ... ]
-
-> +struct mali_c720_params_decompander {
-> +	struct v4l2_isp_block_header header;
-> +	__u64 updated_mask;
-> +	__u8 enable;
-> +	__u8 reserved[3];
-> +	__u32 lut_x[MALI_C720_NUM_DECOMPANDER_LUT_ELEMENTS];
-> +	__u32 lut_y[MALI_C720_NUM_DECOMPANDER_LUT_ELEMENTS];
-> +};
-
-[ ... ]
-
-> +struct mali_c720_params_histogram {
-> +	struct v4l2_isp_block_header header;
-> +	__u64 updated_mask;
-> +	__u8 stream_mux_select;
-> +	__u8 nodes_used_horiz;
-> +	__u8 nodes_used_vert;
-> +	__u8 skip_x;
-> +	__u8 skip_y;
-> +	__u8 offset_x;
-> +	__u8 offset_y;
-> +	__u8 scale_bottom;
-> +	__u8 scale_top;
-> +	__u8 plane_mode;
-> +	__u8 reserved[2];
-> +	__u8 weights[MALI_C720_MAX_ZONES];
-> +};
-
-[Severity: Low]
-Should struct mali_c720_params_sqrt, struct mali_c720_params_square,
-struct mali_c720_params_decompander, and struct mali_c720_params_histogram
-pad out to their 8-byte alignment boundary with explicit reserved fields?
-
-Because struct v4l2_isp_block_header and updated_mask require 8-byte
-alignment, the compiler adds unnamed trailing padding to each of these
-four UAPI structs (6 bytes in mali_c720_params_sqrt, and 4 bytes each in
-mali_c720_params_square, mali_c720_params_decompander, and
-mali_c720_params_histogram where reserved[2] only aligns to a 4-byte
-boundary).  That leaves implicit padding in the serialized buffer layout
-that triggers -Wpadded warnings and cannot be zeroed or validated via
-named reserved fields.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-initial=
--upstream-candidate-v1-0-0cb9bde1bd30@arm.com?part=3D21
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
