@@ -1,72 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795544151;
-	b=xXPWevqZpdPVoiAmuaEGwg6UHuwU0isidlvW4pnAAjlwz+l8Rd9irr0oixSoVvDIM0nl
-	 Eny1K7Dcc9lPYxFAamVJHEdGK4j/j8faTMZuhic7qFQ+VKQ70DkMzf0dbVzcMd3VnYyLk
-	 eLobXGRO2PUJfu6pGOsEYxau2Wz2WIxqJsmGWqgBxwxqC7lPtzsBWy7YdXPdB0Hud9Epr
-	 kPMxWwPCJ2comzuUllb+g4Gx3Qvw4TgtnOXPxR7nbgs0VDfakXrjOTKZYmrg6OnEQSwqW
-	 KOocbYHJ41v2uuPbBQ8cbdSeGnzRhWayHydytDba8+NwG3p/zXyj19UJCxlBr1Ggfjg==
+	t=1795544218;
+	b=D831dJ27ugXNVaxm2hwRJaHLuOYi4/xJ+NQlVADc4ef+47JYz37RYAyqpwBKGBQVRXMe
+	 RviQpsN0hQGqKN6PERYfX9QX/3DyEyD1JuMtljzGUBFN7iHR17mRoxGP+s1oISwJcp6V0
+	 3QahU2XnN4uipYTmUYb9nLZHfsiEvPQwL02TD6TOx3f1Z0BhsRqFwsZy6BGKwQIoUYAke
+	 aoNG8h48LIf9iW7z0BreZuGHeDsADAOj1tj5J6VmS9xqvcoulhieQ+9qJTC71iONwT2aZ
+	 3dWhS6o7PaiIbHO8yiqAxf3X0nQoW/MfvZ/yaWPF/zv3Rkrm/zzeyCHkiLeEvcZu5Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795544151;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:User-Agent;
-	bh=6G63QTH0P52Wm7LZTOCz21z0QIqu9cIv0849Yq8dU8I=;
-	b=D8oDNAwWyaG+0KtgqcswblhEghcm1eOfR+OHv9P6nuZ+aTx07gGcxrRCsHIqzlHoYAqz
-	 +j8Gt3dAHBg1TfJMhvkPhfYNM+7CfMEPjqFuVH7K/M2Ya+gNlxcwPzLp5O2Q+Tbz+KD3M
-	 QYtq4Pm2j3nQqTIRgshz3L82Wq/135+8Ytmeryl8ECSCQEeIAJMJxNC0QdI/y/ZkfcxVF
-	 Zc3TMId0t/4qAU0c0tTgDviXUcMseqCAORXOlgh+gRD0MIjmuVU6Jjd5Kn7mMk4sBLFuE
-	 CeT3dq7T2GfQSz38la8rY6bk9dJB6V3PD1V0MZ2geDyAcS1QxAbQrEQBxu0myn9CYmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795544218;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iGCDQxlSZyNbpjb8HmmAXDh7kjSdNds3Y7zGFjiw20U=;
+	b=u+OAP9hFkXUbKHZgq/cH27RqEu41p7o7J39OUOeC76793qpwqSDiY2SPgtojIappqCcM
+	 F5RXuTiJ29YrB5IBCRycFjyj+//OFxnEiiWDn/GnVx/Frmp0vjn6A9JOXe0+4skiTy0rV
+	 4dzVdfzlEdmTBcSCrlJmjocD+xpVi2u4AT4FBlHtiXDQ6S9YyCYxkPrr/MmzL0M6Vb1tG
+	 Aeyu/+iiSYQ47GG6TJxmP04PmVcqdM2Q1ah/6M0Gxf96W3UTMHRZhjUiXsp5HarxDjXlr
+	 X5DMKpQBlZcX1Hdw8q3q7acrDyuFIX3LSyUlbhuwgEPZjwwAke6XKMaR4Phme2FWSFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aurel32.net;
-	spf=pass smtp.mailfrom=aurel32.net;
-	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=qlZ7bc5q;
-	arc=none smtp.remote-ip=195.154.119.183
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SD/W5C0A";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C060B606A331;
-	Tue, 24 Nov 2026 18:15:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C060B606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D60606A326;
+	Tue, 24 Nov 2026 18:16:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=qlZ7bc5q
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=6G63QTH0P52Wm7LZTOCz21z0QIqu9cIv0849Yq8dU8I=; b=qlZ7bc5q1QghNKdJi28KgFaO9k
-	MWOgLlFEXe0+HPmxZakPl6vf2voPzwX25VWOHTTcMbUjv8u3Jlzv3qK33mPLQiR4PAejpFoho1R0y
-	W5Lmmaz48/XNvGtAAwJ/nq4Ne5zTJ0T49M5Hm2oXWj/fLgBL+AD7sCZnkUoNSXu2c5npMdaJZQwKx
-	zRQqzVhotSuuW7xlu7tUN4RXZEelWd069rkZwhFr+Af2A5PE9nFOdQe2r3ei++rkKiRNvztOM0HnM
-	hnqryY+ukPCdbQB6MC5EFE9QakKLzRjrwi7e0/oYdHBo2mjswuKcmf3WCiysutn9lbsc7yLQMhhzA
-	h3Sww9jw==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xVv3K-00000008lu6-2KEX;
-	Tue, 24 Nov 2026 19:15:38 +0100
-Date: Tue, 24 Nov 2026 19:15:38 +0100
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Zixian Zeng <sycamoremoon376@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Vivian Wang <wangruikang@iscas.ac.cn>,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH] riscv: dts: spacemit: k1: fix the EEPROM page size
-Message-ID: <awXUSuYOUQMPCl-5@aurel32.net>
-References: <20261123-fix-bpf3-eeprom-v1-1-df8cce6ef2b5@gmail.com>
- <awS2-clBenE1r1a1@aurel32.net>
- <12933da0-9bc8-4f92-96d4-36c5673d3f5e@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SD/W5C0A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E43B1F000CA;
+	Tue, 24 Nov 2026 18:16:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795544217;
+	bh=iGCDQxlSZyNbpjb8HmmAXDh7kjSdNds3Y7zGFjiw20U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SD/W5C0ASolH9COBd9wxlzS8OhjBSOpB4GDhjPjv+hFUBmlFcx4gwAT655N1S2vZj
+	 bHdogH/ywDxgK04aCxjYYb+n/0QrIDu4uoDoG5RAtbJYy+VUvGhkAEzPZJ/y6LHlBq
+	 N5e5bMiy+ufbs0SdlC6LEUGUqpOH8LZVOgvlxRHYWQiMxVA3XYyqoACZwPfTOo0H6b
+	 XKb0PGwAuBSU0SQjIkNXw9hthB0lPIRyZjd49KoGOo7brkRA4NvwKiDA3d2PNYH2rz
+	 +YOuidcDP7JidcTZkYvit+ptJw4lH70khjbXvJA4oYfRkRPjcShYkxBU4MX6yH9Q+j
+	 XC32QrDvrHVjw==
+Date: Tue, 24 Nov 2026 18:16:53 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Matthias Kaehlcke <mka@chromium.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Anand Moon <linux.amoon@gmail.com>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Icenowy Zheng <uwu@icenowy.me>, Han Gao <rabenda.cn@gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: usb: vialab,vl817: use
+ unevaluatedProperties
+Message-ID: <20261124-rehab-overlord-9b7f44ee7e0f@spud>
+References: <20261124-vl817-uneval-prop-v1-0-137c093fb300@iscas.ac.cn>
+ <20261124-vl817-uneval-prop-v1-1-137c093fb300@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,60 +63,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="h5SN1Pgh8t8ElQFR"
+Content-Disposition: inline
+In-Reply-To: <20261124-vl817-uneval-prop-v1-1-137c093fb300@iscas.ac.cn>
+
+--h5SN1Pgh8t8ElQFR
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <12933da0-9bc8-4f92-96d4-36c5673d3f5e@gmail.com>
-User-Agent: Mutt/2.4.1 (2026-07-04)
+Content-Transfer-Encoding: quoted-printable
 
-Hi Zixian,
+On Tue, Nov 24, 2026 at 04:31:01PM +0800, Icenowy Zheng wrote:
+> Currently the VL817 binding has additionalProperties set to false
+> instead of unevaluatedProperties, which disallows properties documented
+> in the parent schema.
 
-On 2026-11-24 11:31, Zixian Zeng wrote:
-> Hi Aurelien,
-> 
-> On 2026/11/24 5:58, Aurelien Jarno wrote:
-> > Hi,
-> > 
-> > On 2026-11-23 12:41, Zixian Zeng wrote:
-> > > The bananapi-f3 carries an AT24C02 compatible EEPROM GT24C02B [1]:
-> > > 256 bytes with an 8-byte write page, which can be found in schematic[2].
-> > > The device tree declares pagesize = <16>, which does not match the
-> > > eeprom chip datasheet which declares pagesize 8 bytes.
-> > 
-> > Oops, I am not sure how I got that wrong. Sorry about that.
+This is not quite true though, they're permitted if the binding contains
+"foo: true" etc - which this one does.
 
-The question of the page size has been raised in the initial review [1], 
-and it seems that the GT24C02 has a 16-byte page size, while the 
-GT24C02B [2] has a 8-byte page size. The BPI-F3 schematics confirms that 
-the B version is used. Sorry about the mistake.
+> Change it to unevaluatedProperties, which is the better practice for
+> derived schemas.
 
-> > > EEPROM pagesize of k1-bananapi-cm6-io[3] and k1-orangepi-rv2[4] changed
-> > > together, based on the chip model shown in the schematic diagram.
-> > 
-> > The k1-milkv-jupiter board is also affected with the same issue, despite
-> > using a slightly different EEPROM (24C04).
-> > 
-> 
-> The GT24C04A EEPROM used on k1-milkv-jupiter board doesn't seem to have
-> the same issue, which you can find "Page Size: 16 bytes" in datasheet:
-> https://www.giantec-semi.com/uploads/20220929/GT24C04A.pdf
+Not really, it's fine to do addtionalProps: false + foo: true if only
+a subset of the inherited properties are valid.
 
-Indeed you are correct, and I confirm that this is the exact version 
-used on the schematics. Therefore there is no need to extend your patch, 
-it can be merged that way.
+IMO this series should be two patches, or maybe even just one that
+changes the ref (as your patch 2 does) and sets the then derived
+property to true. Otherwise, this should be two patches, with patch 3
+split into whichever of patch 1 and 2 is relevant.
 
-> But I don't have the board, simple test would be appreciated. Perhaps I
-> should include test steps in the commit message for the next revision.
+>=20
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ---
+>  Documentation/devicetree/bindings/usb/vialab,vl817.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml b/Do=
+cumentation/devicetree/bindings/usb/vialab,vl817.yaml
+> index c815010ba9c2e..d0484e48e319c 100644
+> --- a/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
+> +++ b/Documentation/devicetree/bindings/usb/vialab,vl817.yaml
+> @@ -40,7 +40,7 @@ required:
+>    - vdd-supply
+>    - peer-hub
+> =20
+> -additionalProperties: false
+> +unevaluatedProperties: false
+> =20
+>  examples:
+>    - |
+>=20
+> --=20
+> 2.56.0
+>=20
+>=20
 
-Unfortunately the board has the EEPROM write protection pin connected to 
-VCC, which means the write protection is enabled. Therefore testing is 
-not so easy.
+--h5SN1Pgh8t8ElQFR
+Content-Type: application/pgp-signature; name=signature.asc
 
-Regards
-Aurelien
+-----BEGIN PGP SIGNATURE-----
 
-[1] https://lore.kernel.org/linux-riscv/aNLzRJcKCYOngc7z@aurel32.net/ 
-[2] https://www.giantec-semi.com/juchen1123/uploads/pdf/GT24C02_DS_Au.pdf
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawXUlQAKCRB4tDGHoIJi
+0nO+AQCJAJQTo53plhDVm7UVgErvHVFbl7zCVtc+zoFcZcdSxwD/cwcY0/X1MXWN
+jqxraemeI6fTwrwLeoYGLbzdaaRxYAw=
+=fGFb
+-----END PGP SIGNATURE-----
 
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+--h5SN1Pgh8t8ElQFR--
