@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795528053;
-	b=PqZGoHhJRuk62h7SGs7MV96sCVLRF/X/fTFVprOGL3aP7Tyw+blMZnq9iuBG/h1TDi7n
-	 ETP0R7FD2zlYWmNyVKURLvDLIm5437XoYmvBfxqwXuKDh2fIBjK0PxTFF8HVGcWboV2Gg
-	 nV6iO9Zsu1pjD203AK6hwMH0G3YQat63PxzNSJRelOloBa0E28Emv3XXkaa6/ZiGCASt8
-	 BQ+2L9MVc9075P3YkjZ335o6icuH1fzORgkIHH+JsrpeYPsYRMwx+qgMkTfaD3IT4l0iV
-	 Ih5NjFMB5fN020QS4uaausBS52b/TIMr25TJArhj0kBPPyU5GJGGbOozDWXUNetM30A==
+	t=1795528168;
+	b=1ry6SgJ2H+eOXcMt/nKDtis61T+8xGhPynFAt20Wk19dJOjCC2buh4rhPfFG76jKsTim
+	 9mNWli0h0ljRqgMJk9bwF4VCxirxXDGn8dXubc2xdk6zMeV8WUuIPIvK+OMufDDc5LPyP
+	 oGuYd8+l4ADLGF9a16VFaPFvHId1hzVMk8f4zn1RVvqmJtRDff2MSZwTPlaVaKb5mKkyA
+	 0rF1gi9aCrg+vdZzDKexlWo8acJyq9pUlxtxGHMDTcCKHHj5mPfDtxlwl2rQ1iIFeUji9
+	 27kYD4YMTCtU83Uwfey9hZwG+qj+zt8/sTURIS0Spg90vmAs6Tdp0TwR4wOj7IX/Y9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795528053;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=EMnEt/YnAUNP7311KM1zmr7mXqBixHq+OrglQzpPaq4=;
-	b=ndrCe6pBC/fp8zsMEgGbHgfmaevbFb5Y8Licwj/l64nvq/rZ2gfRCj7nBTryHYmdwUh1
-	 T+fZ+Iy8EkOQ/iTNh/ZglgO5jV5WIuiKGWqPE9sYOV6FxLfrYuXEHW8fBaWbwIymD0w0r
-	 +t+kMKUE170PTHMKn5ZYqXaiikL82VP05nVzjNVC7T2Pyc7CKq5SWDfsTF4zLiJJR9r2u
-	 5MKoqi/TEPpNxxGTjX977zeJp4ovcSWQ8XBpkWbje5PkVyCxDdbt0CEjZsS7Y9Pzo+v9P
-	 Zgm6c9/32HSsoFq+hB1TDaYtrhLWe3jURJZ+gxwXRy3Oysueg/8RvDZ43JXCdyOODHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795528168;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=8/5WpIiDIF7odXUhPjSua3qAHd65kH+m9W4WVcGF87U=;
+	b=zvOdYWKdVy0JbZDEfkewt+10R70mHp6XVdzToYD5JaZQV9hiGUK5ixQ8ioWvf2HfDBYt
+	 kcbvcmnPDRKZSO5vZqtdsKjTacGa9pzuOrMtF/BvCwdSjElfUyqY+ZkS+56/mLbvZ+jjL
+	 E//Xz3pLHV3Dud1Wq0zcAhLsUmig3ZNDERswN56xu6AK48NVxufhQSM7OQiG1ILP5l67P
+	 VY0tku/LHrxURJs/CjXtyVhB4lkUSHpqT7HYHAjIwS9/CIX7DbKHA/SNPiCYsV+LaRMJI
+	 hyKDcmVQSJUcNpaW/uPiF0vaNVqV6BwqTQ2Z98xOmbaa3ZPzLElS+tYSAyjngaqi4mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajwd7hTL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Cmpnx7rl;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5AB606A321;
-	Tue, 24 Nov 2026 13:47:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE141606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:49:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE141606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajwd7hTL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468511F000C6;
-	Tue, 24 Nov 2026 13:47:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795528052;
-	bh=EMnEt/YnAUNP7311KM1zmr7mXqBixHq+OrglQzpPaq4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ajwd7hTLwPTvQo/xoc8b1EELOQM+ESusAdJskEbSdO4bLIMLyP0ya+yaNuYp1KQ9y
-	 GLKMMRRDqhvgh+643DW0ynx9NY/pfAOMC5I4XZ5FazvBaskyYct2lcJ/locGitTpCa
-	 OP7o4zqhX5pdYvZl1pKu21XdbgBjcecE4/87BfMuJY49DR+ljj7yw22eKmGa3TtraP
-	 yVwxNys6VYUsLlWZ79L0QlOKxf0d5OunkDeCf142L4ULS1o4Sc5h37IHNs68GqS/fo
-	 pufAj2Qben4oLPnzIgMTBYu7Ej4lS1xfHT8zHZ25daOh7xRXTR5397r1u+aHjZmAWe
-	 ZTAgdEN7OOPqA==
-Message-ID: <sashiko-outbox-231251@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/6] usb: gadget: udc: crg: Add gadget and endpoint
- operations
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petar Stepanovic" <pstepanovic@axiado.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-axiado-ax3000-usb-device-controller-v6-5-b991f9b27111@axiado.com>
-References: <20261124-axiado-ax3000-usb-device-controller-v6-0-b991f9b27111@axiado.com>
- <20261124-axiado-ax3000-usb-device-controller-v6-5-b991f9b27111@axiado.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 13:47:31 +0000
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Cmpnx7rl
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 350524E4175C;
+	Tue, 24 Nov 2026 13:49:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 00B34601E1;
+	Tue, 24 Nov 2026 13:49:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D53D011E681A0;
+	Tue, 24 Nov 2026 14:49:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795528164; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=8/5WpIiDIF7odXUhPjSua3qAHd65kH+m9W4WVcGF87U=;
+	b=Cmpnx7rl6uDbr2CDscqr0Mb4Z71jVOlQ75QBuG1uXf9D63wGOvy73tgSquUSbODOnV6RC9
+	Deiog/0Y+Sc/4RFXRwPR8/LrN+YjwYtor2VR1394OWR1Glq4et7ZTfl9Pyk307B+6SB2LY
+	GaolzwfcqG8kTOTlfXwvnoBy8P/oLDdrDWphFrxMEt5/GwIZYg0MbvUku1hWpg9YrVWRFs
+	trQ7wyA7OSDEbIdeEdqu5YBgfS0RCwXSTu8oCdA2mvWQ3WAqYsciRE2USY0UyPa0FW9BEU
+	e70MLq++LQIUvGgyIERSnT5++QHuTZidN6IjGm56hFZLHDBWchIntqj+YL8H4w==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Pratyush Yadav
+ <pratyush@kernel.org>,  Michael Walle <mwalle@kernel.org>,  Takahiro
+ Kuwano <takahiro.kuwano@infineon.com>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  praneeth@ti.com,  u-kumar1@ti.com,
+  p-mantena@ti.com,  a-dutta@ti.com,  s-k6@ti.com,
+  linux-spi@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 00/11] mtd/spi-mem: Enable DQS control
+In-Reply-To: <73680b0b-2c98-4ebc-bcb8-4ca144b469f7@sirena.org.uk> (Mark
+	Brown's message of "Tue, 24 Nov 2026 13:45:22 +0000")
+References: <20261120-winbond-nand-next-phy-tuning-v4-0-8c21e1f71f41@bootlin.com>
+	<164905f5-2857-4b8e-8d99-26939b45cde4@sirena.org.uk>
+	<875wxmttj7.fsf@bootlin.com>
+	<73680b0b-2c98-4ebc-bcb8-4ca144b469f7@sirena.org.uk>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 24 Nov 2026 14:49:20 +0100
+Message-ID: <87ld6is5jz.fsf@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,167 +80,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] usb: gadget: crg: crg_udc_ep_dequeue() returns -ESHUTDOWN for
-  queued requests
-- [Medium] usb: gadget: crg: stale tran_ring_full after dequeue in
-  crg_udc_skip_td()
-- [Medium] usb: gadget: crg: useless chained IOC events in
-  crg_udc_queue_trbs()
---
+On 24/11/2026 at 13:45:22 GMT, Mark Brown <broonie@kernel.org> wrote:
 
-commit 940c56f180e03034ba3d28364b31f4362309e9df
-Author: Petar Stepanovic <pstepanovic@axiado.com>
+> On Tue, Nov 24, 2026 at 11:26:04AM +0100, Miquel Raynal wrote:
+>
+>> What is your plan with Santhosh's series? If his series will make it
+>> this round I will respin once applied. Otherwise I can just respin the
+>> independent spi-mem bits.
+>
+> I had review comments that he hasn't responded to.
 
-usb: gadget: udc: crg: Add gadget and endpoint operations
+Ah, ok, I must have missed them in the flow of e-mails. I will therefore
+extract the spi-mem relevant section that is orthogonal to his series.
 
-This commit implements the USB gadget and endpoint operations for the
-Axiado AX3000/AX3005 UDC driver.
-
-> diff --git a/drivers/usb/gadget/udc/crg/crg-udc-gadget.c b/drivers/usb/ga=
-dget/udc/crg/crg-udc-gadget.c
-> new file mode 100644
-> index 0000000000000..8a730b5167d9b
-> --- /dev/null
-> +++ b/drivers/usb/gadget/udc/crg/crg-udc-gadget.c
-
-[ ... ]
-
-> +static int crg_udc_skip_td(struct crg_udc_ep *ep, struct crg_udc_request=
- *req)
-> +{
-> +	struct crg_transfer_trb *next =3D req->last_trb + 1;
-> +	u8 cycle;
-> +	int ret;
-> +
-> +	if (next =3D=3D ep->last_trb)
-> +		next =3D ep->first_trb;
-> +	cycle =3D next > ep->enq_pt ? ep->pcs ^ 1 : ep->pcs;
-> +	ret =3D crg_udc_epcx_set_dqptr(ep, next, cycle);
-> +	if (ret)
-> +		return ret;
-> +
-> +	crg_udc_defer_trb_reuse(ep);
-> +
-> +	/* Earlier TDs may still have completion events to process. */
-> +	if (list_is_first(&req->queue, &ep->queue))
-> +		crg_udc_advance_dequeue_pt(ep);
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Can crg_udc_skip_td() leave ep->tran_ring_full set to true after freeing
-ring space?
-
-If a transfer ring fills up and the endpoint is halted at High-Speed or
-Full-Speed (where crg_udc_ep_halt() retains queued requests on the ring),
-dequeuing the request at pause_pt runs crg_udc_skip_td().  Unlike
-crg_udc_squeeze_xfer_ring(), crg_udc_skip_td() does not clear
-ep->tran_ring_full, and crg_udc_ep_dequeue() skips
-crg_udc_resume_paused_ep() because old_ep_state is EP_STATE_HALTED.  When
-the endpoint is later unhalted in crg_udc_ep_halt(), it transitions to
-EP_STATE_RUNNING without recomputing tran_ring_full via
-crg_udc_retry_pending_trbs().  If no unscheduled requests remain in
-ep->queue, tran_ring_full stays true and subsequent crg_udc_ep_queue()
-calls enqueue requests without building TRBs or ringing the doorbell.
-
-> +
-> +static int crg_udc_ep_dequeue(struct usb_ep *_ep, struct usb_request *_r=
-eq)
-> +{
-> +	struct crg_udc_ep *udc_ep_ptr;
-> +	struct crg_gadget_dev *crg_udc;
-> +	struct crg_uccr __iomem *uccr;
-> +	struct crg_udc_request *udc_req =3D NULL;
-> +	struct crg_udc_request *iter;
-> +	struct crg_transfer_trb *pause_pt;
-> +	enum crg_ep_state old_ep_state;
-> +	u32 tmp;
-> +	u8 dci, cycle;
-> +	u32 generation;
-> +	unsigned long flags;
-> +	u32 event_generation;
-> +	int ret;
-> +
-> +	if (!_ep || !_req)
-> +		return -EINVAL;
-> +
-> +	udc_ep_ptr =3D container_of(_ep, struct crg_udc_ep, usb_ep);
-> +	crg_udc =3D udc_ep_ptr->crg_udc;
-> +	uccr =3D crg_udc->uccr;
-> +	dci =3D udc_ep_ptr->dci;
-> +
-> +	spin_lock_irqsave(&crg_udc->udc_lock, flags);
-> +	list_for_each_entry(iter, &udc_ep_ptr->queue, queue) {
-> +		if (&iter->usb_req =3D=3D _req) {
-> +			udc_req =3D iter;
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (!udc_req) {
-> +		ret =3D -EINVAL;
-> +		goto out;
-> +	}
-> +	if (crg_udc->shutting_down || crg_udc->suspended) {
-> +		ret =3D -ESHUTDOWN;
-> +		goto out;
-> +	}
-> +	if (crg_udc->resetting || crg_udc->controller_recovering ||
-> +	    crg_udc->gadget_stopping || crg_udc->endpoint_recovery_pending ||
-> +	    crg_udc->deferred_system_error ||
-> +	    udc_ep_ptr->nuking || udc_ep_ptr->ep_state =3D=3D EP_STATE_DISABLED=
-) {
-> +		/* The pending teardown will give back this queued request. */
-> +		ret =3D 0;
-> +		goto out;
-> +	}
-
-[Severity: High]
-Should crg_udc_ep_dequeue() return 0 instead of -ESHUTDOWN when
-udc_req is still on udc_ep_ptr->queue during shutting_down or suspended?
-
-In crg_udc_remove() and crg_udc_suspend(), shutting_down or suspended is
-set before the endpoint queues are drained by crg_udc_ep_nuke().
-Returning -ESHUTDOWN while leaving udc_req queued tells callers such as
-u_audio's free_ep() that the request is no longer active, so they free
-req->buf and call usb_ep_free_request(); crg_udc_free_request() then leaks
-the still-queued request and the pending crg_udc_ep_nuke() ->
-crg_udc_req_done() triggers a use-after-free when copying bounce buffers
-into req->buf and invoking req->complete().
-
-[ ... ]
-
-> +	td_bytes =3D buffer_length - remaining;
-> +	remaining =3D buffer_length;
-> +	for (i =3D 0; i < count; i++) {
-> +		u32 trb_len =3D plan[i].len;
-> +		bool chain_bit =3D i !=3D count - 1;
-> +		bool ioc =3D !chain_bit;
-> +		bool short_pkt =3D usb_endpoint_dir_out(udc_ep_ptr->desc);
-> +
-> +		remaining -=3D trb_len;
-> +		td_done +=3D trb_len;
-> +		td_size =3D crg_udc_td_size(td_bytes, td_done,
-> +					  udc_ep_ptr->usb_ep.maxpacket, !chain_bit);
-> +		if (!full_td && j =3D=3D intr_rate) {
-> +			ioc =3D true;
-> +			j =3D 0;
-> +		}
-
-[Severity: Medium]
-Why set ioc =3D true on intermediate chained TRBs when !full_td?
-
-The last TRB of the truncated TD (i =3D=3D count - 1) already has
-chain_bit =3D false and ioc =3D true.  In crg_udc_handle_xfer_event(),
-CMPL_CODE_SUCCESS ignores completion events for TRBs with
-TRB_CHAIN_BIT_MASK set, so these intermediate IOC events cannot queue the
-remaining TRBs, while crg_udc_update_dequeue_pt() prematurely advances
-udc_ep_ptr->deq_pt past udc_req_ptr->first_trb into the middle of the
-still-active TD.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-axiado-ax3=
-000-usb-device-controller-v6-0-b991f9b27111@axiado.com?part=3D5
+Thanks,
+Miqu=C3=A8l
