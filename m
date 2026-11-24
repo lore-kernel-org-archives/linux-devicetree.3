@@ -1,47 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795514705;
-	b=BNznlcCq3HEmeIdmbGIzmRFiZIhGYqxvhhZGJ57Swx6ygzg+pSe7x3biGM3PSlNYiZbA
-	 +FuqHJ9F6IoHND4VG/85bokjTIyeIsnjFBaW6yvERGP/6c0ri96aUULB4F59XBFTqIYl4
-	 wIZYZp/M+Ds7BNptguq0xgpz/pd+XZluhdUH66cRgikOI4S8NpjuPYLIy+8sdpmgbYvsw
-	 ZudlhVjAIhy11JJTEljRhoDZcsaAXufA8XlF2Vm5hvw+dGQ0iEIpSY0SWTUivEtp2Sc5Q
-	 y5rZMk6CPwcGStbbbA7BIEe8MF98BALFi07FZ/zHxjrt6ykmwLzh/p11y8plV2v24BQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514705;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Wv9dA+sf5/8Q63ft+zrAakCfe38WDHhrpSJKBLpGMKY=;
-	b=z75t36muobOerjuTrNgxtfTV5w4iymCGabhFo6iY1WkYLsVf1oda9rbT7RBZVuV9Np5T
-	 vB3CKHHObW7Pw3ZiZ46wXGbgX7XBg+8WUGZkCZgDnB2IzVkv2rf5neVmek4+ikLV/fBbb
-	 1wY+dAkwkJJ8ZjrrvhMGiLPNZE2It0J2jcYAENDqzIufu4irOFuH+1OpJGBbZDE3m+UBR
-	 +btnVtH6DJXyt6EGF261p1CxMQLprU+n9VVa5a4oZ4Asr7B7A15J6kagXLjOFgcK+zVrb
-	 uw2ORaTguX8kl0GQ6fiYCGQRbyAZ80aPE9j2k7utUHaYMilevD1mh/rKiipYg8SXVIQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AUIMs1Uq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795514714;
+	b=QGm6gu5gtL0XRaGgsK3btEMGCG6Ns7BLWkCy7xXfdMPHm9bawGdZJ5qSL8h5mbmsFn4h
+	 Eag4yRIskLP3wD/bF0irMhly8+TF7spDfycYKloWXgRch577zopSW2aoW71drLAxR5Hgf
+	 Fd0bRnV+1orH0RUlo8k56R/ZsvNEZIxnM63McgOnYrZoqKr5Drhk3VBRPEWnq8JNvuppt
+	 Ev2D65LHQj0Ku4Tij/6WsteCFMosYK4LvL/5y8DxUy0+mMKPg6O+GJ/sBees2BRgVQTYD
+	 77ymjyZ46y4WaZ0Pmbb4mhdG2qKsnqcqGtbOFIgzvKHtMAcsF4XGBqstLRhD8T/8uhQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514714;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=H8p63jVzqspLS/yYDkgn0Or4vozMPrWlrtlpK8EIjBA=;
+	b=4iP2b9XJdgeQa6lWxduU/j2DOVP/utPt7+lYgEHaBYcp+y+xV4FYOw1mz9UlBikKA9NB
+	 fGY0ck5aMZRXEZ2kRSmsPX5MJfNajklureZVQ4e7onga08/tGv4/vwJsZKITH6/ryNQ21
+	 EVr4pAOaQZ62oepK10vGoyN57guUXEfsBPrfy2oxZRlJgd09W7A7/iijsafwKll4xIoxu
+	 7YgaRrhzGZWDJ+ulKBQqBsC7A4ABW6QtP+sOzKbzE4JjIj4pPJyCYLSPX80FWQ0denXon
+	 SvLvdUphFTAdZZET5JBLpnAuNMrPSdJH+RaO4DN3ak3UbWuGb3xtdCuDVDm/NO+Cntw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SgIqTliG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB6B606A322;
-	Tue, 24 Nov 2026 10:05:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33585606A339;
+	Tue, 24 Nov 2026 10:05:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33585606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AUIMs1Uq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905BE1F000D2;
-	Tue, 24 Nov 2026 10:05:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795514705;
-	bh=Wv9dA+sf5/8Q63ft+zrAakCfe38WDHhrpSJKBLpGMKY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AUIMs1Uq/yugPsAAj5FDAinEXwZ6wdOBx9Va4DR+gBUuUttnzB0IvASNNQExy9RFv
-	 JMtmVsAXXwdT02bPRZWYk/i06vdDbnggoLwoKE6ohebCyH23uynEtEJCJBGJ0bijAN
-	 lf0yW/LFUMRw3BxXRpuBJo7JPPtlAFqQSIGJeywMae/S5WjXGjYoztjBbVBidx9v3D
-	 tTTBZs8/M4f0yjghamerYZ+WNy60Pm2HbYzRRPkcRmDNsuNVb1oVy1y2/6EGwfZpfp
-	 bGUtFncCvnw7bkzfnXp9/l6D7PpJbjta4n2LbSklnw5SxzQs/ltTe1+n6X4nBE1uIO
-	 IT2azGvsxpVZg==
-Message-ID: <8e9b2e56-2b63-4ece-92ed-968d41209790@kernel.org>
-Date: Tue, 24 Nov 2026 11:04:59 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SgIqTliG
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B49642020DC;
+	Tue, 24 Nov 2026 11:05:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795514710;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H8p63jVzqspLS/yYDkgn0Or4vozMPrWlrtlpK8EIjBA=;
+	b=SgIqTliGQ/EujMYD5rdTmMNePrv7K80ns5GjscE8pXQb5WmWt2WxIV5auO9EwDNnBk/jfN
+	IFFc9LY9/DEHEaABfr8yTqtBU+SRKxY+vD3TZ/s046CcKIvtciUk27SZJ1guyaV1b/ohIN
+	6emn8hoU+LX3hi6wSN5AJZI47MowPRXoWA/JTjLYKuMwn4t5n7S+KEpTar5Mf0NLa2hALq
+	FY/r3FftvfIEVFIYQDrwSd4uoEfPXo6qAvlVgC967pdmDqc3UeKogpV/mZKGHS7rc+izAy
+	y+hcoC9iiLhVBBSHSStkOLtbB6NGXvqSyQ6y3DxvLXuPzEhOXNgurOGHx9XrLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795514710;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H8p63jVzqspLS/yYDkgn0Or4vozMPrWlrtlpK8EIjBA=;
+	b=NNCIxjoisA3DfJ9YhHLwZXERhJ+CbYJvR+LxwY5j4hf1serGJihnU/85QxYu8QpEne4GzG
+	B26aocmUzhxl+CvYx267940TLNbMTKITo4rYBF9Z8mS8vOLDdP+PRfOjIYlLBnafsOfKhU
+	XJwlGMCE1ExIalEDjt5KAF5sCuotjTJXu7Lcyalsn2ylZyi1heyApDpEAMkT6LRdMVxiMN
+	66qoqK/ErlsIciMABD9EAMUYqFo3Rb4ZsImjFz+4/fdj7yecRTqHgcZ/BVLx10RF9z9sjd
+	F6l0Da1ERUCp3MPhf4fxAbryUzCmeG1VfSpu9/yhtPZFZAOlEOPmvgdetAzLwg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795514710; a=rsa-sha256;
+	cv=none;
+	b=S0JYSQRGdMO84u/k49CDmLAsD9YPXdZ/QiwFcLxS9EWH7/srhpQTYZNuygCEZjKSiZJjpy
+	VZEz47+rHNMQL7iQYimPElyMzb3kP6AOYSaWpoROOc8OSek0LXb4+oqxqc6FeDPL+Twh1X
+	1pKY0BzvnuJ67cpgJEOUeZQhHxyVU0cxcWGk7usxnj6zVWTccCs0d/F79czRIALCMtlfwE
+	6HCiBCu73M8viEUe+won2xPJjK078UxF7SsMtOMP4Rl5lbrmZw+T+YW4IzGp5kUrjgUBma
+	/WZ6Tpp1cfgROGhrZe60KCqhowvOIdxDp8ejleYjub0ImuXWdUs0r0N8q5LSPw==
+Message-ID: <f5d30781ae9502cd76ee2b6757f96a0e5ffa8b71.camel@pengutronix.de>
+Subject: Re: [PATCH v2 7/8] PCI: cs7542: Add CS7542 PCIe host support
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: filipp.dunsky@gmail.com, Manivannan Sadhasivam <mani@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>
+Cc: Jingoo Han <jingoohan1@gmail.com>, Lorenzo Pieralisi
+ <lpieralisi@kernel.org>,  Krzysztof Wilczynski <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Brian
+ Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Neil Armstrong	 <neil.armstrong@linaro.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 24 Nov 2026 11:05:10 +0100
+In-Reply-To: <20261123-b4-cs7542-pcie-v2-7-f589a9cd0bef@gmail.com>
+References: <20261123-b4-cs7542-pcie-v2-0-f589a9cd0bef@gmail.com>
+	 <20261123-b4-cs7542-pcie-v2-7-f589a9cd0bef@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,84 +101,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: media: qcom,mahua-iris: Add Mahua
- video codec
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261123-mahua_iris_enable-v2-0-b1a16b16afca@oss.qualcomm.com>
- <20261123-mahua_iris_enable-v2-1-b1a16b16afca@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261123-mahua_iris_enable-v2-1-b1a16b16afca@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 24/11/2026 07:44, Deepa Guthyappa Madivalara wrote:
-> Add a devicetree binding for the Iris3.9 video encoder and decoder block
-> found on the Qualcomm Mahua SoC. This is a single core derivative,
-> leveraging most of Glymur data with the clks, resets present only
-> for vcodec0 core.
-> 
-> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+On Mo, 2026-11-23 at 23:32 +0300, Fil Dunsky via B4 Relay wrote:
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+>=20
+> Add DesignWare host glue consuming separate clock, reset and PHY
+> providers. Use live link status and stop previous training before
+> enumeration. Finish endpoint teardown before draining the shared IRQ and
+> freeing MSI domains. Dispatch enabled INTx/MSI sources through one
+> application interrupt and use its MSI target window.
+>=20
+> Prevent root configuration accesses at and above 0x200, including direct
+> DesignWare DBI reads, while preserving the private CSR bank and separate
+> iATU callback base. Unwind power and IRQ domains on failure and removal.
+>=20
+> Read live link/LTSSM state through the application wrapper. After link
+> loss, block configuration and DBI accesses until controller reset and
+> reprobe.
+>=20
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 > ---
->  .../devicetree/bindings/media/qcom,mahua-iris.yaml | 200 +++++++++++++++++++++
->  1 file changed, 200 insertions(+)
+>  drivers/pci/controller/dwc/Kconfig       |  12 +
+>  drivers/pci/controller/dwc/Makefile      |   2 +
+>  drivers/pci/controller/dwc/pcie-cs7542.c | 551 +++++++++++++++++++++++++=
+++++++
+>  3 files changed, 565 insertions(+)
+>=20
+> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/=
+dwc/Kconfig
+> index 0a0d56fcf..2ebaa8db1 100644
+> --- a/drivers/pci/controller/dwc/Kconfig
+> +++ b/drivers/pci/controller/dwc/Kconfig
+> @@ -577,4 +577,16 @@ config PCIE_ULTRARISC
+>  	  By default, this symbol is enabled when ARCH_ULTRARISC is active,
+>  	  requiring no further configuration on that platform.
+> =20
+> +config PCIE_CS7542
+> +	tristate "Cortina Systems CS7542 PCIe controller"
+> +	depends on OF && HAS_IOMEM && PCI_MSI && COMMON_CLK
+> +	select PCIE_DW_HOST
+> +	select GENERIC_PHY
+> +	select RESET_CONTROLLER
 
-I have impression that there are like 5 different patchsets around
-Venus/Iris depending on each other or depending on something. Kind of
-same comment last time.
+Drop RESET_CONTROLLER, this is not a reset controller driver.
+The consumer API has stubs.
 
-Best regards,
-Krzysztof
+[...]
+> diff --git a/drivers/pci/controller/dwc/pcie-cs7542.c b/drivers/pci/contr=
+oller/dwc/pcie-cs7542.c
+> new file mode 100644
+> index 000000000..5487e667d
+> --- /dev/null
+> +++ b/drivers/pci/controller/dwc/pcie-cs7542.c
+> @@ -0,0 +1,551 @@
+[...]
+> +static int cortina_pcie_probe(struct platform_device *pdev)
+> +{
+[...]
+> +	cp->reset =3D devm_reset_control_get_exclusive(dev, NULL);
+> +	if (IS_ERR(cp->reset))
+> +		return dev_err_probe(dev, PTR_ERR(cp->reset), "controller reset\n");
+[...]
+> +	ret =3D reset_control_reset(cp->reset);
+
+Please use assert/deassert, this is not a self-clearing reset.
+See my comments on the reset controller driver.
+
+Would a convenience function like [1] be helpful?
+
+[1] https://lore.kernel.org/all/20261112-reset-control-pulse-v1-1-25cea1058=
+83e@pengutronix.de/
+
+
+regards
+Philipp
