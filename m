@@ -1,64 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795485140;
-	b=oVtxh6CyA7qQrF/kzh+qyxAP8UYJ+++GnnDeVBXLvi1BPcrFJcjWbAnn4ufuXBHJj9DM
-	 L0IlsFIGzfX6U3rzVXhXrOY/636I5GATvmViHvyWosXEgVhCYoynaC1eHoFQQU+GRieiW
-	 vLgm9LLokJjFEWrrgZGKBiduqtaJ/QioxsYWIEzfk0mcuEmXb9FRygCYos6N5BArHSxAN
-	 /tLyVbgHBUWGtQkb3kxkTfbWqCbivgISgFEkDF+sntr6EJ+3vIM31v20jXmGaKGrTDUWG
-	 iSjcWrFQB8lwHpNzmEymLFwAPne2pYCm1xPx38UY/Z96XrJ0Q9zkvM8em8xIS4qD89Q==
+	t=1795485384;
+	b=qKrFL9nSnY3EaID86PdAxtkyGK+F1So06THFJL8kKpYl+CZhaDP4eoeKcfLzhyVUDNuA
+	 KQWjCop/CPPtghZODlaA622dhWt7IXYWRQVdA4JdD5HB0Ut0gq+2PeB+54v+9QuAbNYKD
+	 2X9wIECHNJhMA2tVfyKJ7pGPE/Mlwys6OALg+Haf2HOqbK5Hay1xsMOBPipDxT99hMNi8
+	 X4CcrOv0AsxCOOdBPXFg/HyChtUCgm2g9xLtso6OZ9z9DKivdCZUv7H2hXiCPn8QCDg2z
+	 8L6l4FTJx8yOF/O8oJbetXojEw6UvXpgizNv52hZoVLmeZJDNONdSN5OZ9MgLmfVmBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795485140;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=Bu/axAx8BU2cICwCPSy22lmYpBgK1vJ7VrSHsLWeVlg=;
-	b=jRvP7eUmGY+DSsua/WjuwNRZLXxPfZEFZISUr54tGvKfbYKAVYzcEbQTzaXYfKHMvdwb
-	 8ky1dvZQObXWhnPcZ2VU9wYB7lF6Sjz6ghYM6WK+zFeCJ73ld7XbZYVeBpeuO+m3nCtd7
-	 R56lEcZzhqo2iDV3FNKs2HWyHq7WwwUI4qrE+mwP6J/1cpZLfKwclmAiNVT7Jk+Hw2pz6
-	 1lXoYg4lFT2x6vMv6ifjpEknZ8S2TGZtuk/ulcrr0qPg/aZMz0QUyRJyjad520ih0SG+f
-	 Q5hxTr58P25ETH69CMB1ZyG9Y7DdjT+gkdiLRsl7t1gUkGXfBuY9UIHBjkTS9zolywA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795485384;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=q7yKCR40q8eUq26k3oT3KK8/EmLxrrYzaMJfF2nkc00=;
+	b=WCJRrYks1uN27VYh6sKYw4BpDq+CGPILyFRVi8u7T0/f3r81CFnFfm77r+2EymMc9sV7
+	 xmSNEQBvNff0r8ndni299lt7TYAuE4mg07zK+mvyrBMhyduteMAIhqLkH0h5OTrSOo/3p
+	 jRNc6n8OEWi1VJyck+cwGU/WMRXK2NLrIiKerxaMU9SQN7cK/Rh9wVP/bVg3Y+NBMFmfB
+	 G+nJqcL+j9BbKEFFzcjdp+hYWE9n3ON8bZy7HQMsdJQJ/UBYFBdRwDjM6jo1B2fOFs832
+	 bBwssFyx2vjb0+UDR2PklP9+XdbJ9yqXK0s/rzWPLH9vM7sDDePCWaACZfOMSrtc8Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=KOiEErbR;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB4B6606A31E;
-	Tue, 24 Nov 2026 01:52:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB4B6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z4DfO8nm;
+	arc=none smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D36606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:56:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27D36606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=KOiEErbR
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z4DfO8nm
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-9213922de73so72167526d6.1
+        for <devicetree@vger.kernel.org>; Mon, 23 Nov 2026 17:56:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=Bu/axAx8BU2cICwCPSy22lmYpBgK1vJ7Vr
-	SHsLWeVlg=; b=KOiEErbR/u+wQk9OAEj0x2RxgqAiJQtPlD/V9UOEr1wiVVVUGY
-	ypGqB+uTNACq9lG9qto81nd8/J8YWLpcjFrjgmBtMSL9qSuQBF6IjduiBFOYgj/8
-	vDh4ZrCQSdP2kLICdHJdMo3/hqHcyTleGw6cIl0Hh+64EErf9UZD8O0aE=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.185.179])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXo0fH7QRrLzPvAA--.95S2;
-	Tue, 24 Nov 2026 09:52:08 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        d=gmail.com; s=20260707; t=1795485383; x=1796090183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q7yKCR40q8eUq26k3oT3KK8/EmLxrrYzaMJfF2nkc00=;
+        b=z4DfO8nmNbrEgFqhLcRF8JcVLCkC/ktyGqWEafsu/BnXYKGWDpkQKyjV6z/HDjK1Kq
+         abYz7L0vbof+4kPv/6Qx1Y/TBUKzBvE4tImHN8gB7d9oeEioRLqsL3cyRz8NEGw9IMjf
+         RU9ebb7eB7QjWkzxjz2vsQrykKsN380f4aP2M3MWdCLrbfqdUQRZkwQ07G7V9SwlRwLq
+         nPzQGI1GzGLj6TJUXX763xDdMuZGfiFkJxLujZZArNEEMpxtMg2+wWr3/IqJv7q7DS3N
+         OJ1rzC/wEMX0qDKS3cNd+rKKpKTcPkXvM8d8NOfEe+QUY3s/27FEwB36Whcw2FfqJ9qH
+         +aaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795485383; x=1796090183;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q7yKCR40q8eUq26k3oT3KK8/EmLxrrYzaMJfF2nkc00=;
+        b=vkr3sQwIoQJ99B27U5h3vgTox+ktCXkbVaYOCUChIBVfvLkHPfRsNfTwr6sro3UXJ4
+         /RFqx0cQWXDe2jSTlxvxxMIrjtbJHwPF5W1ASBLvh7KchWiaPi1uSYGM3/Ra+fhRSodc
+         lPf9QaP5bsPT7cXqZY/OBh32txy6f+fQFcTjO+bJpyUiMaLPWxA4c5arOW197dwirzxZ
+         Ewg1ACKqhw9EfKmMD/csT96DrZcJT+A2caafal9n2BRYpflKeGjzx2k98PBnGBgA2SWs
+         CddUe18YMQ6WlsuoZufObCRRJb84uFb9iUATHkII2wULVsx4wa8smdaEY/nR5aZP36Oy
+         NjHA==
+X-Forwarded-Encrypted: i=1; AL+hErFvsaHABLR33X3qbbnbVbhEDaxcnSJlULph0FXrqc/RmQOInCdVDf6mhF1A9cPy3yomEYcE/IICpFB1@vger.kernel.org
+X-Gm-Message-State: APuU4Z9traVpHp5cyZha1Eo8cd9OS4bpM12XfVhiBls6dxliH+xUcCJU
+	XP9RcZZjVqlA9izgWi/gEyen9GeklhaLsRyJKXrUbp9gu9q1zc9mR6Vk
+X-Gm-Gg: AZFdTZcLhLbto68zSNNZxXN7Fz7WZhI8B6UlKJ6ZuNE96wTW/pugWy05BvpS5jnxJ3B
+	pqaYNCRJvZd8OPrSuPNVL9e1aiwMfE0OeczsRFhlM6T+GnbJyD5zxrPn9exp3B0eptJlE7Lh5FV
+	UgFx9za6F8mU4RACc+NcNuvaxe4Ep1bmOFd94+YcSSyRSpDQlxCsmq3YiGQXw2AJLfFPchC4SWp
+	sh9gyrhidxDq9TlidcAZMESG4rr9JwLHwtzZDm66PwYVG+D5jqqSGsBFYIun1O5CZqP0BpuJ/tM
+	UPVxV31ojPMkAQrEgwJdhyAOEX0hg+R+/j0/dETIB4UGeHxG3TaZM60NQLxijHTob5Z4ym8eU+8
+	PgL/nbWZ846wLV0uJ0pqc/NgLj+sb0Q3bk2nfStCP21vve69Qzgl7KXxZePa6YvoNCtf8WZvHOz
+	lUwnjGt1fU1e3bd8Q5HqHpsijTENfYX8YyolCjZnRrHmIw5JpiNNqweet7E7O9msF89rFqZD+cJ
+	tcoYJGrVa9IgzyKOa+m3oq/uI+1JkJeduKJVtAUwH8Mo2O5hbBLoONVEdMoKdYC5Is8kzPB7vTg
+	Ey0Mp90f7rwMnN6Cj38mV7vX78iW
+X-Received: by 2002:a05:620a:450e:b0:947:b201:fadb with SMTP id af79cd13be357-949ba9b7434mr2479954885a.29.1795485383133;
+        Mon, 23 Nov 2026 17:56:23 -0800 (PST)
+Received: from localhost ([174.93.36.89])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb34ac11sm941507985a.14.2026.11.23.17.56.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 17:56:22 -0800 (PST)
+From: Richard Acayan <mailingradian@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>
-Subject: Re: [PATCH v5 0/3] drm/msm/mdss: reset all block resets described in DT
-Date: Tue, 24 Nov 2026 09:52:07 +0800
-Message-ID: <20261124015207.1432460-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: phone-devel@vger.kernel.org,
+	Richard Acayan <mailingradian@gmail.com>
+Subject: [PATCH v4 0/5] ADSP for SDM670 and sound on Google Pixel 3a
+Date: Mon, 23 Nov 2026 20:56:06 -0500
+Message-ID: <20261124015611.187024-1-mailingradian@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,62 +102,47 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAXo0fH7QRrLzPvAA--.95S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFW7CrWxZFWDCr4xKrykZrb_yoW8Ww1kp3
-	yYga13AFyDXr1rAFs2k3409r4fCayrK343Wa1q93y7Zr909F10yrZrt39Y934DAr93A34j
-	yw48GrykGF15Aa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9lb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4
-	vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kI
-	c2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7knYUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREAB2sElFsCDQBAs4
 
-*** AI-assistance disclosure ***
-This message was prepared with the help of an LLM coding assistant; the
-author reviewed it and the facts below are checked against the trees quoted.
-The design decisions and any errors are the author's.
+This series adds a user for the SDM660 sound support code [1]. It also
+adds the ADSP remoteproc for SDM670.
 
-Hello,
+[1] https://lore.kernel.org/r/20260730174353.108023-1-mailingradian@gmail.com
 
-a quiet status ping on this series, no action requested if it is simply
-queued: v5 was posted on 2026-11-13 and has three Reviewed-by tags (Abel
-Vesa, Dmitry Baryshkov, Konrad Dybcio).  As of today it is not in
-linux-next or in Linus' tree:
+Changes since v3 (https://lore.kernel.org/r/20261107022453.159341-1-mailingradian@gmail.com):
+- remove sound-name-prefix (3-5/5)
+- add newline before status (3/5)
+- add review tags (3/5)
+- drop applied patches (previously 1-4/9)
 
-  - drivers/gpu/drm/msm/msm_mdss.c still only has the single
-    reset_control_get_optional_exclusive(dev, NULL) call, without the
-    block-reset walk the series adds (2/3);
-  - mdss-common.yaml still documents a single "MDSS_CORE reset" for
-    "resets:" (1/3);
-  - sm8750.dtsi still lists a single reset for the mdss node,
-    <&dispcc DISP_CC_MDSS_CORE_BCR>, without MDSS_CORE_INT2_BCR (3/3).
+Changes since v2 (https://lore.kernel.org/r/20261003175659.23536-1-mailingradian@gmail.com):
+- stop using fallback compatible and add lcx power domain (3-5/9)
+- move lpass codec bclk from sdm670-google-common.dtsi to sdm670.dtsi
+  (5/9, 9/9)
+- reformat q6dsp dts (5/9)
+- set flags for codec interrupts (7/9)
+- move "qcom,..." properties to board dtsi (7/9, 9/9)
+- add review tags (6/9)
 
-  (Both trees carry a byte-identical msm_mdss.c, checked today.)
+Changes since v1 (https://lore.kernel.org/r/20260922015801.32373-1-mailingradian@gmail.com):
+- squashed sound card and device-specific codec config (11/11)
+- converted to fallback compatible (4/11)
+- added compatible for WCD digital codec (5/11, 10/11)
+- removed sleepstate comment (7/11)
+- sorted subnodes of dai link (11/11)
+- add review tags (1-3/11)
 
-If the series needs a rebase or a re-post to be picked up, say so and I
-will send a v6 on the current tree; if it is just waiting for a pull
-request window, please ignore this mail.
+Richard Acayan (5):
+  arm64: dts: qcom: sdm670: add adsp
+  arm64: dts: qcom: sdm670-google: enable adsp
+  arm64: dts: qcom: pm660l: add analog audio codec
+  arm64: dts: qcom: sdm670: add digital audio codec
+  arm64: dts: qcom: sdm670-google: add sound card
 
-One thing worth flagging while it is fresh: "[PATCH v3 07/11] drm/msm:
-mdss: Add support for MDSS on Nord" touches the same file, so whichever
-lands second will want a small rebase of adjacent hunks - not a conflict
-in the design sense.
+ arch/arm64/boot/dts/qcom/pm660l.dtsi          |  37 ++++
+ .../boot/dts/qcom/sdm670-google-common.dtsi   | 139 ++++++++++++
+ arch/arm64/boot/dts/qcom/sdm670.dtsi          | 198 ++++++++++++++++++
+ 3 files changed, 374 insertions(+)
 
-Thanks,
-Qianhui
-
-Series references:
-  v5 cover  <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
-  1/3       <20261113155635.1677541-2-xiaqinghuan@mail.ustc.edu.cn>
-  2/3       <20261113155635.1677541-3-xiaqinghuan@mail.ustc.edu.cn>
-  3/3       <20261113155635.1677541-4-xiaqinghuan@mail.ustc.edu.cn>
+-- 
+2.56.1
 
