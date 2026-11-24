@@ -1,51 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795521285;
-	b=KmpiA5tBOCPCE0rX5VK5pwgJUVrySPk3ErAMB2AaHpyL2lTx4E05NAZ6KK2mtkgRcs5o
-	 +0av4cP14jGPNCcagq28FW+okXDgFAqD9XWXMNHJZ6QL4hJOvTI+zFYQoOeO6eSdYUKeb
-	 VJtI1uxQlwMsjw05H7Z34TDfSzCgZ70siMXs9OxI8L4Dy7TRW5nN841QrHCUTErp9x29W
-	 LRI4KswCF0SyJ+g0ElAht/+9unDzBMT9eiVTWtFByeU2c8P4P5O2McnQqwWPcqj7FKM4g
-	 JFRUOm7OzVSD6Ave2pYQsXU24UVPDYVc9S92HFVu1pgJ1dA8B0AwepGXcumr3P6u/kw==
+	t=1795521348;
+	b=APwWkQZUxU+Xirj07j9ztMKTOFexFKhG+e/6KsgWfXfnvKMW9aNrFa23k5W60k83eyac
+	 yJT+a4uEKASSqrwNFlPBv+NltTEX5LJROXSAMnPEv98JydAz2xmgzSMTVYPxdV/6qgKgT
+	 /WbhJIK2v8CUAMxdpigEKROObJ9NZx3/meva+RWfpBQPIvGgpMTVnuDwGwCNOeAnPYucs
+	 PY6/ZXRHlMDznmyBFoMFrtA8aBYmi65KB+Sb71s5YxpnllLXrQOU1Bd4QmO316aCkQA2+
+	 xtNXPaMY2ywy2Yh3W+OlLT8hr2ImQ0aGN9Fr7ad2jz7kh/IaJ7iZQ3gGSKXqzSgSE3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795521285;
-	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ZfR/6lnsUE/pnRQi/PbCLWIsXUsmgZSZZiyw7HHwysA=;
-	b=PCPHSIGrk+WTxJdDpiayy/NZ6N/ljp2kdq2Nv/OPBoeXsMh919uM/r3JHuCk9n1BnMWT
-	 2NnQ81xEPZhTWzA/3rvVlirJ9quzH3Gc3F4WqFlnJzRne7isZWF/GYBXIp0aOa8ydpvQS
-	 UyM65rW36VAlahuI3itsohs17pji2KjvTlQZ9WVD0sJfiDLXsNpeq5w6+F2kV+ZODZl5w
-	 RzBxnfmbZwqP0zBmJz2QeEumbpS3JcoZIsndWw6RK0MEqfsimE2fiRkxnFd8LbSuljiTl
-	 3NLVG4qnegdFo8j4a+5h5KaoJW9wuI2qozI1dWqOdWCpbCMHty2LsmX8bObtJ4sR2sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795521348;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vnwt3Hg75Jqhq/RX3EnfxRob7Sm62Nv/9HL8t2YUaCw=;
+	b=age+cwgLUz1y2mWLcurH6A/8NeNldzAncTjYUKdGLARBbEyVW9JboMjXnbKewlkMqEqA
+	 G9f79DbHm4oR5zxg6ZKR54qnMEhJE4DiaiAU/BiaIP7Rrk9fTXscpeHZzLML2zKUWRVB2
+	 DSJUpa4Jusywzz+1y+XIQ2A8pOYrqoVmRKdqI12AsU8VyWmIQi7fa2/s8KrIABSzEzOZZ
+	 qs9wM5TRa0GrUIwphgj6D6MddTXIknS0nea5/f3aNLldYs3d7mcSKpgBKNmCkucV0cQSW
+	 xrF5O/qpY6BQiCjo9jHzCKRtkRaSx5GPPpA/ZE1oHeBo7P4s2Qe7vUxaF42S4ygEDuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=79k3dNqo;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=f4Rq2wm7;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91265606A327
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91265606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4066606A32D
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:55:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F4066606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=79k3dNqo
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=ZfR/6lnsUE/pnRQi/PbCLWIsXUsmgZSZZiyw7HHwysA=; t=1795521284; x=1796730884; 
-	b=79k3dNqo102LFk8pK61THrTFr2ofWfd6mgYCTy/iTFxdD9ENwDVXLezkbOOwEGcXjIShMPfNH0C
-	wjx15BYnGiV4dJLFGdYmGNN+iAG09mCjCqFFr+SE9oWyScN1vziFUvEwl+dUwok3ahi85QW+X4nMt
-	z7ItO4tNLZ/ywj13iVFXB06ynnKRUFv+Y56lD7VVJu7Z1ze3bJC4G+Pp+pqIvcOErmiYI0+p6Mmsc
-	CnTd9lX2589Io2TzhUm+UHchnFlfOlvHlcKlsDrUe4csk/NXdDv6DGFFPFgVnh7YAVFGIFarg4QTX
-	007HMvsH2lSEl33/OCsXTvNhEEiMrPaw7/HQ==;
-From: Andreas Kemnade <andreas@kemnade.info>
-Date: Tue, 24 Nov 2026 12:54:18 +0100
-Subject: [PATCH 2/2] ARM: dts: st: stm32mp15xx-dhsom: fix bridge reset
- polarity
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=f4Rq2wm7
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e46e449e8so2821641f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 03:55:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1795521346; x=1796126146; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vnwt3Hg75Jqhq/RX3EnfxRob7Sm62Nv/9HL8t2YUaCw=;
+        b=f4Rq2wm7uaY4zAUXmqNT1XTFX78jWfrfq+IdPndw5IG+L+GBs4zOF5AzWDlhpInAxb
+         kYnJot0xov6lABblQoQvxhHyBVPlGLtgU0/wt0anzGZPH9Nna9tLv36ALJ4HJk74FrRx
+         j2pzG9WcXoJjnWtQhbhwt7d53J7WmvkthRw7wWr7WGs9zp0FjloM9f0Y97H2cMYqYYSG
+         sjVx8GFIBCktfHhm/iS2gOjgL1ghVl0A57Cl3w2EHonQ9EahVleOe/Dlz9NdMYtkAvU3
+         4W1F0ziI4PUfp7U8BZxKZWDZ4LLMyJ/AKODz3kjunuwhOjwYaVObyyAS09bUHGyB1PWN
+         ILkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795521346; x=1796126146;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vnwt3Hg75Jqhq/RX3EnfxRob7Sm62Nv/9HL8t2YUaCw=;
+        b=E/umvyXwIXM9Q9T+lr+Xc0gujA7Bs2y77KdVTdrm4lD5DzSKmgbDxIsTeR/3izVYEW
+         aB7L4PDWYVSFPWU92CtAobm6M7tXuxuYxAE0FO0Vqgh8yjC2r7RpqeDZ1jnHhw/EBDgj
+         kYdydr/caxNUkp5jcx1524OVV//bG0WchZk3oiKyvF2MSvEsKXiRVM9QZlm/DA/B80R2
+         AQZduUeh0SvHTNpyCeQJyE/rC6yeorFkdCszrjUoAn9/bv9sUAxc+d01BjBtjKL4Nuvv
+         jo8gi28tiJqBH7uWQu3Gmu/JsHT9W4jEtfNAzO0/y7jJpu/cIgVYy1MDb8CdTurg56bJ
+         0HuQ==
+X-Forwarded-Encrypted: i=1; AL+hErHoksvuI8lYeNi+UQHl5s5Nb16hJe7ofWXS+VWAOCbkEqvNryjJG6/TLEzp0f3AqXZKnuA67H7u1sga@vger.kernel.org
+X-Gm-Message-State: APuU4Z96jaK+39WEWScXCIcExsD92DFbCIGdA3WNgNWv1am3hjDslUIv
+	TE1uLVntXh9lPLwA6gvFvL3nxVCDObJeZkBaw6Vu5Gw7OjEjA9LoKBnKLuRQpCDf5/FFYV7JD9d
+	5AD/51nY=
+X-Gm-Gg: AZFdTZcZNlXTzPr9n/bb0iXmuSVCc0lfxioTsyNaWQLLH/YEpuC/JWGeV60xuV4JR5M
+	QRUTbqOCLQLBesGwq4GlNGCIHTx6mWbSGsgWvxl7JxOofEeZflIttbK+alPtG1sMlypmpf4y/vy
+	GVkcbjQkFNB7hdestkKIHoNVptN0ofM8ClPzOOYOfJJYSJfxxJ/X1/+zU+tUPYQUGcNZmjA3A7Q
+	xRxF3Aj4rQZAWLumKkjqtCQXZtVVirobSqYHxM1p66+PkUshQ7cn7v5aHP82SVqttzrQSffxVmN
+	CjorA7kj8i+QKedttLtj+KfkfgazBnRYnuqdmuOCB5s1pthTTbE2QwEvs9uMRSK8aGNbtxvLnEq
+	xYIucv++sxOgBqvIyN/hcMK/r/x684xr4dfCq5Stbm6vbcUIDDaRmTXa7g7hNzriB3EJ+DQvqBI
+	wfhXPyLf6wyYZPjasl2s6nVBsQtsEQieuRQHr6pOb19Uq8E1+GAtE4IlbuuqbzdlVPbLQ9wwEFo
+	emwKCKuJQo7LiG7AKO1c1tCTEAhPa451cEYYXcx1sPTObr8KF1lMtxdOd/79ANkKgzgaVS2rAN5
+	G0+vptTcv1eyd2uQeKJFTsznsnlQJmOY8omqe56mmhvFGqre0E+OZjOyBm9GOMLgwqXILlFyTLH
+	SdtecrsIX/wyByLlfjER/qdk=
+X-Received: by 2002:a05:6000:428a:b0:4a9:dcdb:2e11 with SMTP id ffacd0b85a97d-4abb8406ea4mr29382891f8f.41.1795521346404;
+        Tue, 24 Nov 2026 03:55:46 -0800 (PST)
+Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b110d56sm26566053f8f.40.2026.11.24.03.55.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 03:55:45 -0800 (PST)
+Message-ID: <bc4234bb-8901-4d0f-bbf9-66f9715c11a9@baylibre.com>
+Date: Tue, 24 Nov 2026 11:55:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,71 +94,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 8/8] arm64: dts: rockchip: enable the NPU on
+ rk3576-rock-4d
+To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, sidong.yang@furiosa.ai,
+ ulf.hansson@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, chaoyi.chen@rock-chips.com,
+ shawn.lin@rock-chips.com, finley.xiao@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ vlwwwwww@gmail.com, jeff.hugo@oss.qualcomm.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <cover.1795478392.git.gahing@gahingwoo.com>
+ <0bcd73278a4c7a0cb2e1b8bdb9aba306355384cb.1795478392.git.gahing@gahingwoo.com>
+Content-Language: en-US
+From: Daniel Drake <ddrake@baylibre.com>
+In-Reply-To: <0bcd73278a4c7a0cb2e1b8bdb9aba306355384cb.1795478392.git.gahing@gahingwoo.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-tc3-reset-v1-2-a5d27fe4b5de@kemnade.info>
-References: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
-In-Reply-To: <20261124-tc3-reset-v1-0-a5d27fe4b5de@kemnade.info>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Christoph Niedermaier <cniedermaier@dh-electronics.com>, 
- Marek Vasut <marex@nabladev.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, 
- Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.17-dev-1b309
-X-Developer-Signature: v=1; a=openpgp-sha256; l=987; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=GLBUHsrqFLUlRWZt8GXXwr1nDsTd3sjuIa8AxQT8QUI=;
- b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBXr1CRJh/k3SF9zhnM67HN2W2PpCGKtwoj8rs
- m16MvjwmDqJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawV69QAKCRCEYUX6QCjc
- 8ca2D/oDzZqBbg9Q6EtTMYB9aOdp8ZoNadLZJTOgTpzJyL2LzN9+ByFR/egZ410Qg7AVj2SB56P
- hZaJ+H/QyPO2Dx5opg154a4TR94MtYM2Q/1FpSRV68fE1HmNPVApLgZR6GM8BsB0wGd4a0O9nd9
- fm1cdr+PmQU42qZXM9Z5fs9vvqyNj+bXFycpwr5Rq3EBGdhRRf6UMq+jjnXrKtN+O2UekTpC2cM
- Epo+k5CGn6CLhbuMqUCsTizWdxBkpfHBxEVpcyO1/DuPeyxv/H+aH2VwuHHYYeoFCSWs0+FAcmg
- 5DOB8uU01m7RdkQIbJjm6HhO61RR7e6F5tSa2TNOzbwxCCjWhzp1KXXe09VoIKjE0xYfNcfy2WZ
- 32ZoKTCABmz7Yh3scDhhB+LIrEX4r6DfSRIMxCzF7ztjkalnufW7nxCfvLdeVKil7TAWweKzoZP
- py+vB95lER6nvtaZS6Ie4N3nuTccqCqAU9utFpW1MhibUlFNq4j4fGQyQrl96iInIds2t0GsD6k
- BI+NNo1R0cToaZSjgXerjfDefiH4Dc2Qhp6QVmf0P6dHswP8VE1lj+xm+QbcXg76BHs666QdzKD
- TI4Q4zEpf4PR1ddQCM43HmVM5GhWvPkVcZ5/y+nR4KwbyusEBicryFiVy/LjSmN3WcvkRNxNqXc
- IQDAUPDi3mgPpUw==
-X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
- fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 
-Reset is active low. It is apparently set to active high to work around
-a driver bug but not to indicate an additional inverter in the signal
-path. Correcly describe the hardware.
+On 24/11/2026 00:01, Jiaxing Hu wrote:
+> The rail is switched with the domain by commit
+> b1bff9ced657 ("pmdomain: rockchip: manage the RK3576 NPU domain supply")
+> in the pmdomain tree; without it nothing holds the rail and it is turned
+> off as unused.
 
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
----
- arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+You can omit this part of the commit message. The dependency is stated
+in the cover letter, and domain-supply is standard enough that it
+doesn't need specific documentation.
+> npu-supply is set because the binding requires it; no driver uses it.
 
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
-index 518c269a1dba1..6342a6e757c12 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
-@@ -35,7 +35,7 @@ &dsi {
- 	bridge@0 {
- 		compatible = "toshiba,tc358762";
- 		reg = <0>;
--		reset-gpios = <&attiny 0 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&attiny 0 GPIO_ACTIVE_LOW>;
- 		vddc-supply = <&attiny>;
- 		status = "okay";
- 
-
--- 
-2.47.3
+So why does the binding even exist? Is it because it will be needed for
+implementing voltage scaling in future?
 
