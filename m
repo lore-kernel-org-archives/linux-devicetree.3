@@ -1,78 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795511561;
-	b=HY/Aez+9ivcpIQJ2I/2Z8ytNcqS+zul1vNEqMmUylFWjd679dF/L2XCVB9rAabwex3la
-	 q6h3yF9yNw6U5HWev3l6xWPYbWr/u0i0dkwYYAJKPp8p6iVhNhlWY3MySi8nmnqmqr6CD
-	 dUuRsLksaEmeMM5IFVTKgC+EOO5H7OMH4cvGtk/CVATmUVnYAm5esvXf4+Ni8pSnnbHFu
-	 cHNhVDcg+jU80Ir0pMbxiHoD+rLhlWYFMIChlmng1nNCYt6wYGQ+mmIdd6J9pUZ4JY6we
-	 xcyafirRR8cBsRYgR/QIhM32yr6U8y5bgNamQpZRkjY4TlX/swXrsxi2hno4tT/xJKg==
+	t=1795511596;
+	b=FMVTOm8JUtxHhCCem7EELf6n+XsB7Of1iKNYFFG8QICRkpzsLscTflfrUVdezpnWxmJb
+	 wGzkZ5fJphYQpuBj6vKNbXEVaWd9WWHCyTpZDQd6sGagEwxp9M/9mnE3NQRL5xLBePUMM
+	 OP0d9IjE3FpGPd+gooFM+DowN2zgeRy0p+dJRTOy1r/jlV/4SeNk3lblpw9ntQnqIMbRg
+	 vfxnzss8a4hPIWISm9HshxpbMAFrK3VpYYCu9Ua9TJu9KWa8+XF3nGeYUQ+W2ZVsZwRr8
+	 I3dPu/vUm9gALkYEboW9M3znTsDNfEjhj+98eRcaQxHySZtD+PIfZl9U0ODROPdlKBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795511561;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=PRJi50mtDkCTYBP7NV+RqEIe0+Z58cVBzstfeiDJZnI=;
-	b=ONOD9SpNnTzB07lBy6tycC0HP2Z+SiA4nS1i/OhPSWuBmED/42gseedlH++TrCwiKMQ1
-	 Se2mfR1HsqlfbIMdWQ3KZDz+/GCMAzqgPlt9h1mdPrCPwIawymkLY2zNtDODrQzKQXm4x
-	 gcYw3v4+CYsT6dtwEtJwu6N4+h8Q/DyrWHurqtUAxtnJSDBmZX2hPnEgytK4dxTm3Kud5
-	 lCVHgJ1xsaExmbT9oP2U72Z7IJ/0IPvBhH1E52OxH6HVqqIGbhn8EvZPosKvkWetFfN2+
-	 kLei3C9hJbuXJRC+RBVbsR8TkiLn0N2nihJC6VsUErMaIhUwhTatWXbutcBfAAfVH/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795511596;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=xSsbExyRgnMf+870sb8Orxcq7FevQGTwTXR3rzktG7Q=;
+	b=bOE/R4uYQm4MXoQql0eyL33N5JlpUBNgyFADirKFdYLO2hp3wrz0X+MHnXG5jheNsbWT
+	 VDEFiGHQBqI8qOTLYA9Ud8c7aQ1b5em8oxCZULp3scTfXzgENZCPYez/DgHmlalwC0xQe
+	 LMY0cTZwyLDVX/rNPjNxIE2Dtm6/a7n1c29wl7G9A1SxhJlGAVCDBRw9p4WgvqLPYFBH9
+	 jstXE4Y2BFm7IrrmUWrI3i/0rxsM45HLDvs1URW+Mbh5PsfYxvT+maKcFLCY8jOlzdIII
+	 ksKHx+M28+80uPGm6g9tJeirNp1I9j7QKCGwvNcjuvzFzsU4IKuF8btIWsEV/XukkDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="X0uqcui/";
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ihL73dio;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3664C606A32C;
-	Tue, 24 Nov 2026 09:12:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3664C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806B2606A321;
+	Tue, 24 Nov 2026 09:13:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 806B2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=X0uqcui/
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id F3BBF1A17B5;
-	Tue, 24 Nov 2026 09:12:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C884D601E1;
-	Tue, 24 Nov 2026 09:12:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B957611E6A5DB;
-	Tue, 24 Nov 2026 10:12:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795511558; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=PRJi50mtDkCTYBP7NV+RqEIe0+Z58cVBzstfeiDJZnI=;
-	b=X0uqcui/Ml65OSyYJQaLGypiGdIoRdWNPw5kWVCNKPfVlp1ec2CWFhlsqk+m+qJXzeH5oH
-	8yPk1DWegx37vHbg8LuEQ3HX5YIfyYH1/bW3v2tZUeVh/s2JbtbJourRvvJVVsvH8rCBqk
-	2bTDNiHNW04GriJPhXJxLXlEtzAHQGlLxhlxYwgYyTS8M8lG+AOJQozyuSJLPayM1Ap0hR
-	GHgsat/X7LeqRZAphzuxD6ZY9Y2egaT40DPOd/QimisCildOF3xK+uJejysN93ActLrWSW
-	xW5uXlgHhc4fEUBIoK5a4aqdqt7cIIk6Cd6mXwCWef+8hJNrKtwY2Rayd6ucpg==
-From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
-To: Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Tero Kristo <kristo@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Udit Kumar <u-kumar1@ti.com>,
-	Abhash Kumar <a-kumar2@ti.com>,
-	Beleswar Padhi <b-padhi@ti.com>,
-	Thomas Richard <thomas.richard@bootlin.com>,
-	Gregory CLEMENT <gregory.clement@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Richard Genoud <richard.genoud@bootlin.com>
-Subject: [PATCH v7 6/6] arm64: dts: ti: k3-j722s-ti-ipc-firmware: Reserve memory for LPM metadata
-Date: Tue, 24 Nov 2026 10:12:21 +0100
-Message-ID: <20261124091221.2593576-7-richard.genoud@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261124091221.2593576-1-richard.genoud@bootlin.com>
-References: <20261124091221.2593576-1-richard.genoud@bootlin.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ihL73dio
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO34t3q1217161;
+	Tue, 24 Nov 2026 09:12:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=xSsbEx
+	yRgnMf+870sb8Orxcq7FevQGTwTXR3rzktG7Q=; b=ihL73dioksztXNZnGZbjw2
+	vMmp1i+5gD4IytODK13i1tm3UiSXhtQejWRwEEFHDxDd6KasikNSpBGwzCiqMW9y
+	l0n9xochs9ZjDrxfde70KqEmxRLFzgp6+tNoi2l9Gss0pN1GbNrXB9scWCOY6rEb
+	53W0T3RREPteHzSKIGXLX7HqYVDLmnpAFInxWI4Zd9m4zeC5oxXX2+crsyV+L3nz
+	sX+xSunzxYef/0CeLHORk9wFcow+nEUjThTEF93AYX4nLlbFyf/aUzeyLA6Q1yWv
+	SNWZmQ6sKyDoJEVcMRCie6z+h2LXF48WAYeX7XXeKiEdxe1VRTSr4AqPRMbFrerA
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j34gv6kfa-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 24 Nov 2026 09:12:36 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO8rXAt021968;
+	Tue, 24 Nov 2026 09:12:36 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4j3pmk20du-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 24 Nov 2026 09:12:36 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AO9CZVm3015528
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 24 Nov 2026 09:12:35 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B2FD158052;
+	Tue, 24 Nov 2026 09:12:35 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3780258054;
+	Tue, 24 Nov 2026 09:12:27 +0000 (GMT)
+Received: from [9.43.57.13] (unknown [9.43.57.13])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 24 Nov 2026 09:12:26 +0000 (GMT)
+Message-ID: <80be72d2-c357-4709-aede-a030e6751f25@linux.ibm.com>
+Date: Tue, 24 Nov 2026 14:42:25 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,71 +86,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/3] powerpc: dts: turris1x.dts: Use wdi-gpios for the
+ watchdog
+To: Josef Schlehofer <pepe.schlehofer@gmail.com>,
+        Wim Van Sebroeck <wim@linux-watchdog.org>,
+        Guenter Roeck
+ <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+        =?UTF-8?Q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
+        Tzung-Bi Shih <tzungbi@kernel.org>, Marc Zyngier <maz@kernel.org>,
+        Linus Walleij <linusw@kernel.org>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+References: <20261124050118.87944-1-pepe.schlehofer@gmail.com>
+ <20261124050118.87944-4-pepe.schlehofer@gmail.com>
+Content-Language: en-US
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+In-Reply-To: <20261124050118.87944-4-pepe.schlehofer@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=CYCdd7rl c=1 sm=1 tr=0 ts=6b055505 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=pGLkceISAAAA:8 a=VPMLOkGST9yvVNcXXMQA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDAzNSBTYWx0ZWRfXyh5/t0L+cfiZ
+ 8dY9+ntlJy9nMb8kW/Kk6FSRM6YaGcb/sE8DSmUUV3w9Zoxh4RpkT3O9V2SS2FVSEX1VVliERmj
+ WPK3BZ9QXnpAPuGZZ5baH6P7HnDXbdc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDAzNSBTYWx0ZWRfX1nq9qCieY781
+ I0vSM4rsVO8F+5RQlfdmK0Bv65ydnU+esyZNHdRWYucAnNIEkNBEg33aQbDn0eBp2lrurAnk6x0
+ ytouiBYyBVe3Fwo+QRPbeFQyg3kL81HyPf57AvhXVN4QyQoKc2Py3LmHf8eTd+fIszGQlqZI3DN
+ C9hXFjgEqb4/hvsXak82gfwyojPqmXggbGOAJTZ1uCyMbKVq0Nq5PHmbrKh+7BjlB4RsT2JoWKQ
+ AbHIjelxUrw53iqwUHs3jqv5hauN566AHaAtUzlW8bD6Qx/iPaeF25USGrLeWL25l2Er9iKJdWT
+ UyJp53Q88fxf/n6Hh8WylFt8aIQDq0a7AmKZaLXqTGq5zbO99rpqGMMCbG+usBB2ngMXJjvtOR5
+ DCELC8J7tYmhZGJszQoRjME6mpaL9mQRMVjls0CgrFpjYuW9I3qQzo0DnU4etyZVZ1+bs3eWIOS
+ v9h/L5MRkF+86eMUsVA==
+X-Proofpoint-ORIG-GUID: 5blUheAGpVWOvEiAQCnnklA3GVUVcbJB
+X-Proofpoint-GUID: K3ywaFCt4ZKf6N8a2r1PcnE6SwWAnn0E
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1011 spamscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611240035
 
-Declare a carveout memory region to store LPM metadata on J722S.
 
-For Jacinto devices, this memory region is needed for saving ATF context
-and the certificate information of ATF and OPTEE and DM image. This LPM
-metadata area is firewalled to be accessed only by TIFS.
+On 11/24/26 10:31 AM, Josef Schlehofer wrote:
+> The watchdog node passes its WDI GPIO in a gpios property, which the
+> maxim,max63xx binding does not define and the max63xx_wdt driver does
+> not read. dtbs_check reports it for watchdog@2:
+>
+>    Unevaluated properties are not allowed ('gpios' was unexpected)
+>
+> Rename it to wdi-gpios, which the binding defines and the driver reads.
 
-U-Boot R5 SPL/TIFS will use this area to save and restore:
-- ATF context
-- ATF certificate information
-- OPTEE certificate information
-- DM image (which has been copied in memory at boot time by U-Boot
-  R5-SPL)
+Acked-by: Madhavan Srinivasan <maddy@linux.ibm.com>
 
-At resume, U-Boot R5 SPL is executed and detects that the board is
-resuming (with a flag set in the PMIC), then it:
-- brings out of retention the DDR
-- retrieves the LPM memory region from DTS
-- authenticates certificates from LPM memory region and applies firewalls
-- asks TIFS to restore TFA and its own minimal context
-- starts TFA on remote proc
-- loads back DM image from memory and jumps to DM
-
-https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
-
-As this is used by U-Boot SPL, bootph-pre-ram is added.
-
-NB: This memory region is not part of DM memory (which is not retained
-at suspend)
-
-Signed-off-by: Prasanth Babu Mantena <p-mantena@ti.com>
-Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
----
- arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-index a59c3648d805..9b7c3c8df427 100644
---- a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-@@ -6,6 +6,12 @@
-  */
- 
- &reserved_memory {
-+	lpm_memory_region: memory@9e480000 {
-+		reg = <0x00 0x9e480000 0x00 0x00300000>;
-+		no-map;
-+		bootph-pre-ram;
-+	};
-+
- 	mcu_r5fss0_core0_dma_memory_region: memory@a1000000 {
- 		compatible = "shared-dma-pool";
- 		reg = <0x00 0xa1000000 0x00 0x100000>;
-@@ -122,8 +128,10 @@ &wkup_r5fss0 {
- &wkup_r5fss0_core0 {
- 	mboxes = <&mailbox0_cluster0 &mbox_wkup_r5_0>;
- 	memory-region = <&wkup_r5fss0_core0_dma_memory_region>,
--			<&wkup_r5fss0_core0_memory_region>;
--	memory-region-names = "dma", "firmware";
-+			<&wkup_r5fss0_core0_memory_region>,
-+			<&lpm_memory_region>;
-+	memory-region-names = "dma", "firmware", "lpm-metadata";
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+> ---
+>
+> Notes:
+>      Changes in v4:
+>      - new patch
+>
+>   arch/powerpc/boot/dts/turris1x.dts | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/powerpc/boot/dts/turris1x.dts b/arch/powerpc/boot/dts/turris1x.dts
+> index dff1ea074d9d..494a96a1f78c 100644
+> --- a/arch/powerpc/boot/dts/turris1x.dts
+> +++ b/arch/powerpc/boot/dts/turris1x.dts
+> @@ -363,7 +363,7 @@
+>   				 */
+>   				compatible = "maxim,max6370";
+>   				reg = <0x02 0x01>;
+> -				gpios = <&gpio 11 GPIO_ACTIVE_LOW>;
+> +				wdi-gpios = <&gpio 11 GPIO_ACTIVE_LOW>;
+>   			};
+>   
+>   			reboot@d {
