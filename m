@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795535296;
-	b=Os6a6IE6IB6tbbgYUFD4QDbXYlpB2IqXDQGLMOMhhpP7g0LR9iA4HWaKRNci79X2PxfA
-	 gtylD29qrvB4dhT3wCpKwnhxcq1T8uz70ZsXADLoK+Re1CTwZkUw8t3gwX6bhkXgL8Wxg
-	 jAyE+YclNEHDcGngq4tbHEhBoz9ALurpLd/aNVk68WZxdiG3iYQlA1RDSuPEVH/GikOAz
-	 Zo+nHs4d0Q4v6X9+lmP6+QpGLZnmpj6Z+C6ZBNarF4yu3vNL+8gfDITsYjJTVN7w/GmPx
-	 eGdFKV3IQNsOPPMakk+T3Mrb9yeHWHS8oH3ivlsHf+5yWDvxJL7Fs0z1azHcuEsn05g==
+	t=1795535292;
+	b=DCFw/Ivaj+mVxTUn6OyK4VdwneI5NVJsb5ZFJo5tW14lf1SROuWMQQFOJaOx5f1ema8K
+	 6EcKYBuIrcwSb+2NkXbcY4kMVMllIQbtvDL4dnMUXN2+33LtPJce0h4qGim2YljHtVwXm
+	 llHceBCBdoV4ggAOgUiifVcn8z5PKYIdcjktWq1JSaoZL5szHN5wEe1Lcpf/HTr/26xDT
+	 mapJZZ/AYp2cSgWpstf12+GAb3D2JBAJKiqKLV6R7zS/cJEblIr/qbblvS5KtvcKsyXTa
+	 sV5ejCKKCiEXhsjLTN2rURcx36Z3kMR4EjMME22pIyfWsUeAHF65ZGeh8kWSTEreg6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795535296;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795535292;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=WT3ZjZkestaMBaPnp+eCskydtnU8+kAyl+sjP05j/nc=;
-	b=kmwTH2L/A5xdp8T4hXHLKr+AD5qU5p7VS7+hZIzX2/9gWSpOvorsqVEdoEWES/NuqgyC
-	 /Hx63dtgKRemMS+G8IivKYaNaph3b4j8v9JO9IBdvcdgrNiNCw05rvAzI5pWkxSFbz/p9
-	 dYtsq5Vcz5HbjOq49ibD/nq6fGGMxvPFMgLm+0MJOSPoznFjpnERwV2HGiyLcuVeKw9QX
-	 KmhzDcDmELzpseMMWPUMQkh5O1h4mXwazcimG6vURr9imBZYtcwapeWMM92DgHTU9BnbM
-	 T1tQ5OIjKSY8tvCfMQtkDXRZbSViXdf2MK1Trplr3QNnvgtMfVz2LTqmQeudgaFzDiA==
+	bh=10VPb49L75PWBuhtprNLwfBE17SxeHp7WM1H/HZfDJk=;
+	b=Np0NodOqpo+rUkT7qySNagDaHEkNfSI1vOpPcLWYflKHZmHi2eUWu/wVPQLYquL7R2HD
+	 g2IxlZxLB2DkxxjnColmaLoFTlJrb0J+lHy/st7bVEqIMUy95EXvuJjmrowHd4hqvYysu
+	 1e/d6GS8dMMYNZLMk3a2Rtgt5CfpneXGVi26c1p0gW7uLbYqTjCChyZPy3Dm6g/gIUZRj
+	 zXF73o8egMcgsCY0LtXztm4ZYDAP9nbnhumuq46rfQfSsDWrLPb3/e6qXlwPbfr5N2U/0
+	 ZAth7gxCrLGdHo5L7oGi2xhG/EZ/TXBhCxwX5U3dcA+dqHFxv3eogZ31mqMoojs9FzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mt+a9rYt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WDIX/AXU";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3150E606A323;
-	Tue, 24 Nov 2026 15:48:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0B2606A31E;
+	Tue, 24 Nov 2026 15:48:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mt+a9rYt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 543601F000CA;
-	Tue, 24 Nov 2026 15:48:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDIX/AXU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 981211F000C6;
+	Tue, 24 Nov 2026 15:48:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795535296;
-	bh=WT3ZjZkestaMBaPnp+eCskydtnU8+kAyl+sjP05j/nc=;
+	s=k20260515; t=1795535292;
+	bh=10VPb49L75PWBuhtprNLwfBE17SxeHp7WM1H/HZfDJk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Mt+a9rYtDXcLXFV+QWnEP+qioMH6iL3bJNaaeO83jJIjBs1XXSmHf1GSwN8lx9l3y
-	 685nfk4LAD8lO+VW9PKP6HGDEvr2oySxrbyin6gcso09VwZUO6vzLzmotDwxabUY0/
-	 moSA+EAVffbC7X9EWN2BLYQb+TQghpnlzJ6Udg9qzYMXLyP3UryZXrjX8trwIhEtbJ
-	 +KQXAa2EyQawb3hPR4/FEB2dSdjyavtxtOSz+lFrSyKTcNG8YhokDpYFa5vYL2kGhJ
-	 g+FW0lCOtjSem6X2uXhSxtzAtMakl/c3hII+/Pn7CJZiURaY6p6btTBU1I4sDOqEem
-	 Ui58eYFFPg5gA==
-Message-ID: <5d85209a-0eb6-44e9-8e1d-e45e488ff54c@kernel.org>
-Date: Tue, 24 Nov 2026 16:48:12 +0100
+	b=WDIX/AXUuE34/ctqPzodnujs/8Ad2Xa1AP5Q5ISYvLtI524QsDSU/bJ37seWrNZGN
+	 qNnKhNulF5hB+jXRApVbP/sX33il0sbdVB+ZnEIrTW2RI6bfIkYbglfXjG862gvZEi
+	 v8DbDB6Ei8UY6N9iY1HMCuRbxw/xUzHW0tb8XHqDDK9uPnN1gKtXrWF/83rofQpYao
+	 k7becGMuNIupZceewfTe73dumBp/Q5mSz6WRuiIkFv1+OkKEIPFrcHNs4pYX5nb25R
+	 8S+3QxOC+gNhYMf+gt3nMcyRTLlfJiYzSUWtK/la6GbY9HxqNZZqmyscCncKyCGYXq
+	 5CZlz9ZYsCpnw==
+Message-ID: <3415a89e-9b87-4cdc-914c-c8b0465a8ee4@kernel.org>
+Date: Tue, 24 Nov 2026 16:48:06 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,14 +52,14 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: mailbox: Add Seca CPUCP mailbox compatible
+Subject: Re: [PATCH] dt-bindings: mailbox: Add Seca IPCC compatible
 To: Yadu M G <yadu.mg@oss.qualcomm.com>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
  Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org
-References: <5bfd311f596ea5945b7c2251199d2d0ccff41133.1795517617.git.yadu.mg@oss.qualcomm.com>
+References: <1a2010d7c4f4ae5d4629d2709157d7d47c20b3ea.1795517600.git.yadu.mg@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -105,15 +105,13 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <5bfd311f596ea5945b7c2251199d2d0ccff41133.1795517617.git.yadu.mg@oss.qualcomm.com>
+In-Reply-To: <1a2010d7c4f4ae5d4629d2709157d7d47c20b3ea.1795517600.git.yadu.mg@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24/11/2026 11:53, Yadu M G wrote:
-> Add qcom,seca-cpucp-mbox compatible for the CPUSS Control Processor
-> (CPUCP) mailbox on the Qualcomm Seca SoC. The Seca CPUCP mailbox is
-> programming compatible with the Nord one, including its channel count,
-> so describe it with qcom,nord-cpucp-mbox as its fallback.
+> Add qcom,seca-ipcc compatible string for the Inter-Processor
+> Communication Controller in Qualcomm Seca SoC.
 > 
 > Signed-off-by: Yadu M G <yadu.mg@oss.qualcomm.com>
 > ---
