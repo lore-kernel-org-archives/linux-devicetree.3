@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795495340;
-	b=ZY+Aqw2fNpF5g4eQKMWMPXpc5CcDU36NPXAN+FGV9Ie1YGRKjGv7QuhYQOkybujuDaxA
-	 j6GciHljZjD1jxQFNSmuwjfqN7ad3a5lSDWbdahQjhecCf0UOVLedSE4hhXIU3u/jCI0b
-	 3TGMpNX+VoXQgIfwlOXxTZpRP1Wn8iZev3UpOEaBFlVCvDII0ys541LnHKOEm4zgY6/Rz
-	 Y+oWUmqkKALFHZDHIqQlxf4Rxj0MbOJQ5S5Mkna/K7OH2YMHv5nTKNg5E6SRYdBNYkYj4
-	 U26DMMOD7cXKn5dqmNTi6msMuuIK84oTeXGLwXvsvIPmnzGiv5Z1JwrwEMHuJL4XxRw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795495340;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FWnfroz5YQm0NrKyl7x/8z/tm6hfOvvoccCZhNziknQ=;
-	b=ayMZZicVpvQCjVTFUgi3qsASKy/m8TVlmtu8fLW7t1Zl9+1+1a1vjlaJ/me5GkoyUr6Q
-	 NuVYNzC2wNIJvEYA/5N5rZJzG73v294QrObqggVJ3wQUWrT+ygC5I5qR/YKnbmlNjFXUe
-	 kPTIA6f3KjTY8i4zj8ZakssQOQvbseamGLoMQHTAQ2kbfNN1cpoiyqQDsCMuQaw06WQSS
-	 tO1l7TdHgBNCS+tLQ7Zn/R5802nOvDS3fW7Uidgn9s/Do5Qp7/0PCLvTyYege/kgFZkOt
-	 n08MIN5njkezo/CcywtKZwMNcdUKhFLyRd+CuQxSGlvEHewX9k9bImJVFCikboOHMKQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eWYd3aB9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55F3606A321;
-	Tue, 24 Nov 2026 04:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795495853;
+	b=Tf7IEE/JaWmDvniyKyLHUWwFLPDsYW3lZFgq2+pmiVEyUAiLH4SUy5bFmHcqEY7raGwx
+	 fSckfPV7wRTXDwzcDV7TCs/GnkwoQxyePjGBEPU03hN32OJ9Dp7grK0BJ2D3v9Y7PnBON
+	 +wnW8BU6M89C1XtNkLH+kSzOMI0mNjJ3W7T7K8OrvVVJxD+MlbqnanAPKZfqsZS3VsvVd
+	 FkJLKbcVUMW6bbLBXI5QEJScRRU5dyZzQag6+NMKE4ofIZYeg9+BKG41qkuzlytBILh+S
+	 mJED+LJmLDtEyANRCJ2OgEtmX71ufC6tIl1kDb9zmkLoi9YcDBZ70bYEoW0kFWebUaQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795495853;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=tVjZr3yquW/PiypLn4/D8Ykqv016vgN53MzLr+VK9AY=;
+	b=L+Z5IKTIh9dII1CwlAiJpuwuLgpbvgshTL6WfzPPoZTiGAIBj2W/klElMTBglFTfOZvA
+	 5FmIV28oKS6At+IUbGF1HkUDU8/gLOWEP2nBjOzhO9kY0Xoz4sUc5ZlLCyquk+Nd1+M6r
+	 At/gXQWelwTCyLfzLN3jolZkG2eYIKf3RhuyNbbOPFSGIP978qD05gqF29XHC0N1zmD+W
+	 ze8jeg+mrxKEC4CvLx4gUqiY0DIML2rjJcfImLXZsy/u/7Z4LTK5UvZqm3qbUyeCr0qbf
+	 c65CmPuAWfYx3dCXU3Ney56yX2R9icU4aBIW34yx7p3dd6NhFjV6UJY+TcHFocry4fw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Hyc0cCzJ;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D7255606A338;
+	Tue, 24 Nov 2026 04:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7255606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eWYd3aB9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795495340;
-	b=hlQ5X6YDBKnH+K/VHFYVtGqIpPShrI4AAQumcengQUZlQgY8hpMabF1EjJaYQONrgrtN
-	 RqWxQyww2F2f7weu/FM1huTbT6JfsaKGvBye46UHNDva7Cr4nfN+ZPnL+eMr42h/+WabY
-	 IiGt4WN6TsMVTPKVn6h+rD3Pak9Q4Zgfhtg9px8UNMUQ+Ye6NQZug+6DQn8Sv0WVZSfaA
-	 XlC5fYFf05dyjZt7rPtTAMQzcpsX7+425BZov+MgqnHlF+WIOiQiR05xkZe1gPIElTelp
-	 BJkCljBEZFe13DqFgv98QEhUUhMQfw4/lSZymOD9i1XrwsVQJK4K1I+bKGHGGxF9EJg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795495340;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=FWnfroz5YQm0NrKyl7x/8z/tm6hfOvvoccCZhNziknQ=;
-	b=BJ9UiAIty8tNIXxQqBERSIfPLCOTpcnsVoYg+zBGivejvsTTNYqg7noPQAZfQRYFga2P
-	 /4ak2sN+dUaL4D4O7Mmc5rmoVIUy5WrVpilBhaJxN4RAeT4XmnCJHp14T5Vietv5PGWE7
-	 qdgEPKE1Li6imXf9f/h1uArNy+ppNeahs9WFIGq7tHfnj1vh7AB+rKD6+7depm1JEunpJ
-	 rcDy5hMIQ7sC09rP1lqIi7qJ4Rx3NY1XADPwtHZQVy990IcZ685XkmeacDkXf26MkMNWu
-	 Rj87z0eJpgrhWON2XZMs9o853lh1nKCj2IsYb1lZmFAT2WmsM6BSXgusrqkiwB3zZgQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 20ADA1F000D8;
-	Tue, 24 Nov 2026 04:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795495340;
-	bh=FWnfroz5YQm0NrKyl7x/8z/tm6hfOvvoccCZhNziknQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=eWYd3aB9Q+fYVR+qi8Pn/u1pBAlMNlaplE/rv4yGDhx0ktqXC53tNXk4Ro136mhez
-	 7eO9nFFQisw7NPZ4juJBxgjpWUAAbunI+RV77OVsiJ7ycEcDmyE221P8zow6gCE/uy
-	 rTFgR2naQ8e5t/8ZxTSpagddLexlSxZpRN9E1IkfiwMHKBhNmTlsQlYDSuRPglv4EW
-	 vRSwi+s7ntdME7br8R6P3B0srs2jQ+cRDHXEKPCJO2D93ht0nGbehbE/LqdOySt42M
-	 9KabOeADhcV3zjEefkMZiiOXiQ4K6bonLr9dsWdXIwX/Gen67/Hbw4GDYEopLhXCcH
-	 fIZLrUXKDIDgQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AAEA44C8BE;
-	Tue, 24 Nov 2026 04:42:08 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Mon, 23 Nov 2026 23:42:07 -0500
-Subject: [PATCH v2 2/2] pinctrl: Add Siflower SF19A2890 pin controller
- driver
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Hyc0cCzJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=tVjZr3yquW/PiypLn4/D8Ykqv016vgN53M
+	zLr+VK9AY=; b=Hyc0cCzJlOhWpcyglPA24ya/1HhmzwBa76dKyAySCl3eW4NWIV
+	lW1rco7hWOpSeY2mV19SDt60ryFT/28gWCQkoOHmnpgl3RYfouh1j37y1zKzPQDv
+	25DSASfWJguBcdBHbKR2bmgL807NmpOwP+EnapMXauOfagcV/v+cRbcRE=
+Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.185.179])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn2i6gFwVruBfwAA--.253S5;
+	Tue, 24 Nov 2026 12:50:47 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: dmitry.torokhov@gmail.com
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v4 3/6] dt-bindings: input: awinic,aw86927: document the AW86937 variant
+Date: Tue, 24 Nov 2026 12:50:37 +0800
+Message-ID: <20261124045040.559317-4-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261124045040.559317-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261124045040.559317-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,658 +65,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-sf19a2890-pinctrl-v2-2-a10af32bc844@telaak.dev>
-References: <20261123-sf19a2890-pinctrl-v2-0-a10af32bc844@telaak.dev>
-In-Reply-To: <20261123-sf19a2890-pinctrl-v2-0-a10af32bc844@telaak.dev>
-To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Chuanhong Guo <gch981213@gmail.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795495328; l=19907;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=mN/lvzTTnUnACNZv8ePGbFm571cW1aZj10Cn9hS7c10=;
- b=0bDJH8xhanrV9ZX/SGsEiX41EVlplsBTHuUfF4puBpox2GEMgGGxZs1j9YTnQMEr8lXVAt6m9
- vg3HxCasHIRC3lbBCYR18okHtUTgAvpzwHk/zbypIci4nQTPcOfA9hA
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgBn2i6gFwVruBfwAA--.253S5
+X-Coremail-Antispam: 1UD129KBjvdXoWrKr1xtF13KFWrWF17KF15Jwb_yoWDXrc_Za
+	yxJw4ku34UCF4FganYvrs7tF17Wa18Ar9rZ3Z5AF4Dt3W0yrZrGayktw17Ar1rGw4xurWU
+	ur4kW347Wan3GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbq8YjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
+	IE14v26r1rM28IrcIa0xkI8VCY1x0267AKxVW5JVCq3wA2ocxC64kIII0Yj41l84x0c7CE
+	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6x
+	kF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY
+	1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4
+	xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCa
+	FVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxkIecxEwV
+	AFwVW8XwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
+	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
+	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
+	wI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F
+	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU4yv3
+	UUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREBB2sElFst2AAnsk
 
-From: Joseph Telaak <joseph@telaak.dev>
+The AW86937 is a sibling of the AW86938 with the same register layout and
+a distinct CHIPID.  It is described the same way as the AW86938, with the
+AW86927 compatible as fallback; software tells the parts apart by reading
+the CHIPID registers.
 
-Add a driver for the pin controller of the Siflower SF19A2890. Each pin
-is a group of its own. The functions are named after the peripheral
-they connect, and each lists the pins it can use with the mux mode that
-selects it there. The function tables cover what the vendor firmware and
-the OpenWrt port use; the rest of the modes are undocumented.
-
-Based on the OpenWrt driver by Chuanhong Guo, which exposed the mux
-modes as functions "func0" to "func3". That driver was itself based on
-the BCM2835 pin controller driver.
-
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- MAINTAINERS                         |   1 +
- drivers/pinctrl/Kconfig             |  14 +
- drivers/pinctrl/Makefile            |   1 +
- drivers/pinctrl/pinctrl-sf19a2890.c | 549 ++++++++++++++++++++++++++++++++++++
- 4 files changed, 565 insertions(+)
+ Documentation/devicetree/bindings/input/awinic,aw86927.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9a31712feb5d..743dcfc869e4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25082,6 +25082,7 @@ M:	Joseph Telaak <joseph@telaak.dev>
- L:	linux-gpio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/pinctrl/siflower,sf19a2890-pinctrl.yaml
-+F:	drivers/pinctrl/pinctrl-sf19a2890.c
+diff --git a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+index bd74b81488..42b8f5f9e8 100644
+--- a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
++++ b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+@@ -15,6 +15,7 @@ properties:
+       - const: awinic,aw86927
+       - items:
+           - enum:
++              - awinic,aw86937
+               - awinic,aw86938
+           - const: awinic,aw86927
  
- SILEAD TOUCHSCREEN DRIVER
- M:	Hans de Goede <hansg@kernel.org>
-diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
-index dc7138302c55..1321eb679fcd 100644
---- a/drivers/pinctrl/Kconfig
-+++ b/drivers/pinctrl/Kconfig
-@@ -562,6 +562,20 @@ config PINCTRL_SCMI
- 	  It uses SCMI Message Protocol to interact with the
- 	  firmware providing all the pinctrl controls.
- 
-+config PINCTRL_SF19A2890
-+	tristate "Siflower SF19A2890 pin controller"
-+	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
-+	depends on OF
-+	default MACH_SIFLOWER_MIPS
-+	select PINMUX
-+	select PINCONF
-+	select GENERIC_PINCONF
-+	help
-+	  Support for the pin controller of the Siflower SF19A2890 SoC. It
-+	  selects the function of each pin and sets its bias, input enable,
-+	  Schmitt trigger and drive strength. The SoC's GPIO controller uses
-+	  it to switch pins to GPIO.
-+
- config PINCTRL_SINGLE
- 	tristate "One-register-per-pin type device tree based pinctrl driver"
- 	depends on OF
-diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile
-index ce0825f4fc1b..2cb2c229c8f4 100644
---- a/drivers/pinctrl/Makefile
-+++ b/drivers/pinctrl/Makefile
-@@ -57,6 +57,7 @@ obj-$(CONFIG_PINCTRL_RK805)	+= pinctrl-rk805.o
- obj-$(CONFIG_PINCTRL_ROCKCHIP)	+= pinctrl-rockchip.o
- obj-$(CONFIG_PINCTRL_RP1)       += pinctrl-rp1.o
- obj-$(CONFIG_PINCTRL_SCMI)	+= pinctrl-scmi.o
-+obj-$(CONFIG_PINCTRL_SF19A2890)	+= pinctrl-sf19a2890.o
- obj-$(CONFIG_PINCTRL_SINGLE)	+= pinctrl-single.o
- obj-$(CONFIG_PINCTRL_ST) 	+= pinctrl-st.o
- obj-$(CONFIG_PINCTRL_STMFX) 	+= pinctrl-stmfx.o
-diff --git a/drivers/pinctrl/pinctrl-sf19a2890.c b/drivers/pinctrl/pinctrl-sf19a2890.c
-new file mode 100644
-index 000000000000..5873a73ad4b9
---- /dev/null
-+++ b/drivers/pinctrl/pinctrl-sf19a2890.c
-@@ -0,0 +1,549 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Siflower SF19A2890 pin controller
-+ *
-+ * Based on the OpenWrt driver by Chuanhong Guo <gch981213@gmail.com>,
-+ * which was based on the Broadcom BCM2835 GPIO unit driver:
-+ * Copyright (C) 2012 Chris Boot, Simon Arlott, Stephen Warren
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/device-id/of.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/seq_file.h>
-+
-+#include <linux/pinctrl/pinconf-generic.h>
-+#include <linux/pinctrl/pinconf.h>
-+#include <linux/pinctrl/pinctrl.h>
-+#include <linux/pinctrl/pinmux.h>
-+
-+#define SF19A2890_NUM_PINS	49
-+
-+/* Pad configuration */
-+#define SF19A2890_PC(pin)		((pin) * 0x8)
-+#define  SF19A2890_PC_OEN		BIT(7)
-+#define  SF19A2890_PC_ST		BIT(6)
-+#define  SF19A2890_PC_IE		BIT(5)
-+#define  SF19A2890_PC_PD		BIT(4)
-+#define  SF19A2890_PC_PU		BIT(3)
-+#define  SF19A2890_PC_DS		GENMASK(2, 0)
-+
-+#define SF19A2890_DRIVE_MIN_MA		6
-+#define SF19A2890_DRIVE_STEP_MA		3
-+
-+/*
-+ * Pin mux. With FUNC_SW clear, the pad's output enable is forced by
-+ * PC_OEN; with it set, the GPIO or the function drives it. FMUX_SEL picks
-+ * the GPIO, and MODE the function, when FMUX_SEL is clear.
-+ */
-+#define SF19A2890_PMX(pin)		((pin) * 0x8 + 0x4)
-+#define  SF19A2890_PMX_FUNC_SW		BIT(3)
-+#define  SF19A2890_PMX_FMUX_SEL		BIT(2)
-+#define  SF19A2890_PMX_MODE		GENMASK(1, 0)
-+
-+struct sf19a2890_pinctrl {
-+	struct device *dev;
-+	void __iomem *base;
-+	struct pinctrl_dev *pctl;
-+};
-+
-+static const struct pinctrl_pin_desc sf19a2890_pins[] = {
-+	PINCTRL_PIN(0, "JTAG_TDO"),
-+	PINCTRL_PIN(1, "JTAG_TDI"),
-+	PINCTRL_PIN(2, "JTAG_TMS"),
-+	PINCTRL_PIN(3, "JTAG_TCK"),
-+	PINCTRL_PIN(4, "JTAG_RST"),
-+	PINCTRL_PIN(5, "SPI_TXD"),
-+	PINCTRL_PIN(6, "SPI_RXD"),
-+	PINCTRL_PIN(7, "SPI_CLK"),
-+	PINCTRL_PIN(8, "SPI_CSN"),
-+	PINCTRL_PIN(9, "UART_TX"),
-+	PINCTRL_PIN(10, "UART_RX"),
-+	PINCTRL_PIN(11, "I2C_DAT"),
-+	PINCTRL_PIN(12, "I2C_CLK"),
-+	PINCTRL_PIN(13, "RGMII_GTX_CLK"),
-+	PINCTRL_PIN(14, "RGMII_TXCLK"),
-+	PINCTRL_PIN(15, "RGMII_TXD0"),
-+	PINCTRL_PIN(16, "RGMII_TXD1"),
-+	PINCTRL_PIN(17, "RGMII_TXD2"),
-+	PINCTRL_PIN(18, "RGMII_TXD3"),
-+	PINCTRL_PIN(19, "RGMII_TXCTL"),
-+	PINCTRL_PIN(20, "RGMII_RXCLK"),
-+	PINCTRL_PIN(21, "RGMII_RXD0"),
-+	PINCTRL_PIN(22, "RGMII_RXD1"),
-+	PINCTRL_PIN(23, "RGMII_RXD2"),
-+	PINCTRL_PIN(24, "RGMII_RXD3"),
-+	PINCTRL_PIN(25, "RGMII_RXCTL"),
-+	PINCTRL_PIN(26, "RGMII_COL"),
-+	PINCTRL_PIN(27, "RGMII_CRS"),
-+	PINCTRL_PIN(28, "RGMII_MDC"),
-+	PINCTRL_PIN(29, "RGMII_MDIO"),
-+	PINCTRL_PIN(30, "HB0_PA_EN"),
-+	PINCTRL_PIN(31, "HB0_LNA_EN"),
-+	PINCTRL_PIN(32, "HB0_SW_CTRL0"),
-+	PINCTRL_PIN(33, "HB0_SW_CTRL1"),
-+	PINCTRL_PIN(34, "HB1_PA_EN"),
-+	PINCTRL_PIN(35, "HB1_LNA_EN"),
-+	PINCTRL_PIN(36, "HB1_SW_CTRL0"),
-+	PINCTRL_PIN(37, "HB1_SW_CTRL1"),
-+	PINCTRL_PIN(38, "LB0_PA_EN"),
-+	PINCTRL_PIN(39, "LB0_LNA_EN"),
-+	PINCTRL_PIN(40, "LB0_SW_CTRL0"),
-+	PINCTRL_PIN(41, "LB0_SW_CTRL1"),
-+	PINCTRL_PIN(42, "LB1_PA_EN"),
-+	PINCTRL_PIN(43, "LB1_LNA_EN"),
-+	PINCTRL_PIN(44, "LB1_SW_CTRL0"),
-+	PINCTRL_PIN(45, "LB1_SW_CTRL1"),
-+	PINCTRL_PIN(46, "CLK_OUT"),
-+	PINCTRL_PIN(47, "EXT_CLK_IN"),
-+	PINCTRL_PIN(48, "DRVVBUS0"),
-+};
-+
-+static_assert(ARRAY_SIZE(sf19a2890_pins) == SF19A2890_NUM_PINS);
-+
-+/* A pin that a function can use, and the mux mode that selects it */
-+struct sf19a2890_func_pin {
-+	unsigned int pin;
-+	u8 mode;
-+};
-+
-+struct sf19a2890_function {
-+	const char *name;
-+	const char * const *groups;
-+	const struct sf19a2890_func_pin *pins;
-+	unsigned int npins;
-+};
-+
-+/*
-+ * Each pin is a group of its own, named after the pin. A function's group
-+ * list names the pins it can use, in the same order as its pin table.
-+ */
-+#define SF19A2890_FUNCTION(_name, ...)					\
-+	static const struct sf19a2890_func_pin sf19a2890_##_name##_pins[] = { \
-+		__VA_ARGS__						\
-+	}
-+
-+#define PIN_MODE(_pin, _mode)	{ .pin = (_pin), .mode = (_mode) }
-+
-+SF19A2890_FUNCTION(jtag, PIN_MODE(0, 0), PIN_MODE(1, 0), PIN_MODE(2, 0),
-+		   PIN_MODE(3, 0), PIN_MODE(4, 0));
-+static const char * const sf19a2890_jtag_groups[] = {
-+	"JTAG_TDO", "JTAG_TDI", "JTAG_TMS", "JTAG_TCK", "JTAG_RST",
-+};
-+
-+SF19A2890_FUNCTION(uart1, PIN_MODE(0, 1), PIN_MODE(1, 1), PIN_MODE(2, 1),
-+		   PIN_MODE(3, 1));
-+static const char * const sf19a2890_uart1_groups[] = {
-+	"JTAG_TDO", "JTAG_TDI", "JTAG_TMS", "JTAG_TCK",
-+};
-+
-+SF19A2890_FUNCTION(pwm0, PIN_MODE(3, 3));
-+static const char * const sf19a2890_pwm0_groups[] = { "JTAG_TCK" };
-+
-+SF19A2890_FUNCTION(pwm1, PIN_MODE(4, 2));
-+static const char * const sf19a2890_pwm1_groups[] = { "JTAG_RST" };
-+
-+SF19A2890_FUNCTION(spi, PIN_MODE(5, 0), PIN_MODE(6, 0), PIN_MODE(7, 0),
-+		   PIN_MODE(8, 0));
-+static const char * const sf19a2890_spi_groups[] = {
-+	"SPI_TXD", "SPI_RXD", "SPI_CLK", "SPI_CSN",
-+};
-+
-+/* UART0's CTS and RTS are on the I2C pins */
-+SF19A2890_FUNCTION(uart0, PIN_MODE(9, 0), PIN_MODE(10, 0), PIN_MODE(11, 0),
-+		   PIN_MODE(12, 0));
-+static const char * const sf19a2890_uart0_groups[] = {
-+	"UART_TX", "UART_RX", "I2C_DAT", "I2C_CLK",
-+};
-+
-+SF19A2890_FUNCTION(uart2, PIN_MODE(11, 1), PIN_MODE(12, 1));
-+static const char * const sf19a2890_uart2_groups[] = { "I2C_DAT", "I2C_CLK" };
-+
-+SF19A2890_FUNCTION(i2c0, PIN_MODE(11, 2), PIN_MODE(12, 2));
-+static const char * const sf19a2890_i2c0_groups[] = { "I2C_DAT", "I2C_CLK" };
-+
-+SF19A2890_FUNCTION(rgmii, PIN_MODE(14, 0), PIN_MODE(15, 0), PIN_MODE(16, 0),
-+		   PIN_MODE(17, 0), PIN_MODE(18, 0), PIN_MODE(19, 0),
-+		   PIN_MODE(20, 0), PIN_MODE(21, 0), PIN_MODE(22, 0),
-+		   PIN_MODE(23, 0), PIN_MODE(24, 0), PIN_MODE(25, 0));
-+static const char * const sf19a2890_rgmii_groups[] = {
-+	"RGMII_TXCLK", "RGMII_TXD0", "RGMII_TXD1", "RGMII_TXD2",
-+	"RGMII_TXD3", "RGMII_TXCTL", "RGMII_RXCLK", "RGMII_RXD0",
-+	"RGMII_RXD1", "RGMII_RXD2", "RGMII_RXD3", "RGMII_RXCTL",
-+};
-+
-+SF19A2890_FUNCTION(mdio, PIN_MODE(28, 0), PIN_MODE(29, 0));
-+static const char * const sf19a2890_mdio_groups[] = {
-+	"RGMII_MDC", "RGMII_MDIO",
-+};
-+
-+/* The power amplifier, LNA and antenna switch controls of the radios */
-+SF19A2890_FUNCTION(wlan, PIN_MODE(30, 0), PIN_MODE(31, 0), PIN_MODE(32, 0),
-+		   PIN_MODE(33, 0), PIN_MODE(34, 0), PIN_MODE(35, 0),
-+		   PIN_MODE(36, 0), PIN_MODE(37, 0), PIN_MODE(38, 0),
-+		   PIN_MODE(39, 0), PIN_MODE(40, 0), PIN_MODE(41, 0),
-+		   PIN_MODE(42, 0), PIN_MODE(43, 0), PIN_MODE(44, 0),
-+		   PIN_MODE(45, 0));
-+static const char * const sf19a2890_wlan_groups[] = {
-+	"HB0_PA_EN", "HB0_LNA_EN", "HB0_SW_CTRL0", "HB0_SW_CTRL1",
-+	"HB1_PA_EN", "HB1_LNA_EN", "HB1_SW_CTRL0", "HB1_SW_CTRL1",
-+	"LB0_PA_EN", "LB0_LNA_EN", "LB0_SW_CTRL0", "LB0_SW_CTRL1",
-+	"LB1_PA_EN", "LB1_LNA_EN", "LB1_SW_CTRL0", "LB1_SW_CTRL1",
-+};
-+
-+#define FUNCTION(_name)							\
-+	{								\
-+		.name = #_name,						\
-+		.groups = sf19a2890_##_name##_groups,			\
-+		.pins = sf19a2890_##_name##_pins,			\
-+		.npins = ARRAY_SIZE(sf19a2890_##_name##_pins),		\
-+	}
-+
-+static const struct sf19a2890_function sf19a2890_functions[] = {
-+	FUNCTION(i2c0),
-+	FUNCTION(jtag),
-+	FUNCTION(mdio),
-+	FUNCTION(pwm0),
-+	FUNCTION(pwm1),
-+	FUNCTION(rgmii),
-+	FUNCTION(spi),
-+	FUNCTION(uart0),
-+	FUNCTION(uart1),
-+	FUNCTION(uart2),
-+	FUNCTION(wlan),
-+};
-+
-+static u32 sf19a2890_pinctrl_read(struct sf19a2890_pinctrl *pc, u32 reg)
-+{
-+	return readl(pc->base + reg);
-+}
-+
-+static void sf19a2890_pinctrl_write(struct sf19a2890_pinctrl *pc, u32 reg,
-+				    u32 val)
-+{
-+	writel(val, pc->base + reg);
-+}
-+
-+static void sf19a2890_pinctrl_rmw(struct sf19a2890_pinctrl *pc, u32 reg,
-+				  u32 clr, u32 set)
-+{
-+	u32 val = sf19a2890_pinctrl_read(pc, reg);
-+
-+	sf19a2890_pinctrl_write(pc, reg, (val & ~clr) | set);
-+}
-+
-+static unsigned int sf19a2890_drive_ma(u32 conf)
-+{
-+	return SF19A2890_DRIVE_MIN_MA +
-+	       FIELD_GET(SF19A2890_PC_DS, conf) * SF19A2890_DRIVE_STEP_MA;
-+}
-+
-+static int sf19a2890_get_groups_count(struct pinctrl_dev *pctldev)
-+{
-+	return SF19A2890_NUM_PINS;
-+}
-+
-+static const char *sf19a2890_get_group_name(struct pinctrl_dev *pctldev,
-+					    unsigned int selector)
-+{
-+	return sf19a2890_pins[selector].name;
-+}
-+
-+static int sf19a2890_get_group_pins(struct pinctrl_dev *pctldev,
-+				    unsigned int selector,
-+				    const unsigned int **pins,
-+				    unsigned int *num_pins)
-+{
-+	*pins = &sf19a2890_pins[selector].number;
-+	*num_pins = 1;
-+
-+	return 0;
-+}
-+
-+static void sf19a2890_pin_dbg_show(struct pinctrl_dev *pctldev,
-+				   struct seq_file *s, unsigned int offset)
-+{
-+	struct sf19a2890_pinctrl *pc = pinctrl_dev_get_drvdata(pctldev);
-+	u32 conf = sf19a2890_pinctrl_read(pc, SF19A2890_PC(offset));
-+	u32 mux = sf19a2890_pinctrl_read(pc, SF19A2890_PMX(offset));
-+
-+	if (!(mux & SF19A2890_PMX_FUNC_SW))
-+		seq_printf(s, "forced %s",
-+			   conf & SF19A2890_PC_OEN ? "input" : "output");
-+	else if (mux & SF19A2890_PMX_FMUX_SEL)
-+		seq_puts(s, "gpio");
-+	else
-+		seq_printf(s, "mode %lu", FIELD_GET(SF19A2890_PMX_MODE, mux));
-+
-+	seq_printf(s, "%s%s%s%s drive %u mA",
-+		   conf & SF19A2890_PC_IE ? " input" : "",
-+		   conf & SF19A2890_PC_ST ? " schmitt" : "",
-+		   conf & SF19A2890_PC_PU ? " pull-up" : "",
-+		   conf & SF19A2890_PC_PD ? " pull-down" : "",
-+		   sf19a2890_drive_ma(conf));
-+}
-+
-+static const struct pinctrl_ops sf19a2890_pctl_ops = {
-+	.get_groups_count = sf19a2890_get_groups_count,
-+	.get_group_name = sf19a2890_get_group_name,
-+	.get_group_pins = sf19a2890_get_group_pins,
-+	.pin_dbg_show = sf19a2890_pin_dbg_show,
-+	.dt_node_to_map = pinconf_generic_dt_node_to_map_all,
-+	.dt_free_map = pinconf_generic_dt_free_map,
-+};
-+
-+static int sf19a2890_pmx_free(struct pinctrl_dev *pctldev, unsigned int pin)
-+{
-+	struct sf19a2890_pinctrl *pc = pinctrl_dev_get_drvdata(pctldev);
-+
-+	/* Back to a forced input with the input buffer off */
-+	sf19a2890_pinctrl_rmw(pc, SF19A2890_PC(pin), SF19A2890_PC_IE,
-+			      SF19A2890_PC_OEN);
-+	sf19a2890_pinctrl_rmw(pc, SF19A2890_PMX(pin), SF19A2890_PMX_FUNC_SW, 0);
-+
-+	return 0;
-+}
-+
-+static int sf19a2890_get_functions_count(struct pinctrl_dev *pctldev)
-+{
-+	return ARRAY_SIZE(sf19a2890_functions);
-+}
-+
-+static const char *sf19a2890_get_function_name(struct pinctrl_dev *pctldev,
-+					       unsigned int selector)
-+{
-+	return sf19a2890_functions[selector].name;
-+}
-+
-+static int sf19a2890_get_function_groups(struct pinctrl_dev *pctldev,
-+					 unsigned int selector,
-+					 const char * const **groups,
-+					 unsigned int * const num_groups)
-+{
-+	*groups = sf19a2890_functions[selector].groups;
-+	*num_groups = sf19a2890_functions[selector].npins;
-+
-+	return 0;
-+}
-+
-+static int sf19a2890_set_mux(struct pinctrl_dev *pctldev,
-+			     unsigned int func_selector,
-+			     unsigned int group_selector)
-+{
-+	struct sf19a2890_pinctrl *pc = pinctrl_dev_get_drvdata(pctldev);
-+	const struct sf19a2890_function *func =
-+		&sf19a2890_functions[func_selector];
-+	unsigned int pin = sf19a2890_pins[group_selector].number;
-+	unsigned int i;
-+
-+	for (i = 0; i < func->npins; i++) {
-+		if (func->pins[i].pin != pin)
-+			continue;
-+
-+		sf19a2890_pinctrl_write(pc, SF19A2890_PMX(pin),
-+					SF19A2890_PMX_FUNC_SW |
-+					FIELD_PREP(SF19A2890_PMX_MODE,
-+						   func->pins[i].mode));
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int sf19a2890_gpio_request_enable(struct pinctrl_dev *pctldev,
-+					 struct pinctrl_gpio_range *range,
-+					 unsigned int pin)
-+{
-+	struct sf19a2890_pinctrl *pc = pinctrl_dev_get_drvdata(pctldev);
-+
-+	sf19a2890_pinctrl_write(pc, SF19A2890_PMX(pin),
-+				SF19A2890_PMX_FUNC_SW | SF19A2890_PMX_FMUX_SEL);
-+	/* The GPIO block reads the pad back through the input buffer */
-+	sf19a2890_pinctrl_rmw(pc, SF19A2890_PC(pin), 0, SF19A2890_PC_IE);
-+
-+	return 0;
-+}
-+
-+static void sf19a2890_gpio_disable_free(struct pinctrl_dev *pctldev,
-+					struct pinctrl_gpio_range *range,
-+					unsigned int pin)
-+{
-+	sf19a2890_pmx_free(pctldev, pin);
-+}
-+
-+static const struct pinmux_ops sf19a2890_pmx_ops = {
-+	.free = sf19a2890_pmx_free,
-+	.get_functions_count = sf19a2890_get_functions_count,
-+	.get_function_name = sf19a2890_get_function_name,
-+	.get_function_groups = sf19a2890_get_function_groups,
-+	.set_mux = sf19a2890_set_mux,
-+	.gpio_request_enable = sf19a2890_gpio_request_enable,
-+	.gpio_disable_free = sf19a2890_gpio_disable_free,
-+	.strict = true,
-+};
-+
-+static int sf19a2890_pinconf_get(struct pinctrl_dev *pctldev,
-+				 unsigned int pin, unsigned long *config)
-+{
-+	struct sf19a2890_pinctrl *pc = pinctrl_dev_get_drvdata(pctldev);
-+	enum pin_config_param param = pinconf_to_config_param(*config);
-+	u32 val = sf19a2890_pinctrl_read(pc, SF19A2890_PC(pin));
-+	u32 arg;
-+
-+	switch (param) {
-+	case PIN_CONFIG_BIAS_DISABLE:
-+		if (val & (SF19A2890_PC_PU | SF19A2890_PC_PD))
-+			return -EINVAL;
-+		arg = 1;
-+		break;
-+	case PIN_CONFIG_BIAS_PULL_UP:
-+		if (!(val & SF19A2890_PC_PU))
-+			return -EINVAL;
-+		arg = 1;
-+		break;
-+	case PIN_CONFIG_BIAS_PULL_DOWN:
-+		if (!(val & SF19A2890_PC_PD))
-+			return -EINVAL;
-+		arg = 1;
-+		break;
-+	case PIN_CONFIG_INPUT_ENABLE:
-+		if (!(val & SF19A2890_PC_IE))
-+			return -EINVAL;
-+		arg = 1;
-+		break;
-+	case PIN_CONFIG_INPUT_SCHMITT_ENABLE:
-+		if (!(val & SF19A2890_PC_ST))
-+			return -EINVAL;
-+		arg = 1;
-+		break;
-+	case PIN_CONFIG_DRIVE_STRENGTH:
-+		arg = sf19a2890_drive_ma(val);
-+		break;
-+	default:
-+		return -ENOTSUPP;
-+	}
-+
-+	*config = pinconf_to_config_packed(param, arg);
-+
-+	return 0;
-+}
-+
-+static int sf19a2890_pinconf_set(struct pinctrl_dev *pctldev,
-+				 unsigned int pin, unsigned long *configs,
-+				 unsigned int num_configs)
-+{
-+	struct sf19a2890_pinctrl *pc = pinctrl_dev_get_drvdata(pctldev);
-+	u32 val = sf19a2890_pinctrl_read(pc, SF19A2890_PC(pin));
-+	unsigned int i;
-+	u32 arg;
-+
-+	for (i = 0; i < num_configs; i++) {
-+		arg = pinconf_to_config_argument(configs[i]);
-+
-+		switch (pinconf_to_config_param(configs[i])) {
-+		case PIN_CONFIG_BIAS_DISABLE:
-+			val &= ~(SF19A2890_PC_PU | SF19A2890_PC_PD);
-+			break;
-+		case PIN_CONFIG_BIAS_PULL_UP:
-+			val &= ~SF19A2890_PC_PD;
-+			val |= SF19A2890_PC_PU;
-+			break;
-+		case PIN_CONFIG_BIAS_PULL_DOWN:
-+			val &= ~SF19A2890_PC_PU;
-+			val |= SF19A2890_PC_PD;
-+			break;
-+		case PIN_CONFIG_INPUT_ENABLE:
-+			if (arg)
-+				val |= SF19A2890_PC_IE;
-+			else
-+				val &= ~SF19A2890_PC_IE;
-+			break;
-+		case PIN_CONFIG_INPUT_SCHMITT_ENABLE:
-+			if (arg)
-+				val |= SF19A2890_PC_ST;
-+			else
-+				val &= ~SF19A2890_PC_ST;
-+			break;
-+		case PIN_CONFIG_DRIVE_STRENGTH:
-+			if (arg < SF19A2890_DRIVE_MIN_MA)
-+				return -EINVAL;
-+			arg -= SF19A2890_DRIVE_MIN_MA;
-+			if (arg % SF19A2890_DRIVE_STEP_MA)
-+				return -EINVAL;
-+			arg /= SF19A2890_DRIVE_STEP_MA;
-+			if (arg > FIELD_MAX(SF19A2890_PC_DS))
-+				return -EINVAL;
-+			val &= ~SF19A2890_PC_DS;
-+			val |= FIELD_PREP(SF19A2890_PC_DS, arg);
-+			break;
-+		default:
-+			return -ENOTSUPP;
-+		}
-+	}
-+
-+	sf19a2890_pinctrl_write(pc, SF19A2890_PC(pin), val);
-+
-+	return 0;
-+}
-+
-+static const struct pinconf_ops sf19a2890_pinconf_ops = {
-+	.is_generic = true,
-+	.pin_config_get = sf19a2890_pinconf_get,
-+	.pin_config_set = sf19a2890_pinconf_set,
-+};
-+
-+static const struct pinctrl_desc sf19a2890_pinctrl_desc = {
-+	.name = "sf19a2890-pinctrl",
-+	.pins = sf19a2890_pins,
-+	.npins = ARRAY_SIZE(sf19a2890_pins),
-+	.pctlops = &sf19a2890_pctl_ops,
-+	.pmxops = &sf19a2890_pmx_ops,
-+	.confops = &sf19a2890_pinconf_ops,
-+	.owner = THIS_MODULE,
-+};
-+
-+static int sf19a2890_pinctrl_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct sf19a2890_pinctrl *pc;
-+
-+	pc = devm_kzalloc(dev, sizeof(*pc), GFP_KERNEL);
-+	if (!pc)
-+		return -ENOMEM;
-+
-+	pc->dev = dev;
-+
-+	pc->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(pc->base))
-+		return PTR_ERR(pc->base);
-+
-+	pc->pctl = devm_pinctrl_register(dev, &sf19a2890_pinctrl_desc, pc);
-+	if (IS_ERR(pc->pctl))
-+		return dev_err_probe(dev, PTR_ERR(pc->pctl),
-+				     "failed to register pinctrl\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id sf19a2890_pinctrl_match[] = {
-+	{ .compatible = "siflower,sf19a2890-pinctrl" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, sf19a2890_pinctrl_match);
-+
-+static struct platform_driver sf19a2890_pinctrl_driver = {
-+	.probe = sf19a2890_pinctrl_probe,
-+	.driver = {
-+		.name = "sf19a2890-pinctrl",
-+		.of_match_table = sf19a2890_pinctrl_match,
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+module_platform_driver(sf19a2890_pinctrl_driver);
-+
-+MODULE_DESCRIPTION("Siflower SF19A2890 pin controller driver");
-+MODULE_LICENSE("GPL");
-
 -- 
-Git-155)
-
+2.53.0
 
