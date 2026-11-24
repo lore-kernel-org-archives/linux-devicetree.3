@@ -1,56 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795524298;
-	b=15WGxntz67Vo+eMYKP8Yhf+EkgoWV4hccViOGARajHKacfm2T1nd8d6kk65sW/I7yJCV
-	 IIS0vQHhaAkHY/pGgI+6Jr6YRxgREUlaUwz9LnUMWNQyNPA/EuBonlqRRGVrbQbpPiOxr
-	 1sKzT0px1ZoR/9l/hdnhueqpIcMoqq5fkMJdY6sonjGXcuox7ozx/vmOWrUO0PMmRB6Qg
-	 XmlYZGzR6XugqnCTDFn2Y/bFMtTGIlQihFafP8eN6rSP81KSvzYym4+Onz72VuKtZCGOt
-	 X8/LC2ZF7hpPIbhij/Gf+9iA/XBNTalGAPHi8iOMYajpGJ4p1X0guhZVZwk5lngKEPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795524298;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=sGnf5ECwK2CMfucMR8upkwpozMGoDZCEz/Q+VSQ1gIc=;
-	b=cMTQaRB3vXcpTHRlCCY+e0TyPkM8XGNAo07UuhEcmwV1ZwhJUkJPmPgTfNwb6xl17lWz
-	 69MLZq6TF4HofrABJGmzgv25kErXW+/enI6GZZHMldCURDoV2bK/eXUWbyoup41BlKlm4
-	 UtSGEoPqrJJcZJfUVruziOZjS6We9l02d4e0cVaMrVbk8Yb+uXdBENxNmShWCD2v0UPye
-	 A2mXKLWLk07mRm33sSqlx7Pyvn+mzqR9dqgEKE5lGbF1FRdd3GcrQXKdfP7opAyy5R3t4
-	 1HQVK4ePX81igg0lld17G7B70cBS/v3PRSrVMqSgus64Vtp37P25rWx0tS/M2i8dYMA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWeN5yoe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795524396;
+	b=CPbnkXZs6D7EwlF/QC/VFTXyv5qM9suaXsJ4ctiP8552VKuAwkEVc0/ccS0X4tq39Ua4
+	 LSBsbgUg+M+CoTJqRUHbIba2IMmztO/yLfsmQe/wpcJxBTdhEGnO5dWSXOJvEt91JC4j6
+	 ticXRCp5wvqFWyJOZlyaQYcg35NlwyRgtdo1XQFzDgVu5blWpoWweFY7P0QQRu9CPlpeW
+	 vANEYW+Wyn704bHcf0HaKqDsy+v5k2oMRhm5n6v5zLjASjFh199ug79UpFvXqBuV3hLGm
+	 OPZYkttO4nFIFl3cN7YD5ORDzQaqgZO59nTZT41zFuXIKCp9f31FX+M71pcJRjQ762g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795524396;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=PrE/2EutqnuvtKyH9pmay9A73YFzmvHWuTlKzL38kgM=;
+	b=doNE7vrh75OaSCL+XtWwdRIXik9yp0HNwZIw8Kif+EYBM5KOwloKL5GrOHxb+yswj49D
+	 Rh3f9BlDBENKceB+RJzaAUg/qyHFASkQu4hixB86uwqBOms5Gb958AY1JndYZel2vC/1w
+	 6376nPHfe7OlC3tXFuWhWELq2fehVqaRri6RcM/1hcZcBVFwlgysZjyq+RFqjLR8xtj9v
+	 m++YcJw3utxpPDsHNhA15XsV/5FFDJp7KYqKEAiI+ZOIa8vSlp1KZV1DkQBZpbj7gvjcv
+	 KOku5WSBAelBLM1O6HLmCRZ3Q5oQ2OWa+uwYUqZDJIk3rQ56eSu7/AB2MuxLJOoJDHw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HvVwzEGz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EAA606A32A
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:44:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D41606A322;
+	Tue, 24 Nov 2026 12:46:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49D41606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWeN5yoe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF5E1F000C0;
-	Tue, 24 Nov 2026 12:44:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795524297;
-	bh=sGnf5ECwK2CMfucMR8upkwpozMGoDZCEz/Q+VSQ1gIc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JWeN5yoenJFeGftAg9qcF/maJ0LPX7ahKvH88ZYMRLdUcC3KBPVolKX+F4iSERmR5
-	 AFdhT0CQ/R9Tyi/3Y6eX30JBO8B2/4MfYDtb2LW+XK2+2SmQer7xtJjDoeS8pUZ/ii
-	 +CPOBmlf4kgvYab1ymDEcZGYyk7nS0nunDP6hzEMMJMFmfMYnf8DnIc9BLHfbpvlFI
-	 Y8l8WUICvgh+MBEiDDGrmfJKTh/auUBkZC9c5Au28BQX7p7BLYWnjpPbCl2koA5dmC
-	 ofamxw3drYTQz1DBxmfDRrlOe28TU+2wvlTrSiSkAGZkpzZxDiJPFmQbT2cJEmtt7v
-	 brt6REVEyDzmQ==
-Message-ID: <sashiko-outbox-231171@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 2/2] block: implement NVMEM provider
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261123-block-as-nvmem-v13-2-96ffe1f59332@oss.qualcomm.com>
-References: <20261123-block-as-nvmem-v13-0-96ffe1f59332@oss.qualcomm.com>
- <20261123-block-as-nvmem-v13-2-96ffe1f59332@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 12:44:56 +0000
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HvVwzEGz
+Received: from pengutronix.de (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
+	(Authenticated sender: mkl@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1591B2001A0;
+	Tue, 24 Nov 2026 13:46:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795524393;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PrE/2EutqnuvtKyH9pmay9A73YFzmvHWuTlKzL38kgM=;
+	b=HvVwzEGzR/eV4scS6pIaYOYgBpz3BCQzFz3h6F/bBN4U2Jv1QXzOSCdGcfH9abrnXJQCxq
+	uXP9N9V5srusRQrV8zK6zp0eLbba9G6yHMSMj8OcVe+vKcouxwJ/ltAWV2IdUSlP+MG/0p
+	qtVHa/eLKbsWbAIXYM+xDRZ4cz3wW7yb2TAV9IvXwog67OZEvis7WKy0JDpb3kCwiCSsoK
+	2YERZfUax4hsMZdMBxJFuxqn6o1UTYIA2rE7YIFwso80zyYlfAwRqvTpR9mfLA/n6NAOsh
+	6AbDWCn11P3+Ql49TRdTufBBlhPwP5pC20YVtn+E/BdNL4hKEaWMUv1ZA6I3OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795524393;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PrE/2EutqnuvtKyH9pmay9A73YFzmvHWuTlKzL38kgM=;
+	b=HWF1Ob8DVxs2rp1O7E5VktcBufJAdmiaJRVd07LMOkPPCGpTC3hANMs6TeQUvYKJPu0D1C
+	Fh6J0bAEZF7wNdfXSiKBJxV0KTbhjHRHmAaC+iNE433STyvTMV9Oq30EmiIMbCMf0jHmRi
+	58Qnk8wwEEdLj27tfKY0vXTEhTeGMo4zQ3HO135Ip2Kix73Lr4mZy39pVuGVUUf4VmxL5V
+	NGOxr23BJvLZzFRtdaN+MG5k823P09Px6X7nQOkFTamXOLTQJ7lTa4JoHykPgBvdzzqqsr
+	fLMLfbTL/7R2ENsn3XHnURmhmJK3nhh3tLh95q10YtT2KcY7YlwYq+TydobGRQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=mkl@pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795524393; a=rsa-sha256;
+	cv=none;
+	b=N5ctTLONOLEapJFTG4NHceOG7MGQi8v0fsk6Myu2CvORGIRBj1owFEVd8Woi6IRtymbaim
+	SubjJHrFXzJQmWEDDZgBkJV1AtnB5OKlc6NI89E+gC7knEiXgnNk0Kv9W+MBCfpaLfdXHz
+	ssgQtSAP+gjsjkrR1XDywvzcx4VhMC/+vQkPeZmh+8TEIC7g21HapChAdB6nSJF2amguaE
+	KyCpRisO2eB/tSJE78/kd8rQMreZPLaeWAO4V0r4Q9suQYh4mas7Wet9qD0W918YvgeqOv
+	u3O4ZZDpd2rasU9EYJcIzpbdw2bsrlhWaj0woSkFltDxDu2/7/40zEsdGEDGXw==
+Date: Tue, 24 Nov 2026 13:46:32 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Kendall Willis <k-willis@ti.com>
+Cc: Markus Schneider-Pargmann <msp@baylibre.com>, 
+	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chandrasekar Ramakrishnan <rcsekar@samsung.com>, s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com, 
+	vishalm@ti.com, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v9 0/2] can: m_can: introduce ti,am62-mcan compatible for
+ out-of-band wakeup
+Message-ID: <20261124-maroon-taipan-of-cookies-2d9113-mkl@pengutronix.de>
+References: <20261117-temp-v9-0-1d094ff918c6@ti.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,134 +90,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ygwwdgt7z67h2i6w"
+Content-Disposition: inline
+In-Reply-To: <20261117-temp-v9-0-1d094ff918c6@ti.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] block: async blk_nvmem_wq work races with synchronous parent
-  device_del()
-- [High] block: bdev claiming fwnode->dev on fixed-layout node blocks
-  nvmem consumers
---
 
-commit 0e36d62b71ee050cb34dcd10f5cbdc451589e7c4
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+--ygwwdgt7z67h2i6w
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v9 0/2] can: m_can: introduce ti,am62-mcan compatible for
+ out-of-band wakeup
+MIME-Version: 1.0
 
-block: implement NVMEM provider
+On 17.11.2026 15:22:13, Kendall Willis wrote:
+> This series introduces the "ti,am62-mcan" compatible which adds support
+> for out-of-band wakeup capability in m_can devices.
+>
+> A corresponding DTS series enabling this feature on TI K3 AM62 family
+> of devices has been submitted separately:
+> "arm64: dts: ti: use ti,am62-mcan compatible for m_can devices" [1]
 
-This commit adds an NVMEM provider for block devices and partitions whose
-device tree node describes an NVMEM layout, deferring NVMEM registration
-and unregistration to an ordered workqueue.
+This series looks good, but it depends on Markus' work. But LLM based
+review has found some issues ranked medium.
 
-> diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
-> new file mode 100644
-> index 0000000000000..628681f6b747b
-> --- /dev/null
-> +++ b/block/blk-nvmem.c
-[ ... ]
-> +void blk_nvmem_add(struct block_device *bdev)
-> +{
-> +	struct device *dev =3D &bdev->bd_device;
-> +	struct device_node *np =3D dev_of_node(dev);
-> +	struct blk_nvmem *bn;
-> +	struct device_node *child;
-> +	loff_t size;
-> +
-> +	/* skip devices which do not have a device tree node */
-> +	if (!np)
-> +		return;
-> +
-> +	/*
-> +	 * The layout is described either by an "nvmem-layout" child node or
-> +	 * by the device node itself being a "fixed-layout" container.
-> +	 */
-> +	child =3D of_get_child_by_name(np, "nvmem-layout");
-> +	if (child)
-> +		of_node_put(child);
-> +	else if (!of_device_is_compatible(np, "fixed-layout"))
-> +		return;
+| https://sashiko.dev/#/patchset/20261016-v7-3-topic-mcan-suspend-fix-fix-v=
+2-0-7efa2b172cce@baylibre.com
+| https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261016-v7-3-topic-m=
+can-suspend-fix-fix-v2-0-7efa2b172cce@baylibre.com
 
-[Severity: High]
-When np is a "fixed-layout" node itself, does &bdev->bd_device claiming
-np->fwnode.dev prevent consumers of its NVMEM cells from probing under
-fw_devlink?
+Without any comments by the author, Upstream will not take any patches
+with "medium" open issues.
 
-__add_disk() and add_partition() call device_set_node() and device_add()
-on &bdev->bd_device before blk_nvmem_add(), so device_add() sets
-np->fwnode.dev =3D &bdev->bd_device.  Because &bdev->bd_device has no bus
-and never binds to a driver, device_links_driver_bound() never runs on it.
-
-When nvmem_register() later creates layout->dev with the same OF node np,
-device_add(&layout->dev) leaves np->fwnode.dev pointing at
-&bdev->bd_device.  When layout->dev binds to fixed_layout_layout,
-device_links_driver_bound(&layout->dev) skips
-fw_devlink_pickup_dangling_consumers():
-
-drivers/base/core.c:device_links_driver_bound() {
-	...
-	if (dev->fwnode && dev->fwnode->dev =3D=3D dev) {
-		fwnode_links_purge_suppliers(dev->fwnode);
-		fw_devlink_pickup_dangling_consumers(dev);
-	}
-	...
-}
-
-The child NVMEM cell fwnodes never get FWNODE_FLAG_NOT_DEVICE set and
-their consumer fwnode_links are never converted to available device links,
-leaving consumers stuck in -EPROBE_DEFER.
-
-[ ... ]
-> +void blk_nvmem_del(struct block_device *bdev)
-> +{
-> +	struct blk_nvmem *bn =3D bdev->bd_nvmem;
-> +
-> +	if (!bn)
-> +		return;
-> +
-> +	bdev->bd_nvmem =3D NULL;
-> +
-> +	queue_work(blk_nvmem_wq, &bn->del_work);
-> +}
-
-[Severity: High]
-Can deferring nvmem_register() and nvmem_unregister() to blk_nvmem_wq race
-with the synchronous device_del(&bdev->bd_device) in drop_partition() and
-__del_gendisk()?
-
-drop_partition() and __del_gendisk() call blk_nvmem_del() and then
-synchronously run device_del(&bdev->bd_device) while bn->add_work and
-bn->del_work are still queued or running on blk_nvmem_wq:
-
-CPU0                              kworker (blk_nvmem_wq)
-drop_partition(part)
-  blk_nvmem_del(part)
-    queue_work(..., &bn->del_work)
-                                  blk_nvmem_add_work()
-                                    nvmem_register()
-                                      device_add(&nvmem->dev)
-                                        kobject_add_internal()
-                                          sysfs_create_dir_ns()
-                                            parent =3D kobj->parent->sd;
-  device_del(&part->bd_device)
-    kobject_del(&part->bd_device.kobj)
-      __kobject_del()
-        sysfs_remove_dir()
-        sysfs_put(sd)  <-- frees parent sd
-                                            kernfs_create_dir_ns(parent, ..=
-.)
-                                              <-- use-after-free on parent
-
-sysfs_create_dir_ns() reads kobj->parent->sd without a reference before
-sleeping in __kernfs_new_node(), so concurrent __kobject_del() on
-&bdev->bd_device can drop the parent kernfs_node refcount to 0 and free it
-via RCU while nvmem_register() is still using it.
-
-Even when blk_nvmem_add_work() finishes before removal starts,
-device_del(&bdev->bd_device) runs before blk_nvmem_del_work() calls
-nvmem_unregister(), deleting the parent device while its child nvmem->dev
-(and grandchild layout->dev) is still registered.  That removes the parent
-from dpm_list ahead of its children and clears bdev->bd_device.kobj.parent
-before nvmem_unregister() emits KOBJ_REMOVE uevents.
+regards,
+Marc
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-block-as-n=
-vmem-v13-0-96ffe1f59332@oss.qualcomm.com?part=3D2
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--ygwwdgt7z67h2i6w
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCawWHJgAKCRDMOmT6rpmt
+0mZDAP4+xP661BQH3gc8cnY01JgJSp7Gu4QLt4YaenIUCqmWEAEAhwDjEIyQY/Zl
+5udjh/5pvJWBiQYFlAp2vKaX6ZzDkgU=
+=gMnn
+-----END PGP SIGNATURE-----
+
+--ygwwdgt7z67h2i6w--
