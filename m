@@ -1,49 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533321;
-	b=jvBVmQT5ihQ4+/V+eqG5nFD8lRjPc8mbHQpT16YWhHsmf97zZ/JPInj+nd6bxAKdZIwQ
-	 TW4oxG3U2vOeMlWGevkhMWk4isuOR8+xpVhoIaUBZVlXnIWyM+Ryjcr6eWewmKR5T4pqM
-	 j0GIpbWyHdivZn8gV62yRKn71yXBk0dFva8ugdLVTj/jiGOw8fEdPXyV90KmykGwZsA00
-	 0TaeMwPCHlyi/Qy4fgE3M58HxRRGwn3p5tHAYDBn1xsiXJ7pcPAn8wrokjzvyEE9CxaRs
-	 IO4U/n3VkgA4M3hyvCgE+64g6mYaDZEb+IFENdh2f/JVId6YcCfcWR+S5oC99S1jK2w==
+	t=1795533352;
+	b=qygMqtR5h0UkXYzOmc5ZL16LQos42QfDtEUGsUJkfbmCHxUg2cdo2fH70VUAWdSV2DFa
+	 FJanpELmPaoHFbsADTc6IoIc7tgnyu8HRX92bfFcvWTPRXjyzwqY8oH5b4odudhJ/dGGb
+	 vKKLk+OseGlEE40XNgB2rqWz4CyOWpD/W6u/Lsotw8wJcmwahiCb3vlR/kv2p0girQhX8
+	 qjdZLn0DaSDwgfUZCQw5hAfoRRHuPJic+hpYPM/P1B9+cpu+TI69P72DbELIbZ8yXcMI6
+	 oYaqxOiOUR5HsxhXSSfoaVt8QXHRuQRGeGOy/tUekHLLIvCozZheZ+UH+G2W7PbKLFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533321;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=VCa1si+Rdw90HsiIEyC/2QXZHat4jvLNJ5wZvJeqrHo=;
-	b=Mg/CPfoOaaHYK3CaxIqtAy88aGb0d8sSLsDBCV4EOZCoioBq0ZKTy8vf/JN2v2VdUVXS
-	 XRuTI0jgakJ2hdu++3f0cwSXA9/6rkx43ksMs/o//DviasctA+orO0337sG3p1CWCodCR
-	 pSF0PzojIfUSFwk5n1E0evzVaypodTrXBXeA5H4TNH09kmZEOHhViyVq8Mww1hpOXZemf
-	 SV5E5VXFXgekabdG4k/g3XHUpvT5dU6diDVsHfNT1qZXIj9VAqswsNhYbLiBnYOSyQJe2
-	 wTQgg4ikGpwa+Shwe4rIZuimbkpZElma/xN5NDE8D4qLh7c3YK+7YJEGpCybqqzSjXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533352;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=opgmCa4GJ4PObKNwnikjQ2tZDyntqS1dxFo9rFAQ+SA=;
+	b=bvOw0f3Y6kPGlOG730HNUQBt1E0hAma2nQg3a9ZjNAYVgdHd1wUShRR6GVqkF1ITBVDZ
+	 UdNdP8vFHvoDTCMykPMV8+0JOI28PndBdbPtflZTY7wxoulXyeiIDSUEnDnbJbII37uPY
+	 xM02BiDZeD2wy1JLrope5lvHEl0lotJNdBGM0v1hePpTIFlYu+nJFxNsHo/keUzHrxekk
+	 0tWcFiHaj0W2UhcZtAtax3x92B8c8RzJmk1cuU84lEE80tb2uVImzxyF+W0oIEQQ7h9W8
+	 9mUM8WfXnobs2cedRnTlNc5Roytuc3beC918mpMaCZ+dO3LiHdLCygvnH8GErHGN8Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=L5sOuLv2;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E67E3606A326;
-	Tue, 24 Nov 2026 15:15:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E67E3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=IPe+L9NY;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C113606A323;
+	Tue, 24 Nov 2026 15:15:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C113606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=L5sOuLv2
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 47DE1497;
-	Tue, 24 Nov 2026 07:15:17 -0800 (PST)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2A8D83F763;
-	Tue, 24 Nov 2026 07:15:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795533320; bh=6z7AZlLUL2DO+OdyjCHQWwyHNa89NmXSmwHe52ByhhQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=L5sOuLv2W/AW84dHcy5h3x3Ld1v3cAaNC+yDmhHBSsvfdR/A4pNfghRoNO4gddfAQ
-	 r7DCS9BJ+Ym+pCXK6NqN0JIYBn0cPajbC5S1D39TZs6I3YyU8KNs9qngX5RwyW8IQc
-	 fwE6g94hEfLQ88hBzFYMYu6TNkfYhwfKLwX2GQ0Y=
-Message-ID: <2ce0d340-c26f-4382-a341-bbcfb5575a8c@arm.com>
-Date: Tue, 24 Nov 2026 16:15:15 +0100
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=IPe+L9NY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=opgmCa4GJ4PObKNwnikjQ
+	2tZDyntqS1dxFo9rFAQ+SA=; b=IPe+L9NYpMOJXM0agMc8aXE1mi5BjuqwqZlBV
+	GYFewm1B6D1pwPZBxe6uRMMZOBwav0NDgHLF/o//pqXrtjdJ5DFJE9fxygQvbUwp
+	enJnFY0eVCp00FvvMRoO+6IDECYe1o52ILFf6qH47gIJRhJtZZX4PXXzPDPaX3zk
+	TRIycI=
+Received: from [127.0.1.1] (unknown [114.214.193.58])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3w0ccqgVrmbbyAA--.1233S2;
+	Tue, 24 Nov 2026 23:15:40 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abel.vesa@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: display: msm: mdss-common: describe
+ additional block resets
+Date: Tue, 24 Nov 2026 23:15:40 +0800
+Message-ID: <179553334050.1285678.9600414747998960135@mail.ustc.edu.cn>
+In-Reply-To: <20261113155635.1677541-2-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261113155635.1677541-2-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,79 +67,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] arm64: dts: allwinner: add A733 SoC description
-To: Enzo Adriano <enzo.adriano.code@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
- Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
- Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>,
- Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
- Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
- Lukas Schmid <lukas.schmid@netcube.li>
-References: <cover.1795034153.git.enzo.adriano.code@gmail.com>
- <dbfb7c5ea8b0ade2d48ef8e5cfd0b9e5a9946483.1795034153.git.enzo.adriano.code@gmail.com>
- <20261121112312.75ba7299@ryzen.lan> <20261121-a733-dt-v4-2-reply@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261121-a733-dt-v4-2-reply@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:3pYKCgA3w0ccqgVrmbbyAA--.1233S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jr1kWryfXFW5ur4xWrWUCFg_yoW3GFb_CF
+	1qyFy8Kw4jqr9rJ3Z7Gr4agr1avFWqyr1UCrWrX3yfA34DJa4UGF9rtFsYvryfJan0qrya
+	yF1DKrs2yr1avjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-8YjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6ryrMxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr
+	1UYxBIdaVFxhVjvjDU0xZFpf9x07j5F4iUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREBB2sElFt24wAisB
+
+*** AI-assistance disclosure ***
+This reply was drafted with the help of an LLM coding assistant.  The author reviewed
+every line and takes full responsibility for the content, measurements and decisions.
 
 Hi,
 
-On 11/23/26 18:42, Enzo Adriano wrote:
->> So what's the purpose of this cpu-map really if it's all flat?
->> I wonder what the term "cluster" should really mean, here? I mean there
->> are surely different types of cores connected, with separate frequency
->> and power domains. So the cpu-map should not be flat, but describe that.
->> Yes, they all use the same MPIDR affinity level, and the manual talks
->> of "cluster0" only, but I wonder if this is not what this node here is
->> about.
->> Looks like the RK3588 also uses the same affinity level for all cores,
->> but has a differentiated cpu-map.
-> 
-> The map records the topology in the A733 User Manual v1.00,
-> section 5.1.2, figure 5-1. The six A55s and two A76s sit in one
-> DynamIQ unit and share L3.
-
-I would be careful with what's shown in those diagrams, they often 
-simplify things, and Allwinner's documentation doesn't have the best 
-reputation when it comes to fidelity ;-)
-
-> The BSP's separate PLLs, CPU frequency
-> policies and DCDC5/DCDC3 supplies (A7S schematic sheet 4) describe
-> two DVFS groups. Mainline can describe those with the clocks,
-> separate opp-shared tables and CPU supplies.
-
-Yes, they are separate now, whereas older SoCs would only allow one 
-voltage and one frequency, across all cores. But those were v8.0 cores, 
-without an DSU.
- From what I gathered, it is an explicit feature of those DynamIQ DSUs 
-to combine multiple microarchitectures in one "cluster", and allow 
-separate frequency and power domains. The shared L3 cache seems to be 
-the defining feature of a "cluster" now.
-
-> RK3588 and GS101 both use 4+2+2 maps. MediaTek changed MT8195,
-> MT8192 and MT8186 to one cluster each. The MT8195 patch says the
-> big and little CPUs are "in one cluster: fix the CPU map to reflect
-> that." The other two patches make the same point for their SoCs.
-
-Ah, so there are indeed conflicting examples. Apparently this cpu-map 
-and the topology described there doesn't mean too much anymore, in 
-practical terms.
-
-> 
-> https://lore.kernel.org/r/20230126103526.417039-2-angelogioacchino.delregno@collabora.com
-> https://lore.kernel.org/r/20230126103526.417039-3-angelogioacchino.delregno@collabora.com
-> https://lore.kernel.org/r/20230126103526.417039-4-angelogioacchino.delregno@collabora.com
-> 
-> I kept one cluster in v5. Do you still prefer a 6+2 split?
-
-No, with this information just one cluster, in a "flat" map, is fine.
+sashiko's review of 1/3 (2026-11-13, [Low]) says DISP_CC_MDSS_CORE_INT2_BCR (0xa000)
+belongs to the domain dispcc describes separately (MDSS_INT2_GDSC at 0xb000 and the
+mdss_mdp1 clock family) and is not an interrupt controller reset.  That reading is
+correct, so v6 would describe it as a "secondary MDSS core clock domain reset" in the
+binding and in the commit messages, with no code or DT change.  Would that v6 be welcome
+now, and would you rather have the series rebased onto current master first?
 
 Thanks,
-Andre
+Qianhui Xu
 
