@@ -1,89 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540469;
-	b=S9w36aP0MPZCsErVM2CguxmmZVb73enFrWs4OhCCG/5JeJs6lgoZu86lNKXwWAU2yFk+
-	 j4UGZ0iPIHVQUZihRpi3Nv4ra4pnf+wuZ3m9i0LslDgP/82qcZPSCJI5rPkSqqe8LNbHf
-	 6MuXmUe/tfNQEL/n/vdDQdFikdy6e1F1Wi1RhHj4w2H4z2pQTyUICFfElRARrSdWr7miC
-	 c/ZOsTZtjTFvvFVFnyxICZoW0wv/UmKzn/KWcO+hN7qDR6tZhGYFVkV/QoPvQKTlX0IDG
-	 08Y3AZD68K4ceHtBYf3z5E/KLxUe29HF13usL31p5tdCvdu7+3Do3yEvY6U3oafDbYA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540469;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795540493;
+	b=RZWUpzhd4D9FUXbg9P4yDA1/AzJliXf1IaTbk8XJ6W28qqQt8+7LCyH8sCzPyTHuntLo
+	 qxxeABsEovq8hVJbD+nmSDOaPqFML8S4qfc3bAniQarvG2kzcgvb5tKyawVHQbm3ns0l5
+	 lFa7PmKOqJefjjZzE7lufTxBkWQt+8b1/qgE/PRaHsT4pDFGLOkOF9PvrJVgZYC2V1CeQ
+	 9YBMkQHvpjQrjkCLueO1U7+QN5j73v0aplrzAxdaGdeW0P7vnHXJs/4gkDLrHtZrnYxZI
+	 yqfzRW4Qgvl1WskIgSS58sI+WFlJGKvL1BxK1VZKGHrICx997cVVDr7H1A/leQCSpLw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540493;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tGaSlh8WowCpjefQ9EPxD+050Ca7Fij70+0D6vHAq9o=;
+	b=4wW1xDcd0F6YVeiu1MIYvHPlNk9f6QPmr4au2EyXDkuVb7d0WaIv6BjfL/6ONulPRxuD
+	 3NCqQCwH3z5ZDhXPH4KQ3281dRSwM1otxoLEaC+FffdBlcaukRpBsjgfT+oWIF+W+IWtM
+	 ViSRpI7wzwe8bK0+zN3/oLMdEqBKT7JFUdwq7RicMtrBvkakEsbMHai3qre0jP9r8ySMh
+	 13FIsymWkUqvjSJnfmVSMOiOUXbscGZAx1WqWx5sFSWibm06X3L7Acxzq6FJWxDl6pnpr
+	 cT30PGK27Qiz0wVN5+y8+Umweyo19CT1WrrSxU3uim4NvVaaGv7ABL0Ho+s93+fjEwg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9WCnkGf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D5D606A332;
+	Tue, 24 Nov 2026 17:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9WCnkGf
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795540493;
+	b=qXMQcBTM6N/wJAZAsDGPo2yvnkaIqBroFSURQKmgO39gIht+AkAbr0Tjg85WHR95FKDB
+	 O2215f8oOtce+X874EbAvBzpfPg1sr0OljePfZQ8vqOcNz/ja8R5IHBkuh9peSPYz+utI
+	 Gjm+YqwbGhsiA1bJtleU0/4zWpmnw9C3EWInINV+mbPt7ntENIvgpVp1/aR/aD1Now+QK
+	 AURq5nHVj+rXxcbSMpVmDyPdmbr+ICT0y1h/17nsuHSZh10XgFrU8VIkNB1iP9OxT3YRk
+	 VY5jM992FQngzw7Xm9Fco6dgZVZSL1HCFclKb2XjmDIKPimV60ec6SNMvOh0IMOcEpw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795540493;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=z2wCW2TznEr2hKQ6/D8LQzPudwB+Q3NlBOTdsjiFXJA=;
-	b=xyu2KpDukgrw7frbLkOewdYRQp0h6b5QlxI85u9MpUX3P94ja2mYse0ZmaMighD0xlFk
-	 OL0xx+3UgY08hpEniQtPnkV1/cPQnWiH7xQZW1XP0PC++WVHuctnqrGB/jIBd9MhemBHA
-	 eodGFWCn79M7QUvwrmMY+aNeHx1NrV7HWZHevpIQGtPDMy5zyUGGXjH5l2aXjjl76pvNF
-	 iUHMwickgG6mmeIuGwaUQXymQ3mr+vUaKR/t2Nn5DtywHA5M7t+Uiq4jIMuYQ/G1GCJF/
-	 6qqiih1OFyi/dvyzOhqNdUpAcwTNlHDt4IF0GopVEbqGu78Gy+dmN+b1+urgBwhKxHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=D00ym1I7;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tGaSlh8WowCpjefQ9EPxD+050Ca7Fij70+0D6vHAq9o=;
+	b=TnLUIfRfKXekXXvBBLVOe6ID6Odx/93/fJ4DpbV4v4Xz4Mkyo5FHCwgIJaHTUO2syIq7
+	 1rkDY7DE7UNhH2xoGHvqNu76tD30wIXU7xw99ldefPIjNVFkOVfnjJlpCb89X62wJBi5E
+	 5St897Wfei+o+HvkCPduLVsIcrQqs+exkKfiGJSe2AFHmir2Hhf0QWXgyh4iMOjIkZFSI
+	 1dtGITCoMG6+Ad7fm1JhhYmjnh8AS5noE8GYs41rlF8Bn4vIHfBxGDuZNj6GSBCYIg2Xq
+	 +IXO10uPzzDi9/zgI2od+PLYOb2uENpPSh3kPTLbW+nrEC821b2Hhg925Gt92hF0IKA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8616B606A339
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:14:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8616B606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=D00ym1I7
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so62255215e9.1
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:14:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795540467; x=1796145267; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z2wCW2TznEr2hKQ6/D8LQzPudwB+Q3NlBOTdsjiFXJA=;
-        b=D00ym1I7Iw5XfnvfRQUKkpupVs8+8YMvhyMCTzyJV7NiRAWVFYMKK0JBKfQJaoe4di
-         VZZ9KHoCv6a6i1AiEcnkxsrvUgL8JBGa63ig99AFzvREh+ohOxwg9aqUW7LHHKTJ45Ri
-         ZnA9e9GatxLDOQilXj7aTUJZhRAYXXDfc2YQ42i0Kl3jFe9lvVL+x8XN88/UysKb/8+u
-         9H6ECwmltpMgweeCiezCMnymMxEZPqsm4rgP4LgPtRv65JlTgeflaA078R2xx4b4dGjn
-         I0WMkOkNOqbgrKf6NaMAKTOOJieSwpGQHYK45i0kqcHmxsZDdHtSSnAtyW7+G+kPtIiT
-         1Npw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795540467; x=1796145267;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z2wCW2TznEr2hKQ6/D8LQzPudwB+Q3NlBOTdsjiFXJA=;
-        b=m6gIUgPvvOXz1anBwt/jrwbFM+p9E85bzpQaG5ixXygj4EWV5sLN2XC+5MyVLUiScy
-         EfUli4G+3v1Oc8s7xMLA958sMrhumRdwgrdiIz+MXSeDzCTXNG375Tb+Vi5nfCHPKBW1
-         OqcWlBHtaWYhe9Q6i2OwGqB5nTP/xm9dy6dzFOPhLKXHhrTw2IBTw/5zmPlOvecCRJZ0
-         cEt9vNMx9yDOz4+CIaCA2AxXMkuKP8D6iz5ay2onJR1GH9ld+ventrlvDCXUhILhYuc+
-         uQRV8cV2zJ01WGEg/tjZ9aJUR9trXt2n7mue0jbl4DWzMZI7OF9dBa7NKqZbCkrVjq9/
-         vang==
-X-Forwarded-Encrypted: i=1; AL+hErFMJHH0vbjt2GGkRXdvSTendoWYNgtpST5e4gJ7aRuLxWHepkFRco8ULd8CWcQ9fgy6Za/7lbkMLzG6@vger.kernel.org
-X-Gm-Message-State: APuU4Z81IatHExd4ciNP0AxMQPKnlM+AJ6ayiE9oV9f12sEodVMrVAPx
-	2Yh0Zj+K8mM275btXqfNXxTkuILFU516JgM4CJd8NN3skM+e3FhJ0YLV7QnDZoRzR38=
-X-Gm-Gg: AZFdTZePXh5cZtFXnrYswhM7HgjKkGmUrMoou9nsmIO32A+N7Cni6x4m32DTBG+c7Ow
-	Uv5ke85AU3eUgQAeCMJ1NLA7c7H3MBlHQteHsnlyAZajrtUvYTXvbyWNxtJTQV+yZXRAHsx6GV8
-	sN0Uhjs8kY4gYP73JWY1HpFt+UwFiHx+7VFpEOjgImuCW6o5IOCsgi7H1K9UjFErAo+ESMgqodI
-	u1zMVabMHm5k3L/zs6n11AVLZcCZH348fa2d5iHSH4KEpMzLDEx6xoaQ76WizDXScNayJvmwn5X
-	Nht3WjDpBWU5saZmgSU+J4Jmk/SUg0e2z+SI/zzCej1EPeBY90926sRGORBhtcKDT9e4mL28geT
-	5o1cMYrUlQOtNXEYa8VW5hYo3RhT38d28KDoqbNSnoTknjR+gC/TwO4W6Zj2T0SbAfbB1akyBu/
-	e85omTU1HuW8b7rXNgqT0ffR510k6E0IQy+OkfdYbf2TbdfV6wII+cI/lMXe//dwOcabXRSQKC9
-	l79Z1qFoACzZUG18AN7AfG1+Pa4u5wCpmjB/NvlxxKgQ6wZFlpanpLlgT2aH32FJyJCtSaGfli3
-	eZVvjNeb3vSdVzVWSxBicdio5pPWfsddqzCJWqfEeDwSDHW/t0s=
-X-Received: by 2002:a05:600c:37c6:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4bb88812a84mr313362825e9.13.1795540466734;
-        Tue, 24 Nov 2026 09:14:26 -0800 (PST)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8849e598sm410592735e9.8.2026.11.24.09.14.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 09:14:26 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 24 Nov 2026 18:14:23 +0100
-Subject: [PATCH v2 2/2] pinctrl: qcom: lpass-lpi: attach all the power
- domains
+	by smtp.kernel.org (Postfix) with ESMTPS id 0CA381F0156B;
+	Tue, 24 Nov 2026 17:14:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795540493;
+	bh=tGaSlh8WowCpjefQ9EPxD+050Ca7Fij70+0D6vHAq9o=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=A9WCnkGfWsStu7pdPjuelGK7wBZTRen74um+zh+aP2TuBg0C/XQp37Z3l8tb1EMRA
+	 0E4sNLQFFPJy5VBtbFqJCDYoXshoyvQqd1KjMh5J0vhUfRHu8Uflv481ktErMJs+G+
+	 Dm67wZGQLKFPTjaGnN0BO7Esvp3MfQdHfDNpH3QPYHBikMb5m1N4nKWVITWtirlS6S
+	 qY7GHY6+mr1gIIs8FWKyNMRZc1nCBnvxdRPVaT6wxb/d6+jLmXZYEYKH3iAS8Hxlyc
+	 qM+A85rtJ8+sRhOsA9j22LiisCNgmPi3W8PLxLjRwv0SVfkpWxacJdG6I6LeH2UK1R
+	 AKHLVmVlZL1PA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 862804CAF7;
+	Tue, 24 Nov 2026 17:14:35 +0000 (UTC)
+From: Umer Uddin via B4 Relay <devnull+umer.uddin.mentallysanemainliners.org@kernel.org>
+Date: Tue, 24 Nov 2026 17:14:32 +0000
+Subject: [PATCH v2 1/2] arm64: dts: exynos: exynos7885-gta3xllte: Enable
+ USB support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,82 +84,94 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-topic-sm8650-el2-pinctrl-v2-2-fd05c8378a08@linaro.org>
-References: <20261124-topic-sm8650-el2-pinctrl-v2-0-fd05c8378a08@linaro.org>
-In-Reply-To: <20261124-topic-sm8650-el2-pinctrl-v2-0-fd05c8378a08@linaro.org>
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
+Message-Id: <20261124-gta3xllte-usb-battery-v2-1-80bdcb1753bb@mentallysanemainliners.org>
+References: <20261124-gta3xllte-usb-battery-v2-0-80bdcb1753bb@mentallysanemainliners.org>
+In-Reply-To: <20261124-gta3xllte-usb-battery-v2-0-80bdcb1753bb@mentallysanemainliners.org>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, Henri Ommer <henri@ommer.net>, 
+ David Virag <virag.david003@gmail.com>, 
+ Umer Uddin <umer.uddin@mentallysanemainliners.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1672;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=zmp4vn3X04bE7pD2IGrBeIQaELOOnUf0zlQOX83mFQU=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBrBcXwjyCRaJ71OOMWY4Xx1GfsWkuRB7/GrEe7XVSM
- sJEaeuKJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCawXF8AAKCRB33NvayMhJ0dvcD/
- 9A1aQZD0JS763OWx3fJkPF8CIKL945NiiVR8LJHeEwlJqSzCTo2dECbH+UVpZFAv1CULWOJYPW9BmF
- /2qUz60Cdzd51XF/+gfsQYylToyLDQ0Vdf5Ydfyh9TOLF8TcBh7lWr2Gedat2xtQB+IpHWsNjOJesB
- bVxuyrkKs/5HAfoyfDi8gABtoMfxgI4SzpT6bFMbP+EzsWfyu3y44h9GSPLdc4I3cSlHVBeoMlu7OJ
- rH1mfyxR9uDOVysVK0B/nSKW7gs/jvbmv0XFqOJytZJ/qBbx6mnjFpqB/AI7Y1jfM2DtzRtrs7O46X
- HbKtt80de57a2mpYcjEoNSMeW31f5qYkBpWTYblgTgRXI3OrN5L6Nlc5r8VIWFk7zV8ent0szWx40w
- wy/SKlFLxPQDd56rqjnPhYy9JT0gB8/KvX32DClvrAsLRHzClp8huT7SSiWlrR5vKcPVLdYAaQQq5E
- C6r7rZgRFceGjVIYfboEG8ffMF1ZTCOoKE1KF/3Jhs2ku+vrvVT7+MsMINe4ASwqfmHK5ri4+Hv3Jy
- EEIv/pRQ8UhbVQy+s8B3OnIZf+qZPvcett6nXhN0Yp38eoPgiSiNXv3fi2S9EzNqArEvq1z56+vlok
- psIz91UGoOmzv44qDie603sPF8/TnXiYxwmJv3MU2n7q9KKLIPcHblb96XbA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540475; l=1489;
+ i=umer.uddin@mentallysanemainliners.org; s=20261109;
+ h=from:subject:message-id;
+ bh=2sc//xhMdQLxeTbKn3e0zeBob0QS6bolzRWDj8BhCrE=;
+ b=o9CZzwH0fykt7/8/HjQfcWLgxRlRcPq8iqZ2/s6lVdr97PQOOvSlOul6xoVAVIbfyWATm2Ars
+ +sC8rjeEMvZCe5EoZMWLE90xrlQ9bLL38+0KOydi/u2YfilSj5hbyr2
+X-Developer-Key: i=umer.uddin@mentallysanemainliners.org; a=ed25519;
+ pk=Hsgrt4A72CFTe27AI1AAWlnLsiQrlb4+T+cbrfWDhUA=
+X-Endpoint-Received: by B4 Relay for
+ umer.uddin@mentallysanemainliners.org/20261109 with auth_id=1466
+X-Original-From: Umer Uddin <umer.uddin@mentallysanemainliners.org>
+Reply-To: umer.uddin@mentallysanemainliners.org
+Content-Transfer-Encoding: 7bit
 
-When the LPASS is not handled by the ADSP firmware, the LPASS TLMM
-block lies in the LPASS core and audio power domains, but the
-driver core won't attach a device to multiple power domains.
+From: Umer Uddin <umer.uddin@mentallysanemainliners.org>
 
-Attach all the power domains with devm_pm_domain_attach_list() so
-they get powered on when the TLMM registers are accessed.
+The Samsung Galaxy Tab A 10.1 (2019) has a USB-C port capable of USB 2.0
+speeds, used both as host and device, and is used for charging the
+tablet.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+The port is controlled by an S2MU005 IC. Until support for it is
+added, only USB device functionality is available, so enable the USB
+controller and PHY in peripheral mode.
+
+Signed-off-by: Umer Uddin <umer.uddin@mentallysanemainliners.org>
 ---
- drivers/pinctrl/qcom/pinctrl-lpass-lpi.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ .../arm64/boot/dts/exynos/exynos7885-gta3xllte.dts | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-index 02f678fa75b1..1b1d0f4bddb5 100644
---- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-+++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
-@@ -17,6 +17,7 @@
- #include <linux/pinctrl/pinconf.h>
- #include <linux/pinctrl/pinmux.h>
- #include <linux/pm_clock.h>
-+#include <linux/pm_domain.h>
- #include <linux/pm_runtime.h>
+diff --git a/arch/arm64/boot/dts/exynos/exynos7885-gta3xllte.dts b/arch/arm64/boot/dts/exynos/exynos7885-gta3xllte.dts
+index 03476f8b1200..57df878cb563 100644
+--- a/arch/arm64/boot/dts/exynos/exynos7885-gta3xllte.dts
++++ b/arch/arm64/boot/dts/exynos/exynos7885-gta3xllte.dts
+@@ -68,6 +68,12 @@ memory@80000000 {
+ 		      <0x0 0xc0000000 0x40000000>;
+ 	};
  
- #include "../pinctrl-utils.h"
-@@ -37,6 +38,7 @@ struct lpi_pinctrl {
- 	struct mutex lock;
- 	DECLARE_BITMAP(ever_gpio, MAX_NR_GPIO);
- 	const struct lpi_pinctrl_variant_data *data;
-+	struct dev_pm_domain_list *pd_list;
- };
- 
- static void __iomem *lpi_gpio_reg(struct lpi_pinctrl *state,
-@@ -543,6 +545,13 @@ int lpi_pinctrl_probe(struct platform_device *pdev)
- 					     "Slew resource not provided\n");
- 	}
- 
-+	/* Attach all the power domains when the LPASS is not handled by the ADSP */
-+	if (!dev->pm_domain) {
-+		ret = devm_pm_domain_attach_list(dev, NULL, &pctrl->pd_list);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret, "failed to attach power domains\n");
-+	}
++	/* TODO: Remove this once PMIC is implemented */
++	reg_dummy: regulator-0 {
++		compatible = "regulator-fixed";
++		regulator-name = "dummy_reg";
++	};
 +
- 	ret = devm_pm_clk_create(dev);
- 	if (ret)
- 		return ret;
+ 	reserved-memory {
+ 		ranges;
+ 		#address-cells = <2>;
+@@ -127,3 +133,19 @@ key_volup: key-volup-pins {
+ 		samsung,pin-drv = <EXYNOS5420_PIN_DRV_LV1>;
+ 	};
+ };
++
++&usbdrd {
++	vdd10-supply = <&reg_dummy>;
++	vdd33-supply = <&reg_dummy>;
++
++	status = "okay";
++};
++
++&usbdrd_dwc3 {
++	/* Force to peripheral until we have Type-C working */
++	dr_mode = "peripheral";
++};
++
++&usbdrd_phy {
++	status = "okay";
++};
 
 -- 
-2.34.1
+2.56.1
+
 
