@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795518529;
-	b=TjyfbxiPDYpO1c5wK0/Wzu9+DYi44wJ627ztvQ/29kHHmNz+I6vD2D2DjGFrTb5zkZO5
-	 GtbkqANjMX31sN1PFcyfNHVCmtz1mb2bIVFYCXkDGGRtoSYDQf/aFoqvL3oQ2qBD2rReS
-	 R4EPS3gEv3NSR30ncpz+se1bp0xQ5JZLPLKRgFvVIO4l/hg2xuHsJ/1Hb8IOUIR9UbRjV
-	 vD873MUdVRUpbO5ShB3GThh1k0U5yAVVgi7hWHEefQPNuSqOW4AlIEVDDRLHpYtcyrmY2
-	 mHOv/W9MybGowExBLgQHLo7tMAgowBxVk0mWII8ZjYBfMLNxf/7DwAkvGY7C+2kYk3w==
+	t=1795518607;
+	b=dMZz+R/8zIf4hZJWbW7lyZCtFuC51fsVK4S0JXNgGq0BvWKYkfrweRfA/KD4J5t79Zyn
+	 qzhIiQwtOVT3c+kLUsj5cR5+9mmpTq+t2Bcm8s1HPqXlVb5W3EhX5MdXtaN/uwa3ub3XQ
+	 zd7HV6TV2H1L2aWJMBU8uScBTxgh3+QopUu+xMY9Qc1xv9VNomyOsu2NlLD/s3AjMMiiM
+	 PFx26kNIsB+V/ncqvaE8kGU9Uh2K/613pN+chFPpVufEJQj2PjG0G7TaBFJjQsnI5mhcj
+	 tc0h3N0Qd+o0UE7AAwZqZp6RJSuDNjV3+Uf5F/a6aINOGRvcQ56wyNNF1zHZ6cRQInw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795518529;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CetQmFtOguzNQpi7pceO/bzzVwbiUxajNwWkf66b/V0=;
-	b=DFBJJHVRiOp8vYEn9xEvHA8tdXvIjHNfhg3IFZeticnT4jBKRtHbsjfhzznTBMLfpJPB
-	 l9ylvNJQ+PsTlyocnlZMxxh5by2HpqK1f0nmJ8vOTlVsQcTkYu0GHcpPJT6bwYe/sql8J
-	 fZs/J3OzZBSPo3KDtHQeQDl8tBS6Fo3d2Y8R+GX+lRafJ0yxWhA5htlqDbAG0LdaAJNNX
-	 IeCXzusNsNzsUTE3HYebJF4YPd+HyuvCgkx0sXrnZW+CFgHna2LqBHRicw+SV0t96n1g5
-	 8VZDyNNbDacTNJKaqx+zT/wElP0E/ny9DCa6xp2VlgPVxT4x9/YQx7FRB4BgSSi7/TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795518607;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=9Uc4JfCpumODPMijRTnBTi5b0zIZfgKr+QSoPMZhijs=;
+	b=q72uYosvy71+WZyS6uPx4gVbS1/0BdIU/Tj5hMOCHdPrHW/Muc8eQKCpbGPsb/ToVv1z
+	 qgWAIQk1DmI+/10O0RRswsGY5rsFh4yUtcjooMe0Qz1+a9Ea2hMXSN+YqOwwpT5R29+nW
+	 NgYclHvf1C0cNzS/uFJH5kgV5ZFtGDuBF6xz2nFxcqVaNFIR7hShuMJkcgIp+fQWwjKPG
+	 NhXjDmdVoQa6skJAr993339h53JprRvlyBbQ7a3jiTzQBOYfE2P7zBdjhSwkj8hOWEb9M
+	 7slL4jcZs3zgeWslNtJ3jYlcHuqGmOhMnwFGvDUJ7eZWeNipMu5jkhUQCJboE0SxraQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M1rb+TSw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Xk3xuaa/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9BF23606A31E;
-	Tue, 24 Nov 2026 11:08:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E8D606A31E;
+	Tue, 24 Nov 2026 11:10:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M1rb+TSw
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 458D91F000C4;
-	Tue, 24 Nov 2026 11:08:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xk3xuaa/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63DF1F000C0;
+	Tue, 24 Nov 2026 11:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795518528;
-	bh=CetQmFtOguzNQpi7pceO/bzzVwbiUxajNwWkf66b/V0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M1rb+TSwVXhD0FcaK2WuQjvpoRwDYVTIZeJ7lOekP+N7uFNNYvcEbobbMX7Hgi+hw
-	 nydEjihjcg8p2WLIz+z38Zsvlm3Nq+IyH2i0RbxFNynK0DdMN+OTTn4Ue0n4LSGTzh
-	 xikwWBrLZEZZTnD0ZrJ9qgvzNYTlV3YJLN+eTeFV65cudfCTufYGzn3ToxygexqYbB
-	 vW9jC1LVfEWcPgMdgZ0B9FxcKmScB4NyVZlrww9bEyt4gS0zkw3CUD7hFcc6JBu6mF
-	 3B5zw2SipetxTx2IL+MhyCmi20e+IPrkr7iURXX0lne+0aQTHtxu8lSy0gUtberGBV
-	 nJq5FPOFvb/Vg==
-Date: Tue, 24 Nov 2026 12:08:46 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich <michael.hennerich@analog.com>, 
-	Trevor Gamblin <tgamblin@baylibre.com>, David Lechner <dlechner@baylibre.com>, linux-pwm@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/6] pwm: core: add pwm_get_waveform_step_might_sleep()
-Message-ID: <awVki6lC3SxGfqSl@monoceros>
-References: <awQ9oGse6orrsCDj@monoceros>
- <20261123165522.336249-1-Nicolae-daniel.Deaconescu@analog.com>
+	s=k20260515; t=1795518607;
+	bh=9Uc4JfCpumODPMijRTnBTi5b0zIZfgKr+QSoPMZhijs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Xk3xuaa/N5uXyYcRyMEpHNDrB5D1+eHa7NqcjVwAx3wOPES3y2Hi+0jaHatDHcuOI
+	 NM9YLecUnGW7nfHNhb8SGnFQCa/14sn5tJvt1witsDZkXAT2HEGwuoEMVATgsa6p+2
+	 ps10XURSxtCOr6La8VFwEWrW+QxkzLbS5LbVKZP7HlRgc6P6Y0ui1dg/4si6c+H3wf
+	 LvbBwy5C98hMGI3EcbiXxh62iv82G90ijgRkMfI6u4RqYV0j+kqAlCL9P+0M0jkUSP
+	 2RyQxtkZMUvXWYEKGrs+AZPgREvCd5+YB57cUB2vWeKTNnq+ziK/ptOwOFNTGg9HzK
+	 5H/224DWLjf9Q==
+Message-ID: <sashiko-outbox-231022@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] scsi: ufs: dt-bindings: Add compatible for Seca UFS
+ Host Controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yadu M G" <yadu.mg@oss.qualcomm.com>
+Cc: linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <61136dcb5cde2c0cfe1b8f3a488e9edcf36043cf.1795517687.git.yadu.mg@oss.qualcomm.com>
+References: <61136dcb5cde2c0cfe1b8f3a488e9edcf36043cf.1795517687.git.yadu.mg@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 11:10:06 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,93 +59,53 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sbfv4le22k4govfd"
-Content-Disposition: inline
-In-Reply-To: <20261123165522.336249-1-Nicolae-daniel.Deaconescu@analog.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] dt-bindings: ufs: duplicate compatible items block in
+  qcom,sa8255p-ufshc.yaml
+- [Low] dt-bindings: ufs: mismatch between Seca commit message and
+  qcom,secaau-ufshc
+--
 
---sbfv4le22k4govfd
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v4 1/6] pwm: core: add pwm_get_waveform_step_might_sleep()
-MIME-Version: 1.0
+commit b11281b04c340241867d637b437dc8dcec5dc5bf
+Author: Yadu M G <yadu.mg@oss.qualcomm.com>
 
-Hello Daniel,
+scsi: ufs: dt-bindings: Add compatible for Seca UFS Host Controller
 
-On Mon, Nov 23, 2026 at 06:55:22PM +0200, Nicolae-Daniel Deaconescu wrote:
-> The driver has to know the clock rate the PWMs run from. CNV and the CLK
-> gate are one burst of whole clock cycles after each conversion, and I have
-> to place the end of the burst relative to the next CNV. The gate has to pass
-> exactly the number of clock pulses the ADC shifts out, so I need the exact
-> number of clock pulses in the window to place its edges.
+This commit adds the qcom,secaau-ufshc compatible string with the
+qcom,sa8255p-ufshc fallback to the SA8255P UFS host controller DT
+binding schema.
 
-I don't understand that, but it sounds a bit like
-https://en.wikipedia.org/wiki/XY_problem. I suspect you need a pattern
-like this (just one period depicted; 12 is just an example):
+> diff --git a/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yam=
+l b/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
+> index 66d73e9025d6b..4a5dbc780b0d6 100644
+> --- a/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
+> +++ b/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
+> @@ -16,6 +16,9 @@ properties:
+>        - items:
+>            - const: qcom,sa8797p-ufshc
+>            - const: qcom,sa8255p-ufshc
+> +      - items:
+> +          - const: qcom,secaau-ufshc
 
-                   _   _   _       _
-___________...____/ \_/ \_/ \_..._/ \__
-                  ---- 12 pulses ----
+[Severity: Low]
+Is "qcom,secaau-ufshc" the intended compatible string when the commit
+title and message refer only to "Seca"?  Other Qualcomm codename-based
+UFS compatibles in Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.=
+yaml
+use "qcom,<codename>-ufshc" without an "au" suffix (such as
+"qcom,glymur-ufshc" and "qcom,nord-ufshc"), so either the compatible
+should match the SoC name or the commit message should explain the
+"secaau" variant naming.
 
-and the idea is to create that from two signals, a clk and a PWM:
+> +          - const: qcom,sa8255p-ufshc
 
- _   _   _     _   _   _   _       _
-/ \_/ \_/ \.../ \_/ \_/ \_/ \_..._/ \__
-                  ---- 12 pulses ----
-                   __________________
-___________...____/                  \_
+[Severity: Low]
+Should this compatible be grouped with "qcom,sa8797p-ufshc" in an enum
+under the existing items block rather than adding a duplicate items block
+with the same "qcom,sa8255p-ufshc" fallback?
 
-and OR them together to make the PWM mask the unwanted clk pulses.
-
-And then with a 2nd PWM that does:
-
-     _
-____/ \____..._________________________
-
-to trigger a conversion.
-
-> The existing rounding functions give me the rounded nanoseconds, but not how
-> many clock cycles that is. For example, 4 pulses of a 120 MHz clock last
-> 33.3 ns, so 33 ns is rounded down to 3 cycles and only 34 to 41 ns give
-> exactly 4. At 100 MHz the range for 4 cycles is 40 to 49 ns. If the driver
-> doesn't know the rate, it can't pick a number in the right window, and would
-> either run into the next conversion or corrupt the data with a shift.
-
-Unless the clk is very fast, the nanosecond resolution should be
-finegrained enough!? With the clk running at 120 MHz[1] and 4 desired
-pulses the masking PWM needs a duty cycle between 29.16667 ns and
-33.33333 ns, i.e. between 3.5 and 4 ticks (and a common rising edge with
-the clk signal).
-
-Assuming a sane hardware composition and seeing that requesting
-.duty_length_ns = 33 yields 25 ns, .duty_length_ns = 34 is the right
-choice.
-
-The same calculation with clk rate = 100 MHz yields: duty_length in
-[3.5; 4] clk ticks = [35; 40] ns and 40 ns gives an exact match.
-
-Does that fit your problem and make sense?
-
-Best regards
-Uwe
-
-[1] assuming a 50% clk duty
-
---sbfv4le22k4govfd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsFcDMACgkQj4D7WH0S
-/k7fiAgAgDDYAMOZwxyp+5zUgbzyWNhnQ7SVPQKkIkFo/bzASTZq4++ykCE9Awh4
-AiYUNIt2NuduNav7sHVRCvvhoiIbTyIuIbsnT+ESSw7sbWoL/FiJDCaDPYJ92ufO
-b4FW9BNJ6FdQR124b5WZt4fbnMitAJrFerWpZPdqVS24F9+hsOS9zR8Eg/0VIPtp
-vc8bq0CUAuIBNP+kfOGRd9hEM+2G1rxHso86YL6odMfeOMNiXZWzLrO/gUe5eQ7Y
-FdCiXQjlRTO/mKNX7mKKzKPLN9J4cVhNBicFAodyFdln2efG9+xEV+gF613zyYpZ
-5tJPjKpG1g36WWjhhnOuOMuqDsm85g==
-=c5bw
------END PGP SIGNATURE-----
-
---sbfv4le22k4govfd--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/61136dcb5cde2c0cfe1=
+b8f3a488e9edcf36043cf.1795517687.git.yadu.mg@oss.qualcomm.com?part=3D1
