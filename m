@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795560440;
-	b=Gq7Z850JLkSPt+SINR55U+NARv98HJJHtZOONANBhQEI+3vErxnmyvwUhgeamCKIg5xe
-	 OJm0aQoZ9WWGEqKPZRNGKby1bRmDwxV6ECm+h27yu7cNIqiGjYKcCq+ttrkm4YbGPkrzV
-	 kMwWNZR3s630EtSrTPx10yrUrN4YZR/7bL2RGM87VHkISSCGrlIqJ9bZaL/tV8e7wMYA7
-	 OtgnM61nAp7Z80ZOG1K/xX8041Z0E8oSDu3F0AR29VsZ73Dw9QXVoFy5VgsadoblPLP4K
-	 fOzy3RXpfa//5NtR2k/mOhFTw62BITEk2BxeYGCIG/K9eqGaCirJtgw5IpqsI6cgIFg==
+	b=SPUs9kEt968Q3a56ShoXzzB1nFkOWFip40jCwXtYYF7hiIJwdpbcwi0BXVTL67/8pvlI
+	 k7VISV/hbEa6NVQslhFz2ZQ3a7sjqVIq0KbL8nb3cyaPDDr8ZZW2om31+VQdZSoeZQuuX
+	 dIr3ch8gnOmNZQu3oHTLj1OszM1/HnbvhfVKIgDVnkItAg75UP/2k/xkUeyDGmrTpN6U4
+	 0HQbxCT0pPzsb4JmasRXRu1dTXPfIAUkL97LCJexnSRycid/5aJkIoHkg2KApCc26iwoV
+	 R6qMO4d6Ud0EH1QgYlN22XSRXIm6S2tzslZKbhaA/sZ5NkCnlUh8p9GAjgKvHR+zHfw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795560440;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Y54nt4+fq24f4YIB9TGXc8UsmwWcLEu74poV5qjZyIk=;
-	b=a5iplGJip07HEeygWWMIZi4EDAj7DQLtocc7iOp/CwRrbh+X17kpyTyJoqRPcreV2PYY
-	 wb4aW4cCB0LyQ7sNG8Dlh28lJoY/HB73HX42Os7bdUZl87cNJHIdgylOO03m1x15hU3KJ
-	 8wKP8/1jUI5ThsrFnOeTVbGzTEipFqpHvmvoMKg15jC/sgap72TAnb6wei+6Q3JobHX9z
-	 JfPlj6qqo24z7xHZexEGAX/s31K4fyw3fzSyPIUWxLIZNZlEiDE+P8MH3ROSlFS7TGOaV
-	 oz8VtEEGc8EY4jnfRau0jz9m3F1c+vE6NGhdIQ0R77x3srrCRtOZGuJyU+10H4RhhQw==
+	bh=nezTVwX8oFCdjg6+8FefTSCVGXK6w3/g8n6WJXjB7os=;
+	b=F5aKlQu05rdKyozs8DCeiy/SF2T3QrqFlXwlRAedGYOAEfQvII27yGks4JLPNoV22wbj
+	 EB305wrjEIUXzyYUmxo05zs/ZbOVoAa3KQ/ASMOE1N79TUkGSUt2gu8aWVdfIbTdeE4oC
+	 YHom8a3DIvqoBVLXxJv3AdjaFyTqYUpVn3kpB9dbLLjutmYU02xHJYvnuUt0wqZ9trflp
+	 BVAXulVOwH0mg/e0NvIaG/2ENTqQNlhYRbeYH+7NB7JCxq0AAQZRmPETbGOHO6Q+b1jqC
+	 R8gSRlsEir65wBLilutZ8mjzrhWTOkEUz9l28xr5EWzUj9RWpfjWn+wdIGcYR7vIw7g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJr2hUe+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knY6yZl4;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85293606A338;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5162F606A334;
 	Tue, 24 Nov 2026 22:47:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJr2hUe+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knY6yZl4
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795560440;
-	b=zqv0Xo9C9A3CV+Pye2nkXwm79FF4DpPxH5l0rJTgp5TLuBrXi75YVLGHArduR3jnB7r2
-	 1uDlY8VWbFfcAjF2XSZ7OqJG/5NVF6oVaQz28CO2Gh1+Emud+d8FERt7eb0ismvbgycca
-	 M0DcrNMx4pDkiJ9sZp0W2KBb9wko8jDBtnuCTEj2isaolJu4CJv3SVZ184tsNAL0IQ6RR
-	 Yf4mLPY/lXm5VaTuGwiBrwkm9YaYwDZqBlKxB1tdfrSA4JlIVkbIdjFa3gTytRwOMtHKk
-	 2FD6CV1QyGbQXRQESTQ1yHHxKM1agHXj662TEVk0tyq4ADXwWMRudlJkhra1ZGApHEw==
+	t=1795560439;
+	b=T7RkCF7HzMHA8ZMCGOy40jyjjQjkc563Dfo38yALb5j9hueiYMrI94X2mPhMmWVwd+s0
+	 Jr35O7/AJXc4Wqzws3i9CQUIA+Jp5l/YvIsB9AG1Z0HgIbnXnlG1AibrHwbeCyyyZraNA
+	 LibDQI2z3prZrNip5xHQGkS8wYE9FzF/hc6BNLf8I6neVGJnvQ9Lks1gkMzSs6twgCGLi
+	 I45d1WO+xn5xiPx2/hDcn2ugk8EfnUGi3yqY8wz8rJtYGkQtR5D/3XArWcK4oAPFKHKKP
+	 3vaidxsRgG42OCErZX/qc3ZD7jNEOA90h44fhG8B/7BMzdU3kSQ1co51lyKhce93deQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795560440;
+	c=relaxed/relaxed; t=1795560439;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Y54nt4+fq24f4YIB9TGXc8UsmwWcLEu74poV5qjZyIk=;
-	b=pQU6PmLA86UToxCiltm/2obg+Qwl9I04hU5NrsHd5Vd0gvwg+T6XZrnw+9XfrGn93RPL
-	 LTtfqrV63XWpmJvIGBTI1yZzqjCBH8FFAXM843681Y+/PdKxg3o8qQDgn7G/xPASyUCn9
-	 Y6EAVg68xJbQZ6Wc70JWuVWYhWHD50wAK/RZTmsg2zECBgXOSij/ymWN53SlZx7XK/xVF
-	 N6R20nPkvjd7aghQ1H1mYngSE1DVCqOcrjIA713QY7riIWzFSjjWolF3sQp7ZprRtYvdD
-	 UWHrYP4BA4nz6dHSvwpJoIZEao/Nca75yFocSFTboS0bVPA/WKh62NtAJeEV4zb1yLQ==
+	bh=nezTVwX8oFCdjg6+8FefTSCVGXK6w3/g8n6WJXjB7os=;
+	b=k++r4OG+U/UHfxXPiaEJM/0KSOI0GmvFCVuZhFisji5GS0wNMw+jniFCccN6cl09qVBg
+	 ym/eWIcib6CKq1dwoKPzW6P99yoNmaADxigjFuByR+SqYkpZEyhpmP4bKEIM2gEMyJJ1k
+	 kQYrSN577vY/lDnqG1suPugfRi0lrFonx6PdCf3BcFqwbc44o4eTtCPXQPVIbu2Hd95bD
+	 Y6mIyufPcziK4BeCSsXuX9VgPDh8OxDezNMQveXrr2x9hzoV/2q/mcgclLKOY8SZeDnpH
+	 GElyOEgbsb7x5Dy8hnIKu5sg08w/YzxifwPDDy2ElAHhX0Fx8ohGPPovmvjW+mHDt6A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3141B1F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5185A1F000EB;
 	Tue, 24 Nov 2026 22:47:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795560440;
-	bh=Y54nt4+fq24f4YIB9TGXc8UsmwWcLEu74poV5qjZyIk=;
+	s=k20260515; t=1795560439;
+	bh=nezTVwX8oFCdjg6+8FefTSCVGXK6w3/g8n6WJXjB7os=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=AJr2hUe+J6SBcQF3C5KVPaqfAYAPMd6N9gYtsCP+w05xmWp/4AtLt6V6s8Jy2tPtG
-	 0cPm/gc7xin0tDqAN2v3blcuouFerLqo5TgxjQQChrTjx7jGZf9CiclsRnMKAY5fzp
-	 OIvK/8HC46WJTiTifwht27gBEHlUfct7oUy1molx6t5sQb63rAqwZTmMc4rHRWMQt2
-	 X6KmfPYga/QYs+mawZAUFVs9yuOoMJPGHv7uanjlIySMRClUVvXLykggSFvD4LISHL
-	 CHMcmt5mtqH60N4rXFi28gp3/xFmtkVbhgd9mr8oBfiUivQRdMCAJ9kgPCwM5W16dn
-	 OB5nAURHYM84A==
+	b=knY6yZl4xPXnPInNmEH6Rq+9ZWcusDPWDPiDagjjdmGqMM5WCD3tpK0tnFMDduWt4
+	 YVEurqZjnF/eJu41g45m6adIQaBwHeWTHXt6XHrY0/S1+YzUAUP/PVbH2WqgBPhK/0
+	 aSS21wDfJjT1kN8rjOEhswKPFU4FOGfehlX5n/6LWdQX4H13F+HcFhxsAxU8mJRMLs
+	 ZwPpOcUgprJE5471qmjmguLtnBiNHk8xfJYCGVTzWVZ51R+12OwYuAOR5RBho98vYn
+	 w9IjkCsUpSi6/tN3ig7vNW9QxMQtRv5MrbhiLtdNAkra30xxe5lDJK2DmVIVnFH9Kr
+	 xlF19aIzKwVhA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BA6D14CC0D;
+	by lkml.kernel.org (Postfix) with ESMTP id D56624CC10;
 	Tue, 24 Nov 2026 22:46:59 +0000 (UTC)
 From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
-Date: Tue, 24 Nov 2026 23:46:57 +0100
-Subject: [PATCH 1/2] dt-bindings: iio: light: add ams OSRAM TCS3430
+Date: Tue, 24 Nov 2026 23:46:58 +0100
+Subject: [PATCH 2/2] iio: light: add ams OSRAM TCS3430 XYZ and ambient
+ light sensor driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-iio-tcs3430-v1-1-0f2a38a6a4c1@gmail.com>
+Message-Id: <20261124-iio-tcs3430-v1-2-0f2a38a6a4c1@gmail.com>
 References: <20261124-iio-tcs3430-v1-0-0f2a38a6a4c1@gmail.com>
 In-Reply-To: <20261124-iio-tcs3430-v1-0-0f2a38a6a4c1@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -95,11 +96,11 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Robert Ijtsma <robertijtsma@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795560419; l=2397;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795560419; l=12434;
  i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
- bh=6g3jbEADq4dZ3mSEGwYLMwabsTUEtLyGK4g51b8S51k=;
- b=8Nwd+wcxYr8+gQfY89SoZNiJ/L0j2Xe4BohEDYG4fTvdYpPs8l4HEaf068d6gyPQjVYWOcXQg
- 0Kv0bXEEHNFA7LhdXUb7SakqBVaiDtsarKOLqdzdMEP5VyyZtD7I53n
+ bh=dtV6AhP8bkV0dJ+wEFVJkec7NYtVmfKkQQtBOiTI0mQ=;
+ b=ziAJVhuM+OAA1HRIQ7YR7JyPyH5YGLQeIGyVOAMUwK8RHirBjzueVywvLWEzKzCjn3+5KROE/
+ fX91bIUDFf9Axh28cjc4yBtdygbF/0dQ6SWgs2ZCAB7gVEfqL859H6E
 X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
  pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
 X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
@@ -110,90 +111,422 @@ Content-Transfer-Encoding: 7bit
 
 From: Robert Ijtsma <robertijtsma@gmail.com>
 
-Add Devicetree binding schema for the ams OSRAM TCS3430 ambient light
-and CIE 1931 XYZ tristimulus color sensor.
+Add an IIO driver for the ams OSRAM TCS3430 ambient light and CIE 1931
+XYZ tristimulus color sensor (found at I2C address 0x39 on devices such
+as the Microsoft Surface Pro X).
+
+The driver exposes:
+- Illuminance (photopic Y channel) with raw counts and lux scale
+- Modified intensity channels for X, Y, Z, and IR1
+- Selectable hardware gain (1x, 4x, 16x, 64x, 128x) and integration time
+- Regulator management and system sleep suspend/resume support
+
+Tested on Microsoft Surface Pro X SQ2 (SC8180X).
 
 Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
 ---
- .../devicetree/bindings/iio/light/ams,tcs3430.yaml | 52 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 +++
- 2 files changed, 58 insertions(+)
+ MAINTAINERS                 |   1 +
+ drivers/iio/light/Kconfig   |  10 ++
+ drivers/iio/light/Makefile  |   1 +
+ drivers/iio/light/tcs3430.c | 345 ++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 357 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/light/ams,tcs3430.yaml b/Documentation/devicetree/bindings/iio/light/ams,tcs3430.yaml
-new file mode 100644
-index 0000000..085a70e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/light/ams,tcs3430.yaml
-@@ -0,0 +1,52 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/light/ams,tcs3430.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ams OSRAM TCS3430 XYZ Tristimulus Color and Ambient Light Sensor
-+
-+maintainers:
-+  - Robert Ijtsma <robertijtsma@gmail.com>
-+
-+description: |
-+  The ams OSRAM TCS3430 is an I2C ambient light and CIE 1931 XYZ tristimulus
-+  color sensor with photopic Y, Z, X, and IR channels.
-+
-+  Datasheet: https://look.ams-osram.com/m/43d518b4cd81e3f2/original/TCS3430-DS000539.pdf
-+
-+properties:
-+  compatible:
-+    const: ams,tcs3430
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        light-sensor@39 {
-+            compatible = "ams,tcs3430";
-+            reg = <0x39>;
-+            vdd-supply = <&vdd_reg>;
-+            interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
-+        };
-+    };
-+...
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 44540a1..b1cebc2 100644
+index b1cebc2..5194709 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -1489,6 +1489,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
- F:	drivers/iio/light/as73211.c
+@@ -1494,6 +1494,7 @@ M:	Robert Ijtsma <robertijtsma@gmail.com>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/light/ams,tcs3430.yaml
++F:	drivers/iio/light/tcs3430.c
  
-+AMS TCS3430 DRIVER
-+M:	Robert Ijtsma <robertijtsma@gmail.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/light/ams,tcs3430.yaml
-+
  AMT (Automatic Multicast Tunneling)
  M:	Taehee Yoo <ap420073@gmail.com>
- L:	netdev@vger.kernel.org
+diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
+index 462fff1..09894cd 100644
+--- a/drivers/iio/light/Kconfig
++++ b/drivers/iio/light/Kconfig
+@@ -609,6 +609,16 @@ config TCS3414
+ 	  This driver can also be built as a module.  If so, the module
+ 	  will be called tcs3414.
+ 
++config TCS3430
++	tristate "ams OSRAM TCS3430 ambient light and XYZ color sensor"
++	depends on I2C
++	help
++	  If you say yes here you get support for the ams OSRAM TCS3430
++	  ambient light and CIE 1931 XYZ tristimulus color sensor.
++
++	  This driver can also be built as a module.  If so, the module
++	  will be called tcs3430.
++
+ config TCS3472
+ 	tristate "TAOS TCS3472 color light-to-digital converter"
+ 	depends on I2C
+diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
+index 6672ed0..cd7b42e 100644
+--- a/drivers/iio/light/Makefile
++++ b/drivers/iio/light/Makefile
+@@ -56,6 +56,7 @@ obj-$(CONFIG_ST_UVIS25)		+= st_uvis25_core.o
+ obj-$(CONFIG_ST_UVIS25_I2C)	+= st_uvis25_i2c.o
+ obj-$(CONFIG_ST_UVIS25_SPI)	+= st_uvis25_spi.o
+ obj-$(CONFIG_TCS3414)		+= tcs3414.o
++obj-$(CONFIG_TCS3430)		+= tcs3430.o
+ obj-$(CONFIG_TCS3472)		+= tcs3472.o
+ obj-$(CONFIG_SENSORS_TSL2563)	+= tsl2563.o
+ obj-$(CONFIG_TSL2583)		+= tsl2583.o
+diff --git a/drivers/iio/light/tcs3430.c b/drivers/iio/light/tcs3430.c
+new file mode 100644
+index 0000000..138c8ab
+--- /dev/null
++++ b/drivers/iio/light/tcs3430.c
+@@ -0,0 +1,345 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * IIO driver for ams OSRAM TCS3430 Ambient Light and CIE 1931 XYZ Sensor
++ *
++ * Copyright (C) 2026 Robert Ijtsma <robertijtsma@gmail.com>
++ *
++ * Datasheet:
++ *   https://look.ams-osram.com/m/43d518b4cd81e3f2/original/TCS3430-DS000539.pdf
++ */
++
++#include <linux/array_size.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/math64.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/pm.h>
++#include <linux/regulator/consumer.h>
++#include <linux/types.h>
++#include <linux/units.h>
++
++#include <linux/iio/iio.h>
++
++#define TCS3430_REG_ENABLE		0x80
++#define   TCS3430_ENABLE_PON		BIT(0)
++#define   TCS3430_ENABLE_AEN		BIT(1)
++#define TCS3430_REG_ATIME		0x81
++#define TCS3430_REG_CFG1		0x90
++#define   TCS3430_CFG1_AGAIN_MASK	GENMASK(1, 0)
++#define TCS3430_REG_ID			0x92
++#define   TCS3430_ID_MASK		GENMASK(7, 2)
++#define   TCS3430_ID_VAL		0xdc
++#define TCS3430_REG_CH0DATAL		0x94
++#define TCS3430_REG_CH1DATAL		0x96
++#define TCS3430_REG_CH2DATAL		0x98
++#define TCS3430_REG_CH3DATAL		0x9a
++#define TCS3430_REG_CFG2		0x9f
++#define   TCS3430_CFG2_DEFAULT		0x04
++#define   TCS3430_CFG2_HGAIN		BIT(4)
++#define TCS3430_REG_CFG3		0xab
++#define   TCS3430_CFG3_DEFAULT		0x0c
++#define TCS3430_REG_INTENAB		0xdd
++
++/* 72 integration cycles * 2.78 ms = 200.16 ms */
++#define TCS3430_DEFAULT_ATIME_CYCLES	72
++#define TCS3430_ATIME_STEP_US		2780
++
++/*
++ * Photopic Y channel typical sensitivity from datasheet optical characteristics:
++ * ~0.537 counts/lux at AGAIN = 16x and ATIME = 100 ms (36 cycles), giving:
++ *   lux/count = 2980 / (gain * integration_time_ms)
++ */
++#define TCS3430_LUX_FACTOR		2980ULL
++
++static const int tcs3430_gains[] = { 1, 4, 16, 64, 128 };
++
++struct tcs3430_data {
++	struct i2c_client *client;
++	/* Protects device configuration across multi-register updates */
++	struct mutex lock;
++	u8 gain_idx;
++};
++
++static int tcs3430_apply_gain(struct tcs3430_data *data, u8 gain_idx)
++{
++	u8 cfg1, cfg2;
++	int ret;
++
++	if (gain_idx == 4) {
++		cfg1 = FIELD_PREP(TCS3430_CFG1_AGAIN_MASK, 3);
++		cfg2 = TCS3430_CFG2_DEFAULT | TCS3430_CFG2_HGAIN;
++	} else {
++		cfg1 = FIELD_PREP(TCS3430_CFG1_AGAIN_MASK, gain_idx);
++		cfg2 = TCS3430_CFG2_DEFAULT;
++	}
++
++	ret = i2c_smbus_write_byte_data(data->client, TCS3430_REG_CFG1, cfg1);
++	if (ret)
++		return ret;
++
++	ret = i2c_smbus_write_byte_data(data->client, TCS3430_REG_CFG2, cfg2);
++	if (ret)
++		return ret;
++
++	data->gain_idx = gain_idx;
++	return 0;
++}
++
++static int tcs3430_init_hw(struct tcs3430_data *data)
++{
++	struct i2c_client *client = data->client;
++	int ret;
++
++	ret = i2c_smbus_write_byte_data(client, TCS3430_REG_ENABLE, 0x00);
++	if (ret)
++		return ret;
++
++	ret = i2c_smbus_write_byte_data(client, TCS3430_REG_ATIME,
++					TCS3430_DEFAULT_ATIME_CYCLES - 1);
++	if (ret)
++		return ret;
++
++	ret = tcs3430_apply_gain(data, data->gain_idx);
++	if (ret)
++		return ret;
++
++	ret = i2c_smbus_write_byte_data(client, TCS3430_REG_CFG3,
++					TCS3430_CFG3_DEFAULT);
++	if (ret)
++		return ret;
++
++	ret = i2c_smbus_write_byte_data(client, TCS3430_REG_INTENAB, 0x00);
++	if (ret)
++		return ret;
++
++	return i2c_smbus_write_byte_data(client, TCS3430_REG_ENABLE,
++					 TCS3430_ENABLE_PON |
++					 TCS3430_ENABLE_AEN);
++}
++
++static void tcs3430_power_off(void *priv)
++{
++	struct tcs3430_data *data = priv;
++
++	i2c_smbus_write_byte_data(data->client, TCS3430_REG_ENABLE, 0x00);
++}
++
++static int tcs3430_read_raw(struct iio_dev *indio_dev,
++			    const struct iio_chan_spec *chan,
++			    int *val, int *val2, long mask)
++{
++	struct tcs3430_data *data = iio_priv(indio_dev);
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		guard(mutex)(&data->lock);
++		ret = i2c_smbus_read_word_data(data->client, chan->address);
++		if (ret < 0)
++			return ret;
++		*val = ret;
++		return IIO_VAL_INT;
++
++	case IIO_CHAN_INFO_SCALE: {
++		u32 itime_us = TCS3430_DEFAULT_ATIME_CYCLES * TCS3430_ATIME_STEP_US;
++		u64 scale_nano;
++		u32 rem;
++		int gain;
++
++		scoped_guard(mutex, &data->lock)
++			gain = tcs3430_gains[data->gain_idx];
++
++		scale_nano = div_u64(TCS3430_LUX_FACTOR * NSEC_PER_SEC * USEC_PER_MSEC,
++				     (u32)gain * itime_us);
++		*val = div_u64_rem(scale_nano, NSEC_PER_SEC, &rem);
++		*val2 = rem;
++		return IIO_VAL_INT_PLUS_NANO;
++	}
++
++	case IIO_CHAN_INFO_HARDWAREGAIN:
++		guard(mutex)(&data->lock);
++		*val = tcs3430_gains[data->gain_idx];
++		return IIO_VAL_INT;
++
++	case IIO_CHAN_INFO_INT_TIME:
++		*val = 0;
++		*val2 = TCS3430_DEFAULT_ATIME_CYCLES * TCS3430_ATIME_STEP_US;
++		return IIO_VAL_INT_PLUS_MICRO;
++
++	default:
++		return -EINVAL;
++	}
++}
++
++static int tcs3430_write_raw(struct iio_dev *indio_dev,
++			     const struct iio_chan_spec *chan,
++			     int val, int val2, long mask)
++{
++	struct tcs3430_data *data = iio_priv(indio_dev);
++	unsigned int i;
++
++	if (mask != IIO_CHAN_INFO_HARDWAREGAIN || val2 != 0)
++		return -EINVAL;
++
++	for (i = 0; i < ARRAY_SIZE(tcs3430_gains); i++) {
++		if (tcs3430_gains[i] == val) {
++			guard(mutex)(&data->lock);
++			return tcs3430_apply_gain(data, i);
++		}
++	}
++
++	return -EINVAL;
++}
++
++static int tcs3430_read_avail(struct iio_dev *indio_dev,
++			      const struct iio_chan_spec *chan,
++			      const int **vals, int *type, int *length,
++			      long mask)
++{
++	if (mask != IIO_CHAN_INFO_HARDWAREGAIN)
++		return -EINVAL;
++
++	*vals = tcs3430_gains;
++	*type = IIO_VAL_INT;
++	*length = ARRAY_SIZE(tcs3430_gains);
++	return IIO_AVAIL_LIST;
++}
++
++#define TCS3430_INTENSITY_CHANNEL(_mod, _addr) {			\
++	.type = IIO_INTENSITY,						\
++	.modified = 1,							\
++	.channel2 = (_mod),						\
++	.address = (_addr),						\
++	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),			\
++	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_HARDWAREGAIN) |	\
++				   BIT(IIO_CHAN_INFO_INT_TIME),		\
++	.info_mask_shared_by_all_available =				\
++		BIT(IIO_CHAN_INFO_HARDWAREGAIN),			\
++}
++
++static const struct iio_chan_spec tcs3430_channels[] = {
++	{
++		.type = IIO_LIGHT,
++		.address = TCS3430_REG_CH1DATAL,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++				      BIT(IIO_CHAN_INFO_SCALE),
++		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_HARDWAREGAIN) |
++					   BIT(IIO_CHAN_INFO_INT_TIME),
++		.info_mask_shared_by_all_available =
++			BIT(IIO_CHAN_INFO_HARDWAREGAIN),
++	},
++	TCS3430_INTENSITY_CHANNEL(IIO_MOD_Z, TCS3430_REG_CH0DATAL),
++	TCS3430_INTENSITY_CHANNEL(IIO_MOD_Y, TCS3430_REG_CH1DATAL),
++	TCS3430_INTENSITY_CHANNEL(IIO_MOD_LIGHT_IR, TCS3430_REG_CH2DATAL),
++	TCS3430_INTENSITY_CHANNEL(IIO_MOD_X, TCS3430_REG_CH3DATAL),
++};
++
++static const struct iio_info tcs3430_info = {
++	.read_raw = tcs3430_read_raw,
++	.write_raw = tcs3430_write_raw,
++	.read_avail = tcs3430_read_avail,
++};
++
++static int tcs3430_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct tcs3430_data *data;
++	struct iio_dev *indio_dev;
++	int ret;
++
++	if (!i2c_check_functionality(client->adapter,
++				     I2C_FUNC_SMBUS_BYTE_DATA |
++				     I2C_FUNC_SMBUS_WORD_DATA))
++		return -EOPNOTSUPP;
++
++	ret = devm_regulator_get_enable(dev, "vdd");
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	data = iio_priv(indio_dev);
++	data->client = client;
++	data->gain_idx = 3; /* 64x default gain */
++	i2c_set_clientdata(client, data);
++
++	ret = devm_mutex_init(dev, &data->lock);
++	if (ret)
++		return ret;
++
++	ret = i2c_smbus_read_byte_data(client, TCS3430_REG_ID);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to read device ID\n");
++	if ((ret & TCS3430_ID_MASK) != TCS3430_ID_VAL)
++		dev_info(dev, "unexpected part ID 0x%02x\n", ret);
++
++	ret = tcs3430_init_hw(data);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to initialize device\n");
++
++	ret = devm_add_action_or_reset(dev, tcs3430_power_off, data);
++	if (ret)
++		return ret;
++
++	indio_dev->name = "tcs3430";
++	indio_dev->info = &tcs3430_info;
++	indio_dev->modes = INDIO_DIRECT_MODE;
++	indio_dev->channels = tcs3430_channels;
++	indio_dev->num_channels = ARRAY_SIZE(tcs3430_channels);
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static int tcs3430_suspend(struct device *dev)
++{
++	struct tcs3430_data *data = dev_get_drvdata(dev);
++
++	guard(mutex)(&data->lock);
++	return i2c_smbus_write_byte_data(data->client, TCS3430_REG_ENABLE, 0x00);
++}
++
++static int tcs3430_resume(struct device *dev)
++{
++	struct tcs3430_data *data = dev_get_drvdata(dev);
++
++	guard(mutex)(&data->lock);
++	return tcs3430_init_hw(data);
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(tcs3430_pm_ops, tcs3430_suspend,
++				tcs3430_resume);
++
++static const struct of_device_id tcs3430_of_match[] = {
++	{ .compatible = "ams,tcs3430" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, tcs3430_of_match);
++
++static const struct i2c_device_id tcs3430_id[] = {
++	{ .name = "tcs3430" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, tcs3430_id);
++
++static struct i2c_driver tcs3430_driver = {
++	.driver = {
++		.name = "tcs3430",
++		.of_match_table = tcs3430_of_match,
++		.pm = pm_sleep_ptr(&tcs3430_pm_ops),
++	},
++	.probe = tcs3430_probe,
++	.id_table = tcs3430_id,
++};
++module_i2c_driver(tcs3430_driver);
++
++MODULE_AUTHOR("Robert Ijtsma <robertijtsma@gmail.com>");
++MODULE_DESCRIPTION("ams OSRAM TCS3430 Ambient Light and XYZ Color Sensor Driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.56.0
