@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795495849;
-	b=ctXmoBjaS4TuU+ZENQpHKzDSJw3q2hDboH1jlUtuifY0eyG6cFpCspJvPs/sa1wVuf6A
-	 TRh8GZILzOgxFmRk5E23wuAWW6PTVj+mMzhpliK5aANXN7/m2jReV+uA10pnhKokrFV+6
-	 wPUp0gdIkupMI9OLNwISLOfOUU79aBqqkuGKZpQM006si44gFrE12jXVdVmmlgrkiDjuA
-	 /vqtjBxuwlMzeFfzLVMiA3Y2DM9x/adoCRgM3g+3n1sZKNt0mDteZRX+4LVFAyu9eRjSJ
-	 cRnLF8ZNyPB98DbWDb0LXT6Zvu5z8i5NeABVbzSVd2I9Vs7nYaGYIjb5bPUhuNQZ/TQ==
+	t=1795495904;
+	b=fMr94cbBbh3bx/sUjDiO0ztjuZRryR6VgCNvaIsOapaDtWJOcWM5YQubT/2oiJnffkMs
+	 dlG5gA4kvVOlj2qhtzqY+akmMZ8FVlR99zKP5SdxmXsQp0gGkfUk8tm9J7u+2fVMJ29xS
+	 m9s1reiyUj8zSwNno8YteN/8dqEtF5j4eljdqJYXWsM5q5rHbPuNF7rnUuZ7y6nyb5j6B
+	 xgp0fBru0HkLOcZvKtxEkuF2/98bhnyC3hlzFsHVtKPRKJFdgKPGxW2WiW/vghtbgL+w/
+	 DgdC209c/3z1z9IVImhsjOhNunWJTOeymjkrCMS33GV9THwa1yuGQkaLqil/789uIbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795495849;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=pO1n33MIlivhplMTiEveWZuYlsdnfPuFo43G4PA7bug=;
-	b=4Yy5rQNNx9RE9UTrcbd0N3drqNqNcTwidGpbmF6TI/hThLnOB4LImC7SmoLHsVJE2gB/
-	 osyVaBx6NvCnx+RcyH/w95j87Ee/lGqXAKN5/3geQ3eoQQxXyU4AaQxOkto8UE0YDVZyc
-	 GQ4pr/SFraPHlc29Bw2fMz+XgNhpwpXJywva4Qzr3yFa4pBnN8LdqbrRIta9QXJ8KyuBU
-	 Rs49ktv73EIUMYwsGGh+zztLj08JFDTybmvRhvuhi77F8PLna9GQ3HSkl0HFLbDMTyxoD
-	 mDWLcrBaCb9YGmgRWNXADN8uSq3j97jh2dIQy06lNjrjXFLysC4/QtsVbqUB732G4yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795495904;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=87updmtYvftZjRwxRSeCaX6t2jlzeFVH3Js+FfLSYwQ=;
+	b=24AK/HcqoHglXvDMezW6PyZ/aDc+9QOK7rYVNXU3polz5u0nt1lsXRkTVBq9lErhdgBk
+	 0/IRRbZQ0JM2kqptGv4569e7klMwHxOabQoAS/XSSRB9DNJ0TfTuWeaWSdkqqg/aVCfta
+	 dQH6THPb52C3dYRRQ2ZP8XXWc3aeNkUFfOVliRpqP+C0QYra+0z+Hq8GhpkGadv2wxfE+
+	 NRTY1s7r+z0qPpVMCQ7snT0wll+r8EDgN83EeoXKuSe7khRPdT3lAJdaDrsTRVy6/Cazj
+	 vavwYLynyQxWIjCIhNhxAHIW0PdDTv4a2zGJVeZAqmwDusuu3V1ZbpYz6mS/pKuT8/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="Fi/9vHDG";
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6440606A31E;
-	Tue, 24 Nov 2026 04:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6440606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REIf7KcF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3835606A31E;
+	Tue, 24 Nov 2026 04:51:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Fi/9vHDG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=pO1n33MIlivhplMTiEveWZuYlsdnfPuFo4
-	3G4PA7bug=; b=Fi/9vHDGWOp7ZveC0w6HVG9nSZ7t8bSnFMW72CINprkGC9DZ1o
-	QW0uxd0QP8RZXn0CkSjsk4f9b2iFCZy7tWZY8r5z8PTNUCUQ/lfT4211sKx6HFQq
-	YYahPv0mY2K4cKxfVk2Cb2015OkJ8/LypA0pSs6xhMPCSHhQ8aKC9ED28=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.185.179])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn2i6gFwVruBfwAA--.253S3;
-	Tue, 24 Nov 2026 12:50:44 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: dmitry.torokhov@gmail.com
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/6] Input: aw86927 - fix the 7 V boost reference for AW86938
-Date: Tue, 24 Nov 2026 12:50:35 +0800
-Message-ID: <20261124045040.559317-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124045040.559317-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261124045040.559317-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REIf7KcF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C40D1F000CA;
+	Tue, 24 Nov 2026 04:51:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795495903;
+	bh=87updmtYvftZjRwxRSeCaX6t2jlzeFVH3Js+FfLSYwQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=REIf7KcFmjwyQ+c7BaCW8StYPC6Qp9PjJDjMo2TYhekTl8nIN+HokMNKFTJsxjeS+
+	 XOujZMDGaBddeLUn4BjyxdR0j6Ds7samofPJHpC+qQ00WTssZ+MrjG4hYQsnVPLWOD
+	 3ozeLAIsgoSj+vGaJ6KRD0YW5OuhQjwP6tRs2GPsI+jx355w3bdFJfmq1hbN8ttrek
+	 nrO3vY4QT4tDr4x4C+7JNmf0+odn54IOR4k80vL4p8TqY407CWWEd7jeG1lkAzVC28
+	 dfUhjKBoT2sbsvBxGiBjmSpBWySs0j5j0tc1HHDlc+7OvmDrx2YIcSF0hN+ZoC8ooj
+	 ad/7k36YSfhMw==
+Message-ID: <sashiko-outbox-230517@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] pinctrl: Add Siflower SF19A2890 pin controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joseph Telaak" <joseph@telaak.dev>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261123-sf19a2890-pinctrl-v2-2-a10af32bc844@telaak.dev>
+References: <20261123-sf19a2890-pinctrl-v2-0-a10af32bc844@telaak.dev>
+ <20261123-sf19a2890-pinctrl-v2-2-a10af32bc844@telaak.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 04:51:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,55 +60,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBn2i6gFwVruBfwAA--.253S3
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jr15Zr1DGrW3ur1ftF1fZwb_yoWkWFg_C3
-	4rZwn7Z340kF1kKw4DtwsxurZIqrn5Wa47Z3Zavw15KFyIyFsrta18Xr4UXwn7ArWDAw1U
-	tr4UAasa9a4FgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbq8YjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
-	IE14v26r18M28IrcIa0xkI8VCY1x0267AKxVWUCVW8JwA2ocxC64kIII0Yj41l84x0c7CE
-	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6x
-	kF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY
-	1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4
-	xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCa
-	FVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxkIecxEwV
-	AFwVW8XwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUIk9N
-	UUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREBB2sElFst2AAlsm
 
-AW86938_PLAYCFG1_BST_7000MV names 7 V, but the register encodes the boost
-voltage as ((mV - 6000) / 2 * 0x8313) >> 22 + 5, so the value used since
-AW86938 support was added, 0x11, selects 9 V.  Program 0x09 for 7 V, the
-value the vendor driver uses for these actuators.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] pinctrl: sf19a2890: Kconfig depends on undefined
+  MACH_SIFLOWER_MIPS
+--
 
-Found while adding the AW86937 variant, which shares the register layout
-and the same wrong value.
+commit c544c0c631777053d6a2e470b5b23a905ec087b3
+Author: Joseph Telaak <joseph@telaak.dev>
 
-Fixes: df53055c540f ("Input: aw86927 - add support for Awinic AW86938")
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- drivers/input/misc/aw86927.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+pinctrl: Add Siflower SF19A2890 pin controller driver
 
-diff --git a/drivers/input/misc/aw86927.c b/drivers/input/misc/aw86927.c
-index 0657c52b4c..6d09e5e96b 100644
---- a/drivers/input/misc/aw86927.c
-+++ b/drivers/input/misc/aw86927.c
-@@ -47,7 +47,7 @@
- #define AW86938_PLAYCFG1_BST_MODE_MASK		GENMASK(5, 5)
- #define AW86938_PLAYCFG1_BST_MODE_BYPASS	0
- #define AW86938_PLAYCFG1_BST_VOUT_VREFSET_MASK	GENMASK(4, 0)
--#define AW86938_PLAYCFG1_BST_7000MV		0x11
-+#define AW86938_PLAYCFG1_BST_7000MV		0x09
- 
- #define AW86927_PLAYCFG2_REG			0x07
- 
--- 
-2.53.0
+This commit adds a pin controller driver for the Siflower SF19A2890 SoC,
+supporting pin muxing, bias, input enable, Schmitt trigger, and drive
+strength configuration.
 
+> diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
+> index dc7138302c55c..1321eb679fcdd 100644
+> --- a/drivers/pinctrl/Kconfig
+> +++ b/drivers/pinctrl/Kconfig
+> @@ -562,6 +562,20 @@ config PINCTRL_SCMI
+>  	  It uses SCMI Message Protocol to interact with the
+>  	  firmware providing all the pinctrl controls.
+> =20
+> +config PINCTRL_SF19A2890
+> +	tristate "Siflower SF19A2890 pin controller"
+> +	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
+> +	depends on OF
+> +	default MACH_SIFLOWER_MIPS
+
+[Severity: Low]
+Does MACH_SIFLOWER_MIPS exist in the tree?  Because that symbol is not
+defined in any Kconfig file, the default always evaluates to n and
+PINCTRL_SF19A2890 cannot be enabled unless COMPILE_TEST is set.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-sf19a2890-=
+pinctrl-v2-0-a10af32bc844@telaak.dev?part=3D2
