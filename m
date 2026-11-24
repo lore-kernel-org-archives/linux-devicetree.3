@@ -1,57 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795521663;
-	b=S0zej9kCx2t/zIIgU0jufeuUvMnUyeR3pA1Xeq1ynjskKn5j8SYUnmSIIfIlQGxzN/EA
-	 HzCN1q0Jx5TFmAtnIFtRSSmAtwN0l5u13jqRL4fnv6cK0RQOgzle48emfxKT/4vjNnBY/
-	 DxcP24lKVZwi2Q7BcMI3HmKkw6Xsxi0V7Ohbt9mPTPXmaL2kW6s6r1tH8+DTh+xFnbDRu
-	 azSVb3Bb8ywUixei02CGomUwP4IphZ92Mz8eRf5S14JJ6IJ5W1E8bEJsXc+d7UAgGqL4y
-	 /o3NVMS8ZXLy41TrXERhSAUIjAJT/HjwVvLGWTkAkRi7FUjuWQ8aaedM2JZljIq1xNA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795521663;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=FoT4YtPGMqQFcb5Zc91i/fbcoFufCmB8n/I+onT316M=;
-	b=MZYY6Dr/vTlhINyWRHfjzw5vpZ4FysnVNrPFLbThpcmu+UXlWqXA3LZI6SJ7upYn4EqR
-	 P6BYrVWltZdMECl3WVmUg37mX+40vYi7WK7GnLHQRm46DWXzjcFTE1G8JMHx7z+RwIBmC
-	 IioHAzf9sVl7BceB7MaJSe0pJxw2FgG5Lq7+rzMevy6fobGqiE+9N1kmVOuTDfcWvxxff
-	 E/+rAJtcVQLVUENvlnYj4uR6U122b1iLOjoBPxlnrMUL/ZPipToWGOh9Mce/R+hDgTS+6
-	 Ii/+to1RPVroD02E5lSit88qX1YpNYoBXV6RclVMjdPQwVSQ7tC2w/7h7zApHJIKfMA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oz9BGA7r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.133
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795521682;
+	b=AcB+D3qtzwpVdJ50kEvbCUZ15/kqhF3NsJy7VsJvzIVdJnY1ZlkDVvzy3/sbKuVpltIQ
+	 zgkKahXpjjiYkrkZwgBlyqxpR6U7TJM76Up4KlwYtgcntg8yPLwq+LNSsFQjjE2DKHyFV
+	 fFU31uxfWyKx+ron/5lBeFlQp3s1rF6pZUDiVipggiUVmcW3SzMUBkbZnR1R3hTZTX4Qz
+	 o49dtkzxv97kSrZ0GDUlAPHb3MLin1OAk/1Cwxe9LWORd3qoMn8QYbR+5m1/POTGsEmK7
+	 TWst3iMFukODNgaerMhnwJUSk26nnOZlIlQ+7XURB43kLvd+fWFO6rQ+99BOYBl6GTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795521682;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=++zMZ68yy/WiSeK/nrJoBCtpDmFpvZ4ygxM7WvpF9e0=;
+	b=MKGzMmA/RUsX6UnQ9jknFCgBuK/2Db46aUGRxJdYMr2aPJVmInOBbCBp/e/JKZIoehXp
+	 XUQYpFVpgmVdxvtwqYbVYmub1gjAIovPYdNULTgo8egxW9Ru7tWudkiwFG7A9eraumR6B
+	 lM0WN6L0JGioxEz0PvFZpIozBHZeY8GHeYjL6gRTG4T7Fzbl6ZF1l+dV6uab1aY5N5Jvy
+	 Il/swxbyQI4mWiQVdT7ef2F1csDHwsxkQEZp1grtHMtM5Iy0tgsqB1VcPRFlSgxNb6GuT
+	 ufCgCYftNI+tjIV1uTq4TxQI7BeS2jB/itnkuTnHYx/Zi5ddNQhfsbpzJWZbbMLqkhQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.133
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022133.outbound.protection.outlook.com [40.107.75.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5C8606A31E;
-	Tue, 24 Nov 2026 12:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oz9BGA7r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCB21F000C4;
-	Tue, 24 Nov 2026 12:01:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795521662;
-	bh=FoT4YtPGMqQFcb5Zc91i/fbcoFufCmB8n/I+onT316M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oz9BGA7r4e7FDN1wF/Y7XXpPf5WP3AWiPdFCOmJ5jELFj0MCJG4q2vvw0GT8hMDS2
-	 K2RlMTHWYS22q0eRl9bI3zWCRLfXYiYyPu/KP2F89lRITl4dJ3UL0bP+4HjIJ2eZIB
-	 7D3St0iLKXufNCZpwzixZz+Fwj78GiTl7kRRYc1t4M4P7tRUpf0iPS1QtnFXuDY/ko
-	 lZg3EqKl2HmGIn2WaiY444TCtT4yCiEO/kKq/gikArXHkBU8XjrcdYUlKIn5IL3KzC
-	 f3LrEZGDBQTOwDXzxe+5FNCsHEy11Zo36lImoMgU1Gqt1WL3YD9lgkjNq2iADe2jle
-	 p1tpPy7xOymcg==
-Message-ID: <sashiko-outbox-231086@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 08/20] dmaengine: ti: k3-udma: move udma utility
- functions to k3-udma-common.c
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261124-dma-upstream-v13-v13-8-bd4251fdc6d4@ti.com>
-References: <20261124-dma-upstream-v13-v13-0-bd4251fdc6d4@ti.com>
- <20261124-dma-upstream-v13-v13-8-bd4251fdc6d4@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 12:01:01 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14150606A333
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 12:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14150606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qnJFsCc2ZT5mw2NeaRBuONPoP+BY4MP3QxhyqeMZRwxXrezaDs/Un+o+91G8kl2IkHQ8UU1j9LVagPXruA3WB/l0UzWjd7EzBqNkuGTuofR9yZFvzNgmeC8o6Qy4A9OK54BzvNnapovAxBaON2DiL2rPNkZoHIpWMNl05yhXsA3ofPRKvjh/XCVH7Eq3m2X+K0lEyk9IRMJ97XcRVTBIW4MVFQo8nGJ6/vyrtLmmIqT8RDdfhX6N3KjC9wQ6VAHgGE71C5ZoEzfUBbjEi1ktQQ0vo4CiL91eT3glfGeHmfxWi/oLyy+C5xMnnf8HY/WGtkAF4Y5OWByoDpzhbH4CGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=++zMZ68yy/WiSeK/nrJoBCtpDmFpvZ4ygxM7WvpF9e0=;
+ b=zBMwg4rtyPiRtt8wBVkzBdLDf20k5/eDiWcMk1Kb0cjzVeINo72vSB9221oLiWiqO0kcNfYtAupt3EuAo3/9jBXzb/GkpNQZYKjRyp5PUpFcXqZ/x72vE6keqD7ryzXecut8NePdBqj6kaQs3KavYp7065lj3xhrlFy7/0wzAwpBmRMjDO8QWgIWw8NYbrhmNEN/3CunPQo/RT7Mwhk6yRIOsJMqsGS9T7ylyc41J92eHH8oy+CAL0/ZifBSjQ43GXxXyuJQIj2edo+Qo7/lAOV8XvEBEi/q638Hnj6ubPeFtXHfLke+qZcZc9dAVLFMy9MsT86RB7p33Y+xuY4V0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=bootlin.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR01CA0012.apcprd01.prod.exchangelabs.com
+ (2603:1096:300:2d::24) by SEZPR06MB5560.apcprd06.prod.outlook.com
+ (2603:1096:101:ca::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.3; Tue, 24 Nov
+ 2026 12:01:17 +0000
+Received: from TY2PEPF0000AB86.apcprd03.prod.outlook.com
+ (2603:1096:300:2d:cafe::99) by PS2PR01CA0012.outlook.office365.com
+ (2603:1096:300:2d::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.5 via Frontend Transport; Tue, 24
+ Nov 2026 12:01:17 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB86.mail.protection.outlook.com (10.167.253.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 12:01:15 +0000
+Received: from localhost.localdomain (unknown [172.16.66.33])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id BC269427EFD6;
+	Tue, 24 Nov 2026 20:01:14 +0800 (CST)
+From: Luo Liu <Luo.Liu@cixtech.com>
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	luca.ceresoli@bootlin.com,
+	wuyi.shen@cixtech.com,
+	cix-kernel-upstream@cixtech.com
+Subject: [PATCH v3 1/5] dt-bindings: display: add CIX Sky1 DisplayPort transmitter
+Date: Tue, 24 Nov 2026 20:01:10 +0800
+Message-Id: <20261124120114.3273161-2-Luo.Liu@cixtech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261124120114.3273161-1-Luo.Liu@cixtech.com>
+References: <20261124120114.3273161-1-Luo.Liu@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,89 +110,182 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB86:EE_|SEZPR06MB5560:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 38766865-bcc8-4878-1cfd-08df4a22a4b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|42112799006|1800799024|36860700016|23010399003|7416014|376014|18002099003|22082099003|261009221227099003|261009223027099003|3023799007|56012099006|261102123227099003|261021121427099003|261026121527099003|261026140227099003|261021135927099003|261028144727099003|261022105027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	9dhIiJc/0ldTz9bVuaDfAxnpfUTj9CuI9arVcutptrKRnxrcHrCDnKM/mvgX9WWsJN31X1Gy7yLMQxxK5hfHa/UjN65mDxQ/iE1mlq2MI1jIUH4hjxwvRzkfqQJ3WSi1cQXosudCosZ6xdQAK5sGTaXYoFWH16via+KKjfXKR657hH2C2w/SYF2w0Ddkf7xUwRc156hPnUBLIkI+DKQXlwuvN9tMcH3g9fjQzpa+mD7xQ2pytI4EbrxXE0C+lEwIl1aumQl6xvJu/rF6vNRAjHTpIJai2KqIdndRmu5yxd6zmqSQ5uPVULMNniIryMasq4Uzb0KGpbADgbnKx7fxknFnDPRCuXEXkcV66jRRS5Hbj0OBUhLRp+g7TLeD5CCqBrt/q9i2Sd7Vod+HBSpBU986luwHxHpCi4L7DLCjvKdo4bHsEpUb09nFFKOGM73tfJ3lBMzhdfmrjOMGv7VAK5dZhpgvmSoNZ8wUMKcXcakZG78yZHv0ITafsZa1300+CT53thdr0OuNi/8WAygC9bdf1tun/mSfoyjVjxdE5ysahtwJbDbh0UQjzdyu+ElvHQaEpy7ji//oHQ9U2MnS3yejhJJ33fGziym4Q9DcXjqINgIBcukIypXGY2ZpgjA/JflII/mtIlNFR71/WD09JA==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(42112799006)(1800799024)(36860700016)(23010399003)(7416014)(376014)(18002099003)(22082099003)(261009221227099003)(261009223027099003)(3023799007)(56012099006)(261102123227099003)(261021121427099003)(261026121527099003)(261026140227099003)(261021135927099003)(261028144727099003)(261022105027099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jLDAJI3AFaOXrWuQy+R5u+3Y7oaA+C1UCt+v+/rvOVnNo5fiF9ac/1p2j6M3L8n4sVHPEfraTbizOPoEAuDRK+TxsRJ3BkOcBjPDVBYy6pIiRiI0STAaNCfYNjkqypEs93uye61cRN/n+BbZH1cY5hmdexjhC0DOx+3/u8vPG99kcTn0YIEVi67xgq878f+G4bqAyW7yH7YJxYynsiYCekeO8Ed6EsyF0dmr2A322MNTX5hBarOKU//h/LuWz5HCs6lV+vEHiL0SN9oyQJPOCwTK3cihhgisaHoFBxgz0APJjL3MUV5Cie9nYnQ0fRrEyntQixPcASH/scB4aofbMHO5285PwQHXyE/gFKghDGTbCjGNI3gOpOyFQoGx4Bf8vYa/70/yv8fSt9E380uE5MPL8krmlE0Nc+uuZXxNWja+Mqb1ppDKJzkh8/bUWpJj
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 12:01:15.8872
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38766865-bcc8-4878-1cfd-08df4a22a4b5
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB86.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5560
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dmaengine: ti: k3-udma: unexported non-static debug helpers in
-  common
---
+Add a binding for the Trilinear DisplayPort transmitter integrated on
+CIX Sky1. The USB-C and the native DP/eDP transmitters use different
+RCSU video-adapter register offsets and bit layouts, so each has its own
+compatible.
 
-commit e1b4b30f90c2fcb960c69be1c5300cf860e709ee
-Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+The transmitter takes its video stream from the display pipeline through
+a single graph port and drives the link through a generic PHY.
 
-dmaengine: ti: k3-udma: move udma utility functions to k3-udma-common.c
+Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
+---
+ .../bindings/display/cix,sky1-dp.yaml         | 102 ++++++++++++++++++
+ MAINTAINERS                                   |  12 +++
+ 2 files changed, 114 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
 
-This commit moves shared UDMA utility functions from k3-udma.c into
-k3-udma-common.c for reuse across K3 UDMA variants.
+diff --git a/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+new file mode 100644
+index 000000000000..bc3c0a3a815f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+@@ -0,0 +1,102 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/cix,sky1-dp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: CIX Sky1 Trilinear DisplayPort Transmitter
++
++maintainers:
++  - Luo Liu <Luo.Liu@cixtech.com>
++
++description:
++  Trilinear DisplayPort transmitter on CIX Sky1. The transmitter takes its
++  video stream from the display pipeline through a single graph port and
++  drives the link through a generic PHY.
++
++  The USB-C transmitters and the native DP/eDP transmitter use different
++  RCSU video-adapter register offsets and bit layouts, so each has its own
++  compatible: "cix,sky1-usbdp" for the USB-C transmitters and "cix,sky1-dp"
++  for the native DP/eDP one.
++
++properties:
++  compatible:
++    enum:
++      - cix,sky1-usbdp
++      - cix,sky1-dp
++
++  reg:
++    items:
++      - description: DisplayPort transmitter registers.
++      - description: RCSU video adapter registers used for link setup.
++
++  reg-names:
++    items:
++      - const: dp
++      - const: rcsu
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: APB clock of the controller.
++      - description: Video clock of stream 0.
++      - description: Video clock of stream 1.
++
++  clock-names:
++    items:
++      - const: apb
++      - const: vid0
++      - const: vid1
++
++  resets:
++    maxItems: 1
++    description: DisplayPort controller reset.
++
++  phys:
++    maxItems: 1
++    description: DisplayPort PHY the controller transmits through.
++
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    description:
++      Video input from the Mali D71 display pipeline (Komeda) that drives
++      this controller. The link to the sink is through phys (USB-C combo PHY
++      or the native DP PHY), not a second OF graph port on the DPTX.
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++  - phys
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    dp0: dp@14064000 {
++        compatible = "cix,sky1-usbdp";
++        reg = <0x14064000 0x4000>,
++              <0x14050000 0x400>;
++        reg-names = "dp", "rcsu";
++        interrupts = <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&dpc0_apb>, <&dpc0_vid0>, <&dpc0_vid1>;
++        clock-names = "apb", "vid0", "vid1";
++        resets = <&dpc0_rst>;
++        phys = <&usbc0_dp_phy>;
++
++        port {
++            dp0_0_in: endpoint {
++                remote-endpoint = <&dpu0_pipe0_out>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..75122afe495e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6522,6 +6522,18 @@ M:	Satish Kharat <satishkh@cisco.com>
+ S:	Supported
+ F:	drivers/infiniband/hw/usnic/
+ 
++CIX SKY1 DISPLAYPORT TRANSMITTER DRIVER
++M:	Luo Liu <Luo.Liu@cixtech.com>
++M:	Wuyi Shen <wuyi.shen@cixtech.com>
++R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
++L:	devicetree@vger.kernel.org
++L:	dri-devel@lists.freedesktop.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
++F:	drivers/gpu/drm/bridge/trilinear/
++F:	drivers/gpu/drm/cix/dptx/
++F:	include/drm/bridge/dptx.h
++
+ CLANG CONTEXT ANALYSIS
+ M:	Marco Elver <elver@google.com>
+ R:	Bart Van Assche <bvanassche@acm.org>
+-- 
+2.25.1
 
-> diff --git a/drivers/dma/ti/k3-udma-common.c b/drivers/dma/ti/k3-udma-com=
-mon.c
-> index c9cbe93f2391d..54b95490a56a7 100644
-> --- a/drivers/dma/ti/k3-udma-common.c
-> +++ b/drivers/dma/ti/k3-udma-common.c
-[ ... ]
-> @@ -1349,5 +1371,531 @@ void udma_reset_rings(struct udma_chan *uc)
->  }
->  EXPORT_SYMBOL_GPL(udma_reset_rings);
-> =20
-[ ... ]
-> +void udma_dump_chan_stdata(struct udma_chan *uc)
-> +{
-> +	struct device *dev =3D uc->ud->dev;
-> +	u32 offset;
-> +	int i;
-> +
-> +	if (uc->config.dir =3D=3D DMA_MEM_TO_DEV || uc->config.dir =3D=3D DMA_M=
-EM_TO_MEM) {
-> +		dev_dbg(dev, "TCHAN State data:\n");
-> +		for (i =3D 0; i < 32; i++) {
-> +			offset =3D UDMA_CHAN_RT_STDATA_REG + i * 4;
-> +			dev_dbg(dev, "TRT_STDATA[%02d]: 0x%08x\n", i,
-> +				udma_tchanrt_read(uc, offset));
-> +		}
-> +	}
-> +
-> +	if (uc->config.dir =3D=3D DMA_DEV_TO_MEM || uc->config.dir =3D=3D DMA_M=
-EM_TO_MEM) {
-> +		dev_dbg(dev, "RCHAN State data:\n");
-> +		for (i =3D 0; i < 32; i++) {
-> +			offset =3D UDMA_CHAN_RT_STDATA_REG + i * 4;
-> +			dev_dbg(dev, "RRT_STDATA[%02d]: 0x%08x\n", i,
-> +				udma_rchanrt_read(uc, offset));
-> +		}
-> +	}
-> +}
-[ ... ]
-> +#ifdef CONFIG_DEBUG_FS
-> +void udma_dbg_summary_show_chan(struct seq_file *s,
-> +				struct dma_chan *chan)
-> +{
-[ ... ]
-> +}
-> +
-> +void udma_dbg_summary_show(struct seq_file *s,
-> +			   struct dma_device *dma_dev)
-> +{
-> +	struct dma_chan *chan;
-> +
-> +	list_for_each_entry(chan, &dma_dev->channels, device_node) {
-> +		if (chan->client_count)
-> +			udma_dbg_summary_show_chan(s, chan);
-> +	}
-> +}
-> +EXPORT_SYMBOL_GPL(udma_dbg_summary_show);
-> +#endif /* CONFIG_DEBUG_FS */
-
-[Severity: Low]
-Should udma_dump_chan_stdata() and udma_dbg_summary_show_chan() remain
-static in k3-udma-common.c (and be dropped from k3-udma.h), the same way
-this patch makes udma_desc_pre_callback() static?
-
-Their only callers, udma_synchronize() and udma_dbg_summary_show(), move
-to k3-udma-common.c in this commit, and neither function carries
-EXPORT_SYMBOL_GPL(), so declaring them in k3-udma.h would fail modpost if
-another module called them with CONFIG_TI_K3_UDMA_COMMON=3Dm.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-dma-upstre=
-am-v13-v13-0-bd4251fdc6d4@ti.com?part=3D8
