@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795502144;
-	b=Xo28MaHvHo0YkkVcnevPTQWzp8jaXjoj6mbXXy4xjBOQMrL+JOAhQclN5hOxOvJI0w/K
-	 87PDRGeE/zbEkoAXvq82SsHFaB52id6XApxanNy9syR+wktL2Tad4yoeHMGvev1Tlw36Q
-	 5EMf2XV3lr31ZSMB7XO6PJYAIXjle4Vjhdar0V3vP7mu0KpR6u3HBL6KQhuBRhiZ9nq3a
-	 cLfHQJsJJQ7TRf9Ftt/VEMMRrqUgJLGADW96zSpCWoIXufUj34WehOmRsUd1nKsr2c5Ab
-	 aFIX/Plvkz4zt6GeMKBKvBYjG0VgvX5LoCWNKQXoeOcuQB/KJUB42f0ZUAuGF+FvX+g==
+	t=1795502259;
+	b=v/As6HgfkNiWpzVf/pNDsN65Q7wtXEwBA3WAsTnl8micN0lJquVtXY1F7X9S0YsAzxuh
+	 ToGQd5LdBNtiZ0F53rTMgQLuQNvLgMPDxq/NC179lkL9/17LC2T/L/MtYaJ/Bd/BvQIXk
+	 3HDuT4Vsi8Fgv6DLSqeaaqhCDPszM+akm+WwF0D3E2mNZkIbkLKLsJHNK2xOb7ZS0Mikq
+	 NS4FJANQjM7n8IZRrRziV3b8U16ZAw+xdpbnbEA1r4nEDlBNotQf7i8y26Wbh1lxEgsXL
+	 L4LiSPsD15IOPvrUHBdwQ27A4FUsykhw/4l/z/HBSq2aSZm0NeA6P6+Elle5ZMr+CSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795502144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795502259;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=1Tuf3FrJ8YKV4M3Z2kJ5/MbNrnt873qpvQEYkqFLu6E=;
-	b=uM5tq2NxMFEUx3TtIOnr8qy0QQpkEx10Emkb2W01c9j0Ti4iHlH38EKBbhtmO5/5AHwa
-	 NvcH9U0LL07U6YglmiCZk1DkQSuKX7wGqkUf1ZeuK/uW5iAr6PHPr9bEHAXEuheKHPi6h
-	 VxvSIPvdqa2rd59gmP9S0llXLCVWBl5Xpwhdt8F3UCOHui7NwSKG4EPjz4aVNEUYgNvaH
-	 uCQh2RC9FMPS9c3pnW1PvLWB3R4bMzswCBt2DZTFLimV54YSoSUK3eLonLDEMgW7UavUa
-	 YgBejxVw8O1qBF4Nc58UopllUBtR2ZC65VVzrrxxKkNdUuLPUUUxdCEnx0B6SED/3sg==
+	bh=ecDccHcHInTfr1e2yq1yGA/MTbO1JfSkN04XeWsio6g=;
+	b=YGp5Zyy76OnLjSkfpFmWKh5E1sqncgrNWgN6oIUG0PGfjOEEB830N9MWUAFuVOaC5pc/
+	 SGngmPrsiUuIEMXBRG9CzbGu1coibt7FOXn3EUgW4tWwtjIzSNN5F6+iHWX0dpRD0IU8s
+	 yZzeNsV5SZsw91utL/ySd5QNe3gn7x049/Lvi3AtXVOJrneCAnx1dPZojA8R4GtwtEOkf
+	 0hrP7cxrfHyjcrmdK8yfLsshTzjeI6UirerLZYvhdKrgkym8SPSqFfP1HB6xnV0IQJguF
+	 FoSRTM/DjjW078arD7eeNICGa4i6vD29yI2gxytpwTzPUoWTjfenuF+IbEZ7bNP1bFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2dc6oBK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MS91BF2v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5982C606A31E;
-	Tue, 24 Nov 2026 06:35:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9025606A31E;
+	Tue, 24 Nov 2026 06:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2dc6oBK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62151F000C6;
-	Tue, 24 Nov 2026 06:35:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MS91BF2v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CEB71F000C0;
+	Tue, 24 Nov 2026 06:37:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795502143;
-	bh=1Tuf3FrJ8YKV4M3Z2kJ5/MbNrnt873qpvQEYkqFLu6E=;
+	s=k20260515; t=1795502259;
+	bh=ecDccHcHInTfr1e2yq1yGA/MTbO1JfSkN04XeWsio6g=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P2dc6oBKHDhpP5Z+800UpTyu3P7EbUuAaCi4VO0mxyLLHeaJL7VWuIMh0U6ez9bha
-	 NXb4zf+f9jPE4+mUjLWBtLwOAbBMA/1UUNHou9ff9mxzz+yh7pFNWe/TAj+46VplEa
-	 MmqkBUaohx1ZhaKBuJmuMx1dxkBD9JMJAuOMZY6uDsIEqf/JKET785pK3AK/TNQjLb
-	 ptdWhGjEqbvN3FDZYffnUV0SB1MnTTpt2loe3Z3PAYvW5VvQCYmpTQr4kYYts6wU5T
-	 zAe+6CNbr7KTDZSp+E8H0+i+jKPHXD54vC64XaCG0SI+HHNC04F2x2VjNjEYdU8Eb3
-	 q8u/ZP/9KsSWw==
-Message-ID: <c084d07b-9ea7-4d03-bebb-da6547b71d80@kernel.org>
-Date: Tue, 24 Nov 2026 07:35:37 +0100
+	b=MS91BF2v6UKb7DiQk6z5LvIu1SLeq9Yk/Qckv7SfRkWN6bs4lvOpu4LJrL6bceOB9
+	 5TjbGHqpvlbiPTD3XL31K1WA2LczmHjnWAB9HudBU34KyXJM5fGva10you/K7CL+Kf
+	 3AnoMv9S30C9hOMbL7ooXKVVkxBWaJc31g92FwaVE5O/7KTyraCNNatCTsQrQbMV7R
+	 c3TFJtvP4zgaqW+fBtFVpX78kIShP4idYChkuRo3pJWAVklH0x3ra1cIvfD6Y+hq/U
+	 8nlpinMNikm0fepzvQxFJVezsUkdpGp471u7u+ybTkCaS7psLuIWYUEbhrhz2smUdi
+	 93eBBtsIwO0Vw==
+Message-ID: <ba76dc4c-f8d7-4d7e-a9d4-c2de88e9a9b3@kernel.org>
+Date: Tue, 24 Nov 2026 07:37:33 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,17 +52,20 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/12] dt-bindings: memory: xlnx,versal-net-ddrmc5: Add
- amd,num-ctrl property
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
- linux-edac@vger.kernel.org
-Cc: git@amd.com, shubhrajyoti.datta@gmail.com, michal.simek@amd.com,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261118142213.100581-1-shubhrajyoti.datta@amd.com>
- <20261118142213.100581-11-shubhrajyoti.datta@amd.com>
+Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: agatti: add the Embedded USB
+ Debugger
+To: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>,
+ Souradeep Chowdhury <quic_schowdhu@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ Elson Serrao <elson.serrao@oss.qualcomm.com>
+References: <20261123-qcm2290-eud-v2-0-9bfc432dee07@oss.qualcomm.com>
+ <20261123-qcm2290-eud-v2-4-9bfc432dee07@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -108,16 +111,32 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261118142213.100581-11-shubhrajyoti.datta@amd.com>
+In-Reply-To: <20261123-qcm2290-eud-v2-4-9bfc432dee07@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18/11/2026 15:20, Shubhrajyoti Datta wrote:
-> Add the amd,num-ctrl property to describe the number of DDR memory
-> controllers enabled in the design. Valid range is 1 to 8.
-> The driver then can enumerate only the enabled controllers.
-You still fail to explain why this is needed in the first place, IOW,
-why this is not deducible from the compatible.
+On 23/11/2026 17:42, Igor Opaniuk wrote:
+> Describe the EUD:
+> 
+> - its CSRs at 0x1610000 and the mode manager register at 0x1612000;
+> - TCSR_APSS_SPARE_REG1 (0x3e5018), as offset 0x25018 into the TCSR
+>   syscon;
+> - its interrupt (eud_int[1], GIC SPI 189).
+> 
+> Hook its port to a second endpoint of the dwc3 high-speed port so the
+> driver finds the role switch, while the board keeps the first endpoint
+> for its connector.
+> 
+> Signed-off-by: Igor Opaniuk <igor.opaniuk@oss.qualcomm.com>
+> ---
+
+USB parts in this patchset grew here, so now DTS must be split:
+
+DTS cannot be combined in this patchset and must be split. Don't mix
+patches from independent subsystems when you send something explicitly
+targeting only one subsystem.
+See also: Documentation/devicetree/bindings/submitting-patches.rst
+
 
 Best regards,
 Krzysztof
