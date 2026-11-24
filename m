@@ -1,83 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795513762;
-	b=LQn6y00O7rqI2hlxqUCcEufaKnoX9ps03PCbEoCsaze5CCwE+FOvP0iM/NJh7lAYjBEO
-	 PCw+KlOfDSPxHCO+wHZpa739lDsV08+9AJbD382cJx8zDs/yDuX+MW72o3WxcTB61WklD
-	 fqLrm1z54RPL6/481PK2xzHgDNApG7MYVy/Ce6gg2nScYsv+YUOG6ouraZmTeOYobSrxv
-	 d+TqMdO115ttOiz+iVpHOM2TBD76otLzUVzHmVR3WXl7BN9u0Z43F1uRWiTYmbdE7q2WF
-	 RJfovSeQTyPGxtRATHo2dFzMh/ZgHZuUdTYlYso56dMlBtkw9DNfFPIo6e5gTrLIqtg==
+	t=1795513766;
+	b=gYjKhM5kM3nChOmvQp7OgjoTv2vmMUYLLgC7Jo6DUMYjyKziNPyGN4Uony26vfrXaEKM
+	 FfQbm50plMEq1qWCs227sABk4CYCAWON3WwPsZ5nGw0Yc77z7WrAC1GHoREKdLH9x4hix
+	 RuPFTmSJw8IhCUnIVRB3jKTWUL5OyMbXHHtlW9Shen7IEljUEM4gB6aq4PZAiYl9KQ9D0
+	 i/aX04nc1cQwr3djTvdvYiR5uGgq705xEKQHUaMjicOafTwhzN3SHfR6L5mKrzammBsA4
+	 W1nrqx5UKYbFWnZC3Xg8LD2KwXGYTovOmaZnjqesh3wYLDLFcpsKiHkos0jn1oQHIoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795513762;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795513766;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Bsh30DvD4dl6hdEqW7rttLHSnbuBwkW1mxeTuDyZlIY=;
-	b=wTwLWLQsG4qXWffReqBVgXqa03lFuUkx2e4dYxqpSWV8WP0BIY99d7C+q5VFER1WzqT7
-	 Rh1UWnvCqgL+veayANO8dJ9BgKJND9Fp1/FC8S+xml0G82AxPLztJVjcqRh+5ZDw3eMrB
-	 0rw+LbBjzMlynLO6OjGj2skAGcIeLg2P2//foUnPZF4JdJstdvxlvhX2SKPXBxtb1NC38
-	 1v0InvKZOf7jUvcM1ChUbypRPXGPtTry/jErl5V2SL5aqnSWDc8ZQugYHlXgMro+JoDbA
-	 /nddgBrKDL8W8IgZHOSfsT7Ur4zVcG6iuWoFBWGsjJOeAYTZQ676zQcqpsuzhx1H6lw==
+	bh=knC024n2z1HHgEDh5UtAMH0ytfWSe/W5ghZpBaB64ZY=;
+	b=l43n67eUT2OT16J/R9bTABH3FJ9aqcZpVKqNGZFHdV5E7BFJ1SAYLjoBPSQIc4OfjuOy
+	 EQTuiik1yv342rwaTQO1Nyd6IHZKBI+hS/VwGmaqzGNC4EVY7MT+C9uHWPWoQiKRL7CKP
+	 ukhCqdoC13o3Dx2h409kq5y8IOoj/UrTeQOKzeYkzgfE4j5sV8eMpg3vwgMPK6r20PvS8
+	 02Jg6+ckO5+e4crCnS9NtfNSxNQO8h3fULT5vqTV3ThfuztqxBMo22fRknAqoylYNMdE+
+	 la8G7jHlyXxyKd+zSlXXf/+GHTEHCTIQP8XbUGLJbHsWjG7cpaJflvbIB6aw5xwZgrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vra8ahew;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tARb6/Kb";
 	arc=none smtp.remote-ip=209.85.208.169
 Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DD4606A864
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9DD4606A864
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C488D606B72E
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:49:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C488D606B72E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vra8ahew
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3acd523a802so38455621fa.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:49:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tARb6/Kb
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ae22dcfdc3so33887511fa.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 01:49:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795513760; x=1796118560; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795513762; x=1796118562; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Bsh30DvD4dl6hdEqW7rttLHSnbuBwkW1mxeTuDyZlIY=;
-        b=Vra8ahew6DCh+xOD3B9GVIIHTWftq7Q5Qh7dUmEvAMzOoV55LkwToKUZBLTG1gL5cz
-         zIOdB95FAKOrUv9f8QxF6VCY0l9NqwLtppZdhJTkmZoTMQV7xAY0euFq//1pewgqhecn
-         po9Dm2dVl9z31VrI21h1TuBn8VZEz6nZNh7cEnPDz8TNbitavR91C/z8Q6k9eATDavVM
-         LA9SgmWNB+wDn8RA6EwLRxadydgqeVAyYHTMnZ23YoXee1W0n8isAaVPgOn20V4i/Egd
-         hgFUp+cmqgTN2/nLV0MFuNzrfoSAKtcl4Awjy7NJhzulPebr3aMxeSmGZmhVaB8qteNV
-         o+YA==
+        bh=knC024n2z1HHgEDh5UtAMH0ytfWSe/W5ghZpBaB64ZY=;
+        b=tARb6/KbEc1oHqh665ucYNIdzhbedQsMYGAiZ2+yhTVzC1oarcfoj9mv17AoGmvK19
+         gGHAXYikpEgSpq9sfxjOFLqgj0HbYSoYC+rc1+idN/tj7kj335oTRcuV1y6dngZ+xPia
+         drT2iFui9YbiJNuZnJh/DFzi6OiLh6saRKBaqQlL5djLRgZuLI+vEziKXebZZkfVk4hz
+         g/5w+iMiJt9aDWN5usdy5sGd2/iBXLMk7YswiorB1L05epFtEYq7YT0NwungI7tepLaV
+         1cThsk230jxtEt0a6ikCSiDuasLrUN2tFRQiz4K8F+sjVG0MUoaeaobDv/D1UEOtUn4y
+         8KEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795513760; x=1796118560;
+        d=1e100.net; s=20260707; t=1795513762; x=1796118562;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bsh30DvD4dl6hdEqW7rttLHSnbuBwkW1mxeTuDyZlIY=;
-        b=nrQ8tTpzSP6bCUK23Bri14AZKFdFJgRvJDHk81UoFkvLuQFf2Ida++Db6BAt/RsYl+
-         sh67JRE+YpoZ/tmzj/e38HnoQMmoD6C6kvS/xoK24baO1DFi6PTZ1auaYIEEOgTvhd/V
-         uNQ5d/nEJFHQ9j45Sf753EgE3MPAjhw2szJc3LT+qEMZGhzcLMdPD0seslMl/wKb4TMR
-         VwT8tbaV26oq/xi7vDXseg8Xm1XB0ayFqjW3YxsOZslHzl1hnw5p1zrkQAaO/w6rEsPx
-         4O2/CE1NY7CQcWzdYaWQ8PY5K7t35fFjdNwY868Li94iN/cLEQROge3OPf8iPKdE1AS6
-         /Nbg==
-X-Forwarded-Encrypted: i=1; AL+hErHbhYDOOOZG/EIN5Rq55A5lSQdTna6L654OUeZjs5WE9eBgQnLrBW86WLq8x9ISojUKziutOfy7qp/r@vger.kernel.org
-X-Gm-Message-State: APuU4Z+unHtWdmeBuT6NliJ8NF9JsFhFhuwHgM1ROE3zvbLCWkUX+u+X
-	kzsSHA8zwJnV1fLtdv4p5H20EFStDjpBJ1Si0qzgrUGVOFCJTMLbmYkL
-X-Gm-Gg: AZFdTZcW1LoykyIKVCWstVaMyEhzConyZX3Lhzn0HZ7lnAuPKH/9vtcCDls7X0g5iMS
-	D1tyqxb2EW1F463QKJGxijhEcRv6VsT28ITi5w8FkPVKVHnD11BOsEoi576PaiKO8JJauYnt7Ta
-	rz/97FHKnWG1c9sHwhP1HeOoyaNulkilGM0xy7CveOrPC6f6Y/DXjOBz6BjGvCoTbKCSHkVBEV5
-	qHGnh5vTd7gp+5B5ZBJSgI+BR0nvCyEgNnFk0AJH2rKsfccTgwwFeR0druJFgwbvs7jh+jh6hLE
-	jmVWU1Z9Zd5CrAAmvsm3mIjZz7IpsL3n6AHrWgGPNsM/+mgrhkhxVDUlLqNrR6EcGg+LDu0CC8a
-	4RIAUdAOW4yEFFxSmoqfguTOUiW1YbAlwqb/8kmCW4wsigVFpZaTCntnYRdulQ5Yumz8WZfT/K6
-	5MRY1Y/H0//SgfBqW0i0TbdtX2dtJIwMZ5ofYWjNLidqyT+o583hiR3+x8n9wrAJcgs8QmLkOyt
-	aYmLtUFtcFXePNc7e0HpDQuUUv001H3vhmmF+YX9uoSwAgE32iI6XdQjHj7/kLbZY3QyN5GTHna
-	5/1giVHw2HM1VJ7a3K3N+4icUsxofU6BY5P/Sz2MBI3Zkyw=
-X-Received: by 2002:a05:6512:3a94:b0:5be:5222:5611 with SMTP id 2adb3069b0e04-5c1bc86cfe7mr3678861e87.39.1795513759856;
-        Tue, 24 Nov 2026 01:49:19 -0800 (PST)
+        bh=knC024n2z1HHgEDh5UtAMH0ytfWSe/W5ghZpBaB64ZY=;
+        b=sJFVTO8SLzdFLoWh4Cgsp8cb9H8/v/ZYdH3YAsn9ge3w5lmecLNvbOR8nMDD6BQRfs
+         yoA/XlSsEI7a1nO9mlocezQlmBL+waJ3xWigopPzbEPFKn48Vu0nxL+z1UraMdJixkra
+         bMFfDfE/JBPHac/puxs7laihqcb2SLG3xuip3B0bChMyTWHDbiQw4eINmlPFqkTxKzvt
+         +oUtVfcD01Yz7KqMuFQkeOC6KwoUJMgnWzvy+9HJg9ZACkJYOGiFQ7wmVCun4Y7+21Iv
+         TLPbOy+H77WRQTsn8kLzua9QpMqxFzA30QeykTytX+GY0Q1oiCQyqxyunaIY7I6SAgYO
+         +qww==
+X-Forwarded-Encrypted: i=1; AL+hErGXTvapvEKjqHx9OwuaEifP+FgCnfQqGUpVkwF0q8BysAIqoabQ9Nrcie3bmJVO9p+GQVnYRhe6UIxb@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rwodpjqn3a2sfMFDOI7SY6hP2aaKUjjc6LybNjrIUeeGkgv1U
+	qqDIDTj2sgXzAwtZEKIw+0zkQ85IB8HHfqo6KFxm+jV70W04TX01Rr0f
+X-Gm-Gg: AZFdTZfa7vpsJIq8ObDcKBXkFiCp2YvjMhWOfFu/0GhAMt1/OMEcueYe6KnMKtlU0oK
+	V6BsTOi5xGHbgtfdQ/Cy848AgDNCv9PB02WIc7XaabIAQ4U+lmVcf6CAu2hXy2F6U43bMNzAOkq
+	lAk6txfj/5EeOn/ap/fogAWrzQE0SQwhFw+CrdbuGrKRA9M4eYCBC61t/PIAEDt90wQgii2xepA
+	zsOQyC98KWC6pWrjGzHQHn/6eyE8iVnbMJBujnppWkrJpDOeNVbKBYfJZnDoRWTAqczvjj3VKjT
+	RV7ka1OprD3iUsVnG2yp4j4qzWutnGdbYtnNGc5PdS8nAjviVMtKW5ZgnRP0bljlJGr9ywIINIh
+	KjkwoBVOvy3/05yxIhbClGbBabAOK0gaaLnNn8g43+NPv56XRO5INmfOkVg/tgEIXTB5mnWLJ8m
+	0hcn81TQSP1fcQbBOmXefz0nn4k8DViegbe2bKkk45XqGsYgyFIH9bLacXD4SOuVAdWLWjFzk8o
+	WNJBEnG+w/ilDaxPxqUuJZUQH1/iuyTvWdfGOfwCIkL4iIDRD+rdkKoYl7o2c2K/1rO4VA+JUbG
+	L4YsIWs3XkudTP5F6XAzMF36kPNnWRzAxPoQ4FoMj9kjL+I=
+X-Received: by 2002:a2e:be26:0:b0:3ae:25c9:f5d1 with SMTP id 38308e7fff4ca-3ae7f9d255cmr38992341fa.11.1795513761797;
+        Tue, 24 Nov 2026 01:49:21 -0800 (PST)
 Received: from NB-6746.corp.yadro.com ([188.243.183.76])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae8051bfbfsm38756431fa.20.2026.11.24.01.49.18
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae8051bfbfsm38756431fa.20.2026.11.24.01.49.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 01:49:19 -0800 (PST)
+        Tue, 24 Nov 2026 01:49:21 -0800 (PST)
 From: Artem Shimko <a.shimko.dev@gmail.com>
 To: andrew@lunn.ch,
 	hkallweit1@gmail.com,
@@ -95,10 +95,11 @@ Cc: Artem Shimko <a.shimko.dev@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-leds@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v5 1/3] net: phy: dap8211r: fix kernel-doc comments for extended register helpers
-Date: Tue, 24 Nov 2026 12:49:10 +0300
-Message-ID: <20261124094914.2993988-2-a.shimko.dev@gmail.com>
+	netdev@vger.kernel.org,
+	andrew+netdev@lunn.ch
+Subject: [PATCH net-next v5 2/3] dt-bindings: net: dptel,dap8211r: add LED nodes
+Date: Tue, 24 Nov 2026 12:49:11 +0300
+Message-ID: <20261124094914.2993988-3-a.shimko.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261124094914.2993988-1-a.shimko.dev@gmail.com>
 References: <20261124094914.2993988-1-a.shimko.dev@gmail.com>
@@ -113,39 +114,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The kernel-doc comments for dap8211r_read_ext() and dap8211r_modify_ext()
-incorrectly state that the caller must hold the MDIO bus lock.
+Document the optional "leds" node supported by the DAP8211R PHY.
 
-Remove the misleading sentence from both comments since the functions
-lock MDIO internally by themselves.
+The PHY exposes three configurable LED outputs, each of which can be
+assigned a color, a function and a default trigger.
 
-Fixes: d90265e75584d ("net: phy: add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver")
 Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- drivers/net/phy/dap8211r.c | 2 --
- 1 file changed, 2 deletions(-)
+ .../bindings/net/dptel,dap8211r.yaml          | 41 +++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-index 0bf770f8ebbb..1fe20efd394d 100644
---- a/drivers/net/phy/dap8211r.c
-+++ b/drivers/net/phy/dap8211r.c
-@@ -69,7 +69,6 @@ static const int dap8211r_internal_delay[] = {0, 150, 300, 450, 600, 750, 900,
-  * @reg: Extended register address
-  *
-  * Reads a PHY extended register using the indirect access method.
-- * The caller must hold the MDIO bus lock.
-  *
-  * Return: Register value on success, or negative error code
-  */
-@@ -97,7 +96,6 @@ static int dap8211r_read_ext(struct phy_device *phydev, u16 reg)
-  *
-  * Modifies a PHY extended register using the indirect access method.
-  * New value = (old value & ~mask) | set.
-- * The caller must hold the MDIO bus lock.
-  *
-  * Return: 0 on success, or negative error code
-  */
+diff --git a/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml b/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
+index 4cd0f9730d95..84efee27400e 100644
+--- a/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
++++ b/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
+@@ -20,6 +20,7 @@ description: |
+     - IEEE 802.3az-2010 Energy Efficient Ethernet
+     - IEEE 1588 SyncE support
+     - Internal packet generator and checker for link diagnostics
++    - Three configurable LEDs (link, speed, duplex, TX/RX activity)
+ 
+ allOf:
+   - $ref: ethernet-phy.yaml#
+@@ -45,10 +46,31 @@ properties:
+     maximum: 2250
+     default: 1950
+ 
++  leds:
++    type: object
++
++    properties:
++      '#address-cells':
++        const: 1
++      '#size-cells':
++        const: 0
++
++    patternProperties:
++      '^led@[0-2]$':
++        type: object
++        properties:
++          reg:
++            items:
++              maximum: 2
++
++    additionalProperties: false
++
+ unevaluatedProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/leds/common.h>
++
+     mdio {
+         #address-cells = <1>;
+         #size-cells = <0>;
+@@ -58,5 +80,24 @@ examples:
+             reg = <1>;
+             rx-internal-delay-ps = <1950>;
+             tx-internal-delay-ps = <1950>;
++
++            leds {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                led@0 {
++                    reg = <0>;
++                    color = <LED_COLOR_ID_GREEN>;
++                    function = LED_FUNCTION_LAN;
++                    linux,default-trigger = "netdev";
++                };
++
++                led@1 {
++                    reg = <1>;
++                    color = <LED_COLOR_ID_AMBER>;
++                    function = LED_FUNCTION_LAN;
++                    linux,default-trigger = "netdev";
++                };
++            };
+         };
+     };
 -- 
 2.43.0
 
