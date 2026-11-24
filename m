@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795535221;
-	b=AFVwPplkD1CKOtZQPZLUOIq3Hjjv192D+hYkh7vsKcLCzPYBPrBVvkA70UhSADj9c7/X
-	 mG6f1lu8ntra4RroUjFURhTHbf9D1hDOvDeU/s0c1CWS+13Mgv7M0JzzltC2MhLOF5oPv
-	 YLNe8UT+QHnRZmqU6MX4P5l62lMeBNyeqdXZEpDEZhlneieOom7m3bdpTbf+JQ6c5UbE8
-	 p/waN+ssr783FWLQwWeG37dkGTO4fbzCjLc6tdk6PHzfKrqy8ZfKuCGZmzAfqifsciFiL
-	 YN+ZIuK3DJJlpnrCPQVRJEglwqBXdNDIepdggBH7S4H63+QyBNhH6jwiTrUQYjvUyLA==
+	t=1795535265;
+	b=BRbH+eznvf0MPsoHnS6mY03kXalcr+FD67xCpiP0bTH5drePt+Cb7xNQrXRHlYsyxlid
+	 DnoYTwtYYRe/Y5aEx+ZMUst+7lHzzZXtMWr+JLTbYa6Sn8JcTf0LrQ8DXXi0io5Gzb/Y4
+	 SGfEM5thuAVvFl/a4uG/T6GHCDKReGG9OSIdgiY4fCCNKKts40R0eqd/HyL/MO9QTtJYL
+	 KqqwmYxIMicsTL7CPlMys6tcRygvbQJBE8F/Uu60OeVoBC/IvC3I/3mmJvqMvEY33OFM4
+	 CzoljAK+QDsfct2ifMpTXN3BngVHh/A2xaedD49pl9d7LXLOKADqnBPltN+kSFpOmgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795535221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795535265;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=HExStFKU+yesXM5jZRGUg6OOdPqU1Rp9r6cjv9ysj9I=;
-	b=Ab78TQ4M3p6TRI2KeY16KGVFHox3hXay7IlEUu4pXfd+DyefCgLPxAIQoRAi1ra3E5Mz
-	 bC6xvNU+JXAaMsrODp/CLYmdjX1iyiewxPjq7Ux8G6iaUC5iKr2O9tP4uutHSnr08ZZwX
-	 zoD6ITbphs+ZDVnsgnC1mxN6k4czoE+9YCuSs5YeSr5PBjF3ap3zOk2wtqd3gS68LWEcq
-	 b9eA7S7N/louvlS0TGsgxPNo1QCf4W/ee5JdVg9qJZXj2uxUwbGCsqIAbyq8mPS/rWXOK
-	 THtjJybdxJ02NIfMZdykmrmv31wnuQKMleQ4p/TFijFk9q4DKGf/mmnUIesIGWm387Q==
+	bh=mXsA4BwXFC/CAXPGp3KhRXJ2vAYXrltBol6Hhl9EReg=;
+	b=y9rBHuHWDy+PdZtcccm/+eNejSuCY3ksCgOHUf/92xC96wJpQfMEIiz6KklBN/GDBZZc
+	 bxA63S9GcxBxojXGMT/g7Y8DFrXvM269D6IuAw6nkpohOt3DkjvQxTWk7e9O6APyqaRNF
+	 TL3EFwxPYp+P+sTfDmleKyCwj2U+bkTdthu/b2fTAHxdFDMqC6uw/sRS40hThBRxNP6aJ
+	 +2EIPbEgOlZDXiulAtfEafmhld6aHbtUtbqqAv8y/SUIfkctDFZOCXS+DVgZEn43+u8QN
+	 WvzQUQ2ZpuA4S1kqkVRTju/08Z/Wqs1dPc4gGbRXhL6XhCSWv1GpjO1rBnsLBQG7f8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P9NCGl3G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=alilFHhR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB64B606A31E;
-	Tue, 24 Nov 2026 15:47:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C32606A321;
+	Tue, 24 Nov 2026 15:47:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P9NCGl3G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788151F000C6;
-	Tue, 24 Nov 2026 15:46:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=alilFHhR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 766A81F000D2;
+	Tue, 24 Nov 2026 15:47:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795535221;
-	bh=HExStFKU+yesXM5jZRGUg6OOdPqU1Rp9r6cjv9ysj9I=;
+	s=k20260515; t=1795535264;
+	bh=mXsA4BwXFC/CAXPGp3KhRXJ2vAYXrltBol6Hhl9EReg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P9NCGl3G3Hl3Fv/VfqKAuWFxw3KqTiSNo4r6PPYrSKjXyBUXL8EXO5rIfc/7ySlmJ
-	 z7vQaKJKh8EsmQdgDIdvKOWD9knpVov9MCiXR4WbXEjb3UNhFZxvR+CDnMynVwnikT
-	 25Rs3a3tTr/2ckjyEvMsOEI6ehlNtrcQEL8fQIMaqot6P5OpdEyo7aEc9GeWGtGbY2
-	 dliIvUYs6T2XdGZWT/GuS/7QRasL+uurzl7kiC4Rj1Xx/d6RL17EhaEMqDpxJ2qcok
-	 L9xNu9kedrQ3F9YMfHb4UfysVH56E2+zy4lVsf/pAjC68tf/11CzwWR3NNe7vJmAwg
-	 X+jRQ+9a3CwuA==
-Message-ID: <6835fb3e-5f05-4f32-bf5e-85c5c5803459@kernel.org>
-Date: Tue, 24 Nov 2026 16:46:57 +0100
+	b=alilFHhRd6N+H/ISj1kGZk4LRVrgAmykt6qQcmrhtJkF+PI7iizSbjVy8zXBkL2bK
+	 PGzx1J3KJJdldqSg6vieAKnJQAe/MypYj0vwotQe3YZaCUxvU4HQAO1/YCWYvlarhF
+	 AKdaJHYvy1obes/pPprBf24yr7AFZo+RL3aklDe4obRdbg6KCda6BuKuvJXM7FyhtS
+	 +FTK9Zvm17clc0dACamNyigBU40CftywSSgKZyKdlOgr7nUaE/sp1hvpCxd2ZlxrqT
+	 Bx1YqD1rgKJV4DuOP2N58vCdWLmNH21DqrWho/haSJnkHRhBYj5f4Q/A/EZmijlKkW
+	 7k6tM3OcxcLKA==
+Message-ID: <e07f2f6a-31e8-4d7f-a533-c55c51237868@kernel.org>
+Date: Tue, 24 Nov 2026 16:47:39 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,14 +52,16 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: i2c: Add compatible for Seca SoC
-To: Yadu M G <yadu.mg@oss.qualcomm.com>, Andi Shyti <andi.shyti@kernel.org>,
+Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add Seca Ride board
+To: Yadu M G <yadu.mg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Praveen Talari <praveen.talari@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <0439e03884c02c9edbec89132b526aaf8f54ae23.1795517696.git.yadu.mg@oss.qualcomm.com>
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1795517711.git.yadu.mg@oss.qualcomm.com>
+ <845a24c91ea424ff30faa8e1d357c326eda2e5ba.1795517711.git.yadu.mg@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -105,43 +107,20 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <0439e03884c02c9edbec89132b526aaf8f54ae23.1795517696.git.yadu.mg@oss.qualcomm.com>
+In-Reply-To: <845a24c91ea424ff30faa8e1d357c326eda2e5ba.1795517711.git.yadu.mg@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24/11/2026 11:54, Yadu M G wrote:
-> Document QUP GENI I2C controller on Qualcomm Seca SoC which is
-> compatible with the SA8255P controller.
+On 24/11/2026 11:55, Yadu M G wrote:
+> Seca is a Qualcomm automotive SoC. Document the Seca Ride reference
+> board, which is built on the SecaAU GearVM variant of the SoC where
+> platform resources are managed by firmware through SCMI. The board
+> compatible therefore uses the "secaau" prefix, with "qcom,seca" as the
+> SoC fallback.
 > 
 > Signed-off-by: Yadu M G <yadu.mg@oss.qualcomm.com>
-> ---
-> The Seca SoC device tree using this compatible will be posted as a
-> separate series.
-> 
-> This series was prepared with help from an AI coding assistant
-> (Claude). It assisted with review on the device tree, bindings and
-> driver (formatting and alignment fixes), rewording commit messages,
-> and running the validation steps (checkpatch, dt_binding_check,
-> dtbs_check and W=1 builds). All changes were reviewed and tested on the
-> Seca Ride board.
-> ---
->  .../devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml         | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml b/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
-> index 04caf622b3ba..63895fdb51e2 100644
-> --- a/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
-> @@ -16,6 +16,9 @@ properties:
->        - items:
->            - const: qcom,sa8797p-geni-i2c
->            - const: qcom,sa8255p-geni-i2c
-> +      - items:
-> +          - const: qcom,secaau-geni-i2c
-> +          - const: qcom,sa8255p-geni-i2c
 
-That's enum with previous entry. I am dropping all your patches from DT
-patchwork, to avoid repeated feedback.
+Incomplete, missing seca SoC in naming bindings.
 
 Best regards,
 Krzysztof
