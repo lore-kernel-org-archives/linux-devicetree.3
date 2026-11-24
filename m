@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541586;
-	b=chHAA8W9UsbR+DGRjFS+Aurai/DdNIFy3bn09SnqGfpxFd71IS439x09HOOZhrpmrluU
-	 WOoxG0KMttFA3wftqwR0640Vln9+MXqkbdS6aeWSk26Xzp7v0RFBg8FVjN+Ba3SN4n5en
-	 TPLNwZs799E7BbGZQdN6O0rdnAAdVYY9DWNpCe4si7Drz0BGEGHHo3zHIPFD1zZEJ5wA3
-	 vewJC/EfptvDiubfBPtRCALRVDutqJL7jeg6FyGb80yXDBEMXxWM7mV9JHk1NvOBGfPMS
-	 WlOt2m6Y2lPDHcHSJRlI3WX20tWWg0hsUrZWuzApv82ffzR1lz+AdlkCzOKuQdpoW/w==
+	t=1795541592;
+	b=gsLjEjxgureqvhTQ5Q+Zc7FndRnf/felwqlT0pHSngweaYVxvDdgNB5s5kVzmsjVmCeN
+	 yYim4kr3KNfqaU46n35I6jY7NKl7YXDQtg4/UKFEH38SSs3oqayDqWbW/OxxxsXFkOfpM
+	 xibJEwJP57hUw6RPgHARt83dxdtyzQKlQbq1mnGVvxTDBFdW0xkLKZIt0VnBbi0sxWetU
+	 sDSOQjGRufvRoFnw+Vxb9eZf6rX6LZWvEW0aLZHaY3rgu8NNhT7q4XBPrgft1j7I95Cku
+	 AiVWg6HHKE008qqToiO35kfHlCewx4Rx43bkUoYv4ARPA452moo15Cl9bdefcIkfE8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541586;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7Zo1u7OMHIHOyLbwaDTAiFX9+GumYrTciNkB68xDfFQ=;
-	b=YzNlaZDibPmHjgEfQTD3nhu/C9V6HCO/NtHtoeF4yuzLVdHDE3qI5G6jn/jb5WyAg3jy
-	 IeAWnWJ32WFHOQdJ6yU0t7uKLgwDF4ZS5lO064K0l5CsnxT3HY3f85GXvDb9R4H6VL74Z
-	 RtZWiyOKBuv0cJ8DirkXluM9VyRgytg1pot5ZWM4ibh7hwgRjbL9Y2Uue4eQrS473g1+I
-	 9rTQtDRYPOr/xTtpr/2GgJVNHXPf8IX+450JerhMjkjG4PloSNuRj6V+Yohk2FWjGmQUW
-	 4CoYFhar2OCeWRruxrNVwHBKqGgVzQt9kJTQCvJICXVLXcouPoqmvClU8lJXZZDcSjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541592;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=o5U2eMZXMEGvf8tATsUAjiB+YYaG3+LXXehgfMHJpQo=;
+	b=YFnqgqBSqbVqYPvWUhd+QVTTJPHfCVEJAFUZ5tP+N/T3CV2mAnNxui+2Ye1acLNlkUkf
+	 t7b4qCrhSnIJwa3TakH40vAc9Otz86lm2UiDXzDH+CSm+X/0avoW4ho6uhS2Sewc6OtRH
+	 41itgL6wKj6KstdZpo377KL/qm/a9gPltTlRAuy9KyGSscG6YYG2wWnNXIWoTlyW0KdwF
+	 h/LDBmKs4w63+ioGIwckT9LtT85L4FRvHJk4cz7ZNKeKJbZoy6pO4j1z/iYEamcEk5/y8
+	 6/xXexPoYu/WoJVHZfAtWK9YLoI3MQI5a8mYtdS9bPjUA/NG62MzPZzOHi9IGer/2Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=c00SOHaf;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JR7ECrpC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB9460A380E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:33:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCB9460A380E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15912606A329
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:33:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=c00SOHaf
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dee593f18so4547702f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 09:33:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1795541583; x=1796146383; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7Zo1u7OMHIHOyLbwaDTAiFX9+GumYrTciNkB68xDfFQ=;
-        b=c00SOHafjbg82pVtv0O847ol70pBAyWkDt5mhy88l+/im+G7Q3ql1Lodlxup+rWH9M
-         YdC3A2dfISCeeMrBVudwRsQgEPdBc+/Or34TcrjYAcbZdD17DnOdrKCB5yZjUOriVy0f
-         D3p6jWjtXUG19DhogKUQayB50qeSiR1QS+nahYHB6IrWaejoqvNd6NjbeITRv9Z6WL7a
-         i4tJtq8BPcKEl7NWS0cHIsyDXICMjh/bqULctrEhSd0faa8YSmhhYyZhK4i/CP+PdW2w
-         FyFFzrnoEobK/ue2DCY/X7zL9v8H0hPpozq4ZReZdfLKe03uxBE+Pyodnmdg4mPj7UmK
-         Q+FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795541583; x=1796146383;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7Zo1u7OMHIHOyLbwaDTAiFX9+GumYrTciNkB68xDfFQ=;
-        b=dZ5XwHUWYTHQaLMwho9DUVj3CJj3yDtanfAj4whrQADGwRB9CExnKHAEIw2WfstYNa
-         y5SVu4WN76vCK7EwKLLXbMVVLkXOXlEOsnJMV2jhF8ammCFXveGBMWnlbhR/Qf9pKVSt
-         xvhRaT1WvHKOOnbrdyfGWcM5fO6cSloteiKNecXJxaDHZ07onR2VlabekNoNBB3jTkf+
-         pGE183pyr+pVxnFfs+Y202hddGUpL7D8vUpCL4tKVa8iV58Hzb+dryC7QQuMdxEDo18I
-         q7I6bpvWT5QTNWowX/1Iqq4mw0jjPk2SYzFUm+aZIhMWxfuONO4pCHktrRZ6g4C99SVb
-         B7cg==
-X-Forwarded-Encrypted: i=1; AL+hErFJxT7rLBVei5A+RI4Rx/i5tt5L5jisPIBtdP6WpkamkPeIF7xSjYKO7HAbpiF3QsX9QF8hc84ptI0h@vger.kernel.org
-X-Gm-Message-State: APuU4Z94xA7yACh/aKRt0Bu+ei3EjEDobGNJ8MyMxWoDdfJEv39qr/vf
-	DsNbP+Y+4+/q4xI4iCBNYtjMgPmwHStuynVCW07+7KEC65lBlWEGfjH1z4pQllZwrXQ=
-X-Gm-Gg: AZFdTZdvv9S5mi6c7nmn3bDWoWE/mW6ncVVhyDGD0nLBkQVjm+tRJiUsKXHd72nSgiq
-	YnUILIgaGfcODl0Abe6JM/xFwWiFYCFaZ/0fZ3EUwjNzzsFPuGflSOnGeI8iaRNjD3DSKeZLWCa
-	YJU1Ffw8oSclwPMQVT3bcv3o2SI2EueOmZ37ag4fT48iLiE1nScdIMDmPfGIR+YKTpLvIEvMn+V
-	SfIg5plDAmJ4YatqKze+BBStwENQbmDkoXzcTjSNur6WC2i+WGjoNP2yJsKUOLUR8S0UsH1tbQq
-	gZuNfQZIz1SacUOUbfhmGFQ0bJb7seP6dYTKP97+gjSGa72jcueEcLe9XStee4Y2o1dSc3GQdlk
-	FkCAj2+JQ6vK37+hFVr/7DzfYhJFfXsvy1UOnxkdfPRz5O8NyGbMZYT65tk5yNDV2bfcP8RsKw/
-	+Q3x1Pl4MhrSM80baVQlh8/E4iS/JoZtVTR5zQ1CxAjnhbIM0FEpAMJY6rN7dDrLPVDC5sAjqNh
-	ow6J0gKUSiRcyLR/FQ0tmOJ8c9ZaIP/XkmK7GpSlCNjv13AxGJ6uDNfI9Ls3+i3IwcAZaK82VhL
-	bMpvD1dGaqelsMZ+HT9ta9NZbqw=
-X-Received: by 2002:a05:6000:4b1e:b0:4a9:760f:1832 with SMTP id ffacd0b85a97d-4abb46bc41fmr27572716f8f.45.1795541582931;
-        Tue, 24 Nov 2026 09:33:02 -0800 (PST)
-Received: from localhost ([82.192.120.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab69bf685asm28971436f8f.20.2026.11.24.09.33.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 09:33:02 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	florian.fainelli@broadcom.com,
-	rjui@broadcom.com,
-	sbranden@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: naush@raspberrypi.com,
-	svarbanov@suse.de,
-	gary@garyguo.net,
-	linux@roeck-us.net,
-	linux-hwmon@vger.kernel.org,
-	krzysztof.kozlowski@oss.qualcomm.com,
-	Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH v13 2/3] pwm: rp1: Add RP1 PWM controller driver
-Date: Tue, 24 Nov 2026 18:36:56 +0100
-Message-ID: <20261124173658.31030-3-andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261124173658.31030-1-andrea.porta@suse.com>
-References: <20261124173658.31030-1-andrea.porta@suse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JR7ECrpC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0B11F000EE;
+	Tue, 24 Nov 2026 17:33:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795541591;
+	bh=o5U2eMZXMEGvf8tATsUAjiB+YYaG3+LXXehgfMHJpQo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JR7ECrpCCFHlY3IebZPG9mB066oJJLdQ8lraEa+PjfdZZD/S33edUiPWsNp+sPSab
+	 1AOntl4oMB3TZCb+SIgXwP0j/udowVR72vWLVEvUBHzZn5gStCv6hd65cvUwA5l7y8
+	 hqLAI+GJvIi6MJ1ROCGsbK7d9TLpaQZGIVNn4Q851xRGN2e6+xACUhsq2/+fxbc6Zu
+	 /dCRmiWOjWqKp2ec3gQW1w5fFe9awTew7uYQfKKA5syS0ZQYXwH5jJvNqumC+R8UUG
+	 fpv7nHF27cl8DwAeFDa50rfO/jMH3SCP8lMt8jotiest4FuKCFyykUROD1oaRLniSn
+	 ++YPx8gilpbFg==
+Message-ID: <sashiko-outbox-231707@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 21/24] media: uapi: Add parameter structs to
+ mali-c720-config.h
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anthony McGivern" <anthony.mcgivern@arm.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-21-0cb9bde1bd30@arm.com>
+References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+ <20261124-b4-initial-upstream-candidate-v1-21-0cb9bde1bd30@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 17:33:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,513 +60,186 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-From: Naushir Patuck <naush@raspberrypi.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Low] media: uapi: implicit trailing padding in mali-c720 parameter
+  structs
+- [Low] media: uapi: undocumented MALI_C720_PARAM_BLOCK_MAX in
+  kernel-doc
+- [Low] media: uapi: missing kernel-doc on mali_c720_params_*_mask enums
+--
 
-The Raspberry Pi RP1 southbridge features an embedded PWM
-controller with 4 output channels, alongside an RPM interface
-to read the fan speed on the Raspberry Pi 5.
+commit e1aa4f73c1087846692d06506ff1d937ae9e0835
+Author: Anthony McGivern <Anthony.McGivern@arm.com>
 
-Add the supporting driver.
+media: uapi: Add parameter structs to mali-c720-config.h
 
-Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
-Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
-Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-Co-developed-by: Andrea della Porta <andrea.porta@suse.com>
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
----
- MAINTAINERS           |   7 +
- drivers/pwm/Kconfig   |   7 +
- drivers/pwm/Makefile  |   1 +
- drivers/pwm/pwm-rp1.c | 428 ++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 443 insertions(+)
- create mode 100644 drivers/pwm/pwm-rp1.c
+This commit adds the UAPI parameter block structures, mask enums, and
+V4L2_CID_MALI_C720_PARAM_CAPABILITIES control ID to mali-c720-config.h.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..5c7b280a2bdb 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23376,6 +23376,13 @@ F:	drivers/clk/clk-rp1.c
- F:	drivers/misc/rp1/
- F:	drivers/pinctrl/pinctrl-rp1.c
- 
-+RASPBERRY PI RP1 PWM DRIVER
-+M:	Andrea della Porta <andrea.porta@suse.com>
-+L:	linux-pwm@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-+F:	drivers/pwm/pwm-rp1.c
-+
- RC-CORE / LIRC FRAMEWORK
- M:	Sean Young <sean@mess.org>
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-index 729776086879..523789e82355 100644
---- a/drivers/pwm/Kconfig
-+++ b/drivers/pwm/Kconfig
-@@ -637,6 +637,13 @@ config PWM_ROCKCHIP
- 	  Generic PWM framework driver for the PWM controller found on
- 	  Rockchip SoCs.
- 
-+config PWM_RASPBERRYPI_RP1
-+	tristate "RP1 PWM support"
-+	depends on MISC_RP1 || COMPILE_TEST
-+	depends on HAS_IOMEM
-+	help
-+	  PWM framework driver for Raspberry Pi RP1 controller.
-+
- config PWM_SAMSUNG
- 	tristate "Samsung PWM support"
- 	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
-diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-index 5630a521a7cf..c07fd24f69f3 100644
---- a/drivers/pwm/Makefile
-+++ b/drivers/pwm/Makefile
-@@ -57,6 +57,7 @@ obj-$(CONFIG_PWM_RENESAS_RZG2L_GPT)	+= pwm-rzg2l-gpt.o
- obj-$(CONFIG_PWM_RENESAS_RZ_MTU3)	+= pwm-rz-mtu3.o
- obj-$(CONFIG_PWM_RENESAS_TPU)	+= pwm-renesas-tpu.o
- obj-$(CONFIG_PWM_ROCKCHIP)	+= pwm-rockchip.o
-+obj-$(CONFIG_PWM_RASPBERRYPI_RP1)	+= pwm-rp1.o
- obj-$(CONFIG_PWM_SAMSUNG)	+= pwm-samsung.o
- obj-$(CONFIG_PWM_SIFIVE)	+= pwm-sifive.o
- obj-$(CONFIG_PWM_SL28CPLD)	+= pwm-sl28cpld.o
-diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-new file mode 100644
-index 000000000000..69ce0db4e9aa
---- /dev/null
-+++ b/drivers/pwm/pwm-rp1.c
-@@ -0,0 +1,428 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * pwm-rp1.c
-+ *
-+ * Raspberry Pi RP1 PWM.
-+ *
-+ * Copyright © 2026 Raspberry Pi Ltd.
-+ *
-+ * Author: Naushir Patuck (naush@raspberrypi.com)
-+ *
-+ * Based on the pwm-bcm2835 driver by:
-+ * Bart Tanghe <bart.tanghe@thomasmore.be>
-+ *
-+ * Datasheet: https://pip-assets.raspberrypi.com/categories/892-raspberry-pi-5/documents/RP-008370-DS-1-rp1-peripherals.pdf?disposition=inline
-+ *
-+ * Limitations:
-+ * - Channels can be enabled/disabled through a global update flag, while the
-+ *   period and duty per-channel registers are independently updatable, and
-+ *   they are latched on the end of (specific channel) period strobe.
-+ *   This means that period and duty changes might result in glitches if the
-+ *   period/duty is changed exactly during an end of period strobe.
-+ * - Since the duty/period registers are freely updatable (do not depend on
-+ *   the global update flag), setting one of them close to the period end and
-+ *   the other right afterwards results in a mixed output for that cycle because
-+ *   the write ops are not atomic.
-+ * - The global update flag prevents mis-sampling of multi-bit bus signals in
-+ *   the PWM clock domain. This ensures that all PWM channel settings update
-+ *   on the same PWM clock cycle. Channels start in sync only if they share the
-+ *   same period.
-+ * - If both duty and period are set to 0, the output is a constant low signal
-+ *   if polarity is normal or a constant high signal if polarity is inversed.
-+ * - When disabled the output is driven to 0 if polarity is normal, or to 1
-+ *   if polarity is inversed.
-+ * - Disabling the PWM stops the output immediately, without waiting for current
-+ *   period to complete first.
-+ * - Channels are phase-capable, but on RPi5, the firmware can use a channel
-+ *   phase register to report the RPM of the fan connected to that PWM
-+ *   channel. As a result, phase control will be ignored for now.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/err.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pwm.h>
-+#include <linux/units.h>
-+#include <linux/spinlock.h>
-+
-+#define RP1_PWM_GLB_CTRL			0x000
-+#define RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(chan)	BIT(chan)
-+#define RP1_PWM_GLB_CTRL_SET_UPDATE		BIT(31)
-+
-+#define RP1_PWM_CHAN_CTRL(chan)			(0x014 + ((chan) * 0x10))
-+#define RP1_PWM_CHAN_CTRL_POLARITY		BIT(3)
-+#define RP1_PWM_CHAN_CTRL_FIFO_POP_MASK		BIT(8)
-+#define RP1_PWM_CHAN_CTRL_MODE			GENMASK(2, 0)
-+enum rp1_pwm_ctrl_mode {
-+	RP1_PWM_CHAN_CTRL_MODE_ZERO,
-+	RP1_PWM_CHAN_CTRL_MODE_TE_MS,
-+	RP1_PWM_CHAN_CTRL_MODE_PC_MS,
-+	RP1_PWM_CHAN_CTRL_MODE_PD_ENC,
-+	RP1_PWM_CHAN_CTRL_MODE_MSB_SER,
-+	RP1_PWM_CHAN_CTRL_MODE_PPM,
-+	RP1_PWM_CHAN_CTRL_MODE_LE_MS,
-+	RP1_PWM_CHAN_CTRL_MODE_LSB_SER,
-+};
-+
-+#define RP1_PWM_CHAN_CTRL_DEFAULT		(RP1_PWM_CHAN_CTRL_FIFO_POP_MASK +  \
-+						FIELD_PREP(RP1_PWM_CHAN_CTRL_MODE, \
-+						RP1_PWM_CHAN_CTRL_MODE_TE_MS))
-+
-+#define RP1_PWM_RANGE(chan)			(0x018 + ((chan) * 0x10))
-+#define RP1_PWM_PHASE(chan)			(0x01C + ((chan) * 0x10))
-+#define RP1_PWM_DUTY(chan)			(0x020 + ((chan) * 0x10))
-+
-+#define RP1_PWM_NUM_PWMS			4
-+
-+struct rp1_pwm {
-+	void __iomem *base;
-+	struct clk *clk;
-+	unsigned long clk_rate;
-+	bool clk_enabled;
-+	spinlock_t lock; /* sync for RP1_PWM_GLB_CTRL RMW access */
-+};
-+
-+struct rp1_pwm_waveform {
-+	u32 period_ticks;
-+	u32 duty_ticks;
-+	bool enabled;
-+	bool inverted_polarity;
-+};
-+
-+static void rp1_pwm_apply_config(struct pwm_chip *chip)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	u32 value;
-+
-+	/* update the changed registers on the next strobe to avoid glitches */
-+	value = readl(rp1->base + RP1_PWM_GLB_CTRL);
-+	value |= RP1_PWM_GLB_CTRL_SET_UPDATE;
-+	writel(value, rp1->base + RP1_PWM_GLB_CTRL);
-+}
-+
-+static int rp1_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	u32 value, polarity;
-+
-+	/* init channel to reset defaults, preserving the polarity bit */
-+	value = readl(rp1->base + RP1_PWM_CHAN_CTRL(pwm->hwpwm));
-+	polarity = FIELD_GET(RP1_PWM_CHAN_CTRL_POLARITY, value);
-+	value = u32_replace_bits(RP1_PWM_CHAN_CTRL_DEFAULT, polarity, RP1_PWM_CHAN_CTRL_POLARITY);
-+	writel(value, rp1->base + RP1_PWM_CHAN_CTRL(pwm->hwpwm));
-+
-+	return 0;
-+}
-+
-+static int rp1_pwm_round_waveform_tohw(struct pwm_chip *chip,
-+				       struct pwm_device *pwm,
-+				       const struct pwm_waveform *wf,
-+				       void *_wfhw)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	u64 period_ticks, duty_ticks, offset_ticks;
-+	struct rp1_pwm_waveform *wfhw = _wfhw;
-+	u64 clk_rate = rp1->clk_rate;
-+	int ret = 0;
-+
-+	if (!wf->period_length_ns) {
-+		*wfhw = (typeof(*wfhw)){
-+			.enabled = false,
-+			.inverted_polarity = false,
-+		};
-+		return 0;
-+	}
-+
-+	period_ticks = mul_u64_u64_div_u64(wf->period_length_ns, clk_rate, NSEC_PER_SEC);
-+
-+	/*
-+	 * The period is limited to U32_MAX, and it will be decremented by one later
-+	 * to allow 100% duty cycle.
-+	 */
-+	if (period_ticks > U32_MAX) {
-+		period_ticks = U32_MAX;
-+	} else if (period_ticks < 2) {
-+		period_ticks = 2;
-+		ret = 1;
-+	}
-+
-+	duty_ticks = mul_u64_u64_div_u64(wf->duty_length_ns, clk_rate, NSEC_PER_SEC);
-+	duty_ticks = min(duty_ticks, period_ticks);
-+	offset_ticks = mul_u64_u64_div_u64(wf->duty_offset_ns, clk_rate, NSEC_PER_SEC);
-+	if (offset_ticks >= period_ticks)
-+		offset_ticks = period_ticks - 1;
-+	if (duty_ticks && offset_ticks &&
-+	    duty_ticks + offset_ticks >= period_ticks) {
-+		wfhw->duty_ticks = period_ticks - duty_ticks;
-+		wfhw->inverted_polarity = true;
-+	} else {
-+		wfhw->duty_ticks = duty_ticks;
-+		wfhw->inverted_polarity = false;
-+	}
-+	/* Account for the extra tick at the end of the period */
-+	wfhw->period_ticks = period_ticks - 1;
-+
-+	wfhw->enabled = true;
-+
-+	return ret;
-+}
-+
-+static int rp1_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-+					 struct pwm_device *pwm,
-+					 const void *_wfhw,
-+					 struct pwm_waveform *wf)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	const struct rp1_pwm_waveform *wfhw = _wfhw;
-+	u64 clk_rate = rp1->clk_rate;
-+	u64 ticks;
-+
-+	*wf = (struct pwm_waveform){ };
-+
-+	if (!wfhw->enabled)
-+		return 0;
-+
-+	wf->period_length_ns = DIV_ROUND_UP_ULL(((u64)wfhw->period_ticks + 1) * NSEC_PER_SEC,
-+						(u32)clk_rate);
-+
-+	if (!wfhw->inverted_polarity) {
-+		ticks = min_t(u64, wfhw->duty_ticks, (u64)wfhw->period_ticks + 1);
-+		wf->duty_length_ns = DIV_ROUND_UP_ULL(ticks * NSEC_PER_SEC,
-+						      (u32)clk_rate);
-+	} else {
-+		if (wfhw->duty_ticks > (u64)wfhw->period_ticks + 1) {
-+			/* 100% duty cycle case */
-+			ticks = 0;
-+		} else {
-+			ticks = (u64)wfhw->period_ticks + 1 - wfhw->duty_ticks;
-+		}
-+		wf->duty_length_ns = DIV_ROUND_UP_ULL(ticks * NSEC_PER_SEC, (u32)clk_rate);
-+		wf->duty_offset_ns = DIV_ROUND_UP_ULL((u64)(wfhw->period_ticks + 1 - ticks) *
-+						      NSEC_PER_SEC, (u32)clk_rate);
-+	}
-+
-+	return 0;
-+}
-+
-+static int rp1_pwm_write_waveform(struct pwm_chip *chip,
-+				  struct pwm_device *pwm,
-+				  const void *_wfhw)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	const struct rp1_pwm_waveform *wfhw = _wfhw;
-+	u32 value, ctrl;
-+
-+	/* set polarity */
-+	value = readl(rp1->base + RP1_PWM_CHAN_CTRL(pwm->hwpwm));
-+	if (!wfhw->inverted_polarity)
-+		value &= ~RP1_PWM_CHAN_CTRL_POLARITY;
-+	else
-+		value |= RP1_PWM_CHAN_CTRL_POLARITY;
-+	writel(value, rp1->base + RP1_PWM_CHAN_CTRL(pwm->hwpwm));
-+
-+	guard(spinlock_irqsave)(&rp1->lock);
-+
-+	/* early exit if disabled */
-+	ctrl = readl(rp1->base + RP1_PWM_GLB_CTRL);
-+	if (!wfhw->enabled) {
-+		ctrl &= ~RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm);
-+		/* just disable the channel and bail out early */
-+		writel(ctrl, rp1->base + RP1_PWM_GLB_CTRL);
-+		rp1_pwm_apply_config(chip);
-+		return 0;
-+	}
-+
-+	/* set period and duty cycle */
-+	writel(wfhw->period_ticks, rp1->base + RP1_PWM_RANGE(pwm->hwpwm));
-+	writel(wfhw->duty_ticks, rp1->base + RP1_PWM_DUTY(pwm->hwpwm));
-+
-+	/* enable the channel */
-+	ctrl |= RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm);
-+	writel(ctrl,  rp1->base + RP1_PWM_GLB_CTRL);
-+
-+	rp1_pwm_apply_config(chip);
-+
-+	return 0;
-+}
-+
-+static int rp1_pwm_read_waveform(struct pwm_chip *chip,
-+				 struct pwm_device *pwm,
-+				 void *_wfhw)
-+{
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	struct rp1_pwm_waveform *wfhw = _wfhw;
-+	u32 value;
-+
-+	*wfhw = (typeof(*wfhw)) {
-+		.period_ticks = 0,
-+		.duty_ticks = 0,
-+	};
-+
-+	value = readl(rp1->base + RP1_PWM_GLB_CTRL);
-+	wfhw->enabled = !!(value & RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm));
-+
-+	value = readl(rp1->base + RP1_PWM_CHAN_CTRL(pwm->hwpwm));
-+	wfhw->inverted_polarity = !!(value & RP1_PWM_CHAN_CTRL_POLARITY);
-+
-+	if (wfhw->enabled) {
-+		wfhw->period_ticks = readl(rp1->base + RP1_PWM_RANGE(pwm->hwpwm));
-+		wfhw->duty_ticks = readl(rp1->base + RP1_PWM_DUTY(pwm->hwpwm));
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct pwm_ops rp1_pwm_ops = {
-+	.sizeof_wfhw = sizeof(struct rp1_pwm_waveform),
-+	.request = rp1_pwm_request,
-+	.round_waveform_tohw = rp1_pwm_round_waveform_tohw,
-+	.round_waveform_fromhw = rp1_pwm_round_waveform_fromhw,
-+	.read_waveform = rp1_pwm_read_waveform,
-+	.write_waveform = rp1_pwm_write_waveform,
-+};
-+
-+static int rp1_pwm_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	unsigned long clk_rate;
-+	struct pwm_chip *chip;
-+	struct rp1_pwm *rp1;
-+	int ret;
-+
-+	chip = devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
-+	if (IS_ERR(chip))
-+		return PTR_ERR(chip);
-+
-+	rp1 = pwmchip_get_drvdata(chip);
-+	spin_lock_init(&rp1->lock);
-+
-+	rp1->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(rp1->base))
-+		return PTR_ERR(rp1->base);
-+
-+	rp1->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(rp1->clk))
-+		return dev_err_probe(dev, PTR_ERR(rp1->clk), "Clock not found\n");
-+
-+	ret = clk_prepare_enable(rp1->clk);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable clock\n");
-+	rp1->clk_enabled = true;
-+
-+	ret = devm_clk_rate_exclusive_get(dev, rp1->clk);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to get exclusive rate\n");
-+		goto err_disable_clk;
-+	}
-+
-+	clk_rate = clk_get_rate(rp1->clk);
-+	if (!clk_rate) {
-+		ret = dev_err_probe(dev, -EINVAL, "Failed to get clock rate\n");
-+		goto err_disable_clk;
-+	}
-+	/*
-+	 * To prevent u64 overflow in period calculations:
-+	 * mul_u64_u64_div_u64(period_ns, clk_rate, NSEC_PER_SEC)
-+	 * If clk_rate > 1 GHz, the result can overflow.
-+	 */
-+	if (clk_rate > HZ_PER_GHZ) {
-+		ret = dev_err_probe(dev, -EINVAL, "Clock rate > 1 GHz is not supported\n");
-+		goto err_disable_clk;
-+	}
-+	rp1->clk_rate = clk_rate;
-+
-+	chip->ops = &rp1_pwm_ops;
-+	chip->atomic = true;
-+
-+	platform_set_drvdata(pdev, chip);
-+
-+	ret = pwmchip_add(chip);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to register PWM chip\n");
-+		goto err_disable_clk;
-+	}
-+
-+	return 0;
-+
-+err_disable_clk:
-+	clk_disable_unprepare(rp1->clk);
-+
-+	return ret;
-+}
-+
-+static void rp1_pwm_remove(struct platform_device *pdev)
-+{
-+	struct pwm_chip *chip = platform_get_drvdata(pdev);
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+
-+	pwmchip_remove(chip);
-+
-+	if (rp1->clk_enabled) {
-+		clk_disable_unprepare(rp1->clk);
-+		rp1->clk_enabled = false;
-+	}
-+}
-+
-+/*
-+ * The PWM core is never powered off, so it retains its
-+ * register configuration across suspend/resume. This
-+ * means there's no need to save and restore the
-+ * channel control register.
-+ */
-+static int rp1_pwm_suspend(struct device *dev)
-+{
-+	struct pwm_chip *chip = dev_get_drvdata(dev);
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+
-+	if (rp1->clk_enabled) {
-+		clk_disable_unprepare(rp1->clk);
-+		rp1->clk_enabled = false;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rp1_pwm_resume(struct device *dev)
-+{
-+	struct pwm_chip *chip = dev_get_drvdata(dev);
-+	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-+	int ret;
-+
-+	ret = clk_prepare_enable(rp1->clk);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable clock on resume: %pe\n", ERR_PTR(ret));
-+		return ret;
-+	}
-+	rp1->clk_enabled = true;
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(rp1_pwm_pm_ops, rp1_pwm_suspend, rp1_pwm_resume);
-+
-+static const struct of_device_id rp1_pwm_of_match[] = {
-+	{ .compatible = "raspberrypi,rp1-pwm" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, rp1_pwm_of_match);
-+
-+static struct platform_driver rp1_pwm_driver = {
-+	.probe = rp1_pwm_probe,
-+	.remove = rp1_pwm_remove,
-+	.driver = {
-+		.name = "rp1-pwm",
-+		.of_match_table = rp1_pwm_of_match,
-+		.pm = pm_ptr(&rp1_pwm_pm_ops),
-+	},
-+};
-+module_platform_driver(rp1_pwm_driver);
-+
-+MODULE_DESCRIPTION("RP1 PWM driver");
-+MODULE_AUTHOR("Naushir Patuck <naush@raspberrypi.com>");
-+MODULE_AUTHOR("Andrea della Porta <andrea.porta@suse.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.51.0
+> diff --git a/include/uapi/linux/media/arm/mali-c720-config.h b/include/ua=
+pi/linux/media/arm/mali-c720-config.h
+> index 445cae09a84cc..f200380f3c2c8 100644
+> --- a/include/uapi/linux/media/arm/mali-c720-config.h
+> +++ b/include/uapi/linux/media/arm/mali-c720-config.h
 
+[ ... ]
+
+> @@ -179,6 +181,558 @@ struct mali_c720_stats_histogram {
+>  	 sizeof(struct mali_c720_stats_histogram) +		\
+>  	 sizeof(struct mali_c720_stats_histogram))
+> =20
+> +/**
+> + * enum mali_c720_param_block_type - Mali-C720 parameter block targets
+> + *
+> + * @MALI_C720_PARAM_BLOCK_DIGITAL_GAIN_INP: Digital gain for the input p=
+ipeline.
+> + * @MALI_C720_PARAM_BLOCK_HISTOGRAM_INP: Histogram configuration for the=
+ input pipeline.
+> + * @MALI_C720_PARAM_BLOCK_AWB_GAINS_HV: Auto-white balance gains for the=
+ HV pipeline.
+> + * @MALI_C720_PARAM_BLOCK_HISTOGRAM_HV: HV histogram configuration (pre-=
+Iridix).
+> + * @MALI_C720_PARAM_BLOCK_HISTOGRAM_HV_IRIDIX: HV histogram configuratio=
+n (post-Iridix).
+> + * @MALI_C720_PARAM_BLOCK_COLOR_STATS_HV: Color stats configuration for =
+the HV pipeline.
+> + * @MALI_C720_PARAM_BLOCK_BLACK_LEVEL_HV: Black level offsets for the HV=
+ pipeline.
+> + * @MALI_C720_PARAM_BLOCK_SQRT_INP: Square root configuration for the in=
+put pipeline.
+> + * @MALI_C720_PARAM_BLOCK_SQUARE_A_HV: Square A configuration for the HV=
+ pipeline.
+> + * @MALI_C720_PARAM_BLOCK_SQUARE_B_HV: Square B configuration for the HV=
+ pipeline.
+> + * @MALI_C720_PARAM_BLOCK_SQRT_HV: Square root configuration for the HV =
+pipeline.
+> + * @MALI_C720_PARAM_BLOCK_DECOMPANDER_INP: Decompander configuration.
+> + *
+> + * Each identifier selects one logical module and instance. Applications=
+ can
+> + * query V4L2_CID_MALI_C720_PARAM_CAPABILITIES for the targets present o=
+n the
+> + * device. The control returns a read-only U16 array of supported identi=
+fiers.
+> + */
+> +enum mali_c720_param_block_type {
+> +	MALI_C720_PARAM_BLOCK_DIGITAL_GAIN_INP,
+> +	MALI_C720_PARAM_BLOCK_HISTOGRAM_INP,
+> +	MALI_C720_PARAM_BLOCK_AWB_GAINS_HV,
+> +	MALI_C720_PARAM_BLOCK_HISTOGRAM_HV,
+> +	MALI_C720_PARAM_BLOCK_HISTOGRAM_HV_IRIDIX,
+> +	MALI_C720_PARAM_BLOCK_COLOR_STATS_HV,
+> +	MALI_C720_PARAM_BLOCK_BLACK_LEVEL_HV,
+> +	MALI_C720_PARAM_BLOCK_SQRT_INP,
+> +	MALI_C720_PARAM_BLOCK_SQUARE_A_HV,
+> +	MALI_C720_PARAM_BLOCK_SQUARE_B_HV,
+> +	MALI_C720_PARAM_BLOCK_SQRT_HV,
+> +	MALI_C720_PARAM_BLOCK_DECOMPANDER_INP,
+> +	MALI_C720_PARAM_BLOCK_MAX,
+> +};
+
+[Severity: Low]
+Should MALI_C720_PARAM_BLOCK_MAX either be documented in the kernel-doc
+comment or marked with /* private: */?  Without one of those, kernel-doc
+emits a warning that MALI_C720_PARAM_BLOCK_MAX is not described in
+enum mali_c720_param_block_type.
+
+> +
+>  #define V4L2_CID_MALI_C720_STATS_CAPABILITIES		(V4L2_CID_USER_MALI_C720_=
+BASE + 0)
+> +#define V4L2_CID_MALI_C720_PARAM_CAPABILITIES		(V4L2_CID_USER_MALI_C720_=
+BASE + 1)
+> +
+> +enum mali_c720_params_digital_gain_mask {
+> +	MALI_C720_PARAMS_DIGITAL_GAIN_MASK_GAIN,
+> +	MALI_C720_PARAMS_DIGITAL_GAIN_MASK_OFFSET,
+> +};
+> +
+> +/**
+> + * struct mali_c720_params_digital_gain - Digital gain settings
+> + *
+> + * This struct configures the digital gain and a common black level for =
+all
+> + * color channels.
+> + *
+> + * Set header.type to the target from &enum mali_c720_param_block_type.
+> + * See &enum mali_c720_params_digital_gain_mask for the @updated_mask bi=
+t positions.
+
+[Severity: Low]
+Should enum mali_c720_params_digital_gain_mask and the other six
+mali_c720_params_*_mask enums in this header have kernel-doc comments?
+Each parameter struct's kernel-doc links to its mask enum via
+&enum mali_c720_params_*_mask, so without kernel-doc on the enums they are
+omitted from the generated UAPI documentation and those Sphinx
+cross-references remain unresolved.
+
+[ ... ]
+
+> +struct mali_c720_params_sqrt {
+> +	struct v4l2_isp_block_header header;
+> +	__u64 updated_mask;
+> +	__u32 normalization;
+> +	__u32 black_level_linear;
+> +	__u16 black_level_sqrt;
+> +};
+
+[ ... ]
+
+> +struct mali_c720_params_square {
+> +	struct v4l2_isp_block_header header;
+> +	__u64 updated_mask;
+> +	__u32 black_level_linear;
+> +	__u32 black_level_sqrt;
+> +	__u32 normalization;
+> +};
+
+[ ... ]
+
+> +struct mali_c720_params_decompander {
+> +	struct v4l2_isp_block_header header;
+> +	__u64 updated_mask;
+> +	__u8 enable;
+> +	__u8 reserved[3];
+> +	__u32 lut_x[MALI_C720_NUM_DECOMPANDER_LUT_ELEMENTS];
+> +	__u32 lut_y[MALI_C720_NUM_DECOMPANDER_LUT_ELEMENTS];
+> +};
+
+[ ... ]
+
+> +struct mali_c720_params_histogram {
+> +	struct v4l2_isp_block_header header;
+> +	__u64 updated_mask;
+> +	__u8 stream_mux_select;
+> +	__u8 nodes_used_horiz;
+> +	__u8 nodes_used_vert;
+> +	__u8 skip_x;
+> +	__u8 skip_y;
+> +	__u8 offset_x;
+> +	__u8 offset_y;
+> +	__u8 scale_bottom;
+> +	__u8 scale_top;
+> +	__u8 plane_mode;
+> +	__u8 reserved[2];
+> +	__u8 weights[MALI_C720_MAX_ZONES];
+> +};
+
+[Severity: Low]
+Should struct mali_c720_params_sqrt, struct mali_c720_params_square,
+struct mali_c720_params_decompander, and struct mali_c720_params_histogram
+pad out to their 8-byte alignment boundary with explicit reserved fields?
+
+Because struct v4l2_isp_block_header and updated_mask require 8-byte
+alignment, the compiler adds unnamed trailing padding to each of these
+four UAPI structs (6 bytes in mali_c720_params_sqrt, and 4 bytes each in
+mali_c720_params_square, mali_c720_params_decompander, and
+mali_c720_params_histogram where reserved[2] only aligns to a 4-byte
+boundary).  That leaves implicit padding in the serialized buffer layout
+that triggers -Wpadded warnings and cannot be zeroed or validated via
+named reserved fields.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-b4-initial=
+-upstream-candidate-v1-0-0cb9bde1bd30@arm.com?part=3D21
