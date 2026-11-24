@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540114;
-	b=uiFc2oWbeI1vqf+bCmD8NVAewgqRNjEajOrsmEYtsiaT04meNtkhUtet1bOe1suZ2UAw
-	 qOFS/TBz7bfVnOvMA+evl1RzqThmm454/JTnyH/pEp90HPkQ/MkcWJueAbl1Yt098oz3d
-	 Nh/z58m8Go3mWD3mZYHb9SeOGywOz3njMx7JNyqpMb/OM1g6u9PtBOYopglX0z8ISQonV
-	 WR6YVhfDQdYKS/W0A4NIhnz/txmO5mbFvhAJQjGlc+mpuXRDboR2/UtdnUoWm400MwTDB
-	 cc26RhtM/D7iW3Ikr9pIF66nlRvLg+Csx3ITKP3R3eFPwCEwAOhOD5y0Sx9rFEG67Qw==
+	t=1795540111;
+	b=oMMT6B+p0uuVJhdJOnWUDkT76r/y2a98Ia32byT/r0Xo+LsWlaFuQ2GLzPLduYdGyo5q
+	 dPA8pVniSUBi7Nu1BHltuyYHXsolUoSBT4U2JikcQubO5yCk1pbim/pqL6utdAkBAmFiV
+	 G+mlVMomfoUwhj+pDxU7+8VYFXAUm9PSGrDok1x4T414U6n9GX54dxhTM7Rotf0Kcgun8
+	 c+ce/cmYle4B24jx+pRlwZvAZAAxRTIJ0/rdZK1ma4OdJ8wOeRKqNZJkdnuS+kTM3QPZv
+	 78cZ13ZsgIcBC+sBd6VgGiMWMjzDs2dDbuTdPtO5tVnypYoV2V8J78ho7pgjeAOyktQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540114;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540111;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=bqCsxpb9AOjJ89DCD1+55gHWPpPBHcycrxGUtg+ct4o=;
-	b=fo5hWXctWfI9XmkQR7F+CZzQVSZJ3D5jXR+n4uoMRbmmlGpDBXnntYAimuBkvVAvq7Rr
-	 nKMwnLm6fXdkgZShR71AqLjlh872aYXaMxCv0I55zp+1NdRq4RwZ4jc/AoJA3zqPmapYo
-	 YEmTnTHcyOuojDITMNXiJJYmHqmpDeoxv9iP7Dc6M67n3titDnhqPgYQrjZLdm/bIVYL6
-	 nnpje7jAHaZxYBjguV86Zi9d1ykVOhyt4OHSlomrsQUW+6IHzVNl0xDBu9/LO+NcNd5j6
-	 9EaNlxs95JZELTn3h8kiraS5WZ2L5Uv9frfe/MbPfVwxgCSLwDgwlwmrEBSsmGlSyHw==
+	bh=tB8UPYpS0AWq6MASaQ/UDNOpnZlTX7ZWOg26TuC2bgc=;
+	b=H8oGFepoN06hQPc9cKhfVdSriKyfz1qZ6Gqj17eC/VX8pbC4W8daKBJ8eO5du7XbtqsH
+	 ZQmJuqZ14ryQy0PabXdS9uvxOGC6AearH37hSro131yG3M9ePETiwqSjOj9x9w6mBj7On
+	 Bo4QefAht0tGZiGjtqNQRAG/SveXy2P/ZVlIJ8pHienjsrPysRwur9fZBX6U1osG7TRiK
+	 NF81gWML6bCtOd4RxOU5VN3nJTP5mFJNWAwxLWPWdGMwT/xMjZVSnoFtu0fbcHba2vF6G
+	 AAzADCejEqQMEnnaONP0uo0LDQScZlmfuhthOD6sFaXbpO9FBjcfvia95lKdKz0GROA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="Ko/kYJz4";
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BDeNVquq;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31885606A326;
-	Tue, 24 Nov 2026 17:08:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31885606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0FB20606A321;
+	Tue, 24 Nov 2026 17:08:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FB20606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ko/kYJz4
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BDeNVquq
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A43351A32;
-	Tue, 24 Nov 2026 09:08:30 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 970301A25;
+	Tue, 24 Nov 2026 09:08:27 -0800 (PST)
 Received: from e126453.arm.com (e126453.arm.com [10.33.8.63])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CA0253F763;
-	Tue, 24 Nov 2026 09:08:30 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC2253F763;
+	Tue, 24 Nov 2026 09:08:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795540113; bh=FxpCbqCwEz6X/f+YstyH5HipzhY2VI3gDs2LYrz1Zg0=;
+	t=1795540110; bh=xVhbJmebUJi6iYSaq8O3fQYpqLCc16D+JXU1pZO1BJk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Ko/kYJz4Ov3viqsFqmat3Ub4/Sc9QDUMOg8uwkFi/kdBx2guT/75K72upqF+766RP
-	 LAUMLj1DCCUlh4p8nJ1XttdIVikdyjAjOUDy+uDMX4C9/bmuue4tFMc4+N/VD1jS34
-	 tVEpStL9Pgt5Bf9a/2g2dK1iIxNN6VCjOcjrFwPQ=
+	b=BDeNVquqt/GsZhF6pFw/hAp8GJnL+zoGhKxQS0jaSLMyt5qyC9WEU2GC4OwzKexpU
+	 3EvRH6pn/TD6RKV2lBqVKp9TbDEb31p6Mxnt1q4KxWOJu6kbsWcJyXSjjTVMwdtfPc
+	 wWV7w28PBVRYHzKArCu8dmg0idBx+f8fTkBNo5Jw=
 From: Anthony McGivern <anthony.mcgivern@arm.com>
-Date: Tue, 24 Nov 2026 17:07:38 +0000
-Subject: [PATCH 10/24] media: mali-c720: Add ISP and human vision
- subdevices
+Date: Tue, 24 Nov 2026 17:07:37 +0000
+Subject: [PATCH 09/24] media: mali-c720: Add input frontend subdevice
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-b4-initial-upstream-candidate-v1-10-0cb9bde1bd30@arm.com>
+Message-Id: <20261124-b4-initial-upstream-candidate-v1-9-0cb9bde1bd30@arm.com>
 References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
 In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
 To: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
@@ -76,115 +75,113 @@ Cc: Anthony McGivern <anthony.mcgivern@arm.com>,
  Conor Dooley <conor+dt@kernel.org>, 
  Anthony McGivern <Anthony.McGivern@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=25049;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=20950;
  i=Anthony.McGivern@arm.com; s=20261124; h=from:subject:message-id;
- bh=t6otEmx+UfFjeWyr3rxyizm8bh5H4F9fgUz8dHQBSUI=;
- b=M4EOPZqJlKO9LRJOkJjuAe3JgH1BYP3eufwmhFZ5xkRbxTK/fo5G13ar2Uxxm2SgfkCIymjkd
- 6ZhtUiKx4eHAf5mtwO+i0pflNst66zHFAdC6+M3BQtZ9gxedVas+2QO
+ bh=OpXQ+M7qczFeC9Zk+oPv17BstGe5WlsvgrYAoceVU5Q=;
+ b=jjttJ5N3DGhtxuc0yQfLsgnDxWMz13suDv4Rf/52702aKD68EKyOTZQfoTd2RgWhzKObClP31
+ EKKHC8yLFWnBDnfJGQIsntj3UZvXhi8uJkpdmXDtqS1bg6D7X7IpSiJ
 X-Developer-Key: i=Anthony.McGivern@arm.com; a=ed25519;
  pk=cvw1HHVRuWpdkn55JpnRyCO2oGBkBWaBXcc2S3CmHTU=
 
 From: Anthony McGivern <Anthony.McGivern@arm.com>
 
-Add subdevices for the ISP input pipeline and human vision (HV)
-pipeline. HV processes images intended for human viewing, while the
-computer vision (CV) pipeline targets machine-processing applications.
-This initial driver supports only the HV path.
-
-Expose frame-start events for sensor control timing.
+Add the subdevice connecting parallel input port 0 to a single context
+input through a fixed route. Support for the remaining inputs is planned
+when userspace routing ioctls are enabled.
 
 Signed-off-by: Anthony McGivern <Anthony.McGivern@arm.com>
 ---
- .../platform/arm/mali-c720/mali-c720-common.h      |  38 ++
- .../platform/arm/mali-c720/mali-c720-interrupts.c  |   2 +
- .../media/platform/arm/mali-c720/mali-c720-isp.c   | 422 +++++++++++++++++++++
- .../platform/arm/mali-c720/mali-c720-vision-pipe.c | 260 +++++++++++++
- 4 files changed, 722 insertions(+)
+ .../platform/arm/mali-c720/mali-c720-common.h      |  49 ++
+ .../media/platform/arm/mali-c720/mali-c720-input.c | 598 +++++++++++++++++++++
+ 2 files changed, 647 insertions(+)
 
 diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-common.h b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
-index 6f5ddb94398d76888edb992000a4d6012e960675..1037949d45e4eb8520254cd9addcbfce45def92d 100644
+index 1808fdef149f8035394af122b348232be1ff51dd..6f5ddb94398d76888edb992000a4d6012e960675 100644
 --- a/drivers/media/platform/arm/mali-c720/mali-c720-common.h
 +++ b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
-@@ -69,6 +69,30 @@ struct mali_c720_input {
- 	struct mali_c720_slot_input slot_input;
- };
+@@ -15,6 +15,9 @@
+ #include <linux/spinlock.h>
+ #include <linux/videodev2.h>
  
-+enum mali_c720_isp_pads {
-+	MALI_C720_ISP_PAD_SINK_VIDEO,
-+	MALI_C720_ISP_PAD_SOURCE_HV,
-+	MALI_C720_ISP_NUM_PADS,
++#include <media/v4l2-device.h>
++#include <media/v4l2-subdev.h>
++
+ #include "mali-c720-ctx-mgr.h"
+ #include "mali-c720-discovery.h"
+ #include "mali-c720-formats.h"
+@@ -26,8 +29,46 @@
+ #include "mali-c720-registers-ctx-mgr.h"
+ #include "mali-c720-registers-modules.h"
+ 
++#define MALI_C720_MIN_INPUT_WIDTH	256
++#define MALI_C720_MIN_INPUT_HEIGHT	256
++#define MALI_C720_MAX_WIDTH		8192
++#define MALI_C720_MAX_HEIGHT		4608
++#define MALI_C720_DEFAULT_WIDTH		1920
++#define MALI_C720_DEFAULT_HEIGHT	1080
++
+ #define MALI_C720_FRAME_TIMESTAMP_COUNT	256
+ 
++struct mali_c720_subdev {
++	struct v4l2_subdev sd;
++	struct mali_c720 *mali_c720;
 +};
 +
-+struct mali_c720_isp {
++#define v4l2_sd_to_mali_c720_sd(_sd) \
++	container_of(_sd, struct mali_c720_subdev, sd)
++
++#define mali_c720_sd_to_sd(_mdev, type) \
++	container_of(_mdev, type, mdev)
++
++enum mali_c720_input_pads {
++	MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT,
++	MALI_C720_INPUT_PAD_SINK_INPUT0,
++	MALI_C720_INPUT_NUM_PADS,
++};
++
++struct mali_c720_slot_input {
++	struct mali_c720_buffer_pool raw_buffer_desc;
++	struct media_pad *sink_pad;
++	struct media_pad *src_pad;
++	u32 stream;
++	bool prepared;
++};
++
++struct mali_c720_input {
 +	struct mali_c720_subdev mdev;
-+	struct media_pad pads[MALI_C720_ISP_NUM_PADS];
-+	struct media_pad *remote_src;
-+	bool enabled;
-+};
-+
-+enum mali_c720_vision_pipe_pads {
-+	MALI_C720_VISION_PIPE_PAD_SINK_VIDEO,
-+	MALI_C720_VISION_PIPE_PAD_SOURCE_RGB,
-+	MALI_C720_VISION_PIPE_NUM_PADS,
-+};
-+
-+struct mali_c720_vision_pipe {
-+	struct mali_c720_subdev mdev;
-+	struct media_pad pads[MALI_C720_VISION_PIPE_NUM_PADS];
++	struct media_pad pads[MALI_C720_INPUT_NUM_PADS];
++	struct mali_c720_slot_input slot_input;
 +};
 +
  enum mali_c720_cap_devs {
  	MALI_C720_CAP_DEV_FR0_RGB,
  	MALI_C720_CAP_DEV_FR0_YUV,
-@@ -126,6 +150,8 @@ struct mali_c720 {
- 	struct v4l2_device v4l2_dev;
+@@ -82,6 +123,10 @@ struct mali_c720 {
+ 	resource_size_t mmio_size;
+ 	u32 top_base;
  
- 	struct mali_c720_input input;
-+	struct mali_c720_isp isp;
-+	struct mali_c720_vision_pipe vision_pipe;
- 
++	struct v4l2_device v4l2_dev;
++
++	struct mali_c720_input input;
++
  	struct mali_c720_registers registers;
  	u8 *default_regs;
-@@ -145,8 +171,20 @@ struct mali_c720 {
+ 
+@@ -100,4 +145,8 @@ struct mali_c720 {
  	spinlock_t irq_lock;
  };
  
-+/* ISP subdevice registration functions */
-+
- int mali_c720_register_input(struct mali_c720 *mali_c720);
- void mali_c720_unregister_input(struct mali_c720 *mali_c720);
- void mali_c720_cleanup_input(struct mali_c720 *mali_c720);
- 
-+int mali_c720_register_isp(struct mali_c720 *mali_c720);
-+void mali_c720_unregister_isp(struct mali_c720 *mali_c720);
-+void mali_c720_cleanup_isp(struct mali_c720 *mali_c720);
-+
-+int mali_c720_register_vision_pipe(struct mali_c720 *mali_c720);
-+void mali_c720_unregister_vision_pipe(struct mali_c720 *mali_c720);
-+void mali_c720_cleanup_vision_pipe(struct mali_c720 *mali_c720);
-+
-+void mali_c720_isp_queue_event_sof(struct mali_c720 *mali_c720, u32 sequence);
++int mali_c720_register_input(struct mali_c720 *mali_c720);
++void mali_c720_unregister_input(struct mali_c720 *mali_c720);
++void mali_c720_cleanup_input(struct mali_c720 *mali_c720);
 +
  #endif /* MALI_C720_COMMON_H */
-diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.c b/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.c
-index 63589989478650f65c3cc06bee0a48a53b92b051..bd1e5189b276e59a33cda63f40ceffa3b7a2520c 100644
---- a/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.c
-+++ b/drivers/media/platform/arm/mali-c720/mali-c720-interrupts.c
-@@ -156,6 +156,8 @@ static void mali_c720_handle_input_frame_start(struct mali_c720 *mali_c720,
- 	entry->sequence = sequence;
- 	entry->timestamp = timestamp;
- 	entry->valid = true;
-+
-+	mali_c720_isp_queue_event_sof(mali_c720, sequence);
- }
- 
- static void mali_c720_update_frame_timestamp(struct mali_c720_context *ctx)
-diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-isp.c b/drivers/media/platform/arm/mali-c720/mali-c720-isp.c
+diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-input.c b/drivers/media/platform/arm/mali-c720/mali-c720-input.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..962a2215543b49a6f90159fcb75ac253727cf2b6
+index 0000000000000000000000000000000000000000..b0b92e456d9b2b386c7d2c4473cb3ccdb4b819a9
 --- /dev/null
-+++ b/drivers/media/platform/arm/mali-c720/mali-c720-isp.c
-@@ -0,0 +1,422 @@
++++ b/drivers/media/platform/arm/mali-c720/mali-c720-input.c
+@@ -0,0 +1,598 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * ARM Mali-C720 ISP Driver - Image signal processor
@@ -193,92 +190,156 @@ index 0000000000000000000000000000000000000000..962a2215543b49a6f90159fcb75ac253
 + */
 +
 +#include <linux/bitops.h>
++#include <linux/dma-mapping.h>
++#include <linux/minmax.h>
 +#include <linux/string.h>
 +
 +#include <media/media-entity.h>
 +#include <media/v4l2-common.h>
-+#include <media/v4l2-event.h>
 +
 +#include "mali-c720-common.h"
 +
-+static int mali_c720_isp_enum_mbus_code(struct v4l2_subdev *sd,
-+					struct v4l2_subdev_state *state,
-+					struct v4l2_subdev_mbus_code_enum *code)
++/*
++ * Return the active route for the provided sink pad and stream, or NULL if
++ * there is none.
++ */
++static struct v4l2_subdev_route *
++mali_c720_input_get_active_route(struct v4l2_subdev_state *state,
++				 u32 sink_pad, u32 sink_stream)
++{
++	struct v4l2_subdev_krouting *routing = &state->routing;
++	struct v4l2_subdev_route *route;
++
++	for_each_active_route(routing, route) {
++		if (route->sink_pad == sink_pad &&
++		    route->sink_stream == sink_stream)
++			return route;
++	}
++
++	return NULL;
++}
++
++static int mali_c720_input_enum_mbus_code(struct v4l2_subdev *sd,
++					  struct v4l2_subdev_state *state,
++					  struct v4l2_subdev_mbus_code_enum *code)
 +{
 +	const struct mali_c720_mbus_format_info *cfg;
-+	struct v4l2_mbus_framefmt *sink_fmt;
 +	struct mali_c720_mbus_format_match match;
++	struct v4l2_mbus_framefmt *sink_fmt;
++	struct v4l2_subdev_route *route;
++	bool found = false;
 +
-+	/* HV uses the sink Bayer order at the internal 16-bit precision. */
-+	if (code->pad == MALI_C720_ISP_PAD_SOURCE_HV) {
-+		if (code->index)
-+			return -EINVAL;
-+
-+		sink_fmt = v4l2_subdev_state_get_format(state, MALI_C720_ISP_PAD_SINK_VIDEO);
-+		if (!sink_fmt)
-+			return -EINVAL;
-+
-+		cfg = mali_c720_get_mbus_config_by_code(sink_fmt->code);
-+		if (!cfg)
-+			return -EINVAL;
-+
-+		cfg = mali_c720_shift_mbus_format(cfg, MALI_C720_FORMAT_16BIT);
-+		if (!cfg)
-+			return -EINVAL;
-+
-+		code->code = cfg->code;
-+	} else if (code->pad == MALI_C720_ISP_PAD_SINK_VIDEO) {
++	/*
++	 * Sink pads support all bayer formats.
++	 * The source format is propagated from the sink pad, shifted to 24-bit.
++	 */
++	if (code->pad != MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT) {
 +		match.type_mask = MALI_C720_FORMAT_BAYER;
-+		match.depth_mask = MALI_C720_FORMAT_24BIT;
++		match.depth_mask = MALI_C720_FORMAT_8BIT | MALI_C720_FORMAT_10BIT |
++				   MALI_C720_FORMAT_12BIT | MALI_C720_FORMAT_14BIT |
++				   MALI_C720_FORMAT_16BIT | MALI_C720_FORMAT_20BIT |
++				   MALI_C720_FORMAT_24BIT;
 +
 +		cfg = mali_c720_get_mbus_config_by_matched_index(code->index, &match);
 +		if (!cfg)
 +			return -EINVAL;
 +
 +		code->code = cfg->code;
-+	} else {
-+		return -EINVAL;
++
++		return 0;
 +	}
++
++	if (code->index)
++		return -EINVAL;
++
++	/*
++	 * All routes from a source pad use the same format, so the first active
++	 * route represents the source format.
++	 */
++	for_each_active_route(&state->routing, route) {
++		if (route->source_pad == code->pad) {
++			found = true;
++			break;
++		}
++	}
++
++	if (!found)
++		return -EINVAL;
++
++	sink_fmt = v4l2_subdev_state_get_format(state,
++						route->sink_pad,
++						route->sink_stream);
++	if (!sink_fmt)
++		return -EINVAL;
++
++	cfg = mali_c720_get_mbus_config_by_code(sink_fmt->code);
++	if (!cfg)
++		return -EINVAL;
++
++	cfg = mali_c720_shift_mbus_format(cfg, MALI_C720_FORMAT_24BIT);
++	if (!cfg)
++		return -EINVAL;
++
++	code->code = cfg->code;
 +
 +	return 0;
 +}
 +
-+static int mali_c720_isp_enum_frame_size(struct v4l2_subdev *sd,
-+					 struct v4l2_subdev_state *state,
-+					 struct v4l2_subdev_frame_size_enum *fse)
++static int mali_c720_input_enum_frame_size(struct v4l2_subdev *sd,
++					   struct v4l2_subdev_state *state,
++					   struct v4l2_subdev_frame_size_enum *fse)
 +{
 +	const struct mali_c720_mbus_format_info *cfg;
-+	struct v4l2_mbus_framefmt *sink_fmt;
 +	struct mali_c720_mbus_format_match match;
++	struct v4l2_mbus_framefmt *sink_fmt;
++	struct v4l2_subdev_route *route;
++	bool found = false;
 +
 +	if (fse->index)
 +		return -EINVAL;
 +
-+	switch (fse->pad) {
-+	case MALI_C720_ISP_PAD_SOURCE_HV:
-+		sink_fmt = v4l2_subdev_state_get_format(state, MALI_C720_ISP_PAD_SINK_VIDEO);
-+		if (!sink_fmt)
-+			return -EINVAL;
-+
-+		cfg = mali_c720_get_mbus_config_by_code(sink_fmt->code);
-+		if (!cfg)
-+			return -EINVAL;
-+
-+		cfg = mali_c720_shift_mbus_format(cfg, MALI_C720_FORMAT_16BIT);
-+		if (!cfg || fse->code != cfg->code)
-+			return -EINVAL;
-+		break;
-+	case MALI_C720_ISP_PAD_SINK_VIDEO:
++	if (fse->pad != MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT) {
 +		match.type_mask = MALI_C720_FORMAT_BAYER;
-+		match.depth_mask = MALI_C720_FORMAT_24BIT;
++		match.depth_mask = MALI_C720_FORMAT_8BIT | MALI_C720_FORMAT_10BIT |
++				   MALI_C720_FORMAT_12BIT | MALI_C720_FORMAT_14BIT |
++				   MALI_C720_FORMAT_16BIT | MALI_C720_FORMAT_20BIT |
++				   MALI_C720_FORMAT_24BIT;
 +
 +		cfg = mali_c720_get_mbus_config_by_code(fse->code);
 +		if (!cfg || !mali_c720_validate_mbus_format_match(cfg, &match))
 +			return -EINVAL;
-+		break;
-+	default:
-+		return -EINVAL;
++
++		fse->min_width = MALI_C720_MIN_INPUT_WIDTH;
++		fse->min_height = MALI_C720_MIN_INPUT_HEIGHT;
++		fse->max_width = MALI_C720_MAX_WIDTH;
++		fse->max_height = MALI_C720_MAX_HEIGHT;
++
++		return 0;
 +	}
++
++	for_each_active_route(&state->routing, route) {
++		if (route->source_pad == fse->pad) {
++			found = true;
++			break;
++		}
++	}
++
++	if (!found)
++		return -EINVAL;
++
++	sink_fmt = v4l2_subdev_state_get_format(state,
++						route->sink_pad,
++						route->sink_stream);
++	if (!sink_fmt)
++		return -EINVAL;
++
++	cfg = mali_c720_get_mbus_config_by_code(sink_fmt->code);
++	if (!cfg)
++		return -EINVAL;
++
++	cfg = mali_c720_shift_mbus_format(cfg, MALI_C720_FORMAT_24BIT);
++	if (!cfg || fse->code != cfg->code)
++		return -EINVAL;
 +
 +	fse->min_width = MALI_C720_MIN_INPUT_WIDTH;
 +	fse->min_height = MALI_C720_MIN_INPUT_HEIGHT;
@@ -288,30 +349,39 @@ index 0000000000000000000000000000000000000000..962a2215543b49a6f90159fcb75ac253
 +	return 0;
 +}
 +
-+static int mali_c720_isp_set_fmt(struct v4l2_subdev *sd,
-+				 const struct v4l2_subdev_client_info *ci,
-+				 struct v4l2_subdev_state *state,
-+				 struct v4l2_subdev_format *format)
++static int mali_c720_input_set_fmt(struct v4l2_subdev *sd,
++				   const struct v4l2_subdev_client_info *ci,
++				   struct v4l2_subdev_state *state,
++				   struct v4l2_subdev_format *format)
 +{
 +	struct v4l2_mbus_framefmt *fmt = &format->format;
 +	struct v4l2_mbus_framefmt *src_fmt, *sink_fmt;
 +	const struct mali_c720_mbus_format_info *cfg;
 +	struct mali_c720_mbus_format_match match;
++	struct v4l2_subdev_route *active_route;
 +
 +	if (format->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
 +	    media_entity_is_streaming(&sd->entity))
 +		return -EBUSY;
 +
-+	/* Only the video sink pad format can be changed. */
-+	if (format->pad != MALI_C720_ISP_PAD_SINK_VIDEO)
++	/*
++	 * Disallow set_fmt on the source pad; format is derived from the
++	 * sink pad format.
++	 */
++	if (format->pad == MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT)
 +		return v4l2_subdev_get_fmt(sd, state, format);
 +
-+	sink_fmt = v4l2_subdev_state_get_format(state, MALI_C720_ISP_PAD_SINK_VIDEO);
++	sink_fmt = v4l2_subdev_state_get_format(state,
++						format->pad,
++						format->stream);
 +	if (!sink_fmt)
 +		return -EINVAL;
 +
 +	match.type_mask = MALI_C720_FORMAT_BAYER;
-+	match.depth_mask = MALI_C720_FORMAT_24BIT;
++	match.depth_mask = MALI_C720_FORMAT_8BIT | MALI_C720_FORMAT_10BIT |
++			   MALI_C720_FORMAT_12BIT | MALI_C720_FORMAT_14BIT |
++			   MALI_C720_FORMAT_16BIT | MALI_C720_FORMAT_20BIT |
++			   MALI_C720_FORMAT_24BIT;
 +
 +	cfg = mali_c720_get_mbus_config_by_code(fmt->code);
 +	if (!cfg || !mali_c720_validate_mbus_format_match(cfg, &match))
@@ -328,191 +398,279 @@ index 0000000000000000000000000000000000000000..962a2215543b49a6f90159fcb75ac253
 +
 +	*fmt = *sink_fmt;
 +
-+	/* Propagate the input size and Bayer order to the HV output. */
-+	src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_ISP_PAD_SOURCE_HV);
++	/* The sink format should be propagated to the source pad
++	 * if there is an active route between them.
++	 * The data is shifted to 24-bits.
++	 */
++
++	active_route = mali_c720_input_get_active_route(state,
++							format->pad,
++							format->stream);
++	if (!active_route)
++		return 0;
++
++	src_fmt = v4l2_subdev_state_get_format(state, active_route->source_pad);
++	src_fmt->code = mali_c720_shift_mbus_format(cfg, MALI_C720_FORMAT_24BIT)->code;
 +	src_fmt->width = sink_fmt->width;
 +	src_fmt->height = sink_fmt->height;
-+	src_fmt->code = mali_c720_shift_mbus_format(cfg, MALI_C720_FORMAT_16BIT)->code;
 +
 +	return 0;
 +}
 +
-+static void mali_c720_isp_stop(struct mali_c720 *mali_c720)
++static void mali_c720_free_input_ports(struct mali_c720_input *input)
 +{
++	struct mali_c720 *mali_c720 = input->mdev.mali_c720;
 +	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
++	struct mali_c720_slot_input *slot_input = &input->slot_input;
++	struct mali_c720_buffer_pool *pool = &slot_input->raw_buffer_desc;
++	unsigned int i;
 +
-+	mali_c720_ctx_mgr_stop_context(ctx);
++	if (slot_input->prepared) {
++		mali_c720_ctx_mgr_release_buffer_pool(ctx, pool);
++
++		for (i = 0; i < pool->num_buffers; i++) {
++			dma_free_coherent(mali_c720->dev,
++					  pool->buffer_size,
++					  pool->mem[i].base,
++					  pool->mem[i].addr);
++		}
++	}
++
++	slot_input->prepared = false;
++	slot_input->sink_pad = NULL;
++	slot_input->src_pad = NULL;
++	slot_input->stream = 0;
 +}
 +
-+static int mali_c720_isp_start(struct mali_c720_isp *isp,
-+			       struct v4l2_subdev_state *state)
++static int mali_c720_prepare_input_port(struct mali_c720_input *input,
++					struct v4l2_subdev_state *state,
++					struct mali_c720_slot_input *slot_input,
++					struct mali_c720_input_cfg *input_cfg)
 +{
-+	struct mali_c720 *mali_c720 = isp->mdev.mali_c720;
++	struct mali_c720 *mali_c720 = input->mdev.mali_c720;
 +	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	const struct mali_c720_mbus_format_info *cfg;
++	struct mali_c720_buffer_pool *pool = &slot_input->raw_buffer_desc;
 +	const struct v4l2_mbus_framefmt *fmt;
-+	struct mali_c720_top_cfg top_cfg;
-+	struct media_pad *sink_pad;
-+	struct v4l2_subdev *src_sd;
++	const struct mali_c720_mbus_format_info *cfg;
++	struct mali_c720_buffer_request_info info;
++	u32 pad = slot_input->sink_pad->index;
++	u32 stream = slot_input->stream;
++	unsigned int i;
 +	int ret;
 +
-+	fmt = v4l2_subdev_state_get_format(state, MALI_C720_ISP_PAD_SINK_VIDEO);
-+	cfg = mali_c720_get_mbus_config_by_code(fmt->code);
-+	if (!cfg)
++	fmt = v4l2_subdev_state_get_format(state, pad, stream);
++	if (!fmt) {
++		dev_err(mali_c720->dev,
++			"Failed to get format for pad %u stream %u\n",
++			pad, stream);
 +		return -EINVAL;
++	}
 +
-+	top_cfg.width = fmt->width;
-+	top_cfg.height = fmt->height;
-+	top_cfg.rggb_start = (u32)__ffs(cfg->type);
++	cfg = mali_c720_get_mbus_config_by_code(fmt->code);
++	if (!cfg) {
++		dev_err(mali_c720->dev,
++			"Failed to get mbus config for pad %u stream %u\n",
++			pad, stream);
++		return -EINVAL;
++	}
 +
-+	mali_c720_ctx_mgr_configure_context(ctx, &top_cfg);
++	memset(&info, 0, sizeof(info));
++	info.type = MALI_C720_BUF_TYPE_RAW;
++	info.sub_type = MALI_C720_RAW_BUF_SUBTYPE_NORMAL;
++	info.width = fmt->width;
++	info.height = fmt->height;
++	info.line_offset[0] = ALIGN((fmt->width * cfg->bit_depth) / 8, 32);
++	info.plane_size[0] = info.line_offset[0] * info.height;
++	info.num_raw_buffers = 2;
++	info.buffer_cfg = cfg->buffer_cfg;
 +
-+	sink_pad = &isp->pads[MALI_C720_ISP_PAD_SINK_VIDEO];
-+	isp->remote_src = media_pad_remote_pad_unique(sink_pad);
-+	ret = PTR_ERR_OR_ZERO(isp->remote_src);
++	ret = mali_c720_ctx_mgr_request_buffer_pool(ctx, &info, pool);
 +	if (ret)
 +		return ret;
 +
-+	src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
-+	ret = v4l2_subdev_enable_streams(src_sd, isp->remote_src->index, BIT(0));
-+	if (ret && ret != -EALREADY) {
-+		dev_err(mali_c720->dev, "Failed to start ISP source\n");
-+		return ret;
++	for (i = 0; i < pool->num_buffers; i++) {
++		pool->mem[i].base = dma_alloc_coherent(mali_c720->dev,
++						       pool->buffer_size,
++						       &pool->mem[i].addr,
++						       GFP_KERNEL);
++		if (!pool->mem[i].base) {
++			ret = -ENOMEM;
++			goto release_buf_pool;
++		}
++
++		mali_c720_ctx_mgr_update_buffer(ctx, pool, &pool->mem[i].addr, i);
 +	}
 +
++	input_cfg->id = 0;
++	input_cfg->bit_depth = cfg->bit_depth;
++	input_cfg->pool_id = pool->pool_id;
++
 +	return 0;
++
++release_buf_pool:
++	mali_c720_ctx_mgr_release_buffer_pool(ctx, pool);
++
++	while (i--) {
++		dma_free_coherent(mali_c720->dev,
++				  pool->buffer_size,
++				  pool->mem[i].base,
++				  pool->mem[i].addr);
++	}
++
++	return ret;
 +}
 +
-+static int mali_c720_isp_enable_streams(struct v4l2_subdev *sd,
-+					struct v4l2_subdev_state *state, u32 pad,
-+					u64 streams_mask)
++static void mali_c720_stop_inputs(struct mali_c720_slot_input *slot_input)
++{
++	struct v4l2_subdev *src_sd = media_entity_to_v4l2_subdev(slot_input->src_pad->entity);
++
++	v4l2_subdev_disable_streams(src_sd, slot_input->src_pad->index,
++				    BIT(slot_input->stream));
++}
++
++static int mali_c720_input_enable_streams(struct v4l2_subdev *sd,
++					  struct v4l2_subdev_state *state, u32 pad,
++					  u64 streams_mask)
 +{
 +	struct mali_c720_subdev *mdev = v4l2_sd_to_mali_c720_sd(sd);
-+	struct mali_c720_isp *isp = mali_c720_sd_to_sd(mdev, struct mali_c720_isp);
++	struct mali_c720 *mali_c720 = mdev->mali_c720;
++	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
++	struct mali_c720_input *input = mali_c720_sd_to_sd(mdev, struct mali_c720_input);
++	struct mali_c720_input_cfg input_cfg = {0};
++	struct mali_c720_slot_input *slot_input = &input->slot_input;
++	struct v4l2_subdev_route *route;
++	struct v4l2_subdev *src_sd;
 +	int ret;
 +
-+	/* Enable the stream but only start the ISP once. */
-+	if (isp->enabled)
-+		return 0;
++	for_each_active_route(&state->routing, route) {
++		if (route->source_pad != pad)
++			continue;
 +
-+	ret = mali_c720_isp_start(isp, state);
++		slot_input->sink_pad = &input->pads[route->sink_pad];
++		slot_input->stream = route->sink_stream;
++		break;
++	}
++
++	if (!slot_input->sink_pad) {
++		dev_err(mali_c720->dev, "No active route for source pad %u\n", pad);
++		ret = -EINVAL;
++		goto err_free_input_ports;
++	}
++
++	slot_input->src_pad = media_pad_remote_pad_unique(slot_input->sink_pad);
++	ret = PTR_ERR_OR_ZERO(slot_input->src_pad);
++	if (ret) {
++		dev_err(mali_c720->dev, "Input pad %u not connected\n",
++			slot_input->sink_pad->index);
++		goto err_free_input_ports;
++	}
++
++	ret = mali_c720_prepare_input_port(input, state, slot_input, &input_cfg);
 +	if (ret)
-+		return ret;
++		goto err_free_input_ports;
 +
-+	isp->enabled = true;
++	slot_input->prepared = true;
++	src_sd = media_entity_to_v4l2_subdev(slot_input->src_pad->entity);
++	ret = v4l2_subdev_enable_streams(src_sd, slot_input->src_pad->index,
++					 BIT(slot_input->stream));
++	if (ret && ret != -EALREADY) {
++		dev_err(mali_c720->dev, "Failed to start input source\n");
++		goto err_stop_sources;
++	}
++
++	mali_c720_ctx_mgr_prepare_context(ctx, &input_cfg);
++
++	ret = mali_c720_ctx_mgr_start_context_inputs(ctx);
++	if (ret)
++		goto err_stop_context;
 +
 +	return 0;
++
++err_stop_context:
++	mali_c720_ctx_mgr_stop_context(ctx);
++	mali_c720_ctx_mgr_stop_context_inputs(ctx);
++err_stop_sources:
++	mali_c720_stop_inputs(slot_input);
++err_free_input_ports:
++	mali_c720_free_input_ports(input);
++
++	return ret;
 +}
 +
-+static int mali_c720_isp_disable_streams(struct v4l2_subdev *sd,
-+					 struct v4l2_subdev_state *state, u32 pad,
-+					 u64 streams_mask)
++static int mali_c720_input_disable_streams(struct v4l2_subdev *sd,
++					   struct v4l2_subdev_state *state, u32 pad,
++					   u64 streams_mask)
 +{
 +	struct mali_c720_subdev *mdev = v4l2_sd_to_mali_c720_sd(sd);
-+	struct mali_c720_isp *isp = mali_c720_sd_to_sd(mdev, struct mali_c720_isp);
-+	struct mali_c720 *mali_c720 = mdev->mali_c720;
-+	struct v4l2_subdev *src_sd;
++	struct mali_c720_input *input = mali_c720_sd_to_sd(mdev, struct mali_c720_input);
++	struct mali_c720_context *ctx = mali_c720_get_active_context(mdev->mali_c720);
++	struct mali_c720_slot_input *slot_input = &input->slot_input;
 +
-+	if (!isp->enabled)
-+		return 0;
-+
-+	mali_c720_isp_stop(mali_c720);
-+
-+	if (isp->remote_src) {
-+		src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
-+		v4l2_subdev_disable_streams(src_sd, isp->remote_src->index,
-+					    BIT(0));
-+	}
-+	isp->remote_src = NULL;
-+	isp->enabled = false;
++	mali_c720_ctx_mgr_stop_context_inputs(ctx);
++	mali_c720_stop_inputs(slot_input);
++	mali_c720_free_input_ports(input);
 +
 +	return 0;
 +}
 +
-+static const struct v4l2_subdev_pad_ops mali_c720_isp_pad_ops = {
-+	.enum_mbus_code		= mali_c720_isp_enum_mbus_code,
-+	.enum_frame_size	= mali_c720_isp_enum_frame_size,
++static const struct v4l2_subdev_pad_ops mali_c720_input_pad_ops = {
++	.enum_mbus_code		= mali_c720_input_enum_mbus_code,
++	.enum_frame_size	= mali_c720_input_enum_frame_size,
 +	.get_fmt		= v4l2_subdev_get_fmt,
-+	.set_fmt		= mali_c720_isp_set_fmt,
++	.set_fmt		= mali_c720_input_set_fmt,
 +	.link_validate		= v4l2_subdev_link_validate_default,
-+	.enable_streams		= mali_c720_isp_enable_streams,
-+	.disable_streams	= mali_c720_isp_disable_streams,
++	.enable_streams		= mali_c720_input_enable_streams,
++	.disable_streams	= mali_c720_input_disable_streams,
 +};
 +
-+void mali_c720_isp_queue_event_sof(struct mali_c720 *mali_c720, u32 sequence)
-+{
-+	struct mali_c720_isp *isp = &mali_c720->isp;
-+	struct mali_c720_subdev *mdev = &isp->mdev;
++static const struct v4l2_subdev_ops mali_c720_input_ops = {
++	.pad	= &mali_c720_input_pad_ops,
++};
 +
-+	struct v4l2_event event = {
-+		.type = V4L2_EVENT_FRAME_SYNC,
++static int mali_c720_input_init_state(struct v4l2_subdev *sd,
++				      struct v4l2_subdev_state *state)
++{
++	static const struct v4l2_mbus_framefmt format = {
++		.width = MALI_C720_DEFAULT_WIDTH,
++		.height = MALI_C720_DEFAULT_HEIGHT,
++		.field = V4L2_FIELD_NONE,
++		.code = MEDIA_BUS_FMT_SRGGB24_1X24,
++		.colorspace = V4L2_COLORSPACE_RAW,
++		.xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(V4L2_COLORSPACE_RAW),
++		.ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(V4L2_COLORSPACE_RAW),
++		.quantization = V4L2_QUANTIZATION_FULL_RANGE,
++	};
++	struct v4l2_subdev_route route = {
++		.sink_pad = MALI_C720_INPUT_PAD_SINK_INPUT0,
++		.sink_stream = 0,
++		.source_pad = MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT,
++		.source_stream = 0,
++		.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
++	};
++	struct v4l2_subdev_krouting routing = {
++		.num_routes = 1,
++		.routes = &route,
 +	};
 +
-+	event.u.frame_sync.frame_sequence = sequence;
-+	v4l2_event_queue(mdev->sd.devnode, &event);
++	return v4l2_subdev_set_routing_with_fmt(sd, state, &routing, &format);
 +}
 +
-+static int
-+mali_c720_isp_subscribe_event(struct v4l2_subdev *sd, struct v4l2_fh *fh,
-+			      struct v4l2_event_subscription *sub)
-+{
-+	if (sub->type != V4L2_EVENT_FRAME_SYNC)
-+		return -EINVAL;
-+
-+	/* V4L2_EVENT_FRAME_SYNC doesn't require an id, so zero should be set */
-+	if (sub->id != 0)
-+		return -EINVAL;
-+
-+	return v4l2_event_subscribe(fh, sub, 0, NULL);
-+}
-+
-+static const struct v4l2_subdev_core_ops mali_c720_isp_core_ops = {
-+	.subscribe_event = mali_c720_isp_subscribe_event,
-+	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
++static const struct v4l2_subdev_internal_ops mali_c720_input_internal_ops = {
++	.init_state = mali_c720_input_init_state,
 +};
 +
-+static const struct v4l2_subdev_ops mali_c720_isp_ops = {
-+	.pad	= &mali_c720_isp_pad_ops,
-+	.core	= &mali_c720_isp_core_ops,
-+};
-+
-+static int mali_c720_isp_init_state(struct v4l2_subdev *sd,
-+				    struct v4l2_subdev_state *state)
-+{
-+	struct v4l2_mbus_framefmt *sink_fmt, *src_fmt;
-+
-+	sink_fmt = v4l2_subdev_state_get_format(state, MALI_C720_ISP_PAD_SINK_VIDEO);
-+	sink_fmt->width = MALI_C720_DEFAULT_WIDTH;
-+	sink_fmt->height = MALI_C720_DEFAULT_HEIGHT;
-+	sink_fmt->field = V4L2_FIELD_NONE;
-+	sink_fmt->code = MEDIA_BUS_FMT_SRGGB24_1X24;
-+	sink_fmt->colorspace = V4L2_COLORSPACE_RAW;
-+	sink_fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(sink_fmt->colorspace);
-+	sink_fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(sink_fmt->colorspace);
-+	sink_fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+
-+	src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_ISP_PAD_SOURCE_HV);
-+	*src_fmt = *sink_fmt;
-+	src_fmt->code = MEDIA_BUS_FMT_SRGGB16_1X16;
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_internal_ops mali_c720_isp_internal_ops = {
-+	.init_state = mali_c720_isp_init_state,
-+};
-+
-+static int mali_c720_isp_subdev_link_setup(struct media_entity *entity,
-+					   const struct media_pad *local,
-+					   const struct media_pad *remote,
-+					   u32 flags)
++static int mali_c720_input_subdev_link_setup(struct media_entity *entity,
++					     const struct media_pad *local,
++					     const struct media_pad *remote,
++					     u32 flags)
 +{
 +	struct v4l2_subdev *sd = media_entity_to_v4l2_subdev(entity);
 +	struct mali_c720 *mali_c720 = v4l2_sd_to_mali_c720_sd(sd)->mali_c720;
 +	struct media_pad *remote_src;
 +
-+	if (local->index != MALI_C720_ISP_PAD_SINK_VIDEO)
-+		return 0;
++	/*
++	 * Sink and source pads support only one enabled connection.
++	 */
 +
 +	if (flags & MEDIA_LNK_FL_ENABLED) {
 +		remote_src = media_pad_remote_pad_unique(local);
@@ -523,7 +681,7 @@ index 0000000000000000000000000000000000000000..962a2215543b49a6f90159fcb75ac253
 +
 +		if (remote_src != remote) {
 +			dev_err(mali_c720->dev,
-+				"ISP sink pad %u is already connected to another source\n",
++				"Input pad %u is already connected to another pad\n",
 +				local->index);
 +			return -EBUSY;
 +		}
@@ -532,35 +690,50 @@ index 0000000000000000000000000000000000000000..962a2215543b49a6f90159fcb75ac253
 +	return 0;
 +}
 +
-+static const struct media_entity_operations mali_c720_isp_media_ops = {
-+	.link_setup		= mali_c720_isp_subdev_link_setup,
++static int mali_c720_input_get_fwnode_pad(struct media_entity *entity,
++					  struct fwnode_endpoint *endpoint)
++{
++	int port;
++
++	port = v4l2_subdev_get_fwnode_pad_1_to_1(entity, endpoint);
++	if (port < 0)
++		return port;
++	if (port)
++		return -EINVAL;
++
++	return MALI_C720_INPUT_PAD_SINK_INPUT0;
++}
++
++static const struct media_entity_operations mali_c720_input_media_ops = {
++	.link_setup		= mali_c720_input_subdev_link_setup,
 +	.link_validate		= v4l2_subdev_link_validate,
++	.get_fwnode_pad		= mali_c720_input_get_fwnode_pad,
 +};
 +
-+int mali_c720_register_isp(struct mali_c720 *mali_c720)
++int mali_c720_register_input(struct mali_c720 *mali_c720)
 +{
-+	struct mali_c720_isp *isp = &mali_c720->isp;
-+	struct mali_c720_subdev *mdev = &isp->mdev;
++	struct mali_c720_input *input = &mali_c720->input;
++	struct mali_c720_subdev *mdev = &input->mdev;
 +	struct v4l2_subdev *sd = &mdev->sd;
 +	int ret;
 +
 +	mdev->mali_c720 = mali_c720;
 +
-+	v4l2_subdev_init(sd, &mali_c720_isp_ops);
-+	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
-+		     V4L2_SUBDEV_FL_HAS_EVENTS;
-+	sd->entity.ops = &mali_c720_isp_media_ops;
++	v4l2_subdev_init(sd, &mali_c720_input_ops);
++	sd->dev = mali_c720->dev;
++	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_STREAMS;
++	sd->entity.ops = &mali_c720_input_media_ops;
 +	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_ISP;
-+	sd->internal_ops = &mali_c720_isp_internal_ops;
-+	strscpy(sd->name, "mali-c720 isp", sizeof(sd->name));
++	sd->internal_ops = &mali_c720_input_internal_ops;
++	strscpy(sd->name, "mali-c720 input", sizeof(sd->name));
 +
-+	isp->pads[MALI_C720_ISP_PAD_SINK_VIDEO].flags = MEDIA_PAD_FL_SINK |
-+							MEDIA_PAD_FL_MUST_CONNECT;
-+	isp->pads[MALI_C720_ISP_PAD_SOURCE_HV].flags = MEDIA_PAD_FL_SOURCE;
++	input->pads[MALI_C720_INPUT_PAD_SINK_INPUT0].flags =
++		MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_MUST_CONNECT;
++	input->pads[MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT].flags = MEDIA_PAD_FL_SOURCE;
 +
 +	ret = media_entity_pads_init(&sd->entity,
-+				     MALI_C720_ISP_NUM_PADS,
-+				     isp->pads);
++				     MALI_C720_INPUT_NUM_PADS,
++				     input->pads);
 +	if (ret)
 +		goto err_clear_parent;
 +
@@ -584,10 +757,10 @@ index 0000000000000000000000000000000000000000..962a2215543b49a6f90159fcb75ac253
 +	return ret;
 +}
 +
-+void mali_c720_unregister_isp(struct mali_c720 *mali_c720)
++void mali_c720_unregister_input(struct mali_c720 *mali_c720)
 +{
-+	struct mali_c720_isp *isp = &mali_c720->isp;
-+	struct mali_c720_subdev *mdev = &isp->mdev;
++	struct mali_c720_input *input = &mali_c720->input;
++	struct mali_c720_subdev *mdev = &input->mdev;
 +
 +	if (!mdev->mali_c720)
 +		return;
@@ -595,276 +768,10 @@ index 0000000000000000000000000000000000000000..962a2215543b49a6f90159fcb75ac253
 +	v4l2_device_unregister_subdev(&mdev->sd);
 +}
 +
-+void mali_c720_cleanup_isp(struct mali_c720 *mali_c720)
++void mali_c720_cleanup_input(struct mali_c720 *mali_c720)
 +{
-+	struct mali_c720_isp *isp = &mali_c720->isp;
-+	struct mali_c720_subdev *mdev = &isp->mdev;
-+
-+	if (!mdev->mali_c720)
-+		return;
-+
-+	v4l2_subdev_cleanup(&mdev->sd);
-+	media_entity_cleanup(&mdev->sd.entity);
-+	mdev->mali_c720 = NULL;
-+}
-diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-vision-pipe.c b/drivers/media/platform/arm/mali-c720/mali-c720-vision-pipe.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..1a0ff0486dca1637fc3112009894e719312cfc82
---- /dev/null
-+++ b/drivers/media/platform/arm/mali-c720/mali-c720-vision-pipe.c
-@@ -0,0 +1,260 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ARM Mali-C720 ISP Driver - Image signal processor
-+ *
-+ * Copyright (C) 2026 Arm Ltd
-+ */
-+
-+#include <linux/string.h>
-+
-+#include <media/media-entity.h>
-+#include <media/v4l2-common.h>
-+
-+#include "mali-c720-common.h"
-+
-+static int mali_c720_vision_pipe_enum_mbus_code(struct v4l2_subdev *sd,
-+						struct v4l2_subdev_state *state,
-+						struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	const struct mali_c720_mbus_format_info *cfg;
-+	struct mali_c720_mbus_format_match match;
-+
-+	switch (code->pad) {
-+	case MALI_C720_VISION_PIPE_PAD_SOURCE_RGB:
-+		if (code->index)
-+			return -EINVAL;
-+		code->code = MEDIA_BUS_FMT_RGB121212_1X36;
-+		break;
-+	case MALI_C720_VISION_PIPE_PAD_SINK_VIDEO:
-+		match.type_mask = MALI_C720_FORMAT_BAYER;
-+		match.depth_mask = MALI_C720_FORMAT_16BIT;
-+
-+		cfg = mali_c720_get_mbus_config_by_matched_index(code->index, &match);
-+		if (!cfg)
-+			return -EINVAL;
-+		code->code = cfg->code;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int mali_c720_vision_pipe_enum_frame_size(struct v4l2_subdev *sd,
-+						 struct v4l2_subdev_state *state,
-+						 struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	const struct mali_c720_mbus_format_info *cfg;
-+	struct mali_c720_mbus_format_match match;
-+
-+	if (fse->index)
-+		return -EINVAL;
-+
-+	switch (fse->pad) {
-+	case MALI_C720_VISION_PIPE_PAD_SOURCE_RGB:
-+		if (fse->code != MEDIA_BUS_FMT_RGB121212_1X36)
-+			return -EINVAL;
-+		break;
-+	case MALI_C720_VISION_PIPE_PAD_SINK_VIDEO:
-+		match.type_mask = MALI_C720_FORMAT_BAYER;
-+		match.depth_mask = MALI_C720_FORMAT_16BIT;
-+
-+		cfg = mali_c720_get_mbus_config_by_code(fse->code);
-+		if (!cfg || !mali_c720_validate_mbus_format_match(cfg, &match))
-+			return -EINVAL;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	fse->min_width = MALI_C720_MIN_INPUT_WIDTH;
-+	fse->min_height = MALI_C720_MIN_INPUT_HEIGHT;
-+	fse->max_width = MALI_C720_MAX_WIDTH;
-+	fse->max_height = MALI_C720_MAX_HEIGHT;
-+
-+	return 0;
-+}
-+
-+static int mali_c720_vision_pipe_set_fmt(struct v4l2_subdev *sd,
-+					 const struct v4l2_subdev_client_info *ci,
-+					 struct v4l2_subdev_state *state,
-+					 struct v4l2_subdev_format *format)
-+{
-+	struct v4l2_mbus_framefmt *fmt = &format->format;
-+	struct v4l2_mbus_framefmt *src_fmt, *sink_fmt;
-+	const struct mali_c720_mbus_format_info *cfg;
-+	struct mali_c720_mbus_format_match match;
-+
-+	if (format->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-+	    media_entity_is_streaming(&sd->entity))
-+		return -EBUSY;
-+
-+	/*
-+	 * Disallow set_fmt on the source pad; size is derived from the sink
-+	 * pad, while the RGB source format is fixed.
-+	 */
-+	if (format->pad != MALI_C720_VISION_PIPE_PAD_SINK_VIDEO)
-+		return v4l2_subdev_get_fmt(sd, state, format);
-+
-+	sink_fmt = v4l2_subdev_state_get_format(state, MALI_C720_VISION_PIPE_PAD_SINK_VIDEO);
-+
-+	match.type_mask = MALI_C720_FORMAT_BAYER;
-+	match.depth_mask = MALI_C720_FORMAT_16BIT;
-+
-+	cfg = mali_c720_get_mbus_config_by_code(fmt->code);
-+	if (!cfg || !mali_c720_validate_mbus_format_match(cfg, &match))
-+		cfg = mali_c720_get_mbus_config_by_code(MEDIA_BUS_FMT_SRGGB16_1X16);
-+
-+	sink_fmt->code = cfg->code;
-+
-+	sink_fmt->width = fmt->width;
-+	sink_fmt->height = fmt->height;
-+	v4l_bound_align_image(&sink_fmt->width, MALI_C720_MIN_INPUT_WIDTH,
-+			      MALI_C720_MAX_WIDTH, 1,
-+			      &sink_fmt->height, MALI_C720_MIN_INPUT_HEIGHT,
-+			      MALI_C720_MAX_HEIGHT, 1, 0);
-+
-+	*fmt = *sink_fmt;
-+
-+	/* Propagate the input dimensions to the RGB output. */
-+	src_fmt = v4l2_subdev_state_get_format(state,
-+					       MALI_C720_VISION_PIPE_PAD_SOURCE_RGB);
-+	src_fmt->width = sink_fmt->width;
-+	src_fmt->height = sink_fmt->height;
-+
-+	return 0;
-+}
-+
-+static int mali_c720_vision_pipe_enable_streams(struct v4l2_subdev *sd,
-+						struct v4l2_subdev_state *state,
-+						u32 pad, u64 streams_mask)
-+{
-+	return 0;
-+}
-+
-+static int mali_c720_vision_pipe_disable_streams(struct v4l2_subdev *sd,
-+						 struct v4l2_subdev_state *state,
-+						 u32 pad, u64 streams_mask)
-+{
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_pad_ops mali_c720_vision_pipe_pad_ops = {
-+	.enum_mbus_code		= mali_c720_vision_pipe_enum_mbus_code,
-+	.enum_frame_size	= mali_c720_vision_pipe_enum_frame_size,
-+	.get_fmt		= v4l2_subdev_get_fmt,
-+	.set_fmt		= mali_c720_vision_pipe_set_fmt,
-+	.link_validate		= v4l2_subdev_link_validate_default,
-+	.enable_streams		= mali_c720_vision_pipe_enable_streams,
-+	.disable_streams	= mali_c720_vision_pipe_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_ops mali_c720_vision_pipe_ops = {
-+	.pad = &mali_c720_vision_pipe_pad_ops,
-+};
-+
-+static int mali_c720_vision_pipe_init_state(struct v4l2_subdev *sd,
-+					    struct v4l2_subdev_state *state)
-+{
-+	struct v4l2_mbus_framefmt *sink_fmt, *src_fmt;
-+
-+	sink_fmt = v4l2_subdev_state_get_format(state, MALI_C720_VISION_PIPE_PAD_SINK_VIDEO);
-+	sink_fmt->width = MALI_C720_DEFAULT_WIDTH;
-+	sink_fmt->height = MALI_C720_DEFAULT_HEIGHT;
-+	sink_fmt->field = V4L2_FIELD_NONE;
-+	sink_fmt->code = MEDIA_BUS_FMT_SRGGB16_1X16;
-+	sink_fmt->colorspace = V4L2_COLORSPACE_RAW;
-+	sink_fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(sink_fmt->colorspace);
-+	sink_fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(sink_fmt->colorspace);
-+	sink_fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+
-+	src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_VISION_PIPE_PAD_SOURCE_RGB);
-+	*src_fmt = *sink_fmt;
-+	src_fmt->code = MEDIA_BUS_FMT_RGB121212_1X36;
-+	src_fmt->colorspace = V4L2_COLORSPACE_SRGB;
-+	src_fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(src_fmt->colorspace);
-+	src_fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(src_fmt->colorspace);
-+	src_fmt->quantization =
-+		V4L2_MAP_QUANTIZATION_DEFAULT(true, src_fmt->colorspace,
-+					      src_fmt->ycbcr_enc);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_internal_ops mali_c720_vision_pipe_internal_ops = {
-+	.init_state = mali_c720_vision_pipe_init_state,
-+};
-+
-+static const struct media_entity_operations mali_c720_vision_pipe_media_ops = {
-+	.link_validate		= v4l2_subdev_link_validate,
-+};
-+
-+int mali_c720_register_vision_pipe(struct mali_c720 *mali_c720)
-+{
-+	struct mali_c720_vision_pipe *pipe = &mali_c720->vision_pipe;
-+	struct mali_c720_subdev *mdev = &pipe->mdev;
-+	struct v4l2_subdev *sd = &mdev->sd;
-+	int ret;
-+
-+	mdev->mali_c720 = mali_c720;
-+
-+	v4l2_subdev_init(sd, &mali_c720_vision_pipe_ops);
-+	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	sd->entity.ops = &mali_c720_vision_pipe_media_ops;
-+	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_ISP;
-+	sd->internal_ops = &mali_c720_vision_pipe_internal_ops;
-+	strscpy(sd->name, "mali-c720 hv pipe", sizeof(sd->name));
-+
-+	pipe->pads[MALI_C720_VISION_PIPE_PAD_SINK_VIDEO].flags = MEDIA_PAD_FL_SINK |
-+								 MEDIA_PAD_FL_MUST_CONNECT;
-+	pipe->pads[MALI_C720_VISION_PIPE_PAD_SOURCE_RGB].flags = MEDIA_PAD_FL_SOURCE;
-+	ret = media_entity_pads_init(&sd->entity,
-+				     MALI_C720_VISION_PIPE_NUM_PADS,
-+				     pipe->pads);
-+	if (ret)
-+		goto err_clear_parent;
-+
-+	ret = v4l2_subdev_init_finalize(sd);
-+	if (ret)
-+		goto err_cleanup_media_entity;
-+
-+	ret = v4l2_device_register_subdev(&mali_c720->v4l2_dev, sd);
-+	if (ret)
-+		goto err_cleanup_subdev;
-+
-+	return 0;
-+
-+err_cleanup_subdev:
-+	v4l2_subdev_cleanup(sd);
-+err_cleanup_media_entity:
-+	media_entity_cleanup(&sd->entity);
-+err_clear_parent:
-+	mdev->mali_c720 = NULL;
-+
-+	return ret;
-+}
-+
-+void mali_c720_unregister_vision_pipe(struct mali_c720 *mali_c720)
-+{
-+	struct mali_c720_vision_pipe *pipe = &mali_c720->vision_pipe;
-+	struct mali_c720_subdev *mdev = &pipe->mdev;
-+
-+	if (!mdev->mali_c720)
-+		return;
-+
-+	v4l2_device_unregister_subdev(&mdev->sd);
-+}
-+
-+void mali_c720_cleanup_vision_pipe(struct mali_c720 *mali_c720)
-+{
-+	struct mali_c720_vision_pipe *pipe = &mali_c720->vision_pipe;
-+	struct mali_c720_subdev *mdev = &pipe->mdev;
++	struct mali_c720_input *input = &mali_c720->input;
++	struct mali_c720_subdev *mdev = &input->mdev;
 +
 +	if (!mdev->mali_c720)
 +		return;
