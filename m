@@ -1,54 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795515248;
-	b=a3yKhGhQI7+gNZJZynJiMzZsIvdTUDzu5TDYrGYO/bpFNbQAkDGNK+FRvCHre52RuRDu
-	 GEf/uciWf1H50noDAbvUk4rq3fX/2tyUFYSOGRNZGMci+pGOug7Tb5oD6ZSReONH5RHyN
-	 RkU8UerfTUvdUlhkYnVAtYpfjzXeTxijDOXVjb5ptgrzrfAU28mXR5GmFtKOoCBdEncaG
-	 H+cjPi6iwBKqVaa1paF08M0Z9zHNTE7BwsATS4kNUel6DUzvrQiuXckUg1fpZdtY5652N
-	 vBRpvu4HwTmGYN1z3dRKIIyH6KPU4VqM9/ZFZ6J5xBrpJVrwFP6sdRDgvmEc3SeURvg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795515248;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=ggxALf/+oSv7/fUQNTwY+wOuX1VfxeKtlz/EiD0e6sY=;
-	b=Wx167FENbrnNKlEi0fZ5BynkRvBgKhtJsPlocGjWcpQ6mvb+5T7SoCN914Gw+ZfEsyVn
-	 FAHRx4nSx+YwwIby3V+rL9yFlLTzMFqzSYct14k++dguAHmnc+uf5/FzymiIHB8ot5C87
-	 ajFPRfq2LU2fQOZnuI1t6dqsrXqdYJNyuuHdthvd1g/0WlOT0HnSMPHISuPRXJQJrMraJ
-	 tXcUXXL8mPnEw3nSALJyQR6ckR4GSzYdftcA9FxpKZ+U/Zcms9iRTTfZeWGvmrKGMCK1n
-	 bxi8h4Twpbja9dhqsebssVh2oQq6PG0jadmjZPGooJI4ja+7br8FTJgAliDf8z8gQEA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hgQKAl8L;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-Received: from sender6-pp-f112.zoho.com (sender6-pp-f112.zoho.com [165.173.180.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795515251;
+	b=HNPQU6gL8zZImLMcvbbYPEqriQNTWG/pV/hrL9401h7YdMvcQq/BrMfcXhkrm7SdUqlQ
+	 CR19n4OXHgj27A7AEUUVFPoiYZFu9yWXcXCz78hA/sxXtpgbjX1l6GoYMIllb/2oXi0Sz
+	 XI6Hi/wdn5xgUi07kEQ8hgt/KH2U5HnI2iGb+EhGYC6kS4XdtX8wFzB4N5eR7Lo5RJCJw
+	 62PEfByRaJuld+yVTM1R9ULi20VrMhi1RxAJQ4EBI3y+Kp/TVUSknGW/utls5Q9c7vJdG
+	 Oa8Wnd/iIgJGt++5qbYFO2uIoop4MTEs+1r7K6OQ4Y0vD+1Yv1AwdwTMjxoMauy9ZyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795515251;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=5n9UHdO2SBef0HNJ35aNuZvDO6VdtplwD/Dp/Y5vP2E=;
+	b=48/UJspwBB1X2h98b8t5Pna7BnRr/EGR3hyP78mHxdFZR358x936P0yUullGD9Yo/2it
+	 s2qFXbDvuZw+2L9MI+y+nt0jUgWE/35A28f+E7uR6drLdK4fQkAybgeoTwcCDVmd4NDzr
+	 TyFvdgykN28xf/v6zS1/ZCD472LI+DsUDu6AZ4sbrqgXP05fI+NDxle2kGoBrIcER/MiP
+	 Fi1mav6G76sFp3CiqenbLGbML+fCZrDXtC91QXRPMBW1L6a6PenoBqq/fdyc/XRFQIWAX
+	 YRdybjTqnn8rjjhtBJxBo3r5yMqIXRCjvkdedufcqC/jeqIOWUFk+x9hXguCaUToJ6A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GyGIJZVv;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B765D606A332;
-	Tue, 24 Nov 2026 10:14:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B765D606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838E6606A692;
+	Tue, 24 Nov 2026 10:14:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 838E6606A692
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hgQKAl8L
-ARC-Seal: i=1; a=rsa-sha256; t=1795515220; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=C60D8F8WXN8UDjHKqr6llsekioU+KLgeLrzDyPom6k7c1gvWNOzoO3/3O8txC2crEIPXv+N+MAI5CyDInL3JEK5zJAXL3sa9tG5JUCfs7vngKOylZxy34Ht1el3Zv4U6aDB6SLGpYr3UrWsnGCsvL/IKvSkrPqGce+pA+472Blo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795515220; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ggxALf/+oSv7/fUQNTwY+wOuX1VfxeKtlz/EiD0e6sY=; 
-	b=AuJLV0+spDVt5VkLRGVqmCrA6EqEML/MlPzJAPv8BeGFi5Zw1KwHEazcdhYTTpMyi32GrCzmlYgR1GEZJ1gTmF4T/MwR2AEMSSRXdSlTziSvgsCxE/Kmf6CKWMciVgQqXqq9RNKnR4OWTT1lECu4JmTmmZq2J+nY3R0tVFyoB/w=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=hgQKAl8LTEx6YhT91goAVPs9yeYvUAj1FBJfHy5Da+QU+ea/LtMOg8etyjrNlBDOl/s8GCPtzEozW/7hS9/UsjrDxva1kGU20TunS35szgzpvvehXwY8U/TyUj6xuO4cxnvRchtZEtV+nVckm43Ts5CcNzrNLuJioBtPxg0VfA4=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=ggxALf/+oSv7/fUQNTwY+wOuX1VfxeKtlz/EiD0e6sY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795515217649395.0528793702906;
-	Tue, 24 Nov 2026 02:13:37 -0800 (PST)
-Message-ID: <e579e40b-9ee7-48ba-92b7-78f9dfffbeb8@collabora.com>
-Date: Tue, 24 Nov 2026 11:13:31 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GyGIJZVv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795515249; x=1827051249;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5jkm3ngcj7xdNHx9OZUIZL2NkQ34Ja9eEvX69Wq2VKE=;
+  b=GyGIJZVvSPKsxX3k67u9KKWtacrscC0DSMVCMpBXqR/PG06iLmslnF7M
+   RxBQCPGKjzrKKC82ptwFJKBc5tOJLwihCurHAyclqQAMWdsa4G80gEBSP
+   2XYByz2y2FoM5HGJkvD0n/sac5p1dLyXyIUY7qza9BvkBe5YyjrYp1cEC
+   SLTRMkg6PgKg5BMAruK6j6JDSR0YJYWOGXlnQ6ZKi3MTiTxTWfjihybm5
+   vSyNjGU6JVJ+i0wHxiP9oJsgYMxdcR7WjQa9vUcT2gJyAn1XqLEoTsd8e
+   21eY5zHfDY9PmUNIPjBbyJiff9TOr0NRus6LpePRi7FvCfWXjQgcZ/rGk
+   A==;
+X-CSE-ConnectionGUID: oBmOH4m9QAmv+GS+v6si7w==
+X-CSE-MsgGUID: /uDf02+hRAq6UL38/1sfKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4434027"
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
+   d="scan'208";a="4434027"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 01:47:42 -0800
+X-CSE-ConnectionGUID: v0qbLzzJQmSYhG8etaXX/A==
+X-CSE-MsgGUID: p3qLvHCDSym8v1JYijC2sA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
+   d="scan'208";a="11621467"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.125])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 01:47:39 -0800
+Date: Tue, 24 Nov 2026 11:47:36 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux@analog.com
+Subject: Re: [PATCH v7 3/3] iio: adc: add driver for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <awVdOHLZJqnY2NIB@ashevche-desk.local>
+References: <20261123-topic-sm8x50-iio-max34417-adc-v7-0-d8f87edc5086@linaro.org>
+ <20261123-topic-sm8x50-iio-max34417-adc-v7-3-d8f87edc5086@linaro.org>
+ <awSWVMMYN2xsDH7u@ashevche-desk.local>
+ <3f0bf2dc-02c4-45e8-ae06-feb669b6b234@linaro.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,76 +90,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, david@ixit.cz,
- andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
- vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
- mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
- jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
- akapatra@quicinc.com, linux-media@vger.kernel.org,
- krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
- konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
- alex.vinarskis@gmail.com
-References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
- <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
- <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
- <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
- <e3d322a0-43d5-4369-bd09-128152f4b233@linaro.org>
- <8741d667-efdd-4e3f-a1b2-2f04255d7c7d@oss.qualcomm.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <8741d667-efdd-4e3f-a1b2-2f04255d7c7d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3f0bf2dc-02c4-45e8-ae06-feb669b6b234@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Anusha, hi Bryan,
+On Tue, Nov 24, 2026 at 10:30:52AM +0100, Neil Armstrong wrote:
+> On 11/23/26 20:39, Andy Shevchenko wrote:
+> > On Mon, Nov 23, 2026 at 06:47:46PM +0100, Neil Armstrong wrote:
 
-Thanks for your work. I am working on CSI C-PHY support for the Rockchip
-RK3588 MIPI D-PHY/C-PHY Combo PHY and would love to see this landing in
-mainline.
+...
 
-On 10/24/26 01:20, Anusha Arun Nandi wrote:
-> [...]
->> The CSID needs to know the symbol rate - so that it can vote on the
->> appropriate NOC/CamNOC clocks/rails but... does the PHY driver itself
->> need to know that ? It does not, symbol_rate is not required in this
->> struct no more than it is in DPHY.
->>
-> Yes agree. I was thinking the same. We would not need the symbol_rate in
-> the struct.
+> > > +#define MAX34417_MIN_RSENSE_UOHM		(1 * MILLI)
+> > > +#define MAX34417_MAX_RSENSE_UOHM		(100 * MILLI)
+> > > +#define MAX34417_DEFAULT_RSENSE_UOHM		(1 * MILLI)
+> > 
+> > Oh, it's micro, but you use MILLI. Also even in macros we nowadays want to see
+> > the unit as defined in SI.
+> > 
+> > #define MAX34417_MIN_RSENSE_uOhm		(1 * (MICRO / MILLI))
+> > #define MAX34417_MAX_RSENSE_uOhm		(100 * (MICRO / MILLI))
+> > #define MAX34417_DEFAULT_RSENSE_uOhm		(1 * (MICRO / MILLI))
+> > 
+> > Alternatively add another patch to start Ohm multipliers in units.h
+> > 
+> > #define MICROOHM_PER_MILLIOHM		1000
+> > 
+> > I will Ack it.
+> 
+> Hmm, I want to express the min/max/default rsense in uOhm, minimum is 1000 uOhm,
+> max is 100000 uOhm, so initially they were:
+> #define MAX34417_MIN_RSENSE	(1000)
+> #define MAX34417_MAX_RSENSE	(100000)
+> 
+> and the unit is uOhm, so how should I define them ?
+> 
+> with #define MICROOHM_PER_MILLIOHM		1000
+> 
+> #define MAX34417_MIN_RSENSE_uOhm	(1 * MICROOHM_PER_MILLIOHM)
+> #define MAX34417_MAX_RSENSE_uOhm	(100 * MICROOHM_PER_MILLIOHM)
+> 
+> ?
 
-How would a timing calculation like in the Rockchip downstream [0] work
-then? Can this table be implemented once in a common helper, and the
-resulting values are passed via the struct?
+Yes, precisely!
 
-I am new to this spec so please bear with me, but it feels the symbol
-rate should be in the struct?!
+-- 
+With Best Regards,
+Andy Shevchenko
 
->> Sample principle.
->>
->> So _really_ thinking about this I suggest
->>
->> - Following the DPHY example
->> - Including all of the CPHY specific timings
->>   The ones you posted, plus the few I found missing
->>   Any other relevant CPHY timings we may have missed
->> - Include the helper functions in drivers/phy/phy-core-mipi-cphy.c
->>   IMO we should use defines not hard-coded constants for the
->>   specification of the timings here, unlike the DPHY code
->>
-> These comments will be addressed in the next version.
 
-Is there any ETA on that? (Just thinking about whether I should test
-base on top of this version or wait for the next one).
-
-Thanks and best regards,
-Michael
-
-[0]
-https://github.com/rockchip-linux/kernel/blob/77168c8d5ab82399f65a80e9f807b50ba37cf483/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c#L237
