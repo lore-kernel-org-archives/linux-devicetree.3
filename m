@@ -1,56 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795518787;
-	b=lXSXEAoJJxjBh+42nGsT+RuiE5hNEX9dJHWj9ZkhnZ4aPBpw5nWJOa8kvi34ZgpqZTqv
-	 mWMR85Cgggfn7fCjeyBOU7I09dCHQejBoLKxu5vwYmFBJXPWDBmhd+ck1PRqzKq4MQZ/V
-	 WpEiDrVTghNaDKbfkwuLYcxBF+yPbcvHNemOGwSffYN286daf5f3VDKmRqN2R1DsY4ddO
-	 Oeo2XHGgYVL7+1qz51Ray+TF+to1dzzlLncXyO8SYUQOzLgb7TZ7+EzPjTWogFUySmd8A
-	 gVX9xoxic4ah1ozHYQoW8NVk7hsDQngezJWp1kNFH4Fkv8WRdFm/EBk9iVQUZTZEkww==
+	t=1795518831;
+	b=pFlloILZ3fUnZYMBpjUo4sDM+1srXGBivZ1HZO0OFGj9h+1Ze4aPdwLtA/BSMrHI6pbQ
+	 pXQgM//etR/jayHW8g6i3dtKwXP+AWuyzo/clDUVleUbNWdw//dEFiar13VZiHacTFkd2
+	 mYNU/AdcsVPcTXiXCk5dvsh9M0ztGIkn845Fh/Lealrm9UaA10K4/jGSp082Li2dvdI1D
+	 MeDyUUhXQMpqMF3ghuZu3JzsDYgsofZQQ03uKwcDrNiCn9ZFy3e4fwX+wn0YBF3epWZ5R
+	 kd+y2UcTll2IqFCblMgm2doEEP0BS4Yjn8u4MXDwA4YOXueDVgUyM08Ehp8mawZMdeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795518787;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+3pgKqckFllVK7kDPqZiEbjUEoTDygESlUvXMjcmBRI=;
-	b=kkhMXySPFB3VuORSkA2PGeQ7d7XirYanUrhHPuETpoDH5Y7tdkFde0bw4VUpNvZQATAB
-	 8dECeHXXmCDPZbnbXMw+NCdLLbHb+IH4lo0LT0r525QPnSPq8D4oDN3XZIvHWeFyxmCXG
-	 SJuBFgGH+QCOsMTDf2u2r8wlgLzsYxPzTvS9hRLOAkUjRrAi+G8aXXfoRLHQs7axPjI7A
-	 acBB+Z+VHe0Dt/61sMT02PQb4mMCiV0JdHV3rBVB6vY6PluYff7u39rTRf+e/AJa/v1Pq
-	 J/4m4LkAQIdaJU9hgHI1Ncdm5qx97wRV2kqQUzC5GU7M6OL3GbXE+7XoOejqT6qVY+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795518831;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yG2dCjBS4ggkEY33xu61CfV0q36FoceeadD9K8iGVnE=;
+	b=0VWgj8bIiSQEMVn2rGM/HF8JxMgZidwwWJ0Lufqv7GbZYnnNIk1XHZhqUTsnHUPQF43J
+	 G3jK/+/OnsKh9Stq4VBJYpESOZY/Sr9o96sEDHcLnoAR6c4EbjbVkrlCkwfLMxn3aiUsR
+	 VEvUqIp7YdTT8MnDhgFPvtV5UIKJVEyE6ER2plp8UCyLzK5vZeSzntYz0ygmyXIXz7VH3
+	 bSDFX5wWpAjuTjQUPzcGoWVweIWSb/gcRlDExrmGBZu5nawR0L6Ykw7N7emEKcfzXn5B0
+	 uq/zbw9wYyFN+4co7JHSPuAbRuzCA32kKwGh5EmzCLOI3+zIjFi9q8+bVGcW+a4ShFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n8nOj49r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fDrFrceU;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCE3606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:13:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4607606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 11:13:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4607606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n8nOj49r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EC51F000CA;
-	Tue, 24 Nov 2026 11:13:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795518787;
-	bh=+3pgKqckFllVK7kDPqZiEbjUEoTDygESlUvXMjcmBRI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=n8nOj49rZgXWBn9Ce5Co9gtyYLml+05qGlPLQoZ3VoKwXU+K8bC7KXtZ62Ou68CxW
-	 mHCRGLh24y5msiL/r+RO+4Kp8A3c7iNhQT/1HPMMqbjiYIEOLqWEU8yQ0thwhF3QHr
-	 Tx4IUkHbAMLRiKDP2G2iOzmjYi2XQklJZU8BMMJAXNT/FF28Lx5jDtD23DcgDqLNG7
-	 ftiaBxnlLMrMLPhYWe1ln71q2F3AURUEv+ivWEFlPEhL0UrPHz8kbnklCpTsgpGscr
-	 hewnHvIY/TOO/nbg1CRBf7i6hmprK8WIvr09iAbCxyKQ8PfKOi8T9bgxy38TXd8X/t
-	 tTcscUlgGaT/A==
-Message-ID: <sashiko-outbox-231023@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: Introduce Seca SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yadu M G" <yadu.mg@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <d92391a0b2ec19bd4d8ec0c4eb988cb0c8176b28.1795517711.git.yadu.mg@oss.qualcomm.com>
-References: <cover.1795517711.git.yadu.mg@oss.qualcomm.com>
- <d92391a0b2ec19bd4d8ec0c4eb988cb0c8176b28.1795517711.git.yadu.mg@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 11:13:06 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fDrFrceU
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so33707025e9.2
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 03:13:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795518829; x=1796123629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yG2dCjBS4ggkEY33xu61CfV0q36FoceeadD9K8iGVnE=;
+        b=fDrFrceUJv2oPRnXubjKtGLG+//ACaWZciX3qP56yxOm3nopWl0wgIQ++FBrvZ/FND
+         t+mik1xF3OpSkYh5yrMsgHkPM7lLYYsgI6Qrpav/Ug+9pOCG05LMQHU85uTVn7qCEHnG
+         BjOQ4zkPU9OGRN0OUd3Hf3S/Krklu3OETxGINuy8OWRI1EjY3U6ZsfX+5S7eBLXJv6R3
+         X/JysY53uRRTFA/W5K15P04P9gMKFC9xRqEQ2Lfp9lhcKcbSNS908nraf4M06jknAlCD
+         kDW5IKkTMnc12m2kwY4RcyDqpCS6GL5mmhOqPkkXfK3gSpX6VoLuofCXNce6sOSlKVzD
+         fucA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795518829; x=1796123629;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yG2dCjBS4ggkEY33xu61CfV0q36FoceeadD9K8iGVnE=;
+        b=S/olbsKmVRiQOGhRYBgWS1TI4Xna3xZdDRD6g6QcZiS8xRmdFtlCsLIKDx8S54Gt+G
+         ApaHQrnJBRzjexvXMZiMtzsd/tFHYv7t3ASpWQllrz699uq2PFv0TZ49UEUdWNhORfb+
+         40jitVTaWTV3ZwEox2A70Rqc+iSIIOaiQrpHIcMoi5Sv7wKkx2e+e2p2PgjcH1m3+xKk
+         rnUuRP5RzOBP8JERSqn0AdtC7dHjKOWNi7Zj9qDJLUWcdT6S59w+sdVH+VVZKL9ykgmR
+         3peaSXiCS30TCkqxSaR2tikN1vcm//jeVAYFoSjrpI6nQAwI7qMEiqLTPj+GQY71Abo8
+         kWdA==
+X-Forwarded-Encrypted: i=1; AL+hErEDkhb8JLMMeg7epkHrDyxBKCki0f+MMLOTPVW+PeoLQgdXnJ3deSxnKpkgwxXGWzB8QDckimlQrCJT@vger.kernel.org
+X-Gm-Message-State: APuU4Z9A8aiHMcsXrMLx36DFus1l7U+/6sgNIHI19SAd2rlV8OrMXv5d
+	AQBqBeyV3fxFOnAU1W72o6nI007QETFMYcrmjvQLzPUcwN7pTH3+zG6J
+X-Gm-Gg: AZFdTZfPc5S3tYFWOEjCwboJ281GML9L+89gx/fkDdkcLTozq5+VNl+BkmWiag7gCuO
+	/c0XPgLaJm1uTaC9okFKilSlUEsSvZUxYY0hKUPEaDb2iPWROGr4Fyl6jVYOT/EM6KFMctN4diL
+	VRIhoqbYIqkH+PwzdAfQ5p7BWZgrDIgFpeldBrnMEOKJ3x6Dvm+u+h557RNX4zrUDDvQNELhV9t
+	gPPp52b1ZkB2GlLL09y7rZeqgw5FlZECF7/sQPUe6LaZIA5sO53YcMXTZJxekLWG56V45xVBq20
+	UyJlzEXMVy0psuI/jYZtY2WQFpSJlOh0xuz4L2F5CvfU1oz9ceAEPtLSW1yLYqvt8+sDRs2Y5Z4
+	JB0Rt/37eL+x4lb+RCqwlAjb184Od+nKXaJgPthfcWoTOf6toN2VBfu4f5la87+WZNSzqo7ZGr3
+	MHOAlIYEqPKe6AA0UpGfGl7TA4NgM38T4DiBt7XoblRQWJyFKWj3B3nRYBUxG7kc2A/rrhoaYTk
+	T4HqGCvuWVsE73BuBQl5pLkAXdxyAP2YE9kHHgcwanALz9h22o7JsM9BAAI9TVJx0TFN2jWN0hC
+	LGurfeQ8tYbblgy39rVkPLh2qW7nUsnfMX1J6330/06HZBM=
+X-Received: by 2002:a05:600c:1d8c:b0:4bb:5345:606b with SMTP id 5b1f17b1804b1-4bb8882358dmr285246895e9.31.1795518828812;
+        Tue, 24 Nov 2026 03:13:48 -0800 (PST)
+Received: from localhost.localdomain ([79.117.198.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2d55sm27642918f8f.5.2026.11.24.03.13.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 03:13:48 -0800 (PST)
+From: Jose Nieto <jnieto.alaber@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jose Nieto <jnieto.alaber@gmail.com>
+Subject: [PATCH v2] arm64: dts: amlogic: khadas-vim3: add SPI NOR flash overlay
+Date: Tue, 24 Nov 2026 12:13:33 +0100
+Message-ID: <20261124111333.33734-1-jnieto.alaber@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103164730.160593-1-jnieto.alaber@gmail.com>
+References: <20261103164730.160593-1-jnieto.alaber@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,124 +105,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: seca: uart19 specifies GIC_SPI 584 instead
-  of 587
-- [Low] arm64: dts: qcom: seca: GENI I2C and SPI nodes omit address/size
-  cells
-- [Low] arm64: dts: qcom: seca: memory@80000000 hardcodes 2 GiB size
-  instead of 0
-- [Low] arm64: dts: qcom: seca: watchdog@17826000 uses deprecated
-  qcom,kpss-wdt alone
---
+The Khadas VIM3 has a 16 MiB SPI NOR flash (W25Q128) whose data lines are
+shared with the eMMC D4-D7 lines. Add an overlay that restricts the eMMC to
+4-bit mode and enables the SPI NOR controller, exposing the flash as an MTD
+device.
 
-commit cd118f7edde6b22c320982447575045a1e79989d
-Author: Yadu M G <yadu.mg@oss.qualcomm.com>
+The flash HOLD#/WP# lines are wired to the eMMC D3/D7 nets, so the
+nor_hold_wp_pins pinctrl group is intentionally not used.
 
-arm64: dts: qcom: Introduce Seca SoC
+Signed-off-by: Jose Nieto <jnieto.alaber@gmail.com>
+---
+Changes in v2:
+- Keep the original BayLibre copyright and mention the U-Boot
+  meson-khadas-vim3-u-boot.dtsi origin (Neil Armstrong).
 
-This commit adds the base device tree include (seca.dtsi) for the Qualcomm
-Seca automotive SoC.
+ arch/arm64/boot/dts/amlogic/Makefile          |  2 ++
+ .../dts/amlogic/meson-khadas-vim3-spifc.dtso  | 28 +++++++++++++++++++
+ 2 files changed, 30 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso
 
-> diff --git a/arch/arm64/boot/dts/qcom/seca.dtsi b/arch/arm64/boot/dts/qco=
-m/seca.dtsi
-> new file mode 100644
-> index 0000000000000..ae557be27e98f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/seca.dtsi
-> @@ -0,0 +1,3339 @@
+diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
+index 57bc440fa55c..3714cbaaa03e 100644
+--- a/arch/arm64/boot/dts/amlogic/Makefile
++++ b/arch/arm64/boot/dts/amlogic/Makefile
+@@ -23,6 +23,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-g12a-u200.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12a-x96-max.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-bananapi-m2s.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3.dtb
++dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3-spifc.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3-ts050.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-bananapi-cm4-cm4io.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-bananapi-cm4-mnt-reform2.dtb
+@@ -104,5 +105,6 @@ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-x96-air.dtb
+ # Overlays
+ meson-g12a-fbx8am-brcm-dtbs	:= meson-g12a-fbx8am.dtb meson-g12a-fbx8am-brcm.dtbo
+ meson-g12a-fbx8am-realtek-dtbs	:= meson-g12a-fbx8am.dtb meson-g12a-fbx8am-realtek.dtbo
++meson-g12b-a311d-khadas-vim3-spifc-dtbs := meson-g12b-a311d-khadas-vim3.dtb meson-khadas-vim3-spifc.dtbo
+ meson-g12b-a311d-khadas-vim3-ts050-dtbs := meson-g12b-a311d-khadas-vim3.dtb meson-khadas-vim3-ts050.dtbo
+ meson-sm1-khadas-vim3l-ts050-dtbs	:= meson-sm1-khadas-vim3l.dtb meson-khadas-vim3-ts050.dtbo
+diff --git a/arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso b/arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso
+new file mode 100644
+index 000000000000..9f57d9433ee8
+--- /dev/null
++++ b/arch/arm64/boot/dts/amlogic/meson-khadas-vim3-spifc.dtso
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2020 BayLibre, SAS
++ * Author: Neil Armstrong <narmstrong@baylibre.com>
++ * Copyright (c) 2026 Jose Nieto <jnieto.alaber@gmail.com>
++ *
++ * The Khadas VIM3 on-board SPI NOR flash shares its data lines with the
++ * eMMC data lines 4-7. Restrict the eMMC to 4-bit mode to free D4-D7 and
++ * enable the SPI NOR controller, exposing the flash as an MTD device.
++ *
++ * Derived from the U-Boot arch/arm/dts/meson-khadas-vim3-u-boot.dtsi file.
++ *
++ * The flash HOLD#/WP# lines are wired to the eMMC D3/D7 nets, so the
++ * nor_hold_wp_pins pinctrl group is intentionally not used.
++ */
++
++/dts-v1/;
++/plugin/;
++
++&sd_emmc_c {
++	pinctrl-0 = <&emmc_ctrl_pins>, <&emmc_data_4b_pins>, <&emmc_ds_pins>;
++	bus-width = <4>;
++};
++
++&spifc {
++	status = "okay";
++};
++
+-- 
+2.47.3
 
-[ ... ]
-
-> +	memory@80000000 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x0 0x80000000 0x0 0x80000000>;
-> +	};
-
-[Severity: Low]
-Should memory@80000000 use a zero size (<0x0 0x80000000 0x0 0x0>) in the
-SoC dtsi so the board DTS or bootloader fills in the actual DRAM capacity?
-Hardcoding 2 GiB here also leaves the reserved-memory carveouts at
-0x8c0000000 and 0x8c8000000 outside the memory range.
-
-[ ... ]
-
-> +		qupv3_2: geniqup@8c0000 {
-> +			compatible =3D "qcom,geni-se-qup";
-> +			reg =3D <0x0 0x008c0000 0x0 0x2000>;
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +			iommus =3D <&apps_smmu_0 0x12a3 0x0>;
-> +			ranges;
-> +			dma-coherent;
-> +
-> +			i2c14: i2c@880000 {
-> +				compatible =3D "qcom,geni-i2c";
-> +				reg =3D <0x0 0x00880000 0x0 0x4000>;
-> +				interrupts =3D <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
-> +				status =3D "disabled";
-> +			};
-> +
-> +			spi14: spi@880000 {
-> +				compatible =3D "qcom,geni-spi";
-> +				reg =3D <0x0 0x00880000 0x0 0x4000>;
-> +				interrupts =3D <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
-> +				status =3D "disabled";
-> +			};
-
-[Severity: Low]
-Should all 20 GENI I2C nodes (i2c0..i2c5, i2c7..i2c14, i2c16..i2c21) and
-18 GENI SPI nodes (spi0..spi5, spi7..spi8, spi11..spi14, spi16..spi21)
-define #address-cells =3D <1> and #size-cells =3D <0>?  Without them, adding
-child peripheral devices in a board DTS triggers dtc i2c_bus_bridge,
-spi_bus_bridge, and reg_format warnings.
-
-[ ... ]
-
-> +			i2c19: i2c@894000 {
-> +				compatible =3D "qcom,geni-i2c";
-> +				reg =3D <0x0 0x00894000 0x0 0x4000>;
-> +				interrupts =3D <GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH>;
-> +				status =3D "disabled";
-> +			};
-> +
-> +			spi19: spi@894000 {
-> +				compatible =3D "qcom,geni-spi";
-> +				reg =3D <0x0 0x00894000 0x0 0x4000>;
-> +				interrupts =3D <GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH>;
-> +				status =3D "disabled";
-> +			};
-> +
-> +			uart19: serial@894000 {
-> +				compatible =3D "qcom,geni-uart";
-> +				reg =3D <0x0 0x00894000 0x0 0x4000>;
-> +				interrupts =3D <GIC_SPI 584 IRQ_TYPE_LEVEL_HIGH>;
-> +				status =3D "disabled";
-> +			};
-
-[Severity: Medium]
-Should uart19 use GIC_SPI 587 instead of GIC_SPI 584 to match i2c19 and
-spi19 at 0x894000?  GIC_SPI 584 belongs to the serial engine at 0x888000
-(i2c16, spi16, and uart16), so enabling uart19 will leave it without its
-hardware interrupt and conflict with SE2 devices.
-
-[ ... ]
-
-> +		watchdog@17826000 {
-> +			compatible =3D "qcom,kpss-wdt";
-> +			reg =3D <0x0 0x17826000 0x0 0x1000>;
-> +			clocks =3D <&sleep_clk>;
-> +			interrupts =3D <GIC_ESPI 848 IRQ_TYPE_EDGE_RISING>;
-> +		};
-
-[Severity: Low]
-Should watchdog@17826000 include an SoC-specific compatible string such as
-"qcom,apss-wdt-seca" before "qcom,kpss-wdt"?  Using "qcom,kpss-wdt" alone
-is deprecated in Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
-and causes a dtbs_check warning.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795517711.gi=
-t.yadu.mg@oss.qualcomm.com?part=3D2
