@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.4.11.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795513278;
-	b=FghqZN9GaoQ9eKLuQfP6cYCu/XGxMfr50uun/eaz7kS9EXCJA1+qP19JjUo8s9lyNzvk
-	 XkcwKPYPA835jv710xS5r+fsuXQaqwFIYnuflo2Ee7SFOZEWlWZ3IZRuyTGy2gcVWEZTV
-	 Q4fu52O3vmjOGvkMglXsPnOv5NBVU61fmICa0Cem1axgPVxS7Ru90QBNDVuw8m1wFict/
-	 Oj9H0McQotZk0O9NUYA/32WOjfyRrXPsQ+Af023MwI72x/rDtcE7cSYTMQjHDDUiz6crg
-	 ONzwUkOCGS2fpJ7gL/3OUQecyhSzh0fvoZ5oV3PzQmsOI9wCeUE8s3+8QcmveCsVIow==
+	t=1795513279;
+	b=mipjXu/no7K+EPmGYtmNwKRNsx7CQmEoscAHJy88dSsy4uCP56bQ2S93xdk1FMKMZrkg
+	 btOCp5ZOt0T1OBOFBJ45wvNTzdPinNbsjKnwBwkucKQRnVLUjaKdYR6TLLRdMfO2/izpu
+	 5VYYTMVmE27UzLjNG+ZpKGufF/TdmDNVNJxYvegtJYUsi3jsMDe3TYVFYVgAaKLEMzyhr
+	 1+nHFLt450Bz3ljzjMwEKpK/SC0oFfMF4SThXX64r8TIDDkgbCPWXjg0Dyta2EULbqw/4
+	 1hbDiqycZh8ZXkKrWmgtK8xM+yNSIuM2KbzozzcN8b08kED5a/QJaKDGeYvrRJR3Etw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795513278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795513279;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8VaSaMbZoWGk+/ii61YiLhIWHCLEy76/DK7RhQ+sqYE=;
-	b=WjotA+w0HAW3PvDgI/e2RqpXv1dGxvJJOj2KFBP4lYHsejdJuKzpnmWhUytXZPkcic62
-	 M3LSOtYE6ah5nxh91MrXttBSoJRjj3lqdFzITRSHCfpTWpxWoUviY+Uf4TchNCJyWkh0k
-	 +lR2TJPzjq1S4IxM5Mitw0nH05LT30DiRUzx2Sqzqqeti7DXOWmRDKh4zV+4EWfxC9Tna
-	 Kh56xutqjATiLfL07q2RwiJ9A47ar2lxTZt2oqxV2kug3c4HQSO97FvCG+BQ5LSPxjdof
-	 BriEosrUQT7LtJrVgClMxW60ObGWlAnwBICidg315s/UwyTcFBJFbqRQ/UERYdy0bvw==
+	bh=v8mYkHbL0rYWnPLab7kWkuqKyftq+o+R4jpWEkQvtLQ=;
+	b=nzQZrcauKTbK5vo3qRb1MhC5m1VJrYfYbrwkznQMNBvforfIKk66qsvgSSB81dJQMUwb
+	 wfoYv7Z0ldsQs6KIQqZlotQD2rFGwGchwsA0DvluGGhpo7gGBWR5oKG0ZPuBDuh+bL7SJ
+	 bFf0yMDVDTm+5rLVkUud2z6On3UGjxVK+y+cqh8W1xd8JCf95N0DxnBiFvp7jFxMs3rui
+	 ClBE09d/El2E3SAzbcjZ0DqBP6fJ9hm2ASJBoKL6tUG6Uv3SgrTol/8pPAS/D+r8aFi+o
+	 AZMoykE5sg+eIAo4kiS6zvwqy4TMe/djo4xL4z5H3PFlOu5mOmLABpovsydcW0HMOYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=phrozen.org;
 	spf=pass smtp.mailfrom=phrozen.org;
@@ -24,17 +24,17 @@ Received: from nbd.name (nbd.name [46.4.11.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AB5606A331;
-	Tue, 24 Nov 2026 09:41:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6AB5606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A413606A68D;
+	Tue, 24 Nov 2026 09:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A413606A68D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phrozen.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phrozen.org
 Received: from [2a04:4540:1403:dffc:4a09:a431:737f:f29f] (helo=bertha10..)
 	by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <john@phrozen.org>)
-	id 1xVn1N-007e57-24;
-	Tue, 24 Nov 2026 10:41:05 +0100
+	id 1xVn1O-007e57-2y;
+	Tue, 24 Nov 2026 10:41:06 +0100
 From: John Crispin <john@phrozen.org>
 To: Lorenzo Bianconi <lorenzo@kernel.org>,
 	Lee Jones <lee@kernel.org>,
@@ -57,10 +57,11 @@ Cc: Ahmed Naseef <naseefkm@gmail.com>,
 	Rajeev.kumar@airoha.com,
 	upstream@airoha.com,
 	Weifeng.xu@airoha.com,
-	zhengping.zhang@airoha.com
-Subject: [PATCH v4 4/9] pinctrl: airoha: mux a requested GPIO through the IOMUX
-Date: Tue, 24 Nov 2026 10:40:54 +0100
-Message-Id: <20261124094059.3882014-5-john@phrozen.org>
+	zhengping.zhang@airoha.com,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v4 7/9] dt-bindings: mfd: airoha: add AN7589 GPIO system controller
+Date: Tue, 24 Nov 2026 10:40:57 +0100
+Message-Id: <20261124094059.3882014-8-john@phrozen.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261124094059.3882014-1-john@phrozen.org>
 References: <20261124094059.3882014-1-john@phrozen.org>
@@ -75,64 +76,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On a SoC with an IOMUX block every pin turns into a GPIO with one mode
-value, mode 0 on the AN7589. Add that value to struct
-airoha_pinctrl_iomux and write it when gpiolib requests a pin, so no
-SoC needs a gpio function with one group per pin.
-
-Without an IOMUX the callback does nothing, so the existing SoCs keep
-their explicit gpio functions and their behavior.
+Document the AN7589 GPIO system controller. It is a syscon with the
+pin controller as its child node. The block also holds the PWM
+controller, which a later series adds.
 
 Signed-off-by: John Crispin <john@phrozen.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- drivers/pinctrl/airoha/airoha-common.h  |  1 +
- drivers/pinctrl/airoha/pinctrl-airoha.c | 14 ++++++++++++++
- 2 files changed, 15 insertions(+)
+Changes in v4:
+- Add the Acked-by of Conor.
+- Commit message: the PWM controller is no longer named a second
+  child, as it gets no child node (Conor).
 
-diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/airoha/airoha-common.h
-index 7a0cb8924e71..adfce89493f0 100644
---- a/drivers/pinctrl/airoha/airoha-common.h
-+++ b/drivers/pinctrl/airoha/airoha-common.h
-@@ -111,6 +111,7 @@ extern const struct airoha_gpiochip_regs airoha_gpiochip_regs_64;
- 
- struct airoha_pinctrl_iomux {
- 	u8 mode_bits;
-+	u8 gpio_mode;
- };
- 
- struct airoha_pinctrl_confs_info {
-diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
-index c879e3009ee8..917fd948a9dc 100644
---- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-+++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-@@ -430,6 +430,19 @@ static int airoha_pinmux_set_pin_modes(struct airoha_pinctrl *pinctrl,
- 	return 0;
- }
- 
-+static int airoha_pinmux_gpio_request_enable(struct pinctrl_dev *pctrl_dev,
-+					     struct pinctrl_gpio_range *range,
-+					     unsigned int pin)
-+{
-+	struct airoha_pinctrl *pinctrl = pinctrl_dev_get_drvdata(pctrl_dev);
+Changes in v3:
+- New patch, split out of the pinctrl binding (Lee, Conor).
+- Name the PWM controller, the second child of the block, in the
+  commit message (Conor).
+
+ .../mfd/airoha,an7589-gpio-sysctl.yaml        | 66 +++++++++++++++++++
+ MAINTAINERS                                   |  1 +
+ 2 files changed, 67 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
+
+diff --git a/Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml b/Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
+new file mode 100644
+index 000000000000..0785b61bdda3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/airoha,an7589-gpio-sysctl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	if (!pinctrl->iomux_info)
-+		return 0;
++title: Airoha AN7589 GPIO System Controller
 +
-+	return airoha_pinmux_set_pin_mode(pinctrl, pin,
-+					  pinctrl->iomux_info->gpio_mode);
-+}
++maintainers:
++  - John Crispin <john@phrozen.org>
 +
- static int airoha_pinmux_set_mux(struct pinctrl_dev *pctrl_dev,
- 				 unsigned int selector,
- 				 unsigned int group)
-@@ -510,6 +523,7 @@ static const struct pinmux_ops airoha_pmxops = {
- 	.get_functions_count = pinmux_generic_get_function_count,
- 	.get_function_name = pinmux_generic_get_function_name,
- 	.get_function_groups = pinmux_generic_get_function_groups,
-+	.gpio_request_enable = airoha_pinmux_gpio_request_enable,
- 	.gpio_set_direction = airoha_pinmux_set_direction,
- 	.set_mux = airoha_pinmux_set_mux,
- 	.strict = true,
++description:
++  Airoha AN7589 SoC GPIO system controller which provides a register map
++  for controlling the GPIO and pins of the SoC.
++
++properties:
++  compatible:
++    items:
++      - const: airoha,an7589-gpio-sysctl
++      - const: syscon
++      - const: simple-mfd
++
++  reg:
++    maxItems: 1
++
++  pinctrl:
++    type: object
++    $ref: /schemas/pinctrl/airoha,an7589-pinctrl.yaml
++    description:
++      Child node definition for AN7589 Pin controller
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    system-controller@1fbf0200 {
++      compatible = "airoha,an7589-gpio-sysctl", "syscon", "simple-mfd";
++      reg = <0x1fbf0200 0x100>;
++
++      pinctrl {
++        compatible = "airoha,an7589-pinctrl";
++        airoha,iomux = <&iomux>;
++
++        interrupt-parent = <&gic>;
++        interrupts = <GIC_SPI 82 IRQ_TYPE_LEVEL_HIGH>;
++
++        gpio-controller;
++        #gpio-cells = <2>;
++
++        interrupt-controller;
++        #interrupt-cells = <2>;
++
++        mmc-pins {
++          mux {
++            function = "emmc";
++            groups = "emmc";
++          };
++        };
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c6396842f6c3..93eb6bdb077e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22269,6 +22269,7 @@ PIN CONTROLLER - AIROHA
+ M:	Lorenzo Bianconi <lorenzo@kernel.org>
+ L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
+ S:	Maintained
++F:	Documentation/devicetree/bindings/mfd/airoha,an7589-gpio-sysctl.yaml
+ F:	Documentation/devicetree/bindings/pinctrl/airoha,an7589-pinctrl.yaml
+ F:	Documentation/devicetree/bindings/pinctrl/airoha,en7581-pinctrl.yaml
+ F:	drivers/pinctrl/airoha/pinctrl-airoha.c
 -- 
 2.34.1
 
