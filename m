@@ -1,57 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795549155;
-	b=Tb5YimwpaUPF0xJ8RMZpcNEtZzAs9fremj6AaKWJqCygR9dbU9IbqxGyPnTstbkS7urN
-	 0xnA9uIhgwebOgbkB2NK3+ImboPu9OjDpsTKB+c85ZbNxOH+rs26FHhU1BycRxn1eKere
-	 PjSpQHCcKJWgZ50Y165FpNteWPJtiYYjEJ+Ys5jRr0LFwAYdL8HW5P8dKoZGh2FqBSWXH
-	 Gha13Q6UmAqIoTRV2M+P84Z6/zOf2dc25RaF/rh/3I8ro2KpOM2teSugiSR3XAUwHdxf/
-	 M5cPU7czZLHWAIwzBZLVYJrG78S+yi6RR8SXODvU4ugUVdWAGU+StqEwNi1WCLldbTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795549155;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=rNDM8c9PoF7vdxbxPy4VFHaRlC320YkECGNtf/5fyYg=;
-	b=aRik1e8P4CGrXZOqPX+lv1b71q2aa6B9HMMhKWjVjC3GfYkBPN6K94ggpaKdhGOvsjd2
-	 RDIRuuERLDieUzzvdBy9azqAA9EywO2ON7TnQZHbeFB+uS0MmvNr5p1XGZGFGWczc4uX1
-	 zzjW9/XQIgJfDppzN8RwSjrD4XYpjfCZOr1eTxv3SaFIpa93ZOLxu7io9BJHAKm46hOUs
-	 cC4dVRK2kOQlK5JAQewlpUpZ5OXuhInjY8Yw2CeBWHjj3M55N4moTQy6qt/JWQfZzeznf
-	 3PNOLYPZFcAgkU/NZ1YftXQpolBL7LAKw3ElzvqGUk7xmOlwpTwc9QVVOu3Jfov5NnA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxUlcLaH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.8
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795549201;
+	b=Em+CvHd4sO5eIwaMN0KjT+jurpxHM+xHrVby1Rbqv4ICHTZtCpYw9uwZ5Pd4OF+M5F/P
+	 lWNiQ2VzkfagYV4eV0308IKG3m5O5iqToF6SSDE98pimkfFojTetfm80uwII2c/BEArnU
+	 C0NNvjIcNW75l2BiZGE7dEb9FFUaY+VLEVBfvEs25l6rTKEexaw6fbPE6FPAH0jjTPbu8
+	 rv0Gc5WDQiC28w/hs7+VY2z1UEoSO1OyJonN0bmejn34u8IH3L160XHG43yvFza+6ERxD
+	 ddWXUC1M3sbMBh62EtZyOCClDqD6q7IumJfZey4FomYH4EWolmW9JEdW7ECBghBRznQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795549201;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zaef8mz71ctWnLNnuos221O8qcYMWVjUMciwRjPURmc=;
+	b=vXVZcZd2/P8zroNQ236FAFXwX9Ic4P/ykuB2ohlMF8CoJ7JOvFqOuAqN3Qaexfrjb4ia
+	 pNWgl8A3ECYPe+3+FB1mnBu13S4w+QmWYQHHTZa4W2t2anp9RCCP5UbRbHJ4rGBesnT8p
+	 tczCT3Lz6f/A7OC1Mds11PtNBCRrvxPzMm7eSTlP/SdlgGiZCArhm6qybk/4cPga5+9zd
+	 Su0RTFZ9OWH7i56VFj7OeF40unYmE9XR+KJyRDRnjvks3aMXwiUPvK7ODhAQpwgr+sFvB
+	 aTK2yYBroJQ1d86zO3JlHlx2giX2Ot99Np9FC0lcB6lSoV+kRDrpVkt58pCkjl/xjqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lJPu6rW7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.8
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013008.outbound.protection.outlook.com [52.101.83.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9FC606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 19:39:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C4F606A321;
+	Tue, 24 Nov 2026 19:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C4F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxUlcLaH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC731F000C0;
-	Tue, 24 Nov 2026 19:39:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795549153;
-	bh=rNDM8c9PoF7vdxbxPy4VFHaRlC320YkECGNtf/5fyYg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PxUlcLaHD8De9f2K7PhjuAYhY/VZea6gidgnWKJCfsuVG3gWHMqsngKCqzhGkdhhX
-	 JJ114rp4Yknsf2Ziub9S95qZbWand2xAnnu52o6BkSLY7ncgnW8SQ1pySxQOUZwQax
-	 x56pXenwgtEY2o0XN9yeZpLik7h06G90jZ2k+935+UxzngCxKkSwdxKwV0RvGCnOS9
-	 zR6jZposZeIkdU0PoLM8ezamYZYqEeHk0OwY+KSM7bxF3We5HD5jqD0i1vq4AwLWzP
-	 Rxq+0ECgQLidvzxPXwcf60X+7fDYq+qPw3Hn9tvXlSK92gnXEunQxWSbqDj1qQ6cdr
-	 m++wBAmWRnLrA==
-Message-ID: <sashiko-outbox-231900@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/bridge: Add Lontium LT9721 HDMI to eDP bridge
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gianfranco Mariotti" <gianfranco.mariotti94@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124191803.283266-3-gianfranco.mariotti94@gmail.com>
-References: <20261124191803.283266-1-gianfranco.mariotti94@gmail.com>
- <20261124191803.283266-3-gianfranco.mariotti94@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 19:39:13 +0000
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lJPu6rW7
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FDHSlbXlBC8prej9il+MbH+LicRjtLs9k5T/Pdyp5v93bonesgdSqvswwcrbXKRQMrJSrdiDoUf1PYeEW6e0lpxXSfKw/GDSRuZwUWz62GIkFzKSbh6cEXI/plBifjbwOv6RvLncxzT1sIeZFLG5sIe00cSybdFANXVDkWl8rbcSp+A8uK9gJ6HGIOvx912lixdEFNH2SDv0YVXwIcR0p5/rAOMfkQSHNmu4G2v74hftWjPcJ5rttoh5H2DjPE6A8HbBYbNs7vpUhO6TWMOqzYzBhoCq1ozbZoA+o1of0eRg3z37xYTpiJ0e0u1/LIA83GWDaEtplomeROLL8hqZsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zaef8mz71ctWnLNnuos221O8qcYMWVjUMciwRjPURmc=;
+ b=AzHZx5zg1fG2hWUlMvv6OAaALSPylTxcNcwjJwtIGRVPXbB6kt5AdR69VpzsOv4XTBSIenBO1G8yB97tVl4F8P+I9qksVgtDfgvav6/mdBugirDAVGoE63O8vwRB4cHA516IDea4OWhKURg0eTpV/f0PpyhEvMLrFA4v221tPiLgS5p+8HE6bMQsnrgLIltmzMKUGwhaadcJvhLKVBafO53uqBDVytmjHIzAPOkkNwGChAH1sNP/0UXxSb33GGZ1gfxTN3w9u+JCFnBx+7X8I9jCTecTHpxK1/x56Wp9shPYPgtF/iYT5xCrCo9DBOJNlqUxksh1obSPIn3WwrRt2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zaef8mz71ctWnLNnuos221O8qcYMWVjUMciwRjPURmc=;
+ b=lJPu6rW7FeK+yjFfwdyKM/IUaePrsRBiNLoye3wfIZPPbaMmwja+9WxbtMD+XNg+0cwjpcooLqVS0gye2LX5gBXCirEbxhsHY7/2ZHYXAkXGlGTQ9p+fOl3It8KDG/JsMgjSBQiI/66iYG/61AFwoaFlE4vdaYDRdBpodu5WKS+0THfEYWUr3U3B2hh0LlNCqHOasIy1g9lj66cVrPqI1Je8RY/eAdm1D4sxuW3pb6X45sxSBaqUTw/+jhgHiqKX8oATwOD+hq7834iurwtl4Btk19z2bM7M+Cmy0zyZ5NoeAnu/eDMH4SCQ5E/M22u2lC2XDwua5EXeSHRehKl9LA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by ZR6PR04MB759890.eurprd04.prod.outlook.com (2603:10a6:910:db::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Tue, 24 Nov
+ 2026 19:39:56 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Tue, 24 Nov 2026
+ 19:39:56 +0000
+Date: Tue, 24 Nov 2026 14:39:46 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Saenz Julienne <nsaenz@kernel.org>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Dom Cobley <popcornmix@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 07/28] dmaengine: bcm2835: Support common
+ dma-channel-mask
+Message-ID: <awXoAqQhSWa95FH9@lizhi-Precision-Tower-5810>
+References: <20261123145728.29082-1-andrea.porta@suse.com>
+ <20261123145728.29082-8-andrea.porta@suse.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261123145728.29082-8-andrea.porta@suse.com>
+X-ClientProxiedBy: PH7PR03CA0028.namprd03.prod.outlook.com
+ (2603:10b6:510:339::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,142 +110,108 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|ZR6PR04MB759890:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e17fe7c-aa45-4b25-52f3-08df4a62b81e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|19092799006|1800799024|11063799006|56012099006|10067099003|261026121527099003|4143699003|261026140227099003|261021121427099003|261028144727099003|261022105027099003|261102123227099003|261021123027099003|18002099003|22082099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	95iLH501GGIjfiK+KMJqbVrsti7A5KXx7SnXEFNWgWgfXyFbtnD4/WI8IIuXVrw19vxHEsBWD7vLusr09lbLpIIY5khbnInT3HXdGcVf1SdtTf03dchUg1e40duDEwQilVJR0XbXQ9StdjoezQ7q58h6iWg6ZR1RHfYh9yKI2mKXCDx+UXuKp3Z5ifLcLAdwjGOkB9Sz4k3fkFReNfIsO9riL6Y8yWS9dZXyp1pRDpTPucVxPfe7Gc8O+hQIV3PwoZYpKhap5kg7dj1T5LGxBhPDmw6l8H7RBkBn4xpc0+JX7fZYN71PsRZTpU6eU/9C4AWrhfrFMIE5EDqZUSHhyb31yUqeLaXTfxBRbqBYgev7Oja6RWYpSkVLfInMZxHUozeEzzpNc5COzStdEqau7cunKxfvEUlWN9ThoQ7KNSBFeMh8axeJh8furOMGn5b2hAvoK4a2NlNvC7feMcfvZumzkUXZP9TbaDJnM41fXEoLPk/Ke57vcwWm3Uws1z0uYXXxhzIfN5acLeXaNYGkaPHvYGERaGL3Q8hesYa9s8JsEfqgunhXBiHR8g8BitCtptw7CG8hkElEUEFqZbuJWaxf8Zibt11Np1fd5OqShIS5GGYnpYl8qpLQHSEY34txcsuPy4gE/m7IeuBkcgqojtje222BbA5ZrsndT6/U2YM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(19092799006)(1800799024)(11063799006)(56012099006)(10067099003)(261026121527099003)(4143699003)(261026140227099003)(261021121427099003)(261028144727099003)(261022105027099003)(261102123227099003)(261021123027099003)(18002099003)(22082099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Q68B8ag1oeoQWvhxf8HaAkBSsqDHWTL7W0jEye77GOl/pfSLG3hb4OyLHqR7?=
+ =?us-ascii?Q?6T+OXHfo3M+4/JEYlTYY8NLMAWbEnR8rIkzK3xpGxp0EaSxbNvDk4lYUM/sV?=
+ =?us-ascii?Q?ueo+Mga2cDm9Rem8he2SzqK3qfMF10WmLFpz5TRhJ2tsZdHHbdIq5XmzdEly?=
+ =?us-ascii?Q?/zgjr5/NMBqqoD71o2gvKwltbhSkWyyDhT2nW+U0rUDCDXj6Jh0MM7FlOT7G?=
+ =?us-ascii?Q?N8TdpFTDVwTlJRZSOclhvXPJ2X3N0OVsTWXcwBC88AsNe8MeOLyvlvW4/shm?=
+ =?us-ascii?Q?SriIWLK65IpXlF0JaKt9Z4FCW3Mzzf9G2WGJn+5nRjXc6OIn4frLmoR5OKtQ?=
+ =?us-ascii?Q?nWanGP/YMKM0h5KWjQHuPHSurXY4vafJ3BqOBeJ0QUFsd1IweVcVfmTbiWsL?=
+ =?us-ascii?Q?iDLuTmzXbU/fRfG4NRaixB7cMVaT5tw1CJklerUmJowXvyZPyoJvUchL1HKh?=
+ =?us-ascii?Q?BtueBa4cmYrL/1DZbETEFKLa99Px1o08GJ9a/qxE6KgkXL9cd+48D3GyXN/N?=
+ =?us-ascii?Q?PfHCdb2zzP8yC6iUpwclmISLAGLdWDV3FoxUtE5VtOIKHjuXYgGXmcZaKTj4?=
+ =?us-ascii?Q?LJPfmb/65nngWCptvLxeN3TW79hdP0tQnYBvqwYyyPGSfFg92LnKUgEW3A8c?=
+ =?us-ascii?Q?2AVPt+aA7jhiqSEFIOdFJCsWJ/thr+Zjx4hAN/rrgAA8Jmsf5h2FxRc/jch+?=
+ =?us-ascii?Q?9oE0sHMSlMpBCOTMELD62aSdXry6mcjLMTXgopqjkamQuDp0VZC3npyDJdha?=
+ =?us-ascii?Q?7Et2v5Q2Qtc3FLL/DgCW2IUnBkxWqR3AQdEh1qwK1Zhq91ntYk0l0cfkAmxD?=
+ =?us-ascii?Q?jx+XZifEb3dw/pjVt3QvS1JKAjaLZ/vuavwnXrM5CJr6zNkK6sJ/Oo89f0k1?=
+ =?us-ascii?Q?7o3J5Rk9/R5XCr4IVuGd4mPhDydBt9RYzdWucyAuuuBqfZGo843v7LFPi3/3?=
+ =?us-ascii?Q?ie9bnIuDxhgqjONRhew4wgegnvM4TcVcxtVLGfPlDy3Hgr9G0k47Cs18zPG7?=
+ =?us-ascii?Q?qITa3zOQSPt1hVGS9NzZWsyZnl3G6q9lsxpmGNtyWTom6PmhR85RKK2kZ9bS?=
+ =?us-ascii?Q?TtTkcu8cIBzRuNdoHMk1dYusVDPVA3o0wJhsgW3+s7yIIz//LqNwsOAOJhoH?=
+ =?us-ascii?Q?2hscQ57adia+hciGo6/n4iUSMVpcXiDsXKu7gIzwBNEGNOXuDDLoRBryXCJK?=
+ =?us-ascii?Q?5Rj1SJRyYON041aCUiIsss46NlzzSLWED6NBd5daMPlTe6Hoy7rJ+46PDaQp?=
+ =?us-ascii?Q?+wvlfCdwtLJddq5odkhTKxYW/xTfECoyGqVOqeuGx7nV3WQ2bHups/Cy55KU?=
+ =?us-ascii?Q?/VWsg6slP/ayBxtcMsIkbR0TQXgqEzmEFNFLQJRbbgzB6zHjpAPl0Rq5qCXg?=
+ =?us-ascii?Q?HnEP/9UK/2tfa6+FgXgNYfTtBcLb8Heia6bL5k7bXBSzi8OXFsr11tN4Czta?=
+ =?us-ascii?Q?Y2o64LdCPlbu2fRSgOcLdQzKx8GRYhKqiUwtc+zNqCF50ng2JIcUXpUzbA7p?=
+ =?us-ascii?Q?pQlt6cTLKcq4HHDwnSuk6h5U1MxbEi60zlwzTLBVNvg548yrWN/iCFHmP2/E?=
+ =?us-ascii?Q?yzGSUHyIWbQE5K04wrtKauS4jWD8XyV34w0kcIUD6U/t5gbakr3Eu2Plvp+B?=
+ =?us-ascii?Q?50AVgfxeW8WupEl+YzYcSES0c2HsaOOHBELIyMF1Zu1hGOhmk7HmmFbQJeSu?=
+ =?us-ascii?Q?2lCf4bSF2B5DwDmtJQoN+2EMGFTzTSdxqi/qaJLZTswG+7/AthDnoHgTgylH?=
+ =?us-ascii?Q?uB3aKfn3z0nO0PuB4+GRtslbsaZ1Vi6VK1W+zfPQHB8as1ln5T4T?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e17fe7c-aa45-4b25-52f3-08df4a62b81e
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 19:39:56.6851
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DLtTuZnukIcDfY1scIdpqPs9XjE1x3NMZCeQT7f/tNlRkFaKMrfhh8NEMoWFNZN+HeQG3n6OlZg1I2CcSyUPnrDIrehgfYhnYe3Lrm83jYXmq2s75Pup0323IkxXj6iP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB759890
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] drm/bridge: lt9721: refcount underflow on next_bridge in
-  lt9721_link_panel()
-- [Medium] drm/bridge: lt9721: off-by-one partial write count in
-  lt9721_aux_transfer_i2c()
-- [Low] drm/bridge: lt9721: missing DRM_BRIDGE_OP_DETECT for panels in
-  lt9721_link_panel()
-- [Low] drm/bridge: lt9721: positional initializer in lt9721_i2c_ids[]
---
-
-commit aa23cf54f8347a08ccdc8bd2c65d1c07c8f8ba0d
-Author: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
-
-drm/bridge: Add Lontium LT9721 HDMI to eDP bridge driver
-
-This commit adds a DRM bridge driver for the Lontium LT9721 HDMI 1.4 to
-1/2/4-lane eDP 1.4 bridge chip.
-
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9721.c b/drivers/gpu/drm/br=
-idge/lontium-lt9721.c
-> new file mode 100644
-> index 0000000000000..582e9e59dfb4d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9721.c
-[ ... ]
-> +static ssize_t lt9721_aux_transfer_i2c(struct lt9721 *lt9721,
-> +				       struct drm_dp_aux_msg *msg)
-> +{
-[ ... ]
-> +	if (is_read) {
-> +		data_len =3D min_t(size_t, msg->size, rx_cnt - 1);
-> +		for (i =3D 0; i < data_len; i++) {
-> +			ret =3D regmap_read(lt9721->regmap,
-> +					  LT9721_REG_AUX_SOFT_FIFO, &val);
-> +			if (ret)
-> +				goto out_drain;
-> +			buf[i] =3D val;
+On Mon, Nov 23, 2026 at 03:56:45PM +0100, Andrea della Porta wrote:
+> Nowadays there is a generic property for dma-channel-mask in the DMA
+> controller binding. So prefer this one instead of the old vendor specific
+> one. Print a warning in case the old one is used. Btw use the result of
+> of_property_read_u32() as return code in error case.
+>
+> Signed-off-by: Stefan Wahren <stefan.wahren@i2se.com>
+> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+> ---
+>  drivers/dma/bcm2835-dma.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+> index 51e3a40dbaec..1087157fb242 100644
+> --- a/drivers/dma/bcm2835-dma.c
+> +++ b/drivers/dma/bcm2835-dma.c
+> @@ -991,12 +991,19 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+>  	}
+>
+>  	/* Request DMA channel mask from device tree */
+> -	if (of_property_read_u32(pdev->dev.of_node,
+> -				 "brcm,dma-channel-mask",
+> -				 &chans_available)) {
+> -		dev_err(&pdev->dev, "Failed to get channel mask\n");
+> -		rc = -EINVAL;
+> -		goto err_no_dma;
+> +	rc = of_property_read_u32(pdev->dev.of_node, "dma-channel-mask",
+> +				  &chans_available);
+> +
+> +	if (rc) {
+> +		/* Try deprecated property */
+> +		if (of_property_read_u32(pdev->dev.of_node,
+> +					 "brcm,dma-channel-mask",
+> +					 &chans_available)) {
+> +			dev_err(&pdev->dev, "Failed to get channel mask\n");
+> +			goto err_no_dma;
 > +		}
-> +		ret =3D data_len;
-> +	} else if (rx_cnt > 1) {
-> +		/* Partial write: sink returned count M (M + 1 bytes written) */
-> +		ret =3D regmap_read(lt9721->regmap, LT9721_REG_AUX_SOFT_FIFO,
-> +				  &val);
-> +		if (ret =3D=3D 0)
-> +			ret =3D min_t(size_t, msg->size, val + 1);
-> +	} else {
-> +		ret =3D msg->size;
-> +	}
-
-[Severity: Medium]
-Does this over-report partial I2C-over-AUX writes by one byte?
-
-Unlike the 4-bit length field in the AUX request header, the reply data
-byte M returned by a DisplayPort sink on a short I2C write is already the
-exact number of bytes written (0 < M < msg->size).  Returning val + 1
-causes drm_dp_i2c_drain_msg() to advance msg.buffer by one unwritten byte
-on each partial write.
-
-[ ... ]
-
-> +static enum drm_connector_status
-> +lt9721_bridge_detect(struct drm_bridge *bridge,
-> +		     struct drm_connector *connector)
-> +{
-> +	struct lt9721 *lt9721 =3D bridge_to_lt9721(bridge);
-> +	unsigned int val =3D 0;
 > +
-> +	if (lt9721->is_panel)
-> +		return connector_status_connected;
-> +
-> +	if (regmap_read(lt9721->regmap, LT9721_REG_HPD_STATUS, &val))
-> +		return connector_status_unknown;
-> +
-> +	return (val & LT9721_EDP_HPD_STATUS) ?
-> +		connector_status_connected : connector_status_disconnected;
-> +}
-[ ... ]
-> +static int lt9721_link_panel(struct drm_dp_aux *aux)
-> +{
-> +	struct lt9721 *lt9721 =3D aux_to_lt9721(aux);
-> +	struct device *dev =3D lt9721->dev;
-> +	struct drm_bridge *next_bridge;
-> +
-> +	next_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
-> +	if (IS_ERR(next_bridge))
-> +		return PTR_ERR(next_bridge);
-> +
-> +	if (drm_bridge_is_panel(next_bridge))
-> +		lt9721->is_panel =3D true;
-> +	else
-> +		lt9721->bridge.ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
+> +		dev_warn(&pdev->dev, "Please update DT blob\n");
 
-[Severity: Low]
-Should DRM_BRIDGE_OP_DETECT also be set when drm_bridge_is_panel() is
-true?  Without it, drm_bridge_connector_init() and drm_bridge_detect()
-never invoke lt9721_bridge_detect() for panels, leaving the
-lt9721->is_panel check unreachable and failing to override an upstream
-HDMI bridge's DRM_BRIDGE_OP_DETECT.
+"Please update DT by replace brcm,dma-channel-mask with dma-channel-mask\n"
 
-> +
-> +	lt9721->bridge.next_bridge =3D next_bridge;
-> +
-> +	return devm_drm_bridge_add(dev, &lt9721->bridge);
-> +}
-
-[Severity: High]
-Does assigning devm_drm_of_get_bridge() to lt9721->bridge.next_bridge
-underflow next_bridge->refcount when lt9721->bridge is freed?
-
-__drm_bridge_free() unconditionally calls
-drm_bridge_put(bridge->next_bridge), so bridge.next_bridge requires an
-owned reference.  devm_drm_of_get_bridge() does not return a reference for
-bridge.next_bridge to consume: for a panel, devm_drm_panel_bridge_add()
-already registers devm_drm_panel_bridge_release() to drop its reference on
-unbind, and for a non-panel bridge, drm_of_find_panel_or_bridge() returns
-an unreferenced pointer from of_drm_find_bridge().  On driver unbind or
-probe unwind, __drm_bridge_free() drops an extra reference and frees the
-downstream bridge prematurely.
-
-Using of_drm_get_bridge_by_endpoint() (or taking a reference with
-drm_bridge_get()) would provide the reference that bridge.next_bridge
-expects.
-
-[ ... ]
-
-> +static const struct i2c_device_id lt9721_i2c_ids[] =3D {
-> +	{ "lt9721" },
-> +	{ }
-> +};
-
-[Severity: Low]
-This isn't a bug, but new struct i2c_device_id entries should use named
-initializers ({ .name =3D "lt9721" }).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124191803.2832=
-66-1-gianfranco.mariotti94@gmail.com?part=3D2
+Frank
+>  	}
+>
+>  	/* get irqs for each channel that we support */
+> --
+> 2.51.0
+>
