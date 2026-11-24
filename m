@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795531408;
-	b=P7wAFCsGEhqr6cH/OjtFGsyik1606q9O560B2xxkv5ggIuJeQ4YI0tQsTXmcHxH3ydyC
-	 VZe1j/OXSiIB8W2KgerhIjPdT3X5wPql45duHUO5r7tyIfUAHLRX45rUQMPb+bguCZ/yk
-	 sLvJzlBGw50iljDxHRmoTbuC9Ygit5GeOozbh7RLhiEXUeBInUYZ58UhJ2ZHLjPcSD+Pq
-	 YXr8YDiUtMUyXxR8/I2FIxIfBir6V15r5wXVQ6GmG13lPK+LW2+zMG4ynns7dJ/4+31U1
-	 hu/3CyjaY+z+1DjiqM42t7ZdWjJtAc8sQ6EkAkoVyPV/YemHCHvWVslde3ryjQlKvvQ==
+	t=1795531414;
+	b=cwCZBHZixEiK/NZz1t/JklZsvTGB2hVfFDVyRqBy0ef8MbBpdZ3UgNX8tx56JuoMwZ3v
+	 u+eO4ZSqD3HT2/Uc4iQ4ynMgiuM9mvz9QfQrKNA2SXSuRDGUn2hlM6wDFnvaCcR3DeGq6
+	 cI4QZ74Zs+vv8guimgpvVj4qsHi9AXmdk+kjDjdfZ8tDVhDzoogJ80nVhb94+5q4YgASp
+	 DzkacR2vrJpE+vBVph3pSTgXjSYdgVAcbsUHHSgFUEIE2SAv0w300Yb7nwA5xp7dH2FXJ
+	 8TxAAgVtnLey11lekcwCxHNV+9b0U2bYh8nUigHs9fGtXCu6iPW6z0u7/nCZ5QQiWkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795531408;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Mbpbveztx44WinZd0OoXNduwiZpW+0sT5m096jfRZC0=;
-	b=qVVQ4M1bdvCLIHniIFSR0SxSqQ0gVezfOxe4lItd9FTb/j8vnb5siMYGq1htU3K3lfXp
-	 jbU0Lac9nXKZtWp8lRRAEUWNAJxGkcdyCNrpb/rmO6BdbJkSV6ags6cYrGAVD8xkABI4g
-	 I8ec7N3oElhfV4WIht7Ke9ImwQvGNTmIUVz1Z5VMgzHgR1BEXW8ZBmunVTN0JhsuE5jhO
-	 frsfA+YqSwzYSjs2bZYzVNCEyBwHAVpNH1VRMjiF7FXaTyTEKG+64HEFiRHSrhuvs9/zd
-	 VLloubVOf4yWh3hrmoEjhWjsjZ82IOx+iDnKfzCbk4mjjG7cDPudQ/oUER43U3ifQ3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795531414;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=fw8x4cblT+9CNzcWzbTkTDNh6D8k6L4c3aTx+Ze1EpA=;
+	b=C7g6DS7A24JToYoR/K+CfgQlaNMI4/W85Gr/0qRJab53p8bEMK5diKv+mnikUetZJv2C
+	 m02OQukMi+9HpGM2zdihulCmNSwW0SzxUOHw0o/HvOsbENZ8kZ0Jkk0/LobmJz//RsRPB
+	 s08lGOpaCC1cZSkjCWP3fj94DWwTtScoOat1RXzoozK4m3PTkCHivrtUtnOece3Kn15i8
+	 OtmdJgWiMHeeCyVW/ZZBqiTaOKIP7MRoiT5w2zQr3y86NAKswsyRuHhZQfWYPTZP4vEJ1
+	 eoiF6aRQ/gvYXbKkaQGVUP6s0ZIZrs6VWZW9RZqojnKzqHWQIamQXCju7UUWL5fNNWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=B2KRURmV;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wJWsrX7h;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E269D606A31E;
-	Tue, 24 Nov 2026 14:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E269D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B017A606A33B;
+	Tue, 24 Nov 2026 14:43:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B017A606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=B2KRURmV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795531406;
-	bh=+xcAFVyfZjCXw78iH5eaRb7q+NmVOvWAJooUbJ43vpY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=B2KRURmVMnzlSfh/3guyYTv0j1AWRjCGZuabqe/B3OntHxn9B6dKAJlHu3SsD0SmX
-	 LVx7ce9h7L/4YDDzakQDdcWAV5/SuxSmQdgV9W4q9R3Q/+FadUwYCgwbpDXfwx/tTL
-	 YDOcAga1u2SeU8oIAoUCrt+yi1oenovqKr0WL994FrkADzRCCR7p1TGPJ3rSPs7lhg
-	 DohKMBp6gc3i+Tye2dAgBd45g8euDbjJaI5s2Yrds/IbAWjjsiKDXGXkqveYe/14NK
-	 idOJPckaCha8mz4XAFBjFkKfjPJgAsyYB5ypR+h02NteusfcQz7da1fm/ePzS4rn08
-	 aAf3b6kdgfguw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4C90117E09ED;
-	Tue, 24 Nov 2026 15:43:25 +0100 (CET)
-Message-ID: <05cb7522-7894-43b1-8bf5-96a1a3792289@collabora.com>
-Date: Tue, 24 Nov 2026 15:43:24 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wJWsrX7h
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C7AB9C2C65E;
+	Tue, 24 Nov 2026 14:43:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3921A601E1;
+	Tue, 24 Nov 2026 14:43:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1302E11E6997D;
+	Tue, 24 Nov 2026 15:43:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795531405; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=fw8x4cblT+9CNzcWzbTkTDNh6D8k6L4c3aTx+Ze1EpA=;
+	b=wJWsrX7hLYoIhVeQNW+u2YTSGa3kC7oJ9EMLYyBF8MNUkUbycG+td0l48AKNGfZu57Ftan
+	D8jSaZVr1L5oaun8qZCsaYrHK36lYznLnJ2lgM3kyE9kTZLlCtJp/TrqtwKkN78S25Z/zG
+	uhLILi9rqi6GfYGSOOIAakgLZCQhtGP9oWbWzEoEMhrohH7jqPuHECoHFOatHl6IHZUWUT
+	rg9c/jP4u29pH3WTZiIguEVyEO5/OmkrgOcZYza/V8eta46HLUsXKNjbzXt8r9dt17lkdM
+	tlzjcg58YXRmp2G/mvAQaoyc+0+szRGC1AUf45+vRyu7DOaq1rQld+GjBvht8Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v5 0/6] mtd/spi-mem: Enable DQS control
+Date: Tue, 24 Nov 2026 15:43:01 +0100
+Message-Id: <20261124-winbond-nand-next-phy-tuning-v5-0-261e0e712857@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,58 +62,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/46] drm/mediatek: Export OVL Blend function
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, matthias.bgg@gmail.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
- jason-jh.lin@mediatek.com, kernel@collabora.com,
- Paul-pl Chen <paul-pl.chen@mediatek.com>, Nancy Lin <nancy.lin@mediatek.com>
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-4-angelogioacchino.delregno@collabora.com>
- <CAPj87rOEtG9JqJsEZkatqrWUkerO9Xx93MBUrXXChJwCokE0Vw@mail.gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <CAPj87rOEtG9JqJsEZkatqrWUkerO9Xx93MBUrXXChJwCokE0Vw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43RwW7DIAwG4FeJOI8KQwhJT3uPaQdCTIO0QguUt
+ ar67iOttE3rIbsg/WB9ls2VJIwOE9k2VxKxuOSCr0G+NMTM2u+QuqlmwhnvGGeSfjo/Bj9Rr5c
+ Dz5ke5gvNJ+/8jmo9ojUMeiY4qcQhonXnO//2XvPsUg7xcu9WYLn9J1yAMipRTWJQnWUWXscQ8
+ ofzGxP2ZKEL/+F6plY4Xjkl5CCxH6YOxTMnfnHAVjhROT0oI3QH2Cn5zLXfHABf49rK9YYDglV
+ g2z/D3h6LjXg81e/Kj+2SUSek9X3v8rYpatPSaHgtvn0B5bmCXeMBAAA=
+X-Change-ID: 20260205-winbond-nand-next-phy-tuning-aabefc018032
+To: Mark Brown <broonie@kernel.org>, Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, 
+ Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, praneeth@ti.com, 
+ u-kumar1@ti.com, p-mantena@ti.com, a-dutta@ti.com, s-k6@ti.com, 
+ linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
+ Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/24/26 15:30, Daniel Stone wrote:
-> Hi Angelo,
-> 
-> On Tue, 14 Jul 2026 at 12:44, AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@collabora.com> wrote:
->> +unsigned int mtk_ovl_get_blend_mode(struct mtk_plane_state *state, unsigned int blend_modes)
->> +{
->> +       unsigned int blend_mode = DRM_MODE_BLEND_COVERAGE;
->> +
->> +       /*
->> +        * For the platforms where OVL_CON_CLRFMT_MAN is defined in the hardware data sheet
->> +        * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB888
->> +        * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB8888.
->> +        *
->> +        * Check blend_modes in the driver data to see if premultiplied mode is supported.
->> +        * If not, use coverage mode instead to set it to the supported color formats.
->> +        *
->> +        * Current DRM assumption is that alpha is default premultiplied, so the bitmask of
->> +        * blend_modes must include BIT(DRM_MODE_BLEND_PREMULTI). Otherwise, mtk_plane_init()
->> +        * will get an error return from drm_plane_create_blend_mode_property() and
->> +        * state->base.pixel_blend_mode should not be used.
->> +        */
-> 
-> This hasn't been true since 9813e158d13d. I know this series predates
-> that, and this is just existing code, but it's another instance of
-> 'lie to userspace and fix stuff up behind its back' which we should
-> get rid of ASAP please.
+For his PHY tuning series on the Cadence QSPI controller embedded in TI
+SoCs, Santhosh initially needed to access the availability of the DQS
+(data strobe) signal. This is a chip dependent capability, which may
+sometimes be enabled.
 
-Hey Daniel,
+The SPI memory flag already exist but is too vague for it. Let the SPI
+NAND core and SPI NOR core set this flag when relevant (per-chip for SPI
+NAND, always for SPI NOR until we can do better). SPI controllers now
+feature a DQS capability that they need to fill. Manufacturer drivers
+and SPI controllers can now query the usability of the feature to use
+it/enable it.
 
-thanks for that - it's coming just at the right moment, I think. :-)
+I contributed the spi-mem bit in the previous cycle but my changes were
+too simple, and a more complex approach was actually needed.
 
-Cheers,
-Angelo
+As opposed to v4, this series applies directly on top of v7.4-rc2.
+
+More changes will come on top, especially on the NOR and NAND sides,
+plus more Cadence QSPI changes on top of Santhosh's series.
+
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v5:
+- Drop the dependency on Santhosh's series to make sure the spi-mem
+  changes can get in independently. The only conflict there is the fact
+  that both of us add a property to the the same binding.
+- Kept only the SPI/spi-mem patches.
+- Fix my understanding of the Winbond I/O configuration (not sent in this iteration)
+- Also fix the location where SPI NAND sets the DQS flag (also not sent in this iteration)
+- Link to v4: https://lore.kernel.org/r/20261120-winbond-nand-next-phy-tuning-v4-0-8c21e1f71f41@bootlin.com
+
+Changes in v4:
+- Added a spi-dqs-not-wired DT property to describe boards where the DQS
+  line is not routed.
+- Parsed the property in spi-mem.
+- Renamed several helpers to explain what they do more obviously.
+- Added a controller DQS capability;
+- Expose that DQS is usable only when the memory supports it, the line
+  is wired and the controller supports it as well.
+- Advertised the DQS capability in the Cadence QSPI driver.
+- Advertised the DQS capability before the SSDR/ODTR variants are
+  negotiated.
+- Only enabled the Winbond DQS output when spi_mem_dqs_is_usable() reports
+  it as usable, to avoid useless power consumption.
+- Enabled DQS in SPI NOR (always).
+- Dropped the already merged spi-mem capability patch from the series.
+- Rebased on v7.4-rc2.
+- Link to v3: https://lore.kernel.org/r/20260810-winbond-nand-next-phy-tuning-v3-0-a97c3a61e675@bootlin.com
+
+Changes in v3:
+- Rebased on top of linux-spi/for-7.3 and dopped all existing
+  dependencies on the MTD bits.
+- Link to v2: https://lore.kernel.org/r/20260807-winbond-nand-next-phy-tuning-v2-0-73595e89d6e3@bootlin.com
+
+Changes in v2:
+- Dropped the RFC prefix.
+- Rebased on top of v7.2-rc1.
+- Dropped the spi patch for now, just allowing to use DQS on a few
+  Winbond SPI NANDs (can be improved later).
+- Link to v1: https://lore.kernel.org/r/20260205-winbond-nand-next-phy-tuning-v1-0-5e7d3976f0f1@bootlin.com
+
+---
+Miquel Raynal (6):
+      spi: spi-mem: Rename the DQS setter and pin field
+      spi: spi-mem: Clarify the conditions upon which DQS is usable
+      dt-bindings: spi: Document the spi-dqs-not-wired property
+      spi: spi-mem: Take the DQS wiring into account
+      spi: spi-mem: Take the controller DQS support into account
+      spi: cadence-quadspi: Advertise DQS support
+
+ .../bindings/spi/spi-peripheral-props.yaml         | 10 ++++++++
+ drivers/spi/spi-cadence-quadspi.c                  |  2 ++
+ drivers/spi/spi-mem.c                              | 29 ++++++++++++++--------
+ include/linux/spi/spi-mem.h                        | 12 ++++++---
+ 4 files changed, 38 insertions(+), 15 deletions(-)
+---
+base-commit: fd9230005e85472b81c1c7c16afe93dd878996b1
+change-id: 20260205-winbond-nand-next-phy-tuning-aabefc018032
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
+
