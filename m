@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.31.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795611449;
-	b=INTlr25pjVlxts6b3skDevbu3eUZwq+wexy8WwXcKBuLEbOyBNx+VT1KB0vLpwGElDUs
-	 qj3dD2vGyM16ayvItQroZZxoUCV/Xif5mPjf8G2qCKXMlHQhukX0O7ANi6ZL1jIi+Hrpl
-	 2Qt6yYcfjxHkmMc7uR8egoiat+YGf3MuszTsm5afYMOFDxskvrczyzqcWH5GmE98y0Kc0
-	 eqmbGh8OBoga53hrPbPKNU/bHXVUA3S1C8nYsrHgn+ZWJn3RIC5XLi029HPWUxLy79N4j
-	 Px2c5nNAMNPP3XOt1YL3NYLyYbUw10YJL1OEAC3rTfncI5DRCpUuCz3aB/upwQeIaoA==
+	t=1795611468;
+	b=wYZ9oAK17uPZj/SZlE4NWf+NxVOdXAPlwKJ4WP76gxKQDxJkF1ghAcEN4wnC1K+ThA3P
+	 j5M6g8IqCK26sqXyy/+xRpDzL7C2fqhQAf1wvoTst2PqKVojhG4JjwJfuX8QfJwsB9nrE
+	 leEK3Obc/a70p+TbPsG9mMo/5D53UsydfBBuQYgiWsT0P3NuItgGIthIAr0itR0wtWZA0
+	 wnnjDMKXgHRSNc7BtlhmA/58WnWozbNTp/5cXlWb5lBHmRSd3UyD9Fcmu64dbPLRKY7t8
+	 71YBptDCn1eNxFexo2jdv064MPkib3S3TLjRGiRkZ8YtJ+b1HEVU6M7k4/+nREoKHVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795611449;
-	h=DMARC-Filter:DKIM-Signature:From:To:CC:Subject:Date:Message-ID:
-	 X-klartext:MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=JHskxtRmwV+MKqji7rkSkHRwi2cIGLr2yWlu9AHf4VE=;
-	b=FhTobM89pyxt4pookNm2TzL89yxznngyA389T7kUqVsxOmJevusTEoflze7GwLLD0gLH
-	 pefo5TAmaT6hFgXBjYIFpnftl6NTGgJMTl+LBYC9LF5aYKXKJ9ZSkszftx+AAwm4vUVxh
-	 DTkpJQ9y4SO6qzXNACqQp9MlTxspCeHuCd/TZyVv/7xY2p0fJmJQGTadN3es4Bi70LOou
-	 qp4gJLdC6KWHdzYejp5vG0yrPivOXgVvbflzRj6VsteIJHPkWL5ZLR42K5Rn2ueIDK0y3
-	 N6TSfNZCl6M5a8t1DtpZZ0nTNHPTtEtq4nKe7XZ+sU8ytgmSvLuVT48lSkFE5iZPodw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795611468;
+	h=Received:DKIM-Signature:From:To:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=pN+WMg5OdtJ5FqqkCyGfoQ3zDpzy1qYDS5+UAVUSmFE=;
+	b=LBtzdqeOIQIcDooz3KnmeUF3mBHRRBbEweI+RAbV2SwXthQvTOWlv59felHLheJg3CtE
+	 GrejSCpU/Hpj6nYM6/s4iv3rm8CTdvLA6m0/WtO+H9EoT2uLd6iw9u4HoLr0wxm0L94lg
+	 44sUGWOewWrHue2AVPWoh15WhjRAHxUpfzUmG6Om875bGvg4jsqFQL0n5/vMg9w7tep8K
+	 DG/a9uFBOuNNkSyHprdf58xigswZXXynq4Eax46Fthu0CM7sbHpOthZn0CbaC+2evOIEg
+	 PsAWWcxzvrqBqZgB4ZeRS0OtQctEpCGDfX8Z+YqYeXEEqzaOV8DH0H+hGt4sYM9SJ0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dh-electronics.com;
-	spf=pass smtp.mailfrom=dh-electronics.com;
-	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=MxPU8dD5;
-	arc=none smtp.remote-ip=116.203.31.6
-Received: from mx3.securetransport.de (mx3.securetransport.de [116.203.31.6])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 36519606A337
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:57:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36519606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S9SZuU5Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C138B606A323;
+	Wed, 25 Nov 2026 12:57:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=MxPU8dD5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
-	s=dhelectronicscom; t=1795611411;
-	bh=JHskxtRmwV+MKqji7rkSkHRwi2cIGLr2yWlu9AHf4VE=;
-	h=From:To:CC:Subject:Date:From;
-	b=MxPU8dD54gohLI+lddDn1GC8wi/ctQn7DFd8n05RdEBlKMD6PkX+su6748YUOEmNX
-	 F9B8YV3IfkgAYq3DyrPSOkxmaPQ0trms3dp4ZDShqJ8tAFSxnEPRBG0GyQUesc9uRH
-	 sg6F6pJbvYv0anVNySUYFYyBORth2gi3ZqNUfBLjlTUG4qOmQ7nJIGzPjuqzS6a1E3
-	 JQ4We55atbEK3tDI87vsbYOR0oD0+JExavLd0KIBKGmcCTNoV/eCDaixVTOSxsJH6C
-	 Id/NKHgzjD8M2DFdlvyWhlmIwAUuM14Ques1hSV0ie0vWJ12BCqwcXKRoRxxVifabt
-	 pJ3y5GZL0Gwww==
-From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-To: <linux-arm-kernel@lists.infradead.org>
-CC: Christoph Niedermaier <cniedermaier@dh-electronics.com>, Pascal Zimmermann
-	<pzimmermann@dh-electronics.com>, Conor Dooley <conor+dt@kernel.org>, Fabio
- Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Marek Vasut <marex@nabladev.com>, Rob Herring
-	<robh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
-	<kernel@dh-electronics.com>, <devicetree@vger.kernel.org>,
-	<imx@lists.linux.dev>
-Subject: [PATCH V2] ARM: dts: imx6ull-dhcom: Change eMMC pin configuration
-Date: Wed, 25 Nov 2026 13:56:21 +0100
-Message-ID: <20261125125621.6734-1-cniedermaier@dh-electronics.com>
-X-klartext: yes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S9SZuU5Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC421F000D0;
+	Wed, 25 Nov 2026 12:57:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795611468;
+	bh=pN+WMg5OdtJ5FqqkCyGfoQ3zDpzy1qYDS5+UAVUSmFE=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=S9SZuU5YIq5a6IcWO+gmVui9ffodaUsLelR8+D/a+otw5FeDM/KWs4EuHa7Gzxcav
+	 r4mm3VKJWmSJ2NIXMVSBVCXFDiCIp72BXJsf9u8ORgAotrAWQDpD5ZsK1feNuBqMUX
+	 Y4hj4Im82GmpGAlsQ2o4j3GlsrVXJ9L0dmjcW13EwCOyhXbDcY8064gqGLByQypWoD
+	 Nj2SWTrV022n62kqcSrPYQrym+XpcHi+pM2vTIriM3LDwcdRqi3LrPGBrdXdEdXhcP
+	 u/2KhIk3eWZcwv5tUt3AKL7uwskt4S+oV+YQd64cHZcJkO8gWFvRTw5Lu5iYnjRvaV
+	 uXOH0SWt9p1tA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Christian Marangi <ansuelsmth@gmail.com>
+In-Reply-To: <20261120234640.169279-1-ansuelsmth@gmail.com>
+References: <20261120234640.169279-1-ansuelsmth@gmail.com>
+Subject: Re: [PATCH v7 0/2] ASoC: Add support for AN7581 PCM driver
+Message-Id: <179554365554.947306.10589371499291682651.b4-ty@b4>
+Date: Tue, 24 Nov 2026 18:07:35 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,74 +61,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1512; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=htsnF7W7xoMx8zOF73xpTEGZESxdJmz+VpSBy9lMFKM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLZbnvsm8pp1eLUpXTvx0z5vUqn7NLXZOgcrFj/26d55
+ c1863NLOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRDWkMf8XLufvWOi1cuSV7
+ 99uIN/UyxjFRc7/P4Z1wbMYluzPf2Z4xMkyOchZvZfS9fN0+XlRVvKVvI6PumnhLHouulc0Ln3v
+ +ZQQA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Pascal Zimmermann <pzimmermann@dh-electronics.com>
+On Sat, 21 Nov 2026 00:46:37 +0100, Christian Marangi wrote:
+> ASoC: Add support for AN7581 PCM driver
+> 
+> The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
+> supporting playback and capture at sample rates of 8 kHz and 16 kHz.
+> The driver configures the PCM bit clock to 2.048 MHz and supports
+> 8-bit and 16-bit samples, with up to 32 channels.
+> 
+> [...]
 
-Tests have shown that, with the current pin configuration of the
-eMMC (usdhc2 interface) read errors can occur with a certain
-type of eMMC chips. Tests conducted with all eMMC chip types
-used in the DHCOM i.MX6ULL SoM showed that there were no issues
-with the pin configuration currently used in the U-Boot. That is
-why this configuration is being adopted in Linux as well.
+Applied to
 
-Fixes: 611b6c891e40 ("ARM: dts: imx6ull-dhcom: Add DH electronics DHCOM i.MX6ULL SoM and PDK2 board")
-Signed-off-by: Pascal Zimmermann <pzimmermann@dh-electronics.com>
-Co-developed-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: Pascal Zimmermann <pzimmermann@dh-electronics.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: kernel@dh-electronics.com
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
----
-V2: - Add Fixes tag
-    - Remove Pascal's Co-developed-by tag
----
- .../boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi   | 22 +++++++++----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi
-index a74f5273f9b3..97d4de84b2ac 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcom-som.dtsi
-@@ -568,17 +568,17 @@ MX6UL_PAD_GPIO1_IO05__GPIO1_IO05	0x120b0
- 
- 	pinctrl_usdhc2: usdhc2-grp {
- 		fsl,pins = <
--			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x10069
--			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x17059
--			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x17059
--			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x17059
--			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x17059
--			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x17059
--			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x17059
--			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x17059
--			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x17059
--			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x17059
--			MX6UL_PAD_NAND_ALE__USDHC2_RESET_B	0x17059 /* SD2 Reset */
-+			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x1f019
-+			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x1f019
-+			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x1f019
-+			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x1f019
-+			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x1f019
-+			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x1f019
-+			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x1f019
-+			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x1f019
-+			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x1f019
-+			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x1f019
-+			MX6UL_PAD_NAND_ALE__USDHC2_RESET_B	0x1f019 /* SD2 Reset */
- 		>;
- 	};
- };
--- 
-2.30.2
+Thanks!
+
+[1/2] ASoC: dt-bindings: airoha: Add AN7581 PCM controller
+      https://git.kernel.org/broonie/sound/c/a9d5245fbd16
+[2/2] ASoC: airoha: Add support for AN7581 PCM driver
+      https://git.kernel.org/broonie/sound/c/a0c2794fd7f7
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
