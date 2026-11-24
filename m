@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795543098;
-	b=MrfuQrfy/zk9C6/arBuo0KpWSoPaT99iNyL6Y9gRYTfqZpCwmIMDd+xAHJSKI/zDNooU
-	 +ev6htIImyJFjRAAzkFnwpioX969EnxtN7tnlXt/N5kchL/l/qfK7WvvevRvXugaMrMh8
-	 1vDJX4My3+aG74sLjO8V1rhADcjI/FMpfmUwz6dYN4BmRvSPzrCFHFt9U+FjYWI3A4+rO
-	 8ht1D1ed1OWQj5d+JJsaredGbFXx5/zWqndHd9H9y+nQ/Sio6dgUM6eh7EWv39GYRba92
-	 lfyincKeC4dBjOPKR8gE1ZLhuT6Eg5Visuadn6DrKt9c9B4hRqwVIPViiP0qChOThng==
+	t=1795543276;
+	b=IMRCvs+tYxmwuuKJBBuT7AJwucudQxnHxshuAzyQCPZo69LOtRilWRclWZWob+yrIoIg
+	 k1ZPYxpSs2vR2KQKRnddFvpCn16Dj9nhso+6Prk9hbfnmtpBuo5nPiEUypDgH6GC6C9Fj
+	 g7RAPL2YxnR71la1jjBFUcXfWK20a5rG63uqth8y6Zuii8FnYVwDDHpR/AVkjqePzFlYy
+	 B5z1gi/PXzDW4iLP2M1vS7Vxq/sPG5gxdvNbQx+09gr5ffuWrPXXAGUwhb7N0kCJ7JOpL
+	 zUPcoC/8UH1QqDVLVHTqmcAEiS2deebXame+o/sAnUU/p1GRosAlFtvqyC/d160MmzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795543098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795543276;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=M1CE+hBX3IDnET7Gsn87wedzV1yqfQfJYw1/6Q2t2u8=;
-	b=dONyly0IDsdCUEe+6yc/pNu6xynZ05PBM8LebzJhHBD8Gb6jPfIxnDajFwglGOf38NkE
-	 fQ4BZwkuKZEFEtTTxUiOxd66KveUU/twFLa0Y8FXmWr7IECPgT7ME9sR8s38ZuYKTjM6c
-	 a2EfNHFAoRBbUApb5LZxPH+V5wRpEfhlBT6hjgyeNdGHxG1NPxOnODJH49PBBEiYh3nIu
-	 mobi/mgeUzivcann/K9bqWTOLDKBWWfmpQ8ThfPFuZj1rOG1N2iRNOSG3SIIYO0HuMGZ8
-	 MkyWA4352bEjIKHDrf7gpnccdWPv8rQRCX24kQJv2w0deuwkyx4kEamlpqqMGVgg1WQ==
+	bh=81xq/8PMgUhHzvnkZyzFLQ9ag/AlyDUIYItSKX9Ibqk=;
+	b=Q3/HQ9nMGucJQ4gh+fDGHjuOC7pNwmOFBtjiMy5ipIlssQC9aiIfW7la9pq6m3/WCXyr
+	 AKQ7aPl88Er1aijRpkkWWro0J/Xdc3jL2gzF3a4S+hJyVzpq6CM+LHiZgg67TmwG1FNFT
+	 26/AzEQiFnxtClsxk1mhnAeSPze4QEC4pneluiUJ4kueFzGlu83tj+lLnCKZBIh+aUoDS
+	 aurp+XGMH82xo9CF01FvzMzOa3ayUO/C0wFH+J8zLacKfwNqhZlEbyP27Ma8DheVgE2NA
+	 PpYwR2Vw48v/PTVBZnZcWVdfjTsXzBWM8r86F7jCOlWMBTmm+R2ZB+aiFybBztEgKXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TjXpSDwE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPXsvCWm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F71606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:58:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB27606A31E;
+	Tue, 24 Nov 2026 18:01:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TjXpSDwE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B921F000C0;
-	Tue, 24 Nov 2026 17:58:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPXsvCWm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE7F1F000C4;
+	Tue, 24 Nov 2026 18:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795543098;
-	bh=M1CE+hBX3IDnET7Gsn87wedzV1yqfQfJYw1/6Q2t2u8=;
+	s=k20260515; t=1795543276;
+	bh=81xq/8PMgUhHzvnkZyzFLQ9ag/AlyDUIYItSKX9Ibqk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TjXpSDwELqySkR2dqriO7JxRq4JVeIpf9mSFgzdGm9+f1Gg2zh8omElwPwkQqY3Gd
-	 8Sw0vp2EE/8/4OfBMucO045pAAldIJ22pUTuDdYNe+dlrVkTLolmzNYI/6qRu942q9
-	 nfF6mnnIuE4ghgeTByBf3dWu7VnWL+Zyr8jEFjP4iOBSq73qKZzmezpZHkE5eY3inL
-	 /WU8aOehva7RTNtPFaQzFbxczebzA4/uer+LNuuNJOzkjeAlwDgrUp1EDklQV4+OPS
-	 N6mfhPmKQi+AHjSBjHuqr8fKMLLlKaEGp5GnykErXIha/9aPsD9ggHqETLiT8j4wPu
-	 ORYwsYDa9MdEQ==
-Message-ID: <sashiko-outbox-231760@kernel.org>
+	b=OPXsvCWm/oIvD5JqJKUwZDVjpQzSPP5No5l4ZmDjbA+n2sGuxbrw8UiYdsWuLiY+G
+	 PzuCFyYSV/7yqRnM07XRhCHK9a3PMoyPlXM+C3kmmRPtd8q+p0a5MWdg91vE7cI7pA
+	 hqpRZjH0GZ/lsb1oT42v9EnKff8KB8d4qxCadoic/ildUjI8zd6/UO2yA+Iwov4Mg3
+	 80OkGD4TZr/3aI7jYMSNfVg7pmR/ywBe24XhzbbXnN7kuDiIfSGz5QgTUHgD1+y4ew
+	 rhNIiNzBzBNUhDIqHbm6RFqF9R2ssawAAK1BRrtBpiOjcLVjYEMc5pqPSeRJcc0NJx
+	 ZVGJMLObWu7cw==
+Message-ID: <sashiko-outbox-231761@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] power: supply: Add Maxim DS28E16 battery cycle
- counter driver
+Subject: Re: [PATCH v2 15/19] ASoC: qcom: lpass: allocate LPM buffer memory
+ to DAIs
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Armandas Kvietkus" <armandas.kvietkus@proton.me>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-ds28e16-v1-2-bed431df0578@proton.me>
-References: <20261124-ds28e16-v1-0-bed431df0578@proton.me>
- <20261124-ds28e16-v1-2-bed431df0578@proton.me>
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261124-topic-sm8650-el2-v2-15-174e159f0f69@linaro.org>
+References: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
+ <20261124-topic-sm8650-el2-v2-15-174e159f0f69@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 17:58:17 +0000
+Date: Tue, 24 Nov 2026 18:01:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,228 +61,256 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 6 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [High] power: supply: ds28e16: sleeping GPIO direction calls under
-  local_irq_save()
-- [Medium] power: supply: ds28e16: unmasked counter underflow in
-  ds28e16_set_property()
-- [Medium] power: supply: ds28e16: push-pull high drive in
-  ds28e16_read_bit()
-- [Low] power: supply: ds28e16: raw GPIO accessors bypass DT flags in
-  1-Wire I/O
-- [Low] power: supply: ds28e16: duplicate crc16() in ds28e16_crc16() and
-  unused macro
-- [Low] power: supply: ds28e16: hardcoded PRESENT=3D1 and undocumented
-  writable ABI
+- [High] ASoC: qcom: lpass: unchecked memremap() and invalid free of LPM
+  MI2S buffer
+- [High] ASoC: qcom: lpass: VA and RXTX LPAIF resources not gated when
+  used for MI2S
+- [High] ASoC: qcom: lpass: unchecked memremap() and missing pcm_free
+  memunmap()
+- [Medium] ASoC: qcom: lpass: mi2s_lpm_enable set for disabled LPM
+  LPAIFs in probe
+- [Medium] ASoC: qcom: lpass: LPM buffer offset 0 collision in
+  lpass_platform_allocate_lpm()
 --
 
-commit 1d14a8e7dbd2abdb56c7c466b16af18109974ace
-Author: Armandas Kvietkus <armandas.kvietkus@proton.me>
+commit 4c2b83ff038eba299bfce68560d0b64cb7efc8a7
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-power: supply: Add Maxim DS28E16 battery cycle counter driver
+ASoC: qcom: lpass: allocate LPM buffer memory to DAIs
 
-This commit adds a power supply driver for the Maxim DS28E16 battery
-authenticator that reads and increments the battery cycle count over a
-GPIO-driven 1-Wire line.
+This commit dynamically assigns LPM SRAM buffer offsets for Codec DMA and
+LPM-backed MI2S DAIs and preallocates LPM DMA buffers for MI2S ports that
+cannot access DDR.
 
-> diff --git a/drivers/power/supply/ds28e16_battery.c b/drivers/power/suppl=
-y/ds28e16_battery.c
-> new file mode 100644
-> index 0000000000000..f23201eb63694
-> --- /dev/null
-> +++ b/drivers/power/supply/ds28e16_battery.c
-> @@ -0,0 +1,335 @@
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index a83507c2cd557..8b005a87d4088 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
+> @@ -1169,6 +1169,8 @@ static void of_lpass_cpu_parse_dai_data(struct devi=
+ce *dev,
+>  			data->codec_dma_enable =3D 1;
+>  			if (is_wsa_cdc_dma_port(id))
+>  				data->wsa_enable =3D 1;
+> +			else if (!is_rxtx_cdc_dma_port(id))
+> +				data->va_enable =3D 1;
+>  		} else if (is_mi2s_port_id(id)) {
+>  			unsigned int port_id =3D mi2s_port_id(id);
+
+[Severity: High]
+Should drvdata->va_enable (and an equivalent rxtx_enable flag) also gate
+claiming the VA and RXTX LPAIF MMIO and IRQ resources when Codec DMA is
+enabled?
+
+When a board uses RXTX or WSA Codec DMA alongside an MI2S port on
+lpass-va-lpaif (with va_enable =3D=3D 0), asoc_qcom_lpass_cpu_platform_prob=
+e()
+still unconditionally claims "lpass-va-lpaif" via
+devm_platform_ioremap_resource_byname() under if (drvdata->codec_dma_enable=
+),
+causing lpass_cpu_init_lpaif() for that MI2S LPAIF to fail with -EBUSY
+(and asoc_qcom_lpass_platform_register() similarly requests
+"lpass-irq-vaif" unconditionally).  Conversely, without an rxtx_enable
+flag, enabling only VA or WSA Codec DMA unconditionally claims
+"lpass-rxtx-lpaif" and reserves 2 * LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE of
+rxtx_cdc_dma_lpm in lpass_platform_allocate_lpm().
 
 [ ... ]
 
-> +#define DS28E16_CMD_READ_ROM	0x33
-> +#define DS28E16_CMD_SKIP_ROM	0xcc
-> +#define DS28E16_CMD_START	0x66
-> +#define DS28E16_CMD_READ_MEM	0x44
-> +#define DS28E16_CMD_RELEASE	0xaa
-> +#define DS28E16_CMD_DECREMENT	0xc9
-> +#define DS28E16_RESULT_OK	0xaa
-> +#define DS28E16_DC_PAGE		2
-> +#define DS28E16_DC_INIT		0x1ffff
-> +#define DS28E16_PAGE_LEN	32
-> +#define DS28E16_READ_DELAY_MS	50
-> +#define DS28E16_DEC_DELAY_MS	50
-> +#define DS28E16_TRIES		10
+> @@ -1380,6 +1366,9 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platf=
+orm_device *pdev)
+>  						   variant->mi2s_desc[i].reg_name);
+>  			if (ret)
+>  				return ret;
 > +
-> +struct ds28e16 {
-> +	struct device *dev;
-> +	struct gpio_desc *gpio;
-> +	struct power_supply *psy;
-> +	struct mutex lock;
-> +	int cycle_count;
-> +	bool valid;
-> +};
-> +
-> +static int ds28e16_reset(struct ds28e16 *ds)
+> +			if (variant->mi2s_desc[i].lpm_type !=3D LPASS_LPM_NONE)
+> +				drvdata->mi2s_lpm_enable =3D true;
+>  		}
+>  	} else {
+
+[Severity: Medium]
+Does this set drvdata->mi2s_lpm_enable even when the LPM-backed LPAIF has
+no ports enabled in DT?
+
+When no port on variant->mi2s_desc[i] is set in drvdata->lpaif_port_enable,
+lpass_cpu_init_lpaif() returns 0 early with drvdata->lpaif[i].drvdata left
+NULL.  Checking variant->mi2s_desc[i].lpm_type without checking
+drvdata->lpaif[i].drvdata sets mi2s_lpm_enable to true on every variant
+whose static mi2s_desc table contains an LPM LPAIF, forcing probe to
+require the Codec DMA LPM clocks and LPM memory resources even when only
+core-LPAIF MI2S or HDMI/DP DAIs are used.
+
+> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platf=
+orm.c
+> index 16a964e1aec1f..855f1ee193946 100644
+> --- a/sound/soc/qcom/lpass-platform.c
+> +++ b/sound/soc/qcom/lpass-platform.c
+
+[ ... ]
+
+> @@ -1288,6 +1321,41 @@ static irqreturn_t lpass_platform_wsaif_irq(int ir=
+q, void *data)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> +static int lpass_platform_prealloc_lpm_mi2s_buffer(struct snd_soc_compon=
+ent *component,
+> +						    struct snd_pcm *pcm, int dai_id)
 > +{
-> +	unsigned long flags;
-> +	int presence;
+> +	struct lpass_data *drvdata =3D snd_soc_component_get_drvdata(component);
+> +	unsigned int port_id =3D mi2s_port_id(dai_id);
+> +	struct snd_pcm_substream *substream;
+> +	struct snd_dma_buffer *buf;
+> +	u32 addr;
+> +	int dir;
 > +
-> +	local_irq_save(flags);
-> +	gpiod_direction_output_raw(ds->gpio, 0);
-> +	udelay(50);
-> +	gpiod_direction_input(ds->gpio);
-> +	udelay(7);
-> +	presence =3D gpiod_get_raw_value(ds->gpio);
-> +	udelay(50);
-> +	local_irq_restore(flags);
+> +	if (drvdata->mi2s_lpm[port_id] =3D=3D LPASS_VA_CDC_LPM)
+> +		addr =3D drvdata->va_cdc_dma_lpm_buf;
+> +	else
+> +		addr =3D drvdata->rxtx_cdc_dma_lpm_buf;
+> +	addr +=3D drvdata->mi2s_lpm_offset[port_id];
 > +
-> +	return presence ? -ENODEV : 0;
+> +	/* Playback and capture buffers are allocated one after the other */
+> +	for (dir =3D SNDRV_PCM_STREAM_PLAYBACK; dir <=3D SNDRV_PCM_STREAM_CAPTU=
+RE; dir++) {
+> +		substream =3D pcm->streams[dir].substream;
+> +		if (!substream)
+> +			continue;
+> +
+> +		buf =3D &substream->dma_buffer;
+> +		buf->dev.dev =3D pcm->card->dev;
+> +		buf->dev.type =3D SNDRV_DMA_TYPE_CONTINUOUS;
+> +		buf->private_data =3D NULL;
+> +		buf->bytes =3D lpass_platform_lpm_mi2s_hardware.buffer_bytes_max;
+> +		buf->addr =3D addr + dir * LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE;
+> +		buf->area =3D (unsigned char * __force)memremap(buf->addr, buf->bytes,
+> +							      MEMREMAP_WC);
+> +	}
+> +
+> +	return 0;
 > +}
 
 [Severity: High]
-Can gpiod_direction_output_raw() and gpiod_direction_input() be called
-under local_irq_save() here, in ds28e16_read_byte() -> ds28e16_read_bit(),
-and in ds28e16_write_byte()?
+What happens on PCM teardown or if memremap() returns NULL here?
 
-Both helpers call gpiod_line_state_notify(), which takes the non-raw
-rwlock_t desc->gdev->line_state_lock (triggering
-CONFIG_PROVE_RAW_LOCK_NESTING splats and sleeping in atomic context on
-PREEMPT_RT) and runs line-state notifiers 24 times per read byte inside
-the 1 us and 5 us 1-Wire Overdrive bit windows.  gpiod_direction_input()
-also calls gpio_set_bias(), which takes pctldev->mutex on pinctrl-backed
-GPIOs when bias flags are set, and ds28e16_probe() never checks
-gpiod_cansleep(ds->gpio) to reject sleeping GPIO expanders.
+Because buf->dev.type is set to SNDRV_DMA_TYPE_CONTINUOUS and
+lpass_component_driver has no .pcm_free callback to memunmap(buf->area) and
+clear buf->area, PCM teardown in snd_pcm_free() ->
+snd_pcm_lib_preallocate_free_for_all() -> do_free_pages() passes the
+memremap() I/O virtual address to snd_dma_continuous_free() ->
+free_pages_exact() and leaks the mapping.  In addition, if memremap()
+returns NULL, lpass_platform_prealloc_lpm_mi2s_buffer() still returns 0
+(leaking the playback mapping if capture fails), and a subsequent transfer
+in lpass_platform_copy() dereferences a NULL runtime->dma_area.
 
-> +
-> +static int ds28e16_read_bit(struct ds28e16 *ds)
+> @@ -1412,6 +1482,7 @@ static int lpass_platform_copy(struct snd_soc_compo=
+nent *component,
+>  			       unsigned long pos, struct iov_iter *buf,
+>  			       unsigned long bytes)
+>  {
+> +	struct lpass_data *drvdata =3D snd_soc_component_get_drvdata(component);
+>  	struct snd_pcm_runtime *rt =3D substream->runtime;
+>  	struct snd_soc_pcm_runtime *soc_runtime =3D snd_soc_substream_to_rtd(su=
+bstream);
+>  	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(soc_runtime, 0);
+> @@ -1422,7 +1493,7 @@ static int lpass_platform_copy(struct snd_soc_compo=
+nent *component,
+>  				channel * (rt->dma_bytes / rt->channels));
+> =20
+>  	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
+> -		if (is_cdc_dma_port(dai_id)) {
+> +		if (is_cdc_dma_port(dai_id) || is_lpm_mi2s_port(drvdata, dai_id)) {
+>  			if (copy_from_iter_toio(dma_buf, bytes, buf) !=3D bytes)
+>  				ret =3D -EFAULT;
+>  		} else {
+> @@ -1430,7 +1501,7 @@ static int lpass_platform_copy(struct snd_soc_compo=
+nent *component,
+>  				ret =3D -EFAULT;
+>  		}
+>  	} else if (substream->stream =3D=3D SNDRV_PCM_STREAM_CAPTURE) {
+> -		if (is_cdc_dma_port(dai_id)) {
+> +		if (is_cdc_dma_port(dai_id) || is_lpm_mi2s_port(drvdata, dai_id)) {
+>  			if (copy_to_iter_fromio(dma_buf, bytes, buf) !=3D bytes)
+>  				ret =3D -EFAULT;
+>  		} else {
+
+[Severity: High]
+Should both lpass_platform_prealloc_lpm_mi2s_buffer() and
+lpass_platform_prealloc_cdc_dma_buffer() return -ENOMEM if memremap()
+fails, and should lpass_component_driver provide a .pcm_free callback to
+memunmap() and zero substream->dma_buffer.area so that lpass_platform_copy()
+cannot hit a NULL rt->dma_area and snd_pcm_free() does not call
+free_pages_exact() on the remapped LPM pointer?
+
+> @@ -1459,6 +1530,66 @@ static const struct snd_soc_component_driver lpass=
+_component_driver =3D {
+> =20
+>  };
+> =20
+> +static int lpass_platform_allocate_lpm(struct lpass_data *drvdata)
 > +{
-> +	int v;
+> +	u32 rxtx_cdc_dma_lpm_remain =3D drvdata->rxtx_cdc_dma_lpm_size;
+> +	u32 va_cdc_dma_lpm_remain =3D drvdata->va_cdc_dma_lpm_size;
+> +	u32 rxtx_cdc_dma_lpm_offset =3D 0;
+> +	u32 va_cdc_dma_lpm_offset =3D 0;
+> +	int port_id;
 > +
-> +	gpiod_direction_output_raw(ds->gpio, 0);
-> +	udelay(1);
-> +	gpiod_direction_input(ds->gpio);
-> +	v =3D gpiod_get_raw_value(ds->gpio);
-> +	udelay(5);
-> +	gpiod_direction_output_raw(ds->gpio, 1);
-> +	udelay(6);
+> +	if (drvdata->codec_dma_enable) {
+> +		drvdata->rxtx_lpm_offset =3D rxtx_cdc_dma_lpm_offset;
+> +		rxtx_cdc_dma_lpm_offset +=3D LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
+> +		rxtx_cdc_dma_lpm_remain -=3D LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
 > +
-> +	return v;
-> +}
-
-[Severity: Medium]
-Does gpiod_direction_output_raw(ds->gpio, 1) cause bus contention on the
-open-drain 1-Wire line when reading a 0 bit?
-
-In 1-Wire Overdrive mode, the DS28E16 pulls the line low for 6 to 16 us to
-transmit a 0, so actively driving the GPIO high in push-pull mode 5 us
-after releasing the line shorts the master's output stage against the
-slave's pulldown transistor.
-
-> +
-> +static void ds28e16_write_bit(struct ds28e16 *ds, int bit)
-> +{
-> +	gpiod_set_raw_value(ds->gpio, 0);
-> +	udelay(1);
-> +	if (bit)
-> +		gpiod_set_raw_value(ds->gpio, 1);
-> +	udelay(10);
-> +	gpiod_set_raw_value(ds->gpio, 1);
-> +	udelay(6);
-> +}
-
-[Severity: Low]
-Should ds28e16_reset(), ds28e16_read_bit(), ds28e16_write_bit(), and
-ds28e16_write_byte() use the logical gpiod_direction_output(),
-gpiod_get_value(), and gpiod_set_value() helpers instead of the _raw
-variants?  Using raw accessors bypasses GPIO polarity and open-drain flags
-from Device Tree.
-
-[ ... ]
-
-> +static u16 ds28e16_crc16(u16 crc, u8 data)
-> +{
-> +	static const u8 oddparity[16] =3D {
-> +		0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0
-> +	};
-> +	u16 d =3D (data ^ (crc & 0xff)) & 0xff;
-> +
-> +	crc >>=3D 8;
-> +	if (oddparity[d & 0xf] ^ oddparity[d >> 4])
-> +		crc ^=3D 0xc001;
-> +	d <<=3D 6;
-> +	crc ^=3D d;
-> +	d <<=3D 1;
-> +	crc ^=3D d;
-> +
-> +	return crc;
-> +}
-
-[Severity: Low]
-This isn't a bug, but ds28e16_crc16() duplicates crc16() from
-<linux/crc16.h> (with select CRC16 in Kconfig).  Also,
-DS28E16_CMD_READ_ROM is unused.
-
-[ ... ]
-
-> +static int ds28e16_read_cycle_count(struct ds28e16 *ds)
-> +{
-> +	u8 page[DS28E16_PAGE_LEN];
-> +	int i, ret =3D -EIO;
-> +
-> +	for (i =3D 0; i < DS28E16_TRIES; i++) {
-> +		ret =3D ds28e16_read_page(ds, DS28E16_DC_PAGE, page);
-> +		if (!ret)
-> +			return DS28E16_DC_INIT -
-> +			       (page[0] | page[1] << 8 | page[2] << 16);
-> +	}
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Can ds28e16_read_cycle_count() return a negative non-errno value when any
-of bits 7..1 in page[2] are set?
-
-DS28E16_DC_INIT is 0x1ffff (17 bits), but page[0..2] forms an unmasked
-24-bit value, so non-zero upper bits in page[2] produce values down to
--0xfe0000 that ds28e16_set_property() returns directly to VFS as an error
-code.  In addition, ds28e16_set_property() does not reject writes when cur
-has reached DS28E16_DC_INIT and the hardware decrement counter is already
-0.
-
-> +
-> +static int ds28e16_get_property(struct power_supply *psy,
-> +				enum power_supply_property psp,
-> +				union power_supply_propval *val)
-> +{
-> +	struct ds28e16 *ds =3D power_supply_get_drvdata(psy);
-> +	int ret;
-> +
-> +	switch (psp) {
-> +	case POWER_SUPPLY_PROP_CYCLE_COUNT: {
-> +		guard(mutex)(&ds->lock);
-> +		if (!ds->valid) {
-> +			ret =3D ds28e16_read_cycle_count(ds);
-> +			gpiod_direction_input(ds->gpio);
-> +			if (ret < 0)
-> +				return -ENODATA;
-> +			ds->cycle_count =3D ret;
-> +			ds->valid =3D true;
+> +		if (drvdata->va_enable) {
+> +			drvdata->va_lpm_offset =3D va_cdc_dma_lpm_offset;
+> +			va_cdc_dma_lpm_offset +=3D LPASS_VA_CDC_DMA_LPM_BUFF_SIZE;
+> +			va_cdc_dma_lpm_remain -=3D LPASS_VA_CDC_DMA_LPM_BUFF_SIZE;
 > +		}
-> +		val->intval =3D ds->cycle_count;
-> +		return 0;
+> +
+> +		if (drvdata->wsa_enable) {
+> +			drvdata->wsa_lpm_offset =3D rxtx_cdc_dma_lpm_offset;
+> +			rxtx_cdc_dma_lpm_offset +=3D LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
+> +			rxtx_cdc_dma_lpm_remain -=3D LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
+> +		}
 > +	}
-> +	case POWER_SUPPLY_PROP_PRESENT:
-> +		val->intval =3D 1;
+> +
+> +	if (!drvdata->mi2s_lpm_enable)
 > +		return 0;
+> +
+> +	for (port_id =3D 0; port_id < LPASS_MAX_MI2S_PORTS; port_id++) {
+> +		if (!test_bit(port_id, &drvdata->lpaif_port_enable))
+> +			continue;
+> +
+> +		switch (drvdata->mi2s_lpm[port_id]) {
 
-[Severity: Low]
-Should POWER_SUPPLY_PROP_PRESENT check whether the DS28E16 responds on the
-1-Wire bus instead of always reporting 1 when no battery pack is
-connected?
+[Severity: Medium]
+Can an MI2S port on an enabled multi-port LPM LPAIF collide at LPM offset 0
+if that port has no child node in DT?
 
-Also, ds28e16_psy_desc makes POWER_SUPPLY_PROP_CYCLE_COUNT writable on a
-POWER_SUPPLY_TYPE_UNKNOWN supply, while
-Documentation/ABI/testing/sysfs-class-power documents cycle_count as
-read-only.
+of_lpass_cpu_parse_dai_data() sets a default 8-channel SD-line mode for all
+MI2S ports and only sets drvdata->lpaif_port_enable for ports with an
+explicit child node, while asoc_qcom_lpass_cpu_platform_probe() populates
+drvdata->mi2s_lpaif[port_id] and drvdata->mi2s_lpm[port_id] for all MI2S
+DAIs and lpass_cpu_daiops_probe() only checks that the port's LPAIF was
+initialized:
+
+sound/soc/qcom/lpass-cpu.c:lpass_cpu_daiops_probe() {
+    ...
+	/* The LPAIF is only initialized if one of its ports is described in DT */
+	if (!lpaif || !lpaif->drvdata) {
+		dev_err(dai->dev, "LPAIF of this port is not enabled\n");
+		return -ENODEV;
+	}
+    ...
+}
+
+If one port on a multi-port LPM LPAIF (such as lpass-aud-lpaif) is listed
+in DT and a sibling port on the same LPAIF relies on the default SD-line
+configuration without a child node, the sibling port still probes and
+is_lpm_mi2s_port() returns true, but lpass_platform_allocate_lpm() skips it
+and leaves drvdata->mi2s_lpm_offset[port_id] at 0, aliasing the buffer of
+whichever DAI was allocated at offset 0.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-ds28e16-v1=
--0-bed431df0578@proton.me?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-topic-sm86=
+50-el2-v2-0-174e159f0f69@linaro.org?part=3D15
