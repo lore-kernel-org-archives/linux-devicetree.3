@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795556328;
-	b=p1AEg+jPy1CyBpVMp7tRMfHYVtGk1ewfJb7QDn9IgHBk6cBFBCpEkMJtgBLegk0IE8E7
-	 lJWqiFx7rigKQ9sjFdvx53NVXEVwiO4JYUmturGnuNPm5ofmU3O1tT0BryQT7vZN5senR
-	 ccMvQJ9tfMLgArNkgRj8YI59Fpc2697aVMfvws1KqMqhPYUxokJtsar/Mv7UtmDv2poma
-	 5ureGrhZ0AWmVDyQ4O9yuHMqCbFz66dvBbxu1PKShD55TyM0WkUpNHmrMhQXelMhUDgYy
-	 4c0vNTThC76fhfqSY08xKgpjGIB1b1MUZLjDSG/88mZg+Yd/Gn5jAe5fgtBNoanWgAg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795556328;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+yhNDtVkGsB34hsrY/DrTfudZWn+Znetsqsket55Xcc=;
-	b=zPcU5lkiOIeM0u0dLUcXvfre5k7keaeIRKqj6gP8iykfMxEoxzuNW1zk4hw5LFBb0v2b
-	 FXSMoRh2mUxW+HGFO3r+mOxMtrBrWswDqYC7rJ7u6gSyfkD5WgfL7a6/QwIUvHdqeOXUi
-	 PdZfnMYi6jwDxT4IxoUKpejQvXexOuAbzzWjsT/6TDpIwV7v746YDZpro5H5EP94HehRk
-	 LspRndGEQErCqT5xJsyFZr4YYn76UkOz8acvMHzMo1tegcmg2fyzTFZupPYC6wHt7gvPk
-	 3coDXayrw4NxPGEinnxtjt+6DOfMgTB3sp2wUI0iSN4eNunimzK9QPq2feqG3h1go9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=MRQzwtKc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795556442;
+	b=RQeczDgGdVxzu5LgI75PeF94yvvYS89TO//4Y65vuY8Vek2nunY1s4xaVZEqW95HbWNX
+	 Nrhw8/BE1fT2w2u1KpgHmwHVuTYirIEEFD0Os4/xZWgBHnBbH+lEPkYyTyN3e8xaysh6g
+	 oSnva5cK4d2qMcZ/1YQM4AiU4s6/ytm69CixAWVzrd1YUvFOFhm8mWI768u76t54SGFYp
+	 VGDTRCjqcmADAH5iMU8W8TLVTibFJRnrlOIjPxSOC64HT+cOATBHaOp6r73S2wuPUuCbV
+	 sm/uTmTJOtzUYhPE0qfIF0cDxLz7raTLAEkHcrlbRY2+LR5jYJzNdO9kLOSFEYLG0AA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795556442;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=phiuX5Zb8P8aFyzSkr8Lt0LpTmJabsik6/9jkby6ebg=;
+	b=VAf/43ID0OtKx9P0yldzdWjPWyiWZUHPX84te837BW5DjgFcmdi7yEMeY4jrZs0Yuf6O
+	 QbLZGKrzFh6Wv4/mF4fS6dHZtt4ZSHYiAc1qdMExK6xG0A4y7hZpLljP8K6sc4VZPqXxF
+	 MshiLdoLHg5zvE03hqtnClS+ANTOeNDwVVCD8+xWF9JaJNWE42JV7EQqVVJvM+WMLw1Z1
+	 3w9GryF0w0EkxTUce0h/XHbneqsDerBy1rTD+l3VRuamY7E3U2+y0Df36wHtmrfGk9g6K
+	 6UInCbepoSf1BbCUDxqNNIQGOWOPN2nhOdNgyeTU4XCkmpMet8IuNPyS2AlETMkMULg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a5rKk7uE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE795606A6A5
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:38:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE795606A6A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209FA606A688
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=MRQzwtKc
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b0ca1ebc8bso44335207b3.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:38:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795556327; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bPUemCA+LjkIo8+niNlDh5y8MXhoXt8GqSn9wqn/m6o7Xyape4NJLSXp8F7p1gTv0w
-         1nl7Kx0vkZmnpdvhdfL2PULyeTXShhVLb+GLaVi37YgH5A1x8OjXqTeqqp8qzWDAGF2i
-         ADM3jZbT5+YXP6vL+Y9gWw47o/6JXcnO2NbfXC0kDhdxTl0q6fLMgfaL5KuJZCVbyMCU
-         c0pd/ykP8VMR08ZjP1dISeGpztH2d+IzAD+Jugmcv3eVnP4bghJKPxzq3BLGX+oA9PcM
-         gR7wVt3ThaHEygF7RMaMo2FLvLE8ZDw87nvyqpN/G+n2j+ACRitlnpeNL4HPiL/67szH
-         rfbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+yhNDtVkGsB34hsrY/DrTfudZWn+Znetsqsket55Xcc=;
-        fh=Kdveqv2kZliqZdkFTtY0C3MTNM68FP2im413ORVhTz0=;
-        b=eaQs/roItoKFK3bRjHRldbG+1xyZRbpViVKgEdI0kJn4gTFTrFdS3QAZA4AvlPAPIX
-         0amk/EKn2gw7kMuuOBImpJ72+Spj1vVUUP73YxQ+23s2itcOARllkUI+Qs3uwkuvaJUD
-         nhVJwVxrSBtYC2kZhZWf48voUI3OIC7f3O8Wh2WoLraB8bOIKm0b2ketn+HFebxnYim+
-         uE1t8LWjdP6C11GABLEyqc0/TTI5OoXvf5D8CxlW05yi2gBIRBr8j8NPxQ68Q3Q5H7iH
-         Ovd0jDy22AJvHsnNAL0g51eUkxyXuRpEfwK5hOu4rTAQ9zorTYlw8Tw+b7E3xM8MHd7I
-         jc8g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1795556327; x=1796161127; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+yhNDtVkGsB34hsrY/DrTfudZWn+Znetsqsket55Xcc=;
-        b=MRQzwtKcpvuLUX7gVFRmvaBf8z7TwF++fqSkjnaqL1tkiZF2n360rRhGPODzSqMsnz
-         zS37yyGaj2vH/anO7WJ+uamepQe28WsybHNyBjInK1z3ONzdi2zK1+uppWvMUg7wik0m
-         gcJBvoj3c5yvQ34d0DjEotBoOJUdjYa8+PP5o5lvgotgvWd9/6I1uk+Ii284UD6vy2cB
-         w4mqTszc8iSfhtwpprCcjmziMe72Tivt6bN/SKVnsWn4GLlcPszevwZc2jygNhGIO8D3
-         CzuSGzzrhmPt9HboLdYrw/LCjRk/imUgqoxKarwk38lmHJ13AjqTP3iCI/G96LY6lW2H
-         Weaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795556327; x=1796161127;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+yhNDtVkGsB34hsrY/DrTfudZWn+Znetsqsket55Xcc=;
-        b=wp2J/gWJlkuQPxx67TlOF0CC27NYRCKCW/1h7jA1gF1EYT8sij7bAOCZE9RJ1Nc1xj
-         dPPgWA0gBEWBHJIT+mqYiHq17KbvH/1dLqQMh1B19yal2YXenAgGRTRkJQotX6xTUu5U
-         YJTVUzqf8kzhhfT32sV6Oz5UNNr6k2JQu3QmZL5f9h7RBeenXs2I58tllZOdIJMt49Mf
-         nw0twxXYmRJ0v2rjY+2lqNVwNuEMhincWS0i8sEg6y7TJzkvm3xKaHy5Z9Om11IR8OSQ
-         AVdICAaY52Z9znp79k2W+AkNx8AtmkWf9sxB9IvlNmB5S1QhpnXN2mWpPPb2YAW8Ta03
-         NxIw==
-X-Forwarded-Encrypted: i=1; AL+hErEnuJraIkfUgXqp2HIY6Wt9M3566lJri7mqVW6ddWaWs33YwkirjbbuOvCEst/i7dFv0e4aOnbdK2VW@vger.kernel.org
-X-Gm-Message-State: APuU4Z+UullMTvWkn0SZ5Q8Zp+NpYyhVzU1oR64rH5C+Xy3Mxy55nOiQ
-	85W68ZffEKrFCQHG1CiQZWxWBpB0HmCaYls65XKnhE3OQrqLeyvrcBaSdBBvsEm0YaCnvADvoas
-	NIR9M5OawyUEQK/p3xkTSohgV2ewN3YE=
-X-Gm-Gg: AZFdTZeCn8LQEwzuhT/SV3j3RcMaIe8HGjaP9/orMYv4k8Wh5SOyrVNRZpOm4YDLvyO
-	7EGAT8+3nT25gGGU7N8P6TvM/pUCFAXXpvFUktUysot7MesG9AFS3F19RJzyT0s26DQcM8iY20U
-	MrIef/34TdwcfMR5vAN8MorvGdxdO5eqbEX+XWt/ORMlscKCotr75ENC7xxfpl4lNbRnlhDSggh
-	+j2RTupdG6jDMNaeyNz5rjUs6GjMTqo0q+V8VK0TkzODL90s4ZxUZTUy3QWbVT0qDZFp4ybjOn5
-	SePqdyvfbp/airNndtXRfO4H3Ewk0efUAmmxHEH06ToqsU2iIOsN0m1VFnuwRONuczRrncOTaRx
-	z79b43q+n+TD9lnmCVhPjkx4f22fLgKYSJn5sXY8cHXrlSrT4KmWjllXSqUk6qjFKTQ57/g==
-X-Received: by 2002:a05:690c:a89:b0:8b4:c1ef:db88 with SMTP id
- 00721157ae682-8b5204dc558mr63502567b3.40.1795556326911; Tue, 24 Nov 2026
- 13:38:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a5rKk7uE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2DAC1F000F4
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:40:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795556441;
+	bh=phiuX5Zb8P8aFyzSkr8Lt0LpTmJabsik6/9jkby6ebg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=a5rKk7uEqcp0Ck5LFWJ71VV9g7rkwiRrIP+FkOus5YRe7tvKQS6k51dkdJAQxi3dm
+	 ZoAzU8fZ3EgQhsJCxuEvhsIxA6KpbPtwYdflE05QC890cpOrL42k3peiAwvU9pYEaw
+	 J2mYpaaAJlfApqVUEyuDRsCEw3GNBXgxl1Srr4aGw8GEuRwWPLyQjfvkW2vSRI1F8S
+	 PnJ3u0THMwL6PcRI1dD3OWUKP8vo2PI3quaTGU1lNqF2Lr2dOktJ4pbRqGXxsX6ZwI
+	 ilp5ll9k9obmFrZByAPxtyRoYcvQZyaifgcGBASurIiBYr/YesHtv4dcUARSwjLdMG
+	 RYCQdsYAZBUTg==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5c158c4c15fso6261305e87.1
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:40:41 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHnths1tYuZtMrX0DtPhzvrzssP9l0UkDvcgdvlt3wcBJMyL++SVsG5SgCnMUJg3tsPIq424lyOOi3/@vger.kernel.org
+X-Gm-Message-State: APuU4Z++5GkwHk1+HZMG6O1kkfjejYJ5klRnWeIXTlWD8LWx5MpiDcOt
+	P+Zj/8bmPKHOCPNll6czn9SiGJNsbybAtWbX98Lq/bszwTvKCfHMTVpbCRjqLI7BZIfcqi1SoHv
+	TpUgiBaE/5gOVNYH3A/IMCfcCTflTqPQ=
+X-Received: by 2002:a05:6512:32c8:b0:5c1:46f8:913c with SMTP id
+ 2adb3069b0e04-5c1b7c00f96mr4380577e87.20.1795556440465; Tue, 24 Nov 2026
+ 13:40:40 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,38 +59,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261121213102.143130-1-tanure@linux.com> <20261121213102.143130-4-tanure@linux.com>
- <CAFBinCAzSgCGfXb_Q3FuwEmPAEiHSxzVR_ceyqMNp+LEZ18u1g@mail.gmail.com>
-In-Reply-To: <CAFBinCAzSgCGfXb_Q3FuwEmPAEiHSxzVR_ceyqMNp+LEZ18u1g@mail.gmail.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 24 Nov 2026 22:38:36 +0100
-X-Gm-Features: Aa3M54pH5ipmAt51OQad9aGPrJTAjEJ236HllU0tqVNlknXoe88HjErnJUF6ArA
-Message-ID: <CAFBinCD+JwU4mdgE54r0_XT8K5eMt2rjKQ9+3Pnt9V2nviH-fw@mail.gmail.com>
-Subject: Re: [PATCH v8 3/4] arm64: dts: amlogic: t7: add the ethernet controller
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, iav@iav.lv
+References: <20261015142552.4128028-1-ryan.roberts@arm.com> <20261015142552.4128028-10-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-10-ryan.roberts@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 24 Nov 2026 22:40:28 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmnVpGm9pG_g777yz6XvbyAgTBCM5moYy=gAeenhjQSEg@mail.gmail.com>
+X-Gm-Features: Aa3M54pcwQV3xdAu47_dI0b9w902bsdzijUBVbDcdwg2QkzqqV6jsuD637lp5XA
+Message-ID: <CAD++jLmnVpGm9pG_g777yz6XvbyAgTBCM5moYy=gAeenhjQSEg@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 09/15] misc/arm-cla: Add userspace interface
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 24, 2026 at 10:37=E2=80=AFPM Martin Blumenstingl
-<martin.blumenstingl@googlemail.com> wrote:
+Hi Ryan, Jean-Philippe,
+
+On Thu, Oct 15, 2026 at 4:27=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
+ wrote:
+
+> Expose CLA devices through a character device so userspace can enumerate
+> the available hardware and map accelerator register frames.
 >
-> On Sat, Nov 21, 2026 at 10:31=E2=80=AFPM Lucas Tanure <tanure@linux.com> =
-wrote:
-> [...]
-> > +                               int_mdio: mdio@1 {
-> > +                                       reg =3D <1>;
-> > +                                       #address-cells =3D <1>;
-> > +                                       #size-cells =3D <0>;
-> > +                                       status =3D "disabled";
-> Lucas, Igor (+Cc) has taken a closer look at the MDIO mux, see [0]
-Sorry, I forgot to Cc him :-(
-Now he's actually looped in
+> Provide ioctl interface to report device topology, CPU affinity, domain
+> membership, mmap offsets, architecture version and attached accelerator
+> masks, together with the IIDR, DEVARCH and REVIDR of each accelerator.
+>
+> CLA registers can only be read from the CPU local to the device, while
+> enumeration may occur on any CPU. Validate the supported CLA
+> architecture version during device setup and cache the CLA and
+> accelerator identification registers for later ioctl queries.
+>
+> Support shared read-write mmap of one or more CLA register pages. Create
+> a context for every domain covered by the mapping and resolve faults
+> only while that context owns the domain. Queue unassigned contexts with
+> the domain scheduler, drop mmap_lock while waiting for assignment and
+> retry the fault after the context is woken.
+>
+> Co-developed-by: Jean-Philippe Brucker <jpb@kernel.org>
+> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+> Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+
+This uapi is very simplistic and IIUC only provides a mmap:ed view of the
+accelerator memory area, without any details on how it is actually used.
+
+Since we don't know much about the usage it is hard to say whether this
+is a good approach compared to using e.g. an arm64-specific syscall.
+Whether to choose one or the other depends much on the error
+modus of this thing, how a CPU or a context should recover etc.
+
+> +       /*
+> +        * Cache some standard accelerator registers that user space may =
+query
+> +        * via ioctl from a remote CPU.
+> +        */
+
+If you're caching these registers for efficiency, a vDSO syscall could
+be more efficient as it could return the cached information without
+a roundtrip to kernelspace. OK kludgy, I know, but efficient.
+
+> +#define cla_for_each_mapped_domain(_vma, _domain)                      \
+> +       for (unsigned long __pg =3D (_vma)->vm_pgoff;                    =
+ \
+> +            __pg < (_vma)->vm_pgoff + vma_pages(_vma) &&               \
+> +            ((_domain) =3D cla_lut_pg[dev_nospec(__pg)]->domain);       =
+ \
+> +            __pg =3D (_domain)->pg_offset + (_domain)->nr_devs)
+
+I like this macro. Very helpful.
+
+> +static long cla_ioctl_validate_param(struct file *file,
+> +                                    struct arm_cla_param *param)
+(...)
+> +static long cla_ioctl_get_param(struct file *file, unsigned long arg)
+
+Looks good.
+
+> +static int cla_file_open(struct inode *inode, struct file *file)
+> +{
+> +       unsigned int index =3D iminor(inode) - MINOR(cla_devt);
+> +
+> +       if (index >=3D cla_nr_classes)
+> +               return -ENODEV;
+> +
+> +       file->private_data =3D cla_accel_classes[index];
+> +
+> +       return 0;
+> +}
+
+As you mention that this absolutely will not work unless the process
+(task) is tied to the current CPU, this should be verified and enforced.
+
+Obviously the task is running on the CPU it is running on when it
+gets here. What we need to ascertain is that it absolutely cannot migrate.
+
+Essentially it needs to execute as a userspace version of a
+CPU-local workqueue or other CPU-bound kernel daemon
+that uses kthread_bind().
+
+You *can* of course pin a process/task to a CPU with
+sched_setaffinity() in userspace and at a minimum this
+chardev should not be allowed to be opened unless the
+process has already done this and the affinity is set to the
+current CPU and the current CPU only.
+
+You want this to be enforced, but userspace does not provide
+a way to irrevocably bind a task to a certain CPU. Interestingly
+the kernel does, PF_NO_SETAFFINITY which is used in
+kthread.c. The only thing (I think) that can affect a task with
+PF_NO_SETAFFINITY is CPU hotplug.
+
+So I suggest that you might want to pursue some syscall
+extention to sched_setaffinity() such that PF_NO_SETAFFINITY
+is set on the process inside the kernel after creation, and then
+cla_file_open() should verify that the affinity is set to the
+current CPU only, and that PF_NO_SETAFFINITY is set.
+
+(You could of course hack-set the flag here in open() but I
+don't think that would be appreciated.)
+
+Yours,
+Linus Walleij
