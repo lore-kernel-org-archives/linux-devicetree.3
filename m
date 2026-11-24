@@ -1,82 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795533201;
-	b=X3Lvcfh+UbCrJhWN77857zXfqqMjrUHc1PH1IWirQSChnMjMnC8SgYp5ng/H3a5+27iW
-	 egFlcl2eeiDhDlITTHXbZIJG5XICgjewIa2uwAdvTgxNvNXRSRoJelonLYEY/7ouU9n/y
-	 88gfUPahrYWsvf3vv0/RIqGY9CU2V5Or3dnL8+zVNIC7lyozqet0ae+YYXDUFDpcFy2Ff
-	 IKrNdia+l55I9FTswTkE4JLbnS34amQbeLIsRSJ94J/Ec7BBI2G3VbPxaMmsTPHY2ucaP
-	 782BrPl3mYyR5f+wnymxaYNtxxqYnAoRbg5ihBtIRQbo0bcogpZ87IaXFrgwzYZpYzQ==
+	t=1795533321;
+	b=jvBVmQT5ihQ4+/V+eqG5nFD8lRjPc8mbHQpT16YWhHsmf97zZ/JPInj+nd6bxAKdZIwQ
+	 TW4oxG3U2vOeMlWGevkhMWk4isuOR8+xpVhoIaUBZVlXnIWyM+Ryjcr6eWewmKR5T4pqM
+	 j0GIpbWyHdivZn8gV62yRKn71yXBk0dFva8ugdLVTj/jiGOw8fEdPXyV90KmykGwZsA00
+	 0TaeMwPCHlyi/Qy4fgE3M58HxRRGwn3p5tHAYDBn1xsiXJ7pcPAn8wrokjzvyEE9CxaRs
+	 IO4U/n3VkgA4M3hyvCgE+64g6mYaDZEb+IFENdh2f/JVId6YcCfcWR+S5oC99S1jK2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795533201;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=1RAyfKzTUoNGYA0NO90ipE3cGbzZg8HPabSURud3e60=;
-	b=06NjzKBmi3cyythXzrrObnp4vU4H5fidCHH+Dry1MKHBJv24FMjQIDfQpQ/sXFjhX9DL
-	 WjcLRYmKxLswZ3rAzeB1P7W1iwRbsj2GODm+wWpQjv0PxwcJjrRiCRzrVVocTO2H2fn85
-	 4rjVEQSaqM9Vl4Syl2OZ8hRKq7wyUr/zI9Gw/578LEYu1l6kZ2d+I7caha0GOtTPPrnMj
-	 W3fQwowpbYaVbluoCBNcU7NcxZRc9vkxAtPVa856KuN5YKrsRKPXf7pSsOYppctY1V9BU
-	 vHwJGirzEQmcXTMp0GdWjUWMAC6CH5XTS19fB2Ao2eG3EYeoB3GCWZp9tGV6tz1fovQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795533321;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=VCa1si+Rdw90HsiIEyC/2QXZHat4jvLNJ5wZvJeqrHo=;
+	b=Mg/CPfoOaaHYK3CaxIqtAy88aGb0d8sSLsDBCV4EOZCoioBq0ZKTy8vf/JN2v2VdUVXS
+	 XRuTI0jgakJ2hdu++3f0cwSXA9/6rkx43ksMs/o//DviasctA+orO0337sG3p1CWCodCR
+	 pSF0PzojIfUSFwk5n1E0evzVaypodTrXBXeA5H4TNH09kmZEOHhViyVq8Mww1hpOXZemf
+	 SV5E5VXFXgekabdG4k/g3XHUpvT5dU6diDVsHfNT1qZXIj9VAqswsNhYbLiBnYOSyQJe2
+	 wTQgg4ikGpwa+Shwe4rIZuimbkpZElma/xN5NDE8D4qLh7c3YK+7YJEGpCybqqzSjXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XX1V7NUD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B3D606A32E;
-	Tue, 24 Nov 2026 15:13:20 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=L5sOuLv2;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E67E3606A326;
+	Tue, 24 Nov 2026 15:15:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E67E3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XX1V7NUD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396E81F0089E;
-	Tue, 24 Nov 2026 15:13:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795533200;
-	bh=1RAyfKzTUoNGYA0NO90ipE3cGbzZg8HPabSURud3e60=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XX1V7NUD8JeYCW7LQvOcfIluFiPHGc8HY1ikXgQzknHbPRB2wT4j8g6d0h1xeYuRb
-	 056kxfrXi3LapGzGowR3eOlcjMmyibd2Bk6EmvwmsXvLHf2QsTSI3Hf32UPcG1+Jt9
-	 kWftxGudK+EigdNC+HdJEIGeBJx0crQO63rSGr+ENHSMWoAh0SjXc+7ktHqrtbPk46
-	 Rorbt7jht0kTwBiLc6rMoNIEdk1EOvHEK/J5DNKePLWftjxHwzuuNAy7E5rnVWiYN3
-	 V2jS+rNRQ+MElmhywWl+4vbMNLJZy2KgJfSDoeqoscdJ8aB4+JYEqIUyfeR1VvS29v
-	 7lLMQW9Md+8Sw==
-Date: Tue, 24 Nov 2026 09:13:18 -0600
-From: Rob Herring <robh@kernel.org>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Helge Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
-	Jarkko Nikula <jarkko.nikula@bitmer.com>,
-	Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-pwm@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	letux-kernel@openphoenux.org, kernel@pyra-handheld.com
-Subject: Re: [PATCH v2 00/20] ARM: omap3: pandora: Modernize audio and
- backlight to use Device Tree to finally remove pdata-quirks
-Message-ID: <20261124151318.GA536798-robh@kernel.org>
-References: <cover.1795505160.git.hns@goldelico.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=L5sOuLv2
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 47DE1497;
+	Tue, 24 Nov 2026 07:15:17 -0800 (PST)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2A8D83F763;
+	Tue, 24 Nov 2026 07:15:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795533320; bh=6z7AZlLUL2DO+OdyjCHQWwyHNa89NmXSmwHe52ByhhQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=L5sOuLv2W/AW84dHcy5h3x3Ld1v3cAaNC+yDmhHBSsvfdR/A4pNfghRoNO4gddfAQ
+	 r7DCS9BJ+Ym+pCXK6NqN0JIYBn0cPajbC5S1D39TZs6I3YyU8KNs9qngX5RwyW8IQc
+	 fwE6g94hEfLQ88hBzFYMYu6TNkfYhwfKLwX2GQ0Y=
+Message-ID: <2ce0d340-c26f-4382-a341-bbcfb5575a8c@arm.com>
+Date: Tue, 24 Nov 2026 16:15:15 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,171 +53,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1795505160.git.hns@goldelico.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] arm64: dts: allwinner: add A733 SoC description
+To: Enzo Adriano <enzo.adriano.code@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
+ Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Junhui Liu <junhui.liu@pigmoral.tech>,
+ Jerome Brunet <jbrunet@baylibre.com>, Pablo Mazzini <pmazzini@gmail.com>,
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ Alexander Sverdlin <alex@sverdlin.org>, Jun Yan <jerrysteve1101@gmail.com>,
+ Lukas Schmid <lukas.schmid@netcube.li>
+References: <cover.1795034153.git.enzo.adriano.code@gmail.com>
+ <dbfb7c5ea8b0ade2d48ef8e5cfd0b9e5a9946483.1795034153.git.enzo.adriano.code@gmail.com>
+ <20261121112312.75ba7299@ryzen.lan> <20261121-a733-dt-v4-2-reply@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261121-a733-dt-v4-2-reply@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 24, 2026 at 08:25:40AM +0100, H. Nikolaus Schaller wrote:
-> PATCH V2 2026-11-24 08:26:00:
-> Changes in V2:
-> The series has been reworked and expanded from 16 to 20 patches,
-> addressing review feedback and issues identified during hardware testing.
-> 
-> Audio and power management:
-> ===========================
-> * Replace the TWL4030 REGEN regulator implementation with an optional
->   GPIO and a fixed regulator described in Device Tree.
-> * Extend the existing PCM1754 codec driver to support the PCM1773
->   instead of introducing a separate codec driver.
-> * Add power supply and power-down GPIO support to the codec driver.
-> * Improve error handling, resource management and power sequencing
->   in the codec and sound card drivers.
-> * Update the sound card and codec bindings and Device Tree nodes.
-> 
-> PWM and backlight:
-> ==================
-> * Add optional 64-cycle frame support to the TWL4030 PWM driver.
-> * Add an optional enable guard period to the generic pwm-backlight
->   driver to prevent the TPS61161 from inadvertently entering
->   EasyScale mode.
-> * Adjust the Pandora PWM backlight configuration accordingly.
-> * Remove the obsolete CONFIG_BACKLIGHT_PANDORA option from
->   omap2plus_defconfig.
-> 
-> Device Tree and general cleanup:
-> ================================
-> * Correct and validate the affected Device Tree bindings.
-> * Reorder the series so that bindings and supporting drivers
->   precede their Device Tree users.
-> * Improve commit messages and fix coding style issues.
-> * Clarify the original authorship and take responsibility for
->   contributions previously signed off under a pseudonym.
-> 
-> Review feedback addressed:
-> ==========================
-> * Mark Brown suggested representing TWL4030 REGEN as a GPIO rather
->   than a regulator and reviewed the original standalone PCM1773
->   driver, which has been replaced by extending the PCM1754 driver.
-> * Krzysztof Kozlowski requested corrections to the Device Tree
->   bindings, proper schema validation, improved commit messages and
->   clarification of the original contributor's authorship.
-> * Andreas Kemnade suggested handling the TPS61161 initialization
->   in the backlight layer. V2 implements this through a generic
->   pwm-backlight enable guard period. His comments on clock modeling
->   and patch bisectability were also considered.
-> * Daniel Thompson provided Reviewed-by for the original removal
->   of the Pandora backlight driver.
-> * Issues identified by Sashiko and Rob Herring's automated DT
->  validation were reviewed and addressed as applicable.
-> 
-> Many thanks to everyone who reviewed V1.
-> 
-> Validation and testing:
-> =======================
-> * Based on Linux v7.4-rc4.
-> * All 20 patches checked with checkpatch.pl.
-> * Remaining checkpatch warnings and intentional deviations have
->   been reviewed. In particular, ENOTSUPP must be retained in the
->   GPIO set_config callback because gpiolib handles it differently
->   from EOPNOTSUPP.
-> * dt_binding_check and dtbs_check passed for all five affected
->   Device Tree bindings.
-> * The complete series has been successfully built and tested on
->   real OpenPandora hardware.
-> * LCD operation, PWM backlight brightness control including
->   brightness zero and power-down, and audio playback through the
->   internal speakers and headset have been verified.
-> * Audio capture was not tested.
-> 
-> PATCH V1 2026-07-11 08:02:02:
-> This series modernizes the OpenPandora handheld support by converting the 
-> sound subsystem and backlight control to proper platform drivers and Device 
-> Tree definitions.
-> 
-> The primary goal is the complete removal of omap3_pandora_legacy_init() 
-> and the elimination of the last remaining user of machine_is_omap3_pandora().
-> 
-> History and Context
-> ===================
-> The necessity of this cleanup was highlighted in several recent discussions:
-> 
-> 1. Tony Lindgren noted that machine_is_omap3_pandora() checks never succeed 
->    on Device Tree-booted machines, leaving the audio subsystem functionally 
->    broken since the DT conversion years ago:
->    https://marc.info/?l=alsa-devel&m=165632351319716&w=2
-> 
-> 2. Ethan Nelson-Moore submitted a patch to replace the macro with DT 
->    compatibility checks (accepted as commit 45efb8fbdae3 in v7.2-rc1):
->    https://marc.info/?l=linux-omap&m=177841578110704&w=2
-> 
-> 3. Sascha Hauer pointed out that the entire omap3pandora driver fundamentally 
->    depended on this broken machine ID check:
->    https://marc.info/?l=linux-omap&m=178048982272252&w=2
-> 
-> Design Choices and Implementation
-> =================================
-> Based on these discussions and a long-standing and working out-of-tree solution,
-> we initially attempted a migration to generic frameworks like simple-audio-card 
-> or audio-graph-card. However, the hardware routing peculiarities of the 
-> OpenPandora introduced too many functional gaps. Replacing omap3pandora.c 
-> entirely with pure DT definitions proved unfeasible. 
-> 
-> Therefore, we opted to base a new proposal on the out-of-tree rewrite of
-> the old-style sound board file kernel driver (sound/soc/ti/omap3pandora.c)
-> into a proper platform driver that cleanly fetches its resources from the
-> Device Tree, while adding specific handling for the twl4030-regen output
-> and adapting the pandora device tree files.
-> 
-> Series Structure
-> ================
-> * Patches 01–06 (Preparation): Move highly specific legacy code to its proper 
->   infrastructure (TWL4030 regulator regeneration and codec handling).
-> * Patch 07-08 (New Driver): Introduce a dedicated platform driver for the 
->   PCM1773 audio DAC.
-> * Patches 09-14 (Audio Core): Rewrite the omap3pandora ASoC fabric driver 
->   and update the respective Device Tree nodes.
-> * Patches 14–15 (Backlight): Remove the custom, legacy Pandora backlight driver,
->   convert it to generic Device Tree nodes
-> * Patch 16: (Cleanup) safely delete the obsolete omap3_pandora_legacy_init().
-> 
-> Notes & Testing
-> ===============
-> * Testing: This series has been tested on real OpenPandora hardware.
-> 
-> Credits
-> =======
-> This work is a collaborative effort by multiple authors over several years:
-> * Grond <grond66@riseup.net>
-> * Stefan Leichter <sle85276@gmx.de>
-> * H. Nikolaus Schaller <hns@goldelico.com>
-> 
-> 
-> H. Nikolaus Schaller (17):
->   dt-bindings: gpio: twl4030: Document REGEN GPIO
->   gpio: twl4030: Support REGEN GPIO
->   ASoC: twl4030: Allow APLL rate selection through set_sysclk()
->   dt-bindings: sound: pcm1754: Describe PCM1773
->   ASoC: codecs: pcm1754: Add PCM1773 support
->   dt-bindings: sound: Document OpenPandora sound card
->   dt-bindings: mfd: twl4030: Document 64-cycle PWM
->   pwm: twl: Support 64-cycle PWM frame
->   dt-bindings: backlight: pwm: Document enable guard
->   backlight: pwm: Support enable guard period
->   drm/panel: td043mtea1: Attach DT backlight
->   ARM: dts: omap3pandora: Disable unused DMA channels
->   ARM: dts: omap3-pandora: Model LCD power enable dependencies
->   ARM: dts: omap3pandora: Describe PCM1773
->   ARM: dts: omap3pandora: Switch backlight to PWM
->   backlight: Remove legacy Pandora driver
->   ARM: OMAP2+: Remove Pandora platform-data quirks
-> 
-> Stefan Leichter (3):
->   ASoC: ti: omap3pandora: Convert sound card to DT
->   ARM: dts: omap3pandora: Enable audio interfaces
->   ARM: dts: omap3pandora: Describe sound card
+Hi,
 
-Which of the 7 maintainers do you expect to take this series? Surely 
-this can be broken up into smaller series?
+On 11/23/26 18:42, Enzo Adriano wrote:
+>> So what's the purpose of this cpu-map really if it's all flat?
+>> I wonder what the term "cluster" should really mean, here? I mean there
+>> are surely different types of cores connected, with separate frequency
+>> and power domains. So the cpu-map should not be flat, but describe that.
+>> Yes, they all use the same MPIDR affinity level, and the manual talks
+>> of "cluster0" only, but I wonder if this is not what this node here is
+>> about.
+>> Looks like the RK3588 also uses the same affinity level for all cores,
+>> but has a differentiated cpu-map.
+> 
+> The map records the topology in the A733 User Manual v1.00,
+> section 5.1.2, figure 5-1. The six A55s and two A76s sit in one
+> DynamIQ unit and share L3.
 
-Rob
+I would be careful with what's shown in those diagrams, they often 
+simplify things, and Allwinner's documentation doesn't have the best 
+reputation when it comes to fidelity ;-)
+
+> The BSP's separate PLLs, CPU frequency
+> policies and DCDC5/DCDC3 supplies (A7S schematic sheet 4) describe
+> two DVFS groups. Mainline can describe those with the clocks,
+> separate opp-shared tables and CPU supplies.
+
+Yes, they are separate now, whereas older SoCs would only allow one 
+voltage and one frequency, across all cores. But those were v8.0 cores, 
+without an DSU.
+ From what I gathered, it is an explicit feature of those DynamIQ DSUs 
+to combine multiple microarchitectures in one "cluster", and allow 
+separate frequency and power domains. The shared L3 cache seems to be 
+the defining feature of a "cluster" now.
+
+> RK3588 and GS101 both use 4+2+2 maps. MediaTek changed MT8195,
+> MT8192 and MT8186 to one cluster each. The MT8195 patch says the
+> big and little CPUs are "in one cluster: fix the CPU map to reflect
+> that." The other two patches make the same point for their SoCs.
+
+Ah, so there are indeed conflicting examples. Apparently this cpu-map 
+and the topology described there doesn't mean too much anymore, in 
+practical terms.
+
+> 
+> https://lore.kernel.org/r/20230126103526.417039-2-angelogioacchino.delregno@collabora.com
+> https://lore.kernel.org/r/20230126103526.417039-3-angelogioacchino.delregno@collabora.com
+> https://lore.kernel.org/r/20230126103526.417039-4-angelogioacchino.delregno@collabora.com
+> 
+> I kept one cluster in v5. Do you still prefer a 6+2 split?
+
+No, with this information just one cluster, in a "flat" map, is fine.
+
+Thanks,
+Andre
+
