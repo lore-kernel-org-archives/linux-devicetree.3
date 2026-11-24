@@ -1,57 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795524104;
-	b=Cj7H/BDLiF8m1orDPVEHbyD0o4vH5XFMR7JpQX5Bh63yB9Ma0V7KE2o9nhDvsdh7HQWO
-	 2Jk/XocfcxbuuGjobZ5lXS6s/LBhmO1gvFXdQ6qgPrPDQwK321HUjXhAcLIlImukfubkP
-	 WuzKZCBIQdYv12aMEnRFhd65z2Uj7u/fpBQPShsp04n6CSmeekvpmWkK2T1BhPIhTN6O7
-	 9rof8C09uEfblOOM4SQgnMe1XxgerB2Nkpf6kIRHZSUyk6CWajNl/I2KKT2UfQKDnWboE
-	 041p7Ln37NQmduPvA9EftZXx2649jBZdymc6Kic4WzxkfdaYp0z37KGXa+jrVmoim4Q==
+	t=1795524145;
+	b=LmQufh7LEMmsDX1YQoaVScPxpARxy5nXbAD72m/q+eTiUMyTEFIbZztykMSnpMstzEyn
+	 7hTu4yYFItMPdjMd//Rr64oO8/O6BfIe7OANOlhdycz97IYaqAQpA+v8fGWhlwGbAt6Kf
+	 igXduO2/m2AL+eBqi5PutxerTM0DbH9vWSJ5eS9kvyCZ/WtHmXd2F4xfi3c6n798M9gnu
+	 kOyV/bAs/6bt7LTgLUyuH+Fr0bkLI93Hjp3byfXPCnwyqtq94p1Q74VDOAsSHfyePlXEy
+	 TEwJQuvRHd2HjY4H26TzDBPz7qh3JJ8q2NN8FMUSrAiC4y7JHvZ7BcL7QvKMgJNduPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795524104;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=VonIu9bN0fYZojuGis/ktvDMkeVk1+tCiu8w9p6vW+g=;
-	b=n51tDeLNcgHoBjfi26bbsBWCpkO0mgB3C+0rV5PvSZ5kAUioauOyjWLRnxWq72QbWc+i
-	 9otYasR+GmJ44/AhO0/sBjcXab9Uc5k4vv1eMAMt8r66yt8L4HmQNRxUbUe65DSiOPYHF
-	 KAfYW9iUphzsqWNvHklkc/4lX0XU2MPoH02a/zX2nNusK2niniNRRD31msXXw/fTz/U+A
-	 zrl2DZKyGmn1z8w0vDI0AdTgkWiyaK0SreDLDm7VqW6uHuFxT+WGADq8mjVpcZ8mgAo99
-	 hrfMkM2LICRqhchoZwPInfG0ZHUG3mEOjNs9nB9OY/ubyTOmPhmwtBoD4P+bnR1Z9tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795524145;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FXHwcBo55fXV6NB/G7yDaAi5wcc/RVjDUECLhPxRCew=;
+	b=bA7yNSsjUCcmGgcN+yDLfyxYPIPnGFwtXu8Z/f3U+MdmBxplybwkMgyrh6wBQUGA28by
+	 UbRndNjPSslMvpmtkwymy+CrVZ9EFfRYKaUtQYbiZumVd41BTNnCn6dTuL/123iaNDrZu
+	 0baS7fob2lESulPmabfj2od1LUYsnUCs4XYMnvrOEOa0ZqFdZZ3ViqMiy9NYxSgWBtX9/
+	 zXAmTllg/k2tGeZulom//FHv+5olkxT72Ayx+EiMOic409aJiuxHbneIpZIoYFuMz1anw
+	 lfsI81/rPW6EJjbXVLtsXIkr7yWaVE6rZZ8frWzvnz08svHsTstPqxPdcRqri/R5hCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZb+KTk2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=I9gPpYeg;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DABC606A322;
-	Tue, 24 Nov 2026 12:41:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4B9606A321;
+	Tue, 24 Nov 2026 12:42:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB4B9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZb+KTk2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AB011F000C0;
-	Tue, 24 Nov 2026 12:41:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795524103;
-	bh=VonIu9bN0fYZojuGis/ktvDMkeVk1+tCiu8w9p6vW+g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XZb+KTk2FYrJjSKRVeyRcinPCfst09CgJjdugDaw7vLn9OsO8tqKkb3BjL4/D6GH7
-	 YVrxWE1w5hyhMRyJi2LT/lTNuorSnMV8W1zZPG6emT8jQ+QnyNL9xsLHGz7N+FB4jp
-	 phMLlFfdwbj9kTfbufl1702gVsTtTNOb/QjC26D/tHlzm4Jh5xX8hWhdybXNhYnCEW
-	 vmXy3Kiuoi6sp79KLDXYdY590/zp+JL1oX356h9wPxrCNAD+mp3D2q3qfPb/UpZA29
-	 wJaFc8h4X0sE8fjc5Xn/00fJZG8lkH2KOkmxaEBPxal31f+tCUahEwEqGVPoYHHwrO
-	 SKiztNX3al+rQ==
-Message-ID: <sashiko-outbox-231162@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/6] spi: spi-geni-qcom: Add QSPI support over GPI
- DMA
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jyothi Kumar Seerapu" <jyothi.seerapu@oss.qualcomm.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261124-qspi_qup_upstream-v2-6-cd69894107c8@oss.qualcomm.com>
-References: <20261124-qspi_qup_upstream-v2-0-cd69894107c8@oss.qualcomm.com>
- <20261124-qspi_qup_upstream-v2-6-cd69894107c8@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 12:41:42 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=I9gPpYeg
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 28416204EE;
+	Tue, 24 Nov 2026 13:42:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1795524135;
+	bh=FXHwcBo55fXV6NB/G7yDaAi5wcc/RVjDUECLhPxRCew=; h=From:To:Subject;
+	b=I9gPpYegYYcFWSPNMPsH/TDQ5cFhYbWw55w/KqFQTk/9+163UX5KA149aulT5ODc4
+	 qKfHJDbvJdxqWXg+D0zzGgEujZcTo3Ld8pdE6bOdr9r0H42TQYUtDqNLkj5tcitphj
+	 7IOEAkkAEpaNq8lKUOTumIDUeTPIYTZiZUcQ1GvtigjFqglu+DnnJq72mkFZQBOhEH
+	 UMnwNzU1CNYHcc9o9ZpCKavUcjM+3Dl5XPoF88Y52Vq83BJhRFgcIIPIgqXZGY1cN5
+	 mF5v27pjdQNqgWwbQza6D1D+2R1X7BHwJ4DOEgWG1ltVRQHEIzUVxCHOXqBMm6CsD4
+	 DMLrK+dekQ0CQ==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org
+Subject: [PATCH v1 1/2] arm64: dts: ti: k3-am62-verdin: Add tdx vendor prefix to display overlays
+Date: Tue, 24 Nov 2026 13:42:04 +0100
+Message-ID: <20261124124207.199382-2-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261124124207.199382-1-francesco@dolcini.it>
+References: <20261124124207.199382-1-francesco@dolcini.it>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,263 +76,221 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] spi: spi-geni-qcom: dummy_data len treated as cycles in
-  setup_gsi_xfer()
-- [Medium] spi: spi-geni-qcom: uncombined dummy_data sent as TX in
-  setup_gsi_xfer()
-- [Medium] spi: spi-geni-qcom: unvalidated tx_nbits and phase split in
-  setup_gsi_xfer()
-- [Medium] spi: spi-geni-qcom: unreset started flag in
-  spi_geni_transfer_one_message()
---
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-commit 3cee624932aec05c72fd7f3325666f8b401b4c9e
-Author: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+The Toradex display overlays are named after the accessory product name,
+which on its own reads as a generic panel description. Prefix them with
+the vendor, "tdx", as already done for third-party accessories (e.g.
+"rpi-display-2-7in") and for the Toradex overlays in the NXP i.MX
+directories, to have a consistent naming across all Toradex DT files.
 
-spi: spi-geni-qcom: Add QSPI support over GPI DMA
+The 10.1" LVDS display exists in a V1 and a V2 version, encode it as a
+"-v1"/"-v2" suffix. The combined DTBs are renamed accordingly.
 
-This commit adds QSPI controller support over GPI DMA for the
-qcom,geni-qspi compatible, combining TX, optional dummy, and RX phases into
-a single SPI_TX_RX hardware command.
+Link: https://lore.kernel.org/all/20261026111149.GA46946@francesco-nb/
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+---
+ arch/arm64/boot/dts/ti/Makefile               | 72 +++++++++----------
+ ...e-tdx-panel-cap-touch-10inch-lvds-v1.dtso} |  0
+ ...e-tdx-panel-cap-touch-10inch-lvds-v2.dtso} |  0
+ ...o-lvds-tdx-panel-cap-touch-10inch-v1.dtso} |  0
+ ...o-lvds-tdx-panel-cap-touch-10inch-v2.dtso} |  0
+ ...erdin-tdx-panel-cap-touch-10inch-dsi.dtso} |  0
+ ...n-tdx-panel-cap-touch-10inch-lvds-v1.dtso} |  0
+ ...n-tdx-panel-cap-touch-10inch-lvds-v2.dtso} |  0
+ ...verdin-tdx-panel-cap-touch-7inch-dsi.dtso} |  0
+ 9 files changed, 36 insertions(+), 36 deletions(-)
+ rename arch/arm64/boot/dts/ti/{k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso => k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v1.dtso} (100%)
+ rename arch/arm64/boot/dts/ti/{k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso => k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v2.dtso} (100%)
+ rename arch/arm64/boot/dts/ti/{k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtso => k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso} (100%)
+ rename arch/arm64/boot/dts/ti/{k3-am625-verdin-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso => k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtso} (100%)
+ rename arch/arm64/boot/dts/ti/{k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso => k3-am625-verdin-tdx-panel-cap-touch-10inch-dsi.dtso} (100%)
+ rename arch/arm64/boot/dts/ti/{k3-am625-verdin-panel-cap-touch-10inch-lvds.dtso => k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtso} (100%)
+ rename arch/arm64/boot/dts/ti/{k3-am625-verdin-panel-cap-touch-10inch-lvds-v2.dtso => k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso} (100%)
+ rename arch/arm64/boot/dts/ti/{k3-am625-verdin-panel-cap-touch-7inch-dsi.dtso => k3-am625-verdin-tdx-panel-cap-touch-7inch-dsi.dtso} (100%)
 
-> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index 631908522957a..c2f14554c4a1e 100644
-> --- a/drivers/spi/spi-geni-qcom.c
-> +++ b/drivers/spi/spi-geni-qcom.c
-[ ... ]
-> @@ -418,27 +427,50 @@ spi_gsi_callback_result(void *cb, const struct dmae=
-ngine_result *result)
-[ ... ]
->  static int setup_gsi_xfer(struct spi_transfer *xfer, struct spi_geni_mas=
-ter *mas,
-> -			  struct spi_device *spi_slv, struct spi_controller *spi)
-> +			  struct spi_device *spi_slv, struct spi_controller *spi,
-> +			  struct spi_transfer *tx_rx_xfer)
->  {
->  	unsigned long flags =3D DMA_PREP_INTERRUPT | DMA_CTRL_ACK;
->  	struct dma_slave_config config =3D {};
->  	struct gpi_spi_config peripheral =3D {};
-> -	struct dma_async_tx_descriptor *tx_desc, *rx_desc;
-> +	struct dma_async_tx_descriptor *tx_desc, *rx_desc =3D NULL;
-> +	struct spi_transfer *last =3D tx_rx_xfer ?: xfer;
->  	int ret;
-> =20
-> +	/* QSPI receives data only as part of a combined TX-then-RX command. */
-> +	if (mas->dev_data->is_qspi && xfer->rx_buf && !tx_rx_xfer)
-> +		return -EOPNOTSUPP;
-> +
->  	config.peripheral_config =3D &peripheral;
->  	config.peripheral_size =3D sizeof(peripheral);
->  	peripheral.set_config =3D true;
-> @@ -449,20 +481,21 @@ static int setup_gsi_xfer(struct spi_transfer *xfer=
-, struct spi_geni_master *mas
->  		mas->cur_speed_hz =3D xfer->speed_hz;
->  	}
-> =20
-> -	if (xfer->tx_buf && xfer->rx_buf) {
-> +	if (mas->dev_data->is_qspi && tx_rx_xfer) {
-> +		/* Combine the command and data phases into one hardware command. */
-> +		peripheral.cmd =3D SPI_TX_RX;
-> +		peripheral.rx_len =3D get_xfer_len_in_words(tx_rx_xfer, mas);
-> +	} else if (xfer->tx_buf && xfer->rx_buf) {
->  		peripheral.cmd =3D SPI_DUPLEX;
->  	} else if (xfer->tx_buf) {
->  		peripheral.cmd =3D SPI_TX;
->  		peripheral.rx_len =3D 0;
->  	} else if (xfer->rx_buf) {
->  		peripheral.cmd =3D SPI_RX;
-> -		if (!(mas->cur_bits_per_word % MIN_WORD_LEN)) {
-> -			peripheral.rx_len =3D ((xfer->len << 3) / mas->cur_bits_per_word);
-> -		} else {
-> -			int bytes_per_word =3D (mas->cur_bits_per_word / BITS_PER_BYTE) + 1;
-> -
-> -			peripheral.rx_len =3D (xfer->len / bytes_per_word);
-> -		}
-> +		peripheral.rx_len =3D get_xfer_len_in_words(xfer, mas);
-> +	} else {
-> +		dev_err(mas->dev, "Invalid transfer: no tx_buf or rx_buf\n");
-> +		return -EINVAL;
->  	}
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index da654153a35b..4c31fceb6497 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -11,16 +11,16 @@
+ # Boards with AM62x SoC
+ k3-am625-verdin-nonwifi-dahlia-dsi-to-hdmi-dtbs := k3-am625-verdin-nonwifi-dahlia.dtb \
+ 	k3-am625-verdin-dsi-to-hdmi.dtbo
+-k3-am625-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := \
++k3-am625-verdin-nonwifi-dahlia-tdx-panel-cap-touch-10inch-dsi-dtbs := \
+ 	k3-am625-verdin-nonwifi-dahlia.dtb \
+-	k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
++	k3-am625-verdin-tdx-panel-cap-touch-10inch-dsi.dtbo
+ k3-am625-verdin-nonwifi-dev-dsi-to-hdmi-dtbs := k3-am625-verdin-nonwifi-dev.dtb \
+ 	k3-am625-verdin-dsi-to-hdmi.dtbo
+ k3-am625-verdin-wifi-dahlia-dsi-to-hdmi-dtbs := k3-am625-verdin-wifi-dahlia.dtb \
+ 	k3-am625-verdin-dsi-to-hdmi.dtbo
+-k3-am625-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := \
++k3-am625-verdin-wifi-dahlia-tdx-panel-cap-touch-10inch-dsi-dtbs := \
+ 	k3-am625-verdin-wifi-dahlia.dtb \
+-	k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
++	k3-am625-verdin-tdx-panel-cap-touch-10inch-dsi.dtbo
+ k3-am625-verdin-wifi-dev-dsi-to-hdmi-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-dsi-to-hdmi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay.dtb
+@@ -33,14 +33,14 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-sk-microtips-mf101hie-panel.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-var-som-symphony.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-can.dtbo
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v2.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-nau8822-btl.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-hdmi.dtbo
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-lvds-v2-panel-cap-touch-10inch.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dahlia-dsi-to-hdmi.dtb
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dahlia-tdx-panel-cap-touch-10inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dev-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-dev.dtb
+@@ -50,13 +50,13 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-yavia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-nonwifi-zinnia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-ov5640-24mhz.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-ov5640.dtbo
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-dsi.dtbo
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-10inch-lvds-v2.dtbo
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-rpi-display-2-7in.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-tdx-panel-cap-touch-10inch-dsi.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtbo
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-tdx-panel-cap-touch-7inch-dsi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-dsi-to-hdmi.dtb
+-dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia-tdx-panel-cap-touch-10inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dev-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-dev.dtb
+@@ -271,40 +271,40 @@ k3-am625-sk-csi2-tevi-ov5640-dtbs := k3-am625-sk.dtb \
+ k3-am625-sk-hdmi-audio-dtbs := k3-am625-sk.dtb k3-am62x-sk-hdmi-audio.dtbo
+ k3-am625-sk-microtips-mf101hie-panel-dtbs := k3-am625-sk.dtb \
+ 	k3-am625-sk-microtips-mf101hie-panel.dtbo
+-k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
++k3-am625-verdin-wifi-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+-	k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
+-k3-am625-verdin-wifi-dev-dsi-to-lvds-v2-panel-cap-touch-10inch-dtbs := \
++	k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtbo
++k3-am625-verdin-wifi-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+-	k3-am625-verdin-dsi-to-lvds-v2-panel-cap-touch-10inch.dtbo
++	k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtbo
+ k3-am625-verdin-wifi-dev-mezzanine-can-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-dev-mezzanine-can.dtbo
+-k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-dtbs := \
++k3-am625-verdin-wifi-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v1-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+-	k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
+-k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-v2-dtbs := \
++	k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
++k3-am625-verdin-wifi-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v2-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+-	k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtbo
++	k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v2.dtbo
+ k3-am625-verdin-wifi-dev-nau8822-btl-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-dev-nau8822-btl.dtbo
+ k3-am625-verdin-wifi-dev-ov5640-24mhz-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-ov5640-24mhz.dtbo
+ k3-am625-verdin-wifi-dev-ov5640-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-ov5640.dtbo
+-k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := \
+-	k3-am625-verdin-wifi-dev.dtb \
+-	k3-am625-verdin-panel-cap-touch-7inch-dsi.dtbo
+ k3-am625-verdin-wifi-dev-rpi-display-2-7in-dtbs := \
+ 	k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am625-verdin-rpi-display-2-7in.dtbo
++k3-am625-verdin-wifi-dev-tdx-panel-cap-touch-7inch-dsi-dtbs := \
++	k3-am625-verdin-wifi-dev.dtb \
++	k3-am625-verdin-tdx-panel-cap-touch-7inch-dsi.dtbo
+ k3-am625-verdin-wifi-dev-uart4-mcu-dtbs := k3-am625-verdin-wifi-dev.dtb \
+ 	k3-am62x-verdin-uart4-mcu.dtbo
+-k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds-dtbs := \
++k3-am625-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v1-dtbs := \
+ 	k3-am625-verdin-wifi-mallow.dtb \
+-	k3-am625-verdin-panel-cap-touch-10inch-lvds.dtbo
+-k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds-v2-dtbs := \
++	k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
++k3-am625-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v2-dtbs := \
+ 	k3-am625-verdin-wifi-mallow.dtb \
+-	k3-am625-verdin-panel-cap-touch-10inch-lvds-v2.dtbo
++	k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtbo
+ k3-am62-lp-sk-hdmi-audio-dtbs := k3-am62-lp-sk.dtb k3-am62x-sk-hdmi-audio.dtbo
+ k3-am62-lp-sk-nand-dtbs := k3-am62-lp-sk.dtb k3-am62-lp-sk-nand.dtbo
+ k3-am62a7-phyboard-lyra-disable-eth-phy-dtbs := k3-am62a7-phyboard-lyra-rdk.dtb \
+@@ -445,19 +445,19 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am625-sk-csi2-tevi-ov5640.dtb \
+ 	k3-am625-sk-hdmi-audio.dtb \
+ 	k3-am625-sk-microtips-mf101hie-panel.dtb \
+-	k3-am625-verdin-wifi-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
+-	k3-am625-verdin-wifi-dev-dsi-to-lvds-v2-panel-cap-touch-10inch.dtb \
++	k3-am625-verdin-wifi-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtb \
++	k3-am625-verdin-wifi-dev-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtb \
+ 	k3-am625-verdin-wifi-dev-mezzanine-can.dtb \
+-	k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds.dtb \
+-	k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtb \
++	k3-am625-verdin-wifi-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v1.dtb \
++	k3-am625-verdin-wifi-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v2.dtb \
+ 	k3-am625-verdin-wifi-dev-nau8822-btl.dtb \
+ 	k3-am625-verdin-wifi-dev-ov5640-24mhz.dtb \
+ 	k3-am625-verdin-wifi-dev-ov5640.dtb \
+-	k3-am625-verdin-wifi-dev-panel-cap-touch-7inch-dsi.dtb \
+ 	k3-am625-verdin-wifi-dev-rpi-display-2-7in.dtb \
++	k3-am625-verdin-wifi-dev-tdx-panel-cap-touch-7inch-dsi.dtb \
+ 	k3-am625-verdin-wifi-dev-uart4-mcu.dtb \
+-	k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds.dtb \
+-	k3-am625-verdin-wifi-mallow-panel-cap-touch-10inch-lvds-v2.dtb \
++	k3-am625-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v1.dtb \
++	k3-am625-verdin-wifi-mallow-tdx-panel-cap-touch-10inch-lvds-v2.dtb \
+ 	k3-am62-lp-sk-hdmi-audio.dtb \
+ 	k3-am62-lp-sk-nand.dtb \
+ 	k3-am62a7-phyboard-lyra-disable-eth-phy.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v1.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtso
+rename to arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v1.dtso
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v2.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
+rename to arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-tdx-panel-cap-touch-10inch-lvds-v2.dtso
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtso
+rename to arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v1.dtso
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
+rename to arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-tdx-panel-cap-touch-10inch-v2.dtso
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-tdx-panel-cap-touch-10inch-dsi.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-dsi.dtso
+rename to arch/arm64/boot/dts/ti/k3-am625-verdin-tdx-panel-cap-touch-10inch-dsi.dtso
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds.dtso
+rename to arch/arm64/boot/dts/ti/k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v1.dtso
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds-v2.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds-v2.dtso
+rename to arch/arm64/boot/dts/ti/k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-7inch-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-tdx-panel-cap-touch-7inch-dsi.dtso
+similarity index 100%
+rename from arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-7inch-dsi.dtso
+rename to arch/arm64/boot/dts/ti/k3-am625-verdin-tdx-panel-cap-touch-7inch-dsi.dtso
+-- 
+2.47.3
 
-[Severity: Medium]
-Can an uncombined dummy_data transfer be sent onto the wire as an active
-SPI_TX transfer here?
-
-In GENI_GPI_DMA mode, spi_geni_probe() sets SPI_CONTROLLER_MUST_TX, so
-spi_map_msg() populates xfer->tx_buf =3D ctlr->dummy_tx for any non-empty
-transfer without a TX buffer (and callers such as spi_mem_exec_op() also
-set tx_buf on dummy transfers).  When a dummy_data transfer is not paired
-into a [TX, dummy, RX] sequence by spi_geni_transfer_one_message(),
-setup_gsi_xfer() does not reject xfer->dummy_data and instead takes the
-else if (xfer->tx_buf) branch with dummy_cycles =3D 0, actively driving dum=
-my
-bytes on the bus instead of tri-stating for dummy clock cycles or returning
--EOPNOTSUPP.
-
-Because SPI_CONTROLLER_MUST_TX always populates xfer->tx_buf, bufferless
-transfers with len > 0 also take the SPI_TX branch instead of failing with
--EINVAL, and non-QSPI RX-only transfers take SPI_DUPLEX, leaving the SPI_RX
-and else branches unreachable.
-
-[ ... ]
-> @@ -1056,7 +1149,7 @@ static int spi_geni_transfer_one_message(struct spi=
-_controller *spi,
->  {
->  	struct spi_geni_master *mas =3D spi_controller_get_devdata(spi);
->  	struct spi_device *spi_slv =3D msg->spi;
-> -	struct spi_transfer *xfer, *next_xfer;
-> +	struct spi_transfer *xfer, *next_xfer, *last_xfer;
->  	bool keep_cs =3D false;
->  	bool dma_synced =3D false;
->  	bool started =3D false;
-> @@ -1066,6 +1159,54 @@ static int spi_geni_transfer_one_message(struct sp=
-i_controller *spi,
->  	spi_geni_set_cs(spi_slv, !xfer->cs_off);
-> =20
->  	list_for_each_entry(xfer, &msg->transfers, transfer_list) {
-> +		mas->dummy_len =3D 0;
-> +		last_xfer =3D xfer;
-> +
-> +		/*
-> +		 * Combine a TX phase, optional dummy phase and RX phase into
-> +		 * one QSPI command.
-> +		 */
-> +		if (mas->dev_data->is_qspi && mas->cur_xfer_mode =3D=3D GENI_GPI_DMA &&
-> +		    xfer->len && xfer->tx_buf && xfer->tx_buf !=3D spi->dummy_tx &&
-> +		    !xfer->rx_buf && !xfer->dummy_data &&
-> +		    !list_is_last(&xfer->transfer_list, &msg->transfers)) {
-> +			next_xfer =3D list_next_entry(xfer, transfer_list);
-> +
-> +			if (next_xfer->dummy_data &&
-> +			    !list_is_last(&next_xfer->transfer_list, &msg->transfers)) {
-> +				/* The current client supplies the dummy length in cycles. */
-> +				mas->dummy_len =3D next_xfer->len;
-> +				next_xfer =3D list_next_entry(next_xfer, transfer_list);
-> +			}
-
-[Severity: High]
-Does assigning next_xfer->len directly to mas->dummy_len program the wrong
-number of dummy clock cycles for standard SPI clients?
-
-In struct spi_transfer, len is in bytes, and callers such as
-spi_mem_exec_op() set dummy_data transfer len to op->dummy.nbytes and
-tx_nbits to op->dummy.buswidth:
-
-drivers/spi/spi-mem.c:spi_mem_exec_op() {
-    ...
-	if (op->dummy.nbytes) {
-		xfers[xferpos].tx_buf =3D tmpbuf + op->cmd.nbytes +
-					op->addr.nbytes;
-		xfers[xferpos].len =3D op->dummy.nbytes;
-		xfers[xferpos].tx_nbits =3D op->dummy.buswidth;
-		xfers[xferpos].dummy_data =3D 1;
-    ...
-}
-
-setup_gsi_xfer() writes mas->dummy_len directly into
-peripheral.dummy_cycles (TRE_SPI_C0_DUMMY_CYCLES) without converting from
-bytes via (next_xfer->len * BITS_PER_BYTE) / next_xfer->tx_nbits, while
-spi_geni_transfer_one_message() also adds next_xfer->len as bytes into
-msg->actual_length.  As a result, standard QSPI reads with a dummy phase
-program 8x, 4x, or 2x too few dummy cycles in single, dual, or quad mode,
-corrupting the read data.
-
-> +
-> +			/* Ignore the TX buffer inserted by SPI_CONTROLLER_MUST_TX. */
-> +			if (next_xfer->len && next_xfer->rx_buf && !next_xfer->dummy_data &&
-> +			    (!next_xfer->tx_buf || next_xfer->tx_buf =3D=3D spi->dummy_tx)) {
-> +				last_xfer =3D next_xfer;
-> +			} else {
-> +				mas->dummy_len =3D 0;
-> +			}
-> +		}
-> +
-> +		if (last_xfer !=3D xfer) {
-> +			next_xfer =3D xfer;
-> +			for (;;) {
-> +				/* A combined command cannot change timing or CS between phases. */
-> +				if (next_xfer->speed_hz !=3D xfer->speed_hz ||
-> +				    next_xfer->bits_per_word !=3D xfer->bits_per_word ||
-> +				    next_xfer->cs_off || next_xfer->dtr_mode ||
-> +				    next_xfer->word_delay.value ||
-> +				    (next_xfer !=3D last_xfer &&
-> +				     (next_xfer->cs_change || next_xfer->delay.value))) {
-> +					ret =3D -EOPNOTSUPP;
-> +					goto out_err;
-> +				}
-> +				if (next_xfer =3D=3D last_xfer)
-> +					break;
-> +				next_xfer =3D list_next_entry(next_xfer, transfer_list);
-> +			}
-> +		}
-
-[Severity: Medium]
-Does a combined QSPI read validate buswidth across phases or handle split
-command and address TX transfers?
-
-setup_gsi_xfer() sets peripheral.qspi_mode from spi_geni_qspi_mode(last),
-programming a single GO TRE mode for the entire SPI_TX_RX command from
-last->rx_nbits while ignoring xfer->tx_nbits and the dummy phase tx_nbits,
-and the loop above does not check that tx_nbits and rx_nbits are compatible
-with that single mode.
-
-In addition, because the driver advertises SPI_TX/RX_DUAL and
-SPI_TX/RX_QUAD without implementing mem_ops, spi_mem_exec_op() builds four
-transfers ([CMD TX, ADDR TX, DUMMY, DATA RX]) when an address phase is
-present; the lookahead above only combines one TX transfer before the dummy
-and RX phases, so CMD TX is sent as a separate SPI_TX command before
-[ADDR TX, DUMMY, DATA RX].
-
-> +
->  		if ((xfer->tx_buf || xfer->rx_buf) && xfer->len) {
->  			reinit_completion(&mas->xfer_done);
-> =20
-> @@ -1074,16 +1215,17 @@ static int spi_geni_transfer_one_message(struct s=
-pi_controller *spi,
->  				     ((xfer->tx_sg.nents || xfer->rx_sg.nents) &&
->  				      xfer->tx_sg.nents <=3D 1 && xfer->rx_sg.nents <=3D 1);
->  			if (dma_synced)
-> -				spi_geni_dma_sync(spi, xfer, true);
-> +				spi_geni_dma_sync(spi, xfer, last_xfer, true);
-> =20
-> -			ret =3D spi_geni_transfer_one(spi, spi_slv, xfer);
-> +			ret =3D spi_geni_transfer_one(spi, spi_slv, xfer,
-> +						    last_xfer =3D=3D xfer ? NULL : last_xfer);
->  			if (ret < 0) {
->  				dev_err(mas->dev, "Transfer failed: %d\n", ret);
->  				goto out_err;
->  			}
->  			started =3D true;
-> =20
-> -			ret =3D spi_geni_wait_for_xfer(spi, xfer);
-> +			ret =3D spi_geni_wait_for_xfer(spi, xfer, last_xfer);
->  			if (ret)
->  				goto out_err;
-> =20
-> @@ -1093,7 +1235,7 @@ static int spi_geni_transfer_one_message(struct spi=
-_controller *spi,
->  				goto out_err;
->  			}
->  			if (dma_synced) {
-> -				spi_geni_dma_sync(spi, xfer, false);
-> +				spi_geni_dma_sync(spi, xfer, last_xfer, false);
->  				dma_synced =3D false;
->  			}
-
-[Severity: Medium]
-Should started be reset to false once a transfer completes?
-
-When an earlier transfer in a multi-transfer message finishes normally and
-a later transfer fails validation or setup before being submitted to
-hardware (such as the combined-phase check above or the checks in
-setup_gsi_xfer()), started is still true at out_err.  That causes
-spi_geni_handle_err() to run on an idle controller, terminating and
-restarting the GPI DMA channels (or issuing SE cancel/abort commands that
-time out when no transfer is active).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-qspi_qup_u=
-pstream-v2-0-cd69894107c8@oss.qualcomm.com?part=3D6
