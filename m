@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795555080;
-	b=mdPcLON9cIcrBwRQ+FErV+tdUrdWXbnPtiA3LWTWqyMIf5YoLkQ5LPARsbcjT7ezP/u1
-	 JKEUuhsm4T0VMj8gzNzf7e8ekG0RVGkMFihKJfi4gLtHPOg0MgYZ+v/VQJve2Nj/zUuYy
-	 ph8NpORDgEyeyixdpsR4nAMREKkvMLk9exeaJ1D2GFe2M3F9rKaTvwtdQvmOh6LPlLXnA
-	 fRrhxQhgZClzSiPFSJRocUmrfTO158WzkoXT+ytfIJGHnvPNL8WCIJ+WNczdIdnwrojhH
-	 jdnC2saXNitZjumjQ75vhQw337Tb1aViu5avVPvVb1UgouFGm4iJHR4V4umLim5xidw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795555080;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gnvsu0TDZ5slNtZXuUskfju+pk2M78SPgeweXv/OO6g=;
-	b=WoP4wekixMLj5ZE2soEHC4kPZPbpl68HPbLR53MT+7saeYZnEG+AVD6v6UjC6k4fGPFK
-	 tzMRL9E+ZyaSxy6DPluU0glasIPxDHTQvLkixwh0VWMwVP1MkzYr4FyR5Bw8Xi98Nx0Dh
-	 AbbJCnFIMDV1t8z9468pP45HvAHOZBrUl6cE+oEqoz7ExCH/q/lswHZSs1sFppBXe7YNq
-	 aJL5zHUfv/wEk1jxzTXiQ0zHxcmBLlPGaWkGX0tvWp12lav8GMTqxQuYT7QG0y66dNURu
-	 6Q50943RumGypBNE1NFRd91Q4SD05FIvHWqOa9c3yUNAul4KVMlyhiTlrRqC0ljZsQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=8OcmMhbM;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1795555305;
+	b=PaKa+bUnzgv5hps8AMDQYtZ8C01djLG0kOb25SSaWqRVL+nSUbqV1pcryTqd+CjetlsO
+	 caXI9Xehcq+yQh+YhQfFhefTu9cUFomJrkQMCSPxNn1eLePkxR48fZaBrnQmSe9AlHdan
+	 r2KN9FJLGo9B946yFumZsjyZ4IHqjX3lR480Mw4xmeLu81okZWm1+p/DW/Pvn+hyA8xde
+	 UpbhXjsSLwVrPcJ2Z7Np9yj7XmuwWLxCVkHUcK3zZIuuRj7rDshK4+Z6CqiBchrZwtzRU
+	 ueT+npXco3gO0OG9grGpGFVTwKTJBDEcaASPE7z+7A6fCrYFYjIFXOjxB+9on6CxkQg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795555305;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Kz0XauTGdOgnd6tw9kPNk/ldh50fDY3LEXEPBQT0ngw=;
+	b=HFDCAv4hU21912L+dQqefdvw66MSi9d5WNgg2qlMEhpQqRMEzJ35XTuWFdxW8gGqGU6Q
+	 nLfRXYCXNQ7CkF7KNfNPji3eQJ52mZa8wB3vDenAInawe8cUeyqiF1RWx4zFZ30pe1tWg
+	 sLn4HeYn06ejmWMTHGE4+gdWGGy/eH/lxygujGJLmhjX3xgVA2kMZXgTkBSY1IqDh/57a
+	 FNEnv1q/zu8kQGb03IWtZQSK0gvfzxA1nneDphgYxfUtFngRqlVUKjR8tXfzj7YXSxm5m
+	 ihzDKZRphjRnK6Q4IGoF0AOzGH7k7UGul2pypvXlSl1Vn+Oqs+m7mVQ9CQeos2Ixw+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=YI+KcRB8;
+	arc=fail smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D5F606A32E;
-	Tue, 24 Nov 2026 21:17:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1D5F606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE058606A321
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 21:21:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE058606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=8OcmMhbM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=gnvsu0TDZ5slNtZXuUskfju+pk2M78SPgeweXv/OO6g=; t=1795555070; x=1796764670; 
-	b=8OcmMhbMFvDN43DdqUAbNeJOgoYCaWiHKUPe5/1ABjKq+HbI+phrPqB+TEStgxKTPPW3A2O0LnO
-	UUbBO+S8aRQ/u6AiOhen4rCGw5WVdayB7PnQdVKArg3H27tZ45KdyBIkebU+4oMPZ+5TGImXtxQv+
-	OnQXEfQkuPZzFtanS7eQu+hvFZqIymb9oXSJBIP0Sn0PhVzjuh15/hPJpbOZ6YJm15BdX6PiQ59H0
-	92VITcOfNTjrU8aqiaihQUo1VIECQnWJu4kkzb5qwv51k98fIvDLiCWaWCkcoh6RbD9tWxb+NqM+C
-	NXbSvZCeGaqxFsWPM4CQlVWtzNc9bwP+3UaA==;
-Date: Tue, 24 Nov 2026 22:16:10 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones
- <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo Han
- <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Aaro Koskinen
- <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
- <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Russell King
- <linux@armlinux.org.uk>, Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Uwe =?UTF-8?B?S2xl?=
- =?UTF-8?B?aW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Helge Deller
- <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@gmail.com>, Jarkko Nikula
- <jarkko.nikula@bitmer.com>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-fbdev@vger.kernel.org,
- letux-kernel@openphoenux.org, kernel@pyra-handheld.com
-Subject: Re: [PATCH v2 20/20] ARM: OMAP2+: Remove Pandora platform-data
- quirks
-Message-ID: <20261124221610.2938d62f@kemnade.info>
-In-Reply-To: <1cb5bd7216b334e8c4eff21ff3463deeb6109595.1795505160.git.hns@goldelico.com>
-References: <cover.1795505160.git.hns@goldelico.com>
-	<1cb5bd7216b334e8c4eff21ff3463deeb6109595.1795505160.git.hns@goldelico.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=YI+KcRB8
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b335ef6441so36334787b3.3
+        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 13:21:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795555304; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GZ83eZ2b+ry1rxhkU9mT+AnAzj5VdCo64rqbGd3q80LbS5QZNK9hyOWR3ougCYt646
+         rpmSOYCICSTlF/y4RXMiVfcrkv75VC3V7v46uFhIkm3UA6sHU20FOyWkQ6iIOJLjhfrz
+         HoVH2k0/5o5khQS4fgH8fXE7wpPjYz9OU+yv+ck5su7jD5/dHE5IepV9VlacTEqQ8lJZ
+         eOQrFd7Xjb2eRM93OVRirQt+EJGG1YeObPjXMR2avxs9kl9wFNnmbX12lucVUz/tNZ/1
+         FNCVVEE9Hyw/jt1hLa85buz5EG34Ne5vg41rIi9YGexbcV0B0DUrFxThZXD4IGq1b0Ic
+         ijsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Kz0XauTGdOgnd6tw9kPNk/ldh50fDY3LEXEPBQT0ngw=;
+        fh=71zR9vwAGa6CEdWncJQmIiYLZyJ8Ur7JcOBhp9S2BxI=;
+        b=VY0cGs1SbeV6on8iFCsFDIVtsl1pBhEhNw9gRmU21FYNWcp6sXvd7pfBrnflGa9En4
+         gwuUbPsnaS+GT0n5QZZW9LldClaqeMSuTRFpMx3Dwa2tSY97kmivpIpIZ3ra2m2iwkdH
+         ict7wHGSFcHNuXuGE9nfP6UgP+LJXBgi6D6uNDprqNPDqggCFfTloWf4xFZh5xED0a5n
+         ULDkpv+zL3SCgtGZs4A9QFYC7iqXI/WdUrxADwMEF/OBmqGgmxBmhyWolB1FWWDOqis1
+         uagZr9y7QXd4f0IKQKFggRsW8TXm1GirZJTU+fMEqJd7RU3l8JYtsJa/oanST7kOyXzM
+         yWGw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1795555304; x=1796160104; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Kz0XauTGdOgnd6tw9kPNk/ldh50fDY3LEXEPBQT0ngw=;
+        b=YI+KcRB8+lAE9AY5pSod3xhKPrtxh2vzQXySdKNHgIsa/d5VW56FCDTYBIXj4Yd+vf
+         XtPdVN4LsEWfC0NcrPhBRyn8Zs/EHBcZuDttbTCGszkcRGZIBfnuwTiNwLF88AuUZwsK
+         WM4X4BboEaxjz/5rvZIfiY1YuivEiVlvsPjsxcqN2ljh62EKE/MzIuXiUEJz0U8Qb6bv
+         yZtl8Q8TJ+Kd25h+TvhE7cPrN7htZZMDtHLRw6VpWyYBbBCh4Bi+H1VH5oSZQHANrxNv
+         NZVvkw79EUuHYxMmw8Fd7BjHdqAliEIsrVaWpUaUm3dGS8wJI9spy8UVJjh5QnnZBv0Z
+         qTSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795555304; x=1796160104;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kz0XauTGdOgnd6tw9kPNk/ldh50fDY3LEXEPBQT0ngw=;
+        b=oxmQ1IhR/xMqjN4/SpZkz58uG0QEWpzXb7ceNrkBX0uCcyqJt0t6cPuqCyI58+pz1I
+         c227COyxLVtAMJGC0U1Avi3Z62vEbYEMSp4Y219c9NWlG7JMZFrB5vYp8aGS5aS5KRue
+         Gienm0UJ2TztjLGukS76Hiilz3bMnLSRYuNI0X8jBPx8Bc79Ot6Csakj9+1bxu46egp3
+         kyt186+oK5q9+D2ggWl8KWV6caE5jzle0pJnkmBuyKAouuWEHUfZEku+n4yG+Bdmtra1
+         oty6rGpEaN0W00iHwRMBVYOdeg6yKPH0rv1UH60CnoZJr8o2OJMYdNFizIVcjsByye+K
+         SytA==
+X-Forwarded-Encrypted: i=1; AL+hErGGjuPFvSbd2tQMOwmqrcQtVO9DykzKHCzCEGya8eIrZghUCyj8CrIoL86cH8KA2BiwME27ern2/z12@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uymIoppPWDauqVXjYJsQygMa7Imp3omtjID+t2RG7BwSjH+V5
+	G7hQNNJq8YzU9Fbp0I/DuQzk7suPuOTwTbarJ3f8K6Gs6B7ST+a3XH4auhi8bArcsCroD9H0md3
+	eYisuAtqcNX1F53YpoSTC8KX+C3vx8DY=
+X-Gm-Gg: AZFdTZeGMhTTuP8yBOnwmDp9aG4VnLyB/0PNkqn+F4NOSdbHnpzJ3pPbeTUgabcsJIk
+	vibLpi0u1EEYAPUqLKlMd4yvmnP2UXJJstjCZpqplMLTBwLhKPKxebVNbcZsdQhrVbhvmW3JN8W
+	C7/q1gj3JOkP5SXKRSVIZlAX+Uv3gHeu/MRvFnHLUMgjQRwofJnHapN7s6frhQfqPWXqIfMnujz
+	zptwpKqpBSLQHf2TdQZ/ZmuqX4dZK5nuH0aZEOyVeMfKnLH9T8nYDFSPbK9Tjrii3JSdJPvqIRC
+	4NIvvu3jlFH0S/A9acFOiJcqqBbDsDjkIeGzI1yXHvr5l2Hj5ZiVVCUi7fDYyUZRz0u3Hx1J0wV
+	TumLISR2j/1qRlGLhRjDeBkOlay2a3FGQ9XcPks3oSjCdK3OXMvy1z+G3iYh/y5GPj8dmaw==
+X-Received: by 2002:a05:690c:6213:b0:8b4:dd2b:10dd with SMTP id
+ 00721157ae682-8b52050f0demr45322637b3.64.1795555303828; Tue, 24 Nov 2026
+ 13:21:43 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,84 +104,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com>
+ <20261018-audin-v5-6-4b8cc13a1b22@baylibre.com> <CAFBinCA12FvOi=9gB1xj3MDvNWstx1N4TtyyrrndJ_JT5eLX=Q@mail.gmail.com>
+ <0949591a-63cb-4bb3-a7de-cf59ddbaafb7@baylibre.com>
+In-Reply-To: <0949591a-63cb-4bb3-a7de-cf59ddbaafb7@baylibre.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 24 Nov 2026 22:21:33 +0100
+X-Gm-Features: Aa3M54qIikBwR4PI-ZQunVxuxoqfwLNl1dfjIK5NjVa_KqUN1kcswl51cnQYi_s
+Message-ID: <CAFBinCAjFb7yS4VQp+BqLw2dG61To+iU4aiBvaVE9B9bWe=oUQ@mail.gmail.com>
+Subject: Re: [PATCH v5 6/7] ASoC: meson: gx-card: add support for audin FIFO
+To: Valerio Setti <vsetti@baylibre.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 24 Nov 2026 08:26:00 +0100
-"H. Nikolaus Schaller" <hns@goldelico.com> wrote:
+On Tue, Nov 17, 2026 at 12:06=E2=80=AFAM Valerio Setti <vsetti@baylibre.com=
+> wrote:
+>
+> On 11/15/26 10:28 PM, Martin Blumenstingl wrote:
+> > On Sun, Oct 18, 2026 at 12:18=E2=80=AFPM Valerio Setti <vsetti@baylibre=
+.com> wrote:
+> > [...]
+> >> +       if (gx_card_cpu_identify(dai_link->cpus, DT_PREFIX "gxbb-audin=
+", "FIFO"))
+> >> +               return meson_card_set_fe_link(card, dai_link, np, fals=
+e);
+> > I suggest using the "audin" prefix. AIU / audin seem close enough on
+> > all supported SoCs that we don't need a SoC generation prefix  in
+> > there to handle this differently.
+>
+> Do you mean using "meson,audin" instead of "meson,gxbb-audin" for the
+> compatible?
+> If so I'm not sure this is allowed nowadays. As far as I understood
+> "meson,aiu" is a sort of legacy naming. 'writing-binidings.rst' says
+>
+>    "DO use a SoC-specific compatible for all SoC devices [...]"
+Let me use an example as I realize that I wasn't very clear:
+  compatible =3D "amlogic,gxbb-audin", "amlogic,audin";
+Does fulfill the criteria (as far as I understand it).
+What doesn't work is "amlogic,audin" alone.
 
-> The Pandora backlight is now described in the device tree and driven by
-> pwm-backlight. The sound card also uses device-tree descriptions for its
-> codec and amplifier GPIOs instead of legacy GPIO lookup tables.
-> 
-> Remove omap3_pandora_legacy_init(), its backlight platform device and
-> audio GPIO lookup table, and the associated board compatibility entries.
-> These platform-data quirks are no longer needed.
-> 
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> ---
-> 
-> Notes:
->     Changes against V1:
->     - Andreas Kemnade raised bisectability and intermediate driver
->       availability concerns for the V1 pdata-quirks removal.
->     - Correct the legacy backlight name and explain removal of both backlight platform data and audio GPIO lookup tables.
->     - Commit-message review assisted by ChatGPT.
-> 
->  arch/arm/mach-omap2/pdata-quirks.c | 23 -----------------------
->  1 file changed, 23 deletions(-)
-> 
-> diff --git a/arch/arm/mach-omap2/pdata-quirks.c b/arch/arm/mach-omap2/pdata-quirks.c
-> index b947bacf23a37..aca7097a692ed 100644
-> --- a/arch/arm/mach-omap2/pdata-quirks.c
-> +++ b/arch/arm/mach-omap2/pdata-quirks.c
-> @@ -268,27 +268,6 @@ static void __init omap3_logicpd_torpedo_init(void)
->  	omap3_gpio126_127_129();
->  }
->  
-> -/* omap3pandora legacy devices */
-> -
-> -static struct platform_device pandora_backlight = {
-> -	.name	= "pandora-backlight",
-> -	.id	= -1,
-> -};
-> -
-> -static struct gpiod_lookup_table pandora_soc_audio_gpios = {
-> -	.dev_id = "soc-audio",
-> -	.table = {
-> -		GPIO_LOOKUP("gpio-112-127", 6, "dac", GPIO_ACTIVE_HIGH),
-> -		GPIO_LOOKUP("gpio-0-15", 14, "amp", GPIO_ACTIVE_HIGH),
-> -		{ }
-> -	},
-> -};
-> -
-> -static void __init omap3_pandora_legacy_init(void)
-> -{
+The GXL example then would be:
+  compatible =3D "amlogic,gxl-audin", "amlogic,gxbb-audin", "amlogic,audin"=
+;
 
-maybe ask here for pwm-backlight node? Then this all can be untangled a bit.
-so something like if (of_find_compatible_node(NULL, NULL,"pwm-backlight"))
+And for Meson8/8b (sorry, I didn't get around to testing) I would then use:
+  compatible =3D "amlogic,meson8-audin", "amlogic,audin";
+  compatible =3D "amlogic,meson8b-audin", "amlogic,meson8-audin", "amlogic,=
+audin";
 
-if that node is available do not register that device.
-Such a change can go in as soon as we have consensous that pwm-backlight
-is the way to go.
 
-After all is in, in a final cleanup step, remove the pandora_bl and
-the quirk.
-
-> -	platform_device_register(&pandora_backlight);
-> -	gpiod_add_lookup_table(&pandora_soc_audio_gpios);
-> -}
->  #endif /* CONFIG_ARCH_OMAP3 */
->  
->  #ifdef CONFIG_SOC_DRA7XX
-> @@ -514,8 +493,6 @@ static struct pdata_init pdata_quirks[] __initdata = {
->  	{ "ti,omap3-evm-37xx", omap3_evm_legacy_init, },
->  	{ "ti,am3517-evm", am3517_evm_legacy_init, },
->  	{ "technexion,omap3-tao3530", omap3_tao3530_legacy_init, },
-> -	{ "openpandora,omap3-pandora-600mhz", omap3_pandora_legacy_init, },
-> -	{ "openpandora,omap3-pandora-1ghz", omap3_pandora_legacy_init, },
->  #endif
->  	{ /* sentinel */ },
->  };
-Regards,
-Andreas
+Best regards,
+Martin
