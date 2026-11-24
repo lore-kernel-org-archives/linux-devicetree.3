@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795539158;
-	b=411deZIjLf6ISmW7sBMh3bjAoUqQV8yeYNkdZ5i7pTkp4MPdKe88dkycMa6/cMZEzxpP
-	 ERQcZvIIBodL/FYVT8C5yIcdccuitW5/aJTt5aeDmHEwBznwsbOQ8LOR9m4mr2yoKSY6K
-	 uV0PRBYsUQ20Wk2uDf/HFtsGv3gHzgNgvF+l3+eVOSSAoHuf21EbzVBV09+68J1An4YXJ
-	 lxNLAyVcSgEihFhTRZ0yUMqUmvWddgiGfiR6dF+VhAUh0OVqQwr7lNgqZGJoPHylMGgHh
-	 kWVaP3mHyh/RznIVXtz29V7gd31iEFCJ9STm4//LkeN+id4WxWOTq+q9S279jqwT1Ag==
+	t=1795539167;
+	b=dJFtbZRkN8nW9KkwHGJhSYF0Mw4S0o8MQEFtLOHyXoayddkdBxqPJDZhtEMWLpqikAwc
+	 M4oSR1vWLALelK9/RLa+dsrMRQFsZW5szrNS/5JXcxtqy7c32DTh6HIrbR0ilwbtwJ4xM
+	 zDVq4yFk1MrFWMSBgdXdp/AQ7N/K3KFpluF7S4xMYj7XMnZ3oZ4bt7Ae6KSxnIgalKjMb
+	 haRBWi1cXgKgEFfzqNTrPt6PE9u42RoMkUz0dLu0KgBztZ5PTPgTFWwn0UwtS0PuU5Jat
+	 yuE+Xv+kP2h2hnNWdejSG5GqeUXyHrkvlitmH/W2OtlySQdqV1q436ot34iYk/a1imQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795539158;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795539167;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=YX5ug8o9oJEkL3mWFfI5mjaihVcFO/1ltvUssYFun04=;
-	b=HT8ZN0Yus0N2b//tTqhHZRcQ/UWfYb10m9HLHcFqMpUHe7e2rD8j3PX6wbxHsbk+tvO2
-	 sHGSS2qOmVgNkoecqCyZKyG1AKnZ+wsFa9UGle7Z/38CEr7vvEJUaLAQd80Ucv4CW5FSn
-	 hS89izgs6qdUd6ZpQ9fOJJiKJZ3sogLhPnbC4HY1ufOe1zvWDFDRNVgBQPa+IvgH+BSBq
-	 cTgVdbhBa+53rx/iFSGZrocS4gSYpxVNhGUz+3M7uYxBOXof+kzSMY+BvMmOZAiSFy9Px
-	 icmG+QLGlBmzw5A/drQ0K8f0ppWJEBmxv0Gf9TCmyFBN6mi82vuLbrq+XAdFXn/3c6Q==
+	bh=XULPdpOXhZWcxF+6fl42iXhP5a4/0BDAv6XyxShQgu8=;
+	b=YdDzcfFYHI3DGXayPG4HVLBoMsfqbGEDqEVoqnHE2isAwGiJw80/keP3oMCYDqOvIZcR
+	 w3IDsBoJS/B/euEJK+xnwOcwVce5ArKi++mDQZzLzCMa/wqY7z6FPI/QYBchsCStoTYi8
+	 5/qS72yniRgW0YFqKqas1BMlL0Gvg2TAijLcvqgFrSsw1I+5WVV9wsZFixAZoRiEC9KJs
+	 lGSDaLQdMZFhU2Xf+MYfuAs76x4cVPn1SvUkhNq682p437qQbY8/61D6MQyOAFcObVqNW
+	 i5KmKa6g8fpZSRIfLbHsoB3Qx5bKI0phsEXOY7st9gylamuVf7r/ojVS7JO9UcDKEUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yc80fBvj;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Jq1bhgdJ;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4FC606A685
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:52:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D4FC606A685
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCE1606A33B
+	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 16:52:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCCE1606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yc80fBvj
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Jq1bhgdJ
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id E8F2E1A1747;
-	Tue, 24 Nov 2026 16:52:35 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 1008CC2C678;
+	Tue, 24 Nov 2026 16:52:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BBE6B601E1;
-	Tue, 24 Nov 2026 16:52:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 36E8F11E69A89;
-	Tue, 24 Nov 2026 17:52:26 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8A372601E1;
+	Tue, 24 Nov 2026 16:52:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 86E5C11E6998A;
+	Tue, 24 Nov 2026 17:52:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795539149; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795539163; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=YX5ug8o9oJEkL3mWFfI5mjaihVcFO/1ltvUssYFun04=;
-	b=yc80fBvjn9by/yw69+NCrlq8bIFH1UaD2UHYwIl41J1NauPD+1dPjWmGblMT3PmGSFwcPJ
-	xyi6mZuexoiTOoGE5zxwhEAbBM9M+JMW//PDmDA3TavSH+M7rGtAqn7btVlEY8w386BKCD
-	0EH1fIvbqzH8OZ4gFBWOlcPL8nLykTo0u3PST4JTw3p67PQyxEtXDAC1R2wZtAgmlltJSK
-	b9IVsb9lPsP7yskPsT0owJp3ip38tDQDr5wS07PZjJfqSzhPIFITZ83FhIS4+kR9Ahjway
-	m09VRssTWMIW+kBdGMnBnqTKYQpb4YVkdGj2iJUlZDVTeFeHR22njRbyTid4IA==
+	bh=XULPdpOXhZWcxF+6fl42iXhP5a4/0BDAv6XyxShQgu8=;
+	b=Jq1bhgdJ1xgjbe6h02/W9/1SiXR1ZGEWUP2U+1XCsr7NPP8siG9u9opAAEmq4XoJXvXk3d
+	jOFtA/y4yh8eDsm5puLKee09wiVvEZUuB85bbk1cOaexmGj+wk1riKnlPEYpS0bK7ApInn
+	DTZSDKlllFOYbawBZjDMWdLvexco4lj+y/UuK0uHLT1298TNtOkwVi64pIjnRO2cUD6d06
+	erAoMdpog0azAQBwGsSLHBxfW+CoU9PKG+SIRAF3OjW1DAI3qSTd+WPeo6w/dIP04rNXRT
+	8dglv/C7PffBCM1dz2m1N4d3ELz+TJdVyDmR5NuUSbEG2gdhuvfYabvp6Hovtg==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Tue, 24 Nov 2026 17:51:31 +0100
-Subject: [PATCH v13 06/10] clk: nuvoton: ma35d1: Use device managed helpers
- for fixed rate clocks
+Date: Tue, 24 Nov 2026 17:51:33 +0100
+Subject: [PATCH v13 08/10] clk: nuvoton: ma35d1: Reparent SYSPLL correctly
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-perso-ma35d1-upstream-clk-v13-6-c920f4a9f0ce@bootlin.com>
+Message-Id: <20261124-perso-ma35d1-upstream-clk-v13-8-c920f4a9f0ce@bootlin.com>
 References: <20261124-perso-ma35d1-upstream-clk-v13-0-c920f4a9f0ce@bootlin.com>
 In-Reply-To: <20261124-perso-ma35d1-upstream-clk-v13-0-c920f4a9f0ce@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -84,76 +83,66 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-Most of the clocks are already registered with device managed helpers,
-except the fixed clocks. Harmonize the driver by using the already
-available managed helper for that.
+The clock tree is still incorrect. SYSPLL is derived from HXT_GATE, very
+much like CAPLL, DDRPLL, VPLL, APLL and EPLL. SYSPLL has a fixed
+frequency, but if HXT gets gated, SYSPLL stops running.
 
+Reparent SYSPLL under HXT_GATE to properly define the clock tree
+topology. After this change, the frequencies are identical, but the
+clock tree looks (again) much closer to the reality.
+
+Since the TRM does not explicitly shows that HIRC and LIRC are
+internally sourced from HXT and LXT, respectively, I haven't reparented
+them (even though that was tempting). This can be done later anyway.
+
+Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+Cc: stable@vger.kernel.org
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/clk/nuvoton/clk-ma35d1.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index fbed01b41b0d..69a97aafa80d 100644
+index 69a97aafa80d..06bbd63f2ccf 100644
 --- a/drivers/clk/nuvoton/clk-ma35d1.c
 +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -139,9 +139,9 @@ static const struct clk_div_table eadc_div_table[] = {
+@@ -139,6 +139,12 @@ static const struct clk_div_table eadc_div_table[] = {
  	{13, 28}, {14, 30}, {15, 32}, {0, 0},
  };
  
--static struct clk_hw *ma35d1_clk_fixed(const char *name, int rate)
-+static struct clk_hw *ma35d1_clk_fixed(struct device *dev, const char *name, int rate)
++static struct clk_hw *ma35d1_clk_fixed_parent_hw(struct device *dev, const char *name, int rate,
++						 const struct clk_hw *parent_hw)
++{
++	return devm_clk_hw_register_fixed_rate_parent_hw(dev, name, parent_hw, 0, rate);
++}
++
+ static struct clk_hw *ma35d1_clk_fixed(struct device *dev, const char *name, int rate)
  {
--	return clk_hw_register_fixed_rate(NULL, name, NULL, 0, rate);
-+	return devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
- }
- 
- static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *name,
-@@ -282,24 +282,24 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	 * purposes.
- 	 */
- 	if (num_clks == 1) {
--		hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
--		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
-+		hws[HXT] = ma35d1_clk_fixed(dev, "hxt", 24000000);
-+		hws[LXT] = ma35d1_clk_fixed(dev, "lxt", 32768);
- 	}
+ 	return devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
+@@ -288,6 +294,9 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
  
  	hws[HXT_GATE] = ma35d1_clk_gate_parent_data(dev, "hxt_gate", hxtg_parent_data,
  						    clk_base + REG_CLK_PWRCTL, 0);
++	if (IS_ERR(hws[HXT_GATE]))
++		return PTR_ERR(hws[HXT_GATE]);
++
  	hws[LXT_GATE] = ma35d1_clk_gate_parent_data(dev, "lxt_gate", lxtg_parent_data,
  						    clk_base + REG_CLK_PWRCTL, 1);
--	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
-+	hws[HIRC] = ma35d1_clk_fixed(dev, "hirc", 12000000);
- 	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
- 					 clk_base + REG_CLK_PWRCTL, 2);
--	hws[LIRC] = ma35d1_clk_fixed("lirc", 32000);
-+	hws[LIRC] = ma35d1_clk_fixed(dev, "lirc", 32000);
- 	hws[LIRC_GATE] = ma35d1_clk_gate(dev, "lirc_gate", "lirc",
- 					 clk_base + REG_CLK_PWRCTL, 3);
+ 	hws[HIRC] = ma35d1_clk_fixed(dev, "hirc", 12000000);
+@@ -299,7 +308,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
  
  	hws[CAPLL] = ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
  					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
--	hws[SYSPLL] = ma35d1_clk_fixed("syspll", 180000000);
-+	hws[SYSPLL] = ma35d1_clk_fixed(dev, "syspll", 180000000);
+-	hws[SYSPLL] = ma35d1_clk_fixed(dev, "syspll", 180000000);
++	hws[SYSPLL] = ma35d1_clk_fixed_parent_hw(dev, "syspll", 180000000, hws[HXT_GATE]);
  	hws[DDRPLL] = ma35d1_reg_clk_pll(dev, DDRPLL, pllmode[1], "ddrpll",
  					hws[HXT_GATE], clk_base + REG_CLK_PLL2CTL0);
  	hws[APLL] = ma35d1_reg_clk_pll(dev, APLL, pllmode[2], "apll",
-@@ -340,8 +340,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
- 	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
- 
--	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
--	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
-+	hws[USBPHY0] = ma35d1_clk_fixed(dev, "usbphy0", 480000000);
-+	hws[USBPHY1] = ma35d1_clk_fixed(dev, "usbphy1", 480000000);
- 
- 	/* DDR */
- 	hws[DDR0_GATE] = ma35d1_clk_gate(dev, "ddr0_gate", "ddrpll",
 
 -- 
 2.56.0
