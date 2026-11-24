@@ -1,97 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795514714;
-	b=QGm6gu5gtL0XRaGgsK3btEMGCG6Ns7BLWkCy7xXfdMPHm9bawGdZJ5qSL8h5mbmsFn4h
-	 Eag4yRIskLP3wD/bF0irMhly8+TF7spDfycYKloWXgRch577zopSW2aoW71drLAxR5Hgf
-	 Fd0bRnV+1orH0RUlo8k56R/ZsvNEZIxnM63McgOnYrZoqKr5Drhk3VBRPEWnq8JNvuppt
-	 Ev2D65LHQj0Ku4Tij/6WsteCFMosYK4LvL/5y8DxUy0+mMKPg6O+GJ/sBees2BRgVQTYD
-	 77ymjyZ46y4WaZ0Pmbb4mhdG2qKsnqcqGtbOFIgzvKHtMAcsF4XGBqstLRhD8T/8uhQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514714;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=H8p63jVzqspLS/yYDkgn0Or4vozMPrWlrtlpK8EIjBA=;
-	b=4iP2b9XJdgeQa6lWxduU/j2DOVP/utPt7+lYgEHaBYcp+y+xV4FYOw1mz9UlBikKA9NB
-	 fGY0ck5aMZRXEZ2kRSmsPX5MJfNajklureZVQ4e7onga08/tGv4/vwJsZKITH6/ryNQ21
-	 EVr4pAOaQZ62oepK10vGoyN57guUXEfsBPrfy2oxZRlJgd09W7A7/iijsafwKll4xIoxu
-	 7YgaRrhzGZWDJ+ulKBQqBsC7A4ABW6QtP+sOzKbzE4JjIj4pPJyCYLSPX80FWQ0denXon
-	 SvLvdUphFTAdZZET5JBLpnAuNMrPSdJH+RaO4DN3ak3UbWuGb3xtdCuDVDm/NO+Cntw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SgIqTliG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.8
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795514754;
+	b=4tnQFiDZJm/H00vioRIikV6p1zcrNLtGZXxSF251aitW8B5k0te/+pFDLXUDp7a5Gje/
+	 1G38r40hVDlHcncPXryH+DK5NISwg65pyAUoDgeEcmW7jDSFz45oPGD2PUwHiwLtFRMp0
+	 MWSocCCKl53Mr6dskUHcY+MZBL7BckiJEiExyoDeCbGuST5Vs+5Mf2hHD+R7Ep0wAYqFW
+	 Z9Pv7zFus2hoOsJ0wQOG38M0dCf/dCCVIrCHV2Mlcx5mnEFhPgpsQ/iVqQqTxs5gkIRPd
+	 Olvhw4RB6FfI2WLBWSFxN8/4bdrz8E2OfecOdk0aw/yZAE1pEhi2YOk3dx27myOZapg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514754;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=br269MlMTvv+QN1Et/27/bgc0pLna1Ou25fchT7CGnU=;
+	b=iJur2M1RR3asRIH1waAjUn9ZjKl8cvY0U1Q3yE9GxqavC0B62jdFNukTTnUNHAQGVtkX
+	 bsCICehq7Bs7mgh7cFFM0fUFN85NjUnRcc1NsBx7zIB7c3VKHPLmwEzc+k3ns6iDlDdTx
+	 fsxvzWuJH8FHG0LBzdi1FfV7RE1iGQJXLqArXB3qXVOZxVvAX9ZyJWIrQlzJpqg9lwIuA
+	 p9sJ37zv5fgybaAmUlpT3l1gKb4Sgax2umJc727ZQ6g6stirhr5F4Hyz+tAxqo3a7vyhk
+	 3bIAgeV7rEiPjPHkFE0x1gqRwgR5mKLuPjEkv0r2mhq1v8T0hD6zU0LRTfftPz5G8EA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="G/zVCdyZ";
+	arc=none smtp.remote-ip=103.209.128.8
+Received: from mail-m1288.netease.com (mail-m1288.netease.com [103.209.128.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33585606A339;
-	Tue, 24 Nov 2026 10:05:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33585606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE22D606A31E;
+	Tue, 24 Nov 2026 10:05:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE22D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SgIqTliG
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B49642020DC;
-	Tue, 24 Nov 2026 11:05:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795514710;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H8p63jVzqspLS/yYDkgn0Or4vozMPrWlrtlpK8EIjBA=;
-	b=SgIqTliGQ/EujMYD5rdTmMNePrv7K80ns5GjscE8pXQb5WmWt2WxIV5auO9EwDNnBk/jfN
-	IFFc9LY9/DEHEaABfr8yTqtBU+SRKxY+vD3TZ/s046CcKIvtciUk27SZJ1guyaV1b/ohIN
-	6emn8hoU+LX3hi6wSN5AJZI47MowPRXoWA/JTjLYKuMwn4t5n7S+KEpTar5Mf0NLa2hALq
-	FY/r3FftvfIEVFIYQDrwSd4uoEfPXo6qAvlVgC967pdmDqc3UeKogpV/mZKGHS7rc+izAy
-	y+hcoC9iiLhVBBSHSStkOLtbB6NGXvqSyQ6y3DxvLXuPzEhOXNgurOGHx9XrLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795514710;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H8p63jVzqspLS/yYDkgn0Or4vozMPrWlrtlpK8EIjBA=;
-	b=NNCIxjoisA3DfJ9YhHLwZXERhJ+CbYJvR+LxwY5j4hf1serGJihnU/85QxYu8QpEne4GzG
-	B26aocmUzhxl+CvYx267940TLNbMTKITo4rYBF9Z8mS8vOLDdP+PRfOjIYlLBnafsOfKhU
-	XJwlGMCE1ExIalEDjt5KAF5sCuotjTJXu7Lcyalsn2ylZyi1heyApDpEAMkT6LRdMVxiMN
-	66qoqK/ErlsIciMABD9EAMUYqFo3Rb4ZsImjFz+4/fdj7yecRTqHgcZ/BVLx10RF9z9sjd
-	F6l0Da1ERUCp3MPhf4fxAbryUzCmeG1VfSpu9/yhtPZFZAOlEOPmvgdetAzLwg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795514710; a=rsa-sha256;
-	cv=none;
-	b=S0JYSQRGdMO84u/k49CDmLAsD9YPXdZ/QiwFcLxS9EWH7/srhpQTYZNuygCEZjKSiZJjpy
-	VZEz47+rHNMQL7iQYimPElyMzb3kP6AOYSaWpoROOc8OSek0LXb4+oqxqc6FeDPL+Twh1X
-	1pKY0BzvnuJ67cpgJEOUeZQhHxyVU0cxcWGk7usxnj6zVWTccCs0d/F79czRIALCMtlfwE
-	6HCiBCu73M8viEUe+won2xPJjK078UxF7SsMtOMP4Rl5lbrmZw+T+YW4IzGp5kUrjgUBma
-	/WZ6Tpp1cfgROGhrZe60KCqhowvOIdxDp8ejleYjub0ImuXWdUs0r0N8q5LSPw==
-Message-ID: <f5d30781ae9502cd76ee2b6757f96a0e5ffa8b71.camel@pengutronix.de>
-Subject: Re: [PATCH v2 7/8] PCI: cs7542: Add CS7542 PCIe host support
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: filipp.dunsky@gmail.com, Manivannan Sadhasivam <mani@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>
-Cc: Jingoo Han <jingoohan1@gmail.com>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>,  Krzysztof Wilczynski <kwilczynski@kernel.org>,
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Brian
- Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
- Neil Armstrong	 <neil.armstrong@linaro.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-clk@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 24 Nov 2026 11:05:10 +0100
-In-Reply-To: <20261123-b4-cs7542-pcie-v2-7-f589a9cd0bef@gmail.com>
-References: <20261123-b4-cs7542-pcie-v2-0-f589a9cd0bef@gmail.com>
-	 <20261123-b4-cs7542-pcie-v2-7-f589a9cd0bef@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=G/zVCdyZ
+Received: from [127.0.0.1] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 55cfe0c09;
+	Tue, 24 Nov 2026 18:05:40 +0800 (GMT+08:00)
+Message-ID: <e2cd8fff-be6f-444f-a435-ccd35158dfc1@rock-chips.com>
+Date: Tue, 24 Nov 2026 18:05:36 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,77 +48,462 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] drm/bridge: add TH1520 DesignWare MIPI DSI host
+ controller
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
+ <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-riscv@lists.infradead.org, Han Gao <gaohan@iscas.ac.cn>
+References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
+ <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
+ <af27260f-1911-47bb-8fe2-8eaa8bec31b0@rock-chips.com>
+ <561b5dc1b3a87ebc78f2357d253df4676395fb10.camel@iscas.ac.cn>
+ <a797b2da-ea60-4b81-8fbf-e027afc89cc6@rock-chips.com>
+ <b763d766c886dbcf733e4ab65046448b67973426.camel@iscas.ac.cn>
+ <a6acdf27-b681-4a3d-928d-3e72a8992238@rock-chips.com>
+ <0fc088f8c50155c0ab1583eb3cc89646ea49fb73.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <0fc088f8c50155c0ab1583eb3cc89646ea49fb73.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa20d04af1903a7kunm7fef9203ced858
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQkwZVkwfHR8eTx0aTktCTlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=G/zVCdyZQ7UMppvcugW7aNP+r8kFfl3yJt7GOW6c8Kl0YsRqyF0VV/sjGksgATnF51tCkNbYTFU+LY/NcZof/YqS4KAVhV1tzF0I7rp6v0ZWe+JNxpj3K8jsWZmtPpcXf5N9nHWCC/BGBLuaT1Hsmd7IneprqXxD8sYtomk1nXM=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=br269MlMTvv+QN1Et/27/bgc0pLna1Ou25fchT7CGnU=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mo, 2026-11-23 at 23:32 +0300, Fil Dunsky via B4 Relay wrote:
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->=20
-> Add DesignWare host glue consuming separate clock, reset and PHY
-> providers. Use live link status and stop previous training before
-> enumeration. Finish endpoint teardown before draining the shared IRQ and
-> freeing MSI domains. Dispatch enabled INTx/MSI sources through one
-> application interrupt and use its MSI target window.
->=20
-> Prevent root configuration accesses at and above 0x200, including direct
-> DesignWare DBI reads, while preserving the private CSR bank and separate
-> iATU callback base. Unwind power and IRQ domains on failure and removal.
->=20
-> Read live link/LTSSM state through the application wrapper. After link
-> loss, block configuration and DBI accesses until controller reset and
-> reprobe.
->=20
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
-> ---
->  drivers/pci/controller/dwc/Kconfig       |  12 +
->  drivers/pci/controller/dwc/Makefile      |   2 +
->  drivers/pci/controller/dwc/pcie-cs7542.c | 551 +++++++++++++++++++++++++=
-++++++
->  3 files changed, 565 insertions(+)
->=20
-> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/=
-dwc/Kconfig
-> index 0a0d56fcf..2ebaa8db1 100644
-> --- a/drivers/pci/controller/dwc/Kconfig
-> +++ b/drivers/pci/controller/dwc/Kconfig
-> @@ -577,4 +577,16 @@ config PCIE_ULTRARISC
->  	  By default, this symbol is enabled when ARCH_ULTRARISC is active,
->  	  requiring no further configuration on that platform.
-> =20
-> +config PCIE_CS7542
-> +	tristate "Cortina Systems CS7542 PCIe controller"
-> +	depends on OF && HAS_IOMEM && PCI_MSI && COMMON_CLK
-> +	select PCIE_DW_HOST
-> +	select GENERIC_PHY
-> +	select RESET_CONTROLLER
+On 11/24/2026 5:51 PM, Icenowy Zheng wrote:
+> 在 2026-11-24二的 17:22 +0800，Chaoyi Chen写道：
+>> On 11/24/2026 4:52 PM, Icenowy Zheng wrote:
+>>> 在 2026-11-24二的 16:44 +0800，Chaoyi Chen写道：
+>>>> Hi Icenowy,
+>>>>
+>>>> On 11/24/2026 4:34 PM, Icenowy Zheng wrote:
+>>>>> 在 2026-11-24二的 16:29 +0800，Chaoyi Chen写道：
+>>>>>> Hi Icenowy,
+>>>>>>
+>>>>>> On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
+>>>>>>> The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
+>>>>>>> controller with an internal DesignWare MIPI D-PHY.
+>>>>>>>
+>>>>>>> Add a glue driver configuring clocks and PHY parameters for it.
+>>>>>>>
+>>>>>>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>>>>>>> ---
+>>>>>>>  drivers/gpu/drm/bridge/Kconfig              |  12 +
+>>>>>>>  drivers/gpu/drm/bridge/Makefile             |   1 +
+>>>>>>>  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 570 ++++++++++++++++++++++++++++
+>>>>>>>  3 files changed, 583 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+>>>>>>> index c7da6b02d7b6b..f8987e8946fbb 100644
+>>>>>>> --- a/drivers/gpu/drm/bridge/Kconfig
+>>>>>>> +++ b/drivers/gpu/drm/bridge/Kconfig
+>>>>>>> @@ -372,6 +372,18 @@ config DRM_THEAD_TH1520_DW_HDMI
+>>>>>>>  	  Choose this to enable support for the internal HDMI bridge found
+>>>>>>>  	  on the T-Head TH1520 SoC.
+>>>>>>>  
+>>>>>>> +config DRM_THEAD_TH1520_DW_MIPI_DSI
+>>>>>>> +	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
+>>>>>>> +	depends on OF
+>>>>>>> +	depends on COMMON_CLK
+>>>>>>> +	depends on ARCH_THEAD || COMPILE_TEST
+>>>>>>> +	select DRM_DW_MIPI_DSI
+>>>>>>> +	select GENERIC_PHY_MIPI_DPHY
+>>>>>>> +	select MFD_SYSCON
+>>>>>>> +	help
+>>>>>>> +	  Choose this to enable support for the internal MIPI DSI bridge
+>>>>>>> +	  found on the T-Head TH1520 SoC.
+>>>>>>> +
+>>>>>>>  config DRM_TOSHIBA_TC358762
+>>>>>>>  	tristate "TC358762 DSI/DPI bridge"
+>>>>>>>  	depends on OF
+>>>>>>> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+>>>>>>> index 15cc821d85b7e..5af871ba5ce77 100644
+>>>>>>> --- a/drivers/gpu/drm/bridge/Makefile
+>>>>>>> +++ b/drivers/gpu/drm/bridge/Makefile
+>>>>>>> @@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) += sii9234.o
+>>>>>>>  obj-$(CONFIG_DRM_SIMPLE_BRIDGE) += simple-bridge.o
+>>>>>>>  obj-$(CONFIG_DRM_SOLOMON_SSD2825) += ssd2825.o
+>>>>>>>  obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) += th1520-dw-hdmi.o
+>>>>>>> +obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) += th1520-dw-mipi-dsi.o
+>>>>>>>  obj-$(CONFIG_DRM_THINE_THC63LVD1024) += thc63lvd1024.o
+>>>>>>>  obj-$(CONFIG_DRM_TOSHIBA_TC358762) += tc358762.o
+>>>>>>>  obj-$(CONFIG_DRM_TOSHIBA_TC358764) += tc358764.o
+>>>>>>> diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
+>>>>>>> new file mode 100644
+>>>>>>> index 0000000000000..8e866b70aec88
+>>>>>>> --- /dev/null
+>>>>>>> +++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
+>>>>>>> @@ -0,0 +1,570 @@
+>>>>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>>>>> +/*
+>>>>>>> + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
+>>>>>>> + *
+>>>>>>> + * Author:
+>>>>>>> + *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>>>>>>> + *
+>>>>>>> + * Based on dw_mipi_dsi-stm.c, which is:
+>>>>>>> + *   Copyright (C) STMicroelectronics SA 2017
+>>>>>>> + *
+>>>>>>> + * Based on dw-mipi-dsi-rockchip.c, which is:
+>>>>>>> + *   Copyright (C) Rockchip Electronics Co., Ltd.
+>>>>>>> + *
+>>>>>>> + * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
+>>>>>>> + *   Copyright (C) Alibaba Group Holding Limited.
+>>>>>>> + */
+>>>>>>> +
+>>>>>>> +#include <linux/bitfield.h>
+>>>>>>> +#include <linux/clk.h>
+>>>>>>> +#include <linux/kernel.h>
+>>>>>>> +#include <linux/mfd/syscon.h>
+>>>>>>> +#include <linux/module.h>
+>>>>>>> +#include <linux/phy/phy.h>
+>>>>>>> +#include <linux/phy/phy-mipi-dphy.h>
+>>>>>>> +#include <linux/platform_device.h>
+>>>>>>> +#include <linux/regmap.h>
+>>>>>>> +#include <linux/regulator/consumer.h>
+>>>>>>> +
+>>>>>>> +#include <video/mipi_display.h>
+>>>>>>> +
+>>>>>>> +#include <drm/bridge/dw_mipi_dsi.h>
+>>>>>>> +#include <drm/drm_mipi_dsi.h>
+>>>>>>> +
+>>>>>>> +/* DSI controller registers for DPHY access */
+>>>>>>> +
+>>>>>>> +#define DSI_PHY_TST_CTRL0		0xb4
+>>>>>>> +#define PHY_TESTCLK			BIT(1)
+>>>>>>> +#define PHY_UNTESTCLK			0
+>>>>>>> +#define PHY_TESTCLR			BIT(0)
+>>>>>>> +#define PHY_UNTESTCLR			0
+>>>>>>> +
+>>>>>>> +#define DSI_PHY_TST_CTRL1		0xb8
+>>>>>>> +#define PHY_TESTEN			BIT(16)
+>>>>>>> +#define PHY_UNTESTEN			0
+>>>>>>> +#define PHY_TESTDOUT(n)			(((n) & 0xff) << 8)
+>>>>>>> +#define PHY_TESTDIN(n)			(((n) & 0xff) << 0)
+>>>>>>> +
+>>>>>>> +/* DPHY registers */
+>>>>>>> +
+>>>>>>> +#define PLL_DELAY_LP_TX_START_LP11	0x02
+>>>>>>> +#define TXDINDLYTIME_9_2		GENMASK(7,  0)
+>>>>>>> +
+>>>>>>> +#define PLL_FSM_CNTRL			0x03
+>>>>>>> +
+>>>>>>> +#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
+>>>>>>> +#define PLL_PROP_CNTRL			GENMASK(5,  0)
+>>>>>>> +
+>>>>>>> +#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
+>>>>>>> +#define PLL_INT_CNTRL			GENMASK(5,  0)
+>>>>>>> +
+>>>>>>> +#define PLL_VCO_CTRL			0x12
+>>>>>>> +#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
+>>>>>>> +#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
+>>>>>>> +
+>>>>>>> +#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
+>>>>>>> +#define PLL_TESTLOCK			BIT(7)
+>>>>>>> +#define PLL_GMP_CNTRL			GENMASK(5,  4)
+>>>>>>> +#define TSTPLLDIG			GENMASK(3,  1)
+>>>>>>> +#define TSTPLLDIG_LOCK			(0x0 << 1)
+>>>>>>> +#define TSTPLLDIG_REFCLK		(0x1 << 1)
+>>>>>>> +#define TSTPLLDIG_FBCLK			(0x2 << 1)
+>>>>>>> +#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
+>>>>>>> +#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
+>>>>>>> +#define TSTPLLDIG_OUTPUT		(0x5 << 1)
+>>>>>>> +#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
+>>>>>>> +#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
+>>>>>>> +
+>>>>>>> +#define PLL_N_DIV_FSM_SIG		0x17
+>>>>>>> +#define PLL_N_OVR			GENMASK(3,  0)
+>>>>>>> +
+>>>>>>> +#define PLL_M_DIV			0x18
+>>>>>>> +#define PLL_M_OVR_4_0			GENMASK(4,  0)
+>>>>>>> +#define PLL_M_OVR_9_5			GENMASK(4,  0)
+>>>>>>> +
+>>>>>>> +#define PLL_N_AND_M_DIV_CTRL		0x19
+>>>>>>> +#define PLL_M_OVR_EN			BIT(5)
+>>>>>>> +#define PLL_N_OVR_EN			BIT(4)
+>>>>>>> +
+>>>>>>> +#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
+>>>>>>> +#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
+>>>>>>> +
+>>>>>>> +#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
+>>>>>>> +#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
+>>>>>>> +#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
+>>>>>>> +#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
+>>>>>>> +
+>>>>>>> +#define HS_FREQ_RANGE_OF_OPERATION	0x44
+>>>>>>> +#define HSFREQRANGE_OVR_EN		BIT(7)
+>>>>>>> +#define HSFREQRANGE_OVR			GENMASK(6,  0)
+>>>>>>> +#define HSFREQRANGE			HSFREQRANGE_OVR
+>>>>>>> +
+>>>>>>> +#define PG_LP_BIAS_LANE0		0x4a
+>>>>>>> +#define PRG_ON_LANE0			BIT(6)
+>>>>>>> +
+>>>>>>> +#define SR_FSM_OVR_CNTRL		0xa0
+>>>>>>> +#define SR_DDL_LOOP_CONF		0xa3
+>>>>>>> +
+>>>>>>> +/* syscon registers */
+>>>>>>> +
+>>>>>>> +#define MIPIDSI0_SYSREG			0x8
+>>>>>>> +#define MIPIDSI1_SYSREG			0xc
+>>>>>>> +#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
+>>>>>>> +#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
+>>>>>>> +#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
+>>>>>>> +
+>>>>>>> +struct pll_hsfreqrange {
+>>>>>>> +	unsigned int max_mbps;
+>>>>>>> +	u8 hsfreqrange;
+>>>>>>> +};
+>>>>>>> +
+>>>>>>> +static const struct pll_hsfreqrange hsfreqrange_table[] = {
+>>>>>>> +	{ 80,  0x00 },
+>>>>>>> +	{ 90,  0x10 },
+>>>>>>> +	{ 100, 0x20 },
+>>>>>>> +	{ 110, 0x30 },
+>>>>>>> +	{ 120, 0x01 },
+>>>>>>> +	{ 130, 0x11 },
+>>>>>>> +	{ 140, 0x21 },
+>>>>>>> +	{ 150, 0x31 },
+>>>>>>> +	{ 160, 0x02 },
+>>>>>>> +	{ 170, 0x12 },
+>>>>>>> +	{ 180, 0x22 },
+>>>>>>> +	{ 190, 0x32 },
+>>>>>>> +	{ 205, 0x03 },
+>>>>>>> +	{ 220, 0x13 },
+>>>>>>> +	{ 235, 0x23 },
+>>>>>>> +	{ 250, 0x33 },
+>>>>>>> +	{ 275, 0x04 },
+>>>>>>> +	{ 300, 0x14 },
+>>>>>>> +	{ 325, 0x25 },
+>>>>>>> +	{ 350, 0x35 },
+>>>>>>> +	{ 400, 0x05 },
+>>>>>>> +	{ 450, 0x16 },
+>>>>>>> +	{ 500, 0x26 },
+>>>>>>> +	{ 550, 0x37 },
+>>>>>>> +	{ 600, 0x07 },
+>>>>>>> +	{ 650, 0x18 },
+>>>>>>> +	{ 700, 0x28 },
+>>>>>>> +	{ 750, 0x39 },
+>>>>>>> +	{ 800, 0x09 },
+>>>>>>> +	{ 850, 0x19 },
+>>>>>>> +	{ 900, 0x29 },
+>>>>>>> +	{ 950, 0x3A },
+>>>>>>> +	{ 1000, 0x0A },
+>>>>>>> +	{ 1050, 0x1A },
+>>>>>>> +	{ 1100, 0x2A },
+>>>>>>> +	{ 1150, 0x3B },
+>>>>>>> +	{ 1200, 0x0B },
+>>>>>>> +	{ 1250, 0x1B },
+>>>>>>> +	{ 1300, 0x2B },
+>>>>>>> +	{ 1350, 0x3C },
+>>>>>>> +	{ 1400, 0x0C },
+>>>>>>> +	{ 1450, 0x1C },
+>>>>>>> +	{ 1500, 0x2C },
+>>>>>>> +	{ 1550, 0x3D },
+>>>>>>> +	{ 1600, 0x0D },
+>>>>>>> +	{ 1650, 0x1D },
+>>>>>>> +	{ 1700, 0x2E },
+>>>>>>> +	{ 1750, 0x3E },
+>>>>>>> +	{ 1800, 0x0E },
+>>>>>>> +	{ 1850, 0x1E },
+>>>>>>> +	{ 1900, 0x2F },
+>>>>>>> +	{ 1950, 0x3F },
+>>>>>>> +	{ 2000, 0x0F },
+>>>>>>> +	{ 2050, 0x40 },
+>>>>>>> +	{ 2100, 0x41 },
+>>>>>>> +	{ 2150, 0x42 },
+>>>>>>> +	{ 2200, 0x43 },
+>>>>>>> +	{ 2250, 0x44 },
+>>>>>>> +	{ 2300, 0x45 },
+>>>>>>> +	{ 2350, 0x46 },
+>>>>>>> +	{ 2400, 0x47 },
+>>>>>>> +	{ 2450, 0x48 },
+>>>>>>> +	{ 2500, 0x49 },
+>>>>>>> +};
+>>>>>>> +
+>>>>>>> +struct hstt {
+>>>>>>> +	unsigned int max_mbps;
+>>>>>>> +	struct dw_mipi_dsi_dphy_timing timing;
+>>>>>>> +};
+>>>>>>> +
+>>>>>>> +#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
+>>>>>>> +{					\
+>>>>>>> +	.max_mbps = _max_mbps,		\
+>>>>>>> +	.timing = {			\
+>>>>>>> +		.clk_lp2hs = _c_lp2hs,	\
+>>>>>>> +		.clk_hs2lp = _c_hs2lp,	\
+>>>>>>> +		.data_lp2hs = _d_lp2hs,	\
+>>>>>>> +		.data_hs2lp = _d_hs2lp,	\
+>>>>>>> +	}				\
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +static struct hstt hstt_table[] = {
+>>>>>>> +	HSTT(80, 21, 17, 15, 10),
+>>>>>>> +	HSTT(90, 23, 17, 16, 10),
+>>>>>>> +	HSTT(100, 22, 17, 16, 10),
+>>>>>>> +	HSTT(110, 25, 18, 17, 11),
+>>>>>>> +	HSTT(120, 26, 20, 18, 11),
+>>>>>>> +	HSTT(130, 27, 19, 19, 11),
+>>>>>>> +	HSTT(140, 27, 19, 19, 11),
+>>>>>>> +	HSTT(150, 28, 20, 20, 12),
+>>>>>>> +	HSTT(160, 30, 21, 22, 13),
+>>>>>>> +	HSTT(170, 30, 21, 23, 13),
+>>>>>>> +	HSTT(180, 31, 21, 23, 13),
+>>>>>>> +	HSTT(190, 32, 22, 24, 13),
+>>>>>>> +	HSTT(205, 35, 22, 25, 13),
+>>>>>>> +	HSTT(220, 37, 26, 27, 15),
+>>>>>>> +	HSTT(235, 38, 28, 27, 16),
+>>>>>>> +	HSTT(250, 41, 29, 30, 17),
+>>>>>>> +	HSTT(275, 43, 29, 32, 18),
+>>>>>>> +	HSTT(300, 45, 32, 35, 19),
+>>>>>>> +	HSTT(325, 48, 33, 36, 18),
+>>>>>>> +	HSTT(350, 51, 35, 40, 20),
+>>>>>>> +	HSTT(400, 59, 37, 44, 21),
+>>>>>>> +	HSTT(450, 65, 40, 49, 23),
+>>>>>>> +	HSTT(500, 71, 41, 54, 24),
+>>>>>>> +	HSTT(550, 77, 44, 57, 26),
+>>>>>>> +	HSTT(600, 82, 46, 64, 27),
+>>>>>>> +	HSTT(650, 87, 48, 67, 28),
+>>>>>>> +	HSTT(700, 94, 52, 71, 29),
+>>>>>>> +	HSTT(750, 99, 52, 75, 31),
+>>>>>>> +	HSTT(800, 105, 55, 82, 32),
+>>>>>>> +	HSTT(850, 110, 58, 85, 32),
+>>>>>>> +	HSTT(900, 115, 58, 88, 35),
+>>>>>>> +	HSTT(950, 120, 62, 93, 36),
+>>>>>>> +	HSTT(1000, 128, 63, 99, 38),
+>>>>>>> +	HSTT(1050, 132, 65, 102, 38),
+>>>>>>> +	HSTT(1100, 138, 67, 106, 39),
+>>>>>>> +	HSTT(1150, 146, 69, 112, 42),
+>>>>>>> +	HSTT(1200, 151, 71, 117, 43),
+>>>>>>> +	HSTT(1250, 153, 74, 120, 45),
+>>>>>>> +	HSTT(1300, 160, 73, 124, 46),
+>>>>>>> +	HSTT(1350, 165, 76, 130, 47),
+>>>>>>> +	HSTT(1400, 172, 78, 134, 49),
+>>>>>>> +	HSTT(1450, 177, 80, 138, 49),
+>>>>>>> +	HSTT(1500, 183, 81, 143, 52),
+>>>>>>> +	HSTT(1550, 191, 84, 147, 52),
+>>>>>>> +	HSTT(1600, 194, 85, 152, 52),
+>>>>>>> +	HSTT(1650, 201, 86, 155, 53),
+>>>>>>> +	HSTT(1700, 208, 88, 161, 53),
+>>>>>>> +	HSTT(1750, 212, 89, 165, 53),
+>>>>>>> +	HSTT(1800, 220, 90, 171, 54),
+>>>>>>> +	HSTT(1850, 223, 92, 175, 54),
+>>>>>>> +	HSTT(1900, 231, 91, 180, 55),
+>>>>>>> +	HSTT(1950, 236, 95, 185, 56),
+>>>>>>> +	HSTT(2000, 243, 97, 190, 56),
+>>>>>>> +	HSTT(2050, 248, 99, 194, 58),
+>>>>>>> +	HSTT(2100, 252, 100, 199, 59),
+>>>>>>> +	HSTT(2150, 259, 102, 204, 61),
+>>>>>>> +	HSTT(2200, 266, 105, 210, 62),
+>>>>>>> +	HSTT(2250, 269, 109, 213, 63),
+>>>>>>> +	HSTT(2300, 272, 109, 217, 65),
+>>>>>>> +	HSTT(2350, 281, 112, 225, 66),
+>>>>>>> +	HSTT(2400, 283, 115, 226, 66),
+>>>>>>> +	HSTT(2450, 282, 115, 226, 67),
+>>>>>>> +	HSTT(2500, 281, 118, 227, 67),
+>>>>>>> +};
+>>>>>>> +
+>>>>>>
+>>>>>> Where do these data come from?
+>>>>>
+>>>>> This is part of the vendor DPHY driver, see [1].
+>>>>>
+>>>>> Thanks,
+>>>>> Icenowy
+>>>>>
+>>>>> [1]
+>>>>> https://github.com/revyos/th1520-linux-kernel/blob/th1520-lts/drivers/phy/synopsys/phy-dw-mipi-dphy.c#L185
+>>>>
+>>>> This looks consistent with imx93-mipi-dsi.c, but the TH1520 does not
+>>>> use the same TSMC 16nm process as the IMX93. As far as I know, they
+>>>> are usually different. 
+>>>
+>>> Well, I did some Internet investigation, and the result seems interesting:
+>>>
+>>> TSMC 16nm and 12nm are siblings, they share a page at TSMC's website [1],
+>>> and there're rumors saying that they just branded refined 16nm as 12nm
+>>> [2][3].
+>>>
+>>
+>> Interesting.
+>>
+>>>>
+>>>> Could you confirm this from the DesignWare PHY databook?
+>>> Unfortunately I don't have it...
+>>>
+>>
+>> Perhaps adding a plat_data to modify PHY_STOP_WAIT_TIME would be a
+>> good idea. It looks like a TODO item, and Hisilicon also sets it. 
+> 
+> Saying about HiSilicon, I remembered my try to deduplicate
+> dw_mipi_dsi_phy_write(), which is retracted in v2 because of some
+> complicated usage of dw-mipi-dsi-rockchip purely as a D-PHY. This function
+> is also present in HiSi dw_drm_dsi as dsi_phy_tst_set().
+> 
+> Well yes I checked the value set by the HiSi driver, it's even bigger --
+> 0x30.
+> 
+>>
+>> And what I am curious about is PHY_WAIT_MODE. This looks like the tLPX
+>> time in DPHY, which has a minimum time requirement, but I don't
+>> understand why reducing this value made it work normally instead. 
+> 
+> Do you just mean PHY_STOP_WAIT_TIME? I didn't find a field called
+> PHY_WAIT_TIME.
+> 
 
-Drop RESET_CONTROLLER, this is not a reset controller driver.
-The consumer API has stubs.
+Yes, it's typo...
 
-[...]
-> diff --git a/drivers/pci/controller/dwc/pcie-cs7542.c b/drivers/pci/contr=
-oller/dwc/pcie-cs7542.c
-> new file mode 100644
-> index 000000000..5487e667d
-> --- /dev/null
-> +++ b/drivers/pci/controller/dwc/pcie-cs7542.c
-> @@ -0,0 +1,551 @@
-[...]
-> +static int cortina_pcie_probe(struct platform_device *pdev)
-> +{
-[...]
-> +	cp->reset =3D devm_reset_control_get_exclusive(dev, NULL);
-> +	if (IS_ERR(cp->reset))
-> +		return dev_err_probe(dev, PTR_ERR(cp->reset), "controller reset\n");
-[...]
-> +	ret =3D reset_control_reset(cp->reset);
+>>
+>> Perhaps I got something wrong somewhere. :)
+> 
+> I think it's constraining how frequent can HS be entered (thus display
+> bursts are sent). When the DSI data rate is tight (quite close to the pixel
+> rate), a long wait time can prevent bursts to be sent frequently enough,
+> thus display is messed up.
+> 
+> Although to be honest I haven't read D-PHY specification yet, so please
+> excuse me for any human hallucination.
+> 
 
-Please use assert/deassert, this is not a self-clearing reset.
-See my comments on the reset controller driver.
+It also makes sense. Reducing this is equivalent to reducing the time consumed
+per line. Perhaps only the design engineers know these details. :)
 
-Would a convenience function like [1] be helpful?
+> Thanks,
+> Icenowy
+> 
+>>
+>>> Thanks,
+>>> Icenowy
+>>>
+>>> [1]
+>>> https://www.tsmc.com/english/dedicatedFoundry/technology/logic/l_16_12nm
+>>> [2] https://www.eenewseurope.com/en/report-tsmc-to-relabel-process-as-12nm/
+>>> [3]
+>>> https://www.fool.com/investing/2017/01/18/taiwan-semiconductor-mfg-co-ltd-confirms-12nm-tech.aspx
+> 
 
-[1] https://lore.kernel.org/all/20261112-reset-control-pulse-v1-1-25cea1058=
-83e@pengutronix.de/
+-- 
+Best, 
+Chaoyi
 
-
-regards
-Philipp
