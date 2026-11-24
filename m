@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795542717;
-	b=VJl58Qgp+2vNzEwLdVOpeE2LTpAxb2UjtcfvuhWn8yNbK9ajoCjDOwm0K39W42CzcdJ9
-	 4l0Xhi2Du493YtqvNh4csbovW7kUQlXsJwIvRyuwVjKSoOwbgVZjmcpUztBhAeya5UjXS
-	 LfEtVRZB/JBljiQqbpp9b6cHMPyqqc//ScynN5+cXfSSq62/gjMIn6ybJD9JDUXVlYRTY
-	 5aiDGR8T/2tXgV/XAtVkjmIacP+fxrs1OBGxEUpF56PaLtvi8cLvEeppk4hTvcHqMLrob
-	 6uu11wD907IU6wx8n3qPZkwu1kh8NDta4Vu2CsQHEdSwJa8bmLtazzxq6V/ZIPwVhug==
+	t=1795542860;
+	b=3ucGoPO24hXh40uidZmOP88ohOQZTD3H8CUB4qZhV2ddhR8ljEP1XSPwwjOaWTh/JuDa
+	 tkBwpT8iQvGe5a8Cl38ws2fzwFA+QJEy+r4hJrD7wQ5Qe/LnvZi1Cx+Fkx+uhUikQKOB+
+	 AyWYLutfRbR+7RvYDTNgmGVkT8Lo5MZ3XPGIggbqXqM7OBS8Xq7Q9Q9MttWoGhX3wJTqy
+	 5bGHua4m0dfkiyYMlUIS6CTUnXVgCpqlvVMs2XwGzpMSGDrnGVlPsksQReV/x5NFPZM7R
+	 N2LxZ4zwqhP+waKzwE4j4PtDcJ80jhebIGFe/aLgU8ShhN0kW3WUBw3jxsP/TzRO9tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795542717;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795542860;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Yl1eC915iZtGJsVn8hJNc3AUFjS3lPKQrn9XPwqIlyg=;
-	b=z8DE9O4QqzRxaH49cg2juIM3E7u3SpHSbf9a2wZ/774r1ySiFICskTz7CT4HIAu/aBEF
-	 c4b0uO+wJHACKGmefdm8XSm4Jhm91+osBgIgHxxON/cAvd9N28PHZG32MOqqzlyuus7iv
-	 B7bS17mUNrdoquvI4RtdJSiSB40yaG4RYr2LthAuaBqoUbqtHpSZCNJlsfQhOs0UYBQlJ
-	 j9Lx3zfscpNH4fv0mrfsV2XMQD5FiR0ET67EWBAU8N2qT3D6TqwAQdA3lRfGE8eVKHj4w
-	 19Hj5DE4k4ElP0FS5HiR5WT9f5pfRCs9+zBD2rO+qcr09Y8E9MRpFB0y3sZoy4VVjjg==
+	bh=0pm3p5mEPLCoZfLFF7fAcuqY+wadphrVFEOwjav6RCM=;
+	b=cfIG7mgVG/MrdT9u46aglqiyme8GOkr5BKVjxDvnqhqYOStvz51MDJsjBex0HnJs9iCE
+	 lwuqYqJGf3HJly+mCEgG5rySRO6ZDQr9LCtRcct+sD4XtfMFsCkYWirny6VEh8Ggnt3PU
+	 DIl/9+ycJtCFhs+nlzmI9SKnlAXueMGSDj8qvN14Ir/7KrkZ7s6mo67BU0PeS43e8nS/P
+	 AGeHbuazVWUSTKfhP746eHAyjpVER56D7Y6ro1lPjm1BcbQOga/kPGZ9lqLfm7WqmZamF
+	 qW677em9rdUuALbIJyxxlgzH6yb88S/SqgKKN88byAEOQ5QlYlhIedJYh5r2Bhaning==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZaCJ+hqr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhw7M9A3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFA6606A31E
-	for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 17:51:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943F9606A31E;
+	Tue, 24 Nov 2026 17:54:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZaCJ+hqr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41091F000C6;
-	Tue, 24 Nov 2026 17:51:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhw7M9A3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA4741F000C6;
+	Tue, 24 Nov 2026 17:54:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795542716;
-	bh=Yl1eC915iZtGJsVn8hJNc3AUFjS3lPKQrn9XPwqIlyg=;
+	s=k20260515; t=1795542860;
+	bh=0pm3p5mEPLCoZfLFF7fAcuqY+wadphrVFEOwjav6RCM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZaCJ+hqrFkB5C3BPqHsQy/SJB7U2dolJ51Q5D5AnxO/4qKSr0kKbUhV0FkbpYPK+9
-	 JYgE7kFgipCHv8IB51+nyGpk1hBiC8GGfjsC8e+xW5NyufESaF5xtlXMfjBKxH2kpN
-	 JhrsGFnF3FVrD5GYb7J/SRmv1AyKekz4lXut4+usfJRAmqnlVzgKe3raJhZDZraBcf
-	 A+oPfbbPd4Gb5N9bwQvshXf8cWUb0AxsVo9hncXhjf8XWQE1k9FDTfKlMbE42Af7XF
-	 JNm8PvWLQcfGdehf10mIOumhUi/L2QGwZCEtXdb+Xv50k1UkyvYUxi6tO/3yMsewvs
-	 jfRhT54Wgr7tA==
-Message-ID: <sashiko-outbox-231751@kernel.org>
+	b=mhw7M9A3n9JTDWTVFn59r2zyeEq8+s0J7CUnsxpW5OYARdIc1S9hxIWcd8TlHi+5V
+	 EsDZPsBIWNuJcd9sUgHUPMtjkwuBF3Bgy+N+ve0lMcSmH2osQYnTEmZnGo+lbgd9s7
+	 4XxtS13pTiYjqitTS0DHdv4zXXQ42tntftnc7YTTatmpzMEoT6WRfzd7JLXUMQKpiF
+	 rRyuclZao9tDNnZ6IFx56yJsd9iXZXyeC7ZVY/s0kcl6GSMxhuS/Z9EmfNOXwf2iMJ
+	 sAz8KMAAwynBTsX4RDyT+dpjsRlPGBMm3M2ztqxAFALiZCJTrgqKLjJUMV4xiY4Jlj
+	 U/dFc0NdPoEKg==
+Message-ID: <sashiko-outbox-231757@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: misc: Add FPC1540 fingerprint sensor
- driven by a QSEE app
+Subject: Re: [PATCH v2 09/19] ASoC: qcom: lpass: add support for optional
+ WSA interface
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Armandas Kvietkus" <armandas.kvietkus@proton.me>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124-fpc1540-tee-v1-3-6c6985f05b06@proton.me>
-References: <20261124-fpc1540-tee-v1-0-6c6985f05b06@proton.me>
- <20261124-fpc1540-tee-v1-3-6c6985f05b06@proton.me>
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261124-topic-sm8650-el2-v2-9-174e159f0f69@linaro.org>
+References: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
+ <20261124-topic-sm8650-el2-v2-9-174e159f0f69@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 17:51:56 +0000
+Date: Tue, 24 Nov 2026 17:54:19 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,102 +61,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] dt-bindings: misc: fpc1540-tee duplicates interrupt pin as
-  irq-gpios
-- [Medium] dt-bindings: misc: fpc1540-tee strips .mdt suffix and embeds
-  QSEE resources
-- [Low] dt-bindings: misc: fpc1540-tee uses non-canonical property
-  ordering
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] ASoC: qcom: lpass: missing wsa_lpaif_map handling in suspend
+  and resume
+It also noticed 2 related pre-existing issues this patch does not
+introduce:
+- [Critical] ASoC: qcom: out-of-bounds array writes in
+  of_lpass_cpu_parse_dai_data() [1]
+- [High] ASoC: qcom: lpass: unchecked memremap() and missing unmap on
+  PCM free [2]
 --
 
-commit 9d798d8abb4687cb95d763a981df15f03d125a1a
-Author: Armandas Kvietkus <armandas.kvietkus@proton.me>
+commit af2e24041ddb606a271caf973ca3eb7d9100c98e
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-dt-bindings: misc: Add FPC1540 fingerprint sensor driven by a QSEE app
+ASoC: qcom: lpass: add support for optional WSA interface
 
-This commit adds a Device Tree binding schema for the FPC1540 fingerprint
-sensor when driven by a Qualcomm QSEE trusted application.
+This commit adds regmap, DMA control, IRQ, and buffer management support for
+the optional WSA LPAIF interface used by the speaker SoundWire bus.
 
-> diff --git a/Documentation/devicetree/bindings/misc/fpc,fpc1540-tee.yaml =
-b/Documentation/devicetree/bindings/misc/fpc,fpc1540-tee.yaml
-> new file mode 100644
-> index 0000000000000..0c2ec847c2d75
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/misc/fpc,fpc1540-tee.yaml
-> @@ -0,0 +1,74 @@
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index 3089107442231..db7a0752edb2f 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
 [ ... ]
-> +properties:
-> +  compatible:
-> +    const: fpc,fpc1540-tee
-> +
-> +  firmware-name:
-> +    minItems: 1
-> +    items:
-> +      - description: Path of the trusted application, without the .mdt s=
-uffix.
-> +      - description:
-> +          Path of the QSEE common library the trusted application needs,
-> +          without the .mdt suffix.
+> @@ -984,6 +1076,16 @@ static struct regmap_config lpass_va_regmap_config =
+=3D {
+>  	.cache_type =3D REGCACHE_FLAT,
+>  };
+> =20
+> +static struct regmap_config lpass_wsa_regmap_config =3D {
+> +	.reg_bits =3D 32,
+> +	.reg_stride =3D 4,
+> +	.val_bits =3D 32,
+> +	.writeable_reg =3D lpass_wsa_regmap_writeable,
+> +	.readable_reg =3D lpass_wsa_regmap_readable,
+> +	.volatile_reg =3D lpass_wsa_regmap_volatile,
+> +	.cache_type =3D REGCACHE_FLAT,
+> +};
 
 [Severity: Medium]
-Should firmware-name specify the complete filename including the .mdt (or
-.mbn) extension rather than stripping the suffix?  Qualcomm bindings and
-drivers/soc/qcom/mdt_loader.c expect the full relative filename in
-firmware-name so that standard MDT loader helpers work directly and both
-split (.mdt + .bXX) and single-file (.mbn) images are supported.
+Should lpass_platform_pcmops_suspend() and lpass_platform_pcmops_resume()
+also manage drvdata->wsa_lpaif_map when drvdata->wsa_enable is set?
 
-Also, the QSEE common library (cmnlib64) and the QSEE image-loading
-memory-region below are system-wide QSEE/TEE environment resources rather
-than hardware properties of the FPC1540 sensor node.
+lpass_wsa_regmap_config uses REGCACHE_FLAT and lpass_platform_wsa_hardware
+advertises SNDRV_PCM_INFO_RESUME, but suspend and resume only handle
+hdmiif_map and lpaif_map.  If the WSA LPAIF block loses register state acro=
+ss
+system suspend, resuming a stream via SNDRV_PCM_TRIGGER_RESUME skips
+lpass_platform_pcmops_prepare() and never syncs the cached DMA base, buffer,
+and period registers back to hardware, while later regmap_update_bits() and
+regmap_fields_write() calls can skip hardware writes when the new value
+matches the stale flat cache.  Note that later commits in this series
+("ASoC: qcom: lpass: support mapping I2S ports to multiple LPAIFs" and
+"ASoC: qcom: add SM8650 LPASS CPU driver") do sync the same lpass-wsa-lpaif
+regmap across suspend and resume when it is used for MI2S.
 
-> +
-> +  vdd-supply: true
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  irq-gpios:
-> +    maxItems: 1
-> +    description:
-> +      The interrupt line read as a GPIO, so that edges where the line is
-> +      already low again are not reported as a finger.
+> @@ -1046,6 +1148,8 @@ static void of_lpass_cpu_parse_dai_data(struct devi=
+ce *dev,
+>  			data->hdmi_port_enable =3D 1;
+>  		} else if (is_cdc_dma_port(id)) {
+>  			data->codec_dma_enable =3D 1;
+> +			if (is_wsa_cdc_dma_port(id))
+> +				data->wsa_enable =3D 1;
+>  		} else {
+>  			data->mi2s_playback_sd_mode[id] =3D
+>  				of_lpass_cpu_parse_sd_lines(dev, node,
 
-[Severity: Medium]
-Should the binding describe the sensor's single physical interrupt wire
-only once rather than duplicating the same pin in both interrupts and
-irq-gpios?  As shown in the example where both interrupts-extended and
-irq-gpios reference <&tlmm 23>, irq-gpios encodes a Linux driver
-edge-filtering workaround into the DT binding ABI rather than a distinct
-hardware connection.
+[Severity: Critical]
+This problem wasn't introduced by this patch, but can
+of_lpass_cpu_parse_dai_data() write out of bounds on
+data->mi2s_playback_sd_mode[] and data->mi2s_capture_sd_mode[] [1]?
 
-> +
-> +  memory-region:
-> +    maxItems: 1
-> +    description:
-> +      Region used to pass the trusted application image to QSEE. The who=
-le
-> +      region is shared with QSEE because QSEE reads past the end of the =
-image
-> +      while it starts the application.
-> +
-> +required:
-> +  - compatible
-> +  - firmware-name
-> +  - vdd-supply
-> +  - reset-gpios
-> +  - interrupts
-> +  - memory-region
+Both arrays are sized to LPASS_MAX_MI2S_PORTS (8), yet the initialization
+loop at the top of of_lpass_cpu_parse_dai_data() indexes them by
+data->variant->dai_driver[i].id without checking whether the DAI is an MI2S
+port (CDC DMA DAI IDs start at 19), and the else branch above indexes them
+with an unchecked id read from the Device Tree "reg" property, overwriting
+adjacent fields in struct lpass_data.
 
-[Severity: Low]
-In properties:, required: and examples:, interrupts (and
-interrupts-extended in the example) should be listed immediately after
-compatible to follow the canonical DT schema property ordering.
+> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platf=
+orm.c
+> index 9666049ae51b6..99a7ce9ed7695 100644
+> --- a/sound/soc/qcom/lpass-platform.c
+> +++ b/sound/soc/qcom/lpass-platform.c
+[ ... ]
+> @@ -1148,6 +1295,14 @@ static int lpass_platform_prealloc_cdc_dma_buffer(=
+struct snd_soc_component *comp
+>  		buf->bytes =3D lpass_platform_va_hardware.buffer_bytes_max;
+>  		buf->addr =3D drvdata->va_cdc_dma_lpm_buf;
+>  		break;
+> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
+> +		buf->bytes =3D lpass_platform_wsa_hardware.buffer_bytes_max;
+> +		buf->addr =3D drvdata->rxtx_cdc_dma_lpm_buf + LPASS_RXTX_CDC_DMA_LPM_B=
+UFF_SIZE * 2;
+> +		break;
+> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
+> +		buf->bytes =3D lpass_platform_wsa_hardware.buffer_bytes_max;
+> +		buf->addr =3D drvdata->rxtx_cdc_dma_lpm_buf + LPASS_RXTX_CDC_DMA_LPM_B=
+UFF_SIZE * 3;
+> +		break;
+>  	default:
+>  		break;
+>  	}
+
+[Severity: High]
+This problem wasn't introduced by this patch, but
+lpass_platform_prealloc_cdc_dma_buffer() does not check the memremap() retu=
+rn
+value on buf->area and leaves buf->dev.type set to SNDRV_DMA_TYPE_CONTINUOUS
+with no .pcm_free callback to unmap it [2]:
+
+sound/soc/qcom/lpass-platform.c:lpass_platform_prealloc_cdc_dma_buffer() {
+	...
+	buf->dev.type =3D SNDRV_DMA_TYPE_CONTINUOUS;
+	...
+	buf->area =3D (unsigned char * __force)memremap(buf->addr, buf->bytes, MEM=
+REMAP_WC);
+
+	return 0;
+}
+
+If memremap() returns NULL, a subsequent PCM transfer in
+lpass_platform_copy() dereferences rt->dma_area.  When the sound card is
+unbound, snd_pcm_lib_preallocate_free_for_all() -> do_free_pages() treats t=
+he
+non-NULL buf->area as SNDRV_DMA_TYPE_CONTINUOUS memory, warns in
+decrease_allocated_size(), leaks the mapping, and passes the remapped addre=
+ss
+to free_pages_exact().
+
+[1] https://sashiko.dev/#/bug/linux-ac3b3436-c7ff-4bc4-ac2f-8d1aa0b6ad52
+[2] https://sashiko.dev/#/bug/linux-c4c01ba7-4086-4d0d-b8e1-8b417f2486e3
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-fpc1540-te=
-e-v1-0-6c6985f05b06@proton.me?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-topic-sm86=
+50-el2-v2-0-174e159f0f69@linaro.org?part=3D9
