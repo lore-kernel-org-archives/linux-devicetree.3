@@ -1,44 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.32.112
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795509864;
-	b=Q3L9wUq7yg2aSlmFa2yiLynFiyUcdN2SKqJu+dgAFx7hwUcWjd3KrffMEF6btWm217Cx
-	 IjtArtF13gTQZoHh0DVi7U6HK6s7GGuOemCZj7T6hVBk6GC9SMDA+mPqcLc+k8xgPSUAU
-	 jw/5vBrR1+0mOemo+KTMP/2VWKF/7+NOvrTQ5Pz7V8wepLT11Kny3Ji4uv0FQJkCIHkK3
-	 0ZaA6xqdAjGVs6dBmgYU3fdGFWujNv7J1j9DSMPphADcEnseow9vgIZ1tLXKbKRz8Db4C
-	 a2LkH4EdVJMUlTEhe4g7aR2wphJ0xvLxv7FBYPHf0p28H7E/Rqt9lolO3S5YLtSMSCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795509864;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=3o5GKOHC/f7YDGjWodZFo/bOjUuvywEOFfsWjvIURik=;
-	b=rVWkdAJjhrGgeTEWSLsz3+GwV8t0HiH+GWMl41QrUpyJuZj96mBsiv3H+2WAyufX8XTM
-	 yHWEVK463Fd/uVNhvXNt30Bn9dqEkPBN3bODxYZT+cwx/aXHvwaLN5+xwXshV+651ttII
-	 oMSKUBmIdcpKSwR3dmFQVqGin/ZiOUvELHX9SMPnrFa9zmyndtcig/ZRLn8WVQMzToTAY
-	 8SQxVdT6DdI/d8XPw4iY7j6Ivv4p4nNEGdqMO8j9L5TLrFUafEc3lLpsZMR3daaTdYRYt
-	 a6GnF8N4MgPVKfYnK32ZtdAolUyo3lOKGF3nisUXB4a9GhG0+kW3O8H/Cz9liSLkzsQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=KiSU1s0E;
-	arc=none smtp.remote-ip=220.197.32.112
-Received: from mail-m32112.qiye.163.com (mail-m32112.qiye.163.com [220.197.32.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795509933;
+	b=vAruIawxESA63s/1K3CpQR919RREfJ2P3UUoWTwD1uO42DemksBykO5xFER+GVEY3+qD
+	 zGg6pd262tJ95i4aRVgv9Vcj1A6arDLHEcTPB6Q1fwyDlIYiky27hRdmJu5EnzfXuPLKm
+	 QQ0exY/35IuiJroCmWBnP577oBJ9KWrasDph5W0PgkFHsonCkPSAaTAle8B0FoJGPAFZk
+	 +WSJjdv3F1xJi1EcdMs8Lgx5ujEXdNIo8cInSj68FcqxyA0PkWeO3RWPJK8avULmNzX1c
+	 IYqC8ccmRWK+SnQ/2ZTLTAkPLotUjww46kr1xGS4J+CfMRhRCyAZIpNuLc02MX6v1MQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795509933;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=TjxJu3J0SFQEDSM4IUN64kHna5JaDyXrFZEdC8PQ8vM=;
+	b=0YCGrbNVf45UO0TDF66spYbCSVe72F2B+T1JcKMyDppxFg3tGhYam+QJ3G3lSJqs+g8V
+	 SJetCc8mawetz451ZX9QK0uCL8gYaa5gRhJQk52EULdCX/GiQWB9LkRRIMl1L8qKt1JUy
+	 GHHbBXtf6oNjhUF/pzaNjAzmMd8qDXYruOTCkwKFab6jsQK+XE8M7W4hN/uw+48pRirIh
+	 BJNqP/Lw5JtIN+tbs2/uOLSVcAjVXW9GgznBpakh5TB4QjSjLmFWOHhUmja1VA01xK+oj
+	 2Qs8z0py0/CWESC91+zhHi4wgd6ssZ8OcHu3rDpFsKsT+sULjACegD8Q1hQOBHF7sKg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZ3L468z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F46606A322;
+	Tue, 24 Nov 2026 08:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZ3L468z
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795509932;
+	b=j/Pq4UvvPNJaLASLYTB5WCKUlV4cke6Rho13FXFHX0eYtgLMjaIUCjkTN4Vv8utLlsSg
+	 OgjyDuluvFA7He48M6bXcLTrNdgXv96VdkaTifGAniiRwS4VDj3IcEPJH++f6Ki9pwOJB
+	 7GmB/Ty5iSZl+O9K3/RIEgZkOCYQE6OLxy30rVIDdCYblWpMzP011AScxEanyMLO7YSyt
+	 lvk2gYYojsSMwqAErtXT2XnMw/HuytDcp7Ezmj6ei9aatxe0RdSO86nb/WFXo2cuMfQxe
+	 kVz6beTRgpugKOvotGlnovRtbxTpfeZRnu527EoQUYN1TKRICujpXemRZVraxhmdQvA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795509932;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=TjxJu3J0SFQEDSM4IUN64kHna5JaDyXrFZEdC8PQ8vM=;
+	b=vDYmAwggWjKAFCFEAbJ79inMgFFZXrnOXiuNOb+KiUO08qk5Liat+aJ00cVFeDsUBPVx
+	 v3fxBTUBalRCsJY+FnW+KLOq+hQDyNfUnosxBsHsEWq1oR+4+DPd6TLIAMdMbFEwhoOkU
+	 mK52/22gqqEg9RQr3Z4IdSfLD1qsoVQFzj3mB8FIjm/Zrwec8Vyg3cTwzwaANXhhGWB7q
+	 ILM3VS6PTTT1HMBCZjZ1gVtwCa9AUOQtjINou+1gny/ynD3GSU8cVKm0YkKFfStO9EN2G
+	 pL+jrNlXpFl9DiZ9ZFyuA/vzKT4YG5VTIsFlJKybedyAWkclw2vhCKIFZExlHEuUX0w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED259606A31E;
-	Tue, 24 Nov 2026 08:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED259606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=KiSU1s0E
-Received: from [127.0.0.1] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 55cc84df9;
-	Tue, 24 Nov 2026 16:44:12 +0800 (GMT+08:00)
-Message-ID: <a797b2da-ea60-4b81-8fbf-e027afc89cc6@rock-chips.com>
-Date: Tue, 24 Nov 2026 16:44:08 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 94D6E1F000D0;
+	Tue, 24 Nov 2026 08:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795509932;
+	bh=TjxJu3J0SFQEDSM4IUN64kHna5JaDyXrFZEdC8PQ8vM=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=FZ3L468zW5/zcR2PFLstI7NVdGnB4RWuSIgN+Dn6YJf792Cgl2xWDBclt0MIB+ZuW
+	 fNsuz1GDwX0hmJ2SwRPGnARjOX1wrCb3o3dgFNORK2WjVhmYn6h5qc/lL+F3OaX72n
+	 RoB0HxSYo8IoCt74rzzWfQZUEioLKWu91KC5oO/+hhmkWzF3KKUnGSwEg8kNBKmS7M
+	 wD4W6MMYgdXRGh7MBQLq7x9AOIwiDYOZerlY1uZ952PjKRfbrKOz4nSyPVZA7gFSPA
+	 fobvf9V2KtQ8MRh/GGs/yNskifNac6ImF/9wXQWFnWTwhCarFHunlVIwytr11JSsx9
+	 CP2tLqYDN7Sdw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id ED8974C960;
+	Tue, 24 Nov 2026 08:45:26 +0000 (UTC)
+From: Akshat Singh via B4 Relay <devnull+automobilehacks.gmail.com@kernel.org>
+Subject: [PATCH v2 0/3] irqchip/econet-en751221: Deliver odd interrupts
+ without VEIC
+Date: Tue, 24 Nov 2026 08:45:28 +0000
+Message-Id: <20261124-en751221-intc-all-lines-v2-0-a33a520aac81@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,390 +84,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/bridge: add TH1520 DesignWare MIPI DSI host
- controller
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-riscv@lists.infradead.org, Han Gao <gaohan@iscas.ac.cn>
-References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
- <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
- <af27260f-1911-47bb-8fe2-8eaa8bec31b0@rock-chips.com>
- <561b5dc1b3a87ebc78f2357d253df4676395fb10.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <561b5dc1b3a87ebc78f2357d253df4676395fb10.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa20cba18a103a7kunm6bf4055ecd9ecd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGUtIVh9MHxkaThgYS0kdTVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=KiSU1s0EZ9KLCJQu6nw9dDe2DvvbXGp7ViKi5ZWPxWjVQUJlHixIgT9LEmYWiGVNpxlrSWk74CK2wqbjjs+phiZFCZSSZSnsmbAexYguA/zthzViEwImPghq/k0S+UitYLfLGWlnoiUaoQM7mKFEbTDawxKBpoaUSpJ/UyOYwYM=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=3o5GKOHC/f7YDGjWodZFo/bOjUuvywEOFfsWjvIURik=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKhOBWsC/4WNQQ6CMBBFr0Jm7Zh2oBJdeQ/DopQBxtRiWiQaw
+ t0FPIDLl7z//gyJo3CCSzZD5EmSDGEFOmTgehs6RmlWBlJ00lob5FAaTaRRwujQeo9eAickmxs
+ yVKv67GBdPyO38t7Lt+rH6VXf2Y1bbjN6SeMQP/v1pDfv/8ukUWHjVG4L1RZlq67dw4o/uuEB1
+ bIsX0jK/8bQAAAA
+X-Change-ID: 20261115-en751221-intc-all-lines-2a35252b0b9c
+To: Caleb James DeLisle <cjd@cjdns.fr>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Akshat Singh <automobilehacks@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795509928; l=2345;
+ i=automobilehacks@gmail.com; s=20261115; h=from:subject:message-id;
+ bh=M+rHP49TLFPFRmFeMJB9FFV/lr2vwMjOoBXs6QR6Uus=;
+ b=+WW5vldNx762MxjMTGWlRLjmrHU2N10z4usZuwm2ONylsPE67VyzJfLVvAeTTY9lHyP5Z9UNA
+ 6O5AdIky2QRBV+KY4EoV/+A5/DsdEsx7dV83Q0gXYmCBBxuWnpOjquV
+X-Developer-Key: i=automobilehacks@gmail.com; a=ed25519;
+ pk=wYmYXn6wy/XN0edTCg6D7UtE9nYLei8mbfqydGGCdf4=
+X-Endpoint-Received: by B4 Relay for automobilehacks@gmail.com/20261115
+ with auth_id=1535
+X-Original-From: Akshat Singh <automobilehacks@gmail.com>
+Reply-To: automobilehacks@gmail.com
 
-Hi Icenowy,
+the en751221 intc puts the number of the pending irq plus one, in binary,
+on IP2-IP7. with VEIC the cpu takes that as the vector, but without it the
+driver only chains IP2, so odd irqs (qdma 21, xhci 17, first pcie port 23)
+only get handled when an even one runs the handler, usually the next timer
+tick.
 
-On 11/24/2026 4:34 PM, Icenowy Zheng wrote:
-> 在 2026-11-24二的 16:29 +0800，Chaoyi Chen写道：
->> Hi Icenowy,
->>
->> On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
->>> The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
->>> controller with an internal DesignWare MIPI D-PHY.
->>>
->>> Add a glue driver configuring clocks and PHY parameters for it.
->>>
->>> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->>> ---
->>>  drivers/gpu/drm/bridge/Kconfig              |  12 +
->>>  drivers/gpu/drm/bridge/Makefile             |   1 +
->>>  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 570 ++++++++++++++++++++++++++++
->>>  3 files changed, 583 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
->>> index c7da6b02d7b6b..f8987e8946fbb 100644
->>> --- a/drivers/gpu/drm/bridge/Kconfig
->>> +++ b/drivers/gpu/drm/bridge/Kconfig
->>> @@ -372,6 +372,18 @@ config DRM_THEAD_TH1520_DW_HDMI
->>>  	  Choose this to enable support for the internal HDMI bridge found
->>>  	  on the T-Head TH1520 SoC.
->>>  
->>> +config DRM_THEAD_TH1520_DW_MIPI_DSI
->>> +	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
->>> +	depends on OF
->>> +	depends on COMMON_CLK
->>> +	depends on ARCH_THEAD || COMPILE_TEST
->>> +	select DRM_DW_MIPI_DSI
->>> +	select GENERIC_PHY_MIPI_DPHY
->>> +	select MFD_SYSCON
->>> +	help
->>> +	  Choose this to enable support for the internal MIPI DSI bridge
->>> +	  found on the T-Head TH1520 SoC.
->>> +
->>>  config DRM_TOSHIBA_TC358762
->>>  	tristate "TC358762 DSI/DPI bridge"
->>>  	depends on OF
->>> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
->>> index 15cc821d85b7e..5af871ba5ce77 100644
->>> --- a/drivers/gpu/drm/bridge/Makefile
->>> +++ b/drivers/gpu/drm/bridge/Makefile
->>> @@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) += sii9234.o
->>>  obj-$(CONFIG_DRM_SIMPLE_BRIDGE) += simple-bridge.o
->>>  obj-$(CONFIG_DRM_SOLOMON_SSD2825) += ssd2825.o
->>>  obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) += th1520-dw-hdmi.o
->>> +obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) += th1520-dw-mipi-dsi.o
->>>  obj-$(CONFIG_DRM_THINE_THC63LVD1024) += thc63lvd1024.o
->>>  obj-$(CONFIG_DRM_TOSHIBA_TC358762) += tc358762.o
->>>  obj-$(CONFIG_DRM_TOSHIBA_TC358764) += tc358764.o
->>> diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
->>> new file mode 100644
->>> index 0000000000000..8e866b70aec88
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
->>> @@ -0,0 +1,570 @@
->>> +// SPDX-License-Identifier: GPL-2.0
->>> +/*
->>> + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
->>> + *
->>> + * Author:
->>> + *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
->>> + *
->>> + * Based on dw_mipi_dsi-stm.c, which is:
->>> + *   Copyright (C) STMicroelectronics SA 2017
->>> + *
->>> + * Based on dw-mipi-dsi-rockchip.c, which is:
->>> + *   Copyright (C) Rockchip Electronics Co., Ltd.
->>> + *
->>> + * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
->>> + *   Copyright (C) Alibaba Group Holding Limited.
->>> + */
->>> +
->>> +#include <linux/bitfield.h>
->>> +#include <linux/clk.h>
->>> +#include <linux/kernel.h>
->>> +#include <linux/mfd/syscon.h>
->>> +#include <linux/module.h>
->>> +#include <linux/phy/phy.h>
->>> +#include <linux/phy/phy-mipi-dphy.h>
->>> +#include <linux/platform_device.h>
->>> +#include <linux/regmap.h>
->>> +#include <linux/regulator/consumer.h>
->>> +
->>> +#include <video/mipi_display.h>
->>> +
->>> +#include <drm/bridge/dw_mipi_dsi.h>
->>> +#include <drm/drm_mipi_dsi.h>
->>> +
->>> +/* DSI controller registers for DPHY access */
->>> +
->>> +#define DSI_PHY_TST_CTRL0		0xb4
->>> +#define PHY_TESTCLK			BIT(1)
->>> +#define PHY_UNTESTCLK			0
->>> +#define PHY_TESTCLR			BIT(0)
->>> +#define PHY_UNTESTCLR			0
->>> +
->>> +#define DSI_PHY_TST_CTRL1		0xb8
->>> +#define PHY_TESTEN			BIT(16)
->>> +#define PHY_UNTESTEN			0
->>> +#define PHY_TESTDOUT(n)			(((n) & 0xff) << 8)
->>> +#define PHY_TESTDIN(n)			(((n) & 0xff) << 0)
->>> +
->>> +/* DPHY registers */
->>> +
->>> +#define PLL_DELAY_LP_TX_START_LP11	0x02
->>> +#define TXDINDLYTIME_9_2		GENMASK(7,  0)
->>> +
->>> +#define PLL_FSM_CNTRL			0x03
->>> +
->>> +#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
->>> +#define PLL_PROP_CNTRL			GENMASK(5,  0)
->>> +
->>> +#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
->>> +#define PLL_INT_CNTRL			GENMASK(5,  0)
->>> +
->>> +#define PLL_VCO_CTRL			0x12
->>> +#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
->>> +#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
->>> +
->>> +#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
->>> +#define PLL_TESTLOCK			BIT(7)
->>> +#define PLL_GMP_CNTRL			GENMASK(5,  4)
->>> +#define TSTPLLDIG			GENMASK(3,  1)
->>> +#define TSTPLLDIG_LOCK			(0x0 << 1)
->>> +#define TSTPLLDIG_REFCLK		(0x1 << 1)
->>> +#define TSTPLLDIG_FBCLK			(0x2 << 1)
->>> +#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
->>> +#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
->>> +#define TSTPLLDIG_OUTPUT		(0x5 << 1)
->>> +#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
->>> +#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
->>> +
->>> +#define PLL_N_DIV_FSM_SIG		0x17
->>> +#define PLL_N_OVR			GENMASK(3,  0)
->>> +
->>> +#define PLL_M_DIV			0x18
->>> +#define PLL_M_OVR_4_0			GENMASK(4,  0)
->>> +#define PLL_M_OVR_9_5			GENMASK(4,  0)
->>> +
->>> +#define PLL_N_AND_M_DIV_CTRL		0x19
->>> +#define PLL_M_OVR_EN			BIT(5)
->>> +#define PLL_N_OVR_EN			BIT(4)
->>> +
->>> +#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
->>> +#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
->>> +
->>> +#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
->>> +#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
->>> +#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
->>> +#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
->>> +
->>> +#define HS_FREQ_RANGE_OF_OPERATION	0x44
->>> +#define HSFREQRANGE_OVR_EN		BIT(7)
->>> +#define HSFREQRANGE_OVR			GENMASK(6,  0)
->>> +#define HSFREQRANGE			HSFREQRANGE_OVR
->>> +
->>> +#define PG_LP_BIAS_LANE0		0x4a
->>> +#define PRG_ON_LANE0			BIT(6)
->>> +
->>> +#define SR_FSM_OVR_CNTRL		0xa0
->>> +#define SR_DDL_LOOP_CONF		0xa3
->>> +
->>> +/* syscon registers */
->>> +
->>> +#define MIPIDSI0_SYSREG			0x8
->>> +#define MIPIDSI1_SYSREG			0xc
->>> +#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
->>> +#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
->>> +#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
->>> +
->>> +struct pll_hsfreqrange {
->>> +	unsigned int max_mbps;
->>> +	u8 hsfreqrange;
->>> +};
->>> +
->>> +static const struct pll_hsfreqrange hsfreqrange_table[] = {
->>> +	{ 80,  0x00 },
->>> +	{ 90,  0x10 },
->>> +	{ 100, 0x20 },
->>> +	{ 110, 0x30 },
->>> +	{ 120, 0x01 },
->>> +	{ 130, 0x11 },
->>> +	{ 140, 0x21 },
->>> +	{ 150, 0x31 },
->>> +	{ 160, 0x02 },
->>> +	{ 170, 0x12 },
->>> +	{ 180, 0x22 },
->>> +	{ 190, 0x32 },
->>> +	{ 205, 0x03 },
->>> +	{ 220, 0x13 },
->>> +	{ 235, 0x23 },
->>> +	{ 250, 0x33 },
->>> +	{ 275, 0x04 },
->>> +	{ 300, 0x14 },
->>> +	{ 325, 0x25 },
->>> +	{ 350, 0x35 },
->>> +	{ 400, 0x05 },
->>> +	{ 450, 0x16 },
->>> +	{ 500, 0x26 },
->>> +	{ 550, 0x37 },
->>> +	{ 600, 0x07 },
->>> +	{ 650, 0x18 },
->>> +	{ 700, 0x28 },
->>> +	{ 750, 0x39 },
->>> +	{ 800, 0x09 },
->>> +	{ 850, 0x19 },
->>> +	{ 900, 0x29 },
->>> +	{ 950, 0x3A },
->>> +	{ 1000, 0x0A },
->>> +	{ 1050, 0x1A },
->>> +	{ 1100, 0x2A },
->>> +	{ 1150, 0x3B },
->>> +	{ 1200, 0x0B },
->>> +	{ 1250, 0x1B },
->>> +	{ 1300, 0x2B },
->>> +	{ 1350, 0x3C },
->>> +	{ 1400, 0x0C },
->>> +	{ 1450, 0x1C },
->>> +	{ 1500, 0x2C },
->>> +	{ 1550, 0x3D },
->>> +	{ 1600, 0x0D },
->>> +	{ 1650, 0x1D },
->>> +	{ 1700, 0x2E },
->>> +	{ 1750, 0x3E },
->>> +	{ 1800, 0x0E },
->>> +	{ 1850, 0x1E },
->>> +	{ 1900, 0x2F },
->>> +	{ 1950, 0x3F },
->>> +	{ 2000, 0x0F },
->>> +	{ 2050, 0x40 },
->>> +	{ 2100, 0x41 },
->>> +	{ 2150, 0x42 },
->>> +	{ 2200, 0x43 },
->>> +	{ 2250, 0x44 },
->>> +	{ 2300, 0x45 },
->>> +	{ 2350, 0x46 },
->>> +	{ 2400, 0x47 },
->>> +	{ 2450, 0x48 },
->>> +	{ 2500, 0x49 },
->>> +};
->>> +
->>> +struct hstt {
->>> +	unsigned int max_mbps;
->>> +	struct dw_mipi_dsi_dphy_timing timing;
->>> +};
->>> +
->>> +#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
->>> +{					\
->>> +	.max_mbps = _max_mbps,		\
->>> +	.timing = {			\
->>> +		.clk_lp2hs = _c_lp2hs,	\
->>> +		.clk_hs2lp = _c_hs2lp,	\
->>> +		.data_lp2hs = _d_lp2hs,	\
->>> +		.data_hs2lp = _d_hs2lp,	\
->>> +	}				\
->>> +}
->>> +
->>> +static struct hstt hstt_table[] = {
->>> +	HSTT(80, 21, 17, 15, 10),
->>> +	HSTT(90, 23, 17, 16, 10),
->>> +	HSTT(100, 22, 17, 16, 10),
->>> +	HSTT(110, 25, 18, 17, 11),
->>> +	HSTT(120, 26, 20, 18, 11),
->>> +	HSTT(130, 27, 19, 19, 11),
->>> +	HSTT(140, 27, 19, 19, 11),
->>> +	HSTT(150, 28, 20, 20, 12),
->>> +	HSTT(160, 30, 21, 22, 13),
->>> +	HSTT(170, 30, 21, 23, 13),
->>> +	HSTT(180, 31, 21, 23, 13),
->>> +	HSTT(190, 32, 22, 24, 13),
->>> +	HSTT(205, 35, 22, 25, 13),
->>> +	HSTT(220, 37, 26, 27, 15),
->>> +	HSTT(235, 38, 28, 27, 16),
->>> +	HSTT(250, 41, 29, 30, 17),
->>> +	HSTT(275, 43, 29, 32, 18),
->>> +	HSTT(300, 45, 32, 35, 19),
->>> +	HSTT(325, 48, 33, 36, 18),
->>> +	HSTT(350, 51, 35, 40, 20),
->>> +	HSTT(400, 59, 37, 44, 21),
->>> +	HSTT(450, 65, 40, 49, 23),
->>> +	HSTT(500, 71, 41, 54, 24),
->>> +	HSTT(550, 77, 44, 57, 26),
->>> +	HSTT(600, 82, 46, 64, 27),
->>> +	HSTT(650, 87, 48, 67, 28),
->>> +	HSTT(700, 94, 52, 71, 29),
->>> +	HSTT(750, 99, 52, 75, 31),
->>> +	HSTT(800, 105, 55, 82, 32),
->>> +	HSTT(850, 110, 58, 85, 32),
->>> +	HSTT(900, 115, 58, 88, 35),
->>> +	HSTT(950, 120, 62, 93, 36),
->>> +	HSTT(1000, 128, 63, 99, 38),
->>> +	HSTT(1050, 132, 65, 102, 38),
->>> +	HSTT(1100, 138, 67, 106, 39),
->>> +	HSTT(1150, 146, 69, 112, 42),
->>> +	HSTT(1200, 151, 71, 117, 43),
->>> +	HSTT(1250, 153, 74, 120, 45),
->>> +	HSTT(1300, 160, 73, 124, 46),
->>> +	HSTT(1350, 165, 76, 130, 47),
->>> +	HSTT(1400, 172, 78, 134, 49),
->>> +	HSTT(1450, 177, 80, 138, 49),
->>> +	HSTT(1500, 183, 81, 143, 52),
->>> +	HSTT(1550, 191, 84, 147, 52),
->>> +	HSTT(1600, 194, 85, 152, 52),
->>> +	HSTT(1650, 201, 86, 155, 53),
->>> +	HSTT(1700, 208, 88, 161, 53),
->>> +	HSTT(1750, 212, 89, 165, 53),
->>> +	HSTT(1800, 220, 90, 171, 54),
->>> +	HSTT(1850, 223, 92, 175, 54),
->>> +	HSTT(1900, 231, 91, 180, 55),
->>> +	HSTT(1950, 236, 95, 185, 56),
->>> +	HSTT(2000, 243, 97, 190, 56),
->>> +	HSTT(2050, 248, 99, 194, 58),
->>> +	HSTT(2100, 252, 100, 199, 59),
->>> +	HSTT(2150, 259, 102, 204, 61),
->>> +	HSTT(2200, 266, 105, 210, 62),
->>> +	HSTT(2250, 269, 109, 213, 63),
->>> +	HSTT(2300, 272, 109, 217, 65),
->>> +	HSTT(2350, 281, 112, 225, 66),
->>> +	HSTT(2400, 283, 115, 226, 66),
->>> +	HSTT(2450, 282, 115, 226, 67),
->>> +	HSTT(2500, 281, 118, 227, 67),
->>> +};
->>> +
->>
->> Where do these data come from?
-> 
-> This is part of the vendor DPHY driver, see [1].
-> 
-> Thanks,
-> Icenowy
-> 
-> [1]
-> https://github.com/revyos/th1520-linux-kernel/blob/th1520-lts/drivers/phy/synopsys/phy-dw-mipi-dphy.c#L185
+a kernel without CONFIG_CPU_MIPSR2_IRQ_EI always takes the non-VEIC path.
+openwrt's 6.18 kernel for this soc is built that way. on a nokia g-140w-c
+running it, ping to the box kept cycling through 1-11ms. chaining the
+handler to IP2-IP6 brings it under 1ms. VEIC mode is untouched.
 
-This looks consistent with imx93-mipi-dsi.c, but the TH1520 does not
-use the same TSMC 16nm process as the IMX93. As far as I know, they
-are usually different. 
+tested on the g-140w-c with openwrt's 6.18 kernel, where the non-VEIC path
+is the same as in mainline. on 7.4-rc2 it's build tested (W=1 and W=2, no
+new warnings), and dt_binding_check, CHECK_DTBS and checkpatch --strict
+are clean. Caleb tested v1, his Tested-by is on 2/3.
 
-Could you confirm this from the DesignWare PHY databook?
+the binding patch has to go in first, the dts change fails CHECK_DTBS
+without it.
 
--- 
-Best, 
-Chaoyi
+Signed-off-by: Akshat Singh <automobilehacks@gmail.com>
+---
+Changes in v2:
+- 2/3: rename the new local int parent to virq, it shadowed the parent
+  argument (W=2 -Wshadow, from sashiko)
+- 2/3, 3/3: add Fixes tags (sashiko)
+- 2/3: add Caleb's Tested-by
+- 2/3 and cover: drop my claim that the g-140w-c's 34kc doesn't report
+  VEIC. it came from a kernel without CONFIG_CPU_MIPSR2_IRQ_EI, where
+  cpu_has_veic is 0 at build time, so /proc/cpuinfo could never show
+  veic. an SMP build shows it on a g-140w-c. please ignore my v1
+  question about turning VEIC on
+- Link to v1: https://patch.msgid.link/20261115-en751221-intc-all-lines-v1-0-dc03a40f47f0@gmail.com
+
+---
+Akshat Singh (3):
+      dt-bindings: interrupt-controller: econet,en751221-intc: Allow up to 6 parent interrupts
+      irqchip/econet-en751221: Chain the handler to all parent interrupts
+      mips: dts: Connect the EcoNet EN751221 intc to IP2-IP6
+
+ .../interrupt-controller/econet,en751221-intc.yaml |  9 ++++--
+ arch/mips/boot/dts/econet/en751221.dtsi            |  7 ++++-
+ drivers/irqchip/irq-econet-en751221.c              | 33 ++++++++++++++++++++--
+ 3 files changed, 43 insertions(+), 6 deletions(-)
+---
+base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
+change-id: 20261115-en751221-intc-all-lines-2a35252b0b9c
+
+Best regards,
+--  
+Akshat Singh <automobilehacks@gmail.com>
+
+
