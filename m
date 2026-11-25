@@ -1,104 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795648350;
-	b=vBgcEiQ4tEbDobRG8uTpjtYGzNbH7HkQ0dAPhMfz54GruI59ostL7/wit2s6J8+0TZ1V
-	 iT5vm8m50Z9OpD2/a9JrKU28PzAVgLANEf50f0PFN4XdBYJLK0GX2BM33olGfUaAZ326N
-	 1qs1dcJZmycRwanmK5hWmMd2eEK/gx/44eBrbe6OKmdWiRw/xc7oCpa209Eupkwcw/UvW
-	 ZpjVUN1DHvy5lclOQl+Qbtq3ozMPNlwz4T5uCnSMTh1QET+6n57OQ4NguQl7H8JalLaXX
-	 zRIj17hCQMpgOp79N9ylU8stJOmLUWYxkCF4b8CKfIMm7IPk928zkT0FVkOOHrfTOQQ==
+	t=1795649432;
+	b=augLJZDoVvQsaqraBbD9DV4c90ysneGZLpZ6qlBCb4WkMHlLfHak9BaEbLxq6PzmEO0A
+	 ShW0HrLG94Ba2kef/X/D90+v/d3LVJaYE61xYx4pv8Xxd/87tqYP07zekW51wlkh7b3/4
+	 rzouyuiIl3pDCSBUC0Gkv4FyiDIlGNINzd7E+Lx150ybq6VjQxMo8AVmeCUvyX8Q9GuvH
+	 z6/bm2w/pG6ITyn0zkiDTgejTEN4kfV1/mgNzVxfTsH6wI/MwRkYN5vfyFAnCgkkzSCBd
+	 BL3PSKCB4hZqqsBoXQ3ojsivBznegYJzkIypQTpxSw3E8LrzxLGTF0AkxUEJ6JplyPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795648350;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795649432;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=r+DhYJ93tfesWORfibIV1d9I4czZkNjxK3eLYv410RY=;
-	b=lD3QbkceMlPP6jylvpsoDNq09q1yvtpfYTTv1CahYJ41uXa3XHQgJkLbWjfUlG0M+AiU
-	 JSl0MyYyCoBPqJ7D6jmX+4XDYuzG7Zuy/BWMuw5//LgNpH869UKOPY9Fekx+dyGyEXJgK
-	 LeQJlYfmtOoxoiGXnLmkIJAZ9QKyf1qkDvur7Nd+FNAI91/UueDr6Rni8EHMH0Cw/lGdn
-	 nLANxgVF0Wvg8Gp+JJAEvvsmCRGvI80zNSETnjKOAHRm0B4AqUqPOahQUQIk8b4zDVKIs
-	 eyLIoBasBFHODtBlsZsK8dxavXrWC0ck/DmFswooDaDRlqJImQ03sL+vCZJDAS2rZIg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=e35aD9xDuc1hKVMZ4DHpu/O6GiR6BdX7QfpIMiYdEOE=;
+	b=H5QIoDqIhC3K0kn8HQB96FM68kpaRQXVttkntXhREYfMuJLMuXs0YfBCZTpb99/IznJX
+	 pHhyEzKqVOcIa4BffigG8aiXrjRZvXnnixhyzzsp4BEqSiCoSOgNNZuPSMLvHgdypNrxU
+	 F7QTHXCjN0P7JjQhXIRw0vkaewDfic4/XwiSkAS9/mxOTskUz8SneMCGJe9WcA4SXAPz4
+	 hVSWYwFYvveWtQwGb9t33i9lnzx14cX4MtKKx3EQaEj1YPhgMNL58LFXa7O1KP0GKYqfW
+	 NE+nSq9Ov4SxTNnHw7xPy0aoxb2bCfR2ZSh5IZNMN9kIDYKr1NYVisOaOcKCc6clBgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=P9+vfVMQ;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4WIHuji;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC4B606A680
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 23:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CC4B606A680
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33FD6606A321
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 23:30:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33FD6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=P9+vfVMQ
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4bb69f5b161so41508085e9.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 15:12:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4WIHuji
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso34570765e9.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 15:30:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795648347; x=1796253147; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r+DhYJ93tfesWORfibIV1d9I4czZkNjxK3eLYv410RY=;
-        b=P9+vfVMQuEA5tApB3Ym+P8H7sPqn9qUi+CwY7nhtWJ/GEq21N+YuwnNdE7iVGw20bZ
-         dgEYwQq4qLwfEZ5QGeH8wpnTY+9HTHRiTm9S56qrqXGzjRXUgjA6nZKHE5zoiuQgQ9DJ
-         JSSekzHetnM6g9vN0zXnQ9SBK8tneNkTvPOSOwv4DVq8lAoPP2Vxp3IGuLXSpx20hrEf
-         25UOybrnutUF1MB2Ba/f1r/iCHNGotD9Jq3BSyO415okFTxkzZRxdC2QjHIb3y+ysD7r
-         S+zqG6SBRdD5fnuotFWNOiQLCPVOer5mKJZbhI+TbAdKrBrt7pDlfptq3gjwKl/DUjbz
-         MVGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795648347; x=1796253147;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1795649431; x=1796254231; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=r+DhYJ93tfesWORfibIV1d9I4czZkNjxK3eLYv410RY=;
-        b=HQ5vOkC1FPF4pI4wAaUhuoFTKk7FcahcdwEN4b0oFSrkYz7v88Dirm27E6dleDaTBe
-         Qu1RUFLUjGmbFGTuXfGVekkWlCI3Nt+S4NqrooVVhajceP/zlOSbky9ZZAo71K4zxcMg
-         9ns4lFx/yHKdNE26xYHxiP5DlhLrX054S7weQ3upgrzscthZlXLWK1VEvzLppCRX+JCt
-         WrI6Z5idRA252BrLLR0WLRGvEkr7oQzbVhs/L+MJ9CimRDr+19x1Mj2lOIrKDVbl8kBu
-         Dm5KfDGyXhqTGfaqv1U/R/MUPwJhwwrHzL+7xbbAZ7xPoNGr58LOPOfRvqG8ekF/0D0a
-         twDw==
-X-Forwarded-Encrypted: i=1; AL+hErEGYjfRrt02m5GQiYZvYgakg8BhrS6zH84jH/Hi2hM7RdzLxdkXc62nG/Jm3y2fki90LWnjtgM5cg/N@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4MErFnJO3gnubqjm3BszDnBj4+l4t0UUoy9fN0Ed/VMnmn0OP
-	UoDcQS/nQQKln5xShJwsmpqIOxotH+HBi7vReuTsfJreRwIl6hihoG47R6+crYBaLHs=
-X-Gm-Gg: AZFdTZewSZaFH4rlG3njEx1R9n9SIXfX4EabPYD69Pn0QKyvh8TzjxSh2+SbPaY8nJN
-	PhtRU+iAEiQTOkC8FZu11u9J9eruGijDoqodk2e/YQSbvYw7j3Ld0sAFx6z/8+w+Wu5NkV2hD+u
-	w+lUTx4nU5kBxRAXQI8pWj88N3YI7/hVieKPCLr3Kc8AUNMcAcz1bN4R10g2ZCzM6Cvl0j2XBgD
-	Cm/+CDqcTyyUwSamLI6Vvl/zEtlv/0imHgwmZ49PtMNZAzuC6XBUEsUuU7yFXJpQL79aoZYNp7t
-	9vKqsIMTQHrYgOw5aRIDR0ClCceNmD7fUTGe1/N6C3BefrJurWYRRZfEbbAOlNgDvroqoX2Avll
-	M82ZKmhhVBlRYVYegLh6AbWn30RTR+Nz8/BNK8NYCEFIYZwS8NSCxAImD3wk9QEJVl1B1gS2UKf
-	1Lv8eUys91W38HAQfJaA+DKm5CqStb5XT8Cun8m63LLtWWfReg9P5SPXVmKlYYR9Y/MBAopyj3q
-	1GrxXFja38IXC3t2qmkldgNV51fbndgr/XQr/mZIKjqF9rXxl5j04STrrTaXTiqlnSxLm7ia1rH
-	ESfRfY/Pa22xBtTrSgO7A/m1EbjgGLBx1AI=
-X-Received: by 2002:a05:600c:4f84:b0:4bb:8701:a2df with SMTP id 5b1f17b1804b1-4bb88809950mr395769935e9.17.1795648347566;
-        Wed, 25 Nov 2026 15:12:27 -0800 (PST)
-Received: from localhost ([2a02:8071:6e30:8500:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb8533579csm480759855e9.2.2026.11.25.15.12.26
+        bh=e35aD9xDuc1hKVMZ4DHpu/O6GiR6BdX7QfpIMiYdEOE=;
+        b=q4WIHujiO3KUwyueidP7nGuHFOYg3YjRfJekEql5FlsaKNifD52JgCVIFcJlCa7U2J
+         GF248vhoTd18/9L2jk+s0vC/1F7ULwBlkvIwGgujigVNH5KLO9NFl3xnBqK3qAZ4slAs
+         57n0Vebr1TNCj5k+2AmSWtjPwx8lod+dBBBA/uDiAU+5+rS+L0SRaskI5ly5rVOIirBf
+         glBTF5zskUrMaSXWJjsojpYGJFHPC0956B4ZKTqL/JjxX1P6YTIMs7OXX+jU+aQMY2Jx
+         n4Ep3J3oNqsFTcw+OOGHrytcW1JoiewpfbdbCWskz7OmmCD3tXiL8Y0jkfKW4II2F340
+         ZJlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795649431; x=1796254231;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=e35aD9xDuc1hKVMZ4DHpu/O6GiR6BdX7QfpIMiYdEOE=;
+        b=SCTZc0bnFJkXoiqWgXX7FBHxecmOqKNLeCcjEndkrjaIy13LR1xAUNs6MVQBxsX+Ni
+         GG42nh7K+pPbpEaB38j12H75zKWkamkqDzkRxRZz6amNOtGi8L36XTDkioKfF4EbxBso
+         Lh+sBaXLYDOg9alL1wFozJqzm6oAvyoHwL/d7wQ4yefjpy0YQsg1czzOtvxRUd9mkRPz
+         C3R2xCz466PqXNzVEDx//HHKi9GJLUQM6zJjj+GFbikS2yXMVOP63/w3GRTBPpbb00S3
+         gcl3VeUZR7pG1AkYxGfPuKZG4X+v2yZBVY08juiynaDkMVXLyK+BF0qsx43YB6yBK7hW
+         PpUA==
+X-Gm-Message-State: APuU4Z/Fmlya7gRYg9E5fu2Bj91+1WNNVGVfnIeNI/PwRAr9opYwmT45
+	vvJWD7Gu/6ipqiqDBc2zhSZfqi7SrXqClFL48+iPaw0a8/PGsHzRRK5Y
+X-Gm-Gg: AZFdTZe3/F+c0iphhOfUzYf0wwYwwKszAdD0VtxslXyuSnVgimve++MVXnf+Gi6s/Io
+	lkCeEv4zc4QgQxER4qFut+XLQF7JCBQnjDJ9JBzSx43xqBewUVLGgOFBH9/p1FBGzZgu7T/M6Kr
+	mVRs5o7Qlsz0ZbuvHU++iy/JuwTX5XL0VASAp/w+wE7iPy+9mUdXd0BN60sM8tWl+EMKYyuAP0K
+	45Oq4+ivujSVjGCfw2OdOXksYG8YHHRd2txDGSPNVp2rQC2dOnaWCEJxHqeFYtBzn+WdXfxUB8T
+	1BmJyQVbJfqGAMqfs+SHnlGH7O7IZmAqwRKnf2VtSokS9yxjXTse4r/Kgx5ynx7twOlXdvkHQ0L
+	IyfEFaOoPr3V5Am3ZXsOcZcOvGCbBZHv4KAy8aW6cmHX7FjuF495ZYyvirQRLj70dwmpNe69N5v
+	8VO8+1BH5jJ57hB6SUN0WcHn/Du2xJFD5H1SoGyoxIqM6SHAVYUopHpoj/nlHldO+D1MhrC5oNO
+	0VVaxcuVzRi1O/fP4Hj92IHV28Y91erDDyi2HMFVDVdHsxthzU+5fLihQnySrj8O0vmMIjmyK+N
+	QSrCPENTd+5XSh5iKiVkec9I5oMrSH4We/fv2VSczExA8GkDn0wqx+ZhlpDCeRSXFi4+KlY2ebB
+	/sJMbEBwHClyLYc/FpOILNZ9XuW8eesY=
+X-Received: by 2002:a05:600c:4f50:b0:4a2:1612:637a with SMTP id 5b1f17b1804b1-4bb888063f3mr484937095e9.16.1795649430462;
+        Wed, 25 Nov 2026 15:30:30 -0800 (PST)
+Received: from localhost (bl20-90-91.dsl.telepac.pt. [2.81.90.91])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6c4353d6sm35729850f8f.56.2026.11.25.15.30.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 15:12:26 -0800 (PST)
-Date: Thu, 26 Nov 2026 00:12:25 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Brian Norris <briannorris@chromium.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	=?utf-8?B?QW5kcsOp?= Draszik <andre.draszik@linaro.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>, 
-	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>, linux-clk@vger.kernel.org, 
-	Douglas Anderson <dianders@chromium.org>, devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Mariano Marciello <mmarciello@google.com>, google-soc@lists.linux.dev
-Subject: Re: [PATCH v2 5/9] reset: google: Add CPM reset driver
-Message-ID: <awdp3W7LWfQ3ZrIy@monoceros>
-References: <20261125000349.3385325-1-briannorris@chromium.org>
- <20261124160343.v2.5.I0b1ad34a718a9b5f667d2481041970ea45989dd3@changeid>
- <f89e293688feb3f9bcdce0f1b6fed0ee424e5cd8.camel@pengutronix.de>
- <awbJUwrBQw5TnowW@monoceros>
- <awc0sBl6q6A2Reaq@google.com>
+        Wed, 25 Nov 2026 15:30:29 -0800 (PST)
+From: =?UTF-8?q?V=C3=ADtor=20Hugo=20Silva?= <vitorhg20080@gmail.com>
+To: linux-riscv@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	linux-serial@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH RFC 00/19] riscv: Add initial support for Espressif ESP32-P4
+Date: Wed, 25 Nov 2026 23:30:01 +0000
+Message-ID: <20261125233020.1380594-1-vitorhg20080@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,72 +112,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="khx4cneo7r6erf2z"
-Content-Disposition: inline
-In-Reply-To: <awc0sBl6q6A2Reaq@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Hello,
+
+This series of patches adds the initial support for the Espressif's
+ESP32-P4 on the Waveshare ESP32-P4-Module-DEV-KIT. It boots in M-mode on
+a RV32 NOMMU kernel with one HP hart.
+
+The series adds CLIC trap handling, drivers for clic and for interrupt
+matrix, and extends the CLINT timer driver. It restores a previously
+removed ESP32 UART driver with ESP32-P4 UART support and early console
+support. It also synchronizes the instructions written to the PSRAM,
+aligns the init data to the ESP32-P4 PMP granularity, and it adds DT
+bindings and the board devicetree.
+
+The boot firmware initializes PSRAM, loads the kernel, DTB and the
+initramfs from the microSD, and it supplies the timebase-frequency
+before jumping into the kernel.
+
+The bootloader source and microSD boot instructions are available at:
+https://github.com/pushdword/waveshare-esp32-p4-bootloader/blob/390880e881208ab16aa16eb520b3e5ea0c63c0a2/README.md
+
+I tested this series on the hardware, the Waveshare
+ESP32-P4-Module-DEV-KIT with the ESP32-P4 revision v3.2 with 32MB of
+PSRAM. The kernel booted to the UART shell from the initramfs. The
+/proc/interrupts showed the CLINT IRQ's increased, UART0 interrupts were
+routed through the interrupts matrix. 
+
+It would be nice to you all send feedback on restoring the interrupted
+CLIC level before irq_exit_rcu() and the interface for propagating
+instruction-cache sync failures to NOMMU executable loading, and signal
+setup.
+
+AI disclaimer: I have used 6.2-Sol to assist development and to assist
+debug/troubleshoot some ongoing issues. I have used Codex's 6-Sol
+with Daybreak Blue enabled to generate peer-review-like report to
+pinpoint potential security issues regarding the patches. I manually
+reviewed and validated each change, including the AI-assisted changes.
+I also manually tested each change on the hardware as described above.
+
+Vítor Hugo Silva (19):
+  riscv: Prepare ESP32-P4 early CLIC trap vectors
+  riscv: Handle ESP32-P4 CLIC trap context
+  dt-bindings: interrupt-controller: Add Espressif ESP32-P4 CLIC
+  irqchip: Add Espressif ESP32-P4 CLIC support
+  dt-bindings: interrupt-controller: Add Espressif ESP32-P4 interrupt
+    matrix
+  irqchip: Add Espressif ESP32-P4 interrupt matrix support
+  dt-bindings: timer: Add Espressif ESP32-P4 CLINT
+  clocksource/drivers/timer-clint: Add Espressif ESP32-P4 support
+  dt-bindings: serial: Add Espressif ESP32-P4 UART
+  serial: esp32: Restore the ESP32 UART driver
+  serial: esp32: Add support for the ESP32-P4 UART
+  serial: esp32: Rearm TX interrupts when the FIFO is full
+  serial: esp32: Add early console support for ESP32-P4
+  riscv: Synchronize instructions written to ESP32-P4 PSRAM
+  riscv: Align init data to the ESP32-P4 PMP granularity
+  dt-bindings: riscv: Add Waveshare ESP32-P4-Module-DEV-KIT
+  dt-bindings: riscv: cpus: Document Espressif ESP32-P4 HP harts
+  riscv: dts: Add Waveshare ESP32-P4-Module-DEV-KIT
+  MAINTAINERS: Add the Espressif ESP32-P4 platform
+
+ .../esp,esp32p4-clic.yaml                     |  53 +
+ .../esp,esp32p4-intmtx.yaml                   |  67 ++
+ .../devicetree/bindings/riscv/cpus.yaml       |  17 +-
+ .../devicetree/bindings/riscv/espressif.yaml  |  22 +
+ .../bindings/serial/esp,esp32-uart.yaml       |   4 +-
+ .../bindings/timer/sifive,clint.yaml          |  28 +
+ MAINTAINERS                                   |  14 +
+ arch/riscv/Kconfig.socs                       |   9 +
+ arch/riscv/boot/dts/Makefile                  |   1 +
+ arch/riscv/boot/dts/espressif/Makefile        |   2 +
+ .../esp32p4-waveshare-module-dev-kit.dts      |  46 +
+ arch/riscv/boot/dts/espressif/esp32p4.dtsi    |  64 ++
+ arch/riscv/include/asm/asm-prototypes.h       |   4 +
+ arch/riscv/include/asm/cacheflush.h           |   6 +
+ arch/riscv/include/asm/ptrace.h               |   4 +
+ arch/riscv/kernel/asm-offsets.c               |   3 +
+ arch/riscv/kernel/entry.S                     |  67 ++
+ arch/riscv/kernel/head.S                      |  13 +
+ arch/riscv/kernel/patch.c                     | 132 ++-
+ arch/riscv/kernel/signal.c                    |   6 +-
+ arch/riscv/kernel/traps.c                     |   4 +
+ arch/riscv/kernel/vmlinux.lds.S               |   4 +
+ drivers/clocksource/timer-clint.c             |  57 +-
+ drivers/irqchip/Makefile                      |   2 +
+ drivers/irqchip/irq-esp32p4-clic.c            | 178 ++++
+ drivers/irqchip/irq-esp32p4-intmtx.c          | 139 +++
+ drivers/tty/serial/Kconfig                    |  15 +
+ drivers/tty/serial/Makefile                   |   1 +
+ drivers/tty/serial/esp32_uart.c               | 940 ++++++++++++++++++
+ fs/binfmt_flat.c                              |   6 +-
+ fs/exec.c                                     |  10 +-
+ include/linux/cacheflush.h                    |   7 +
+ 32 files changed, 1910 insertions(+), 15 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/interrupt-controller/esp,esp32p4-clic.yaml
+ create mode 100644 Documentation/devicetree/bindings/interrupt-controller/esp,esp32p4-intmtx.yaml
+ create mode 100644 Documentation/devicetree/bindings/riscv/espressif.yaml
+ create mode 100644 arch/riscv/boot/dts/espressif/Makefile
+ create mode 100644 arch/riscv/boot/dts/espressif/esp32p4-waveshare-module-dev-kit.dts
+ create mode 100644 arch/riscv/boot/dts/espressif/esp32p4.dtsi
+ create mode 100644 drivers/irqchip/irq-esp32p4-clic.c
+ create mode 100644 drivers/irqchip/irq-esp32p4-intmtx.c
+ create mode 100644 drivers/tty/serial/esp32_uart.c
 
 
---khx4cneo7r6erf2z
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 5/9] reset: google: Add CPM reset driver
-MIME-Version: 1.0
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+-- 
+2.56.1
 
-On Wed, Nov 25, 2026 at 11:19:12AM -0800, Brian Norris wrote:
-> On Wed, Nov 25, 2026 at 12:43:40PM +0100, Uwe Kleine-K=F6nig wrote:
-> > On Wed, Nov 25, 2026 at 09:48:04AM +0100, Philipp Zabel wrote:
-> > > > +#include <linux/mod_devicetable.h>
-> > >=20
-> > > Please include the specific <linux/device-id/*.h> that is needed
-> > > instead of all of <linux/mod_devicetable.h>.
-> >=20
-> > Or better still, rely on the bus headers to provide the needed
-> > *_device_id structures. (That is <linux/platform_device.h> provides
-> > of_device_id (for patch #2)
->=20
-> Only very indirectly:
->=20
->   <linux/platform_device.h>
->   -> <linux/device.h>
->     -> <linux/device/driver.h>
->       -> <linux/device-id/of.h>
->=20
-> > and <linux/auxiliary_bus.h> provides
-> > auxiliary_device_id and of_device_id (for patches #3 - #6)).
->=20
-> Also quite indirectly.
-
-Yes, I already thought about making this more explicit. But this isn't
-my primary objective currently. It's safe to assume that the provider of
-struct platform_driver also provides of_device_id. While a forward
-declaration would be enough technically to define struct
-platform_driver, that is not sensible because most users of
-platform_driver also need the definition of of_device_id and there are
-too many drivers relying on that already.
-
-Well, but having said that, the thing that I consider important is that
-no new users of <linux/mod_devicetable.h> pop up. If you want to go for
-#including <linux/device-id/of.h> that's fine for me, too. (And similar
-for the other busses and *_device_id structs).
-
-Best regards
-Uwe
-
---khx4cneo7r6erf2z
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsHa1YACgkQj4D7WH0S
-/k62MQf+OKGka4mPSwopQ0+gI2VWXrdB3QhqgUL8ffjUMb7jkBi86oA6YfcjNC/D
-8aZRTb/LZNPgl7ygdsKPEfFKlbKH1yCA+9gfN/aS+x6ykkZUKdn1Ha8m8ImuN87s
-ooG++TXgzYfljHdoCVeukZsRth0gqt+QTBWLDPPUCDzC543cmPPqIWNi0LXdgwuf
-OFve6MraHVKSLw0TVigzWyx0MYat5C1Y5gWVcsnmShhh1D18CrPfvFcu4dFot6Zj
-IsEZRk30Wuu42YCnSD1t+UeGc+VDD5hxC1JhUdvN7txOJr1NHKdNT11aByux9mPD
-ityFQTt/321OJci6adJV7NMgTYNlPg==
-=MU9a
------END PGP SIGNATURE-----
-
---khx4cneo7r6erf2z--
