@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795649526;
-	b=wiIvAmkajFn3SmRY2ANCsVtR47CMDoe/G3kvwazOMJBcW38bCSaj+Hk8XWLReBYqrOOJ
-	 A8z0s0JNC+vEy31OyGMUatJrxj1wwzGUaJPdNYLOAaHTsVrMg+dk5pclSy3LI1tGa/zZ/
-	 Cg04Uu+JpXat66Urz8teUX64l7XgrTZVI8zDEQ7gjqfF9XpFrhANYIQztJFuZK8dAmF3U
-	 ssPsm+Nq/xUsteRujVkSQgCboLSXmOl5ZtltRii6Cyuytk4iJAa6rbh8RzkijThZRECbE
-	 WxJja4+7oJ8bt+W8lN6MgFeogXPtgJ+reFSaqdUWR8I4j/OT3qr4P4J52/j/h0mlvjg==
+	t=1795649527;
+	b=wZ2fAObgJOU9XyGr2yggVpCQxOGCWxLSlL/+mxlJfLJOkdXXhIRs4eHBf5gyA8Vx/h33
+	 zszx+D7FXadmyDKbIrjit+fczePhF4OGX8dzyR6xuObhwvCNqJKKOWUklh6RYr95xrycO
+	 FN+pXXE1Dxokk6Y/RGXAu1o/uFaUp/MZHBPU9eb7dPlxLC05ziekZHmGrlR0sLBgXlTd1
+	 oDO8vZ8xMKY+5KgyfRRNl3OIkwa/5fKZrW3r5cNfVA79Hi4qJbJzRmMgfqDQw3y7aDDno
+	 SJ8gxD0rfHNfHmihnE7qmx8Y7SuE7MWbgYIon1S35y0q8gEjHIw2P7218QZnoW0joYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795649526;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795649527;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ZlVPxpw04CeXrcuckgG9gRUvr8QzkEIp3OzwElDk6ZE=;
-	b=MSwnbQmQWlwAfmf3Q5p15pSbDqRVeUFJ8MA3MbCc/7gLrBndk/22PJEhQS4ILoIw7sNU
-	 tTPr7OP0+HYIrqhu3Ci9QXyFXWITOulPRK0/QXYqBrNH5ZKsRYUcIwKN4pxoO9HemgJ6+
-	 ZofRQGZsflabVg+uItmIlClHD1il/6pvRMLllNfkNDCh93J2rULuPfqwNsVBZQLef5pJK
-	 cgvTVLkE7QyaRr4omlpqaK6H5aVJaKKZXhISxVp8e2YLA5bVW5uFTuEFc24vLaU0tTIsb
-	 t9SW6w0q5Hj8BriP+IywQwXDoLInhOK4FpKTkxdKuRe1t+NUGUbH0/joewks/MM/jYQ==
+	bh=mw86VSI5sCZ9uIOLp5gRfRDyzqoaa4r2NV57xZBkoKM=;
+	b=eSZyvEWqpN0nDe8/Wurtt7LBdTik47vXDWaly/c2QL5QQR4u70+q1Qs511VeUwn54UNf
+	 MlHRFdWtmqpy4DtQ1ihL5GLIB3YyB9m4hPDng/U0BGSnuSvssG/74COz1pT8+gHqGLZEC
+	 JULDp8HQ/1XGnC8GucWmsL5p7AgaC7tOW2oELbQQwKWieGQ7tMN+olzQspOQVXlorDus1
+	 /tQUjbFBW+V9DkVD6vEPy56IKdsubFzK8GEUHSFmVs9NEFaXCcC3hfrT6tT+M2yH76Qlp
+	 MC9p87pkMd8B9g17OWHo7IejPGOeNHO9sVNajXzu4NZz30NGqapD7ayB3UZzFNDGF6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="g/NqC1qt";
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lBU4pDkK;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B276606A6A6
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 23:32:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B276606A6A6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC01606A6B2
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 23:32:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FC01606A6B2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g/NqC1qt
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-49465892f7bso4629001f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 15:32:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lBU4pDkK
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso45611605e9.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 15:32:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795649523; x=1796254323; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795649525; x=1796254325; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZlVPxpw04CeXrcuckgG9gRUvr8QzkEIp3OzwElDk6ZE=;
-        b=g/NqC1qtssT8iPVoLdhIM+ghphV3dQq7EnxQcsbIazQo9CzyDFKNSsL5M019Z4BU7z
-         1fRZFN6pHoVQijRDmsp08C6b9BIWQ4RfkqanNA4/Mxpq4dUAsnTneBc6KvRVenae6kTq
-         SHl9PgLpGn2meI4J9PHA1oUoNjzy6yCbu9bR/u+7/TgfMLqrwK9B8okKw/FxMS95JOAQ
-         rtULO2PW3ffyv37FAmrjyghSdnLJy1uc7GxTiGRYepWjJPTVPpCBY1EMgkCn/tYBuHVj
-         O5AyAiEv0j94eoE7R6kb7sEv27tiXYY2DPqLNt0e9ih5qJQ+DnHM2ZE0gJnheU5atYuN
-         B63g==
+        bh=mw86VSI5sCZ9uIOLp5gRfRDyzqoaa4r2NV57xZBkoKM=;
+        b=lBU4pDkKvBlERshZ8WMzaa7VsMOZ03YxmFgDP/stLfCv26zztpdyWvrwfGeRZ9KQpj
+         amfoKjqXQUjgpgLaK1HIRKanT0ImeLcK894wh4/rfoy9LEzEu9H5On/gZLZ6oJ815TTS
+         XzcbCTu66Sg6LGDV9FFla35z1Uk9k714VtgrURDAo/MncQaLGNm/fBNmoZwb6lm+2b7G
+         1FvXXyzgfch5xT2ECGtTHTAY1K0TX5EFb/GqczwO9yWGIgbLF5QdQcnDWeqtMdYjkSjj
+         ehgjnm9Y2C/2iL23de2Z58j9+OAEQ53jVWutNY+2wvEGOj8mUqw25vMYPnwlsIDBSbSJ
+         e9DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795649523; x=1796254323;
+        d=1e100.net; s=20260707; t=1795649525; x=1796254325;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZlVPxpw04CeXrcuckgG9gRUvr8QzkEIp3OzwElDk6ZE=;
-        b=CC8MV6XyWnCQri0vayRrl2vxCjbg6Gzf1BSJ5XBmI2MOGVyfDfofz/CPB9dkH7BINS
-         gLwKz8n0iLl3NpUJZMy48xC3UTY+sCAMfwpg7LCbS5GNZIbcJVCw4bcq05jvH0eJPiYG
-         Qp8g/EjLn3Jg79aesQnNNWqKLn14mdye+mNx00kIvmH5ldRrovU7BqskHlqAa0FXfUnV
-         h5c5fcnfWJZI3pHLugs9Yby68bkTIm17/I5YxtiOmxSA1yhtaiGvKPTFK/Zt4mRoaIWp
-         jz0WUyuaGsG8CiwKITTLRqL1teqZx2xPgdHplPOLM8A4CUEeqR4X5UtB18x5k5EXguGZ
-         wKig==
-X-Gm-Message-State: APuU4Z91NJD5NxPMi5dtRY0O3I0HsEaOFKSxmv5nf50nUGTAqnX7MXu0
-	/PeOyjY5OoBUIvqeqZrMMCwP29Upfq6OUTNWmcp5OOWpQrFhQ4FXrBca
-X-Gm-Gg: AZFdTZciN+H1vbs8z5Y7gUr/VfMvbZYos4T61V4XQyMupfT/4B3Pb51T2fvPjWYR5B1
-	6vkp6flQfrle5AsBXrIO///lKBoV7paQjEKzb6aS1WSLlhqQhdrxrR/MlCt3Y8x9yjc+nCm4+y0
-	/vlA8lspwgB4aO73JzouwBC8Ev2/tQ9ChSEil+LMLKRRZoWVZVgAYZJOjJm6F9NnK/0Viz88fdK
-	jYosL2jUO1TLnnzSQXJUBRhJbSmPoS+Xn7h/p/C+v1p3Ai7zOSyHg9t2gExb52l/ouVVMeZtk1+
-	AUCBQp//dWmX1UoGdcKtp7w6LQKcvSYuSNkvkiTDHoNj+HH1+r6BFygN4ZXYIN95Z6NWAeLe9nl
-	aVq0wRjhulW5UMlORNgcVeaIUohSHsDe3inrIo6hGCaEMVJ3a7a1b7hTmBX+KtQRKfFTXBDqeik
-	wG4fUtWbJqv+lypNXa8wnNahCGAlXp8/CEIjnzawIR/KhgSTcIKNuZbuPWs63TWc4PIQCTi4oFT
-	S1wqkArJcjZDS4+ObX1OnIlqUmAJUVIpa1Af4yXnuSHiuLQuWFGjE0OsIjQMdLGFFRRjaIX6bvE
-	B66iWPUiWSwTFqD0sHjdkX/Z0/7s7KkqiPoeNRBhkIabTibu3xbbtDyA7zAxqdLhIwP5EHiGLQy
-	CeOTfvySdig==
-X-Received: by 2002:a05:6000:2409:b0:48f:d7cd:a5af with SMTP id ffacd0b85a97d-4aba56f5488mr36258812f8f.0.1795649523589;
-        Wed, 25 Nov 2026 15:32:03 -0800 (PST)
+        bh=mw86VSI5sCZ9uIOLp5gRfRDyzqoaa4r2NV57xZBkoKM=;
+        b=sIdDQRI4BEER4+cCFbLW1B1cs6BtUUcayvYQAtVnflh/OKJyLgbxlRR4pmeeTR66nR
+         HjGRjLxJnlxz1NdSVCF7ldakac4/Ob16BJGbfwijZDYUtAmn5hZUSXfxVsdUKGzJm49o
+         WkPbo35UxCKRytprs7TdiytQmZ503pS8yC3zMQUNmJepO5vw1xQx1EQLNndl4PEm3LS5
+         JLZqRRmwId1wYVz5nj5yQseV1yav/xhAKk/R1ECpNN0mq9JMBQT/Ep27/dBcmgAyip43
+         k4We81s3z/I/Ycg1vrhAV7dovp+CUhWErPOt+4z9+JPuborssjxTieuUlgrZK9Jr0FtX
+         lksA==
+X-Gm-Message-State: APuU4Z+pC7iU4hWq/nbd1i4NhSmdwYTLCL1qPNPJdQ44bKfo6kUGziGO
+	iL0R9phPEFB9HR7xPnW6+zeaG6s6tVjQlX0zckgXkX/PUuB7dPtSVtJu
+X-Gm-Gg: AZFdTZct8AzxFObTDqFqJsCFUmYp+0+sz7Z+390mQmz01GJEfl9z4Sdpw4ClNE0ihN4
+	MW6GBsFP1R5ZzO5m9qGhTENG8mR/V+5JlJNX/V/CJZb/LQ7Diu93PtoZTo0jY6HstA+Dyu++7S+
+	w/PllfqozoT2kE4QeMLGPVTyid6Zh9wHOx6f95nzNAhzZzO00FBx9hXk5dnufQP53oTeLJoZZna
+	ldXVNpRe11u5TnkGzgG2EJwJ2hQsg8ZhjVkhHuUXLsgqCLIB8RrYRBQFur/0rpTgvhIOXp8lNb3
+	IlLAM+/UHq23YnRBoixFF1wBrh3zEZMG46QC2a2rmAi9HXMNxbGd1gohLheu1Rpa3J6QoGQyRLI
+	Awt9dOr+vpNnGMVjJK7L6HDDN4+ng1qCEYLWr/GDL58I/q91izR2fMcxRLtsT6c0jHOT511j24/
+	GMYy6XJXMh35BEn9VZoSCZWziy9rmCVwdfuBqqFJog9ayGdgLtEEAj1a+mjnVGnQCVtSivN9Q3V
+	xNZ2IoRFh6PQDGPCmwRkj6KKSSOpUANY84YqbOIdZldZI245rbAJr5uBkd2W6Us8pt98uWaotfz
+	4dyLrK4eJ1SB2s4JVVOu63gLW7yQtQhLTocHfnsx9h2wsdIbsd0EaX2ZivjmbLuns5BSahUe4Q3
+	xQVNXyQ2ZNQ==
+X-Received: by 2002:a05:600c:820d:b0:4bb:6cef:d14b with SMTP id 5b1f17b1804b1-4bb887c34f1mr398097975e9.2.1795649525443;
+        Wed, 25 Nov 2026 15:32:05 -0800 (PST)
 Received: from localhost (bl20-90-91.dsl.telepac.pt. [2.81.90.91])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6baa3882sm36432985f8f.49.2026.11.25.15.32.03
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884865a2sm572054705e9.3.2026.11.25.15.32.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 15:32:03 -0800 (PST)
+        Wed, 25 Nov 2026 15:32:05 -0800 (PST)
 From: =?UTF-8?q?V=C3=ADtor=20Hugo=20Silva?= <vitorhg20080@gmail.com>
 To: linux-riscv@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -90,9 +90,9 @@ Cc: devicetree@vger.kernel.org,
 	Palmer Dabbelt <palmer@dabbelt.com>,
 	Albert Ou <aou@eecs.berkeley.edu>,
 	Alexandre Ghiti <alex@ghiti.fr>
-Subject: [PATCH RFC 18/19] riscv: dts: Add Waveshare ESP32-P4-Module-DEV-KIT
-Date: Wed, 25 Nov 2026 23:30:19 +0000
-Message-ID: <20261125233020.1380594-19-vitorhg20080@gmail.com>
+Subject: [PATCH RFC 19/19] MAINTAINERS: Add the Espressif ESP32-P4 platform
+Date: Wed, 25 Nov 2026 23:30:20 +0000
+Message-ID: <20261125233020.1380594-20-vitorhg20080@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125233020.1380594-1-vitorhg20080@gmail.com>
 References: <20261125233020.1380594-1-vitorhg20080@gmail.com>
@@ -108,178 +108,42 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add the initial ESP32-P4 SoC description for the CLIC, CLINT,
-interrupt matrix and UART0. Describe the board's 32 MiB of PSRAM and
-the 40 MHz clock used by UART0.
+Add an entry for the ESP32-P4 Device Tree files and interrupt
+controller drivers. Match ESP32-P4-specific changes in shared
+files by keyword.
 
-Build the board DTB when ESP32-P4 CLIC support is enabled. The initial
-device tree supports booting to a UART shell on the Waveshare board.
-Use UART0 as the default console at 115200 baud.
+AI assisted with validating patch routing.
 
-Describe both HP harts in the ESP32-P4 SoC device tree.
-The initial Linux support runs on the boot hart only.
-
-Select the revision 3.x interrupt matrix on the Waveshare board.
-
-The CLINT timebase follows the CPU's clock. The firmware must populate
-/cpus/timebase-frequency with the actual rate before booting Linux.
-
-AI assisted with formatting the DTS and validating the resulting DTB.
-
-Link: https://docs.waveshare.com/ESP32-P4-Module-DEV-KIT
 Signed-off-by: Vítor Hugo Silva <vitorhg20080@gmail.com>
 ---
- arch/riscv/boot/dts/Makefile                  |  1 +
- arch/riscv/boot/dts/espressif/Makefile        |  2 +
- .../esp32p4-waveshare-module-dev-kit.dts      | 46 +++++++++++++
- arch/riscv/boot/dts/espressif/esp32p4.dtsi    | 64 +++++++++++++++++++
- 4 files changed, 113 insertions(+)
- create mode 100644 arch/riscv/boot/dts/espressif/Makefile
- create mode 100644 arch/riscv/boot/dts/espressif/esp32p4-waveshare-module-dev-kit.dts
- create mode 100644 arch/riscv/boot/dts/espressif/esp32p4.dtsi
+ MAINTAINERS | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
-index 69d8751fb17c..fa0f23de2616 100644
---- a/arch/riscv/boot/dts/Makefile
-+++ b/arch/riscv/boot/dts/Makefile
-@@ -3,6 +3,7 @@ subdir-y += allwinner
- subdir-y += andes
- subdir-y += anlogic
- subdir-y += canaan
-+subdir-y += espressif
- subdir-y += eswin
- subdir-y += microchip
- subdir-y += renesas
-diff --git a/arch/riscv/boot/dts/espressif/Makefile b/arch/riscv/boot/dts/espressif/Makefile
-new file mode 100644
-index 000000000000..fd89616862fb
---- /dev/null
-+++ b/arch/riscv/boot/dts/espressif/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_RISCV_ESP32P4_CLIC) += esp32p4-waveshare-module-dev-kit.dtb
-diff --git a/arch/riscv/boot/dts/espressif/esp32p4-waveshare-module-dev-kit.dts b/arch/riscv/boot/dts/espressif/esp32p4-waveshare-module-dev-kit.dts
-new file mode 100644
-index 000000000000..bdef328e19ef
---- /dev/null
-+++ b/arch/riscv/boot/dts/espressif/esp32p4-waveshare-module-dev-kit.dts
-@@ -0,0 +1,46 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/dts-v1/;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ccbcdc0799b9..538f1a353526 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24162,6 +24162,20 @@ F:	arch/riscv/
+ N:	riscv
+ K:	riscv
+ 
++RISC-V ESPRESSIF ESP32-P4 SUPPORT
++M:	Vítor Hugo Silva <vitorhg20080@gmail.com>
++L:	linux-riscv@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/interrupt-controller/esp,esp32p4-clic.yaml
++F:	Documentation/devicetree/bindings/interrupt-controller/esp,esp32p4-intmtx.yaml
++F:	Documentation/devicetree/bindings/riscv/espressif.yaml
++F:	arch/riscv/boot/dts/espressif/Makefile
++F:	arch/riscv/boot/dts/espressif/esp32p4*
++F:	drivers/irqchip/irq-esp32p4-clic.c
++F:	drivers/irqchip/irq-esp32p4-intmtx.c
++K:	\b(CONFIG_)?RISCV_ESP32P4_CLIC\b
++K:	\b(esp32p4|ESP32P4)(\b|_)
 +
-+#include "esp32p4.dtsi"
-+
-+/ {
-+	model = "Waveshare ESP32-P4-Module-DEV-KIT";
-+	compatible = "waveshare,esp32-p4-module-dev-kit", "esp,esp32p4";
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	xtal40m: clock-40000000 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <40000000>;
-+	};
-+
-+	memory@48000000 {
-+		device_type = "memory";
-+		reg = <0x48000000 0x02000000>;
-+	};
-+};
-+
-+&clic {
-+	compatible = "esp,esp32p4-v3-clic";
-+};
-+
-+&intmtx0 {
-+	compatible = "esp,esp32p4-v3-intmtx";
-+
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	clocks = <&xtal40m>;
-+
-+	status = "okay";
-+};
-diff --git a/arch/riscv/boot/dts/espressif/esp32p4.dtsi b/arch/riscv/boot/dts/espressif/esp32p4.dtsi
-new file mode 100644
-index 000000000000..211eef62b52e
---- /dev/null
-+++ b/arch/riscv/boot/dts/espressif/esp32p4.dtsi
-@@ -0,0 +1,64 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+/ {
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		/* Firmware supplies the timebase-frequency before boot. */
-+
-+		cpu@0 {
-+			device_type = "cpu";
-+			compatible = "esp,esp32p4-hp", "riscv";
-+			reg = <0>;
-+			mmu-type = "riscv,none";
-+			riscv,isa-base = "rv32i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "c",
-+					       "zicsr", "zifencei";
-+		};
-+
-+		cpu@1 {
-+			device_type = "cpu";
-+			compatible = "esp,esp32p4-hp", "riscv";
-+			reg = <1>;
-+			mmu-type = "riscv,none";
-+			riscv,isa-base = "rv32i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "c",
-+					       "zicsr", "zifencei";
-+		};
-+	};
-+
-+	clic: interrupt-controller@20800000 {
-+		compatible = "esp,esp32p4-clic";
-+		reg = <0x20800000 0x10000>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+	};
-+
-+	intmtx0: interrupt-controller@500d6000 {
-+		compatible = "esp,esp32p4-intmtx";
-+		reg = <0x500d6000 0x400>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		#address-cells = <0>;
-+		interrupt-parent = <&clic>;
-+
-+		status = "disabled";
-+	};
-+
-+	uart0: serial@500ca000 {
-+		compatible = "esp,esp32p4-uart";
-+		reg = <0x500ca000 0x1000>;
-+		interrupts-extended = <&intmtx0 31 IRQ_TYPE_LEVEL_HIGH>;
-+
-+		status = "disabled";
-+	};
-+
-+	timer@20000000 {
-+		compatible = "esp,esp32p4-clint";
-+		reg = <0x20000000 0x10000>;
-+		interrupts-extended = <&clic 3 IRQ_TYPE_LEVEL_HIGH>,
-+				      <&clic 7 IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+};
+ RISC-V IOMMU
+ M:	Tomasz Jeznach <tomasz.jeznach@linux.dev>
+ L:	iommu@lists.linux.dev
 -- 
 2.56.1
 
