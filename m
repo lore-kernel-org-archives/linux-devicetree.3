@@ -1,90 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795618334;
-	b=lEldDsPrlbe1kDE7JetKftJiIiRX37hxU8d/AgCISXVMwsmlSo5cg/sdExok5cb/mwwK
-	 dNkuS+Q3CjJWQSk/NhIaDSlin1kFFH8sITYvltoxkWf+vSMD5pRW2fn4JcqaPzrtosJjB
-	 v6agEv9FIpexGQtcNOcwXctDUb102oRRC2shXrfVfvyCg5gfDUMwr2Ocv3P7Nuj3DP7p9
-	 QaRZ2RSN8ne5jHFVYgzJO67E+2Bq7oueHxVMJpurB09sk/Ir/t43a7fb/Hp2iutUpsv+U
-	 3ix/5ddRA1Xde3l9WkFTfp3m9YjijIjZJ0lOxjis3qhsOTTk9a8zSoEu1OdGd/y2yGQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795618334;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=zr0M3uU5NRhzf91qOL1hNvZmgH3NG0m3k3/M7IPG5p8=;
-	b=lEbH1lwd13WJQUeAutyaD5uVTxVPnO/mBbWHyqfuZNMD2JLqA+gkQDHX+X7xxHwpm7Zq
-	 8vye09GzaCOJocvA9kTqe2qBMmwzoctNCUEHp2qshhrmv6P9LNeaquzFvmdikaR/YcxcF
-	 mjy4DBqpj2IfTmHnu/wUczC1qEnpn3vgNUdcYJ+WT0yq4b3q8mMl7Uc1Ys2YX4tJ2rnPK
-	 abpkLT4o16T3ahUzVcytzx8WyUlcRstjoj1RuFWWh74Qrl5j7R5GvHtSc+h3uxCILXqwI
-	 hZj1SWV3QtlqjoLa+4/J9omOA52Dq6XRn9HKiuG3ocblxm0ZSVsWXoLZJJ5i1bFZgKg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=SivUKT6F;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=O5rE26o5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.50
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.50])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795618373;
+	b=MiMy16RyRCZnQneuNnCqWd3+I/xLC1RcE9gDhY+w9HFcQrE3fOzNqZrQ1SC6147VKNBa
+	 ycHpbvbXvs2Vh7V6KkKqppNnxEgz0KCuhN4sXoKLIEwIfi+TyRJ3x+jXSr/INSyVeVnrJ
+	 NMCn9PXMd4bMZAh+N4APdUthbpcP/1IkpT5TJgZ4WpJ0UH5F4e8C5XE2vBsyst+tn+S3U
+	 Ra13hbgHazta9P0ZFVjQtMamZ9b3mnWtcWOquDapwE29lVuRDG6TC3g+fkPAckzVB75Lr
+	 Tdv/DUKaBU7cnWg0Az/wb3uVD5ET6/INQSidtzOVSNaErflyawZwnU8Lf2xN8MMocTg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618373;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hlkk4xXsXyEvb1D9H1K80LoXoGwa5zP1sGDEDxlcUog=;
+	b=q4o+W/ZQeAz8rCJB6MZa0dejbVV0cVmhBmKIIJE7m7npkYQ5EmF7mRRfFPJM6G1660ZZ
+	 jquXBbBqcI+9uDEczVL7r1ZFKvqw8lKe6UpK3JD8eZQ5Lc4VZwedOtchx+lUg+b3bnlHr
+	 yeZ28OMUMPA09V7Lu2bX1BbZAxNJ4W2xUZRt8bqKce+3TesB5ioY11mTgZixAjnNTPXR5
+	 ADP5G7+S88BJUP2slG7+Mb3Umkd46UKp0xQxrCRaoxQUg8rUoJC5H88Zss18HzOQYPjoM
+	 1dTN1k9thnq+Zl6HWr/8SH1zrh8hz7jV0f99eJH/95hJnrxuHG3DfWJLQmSNcP1m4ww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.173
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1490B606A31E;
-	Wed, 25 Nov 2026 14:52:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1490B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=SivUKT6F;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=O5rE26o5
-ARC-Seal: i=1; a=rsa-sha256; t=1795618313; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=XBXTQOYD74D+6qv65WkcZqtzLoRsPgBwAk3TxexhKb8XrS1372Ul4wcAQYkq4OChfI
-    7H+D8A4Rm0APLVmdEv0FwE6RGqoXU9U6Sw2iLx9qIYMKlbmX7tEFf0PwM//ESGpD2dLS
-    dAAjuKEEg6QZuFokWwrlcl9HTOQDGvnqk1qTZJ79VXxGH3Ba5R8Xjyf8d25aTtNAMXGF
-    i+664AvamMIOLjPJV4M5p+G41RwcUYkOv2o92FiBEjm2toep73xP1wtLw6+zsg6DZgWE
-    hRv58u40sToVLY5PD3NtkZNXhtWIfzL4eHs20Vyi+teh5c9mFU367fPVeQiXZ98xPVQR
-    IHnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795618313;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=zr0M3uU5NRhzf91qOL1hNvZmgH3NG0m3k3/M7IPG5p8=;
-    b=tHciZu74TQYhjWp527L0bFVHIMssPhcGloXMsAXRzntOqPUbfd4kTQ9w+auoLKOcL7
-    1fgdER46C42VRugYevzlTexLj7eSZJgYsKy/cB8YrD2aIgBKigLy8iE7+RQ5/p2+1LM2
-    kpBETmQ34gGjGlwJlpv41RsEZ34uZCwIcYeJAAlLB76br2+/Uw5ToAxGRt0fkwrC8KBk
-    sh+d+ztr2RmNSYI2M4Cz7GRBdYA9jVos5z5GuSbeeq5CAQB4O49M5ZKcQ5Q0NKWCaUYo
-    l1DEAt8ttuRvWXjqsJkHZ03wicg6kF61nBYsItrW0MxGRS861fSQbOvRUIxskZazJjVf
-    sj9A==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795618313;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=zr0M3uU5NRhzf91qOL1hNvZmgH3NG0m3k3/M7IPG5p8=;
-    b=SivUKT6FEf1V6L53128tm1q6G9h9SA0xHSxLTn42BmrkGxZE8D+aEoEfQ2z5VqNzbO
-    xQiLNlcrl1TpjQf3AKiwVQ/vGYpRkmZe1gmh7YKwTz9V2vdufd1oC/l13wyX4Mvn4PXl
-    UeHCAtV2G7700quuPvZBOnuafBcjBsIfomVTiwN4VDbokSXpjU+UPTUorplvVZMPnklH
-    w/9jITO9ww+mO5Z2+8mdQ/nRlTNihkH2glFyolHtqkykkfNH8gXixHACB4M1O/89XYWN
-    VVWgGuBdHMtsqhwj+FiwlJ8+TT3uvzWUUG9qh3efBnQdVp4ipIgVFDX4EPvI3I1PIAEC
-    ST2g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795618313;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=zr0M3uU5NRhzf91qOL1hNvZmgH3NG0m3k3/M7IPG5p8=;
-    b=O5rE26o5JSh/GYdRO/L/WIk5e8QfgRM0+MTLaRFRD9K/2teUnFqAEP1v3naTh4BwR3
-    13R+V/6zqjdQ4pOCsvAQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS25oMlMiNMn5e/Npe6SVDIvzG+5uG4p/zkDZq"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22APEpq9RX
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Wed, 25 Nov 2026 15:51:52 +0100 (CET)
-Content-Type: text/plain;
-	charset=utf-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3515D606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:52:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3515D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b0dba37a7fso47407657b3.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:52:53 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795618372; x=1796223172;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hlkk4xXsXyEvb1D9H1K80LoXoGwa5zP1sGDEDxlcUog=;
+        b=uqwdHcVeuxFOzQDkde3yF1xzN5hv5yMvXt5cwRi2F3eHYFiK+zL1UY0KXFZoJaUhGE
+         oPym4mYNzHzMwYucqXBuZrpSlbx0Dr09Xc6u9CilhUDU8T1XZ3CRG0QXck2W7hgSZKm/
+         it9t4lGvu4xeFjihF6u3mwX5dkTBacOiYOmcJfSNtth607oegQfaNbfhNG/QJRrWcfI7
+         g1FM+bOb8IxW+rI//1hJh10vYCShwaX+1jE4UE0mrtak97SCZnCyOBu/bviPVLBNvM94
+         SaE5kuXD+eWT72zYCGl3XmslEz4ZddFG3+nT54j/wyynOMCwZiRsitBemnulqPB4tcTt
+         tEbQ==
+X-Forwarded-Encrypted: i=1; AL+hErFbccWXes0TetcLCU1Q87ZoWeHeepwRToy3X+AuDgm+1/X+lJgLFCHumU4qxi6LlyS8Ab1iogOkg3be@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QwBKjs711+DKQOL4q387+e39HUzDXATTLifpbXJ9/DYeEoe1P
+	UStrvr2Wopo0BQrp0iGWBlSjTxSu2nlivH/Uf6D07l1jjzX8YCLyZ1QltwgVqWOX
+X-Gm-Gg: AZFdTZfgH4MX8PyZ9ZYnBFEKpHrP44WwFBPfG9dzfMjj1HyR5+eJtfLLIhB6C5ruGMl
+	UWkjaJw+Xzac5JzoeEZCRexz0PPjsEsY1j6KRu8eRtY5+RU8M+YUCYP8j9A0htIiORoNkBq9qpK
+	W8Q8E4MbeKX0yA0Q/tEQw7VEBsXArVLlJ0VK8CqqO4hPvHqpWu0SZHHMRTFXFC8AFskzyr4AnI0
+	OfiFpwR36+bqhxbRXblHMoJOagPpy8c6e3Jr/w7giWHknaeZjccDMEDflqvINst1kuQwGKK6+tC
+	mCgaQcNwN0gmPgu6rNb8UkHyFyk5ENfnOTIrP8rIUOiGpSYdNr1SgyczUWWfy6I7dhV39gP39e0
+	VNEjXofZbb5PRZhL1XGfJoKMCwGXrGtWXFFFyPubffg3DKCPuGqu3c548KmAwXJkeYXJd3Y9te6
+	kCFNAK1/NkHh4Rvseu/MiC9yUDgmuvNNfociNgwcekU2Lb7BJ13N8wkXMT+nJbapuMfQBbHY0rU
+	bRyN68OBEix6q4moR+p7Sk/V8XfMyPZVUaH4l+YVAvC7LSLxJd/8fZM//0PzheqFTbi7Z3Jwy/r
+	DOEBAi3FZuJqmMRVBwztccNbwNnVON3cpoG7OGOpYeE5590AH0affHw7Y+eiP1+V8eATD2Y=
+X-Received: by 2002:a05:690c:e258:20b0:8b5:6379:ea88 with SMTP id 00721157ae682-8b56379ecd8mr11884087b3.41.1795618372076;
+        Wed, 25 Nov 2026 06:52:52 -0800 (PST)
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com. [209.85.221.180])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b52030ff10sm71191147b3.33.2026.11.25.06.52.51
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 06:52:52 -0800 (PST)
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5ee1e4e3abcso2171483e0c.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:52:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGc5lijcjUcGubG5Jm4aO0DnwiMDBoDHMdasX5zzMpJut9xyaBu9XQfg4sxHLG2HFaSxAnThNQu2gmg@vger.kernel.org
+X-Received: by 2002:a05:6122:1784:b0:5dc:d0cb:7d74 with SMTP id
+ 71dfb90a1353d-5ee8adf3de4mr9944668e0c.2.1795618371669; Wed, 25 Nov 2026
+ 06:52:51 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,103 +80,78 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.11\))
-Subject: Re: [PATCH v5 6/7] pinctrl: ingenic: Handle X2600 Port E Schmitt
- trigger
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <a61b9a24e0eaf8240933ad2433e6f1c00855b683.camel@crapouillou.net>
-Date: Wed, 25 Nov 2026 15:51:21 +0100
-Cc: Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org,
- letux-kernel@openphoenux.org
+MIME-Version: 1.0
+References: <cover.1795029012.git.geert+renesas@glider.be> <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
+ <20261119234759.GB2324725@killaraus.ideasonboard.com> <19c3745a-6308-46ff-bb37-3acc88fe22e2@baylibre.com>
+ <awAqqg6F2Z1t55x2@ninjato> <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
+In-Reply-To: <d94ad9ca-afdd-4301-a69c-0bbad5b334fa@baylibre.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 25 Nov 2026 15:52:40 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdX71k95powpC9qNiKdN=wRCYyYbvOT=EYmExE_2W8u3GQ@mail.gmail.com>
+X-Gm-Features: Aa3M54re5ZNPOW-XITDy6yDteWVZ0ZL2EVGMi9yHMlXJRb9PY-Nvu_jZHjCd6J4
+Message-ID: <CAMuHMdX71k95powpC9qNiKdN=wRCYyYbvOT=EYmExE_2W8u3GQ@mail.gmail.com>
+Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping support
+To: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Vinod Koul <vkoul@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Paul Elder <paul.elder+renesas@ideasonboard.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <D50BEB61-6E7B-40A8-BF1C-E69F7A49E644@goldelico.com>
-References: <cover.1795589383.git.hns@goldelico.com>
- <ec49e1a7da313c8dfe012c17a04d03dc4167ee2a.1795589383.git.hns@goldelico.com>
- <a61b9a24e0eaf8240933ad2433e6f1c00855b683.camel@crapouillou.net>
-To: Paul Cercueil <paul@crapouillou.net>
-X-Mailer: Apple Mail (2.3826.700.81.1.11)
 
-Hi Paul,
+Hi Cl=C3=A9ment,
 
-> Am 25.11.2026 um 15:34 schrieb Paul Cercueil <paul@crapouillou.net>:
->=20
-> Le mercredi 25 novembre 2026 =C3=A0 07:49 +0100, H. Nikolaus Schaller =
-a =C3=A9crit :
->> Port E has two Schmitt trigger configuration bits per pin.
->> Select the lower-hysteresis mode when enabling and read both bits
->> to report firmware-initialized settings.
->>=20
->> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
->=20
-> Reviewed-by: Paul Cercueil <paul@crapouillou.net>
->=20
-> With one question below.
->=20
->> ---
->>=20
->> Notes:
->>     Changes V5:
->>     - Keep the ingenic_get_pin_config() call and the Port E
->>       condition on single lines, as suggested by Paul Cercueil.
->>=20
->>  drivers/pinctrl/pinctrl-ingenic.c | 7 +++++++
->>  1 file changed, 7 insertions(+)
->>=20
->> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
-b/drivers/pinctrl/pinctrl-
->> ingenic.c
->> index 88531d472cd2e..d253674accacd 100644
->> --- a/drivers/pinctrl/pinctrl-ingenic.c
->> +++ b/drivers/pinctrl/pinctrl-ingenic.c
->> @@ -69,6 +69,7 @@
->>  #define X2000_GPIO_PEPD 0x90
->>  #define X2000_GPIO_SR 0xd0
->>  #define X2000_GPIO_SMT 0xe0
->> +#define X2600_GPIO_SMT1 0x100
->> =20
->>  #define X2600_GPIO_SHADOW_OFFSET 0x800
->>  #define X2600_GPIO_PAGLD (X2600_GPIO_SHADOW_OFFSET +
->> 0xf0)
->> @@ -4693,6 +4694,8 @@ static int ingenic_pinconf_get(struct =
-pinctrl_dev
->> *pctldev,
->>   return -EINVAL;
->> =20
->>   arg =3D !!ingenic_get_pin_config(jzpc, pin, reg);
->> + if (is_soc(jzpc, ID_X2600) && offt =3D=3D 4)
->> + arg |=3D !!ingenic_get_pin_config(jzpc, pin,
->> X2600_GPIO_SMT1);
->>   break;
->> =20
->>   case PIN_CONFIG_SLEW_RATE:
->> @@ -4767,6 +4770,10 @@ static void ingenic_set_bias(struct =
-ingenic_pinctrl
->> *jzpc,
->>  static void ingenic_set_schmitt_trigger(struct ingenic_pinctrl =
-*jzpc,
->>   unsigned int pin, bool enable)
->>  {
->> + /* Port E uses two bits; select the lower-hysteresis Schmitt mode. =
-*/
->> + if (is_soc(jzpc, ID_X2600) && pin / PINS_PER_GPIO_CHIP =3D=3D 4)
->> + ingenic_config_pin(jzpc, pin, X2600_GPIO_SMT1, false);
->=20
-> So on port E it will configure both X2600_GPIO_SMT1 and =
-X2000_GPIO_SMT?
+On Fri, 20 Nov 2026 at 15:33, Cl=C3=A9ment Le Goffic <clegoffic@baylibre.co=
+m> wrote:
+> On 11/20/26 12:10 PM, Wolfram Sang wrote:
+> > Yes, this means the driver is then tied to a specific firmware version
+> > because it only has this mapping. Not nice for a user. But we didn't se=
+e
+> > another way moving things forward for now.
+>
+> I think the DT is that other way.
+> With the SCMI ids in DT, only the DT is tied to a firmware version, not t=
+he drivers.
 
-Yes because the X2600 just adds one additional register SMT1 and I think
-it is not necessary to introduce a separate name and code for =
-X2600_GPIO_SMT.
-And naming it X2000_GPIO_SMT1 would be wrong. So it is a compromise.
+This only focuses on the IDs, not on different abstractions offered by
+SCMI.
 
-BR and thanks,
-Nikolaus
+The latter leads to the need for changes in (many) DT bindings and
+drivers, to support the same hardware blocks that are already supported
+without SCMI in the same and/or older SoCs.  How many different DT
+binding variants, with corresponding more complex handling in drivers,
+are you willing to support for the same hardware block?
+The remapping driver takes care of this in a single place, avoiding DT
+binding and driver changes all over the tree.
 
+> If a release that changes ids is already out, it needs a new DT, or a qui=
+rk for that one release when the DT cannot be updated.
+>
+> The hardware stays described
+
+SCMI IDs are not hardware description.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
