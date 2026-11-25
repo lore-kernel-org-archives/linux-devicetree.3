@@ -1,114 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617876;
-	b=GC58vgCUl5Ha/cgnE/L9fxN+270QTDxik5fTDb+4YuQWD/SzcdKavgluoZSr325KDTYs
-	 B5NBZo0kOYPOtrId69ys5wzROpvxlleOyGEqVQdsnBJTTeeJeQSpYBLnlKkwFdgu8dB2i
-	 yfO1+kOJjS+lx0Ss4TjxKwMXSZiESZXL32qenalUEmVSfyxLYT9i13EfcF3e/Bo7uY/UL
-	 gdUvrfKyQeBwDMeYLvLvXnnyOe3NPn6Lso+dh4/igAMzv09EaaBykFCn6qt9kyN3d2oer
-	 2+KXn0fR3qgrxRBaw2Y+/uqykIKQ1d5wH77CEuafX6Uva1Lkv0sr/M/KO5AVUHME1rg==
+	t=1795618290;
+	b=L6V7GX31wUZtvRzXztqehljEOBWPoSa9G7esqM05UzoHvgPBYD3OORU/7WhXhdEvEtvW
+	 x/QFidc0lDiNJE9+fswJgNnxms7Zudb8TRCIWNL/0GpwcS0VRu6otNs0ts+ka7A79GGoU
+	 1FJqK0bEVgUYWy6xQFM/tTu/3uzcN9njcLOBURWwlzL1U8pVXJcEE1J3q7RQo/Z4sA2N7
+	 keUH3DZlne2H1FXrLT6/75bfbLrRVkaNP98BjfdgoOQISsmVxaVA8bWGwj9r4zWYwRs1s
+	 jO8QQdumLBAJGZiki+eQ8dtbJJE/g/d4oukY3+kElb7bDTWRyHtZZYFMhWsDyBL2MCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617876;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8ll/7pjiu26j2DN45BTUViH87j7UCm3E+vVLd5MHWxI=;
-	b=oyetNKtYOm4OcQNLPfIPNkV70yx9LahRzbHXIwggfxhkcV4SN1MVAgAY8hlZtR59drcw
-	 KIJ67EJVbSUMQtPjWiev0txnW/olre1vCAwmyHNhjps4XSbxPTnaNv2j9G8yDaWsvGS9g
-	 S/tXH7n3E//qew8atlJQOGmqE4v/eZXX7cU5/Zveren9zdqszn2lcAsek1DBYIUKUxMy1
-	 TDLdafGGQM26hk/yTmS+BGSXbTnVDKijYKMwGbpocY9JHRBEUlD9jfXbY9ivc4Oe/uiRQ
-	 9eQkXqO0QC81mqigh8p2XNMM4Ix4WdRBqVrV8at3fj9/f/5/uj7c1sdyggmb8suL2Lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795618290;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qhCwXvAyXM1RHsJVCIWLLXEAUGswl0Dh6+s1SkrTVk0=;
+	b=JujHqhkwn9WfQ23eSfjXhOQrrFuDtXhvPIzMC8Ir6t4y9Qdfs9yNtax2d59DhhzWZJWs
+	 khZcICtLaodXEX5nMAjr0HrXWcxm1/t2MSc9XwL6RHbvTyIIYwNBzgsaB+7cgBDWQmFKG
+	 7MP9Zu82T0qYD9YEcdpLM2XDmBnUnn6+EjjJvJ853F6wuHXX7nFlhenJTbYvRY4aTz79R
+	 dhrfOmrzVWqhXJDA/1S2CIUloQrhJqsQLQXRat4yBxuCjA5CvZDajTlZrqn9qxXm8K9xA
+	 4HiMLx35B2FwIW3nOoRNmMQYOAsvD3Z+URKAZqrAdOkxNtIBkFyV8LvM9z9ueR4lpZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=linux-m68k.org;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJz8OA1E;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	arc=none smtp.remote-ip=209.85.219.45
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15EA606A327
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:44:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D15EA606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41426606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:51:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41426606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJz8OA1E
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5348aaba5so6436055e9.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:44:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795617874; x=1796222674; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8ll/7pjiu26j2DN45BTUViH87j7UCm3E+vVLd5MHWxI=;
-        b=JJz8OA1EX5JjC4bTAmY1z4tgzBcYDWsAGttWpwvLVZTnYuyKjKWKXVZLQAuKKWWOUD
-         OsbiqnlgZVBoHqQcNbUmmnGGiM9aN8x/5lmqNA6CoLaHaAgqI3Nuxn6m7RK4mm7NRHTs
-         qAn0Iyzdz6gAJJhr6ankYT25Fuvx45uCSCJraPFjmfOefb1wmjIcysiu2/kogHxTZQEP
-         u3qdVCypnFA7+KFuApaPnk1yIGEvzxk+ETJZJbSkhrf4h1Chzr97zkSKVFU5dru+TbCb
-         krkngx1mIiIKsDCLfzU6AxzOVLcV7XoP1nm1CkjXCr1MeYobFyXumDcouQBatquU6sbC
-         n9oA==
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-9213922de73so4886386d6.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:51:30 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795617874; x=1796222674;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1795618289; x=1796223089;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8ll/7pjiu26j2DN45BTUViH87j7UCm3E+vVLd5MHWxI=;
-        b=Ol5iCPmNM6Ms1hkVaiy+Vgnzw+aV5yhoz5k9t8+BBGOgI1Fc/pwBkbSxUnqs9OtoDv
-         ROTNhL3HqP26gOOxHphLJCC+9QEIuHWDv4JuCmqNwIX5DQ3UdTzWOOdeoJCf6IDa7IXF
-         x5zuPeiYwHIwrn2lsdHsXZ0N5xRgxPK64zXpJ6VTjHL9KrenHt4PtNwBgGiXm8AtebVf
-         970yl8rStL1R4dXi1I64NkiPDaFm6Jldgd0f1nk0JeaXHh6u6xt1stmKAtjHVLwWF8e9
-         a6TU94z1/7ovTC1eNTwDzADH1aVvOKX1Vcoz9o5fD+tQavQh+PpbHWHY4kQf3Nmh5Td7
-         BElQ==
-X-Forwarded-Encrypted: i=1; AL+hErHGigiE2UyQE54lCl9IfGfpNGNbXKFXGzdatUinBXusRZAoxQWAG2iCKWgKm1wp1aNvhLXwBit1fr9b@vger.kernel.org
-X-Gm-Message-State: APuU4Z879Ot4M5BX4EPbejE+qFtk9U+FkOP927e+bs3C3XqxEINM0WZe
-	sDNAHLJUuc4muRiiQSE24k9Vi0oq2aoCifpTqThRuSdQFnVdQzUAsfaO
-X-Gm-Gg: AZFdTZdK4V1aufPORUknq1Y18YWm2KOhk4uoo/qenTmCiNfWLcfIrU8+WgPhXbu2gh0
-	njQmOCzzdqGfPaMY8FnSeiHtwWshsGKjxcMbe1OEPNii+AajdyF7BM8tNi66sqJxq/s+llQ3j1B
-	8CScIdMEf8iMqJYRkTbbUbKrqe8xmjlG5gP9aRZYikBHwkNIQ4kMo3Ee5QZ5RvSs4H5qvygAIg0
-	1OKDSMPhd7qYySLFqeLqOn1Vbnt+IRYKXwry6THrAQIvLAhNGS7o5uSD+sWq7H4v+IUYtULjmPp
-	4W+rjKMGB0tu9yWcPwQkRjBcsS3iAzgV3UD3r/Gfh7x3Eo2DShxm9fbvcpSjNHWjIFER5+PfyID
-	GxaybzwXXNaweWwzcFoYeO8Wj7O1GZjR+ipsWhhQe6eSH+8zmOdl/ANcLX5CdCyribWuHCY+7nZ
-	q2baVVdAp7DUSKYue4QtxVCt0uO6UiuCNLrFaJ1NCQjBi1oW+49GTYxpmR1/3GcR/4eewgyvsEJ
-	T9aK2nE6eLJQr44jSTyfIPEeTUGLl/X1Jxlvz9eexfyVDuscJuJROVJ2tFoXAkper1hiDLIE/eu
-	lnL01ss9lJG/JWOGtiUhDw==
-X-Received: by 2002:a05:600c:1088:b0:4a2:417:7db5 with SMTP id 5b1f17b1804b1-4bb887f43cdmr285531595e9.2.1795617873970;
-        Wed, 25 Nov 2026 06:44:33 -0800 (PST)
-Received: from skbuf ([2a02:2f04:d401:2601:d3cc:6bc:a861:f9da])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb906e4ce6sm303747515e9.4.2026.11.25.06.44.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 06:44:32 -0800 (PST)
-Date: Wed, 25 Nov 2026 16:44:28 +0200
-From: Vladimir Oltean <olteanv@gmail.com>
-To: jan.petrous@oss.nxp.com
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, 
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>, 
-	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bogdan Hamciuc <bogdan.hamciuc@nxp.com>, 
-	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Richard Cochran <richardcochran@gmail.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-phy@lists.infradead.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-pci@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, Alexandru-Catalin Ionita <alexandru-catalin.ionita@nxp.com>, 
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Bogdan Roman <bogdan-gabriel.roman@nxp.com>
-Subject: Re: [PATCH RFC v4 09/15] phy: freescale: s32g: Add SerDes subsystem
- PHY
-Message-ID: <awbmvSYZ9RJ6agIu@skbuf>
-References: <20261125-s32g_serdes-v4-0-3bfe0589be8d@oss.nxp.com>
- <20261125-s32g_serdes-v4-9-3bfe0589be8d@oss.nxp.com>
+        bh=qhCwXvAyXM1RHsJVCIWLLXEAUGswl0Dh6+s1SkrTVk0=;
+        b=P0T/4SYiP+LCPiLHn8KMn5egnGeN93gKlCkRAQlKYQ0YPwQ2Xaw3o6CSoqkBttkCwM
+         z0KjOnj5xzU1/lHhrTkGKBWm83JgXndbG2Jarip6DgcmY2V9PNrKqXBJvpePQv+Gfp6+
+         8h+p7ctWfUcPVW0kno21T+rRN+j5bw9yUI4Pnc29QxxUn4h8dkilx9rMV2O8aQDL3pkO
+         vp2QL+wjH0yTu+Tb+YOgwHWXBTQuB8uC0lDcqJbvu7VKwZQD89qAS9kHjYXhkln/Z224
+         KvAHmWb2T0he/lfUqE0qg8oivZEWrU42lGxK3R82Qrh2qo59Is1FB89ikLvZAq5cmKlJ
+         bDVw==
+X-Forwarded-Encrypted: i=1; AL+hErFUv61CxyWI/qWkYRnk+7gyxgELPVYCfBW8N9m6EboAnUkgzdj8NlQG6GlK4j1JIBuc1OE+x7cgbkg9@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AUNr3wZC5c/OXrzGHRyxwKpiZfZU+qqkajd8j0YxiOZO2FDAB
+	mzZbB5nV2b7Xy7KJr6jjJEFZn4ndO0BxuPyBe/9e6CpwWTnAS1WgXFT/JexZUfAV
+X-Gm-Gg: AZFdTZeIIfG13lSRlUM7g0ORqO5hgjL+Xith8OkXwYCjx8qV2VkT5pqO9Qyg19Z3ABq
+	ZNwsZ+jDXg8FhNiERq6w+bGd+/LYEvCDRRY0IG49Rw/K0ocITRpb3+GE55NmUiPgIQC/EM3eTiE
+	+uCBhD0ZmvUpYG0B4Fez32NBeTyRYLd6djHVG3aZRnnr/KaqL4GTnSkPCZ+/mPS+M3947emWhX/
+	+NXmbMv/a7bAkwDKljNXfFn99RV+ZY2yfQWBFDt5KQTTbpD4TrfgsaNg8ZgxomAiKvpBlL8KZb7
+	9bnSgCYuDsYQYmxlGJJmuj7fVS6te2OgovqTRlrcTC43bCENFm2VcwPVh1NS6PVDDa4LVJ+Xbcd
+	fuJPRVSCDIN4Qi2slwkDd+wIycPA22eDGE4pyv73cIEPPnDE8NRXO3sjMYuPClEUaIYz4TyxTx8
+	GbeIcQOjLzR36Mh1Bth+n80h3o7kUemvA78kI5mXPukoGBS/WvNa8p5/Ijlh1tSzEXAqnwTEjry
+	o5DVu+F14PYZ9xw6sE+Qp0RC067VjRWH4mplP8P8YNm+SZji8uq7WzIC33fFfUPDCGzCbTRzcb5
+	TZAAtDSy+nu+KAuRP4ApTqp7IwM0mXtLSqpyVnWDYd3BtioKvhtynVEbro2lWMX2epTG3tvCo3T
+	RS6wFf36WoL8T
+X-Received: by 2002:a05:6214:4704:b0:921:21ed:f9d5 with SMTP id 6a1803df08f44-92134af8629mr278702856d6.38.1795618289016;
+        Wed, 25 Nov 2026 06:51:29 -0800 (PST)
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com. [209.85.219.44])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349eae11sm164797486d6.25.2026.11.25.06.51.28
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 06:51:28 -0800 (PST)
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-9213922de73so4886216d6.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:51:28 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGwG1coGA5KRuF8q6k1dyPEPZ/GuFx6eu4Qupq8aTZmPBY/hsswDkmwh1xSL4z1Gfz41ZFJsjtPgZ9f@vger.kernel.org
+X-Received: by 2002:a05:6122:2192:b0:5ec:7589:f9e0 with SMTP id
+ 71dfb90a1353d-5ee8af4a3d9mr11210352e0c.11.1795617963345; Wed, 25 Nov 2026
+ 06:46:03 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,70 +82,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261125-s32g_serdes-v4-9-3bfe0589be8d@oss.nxp.com>
+References: <cover.1795029012.git.geert+renesas@glider.be> <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
+In-Reply-To: <1e9c5ac3-d82b-4af9-9946-0302cadf7404@baylibre.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 25 Nov 2026 15:45:51 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdX2BEAK27P0Da7Nei=DLaHgTdi=FiC5ZMhVegNuGwM5_Q@mail.gmail.com>
+X-Gm-Features: Aa3M54o5mrxb1PGlHbFHaQn6zx-fZm6HZYf4SleH1VTd0nBeXxZvXoTTF6NrZag
+Message-ID: <CAMuHMdX2BEAK27P0Da7Nei=DLaHgTdi=FiC5ZMhVegNuGwM5_Q@mail.gmail.com>
+Subject: Re: [PATCH v5 00/15] R-Car X5H Ironhide CPG/MDLC SCMI remapping support
+To: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Paul Elder <paul.elder+renesas@ideasonboard.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jan,
+Hi Cl=C3=A9ment,
 
-On Wed, Nov 25, 2026 at 10:33:51AM +0100, Jan Petrous via B4 Relay wrote:
-> From: Vincent Guittot <vincent.guittot@linaro.org>
-> 
-> Each S32G SerDes subsystem is made of one PCIe controller, two XPCS and
-> a shared 2-lane combo PHY. The lanes carry PCIe and/or SGMII.
-> 
-> Add the SerDes subsystem driver: the PCIe PHY, the combo PHY bring-up
-> and the setup of the XPCS instances. A MAC gets its phylink PCS through
-> s32g_serdes_pcs_create(), which also creates a device link, so that the
-> MAC is unbound and suspended before the SerDes.
-> 
-> SS_RW_REG_0[SUBSYS_MODE] is derived at probe from the consumers' phys
-> references to the SerDes node, <lane type instance max-speed>: a PCIe
-> root port names its lanes, a MAC names its lane, the XPCS instance it
-> is wired to and the highest speed the lane is wired for, 1000 in this
-> series. The driver walks the tree for them, as the mux is programmed before
-> the reset is released, long before the consumers probe. Each supported
-> mode has a unique lane mux; a lane nobody references takes the function
-> it has in the first matching mode. The reference clock rate is
-> validated against the derived mode.
-> 
-> The SerDes provides one PHY for the PCIe link, whatever its width, and
-> one PHY per XPCS instance in use. The XPCS lane PHY has no operations:
-> the lane is brought up with the SerDes, and the MAC drives it through
-> the PCS, which it gets from s32g_serdes_pcs_create() with its own node.
-> 
-> After the subsystem reset is released, the PHY needs up to 5.2 ms to
-> become operational (MPLL_STATE). Poll it before any further PHY or XPCS
-> PMA access, in every mode.
-> 
-> Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
-> Co-developed-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> Co-developed-by: Alexandru-Catalin Ionita <alexandru-catalin.ionita@nxp.com>
-> Signed-off-by: Alexandru-Catalin Ionita <alexandru-catalin.ionita@nxp.com>
-> Co-developed-by: Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>
-> Signed-off-by: Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>
-> Co-developed-by: Ionut Vicovan <Ionut.Vicovan@nxp.com>
-> Signed-off-by: Ionut Vicovan <Ionut.Vicovan@nxp.com>
-> Co-developed-by: Bogdan Roman <bogdan-gabriel.roman@nxp.com>
-> Signed-off-by: Bogdan Roman <bogdan-gabriel.roman@nxp.com>
-> Co-developed-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> ---
+On Thu, 19 Nov 2026 at 15:47, Cl=C3=A9ment Le Goffic <clegoffic@baylibre.co=
+m> wrote:
+> On 11/18/26 8:44 PM, Geert Uytterhoeven wrote:
+> > TL;DR:
+> >
+> >     Describe hardware in DT, and perform mapping to abstractions offere=
+d
+> >     by SCMI in Linux.
+>
+> A question on the approach
+> An SCMI variant DT could mark the CPG and MDLC status =3D "reserved" and =
+point the consumers at arm,scmi, while the U-Boot IPL keeps the hardware DT=
+.
 
-I am trying to spend some time to understand this design. I have a few
-basic questions:
+In theory, yes.
 
-- Simply explained, what do you gain by integrating with the Generic PHY framework?
-  The XPCS has a dummy phy_ops. Clearly this means phy_init(), phy_power_on(),
-  phy_set_mode_ext() etc will do nothing for it. Who and why is better
-  off if it exists?
+Status =3D "reserved" would work fine for a leaf device (e.g. a network
+interface), without further dependencies.
 
-- If you have 2 physical lanes, why do you have 3 Generic PHY objects?
-  Why not a Generic PHY object per lane?
+For core components like the CPG and MDLC its different, as every single
+module on the SoCs makes use of them.
 
-- Does the lane mux need to be programmed by the kernel driver? Does it
-  ever need to change at runtime? How do previous boot layers use the
-  SerDes? If you leave the lane mux set by a previous boot layer, and
-  make the device tree describe that configuration as read-only, what
-  doesn't work for your use cases?
+> Since v4, the series assumes the SCMI ids are stable:
+>
+> >   - Remove dependencies by making assumptions and dropping disputed
+> >     items, to move this series forward:
+> >       - Assume all SCMI IDs are stable.
+> If they are, why not using them in the DT directly?
+
+Because:
+  1. They are not stable!
+     We only _assumed_ they are stable, so we could relax dependencies.
+     With that assumption, there is no longer a need for the (contented)
+     addition of scmi_get_base_info(), which would be needed to
+     distinguish among different firmware using e.g. different ID
+     spaces.
+     FTR, without scmi_get_base_info() we're at the same playing field
+     level as some other SoCs vendors that don't bump their version
+     numbers at all when making incompatible changes ;-)
+
+  2. That can't work for now, due to limitations/deficiencies of the
+     current SCMI firmware specification and/or firmware implementation.
+
+  3. Last but not least, they are not hardware description.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
