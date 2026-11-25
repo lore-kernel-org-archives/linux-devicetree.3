@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795608915;
-	b=IQ0J45N8pmE7PbO4UVnlGS6nWL7J1sAqRgq/R1Yc1KUxzPyYdgor1duwIXtBlUWJNBpu
-	 jlCGDbSwpx5v0rels3Tm2kVCVglqwOErg2WS/WXXBx/3iLK6MbGdHNHUZGMbThxDmHvuz
-	 bimA096bOKzHbSpsAdbtSo5yqUej9OjavJ6gm7s50bdj5XjmsPNkotwF67kpA7xqHDFKs
-	 nfDINCpQqBq+i1JQlF8IOL6R5xkGhFv8V2LnvGFsR4buSD5UnAb3jfjv6FoZm6oWaO84Y
-	 sSIfg9aZwSI7WYUCMVCdBNBmvS42O7KW+ndrE5rdRV3RhgC4KlLSFrjsw3sGvaZ89aQ==
+	b=KClp2YpFkyGfOs+hcXiy3s60PtmgN1Gq93WqCsRXhe/HZwAypE1pgWbSNTummctO/O7Q
+	 4iKdqidsFjKvwivc0DasPW9wX+JUBCUObF7U5oCYvu3bLg8LGpMr5w6wh+O2rIY8qQhuY
+	 dfxOUJ2r2qow+o2ITNeGvt/do7rWapL25XsRR5ZJbKwIF4zQ2GfzvJUoOGTUUHjBPh8uU
+	 HM/VnwussXgCjUsieyUflqh0rqcrloFgyfAldKW+sq3Y9S4jw3ZvQYGidtgFbDn/HVCv7
+	 kT4fSlf67tm9gfYI+bimRK6EZKdxCV+YwDKW43Y9It9oTH7pUTw53R6VVZfOFjU+EJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795608915;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gnAyztqeUe/q2s/7Qp3n11tSLiy4Es8dTJJvQH+qV7E=;
-	b=tG0EEA79c/QgiywjB1bi8DkD2zI+nUSwPfFqklToLms2Q0ZRQ+2Dahg0fMZt+XcFT9AK
-	 vQbMvg6PacBvIlo4v9zuO2DDcSU+DKyRARQVxpemUjDxbSy1aSlh/wRO5AOe/dq+bXyvW
-	 eMiLcKnrr+qoG1S2wOQpTwpCvat7/s4LPFpU6GdcJ2/6CHmdY8RP73zaZY34xKTAhF8p1
-	 ih4nJNikXKa0cyHKNrOYRe8XdRNKE3WUiQXdgVZBMwLyo703TFRbjN/ZM/2v7OtRyCIxU
-	 iN39gLb/2Y1Zba5mmbdkh3mkAvKNMEwonVpVJr4Pp8vBf9Vyo36LrGsskUZ//zB+aGw==
+	bh=Mob0X1OYukGGK2WuupxgDLKnjU2HYcGtn9Q8YPfS6mo=;
+	b=c4t1pf/bSVm7toZxyGTH1b9blIC4ew48B9V8qZMJoOFneSps3jsxpI596+JSg/8p8nZ/
+	 eO0kdb8pGTx/dqXMtVESa9/LoJO0trMPsRlNjtIp5EZVjwiNhwJvK3PXNk0KkGoTdm1Me
+	 GtXs/4ISc93UDObPNl8oohmC2LpCz2JcBiCoARY0TD+Hvla9fRSMmOWcl5Rk3Rp7cFU4y
+	 fu431i0g6flI4b78Zc6YZYX5C2SJUEdqWsfgObsiP4pLpc8bu8iCGxu0QrXu4n0Nml4jl
+	 qo8Db0UQpNBKGTqjvrdUF3Diq2HiKPEQl/44Pqk2TjFe+/8o/ZTvT3pL9TtaDWaHeig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OGa7dvPE;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EDcukgQP;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F7F606A33D
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:15:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4F7F606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34504606A32E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 12:15:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34504606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OGa7dvPE
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so73242955e9.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 04:15:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EDcukgQP
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4bb6adaf0f1so49843405e9.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 04:15:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795608913; x=1796213713; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795608914; x=1796213714; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gnAyztqeUe/q2s/7Qp3n11tSLiy4Es8dTJJvQH+qV7E=;
-        b=OGa7dvPEcUwsHNXtYUoGb5csdZNba1XA4zumnNZh06ibecuGQsUiPrVaTNcYau341P
-         8kiTizoQMMjG4uULZ2ITIH9P+avli2cb6RMjd9ISrSh3aoTTRZ95AUep94FmjgI6MX+v
-         uuxj97fF8UoDueuXcFER3U0meCugoKJWPa89KKtGjR0jqFFCNqq/W/zNSYsMjs+C7Uuk
-         odIdVKwhKxIBnNBxS1Rl3lZZllUpRaSMaM+AuNxxJYuUI3dAgM5hGCMAKrhHzKlX9ax2
-         KRq1hJqBzAYXACMELDoYwfYZQMjYHm14hw6TaLxwxtHzKW5+x7hLmP46Z+rI1eKilNzH
-         F/PA==
+        bh=Mob0X1OYukGGK2WuupxgDLKnjU2HYcGtn9Q8YPfS6mo=;
+        b=EDcukgQPPjyacoKhZp1PXt2no10yFLFOY8j/KIZ1FWPVWzsbTzd2WJkiQdARnF/esJ
+         gQ2qAq2etSRWIN6DVAaJ9OXtmhNASlqcOjEcq7tp7TYKvkMKKFdeTAmU0HbuEAK+TPx/
+         HULZfOGIllVPTt08qD9nfiPv3EmJAhnsNfRC67px2vuzVbpm7opZ/4qw4W9L3ZD7wKlQ
+         YViyWhv5WLw/yNUJg8bjDbRS59b1fXy+JMIY8BA5t19j3zFVljZhXl25ZNjgiyw0L06i
+         /JtNF3M4iW6hi1sJwX8bOih+jBnRa3fb9z4wwpUzuNmS25c1DfdN/R+LV5tesQPftKXQ
+         NAkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795608913; x=1796213713;
+        d=1e100.net; s=20260707; t=1795608914; x=1796213714;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gnAyztqeUe/q2s/7Qp3n11tSLiy4Es8dTJJvQH+qV7E=;
-        b=cLW4q0RwaoPiY1flHJ8EkNrJntM1PgYmtklhe3BXoiGl0uptkGkFr8Vc4CM+jNnue3
-         kj2PghW0GIjeekGRufGC9d80wa62mwVOEFYmc6JzvryJhGXhaRLToHyqZn5r+0zKyG7x
-         +OSyfPVr+WbqmhbLEh898F0wVTzLgwy5F61O5X7BVsmrUxALDFa9vcosACv08F//6Kmt
-         2VxyDLIm2AH6GU4k+rIssgIyYKYANLSYys8Yx2/OwpQfHl7P/yl7xR0JGZW+rs6y5+uk
-         zqVx5+SDn0xkUOB5yHE3MHMVRpnwNDAC9SvROwXTLCDj8pTrERBgIjbrGMckiuCmvhuI
-         oS6Q==
-X-Forwarded-Encrypted: i=1; AL+hErGL4FaieBo5y4hD6H5CD0BHbk840mTkWLMGlQTJLoBcIOC4GsVmVILAHhLj+j5c1L0C2gtTPZs8PLLm@vger.kernel.org
-X-Gm-Message-State: APuU4Z/E9D9RC2B8vvKh+YXYqoPKkGgRoHQJDpyO2B5y4Pkgxu+CS8ay
-	xHvZpJ0MMfuogR2RBIuQd98Qh6hJOMIH4no0KD0mJFO4XjOq5Lp52Fd0
-X-Gm-Gg: AZFdTZfNTBa9z7lo057KsqrK9i2DtZmmd/IRGszz/hvB2MXEbzJoBCOywWPu9BaScOV
-	UUo7+W5atGIihlUVYZL96l62E2NP7GUtbfFYkSW/7PGVAR5lZX0B+LS8XvFK/zmnL64AHKtOgVR
-	+GCSCLZzOgxadbc50TcZb4asoUupFNdZ87n8DnJl+OpIIRauQ44V38IR2yMri8JBmsUb2bSyAk1
-	dYmN1yf+9dhWI2Lok55Xdvi/HBBEepu0maWLbtywqyHQ7PM4ZUVpL9gBzJiu9gHtvyChHguZJb9
-	IjJcNoBYV8Z8iScc1Zs3OvQnw79gBNsmArAkw22q9gBm78610jHeQhraqIR2b8m5YaY+boCsBXY
-	3z/BOD5pkos9u5fcamATIr3pwVE2Aga4y30DwbXo8Cs4GjzfpyhAWUAX7Fn8jStCjsZxVAALAvU
-	RsZzNeeW4uoJ7sCC1A5ZN92isCPbAnYO2LCsfI+vtiE3iYzjfXx70NtQnI0sGQI4ZDMhh2MsZp6
-	sg3gkVUWEYG0YEeGAfSIGLNk3CvXnFzx3RthTlDjJ6Jubg2DWPPtnENp81TV+apqAegJ/0Fq2Pd
-	HFkpRzvZHm3AD3T8OJL3SG0f3Pap27z77D4yaaCQXtaObJPY3ajr6H5QkHSZYR9JbUXu+r+bw3H
-	22n3nrB0z4IRxGl8JS4iyQ4iEyAN1WGLf0BkU6GLIWGeyKCpYebxtkGw5z/snDZ/o7Nwt/HY0jD
-	CrmZ3YNJtzg/J2GIQo6NTeV2d8rHQw1Q==
-X-Received: by 2002:a05:600c:37c6:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4bb88812a84mr355620345e9.13.1795608912826;
-        Wed, 25 Nov 2026 04:15:12 -0800 (PST)
+        bh=Mob0X1OYukGGK2WuupxgDLKnjU2HYcGtn9Q8YPfS6mo=;
+        b=JRzC4KVwl6DMxTXOBQpls4gZSglZa75r7/Q/We7KQ+Zj4PyFGhzj0qJ5IcPDpZFymN
+         zWRtUqbLTZFK4+v1OWBY4Fz7aPZZfr1WlK4Wf4I97KgxlyWKcz7HnMO8vZL+ieICU3dq
+         5IDff9IzcZgDth4aMua7SVq668Q0iclFC+j9Soum8v3PGIed4beWl7N1iaI36A6nZ+3d
+         BBEKHmab4XoqZILGqWEHx9+EqCC5+TSS0x0mKNiE/KUk0uXUiVfGWNGnJyajvgxj43Zr
+         cGOTZMeG0QYqYHHd67/c+r13PSRU2nVLHTXHunzIAM/Ybfu10bHWRkpZUAmEFn2tCvH0
+         o76w==
+X-Forwarded-Encrypted: i=1; AL+hErEtKjtHkvasFWqsJzcHpQg51SkVsi2waD9fkwFDT1XY4jkaYfk0fQkmUmUBG1gFnr/QEU3/Mg5ArrbU@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MVl2IrymyvQtqk0GdCIf3vT+s6in9yuTdXjzrUJB77myRQ/o0
+	7b2BtCgsLRYPjad/uKhzzNQNDP3l41C1xkmeMGELYY2jKEDgz4k060oD
+X-Gm-Gg: AZFdTZdEvz44BcF+017oO5TPVL2PYVytosvHGWt+gveAy+zSnWrtEPkM1p9c8/RMUWH
+	bLWekilAb7trIb5j0k0csE/wCYPhmqQ+TaN7uRQFxps+GB9Zoxv/6iXbWsd5ZdM/LdEJ3Cl7Rkq
+	H+RR/iZU6pL32w+hZMgBnfFYmZG7XKQuQmeo/ruf+tbMaCgH/xxsNlRdNzF7YDW44hNvi7UC5c0
+	Z9/icIp3WP6IwJpy4ZnOZYyPy/Vnnyfobo2Mqez0GaOh9ulkexdc1Fu/G7/yrVkQ2VVeCHYQj17
+	EWcN3VJl/NUOGgyesUexwom0Tq9aa7iClWxuyd1/e7tbvoDm8VKJczk3ZhBsLeNbUE8FKbEflJ1
+	JwzBgKXPno3NKA9vN9H1G2Uuo2k4PSNw4KAuxSUuctOjhtJdKw6sxeugGzqxEmzAZO5VYmXdON7
+	Z174QAMNgSDnUPlwC+qQpR1z/D4vjnAPE6FNk5dfxfFvWick8iuxN6DSRlySCMfpc7WxUIeW7v9
+	StAHA1rzcCBn5tI8tRBk96khefnVZs4vAd8ePpW3qNlbJfQc1Ks0k5t56Y1C07ItguaGeeZDgkx
+	K8PACAnbnx+wDZl2BD1OG+noXAEpcGunH/4mIXci6/4qPDA4plbyHBMf9aUmJbS09CRVM1iju9p
+	Z5btQ/DcIULbPOui1XQGkg9XExDIZjWPMsrEEuyaT7VmtRfdXskTjYzJj87VuE4n+CzU3xeUE1P
+	nAf64mjRe7
+X-Received: by 2002:a05:600d:82d0:b0:4bb:818d:8d8f with SMTP id 5b1f17b1804b1-4bb88818955mr430512255e9.23.1795608913596;
+        Wed, 25 Nov 2026 04:15:13 -0800 (PST)
 Received: from iku.example.org ([2a00:23c8:254f:fd01:293b:cca7:e6a9:dea6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm947626355e9.4.2026.11.25.04.15.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm947626355e9.4.2026.11.25.04.15.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 04:15:12 -0800 (PST)
+        Wed, 25 Nov 2026 04:15:13 -0800 (PST)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -93,9 +93,9 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 5/6] arm64: dts: renesas: r9a09g077: Drop GBETH filter properties
-Date: Wed, 25 Nov 2026 12:14:47 +0000
-Message-ID: <20261125121448.180847-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 6/6] arm64: dts: renesas: r9a09g087: Drop GBETH filter properties
+Date: Wed, 25 Nov 2026 12:14:48 +0000
+Message-ID: <20261125121448.180847-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125121448.180847-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20261125121448.180847-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -114,7 +114,7 @@ From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
 Both 'snps,perfect-filter-entries' and 'snps,multicast-filter-bins' are
 discoverable from the MAC hardware feature registers of the GMAC IPs on
-RZ/T2H. The stmmac driver does not parse these properties for
+RZ/N2H. The stmmac driver does not parse these properties for
 "snps,dwmac-5.20", and derives the number of perfect filter entries and
 hash table bins from the hardware feature registers instead.
 
@@ -122,14 +122,14 @@ Drop the redundant properties. No functional change.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- arch/arm64/boot/dts/renesas/r9a09g077.dtsi | 6 ------
+ arch/arm64/boot/dts/renesas/r9a09g087.dtsi | 6 ------
  1 file changed, 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-index 674e35e4f242..1be6a7ff08aa 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-@@ -567,8 +567,6 @@ gmac0: ethernet@80100000 {
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
+index 68c8daed557b..0e8ad031e14d 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
+@@ -568,8 +568,6 @@ gmac0: ethernet@80100000 {
  			resets = <&cpg 400>, <&cpg 401>;
  			reset-names = "stmmaceth", "ahb";
  			power-domains = <&cpg>;
@@ -138,7 +138,7 @@ index 674e35e4f242..1be6a7ff08aa 100644
  			rx-fifo-depth = <8192>;
  			tx-fifo-depth = <8192>;
  			snps,fixed-burst;
-@@ -722,8 +720,6 @@ gmac1: ethernet@92000000 {
+@@ -724,8 +722,6 @@ gmac1: ethernet@92000000 {
  			resets = <&cpg 416>, <&cpg 417>;
  			reset-names = "stmmaceth", "ahb";
  			power-domains = <&cpg>;
@@ -147,7 +147,7 @@ index 674e35e4f242..1be6a7ff08aa 100644
  			rx-fifo-depth = <8192>;
  			tx-fifo-depth = <8192>;
  			snps,fixed-burst;
-@@ -877,8 +873,6 @@ gmac2: ethernet@92010000 {
+@@ -880,8 +876,6 @@ gmac2: ethernet@92010000 {
  			resets = <&cpg 418>, <&cpg 419>;
  			reset-names = "stmmaceth", "ahb";
  			power-domains = <&cpg>;
