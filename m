@@ -1,115 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795615609;
-	b=1rJ9fblcILqulCP2jHJYz7OWEV4sbz3xKwXmKeM3lzGoacfI14e0zapRBWLMu/14bQcS
-	 LGsq/oWchUcYGl7gk1J/nSo/BRg6fB73gHNUtvhmltBgXAxixdjnYrSJ5jSQjCT/yGldA
-	 qESfeBpXr60AXrFNxCj7dT/fWZC91Tl//+BzcxTD54O8YhgWRe84ZDd6NFmnHzmBDtCXk
-	 JPIJIIRTBXZYrb3peFe/tTBWFrZELuMBirLlqxtodDy+Y+9919YBE69dCa92nd29RvRdO
-	 9WQAt83z5jwfI5QkaMNjyD+rMfdp2w9SNYi6P96NYufTor3YHhjfbaVWI0ZkpqLTpTQ==
+	t=1795615634;
+	b=mlYD1Q50an6LWze4n/y04kGBD1w04T9Aig+SiVh3lkB4zRtbd5JM8k8l4D/6NSmxV/rv
+	 Vpk8XfJg06lnJIWOH7hCIwHGDGZXjAOy3IDOqck2kMks61wg1BEaFeUIQfXIE9KtHu0GU
+	 Hi/PiLs6+RWNr/1MtcIkbaGhDZ3D/56uYWv+DLepvo11CJ/6YBfAxXC5saxS+nY501L+P
+	 yN4zUOD/GgZ4fsqwtCmjHleHBSws6Pl8TnUinAbiNoooh1tdyHesrIpownrDC2ABhRbwb
+	 OO/PZJMQU1OLwi6/qgbsYmKcW5KbvPD59fmu/ebMYSNBCNNJudEA4Z3FuHXlXneqojw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795615609;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=MP09FK8BKciK7H/NzSBFI5ee4XjfPiGr8z/17qMy3kI=;
-	b=4yhNFsFEE6UGSZ+BqlGScwDDW+AQ6uIIf966x+YQrxT5j8hNt/RnmgiIBcltiM9aHZke
-	 80AMvcTH+uV+X0q7GHoAxBU1HM7d9fUIQ207wLNsqQH0AJDAUp0xycyLm4fzq0gsmtBy/
-	 q/zmQutsWzCryPJgk2pagLShWiOSIdcNinDsd1Z7GLB/vbrTpKy1VDvvG+FZDLFxQzIEQ
-	 AtOu5xJyBBAAMwNL8L39IuSzR/mQeYSDl0xnIWVqRJi9FBeAlXwnQR/9yMV5x+Z//kJEC
-	 +mi+VBW3SjiAp9GkwTDZq0h2sQqN8gy+kn92g05YIq4F5dknQMLHGbtPywHHERsXZJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795615634;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=xMl4eFxWkUzn+CMJ78m+0k/IisCIkzxv7Xzb0Xdv1Ik=;
+	b=S0PxhBJHYywGUDKr4INpt/gNlvnI8wXvI7wDJ/PVdRXIqTKs/mx6ccUeo04eNKWnzR3e
+	 rN2bAzWfVkN1zhyLQYnWBT6M/iZxvbBYqOBgFw15Uo97B1yxZjdTsofBTvI6/1JZnd98U
+	 rigOhmiUk8mceA00joSfD64exZbPho4TJTTMl9nwtBaYd4GJl8nV5l+ojg62bkKYdG0uZ
+	 Xr8ZEmFpCH15J7PCn09MuCAC7b545U4QdkXIdqa7In9baTHLmr0bjs4P5aqOgyVZlnK5p
+	 lsDSSDu4RRzc6PyWLtWKBYAX3fxluNKglOAKRFmOCymXM8tCixB5fwmPF7UvGgayByg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVeMPU2L;
-	arc=none smtp.remote-ip=74.125.229.137
-Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X6v++aS9;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510A3606A327
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:06:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 510A3606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083DF606A323;
+	Wed, 25 Nov 2026 14:07:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 083DF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fVeMPU2L
-Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-1397ad3d891so813036c88.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:06:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795615608; x=1796220408; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MP09FK8BKciK7H/NzSBFI5ee4XjfPiGr8z/17qMy3kI=;
-        b=fVeMPU2LQflS9t5Hux2xZmBbd7AQUgCcFsHVsMBbyb1onFoxxv3rIAiSh8CTXacTz+
-         mICIXq3wAe4SwVyPYoPXICZjy5J+0ufY/gVPITAUp1VduxA6gs5TKZ7ujaR+CNRDdVke
-         qseDoHa6B02E4Al6EO6DimgZyCpiUI0Mp/xCUBDjxMHVjVSNkWK/TMndxsQyephR/Ami
-         AgLrZbfaIMMJOnAFvi1fgUon/13tg7hzXIWWbeU1E6SM3hEDzj2mGRbFjpkx6oOBnpiw
-         2U5MkOtkZrRf3aUiyMSho4m5cajyw7M7+d3xs+w6weTOoBLbjnXZPTGNbBb/jBVKN8Gv
-         6JWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795615608; x=1796220408;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MP09FK8BKciK7H/NzSBFI5ee4XjfPiGr8z/17qMy3kI=;
-        b=qKoC3oBoRu4bQ7aY09WsDbRlQoX/ygb8FDeWANv+s6Nc0z/IPDQxMMlxdZKML+rzPf
-         7R6ES4LMxYnqvtaJuaK8EkCMFi8vnGidIz9QSPuhpxLUJY+e79vadXahMOxlbn2YBqTJ
-         1ZGoUDjAcPhOnuIMft89mB/bN8ciX2pz7uws1I1nSYlY8O2pKMztECuu071TzmoVFdNK
-         bW2ma9USrjOoFRj7+N/4ZaPx29k60hIf92KqeI2YjZRRl01BqJIlrvk6PCqP0JX0xTrH
-         67DvKDzsc/Ic61ZjaBYhtMcutTxAmmLUPGAF5ZP4MR5lZH4Pl2le5Fj4r9fhnLXwKtNh
-         gJhA==
-X-Forwarded-Encrypted: i=1; AL+hErFhjSryBUpWvRNLGpz+D3Ng45Gqcrs6ADRWnYQ1OVhGN1WD8L5ZFo5OU3tm/4pimewWZGCkEp+PlJY8@vger.kernel.org
-X-Gm-Message-State: APuU4Z8g5WwAXpeCBjb3V8o9qJ21TGxEu11MIN/rpqO6jdtkZJcQRshT
-	hRA+yDG9iYbHjH7tYHeidmI8SeOWBdb7rq4uC/VN6D+yllDfM2SO5bK4
-X-Gm-Gg: AZFdTZfWpgJPJAPBYXOryFsuFIyx8HZShzdF5jkprTJdbq7tQk9ChmcD/usiXqBPU+W
-	Be70Sd7zd9/Yi9hbKJIXpEcgD3dp1hBfLUKq62khdKw4Q5XqD273u+wY1Dw4FPwpXSsLmEm7DmL
-	JyTdedgqvE2dd7G5DsubsAO1ypOUxNUJIJ8jtuYcI7QYq28Z0KkwO00xmdWwU9/MM7TfYVJNcLw
-	6Vs3GwVJbwzQxdSx+XyURxQ/aWm0I7flHTsCzDi2a7dbBEACz0RWob64Abbt5kEPLZJri/bKUu3
-	UP4h2IXS3r04X8NT30HwU4HijjTB6Ts3Za90rDPJYugMwdj+pwaC4OgW9qE9LcavnMfxFrbV8se
-	tlZztn7rcTPdKdwu3eetWyJ8Wo0p+P7JRxpd7Q1aOIq8UVH7FwDUkEhGZSAz2PVBAwbEbrtznqK
-	EOtnlJZQdnojZwyBGHzjvmSM89HPN6vmXFe0GKwNUzPnRVcmZMtxMmTQj5Z9zzvoRJNhSgsOunw
-	90PlMMhURPhr5npJGraMuqlJIHeR/z7IgMtYIcOgWfft/DOGH6TEDq8gF/tmQIG/Gs9gLDtt4tp
-	wBHVWDU81TiKCUgbuVMLujG3jImPU/j0OQzyIcz1og==
-X-Received: by 2002:a05:701a:844e:10b0:1b0:20:6444 with SMTP id a92af1059eb24-1b56e185990mr10444498c88.39.1795615608143;
-        Wed, 25 Nov 2026 06:06:48 -0800 (PST)
-Received: from localhost ([2604:a840:3:1e0::3003])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567cafec4sm61981028eec.26.2026.11.25.06.06.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 06:06:47 -0800 (PST)
-Date: Wed, 25 Nov 2026 22:06:43 +0800
-Message-ID: <eccf3f1e6dc94fbe847d112e8804c053.codykang.hk@gmail.com>
-From: Cody Kang <codykang.hk@gmail.com>
-To: James Morris <jmorris@namei.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Haylen Chu <heylenay@4d2.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Yao Zi <me@ziyao.cc>,
- Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Guodong Xu <docular.xu@gmail.com>, Icenowy Zheng <uwu@icenowy.me>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Sarah Emery <sarah.emery@canonical.com>, Ze Huang <ze.huang@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v3 00/17] drm/spacemit: add SpacemiT K3 display support
-In-Reply-To: <87eaeb2-b6e9-9198-b9cf-7e9f96bdcbc@namei.org>
-References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
- <87eaeb2-b6e9-9198-b9cf-7e9f96bdcbc@namei.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X6v++aS9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795615634; x=1827151634;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KeYOf75Z/8+vjZolThFV16xZ7f4fxMRhbKAxsweSYkM=;
+  b=X6v++aS9PERupo+CSYs6URyFfVUc3z0lBq11qkOGDVOl2OsKSA15wQjJ
+   aflxUosMg27iAYKNKZ+aXeGTQA3s67Hdveo2Ce32ySnAv84vpc4t96QqU
+   beWbjl1UKecabXdtmVJvStC3DCTRYuWXg0gMr9nxVyE8NuzIo3gKhxM9V
+   nCrEL+4HYMsQ0FXuqkHLf9lJY7SvYqB2bxsiFwx9YokWlXTmjoUOCC1EN
+   jtwCBWbiP4+S+UW1iqgedff0ggLKk10tiV+f10GzYc8rm7zGJJMvommqc
+   sw3stYB/5KC20o5sLo3wlRilNhnJAlVnyvwlXubXFyOUFDYKzXoGzjHA/
+   w==;
+X-CSE-ConnectionGUID: bJT/f532RwSHb2UT7brjlw==
+X-CSE-MsgGUID: edfxgYq5QseckzvrYh+N+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4486628"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4486628"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 06:07:13 -0800
+X-CSE-ConnectionGUID: GPuoG+ptSeGdvPSSmoXnIw==
+X-CSE-MsgGUID: l4qBFp6CTraX+JlcpmsW8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="11873266"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 25 Nov 2026 06:07:11 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xWDeO-00000001Rnq-2t50;
+	Wed, 25 Nov 2026 14:07:08 +0000
+Date: Wed, 25 Nov 2026 22:06:29 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hefei <3066883572@qq.com>, dri-devel@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	robh@kernel.org, conor@kernel.org, Hefei <3066883572@qq.com>
+Subject: Re: [PATCH v3 4/6] drm/panel: add VIEWE JD9365TX 7 inch DSI panel
+Message-ID: <20261125220244.8Pj15HWb-lkp@intel.com>
+References: <tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07@qq.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,56 +83,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07@qq.com>
 
-Hi James,
+Hi Hefei,
 
-On Tue, 24 Nov 2026 19:53:11 -0800, James Morris wrote:
-> On Sat, 21 Nov 2026, Cody Kang via B4 Relay wrote:
->
-> > This series adds display support for the SpacemiT K3 [2], a RISC-V SoC:
-> > a new DRM driver, a new PHY driver and three new bindings.
->
->
-> Tested-by: James Morris <jmorris@namei.org> # CoM260-IFX, DisplayPort
->
-> Assisted by an LLM.
->
-> v3 on v7.4-rc1 works on a SpacemiT K3 CoM260 IFX with an Acer EDB323QU
-> (2560x1440, 144 Hz) on the DisplayPort connector. The DRM, DP and PHY
-> drivers were built in, and Linux ran from an initramfs with
-> clk_ignore_unused.
+kernel test robot noticed the following build errors:
 
-Thanks for testing v3. I will add your Tested-by in v4, on the PHY,
-DRM driver, SoC device tree and CoM260-IFX patches.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on dtor-input/next dtor-input/for-linus lee-backlight/for-backlight-next lee-backlight/for-backlight-fixes linus/master v7.4-rc4 next-20261124]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> The board has the vendor U-Boot 2022.10 built on May 21 2026, not the
-> uboot-for-k3-display-verify branch. That link in the cover letter
-> returns 404 for me.
+url:    https://github.com/intel-lab-lkp/linux/commits/Hefei/dt-bindings-input-add-Jadard-JD9365TX-touchscreen-binding/20261125-101123
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07%40qq.com
+patch subject: [PATCH v3 4/6] drm/panel: add VIEWE JD9365TX 7 inch DSI panel
+config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20261125/20261125220244.8Pj15HWb-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261125/20261125220244.8Pj15HWb-lkp@intel.com/reproduce)
 
-I will drop that link in v4.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261125220244.8Pj15HWb-lkp@intel.com/
 
-[...]
-> Two observations:
->
-> 1. The HPD interrupt never fired. /proc/interrupts stayed at 0 for
->    cac88000.dp in both boots, also across the unplug and replug, when
->    the stream was running. The connector poll caught both.
+All errors (new ones prefixed by >>):
 
-Same on my CoM260-IFX: the count stays at 0, also across an unplug
-and replug with the output on.
+   drivers/gpu/drm/panel/panel-viewe-jd9365tx.c: In function 'jd9365tx_probe':
+   drivers/gpu/drm/panel/panel-viewe-jd9365tx.c:304:15: error: implicit declaration of function 'of_drm_get_panel_orientation' [-Werror=implicit-function-declaration]
+     304 |         ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
+         |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/panel/panel-viewe-jd9365tx.c:308:9: error: implicit declaration of function 'drm_panel_init'; did you mean 'drm_panel_put'? [-Werror=implicit-function-declaration]
+     308 |         drm_panel_init(&ctx->panel, dev, &jd9365tx_funcs, DRM_MODE_CONNECTOR_DSI);
+         |         ^~~~~~~~~~~~~~
+         |         drm_panel_put
+   cc1: some warnings being treated as errors
 
-The external DP connector is polled on purpose. The interrupt needs
-the pixel clock, so it cannot report a plug into an idle port, and the
-bridge leaves out DRM_BRIDGE_OP_HPD there.
 
-> 2. With the monitor asleep, nothing was displayed. It kept HPD high and
->    returned a generic 1920x1080 EDID. Link training passed at
->    2.7 Gbps x2, but the monitor stayed dark until I woke it by hand
->    and a later modeset retrained the link. The kernel got no event
->    when the monitor woke. I found no DP_SET_POWER write in the driver;
->    could the sink be left in D3?
+vim +308 drivers/gpu/drm/panel/panel-viewe-jd9365tx.c
 
-Right, v3 never writes DP_SET_POWER. v4 will set the sink to D0
-before link training.
+   273	
+   274	static int jd9365tx_probe(struct mipi_dsi_device *dsi)
+   275	{
+   276		struct device *dev = &dsi->dev;
+   277		struct jd9365tx_panel *ctx;
+   278		int ret;
+   279	
+   280		ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+   281		if (!ctx)
+   282			return -ENOMEM;
+   283	
+   284		ctx->dsi = dsi;
+   285		mipi_dsi_set_drvdata(dsi, ctx);
+   286	
+   287		dsi->lanes = 2;
+   288		dsi->format = MIPI_DSI_FMT_RGB888;
+   289		dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+   290				  MIPI_DSI_MODE_LPM;
+   291	
+   292		ctx->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+   293		if (IS_ERR(ctx->reset))
+   294			return PTR_ERR(ctx->reset);
+   295	
+   296		ctx->vdd = devm_regulator_get(dev, "vdd");
+   297		if (IS_ERR(ctx->vdd))
+   298			return PTR_ERR(ctx->vdd);
+   299	
+   300		ctx->iovcc = devm_regulator_get(dev, "iovcc");
+   301		if (IS_ERR(ctx->iovcc))
+   302			return PTR_ERR(ctx->iovcc);
+   303	
+   304		ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
+   305		if (ret)
+   306			return ret;
+   307	
+ > 308		drm_panel_init(&ctx->panel, dev, &jd9365tx_funcs, DRM_MODE_CONNECTOR_DSI);
+   309		ctx->panel.prepare_prev_first = true;
+   310	
+   311		ret = drm_panel_of_backlight(&ctx->panel);
+   312		if (ret)
+   313			return ret;
+   314	
+   315		drm_panel_add(&ctx->panel);
+   316	
+   317		ret = mipi_dsi_attach(dsi);
+   318		if (ret < 0) {
+   319			drm_panel_remove(&ctx->panel);
+   320			return ret;
+   321		}
+   322	
+   323		return 0;
+   324	}
+   325	
 
-Cody
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
