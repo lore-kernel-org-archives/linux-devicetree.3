@@ -1,51 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617281;
-	b=T0M2YzaRV+OHO5jL6Xpc6pt0NC9UsUkNWJ35xUygFwubGGHBi3/PUnTDKWyYu1mvlu7S
-	 yxqwBKLrdfclGje1ie8Gce/YaMQZnToh8UNUSjyNZ/PkqRAaEvDZfA/A15oYuPMcCpSAo
-	 D8hFQcJen+MvR4l5/piEjCHKqveEoLjzkovKaloVXOCTw9baNv77kBiteqyOKurThwquH
-	 2hOyF8Aa2zdlYpcJUheloUbNOxiDzpQTm980AymgmLXxkdh5CIittw5bNE9g5Vx3YI1+E
-	 T6NdY4+yPw6kFxzq8oZdwJ6T7B9rhzoLslgquPm1Xej1VTP3aTAmcPo9iKD6N1O/1ZQ==
+	t=1795617690;
+	b=dr1Dq3BEtCAPvxNml750rTStXOSSc8z96n5I8bPabcwAS9j5DLaKIpTXtz9vZkgdPH+M
+	 ozwkAX9xq+8Vf1IUSAWj+L5SJTkCTzmbHQpa1brlMzkpVONDSreKl7PUKMuTzF/iBCXPQ
+	 aLWcCB+IkVdSoKmjs0lmOUO29u9QjGys6ZvJrxbeWxsOQwJksDAs5Tyk9apt5gi3pfC67
+	 AfdMiNkqtgo+d+aquI+JnvMauaZSG4kjC1OcHRdKN2MQcFjKa7BvjIlAEdJMVCou2LapA
+	 hUvw2GDfUyq9lDNdDI1Z/mvd7ydYY3260CdKoaKeETlWIoJtYUDGaZD63BpusPuNTEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617281;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=cqCiELa6nbsCUzTTz8YpyoZQ75NYLAQuxQban16hB/w=;
-	b=Rlneb8VYfhtyBU64n1XumUuFU5fs1kBwZCAU8j0FUlDMOBWCTehBTqjr+9r+2XmlVI2L
-	 DxDXkhQ3UG+Hs18s6lcNZcTJLcP8Q7G0HK/y/YfkVPtxlGbPmA+JyVQqk+v6EeYiW2y0E
-	 n/GBqmcoF7Gp2KkvNlpwTUR2pO/o6TVKK7nljUjA8JWlrkGssu4CAZua6VDJR6lQpmOwI
-	 o6nT0/NiCL9ElOgpi0IdiNf07fZGhwIQP45qqOEANo2DcjRI0I6b9TDVHJzL+oiDL3uN+
-	 aYcdodJDQVs0dX/WzpQKQ+u1cEuIEJc6w0HYJtuyMKr14XIXsyEGGuPUNhu16mAiqWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617690;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=C8wAVDCriQKpBgX/jVo0IgbeLC43EIblU+w+9MjzIuA=;
+	b=wmFgNBPcw0wOiz0GJAYQXPKHf9lwsdnGCOqHvB94DlSmw6DYpiCSzbFL2f5gIb5mLaTH
+	 XhcT2UJEvMY2LR4MNQks7L6TeIdbIE4ybTPUAtJ6IuTXYy+wBvc0q/9Hw6RIeAO2s2q7H
+	 dQz6hPPcwpAy2GZsLN6oNGm90pE6vqzSUchwWvd2FUFZALoHS31J8DV6u9weW3R9ahUjT
+	 6qvujs5Cz2z3ypzfETwbAzfH5anhfiln8EvIhtzu3qs4dWzgdMIsCj483AkfeFc/ME1LX
+	 0tqqtX96KBw66cuaZh5NQQd2beN4gO/H+qZHV/ZjyN5XxlTi4WlCQaVbFjo290XDJNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sxGrUthw;
+	arc=none smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E214606A335;
-	Wed, 25 Nov 2026 14:34:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E214606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <a61b9a24e0eaf8240933ad2433e6f1c00855b683.camel@crapouillou.net>
-Subject: Re: [PATCH v5 6/7] pinctrl: ingenic: Handle X2600 Port E Schmitt
- trigger
-From: Paul Cercueil <paul@crapouillou.net>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, Linus Walleij	
- <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
- Golaszewski	 <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
-	letux-kernel@openphoenux.org
-Date: Wed, 25 Nov 2026 15:34:36 +0100
-In-Reply-To: <ec49e1a7da313c8dfe012c17a04d03dc4167ee2a.1795589383.git.hns@goldelico.com>
-References: <cover.1795589383.git.hns@goldelico.com>
-	 <ec49e1a7da313c8dfe012c17a04d03dc4167ee2a.1795589383.git.hns@goldelico.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C7F606A323
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 14:41:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C7F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sxGrUthw
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6bab10844b5so5968050a12.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 06:41:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795617688; x=1796222488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C8wAVDCriQKpBgX/jVo0IgbeLC43EIblU+w+9MjzIuA=;
+        b=sxGrUthw3PgdlHgVxJKxLveTYF94vC4Q25lC6ULnWml2NQRE8JwZDTITECUm+mEMS0
+         pyGtkOrQoTMhTaLfpdFxD4qTs9dtr0xHLcMqSbTn0F2y1RGPLYZDLFE7/+Lu67S/6yY8
+         6N/XlK75C1Lf6nhuNHGebRezg/uPcUkaDpIIeMVM/xq5yvf6u2x9Jr7MG9akG4MS5hSL
+         j/sj3letj6qLOzJfnBJntFE7bQr8GMj1PBRRZLSf+Z66B7mQiQOQFeZjkdP2Qk9DrBnV
+         MCUTxoiW++fUYyhq+vo9u/g9J75Y3ZL8CaymGZiIR8TvnkPbt6rPVJcRVU17tA+XkNxp
+         t7Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795617688; x=1796222488;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C8wAVDCriQKpBgX/jVo0IgbeLC43EIblU+w+9MjzIuA=;
+        b=OLCAeU0lufKV65dQ1D+BIE6oH2IlRG+HvzTZDdG8ykoXVLROQaZARDdSOAL5IQ2yDO
+         MyLkpTmlNqyXgcPLHBAXxWmBJKMer+KA9fYXDGJ2Qs5BZqayOW/5ej1qfnIhY7s4QdoA
+         imUKaALnLS7Iq2bYh5AIW3y82m/A9Mozp8kk6n/qf6HSbFhL6QAKHVcvLns6pVjzgaEz
+         5hYO+oLLZY3adtg3vttaMvqJYSHyVLxi82mD1Rm1NZSFm1eJ/Bh75RSgUcE9Yj7cnAN0
+         r1EpD164tBCuUBHMeUL9yqnFTFvMqGII1hG+ZjjN6DQtbCwrmwKR7udjHOzFiVFN044v
+         DfUg==
+X-Forwarded-Encrypted: i=1; AL+hErHekMit8RwwCK1zTnUKYxwjvjrmPcO13EhHyN+dMfr8fA/1E/KfJKlINf0u44uGGUZVoYAN0hGRMgzb@vger.kernel.org
+X-Gm-Message-State: APuU4Z+RXonu4kRK+c8eglGv01la2HDuQ/H0gtl/w4Vu5m+E5xZI3KUX
+	74eZPpfoJCWg8sjBUX+nqbrcSR10pjblXLVt6234/psvRlzDtO42rvpd6h+7cN13kJg=
+X-Gm-Gg: AZFdTZcPwq9dn2Ws8CTCyg3WKHfq/ZL1u9z2/LrZ7FiYh8BifmcF41dhp24E8rjXV34
+	Gi9zGnPRYGFtbpepYCcDEI0rWKzqip+MWpSU6Abqe0DQ3fR0FOhMVmkhQQevopmpWZA07xKpmsK
+	BzzXfqdFep9ozOSGpWOS5aRWVXj1kNSnT10rf/m0CIzIamk7RdNngcqAAVy11XLGxPTieX7lDsi
+	2A8bLwti86c4o0NVW8nm3Lw8fZ6eTJKMmrruuOo+nUCpL4eveKUx5Oz8IQEPOk/AogDyeJh2O9u
+	uyuSsOfhsF4IeBWb4LQpmAN6qYs8tA9aOfuWms/9KiDcEv31uCgNF819h5vWh8k+78OcZyj5YHw
+	SuXXOX5TQd8qkdTx87Gx8pmPQRugQ/isN5t059Gj1KiIFDO1ysGNDFh9bc9oui1vL4OkWq9Tx5H
+	tnidB3uvFfaqyB1FP4Fo7Q1w4EAd8PIuqn2UUoDpk3UYhKr51e8iBKhyZ2n+3gQoD5c/xOaIbp5
+	JGhyowmwkg+yMoVogyoBVhCXGJL37+Igd2aYmr1Ax8MBYE3nPm3rsrQKVndLb08D0gzKfyVHz7l
+	1PdmmSBm7qD5npC8576OC0pojdIUXSEa2CGtbUD6NXXHxcU=
+X-Received: by 2002:aa7:c0d8:0:b0:6b5:6b89:e3b0 with SMTP id 4fb4d7f45d1cf-6ba1fc3dcfamr11494812a12.19.1795617688216;
+        Wed, 25 Nov 2026 06:41:28 -0800 (PST)
+Received: from localhost.localdomain ([195.155.168.135])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6bb1ca4ff7bsm1437512a12.8.2026.11.25.06.41.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 06:41:27 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sebastian Reichel <sre@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kaustabh Chakraborty <kauschluss@disroot.org>,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: power: supply: add samsung,s2mu106-fuelgauge
+Date: Wed, 25 Nov 2026 17:41:25 +0300
+Message-ID: <20261125144125.3951425-2-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261123-hot-stallion-of-fascination-eaa83c@quoll>
+References: <20261117104328.1176951-1-tadilhusrev@gmail.com> <20261117104328.1176951-2-tadilhusrev@gmail.com> <20261123-hot-stallion-of-fascination-eaa83c@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,73 +104,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le mercredi 25 novembre 2026 =C3=A0 07:49 +0100, H. Nikolaus Schaller a =C3=
-=A9crit=C2=A0:
-> Port E has two Schmitt trigger configuration bits per pin.
-> Select the lower-hysteresis mode when enabling and read both bits
-> to report firmware-initialized settings.
->=20
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+On Mon, Nov 23, 2026 at 01:29:03PM +0100, Krzysztof Kozlowski wrote:
+> Exactly the same as s2mu005. I do not understand why do you need a new
+> binding file and no one suggested that.
 
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+There is no good reason for it. I'll drop this binding and add
+samsung,s2mu106-fuel-gauge to the enum in samsung,s2mu005-fuel-gauge.yaml
+instead, without a fallback.
 
-With one question below.
+I'll also cut the commit message down to what differs between the two
+chips.
 
-> ---
->=20
-> Notes:
-> =C2=A0=C2=A0=C2=A0 Changes V5:
-> =C2=A0=C2=A0=C2=A0 - Keep the ingenic_get_pin_config() call and the Port =
-E
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 condition on single lines, as suggested by=
- Paul Cercueil.
->=20
-> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 7 +++++++
-> =C2=A01 file changed, 7 insertions(+)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-
-> ingenic.c
-> index 88531d472cd2e..d253674accacd 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -69,6 +69,7 @@
-> =C2=A0#define X2000_GPIO_PEPD				0x90
-> =C2=A0#define X2000_GPIO_SR				0xd0
-> =C2=A0#define X2000_GPIO_SMT				0xe0
-> +#define X2600_GPIO_SMT1				0x100
-> =C2=A0
-> =C2=A0#define X2600_GPIO_SHADOW_OFFSET		0x800
-> =C2=A0#define X2600_GPIO_PAGLD			(X2600_GPIO_SHADOW_OFFSET +
-> 0xf0)
-> @@ -4693,6 +4694,8 @@ static int ingenic_pinconf_get(struct pinctrl_dev
-> *pctldev,
-> =C2=A0			return -EINVAL;
-> =C2=A0
-> =C2=A0		arg =3D !!ingenic_get_pin_config(jzpc, pin, reg);
-> +		if (is_soc(jzpc, ID_X2600) && offt =3D=3D 4)
-> +			arg |=3D !!ingenic_get_pin_config(jzpc, pin,
-> X2600_GPIO_SMT1);
-> =C2=A0		break;
-> =C2=A0
-> =C2=A0	case PIN_CONFIG_SLEW_RATE:
-> @@ -4767,6 +4770,10 @@ static void ingenic_set_bias(struct ingenic_pinctr=
-l
-> *jzpc,
-> =C2=A0static void ingenic_set_schmitt_trigger(struct ingenic_pinctrl *jzp=
-c,
-> =C2=A0		unsigned int pin, bool enable)
-> =C2=A0{
-> +	/* Port E uses two bits; select the lower-hysteresis Schmitt mode. */
-> +	if (is_soc(jzpc, ID_X2600) && pin / PINS_PER_GPIO_CHIP =3D=3D 4)
-> +		ingenic_config_pin(jzpc, pin, X2600_GPIO_SMT1, false);
-
-So on port E it will configure both X2600_GPIO_SMT1 and X2000_GPIO_SMT?
-
-Cheers,
--Paul
-
-> +
-> =C2=A0	if (is_soc_or_above(jzpc, ID_X2000))
-> =C2=A0		ingenic_config_pin(jzpc, pin, X2000_GPIO_SMT, enable);
-> =C2=A0	else
+Adil
