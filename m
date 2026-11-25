@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795631242;
-	b=x0W5S/lhl4o7Ui3CMfGEqQm3ZjzP6/szhNP6iRn7hcb2If8RW2vzxGh2JeR/ADPwvP/p
-	 VUvOjLrrwR1bKjyY8Q5j/FxCl0eM04ckFfsBuIhMQoTHd2FIOxCwffPBQgBUs477mVMvu
-	 FYXzZ1sVFgfRjNgYUTBe4dp5ZJv1oJx4/PAm/OQPok2QWsPHBoi6A11JAVRuhATk3DdJL
-	 8lToTkavZWWYvRoitZ79IrH8jexAkGVuDiSbWdljVWgtrryexlWQnzgulnRpDCjQO2rqU
-	 i8E5ZtBNOPqpY2rv3TwcpC8WMpnPjAglBh+MdA311TmH6N37iuD0C1aRAg0dU0VPLUw==
+	t=1795631260;
+	b=2FLlc7GuESH9ZhkJg1xt9lFOyPAGAj+ZTERqWaDIydanguugjAHEIg0Sic6RP6oyn5SL
+	 6n1B18Cb84LI8FlImg4csLliMZsAx3DNfiktZCkXabqUJgyhrbr8YyQqDd5IYKW4T1mKo
+	 c/U4uKwFmAsnKXXBuxsVwxy9IHM6oaUsakdOD6uytbs3xsxrVnpCIY/0UmX/na3/dc2jK
+	 4SdrBdu5xz+XPwtsIiOBtZdAm73gM6LatTIpiXNgxQEr98Ec1tBj0FQ+7Lm04J7bBhquA
+	 lXSCnodib8evKwDOtMSPnSNAhrNf+eMpJUgIlfMy9PAlallm5mrJFFT071Y7Lw7wCwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795631242;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Q/Ht4mTVsZ8VXLHmxE/9TQE6M9RVX4AerJ+ZRy/407k=;
-	b=Sj9mbSooWSS949BKwdAETCsyb+mfy3A8EUPGKq8CNA/OlJlYTbeq0oDoQGaT4hCPTSum
-	 Jg3Wd0qVSLM9hCXFOKcSzKnKWgp277SirK4AWd9jN4iAO6oIDVBaS5GSjsr2kwN4OvJgg
-	 ZMW+Cu1AXDmWd/efkk2UmiUjdxi4FwwpLz2WIrZZVxutKQZ0dVOIooAhrSBm+6LYC7+Qx
-	 S1EJZUgSYxpHW5+RMBYZOyNeDN694ojC4LmcIjxyAEBlF+80A9U7xv+jfNWfGynrjIn1p
-	 D/v+FFBNi9EmBzdKMixRFb17YdYgS2xQzsWSfQDeC/ukkto54shOCw7wEQ78fUJoaoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795631260;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=wDMirRJrf1Hevbb2RQb7Ux8WrGtymI5eyuYh769zW+c=;
+	b=UFQu9EEr8VZ4W56+WKdrvUujH5D4dLbwe/H4VHy4lyaT+2RVk56pjUtELAF9wsTbxhwd
+	 bhhf2hXcA4uCqM4y87TO7Be833acGKlBzbRzQCm+Lkpj5kodXpAiATUG+L0487kR0jjb7
+	 cKt3xlw2xhtf4ItHb6WLQA0eG1uTbYog96yfjU9R27uyg1dTLYzLacDLzOu6tLh5zlfrH
+	 42PwkJoIofCLr7IwC7GWHKCJw69c5KtrDHyCF9TqTv3k5Q6vZ8Ace6U4/Z7szHrEP0i4I
+	 ApyQa7fX+jOmfb5VEQVDaO49Kj6lh4yxOhxR14DNcltUnByKGuhQDKRRKJEnGcZfx1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=YyQbI+96;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YcLS4gK6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7909A606A32E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:27:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7909A606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80B5606A321
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 18:27:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=YyQbI+96
-Received: from [IPV6:2a02:830a:f787:8f00:f33c:cbcd:417b:d2b9] (unknown [IPv6:2a02:830a:f787:8f00:f33c:cbcd:417b:d2b9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 3185553401F6;
-	Wed, 25 Nov 2026 19:27:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1795631239;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Q/Ht4mTVsZ8VXLHmxE/9TQE6M9RVX4AerJ+ZRy/407k=;
-	b=YyQbI+96AQykSTN2+2red/GURWvIOEle1Nwbrx80ac2UEOe6m4DXx70HBcxxZcsdHsnvJ6
-	xQa+Q492OWqpzUMAu2wf9dZUhGNXkDW75kyziM7eEjwFMModDY0JanP6/nN/86/qC00Kq8
-	uondbQah5GuEKvk+YXhQAAt8ZBWkU30=
-Message-ID: <91d61e88-f9f7-464a-9151-4b2f2216411c@ixit.cz>
-Date: Wed, 25 Nov 2026 19:27:18 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YcLS4gK6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64DD1F000C0;
+	Wed, 25 Nov 2026 18:27:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795631260;
+	bh=wDMirRJrf1Hevbb2RQb7Ux8WrGtymI5eyuYh769zW+c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YcLS4gK6gUvui0t7Lm4APRAWDz6ourODTKFb2qUnrlms7kkARWsDDEOFoLLger7fU
+	 c8EDp3xKb/IEyPnjNYpvlGxnDIcxf2M5h/tQPDQBxhQdDF/xJhdSpJxfxdGcCfMeTO
+	 2nZvPTGa8J2aaojfrPRZjsPikyb2NiLOFuW0ebm5qmNjFh/C+J+xpqq4Ux0m/Xx52W
+	 aaPxBKBGMll5Hzv3NdJAIBTu+OHnxj/wPylCkhtIjQZKWAHS/SvRViliKEQjui0p1l
+	 My50XEw7cVas6JFAc+PS0zJNyxBuy7dt6PwwFwdUwTwKO8xZfV10LkDA+QKYqOjyRF
+	 VGxwZmJjsDXFA==
+Message-ID: <sashiko-outbox-233989@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] mtd: rawnand: Add Cortina CS7542 controller
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org
+In-Reply-To: <20261125-b4-cs7542-nand-v3-2-0b6d141c102e@gmail.com>
+References: <20261125-b4-cs7542-nand-v3-0-0b6d141c102e@gmail.com>
+ <20261125-b4-cs7542-nand-v3-2-0b6d141c102e@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 18:27:39 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,126 +63,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 8/9] arm64: dts: qcom: sdm845-samsung-starqltechn:
- Update panel compatible
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
- <20261125-crosshatch-panel-v4-8-120adc58e737@ixit.cz>
- <sashiko-outbox-233966@kernel.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <sashiko-outbox-233966@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 25/11/2026 19:20, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [High] arm64: dts: qcom: incompatible panel@0 compatible and
->    reset-gpios change
-> --
-> 
-> commit fd433e980a7d2d9c4e491b9e6c72d47eb49cfd5c
-> Author: David Heidelberg <david@ixit.cz>
-> 
-> arm64: dts: qcom: sdm845-samsung-starqltechn: Update panel compatible
-> 
-> This commit replaces the panel@0 compatible string with
-> "samsung,s6e3ha8-amb577px01" and changes its reset-gpios polarity to
-> GPIO_ACTIVE_LOW on Samsung Galaxy S9 (starqltechn).
-> 
->> diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
->> index bd59f1dcd96dc..c156ed3733b4e 100644
->> --- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
->> +++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
->> @@ -267,13 +267,13 @@ &mdss_dsi0 {
->>   	status = "okay";
->>   
->>   	panel@0 {
->> -		compatible = "samsung,s6e3ha8";
->> +		compatible = "samsung,s6e3ha8-amb577px01";
->>   		reg = <0>;
->>   		vci-supply = <&s2dos05_ldo4>;
->>   		vddr-supply = <&s2dos05_buck>;
->>   		vdd3-supply = <&s2dos05_ldo1>;
->>   		te-gpios = <&tlmm 10 GPIO_ACTIVE_HIGH>;
->> -		reset-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
->> +		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
->>   		pinctrl-0 = <&dsi_default &dsi_te>;
->>   		pinctrl-1 = <&dsi_suspend &dsi_te>;
->>   		pinctrl-names = "default", "suspend";
-> 
-> [Severity: High]
-> As reported by Krzysztof Kozlowski on v2 [1], does replacing the
-> "samsung,s6e3ha8" compatible string without a fallback and inverting
-> reset-gpios to GPIO_ACTIVE_LOW break DTB compatibility for existing
-> kernels and DTB consumers?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] mtd: rawnand: cs752x: missing NF_ACCESS_EXTADDR in
+  cs752x_nand_pio()
+--
 
-The only consumer here is Samsung S9 (Korea version), all known distributions 
-building kernels together with DTB, thus in this scenario it doesn't matter.
+commit 1051502b252c0a23ea44bbf5fb9e41fc5ab64277
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-When old DT will be booted, the new kernel is able to handle it too with old 
-compatible and workaround for reversing polarity inside the driver.
+mtd: rawnand: Add Cortina CS7542 controller support
 
-For booting old kernel with new DTBs, display will not bind (since the new 
-compatible), but that's not going to happen with current usage pattern.
+This commit adds a raw NAND controller driver for the Cortina Systems
+CS7542 SoC using programmed I/O and the on-host Hamming ECC engine.
 
-> 
-> Any kernel or consumer that only matches "samsung,s6e3ha8" and expects
-> GPIO_ACTIVE_HIGH (established in 70005c18c9f7 ("arm64: dts: qcom:
-> sdm845-starqltechn: add graphics support")) will fail to bind or reset the
-> panel when booted with this DTB.  Earlier patches in this series already
-> handle the legacy "samsung,s6e3ha8" compatible and inverted reset polarity
-> in drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c via
-> broken_reset_polarity.
-> 
-> [1] https://lore.kernel.org/r/20260929-spirited-umber-hedgehog-300ebd@quoll
-> 
+> diff --git a/drivers/mtd/nand/raw/cs752x_nand.c b/drivers/mtd/nand/raw/cs=
+752x_nand.c
+> new file mode 100644
+> index 0000000000000..81b5511484d97
+> --- /dev/null
+> +++ b/drivers/mtd/nand/raw/cs752x_nand.c
+> @@ -0,0 +1,814 @@
 
+[ ... ]
+
+> +static void cs752x_setup_page_regs(struct cs752x_nand_host *h, int page,
+> +				   bool write, bool oob_required)
+> +{
+> +	struct nand_chip *chip =3D &h->chip;
+> +	struct mtd_info *mtd =3D nand_to_mtd(chip);
+> +	u32 cmd, addr1, addr2, cnt;
+> +
+> +	cnt =3D NF_CNT_DATA(mtd->writesize - 1);
+> +	cnt |=3D NF_CNT_OOB(oob_required ? mtd->oobsize - 1 : NCNT_EMPTY_OOB);
+> +
+> +	cnt |=3D NF_CNT_CMD(NCNT_CMD_2);
+> +	cmd =3D write ? mk_nf_command(NAND_CMD_SEQIN, NAND_CMD_PAGEPROG, 0) :
+> +		      mk_nf_command(NAND_CMD_READ0, NAND_CMD_READSTART, 0);
+> +	cnt |=3D NF_CNT_ADDR(mk_nf_addr(chip, page, &addr1, &addr2, 0));
+> +
+> +	fl_writel(h, FLASH_NF_COUNT, cnt);
+> +	fl_writel(h, FLASH_NF_COMMAND, cmd);
+> +	fl_writel(h, FLASH_NF_ADDRESS_1, addr1);
+> +	fl_writel(h, FLASH_NF_ADDRESS_2, addr2);
+> +	fl_writel(h, FLASH_NF_ACCESS,
+> +		  NF_ACCESS_WIDTH32 |
+> +		  NF_ACCESS_EXTADDR(((u64)page << chip->page_shift) >> 27));
+> +}
+
+[ ... ]
+
+> +static int cs752x_nand_pio(struct cs752x_nand_host *h,
+> +			   const struct cs752x_nand_op *p, u8 *buf,
+> +			  unsigned int len, bool write)
+> +{
+> +	u32 value;
+> +	unsigned int i, step =3D write && len ? sizeof(u32) : 1;
+> +	int ret;
+> +
+> +	ret =3D check_flash_ctrl_status(h);
+> +	if (ret)
+> +		return ret;
+> +	reset_ecc_bch_registers(h);
+> +	fl_writel(h, FLASH_NF_COUNT,
+> +		  NF_CNT_OOB(NCNT_EMPTY_OOB) |
+> +		  NF_CNT_DATA(len ? len - 1 : NCNT_EMPTY_DATA) |
+> +		  NF_CNT_ADDR(p->naddrs ? p->naddrs - 1 : NCNT_EMPTY_ADDR) |
+> +		  NF_CNT_CMD(p->ncmds - 1));
+> +	fl_writel(h, FLASH_NF_COMMAND, p->command);
+> +	fl_writel(h, FLASH_NF_ADDRESS_1, lower_32_bits(p->address));
+> +	fl_writel(h, FLASH_NF_ADDRESS_2, upper_32_bits(p->address));
+> +	fl_writel(h, FLASH_NF_ACCESS, write && len ? NF_ACCESS_WIDTH32 : NF_ACC=
+ESS_WIDTH8);
+
+[Severity: Medium]
+Should cs752x_nand_pio() also set NF_ACCESS_EXTADDR() in FLASH_NF_ACCESS
+for row-addressed operations, or is NF_ACCESS_EXTADDR() unused for
+register-PIO transfers?
+
+cs752x_setup_page_regs() sets NF_ACCESS_EXTADDR(((u64)page <<
+chip->page_shift) >> 27) to select the 128 MiB bank for full-page PIO
+reads and writes, whereas cs752x_nand_pio() always leaves
+NF_ACCESS_EXTADDR() at 0.  If the controller uses NF_ACCESS_EXTADDR()
+during register-PIO transactions, exec_op commands such as block erases or
+OOB accesses at flash offsets >=3D 128 MiB will target bank 0 instead.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-b4-cs7542-=
+nand-v3-0-0b6d141c102e@gmail.com?part=3D2
