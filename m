@@ -1,47 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795610618;
-	b=a/1x7ODSPdGyaJM7SmZqYcf38NZWRwkAUuiNSSm9vX5to6DBr7KxdnrIPJwOW2L4j+RA
-	 M65VM7Bfg+fVh4HY9z0ijUUkca2+kwzSU5zkEI4ITZqa5ocfmhQUS4zbXQMGrWgW42cLu
-	 K+uzfY3bmXuC8RGquSlqFbNOxqbGdqu2pQV1fyWxu/LSf9mVER7aQb1S8S2p09KGhMUDM
-	 C6mMcPftXfwkpgYrz3xZ+1egWwQ6MG1Aa97hxgl2IDy3SnzNy17yi8Ec7/upaCRcO2fQE
-	 bc1uadb0l18AWMmsUPPNnaLXyPBFQLhMEwRl2QdYYY6ZTHjNU2IZ/2sAsaE+LerkRcA==
+	t=1795610663;
+	b=uiwrZobshU9nOvkVKpCYmSKl1mVzgiSzsCBfVWQRUSQrySUAqWl3dSDQ2ikC7Y+GMinZ
+	 MhePGdvPrhub6XaHxsyEcLfYKnEibp4GkTUPW3oiFK6KxJ62nk0mb6N++uTLUxyMFW+PW
+	 BUmwMAtAr+F766v07R4j8Qrf60UzMvpp+aLKusBgsdgAQAQ0GsWEyLd84EUiaQLmMN2MH
+	 snV9uz8wIov1IFsab3xdo8ymPhCbythyuUeb8QO6ad5cH6HxtyaViVlDE2ha8Tz88yPWS
+	 KIADP7HWzUWkMHwhOmOtIMvAA+SZbrSXtpu9AFyPqvKGueW90bwVhFL+wBslxQ0x2NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795610618;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xgMce4ZLn7WugbByXBoQX9uK8N/L98LxV5lBSsjjcpc=;
-	b=h3+jad8E8WtDvsYcMTbaoRrx/uIhtPYObGYgJjGzeTYdDNbn3Iz2EvEbGijyXbxUeGTj
-	 WTdQM6Q1WMYYW/DSgKv4apn1JpV/yNYPR1n/U+zsOlVbGc6qbC3iKabQMi4KFROklX4pl
-	 RYiqfFwq7g9IEU/bJYQ6/r7TtAPYWLrHTo9Vqt6MgWZedcsv8OWJOa2yjYVQ56WKO11YC
-	 EsQRk7bB0/xzXrPL1S5cWEPJZWcsuiuRVWtpvEPxCxpLwjyLkwxdHERzYWeOeBfoYedsL
-	 FDI1Xt8tpI8yVnxccUxV/tcPotrVx+MDOgPJc3ICByMeIrsi4ZIHYCdRtMUWlcjE4rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795610663;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=83eNWKSER7AsPEjIiws9167fJCTB6KmzsxTKIsGFr1k=;
+	b=zFP8SPHFmNxhbKbs3mVJYKY65zHDh6go/qnjP0uBB8twyrsrllhOHoeuJo1ydzB/TlCU
+	 4KCOPMvbcSA5EiwjmV4wN9c4A2Bp9jmwRs/R2szMbqWsz1ioz909C8D8mBHj4umT4d1D7
+	 4qChjXWjZh7o8In3R9f+WkE5sqWItY2DG+oX7pBGMX2sFbV0jnugvtbrc6+2/7z4W+VQw
+	 kw6gk/lME95HhoBRlgZqyzgJyGu/uZ8W6ojcToU9vMg2ZeoReZ85TP+dVzC+R3+BOk5qK
+	 pOU8fbqeDOwrcsc/cjLYogw9OtfBmgfTd26U1oNigokELJ71k4cTcGb/dEzr4fUJBPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BT+hTcP9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=CZ0nLNW1;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8406F606A321;
-	Wed, 25 Nov 2026 12:43:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF31E606A331;
+	Wed, 25 Nov 2026 12:44:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF31E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BT+hTcP9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756F51F000C0;
-	Wed, 25 Nov 2026 12:43:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795610618;
-	bh=xgMce4ZLn7WugbByXBoQX9uK8N/L98LxV5lBSsjjcpc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BT+hTcP9vymG7plIWwg5zVbrsIoEEyfkv9Ln58G0WyvQ/w/RuOhRlcZzcuW8O6Ago
-	 H8lPkqpVEf8LdwufW/HUAIhKhlDORtJT8fkSBKjqheJhIGD+nFnuq0jNbDfPJ9/iBK
-	 H5U1lgNUrC2MX96rKjFSKaRAXt7mWYQ7T4NynJc+Ujyicbhs/E8oRbnZlexic4zXdE
-	 39vG/i9OnvNEoduuA9ys3A5+YZQPJxyW4rxdG5/lWimm6gP/m2uomF0Nt4VeBf5S41
-	 yBrei4qtAkoSmp1G67sjI/avTxQNe9Pk6g62G6UO8k9itVUd+e/6nZj2r9ag0Bq8/p
-	 YPpTlVbhtKKGw==
-Message-ID: <c356089d-775d-4998-813f-644b15eddfc3@kernel.org>
-Date: Wed, 25 Nov 2026 13:43:34 +0100
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=CZ0nLNW1
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 5B5DE4C943;
+	Wed, 25 Nov 2026 23:44:15 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1795610655;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=83eNWKSER7AsPEjIiws9167fJCTB6KmzsxTKIsGFr1k=;
+	b=CZ0nLNW1m9mAL/zeMGCZHZGRRLumKHq2gQma1R2EwY2G9x73x81SnidUU60LVdxFvDUj2o
+	pKm+9C7NU+V0e7e4gwGEGTklX7EQX6ubRzMzxqK2KyacLmojDgByb951Ku68qQ6bIodq+w
+	LiJ/0HvppNfT0YkOu9cYv8v7NtiBOqw1Vho1f1hcdTOhIb9Ew9PBZOYDB2kz4liaQrrKFb
+	pT0izfjRMnR7OJrvc8u/uy56nnHqcA7uzrxsQg9rMRRt7WEoLBwkEGPQqrbalX0y7SdKlK
+	gfU8AOmPlPyN9j9mKsU7UFc6Cm1wGZsWIPBXdhl2dJq8d8uzW63lKGmQFtDcvg==
+X-GPT-Reason: legitimate; the email is a technical patch submission
+	that perfectly matches the personal mailbox of alastair@d-silva.org;
+	the sender domain (d-silva.org) matches the recipient domain exactly;
+	the content is a standard Linux kernel-style patch (dt-bindings)
+	with no urgency, marketing, or phishing indicators; and the lack
+	of external URLs is consistent with a developer's code submission.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH 1/3] dt-bindings: arm: sunxi: Add Xunlong OrangePi 4 Pro
+Date: Wed, 25 Nov 2026 23:44:05 +1100
+Message-ID: <20261125124407.4098345-2-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125124407.4098345-1-alastair@d-silva.org>
+References: <20261125124407.4098345-1-alastair@d-silva.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,131 +86,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 9/9] media: uapi: it6625: remove the driver-specific
- audio controls
-To: Hermes.wu@ite.com.tw, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Hans Verkuil
- <hverkuil+cisco@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
- linux-api@vger.kernel.org
-References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
- <20261124-upstream-it6625-alsa-i2s-v2-9-a154685f6989@ite.com.tw>
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261124-upstream-it6625-alsa-i2s-v2-9-a154685f6989@ite.com.tw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24/11/2026 04:04, Hermes Wu via B4 Relay wrote:
-> From: Hermes Wu <Hermes.wu@ite.com.tw>
-> 
-> V4L2_CID_IT6625_AUDIO_SAMPLING_RATE and V4L2_CID_IT6625_AUDIO_PRESENT
-> have been replaced by the standard V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE
-> and V4L2_CID_DV_RX_AUDIO_PRESENT controls, and the driver no longer uses
-> them. They were added together with the driver and are not part of any
-> released kernel yet.
+Document the Xunlong OrangePi 4 Pro board compatible.
 
-Well, that's not really true. By the time this patch would go in, the driver
-will be part of a released kernel.
+Assisted-by: LLM
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+ Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-That said, this is one case where I am in favor of dropping the old controls
-even though it strictly speaking breaks the uAPI.
-
-I'm not aware of any hardware boards that use this chip, so the impact is very
-small if not zero.
-
-It's actually an interesting question: are there boards/SBCs commercially available
-that use this chip? It's an interesting one, it might be nice if there would be
-a board for e.g. the Raspberry Pi.
-
-Regards,
-
-	Hans
-
-> 
-> Remove the uAPI header and the V4L2_CID_USER_IT6625_BASE reservation.
-> ---
->  MAINTAINERS                        |  1 -
->  drivers/media/i2c/it6625.c         |  1 -
->  include/uapi/linux/it6625.h        | 25 -------------------------
->  include/uapi/linux/v4l2-controls.h |  6 ------
->  4 files changed, 33 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f4456f4589a1b86b140ab578d149884d46a3320a..a7a315f0e80585be26fe2b52a62c19e469cb5703 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -14271,7 +14271,6 @@ S:	Maintained
->  T:	git git://linuxtv.org/media.git
->  F:	Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
->  F:	drivers/media/i2c/it6625.c
-> -F:	include/uapi/linux/it6625.h
->  
->  IVTV VIDEO4LINUX DRIVER
->  M:	Andy Walls <awalls@md.metrocast.net>
-> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> index e4487e8111b94b2fa9f599e37ecd2b8a11425862..64c1cec26edfcb0e0105e00e1b7ba5960252aae7 100644
-> --- a/drivers/media/i2c/it6625.c
-> +++ b/drivers/media/i2c/it6625.c
-> @@ -33,7 +33,6 @@
->  #include <sound/pcm.h>
->  #include <sound/pcm_params.h>
->  #include <sound/soc.h>
-> -#include <uapi/linux/it6625.h>
->  
->  static int debug;
->  module_param(debug, int, 0644);
-> diff --git a/include/uapi/linux/it6625.h b/include/uapi/linux/it6625.h
-> deleted file mode 100644
-> index a895658aaf6a80d3fb624cdece33c5135161c72d..0000000000000000000000000000000000000000
-> --- a/include/uapi/linux/it6625.h
-> +++ /dev/null
-> @@ -1,25 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0+ WITH Linux-syscall-note */
-> -/*
-> - * Controls header for IT6625/IT6626 driver
-> - */
-> -
-> -#ifndef _UAPI_LINUX_IT6625_H
-> -#define _UAPI_LINUX_IT6625_H
-> -
-> -#include <linux/v4l2-controls.h>
-> -
-> -/*
-> - * Currently detected HDMI audio sampling rate, in Hz. Read-only.
-> - * 0 means the rate is unavailable/unknown: no audio is currently
-> - * present on the input, the hardware reported a sample-rate id this
-> - * driver doesn't recognize, or the status read itself failed. Never a
-> - * literal 0 Hz sample rate.
-> - */
-> -#define V4L2_CID_IT6625_AUDIO_SAMPLING_RATE	(V4L2_CID_USER_IT6625_BASE + 0)
-> -
-> -/*
-> - * Whether HDMI audio is currently present on the input. Read-only.
-> - */
-> -#define V4L2_CID_IT6625_AUDIO_PRESENT		(V4L2_CID_USER_IT6625_BASE + 1)
-> -
-> -#endif /* _UAPI_LINUX_IT6625_H */
-> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-> index 942a1df3057e3e49c9111f6a27ec1883d964bf64..a2d4ea909e01f9b705d30b680ef382f5fcd39714 100644
-> --- a/include/uapi/linux/v4l2-controls.h
-> +++ b/include/uapi/linux/v4l2-controls.h
-> @@ -249,12 +249,6 @@ enum v4l2_colorfx {
->   */
->  #define V4L2_CID_USER_DCMIPP_BASE		(V4L2_CID_USER_BASE + 0x1240)
->  
-> -/*
-> - * The base for IT6625/IT6626 driver controls.
-> - * We reserve 16 controls for this driver.
-> - */
-> -#define V4L2_CID_USER_IT6625_BASE		(V4L2_CID_USER_BASE + 0x1250)
-> -
->  /* MPEG-class control IDs */
->  /* The MPEG controls are applicable to all codec controls
->   * and the 'MPEG' part of the define is historical */
-> 
+diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
+index 091cb0765ac9..a41d4c752878 100644
+--- a/Documentation/devicetree/bindings/arm/sunxi.yaml
++++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+@@ -1023,6 +1023,11 @@ properties:
+           - const: xunlong,orangepi-4a
+           - const: allwinner,sun55i-t527
+ 
++      - description: Xunlong OrangePi 4 Pro
++        items:
++          - const: xunlong,orangepi-4-pro
++          - const: allwinner,sun60i-a733
++
+       - description: Xunlong OrangePi Lite
+         items:
+           - const: xunlong,orangepi-lite
+-- 
+2.53.0
 
