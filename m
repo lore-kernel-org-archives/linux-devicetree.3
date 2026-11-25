@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795620157;
-	b=0VvrfTti0LLEUTMfc6T4FToUEg5vvO6VG35yY17wD+mFguWBDFXGROVMAOuIe8l7wmt4
-	 +o+vk4wIvyNx53QfKM3bHSZkCfMQzmt7oyIygYbegucejgsKwpcw8YtROejhyvt3WkItL
-	 AJoTrYgibkD6iReTFPSn3iv0BxoRl1Kl2Txpup/MBSk+GNM54OPmp0RpDVYb4YK0lUFA5
-	 QkDGtHV2pMGE7tJ8TQoPZrATakMlFa6t2F2mujugBCP/M1DqHizYoPa5eG/mwz+NEqrwK
-	 ye+16iJxrxhVpyZvJ0MIlGIZvJuDdGc/znFvAFBn27lIBHyFwq8hcMAlrlxFx+ZRRKg==
+	t=1795620227;
+	b=kS2DuoDIU/uGe7rJFIJVyMYiq27r9MfaxHUr/i4ZJ7PlyPhzMqHirtxw09i+0euitMTX
+	 qv6jWZJsZGbVEk0ZPJ0GQK1bjP6Nsplh7c5yDpB7TcwIOEe8IFltjBnIogI7/bm+siAZW
+	 5q0ntk5WQSrXdF/SaHL4uJfANh/Eajmy0Urqzg7DDu1YXjQt7bKpQVqBW6bcmat0Rh3K4
+	 X3HvgQaScOgVw9EUP6eQtqggqCitur0VZXtLubvK2rPf5/tsCJRhX+RlHFU0au/uG6nSp
+	 fXxo07vg/5w4fhK84LqBs4/8/jqFUXPXVUQZeMlOv1ra0eBtkC8B4WFon34Oc8QsuoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795620157;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=j1K5ewHys/5t3EL0s+jWiptRbODzjRlYhbYqEXH+Sgo=;
-	b=yUJyiNeIn3z9zenYroJZKY+0WJ0kaEPgbDpnDhgd4V2ieLb8YSAmHaQm5tMfN4l2aTqy
-	 v56TGlAPwMSPb77NajG9vDxwQB9/5XAHi0/zNeJY6Xf2gel5VWzqJGwOXQf16cbz70eb5
-	 XrMk8nzV1qloxcnnKVDf/+QgFzK+czAwHWXWS2MyTynI+VV3SaKNgXGfz6G2DTCOdVoHw
-	 3CVFJL4u0eb08qNgDcXyT/vNJxgbwW5pEh1rgUPRg6D+EMgAk+wipa0tGIDGMK1pPUSP1
-	 xoTwjRnhPBtiMGSkAzzWKXCKO5txFLw6ZTO3O5IVdWCutSLB+X6O7L8E2nZ/2/WMlEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795620227;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ThFdUoEJLgqCzj0vafLu3KqzUK86YitR/mdeY+BUk6Y=;
+	b=O+xXcelmeOGax3pfYj5WYVB/dThP1uKrm6oS+Vt7uOJk3Xx2AE4D3hWX8biEJydfPzkL
+	 o35rw7pyEYckJc9GAWFoBNoq5k4J9htn4FWRNGmLjggK8TSz1jx3+KcYggYrriRuFYtMf
+	 g4aOOW/BpXIkz43jJyilqRBRUDhCeHcYbvARXn1QjnFzPRvC8Jy3duvRLKx/GmjhPsRGK
+	 xBvJCU8lqT253/wrtnZqvoye5Ln0T5o6/WnQDmFwjubhVgkTyFFflfY4Fs/jBcKVPbuw6
+	 qJD7kZHRFhqKE2iXiQhXOSxGwDh9v4NlCbscas6DLPQO6fxOKCE/OTfxWcIV9icj68g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPM+OkcG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="0++rdv/U";
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44ED8606A33D;
-	Wed, 25 Nov 2026 15:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F7C606A327;
+	Wed, 25 Nov 2026 15:23:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F7C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPM+OkcG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A4C41F000F4;
-	Wed, 25 Nov 2026 15:22:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795620156;
-	bh=j1K5ewHys/5t3EL0s+jWiptRbODzjRlYhbYqEXH+Sgo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=hPM+OkcG1sXtgx5Wxj2RH5GbNjqJRQ550/a+wBrK3G9XY6yMjBY76ZtGQk6nX8irV
-	 26GH8FV4g5dyFgq/QUooRTE5Jr24+cS5FV6ukbU6bz3+2e5JLy4sizWgeRuVWd5duq
-	 +/ESX0cGjcNitwMHfG/ozGCkXFsb06hD6NiRz5fbLacFOjrWwokjNASQvBnlPpDtK9
-	 uzLvreSsTHC3eFN1Nht1Mn7cVpP3cMGOHgNzMycD0XYGTZWhwjz+dMgdM7xIV24WlY
-	 Zbp0szHBAYX7CLl5GDB9S4LZwkKA9TE4ndGEA37annqDwjJ9ExE29svoRbB6zQddxl
-	 +mtqqg5LIXVgw==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org, 
- Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
-Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Michal Simek <michal.simek@amd.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, git@amd.com
-In-Reply-To: <20261117085739.3807943-1-katta.dhanunjanrao@amd.com>
-References: <20261117085739.3807943-1-katta.dhanunjanrao@amd.com>
-Subject: Re: [PATCH 0/3] ASoC: xlnx: spdif: switch to the common clock
- framework
-Message-Id: <179554501801.947306.5510285230833292211.b4-ty@b4>
-Date: Tue, 24 Nov 2026 18:30:18 +0000
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0++rdv/U
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=ThFdUoEJLgqCzj0vafLu3KqzUK86YitR/mdeY+BUk6Y=; b=0+
+	+rdv/UzeXgKEWrxyUm2DWDbskcRohtC3uXGCMM+h/PlzgBWFEGRDttHI8k5wQ1oEwK8Yv08V7l7iW
+	MHBm4KEPc79e9TDjqWqkv079MFfabStCjmcVEjgBeTieU45uuXG/fG9O8vFg4J55ru2pLfnj7rkT+
+	bPu0p/C11Z17gtU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xWEq8-001LhM-9d; Wed, 25 Nov 2026 16:23:20 +0100
+Date: Wed, 25 Nov 2026 16:23:20 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Ryan Leung <untilscour@protonmail.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Simon Horman <horms@kernel.org>,
+	Ricardo Pardini <ricardo@pardini.net>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/5] nvmem: rockchip-otp: Derive MAC addresses from
+ the CPU ID
+Message-ID: <1defc5c8-ba61-40d2-99f3-6654f1743af1@lunn.ch>
+References: <20261124-rk3576-otp-cpuid-mac-v4-0-d403b8a25113@flipper.net>
+ <20261124-rk3576-otp-cpuid-mac-v4-3-d403b8a25113@flipper.net>
+ <0aH4P5VH9HNiTXpCUTaTlvGaoUDQBnvv-0cSXtipSDkLOGjzGy96jDqsVtU0DJTWrocgoMcGFEgd0JUlF5mljVvCzGKVz4yUgDQ0s6HaDLg=@protonmail.com>
+ <2f8da604-36af-4944-8168-02b046e97699@lunn.ch>
+ <CAKTNdwG1sSBVKcKpHBj24nFCdc6WVKabV5=K4sJFucWpTLqRQQ@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,58 +83,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1764; i=broonie@kernel.org;
- h=from:subject:message-id; bh=m1Bh2olESyCCYp8JXYIX86p20sRKXCcRHfKKlZvkiQg=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLZ/lqE+fZyTU0IXabp8PtKTOx2f2O7bSEbdz68fEjw6
- 0TJ4BL7jlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzkVx3D//qy3y/5z1R/+/B4
- wkyej48VtnR7Kl5NvhERGXXz0ZbvXdcYGbbceur/rYRj7ZUT6+sPXev2XRAwmbmwIcyd7XHQiks
- tfqwA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKTNdwG1sSBVKcKpHBj24nFCdc6WVKabV5=K4sJFucWpTLqRQQ@mail.gmail.com>
 
-On Tue, 17 Nov 2026 14:27:36 +0530, Dhanunjanrao Katta wrote:
-> ASoC: xlnx: spdif: switch to the common clock framework
+On Wed, Nov 25, 2026 at 06:41:42PM +0400, Alexey Charkov wrote:
+> On Wed, Nov 25, 2026 at 6:21 PM Andrew Lunn <andrew@lunn.ch> wrote:
+> >
+> > > > +static int rockchip_otp_cpuid_pp(void *priv, const char *id, int index,
+> > > > +                            unsigned int offset, void *buf, size_t bytes)
+> > > > +{
+> > > > +   char cpuid[ROCKCHIP_CPUID_LEN * 2];
+> > > > +   u8 digest[SHA256_DIGEST_SIZE];
+> > > > +   u8 *mac = buf;
+> > > > +
+> > > > +   if (!id || strcmp(id, "mac-address"))
+> > > > +           return 0;
+> >
+> > I don't know OTP drivers. But to me, a function called
+> > rockchip_otp_cpuid_pp() which does not actually return the CPU ID is
+> > architecturally wrong.
 > 
-> The Xilinx SPDIF/AES3 IP is fed by three clocks, but the binding
-> described only two of them and the driver requested only one. The audio
-> clock frequency was instead passed as a plain number in the custom
-> "xlnx,aud_clk_i" property, and the driver relied on the firmware to
-> leave the audio and AXI4-Stream clocks running.
+> There is precedent for this at least in IMX [1], [2]. To me the
+> interpretation is "Rockchip CPU ID used as a MAC address base with
+> offset X", which is exactly what the derivation does. IMO, this is
+> less clunky than the alternatives (e.g., a custom NVMEM layout which I
+> used in v1-v2; a "virtual" NVMEM driver referencing the real cell and
+> returning the processed one, which Ryan proposed in v2 discussion, or
+> caller-side processing).
 > 
-> [...]
+> [1] https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/nvmem/imx-ocotp.c#L224-L238
 
-Applied to
+I would say this one is different. The cell specifically contains the
+MAC address. But its endianness is wrong. Nothing about CPU ID here.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+> [2] https://elixir.bootlin.com/linux/v7.4-rc1/source/drivers/nvmem/imx-ocotp-ele.c#L115-L129
 
-Thanks!
+And this seems to be the same.
 
-[1/3] ASoC: dt-bindings: xlnx,spdif: describe AXI4-Stream and audio clocks
-      https://git.kernel.org/broonie/sound/c/8a2e765cec00
-[2/3] ASoC: xlnx: spdif: namespace register macros and use a divider enum
-      https://git.kernel.org/broonie/sound/c/8090aeadf3a0
-[3/3] ASoC: xlnx: spdif: get clocks through the common clock framework
-      https://git.kernel.org/broonie/sound/c/91c90b881e55
+As i said, i don't like the concept that a function called
+rockchip_otp_cpuid_pp() returns something which is not a CPU ID. The
+two examples you give ask for a MAC address, and they get a MAC
+address.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Does nvmem support aliases? Can you put two different names on the
+same cell? If you access the cell via the name cpu-id, it calls a
+function _cpu_id_, it gives you the CPU ID. If you access the cell via
+the name mac-address, it calls a function called _mac_address_, and it
+gives you a MAC address.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+That way of_get_mac_address_nvmem() just works, so the MAC driver just
+needs to call of_get_mac_address() or of_get_ethdev_address().
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+      Andrew
