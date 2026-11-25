@@ -1,57 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596925;
-	b=Hz3Wo8u0OAfApNtdEufJFCkx4LoO8UYCTuuuF6MA2nDVdKvYyn3chzetnc8+6lgd1tm0
-	 yR61vg7B2dYE7poxiwAxshqEOvgkpy9vctGUTfscYnF4/CjgQNHUHaJGM91ZO5mHsadEW
-	 K2Ft4w36Sm2WtDsEcaeTPQPLHb0NctxjgaDqWbE9fkKBzEe2KXTHzttwOK0gJJIQHPxwB
-	 XWOgK66wATwbF9+B/mA2UAZSxe2zUgHIgUR5VZKY2IvTBhmJB++qdoWy6T0hrb0lSym7B
-	 w0t3cbvsU+dRnr6m5jyl6hvnc4a7SgFOMGQeLUp0mIJcsVqT7qTGyXvFV2qep11q+4w==
+	t=1795596951;
+	b=gABgtewMIJMmb45SjW5iMmCcauXGRUUSUnkkhO7FKYW8QOqrRj+Fp3oy0Vel150nDZpo
+	 yHnLOYfpkzDOfPhrA89xMgqu9xlPbxFFLj44ltpGPOKBH1t6UI1eCwMLOdRni1EzVbqPJ
+	 HuOsWQSTbfUSUCyKlBa+PfTDa1TkfJz12kN+F0Q9DTYqj26Y+4nd+OYKCY1S31iU2XnwV
+	 TZSk+il3Xf9zEc7ljwE3KTV7aWVkie+UOrT1gOxqNxiosC3A2pTqwWRkFXW3CF4uKHD8f
+	 qoXfCso+qdUseYFw0OoaGwil2W5aZYYFL8ciEL5Qh0FQgNndcNCKjdF4cFc2cVK4OIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596925;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0g1+ghBFmfk9nCHFWSNg0rNLR5uyAMuZKHyC0p9vfmk=;
-	b=0Eiag/IJk1C+0jRUBWHATEOzWOJ73oFZRdUJzq7wC5SW6iPce2zwADUtUwlTVpnieGOc
-	 j20fuZ9zvEEMOvu9w0yUiwoEhuMZmh1XK24e7LpSXSnW0F/DX8G1uptqrmxz4T7wR10Et
-	 xFf7WuJwmIlTuCx4t2uS+mwBmDGLmkB2UNC9ZK4gTM58eBOpSMOd2FLjezVcHUFUsTA5I
-	 jrHyx6I9iMJID/ZnCQiQbNAD16zfdzATsC6jv8Rrw6J8WpbxhkD0e4Gwh+UWILvIUbFZ+
-	 Ji+Bd46/kyXazBWEbIQ4aBWAR86ihVWtF5blfuLgSQ4euE73mPDhIZbdNkDuCTF+tRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596951;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer;
+	bh=vgsYe7KPFry5vGAlJY0NmB0rWIeyx9jEZizFH8iUmvE=;
+	b=aHoyQ9fi2NW0kyXgI6wlFQ1LublTMNFTbs8EAaOchXMNwLsz5yXBi/SFvbg9TNpWThcc
+	 Mv6rcFbEww2YVk6Ni/0kDatrlSriTj/4h+ZCLSJ+0Nel1IygJ3ymRBWCtqwxuN5q4YavR
+	 y9GY9Djj4uiazA0QU5USrondloL3HcrS6CR5BpFr+YOEtT3Np3SAB0LcAI6itOo4Gm3KI
+	 bEV7GNx4kp1dUHnHWiiwXHigAnqMBeSo50GZWQg2pfkImTNBWJpqfIt+flUYYE0g6uLxG
+	 uZbsMhafC20jae5UAVL+zCMt6Dk5dTEKIKXkGRYU3oGBrb4LqEBPG5qFpohMTnrQWng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNui5XzM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mnu8MBVo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1582606A31E;
-	Wed, 25 Nov 2026 08:55:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D369606A31E;
+	Wed, 25 Nov 2026 08:55:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNui5XzM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039271F000D2;
-	Wed, 25 Nov 2026 08:55:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mnu8MBVo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19D211F000C6;
+	Wed, 25 Nov 2026 08:55:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795596925;
-	bh=0g1+ghBFmfk9nCHFWSNg0rNLR5uyAMuZKHyC0p9vfmk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CNui5XzMttpqA4V3c4ys0N85HnbLdShS3a16I0bXtKKl0bHpwfI98X64dYYMn5pp4
-	 nfiOAgWgMSZ1YTUSsYYgOem+SCMSayNjE8sxutNVW1H5+vpBEmWHLGW+UEkk2utT0a
-	 GPtzeJ6mPttXQ2Qq/lLCw5ellCog2oZhFB9fjQMTzrW2vlLCvtet32frBIf0t9OoRe
-	 naVXk9v8v/PQY1UsrJbIbnJjvZedag4CJrZ/JDwsgNcupSuKpfyK46cMtA4agfc4i0
-	 grA4NpTOY6pCwmdbtd/EkT5CsVm68N4ydexHccuErHpi2edn9qThZ9b40YfqP2uds0
-	 w3i/TtAkm8LHA==
-Message-ID: <sashiko-outbox-232956@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 7/7] dt-bindings: riscv: add Sxctr ISA extension
- description
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikram Singh" <vikram.singh3@oss.qualcomm.com>
-Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125083942.3695072-8-vikram.singh3@oss.qualcomm.com>
-References: <20261125083942.3695072-1-vikram.singh3@oss.qualcomm.com>
- <20261125083942.3695072-8-vikram.singh3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 08:55:24 +0000
+	s=k20260515; t=1795596950;
+	bh=vgsYe7KPFry5vGAlJY0NmB0rWIeyx9jEZizFH8iUmvE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Mnu8MBVoxumYqteWsAstS9zqXGLgKPyadSkd8o1fkNxDWdBwZwF4hwXzQro0llQzP
+	 Z7dBpQFx7C/kUmA1dy9G9uypc3QNuE9Ykf50FNAG0EqzE/V965Ma1KyBdo1U4tAPSz
+	 WKG2rt2aXNX/1l7sVRHEolrpOheHimrlcMMEvdmDkEKcIB2H3u+gOyL6aCSBkOmeWE
+	 HzUyuNsk/XByWquPy2g8QzLoQaAH5WUX534bYO0/EjwKMwP5WgByBTddNPPO1ZPHTt
+	 zqOUH+caFdZV0rOTu38IBn3+IjhL1yBpu+NAqbLQQLFDtOdJoUr6izCommDJ0/Pf47
+	 L7YOyALKmKq8g==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,307 +48,215 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 13/24] media: mali-c720: Add Mali-C720 ISP driver
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Anthony McGivern <anthony.mcgivern@arm.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Nayden Kanchev <nayden.kanchev@arm.com>, 
+ Konstantin Babin <konstantin.babin@arm.com>, 
+ Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com, 
+ kieran.bingham@ideasonboard.com, laurent.pinchart@ideasonboard.com, 
+ dan.scally@ideasonboard.com, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-13-0cb9bde1bd30@arm.com>
+References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+ <20261124-b4-initial-upstream-candidate-v1-13-0cb9bde1bd30@arm.com>
+Date: Wed, 25 Nov 2026 09:55:47 +0100
+Message-Id: <179559694752.14607.4218343265884065337.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issues to consider:
-- [Critical] perf: riscv: out-of-bounds slab corruption via direct cast
-  of perf_ctx_data
-- [High] perf: riscv: duplicate cpuhp_state_add_instance() in
-  pmu_sbi_device_probe()
-- [High] perf: riscv: NULL event->ctx->task dereference in
-  riscv_pmu_ctr_add() and del()
-- [Medium] perf: riscv: skipped riscv_pmu_ctr_reset() when
-  riscv_pmu_ctr_restore() aborts
-- [Medium] perf: riscv: missing inline on riscv_pmu_ctr_add() and del()
-  stubs
-- [Medium] perf: riscv: per-CPU branch_records leak in
-  branch_records_alloc()
-- [Medium] perf: riscv: missing SxCSRIND check and hardcoded CSR_SIREG*
-  in CTR accessors
---
-
-commit d8946febe7369229970ffb521dc938bff583395a
-Author: Vikram Singh <vikram.singh3@oss.qualcomm.com>
-
-dt-bindings: riscv: add Sxctr ISA extension description
-
-This series adds support for the RISC-V Control Transfer Records (CTR)
-extension, including CSR definitions, extension parsing, the CTR PMU
-driver, SBI PMU integration, and DeviceTree binding descriptions.
-
-> diff --git a/drivers/perf/riscv_ctr.c b/drivers/perf/riscv_ctr.c
-> new file mode 100644
-> index 0000000000000..649b68247ff56
-> --- /dev/null
-> +++ b/drivers/perf/riscv_ctr.c
-> @@ -0,0 +1,608 @@
-
-[ ... ]
-
-> +static inline u64 get_ctr_src_reg(unsigned int ctr_idx)
+On 2026-11-24 17:07 +0000, Anthony McGivern wrote:
+> +
+> +static int mali_c720_probe(struct platform_device *pdev)
 > +{
-> +	return csr_indirect_read(CSR_SIREG, CTR_ENTRIES_FIRST, ctr_idx);
-> +}
+> +	const struct mali_c720_discovery_target top = {
+> +		.module_id = MALI_C720_DISC_MODULE_ID_PIPELINE_GLOBAL_CONTROL,
+> +		.pipeline_id = MALI_C720_DISC_PIPE_GLOBAL,
+> +	};
+> +	struct device *dev = &pdev->dev;
+> +	struct mali_c720 *mali_c720;
+> +	struct resource *res;
+> +	unsigned int irq;
+> +	int ret;
 > +
-> +static inline void set_ctr_src_reg(unsigned int ctr_idx, u64 value)
-> +{
-> +	return csr_indirect_write(CSR_SIREG, CTR_ENTRIES_FIRST, ctr_idx, value);
-> +}
-> +
-> +static inline u64 get_ctr_tgt_reg(unsigned int ctr_idx)
-> +{
-> +	return csr_indirect_read(CSR_SIREG2, CTR_ENTRIES_FIRST, ctr_idx);
-> +}
-> +
-> +static inline void set_ctr_tgt_reg(unsigned int ctr_idx, u64 value)
-> +{
-> +	return csr_indirect_write(CSR_SIREG2, CTR_ENTRIES_FIRST, ctr_idx, value=
-);
-> +}
-> +
-> +static inline u64 get_ctr_data_reg(unsigned int ctr_idx)
-> +{
-> +	return csr_indirect_read(CSR_SIREG3, CTR_ENTRIES_FIRST, ctr_idx);
-> +}
-> +
-> +static inline void set_ctr_data_reg(unsigned int ctr_idx, u64 value)
-> +{
-> +	return csr_indirect_write(CSR_SIREG3, CTR_ENTRIES_FIRST, ctr_idx, value=
-);
-> +}
+> +	mali_c720 = kvzalloc_obj(*mali_c720, GFP_KERNEL);
 
-[Severity: Medium]
-Should these accessors use CSR_IREG, CSR_IREG2, and CSR_IREG3 instead of
-hardcoding the S-mode CSR_SIREG* registers, and should CTR initialization
-verify that SxCSRIND is available?
+Why absolutely nothing here is resource managed?
 
-csr_indirect_read() and csr_indirect_write() select the target register via
-CSR_ISELECT (which maps to CSR_MISELECT under CONFIG_RISCV_M_MODE) and rely
-on the Smcsrind/Sscsrind extension.  However, riscv_pmu_ctr_init(),
-riscv_pmu_ctr_starting_cpu(), and riscv_pmu_ctr_dying_cpu() only check for
-SxCTR and SSCOFPMF, so accessing these indirect CSRs when SxCSRIND is not
-implemented will trap with an illegal instruction.
-
-[ ... ]
-
-> +static void riscv_pmu_ctr_restore(void *ctx)
-> +{
-> +	if (task_context(ctx)->stack_state =3D=3D CTR_STATE_NONE ||
-> +	    task_context(ctx)->callstack_users =3D=3D 0) {
-> +		return;
-> +	}
-> +
-> +	riscv_pmu_ctr_reset();
-> +	__riscv_pmu_ctr_restore(ctx);
-> +
-> +	task_context(ctx)->stack_state =3D CTR_STATE_NONE;
-> +}
-
-[ ... ]
-
-> +void riscv_pmu_ctr_sched_task(struct perf_event_pmu_context *pmu_ctx, st=
-ruct task_struct *task,
-> +			      bool sched_in)
-> +{
-> +	struct riscv_pmu *rvpmu =3D to_riscv_pmu(pmu_ctx->pmu);
-> +	struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
-> +	void *task_ctx;
-> +
-> +	if (!cpuc->ctr_users)
-> +		return;
-> +
-> +	/* Save branch records in task_ctx on sched out */
-> +	task_ctx =3D pmu_ctx ? task->perf_ctx_data : NULL;
-> +	if (task_ctx) {
-> +		if (sched_in)
-> +			riscv_pmu_ctr_restore(task_ctx);
-> +		else
-> +			riscv_pmu_ctr_save(task_ctx, rvpmu->ctr_depth);
-> +		return;
-> +	}
-> +
-> +	/* Reset branch records on sched in */
-> +	if (sched_in)
-> +		riscv_pmu_ctr_reset();
-> +}
-
-[Severity: Medium]
-Does returning early from riscv_pmu_ctr_restore() skip resetting the CTR
-registers on context switch-in?
-
-When task_ctx is non-NULL and sched_in is true, riscv_pmu_ctr_sched_task()
-calls riscv_pmu_ctr_restore() and immediately returns.  If stack_state is
-CTR_STATE_NONE (such as on the task's first schedule-in) or callstack_users
-is 0, riscv_pmu_ctr_restore() returns before calling riscv_pmu_ctr_reset(),
-leaving the previous task's branch records in the hardware registers.
-
-> +static inline bool branch_user_callstack(unsigned int br_type)
-> +{
-> +	return (br_type & PERF_SAMPLE_BRANCH_USER) &&
-> +		(br_type & PERF_SAMPLE_BRANCH_CALL_STACK);
-> +}
-> +
-> +void riscv_pmu_ctr_add(struct perf_event *event)
-> +{
-> +	struct riscv_pmu *rvpmu =3D to_riscv_pmu(event->pmu);
-> +	struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
-> +
-> +	if (branch_user_callstack(event->attr.branch_sample_type) &&
-> +	    event->ctx->task->perf_ctx_data)
-> +		task_context(event->ctx->task->perf_ctx_data)->callstack_users++;
-> +
-> +	perf_sched_cb_inc(event->pmu);
-> +
-> +	if (!cpuc->ctr_users++)
-> +		riscv_pmu_ctr_reset();
-> +}
-> +
-> +void riscv_pmu_ctr_del(struct perf_event *event)
-> +{
-> +	struct riscv_pmu *rvpmu =3D to_riscv_pmu(event->pmu);
-> +	struct cpu_hw_events *cpuc =3D this_cpu_ptr(rvpmu->hw_events);
-> +
-> +	if (branch_user_callstack(event->attr.branch_sample_type) &&
-> +	    event->ctx->task->perf_ctx_data)
-> +		task_context(event->ctx->task->perf_ctx_data)->callstack_users--;
-> +
-> +	perf_sched_cb_dec(event->pmu);
-> +	cpuc->ctr_users--;
-> +	WARN_ON_ONCE(cpuc->ctr_users < 0);
-> +}
-
-[Severity: Critical]
-Does passing task->perf_ctx_data directly to task_context(),
-riscv_pmu_ctr_save(), and riscv_pmu_ctr_restore() corrupt struct
-perf_ctx_data and adjacent slab objects?
-
-task->perf_ctx_data is a struct perf_ctx_data __rcu * wrapper whose ->data
-member points to the struct riscv_perf_task_context allocated from
-pmu->task_ctx_cache.  Treating task->perf_ctx_data itself as struct
-riscv_perf_task_context * overwrites struct perf_ctx_data (starting with
-rcu_head) when updating callstack_users or stack_state, and writes up to
-256 struct ctr_regset entries past the end of the 48-byte struct
-perf_ctx_data allocation on context switch.  Should these callers
-dereference task->perf_ctx_data under RCU and pass cd->data instead?
-
-[Severity: High]
-Can event->ctx->task be NULL in riscv_pmu_ctr_add() and
-riscv_pmu_ctr_del()?
-
-For CPU-wide events (pid =3D=3D -1), event->ctx is a per-CPU context where
-event->ctx->task is NULL.  Because neither riscv_pmu_event_init() nor
-pmu_sbi_event_init() rejects PERF_SAMPLE_BRANCH_USER |
-PERF_SAMPLE_BRANCH_CALL_STACK on CPU-wide events, dereferencing
-event->ctx->task->perf_ctx_data triggers a NULL pointer dereference when
-such an event is scheduled.
-
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index 21a2078eab98a..637b9d97e20a4 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-
-[ ... ]
-
-> @@ -1353,7 +1391,30 @@ static void riscv_pmu_destroy(struct riscv_pmu *pm=
-u)
->  		cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
->  }
-> =20
-> -static void pmu_sbi_event_init(struct perf_event *event)
-> +static int branch_records_alloc(struct riscv_pmu *pmu)
-> +{
-> +	struct branch_records __percpu *tmp_alloc_ptr;
-> +	struct branch_records *records;
-> +	struct cpu_hw_events *events;
-> +	int cpu;
-> +
-> +	if (!riscv_pmu_ctr_supported(pmu))
-> +		return 0;
-> +
-> +	tmp_alloc_ptr =3D alloc_percpu_gfp(struct branch_records, GFP_KERNEL);
-> +	if (!tmp_alloc_ptr)
+> +	if (!mali_c720)
 > +		return -ENOMEM;
 > +
-> +	for_each_possible_cpu(cpu) {
-> +		events =3D per_cpu_ptr(pmu->hw_events, cpu);
-> +		records =3D per_cpu_ptr(tmp_alloc_ptr, cpu);
-> +		events->branches =3D records;
+> +	mali_c720->dev = get_device(dev);
+> +	platform_set_drvdata(pdev, mali_c720);
+> +
+> +	mutex_init(&mali_c720->device_lock);
+> +
+> +	mali_c720->base = devm_platform_get_and_ioremap_resource(pdev, 0,
+> +								 &res);
+> +	ret = PTR_ERR_OR_ZERO(mali_c720->base);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to map IO memory\n");
+> +		goto err_free;
 > +	}
 > +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does branch_records_alloc() leak the per-CPU branch_records allocation if
-pmu_sbi_device_probe() later fails?
-
-tmp_alloc_ptr is local to branch_records_alloc(), while only the resolved
-per-CPU pointers are stored in events->branches.  The __percpu pointer
-needed by free_percpu() is lost, and the probe error unwind paths never
-free the allocation.
-
-[ ... ]
-
-> @@ -1517,6 +1592,11 @@ static int pmu_sbi_device_probe(struct platform_de=
-vice *pdev)
->  	pmu->event_mapped =3D pmu_sbi_event_mapped;
->  	pmu->event_unmapped =3D pmu_sbi_event_unmapped;
->  	pmu->csr_index =3D pmu_sbi_csr_index;
-> +	pmu->sched_task =3D pmu_sbi_sched_task;
+> +	mali_c720->mmio_size = resource_size(res);
 > +
-> +	ret =3D cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->no=
-de);
+> +	if (resource_size(res) < MALI_C720_ID_SIZE) {
+> +		ret = dev_err_probe(dev, -EINVAL,
+> +				    "IO memory resource %pR is too small (minimum %#x bytes)\n",
+> +				    res, MALI_C720_ID_SIZE);
+> +		goto err_free;
+> +	}
+> +
+> +	mali_c720->clk = devm_clk_get(dev, "vclk");
+> +	ret = PTR_ERR_OR_ZERO(mali_c720->clk);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to acquire clock\n");
+> +		goto err_free;
+> +	}
+> +
+> +	mali_c720->reset = devm_reset_control_get_optional_shared(dev, "reset");
+> +	ret = PTR_ERR_OR_ZERO(mali_c720->reset);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to acquire reset\n");
+> +		goto err_free;
+> +	}
+> +
+> +	ret = of_reserved_mem_device_init(dev);
+> +	if (ret && ret != -ENODEV) {
+> +		dev_err_probe(dev, ret, "failed to initialize reserved memory\n");
+> +		goto err_free;
+> +	}
+> +
+> +	ret = vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
 > +	if (ret)
-> +		goto out_ctr_finish;
-> =20
->  	ret =3D riscv_pm_pmu_register(pmu);
->  	if (ret)
+> +		goto err_release_mem;
+> +
+> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(48));
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to set DMA mask\n");
+> +		goto err_release_mem;
+> +	}
+> +
+> +	ret = mali_c720_power_on(mali_c720);
+> +	if (ret) {
+> +		dev_err(dev, "failed to power on: %d\n", ret);
+> +		goto err_release_mem;
+> +	}
+> +
+> +	mali_c720->registers.id = mali_c720_get_id_regs();
+> +	ret = mali_c720_identify_hw(mali_c720);
+> +	if (ret)
+> +		goto err_power_off;
+> +
+> +	ret = mali_c720_get_registers(mali_c720->hw_version->id, &mali_c720->registers);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "unsupported register layout\n");
+> +		goto err_power_off;
+> +	}
+> +
+> +	if (resource_size(res) < mali_c720->registers.context_size) {
+> +		ret = dev_err_probe(dev, -EINVAL,
+> +				    "IO memory resource %pR is too small (minimum %#x bytes)\n",
+> +				    res, mali_c720->registers.context_size);
+> +		goto err_power_off;
+> +	}
+> +
+> +	ret = mali_c720_discovery_init(mali_c720, resource_size(res));
+> +	if (ret) {
+> +		dev_err(dev, "failed to parse capability discovery data\n");
+> +		goto err_power_off;
+> +	}
+> +
+> +	ret = mali_c720_discovery_get_module_base(mali_c720, &top, &mali_c720->top_base);
+> +	if (ret) {
+> +		dev_err(dev, "failed to get top base address from discovery data\n");
+> +		goto err_power_off;
+> +	}
+> +
+> +	ret = mali_c720_init_contexts(mali_c720);
+> +	if (ret)
+> +		goto err_power_off;
+> +
+> +	ret = mali_c720_init_ctx_mgr(mali_c720);
+> +	if (ret)
+> +		goto err_power_off;
+> +
+> +	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+> +	pm_runtime_use_autosuspend(&pdev->dev);
+> +	pm_runtime_set_active(&pdev->dev);
+> +	pm_runtime_enable(&pdev->dev);
+> +
+> +	ret = platform_get_irq_byname(pdev, "isp");
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to get interrupt\n");
 
-[Severity: High]
-Does adding cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING,
-&pmu->node) here register the same hlist_node twice?
+Please use modern Linux drivers as an example for your code. All this
+should be dev_err_probe or dropped, because core takes care of.
 
-pmu_sbi_device_probe() already registers &pmu->node with
-CPUHP_AP_PERF_RISCV_STARTING after register_sysctl():
 
-drivers/perf/riscv_pmu_sbi.c:pmu_sbi_device_probe() {
-    ...
-	register_sysctl("kernel", sbi_pmu_sysctl_table);
+> +		goto err_pm_runtime_disable;
+> +	}
+> +	irq = (unsigned int)ret;
+> +
+> +	spin_lock_init(&mali_c720->irq_lock);
+> +	INIT_KFIFO(mali_c720->irq_fifo);
+> +	ret = devm_request_threaded_irq(&pdev->dev, irq,
+> +					mali_c720_isr_top, mali_c720_isr,
+> +					0,
+> +					dev_driver_string(&pdev->dev),
+> +					&pdev->dev);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to request threaded IRQ\n");
+> +		goto err_pm_runtime_disable;
+> +	}
+> +	mali_c720->irq = irq;
+> +
+> +	mali_c720->media_dev.dev = dev;
+> +	mali_c720->media_dev.ops = &mali_c720_media_device_ops;
+> +	ret = mali_c720_media_frameworks_init(mali_c720);
+> +	if (ret)
+> +		goto err_free_irq;
+> +
+> +	pm_runtime_idle(&pdev->dev);
+> +
+> +	dev_info(&pdev->dev, "Media frameworks and entities registered successfully\n");
 
-	ret =3D cpuhp_state_add_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
-	if (ret)
-		goto out_unregister;
-    ...
-}
+Drop, drivers should  be silent on success.
 
-Calling cpuhp_state_add_instance() a second time on &pmu->node runs
-pmu_sbi_starting_cpu() twice on each online CPU and inserts &pmu->node at
-the head of the hotplug state's hlist while it is already on that list,
-corrupting the list into a self-loop.
+> +
+> +	return 0;
+> +
+> +err_free_irq:
+> +	devm_free_irq(dev, mali_c720->irq, dev);
+> +err_pm_runtime_disable:
+> +	pm_runtime_disable(&pdev->dev);
+> +	pm_runtime_set_suspended(&pdev->dev);
+> +err_power_off:
+> +	mali_c720_power_off(mali_c720);
+> +err_release_mem:
+> +	of_reserved_mem_device_release(dev);
+> +err_free:
+> +	platform_set_drvdata(pdev, NULL);
+> +	if (mali_c720->v4l2_dev.release)
+> +		v4l2_device_put(&mali_c720->v4l2_dev);
+> +	else
+> +		mali_c720_free(mali_c720);
+> +
+> +	return ret;
+> +}
+> +
 
-> diff --git a/include/linux/perf/riscv_pmu.h b/include/linux/perf/riscv_pm=
-u.h
-> index ecaa40370830a..f61e1fd364040 100644
-> --- a/include/linux/perf/riscv_pmu.h
-> +++ b/include/linux/perf/riscv_pmu.h
-> @@ -92,6 +108,44 @@ int riscv_pmu_get_hpm_info(u32 *hw_ctr_width, u32 *nu=
-m_hw_ctr);
+Best regards,
+Krzysztof
 
-[ ... ]
-
-> +static inline void riscv_pmu_ctr_sched_task(struct perf_event_pmu_contex=
-t *,
-> +					    struct task_struct *task, bool sched_in) { }
-> +static void riscv_pmu_ctr_add(struct perf_event *event) { }
-> +static void riscv_pmu_ctr_del(struct perf_event *event) { }
-> +static inline void riscv_pmu_ctr_enable(struct perf_event *event) { }
-
-[Severity: Medium]
-Should the !CONFIG_RISCV_CTR stubs for riscv_pmu_ctr_add() and
-riscv_pmu_ctr_del() be marked static inline?  Without inline, compilation
-units that include this header without calling both functions trigger
--Wunused-function warnings when CONFIG_RISCV_CTR is disabled.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125083942.3695=
-072-1-vikram.singh3@oss.qualcomm.com?part=3D7
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
