@@ -1,55 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601361;
-	b=0VciQ55vDGq3TiyXQspJ0/dJqMWV7E8Z/YWFqxWN0VoJGX7p4y49WrzNzxlHFarWBhzm
-	 +zueah/wxZAqmwtZxj9kHwWxL19reSknxTtcvHPhZTXY6ZAUUd7Qln8VMRJ9fNI7BANuH
-	 KFPpUhUiolgEafj9C5Un8iXFHQXXOqYHW+ussMBhPREcW1m/kxzL5BPhlx0hHrBtWI4Bk
-	 pYlyFDTdLilyF3uHQ54BcLtG9azpIDL99DQk/thOpMUNLZFQ70pl81A3htNY9l7JoO6jO
-	 n3yuYXd5LsNUS5tQARt26C/eNLLswCk/Jy133+QRHUY7+VmydKt1TxGpPV0kOUULxoA==
+	t=1795601376;
+	b=H/9Ed1W+evKby2ws5U3gRTxQyipsM5OB7XkQBA8WKmvNXloqHDIvrCwDlvy1jtXOYFCk
+	 5CLIlymZ8s2q17FZb34QR54q6WFLFijdL7UFwipVi+LqIQl5epFKOCF718cK96rl4gnJP
+	 eB1xAGrFR+Z1YH7gVaOH1xYU7L8DmiKho8vg9TK0Oq+pDTI3Om0OrJPiBjLLTb0aL/iyb
+	 Eq/DIWaQ/mPC/hc4Ccerr+MCJ/ky59BTTMHs0vt/2WqwRs9PhIzc7KTdaHn2qqf/Kmmgt
+	 ncQ0JEqYcDB9+Vz7kCoSj+v5m84avacrXk9vtBLS1OVocqF5ci1CWfYzHciKrsoQXhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601361;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=9Go3NrC6R1k3c+zu1uu0vGbFmy/uD6Bj5+pEG6pyJzc=;
-	b=atzSoohS70hgKi24ZMvo+e/sAGGgMJ6BeHH9ZEybrS92GRFYpQxWi7Cyu43bs/08u76M
-	 68spf3AzOWiL7Xe5Nw92QVzHq5tlVjYwdSIiV1XWo+gNoe+OcNEecwzKCrxS3L/cRALbq
-	 +qB+5do0u6ySSbPr+THQsYEoQzB+2We53kktfLettkUMQrvx+2uFZEuGLp9PAPCHgA6E4
-	 rBnS5Rpcqv4JF3bDmtdPDA8kQ0Nbmlg+xsFNLiG2PNbHFzBD9PhMAtyRvBzgrb/T91lbT
-	 qSwc3bbaQYHTJzjeShtaslbYRQqnlY+bRnLQcW6jlUAb8XU7urR7LxUWdzGOqd3fsKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601376;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=RqcvkgLNWHv3eFLQ7yG1O5kVrzbXHZN72He/8a+86Tw=;
+	b=IyHKPfKFyNMydvq8dU1zPQ6pMM7Zew/Xsp79k3BJO5oqBBt7CGD85whPOSol6RjCeYgv
+	 p5ddSmz0HSKxBUT9VIcRcQC1saWooRdlreIkbYLncbRqrXWu0dtG8nR1VQnIlHUR0VRvo
+	 rxg1Ty1gQfk4VLWbABeA+1Exkxq+ejLu+ECYQxsiHXgRmjBNgbRZbJ8EbhdI83ScmHWNX
+	 UjHXKMr3yiXNOmcW8rIYYyOotYg7fNX4JKj9S1yChSNwyOKste3Sk5xXlnOZZNUJCMF/9
+	 9qSa9q1dIf0IhmqcexZzgsApzkxudluFkYxIhqAUZ3o/zfmyK4MSF4/1DYEPdLzUd7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLS1FZtl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="jS7ny/6q";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DLD5zy7w;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7731D606A323
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:09:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A24606A31E
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:09:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65A24606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLS1FZtl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4D61F00AD3
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:09:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795601361;
-	bh=9Go3NrC6R1k3c+zu1uu0vGbFmy/uD6Bj5+pEG6pyJzc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mLS1FZtlW/uBOd8uYBASLUw7dL8m9Cq3WOCGR+qLTLOINHxdiJqcVBElWNdcIZRFD
-	 +A4pF2DOHjjuyoVAtTmsc5CVWjpwsNNyDXTel3uWZktq8sv/WR0vKkYJYdbImYJdgk
-	 X9hbN4TaNJzdQGYcPQzLRKg3GKj3gUS1YfjD82L+62CJk27+ndu/jcm0xKxhSnoLA8
-	 mcW4TfWVXpXvUgwpsd8YqCHdKdRngXZ4sWikgqiBwjXCXPFykO3fVB/0/dOkJMVNDr
-	 S60jEr5lffFgJaeQPPD8R3xWy0rT4hePGqw/JcIqfSFURZYQuE4+ivClmJJVs3FNSq
-	 1yKmzXyQRPP/Q==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ae854fd0f5so41549101fa.3
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 02:09:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErECat8gIHIeEfEpXcHzdOTcGXYmCw/uI3cF+gxTcwCALywYRhZX2cHu9WObr/+pomJxTC2eOXFSi+IX@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MbYkarvHg8bkMFl2p7rIEfydDyak8/a9hI1G3I1QddnRo9QTh
-	1QOLkweBkY5m01wXetVXsVCEPF4r8d/CuTidPmHcF4IFD4C+WaZXms9wOUdxeiueeMjf1SY2JdA
-	v4oY7CnW0hUOKsjsTSLBn1qKlFb6cYnQ=
-X-Received: by 2002:a05:6512:3e1a:b0:5c1:4f34:922b with SMTP id
- 2adb3069b0e04-5c1bc8726b5mr4818493e87.54.1795601359755; Wed, 25 Nov 2026
- 02:09:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jS7ny/6q;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DLD5zy7w
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP9mOLi555534
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:09:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RqcvkgLNWHv3eFLQ7yG1O5kVrzbXHZN72He/8a+86Tw=; b=jS7ny/6q7SyV2157
+	5RRY0Ley6gMiHuKIaJgMVUnISyC+JBCpAMDByWRouE4qasUBZpb7qqnBHiVpb1wl
+	qX8TkbwT2Ykf2qX1yID4XAdtx6sWRG2ADFq62B5thd6314HWtebS9wYOjHx2Ylse
+	+RS7l7z4RT7pc0Pla//d1dud6Fk3T/R+nzgx3UtB5dDDx2CmAr4WJBbVYQtCpffY
+	gP+b0cSOALZlTQM5XdCUbkfL36wRibnyFgk/nNvtP7lJS0FmzuPsKIjBSzhLSNsd
+	AMimtGSyctakfpV5ZsRg/47231w+y9ZxUapYHjLDInG8SXcPrkV1809Ig2OkNZ7J
+	FDL7BQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vvnr8u1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 10:09:35 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5476f5bd009so19006371cf.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 02:09:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795601375; x=1796206175; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RqcvkgLNWHv3eFLQ7yG1O5kVrzbXHZN72He/8a+86Tw=;
+        b=DLD5zy7wdgKJEvj0fjMY9CY1W3yBI8tSEB13cQnPbl1jTMxIkTZimEqM6miukDwXkH
+         1MSFml8PTlNAf+kBGSH/0BNe1RRSFYW8tsAwjPnUtvj1QHjUAkvCQcBltUz9iCUGbhB4
+         K+hH5+voxhlfV2iGZWpcUqLdi+CnxYcwV9DsURtkGuy9BHdg14EjqLEh81FfgNHGAOxj
+         eOurEszR5MUyfQb1sJQm01Qqi1gqGk2BumGEFZyXdMB5owz1SQI2qqi/Ot8AaNWW/LMe
+         c0fe/QpqtToaKFqSN8Mdk7AJ0/GorPCtpu8FEUGN4I+z2eFWKwCRuzKFlU4hI53w/QQZ
+         jSBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795601375; x=1796206175;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RqcvkgLNWHv3eFLQ7yG1O5kVrzbXHZN72He/8a+86Tw=;
+        b=bp8ZRVOrMHVzbzrhoSqucht9vBC2xz4+iL71vKcBEg2dxegth/A2BTqeEAzU7FH0V6
+         334sKNkZiVd/QTW8rQXlhE+FKzCcIO3dfRK39MG6MjEPJKIBKwmU0mnndJQ14YYyFAaE
+         5MCLvjeYEIYaHTQbt5sCyjsc6WvhXQAnS4CU920YNA4YS51567AJH720h5Nr9Xe864LC
+         qOfx1xi6I48Qjm48kry3MwXXbzjyO+rctDojcM0i5YSA5O7sCI0n0n8MUfcyfrRRVoS/
+         ShvubQocLHxtXfcXVD4Pi78PY+NacevNUYGsl9UmYdEc654KV7Xpx4bKBi3pE25RS36Y
+         pupQ==
+X-Forwarded-Encrypted: i=1; AL+hErGpOlIo2rUB8mj5ozy3Vz9b5CnOoMDNIDkygiLvnQP6d/Tf4v3KJp6p3ZK4/AQK077KgcwoRmGIy88h@vger.kernel.org
+X-Gm-Message-State: APuU4Z+RAmRIQ1MH62Bm7T7DEuOePlbFDr96s280d5p2ne4zp+0di7Oh
+	q5XA61tx9npyZDo1iKt60zrwsM1M9zZdCjK8gkYkRmNUCKpMJvBOzK3W3ep1wXNX4NRUtk1JlO8
+	h+be8C8HQRFVa9X4pGjFMoZWci4Za6JCcuOMcjn7zvD8E0wFPq3igav8nh8DD+erP
+X-Gm-Gg: AZFdTZdWlv1qBUBiQHBEU3wRv9SdltDMDTookQzh1r+FjyLR7H692gMKoTeC+5I/OKB
+	X9n7aBP0V/zdY/1w8aFC1GVRaJkgd5Xsge2aTkmP5MlASWHFs9Y6ae7NM3h7E4nJEuxvoElHmOX
+	ZkCqzBx7I/tKdSh9QMdEIB+Bv05HHebtJba3GXFiQjWc2DYFHvd6izS4j66ZgS9uED1JbnKcF7b
+	x0XAfnAEag6nKQ70KjMvv5pHZOeeYm2gdq+zpb9GGMOYi2AzjM83+jaim08La6VKhVTpPxv4VGp
+	K2V+mZ8IlZ171vTZPi4Di5bqZYdD++XiN6VkQmOwN7VMAs0ib5g8Y2zoYM9BQYSy4YaWUxwfQ1G
+	DhJNbzaZLjWP21hN29iJjK7ltq8pylllIMv/xic3PaKCfJb8iPyj5nxBl7JF+qJAnfUzryVY=
+X-Received: by 2002:a05:622b:1ca:20b0:55c:2657:9cb8 with SMTP id d75a77b69052e-55d76b1a306mr306683591cf.5.1795601374637;
+        Wed, 25 Nov 2026 02:09:34 -0800 (PST)
+X-Received: by 2002:a05:622b:1ca:20b0:55c:2657:9cb8 with SMTP id d75a77b69052e-55d76b1a306mr306683191cf.5.1795601374194;
+        Wed, 25 Nov 2026 02:09:34 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc42bbsm608990966b.61.2026.11.25.02.09.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 02:09:33 -0800 (PST)
+Message-ID: <0c37bbf5-e677-4766-bea7-19b02830c91a@oss.qualcomm.com>
+Date: Wed, 25 Nov 2026 11:09:30 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,126 +115,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015142552.4128028-1-ryan.roberts@arm.com> <20261015142552.4128028-15-ryan.roberts@arm.com>
-In-Reply-To: <20261015142552.4128028-15-ryan.roberts@arm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 25 Nov 2026 11:09:07 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=bXyBRP8oBr2xtzwkzbEPHXCKA0XPXRueY6pUSagbXtQ@mail.gmail.com>
-X-Gm-Features: Aa3M54rLQayJf3xCdY0Eq4zHAmpJ1R1cYyaDehvs8Q24SnEwz4VjC8tWxJP40dg
-Message-ID: <CAD++jL=bXyBRP8oBr2xtzwkzbEPHXCKA0XPXRueY6pUSagbXtQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 14/15] misc/arm-cla: Support exclusive context assignment
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] arm64: dts: qcom: kaanapali: add periphid for
+ traceNoC
+To: Jie Gan <jie.gan@oss.qualcomm.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Rob Herring <robh@kernel.org>, Leo Yan <leo.yan@arm.com>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+        Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org
+References: <20261118-fix-tracenoc-probe-v1-0-0298dc5f05ac@oss.qualcomm.com>
+ <20261118-fix-tracenoc-probe-v1-2-0298dc5f05ac@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261118-fix-tracenoc-probe-v1-2-0298dc5f05ac@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA0MCBTYWx0ZWRfXw24FGpWul6t6
+ p3WP1b/5UuHMRpF5OO9SqHiEYARzyLmWZGkh7iJGcPeqPS+3aoCS10Rwy8Dkv4tdhemYsX94ycx
+ ViyeZ4zY3ZVjq0hEd2NoWAujQx/WlanNAzplsHpyy19pLBnRT5bXw/HjFo42EDitzKWpmHH2clG
+ nrXearmYZsC9NjzCnsprs4V1tbuPRtzxaGTfIUXSSSB/lQDA2nPOVz5YBDFf5rWzHB+Y3tDXZgy
+ 12Pw29DFVkhb6J7P27fVPwhpcqvln33BYCGsHFRxR6f427VQmh3nB1/DUI1a4BvgkVdKSU4ZioR
+ lBkRZjRGfzqddH0QVL20PP3d/AaL7jtNAkhhkE+Jkyo10OR27PY7sIEI4yv7Cdn6Rc79ZVAd6Ky
+ OxuYROSzx6O6W8RrMe/JMP6diVEdgOVGmbl22nEL0elHIwxwkoLePBn7C1kUvtVi8h8+AbnbjBz
+ yxjM19fZWqLLIHxw+lA==
+X-Proofpoint-ORIG-GUID: 6eULBj5mRzfZurJbCZtsFlYtAVLkcYsY
+X-Proofpoint-GUID: 6eULBj5mRzfZurJbCZtsFlYtAVLkcYsY
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA0MCBTYWx0ZWRfXw4wjx4UgTdmH
+ rqKVEODgFg0GwH7WY3W0GZBK9fvdmq+5UKR1gfOW5Jb9izvLwKaR6ZP2zCxgEL3h0xfF/PR2QeJ
+ Uh7p9ODgvmjGQ47lS4EAuf9wtY/v1Uo=
+X-Authority-Analysis: v=2.4 cv=R4mWitRX c=1 sm=1 tr=0 ts=6b06b3df cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=RthPVecxuDhBgGMHIBIA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_03,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250040
 
-Hi Ryan, Jean-Philippe,
+On 11/18/26 8:01 AM, Jie Gan wrote:
+> The traceNoC node uses the "qcom,coresight-tnoc", "arm,primecell"
+> compatible, which places the device on the AMBA bus. To bind an AMBA
+> device, the bus reads the peripheral and component ID registers (PID/CID)
+> at the top of the device's register block and matches them against the
+> primecell ID. The Component ID returned by the hardware is 0x00000000
+> instead of a valid AMBA Component ID, so the AMBA probe fails and the
+> device is left stuck in deferred probe indefinitely.
+> 
+> Add the "arm,primecell-periphid" property so the AMBA bus uses the
+> specified peripheral ID instead of reading it from the device, which
+> allows the traceNoC to probe on this hardware.
+> 
+> Fixes: f73959d86c15 ("arm64: dts: qcom: kaanapali: add coresight nodes")
+> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+> ---
 
-On Thu, Oct 15, 2026 at 4:27=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
- wrote:
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> From: Jean-Philippe Brucker <jpb@kernel.org>
->
-> Introduce a nr_contexts members to cla_domain to count the mapped
-> contexts. At the moment PL0 contexts share the domain, while PL1
-> contexts require exclusive assignment, since there is no context
-> save/restore.
-
-Do you mean to say there is no context save/restore for the
-virtualiuzed users? Because there seems to be for the ordinary
-(kernel arbitrated) ones.
-
-> A negative count indicates the domain is exclusive.
-
-Exclusive to what? Please be more specific.
-
-> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
-
-(...)
-
-> diff --git a/drivers/misc/arm-cla/arm-cla.h b/drivers/misc/arm-cla/arm-cl=
-a.h
-> index c9ecab5ab6bf..43a58a329525 100644
-> --- a/drivers/misc/arm-cla/arm-cla.h
-> +++ b/drivers/misc/arm-cla/arm-cla.h
-> @@ -105,6 +105,7 @@ struct cla_dev {
->   * @lock:              Protects the following members.
->   * @ctxs:              All live contexts, keyed on cla_ctx_key.
->   * @queued_ctxs:       Queue of contexts waiting for assignment.
-> + * @nr_ctxs:           Context count. Negative value for exclusive assig=
-nment.
-
-Describe here what it means if a context is excludive,
-
-> +static int cla_domain_get(struct cla_domain *domain, bool share)
-> +{
-> +       lockdep_assert_held(&domain->lock);
-> +
-> +       if (share) {
-> +               /* Time share the domain with other contexts. */
-> +               if (domain->nr_ctxs < 0)
-> +                       return -EBUSY;
-> +               domain->nr_ctxs++;
-> +               WARN_ON(domain->nr_ctxs < 0); /* LONG_MAX contexts?! */
-> +       } else {
-> +               /* Reserve the domain for exclusive assignment. */
-> +               if (domain->nr_ctxs !=3D 0)
-> +                       return -EBUSY;
-> +               domain->nr_ctxs--;
-
-Maybe:
-domain->nr_ctxs =3D -1;
-
-So it is clear what is going on?
-
-> +       }
-> +       return 0;
-> +}
-
-Notice that here the _get() semantics are reference counting as is
-proper, compared to the other _get() in the series that I complained about.
-
-> +/* Undo cla_domain_get() */
-> +static void cla_domain_put(struct cla_domain *domain)
-> +{
-> +       lockdep_assert_held(&domain->lock);
-> +
-> +       if (domain->nr_ctxs =3D=3D -1)
-> +               domain->nr_ctxs =3D 0;
-> +       else if (domain->nr_ctxs > 0)
-> +               domain->nr_ctxs--;nr_c
-> +       else
-> +               WARN(1, "invalid domain refcount %ld\n", domain->nr_ctxs)=
-;
-
-Looks good
-
-> @@ -53,7 +85,7 @@ struct cla_ctx *cla_ctx_create(struct cla_domain *domai=
-n,
->                                struct cla_ctx_key *key)
->  {
->         struct cla_ctx *ctx;
-> -       int ret =3D -ENOMEM;
-> +       int ret;
->
->         mutex_lock(&domain->lock);
->         ctx =3D cla_domain_lookup_ctx(domain, key);
-> @@ -68,9 +100,14 @@ struct cla_ctx *cla_ctx_create(struct cla_domain *dom=
-ain,
->                 goto err_unlock;
->         }
->
-> +       ret =3D cla_domain_get(domain, key->type =3D=3D CLA_CTX_PL0);
-
-Add a comment that we can share PL0 domains only.
-
-Yours,
-Linus Walleij
+Konrad
