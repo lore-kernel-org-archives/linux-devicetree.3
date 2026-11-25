@@ -1,56 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795579108;
-	b=v/xL0YePNjYbSzSQFAydb1K/UaSD4WwE28zIWI5D17GuKLiUAqSf/9PcBWoQnBiU+42q
-	 o7Wl0RNriFodvJNhetf+8Cec9q1cW4le4TNNDYLl56IKs1B3P+U3a20lqTNwHxKYvKGQY
-	 jwT9+GDO/kEtvzwPwAOLimarG4d3TyQocq2mA4VJzM6JPyQyW41/RU2X0n7ayUtilJJRu
-	 h6P2ffKHeonEQwwdaKW6YZP3aSCpq8FixrbCtLfpdIpMDwEdtAiBALlic5wuxhn1i1X3s
-	 m1zK/rVVDpV8+8JSLw4S9QCkmk/dcaUeiaRnnIwXwIVp8SaI5wpPpvnkFUT15VlaiVw==
+	t=1795579127;
+	b=tco4BGIRsm9hhglLHuiEx8jnLtlYnn7PfiTT1V0OAN/ObkLSnwsbfab9X4RVjw1mXqVl
+	 DwJ9M6Y3P0vVi8LaxKwlq7In74OYivAr6020nmUr1YgtKslfLrUTCpIBZvV5MTrDMf3kB
+	 WgqlJC4BVGFd2nuWybE2z1uTGWJICUGdLyvMbj6azB2fqYvkbIuu/E+sg3h3aWxPKHGUG
+	 LdvyW89FJbK2ul0umHsJqe0WGPMcFcvQEkmavG9YH0UlQrx5gcLlkRVxjV3QqbZSg6V0z
+	 Cqh2pfpoCH/PVzX7e9B4uH+J8eQ2HJsB60VD6rNvBcGEDYbsqEnsbFyz8nMVt8BKCsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795579108;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795579127;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=oyt3Or9ioQayeV4oDUCEucCF/NZc6tmUWhuJa4gV1GM=;
-	b=0axfFquPgFqohFuPz1RbclddoPHi+cHwGu6NwCpP+j5lcY8z8KMsVVLnFaE1EHO89E5N
-	 qImgYRgLTPXH7uH+26w0DzpkNeCNG/pkfd3AatN/Bv3EUpuZUnRfDo5HynUDZZDgmZIVi
-	 rHm59otgbz2DZIxek5ajodsBnfNYJdA9ikEV2bEtaE0CMTiV+VP1Y1EIjRdOdQvwEcFE1
-	 HiRz9mIHmc+iA8N8L+A9ltwt74r/9NXeogsOEqIBccfGegnZYDbel1C5lzz/wbxBK5mSE
-	 EaowTkwJDTiSQlwHvb4L0O+VYKCLeVB5vFKKeIGmToWgWcCsn2VDqTVf78swajCEhUw==
+	bh=rUSncYOFDalKV12+0CuOreGIfe6/pyEZf5JX4JuwEJM=;
+	b=G3dqYqaKUz7fjRIbc5pV/Lss5eFC1lfHDjNrIXZt0nGTTJqePawtfoTRsyYySItZI1XQ
+	 U+LUNXA4We3kNt9wlMiqWC134XkG9yqf4FGlI1hdM0r37zdjjtv15ebe/2e6x1O520PvN
+	 HmKpcrwTZbTlQO/gFCLi/LI/wudRt0khNckh5fYe80mXlMCmVTk/HPGEoECMuLrdwITIr
+	 CJH7F1sqW9D7ib9sbQwef9Pwg90EFLwHWPcMLGr0btXWHwBV8st1sSfXV6YCQiMCVfWBS
+	 2s048N1z7QXq63EhkOC1jNRXVGitWpjA+wXFCC+Ixxz2xfKXgEbH1iHDoZnpH8zSZUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gvRhz4sx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isBXPg8V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1271606A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:58:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79945606A31E;
+	Wed, 25 Nov 2026 03:58:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gvRhz4sx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D761F000C4;
-	Wed, 25 Nov 2026 03:58:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isBXPg8V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0257A1F000C0;
+	Wed, 25 Nov 2026 03:58:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795579108;
-	bh=oyt3Or9ioQayeV4oDUCEucCF/NZc6tmUWhuJa4gV1GM=;
+	s=k20260515; t=1795579126;
+	bh=rUSncYOFDalKV12+0CuOreGIfe6/pyEZf5JX4JuwEJM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gvRhz4sxWij1PNsApFWb7iD7I9nQRDiGh7j7p7A/YUvrWUeCFBQYxZ/aSY3MzueAa
-	 PR33/Dk4t3/kVibyhuFbL5N+hUYqD74woVw+7rf45QJYQuv9Y6jXdEdvEpVZ0ywKh+
-	 NqM7y4lT9rDlg2/CuIvlGKqQe2OcQdH0KzqccuVn2D+3y9ddAsz+FtIMm4M704+zKt
-	 vOs6WtSnYQ7J1tm+GKAhx3S11CCWHeJZxIA9qMm/D+f4bFuLehrPQxbQqSiAvrptea
-	 3rH/kkR4/bB3aELu9JbEKlDZ4hNHad7XdL5ow7i4tjCvJ7lUIac45C30/JShsz2SeJ
-	 UadwDPto9ti4g==
-Message-ID: <sashiko-outbox-232538@kernel.org>
+	b=isBXPg8VYtB1N39rM3LjkhQAjwIdftUqOM3mYyT/1J4w36E4lbXGN8M0k5O8w0J8q
+	 W5HXT7bibsuZj1hoTMHZsUAo+92Ai8nY+FfnTNWSAg1O5Kdc9QuXq0xWkfOGikKr9P
+	 qKF2YsKfKpIkrWCv4JIqIhp2xOBajEf6e5a6dJqvqEa+AY5TOaN5us7EcKp/RC36xG
+	 NPSqoHNxoWaCMSPKwtmHhPji8riPNJc3AzPbR/pWvGcGU9ywHVNz+MjQTX+mcjcQRi
+	 qxpxlujdz8CkewasHRPPioB3/PpqvZejVvR+M1Fku2vQO7OLLqaRFd6tiAv4MbIA0C
+	 wEREpbzXfMHxw==
+Message-ID: <sashiko-outbox-232541@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/5] drm/bridge: trilinear: add the DPTX DRM bridge
+Subject: Re: [PATCH v3 13/14] arm64: dts: qcom: Add initial Halliday dtsi
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luo Liu" <Luo.Liu@cixtech.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125033238.3436046-4-Luo.Liu@cixtech.com>
-References: <20261125033238.3436046-1-Luo.Liu@cixtech.com>
- <20261125033238.3436046-4-Luo.Liu@cixtech.com>
+To: "Stanislav Aleksandrov" <lightofmysoul@gmail.com>, "Bjorn Andersson" <andersson@kernel.org>, "Konrad
+ Dybcio" <konradybcio@kernel.org>, "Abel Vesa" <abelvesa@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Robert Marko" <robimarko@gmail.com>, "Guru
+ Das Srinagesh" <linux@gurudas.dev>, "Thomas Gleixner" <tglx@kernel.org>, "Radu
+ Rendec" <radu@rendec.net>, "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
+ =?utf-8?b?Sm9lcmcgUm9lZGVsIChBTUQp?= <joro@8bytes.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Wesley
+ Cheng" <wesley.cheng@oss.qualcomm.com>, "Vinod Koul" <vkoul@kernel.org>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Manivannan Sadhasivam" <mani@kernel.org>, "Alim
+ Akhtar" <alim.akhtar@samsung.com>, "Bart Van Assche" <bvanassche@acm.org>, "Bean
+ Huo" <beanhuo@micron.com>, "Stanley Jhu" <stanleyjhu@google.com>, "Herbert
+ Xu" <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, "Viresh Kumar" <viresh.kumar@linaro.org>, "Amit
+ Kucheria" <amitk@kernel.org>, "Thara Gopinath" <thara.gopinath@gmail.com>, "Daniel
+ Lezcano" <daniel.lezcano@kernel.org>, "Zhang Rui" <rui.zhang@intel.com>, "Lukasz
+ Luba" <lukasz.luba@arm.com>, "Georgi Djakov" <djakov@kernel.org>, "Sibi
+ Sankar" <sibi.sankar@oss.qualcomm.com>, "Ulf Hansson" <ulfh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org, linux-phy@lists.infradead.org, linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org, olteanv@gmail.com
+In-Reply-To: <20261125-halliday-dts-v3-13-5c8311c0b70b@gmail.com>
+References: <20261125-halliday-dts-v3-0-5c8311c0b70b@gmail.com>
+ <20261125-halliday-dts-v3-13-5c8311c0b70b@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 03:58:27 +0000
+Date: Wed, 25 Nov 2026 03:58:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,165 +78,56 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [High] drm/bridge: trilinear: force_hpd corruption in
-  dptx_hpd_notify()
-- [Low] drm/bridge: trilinear: dptx_bridge_mode_valid() ignores
-  info->bpc < 8 for YCbCr
+- [Low] arm64: dts: qcom: undocumented qcom,halliday-cpufreq-epss
+  compatible
+- [Low] arm64: dts: qcom: undocumented qcom,halliday-tcsr compatible in
+  tcsr node
 --
 
-commit fc27a9663705ea0c07bb63dcb67db3ac74bea16f
-Author: Luo Liu <Luo.Liu@cixtech.com>
+commit 86c1934f0d5f1fa3256ca9a1cc6c46f37f79e659
+Author: Stanislav Aleksandrov <lightofmysoul@gmail.com>
 
-drm/bridge: trilinear: add the DPTX DRM bridge
+arm64: dts: qcom: Add initial Halliday dtsi
 
-This commit adds the DRM bridge callbacks and helper functions for the
-Trilinear DisplayPort transmitter, covering connector detection, EDID
-mode enumeration, mode validation, and atomic modeset operations.
+This commit adds the initial devicetree source for the Qualcomm Halliday
+SoC (SXR2250P / Snapdragon XR2+ Gen 2).
 
-> diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_drm.c b/drivers/gpu/dr=
-m/bridge/trilinear/dptx_drm.c
+> diff --git a/arch/arm64/boot/dts/qcom/halliday.dtsi b/arch/arm64/boot/dts=
+/qcom/halliday.dtsi
 > new file mode 100644
-> index 0000000000000..099dd53eb2d4d
+> index 0000000000000..a3207c0c8d4b2
 > --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/trilinear/dptx_drm.c
-[ ... ]
-> +static enum drm_connector_status dptx_bridge_detect(struct drm_bridge *b=
-ridge,
-> +						    struct drm_connector *connector)
-> +{
-> +	struct dptx_dev *dp =3D bridge_to_dp(bridge);
-> +
-> +	return dp->ops->detect_status(dp);
-> +}
-> +
-> +static void dptx_hpd_notify(struct dptx_dev *dp,
-> +			    enum drm_connector_status hpd_state)
-> +{
-> +	dp->ops->lock(dp);
-> +	if (READ_ONCE(dp->hpd_stopped)) {
-> +		dp->ops->unlock(dp);
-> +		return;
-> +	}
-> +
-> +	if (dp->state & DPTX_STATE_SUSPENDED) {
-> +		dp->force_hpd =3D hpd_state;
-> +		dp->ops->unlock(dp);
-> +		return;
-> +	}
-> +
-> +	if (hpd_state !=3D dp->status) {
-> +		dp->force_hpd =3D hpd_state;
-> +		queue_delayed_work(system_freezable_wq, &dp->hpd_event_work, 0);
-> +
-> +		if (hpd_state =3D=3D connector_status_connected)
-> +			schedule_delayed_work(&dp->sw_hpd_irq_work, 1);
-> +	}
-> +	dp->ops->unlock(dp);
-> +}
-> +
-> +static void dptx_bridge_hpd_notify(struct drm_bridge *bridge,
-> +				   struct drm_connector *connector,
-> +				   enum drm_connector_status status)
-> +{
-> +	dptx_hpd_notify(bridge_to_dp(bridge), status);
-> +}
-
-[Severity: High]
-Can dptx_bridge_hpd_notify() corrupt dp->force_hpd during normal connector
-detection?
-
-drm_bridge_connector_detect_ctx() invokes dptx_bridge_hpd_notify() right
-after every dptx_bridge_detect() call:
-
-drivers/gpu/drm/display/drm_bridge_connector.c:drm_bridge_connector_detect_=
-ctx() {
-	if (detect) {
-		status =3D detect->funcs->detect(detect, connector);
-		...
-		drm_bridge_connector_hpd_notify(connector, status);
-	}
-}
-
-Because dp->ops->detect_status() does not update dp->status (which starts
-at connector_status_unknown at boot and after suspend until hpd_event_work
-runs), probing a connected native DisplayPort sink enters dptx_hpd_notify()
-with hpd_state !=3D dp->status and latches dp->force_hpd to
-connector_status_connected.  Once dp->force_hpd is set, physical HPD state
-checks evaluate true even after the cable is unplugged, wedging the native
-port in a connected state.
-
-On USB-C Alt-Mode ports, if KMS probes the connector while hpd_event_work
-is still waiting for the PHY to enter DP mode, dptx_bridge_detect() fails
-AUX reads and returns connector_status_disconnected; the follow-up
-dptx_bridge_hpd_notify() call then overwrites dp->force_hpd with
-connector_status_disconnected and aborts the PHY wait.  Similarly, probing
-while DPTX_STATE_SUSPENDED is set causes dptx_bridge_detect() to return
-connector_status_unknown and dptx_hpd_notify() to overwrite dp->force_hpd
-with connector_status_unknown.
-
-Also, gating the dp->force_hpd update on hpd_state !=3D dp->status while
-dp->status is updated asynchronously by hpd_event_work drops rapid
-plug/unplug transitions that arrive before hpd_event_work finishes (or
-after the PHY wait times out without updating dp->status), leaving
-dp->force_hpd stuck at the stale state.
+> +++ b/arch/arm64/boot/dts/qcom/halliday.dtsi
+> @@ -0,0 +1,1871 @@
 
 [ ... ]
-> +static enum drm_mode_status
-> +dptx_bridge_mode_valid(struct drm_bridge *bridge,
-> +		       const struct drm_display_info *info,
-> +		       const struct drm_display_mode *mode)
-> +{
-[ ... ]
-> +	can_420 =3D drm_mode_is_420(info, mode) && bridge->ycbcr_420_allowed &&
-> +		  vsc_supported;
-> +
-> +	if (drm_mode_is_420_only(info, mode)) {
-> +		if (!can_420)
-> +			return MODE_NO_420;
-> +
-> +		minbpp =3D 8 * 3 / 2;
-> +		pixel_per_cycle =3D 1;
-> +	} else if (can_420 && adjusted.clock <=3D DPTX_MAX_FREQ) {
-> +		minbpp =3D 8 * 3 / 2;
-> +	} else if (info->color_formats &
-> +		   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422)) {
-> +		minbpp =3D 8 * 2;
-> +	}
-[ ... ]
-> +}
-[ ... ]
-> +static int dptx_cal_bpc(struct drm_connector_state *connector_state,
-> +			int format, int bpc)
-> +{
-> +	struct drm_display_info *info =3D
-> +		&connector_state->connector->display_info;
-> +
-> +	if (dptx_bt2020_colorspace(connector_state))
-> +		bpc =3D min(bpc, 10);
-> +
-> +	if (info->bpc)
-> +		bpc =3D min_t(int, bpc, info->bpc);
-> +
-> +	if (connector_state->max_requested_bpc)
-> +		bpc =3D min(bpc, connector_state->max_requested_bpc);
-> +
-> +	if (bpc < 8 && format !=3D DRM_OUTPUT_COLOR_FORMAT_RGB444)
-> +		return -EINVAL;
-> +
-> +	return bpc;
-> +}
+
+> +		tcsr: syscon@1fc0000 {
+> +			compatible =3D "qcom,halliday-tcsr", "syscon";
+> +			reg =3D <0x0 0x01fc0000 0x0 0x30000>;
+> +		};
 
 [Severity: Low]
-Can dptx_bridge_mode_valid() accept YCbCr modes that
-dptx_bridge_atomic_check() will reject when 0 < info->bpc < 8?
+Should "qcom,halliday-tcsr" be documented in
+Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml?  Without it, running
+dtbs_check on any board DTB that includes halliday.dtsi fails schema
+validation on syscon@1fc0000.
 
-dptx_cal_bpc() clamps bpc to info->bpc and rejects any format other than
-DRM_OUTPUT_COLOR_FORMAT_RGB444 when bpc < 8.  However,
-dptx_bridge_mode_valid() allows 4:2:0-only modes and lowers minbpp to 12
-(YCbCr 4:2:0) or 16 (YCbCr 4:2:2) without checking that info->bpc is 0 or
-at least 8, so modes that rely on YCbCr on a 6-bpc sink pass validation
-and then fail in dptx_bridge_atomic_check() with -EINVAL.
+[ ... ]
+
+> +		cpufreq_hw: cpufreq@17d91000 {
+> +			compatible =3D "qcom,halliday-cpufreq-epss", "qcom,cpufreq-epss";
+> +			reg =3D <0x0 0x17d91000 0x0 0x1000>,
+> +			      <0x0 0x17d92000 0x0 0x1000>;
+> +			reg-names =3D "freq-domain0",
+> +				    "freq-domain1";
+
+[Severity: Low]
+Should "qcom,halliday-cpufreq-epss" be added to the v2 EPSS compatible
+enum and two-domain constraint in
+Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml so that
+dtbs_check passes on cpufreq@17d91000?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125033238.3436=
-046-1-Luo.Liu@cixtech.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-halliday-d=
+ts-v3-0-5c8311c0b70b@gmail.com?part=3D13
