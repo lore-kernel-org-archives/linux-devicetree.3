@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795611982;
-	b=arrvx/MWgE2WnPcrFZsUs/mtk+tKRF4TCImynTwXS/GecZpsBhETdcj1FeCmyDA6SdCf
-	 w1/B5x2Jen5w8Vp3XAM2bncYhyxVSiyxY2hbIKEV3EG/Bs8bTK4qI1ms7lkGUOVEVvIV6
-	 R/a1+uTyJDPK/YC4vliP4JJv1Mw1sJJ5irvTI8TLHkLipVVN9IQyG24rh3EJ7Zy3fAGU3
-	 ZGxu8doT6MClkCoiUEusq5YJ/3DRwOk0bO9yv21weD1zKIvuZBE/ZMQI0iEEHk8Rw9pSw
-	 b61c3ceMPdmdjiAM6j2WfZYwt46q1ng+F6l5FRqEI6vshmfpFwEv8mEWZtSlEhIwdRw==
+	t=1795611988;
+	b=qomyImSIZOux/n7d5T9jISXHMuD3+291OhO/PkC6hGWZtRQLXJH3rDFiS3HQ2AW35pUV
+	 qU4XaecbvMzlVcWpbZmV5vIxSF6CSJXGTzWAiqzkVdFJqC1SOjIgvcn0aijRJNUsZ1Kmd
+	 ApB/KhXc7k9GQAgTGhYbnBK8ssryyzYkBBcMz6I/3vs1iiLiz4uEQiIKbSF+4oxKNRMZ3
+	 iQtZc0HMNLhsKWyxMmP/JqrxSmAa4AKDn0SX3z7+w4IMih/6DQ38lOUW1qy5rS+Ytm5Td
+	 7v/nqFpiXjx3Dx62Unl54AXS3ogRGCFgq2tOcq3gXrM9E0M1sK4pLVDbarjxmz7OvLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795611982;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795611988;
 	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Jg8loi+2ynL/HcVXNJPBCeevVszZXfU1/mqjlIfP4CE=;
-	b=blOLENhhpbpl/UZG5U2uTc16R4IHo488BjzYdjk06eASjFRKHT46t/Cf/ojCo52rgin8
-	 KvOLHmrgAhS/7W3WmCBd3lzjKPtL6wobF/0z9q6TZoW7G8nCZK2iIWvXheEX9F/YVHt1K
-	 gEuOqUgsXTAbEvGIvn82IhPGQyJQEV80DCnPt6q2XmHMEEGUOhdpEpgRFbiKYecw6BB2D
-	 0hnktuIHm6kzLE5Y9byVvqIlZ8v2epOP3Giuyeg9HB6j2SQFJ5BsIpBmgylptNc83sj1s
-	 lZHzVk1RmZdQ1VU/5rQvo6wKcSVwvDHumVXCJst04mbTxUCphHlEqNDwVHeDHw69Rwg==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=T8r5OprFacKOUSezedRKI/rS3t5Ekz7lkeilvlKQv4s=;
+	b=iMEPd0Esr3u5o1uSKZvhL59h0eOWGHb5HWjTmp/SNH9ZyW5EjKXce/5bbYVGotHMNnuj
+	 U4oJ3TOVRcqkpSnrkxldnjCKONek3U+QBf1jAQSSQDkFJTwV37/m71EY91INR8usILqgg
+	 Eq5t6TOjWjJKx2jZYta9zyTMQkiDCL177Gncv6JuXMvaMmohJlmjbV4GDPMoWZsOiPUFT
+	 Y71Q/AMwWkX+m236W1RcsC5E/gfmDQ4bBVnOBqhYL3ShzYVGivRepq/6E0oWDj6wDnkvg
+	 Khv9cToem2n+OxMr+OAN/NPB6X50z+OvF3Cc3JTgE75LM1L+LHKQOruwd91DxBscQcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=d-silva.org;
 	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=aJG9kLhb;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=l+g8zmTL;
 	arc=none smtp.remote-ip=119.15.109.137
 Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA93606A321;
-	Wed, 25 Nov 2026 13:06:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BA93606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A20606A32E;
+	Wed, 25 Nov 2026 13:06:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06A20606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=aJG9kLhb
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=l+g8zmTL
 Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 2DBA44C949;
-	Thu, 26 Nov 2026 00:06:13 +1100 (AEDT)
+	by www.nmnhosting.com (Postfix) with ESMTP id 61A4E4C94C;
+	Thu, 26 Nov 2026 00:06:19 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1795611973;
+	t=1795611979;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Jg8loi+2ynL/HcVXNJPBCeevVszZXfU1/mqjlIfP4CE=;
-	b=aJG9kLhbOziqz4bHnYF2bLyHdddoNAiSKiwgOQ/hl3XP8VBht5YenAHPpYdyiGbVo2taBp
-	wEDmLsbvwhlxgISuVfSQ6z87enxMx8f3SOydnAa+9zzN/ZbK5sWNJoKaLE4V81ta/bI7yx
-	wtvv83HJWSqie1ASTCGiRGeY4+htKeHoXQ6ZRBJVwHSIT/VQ6c4Yj6zG1OI5jW1h4UlrfR
-	5TourmIwfpT3sTskmj4WggaQRjDx8MuZeC5Pfh7m+TZR7KP5bW9QpdWF4QyPb7XEmcOzJl
-	v8yoaT36DA+WI29jul6LW1F3dJtjWrOVJsPyL2VP/YK3cYgXBB3oojTiTIapLQ==
-X-GPT-Reason: legitimate; this is a technical software patch notification
-	(Linux kernel style) that perfectly aligns with the recipient's
-	personal/professional domain; the From domain (d-silva.org) matches
-	the recipient's known mailbox (alastair@d-silva.org); the content
-	is purely technical (stmmac, GMAC210, SoC support) with no marketing,
-	urgency, or suspicious links; and there are no authentication failures
-	or mismatched Reply-To headers.
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T8r5OprFacKOUSezedRKI/rS3t5Ekz7lkeilvlKQv4s=;
+	b=l+g8zmTLzQanp6RLO2g5OiUuRyAwIsnxkIs/H91kwda2FAvgyvoOvuSHg1nmqI/61YA0Q9
+	8amN2TMsxKEr7wlKllKl4abGtyf0OPRbzU8dm0nBTFeT0s1tKKbghXk5Mfn4Uo1V8XCKr3
+	ZwCVZr3eK1dDE8ELl+ltxf57fLt8LQnxMKXUCE7IabD+KvEK4ReW1hUUMLu2yYZLmn3A/+
+	q/WVYFGXahwVtAYJG+FSy53PUPH1k3N8R/zELFFs5olFhnlNV1Sa/yi9abaoTgKcSZIzUU
+	4CvgiTbOdNYNqqv0S6/e1Caua836/UY6YquWUSL+VdPSH7XNMOKK73CmOuOmGw==
+X-GPT-Reason: legitimate; the email is a technical kernel patch
+	submission (dt-bindings) which perfectly aligns with the
+	personal/professional context of the alastair@d-silva.org mailbox;
+	the From domain (d-silva.org) matches the recipient's domain and
+	the signed-off identity; there are no phishing indicators, no external
+	links, and the content is highly specific technical documentation
+	regarding SoC integration.
 From: Alastair D'Silva <alastair@d-silva.org>
 To: netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -72,10 +74,12 @@ Cc: linux-kernel@vger.kernel.org,
 	Maxime Chevallier <maxime.chevallier@bootlin.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH 0/5] net: stmmac: dwmac-sun55i: Add Allwinner A733 GMAC210 support
-Date: Thu, 26 Nov 2026 00:06:08 +1100
-Message-ID: <20261125130613.4191841-1-alastair@d-silva.org>
+Subject: [PATCH 1/5] dt-bindings: net: allwinner,sun8i-a83t-emac: Add Allwinner A733 GMAC210
+Date: Thu, 26 Nov 2026 00:06:09 +1100
+Message-ID: <20261125130613.4191841-2-alastair@d-silva.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125130613.4191841-1-alastair@d-silva.org>
+References: <20261125130613.4191841-1-alastair@d-silva.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,33 +91,239 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series enables Gigabit Ethernet (GMAC0) on the Allwinner A733 SoC
-and the Xunlong Orange Pi 4 Pro board.
+The Allwinner A733 SoC integrates a Synopsys DWMAC 5.20 (GMAC210)
+controller. Unlike earlier Allwinner SoCs that configure GMAC in a
+shared syscon, A733 places the GMAC0 glue registers in a dedicated MMIO
+region, so model them as a second reg entry rather than inventing a
+syscon node. A733 also omits a power-domain wrapper, adds a second
+reset, a PTP reference clock, multi-queue/LPI interrupts, and uses
+5-bit MAC delay fields in 180 ps steps (0..5580 ps).
 
-The goal is working 1000BASE-T RGMII Ethernet with mainline drivers and
-bindings. Tested on the Orange Pi 4 Pro with a YT8531 PHY (DHCP, ping,
-and iperf3 at 1Gbps/Full).
+Document allwinner,sun60i-a733-gmac210 with snps,dwmac-5.20 fallback
+and its schema constraints so A733 device trees validate cleanly.
 
-Dependencies:
-This series depends on the Allwinner A733 SoC and OrangePi 4 Pro core
-bring-up series:
-  Based-on: <20261125124407.4098345-1-alastair@d-silva.org>
+Assisted-by: LLM
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+ .../net/allwinner,sun8i-a83t-emac.yaml        | 136 ++++++++++++++++--
+ 1 file changed, 126 insertions(+), 10 deletions(-)
 
-Alastair D'Silva (5):
-  dt-bindings: net: allwinner,sun8i-a83t-emac: Add Allwinner A733
-    GMAC210
-  net: stmmac: dwmac-sun55i: Add per-compatible match data
-  net: stmmac: dwmac-sun55i: Add Allwinner A733 GMAC210 support
-  arm64: dts: allwinner: sun60i-a733: Add GMAC0 node
-  arm64: dts: allwinner: sun60i-a733-orangepi-4-pro: Enable GMAC0
-    Ethernet
-
- .../net/allwinner,sun8i-a83t-emac.yaml        | 136 ++++++++++-
- .../allwinner/sun60i-a733-orangepi-4-pro.dts  |  28 +++
- .../arm64/boot/dts/allwinner/sun60i-a733.dtsi |  41 ++++
- .../ethernet/stmicro/stmmac/dwmac-sun55i.c    | 230 +++++++++++++++---
- 4 files changed, 389 insertions(+), 46 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml b/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml
+index 323a669fa982..94af58d369a7 100644
+--- a/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml
++++ b/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml
+@@ -22,6 +22,7 @@ select:
+           - allwinner,sun8i-v3s-emac
+           - allwinner,sun50i-a64-emac
+           - allwinner,sun55i-a523-gmac200
++          - allwinner,sun60i-a733-gmac210
+   required:
+     - compatible
+ 
+@@ -44,25 +45,38 @@ properties:
+       - items:
+           - const: allwinner,sun55i-a523-gmac200
+           - const: snps,dwmac-4.20a
++      - items:
++          - const: allwinner,sun60i-a733-gmac210
++          - const: snps,dwmac-5.20
+ 
+   reg:
+-    maxItems: 1
++    minItems: 1
++    items:
++      - description: MAC controller registers
++      - description: Glue configuration registers
+ 
+   interrupts:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 4
+ 
+   interrupt-names:
+-    const: macirq
++    minItems: 1
++    items:
++      - const: macirq
++      - const: eth_lpi
++      - const: tx-queue-0
++      - const: rx-queue-0
+ 
+   clocks:
+     minItems: 1
+-    maxItems: 2
++    maxItems: 3
+ 
+   clock-names:
+     minItems: 1
+     items:
+       - const: stmmaceth
+       - const: mbus
++      - const: ptp_ref
+ 
+   phy-supply:
+     description: PHY regulator
+@@ -87,7 +101,6 @@ required:
+   - reset-names
+   - phy-handle
+   - phy-mode
+-  - syscon
+ 
+ allOf:
+   - $ref: snps,dwmac.yaml#
+@@ -215,6 +228,36 @@ allOf:
+             - mdio-parent-bus
+             - mdio@1
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - allwinner,sun8i-a83t-emac
++              - allwinner,sun8i-h3-emac
++              - allwinner,sun8i-r40-gmac
++              - allwinner,sun8i-v3s-emac
++              - allwinner,sun50i-a64-emac
++    then:
++      properties:
++        reg:
++          maxItems: 1
++        interrupts:
++          maxItems: 1
++        interrupt-names:
++          maxItems: 1
++        clocks:
++          maxItems: 1
++        clock-names:
++          maxItems: 1
++        resets:
++          maxItems: 1
++        reset-names:
++          maxItems: 1
++        power-domains: false
++      required:
++        - syscon
++
+   - if:
+       properties:
+         compatible:
+@@ -222,32 +265,76 @@ allOf:
+             const: allwinner,sun55i-a523-gmac200
+     then:
+       properties:
++        reg:
++          maxItems: 1
++        interrupts:
++          maxItems: 1
++        interrupt-names:
++          maxItems: 1
+         clocks:
+           minItems: 2
++          maxItems: 2
+         clock-names:
+           minItems: 2
++          maxItems: 2
++        resets:
++          maxItems: 1
++        reset-names:
++          maxItems: 1
+         tx-internal-delay-ps:
+           default: 0
+           minimum: 0
+           maximum: 700
+           multipleOf: 100
+           description:
+-            External RGMII PHY TX clock delay chain value in ps.
++            Internal RGMII MAC TX clock delay chain value in ps.
+         rx-internal-delay-ps:
+           default: 0
+           minimum: 0
+           maximum: 3100
+           multipleOf: 100
+           description:
+-            External RGMII PHY TX clock delay chain value in ps.
++            Internal RGMII MAC RX clock delay chain value in ps.
+       required:
+         - power-domains
+-    else:
++        - syscon
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: allwinner,sun60i-a733-gmac210
++    then:
+       properties:
++        reg:
++          minItems: 2
++        interrupts:
++          minItems: 4
++        interrupt-names:
++          minItems: 4
+         clocks:
+-          maxItems: 1
++          minItems: 3
+         clock-names:
+-          maxItems: 1
++          minItems: 3
++        resets:
++          minItems: 2
++        reset-names:
++          minItems: 2
++        tx-internal-delay-ps:
++          default: 0
++          minimum: 0
++          maximum: 5580
++          multipleOf: 180
++          description:
++            Internal RGMII MAC TX clock delay chain value in ps.
++        rx-internal-delay-ps:
++          default: 0
++          minimum: 0
++          maximum: 5580
++          multipleOf: 180
++          description:
++            Internal RGMII MAC RX clock delay chain value in ps.
++        syscon: false
+         power-domains: false
+ 
+ unevaluatedProperties: false
+@@ -412,4 +499,33 @@ examples:
+             };
+         };
+     };
++
++  - |
++    ethernet@4500000 {
++        compatible = "allwinner,sun60i-a733-gmac210",
++                     "snps,dwmac-5.20";
++        reg = <0x04500000 0x8000>,
++              <0x04508000 0x100>;
++        interrupts = <0 172 4>,
++                     <0 178 4>,
++                     <0 173 4>,
++                     <0 174 4>;
++        interrupt-names = "macirq", "eth_lpi", "tx-queue-0", "rx-queue-0";
++        clocks = <&ccu 229>, <&ccu 92>, <&ccu 227>;
++        clock-names = "stmmaceth", "mbus", "ptp_ref";
++        resets = <&ccu 94>, <&ccu 93>;
++        reset-names = "stmmaceth", "ahb";
++        phy-handle = <&ext_rgmii_phy_a733>;
++        phy-mode = "rgmii-id";
++
++        mdio {
++            compatible = "snps,dwmac-mdio";
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            ext_rgmii_phy_a733: ethernet-phy@1 {
++                reg = <1>;
++            };
++        };
++    };
+ ...
 -- 
 2.53.0
 
