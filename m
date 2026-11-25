@@ -1,81 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795572705;
-	b=Uijj7FxxgV3Fs9ec3BEu3IQClFwEs1XJVqoDTFaTgbZdr2eWYFw2sMGy51VTdC7FeplS
-	 DgYkk+keUOWlR08dxCizW9Bb8R9iYngSCSqhWfJK5JS3Es4pEkuLsurcqGj51jo5XbxsS
-	 KPTKNMaJhiv+LJWH5mBQd0SuwnI8qGI9TYesY4JWVT2cAg6VkOccRo80itmD0VSyOd1Ey
-	 FuswPDKTOiy0BV0mD8iNGidY1xTN5XWTxJCIIes0B+XJ9dZCazD2uFn5xEVEcZl2eYQHV
-	 tJyBaakTlNkBGyB4bKX4Q24cbONoWVKNBxXgpjtOodpdbwDskTTGbaWVgPYoeedngrg==
+	t=1795573066;
+	b=ci4ahdsDcrHeAMbF9vYQrmNmlwyTbqCgDhKuBEROIuyxnCTrWizf+xYCrwiTnN6l9DPY
+	 4+G9GCefk1xK/QNR0yPFyYDXARLVNATXm5GXbx/+u/RUHWROori319BaeQIucbnUPmfCR
+	 5vR/k4bdF5iRqQcxFhJfU124c9PI5DA6nO+GAp3G5FmCY1+d453ivPRmNoZKRfZt90ffT
+	 wpd5pFSQBXiqgls28gQEuTqF7YxwU0yXKWhiBSCNct51Z/hnv9jCdOkPl768v9twXrg2/
+	 07AeJcN/zBjnucCDPONeKb8PbwjoIWh8/88iknpKz0zRzXP/UOpqt44d7/4DXw42Ckw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795572705;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8o2eFM0hEp3bckqxilWkip4AP0ZcM1uxjRx6JW35CV4=;
-	b=BTgjzKRJCmWyMtKMH63HaPs5CDXFMPYWN1L8oOyuIzlDjOtK53eNSduoc0i+FZM51Srw
-	 3lNk1hSd93vEK24WCtfOVejke8wZ14uJMGa9uX4AOYSza+mOZSV7wpnRMm8WvLo/tFVRt
-	 NnEenF4XRjpi/AYBdaxTgJ8Bxynu4/nRrR5mtfpLRVSglYbCDOwOLH+8ZPX4ppKMlkqCT
-	 SesR30W6jtze8UVlxiUZz8VWjcawIWDbUIrfkvHckTd2zZGIcklJe8HAFEvUVXYq4OgZb
-	 l7Zjua0BCgkSRzH80tHyOv3XYi9Z6/XRFluMGH0uO+mG379qy5Ny5x1Xxbf5GY3meLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795573066;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=gBAzenmpcwPme1hRfQxhK7S392gYIIlb4xI4HrOvunw=;
+	b=my28rp659l6RQAC9G8wZNk78WRgGA6kBj/RZLOkSmKi1H6KatgzTE2q6kX0NFtQoE3MQ
+	 etSIcsX10RDSexee/fwdDgTxwJk+VC0YzQFVGprS6/yTUKrYzPMOBBCjOlHTbJ9x0E6b8
+	 h6qwNmCKQ74wMaGUfba6mOmVCTxfgMBFD4tWAET5g5CK+CNl9dvE3QC3NjF+aqJBkaTmk
+	 0/AVPff+xxhOBz/En3btlM9aEJ8AltlbPh5Y3aI+kqzNda8zz3GJRVq4QblNnLP2kjHZf
+	 2ndagmJ7TV9o0pam2t8X2kOi50W2eGkdX/8HRsPuEH/PloVcbr5PFh2j9AAUBz91n2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LwSqyR9F;
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABV+o+uT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AEC606A321;
-	Wed, 25 Nov 2026 02:11:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02AEC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9972B606A31E;
+	Wed, 25 Nov 2026 02:17:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LwSqyR9F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795572693; bh=8o2eFM0hEp3bckqxilWkip4AP0ZcM1uxjRx6JW35CV4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LwSqyR9FinMF2GqLFeKIfBJawu578qDXFqpgOGpNAcDThJfsxf92O0FYdsnBnOb8k
-	 MSjP7oa+ODnuauiMmafW3eGsDyo1Htbh706/HmjWEEDbhGEHOvL9bgxptJNl2Ks3D7
-	 UuV2tCULHEX+ZQmPZ6+UAfMFheDLW4Nhhe7XAegc=
-Received: from HF ([113.90.236.90])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 2DCBA053; Wed, 25 Nov 2026 10:11:28 +0800
-X-QQ-mid: xmsmtpt1795572691tyvcjf7qq
-Message-ID: <tencent_33047574BCFD03DA2AE57B9890EB09FE7705@qq.com>
-X-QQ-XMAILINFO: NzySSbD1GC1pcVD57Xnya8DhHHMG1EvHVQuHE+tByQDsplbVpFv95635k00Tx6
-	 7Ltk46lYiNJjMJQ/Ae2T4zbFSjdvflu4hZZw2yjkaJalpKIWFu7ctbPPuR0zBnKwG9gsEjwtdvck
-	 w/xajG1/trkDFoGPA8wCRSh90pSm9jja+dsd9HwTlwT7q8GF3PtRdGThvbAAUCMvNJYIYSYlUJuZ
-	 qy0x8fmw8qX3UzBCQQQxaL1pA0VwB/JxRgcjW8flpxqolpFL7IZ0+jAQrDs/0dzmT0EcyQSlBAb4
-	 rdD1J/Nbdgv084WH5iV5QrnxvJOK4VVPocaIig6hFMSDx/Qf54StdnBEKpNd2xWrWHXnm9Elnk70
-	 vKLVD8mQ0XWZBy4TAiS0NJiVDZIUQ002D7GNCnXcslTw+7WXnjkCASjpooBcPln1w7NefcRNVjZm
-	 1IgHYryL48cLNOIkFJEP6dHQh/KPrNW2GzePUjwKeQmfUZpHPz2MGGjCqmPuDw5VeGq35B7KMcpt
-	 nkgPiOikl5Co87qBylIWwr63iDY5XAdj6Rfni5mR9+eupGsf1ifUM/U75HSIIvE46SkbL0irPRJf
-	 ZdOXJt7bTHuDM9Ke31Jxh9ibCkmhfR1kh+py1tL1YjOdLD9QuYW3lxrywLS3ZTO5FEtPi0JUf42J
-	 eezdUs5vKAtIov20MTZa1w+5g0X6Zi/VqeKhX0V9F1rNsSRmLjK8Bxdq16cx9GFazSf29NkfjgDY
-	 vPVd/L6uOTuP/JnV7qmJPyjvY/9lAAS8Z4wjL8ehtwuGGC7t/IhjJppiU3/Gh26DEQYjiDo4pHpJ
-	 m7hUA6IjoZqJoF3HxIftRe3roqFOUXmKHUr+43twyoEGzOwOHQFIyZyRU+ooRtfbvWMnzbkSEU8X
-	 V2QAv7+BBZeD8Ikbnlbu6hACFx+HkOtDNbbmQwJs9Iwi/7N5oCrSMGR3pTQhxCvCTBFoKsWXcQtl
-	 tzbpl7o/C5Idoxrs44Cw+VzJxsUJiF08UCL9LDQ7AN8UXPvC+FvFOuETwJzgiWyJmo8EWIzl3wee
-	 0R2CY01c6gI+SvtLSyZJ5G/RSxJQGfxCJimwS/03tuAbdr/HobcYlxRlWE7q+r1wcrDTlNi9nJRW
-	 ByVq1kBwUkDhwOk4p9/FWDMTJo8kJlVtunB8uZVtFKwcZqsQYLawDXc4vSt8ww2YUrUMXHIRa+JH
-	 VDKEtlYoiyQVi6Ew==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Hefei <3066883572@qq.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	conor@kernel.org,
-	Hefei <3066883572@qq.com>
-Subject: [PATCH v3 3/6] dt-bindings: backlight: add VIEWE I2C backlight binding
-Date: Wed, 25 Nov 2026 10:11:24 +0800
-X-OQ-MSGID: <20261125021127.1430-4-3066883572@qq.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261125021127.1430-1-3066883572@qq.com>
-References: <20261125021127.1430-1-3066883572@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABV+o+uT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C801F000C4;
+	Wed, 25 Nov 2026 02:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795573066;
+	bh=gBAzenmpcwPme1hRfQxhK7S392gYIIlb4xI4HrOvunw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ABV+o+uTJ0IqwVmbJSbaqO3HYZMsll074zR9ISHqx96z1OxcRqErj/dP6sLlRWv3A
+	 u5LenYaWaUBBrDQ6RPJbnjgUqgowWK0nNMa88SP9dsWdTcFIZrmodVaa4zar0Bwo8Q
+	 Jpk+/AE6FsXFe7fo9foGqB48Clh7U5uPK9yjV30h0FLVUNvp4aapAlm6Ql7FF4xDTa
+	 +ctnSwOHdlmWh5la1TbOGv0XoM1XGQSokFWNWelBxvyRCl0frt/CNzM6bz5+xW7e4Q
+	 LtUYsEsMiTdQCsNpt9Tkf94h1mhLBhXrIez05cTKbU7SEZ3x0Z14fJcROcy7K/iQpV
+	 KCLCStRIkziIQ==
+Message-ID: <sashiko-outbox-232398@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/6] dt-bindings: backlight: add VIEWE I2C backlight
+ binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Hefei <3066883572@qq.com>, dri-devel@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <tencent_655009C68D3E3EAD3EBE65084B9F9A7FE509@qq.com>
+References: <20261125020944.137-1-3066883572@qq.com>
+ <tencent_655009C68D3E3EAD3EBE65084B9F9A7FE509@qq.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 02:17:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,67 +60,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Hefei <3066883572@qq.com>
----
- .../leds/backlight/viewe,i2c-backlight.yaml   | 46 +++++++++++++++++++
- 1 file changed, 46 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/backlight/viewe,i2c-backlight.yaml
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [Low] dt-bindings: backlight: undocumented vendor prefix viewe
+- [Low] dt-bindings: backlight: schema filename and $id mismatch
+  compatible
+- [Low] dt-bindings: backlight: redundant word binding in commit subject
+- [Low] dt-bindings: backlight: empty commit body and invalid
+  Co-authored-by
+--
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/viewe,i2c-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/viewe,i2c-backlight.yaml
-new file mode 100644
-index 0000000..9be4bc9
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/viewe,i2c-backlight.yaml
-@@ -0,0 +1,46 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/viewe,i2c-backlight.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: VIEWE 7KF82 I2C panel backlight
-+
-+maintainers:
-+  - Hefei <3066883572@qq.com>
-+
-+description: |
-+  I2C backlight MCU used on the VIEWE 7KF82 DSI module. Protocol is device
-+  address 0x45, register 0x86, brightness 0..255. A discrete MCU part number
-+  is not exposed on the FPC silk; the binding is therefore keyed to the
-+  module.
-+
-+allOf:
-+  - $ref: common.yaml#
-+
-+properties:
-+  compatible:
-+    const: viewe,7kf82-backlight
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        backlight@45 {
-+            compatible = "viewe,7kf82-backlight";
-+            reg = <0x45>;
-+            default-brightness = <200>;
-+        };
-+    };
-+...
--- 
-2.55.0.windows.5
+commit 30cc2981090ca10d47ee3c9cabb7273eb616720b
+Author: Hefei <3066883572@qq.com>
 
+> dt-bindings: backlight: add VIEWE I2C backlight binding
+
+[Severity: Low]
+The "dt-bindings:" prefix already indicates that this patch adds a binding,
+so the trailing word "binding" in the subject can be dropped.
+
+>
+> Signed-off-by: Hefei <3066883572@qq.com>
+> Co-authored-by: Cursor <cursoragent@cursor.com>
+
+[Severity: Low]
+The commit message has no changelog body describing the hardware or why the
+binding is being added.  In addition, "Co-authored-by:" is not a valid
+kernel trailer (checkpatch reports BAD_SIGN_OFF), and per
+Documentation/process/coding-assistants.rst AI tools cannot certify the DCO
+and should not be credited via sign-off or co-author trailers.
+
+> diff --git a/Documentation/devicetree/bindings/leds/backlight/viewe,i2c-b=
+acklight.yaml b/Documentation/devicetree/bindings/leds/backlight/viewe,i2c-=
+backlight.yaml
+> new file mode 100644
+> index 0000000000000..9be4bc93087ae
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/backlight/viewe,i2c-backligh=
+t.yaml
+> @@ -0,0 +1,46 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/leds/backlight/viewe,i2c-backlight.ya=
+ml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+[Severity: Low]
+Should this file and its $id be named viewe,7kf82-backlight.yaml to match
+the single compatible string it documents, as required by
+Documentation/devicetree/bindings/writing-bindings.rst?
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    const: viewe,7kf82-backlight
+
+[Severity: Low]
+Is "viewe" documented in
+Documentation/devicetree/bindings/vendor-prefixes.yaml?  Without a vendor
+prefix entry, make dt_binding_check and checkpatch fail validation on this
+compatible string.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_EE81D0ED29E=
+97716D56BDCF1A3C5AAE35B05@qq.com?part=3D3
