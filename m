@@ -1,57 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598385;
-	b=UH53yp2yC0pS+EHXtH1rMPzz8BcSdNN7a9IS9KDKlWhgiItYghnpvYsOdhEBZINO6g3f
-	 6LBE6agie+juqhL71ESW4R+H85lJ2JLolWN9kj3df7KE1zMEuqqWySSlPNpFSCWD6n9Py
-	 WeRYTHQZxYcQEW+uMuOpDY81fEZycDCUutaKgx7Bl/2vuarziWTs6ReGZtyo1gPQs59uP
-	 sDSciaVQ3WtIRiQl+uFnKk8RjoJeTuW8LBm/6YLL4B0qp6LKPMubbvtR6/wLlWKGiBxda
-	 TKfWftTPo+UGZUU284J6LGfbFzXv6QW8mM06gmsl0rfsopgh6rpiAsy44sJLr2TYArA==
+	t=1795598524;
+	b=sM1odYEY/kxwK607JJOkcpIuI/ZjFT8kRyHdWteKmCoZSTEb+TnDISHJxVhm6viOidHP
+	 d/649ZHHp64du64aYRB6+B+5EoXX+3UvcGvcjllMHuFHw/6tc76XhjoVzk4kGh/KWeKQh
+	 HOM9MaM+m0ER8gstNHjWVpBwFYo7Dpv/0ukB4wZ7hsHVO+dQfYzQz5SQ1bzijiA43mVuW
+	 WeMaQ44Ex0SICTR2aSy1OqNFHsJ+raVe7soy4+aZ6NlNJYxB8Gcb1A09eM1K0JsURq6dV
+	 xeOxmaMJr2ElSgyxWMoIFHJB7ROXSEV096Y0EV4tVRVqjAfky0zlVRVuam1ghA6Dkiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598385;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=EPoeYDjPsPvpdVLo1d2E8IQLCuKSvJC5TcjkXpm+UX8=;
-	b=w2BUXJOysGZ7a211oeVlvzz8UluTuHMuAUY2+AaCcMYELCwalbCVJrqpJ4N7z69PW9F+
-	 YxYI2Tu22+DfTGYhWZWqL0q2uHdHh2g08lPI11h9AYIAtk70PPF9VtEBMC2fuTFZuBzTH
-	 auPOToPWfBP0W7vz+aT/e1N+0NBT+dt/Rd4hH3VbPfuy+BRxV+81RB8mAa39MW2MQXDng
-	 FZvAQZy66xpQdtrzxVpTa9CJr8bTKU68fNHYzdePR4e4uRPGwioTbEEDg3eCPKGaS5Ri3
-	 t5IA7cKkoQZ0rw59B278xhP3fNmXR2hli6QbLDx8MDKHmmIHFfKy3g4S8/miKen56Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598524;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=KZr09DVgzsS9U2lQ1ifuDPDujMdvWXmaam9D0xrQu6c=;
+	b=YGRAVr4aaRq0Sua1OdAFIN0NgORMyT7pjrID/oHxFi+9OrxyTlpQC2y/tOxCxuF4DfEO
+	 uIX+FKozTw1yn5Iw5OfX4GHh23pQoYsTAHoaI3UCfaiWSC07ok87dJJrDm0chNUto0DBr
+	 sFN+3BwAIG5bzGHfLdTB+BSnEZAODKW9CLTMODgeRPaxZsUNBFRRIBCT9jtUS2dwbF/WJ
+	 c7Bwt1GOfygUMR5P3PlLtCvfNVw7JuUwV+XCoT0mftVDIUFgNwFYkYDOcM6J4rRgHYxLt
+	 PBXgBU47RXr11+jmKW9Lua71WZFGK0BkZuFEghFmM0xEy4/AOufRNUm3odRE+SmrOZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bO/s6NAE";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=bvVVoqBF;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F3A606A33C
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 09:19:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8267606A68D;
+	Wed, 25 Nov 2026 09:22:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8267606A68D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bO/s6NAE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4693D1F000C6;
-	Wed, 25 Nov 2026 09:19:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795598385;
-	bh=EPoeYDjPsPvpdVLo1d2E8IQLCuKSvJC5TcjkXpm+UX8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bO/s6NAEg4fcACazyx9PRQrYzRkAqCgYaE7zq2qd3nYRZ/9kaOeGhU3ePvTm1Y7To
-	 J4NibdxsUTajh9UxRfLJg2PZfj4t/SlY8Qn6guNdz1RB85968YsYZ/fnjhcp3sc56w
-	 4QBDg+NC9SZKhTC5EqWAT1JZ3wilpRU/lMtbxMbTfez7tg58rSg3k2PdvyyUf0328D
-	 Nh6EDBBCxxnYdpxedf5h+FySF5KxurOysZ9IzmozEbOBpRoaON5OOoXNpdYVaVb/eL
-	 Wpx4+EbDMyrwqc9aumMnpi8+cK4XDax4oOkosIc6Qq/QcoR4pfLFZEUuUAFUc1LDBx
-	 mfuEU87Y36lAA==
-Message-ID: <sashiko-outbox-232999@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] arm64: dts: qcom: sm8750-lenovo-elden: add
- Lenovo Legion Y700 Gen4, a Qualcomm SM8750-based tablet
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261125091309.124354-3-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261125091309.124354-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261125091309.124354-3-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 09:19:44 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=bvVVoqBF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1795598520;
+	bh=KZr09DVgzsS9U2lQ1ifuDPDujMdvWXmaam9D0xrQu6c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bvVVoqBFztiePRmuD/Q9cTcb0wWGHgG2j588b7mLjdp512xo88qT8Cxt+lf8OtKVh
+	 2tg+AvRdkHjYzcR0lXb3aZkr9b5uPEWnl2eCQ17GUGcMbbtoBMUNs8ZSYFk/ZIoeb5
+	 KST70TgmwRo7j9W8WgFxoZqhsADQ4maEsjHj4yumy1DFY1DwePRW+5NgRU5VNnO4NO
+	 GhipFwUL2bgIK4pSfL0NYWXlIP3E6u8gbIZhf7mJitibmVbx6SMsrQpV1o3QGU/vWY
+	 m0ugfCuN1GEdKIyIVo7cOF5dE99/XhQewoc9AvZwOYKxg8qGCEacumeIhxRk7VeaBc
+	 xOKwBDmvwgOyA==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jZDhm5ggZz4wLT; Wed, 25 Nov 2026 20:22:00 +1100 (AEDT)
+Date: Wed, 25 Nov 2026 20:16:18 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 13/74] Add support for /addon/ keyword
+Message-ID: <awanS_Wx4iRBw7-i@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+ <20260826094950.1088288-14-herve.codina@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,73 +72,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JldxE5qn1ka6YP1T"
+Content-Disposition: inline
+In-Reply-To: <20260826094950.1088288-14-herve.codina@bootlin.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] arm64: dts: qcom: undocumented willsemi,wl2868c compatible in
-  pmic@2f
-- [Medium] arm64: dts: qcom: missing core boot and power nodes in
-  sm8750-lenovo-elden.dts
---
+--JldxE5qn1ka6YP1T
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 262e507ab978aca6c1cff7c77d2e146878beb012
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+On Wed, Aug 26, 2026 at 11:48:42AM +0200, Herve Codina wrote:
+> The dts /addon/ keyword allows to mark a dts as an addon dts.
+>=20
+> This is similar to /plugin/ used for overlay dts but specific to addon
+> dts.
+>=20
+> It is also worth noting that a dts tagged with /addon/ will lead to a
+> dtb with the dt_flags set to FDT_FLAG_ADDON (0x1).
+>=20
+> This allows to identify without any ambiguity an addon dts and an addon
+> dtb.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 
-arm64: dts: qcom: sm8750-lenovo-elden: add Lenovo Legion Y700 Gen4, a Qualc=
-omm SM8750-based tablet
+I've hinted at this elswhere, but from this point, it gets pretty hard
+to review the series without having a better overall picture of where
+we're aiming - what the addon syntax looks like, what the encoding in
+the dtb is and the semantics of each.
 
-This commit adds an initial board devicetree for the Qualcomm SM8750-based
-Lenovo Legion Y700 Gen4 tablet, describing board clocks, reserved GPIOs,
-and a WL2868C camera PMIC on i2c10.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm6=
-4/boot/dts/qcom/sm8750-lenovo-elden.dts
-> new file mode 100644
-> index 0000000000000..73f4452f46120
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-> @@ -0,0 +1,129 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include "sm8750.dtsi"
-> +
-> +/ {
-> +	model =3D "Lenovo Legion Y700 Gen4";
-> +	compatible =3D "lenovo,elden", "qcom,sm8750";
-> +	chassis-type =3D "tablet";
-
-[Severity: Medium]
-Does this board devicetree omit core boot and power nodes such as SPMI
-PMICs, RPMh regulators under &apps_rsc, console output, and storage?  The
-UARTs, USB, storage, and display controllers in sm8750.dtsi are disabled by
-default, leaving &i2c10 and an unused camera PMIC as the only enabled
-peripherals on the board.
-
-[ ... ]
-
-> +&i2c10 {
-> +	status =3D "okay";
-> +
-> +	pmic@2f {
-> +		compatible =3D "willsemi,wl2868c";
-> +		reg =3D <0x2f>;
-> +		reset-gpios =3D <&tlmm 126 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&camera_pmic_default>;
-> +		vsys-supply =3D <&wl2868c_vsys>;
-
-[Severity: Medium]
-Is there a devicetree binding schema for "willsemi,wl2868c"?  No schema
-under Documentation/devicetree/bindings/ documents "willsemi,wl2868c" or
-its vsys-supply, reset-gpios, and regulators child nodes, so make
-dtbs_check fails validation on sm8750-lenovo-elden.dtb.
+I'll skim the rest of the series looking for any futher patches which
+make sense independently, but in general I'm not going to review the
+rest of this spin.  I'll reexamine in the next version, which I'm
+hoping will come with some better documentation of the overall
+feature.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125091309.1243=
-54-1-xiaqinghuan@mail.ustc.edu.cn?part=3D2
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--JldxE5qn1ka6YP1T
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmsGp0sACgkQzQJF27ox
+2Gc4qxAAk0237DS1aQK32pqIq1ajeudNv75q+7DoP0JXTBnMSwWZ93shGuHmaPju
+UhgrJZMIlqxjs7t6Uk301RW+DmD3/8ceBQwgPhuzjKBy3G3KGaOHMRNxp0ioLsfs
+gDQ4kZENQXMDTSspePHtBufAzmuMKmuUSb16Qwbyb2SFsPAUQ9I0iiqCchWLj7PG
+75k4T0riavYNZKYJsV8OCozY+dielRnlaxZEDaGMHha88O59i4SwL6vyvyZK6rBJ
+acIM80v3MSA2urSkLNi7Bavr7ewaap/K0LkaI79ND2vWU2uPk5gZqNUDpsFi6cQS
+5R4eJlG9cWibQn4L9DoAXVSNHC0D+JZwZg+fnHYsR/E78ZSZDlPgpLlDgbNgrpyd
+weY/XeeWeZkq6kUtF3D1D7tByDA1ajFoB7T4prwY0golKg8SJQkrzUrdZcTtusQN
+sPc4/pDQ41IwfcZTq5rFtbaEBpwVtv3ILdEDVh6LTjRRvdx/fzpsSLAK8u5Cyjoo
+htIPinZixGDrT7Zy1kH2ED5jiAhrNdSloOEe+9x0aIrq1pkhkE1Qk5dmITHKqbpV
+ESE1hpcO1deOPs7/nRWbvS+5LxGQdj0OaCzynDszaXDRyMTICYDWzl0gIV3bPaTM
+QN7x+OdvuYFBHx8YYGt+v8ACyJfziF3xtqItJVpuSMp+ZmV6aiM=
+=PsXd
+-----END PGP SIGNATURE-----
+
+--JldxE5qn1ka6YP1T--
