@@ -1,114 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.23
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795607386;
-	b=xBYQ43+vQKPwe1OWEMx82DIqMqWHLHEPUT52jHEEpXLTLhA51iXKi5ZWSdeIHMiwoEiF
-	 VFTGQCZ8+UpGfCqx9YW++GUoJYGTvG418q7Rv3W37BiAaydBZGApWnmToeB5at4YCBEzE
-	 C1vwTmfOCL7ILlS4j21M8NwZa5dQbf4nA2oPRNhy+fdg7sQrGATO/hgwS8xuX4NEHoidX
-	 qHvWiZKfl2RCh8uAozI1WkxObysr7862r1eRoTrX2N6vNiCP1Ciix4Q2HaqZnruCl7tAO
-	 sxeGDfIRKun5qrmgLccmLLedIMvDebPUhvXaBvdeK6nlKBLzK+9dylAqOHnO2ZYFNcA==
+	t=1795607453;
+	b=XOL1Kf0Dwr76rk6Qz1Tb0KtUqk5N5m6jo9ukmI5N+aA4g4TIYMp+18Ch4FdxVgzHuCyF
+	 eUv+xnRvaM2Nq7yQEqhl5oZySHCBBEeC2k0Nn2OxWNwrKK4pd+kyyF930UpVrzABAtWdI
+	 Lc63qBAo5T/ZbyGSf0hDFB5qSEjgkgubNmagASdtNV1fh9l2xj5sd5ke2bPE/kRg+B7b7
+	 25aypU81sMlKT4aTiGZpcnYDqniro9DDbhWYpb4UrhhvYBR/IxNVj45Cn/TfTPNIYag+3
+	 ql6WlbqDxOB3lYgo/1kJnTfkuhVRZupTbcsWT9OvaiWmghSPerUfaFO9HDyDK6ZGtRg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795607386;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=DeVLP1ubzO5rnpZndmM9GvxlmFH07yQ2vQoOt+PV+9Y=;
-	b=TA8fcbkbrdCwH5W6rvOQHONdeF/fPxQeYzdC4sbbLXpy0Fm6Tq9YyDoc0+llgVBJMygR
-	 nn2p3UhLxERVymJ01mLPhJSDANDUjvaOcmfeeXwSyPxPdtdYx1FI7qqlZ9kDSGh+39TAl
-	 l5gbxpsXxr+FSlFF9rRSCSf9+tbD4XSZOzniMB+4omOrECA9KPFHA8uCn/ZasXy0LOKUe
-	 W4mT0fSIPXT2Y0Jg+JAYceV6sH2wvyE2+eVhRn+aH5n4Q7Z7HusGxPpSfIherx9W68Sz9
-	 Zv2iJehw/UqCHSu8A01DG+nVfmYFXbpcCS3/yka/2/ScAbS0xB6yqkubB5gSuT4Jyfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795607453;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=AK/FrytH2tf+B+57Lq9wnH5wu00oxO/OQC1ZXkryskE=;
+	b=Ny2d6HahiMZUn5MIf9PRC/S5j7nRwH0EXK7rNacgCuBZ8u1NPfRhIhTVCwpyQ0Y141Px
+	 QDyeJiRIgCGml3XrN+b2VdrcU7gH0Xe7Tp5CJa2jYoQeeGobtzjmgd83MKCzde3xyE2UR
+	 qO9o2ChAyG1AkuLJkzNTSh4rbjnfJhj4mUgXRGFshaFeNxxW3+sTXZkYe997qfpMmKVX5
+	 7zMkd16Zv54tIWDhlhv5kMfngG/4iYHjTWyx3gAm3vs23olKRORsTQSDZ0ny6QYMlhQ4N
+	 XBPxzEsk0BLxOEZwZDOVk8kPic9yssqKo9+ilf/lgmhQWeX63MBnNQzoiNFg7BWM10g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1J+kKg0I;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.23
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010023.outbound.protection.outlook.com [52.101.61.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cCKrplZv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2002E606A321;
-	Wed, 25 Nov 2026 11:49:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2002E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7461D606A334
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:50:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7461D606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1J+kKg0I
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=biS1KtSFGsCpjV5yNcgiSoAbZGerZ5v6xstBvitC6upctBmrK65NWQVmp3p+0v6rN9tMf2T288n96vPDGNDedaSKvm33iERyYqj3+l3nxvaqh6cieJEGVIbQ3MU6VN1/FJXwM8DShfeW8ZuyDfhHO9U/WB4uK/c2obxqHSkRpMCFXK1XvTZy7pzp1sqcFP0fJFaczsGISRaa7Bpp1rSukLM3x7q7vQxRCi3FDnTchuvms9Uhk+kOqqtG7fHu7lWQ65sAmB8vqZJkteCQBxlOEeVihT5pE6lfP34JQleSCAsT4qVJ5CgBkm4GxHWTtRFaUQTH0XZr/A1jYMlei1+M+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DeVLP1ubzO5rnpZndmM9GvxlmFH07yQ2vQoOt+PV+9Y=;
- b=PlBqceEfFuD06+xlezkxc+XUELwx33f8MfA8vvOcMEWddK/68a1RQJACkhdqyBoEjLfYTQHV4sQj/zAR8CXThYLtUjow6h2RNNZT5Fir1TsP/sIi/BjPV5gJYWfMTr/3IwNlCa02rcuFuUOEPSbgRMZDXzvZAWHlcqAtiKhTiEX7yrTrU5M/m/rvXjpuPUFCrFYLbgIPCe5TFMqkOb360bPM/IxD+r3JB58c5BUhQqfyylOU3ingdvu0tImuRnSLadbO1Zguz7fhtM8AhamgDN9ixy/+oAnPaXi7HVtXXVcCsExApLh68HERuI53hQm8KFeTEoQqVfVJtA9OSNdEcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DeVLP1ubzO5rnpZndmM9GvxlmFH07yQ2vQoOt+PV+9Y=;
- b=1J+kKg0I2D+f0tpfAJXt9T6rtqPnu7PPHgdmLXezNWZPwjI5aCUGbZ2TQSDkN8sncyvghqRnZGvzaRKNcbKf25bt5P9+GI3oRN7UL6mcSwVkvRuW2nhrRvQ6OzPrfSDIKXdNhyihhv+q5SF0TlTJmMqt9qyd6SS2+odFsTBzeyE=
-Received: from CH0PR13CA0026.namprd13.prod.outlook.com (2603:10b6:610:b1::31)
- by MN0PR12MB5980.namprd12.prod.outlook.com (2603:10b6:208:37f::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
- 2026 11:48:58 +0000
-Received: from DM3PEPF000265BB.namprd04.prod.outlook.com
- (2603:10b6:610:b1:cafe::10) by CH0PR13CA0026.outlook.office365.com
- (2603:10b6:610:b1::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.688.4 via Frontend Transport; Wed, 25
- Nov 2026 11:48:58 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DM3PEPF000265BB.mail.protection.outlook.com (10.167.23.248) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 11:48:57 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 25 Nov
- 2026 05:48:55 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 25 Nov
- 2026 05:48:55 -0600
-Received: from xhdrdevl202.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Wed, 25 Nov 2026 05:48:51 -0600
-From: Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Michal Simek
-	<michal.simek@amd.com>
-CC: <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<naveen.gaddipati@amd.com>, Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
-Subject: [PATCH 1/4] ASoC: dt-bindings: xlnx,audio-formatter: add the AXI4-Stream clocks
-Date: Wed, 25 Nov 2026 17:18:36 +0530
-Message-ID: <20261125114839.3642735-2-katta.dhanunjanrao@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261125114839.3642735-1-katta.dhanunjanrao@amd.com>
-References: <20261125114839.3642735-1-katta.dhanunjanrao@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cCKrplZv
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c506a231b88so770543966b.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:50:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795607452; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NzhMxhVSIrFE+Do1l0IzcxgkkhKPTs1J5+P6J57nki/hYV/DCfpsQTD8K9/t2a5tpd
+         xYD7/gp/uUOhMdPzkYQ/bklKVuHvjI3HnPcMrYmSqQsiBA7DOT4il4ruro4aT1s2Uo4C
+         I+WW+8OAIxXcVD1uyY1Xvy8Ma3UT6fvgmzHFq5C2VRYOmedD4S6/TsZA7CqcTb2OgKmU
+         RiPYXTOfQyzNF9Y+bipYIkwnOCtW/lIs5OLZo5pMLbSQHVKNcbJ/3bLjI6lehgiEoaDh
+         esylkb3vi3d81DP2CGqVvvwIzfAebAzt4dC2yOO4WyHACrsebX5s+C350DcSTTmLiRp6
+         SZqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AK/FrytH2tf+B+57Lq9wnH5wu00oxO/OQC1ZXkryskE=;
+        fh=oFVldEV3PcN45KIEPvDBK4NBsJkargjCGqSEU4gIEEg=;
+        b=lv/h73/CgyS5Mcs5XZMmrqVD1pimAB38jXPEqxQJI/FjhWP9usWKLmEwSy0rw2eZ7c
+         AQ5Z6JivrjkVswTYzZjDagp37liGJjhyMoPgpFZidt/7VQixW6vFnMBxWB347DYo5fmc
+         DIoTwfeIEh/rCzpSXmYEY5MGNnwEV6vyCNWWiCdpCPU3xzt6DZpzwKu12iswdGYpJAFc
+         l3nBLTnTW6fBkJkChLEa6zxjNlklE/eRQmk/bMjp1Uww4E91UAyYAJfQZBvLoQrqpCdS
+         wzyPyeaAvZOINF4hlckJ7oy3Hiu0a9nebAYxR6Q1GNo5+PA6RDk6621cPmwulQhNqRl8
+         GMag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795607452; x=1796212252; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AK/FrytH2tf+B+57Lq9wnH5wu00oxO/OQC1ZXkryskE=;
+        b=cCKrplZvKmTmChiU/HWkkzSUlDXxoFNlvdQW5t4JT7LvZaH0zotWEszT5kKBJmcN0m
+         vPomZV2tFWvlHcSrTbIAZuo5IG+DDIIhkqdzaluUlsEaQbjEEHWkEha+8MbbvKJfHpNJ
+         bXl3xKAlMN3VvWpQbWEtysh7LbJqy03KCAvbBb4/lPCY56uKVSlnQ/rDAF0EPCdFR7da
+         whyxBm9WY9e0pNEXmVJmY3HAxKfEu64s8CS2jmMBv4BH0cWdBkWz2XGF5xzGEM5kJXEv
+         Equ5HQ0aYS3C+qnGSq1ascS5uzpxPVUWCGsWcVKOYAfoIori+vEAGi22Mpu0Ajet8D72
+         wlgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795607452; x=1796212252;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AK/FrytH2tf+B+57Lq9wnH5wu00oxO/OQC1ZXkryskE=;
+        b=Z3XwzzMIuXFvXJG9oA+D5iU++19bu4NLaHtggsi1VbfJtF/Ymdm4EEqOL4FQhUfrVp
+         TODB7hAjXzMVlZwiMNjLLSnAsT8Ygl4hIkLEGIlMTyb0tOdrun6lTIXVvkJg1Zy9hbGL
+         RdsnLhnAR6fD6v4YjzcX7D7L42MP7KMqAkxuy22hI023fFvAZ38hi2D8sZD7czH8rXQu
+         WJbHg41xE/kzGP5JR+FkyGBYf+Y2IWQzFGBFkWU5gmom47kHoTMLDB9aG+945pbbnsfy
+         BA4J3J2zP/IWp+bSG+3ZqjB6oS260wrgM6in+J7WYvjw9ANcIp3FmwtLR/QPPRXyrnfQ
+         SboA==
+X-Forwarded-Encrypted: i=1; AL+hErHqUSnASf3mxE6VlENGl2u9OS2INd8cR+2QrkGwSRCaE+VuHaHp7rmqtgZeCIJ1m+2myOHbPFoPqSzQ@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JhRnEirGce+ORYKEx4Sknm1SnqCPhZ8vX+2MVFH3xiaWnQdZg
+	yR+RB8f4pLSEznwyj0DAGsuFLO83Z6YxGJ0eu+dnMi7AxxZaf83SuUHVmAQ5rTHeEnniS9QZ8/Z
+	Fwpss9qK7RKBCQVxK9A1fxWgnxGQECaU=
+X-Gm-Gg: AZFdTZdHz+JUV4O0S1Y2Aaec4CAwPimt5HxSXvJFgJ+Xdcol8+Jee6gLCjSrAtR8dc0
+	LpInsT+eK1QGbUSDQJkGlRNLllps3Z74cpflAej0GmhozZpfXpeXjdG7I6IxeA0O468rBPQTPrJ
+	e7OT/3NjukR3zZQzhU/e1u4EqWXoMy8K8T/fCRmOsBD/+k0/AusBKNXI9DjrgreiYHy78IWx3rP
+	Ayj/tqvK/ltZtjbUfHvToP5th5MplTxYx0uzToThx6v2mHr71x/2jwjJ/7WWBaImfVDPUwG4SjU
+	TS7X9pM5IGVTR1W5uA6871a0jo4EsIeCiX7GKflDfC+oBDMSrpecFMA9yx7gIoXmmHspXPdwQh7
+	lywzbo2KONCztiaitcG1/V1PqhIiyNJX4DnR3AEg=
+X-Received: by 2002:a17:907:ba01:b0:c50:521f:13de with SMTP id
+ a640c23a62f3a-c513a897601mr1361763166b.35.1795607451572; Wed, 25 Nov 2026
+ 03:50:51 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,117 +104,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PEPF000265BB:EE_|MN0PR12MB5980:EE_
-X-MS-Office365-Filtering-Correlation-Id: 913e3076-d9f4-432f-fb28-08df4aea16ba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|30052699003|82310400026|1800799024|36860700016|376014|23010399003|7416014|22082099003|18002099003|56012099006|11063799006|261022105027099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261009223027099003|261102123227099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	DyZANWD8z73HwU3fFF74T+fHEGgoParnJbjCN1xW99KsWj5FndZJ1lHWnBCKHLqQbIwV4WBlXZffQQqsVcdnecOh/QDj6Xu14mYnYJoRjkuzwv7Ixt9lNzFEFFNSdFHFuRQa78BixgDpfCYLAFJMzkMMDKLypzWy1rTbYbHLgvZmz6k0g/EEYUiOlV4A71HZxWrVCdkQPPXleLScvXIDCE30OWC8kQ4sYBUDnrGpCBe8iC2L+KPEAZaZS4Qj8J9BWBfcukZJzt2R+84aWLw3Kq6D1xm5iek1VCSABRQvfuSHXmzySBt6uD0yst4o+zyGhaWCx1y5DnqYMpHv05HJu4kylzrG7tPZXc4MBupJb/IU8XCykzicAXtdWNCvAo2rFBTNniOtvBEGJ9g4qyi+NLyMbFfzZuK+etamALafz87tADxSQz/T2WzFMl5klvQ5BAnpsTufm0PVYrBVBt/VqvCFl57ovZkKJGxuuM7vuJJFnwGGJy93APdatSDCsYj0weQQraSqlZ9ptk0bNNGwpYGhaB9HBy9Pk54IsxNykJmhPWvuNS0dXQ6mhDLkc7bSS91owL79Aes41lWZYoeKBqWcxU0bB7AjBqq1vmgpTW1lcFyJRRM/5deOXBbGqJBM77pq4J6LzIgsEp8nX95COt/71MB+olnmuQDIdV0++zUhEqn49PrpELkTC1rR4LJA6PDHF2OmPvHbnNh0WooGMw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(30052699003)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(7416014)(22082099003)(18002099003)(56012099006)(11063799006)(261022105027099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	yeUqTW0g8A7JAojyV1Ngfq9+KMTp09Bol8lbVe8DUMW6KNoSyEWgCPW61whc/zqf5DxnAN6DYUj1iOuDJ8p1wmLYbIogGpZl20KFCZlN20u6cUP8CmO66R8bOGBVBzq4cXqLZRxK7efhWOfCZ4Jgh2cbcE0wRSJ+TNCxgHYzQYe7YTXYm8ztc0QYdXJ7NCdA2yQrm9yuU1nIjbDYdRFWEt0M/L04/C0vr2yCDBGg9BZav7AyCNqZfVoXzcjsUP1WE5Tcyh/HqkwGw7Sq0hOEmu8kKixnLI1tR5t9jsWyr+MvD3WQrZ3Ka+qr8u3g4CiL38gtwBoF+LbMI7SWEclf+RxHSTRcUxOBqks+/r1E8Ljg6dZR7V/x0itgJir8pE4jEEt4wY6RUecv9M7kgbJPqW5PxxMzwJiIpP1a9apnBDsz/oGn1rx43qqfFsW6laVt
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 11:48:57.3243
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 913e3076-d9f4-432f-fb28-08df4aea16ba
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM3PEPF000265BB.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5980
+References: <20261124094914.2993988-1-a.shimko.dev@gmail.com>
+ <20261124094914.2993988-4-a.shimko.dev@gmail.com> <977f8fec-4cae-4003-b878-a7eb5aeee48c@lunn.ch>
+In-Reply-To: <977f8fec-4cae-4003-b878-a7eb5aeee48c@lunn.ch>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Wed, 25 Nov 2026 14:50:39 +0300
+X-Gm-Features: Aa3M54oKEgG2JL9N45FOQuqjvfRbhcjaW8XTghdzQJCbxKeIwx-6DyB-aMwShTI
+Message-ID: <CAOPX746TNm7m6d6G-WyUzDptEVRJR0AuUzKa_Hg=P7s8CchhHw@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 3/3] net: phy: dap8211r: add PHY LED control support
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, maxime.chevallier@bootlin.com, 
+	pavel@ucw.cz, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-leds@vger.kernel.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The formatter has four clock inputs. Besides the AXI4-Lite control
-clock and the audio master clock, each of the two data movers has its
-own AXI4-Stream clock. Only the first two are described, so a device
-tree that lists a stream clock fails validation.
+Hi Andrew,
 
-The MM2S and S2MM movers are instantiated independently of each other
-and a design may have only one of them. Let the third name be either
-stream clock, so a capture only design does not have to leave a hole
-where the MM2S clock would go.
+On Wed, Nov 25, 2026 at 12:47=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote=
+:
+>
+> On Tue, Nov 24, 2026 at 12:49:12PM +0300, Artem Shimko wrote:
+> > Add support for hardware-controlled LEDs and brightness on the DAP8211R
+> > PHY. The chip exposes three LEDs that can be programmed to react to lin=
+k,
+> > speed, duplex, and TX/RX activity or be driven via the force mode.
+> >
+> > Add the dap8211r_write_ext() helper to access extended registers via th=
+e
+> > PHY indirect access registers, and implement callbacks for:
+> > led_brightness_set(), led_hw_is_supported(), led_hw_control_set(),
+> > led_hw_control_get().
+> >
+> > Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
+>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+>
 
-The descriptions of the two existing clocks are wrong as well.
-s_axi_lite_aclk is the control interface clock and not a clock for the
-data stream, and aud_mclk is the audio master clock.
+Thank you for the review!
 
-While here, move allOf below required to match the layout used by the
-other bindings.
+Sashiko AI flagged a Medium issue in dap8211r_led_hw_control_get():
+the function returns 0 even when LED_x_CON holds a state that cannot
+be expressed as rules (TX/RX without ACT_BLINK, or ACT_BLINK without
+TX/RX). I'd like to send a v6 that adds:
 
-Signed-off-by: Dhanunjanrao Katta <katta.dhanunjanrao@amd.com>
----
- .../bindings/sound/xlnx,audio-formatter.yaml  | 22 +++++++++++++------
- 1 file changed, 15 insertions(+), 7 deletions(-)
+if (!!(led_mode & DAP8211R_LED_ACT_BLINK) !=3D
+   !!(led_mode & (DAP8211R_LED_RX | DAP8211R_LED_TX)))
+return -EOPNOTSUPP;
 
-diff --git a/Documentation/devicetree/bindings/sound/xlnx,audio-formatter.yaml b/Documentation/devicetree/bindings/sound/xlnx,audio-formatter.yaml
-index 82fa448bd2e9..a9463f3bf864 100644
---- a/Documentation/devicetree/bindings/sound/xlnx,audio-formatter.yaml
-+++ b/Documentation/devicetree/bindings/sound/xlnx,audio-formatter.yaml
-@@ -13,9 +13,6 @@ description:
- maintainers:
-   - Vincenzo Frascino <vincenzo.frascino@arm.com>
- 
--allOf:
--  - $ref: dai-common.yaml#
--
- properties:
-   compatible:
-     enum:
-@@ -38,15 +35,22 @@ properties:
- 
-   clock-names:
-     minItems: 1
-+    uniqueItems: true
-     items:
-       - const: s_axi_lite_aclk
-       - const: aud_mclk
-+      - enum: [m_axis_mm2s_aclk, s_axis_s2mm_aclk]
-+      - const: s_axis_s2mm_aclk
- 
-   clocks:
-     minItems: 1
-     items:
--      - description: clock for the axi data stream
--      - description: clock for the MEMS microphone data stream
-+      - description: AXI4-Lite control interface clock
-+      - description: audio master clock
-+      - description:
-+          AXI4-Stream clock of the MM2S data mover, or of the S2MM data
-+          mover in a design that only has the S2MM one
-+      - description: AXI4-Stream clock of the S2MM data mover
- 
- required:
-   - compatible
-@@ -56,6 +60,9 @@ required:
-   - clock-names
-   - clocks
- 
-+allOf:
-+  - $ref: dai-common.yaml#
-+
- additionalProperties: false
- 
- examples:
-@@ -66,7 +73,8 @@ examples:
-       interrupt-names = "irq_mm2s", "irq_s2mm";
-       interrupt-parent = <&gic>;
-       interrupts = <0 104 4>, <0 105 4>;
--      clock-names = "s_axi_lite_aclk", "aud_mclk";
--      clocks = <&clk 71>, <&clk_wiz_1 0>;
-+      clock-names = "s_axi_lite_aclk", "aud_mclk",
-+                    "m_axis_mm2s_aclk", "s_axis_s2mm_aclk";
-+      clocks = <&clk 71>, <&clk_wiz_1 0>, <&clk 72>, <&clk 73>;
-     };
- ...
--- 
-2.34.1
+May i keep your Reviewed-by tag on
+v6, given that this is a small, targeted fix?
 
+--
+Best regards,
+artem
