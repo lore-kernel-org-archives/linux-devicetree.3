@@ -1,99 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.14
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795593180;
-	b=CQxTUbXW0pl7mdaRvP2WqtlbWeHAEcPj9azELTtDmroXJiaxQ+4FXN0Mz82qfHiwRFIZ
-	 3SjyJQKVfDTl+aUmbaqZmswjFwiQ+D6suPK367nyxJ5NC8LZD5ZFUdOArnELbJLVIcTut
-	 0kNFQb3lrdM4GZPGyW3IWdPvFLvQllKbJhk2OoZRBiIZyvtH6ukO6V1ftyOZy241pW30w
-	 SI3hu65qJRQ97bP1apwuSJaGJj8yrdYjso9LZRB0V47a2+7DyxFpUBvkqN2azjbwAUSkU
-	 C+UEauaBYFMa8dg20JvfM49tJirvbNsVjfLpbeFRgeRWHMgnWaWIT2Qf/IV3/6hYQ3A==
+	t=1795593306;
+	b=a6vuCFSozYFnZZWP1V7OHvS0swqSjrCEb2sI+LH64s3jt2o/2/D1jQWmhRVzq83qfi96
+	 yM2Umv+PmQYCbc3RZvzCHIM2yYr27ZeYZjeRp7775DIEq6cs0hLRSezYQJfp0AN1LM/10
+	 EJxQlsPJa1EsbtYWDj6YDwSsPmS6qlv4Vnw/TYAlzzaXYevSmSZ7GFrOgKUELEfamgFAr
+	 7jm4ImNbz1Zvrbl2WnSQJS0f0FBF/onguKSyDG8AcXovEGpxVU+ElB+MUcZk92EqYt2gy
+	 X0MtBDzePte/+BpAygZ4qyno8FIFGSIpcvn33NDOJOf+0Eki+aljIHwLQGA0kCu8ZGA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795593180;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=KSGHti+DBG58dWZXRAMCvoWIexuD6kTB1LwSNHMxBG8=;
-	b=nYtDCYUwRdvp/h/4Gpe2Os/vmRmq0Ii/ReUpVRGRi77oaODz7PGgpXvWFVHLE7+BEVZ9
-	 Yhzg++vtzw6E4HRaZ2EAKBOIR8XM6Xy9XcW12sE+8OSK5l6DfrYRzoDh/i7In0JLJLTsG
-	 Lt0oVeOu4U3Mi1nv07iOt1L7xYeU2/aZkDQwYNoCZAnMdaKxklTyXAnjS65OvLEPYouA8
-	 cfcKQgZBdsjhDAnfn18/m/sp5OsigfUi/69V/W92zBrRoXLvri9BgbRqruFdUuOuWt25f
-	 HPWBA+QzlFljQDWecZmhlxT+PAQDt3LSAbKrExfXhm1EfSkAAUnBcZoNSpjrFYrHytg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795593306;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TvvckOLgY1Z/vXlf8qyI9aKDSqiUNJo2wde+Fh8RCh4=;
+	b=pSdccPABgUuBWpfVL1BpJhbl6/RdnjGTLeWDpiszQMt8R8lt/R0Z51SWAiPVArvYybm4
+	 kfO2ppjh9NiVFv7sBEEmfsHXA2l7tmQyj3ePXLhviR386ogECYuTXxSIAFZVZ/rTGpePc
+	 RjGZR8+ghyRBENzm8wbtkY987izT8bidXhbRM4cvUaWmdyDj2v28WraVMFnOZ5SXo7vCS
+	 NLlp2M0nt/eIuvguAiNmvZRC23O1hVnH0F+zx9P+7CVIxwd/pWSv6sDVYgHIWFbi/GNGk
+	 poZdQNxTmdSvKo5uzZPFks4D2dokmeyne/xODoJ8XcodL51NwVzzCMvcxGSmXVENbQA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aDyLHikh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=iUWyOkS1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.14
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013014.outbound.protection.outlook.com [52.101.72.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38FB2606A326
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 07:52:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38FB2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9C2606A31E;
+	Wed, 25 Nov 2026 07:55:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED9C2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aDyLHikh
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b8627e0eb2so7085156a12.2
-        for <devicetree@vger.kernel.org>; Tue, 24 Nov 2026 23:52:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795593178; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VXO/xaMVj1BeTQ/Gw7IwxXOw5BaTgi8h5Qpi/uMCjazrEblr6XKJ5+jQP+LKItp8wn
-         ZkJqYOJMK3HJtWCjEsfaa+CCT1bzyZbe3PwSZ84jmpby35tCUXBNqM068dfz6MoTuQ89
-         TaCt+tbcHP1d2CZDr5tyeyNTEM9T0rJVgaJGt0yV+6MhFWaaxKHguhhGB86qKkIZ9Sx5
-         WkpLZa7CKEa2AanuRPrt7U9u0544kPeZ8cDHqhb8p3XwT4EppYTdROOV/j5J3JbHpTJe
-         iQ9D2yS52Nbcz6bLZjEvyktboBla+o1JrD4zWWb6ITiRWwQAPdkwvS0y32JtjHtNh2Gm
-         juoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=KSGHti+DBG58dWZXRAMCvoWIexuD6kTB1LwSNHMxBG8=;
-        fh=K7ASm8YZSPWnAWKK9NEYJ4V3TiBWqftXQSHQlDvxOxM=;
-        b=k9LOvsKhQE9DF0QyRUJy4QQQJwuUBHP0v6fxHQhQqAiqbzxXN5TmzwPtniZDRaPHu+
-         nKLFYRratIbAYGnapzz7HfhfBV5+NZtMf/XgbV9Vsf2me3Cg75JKTcdNcv4JTMOYXNO8
-         ZQnEFz+POXeo0nCw+e6TKAkxWHlMDKS9TFz3J+uYUYxyd+E+2P7MJxd4y1CmlJSEKtMV
-         VrrWS6brgBXkFJB6mmkdxmlW34OwQxabfDAlYb+OiZgoaMTTtAMlPRBSsVkdWX9xxyQI
-         30tsR+cs/2K8DZzAQYneiDil67gEpUcC2uAgT8nNAlN5sBy3F9qu6R2aeDzrrX9nGN/i
-         +y+g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795593178; x=1796197978; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KSGHti+DBG58dWZXRAMCvoWIexuD6kTB1LwSNHMxBG8=;
-        b=aDyLHikheDNbi8azh6Epo9AEAHxsh/YJg7QFPJQn+eqFu/PZ5RUzomLFyC4NfA7eC3
-         jYb12360DCyDnUBoL+evpcuBOQL2jrYz/atOMvAPtTxupEFMB+SNnHHPN63Ic9NJfArI
-         95J+ASpBbkneO1GLZ28Mebg/sn6ueh/0WdgPRXdLALA/lzCzUU0UNn+zCNkyDPVFmJ3I
-         k4e09w312FncylWh393IMRckU6gAzF/P2R37P9fm4srgylqVX1tdcA2hq48E91+RmWff
-         0VvOlE/VU7klDdWnB6OW7DCeeIizgTw2EmIVDzCCp8DjjiyPcgA6L1b6Xa1zKAap8Taa
-         CKgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795593178; x=1796197978;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KSGHti+DBG58dWZXRAMCvoWIexuD6kTB1LwSNHMxBG8=;
-        b=j0stbFLDWwU7yZ/b5ZLzE7xJ5wf5q4O7OxKO2/KY0fHf34sT+kU5qwxJXwjcDJMoG/
-         BKRCg8MKY2EOnKhRTcghCd8V/W6gT2UCDM57no4D9l8jbHVanCmzzffuPzfYmlORbbAN
-         KxctZ2nR+RHfrCulmynv/foiHBaK6nIUIAxVzWkr5h+uz5qGIDJXCsoY/u7WVAnOow+i
-         EoiiLtk8QF5zfeFTQmGW2mHESWn00vJld/DmcA7rKOgJpISBuybmbuiRPPe2tJS8VLWj
-         vfu0+H0wLJf8FI1QvYTUC40jhFJM0Jx1IFP4gqliOXnk91cEe3geY+Qxw0Qyz/kIopIk
-         A/QA==
-X-Forwarded-Encrypted: i=1; AL+hErGIC9WNXRAB+ZWQ2255TQVA8Wc/euAaqoJYi9P7OgbsHBKQLCovY9pJGIIexnPCGbJO3BdSgAgkcFjl@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EPKzHxkIGyIaYAW7S6cUw+dmflMnec/xGHR/8HKE7JN4OHdOM
-	xLHiqPWMQMMFVonpa0M+igOXm01YXDkAEFhMGFCYCAhd3MGxr3Gx0hyDudOUWtJ2MKzVBe07It/
-	R4A5wU/sW4HUZy1kjJKPTIgTTI0V5KqI=
-X-Gm-Gg: AZFdTZe4qIaeGsGF6vzh8ejNPLeKJsRjKmRMclW2cu80nkW/xwGE4VKx8hEGRyTT2w7
-	4H6FuDXkfBC59etj5GnK5ZRzEfA2YN0CByDBCsnQ7lYbRtKNuoQ7IaswnwSaUeZ7XIS+nmZ6zu8
-	ohYDA++CEK/Yt7tx39EjVYJ1lM2n3OZd5BS4vEg+Yo77z6I85MGKU5zrEuWNaT0SVEyUPIMYjtW
-	OoIwl8qPjG1hfMJJM3SQkp90JegnIrDOp1aB1+sTDhhQpmhTmM+ScH+/IwtcPb1HY5vfzu7r1np
-	TF3oqJkkxOIBOjQNQ2TUuVxAxkrnMidun1raJy+XEZGBit7HlGBTzKIArKs2D2tqy7Zgepqq5om
-	4AXgnOi0qFvlXQisu2v3dh230Oty6bb3qQgc=
-X-Received: by 2002:aa7:c0c5:0:b0:6b6:4dcd:9677 with SMTP id
- 4fb4d7f45d1cf-6ba37d62867mr9467600a12.14.1795593178308; Tue, 24 Nov 2026
- 23:52:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=iUWyOkS1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ti7JDn/ucERQArWH1WLIOQ/kqx2344CT2bWzTKJhmf/E8ak34ZLUNdwSTNlVobgL5JiydRbjW26p0VINtEFIAZLAE4BKp/14bOLhX777K8uijMrxLsnUkNeteg+H2He4pvetvM7/+sdJnagqXhEi0qPsOwEWIp64x1F9Ote1xtBM8ZH+xE2iDajCaGip20cnezhyIKhFT1qszzXgKxtgW8U/Wx+c2xcJCk8NYw35r/wN9pKK8tzk5Sh/gDpTAgod1mZ0jNMXRr6s83FFsOAl0CyxQtl6Eyg++kL9wBjPnC41Pey/m7WQpSTS7q3uKUGmRBL8Bde6AmurPfCr9NXaOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TvvckOLgY1Z/vXlf8qyI9aKDSqiUNJo2wde+Fh8RCh4=;
+ b=uYo/CVlSCWzECfK+GBwVaoXaAKKW9GRYPx9OlnSdp7B/icdD6VrySIYQD4FkGPrmVJVTOOVvHMqtEXVttTv2XdbhEvT4uHoZY5xHS7bVAxlcfK9b2aCmU12d25jDCLBj+XIEi1n26TK9wv2WCRARnA8D7fYtq+Bdat7WCff0xgJZ4v9l1TD869lU8ZRlCxGc+7yhBFq3G1Ma2KbLt4NKNFAV1dnaSOfzCSQAg+SS5bvCxMwVi9JdUmlgdLI+/nxtkF30Kpx20xNMMUFPFN3jglRad49WUoe17LVzZ1C25IASJeF0OEQ6nSU0zfRKYEy9R5b/44EDoy+X923ujPUcxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TvvckOLgY1Z/vXlf8qyI9aKDSqiUNJo2wde+Fh8RCh4=;
+ b=iUWyOkS1ElQZpVvbTP9Fbrv7awgLMcRLHA333/z1ZPlSS4AguV0UvSJ2VCUeTNio1G1fUw8Qw2YvqKVbXZd8Lkx4viicN7D2TH9++wVLCbewHWLk2wXlvUCetZgZEeROnpG2gKQpLau5F3BF9iENQOvB0gDHWIG11T2TVQr1vAZSj34edGx4AgbEzmjdqZXIJq3O2QLPi4108VxgH/KHfxFZQMb4ajADr3Ogrg0kFvcd4WoG2O6dwqcRsAKmqBbWHd7xSPIkmHtIt5m221rWzw1xd0wmNpY3MjsrPXcKuORgb18QMtc6wGgvMakyl1cqWuVPFRvMdP4m14D7vXPSCA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM6PR04MB4472.eurprd04.prod.outlook.com (2603:10a6:20b:23::20)
+ by BR0PR04MB503013.eurprd04.prod.outlook.com (2603:10a6:2c8:4c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Wed, 25 Nov
+ 2026 07:55:01 +0000
+Received: from AM6PR04MB4472.eurprd04.prod.outlook.com
+ ([fe80::aed9:e8b9:c352:9ba0]) by AM6PR04MB4472.eurprd04.prod.outlook.com
+ ([fe80::aed9:e8b9:c352:9ba0%6]) with mapi id 15.21.0639.010; Wed, 25 Nov 2026
+ 07:55:01 +0000
+From: Stefan Ghetu <stefan.ghetu@nxp.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	devicetree@vger.kernel.org,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	=?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Philippe Cornu <philippe.cornu@foss.st.com>,
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+	Robert Chiras <robert.chiras@nxp.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	Stefan Ghetu <stefan.ghetu@nxp.com>
+Subject: [PATCH 0/2] drm: Fix rm68200 panel shutdown on nwl-dsi
+Date: Wed, 25 Nov 2026 09:54:53 +0200
+Message-ID: <20261125075455.772826-1-stefan.ghetu@nxp.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR2P281CA0024.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::11) To AM6PR04MB4472.eurprd04.prod.outlook.com
+ (2603:10a6:20b:23::20)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,130 +121,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261123-fix-bpf3-eeprom-v1-1-df8cce6ef2b5@gmail.com>
- <awS2-clBenE1r1a1@aurel32.net> <12933da0-9bc8-4f92-96d4-36c5673d3f5e@gmail.com>
- <awXUSuYOUQMPCl-5@aurel32.net>
-In-Reply-To: <awXUSuYOUQMPCl-5@aurel32.net>
-From: Anand Moon <linux.amoon@gmail.com>
-Date: Wed, 25 Nov 2026 13:22:44 +0530
-X-Gm-Features: Aa3M54q54Z3pQu7569lgjovS1EclOCcqRbeez4LQayhOiQc7wEhf9EIuKCN7Gzs
-Message-ID: <CANAwSgRf0XpWnyDaoiGySFv3NPKCBYn6BODf1M+P4w58BF-duw@mail.gmail.com>
-Subject: Re: [PATCH] riscv: dts: spacemit: k1: fix the EEPROM page size
-To: Aurelien Jarno <aurelien@aurel32.net>
-Cc: Zixian Zeng <sycamoremoon376@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Vivian Wang <wangruikang@iscas.ac.cn>, 
-	Junhui Liu <junhui.liu@pigmoral.tech>, 
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB4472:EE_|BR0PR04MB503013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e178e09-477f-4efe-49db-08df4ac9689e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|19092799006|23010399003|261009223027099003|261009221227099003|18002099003|3023799007|261026121527099003|56012099006|261021123027099003|261021121427099003|261102123227099003|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	rBxujmkK/3aUlM+NrF6vHVcMBtv+4JRk+c4uvKxFovVW55BWoSQUCnFSgq6gPcn7a3FxvNINF5o5EhUQx1RXVlNE8XDfSZpZ24Za1ydmco8gG6MtkehT/WaeSX2XlgMyetyJjJlv1vSEozsw8P+AS7uug3lhgqnuB39LBip78Lv9Pr7nlPpsIqRqcKuvdf+qtp0DmGiwwS2BSvykuU3H6Xy6dH/69eMtDXcQWeoKvyea5AXoKmfFdMN42lHaLkS48QnFKDPJDDE/Jc/O+RBecHE4XLD9tqK+2Uqb8P1+v9kHJ3B7HCsG72M9QcuFMy5f0e7DMxTjUlp67wATjjfFxs2i2qiqE2UMHmiRCS9DyPlu3e0wWB8KBtzstu89h6lq8iBklvCmQbAyGkJZu6nK9Eh6fDvtm7EFi9i2eZ/Qh/kiRe/nwZGB0IvNTSuyqyK9am7RkCvTGGntQahKlVIfOXagq88NdOEZFVszManm0fsBnQTxboxHl7k/jKYnIXgie/kysNAP6Ce8lYNxkP/Hzmgki6tHnuz21RWpsDdYr/8ciqiiJ1MnK1CP2h0WvYxKyUTgO6T2xjnVnqtPdjVihiruK3gCugl50sqVNpRq1nBPDqLqr8J+k9fO/rL2BHAjnosDnPZhKLK970NAgphnXJimaxs9aAVoc7da2ir2t60=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB4472.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(19092799006)(23010399003)(261009223027099003)(261009221227099003)(18002099003)(3023799007)(261026121527099003)(56012099006)(261021123027099003)(261021121427099003)(261102123227099003)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?w0KIYCjIaTuLQiWRxKdoXU/c8g6N0Zxbg7bPCc1a6EPLEC1BeskfvsNFrwPV?=
+ =?us-ascii?Q?ARum+sv3YHWS6Io9RjHvbXEH1QN7fRMtBz44N6ShgA1SsGDOqSVqMsPulGKs?=
+ =?us-ascii?Q?kC8QFV3ktXt/z/6Si8cr5Y/0pP2qe0gNujJU56qkzuVeLpykCeXyXkn90jFh?=
+ =?us-ascii?Q?gzx90ryT2nPkEpty0riYpFX1xEjV/cbAd6umfwHfPJ+d2SaRwFqOzQfQ3aja?=
+ =?us-ascii?Q?T+lLKzgC5wYQ3mYCin3Zaza13OuAs5x5QjbXeqnWRVu4Ujv9RgmBhqFTOKOy?=
+ =?us-ascii?Q?vMDwim7tmyjN8n3soeW2uF088o8Ddn8wFyIzQOIvIMN4RJl4C1sA6bUIobkZ?=
+ =?us-ascii?Q?XDHsG8PceZ+2//7cU/pNSf43kST8/YlLTA0j5K6kVveF+az4JkECOGF0nskr?=
+ =?us-ascii?Q?Gcn9Zd2Fk2N5nYzAn1dToLrRrQ/9jpfADp2znbcAbby5u/jy5d+hjpwole5+?=
+ =?us-ascii?Q?WzeC3ZdjfjBzopH6GryuHtdY3eSS2/7b1M3pi3jFwbmB/AHPjMP+4YfqRmY9?=
+ =?us-ascii?Q?DHwBLYtEcaYjTkcYR4Geo5DpCi0ztj9XPq0XBWynYkMoVpfT/1rrEdIh9z/u?=
+ =?us-ascii?Q?JaTpxsV+MgVjZM53HPFlg7bIq9r7BzVVYKs/Al2E1VxGgGISbEACbfRHp7ag?=
+ =?us-ascii?Q?lfb1DWC8wyhZVRGvZs/A1OIebGnR3ZlzGTPn+musrFnF3nAeI3xb7FFeY+nc?=
+ =?us-ascii?Q?iH8kFlh8sGa5fgwBthmPjAglo9MKy3BO/6dB/K2rXctqpiqRq972Ck3T99rn?=
+ =?us-ascii?Q?8GkMIwad0aWUsUJfaag7wqJ2Pds42LfZpVOFOMi3nxYWaA3t3JDo26adUk7X?=
+ =?us-ascii?Q?Gh0/51LDxG6gZNSd9ViTj8JQ/EuA2HbF9JY/cxS6hGKPq0F75mWegoRVlA+C?=
+ =?us-ascii?Q?IHyShPrst4fnGRxhAeB6GzGmolJT/MkXbgPBbIiNDP56B9HsABMKhVqpQVtp?=
+ =?us-ascii?Q?rtgHk4lB4Qs50MUl75/5z+gI6SII0OPO8Jv5W47jSVaSvbdRqDO3ILIcANwD?=
+ =?us-ascii?Q?DC73DuXNzqNYbko8hDAb9GVxu67h3xDNFiTKiJ3H6msPwkAwIfUN3lqjYqcJ?=
+ =?us-ascii?Q?6accj+JqwpKB5StV7O8QS0J3Kr5ENVt4dI5IblAH1F1FbxFPKGqKJfAKIeh2?=
+ =?us-ascii?Q?lubouu1vaj0AsxpoLULraxyr0WYTLNTODV2IPIv4ndZBbjOBPN1BbJUEAmA6?=
+ =?us-ascii?Q?1rYb2LcpwWghjYR0G0C//31gOsit57HbTl8cww9A/UneL1w3aNcdqeYjIdBj?=
+ =?us-ascii?Q?E0x6XBzP7duQ8HUv6wFnZTuHZkdO3MPl8oPJD46Ebbq/5n1xI0kBCZW+MGOt?=
+ =?us-ascii?Q?I18YIR2c0C31fSX3hB2LiKPI5AjzXpVjYVkqjNZqbY38n9Q9I4IHPi4Xp2OJ?=
+ =?us-ascii?Q?Rebmb7xEKyXM1BpgpPC+g7au77f6TgQfQtN8ygoomqSsvogBA0SvtwqP6dst?=
+ =?us-ascii?Q?XqrmsKqAghvwaA1ipfrBgGzHIG1qRf/vyi/kPelxbNmgckobm+koLgz2O36T?=
+ =?us-ascii?Q?9jRSfJqJpn+8CY+ougu/WARR2y3cANYCsTa3x7Itw2e6TgDUKPQdvu5bLpG4?=
+ =?us-ascii?Q?tkPQGleWSxna3kBA4qmVSigVCBDGsnao2MLpgIkiNRpU1+gtUQgIocNNczBT?=
+ =?us-ascii?Q?GKKLMIbr0fHN4+YLuBnUZVzMLYRKaI1cPdZ7VIxVGvjdPkGhfdjwhxZTI20w?=
+ =?us-ascii?Q?BndIk4sPB9Zn3KsRzH4+xhpQtJcN4iuJLfTDUet4hgo6SCbXB8pn/KBNK3Ma?=
+ =?us-ascii?Q?deR+M5RJ9w=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e178e09-477f-4efe-49db-08df4ac9689e
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB4472.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 07:55:01.5072
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TjA9N6vziE/p8u1t7oDtq0FVVpNLMhK6u7aV39Cek5x9pxVenhGVOyJfRakGDxnJros8UK1wvrlH6ttSI8TI4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB503013
 
-Hi Aurelien,
+The Raydium RM68200 panel sends MIPI_DCS_SET_DISPLAY_OFF and
+MIPI_DCS_ENTER_SLEEP_MODE from its unprepare() callback. On i.MX8MQ
+with the nwl-dsi host, those commands never reach the panel, because
+nwl-dsi has already shut down the DSI controller and PHY by then.
 
-On Wed, 25 Nov 2026 at 00:14, Aurelien Jarno <aurelien@aurel32.net> wrote:
->
-> Hi Zixian,
->
-> On 2026-11-24 11:31, Zixian Zeng wrote:
-> > Hi Aurelien,
-> >
-> > On 2026/11/24 5:58, Aurelien Jarno wrote:
-> > > Hi,
-> > >
-> > > On 2026-11-23 12:41, Zixian Zeng wrote:
-> > > > The bananapi-f3 carries an AT24C02 compatible EEPROM GT24C02B [1]:
-> > > > 256 bytes with an 8-byte write page, which can be found in schematic[2].
-> > > > The device tree declares pagesize = <16>, which does not match the
-> > > > eeprom chip datasheet which declares pagesize 8 bytes.
-> > >
-> > > Oops, I am not sure how I got that wrong. Sorry about that.
->
-> The question of the page size has been raised in the initial review [1],
-> and it seems that the GT24C02 has a 16-byte page size, while the
-> GT24C02B [2] has a 8-byte page size. The BPI-F3 schematics confirms that
-> the B version is used. Sorry about the mistake.
->
-> > > > EEPROM pagesize of k1-bananapi-cm6-io[3] and k1-orangepi-rv2[4] changed
-> > > > together, based on the chip model shown in the schematic diagram.
-> > >
-> > > The k1-milkv-jupiter board is also affected with the same issue, despite
-> > > using a slightly different EEPROM (24C04).
-> > >
-> >
-> > The GT24C04A EEPROM used on k1-milkv-jupiter board doesn't seem to have
-> > the same issue, which you can find "Page Size: 16 bytes" in datasheet:
-> > https://www.giantec-semi.com/uploads/20220929/GT24C04A.pdf
->
-> Indeed you are correct, and I confirm that this is the exact version
-> used on the schematics. Therefore there is no need to extend your patch,
-> it can be merged that way.
->
-> > But I don't have the board, simple test would be appreciated. Perhaps I
-> > should include test steps in the commit message for the next revision.
->
-> Unfortunately the board has the EEPROM write protection pin connected to
-> VCC, which means the write protection is enabled. Therefore testing is
-> not so easy.
->
-> Regards
-> Aurelien
->
-> [1] https://lore.kernel.org/linux-riscv/aNLzRJcKCYOngc7z@aurel32.net/
-> [2] https://www.giantec-semi.com/juchen1123/uploads/pdf/GT24C02_DS_Au.pdf
->
-Apologies, this is a different issue.
+Two changes are needed, one on each side of the link:
 
-I am currently working on enabling multi-DTB support in U-Boot SPL
-for SpacemiT K1 boards.
+Patch 1 moves the nwl-dsi shutdown from ->atomic_disable() to
+->atomic_post_disable(). On its own this does not change the outcome,
+since the default bridge ordering still runs the host's post_disable
+before the panel's.
 
-While investigating the board detection issue, I noticed that the EEPROM
-on my Banana Pi BPI-F3 does not contain a Product Name TLV entry.
+Patch 2 sets prepare_prev_first on the RM68200 panel, so that the
+panel is unprepared before the DSI host bridge's post_disable. On its
+own this does not help on nwl-dsi either, since the link is torn down
+earlier, in ->atomic_disable().
 
-alarm@k1:~$ sudo hexdump -C /sys/bus/i2c/devices/2-0050/eeprom
-00000000  54 6c 76 49 6e 66 6f 00  01 00 20 24 06 fe fe fe  |TlvInfo... $....|
-00000010  d5 52 bd 2a 02 00 02 23  0c 39 38 61 39 63 33 61  |.R.*...#.98a9c3a|
-00000020  32 62 64 34 37 fe 04 3b  e3 ff bd ff ff ff ff ff  |2bd47..;........|
-00000030  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
-*
-00000100
+With both applied, the panel sends its shutdown commands while the
+link is still up. Neither patch is expected to regress anything on
+its own, and they touch separate drivers, so they can be applied
+independently.
 
-Although the EEPROM is readable, the missing Product Name TLV entry
-explains why read_product_name() returns `-ENOENT` (-2), assuming the
-EEPROM read and validation succeed.
+Patch 2 also changes the prepare/unprepare ordering on the only
+upstream user of this panel, stm32mp157c-ev1 with the STM32 DSI host.
+That host enables the link in ->atomic_pre_enable() and disables it in
+->atomic_post_disable(), so the new ordering should be correct there
+as well, but I have not been able to test it on that board.
 
-Consequently, automatic board detection fails, and U-Boot falls back to
-CONFIG_DEFAULT_DEVICE_TREE, which may select an incorrect device
-tree for the target board.
+Liu Ying (1):
+  drm/bridge: nwl-dsi: Move DSI host disablement to
+    ->atomic_post_disable()
 
-Since the SD card-detect GPIO polarity differs between the Banana Pi BPI-F3
-and MusePi Pro, selecting the incorrect device tree can result in SD
-card detection
-and boot failures.
+Stefan Ghetu (1):
+  drm/panel: raydium-rm68200: Set prepare_prev_first
 
-The following SPL boot log shows the board detection failure, although
-DDR initialization completes successfully:
+ drivers/gpu/drm/bridge/nwl-dsi.c              | 6 +++---
+ drivers/gpu/drm/panel/panel-raydium-rm68200.c | 2 ++
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-```
-U-Boot SPL 2026.10-01060-gf3080abcfe92-dirty (Oct 24 2026 - 17:30:03 +0530)
-Fail to detect board:-2
-vdd_core, value:900000
-vdd_1v8, value:1800000
-vdd_1v8_mmc, value:1800000
-DDR firmware: [0xc0820900]:0xf0227179, size:0x8d98
-DDR is ready
-```
-Could you please confirm whether the Product Name TLV entry is
-expected to be programmed into the EEPROM during manufacturing?
 
-Also, is there a recommended approach for handling boards with missing
-product information in the EEPROM to ensure reliable automatic device
-tree selection?
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.53.0
 
-> --
-> Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-> aurelien@aurel32.net                     http://aurel32.net
->
-Thanks
--Anand
