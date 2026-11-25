@@ -1,86 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795643510;
-	b=etJSKx7Dv4NLl3ujyKlRA6UQzq//m5AC9rachXVU/MIBn1BsAq5i7VYFzqC3Hw6lY20q
-	 I7okas/R3gP3+4e8UtHvVscaCYWEwVHucG7OswgHAutyMHO+/pwQnfB8FJKClEoHHMg/u
-	 2lOqSOxgZPB6suYEqomviclhAdaRTrU+MuJgHMKCEtsI6XTvSC/Nkv5cqSEcrnBY5RJmL
-	 hazrZkNvxSMM5rYeEbbWCg0iRJyHJBOiCcPt65Cn1b6xCBelFnsCKWqpGRHFCrzw5mb5F
-	 vtqTNDnbbVdApWxIvzf8Iq2E+ZMA3MT/VtIMDGkn16ikIkSKPmfKqXa75nD98ZaDngQ==
+	t=1795643749;
+	b=byMociXqShy28ZgLJjNaHVcy01bknMz6ud29+Jb0h4CuTCtJ1Qo/XKmq32ynRMm3WnFc
+	 ge7lp2oyAjNLm7yBJwPKAZos8Fw7fS9pAHfRoJj6rZFpMXgtJFBZlSoh73/MWlnH2Os1D
+	 3aSdJXAuW+ZGMU0xcwq/9cuwVv1vNgNmfrpulfX9TDHlhBlliogqkIm5w2rtGmzVEmtMV
+	 gx1WFoPjLBN+M5XvwpQTrADKpE5oMTYSpR8+aJj35XVO00Esf5OSGtmy33UOlxbprNNfV
+	 sowYotjl1u8BB2FpIe43ja1/k7jBl6NbPLZVsESOjDxnISlZ4YurWkXlsxJTK+xAWMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795643510;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795643749;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=rbSy8/naK9NpKBKilS5D0FxnjU7qPGsjWJMaC5SsXmI=;
-	b=NaxczYnEMCaNInotBQXFK9AGXOsY/2mJSFx0TLQBBdJXin3wwRBKY6ljhiyP+/RjGOWN
-	 +KuP6fTzwkbCd1E9lhnsASP4gHrkVIg4gorzGhEBCLXHxYmF7rjf58pH7IIR05O5b7VuK
-	 AiCZzzLue60hwb+y1vSCgwCqQtAO8B24NSh1kUz+IFpPrN0v5qf5d7drAbwp2ANF5CdOw
-	 zYOw2gZyD3bYOC22jQtXhjCt1eWuYjxdXzMeavy+/hkM8OEeTjhp7OMlray0PoY2cGLdO
-	 1SgqGfyTX5KJ0UX/5cS5smwVGknF0XzWGQER2O+yD2ea5Cv/4j97dF3BFAuoYkrBpNw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Transfer-Encoding:MIME-Version:Content-Type;
+	bh=r/GY1L0M/Jj/tnpXLztwrdoGc8kg+51R6Plf4ICZ1dQ=;
+	b=DPB01DJf9F6/zyXPO0A0xIs3XSYBIW6WbpJ+r0VJPp+/1UVOJsBJt+wLFuWNJLh2Uq40
+	 88ierSW3WyamEvUxkWy8XXGUNa8Ic+M/WHQdEejNF9C2Ox1rTuwGV0uLUxJvcIWj7ycTW
+	 C2WpevsiJmJ03oDHXfmXp6reP7YoFGYbWauIKvf+eGxjZ0uoU+2sbTkxf9hUX+rG62l1g
+	 VXRj3hQy3BiktcX8r1uVmibWZEzcslMOuyrv57WDmKoOnQ5GJg9FsDiI2AWUyjgKup/UW
+	 BmOYs/Gsr6hSmpHS1AEQBt8JwGSDEwKhObYGudZ8UpXpJ8Q+FlLsbNr9vwV0qDlf4Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=RvkMU6aH;
-	arc=none smtp.remote-ip=209.85.161.49
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="R9/rbOd1";
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A06A606A326
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:51:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A06A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B06606A323
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 21:55:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94B06606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=RvkMU6aH
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6df7f544919so3802314eaf.1
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:51:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9/rbOd1
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4ac109a8a12so3704158f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 13:55:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1795643508; x=1796248308; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rbSy8/naK9NpKBKilS5D0FxnjU7qPGsjWJMaC5SsXmI=;
-        b=RvkMU6aHw3UFU7F0s3LawFuMMWucgrJOewAmTNt/s9mU1jocAFjNJMZKtPkXuvf+r6
-         3Y1gMKTzSvrCakTTvX1dK5xqZ8bWJeGZJ2cAKfIvX0GRIA6CK00CzxZpH2mgs+RjwMlp
-         /J928Qpmpf9szu6sskdshfNebwQGfXIM0ijz7JGjMOYZ90oMGk6HmqfozgFQYYsjC7+Z
-         Pi1R4SLtvkJ49mAZH827Axk/UVcNrNf/Qm4qAYl0gpum9z2+bGTOAaekxeFK56P3SYJS
-         EC2MUyaS7hqQErt+f03GVz84MxOh0BOA7wKgIXz5xT9Fw7bT22bUKp+Qu+sJrZdcsFau
-         Dobw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795643508; x=1796248308;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795643748; x=1796248548; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rbSy8/naK9NpKBKilS5D0FxnjU7qPGsjWJMaC5SsXmI=;
-        b=urnoeDULdOY/Iz6W0b/1n0pTn1fQaYYPuCMHAjo1bqt3pGcki0ax2imkSHlXDr898Q
-         +IbQAp0i3FQ9Ey7UQYiPnmYoNqKPEEc2fXalgEHJ45iN19X/voIE9YffSDXZepO6uq/4
-         sz3oWOU9VnMgkYqjofhv2g6LT0VahOfVEcoXDdDqGjQAlhAtIRkmKospBMSLvZej3hZE
-         mXhc0icDukwSUajS8EGfluoNpw23xBDcKkdVpd0mrJ7yQVpAFZ1uRXOIrsZpIm1Nhplm
-         tQv9hmhB7Y/bQ+9znn2/MzBhdIqhDnYD23xB429rEhymTZHrXy1tlxiTRWnpL21JSjUx
-         2Srw==
-X-Gm-Message-State: APuU4Z+vwbRPQOzMnO+q9RbXyIqXrx/9RPOqcZciLuredAUDVpcp4KwZ
-	nm6BLbDxLDeYTOWZ83KPVqG78hMxSlXibWOXHqxofPwRv88XxigVLa7sIxDVZnu0foo=
-X-Gm-Gg: AZFdTZc3Su1V8D6ro9iI+ieYjEV3yMVA3M2GacPrKUNXGAYTYr79A5CqUxKBl43cgfI
-	bmf7aH98HwIUdQ+ZVsKTA/pD2jscY2y0JSqWW+5r4kKZrySNfqrtFMDDog6Z31+fEh83cZTzo74
-	9vBqV095pLxzC7cfQSGdXpts9Uo0jAVcuFudl1aLcNEeRzz7V5BJm1Fchd8uK+Lu5XsBIIioCoo
-	MI1YN7gDVCV4oRg9EkLB6Rlg96DiELn7E0P8mI/v3AMGCUVMOCuBe2y7fKqxGhv93hiG0tPVDe2
-	9oyD40YBo/ir66gQaIJsJhLfsg39LnbUVsjSYlE2KxR+wZgKFcbFk3tk+l0zht06rWtPCAHX87M
-	eFz05WmyD2DasNfwwRYKDc1GLX+I6z0y0mglrB5QH/UvQ1LwaPnO+SOfUOP6tGi+/ykICoev52r
-	2gMaY5cqD8cjtohWsPwHTwE0omIOBAI7gfpT2VjT7T7U+8wFKbBX4szPEHha16caGUi0xWlp1a6
-	mRkE715ahiNNr0CWOa/PB1MlcX5bOTLxZW9FIHA3GvxOAHRE3TGYR4/V6dMCvn/08AdZylDZHq5
-	8dsCGB/peiIDdHE5zPCV8BpUB3HE6NJg
-X-Received: by 2002:a05:6820:1391:b0:71b:8969:9d1d with SMTP id 006d021491bc7-71b8969a594mr465740eaf.31.1795643508188;
-        Wed, 25 Nov 2026 13:51:48 -0800 (PST)
-Received: from [172.22.22.28] ([76.156.233.211])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b38015c46sm12670866eaf.4.2026.11.25.13.51.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 13:51:47 -0800 (PST)
-Message-ID: <d5abcbbb-e533-4a44-a26a-1ca17e37d7f6@riscstar.com>
-Date: Wed, 25 Nov 2026 15:51:47 -0600
+        bh=r/GY1L0M/Jj/tnpXLztwrdoGc8kg+51R6Plf4ICZ1dQ=;
+        b=R9/rbOd1mzzJwriho6oqu3CgC7K1wSlhXe9zeuBxmFvrEDJLsbJoEnk8sCgoc6cYsC
+         5EALMtdGI5m13pWRUFyc9uNG9bQEXiDQGldI/blAVQj5EuXkESLqrcf7obe0PPkPb6lc
+         jrR7ca1lWajN38Yu8/44Puy170gP+ANH29Qvz49gu8S/jVkfvocflfkB4V/Jd5CVvaBI
+         rfK4//0M452A+GFovixi5kSLnULRU1gFXDdt2Zm0ATaGwbNuf26MuQ4VIg+AfgJ3b8H8
+         YlhboLSrWvXvSrSKb1xIUjsVCol3049mQf32029TwiC9KjNK9iegXnvepXPp6kEHvk42
+         HPPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795643748; x=1796248548;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r/GY1L0M/Jj/tnpXLztwrdoGc8kg+51R6Plf4ICZ1dQ=;
+        b=saHfxj0hRM7bfSmrsPeT9fT9eo2eMGfUzB8tkKsW5Zu21jRGIIZyobNnK/e+YAzoF5
+         Y9csaYA2VsaWTL0rJI8RBZC0jQTgTPxLadxk3T49Meuu0tXwkRBW/tjI2fxpUxCbg7sk
+         hbwe+d9hJ+Zcd1f/Tb47LjNFO8+EwcKg0MF7A4xpJfl6iohqil93W48jcfxj39OeQWwy
+         f8CnzZVa0me9pSVXjzNZOfkgRvV36ZB//zqqr5C3VEj9nhkI/k2HYkMPpUjXZoGgc7DU
+         ALQiMvomRv4Mt0V+bKj3qhmHBfRSylsOpnN5jdjwDssgg0soBxPqjlNNg6MRFRPoTLf2
+         ZHFg==
+X-Forwarded-Encrypted: i=1; AL+hErHvnOWwMUvKo8FG6Dx4KnagYDQzXcxDuhrYI1A1bygEcaIiab4adurZeauFdlEx2Aw5qL3npAQDWQWZ@vger.kernel.org
+X-Gm-Message-State: APuU4Z8R9hzNZKlWo5cg156Mp77VsR+yMW9kOONDoau5/vE5RD6bxkDq
+	4Is7fCPvBm0brp0cQ5roKlGpaETo19P8Lq+q6uL1IRWFetxDM7WkaVUk
+X-Gm-Gg: AZFdTZdBelYZWG8CJLUsrGRZxfikez2uakeGd81BAUAVKu2pl06qJtdL6yVBGsi0eri
+	24gjjmvYjVth+7FJ5Smi/IOcLTj8EQ/JLlt/EZx5+E3/FiZqm2jiY4cbibW5/PkdXdcgr4JGIWE
+	7ND1PpHrsAm8GBM95pFEiX5iCu4UBexZBItb85OkaZ8CFOHUKuCpy2A6bpBK5nqmTnYaf24zuRB
+	aoFL8hl65sE0rOC13hNn0WDQDxDHBJxIA8cVEsZlH/ZDHoU9S7/VvBLVaA+7cXtG7uNQTKI9DP6
+	1G4kPV8PkZAe925gG0hEWT6sj/0HaAPai75ftYV51n+OYpDCvXKeDiNdMdoauFywGi0Nfg4wESM
+	cUdVwu6uZ430qm1L+iIDHBOHKI25zth8d+5RHEQV8Lj3QkaEUdRx8A1UBDf0C+Y67lCZtgn7E5a
+	Kp4RUmjMYLiT53ocG7dTeKa87F5jr2316yMRDkaTVkAKCU6nxVBjhtwguOeBrstHG2szVbcE76H
+	oRP2PBgVWTSkbmh/6hTcTuwltuslbTD27KNZwEc1z0n6xgwn7O1i8vN8RE6Kb+5QYnoQNka3RFc
+	UX/xJEyDvmEo19xZxeglDv/59mXiyug82fhR+YsmCHKcYMKjDMD83mo=
+X-Received: by 2002:a05:600c:8b11:b0:4a1:dda8:eb73 with SMTP id 5b1f17b1804b1-4bb8881c630mr403408355e9.27.1795643747772;
+        Wed, 25 Nov 2026 13:55:47 -0800 (PST)
+Received: from [127.0.1.1] (ip-024-180.users.dtel.ru. [91.210.24.180])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884865a2sm566394855e9.3.2026.11.25.13.55.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 13:55:46 -0800 (PST)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
+ Simon Horman <horms@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>,
+ Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+ Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+ Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Christian Marangi <ansuelsmth@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, linux-arm-kernel@lists.infradead.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH RFC net-next 0/7] net: cortina: CS7542 wired IPv4 hardware
+ flowtable offload
+In-Reply-To: <7252b836-e375-4550-90c9-b0e3ab7fbb6d@lunn.ch>
+References: <20261125-almondplus-offload-rfc-v1-0-703175c6340c@gmail.com>
+ <7252b836-e375-4550-90c9-b0e3ab7fbb6d@lunn.ch>
+Date: Thu, 26 Nov 2026 00:55:27 +0300
+Message-ID: <179564372798.5.10006827612276789857@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,113 +113,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add TC9564
- clock node
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20261125202141.1288493-1-elder@riscstar.com>
- <20261125202141.1288493-4-elder@riscstar.com>
- <sashiko-outbox-234134@kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <sashiko-outbox-234134@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-On 11/25/26 2:28 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [High] arm64: dts: qcom: clock-25000000 under pcie@0,0 shifts tc9563
->    port indexing
-> --
+Hi Andrew,
 
-This was a great catch on a seemingly unrelated problem.
+This is the first standalone offload RFC, v1. The prerequisite CPU-only
+Ethernet series is v2; this RFC does not replace that series. I should
+have made the relationship and architecture much clearer. The next
+revision will carry an explicit v2 and a changelog.
 
-I will consider how to address it.  Off hand I can think
-of two options, but I'm sure there are others:
-- Move the tc9564_xo_board *after* the downstream ports
-   (after the end of the pcie@3,0 node).  In this case I
-   would add a clear comment in the DTS file explaining
-   why this is necessary.
-- Make the logic in "pci-pwrctrl-tc9563.c" more robust,
-   possibly by skipping nodes that aren't of type "pci"
-   (or possibly "pciex"?).
-I think the second option is better, but I'm open to
-other suggestions.
+There are two separate chips on Almond+:
 
-However, at the very end of this message there is another
-observation that might make the above moot.  I think this
-clock node should probably be defined closer to the root
-of the tree.  I'll verify that and will fix it.
+  LAN1..4, WAN
+       |
+  QCA8337 external switch (existing qca8k DSA driver)
+       | CPU port 0                 | CPU port 6
+       | RGMII                     | RGMII
+       v                           v
+  CS7542 GMAC1 (eth1)          CS7542 GMAC0 (eth0)
+       \                           /
+        CS7542 network/forwarding engine and shared DMA
+                         |
+                        CPU
 
-> commit c4e2dd0c5c7aea169ea475dfdf59cb2e475d33be
-> Author: Alex Elder <elder@kernel.org>
-> 
-> arm64: dts: qcom: qcs6490-rb3gen2: add TC9564 clock node
-> 
-> This commit adds a devicetree node for the Toshiba TC9564 clock and reset
-> controller along with a 25 MHz fixed-clock node supplying it.
-> 
->> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> index 682bcbc0b466b..b327f64885ef2 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> @@ -890,6 +890,13 @@ pcie@0,0 {
->>   		pinctrl-0 = <&tc9563_resx_n>;
->>   		pinctrl-names = "default";
->>   
->> +		tc9564_xo_board: clock-25000000 {
->> +			compatible = "fixed-clock";
->> +			#clock-cells = <0>;
->> +			clock-frequency = <25000000>;
->> +			clock-output-names = "tc9564_xo_board";
->> +		};
->> +
->>   		pcie1_switch0_dsp1: pcie@1,0 {
->>   			reg = <0x20800 0x0 0x0 0x0 0x0>;
->>   			#address-cells = <3>;
-> 
-> [Severity: High]
-> Does placing clock-25000000 as the first child of pcie@0,0 shift the
-> downstream port indexing in the tc9563 power control driver?
+The proposed CS7542 Ethernet driver exposes two full Ethernet netdevs,
+eth1 and eth0, despite sharing the DMA engine. Those are the conduits
+for the external QCA8337. I am not modelling the CS7542 forwarding
+engine itself as another DSA switch.
 
-I think it currently does.
+The CPU receive path is QCA8337 -> RGMII -> CS7542 DMA -> eth1/eth0 ->
+DSA tagger -> lanN/wan. Transmit follows the reverse path. Ordinary L2
+switching remains the existing QCA8337 driver's responsibility.
 
-> Both tc9563_pwrctrl_probe() and tc9563_pwrctrl_parse_reset_line() map the
-> direct children of the pci1179,0623 node positionally to TC9563_DSP1,
-> TC9563_DSP2, and TC9563_VDSP:
-> 
-> drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c:tc9563_pwrctrl_probe() {
-> 	...
-> 	port = TC9563_USP;
-> 	for_each_child_of_node_scoped(node, child) {
-> 		if (++port >= TC9563_MAX)
-> 			break;
+The accelerated routed IPv4 path in this RFC is QCA8337 -> GMAC1 ->
+CS7542 FE lookup/NAT rewrite -> GMAC1 -> QCA8337 destination port. It
+bypasses the CPU DMA path. The frontend accepts standard nftables
+hardware flowtable requests through TC_SETUP_FT; it is not a new L2
+switchdev implementation.
 
-If the second option above is chosen, this function
-should be updated the same way.
+This explains the QCA changes in patch 5: its optional four-byte CPU
+header adds an identifier before the normal QCA metadata. With the
+identifier set to 0x8100, the CS7542 FE parser can locate the inner IPv4
+header. It cannot do that with the ordinary two-byte QCA header. The
+new tagger therefore describes the external switch's wire format, not
+a DSA interface inside CS7542. Header length is global to QCA8337, so
+both CPU ports must agree, although the present accelerated path uses
+only CPU port 0/GMAC1. Management uses MDIO in this mode.
 
-> 		ret = tc9563_pwrctrl_parse_device_dt(child, &tc9563->cfg[port]);
-> 	...
-> }
-> 
-> With clock-25000000 ahead of pcie@1,0, pcie@2,0, and pcie@3,0, the driver
-> treats clock-25000000 as TC9563_DSP1, shifts pcie@1,0 and pcie@2,0 into
-> TC9563_DSP2 and TC9563_VDSP (misassociating per-port settings, reset
-> GPIOs, and the integrated Ethernet endpoint), and stops before reaching
-> pcie@3,0.  It also violates Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml,
-> which only permits pcie@[1-2],0 and pcie@[3],0 child nodes.  Should
-> tc9564_xo_board live under the root /clocks node instead?
+Your patch-2 comment is also correct: the unrelated blank-line changes
+in include/net/dsa.h were my mistake. I have removed them locally;
+only the two protocol-ID additions remain. No replacement series is
+being sent while this discussion is ongoing.
 
-The 25 MHz oscillator comes from *outside* the TC9564 chip,
-not under the upstream PCIe switch port.
+Thanks,
+Fil
 
-For this reason, it should be defined somewhere on the board,
-not within the TC9564 chip.
-
-I will investigate the right way to represent this and will
-correct it.
-
-					-Alex
