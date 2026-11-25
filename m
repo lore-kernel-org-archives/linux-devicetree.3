@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795592795;
-	b=ihBiY7enDMRz+M3HJHyw+DZE7XC2k5Ngl8MrX43gdyqDa/xvlAlebXzHlrADrfF/t+BG
-	 P/7ICbP3ho0fmpJPcIxa8zKDI8U6pgWXQ8YYWqW3RuVcsdjX3seWby4rBSMF4OBmKNJOV
-	 b/Iv7ukuFPVHjAw0JUHa21FLTFFEIUlh0uAij3xiliFpoYCJZZbiWkPhfcGLcflWqVSJJ
-	 DXq18EuDTSDQXRFdnYJGS5b59J/I72fv/hfYYz0OqgPVKQNiZT/sU4Pnn91FCtgyNSgOq
-	 7wJOFmUNgGcoAjP5AcSJaVrvimd2nQyI44fQSI8rNkDjhxse/yiqY23QGc49SBL8AEg==
+	t=1795592804;
+	b=GC7UIJecPoHK1ChFn5BkEIcOLVVeHoYqHgi4/WjvsbtDuTXNPl1DHkTRmxgAw8YEwnyn
+	 NuyP4jcuue2+JKTYpA3z8+kmdCXyEiTEnqpB/7fdGHXGTuPlWn8bR8Ap8iPDjhikd2+M0
+	 jA7152K8b2hD+VK7npdYQVxMukQb768jAJU37+FJIWxNO2KWPy7TAF4UPHode7lILPY2S
+	 NM2dpigEwfvQBpD72n2mYUKj3JhqugDXka2Z42Cz24n+CVxMFzSvEgHWOmhLTiehrInMB
+	 NAu5AZJOfJpUSsljOkTCkMsmKWSPpFl2KFmkNr5PRtqywuBUmq1hmLk9/iSOJ68kXJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795592795;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=wyzL7xSHwG07AHAVXIarfFNMx2ryQoGUjtaQKy+SekM=;
-	b=zmouKDfjdBASTmooyvftqk/ocpFg/DSwV/AbR0Arpl+s9eC0TAJBFwglrGXUl91S1AZc
-	 sfcUD4defhbmrtZeReOiusaVsE7FDi9PkiANUGp4weRvi836nQx3QkstEsYFssjp/alKA
-	 lQdsbm0mW5UPOVxEBIRC9ND0wJztBVISz5zBfwvt80JB/Lsg5h0YNquiiXgwjwUEyLRdt
-	 59EWsl6akmESSJjaqUzYQY/5Z5idPJj8cpApwXZBPqNFR5dHqEj+fA22DzUOg0r71qbD8
-	 mPDaOB4dGQU2YsyfvO7t4H65Vi8oL5cPHcz1W3vEjOZiRi7eLXuKv8CdkN36fGsZqCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795592804;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=gU/UcpSoePzAQUGjCNdjk4uCfDEDrO1+IvpBCE4O59k=;
+	b=RvgBIAC0hmzL4j5Gwea06yrpBM7OjaL4a92NZBIbjpw6xKH9DBLv+my7hErJ2t5RbEt+
+	 7BzKtTjQ1BLSdMxD1FgUQByJXjPujeb86PYa7B1/JtRHwHRgIoSz7tjwudXNrLDm8tw/g
+	 xl/SKbVFJ7n9yhB9xMUUpLAAPs7R7u4LWOoJB9JSIYZpJ6wvRK6IbdQJAu+ANu4AvO6jS
+	 hfp9JkNGBLxL6KiJO2olh00+Q0oePWG+Gu/sLl2PwxjdYkyhtv8fkaC6Z/u8saemUw1q7
+	 MPc32wDUYQP/tW9UR250PArJNlQplLsneyY7z9ukOmT0gifA7CNz3/V7U7uUgs+RY1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uib7j0Nd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YfV/mzuc";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92828606A69F;
-	Wed, 25 Nov 2026 07:46:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABDEB60A382C;
+	Wed, 25 Nov 2026 07:46:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uib7j0Nd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F261F000CA;
-	Wed, 25 Nov 2026 07:46:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfV/mzuc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B49F1F000D4;
+	Wed, 25 Nov 2026 07:46:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795592795;
-	bh=wyzL7xSHwG07AHAVXIarfFNMx2ryQoGUjtaQKy+SekM=;
-	h=From:Subject:Date:To:Cc;
-	b=Uib7j0NdX1D+qDVQjzoYbda9gGP9cz0zWCeDkmvuoT6VOI47SofU7L02PbTC/F7xT
-	 0O4jz+wXGbw0pMMam7qmq+Q8v+lPFANKN68intuSGbZlXid1sAOHlKdniVUEIFSfdd
-	 D45jGJFEw9NhFbaoPn614zm7LPHSBkHdCAlcUpEIuoe8CNMUJHygEpGYPVO1QcWR3d
-	 z4g+7J0GxFvBmB6r/qO/6j1vUUgzIkEo0vp8PCZlX0Oeoib6ScAXxB7A7Zto0H1Qfj
-	 Jz9HdLkwdHlu6JnRBvpleuNIRJ4qtT3rULHBaUrXAJAH5ezRyEUyEFYjmeFibKOuEj
-	 Nyrm5NhqRpA+A==
+	s=k20260515; t=1795592804;
+	bh=gU/UcpSoePzAQUGjCNdjk4uCfDEDrO1+IvpBCE4O59k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=YfV/mzuc2IioktAlU4ZSkT2pk+XOB2ke0a/tufs34x0/IxQV2ypubnIs+vxEGqPM0
+	 XPOjdf3/8UU10YmpC49q5Ik8XnHXydeXQkjM2VBdI843e7vA/KDCI0AtdBg6GseH7C
+	 xGzH6r+itNASJ3/Oo0QVl5MFYCS3OPsOsJhwFCaJwvsXghqyBJo213+p9gkjCWEhrq
+	 e78l4wbV77kDMgeI5OdHX8t/5obtIIiEArRrYGO+5WWHLMdTKjsZK1XrFwWabUrLDX
+	 /JomraxVtZsJPF3nOCrdnpsGDJcIgmW/ShbMke2IykLiq7a3Z3g7Kp4nj/NjlrT0uX
+	 VgEO+vugJ/gYA==
 From: Yixun Lan <dlan@kernel.org>
-Subject: [PATCH 0/4] riscv: dts: spacemit: Some minor improvements to K3
-Date: Wed, 25 Nov 2026 07:46:13 +0000
-Message-Id: <20261125-09-k3-dt-minor-misc-v1-0-dd887a8eb326@kernel.org>
+Date: Wed, 25 Nov 2026 07:46:15 +0000
+Subject: [PATCH 2/4] riscv: dts: spacemit: k3: Use Pin Macro
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,10 +54,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBBFryKzdiBJi2KvIi5sMtFRGiWTloJ49
- 07bzYfH570DhDKTwK06INOLhbekYOsK/DymiZCDMjjjGmvdFU2H6wVDwQenLeuKxxhIXxNd0xK
- ouWeK/P5V++HP8rwv5Ms3Bef5AUQ9KN53AAAA
-X-Change-ID: 20261124-09-k3-dt-minor-misc-fde2610f267e
+Message-Id: <20261125-09-k3-dt-minor-misc-v1-2-dd887a8eb326@kernel.org>
+References: <20261125-09-k3-dt-minor-misc-v1-0-dd887a8eb326@kernel.org>
+In-Reply-To: <20261125-09-k3-dt-minor-misc-v1-0-dd887a8eb326@kernel.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
@@ -68,46 +66,78 @@ Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Yixun Lan <dlan@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=849; i=dlan@kernel.org;
- h=from:subject:message-id; bh=16U7h0aKOarFfxiA3lDLd7920xWf8TsRkzBLdHH6oTo=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBrBpJH5QbFc2ugtaJyOGAfzadyJFj0f9xjO3wvM
- 2TuMJekOluJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCawaSRxsUgAAAAAAEAA5t
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1958; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=NLfSqq53cy2/3tiAdAfEyPG/cXEbgeJoLVQyYeX+FXU=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBrBpJO1HPGHrHOa4+sCWp0aoIjf4FJeBPh0ePeS
+ VAMxmAHAMOJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCawaSThsUgAAAAAAEAA5t
  YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
  maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+3zKQ//UVzoytlvzLKEn8GUoC5vVljYFBlGqUThDcXrKWXQzBJkaAmxatmNw
- m89mLvm22ttJbLCptAghfXV0dmJGj9FsEQnlI2/NTAL9Ug2uVe1TOBABEMlICTUA3QpjiuXXTcx
- LsQalHp9iuRf/p/OFZlAqW3FiWQCGrBW3+UZX6ShRldbz1hrTtgl9d8GR2eu79qmvfr93p5ndHE
- oy3ebRDs7F8naF6x4B1pcSQdkZv9WHwemsJVAdfc3tVbX/bfyCZK75Z209iwG/I+kFJmx021UdW
- HvFHv7Rgz+VfJWpJOJyakPEvQTI/gyXzkU93w3Q4UcQ4JhjTXWSXXcO3K/w+HHWaPRQ39wQgVg5
- niQP2R2G4nUcxAH7aSkxs5Te+71Jpfn8iJUD0GyEEFO7EDoJ3rlrF2/isV6EM8UHgUgTPCBO3ks
- aYtQO+E9Ij6zuLe+V9TYtQQvVMaNy/7Acw+n59tC2yyidJ4C/ETB9wEAarZ65JJG8frRUUZOESs
- LHNX+54ft6i4YUT/Ecqg9FfOiLV1kTlWfORKDKPpMrqpZP5MmcIV7JuelWH6DohVh5L6MA81w5b
- VxPeRR9FDINLmP3ZCLJ4COT6xNIhXXgex3D9Fzl0dqjPNIlyQfben36MBEx51pbQR0XKBM0uS22
- dFsNHyKos81+r0PiOW0L73fZPckcW8=
+ QACgkQMarqR1lNu+3AJA//epbR8jRNKONG8DGeBdI6pFSea1fPSpdVgU8qQ0rQ3T3/bTpoQSN1M
+ 04P6PHq9m89BlO4q8G5s4tIvptF51gkYeefOR53Wn7+YQgbRlCs6OWA3TBoGTTM3OE7+ik0x70e
+ BEELxY0CUSaGpB9PAglGAumASDKFVsK44CM8C8nk0lCCHkqWQrCfb964PXN8zYdGWtTujuFMZnO
+ Rng9sze/d8GggKzk1IY2H98lrrM05IWBm7Inmk/dJ2sZabrmAYMZujY+OfNUUIfi06UOMWAQF8y
+ eUhAjBX0NhDEdTwFcou0IRQ2BmwarAxNEsFAUwSNJh4YTa0Ml89PysA+VJaHBBGP5HbXXlZBjm+
+ 6UAU1oPG6fiu9/uofUiJgWBYlBjkR7zZ7Jub6p78wtNecTsHox8ojab/QF+MyGWdtWBPlYNtenJ
+ nwD/aEe4d0tOQ2e6Od17KOxPQLHTrGbqE9h/fwuLVECMLJCCUxSubTPpXDk0CrZ6XGr1eb6YqFz
+ W6qCXPe5s0IoSYWIhT4wZF35aHaPGAqLYki+Fw8zz7zhW/7b0kJh13Ks/l3KJVW3RCyt4VAld/E
+ oYWzojxZACFjzsQ0Scl76uZ30uD7W9xFx/a2KbCdpPhCdvkLHDyjLcrstRvY5E8deiTRSirZYrT
+ SJr3fmFan0FXsHUaVeOQ1V7xYrFlYs=
 X-Developer-Key: i=dlan@kernel.org; a=openpgp;
  fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Some misc changes combined in this series, the first three
-patches are quite minor and obvious, the CD pin patch fix
-an issue in U-Boot side which request explicit bias settings.
+Use Macro for the GPIO Pin definition, which match enumeration from
+pinctrl driver and make people easy to grep for debugging purpose.
 
 Signed-off-by: Yixun Lan <dlan@kernel.org>
 ---
-Yixun Lan (4):
-      riscv: dts: spacemit: k3: Rename PMIC node
-      riscv: dts: spacemit: k3: Use Pin Macro
-      riscv: dts: spacemit: k3: Add alias for MicroSD Card
-      riscv: dts: spacemit: k3: Set CD pin bias
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi  | 2 +-
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
- arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 1 +
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi    | 4 ++--
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts   | 8 ++++----
- 3 files changed, 7 insertions(+), 6 deletions(-)
----
-base-commit: da3f64e708a342ab2804754fa26fb4a132dc1809
-change-id: 20261124-09-k3-dt-minor-misc-fde2610f267e
+diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+index d8e94d538bf1..65c6f49f8591 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+@@ -228,7 +228,7 @@ mdio {
+ 		phy1: ethernet-phy@1 {
+ 			compatible = "ethernet-phy-id001c.c916";
+ 			reg = <1>;
+-			reset-gpios = <&gpio 1 5 GPIO_ACTIVE_LOW>;
++			reset-gpios = <&gpio K3_GPIO(37) GPIO_ACTIVE_LOW>;
+ 			reset-assert-us = <10000>;
+ 			reset-deassert-us = <50000>;
+ 		};
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index a4afe24130ae..a74e76ee75e4 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -48,14 +48,14 @@ rfkill-pcie-wlan {
+ 		compatible = "rfkill-gpio";
+ 		label = "rfkill-pcie-wlan";
+ 		radio-type = "wlan";
+-		shutdown-gpios = <&gpio 1 3 GPIO_ACTIVE_HIGH>;
++		shutdown-gpios = <&gpio K3_GPIO(35) GPIO_ACTIVE_HIGH>;
+ 	};
+ 
+ 	rfkill-usb-bt {
+ 		compatible = "rfkill-gpio";
+ 		label = "rfkill-usb-bt";
+ 		radio-type = "bluetooth";
+-		shutdown-gpios = <&gpio 0 30 GPIO_ACTIVE_HIGH>;
++		shutdown-gpios = <&gpio K3_GPIO(30) GPIO_ACTIVE_HIGH>;
+ 	};
+ };
+ 
+@@ -250,7 +250,7 @@ mdio {
+ 		phy0: ethernet-phy@1 {
+ 			compatible = "ethernet-phy-id001c.c916";
+ 			reg = <1>;
+-			reset-gpios = <&gpio 0 15 GPIO_ACTIVE_LOW>;
++			reset-gpios = <&gpio K3_GPIO(15) GPIO_ACTIVE_LOW>;
+ 			reset-assert-us = <10000>;
+ 			reset-deassert-us = <50000>;
+ 			realtek,aldps-enable;
 
-Best regards,
---  
-Yixun Lan <dlan@kernel.org>
+-- 
+2.56.0
 
