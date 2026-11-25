@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795593746;
-	b=YigSo2bqvtsAthnMgLR9cSgYGpuRwOBTNZg36oMBFEmML3mNm5LiO5Tg5DKNpGP76jZY
-	 J7Rh7Aa5zIdv1moZJSga+x7Zh5p4JEw+hrMxznZniofBIzlHVGYsURAn4kNORUazjk/OF
-	 HOaHJUvhZ9hRaNkr1RtDt0Vbzyg+okpSwrZCLPNzeW8q5VGPXNrfDm4LN3JyvQENsCMcj
-	 QGNMHoKEL4h5qDx1EAmJHDRhhogwFfoShHaIKqEZg7LAH4KWd+PRVL5QCIzgiBhjMMTLw
-	 lv3kj2wQZDJfM1CzxDsuWocuVdQqfUxOrHj7jgCiPAVRxVm4mWpiS5P4xOIWuGGkChA==
+	t=1795594220;
+	b=Vcm8LJiiUK3WlUa5iOpkHF9H85AiDJR6Z/uPckRMnyUVZfZ/qwiNaC0ucLYkldCUAgeS
+	 PsRIsq9CTcNGraMtc6nRWynJ7nXS0+ezlAzA6OAXdV3eI3qBZnVLgqq33EmcHLmVoythJ
+	 n4rYqcRpOuBI597RAoEJ7x02qMbm2f1BFAtA5qrZFcMMvUurRQVzC3YsIvut57d1tm+m5
+	 NE6mQjv5NqjnPRM9bWgnRS1jyJRS3wFAfOvK0ljk80kyA7O/urAYFAWGNHrL6xBIwnqfM
+	 PjDwyjQWzjMnKHm8F6en//zxqmwqD6XiGwg1kDJf7MPP6eqYpAN7zUUXIA8TBOqzusg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795593746;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Bq8niCuBVcSSdG4c8yZws7x2JHKXNJ0u15en+T+Uozg=;
-	b=nc0JXQ4c+l9jrlvvb2astw3BlnCybiVpoXekyuKKytvUJ2HlBJlH7+UWMPujHP4q/BUn
-	 bBqHuqlE/JQJRppYwz8EQ492JtNzRGCfRtiYj4ch62tiw9jftNfr7bM7PQONfutJVVgDi
-	 LaTNfcZeyCYfL7itUv4PLLbbSqaH+Y3ZkEWuVAGikVYHxzEtCZDsCTd7nrOw++t4clajy
-	 XqqpqARndl7qPN5w52Osp2ePV+/juDyA2D6YfUColQl6xphr6mrS8y6n+XMqgbvpijoSk
-	 AXo8gvKezYGQJlYpETxJmcWj/DOr/RnukAQ1VEEgxQ8gqql8q/QE+F6ciq0YMk+u35A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795594220;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=BHutBPzebl/J3zCV0MJgpcVp3sq4NEl1Vrogec/7Cx0=;
+	b=MXTeHwWJRfjufI/qu0MAO/iXN4XOCnk/uom6SFzXAClDMF8MwdvyReRWnThAs6LqXLvn
+	 LJ0c67zk6we7z45f76oy3I9Kl2SEvXtpCLc27bYGorJ1KdNepezNFUUS1YYV2o/nPOkrj
+	 yOsByEEmhx25jxZJY0ewaMLnnaxYd/GRlRlu2rXgh0Q8UHytyNx5dofVzEKCcZD871jlo
+	 s9vTBCocyv+sSW7oeZ7vLWODp1R7ffj52tCAmnbNDYSqsYbvUZqZhJVV1jdLkPOf1v0Bj
+	 yEH7L7mtX4GM1s0F5yHM717CjFZFf23M79BK1nqnpX67DRfy7Yi2unsHTL1SmEeitiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iE4zM36J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qFE4XIvC;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C55606A31E;
-	Wed, 25 Nov 2026 08:02:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D74F606A327
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:10:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D74F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iE4zM36J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C961F000C6;
-	Wed, 25 Nov 2026 08:02:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795593745;
-	bh=Bq8niCuBVcSSdG4c8yZws7x2JHKXNJ0u15en+T+Uozg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iE4zM36JQypIAGEuu169VauXvnf+w7iq6UJ+DGsRlW5DU9vUfqAIjBm6VM8bKQ3P4
-	 aG3bWo6Plmj0O292Y0Jh37K5IG2tLjCsXklkSAGAw6lwCD4rLSStDDiu1bU4JKSIna
-	 PjSE/8H5sekQtkrJrtjlExewSlSsT5QAZMLOVS5JVB9zMn05hPwhJslh4fwOUKbZ7e
-	 9SC2Wm2IsmVrPatGzjXVWms4GzLOIRpq4uWE2QKZVCTwivyua1/k8PT9UkcSoKJPGM
-	 MDYp19G37AxqI3KlslHPkTWkHjwtHMkKnUoZa1u0odY51QQTLKNXLESXGq1ZOpmw1d
-	 8NhXb2kkk44qg==
-Message-ID: <812cd6dc-b18d-4381-8aa6-e4b248070150@kernel.org>
-Date: Wed, 25 Nov 2026 09:02:23 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qFE4XIvC
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b43d6c3485so636525a91.1
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:10:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795594219; x=1796199019; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BHutBPzebl/J3zCV0MJgpcVp3sq4NEl1Vrogec/7Cx0=;
+        b=qFE4XIvCt23IRfOwY3ry1L6pAFz+UK00kqi6i1TVSMdpVQbNFtwN931JpbTb1zw1In
+         XS6zBN8UnNH1gebIuuo5N56bwsfAbG410X7yamdDzzJEB9SyapRq+ZIEkFEDm9Mc2OHN
+         Jkgfta8hMmoIhyHJBepMrHAs+01o5xP6XMlYtahsgMJM0W5aThJTIOUkw+bkwNRK8gZI
+         fi2SyNngFz1yS1ORSHWcRLcW8sxP34kDNV5tTPOoU2h6XM0athMW3PvVK07CzQoLYqjI
+         P6BFdhq7KVo7imLPTcYyjP/WBywDeZy8oitA47bYCEF8PXQEHXzxDGAAuh4FfUuyflVV
+         2Edw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795594219; x=1796199019;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BHutBPzebl/J3zCV0MJgpcVp3sq4NEl1Vrogec/7Cx0=;
+        b=sWFQmrnyw+jsQnAHlwh2qYgpHJEjjro5DyvZ/ZFc39FGlbFb7idzHjlXNca1iLvkAZ
+         3+nSgWbS+WVja2XBM6nMutv8C6IFr34iWm2NYym/CkcfCL8/XJkHiHnbr+XTNSYK/bWZ
+         8ZRZEmBBRI+Ptd4tbL/7zovirM1tGzF86Qx3pyTkko57s9mljN9RM0cb5j7Gl0UK/q9V
+         GnVkzRoUUYDy7ApgEpGBR6efYgL2VIfYKUuVgcaXafRhJZHA3q/YpKQaqABnHOBSPAb8
+         R979OqY3FS9ClHy9yvR0a1ExloGNLnSQWzxeMWprwDvK6Bc7E1MHmBUbNOcFcR1e18iw
+         ZV8Q==
+X-Forwarded-Encrypted: i=1; AL+hErF8OWg+qC7qcj1O+neGUXShALJC+p09GJvNZvErBej3C6epQdvz+/g2sz1D+hxunkzITx4+q0bzB9ju@vger.kernel.org
+X-Gm-Message-State: APuU4Z8azvUqeCL15e2TKqB9b2YglqxNBMKGZZF4mvd28+KvXLJchuTZ
+	vIgCpDU+aYmKlctQQ8aWr5dlwLljB2FyxSOJkPiLcu1lOt9aJmXOxoW0
+X-Gm-Gg: AZFdTZcqaKMlx+8kICMiZWqelsh1os8BFUA3dqBLUCnAgVCG4P8J0lLF4/aTBvL4EXS
+	IWBgZiaeuPDoKtJNmSu1vrBumzzFWIU06Tinw5c0seWV0apQzq5Yfg8hu1tP2eh/uHFehKqpBah
+	osREL23oMEDCak/yQMb6aSiWEKozLiz+0mV3sPIrHt+zYp3WvzpkCj+PfC8MtBbdBsfpczQlgI2
+	NQEJRK3nEQ+fUx9A3tjPvYsXeohdhyBAX/TC4LbYpCe5srXJrH5RN09rXlzg0TLBtdCPoQF4bFC
+	JYJZmgTTnnj3185UAuN1g4p5P9FKi5fgeo+XPaILAVbyuUxA+dHHn23Im7wYv6xJa/JrlOcwsmC
+	gXw5qI0ymTkOEWRedaRFXOuwtNjCfxbt45Kj52tU7Dsbbm4kuj7ZAGngxZZN/pfOOxsJoXxab/i
+	OUtIMiP/dlYJCq2QFHxAC9FesIXgtCZpWsJgL7EUN9HSC616ygQ60yUkS1h66ZZp+M3MoOJdTVR
+	Disg2UNg5o3cOFM3yeEkMZtv5ibFi6877rk8OKTUtvcTeVTT+EEZAwmt4+qQAwNvgOk1cMrPt5R
+	9Wsm1gQNFCQ7hWYuA1OBFD6b+fzY9L2d
+X-Received: by 2002:a17:90a:e70c:b0:3a0:c1b1:45fb with SMTP id 98e67ed59e1d1-3b41c58aebdmr26491950a91.0.1795594219507;
+        Wed, 25 Nov 2026 00:10:19 -0800 (PST)
+Received: from localhost.localdomain ([240e:36d:b09:6850::a60])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b420e1307csm25528081a91.7.2026.11.25.00.10.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 00:10:18 -0800 (PST)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: andersson@kernel.org
+Cc: abelvesa@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	kaipeng94@gmail.com,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	robh@kernel.org
+Subject: Re: (subset) [PATCH v6 0/3] Add device tree for Acer Swift Go Pro AI (SFA14-11)
+Date: Wed, 25 Nov 2026 16:10:11 +0800
+Message-ID: <20261125081011.1243275-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <179416929522.628393.2913043282200216817.b4-ty@b4>
+References: <179416929522.628393.2913043282200216817.b4-ty@b4>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,106 +103,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/2] dt-bindings: iio: light: add ams OSRAM TCS3430
-To: robertijtsma@gmail.com, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261124-iio-tcs3430-v1-0-0f2a38a6a4c1@gmail.com>
- <20261124-iio-tcs3430-v1-1-0f2a38a6a4c1@gmail.com>
-Content-Language: en-US
-From: Joshua Crofts <crofts@kernel.org>
-In-Reply-To: <20261124-iio-tcs3430-v1-1-0f2a38a6a4c1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24-Nov-26 23:46, Robert Ijtsma via B4 Relay wrote:
-> From: Robert Ijtsma <robertijtsma@gmail.com>
-> 
-> Add Devicetree binding schema for the ams OSRAM TCS3430 ambient light
-> and CIE 1931 XYZ tristimulus color sensor.
-> 
-> Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
-> ---
->  .../devicetree/bindings/iio/light/ams,tcs3430.yaml | 52 ++++++++++++++++++++++
->  MAINTAINERS                                        |  6 +++
->  2 files changed, 58 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/light/ams,tcs3430.yaml b/Documentation/devicetree/bindings/iio/light/ams,tcs3430.yaml
-> new file mode 100644
-> index 0000000..085a70e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/light/ams,tcs3430.yaml
-> @@ -0,0 +1,52 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/light/ams,tcs3430.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ams OSRAM TCS3430 XYZ Tristimulus Color and Ambient Light Sensor
-> +
-> +maintainers:
-> +  - Robert Ijtsma <robertijtsma@gmail.com>
-> +
-> +description: |
-> +  The ams OSRAM TCS3430 is an I2C ambient light and CIE 1931 XYZ tristimulus
-> +  color sensor with photopic Y, Z, X, and IR channels.
-> +
-> +  Datasheet: https://look.ams-osram.com/m/43d518b4cd81e3f2/original/TCS3430-DS000539.pdf
-> +
-> +properties:
-> +  compatible:
-> +    const: ams,tcs3430
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        light-sensor@39 {
-> +            compatible = "ams,tcs3430";
-> +            reg = <0x39>;
-> +            vdd-supply = <&vdd_reg>;
-> +            interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
-> +        };
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 44540a1..b1cebc2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1489,6 +1489,12 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
->  F:	drivers/iio/light/as73211.c
->  
-> +AMS TCS3430 DRIVER
-> +M:	Robert Ijtsma <robertijtsma@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-Drop the list entry, get_maintainer.pl will get this using the path.
+Hi Bjorn,
 
--- 
-Kind regards,
-Joshua Crofts
+On Sun,  8 Nov 2026 14:20:10 -0600, Bjorn Andersson wrote:
+>Applied, thanks!
+>
+>[3/3] firmware: qcom: scm: Allow QSEECOM on Acer Swift Go Pro AI
+>      commit: dd851d601d63bd157562e7fc054eafdcc2ffd936
 
+I have see patches of dt-bindings and QSEECOM in next-20261124, but the
+devicetree patch is missing. Is it dropped for some reason?
+
+Best regards,
+Jianfeng
