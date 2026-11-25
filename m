@@ -1,70 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795633473;
-	b=1TgQPxRPJDbPojuvs2N5LtwlgnTG0zGDdXOWMooKbf0iY+afvai8iJpI2FbX3lKimXlq
-	 nC1ul3wyVBPDj73ti0pFifLvS7YvmwRb8jRQHxgIw9IhmxXziJcwmTQ+yUxMNDSpYqiuQ
-	 An7dPdLvKy7kl0pGHDmqH4egfC50Y5UeSHNVa98xoU5twUxb2xzpZuvH0g84aYMXuyu1W
-	 WTGdiZTj00mUkuwkoG1o8uHWnqg0O9TZkBCoUhBa4m/ldVAxzgMWBBn0nsJAcHNxLlAoa
-	 b+qIuTQDi9kpzS81CCrzOS4LWKT874XTcITXLjQ9dwYV1W+dAOm4gSD2AYPriqJ6BlQ==
+	t=1795633741;
+	b=LOMeVbSOokn6tk/iqmaigSwUkthZVgwhVVzW1d3oXFSC5YUN9c1kAibVJyXFKla6Cv86
+	 /ahdho8vW6+uxXcka2C5jEWuCqRgm75SK6nC/Jjkj1vLDfTmRe/iPEx0MErDXEyYkGaK0
+	 f110CQf6smDd6EO0+mXLLu94x1WStdYkjKmW71TrJjj4XXic5N9NdO00kt80E4oFe7ZgP
+	 2XGH8RoG1gIeeBP47BRfwZh6jyYrTOZWEWZWEIDEt1WbSzLHMY0iIaRj48NM+DDDbPSOc
+	 nUIJuheOo/MU5WMeAkjxnQZ05LBXOBWyBldoc+EU4Ddl2GDsVqmeYnDF5ZaI29FVvOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795633473;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=pA5kKd4iQVCR2KTF88e0onlEw0OIJivMaBXQAKw9JcY=;
-	b=0QPrIeX4UD9UXGfJFyaa2/gIZ2ik2/Cfe9VK6EU5dW05g9hx6cpxEM+hc0shZePv4fW+
-	 dwO53/632CqHbm7y7UEHpSHnRjSbObzHvgDbYudIbtMifePKJmDooBPmtSE1wRWDBZww4
-	 c9nExIPVz42E6F6vA8s7273HowxW21AyJBxrP4DbX8aFoij99mYK8jJOEKOEA+JM/pOth
-	 2SFcfjI6aAQzJzPoZ5RyNdP/xoLaBl3sKWV6bPzzmfLvpsakOeXf73W00Obj5wEwBFuyc
-	 ue19Gf4mlkb8wN90s8dkjCBvEdjBsuVMwFdiWNT6lMr9z14fd+8x30cjxk8otq66EIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795633741;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=sUl61wz2FooKjKoGfr6HcICrxyIas91AkAkxcmRZVuk=;
+	b=FsziQFAUFpns+8JqfQpNkxCXWVHO7lm/5vTfifeHhM8B7+RrZaU4QO0I45WlO1XYz9ZK
+	 2+SWCg0u5MYkDtYL6Odm0nOvI/LLzxDC27D+ELYGFX3kwo3oVeEq4i9cW01RIKDjb3HoU
+	 m/c8XRJDIvUoaLNnCsezZLBJWSUTc0BcCAiBtp1cAUSSQ4U2X/tY7pBY17Vs0cPoU2mao
+	 7e6Dzh50t4FKjbbrkQws0xAwrvAeGI9Yyg1xS1VtI+ZW+qOr4J0kjzFBm0/KENcPEXXfa
+	 EpCMXjjQjJjUDeSy7aF9z4lPBgrgzwWN+rnTieebmZxUx5uxsGaLC3Td3uS61cbeN8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=AJCKwfY5;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IIhBqlbW;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3E4606A323
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 19:04:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB3E4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F69606A321
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 19:08:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3F69606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=AJCKwfY5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=pA5k
-	Kd4iQVCR2KTF88e0onlEw0OIJivMaBXQAKw9JcY=; b=AJCKwfY5zancEJ0KNEs5
-	BY0lZzlYlJmnj9FDldXxMpkF2UQ6G3NP0Pv65NQOHCb7mHdX7oZR4bd1kjreGyBS
-	DQwrkVc5MGJVbwCkrzImau3QiiF+zfKbcfnnYttrh/8X6+qiqyRKrmisp83QkeEl
-	0j3v8eiB+lDwQeml5LqqFw83olMUSG/E9MJMpFBpMAoiCSgXVGJKPFy2kLMKYYa5
-	flUkjEfOb2qe28B/9CZQ4CEnp36K3uBCWib7t6XNxMKMxV7RkCfexzhRbOynNmM7
-	iSG/FyX4j6ZLIZ44HNhfrYMXAGF3sn8bunc+Jv73L4RSDCFMIgU+bD3RYuCCo5+p
-	Yw==
-Received: (qmail 1091951 invoked from network); 25 Nov 2026 20:04:29 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Nov 2026 20:04:29 +0100
-X-UD-Smtp-Session: l3s3148p1@+sIUfx5hmNxtKXAi
-Date: Wed, 25 Nov 2026 20:04:28 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: khendry@reliablecontrols.com
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IIhBqlbW
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-386cf1041cdso2048807eec.0
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:08:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795633739; x=1796238539; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sUl61wz2FooKjKoGfr6HcICrxyIas91AkAkxcmRZVuk=;
+        b=IIhBqlbWbrprmxMZ+kWojREY0lc0WTXHSKBAg6UU/UXHe1Cnkm2qyYNQdRGc51qR0a
+         2pYUF3yT5QTuVLqTA2AxB9OD6cZy2UZg0W3D5M2AuJwlpxuiBSy7SBnJetpNQNpU20uB
+         fcUaQhiKZCVdLEj4zfd5cEMWGKjDXRdy1MJ20=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795633739; x=1796238539;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sUl61wz2FooKjKoGfr6HcICrxyIas91AkAkxcmRZVuk=;
+        b=PUMfqnqR8gr83JQvXW8ifd5+dKnXHC7qmr88MylDHo0wRr53NxG0wjrdOH7H7D2USW
+         ymiGKSZenwQRHKFV/9XDMjUgHFUCp1vkyLW0UNGXzruvECivUfU3Nr0Vzh011poejBCZ
+         z9y+TpdKEavQfe2baWOl/aenkUVmUg6hGzeKY2jG1go2cz82xFie2Da59eWCycCKqRBn
+         lJ/jUXAWzXZuTQ4qHt0hhrA/mg8Q1dRYmsJS21NIb0m8/7c9PIqLHGR1iUMMswme5T07
+         38YD73EGnlvLT77bh+ftpM2hZExVL2voCcQsaBP6V7ogJGSgHsxXGIwm4jHsHgWQzh+M
+         bPpg==
+X-Forwarded-Encrypted: i=1; AL+hErHZn0zlbtPCWr9Y37PatzMPnyOZ6q3tXqGtUROpc8fRHIW+YQcd4JodvBoUMLrO+huCZkMswMtR8vid@vger.kernel.org
+X-Gm-Message-State: APuU4Z/LdRbzy3+9l/3+MO5EuQGMtqvzVaTVneOoz8ZUrMX6rdlD0N2x
+	v+tOFO8uOkkwSKXIbq3GEni0tYG7oEQTv2eiNKkX8AZWEg1+MwZqJAQluewZOds4sg==
+X-Gm-Gg: AZFdTZdLfvLU211rIFE7b8F4/Yuy02fL3GxsfuPjEZ01P7IrF/9ovXowPglSDp2r21s
+	6/IQeX7S0IwnLC4NafnYpO2U83akNVqKS6vZBNkvu2tf980xK+soattcLRVRwwE0xgXvBeFrFRT
+	3xWYWHfu/s0ltK9KRMFgWVyDawpw8QCQC0aqfYDxctreQrrZkk7xpke6JKIX6dZEdWH8KIABDzv
+	fv0VY5F+XNwPRnVd92NC5/JgnQMuQaZh7S3AwRfebq4LqtDPOHNlj2HwO53hEsMAi6bL/taLICH
+	DD4pTmJ32nzYo2ErzIkRs0mHIWtPNooTbGjhG1VkM7dGJF4vb3nbt2zMq95aXejGtRJyOyLwXZn
+	5qCydbgUenCwUMC/7icrxniNKRQe81XXK06xOlMsGhFjsp9E/f47eNoDahGTxbUgjtvGWgTvJ5M
+	QzAC3D+Lzq9/+3WnT1T/twceYEYjtVl7vTFThB6scs/xHQvlZ6C9zdAJGYyZIRvd77r+PU4ky0m
+	zNjQZy9qh+1bQUzCx9xXjeq3cU9c4emA6XFeqGfIcSwKGgYJk8SmTAMjNwGQURdo8/SYfheeGZ8
+	y+S/O3BEVXqGRDQjwHV2bGiA7+E6EjgxUw0lFh9NgjuOPdPF8F/Fk37XmfNySvBskGc=
+X-Received: by 2002:a05:693c:87d6:20b0:386:bc19:6a30 with SMTP id 5a478bee46e88-386bc196d10mr7852852eec.20.1795633739073;
+        Wed, 25 Nov 2026 11:08:59 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:d0a2:f616:6ba:a1ce])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-385665f21aesm68043117eec.4.2026.11.25.11.08.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 11:08:58 -0800 (PST)
+Date: Wed, 25 Nov 2026 11:08:56 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] clk: renesas: r9a06g032: Add reset controller
-Message-ID: <awcxPKer4G5oXQKo@shikoro>
-References: <20261125-rzn1-miic-resets-v3-0-f25a4b656d71@reliablecontrols.com>
- <20261125-rzn1-miic-resets-v3-2-f25a4b656d71@reliablecontrols.com>
+	Peter Griffin <peter.griffin@linaro.org>,
+	devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM
+ binding
+Message-ID: <awcySI6q3O3_M7Gp@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
+ <20261028-rapid-daffodil-rat-0adc6a@quoll>
+ <aulIoq2oVjJ3DVzL@google.com>
+ <d4a430de-715a-4936-8adb-35ff57a52b5f@kernel.org>
+ <avZkfg6WMlMzOxpn@google.com>
+ <72ef7ef8-acc8-4ad5-9c09-76d9e944bf5c@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,76 +114,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eRna0Oic4QwHxYLT"
-Content-Disposition: inline
-In-Reply-To: <20261125-rzn1-miic-resets-v3-2-f25a4b656d71@reliablecontrols.com>
-
---eRna0Oic4QwHxYLT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <72ef7ef8-acc8-4ad5-9c09-76d9e944bf5c@kernel.org>
 
-Hi Kyle,
+Hi Krzysztof,
 
-> The rzn1 system controller has two resets that need to be cleared for the
-> mii converter to work. They are not directly associated with any clocks
-> so they need a reset controller to set them.
->=20
-> They are documented in the PWRCTRL_SWITCHCTRL (0x4000C188) register as:
->=20
-> Bit 3: RSTN_CLK25 - Active low Reset for Timestamp signal selection logic
-> Bit 4: RSTN_ETH - Active low Reset for RGMII/RMII Converter (50 MHz).
->=20
-> Add a reset controller and add resets for those bits.
->=20
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+On Wed, Nov 25, 2026 at 08:07:57AM +0100, Krzysztof Kozlowski wrote:
+> On 13/11/2026 02:14, Brian Norris wrote:
+> > Hi Krzysztof,
+> > 
+> > On Thu, Nov 05, 2026 at 07:54:22PM +0100, Krzysztof Kozlowski wrote:
+> >> On 03/11/2026 03:36, Brian Norris wrote:
+> >>> On Wed, Oct 28, 2026 at 02:19:23PM +0100, Krzysztof Kozlowski wrote:
+> >>>> On Mon, Oct 26, 2026 at 02:43:40PM -0700, Brian Norris wrote:
+> >>>>> --- /dev/null
+> >>>>> +++ b/include/dt-bindings/soc/google,lga-lpcm.h
+> >>>>> @@ -0,0 +1,54 @@
+> >>>>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> >>>>> +
+> >>>>> +#ifndef __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+> >>>>> +#define __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+> >>>>> +
+> >>>>> +/*
+> >>>>> + * LPCM IDs of each SSWRP.
+> >>>>> + */
+> >>>>> +#define LGA_LPCM_CPM			0
+> >>>>
+> >>>> What are all these?
+> >>>
+> >>> The binding doc says:
+> >>>
+> >>>       Each reset is specified by an LPCM ID (cell 1) and a reset ID (cell 2).
+> >>>       See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+> >>>       <dt-bindings/reset/google,lga-cpm-reset.h> for reset IDs.
+> >>>
+> >>> and
+> >>>
+> >>>       Each clock is specified by an LPCM ID (cell 1) and a clock ID (cell
+> >>>       2). See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+> >>>       <dt-bindings/clock/google,lga-cpm.h> for clock IDs.
+> >>>
+> >>> These are the IDs used in the firmware interface to talk about these
+> >>> things, as many of the SoC resources involved (clocks, resets, power
+> >>> domains) are grouped in this way (by subsystem (SSWRP / LPCM), and then
+> >>> with indexing within each subsystem).
+> >>>
+> >>> In reading again, I see that the definitions and explanation of these
+> >>> terms and the SoC organization are split a bit between the pmdomain
+> >>> commit message and the binding doc. Where would you prefer I elaborate
+> >>> more? In the binding doc, the comments here, or both?
+> >>
+> >> I just try to understand their placement. Bindings should not be in the
+> >> soc directory, except a few things without clear subsystem owner. If
+> >> this applies for both clocks and resets, maybe this could be firmware,
+> > 
+> > Maybe firmware, maybe power? LPCM is "Local Power and Clock Manager",
+> > and I believe there's essentially 1 LPCM (microcontroller) within each
+> > top-level power domain.
+> 
+> How does it help you to have LPCM ID in the DTS? It's derivative from
+> the clock (or could be made derivative)?
 
-Sashiko's comment about selecting RESET_CONTROLLER is still true.
+For the record: in v2, the LPCM ID for clocks *is* made derivative of a
+single-cell clock binding.
 
-> +static int r9a06g032_reset_set(struct reset_controller_dev *rcdev,
-> +				bool set, unsigned long id)
-> +{
-> +	struct r9a06g032_priv *priv =3D priv_from_rcdev(rcdev);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +	clk_rdesc_set(priv, r9a06g032_resets[id], set);
-> +	spin_unlock_irqrestore(&priv->lock, flags);
+More info, in case you had other adjacent non-clock concerns: I settled
+on dropping LPCM IDs (and other firmware IDs) from the clock binding
+(and DTS) in v2. And LPCM IDs moved out of include/dt-bindings/
+entirely, even for resets. I thought this addressed your feedback (after
+a few weeks of waiting for further response/clarification) so I sent v2.
+I'd appreciate a look at whether v2 is more to your liking.
 
-I checked the docs again. (Do you have them? You can find the relevant
-part here[1]). Figure 7.3 and 7.4 mention a reset propagation time of
-5us. So, it is not describing a pulse of 5us. But every access to the
-RSTN register needs this delay for propagation. So, despite the U-Boot
-code not having the delay, I think we should add a 'udelay(5)' here
-after the unlock. What do you think?
+LPCM IDs remain in the DTS for resets though (as documentation [1]; but
+the driver never has to inspect them), because I still think they are
+the straightforward way to describe resets, and there's much less
+complexity that might imply any "risk" here (vs clocks or pmdomains).
 
-[1] https://lv.mouser.com/datasheet/2/698/r01uh0750ej0150_rzn1_introduction=
--2931374.pdf
+If you look at the v2 reset driver, you see that just like any hardware
+indices / GIC numbers in typical reset or IRQ drivers, the firmware IDs
+are a simple address scheme that are passed directly through. If I do
+the indirection you're asking for, then:
 
-Happy hacking,
+1) I have to add extra indirection tables in the reset driver and
+2) the driver will now require per-SoC handling that otherwise is not
+   required.
 
-   Wolfram
+I see you had a separate semi-related question that gained its own
+sub-thread. I'll reply to that separately.
 
+Brian
 
---eRna0Oic4QwHxYLT
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmsHMTwACgkQFA3kzBSg
-Kba11g//cfNY/SqoXYVZbe5jUUEasxicviSn9VUDxqLOGOGA97dcdyA7kslpzPOg
-73ZgXFIHXxN7Ud6vy61xNLp4pGNQPVd3CN972E3mm0DfgSqZjkvI7tCQbQGJfrBU
-5KAXDlAvRp8TWZFZmYUlOS3HIeci/A0SGpy/J21jNwMOW3D5S7xshzNPKnjzFxSo
-arum8BILxufSmeru5PseM9lDDwzYGBefVkgbBLGVSl66J8EGDnsc01qWvtEX2MFK
-G8os2cq8Sood9CrVDAwk/3Uq6h27hOo4z3/C8yw1W6X9PKeJScLB7WuBY12qHjeU
-NyPjHcVHV8ULKZP24HNRwj3tAEDPSX8xla8kqxL2x/1oml1pIRxNI6BPWQAboOAM
-Ng8REWjSjRB4nih9NdZvmPjb7mgmAQM0bMconJhcEEgfTTJsSiXKuKOxwMFIQaKP
-ZYrEdP6sgcufdL3HzCLxnB6tS4YnTlKnqZXfLkQtgAAi0bb6dEFfR3vj6HJvTcfj
-W9UVm+o1gC3qzXVIyJ94rUPFvQGuJXZWuZC14SKb8Uu9ldVXOaniACEDABeUfURW
-t2jGHwwP3xW6AAbx/wQKovyixV1L1Iqfe2dYE6VzdjBWtLJvgCqV3FeKP4YkUf30
-M+m1K1g4AJ022+/n5VVKFDRGqJMOekznMULBmO0wWTScWJouSJg=
-=70yD
------END PGP SIGNATURE-----
-
---eRna0Oic4QwHxYLT--
+[1] Aligned with Chen-Yu's suggestion:
+    https://lore.kernel.org/all/CAGXv+5G5z75HGP8nv_i_nwEeSd3qkvyL_h_MYzV_XPT9BpR4jg@mail.gmail.com/
