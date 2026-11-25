@@ -1,96 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795605153;
-	b=ABY+8bnqlY1fBi83ag03z3gnaCTLkGrImoEHx6PXDHzvz44iwcC+4NQlC7b/hPs8N51H
-	 KV/W4Qpg+NoBv60Y2NZ5qZFSNlyWwT8/eyOurGdRkhTJoE0DOulJi2pKhvf0TwWFwZhrx
-	 sdrluRprLsdP39JS+3PHVPjEpqfi7D6WXJGDzq89ooQlO+vthIYhqfJ60pqPA9IePal0h
-	 Io/QM0H+CcaKSraPcT7MP/6B2RZe/Cvsg+sXM6WI6jI+wbTS/0ISrAiqEByWvF/1LchIX
-	 bnYXjYzxIoDop56MsRbQFfSpNruj6HTRRCSBrsVAKc8pj6Bogbpt97Bu+FUeXlAEeoA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795605153;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=LVAsmRwZ6M2malgzEx4DCiTdzZMSawSt/82vnilVuWM=;
-	b=Q80zvXdOB6Nr2LrA4S9BUV0IFX1ensAKQHYBF/k4aH2lwsAXG2L1J/JM88IomSkiqb93
-	 J3eD7Otf3upghopVzsVghaDr/5gSxz/vIs1ho0ixKipy+dfvyMmKaxBW01SuGlPcEdbHq
-	 fjGwiQyWYVkPR10Ipj67M93PJ4TCwaENrbXF/eIa/9Cikxt05W8R8kqi8E2+avrfHFLGY
-	 fBm25qfQDO6YqBBghvtzFmoEtT0yM8L+FhI5IN+Yp0J8DZY79f899hHIqqJPmGGSvLLgw
-	 pAi3Vy7khesqcBnzKsf/1wHnOsVZyzVY/XRIw30xuYYZh8Ubf3gQEoZfFvhszkGxI3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=IVSV43UG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795605214;
+	b=J4hXWGJoPBDcXORou5qEs8XLpXxULkPNcmtfkEAWlwYQpSPAhra1DNnxgCMoAX+ckSff
+	 58P+Cj6M4Cwr2JtrKquHHGM0sYy3esTWzHZOQJyfuPYVjImgBIv2B3O8S92BiBlGMLXGf
+	 695lK0NXfkM5AbDdvrW2QJH+vwB/CS4d/oWa7PPq2Bx/YkhQiss1Ml80TpIfZBTzTLhJ0
+	 R0BjHf8jHn7uW3JdRsDodWG4jaSuBk2iaL5ld9gkXwXBTSs51Mh7B1UR2fQzJHv1BWMe/
+	 164E3XueyO0tQf4AB33PCKSgbJP6WbjrU9CxEgfVFaHDFv5tTgDSrIkp/31AoJmMi4A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795605214;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=mN5Wi/oP+/iEZPIHVVYdEV/26IVRoESzTs9DlS/w+zw=;
+	b=wawlE9JOFhwYS7JcgdLe1PSyxPuBQfIqxt7I2M/p+tLz2WGCHFDDMgVzLP7t3+hvrBC9
+	 +OfOSEjZf2Cna50Pt1IjdNWo+DSmayfoNcGFeBVnbgevfwEAHmYir9TiKwO4IoNi1ApwD
+	 xJ2XnG0Npz/Cd79keWlITBcRs2iLqTEnpXcxDP2eSD7dHz02dVrrpkU/HYrm9cNL0WeBh
+	 0Kfab4vrGu60RkwWazDXeWzcWoBQFRqU7vGtw1WH5isme3Av4AQE9e2Ku6C8Oag1nZbMY
+	 HVmKtmitX2tmdZB93Ay2Scv5Pwqs2rkZMTf8ZlPaJzutIiLkkI89z/4IltxnvaC2Fcw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o9MBqwBO;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=h6ZbwCHi;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDB5606A31E;
-	Wed, 25 Nov 2026 11:12:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FDB5606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7007A606A327
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:13:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7007A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=IVSV43UG
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 63C1F200509;
-	Wed, 25 Nov 2026 12:12:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795605150;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LVAsmRwZ6M2malgzEx4DCiTdzZMSawSt/82vnilVuWM=;
-	b=IVSV43UGI43urhjyuTUPZILDFAkhJdQQTe8xTQZeNyWb86462fCd/1DQPqdtCxsVgrykqE
-	jcupCQSZEWUcf4FDzG+36JUn9lAWpqON7ThtHtXyqUwWAkEKebjLRZIESkgyrmG7T0HOxu
-	EoCf8ynpcRcrNLPJ8qnXbYQTkIxKDsnAOFijAaLqJwXdISCQXBXHPHIMtQ1z7khDobAsKq
-	uEKY8Gv27RPjpf54eKos9mdw6780ShMex7O7NGbC+4A+x/1NUMwkJORniofjmORAEEyYk6
-	CEElvQ7zULeYFgZ/mxW0bjcBJ1dQ01ulvTx94XDQuZu8j6EispmrfHc5mzKAhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795605150;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LVAsmRwZ6M2malgzEx4DCiTdzZMSawSt/82vnilVuWM=;
-	b=cwQ3ZXqKVqMRGDf5AI5VB2edG/PbtnX1G+ez5N/VZVViI6MCdkoXrEU6ru8clCHiQwKHcm
-	IWaKQg/p1ZjXOQVRMWGtsPm+nkMc9KkEZVW7eJnRbRiXb6Rv6+0G2AFrIH5ZoL9oZvYS8w
-	ktXkPzPF0Rhx3WKl6t/xXAehZy/Fj2woPk1RD8fmj245EJFGK9SoevG3c4AT9cYih1b3LT
-	tuY5u9+B4NA/5DcseS23sGk8Mjm/whx+YAxeKQxK+vQ3wZ7aW+dnkxO6XEZRZeKZCOjK3g
-	sYPgyANYGCWV17j2L/Emr9+A3SiHK4Z93bZS2W4xby7G7uAnZB0w/rNY4/LAtQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795605150; a=rsa-sha256;
-	cv=none;
-	b=SJqm0oVCCoKkqeYc7gi9o2x0oaj6U1nGssZFvRdyrvqMnEs0HVj6JBaBVkq0Fp+SsEGinC
-	sRxqW6AOyZq4+ue5pAFZoVQ3bCr3KpCYaH7/GNcb+Q+o96fAd4u7EpBqgT+X8qrHeeK26T
-	1JjfZcVG0yUR4jaQcaitbDMxUEY9g2A50Yft2wvOwgLLs9RKACZHIZwhAIm+9+Q39cwAOF
-	YAv3/qEMuFfD3Qi8hMvb1xLe0flLtaQ6kj+Y9ylxTAc0zjaEq0exep2KbN0wL/1hc65530
-	HMKO9NonIXHLOIMEMXPUxaCz8pQ6n1vSnXIx2P8Gmb5N6eaZObqLFzBVUBNMNg==
-Message-ID: <ef5dea6e69e0947489f4825540d0f77903960f78.camel@pengutronix.de>
-Subject: Re: [PATCH net-next v2 2/3] net: cortina: Add CS7542 CPU network
- datapath
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: filipp.dunsky@gmail.com, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: Hans Ulli Kroll <ulli.kroll@googlemail.com>, Russell King
-	 <linux@armlinux.org.uk>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Wed, 25 Nov 2026 12:12:30 +0100
-In-Reply-To: <20261125-b4-cs7542-ethernet-v2-2-d0ea3c6eb375@gmail.com>
-References: <20261125-b4-cs7542-ethernet-v2-0-d0ea3c6eb375@gmail.com>
-	 <20261125-b4-cs7542-ethernet-v2-2-d0ea3c6eb375@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o9MBqwBO;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=h6ZbwCHi
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP9mrO13644047
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:13:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mN5Wi/oP+/iEZPIHVVYdEV/26IVRoESzTs9DlS/w+zw=; b=o9MBqwBOu3LAk3Ql
+	kluDjP24AD5Fne6UqAfHIGo4aXZyOPqqNhGWSMuLNOSzZjicR5UqeSWaXbzQRXpC
+	3S3swPaoOA2/2pfeLK9d2q60YA6NW3o3k2M7kqjahCRwHEdXGu2VXsKVK1N3XgsZ
+	GksJF0GKZyCRJ4lZx4U1z6Z1+Ow8Q527VpGzEaa9uz5cHC3dp/nR+xbu2dNLJlY5
+	FCGD5GihpERpZoM47wKRHcbqGFn2tMDIVhD9Sx1KWJROBzqzDOxGvGsuq+J6CfMk
+	o0mkvgLk1sjDO6DsCgr3DhlD4tNBN24Fob5Y9fb9gNq6l5d4gdTozjxZ5YTltUDq
+	VexuVg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5mc2ahjj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 11:13:32 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-53635fe2335so8476381cf.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 03:13:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795605212; x=1796210012; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mN5Wi/oP+/iEZPIHVVYdEV/26IVRoESzTs9DlS/w+zw=;
+        b=h6ZbwCHibim5dZLdQTk/KVIK7DHkQFXs5f9wRPTh96Muk4tbeCJJqgCHL7Z/e0Jedc
+         TekoU1O25P/yI1+9qVgzPaqcMKSHASm1kZZu2T7j/Eno9s7aaumrfCs5aEv+nXoVygI8
+         adNWrRp3i1xX2Gi62yz1ksyqUkOeeVkOrpfy98JV5lh/Fd4MU9rbRy3KkykFP6uYnXJI
+         6fEThBtu4ZqXOlvdhyYeoPD/xjATetEUqCMjMfECyvva6EeGe8SfOH5/qF/zCFrmrcP/
+         cjhgLkvK79I/HsPFV2tvbY9i2USI+TIP7h0hNlEJ44lBZc5aBvGuUNybglgNFByMPiRD
+         5/hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795605212; x=1796210012;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mN5Wi/oP+/iEZPIHVVYdEV/26IVRoESzTs9DlS/w+zw=;
+        b=LtHVaiDfC0GnoSrN+RHkiYnIMpjlxFeZucxhTy+TBfjzKXDkv1sat5iCRbsD87G5PD
+         VRoHtwVfhVK8cOwstezQbmw6v+oh4hE3iC+CI6wBCWaaSJR7OVeEZ/9KztXZGGalMzq5
+         M5wxszPW6+Hqzum7LtCFsT7Q2gI67sD7qA8Oz+LxXeszceLO+FzxhUYoQtxtr+QGNPmz
+         maWJMfct6Xs0FWcnvfbgeoAQY6WLgID7VNTHtR7ZUVhJqc0v1WfuZ1lTygz5yUykZgXV
+         KPkJ1O86LYrrNwl6DYeN64G4qa2JZyGUtBpxmUjTCkMeF5UzL+bzi5gDw0kXr89g1QR8
+         uanA==
+X-Forwarded-Encrypted: i=1; AL+hErG9AwFxREQbLh7zNnIMTE9TbLIb/rQWo+BWdtLztl/rDin3rUFjKHpY0TOeS8hLbe/4Hc9tt4Khn084@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2VfHGo07tF/EwbemfoI5oZmQ65OqWnurk+z4wNibk8XN3HikM
+	u3Aq1lwhuuU2QEpUOmwksYDnkLEY3kIZiqXlFZpRXaAgXG1P3+0lB7K+y7+C8/nDg5BgPmsVj6q
+	L2f6lqqdcPT4KuQaBz18W1MwYTf+HZGblA50udDUD0YjWs4FQCBr0SzcfroiJSgXY
+X-Gm-Gg: AZFdTZfQvReig5vm7HOGtW47y4hGrnejwwISDH2UOGRR4V9uZyFmeSnDG8X016caxcX
+	/xIUYEDIgPg4je/GJSiz/g2htJaYqo6hycJ1DaqkH3Zh+cNuzeLmrPbf0XCbzRPHvvQ+WuRo7Mp
+	FcFdJb5kY5Xykv2OFYAh73uJk3n5Aq7LenrbbXvZMf9pniS/qc0/NGxX4/Oos3gT2fdCjmoBlwR
+	lJloTtOCMXco2mZmQe4MFEono+q9gZDBGiLLas5ARWzOQXSi9OdEwwzF2CMdkEMAc5HCY/QQ3Ef
+	HjkzaV7AQoKF/KoJPf/oLMm/WyQkUOhePT3W5lV3Id5lrk+6xlBuXfY98kPAFcz9Iu+BRnZVh0W
+	iEPWsrMWhWhBO+A2FC13EmgIook/aSbO5jqOxBYC0WXi9RU4j7sLgqG7d3zKX2m7MM5AbcsE=
+X-Received: by 2002:a05:622b:57:10b0:536:61d4:cc80 with SMTP id d75a77b69052e-55d76a6b28dmr296719771cf.5.1795605211596;
+        Wed, 25 Nov 2026 03:13:31 -0800 (PST)
+X-Received: by 2002:a05:622b:57:10b0:536:61d4:cc80 with SMTP id d75a77b69052e-55d76a6b28dmr296719371cf.5.1795605211141;
+        Wed, 25 Nov 2026 03:13:31 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba36e35641sm8146988a12.1.2026.11.25.03.13.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 03:13:30 -0800 (PST)
+Message-ID: <e3add71f-8624-457b-a304-d5791015bae1@oss.qualcomm.com>
+Date: Wed, 25 Nov 2026 12:13:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,167 +115,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: glymur-crd: Describe the PCIe
+ M.2 Key B connector
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, alchark@flipper.net,
+        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20261122-pcie6_fix-v2-0-2e0fe615d90b@oss.qualcomm.com>
+ <20261122-pcie6_fix-v2-3-2e0fe615d90b@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261122-pcie6_fix-v2-3-2e0fe615d90b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=aPJlOr9m c=1 sm=1 tr=0 ts=6b06c2dc cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=fmVD6mvdgdatrdQPAe4A:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: rK-usTyBEI8sXkyWdbn-IYNtpU1NkmQs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA0NCBTYWx0ZWRfX+psrjaquFbZY
+ UkZ4D2fw0BQlDLHU1qAVJRF0u+ZL2PknwMF6JeuinC8lBJms52wHxSnnrP9T8RJ6lymoWX4Twia
+ DczGcE3zprMMgkSN5P4Ca9mSAxMleN/yM16wkj59mEQVzRtmrzvjkcfVFt3XKDU3sGDexOu+TrW
+ Hog2CUDnLclWeK7AzJevu8YLlqtg1xJ4FrpaR3+gtk14kTdrpxB8CEgHXAB8toG3WyRgUyZyvM/
+ GZLA+EeBAGSiwiWQ9guIfzn6aBuQZpmctQVsxr7V6iE9aQfYbuwpqIKSr9ftRCfIwQpM6nhREk2
+ ndD6AA3iUlwERGRDCwhDNneQctqE25c2Wdtqrwts2Sza1Ubci0CTEAlcga77PGKoU5WDVozBfje
+ TXdlKTwGoEICGj7lSqlFtk+Rsv6wRNwzN0L0DEMECnUPByzQT2LMespbftGUFc/vX8RO8PhUvMF
+ 6lVhp8Qwep1qZzGiA3g==
+X-Proofpoint-ORIG-GUID: rK-usTyBEI8sXkyWdbn-IYNtpU1NkmQs
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA0NCBTYWx0ZWRfX+C1f4GvBqRDh
+ wKSwV/+tvD+yzG/YkuHuet7wjSMu9NFMF1uvEM02UgReaxknkZmvhjHNMtuFyAXdjGPt+OoDaXF
+ eunfyQ8Th7mZ7oOYP8fBeub7HRCIOGQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_03,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 phishscore=0 lowpriorityscore=0
+ adultscore=0 spamscore=0 clxscore=1015 malwarescore=0 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611250044
 
-On Mi, 2026-11-25 at 13:36 +0300, Fil Dunsky via B4 Relay wrote:
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->=20
-> Add the three-GMAC CS7542 CPU network datapath with phylink, per-port
-> NAPI RX and a shared coherent TX ring. Support scatter-gather TX and
-> multi-buffer RX while validating DMA addresses and ring ownership.
-> Use the normal NAPI weight and the supported external-DDR QM/TM setup.
->=20
-> Bound indirect initialization and require confirmed complete-domain
-> reset before freeing active DMA mappings. Pin mappings and context when
-> reset fails. Keep resource publication and shared-ring timer cancellation
-> under the TX lock so completions cannot wake a closing or failed port.
-> Use shared ndo_open cleanup labels and let the compiler inline MMIO
-> helpers when appropriate.
->=20
-> Acquire NI, FE, TM, SCH, QM, DMA and NI-XRAM controls exclusively from
-> the global provider. Assert and verify all seven without rolling back
-> protective assertions; preserve the first error and retain all active
-> DMA allocations on any failure. Deassert in reverse order. The shared
-> DMA control covers both LSO and SSP. Require the verified 64 MiB no-map
-> queue-manager reservation on the supported DDR layout.
->=20
-> Serialize read-modify-write accesses to NI registers shared by the MACs.
-> Abort initialization on the first scheduler command error before the
-> network engine can publish DMA buffers.
->=20
-> Resolve NVMEM MAC deferral before installing hardware cleanup, when no
-> reset or DMA state needs unwinding. Register the plain managed cleanup
-> action immediately before the first reset attempt, preserving protective
-> cleanup for that attempt and all later failures. Propagate a later
-> -EPROBE_DEFER instead of silently generating a random address.
->=20
-> Count RX fragments independently of whether the frame is deliverable.
-> Start with a masked NAPI poll to service previously queued RX descriptors=
-.
-> Keep TX completion reaping available while closed ports still own queued
-> mappings; never release descriptors whose hardware ownership remains set.
->=20
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+On 11/22/26 7:45 AM, Krishna Chaitanya Chundru wrote:
+> The Glymur CRD has a WWAN M.2 slot connected to PCIe6, whose vreg_wwan
+> supply is described on the PCIe6 Root Port. Describe the slot as a PCIe
+> M.2 Mechanical Key B connector that owns the supply, so that the slot
+> power is controlled through the pwrseq-pcie-m2 driver and the PCI
+> pwrctrl framework, like the other M.2 connectors on this platform.
+> 
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 > ---
->  drivers/net/ethernet/cortina/Kconfig         |   14 +
->  drivers/net/ethernet/cortina/Makefile        |    3 +
->  drivers/net/ethernet/cortina/cs752x_fe.c     |  477 +++++++
->  drivers/net/ethernet/cortina/cs752x_ne.c     | 1869 ++++++++++++++++++++=
-++++++
->  drivers/net/ethernet/cortina/cs752x_ne.h     |   13 +
->  drivers/net/ethernet/cortina/cs752x_sch_tm.c |  687 ++++++++++
->  6 files changed, 3063 insertions(+)
->=20
-> diff --git a/drivers/net/ethernet/cortina/Kconfig b/drivers/net/ethernet/=
-cortina/Kconfig
-> index aaf9e294b..52c0683be 100644
-> --- a/drivers/net/ethernet/cortina/Kconfig
-> +++ b/drivers/net/ethernet/cortina/Kconfig
-> @@ -20,4 +20,18 @@ config GEMINI_ETHERNET
->  	help
->  	  This driver supports StorLink SL351x (Gemini) dual Gigabit Ethernet.
-> =20
-> +config CS7542_ETHERNET
-> +	tristate "Cortina CS7542 network engine"
-> +	depends on OF && OF_RESERVED_MEM && HAS_IOMEM
-> +	select PHYLINK
-> +	select MFD_SYSCON
-> +	select RESET_CONTROLLER
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 29 +++++++++++++++++++++++++++--
+>  1 file changed, 27 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> index 3a9cd5f3ec2b..a66ba8c0ac8c 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> @@ -230,6 +230,27 @@ vreg_wwan: regulator-wwan {
+>  		pinctrl-names = "default";
+>  	};
+>  
+> +	wwan-connector {
+> +		compatible = "pcie-m2-b-connector";
+> +		vpcie3v3-supply = <&vreg_wwan>;
 
-Drop, this driver does not register a reset controller.
+On the schematic I have, it also routes FULL_CARD_POWER_OFF_N,
+DISABLE_N, GPS_DISABLE_N, 2 UART ports (one muxed down the line),
+and a USB port (also muxed down the line), plus of course the
+m.2 config pins
 
-[...]
-> diff --git a/drivers/net/ethernet/cortina/cs752x_ne.c b/drivers/net/ether=
-net/cortina/cs752x_ne.c
-> new file mode 100644
-> index 000000000..081b42079
-> --- /dev/null
-> +++ b/drivers/net/ethernet/cortina/cs752x_ne.c
-> @@ -0,0 +1,1869 @@
-[...]
-> +#define CS_NE_NUM_RESETS 7
-> +static const char * const cs_ne_reset_names[CS_NE_NUM_RESETS] =3D {
-> +	"ni", "fe", "tm", "sch", "qm", "dma", "xram",
-> +};
-> +
-> +struct cs_ne {
-> +	struct device *dev;
-> +	/* Shared NI registers contain fields belonging to several MACs. */
-> +	spinlock_t ni_lock;
-> +	struct regmap *global;
-> +	struct reset_control_bulk_data resets[CS_NE_NUM_RESETS];
-[...]
-> +/*
-> + * Try every protective assert and check every line, retaining the first=
- error.
-> + * Bulk assert must not be used here: its rollback deasserts earlier lin=
-es.
-
-Why is this an issue?
-
-> + */
-> +static int cs_ne_assert_resets(struct cs_ne *ne)
-> +{
-> +	int first =3D 0, ret, i;
-> +
-> +	for (i =3D 0; i < CS_NE_NUM_RESETS; i++) {
-> +		ret =3D reset_control_assert(ne->resets[i].rstc);
-> +		if (ret && !first)
-> +			first =3D ret;
-> +	}
-> +	for (i =3D 0; i < CS_NE_NUM_RESETS; i++) {
-> +		ret =3D reset_control_status(ne->resets[i].rstc);
-
-Why is this needed?
-
-The reset controller driver already polls the global reset register for
-the "asserted" state in cs7542_reset_update(). If this returns 0, the
-corresponding assert above should already have returned -ETIMEDOUT.
-
-> +		if (ret !=3D 1 && !first)
-> +			first =3D ret < 0 ? ret : -EIO;
-> +	}
-> +	return first;
-> +}
-> +
-> +static int cs_ne_deassert_resets(struct cs_ne *ne)
-> +{
-> +	int ret, i;
-> +
-> +	/* Reverse the consumer's assert order, as the bulk API would. */
-> +	for (i =3D CS_NE_NUM_RESETS - 1; i >=3D 0; i--) {
-> +		ret =3D reset_control_deassert(ne->resets[i].rstc);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	for (i =3D 0; i < CS_NE_NUM_RESETS; i++) {
-> +		ret =3D reset_control_status(ne->resets[i].rstc);
-
-Same as above. The reset controller driver should guarantee that the
-deasserted resets are actually deasserted at this point.
-
-[...]
-> +static int cs_ne_probe(struct platform_device *pdev)
-> +{
-[...]
-> +	for (i =3D 0; i < CS_NE_NUM_RESETS; i++)
-> +		ne->resets[i].id =3D cs_ne_reset_names[i];
-> +	ret =3D devm_reset_control_bulk_get_exclusive(dev, CS_NE_NUM_RESETS, ne=
-->resets);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "exclusive engine resets\n");
-[...]
-> +
-> +	ret =3D cs_ne_assert_resets(ne);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "assert engine reset\n");
-> +	/* Reset pulse width, not an inferred DMA idle condition. */
-
-What does this mean?
-
-> +	usleep_range(100, 200);
-> +	ret =3D cs_ne_deassert_resets(ne);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "release engine reset\n");
-
-regards
-Philipp
+Konrad
