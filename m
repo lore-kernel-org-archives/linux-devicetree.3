@@ -1,87 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.114
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795595878;
-	b=amFbwi+7PfD8vJdAKIpDLCdAUL7MO/mLeh7SxTXs6yzsIAEAV8f2pqInSh1LwULckzCK
-	 lPXtRJ2Bs2ASVfyVNw0KM1ioff2ByPLKF+4t11mekg76splAj3sLoon//xqHxMuoKEjJb
-	 uBEaxZRjBQTSotN87xXSIfJQq9E57BVqpbzYlzMhZTcPK3jN5+mefJYEmQhWNkglUXn7Y
-	 fbpN4NeTPD8QR6YYJD7nY2/rP2KIDYDCi9Ckd7yodAtatYvJhytC+IMizFhteaqAVqapb
-	 52ayisCt/JLgPjx9Zdj8wcrNEKiK79VlAefi4Futy8I4B4R6ZK2KGwmA2LkJCFTvxMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795595878;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:Content-Type:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TgyK8/WwaIV8dbDDtUy6IboYpvr6MrS3dspzunLfEDE=;
-	b=Rh4/vlYP5TqfePc7hCtnS8sZMhLKgMhBffA7pnpOPoctxx4JGSbK4JeKK+oIWh+Ka3J2
-	 1SxMjdkjDKll8/VViThMSvtYyonAJw/XZJXkng6C3o3yyBw8M8LPzz4VR9rGv4KNfOpJx
-	 s0A9oR6Fuu8lorR3ffsOjU0Dz9nYvGPPepLXXfM8wUNw8Q4haSRAnJrOGlhqLVz8xMPFH
-	 TMBkagh8m8YJaXPBt2a7RVHhxfkLo3kL4Lm/FQZUBPAdu9hWWjqaLHHIii3UgHMqMrqXw
-	 fg4ATxUl/bCJxTqsyFRzPnb3HPma2eeKiO7MeKLvUPYLn02Gr3KOqx1q1uAPX2ySo/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.114
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2114.outbound.protection.partner.outlook.cn [139.219.17.114])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795595895;
+	b=qvFZ6yKbXysFBBYHwZKnwX8pyLL4OaAlG7Q3DB2TSeReaDm2qv+IIPvXsyDKAZpRpvLU
+	 zUSQtzq4GN6n0idCXKJyWp49UQJy8ujuYMRjcm8nrVaIwvBk2c4YElaVnNoWhwAPZNm58
+	 6AE9O1TWqfqdbPB6V5D1InqztbBTjDtSvIhwUv1SRTMWWUwGCQLYjZsQd/iTWwTxCkVQe
+	 L8yo1HdXg2KCF+y9Iy0RmxHFK2SDRAILl7e/GT8dc4G5+Jajgh/jsybX/WS3Wm8DQ4JYm
+	 h5JtKoQAXwS0DD5dkOz9yjtqW0O76nQOmxILE4ecGiipq/iuKvkmBdt34w/GCX54oFw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795595895;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=lzEDVzkjwvhKKOetVTsPS9exn/Qx2MWQ2k2YB/v+e5w=;
+	b=ehNV3uBtOQueGUFf01tJiUthAQvzqbdGd/j+xkFNZQzMwW6trxQHzKsI8R0jWbgsvIqJ
+	 kzsm+U4TkwpvZggdX9M0XHlx5sl1KFi1opXlwetMc6IKeY/zK//XrsqyrFvtN4Hvht1V+
+	 Gf9Kc9IqM4EVS047oyuOo3ZdggaTVyHPaLleoiOi8+iLf4fdMP1YdaZLeQj2mXwYJBFtQ
+	 Z0vmiCA+4Nw4kX7gbkRx6MMGqim6CcVAxgVE4oD3+8oLGFktEZt4fcNfRsI7CFVmNaLJv
+	 uf2L9uGh/+PyCyU5+M2kNA/x8p4w/R5KzDJ1GND8Yie+BqaQBfvNB5irX/4hHXtZtcg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uqmG5gLF;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDC7606A33D;
-	Wed, 25 Nov 2026 08:37:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BDC7606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hv/yNL17lbVfrBdBNCS3qGKbKjiOHr6LuLJG6tqOAlEHhLXV5IeBHfQbtjbVqouLQxKEErIKJmQXC7rn1tuBOmiEH06S+m3uNDTFma4Ob6o08WyZsIMwL1XlYULtHjQnSkHC6EDgjmI6dx8KstBhjLAKnRKGMZmVwAAAPgv6mFY2gtOLiiYjWIYUllLJxbY6bGQKuq+WGZ4i2HifbTc0zsUajnaaTCrK4fzmD6bsyIqsAkxXisdd5ylqWG+Jw8PW6ZDgWW/GbNYZXRnDkG4J2//rz2aBN7mjtOpB2rPt/UfliY4uPwxg0nOJUdn4P/rvsMq/t8lU1Dy3taUJAkFJqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TgyK8/WwaIV8dbDDtUy6IboYpvr6MrS3dspzunLfEDE=;
- b=d73IjYWitOK9gf5lDXTbK8tnHX4I9skO/TWzGVQQNO0bOPgcg41EoE3ylbLuVTzJYlLtqv1RXafc5YV9LSDcrTIcmWb/CpadxZ0WSqcBI08cJ1XDWKvQ8jWZPjKA3fxPkclJjGocrDlSM87SGE+P9oTO5yNDeLfaWAks2eR8/UPoLNPRKbRMAfEdpvgFqdFFuZsnVdt2ZlZdm56HZ3Yhf9D4ud4OfR5r9kHJ/FY4jHz7dsbdO/W3rIvpaoVhleh2Dvcoxa3zjEfBVumuSYgsnkTKnDuOFA0hoNiy7+/QMTBVd9n8Yy6l/SkQag6Xgj6Ixdt1G+svoLbeNtNDhzPmwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:e::7) by ZQ0PR01MB1048.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:d::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.15; Wed, 25 Nov
- 2026 08:37:47 +0000
-Received: from ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
- ([fe80::d777:e23a:d111:5fa1]) by
- ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn ([fe80::d777:e23a:d111:5fa1%4])
- with mapi id 15.21.0639.012; Wed, 25 Nov 2026 08:37:47 +0000
-From: Minda Chen <minda.chen@starfivetech.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Minda Chen <minda.chen@starfivetech.com>
-Subject: [PATCH v3 3/3] usb: dwc3: starfive: Add JHB100 USB device adapter port enable quirk
-Date: Wed, 25 Nov 2026 16:37:36 +0800
-Message-Id: <20261125083736.50606-4-minda.chen@starfivetech.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20261125083736.50606-1-minda.chen@starfivetech.com>
-References: <20261125083736.50606-1-minda.chen@starfivetech.com>
-Content-Type: text/plain
-X-ClientProxiedBy: ZQ0PR01CA0001.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:5::14) To ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:e::7)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F490606A327
+	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:38:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F490606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uqmG5gLF
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb6886d30aso52013235e9.3
+        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:38:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795595894; x=1796200694; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lzEDVzkjwvhKKOetVTsPS9exn/Qx2MWQ2k2YB/v+e5w=;
+        b=uqmG5gLF8I0TPo6PyH22INBuIovjHWxcjCz4zXtb/O3+Ef6X50w/NeQtXdHcVHQs78
+         Zc9fjk9TDyWy3RYL+hAR0uvSc12E8jPajwLE/65j4fukJ6BNsGNQ7BzMSgoyFY3lm9MF
+         nSa2tzTCKfxSZC3K8ttaSzG6kMfl3Ntfxyhv3uuN6mzzmlHcvh64yLh8FfCd0JY4hoVb
+         AsrHt+daCl1VCYMXneJmXIaKJqFxc2Pv2pHZ6/zRosWPkkD3fxEf38ER1KYr2jwZVC9K
+         Yr7bNNH/gc6Trz+grtp0BWZQY4NtwRIpzokn0eZFrSRwzBD+MTxl5oqJ6hC89e4j7x0n
+         KpfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795595894; x=1796200694;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lzEDVzkjwvhKKOetVTsPS9exn/Qx2MWQ2k2YB/v+e5w=;
+        b=PdT2W/jMWghKscCB0y0tTpVw0kBOAdA5Om6DOchomSM672xC4NsYCqNPnN6K7kWgKU
+         CjO5NcqVypuAwtjqADuE2LfBnnf51Gu56TKrayDiVeo2R2WXWmet570KbYVVp+kuJYs2
+         ZfgtJv1Xc61hlf8JVAtFXnWSPzhkikqzwPjWfG+7RBhWT7urYzLntYBo3xouIp7vNIwI
+         jTBpecL9Zomr26o7Vy/BYNlVhnsIPjQ7VwUCjDavlVouxpI3v9+kex1VWZSUEFEfnI3g
+         /uYPuKeCA3Wfj9D2NuHeyCfBb+CSgG10m+sz7cx/IonlHj9wh9EMawT89uAU1E41Xh0O
+         3Chg==
+X-Forwarded-Encrypted: i=1; AL+hErGhQfI3Apdj28IH+Ir926PgimXznnwYdJxbK7k/NOgrgCghHyuoZaVytnalMXG4BFeq7JzKGqTEA9rG@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DLl63C3HH6pW4p4bd4YESNNR/kBeLVjWpOQXu7W8B2f+XvLGn
+	nHGYL8o2deGOb/0i9KqxzAcA08arLRfLshRAwNDWTX1MNRdOgJ+w2PrzME09098BMvw=
+X-Gm-Gg: AZFdTZfZrrlXOFBwlWKvdwhnGpnWFmo51bqB4AsjdoW27CJbYrdP2ufFjgB02oUkG1F
+	mjk0OwCX8Kr16Zyun7O89QOJUb4fEmwlSpVxH0n+XuJpUCvh6stwkXIsfiZWodxK1K5y59zJCQf
+	hYRnoTjS4yGNWx0nzKwgOUSKJQ/9TQx2P9SS2eIKcYAmzQeE07zGPputqBByi3+MSsum2EH8VfU
+	aCLYH2Wi2ePaiiE9mzg9xolM7bHqaeZeixDv8Y4gpkxks2fG8HaP+xVeNXqgqspc0v7GdN3s4qj
+	gS4ArndOGEoBVVJD3jO1FhKIBL7lU2qLZSpm2nMCWrQ32zR/zsyR256Cl2ky6fmxREU0lfpc09b
+	dpQTRgM6aG3JvxJtIdMZKGi4vx5PaTfQNvNFekiKII/ZZqOcZ3oIb3YjP2/I979EzHldLjhJjtV
+	dvwz7pvaOSm+yox5tffSyv+KPn3zztgNdfT4fdBv2gPGX8xpIdDLM6vaLn2I79Qzd2gb4bPvpvq
+	CSyMz/SKkqBqaEnTiUkUZENAMp8+IbIicmol7mSIDhc6hzI4flYB3YTTJWQfTcLPrU5uu4vnDt7
+	VsKESe7ygxa2Gk0nHxDJzijbR9oQxCd5sv6upwmM4u1FqX866nMLj5T3EgnbfHoXoJoSPKF2u8B
+	OjkKxmf81VbF0AkBdZ7owCCl1ShUJEMU=
+X-Received: by 2002:a05:600c:1548:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4bb88800013mr372756285e9.6.1795595893607;
+        Wed, 25 Nov 2026 00:38:13 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:f368:ae2e:e717:e970? ([2a01:e0a:106d:1080:f368:ae2e:e717:e970])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8d4f9aa8sm464599425e9.4.2026.11.25.00.38.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 00:38:13 -0800 (PST)
+Message-ID: <78f7c95c-be36-4c68-9e5c-b65ca5bcec7b@linaro.org>
+Date: Wed, 25 Nov 2026 09:38:12 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,160 +93,178 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1111:EE_|ZQ0PR01MB1048:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bd3b6ec-bc1d-4a21-b78f-08df4acf61d0
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|1800799024|23010399003|366016|38350700014|10067099003|56012099006|261022075727099003|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261102130727099003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	+rV+exvGAIIIl1S4XwhsfrTxzE3zrasASbR/Fu7FqE02uyGyvcQY876h69emV0KyaTXk8rWZ5HN23sOosdc3/c6VzxdPFG+7PG2J0GYFN3DX25mhqNoFgpxfLW2GT8nN3qlmuuKl3txe7yxAPhrCMmA+bCpO2KGP9atEB8a9Z2TNTx/YNE39LFbsh8jXPzfXODi3OqQPsYUkke0RnvdPbid+xcJlSo+zRgDOxGnfwn+bDNsN06ozRZkNt0TIMl4ph0J4Aimekt/CCIGWhI40oKK3XDeOdbxc7hZyTdpK37In5tPE3lersOW/IevZQp6O0X7D6AmiTGjRfxpxZZVomUm8UdPUVTGM3VzN52JCAACgUQO1svfaZcCKfzfhx+JWTKwwICV049pRC70S6gyuekAuwKNkjijw2pbputo3/Fr3yc5z8hWg0Ii5qbGvC1tARIgbMzSybyScnJLUVJk+JmE6TTHRnaIkhhJCk+nKKEpNToNbKjOmOAEYOwmrBcm6iAloiTQUdDiRMFAD3N3SdR1h9pG7ttJzFbL4VaW2B23liY0TtfiZ9HxPmh64EgrN
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(1800799024)(23010399003)(366016)(38350700014)(10067099003)(56012099006)(261022075727099003)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261102130727099003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NELQgr5hgW1PS0lz369QdyArcf5GGkNp5dY2LXLt4x+3IpQ6+9mMvsuhPPD6?=
- =?us-ascii?Q?9gsnR4SIsW30XHaYzozT8X2sIWmCrQ9oI0l9hAymbLu7SIyvo28DLJ0o1gzu?=
- =?us-ascii?Q?tejBWXeMq3p1G2f8YUiFwxBlW0LtPBBHYaw/Yyq/Gtir/jcQos1AqiMDpAb8?=
- =?us-ascii?Q?YZFFzJOq7+9PJUX/WUwCGts1Fjqb3lHDNGlOt+RJLmKb3amJSqNRUTJB+Q9J?=
- =?us-ascii?Q?wX0hEsDOUQ6uDKO+T/4mG1YTmNN0m+/h4h9NVGEFsxuMjH/pSpuXJXWbXu7m?=
- =?us-ascii?Q?ncMHwpqTxlKbkZaBEAUVZS9wIBiYMuUF0MC00yfEP0+HtVAncyVo2KVvsJ0h?=
- =?us-ascii?Q?3YRZiKXD1BfzNR1zDGjSAb3gvjbb4rYYu23e6W4NlfQkdybMK90qWjv/6fHw?=
- =?us-ascii?Q?62EvSkSNZwXJjmkEdCefZuR8rga4Gtj0FwByrLygK2RMcOhjD1YjsnQO7b3c?=
- =?us-ascii?Q?PdWR9diILBOMRPT8qm8T6SLM40g9m7tOaMK7pZRd+edNfCh+0PmG7jCwfP3f?=
- =?us-ascii?Q?wZAyrH9qWhKsHTl8dMOcbIoFtKuNs52+ySpWBwaFNkGykYJ86G4PrP0faaQI?=
- =?us-ascii?Q?UIp0bM61KQcqqhVG0QHG3dJMp/TFNwVtQDeavPPvvei3VBEbIqwLYjJdnDgt?=
- =?us-ascii?Q?k7eo1ALb1MEbwTzkWpqB1XOGA0nAew4zNBMOd4nc0gpNNd91gpydLN6esdgw?=
- =?us-ascii?Q?ITg81+dh4XY4YWxZatB5Yu6WqpfNdK/sMYv8OolHqbJvF5JAUjqMLKOwSDYb?=
- =?us-ascii?Q?02azzuhaQ3pJEILN41Sustk6XspiNOFFg0sABkjG0c0ysLgwyB18cBUYpYVn?=
- =?us-ascii?Q?i7Aw657NA/jUuLe97POuYqNU3rjgoHWlnD4TVsKTLgAd4XwqwwtIL0SAC1uj?=
- =?us-ascii?Q?oiuzghvC/gFAJrcZsjfieWA3TDCfAQhqPVD1Ja49tmAVXzBap8uFt2/AT+3+?=
- =?us-ascii?Q?nmOmhAJjth421O4AD9Z5MGTgy2/mFrsBblYhMXtvWqZ70lJjA1mcnT1YywiR?=
- =?us-ascii?Q?ylPnb69DupCv9RbNfFhkx+1+tW7/HqnDN7Zsnz8vadB7evoJlpTMImZbNhMS?=
- =?us-ascii?Q?U/7Q9bVQf/0F4dFLzD6+Sp9HGPBRAf6RLBg6AjSt9LC+t5uUN6wRhqzO9NRO?=
- =?us-ascii?Q?G2nydluyb6eCTdqYUJPOJPPCUUoKu2vC5XWfP7McaslEkTony0taWHbaTgl/?=
- =?us-ascii?Q?lzLJUWP9hSJa5f5lJ77eSdMJOTMDzm5gXe2aRTrSXmmESUK33Uh1kxvFqwEu?=
- =?us-ascii?Q?dVsfJq3ZBtroaEqIC0f24s6fYG+4s/tu79EO7G0Bou/172k551q3HCcY0/jn?=
- =?us-ascii?Q?WfeOigakSHjqoqASurxL3KLzBFw3zS/LTA7UAeJIeB43U81sBPWDkDm0ai1f?=
- =?us-ascii?Q?7qg9Oh3H6gD3J3diRIJTOG61aXcuJZHbp8hcT8HJVU/V5H7qK+EM4Z8+lCxu?=
- =?us-ascii?Q?uP77nSKuwzFqWn2YtlDwGlIc5TV5YqDFpcMbqceTCFZ7++xQ2HKju01LVHk2?=
- =?us-ascii?Q?x0qrMtkQ2KdScC9loeeC1S188JmRuxSYGmV5b5PVkFzll8jrWP5OC3qEOzrA?=
- =?us-ascii?Q?441hkQzgOozrDSUMPaWZZ5Py2Gw/1ppHegUa1/uDf3sw9FbrK0wivjV0paTu?=
- =?us-ascii?Q?qxntP04tSJZTx2OuD/L1ap5MAsga2cbnpwZ8hWhN7qGPNU14QTPaQB1T0UdV?=
- =?us-ascii?Q?7oVxM7UV2r5mmN+NgW45AIAnitlEHMLEgjRR4GR+LMfROw4/+xuMEPVnzS/X?=
- =?us-ascii?Q?/BixondawVqT8oc5A+NhKG3y3Qi5+QM=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bd3b6ec-bc1d-4a21-b78f-08df4acf61d0
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1111.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 08:37:47.0882
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pygoILM+CG1U/2yY0Z1KvR2IQ7O+bPdfolvkFuWDUffXodhpqPCaoPMbUcOdyN8UbsNxjMIe0M/RZWgbPqpa1WCp6wXpT43MtbFKlmRxUMs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1048
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 09/19] ASoC: qcom: lpass: add support for optional WSA
+ interface
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20261124-topic-sm8650-el2-v2-0-174e159f0f69@linaro.org>
+ <20261124-topic-sm8650-el2-v2-9-174e159f0f69@linaro.org>
+ <sashiko-outbox-231757@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <sashiko-outbox-231757@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On the JHB100 BMC SoC, each DWC3 device controller is connected to a
-port of the xHCI controller that is exported to the server host over
-PCIe, through a PHY adapter. Setting the adapter USB 2.0 port enable
-bit asserts the connect status in the xHCI PORTSC register, so it must
-only be set once the gadget is ready to be enumerated, otherwise the
-host fails to enumerate the device.
+On 11/24/26 18:54, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] ASoC: qcom: lpass: missing wsa_lpaif_map handling in suspend
+>    and resume
+> It also noticed 2 related pre-existing issues this patch does not
+> introduce:
+> - [Critical] ASoC: qcom: out-of-bounds array writes in
+>    of_lpass_cpu_parse_dai_data() [1]
+> - [High] ASoC: qcom: lpass: unchecked memremap() and missing unmap on
+>    PCM free [2]
+> --
+> 
+> commit af2e24041ddb606a271caf973ca3eb7d9100c98e
+> Author: Neil Armstrong <neil.armstrong@linaro.org>
+> 
+> ASoC: qcom: lpass: add support for optional WSA interface
+> 
+> This commit adds regmap, DMA control, IRQ, and buffer management support for
+> the optional WSA LPAIF interface used by the speaker SoundWire bus.
+> 
+>> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+>> index 3089107442231..db7a0752edb2f 100644
+>> --- a/sound/soc/qcom/lpass-cpu.c
+>> +++ b/sound/soc/qcom/lpass-cpu.c
+> [ ... ]
+>> @@ -984,6 +1076,16 @@ static struct regmap_config lpass_va_regmap_config = {
+>>   	.cache_type = REGCACHE_FLAT,
+>>   };
+>>   
+>> +static struct regmap_config lpass_wsa_regmap_config = {
+>> +	.reg_bits = 32,
+>> +	.reg_stride = 4,
+>> +	.val_bits = 32,
+>> +	.writeable_reg = lpass_wsa_regmap_writeable,
+>> +	.readable_reg = lpass_wsa_regmap_readable,
+>> +	.volatile_reg = lpass_wsa_regmap_volatile,
+>> +	.cache_type = REGCACHE_FLAT,
+>> +};
+> 
+> [Severity: Medium]
+> Should lpass_platform_pcmops_suspend() and lpass_platform_pcmops_resume()
+> also manage drvdata->wsa_lpaif_map when drvdata->wsa_enable is set?
+> 
+> lpass_wsa_regmap_config uses REGCACHE_FLAT and lpass_platform_wsa_hardware
+> advertises SNDRV_PCM_INFO_RESUME, but suspend and resume only handle
+> hdmiif_map and lpaif_map.  If the WSA LPAIF block loses register state across
+> system suspend, resuming a stream via SNDRV_PCM_TRIGGER_RESUME skips
+> lpass_platform_pcmops_prepare() and never syncs the cached DMA base, buffer,
+> and period registers back to hardware, while later regmap_update_bits() and
+> regmap_fields_write() calls can skip hardware writes when the new value
+> matches the stale flat cache.  Note that later commits in this series
+> ("ASoC: qcom: lpass: support mapping I2S ports to multiple LPAIFs" and
+> "ASoC: qcom: add SM8650 LPASS CPU driver") do sync the same lpass-wsa-lpaif
+> regmap across suspend and resume when it is used for MI2S.
 
-Map the optional "adapter" register region from the JHB100 init
-callback, and set or clear the port enable bit from the pre_run_stop
-glue callback.
+No WSA should be handled like RXTX and VA, with MI2S support it may be necessary.
 
-Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
----
- drivers/usb/dwc3/dwc3-generic-plat.c | 48 +++++++++++++++++++++++++++-
- 1 file changed, 47 insertions(+), 1 deletion(-)
+> 
+>> @@ -1046,6 +1148,8 @@ static void of_lpass_cpu_parse_dai_data(struct device *dev,
+>>   			data->hdmi_port_enable = 1;
+>>   		} else if (is_cdc_dma_port(id)) {
+>>   			data->codec_dma_enable = 1;
+>> +			if (is_wsa_cdc_dma_port(id))
+>> +				data->wsa_enable = 1;
+>>   		} else {
+>>   			data->mi2s_playback_sd_mode[id] =
+>>   				of_lpass_cpu_parse_sd_lines(dev, node,
+> 
+> [Severity: Critical]
+> This problem wasn't introduced by this patch, but can
+> of_lpass_cpu_parse_dai_data() write out of bounds on
+> data->mi2s_playback_sd_mode[] and data->mi2s_capture_sd_mode[] [1]?
+> 
+> Both arrays are sized to LPASS_MAX_MI2S_PORTS (8), yet the initialization
+> loop at the top of of_lpass_cpu_parse_dai_data() indexes them by
+> data->variant->dai_driver[i].id without checking whether the DAI is an MI2S
+> port (CDC DMA DAI IDs start at 19), and the else branch above indexes them
+> with an unchecked id read from the Device Tree "reg" property, overwriting
+> adjacent fields in struct lpass_data.
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-index ca69ac0eb07c..ebcd43442fc4 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-@@ -22,12 +22,15 @@
- #define EIC7700_HSP_AXI_LP_XM_CSYSREQ	BIT(0)
- #define EIC7700_HSP_AXI_LP_XS_CSYSREQ	BIT(16)
- 
-+#define STARFIVE_JHB100_ADAPTER_PORT_EN		BIT(20)
-+
- struct dwc3_generic {
- 	struct device		*dev;
- 	struct dwc3		dwc;
- 	struct clk_bulk_data	*clks;
- 	int			num_clocks;
- 	struct reset_control	*resets;
-+	void __iomem		*regs;
- };
- 
- struct dwc3_generic_config {
-@@ -42,6 +45,44 @@ static void dwc3_generic_reset_control_assert(void *data)
- 	reset_control_assert(data);
- }
- 
-+static void dwc3_starfive_jhb100_pre_run_stop(struct dwc3 *dwc3, bool start)
-+{
-+	struct dwc3_generic *data = to_dwc3_generic(dwc3);
-+	u32	val;
-+
-+	val = readl(data->regs);
-+
-+	if (start)
-+		val |= STARFIVE_JHB100_ADAPTER_PORT_EN;
-+	else
-+		val &= ~STARFIVE_JHB100_ADAPTER_PORT_EN;
-+
-+	writel(val, data->regs);
-+}
-+
-+static const struct dwc3_glue_ops starfive_jhb100_glue_ops = {
-+	.pre_run_stop = dwc3_starfive_jhb100_pre_run_stop,
-+};
-+
-+static int starfive_dwc3_jhb100_init(struct dwc3_generic *dwc3g)
-+{
-+	struct platform_device *pdev = to_platform_device(dwc3g->dev);
-+	struct resource *res;
-+
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "adapter");
-+	if (res) {
-+		/* usb device controller with adapter */
-+		dwc3g->regs = devm_ioremap_resource(&pdev->dev, res);
-+		if (IS_ERR(dwc3g->regs))
-+			return dev_err_probe(&pdev->dev, PTR_ERR(dwc3g->regs),
-+					     "failed to get adapter regs\n");
-+
-+		dwc3g->dwc.glue_ops = &starfive_jhb100_glue_ops;
-+	}
-+
-+	return 0;
-+}
-+
- static int dwc3_eic7700_init(struct dwc3_generic *dwc3g)
- {
- 	struct device *dev = dwc3g->dev;
-@@ -231,12 +272,17 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
- 	.properties = DWC3_DEFAULT_PROPERTIES,
- };
- 
-+static const struct dwc3_generic_config starfive_jhb100_dwc3 =  {
-+	.init = starfive_dwc3_jhb100_init,
-+	.properties = DWC3_DEFAULT_PROPERTIES,
-+};
-+
- static const struct of_device_id dwc3_generic_of_match[] = {
- 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
- 	{ .compatible = "spacemit,k3-dwc3", },
- 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
- 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
--	{ .compatible = "starfive,jhb100-dwc3", },
-+	{ .compatible = "starfive,jhb100-dwc3", &starfive_jhb100_dwc3},
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, dwc3_generic_of_match);
--- 
-2.17.1
+Fixed when MI2S on other LPAIFs is introduced
+
+> 
+>> diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+>> index 9666049ae51b6..99a7ce9ed7695 100644
+>> --- a/sound/soc/qcom/lpass-platform.c
+>> +++ b/sound/soc/qcom/lpass-platform.c
+> [ ... ]
+>> @@ -1148,6 +1295,14 @@ static int lpass_platform_prealloc_cdc_dma_buffer(struct snd_soc_component *comp
+>>   		buf->bytes = lpass_platform_va_hardware.buffer_bytes_max;
+>>   		buf->addr = drvdata->va_cdc_dma_lpm_buf;
+>>   		break;
+>> +	case LPASS_CDC_DMA_WSA_RX0 ... LPASS_CDC_DMA_WSA_RX9:
+>> +		buf->bytes = lpass_platform_wsa_hardware.buffer_bytes_max;
+>> +		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf + LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 2;
+>> +		break;
+>> +	case LPASS_CDC_DMA_WSA_TX0 ... LPASS_CDC_DMA_WSA_TX8:
+>> +		buf->bytes = lpass_platform_wsa_hardware.buffer_bytes_max;
+>> +		buf->addr = drvdata->rxtx_cdc_dma_lpm_buf + LPASS_RXTX_CDC_DMA_LPM_BUFF_SIZE * 3;
+>> +		break;
+>>   	default:
+>>   		break;
+>>   	}
+> 
+> [Severity: High]
+> This problem wasn't introduced by this patch, but
+> lpass_platform_prealloc_cdc_dma_buffer() does not check the memremap() return
+> value on buf->area and leaves buf->dev.type set to SNDRV_DMA_TYPE_CONTINUOUS
+> with no .pcm_free callback to unmap it [2]:
+> 
+> sound/soc/qcom/lpass-platform.c:lpass_platform_prealloc_cdc_dma_buffer() {
+> 	...
+> 	buf->dev.type = SNDRV_DMA_TYPE_CONTINUOUS;
+> 	...
+> 	buf->area = (unsigned char * __force)memremap(buf->addr, buf->bytes, MEMREMAP_WC);
+> 
+> 	return 0;
+> }
+> 
+> If memremap() returns NULL, a subsequent PCM transfer in
+> lpass_platform_copy() dereferences rt->dma_area.  When the sound card is
+> unbound, snd_pcm_lib_preallocate_free_for_all() -> do_free_pages() treats the
+> non-NULL buf->area as SNDRV_DMA_TYPE_CONTINUOUS memory, warns in
+> decrease_allocated_size(), leaks the mapping, and passes the remapped address
+> to free_pages_exact().
+
+This will probably deserve a follow-up fix as it's not related to this serie.
+
+> 
+> [1] https://sashiko.dev/#/bug/linux-ac3b3436-c7ff-4bc4-ac2f-8d1aa0b6ad52
+> [2] https://sashiko.dev/#/bug/linux-c4c01ba7-4086-4d0d-b8e1-8b417f2486e3
+> 
 
