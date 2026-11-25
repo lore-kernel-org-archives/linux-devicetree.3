@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795649493;
-	b=p51b4wXioeL9reuArsvVf/H1p38CLAYIDB3/xW9oohUztHPDO0ECcncbBWh1EOpH6xbR
-	 vrEN/DZqEeY9kWEdQtembEtNoIlm5aoykZu9eR+wyuq5Y8f1Eir2XxHKNQ8MnPVAM91aP
-	 nTjni3pyWZDYVdBoLenUP5Jir4/dlZhxg2vUnd9I3FX9xPLMNZuLKhwrRuyl2I2sNlu0/
-	 Uyhk9wdCg+fcqAAKwT8jaEQxFKYLFbFCl54lGg30M+7Wjq8vUkEm0RfRlBZ9jE7bgl1ba
-	 FCSHfKWWUZJ1LfYVo8civSL2gFcH3L4RGJV8r0U6yWfphbsvNnj+jKOTp9w24QVzd8w==
+	t=1795649500;
+	b=YkeKvPxXq6rCfcezw4UgRVRigdeo20xGpAeoNvzj4RkzqBW//FOrbrNpSc8wdic5IFTD
+	 xAkmAI6i3fCMKjiqAs/2E+2QL8TZd3xCdsKu9wVrzpvucKBh7MovsgErVJby/uRZevyiH
+	 PiKlzPoqxcJCQ8CzYZGWIXVV25WyQvdbp16NoNC98uUZzuefRw4bPeNdyPfKUJgImn8Rq
+	 EOwkRCywjoDeEndnijQlK+VbIoMR6fRlmVXD/nPEgsBm/+5cuNadbCx2R1Q7lRP0bUI6q
+	 EW9wLO5HxrdT1FELAYsm7eRFv6DqPC0Gx7BKtqQzNFU8tiHKUyH5jTzV3ShQiBLkiNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795649493;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Cf6MiC9aLyREtPGRrWON9xR4Ztcj11+KcwsAovolrF4=;
-	b=lDZpBDCjXLUJa9ZTLuCITOiGqAqNzmWTNOVpF+C4biHgsb1e52dPkVmAA71RFybxVr/S
-	 yUOxFcdkGe4DlC5EwojtnAGbM+/D5XB0e2HpiaP6PB0QCy7yz3RnvW3FbmBvKecZ58i0Y
-	 DWUStolScCMz4EJYT/8s0ZdrBO8uaRsOlYCOk0tuz5/yY+weEbbrhL6BRet9F3MH/b7/E
-	 W6U5mZlsfjPolUoo6ke2En3g2DcgsthbmiUF87BHrGHPzTzBnBJtd2Mnr/ybxMsIiVERW
-	 JNIjH3oz/5zjFBEjkKg0/hiPUdO9WUZXna8dVxVgJD4JHKlAdtu/XOwe+bkhBHVaNNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795649500;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=FvvNDtfsIabNA/On19BazK/OQL2ez6R5Vi/Cev7mYvk=;
+	b=UhPt3U2bVAelEnMGkJ6986ZvaHkvvYQ69bVTp0cU2mi46T2J5tipsfrT4extHBvXJRZG
+	 FWGm+lRudcBpDTuN6Y26TOp3icbEAGuc6RTInGNFen8Thlx3HRmW6Kxewn1g3G8brZQou
+	 rrY7kFcozjrmJMEviTKoXhFDZ2qBlNVyPnxZeG0dKF0AOmVFELQyrmgbFeaymbwWhgymK
+	 uuFG1XeYF9aSnE6T39x0xD/5oll5ASX2X5TEJYLHC0yhb0BXqSl4NJw+k73gYTgICha5B
+	 8MR64fifPSSAhX8Vmms1XlXEuvsRkY0QFaEatGPaBNQTHbbe3G6LRWgtZ9NeddiH9Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C+vnIwqv;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2658606A680
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 23:31:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2658606A680
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O+8QmB4X;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 274E7606A683;
+	Wed, 25 Nov 2026 23:31:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 274E7606A683
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C+vnIwqv
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb72b44a97so54789365e9.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 15:31:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795649491; x=1796254291; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Cf6MiC9aLyREtPGRrWON9xR4Ztcj11+KcwsAovolrF4=;
-        b=C+vnIwqvpAaoW/uXMhp8CY0+imCU6UwOUhGFZYFg442ZvilS4WqYNnZiTKq5FyemRD
-         bq/MfOUMDdo/cL7nlm4wBHO8XVIpxrgg1LiIol1lMm24V/zUElaT+BDyWwFATjIH+wjf
-         PIJNQADzUk0O3+21jna9dhKOQaZGs/soErqSYaaNoC9wzTwjwbiJL9FSlA/rVHoihlbp
-         YI7bTndzjHrRAJuxN+t2hgSVV8ghhRJ16eoHauZob198fVGLGO/HJTa4OdicdmcS9/CP
-         bAHFcobo+Z/b0Wr1o60pOa4orUZTyhOvy19WZyotvVCcCxoMxWTvFBBQyuZJ0md4FjoK
-         ci9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795649491; x=1796254291;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Cf6MiC9aLyREtPGRrWON9xR4Ztcj11+KcwsAovolrF4=;
-        b=M6Jqpn3sZQCdcnljSTsbPwrHdrNiUiqjX8U5CFe3mtWwfSS6h1BTZHRQiSSdcnrZbX
-         f0bmeigvWncdZYh/j3WjZ11ZV4v6FJ1lVdvc7+u3r3BJVOxKKHMHIK3zQLJ2I9M8AZi7
-         fdUVF1IvQSRbZycHGLMopZRgPOoTiAfVbmfMYjAMFB58wHH6fcamyPmMWwsQd6kKPg50
-         XeJbS8nzUJEdjH9R796I3iXJKZbo6x9Zp9G7lwsThHPcJfiWVirA52EmXrH1Kze0DuMw
-         D5F1WUp+RNI+O1sNBr+6x6Qf0dTKqYtGfTbw3L8jGe86nWdxg6SVmgAEzuqlw6YkEO3p
-         aJPg==
-X-Gm-Message-State: APuU4Z8PyPy4utn58otUIvuZAFr79k1f2iNmWdBi1HPMRw3kwnJ7fVeL
-	u0ozNRKhemFUXVy9ULczRBoMTN1Vt753vQB84unhyh1CgBnrFC9lhRWy
-X-Gm-Gg: AZFdTZfL8X27myo2geyEfLmFkq3PfiiBvCD5maMxS+sZwAevDl6U1FrFdM3wepgcBsL
-	bfi44NTu6xDKzV9zvmRQCCbWpzMdlZCIYrS/wo6q2qjbCP7aS9EdXoCz3aJQcyBEnnzZMZ0Uvde
-	xdWqvEuPQIZ0pkm7D4B9jy059Z251nfg3e7H2g5zk4pUFXFx5d6t1bDevlZpeCVYI3MKthJkw9i
-	b1/VddmKi4vMhawV5CXwuhmii/Ctr6velZZTJuVS9AUNbsPSpoc0ma8sdlgb9eKMSjP6WHt6h8S
-	dHDOgo+8kKL2TPHDYt+MjJv6SP3m0DayF7WJ42fTCkoi5VqTXwwjmJIZSB3fy7t3uiGznJLQICz
-	yHPSf18abxEC7Y8psBplZ2V3lR0eojLrbWqWuDVkHkLtjFoD0xJhA2h120yGxdM4W+WIyHy+cc1
-	T8xXQacfHEO1ezXTz24kfxNMmDO/kwwENRuuxm8AcU4XObHUvF09DrDsr40vLWxtnZPQTtCzvZc
-	wAcNUJNI+BtG7FYWj61S65nFpyvDmGNUILFlW6YIXaUXAI9C98FZlVNqNjmcPmKTEkI16wc+LrI
-	YYZyNM8NUzQNQKaa8sB3+VknjtsOrARDZtAxjHJoejqNfpGR5eeztszMfYTR69mjpcc0iGOYce4
-	rqbg3DJ/1mXoTsliOlaxS/fqO4gCRH4o=
-X-Received: by 2002:a05:600c:3b83:b0:4b7:6b96:e431 with SMTP id 5b1f17b1804b1-4bb88822242mr450476545e9.28.1795649491157;
-        Wed, 25 Nov 2026 15:31:31 -0800 (PST)
-Received: from localhost (bl20-90-91.dsl.telepac.pt. [2.81.90.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a9687sm618034375e9.10.2026.11.25.15.31.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 15:31:30 -0800 (PST)
-From: =?UTF-8?q?V=C3=ADtor=20Hugo=20Silva?= <vitorhg20080@gmail.com>
-To: linux-riscv@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	linux-serial@vger.kernel.org
-Subject: [PATCH RFC 11/19] serial: esp32: Add support for the ESP32-P4 UART
-Date: Wed, 25 Nov 2026 23:30:12 +0000
-Message-ID: <20261125233020.1380594-12-vitorhg20080@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125233020.1380594-1-vitorhg20080@gmail.com>
-References: <20261125233020.1380594-1-vitorhg20080@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=O+8QmB4X
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1344B1596;
+	Wed, 25 Nov 2026 15:31:35 -0800 (PST)
+Received: from [10.43.3.73] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 19F6A3F86F;
+	Wed, 25 Nov 2026 15:31:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795649497; bh=g4SLH4ntJ/Uj2nuvXWB8FADSkntEV5OWw71EFBWI27c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=O+8QmB4X04m2jcI9M7lf3p+aZQGd5zPftioIuuFIPcj3BZHatl8xM9lk3BdvUiu9E
+	 z+TbsQ1kjBzDZCqKqL1lK6RSPzZMdGwT9ACOiJeF5tCv1iLjx3REEREY6m2s/OJ5Vj
+	 G8HlgVQwQTcQ/2tvEAzqVA9VVjpPwGC9RWVIHAQM=
+Message-ID: <b9220cf0-ad6b-4719-aa67-154666c788ea@arm.com>
+Date: Wed, 25 Nov 2026 23:31:30 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,361 +53,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] pinctrl: sunxi: add support for the Allwinner A733
+To: Alastair D'Silva <alastair@d-silva.org>, Linus Walleij
+ <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Yixun Lan <dlan@gentoo.org>,
+ Enzo Adriano <enzo.adriano.code@gmail.com>,
+ Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+References: <20260910133519.459011-8-andre.przywara@arm.com>
+ <20261125115703.3724690-1-alastair@d-silva.org>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261125115703.3724690-1-alastair@d-silva.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Enable the ESP32 UART driver on ESP32-P4 and describe the SoC's
-register layout in the variant data. Synchronize configuration
-writes to the UART clock domain and keep baud rate requests within
-the limits of the ESP32-P4 divider.
+Hi Alastair,
 
-Propagate IRQ lookup errors, including deferred probe. Serialize UART
-port registration and removal, and clear the port table entry when
-registration fails or the port is removed. Keep the console setup
-callback available for probes after init memory is freed.
+On 11/25/26 12:57, Alastair D'Silva wrote:
+> Hi Andre,
+> 
+> Two issues showed up while testing this A733 pinctrl series on the
+> OrangePi 4 Pro:
 
-Tested on a Waveshare ESP32-P4-Module-DEV-KIT with the transmit
-interrupt fix applied. Verified UART receive interrupts and serial
-console operation.
+While it's the right idea to reply to the patch that introduces some 
+problematic behaviour, there are other things to consider here:
+> 1. PIO_POW_MOD_SEL (0x0040) on A733 uses 2 bits per bank instead of
 
-AI assisted with driver development.
+But we know that for a while now...
 
-Signed-off-by: Vítor Hugo Silva <vitorhg20080@gmail.com>
----
- drivers/tty/serial/Kconfig      |   6 +-
- drivers/tty/serial/esp32_uart.c | 167 ++++++++++++++++++++++++++++----
- 2 files changed, 151 insertions(+), 22 deletions(-)
+>     1 bit. With BIAS_VOLTAGE_PIO_POW_MODE_SEL, banks are written at the
+>     wrong bit offset and left misconfigured (for example, bank H stays in
+>     1.8V mode when supplied at 3.3V, breaking RGMII Gigabit TX).
+>     Adding a 2-bit variant (writing 0b01 per bank with mask
+>     0x3U << (2 * bank)) enables hardware auto-detect from PIO_POW_VAL
+>     and fixes 3.3V RGMII TX (also addressed in Vinicius Pedrosa's
+>     follow-up series).
 
-diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
-index 83a37922fb07..6d3d3a342101 100644
---- a/drivers/tty/serial/Kconfig
-+++ b/drivers/tty/serial/Kconfig
-@@ -99,12 +99,14 @@ config SERIAL_EARLYCON_RISCV_SBI
- 
- config SERIAL_ESP32
- 	tristate "Espressif ESP32 UART support"
--	depends on COMPILE_TEST && OF && HAS_IOMEM
-+	depends on OF && HAS_IOMEM
-+	depends on RISCV_ESP32P4_CLIC || COMPILE_TEST
- 	select SERIAL_CORE
- 	select SERIAL_CORE_CONSOLE
- 	select SERIAL_EARLYCON
- 	help
--	  Driver for the UART controllers of the Espressif ESP32xx SoCs.
-+	  Driver for the UART controllers of the Espressif ESP32xx SoCs,
-+	  including the ESP32-P4.
- 	  When earlycon option is enabled the following kernel command line
- 	  snippets may be used:
- 	    earlycon=esp32s3uart,mmio32,0x60000000,115200n8,40000000
-diff --git a/drivers/tty/serial/esp32_uart.c b/drivers/tty/serial/esp32_uart.c
-index 8f257cf0d290..304e1345518b 100644
---- a/drivers/tty/serial/esp32_uart.c
-+++ b/drivers/tty/serial/esp32_uart.c
-@@ -6,10 +6,13 @@
- #include <linux/console.h>
- #include <linux/delay.h>
- #include <linux/io.h>
-+#include <linux/iopoll.h>
- #include <linux/irq.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-+#include <linux/printk.h>
- #include <linux/property.h>
- #include <linux/serial_core.h>
- #include <linux/slab.h>
-@@ -89,6 +92,22 @@
- 	 ESP32S3_UART_SCLK_EN | \
- 	 FIELD_PREP(ESP32S3_UART_SCLK_SEL, XTAL_CLK))
- 
-+#define ESP32P4_UART_CLKDIV			GENMASK(11, 0)
-+#define ESP32P4_UART_RXFIFO_CNT			GENMASK(7, 0)
-+#define ESP32P4_UART_TXFIFO_CNT			GENMASK(23, 16)
-+#define ESP32P4_UART_TXFIFO_EMPTY_THRHD_SHIFT	8
-+
-+/* ESP32-P4 uses a dedicated register for RX flow control. */
-+#define ESP32P4_UART_HWFC_CONF_REG		0x2c
-+#define ESP32P4_UART_RX_FLOW_EN			BIT(8)
-+#define ESP32P4_UART_REG_UPDATE_REG		0x98
-+#define ESP32P4_UART_REG_UPDATE			BIT(0)
-+#define ESP32P4_UART_LOOPBACK			BIT(12)
-+#define ESP32P4_UART_SW_RTS			BIT(21)
-+#define ESP32P4_UART_SW_DTR			BIT(20)
-+#define ESP32P4_UART_RTS_INV			BIT(18)
-+#define ESP32P4_UART_DTR_INV			BIT(19)
-+
- struct esp32_port {
- 	struct uart_port port;
- 	struct clk *clk;
-@@ -99,9 +118,16 @@ struct esp32_uart_variant {
- 	u32 rxfifo_cnt_mask;
- 	u32 txfifo_cnt_mask;
- 	u32 txfifo_empty_thrhd_shift;
-+	u32 rx_flow_reg;
- 	u32 rx_flow_en;
-+	u32 loopback_mask;
-+	u32 sw_rts_mask;
-+	u32 sw_dtr_reg;
-+	u32 sw_dtr_mask;
-+	u32 mctrl_inv_mask;
- 	const char *type;
- 	bool has_clkconf;
-+	bool needs_reg_update;
- };
- 
- static const struct esp32_uart_variant esp32_variant = {
-@@ -109,8 +135,14 @@ static const struct esp32_uart_variant esp32_variant = {
- 	.rxfifo_cnt_mask = ESP32_UART_RXFIFO_CNT,
- 	.txfifo_cnt_mask = ESP32_UART_TXFIFO_CNT,
- 	.txfifo_empty_thrhd_shift = ESP32_UART_TXFIFO_EMPTY_THRHD_SHIFT,
-+	.rx_flow_reg = UART_CONF1_REG,
- 	.rx_flow_en = ESP32_UART_RX_FLOW_EN,
- 	.type = "ESP32 UART",
-+	.loopback_mask = UART_LOOPBACK,
-+	.sw_rts_mask = UART_SW_RTS,
-+	.sw_dtr_reg = UART_CONF0_REG,
-+	.sw_dtr_mask = UART_SW_DTR,
-+	.mctrl_inv_mask = UART_RTS_INV | UART_DTR_INV,
- };
- 
- static const struct esp32_uart_variant esp32s3_variant = {
-@@ -118,9 +150,31 @@ static const struct esp32_uart_variant esp32s3_variant = {
- 	.rxfifo_cnt_mask = ESP32S3_UART_RXFIFO_CNT,
- 	.txfifo_cnt_mask = ESP32S3_UART_TXFIFO_CNT,
- 	.txfifo_empty_thrhd_shift = ESP32S3_UART_TXFIFO_EMPTY_THRHD_SHIFT,
-+	.rx_flow_reg = UART_CONF1_REG,
- 	.rx_flow_en = ESP32S3_UART_RX_FLOW_EN,
- 	.type = "ESP32S3 UART",
- 	.has_clkconf = true,
-+	.loopback_mask = UART_LOOPBACK,
-+	.sw_rts_mask = UART_SW_RTS,
-+	.sw_dtr_reg = UART_CONF0_REG,
-+	.sw_dtr_mask = UART_SW_DTR,
-+	.mctrl_inv_mask = UART_RTS_INV | UART_DTR_INV,
-+};
-+
-+static const struct esp32_uart_variant esp32p4_variant = {
-+	.clkdiv_mask = ESP32P4_UART_CLKDIV,
-+	.rxfifo_cnt_mask = ESP32P4_UART_RXFIFO_CNT,
-+	.txfifo_cnt_mask = ESP32P4_UART_TXFIFO_CNT,
-+	.txfifo_empty_thrhd_shift = ESP32P4_UART_TXFIFO_EMPTY_THRHD_SHIFT,
-+	.rx_flow_reg = ESP32P4_UART_HWFC_CONF_REG,
-+	.rx_flow_en = ESP32P4_UART_RX_FLOW_EN,
-+	.type = "ESP32-P4 UART",
-+	.needs_reg_update = true,
-+	.loopback_mask = ESP32P4_UART_LOOPBACK,
-+	.sw_rts_mask = ESP32P4_UART_SW_RTS,
-+	.sw_dtr_reg = UART_CONF1_REG,
-+	.sw_dtr_mask = ESP32P4_UART_SW_DTR,
-+	.mctrl_inv_mask = ESP32P4_UART_RTS_INV | ESP32P4_UART_DTR_INV,
- };
- 
- static const struct of_device_id esp32_uart_dt_ids[] = {
-@@ -130,10 +184,14 @@ static const struct of_device_id esp32_uart_dt_ids[] = {
- 	}, {
- 		.compatible = "esp,esp32s3-uart",
- 		.data = &esp32s3_variant,
-+	}, {
-+		.compatible = "esp,esp32p4-uart",
-+		.data = &esp32p4_variant,
- 	}, { /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, esp32_uart_dt_ids);
- 
-+static DEFINE_MUTEX(esp32_uart_ports_lock);
- static struct esp32_port *esp32_uart_ports[UART_NR];
- 
- static const struct esp32_uart_variant *port_variant(struct uart_port *port)
-@@ -143,7 +201,24 @@ static const struct esp32_uart_variant *port_variant(struct uart_port *port)
- 
- static void esp32_uart_write(struct uart_port *port, unsigned long reg, u32 v)
- {
-+	void __iomem *update = port->membase + ESP32P4_UART_REG_UPDATE_REG;
-+	u32 status;
-+
- 	writel(v, port->membase + reg);
-+
-+	if (reg != UART_CLKDIV_REG && reg != UART_CONF0_REG &&
-+	    reg != ESP32P4_UART_HWFC_CONF_REG)
-+		return;
-+
-+	if (!port_variant(port)->needs_reg_update)
-+		return;
-+
-+	/* Commit configuration to UART core clock domain. */
-+	writel(ESP32P4_UART_REG_UPDATE, update);
-+	if (readl_poll_timeout_atomic(update, status,
-+				      !(status & ESP32P4_UART_REG_UPDATE),
-+				      1, 100))
-+		printk_deferred_once(DRIVER_NAME ": UART register update timed out\n");
- }
- 
- static u32 esp32_uart_read(struct uart_port *port, unsigned long reg)
-@@ -173,18 +248,29 @@ static unsigned int esp32_uart_tx_empty(struct uart_port *port)
- 
- static void esp32_uart_set_mctrl(struct uart_port *port, unsigned int mctrl)
- {
--	u32 conf0 = esp32_uart_read(port, UART_CONF0_REG);
-+	const struct esp32_uart_variant *variant = port_variant(port);
-+	bool dtr_in_conf0 = variant->sw_dtr_reg == UART_CONF0_REG;
-+	u32 conf0, dtr_conf;
- 
--	conf0 &= ~(UART_LOOPBACK |
--		   UART_SW_RTS | UART_RTS_INV |
--		   UART_SW_DTR | UART_DTR_INV);
-+	conf0 = esp32_uart_read(port, UART_CONF0_REG);
-+	conf0 &= ~(variant->loopback_mask | variant->sw_rts_mask);
- 
- 	if (mctrl & TIOCM_RTS)
--		conf0 |= UART_SW_RTS;
--	if (mctrl & TIOCM_DTR)
--		conf0 |= UART_SW_DTR;
-+		conf0 |= variant->sw_rts_mask;
- 	if (mctrl & TIOCM_LOOP)
--		conf0 |= UART_LOOPBACK;
-+		conf0 |= variant->loopback_mask;
-+
-+	/* Software DTR and RTS/DTR inversion share a register. */
-+	dtr_conf = dtr_in_conf0 ? conf0 : esp32_uart_read(port, variant->sw_dtr_reg);
-+	dtr_conf &= ~(variant->sw_dtr_mask | variant->mctrl_inv_mask);
-+
-+	if (mctrl & TIOCM_DTR)
-+		dtr_conf |= variant->sw_dtr_mask;
-+
-+	if (dtr_in_conf0)
-+		conf0 = dtr_conf;
-+	else
-+		esp32_uart_write(port, variant->sw_dtr_reg, dtr_conf);
- 
- 	esp32_uart_write(port, UART_CONF0_REG, conf0);
- }
-@@ -387,13 +473,37 @@ static bool esp32_uart_set_baud(struct uart_port *port, u32 baud)
- 	return false;
- }
- 
-+static void esp32p4_uart_limit_baud_rate(struct ktermios *termios,
-+					 const struct ktermios *old,
-+					 u32 min_baud, u32 max_baud)
-+{
-+	u32 baud = tty_termios_baud_rate(termios);
-+
-+	if (!baud || (baud >= min_baud && baud <= max_baud))
-+		return;
-+
-+	if (old) {
-+		u32 old_baud = tty_termios_baud_rate(old);
-+
-+		if (old_baud && old_baud >= min_baud && old_baud <= max_baud)
-+			baud = old_baud;
-+	}
-+
-+	baud = clamp(baud, min_baud, max_baud);
-+	/* Keep the fallback exact near a standard rate outside the range. */
-+	termios->c_cflag &= ~(CBAUD | (CBAUD << IBSHIFT));
-+	termios->c_cflag |= BOTHER;
-+	tty_termios_encode_baud_rate(termios, baud, baud);
-+}
-+
- static void esp32_uart_set_termios(struct uart_port *port,
- 				   struct ktermios *termios,
- 				   const struct ktermios *old)
- {
- 	unsigned long flags;
--	u32 conf0, conf1;
--	u32 baud;
-+	u32 conf0, flow;
-+	u32 baud, min_baud, max_baud;
-+	const u32 rx_flow_reg = port_variant(port)->rx_flow_reg;
- 	const u32 rx_flow_en = port_variant(port)->rx_flow_en;
- 	u32 max_div = port_variant(port)->clkdiv_mask;
- 
-@@ -402,17 +512,19 @@ static void esp32_uart_set_termios(struct uart_port *port,
- 	if (port_variant(port)->has_clkconf)
- 		max_div *= FIELD_MAX(ESP32S3_UART_SCLK_DIV_NUM);
- 
--	baud = uart_get_baud_rate(port, termios, old,
--				  port->uartclk / max_div,
--				  port->uartclk / 16);
-+	min_baud = port->uartclk / max_div;
-+	max_baud = port->uartclk / 16;
-+	if (port_variant(port) == &esp32p4_variant)
-+		esp32p4_uart_limit_baud_rate(termios, old, min_baud, max_baud);
-+	baud = uart_get_baud_rate(port, termios, old, min_baud, max_baud);
- 
- 	spin_lock_irqsave(&port->lock, flags);
- 
- 	conf0 = esp32_uart_read(port, UART_CONF0_REG);
- 	conf0 &= ~(UART_PARITY_EN | UART_PARITY | UART_BIT_NUM | UART_STOP_BIT_NUM);
- 
--	conf1 = esp32_uart_read(port, UART_CONF1_REG);
--	conf1 &= ~rx_flow_en;
-+	flow = esp32_uart_read(port, rx_flow_reg);
-+	flow &= ~rx_flow_en;
- 
- 	if (termios->c_cflag & PARENB) {
- 		conf0 |= UART_PARITY_EN;
-@@ -441,10 +553,10 @@ static void esp32_uart_set_termios(struct uart_port *port,
- 		conf0 |= FIELD_PREP(UART_STOP_BIT_NUM, UART_STOP_BIT_NUM_1);
- 
- 	if (termios->c_cflag & CRTSCTS)
--		conf1 |= rx_flow_en;
-+		flow |= rx_flow_en;
- 
- 	esp32_uart_write(port, UART_CONF0_REG, conf0);
--	esp32_uart_write(port, UART_CONF1_REG, conf1);
-+	esp32_uart_write(port, rx_flow_reg, flow);
- 
- 	if (baud) {
- 		esp32_uart_set_baud(port, baud);
-@@ -715,29 +827,44 @@ static int esp32_uart_probe(struct platform_device *pdev)
- 	if (IS_ERR(sport->clk))
- 		return PTR_ERR(sport->clk);
- 
-+	ret = platform_get_irq(pdev, 0);
-+	if (ret < 0)
-+		return ret;
-+
- 	port->uartclk = clk_get_rate(sport->clk);
- 	port->dev = &pdev->dev;
- 	port->type = PORT_GENERIC;
- 	port->iotype = UPIO_MEM;
--	port->irq = platform_get_irq(pdev, 0);
-+	port->irq = ret;
- 	port->ops = &esp32_uart_pops;
- 	port->flags = UPF_BOOT_AUTOCONF;
- 	port->has_sysrq = 1;
- 	port->fifosize = ESP32_UART_TX_FIFO_SIZE;
- 	port->private_data = (void *)device_get_match_data(&pdev->dev);
- 
-+	guard(mutex)(&esp32_uart_ports_lock);
-+	if (esp32_uart_ports[port->line])
-+		return -EBUSY;
-+
-+	/* Console setup can look up the port during registration. */
- 	esp32_uart_ports[port->line] = sport;
-+	ret = uart_add_one_port(&esp32_uart_reg, port);
-+	if (ret) {
-+		esp32_uart_ports[port->line] = NULL;
-+		return ret;
-+	}
- 
- 	platform_set_drvdata(pdev, port);
--
--	return uart_add_one_port(&esp32_uart_reg, port);
-+	return 0;
- }
- 
- static void esp32_uart_remove(struct platform_device *pdev)
- {
- 	struct uart_port *port = platform_get_drvdata(pdev);
- 
-+	guard(mutex)(&esp32_uart_ports_lock);
- 	uart_remove_one_port(&esp32_uart_reg, port);
-+	esp32_uart_ports[port->line] = NULL;
- }
- 
- 
--- 
-2.56.1
+Yes, Vinicius did the right thing, since this patch you reply to here 
+has already been merged. If you want to support his series, please reply 
+to the specific patch *there*, ideally with a Reviewed-by:, or at least 
+with a Tested-by.
+Replying to this old patch here is then not too useful.
+
+> 
+> 2. PA has 0 pins on A733, so PB..PK are hardware banks 1..10 while
+>     irq_banks = 10 maps logical IRQ banks 0..9. Without .irq_bank_map
+>     and sunxi_irq_hw_bank_num() in sunxi_irq_base_reg(), logical IRQ
+>     bank 0 (PB) accesses PA's IRQ registers (0xc0) instead of PB's
+>     (0x140). Adding:
+>       static const unsigned int a733_irq_bank_map[] = {
+>               1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+>       };
+>     and using sunxi_irq_hw_bank_num(pctl->desc, bank) inside
+>     sunxi_irq_base_reg() fixes the bank offset.
+
+Again this is an issue we know about for a while, and for which patches 
+are on the list. Please look at them, they solve this problem in a 
+different way.
+> Also, in patch 4/7, sunxi_grp_config_reg() takes an unused
+> `const struct sunxi_pinctrl *pctl` parameter that can be dropped.
+
+This again is an issue in a patch that is already merged. If you want 
+that fixed, you need to send a patch on top of v7.4-rc1, and send it 
+with a Fixes: tag, so that this can be remedied before the release.
+If you just want to report this issue, do this as a reply to that 
+specific patch, with the original patch text cited, and your report 
+inline, directly after the problematic line. After all we have this well 
+hung email patch submission system, to make this very clear and 
+transparent.
+
+Cheers,
+Andre
+
+> 
+> Tested on OrangePi 4 Pro (Allwinner A733).
+> 
+> Thanks,
+> Alastair
 
