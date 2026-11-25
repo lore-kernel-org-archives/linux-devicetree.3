@@ -1,97 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596692;
-	b=OugOMu6Zxd+9o/nMIkz/mRC9xwGYXivlsVib+A+thLbNXFWuDgQFrxaY+GydttH6GAFA
-	 kHUyyeesJjz85KeY3AemHyLwH6HBu/K2j0tPt3XWNhEgocDlIqRMPu0n9KdSBNJCXyF3Q
-	 rIk65ORUZhPbXZhGI4P/GoO8GQ9sHDOSmi0vzhkQVu/vQwIXIhhhNgyOBXtN8y9xA8cBv
-	 32x0dN8yWBQM7ezubYhcT0DZlZHJtyiZdTKGWGNsEiuMpFLziYqgyFyU9ZHIKuJKxrjjo
-	 syZGPFQjI5ubmwHRRgE3Q3IAclMznLnv0iPCC4cLmqmk/zMAlflFFc8t0jY6MYY3dGg==
+	t=1795596722;
+	b=isXiRlmnWx91iEEhYwnviGl2jMcg2v10Zfb0Jj7P6kLFxQCj/NU9ynMZPjukL4YA24xa
+	 3ByEPMYKzVkpd6ulpWYyWGJ3ss/S2QKgo7HQW9aJdxZ7/axPgZFnddq9aEX/34CCeedzG
+	 zqycHN1RwMdLzOkd8cXoBrzJMImEKp2dcNRsnMIvII/TvDm7Y+a4ahLIMt2EAvwDJL8rI
+	 4Syr9M7v40U1/GBQ3yY3jwYlDPitw2sazvistjTLte6DfRvUw4OLIZ3bRNicBb3G73rR+
+	 B7xY51v9r7CC7Nm58yR4/Lb4R/PTZC+HPQ7vmJ6BgxFf0vFwX0w8oIzrs+ZMZnSdAOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596692;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=leW8W9Y5oRbK5oa4kJuWxpI8Iff2iYdyPFQ5BQru5+M=;
-	b=VbHDNmPw/YkThmVf6t1MQ1gNQlTvLfrfGiAi3x3P9v6ozExTwBNRwnfm2SoXN7b7QJB6
-	 SBKXMgeIFx+5ilxoEm6UMWrPzJs179f5KefVchpI82kLLmLDe0VXhhW/SJqNs97LTSsGj
-	 j5SXtfMumEOPuLVYYmdqPJwHGxATJid3VKCHwiplqeVuVs/Gg+ybrQTxUh52CXrguKmNX
-	 jyAWpEF99W6CeQ7M8Gc1ciuQ/o/eklXm8EtckhK3IpjDVXqfETExlOmYUKIo/i8hpu+kU
-	 xFnIqGMRElUPKBSf0kDqTDIX/3lXFHJUB6X4UTs001X1SprrCVOZiD0W4fthFSZyT6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596722;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer;
+	bh=nAo3k7IN6MFlua5noogKuUzTuJs2qKHfA/Yw66Nd6Ng=;
+	b=TQ1qygaBoMdhuKCxsGvvpoYkrzB3j395buwxTH6D6pbuJSOfOyT0wAQt9cDqWDwYtPgv
+	 wd+m9mRcP1qmpcJhCzCbWtflCCyj3N/d7DIREFGEB4yCo8YE2O4PnjiqBY4kReto1dhbg
+	 lCcqo7ERNXU8zl9WlLN5HM1gw5P9nX33CnnthYrEpSoFUUa70A9u0hI6GnoiqwhSha8AV
+	 dIW/owgoJ13lU8tWzIUXJqDP0qTgFlyDYRQXj9CYPtaYFd6m+7uzx3sQ8bLnXmykE1RYW
+	 cSDIRa/sMGqgMJwymPOyM9eKbEsSKn8c4nefYH+jIPbCMGrTC7pTdvHXwaVpYdyI2sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e6T6I228;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIu5xo20;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4841A606A31E
-	for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 08:51:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4841A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1784B606A689;
+	Wed, 25 Nov 2026 08:52:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e6T6I228
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b3e85baf7cso3332504a91.0
-        for <devicetree@vger.kernel.org>; Wed, 25 Nov 2026 00:51:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795596692; x=1796201492; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=leW8W9Y5oRbK5oa4kJuWxpI8Iff2iYdyPFQ5BQru5+M=;
-        b=e6T6I228mNjFijA6R3pcSSqpOr/m02aqzwmFIkyHslr7sYbbf5f/8uofDwQ7hU9Kza
-         0hZk4EOtq+hYd46fzJAHGHC4WmCnolpsAOg8YW54OsxnxpnXKhB49VmYVfSK1ZtGnzHC
-         dkV/MfHh0E2ce/CPKYavkEx+Yz0XdQvO58jfvjUO7UodxaXCt6I5KBhg9BCoEXHdNbxv
-         z36Quu14jvH6je5wKggCr0Lhu72x8qZATKdK/Fg6dUi9A8QCknr1hdY8oZuEdOsTw52x
-         zYaMAZjYETATvVFeEA6wB6cWrMVZpUTK9ZydQH2+oTudLHomoI04Ag8p7nRA/v0zqBrh
-         HmOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795596692; x=1796201492;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=leW8W9Y5oRbK5oa4kJuWxpI8Iff2iYdyPFQ5BQru5+M=;
-        b=wo6afefsHskmfjN4aE0Oz6KHzwV9z6wCYsJE6lrVULmNsuQe8/apA6jv+af3oyYNXQ
-         B4O3OmKYC9q7TyTSRB7PxuFCwa6lMeJihJodg90bQ1iONg8p7/J41MhlxHYktQvoFIVY
-         kmPLS+8clycTvSaDTKDxSptRQbQa31TOtP7ZgF1hlu/tI7e++9O+ojiWqOvj+/ZMO1Ft
-         OhZCUPlpb/Jc5Dlrwee4Z7xct96SbvjqGke72O6CjRyPpNce5LsSSgWcaIJwOILRWQP3
-         zd+obEgz3fX/evg2yKGu3tQ+/fwl9Xob7+QnGuCnrcPPhF8NHNTe9oXCn1Hn54N0DOpC
-         9uXg==
-X-Forwarded-Encrypted: i=1; AL+hErHhkWZ083jCFt30tyap3a8qKTnXsbHm3vuDVVNl6YoRPy2BCMloCdcbJ/tM5dIhS0AsppA6tHgE3GPV@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OHkWc7LdjlQsXojLz8kxfkrv7RcpJBQFFKkOCnt80U4Fe3/ss
-	dSpMySMMk0V9sGFFHITJ7Sb2VbigPOWWVoUM5fVq+VyS0LKl5F1whT7C
-X-Gm-Gg: AZFdTZfzmyXdrTgpirYyN+kjkUF4dhBQ9uAnbsLn71+0PdwpY+Z74csoM2Wr5/HqSG3
-	SE2RGhbOS1IDyA58CDBUC4dKdipVsv10RUkhsDz5xL4d0MhrwHU7b0wggyL1fXbXJ1tZEb4moiL
-	S+dQORf6XP1Orr6FGegbPjoK/YSd/m3XI9E6zsXlJRaZQHi2zcOq7mwzIkDHmfEjjyVPcd1wQD5
-	d0Il8ivmRmQmZkLq0jzvWEgLsB0K62Et7SCyutRAF02W6ECHnuTEL4RFt+HtI73bvwEETlKbzcQ
-	1ejZ6droEYquUXD6LT3m9VGKYWm42CWnoj3s5VhuREdVxma7IeburcCcrUIojRmlM734bR9+CID
-	eIUJylWJLkNlF3AogFwblHNIB9ZCekcQCZUnW8cBQv0AWD0uHDA/rYNzAmJq1ZnJChlueE55USt
-	zkF6lzKRNyoG4q4Gt52K2SAbToVHUtI6MaX9SzROIX95jtuo5Ul4ksJfr7LNuwoksORtvJn71zE
-	dpTpFtOyt0yMdb3hp2XjOK1hLv1KTrohl5mZsPO3MzCJa2i9m72uKZbqQRjIF6WpNmQhCH38kWZ
-	pyYIFwyXnXefjR7iONKJJOHPQg==
-X-Received: by 2002:a17:90b:55c5:b0:3b4:5b2c:2959 with SMTP id 98e67ed59e1d1-3b45b2c29b9mr11827069a91.63.1795596691606;
-        Wed, 25 Nov 2026 00:51:31 -0800 (PST)
-Received: from duge-G3-3500 ([138.199.21.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad8e93asm26632567a91.11.2026.11.25.00.51.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 00:51:31 -0800 (PST)
-Date: Wed, 25 Nov 2026 16:50:47 +0800
-From: Jiayu Du <duge1256@gmail.com>
-To: Aurelien Jarno <aurelien@aurel32.net>
-Cc: srini@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, dlan@kernel.org, troy.mitchell@linux.spacemit.com, me@ziyao.cc, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	p.zabel@pengutronix.de, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
-Message-ID: <kahf2gbctnhtwngvtwkz7nxg2th2ecisdte66p2m7ukqup7jsj@7tmya5uxzg6o>
-References: <20261122173810.2409146-1-duge1256@gmail.com>
- <20261122173810.2409146-3-duge1256@gmail.com>
- <awYHAU239WMaqVKk@aurel32.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIu5xo20
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDA21F000C6;
+	Wed, 25 Nov 2026 08:52:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795596721;
+	bh=nAo3k7IN6MFlua5noogKuUzTuJs2qKHfA/Yw66Nd6Ng=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=WIu5xo20Zcvt/DHS9FcFcsBfvdprdo1bbZDD05a7A5V9ZkHSt9VJ7u0UlRr+4OnwU
+	 Uxebq7l1HxT/jCJqiR3vj7qilZS/AAoqVdLhxozKb3Vi+kqHWORNF7Wj6qBjh+VFEO
+	 HhbnVBsnFblLNY8qUc7rf72vT28J0s9tLlozBT2De1MNmfHgZNH6LAqIaXSFDK73gE
+	 SNAu9yAnaeKzhDcoAV+44FwfoKy57EHNyFs+3ltXknRqGENcTQVWrb1t2ZBe8d1ve8
+	 s70GmeHR38PnIVMbjBALc+a5S4eUliwLI9cvhq5zcIDeDWnZLjGlzP8mSIAaIvRt3z
+	 nuyqvTYKZRThg==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,42 +49,184 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awYHAU239WMaqVKk@aurel32.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 02/24] dt-bindings: media: Add bindings for Arm
+ Mali-C720
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Anthony McGivern <anthony.mcgivern@arm.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Nayden Kanchev <nayden.kanchev@arm.com>, 
+ Konstantin Babin <konstantin.babin@arm.com>, 
+ Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com, 
+ kieran.bingham@ideasonboard.com, laurent.pinchart@ideasonboard.com, 
+ dan.scally@ideasonboard.com, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-2-0cb9bde1bd30@arm.com>
+References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+ <20261124-b4-initial-upstream-candidate-v1-2-0cb9bde1bd30@arm.com>
+Date: Wed, 25 Nov 2026 09:51:57 +0100
+Message-Id: <179559671799.14607.10622707622371448283.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Tue, Nov 24, 2026 at 10:52:01PM +0100, Aurelien Jarno wrote:
-> Hi Jiayu,
+On 2026-11-24 17:07 +0000, Anthony McGivern wrote:
+> From: Anthony McGivern <Anthony.McGivern@arm.com>
 > 
-> On 2026-11-23 01:38, Jiayu Du wrote:
-> > Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3 eFuse
-> > controller. These banks contain temperature calibration parameters and
-> > other configuration data.
-> > 
-> > Reload the shadows during probe and cache the data for subsequent reads.
-> > Use a 512-byte NVMEM space with bank-based offsets and keepouts for the
-> > other banks.
-> > 
-> > Signed-off-by: Jiayu Du <duge1256@gmail.com>
-> > ---
-> >  MAINTAINERS                       |   1 +
-> >  drivers/nvmem/Kconfig             |  11 ++
-> >  drivers/nvmem/Makefile            |   1 +
-> >  drivers/nvmem/spacemit-k3-efuse.c | 205 ++++++++++++++++++++++++++++++
-> >  4 files changed, 218 insertions(+)
-> >  create mode 100644 drivers/nvmem/spacemit-k3-efuse.c
+> Add the device tree binding for the Arm Mali-C720 Image Signal
+> Processor.
 > 
-> Thanks for this new version. I confirm the nvmem format is now much more 
-> intelligible. The content for banks 0 and 7 matches what is reported by 
-> the vendor driver under Bianbu. Therefore:
-> 
-> Tested-by: Aurelien Jarno <aurelien@aurel32.net>
 
-Hi Aurelien,
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-Thanks for testing and comparing the data with the vendor driver.
-I'll include your Tested-by in v4.
+> Signed-off-by: Anthony McGivern <Anthony.McGivern@arm.com>
+> ---
+>  .../devicetree/bindings/media/arm,mali-c720.yaml   | 134 +++++++++++++++++++++
+>  1 file changed, 134 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/arm,mali-c720.yaml b/Documentation/devicetree/bindings/media/arm,mali-c720.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..3bd261bcefbe371b7b4610afdde8e556b2a2ae22
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/arm,mali-c720.yaml
+> @@ -0,0 +1,134 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/arm,mali-c720.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ARM Mali-C720 Image Signal Processor
+> +
+> +maintainers:
+> +  - Anthony McGivern <anthony.mcgivern@arm.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: arm,mali-c720
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    minItems: 1
+
+Why is this flexible?
+
+> +    items:
+> +      - description: ISP main interrupt
+> +      - description: ISP fault interrupt
+> +
+> +  interrupt-names:
+> +    minItems: 1
+> +    items:
+> +      - const: isp
+> +      - const: fault
+> +
+> +  iommus:
+> +    minItems: 1
+> +    maxItems: 3
+
+Same question. List items with description instead.
+
+> +
+> +  clocks:
+> +    items:
+> +      - description: ISP main processing clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: vclk
+> +
+> +  resets:
+> +    items:
+> +      - description: ISP main processing clock domain reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: reset
+
+Drop names
+
+> +
+> +  memory-region:
+> +    maxItems: 1
+> +    description: Reserved memory pool for ISP DMA allocations.
+> +
+> +  power-domains:
+> +    description: Power domain containing the ISP.
+
+Drop description
+
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    description: Parallel video input ports.
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Input port 0
+> +
+> +        properties:
+> +          reg:
+> +            const: 0
+
+Drop properties, should not be needed, same in places below.
+
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Input port 1
+> +
+> +        properties:
+> +          reg:
+> +            const: 1
+> +
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Input port 2
+> +
+> +        properties:
+> +          reg:
+> +            const: 2
+> +
+> +      port@3:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Input port 3
+> +
+> +        properties:
+> +          reg:
+> +            const: 3
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-names
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    mali_c720: isp@400000 {
+
+Drop unused label
 
 Best regards,
-Jiayu Du
+Krzysztof
 
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
